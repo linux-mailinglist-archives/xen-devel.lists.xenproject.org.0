@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B705AB6378
-	for <lists+xen-devel@lfdr.de>; Wed, 14 May 2025 08:50:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.983800.1369974 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 23575AB6380
+	for <lists+xen-devel@lfdr.de>; Wed, 14 May 2025 08:54:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.983809.1369984 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uF5wC-0005Wt-62; Wed, 14 May 2025 06:49:56 +0000
+	id 1uF606-0007B3-MI; Wed, 14 May 2025 06:53:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 983800.1369974; Wed, 14 May 2025 06:49:56 +0000
+Received: by outflank-mailman (output) from mailman id 983809.1369984; Wed, 14 May 2025 06:53:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uF5wC-0005UH-33; Wed, 14 May 2025 06:49:56 +0000
-Received: by outflank-mailman (input) for mailman id 983800;
- Wed, 14 May 2025 06:49:54 +0000
+	id 1uF606-00078D-JS; Wed, 14 May 2025 06:53:58 +0000
+Received: by outflank-mailman (input) for mailman id 983809;
+ Wed, 14 May 2025 06:53:57 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=0h6O=X6=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uF5wA-0005UA-Cq
- for xen-devel@lists.xenproject.org; Wed, 14 May 2025 06:49:54 +0000
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
- [2a00:1450:4864:20::52c])
+ id 1uF605-000786-7J
+ for xen-devel@lists.xenproject.org; Wed, 14 May 2025 06:53:57 +0000
+Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
+ [2a00:1450:4864:20::530])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a2479e27-308f-11f0-9eb6-5ba50f476ded;
- Wed, 14 May 2025 08:49:51 +0200 (CEST)
-Received: by mail-ed1-x52c.google.com with SMTP id
- 4fb4d7f45d1cf-5f4d0da2d2cso12290608a12.3
- for <xen-devel@lists.xenproject.org>; Tue, 13 May 2025 23:49:51 -0700 (PDT)
+ id 3473f36b-3090-11f0-9eb6-5ba50f476ded;
+ Wed, 14 May 2025 08:53:56 +0200 (CEST)
+Received: by mail-ed1-x530.google.com with SMTP id
+ 4fb4d7f45d1cf-5f62d3ed994so4501548a12.2
+ for <xen-devel@lists.xenproject.org>; Tue, 13 May 2025 23:53:56 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ad23da570desm664757466b.118.2025.05.13.23.49.49
+ 4fb4d7f45d1cf-5fd0142152bsm6243801a12.19.2025.05.13.23.53.55
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 13 May 2025 23:49:50 -0700 (PDT)
+ Tue, 13 May 2025 23:53:55 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,61 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a2479e27-308f-11f0-9eb6-5ba50f476ded
+X-Inumbo-ID: 3473f36b-3090-11f0-9eb6-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1747205390; x=1747810190; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1747205636; x=1747810436; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=B3bkkKEXdm1Ipi31r9dCGffV54KWhkwL2eW1cj/BPC4=;
-        b=JNJz8QKbaFTn+WH5UIuHE9axYa2UPix2/gdFWnQ8wUepM+DiPufsHytjAWgXw6mX7A
-         h6Ug1v4m9yt6jxQhRx5s0rmeb8PCvw0Td5RLrE2XjjYRsuQ1IoBHbRTMGN7lup7RkwvW
-         3TgA2Fbe4fjpdBy9TZt1mwzVcVKFJC+hYGzlVZkI6O1nJ3zit38Vqp8Hf/3Hos5yA5Wj
-         P9zZo6sj4rV1NiFW/Kp31WsHla4RDHAoon2qD0kU8it4jAzNiWmVpoM2Jl7vDdfSdd+9
-         51PLN3g7v1l6vHd/PfnkoxSLHNDmBwbf2Spjv3Je1AoAwtGPKo4untPOcFGmI1KLXsLA
-         4ihA==
+        bh=J/kTozl755Qv9cr9hPNKPoioNh/TJBsjvMKXLZxq5yc=;
+        b=ZON1JUKaWEABuMussHaLvCPreTxQ1Wm6qYV16PjTq6/CW70A1XbST6s+AqKngKGNL+
+         RABF7VBLwULdCbdEucqMUTs4bDTerJJIm6TnIXVz9TR/H3GL6W8mAVZs9Jd2fvO7fabh
+         tXlfbA/KMym+r6iwBm1MxkcbKlaVJtTklI7uQrMZ72vp+UzUMKMk6TcKNBm3vMCHhUF1
+         NoIOmN6qomHSVwqv5gKuuX37+WyqFkhn2SXWJgd1pgww1kBs4FPMYHdJuHpXIE7ar/Mt
+         /noWyNgNZy0pGRb3zx2cM+Dn8RbuSlWwF/1yBmml5BL9+qD0y8IEhpi8KauC57Lp7d+d
+         EFmg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747205390; x=1747810190;
+        d=1e100.net; s=20230601; t=1747205636; x=1747810436;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=B3bkkKEXdm1Ipi31r9dCGffV54KWhkwL2eW1cj/BPC4=;
-        b=aIfgqXRkY/HcMqg9BwNf9kRbhwCeKZSb4myOqWwM1zjR1DkgyKWntEVHv0bPMPB4DS
-         wzLRPQMpYHIS7ONbXsYf/DS0kWx3q8/4KBOv+RDCdWD3FEAbyB968CAffR6a9Dm0qwpP
-         /qvOnjk9YRxIX+fSmDNk2LCWqEpLXj8mXuKCdLBIsK/FX5hB8e2pxr1tnlbQgZSXUoju
-         SLjmOYmAew89gc1T83CPamjMwyna1hLG2mlGQnF20Xmea/QA91T0/2Kixs8M6EIEZYJ4
-         cDiRk6qjfDOgrwGsoB2gK5eVSclxXPB62p/OVTw+PL0GFow9vHU1TBlqRNgmZi5uCtbQ
-         IFxA==
-X-Forwarded-Encrypted: i=1; AJvYcCXfWer2QaaTjxVoUHbS+TzEY2VcDyHL9ZoDsyO+29Qqd55CKz/Anb+R8OH7sH1DNEnZMyc61iqQIRc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwqnffkfC8M7MxxFmu4Uf046wb/q9BHzYYoFEJagLaQfj3CYEy6
-	0/6IkIlmOq0e3np9g64HD083HHY887S7U8XW8tOMEgMwhlpW5yvUbQzKLMvOjQ==
-X-Gm-Gg: ASbGncuLUyzHyqQctPAgCBLIrwC5onVCJ+peO7me4dLub+6rSnPBYrxDnANaytS2+n/
-	+LnAYj2DZlS9jUKtYGG3J0if2LKq8AA5q935F4QKZVCkOSMI1A4mI+MfnR1hv1JsgSofMQ/BL/p
-	syE7nPrFbK7/sZKHPIgYBk1kcsCsVOFBESLcQCE7hOaaFFEL6tBoFKcLsHWZZcZQxgTt2nTNnwe
-	hcikWDUM/m4YMVeWQAy2ExUjzzlfiIL/amv8wdOV5GP3hZaPIRg+k8xB/jnUHyTMSw+tQF6JOU2
-	n1eLLUjQqbXBO/tG7QS2epCkAH413rZt+uwYMsBTGxbFZawDMmoADCBFnTLuj/zDphu8T69LVi2
-	J6JbJ03dsfXQFLaY4dYM6rW3SHR/i9EMFqkex
-X-Google-Smtp-Source: AGHT+IFszv7hvi17mGx5kazwDh3l2onptVcgIt1gYwLTo9m0VvUtKSkIubrEXHJOIjM0BLEx4XuC2Q==
-X-Received: by 2002:a17:907:2cc4:b0:ad4:f5ed:add2 with SMTP id a640c23a62f3a-ad4f74c8195mr205901666b.38.1747205390405;
-        Tue, 13 May 2025 23:49:50 -0700 (PDT)
-Message-ID: <2491389a-cd47-4917-9ade-7082f1ebc678@suse.com>
-Date: Wed, 14 May 2025 08:49:49 +0200
+        bh=J/kTozl755Qv9cr9hPNKPoioNh/TJBsjvMKXLZxq5yc=;
+        b=Kx8Sj60y10qSbnrVB/J4pHxmwl6n2flZUwIrGJAtli3yjWxZJuJAkq1kT0yekQZVkw
+         kJ9AgJMQSuJF5LCiuXGVWz6qieh29qJ96ce2SxAf6U0+qeQ1cHHl9D6D9mnqr3OHidG+
+         U9T0O2Pj451EYx5pgXSptjynRBlvLwis7GIqgpCgFESuhCwjJwQp96R6JfenQGgclCTd
+         ir64EaRaJgI/Gp5skHGTcEMCI0QHZgPQFo+pnEmTdSbipHi9cF94yK56iqYoB0bhmHvc
+         T3oEmiNetkkeXJsAxP+Xho0UmPipPo9a9RFlkVPJlqXQ9rt62Zu9d4jPy4m4HQIk0ihE
+         DBwQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWGtMO/R4+oWz8bDf9JOruKEUJvoVUNKlPE+uMVPA+EeF/+6NlVSDyziA3E+cIk2lGI4iWLnFbWaNI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwrulBz/3CFL0DXTx/0ZtRdq80fxfiCD09zYGpa4Cf/clMbTgbZ
+	xTWkJci7K5iZfZr25mSWpsIbq2YybEUTfLxMArTPZpOUs2gnzU6v8DLn/mwzfg==
+X-Gm-Gg: ASbGncsjhDqO4gHgjYoDGNowcOOfkNsJuyLbvp2AkGx4wv6p2Ci/hoPQFbRrDP4p8LM
+	088ymI+yYoGLv4g2DyLlNClksp2HXs9J63J+N5jgY2hyEI7MYNJyaDUfBzdNuYMT1v6n3Y2vpsT
+	82JuhhVJfyI4Ywj6NOF72+3e6UAZCx7yfWIICeEtLjoTvJgKFDfrNklU8GgRLZOeDb2E/226HZQ
+	uo08mY8vOya6nAsisf7LfzKHvS4C/23uZ1QjAuTuGN8l5wU6J0VfOTpf7zv8iaGBHUJBetHES8Y
+	ttCCs3G+V1b7CezE8rdKkQ3M1WiFSzBOIWp0jrP4sFa+6hDGhIlFBCqPMaZk9skPlxt32w9Zlwe
+	HsMqRJalGJrUbdRPHF6pLt7NpjxzS0QLcA5pb
+X-Google-Smtp-Source: AGHT+IHdDZl0DmDd9cVtLhxASmM6LQG6u5F60bGICyRUUcX6GXNuH8mj20gcP8CXMuCaMO/orYM9UQ==
+X-Received: by 2002:a05:6402:5113:b0:5f6:2249:d424 with SMTP id 4fb4d7f45d1cf-5ff988d1551mr1609776a12.24.1747205635738;
+        Tue, 13 May 2025 23:53:55 -0700 (PDT)
+Message-ID: <50830693-c540-424d-b040-b059d8d8557a@suse.com>
+Date: Wed, 14 May 2025 08:53:54 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/2] xen/arm: exclude xen,reg from direct-map domU
- extended regions
+Subject: Re: [PATCH 1/2] xen/dom0less: mark domain_p2m_set_allocation __init
 To: Stewart Hildebrand <stewart.hildebrand@amd.com>
 Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
  <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <20250513195452.699600-1-stewart.hildebrand@amd.com>
- <20250513195452.699600-2-stewart.hildebrand@amd.com>
+ Michal Orzel <michal.orzel@amd.com>, xen-devel@lists.xenproject.org
+References: <20250513171810.668370-1-stewart.hildebrand@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -125,53 +118,30 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250513195452.699600-2-stewart.hildebrand@amd.com>
+In-Reply-To: <20250513171810.668370-1-stewart.hildebrand@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 13.05.2025 21:54, Stewart Hildebrand wrote:
-> --- a/xen/common/rangeset.c
-> +++ b/xen/common/rangeset.c
-> @@ -433,6 +433,20 @@ bool rangeset_is_empty(
->      return ((r == NULL) || list_empty(&r->range_list));
+On 13.05.2025 19:18, Stewart Hildebrand wrote:
+> --- a/xen/common/device-tree/dom0less-build.c
+> +++ b/xen/common/device-tree/dom0less-build.c
+> @@ -730,8 +730,8 @@ static int __init domain_p2m_set_allocation(struct domain *d, uint64_t mem,
+>      return rc;
 >  }
->  
-> +int rangeset_count_ranges(const struct rangeset *r)
-> +{
-> +    int nr = 0;
+>  #else /* !CONFIG_ARCH_PAGING_MEMPOOL */
+> -static inline int domain_p2m_set_allocation(struct domain *d, uint64_t mem,
+> -                                            const struct dt_device_node *node)
+> +static inline int __init domain_p2m_set_allocation(
+> +    struct domain *d, uint64_t mem, const struct dt_device_node *node)
+>  {
+>      return 0;
+>  }
 
-Ehem - this and the function's return type want to be unsigned.
-
-> +    struct list_head *list;
-> +
-> +    if ( r == NULL )
-> +        return 0;
-> +
-> +    list_for_each( list, &r->range_list )
-
-Nit: Either you deem list_for_each a pseudo-keyword (then a blank is
-missing) or you don't (then there are excess blanks).
-
-Further I don't think this is valid to do without holding the rangeset's
-lock in read mode (irrespective of the function return value potentially
-being stale by the time the caller gets to look at it, which is no
-different from other functions, i.e. falls in the caller's
-responsibilities).
-
-> +        nr++;
-
-And then, if already abstraction is wanted, wouldn't this loop better be
-yet another helper (macro?) in xen/list.h?
-
-> +    return nr;
-> +}
-
-Finally: If this is to be commonly used in several places, having such a
-helper is likely fine. As it stands, the sole caller is an __init
-function, and hence this is unreachable code post-init (which while not
-formally a Misra violation in my eyes effectively still is one). Aiui
-the same can be achieved using rangeset_report_ranges(), with a new
-(__init and static) callback function.
+Imo the better fix would be to move the #ifdef into the body of a
+function. That would then also get rid of the stray "inline", which
+generally we want only in header files. For a (stub) function like
+this one inlining should be left entirely to the discretion of the
+compiler.
 
 Jan
 
