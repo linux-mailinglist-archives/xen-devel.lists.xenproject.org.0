@@ -2,40 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A4D40AB6A17
-	for <lists+xen-devel@lfdr.de>; Wed, 14 May 2025 13:33:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.984221.1370402 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A012AB6A3C
+	for <lists+xen-devel@lfdr.de>; Wed, 14 May 2025 13:40:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.984234.1370412 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uFAMU-0000v6-DS; Wed, 14 May 2025 11:33:22 +0000
+	id 1uFATA-0002Vb-70; Wed, 14 May 2025 11:40:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 984221.1370402; Wed, 14 May 2025 11:33:22 +0000
+Received: by outflank-mailman (output) from mailman id 984234.1370412; Wed, 14 May 2025 11:40:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uFAMU-0000td-AF; Wed, 14 May 2025 11:33:22 +0000
-Received: by outflank-mailman (input) for mailman id 984221;
- Wed, 14 May 2025 11:33:20 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uFATA-0002T1-3c; Wed, 14 May 2025 11:40:16 +0000
+Received: by outflank-mailman (input) for mailman id 984234;
+ Wed, 14 May 2025 11:40:14 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=kjT3=X6=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1uFAMS-0000tX-N9
- for xen-devel@lists.xenproject.org; Wed, 14 May 2025 11:33:20 +0000
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on2060b.outbound.protection.outlook.com
- [2a01:111:f403:2405::60b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3b4cf6de-30b7-11f0-9eb6-5ba50f476ded;
- Wed, 14 May 2025 13:33:19 +0200 (CEST)
-Received: from BN9PR12MB5273.namprd12.prod.outlook.com (2603:10b6:408:11e::22)
- by PH7PR12MB7307.namprd12.prod.outlook.com (2603:10b6:510:20b::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8722.29; Wed, 14 May
- 2025 11:33:15 +0000
-Received: from BN9PR12MB5273.namprd12.prod.outlook.com
- ([fe80::cf66:58ab:47be:4b13]) by BN9PR12MB5273.namprd12.prod.outlook.com
- ([fe80::cf66:58ab:47be:4b13%4]) with mapi id 15.20.8722.031; Wed, 14 May 2025
- 11:33:15 +0000
+ <SRS0=5Q1L=X6=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1uFAT8-0002Sv-4B
+ for xen-devel@lists.xenproject.org; Wed, 14 May 2025 11:40:14 +0000
+Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
+ [2a00:1450:4864:20::530])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 31e8229d-30b8-11f0-9ffb-bf95429c2676;
+ Wed, 14 May 2025 13:40:11 +0200 (CEST)
+Received: by mail-ed1-x530.google.com with SMTP id
+ 4fb4d7f45d1cf-5fbed53b421so10773434a12.0
+ for <xen-devel@lists.xenproject.org>; Wed, 14 May 2025 04:40:12 -0700 (PDT)
+Received: from localhost ([84.78.159.3]) by smtp.gmail.com with UTF8SMTPSA id
+ 4fb4d7f45d1cf-5fc9cbe523bsm8609530a12.12.2025.05.14.04.40.10
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 14 May 2025 04:40:11 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,246 +44,75 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3b4cf6de-30b7-11f0-9eb6-5ba50f476ded
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cw4RVuhmoZVCZEEJaifMe0nqkdmU90v6+Mbfo7RiUNqX5sNpVOjflgLACqs+wd5o0KNDvaaR1rXpoXqmkNUFhQHPMEfBezsKFiBSfRaM2mxuwLDVtogIwJgrWAKqFS1nn0RbvMgrB2IbO1j5aAtwEF2vrbOzjXh3YufZL48J+gbxEyiukN90o16UjnWadbFz7v8ge0crw0kRbSUHNIh8tl5lvp17hJmNkhaRoAI2DWRMFpJIHC2nBbvlpMAcukwl4FutBmWTKC/+6xNDxvSbhxcfMX7Aq9/bGvQuFWJLiY78QOXhmJKrxEhnEm1phgmtU7+roBdvhW6DZcNA/DIoxg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BEwRZZmcwzQtIiNRE0bNc/XBc5E21easpUXT1BfBnM0=;
- b=CAJwFb5VGMso+YUDzc56FAz5OpReWYYDuyD/tUfjAQ+3cHxawKHsEth/bYPDly98UdSQ5DQeGwPTFbYfwjQV5BtKm5oHbRf5IdQMXk9IUSuEj6BB8T9mf20HP7VgwxbDKI4OHC0aV3iB5Az2PZc6A+nDH7t1N7oponP0ibxRp60T3ORUobWdiuKnd+2RZaMJ5cRYWCGxGzDrH6QER5T1WMuo9k2I5JKqkey0NQfQbFmpzgpOGRRhLv36ZK4Vbm2QIT8TCyl2IVkIRhlL/ysIcK4I1PsCfff1jnez354excE0cYkUoHSj/TFooK5H2OrkpQwaXXPFdGS+c/3qoxtn1w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BEwRZZmcwzQtIiNRE0bNc/XBc5E21easpUXT1BfBnM0=;
- b=DipKQnLLLJeBZpJ+VUZ3tN4m82KGacGopmx1cjV9XjR4H2BPmHJ0IZUzGjqjrRn4MgMt+7GeUsfioNz8TTEvPI0B4S+29GrAq+uikncWEiP+Mlj4WOS6WW+Q3+UqTEbfjVt8/DqHfOxw61PrbRF7qX4D7u3nSaPzIX5yefZ1wAU=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Message-ID: <aed77ddd-3db9-49a9-8a51-2df50b768e24@amd.com>
-Date: Wed, 14 May 2025 13:33:10 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 2/3] xen/dom0less: refactor architecture-specific DomU
- construction
-To: Julien Grall <julien@xen.org>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>, xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>, Jan Beulich <jbeulich@suse.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <cover.1747145897.git.oleksii.kurochko@gmail.com>
- <a13b414ba19c8928dc7b0e70cece6c26a77d514f.1747145897.git.oleksii.kurochko@gmail.com>
- <0acae8dd-d4d6-4d65-909d-637c4a283ea7@xen.org>
- <6ec7c286-a6c4-491b-8733-42037ba3b91a@gmail.com>
- <44143db1-1766-4851-9a0c-7428dce9087d@xen.org>
- <c8e9469f-2ee3-4b60-a580-9705f4831053@amd.com>
- <aa6a1f7c-8abf-4af0-97a0-e0e265839bd2@xen.org>
-From: "Orzel, Michal" <michal.orzel@amd.com>
-Content-Language: en-US
-In-Reply-To: <aa6a1f7c-8abf-4af0-97a0-e0e265839bd2@xen.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0051.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:cc::19) To BN9PR12MB5273.namprd12.prod.outlook.com
- (2603:10b6:408:11e::22)
+X-Inumbo-ID: 31e8229d-30b8-11f0-9ffb-bf95429c2676
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1747222811; x=1747827611; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=76/ZpruyteBOTo/HH+V7/R55KG/PtJdx07J+uWIDU5M=;
+        b=GjgLPlCSB4IeaqvtWlbnNF6ZRqL/p9vv3Y7wbbO0rEQEIPKhSZzC+C3/ZAS9TwZ8EC
+         u37jdwVDEnfQuY+vAtaWmiUOiA8rQy5b0t8eQIqAa+hBcU1bD1LGhmSPH36F/MVn8k9k
+         6+5YF5qqf/8uGBq9aAGnaSALeT87PHjBEMwFU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1747222811; x=1747827611;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=76/ZpruyteBOTo/HH+V7/R55KG/PtJdx07J+uWIDU5M=;
+        b=mwTXI3Kr7cgHorECkfX3H+Y7LmPAkzjdsG8vld2T6juIQocMsoDisY01ft1dNCSsxR
+         PDOFeQ0p35K1SjCykc5p/HhOE4SvkJ6sz5fRpnHK9mhPGYZHeX5s/WwWLH+ErR9Ej5HJ
+         bRWB9YgRy9rKWBoozxavi90FxRVPOhy0lYOES/kPFvLg1bkW3VilyZKqiNCWNzsgpFeK
+         ArqREficjEtgvgZ8T0kHli2gerd7ZD9NTd4U6n1BGduZ56jiDQc+wA5wTe7oT5WljWfQ
+         d8rddZnALbM2BQYtfJqQ9dGE3ZeKNtZ5fToU7ySuzy1l/yX9fNyVl7pN3apoY+2cKcKy
+         Fykg==
+X-Gm-Message-State: AOJu0YwhkXtDqcPnbJufb295QUkNlUl4CxZDCgOT9tab54y6zw7e8VKH
+	yGDJC+g0Squbow7ICP1CM5UvDr6uTYqzjSGCRjls6mGNd/eU/TEc1KEEayxQ8Uc=
+X-Gm-Gg: ASbGnct4XTZaXng4qKTBvZ8EL4Ap+vE29GagTEL9v6ILngTpgZ74vjDF7I92sSMNxKS
+	Vn4VQVLQlHLrdPAv3X78CYwqA1awDNW+ZCj22kY9MQwt9uovVaf9ANORJ6u4IKIU8Q/hWsrOiu2
+	FPL3JCSq7NVpAk20L7N7zV9iTW3608PQ6qYFx4IYYh3IpClAA6sA2DA5LpHBgbl69VxrmaQ4Ii8
+	403fYsTrkXH0S5BSCqYRaOxsahnwxrS+97EBPyklhgdqOmAicbPbzHL/P1UiyyeVttl3gu3Z6/R
+	VdekGNuRm0M9NUQEOaiCa+/PRjWU+QPQu7SAR2ySDD3fooUVEnYQcHzz8kSulA==
+X-Google-Smtp-Source: AGHT+IE86edRmkMFGLEcQIu2Q2fvgzwfLfaHKaZ1CS7RwoHmJ5OSIDOeMJ9eUuX0vsUZq2qCg4O2dA==
+X-Received: by 2002:a05:6402:1d4c:b0:5fc:a51c:21a3 with SMTP id 4fb4d7f45d1cf-5ff986a68ddmr2170743a12.4.1747222811548;
+        Wed, 14 May 2025 04:40:11 -0700 (PDT)
+Date: Wed, 14 May 2025 13:40:10 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+	Kevin Tian <kevin.tian@intel.com>
+Subject: Re: [PATCH v2 4/6] VT-d: restrict iommu_flush_all() to cache
+ writeback
+Message-ID: <aCSBGhD2DwS3K3C-@macbook.lan>
+References: <c030bfde-c5bb-f205-edff-435278a435f4@suse.com>
+ <bf99949c-0e09-13a5-3ad9-a6c26377bdbf@suse.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5273:EE_|PH7PR12MB7307:EE_
-X-MS-Office365-Filtering-Correlation-Id: ab19fff5-2be8-46fc-cdc8-08dd92db1d9a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|7416014|366016;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?K3V4K0xqUWlMM0JQUHBrUmI0dWxwcTJadUo0VEhFZDZMR1lvU1ZOU0N0TGhp?=
- =?utf-8?B?UGlRWDFmbEY4Y1dPbDlZbUFUSDBvMC9ZdjdBSDdYcGVJTE15a1hRbU91T3hj?=
- =?utf-8?B?QlV1Z0RJUTlpcENqRHFpdy9sMUZMellFaURPZ2Z0aThjSTlaVDYzREhBblhz?=
- =?utf-8?B?K1BOOCtwKzd3a2dqck1LVG11eGY3LzVQZkZLK3dRQzFWeEgzSG5PQUJieGN2?=
- =?utf-8?B?WlFCeW16VzBCT09uM214Z3NFeWhJV3Z4QzZKd09wNXZlWStpNk1QamhnUlZM?=
- =?utf-8?B?RHdpUmxRVzh3YUFMRnNqcm1IejN6WDVaT0VKQ3hIcy9HYUdHOUoyaFdFdjFi?=
- =?utf-8?B?bVI0Q0xwREpraUZPZEJYcXFUazM1Sldac1pCeklNZXZ0WU9FWU5NOVpQUXBF?=
- =?utf-8?B?cWFQQnhuNkZSQVUvK205L3RiVCt3N0MzVHA4QjNwc3FFZjVkZDZ1eXFtTTY4?=
- =?utf-8?B?T0x2TjErVUVSYlFNZjhQaTdNSWdiR0hqS2V5ZjlhSHhKSm9uQTZOdEtRTjNQ?=
- =?utf-8?B?VjgrK3p6b28rTDlOcklxZk5zWEU1TFFoaXdrTWpHZWRoU1JaV1FtdUtmR3gx?=
- =?utf-8?B?eEI5N3d5UjMxRGYrMXpLUFJkc3R2eDlTckdxK3FiRkFKZ3BKekFjRWQ4T1lp?=
- =?utf-8?B?OW5nQjBra2RsdUdpODNjalpzcjZmTkl2RCtoa093d05LTnYxdEJPbkZxR25B?=
- =?utf-8?B?b2tUQTVUeExoWEpTQUk0L0Y3dUxtdCtQLy9ZZ3RPT2pPOURKRjQveHpuLzVY?=
- =?utf-8?B?b29aYmVBZ1lNK1JtVElHYXEwM2tXS2NqYkR2RVU2V1BJZ1VOMi9BSVREVjBD?=
- =?utf-8?B?WHNyTkd1WVlQeU94aG1ZcHpINmNFOGlqZStVTGJLT3N6ZnFsM243SzhDSUEv?=
- =?utf-8?B?NktoSnEwOFY2R3AzdmZVSzVZWEVrejJVMUxCamFhUklqRU9HYlVoSEJzTW5C?=
- =?utf-8?B?MEFKRUNpR3R6TlQ1Z2VuOG04Yy9IMWZQU2l4NDdmWFhnTlRkemtlYW1ZUjZP?=
- =?utf-8?B?REk0QzBkbXQ3bHNFbXNmTEtpb3JudGdJeTV6L1B6QjlzS2JJYityS1FSZ3Ey?=
- =?utf-8?B?bkIrTHNaeGtNT3dhQjRGY2VKR1A2QUFVWlduZU5CemhPelBPWXJOWXlWcEla?=
- =?utf-8?B?Umo4K3Fvdm4wOXJlcjUrNTNkVkJValdZVkxZSkNUNDh4YStrSEVaUGIxbTRW?=
- =?utf-8?B?Y244NndLeis1elY2bVJlaXk1RVphZ0ltVFB3ODVIV044dzRHaERkQ1RiTDVP?=
- =?utf-8?B?Z1BITXBGdkUzVWZ5NzFqdzY4Mnd5YlptWDVxRmRWMllYbWwxZHVkLyt0L0s0?=
- =?utf-8?B?clpFZksrODJaZnZtc21FaWxKSk5kNXRUQ2NpMFZBSmQwdWRiRFpsY2dQTnJu?=
- =?utf-8?B?ZXhPRFNnVThTWTEyQXdPQVc3VmJTZ24vQnFaTHM0RTQ2eEJZRGZ6bnhlVDJF?=
- =?utf-8?B?U0V6ODFRckY5VEdHaEZKbkxPMk1PQitIT1E0cFNGR2Z3ZGZBRFBKZi9taVA4?=
- =?utf-8?B?ck1vUEY3azVhaHJpZ0RmQnE4eW5TQ2pNeTlVZXU0VmxJMmx1R0E0N3E0dTho?=
- =?utf-8?B?cVB3U1RzTVNHV211UHNvcW90cVIydkw3bkl6WnlyczEwRXZPb0dCL0hFUzlv?=
- =?utf-8?B?NE56aGFybndNbjQ5anpFeXVoMmd2Y2k1YS9RemdXbUpOaFN5cmNYNjJXMHBk?=
- =?utf-8?B?SEIyRGp5dHRUcXlERDU4bnF3Rm9tQlRVQmlzb2NBVlBGTE82bG02azUxWGZO?=
- =?utf-8?B?UDVtdGx1aVk1aExBTDZVOUZSQi91STl3N3ZxZjc1blp4WUR0V0N0aStKbmds?=
- =?utf-8?B?Q0t2Mm1rTXRxMk94Rk1DazRpMXlJcnE1RU8zQ0lUckxvenJ0UjlkdnhGV3Ez?=
- =?utf-8?B?eXorRW9NWitzRHdJdkZiRjFLMXFtZUJYckdNejZwd0ZOV3RjVi8vS053Nkh1?=
- =?utf-8?Q?vLqtpSZDcuI=3D?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN9PR12MB5273.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(366016);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?a1lUUFpKejBiaXlabE9TenRrRjdmVDgzV3JNVVVUY3dQeUtsbGRDQzBaMWds?=
- =?utf-8?B?VFJRcmVDcVR1VFNnRzJ5TDlPZ3NGN2JIWWgxQ2NzejhYcSs4SENJUmdxSHJh?=
- =?utf-8?B?NGFnbjhuL1hiVTkyNkJ6OVNUeHhsR01sdS9QcThZOXdpVXFiZ2t6MUZPOGMr?=
- =?utf-8?B?Z0tSQzUwSEFUOUJES3NIellyUzJnS0l1eGtWSys3eHlRV2MyYzJxVEJqd0hn?=
- =?utf-8?B?bHhBcE0wOFoweTNMRXpwbktsN1lFYTJpcy9Bb0FWcXdvQlFsdHpYa0t0UkxY?=
- =?utf-8?B?a0JVdG5sSlkrTDRqUFhUMFUrektBMFFBZXBHSC9FZmxjdlhJSXAyVmlKR3gw?=
- =?utf-8?B?QmtQcEVNQzczSGg3b0JSck02YlVuZzRNRGtHMlpOSUR0dkhjSzZIdm9ONTFl?=
- =?utf-8?B?dmpXYkNIREx2V01WdVN3RGFucHI0QWNvQ1VVKzUyNUg5ZUhYVy9YTzZCNTMw?=
- =?utf-8?B?M25sUXlFWm04aEVVcjcyMGI3THhYRmUrdXl6MHZLMzNBWTFWSVhkQmJxQXVl?=
- =?utf-8?B?cFpiWDZCcW15T2g1TG5MTkkrcFN6dVhmQVZtNDhoTTJMWHB5N0xQT1pteGY3?=
- =?utf-8?B?MGlIL1FrUDdwZXNvSkZIN05PWHFxYjdWK1ZnZDVFUS9UdGdZcUw0cC9vWTUr?=
- =?utf-8?B?bHZBYlV5V3B6V2txbm5ETm9sb1QzeDlVd1kwZHdCQ3l3R0ltMXA0RnBCbFlJ?=
- =?utf-8?B?RDE5b0licDhHeVNOTk0wTmdyc2x0QzdWT1BaNS9SRDdKRjhuMkx4K3pkYnZB?=
- =?utf-8?B?c0JvNzRobytrNXY0MTRWT1NacHBheHJGakRPb0RVUkRKdWh6TjRESWNZVHlO?=
- =?utf-8?B?Nm1QcFg3eUNSNFVweE9ZNHR0ZmFPYVd5dUdxaWdiVWV6bWhMcFM1ZVA3N3F6?=
- =?utf-8?B?bUpCTk5mYzh2YmFtNGtXYXd2UUJQa0Z1SzVmNXVVM1Npb05zMWFyU09WRWw1?=
- =?utf-8?B?QnQ1WkJ2ZjY4QndrQVdqNjJzV2dBS1hIRUF4aFErV1gzK2t6cFFGd09jSWdH?=
- =?utf-8?B?bUFUSjhnV2RCTFRtMmdOci9UQXNBRGxydVhLcUlZaWIrNG9lc0VkYVZoQ29t?=
- =?utf-8?B?QjZwQWY2cHlpeUxWczgxSEpjWDY1d3VTcGd2aDVWb2tLT0FDbk4rdzBKZGNj?=
- =?utf-8?B?alB4bVFwbXdZZkxndzc4MGJZWlAzd0lmd0FoNGY1RVNmRzk1TmRSY0syVVhx?=
- =?utf-8?B?VEJFYmdJVzVaMVBVeGQ2VjBqREp1TjNjV1lCQ1lCV1hMOENSUEQ2bkNuUkYx?=
- =?utf-8?B?cXpyVFdHMGJRa0VUSHB1RGZjTG91bjJTL1QyenRMTnlmVXlhNjEzaTdjRklZ?=
- =?utf-8?B?SzFWRXRHRG1waEtjODBmZ1NqT2N6TkxDWnUvemZQQmdtZUN3ZGhVbXpkWkxP?=
- =?utf-8?B?cnhwRHhuK3JFM1JNK1VGVFFkbFJ3eElITnFOYTI5Sm9LZDNxZ25jQlQ4OVk0?=
- =?utf-8?B?alJWbFhCa1drU3FyRlN4NDcvcUhqUzhFbWptK0JrdWdUS1ZETU1wa1ExVDBY?=
- =?utf-8?B?YUtmb0RhS3BlNUUvc214WFhwTG02bks0a0dYSkttWXRvN2FrbWJ2Q2xPMU9O?=
- =?utf-8?B?Mis0QkhFQTFLaXhaVUpKNEc0WEhCaE9YVlNXWndBQnlqdlVWV1lURjNqdmI3?=
- =?utf-8?B?YWVRWXA0V2tneEtYS2R1L3NuVDJmcWkrQ1N4Mi9Gb3VNWGQyeHE2aHljbHdW?=
- =?utf-8?B?NWJCWWNIb2VGQmlIQXUvQmJ4VGVuU2lFVk5ZTEdIbXo5bjBGcTQ5YXFvY2RP?=
- =?utf-8?B?ai9SaDAzM3gxQkxwQTQzN0pvMmdWeU5HV2VhK3FYaDRPYXEzS0tDV3NycmxT?=
- =?utf-8?B?UDY4NzY0Z243ejdKbUdNUEZVS2FObGpDWlR3R0hrRjREeElTVFVSbGhwY0o1?=
- =?utf-8?B?Rk5JSk1XNzZUSmRrNkJSMjAvN2hvUDlROGt2Tit1SW1VUnJPbCsyVUx0Q3lq?=
- =?utf-8?B?TDZmcy9INjRkamJCSjR6TGVheFRjMUMwMU5RcFdSVVJNUjB4Sm4wL243WHFs?=
- =?utf-8?B?RzJndGU5MEI3VXN2YTFIT0pUNVgzU2orRlRRa2IrWEtDWlVWNzVOaDhUak0x?=
- =?utf-8?B?NWo2eDg3ZExIWnFrcHE3NW1IQjM1bTVEMllDbUNHY3lESlhCZ2dvaUVkbXA0?=
- =?utf-8?Q?nWnciV/BEhg2r/ZJy/peMJ2UZ?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ab19fff5-2be8-46fc-cdc8-08dd92db1d9a
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5273.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 May 2025 11:33:15.1205
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: URbZ+iluBH926m27iWPLcCReu6RrRQHfL8aBoBQrTjzmODLsur2KKixrKF1a4rnQ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7307
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <bf99949c-0e09-13a5-3ad9-a6c26377bdbf@suse.com>
 
+On Wed, May 03, 2023 at 11:46:11AM +0200, Jan Beulich wrote:
+> We don't need to invalidate caches here; all we're after is that earlier
+> writes have made it to main memory (and aiui even that just in case).
+> 
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> ---
+> This, aiui, being an analogue to uses of iommu_sync_cache() (just not
+> range restricted), I wonder whether it shouldn't be conditional upon
+> iommu_non_coherent. Then again I'm vaguely under the impression that
+> we had been here before, possibly even as far as questioning the need
+> for this call altogether.
 
+I think yes, it would better be only done for iommu_non_coherent.  Yet
+in that case I wonder why we need this wide flush.  In principle all
+accesses should already have their own write-back calls if the IOMMU
+is non-coherent?
 
-On 14/05/2025 13:18, Julien Grall wrote:
-> 
-> 
-> On 14/05/2025 11:51, Orzel, Michal wrote:
->>
->>
->> On 14/05/2025 12:06, Julien Grall wrote:
->>> Hi,
->>>
->>> On 14/05/2025 10:57, Oleksii Kurochko wrote:
->>>>
->>>> On 5/14/25 9:25 AM, Julien Grall wrote:
->>>>> Hi Oleksii,
->>>>>
->>>>> On 13/05/2025 15:29, Oleksii Kurochko wrote:
->>>>>> Refactor construct_domU() to improve architecture separation and reduce
->>>>>> reliance on ARM-specific logic in common code:
->>>>>> - Drop set_domain_type() from generic code. This function is specific
->>>>>>     to ARM and serves no purpose on other architectures like RISC-V,
->>>>>>     which lack the arch.type field in kernel_info.
->>>>>
->>>>> So you will only ever boot one type of domain on RISC-V? IOW, no 32-bit
->>>>> or else?
->>>>
->>>> The bitness of the guest and host should match. So, an RV32 host should run
->>>> RV32 guests, and an RV64 host should run RV64 guests and so on.
->>>> (I'm not really sure that on RISC-V it is possible to run with RV64 host
->>>> an RV32 guest, but need to double-check)
->>>>
->>>> Therefore, my plan for RISC-V is to have the following:
->>>>     #ifdef CONFIG_RISCV_64
->>>>     #define is_32bit_domain(d) (0)
->>>>     #define is_64bit_domain(d) (1)
->>>>     #else
->>>>     #define is_32bit_domain(d) (1)
->>>>     #define is_64bit_domain(d) (0)
->>>>     #endif
->>>>
->>>> With this definition, there's no need to use|(d)->arch.type| for RISC-V.
->>>>
->>>>>
->>>>>> - Introduce arch_construct_domU() to encapsulate architecture-specific
->>>>>>     DomU construction steps.
->>>>>> - Implement arch_construct_domU() for ARM. This includes:
->>>>>>     - Setting the domain type for CONFIG_ARM64.
->>>>>>     - Handling static memory allocation if xen,static-mem is present in
->>>>>>       the device tree.
->>>>>>     - Processing static shared memory.
->>>>>> - Move call of make_resv_memory_node() to Arm's make_arch_nodes() as
->>>>>>     this call is specific to CONFIG_STATIC_SHM which is ARM specific,
->>>>>>     at least, now.
->>>>>
->>>>> This looks shortsighted. If there is a plan to use CONFIG_STATIC_SHM
->>>>> on RISC-V (I don't see why not today), then
->>>>> I think the code should stick in common/ even if it is not fully usable
->>>>> yet (that's the whole point of have CONFIG_* options).
->>>>
->>>> We don't use this feature in the downstream repo, but I can imagine some
->>>> cases where it could be useful. So, for now, its
->>>> use is purely theoretical and it is a reason why I agreed with Michal
->>>> and returned back these changes to Arm.
->>>
->>> I strongly disagree with this statement. If a feature is not
->>> architecture specific (like static shared memory), then the code ought
->>> to be in common code so it can be re-used by others.
->> But the code is not common. There are still 900 lines in arch spec dir.
-> 
-> Sure. But my point is rather more that static memory is not a feature 
-> described by the Arm Arm. Instead, it is a feature of Xen that is ti to 
-> device-tree. So inherently there is no reason to be implemented in arch/arm.
-I agree, it can and should be made common. But exposing only callers makes no
-sense at all for me. Callers should be exposed together with feature code movement.
+There's maybe the call from vtd_crash_shutdown() which I guess could
+trigger in the middle of some interaction with the IOMMU, but at that
+point do we really care to flush anyway if Xen is going to crash?
 
-> 
->>>
->>> Also, AFAIK, the bulk of the static shared memory code is in common. So
->>> it would be rather easy to add support for RISC-V if we wanted to.
->>>
->>> Given the code is already in common, it is rather silly to move the code
->> IMO it should not be made common in the first place. I don't like exposing
->> callers with the big chunk of code sitting in the arch specific directory.
-> 
-> So the concern is we didn't go far enough rather than the feature should 
-> not be implemented in common for other archs, correct?
-Yes. Oleksii exposed only callers. His intention was not to make static feature
-common.
+Otherwise it seems fine to switch to write-back.
 
-> 
->>
->>> back to Arm for then moving back to common potentially in a few weeks time.
->> What about static memory code? With the recent Oleksii code movement, the inline
->> helpers like allocate_static_memory() became unreachable when the feature is
->> disabled and the main purpose for helpers was to avoid ifdefery.
-> 
-> Sorry I am not sure which part you are referring to.
-With the current code, allocate_static_memory(), assign_static_memory_11()
-callers (that were moved to common) are protected with #ifdef. This causes the
-helpers defined in case CONFIG_STATIC_MEMORY is not defined to be unreachable
-(see static-memory.h).
-
-~Michal
-
+Thanks, Roger.
 
