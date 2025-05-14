@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A1A07AB633C
-	for <lists+xen-devel@lfdr.de>; Wed, 14 May 2025 08:36:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.983790.1369965 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B705AB6378
+	for <lists+xen-devel@lfdr.de>; Wed, 14 May 2025 08:50:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.983800.1369974 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uF5jQ-0003gj-2u; Wed, 14 May 2025 06:36:44 +0000
+	id 1uF5wC-0005Wt-62; Wed, 14 May 2025 06:49:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 983790.1369965; Wed, 14 May 2025 06:36:44 +0000
+Received: by outflank-mailman (output) from mailman id 983800.1369974; Wed, 14 May 2025 06:49:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uF5jQ-0003db-00; Wed, 14 May 2025 06:36:44 +0000
-Received: by outflank-mailman (input) for mailman id 983790;
- Wed, 14 May 2025 06:36:43 +0000
+	id 1uF5wC-0005UH-33; Wed, 14 May 2025 06:49:56 +0000
+Received: by outflank-mailman (input) for mailman id 983800;
+ Wed, 14 May 2025 06:49:54 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=0h6O=X6=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uF5jP-0003dV-3S
- for xen-devel@lists.xenproject.org; Wed, 14 May 2025 06:36:43 +0000
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [2a00:1450:4864:20::633])
+ id 1uF5wA-0005UA-Cq
+ for xen-devel@lists.xenproject.org; Wed, 14 May 2025 06:49:54 +0000
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [2a00:1450:4864:20::52c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id cbe556ab-308d-11f0-9eb6-5ba50f476ded;
- Wed, 14 May 2025 08:36:42 +0200 (CEST)
-Received: by mail-ej1-x633.google.com with SMTP id
- a640c23a62f3a-ad2414a412dso585056866b.0
- for <xen-devel@lists.xenproject.org>; Tue, 13 May 2025 23:36:41 -0700 (PDT)
+ id a2479e27-308f-11f0-9eb6-5ba50f476ded;
+ Wed, 14 May 2025 08:49:51 +0200 (CEST)
+Received: by mail-ed1-x52c.google.com with SMTP id
+ 4fb4d7f45d1cf-5f4d0da2d2cso12290608a12.3
+ for <xen-devel@lists.xenproject.org>; Tue, 13 May 2025 23:49:51 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5fc9cc3f5c9sm8354337a12.28.2025.05.13.23.36.40
+ a640c23a62f3a-ad23da570desm664757466b.118.2025.05.13.23.49.49
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 13 May 2025 23:36:41 -0700 (PDT)
+ Tue, 13 May 2025 23:49:50 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cbe556ab-308d-11f0-9eb6-5ba50f476ded
+X-Inumbo-ID: a2479e27-308f-11f0-9eb6-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1747204601; x=1747809401; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1747205390; x=1747810190; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=3C4kAv9UftGohtooO1z/TpM9mhqQF5D44PsfKJ889fU=;
-        b=FQSW16pNscuK5k3Ur+DyQ7/bVOzBlOVEE0+t69oeV4ZPcDgWBkDJQfYINjzKRBHfwY
-         xy5Au9LE3s225k50/oaHHeKQX0CTXIzZOfZNHkuCZeWklFkJznr7VMLpSB77G4vn10gB
-         Zplvex37vGp6yHnzGu7FqhmidHd7xaKZ2TYz90daHkWmL6hGqB3UAMPK5iRzqwiZYrjm
-         Kpsea3P79xoimjZ1R+uiCOwW2ePqPDRBJgafywDGOYPlvS/l60GvV8dH/bncoDleWRvf
-         UMchMCdJHNeRy9wEEKgBMSDAL/1yLTPmOZXO62b5DuBfT8GWRaLmAX8BCa0YrLPJD79R
-         4tzQ==
+        bh=B3bkkKEXdm1Ipi31r9dCGffV54KWhkwL2eW1cj/BPC4=;
+        b=JNJz8QKbaFTn+WH5UIuHE9axYa2UPix2/gdFWnQ8wUepM+DiPufsHytjAWgXw6mX7A
+         h6Ug1v4m9yt6jxQhRx5s0rmeb8PCvw0Td5RLrE2XjjYRsuQ1IoBHbRTMGN7lup7RkwvW
+         3TgA2Fbe4fjpdBy9TZt1mwzVcVKFJC+hYGzlVZkI6O1nJ3zit38Vqp8Hf/3Hos5yA5Wj
+         P9zZo6sj4rV1NiFW/Kp31WsHla4RDHAoon2qD0kU8it4jAzNiWmVpoM2Jl7vDdfSdd+9
+         51PLN3g7v1l6vHd/PfnkoxSLHNDmBwbf2Spjv3Je1AoAwtGPKo4untPOcFGmI1KLXsLA
+         4ihA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747204601; x=1747809401;
+        d=1e100.net; s=20230601; t=1747205390; x=1747810190;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=3C4kAv9UftGohtooO1z/TpM9mhqQF5D44PsfKJ889fU=;
-        b=tAPRsQc+zUlOJ4aGUDHlxA7GhHWXMXutsJn20s+M6Ea3iOg54YHHok4qfF6YoqA5MQ
-         bPv355nbVtQfatYUBNW6HZPBnYQYbjfrFnQkGn8RRj9J82vaBi2LSnPfsgCBZ2fNnQxu
-         1XRvRcdjNT6fmBtkbJSjfF6XmN8YTg0dxkV2aP/skGA/HAdQp5gk0fjcAQlS95wg/eAa
-         92RtEek+0V4XE8HasdbBzbzi7wqSQsjAd3fzMpNJLphxNSsezVzpfkFKvdLITVmQCI2s
-         Bz7PQ+FmyucrXwhC0uLXYLTQ3/CKpaOq6tFioIJaxXHrbd0E6VvqR0KGAVD8jyaNwPOQ
-         pwQw==
-X-Forwarded-Encrypted: i=1; AJvYcCVRBZ3Okmx1jVFPjBhL78VhDu0c71w0Jef2wJaGIqjZmYpyJuI5Qa20MMi5iRlIaAzeqTfv1vuZyfg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxJz5jISZthSpL6s50KI6/34O1Qxlpi7kP8q7e7DNmeKd37TwbD
-	J23fI2I+C7eANmayZt0qp/2CV9K42f0GvG8zvxvfgvpc+iahQzBB5ggLT0RuaQ==
-X-Gm-Gg: ASbGncvIbYRSdvzoVG+E3bhninnwBwNl9frh0XepgZA6VVIRkWjtxeiFef60am6mISr
-	p7FvvMjexEUFqP8e4WrgvYii5W931oR7Q+waSIwBRF+sd8uXXSA95qkBulcHkGqVZahidwm0rT5
-	LsrF7coSVLq/xnKymSOOd4MeGDdpIasZ++h9COTWgs5xF67EY4lVTdvcwk0UtsIYgWEXU4MKMl2
-	3rWK7Rd5EvgYxOB+cS29/RLMsuXiZXlPd+TKbDJwU96Mj1SYG8KvRezh9wZqDlK9FU3T4ve5xng
-	eBIQ7k8NVEV61mtzR+/v9skSTOXwD/hZdujl4YL++UYX+mehD7yXBsMv7FknCrHsNVfnpGeUMbO
-	Wbhabg0nDTkjht9pWjZ2Fe9wknOW5q09YRk7l
-X-Google-Smtp-Source: AGHT+IHpPdP6mcXYZQAJtUcl9LmdENtXoAe9fiSNzFEIHyVr/pnIMgrDCiNicG4lxms0ZwrMwPWRcg==
-X-Received: by 2002:a17:907:2ce4:b0:ad4:d133:1771 with SMTP id a640c23a62f3a-ad4f7113e60mr217629766b.13.1747204601314;
-        Tue, 13 May 2025 23:36:41 -0700 (PDT)
-Message-ID: <17e575bc-2248-471f-9f64-e48ef6481180@suse.com>
-Date: Wed, 14 May 2025 08:36:40 +0200
+        bh=B3bkkKEXdm1Ipi31r9dCGffV54KWhkwL2eW1cj/BPC4=;
+        b=aIfgqXRkY/HcMqg9BwNf9kRbhwCeKZSb4myOqWwM1zjR1DkgyKWntEVHv0bPMPB4DS
+         wzLRPQMpYHIS7ONbXsYf/DS0kWx3q8/4KBOv+RDCdWD3FEAbyB968CAffR6a9Dm0qwpP
+         /qvOnjk9YRxIX+fSmDNk2LCWqEpLXj8mXuKCdLBIsK/FX5hB8e2pxr1tnlbQgZSXUoju
+         SLjmOYmAew89gc1T83CPamjMwyna1hLG2mlGQnF20Xmea/QA91T0/2Kixs8M6EIEZYJ4
+         cDiRk6qjfDOgrwGsoB2gK5eVSclxXPB62p/OVTw+PL0GFow9vHU1TBlqRNgmZi5uCtbQ
+         IFxA==
+X-Forwarded-Encrypted: i=1; AJvYcCXfWer2QaaTjxVoUHbS+TzEY2VcDyHL9ZoDsyO+29Qqd55CKz/Anb+R8OH7sH1DNEnZMyc61iqQIRc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwqnffkfC8M7MxxFmu4Uf046wb/q9BHzYYoFEJagLaQfj3CYEy6
+	0/6IkIlmOq0e3np9g64HD083HHY887S7U8XW8tOMEgMwhlpW5yvUbQzKLMvOjQ==
+X-Gm-Gg: ASbGncuLUyzHyqQctPAgCBLIrwC5onVCJ+peO7me4dLub+6rSnPBYrxDnANaytS2+n/
+	+LnAYj2DZlS9jUKtYGG3J0if2LKq8AA5q935F4QKZVCkOSMI1A4mI+MfnR1hv1JsgSofMQ/BL/p
+	syE7nPrFbK7/sZKHPIgYBk1kcsCsVOFBESLcQCE7hOaaFFEL6tBoFKcLsHWZZcZQxgTt2nTNnwe
+	hcikWDUM/m4YMVeWQAy2ExUjzzlfiIL/amv8wdOV5GP3hZaPIRg+k8xB/jnUHyTMSw+tQF6JOU2
+	n1eLLUjQqbXBO/tG7QS2epCkAH413rZt+uwYMsBTGxbFZawDMmoADCBFnTLuj/zDphu8T69LVi2
+	J6JbJ03dsfXQFLaY4dYM6rW3SHR/i9EMFqkex
+X-Google-Smtp-Source: AGHT+IFszv7hvi17mGx5kazwDh3l2onptVcgIt1gYwLTo9m0VvUtKSkIubrEXHJOIjM0BLEx4XuC2Q==
+X-Received: by 2002:a17:907:2cc4:b0:ad4:f5ed:add2 with SMTP id a640c23a62f3a-ad4f74c8195mr205901666b.38.1747205390405;
+        Tue, 13 May 2025 23:49:50 -0700 (PDT)
+Message-ID: <2491389a-cd47-4917-9ade-7082f1ebc678@suse.com>
+Date: Wed, 14 May 2025 08:49:49 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 22/22] MAINTAINERS: add a section for TrenchBoot
- Slaunch
-To: Sergii Dmytruk <sergii.dmytruk@3mdeb.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [PATCH v3 1/2] xen/arm: exclude xen,reg from direct-map domU
+ extended regions
+To: Stewart Hildebrand <stewart.hildebrand@amd.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- trenchboot-devel@googlegroups.com, xen-devel@lists.xenproject.org
-References: <cover.1747155790.git.sergii.dmytruk@3mdeb.com>
- <98bb81298fc94f38ea79975937e7a5aa81157493.1747155790.git.sergii.dmytruk@3mdeb.com>
+ xen-devel@lists.xenproject.org
+References: <20250513195452.699600-1-stewart.hildebrand@amd.com>
+ <20250513195452.699600-2-stewart.hildebrand@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -123,37 +125,53 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <98bb81298fc94f38ea79975937e7a5aa81157493.1747155790.git.sergii.dmytruk@3mdeb.com>
+In-Reply-To: <20250513195452.699600-2-stewart.hildebrand@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 13.05.2025 19:05, Sergii Dmytruk wrote:
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -542,6 +542,21 @@ F:	*/configure
->  F:	*/*.ac
->  F:	tools/
+On 13.05.2025 21:54, Stewart Hildebrand wrote:
+> --- a/xen/common/rangeset.c
+> +++ b/xen/common/rangeset.c
+> @@ -433,6 +433,20 @@ bool rangeset_is_empty(
+>      return ((r == NULL) || list_empty(&r->range_list));
+>  }
 >  
-> +TRENCHBOOT SECURE LAUNCH
-> +M:	Daniel P. Smith <dpsmith@apertussolutions.com>
-> +R:	Ross Philipson <ross.philipson@oracle.com>
-> +R:	Sergii Dmytruk <sergii.dmytruk@3mdeb.com>
-> +S:	Supported
-> +F:	xen/include/xen/slr-table.h
+> +int rangeset_count_ranges(const struct rangeset *r)
+> +{
+> +    int nr = 0;
 
-Nit: This wants to move ...
+Ehem - this and the function's return type want to be unsigned.
 
-> +F:	xen/arch/x86/boot/slaunch-early.c
-> +F:	xen/arch/x86/efi/fixmlehdr.c
-> +F:	xen/arch/x86/include/asm/intel-txt.h
-> +F:	xen/arch/x86/include/asm/slaunch.h
-> +F:	xen/arch/x86/include/asm/tpm.h
-> +F:	xen/arch/x86/intel-txt.c
-> +F:	xen/arch/x86/slaunch.c
-> +F:	xen/arch/x86/tpm.c
+> +    struct list_head *list;
 > +
+> +    if ( r == NULL )
+> +        return 0;
+> +
+> +    list_for_each( list, &r->range_list )
 
-... to the bottom, for proper sorting.
+Nit: Either you deem list_for_each a pseudo-keyword (then a blank is
+missing) or you don't (then there are excess blanks).
+
+Further I don't think this is valid to do without holding the rangeset's
+lock in read mode (irrespective of the function return value potentially
+being stale by the time the caller gets to look at it, which is no
+different from other functions, i.e. falls in the caller's
+responsibilities).
+
+> +        nr++;
+
+And then, if already abstraction is wanted, wouldn't this loop better be
+yet another helper (macro?) in xen/list.h?
+
+> +    return nr;
+> +}
+
+Finally: If this is to be commonly used in several places, having such a
+helper is likely fine. As it stands, the sole caller is an __init
+function, and hence this is unreachable code post-init (which while not
+formally a Misra violation in my eyes effectively still is one). Aiui
+the same can be achieved using rangeset_report_ranges(), with a new
+(__init and static) callback function.
 
 Jan
 
