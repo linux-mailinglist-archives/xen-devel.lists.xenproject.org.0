@@ -2,32 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD1F8AB6515
-	for <lists+xen-devel@lfdr.de>; Wed, 14 May 2025 10:02:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.984036.1370203 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5FD17AB6531
+	for <lists+xen-devel@lfdr.de>; Wed, 14 May 2025 10:04:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.984045.1370214 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uF74E-0005YR-GA; Wed, 14 May 2025 08:02:18 +0000
+	id 1uF76a-0006Cf-TD; Wed, 14 May 2025 08:04:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 984036.1370203; Wed, 14 May 2025 08:02:18 +0000
+Received: by outflank-mailman (output) from mailman id 984045.1370214; Wed, 14 May 2025 08:04:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uF74E-0005WX-DZ; Wed, 14 May 2025 08:02:18 +0000
-Received: by outflank-mailman (input) for mailman id 984036;
- Wed, 14 May 2025 08:02:17 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1uF74D-0005Vt-1S
- for xen-devel@lists.xenproject.org; Wed, 14 May 2025 08:02:17 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1uF74C-008HVr-1y;
- Wed, 14 May 2025 08:02:16 +0000
-Received: from [2a02:8012:3a1:0:51a6:3d91:4273:769]
- by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1uF74B-00F8B5-2w;
- Wed, 14 May 2025 08:02:16 +0000
+	id 1uF76a-00069i-QG; Wed, 14 May 2025 08:04:44 +0000
+Received: by outflank-mailman (input) for mailman id 984045;
+ Wed, 14 May 2025 08:04:43 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=5Q1L=X6=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1uF76Z-00069Y-9a
+ for xen-devel@lists.xenproject.org; Wed, 14 May 2025 08:04:43 +0000
+Received: from mail-pf1-x430.google.com (mail-pf1-x430.google.com
+ [2607:f8b0:4864:20::430])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 16d8b748-309a-11f0-9eb6-5ba50f476ded;
+ Wed, 14 May 2025 10:04:42 +0200 (CEST)
+Received: by mail-pf1-x430.google.com with SMTP id
+ d2e1a72fcca58-7423fadbe77so4954408b3a.3
+ for <xen-devel@lists.xenproject.org>; Wed, 14 May 2025 01:04:42 -0700 (PDT)
+Received: from localhost ([84.78.159.3]) by smtp.gmail.com with UTF8SMTPSA id
+ 41be03b00d2f7-b235252c7bdsm8426426a12.78.2025.05.14.01.04.39
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 14 May 2025 01:04:40 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,101 +44,105 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=jT2lqUZoz7zBZkRttb4zUM3DhizvcmqXr0HGFHC5DVQ=; b=Uk7k5U8OjLJsTk7Y4kYMIQBNZ9
-	bARPMfAAbc7JNmjaMaYilMTjQzVZW5t2zxQ33j5iL31qwqXApPej2dVq0MqU3RA7SBtMewoeyZ3A4
-	6li02I2f42h4EnRqG6TyorloPK9pY0Quah9tvZcf1E6nCeE70wMyq+Eqf3GARtd3H36E=;
-Message-ID: <e8cfe2c8-6ae6-43e6-89f0-3c7ed7d49240@xen.org>
-Date: Wed, 14 May 2025 09:02:13 +0100
+X-Inumbo-ID: 16d8b748-309a-11f0-9eb6-5ba50f476ded
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1747209881; x=1747814681; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=1r1q9j/NiqaxCVnQX79fx6ZSieyvy37ernzXHZca/GE=;
+        b=ftxImUPBV+uZ1D+TzyGBitsh5PYAWoNMiAEL8dYndNKIoIuOol35qLlNE+U4o/9Du2
+         C81mTiudnOWjLuI8Kb2zW0aDVhN50KJODSFsydGEH42f54ORVvG8DDY/rAqkJ3l9u5U9
+         4zzCdgqzMHP0Vox9Oovqoug1BUMDyrJXggFbo=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1747209881; x=1747814681;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=1r1q9j/NiqaxCVnQX79fx6ZSieyvy37ernzXHZca/GE=;
+        b=Cl6EqyyOCts4LaIESzTM2JzSHEdsSa0hac8sOmGyWGZo0E0SxcDZGdUiU5AmZwLBAb
+         k0Io2XAN2l5xmtLdegxyzcJNzcUfsGgTTQZWkhzGjR+chCw3GqT7enLj2pCaekACC4+P
+         wZY4VczsK2OhPyS3wvH3UK6lGeqWDwEn4pKHr5PbNWEx6UTNYgVTeI0/YAaHWzZMY092
+         IXik8MBe8KcWG15uDb1agqYngLpKrMurgnnV7lu6RFrqb+edd6RMcXLHJ1MwHbRL2vJb
+         SBdj4egcYrtAbYeTKt0Gv0qqeEki1FSEJOvekckln31P9fH+NvD99PWJR5WTa4DuVOYI
+         L7DQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVVPDYfxRPRe1ztHZeQbABCK41Vi/PaA14sXPI9iX1sDbeF6o4F/pwmZ1iE4wH995E/ypNmfoZhvA4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwNhpsD2kbAbnatyaiWY0dgFWM9dDZr68C7HCsR2KEAz0tPoFBG
+	WdgOFIn4YY8abFJ+VDtK/jbdh2ruNkicWFim6jINbeVSv86mUj2Q/kYUX4Khyvg=
+X-Gm-Gg: ASbGncujPJpzALGQho0l2RXRlPFP5jxfCn8LnYPQZCwYs8Daid8ThK4EPEmSNGXr5qy
+	fPZ+UISxbDVFRNfU/Zb4qsjizHabj4wO2nT1y3XSocKGsAq+AEDP0c34asfXXuAI2t+2nRnvrG+
+	CdmbflDdMq/V0diBbzEfM4JbTqXqnzNW1INE6as+dELCNgBhtqLKFgLUJWbnk2Z9YHVu/1WeZAL
+	F7Cfenno4Alejl2docTObSu6FQz6yloUqZno8huMaB54VnKfoZE+MmFiJoDC7U/06mf1/1eEyEe
+	JPnu6HsVCni9YGuXkwplyTK0m0E4gRbP3C9bwjMo3eBW4P5qv4yzW9xxxh27bwoIQW8=
+X-Google-Smtp-Source: AGHT+IGjjnzREvj/FCp6iOWskek++QwmkIK4fblbdLCYyxcvDMW5FxY5l8ARHhqFi5/9zGZiCAVtFA==
+X-Received: by 2002:a05:6a21:6f13:b0:1f5:8e94:2e83 with SMTP id adf61e73a8af0-215ff093380mr4072477637.8.1747209880749;
+        Wed, 14 May 2025 01:04:40 -0700 (PDT)
+From: Roger Pau Monne <roger.pau@citrix.com>
+To: Juergen Gross <jgross@suse.com>,
+	Roger Pau Monne <roger.pau@citrix.com>,
+	xen-devel@lists.xenproject.org,
+	linux-kernel@vger.kernel.org
+Cc: jason.andryuk@amd.com,
+	John <jw@nuclearfallout.net>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Subject: [PATCH] xen/x86: fix initial memory balloon target
+Date: Wed, 14 May 2025 10:04:26 +0200
+Message-ID: <20250514080427.28129-1-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.48.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] xen/dom0less: mark domain_p2m_set_allocation __init
-Content-Language: en-GB
-To: "Orzel, Michal" <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>
-Cc: xen-devel@lists.xenproject.org,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Stewart Hildebrand <stewart.hildebrand@amd.com>
-References: <20250513171810.668370-1-stewart.hildebrand@amd.com>
- <alpine.DEB.2.22.394.2505131707020.368682@ubuntu-linux-20-04-desktop>
- <cacb0002-dd6b-49e5-8019-2d323771e3e7@amd.com>
- <4e684e38-ed64-4731-8f00-afba938a28a0@suse.com>
- <369ccaf5-5c17-4601-88b0-eb32af8608d6@amd.com>
- <ade0c506-089a-47e6-b4a5-5498311ae38d@xen.org>
- <ec9f265f-f33b-4b03-8139-dab0f9ad7aae@amd.com>
- <00cc8940-9a6d-44b9-ba8b-18fe34e6d6d1@xen.org>
- <61f60a77-637b-488b-b101-1ac0296a7e96@amd.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <61f60a77-637b-488b-b101-1ac0296a7e96@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi,
+When adding extra memory regions as ballooned pages also adjust the balloon
+target, otherwise when the balloon driver is started it will populate
+memory to match the target value and consume all the extra memory regions
+added.
 
-On 14/05/2025 08:59, Orzel, Michal wrote:
-> 
-> 
-> On 14/05/2025 09:55, Julien Grall wrote:
->>
->>
->> On 14/05/2025 08:52, Orzel, Michal wrote:
->>>
->>>
->>> On 14/05/2025 09:37, Julien Grall wrote:
->>>> Hi Michal,
->>>>
->>>> On 14/05/2025 08:04, Orzel, Michal wrote:
->>>>>
->>>>>
->>>>> On 14/05/2025 08:56, Jan Beulich wrote:
->>>>>> On 14.05.2025 08:31, Orzel, Michal wrote:
->>>>>>> On 14/05/2025 02:07, Stefano Stabellini wrote:
->>>>>>>> On Tue, 13 May 2025, Stewart Hildebrand wrote:
->>>>>>>>> All functions in dom0less-build.c should be __init.
->>>>>>> Why? This patch is first in your series and by that time there is no build time
->>>>>>> enforcement. Together with the Fixes tag it implies that this is somehow an
->>>>>>> issue (i.e. build/runtime issue) other than inconsistency for which we surely
->>>>>>> don't need Fixes tag.
->>>>>>
->>>>>> I disagree: Code not called post-init should be in .init.*. While not formally
->>>>>> a Misra violation (and wrongly so, I think), it imo effectively is: Such code
->>>>>> is otherwise unreachable post-init.
->>>>> You have a point here, I agree. Although I don't think MISRA differentiates
->>>>> between unreachable in general vs pre or post init. It defines it as code that
->>>>> cannot be executed. It does not go into stages of runtime execution.
->>>>>
->>>>> I'm thinking how this is different from a function that is called e.g. only once
->>>>> at specific point at runtime execution for which we did not come up with a
->>>>> separate section?
->>>>
->>>> Along with what Jan said, in general there is some relaxation for the
->>>> boot code. For instance, we could accept if it panic.
->>>>
->>>> There is at least one of the place in domain_build.c which panic() and
->>>> the parsing is not meant to be fully robust. So this code either need to
->>>> be __init (as this was the intention from when the feature was created)
->>>> or you need to fully harden the code.
->>> What is this place?
->>
->> static void __init initialize_domU_xenstore(void)
->> {
->> [...]
->>           rc = alloc_xenstore_evtchn(d);
->>           if ( rc < 0 )
->>               panic("%pd: Failed to allocate xenstore_evtchn\n", d);
->> }
-> Sorry, I am a bit lost, maybe I don't understand your reply. Do you mean we need
-> to do sth about it (I can see it's __init and we have panic) or this is just an
-> example?
+This made the usage of the Xen `dom0_mem=,max:` command line parameter for
+dom0 not work as expected, as the target won't be adjusted and when the
+balloon is started it will populate memory straight to the 'max:' value.
+It would equally affect domUs that have memory != maxmem.
 
-I was providing an example of why we enforce to enforce __init for 
-dom0-build.
+Kernels built with CONFIG_XEN_UNPOPULATED_ALLOC are not affected, because
+the extra memory regions are consumed by the unpopulated allocation driver,
+and then balloon_add_regions() becomes a no-op.
 
-Cheers,
+Reported-by: John <jw@nuclearfallout.net>
+Fixes: 87af633689ce ('x86/xen: fix balloon target initialization for PVH dom0')
+Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+---
+ drivers/xen/balloon.c | 13 ++++++++-----
+ 1 file changed, 8 insertions(+), 5 deletions(-)
 
+diff --git a/drivers/xen/balloon.c b/drivers/xen/balloon.c
+index 8c852807ba1c..2de37dcd7556 100644
+--- a/drivers/xen/balloon.c
++++ b/drivers/xen/balloon.c
+@@ -704,15 +704,18 @@ static int __init balloon_add_regions(void)
+ 
+ 		/*
+ 		 * Extra regions are accounted for in the physmap, but need
+-		 * decreasing from current_pages to balloon down the initial
+-		 * allocation, because they are already accounted for in
+-		 * total_pages.
++		 * decreasing from current_pages and target_pages to balloon
++		 * down the initial allocation, because they are already
++		 * accounted for in total_pages.
+ 		 */
+-		if (extra_pfn_end - start_pfn >= balloon_stats.current_pages) {
++		pages = extra_pfn_end - start_pfn;
++		if (pages >= balloon_stats.current_pages ||
++		    pages >= balloon_stats.target_pages) {
+ 			WARN(1, "Extra pages underflow current target");
+ 			return -ERANGE;
+ 		}
+-		balloon_stats.current_pages -= extra_pfn_end - start_pfn;
++		balloon_stats.current_pages -= pages;
++		balloon_stats.target_pages -= pages;
+ 	}
+ 
+ 	return 0;
 -- 
-Julien Grall
+2.48.1
 
 
