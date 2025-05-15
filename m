@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 86348AB82F5
-	for <lists+xen-devel@lfdr.de>; Thu, 15 May 2025 11:38:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.985050.1370987 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 40EB7AB82FF
+	for <lists+xen-devel@lfdr.de>; Thu, 15 May 2025 11:39:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.985052.1371007 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uFV37-0005nY-KJ; Thu, 15 May 2025 09:38:45 +0000
+	id 1uFV3L-0006RF-9o; Thu, 15 May 2025 09:38:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 985050.1370987; Thu, 15 May 2025 09:38:45 +0000
+Received: by outflank-mailman (output) from mailman id 985052.1371007; Thu, 15 May 2025 09:38:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uFV37-0005la-HD; Thu, 15 May 2025 09:38:45 +0000
-Received: by outflank-mailman (input) for mailman id 985050;
- Thu, 15 May 2025 09:38:44 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uFV3L-0006Oz-5d; Thu, 15 May 2025 09:38:59 +0000
+Received: by outflank-mailman (input) for mailman id 985052;
+ Thu, 15 May 2025 09:38:57 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=DjGQ=X7=cloud.com=ross.lagerwall@srs-se1.protection.inumbo.net>)
- id 1uFV36-0005Wo-Am
- for xen-devel@lists.xenproject.org; Thu, 15 May 2025 09:38:44 +0000
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [2a00:1450:4864:20::632])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 63a9bdcd-3170-11f0-9ffb-bf95429c2676;
- Thu, 15 May 2025 11:38:42 +0200 (CEST)
-Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-ad1f6aa2f84so155071666b.0
- for <xen-devel@lists.xenproject.org>; Thu, 15 May 2025 02:38:42 -0700 (PDT)
+ id 1uFV3J-00064K-RB
+ for xen-devel@lists.xenproject.org; Thu, 15 May 2025 09:38:57 +0000
+Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
+ [2a00:1450:4864:20::530])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 6c734429-3170-11f0-9eb6-5ba50f476ded;
+ Thu, 15 May 2025 11:38:57 +0200 (CEST)
+Received: by mail-ed1-x530.google.com with SMTP id
+ 4fb4d7f45d1cf-5f4d0da2d2cso1336216a12.3
+ for <xen-devel@lists.xenproject.org>; Thu, 15 May 2025 02:38:57 -0700 (PDT)
 Received: from rossla-pc.eng.citrite.net ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ad23ad2b386sm895152066b.104.2025.05.15.02.38.40
+ a640c23a62f3a-ad23ad2b386sm895152066b.104.2025.05.15.02.38.45
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 15 May 2025 02:38:41 -0700 (PDT)
+ Thu, 15 May 2025 02:38:45 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,192 +45,214 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 63a9bdcd-3170-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 6c734429-3170-11f0-9eb6-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1747301922; x=1747906722; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1747301937; x=1747906737; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=C2YHsd33az4IEQZXfpbWWt/V02BA69yDMw7arHlEWzs=;
-        b=krVBeBxOPYRGFb+F9301t/XpI9Rd2+8mbAjzmdIauqOmk+PvABoJs3vsU2ufYldPKt
-         1S3AiZjkEinvH0qLZeEKiVSosNtJlnqSN68+hSUPdOxpNEbWFKm7/LmMheBjzZjbRuNq
-         3dANTAIWGB+cPJqS+wqrXNNgInDlUP1oQbVXA=
+        bh=mI8pwGmu4+lpXzloXzs62CfY/4mwVbPPP3HB7j9Crbc=;
+        b=LIOymE3HvUV6fV5iIeb/R+4iKaEvQjewGW5P3w5+L+sbDJxs7t/NfPpD6LCLG1dhjR
+         i9zYR9s7YNnM5BBCESwp/yKdtQccmi6+aM74GQRm2XMZLWXS5XwIH/vlNnN7jC7VTLjI
+         JrXQ89NfWIIxQh/jHiNc2FTfqQQkAQRNkrR4Y=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747301922; x=1747906722;
+        d=1e100.net; s=20230601; t=1747301937; x=1747906737;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=C2YHsd33az4IEQZXfpbWWt/V02BA69yDMw7arHlEWzs=;
-        b=C3mO4+60HfCDpnyTRvoU9YJkYonCvKIK/dxTKho0YRlC1yIwLAVO0Pr+DggSloFfcy
-         LJ4zTFgJjwNqYUn1gQdlqLvlg/SNWOYW/P64mqJTU9s7ftzohK658nFUB0fWidr9w0fb
-         ILU9bZF0f3zHENT+QRR4Lwc0rXAZ1RzfKchZskVIu7FqLsxXzvgGrmJOYubEVW31w+II
-         NeOHiONvSmrQKXppwLTe+YOnUp31tVKSU/KAv7g2lu5iZv1J8Apq7yYycIHaVFDzFqdz
-         9bbQtlxdDUWQ3pWrLpfr0FluPOFDPChg3+bD95VBuGoOlw6ARDHq8ak6cdQCIx1gQtSn
-         qRig==
-X-Gm-Message-State: AOJu0YxhT1feX3vmdFJQXz7RnYW7wvjG8VZHg0iyuKdU+F7PKeTX1Avi
-	v72kpI0pZgcvPvup97+NzVP9U2JCmYdBvnSt7rmsp2wFhjgnS19YVPMwweVwwD5TIiG07xt6zwk
+        bh=mI8pwGmu4+lpXzloXzs62CfY/4mwVbPPP3HB7j9Crbc=;
+        b=nobgdEIxPWPerVEi7WUkpYf91CevOhGlq7TmLb0kwgXWuRvI65/Lz2S+bYzrZF5haK
+         etEeIZ6I0N0+LpphDLpp3XlRLas4LmCQu4qgHMzQ4walm/EouQceSNqnwTvOUKVRUZ+g
+         9xI0NFyOM9w7oJD+dQrEvcdRyV+RkITQQ1KLwbXba9amd+E8rL4t3xitqOijP/yQ/87+
+         z4HSpl86fvSGFApG9jYjOwpFR+CcY+OMG39v7S5TJ7tFQF0W3BJnC6lzGmJ0gFthbjrs
+         RZqy07GWMgzuGyjCTfVvDad3IEnKSD3U0pbaP4ZT9wW3mz0Hg7/V8eedHAZ7lbicMMHU
+         /4bQ==
+X-Gm-Message-State: AOJu0YzTO/w5EDvE+4TmSRtB99k6N3JJTC5GUGIaHHSlJCflLzBA99c7
+	LMQV/G92AfdDXydH5aVdWqobLiFh8DbsU0iA+LBMa2NgI8anS9UrhgtVXsMFHqucwQzQbp/3/Cc
 	=
-X-Gm-Gg: ASbGncvxO9NSsP7RlNkEqJkhHA8xUTVt1T1Z7TRCcGK+pnhgjo0A1cZirMqDYM4ZcFF
-	oi20jzztu/fvurYRKQ2fzqP4wMwnPp+G9kLh2+vJWGZOu6pwDVE47JuA8kGK44HStLDU0VJngBz
-	8tJXtW6BNPdQ8z6uoR6cb/XTXPxASvUGDzMswID3DAUVjkNe02jEmZcn2aW9mS1pfPSCdJn4H4x
-	0OV3cFCHVn5Cb0QyYWBFjZGGK2N0fSB1XJ7shbzgRIRgeRkjciFEXIXpqg+oeWc4R5v8KM0K/Bb
-	kLNBHy6U3FQV6XA8SOUZTkdHuOrbJ+eKxXPXLa06NwpUNab4gWg02H3zPzK3xZNXvg3opwp6dk4
+X-Gm-Gg: ASbGncvyt69qTOIpI0etAxKlfzVw09/hr7FEDR8ISNovwAYbjpwDhm+x7XTLFTsSCmj
+	lRghvngGb6FzmhyNZ3mVLrPOtBnZdhE/p5tm8tvWZuPYyBXVzM9bFBwGW98gIbSBevbQKzlqA8L
+	S237t40M4p8yokoRxhGeSX7Gtsix3Zh/Ko9bjUpuLncaN3ysaOG3PfVK+2r/ENerElvx8oifHtA
+	/OxZv9Cwq8RA5AymlacxLjiO54yq/7P4ZF+Z7K2CDZcsyKAQkmRKPNUzJdvWisZEbWNNxO8I0at
+	8O6twg8ZLdmOs8stRfvNjvpwKtOuEXXtw3xn7ohsH2q9ekbIair096xFnGuDOWihE4iqZ7pCt0s
 	=
-X-Google-Smtp-Source: AGHT+IF+f/RtLS/hvRlt47H9AFouG2ljmzVe92Nty3OLMq+adiQ7hLsqzwfllbyPq84XBTD5fLGNbg==
-X-Received: by 2002:a17:907:c00f:b0:ad5:112:490b with SMTP id a640c23a62f3a-ad50f59115cmr249485466b.9.1747301921819;
-        Thu, 15 May 2025 02:38:41 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEc0aCKX8aM831QI5j5in052DGx5TrDoOOTTvkREwyfXgYPfKZpNrkdblEGBzby2dBNg5eLVA==
+X-Received: by 2002:a17:907:7ba3:b0:aca:cac8:1cf9 with SMTP id a640c23a62f3a-ad515e73b6bmr140690166b.33.1747301925861;
+        Thu, 15 May 2025 02:38:45 -0700 (PDT)
 From: Ross Lagerwall <ross.lagerwall@citrix.com>
 To: xen-devel@lists.xenproject.org
-Cc: Ross Lagerwall <ross.lagerwall@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH v2 1/5] docs: Introduce live patch signing
-Date: Thu, 15 May 2025 10:38:16 +0100
-Message-ID: <20250515093822.659916-2-ross.lagerwall@citrix.com>
+Cc: Kevin Lampis <kevin.lampis@cloud.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Ross Lagerwall <ross.lagerwall@citrix.com>
+Subject: [PATCH v2 2/5] livepatch: Embed public key in Xen
+Date: Thu, 15 May 2025 10:38:17 +0100
+Message-ID: <20250515093822.659916-3-ross.lagerwall@citrix.com>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <20250515093822.659916-1-ross.lagerwall@citrix.com>
 References: <20250515093822.659916-1-ross.lagerwall@citrix.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Remove a never-implemented description of live patch signing from the
-TODO section and document signing as implemented by the following
-patches.
+From: Kevin Lampis <kevin.lampis@cloud.com>
 
+Make it possible to embed a public key in Xen to be used when verifying
+live patch payloads. Inclusion of the public key is optional.
+
+To avoid needing to include a DER / X.509 parser in the hypervisor, the
+public key is unpacked at build time and included in a form that is
+convenient for the hypervisor to consume. This is different approach
+from that used by Linux which embeds the entire X.509 certificate and
+builds in a parser for it.
+
+A suitable key can be created using openssl:
+
+openssl req -x509 -newkey rsa:2048 -keyout priv.pem -out pub.pem \
+    -sha256 -days 3650 -nodes \
+    -subj "/C=XX/ST=StateName/L=CityName/O=CompanyName/OU=CompanySectionName/CN=CommonNameOrHostname"
+openssl x509 -inform PEM -in pub.pem -outform PEM -pubkey -nocert -out verify_key.pem
+
+Signed-off-by: Kevin Lampis <kevin.lampis@cloud.com>
 Signed-off-by: Ross Lagerwall <ross.lagerwall@citrix.com>
 ---
 
 In v2:
 
-* Use ELF note type and descriptor length rather than a custom header.
-* Rename SIGNATURE_SUPPORTED_VERION
+* Split the loading part into a separate patch.
+* Expect public key in object tree rather than source tree.
+* Rename Kconfig symbols and others to reflect that it is used for
+  verification in Xen rather than signing.
+* Move extern declaration to a header.
+* Move raw key data to init.rodata.
 
- docs/misc/livepatch.pandoc | 106 +++++++++++++++++++------------------
- 1 file changed, 54 insertions(+), 52 deletions(-)
+ xen/common/Kconfig          | 18 ++++++++++++++++++
+ xen/crypto/Makefile         | 13 +++++++++++++
+ xen/include/xen/livepatch.h |  6 ++++++
+ xen/tools/extract-key.py    | 37 +++++++++++++++++++++++++++++++++++++
+ 4 files changed, 74 insertions(+)
+ create mode 100755 xen/tools/extract-key.py
 
-diff --git a/docs/misc/livepatch.pandoc b/docs/misc/livepatch.pandoc
-index 04dd5ed7b271..f36de449e992 100644
---- a/docs/misc/livepatch.pandoc
-+++ b/docs/misc/livepatch.pandoc
-@@ -917,6 +917,60 @@ The normal sequence of events is to:
-  3. *XEN_SYSCTL_LIVEPATCH_ACTION* with *LIVEPATCH_ACTION_APPLY* to apply the patch.
-  4. *XEN_SYSCTL_LIVEPATCH_GET* to check the `->rc`. If in *-XEN_EAGAIN* spin. If zero exit with success.
+diff --git a/xen/common/Kconfig b/xen/common/Kconfig
+index 6d43be2e6e8a..e4466db595c2 100644
+--- a/xen/common/Kconfig
++++ b/xen/common/Kconfig
+@@ -461,6 +461,24 @@ config LIVEPATCH
  
-+## Signature Checking
-+
-+While loading live patches would generally be restricted to a privileged
-+process in dom0, in certain cases signature checking in Xen may be required.
-+For example, when Secure Boot is enabled live patches need to be verified
-+before being loaded.
-+
-+Xen live patches are ELF binaries but there is no standardized mechanism for
-+signing ELF binaries. One approach used by Linux is to append a signature to
-+the end of the binary, outside of the ELF container. While this works, it tends
-+to be fragile since tools that handle ELF binaries do not correctly handle the
-+signature. Instead, the approach taken here is to use an ELF note for the
-+signature.
-+
-+The ELF note section name shall be `.note.Xen.signature` with note name `Xen`.
-+The note type shall encode the signature version, algorithm, and hash:
-+
-+* version - uint16_t, bits 0-15
-+* algorithm - uint8_t, bits 16-23
-+* hash - uint8_t, bits 24-31
-+
-+All other bits of the note type shall be zero.
-+
-+The known values for the above fields are:
-+
-+    #define LIVEPATCH_SIGNATURE_VERSION 1
-+    #define SIGNATURE_ALGORITHM_RSA 0
-+    #define SIGNATURE_HASH_SHA256 0
-+
-+The note descriptor length defines the length of the signature.
-+
-+To sign a live patch:
-+
-+1) Add a new note section with a populated payload signature and zeroed out
-+   signature.
-+2) Generate a detached signature over the entire binary.
-+3) Fill in the signature in the note section.
-+
-+During live patch load, Xen shall verify the signature using the following
-+steps:
-+
-+1) Copy the signature out of the note section.
-+2) Zero the signature.
-+3) Generate a detached signature over the entire binary.
-+4) Compare against the signature from (1).
-+
-+Initially, to avoid including DER / X.509 parsing of certificates, handling
-+chains, etc. Xen shall verify signatures against a compiled in RSA key in
-+exponent/modulus form. However, it may be extended in future to support other
-+types of signatures and key types.
-+
-+Support of signatures in Xen and in live patches is optional. However, certain
-+features such as Secure Boot may require live patches to be signed.
-+
+ 	  If unsure, say Y.
  
- ## Addendum
++config PAYLOAD_VERIFY
++	bool "Verify signed LivePatch payloads"
++	depends on LIVEPATCH
++	select CRYPTO
++	help
++	  Verify signed LivePatch payloads using an RSA public key built
++	  into the Xen hypervisor. Selecting this option requires a
++	  public key in PEM format to be available for embedding during
++	  the build.
++
++config PAYLOAD_VERIFY_KEY
++	string "File name of public key used to verify payloads"
++	default "verify_key.pem"
++	depends on PAYLOAD_VERIFY
++	help
++	  The file name of an RSA public key in PEM format to be used for
++	  verifying signed LivePatch payloads.
++
+ config FAST_SYMBOL_LOOKUP
+ 	bool "Fast symbol lookup (bigger binary)"
+ 	default y
+diff --git a/xen/crypto/Makefile b/xen/crypto/Makefile
+index db29655333a3..64ed90ba55b1 100644
+--- a/xen/crypto/Makefile
++++ b/xen/crypto/Makefile
+@@ -1,2 +1,15 @@
+ obj-y += rijndael.o
+ obj-y += vmac.o
++
++obj-$(CONFIG_PAYLOAD_VERIFY) += builtin_payload_key.o
++
++ifeq ($(CONFIG_PAYLOAD_VERIFY),y)
++key_path := $(objtree)/$(patsubst "%",%,$(CONFIG_PAYLOAD_VERIFY_KEY))
++$(obj)/builtin_payload_key.bin: $(key_path) $(srctree)/tools/extract-key.py
++	$(srctree)/tools/extract-key.py < $< > $@.new
++	$(call move-if-changed,$@.new,$@)
++
++$(obj)/builtin_payload_key.S: BINFILE_FLAGS := -i
++$(obj)/builtin_payload_key.S: $(srctree)/tools/binfile $(obj)/builtin_payload_key.bin FORCE
++	$(call if_changed,binfile,$(obj)/builtin_payload_key.bin xen_livepatch_key_data)
++endif
+diff --git a/xen/include/xen/livepatch.h b/xen/include/xen/livepatch.h
+index d074a5bebecc..0265f1fce057 100644
+--- a/xen/include/xen/livepatch.h
++++ b/xen/include/xen/livepatch.h
+@@ -18,6 +18,7 @@ struct xen_sysctl_livepatch_op;
  
-@@ -1178,58 +1232,6 @@ the function itself.
- Similar considerations are true to a lesser extent for \__FILE__, but it
- could be argued that file renaming should be done outside of hotpatches.
+ #ifdef CONFIG_LIVEPATCH
  
--## Signature checking requirements.
--
--The signature checking requires that the layout of the data in memory
--**MUST** be same for signature to be verified. This means that the payload
--data layout in ELF format **MUST** match what the hypervisor would be
--expecting such that it can properly do signature verification.
--
--The signature is based on the all of the payloads continuously laid out
--in memory. The signature is to be appended at the end of the ELF payload
--prefixed with the string '`~Module signature appended~\n`', followed by
--an signature header then followed by the signature, key identifier, and signers
--name.
--
--Specifically the signature header would be:
--
--    #define PKEY_ALGO_DSA       0
--    #define PKEY_ALGO_RSA       1
--
--    #define PKEY_ID_PGP         0 /* OpenPGP generated key ID */
--    #define PKEY_ID_X509        1 /* X.509 arbitrary subjectKeyIdentifier */
--
--    #define HASH_ALGO_MD4          0
--    #define HASH_ALGO_MD5          1
--    #define HASH_ALGO_SHA1         2
--    #define HASH_ALGO_RIPE_MD_160  3
--    #define HASH_ALGO_SHA256       4
--    #define HASH_ALGO_SHA384       5
--    #define HASH_ALGO_SHA512       6
--    #define HASH_ALGO_SHA224       7
--    #define HASH_ALGO_RIPE_MD_128  8
--    #define HASH_ALGO_RIPE_MD_256  9
--    #define HASH_ALGO_RIPE_MD_320 10
--    #define HASH_ALGO_WP_256      11
--    #define HASH_ALGO_WP_384      12
--    #define HASH_ALGO_WP_512      13
--    #define HASH_ALGO_TGR_128     14
--    #define HASH_ALGO_TGR_160     15
--    #define HASH_ALGO_TGR_192     16
--
--    struct elf_payload_signature {
--	    u8	algo;		/* Public-key crypto algorithm PKEY_ALGO_*. */
--	    u8	hash;		/* Digest algorithm: HASH_ALGO_*. */
--	    u8	id_type;	/* Key identifier type PKEY_ID*. */
--	    u8	signer_len;	/* Length of signer's name */
--	    u8	key_id_len;	/* Length of key identifier */
--	    u8	__pad[3];
--	    __be32	sig_len;	/* Length of signature data */
--    };
--
--(Note that this has been borrowed from Linux module signature code.).
--
--
- ### .bss and .data sections.
++#include <xen/init.h>
+ #include <xen/lib.h>
  
- In place patching writable data is not suitable as it is unclear what should be done
+ /*
+@@ -143,6 +144,11 @@ struct payload;
+ int revert_payload(struct payload *data);
+ void revert_payload_tail(struct payload *data);
+ 
++#ifdef CONFIG_PAYLOAD_VERIFY
++/* The public key data contained with Xen used to verify payload signatures. */
++extern const uint8_t __initconst xen_livepatch_key_data[];
++#endif
++
+ #else
+ 
+ /*
+diff --git a/xen/tools/extract-key.py b/xen/tools/extract-key.py
+new file mode 100755
+index 000000000000..2980264b757d
+--- /dev/null
++++ b/xen/tools/extract-key.py
+@@ -0,0 +1,37 @@
++#!/usr/bin/env python3
++
++# SPDX-License-Identifier: GPL-2.0
++
++import binascii
++import struct
++import sys
++import subprocess
++import re
++
++# Decode a certificate into a format suitable for embedding in Xen.
++
++out = subprocess.check_output(['openssl', 'rsa', '-pubin', '-inform', 'PEM',
++                               '-noout', '-text'], stdin=sys.stdin,
++                               universal_newlines=True)
++combined = ''
++for line in out.split('\n'):
++    line = line.rstrip()
++    if line.startswith('    '):
++        combined += line.strip().replace(':', '')
++    match = re.match(r'Exponent: .* \(0x(.*)\)', line)
++    if match:
++        e = match.group(1)
++
++n = combined.lstrip('0')
++if len(n) % 2 == 1:
++    n = '0' + n
++n = binascii.unhexlify(n)
++e = e.lstrip('0')
++if len(e) % 2 == 1:
++    e = '0' + e
++e = binascii.unhexlify(e)
++
++sys.stdout.buffer.write(struct.pack('I', len(n)))
++sys.stdout.buffer.write(n)
++sys.stdout.buffer.write(struct.pack('I', len(e)))
++sys.stdout.buffer.write(e)
 -- 
 2.49.0
 
