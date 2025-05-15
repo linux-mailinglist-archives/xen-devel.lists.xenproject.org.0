@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C232AB7FC6
-	for <lists+xen-devel@lfdr.de>; Thu, 15 May 2025 10:07:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.984874.1370807 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C38A5AB7FC9
+	for <lists+xen-devel@lfdr.de>; Thu, 15 May 2025 10:07:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.984877.1370817 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uFTcA-0003oC-Fx; Thu, 15 May 2025 08:06:50 +0000
+	id 1uFTcV-0004Eb-R8; Thu, 15 May 2025 08:07:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 984874.1370807; Thu, 15 May 2025 08:06:50 +0000
+Received: by outflank-mailman (output) from mailman id 984877.1370817; Thu, 15 May 2025 08:07:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uFTcA-0003lu-DM; Thu, 15 May 2025 08:06:50 +0000
-Received: by outflank-mailman (input) for mailman id 984874;
- Thu, 15 May 2025 08:06:48 +0000
+	id 1uFTcV-0004CG-Nz; Thu, 15 May 2025 08:07:11 +0000
+Received: by outflank-mailman (input) for mailman id 984877;
+ Thu, 15 May 2025 08:07:09 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=D/jC=X7=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uFTc8-0003lo-UU
- for xen-devel@lists.xenproject.org; Thu, 15 May 2025 08:06:48 +0000
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
- [2a00:1450:4864:20::52c])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=CT6j=X7=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1uFTcT-0003lo-PY
+ for xen-devel@lists.xenproject.org; Thu, 15 May 2025 08:07:09 +0000
+Received: from mail-pf1-x430.google.com (mail-pf1-x430.google.com
+ [2607:f8b0:4864:20::430])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8c6d3400-3163-11f0-9eb6-5ba50f476ded;
- Thu, 15 May 2025 10:06:47 +0200 (CEST)
-Received: by mail-ed1-x52c.google.com with SMTP id
- 4fb4d7f45d1cf-5f62d3ed994so1258834a12.2
- for <xen-devel@lists.xenproject.org>; Thu, 15 May 2025 01:06:47 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ad251f4c04fsm650927166b.171.2025.05.15.01.06.46
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 15 May 2025 01:06:46 -0700 (PDT)
+ id 98c2ed40-3163-11f0-9eb6-5ba50f476ded;
+ Thu, 15 May 2025 10:07:09 +0200 (CEST)
+Received: by mail-pf1-x430.google.com with SMTP id
+ d2e1a72fcca58-7410c18bb00so933851b3a.3
+ for <xen-devel@lists.xenproject.org>; Thu, 15 May 2025 01:07:09 -0700 (PDT)
+Received: from localhost ([84.78.159.3]) by smtp.gmail.com with UTF8SMTPSA id
+ 41be03b00d2f7-b23b521b709sm9775379a12.10.2025.05.15.01.07.06
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 15 May 2025 01:07:07 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,150 +44,137 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8c6d3400-3163-11f0-9eb6-5ba50f476ded
+X-Inumbo-ID: 98c2ed40-3163-11f0-9eb6-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1747296407; x=1747901207; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=f0WAsoHkiPEv93dWwVsjrvRhTOkvhP/JrXk89RJOIw8=;
-        b=eu056mshuIiVz1tZprmZtwPFbWC4KHNtcvr0mdi4/7SKW6DxKIlKt4ZH1T7eSnMQ0Y
-         yWLqKCJpp/NLtr7m0L3cKDVyjGnt6WTK7R+pagxJrJeiN5YmHmvkUUTMXDk39lwKwTbS
-         mkoM1pW7+Ii1j5iw0P0PHp8CNdx0IQhuuKCOJs8xxI9G82Fg7ezd3M0WeJAsZObTCHqK
-         CnGq7i6Oqe1uD13p1DHtUO9a9ftyPTWDBwsgBm4ULxYf6VT9vWIF1KURCIfdyrIlAPTE
-         ly4pGsdYeQnCTdku9+ke6cwTz2XMuY9xHYymFCofDmtnhsx5ylPj7L5147N7DDgezbXd
-         Af3A==
+        d=citrix.com; s=google; t=1747296427; x=1747901227; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=zJNWzpEPEoWleDHoP7ApvrE9rksrKufzgl30z/65ImU=;
+        b=qp7SF0YO3ZhuJVHTuM4HE5pRCoyLl9rX9oIdrMM5cj53iuYWDAbyGoRkRSmpj+gf97
+         4Uf5a+aJXoo7KoDskXhb0fOgIlv7uuSGm9wHnGt7C7IUDVUqq082uXDgQFxmqlFmz3tM
+         DcOtHFuNvSR9KaQ/j8tmGtRC6p+j/qmjrIMMs=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747296407; x=1747901207;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=f0WAsoHkiPEv93dWwVsjrvRhTOkvhP/JrXk89RJOIw8=;
-        b=jsRykeCpmJX1NZP87l6h+en6X6hwmgQSO4jwsU+aMM0nxc4F3d8XuQ7wQtv1pbaFHR
-         rgLm2jW6gBrdeIVgZu4ObLASUGzQr2Qd5PrlFP/JzERl5u7hmcLnOIynb2cPfn0UNYwK
-         2kWBJ/Z6HGanhryeuHGqtoCmh1ERzEyapa8hNyQdVlXSWeHJSfz6TzI0EmV+Lj/fO42U
-         VBodLgWTfimaU4esH7dsCxLkCdOwDAl1y1FklF1bdwOq32mXjHEWzI/6JlLZ4dvFRIdw
-         cnDxxN0tXuduaiwZ6oJVkTTysnlkDG6umpPB5TPdXdPI4xw1usmfGcabFAmlSLfjx2F0
-         WxXg==
-X-Forwarded-Encrypted: i=1; AJvYcCUABIqX7WfAJKEuUyL3g08Zf007MXtK/kXUeYyfY5zL4D9col3Sl44FFrwsP5IFClciFpPVkEQ4lok=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzMZVQyA0UT8Pg4gYwQ3ods4cKJ8pTwXK5fygMq5uOUBgKD0Oqf
-	6sLK6MSBMdAotMOUcivtndgcvV+W0tEh1NRGh543RZBnF/NFyB32sSfb0SizXA==
-X-Gm-Gg: ASbGnctYk7aaCtrbRrpl5IZQsIztcnWcOoXpZAL8lJ0+FqFSe72nsLwRBWlZe3bPykA
-	FFUqmdE/3mvE7xn2tT8kn88aEwB/OMRSrC4jvxX21cmzTRpmZCJvwA9QJi1hbfIqmy+ERFZTSBy
-	I9fzs5EMdXa4rTILPNih/xFhcZdOhcgM4LQqVqc9bJd7XwzEsSTFq9z0snNpup7aTHjni6opzkv
-	sYHEMqFz/I/XG2ofPxhkItATIRMRC/DzCCG2SzV8p7jrvozX5wtvk5wQZwQNqQ2Nja85hgq8nZu
-	HPgiyEpQetEGO8n+D4398fM/GLWnu2OReHO816xH5BbIXiBPnBKk8mulVi7sxJ6wxjaV4iFsDxX
-	jdK8FGBOGHQ2iFsVaj6KFkDbrp/NcEjTjEpgm
-X-Google-Smtp-Source: AGHT+IHkAuX3C9u2vEITuY2mp7ttsyPlPZGcxcI8rQDmzZg5pcb+259xXCdUXT61dga7amCVfsysbQ==
-X-Received: by 2002:a17:907:9997:b0:ad1:8dde:5b7a with SMTP id a640c23a62f3a-ad4f747da01mr602790066b.43.1747296407105;
-        Thu, 15 May 2025 01:06:47 -0700 (PDT)
-Message-ID: <2436be2e-28d4-4e48-a391-84b21651b339@suse.com>
-Date: Thu, 15 May 2025 10:06:45 +0200
+        d=1e100.net; s=20230601; t=1747296427; x=1747901227;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=zJNWzpEPEoWleDHoP7ApvrE9rksrKufzgl30z/65ImU=;
+        b=RsmJDGbaALvgFu/rX1tQ0fCEwu1bmwPy7SUeIgbvf0Mxr1fa17VFjYJ+ZMWTbHhDR/
+         lbD32Myz2jywI2LY06uVE8576paSR5cP+KEQ5m4l2L9l/qaxv80RSu68CtobxNxcClip
+         R3nXCzqjA3z3qRgINgt9ouVESZg33dgOLAY10iOv66h0SKndaKA+jirdRVwaNcswH5dk
+         fn0e1HQdxWPoPAPjwjNxNNZeMDwOrGV/QG6VTMIKkTrEpBzIa6nOhM012F+jQYWKBJMe
+         f0m1zjbaVEKVW0vvBzzZT/wFnwm2gwE40KI7ffohB0FBctk1wBgTndxRajMoRMS9cxuC
+         P08Q==
+X-Gm-Message-State: AOJu0YxbEVkqkVn5HSFKgM2y2gGhoB536MiGOIeB1ePEbw8C0gXTIPTq
+	qERoBhPiTQiqOFFOXhx6+CSPLVLyVtJf2vOHQAFUjGZhFtElgEcwNDwJsZYRNdnl08xcGuEGVeI
+	E
+X-Gm-Gg: ASbGncuPkamJlDch7IxHOBJsDTCOyACFlcHYq41YitaP1OfvZm9N9POL6dZPTozIAcu
+	oLXQ6Xx9UokrGa3pPvJBY63OiIlVI27fOIWIuG2NZPLqHHuGbfxswdFllsFRhEDnj2lrMLItUvP
+	lJDojmLYjtehMSWxduSpXc74eQjRxTFDuuUQL7u86c4cHCHt1b7pL2Rj4lrBhOvZ2xfBnZ/RZSm
+	pShoVUSeOh02qslMPLTco1B1jKYNRtJlvnDEO+nA9LYgfnkm70oXLpQ1tOdm9h9pb2a3oEqZkCa
+	WjATd+ONCEhF9wmR1/HRmexeIuzj3gcwf66rotNfpwsJEShZXryYDMAS
+X-Google-Smtp-Source: AGHT+IGvDCm1yH+jcYC5l3+0jZfp+rn1Zq681CmTbvTAGh4Wn7WrDEvIuLa8WZYjv10F/b7opi4GsQ==
+X-Received: by 2002:a05:6a21:6da3:b0:1fd:f8eb:d232 with SMTP id adf61e73a8af0-216115573b2mr2195766637.24.1747296427591;
+        Thu, 15 May 2025 01:07:07 -0700 (PDT)
+Date: Thu, 15 May 2025 10:07:02 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Cc: xen-devel <xen-devel@lists.xenproject.org>
+Subject: Re: Issues on Zen4 (hw12) runner
+Message-ID: <aCWgpp4fwNUgIDQJ@macbook.lan>
+References: <aB0XtEor2rCxBKWR@mail-itl>
+ <aCHMwWd7cq-ZIMOl@macbook.lan>
+ <aCH4MnNQ7IzhJfkl@mail-itl>
+ <aCIDj_8tDcjR1nUS@macbook.lan>
+ <aCIIXkYar0TNP7H_@mail-itl>
+ <aCIKrs0B5ZEi1v_z@macbook.lan>
+ <aCIPuXoGm8-CsXBN@mail-itl>
+ <aCUHNP5o78QQh_V0@mail-itl>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 09/16] xen/riscv: introduce register_intc_ops() and
- intc_hw_ops.
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Romain Caritey <Romain.Caritey@microchip.com>, xen-devel@lists.xenproject.org
-References: <cover.1746530883.git.oleksii.kurochko@gmail.com>
- <7cd7d3780bb6db45b92c971ff8bcf2634570431f.1746530883.git.oleksii.kurochko@gmail.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <7cd7d3780bb6db45b92c971ff8bcf2634570431f.1746530883.git.oleksii.kurochko@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <aCUHNP5o78QQh_V0@mail-itl>
 
-On 06.05.2025 18:51, Oleksii Kurochko wrote:
-> --- a/xen/arch/riscv/include/asm/intc.h
-> +++ b/xen/arch/riscv/include/asm/intc.h
-> @@ -8,6 +8,8 @@
->  #ifndef ASM__RISCV__INTERRUPT_CONTOLLER_H
->  #define ASM__RISCV__INTERRUPT_CONTOLLER_H
->  
-> +#include <xen/irq.h>
+On Wed, May 14, 2025 at 11:12:20PM +0200, Marek Marczykowski-Górecki wrote:
+> On Mon, May 12, 2025 at 05:11:53PM +0200, Marek Marczykowski-Górecki wrote:
+> > On Mon, May 12, 2025 at 04:50:22PM +0200, Roger Pau Monné wrote:
+> > > On Mon, May 12, 2025 at 04:40:29PM +0200, Marek Marczykowski-Górecki wrote:
+> > > > On Mon, May 12, 2025 at 04:19:59PM +0200, Roger Pau Monné wrote:
+> > > > > On Mon, May 12, 2025 at 03:31:19PM +0200, Marek Marczykowski-Górecki wrote:
+> > > > > > On Mon, May 12, 2025 at 12:26:09PM +0200, Roger Pau Monné wrote:
+> > > > > > > On Thu, May 08, 2025 at 10:44:36PM +0200, Marek Marczykowski-Górecki wrote:
+> > > > > > > > Hi,
+> > > > > > > > 
+> > > > > > > > I wanted to post another revision of the series adding hw12 runner,
+> > > > > > > > hoping that all known issues are fixed now, but unfortunately there is
+> > > > > > > > still something broken. I've rebased my series on top of staging
+> > > > > > > > (ed9488a0d) and got this pipeline:
+> > > > > > > > 
+> > > > > > > > https://gitlab.com/xen-project/people/marmarek/xen/-/pipelines/1807819142
+> > > > > > > > (note due to some added debugging, some tests are incorrectly marked as
+> > > > > > > > success even if they failed...)
+> > > > > > > > 
+> > > > > > > > 1. USB ethernet doesn't work on PVH dom0: https://gitlab.com/xen-project/people/marmarek/xen/-/jobs/9978694739
+> > > > > > > > There supposed to be an USB ethernet device connected to the USB
+> > > > > > > > controller at c3:00.4. In the PV dom0 case it's detected as:
+> > > > > > > > 
+> > > > > > > >     [    3.911555] usb 7-1.4: new high-speed USB device number 3 using xhci_hcd
+> > > > > > > >     [    4.004201] usb 7-1.4: New USB device found, idVendor=0bda, idProduct=8153, bcdDevice=30.00
+> > > > > > > >     [    4.004675] usb 7-1.4: New USB device strings: Mfr=1, Product=2, SerialNumber=6
+> > > > > > > >     [    4.005079] usb 7-1.4: Product: USB 10/100/1000 LAN
+> > > > > > > >     [    4.005349] usb 7-1.4: Manufacturer: Realtek
+> > > > > > > >     [    4.005599] usb 7-1.4: SerialNumber: 684D35
+> > > > > > > > 
+> > > > > > > > But it's not there on PVH. The USB controller itself is detected, just
+> > > > > > > > not device(s) connected to it. This applies to other controllers too
+> > > > > > > > (there should be about 3 or 4 other USB devices - none of them show up).
+> > > > > > > > 
+> > > > > > > > 2. There is a bunch of "unhandled memory read" errors during PVH dom0
+> > > > > > > > startup: https://gitlab.com/xen-project/people/marmarek/xen/-/jobs/9978694739
+> > > > > > > > 
+> > > > > > > >     (XEN) [    4.026323] arch/x86/hvm/emulate.c:417:d0v0 unhandled memory read from 0xfedc0020 size 1
+> > > > > > > >     (XEN) [    4.026789] arch/x86/hvm/emulate.c:417:d0v0 unhandled memory read from 0xfedc0021 size 1
+> > > > > > > >     (XEN) [    4.027247] arch/x86/hvm/emulate.c:417:d0v0 unhandled memory read from 0xfedc0020 size 1
+> > > > > > > >     (XEN) [    4.027671] arch/x86/hvm/emulate.c:417:d0v0 unhandled memory read from 0xfedc0021 size 1
+> > > > > > > >     ...
+> > > > > > > > 
+> > > > > > > > This repeats several times. Could be related to the USB issue above?
+> > > > > > > 
+> > > > > > > Can you try with dom0=pf-fixup?  Those unhandled accesses might be the
+> > > > > > > cause of the USB issues.
+> > > > > > 
+> > > > > > It did got rid of those messages, but USB still doesn't work:
+> > > > > > https://gitlab.com/xen-project/people/marmarek/xen/-/jobs/10006580289
+> > > > > 
+> > > > > Hm, is it possible that the usage of console=xhci is interfering with
+> > > > > USB devices?  Could you try to boot without console=xhci and see if
+> > > > > you can still reproduce the issue?  You will need the physical device
+> > > > > by your side, which I'm not sure it's possible.  Don't know if you
+> > > > > host those remotely somewhere.
+> > > > 
+> > > > I can try, but will need a proper driver there (in dom0?) - AFAIR VGA
+> > > > nor efifb doesn't output to HDMI there (and eDP is not connected).
+> > > > Anyway, it's IMO unlikely, given it works just fine with PV dom0...
+> > > 
+> > > Oh, I see, that's a good data point that it works with PV dom0.
+> > > Handling of r/o subpage accesses is still different between PV and PVH
+> > > which could maybe explain this, but it's less likely.
+> > > 
+> > > Maybe I'm not spotting it, but I don't see any specific errors (like
+> > > timeouts) from the XHCI controller on the log?  Neither there seems to
+> > > be any errors or warnings from Xen.
+> > 
+> > I don't see any either...
+> 
+> Roger, it looks like your balloon patch fixes the USB case too :)
 
-If you need this include anyway, why ...
+Oh, that's great to hear.  I hope I can merge that one together with
+the xen.config change soon.  Would you mind giving a Tested-by to the
+balloon patch?
 
-> @@ -17,6 +19,26 @@ struct intc_info {
->      const struct dt_device_node *node;
->  };
->  
-> +struct irq_desc;
+https://lore.kernel.org/xen-devel/20250514080427.28129-1-roger.pau@citrix.com/
 
-... this "forward" decl for something that's then already fully defined?
-I can't, however, spot why xen/irq.h would be needed for anything ...
-
-> +struct intc_hw_operations {
-> +    /* Hold intc hw information */
-> +    const struct intc_info *info;
-> +    /* Initialize the intc and the boot CPU */
-> +    int (*init)(void);
-> +
-> +    /* hw_irq_controller to enable/disable/eoi host irq */
-> +    const hw_irq_controller *host_irq_type;
-> +
-> +    /* Set IRQ type */
-> +    void (*set_irq_type)(struct irq_desc *desc, unsigned int type);
-> +    /* Set IRQ priority */
-> +    void (*set_irq_priority)(struct irq_desc *desc, unsigned int priority);
-> +
-> +};
-> +
->  void intc_preinit(void);
->  
-> +void register_intc_ops(struct intc_hw_operations *ops);
-> +
->  #endif /* ASM__RISCV__INTERRUPT_CONTOLLER_H */
-
-... throughout here.
-
-> --- a/xen/arch/riscv/intc.c
-> +++ b/xen/arch/riscv/intc.c
-> @@ -5,6 +5,15 @@
->  #include <xen/init.h>
->  #include <xen/lib.h>
->  
-> +#include <asm/intc.h>
-> +
-> +static struct __ro_after_init intc_hw_operations *intc_hw_ops;
-
-Nit: Attributes between type and identifier please. Also shouldn't both
-this and ...
-
-> +void __init register_intc_ops(struct intc_hw_operations *ops)
-
-... the parameter here be pointer-to-const?
-
-Jan
+Thanks, Roger.
 
