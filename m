@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54EBBAB81B2
-	for <lists+xen-devel@lfdr.de>; Thu, 15 May 2025 10:58:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.984961.1370908 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A10EAB81D2
+	for <lists+xen-devel@lfdr.de>; Thu, 15 May 2025 11:01:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.984970.1370917 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uFUPW-00054M-U4; Thu, 15 May 2025 08:57:50 +0000
+	id 1uFUT7-0006nK-D7; Thu, 15 May 2025 09:01:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 984961.1370908; Thu, 15 May 2025 08:57:50 +0000
+Received: by outflank-mailman (output) from mailman id 984970.1370917; Thu, 15 May 2025 09:01:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uFUPW-000528-QN; Thu, 15 May 2025 08:57:50 +0000
-Received: by outflank-mailman (input) for mailman id 984961;
- Thu, 15 May 2025 08:57:50 +0000
+	id 1uFUT7-0006kM-AX; Thu, 15 May 2025 09:01:33 +0000
+Received: by outflank-mailman (input) for mailman id 984970;
+ Thu, 15 May 2025 09:01:32 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=CT6j=X7=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1uFUPW-00051B-8W
- for xen-devel@lists.xenproject.org; Thu, 15 May 2025 08:57:50 +0000
-Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
- [2a00:1450:4864:20::536])
+ <SRS0=zoO2=X7=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1uFUT6-0006kG-Bu
+ for xen-devel@lists.xenproject.org; Thu, 15 May 2025 09:01:32 +0000
+Received: from fhigh-a6-smtp.messagingengine.com
+ (fhigh-a6-smtp.messagingengine.com [103.168.172.157])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ada68be8-316a-11f0-9eb6-5ba50f476ded;
- Thu, 15 May 2025 10:57:49 +0200 (CEST)
-Received: by mail-ed1-x536.google.com with SMTP id
- 4fb4d7f45d1cf-5ff8f218c44so1159145a12.2
- for <xen-devel@lists.xenproject.org>; Thu, 15 May 2025 01:57:49 -0700 (PDT)
-Received: from localhost ([84.78.159.3]) by smtp.gmail.com with UTF8SMTPSA id
- 4fb4d7f45d1cf-5fd2b82297esm6725667a12.44.2025.05.15.01.57.48
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 15 May 2025 01:57:48 -0700 (PDT)
+ id 309f34f2-316b-11f0-9eb6-5ba50f476ded;
+ Thu, 15 May 2025 11:01:30 +0200 (CEST)
+Received: from phl-compute-06.internal (phl-compute-06.phl.internal
+ [10.202.2.46])
+ by mailfhigh.phl.internal (Postfix) with ESMTP id ED83C11400DC;
+ Thu, 15 May 2025 05:01:28 -0400 (EDT)
+Received: from phl-mailfrontend-01 ([10.202.2.162])
+ by phl-compute-06.internal (MEProxy); Thu, 15 May 2025 05:01:28 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 15 May 2025 05:01:27 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,87 +45,170 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ada68be8-316a-11f0-9eb6-5ba50f476ded
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1747299469; x=1747904269; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=dPMC2a32nfUHx7ydYxaYGIrNsdP6VcsU+I3gbxfq+8I=;
-        b=j5Z8XiuQNl5LSpDts5JGvawpDW71V6cgx+Zhhku6+ausYPliSaurAwdNVV0S+CAdtz
-         HZ5gvsfyS5vrwfnJW6ztCOVFymlxfSxryCTgcvpYR0N+iolk0N4XEZ4LM2eGyP5Zl0/M
-         P788lNre0cxgFU8dZxdoi7L8fmgotTb02LtYs=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747299469; x=1747904269;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=dPMC2a32nfUHx7ydYxaYGIrNsdP6VcsU+I3gbxfq+8I=;
-        b=csK25hrMutgHl3XztdzJQjt5u7om8X/lzecr2/VG1rAwatUwIzL+GIB82qe9JGETqd
-         QeGneAq/Ge9JCoAGhcmT5FaFCXiO7R3EYPOpLP3Zb9V0NOQgRN/MQCsCzsf8FGeAUDMT
-         wCf/rvhEmA4dr4M0e5AuNwAnFLyyycJM9WnGJK0RVFxXraSJPpdrpfGmo2f7AiKDMggM
-         cvWgTn6amFOkzodjCSXPTkBH4OcARUQ7ycU3yAsOpIIzJT9U1s1qTc1/1BkSWw7pvXim
-         2P+Kq00LjFMIkN3vknVZUP4tO4OnWEe3hqwIcUF/0gHkNoL0uEaj1GPp4AQvmp9NnL6u
-         glYg==
-X-Gm-Message-State: AOJu0Yx5MkbMnyXkkhEcTGfdD4Nn8AZF7ffWTkCcENGlkP0ZZ1SLxuOE
-	U6uy11oUn0y0H+7jqCqTeAqpZkyffpFuU7DW5y9ND7qTPhPLNm6EBdjlT0sEv2Zx3F9MCaOayIh
-	W
-X-Gm-Gg: ASbGnct9dNkkNtK9LifrdM//o8FILVRw55yqnMj0/T0bI6dC85Qwkj7eRUcwWHnjHpT
-	nkSnfIwVB4oXpjL7Ba0VBcR9qdUgTvBoZf+CgVJsGUkjZ0E5wbOTs+1GKezDIwf1C+jgB1BEMOX
-	TmMYwVCMVqGVEet9OCU1tioNnQmeIXiFLzHu3VjniteZs18ENXGEo71k7etETL5Netxeb0eOmJI
-	KUVfhg0qTweUlsEUPOVmcdZubo2PKwGojvazcKwOwVydxjLNch/9oCLjCK3CTpM/8VIGXd02ACo
-	qwUZW5qh6CGske0HEJ0/BBDcCAqoSM9F/3R/kjJGtw3AmkfpHyzCAOo+
-X-Google-Smtp-Source: AGHT+IGNC+zHkAkvn9BNql+izQ4gohj5dhZo8dIh6XaT66QGHRYD2wgVCXwWSReGHdTO4FEaD8M5rQ==
-X-Received: by 2002:a05:6402:1851:b0:5ff:ef06:1c42 with SMTP id 4fb4d7f45d1cf-5ffef061f64mr714082a12.22.1747299469016;
-        Thu, 15 May 2025 01:57:49 -0700 (PDT)
-From: Roger Pau Monne <roger.pau@citrix.com>
-To: xen-devel@lists.xenproject.org
-Cc: Roger Pau Monne <roger.pau@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] x86/iommu: use rangeset_subtract() in arch_iommu_hwdom_init()
-Date: Thu, 15 May 2025 10:57:46 +0200
-Message-ID: <20250515085746.43498-1-roger.pau@citrix.com>
-X-Mailer: git-send-email 2.48.1
+X-Inumbo-ID: 309f34f2-316b-11f0-9eb6-5ba50f476ded
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1747299688;
+	 x=1747386088; bh=b3ahQN5lr3oJ3AfF2prxpnWCbluc8OWnhn+4dKgtlLk=; b=
+	WGazDp6KJG2+O5Usk60OKAsQXW5VQAIoXfpcjdwtXrC5twsO4vG+z5zYdwOsQuw9
+	CTngWy3kiE/YAU6PF+0MOZ9zgyWJIsn1TzEHz+Lk+5p+K4QO+dvUTZF7pLj29t9G
+	GDZkXS6CjjvGSfLgspqcWxY3NPlEXnfl4aQLXcS0lvwvw9pH6x9Nl34pDaTnHY+R
+	E5R7kRWiLnYA6893zlhjrBF3KlbPTPHZtq0XGRYxmunSAg68M/2pOu/XJ90gT396
+	fsrkQiYXOL+umHj0O20l/3I2xpfcMvdBwGqtukt71VNyk/N7e3RWGn6Qq89AK7nd
+	6F7i4fA5PEaIYy9kyfbUSQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+	1747299688; x=1747386088; bh=b3ahQN5lr3oJ3AfF2prxpnWCbluc8OWnhn+
+	4dKgtlLk=; b=OCi1vLgqf7GZMOqBeIFRplqOk8bZ7H3jv1gswlI7geazPJp90zi
+	/W5ndMUBTtUwn6Cd0C/2q4aStcct32CjuHr+EKT3ztlCoxT8ts0jy2oc+5cfoQHW
+	knjG8C4PZ/Smk5UUSVhUkHWD8FA1CfyR7JQM+XF5/66HbS7KNL3NLPT0v7VPjw0l
+	TA/XWpt6xmzrWV5ypkVClxkCChOUeDezezm6wPt8++QyyEwi/A2p8fI2CW6ziDH8
+	G2bXyaaiEb7dIhYTBvs/y+BCe5+sj8uTUrI95A/4XP3oJNjKhLThl2KbcCcTtAY3
+	azcuA7U9o5PLIC9jnBcqDdfSxT+YN0qeBng==
+X-ME-Sender: <xms:aK0laAtn9g5XdhMFhoS3MlurAsciZchi5Aa3JHcH5CX5q-NDQ6rc6g>
+    <xme:aK0laNfdl4-ksm7LqZHrLzfPY7RJ7pJqI8PM_n40hy_bKLKjvw9rcSHJ6PUweR3-U
+    2LKHgzvOrG8-g>
+X-ME-Received: <xmr:aK0laLz2jIB5aDkGtaaetXDP4o2NhKqppKH2JV_CDwJq8kauG63edSnjH8N5MlFx_JTd6KyqytBUzCSmxfBi6rmpeo5CnttFgW8>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgdeftdelgeehucetufdoteggodetrf
+    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdggtfgfnhhsuhgsshgtrhhisggv
+    pdfurfetoffkrfgpnffqhgenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpih
+    gvnhhtshculddquddttddmnecujfgurhepfffhvfevuffkfhggtggujgesghdtreertddt
+    jeenucfhrhhomhepofgrrhgvkhcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuc
+    eomhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecu
+    ggftrfgrthhtvghrnhepgfduleetfeevhfefheeiteeliefhjefhleduveetteekveettd
+    dvgeeuteefjedunecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhf
+    rhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
+    dpnhgspghrtghpthhtohepkedpmhhouggvpehsmhhtphhouhhtpdhrtghpthhtoheprhho
+    ghgvrhdrphgruhestghithhrihigrdgtohhmpdhrtghpthhtohepjhhgrhhoshhssehsuh
+    hsvgdrtghomhdprhgtphhtthhopeigvghnqdguvghvvghlsehlihhsthhsrdigvghnphhr
+    ohhjvggtthdrohhrghdprhgtphhtthhopehlihhnuhigqdhkvghrnhgvlhesvhhgvghrrd
+    hkvghrnhgvlhdrohhrghdprhgtphhtthhopehjrghsohhnrdgrnhgurhihuhhksegrmhgu
+    rdgtohhmpdhrtghpthhtohepjhifsehnuhgtlhgvrghrfhgrlhhlohhuthdrnhgvthdprh
+    gtphhtthhopehsshhtrggsvghllhhinhhisehkvghrnhgvlhdrohhrghdprhgtphhtthho
+    peholhgvkhhsrghnughrpghthihshhgthhgvnhhkohesvghprghmrdgtohhm
+X-ME-Proxy: <xmx:aK0laDNi5SO4-xpDw0q8tGU_H91lXHKszX3KpnZtHqHfVK3N-U0Zgw>
+    <xmx:aK0laA9mLFzlRME8vSVqn3JF68i_BJC5Fjj_ZwaxqyqkhJMqHL4zEQ>
+    <xmx:aK0laLWKU7sr84fe-C47qXZ_diOOjkmNErX-is1E6FPyKzNhl7xpog>
+    <xmx:aK0laJc-qhh3nmCyhgOoI8Ti-GbpNQyLEvRR4sY8Yjdaz0ej9BoTng>
+    <xmx:aK0laOyNBIE4Mg-7-J7-5uqz0e6WuGBstCrSKuO1W1zERTVTTO35gZu6>
+Feedback-ID: i1568416f:Fastmail
+Date: Thu, 15 May 2025 11:01:24 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org,
+	linux-kernel@vger.kernel.org, jason.andryuk@amd.com,
+	John <jw@nuclearfallout.net>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Subject: Re: [PATCH] xen/x86: fix initial memory balloon target
+Message-ID: <aCWtZNxfhazmmj_S@mail-itl>
+References: <20250514080427.28129-1-roger.pau@citrix.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="HYAuCMW0ZFMoY7vd"
+Content-Disposition: inline
+In-Reply-To: <20250514080427.28129-1-roger.pau@citrix.com>
 
-Remove an open-coded instance of rangeset_subtract().  No functional change
-intended.
 
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
----
- xen/drivers/passthrough/x86/iommu.c | 10 +---------
- 1 file changed, 1 insertion(+), 9 deletions(-)
+--HYAuCMW0ZFMoY7vd
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 15 May 2025 11:01:24 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org,
+	linux-kernel@vger.kernel.org, jason.andryuk@amd.com,
+	John <jw@nuclearfallout.net>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Subject: Re: [PATCH] xen/x86: fix initial memory balloon target
 
-diff --git a/xen/drivers/passthrough/x86/iommu.c b/xen/drivers/passthrough/x86/iommu.c
-index 67f025c1ec6a..0954cc49225e 100644
---- a/xen/drivers/passthrough/x86/iommu.c
-+++ b/xen/drivers/passthrough/x86/iommu.c
-@@ -312,14 +312,6 @@ void iommu_identity_map_teardown(struct domain *d)
-     }
- }
- 
--static int __hwdom_init cf_check map_subtract(unsigned long s, unsigned long e,
--                                              void *data)
--{
--    struct rangeset *map = data;
--
--    return rangeset_remove_range(map, s, e);
--}
--
- struct handle_iomemcap {
-     struct rangeset *r;
-     unsigned long last;
-@@ -505,7 +497,7 @@ void __hwdom_init arch_iommu_hwdom_init(struct domain *d)
-          * since ranges in mmio_ro_ranges are already explicitly mapped below
-          * in read-only mode.
-          */
--        rc = rangeset_report_ranges(mmio_ro_ranges, 0, ~0UL, map_subtract, map);
-+        rc = rangeset_subtract(map, mmio_ro_ranges);
-         if ( rc )
-             panic("IOMMU failed to remove read-only regions: %d\n", rc);
-     }
--- 
-2.48.1
+On Wed, May 14, 2025 at 10:04:26AM +0200, Roger Pau Monne wrote:
+> When adding extra memory regions as ballooned pages also adjust the ballo=
+on
+> target, otherwise when the balloon driver is started it will populate
+> memory to match the target value and consume all the extra memory regions
+> added.
+>=20
+> This made the usage of the Xen `dom0_mem=3D,max:` command line parameter =
+for
+> dom0 not work as expected, as the target won't be adjusted and when the
+> balloon is started it will populate memory straight to the 'max:' value.
+> It would equally affect domUs that have memory !=3D maxmem.
+>=20
+> Kernels built with CONFIG_XEN_UNPOPULATED_ALLOC are not affected, because
+> the extra memory regions are consumed by the unpopulated allocation drive=
+r,
+> and then balloon_add_regions() becomes a no-op.
+>=20
+> Reported-by: John <jw@nuclearfallout.net>
+> Fixes: 87af633689ce ('x86/xen: fix balloon target initialization for PVH =
+dom0')
+> Signed-off-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
 
+Tested-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.com>
+
+> ---
+>  drivers/xen/balloon.c | 13 ++++++++-----
+>  1 file changed, 8 insertions(+), 5 deletions(-)
+>=20
+> diff --git a/drivers/xen/balloon.c b/drivers/xen/balloon.c
+> index 8c852807ba1c..2de37dcd7556 100644
+> --- a/drivers/xen/balloon.c
+> +++ b/drivers/xen/balloon.c
+> @@ -704,15 +704,18 @@ static int __init balloon_add_regions(void)
+> =20
+>  		/*
+>  		 * Extra regions are accounted for in the physmap, but need
+> -		 * decreasing from current_pages to balloon down the initial
+> -		 * allocation, because they are already accounted for in
+> -		 * total_pages.
+> +		 * decreasing from current_pages and target_pages to balloon
+> +		 * down the initial allocation, because they are already
+> +		 * accounted for in total_pages.
+>  		 */
+> -		if (extra_pfn_end - start_pfn >=3D balloon_stats.current_pages) {
+> +		pages =3D extra_pfn_end - start_pfn;
+> +		if (pages >=3D balloon_stats.current_pages ||
+> +		    pages >=3D balloon_stats.target_pages) {
+>  			WARN(1, "Extra pages underflow current target");
+>  			return -ERANGE;
+>  		}
+> -		balloon_stats.current_pages -=3D extra_pfn_end - start_pfn;
+> +		balloon_stats.current_pages -=3D pages;
+> +		balloon_stats.target_pages -=3D pages;
+>  	}
+> =20
+>  	return 0;
+> --=20
+> 2.48.1
+>=20
+>=20
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--HYAuCMW0ZFMoY7vd
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmglrWQACgkQ24/THMrX
+1yzk4gf9HepcWZO18gT+Ey7O+UqEd6psGfUZ6g1aP24bzNDa9nFkSLInQxPcIIZj
+s/vVZBJ3lrEfvjRLqWlvAeWVOmeVU2LpkZIE/E19LKMrPtd0Zr+VU4ZohnnqIqvC
+prnVJ+WviPbYg4vzrOuOKeGWjaawdotzfDmCTYvDogRClNyg1f8FdnmFmEqNGjo7
+yQKThrXzVJTRUJ02SrqVZ4l7iS8fci8hszheWWPR33SYyWIrt7ec2qq1zrp2DjkC
+87p7vaLceSmWN2fN9uZ2GCSjx+56Y9ZmKa1UjxzMLE1FNs1y3NBYeX+Vkh4XpRvy
+Ubzw36nzSY/HbzBmmHcjaRir5qY91A==
+=sqjV
+-----END PGP SIGNATURE-----
+
+--HYAuCMW0ZFMoY7vd--
 
