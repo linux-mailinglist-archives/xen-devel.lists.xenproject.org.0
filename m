@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B4ECAB835C
-	for <lists+xen-devel@lfdr.de>; Thu, 15 May 2025 11:54:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.985113.1371047 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7134EAB8368
+	for <lists+xen-devel@lfdr.de>; Thu, 15 May 2025 11:57:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.985123.1371058 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uFVIN-0003qI-Ck; Thu, 15 May 2025 09:54:31 +0000
+	id 1uFVLJ-0004Pf-Q9; Thu, 15 May 2025 09:57:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 985113.1371047; Thu, 15 May 2025 09:54:31 +0000
+Received: by outflank-mailman (output) from mailman id 985123.1371058; Thu, 15 May 2025 09:57:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uFVIN-0003oA-A6; Thu, 15 May 2025 09:54:31 +0000
-Received: by outflank-mailman (input) for mailman id 985113;
- Thu, 15 May 2025 09:54:30 +0000
+	id 1uFVLJ-0004NY-Nb; Thu, 15 May 2025 09:57:33 +0000
+Received: by outflank-mailman (input) for mailman id 985123;
+ Thu, 15 May 2025 09:57:32 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=D/jC=X7=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uFVIM-0003o4-7q
- for xen-devel@lists.xenproject.org; Thu, 15 May 2025 09:54:30 +0000
-Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
- [2a00:1450:4864:20::630])
+ id 1uFVLI-0004NG-22
+ for xen-devel@lists.xenproject.org; Thu, 15 May 2025 09:57:32 +0000
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [2a00:1450:4864:20::62c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 957a4238-3172-11f0-9ffb-bf95429c2676;
- Thu, 15 May 2025 11:54:25 +0200 (CEST)
-Received: by mail-ej1-x630.google.com with SMTP id
- a640c23a62f3a-acb39c45b4eso107232666b.1
- for <xen-devel@lists.xenproject.org>; Thu, 15 May 2025 02:54:25 -0700 (PDT)
+ id 03d9e706-3173-11f0-9ffb-bf95429c2676;
+ Thu, 15 May 2025 11:57:30 +0200 (CEST)
+Received: by mail-ej1-x62c.google.com with SMTP id
+ a640c23a62f3a-acb39c45b4eso107636266b.1
+ for <xen-devel@lists.xenproject.org>; Thu, 15 May 2025 02:57:30 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ad22562ed61sm987136966b.31.2025.05.15.02.54.24
+ a640c23a62f3a-ad236cb21a2sm899774066b.159.2025.05.15.02.57.29
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 15 May 2025 02:54:24 -0700 (PDT)
+ Thu, 15 May 2025 02:57:29 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 957a4238-3172-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 03d9e706-3173-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1747302865; x=1747907665; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1747303050; x=1747907850; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Zk560i6SJnRty0xcdm0Tr4hUCdi0a1YYgcQMFFm97ys=;
-        b=NvKocEO9+xOCO1gWlgE6oLKowmXLZ5iimcInIShWlqE7EoeT3tbCAC2L7PHrTmcZAo
-         p/5eXvU8jnUkJolH9lujPL7Sm4U817nB0xq7AoNPo6qrJf3tTJEk+34b7CqxOV37dAoR
-         3L8kZlAqKNsF54sjlDUC1x/ngy+jZ5khXCMXsph4xeeWzLh92sMgz0JKzTIUwtzl0n3F
-         jxFP6s+KfHhXpwwTQdkNGXA08s9J1NGYMCcpdB7JbyvoGeyHj8iV/NGQB3PJ5sotg3QJ
-         13q1XgaZ/1EI5GKdOye+8LXpf8aQWm/cK66BG4Y9qdZSPBtB8tp2P+G2c0+P66u9Ncxo
-         X9XA==
+        bh=XPNXpks1FLUZUm/Ssr6yCnVSVUh8hwwVt+UGkvE7YzU=;
+        b=Ms1x13u8GW4/E3b5fbFneIH4Qpm226SBglGjaOmRX+wCrDLNB+siYP+vAKkd9ODMoz
+         JQqtNp6xLhQIYPgkdlJ6J9hyTZ6rTCTRWkjs1juL5gEznmuofRCVpwGMc7v0yGBd+tDo
+         +pj6iE+zVdJl528R9BoMqjtp2CjyD7nuZZWXlvvMy0ci66v01pzGqJrQpERjC5cgtOy6
+         M/qH09IgD87Sse0Y02LcpS0VapY5QwxLGuXhgAavIUcpUVRGwGkq0ZWX05MXAlY82/84
+         WkfLfBd4maBMQV/e4/jBpXbVpsuM7kApfYz2WNuYXHmyGBS/pWpW9yomITF3XDrA6/sp
+         llPQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747302865; x=1747907665;
+        d=1e100.net; s=20230601; t=1747303050; x=1747907850;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Zk560i6SJnRty0xcdm0Tr4hUCdi0a1YYgcQMFFm97ys=;
-        b=Bi+FYKAnTE02TRy/L5e1U46wcNrv/Zuv0koc2eIbo4n5OrF7zLdJV+SydWL61OLop7
-         IQQRTeARXXRYMc/wN2rXP5HhD/tIQQRNmr3kI4PAz9lvHwCJFAumMBZI5Lqr4q4jcrXw
-         qJ8StXrdYyETjsvdNIgBm60LlVIbjTZpmaDir/EyMD6kvfkFkoJ1u+LE8u7tapkh1Z4L
-         pUfyJQ79N+XCIYWpv1NdwdmRMpQf/XVcZbT49j6sb2vp0szJNbEkOm+VzXYrgm4EJYIQ
-         67ormWXB+R1AhE1brTF+yT+pF75VDO1CU36buj/HGEoWzFQCRJ7dr1BjJOGw7tesqsfJ
-         9XKA==
-X-Forwarded-Encrypted: i=1; AJvYcCV/sTdmwk8YsRgTwUgCWpmtTXWlCZwM1+8uiRVRJVKHsUqSLBJo2CGrfm7U6i+Wxv0bafnxupCfEu8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz1UOMzosmG86pxph1aIE0Ss8vapIqS3fDTMxON4+oMuNasU1dh
-	qH9OeJxmYDEnV0aYtHvf3clcF75L/1+2W0NLMGhkcClnmzH35J5NynLh7V65pQ==
-X-Gm-Gg: ASbGncvXHQV5LZdL7PwmJnuES2AYKV86SoMEtxn6a8jRYiFka3JfxAYlEQuHVhrBKC/
-	jzk6FOUPxRwWTLWSrwpc51mHsCoRhu5MKUxH+hhRTR+jlAO18WgT3TJ5Vf1+fVmazaQZs94kmkD
-	12fI3yOvKLuSEjN9gMCiQze4IdQ2fqBF6KZz9eF7NA0xHbK9viue9Vzw/75dPtMtLmuQBGf7bYb
-	zwFeh7iaMN582d3XIftj7IZZr500t9drq78nOT48CuN9e0/nFkh6s358Oo8Yh/UNCKbqgDXO6N6
-	nVPh5b0h7TDhXyvbAr483jBnt/OKtl18gCwLubnWVlIouFedb3USoC2PBBLU01eGTDRtW5KtwWm
-	6NLG3eE0UvFaL/+wR1DOWY7mjChU5qTKFG8TS
-X-Google-Smtp-Source: AGHT+IGLBojilIdHsatJKVv+PcQ3rfurAV87meLx+GFX7Q2XEGsmYjw5CsabDt+vCX8a+TX+jWt2gA==
-X-Received: by 2002:a17:906:4e84:b0:ad5:1497:48ae with SMTP id a640c23a62f3a-ad514974a31mr133606066b.61.1747302864771;
-        Thu, 15 May 2025 02:54:24 -0700 (PDT)
-Message-ID: <1ca8df48-7e2d-4ad3-b1ad-8b4530fd22be@suse.com>
-Date: Thu, 15 May 2025 11:54:23 +0200
+        bh=XPNXpks1FLUZUm/Ssr6yCnVSVUh8hwwVt+UGkvE7YzU=;
+        b=H0/Mcg+y1KFT6U5957oXRC9RTFx9PUS6donfyFZ1h4k35nN964uFYaNVUGTxsF9T0O
+         VG6hVViooZwXwCLlbqAKeX6Ihq3IEvsPYaNFsGOs6GIbJyRUctMwxsFFew+D3/OZxBO+
+         i0I+9ehhTILUEd8kQnXekFGrnDTmOkDl3RpkpJZLPUtJcKtLv6oUa1quq0aaWEkpu0XM
+         KcgNGL3vIZi9Fj1q4cp+oyNX3STgmqcSOM0o+fGy51+vaZVLkRE6Bbynl3uOHSYzkUdR
+         W1zGu9dvLAkorrLNixO7N6SWdb9oLmciaaXgyMhsPXCIAkMttmdKwq6M+u077uxpr/FE
+         brZA==
+X-Forwarded-Encrypted: i=1; AJvYcCVcBaTnE78EIGeRz9REGmHcFpqdWW9v7Gq0Zfyz4iti3glOjLPiUpqogiMMBEaj+4vxycTPciz9RSk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyK+7w0Oljh1GhnaA/SxtiVxuFbkmsr4OKC6cNwXLdHgCGrJoEA
+	YNqiXw46xgCqW4e9hL86EIQINu+ftN60SR65vkh4esy0o5BTv7GKBYxgiUmpyA==
+X-Gm-Gg: ASbGncuCAN26CawMRcICRGVgotcobqGgQEgHrjG4D6qeh7lZjvosm8qUVLBxvmCRimZ
+	OVqDBJiArJsnNqaHoO2TXjyz9F2EUSB4/9ZsEbWJgTqFiCSd1ZqbNcO9u9SgzNC2BbHwANFv57x
+	NS4p20phD5kcQT9xf6TlLxOAbLk9iRef+as90dKc/FLXJuUqJ8cL7p6zsVRttOAxuTSHnwmYw8z
+	XCWxaqsSTjZBFLLwO1N2QCfCXqLo8n02C+/s+Q6liajq5SxKdahL5EROgdnY/FdE9PBpPzSBaV/
+	L7Kk3POPqqwytizNlTYkUyizEP9gIcKZC4Q2VqGA20z7865j3l0FoCJc9eXytyptbGHnEdDsRrB
+	P01mM4Aor9p1sSaNMuWZ6MbWb9tl3Ldz1KkG1
+X-Google-Smtp-Source: AGHT+IFggB8uGPpAMLv+GkVnXYg7zYm2kaiTFhvZE5yo92vueMt5Z2JY2Mj6qwUaxb7mzsxfxNo6Cg==
+X-Received: by 2002:a17:907:d106:b0:ad2:39f2:3aa1 with SMTP id a640c23a62f3a-ad4f72924e3mr686147866b.44.1747303049978;
+        Thu, 15 May 2025 02:57:29 -0700 (PDT)
+Message-ID: <5f8a2840-2080-4b04-8298-0f5e22eaf5c0@suse.com>
+Date: Thu, 15 May 2025 11:57:28 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 14/16] xen/riscv: add external interrupt handling for
- hypervisor mode
+Subject: Re: [PATCH v2 15/16] xen/riscv: implement setup_irq()
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Cc: Alistair Francis <alistair.francis@wdc.com>,
  Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
@@ -99,7 +98,7 @@ Cc: Alistair Francis <alistair.francis@wdc.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
  Romain Caritey <Romain.Caritey@microchip.com>, xen-devel@lists.xenproject.org
 References: <cover.1746530883.git.oleksii.kurochko@gmail.com>
- <5688ed044febf734d9c75aa2e6f52affccd3fce9.1746530883.git.oleksii.kurochko@gmail.com>
+ <6f17bbf0eb6240d7389d389f0973af6fda5cce29.1746530883.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -125,57 +124,40 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <5688ed044febf734d9c75aa2e6f52affccd3fce9.1746530883.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <6f17bbf0eb6240d7389d389f0973af6fda5cce29.1746530883.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
 On 06.05.2025 18:51, Oleksii Kurochko wrote:
-> +static void cf_check aplic_set_irq_type(struct irq_desc *desc, unsigned int type)
+> @@ -58,6 +59,89 @@ int platform_get_irq(const struct dt_device_node *device, int index)
+>      return dt_irq.irq;
+>  }
+>  
+> +static int _setup_irq(struct irq_desc *desc, unsigned int irqflags,
+> +                      struct irqaction *new)
 > +{
+> +    bool shared = irqflags & IRQF_SHARED;
+> +
+> +    ASSERT(new != NULL);
+> +
 > +    /*
-> +    * Interrupt 0 isn't possible based on the spec:
-> +    *   Each of an APLIC’s interrupt sources has a fixed unique identity number in the range 1 to N,
-> +    *   where N is the total number of sources at the APLIC. The number zero is not a valid interrupt
-> +    *   identity number at an APLIC. The maximum number of interrupt sources an APLIC may support
-> +    *   is 1023.
-> +    *
-> +    * Thereby interrupt 1 will correspond to bit 0 in sourcecfg[] register,
-> +    * interrupt 2 ->sourcecfg[1] and so on.
-> +    *
-> +    * And that is the reason why we need -1.
-> +    */
-> +    unsigned int irq_bit = desc->irq - 1;
+> +     * Sanity checks:
+> +     *  - if the IRQ is marked as shared
+> +     *  - dev_id is not NULL when IRQF_SHARED is set
+> +     */
+> +    if ( desc->action != NULL && (!(desc->status & IRQF_SHARED) || !shared) )
+> +        return -EINVAL;
+> +    if ( shared && new->dev_id == NULL )
+> +        return -EINVAL;
 > +
-> +    spin_lock(&aplic.lock);
+> +    if ( shared )
+> +        desc->status |= IRQF_SHARED;
 > +
-> +    switch(type)
+> +#ifdef CONFIG_IRQ_HAS_MULTIPLE_ACTION
+> +    new->next = desc->action;
+> +#endif
 
-Nit: style
-
-> +    {
-> +    case IRQ_TYPE_EDGE_RISING:
-> +        writel(APLIC_SOURCECFG_SM_EDGE_RISE, &aplic.regs->sourcecfg[irq_bit]);
-> +        break;
-> +
-> +    case IRQ_TYPE_EDGE_FALLING:
-> +        writel(APLIC_SOURCECFG_SM_EDGE_FALL, &aplic.regs->sourcecfg[irq_bit]);
-> +        break;
-> +
-> +    case IRQ_TYPE_LEVEL_HIGH:
-> +        writel(APLIC_SOURCECFG_SM_LEVEL_HIGH, &aplic.regs->sourcecfg[irq_bit]);
-> +        break;
-> +
-> +    case IRQ_TYPE_LEVEL_LOW:
-> +        writel(APLIC_SOURCECFG_SM_LEVEL_LOW, &aplic.regs->sourcecfg[irq_bit]);
-> +        break;
-> +
-> +    case IRQ_TYPE_NONE:
-> +        fallthrough;
-
-This is pointless (and hampering readability) when there are no other statements.
-
-With both taken care of:
-Acked-by: Jan Beulich <jbeulich@suse.com>
+Didn't you indicate you'd drop this?
 
 Jan
 
