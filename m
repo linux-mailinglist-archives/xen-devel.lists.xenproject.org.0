@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C0A3AB82F7
-	for <lists+xen-devel@lfdr.de>; Thu, 15 May 2025 11:38:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.985049.1370979 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 86348AB82F5
+	for <lists+xen-devel@lfdr.de>; Thu, 15 May 2025 11:38:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.985050.1370987 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uFV33-0005a2-Cz; Thu, 15 May 2025 09:38:41 +0000
+	id 1uFV37-0005nY-KJ; Thu, 15 May 2025 09:38:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 985049.1370979; Thu, 15 May 2025 09:38:41 +0000
+Received: by outflank-mailman (output) from mailman id 985050.1370987; Thu, 15 May 2025 09:38:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uFV33-0005Wu-9n; Thu, 15 May 2025 09:38:41 +0000
-Received: by outflank-mailman (input) for mailman id 985049;
- Thu, 15 May 2025 09:38:39 +0000
+	id 1uFV37-0005la-HD; Thu, 15 May 2025 09:38:45 +0000
+Received: by outflank-mailman (input) for mailman id 985050;
+ Thu, 15 May 2025 09:38:44 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=DjGQ=X7=cloud.com=ross.lagerwall@srs-se1.protection.inumbo.net>)
- id 1uFV31-0005Wo-HE
- for xen-devel@lists.xenproject.org; Thu, 15 May 2025 09:38:39 +0000
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
- [2a00:1450:4864:20::52c])
+ id 1uFV36-0005Wo-Am
+ for xen-devel@lists.xenproject.org; Thu, 15 May 2025 09:38:44 +0000
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
+ [2a00:1450:4864:20::632])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 60b03bb2-3170-11f0-9ffb-bf95429c2676;
- Thu, 15 May 2025 11:38:37 +0200 (CEST)
-Received: by mail-ed1-x52c.google.com with SMTP id
- 4fb4d7f45d1cf-5fc5bc05f99so1521018a12.3
- for <xen-devel@lists.xenproject.org>; Thu, 15 May 2025 02:38:37 -0700 (PDT)
+ id 63a9bdcd-3170-11f0-9ffb-bf95429c2676;
+ Thu, 15 May 2025 11:38:42 +0200 (CEST)
+Received: by mail-ej1-x632.google.com with SMTP id
+ a640c23a62f3a-ad1f6aa2f84so155071666b.0
+ for <xen-devel@lists.xenproject.org>; Thu, 15 May 2025 02:38:42 -0700 (PDT)
 Received: from rossla-pc.eng.citrite.net ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ad23ad2b386sm895152066b.104.2025.05.15.02.38.31
+ a640c23a62f3a-ad23ad2b386sm895152066b.104.2025.05.15.02.38.40
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 15 May 2025 02:38:31 -0700 (PDT)
+ Thu, 15 May 2025 02:38:41 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,94 +45,192 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 60b03bb2-3170-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 63a9bdcd-3170-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1747301917; x=1747906717; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=ra3Af8iHOGAhRe8Msi9f22YdlWPBGx9XtxlgTPr25PQ=;
-        b=Fln9s8n3Z8umh4atYd8I2nrvWcuXgagdVDoRXEH8stQ+G3fFCgCBPYGwKdZohasKSY
-         E+Dgc3YyPJ8eVytI3UlGv7wjbvP5Vr8W4LTIVf0gbLWe5JXQDG/+WzwENIjDwhhnO/vF
-         B6JoYebvyqHTbA+ssWm0NhlqlR5Mlmv6NP3w0=
+        d=citrix.com; s=google; t=1747301922; x=1747906722; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=C2YHsd33az4IEQZXfpbWWt/V02BA69yDMw7arHlEWzs=;
+        b=krVBeBxOPYRGFb+F9301t/XpI9Rd2+8mbAjzmdIauqOmk+PvABoJs3vsU2ufYldPKt
+         1S3AiZjkEinvH0qLZeEKiVSosNtJlnqSN68+hSUPdOxpNEbWFKm7/LmMheBjzZjbRuNq
+         3dANTAIWGB+cPJqS+wqrXNNgInDlUP1oQbVXA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747301917; x=1747906717;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=ra3Af8iHOGAhRe8Msi9f22YdlWPBGx9XtxlgTPr25PQ=;
-        b=aNwKxrW08Sc136jBxVkzG1qmsWhe8URC6fzx2tI0Q424Lu8b0SjB6TMuzDpl6hb1pq
-         1FRubY/yYHR9yrGxfeejnQGj8OitioejHpT3Goe4EixLG4RoaZBwNK0RUb/Qmh0ayUUp
-         GqcqZUUGoeIChpk/mMdC6FRWTdY7qqWFroo5DuXGKbREKRTt3wSz0lJPFnGuVpjsxvhx
-         WogqjVzVbQ6pNVqAXZgbkaghhxqZ+hPYO5fdTy4bgkv4IJQDq998diK2ZkjKizE90N/X
-         Lm7Y63P31RMUDi9CkUOXcjhAAUhsPyJEBZ/qLS/ad9OCIjDiYc6LjyZh0rFa9I3WXofD
-         730g==
-X-Gm-Message-State: AOJu0YwZNHODvhY/TBlWshCKvM9BOLqqSdmLckZJm2VQGPMXuDx5nVeH
-	uGc/cTzLGQRHFmetqSvgKmwZH/VW/RjF0V0avlOFCR08okBFAUx/+dh74nqJDg6zzE5p3Ds0/78
+        d=1e100.net; s=20230601; t=1747301922; x=1747906722;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=C2YHsd33az4IEQZXfpbWWt/V02BA69yDMw7arHlEWzs=;
+        b=C3mO4+60HfCDpnyTRvoU9YJkYonCvKIK/dxTKho0YRlC1yIwLAVO0Pr+DggSloFfcy
+         LJ4zTFgJjwNqYUn1gQdlqLvlg/SNWOYW/P64mqJTU9s7ftzohK658nFUB0fWidr9w0fb
+         ILU9bZF0f3zHENT+QRR4Lwc0rXAZ1RzfKchZskVIu7FqLsxXzvgGrmJOYubEVW31w+II
+         NeOHiONvSmrQKXppwLTe+YOnUp31tVKSU/KAv7g2lu5iZv1J8Apq7yYycIHaVFDzFqdz
+         9bbQtlxdDUWQ3pWrLpfr0FluPOFDPChg3+bD95VBuGoOlw6ARDHq8ak6cdQCIx1gQtSn
+         qRig==
+X-Gm-Message-State: AOJu0YxhT1feX3vmdFJQXz7RnYW7wvjG8VZHg0iyuKdU+F7PKeTX1Avi
+	v72kpI0pZgcvPvup97+NzVP9U2JCmYdBvnSt7rmsp2wFhjgnS19YVPMwweVwwD5TIiG07xt6zwk
 	=
-X-Gm-Gg: ASbGncv4LXw/kwV2zv4wZKmgSJvtyIENUScr0yEbBO1//bT3mE9qCDR8H+tuxmU16iT
-	+tFRn9alJsZo8ZdrBrfmYAk0vVcXXAqMpuE7RufiaxoNbNCm1dsfWNwuUYq+xN1SJ4dBedSf133
-	oHh5hjFgml6uQaA+bvOeNPC4xucJAqOi9JTvFQkZz836iBAKQ1o+HNp+zcMFfBZkLInnf0GEZAr
-	r9TbPeJ9zos/v5ofSYhMjN/Hmtf2nIHuBtZeZ7hDiRVBRJtBgZW+Lud7yt7R/XOE3ZSd0RCJLvE
-	qACM/Fu5iUKcTFrsxmRTII1mPTWO+7EXld9DF7t5yFIz7aFMGcaE+zqLBJyAM30pujDs9qyqoyx
-	uRlCk+bBOwA==
-X-Google-Smtp-Source: AGHT+IFGadtjS10+DB0YdgBSo3n/4vmWf5gQA3da8bQt8VFRxhYOMOmktzkr8YepWOULhidwUwnEqA==
-X-Received: by 2002:a17:907:868c:b0:ad2:28a0:4248 with SMTP id a640c23a62f3a-ad4f70fb96cmr707716566b.3.1747301912306;
-        Thu, 15 May 2025 02:38:32 -0700 (PDT)
+X-Gm-Gg: ASbGncvxO9NSsP7RlNkEqJkhHA8xUTVt1T1Z7TRCcGK+pnhgjo0A1cZirMqDYM4ZcFF
+	oi20jzztu/fvurYRKQ2fzqP4wMwnPp+G9kLh2+vJWGZOu6pwDVE47JuA8kGK44HStLDU0VJngBz
+	8tJXtW6BNPdQ8z6uoR6cb/XTXPxASvUGDzMswID3DAUVjkNe02jEmZcn2aW9mS1pfPSCdJn4H4x
+	0OV3cFCHVn5Cb0QyYWBFjZGGK2N0fSB1XJ7shbzgRIRgeRkjciFEXIXpqg+oeWc4R5v8KM0K/Bb
+	kLNBHy6U3FQV6XA8SOUZTkdHuOrbJ+eKxXPXLa06NwpUNab4gWg02H3zPzK3xZNXvg3opwp6dk4
+	=
+X-Google-Smtp-Source: AGHT+IF+f/RtLS/hvRlt47H9AFouG2ljmzVe92Nty3OLMq+adiQ7hLsqzwfllbyPq84XBTD5fLGNbg==
+X-Received: by 2002:a17:907:c00f:b0:ad5:112:490b with SMTP id a640c23a62f3a-ad50f59115cmr249485466b.9.1747301921819;
+        Thu, 15 May 2025 02:38:41 -0700 (PDT)
 From: Ross Lagerwall <ross.lagerwall@citrix.com>
 To: xen-devel@lists.xenproject.org
 Cc: Ross Lagerwall <ross.lagerwall@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v2 0/5] LivePatch signing support
-Date: Thu, 15 May 2025 10:38:15 +0100
-Message-ID: <20250515093822.659916-1-ross.lagerwall@citrix.com>
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [PATCH v2 1/5] docs: Introduce live patch signing
+Date: Thu, 15 May 2025 10:38:16 +0100
+Message-ID: <20250515093822.659916-2-ross.lagerwall@citrix.com>
 X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20250515093822.659916-1-ross.lagerwall@citrix.com>
+References: <20250515093822.659916-1-ross.lagerwall@citrix.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Live patch signing support was mentioned as future work in the design
-document several years ago. This series finally implements support for
-it since it is a requirement of Secure Boot to prevent loading unsigned
-code into Xen.
+Remove a never-implemented description of live patch signing from the
+TODO section and document signing as implemented by the following
+patches.
 
-See the individual patches for what has changed in v2.
+Signed-off-by: Ross Lagerwall <ross.lagerwall@citrix.com>
+---
 
-Jennifer Herbert (1):
-  livepatch: Verify livepatch signatures
+In v2:
 
-Kevin Lampis (1):
-  livepatch: Embed public key in Xen
+* Use ELF note type and descriptor length rather than a custom header.
+* Rename SIGNATURE_SUPPORTED_VERION
 
-Ross Lagerwall (3):
-  docs: Introduce live patch signing
-  crypto: Add RSA support
-  livepatch: Load built-in key during boot
+ docs/misc/livepatch.pandoc | 106 +++++++++++++++++++------------------
+ 1 file changed, 54 insertions(+), 52 deletions(-)
 
- docs/misc/livepatch.pandoc      |  106 +-
- xen/common/Kconfig              |   18 +
- xen/common/Makefile             |    1 +
- xen/common/livepatch.c          |  145 +++
- xen/common/livepatch_elf.c      |   55 +
- xen/common/mpi.c                | 1729 +++++++++++++++++++++++++++++++
- xen/crypto/Makefile             |   14 +
- xen/crypto/rsa.c                |  196 ++++
- xen/include/xen/livepatch.h     |   16 +
- xen/include/xen/livepatch_elf.h |   18 +
- xen/include/xen/mpi.h           |   68 ++
- xen/include/xen/rsa.h           |   74 ++
- xen/tools/extract-key.py        |   37 +
- 13 files changed, 2425 insertions(+), 52 deletions(-)
- create mode 100644 xen/common/mpi.c
- create mode 100644 xen/crypto/rsa.c
- create mode 100644 xen/include/xen/mpi.h
- create mode 100644 xen/include/xen/rsa.h
- create mode 100755 xen/tools/extract-key.py
-
+diff --git a/docs/misc/livepatch.pandoc b/docs/misc/livepatch.pandoc
+index 04dd5ed7b271..f36de449e992 100644
+--- a/docs/misc/livepatch.pandoc
++++ b/docs/misc/livepatch.pandoc
+@@ -917,6 +917,60 @@ The normal sequence of events is to:
+  3. *XEN_SYSCTL_LIVEPATCH_ACTION* with *LIVEPATCH_ACTION_APPLY* to apply the patch.
+  4. *XEN_SYSCTL_LIVEPATCH_GET* to check the `->rc`. If in *-XEN_EAGAIN* spin. If zero exit with success.
+ 
++## Signature Checking
++
++While loading live patches would generally be restricted to a privileged
++process in dom0, in certain cases signature checking in Xen may be required.
++For example, when Secure Boot is enabled live patches need to be verified
++before being loaded.
++
++Xen live patches are ELF binaries but there is no standardized mechanism for
++signing ELF binaries. One approach used by Linux is to append a signature to
++the end of the binary, outside of the ELF container. While this works, it tends
++to be fragile since tools that handle ELF binaries do not correctly handle the
++signature. Instead, the approach taken here is to use an ELF note for the
++signature.
++
++The ELF note section name shall be `.note.Xen.signature` with note name `Xen`.
++The note type shall encode the signature version, algorithm, and hash:
++
++* version - uint16_t, bits 0-15
++* algorithm - uint8_t, bits 16-23
++* hash - uint8_t, bits 24-31
++
++All other bits of the note type shall be zero.
++
++The known values for the above fields are:
++
++    #define LIVEPATCH_SIGNATURE_VERSION 1
++    #define SIGNATURE_ALGORITHM_RSA 0
++    #define SIGNATURE_HASH_SHA256 0
++
++The note descriptor length defines the length of the signature.
++
++To sign a live patch:
++
++1) Add a new note section with a populated payload signature and zeroed out
++   signature.
++2) Generate a detached signature over the entire binary.
++3) Fill in the signature in the note section.
++
++During live patch load, Xen shall verify the signature using the following
++steps:
++
++1) Copy the signature out of the note section.
++2) Zero the signature.
++3) Generate a detached signature over the entire binary.
++4) Compare against the signature from (1).
++
++Initially, to avoid including DER / X.509 parsing of certificates, handling
++chains, etc. Xen shall verify signatures against a compiled in RSA key in
++exponent/modulus form. However, it may be extended in future to support other
++types of signatures and key types.
++
++Support of signatures in Xen and in live patches is optional. However, certain
++features such as Secure Boot may require live patches to be signed.
++
+ 
+ ## Addendum
+ 
+@@ -1178,58 +1232,6 @@ the function itself.
+ Similar considerations are true to a lesser extent for \__FILE__, but it
+ could be argued that file renaming should be done outside of hotpatches.
+ 
+-## Signature checking requirements.
+-
+-The signature checking requires that the layout of the data in memory
+-**MUST** be same for signature to be verified. This means that the payload
+-data layout in ELF format **MUST** match what the hypervisor would be
+-expecting such that it can properly do signature verification.
+-
+-The signature is based on the all of the payloads continuously laid out
+-in memory. The signature is to be appended at the end of the ELF payload
+-prefixed with the string '`~Module signature appended~\n`', followed by
+-an signature header then followed by the signature, key identifier, and signers
+-name.
+-
+-Specifically the signature header would be:
+-
+-    #define PKEY_ALGO_DSA       0
+-    #define PKEY_ALGO_RSA       1
+-
+-    #define PKEY_ID_PGP         0 /* OpenPGP generated key ID */
+-    #define PKEY_ID_X509        1 /* X.509 arbitrary subjectKeyIdentifier */
+-
+-    #define HASH_ALGO_MD4          0
+-    #define HASH_ALGO_MD5          1
+-    #define HASH_ALGO_SHA1         2
+-    #define HASH_ALGO_RIPE_MD_160  3
+-    #define HASH_ALGO_SHA256       4
+-    #define HASH_ALGO_SHA384       5
+-    #define HASH_ALGO_SHA512       6
+-    #define HASH_ALGO_SHA224       7
+-    #define HASH_ALGO_RIPE_MD_128  8
+-    #define HASH_ALGO_RIPE_MD_256  9
+-    #define HASH_ALGO_RIPE_MD_320 10
+-    #define HASH_ALGO_WP_256      11
+-    #define HASH_ALGO_WP_384      12
+-    #define HASH_ALGO_WP_512      13
+-    #define HASH_ALGO_TGR_128     14
+-    #define HASH_ALGO_TGR_160     15
+-    #define HASH_ALGO_TGR_192     16
+-
+-    struct elf_payload_signature {
+-	    u8	algo;		/* Public-key crypto algorithm PKEY_ALGO_*. */
+-	    u8	hash;		/* Digest algorithm: HASH_ALGO_*. */
+-	    u8	id_type;	/* Key identifier type PKEY_ID*. */
+-	    u8	signer_len;	/* Length of signer's name */
+-	    u8	key_id_len;	/* Length of key identifier */
+-	    u8	__pad[3];
+-	    __be32	sig_len;	/* Length of signature data */
+-    };
+-
+-(Note that this has been borrowed from Linux module signature code.).
+-
+-
+ ### .bss and .data sections.
+ 
+ In place patching writable data is not suitable as it is unclear what should be done
 -- 
 2.49.0
 
