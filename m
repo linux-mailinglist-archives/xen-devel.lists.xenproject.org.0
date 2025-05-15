@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E6F1AB9040
-	for <lists+xen-devel@lfdr.de>; Thu, 15 May 2025 21:56:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.985922.1371710 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3FE10AB9042
+	for <lists+xen-devel@lfdr.de>; Thu, 15 May 2025 21:56:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.985923.1371720 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uFegR-0004ab-QK; Thu, 15 May 2025 19:55:59 +0000
+	id 1uFegT-0004qZ-41; Thu, 15 May 2025 19:56:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 985922.1371710; Thu, 15 May 2025 19:55:59 +0000
+Received: by outflank-mailman (output) from mailman id 985923.1371720; Thu, 15 May 2025 19:56:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uFegR-0004Xv-MT; Thu, 15 May 2025 19:55:59 +0000
-Received: by outflank-mailman (input) for mailman id 985922;
- Thu, 15 May 2025 19:55:58 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uFegS-0004nN-W3; Thu, 15 May 2025 19:56:00 +0000
+Received: by outflank-mailman (input) for mailman id 985923;
+ Thu, 15 May 2025 19:55:59 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=us+D=X7=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1uFegQ-00043V-HR
- for xen-devel@lists.xenproject.org; Thu, 15 May 2025 19:55:58 +0000
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [2a00:1450:4864:20::330])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9da64d0e-31c6-11f0-9ffb-bf95429c2676;
- Thu, 15 May 2025 21:55:56 +0200 (CEST)
-Received: by mail-wm1-x330.google.com with SMTP id
- 5b1f17b1804b1-43cf680d351so14712645e9.0
- for <xen-devel@lists.xenproject.org>; Thu, 15 May 2025 12:55:56 -0700 (PDT)
+ id 1uFegQ-0004Ph-Ui
+ for xen-devel@lists.xenproject.org; Thu, 15 May 2025 19:55:59 +0000
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [2a00:1450:4864:20::32b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 9e81310e-31c6-11f0-9eb6-5ba50f476ded;
+ Thu, 15 May 2025 21:55:58 +0200 (CEST)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-43cfe63c592so13898975e9.2
+ for <xen-devel@lists.xenproject.org>; Thu, 15 May 2025 12:55:58 -0700 (PDT)
 Received: from localhost.localdomain (host-92-26-98-202.as13285.net.
  [92.26.98.202]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-442ebd6fe86sm78320035e9.0.2025.05.15.12.55.55
+ 5b1f17b1804b1-442ebd6fe86sm78320035e9.0.2025.05.15.12.55.56
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 15 May 2025 12:55:55 -0700 (PDT)
+ Thu, 15 May 2025 12:55:56 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,40 +45,40 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9da64d0e-31c6-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 9e81310e-31c6-11f0-9eb6-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1747338956; x=1747943756; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1747338957; x=1747943757; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=78lwAjTVEfFZKXkvQFxXqM7GZdpZLNr3fAkXr5zqCcs=;
-        b=DpbHiMQF5fBrdkjr2ZvkkDp6T+3bxf/+9NmbjvUdBO4vDwa3bZx8KI9U0Dowc/6BaM
-         2vTU1NLlkJUA1fqjZN2F9iZfSmoK9gTQBUhaH1H/mChsoZVcuvxd1LZXaSp25hESSEtR
-         TJCZNIBJe8D0Vwx3B+sOwBiZomwv391HUlsio=
+        bh=4W3bFdSiNP3j+BlDRwES7FFOKrPIgmWmQytxBIEpGDk=;
+        b=OYnQy+LVL05zUwsCKJ2B19kpdyeOHooqHfXCtQc+bF6KnJRBVo3IpSldsUuWRwuHrQ
+         hCHMoR65jTvgGSysHBjZQmaeMZmBo3B+wa5y8IDunwjV+8s0aOCluBwSKNEGNcH+fTW9
+         pCxO76wpGy17LUO7Rt7ghH+3gka2c33Xejai8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747338956; x=1747943756;
+        d=1e100.net; s=20230601; t=1747338957; x=1747943757;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=78lwAjTVEfFZKXkvQFxXqM7GZdpZLNr3fAkXr5zqCcs=;
-        b=KFEmyLPcoMsTXuYR6yYwOxLPth5EiR8VaAwYHwQXPnUghHOYcMLHe9C9TvchPxBOvC
-         HUK83NfCDfeG7/anFUbYe/H655XZtXWnHX/vn8ZUM7aAM4c4DzlD0h4nz/wDn9FO/8ra
-         cdEkRggWtN4vdsfbF7JRJCqcy3+1UyHUH+/T9BZBGOji4PPOq143eiLnX+rNLuPUuEVG
-         owsxm+7BKdzVfUrYTpTW0DhT9fCMSnNHwwbXAImcCPg4WdAjVOoiq7kt3ir7IDvK2gku
-         AlX2ZCJCZKjA5qMaAXM2ecpFH7CvgFsbtx+Xk0kIdUexcbHFkOi91dT3uiHb8+0rP4Wx
-         PcBg==
-X-Gm-Message-State: AOJu0YxSKiYjIHgvC+thIqG8F2/pLmr0n9+4meLUaDhkGO/hcjd3Ry0A
-	Dg1EC2GGqC1S1NkWd5HQyz+Y2VJ9VuuiXQw3HMxwmihNcxh9JN2nrnWr6/dYeYd59jpTOrs1xU7
-	4aefd
-X-Gm-Gg: ASbGncs2aVlxjSGhE7vum4yj0DylQpgzIuTosdGuzKssFkBe8TsTkjromnov7lap3NE
-	vD9Wjzija4wkaRSrjcXmK8cV2OhaX/M0YNO0FA6BTL41kdDorLsx4PeoUPfIBA+2flsImjXSve8
-	1A9eShpwrgQJchmz3CtGzPPzVv1hhvJhu3N8EaKLIfnm8UlxLkAhLOfQaXusbQN5zgSNRqaOVox
-	ouYS6+9NHykqgKd0CoSayPd+QNg7eN6NwwbTZPYX/UKGibnh1PUjJC00Beml5NJ+J5HnqdzvFmk
-	F5VGZH0+Fgici52n5CP5PfJuZo9+Iyl3GKJ6JgoRLGhKlMA5jAY+sQgva5sJevNEX4hCaCXwB1x
-	OZNOfkfey0cA/AVgSlIozuroaNXblzCP5zhs=
-X-Google-Smtp-Source: AGHT+IF3How/2DZVnEKz0UT2FxoFJbzP/0XrdjvWYJ0uNhdGqw3ZlmHN9uoKmy9iREMsNxkVxVpMjA==
-X-Received: by 2002:a05:600c:46c9:b0:442:f8f6:48e5 with SMTP id 5b1f17b1804b1-442f8f6494fmr43419715e9.8.1747338955876;
-        Thu, 15 May 2025 12:55:55 -0700 (PDT)
+        bh=4W3bFdSiNP3j+BlDRwES7FFOKrPIgmWmQytxBIEpGDk=;
+        b=ptm6ZY7iLu2Qt9Rr7vPMTXtg46bbnASj/h+ih/Xqx/WkD/u1EyXC0NdnKhtenRATdA
+         ypS9+kKXhHfA9Ro/KIBCOhD6HZPvlF6OnNTxxsHRH0PutgoO1eE0YwAil9LizeeJdaMb
+         3JW4crwB98iOpgOFQHfPppbCkv+zzESnTMUOOG7CBtyJxPAyfR+Br/rgdgg4aQN5T0Mq
+         gv5A/7pMgsQZCR2ORii6rwioqqjJc56oFgAyI/LXdy/X/dqPMI60mNyagz19pEvA7cmp
+         hFX29vLG9070JVnBJ/dYa5Q+BW1NnXbM67jIasnt+lU7zXz3D1GANiN7CFb7LLK5ZCkO
+         14ng==
+X-Gm-Message-State: AOJu0YxeiM7X6wJwDeTw22G7ApLX91pVKbwiaqT2dKb0XLIFTQJUdmbO
+	hxhBnQRICkkhM/Qxz34gMnTwhLD4fbBWQNPcqORATa1cTv1mVch0fbdLtXMbGS7E7DpSYDGPUdj
+	Wwkeg
+X-Gm-Gg: ASbGncssngoMbIU5UpSoyhWEP/MskKH04dWFvnNGSMbnrwjYnsmx/7Jr+Z5T5SIeJcU
+	5LpfL8323JGqMELT404A2ZEbpnYwSJNCQ4czCDrNmrzYty1Uedi/KyL/ABAx0msEo6rUQO5FL/E
+	/hzVDTBqO3b1d70eGzDZIipCgu/QCRcb21Yb3Xnhdmqaj1V+/7gaiSOTcAM1tCz7/oNitu4rvDg
+	LEy+EQWEgUrCe0tyc7WaBvZ5ftKhy2dL4LJolq5bQBvfllx6k4610gQPh5f4xoXH0Y0GU/DYrPZ
+	62GRAya2ykjrScGSmk+2UyO5rnCRUbyGuBI0820VpVQp9BiS4PiEqsKCUzIiq5Fb/ouh4Xn6pZP
+	KPS22EBHwKL4WzmpkKF5W+/ax
+X-Google-Smtp-Source: AGHT+IFb/jz0BthZ+Z/YQ0baZ3psCUhHZOTo012R1k35FNTiqHBqK3W60z9v8M45Gfe9/WL06DMbEQ==
+X-Received: by 2002:a05:600c:a105:b0:441:ac58:eb31 with SMTP id 5b1f17b1804b1-442fda3038amr4765735e9.20.1747338957328;
+        Thu, 15 May 2025 12:55:57 -0700 (PDT)
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -89,9 +89,9 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
 	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
 	Bertrand Marquis <bertrand.marquis@arm.com>,
 	Michal Orzel <michal.orzel@amd.com>
-Subject: [PATCH 2/3] x86: Use asm_inline for ALTERNATIVE() and EXTABLE
-Date: Thu, 15 May 2025 20:55:48 +0100
-Message-Id: <20250515195549.3703017-3-andrew.cooper3@citrix.com>
+Subject: [PATCH 3/3] ARM: Use asm_inline for ALTERNATIVE()
+Date: Thu, 15 May 2025 20:55:49 +0100
+Message-Id: <20250515195549.3703017-4-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20250515195549.3703017-1-andrew.cooper3@citrix.com>
 References: <20250515195549.3703017-1-andrew.cooper3@citrix.com>
@@ -117,471 +117,271 @@ CC: Michal Orzel <michal.orzel@amd.com>
 
 v2:
  * New, split out of previous single patch
- * Include EXTABLE
-
-There are some uses of _ASM_EXTABLE() which are in blocks with many
-instructions which are left unconverted.  There are also a couple for which I
-already have pending cleanup, which I've left alone to reduce churn.
 ---
- xen/arch/x86/cpu/amd.c                      | 52 +++++++++++----------
- xen/arch/x86/domain.c                       | 21 +++++----
- xen/arch/x86/extable.c                      | 21 +++++----
- xen/arch/x86/hvm/vmx/vmcs.c                 | 15 +++---
- xen/arch/x86/i387.c                         |  4 +-
- xen/arch/x86/include/asm/alternative-call.h |  3 +-
- xen/arch/x86/include/asm/alternative.h      | 36 ++++++++------
- xen/arch/x86/include/asm/hvm/vmx/vmx.h      | 15 +++---
- xen/arch/x86/include/asm/uaccess.h          |  4 +-
- xen/arch/x86/pv/misc-hypercalls.c           | 19 ++++----
- xen/arch/x86/traps.c                        | 48 ++++++++++---------
- xen/arch/x86/usercopy.c                     |  6 +--
- 12 files changed, 132 insertions(+), 112 deletions(-)
+ xen/arch/arm/include/asm/alternative.h    |  4 +--
+ xen/arch/arm/include/asm/arm64/flushtlb.h |  4 +--
+ xen/arch/arm/include/asm/arm64/io.h       | 43 ++++++++++++++---------
+ xen/arch/arm/include/asm/cpuerrata.h      |  8 ++---
+ xen/arch/arm/include/asm/cpufeature.h     |  8 ++---
+ xen/arch/arm/include/asm/page.h           | 12 ++++---
+ xen/arch/arm/include/asm/processor.h      |  7 ++--
+ xen/arch/arm/include/asm/sysregs.h        | 10 +++---
+ xen/arch/arm/mmu/p2m.c                    |  3 +-
+ 9 files changed, 58 insertions(+), 41 deletions(-)
 
-diff --git a/xen/arch/x86/cpu/amd.c b/xen/arch/x86/cpu/amd.c
-index 37d67dd15c89..27ae16780857 100644
---- a/xen/arch/x86/cpu/amd.c
-+++ b/xen/arch/x86/cpu/amd.c
-@@ -60,41 +60,45 @@ static inline int rdmsr_amd_safe(unsigned int msr, unsigned int *lo,
- 				 unsigned int *hi)
- {
- #ifdef CONFIG_CC_HAS_ASM_GOTO_OUTPUT
--    asm goto ( "1: rdmsr\n\t"
--               _ASM_EXTABLE(1b, %l[fault])
--               : "=a" (*lo), "=d" (*hi)
--               : "c" (msr), "D" (0x9c5a203a)
--               :
--               : fault );
-+    asm_inline goto (
-+        "1: rdmsr\n\t"
-+        _ASM_EXTABLE(1b, %l[fault])
-+        : "=a" (*lo), "=d" (*hi)
-+        : "c" (msr), "D" (0x9c5a203a)
-+        :
-+        : fault );
-+
-     return 0;
+diff --git a/xen/arch/arm/include/asm/alternative.h b/xen/arch/arm/include/asm/alternative.h
+index 22477d9497a3..1563f03a0f5a 100644
+--- a/xen/arch/arm/include/asm/alternative.h
++++ b/xen/arch/arm/include/asm/alternative.h
+@@ -209,9 +209,9 @@ alternative_endif
+ #endif  /*  __ASSEMBLY__  */
  
-  fault:
-     return -EFAULT;
- #else
--	int err;
--
--	asm volatile("1: rdmsr\n2:\n"
--		     ".section .fixup,\"ax\"\n"
--		     "3: movl %6,%2\n"
--		     "   jmp 2b\n"
--		     ".previous\n"
--		     _ASM_EXTABLE(1b, 3b)
--		     : "=a" (*lo), "=d" (*hi), "=r" (err)
--		     : "c" (msr), "D" (0x9c5a203a), "2" (0), "i" (-EFAULT));
--
--	return err;
-+    int err;
+ /*
+- * Usage: asm(ALTERNATIVE(oldinstr, newinstr, feature));
++ * Usage: asm_inline (ALTERNATIVE(oldinstr, newinstr, feature));
+  *
+- * Usage: asm(ALTERNATIVE(oldinstr, newinstr, feature, CONFIG_FOO));
++ * Usage: asm_inline (ALTERNATIVE(oldinstr, newinstr, feature, CONFIG_FOO));
+  * N.B. If CONFIG_FOO is specified, but not selected, the whole block
+  *      will be omitted, including oldinstr.
+  */
+diff --git a/xen/arch/arm/include/asm/arm64/flushtlb.h b/xen/arch/arm/include/asm/arm64/flushtlb.h
+index 45642201d147..3b99c11b50d1 100644
+--- a/xen/arch/arm/include/asm/arm64/flushtlb.h
++++ b/xen/arch/arm/include/asm/arm64/flushtlb.h
+@@ -31,7 +31,7 @@
+ #define TLB_HELPER(name, tlbop, sh)              \
+ static inline void name(void)                    \
+ {                                                \
+-    asm volatile(                                \
++    asm_inline volatile (                        \
+         "dsb  "  # sh  "st;"                     \
+         "tlbi "  # tlbop  ";"                    \
+         ALTERNATIVE(                             \
+@@ -55,7 +55,7 @@ static inline void name(void)                    \
+ #define TLB_HELPER_VA(name, tlbop)               \
+ static inline void name(vaddr_t va)              \
+ {                                                \
+-    asm volatile(                                \
++    asm_inline volatile (                        \
+         "tlbi "  # tlbop  ", %0;"                \
+         ALTERNATIVE(                             \
+             "nop; nop;",                         \
+diff --git a/xen/arch/arm/include/asm/arm64/io.h b/xen/arch/arm/include/asm/arm64/io.h
+index 7d5959877759..ac90b729c44d 100644
+--- a/xen/arch/arm/include/asm/arm64/io.h
++++ b/xen/arch/arm/include/asm/arm64/io.h
+@@ -51,40 +51,51 @@ static inline void __raw_writeq(u64 val, volatile void __iomem *addr)
+ static inline u8 __raw_readb(const volatile void __iomem *addr)
+ {
+         u8 val;
+-        asm volatile(ALTERNATIVE("ldrb %w0, [%1]",
+-                                 "ldarb %w0, [%1]",
+-                                 ARM64_WORKAROUND_DEVICE_LOAD_ACQUIRE)
+-                     : "=r" (val) : "r" (addr));
 +
-+    asm_inline volatile (
-+        "1: rdmsr\n2:\n"
-+        ".section .fixup,\"ax\"\n"
-+        "3: movl %6,%2\n"
-+        "   jmp 2b\n"
-+        ".previous\n"
-+        _ASM_EXTABLE(1b, 3b)
-+        : "=a" (*lo), "=d" (*hi), "=r" (err)
-+        : "c" (msr), "D" (0x9c5a203a), "2" (0), "i" (-EFAULT) );
++        asm_inline volatile (
++            ALTERNATIVE("ldrb %w0, [%1]",
++                        "ldarb %w0, [%1]",
++                        ARM64_WORKAROUND_DEVICE_LOAD_ACQUIRE)
++            : "=r" (val) : "r" (addr) );
 +
-+    return err;
- #endif
+         return val;
  }
  
- static inline int wrmsr_amd_safe(unsigned int msr, unsigned int lo,
-                                  unsigned int hi)
+ static inline u16 __raw_readw(const volatile void __iomem *addr)
  {
--    asm goto ( "1: wrmsr\n\t"
--               _ASM_EXTABLE(1b, %l[fault])
--               :
--               : "c" (msr), "a" (lo), "d" (hi), "D" (0x9c5a203a)
--               :
--               : fault );
-+    asm_inline goto (
-+        "1: wrmsr\n\t"
-+        _ASM_EXTABLE(1b, %l[fault])
-+        :
-+        : "c" (msr), "a" (lo), "d" (hi), "D" (0x9c5a203a)
-+        :
-+        : fault );
+         u16 val;
+-        asm volatile(ALTERNATIVE("ldrh %w0, [%1]",
+-                                 "ldarh %w0, [%1]",
+-                                 ARM64_WORKAROUND_DEVICE_LOAD_ACQUIRE)
+-                     : "=r" (val) : "r" (addr));
++        asm_inline volatile (
++            ALTERNATIVE("ldrh %w0, [%1]",
++                        "ldarh %w0, [%1]",
++                        ARM64_WORKAROUND_DEVICE_LOAD_ACQUIRE)
++            : "=r" (val) : "r" (addr) );
++
+         return val;
+ }
  
+ static inline u32 __raw_readl(const volatile void __iomem *addr)
+ {
+         u32 val;
+-        asm volatile(ALTERNATIVE("ldr %w0, [%1]",
+-                                 "ldar %w0, [%1]",
+-                                 ARM64_WORKAROUND_DEVICE_LOAD_ACQUIRE)
+-                     : "=r" (val) : "r" (addr));
++
++        asm_inline volatile (
++            ALTERNATIVE("ldr %w0, [%1]",
++                        "ldar %w0, [%1]",
++                        ARM64_WORKAROUND_DEVICE_LOAD_ACQUIRE)
++            : "=r" (val) : "r" (addr) );
++
+         return val;
+ }
+ 
+ static inline u64 __raw_readq(const volatile void __iomem *addr)
+ {
+         u64 val;
+-        asm volatile(ALTERNATIVE("ldr %0, [%1]",
+-                                 "ldar %0, [%1]",
+-                                 ARM64_WORKAROUND_DEVICE_LOAD_ACQUIRE)
+-                     : "=r" (val) : "r" (addr));
++
++        asm_inline volatile (
++            ALTERNATIVE("ldr %0, [%1]",
++                        "ldar %0, [%1]",
++                        ARM64_WORKAROUND_DEVICE_LOAD_ACQUIRE)
++            : "=r" (val) : "r" (addr) );
++
+         return val;
+ }
+ 
+diff --git a/xen/arch/arm/include/asm/cpuerrata.h b/xen/arch/arm/include/asm/cpuerrata.h
+index 8d7e7b9375bd..1799a16d7e7f 100644
+--- a/xen/arch/arm/include/asm/cpuerrata.h
++++ b/xen/arch/arm/include/asm/cpuerrata.h
+@@ -16,10 +16,10 @@ static inline bool check_workaround_##erratum(void)             \
+     {                                                           \
+         register_t ret;                                         \
+                                                                 \
+-        asm volatile (ALTERNATIVE("mov %0, #0",                 \
+-                                  "mov %0, #1",                 \
+-                                  feature)                      \
+-                      : "=r" (ret));                            \
++        asm_inline volatile (                                   \
++            ALTERNATIVE("mov %0, #0",                           \
++                        "mov %0, #1", feature)                  \
++            : "=r" (ret) );                                     \
+                                                                 \
+         return unlikely(ret);                                   \
+     }                                                           \
+diff --git a/xen/arch/arm/include/asm/cpufeature.h b/xen/arch/arm/include/asm/cpufeature.h
+index 50297e53d90e..b6df18801166 100644
+--- a/xen/arch/arm/include/asm/cpufeature.h
++++ b/xen/arch/arm/include/asm/cpufeature.h
+@@ -102,10 +102,10 @@ static inline bool cpus_have_cap(unsigned int num)
+ #define cpus_have_const_cap(num) ({                 \
+         register_t __ret;                           \
+                                                     \
+-        asm volatile (ALTERNATIVE("mov %0, #0",     \
+-                                  "mov %0, #1",     \
+-                                  num)              \
+-                      : "=r" (__ret));              \
++        asm_inline volatile (                       \
++            ALTERNATIVE("mov %0, #0",               \
++                        "mov %0, #1", num)          \
++            : "=r" (__ret) );                       \
+                                                     \
+         unlikely(__ret);                            \
+         })
+diff --git a/xen/arch/arm/include/asm/page.h b/xen/arch/arm/include/asm/page.h
+index 69f817d1e68a..27bc96b9f401 100644
+--- a/xen/arch/arm/include/asm/page.h
++++ b/xen/arch/arm/include/asm/page.h
+@@ -176,7 +176,8 @@ static inline int invalidate_dcache_va_range(const void *p, unsigned long size)
+     {
+         size -= dcache_line_bytes - ((uintptr_t)p & cacheline_mask);
+         p = (void *)((uintptr_t)p & ~cacheline_mask);
+-        asm volatile (__clean_and_invalidate_dcache_one(0) : : "r" (p));
++        asm_inline volatile (
++            __clean_and_invalidate_dcache_one(0) :: "r" (p) );
+         p += dcache_line_bytes;
+     }
+ 
+@@ -185,7 +186,8 @@ static inline int invalidate_dcache_va_range(const void *p, unsigned long size)
+         asm volatile (__invalidate_dcache_one(0) : : "r" (p + idx));
+ 
+     if ( size > 0 )
+-        asm volatile (__clean_and_invalidate_dcache_one(0) : : "r" (p + idx));
++        asm_inline volatile (
++            __clean_and_invalidate_dcache_one(0) :: "r" (p + idx) );
+ 
+     dsb(sy);           /* So we know the flushes happen before continuing */
+ 
+@@ -209,7 +211,7 @@ static inline int clean_dcache_va_range(const void *p, unsigned long size)
+     p = (void *)((uintptr_t)p & ~cacheline_mask);
+     for ( ; size >= dcache_line_bytes;
+             idx += dcache_line_bytes, size -= dcache_line_bytes )
+-        asm volatile (__clean_dcache_one(0) : : "r" (p + idx));
++        asm_inline volatile ( __clean_dcache_one(0) : : "r" (p + idx) );
+     dsb(sy);           /* So we know the flushes happen before continuing */
+     /* ARM callers assume that dcache_* functions cannot fail. */
      return 0;
- 
-diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
-index f197dad4c0cd..7536b6c8717e 100644
---- a/xen/arch/x86/domain.c
-+++ b/xen/arch/x86/domain.c
-@@ -1706,16 +1706,17 @@ static void load_segments(struct vcpu *n)
-      * @all_segs_okay in function scope, and load NUL into @sel.
-      */
- #define TRY_LOAD_SEG(seg, val)                          \
--    asm volatile ( "1: mov %k[_val], %%" #seg "\n\t"    \
--                   "2:\n\t"                             \
--                   ".section .fixup, \"ax\"\n\t"        \
--                   "3: xor %k[ok], %k[ok]\n\t"          \
--                   "   mov %k[ok], %%" #seg "\n\t"      \
--                   "   jmp 2b\n\t"                      \
--                   ".previous\n\t"                      \
--                   _ASM_EXTABLE(1b, 3b)                 \
--                   : [ok] "+r" (all_segs_okay)          \
--                   : [_val] "rm" (val) )
-+    asm_inline volatile (                               \
-+        "1: mov %k[_val], %%" #seg "\n\t"               \
-+        "2:\n\t"                                        \
-+        ".section .fixup, \"ax\"\n\t"                   \
-+        "3: xor %k[ok], %k[ok]\n\t"                     \
-+        "   mov %k[ok], %%" #seg "\n\t"                 \
-+        "   jmp 2b\n\t"                                 \
-+        ".previous\n\t"                                 \
-+        _ASM_EXTABLE(1b, 3b)                            \
-+        : [ok] "+r" (all_segs_okay)                     \
-+        : [_val] "rm" (val) )
- 
-     if ( !compat )
-     {
-diff --git a/xen/arch/x86/extable.c b/xen/arch/x86/extable.c
-index 1572efa69a00..de392024527c 100644
---- a/xen/arch/x86/extable.c
-+++ b/xen/arch/x86/extable.c
-@@ -186,16 +186,17 @@ int __init cf_check stub_selftest(void)
-         place_ret(ptr + ARRAY_SIZE(tests[i].opc));
-         unmap_domain_page(ptr);
- 
--        asm volatile ( "INDIRECT_CALL %[stb]\n"
--                       ".Lret%=:\n\t"
--                       ".pushsection .fixup,\"ax\"\n"
--                       ".Lfix%=:\n\t"
--                       "pop %[exn]\n\t"
--                       "jmp .Lret%=\n\t"
--                       ".popsection\n\t"
--                       _ASM_EXTABLE(.Lret%=, .Lfix%=)
--                       : [exn] "+m" (res) ASM_CALL_CONSTRAINT
--                       : [stb] "r" (addr), "a" (tests[i].rax));
-+        asm_inline volatile (
-+            "INDIRECT_CALL %[stb]\n"
-+            ".Lret%=:\n\t"
-+            ".pushsection .fixup,\"ax\"\n"
-+            ".Lfix%=:\n\t"
-+            "pop %[exn]\n\t"
-+            "jmp .Lret%=\n\t"
-+            ".popsection\n\t"
-+            _ASM_EXTABLE(.Lret%=, .Lfix%=)
-+            : [exn] "+m" (res) ASM_CALL_CONSTRAINT
-+            : [stb] "r" (addr), "a" (tests[i].rax) );
- 
-         if ( res.raw != tests[i].res.raw )
-         {
-diff --git a/xen/arch/x86/hvm/vmx/vmcs.c b/xen/arch/x86/hvm/vmx/vmcs.c
-index a44475ae15bd..59f4d1d86f02 100644
---- a/xen/arch/x86/hvm/vmx/vmcs.c
-+++ b/xen/arch/x86/hvm/vmx/vmcs.c
-@@ -749,13 +749,14 @@ static int _vmx_cpu_up(bool bsp)
-     if ( bsp && (rc = vmx_cpu_up_prepare(cpu)) != 0 )
-         return rc;
- 
--    asm goto ( "1: vmxon %[addr]\n\t"
--               "   jbe %l[vmxon_fail]\n\t"
--               _ASM_EXTABLE(1b, %l[vmxon_fault])
--               :
--               : [addr] "m" (this_cpu(vmxon_region))
--               : "memory"
--               : vmxon_fail, vmxon_fault );
-+    asm_inline goto (
-+        "1: vmxon %[addr]\n\t"
-+        "   jbe %l[vmxon_fail]\n\t"
-+        _ASM_EXTABLE(1b, %l[vmxon_fault])
-+        :
-+        : [addr] "m" (this_cpu(vmxon_region))
-+        : "memory"
-+        : vmxon_fail, vmxon_fault );
- 
-     this_cpu(vmxon) = 1;
- 
-diff --git a/xen/arch/x86/i387.c b/xen/arch/x86/i387.c
-index 5429531ddd5f..b84cd6f7a9e1 100644
---- a/xen/arch/x86/i387.c
-+++ b/xen/arch/x86/i387.c
-@@ -62,7 +62,7 @@ static inline void fpu_fxrstor(struct vcpu *v)
-     switch ( __builtin_expect(fpu_ctxt->x[FPU_WORD_SIZE_OFFSET], 8) )
-     {
-     default:
--        asm volatile (
-+        asm_inline volatile (
-             "1: fxrstorq %0\n"
-             ".section .fixup,\"ax\"   \n"
-             "2: push %%"__OP"ax       \n"
-@@ -82,7 +82,7 @@ static inline void fpu_fxrstor(struct vcpu *v)
-             : "m" (*fpu_ctxt), "i" (sizeof(*fpu_ctxt) / 4) );
-         break;
-     case 4: case 2:
--        asm volatile (
-+        asm_inline volatile (
-             "1: fxrstor %0         \n"
-             ".section .fixup,\"ax\"\n"
-             "2: push %%"__OP"ax    \n"
-diff --git a/xen/arch/x86/include/asm/alternative-call.h b/xen/arch/x86/include/asm/alternative-call.h
-index bbc49a5274d9..b22c10c32283 100644
---- a/xen/arch/x86/include/asm/alternative-call.h
-+++ b/xen/arch/x86/include/asm/alternative-call.h
-@@ -87,7 +87,8 @@ struct alt_call {
-     rettype ret_;                                                  \
-     register unsigned long r10_ asm("r10");                        \
-     register unsigned long r11_ asm("r11");                        \
--    asm volatile ("1: call *%c[addr](%%rip)\n\t"                   \
-+    asm_inline volatile (                                          \
-+                  "1: call *%c[addr](%%rip)\n\t"                   \
-                   ".pushsection .alt_call_sites, \"a\", @progbits\n\t"  \
-                   ".long 1b - .\n\t"                               \
-                   ".popsection"                                    \
-diff --git a/xen/arch/x86/include/asm/alternative.h b/xen/arch/x86/include/asm/alternative.h
-index e17be8ddfd82..0482bbf7cbf1 100644
---- a/xen/arch/x86/include/asm/alternative.h
-+++ b/xen/arch/x86/include/asm/alternative.h
-@@ -126,12 +126,15 @@ extern void alternative_instructions(void);
-  * without volatile and memory clobber.
-  */
- #define alternative(oldinstr, newinstr, feature)                        \
--        asm volatile (ALTERNATIVE(oldinstr, newinstr, feature) : : : "memory")
-+    asm_inline volatile (                                               \
-+        ALTERNATIVE(oldinstr, newinstr, feature)                        \
-+        ::: "memory" )
- 
- #define alternative_2(oldinstr, newinstr1, feature1, newinstr2, feature2) \
--	asm volatile (ALTERNATIVE_2(oldinstr, newinstr1, feature1,	\
--				    newinstr2, feature2)		\
--		      : : : "memory")
-+    asm_inline volatile (                                               \
-+        ALTERNATIVE_2(oldinstr, newinstr1, feature1,                    \
-+                      newinstr2, feature2)                              \
-+        ::: "memory" )
+@@ -247,7 +249,7 @@ static inline int clean_and_invalidate_dcache_va_range
+     if ( sizeof(x) > MIN_CACHELINE_BYTES || sizeof(x) > alignof(x) )    \
+         clean_dcache_va_range(_p, sizeof(x));                           \
+     else                                                                \
+-        asm volatile (                                                  \
++        asm_inline volatile (                                           \
+             "dsb sy;"   /* Finish all earlier writes */                 \
+             __clean_dcache_one(0)                                       \
+             "dsb sy;"   /* Finish flush before continuing */            \
+@@ -259,7 +261,7 @@ static inline int clean_and_invalidate_dcache_va_range
+     if ( sizeof(x) > MIN_CACHELINE_BYTES || sizeof(x) > alignof(x) )    \
+         clean_and_invalidate_dcache_va_range(_p, sizeof(x));            \
+     else                                                                \
+-        asm volatile (                                                  \
++        asm_inline volatile (                                           \
+             "dsb sy;"   /* Finish all earlier writes */                 \
+             __clean_and_invalidate_dcache_one(0)                        \
+             "dsb sy;"   /* Finish flush before continuing */            \
+diff --git a/xen/arch/arm/include/asm/processor.h b/xen/arch/arm/include/asm/processor.h
+index 60b587db697f..9cbc4f911061 100644
+--- a/xen/arch/arm/include/asm/processor.h
++++ b/xen/arch/arm/include/asm/processor.h
+@@ -607,9 +607,10 @@ register_t get_default_cptr_flags(void);
+ #define SYNCHRONIZE_SERROR(feat)                                  \
+     do {                                                          \
+         ASSERT(local_abort_is_enabled());                         \
+-        asm volatile(ALTERNATIVE("dsb sy; isb",                   \
+-                                 "nop; nop", feat)                \
+-                                 : : : "memory");                 \
++        asm_inline volatile (                                     \
++            ALTERNATIVE("dsb sy; isb",                            \
++                        "nop; nop", feat)                         \
++            ::: "memory" );                                       \
+     } while (0)
  
  /*
-  * Alternative inline assembly with input.
-@@ -143,14 +146,16 @@ extern void alternative_instructions(void);
-  * If you use variable sized constraints like "m" or "g" in the
-  * replacement make sure to pad to the worst case length.
-  */
--#define alternative_input(oldinstr, newinstr, feature, input...)	\
--	asm volatile (ALTERNATIVE(oldinstr, newinstr, feature)		\
--		      : : input)
-+#define alternative_input(oldinstr, newinstr, feature, input...)        \
-+    asm_inline volatile (                                               \
-+        ALTERNATIVE(oldinstr, newinstr, feature)                        \
-+        :: input )
- 
- /* Like alternative_input, but with a single output argument */
--#define alternative_io(oldinstr, newinstr, feature, output, input...)	\
--	asm volatile (ALTERNATIVE(oldinstr, newinstr, feature)		\
--		      : output : input)
-+#define alternative_io(oldinstr, newinstr, feature, output, input...)   \
-+    asm_inline volatile (                                               \
-+        ALTERNATIVE(oldinstr, newinstr, feature)                        \
-+        : output : input )
- 
- /*
-  * This is similar to alternative_io. But it has two features and
-@@ -160,11 +165,12 @@ extern void alternative_instructions(void);
-  * Otherwise, if CPU has feature1, newinstr1 is used.
-  * Otherwise, oldinstr is used.
-  */
--#define alternative_io_2(oldinstr, newinstr1, feature1, newinstr2,	\
--			 feature2, output, input...)			\
--	asm volatile(ALTERNATIVE_2(oldinstr, newinstr1, feature1,	\
--				   newinstr2, feature2)			\
--		     : output : input)
-+#define alternative_io_2(oldinstr, newinstr1, feature1, newinstr2,      \
-+                         feature2, output, input...)                    \
-+    asm_inline volatile (                                               \
-+        ALTERNATIVE_2(oldinstr, newinstr1, feature1,                    \
-+                      newinstr2, feature2)                              \
-+        : output : input )
- 
- /* Use this macro(s) if you need more than one output parameter. */
- #define ASM_OUTPUT2(a...) a
-diff --git a/xen/arch/x86/include/asm/hvm/vmx/vmx.h b/xen/arch/x86/include/asm/hvm/vmx/vmx.h
-index d85b52b9d522..56bea252cc5a 100644
---- a/xen/arch/x86/include/asm/hvm/vmx/vmx.h
-+++ b/xen/arch/x86/include/asm/hvm/vmx/vmx.h
-@@ -431,13 +431,14 @@ static always_inline void __invvpid(unsigned long type, u16 vpid, u64 gva)
-     }  operand = {vpid, 0, gva};
- 
-     /* Fix up #UD exceptions which occur when TLBs are flushed before VMXON. */
--    asm goto ( "1: invvpid %[operand], %[type]\n\t"
--               "   jbe %l[vmfail]\n\t"
--               "2:" _ASM_EXTABLE(1b, 2b)
--               :
--               : [operand] "m" (operand), [type] "r" (type)
--               : "memory"
--               : vmfail );
-+    asm_inline goto (
-+        "1: invvpid %[operand], %[type]\n\t"
-+        "   jbe %l[vmfail]\n\t"
-+        "2:" _ASM_EXTABLE(1b, 2b)
-+        :
-+        : [operand] "m" (operand), [type] "r" (type)
-+        : "memory"
-+        : vmfail );
-     return;
- 
-  vmfail:
-diff --git a/xen/arch/x86/include/asm/uaccess.h b/xen/arch/x86/include/asm/uaccess.h
-index 2d01669b9610..719d053936b9 100644
---- a/xen/arch/x86/include/asm/uaccess.h
-+++ b/xen/arch/x86/include/asm/uaccess.h
-@@ -154,7 +154,7 @@ struct __large_struct { unsigned long buf[100]; };
-  * aliasing issues.
-  */
- #define put_unsafe_asm(x, addr, GUARD, err, itype, rtype, ltype, errret) \
--	__asm__ __volatile__(						\
-+	asm_inline volatile (						\
- 		GUARD(							\
- 		"	guest_access_mask_ptr %[ptr], %[scr1], %[scr2]\n" \
- 		)							\
-@@ -171,7 +171,7 @@ struct __large_struct { unsigned long buf[100]; };
- 		  "[ptr]" (addr), [errno] "i" (errret))
- 
- #define get_unsafe_asm(x, addr, GUARD, err, rtype, ltype, errret)	\
--	__asm__ __volatile__(						\
-+	asm_inline volatile (						\
- 		GUARD(							\
- 		"	guest_access_mask_ptr %[ptr], %[scr1], %[scr2]\n" \
- 		)							\
-diff --git a/xen/arch/x86/pv/misc-hypercalls.c b/xen/arch/x86/pv/misc-hypercalls.c
-index b529f00ea127..17030d800d1b 100644
---- a/xen/arch/x86/pv/misc-hypercalls.c
-+++ b/xen/arch/x86/pv/misc-hypercalls.c
-@@ -230,15 +230,16 @@ long do_set_segment_base(unsigned int which, unsigned long base)
-          * Anyone wanting to check for errors from this hypercall should
-          * re-read %gs and compare against the input.
-          */
--        asm volatile ( "1: mov %[sel], %%gs\n\t"
--                       ".section .fixup, \"ax\", @progbits\n\t"
--                       "2: mov %k[flat], %%gs\n\t"
--                       "   xor %[sel], %[sel]\n\t"
--                       "   jmp 1b\n\t"
--                       ".previous\n\t"
--                       _ASM_EXTABLE(1b, 2b)
--                       : [sel] "+r" (sel)
--                       : [flat] "r" (FLAT_USER_DS32) );
-+        asm_inline volatile (
-+            "1: mov %[sel], %%gs\n\t"
-+            ".section .fixup, \"ax\", @progbits\n\t"
-+            "2: mov %k[flat], %%gs\n\t"
-+            "   xor %[sel], %[sel]\n\t"
-+            "   jmp 1b\n\t"
-+            ".previous\n\t"
-+            _ASM_EXTABLE(1b, 2b)
-+            : [sel] "+r" (sel)
-+            : [flat] "r" (FLAT_USER_DS32) );
- 
-         /* Update the cache of the inactive base, as read from the GDT/LDT. */
-         v->arch.pv.gs_base_user = read_gs_base();
-diff --git a/xen/arch/x86/traps.c b/xen/arch/x86/traps.c
-index 25e0d5777e6e..c94779b4ad4f 100644
---- a/xen/arch/x86/traps.c
-+++ b/xen/arch/x86/traps.c
-@@ -126,27 +126,29 @@ void show_code(const struct cpu_user_regs *regs)
-      * Copy forward from regs->rip.  In the case of a fault, %ecx contains the
-      * number of bytes remaining to copy.
+diff --git a/xen/arch/arm/include/asm/sysregs.h b/xen/arch/arm/include/asm/sysregs.h
+index 61e30c9e517c..5c2d362be3d8 100644
+--- a/xen/arch/arm/include/asm/sysregs.h
++++ b/xen/arch/arm/include/asm/sysregs.h
+@@ -22,11 +22,13 @@ static inline register_t read_sysreg_par(void)
+      * DMB SY before and after accessing it, as part of the workaround for the
+      * errata 1508412.
       */
--    asm volatile ("1: rep movsb; 2:"
--                  _ASM_EXTABLE(1b, 2b)
--                  : "=&c" (missing_after),
--                    "=&D" (tmp), "=&S" (tmp)
--                  : "0" (ARRAY_SIZE(insns_after)),
--                    "1" (insns_after),
--                    "2" (regs->rip));
+-    asm volatile(ALTERNATIVE("nop", "dmb sy", ARM64_WORKAROUND_1508412,
+-                 CONFIG_ARM64_ERRATUM_1508412));
 +    asm_inline volatile (
-+        "1: rep movsb; 2:"
-+        _ASM_EXTABLE(1b, 2b)
-+        : "=&c" (missing_after),
-+          "=&D" (tmp), "=&S" (tmp)
-+        : "0" (ARRAY_SIZE(insns_after)),
-+          "1" (insns_after),
-+          "2" (regs->rip) );
++        ALTERNATIVE("nop", "dmb sy", ARM64_WORKAROUND_1508412,
++                    CONFIG_ARM64_ERRATUM_1508412) );
+     par_el1 = READ_SYSREG64(PAR_EL1);
+-    asm volatile(ALTERNATIVE("nop", "dmb sy", ARM64_WORKAROUND_1508412,
+-                 CONFIG_ARM64_ERRATUM_1508412));
++    asm_inline volatile (
++        ALTERNATIVE("nop", "dmb sy", ARM64_WORKAROUND_1508412,
++                    CONFIG_ARM64_ERRATUM_1508412) );
  
-     /*
-      * Copy backwards from regs->rip - 1.  In the case of a fault, %ecx
-      * contains the number of bytes remaining to copy.
+     return par_el1;
+ }
+diff --git a/xen/arch/arm/mmu/p2m.c b/xen/arch/arm/mmu/p2m.c
+index 7642dbc7c55b..d96078f547d5 100644
+--- a/xen/arch/arm/mmu/p2m.c
++++ b/xen/arch/arm/mmu/p2m.c
+@@ -228,7 +228,8 @@ void p2m_restore_state(struct vcpu *n)
+      * registers associated to EL1/EL0 translations regime have been
+      * synchronized.
       */
--    asm volatile ("std;"
--                  "1: rep movsb;"
--                  "2: cld;"
--                  _ASM_EXTABLE(1b, 2b)
--                  : "=&c" (missing_before),
--                    "=&D" (tmp), "=&S" (tmp)
--                  : "0" (ARRAY_SIZE(insns_before)),
--                    "1" (insns_before + ARRAY_SIZE(insns_before) - 1),
--                    "2" (regs->rip - 1));
+-    asm volatile(ALTERNATIVE("nop", "isb", ARM64_WORKAROUND_AT_SPECULATE));
 +    asm_inline volatile (
-+        "std;"
-+        "1: rep movsb;"
-+        "2: cld;"
-+        _ASM_EXTABLE(1b, 2b)
-+        : "=&c" (missing_before),
-+          "=&D" (tmp), "=&S" (tmp)
-+        : "0" (ARRAY_SIZE(insns_before)),
-+          "1" (insns_before + ARRAY_SIZE(insns_before) - 1),
-+          "2" (regs->rip - 1) );
-     clac();
++        ALTERNATIVE("nop", "isb", ARM64_WORKAROUND_AT_SPECULATE) );
+     WRITE_SYSREG64(p2m->vttbr, VTTBR_EL2);
  
-     printk("Xen code around <%p> (%ps)%s:\n",
-@@ -524,12 +526,14 @@ static void show_trace(const struct cpu_user_regs *regs)
-     printk("Xen call trace:\n");
- 
-     /* Guarded read of the stack top. */
--    asm ( "1: mov %[data], %[tos]; 2:\n"
--          ".pushsection .fixup,\"ax\"\n"
--          "3: movb $1, %[fault]; jmp 2b\n"
--          ".popsection\n"
--          _ASM_EXTABLE(1b, 3b)
--          : [tos] "+r" (tos), [fault] "+qm" (fault) : [data] "m" (*sp) );
-+    asm_inline (
-+        "1: mov %[data], %[tos]; 2:\n"
-+        ".pushsection .fixup,\"ax\"\n"
-+        "3: movb $1, %[fault]; jmp 2b\n"
-+        ".popsection\n"
-+        _ASM_EXTABLE(1b, 3b)
-+        : [tos] "+r" (tos), [fault] "+qm" (fault)
-+        : [data] "m" (*sp) );
- 
-     /*
-      * If RIP looks sensible, or the top of the stack doesn't, print RIP at
-diff --git a/xen/arch/x86/usercopy.c b/xen/arch/x86/usercopy.c
-index 7ab2009efe4c..a24b52cc66c1 100644
---- a/xen/arch/x86/usercopy.c
-+++ b/xen/arch/x86/usercopy.c
-@@ -19,7 +19,7 @@ unsigned int copy_to_guest_ll(void __user *to, const void *from, unsigned int n)
-     GUARD(unsigned dummy);
- 
-     stac();
--    asm volatile (
-+    asm_inline volatile (
-         GUARD(
-         "    guest_access_mask_ptr %[to], %q[scratch1], %q[scratch2]\n"
-         )
-@@ -39,7 +39,7 @@ unsigned int copy_from_guest_ll(void *to, const void __user *from, unsigned int
-     unsigned dummy;
- 
-     stac();
--    asm volatile (
-+    asm_inline volatile (
-         GUARD(
-         "    guest_access_mask_ptr %[from], %q[scratch1], %q[scratch2]\n"
-         )
-@@ -101,7 +101,7 @@ unsigned int clear_guest_pv(void __user *to, unsigned int n)
-         long dummy;
- 
-         stac();
--        asm volatile (
-+        asm_inline volatile (
-             "    guest_access_mask_ptr %[to], %[scratch1], %[scratch2]\n"
-             "1:  rep stosb\n"
-             "2:\n"
+     last_vcpu_ran = &p2m->last_vcpu_ran[smp_processor_id()];
 -- 
 2.39.5
 
