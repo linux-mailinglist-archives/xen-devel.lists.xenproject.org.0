@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D45AAAB7FD7
-	for <lists+xen-devel@lfdr.de>; Thu, 15 May 2025 10:09:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.984893.1370828 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 56929AB810B
+	for <lists+xen-devel@lfdr.de>; Thu, 15 May 2025 10:42:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.984912.1370878 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uFTf0-0004w2-6g; Thu, 15 May 2025 08:09:46 +0000
+	id 1uFU9q-00029q-Tv; Thu, 15 May 2025 08:41:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 984893.1370828; Thu, 15 May 2025 08:09:46 +0000
+Received: by outflank-mailman (output) from mailman id 984912.1370878; Thu, 15 May 2025 08:41:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uFTf0-0004tV-3G; Thu, 15 May 2025 08:09:46 +0000
-Received: by outflank-mailman (input) for mailman id 984893;
- Thu, 15 May 2025 08:09:44 +0000
+	id 1uFU9q-00028I-R0; Thu, 15 May 2025 08:41:38 +0000
+Received: by outflank-mailman (input) for mailman id 984912;
+ Thu, 15 May 2025 08:41:38 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=CT6j=X7=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1uFTey-0004tN-RI
- for xen-devel@lists.xenproject.org; Thu, 15 May 2025 08:09:44 +0000
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [2a00:1450:4864:20::529])
+ id 1uFU9p-00028C-WE
+ for xen-devel@lists.xenproject.org; Thu, 15 May 2025 08:41:38 +0000
+Received: from mail-pf1-x435.google.com (mail-pf1-x435.google.com
+ [2607:f8b0:4864:20::435])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f59d4a13-3163-11f0-9eb6-5ba50f476ded;
- Thu, 15 May 2025 10:09:44 +0200 (CEST)
-Received: by mail-ed1-x529.google.com with SMTP id
- 4fb4d7f45d1cf-5fd1f7f8b25so1356386a12.0
- for <xen-devel@lists.xenproject.org>; Thu, 15 May 2025 01:09:44 -0700 (PDT)
+ id 695747d2-3168-11f0-9eb6-5ba50f476ded;
+ Thu, 15 May 2025 10:41:37 +0200 (CEST)
+Received: by mail-pf1-x435.google.com with SMTP id
+ d2e1a72fcca58-7398d65476eso553183b3a.1
+ for <xen-devel@lists.xenproject.org>; Thu, 15 May 2025 01:41:37 -0700 (PDT)
 Received: from localhost ([84.78.159.3]) by smtp.gmail.com with UTF8SMTPSA id
- a640c23a62f3a-ad23fc53241sm820639266b.51.2025.05.15.01.09.43
+ d2e1a72fcca58-7423772752csm10507891b3a.45.2025.05.15.01.41.33
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 15 May 2025 01:09:43 -0700 (PDT)
+ Thu, 15 May 2025 01:41:34 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,113 +44,216 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f59d4a13-3163-11f0-9eb6-5ba50f476ded
+X-Inumbo-ID: 695747d2-3168-11f0-9eb6-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1747296584; x=1747901384; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=pi8iuPk0+2M6t7OVDj8Jh6pIaO7j0K24pod54S5dZBc=;
-        b=UmwStStIdufp9cyR9U6Ygbc3MLXlyYTh8VyGtUoEIjWD75xlVSPRNkQTyvnhqWCjal
-         Y/hZkeNEKyHFEQpTy65ke+aSiSP8/PljQnPFIdPxhzZGKwMIUp6gnyJmOrQHPLYOLWEC
-         PbCohDUo2otSf8BAnskuQs69S1wL9+SiDN/aI=
+        d=citrix.com; s=google; t=1747298495; x=1747903295; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=WqRMEPLxqZX/utGkKcFlYQHVQ4/IIk7nsedjFNrB0b0=;
+        b=Mk8a2L54H0nBfNQXkPbMMJbAEErjdZEgshR0WWedF+XpNbwqQBkvrDW4/QmcnySEW+
+         yvqOE4kYl6VwJZdKDpQyAzTls5CS2wReTWwACmdZZGURlUa0IL1fePa/Zemd1oP1nmTO
+         tsQex9vSSNtiF2LcEIt6fAYa1cpAxuwFaCFsM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747296584; x=1747901384;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=pi8iuPk0+2M6t7OVDj8Jh6pIaO7j0K24pod54S5dZBc=;
-        b=pV09L1G8thBBVGSQB1TZB/jO7z3btlCLYl6ADgfFqHR9229QPL6BJDE1P+/Fq/xtNb
-         goGkxc6dd+LvfqqaoqruK74o6HA9eQRAUxOdR9oPheFtOM+kA9w8QMz0kJrK0EWaGeyM
-         7S1NZPO15VZCg7TKFO0yB68NdI9guqSVAyXBfBrvDq0JTuVaLnu2Bhd0Wm3vzH0sKaZA
-         Tvz2kJx0LXkB60HpDCyLzisy9CgX5YG9pVisi3Lb9S14itklmO0mLiLKcs4qvJ2x0eo1
-         lNWwzRIpl+U+XWZ8YJX0sWQyWaCOdVBPB5BWYJl/q6qewfI+8EzDwoeNA5uspqC1zmtX
-         s1/w==
-X-Gm-Message-State: AOJu0Yyl/5/IiRjuDrinMwSwCVmuGBX3LXYLnDSVlX/FSkMoLahC8BP/
-	tFN/45s3+yN3Qyx9XFXzH05Cf5xWWVJGewZv9Y8/rA1mwwRtp6/cX2jzyyKD9qU=
-X-Gm-Gg: ASbGncv14+qZ9r/G1SbmX/shDStQ0HOFkDyaDOvxG8CRsFV5uXr2BEBchxdmpltwL49
-	OzYwXwg+mey0npjMpaUBM3cd5RUvQKZroprducncpuBnJHTQFBetpUGxy5XnTkBaCf+5HaEGerx
-	RfflNfImupVpeWqiZWtHsVYjFKxBIj7/qFoN0ZQFJq65QQwfZO2hOwFH79Mu2lzQoGsdkkElIYj
-	k5PzL/1Odb/BQhWcd0mgQyM8bji+IYsOxva4GcxqvfMRMti1YamffuDHawEhliePsUALP6iWRpV
-	nkucu4HXiXwSEcUZa3A7isqOQA9r6Gr0hhV+zIHIJTZIZFCH1oiMkFlf
-X-Google-Smtp-Source: AGHT+IG1G1UhibaXX0EiV6SuXL1lD3hLTofnCUYsFVepUmEzbYXaVBxMwU+OuvIGZmeBrARfepO5hg==
-X-Received: by 2002:a17:907:da9:b0:ad2:4787:f1f4 with SMTP id a640c23a62f3a-ad515dc8325mr127918066b.15.1747296583579;
-        Thu, 15 May 2025 01:09:43 -0700 (PDT)
-Date: Thu, 15 May 2025 10:09:42 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH v2 6/6] x86/HVM: limit cache writeback overhead
-Message-ID: <aCWhRt4_WGp9tQDe@macbook.lan>
-References: <c030bfde-c5bb-f205-edff-435278a435f4@suse.com>
- <9274fbb1-c1be-9570-ecfc-8f0ac9a1f42b@suse.com>
- <aCST30l2N9X6AOgr@macbook.lan>
- <be7e2d91-69f5-4168-9d2c-57d3f6dac26f@suse.com>
- <aCSy1sSjZ6MiHOIT@macbook.lan>
- <c6dda7b1-1c99-4fb9-9f0b-54cfcffccb30@suse.com>
+        d=1e100.net; s=20230601; t=1747298495; x=1747903295;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=WqRMEPLxqZX/utGkKcFlYQHVQ4/IIk7nsedjFNrB0b0=;
+        b=Z2IQs7z2mdm4BDhf6r0IWvsbV/8bOCMWCSnyd4jrb/qhrxQRwxpKRLYBPOk3zfYw0s
+         qCa0RBiaSamcspQm5T1IHyg/ffNBlW965G+qn/aQYeM+XBJdWLvH/ueFfmcpaaubqB2p
+         L729x+6LXKjVpyzZGzkBiq7/YWke3cyNzJ7CUnzT5d+GZukmvvE4LLrU8WyBqjwoFXZc
+         1H7vK/tZdLULH2Vzp4dqVcw0DSfVHAUff8G6oGaLgyr5OukQ0rS/gkKNU96yiJeHgxOG
+         5kPFHK2QNIaLFI2DOYcNJeOshh1+Uc0393GgJIgsM0Ea8ZgV/uSrKwXIQfsYdiO38Icx
+         RdNw==
+X-Gm-Message-State: AOJu0YwPt+QFxggMOwa+ADxKfBoCDPyqrARVhjLcDBXhDpmv8qCfThnC
+	vNzIXKdvzohgfc7Cr+5dJvgS42vW1TOj1DkKZEdjgDrcYJxxAGMM5Cdq/ZflECKybmFYhE0S4O4
+	g
+X-Gm-Gg: ASbGncv7hMZp052J+fG2Dq5ggyl0LXJqwxXGqx+t0It90eLrscqUf67vXcVU0emI6UY
+	AkY8TigCHVxu5drBHZdfJscSPu0VA82G0HyyNl6oIgDik7RPgx8uybOz+0K5sTYEsOM5N91quI0
+	gxXyO5WyWo+F2Yxmih+0PduxcZtlsPA+IdJ2qRhmNqmGdld7HrAr8NB7XYRo2E8rKSky9FG3be3
+	YsFhooXu+zUi4xtrx+1zg7wjEXdqxKFZGb59r1DAJ6zMfLG8fasu0R5tL6kBgjKUuoOyh1R2ucO
+	glYyEZrBH4jaXAOCJEzO5z663eXqhKcVs1B5rHGhq1YWKM/+ITpjqhs2
+X-Google-Smtp-Source: AGHT+IG42YuSndUT6fbaWN3j55pDUxRF9q12AgzIQzFnztBZAObLPZ7lAt0mFUImHIjgAxxrIqEJgA==
+X-Received: by 2002:a05:6a00:2d25:b0:736:4e14:8ec5 with SMTP id d2e1a72fcca58-742962219damr3655823b3a.11.1747298494568;
+        Thu, 15 May 2025 01:41:34 -0700 (PDT)
+From: Roger Pau Monne <roger.pau@citrix.com>
+To: xen-devel@lists.xenproject.org
+Cc: Roger Pau Monne <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Stefano Stabellini <stefano.stabellini@amd.com>
+Subject: [PATCH] x86/vpci: fix handling of BAR overlaps with non-hole regions
+Date: Thu, 15 May 2025 10:41:23 +0200
+Message-ID: <20250515084123.43289-1-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.48.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <c6dda7b1-1c99-4fb9-9f0b-54cfcffccb30@suse.com>
 
-On Thu, May 15, 2025 at 08:47:46AM +0200, Jan Beulich wrote:
-> On 14.05.2025 17:12, Roger Pau Monné wrote:
-> > On Wed, May 14, 2025 at 03:20:56PM +0200, Jan Beulich wrote:
-> >> On 14.05.2025 15:00, Roger Pau Monné wrote:
-> >>> On Wed, May 03, 2023 at 11:47:18AM +0200, Jan Beulich wrote:
-> >>>> There's no need to write back caches on all CPUs upon seeing a WBINVD
-> >>>> exit; ones that a vCPU hasn't run on since the last writeback (or since
-> >>>> it was started) can't hold data which may need writing back.
-> >>>
-> >>> Couldn't you do the same with PV mode, and hence put the cpumask in
-> >>> arch_vcpu rather than hvm_vcpu?
-> >>
-> >> We could in principle, but there's no use of flush_all() there right now
-> >> (i.e. nothing to "win").
-> > 
-> > Yes, that will get "fixed" if we take patch 2 from my series.  That
-> > fixes the lack of broadcasting of wb{,no}invd when emulating it for
-> > PV domains.
-> > 
-> > I think this patch would be better after my fix to cache_op(),
-> 
-> Right, this matches what I said ...
-> 
-> > and
-> > then the uncertainty around patch 2 makes it unclear whether we want
-> > this.
-> > 
-> >>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> >>>> ---
-> >>>> With us not running AMD IOMMUs in non-coherent ways, I wonder whether
-> >>>> svm_wbinvd_intercept() really needs to do anything (or whether it
-> >>>> couldn't check iommu_snoop just like VMX does, knowing that as of
-> >>>> c609108b2190 ["x86/shadow: make iommu_snoop usage consistent with
-> >>>> HAP's"] that's always set; this would largely serve as grep fodder then,
-> >>>> to make sure this code is updated once / when we do away with this
-> >>>> global variable, and it would be the penultimate step to being able to
-> >>>> fold SVM's and VT-x'es functions).
-> >>>
-> >>> On my series I expand cache_flush_permitted() to also account for
-> >>> iommu_snoop, I think it's easier to have a single check that signals
-> >>> whether cache control is allowed for a domain, rather that having to
-> >>> check multiple different conditions.
-> >>
-> >> Right, adjustments here would want making (in whichever series goes in
-> >> later).
-> >>
-> >> For both of the responses: I think with patch 1 of this series having
-> >> gone in and with in particular Andrew's concern over patch 2 (which
-> >> may extend to patch 3), it may make sense for your series to go next.
-> >> I shall then re-base, while considering what to do with patches 2 and 3
-> >> (they may need dropping in the end).
-> 
-> ... here.
+For once the message printed when a BAR overlaps with a non-hole regions is
+not accurate on x86.  While the BAR won't be mapped by the vPCI logic, it
+is quite likely overlapping with a reserved region in the memory map, and
+already mapped as by default all reserved regions are identity mapped in
+the p2m.  Fix the message so it just warns about the overlap, without
+mentioning that the BAR won't be mapped, as this has caused confusion in
+the past.
 
-By the time I saw your paragraph, I had already written mine, so I
-just left it, we reached the same conclusion which is good IMO :).
+Secondly, when an overlap is detected the BAR 'enabled' field is not set,
+hence other vPCI code that depends on it like vPCI MSI-X handling won't
+function properly, as it sees the BAR as disabled, even when memory
+decoding is enabled for the device and the BAR is likely mapped in the
+p2m.  Change the handling of BARs that overlap non-hole regions to instead
+remove any overlapped regions from the rangeset, so the resulting ranges to
+map just contain the hole regions.  This requires introducing a new
+pci_sanitize_bar_memory() that's implemented per-arch and sanitizes the
+address range to add to the p2m.
 
-Thanks, Roger.
+For x86 pci_sanitize_bar_memory() removes any regions present in the host
+memory map, for ARM this is currently left as a dummy handler to not change
+existing behavior.
+
+Ultimately the above changes should fix the vPCI MSI-X handlers not working
+correctly when the BAR that contains the MSI-X table overlaps with a
+non-hole region, as then the 'enabled' BAR bit won't be set and the MSI-X
+traps won't handle accesses as expected.
+
+Reported-by: Stefano Stabellini <stefano.stabellini@amd.com>
+Fixes: 53d9133638c3 ('pci: do not disable memory decoding for devices')
+Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+---
+ xen/arch/arm/include/asm/pci.h |  3 ++
+ xen/arch/x86/include/asm/pci.h | 12 ++------
+ xen/arch/x86/pci.c             | 50 ++++++++++++++++++++++++++++++++++
+ xen/drivers/vpci/header.c      |  9 ++++++
+ 4 files changed, 65 insertions(+), 9 deletions(-)
+
+diff --git a/xen/arch/arm/include/asm/pci.h b/xen/arch/arm/include/asm/pci.h
+index 7f77226c9bbf..1605ec660d0b 100644
+--- a/xen/arch/arm/include/asm/pci.h
++++ b/xen/arch/arm/include/asm/pci.h
+@@ -128,6 +128,9 @@ int pci_host_bridge_mappings(struct domain *d);
+ 
+ bool pci_check_bar(const struct pci_dev *pdev, mfn_t start, mfn_t end);
+ 
++static inline int pci_sanitize_bar_memory(struct rangeset *r)
++{ return 0; }
++
+ #else   /*!CONFIG_HAS_PCI*/
+ 
+ struct pci_dev;
+diff --git a/xen/arch/x86/include/asm/pci.h b/xen/arch/x86/include/asm/pci.h
+index fd5480d67d43..d2701f2deb62 100644
+--- a/xen/arch/x86/include/asm/pci.h
++++ b/xen/arch/x86/include/asm/pci.h
+@@ -2,6 +2,7 @@
+ #define __X86_PCI_H__
+ 
+ #include <xen/mm.h>
++#include <xen/rangeset.h>
+ 
+ #define CF8_BDF(cf8)     (  ((cf8) & 0x00ffff00U) >> 8)
+ #define CF8_ADDR_LO(cf8) (   (cf8) & 0x000000fcU)
+@@ -57,14 +58,7 @@ static always_inline bool is_pci_passthrough_enabled(void)
+ 
+ void arch_pci_init_pdev(struct pci_dev *pdev);
+ 
+-static inline bool pci_check_bar(const struct pci_dev *pdev,
+-                                 mfn_t start, mfn_t end)
+-{
+-    /*
+-     * Check if BAR is not overlapping with any memory region defined
+-     * in the memory map.
+-     */
+-    return is_memory_hole(start, end);
+-}
++bool pci_check_bar(const struct pci_dev *pdev, mfn_t start, mfn_t end);
++int pci_sanitize_bar_memory(struct rangeset *r);
+ 
+ #endif /* __X86_PCI_H__ */
+diff --git a/xen/arch/x86/pci.c b/xen/arch/x86/pci.c
+index 97b792e578f1..afaf9fe1c053 100644
+--- a/xen/arch/x86/pci.c
++++ b/xen/arch/x86/pci.c
+@@ -98,3 +98,53 @@ int pci_conf_write_intercept(unsigned int seg, unsigned int bdf,
+ 
+     return rc;
+ }
++
++bool pci_check_bar(const struct pci_dev *pdev, mfn_t start, mfn_t end)
++{
++    /*
++     * Check if BAR is not overlapping with any memory region defined
++     * in the memory map.
++     */
++    if ( !is_memory_hole(start, end) )
++        gdprintk(XENLOG_WARNING,
++                 "%pp: BAR at [%"PRI_mfn", %"PRI_mfn"] not in memory map hole\n",
++                 &pdev->sbdf, mfn_x(start), mfn_x(end));
++
++    /*
++     * Unconditionally return true, pci_sanitize_bar_memory() will remove any
++     * non-hole regions.
++     */
++    return true;
++}
++
++/* Remove overlaps with any ranges defined in the host memory map. */
++int pci_sanitize_bar_memory(struct rangeset *r)
++{
++    unsigned int i;
++
++    for ( i = 0; i < e820.nr_map; i++ )
++    {
++        const struct e820entry *entry = &e820.map[i];
++        int rc;
++
++        if ( !entry->size )
++            continue;
++
++        rc = rangeset_remove_range(r, PFN_DOWN(entry->addr),
++                                   PFN_UP(entry->addr + entry->size - 1));
++        if ( rc )
++            return rc;
++    }
++
++    return 0;
++}
++
++/*
++ * Local variables:
++ * mode: C
++ * c-file-style: "BSD"
++ * c-basic-offset: 4
++ * tab-width: 4
++ * indent-tabs-mode: nil
++ * End:
++ */
+diff --git a/xen/drivers/vpci/header.c b/xen/drivers/vpci/header.c
+index ef6c965c081c..1f48f2aac64e 100644
+--- a/xen/drivers/vpci/header.c
++++ b/xen/drivers/vpci/header.c
+@@ -394,6 +394,15 @@ static int modify_bars(const struct pci_dev *pdev, uint16_t cmd, bool rom_only)
+                 return rc;
+             }
+         }
++
++        rc = pci_sanitize_bar_memory(bar->mem);
++        if ( rc )
++        {
++            gprintk(XENLOG_WARNING,
++                    "%pp: failed to sanitize BAR#%u memory: %d\n",
++                    &pdev->sbdf, i, rc);
++            return rc;
++        }
+     }
+ 
+     /* Remove any MSIX regions if present. */
+-- 
+2.48.1
+
 
