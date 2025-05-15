@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 98F9FAB7E46
-	for <lists+xen-devel@lfdr.de>; Thu, 15 May 2025 08:47:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.984790.1370733 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A0DEAB7EDE
+	for <lists+xen-devel@lfdr.de>; Thu, 15 May 2025 09:33:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.984834.1370766 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uFSNi-0007jo-Nq; Thu, 15 May 2025 06:47:50 +0000
+	id 1uFT5l-0006Da-7K; Thu, 15 May 2025 07:33:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 984790.1370733; Thu, 15 May 2025 06:47:50 +0000
+Received: by outflank-mailman (output) from mailman id 984834.1370766; Thu, 15 May 2025 07:33:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uFSNi-0007gv-K1; Thu, 15 May 2025 06:47:50 +0000
-Received: by outflank-mailman (input) for mailman id 984790;
- Thu, 15 May 2025 06:47:49 +0000
+	id 1uFT5l-0006C6-3b; Thu, 15 May 2025 07:33:21 +0000
+Received: by outflank-mailman (input) for mailman id 984834;
+ Thu, 15 May 2025 07:33:19 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=D/jC=X7=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uFSNh-0007gl-E3
- for xen-devel@lists.xenproject.org; Thu, 15 May 2025 06:47:49 +0000
-Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
- [2a00:1450:4864:20::536])
+ (envelope-from <SRS0=0Gu8=X7=zytor.com=xin@srs-se1.protection.inumbo.net>)
+ id 1uFT5j-0006Bv-79
+ for xen-devel@lists.xenproject.org; Thu, 15 May 2025 07:33:19 +0000
+Received: from mail.zytor.com (terminus.zytor.com [2607:7c80:54:3::136])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8383a8b4-3158-11f0-9eb6-5ba50f476ded;
- Thu, 15 May 2025 08:47:48 +0200 (CEST)
-Received: by mail-ed1-x536.google.com with SMTP id
- 4fb4d7f45d1cf-5fcc96b6a64so1167970a12.0
- for <xen-devel@lists.xenproject.org>; Wed, 14 May 2025 23:47:48 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ad21985340fsm1045211066b.167.2025.05.14.23.47.47
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 14 May 2025 23:47:47 -0700 (PDT)
+ id dd6eafab-315e-11f0-9eb6-5ba50f476ded;
+ Thu, 15 May 2025 09:33:17 +0200 (CEST)
+Received: from [192.168.7.202] ([71.202.166.45]) (authenticated bits=0)
+ by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 54F7WfsF3336298
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
+ Thu, 15 May 2025 00:32:41 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,143 +40,148 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8383a8b4-3158-11f0-9eb6-5ba50f476ded
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1747291668; x=1747896468; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=B4F3dvZtX8E/G76kxLLrrIEWmKyp7XFxWuNqrIQdBfw=;
-        b=SmGjAIVahKKcEG17WZnPkSAKmtm+astC5DoYppwqMuTWNSahRJxUR0iMV/QCzvtive
-         sIofFz/V9mwk6zZXF0/nvVhtHzndxcYZXVady+UA57cd2K7z8JFxPqg7uWBYs1qvTJDd
-         UXTK3ZYg4Q9VgyNC4rbJLM5PhymfkuEPW2kzGfmQhTIpeUA/pNeyCwfFuQrxBnQ0TSli
-         FMfiWcBguQUltfwNyT1hiGib0dmus7N2KIvC/Gyug/E2Uzh9p8xML0CqbvkfQN2Q4vpB
-         tIdiFGOX8xmMFztvnj3a06IHYwRl6XXOMYBVIPBEHSWsyVJ/T2wrONBdq9qHrgY3zrzh
-         vQyg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747291668; x=1747896468;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=B4F3dvZtX8E/G76kxLLrrIEWmKyp7XFxWuNqrIQdBfw=;
-        b=WYq1IQCZdsflcxwP652RB8wHvEgzwT+5Ygg6srf2m2nF04ZCRq7j0LfOfqdryXbw3C
-         iAFrYLokJYv8syYnLNeBpg6W8n1EYhCg3bMxLVzX5oIT+IJvENJFipGx89eP1gRy1HGF
-         Cd7lOPBjwxpmT6N96IgoGnTpqe7LgXd+MY3MbchsxONbqyuA+UsmnUrFQjveMzewwzx3
-         q9OaqwnJWPPoAe2lxBZZj3q4+xgzzjNKst1j/DNgRpAYWZmlVtxiivlSR6KM0kYxfzB9
-         XZQSdt0clZswaveERRKEUdg9Na/WG8CG6h19mStV37A2rANzilnsogHx0AwaBjETjf4q
-         Ucqw==
-X-Gm-Message-State: AOJu0YwufxWdjurd8XyVhOCC1mmscrjy+/1ELYYRrhKZYLpasaIjHNDr
-	J/jsgY8DVu6GJMd5UlhBOiza0jJkZBixs5ivSTj5YvBjgxtxIp79t4yZNrWmVw==
-X-Gm-Gg: ASbGncs3oHk0nnVegHIrLRr0qGWCg8hb07ATQdfU4G6zD6Dz0nREimUBNvgHBP7VqsH
-	dlfL7bWgetZQRRSu9rFo5XRKSYck9lDeCScK2e8TlL6WSqQ1ocO0daYU6pW7FeZTNKuLKGTozhZ
-	NI6AmM8uWO59ip0Ps3AAsTc9tSTA7ejVaVC/BGmr+It5SJHvKbvNF7kLc+rmmXqcS44xviQITv1
-	5mPdlzISsy9Eo7ybwdSVweHixIBu5nUqWF9/jwdQ4Q2L6nwgV/rRdiyXbZoxNcw3AehYO6M1ao5
-	VIr7xZh6r7TOt3U/LK3LoKWob/lh8V5nbvN26kJ9hQabBq9f7v0wuWgXnTJyy6G868Tu9rExgGh
-	jF28EuH20ABVZzNLLWLnLFWftSqwjFo5owpVg
-X-Google-Smtp-Source: AGHT+IH/DcKcCEfnMxN+9dSFioIPzt2CNm63hHKM0S6Q4N+Ag95ko9F9ytFqiYLb/om5tzLnm+zU3A==
-X-Received: by 2002:a17:907:7f28:b0:ac3:3cff:268 with SMTP id a640c23a62f3a-ad4f723fd41mr598650866b.30.1747291667677;
-        Wed, 14 May 2025 23:47:47 -0700 (PDT)
-Message-ID: <c6dda7b1-1c99-4fb9-9f0b-54cfcffccb30@suse.com>
-Date: Thu, 15 May 2025 08:47:46 +0200
+X-Inumbo-ID: dd6eafab-315e-11f0-9eb6-5ba50f476ded
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 54F7WfsF3336298
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
+	s=2025042001; t=1747294363;
+	bh=FTKlSsiJd9+jpos7AVLXF8LAqgwtfl1Qy7H7vRzCDXE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=OeZftPa4P2RcLNrfq7mYvwL9TgxRMcLlkVGZC6h8vETFbJVCjpBbzmpzH5AR13wKx
+	 15mv9dkcpvv5ouP63h6d4FyAbbBv4ahXZZT/mJEs0YcVe4dSsuiidCYyb5eLIFmmab
+	 KZh7WExvvM7f5dcUXiiH4kI087BVfYMnwIxDBqPfWZBau2sgqY1q7vFYn0CwCYjxM9
+	 k2IdZTAsWYVBOheuyRj88cuKgPcjoyTQbvMyOTslRINSkfMVXRDIiVGVCAqieKjmOF
+	 vIstWyCK+xY4GqiDXwaoMJ8FcLhCdyf9Y7Wv9kaBeH/qOTfV0h+xsRne4kDWAibHx3
+	 4HrOazqt1wu0g==
+Message-ID: <652dfd63-e41c-4d7a-8fea-40509e8191ef@zytor.com>
+Date: Thu, 15 May 2025 00:32:40 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 6/6] x86/HVM: limit cache writeback overhead
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>
-References: <c030bfde-c5bb-f205-edff-435278a435f4@suse.com>
- <9274fbb1-c1be-9570-ecfc-8f0ac9a1f42b@suse.com>
- <aCST30l2N9X6AOgr@macbook.lan>
- <be7e2d91-69f5-4168-9d2c-57d3f6dac26f@suse.com>
- <aCSy1sSjZ6MiHOIT@macbook.lan>
+Subject: Re: [PATCH 5/6] x86/paravirt: Switch MSR access pv_ops functions to
+ instruction interfaces
+To: "H. Peter Anvin" <hpa@zytor.com>,
+        =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?=
+ <jgross@suse.com>,
+        linux-kernel@vger.kernel.org, x86@kernel.org,
+        virtualization@lists.linux.dev, Peter Zijlstra <peterz@infradead.org>
+Cc: Ajay Kaher <ajay.kaher@broadcom.com>,
+        Alexey Makhalov <alexey.amakhalov@broadcom.com>,
+        Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>,
+        Thomas Gleixner
+ <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+        Borislav Petkov <bp@alien8.de>,
+        Dave Hansen <dave.hansen@linux.intel.com>,
+        Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+        xen-devel@lists.xenproject.org
+References: <20250506092015.1849-1-jgross@suse.com>
+ <20250506092015.1849-6-jgross@suse.com>
+ <722f5b30-20e9-4540-98e4-d211d7c44cbe@zytor.com>
+ <9f4e33d5-9cb3-4079-b764-87a15265fd52@suse.com>
+ <ff567466-a46a-4f66-935a-8fae1140c1a2@suse.com>
+ <eb077393-ea95-4ac0-9479-980e227f7bff@zytor.com>
+ <6cc20ef6-d8e5-4c74-89d9-6a949c84b397@suse.com>
+ <DDA7C560-1BD9-40A6-8B93-28D5AC10EBB2@zytor.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aCSy1sSjZ6MiHOIT@macbook.lan>
-Content-Type: text/plain; charset=UTF-8
+From: Xin Li <xin@zytor.com>
+Autocrypt: addr=xin@zytor.com; keydata=
+ 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
+ l75w1xInsg==
+In-Reply-To: <DDA7C560-1BD9-40A6-8B93-28D5AC10EBB2@zytor.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On 14.05.2025 17:12, Roger Pau Monné wrote:
-> On Wed, May 14, 2025 at 03:20:56PM +0200, Jan Beulich wrote:
->> On 14.05.2025 15:00, Roger Pau Monné wrote:
->>> On Wed, May 03, 2023 at 11:47:18AM +0200, Jan Beulich wrote:
->>>> There's no need to write back caches on all CPUs upon seeing a WBINVD
->>>> exit; ones that a vCPU hasn't run on since the last writeback (or since
->>>> it was started) can't hold data which may need writing back.
+On 5/13/2025 3:24 PM, H. Peter Anvin wrote:
+> On May 12, 2025 11:06:02 PM PDT, "Jürgen Groß" <jgross@suse.com> wrote:
+>> On 13.05.25 07:55, Xin Li wrote:
+>>> On 5/12/2025 4:24 AM, Juergen Gross wrote:
+>>>> Now with the mentioned patch really attached. :-)
+>>>>
 >>>
->>> Couldn't you do the same with PV mode, and hence put the cpumask in
->>> arch_vcpu rather than hvm_vcpu?
->>
->> We could in principle, but there's no use of flush_all() there right now
->> (i.e. nothing to "win").
-> 
-> Yes, that will get "fixed" if we take patch 2 from my series.  That
-> fixes the lack of broadcasting of wb{,no}invd when emulating it for
-> PV domains.
-> 
-> I think this patch would be better after my fix to cache_op(),
-
-Right, this matches what I said ...
-
-> and
-> then the uncertainty around patch 2 makes it unclear whether we want
-> this.
-> 
->>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->>>> ---
->>>> With us not running AMD IOMMUs in non-coherent ways, I wonder whether
->>>> svm_wbinvd_intercept() really needs to do anything (or whether it
->>>> couldn't check iommu_snoop just like VMX does, knowing that as of
->>>> c609108b2190 ["x86/shadow: make iommu_snoop usage consistent with
->>>> HAP's"] that's always set; this would largely serve as grep fodder then,
->>>> to make sure this code is updated once / when we do away with this
->>>> global variable, and it would be the penultimate step to being able to
->>>> fold SVM's and VT-x'es functions).
+>>> Does it allow patching with an instruction more than 6 bytes long?
 >>>
->>> On my series I expand cache_flush_permitted() to also account for
->>> iommu_snoop, I think it's easier to have a single check that signals
->>> whether cache control is allowed for a domain, rather that having to
->>> check multiple different conditions.
+>>> The immediate form MSR instructions are 9 bytes long.
 >>
->> Right, adjustments here would want making (in whichever series goes in
->> later).
+>> Yes, shouldn't be a problem.
 >>
->> For both of the responses: I think with patch 1 of this series having
->> gone in and with in particular Andrew's concern over patch 2 (which
->> may extend to patch 3), it may make sense for your series to go next.
->> I shall then re-base, while considering what to do with patches 2 and 3
->> (they may need dropping in the end).
-
-... here.
-
-Jan
-
-> Makes sense, I still need to get over your feedback on my series, I've
-> been distracted with other stuff.
+>>
+>> Juergen
 > 
-> Thanks, Roger.
+> However, it is more than that. The immediate instructions have a different interface, and it makes more sense to use the extra bytes to shuffle the bits around for the legacy forms:
+> 
+> Write:
+> 
+>      mov %rax,%rdx
+>      shr $32,%rdx
+>      wrmsr(ns)
+> 
+> Read:
+> 
+>      rdmsr
+>      shl $32,%rdx
+>      or %rdx,%rax
+> 
+> For the write case, this also means that two separate trap points are needed.
+> 
+> As far as Xen (the only user of pv msrs), note that it only paravirtualizes a very small number of MSRs, and some of those are fairly performance sensitive, so not going through the Xen framework for MSRs known to be either native or null on Xen would definitely be a win.
+> 
+> 
 
+Hi Juergen,
+
+I have some update on this thread while working on it.
+
+If we continue down the path of maintaining pvops MSR APIs as this patch
+series does, it seems we’ll need to duplicate the ALTERNATIVE code in
+three different places.
+
+1) The MSR access primitives defined in <asm/msr.h>, which is used when
+    CONFIG_PARAVIRT=n.
+
+2) The pvops native MSR functions pv_native_{rd,wr}msr{,_safe}() defined
+    in arch/x86/kernel/paravirt.c, used when CONFIG_PARAVIRT=y on bare
+    metal.
+
+3) The pvops Xen MSR functions paravirt_{read,write}_msr{,_safe}()
+    defined in <asm/paravirt.h>, used when CONFIG_PARAVIRT_XXL=y.
+
+hpa had mentioned to me earlier that this would be a maintenance burden
+— something I only truly realized once I got hands-on with it.
+
+Maybe you have something in mind to address it?
+
+Also add PeterZ to the To list because he cares it.
+
+Thanks!
+     Xin
 
