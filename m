@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B9B4AB8E44
-	for <lists+xen-devel@lfdr.de>; Thu, 15 May 2025 19:56:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.985848.1371660 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B8BBDAB8E9B
+	for <lists+xen-devel@lfdr.de>; Thu, 15 May 2025 20:12:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.985859.1371670 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uFcnj-0003kx-Rd; Thu, 15 May 2025 17:55:23 +0000
+	id 1uFd3X-0007L4-1B; Thu, 15 May 2025 18:11:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 985848.1371660; Thu, 15 May 2025 17:55:23 +0000
+Received: by outflank-mailman (output) from mailman id 985859.1371670; Thu, 15 May 2025 18:11:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uFcnj-0003j7-Mm; Thu, 15 May 2025 17:55:23 +0000
-Received: by outflank-mailman (input) for mailman id 985848;
- Thu, 15 May 2025 17:55:22 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uFd3W-0007Jd-Ug; Thu, 15 May 2025 18:11:42 +0000
+Received: by outflank-mailman (input) for mailman id 985859;
+ Thu, 15 May 2025 18:11:41 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=0Gu8=X7=zytor.com=xin@srs-se1.protection.inumbo.net>)
- id 1uFcni-0003j0-0H
- for xen-devel@lists.xenproject.org; Thu, 15 May 2025 17:55:22 +0000
+ id 1uFd3V-0007JX-7K
+ for xen-devel@lists.xenproject.org; Thu, 15 May 2025 18:11:41 +0000
 Received: from mail.zytor.com (terminus.zytor.com [2607:7c80:54:3::136])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c37b0a09-31b5-11f0-9eb6-5ba50f476ded;
- Thu, 15 May 2025 19:55:20 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0aaaad6d-31b8-11f0-9ffb-bf95429c2676;
+ Thu, 15 May 2025 20:11:38 +0200 (CEST)
 Received: from [192.168.7.202] ([71.202.166.45]) (authenticated bits=0)
- by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 54FHsVpw3601639
+ by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 54FIBA613610523
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
- Thu, 15 May 2025 10:54:31 -0700
+ Thu, 15 May 2025 11:11:10 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,24 +40,23 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c37b0a09-31b5-11f0-9eb6-5ba50f476ded
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 54FHsVpw3601639
+X-Inumbo-ID: 0aaaad6d-31b8-11f0-9ffb-bf95429c2676
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 54FIBA613610523
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
-	s=2025042001; t=1747331672;
-	bh=G7ieaLLHFbx+QEHyWYMyrA/SFOLf3DqlbM1dcfxnafw=;
+	s=2025042001; t=1747332671;
+	bh=9c1R4oy3soG5VO6mIRJI3CqW6DmwJ6Mep1AU0zB8N4A=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=Pci5Cm4AkZKrjtNgbD9kIEvofugHGu9rQStIB8I6HlP0P5GmfcK8dxy26SYPqu53l
-	 iUM4QoaUoo5QxDSCvgasxn5a9QUGr0D1Ql8K0jbLDLd6g03vlF4gw+h31ZHoeUtVay
-	 nLaR3PRAokolM4ZGUQbkNlu38pWzS8eCeMWnDvWNDSy7m9+87WxIlRTiVMXpmSFy5T
-	 7VtfMfoWjJQ/T85JinrErAMrTP4HXKdE71rn54Q+Ov9SzSwCPPZ64mi3rjtV8dMYPF
-	 5UOeboDxuVCnoqosEg4VSZBW7Cg1EJT2ZfxCtgvATt/5g83VQycjJC3x7Yge2GFBwO
-	 NtO5Ryz7YKzsA==
-Message-ID: <68dba45c-a677-4f6d-b7ec-e896aef3d27b@zytor.com>
-Date: Thu, 15 May 2025 10:54:31 -0700
+	b=DG3BzwQ2BWylwPDcl7KrfGhx2mIF7dLUmwl61g76BeleGjxlXwR4RDqh1sN4AbaLj
+	 LCiKCPNKKZn+A3q/x0AZAtwJwqjQspJXZq6Gj4MU6eeg51aUBJC8fVM+e53znk7u7i
+	 OQoSxfM434A9LxtAKAO1Jlmfa/R0vptHUyiea5Xf3GDQSRfEJR1UQIXvaqBBKtOpcy
+	 AVto//EUOxjmaJK2YYQKuOz5qz8i2tTQuKWYati/DUVFmup3bEHu0inyoANKIPOidS
+	 StXvbk7nGpNOH4+MoZQIgOsZzrfgFScQn6oJjgAvI1D78ZdQ87LB/YAc3eQv2WkUMF
+	 EniWYTJqe8v3A==
+Message-ID: <30affad5-4f26-4e22-9d64-b8ece1199773@zytor.com>
+Date: Thu, 15 May 2025 11:11:09 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 3/3] x86/msr: Convert a native_wrmsr() use to
- native_wrmsrq()
+Subject: Re: [PATCH v1 2/3] x86/xen/msr: Fix uninitialized symbol 'err'
 To: Ingo Molnar <mingo@kernel.org>
 Cc: linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org,
         linux-acpi@vger.kernel.org, tglx@linutronix.de, bp@alien8.de,
@@ -65,7 +64,7 @@ Cc: linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org,
         peterz@infradead.org, jgross@suse.com, boris.ostrovsky@oracle.com,
         rafael@kernel.org, lenb@kernel.org
 References: <20250512084552.1586883-1-xin@zytor.com>
- <20250512084552.1586883-4-xin@zytor.com> <aCYH0UQzO_Ek27js@gmail.com>
+ <20250512084552.1586883-3-xin@zytor.com> <aCYIblffvBGUuxWf@gmail.com>
 Content-Language: en-US
 From: Xin Li <xin@zytor.com>
 Autocrypt: addr=xin@zytor.com; keydata=
@@ -102,31 +101,67 @@ Autocrypt: addr=xin@zytor.com; keydata=
  PYbAkjBbm+tuJ/Sm+5Yp5T/BnKz21FoCS8uvTiziHj2H7Cuekn6F8EYhegONm+RVg3vikOpn
  gao85i4HwQTK9/D1wgJIQkdwWXVMZ6q/OALaBp82vQ2U9sjTyFXgDjglgh00VRAHP7u1Rcu4
  l75w1xInsg==
-In-Reply-To: <aCYH0UQzO_Ek27js@gmail.com>
+In-Reply-To: <aCYIblffvBGUuxWf@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 5/15/2025 8:27 AM, Ingo Molnar wrote:
+On 5/15/2025 8:29 AM, Ingo Molnar wrote:
 > 
 > * Xin Li (Intel) <xin@zytor.com> wrote:
 > 
->> Convert a native_wrmsr() use to native_wrmsrq() to zap meaningless type
->> conversions when a u64 MSR value is splitted into two u32.
+>> xen_read_msr_safe() currently passes an uninitialized argument err to
+>> xen_do_read_msr().  But as xen_do_read_msr() may not set the argument,
+>> xen_read_msr_safe() could return err with an unpredictable value.
 >>
+>> To ensure correctness, initialize err to 0 (representing success)
+>> in xen_read_msr_safe().
+>>
+>> Because xen_read_msr_safe() is essentially a wrapper of xen_do_read_msr(),
+>> the latter should be responsible for initializing the value of *err to 0.
+>> Thus initialize *err to 0 in xen_do_read_msr().
+>>
+>> Fixes: 502ad6e5a619 ("x86/msr: Change the function type of native_read_msr_safe()")
+>> Reported-by: Dan Carpenter <dan.carpenter@linaro.org>
+>> Closes: https://lore.kernel.org/xen-devel/aBxNI_Q0-MhtBSZG@stanley.mountain/
+>> Signed-off-by: Xin Li (Intel) <xin@zytor.com>
+>> ---
+>>   arch/x86/xen/enlighten_pv.c | 5 ++++-
+>>   1 file changed, 4 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/arch/x86/xen/enlighten_pv.c b/arch/x86/xen/enlighten_pv.c
+>> index 3be38350f044..01f1d441347e 100644
+>> --- a/arch/x86/xen/enlighten_pv.c
+>> +++ b/arch/x86/xen/enlighten_pv.c
+>> @@ -1091,6 +1091,9 @@ static u64 xen_do_read_msr(u32 msr, int *err)
+>>   {
+>>   	u64 val = 0;	/* Avoid uninitialized value for safe variant. */
+>>   
+>> +	if (err)
+>> +		*err = 0;
+>> +
+>>   	if (pmu_msr_chk_emulated(msr, &val, true))
+>>   		return val;
+>>   
+>> @@ -1162,7 +1165,7 @@ static void xen_do_write_msr(u32 msr, u64 val, int *err)
+>>   
+>>   static int xen_read_msr_safe(u32 msr, u64 *val)
+>>   {
+>> -	int err;
+>> +	int err = 0;
+>>   
+>>   	*val = xen_do_read_msr(msr, &err);
+>>   	return err;
 > 
-> BTW., at this point we should probably just replace
-> sev_es_wr_ghcb_msr() calls with direct calls to:
-> 
-> 	native_wrmsrq(MSR_AMD64_SEV_ES_GHCB, ...);
-> 
-> as sev_es_wr_ghcb_msr() is now basically an open-coded native_wrmsrq().
-> 
+> So why not initialize 'err' with 0 in both callers, xen_read_msr_safe()
+> and xen_read_msr(), and avoid all the initialization trouble in
+> xen_do_read_msr()?
 
-I thought about it, however it looks to me that current code prefers not
-to spread MSR_AMD64_SEV_ES_GHCB in 17 callsites.  And anyway it's a 
-__always_inline function.
+Yeah, I should make the change in xen_read_msr() too.
 
-But as you have asked, I will make the change unless someone objects.
+However xen_do_read_msr() should be implemented in a defensive way to
+set *err properly as it's part of its return value.  Actually it was so,
+but one of my previous cleanup patch removed it because err is no longer
+passed to pmu_msr_chk_emulated().
 
 Thanks!
      Xin
