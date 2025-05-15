@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B8BBDAB8E9B
-	for <lists+xen-devel@lfdr.de>; Thu, 15 May 2025 20:12:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.985859.1371670 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B6475AB9035
+	for <lists+xen-devel@lfdr.de>; Thu, 15 May 2025 21:52:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.985912.1371679 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uFd3X-0007L4-1B; Thu, 15 May 2025 18:11:43 +0000
+	id 1uFebh-0003W5-MX; Thu, 15 May 2025 19:51:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 985859.1371670; Thu, 15 May 2025 18:11:43 +0000
+Received: by outflank-mailman (output) from mailman id 985912.1371679; Thu, 15 May 2025 19:51:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uFd3W-0007Jd-Ug; Thu, 15 May 2025 18:11:42 +0000
-Received: by outflank-mailman (input) for mailman id 985859;
- Thu, 15 May 2025 18:11:41 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=0Gu8=X7=zytor.com=xin@srs-se1.protection.inumbo.net>)
- id 1uFd3V-0007JX-7K
- for xen-devel@lists.xenproject.org; Thu, 15 May 2025 18:11:41 +0000
-Received: from mail.zytor.com (terminus.zytor.com [2607:7c80:54:3::136])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0aaaad6d-31b8-11f0-9ffb-bf95429c2676;
- Thu, 15 May 2025 20:11:38 +0200 (CEST)
-Received: from [192.168.7.202] ([71.202.166.45]) (authenticated bits=0)
- by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 54FIBA613610523
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
- Thu, 15 May 2025 11:11:10 -0700
+	id 1uFebh-0003UQ-Jp; Thu, 15 May 2025 19:51:05 +0000
+Received: by outflank-mailman (input) for mailman id 985912;
+ Thu, 15 May 2025 19:51:03 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=us+D=X7=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1uFebf-0003UK-Al
+ for xen-devel@lists.xenproject.org; Thu, 15 May 2025 19:51:03 +0000
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [2a00:1450:4864:20::329])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id edcb4ead-31c5-11f0-9eb6-5ba50f476ded;
+ Thu, 15 May 2025 21:51:02 +0200 (CEST)
+Received: by mail-wm1-x329.google.com with SMTP id
+ 5b1f17b1804b1-43ede096d73so9602105e9.2
+ for <xen-devel@lists.xenproject.org>; Thu, 15 May 2025 12:51:02 -0700 (PDT)
+Received: from localhost.localdomain (host-92-26-98-202.as13285.net.
+ [92.26.98.202]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3a35ca5a03fsm440925f8f.22.2025.05.15.12.50.59
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 15 May 2025 12:51:00 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,129 +45,119 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0aaaad6d-31b8-11f0-9ffb-bf95429c2676
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 54FIBA613610523
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
-	s=2025042001; t=1747332671;
-	bh=9c1R4oy3soG5VO6mIRJI3CqW6DmwJ6Mep1AU0zB8N4A=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=DG3BzwQ2BWylwPDcl7KrfGhx2mIF7dLUmwl61g76BeleGjxlXwR4RDqh1sN4AbaLj
-	 LCiKCPNKKZn+A3q/x0AZAtwJwqjQspJXZq6Gj4MU6eeg51aUBJC8fVM+e53znk7u7i
-	 OQoSxfM434A9LxtAKAO1Jlmfa/R0vptHUyiea5Xf3GDQSRfEJR1UQIXvaqBBKtOpcy
-	 AVto//EUOxjmaJK2YYQKuOz5qz8i2tTQuKWYati/DUVFmup3bEHu0inyoANKIPOidS
-	 StXvbk7nGpNOH4+MoZQIgOsZzrfgFScQn6oJjgAvI1D78ZdQ87LB/YAc3eQv2WkUMF
-	 EniWYTJqe8v3A==
-Message-ID: <30affad5-4f26-4e22-9d64-b8ece1199773@zytor.com>
-Date: Thu, 15 May 2025 11:11:09 -0700
+X-Inumbo-ID: edcb4ead-31c5-11f0-9eb6-5ba50f476ded
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1747338661; x=1747943461; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=wZCZBNec/jVK5fwnZ+1Uw9LNKLMvJb8VoV7F4Xuquk0=;
+        b=tMzsb8N9LRsPiA6RTj8MZwxp2XIOUY9CwVNlymS2DU6Uat0d3AQd4hnWAepHE1hG3o
+         upjHPoS6k+WmeFYUcyF7xlGBYMhI+ErYNAfxEqRcnuTGU8ygSKwXmO9IT6SVUf9jwNw9
+         NZEO1SreiVVrDTdnchFbJrck8CL6VoAOEbPss=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1747338661; x=1747943461;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=wZCZBNec/jVK5fwnZ+1Uw9LNKLMvJb8VoV7F4Xuquk0=;
+        b=UC9KQ9l+r4n79hq2WF18eBwbMP7F3FDzzi4mbKGWKdavuByww5dEc+4SCplwpbnMGK
+         Om5i/cnuz3eQI6+ym7BWteGLzYl3FokkeTowjc1tsEDThNY51mukEoq5fijK5UHhXQrT
+         mataS+31izLuebuh2P59/hdzSqJSSkwhWvd3TRSRl+pL4cWM8RmilhAaeYj2+jR4PrLO
+         hEhQRZbmpzwF7bS6WwzYG9F7omeKmSFvgIVT+ef2HmUbctXlppojwcNT8Rzy/c+5hiFk
+         cQam3KgRTnbhO3R4phsvxflDs5DkC9eu005YjwqUeKYCMjZP0rEupx1ZSagBfHz0Qiao
+         X0iw==
+X-Gm-Message-State: AOJu0YxDZwr424gswtoxYK6PmrDemc+9wk5JUQgab6RE3aNtXoLuAOH+
+	08rQkYKwBBINLB39diZ8vSkbWFRSm8RVg+IrI9VZjMlKAx/jpAw7oKsTpMnwgFcVap8qca2iIzW
+	ZSJXC
+X-Gm-Gg: ASbGncv7SzlLOq0IsP3skVo5qtqtPPq14kCkNlq0qgFrDkZXTI1aP2OO7wJMSgSIUEa
+	Moev18peMewzbi0hPGKCSknS5fYX6ukcvXe8TzNa+NpJRYsulCc6/1woZph/E5OPZFc8tUEtzt1
+	nq6HRuetgUvZIH+yKvann7ZojRNZviaxm2RL27UVx5nUJ6k2quXyJN6YxrvkAYAvskM8XeoJ3nC
+	yVLGsGfQhJMMuTeFpRnVNYCrRXnoAPUoOUMEA8YhkD6+xNmQeoHNcs9uAh5u4P21fEmuQrCexuq
+	x8VFvXivIrvrdrJaq5yCgFKerqYra174y/ofTzwW28YwB8dockcCezCHKYHc2nDBKazAzMdGSlr
+	Ixc1hTeIpWX/MTZ9BYaFOVNFQ
+X-Google-Smtp-Source: AGHT+IFszA5YjZ5ZvW5f7Xazk+EHALOzN3nZl0b1KoykWFrj8R2/CkzPzeyUlp8lWJcY2IrT38QAdw==
+X-Received: by 2002:a05:600c:4e52:b0:43d:db5:7af8 with SMTP id 5b1f17b1804b1-442fd665cd3mr6535455e9.21.1747338660834;
+        Thu, 15 May 2025 12:51:00 -0700 (PDT)
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jan Beulich <JBeulich@suse.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Nicola Vetrini <nicola.vetrini@bugseng.com>,
+	"consulting @ bugseng . com" <consulting@bugseng.com>
+Subject: [PATCH for-4.20] x86/emul: Fix emulation of RDSEED with older toolchains
+Date: Thu, 15 May 2025 20:50:58 +0100
+Message-Id: <20250515195058.3702872-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.39.5
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 2/3] x86/xen/msr: Fix uninitialized symbol 'err'
-To: Ingo Molnar <mingo@kernel.org>
-Cc: linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org,
-        linux-acpi@vger.kernel.org, tglx@linutronix.de, bp@alien8.de,
-        dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com,
-        peterz@infradead.org, jgross@suse.com, boris.ostrovsky@oracle.com,
-        rafael@kernel.org, lenb@kernel.org
-References: <20250512084552.1586883-1-xin@zytor.com>
- <20250512084552.1586883-3-xin@zytor.com> <aCYIblffvBGUuxWf@gmail.com>
-Content-Language: en-US
-From: Xin Li <xin@zytor.com>
-Autocrypt: addr=xin@zytor.com; keydata=
- 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
- l75w1xInsg==
-In-Reply-To: <aCYIblffvBGUuxWf@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 5/15/2025 8:29 AM, Ingo Molnar wrote:
-> 
-> * Xin Li (Intel) <xin@zytor.com> wrote:
-> 
->> xen_read_msr_safe() currently passes an uninitialized argument err to
->> xen_do_read_msr().  But as xen_do_read_msr() may not set the argument,
->> xen_read_msr_safe() could return err with an unpredictable value.
->>
->> To ensure correctness, initialize err to 0 (representing success)
->> in xen_read_msr_safe().
->>
->> Because xen_read_msr_safe() is essentially a wrapper of xen_do_read_msr(),
->> the latter should be responsible for initializing the value of *err to 0.
->> Thus initialize *err to 0 in xen_do_read_msr().
->>
->> Fixes: 502ad6e5a619 ("x86/msr: Change the function type of native_read_msr_safe()")
->> Reported-by: Dan Carpenter <dan.carpenter@linaro.org>
->> Closes: https://lore.kernel.org/xen-devel/aBxNI_Q0-MhtBSZG@stanley.mountain/
->> Signed-off-by: Xin Li (Intel) <xin@zytor.com>
->> ---
->>   arch/x86/xen/enlighten_pv.c | 5 ++++-
->>   1 file changed, 4 insertions(+), 1 deletion(-)
->>
->> diff --git a/arch/x86/xen/enlighten_pv.c b/arch/x86/xen/enlighten_pv.c
->> index 3be38350f044..01f1d441347e 100644
->> --- a/arch/x86/xen/enlighten_pv.c
->> +++ b/arch/x86/xen/enlighten_pv.c
->> @@ -1091,6 +1091,9 @@ static u64 xen_do_read_msr(u32 msr, int *err)
->>   {
->>   	u64 val = 0;	/* Avoid uninitialized value for safe variant. */
->>   
->> +	if (err)
->> +		*err = 0;
->> +
->>   	if (pmu_msr_chk_emulated(msr, &val, true))
->>   		return val;
->>   
->> @@ -1162,7 +1165,7 @@ static void xen_do_write_msr(u32 msr, u64 val, int *err)
->>   
->>   static int xen_read_msr_safe(u32 msr, u64 *val)
->>   {
->> -	int err;
->> +	int err = 0;
->>   
->>   	*val = xen_do_read_msr(msr, &err);
->>   	return err;
-> 
-> So why not initialize 'err' with 0 in both callers, xen_read_msr_safe()
-> and xen_read_msr(), and avoid all the initialization trouble in
-> xen_do_read_msr()?
+This is reported as a MISRA R16.3 (missing break) violation, but turns out to
+be substantially more complicated than expected.
 
-Yeah, I should make the change in xen_read_msr() too.
+In commit a8fe4ec5320a ("x86emul: support RDRAND/RDSEED"), the switch()
+statement had a default case going to cannot_emulate, with both the case 6 and
+case 7 labels being fully within #ifdef HAVE_GAS_RD{RAND,SEED}.
 
-However xen_do_read_msr() should be implemented in a defensive way to
-set *err properly as it's part of its return value.  Actually it was so,
-but one of my previous cleanup patch removed it because err is no longer
-passed to pmu_msr_chk_emulated().
+Therefore, when the toolchain didn't understand the RDRAND/RDSEED
+instructions, attempts to emulate them suffered #UD.  (This is arguably a
+problem as there's no interlock to prevent RDRAND/RDSEED being advertied to
+the guest, but as instructions with only register encodings, they can only end
+up being emulated with VM Introspection is in use.)
 
-Thanks!
-     Xin
+In commit 58f1bba44033 ("x86emul: support RDPID"), case 7 was taken outside of
+HAVE_GAS_RDSEED, meaning that emulating an RDSEED instruction no longer hit
+the default case when the toolchain was too old.
+
+Instead, it would fall out of the switch statment and be completed normally,
+behaving as a NOP to the guest.
+
+Retrofit a "return X86EMUL_UNIMPLEMENTED" in the case that the toolchain
+doesn't know the RDRAND instruction, matching how RDRAND work.
+
+Note that this has been fixed differently in Xen 4.21.  Commit
+05bf9f1f0f52 ("x86/emulate: Remove HAVE_AS_RDRAND and HAVE_AS_RDSEED") has
+removed the problematic condition due to the toolchain baseline upgrade.
+
+Fixes: 58f1bba44033 ("x86emul: support RDPID")
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Stefano Stabellini <sstabellini@kernel.org>
+CC: Nicola Vetrini <nicola.vetrini@bugseng.com>
+CC: consulting@bugseng.com <consulting@bugseng.com>
+
+This will unblock the staging-4.20 branch.
+
+I'm still concerned as to why this regression has shown up unexpected in the
+4.20 branch.  In 4.19, the rule isn't marked clean, hence why that passes.
+
+However, something changed in the Eclair environment to cause this to happen,
+and given how HAVE_AS_RDSEED works, it's apparently to do with probing the
+toolchain capabitilies, and now failing to probe correctly.
+---
+ xen/arch/x86/x86_emulate/0fc7.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/xen/arch/x86/x86_emulate/0fc7.c b/xen/arch/x86/x86_emulate/0fc7.c
+index 5268d5cafd7b..2b6b444bab94 100644
+--- a/xen/arch/x86/x86_emulate/0fc7.c
++++ b/xen/arch/x86/x86_emulate/0fc7.c
+@@ -102,6 +102,8 @@ int x86emul_0fc7(struct x86_emulate_state *s,
+             if ( carry )
+                 regs->eflags |= X86_EFLAGS_CF;
+             break;
++#else
++            return X86EMUL_UNIMPLEMENTED;
+ #endif
+         }
+     }
+
+base-commit: 612cfd7215568fe8a7e8939dfcc4bf53d986e482
+-- 
+2.39.5
+
 
