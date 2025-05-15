@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B683AB8809
-	for <lists+xen-devel@lfdr.de>; Thu, 15 May 2025 15:33:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.985494.1371450 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C9E8BAB87DB
+	for <lists+xen-devel@lfdr.de>; Thu, 15 May 2025 15:23:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.985414.1371399 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uFYhw-0008CZ-42; Thu, 15 May 2025 13:33:08 +0000
+	id 1uFYYU-0003gX-AE; Thu, 15 May 2025 13:23:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 985494.1371450; Thu, 15 May 2025 13:33:08 +0000
+Received: by outflank-mailman (output) from mailman id 985414.1371399; Thu, 15 May 2025 13:23:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uFYhw-0008Ac-0e; Thu, 15 May 2025 13:33:08 +0000
-Received: by outflank-mailman (input) for mailman id 985494;
- Thu, 15 May 2025 13:33:06 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uFYYU-0003eB-70; Thu, 15 May 2025 13:23:22 +0000
+Received: by outflank-mailman (input) for mailman id 985414;
+ Thu, 15 May 2025 13:23:21 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=WRi0=X7=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1uFYXy-0006hT-1k
- for xen-devel@lists.xenproject.org; Thu, 15 May 2025 13:22:50 +0000
+ id 1uFYYT-0003FO-7O
+ for xen-devel@lists.xenproject.org; Thu, 15 May 2025 13:23:21 +0000
 Received: from sender4-of-o50.zoho.com (sender4-of-o50.zoho.com
- [136.143.188.50]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b0ef87a9-318f-11f0-9ffb-bf95429c2676;
- Thu, 15 May 2025 15:22:48 +0200 (CEST)
-Received: by mx.zohomail.com with SMTPS id 1747315203898774.28914981641;
- Thu, 15 May 2025 06:20:03 -0700 (PDT)
+ [136.143.188.50]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c43d0db4-318f-11f0-9eb6-5ba50f476ded;
+ Thu, 15 May 2025 15:23:20 +0200 (CEST)
+Received: by mx.zohomail.com with SMTPS id 1747315204898137.1461395774836;
+ Thu, 15 May 2025 06:20:04 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,25 +38,25 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b0ef87a9-318f-11f0-9ffb-bf95429c2676
-ARC-Seal: i=1; a=rsa-sha256; t=1747315206; cv=none; 
+X-Inumbo-ID: c43d0db4-318f-11f0-9eb6-5ba50f476ded
+ARC-Seal: i=1; a=rsa-sha256; t=1747315208; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=d+cKlHslB97Fgzmkuw8WVae7Gg0J20oOIGKDvPqOUaw9s4iah9L52ZwOsIcUwLnX8HED62SK6MspQ1kIqt2AMZ0QOx0v7ICnD6cLa8xpejfFA0JcRUnkJ/ZvpAbbdcOCDk95niqj1ZKNWT2pPHmAQEbECtmUSCssxWYG+Cmc3Iw=
+	b=BzxyQjXRY00clL21ob1gVJLY385JcYVyBn1Hx/iww+l7hoZBGVRkpPQieqc/VxVACzL4Vevu7RVzqcQCyYxMf9vBB/DPDzJwMyOzYOu9Uzd9YO2DrHfAfxEvHb4YvAd1RUp06ZoEodfeLckRC5NLir+cKosDbkApxcb2GektUeY=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1747315206; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=WDa/Mkj3Tjniuh016pru5/pfbd3GRCwENfg6jnawTYA=; 
-	b=dEi1MSi66N0PSmn3KTiyv6qzJVY8RtkBZhUVDGknlPUi+DFz5r6RsYA7cHeMZbWulAcZg2qrfuRcKhAt1hVwVYFu8O2gLuROtBmY7Cy+wzJLaeqyyc1YyDpHbBrw4xHKuTXU9v+VQn1x3+WuS+oxSbY1Mysu2Nxiq7JAgs25cVE=
+	t=1747315208; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=TH0TMFdedjMThleKM+wTQxxJrcskN+YzfLSHIdAn7Rk=; 
+	b=KLs05idmmBdlzfIwimUS5Hb49kjwHEonBlp5vATQ5rH2gp0tNkCxUCOUXaER0FLen2LbtphFGcMJkCV4hPGi0Gns1fNDa1oRsDkeUGOcHzFPpvr2BvZV+tDPsmMAR9VN4mYtVaUVnQ8W2xLoWeHdlHs8Vzj1YhkGS23ptwFqRNg=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
 	dkim=pass  header.i=apertussolutions.com;
 	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
 	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1747315206;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1747315208;
 	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-Id:Message-Id:MIME-Version:Content-Transfer-Encoding:Reply-To;
-	bh=WDa/Mkj3Tjniuh016pru5/pfbd3GRCwENfg6jnawTYA=;
-	b=SMJPI1sNgt0DPze3WNar++exrUJ8OEoGESbyIwBnGs3UbhTR60z8wBl5svugpywh
-	cuZQ3fvB+jScFo9SY0RFkmhKaSgzNaHVOTQX9cYDClDyCOTMA4XpwD+g/4QSP3JWo+E
-	HbQt4o8yHwaLmIjbcfXHp4ouD/dtx7CU84s9+4Go=
+	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-Id:Message-Id:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Reply-To;
+	bh=TH0TMFdedjMThleKM+wTQxxJrcskN+YzfLSHIdAn7Rk=;
+	b=pDUcIuL5WktDikVhom0GsRJ5sWMuWIc5Vrycr6AEk52cILKY4X0DpCwZyZEVu8IJ
+	T/a+klYONmKS4Oeux8QqeANFYc5vDNcJ7JuDFzFWXs3G3eIInDC9T6yPKAsHqoxWNf9
+	Rp5rha7YVsXOcmPOJlhVQg0QskRcjz9A4gLnJG5I=
 From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
 To: xen-devel@lists.xenproject.org
 Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
@@ -65,135 +65,112 @@ Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
 	agarciav@amd.com,
 	Jan Beulich <jbeulich@suse.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [RFCv2 30/38] x86/hyperlaunch: introduce concept of core domains
-Date: Thu, 15 May 2025 09:19:42 -0400
-Message-Id: <20250515131951.5594-1-dpsmith@apertussolutions.com>
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [RFCv2 31/38] common/gzip: add function to read isize field
+Date: Thu, 15 May 2025 09:19:43 -0400
+Message-Id: <20250515131951.5594-2-dpsmith@apertussolutions.com>
 X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20250515131951.5594-1-dpsmith@apertussolutions.com>
+References: <20250515131951.5594-1-dpsmith@apertussolutions.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-ZohoMailClient: External
 
-When constructing a disaggregated Xen system, there are certain domains with
-particular capabilities that must be present and running at start-of-day. The
-hardware domain is absolutely required, while a xenstore domain is mostly
-required.
-
-The function build_core_domains is introduced to encapsulate the construction
-of the core domains.
+The gzip specification dictates that the last four bytes of a gzip
+file will contain the modulo 2^32 of the original image size. Since
+this is a function of gzip, relocate the logic under a gzip function.
 
 Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
-
 ---
+ xen/arch/x86/bzimage.c   | 10 +++-------
+ xen/common/gzip/gunzip.c | 12 ++++++++++++
+ xen/include/xen/gunzip.h |  3 +++
+ 3 files changed, 18 insertions(+), 7 deletions(-)
 
-Changes in RFCv2:
-- rewrote build_core_domains due address the reordering event channel creation
----
- xen/arch/x86/domain-builder/core.c     | 66 +++++++++++++++++++++++---
- xen/arch/x86/include/asm/boot-domain.h |  2 +
- 2 files changed, 61 insertions(+), 7 deletions(-)
-
-diff --git a/xen/arch/x86/domain-builder/core.c b/xen/arch/x86/domain-builder/core.c
-index 4eaf3a111208..af79792b5316 100644
---- a/xen/arch/x86/domain-builder/core.c
-+++ b/xen/arch/x86/domain-builder/core.c
-@@ -3,24 +3,76 @@
-  * Copyright (C) 2025, Apertus Solutions, LLC
-  */
+diff --git a/xen/arch/x86/bzimage.c b/xen/arch/x86/bzimage.c
+index 66f648f311e4..eaea64b9c014 100644
+--- a/xen/arch/x86/bzimage.c
++++ b/xen/arch/x86/bzimage.c
+@@ -8,11 +8,6 @@
+ #include <xen/libelf.h>
+ #include <asm/bzimage.h>
  
-+#include <xen/bug.h>
- #include <xen/domain-builder.h>
+-static __init unsigned long output_length(void *image, unsigned long image_len)
+-{
+-    return *(uint32_t *)(image + image_len - 4);
+-}
+-
+ struct __packed setup_header {
+         uint8_t         _pad0[0x1f1];           /* skip uninteresting stuff */
+         uint8_t         setup_sects;
+@@ -91,7 +86,8 @@ unsigned long __init bzimage_headroom(void *image_start,
+         return 0;
+ 
+     orig_image_len = image_length;
+-    headroom = output_length(image_start, image_length);
++    /* Linux build system mimics gzip isize field for bzip2/lzma algos */
++    headroom = gzip_isize(image_start, image_length);
+     if (gzip_check(image_start, image_length))
+     {
+         headroom += headroom >> 12; /* Add 8 bytes for every 32K input block */
+@@ -124,7 +120,7 @@ int __init bzimage_parse(void *image_base, void **image_start,
+ 
+     BUG_ON(!(image_base < *image_start));
+ 
+-    output_len = output_length(*image_start, orig_image_len);
++    output_len = gzip_isize(*image_start, orig_image_len);
+ 
+     if ( (err = perform_gunzip(image_base, *image_start, orig_image_len)) > 0 )
+         err = decompress(*image_start, orig_image_len, image_base);
+diff --git a/xen/common/gzip/gunzip.c b/xen/common/gzip/gunzip.c
+index 89f45d4050ba..0963fe7bbd17 100644
+--- a/xen/common/gzip/gunzip.c
++++ b/xen/common/gzip/gunzip.c
+@@ -3,6 +3,7 @@
  #include <xen/init.h>
  #include <xen/lib.h>
+ #include <xen/mm.h>
++#include <xen/unaligned.h>
  
- #include <asm/bootinfo.h>
-+#include <asm/pv/shim.h>
-+
-+static int  __init build_core_domains(struct boot_info *bi)
+ #define WSIZE           0x80000000U
+ 
+@@ -106,6 +107,17 @@ __init int gzip_check(char *image, unsigned long image_len)
+     return (magic0 == 0x1f) && ((magic1 == 0x8b) || (magic1 == 0x9e));
+ }
+ 
++/*
++ * RFC 1952 specifies the last four bytes as the isize field, the size of the
++ * original (uncompressed) input data modulo 2^32.
++ */
++__init uint32_t gzip_isize(char *image, unsigned long image_len)
 +{
-+    int count = 0;
-+    struct boot_domain *bd;
-+    int hw, xs;
++    uint32_t *ptr = (uint32_t *)(image + image_len - 4);
 +
-+    hw = first_boot_domain_index(bi, DOMAIN_CAPS_HARDWARE);
-+    if ( hw > MAX_NR_BOOTDOMS )
-+        panic("%s: hardware domain missing\n", __func__);
-+    else
-+    {
-+        bd = &bi->domains[hw];
-+
-+        arch_create_dom(bi, bd);
-+        if ( bd->d )
-+        {
-+            bd->constructed = true;
-+            count++;
-+        }
-+    }
-+
-+    xs = first_boot_domain_index(bi, DOMAIN_CAPS_XENSTORE);
-+    if ( xs > MAX_NR_BOOTDOMS )
-+        printk(XENLOG_WARNING "No xenstore domain was defined\n");
-+    else
-+    {
-+        if ( !bi->domains[xs].constructed )
-+        {
-+            bd = &bi->domains[xs];
-+
-+            arch_create_dom(bi, bd);
-+            if ( bd->d )
-+            {
-+                bd->constructed = true;
-+                count++;
-+            }
-+        }
-+    }
-+
-+    ASSERT(count <= bi->nr_domains);
-+
-+    return count;
++    return get_unaligned(ptr);
 +}
- 
- unsigned int __init builder_create_domains(struct boot_info *bi)
- {
-     unsigned int build_count = 0;
--    struct boot_domain *bd = &bi->domains[0];
--
--    if ( bd->capabilities & DOMAIN_CAPS_HARDWARE && bd->kernel == NULL )
--        panic("%s: hardware domain missing kernel\n", __func__);
- 
-+    if ( bi->nr_domains == 0 )
-+        panic("%s: no domains defined\n", __func__);
- 
--    arch_create_dom(bi, bd);
--    if ( bd->d )
--        build_count++;
-+    if ( pv_shim )
-+    {
-+        arch_create_dom(bi, &bi->domains[0]);
-+        if ( bi->domains[0].d )
-+        {
-+            bi->domains[0].constructed = true;
-+            build_count++;
-+        }
-+    }
-+    else
-+        build_count = build_core_domains(bi);
- 
-     arch_builder_finalize(bi);
- 
-diff --git a/xen/arch/x86/include/asm/boot-domain.h b/xen/arch/x86/include/asm/boot-domain.h
-index 66f3a71fd597..41246f31acce 100644
---- a/xen/arch/x86/include/asm/boot-domain.h
-+++ b/xen/arch/x86/include/asm/boot-domain.h
-@@ -36,6 +36,8 @@ struct boot_domain {
-     struct domain *d;
- 
-     xen_pfn_t xs_page, cons_page;
 +
-+    bool constructed;
- };
+ __init int perform_gunzip(char *output, char *image, unsigned long image_len)
+ {
+     struct gunzip_state *s;
+diff --git a/xen/include/xen/gunzip.h b/xen/include/xen/gunzip.h
+index 805833127aba..1b45350c195f 100644
+--- a/xen/include/xen/gunzip.h
++++ b/xen/include/xen/gunzip.h
+@@ -1,7 +1,10 @@
+ #ifndef __XEN_GUNZIP_H
+ #define __XEN_GUNZIP_H
  
- static inline bool __init has_dom0_caps(const struct boot_domain *bd)
++#include <xen/types.h>
++
+ int gzip_check(char *image, unsigned long image_len);
++uint32_t gzip_isize(char *image, unsigned long image_len);
+ int perform_gunzip(char *output, char *image, unsigned long image_len);
+ 
+ #endif
 -- 
 2.30.2
 
