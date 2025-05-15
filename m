@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B591AB8388
-	for <lists+xen-devel@lfdr.de>; Thu, 15 May 2025 12:05:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.985140.1371077 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 21386AB838C
+	for <lists+xen-devel@lfdr.de>; Thu, 15 May 2025 12:08:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.985152.1371088 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uFVSV-0006tI-Pv; Thu, 15 May 2025 10:04:59 +0000
+	id 1uFVW6-0007Wn-D0; Thu, 15 May 2025 10:08:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 985140.1371077; Thu, 15 May 2025 10:04:59 +0000
+Received: by outflank-mailman (output) from mailman id 985152.1371088; Thu, 15 May 2025 10:08:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uFVSV-0006r8-N2; Thu, 15 May 2025 10:04:59 +0000
-Received: by outflank-mailman (input) for mailman id 985140;
- Thu, 15 May 2025 10:04:57 +0000
+	id 1uFVW6-0007Tu-9G; Thu, 15 May 2025 10:08:42 +0000
+Received: by outflank-mailman (input) for mailman id 985152;
+ Thu, 15 May 2025 10:08:41 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=CT6j=X7=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1uFVST-0006r2-Sd
- for xen-devel@lists.xenproject.org; Thu, 15 May 2025 10:04:57 +0000
-Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
- [2a00:1450:4864:20::629])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=D/jC=X7=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uFVW5-0007To-Ky
+ for xen-devel@lists.xenproject.org; Thu, 15 May 2025 10:08:41 +0000
+Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
+ [2a00:1450:4864:20::52b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0cbdc55b-3174-11f0-9ffb-bf95429c2676;
- Thu, 15 May 2025 12:04:54 +0200 (CEST)
-Received: by mail-ej1-x629.google.com with SMTP id
- a640c23a62f3a-ad51ba0af48so62479066b.0
- for <xen-devel@lists.xenproject.org>; Thu, 15 May 2025 03:04:54 -0700 (PDT)
-Received: from localhost ([84.78.159.3]) by smtp.gmail.com with UTF8SMTPSA id
- a640c23a62f3a-ad21f2145d6sm1049688166b.95.2025.05.15.03.04.53
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 15 May 2025 03:04:53 -0700 (PDT)
+ id 92b7ed27-3174-11f0-9ffb-bf95429c2676;
+ Thu, 15 May 2025 12:08:39 +0200 (CEST)
+Received: by mail-ed1-x52b.google.com with SMTP id
+ 4fb4d7f45d1cf-5fbc736f0c7so1148606a12.2
+ for <xen-devel@lists.xenproject.org>; Thu, 15 May 2025 03:08:39 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-5fd2b82297esm6812713a12.44.2025.05.15.03.08.38
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 15 May 2025 03:08:38 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,157 +45,206 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0cbdc55b-3174-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 92b7ed27-3174-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1747303494; x=1747908294; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=I1EiFZSk7YxyIKZ3rKPdt3+1uIek19CdmA9y/W1+PFk=;
-        b=nZ5J4GnKBoTOfUeW8QG5Xve89qf8EmXkK10UYr13t4TWt0TXTgv7s1RFYNqxBKgHD2
-         tMfv22kSWxrjnEty5n5QUhIJ4p7mxkhGzVIWsJo3rMeh8o31bJhoTvbSNowFTV3lnLl/
-         iL3UM7g6e0UbOHLXEUzw+ahtJ7HtQFvuMnces=
+        d=suse.com; s=google; t=1747303719; x=1747908519; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=isIMdZ8Pin1EYuoK9HNbdwiEJU+o8JaDPxr2CJqfkkI=;
+        b=VXrTg0fn9AtzdLUHqY9yFDuEaD9XPx2ySf30RI9vMD9cVskFMzHfWB/nEmHxlyTVmX
+         6rRzba512lLWIgpLCI2q7uWy1QP1eLkJblEVoVwgTDnWtULXh5UonBSzF6pehHX4D87P
+         TONKAw8e22L6wm3jlwtmjjIAcTqVSq6ooLxiRdjARLzheWvbhsRFbIuYADsXjbSu7Sd2
+         88AjOc0/vEQi2BZLxgEaXTGhk+8uWBVj5R3rUOK+gnW2g4NzOzq86EBrTAInrdyp1fCd
+         vvMHnbOfK7Xu1qnruszuhtlU+vxAqS2mFPCMqpdIvBHcTi7XneSiXkx7/Udrp0Shpbc9
+         TzQw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747303494; x=1747908294;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20230601; t=1747303719; x=1747908519;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=I1EiFZSk7YxyIKZ3rKPdt3+1uIek19CdmA9y/W1+PFk=;
-        b=fJYBaL8AnFsetXl32jAUHYR/rPYqE7AiVjQT0BIOcixi7PwAm4i5XrkJK0KT8/ZkRr
-         +GqT/ewOHrbbPsCAye0MhEFq6c9hmLz7HtKcbfu4tCyx0xFNz4u8+5WcaPWECiVsU/oa
-         bykc3kbE5+0+4m3AatIgGIn753sysHS1bdr8N/QvLOgat+DaFJQBByt1MRiO/NS3R29s
-         bP71oOnifF5tMgFlybt7RxKxinazRjWfKVUdvxt+kRC/tC1+Ac3SwJAf77zibYCarcTT
-         HdxmfMGW6W4ZsfcKL0g1JDctI9wsvqBX6WXPzT30k7SKIXMcJ1BkfUTFuy+jPwJJUmg7
-         X4Gg==
-X-Gm-Message-State: AOJu0Yw1XJ6ADmeEq/cTpdlIHUE8jwfOOGaR1hynHIF+jD+o17X4JANO
-	pHxyYeE4yrEOOSNL8JSLYREoV1l19akmUkaJZziV1hagAkfwC3dzpqjVL0yUXmmOSkY=
-X-Gm-Gg: ASbGncukk1W1r/kr6lPVge8AhV/v3/SpBhtrMfOPfsKy0aYFI1AHE6SUhc+55A6Hf7a
-	YSAadgeKny9HKJzY/bBwQ8VWnz6RtBSj/5I9kLNoK/B6lSklQhfz6L1YDCqu3OJTWWfP3JuIxnk
-	jRZMkvhoPadz0EIN3wof70WGyF2aYduQ1uiARftB8rUViYlnasy+NGO0A1pIsKI/2NcmvVRbbKN
-	gDUvkhzDPRUNLKTj2/YPkc8E8KqVCiY5xjzjQ3CU/Mg7uQR3WslSnhSQpm0TldgN2zxx+JlNAGW
-	dhKyknuomUMQOh8zgrMnCSAxkRHS5a3hiOxXOGwyFfW/9n43+/BHEzkQ
-X-Google-Smtp-Source: AGHT+IHv2A0WoEXFWc1D7d8HzAu4V982lFbmTcduASSjtx8vH44LKy9axbVEfiOoH4II8F4LCuTTbA==
-X-Received: by 2002:a17:907:9712:b0:ad1:ff5f:1460 with SMTP id a640c23a62f3a-ad50f611e40mr321007666b.6.1747303494345;
-        Thu, 15 May 2025 03:04:54 -0700 (PDT)
-Date: Thu, 15 May 2025 12:04:52 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
-Subject: Re: [PATCH] x86/HVM: restrict use of pinned cache attributes as well
- as associated flushing
-Message-ID: <aCW8RKZZCkvCuw5W@macbook.lan>
-References: <42d40da1-bc38-82fb-154a-e1fc876b0c24@suse.com>
+        bh=isIMdZ8Pin1EYuoK9HNbdwiEJU+o8JaDPxr2CJqfkkI=;
+        b=LgxdGpkTS9N78xkMof6LnSfqfkcrFKHuC/T6n0OjnMkwO7KyzyAx7kKDXxPJWHGPe3
+         ofPd3ymAN2iPhtktSjiyWVbmyr+JE+0TD1Ts9GbPshF2WJWZsT/YCE+2VVBLZCSadY8e
+         TeP+ezorUsQ9SZEzeXuVSRqQ1m/b92o2szZoYWs2BA2O2RZC7R7ei4hamXbTavCVDESe
+         gmrnj9+bq5KxBwfGeJbSEK8YxFwBOXUPcelTr0UzT3b00XurhfB5ajAEvaYTYFg8yutk
+         kEeCX5XFTXtknJav7JAEpOMCOsaR6h+GE7C8Tez1aM7uXN/Q47RldKx/5x/ta3sKG5/S
+         JoyA==
+X-Forwarded-Encrypted: i=1; AJvYcCXUzjatsbKTuCm0AUzZcCov13+BGSGO6E0eguB0DTzDd/Ue/m/icEaQkKPvFa+PcmCa8rPO00t1mYM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy4AuhMeXvgCLQNV5pJVr8c6n2c2KeJEwzErpgceCF2hw9lxOt9
+	agV6T6YOxdivJhgcpTLk5OI1MKwBEmB9Xrq8xn+cglFI0Pj412u1dNO2r2wc8w==
+X-Gm-Gg: ASbGncuOON/BEmanQaqaSMQilR2SQeIvS1TSr+ZoTl28wIiph/KdXaTQEkNgaQagh3w
+	KlRy8c4SJCBj05OjfQEoJ28ChfKLWt5rb+hQy1ovdFdikIoqvjw4N5kEwD3suR3E0Efe7hT/m5k
+	AMqzew7hs8PcaP6FLnNk2SYfLS5Ptrvz8630J8bw2psXDlembbbiSPNREQ+1U2+08QaKF7uzqN8
+	BMnnFzrdjwaC+OleHQ0sZfkV9x2ytibidJ19gj9+zgOH4ORI6a9n41UE4YSqxaQ+n8zSXRYGiLP
+	WOVVUWg3mNVeXaOGt78COzKHUR0H4q1SbIzDSK/DG57FKcwORglVV7/8LAasZg+ClcyYHmKW7Gg
+	61ddvNxhaFkazQcyfCHDvhPfS/NG4I5/hpqQK
+X-Google-Smtp-Source: AGHT+IFX+uG785reGbuu72hta70J2BQu/hSXGonvstXIvJ+/JG0Hm0AMjjiSVUSdN6ce8FrrzIpyzg==
+X-Received: by 2002:a05:6402:520b:b0:5ff:7175:a6f6 with SMTP id 4fb4d7f45d1cf-5ff988ad823mr5585751a12.19.1747303719145;
+        Thu, 15 May 2025 03:08:39 -0700 (PDT)
+Message-ID: <d923a7dc-f850-4256-8639-310243a26736@suse.com>
+Date: Thu, 15 May 2025 12:08:37 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <42d40da1-bc38-82fb-154a-e1fc876b0c24@suse.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1] xen/riscv: add initialization support for virtual SBI
+ UART (vSBI UART)
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <1f380b7061496f999d4d60a60b58f494dae886e1.1747064551.git.oleksii.kurochko@gmail.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <1f380b7061496f999d4d60a60b58f494dae886e1.1747064551.git.oleksii.kurochko@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Mar 22, 2023 at 07:50:09AM +0100, Jan Beulich wrote:
-> We don't permit use of uncachable memory types elsewhere unless a domain
-> meets certain criteria. Enforce this also during registration of pinned
-> cache attribute ranges.
-> 
-> Furthermore restrict cache flushing to just uncachable range registration.
-> While there, also
-> - take CPU self-snoop as well as IOMMU snoop into account (albeit the
->   latter still is a global property rather than a per-domain one),
-> - avoid flushes when the domain isn't running yet (which ought to be the
->   common case).
-> 
-> Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> ---
-> At the expense of yet larger a diff it would be possible to get away
-> without any "goto", by moving the whole "new entry" handling into the
-> switch(). Personally I'd prefer that, but the larger diff may be
-> unwelcome.
-> 
-> I have to admit that I can't spot what part of epte_get_entry_emt() the
-> comment refers to that is being deleted. The function does use
-> hvm_get_mem_pinned_cacheattr(), yes, but there's nothing there that talks
-> about cache flushes (and their avoiding) in any way.
-> 
-> Is it really sensible to add/remove ranges once the guest is already
-> running? (If it is, limiting the scope of the flush would be nice, but
-> would require knowing dirtyness for the domain wrt the caches, which
-> currently we don't track.)
-> 
-> This is kind of amending XSA-428.
-> 
-> --- a/xen/arch/x86/hvm/mtrr.c
-> +++ b/xen/arch/x86/hvm/mtrr.c
-> @@ -589,6 +589,7 @@ int hvm_set_mem_pinned_cacheattr(struct
->  {
->      struct hvm_mem_pinned_cacheattr_range *range, *newr;
->      unsigned int nr = 0;
-> +    bool flush = false;
->      int rc = 1;
->  
->      if ( !is_hvm_domain(d) )
-> @@ -612,31 +613,35 @@ int hvm_set_mem_pinned_cacheattr(struct
->  
->                  type = range->type;
->                  call_rcu(&range->rcu, free_pinned_cacheattr_entry);
-> -                p2m_memory_type_changed(d);
->                  switch ( type )
->                  {
-> -                case X86_MT_UCM:
-> +                case X86_MT_WB:
-> +                case X86_MT_WP:
-> +                case X86_MT_WT:
->                      /*
-> -                     * For EPT we can also avoid the flush in this case;
-> -                     * see epte_get_entry_emt().
-> +                     * Flush since we don't know what the cachability is going
-> +                     * to be.
->                       */
-> -                    if ( hap_enabled(d) && cpu_has_vmx )
-> -                case X86_MT_UC:
-> -                        break;
-> -                    /* fall through */
-> -                default:
-> -                    flush_all(FLUSH_CACHE);
-> +                    if ( is_iommu_enabled(d) || cache_flush_permitted(d) )
-> +                        flush = true;
->                      break;
->                  }
-> -                return 0;
-> +                rc = 0;
-> +                goto finish;
->              }
->          domain_unlock(d);
->          return -ENOENT;
->  
->      case X86_MT_UCM:
->      case X86_MT_UC:
-> -    case X86_MT_WB:
->      case X86_MT_WC:
-> +        /* Flush since we don't know what the cachability was. */
-> +        if ( !is_iommu_enabled(d) && !cache_flush_permitted(d) )
-> +            return -EPERM;
-> +        flush = true;
-> +        break;
+On 12.05.2025 17:55, Oleksii Kurochko wrote:
+> --- a/xen/arch/riscv/Makefile
+> +++ b/xen/arch/riscv/Makefile
+> @@ -1,5 +1,6 @@
+>  obj-y += aplic.o
+>  obj-y += cpufeature.o
+> +obj-y += dom0less-build.o
+
+Arm uses
+
+obj-$(CONFIG_DOM0LESS_BOOT) += dom0less-build.init.o
+
+Why the two differences?
+
+> --- /dev/null
+> +++ b/xen/arch/riscv/dom0less-build.c
+> @@ -0,0 +1,30 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
 > +
-> +    case X86_MT_WB:
->      case X86_MT_WP:
->      case X86_MT_WT:
->          break;
-> @@ -689,8 +694,12 @@ int hvm_set_mem_pinned_cacheattr(struct
->  
->      xfree(newr);
->  
-> + finish:
->      p2m_memory_type_changed(d);
-> -    if ( type != X86_MT_WB )
+> +#include <xen/bug.h>
+> +#include <xen/device_tree.h>
+> +#include <xen/errno.h>
+> +#include <xen/fdt-kernel.h>
+> +#include <xen/init.h>
+> +#include <xen/sched.h>
 > +
-> +    if ( flush && d->creation_finished &&
-> +         (!boot_cpu_has(X86_FEATURE_XEN_SELFSNOOP) ||
-> +          (is_iommu_enabled(d) && !iommu_snoop)) )
->          flush_all(FLUSH_CACHE);
+> +#include <asm/vsbi-uart.h>
+> +
+> +int __init init_vuart(struct domain *d, struct kernel_info *kinfo,
+> +                      const struct dt_device_node *node)
+> +{
+> +    int rc = -EINVAL;
+> +
+> +    kinfo->arch.vsbi_uart = dt_property_read_bool(node, "vsbi_uart");
+> +
+> +    if ( kinfo->arch.vsbi_uart )
+> +    {
+> +        rc = domain_vsbi_uart_init(d, NULL);
+> +        if ( rc < 0 )
+> +            return rc;
+> +    }
+> +
+> +    if ( rc )
+> +        panic("%s: what a domain should use as an UART?\n", __func__);
 
-I think it would be better if we could add those checks to
-memory_type_changed() rather than open-coding them here, and just call
-memory_type_changed() then, which would also avoid the goto AFAICT.
+Is this a reason to panic()? Isn't it possible for domains to be fine
+without any UART?
 
-Thanks, Roger.
+> --- /dev/null
+> +++ b/xen/arch/riscv/vsbi-uart.c
+> @@ -0,0 +1,62 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +
+> +#include <xen/errno.h>
+> +#include <xen/lib.h>
+> +#include <xen/mm.h>
+> +#include <xen/sched.h>
+> +#include <xen/xmalloc.h>
+> +
+> +#include <asm/vsbi-uart.h>
+> +
+> +int domain_vsbi_uart_init(struct domain *d, struct vsbi_uart_init_info *info)
+> +{
+> +    int rc;
+> +    struct vsbi_uart *vsbi_uart = &d->arch.vsbi_uart;
+> +
+> +    if ( vsbi_uart->backend.dom.ring_buf )
+> +    {
+> +        printk("%s: ring_buf != 0\n", __func__);
+> +        return -EINVAL;
+> +    }
+> +
+> +    /*
+> +     * info is NULL when the backend is in Xen.
+> +     * info is != NULL when the backend is in a domain.
+> +     */
+> +    if ( info != NULL )
+> +    {
+> +        printk("%s: vsbi_uart backend in a domain isn't supported\n", __func__);
+> +        rc = -EOPNOTSUPP;
+> +        goto out;
+> +    }
+> +    else
+
+Pointless "else" after "goto".
+
+> +    {
+> +        vsbi_uart->backend_in_domain = false;
+> +
+> +        vsbi_uart->backend.xen = xzalloc(struct vsbi_uart_xen_backend);
+> +        if ( vsbi_uart->backend.xen == NULL )
+> +        {
+> +            rc = -ENOMEM;
+> +            goto out;
+> +        }
+> +    }
+> +
+> +    spin_lock_init(&vsbi_uart->lock);
+> +
+> +    return 0;
+> +
+> +out:
+
+Nit (you know what, I suppose).
+
+> +    domain_vsbi_uart_deinit(d);
+> +
+> +    return rc;
+> +}
+> +
+> +void domain_vsbi_uart_deinit(struct domain *d)
+> +{
+> +    struct vsbi_uart *vsbi_uart = &d->arch.vsbi_uart;
+> +
+> +    if ( vsbi_uart->backend_in_domain )
+> +        printk("%s: backed in a domain isn't supported\n", __func__);
+
+Is this relevant in a de-init function?
+
+Jan
 
