@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 57A9FAB8C51
-	for <lists+xen-devel@lfdr.de>; Thu, 15 May 2025 18:26:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.985781.1371639 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 844ADAB8C70
+	for <lists+xen-devel@lfdr.de>; Thu, 15 May 2025 18:30:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.985789.1371649 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uFbPi-0000S2-G8; Thu, 15 May 2025 16:26:30 +0000
+	id 1uFbT8-0001Ex-Vx; Thu, 15 May 2025 16:30:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 985781.1371639; Thu, 15 May 2025 16:26:30 +0000
+Received: by outflank-mailman (output) from mailman id 985789.1371649; Thu, 15 May 2025 16:30:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uFbPi-0000QE-Cv; Thu, 15 May 2025 16:26:30 +0000
-Received: by outflank-mailman (input) for mailman id 985781;
- Thu, 15 May 2025 16:26:28 +0000
+	id 1uFbT8-0001Ad-ST; Thu, 15 May 2025 16:30:02 +0000
+Received: by outflank-mailman (input) for mailman id 985789;
+ Thu, 15 May 2025 16:30:01 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=us+D=X7=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1uFbPg-0000Q6-9W
- for xen-devel@lists.xenproject.org; Thu, 15 May 2025 16:26:28 +0000
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [2a00:1450:4864:20::330])
+ <SRS0=CT6j=X7=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1uFbT7-0000yf-70
+ for xen-devel@lists.xenproject.org; Thu, 15 May 2025 16:30:01 +0000
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [2a00:1450:4864:20::52c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 599e416f-31a9-11f0-9eb6-5ba50f476ded;
- Thu, 15 May 2025 18:26:27 +0200 (CEST)
-Received: by mail-wm1-x330.google.com with SMTP id
- 5b1f17b1804b1-43cf257158fso8514845e9.2
- for <xen-devel@lists.xenproject.org>; Thu, 15 May 2025 09:26:27 -0700 (PDT)
-Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-442fd583f20sm1789335e9.28.2025.05.15.09.26.25
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 15 May 2025 09:26:25 -0700 (PDT)
+ id d89c68e1-31a9-11f0-9eb6-5ba50f476ded;
+ Thu, 15 May 2025 18:30:00 +0200 (CEST)
+Received: by mail-ed1-x52c.google.com with SMTP id
+ 4fb4d7f45d1cf-6000f2f217dso1103979a12.1
+ for <xen-devel@lists.xenproject.org>; Thu, 15 May 2025 09:30:00 -0700 (PDT)
+Received: from localhost ([84.78.159.3]) by smtp.gmail.com with UTF8SMTPSA id
+ a640c23a62f3a-ad52d27192dsm12479566b.71.2025.05.15.09.29.58
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 15 May 2025 09:29:59 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,121 +44,191 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 599e416f-31a9-11f0-9eb6-5ba50f476ded
+X-Inumbo-ID: d89c68e1-31a9-11f0-9eb6-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1747326387; x=1747931187; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Axzu3Z6DIMypLpgL5z0lHcJ61JxQHZsQJbcqk4I7bK8=;
-        b=DNLB1wlqv59GPjCW8sFdiQUgOBNeuD9B6coLctfxHTlVBXv87tgLd3yu8g71d02yVz
-         A/e/AFTTwW4BPzForKMNOHnmZSgeTc7XJ80PP94OPSVIyFftFXKl2OBNG5ZYkoN8P1DH
-         zwJGAK3sAsyG0yhCE6juoBDcjfj0LnPkyXaR8=
+        d=citrix.com; s=google; t=1747326600; x=1747931400; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=UQojJnZ/ObWeMzCKGcC9gHfHHtjUiLkOYNoJimNKpXI=;
+        b=ddzs2FXUnzzJUglD2zy8bsdcrqhuGRFw6zDOa9t8kwpyOTgdzKoHBVExRo1VK5w5Yf
+         gFtF1aBVJ7OVywvUx0pPdegaN2muPRGzLn5QxyTX56HdkhoMMYrrbxg+yeAPfM+BSY8f
+         Mi656scdeixRmaPdEdVNAuJ1+YJMc54MUCF74=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747326387; x=1747931187;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Axzu3Z6DIMypLpgL5z0lHcJ61JxQHZsQJbcqk4I7bK8=;
-        b=TuVhtIlikFlBuH6cG8xKePHot6pNN3o4UdjEvoy4Kv8Nq5hoUXTzFMZUy1hrm9AdiG
-         igH7XJn7hN9gr4Lnpx5iHf5unhkz9IGtg2by5WXOJ4SEc+UIMlha/RXiARgdzl6NhaBX
-         xBnb4h5sDJKDcMGjgJ0NgiStU0jIgAaKo7/q1oyXTX0sTFfYk6fybxC1T1bPwnylgCdA
-         CGZQOniu5FwO6uSwNuZrrVlxHcAWwNqo2msA09SKX1WxHuQ+wOy/dBs1tDV+rLullKzB
-         9teIK7/ibhi3+bIw9EI17q6Bxajl6x9XDwjZH3zq1K9hZbx9s9kQAJyTwZ/E+kT6ogdI
-         anoQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVOF+HDVm1Nx6aPl0iQPLhoszF2AMbH9bmx6d0orAETs8IC8heXhmCxbj8cZLQhZSBeYrmZLjJ+MBU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyXoDQS4LUbRH4bm17gMl0ZSB/S9AAGYbFkmnLePrp2H+hm9Q8a
-	u0reOeWrfm6IU2xU9nOnd8clZveu8KXd+2vW1nMpQBxJnzxtvHMC0YjEQCEiZ5rtJD0=
-X-Gm-Gg: ASbGncvrGuTXOF9zlOdwidU5RCaoOcm1wIJYVcZ5qG6AZ+rL0CKCNSzISi2+3XhlsK0
-	VHdFr4KXN/kreLtA4Z8dasr+svMonSrYKrIGcysTnAlzC+CqoqvQvFNhUGwIuER2uBhayDXX+2w
-	TKP/DWrHsIHrcchUvpWaI6HwEKVMOrkEy1DzmYqQ53Nwyuheo+ah4ZSL3oHhnfxIP6fOjNtJhxL
-	V5bDkZ6UhX1jfVnVoyEoaBS5bo1AASE/UJNhUcAfvMrJgH6+cI7E0Bywz4D9dEtBKUFwtAo9zfS
-	J2uWhp845/MhLspEZq5Xl23qWn2FtMlxRPoyu28YJJ2Ih5N7gqBXTOP5quBsQsefLI/fu+4UNXp
-	k6J2CnW7jVIhInCw+
-X-Google-Smtp-Source: AGHT+IFrevEW2g7e/p4qRW4+kBmDYA9OR4nICLPNyUzESMNi52XYwG9SVYN5Qi2jdCAhgmpMPq9xBA==
-X-Received: by 2002:a05:600c:4688:b0:43d:abd:ad0e with SMTP id 5b1f17b1804b1-442fd64e354mr2219335e9.18.1747326386572;
-        Thu, 15 May 2025 09:26:26 -0700 (PDT)
-Message-ID: <22da07ea-a2da-4d8c-970d-0ca2020c27f7@citrix.com>
-Date: Thu, 15 May 2025 17:26:24 +0100
+        d=1e100.net; s=20230601; t=1747326600; x=1747931400;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=UQojJnZ/ObWeMzCKGcC9gHfHHtjUiLkOYNoJimNKpXI=;
+        b=I0cqcgR0RnMEtpH9yt1hW6Wn2fSq7iB9yG/kXKYHPvVtQWMPgW60uy4wSw05mrye0a
+         K0PrN3gPFmiNGugR0lJ7sxXe9+SgKe23TAN4Sh4ND6iXtUdZHNm5m9hKflMCoQvm+YMS
+         UB4/akX/5eetmG8uYR832OgX+yYKAZBf+ggr9ULnSXrJsUAySjW3pMYbkTzyMf0uRpqh
+         l1BPB/kSzalkk0Tb1oTGZ8VbbY6Hfyp9kMt40dLrtXqTv0MQX9Ono5cIStH81kCrWvI7
+         xs65Yy8u2kNe6A1GGrfmGqNHzmNScJTzLnwjw+m6wB1LlyjZYm6RvKy8DhX0b6vn/6YQ
+         Xlwg==
+X-Gm-Message-State: AOJu0YwEQwQw0QDXWyt9aF+PQVYrBt7h27bQ5uzNRXt0jTEpsv+SznDX
+	SZcyw3kWa9yfN7ZDHycEnYYHvh1hfC9OCX8lJpR4+ok8WI+q8MCWorFpUymYkN0RL55U9zWng3s
+	Q7h1S
+X-Gm-Gg: ASbGncv/Jig0+bfDVLdLcebTLRUtfN3pL8YRFDoIZCXibkcWkH1Xai5gB66bA9yjscV
+	m6qeLxb0SgGXZW1h4krg3ykfkqWIIlcnCnBcaFb8VGOjC7zESF7nyLR9AVMToXID87hjThGQQV2
+	QzmloNBMXAp8t+ixWRWYuBhk+Mfve0WihIfYU6olBjSjiSBh9n6czGIlf6VQ1eZRftNc+XtTyUf
+	iM1lv9tfhqmktpYFdIXhwQtEectvsgAUpk17cZOCRxCZEI2YmdlXa5y7S4jvPGVnUWWYx9N8758
+	n9w0HbEwZfmCzpC6wl4nGYmAZp5/ZXOcOKi6BwiuXDFCJQG5fmJvVSfMwR1GK6WKR54=
+X-Google-Smtp-Source: AGHT+IFKqIoLrdcbAWLckgeD5/v9eFY1cp7VHhr9m0K/M7erqe/eawOBo+F5rhw33tYxcnMDS01XXA==
+X-Received: by 2002:a17:907:72c3:b0:ad2:48f4:5968 with SMTP id a640c23a62f3a-ad52d517091mr45880666b.25.1747326599572;
+        Thu, 15 May 2025 09:29:59 -0700 (PDT)
+Date: Thu, 15 May 2025 18:29:58 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jiqian Chen <Jiqian.Chen@amd.com>
+Cc: xen-devel@lists.xenproject.org, Huang Rui <ray.huang@amd.com>
+Subject: Re: [PATCH v4 02/10] vpci/header: Emulate legacy capability list for
+ dom0
+Message-ID: <aCYWhmUBa_AyYh6N@macbook.lan>
+References: <20250509090542.2199676-1-Jiqian.Chen@amd.com>
+ <20250509090542.2199676-3-Jiqian.Chen@amd.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen: Use asm inline when available for alternatives
-To: Jan Beulich <jbeulich@suse.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250422113957.1289290-1-andrew.cooper3@citrix.com>
- <9990d438-6ebf-4308-89f5-ecacf04ea89b@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <9990d438-6ebf-4308-89f5-ecacf04ea89b@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20250509090542.2199676-3-Jiqian.Chen@amd.com>
 
-On 22/04/2025 1:52 pm, Jan Beulich wrote:
-> On 22.04.2025 13:39, Andrew Cooper wrote:
->> Compilers estimate the size of an asm() block for inlining purposes.
->>
->> Constructs such as ALTERNATIVE appear large due to the metadata, depsite often
->> only being a handful of instructions.  asm inline() overrides the estimation
->> to identify the block as being small.
->>
->> This has a substantial impact on inlining decisions, expected to be for the
->> better given that the compiler has a more accurate picture to work with.
->>
->> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> So this is effectively a generalized version of
-> https://lists.xen.org/archives/html/xen-devel/2022-08/msg00712.html
+On Fri, May 09, 2025 at 05:05:34PM +0800, Jiqian Chen wrote:
+> Current logic of emulating legacy capability list is only for domU.
+> So, expand it to emulate for dom0 too. Then it will be easy to hide
+> a capability whose initialization fails in a function.
+> 
+> And restrict adding PCI_STATUS register only for domU since dom0
+> has no limitation to access that register.
+> 
+> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
+> ---
+> cc: "Roger Pau Monné" <roger.pau@citrix.com>
+> ---
+> v3->v4 changes:
+> * Also pass supported_caps to pci_find_next_cap_ttl() for dom0 since the n is zero when dom0,
+>   and add a comment to explain it.
+> * Restrict adding PCI_STATUS register only for domU since dom0 has no limitation to access that register.
+> * For dom0 register handler, set vpci_hw_write8 to it instead of NULL.
+> 
+> v2->v3 changes:
+> * Not to add handler of PCI_CAP_LIST_ID when domain is dom0.
+> 
+> v1->v2 changes:
+> new patch.
+> 
+> Best regards,
+> Jiqian Chen.
+> ---
+>  xen/drivers/vpci/header.c | 53 ++++++++++++++++++++++++---------------
+>  xen/drivers/vpci/vpci.c   |  6 +++++
+>  xen/include/xen/vpci.h    |  2 ++
+>  3 files changed, 41 insertions(+), 20 deletions(-)
+> 
+> diff --git a/xen/drivers/vpci/header.c b/xen/drivers/vpci/header.c
+> index 3e9b44454b43..a06c518c506c 100644
+> --- a/xen/drivers/vpci/header.c
+> +++ b/xen/drivers/vpci/header.c
+> @@ -749,9 +749,9 @@ static int vpci_init_capability_list(struct pci_dev *pdev)
+>  {
+>      int rc;
+>      bool mask_cap_list = false;
+> +    bool is_hwdom = is_hardware_domain(pdev->domain);
+>  
+> -    if ( !is_hardware_domain(pdev->domain) &&
+> -         pci_conf_read16(pdev->sbdf, PCI_STATUS) & PCI_STATUS_CAP_LIST )
+> +    if ( pci_conf_read16(pdev->sbdf, PCI_STATUS) & PCI_STATUS_CAP_LIST )
+>      {
+>          /* Only expose capabilities to the guest that vPCI can handle. */
+>          unsigned int next, ttl = 48;
+> @@ -759,12 +759,18 @@ static int vpci_init_capability_list(struct pci_dev *pdev)
+>              PCI_CAP_ID_MSI,
+>              PCI_CAP_ID_MSIX,
+>          };
+> +        /*
+> +         * For dom0, we should expose all capabilities instead of a fixed
+> +         * capabilities array, so setting n to 0 here is to get the next
+> +         * capability position directly in pci_find_next_cap_ttl.
+> +         */
+> +        const unsigned int n = is_hwdom ? 0 : ARRAY_SIZE(supported_caps);
+>  
+>          next = pci_find_next_cap_ttl(pdev->sbdf, PCI_CAPABILITY_LIST,
+> -                                     supported_caps,
+> -                                     ARRAY_SIZE(supported_caps), &ttl);
+> +                                     supported_caps, n, &ttl);
+>  
+> -        rc = vpci_add_register(pdev->vpci, vpci_read_val, NULL,
+> +        rc = vpci_add_register(pdev->vpci, vpci_read_val,
+> +                               is_hwdom ? vpci_hw_write8 : NULL,
+>                                 PCI_CAPABILITY_LIST, 1,
+>                                 (void *)(uintptr_t)next);
+>          if ( rc )
+> @@ -772,7 +778,7 @@ static int vpci_init_capability_list(struct pci_dev *pdev)
+>  
+>          next &= ~3;
+>  
+> -        if ( !next )
+> +        if ( !next && !is_hwdom )
+>              /*
+>               * If we don't have any supported capabilities to expose to the
+>               * guest, mask the PCI_STATUS_CAP_LIST bit in the status
+> @@ -786,15 +792,18 @@ static int vpci_init_capability_list(struct pci_dev *pdev)
+>  
+>              next = pci_find_next_cap_ttl(pdev->sbdf,
+>                                           pos + PCI_CAP_LIST_NEXT,
+> -                                         supported_caps,
+> -                                         ARRAY_SIZE(supported_caps), &ttl);
+> +                                         supported_caps, n, &ttl);
+>  
+> -            rc = vpci_add_register(pdev->vpci, vpci_hw_read8, NULL,
+> -                                   pos + PCI_CAP_LIST_ID, 1, NULL);
+> -            if ( rc )
+> -                return rc;
+> +            if ( !is_hwdom )
+> +            {
+> +                rc = vpci_add_register(pdev->vpci, vpci_hw_read8, NULL,
+> +                                       pos + PCI_CAP_LIST_ID, 1, NULL);
+> +                if ( rc )
+> +                    return rc;
+> +            }
+>  
+> -            rc = vpci_add_register(pdev->vpci, vpci_read_val, NULL,
+> +            rc = vpci_add_register(pdev->vpci, vpci_read_val,
+> +                                   is_hwdom ? vpci_hw_write8 : NULL,
+>                                     pos + PCI_CAP_LIST_NEXT, 1,
+>                                     (void *)(uintptr_t)next);
+>              if ( rc )
+> @@ -805,13 +814,17 @@ static int vpci_init_capability_list(struct pci_dev *pdev)
+>      }
+>  
+>      /* Utilize rsvdp_mask to hide PCI_STATUS_CAP_LIST from the guest. */
+> -    return vpci_add_register_mask(pdev->vpci, vpci_hw_read16, vpci_hw_write16,
+> -                                  PCI_STATUS, 2, NULL,
+> -                                  PCI_STATUS_RO_MASK &
+> -                                    ~(mask_cap_list ? PCI_STATUS_CAP_LIST : 0),
+> -                                  PCI_STATUS_RW1C_MASK,
+> -                                  mask_cap_list ? PCI_STATUS_CAP_LIST : 0,
+> -                                  PCI_STATUS_RSVDZ_MASK);
+> +    return is_hwdom ? 0 : vpci_add_register_mask(pdev->vpci, vpci_hw_read16,
+> +                                                 vpci_hw_write16, PCI_STATUS,
+> +                                                 2, NULL,
+> +                                                 PCI_STATUS_RO_MASK &
+> +                                                    ~(mask_cap_list ?
+> +                                                        PCI_STATUS_CAP_LIST :
+> +                                                        0),
+> +                                                 PCI_STATUS_RW1C_MASK,
+> +                                                 mask_cap_list ?
+> +                                                    PCI_STATUS_CAP_LIST : 0,
+> +                                                 PCI_STATUS_RSVDZ_MASK);
 
-I'm sorry I missed this patch, but my feedback would have been "that's
-not specific to altcall".
+Wow, that's a bit too much indentation for my taste.  Do you think you
+could do:
 
-~Andrew
+/* Return early for the hw domain, no masking of PCI_STATUS. */
+if ( is_hwdom )
+    return 0;
+...
+
+So that you don't have to touch the current return chunk?
+
+Thanks, Roger.
 
