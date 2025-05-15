@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F6DDAB7F72
-	for <lists+xen-devel@lfdr.de>; Thu, 15 May 2025 09:57:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.984858.1370786 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C232AB7FC6
+	for <lists+xen-devel@lfdr.de>; Thu, 15 May 2025 10:07:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.984874.1370807 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uFTSb-0001PD-9E; Thu, 15 May 2025 07:56:57 +0000
+	id 1uFTcA-0003oC-Fx; Thu, 15 May 2025 08:06:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 984858.1370786; Thu, 15 May 2025 07:56:57 +0000
+Received: by outflank-mailman (output) from mailman id 984874.1370807; Thu, 15 May 2025 08:06:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uFTSb-0001NV-6O; Thu, 15 May 2025 07:56:57 +0000
-Received: by outflank-mailman (input) for mailman id 984858;
- Thu, 15 May 2025 07:56:55 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uFTcA-0003lu-DM; Thu, 15 May 2025 08:06:50 +0000
+Received: by outflank-mailman (input) for mailman id 984874;
+ Thu, 15 May 2025 08:06:48 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=D/jC=X7=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uFTSZ-0001NP-Ey
- for xen-devel@lists.xenproject.org; Thu, 15 May 2025 07:56:55 +0000
-Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
- [2a00:1450:4864:20::532])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2a282cc2-3162-11f0-9ffb-bf95429c2676;
- Thu, 15 May 2025 09:56:53 +0200 (CEST)
-Received: by mail-ed1-x532.google.com with SMTP id
- 4fb4d7f45d1cf-5f5bef591d6so1282907a12.1
- for <xen-devel@lists.xenproject.org>; Thu, 15 May 2025 00:56:53 -0700 (PDT)
+ id 1uFTc8-0003lo-UU
+ for xen-devel@lists.xenproject.org; Thu, 15 May 2025 08:06:48 +0000
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [2a00:1450:4864:20::52c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8c6d3400-3163-11f0-9eb6-5ba50f476ded;
+ Thu, 15 May 2025 10:06:47 +0200 (CEST)
+Received: by mail-ed1-x52c.google.com with SMTP id
+ 4fb4d7f45d1cf-5f62d3ed994so1258834a12.2
+ for <xen-devel@lists.xenproject.org>; Thu, 15 May 2025 01:06:47 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-5fff0cde389sm389443a12.17.2025.05.15.00.56.51
+ a640c23a62f3a-ad251f4c04fsm650927166b.171.2025.05.15.01.06.46
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 15 May 2025 00:56:52 -0700 (PDT)
+ Thu, 15 May 2025 01:06:46 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2a282cc2-3162-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 8c6d3400-3163-11f0-9eb6-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1747295813; x=1747900613; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1747296407; x=1747901207; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=YeK56Adq5vSSVWRg/BGj/yQlkl1aU3vMjnhbTKKe8ek=;
-        b=aT5ifZF07Ia+sWfUqmapQxji7SAeD6IYqUBzymLUThpKTTu1i7B/KCazbW/xxAkble
-         RW87JJ8mFevSvM/Kq15/wgRLiA7nvssyRjqEEZopxRbAeOrLt7SKUKFS15/QK1R1twww
-         7IWzSVDl30nppu/YSLGRrLRR163RxE+/vhBn06wlsJbcOmyopTbO6ABaSsHSS1b6+Xwg
-         CPTzrQVpW6TcISFv91+s4ULufDQ6SrXcHCO5w00X4JYgZy14oOqqHSW/g2tx7uzIlh6/
-         PwiuqD1rJHiQ7O5nX2KuMyYQu8FyLuZf093y3HzsfGSYTTEM/6mkwK2+10EFUJeqN2ux
-         WS4Q==
+        bh=f0WAsoHkiPEv93dWwVsjrvRhTOkvhP/JrXk89RJOIw8=;
+        b=eu056mshuIiVz1tZprmZtwPFbWC4KHNtcvr0mdi4/7SKW6DxKIlKt4ZH1T7eSnMQ0Y
+         yWLqKCJpp/NLtr7m0L3cKDVyjGnt6WTK7R+pagxJrJeiN5YmHmvkUUTMXDk39lwKwTbS
+         mkoM1pW7+Ii1j5iw0P0PHp8CNdx0IQhuuKCOJs8xxI9G82Fg7ezd3M0WeJAsZObTCHqK
+         CnGq7i6Oqe1uD13p1DHtUO9a9ftyPTWDBwsgBm4ULxYf6VT9vWIF1KURCIfdyrIlAPTE
+         ly4pGsdYeQnCTdku9+ke6cwTz2XMuY9xHYymFCofDmtnhsx5ylPj7L5147N7DDgezbXd
+         Af3A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747295813; x=1747900613;
+        d=1e100.net; s=20230601; t=1747296407; x=1747901207;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=YeK56Adq5vSSVWRg/BGj/yQlkl1aU3vMjnhbTKKe8ek=;
-        b=XrI2aej2omcqAymh4UEw6XVD/KQgmnzjN01m0ppU2N6KCmxJdMtjqM1HDGSQH01lRQ
-         f8Yx3t/fBvahQGxSQ53EvMgcQoMZwLt2riU8SKuakMKO0UDWCCxDHFA2Vk4/w60EPSK7
-         xXQCUpIoInxKC7xbWl6FJni085trBBiMUbbEIsFV9YjW8ITVstj3uKX682QyU++vYycP
-         fK8d/HwNOOHKvVEbRrdlct9q9E8ZTyrDKBvFv4fVIqj1QJPIkJgTPAErsyScmvh4NssJ
-         7UDLy74ZUBU0qwVHpwtgz9Hj88uK1F06ebB+f9jvmkAQ1c7vuosxj/DMC6ApmnMoV8Fb
-         QoOA==
-X-Forwarded-Encrypted: i=1; AJvYcCUa/pIbsYnbzqLNyPPmD2yToJGRl78Llsn4c+plb5zdcKE5V/uGXmp0fpWziAjWPaidxdPuieGglWI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwzPekBJ0psJCflqUoK57npcV2O5EV6FudFosFdU/YmFV/lqSnW
-	i+6x2wsb8nVw6Paecm7uWyWdKDrXyrU4R9wTl/40nZkhSIwpHnqyFP+SoA/isw==
-X-Gm-Gg: ASbGncv8VTCRfh7awVoowWw6MzRudCao8LKMi1g5d1Y6tvccR12COlKrjpYEt5lsSUa
-	8kdiLXTKndPF8kZqmQdqM3XliQZnlVEqNQq66DxsWZb3CI2nmACKLYoxZKahdc8Jd5BWhgxZXhS
-	nO7UKQ5DnX27XQBrrze0woN+lIydZt9OspOSx+iphiXCg2KXYFLI7D5668fniepel8RfVC96KZL
-	SuR7hNMdUFquIaX6YAQjEhehOXRPNEyXIJXt9fUNgYtJvuFwr0xXCM7JZi7FsRPAoNDNCKdJc0t
-	bNM8W+MHN7fnZAR2S3CC1//77eFjfEVpb0N+WKp+k9CRHUxam1N3hUiZJRTRfjK8EdE4PakrYcb
-	awWaapnE7TanqruCxYtUiJrctux/nXMswR3x6
-X-Google-Smtp-Source: AGHT+IGRIHz2iS/A66gqpX2g+js7fRNFX7SfZcZjcAx/2OWsra+1FHuT0yQIIazgSmJPCqPI5VDgew==
-X-Received: by 2002:a05:6402:1ed1:b0:5ff:712a:bab2 with SMTP id 4fb4d7f45d1cf-5ff988b9ae6mr4891380a12.18.1747295812691;
-        Thu, 15 May 2025 00:56:52 -0700 (PDT)
-Message-ID: <df77a5c5-de45-4432-a86f-d120e9417d86@suse.com>
-Date: Thu, 15 May 2025 09:56:51 +0200
+        bh=f0WAsoHkiPEv93dWwVsjrvRhTOkvhP/JrXk89RJOIw8=;
+        b=jsRykeCpmJX1NZP87l6h+en6X6hwmgQSO4jwsU+aMM0nxc4F3d8XuQ7wQtv1pbaFHR
+         rgLm2jW6gBrdeIVgZu4ObLASUGzQr2Qd5PrlFP/JzERl5u7hmcLnOIynb2cPfn0UNYwK
+         2kWBJ/Z6HGanhryeuHGqtoCmh1ERzEyapa8hNyQdVlXSWeHJSfz6TzI0EmV+Lj/fO42U
+         VBodLgWTfimaU4esH7dsCxLkCdOwDAl1y1FklF1bdwOq32mXjHEWzI/6JlLZ4dvFRIdw
+         cnDxxN0tXuduaiwZ6oJVkTTysnlkDG6umpPB5TPdXdPI4xw1usmfGcabFAmlSLfjx2F0
+         WxXg==
+X-Forwarded-Encrypted: i=1; AJvYcCUABIqX7WfAJKEuUyL3g08Zf007MXtK/kXUeYyfY5zL4D9col3Sl44FFrwsP5IFClciFpPVkEQ4lok=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzMZVQyA0UT8Pg4gYwQ3ods4cKJ8pTwXK5fygMq5uOUBgKD0Oqf
+	6sLK6MSBMdAotMOUcivtndgcvV+W0tEh1NRGh543RZBnF/NFyB32sSfb0SizXA==
+X-Gm-Gg: ASbGnctYk7aaCtrbRrpl5IZQsIztcnWcOoXpZAL8lJ0+FqFSe72nsLwRBWlZe3bPykA
+	FFUqmdE/3mvE7xn2tT8kn88aEwB/OMRSrC4jvxX21cmzTRpmZCJvwA9QJi1hbfIqmy+ERFZTSBy
+	I9fzs5EMdXa4rTILPNih/xFhcZdOhcgM4LQqVqc9bJd7XwzEsSTFq9z0snNpup7aTHjni6opzkv
+	sYHEMqFz/I/XG2ofPxhkItATIRMRC/DzCCG2SzV8p7jrvozX5wtvk5wQZwQNqQ2Nja85hgq8nZu
+	HPgiyEpQetEGO8n+D4398fM/GLWnu2OReHO816xH5BbIXiBPnBKk8mulVi7sxJ6wxjaV4iFsDxX
+	jdK8FGBOGHQ2iFsVaj6KFkDbrp/NcEjTjEpgm
+X-Google-Smtp-Source: AGHT+IHkAuX3C9u2vEITuY2mp7ttsyPlPZGcxcI8rQDmzZg5pcb+259xXCdUXT61dga7amCVfsysbQ==
+X-Received: by 2002:a17:907:9997:b0:ad1:8dde:5b7a with SMTP id a640c23a62f3a-ad4f747da01mr602790066b.43.1747296407105;
+        Thu, 15 May 2025 01:06:47 -0700 (PDT)
+Message-ID: <2436be2e-28d4-4e48-a391-84b21651b339@suse.com>
+Date: Thu, 15 May 2025 10:06:45 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 08/16] xen/riscv: dt_processor_cpuid() implementation
+Subject: Re: [PATCH v2 09/16] xen/riscv: introduce register_intc_ops() and
+ intc_hw_ops.
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Cc: Alistair Francis <alistair.francis@wdc.com>,
  Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
@@ -95,10 +96,10 @@ Cc: Alistair Francis <alistair.francis@wdc.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org,
- Bertrand Marquis <bertrand.marquis@arm.com>
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Romain Caritey <Romain.Caritey@microchip.com>, xen-devel@lists.xenproject.org
 References: <cover.1746530883.git.oleksii.kurochko@gmail.com>
- <4e4b3a018e8dacbe85cc080d9209e2ba3cdf4330.1746530883.git.oleksii.kurochko@gmail.com>
+ <7cd7d3780bb6db45b92c971ff8bcf2634570431f.1746530883.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -124,138 +125,70 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <4e4b3a018e8dacbe85cc080d9209e2ba3cdf4330.1746530883.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <7cd7d3780bb6db45b92c971ff8bcf2634570431f.1746530883.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-(adding Bertrand as the one further DT maintainer, for a respective question
-below)
-
 On 06.05.2025 18:51, Oleksii Kurochko wrote:
-> Implements dt_processor_hartid()
-
-There's no such function (anymore).
-
-> to get the hart ID of the given
-> device tree node and do some checks if CPU is available and given device
-> tree node has proper riscv,isa property.
-> 
-> As a helper function dt_get_cpuid() is introduced to deal specifically
-> with reg propery of a CPU device node.
-> 
-> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-> ---
-> Changes in V2:
->  - s/of_get_cpu_hwid()/dt_get_cpu_id().
->  - Update prototype of dt_get_cpu_hwid(), use pointer-to-const for cpun arg.
->  - Add empty line before last return in dt_get_cpu_hwid().
->  - s/riscv_of_processor_hartid/dt_processor_cpuid().
->  - Use pointer-to_const for node argument of dt_processor_cpuid().
->  - Use for hart_id unsigned long type as according to the spec for RV128
->    mhartid register will be 128 bit long.
->  - Update commit message and subject.
->  - use 'CPU' instead of 'HART'.
-
-Was this is good move? What is returned ...
-
-> --- a/xen/arch/riscv/include/asm/smp.h
-> +++ b/xen/arch/riscv/include/asm/smp.h
-> @@ -26,6 +26,9 @@ static inline void set_cpuid_to_hartid(unsigned long cpuid,
+> --- a/xen/arch/riscv/include/asm/intc.h
+> +++ b/xen/arch/riscv/include/asm/intc.h
+> @@ -8,6 +8,8 @@
+>  #ifndef ASM__RISCV__INTERRUPT_CONTOLLER_H
+>  #define ASM__RISCV__INTERRUPT_CONTOLLER_H
 >  
->  void setup_tp(unsigned int cpuid);
+> +#include <xen/irq.h>
+
+If you need this include anyway, why ...
+
+> @@ -17,6 +19,26 @@ struct intc_info {
+>      const struct dt_device_node *node;
+>  };
 >  
-> +struct dt_device_node;
-> +int dt_processor_cpuid(const struct dt_device_node *node, unsigned long *cpuid);
+> +struct irq_desc;
 
-... here isn't a number in Xen's CPU numbering space. From earlier discussions I'm
-not sure it's a hart ID either, so it may need further clarification (and I'd
-expect RISC-V to have suitable terminology to tell apart the different entities).
+... this "forward" decl for something that's then already fully defined?
+I can't, however, spot why xen/irq.h would be needed for anything ...
 
-> @@ -10,3 +13,66 @@ void __init smp_prepare_boot_cpu(void)
->      cpumask_set_cpu(0, &cpu_possible_map);
->      cpumask_set_cpu(0, &cpu_online_map);
->  }
+> +struct intc_hw_operations {
+> +    /* Hold intc hw information */
+> +    const struct intc_info *info;
+> +    /* Initialize the intc and the boot CPU */
+> +    int (*init)(void);
 > +
-> +/**
-> + * dt_get_cpuid - Get the cpuid from a CPU device node
-> + *
-> + * @cpun: CPU number(logical index) for which device node is required
-> + *
-> + * Return: The cpuid for the CPU node or ~0ULL if not found.
-> + */
-> +static unsigned long dt_get_cpuid(const struct dt_device_node *cpun)
-> +{
-> +    const __be32 *cell;
-> +    int ac;
-
-This is bogus (should be unsigned int afaict), but dictated by ...
-
-> +    uint32_t len;
+> +    /* hw_irq_controller to enable/disable/eoi host irq */
+> +    const hw_irq_controller *host_irq_type;
 > +
-> +    ac = dt_n_addr_cells(cpun);
-
-... the return value here and ...
-
-> +    cell = dt_get_property(cpun, "reg", &len);
-> +    if ( !cell || !ac || ((sizeof(*cell) * ac) > len) )
-> +        return ~0ULL;
-
-(Nit: This doesn't match the return type of the function; same for
-the function comment. Also, what if sizeof(*cell) * ac < len?)
-
-> +    return dt_read_number(cell, ac);
-
-... the function parameter type here. In fact, that function is raising
-another question: If the "size" argument is outside of [0, 2], the value
-returned is silently truncated.
-
-More generally - are there any plans to make DT code signed-ness-correct?
-
-> +/*
-> + * Returns the cpuid of the given device tree node, or -ENODEV if the node
-> + * isn't an enabled and valid RISC-V hart node.
-> + */
-> +int dt_processor_cpuid(const struct dt_device_node *node, unsigned long *cpuid)
-> +{
-> +    const char *isa;
+> +    /* Set IRQ type */
+> +    void (*set_irq_type)(struct irq_desc *desc, unsigned int type);
+> +    /* Set IRQ priority */
+> +    void (*set_irq_priority)(struct irq_desc *desc, unsigned int priority);
 > +
-> +    if ( !dt_device_is_compatible(node, "riscv") )
-> +    {
-> +        printk("Found incompatible CPU\n");
-> +        return -ENODEV;
-> +    }
+> +};
 > +
-> +    *cpuid = dt_get_cpuid(node);
-> +    if ( *cpuid == ~0UL )
-> +    {
-> +        printk("Found CPU without CPU ID\n");
-> +        return -ENODEV;
-> +    }
+>  void intc_preinit(void);
+>  
+> +void register_intc_ops(struct intc_hw_operations *ops);
 > +
-> +    if ( !dt_device_is_available(node))
-> +    {
-> +        printk("CPU with cpuid=%lu is not available\n", *cpuid);
-> +        return -ENODEV;
-> +    }
-> +
-> +    if ( dt_property_read_string(node, "riscv,isa", &isa) )
-> +    {
-> +        printk("CPU with cpuid=%lu has no \"riscv,isa\" property\n", *cpuid);
-> +        return -ENODEV;
-> +    }
-> +
-> +    if ( isa[0] != 'r' || isa[1] != 'v' )
-> +    {
-> +        printk("CPU with cpuid=%lu has an invalid ISA of \"%s\"\n", *cpuid, isa);
-> +        return -ENODEV;
-> +    }
-> +
-> +    return 0;
-> +}
+>  #endif /* ASM__RISCV__INTERRUPT_CONTOLLER_H */
 
-I view it as unhelpful that all errors result in -ENODEV. Yes, there are log
-messages for all of the cases, but surely there are errno values better
-representing the individual failure reasons?
+... throughout here.
+
+> --- a/xen/arch/riscv/intc.c
+> +++ b/xen/arch/riscv/intc.c
+> @@ -5,6 +5,15 @@
+>  #include <xen/init.h>
+>  #include <xen/lib.h>
+>  
+> +#include <asm/intc.h>
+> +
+> +static struct __ro_after_init intc_hw_operations *intc_hw_ops;
+
+Nit: Attributes between type and identifier please. Also shouldn't both
+this and ...
+
+> +void __init register_intc_ops(struct intc_hw_operations *ops)
+
+... the parameter here be pointer-to-const?
 
 Jan
 
