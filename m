@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 20634AB817B
-	for <lists+xen-devel@lfdr.de>; Thu, 15 May 2025 10:53:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.984951.1370897 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 54EBBAB81B2
+	for <lists+xen-devel@lfdr.de>; Thu, 15 May 2025 10:58:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.984961.1370908 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uFUKz-0004Tn-84; Thu, 15 May 2025 08:53:09 +0000
+	id 1uFUPW-00054M-U4; Thu, 15 May 2025 08:57:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 984951.1370897; Thu, 15 May 2025 08:53:09 +0000
+Received: by outflank-mailman (output) from mailman id 984961.1370908; Thu, 15 May 2025 08:57:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uFUKz-0004Rz-5X; Thu, 15 May 2025 08:53:09 +0000
-Received: by outflank-mailman (input) for mailman id 984951;
- Thu, 15 May 2025 08:53:07 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uFUPW-000528-QN; Thu, 15 May 2025 08:57:50 +0000
+Received: by outflank-mailman (input) for mailman id 984961;
+ Thu, 15 May 2025 08:57:50 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=CT6j=X7=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1uFUKx-0004Rt-7k
- for xen-devel@lists.xenproject.org; Thu, 15 May 2025 08:53:07 +0000
-Received: from mail-pf1-x42b.google.com (mail-pf1-x42b.google.com
- [2607:f8b0:4864:20::42b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id fb4f894a-3169-11f0-9ffb-bf95429c2676;
- Thu, 15 May 2025 10:52:51 +0200 (CEST)
-Received: by mail-pf1-x42b.google.com with SMTP id
- d2e1a72fcca58-7406c6dd2b1so1543983b3a.0
- for <xen-devel@lists.xenproject.org>; Thu, 15 May 2025 01:52:51 -0700 (PDT)
+ id 1uFUPW-00051B-8W
+ for xen-devel@lists.xenproject.org; Thu, 15 May 2025 08:57:50 +0000
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [2a00:1450:4864:20::536])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ada68be8-316a-11f0-9eb6-5ba50f476ded;
+ Thu, 15 May 2025 10:57:49 +0200 (CEST)
+Received: by mail-ed1-x536.google.com with SMTP id
+ 4fb4d7f45d1cf-5ff8f218c44so1159145a12.2
+ for <xen-devel@lists.xenproject.org>; Thu, 15 May 2025 01:57:49 -0700 (PDT)
 Received: from localhost ([84.78.159.3]) by smtp.gmail.com with UTF8SMTPSA id
- d9443c01a7336-22fc7546aefsm113085255ad.37.2025.05.15.01.52.48
+ 4fb4d7f45d1cf-5fd2b82297esm6725667a12.44.2025.05.15.01.57.48
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 15 May 2025 01:52:49 -0700 (PDT)
+ Thu, 15 May 2025 01:57:48 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,60 +44,87 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fb4f894a-3169-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: ada68be8-316a-11f0-9eb6-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1747299170; x=1747903970; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=nQJIFPkZ1E2RYkoyUNZqDnBF0F0qsw5TjA12sLk+xz0=;
-        b=vysPlycJ9KWV6bPFFBr9PFe9AoOVkcqc6+rUv6QYMOGrZCB7Hlfrt7fNdFc09lHedC
-         5PqsRShjgbOI3ScvadratRTFXaeT3kOr6cJ3wyn39OIcAeZiT9ns73yc843W+prF4mXu
-         bbbQeqIYy5FTxRy/iSwLLRC5HylIAdQrpwcaM=
+        d=citrix.com; s=google; t=1747299469; x=1747904269; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=dPMC2a32nfUHx7ydYxaYGIrNsdP6VcsU+I3gbxfq+8I=;
+        b=j5Z8XiuQNl5LSpDts5JGvawpDW71V6cgx+Zhhku6+ausYPliSaurAwdNVV0S+CAdtz
+         HZ5gvsfyS5vrwfnJW6ztCOVFymlxfSxryCTgcvpYR0N+iolk0N4XEZ4LM2eGyP5Zl0/M
+         P788lNre0cxgFU8dZxdoi7L8fmgotTb02LtYs=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747299170; x=1747903970;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=nQJIFPkZ1E2RYkoyUNZqDnBF0F0qsw5TjA12sLk+xz0=;
-        b=q8NcNXEbettfW9FjQR+79c8VrYM84UIj0V6Z88ljjSkGI8kYJbOvCq865yLL2Rjmfg
-         3ziwiml1tlJGwdU9ryCUejyCRc6kQRuktZ9znSeiA+xoaOQemTcEEAMD9SybJ5Xr3xma
-         og4eTNpFXsKwDdmqNeH1PpR+T7cpYziNfF62zF3/H8yur6xQacRuAg9fbFhRo81lLpVW
-         /5hOwv6i3dy9wpp8obFrdU0KZ+VmA0f1sZOl+N8lY3Wlf3RaLZQ73qUyJVrV92kygWep
-         jRfVpf8QJDqj2SuFX+cDegU26byQpYI1vnXcBUAVFxyLnNPO5e2GhcpFh3e1yPZJWOhD
-         f7ng==
-X-Gm-Message-State: AOJu0YxfULe36Pmq83nCU8m7NImjaLs5Awl4NQLuXWdYT+UlLlGi7ROU
-	G3Vklf/hScZH/MPCFfgQNkndjnVJxF8qApO+z/K4u6WjQjjfRRybzBSW7VUg4pu/FEQ=
-X-Gm-Gg: ASbGncuM1f+NNET5iKNFYPh7uve342F9Hkw0++Nktv6A8g0C8wI8E0PfhIK7imGnL5x
-	Z6nHY6qR77QXslffgs5XDs9J53D4xthwT2bpciirzsxhhm9KHhwsXn30HA0DkdCshOr28ngQtdT
-	/zn5UQu1pB4yNGvh1WpiNHPyOflG0gkR6omtdO/stc9lsg5pWmcGWs1LIIfEg0SVOghG1nsgvcN
-	5hwoQz704m7IywGjVoMTausOS1XdyPTpP4Nx27fJ61N6i02iltBtxYxElOR/ZVE7IGsnXLTV3tP
-	7ABUkZh09dwecXbqHTZ7Y2ZorSJSMVjE+s0CU5h8qHipwJ/gbO/sOeTm
-X-Google-Smtp-Source: AGHT+IHVkJDQsSPJoZ1Aqwp7Co47f/qgm1ZodGe1JlzhpAhPibMdI9Jdxl+iPVJ8RcNBRxSA9sA3fw==
-X-Received: by 2002:a17:902:f68f:b0:224:3994:8a8c with SMTP id d9443c01a7336-231b3959febmr40012325ad.8.1747299169964;
-        Thu, 15 May 2025 01:52:49 -0700 (PDT)
-Date: Thu, 15 May 2025 10:52:44 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Stewart Hildebrand <stewart.hildebrand@amd.com>
-Cc: xen-devel@lists.xenproject.org,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH v2 4/6] rangeset: introduce rangeset_subtract
-Message-ID: <aCWrXJp3AgmAvU9m@macbook.lan>
-References: <20250508132040.532898-1-stewart.hildebrand@amd.com>
- <20250508132040.532898-5-stewart.hildebrand@amd.com>
+        d=1e100.net; s=20230601; t=1747299469; x=1747904269;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=dPMC2a32nfUHx7ydYxaYGIrNsdP6VcsU+I3gbxfq+8I=;
+        b=csK25hrMutgHl3XztdzJQjt5u7om8X/lzecr2/VG1rAwatUwIzL+GIB82qe9JGETqd
+         QeGneAq/Ge9JCoAGhcmT5FaFCXiO7R3EYPOpLP3Zb9V0NOQgRN/MQCsCzsf8FGeAUDMT
+         wCf/rvhEmA4dr4M0e5AuNwAnFLyyycJM9WnGJK0RVFxXraSJPpdrpfGmo2f7AiKDMggM
+         cvWgTn6amFOkzodjCSXPTkBH4OcARUQ7ycU3yAsOpIIzJT9U1s1qTc1/1BkSWw7pvXim
+         2P+Kq00LjFMIkN3vknVZUP4tO4OnWEe3hqwIcUF/0gHkNoL0uEaj1GPp4AQvmp9NnL6u
+         glYg==
+X-Gm-Message-State: AOJu0Yx5MkbMnyXkkhEcTGfdD4Nn8AZF7ffWTkCcENGlkP0ZZ1SLxuOE
+	U6uy11oUn0y0H+7jqCqTeAqpZkyffpFuU7DW5y9ND7qTPhPLNm6EBdjlT0sEv2Zx3F9MCaOayIh
+	W
+X-Gm-Gg: ASbGnct9dNkkNtK9LifrdM//o8FILVRw55yqnMj0/T0bI6dC85Qwkj7eRUcwWHnjHpT
+	nkSnfIwVB4oXpjL7Ba0VBcR9qdUgTvBoZf+CgVJsGUkjZ0E5wbOTs+1GKezDIwf1C+jgB1BEMOX
+	TmMYwVCMVqGVEet9OCU1tioNnQmeIXiFLzHu3VjniteZs18ENXGEo71k7etETL5Netxeb0eOmJI
+	KUVfhg0qTweUlsEUPOVmcdZubo2PKwGojvazcKwOwVydxjLNch/9oCLjCK3CTpM/8VIGXd02ACo
+	qwUZW5qh6CGske0HEJ0/BBDcCAqoSM9F/3R/kjJGtw3AmkfpHyzCAOo+
+X-Google-Smtp-Source: AGHT+IGNC+zHkAkvn9BNql+izQ4gohj5dhZo8dIh6XaT66QGHRYD2wgVCXwWSReGHdTO4FEaD8M5rQ==
+X-Received: by 2002:a05:6402:1851:b0:5ff:ef06:1c42 with SMTP id 4fb4d7f45d1cf-5ffef061f64mr714082a12.22.1747299469016;
+        Thu, 15 May 2025 01:57:49 -0700 (PDT)
+From: Roger Pau Monne <roger.pau@citrix.com>
+To: xen-devel@lists.xenproject.org
+Cc: Roger Pau Monne <roger.pau@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] x86/iommu: use rangeset_subtract() in arch_iommu_hwdom_init()
+Date: Thu, 15 May 2025 10:57:46 +0200
+Message-ID: <20250515085746.43498-1-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.48.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20250508132040.532898-5-stewart.hildebrand@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, May 08, 2025 at 09:20:33AM -0400, Stewart Hildebrand wrote:
-> Introduce rangeset_subtract() to remove regions in r2 from r1.
+Remove an open-coded instance of rangeset_subtract().  No functional change
+intended.
 
-Oh, you could have replaced the code in arch_iommu_hwdom_init() to
-make use of this new helper.  I will prepare a patch now.
+Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+---
+ xen/drivers/passthrough/x86/iommu.c | 10 +---------
+ 1 file changed, 1 insertion(+), 9 deletions(-)
 
-Regards, Roger.
+diff --git a/xen/drivers/passthrough/x86/iommu.c b/xen/drivers/passthrough/x86/iommu.c
+index 67f025c1ec6a..0954cc49225e 100644
+--- a/xen/drivers/passthrough/x86/iommu.c
++++ b/xen/drivers/passthrough/x86/iommu.c
+@@ -312,14 +312,6 @@ void iommu_identity_map_teardown(struct domain *d)
+     }
+ }
+ 
+-static int __hwdom_init cf_check map_subtract(unsigned long s, unsigned long e,
+-                                              void *data)
+-{
+-    struct rangeset *map = data;
+-
+-    return rangeset_remove_range(map, s, e);
+-}
+-
+ struct handle_iomemcap {
+     struct rangeset *r;
+     unsigned long last;
+@@ -505,7 +497,7 @@ void __hwdom_init arch_iommu_hwdom_init(struct domain *d)
+          * since ranges in mmio_ro_ranges are already explicitly mapped below
+          * in read-only mode.
+          */
+-        rc = rangeset_report_ranges(mmio_ro_ranges, 0, ~0UL, map_subtract, map);
++        rc = rangeset_subtract(map, mmio_ro_ranges);
+         if ( rc )
+             panic("IOMMU failed to remove read-only regions: %d\n", rc);
+     }
+-- 
+2.48.1
+
 
