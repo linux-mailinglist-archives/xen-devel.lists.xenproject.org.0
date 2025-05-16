@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2CB45AB9CA2
-	for <lists+xen-devel@lfdr.de>; Fri, 16 May 2025 14:52:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.987114.1372562 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 49D82AB9CA8
+	for <lists+xen-devel@lfdr.de>; Fri, 16 May 2025 14:53:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.987118.1372572 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uFuY3-0000xm-GY; Fri, 16 May 2025 12:52:23 +0000
+	id 1uFuYl-0001NI-OI; Fri, 16 May 2025 12:53:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 987114.1372562; Fri, 16 May 2025 12:52:23 +0000
+Received: by outflank-mailman (output) from mailman id 987118.1372572; Fri, 16 May 2025 12:53:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uFuY3-0000vF-DG; Fri, 16 May 2025 12:52:23 +0000
-Received: by outflank-mailman (input) for mailman id 987114;
- Fri, 16 May 2025 12:52:22 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=C2cV=YA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uFuY2-0000v9-1Y
- for xen-devel@lists.xenproject.org; Fri, 16 May 2025 12:52:22 +0000
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [2a00:1450:4864:20::62e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9b0aac8a-3254-11f0-9eb6-5ba50f476ded;
- Fri, 16 May 2025 14:52:21 +0200 (CEST)
-Received: by mail-ej1-x62e.google.com with SMTP id
- a640c23a62f3a-ad5297704aaso234883966b.2
- for <xen-devel@lists.xenproject.org>; Fri, 16 May 2025 05:52:21 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ad52d498909sm155436266b.126.2025.05.16.05.52.19
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 16 May 2025 05:52:20 -0700 (PDT)
+	id 1uFuYl-0001LI-Kn; Fri, 16 May 2025 12:53:07 +0000
+Received: by outflank-mailman (input) for mailman id 987118;
+ Fri, 16 May 2025 12:53:06 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=bBRW=YA=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1uFuYj-0001DF-Un
+ for xen-devel@lists.xenproject.org; Fri, 16 May 2025 12:53:06 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b4a7befa-3254-11f0-9ffb-bf95429c2676;
+ Fri, 16 May 2025 14:53:04 +0200 (CEST)
+Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
+ (Authenticated sender: nicola)
+ by support.bugseng.com (Postfix) with ESMTPA id 5450D4EE0739;
+ Fri, 16 May 2025 14:53:03 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,87 +40,141 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9b0aac8a-3254-11f0-9eb6-5ba50f476ded
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1747399940; x=1748004740; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=wNjdHtoCcHajYpCSwI5NBOR2R4plRxMcHd7OE8dP9Vk=;
-        b=TRqpQyqDRV7Omt8UCfizaNQStB0CQflfMV4A3SkmNiAzNMgG3fBYsFphmgl4GKa3Or
-         CJm3Uk4iIClCLF3nO3wKRhq6hglUlkXYIrUwQe6MlsotxTpggAfu0uVNBvwtZG8IhmBa
-         haqg6rHaA5cfgttDEV8dHp8/9QAwi1dRYJlhbK/dk1TtlGkHbwpnn5aFyMERWeO2FCyR
-         CKuODOhMsTqz8dYpt2Z05PXRpDusscMKe5hbjeyfpgG6zDWrKZ1iWeUUzS8Z70UWLOBE
-         XCem9OGjBuZ7Ygwmu4p5nsLkhQYv1naOk1kQEHggchEJiBHAOGAr6tkkaVCXCGXK26JA
-         yaRA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747399940; x=1748004740;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=wNjdHtoCcHajYpCSwI5NBOR2R4plRxMcHd7OE8dP9Vk=;
-        b=Y5sgqmX6hjSZSQpEgAAFnNPzlDdELkUFCqljhKtXtibmhyQs3ygWYxV4dGI+BxAzjO
-         B0LE5hR/wO/xB8bPkkqntd9uRsgTW8kMr1W9zlbUPu4jmEiyOdD7WkicIWl7NhFyMHN+
-         GiCSYIdo5I9QB+cJvJ6Wsywj7Icl+ZdQNid77Q+Gqn72yy8ekPaomscGaxGTE02Fl85S
-         SH5wvC51mT0dMQTBC9TOwREkYh1lZgcbLdJFuyQ28BX/7+3Fhh4xnqLSx+BTAPWOjV7U
-         37Gg9pi/7Mw6n60pxjOZopLxogykSIViBPDkf8mRIlkWe2MpPh2mhz46Lc5g1rSTFHwd
-         9iVg==
-X-Forwarded-Encrypted: i=1; AJvYcCVirmE+INVaGwD3l6HN7g6PkbKsw5PgmP9I5rYEJJ2ZeKn3j2bMGQIGwPOp9XJdMRh59OD+PyAPriw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwApW5A3rjZVHgjg/oiaYekxDpLNGn1bq/vpZ0GQX4KIzb8LaQP
-	2gXr7pqdJpKZ7VWF2lENZqG1tQ3GoXqEIwFkSGICnHIJpg119/KEeerxtmpJh7iABQ==
-X-Gm-Gg: ASbGncvQVBmXmWmkNu3AJf6ByS3oJ44ZHLQCuHJV6rwIhMDVHLw3YAIJoghq/NbAxnM
-	4E7fPVwNKvdafDeRyu0iRWi/NyxsJWpB8Hoe94VKSikOBbN1pCRfPm7XHZLDH6oXJOu2spPO1b1
-	uQpoLZA6judKrEOv2193nh1xE7BFtGMhhbR6J2f/5xkEnYJ5QLsycrmKOgwSkM1oUuKiNB9N/Xt
-	gLYwFcAh34VdKJOi92IIn5wu4ul4LLDjIJRU5kfPHmxN47B0wihLHgOrZ8RiPCejCZwFkwWxQYG
-	Lyy6gccP7ahwsZgtaQHRr0AYW3xzA2U9yu4ibgSGGW5R9ZhLO6ktHo+g/sZ/U9Qki573OatDnzW
-	3d45TBOs3/u3VpopM+xVr2WyfRVpCmPxn7tMM
-X-Google-Smtp-Source: AGHT+IG9RhBAWIYCpM4x0Bu0AHn/Zwj8vJMXMnCF7WusnXbmRXto/YmSvsFENCf7E4xtLxB1uOYSPA==
-X-Received: by 2002:a17:907:1c0a:b0:ad2:e683:a776 with SMTP id a640c23a62f3a-ad52d45c10emr326456966b.1.1747399940404;
-        Fri, 16 May 2025 05:52:20 -0700 (PDT)
-Message-ID: <62b0e1b4-4dc5-4ba5-9589-5488b04b3da6@suse.com>
-Date: Fri, 16 May 2025 14:52:19 +0200
+X-Inumbo-ID: b4a7befa-3254-11f0-9ffb-bf95429c2676
+Authentication-Results: bugseng.com; arc=none smtp.remote-ip=162.55.131.47
+ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1747399983;
+	b=pVVj/R/SsydW29TmR+Ty4FdZd3Dr8D5J87Z3I2dCZdwlnK2B+LkfktWrAEnkohyorVyP
+	 Xtsy0YevNxj1pWU2NEHgvnhx4ff1z2bE9tSXgBD5wtelf1zt50S9DrqhkbPPEzpqv+TAl
+	 7jdCha9qQnxXhiU6K4egKPdqvdTgKIPDmCMiJRjg7cyPA7nV6dNwoe9C4zE1VdkiEDmgP
+	 k4Pa6W1tOsC2X9jeEZGlDvcDYw61/dnC/LuH0l6XnGezOr+kgPu5+bjtUbCBXn1PAi4qj
+	 12PuJSAWpnG8vjeREtsvOtewA9h5+SzYJj8pvBmYfRLTWp02m95PQHWoaTafVin80rTch
+	 YB71xe8mO8r8qK130V7mX2wRcfHeTU0FYM1dWQ4UQGP1zenQqi2eakIm6y3nmlACQfNQJ
+	 eoASky968pxvrgb+4mUe/MMKbEg20r9w/vTAIzOV9neeqgECRTzsiZga7X2gXB9fPOFNp
+	 Hb9tSW/gmfCBQmAz9eSGqtjfUcR60duv99U76h7NdJjJ/QgFTdcGEItQsU+3ITpKfyYo0
+	 ke6Phq7AK24csuspal1eQbaJ2V0+ZM6wR6eZHkyFwSIL9Uo9RJxYsUutacxkRXE1WzQGv
+	 0Ev1sB9qmbP98d/NcnEt1a4tZ/0rh857g679IoCRk55AbXOC/QQugXRWwRd1HvI=
+ARC-Message-Signature: i=1; d=bugseng.com; s=openarc; a=rsa-sha256;
+	c=relaxed/relaxed; t=1747399983;
+	h=DKIM-Signature:MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:
+	 References:Message-ID:X-Sender:Organization:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=FleCSofpFpSueE1Xkc0dKlgxuyo7SvDJ1/JJXedVDA8=;
+	b=po0sPP6rI6PXScujQoqUHYfZenOpu3oR+1DKg0gYGERljSC797dEI9QfOxrtAOGjZC48
+	 oJtF+BhT2HSozxOWB/02303UqH3C3qRJWSrxOA8d0Qnzxa0ezm9BuaGJArGU8XuxYZEw/
+	 UtrpukM9c6sAAsUGX3UJO3Ch3O2McBi5/1o6V3QE9ByXIN2qMlfa95GHuDsQxUsu2dpjd
+	 B7sX1o5DQ+P9bvvfFUCBMOsjFybP3y6M5vf+s/AkP3JVQA8WgwaWqOFJ+rO5OQre2rQi2
+	 j1IkMu686Yg1baP4keBDxVKtwuVNR6uzDJRR/bsD0iiaEbgvoDgoZ/MHu8vrMwtD6xhv3
+	 VyylkV5oxv1/I8IHWAiPPe3PtIHqPDNAtKw2fltrW6XDo3qeH3R6hltrDdCt9Hvqq2A05
+	 vefVx16T8aajPDyxXhAgXaTChwpY/WVeZFfoQX5U780p7U19KToNhuKV68xJqq9ffaXn3
+	 2HAfqY8ZtTUpKknABkZemo2u7bb0pnPxNxcmcjgREijV329xIAxgqHjX3EVDkRbJG8BeC
+	 GDXUPn6QX3rJV28qI+/1Eik+Wk1q1eYlcPGwbygrLGdrS0R0SlBEzrRuGbD58ZtOpEvXC
+	 b9dX5kEN2tmKs8LkOehtMEb+rqv2SvwoLb8qzg3D//V0dPEPvJr9DOzSoiiHZSc=
+ARC-Authentication-Results: i=1; bugseng.com; arc=none smtp.remote-ip=162.55.131.47
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
+	t=1747399983; bh=BdrcMtXgTeckk01WS9gOq+O998+fCeZVeoz+dPfdJv4=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=a2h/d1NqwOD5l3x0W1PGTE3IpQEb5HZrkbZUi+pMzFQgJy7HQIZ2qpO7I1jzSwAAm
+	 SRDY54YoWbK1MTvUzhXTAzNrIGa2VDY3+V4z2gPf1AP8WIFyoSMozf8CZbuj1ehU2a
+	 sm+VNNjRZnKuBZQlIO8Ipw3pPKGPjgF30YRgw56ynGEXzEmCX/UuXyKmMgIGvCohsW
+	 Sp+pMwKVkzFQhe0TgHaFIQ15EinD3uohOVosF8tiTgyMfqDCTpv9Gr6arImGBpHYU0
+	 FvQf/PmmcmOytPAtUZ9vxsv+B7gcc2qbwY8ti3dxvAsDZKyNY/FSBkvcXx0wOP9FZ9
+	 LPC2NcWDrZnCQ==
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/vmx: Annotate the VMCS field widths
+Date: Fri, 16 May 2025 14:53:03 +0200
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
 To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Denis Mukhin <dmukhin@ford.com>, xen-devel@lists.xenproject.org
-References: <20250516122916.27070-1-andrew.cooper3@citrix.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250516122916.27070-1-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Cc: dmkhn@proton.me, xen-devel@lists.xenproject.org, jbeulich@suse.com,
+ roger.pau@citrix.com, consulting@bugseng.com, dmukhin@ford.com, Stefano
+ Stabellini <sstabellini@kernel.org>
+Subject: Re: [PING MISRA] Re: [PATCH v5 2/2] x86/vmx: remove __vmread()
+In-Reply-To: <85f778d1-7fb5-47da-9153-35333e486d24@citrix.com>
+References: <20250513052809.3947164-1-dmukhin@ford.com>
+ <20250513052809.3947164-3-dmukhin@ford.com>
+ <85f778d1-7fb5-47da-9153-35333e486d24@citrix.com>
+Message-ID: <da9e619607bcf85198505bde196fbc86@bugseng.com>
+X-Sender: nicola.vetrini@bugseng.com
+Organization: BUGSENG s.r.l.
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 16.05.2025 14:29, Andrew Cooper wrote:
-> This helps identify the appropriate type to use.
+On 2025-05-16 14:45, Andrew Cooper wrote:
+> Hello,
 > 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> This is adjusting some MISRA configuration.  I'm reasonably sure the
+> change is fine as we're simply removing the referenced helper, but can
+> we get a second opinion from anyone who knows what
+> function-macro-properties.json is supposed to be doing?
+> 
+> Thanks,
+> 
+> ~Andrew
+> 
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Hi Andrew,
 
+sorry, it slipped under other emails. The change is ok.
+
+> On 13/05/2025 6:28 am, dmkhn@proton.me wrote:
+>> From: Denis Mukhin <dmukhin@ford.com>
+>> 
+>> Remove __vmread() and adjust ECLAIR configuration to account for the 
+>> change.
+>> 
+>> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
+
+Reviewed-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+
+>> ---
+>>  docs/misra/function-macro-properties.json | 9 ---------
+>>  xen/arch/x86/include/asm/hvm/vmx/vmx.h    | 5 -----
+>>  2 files changed, 14 deletions(-)
+>> 
+>> diff --git a/docs/misra/function-macro-properties.json 
+>> b/docs/misra/function-macro-properties.json
+>> index 74058297b5..59ba63626e 100644
+>> --- a/docs/misra/function-macro-properties.json
+>> +++ b/docs/misra/function-macro-properties.json
+>> @@ -152,15 +152,6 @@
+>>              "taken": ""
+>>           }
+>>        },
+>> -      {
+>> -         "type": "function",
+>> -         "value": "^__vmread.*$",
+>> -         "properties":{
+>> -            "pointee_write": "2=always",
+>> -            "pointee_read": "2=never",
+>> -            "taken": ""
+>> -         }
+>> -      },
+>>        {
+>>           "type": "function",
+>>           "value": "^hvm_pci_decode_addr.*$",
+>> diff --git a/xen/arch/x86/include/asm/hvm/vmx/vmx.h 
+>> b/xen/arch/x86/include/asm/hvm/vmx/vmx.h
+>> index d85b52b9d5..299e2eff6b 100644
+>> --- a/xen/arch/x86/include/asm/hvm/vmx/vmx.h
+>> +++ b/xen/arch/x86/include/asm/hvm/vmx/vmx.h
+>> @@ -336,11 +336,6 @@ static always_inline unsigned long 
+>> vmread(unsigned long field)
+>>      return value;
+>>  }
+>> 
+>> -static always_inline void __vmread(unsigned long field, unsigned long 
+>> *value)
+>> -{
+>> -    *value = vmread(field);
+>> -}
+>> -
+>>  static always_inline void __vmwrite(unsigned long field, unsigned 
+>> long value)
+>>  {
+>>      asm goto ( "vmwrite %[value], %[field]\n\t"
+
+-- 
+Nicola Vetrini, B.Sc.
+Software Engineer
+BUGSENG (https://bugseng.com)
+LinkedIn: https://www.linkedin.com/in/nicola-vetrini-a42471253
 
