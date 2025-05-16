@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 56724AB968C
-	for <lists+xen-devel@lfdr.de>; Fri, 16 May 2025 09:28:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.986386.1371950 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 48CF6AB96BB
+	for <lists+xen-devel@lfdr.de>; Fri, 16 May 2025 09:44:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.986396.1371959 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uFpUp-0004gp-LT; Fri, 16 May 2025 07:28:43 +0000
+	id 1uFpjR-0007cU-Rw; Fri, 16 May 2025 07:43:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 986386.1371950; Fri, 16 May 2025 07:28:43 +0000
+Received: by outflank-mailman (output) from mailman id 986396.1371959; Fri, 16 May 2025 07:43:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uFpUp-0004eJ-Hu; Fri, 16 May 2025 07:28:43 +0000
-Received: by outflank-mailman (input) for mailman id 986386;
- Fri, 16 May 2025 07:28:42 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=C2cV=YA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uFpUo-0004eB-K6
- for xen-devel@lists.xenproject.org; Fri, 16 May 2025 07:28:42 +0000
+	id 1uFpjR-0007bG-PC; Fri, 16 May 2025 07:43:49 +0000
+Received: by outflank-mailman (input) for mailman id 986396;
+ Fri, 16 May 2025 07:43:48 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=UFMR=YA=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1uFpjQ-0007bA-4G
+ for xen-devel@lists.xenproject.org; Fri, 16 May 2025 07:43:48 +0000
 Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
  [2a00:1450:4864:20::62c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5c9c5995-3227-11f0-9ffb-bf95429c2676;
- Fri, 16 May 2025 09:28:28 +0200 (CEST)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 7f936475-3229-11f0-9eb6-5ba50f476ded;
+ Fri, 16 May 2025 09:43:46 +0200 (CEST)
 Received: by mail-ej1-x62c.google.com with SMTP id
- a640c23a62f3a-ace333d5f7bso308488266b.3
- for <xen-devel@lists.xenproject.org>; Fri, 16 May 2025 00:28:28 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ad52d06cdccsm107153266b.49.2025.05.16.00.28.27
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 16 May 2025 00:28:27 -0700 (PDT)
+ a640c23a62f3a-ad4ffb005d8so313380766b.1
+ for <xen-devel@lists.xenproject.org>; Fri, 16 May 2025 00:43:46 -0700 (PDT)
+Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
+ by smtp.gmail.com with UTF8SMTPSA id
+ a640c23a62f3a-ad52d047ce3sm109933266b.21.2025.05.16.00.43.45
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 16 May 2025 00:43:45 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,167 +45,200 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5c9c5995-3227-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 7f936475-3229-11f0-9eb6-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1747380508; x=1747985308; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=jB7fVrQoyA+r4vLcvPaB1ddQ0Xr11hBWRr6evsrcrD8=;
-        b=PC696R470nUP6+xSCo/tY4XNDgQVgyLHORGV49kFgn+ZJvIm8e1hkiKIwNFXv7mRQ4
-         J98qc4GxgBA5UKjTF6Km4QwvvQ3NHjnydvSzNYW/Po0OkVQVXK2l32rX9vDD7tKx3yzH
-         8ESLB6+K9K5M+I/ZMn1pTp93a2mSG/zhp6TWf+xHnU+bIS8aVLqkLHOiWJJ8Sk0hjEBi
-         hkY1AqmQyk+aXjK5ZNXV+kcKc0IgbQM8mUPDZxIrGh5jsmPL+wLGM5sSesE5sjRkEyOR
-         CqynScL/hrXmUXhVNweL1DQMJdC3l/RSH1kYwqJfhzIuGacruaNkr9ETC6LpL3D6plx1
-         /Jvw==
+        d=citrix.com; s=google; t=1747381426; x=1747986226; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=nKiRQVOiepaLYQVLtxO6y++Y57bVO8/3pPjrMeojVmo=;
+        b=l4fGWy00aze374BSMlI0LmHdJWEXcl/y2G8sjRAzV9k5tF89e3XxiBD8aY6AWrYvro
+         5gTIGbiE3UnzLEvSky9z1FFkIiV7SO2SpncVsQjuWELOTkzp0QurBuqEWE02aqBldm6Q
+         hrolh1D+TFYwnfAp5T/FhMInjhl216aG4ks6s=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747380508; x=1747985308;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=jB7fVrQoyA+r4vLcvPaB1ddQ0Xr11hBWRr6evsrcrD8=;
-        b=SHhTF4UKYh91ArxRIuc1sOaKWP9bDnpAR3GF9pTXqfP4TbdIqeexjhBbp5ONhT4g5K
-         +XMxlFdLwpElEIm1/juapujIL4u0Dxga5vDgmpWPM/bARDCjyQo+g+qPqg8H09bXnUjT
-         FDPMo45TIxArvbpRnm3Tv6k67JodxqeKjEnmQWJ8dtflqpYVEWOs3yBC0Z5jLVFaSOig
-         SiV7HBzefVq6D3ZkGHAmrH1DQRXk/VV18PCJfYTKIPKeJ7uQjpyRG+WXu8MYp/6dM7la
-         FPOYalG+4fSg+K2jp16fEKrciaa0pG2pgYCIAD7p5mC8avPM7jE6uzBitk3pJkhBTrPk
-         zBAg==
-X-Forwarded-Encrypted: i=1; AJvYcCXpcCrR8i+RuyOqqjve+kEM/TUWqH8iuBR8wanrzDMOU385uCAK14KsyU4UmKtw5W72fUJ4dJO9IhE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzEzV9iZhXlrTsXnKb2pfx2HkixQSreyL8BBch2l1THHLWgbMnF
-	Y2rRwyiurrakAy/64v6LBPfwJ+ESzGdhvwHp5onDkAS1SdX7MsYuEV4neQdK2TecyQ==
-X-Gm-Gg: ASbGncv+fFWzkwx4srowIwcrpTkE+MODsCu7ew114cBRW5c4iIv3DdzXfRz+OzMs/4W
-	zBsKVP+LY7IJtXDGDvGx10WsZUKMQx6tz+ukW1SPM5Zd9dHoc8rJXF0mxVvvSx2H5li43FYXY2w
-	vDWbxcq9pgotejtqWXV+qbwkXQCUb2oUA9aZg1xAmuIBuFcChw5vwgbDt+blhbsllLFou3ZR4tC
-	jQQOdZA/PqnHUPoDwkKsz/QxWXRSokiaa0lvUghxOFeJN8kg8V+ETiGTB5jgEMZc3FQBCz8HlC6
-	FRcd4oMVt53pNDuks0AfuMCbDospoup6rQqwjpG+9CM69T6KD63RcNnnbrlFWu+cY+ww6gwqLcm
-	cYn6VEdyYCH2BBQRwTlRkMsIqLoSF/Eby+S8sLlI8VF16FFQ=
-X-Google-Smtp-Source: AGHT+IHcwCuMWyWR04moZN2Lxw2polE70sMCCy0v5MRtbBSxCpwFv6WzGnLiHhwnaXHXn/xPxUVRGg==
-X-Received: by 2002:a17:907:94ce:b0:ad4:f517:ca3 with SMTP id a640c23a62f3a-ad536bde67bmr135842266b.20.1747380508183;
-        Fri, 16 May 2025 00:28:28 -0700 (PDT)
-Message-ID: <6e37d964-5df8-4685-934b-0f8d31048123@suse.com>
-Date: Fri, 16 May 2025 09:28:26 +0200
+        d=1e100.net; s=20230601; t=1747381426; x=1747986226;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=nKiRQVOiepaLYQVLtxO6y++Y57bVO8/3pPjrMeojVmo=;
+        b=QA2qaxeJWgMJm/wTLzMaucdCDVBZs8v6nchQ97wp0AWFRlJuHUNRP8I6vZ+DZxHUtN
+         LYKxFCJZ99GrUmM2oTaUka20Ho4X9GcxDcRTqa8vCRKa9Oyg9LomDgAQTJKXLW9WQ4cr
+         k2fDyWei//2DCIwE0PkjKh9leCvE7VrPSMgLr35APF0CIT6qDrhOxE4eZXBdPdZY4Pnz
+         4emVyeGVCzkJRPdf6yHaLF3YDeXL2PLiv11SnOLVqhm+4OXbDLXup7uvlUXrxH0hnME9
+         SzlAm/L/hqjTRONYj6z2+9bHitTLgUIshsbA4PYX74SE+9INXAJeFcnT8d+PaEe6mkSz
+         cL5A==
+X-Gm-Message-State: AOJu0Yx5+sKUa2AaPe3gq0e06Tu+kIqtUIk5Pcc++XZrmLVmFGBaTvdG
+	PcWMufJuiHbOn0LBuu6dC6zgFnKjapM59Xzl3Hl6GJSIF2mKd9C61CFqwXJomH6/HLk=
+X-Gm-Gg: ASbGncuyN93Q9zstoUsYqtKgLpvikVeQAaSZ9riz/q224YgG0eF/mVYwN9Q3DQiSKJL
+	hxVuo1gGCL1EU9YGIi7ka6zg7rGsIAPLq9XysCFaPYHw6eZO3kiNXD6uHJXMXX0YDdMCHNWKsEp
+	0PCKXMLZG4PtQdRErwCBqi+NqEkAjXUcPxMzf7JTjzhCHXUF9/h56lgSLLu9Im3JggUKrzfJHpH
+	0jl0dotdzuAbyHIwPM3Zgc5f9MngZmbzrBCIfAnvBCRcecmfWyVlDQro8pqk9efsA45x+recO4W
+	wAs/Mc+RrNxqIEZo6NXtwpBaa5jyksTXnrhEEOjM1y6PylWLVoi/Zb22VKGfOGRCiI2HBcLsHlv
+	ZUZ3GQlin8Ah2JX44nsE=
+X-Google-Smtp-Source: AGHT+IGRZqVoHjqEq9YP2czMe1XofMygBJHtliztJN2Ff/urvb11NPaY7BwWWT38tBYNg3brXN8+gw==
+X-Received: by 2002:a17:907:1b08:b0:ad2:43b6:dd75 with SMTP id a640c23a62f3a-ad52d441ffemr238026566b.10.1747381425844;
+        Fri, 16 May 2025 00:43:45 -0700 (PDT)
+Date: Fri, 16 May 2025 09:43:44 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
+Subject: Re: [PATCH] x86/HVM: restrict use of pinned cache attributes as well
+ as associated flushing
+Message-ID: <aCbssIXqIBDI5C9a@macbook.lan>
+References: <42d40da1-bc38-82fb-154a-e1fc876b0c24@suse.com>
+ <aCW8RKZZCkvCuw5W@macbook.lan>
+ <2032431f-fa8b-47ec-8879-29baadd266bd@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/vpci: fix handling of BAR overlaps with non-hole
- regions
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Stefano Stabellini <stefano.stabellini@amd.com>,
- xen-devel@lists.xenproject.org
-References: <20250515084123.43289-1-roger.pau@citrix.com>
- <8b0fa959-6d00-4bfb-bef0-b3d1ae7ce7e0@suse.com>
- <aCW9vfNEsDFLbE-y@macbook.lan>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aCW9vfNEsDFLbE-y@macbook.lan>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <2032431f-fa8b-47ec-8879-29baadd266bd@suse.com>
 
-On 15.05.2025 12:11, Roger Pau Monné wrote:
-> On Thu, May 15, 2025 at 11:24:59AM +0200, Jan Beulich wrote:
->> On 15.05.2025 10:41, Roger Pau Monne wrote:
->>> For once the message printed when a BAR overlaps with a non-hole regions is
->>> not accurate on x86.  While the BAR won't be mapped by the vPCI logic, it
->>> is quite likely overlapping with a reserved region in the memory map, and
->>> already mapped as by default all reserved regions are identity mapped in
->>> the p2m.  Fix the message so it just warns about the overlap, without
->>> mentioning that the BAR won't be mapped, as this has caused confusion in
->>> the past.
->>>
->>> Secondly, when an overlap is detected the BAR 'enabled' field is not set,
->>> hence other vPCI code that depends on it like vPCI MSI-X handling won't
->>> function properly, as it sees the BAR as disabled, even when memory
->>> decoding is enabled for the device and the BAR is likely mapped in the
->>> p2m.  Change the handling of BARs that overlap non-hole regions to instead
->>> remove any overlapped regions from the rangeset, so the resulting ranges to
->>> map just contain the hole regions.  This requires introducing a new
->>> pci_sanitize_bar_memory() that's implemented per-arch and sanitizes the
->>> address range to add to the p2m.
->>>
->>> For x86 pci_sanitize_bar_memory() removes any regions present in the host
->>> memory map, for ARM this is currently left as a dummy handler to not change
->>> existing behavior.
->>>
->>> Ultimately the above changes should fix the vPCI MSI-X handlers not working
->>> correctly when the BAR that contains the MSI-X table overlaps with a
->>> non-hole region, as then the 'enabled' BAR bit won't be set and the MSI-X
->>> traps won't handle accesses as expected.
->>
->> While all of this reads plausible, I may need to look at this again later,
->> to hopefully grok the connections and implications.
+On Fri, May 16, 2025 at 08:54:52AM +0200, Jan Beulich wrote:
+> On 15.05.2025 12:04, Roger Pau Monné wrote:
+> > On Wed, Mar 22, 2023 at 07:50:09AM +0100, Jan Beulich wrote:
+> >> We don't permit use of uncachable memory types elsewhere unless a domain
+> >> meets certain criteria. Enforce this also during registration of pinned
+> >> cache attribute ranges.
+> >>
+> >> Furthermore restrict cache flushing to just uncachable range registration.
+> >> While there, also
+> >> - take CPU self-snoop as well as IOMMU snoop into account (albeit the
+> >>   latter still is a global property rather than a per-domain one),
+> >> - avoid flushes when the domain isn't running yet (which ought to be the
+> >>   common case).
+> >>
+> >> Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> >> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> >> ---
+> >> At the expense of yet larger a diff it would be possible to get away
+> >> without any "goto", by moving the whole "new entry" handling into the
+> >> switch(). Personally I'd prefer that, but the larger diff may be
+> >> unwelcome.
+> >>
+> >> I have to admit that I can't spot what part of epte_get_entry_emt() the
+> >> comment refers to that is being deleted. The function does use
+> >> hvm_get_mem_pinned_cacheattr(), yes, but there's nothing there that talks
+> >> about cache flushes (and their avoiding) in any way.
+> >>
+> >> Is it really sensible to add/remove ranges once the guest is already
+> >> running? (If it is, limiting the scope of the flush would be nice, but
+> >> would require knowing dirtyness for the domain wrt the caches, which
+> >> currently we don't track.)
+> >>
+> >> This is kind of amending XSA-428.
+> >>
+> >> --- a/xen/arch/x86/hvm/mtrr.c
+> >> +++ b/xen/arch/x86/hvm/mtrr.c
+> >> @@ -589,6 +589,7 @@ int hvm_set_mem_pinned_cacheattr(struct
+> >>  {
+> >>      struct hvm_mem_pinned_cacheattr_range *range, *newr;
+> >>      unsigned int nr = 0;
+> >> +    bool flush = false;
+> >>      int rc = 1;
+> >>  
+> >>      if ( !is_hvm_domain(d) )
+> >> @@ -612,31 +613,35 @@ int hvm_set_mem_pinned_cacheattr(struct
+> >>  
+> >>                  type = range->type;
+> >>                  call_rcu(&range->rcu, free_pinned_cacheattr_entry);
+> >> -                p2m_memory_type_changed(d);
+> >>                  switch ( type )
+> >>                  {
+> >> -                case X86_MT_UCM:
+> >> +                case X86_MT_WB:
+> >> +                case X86_MT_WP:
+> >> +                case X86_MT_WT:
+> >>                      /*
+> >> -                     * For EPT we can also avoid the flush in this case;
+> >> -                     * see epte_get_entry_emt().
+> >> +                     * Flush since we don't know what the cachability is going
+> >> +                     * to be.
+> >>                       */
+> >> -                    if ( hap_enabled(d) && cpu_has_vmx )
+> >> -                case X86_MT_UC:
+> >> -                        break;
+> >> -                    /* fall through */
+> >> -                default:
+> >> -                    flush_all(FLUSH_CACHE);
+> >> +                    if ( is_iommu_enabled(d) || cache_flush_permitted(d) )
+> >> +                        flush = true;
+> >>                      break;
+> >>                  }
+> >> -                return 0;
+> >> +                rc = 0;
+> >> +                goto finish;
+> >>              }
+> >>          domain_unlock(d);
+> >>          return -ENOENT;
+> >>  
+> >>      case X86_MT_UCM:
+> >>      case X86_MT_UC:
+> >> -    case X86_MT_WB:
+> >>      case X86_MT_WC:
+> >> +        /* Flush since we don't know what the cachability was. */
+> >> +        if ( !is_iommu_enabled(d) && !cache_flush_permitted(d) )
+> >> +            return -EPERM;
+> >> +        flush = true;
+> >> +        break;
+> >> +
+> >> +    case X86_MT_WB:
+> >>      case X86_MT_WP:
+> >>      case X86_MT_WT:
+> >>          break;
+> >> @@ -689,8 +694,12 @@ int hvm_set_mem_pinned_cacheattr(struct
+> >>  
+> >>      xfree(newr);
+> >>  
+> >> + finish:
+> >>      p2m_memory_type_changed(d);
+> >> -    if ( type != X86_MT_WB )
+> >> +
+> >> +    if ( flush && d->creation_finished &&
+> >> +         (!boot_cpu_has(X86_FEATURE_XEN_SELFSNOOP) ||
+> >> +          (is_iommu_enabled(d) && !iommu_snoop)) )
+> >>          flush_all(FLUSH_CACHE);
+> > 
+> > I think it would be better if we could add those checks to
+> > memory_type_changed() rather than open-coding them here, and just call
+> > memory_type_changed() then, which would also avoid the goto AFAICT.
 > 
-> Thanks, it's indeed not trivial to follow.  I've attempted to write
-> this as best as I could.
-> 
-> I think the fix is far easier to understand than the description of
-> the issue and the connection with vPCI MSI-X handling.
+> Hmm, with this last remark, what does "those checks" cover then?
 
-Right - the code change itself looks technically fine to me.
+I have a patches I was going to send today (done some overnight
+testing) that do:
 
->>> --- a/xen/arch/x86/include/asm/pci.h
->>> +++ b/xen/arch/x86/include/asm/pci.h
->>> @@ -2,6 +2,7 @@
->>>  #define __X86_PCI_H__
->>>  
->>>  #include <xen/mm.h>
->>> +#include <xen/rangeset.h>
->>
->> Please don't, ...
->>
->>> @@ -57,14 +58,7 @@ static always_inline bool is_pci_passthrough_enabled(void)
->>>  
->>>  void arch_pci_init_pdev(struct pci_dev *pdev);
->>>  
->>> -static inline bool pci_check_bar(const struct pci_dev *pdev,
->>> -                                 mfn_t start, mfn_t end)
->>> -{
->>> -    /*
->>> -     * Check if BAR is not overlapping with any memory region defined
->>> -     * in the memory map.
->>> -     */
->>> -    return is_memory_hole(start, end);
->>> -}
->>> +bool pci_check_bar(const struct pci_dev *pdev, mfn_t start, mfn_t end);
->>> +int pci_sanitize_bar_memory(struct rangeset *r);
->>
->> ... all you need is a struct forward decl here.
-> 
-> Hm, but any user that makes use of pci_sanitize_bar_memory() will need
-> to include rangeset.h anyway, hence it seemed better to just include
-> the header rather that pollute the current one by adding forward
-> declarations.
+    if ( cache_flush_permitted(d) &&
+         d->vcpu && d->vcpu[0] && p2m_memory_type_changed(d) &&
+         /*
+          * Do the p2m type-change, but skip the cache flush if the domain is
+          * not yet running.  The check for creation_finished must strictly be
+          * done after the call to p2m_memory_type_changed().
+          */
+         d->creation_finished &&
+         /*
+          * The cache flush should be done if either: CPU doesn't have
+          * self-snoop in which case there could be aliases left in the cache,
+          * or IOMMUs cannot force all DMA device accesses to be snooped.
+          */
+         (!boot_cpu_has(X86_FEATURE_XEN_SELFSNOOP) ||
+          (is_iommu_enabled(d) && !iommu_snoop)) )
+    {
+        flush_all(FLUSH_CACHE);
+    }
 
-Yet any user of the header not calling this function won't need the full
-definition of the struct, nor (perhaps) any other of the contents of
-xen/rangeset.h.
+As to attempt to limit the cache flushing done in
+memory_type_changed().
 
-Jan
+> I first
+> read it as meaning the conditions in just this if(), but the "goto" is
+> needed for a different reason.
+
+Maybe I'm missing something, but couldn't
+hvm_set_mem_pinned_cacheattr() just call memory_type_changed() (with
+the proposed checks above added) if and return then, instead of doing
+a goto?
+
+Thanks, Roger.
 
