@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE1F6ABA695
-	for <lists+xen-devel@lfdr.de>; Sat, 17 May 2025 01:30:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.987774.1373022 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 75525ABA6C8
+	for <lists+xen-devel@lfdr.de>; Sat, 17 May 2025 01:58:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.987833.1373032 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uG4V8-0002dF-DP; Fri, 16 May 2025 23:30:02 +0000
+	id 1uG4vg-0007zw-Gv; Fri, 16 May 2025 23:57:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 987774.1373022; Fri, 16 May 2025 23:30:02 +0000
+Received: by outflank-mailman (output) from mailman id 987833.1373032; Fri, 16 May 2025 23:57:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uG4V8-0002aQ-9y; Fri, 16 May 2025 23:30:02 +0000
-Received: by outflank-mailman (input) for mailman id 987774;
- Fri, 16 May 2025 23:30:00 +0000
+	id 1uG4vg-0007xj-De; Fri, 16 May 2025 23:57:28 +0000
+Received: by outflank-mailman (input) for mailman id 987833;
+ Fri, 16 May 2025 23:57:27 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=T4W4=YA=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1uG4V6-0002Si-QL
- for xen-devel@lists.xenproject.org; Fri, 16 May 2025 23:30:00 +0000
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [2a00:1450:4864:20::431])
+ id 1uG4vf-0007xc-2q
+ for xen-devel@lists.xenproject.org; Fri, 16 May 2025 23:57:27 +0000
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [2a00:1450:4864:20::32b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id acb9b335-32ad-11f0-9ffb-bf95429c2676;
- Sat, 17 May 2025 01:29:55 +0200 (CEST)
-Received: by mail-wr1-x431.google.com with SMTP id
- ffacd0b85a97d-3a363ccac20so611992f8f.2
- for <xen-devel@lists.xenproject.org>; Fri, 16 May 2025 16:29:55 -0700 (PDT)
+ id 83752410-32b1-11f0-9ffb-bf95429c2676;
+ Sat, 17 May 2025 01:57:24 +0200 (CEST)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-43cfe63c592so26818005e9.2
+ for <xen-devel@lists.xenproject.org>; Fri, 16 May 2025 16:57:24 -0700 (PDT)
 Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3a35ca62c70sm4382829f8f.54.2025.05.16.16.29.53
+ 5b1f17b1804b1-442f33691fdsm128034525e9.5.2025.05.16.16.57.23
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 16 May 2025 16:29:54 -0700 (PDT)
+ Fri, 16 May 2025 16:57:23 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: acb9b335-32ad-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 83752410-32b1-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1747438195; x=1748042995; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1747439844; x=1748044644; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=HKK9RX4hR0A5SUlwzKQTLFqzQ1hDvrAFwLmvW3QQULc=;
-        b=vt3avghyseVEtYw4p4hLlUcSgOPbQ/pPTxcTmzJkSxl8BcqHI6PvzBELKtVSBSFVSb
-         iGe23Ea56ZGxj/faJSzAKwjN4dNiRv/zB8s64soj3vtdBg16wPafG0TH2V9gRgQXpLbZ
-         QGigG14DaTmUkUYkezaugBqtvEvszrCd/85mI=
+        bh=CPVqfVtdG0aOQXYN7JFT5fl0p6ZdZ28JyC5/O6ufdzc=;
+        b=SsAY9zw4vxT/Fe1u1t9FuB/LYYnqlSFXXowAdq5PPCIOrBAR2puGP0WiKII6hOu52t
+         8VwQBrzEdVoVSitlfFmdNA+CGFWI6hs5quMhU2BUmrJi2tboKhHHKoWy1bVyzNaAEpQT
+         OailsxKTsHecte4JhqT1zgeo5mEuK2UGIhyms=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747438195; x=1748042995;
+        d=1e100.net; s=20230601; t=1747439844; x=1748044644;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=HKK9RX4hR0A5SUlwzKQTLFqzQ1hDvrAFwLmvW3QQULc=;
-        b=eWRnzZcvDmzeHDEGkYMLeEq6T5hvzQTvp+tg7NWygfUjztgZS+COpBrADg0i+jXNxI
-         70tCwSAVhMjEgrHsBYqxpCulJAEmyR24O7kHEhZb379kTLJ8w0x5jsQ27cdtgLtWeETD
-         RFuLxL9v6dEx6zW+SKmCGUPpCzsF8H/xrk1qDihQhS1Qm7SDZ2nl6FTDKyRNe9HmUEED
-         Ec8sjo0Jtf2A29cXNk7SB4U9vxrkgvRrjyQh3/oUSI4zcGkUiUCfWUeHlQPOsZ+IX/Xq
-         clfPZO232zLjVMqRXy86ApxOiVezClqloTPF6ldCfk2ugYFRSWRadOobjal5y2F3++w7
-         D3Ug==
-X-Forwarded-Encrypted: i=1; AJvYcCX1GQ3hX7OLSftuJJSxcmNpCRpVPLvfhleOCPqWFxorKSdNhojatK5Vh7Kj0JQb4mL6eiBZjWu6SjQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyuLv3jG7SP8V/vJbooyY4AXJ5K0utns2IBKbYkVis6Cz0NsT8K
-	uNrllXILKIr3qOSl8g2mJG+y0cM4WyGo29u1j2g4M0ewynJlbpmTdl2Cd8/2l+gmLv4=
-X-Gm-Gg: ASbGncutNEU4ORaEEct0JDYwXQd3D7lbQrEA3LLJM5M+3ru43TIfpqQ4ReX5HIVLZzS
-	2KFk22j9l0JkoUtm1c9xkXvJ0e/+ns4que3PpKEHyzwTW0Z/3QbPzJvJS6dl1kED+qihwyetjHI
-	4JzDpMh2oxnXFuPX/ETFkKxrVCbiGwkwkPbkw2CPzDGMBcx3XhrAVlMH3hI/baFcSqP8cWEQInc
-	fdv4DTnJTMOR/Fam8z8b06zvs0QmibNkSIOeP9oCwdfYCv8D1MDA7mrlW55TDcslcAqD0NWPM0I
-	wZevZYuQ8d5MxQiBU/i7QNB2RX2I2af/BPkd0pDeLt2n0GRkv3ygwUJBOvizl9F+y4r0BMFe3RQ
-	xjV08XQn5ZmnIK2d4
-X-Google-Smtp-Source: AGHT+IGrcLeQ/94xxk+A3dFEzG1GERItZMl+P1wUOYX4bUU3PFpVR8ume06p+yRRSWEWeXRfd2H/Cg==
-X-Received: by 2002:a5d:64eb:0:b0:39c:12ce:6a0 with SMTP id ffacd0b85a97d-3a35c826787mr5432307f8f.21.1747438195307;
-        Fri, 16 May 2025 16:29:55 -0700 (PDT)
-Message-ID: <d1bcab8a-873c-42ed-b7e8-071c009bcc3a@citrix.com>
-Date: Sat, 17 May 2025 00:29:53 +0100
+        bh=CPVqfVtdG0aOQXYN7JFT5fl0p6ZdZ28JyC5/O6ufdzc=;
+        b=sVsFyMqXfCwX5BSHVMIR8evK9ehCA8On7uwNyBloXjAFkoyiOm7qVK7yPXuetAGCAF
+         CEC4eXd1EL72TamvTRZtDklLnEN3VLLzw/xUsnT+yM8QdqjWFfmwrN6cSgq+aaQj7HOq
+         XekY4lQtYDpk05M5O+J5hYSYjOLg6EOuEI53mdE1QZomCps8b/cN32DmRCwqSrKQge0r
+         1FSQfK+rbaLGAMcNn8Qeo34Th8iJM66z1GZFKyA6Eq2bEwEqS1TleAoljnQgIrVVJxwI
+         f4d9vTP58t0ys6C6j6jMCrjuxDkBceFev3yfG8veD97GrDkwfRkZBEmCaHArNS0civoe
+         jyLw==
+X-Forwarded-Encrypted: i=1; AJvYcCUOJWKyToCrk4VD7VjZvUCauUwuwWj1Lxchi9vHp3+NPX43b6UjArD2jPeAC6rU3KKrZZLPAzP1qHs=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwFpQY1Vzf9/oEPaCuJ8o7yxxquyvC/iapow16lLataAf06P+Ri
+	Z32A9yEjaW2l1SclhuXW0zL2jRcR7xNMEjGFBdgnFDBlKPPjQHGcHchym6LpWiLmD0w=
+X-Gm-Gg: ASbGncsqB22LAPKzv2+Wr9Q3cCJpLwu7g64qiu30VNvbKWcTs3gFZSN+xMq+y6ijaqT
+	RTMTV05/vvArGuV3idUc7MKdc2BubxwxrPLijVUAU7zKp8bWGZq0JGpkCBb59rW4CYOZWbhO5gb
+	QRs9BBMPa50cUT691dUctSiJQgPtZAuq6/mq+PnGyBzQ4vlEoqSMbloV/vP/Ta+1vtzT0ccQb7a
+	buerR64y4lGExYXHIAwdPH1VfTAKF80XFzt90tYVL9NNuNkSQdRHF76l53HswrDLm+xCjPIeqtt
+	QNOV65rmamZCgMmHPvxsZkqb3110sgW3XiHzB3pKJFPBw4RJxe1yNhoXwuw+o+wK1budyIA2p8k
+	7RO/MGBCAWornhb5g
+X-Google-Smtp-Source: AGHT+IGw2UDdXk2QwwLiFMjNVigLC6hhLpudBczv1ENwk9+Zux3USypaba0sDsVSZqwhLSyGzSCaVQ==
+X-Received: by 2002:a05:600c:8285:b0:440:6a1a:d89f with SMTP id 5b1f17b1804b1-442fd60a587mr56834945e9.4.1747439844000;
+        Fri, 16 May 2025 16:57:24 -0700 (PDT)
+Message-ID: <5c2aa885-8877-4708-90cc-d65a76b729b3@citrix.com>
+Date: Sat, 17 May 2025 00:57:22 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/6] xen: refactor include guards
+Subject: Re: [PATCH 6/6] automation/eclair: update configuration of D4.10
 To: Stefano Stabellini <stefano.stabellini@amd.com>,
  xen-devel@lists.xenproject.org
 Cc: michal.orzel@amd.com, jbeulich@suse.com, julien@xen.org,
  roger.pau@citrix.com, sstabellini@kernel.org, bertrand.marquis@arm.com,
  Federico Serafini <federico.serafini@bugseng.com>
 References: <alpine.DEB.2.22.394.2505161618280.145034@ubuntu-linux-20-04-desktop>
- <20250516232130.835779-4-stefano.stabellini@amd.com>
+ <20250516232130.835779-6-stefano.stabellini@amd.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -137,43 +137,74 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20250516232130.835779-4-stefano.stabellini@amd.com>
+In-Reply-To: <20250516232130.835779-6-stefano.stabellini@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
 On 17/05/2025 12:21 am, Stefano Stabellini wrote:
-> diff --git a/xen/include/xen/err.h b/xen/include/xen/err.h
-> index cbdd1bf7f8..5bdf8b215c 100644
-> --- a/xen/include/xen/err.h
-> +++ b/xen/include/xen/err.h
-> @@ -1,5 +1,7 @@
-> -#if !defined(__XEN_ERR_H__) && !defined(__ASSEMBLY__)
-> -#define __XEN_ERR_H__
-> +#if !defined(XEN_ERR_H)
-> +#define XEN_ERR_H
-
-I know this is just rearranging the existing like, but both the
-defined()'s should turn into the more normal #ifndef's now they're split.
-
-Same for softirq.h
-
-> +
-> +#if !defined(__ASSEMBLY__)
+> diff --git a/automation/eclair_analysis/ECLAIR/deviations.ecl b/automation/eclair_analysis/ECLAIR/deviations.ecl
+> index 9c67358d46..3fb6d9f971 100644
+> --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
+> +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
+> @@ -72,11 +72,19 @@ they are not instances of commented-out code."
+>  -config=MC3A2.D4.3,reports+={deliberate, "any_area(any_loc(file(arm64_bitops))&&context(name(int_clear_mask16)))"}
+>  -doc_end
 >  
->  #include <xen/compiler.h>
->  #include <xen/errno.h>
-> @@ -41,4 +43,6 @@ static inline int __must_check PTR_RET(const void *ptr)
->  	return IS_ERR(ptr) ? PTR_ERR(ptr) : 0;
->  }
->  
-> -#endif /* __XEN_ERR_H__ */
-> +#endif /* __ASSEMBLY__ */
-> +
-> +#endif /* XEN_ERR_H */
+> --doc_begin="Files that are intended to be included more than once do not need to
+> -conform to the directive."
+> +-doc_begin="Files that are intended to be included more than once (and have
+> +a comment that says this explicitly) do not need to conform to the directive."
+>  -config=MC3A2.D4.10,reports+={safe, "first_area(text(^/\\* This file is intended to be included multiple times\\. \\*/$, begin-4))"}
+> +-config=MC3A2.D4.10,reports+={safe, "first_area(text(^.*Explicitly intended for multiple inclusion.*$, begin-3))"}
 
-I realise this is personal preference, but for the end of a header like
-this where each is annotated properly, I don't see much value having the
-extra blank line.
+xen.git/xen$ git grep "Explicitly intended for multiple"
+arch/x86/include/asm/cpufeatures.h:2: * Explicitly intended for multiple
+inclusion.
+
+I'd suggest altering that one file, rather than adding an special
+exclusion pattern.
+
+> +-config=MC3A2.D4.10,reports+={safe, "first_area(text(^/\\* Generated file, do not edit! \\*/$, begin-2))"}
+>  -config=MC3A2.D4.10,reports+={safe, "first_area(text(^/\\* Generated file, do not edit! \\*/$, begin-3))"}
+
+These seem to only differ by the begin-$N.  Why doesn't the regex work
+in both cases?
+
+> --config=MC3A2.D4.10,reports+={safe, "all_area(all_loc(file(^xen/include/generated/autoconf.h$)))"}
+> +-doc_end
+> +
+> +-doc_begin="Autogenerated files that do not need to conform to the directive."
+> +-config=MC3A2.D4.10,reports+={safe, "all_area(all_loc(file(^xen/include/generated/autoconf\\.h$)))"}
+> +-config=MC3A2.D4.10,reports+={safe, "all_area(all_loc(file(^xen/include/xen/compile\\.h$)))"}
+
+I see your exception, and raise you some sed.
+
+diff --git a/xen/include/xen/compile.h.in b/xen/include/xen/compile.h.in
+index 3151d1e7d1bf..9206341ba692 100644
+--- a/xen/include/xen/compile.h.in
++++ b/xen/include/xen/compile.h.in
+@@ -1,3 +1,6 @@
++#ifndef XEN_COMPILE_H
++#define XEN_COMPILE_H
++
+ #define XEN_COMPILE_DATE       "@@date@@"
+ #define XEN_COMPILE_TIME       "@@time@@"
+ #define XEN_COMPILE_BY         "@@whoami@@"
+diff --git a/xen/tools/process-banner.sed b/xen/tools/process-banner.sed
+index 56c76558bcd9..4cf3f9a1163a 100755
+--- a/xen/tools/process-banner.sed
++++ b/xen/tools/process-banner.sed
+@@ -12,3 +12,8 @@ s_(.*)_"\1\\n"_
+ 
+ # Trailing \ on all but the final line.
+ $!s_$_ \\_
++
++# Append closing header guard
++$a\
++\
++#endif /* XEN_COMPILE_H */
+
+and now compile.h looks like a normal header.
 
 ~Andrew
 
