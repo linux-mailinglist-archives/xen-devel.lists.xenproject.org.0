@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C89F4AB9742
-	for <lists+xen-devel@lfdr.de>; Fri, 16 May 2025 10:16:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.986500.1372049 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E3E63AB975F
+	for <lists+xen-devel@lfdr.de>; Fri, 16 May 2025 10:18:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.986516.1372060 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uFqEZ-0000Mb-9p; Fri, 16 May 2025 08:15:59 +0000
+	id 1uFqH9-0000vU-Mu; Fri, 16 May 2025 08:18:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 986500.1372049; Fri, 16 May 2025 08:15:59 +0000
+Received: by outflank-mailman (output) from mailman id 986516.1372060; Fri, 16 May 2025 08:18:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uFqEZ-0000KI-76; Fri, 16 May 2025 08:15:59 +0000
-Received: by outflank-mailman (input) for mailman id 986500;
- Fri, 16 May 2025 08:15:58 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uFqH9-0000t8-JO; Fri, 16 May 2025 08:18:39 +0000
+Received: by outflank-mailman (input) for mailman id 986516;
+ Fri, 16 May 2025 08:18:38 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=C2cV=YA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uFqEY-0000Jw-Fw
- for xen-devel@lists.xenproject.org; Fri, 16 May 2025 08:15:58 +0000
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [2a00:1450:4864:20::634])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id fc318451-322d-11f0-9ffb-bf95429c2676;
- Fri, 16 May 2025 10:15:53 +0200 (CEST)
-Received: by mail-ej1-x634.google.com with SMTP id
- a640c23a62f3a-ac3eb3fdd2eso374272966b.0
- for <xen-devel@lists.xenproject.org>; Fri, 16 May 2025 01:15:53 -0700 (PDT)
+ id 1uFqH8-0000t2-0S
+ for xen-devel@lists.xenproject.org; Fri, 16 May 2025 08:18:38 +0000
+Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
+ [2a00:1450:4864:20::52a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5da24937-322e-11f0-9eb6-5ba50f476ded;
+ Fri, 16 May 2025 10:18:37 +0200 (CEST)
+Received: by mail-ed1-x52a.google.com with SMTP id
+ 4fb4d7f45d1cf-6000f2f217dso2543185a12.1
+ for <xen-devel@lists.xenproject.org>; Fri, 16 May 2025 01:18:37 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ad52d04f263sm113732766b.1.2025.05.16.01.15.52
+ a640c23a62f3a-ad52d4e8afdsm113574666b.176.2025.05.16.01.18.35
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 16 May 2025 01:15:52 -0700 (PDT)
+ Fri, 16 May 2025 01:18:36 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fc318451-322d-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 5da24937-322e-11f0-9eb6-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1747383353; x=1747988153; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1747383516; x=1747988316; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=C8F+td71t3yd1OWLfCxdWe/H6jUO8aS9/ZSr2fwhpHo=;
-        b=O7iGAsHUBmyqDc9dDNb+hku4bXcS3IhSWhZAZxDHS6wOcdrBCzEldZEUjWXJV4n6b3
-         HDDEyPgxybRMJgK7tL19xkM1TLcp7iNKHfFZ1EDeyLWoY12cU+DaJRL60bnwIMS1z1g6
-         OfBKIBEYh+5FwU8QsHAxpuxjk/5iikvH9Py65JtAk4Yud+4Ap3KltQrJLaH1q58JBoCF
-         jdczgwg4/BKWDrEgPb/Pm1uzu4mtr3Dvix9tBp+wtibiXn59d79P/4GXoQjJj4nd9plz
-         V4w+vZgscGenkwsDKwEmebIVO4Qd10/bdQ4SFdegG4XiRZMpKNSdV9VMcXRHpdPl0m58
-         oPUA==
+        bh=RLdynXKe20zcP5Gfv3cqwl+P6cxNHLI/U7xpxxCsYfw=;
+        b=ONKSQlYbcSgsAEF84Cx8pNS/rPco0opUknq+rfxCFDLtCACqv6f1qlGFR/6QapHrJK
+         GWC3mThilmCH8f22Yl4WIE7uMqf3diRLj6YmGA3caGUwVMKUqzKc5dM1t8nBUHmSHh6s
+         lT4rX7nMvhq4QWsOp2bF35GS4xOmaCzevhIwZ3RxaOOTu9rvnmN+WWELyBBdwg0JKYj1
+         hynr9y/5Rk8GsUs2i6T0bGzdZ1aalOpK3EGK8xcP+ez5ffTF+MwQISLARNU7eu1xO06o
+         MpKs7nQ2EYR7TJX/AE7/y6fqVJKiF2027H3eIlQsoeJ87bNU88cB1lMJWOT07yoWH/se
+         Yexg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747383353; x=1747988153;
+        d=1e100.net; s=20230601; t=1747383516; x=1747988316;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=C8F+td71t3yd1OWLfCxdWe/H6jUO8aS9/ZSr2fwhpHo=;
-        b=LyRQ+huXn3x/H28CZprIsm+kSlUvy4BrO+C5Kr+aasG47zdaJT5Jxd0UTW4sWRlX3d
-         k0rd9A9loKqBk4KcqnMz6pbxGGepLZEczd9GFunIVKLxOgb+lW4s9k9P8+Op5P2uEZ5p
-         100wEAnru8CY5yty5XTj4Y/kR1TjszJEMvBUBOh9bjhSmOW3rIsWBnB+DInUOT5c7i9o
-         Cu1G0w9lFbmuK4OslPGOyjEsAGfnxAAHENQgY7KDBunzPqkRCf4HVlFCfCnvhIYn73EL
-         kYbPmLrM5IHxbWm3fY7votZnlc5OpJGk1wVwnooZie7QxnCO/dOH9nDRBDDXDAhSq1OB
-         2Lbw==
-X-Forwarded-Encrypted: i=1; AJvYcCV9Eqovj0mxF41lHUdkyLJiUeGcTxJaW0RBKZUON6ctWREO2lv2yb61DyezybAu7JcXZjpAI0qLWEg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yzu1dcICnGJzxGjIh0eHD21/ZPS02wv5DCgBRwJT75qdMe+Xqgm
-	fYAZDZ91+dJoFrZAQfSunQ/ny+62XAOtBjrde79EAtHBAwOhJ7GSU5SueAzf+u571Q==
-X-Gm-Gg: ASbGncuG8+/9MRirAsUlvKZLeWjh188LZtsmKE0qMzTKbRgXjD405Ha0+psyco/WBaD
-	SLxkWBetMLvfekQKj/DYTRMHsc8m1GNpXTFoi2R25Gr+exOe0+vUx4E65p1kzieirPaNzXEVKkE
-	i0XVCNrO0mER52WDCmCr/b7zMmgZr1bTTNtSiRtKIPB0wA1j7Sis3v03e7bNgXkJgTA0YIcspEX
-	8oB20LzSGoamAKhnurRf3yp9CeiYoMuh1GTeMMZ6erR/lhtUY+B6FqnWFmy8IvzCdMuLUprwHI8
-	iY12846hGqFl/Li5T71wfkfMGjiIWk2eRa2cRugb7FbD0S23+oMr/c7jVBOUQXw+Z69D5JRFUNk
-	JbQKdofuzON2ImD68STJ0L3F7YtIqAiimN7uRgMwTVqogXWU=
-X-Google-Smtp-Source: AGHT+IFk9r8RnRlXuzO4YQDRihSRbXjXxSdds7B2ivWngvK2xi/d7tyDOgigo+6EZou1mlIkvx16dg==
-X-Received: by 2002:a17:907:94d2:b0:ad2:4d23:eddd with SMTP id a640c23a62f3a-ad52d5dec95mr209035066b.59.1747383352997;
-        Fri, 16 May 2025 01:15:52 -0700 (PDT)
-Message-ID: <01498be0-979a-4b89-a70b-050ddb5ad1b3@suse.com>
-Date: Fri, 16 May 2025 10:15:51 +0200
+        bh=RLdynXKe20zcP5Gfv3cqwl+P6cxNHLI/U7xpxxCsYfw=;
+        b=HmWaYfAUebdKlcFdwLMZL9Vuuzpy0hrVLrbOlenEDFVgdpucxgtVIilWwQp/tLMQLv
+         JA9RJzqWo2+aV6ufLFmCGtvXpDeo8F1eaTQNx5yltN8gy/IyyVbpTvH8MJr2sEJWrbVI
+         u+KRCDpXrlXyfsITsQiaQu05x+VTOHpU6tu6Kw7TFTZs3uXxmKwhvdczg5g3grw3WxFy
+         NJZeIHMTPNaCI5BOdrsLVcolGJ+6doAT9g6L6UEFhFZbiyINhKufYRgWecXUIq2lLC6y
+         aGSVE1F8B0pO9hIvpV+Pc1nb2QdZFkfkGqCRu3ETkHj/AS77T2YqTxje7JRxeQ8MlsFS
+         h8nw==
+X-Forwarded-Encrypted: i=1; AJvYcCWGXtxwjvveM2cUwa5AfO0h1L/4ZMDi+yC3SrT9P6SM2RifOQv6P7RgKCKUdmqW+o9BWOU134UPP4g=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yxg53AyYgJK72QW6SGsOTSucNewfvxC/A7qHHaRezwkj+tqdBTa
+	JKLCp7Bt7wkqNaYd5Dl4PRYXab5Dke18b/gpL6ALtO23cISxQGn5t4XPEOi1krtuGw==
+X-Gm-Gg: ASbGncvM+wxDNF3vbUMMV+eVXMS8qmBQb7xILNJ2watAeU4OszJlx1eFC9EmybenexR
+	WSPntZpR3atlDps+mJoaLxJT1sLl5xFJQEa3xJYSPsZAZdIXFO77ySGo7Hh8dsSH0FoGqeYRbvv
+	BOJ8vemYTWkD34vo795CS5o7YVF8S+P+XANbmPoRFNosFXOingD9KCaHaTI2t+Q3c6pD9SfQk//
+	lyuzbIIcKUaB40XJOp3OGRZWW71UotUGqJlM3pV6H8SoOG+BcGD5qpbbSTk2ilVjlcmB+SYjuEo
+	+H43zxniv1GqqCffqgpCyGJMXevmvL8B6meqMSisOaRGELlZeKGsPK6BYibl0XoAuHrvjowRwjv
+	LVLlPmZwzgAMrgEZ22WdNqFbSN03rxu5YItjZ
+X-Google-Smtp-Source: AGHT+IGSFg1Txe+2hLHN5G30As69oenAqX1emXbCBFcP1Ib4t05rSF2vnOn20jUuUISOHGGhkb6n4A==
+X-Received: by 2002:a17:907:9308:b0:ad5:2b74:da86 with SMTP id a640c23a62f3a-ad52d608aadmr230142566b.55.1747383516543;
+        Fri, 16 May 2025 01:18:36 -0700 (PDT)
+Message-ID: <70508277-6841-4cea-aecc-614834d8fe62@suse.com>
+Date: Fri, 16 May 2025 10:18:35 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] xen: Introduce asm inline and use it for BUG_FRAME
+Subject: Re: [PATCH 2/3] x86: Use asm_inline for ALTERNATIVE() and EXTABLE
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
@@ -96,7 +96,7 @@ Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Michal Orzel <michal.orzel@amd.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20250515195549.3703017-1-andrew.cooper3@citrix.com>
- <20250515195549.3703017-2-andrew.cooper3@citrix.com>
+ <20250515195549.3703017-3-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -122,24 +122,19 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250515195549.3703017-2-andrew.cooper3@citrix.com>
+In-Reply-To: <20250515195549.3703017-3-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 15.05.2025 21:55, Andrew Cooper wrote:
-> Compilers estimate the size of an asm() block for inlining purposes.
+> ... when there really are only a few instructions in line.
 > 
-> Constructs with embedded metadata (BUG_FRAME, ALTERNATIVE, EXTABLE, etc)
-> appear large, depsite often only being a handful of instructions.  asm
-> inline() overrides the estimation to identify the block as being small.
-> 
-> This has a substantial impact on inlining decisions, expected to be for the
-> better given that the compiler has a more accurate picture to work with.
+> In some cases, reformat to reduce left-hand margine space.
 > 
 > No functional change.
 > 
 > Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
 
