@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D6B4AB93AB
-	for <lists+xen-devel@lfdr.de>; Fri, 16 May 2025 03:36:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.986098.1371790 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 77A46AB93E5
+	for <lists+xen-devel@lfdr.de>; Fri, 16 May 2025 04:05:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.986161.1371809 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uFjzT-0005sU-Gm; Fri, 16 May 2025 01:35:59 +0000
+	id 1uFkRP-0002gw-RP; Fri, 16 May 2025 02:04:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 986098.1371790; Fri, 16 May 2025 01:35:59 +0000
+Received: by outflank-mailman (output) from mailman id 986161.1371809; Fri, 16 May 2025 02:04:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uFjzT-0005ou-CT; Fri, 16 May 2025 01:35:59 +0000
-Received: by outflank-mailman (input) for mailman id 986098;
- Fri, 16 May 2025 01:35:58 +0000
+	id 1uFkRP-0002fE-Ob; Fri, 16 May 2025 02:04:51 +0000
+Received: by outflank-mailman (input) for mailman id 986161;
+ Fri, 16 May 2025 02:04:50 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=07xk=YA=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
- id 1uFjzS-0004qs-5b
- for xen-devel@lists.xenproject.org; Fri, 16 May 2025 01:35:58 +0000
-Received: from mail-10630.protonmail.ch (mail-10630.protonmail.ch
- [79.135.106.30]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1ce2e1bb-31f6-11f0-9ffb-bf95429c2676;
- Fri, 16 May 2025 03:35:56 +0200 (CEST)
+ id 1uFkRN-0002f4-II
+ for xen-devel@lists.xenproject.org; Fri, 16 May 2025 02:04:50 +0000
+Received: from mail-4322.protonmail.ch (mail-4322.protonmail.ch [185.70.43.22])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 246eee67-31fa-11f0-9ffb-bf95429c2676;
+ Fri, 16 May 2025 04:04:47 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,126 +36,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1ce2e1bb-31f6-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 246eee67-31fa-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=pssu35x7p5ei7ltfjlh3oyl46y.protonmail; t=1747359355; x=1747618555;
-	bh=v1HpdEG9MwONSRwSXD9E5J2+52J+MPn8gkPntIhkjwQ=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector:List-Unsubscribe:List-Unsubscribe-Post;
-	b=PBYDAOznvDuTZz4SSTmfUdkVL/E0P1cZQXE/0vlwK4C9bb1H9A28onnL4W8pIoFiH
-	 u3N1USZ6/cWiv6OI2Uq7Bi+8HwVupnWvO/o/bjFfjf2wwgdqtUgJ5lvl0JlRdTt01e
-	 KZRotpf2/apGAh1uHdA3jNdbPxPOBAxdeO5dCZdzCHSF9ZgA4n0rNrBwVPCuoJIS6W
-	 9eMQXAuFrlKyoXRcSZ+GB3AcrY+urTQY7IJ8MUyTUUi4K4QvShNRLx/Ag5Mv/5oI15
-	 35pFOfQZouvKixOj+wU/ACNUCRV6YpLso4pt9qy6V0GayCF1B4+y8tLKijmJErO7qF
-	 FJIY2fXykC9fA==
-Date: Fri, 16 May 2025 01:35:49 +0000
+	s=protonmail; t=1747361086; x=1747620286;
+	bh=ujB9BJYsKZ+Zv1s7n6SYafFdRfwsB3dYGvVFgIhtplQ=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector:
+	 List-Unsubscribe:List-Unsubscribe-Post;
+	b=YcTazPrTvtsP02h07/3srkl8/7rYWk7zqjZL5oE+kdBMTVWxBTVp4kHZ159slQ7hm
+	 9WsDbry/sIrc1Ql7D6yEQCGE9h9RO/KO2Bx/yI+87a0Okyu0kdGTU6Hn2QC1rxfucr
+	 CLqAamYhjkf51VQeKSNhsO1aCETOLYRaHw+D7uDhiWQdBcxc+166U5ltwHDWFkfYoa
+	 t9m6rv3+A7oKPyaafo7JfykhDQuwyILUVTBzMoQQfBLcrhhuuy7la3qJ/nEQn/V1Rs
+	 O45sCercVEIyQfgKAKt4S91IJ4tIZ0s6p4cgRENlxC5D334x8o8BiLOhi7yEeRb7i2
+	 Y2ReeFtsgviEQ==
+Date: Fri, 16 May 2025 02:04:42 +0000
 To: xen-devel@lists.xenproject.org
 From: dmkhn@proton.me
 Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com
-Subject: [PATCH v4 3/3] xen/console: introduce conring_flush()
-Message-ID: <20250516013508.1144162-4-dmukhin@ford.com>
-In-Reply-To: <20250516013508.1144162-1-dmukhin@ford.com>
-References: <20250516013508.1144162-1-dmukhin@ford.com>
+Subject: [PATCH v6 0/2] xen/domain: domain ID allocation
+Message-ID: <20250516020434.1145337-1-dmukhin@ford.com>
 Feedback-ID: 123220910:user:proton
-X-Pm-Message-ID: ea23409224c8193f8ec1cd1eb166cd5e784b9da8
+X-Pm-Message-ID: 5fd36bd739f417e13c2f893dd30086a26f18b27e
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-From: Denis Mukhin <dmukhin@ford.com>
+The patch series adds new library calls for allocating domain IDs.
+Patch 1 introduces new domid_{init,alloc,free} calls.
+Patch 2 adjusts hardware domain ID treatment on Arm.
 
-Introduce conring_flush() to ensure all messages kept in the internal
-console ring are sent to all physical consoles (serial, VGA (x86))
-after their initialization is completed.
+Link to v5: https://lore.kernel.org/xen-devel/20250504135544.730906-1-dmukh=
+in@ford.com/
+Link to CI: https://gitlab.com/xen-project/people/dmukhin/xen/-/pipelines/1=
+820251194
 
-Rename dump_console_ring_key to conring_dump_keyhandler to match the
-notation for conring management symbols.
+Denis Mukhin (2):
+  xen/domain: unify domain ID allocation
+  xen/domain: adjust domain ID allocation for Arm
 
-Resolves: https://gitlab.com/xen-project/xen/-/issues/184
-Signed-off-by: Denis Mukhin <dmukhin@ford.com>
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
----
-Changes since v3:
-- rebased, kept R-b
----
- xen/drivers/char/console.c | 31 +++++++++++++++++++++----------
- 1 file changed, 21 insertions(+), 10 deletions(-)
+ xen/arch/arm/domain_build.c             | 17 ++++--
+ xen/arch/arm/setup.c                    |  2 +
+ xen/arch/x86/setup.c                    | 13 +++--
+ xen/common/device-tree/dom0less-build.c | 17 +++---
+ xen/common/domain.c                     | 73 +++++++++++++++++++++++++
+ xen/common/domctl.c                     | 41 ++------------
+ xen/include/xen/domain.h                |  4 ++
+ 7 files changed, 112 insertions(+), 55 deletions(-)
 
-diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
-index 3420e9630a..a3b59a7ffc 100644
---- a/xen/drivers/char/console.c
-+++ b/xen/drivers/char/console.c
-@@ -452,23 +452,19 @@ void console_serial_puts(const char *s, size_t nr)
-         serial_puts(sercon_handle, s, nr);
- }
-=20
--static void cf_check dump_console_ring_key(unsigned char key)
-+/*
-+ * Flush contents of the conring to the physical console devices.
-+ */
-+static int conring_flush(void)
- {
-     uint32_t idx, len, sofar, c;
-     unsigned int order;
-     char *buf;
-=20
--    printk("'%c' pressed -> dumping console ring buffer (dmesg)\n", key);
--
--    /* create a buffer in which we'll copy the ring in the correct
--       order and NUL terminate */
-     order =3D get_order_from_bytes(conring_size + 1);
-     buf =3D alloc_xenheap_pages(order, 0);
-     if ( buf =3D=3D NULL )
--    {
--        printk("unable to allocate memory!\n");
--        return;
--    }
-+        return -ENOMEM;
-=20
-     c =3D conringc;
-     sofar =3D 0;
-@@ -486,6 +482,18 @@ static void cf_check dump_console_ring_key(unsigned ch=
-ar key)
-     console_send(buf, sofar, CONSOLE_SERIAL | CONSOLE_VIDEO | CONSOLE_PV);
-=20
-     free_xenheap_pages(buf, order);
-+
-+    return 0;
-+}
-+
-+static void cf_check conring_dump_keyhandler(unsigned char key)
-+{
-+    int rc;
-+
-+    printk("'%c' pressed -> dumping console ring buffer (dmesg)\n", key);
-+    rc =3D conring_flush();
-+    if ( rc )
-+        printk("failed to dump console ring buffer: %d\n", rc);
- }
-=20
- /*
-@@ -1058,6 +1066,9 @@ void __init console_init_preirq(void)
-     serial_set_rx_handler(sercon_handle, serial_rx);
-     pv_console_set_rx_handler(serial_rx);
-=20
-+    /* NB: send conring contents to all enabled physical consoles, if any =
-*/
-+    conring_flush();
-+
-     /* HELLO WORLD --- start-of-day banner text. */
-     nrspin_lock(&console_lock);
-     __putstr(xen_banner());
-@@ -1148,7 +1159,7 @@ void __init console_endboot(void)
-     if ( opt_conswitch[1] =3D=3D 'x' )
-         console_rx =3D max_console_rx;
-=20
--    register_keyhandler('w', dump_console_ring_key,
-+    register_keyhandler('w', conring_dump_keyhandler,
-                         "synchronously dump console ring buffer (dmesg)", =
-0);
-     register_irq_keyhandler('+', &do_inc_thresh,
-                             "increase log level threshold", 0);
 --=20
 2.34.1
 
