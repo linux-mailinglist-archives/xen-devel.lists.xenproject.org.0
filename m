@@ -2,52 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 69640ABA67B
-	for <lists+xen-devel@lfdr.de>; Sat, 17 May 2025 01:22:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.987716.1372953 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A2D2DABA68A
+	for <lists+xen-devel@lfdr.de>; Sat, 17 May 2025 01:23:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.987746.1372992 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uG4NI-0006Yg-Vs; Fri, 16 May 2025 23:21:56 +0000
+	id 1uG4Ov-0000o4-CE; Fri, 16 May 2025 23:23:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 987716.1372953; Fri, 16 May 2025 23:21:56 +0000
+Received: by outflank-mailman (output) from mailman id 987746.1372992; Fri, 16 May 2025 23:23:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uG4NI-0006W9-Mh; Fri, 16 May 2025 23:21:56 +0000
-Received: by outflank-mailman (input) for mailman id 987716;
- Fri, 16 May 2025 23:21:55 +0000
+	id 1uG4Ov-0000lf-9W; Fri, 16 May 2025 23:23:37 +0000
+Received: by outflank-mailman (input) for mailman id 987746;
+ Fri, 16 May 2025 23:23:36 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=iQOe=YA=amd.com=stefano.stabellini@srs-se1.protection.inumbo.net>)
- id 1uG4NH-0005s2-Lo
- for xen-devel@lists.xenproject.org; Fri, 16 May 2025 23:21:55 +0000
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2060f.outbound.protection.outlook.com
- [2a01:111:f403:2415::60f])
+ <SRS0=T4W4=YA=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1uG4Ou-0000lN-7w
+ for xen-devel@lists.xenproject.org; Fri, 16 May 2025 23:23:36 +0000
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [2a00:1450:4864:20::429])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8d5ad323-32ac-11f0-9eb6-5ba50f476ded;
- Sat, 17 May 2025 01:21:54 +0200 (CEST)
-Received: from CH0PR03CA0257.namprd03.prod.outlook.com (2603:10b6:610:e5::22)
- by BL4PR12MB9722.namprd12.prod.outlook.com (2603:10b6:208:4ed::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8722.33; Fri, 16 May
- 2025 23:21:49 +0000
-Received: from CH1PEPF0000A34A.namprd04.prod.outlook.com
- (2603:10b6:610:e5:cafe::2a) by CH0PR03CA0257.outlook.office365.com
- (2603:10b6:610:e5::22) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8746.20 via Frontend Transport; Fri,
- 16 May 2025 23:21:49 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- CH1PEPF0000A34A.mail.protection.outlook.com (10.167.244.5) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8746.27 via Frontend Transport; Fri, 16 May 2025 23:21:49 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 16 May
- 2025 18:21:49 -0500
-Received: from smtp.xilinx.com (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Fri, 16 May 2025 18:21:48 -0500
+ id c9a9e27b-32ac-11f0-9eb6-5ba50f476ded;
+ Sat, 17 May 2025 01:23:35 +0200 (CEST)
+Received: by mail-wr1-x429.google.com with SMTP id
+ ffacd0b85a97d-3a0ebf39427so2453305f8f.3
+ for <xen-devel@lists.xenproject.org>; Fri, 16 May 2025 16:23:35 -0700 (PDT)
+Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3a35ca8896dsm4253699f8f.73.2025.05.16.16.23.33
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 16 May 2025 16:23:33 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,183 +45,114 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8d5ad323-32ac-11f0-9eb6-5ba50f476ded
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XKtZ8aW/IiRwTyZ/uaqz2fxpVZEXpFPF5KuSGIaAZdfsXEncC1DtyFeIXx5yR8quLC7bkso5t7y7XBWgbSRCoDiy+WJ/tCF+Rdl/B+bMhXOIJIiwoHUfGV2OzabSlcnzPXvu5GoDix8P7g42I+/jmy8+v0gBbt3utouL4t1h69cJBV6OFJhi+fe0xztZmplWWWNERth+1NPWdLst1uTO3WQsR+vCseKSpQmXavrDvgcv5RwTPGXcBxVVUqLBowusFm7r09go//2LZ0GBoWj8q7wyiI8w+ZJlwf9fVyCmIL4+bJOMycrtaqP1oiEnBveTPxBmf2sbrlhvawwrFGTkkw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ibzV0RVz7ZzeEdOUX3J5YjlDrdqnL5X0dajYZtxmsP0=;
- b=qsqNsvK3UoFdwVwAtG07+1Glnd7poxQsU5eybvEc8WpwOUAOqfqek7xk+BYfkaW8PPf7Q3Ia/YDPUg6Ll5okXGbdqWDDmDNOJic0mFXsVe4yrUg3CY7XAJaRkOuy86n3UO7A1tkqcxnG1tYs9B/ygfNdzebVGrDejFFUhRLRyS+q1UwEmuYX0zTbnG7YK08WuorFuoCOBsGze7l+S4m3JR8gJIV6kd9VVZzNM1vTRWnXeyO0YbZWvdCzSZW8vT0S0gaJhWB/T4YmDaE9ELyQ1Qc+aM2WgVfCUFVb24sFdQGypLRJMJ5k4yvSx8DIKjiQ9DErETwkuDtyFfYh15vozA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ibzV0RVz7ZzeEdOUX3J5YjlDrdqnL5X0dajYZtxmsP0=;
- b=h0cpAAOTRiq9qzJStQIhz1QLaNjH/MxpR7mxAGcabPwUGnn36mhqTW45CCB35AgxsuT5uXT8xcCg50dGQ0Ezri6ZEpB1svl0AYOBOmR2z8y/hKcyRgEtCAH/qOgKac5kxzQn6zJK2Myj8ISn9g+1Bq/KKUlOhoEcG3Qe90Cvppc=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-From: Stefano Stabellini <stefano.stabellini@amd.com>
-To: <xen-devel@lists.xenproject.org>
-CC: <andrew.cooper3@citrix.com>, <michal.orzel@amd.com>, <jbeulich@suse.com>,
-	<julien@xen.org>, <roger.pau@citrix.com>, <sstabellini@kernel.org>,
-	<bertrand.marquis@arm.com>, Federico Serafini
-	<federico.serafini@bugseng.com>, Stefano Stabellini
-	<stefano.stabellini@amd.com>
-Subject: [PATCH 6/6] automation/eclair: update configuration of D4.10
-Date: Fri, 16 May 2025 16:21:30 -0700
-Message-ID: <20250516232130.835779-6-stefano.stabellini@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <alpine.DEB.2.22.394.2505161618280.145034@ubuntu-linux-20-04-desktop>
-References: <alpine.DEB.2.22.394.2505161618280.145034@ubuntu-linux-20-04-desktop>
+X-Inumbo-ID: c9a9e27b-32ac-11f0-9eb6-5ba50f476ded
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1747437814; x=1748042614; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=Gs+W4avg9rzloGEWyeULyfi7kt4lquxj3Poh2XAH+qU=;
+        b=ndcSkwlza+BkLjPzraksXR5TPxzRI65r7djdQrRGN5gvzjN+uSPFztxp26YEfoG/e1
+         oCtS/EfIxP+0VzqxnOYm12IjP/C29U4EIBkaMAnigI5Atf6c1leYsx8yJ2mUREZs2YLT
+         sEDRjZzWw1bH2W9nVVaChQwU9o83QdxnjZNOw=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1747437814; x=1748042614;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Gs+W4avg9rzloGEWyeULyfi7kt4lquxj3Poh2XAH+qU=;
+        b=ZLYui1FtlsjlqoFJc44Sqzh9YwmpUGnQZ8jtXgel+2gbtwGfX5Y5qUcCUi78QyPlqC
+         YbjeLL/0W0A8yqQnbXvmwXSIPdxzIt6gPBr0eekyDBPDeOS1xJjsZz00ZDyb4kP0tcN4
+         zGA74Be78muwKQveu8N+Uy5FRnt2bo0QlQd34QySdXdQDOuEEw/e9XWq13Zcan552bjH
+         kykixuJbL40icPLv6umE+CT2SnsVoZTJ77XjxpzmCRSsQLPj26RjcH/zkLgHFM5ULMIG
+         nwXptblCUgIaOCkOEHON8GGC6aewWUzbGvaA8om4uLne/HaOgBjb+d1fO7J+HohpLaDN
+         zwEw==
+X-Forwarded-Encrypted: i=1; AJvYcCXLQzg9ozPqCVRx05j67Y9aX9JIeENeIhAaTM/OowKuLTqhe0lDCpLPuZ0ivMUVWKmvTKvgRQQ5K8E=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YygEEa/hP0MzWZ9M6IQENreidJFFy562tcTPIxRN4Cb14SA0xcY
+	68cSv741JkPwqhxg20qrKY7oW0qeGoP6xRb+ADwJn1432QSJzdMKbkzXBBHHIm+FQZU=
+X-Gm-Gg: ASbGncv+aQmqFogeL/3hqfZxWV0QFZoYJ6Au8/ZKJq10LFFxR3tYKn0hcPE41DCtyC/
+	M5N9TSnljcm9tQH8QpDEDa3/+n7ALS/wZDbr95rgGiB0+etVnU0xDMVtV1vURiiF1eeFmrZ9W06
+	ZfEdIaL1YA0WYMowoFBG7Jm/N+PeFflxVc409RF1g3wsxm4IJ2v1nmlDUHgvTfrQno95vP/LoFz
+	o79biM9cE4Wtzj9AyslbzXmilwTicMrZH7HhsIOrKKB8N3jHHmkFSwIdda7p9U0xEyeXI76Vtu0
+	bbW3eKAZiiGCc+K573xUfePXxlFzCgh0iKrswksj98rxki+cJUll2UPOncstMRb81BJmsiuQKP5
+	lgA/JNq1ctzDn8iCY
+X-Google-Smtp-Source: AGHT+IF+mUzai3UTwDS9H8t3sz7tnZUqHgkDTGKruOuuwscFaaCgX5DJ64pd1BttB+aDf/1jYScAnA==
+X-Received: by 2002:a05:6000:1884:b0:3a3:4bac:1421 with SMTP id ffacd0b85a97d-3a35c825ac2mr5770558f8f.22.1747437814319;
+        Fri, 16 May 2025 16:23:34 -0700 (PDT)
+Message-ID: <e7b4368b-53e9-48c8-b0e0-8e8e89710540@citrix.com>
+Date: Sat, 17 May 2025 00:23:33 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-Received-SPF: None (SATLEXMB03.amd.com: stefano.stabellini@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PEPF0000A34A:EE_|BL4PR12MB9722:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2d0098eb-b6ae-4ef0-8585-08dd94d06f4c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|36860700013|82310400026;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?mLAxsJ2cxqSOq0wJUPAnz2mOBw1ZTjLDZx4BVp8M3ugPp2B7IBqi7ZATimzP?=
- =?us-ascii?Q?z328Tsk2tt/wFHVVGR5VAUkvplRqtY3YHZiJi/e6+mJi/aZAHroMC+DKNENz?=
- =?us-ascii?Q?vhD7wszYwhgnu1tIc4Xp1fX/2MXyPBcZi+KejgzNGlE423RFjYeiwUf75iEC?=
- =?us-ascii?Q?pYluNh6TEXZiT7c0oaVFBYRGlRoQw6pU38H/1h3yld8r5sDuYEN2fUwZ3uhX?=
- =?us-ascii?Q?PAdn0cOlw2wQOYdFomWH8urhyreiK75XT8rP7jGiAW3kZ9yknGAxJiULWr5m?=
- =?us-ascii?Q?fmfGzqURHiFB13uWShagI5nX01+YgdzHeK3zxPQVty+zTB41h00TTs3KncGi?=
- =?us-ascii?Q?h460QB6B9zWYQDRE2cMhU6QdhWVC+T8lP7CVwywUJmBkYRqHGLetSeA0BM31?=
- =?us-ascii?Q?DZXNkWtlah5L3ExQgBIOnsyxD3N+/S/uboS8EVCkTHYjzJmtDmn85jbYR7xZ?=
- =?us-ascii?Q?XVhWdlzCh/Q/Bc5l8WHZvdcM5R6H5XQKpKYC89qByDb71tiM0+ADXmcC+EDa?=
- =?us-ascii?Q?edpqZ4MpEWUmlaE+jrUNhku2zJAvFyjEcfOwtLJWJP+Jd3p1zd4jG7DXdOzS?=
- =?us-ascii?Q?2LF1DYtVgChYyg/gh5yFROhwRtHCq4e+Gxrm7Z+gia9ee/gWKNlHrVUeTB+O?=
- =?us-ascii?Q?Xpnq1zCj9eQu+m6dmseLr1TQ0aWFDRgV6fi4aIP1v5ygl4aFvt0JZnEVH0mU?=
- =?us-ascii?Q?Q2HjvBh7QmEMtaF3EhNkvZdPmRu1nXmYwQ7ZyA2/9DgQvZchx0ynZ4bqFVNF?=
- =?us-ascii?Q?xOnw9Y6a+BmMk2D897ScWx/3VOXzRQANTyU2z7Cslw0T0B+pO3zQOTU1ZkpQ?=
- =?us-ascii?Q?0wBUfXATk3if3y76XTjKf7/IphRksHb9aJ4Lyi3ECoF8g0YsKSHypxe9S9BY?=
- =?us-ascii?Q?n1cmlQZVYxFE7ptfwOXB3pk4g1VD2lf5lDWjkNE65+ZaxkWCi3+NeP0TIj+Y?=
- =?us-ascii?Q?HuF17uWVbhiNWCvv5f+Rz8nd91/RY+rX6LfnCzSUgAsMRpNkgXwRS/EVDEpJ?=
- =?us-ascii?Q?g3IBqH8fU3IU8mhSRz2foxQ7H/rLquLTjtcZY5vXDswGXzRPAoMvHljRPnOJ?=
- =?us-ascii?Q?/LSEi5Icx8eVOYrYS3gFDfImbTqIkxQOdLfmGnLmghMGrvX8VZ8jrTXzXBys?=
- =?us-ascii?Q?MLTq3t5uisaXCf3qmcj8UpZUkI/iXpAXW4U9MwxqpHKUNXlx5LlgrFtwOiGr?=
- =?us-ascii?Q?R8J1Nv97jYfAvflyeJ/1EBU24k6eJ35NPovV8Ilxxd77wnGhftvCZchvQn+i?=
- =?us-ascii?Q?Xv2dqXlUBaEoPxuCo/xGwllvOy59l7kNgZdudqSvP69EvNvsUx8qtn9xMsuJ?=
- =?us-ascii?Q?eC1JOaRDSeXtH/FtDReomDkmTMXn8iAmbxXSiwK7D1+hrdZkJ49WCHbDgDbW?=
- =?us-ascii?Q?AmkqAtfnlkGF22d3oC6RHSpYysLBZYggwfjPTYMC+DuSUGf/UEMx5Qwl2nFI?=
- =?us-ascii?Q?/2lZdlGMhBlrJQgyJoFIEqBxsPucJ4Mw/r9ZQLJRo6zm9404/YRhBivvcbps?=
- =?us-ascii?Q?9BNYXQPCKR/j+viAp4OkoZaSC60qjHFf5VFV?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(36860700013)(82310400026);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 May 2025 23:21:49.7292
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2d0098eb-b6ae-4ef0-8585-08dd94d06f4c
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CH1PEPF0000A34A.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL4PR12MB9722
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/6] xen/arm: add inclusion guards
+To: Stefano Stabellini <stefano.stabellini@amd.com>,
+ xen-devel@lists.xenproject.org
+Cc: michal.orzel@amd.com, jbeulich@suse.com, julien@xen.org,
+ roger.pau@citrix.com, sstabellini@kernel.org, bertrand.marquis@arm.com,
+ Federico Serafini <federico.serafini@bugseng.com>
+References: <alpine.DEB.2.22.394.2505161618280.145034@ubuntu-linux-20-04-desktop>
+ <20250516232130.835779-1-stefano.stabellini@amd.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <20250516232130.835779-1-stefano.stabellini@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Federico Serafini <federico.serafini@bugseng.com>
+On 17/05/2025 12:21 am, Stefano Stabellini wrote:
+> From: Federico Serafini <federico.serafini@bugseng.com>
+>
+> MISRA C Directive 4.10 states that:
+> "Precautions shall be taken in order to prevent the contents of a
+> header file being included more than once".
+>
+> Add inclusion guards where missing to address violations of the
+> guideline.
+>
+> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
+> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
 
-MISRA C Directive 4.10 states that "Precautions shall be taken in order
-to prevent the contents of a header file being included more than
-once".
-
-Update ECLAIR configuration to:
-- extend existing deviation to other comments explicitly saying a file
-  is intended for multiple inclusion;
-- extend existing deviation to other autogenerated files;
-- tag the guidelines as clean.
-
-Update deviations.rst accordingly.
-
-Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
-Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
----
- automation/eclair_analysis/ECLAIR/deviations.ecl | 14 +++++++++++---
- automation/eclair_analysis/ECLAIR/tagging.ecl    |  1 +
- docs/misra/deviations.rst                        | 15 +++++++++++++++
- 3 files changed, 27 insertions(+), 3 deletions(-)
-
-diff --git a/automation/eclair_analysis/ECLAIR/deviations.ecl b/automation/eclair_analysis/ECLAIR/deviations.ecl
-index 9c67358d46..3fb6d9f971 100644
---- a/automation/eclair_analysis/ECLAIR/deviations.ecl
-+++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
-@@ -72,11 +72,19 @@ they are not instances of commented-out code."
- -config=MC3A2.D4.3,reports+={deliberate, "any_area(any_loc(file(arm64_bitops))&&context(name(int_clear_mask16)))"}
- -doc_end
- 
---doc_begin="Files that are intended to be included more than once do not need to
--conform to the directive."
-+-doc_begin="Files that are intended to be included more than once (and have
-+a comment that says this explicitly) do not need to conform to the directive."
- -config=MC3A2.D4.10,reports+={safe, "first_area(text(^/\\* This file is intended to be included multiple times\\. \\*/$, begin-4))"}
-+-config=MC3A2.D4.10,reports+={safe, "first_area(text(^.*Explicitly intended for multiple inclusion.*$, begin-3))"}
-+-config=MC3A2.D4.10,reports+={safe, "first_area(text(^/\\* Generated file, do not edit! \\*/$, begin-2))"}
- -config=MC3A2.D4.10,reports+={safe, "first_area(text(^/\\* Generated file, do not edit! \\*/$, begin-3))"}
---config=MC3A2.D4.10,reports+={safe, "all_area(all_loc(file(^xen/include/generated/autoconf.h$)))"}
-+-doc_end
-+
-+-doc_begin="Autogenerated files that do not need to conform to the directive."
-+-config=MC3A2.D4.10,reports+={safe, "all_area(all_loc(file(^xen/include/generated/autoconf\\.h$)))"}
-+-config=MC3A2.D4.10,reports+={safe, "all_area(all_loc(file(^xen/include/xen/compile\\.h$)))"}
-+-config=MC3A2.D4.10,reports+={safe, "all_area(all_loc(file(^xen/include/compat/xlat\\.h$)))"}
-+-config=MC3A2.D4.10,reports+={safe, "all_area(all_loc(file(^xen/arch/(arm||x86)/include/generated/asm/.*$)))"}
- -doc_end
- 
- -doc_begin="Including multiple times a .c file is safe because every function or data item
-diff --git a/automation/eclair_analysis/ECLAIR/tagging.ecl b/automation/eclair_analysis/ECLAIR/tagging.ecl
-index 5bc35db1fd..7e3095423b 100644
---- a/automation/eclair_analysis/ECLAIR/tagging.ecl
-+++ b/automation/eclair_analysis/ECLAIR/tagging.ecl
-@@ -23,6 +23,7 @@
- "MC3A2.D1.1||
- MC3A2.D2.1||
- MC3A2.D4.1||
-+MC3A2.D4.10||
- MC3A2.D4.11||
- MC3A2.D4.14||
- MC3A2.R1.1||
-diff --git a/docs/misra/deviations.rst b/docs/misra/deviations.rst
-index fe0b1e10a2..87ed81c918 100644
---- a/docs/misra/deviations.rst
-+++ b/docs/misra/deviations.rst
-@@ -30,6 +30,21 @@ Deviations related to MISRA C:2012 Directives:
-        not to add an additional encapsulation layer.
-      - Tagged as `deliberate` for ECLAIR.
- 
-+   * - D4.10
-+     - Files that are intended to be included more than once (and have
-+       a comment that says this explicitly) do not need to conform to the
-+       directive.
-+     - Tagged as `safe` for ECLAIR.
-+
-+   * - D4.10
-+     - There are autogenerated files that do not need to comply to the
-+       directive.
-+     - Tagged as `safe` for ECLAIR. Such files are:
-+        - xen/include/generated/autoconf.h
-+        - xen/include/compat/xlat.h
-+        - xen/include/xen/compile.h
-+        - xen/arch/{arm,x86}/include/generated/asm/\*
-+
-    * - D4.10
-      - Including multiple times a .c file is safe because every function or data item
-        it defines would in (the common case) be already defined.
--- 
-2.25.1
-
+Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
