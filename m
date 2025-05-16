@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B9EAAB9937
-	for <lists+xen-devel@lfdr.de>; Fri, 16 May 2025 11:46:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.986706.1372261 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D67A6AB9939
+	for <lists+xen-devel@lfdr.de>; Fri, 16 May 2025 11:46:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.986714.1372270 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uFrdt-0006fp-PK; Fri, 16 May 2025 09:46:13 +0000
+	id 1uFre1-00078P-WD; Fri, 16 May 2025 09:46:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 986706.1372261; Fri, 16 May 2025 09:46:13 +0000
+Received: by outflank-mailman (output) from mailman id 986714.1372270; Fri, 16 May 2025 09:46:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uFrdt-0006cf-Lu; Fri, 16 May 2025 09:46:13 +0000
-Received: by outflank-mailman (input) for mailman id 986706;
- Fri, 16 May 2025 09:46:11 +0000
+	id 1uFre1-00076D-TP; Fri, 16 May 2025 09:46:21 +0000
+Received: by outflank-mailman (input) for mailman id 986714;
+ Fri, 16 May 2025 09:46:21 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=UFMR=YA=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1uFrdr-0006aW-Mp
- for xen-devel@lists.xenproject.org; Fri, 16 May 2025 09:46:11 +0000
-Received: from mail-pf1-x42f.google.com (mail-pf1-x42f.google.com
- [2607:f8b0:4864:20::42f])
+ id 1uFre1-0006aW-AP
+ for xen-devel@lists.xenproject.org; Fri, 16 May 2025 09:46:21 +0000
+Received: from mail-pl1-x636.google.com (mail-pl1-x636.google.com
+ [2607:f8b0:4864:20::636])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 98b81a2d-323a-11f0-9eb6-5ba50f476ded;
- Fri, 16 May 2025 11:46:11 +0200 (CEST)
-Received: by mail-pf1-x42f.google.com with SMTP id
- d2e1a72fcca58-7426159273fso2000551b3a.3
- for <xen-devel@lists.xenproject.org>; Fri, 16 May 2025 02:46:10 -0700 (PDT)
+ id 9eb214d6-323a-11f0-9eb6-5ba50f476ded;
+ Fri, 16 May 2025 11:46:21 +0200 (CEST)
+Received: by mail-pl1-x636.google.com with SMTP id
+ d9443c01a7336-231e21d3b63so5106755ad.3
+ for <xen-devel@lists.xenproject.org>; Fri, 16 May 2025 02:46:20 -0700 (PDT)
 Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
  by smtp.gmail.com with UTF8SMTPSA id
- d2e1a72fcca58-742a98a31desm1183320b3a.171.2025.05.16.02.46.07
+ d9443c01a7336-231d4ebb0d4sm10661265ad.195.2025.05.16.02.46.12
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 16 May 2025 02:46:08 -0700 (PDT)
+ Fri, 16 May 2025 02:46:13 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 98b81a2d-323a-11f0-9eb6-5ba50f476ded
+X-Inumbo-ID: 9eb214d6-323a-11f0-9eb6-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1747388769; x=1747993569; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1747388779; x=1747993579; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=aI/Od08PB2sXeLZpJWvF+CUi72sZFREksWnrg/Tt/Yw=;
-        b=SUo5erHQObkLTo+hpLRTMX4Hqo6SsoUETx+RPBZOvMtC9mllB/CQFJyhPEUgmjmhRW
-         nftSHEX0SebsNWdTP4aEDmWa28OHpFKDI2iRMpcgNxrXYSSr+e6Z+Ls8/xKicQaU6A6q
-         HZxLIcMW7r0zclmtBe8Ne5DY1OwMYlrQPoTb0=
+        bh=Hm8AIe/qcud/Th5sHM9Y/G8pv43gmto+PqgQas9D3iE=;
+        b=naxO0iRcwb4AjjP5dhSD+p8e+X8Ul2xakaFQNDhWt/CB6ng7YiJZRv57WuJPrg6epx
+         uOu/6r8OAxwWSG+W3q7hWm+6/VK36e6ddCb6sXctFVcDgeFmq9EPFs2kqMTBwkvKPlPM
+         S2GfpGGxbadp49yDkefqvSZ7lSbjL51JkIQGw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747388769; x=1747993569;
+        d=1e100.net; s=20230601; t=1747388779; x=1747993579;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=aI/Od08PB2sXeLZpJWvF+CUi72sZFREksWnrg/Tt/Yw=;
-        b=wuYj+HRzqgU2TQZ+3sEc1tIEhYNOsbW7oFceyhY7WjWsz30UIu1jxJ3Vv+OPmLRZ3+
-         v/C1Q8sQPsJoIkRoWI0MV8SMLVOD4EC13QbmEbZKx4THxXGGrE2IqVGFcRb3EJcVbtee
-         D2OQbXF0R2ouSvmAuXXv0+lBbWhImarFF4/iw2ahy6jo18wJDfpLbMh5364w7pUexflZ
-         MTiltARnHKw4OYl2fSWxrtwbEF+M852WR3AD0FmQNu9l5T1Iw78R/6JCI9Wx+eneqMO/
-         Qqqgdh7nLVIpskflA4gbV+7823p6+rATOLcL9Ptzj0nsDItP1dby+42nuoSowxGmx+eC
-         xF7A==
-X-Gm-Message-State: AOJu0Yz70lrraUODqzZqvT07zevbx0XxtIWGzzyx411vDGRv+UoPPLHT
-	1wijqzKsDfKh450mgbUJQX51q3yszLOkUPUfjdrga18vT7jxJ1aNmEhyY0+ES2lhKcnEPnNkgXh
-	4NFQT
-X-Gm-Gg: ASbGncusxt4PXsx5ttS62Ly3ivccM0+pbf7FOx2ggH6sC3J3PWkHQ0lGbckqpWS6k+q
-	TMYyQpOcNmMEvcXTo0mu+U2uPg2l0f78Ps61jLxcaAQMjFeLzAP7AorlHH3SPUga96MQuqEB8bF
-	iC1VfloYvcW5CctCWbBAGU6TL+05mOoVUu5ABHsuNJrq6MmkBNES9I9kgMnge7YmCPAVRIcw/h/
-	Po36T9z7u19gkfo7ZK6BBEhu58xqym0BAc8jxhfmngbMpeF0Xy4srI3WcbV7Rbf7jxwzb2NId3e
-	gsihlxdkyaDmvxHdeke9/5HhINH6E+zf7sSZtWuT8AqnTolY+jEINoN58JphKzmgPm1iRwzv0KP
-	HbcQhZl7YeLVRcLpmv+M=
-X-Google-Smtp-Source: AGHT+IE2Dm7Fvn6dqSKkjswk2/qDy0PNEC3SAmtxqH3bJ4rd7I+/nQAqb7QFMMdyi4SORj2LvRBL/A==
-X-Received: by 2002:a05:6a00:4c87:b0:730:9502:d564 with SMTP id d2e1a72fcca58-742acce2c1cmr2762355b3a.14.1747388768897;
-        Fri, 16 May 2025 02:46:08 -0700 (PDT)
+        bh=Hm8AIe/qcud/Th5sHM9Y/G8pv43gmto+PqgQas9D3iE=;
+        b=UVubzubCq77KJXMVcLXEk6gRRCoRQRhWGEPBO9SBI3ctabzSvOns1tHmCuDT9qSnUs
+         9mA61kRBakttRXnbQ+d0xzis8i56PlWKXSane1y0285N4cpflLvLfSrDJlqX4nIAC+7M
+         ZUk1rfc7xwWfH6PfBJEfNd6DE4tIiv3KRBvZRBfvVUw0z0y1mtlsOsnFFowT2MvyrQIF
+         +LSy9wuiPHkTu7kF57Tsz4ROrxv6J3zOBfCuVQnFGVPu6Zf+8xu/3h2L6kpakiFk5wuV
+         whNXAY4bPC5aBsk7JnAW+01iT5qJw2Z92+wHid8hZdzJtmTtb3sgKNVwjxRxJdMuCzy1
+         kfeA==
+X-Gm-Message-State: AOJu0YyLT9gTAU7jvz1BIFvxwVl9OINRQhJIihExMdmoKXHvyiUrazIG
+	dXHbf5ngsIhO8VRisbpJiCq/gOSvVQ+1vyVzu4O8mCPfPguCZD9ldTgxkdgqJk37/9iPIp0HACp
+	irngD
+X-Gm-Gg: ASbGncsON3+i5avrefOrOv3pm8YApWHWZawB1PBPke/hoXf76BFDVmkEGgleyifFWlO
+	V1DZm6Hx423KmEhtI2uIbHoZKD27UhH17Am3cyn9kKK/ZdP3DsdItCHVesM8N0yJIxY/FiYWvi1
+	QTeqY9OFndIzrfJqeLonU5B4Va/sVAFKRuT3FU77htJHEtdAShEkowOY+ANjSO2lRxYEw30cYsC
+	DsWdB071dI0xnKeGJ7vGWGPyVHQ+EX0GwS0MVCJP+QmKi/dt4g7A3DU7GnuKiBtZee5pWpiXgoK
+	StX7cuDMBMw48xobTT8lOf5yyZx877LPj5fz98HNd/06O31hlLrsGcA/vYJcGwAcjmwJckRWeiw
+	+X2sxOuEXJTym4pleSVr7vWj/ZMdJBg==
+X-Google-Smtp-Source: AGHT+IGA+qWfUyBWb2AxiIES1kDVVnjbALZ1vz8DqSY4VtBKeBEI8NkldomOj1H62clyuTKWds7bDg==
+X-Received: by 2002:a17:902:d2cf:b0:22d:b305:e082 with SMTP id d9443c01a7336-231de3bb2d0mr23158125ad.47.1747388774593;
+        Fri, 16 May 2025 02:46:14 -0700 (PDT)
 From: Roger Pau Monne <roger.pau@citrix.com>
 To: xen-devel@lists.xenproject.org
 Cc: Roger Pau Monne <roger.pau@citrix.com>,
 	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v2 3/6] xen/x86: rename cache_flush_permitted() to has_arch_io_resources()
-Date: Fri, 16 May 2025 11:45:32 +0200
-Message-ID: <20250516094535.63472-4-roger.pau@citrix.com>
+	Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: [PATCH v2 4/6] xen/x86: account for assigned PCI devices in cache_flush_permitted()
+Date: Fri, 16 May 2025 11:45:33 +0200
+Message-ID: <20250516094535.63472-5-roger.pau@citrix.com>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <20250516094535.63472-1-roger.pau@citrix.com>
 References: <20250516094535.63472-1-roger.pau@citrix.com>
@@ -98,98 +94,54 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-To better describe the underlying implementation.  Define
-cache_flush_permitted() as an alias of has_arch_io_resources(), so that
-current users of cache_flush_permitted() are not effectively modified.
+While unlikely, it's possible for PCI devices to not have any IO resources
+assigned, yet in such case the owner domain might still need to issue cache
+control operations in case the device performs DMA requests.
 
-With the introduction of the new handler, change some of the call sites of
-cache_flush_permitted() to instead use has_arch_io_resources() as such
-callers are not after whether cache flush is enabled, but rather whether
-the domain has any IO resources assigned.
+Adjust cache_flush_permitted() to account for has_arch_pdevs().
 
-No functional change intended.
+While there also switch l1_disallow_mask() to use cache_flush_permitted().
+This should be a non-functional change after the adjustment done to
+cache_flush_permitted().
 
 Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 ---
 Changes since v1:
- - Drop adjustment to l1_disallow_mask().
+ - New in this version.
 ---
- xen/arch/x86/include/asm/iocap.h | 4 +++-
- xen/arch/x86/mm/p2m-pod.c        | 4 ++--
- xen/common/memory.c              | 2 +-
- xen/include/asm-generic/iocap.h  | 4 +++-
- 4 files changed, 9 insertions(+), 5 deletions(-)
+ xen/arch/x86/include/asm/iocap.h | 3 ++-
+ xen/arch/x86/mm.c                | 4 +---
+ 2 files changed, 3 insertions(+), 4 deletions(-)
 
 diff --git a/xen/arch/x86/include/asm/iocap.h b/xen/arch/x86/include/asm/iocap.h
-index 53d87ae8a334..61d026dbf5f6 100644
+index 61d026dbf5f6..f948b7186e95 100644
 --- a/xen/arch/x86/include/asm/iocap.h
 +++ b/xen/arch/x86/include/asm/iocap.h
-@@ -15,10 +15,12 @@
- #define ioports_access_permitted(d, s, e)               \
-     rangeset_contains_range((d)->arch.ioport_caps, s, e)
- 
--#define cache_flush_permitted(d)                        \
-+#define has_arch_io_resources(d)                        \
+@@ -19,7 +19,8 @@
      (!rangeset_is_empty((d)->iomem_caps) ||             \
       !rangeset_is_empty((d)->arch.ioport_caps))
  
-+#define cache_flush_permitted has_arch_io_resources
-+
+-#define cache_flush_permitted has_arch_io_resources
++#define cache_flush_permitted(d) \
++    (has_arch_io_resources(d) || has_arch_pdevs(d))
+ 
  static inline int ioports_permit_access(struct domain *d, unsigned long s,
                                          unsigned long e)
- {
-diff --git a/xen/arch/x86/mm/p2m-pod.c b/xen/arch/x86/mm/p2m-pod.c
-index df2a1cc0749b..05633fe2ac88 100644
---- a/xen/arch/x86/mm/p2m-pod.c
-+++ b/xen/arch/x86/mm/p2m-pod.c
-@@ -338,7 +338,7 @@ p2m_pod_set_mem_target(struct domain *d, unsigned long target)
+diff --git a/xen/arch/x86/mm.c b/xen/arch/x86/mm.c
+index a1703db762e3..657623336c0e 100644
+--- a/xen/arch/x86/mm.c
++++ b/xen/arch/x86/mm.c
+@@ -172,9 +172,7 @@ static DEFINE_SPINLOCK(subpage_ro_lock);
  
-     ASSERT( pod_target >= p2m->pod.count );
+ #define l1_disallow_mask(d)                                     \
+     (((d) != dom_io) &&                                         \
+-     (rangeset_is_empty((d)->iomem_caps) &&                     \
+-      rangeset_is_empty((d)->arch.ioport_caps) &&               \
+-      !has_arch_pdevs(d) &&                                     \
++     (!cache_flush_permitted(d) &&                              \
+       is_pv_domain(d)) ?                                        \
+      L1_DISALLOW_MASK : (L1_DISALLOW_MASK & ~PAGE_CACHE_ATTRS))
  
--    if ( has_arch_pdevs(d) || cache_flush_permitted(d) )
-+    if ( has_arch_pdevs(d) || has_arch_io_resources(d) )
-         ret = -ENOTEMPTY;
-     else
-         ret = p2m_pod_set_cache_target(p2m, pod_target, 1/*preemptible*/);
-@@ -1395,7 +1395,7 @@ guest_physmap_mark_populate_on_demand(struct domain *d, unsigned long gfn,
-     if ( !paging_mode_translate(d) )
-         return -EINVAL;
- 
--    if ( has_arch_pdevs(d) || cache_flush_permitted(d) )
-+    if ( has_arch_pdevs(d) || has_arch_io_resources(d) )
-         return -ENOTEMPTY;
- 
-     do {
-diff --git a/xen/common/memory.c b/xen/common/memory.c
-index 8ca4e1a8425b..46620ed8253d 100644
---- a/xen/common/memory.c
-+++ b/xen/common/memory.c
-@@ -86,7 +86,7 @@ static unsigned int max_order(const struct domain *d)
-     unsigned int order = domu_max_order;
- 
- #ifdef CONFIG_HAS_PASSTHROUGH
--    if ( cache_flush_permitted(d) && order < ptdom_max_order )
-+    if ( has_arch_io_resources(d) && order < ptdom_max_order )
-         order = ptdom_max_order;
- #endif
- 
-diff --git a/xen/include/asm-generic/iocap.h b/xen/include/asm-generic/iocap.h
-index dd7cb45488f7..664bbc8971fe 100644
---- a/xen/include/asm-generic/iocap.h
-+++ b/xen/include/asm-generic/iocap.h
-@@ -2,9 +2,11 @@
- #ifndef __ASM_GENERIC_IOCAP_H__
- #define __ASM_GENERIC_IOCAP_H__
- 
--#define cache_flush_permitted(d)                        \
-+#define has_arch_io_resources(d)                        \
-     (!rangeset_is_empty((d)->iomem_caps))
- 
-+#define cache_flush_permitted has_arch_io_resources
-+
- #endif /* __ASM_GENERIC_IOCAP_H__ */
- 
- /*
 -- 
 2.48.1
 
