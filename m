@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D0F6AB9A07
-	for <lists+xen-devel@lfdr.de>; Fri, 16 May 2025 12:23:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.986812.1372343 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9323CAB9A2E
+	for <lists+xen-devel@lfdr.de>; Fri, 16 May 2025 12:31:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.986846.1372361 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uFsDl-0001E4-Ez; Fri, 16 May 2025 10:23:17 +0000
+	id 1uFsLR-0003q3-Dm; Fri, 16 May 2025 10:31:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 986812.1372343; Fri, 16 May 2025 10:23:17 +0000
+Received: by outflank-mailman (output) from mailman id 986846.1372361; Fri, 16 May 2025 10:31:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uFsDl-0001Al-9x; Fri, 16 May 2025 10:23:17 +0000
-Received: by outflank-mailman (input) for mailman id 986812;
- Fri, 16 May 2025 10:23:15 +0000
+	id 1uFsLR-0003ns-Aq; Fri, 16 May 2025 10:31:13 +0000
+Received: by outflank-mailman (input) for mailman id 986846;
+ Fri, 16 May 2025 10:31:12 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=4w7r=YA=bounce.vates.tech=bounce-md_30504962.68271210.v1-e4369dd05760456da708e1454a2b2ce5@srs-se1.protection.inumbo.net>)
- id 1uFsDj-0000kS-HI
- for xen-devel@lists.xenproject.org; Fri, 16 May 2025 10:23:15 +0000
+ <SRS0=oPam=YA=bounce.vates.tech=bounce-md_30504962.6827123c.v1-a32b69adad444adc87b2b2c102ecc179@srs-se1.protection.inumbo.net>)
+ id 1uFsER-0000kS-Md
+ for xen-devel@lists.xenproject.org; Fri, 16 May 2025 10:23:59 +0000
 Received: from mail133-28.atl131.mandrillapp.com
  (mail133-28.atl131.mandrillapp.com [198.2.133.28])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c5a53bcc-323f-11f0-9ffb-bf95429c2676;
- Fri, 16 May 2025 12:23:13 +0200 (CEST)
+ id e002a537-323f-11f0-9ffb-bf95429c2676;
+ Fri, 16 May 2025 12:23:57 +0200 (CEST)
 Received: from pmta13.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
  by mail133-28.atl131.mandrillapp.com (Mailchimp) with ESMTP id
- 4ZzNSw4kMszMQxhr2
- for <xen-devel@lists.xenproject.org>; Fri, 16 May 2025 10:23:12 +0000 (GMT)
+ 4ZzNTm6PzCzMQxhrj
+ for <xen-devel@lists.xenproject.org>; Fri, 16 May 2025 10:23:56 +0000 (GMT)
 Received: from [37.26.189.201] by mandrillapp.com id
- e4369dd05760456da708e1454a2b2ce5; Fri, 16 May 2025 10:23:12 +0000
+ a32b69adad444adc87b2b2c102ecc179; Fri, 16 May 2025 10:23:56 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,626 +43,530 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c5a53bcc-323f-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: e002a537-323f-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1747390992; x=1747660992;
-	bh=DandEhzp+qPKdWdpmRXBmMLVVVlG3pQoydJsD7Um6to=;
+	s=mte1; t=1747391036; x=1747661036;
+	bh=GO5Dri+xVh1Y4JynkAC/L1FcSze9E66ZA2NqARyadRc=;
 	h=From:Subject:To:Cc:Message-Id:In-Reply-To:References:Feedback-ID:
 	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
 	 Subject:From;
-	b=gtSQHzLaiFJmwd3fY/To9E6iJGVRkCHSG2ZuIkc0Op0kIZhCpmBL1FMtQ0RRzjGhT
-	 +6UUlVSrIFt5X2KIvYJem9ub7n2DZlDuhjo4ql6GA8xRHMxof553+GlCluS5QT7h6A
-	 uAyUug7ybmUkDsBm4N1YIY3ZNrGE0IxOoS+Dspjb5SdtRdHl1jQ0Fk2pg62/aCaMHV
-	 BivaPSdUJ6LJKsmlFCCTv7nDmTBgyal8pQH9rcNerdOtaWGfrCdHVTJFa3u8MTMG8F
-	 TwAu6wjYelUgpxgK6P4Jcxi6HNfdf960BJs9j2BwbFAPElaw/wxJGLc8QNR7DJeV+1
-	 EU8LCBYPLwD9g==
+	b=CTsn8QblBtzpLm3VnaNNXup9lAPub+fkhhWKiAhhTfvNWKRnXm2TQzfStGqLP1rSU
+	 YwepmnGjvEe9hSf9gVjxCnMeODo5XCv0i6hXtZiYK2gjmtWqpYE+sHNjBkebOI0+kC
+	 RejD5hpi2d4QqZ+Iv3POZfuLj7KYHQBx3EI4XP0N2+Q/aqRsyisjygaAfkX+VeXFH1
+	 zPa7DBvlcnfIzI31UO6K8LkPsxb6EeLDkXxkJf+TjH1AG0Fq0MCGOw1OpTHrDqIjr+
+	 jUHKxnTVxT4zIJDolYrlTv/QXYoYtdzVMEnqWoRDNPoCIy2XyoIrMdf25V1U8An48p
+	 aqbChmRJttnWw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1747390992; x=1747651492; i=teddy.astie@vates.tech;
-	bh=DandEhzp+qPKdWdpmRXBmMLVVVlG3pQoydJsD7Um6to=;
+	t=1747391036; x=1747651536; i=teddy.astie@vates.tech;
+	bh=GO5Dri+xVh1Y4JynkAC/L1FcSze9E66ZA2NqARyadRc=;
 	h=From:Subject:To:Cc:Message-Id:In-Reply-To:References:Feedback-ID:
 	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
 	 Subject:From;
-	b=OSzdryaztxGhQKUhl1b2SIM1J900Y41ZP6cTY31ujCh2PSc90ruH92ZAcYhmNwt6X
-	 EFVQ6BHBq5pbchzf9BnN+isz7mIJ42WC15MGY9kXG6NWfmuxH+MF3xGVdw06ymVzHw
-	 y1v4eSXDrTcKCWT8vjy8jzA1hUTXqMf8hgQoE3Z1/q9rYQM9MRlhAc8oZzimHQS3bh
-	 /AeEAI4AxO8Ak83uE4vArIO6rY3QG15uXtW8Qgd2sB8pCjgP3Eym8Jj/1vVUzw/Vq2
-	 sZoxH+KvWXD2uepKLDQMrdoNmafKPB9CtcCl1QCzPEaNp1wEXN0ZOpwNWNbYbqTE5J
-	 +YDYgmVJNPwlw==
+	b=KmfPe3kbcFhlEze4gm87u0qrqVZ/Q7Jzz6D8zsaXa1rhkaRrsckO0GxfoL8crxXsm
+	 MLlr8lGVAEumN3uvJldnU4AVj9GfYBO+Wil4oyatq/Pach06Qm0nbxurs9F8KwSrlL
+	 RJ20DXPUEhByd6WqvQBlcx5w45cXs6hxdxHPn27xzs+h5S0ktcReCH8JcHp9vJxRpr
+	 nS8WA01vwGk38RyR6eiGjJIFthakTz9nI0Als0NXasbvhlk+L3pW4pHTMy0RT8HQGB
+	 TRQmlMQEiGMbuYQIjPLvuY1IHfVOjfGCZJ53gDqwxItka4wNvQfuHURXdYqmphtJfQ
+	 V1gxZpKawphOw==
 From: "Teddy Astie" <teddy.astie@vates.tech>
-Subject: =?utf-8?Q?[RFC=20PATCH=2009/16]=20common:=20Introduce=20confidential=20computing=20infrastructure?=
+Subject: =?utf-8?Q?[RFC=20PATCH=2010/16]=20xl/coco:=20Introduce=20confidential=20computing=20support?=
 X-Mailer: git-send-email 2.49.0
 X-Bm-Disclaimer: Yes
 X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1747390991298
+X-Bm-Transport-Timestamp: 1747391035719
 To: xen-devel@lists.xenproject.org
-Cc: "Teddy Astie" <teddy.astie@vates.tech>, "Jan Beulich" <jbeulich@suse.com>, "Andrew Cooper" <andrew.cooper3@citrix.com>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>, "Anthony PERARD" <anthony.perard@vates.tech>, "Michal Orzel" <michal.orzel@amd.com>, "Julien Grall" <julien@xen.org>, "Stefano Stabellini" <sstabellini@kernel.org>
-Message-Id: <2bff74440483be3c59156257a60d632727a18582.1747312394.git.teddy.astie@vates.tech>
+Cc: "Teddy Astie" <teddy.astie@vates.tech>, "Anthony PERARD" <anthony.perard@vates.tech>, "Juergen Gross" <jgross@suse.com>, "Jan Beulich" <jbeulich@suse.com>, "Andrew Cooper" <andrew.cooper3@citrix.com>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>, "Christian Lindig" <christian.lindig@citrix.com>, "David Scott" <dave@recoil.org>, "Vaishali Thakkar" <vaishali.thakkar@suse.com>
+Message-Id: <85b52eb462e171b420d6c8e7c748af763504e9f2.1747312394.git.teddy.astie@vates.tech>
 In-Reply-To: <cover.1747312394.git.teddy.astie@vates.tech>
 References: <cover.1747312394.git.teddy.astie@vates.tech>
 X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.e4369dd05760456da708e1454a2b2ce5?=
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.a32b69adad444adc87b2b2c102ecc179?=
 X-Mandrill-User: md_30504962
 Feedback-ID: 30504962:30504962.20250516:md
-Date: Fri, 16 May 2025 10:23:12 +0000
+Date: Fri, 16 May 2025 10:23:56 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 7bit
 
-Introduce a subsystem that is used for future confidential computing
-platforms. This subsystem manages and provides hooks for domain management
-and exposes various informations for toolstack (COCO platform, supported
-features, ...).
+From: Vaishali Thakkar <vaishali.thakkar@suse.com>
 
-Add a domain creation flag to build a confidential computing guest.
-
+Signed-off-by: Vaishali Thakkar <vaishali.thakkar@suse.com>
 Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
 ---
- xen/arch/x86/domain.c         |   4 +
- xen/arch/x86/hvm/hvm.c        |  10 ++-
- xen/common/Kconfig            |   5 ++
- xen/common/Makefile           |   1 +
- xen/common/coco.c             | 134 ++++++++++++++++++++++++++++++++++
- xen/common/domain.c           |  41 ++++++++++-
- xen/include/hypercall-defs.c  |   2 +
- xen/include/public/domctl.h   |   5 +-
- xen/include/public/hvm/coco.h |  65 +++++++++++++++++
- xen/include/public/xen.h      |   1 +
- xen/include/xen/coco.h        |  88 ++++++++++++++++++++++
- xen/include/xen/sched.h       |  10 +++
- 12 files changed, 363 insertions(+), 3 deletions(-)
- create mode 100644 xen/common/coco.c
- create mode 100644 xen/include/public/hvm/coco.h
- create mode 100644 xen/include/xen/coco.h
+ tools/include/libxl.h            |  5 ++++
+ tools/include/xenctrl.h          |  4 ++++
+ tools/include/xenguest.h         |  1 +
+ tools/libs/ctrl/xc_domain.c      | 36 +++++++++++++++++++++++++++++
+ tools/libs/guest/Makefile.common |  2 ++
+ tools/libs/guest/xg_dom_boot.c   | 33 +++++++++++++++++++++++++++
+ tools/libs/guest/xg_dom_coco.c   | 35 ++++++++++++++++++++++++++++
+ tools/libs/guest/xg_dom_coco.h   | 39 ++++++++++++++++++++++++++++++++
+ tools/libs/guest/xg_dom_x86.c    |  1 +
+ tools/libs/light/libxl_cpuid.c   |  1 +
+ tools/libs/light/libxl_create.c  |  4 ++++
+ tools/libs/light/libxl_dom.c     |  1 +
+ tools/libs/light/libxl_types.idl |  1 +
+ tools/libs/util/libxlu_disk_l.c  | 13 ++++-------
+ tools/libs/util/libxlu_disk_l.h  |  7 ++----
+ tools/misc/xen-cpuid.c           |  1 +
+ tools/ocaml/libs/xc/xenctrl.ml   |  1 +
+ tools/ocaml/libs/xc/xenctrl.mli  |  1 +
+ tools/xl/xl_parse.c              |  2 ++
+ 19 files changed, 175 insertions(+), 13 deletions(-)
+ create mode 100644 tools/libs/guest/xg_dom_coco.c
+ create mode 100644 tools/libs/guest/xg_dom_coco.h
 
-diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
-index f197dad4c0..a5783154ad 100644
---- a/xen/arch/x86/domain.c
-+++ b/xen/arch/x86/domain.c
-@@ -12,6 +12,7 @@
+diff --git a/tools/include/libxl.h b/tools/include/libxl.h
+index b7ad7735ca..e75179b604 100644
+--- a/tools/include/libxl.h
++++ b/tools/include/libxl.h
+@@ -178,6 +178,11 @@
   */
+ #define LIBXL_HAVE_BUILDINFO_EVENT_CHANNELS 1
  
- #include <xen/acpi.h>
-+#include <xen/coco.h>
- #include <xen/compat.h>
- #include <xen/console.h>
- #include <xen/cpu.h>
-@@ -948,6 +949,9 @@ void arch_domain_destroy(struct domain *d)
-     free_xenheap_page(d->shared_info);
-     cleanup_domain_irq_mapping(d);
- 
-+    if ( is_coco_domain(d) )
-+        coco_domain_destroy(d);
-+
-     psr_domain_free(d);
- }
- 
-diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
-index 625ae2098b..e1bcf8e086 100644
---- a/xen/arch/x86/hvm/hvm.c
-+++ b/xen/arch/x86/hvm/hvm.c
-@@ -15,6 +15,7 @@
- #include <xen/sched.h>
- #include <xen/irq.h>
- #include <xen/softirq.h>
-+#include <xen/coco.h>
- #include <xen/domain.h>
- #include <xen/domain_page.h>
- #include <xen/hypercall.h>
-@@ -702,7 +703,11 @@ int hvm_domain_initialise(struct domain *d,
-     if ( rc )
-         goto fail2;
- 
--    rc = hvm_asid_alloc(&d->arch.hvm.asid);
-+    if ( is_coco_domain(d) && d->coco_ops && d->coco_ops->asid_alloc )
-+        rc = d->coco_ops->asid_alloc(d, &d->arch.hvm.asid);
-+    else
-+        rc = hvm_asid_alloc(&d->arch.hvm.asid);
-+
-     if ( rc )
-         goto fail2;
- 
-@@ -710,6 +715,9 @@ int hvm_domain_initialise(struct domain *d,
-     if ( rc != 0 )
-         goto fail2;
- 
-+    if ( is_coco_domain(d) )
-+        coco_domain_initialise(d);
-+
-     return 0;
- 
-  fail2:
-diff --git a/xen/common/Kconfig b/xen/common/Kconfig
-index 6d43be2e6e..1ddb73e707 100644
---- a/xen/common/Kconfig
-+++ b/xen/common/Kconfig
-@@ -576,4 +576,9 @@ config BUDDY_ALLOCATOR_SIZE
- 	  Amount of memory reserved for the buddy allocator to serve Xen heap,
- 	  working alongside the colored one.
- 
-+config COCO
-+	bool "Enable COnfidential COmputing support for guests" if EXPERT
-+	default n
-+	help
-+	  Allows to run guests in private encrypted memory space.
- endmenu
-diff --git a/xen/common/Makefile b/xen/common/Makefile
-index 98f0873056..4409510fc0 100644
---- a/xen/common/Makefile
-+++ b/xen/common/Makefile
-@@ -5,6 +5,7 @@ obj-$(CONFIG_GENERIC_BUG_FRAME) += bug.o
- obj-$(CONFIG_HYPFS_CONFIG) += config_data.o
- obj-$(CONFIG_CORE_PARKING) += core_parking.o
- obj-y += cpu.o
-+obj-$(CONFIG_COCO) += coco.o
- obj-$(CONFIG_DEBUG_TRACE) += debugtrace.o
- obj-$(CONFIG_HAS_DEVICE_TREE) += device.o
- obj-$(filter-out $(CONFIG_X86),$(CONFIG_ACPI)) += device.o
-diff --git a/xen/common/coco.c b/xen/common/coco.c
-new file mode 100644
-index 0000000000..d9bd17628d
---- /dev/null
-+++ b/xen/common/coco.c
-@@ -0,0 +1,134 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
 +/*
-+ * General confidential computing functions.
-+ */
-+ 
-+#include <xen/coco.h>
-+#include <xen/errno.h>
-+#include <xen/domain.h>
-+#include <xen/domain_page.h>
-+#include <xen/guest_access.h>
-+#include <xen/hypercall.h>
-+#include <xen/sched.h>
-+#include <xen/sections.h>
-+#include <xen/types.h>
++ * The libxl_domain_build_info has the coco field.
++*/
++#define LIBXL_HAVE_BUILDINFO_COCO 1
 +
-+#include <asm/p2m.h>
+ /*
+  * libxl_domain_build_info has the u.hvm.ms_vm_genid field.
+  */
+diff --git a/tools/include/xenctrl.h b/tools/include/xenctrl.h
+index 4955981231..aae228da44 100644
+--- a/tools/include/xenctrl.h
++++ b/tools/include/xenctrl.h
+@@ -46,6 +46,7 @@
+ #include <xen/xsm/flask_op.h>
+ #include <xen/kexec.h>
+ #include <xen/platform.h>
++#include <xen/hvm/coco.h>
+ 
+ #include "xentoollog.h"
+ #include "xen-barrier.h"
+@@ -1682,6 +1683,9 @@ int xc_hvm_param_get(xc_interface *handle, uint32_t dom, uint32_t param, uint64_
+ int xc_set_hvm_param(xc_interface *handle, uint32_t dom, int param, unsigned long value);
+ int xc_get_hvm_param(xc_interface *handle, uint32_t dom, int param, unsigned long *value);
+ 
++int xc_coco_platform_status(xc_interface *handle, coco_platform_status_t *status);
++int xc_coco_prepare_initial_mem(xc_interface *handle, coco_prepare_initial_mem_t *cmd);
 +
-+#include <public/hvm/coco.h>
-+
-+static __ro_after_init struct coco_ops *coco_ops;
-+__read_mostly struct coco_platform_status platform_status;
-+
-+void __init coco_register_ops(struct coco_ops *ops)
-+{
-+    coco_ops = ops;
-+}
-+
-+int __init coco_init(void)
-+{
-+    int rc = 0;
-+
-+    if ( coco_ops )
-+        printk("coco: Using '%s'\n", coco_ops->name);
-+    else
-+    {
-+        printk("coco: No platform found\n");
-+        return 0;
-+    }
-+
-+    if ( coco_ops->init )
-+    {
-+        rc = coco_ops->init();
-+        
-+        if ( rc )
-+        {
-+            printk("coco: Unable to initialize coco platform (%d)", rc);
-+            goto err;
-+        }
-+    }
-+
-+    rc = coco_ops->get_platform_status(&platform_status);
-+    if ( rc )
-+    {
-+        printk("coco: Unable to get platform status\n");
-+        goto err;
-+    }
-+
-+    return 0;
-+
-+err:
-+    /* Disable confidential computing if initialization failed. */
-+    coco_ops = NULL;
-+    return rc;
-+}
-+
-+void coco_set_domain_ops(struct domain *d)
-+{
-+    ASSERT(is_coco_domain(d));
-+
-+    d->coco_ops = coco_ops->get_domain_ops(d);
-+}
-+
-+int coco_prepare_initial_memory(struct domain *d, gfn_t gfn, size_t page_count)
-+{
-+    /* TODO: Check prepare_initial_memory constraints (no dangling mapping). */
-+
-+    if ( d->coco_ops->prepare_initial_mem )
-+        return d->coco_ops->prepare_initial_mem(d, gfn, page_count);
-+    
-+    return 0;
-+}
-+
-+long coco_op_prepare_initial_mem(struct coco_prepare_initial_mem arg)
-+{
-+    long rc = 0;
-+    struct domain *d = get_domain_by_id(arg.domid);
-+
-+    if ( !d )
-+        return -ENOENT;
-+    
-+    if ( !is_coco_domain(d) )
-+    {
-+        rc = -EOPNOTSUPP;
-+        goto out;
-+    }
-+
-+    rc = coco_prepare_initial_memory(d, arg.gfn, arg.count);
-+
-+out:
-+    put_domain(d);
-+    return rc;
-+}
-+
-+long do_coco_op(unsigned int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
-+{
-+    if ( !is_hardware_domain(current->domain) )
-+        return -EPERM;
-+
-+    switch (cmd)
-+    {
-+        case XEN_COCO_platform_status:
-+        {
-+            if ( copy_to_guest(arg, &platform_status, 1) )
-+                return -EFAULT;
-+
-+            return 0;
-+        }
-+        
-+        case XEN_COCO_prepare_initial_mem:
-+        {
-+            struct coco_prepare_initial_mem prepare_initial_mem;
-+
-+            if ( copy_from_guest(&prepare_initial_mem, arg, 1) )
-+                return -EFAULT;
-+
-+            return coco_op_prepare_initial_mem(prepare_initial_mem);
-+        }
-+
-+        default:
-+            return -ENOSYS;
-+    }
-+}
-+
-+__initcall(coco_init);
-\ No newline at end of file
-diff --git a/xen/common/domain.c b/xen/common/domain.c
-index abf1969e60..c29d6efd29 100644
---- a/xen/common/domain.c
-+++ b/xen/common/domain.c
-@@ -4,6 +4,7 @@
-  * Generic domain-handling functions.
+ /* HVM guest pass-through */
+ int xc_assign_device(xc_interface *xch,
+                      uint32_t domid,
+diff --git a/tools/include/xenguest.h b/tools/include/xenguest.h
+index e01f494b77..9d36fa5665 100644
+--- a/tools/include/xenguest.h
++++ b/tools/include/xenguest.h
+@@ -219,6 +219,7 @@ struct xc_dom_image {
+     xen_paddr_t lowmem_end;
+     xen_paddr_t highmem_end;
+     xen_pfn_t vga_hole_size;
++    bool coco; /* 1 if this is a confidential computing guest, 0 otherwise */
+ 
+     /* If unset disables the setup of the IOREQ pages. */
+     bool device_model;
+diff --git a/tools/libs/ctrl/xc_domain.c b/tools/libs/ctrl/xc_domain.c
+index 2ddc3f4f42..66b6c146f4 100644
+--- a/tools/libs/ctrl/xc_domain.c
++++ b/tools/libs/ctrl/xc_domain.c
+@@ -20,8 +20,10 @@
   */
  
-+#include <xen/coco.h>
- #include <xen/compat.h>
- #include <xen/init.h>
- #include <xen/lib.h>
-@@ -716,17 +717,51 @@ static int sanitise_domain_config(struct xen_domctl_createdomain *config)
-     bool hap = config->flags & XEN_DOMCTL_CDF_hap;
-     bool iommu = config->flags & XEN_DOMCTL_CDF_iommu;
-     bool vpmu = config->flags & XEN_DOMCTL_CDF_vpmu;
-+    bool coco = config->flags & XEN_DOMCTL_CDF_coco;
+ #include "xc_private.h"
++#include "xenctrl.h"
+ #include <xen/memory.h>
+ #include <xen/hvm/hvm_op.h>
++#include <xen/hvm/coco.h>
  
-     if ( config->flags &
-          ~(XEN_DOMCTL_CDF_hvm | XEN_DOMCTL_CDF_hap |
-            XEN_DOMCTL_CDF_s3_integrity | XEN_DOMCTL_CDF_oos_off |
-            XEN_DOMCTL_CDF_xs_domain | XEN_DOMCTL_CDF_iommu |
--           XEN_DOMCTL_CDF_nested_virt | XEN_DOMCTL_CDF_vpmu) )
-+           XEN_DOMCTL_CDF_nested_virt | XEN_DOMCTL_CDF_vpmu | XEN_DOMCTL_CDF_coco) )
-     {
-         dprintk(XENLOG_INFO, "Unknown CDF flags %#x\n", config->flags);
-         return -EINVAL;
-     }
+ int xc_domain_create(xc_interface *xch, uint32_t *pdomid,
+                      struct xen_domctl_createdomain *config)
+@@ -1496,6 +1498,40 @@ int xc_get_hvm_param(xc_interface *handle, uint32_t dom, int param, unsigned lon
+     return 0;
+ }
  
-+    if ( coco )
++int xc_coco_platform_status(xc_interface *handle, coco_platform_status_t *status)
++{
++    DECLARE_HYPERCALL_BUFFER(coco_platform_status_t, arg);
++    int rc;
++
++    arg = xc_hypercall_buffer_alloc(handle, arg, sizeof(*arg));
++    if ( arg == NULL )
++        return -1;
++    memcpy(arg, status, sizeof(coco_platform_status_t));
++
++    rc = xencall2(handle->xcall, __HYPERVISOR_coco_op, XEN_COCO_platform_status,
++                  HYPERCALL_BUFFER_AS_ARG(arg));
++
++    xc_hypercall_buffer_free(handle, arg);
++    return rc;
++}
++
++int xc_coco_prepare_initial_mem(xc_interface *handle, coco_prepare_initial_mem_t *cmd)
++{
++    DECLARE_HYPERCALL_BUFFER(coco_prepare_initial_mem_t, arg);
++    int rc;
++
++    arg = xc_hypercall_buffer_alloc(handle, arg, sizeof(*arg));
++    if ( arg == NULL )
++        return -1;
++    memcpy(arg, cmd, sizeof(coco_prepare_initial_mem_t));
++
++    rc = xencall2(handle->xcall, __HYPERVISOR_coco_op, XEN_COCO_prepare_initial_mem,
++                  HYPERCALL_BUFFER_AS_ARG(arg));
++
++    xc_hypercall_buffer_free(handle, arg);
++    return rc;
++}
++
+ int xc_domain_setdebugging(xc_interface *xch,
+                            uint32_t domid,
+                            unsigned int enable)
+diff --git a/tools/libs/guest/Makefile.common b/tools/libs/guest/Makefile.common
+index a026a2f662..64ede46a05 100644
+--- a/tools/libs/guest/Makefile.common
++++ b/tools/libs/guest/Makefile.common
+@@ -41,6 +41,8 @@ endif
+ # new domain builder
+ OBJS-y                 += xg_dom_core.o
+ OBJS-y                 += xg_dom_boot.o
++# TODO: add something like CONFIG_COCO ?
++OBJS-y                 += xg_dom_coco.o
+ OBJS-y                 += xg_dom_elfloader.o
+ OBJS-$(CONFIG_X86)     += xg_dom_bzimageloader.o
+ OBJS-$(CONFIG_X86)     += xg_dom_decompress_lz4.o
+diff --git a/tools/libs/guest/xg_dom_boot.c b/tools/libs/guest/xg_dom_boot.c
+index 5c7e12221d..6566784161 100644
+--- a/tools/libs/guest/xg_dom_boot.c
++++ b/tools/libs/guest/xg_dom_boot.c
+@@ -32,9 +32,13 @@
+ 
+ #include "xg_private.h"
+ #include "xg_core.h"
++#include "xg_dom_coco.h"
+ #include <xen/hvm/params.h>
+ #include <xen/grant_table.h>
+ 
++#define round_pgup(_p)    (((_p)+(PAGE_SIZE_X86-1))&PAGE_MASK_X86)
++#define round_pgdown(_p)  ((_p)&PAGE_MASK_X86)
++
+ /* ------------------------------------------------------------------------ */
+ 
+ static int setup_hypercall_page(struct xc_dom_image *dom)
+@@ -201,6 +205,35 @@ int xc_dom_boot_image(struct xc_dom_image *dom)
+     if ( (rc = dom->arch_hooks->bootlate(dom)) != 0 )
+         return rc;
+ 
++    // Encrypt domain pages
++    if ( dom->coco )
 +    {
-+        if ( !IS_ENABLED(CONFIG_COCO) )
-+        {
-+            dprintk(XENLOG_INFO, "COCO support is compiled out\n");
-+            return -EINVAL;
-+        }
++        struct xc_dom_seg initrd_seg = {
++            .pfn = dom->initrd_start >> XC_DOM_PAGE_SHIFT(dom),
++            .pages = dom->initrd_len >> XC_DOM_PAGE_SHIFT(dom)
++        };
 +
-+        if ( !coco_is_supported() )
++        if ( (rc = xg_dom_coco_encrypt_seg(dom->xch, dom, dom->kernel_seg, "kernel") != 0) )
++            return rc;
++        if ( initrd_seg.pages && (rc = xg_dom_coco_encrypt_seg(dom->xch, dom, initrd_seg, "ramdisk") != 0) )
++            return rc;
++        if ( (rc = xg_dom_coco_encrypt_seg(dom->xch, dom, dom->start_info_seg, "start_info") != 0) )
++            return rc;
++        
++        for ( int i = 0; i < MAX_ACPI_MODULES; i++ )
 +        {
-+            dprintk(XENLOG_INFO, "COCO is not available\n");
-+            return -EINVAL;
-+        }
-+    
-+        if ( !hvm )
-+        {
-+            dprintk(XENLOG_INFO, "COCO requested for non-HVM guest\n");
-+            return -EINVAL;
-+        }
++            struct xc_dom_seg seg;
++            seg.pfn = dom->acpi_modules[i].guest_addr_out >> XC_DOM_PAGE_SHIFT(dom);
++            seg.pages = round_pgup(dom->acpi_modules[i].length) >> XC_DOM_PAGE_SHIFT(dom);
 +
-+        if ( !hap )
-+        {
-+            dprintk(XENLOG_INFO, "COCO cannot work without HAP\n");
-+            return -EINVAL;
-+        }
++            if ( !seg.pfn || !seg.pages )
++                continue;
 +
-+        if ( config->flags & XEN_DOMCTL_CDF_nested_virt )
-+        {
-+            dprintk(XENLOG_INFO, "Nested virtualization isn't supported with COCO\n");
-+            return -EINVAL;
++            if ( (rc = xg_dom_coco_encrypt_seg(dom->xch, dom, seg, "acpi module")) != 0 )
++                return rc;
 +        }
 +    }
 +
-     if ( config->grant_opts & ~XEN_DOMCTL_GRANT_version_mask )
-     {
-         dprintk(XENLOG_INFO, "Unknown grant options %#x\n", config->grant_opts);
-@@ -836,6 +871,9 @@ struct domain *domain_create(domid_t domid,
-     /* Holding CDF_* internal flags. */
-     d->cdf = flags;
- 
-+    if ( is_coco_domain(d) )
-+        coco_set_domain_ops(d);
+     /* let the vm run */
+     if ( (rc = dom->arch_hooks->vcpu(dom)) != 0 )
+         return rc;
+diff --git a/tools/libs/guest/xg_dom_coco.c b/tools/libs/guest/xg_dom_coco.c
+new file mode 100644
+index 0000000000..f47b59fa49
+--- /dev/null
++++ b/tools/libs/guest/xg_dom_coco.c
+@@ -0,0 +1,35 @@
++/*
++ * Confidential computing support.
++ * Copyright (c) 2024 Teddy Astie <teddy.astie@vates.tech>
++ *
++ * This library is free software; you can redistribute it and/or
++ * modify it under the terms of the GNU Lesser General Public
++ * License as published by the Free Software Foundation;
++ * version 2.1 of the License.
++ *
++ * This library is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
++ * Lesser General Public License for more details.
++ *
++ * You should have received a copy of the GNU Lesser General Public
++ * License along with this library; If not, see <http://www.gnu.org/licenses/>.
++ */
 +
-     TRACE_TIME(TRC_DOM0_DOM_ADD, d->domain_id);
++#include "xg_private.h"
++#include "xenctrl.h"
++#include "xg_dom_coco.h"
++
++int xg_dom_coco_encrypt_seg(xc_interface *xch, struct xc_dom_image *dom,
++                            struct xc_dom_seg seg, const char *name)
++{
++    coco_prepare_initial_mem_t cmd;
++    DPRINTF("coco: Encrypting pfn:[%"PRI_xen_pfn"-%"PRI_xen_pfn"] (%s)\n",
++            seg.pfn, seg.pfn + seg.pages, name);
++    
++    cmd.domid = dom->guest_domid;
++    cmd.gfn = seg.pfn;
++    cmd.count = seg.pages;
++    
++    return xc_coco_prepare_initial_mem(xch, &cmd);
++}
+\ No newline at end of file
+diff --git a/tools/libs/guest/xg_dom_coco.h b/tools/libs/guest/xg_dom_coco.h
+new file mode 100644
+index 0000000000..eac0fa66e3
+--- /dev/null
++++ b/tools/libs/guest/xg_dom_coco.h
+@@ -0,0 +1,39 @@
++/*
++ * Copyright (c) 2006 Isaku Yamahata <yamahata at valinux co jp>
++ *                    VA Linux Systems Japan K.K.
++ *
++ * This library is free software; you can redistribute it and/or
++ * modify it under the terms of the GNU Lesser General Public
++ * License as published by the Free Software Foundation; either
++ * version 2.1 of the License, or (at your option) any later version.
++ *
++ * This library is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
++ * Lesser General Public License for more details.
++ *
++ * You should have received a copy of the GNU Lesser General Public
++ * License along with this library; If not, see <http://www.gnu.org/licenses/>.
++ *
++ */
++
++#ifndef XC_DOM_COCO_H
++#define XC_DOM_COCO_H
++
++#include "xg_private.h"
++#include "xenctrl.h"
++
++int xg_dom_coco_encrypt_seg(xc_interface *xch, struct xc_dom_image *dom,
++                            struct xc_dom_seg seg, const char *name);
++
++#endif /* XC_DOM_COCO_H */
++
++/*
++ * Local variables:
++ * mode: C
++ * c-file-style: "BSD"
++ * c-basic-offset: 4
++ * tab-width: 4
++ * indent-tabs-mode: nil
++ * End:
++ */
+diff --git a/tools/libs/guest/xg_dom_x86.c b/tools/libs/guest/xg_dom_x86.c
+index cba01384ae..93407bf192 100644
+--- a/tools/libs/guest/xg_dom_x86.c
++++ b/tools/libs/guest/xg_dom_x86.c
+@@ -103,6 +103,7 @@ struct xc_dom_image_x86 {
+ #define MAPPING_MAX 2
+     struct xc_dom_x86_mapping maps[MAPPING_MAX];
+     const struct xc_dom_params *params;
++    bool coco;
  
-     lock_profile_register_struct(LOCKPROF_TYPE_PERDOM, d, domid);
-@@ -1617,6 +1655,7 @@ int domain_unpause_by_systemcontroller(struct domain *d)
-     {
-         d->creation_finished = true;
-         arch_domain_creation_finished(d);
-+        coco_domain_creation_finished(d); /* TODO: or before arch_* ? */
+     /* PV: Pointer to the in-guest P2M. */
+     void *p2m_guest;
+diff --git a/tools/libs/light/libxl_cpuid.c b/tools/libs/light/libxl_cpuid.c
+index 063fe86eb7..9891c42a5b 100644
+--- a/tools/libs/light/libxl_cpuid.c
++++ b/tools/libs/light/libxl_cpuid.c
+@@ -342,6 +342,7 @@ int libxl_cpuid_parse_config(libxl_cpuid_policy_list *policy, const char* str)
+         CPUID_ENTRY(0x00000007,  1, CPUID_REG_EDX),
+         MSR_ENTRY(0x10a, CPUID_REG_EAX),
+         MSR_ENTRY(0x10a, CPUID_REG_EDX),
++        CPUID_ENTRY(0x8000001f, NA, CPUID_REG_EAX),
+ #undef MSR_ENTRY
+ #undef CPUID_ENTRY
+     };
+diff --git a/tools/libs/light/libxl_create.c b/tools/libs/light/libxl_create.c
+index e03599ea99..185f7946f4 100644
+--- a/tools/libs/light/libxl_create.c
++++ b/tools/libs/light/libxl_create.c
+@@ -93,6 +93,7 @@ int libxl__domain_build_info_setdefault(libxl__gc *gc,
+ 
+     libxl_defbool_setdefault(&b_info->device_model_stubdomain, false);
+     libxl_defbool_setdefault(&b_info->vpmu, false);
++    libxl_defbool_setdefault(&b_info->coco, false);
+ 
+     if (libxl_defbool_val(b_info->device_model_stubdomain) &&
+         !b_info->device_model_ssidref)
+@@ -667,6 +668,9 @@ int libxl__domain_make(libxl__gc *gc, libxl_domain_config *d_config,
+         if (libxl_defbool_val(b_info->vpmu))
+             create.flags |= XEN_DOMCTL_CDF_vpmu;
+ 
++        if (libxl_defbool_val(b_info->coco))
++            create.flags |= XEN_DOMCTL_CDF_coco;
++
+         assert(info->passthrough != LIBXL_PASSTHROUGH_DEFAULT);
+         LOG(DETAIL, "passthrough: %s",
+             libxl_passthrough_to_string(info->passthrough));
+diff --git a/tools/libs/light/libxl_dom.c b/tools/libs/light/libxl_dom.c
+index 94fef37401..778dac2286 100644
+--- a/tools/libs/light/libxl_dom.c
++++ b/tools/libs/light/libxl_dom.c
+@@ -1081,6 +1081,7 @@ int libxl__build_hvm(libxl__gc *gc, uint32_t domid,
      }
  
-     domain_unpause(d);
-diff --git a/xen/include/hypercall-defs.c b/xen/include/hypercall-defs.c
-index 7720a29ade..6c01a9e395 100644
---- a/xen/include/hypercall-defs.c
-+++ b/xen/include/hypercall-defs.c
-@@ -209,6 +209,7 @@ hypfs_op(unsigned int cmd, const char *arg1, unsigned long arg2, void *arg3, uns
- #ifdef CONFIG_X86
- xenpmu_op(unsigned int op, xen_pmu_params_t *arg)
- #endif
-+coco_op(unsigned int cmd, void *arg)
+     dom->container_type = XC_DOM_HVM_CONTAINER;
++    dom->coco = libxl_defbool_val(info->coco);
  
- #ifdef CONFIG_PV
- caller: pv64
-@@ -295,5 +296,6 @@ mca                                do       do       -        -        -
- #ifndef CONFIG_PV_SHIM_EXCLUSIVE
- paging_domctl_cont                 do       do       do       do       -
- #endif
-+coco_op                            do       do       do       do       do
+     /* The params from the configuration file are in Mb, which are then
+      * multiplied by 1 Kb. This was then divided off when calling
+diff --git a/tools/libs/light/libxl_types.idl b/tools/libs/light/libxl_types.idl
+index 9bb2969931..bb27e27148 100644
+--- a/tools/libs/light/libxl_types.idl
++++ b/tools/libs/light/libxl_types.idl
+@@ -637,6 +637,7 @@ libxl_domain_build_info = Struct("domain_build_info",[
+     ("nested_hvm",       libxl_defbool),
+     ("apic",             libxl_defbool),
+     ("dm_restrict",      libxl_defbool),
++    ("coco",             libxl_defbool),
+     ("tee",              libxl_tee_type),
+     ("u", KeyedUnion(None, libxl_domain_type, "type",
+                 [("hvm", Struct(None, [("firmware",         string),
+diff --git a/tools/libs/util/libxlu_disk_l.c b/tools/libs/util/libxlu_disk_l.c
+index 0c180fff52..4924162a51 100644
+--- a/tools/libs/util/libxlu_disk_l.c
++++ b/tools/libs/util/libxlu_disk_l.c
+@@ -1,10 +1,7 @@
+ #line 1 "libxlu_disk_l.c"
+-#line 31 "libxlu_disk_l.l"
+ #define _GNU_SOURCE
  
- #endif /* !CPPCHECK */
-diff --git a/xen/include/public/domctl.h b/xen/include/public/domctl.h
-index 5b2063eed9..f4f69556b6 100644
---- a/xen/include/public/domctl.h
-+++ b/xen/include/public/domctl.h
-@@ -67,8 +67,11 @@ struct xen_domctl_createdomain {
- /* Should we expose the vPMU to the guest? */
- #define XEN_DOMCTL_CDF_vpmu           (1U << 7)
+-
+-
+-#line 7 "libxlu_disk_l.c"
++#line 4 "libxlu_disk_l.c"
  
-+#define _XEN_DOMCTL_CDF_coco         8
-+#define XEN_DOMCTL_CDF_coco          (1U << _XEN_DOMCTL_CDF_coco)
-+
- /* Max XEN_DOMCTL_CDF_* constant.  Used for ABI checking. */
--#define XEN_DOMCTL_CDF_MAX XEN_DOMCTL_CDF_vpmu
-+#define XEN_DOMCTL_CDF_MAX XEN_DOMCTL_CDF_coco
+ #define  YY_INT_ALIGNED short int
  
-     uint32_t flags;
+@@ -1257,9 +1254,9 @@ static int vdev_and_devtype(DiskParseContext *dpc, char *str) {
+ #undef DPC /* needs to be defined differently the actual lexer */
+ #define DPC ((DiskParseContext*)yyextra)
  
-diff --git a/xen/include/public/hvm/coco.h b/xen/include/public/hvm/coco.h
-new file mode 100644
-index 0000000000..2e23d91e12
---- /dev/null
-+++ b/xen/include/public/hvm/coco.h
-@@ -0,0 +1,65 @@
-+/* SPDX-License-Identifier: MIT */
-+#ifndef __XEN_PUBLIC_HVM_COCO_H__
-+#define __XEN_PUBLIC_HVM_COCO_H__
-+
-+#include "../xen.h"
-+
-+#define XEN_COCO_platform_status 0
-+
-+/**
-+ * XEN_COCO_platform_status: Get the status of confidential computing platform.
-+ *
-+ * Query informations regarding the current confidential computing platform.
-+ *
-+ * Confidential computing is supposed working as long as COCO_STATUS_FLAG_SUPPORTED bit
-+ * is set, and additionally security-supported only if COCO_STATUS_FLAG_UNSAFE bit
-+ * is cleared.
-+ *
-+ * If COCO_PLATFORM_FLAG_UNSAFE is set but COCO_PLATFORM_FLAG_SUPPORTED is not,
-+ * then confidential computing is explicitly present but intentionally disabled
-+ * or forbidden by policy.
-+ */
-+struct coco_platform_status {
-+#define COCO_PLATFORM_none        0 /* None */
-+#define COCO_PLATFORM_amd_sev     1 /* AMD Secure Encrypted Virtualization */
-+#define COCO_PLATFORM_intel_tdx   2 /* Intel Trust Domain Extensions */
-+#define COCO_PLATFORM_arm_rme     3 /* ARM Realm Management Extension */
-+    uint32_t platform; /* OUT */
-+
-+#define COCO_PLATFORM_FLAG_sev_es  (1 << 0) /* AMD SEV Encrypted State */
-+#define COCO_PLATFORM_FLAG_sev_snp (1 << 1) /* AMD SEV Secure Nested Paging */
-+#define COCO_PLATFORM_FLAG_sev_tio (1 << 2) /* AMD SEV Trusted I/O */
-+    uint32_t platform_flags; /* OUT */
-+
-+#define COCO_STATUS_FLAG_supported (1 << 0) /* Confidential computing is supported and usable */
-+#define COCO_STATUS_FLAG_unsafe    (1 << 1) /* Confidential computing is unsafe (e.g debug mode) */
-+    uint32_t flags;    /* OUT */
-+    uint32_t features; /* OUT */
-+
-+    uint32_t version_major; /* OUT */
-+    uint32_t version_minor; /* OUT */
-+};
-+typedef struct coco_platform_status coco_platform_status_t;
-+DEFINE_XEN_GUEST_HANDLE(coco_platform_status_t);
-+
-+#define XEN_COCO_prepare_initial_mem 1
-+
-+/**
-+ * XEN_COCO_prepare_initial_mem: Prepare early memory pages of a guest
-+ * 
-+ * During guest construction, the confidential computing platform may require memory
-+ * to be prepared (e.g., encrypted) before the guest is started.
-+ * 
-+ * After preparation, any further access to these pages is invalid, as they may be
-+ * encrypted, sealed, or tracked by the platform.
-+ */
-+struct coco_prepare_initial_mem {
-+    domid_t domid;      /* IN */
-+    uint16_t _rsvd[3];  /* ZERO */
-+    uint64_t gfn;       /* IN */
-+    uint64_t count;     /* IN */
-+};
-+typedef struct coco_prepare_initial_mem coco_prepare_initial_mem_t;
-+DEFINE_XEN_GUEST_HANDLE(coco_prepare_initial_mem_t);
-+
-+#endif /* __XEN_PUBLIC_HVM_COCO_H__ */
-diff --git a/xen/include/public/xen.h b/xen/include/public/xen.h
-index 82b9c05a76..e656d6f617 100644
---- a/xen/include/public/xen.h
-+++ b/xen/include/public/xen.h
-@@ -118,6 +118,7 @@ DEFINE_XEN_GUEST_HANDLE(xen_ulong_t);
- #define __HYPERVISOR_xenpmu_op            40
- #define __HYPERVISOR_dm_op                41
- #define __HYPERVISOR_hypfs_op             42
-+#define __HYPERVISOR_coco_op              43
+-#line 1260 "libxlu_disk_l.c"
++#line 1257 "libxlu_disk_l.c"
  
- /* Architecture-specific hypercall definitions. */
- #define __HYPERVISOR_arch_0               48
-diff --git a/xen/include/xen/coco.h b/xen/include/xen/coco.h
-new file mode 100644
-index 0000000000..2ae43995ec
---- /dev/null
-+++ b/xen/include/xen/coco.h
-@@ -0,0 +1,88 @@
-+#ifndef _XEN_COCO_H
-+#define _XEN_COCO_H
-+
-+#include <asm/nospec.h>
-+
-+#include <xen/stdint.h>
-+#include <xen/sched.h>
-+
-+#include <public/hvm/coco.h>
-+
-+extern __read_mostly struct coco_platform_status platform_status;
-+
-+struct coco_domain_ops {
-+    int (*prepare_initial_mem)(struct domain *d, gfn_t gfn, size_t page_count);
-+    /* domain_creation_finished, ... */    
-+
-+    /* HVM domain hooks */
-+    int (*domain_initialise)(struct domain *d);
-+    int (*domain_creation_finished)(struct domain *d);
-+    void (*domain_destroy)(struct domain *d);
-+
-+#ifdef CONFIG_X86
-+    /* COCO-specific ASID allocation logic */
-+    int (*asid_alloc)(struct domain *d, struct hvm_asid *asid);
-+#endif
-+};
-+
-+struct coco_ops {
-+    const char *name;
-+    
-+    int (*init)(void);
-+    int (*get_platform_status)(coco_platform_status_t *status);
-+    struct coco_domain_ops *(*get_domain_ops)(struct domain *d);
-+};
-+
-+void __init coco_register_ops(struct coco_ops *ops);
-+int __init coco_init(void);
-+void coco_set_domain_ops(struct domain *d);
-+
-+#ifdef CONFIG_COCO
-+static inline bool coco_is_supported(void)
-+{
-+    return evaluate_nospec(platform_status.flags & COCO_STATUS_FLAG_supported);
-+}
-+
-+static inline int coco_domain_initialise(struct domain *d)
-+{
-+    if ( d->coco_ops && d->coco_ops->domain_initialise )
-+        return d->coco_ops->domain_initialise(d);
-+
-+    return 0;
-+}
-+
-+static inline int coco_domain_creation_finished(struct domain *d)
-+{
-+    if ( d->coco_ops && d->coco_ops->domain_creation_finished )
-+        return d->coco_ops->domain_creation_finished(d);
-+
-+    return 0;
-+}
-+
-+static inline void coco_domain_destroy(struct domain *d)
-+{
-+    if ( d->coco_ops && d->coco_ops->domain_destroy )
-+        d->coco_ops->domain_destroy(d);
-+}
-+#else
-+static inline bool coco_is_supported(void)
-+{
-+    return false;
-+}
-+
-+static inline int coco_domain_initialise(struct domain *d)
-+{
-+    return 0;
-+}
-+
-+static inline int coco_domain_creation_finished(struct domain *d)
-+{
-+    return 0;
-+}
-+
-+static inline void coco_domain_destroy(struct domain *d)
-+{
-+}
-+#endif
-+
-+#endif /* _XEN_COCO_H */
-\ No newline at end of file
-diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
-index f2f5a98534..c57bedc30a 100644
---- a/xen/include/xen/sched.h
-+++ b/xen/include/xen/sched.h
-@@ -630,6 +630,10 @@ struct domain
-     struct argo_domain *argo;
- #endif
+-#line 1262 "libxlu_disk_l.c"
++#line 1259 "libxlu_disk_l.c"
  
-+#ifdef CONFIG_COCO
-+    struct coco_domain_ops *coco_ops;
-+#endif
+ #define INITIAL 0
+ #define LEXERR 1
+@@ -1541,7 +1538,7 @@ YY_DECL
+ #line 188 "libxlu_disk_l.l"
+  /*----- the scanner rules which do the parsing -----*/
+ 
+-#line 1544 "libxlu_disk_l.c"
++#line 1541 "libxlu_disk_l.c"
+ 
+ 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
+ 		{
+@@ -1920,7 +1917,7 @@ YY_RULE_SETUP
+ #line 306 "libxlu_disk_l.l"
+ YY_FATAL_ERROR( "flex scanner jammed" );
+ 	YY_BREAK
+-#line 1923 "libxlu_disk_l.c"
++#line 1920 "libxlu_disk_l.c"
+ 			case YY_STATE_EOF(INITIAL):
+ 			case YY_STATE_EOF(LEXERR):
+ 				yyterminate();
+diff --git a/tools/libs/util/libxlu_disk_l.h b/tools/libs/util/libxlu_disk_l.h
+index c868422568..027fd96c49 100644
+--- a/tools/libs/util/libxlu_disk_l.h
++++ b/tools/libs/util/libxlu_disk_l.h
+@@ -3,12 +3,9 @@
+ #define xlu__disk_yyIN_HEADER 1
+ 
+ #line 5 "libxlu_disk_l.h"
+-#line 31 "libxlu_disk_l.l"
+ #define _GNU_SOURCE
+ 
+-
+-
+-#line 11 "libxlu_disk_l.h"
++#line 8 "libxlu_disk_l.h"
+ 
+ #define  YY_INT_ALIGNED short int
+ 
+@@ -699,6 +696,6 @@ extern int yylex (yyscan_t yyscanner);
+ 
+ #line 306 "libxlu_disk_l.l"
+ 
+-#line 702 "libxlu_disk_l.h"
++#line 699 "libxlu_disk_l.h"
+ #undef xlu__disk_yyIN_HEADER
+ #endif /* xlu__disk_yyHEADER_H */
+diff --git a/tools/misc/xen-cpuid.c b/tools/misc/xen-cpuid.c
+index 4c4593528d..10a2e603e9 100644
+--- a/tools/misc/xen-cpuid.c
++++ b/tools/misc/xen-cpuid.c
+@@ -37,6 +37,7 @@ static const struct {
+     { "CPUID 0x00000007:1.edx",     "7d1" },
+     { "MSR_ARCH_CAPS.lo",         "m10Al" },
+     { "MSR_ARCH_CAPS.hi",         "m10Ah" },
++    { "CPUID 0x8000001f.eax",      "e1fa" },
+ };
+ 
+ #define COL_ALIGN "24"
+diff --git a/tools/ocaml/libs/xc/xenctrl.ml b/tools/ocaml/libs/xc/xenctrl.ml
+index 2690f9a923..256adf0054 100644
+--- a/tools/ocaml/libs/xc/xenctrl.ml
++++ b/tools/ocaml/libs/xc/xenctrl.ml
+@@ -70,6 +70,7 @@ type domain_create_flag =
+   | CDF_IOMMU
+   | CDF_NESTED_VIRT
+   | CDF_VPMU
++  | CDF_COCO
+ 
+ type domain_create_iommu_opts =
+   | IOMMU_NO_SHAREPT
+diff --git a/tools/ocaml/libs/xc/xenctrl.mli b/tools/ocaml/libs/xc/xenctrl.mli
+index febbe1f6ae..9ca55af05a 100644
+--- a/tools/ocaml/libs/xc/xenctrl.mli
++++ b/tools/ocaml/libs/xc/xenctrl.mli
+@@ -63,6 +63,7 @@ type domain_create_flag =
+   | CDF_IOMMU
+   | CDF_NESTED_VIRT
+   | CDF_VPMU
++  | CDF_COCO
+ 
+ type domain_create_iommu_opts =
+   | IOMMU_NO_SHAREPT
+diff --git a/tools/xl/xl_parse.c b/tools/xl/xl_parse.c
+index 089a88935a..0ddec0815b 100644
+--- a/tools/xl/xl_parse.c
++++ b/tools/xl/xl_parse.c
+@@ -2993,6 +2993,8 @@ skip_usbdev:
+ 
+     xlu_cfg_get_defbool(config, "vpmu", &b_info->vpmu, 0);
+ 
++    xlu_cfg_get_defbool(config, "coco", &b_info->coco, 0);
 +
-     /*
-      * Continuation information for domain_teardown().  All fields entirely
-      * private.
-@@ -1198,6 +1202,12 @@ static always_inline bool is_hvm_vcpu(const struct vcpu *v)
-     return is_hvm_domain(v->domain);
+     xlu_cfg_destroy(config);
  }
  
-+static always_inline bool is_coco_domain(const struct domain *d)
-+{
-+    return IS_ENABLED(CONFIG_COCO) &&
-+        evaluate_nospec(d->options & XEN_DOMCTL_CDF_coco);
-+}
-+
- static always_inline bool hap_enabled(const struct domain *d)
- {
-     /* sanitise_domain_config() rejects HAP && !HVM */
 -- 
 2.49.0
 
