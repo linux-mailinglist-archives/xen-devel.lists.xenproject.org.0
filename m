@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E332EAB966C
-	for <lists+xen-devel@lfdr.de>; Fri, 16 May 2025 09:16:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.986365.1371929 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2CBA0AB968A
+	for <lists+xen-devel@lfdr.de>; Fri, 16 May 2025 09:26:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.986379.1371940 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uFpIn-0002LO-Ct; Fri, 16 May 2025 07:16:17 +0000
+	id 1uFpRr-00047C-7J; Fri, 16 May 2025 07:25:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 986365.1371929; Fri, 16 May 2025 07:16:17 +0000
+Received: by outflank-mailman (output) from mailman id 986379.1371940; Fri, 16 May 2025 07:25:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uFpIn-0002Iz-A8; Fri, 16 May 2025 07:16:17 +0000
-Received: by outflank-mailman (input) for mailman id 986365;
- Fri, 16 May 2025 07:16:15 +0000
+	id 1uFpRr-00045A-4b; Fri, 16 May 2025 07:25:39 +0000
+Received: by outflank-mailman (input) for mailman id 986379;
+ Fri, 16 May 2025 07:25:37 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=C2cV=YA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uFpIl-0002Il-Gc
- for xen-devel@lists.xenproject.org; Fri, 16 May 2025 07:16:15 +0000
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [2a00:1450:4864:20::634])
+ id 1uFpRp-000453-LV
+ for xen-devel@lists.xenproject.org; Fri, 16 May 2025 07:25:37 +0000
+Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
+ [2a00:1450:4864:20::533])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a5e35b31-3225-11f0-9eb6-5ba50f476ded;
- Fri, 16 May 2025 09:16:12 +0200 (CEST)
-Received: by mail-ej1-x634.google.com with SMTP id
- a640c23a62f3a-ad238c68b35so326204566b.1
- for <xen-devel@lists.xenproject.org>; Fri, 16 May 2025 00:16:12 -0700 (PDT)
+ id f5dc8b88-3226-11f0-9eb6-5ba50f476ded;
+ Fri, 16 May 2025 09:25:36 +0200 (CEST)
+Received: by mail-ed1-x533.google.com with SMTP id
+ 4fb4d7f45d1cf-5f5bef591d6so3591481a12.1
+ for <xen-devel@lists.xenproject.org>; Fri, 16 May 2025 00:25:36 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ad52d442069sm106230766b.103.2025.05.16.00.16.11
+ 4fb4d7f45d1cf-6005a6e6366sm961876a12.44.2025.05.16.00.25.35
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 16 May 2025 00:16:11 -0700 (PDT)
+ Fri, 16 May 2025 00:25:35 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,63 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a5e35b31-3225-11f0-9eb6-5ba50f476ded
+X-Inumbo-ID: f5dc8b88-3226-11f0-9eb6-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1747379772; x=1747984572; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1747380336; x=1747985136; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=EPuN4A8qZuSPbQNnYDinMdAiRz36z3O3U1gltDJApmw=;
-        b=aYSc1PwmoFgkAtp+C+paOAI0XrLsWmwkEts39bwjIhF25VGq0DCnZ3GGKKdr1S0P1C
-         XBtGbEa7yXJhzO5NOIhGaCF+xALq916PckxKX9mxnFJkClFExBbaJ+7BpYxiqyvR4gAT
-         IytHggR776QkALx3taWr7osqdAy1yzh507zm54B/TTbJTtmcsGWvvV7w4FIgBTN2b9G9
-         QE4R+Gp0tLaa9qk6vfIzMJZcTugzt7/A6PBukqxAIzA+L20/SvCTny/tJ8cx8nkePVap
-         cS6ZSldTE6mSe+7cBnZuR4/JEb1bjNifQ9EYOFZ1asJlfBYSiGy2ogp9g4vP39kE1I1P
-         9VcA==
+        bh=fKB6X3ffOlNz/9yfTbBf2Mvx10O/bznxOXd1Iqxid8I=;
+        b=bHocymCYEzS02oDvKwSoCzZVPuAV7W7+Iip46sDkFMDhUeGCuG2QKS8CSCdlUwq1pB
+         eMGRArZ/GSKvWlR4wJGrZlYWHmoTkxJ9Jn6BLFgB7zFCOOcosap+oBmfpNmsTVgAsbvf
+         ySlv7vcdDXcED25SVPQ4C5Dcvf4iZSTi8Rc77qCZwO/GJczCE5RufmgvvDNp2SWCx25p
+         SCn66xXIPsfzAhAwJFZrKl9NajPtGw/t/pGm33yo4mbcH3LyWPbQFUv6lF41J/g2XDDn
+         x9cL1Vu54Vl6+geJAYsKEC0qx1Ei7F91owYzDNJGEZHae7RIYIkoLozIZjIg2CH4E3ub
+         A7fA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747379772; x=1747984572;
+        d=1e100.net; s=20230601; t=1747380336; x=1747985136;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=EPuN4A8qZuSPbQNnYDinMdAiRz36z3O3U1gltDJApmw=;
-        b=MdJo5y33sQNSQHT5LoFhgRuMjEhRRJhlmxYoVamXx+TN28DVe9G502UQfcNDDmpVuN
-         12L3t/hzA9fzy4OkKQqLAVFCJ9neeevBmWetuJoLwRhp7MK1QpmxLWQstnYM5L/e2eBH
-         B3CfMe4v/ogLUeX+S0WCSeOd7i0N55rDA1J/t6rC8wNmOmXqbaxfpL42Ib6LqGcMILI/
-         BhUg0wfUTsBTiO5HEWnsowfwFEe+XxDqOxjiyQfehzTEpU3cxsl5/9R+CvFP5lvjFYnC
-         Cx4OV+y6TWrsfujVQh/FvCtnmQwCU7wbM706Gyg4S1cQpItjUx7VQJVANsLWkOYrKEBL
-         zxrA==
-X-Forwarded-Encrypted: i=1; AJvYcCWr6f7jQexBBuGFnPHb8k6UZ6hNYkvc+9EPkuQgl35Z4spe76M5vtwg0SoeJJdNt1YZWXQVAz79omQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwtLJ0Sfr1C8C2ubWIAFjRSRIHkDfQ6atPcR78UhoWXnR7ez59q
-	57vFvwJA3knS83FB14jYIBxDk5NU2h6J2vCBK9OMesF1XlQ1KrPPJ4WuCFiSq0rVig==
-X-Gm-Gg: ASbGncvqH33MyowxKL2vWFnh9BLvcdEK3wNf7+ResVmTLyeh+m3O1U3/EM9ZeBoBCFW
-	cLqkcsCDqOabM7mKWrllsaLa95tx8phdBROFOzyhIXl1H/ucLWymKJ84UTdRsZKQVShTuDIoqOf
-	F7XYOK58xMXzwWxsD9zaDxcCiAuhdbjOoCIql/gBZbC/C5edeuh1yJNse8V/G7K09g1R3YKlusN
-	FaS5b57RVhf9xpaVUiwGamqZSv2dPiNBAZgCy1+nmer7Z43bspEAq/QBSjevwU1NINWRd5KXaNU
-	rDqndS9ggyCxWy0EwO30p0EwlYilzjgCpVIZ8DNqbvkwiJZKsbXDLnYkwXKUjHyRt5/qDuYXM8m
-	InZoMlnP+5GG9XkVNLlNriRxcVVX1QoYug81z
-X-Google-Smtp-Source: AGHT+IHhtz8kZegkRQ9494A/1oKKH/QDrLYmTtwMUTunreIDmSxHo2K2PKa2OYbCeBI2o5LhBmtrhw==
-X-Received: by 2002:a17:907:940f:b0:acf:c:22ca with SMTP id a640c23a62f3a-ad536b5a48dmr123129766b.1.1747379772303;
-        Fri, 16 May 2025 00:16:12 -0700 (PDT)
-Message-ID: <8f7beebc-643b-4308-b8ff-c0b812eb8d02@suse.com>
-Date: Fri, 16 May 2025 09:16:10 +0200
+        bh=fKB6X3ffOlNz/9yfTbBf2Mvx10O/bznxOXd1Iqxid8I=;
+        b=iZf2j5Ls4/Lo8s6PJsh4R4afeP0j7uAgdP3P90bHSTBpi4IA8EIqZyeKBGSBU/Mr7r
+         63ghUhRsMsv172Sc90ceHsoAjL0gqFDGBZ/Cxa5lJqrKOhhxII7C+tFEtewRHjSLRUrA
+         gDusiKAq4fQZr+rq8pcF/+V/ejaAC98B575xnLBsBmajdGe5NkcwahfaguGHZAnbxOdq
+         OF+w31T1gNxNBCSEXpdMpLulkcMe3uaTXYp4QjR2RINoobHyIR30EMw0xYGuGpylACmR
+         xENNPko7OSwPh05rGAbLCF1K+lZsSLI8/VngUsJCcIvUJcSShq8ooPJI0VMz7fLHNFyP
+         kaWA==
+X-Gm-Message-State: AOJu0Yz4S5Ju55g+HbCMAPssJz7brCE0kOssEBMYztcSCMy/ZmlnxHX4
+	USO1SgvdqbQaVKGHh7kwEA8HGdjJKziZojBSBFJtC8kZJJ/uBny4rogHj5g03O4YDg==
+X-Gm-Gg: ASbGnct/8dm5h9u9UUIKfG90sRG2+ZupTMYo4189jLcvSLtZZli0TuIffdI3GxKfp90
+	iD/QIiSCSF15xKvyCrr3g+HAcegaVSOjcKgP5AZHf2Otjwt+gFcZrs5WZt4n4+W9ka4iEO5+l0v
+	xI1AfEmBgse0WSauNyNYtKj/YZkZkeCpgWWab6VdmZQ0xj0p/ayrXY1HetqphILj+bQEI1UUZsm
+	q4niEyvvYkLhrJXxJ4gMyvsRoTE6Vn5PchzWC0cCD+38U5xwRYsSNwpF/SBk0A68FUdN4GP0REn
+	msB7PqCbwYKkP58dDF/iBOcLFBOVru1rSsKPnUNiK+QMXcWQS3qYe3l75z4P8ukdOi+9S7xJ3U9
+	LS/bZUEYhWCWBgUflne9tnK07RR67XEQek+RF
+X-Google-Smtp-Source: AGHT+IFkSe1aDHqFjg0/M0fAna3fjoWHfOJMLIY3DM8xmJxPiPJWTQM0nn0fnvQCP/mmI0+viJExhA==
+X-Received: by 2002:a05:6402:268b:b0:5ff:8cba:cffb with SMTP id 4fb4d7f45d1cf-6009010f421mr1985328a12.25.1747380335915;
+        Fri, 16 May 2025 00:25:35 -0700 (PDT)
+Message-ID: <b1e6cf8b-c42f-447d-9d62-9153d30e9547@suse.com>
+Date: Fri, 16 May 2025 09:25:34 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 8/9] xen: introduce flag when a domain requires cache
- control
+Subject: Re: [PATCH 9/9] xen/x86: track dirty pCPU caches for a given vCPU
 To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Juergen Gross
- <jgross@suse.com>, Christian Lindig <christian.lindig@citrix.com>,
- David Scott <dave@recoil.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- xen-devel@lists.xenproject.org
+Cc: xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>
 References: <20250506083148.34963-1-roger.pau@citrix.com>
- <20250506083148.34963-9-roger.pau@citrix.com>
- <b9a2b6fb-af34-443e-93b6-a5e827259a4b@suse.com>
- <aCXFeBGIr87MwELu@macbook.lan>
+ <20250506083148.34963-10-roger.pau@citrix.com>
+ <cecf40ed-9cf2-4e86-aa82-e0c33643868d@citrix.com>
+ <aBoGyekf9KZeZCrK@macbook.lan>
+ <d9a960ba-9690-4d0c-8b1a-1fa9275bcf22@suse.com>
+ <aCXHhAdc-Woyzf65@macbook.lan>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -127,43 +120,72 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aCXFeBGIr87MwELu@macbook.lan>
+In-Reply-To: <aCXHhAdc-Woyzf65@macbook.lan>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 15.05.2025 12:44, Roger Pau Monné wrote:
-> On Mon, May 12, 2025 at 05:24:01PM +0200, Jan Beulich wrote:
->> On 06.05.2025 10:31, Roger Pau Monne wrote:
->>> Such flag is added to the domain create hypercall, and a matching option is
->>> added to xl and libxl to set the flag: `cache_control`.  When the flag is
->>> set, the domain is allowed the usage of cache control operations.  If the
->>> flag is not explicitly set, libxl will set it if the domain has any `iomem`
->>> or `ioports` ranges assigned.
+On 15.05.2025 12:52, Roger Pau Monné wrote:
+> On Mon, May 12, 2025 at 05:38:07PM +0200, Jan Beulich wrote:
+>> On 06.05.2025 14:55, Roger Pau Monné wrote:
+>>> On Tue, May 06, 2025 at 12:16:00PM +0100, Andrew Cooper wrote:
+>>>> On 06/05/2025 9:31 am, Roger Pau Monne wrote:
+>>>>> When a guest is allowed access to cache control operations such tracking
+>>>>> prevents having to issue a system-wide cache flush, and rather just flush
+>>>>> the pCPUs where the vCPU has been scheduled since the last flush.
+>>>>>
+>>>>> Note that domain-wide flushes accumulate the dirty caches from all the
+>>>>> vCPUs, but clearing the vCPU masks will require pausing all vCPUs, which
+>>>>> seems overkill.  Instead leave the vCPU dirty masks as-is, worse case it
+>>>>> will result in redundant flushes in further calls.
+>>>>>
+>>>>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+>>>>
+>>>> I'm afraid this doesn't work.
+>>>>
+>>>> Unlike TLBs, dirty cacheline can move sideways, e.g. by foreign or grant
+>>>> mapping, but also naturally because of how cache coherency works.
 >>>
->>> Modify cache_flush_permitted() helper so that it's return value is no
->>> longer based on the IO resources assigned to the domain, but rather whether
->>> the domain has been explicitly allowed control over the cache, or if it has
->>> IOMMU support and there's a single IOMMU in the system that doesn't allow
->>> forcing snooping behind the guest back.  As a result of this, the return of
->>> cache_flush_permitted() is constant for the lifetime of a domain, based on
->>> the domain creation flags and the capabilities of the IOMMU if enabled
->>> for the domain.
+>>> Does such sideway moving also imply that local WB{NO,}INVD on native
+>>> could be equally bogus?
+>>>
+>>> According to the SDM, cache lines can indeed move between processor
+>>> caches, but the memory controller must always snoop such moves and
+>>> flush the data to memory:
+>>>
+>>> "Here, the processor with the valid data may pass the data to the
+>>> other processors without actually writing it to system memory;
+>>> however, it is the responsibility of the memory controller to snoop
+>>> this operation and update memory."
+>>>
+>>> So a cache line moving sideways will always be propagated to memory as
+>>> part of the move, and hence the data in the previous pCPU cache will
+>>> always hit memory.
 >>
->> This then further emphasizes the remark made for patch 7.
+>> But that's only one of the two aspects of a flush. The other is to ensure
+>> respective data isn't in any (covered) cache anymore. IOW dirty-ness (as
+>> the title has it) isn't a criteria, unless of course you mean "dirty" in
+>> a sense different from what it means in the cache coherency model.
 > 
-> Hm, I think you are referring to the remark about how PCI device
-> without IO resources would be handled then, and what would
-> cache_flush_permitted() return then?
+> Given the direct map, and the fact that the CPU can speculatively load
+> entries in the cache, I'm not sure there's much Xen can effectively do
+> ATM to ensure a certain cache line it's not in any cache anymore.
+> 
+> It would possibly get better if/when the direct map is removed, but
+> even then Xen (or dom0) might map guest memory for emulation or IO
+> purposes.  Then Xen/dom0 would need to issue a wbinvd after unmapping
+> the memory, to ensure the cache is clean in case a vCPU from a domain
+> is scheduled there.
+> 
+> IMO being realistic it is very unlikely for Xen to be able to ensure
+> that after a guest wbinvd there are no guest owned cache lines in any
+> CPU cache, even if such wbinvd is propagated to all host CPUs.
 
-Or more generally the relationship between that and has_arch_io_resources().
-
-> IMO the benefit of the approach presented here is that it aims to know
-> whether a domain needs cache control to be set at creation time, and
-> not altered during it's runtime.
-
-I agree that having this not vary over a domain's lifetime makes things easier
-for us. At the same time it may negatively affect performance of domains where
-hardware devices are added / removed on the fly.
+Well, see Andrew's reply on one of the two "restrict guest-induced WBINVD"
+of mine. What you say is effectively supporting the statement I make in
+the descriptions there ("We allow its use for writeback purposes only
+anyway, ..."). Which Andrew says is wrong for at least future use cases,
+possibly even today's. IOW I think we first need to find some common
+grounds on the underlying goals / principles.
 
 Jan
 
