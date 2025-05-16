@@ -2,35 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D7AD9AB9A3B
-	for <lists+xen-devel@lfdr.de>; Fri, 16 May 2025 12:33:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.986884.1372421 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 79B90AB9A2D
+	for <lists+xen-devel@lfdr.de>; Fri, 16 May 2025 12:30:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.986837.1372352 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uFsN3-0007Ch-5b; Fri, 16 May 2025 10:32:53 +0000
+	id 1uFsKt-00036N-2x; Fri, 16 May 2025 10:30:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 986884.1372421; Fri, 16 May 2025 10:32:53 +0000
+Received: by outflank-mailman (output) from mailman id 986837.1372352; Fri, 16 May 2025 10:30:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uFsN3-0007AP-2u; Fri, 16 May 2025 10:32:53 +0000
-Received: by outflank-mailman (input) for mailman id 986884;
- Fri, 16 May 2025 10:32:51 +0000
+	id 1uFsKs-00034w-VO; Fri, 16 May 2025 10:30:38 +0000
+Received: by outflank-mailman (input) for mailman id 986837;
+ Fri, 16 May 2025 10:30:37 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Zk3F=YA=bounce.vates.tech=bounce-md_30504962.6827127b.v1-7f39565cc8474cdab9afc80d3eba8c0e@srs-se1.protection.inumbo.net>)
- id 1uFsFS-0000kS-7H
- for xen-devel@lists.xenproject.org; Fri, 16 May 2025 10:25:02 +0000
-Received: from mail187-4.suw11.mandrillapp.com
- (mail187-4.suw11.mandrillapp.com [198.2.187.4])
+ <SRS0=n8HW=YA=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1uFsKr-00034q-Ht
+ for xen-devel@lists.xenproject.org; Fri, 16 May 2025 10:30:37 +0000
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [2a00:1450:4864:20::430])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0562caa4-3240-11f0-9ffb-bf95429c2676;
- Fri, 16 May 2025 12:25:00 +0200 (CEST)
-Received: from pmta09.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
- by mail187-4.suw11.mandrillapp.com (Mailchimp) with ESMTP id 4ZzNVz4HQJzlkq4C
- for <xen-devel@lists.xenproject.org>; Fri, 16 May 2025 10:24:59 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- 7f39565cc8474cdab9afc80d3eba8c0e; Fri, 16 May 2025 10:24:59 +0000
+ id c88a9ebb-3240-11f0-9ffb-bf95429c2676;
+ Fri, 16 May 2025 12:30:27 +0200 (CEST)
+Received: by mail-wr1-x430.google.com with SMTP id
+ ffacd0b85a97d-3a0af41faa5so1060028f8f.2
+ for <xen-devel@lists.xenproject.org>; Fri, 16 May 2025 03:30:27 -0700 (PDT)
+Received: from [192.168.1.5] (user-109-243-64-38.play-internet.pl.
+ [109.243.64.38]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3a35ca4d0fasm2461191f8f.8.2025.05.16.03.30.25
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 16 May 2025 03:30:26 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,118 +45,206 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0562caa4-3240-11f0-9ffb-bf95429c2676
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1747391099; x=1747661099;
-	bh=09td6MHuWEdAtrsXq56Leo+iJWk3EtNEWxuIkhfA2QY=;
-	h=From:Subject:To:Cc:Message-Id:In-Reply-To:References:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=a2gbiYcDd7G4EV3R5dxVsuqVVKQkuHXSZ49ZrcQCKwpH+qX/qpCklXy/nF5zhmYDD
-	 hhiShkEoS8n5h7/Gu46AcEd3w0qx5jzrjZA/tzc9NqYGBzXekD3T0+P2feDSoqCRZ9
-	 71LZ2prWtjXd88k5UBe/qm0jrtC/9ybHTqZkQVn6e/8RYSXOtHBTIXYhj8PnvRAi8j
-	 yb05w6xYqgKIzo2ASJ2pKRQcfyXVLV1G7FbCfWmDA7WMxG45mfvkuK3mlmPV1iqdoJ
-	 mYMg9moILLsRk0G73K4WXZesxLzlgYibF1IDQRnoNn2wmfFk6WTuvCmr0oC2HdR+YM
-	 WcU0gsRV1YBhw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1747391099; x=1747651599; i=teddy.astie@vates.tech;
-	bh=09td6MHuWEdAtrsXq56Leo+iJWk3EtNEWxuIkhfA2QY=;
-	h=From:Subject:To:Cc:Message-Id:In-Reply-To:References:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=ChFOJqpTBxrMueYRacemat+PhOtQRul24i2hKMOu+K6adyvVryfz1rexR0B7HCG8l
-	 vloHswhqGTnRPsIelIFWY24288wh2izec/m9cro0zButbUNKTHp4lRRkUHi84Ja5V1
-	 rCWqKsl1K1iWLOuZrv7rgdETeSijzFJ5G5qIhptnTui/53vIQ9hYw/QcV48qXgfkVz
-	 tQHuNkzoly0ZXMIWoCBL5ybb0rrabfGDgl0T33yxIsac1ZouTwdK+BAcxyNTf/ORbS
-	 5Aan1fymqhrtyc0MoC6NmkG5O3/Zh0QsUAtqU3Re64uoGCmyAqKK8nq7izgg2hLaq3
-	 Xcp6feiEQMHBw==
-From: "Teddy Astie" <teddy.astie@vates.tech>
-Subject: =?utf-8?Q?[RFC=20PATCH=2016/16]=20HACK:=20Add=20sev=5Fconsole=20hypercall?=
-X-Mailer: git-send-email 2.49.0
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1747391098333
-To: xen-devel@lists.xenproject.org
-Cc: "Teddy Astie" <teddy.astie@vates.tech>, "Andrew Cooper" <andrew.cooper3@citrix.com>, "Anthony PERARD" <anthony.perard@vates.tech>, "Michal Orzel" <michal.orzel@amd.com>, "Jan Beulich" <jbeulich@suse.com>, "Julien Grall" <julien@xen.org>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>, "Stefano Stabellini" <sstabellini@kernel.org>
-Message-Id: <ca3cae348fe6e774e0c8afda8e2adf5913e8fa44.1747312394.git.teddy.astie@vates.tech>
-In-Reply-To: <cover.1747312394.git.teddy.astie@vates.tech>
-References: <cover.1747312394.git.teddy.astie@vates.tech>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.7f39565cc8474cdab9afc80d3eba8c0e?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20250516:md
-Date: Fri, 16 May 2025 10:24:59 +0000
+X-Inumbo-ID: c88a9ebb-3240-11f0-9ffb-bf95429c2676
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1747391427; x=1747996227; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=jGFAzIqle5bFXnLYqA97v+UXHOVGWk8Y1pP980RKSzI=;
+        b=YGf/mEfZX5KIXifqJtcUgj9w0rH4aM1JVdT99u0MPYstzylckbG2SdB9Stn1kVwgho
+         rX+sPRIQTKgs3FvaqnOKR443qzolr0+2ZrCaGPi+U7478wAQC74FBvWr2lRL4mOmcKRs
+         vMrQhTdAqCZjGf+GLk9VazdCOAUx/CKOWgrS9CmvA08MP8nFZff/ZHEWDxu7GG2WcyU1
+         WHV4jBkvHk71UyYPBvavFQ1OmmNqsgH9Fsm8QiQ4PfX5KFmM0GW9flyDE5ko7lqzoxT/
+         yzonOMBRAz5sxyM6Il6R86l/Lgpc9kyee0mPMyVgZGwCsjSMcxltUTwujXbaSr9s+ldg
+         WF9A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1747391427; x=1747996227;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=jGFAzIqle5bFXnLYqA97v+UXHOVGWk8Y1pP980RKSzI=;
+        b=KudjAxVbsj+7ra85c6vaxTxghWYAgMMX/4DPZghKT8wwnqslklrFt+FJp/A5jHrdO7
+         kfyhFuK7gNTmTJHBYzhr06f2rcThTpT3bnk0KBzpf95YajtsW0jiy2HSVtPyYOoh4L73
+         tAzWPJ+YlHYEzF3YL1DRh149HT0ZMi5fWrJOqh9mOOxh8vz5gp7YEwwj1Aa3T3orojP9
+         lPCeqBcj6xqCOaZNDp1hLggLO2j40RUNTVVbLAHMlX9rvjN84ILMk6BAjJFzLb07bFHR
+         nQnNBg6O462T3VcpuO528HT7PMjq6w8zWQaBWvJ8Jy9pWYvQlf8pdZ5cznUpQ5bNXRmW
+         VtHw==
+X-Forwarded-Encrypted: i=1; AJvYcCW0rYEUF8k9oWr1iYZ37lbDCzA495vYRYolVobVLsMWmQZTBhuZulCUrDIxnZxquRWDkY3RZHKmq0s=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyVV+V6ImkJPb9W/36KF4oxoq6xB5lgV1MynGmVVPwwJxAWULpQ
+	gYK4L+grruirPqDc8Z1R2lAjSgnVueKS3gjT7169NZiIMYqC/mV3qse7
+X-Gm-Gg: ASbGncuq+LuIKQnW3/J0aKIOybjc1jz2MwHNGOUbpKO1qkN0cmN16so7nLyYNbDjQx0
+	L1DfwGZOXoWXQvQoxvls2va7yoD0Pswm1QeuVqjIyhCDC5jdg9SCo8V/9BRlj4VWfTT8NoCl6T2
+	JQxt2Mo2h2W6yslzPIIZsjy58monnAAT/J86b+8uNrl2eNOFtvDE3g0A2v2KqQiNl0TRmYdQIDi
+	6xjCt68Cn+OB2DZRpn7cTORhMB46HhkS+tm4gC81+pIKVjyrhVh0rRmqIngkoI3VNozk2CqF9Ix
+	xF0ILfcSWhEF6B3vZm7jrPXG7GTk9QzqpSWEYVHtXUkd6A/7Keanwb7XB6b9RESgqe155WAIbU9
+	Qe8yZWj6MQ6NnELJCh66IPWoH
+X-Google-Smtp-Source: AGHT+IHTl4/QVNzyZEu/4YGFgfak5x2zXUD0cAzGm9ePLh/U0buHDQdhryLy0/sOIX0wQ70FeM1UEQ==
+X-Received: by 2002:a05:6000:2af:b0:3a1:f5cf:9553 with SMTP id ffacd0b85a97d-3a35fe6628amr1700349f8f.6.1747391426445;
+        Fri, 16 May 2025 03:30:26 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------DoFTsLVLewXu9u8IxN10XzQx"
+Message-ID: <cd0004ac-a475-40e8-98d0-e2af16ef2c5c@gmail.com>
+Date: Fri, 16 May 2025 12:30:25 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 04/16] xen/riscv: add ioremap_*() variants using
+ ioremap_attr()
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1746530883.git.oleksii.kurochko@gmail.com>
+ <0258c1ac04a73b7d3f9f849507539a329b2998e3.1746530883.git.oleksii.kurochko@gmail.com>
+ <0fbe380e-2011-4238-9847-a007c754af6f@suse.com>
+Content-Language: en-US
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <0fbe380e-2011-4238-9847-a007c754af6f@suse.com>
+
+This is a multi-part message in MIME format.
+--------------DoFTsLVLewXu9u8IxN10XzQx
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Introduce a basic console hypercall for debugging needs under SEV
-when PV console is not usable at this point. This is later on used
-by the earlyprintk of the experimental SEV Linux branch.
 
-Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
----
- xen/common/coco.c            | 6 ++++++
- xen/include/hypercall-defs.c | 2 ++
- xen/include/public/xen.h     | 1 +
- 3 files changed, 9 insertions(+)
+On 5/14/25 4:32 PM, Jan Beulich wrote:
+> On 06.05.2025 18:51, Oleksii Kurochko wrote:
+>> @@ -583,3 +584,36 @@ void *__init arch_vmap_virt_end(void)
+>>   {
+>>       return (void *)(VMAP_VIRT_START + VMAP_VIRT_SIZE);
+>>   }
+>> +
+>> +static void *ioremap_attr(paddr_t start, size_t len, pte_attr_t attributes)
+>> +{
+>> +    mfn_t mfn = _mfn(PFN_DOWN(start));
+>> +    unsigned int offs = start & (PAGE_SIZE - 1);
+>> +    unsigned int nr = PFN_UP(offs + len);
+>> +    void *ptr = __vmap(&mfn, nr, 1, 1, attributes, VMAP_DEFAULT);
+>> +
+>> +    if ( ptr == NULL )
+>> +        return NULL;
+>> +
+>> +    return ptr + offs;
+>> +}
+>> +
+>> +void __iomem *ioremap_nocache(paddr_t start, size_t len)
+>> +{
+>> +    return ioremap_attr(start, len, PAGE_HYPERVISOR_NOCACHE);
+>> +}
+> Why do you need both this and ...
+>
+>> +void __iomem *ioremap_cache(paddr_t start, size_t len)
+>> +{
+>> +    return ioremap_attr(start, len, PAGE_HYPERVISOR);
+>> +}
+>> +
+>> +void __iomem *ioremap_wc(paddr_t start, size_t len)
+>> +{
+>> +    return ioremap_attr(start, len, PAGE_HYPERVISOR_WC);
+>> +}
+>> +
+>> +void *ioremap(paddr_t pa, size_t len)
+>> +{
+>> +    return ioremap_attr(pa, len, PAGE_HYPERVISOR_NOCACHE);
+>> +}
+> ... this? And why's the 1st parameter named differently for this last
+> one? Can't they all be in sync in this regard?
 
-diff --git a/xen/common/coco.c b/xen/common/coco.c
-index d9bd17628d..23c0da6281 100644
---- a/xen/common/coco.c
-+++ b/xen/common/coco.c
-@@ -131,4 +131,10 @@ long do_coco_op(unsigned int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
-     }
+Originally, I thought|ioremap_nocache()| was needed because it is used in
+common code. However, I now realize that the calls to|ioremap_nocache()|
+in|xen/drivers/char| are also ARM-specific. I assume all the
+UART drivers currently using|ioremap_nocache|() are intended for ARM.
+
+I'll drop|ioremap_nocache()| for RISC-V, and I think it makes sense to
+create a separate patch to clean this up for ARM as well.
+
+~ Oleksii
+
+--------------DoFTsLVLewXu9u8IxN10XzQx
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 5/14/25 4:32 PM, Jan Beulich wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:0fbe380e-2011-4238-9847-a007c754af6f@suse.com">
+      <pre wrap="" class="moz-quote-pre">On 06.05.2025 18:51, Oleksii Kurochko wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">@@ -583,3 +584,36 @@ void *__init arch_vmap_virt_end(void)
+ {
+     return (void *)(VMAP_VIRT_START + VMAP_VIRT_SIZE);
  }
- 
-+long do_sev_console_op(unsigned long c)
++
++static void *ioremap_attr(paddr_t start, size_t len, pte_attr_t attributes)
 +{
-+    printk("%c", (unsigned char)c);
-+    return 0;
++    mfn_t mfn = _mfn(PFN_DOWN(start));
++    unsigned int offs = start &amp; (PAGE_SIZE - 1);
++    unsigned int nr = PFN_UP(offs + len);
++    void *ptr = __vmap(&amp;mfn, nr, 1, 1, attributes, VMAP_DEFAULT);
++
++    if ( ptr == NULL )
++        return NULL;
++
++    return ptr + offs;
 +}
 +
- __initcall(coco_init);
-\ No newline at end of file
-diff --git a/xen/include/hypercall-defs.c b/xen/include/hypercall-defs.c
-index 6c01a9e395..19f40f0b38 100644
---- a/xen/include/hypercall-defs.c
-+++ b/xen/include/hypercall-defs.c
-@@ -210,6 +210,7 @@ hypfs_op(unsigned int cmd, const char *arg1, unsigned long arg2, void *arg3, uns
- xenpmu_op(unsigned int op, xen_pmu_params_t *arg)
- #endif
- coco_op(unsigned int cmd, void *arg)
-+sev_console_op(unsigned long c)
- 
- #ifdef CONFIG_PV
- caller: pv64
-@@ -297,5 +298,6 @@ mca                                do       do       -        -        -
- paging_domctl_cont                 do       do       do       do       -
- #endif
- coco_op                            do       do       do       do       do
-+sev_console_op                     do       do       do       do       -
- 
- #endif /* !CPPCHECK */
-diff --git a/xen/include/public/xen.h b/xen/include/public/xen.h
-index e656d6f617..04fc891353 100644
---- a/xen/include/public/xen.h
-+++ b/xen/include/public/xen.h
-@@ -119,6 +119,7 @@ DEFINE_XEN_GUEST_HANDLE(xen_ulong_t);
- #define __HYPERVISOR_dm_op                41
- #define __HYPERVISOR_hypfs_op             42
- #define __HYPERVISOR_coco_op              43
-+#define __HYPERVISOR_sev_console_op       45
- 
- /* Architecture-specific hypercall definitions. */
- #define __HYPERVISOR_arch_0               48
--- 
-2.49.0
++void __iomem *ioremap_nocache(paddr_t start, size_t len)
++{
++    return ioremap_attr(start, len, PAGE_HYPERVISOR_NOCACHE);
++}
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Why do you need both this and ...
 
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+void __iomem *ioremap_cache(paddr_t start, size_t len)
++{
++    return ioremap_attr(start, len, PAGE_HYPERVISOR);
++}
++
++void __iomem *ioremap_wc(paddr_t start, size_t len)
++{
++    return ioremap_attr(start, len, PAGE_HYPERVISOR_WC);
++}
++
++void *ioremap(paddr_t pa, size_t len)
++{
++    return ioremap_attr(pa, len, PAGE_HYPERVISOR_NOCACHE);
++}
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+... this? And why's the 1st parameter named differently for this last
+one? Can't they all be in sync in this regard?</pre>
+    </blockquote>
+    <pre data-start="59" data-end="336" class="">Originally, I thought <code
+    data-start="81" data-end="100">ioremap_nocache()</code> was needed because it is used in
+common code. However, I now realize that the calls to <code
+    data-start="188" data-end="207">ioremap_nocache()</code>
+in <code data-start="211" data-end="229">xen/drivers/char</code> are also ARM-specific. I assume all the
+UART drivers currently using <code data-start="81" data-end="100">ioremap_nocache</code>() are intended for ARM.</pre>
+    <pre data-start="338" data-end="467" class="">I'll drop <code
+    data-start="348" data-end="367">ioremap_nocache()</code> for RISC-V, and I think it makes sense to
+create a separate patch to clean this up for ARM as well.
 
+~ Oleksii</pre>
+  </body>
+</html>
 
-Teddy Astie | Vates XCP-ng Developer
-
-XCP-ng & Xen Orchestra - Vates solutions
-
-web: https://vates.tech
-
+--------------DoFTsLVLewXu9u8IxN10XzQx--
 
