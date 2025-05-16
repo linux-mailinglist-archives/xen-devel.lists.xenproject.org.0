@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C2E6EAB972F
-	for <lists+xen-devel@lfdr.de>; Fri, 16 May 2025 10:08:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.986475.1372039 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C89F4AB9742
+	for <lists+xen-devel@lfdr.de>; Fri, 16 May 2025 10:16:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.986500.1372049 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uFq7V-0006jh-F5; Fri, 16 May 2025 08:08:41 +0000
+	id 1uFqEZ-0000Mb-9p; Fri, 16 May 2025 08:15:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 986475.1372039; Fri, 16 May 2025 08:08:41 +0000
+Received: by outflank-mailman (output) from mailman id 986500.1372049; Fri, 16 May 2025 08:15:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uFq7V-0006hv-CP; Fri, 16 May 2025 08:08:41 +0000
-Received: by outflank-mailman (input) for mailman id 986475;
- Fri, 16 May 2025 08:08:39 +0000
+	id 1uFqEZ-0000KI-76; Fri, 16 May 2025 08:15:59 +0000
+Received: by outflank-mailman (input) for mailman id 986500;
+ Fri, 16 May 2025 08:15:58 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=C2cV=YA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uFq7T-0006hd-3X
- for xen-devel@lists.xenproject.org; Fri, 16 May 2025 08:08:39 +0000
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
- [2a00:1450:4864:20::52c])
+ id 1uFqEY-0000Jw-Fw
+ for xen-devel@lists.xenproject.org; Fri, 16 May 2025 08:15:58 +0000
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
+ [2a00:1450:4864:20::634])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f819cb3a-322c-11f0-9ffb-bf95429c2676;
- Fri, 16 May 2025 10:08:37 +0200 (CEST)
-Received: by mail-ed1-x52c.google.com with SMTP id
- 4fb4d7f45d1cf-5feb22e7d84so3526643a12.3
- for <xen-devel@lists.xenproject.org>; Fri, 16 May 2025 01:08:37 -0700 (PDT)
+ id fc318451-322d-11f0-9ffb-bf95429c2676;
+ Fri, 16 May 2025 10:15:53 +0200 (CEST)
+Received: by mail-ej1-x634.google.com with SMTP id
+ a640c23a62f3a-ac3eb3fdd2eso374272966b.0
+ for <xen-devel@lists.xenproject.org>; Fri, 16 May 2025 01:15:53 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6005ac33a88sm992816a12.51.2025.05.16.01.08.36
+ a640c23a62f3a-ad52d04f263sm113732766b.1.2025.05.16.01.15.52
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 16 May 2025 01:08:36 -0700 (PDT)
+ Fri, 16 May 2025 01:15:52 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,61 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f819cb3a-322c-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: fc318451-322d-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1747382917; x=1747987717; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1747383353; x=1747988153; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=NJsIoKxiTjIz4FhDz01fgfOhfoDdugxfkkq8ViNnKhg=;
-        b=TQ9CWq8xz6RPiG+FXf81/8TPGsi7dPrUKPNssKasRMccuWXjM2LshMPh0MRzXA359K
-         zR1cHXRaJ+a9eHf6bCnvtrdlVQHbjm33O+FeMERCcLMkGWWXnKGnHGRTqqvf2SLaP4xE
-         F973v9fQ18PSldp58s4g8IdRw4Rg7n/xCsda51Fp2TGV/rc3ouqeUE/sIxAr+zryOflg
-         HNqRxJy5nLbBR/CNzc23nD3tGRoc2eBB3SmFtSxMrn96zFZ5bvOeQF29ZPmi/puICe+h
-         ym1tkM24cFtiCnhtGcnzVjUf5BsL9bUz6ZRT99LRj3D2QK0CRy1DLBgoyK65Qa4M5W7W
-         FGDA==
+        bh=C8F+td71t3yd1OWLfCxdWe/H6jUO8aS9/ZSr2fwhpHo=;
+        b=O7iGAsHUBmyqDc9dDNb+hku4bXcS3IhSWhZAZxDHS6wOcdrBCzEldZEUjWXJV4n6b3
+         HDDEyPgxybRMJgK7tL19xkM1TLcp7iNKHfFZ1EDeyLWoY12cU+DaJRL60bnwIMS1z1g6
+         OfBKIBEYh+5FwU8QsHAxpuxjk/5iikvH9Py65JtAk4Yud+4Ap3KltQrJLaH1q58JBoCF
+         jdczgwg4/BKWDrEgPb/Pm1uzu4mtr3Dvix9tBp+wtibiXn59d79P/4GXoQjJj4nd9plz
+         V4w+vZgscGenkwsDKwEmebIVO4Qd10/bdQ4SFdegG4XiRZMpKNSdV9VMcXRHpdPl0m58
+         oPUA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747382917; x=1747987717;
+        d=1e100.net; s=20230601; t=1747383353; x=1747988153;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=NJsIoKxiTjIz4FhDz01fgfOhfoDdugxfkkq8ViNnKhg=;
-        b=KwrHhSHLVRXDOOPizi0LcZfSdsfyaFAIiVrkZFDT/Fl7EIlDVMkuviHSIAnmmAGwEV
-         taNS+rVu2EU9j1nCjM4pMe41fvx6qMWjzj5RSbgH97zH7BPLgCMMV0lzekeTXaflF9QB
-         qmnu/bjOMieYlh3BNpV9PALBramnmO2gYJO2ZJsFJ/RdSt40/VDZgnyZRAf635co188w
-         qVoGKHkLz0xnrbu8ZTFzoCIxtVorv2DUaNshdgAsBrUIBXQKNqszSPQEoOg4Tpy+nmaa
-         knuHU6y8Ipnynzqqzlbaf9kevLe6xB8AbC1k7vtKVNUUSgXBQqHGF2BIr5lpkNuX0v3m
-         BmWQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXlrqoqwXUy44or7FfUHi/dM3CGKuBAvyYEXkbuuAOHcS3mbvcTFO0UVwXz+oWWJqHwzSa9DbY2RBA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy6Qu8XH1uGdyxqSipdN+SesUSe9iM2VP3uGeWRsdLU9FV5Ax7V
-	Rwam9g6ClkeWIQNEZ84Zc1sH+nrxmV6trOhIc7utTsaxruXje3c8MPlvtkHyBg6NJA==
-X-Gm-Gg: ASbGncuGzrKqu4Dajr3BWjkMMqGIclOO5nVTBn5OUCwwRTSZLJR/5XtqCIS8+5hf66/
-	rmGjvRwrc8j5ULOLQdrUuLA3gGOLhbmJThT5ZRHjSD8U0p/MjJ9gTy8rOiofFAWTkrjlZrQYvTW
-	J59y2dttud5IkJBdPrfMwHru0iDJH6hND4bpZ3mk9tFfAa2+XNO2jd9Cv60DFJppOR2yQo0fVbI
-	CLvGmSpEOvS92clvRH2WqW1yGhR5WVU/wL2By5LuuEeUEheZl6aQc7kACw33QRtYJf40/ufQ/Po
-	Vf2T3iKYVM/eTeWq+6BII8r+AOWmWybaPGXyekwRaPj1LRiqWPy3LWR9MMXdo1P0xQCOEWwWJrh
-	xfoa5j2XGgfbZFtFNQTQ3SZglYAnLaEzhNQs9
-X-Google-Smtp-Source: AGHT+IG5p3D//ONcxCWjkT7EvOWt3wlC8dHuoCQSn/fyEuL6zs/LISp1yoWmjuZqSGaxMXBJN7TSMQ==
-X-Received: by 2002:a05:6402:42d4:b0:5ff:f524:90e0 with SMTP id 4fb4d7f45d1cf-6008a5a10c5mr1953482a12.11.1747382916628;
-        Fri, 16 May 2025 01:08:36 -0700 (PDT)
-Message-ID: <9db4a2ce-ba06-42a1-b6e6-7d0c2b59c0c3@suse.com>
-Date: Fri, 16 May 2025 10:08:35 +0200
+        bh=C8F+td71t3yd1OWLfCxdWe/H6jUO8aS9/ZSr2fwhpHo=;
+        b=LyRQ+huXn3x/H28CZprIsm+kSlUvy4BrO+C5Kr+aasG47zdaJT5Jxd0UTW4sWRlX3d
+         k0rd9A9loKqBk4KcqnMz6pbxGGepLZEczd9GFunIVKLxOgb+lW4s9k9P8+Op5P2uEZ5p
+         100wEAnru8CY5yty5XTj4Y/kR1TjszJEMvBUBOh9bjhSmOW3rIsWBnB+DInUOT5c7i9o
+         Cu1G0w9lFbmuK4OslPGOyjEsAGfnxAAHENQgY7KDBunzPqkRCf4HVlFCfCnvhIYn73EL
+         kYbPmLrM5IHxbWm3fY7votZnlc5OpJGk1wVwnooZie7QxnCO/dOH9nDRBDDXDAhSq1OB
+         2Lbw==
+X-Forwarded-Encrypted: i=1; AJvYcCV9Eqovj0mxF41lHUdkyLJiUeGcTxJaW0RBKZUON6ctWREO2lv2yb61DyezybAu7JcXZjpAI0qLWEg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yzu1dcICnGJzxGjIh0eHD21/ZPS02wv5DCgBRwJT75qdMe+Xqgm
+	fYAZDZ91+dJoFrZAQfSunQ/ny+62XAOtBjrde79EAtHBAwOhJ7GSU5SueAzf+u571Q==
+X-Gm-Gg: ASbGncuG8+/9MRirAsUlvKZLeWjh188LZtsmKE0qMzTKbRgXjD405Ha0+psyco/WBaD
+	SLxkWBetMLvfekQKj/DYTRMHsc8m1GNpXTFoi2R25Gr+exOe0+vUx4E65p1kzieirPaNzXEVKkE
+	i0XVCNrO0mER52WDCmCr/b7zMmgZr1bTTNtSiRtKIPB0wA1j7Sis3v03e7bNgXkJgTA0YIcspEX
+	8oB20LzSGoamAKhnurRf3yp9CeiYoMuh1GTeMMZ6erR/lhtUY+B6FqnWFmy8IvzCdMuLUprwHI8
+	iY12846hGqFl/Li5T71wfkfMGjiIWk2eRa2cRugb7FbD0S23+oMr/c7jVBOUQXw+Z69D5JRFUNk
+	JbQKdofuzON2ImD68STJ0L3F7YtIqAiimN7uRgMwTVqogXWU=
+X-Google-Smtp-Source: AGHT+IFk9r8RnRlXuzO4YQDRihSRbXjXxSdds7B2ivWngvK2xi/d7tyDOgigo+6EZou1mlIkvx16dg==
+X-Received: by 2002:a17:907:94d2:b0:ad2:4d23:eddd with SMTP id a640c23a62f3a-ad52d5dec95mr209035066b.59.1747383352997;
+        Fri, 16 May 2025 01:15:52 -0700 (PDT)
+Message-ID: <01498be0-979a-4b89-a70b-050ddb5ad1b3@suse.com>
+Date: Fri, 16 May 2025 10:15:51 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7/9] xen/x86: rename cache_flush_permitted() to
- has_arch_io_resources()
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20250506083148.34963-1-roger.pau@citrix.com>
- <20250506083148.34963-8-roger.pau@citrix.com>
- <e2396e92-79b6-487a-88d6-725cd9e173a9@suse.com>
- <aCXB5zpqGfBrPTZy@macbook.lan>
- <205a65d3-92bd-4281-8605-758ca03fcac5@suse.com>
- <aCbxMF9Uj4eBPMAf@macbook.lan>
+Subject: Re: [PATCH 1/3] xen: Introduce asm inline and use it for BUG_FRAME
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20250515195549.3703017-1-andrew.cooper3@citrix.com>
+ <20250515195549.3703017-2-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -125,82 +122,24 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aCbxMF9Uj4eBPMAf@macbook.lan>
+In-Reply-To: <20250515195549.3703017-2-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 16.05.2025 10:02, Roger Pau Monné wrote:
-> On Fri, May 16, 2025 at 09:07:43AM +0200, Jan Beulich wrote:
->> On 15.05.2025 12:28, Roger Pau Monné wrote:
->>> On Mon, May 12, 2025 at 05:16:02PM +0200, Jan Beulich wrote:
->>>> On 06.05.2025 10:31, Roger Pau Monne wrote:
->>>>> To better describe the underlying implementation.  Define
->>>>> cache_flush_permitted() as an alias of has_arch_io_resources(), so that
->>>>> current users of cache_flush_permitted() are not effectively modified.
->>>>>
->>>>> With the introduction of the new handler, change some of the call sites of
->>>>> cache_flush_permitted() to instead use has_arch_io_resources() as such
->>>>> callers are not after whether cache flush is enabled, but rather whether
->>>>> the domain has any IO resources assigned.
->>>>>
->>>>> Take the opportunity to adjust l1_disallow_mask() to use the newly
->>>>> introduced has_arch_io_resources() macro.
->>>>
->>>> While I'm happy with everything else here, to me it's at least on the
->>>> edge whether cache_flush_permitted() wouldn't be the better predicate
->>>> to use there, for this being about ...
->>>>
->>>>> --- a/xen/arch/x86/mm.c
->>>>> +++ b/xen/arch/x86/mm.c
->>>>> @@ -172,8 +172,7 @@ static DEFINE_SPINLOCK(subpage_ro_lock);
->>>>>  
->>>>>  #define l1_disallow_mask(d)                                     \
->>>>>      (((d) != dom_io) &&                                         \
->>>>> -     (rangeset_is_empty((d)->iomem_caps) &&                     \
->>>>> -      rangeset_is_empty((d)->arch.ioport_caps) &&               \
->>>>> +     (!has_arch_io_resources(d) &&                              \
->>>>>        !has_arch_pdevs(d) &&                                     \
->>>>>        is_pv_domain(d)) ?                                        \
->>>>>       L1_DISALLOW_MASK : (L1_DISALLOW_MASK & ~PAGE_CACHE_ATTRS))
->>>>
->>>> ... cachability, which goes hand in hand with the ability to also
->>>> flush cache contents.
->>>
->>> Hm, I was on the edge here, in fact I've previously coded this using
->>> cache_flush_permitted(), just to the change back to
->>> has_arch_io_resources().  If you think cache_flush_permitted() is
->>> better I'm fine with that.
->>
->> I think that would be better here, yet as you say - it's not entirely
->> clear cut either way.
+On 15.05.2025 21:55, Andrew Cooper wrote:
+> Compilers estimate the size of an asm() block for inlining purposes.
 > 
-> I've reverted this chunk of the change and left the code as-is for the
-> time being.
-
-Didn't we agree to use cache_flush_permitted() here instead?
-
->>>> Tangentially - is it plausible for has_arch_io_resources() to return
->>>> false when has_arch_pdevs() returns true? Perhaps there are exotic
->>>> PCI devices (but non-bridges) which work with no BARs at all ...
->>>
->>> I guess it's technically possible, albeit very unlikely?  How would
->>> the OS interact with such device then, exclusively with PCI config
->>> space accesses?
->>
->> Yes, that's what I'd expect for such devices. Looking around, there
->> are numerous such devices (leaving aside bridges). Just that it looks
->> implausible to me that one would want to pass those through to a guest.
+> Constructs with embedded metadata (BUG_FRAME, ALTERNATIVE, EXTABLE, etc)
+> appear large, depsite often only being a handful of instructions.  asm
+> inline() overrides the estimation to identify the block as being small.
 > 
-> Well, we also need to consider dom0 here (either PV or PVH), which
-> will get those devices passed through.  I assume those are mostly
-> system devices, and hence there's usually no interaction of the OS
-> with them.
+> This has a substantial impact on inlining decisions, expected to be for the
+> better given that the compiler has a more accurate picture to work with.
 > 
-> I'm thinking that our definition of cache_flush_permitted() is not
-> fully accurate then, we would need to also account for any PCI devices
-> being assigned to the guest, even if those have no IO resources?
+> No functional change.
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-I think so, yes.
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-Jan
 
