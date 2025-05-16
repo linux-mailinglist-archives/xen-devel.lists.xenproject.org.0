@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 027CFABA68C
-	for <lists+xen-devel@lfdr.de>; Sat, 17 May 2025 01:24:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.987752.1373002 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EDDF0ABA68F
+	for <lists+xen-devel@lfdr.de>; Sat, 17 May 2025 01:27:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.987767.1373012 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uG4Py-0001OF-Kt; Fri, 16 May 2025 23:24:42 +0000
+	id 1uG4SY-0001yH-0E; Fri, 16 May 2025 23:27:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 987752.1373002; Fri, 16 May 2025 23:24:42 +0000
+Received: by outflank-mailman (output) from mailman id 987767.1373012; Fri, 16 May 2025 23:27:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uG4Py-0001Ma-I3; Fri, 16 May 2025 23:24:42 +0000
-Received: by outflank-mailman (input) for mailman id 987752;
- Fri, 16 May 2025 23:24:41 +0000
+	id 1uG4SX-0001wN-TS; Fri, 16 May 2025 23:27:21 +0000
+Received: by outflank-mailman (input) for mailman id 987767;
+ Fri, 16 May 2025 23:27:20 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=T4W4=YA=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1uG4Px-0001MQ-Bk
- for xen-devel@lists.xenproject.org; Fri, 16 May 2025 23:24:41 +0000
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [2a00:1450:4864:20::430])
+ id 1uG4SW-0001wF-5h
+ for xen-devel@lists.xenproject.org; Fri, 16 May 2025 23:27:20 +0000
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [2a00:1450:4864:20::32b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f026171b-32ac-11f0-9ffb-bf95429c2676;
- Sat, 17 May 2025 01:24:39 +0200 (CEST)
-Received: by mail-wr1-x430.google.com with SMTP id
- ffacd0b85a97d-3a365a68057so177296f8f.0
- for <xen-devel@lists.xenproject.org>; Fri, 16 May 2025 16:24:39 -0700 (PDT)
+ id 4ececa03-32ad-11f0-9ffb-bf95429c2676;
+ Sat, 17 May 2025 01:27:18 +0200 (CEST)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-43cf06eabdaso24029455e9.2
+ for <xen-devel@lists.xenproject.org>; Fri, 16 May 2025 16:27:18 -0700 (PDT)
 Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-442fd4a0a5dsm51194205e9.0.2025.05.16.16.24.37
+ ffacd0b85a97d-3a35ca4d31fsm4245267f8f.6.2025.05.16.16.27.15
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 16 May 2025 16:24:37 -0700 (PDT)
+ Fri, 16 May 2025 16:27:16 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f026171b-32ac-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 4ececa03-32ad-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1747437879; x=1748042679; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1747438038; x=1748042838; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Gs+W4avg9rzloGEWyeULyfi7kt4lquxj3Poh2XAH+qU=;
-        b=QaavKXG9ko/EiKGKMA7nbzL8Mh0kBo8ocDpcPRF0+DRJYT5xdN6xxD8Etn/MzvA6fT
-         I1yvpR38ojeX2vzdjTsYOXzPEALmO3dLhGP+IkgLPBnh48EM633UQsNBjp+uXJZnC50k
-         N6KFCRC7j1A5HBp/WIDDlOW5njzk1pydAja7s=
+        bh=EbB1TmCF6/lzHlUUOQ2yuQHZP4GsZ+gKkf/sN6XE2jw=;
+        b=RbfRZf9D7dUya9A3aRBbocUjWjitZXW4pOuTtBAZkI5If6H1iR2a2CqI7HZUvvvMPw
+         T61JNi+HhiTDpT2d/p1a3lFnlZbFyRtxVaDbQn4FWvgINqGUStx8/O2rf5RApt+uOgbs
+         Luwq2j+833255G5iAdtqOaft6KPcNQL5ZvyGE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747437879; x=1748042679;
+        d=1e100.net; s=20230601; t=1747438038; x=1748042838;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Gs+W4avg9rzloGEWyeULyfi7kt4lquxj3Poh2XAH+qU=;
-        b=XU0byimvqx1t2UBO3ToKbfvrT5WUhD4YJiVBuOtXoY+NvB+jiLo0aACETvPwpJEhhm
-         NTXs/RjFHR1bmO9QjP86uKwVGFY+OrVeknhtRjgrZ86jQfrA2SVddavmlS9UCGuD6KPN
-         AzEwERBVx/HqRhrQs1eSIltC/WTHzePCf4JS+uSA+Pj1FBdrxcCUDe44Ek4QKgxM8U+t
-         iijS9jlazAHijTp1r9HiQ+rxVg9l7g0CShPLk170ygxFLw+06L8sC0rbgJxQmJc38MNM
-         4caSZ/YhnnjTpciP0nefRx9xfFa6lN4xVxqDULiu3/q5ZN3mDO+s4KuJjz/Bx0bm8QE7
-         gdcg==
-X-Forwarded-Encrypted: i=1; AJvYcCVM/1GrrGraoswQ8Zu7bIwwKxzX8uNlemzH2LTYqBp9mYJ1CGKdEtVbn+j4I1yoQ5nVMP9H9+EN2+E=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yxg5rWxpuvzhoWThRL8nQyDTuuzPZqrB2SrZFaIIOEwVWlqS5V/
-	Fqupa96SmOHO3w1/IG8qfHlWCWzOiCmCd8QFE0aXyq66NJrQDA3mw11FtX5J5/nePvfbTQ6SZLh
-	tnXyj
-X-Gm-Gg: ASbGnctSJIEq3I0pG3SflsWnSw43T+d94Acr9CBde4jVe4nETr9sV5e6PqXGwtCfGzu
-	seaE3dxVhHvbjW8HI8eYSX3chmhv6R0sesXCdW64YcydkOXN6j0r0nY/3uGum8TIUea2FgUClun
-	hoVTMIycI/sHY5g933nsWTFMXgA5rLMRMDQhQWb+UipgBk1yP4KIOOUZrcMZVEP0f16qdLYXcwc
-	59QHzW2AbnDDKHx/kfWnyqtSCjPhYIVEq1j3F4buuutW9xJd781NhzO2d6yFXnphKigAGf/FQcg
-	ymG7g9tnfw8QAYplt/DXWbG69RP946yqjlEY+DOgBkv7kcr17atw0cydx9KdQsRtNx4s8YRtWKy
-	QeolDjreq6p1Y3RdV
-X-Google-Smtp-Source: AGHT+IHMpL1ahXu98M5O7fxr4CAAuFIc0z60PHexSuTY7dm+p6Tah4XL6MufrOYhCYXVg3RvQtPUUQ==
-X-Received: by 2002:a05:6000:2913:b0:3a3:655e:d472 with SMTP id ffacd0b85a97d-3a3655ed55cmr798519f8f.47.1747437878909;
-        Fri, 16 May 2025 16:24:38 -0700 (PDT)
-Message-ID: <9c00c3b0-bbf2-42e9-84e7-8d61ac44f4e1@citrix.com>
-Date: Sat, 17 May 2025 00:24:37 +0100
+        bh=EbB1TmCF6/lzHlUUOQ2yuQHZP4GsZ+gKkf/sN6XE2jw=;
+        b=j8xT1ui/1zFZhi2uvybFNzNgLZ+XYxfz2LqX/p4n9daZPStGFhUzkM8RvczsP3qzfy
+         WoF3AqfIVmv6tqu6heqzk5XqswbgUiNEeKzBwsF9bmtkblIS/PyVycJy9C/KtdrTLsES
+         yFQAR1bYl8VTKyJg8hHeGSmhYuZTNtKeSaWQVdETdsVXfeb3LGgRcbb1dTh4pH1LD6JG
+         8YXrzbwMPmIIHu4aLkbuU9ngY2rRIOmpiBPSki7tSMRgQvnqmoLMKUQkz3vaHu+Dxjc7
+         mR3zitm7aE5RItMfWfHED0BSPI++5SPVRbyIvkTjTDITucjFHTTSnB3HXsDXQzoALfAL
+         5/CA==
+X-Forwarded-Encrypted: i=1; AJvYcCVjXlj5RrqHl1FGDexT06bBp2WFi7kf+Hol1/ixezER9l1aDQMNMX7zVkKQ5x5TKYGCZIMHpg7SipE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwyhJFeXVX2JxVND0hOq0t9tPDZbDG5ouUkvCpI1hhaLGNdKew2
+	X/oevT1WWyVi5xTGg24sxkE1CvNEA90w8nzGU7+SM6OL1Q9u0/BflGQyntmGTMK2NI8=
+X-Gm-Gg: ASbGncvV7xN9gHpTpOPFLGLTtXP4li2w3Jn71YtuBR2SzT+Rt4AJyoYi4UXXRcBqMm0
+	vzfkboB0ClsiQgnRjh1i5yMmxAC9pmQHnxosBjaUhaEO3qDk/inu/UqTzob5ch2aOWT0M5eELV4
+	ObgHQ9V6CWoTVWeODlq3qQZuOeboSJ8kNT0G1O/pr5zVbHSCo0cU6Eh0f9GBjhC9QhPPPDsmc39
+	bO5vPop/BPP8DhWFDBG3yppTNgxKg8pJBmiIGas28BNO8+vpNa2EGdKQEuzWJQIZG7zdvCtX+pl
+	yk33Jhb8FzQuupCyfc/OVsPYWzIBVvM7ofc9q51fqW78D+J0WSf0+DKx9XCWmLaTvttgqZXrp33
+	f7QpMTaDONsg9f42TKYPnE11K+oI=
+X-Google-Smtp-Source: AGHT+IGxgXvOgAXFE0w3M07n8Fa+RkNV8CoVW0Qkg7uVrr+wR56kjFasq5/tA7Cwd+32/oOxBWdwKA==
+X-Received: by 2002:a05:600c:3e10:b0:43d:3df:42d8 with SMTP id 5b1f17b1804b1-442fefd780fmr42374125e9.6.1747438037751;
+        Fri, 16 May 2025 16:27:17 -0700 (PDT)
+Message-ID: <9b94e43e-3357-41c2-b982-26ed7ffb2fa5@citrix.com>
+Date: Sat, 17 May 2025 00:27:15 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/6] xen/x86: add inclusion guards
+Subject: Re: [PATCH 3/6] xen: add inclusion guards
 To: Stefano Stabellini <stefano.stabellini@amd.com>,
  xen-devel@lists.xenproject.org
 Cc: michal.orzel@amd.com, jbeulich@suse.com, julien@xen.org,
  roger.pau@citrix.com, sstabellini@kernel.org, bertrand.marquis@arm.com,
  Federico Serafini <federico.serafini@bugseng.com>
 References: <alpine.DEB.2.22.394.2505161618280.145034@ubuntu-linux-20-04-desktop>
- <20250516232130.835779-2-stefano.stabellini@amd.com>
+ <20250516232130.835779-3-stefano.stabellini@amd.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -138,9 +137,9 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20250516232130.835779-2-stefano.stabellini@amd.com>
+In-Reply-To: <20250516232130.835779-3-stefano.stabellini@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
 On 17/05/2025 12:21 am, Stefano Stabellini wrote:
 > From: Federico Serafini <federico.serafini@bugseng.com>
@@ -156,4 +155,30 @@ On 17/05/2025 12:21 am, Stefano Stabellini wrote:
 > Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
 
 Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+> diff --git a/xen/common/decompress.h b/xen/common/decompress.h
+> index 4683eb6c7e..034c833665 100644
+> --- a/xen/common/decompress.h
+> +++ b/xen/common/decompress.h
+> @@ -1,3 +1,6 @@
+> +#ifndef DECOMPRESS_H
+> +#define DECOMPRESS_H
+> +
+>  #ifdef __XEN__
+>  
+>  #include <xen/decompress.h>
+> @@ -22,3 +25,5 @@
+>  #define large_free free
+>  
+>  #endif
+> +
+> +#endif /* DECOMPRESS_H */
+
+This is borderline too generic, but a COMMON_ prefix doesn't make it any
+better.  Oh well...
+
+~Andrew
+
+P.S. the decompressor infrastructure is several stacked disasters and
+needs redoing from scratch.
 
