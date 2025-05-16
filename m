@@ -2,36 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E553AB98E1
-	for <lists+xen-devel@lfdr.de>; Fri, 16 May 2025 11:32:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.986621.1372183 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C9AECAB98FA
+	for <lists+xen-devel@lfdr.de>; Fri, 16 May 2025 11:35:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.986660.1372210 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uFrPx-0000Bb-Vf; Fri, 16 May 2025 09:31:49 +0000
+	id 1uFrTQ-0002tz-KY; Fri, 16 May 2025 09:35:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 986621.1372183; Fri, 16 May 2025 09:31:49 +0000
+Received: by outflank-mailman (output) from mailman id 986660.1372210; Fri, 16 May 2025 09:35:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uFrPx-00007Y-P3; Fri, 16 May 2025 09:31:49 +0000
-Received: by outflank-mailman (input) for mailman id 986621;
- Fri, 16 May 2025 09:31:48 +0000
+	id 1uFrTQ-0002sG-Gz; Fri, 16 May 2025 09:35:24 +0000
+Received: by outflank-mailman (input) for mailman id 986660;
+ Fri, 16 May 2025 09:35:23 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=RMju=YA=bounce.vates.tech=bounce-md_30504962.682705fa.v1-f0ae509aaf1c4bf3846e2e2ff59eca25@srs-se1.protection.inumbo.net>)
- id 1uFrPw-0007iv-Ca
- for xen-devel@lists.xenproject.org; Fri, 16 May 2025 09:31:48 +0000
-Received: from mail133-28.atl131.mandrillapp.com
- (mail133-28.atl131.mandrillapp.com [198.2.133.28])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=C2cV=YA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uFrTP-0002s5-9a
+ for xen-devel@lists.xenproject.org; Fri, 16 May 2025 09:35:23 +0000
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [2a00:1450:4864:20::62d])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 962df48f-3238-11f0-9eb6-5ba50f476ded;
- Fri, 16 May 2025 11:31:46 +0200 (CEST)
-Received: from pmta13.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
- by mail133-28.atl131.mandrillapp.com (Mailchimp) with ESMTP id
- 4ZzMKQ4409zMQxdhF
- for <xen-devel@lists.xenproject.org>; Fri, 16 May 2025 09:31:38 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- f0ae509aaf1c4bf3846e2e2ff59eca25; Fri, 16 May 2025 09:31:38 +0000
+ id 168a1173-3239-11f0-9eb6-5ba50f476ded;
+ Fri, 16 May 2025 11:35:22 +0200 (CEST)
+Received: by mail-ej1-x62d.google.com with SMTP id
+ a640c23a62f3a-ad510c259b9so331869866b.1
+ for <xen-devel@lists.xenproject.org>; Fri, 16 May 2025 02:35:22 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ad52d4383d6sm124518166b.102.2025.05.16.02.35.21
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 16 May 2025 02:35:21 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,103 +45,90 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 962df48f-3238-11f0-9eb6-5ba50f476ded
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1747387898; x=1747657898;
-	bh=iMtHB+smiJdOQ9laMMAKQ5QBEFSycIXeep/kGpJ45n8=;
-	h=From:Subject:To:Cc:Message-Id:In-Reply-To:References:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=uoRmOpPM/u6zliOBEwflrIMPb6kr6kvAPf6jiQBWy6u4KRRuEWFnUqK3wy4JL+HuR
-	 WMbr3/iBZDaJ6sApqvWfI3T+GcFWB5DRWsiv19IzRHmpBqFiF+V+PlF+cfEMSvShZa
-	 Ty1CfuIK2W1ePpdNVVbXEp+a5qmzUxZmNFUerRvQPI71NjHcDZL49rbou8l7k16w3I
-	 N/faXzuTwSE6JgEqGWLphz0hLry6sAg6nOQJm8onJIX60wJJg/2jELwBif4j0mjZ0f
-	 C6GPd7siFqMI+CArNR2IegMp6bmyWvAem6V5mcbXg4kIqecoKI1WzoNQ3ePPwTMUsH
-	 C6hSBrAWW0+Ig==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1747387898; x=1747648398; i=teddy.astie@vates.tech;
-	bh=iMtHB+smiJdOQ9laMMAKQ5QBEFSycIXeep/kGpJ45n8=;
-	h=From:Subject:To:Cc:Message-Id:In-Reply-To:References:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=BE8kb2VeB4bxMGNM7bH0/vjoAH5LhtRH1WJuogcWVAjSVVMgaKl8AuWi2JAs/2rkw
-	 Rtoy7yDvPbLwduHgfecCp3UsLHrV0P2bXbN1bJ/DSyf255UHEGzwtLaoAfSzExrRIV
-	 fyYSZoUN5y28egsMZwOKAGtcc84qw7IK8FhA47mJHARefJUEc9HX+DA5tIReYkPD0M
-	 TQIoTad1XhRpzDU/Z4YrJQv4vNVItlDGkACeAfUiZysctBJbMDto8taGO3E5YUUzlB
-	 KCYw8Lqr+JxL/Mye7xXfl8sAykMpVmEWQQrYwmcVBa99Lt7ERkLQe1q0HNTVzKD2PS
-	 Wb6K9oZLpwK1g==
-From: "Teddy Astie" <teddy.astie@vates.tech>
-Subject: =?utf-8?Q?[RFC=20PATCH=2006/16]=20vmx:=20Introduce=20vcpu=20single=20context=20VPID=20invalidation?=
-X-Mailer: git-send-email 2.49.0
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1747387897605
-To: xen-devel@lists.xenproject.org
-Cc: "Teddy Astie" <teddy.astie@vates.tech>, "Jan Beulich" <jbeulich@suse.com>, "Andrew Cooper" <andrew.cooper3@citrix.com>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>
-Message-Id: <85727bf1e1df2feeba2af34aa3c7c951982121d6.1747312394.git.teddy.astie@vates.tech>
-In-Reply-To: <cover.1747312394.git.teddy.astie@vates.tech>
-References: <cover.1747312394.git.teddy.astie@vates.tech>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.f0ae509aaf1c4bf3846e2e2ff59eca25?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20250516:md
-Date: Fri, 16 May 2025 09:31:38 +0000
+X-Inumbo-ID: 168a1173-3239-11f0-9eb6-5ba50f476ded
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1747388122; x=1747992922; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
+         :from:user-agent:mime-version:date:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=GuUUtwLi5p78xydLz57ppP9dNcYDitOJlBtWKRI9umg=;
+        b=gLl8mcwDPNgSAxeSQLCuQOKooUtNvwrkv5Noi3V/OD8+cPux1fYZmCp19XeTBUBz5v
+         /sDqkli3SLorBfmBSfLqOioMfe41cbpmEWYJuVS9g3n+lEjaNrl4igZhmwkPL/Pqekh+
+         TFarT+fv0jVcWYYlDSe4BM2jtCDwC3LiRgGwr7HPQ+nflq5YSGEm/GJS74VEEs2vVmVV
+         wwH2Yi6PEFhBVXml1eCfZkkTu29YOMJM+jI1ZU3NnGDfLTa00nb0EJmuWdcYO5muG4Vw
+         XIy76G5RZ5OvGfu+I1eDXCxNFnU/91/Mxo3SX4t10N1PLTCwzGLE5AZb6Ks2PAprSrih
+         2rww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1747388122; x=1747992922;
+        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
+         :from:user-agent:mime-version:date:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=GuUUtwLi5p78xydLz57ppP9dNcYDitOJlBtWKRI9umg=;
+        b=n/JGo3uMTSQKjpO5GXSKpDMurYQ7SkvmaKTfNjTqLQrE4jMeQm3fdTJJuO8dslUFYq
+         pu7OcGa0QdzSJlc6qn85kNcJ1CF27JSrWH2s8OsULTyKvFEFqayD6E1D3ESUmC6UvJFn
+         3xii9SLKTciOIOxWj9nCF3gVaKlMa5mEvYJbnCh5dBqg+yAJ0DuXs5Rtwpfj5IkvzUp8
+         gaxWVy4DIEbOvOd9o72G4dO7k7TimqmBRbDDdOjs91vedse59JUissc3jlIO233uV/Hn
+         RQrs7w6yeTgxJJiSaU87WgegEzZ0YoS34RFrsXom7t2xTefQR99k2y56e1ulnDdv5iU7
+         0dSw==
+X-Gm-Message-State: AOJu0Yxj4R1ca07EQ05v8/rBrPdacWJidsGYsI/Fh4nyFkXrYqSucuUP
+	b5r+8Q/g9xt29GGr0gq+IwDH7A1dv1eZOpcISo+8Mao8ytrQ5iB2DNIPW1VIPMXSYg==
+X-Gm-Gg: ASbGnctKqh0vfyn2/nwoz7FTYIZlrvLFNEyxg5KorHh2bxYzLGZ+I+kIyghR5SZtK1A
+	1ds+KIdHsCzFPOMQQQBqr6BPwpRWUERM7iajmN0s7idbdEvvI3pV6YbmPi31Fk54o23xs6hdG8F
+	IMe+voavS1BxmadDccyfEm3YII6sjZy6LL5UnP8NWeH5KA9YdqRvTCEnoizELLirO7l8Mtc81jx
+	3e6hMmXnPCk1ykY1XRKKOjOgCLUhhREqkkvvlSv/ppJ2Strt3syhDj/fAKryj5rb06W7taocfAe
+	xUBUjZKmmar+igN39aPAiuEVU++WfQy4lkVz9yY1SGCt6Sk6vdU8z+hC0gcd2AVCEgb9dnPd+Zk
+	7bAZNF+2/Shyjw7xfoIQ+NfpDD9jMvJnTsGhSwqCkEZkRcWE=
+X-Google-Smtp-Source: AGHT+IE4kohGyvQKsrWfdwryU5Plp+Rqb8fPtvj4Cv8/GQjHwOL8icnsKTwCPYZnNn/wb1a7a8+ZOw==
+X-Received: by 2002:a17:907:7205:b0:ad2:409f:fe6f with SMTP id a640c23a62f3a-ad52d5d2fa4mr337706066b.44.1747388121581;
+        Fri, 16 May 2025 02:35:21 -0700 (PDT)
+Message-ID: <04d6f03a-ff40-48c0-a88b-753f3f8bda0e@suse.com>
+Date: Fri, 16 May 2025 11:35:20 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+User-Agent: Mozilla Thunderbird
+From: Jan Beulich <jbeulich@suse.com>
+Subject: Xen 4.18.5 released
+To: xen-announce@lists.xenproject.org
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Content-Language: en-US
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Introduce vpid_sync_vcpu_context to do a single-context invalidation
-on the vpid attached to the vcpu as a alternative to per-gva and all-context
-invlidations.
+All,
 
-Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
----
-This will be used on Intel platforms for the ASID management rework.
----
- xen/arch/x86/include/asm/hvm/vmx/vmx.h | 21 +++++++++++++++++++++
- 1 file changed, 21 insertions(+)
+we're pleased to announce the release of another bug fixing Xen version.
 
-diff --git a/xen/arch/x86/include/asm/hvm/vmx/vmx.h b/xen/arch/x86/include/asm/hvm/vmx/vmx.h
-index d85b52b9d5..a55a31b42d 100644
---- a/xen/arch/x86/include/asm/hvm/vmx/vmx.h
-+++ b/xen/arch/x86/include/asm/hvm/vmx/vmx.h
-@@ -451,6 +451,27 @@ static inline void ept_sync_all(void)
- 
- void ept_sync_domain(struct p2m_domain *p2m);
- 
-+static inline void vpid_sync_vcpu_context(struct vcpu *v)
-+{
-+    int type = INVVPID_SINGLE_CONTEXT;
-+
-+    /*
-+     * If single context invalidation is not supported, we escalate to
-+     * use all context invalidation.
-+     */
-+    if ( likely(cpu_has_vmx_vpid_invvpid_single_context) )
-+        goto execute_invvpid;
-+
-+    /*
-+     * If single context invalidation is not supported, we escalate to
-+     * use all context invalidation.
-+     */
-+    type = INVVPID_ALL_CONTEXT;
-+
-+execute_invvpid:
-+    __invvpid(type, v->arch.hvm.n1asid.asid, (u64)gva);
-+}
-+
- static inline void vpid_sync_vcpu_gva(struct vcpu *v, unsigned long gva)
- {
-     int type = INVVPID_INDIVIDUAL_ADDR;
--- 
-2.49.0
+Xen 4.18.5 is available from its git repository
+http://xenbits.xen.org/gitweb/?p=xen.git;a=shortlog;h=refs/heads/stable-4.18
+(tag RELEASE-4.18.5) or from the XenProject download page
+https://xenproject.org/resources/downloads/, or from
+https://downloads.xenproject.org/release/xen/4.18.5/.
 
+We recommend all users of the 4.18 stable series to update to this (now
+firmly) final full-support point release. The branch is moving into security-
+only maintenance mode now.
 
-
-Teddy Astie | Vates XCP-ng Developer
-
-XCP-ng & Xen Orchestra - Vates solutions
-
-web: https://vates.tech
-
+Regards, Jan
 
