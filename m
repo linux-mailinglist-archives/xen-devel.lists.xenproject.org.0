@@ -2,35 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29FC5AB9DF2
-	for <lists+xen-devel@lfdr.de>; Fri, 16 May 2025 15:50:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.987211.1372642 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2692CAB9E21
+	for <lists+xen-devel@lfdr.de>; Fri, 16 May 2025 16:04:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.987239.1372652 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uFvSI-0004WV-AQ; Fri, 16 May 2025 13:50:30 +0000
+	id 1uFvfV-00072m-Cd; Fri, 16 May 2025 14:04:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 987211.1372642; Fri, 16 May 2025 13:50:30 +0000
+Received: by outflank-mailman (output) from mailman id 987239.1372652; Fri, 16 May 2025 14:04:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uFvSI-0004U0-6s; Fri, 16 May 2025 13:50:30 +0000
-Received: by outflank-mailman (input) for mailman id 987211;
- Fri, 16 May 2025 13:50:28 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uFvfV-0006zw-9r; Fri, 16 May 2025 14:04:09 +0000
+Received: by outflank-mailman (input) for mailman id 987239;
+ Fri, 16 May 2025 14:04:07 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=H0hO=YA=bounce.vates.tech=bounce-md_30504962.682742a1.v1-34bc3b81b0104c4881c63d7a997c5f59@srs-se1.protection.inumbo.net>)
- id 1uFvSG-00038z-E2
- for xen-devel@lists.xenproject.org; Fri, 16 May 2025 13:50:28 +0000
-Received: from mail187-4.suw11.mandrillapp.com
- (mail187-4.suw11.mandrillapp.com [198.2.187.4])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b84f5bb7-325c-11f0-9ffb-bf95429c2676;
- Fri, 16 May 2025 15:50:26 +0200 (CEST)
-Received: from pmta09.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
- by mail187-4.suw11.mandrillapp.com (Mailchimp) with ESMTP id 4ZzT411FvrzlfcPK
- for <xen-devel@lists.xenproject.org>; Fri, 16 May 2025 13:50:25 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- 34bc3b81b0104c4881c63d7a997c5f59; Fri, 16 May 2025 13:50:25 +0000
+ <SRS0=n8HW=YA=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1uFvfT-0006zn-EU
+ for xen-devel@lists.xenproject.org; Fri, 16 May 2025 14:04:07 +0000
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [2a00:1450:4864:20::434])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a1222eda-325e-11f0-9eb6-5ba50f476ded;
+ Fri, 16 May 2025 16:04:06 +0200 (CEST)
+Received: by mail-wr1-x434.google.com with SMTP id
+ ffacd0b85a97d-3a36463b9cbso133175f8f.2
+ for <xen-devel@lists.xenproject.org>; Fri, 16 May 2025 07:04:06 -0700 (PDT)
+Received: from [192.168.1.5] (user-109-243-64-38.play-internet.pl.
+ [109.243.64.38]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-442f482f1d6sm100456375e9.14.2025.05.16.07.04.04
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 16 May 2025 07:04:04 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,108 +45,153 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b84f5bb7-325c-11f0-9ffb-bf95429c2676
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1747403425; x=1747673425;
-	bh=Pb2Nd/Hl+Fu+r4N2HLILmZb2CYCIP0DxQZNBb842Blg=;
-	h=From:Subject:To:Cc:Message-Id:Feedback-ID:Date:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
-	b=sQbVtfkdJPS/wZNJGnvj39DQP0TjnFsJlZh5l+zhjNRoY6zVkTd9vJvCYUtZ3Shag
-	 qYGG2fT8+s001qA+ibglYMQqR57MxXlGP1S7u0owGn+f6QEWje1QrLXxlFoioRkAWr
-	 m/GgWu+LKjvSJSsjuWEx/z3AbDHIaruMCZ2G1ng+9fJUUrG00Lf1vuYGDuUTBofPCf
-	 0U5vOHp6aRYsnAZzdH47/zn5tiJXnA3REfWGSanVLLw1EgjakxeuokIySS31Uo3dMR
-	 f8YaQAbGchhmdvfvQUZgNnG1oUeFlO+gopqc6w4NyhnuuRK0I7EWbS1nfVtgtz3xZS
-	 fqFV0Qzwp/1FQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1747403425; x=1747663925; i=teddy.astie@vates.tech;
-	bh=Pb2Nd/Hl+Fu+r4N2HLILmZb2CYCIP0DxQZNBb842Blg=;
-	h=From:Subject:To:Cc:Message-Id:Feedback-ID:Date:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
-	b=F+VbRV+fHqM4e8/X5pOt5MzqiyqyVqSTVwiVTFROhsiIHmxLb2jT7/rFm7yZs3OTR
-	 wo/j1/nwSr+WxraFpmwzmOJaVSR/l2Y2c65HXwDFEq1k0cL5Xb6rx5sBt00AkCf/2n
-	 /aipzOTyuN5J2L0XEq7ayYROeKpzgtjGO2MNk8x+cYCRGcCiE4xrkno2zeRwC3ZTqg
-	 KpMbuyZLKjmDgsCCcZw+VB9+1/kCnAns5NuVfsXmjdqoos7XKgNmkIgg712dKOiogN
-	 AKmt6D1kQ9MD+/Z3O9btVVikizKq3X5QNwyHpYG9zBLsN2HLcEU/WabMZZLSLjCPjT
-	 i7NgKbMdp6ipw==
-From: "Teddy Astie" <teddy.astie@vates.tech>
-Subject: =?utf-8?Q?[RFC=20PATCH]=20xen:=20Introduce=20extra=20IRQ=20count=20domain=20creation=20parameter?=
-X-Mailer: git-send-email 2.49.0
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1747403424440
-To: xen-devel@lists.xenproject.org
-Cc: "Teddy Astie" <teddy.astie@vates.tech>
-Message-Id: <9a746a8b2e9ee68a398795ecb5dcb53697aeece4.1747403245.git.teddy.astie@vates.tech>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.34bc3b81b0104c4881c63d7a997c5f59?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20250516:md
-Date: Fri, 16 May 2025 13:50:25 +0000
+X-Inumbo-ID: a1222eda-325e-11f0-9eb6-5ba50f476ded
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1747404245; x=1748009045; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=/edY+Zskoh0wrOH6vmFE+9XhkCbiUGh0UQtxuebu1lo=;
+        b=cXCivGgBnOxboVq0nT8lUUE2S6bKblMHfTit2UwUATO+4f8XraY44Wz3hTqUe8tI1/
+         H/PXb9THauW9coSy1ljbTGra8/ipx4UPtpPlJhBW4hKi0VquficgOUTq2J9gDIlikCVg
+         3wjXBD6ezyGBJRXqzjLLpitsvvG6+R+0sNGWW5Gpi69f76cPG3vNsz5nU0qUfDdZSVcw
+         PPkPa3KXdt1mXddzDwXUa4/P941UDFPAjbANnul/uF+rYTuQe+mKpYv2yhMA8fwMW2PV
+         s2z0PsIpGwy+29c1Zy7l3mK60viGr3B/+0gBU+zzNluVJMDwrZ+kUgk7xTIy8iPqljgM
+         +toA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1747404245; x=1748009045;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=/edY+Zskoh0wrOH6vmFE+9XhkCbiUGh0UQtxuebu1lo=;
+        b=WPR3mJHW39pavL3kP+1l94EirxMjLLGaHnCUrtVJR3UGLxkcHH7iR8WfKLwB/sfppp
+         OfjpuTdKY94El23lqtLgCsbp2NMTmOwLrClPn92isA5nPpUGqOQwE7J4GOs8xoRvELur
+         qDttRyKgykRDNWtyxUq1+X3Zl2Aw3RsdFdKiGOg9On520r12vrP1uDAqgT2QyOCiYONy
+         LYe4QAuuSm89O6fWeNYiW4JV2PRTjxTGx2HyG80Uq5+GxAu50myZFd4BTH1aUKWqUt5x
+         RUkWxLOwl3J9/0MRZ/HqoNS97LeOjCaAMEbIIsSWbvSmkT0H4ch2+DGSCiAeIBT0nWg/
+         1ktg==
+X-Forwarded-Encrypted: i=1; AJvYcCXRfreujrRVE+AY+50eijITsQUQtJHeveL0FxNR0d2p7eWOtm6bYukfgRVSgf7oB2tZBC9j8EpLu5k=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzFk2DoHJuAqwTLetZmjHXqlqNF7QmLUbdyX5rp4sAD/xpYbdX8
+	L4Gju2vYoOk4IemJG0YfuAxNSzY4hTR9pwNdCvgdq8n2L2GLLQvtDGUK
+X-Gm-Gg: ASbGncttzv/v52p8UVkBy6P1UmSQfbgrmDCabEQ6mO9YNFVZyODvheNLJac/BJI5AWt
+	in5q+Etc+MRxlyBM57VRJw55cb0857HB3s2U67KGW3nTR+Znsih3kJRqWGd3NUmwxTs+u58uU+2
+	/JS87ChIMdZPpc0JHSocXFzRvXwoftQcnhfW5+yjHxCsICKR/CWrxTU9xge8r2JyhiwHWmENeqv
+	9HoqlqF55j7xFoG3oasQBkKfGQfludr9ZBy125jywuHvQMPOXzs61j8huHrDQWfIBf4EFC4gGD4
+	SVIztBjeC9Uxt8Edas8ZyN8zDKiCC8/pjXozm800DV7kPGjcvnegrfvU4CfW67NYQub9HaKOKNS
+	obrvRWTUeV1mmuTV97SCsLlpZ
+X-Google-Smtp-Source: AGHT+IGF2wSQmYpEBCL/akwVepdZjGoqTRKqOSNhvf4mx6gUMtkVlD2C4NLQy3ui62kqlWC5nwUmQw==
+X-Received: by 2002:a5d:5849:0:b0:3a1:f654:b84e with SMTP id ffacd0b85a97d-3a35c845c23mr3619414f8f.55.1747404245089;
+        Fri, 16 May 2025 07:04:05 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------now59vvmZaF6uxg1wijNK0zA"
+Message-ID: <e6aea8e0-cf70-40ff-8729-24be0f432aeb@gmail.com>
+Date: Fri, 16 May 2025 16:04:03 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 07/16] xen/riscv: introduce platform_get_irq()
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Romain Caritey <Romain.Caritey@microchip.com>, xen-devel@lists.xenproject.org
+References: <cover.1746530883.git.oleksii.kurochko@gmail.com>
+ <a6198571b19be1f10b549e68a1b712a6653429e6.1746530883.git.oleksii.kurochko@gmail.com>
+ <f2d61436-739c-4e41-95a5-22a5176d9415@suse.com>
+Content-Language: en-US
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <f2d61436-739c-4e41-95a5-22a5176d9415@suse.com>
+
+This is a multi-part message in MIME format.
+--------------now59vvmZaF6uxg1wijNK0zA
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-When doing PCI Passthrough with high-IRQ devices (e.g NVMe drives),
-the default limit may be unefficient as not all domains requires
-more IRQs.
 
-Introduce a new parameter to allow the toolstack to tune the IRQ
-count if more is required.
+On 5/15/25 9:33 AM, Jan Beulich wrote:
+>> +int platform_get_irq(const struct dt_device_node *device, int index)
+>> +{
+>> +    struct dt_irq dt_irq;
+>> +    int ret;
+>> +
+>> +    if ( (ret = dt_device_get_irq(device, index, &dt_irq)) != 0 )
+>> +        return ret;
+>> +
+>> +    if ( (ret = irq_set_type(dt_irq.irq, dt_irq.type)) != 0 )
+>> +        return ret;
+>> +
+>> +    return dt_irq.irq;
+> What guarantees the value to be at most INT_MAX (i.e. no silent conversion to
+> a negative value, signaling an error to the caller)? Actually, looking at
+> irq_set_type(), what guarantees irq_to_desc() there to not overrun irq_desc[]?
+> There are no bounds checks in aplic_irq_xlate().
 
-Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
----
-0 extra_irqs is meaningful, though I am not sure how to expose this
-special case.
+I'm afraid that both aren't guaranteed. I think to have the following in platform_get_irq()
+should be enough:
+     BUILD_BUG_ON(NR_IRQS > INT_MAX);
 
-This of course wants libxl support next.
----
- xen/common/domain.c         | 8 +++++---
- xen/include/public/domctl.h | 3 +++
- 2 files changed, 8 insertions(+), 3 deletions(-)
+     if ( dt_irq.irq >= NR_IRQS )
+         panic("irq%d is bigger then NR_IRQS(%d)\n", dt_irq.irq, NR_IRQS);
 
-diff --git a/xen/common/domain.c b/xen/common/domain.c
-index abf1969e60..5c628962fc 100644
---- a/xen/common/domain.c
-+++ b/xen/common/domain.c
-@@ -912,10 +912,12 @@ struct domain *domain_create(domid_t domid,
- 
- #ifdef CONFIG_HAS_PIRQ
-     if ( !is_hardware_domain(d) )
--        d->nr_pirqs = nr_static_irqs + extra_domU_irqs;
-+        d->nr_pirqs = nr_static_irqs + config->extra_irqs ?: extra_domU_irqs;
-     else
--        d->nr_pirqs = extra_hwdom_irqs ? nr_static_irqs + extra_hwdom_irqs
--                                       : arch_hwdom_irqs(d);
-+    {
-+        unsigned int extra_irqs = config->extra_irqs ?: extra_hwdom_irqs;
-+        d->nr_pirqs = extra_irqs ? nr_static_irqs + extra_irqs : arch_hwdom_irqs(d);
-+    }
-     d->nr_pirqs = min(d->nr_pirqs, nr_irqs);
- 
-     radix_tree_init(&d->pirq_tree);
-diff --git a/xen/include/public/domctl.h b/xen/include/public/domctl.h
-index 5b2063eed9..e4bb366c78 100644
---- a/xen/include/public/domctl.h
-+++ b/xen/include/public/domctl.h
-@@ -121,6 +121,9 @@ struct xen_domctl_createdomain {
-     /* CPU pool to use; specify 0 or a specific existing pool */
-     uint32_t cpupool_id;
- 
-+    /* Additional IRQ for this guest. 0 to use Xen default value. */
-+    uint32_t extra_irqs;
+Probably, the first could be dropped as I'm not sure that anyone will use such big
+number for NR_IRQS.
+
+~ Oleksii
+
+
+--------------now59vvmZaF6uxg1wijNK0zA
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 5/15/25 9:33 AM, Jan Beulich wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:f2d61436-739c-4e41-95a5-22a5176d9415@suse.com">
+      <pre class="moz-quote-pre" wrap=""><blockquote type="cite"
+      style="color: #007cff;"><pre wrap="" class="moz-quote-pre">+int platform_get_irq(const struct dt_device_node *device, int index)
++{
++    struct dt_irq dt_irq;
++    int ret;
 +
-     struct xen_arch_domainconfig arch;
- };
- 
--- 
-2.49.0
++    if ( (ret = dt_device_get_irq(device, index, &amp;dt_irq)) != 0 )
++        return ret;
++
++    if ( (ret = irq_set_type(dt_irq.irq, dt_irq.type)) != 0 )
++        return ret;
++
++    return dt_irq.irq;
+</pre></blockquote><pre wrap="" class="moz-quote-pre">What guarantees the value to be at most INT_MAX (i.e. no silent conversion to
+a negative value, signaling an error to the caller)? Actually, looking at
+irq_set_type(), what guarantees irq_to_desc() there to not overrun irq_desc[]?
+There are no bounds checks in aplic_irq_xlate().</pre></pre>
+    </blockquote>
+    <pre>I'm afraid that both aren't guaranteed. I think to have the following in platform_get_irq()
+should be enough:
+    BUILD_BUG_ON(NR_IRQS &gt; INT_MAX);
+
+    if ( dt_irq.irq &gt;= NR_IRQS )
+        panic("irq%d is bigger then NR_IRQS(%d)\n", dt_irq.irq, NR_IRQS);
+
+Probably, the first could be dropped as I'm not sure that anyone will use such big
+number for NR_IRQS.
+
+~ Oleksii
 
 
+</pre>
+  </body>
+</html>
 
-Teddy Astie | Vates XCP-ng Developer
-
-XCP-ng & Xen Orchestra - Vates solutions
-
-web: https://vates.tech
-
+--------------now59vvmZaF6uxg1wijNK0zA--
 
