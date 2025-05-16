@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ABBBFAB9A04
+	by mail.lfdr.de (Postfix) with ESMTPS id CAE53AB9A05
 	for <lists+xen-devel@lfdr.de>; Fri, 16 May 2025 12:23:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.986806.1372321 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.986808.1372332 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uFsDD-0000SS-J4; Fri, 16 May 2025 10:22:43 +0000
+	id 1uFsDW-0000mq-VC; Fri, 16 May 2025 10:23:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 986806.1372321; Fri, 16 May 2025 10:22:43 +0000
+Received: by outflank-mailman (output) from mailman id 986808.1372332; Fri, 16 May 2025 10:23:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uFsDD-0000QA-GE; Fri, 16 May 2025 10:22:43 +0000
-Received: by outflank-mailman (input) for mailman id 986806;
- Fri, 16 May 2025 10:22:42 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uFsDW-0000l6-Ry; Fri, 16 May 2025 10:23:02 +0000
+Received: by outflank-mailman (input) for mailman id 986808;
+ Fri, 16 May 2025 10:23:01 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=yArv=YA=bounce.vates.tech=bounce-md_30504962.682711ee.v1-11ea96c549834e75beb56434593a40e2@srs-se1.protection.inumbo.net>)
- id 1uFsDB-0000Q4-Mg
- for xen-devel@lists.xenproject.org; Fri, 16 May 2025 10:22:42 +0000
+ <SRS0=QhQp=YA=bounce.vates.tech=bounce-md_30504962.68271201.v1-ca09d91c625d4298b8887bc6fbe1b5db@srs-se1.protection.inumbo.net>)
+ id 1uFsDV-0000kS-CD
+ for xen-devel@lists.xenproject.org; Fri, 16 May 2025 10:23:01 +0000
 Received: from mail133-28.atl131.mandrillapp.com
  (mail133-28.atl131.mandrillapp.com [198.2.133.28])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b16934bb-323f-11f0-9eb6-5ba50f476ded;
- Fri, 16 May 2025 12:22:39 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id bcbf4d37-323f-11f0-9ffb-bf95429c2676;
+ Fri, 16 May 2025 12:22:58 +0200 (CEST)
 Received: from pmta13.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
  by mail133-28.atl131.mandrillapp.com (Mailchimp) with ESMTP id
- 4ZzNSG0vkDzMQxhqx
- for <xen-devel@lists.xenproject.org>; Fri, 16 May 2025 10:22:38 +0000 (GMT)
+ 4ZzNSd5Df4zMQxhRj
+ for <xen-devel@lists.xenproject.org>; Fri, 16 May 2025 10:22:57 +0000 (GMT)
 Received: from [37.26.189.201] by mandrillapp.com id
- 11ea96c549834e75beb56434593a40e2; Fri, 16 May 2025 10:22:38 +0000
+ ca09d91c625d4298b8887bc6fbe1b5db; Fri, 16 May 2025 10:22:57 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,1286 +43,1612 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b16934bb-323f-11f0-9eb6-5ba50f476ded
+X-Inumbo-ID: bcbf4d37-323f-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1747390958; x=1747660958;
-	bh=+whoNgFeV0mthcIxVXin+w5q5c78yv2JPXRHflVP3O4=;
+	s=mte1; t=1747390977; x=1747660977;
+	bh=RsBZjCl+lvc8p7k8336ELrjqMIlkVDeJAPRHMTKknmM=;
 	h=From:Subject:To:Cc:Message-Id:In-Reply-To:References:Feedback-ID:
 	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
 	 Subject:From;
-	b=DtptuGg/aRRLX8dpxHuFNwc2dtpevXwmsG0oyIWh5sAW61l9B2m5gXC7EHnOhLzem
-	 dU7JtdCKc9DMfyLVBqoLI0ltzCltSeYO8xcs7X6l/kLkPKlBM4/cv3n1QaAygbkW0K
-	 Un0+WaOatUUEdUs3a1B1xG4kdmgym3gaDqIGASBuYNfMvidQMvB7p9gVIhb1sxjpSg
-	 vDvpvSr9xN+pbgwXUn9so8qj1h5k7dA8zWJcD2NJzaCcZjtFyprfoP7qThEuvi/Z10
-	 Exnm2bwx3wQsY4z2HY3j1TAQ1hAxuVQca/9Dz7XZ3SU6aLyP56PA6z/Kgffl3Xl7Uj
-	 XdfsCtJkOFIZQ==
+	b=hzUTaRi/+MoTTZ1KvIvZlVXOaGSRbmCxJkdU+BG6p8T/aWY/fNm3gJ78U7JnvD8zO
+	 /qrUgq7Lmv/t1+pnuWyR5zxnSB3Mf5puePF3tQtdXqN17VXBng2z1etSMBwEAWA4A8
+	 jWXjatfmO2N6PSo+YCXnHBAPcNejPd/b+SY78j6+ZG9LR65WLMO63jeAkED9maFdM1
+	 PpyINZqWj2+TNL2wfJUe4jujoAAbEUcQRiLMWHFqrxn73MVdtK4oZTuz6SC/b9c9qD
+	 rOsQexF053Fe6SKFfnj9F1O40PdRNVY5BuV0pQGg/VEHRb71xznZmVUmqIA43Pwx/M
+	 lrW6/VCY6K6uw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1747390958; x=1747651458; i=teddy.astie@vates.tech;
-	bh=+whoNgFeV0mthcIxVXin+w5q5c78yv2JPXRHflVP3O4=;
+	t=1747390977; x=1747651477; i=teddy.astie@vates.tech;
+	bh=RsBZjCl+lvc8p7k8336ELrjqMIlkVDeJAPRHMTKknmM=;
 	h=From:Subject:To:Cc:Message-Id:In-Reply-To:References:Feedback-ID:
 	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
 	 Subject:From;
-	b=Jh6vaneGII+HSnbkaqjnrJ43Xw1nVj3ko0F2rlFGvqoZjDAJ5Xmz9tHZYsBiOd2mI
-	 z5D0QiMQg0ED0lP6UpY9hfZkn0JpDQfLOkroujDlnUQOv6zvKN23Eso/Uo8O4I9ybG
-	 u0pw6xELoLYHaLByUFd7TagsoOGEYgAO/TwmZbZib8hNmg9STjv3IImTBhEwszVDAU
-	 XiniWL0ym90y7fxHcw8UWxrAqhvpE5XUmJqo7yqU+tgqvc+n4DAKIcFZYyoIGEBQ5S
-	 rATQsN9HikN+zRycK1wAtfBp2Y0twDAxwtvwmfwyCakY0Z/qtvmvnHE2N3hbfwiMVD
-	 u2o/dUQsVGg4A==
+	b=VZGziPl1zxNWXRmuzr9ZEELghjqBni/cLFE4/zbJrJETqdDwrZuT0ZidbljKoDWhX
+	 y95J9zdFhvKtDO+hYK7APvO5ewViXL5UdOPvbNsWY/KqNFeJPZ/c+MxJs3lrsWmAD0
+	 gPlfMQZgQ4XbzM1FiSTx+akEoCchDv2uM8u2+hialOcZgNioCrzttdtQm2fORCaGSi
+	 jlVYjOgPnl2+afm7SeJw7tt0GFYSZC5cY3hHCj9WRMeJxpGMBbq6CmqAVbcZ/BRbsz
+	 5CtBSNCY6pojxQlnxmsZCzFgzWqvBwoH1FuutZ3pNlPl8tqHb+WSltx/pEeq59LpH3
+	 v8/Q7ERZNBXRw==
 From: "Teddy Astie" <teddy.astie@vates.tech>
-Subject: =?utf-8?Q?[RFC=20PATCH=2007/16]=20x86/hvm:=20Introduce=20Xen-wide=20ASID=20allocator?=
+Subject: =?utf-8?Q?[RFC=20PATCH=2008/16]=20x86/crypto:=20Introduce=20AMD=20PSP=20driver=20for=20SEV?=
 X-Mailer: git-send-email 2.49.0
 X-Bm-Disclaimer: Yes
 X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1747390956490
+X-Bm-Transport-Timestamp: 1747390975438
 To: xen-devel@lists.xenproject.org
-Cc: "Teddy Astie" <teddy.astie@vates.tech>, "Jan Beulich" <jbeulich@suse.com>, "Andrew Cooper" <andrew.cooper3@citrix.com>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>, "Anthony PERARD" <anthony.perard@vates.tech>, "Michal Orzel" <michal.orzel@amd.com>, "Julien Grall" <julien@xen.org>, "Stefano Stabellini" <sstabellini@kernel.org>, "Tim Deegan" <tim@xen.org>, "Vaishali Thakkar" <vaishali.thakkar@suse.com>
-Message-Id: <9cdb3e67abd01390bcc4cd103ca539d6bf7adbc0.1747312394.git.teddy.astie@vates.tech>
+Cc: "Teddy Astie" <teddy.astie@vates.tech>, "Jan Beulich" <jbeulich@suse.com>, "Andrew Cooper" <andrew.cooper3@citrix.com>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>, "Anthony PERARD" <anthony.perard@vates.tech>, "Michal Orzel" <michal.orzel@amd.com>, "Julien Grall" <julien@xen.org>, "Stefano Stabellini" <sstabellini@kernel.org>, "Andrei Semenov" <andrei.semenov@vates.tech>
+Message-Id: <f6d4eaafa524c2ffda5ed4616f141d2f9c8be79a.1747312394.git.teddy.astie@vates.tech>
 In-Reply-To: <cover.1747312394.git.teddy.astie@vates.tech>
 References: <cover.1747312394.git.teddy.astie@vates.tech>
 X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.11ea96c549834e75beb56434593a40e2?=
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.ca09d91c625d4298b8887bc6fbe1b5db?=
 X-Mandrill-User: md_30504962
 Feedback-ID: 30504962:30504962.20250516:md
-Date: Fri, 16 May 2025 10:22:38 +0000
+Date: Fri, 16 May 2025 10:22:57 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 7bit
 
-From: Vaishali Thakkar <vaishali.thakkar@suse.com>
+From: Andrei Semenov <andrei.semenov@vates.tech>
 
-Currently ASID generation and management is done per-PCPU. This
-scheme is incompatible with SEV technologies as SEV VMs need to
-have a fixed ASID associated with all vcpus of the VM throughout
-it's lifetime.
+Introduce a basic PSP driver with focus on SEV commands.
 
-This commit introduces a Xen-wide allocator which initializes
-the asids at the start of xen and allows to have a fixed asids
-throughout the lifecycle of all domains. Having a fixed asid
-for non-SEV domains also presents us with the opportunity to
-further take use of AMD instructions like TLBSYNC and INVLPGB
-for broadcasting the TLB invalidations.
-
-Introduce vcpu->needs_tlb_flush attribute to schedule a guest TLB
-flush for the next VMRUN/VMENTER. This will be later be done using
-either TLB_CONTROL field (AMD) or INVEPT (Intel). This flush method
-is used in place of the current ASID swapping logic.
-
+Signed-off-by: Andrei Semenov <andrei.semenov@vates.tech>
 Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
-Signed-off-by: Vaishali Thakkar <vaishali.thakkar@suse.com>
 ---
-TODO:
-- Intel: Don't assign the VPID at each VMENTER, though we need
-  to rethink how we manage VMCS with nested virtualization / altp2m
-  for changing this behavior.
-- AMD: Consider hot-plug of CPU with ERRATA_170. (is it possible ?)
-- Consider cases where we don't have enough ASIDs (e.g Xen as nested guest)
-- Nested virtualization ASID management
+ xen/arch/x86/include/asm/psp-sev.h | 655 +++++++++++++++++++++++
+ xen/drivers/Kconfig                |   2 +
+ xen/drivers/Makefile               |   1 +
+ xen/drivers/crypto/Kconfig         |  10 +
+ xen/drivers/crypto/Makefile        |   1 +
+ xen/drivers/crypto/asp.c           | 830 +++++++++++++++++++++++++++++
+ 6 files changed, 1499 insertions(+)
+ create mode 100644 xen/arch/x86/include/asm/psp-sev.h
+ create mode 100644 xen/drivers/crypto/Kconfig
+ create mode 100644 xen/drivers/crypto/Makefile
+ create mode 100644 xen/drivers/crypto/asp.c
 
-This patch currently breaks shadow paging, yet I haven't managed to diagnose
-exactly what is happening.
-
-Original changelog :
-Changes since v3:
- - Simplified asid bitmap management
-   It is only called once per domain, so it doesn't need to have
-   a complicated logic.
- - Drop hvm_asid_data structure which doesn't serve a purpose anymore.
- - Introduce and use vcpu->needs_tlb_flush to indicate that a guest TLB
-   flush is needed before waking the vcpu. It is used to set
-   TLB_CONTROL (AMD) field properly or make a appropriate invept (Intel).
- - Only assign ASID once (see TODO for Intel side)
- - Check the ERRATA_170 for each CPU present.
- - add asid_alloc_range() for allocating within a specific
-   range (e.g SEV ASID ranges)
-
-Changes since v2:
- - Moved hvm_asid_domain_create to hvm_domain_initialise
- - Added __ro_after_init for bitmaps
- - Make hvm_asid_init  unsigned int __init
- - Remove functions hvm_asid_flush_domain_asid and hvm_asid_flush_vcpu
- - Mark ASID 0 permenantly
- - Remove the irrelevant tracking of generation
- - Add hvm_domain_asid_destroy to avoid layering violation
- - Remove unnecessary fixups touching the same code
- - Add a logic to move asids from reclaim_bitmap->asid_bitmap
- - Misc styling fixes - remove unncessary trailing spaces/printks
-
-Changes since v1:
- - Introudce hvm_asid_bitmap as discussed at Xen-summit
- - Introduce hvm_reclaim_bitmap for reusing ASIDs
- - Assign the asid to the domain at the domain creation via
-   hvm_asid_domain_create
- - Corrected the use of CPUID in the svm_asid_init function
- - Adjusted the code in nested virtualization related files
-   to use new scheme. As discussed at the Xen-summit, this
-   is not tested.
- - Addressed Jan's comments about using uniform style for
-   accessing domains via v->domain
- - Allow to flush at the vcpu level in HAP code
- - Documented the sketch of implementation for the new scheme
- - Remove min_asid as for this patch, we are not demonstarting
-   it's usecase
- - Arrange includes in multiple files as per Jan's feedback
----
- xen/arch/x86/flushtlb.c                |   7 +-
- xen/arch/x86/hvm/asid.c                | 170 +++++++++++--------------
- xen/arch/x86/hvm/emulate.c             |   2 +-
- xen/arch/x86/hvm/hvm.c                 |  14 +-
- xen/arch/x86/hvm/nestedhvm.c           |   7 +-
- xen/arch/x86/hvm/svm/asid.c            |  77 +++++++----
- xen/arch/x86/hvm/svm/nestedsvm.c       |   2 +-
- xen/arch/x86/hvm/svm/svm.c             |  37 +++---
- xen/arch/x86/hvm/svm/svm.h             |   4 -
- xen/arch/x86/hvm/vmx/vmcs.c            |   6 +-
- xen/arch/x86/hvm/vmx/vmx.c             |  68 +++++-----
- xen/arch/x86/hvm/vmx/vvmx.c            |   5 +-
- xen/arch/x86/include/asm/hvm/asid.h    |  26 ++--
- xen/arch/x86/include/asm/hvm/domain.h  |   1 +
- xen/arch/x86/include/asm/hvm/hvm.h     |  15 +--
- xen/arch/x86/include/asm/hvm/svm/svm.h |   5 +
- xen/arch/x86/include/asm/hvm/vcpu.h    |  10 +-
- xen/arch/x86/include/asm/hvm/vmx/vmx.h |   8 +-
- xen/arch/x86/mm/hap/hap.c              |   7 +-
- xen/arch/x86/mm/p2m.c                  |   7 +-
- xen/arch/x86/mm/paging.c               |   2 +-
- xen/arch/x86/mm/shadow/hvm.c           |   1 +
- xen/arch/x86/mm/shadow/multi.c         |   1 +
- xen/include/xen/sched.h                |   2 +
- 24 files changed, 238 insertions(+), 246 deletions(-)
-
-diff --git a/xen/arch/x86/flushtlb.c b/xen/arch/x86/flushtlb.c
-index 1e0011d5b1..9cae828b34 100644
---- a/xen/arch/x86/flushtlb.c
-+++ b/xen/arch/x86/flushtlb.c
-@@ -13,6 +13,7 @@
- #include <xen/softirq.h>
- #include <asm/cache.h>
- #include <asm/flushtlb.h>
-+#include <asm/hvm/hvm.h>
- #include <asm/invpcid.h>
- #include <asm/nops.h>
- #include <asm/page.h>
-@@ -124,7 +125,6 @@ void switch_cr3_cr4(unsigned long cr3, unsigned long cr4)
- 
-     if ( tlb_clk_enabled )
-         t = pre_flush();
--    hvm_flush_guest_tlbs();
- 
-     old_cr4 = read_cr4();
-     ASSERT(!(old_cr4 & X86_CR4_PCIDE) || !(old_cr4 & X86_CR4_PGE));
-@@ -229,8 +229,9 @@ unsigned int flush_area_local(const void *va, unsigned int flags)
-             do_tlb_flush();
-     }
- 
--    if ( flags & FLUSH_HVM_ASID_CORE )
--        hvm_flush_guest_tlbs();
-+    //if ( flags & FLUSH_HVM_ASID_CORE )
-+    //    // Needed ?
-+    //    hvm_flush_tlb(NULL);
- 
-     if ( flags & FLUSH_CACHE )
-     {
-diff --git a/xen/arch/x86/hvm/asid.c b/xen/arch/x86/hvm/asid.c
-index 8d27b7dba1..91f8e44210 100644
---- a/xen/arch/x86/hvm/asid.c
-+++ b/xen/arch/x86/hvm/asid.c
-@@ -8,133 +8,107 @@
- #include <xen/init.h>
- #include <xen/lib.h>
- #include <xen/param.h>
--#include <xen/sched.h>
--#include <xen/smp.h>
--#include <xen/percpu.h>
-+#include <xen/spinlock.h>
-+#include <xen/xvmalloc.h>
+diff --git a/xen/arch/x86/include/asm/psp-sev.h b/xen/arch/x86/include/asm/psp-sev.h
+new file mode 100644
+index 0000000000..5bbe1ed2c0
+--- /dev/null
++++ b/xen/arch/x86/include/asm/psp-sev.h
+@@ -0,0 +1,655 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/*
++ * AMD Secure Encrypted Virtualization (SEV) driver interface
++ *
++ * Copyright (C) 2016-2017 Advanced Micro Devices, Inc.
++ *
++ * Author: Brijesh Singh <brijesh.singh@amd.com>
++ *
++ * SEV API spec is available at https://developer.amd.com/sev
++ */
 +
- #include <asm/hvm/asid.h>
-+#include <asm/bitops.h>
- 
- /* Xen command-line option to enable ASIDs */
- static bool __read_mostly opt_asid_enabled = true;
- boolean_param("asid", opt_asid_enabled);
- 
-+bool __read_mostly asid_enabled = false;
-+static unsigned long __ro_after_init *asid_bitmap;
-+static unsigned long __ro_after_init asid_count;
-+static DEFINE_SPINLOCK(asid_lock);
++#ifndef __PSP_SEV_H__
++#define __PSP_SEV_H__
 +
- /*
-- * ASIDs partition the physical TLB.  In the current implementation ASIDs are
-- * introduced to reduce the number of TLB flushes.  Each time the guest's
-- * virtual address space changes (e.g. due to an INVLPG, MOV-TO-{CR3, CR4}
-- * operation), instead of flushing the TLB, a new ASID is assigned.  This
-- * reduces the number of TLB flushes to at most 1/#ASIDs.  The biggest
-- * advantage is that hot parts of the hypervisor's code and data retain in
-- * the TLB.
-- *
-  * Sketch of the Implementation:
-- *
-- * ASIDs are a CPU-local resource.  As preemption of ASIDs is not possible,
-- * ASIDs are assigned in a round-robin scheme.  To minimize the overhead of
-- * ASID invalidation, at the time of a TLB flush,  ASIDs are tagged with a
-- * 64-bit generation.  Only on a generation overflow the code needs to
-- * invalidate all ASID information stored at the VCPUs with are run on the
-- * specific physical processor.  This overflow appears after about 2^80
-- * host processor cycles, so we do not optimize this case, but simply disable
-- * ASID useage to retain correctness.
-+ * ASIDs are assigned uniquely per domain and doesn't change during
-+ * the lifecycle of the domain. Once vcpus are initialized and are up,
-+ * we assign the same ASID to all vcpus of that domain at the first VMRUN.
-+ * In order to process a TLB flush on a vcpu, we set needs_tlb_flush
-+ * to schedule a TLB flush for the next VMRUN (e.g using tlb control field
-+ * of VMCB).
-  */
- 
--/* Per-CPU ASID management. */
--struct hvm_asid_data {
--   uint64_t core_asid_generation;
--   uint32_t next_asid;
--   uint32_t max_asid;
--   bool disabled;
--};
--
--static DEFINE_PER_CPU(struct hvm_asid_data, hvm_asid_data);
--
--void hvm_asid_init(int nasids)
-+int __init hvm_asid_init(unsigned long nasids)
- {
--    static int8_t g_disabled = -1;
--    struct hvm_asid_data *data = &this_cpu(hvm_asid_data);
-+    ASSERT(nasids);
- 
--    data->max_asid = nasids - 1;
--    data->disabled = !opt_asid_enabled || (nasids <= 1);
--
--    if ( g_disabled != data->disabled )
--    {
--        printk("HVM: ASIDs %sabled.\n", data->disabled ? "dis" : "en");
--        if ( g_disabled < 0 )
--            g_disabled = data->disabled;
--    }
-+    asid_count = nasids;
-+    asid_enabled = opt_asid_enabled || (nasids <= 1);
- 
--    /* Zero indicates 'invalid generation', so we start the count at one. */
--    data->core_asid_generation = 1;
-+    asid_bitmap = xvzalloc_array(unsigned long, BITS_TO_LONGS(asid_count));
-+    if ( !asid_bitmap )
-+        return -ENOMEM;
- 
--    /* Zero indicates 'ASIDs disabled', so we start the count at one. */
--    data->next_asid = 1;
--}
-+    printk("HVM: ASIDs %sabled (count=%lu)\n", asid_enabled ? "en" : "dis", asid_count);
- 
--void hvm_asid_flush_vcpu_asid(struct hvm_vcpu_asid *asid)
--{
--    write_atomic(&asid->generation, 0);
--}
-+    /* ASID 0 is reserved, mark it as permanently used */
-+    set_bit(0, asid_bitmap);
- 
--void hvm_asid_flush_vcpu(struct vcpu *v)
--{
--    hvm_asid_flush_vcpu_asid(&v->arch.hvm.n1asid);
--    hvm_asid_flush_vcpu_asid(&vcpu_nestedhvm(v).nv_n2asid);
-+    return 0;
- }
- 
--void hvm_asid_flush_core(void)
-+int hvm_asid_alloc(struct hvm_asid *asid)
- {
--    struct hvm_asid_data *data = &this_cpu(hvm_asid_data);
-+    unsigned long new_asid;
-+    
-+    if ( !asid_enabled )
-+    {
-+        asid->asid = 1;
-+        return 0;
-+    }
- 
--    if ( data->disabled )
--        return;
-+    spin_lock(&asid_lock);
-+    new_asid = find_first_zero_bit(asid_bitmap, asid_count);
-+    if ( new_asid > asid_count )
-+        return -ENOSPC;
- 
--    if ( likely(++data->core_asid_generation != 0) )
--        return;
-+    set_bit(new_asid, asid_bitmap);
- 
--    /*
--     * ASID generations are 64 bit.  Overflow of generations never happens.
--     * For safety, we simply disable ASIDs, so correctness is established; it
--     * only runs a bit slower.
--     */
--    printk("HVM: ASID generation overrun. Disabling ASIDs.\n");
--    data->disabled = 1;
-+    asid->asid = new_asid;
-+    spin_unlock(&asid_lock);
-+    return 0;
- }
- 
--bool hvm_asid_handle_vmenter(struct hvm_vcpu_asid *asid)
-+int hvm_asid_alloc_range(struct hvm_asid *asid, unsigned long min, unsigned long max)
- {
--    struct hvm_asid_data *data = &this_cpu(hvm_asid_data);
--
--    /* On erratum #170 systems we must flush the TLB. 
--     * Generation overruns are taken here, too. */
--    if ( data->disabled )
--        goto disabled;
--
--    /* Test if VCPU has valid ASID. */
--    if ( read_atomic(&asid->generation) == data->core_asid_generation )
--        return 0;
-+    unsigned long new_asid;
-+    
-+    if ( WARN_ON(min >= asid_count) )
-+        return -EINVAL;
-+    
-+    if ( !asid_enabled )
-+        return -EOPNOTSUPP;
++#include <xen/types.h>
 +
-+    spin_lock(&asid_lock);
-+    new_asid = find_next_zero_bit(asid_bitmap, asid_count, min);
-+    if ( new_asid > max || new_asid > asid_count )
-+        return -ENOSPC;
++/**
++ * SEV platform and guest management commands
++ */
++enum sev_cmd {
++    /* platform commands */
++    SEV_CMD_INIT      = 0x001,
++    SEV_CMD_SHUTDOWN    = 0x002,
++    SEV_CMD_FACTORY_RESET    = 0x003,
++    SEV_CMD_PLATFORM_STATUS    = 0x004,
++    SEV_CMD_PEK_GEN      = 0x005,
++    SEV_CMD_PEK_CSR      = 0x006,
++    SEV_CMD_PEK_CERT_IMPORT    = 0x007,
++    SEV_CMD_PDH_CERT_EXPORT    = 0x008,
++    SEV_CMD_PDH_GEN      = 0x009,
++    SEV_CMD_DF_FLUSH    = 0x00A,
++    SEV_CMD_DOWNLOAD_FIRMWARE  = 0x00B,
++    SEV_CMD_GET_ID      = 0x00C,
++    SEV_CMD_INIT_EX                 = 0x00D,
 +
-+    set_bit(new_asid, asid_bitmap);
++    /* Guest commands */
++    SEV_CMD_DECOMMISSION    = 0x020,
++    SEV_CMD_ACTIVATE    = 0x021,
++    SEV_CMD_DEACTIVATE    = 0x022,
++    SEV_CMD_GUEST_STATUS    = 0x023,
 +
-+    asid->asid = new_asid;
-+    spin_unlock(&asid_lock);
-+    return 0;
-+}
- 
--    /* If there are no free ASIDs, need to go to a new generation */
--    if ( unlikely(data->next_asid > data->max_asid) )
--    {
--        hvm_asid_flush_core();
--        data->next_asid = 1;
--        if ( data->disabled )
--            goto disabled;
--    }
-+void hvm_asid_free(struct hvm_asid *asid)
-+{
-+    ASSERT( asid->asid );
- 
--    /* Now guaranteed to be a free ASID. */
--    asid->asid = data->next_asid++;
--    write_atomic(&asid->generation, data->core_asid_generation);
-+    if ( !asid_enabled )
-+        return;
- 
--    /*
--     * When we assign ASID 1, flush all TLB entries as we are starting a new
--     * generation, and all old ASID allocations are now stale. 
--     */
--    return (asid->asid == 1);
-+    ASSERT( asid->asid < asid_count );
- 
-- disabled:
--    asid->asid = 0;
--    return 0;
-+    spin_lock(&asid_lock);
-+    WARN_ON(!test_bit(asid->asid, asid_bitmap));
-+    clear_bit(asid->asid, asid_bitmap);
-+    spin_unlock(&asid_lock);
- }
- 
- /*
-diff --git a/xen/arch/x86/hvm/emulate.c b/xen/arch/x86/hvm/emulate.c
-index 91f004d233..6ed8e03475 100644
---- a/xen/arch/x86/hvm/emulate.c
-+++ b/xen/arch/x86/hvm/emulate.c
-@@ -2666,7 +2666,7 @@ static int cf_check hvmemul_tlb_op(
-     case x86emul_invpcid:
-         if ( x86emul_invpcid_type(aux) != X86_INVPCID_INDIV_ADDR )
-         {
--            hvm_asid_flush_vcpu(current);
-+            current->needs_tlb_flush = true;
-             break;
-         }
-         aux = x86emul_invpcid_pcid(aux);
-diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
-index 0e7c453b24..625ae2098b 100644
---- a/xen/arch/x86/hvm/hvm.c
-+++ b/xen/arch/x86/hvm/hvm.c
-@@ -702,6 +702,10 @@ int hvm_domain_initialise(struct domain *d,
-     if ( rc )
-         goto fail2;
- 
-+    rc = hvm_asid_alloc(&d->arch.hvm.asid);
-+    if ( rc )
-+        goto fail2;
++    /* Guest launch commands */
++    SEV_CMD_LAUNCH_START    = 0x030,
++    SEV_CMD_LAUNCH_UPDATE_DATA  = 0x031,
++    SEV_CMD_LAUNCH_UPDATE_VMSA  = 0x032,
++    SEV_CMD_LAUNCH_MEASURE    = 0x033,
++    SEV_CMD_LAUNCH_UPDATE_SECRET  = 0x034,
++    SEV_CMD_LAUNCH_FINISH    = 0x035,
++    SEV_CMD_ATTESTATION_REPORT  = 0x036,
 +
-     rc = alternative_call(hvm_funcs.domain_initialise, d);
-     if ( rc != 0 )
-         goto fail2;
-@@ -782,8 +786,9 @@ void hvm_domain_destroy(struct domain *d)
-         list_del(&ioport->list);
-         xfree(ioport);
-     }
--
-+    hvm_asid_free(&d->arch.hvm.asid);
-     destroy_vpci_mmcfg(d);
++    /* Guest migration commands (outgoing) */
++    SEV_CMD_SEND_START    = 0x040,
++    SEV_CMD_SEND_UPDATE_DATA  = 0x041,
++    SEV_CMD_SEND_UPDATE_VMSA  = 0x042,
++    SEV_CMD_SEND_FINISH    = 0x043,
++    SEV_CMD_SEND_CANCEL    = 0x044,
 +
- }
- 
- static int cf_check hvm_save_tsc_adjust(struct vcpu *v, hvm_domain_context_t *h)
-@@ -1603,7 +1608,7 @@ int hvm_vcpu_initialise(struct vcpu *v)
-     int rc;
-     struct domain *d = v->domain;
- 
--    hvm_asid_flush_vcpu(v);
-+    v->needs_tlb_flush = true;
- 
-     spin_lock_init(&v->arch.hvm.tm_lock);
-     INIT_LIST_HEAD(&v->arch.hvm.tm_list);
-@@ -4145,6 +4150,11 @@ static void hvm_s3_resume(struct domain *d)
-     }
- }
- 
-+int hvm_flush_tlb(const unsigned long *vcpu_bitmap)
-+{
-+    return current->domain->arch.paging.flush_tlb(vcpu_bitmap);
-+}
++    /* Guest migration commands (incoming) */
++    SEV_CMD_RECEIVE_START    = 0x050,
++    SEV_CMD_RECEIVE_UPDATE_DATA  = 0x051,
++    SEV_CMD_RECEIVE_UPDATE_VMSA  = 0x052,
++    SEV_CMD_RECEIVE_FINISH    = 0x053,
 +
- static int hvmop_flush_tlb_all(void)
- {
-     if ( !is_hvm_domain(current->domain) )
-diff --git a/xen/arch/x86/hvm/nestedhvm.c b/xen/arch/x86/hvm/nestedhvm.c
-index bddd77d810..61e866b771 100644
---- a/xen/arch/x86/hvm/nestedhvm.c
-+++ b/xen/arch/x86/hvm/nestedhvm.c
-@@ -12,6 +12,7 @@
- #include <asm/hvm/nestedhvm.h>
- #include <asm/event.h>  /* for local_event_delivery_(en|dis)able */
- #include <asm/paging.h> /* for paging_mode_hap() */
-+#include <asm/hvm/asid.h>
- 
- static unsigned long *shadow_io_bitmap[3];
- 
-@@ -36,13 +37,11 @@ nestedhvm_vcpu_reset(struct vcpu *v)
-     hvm_unmap_guest_frame(nv->nv_vvmcx, 1);
-     nv->nv_vvmcx = NULL;
-     nv->nv_vvmcxaddr = INVALID_PADDR;
--    nv->nv_flushp2m = 0;
-+    nv->nv_flushp2m = true;
-     nv->nv_p2m = NULL;
-     nv->stale_np2m = false;
-     nv->np2m_generation = 0;
- 
--    hvm_asid_flush_vcpu_asid(&nv->nv_n2asid);
--
-     alternative_vcall(hvm_funcs.nhvm_vcpu_reset, v);
- 
-     /* vcpu is in host mode */
-@@ -86,7 +85,7 @@ static void cf_check nestedhvm_flushtlb_ipi(void *info)
-      * This is cheaper than flush_tlb_local() and has
-      * the same desired effect.
-      */
--    hvm_asid_flush_core();
-+    WARN_ON(hvm_flush_tlb(NULL));
-     vcpu_nestedhvm(v).nv_p2m = NULL;
-     vcpu_nestedhvm(v).stale_np2m = true;
- }
-diff --git a/xen/arch/x86/hvm/svm/asid.c b/xen/arch/x86/hvm/svm/asid.c
-index 7977a8e86b..1b6def4a4c 100644
---- a/xen/arch/x86/hvm/svm/asid.c
-+++ b/xen/arch/x86/hvm/svm/asid.c
-@@ -1,56 +1,77 @@
- /* SPDX-License-Identifier: GPL-2.0-only */
- /*
-- * asid.c: handling ASIDs in SVM.
-+ * asid.c: handling ASIDs/VPIDs.
-  * Copyright (c) 2007, Advanced Micro Devices, Inc.
-  */
- 
-+#include <xen/cpumask.h>
++    /* Guest debug commands */
++    SEV_CMD_DBG_DECRYPT    = 0x060,
++    SEV_CMD_DBG_ENCRYPT    = 0x061,
 +
- #include <asm/amd.h>
- #include <asm/hvm/nestedhvm.h>
- #include <asm/hvm/svm/svm.h>
-+#include <asm/hvm/svm/vmcb.h>
-+#include <asm/processor.h>
- 
- #include "svm.h"
- 
--void svm_asid_init(const struct cpuinfo_x86 *c)
-+void __init svm_asid_init(void)
- {
--    int nasids = 0;
-+    unsigned int cpu;
-+    int nasids = cpuid_ebx(0x8000000aU);
++    SEV_CMD_MAX,
++};
 +
-+    if ( !nasids )
-+        nasids = 1;
- 
--    /* Check for erratum #170, and leave ASIDs disabled if it's present. */
--    if ( !cpu_has_amd_erratum(c, AMD_ERRATUM_170) )
--        nasids = cpuid_ebx(0x8000000aU);
-+    for_each_present_cpu(cpu)
-+    {
-+        /* Check for erratum #170, and leave ASIDs disabled if it's present. */
-+        if ( cpu_has_amd_erratum(&cpu_data[cpu], AMD_ERRATUM_170) )
-+        {
-+            printk(XENLOG_WARNING "Disabling ASID due to errata 170 on CPU%u\n", cpu);
-+            nasids = 1;
-+        }
-+    }
- 
--    hvm_asid_init(nasids);
-+    BUG_ON(hvm_asid_init(nasids));
- }
- 
- /*
-- * Called directly before VMRUN.  Checks if the VCPU needs a new ASID,
-- * assigns it, and if required, issues required TLB flushes.
-+ * Called directly at the first VMRUN/VMENTER of a vcpu to assign the ASID/VPID.
-  */
--void svm_asid_handle_vmrun(void)
-+void svm_vcpu_assign_asid(struct vcpu *v)
- {
--    struct vcpu *curr = current;
--    struct vmcb_struct *vmcb = curr->arch.hvm.svm.vmcb;
--    struct hvm_vcpu_asid *p_asid =
--        nestedhvm_vcpu_in_guestmode(curr)
--        ? &vcpu_nestedhvm(curr).nv_n2asid : &curr->arch.hvm.n1asid;
--    bool need_flush = hvm_asid_handle_vmenter(p_asid);
--
--    /* ASID 0 indicates that ASIDs are disabled. */
--    if ( p_asid->asid == 0 )
--    {
--        vmcb_set_asid(vmcb, true);
--        vmcb->tlb_control =
--            cpu_has_svm_flushbyasid ? TLB_CTRL_FLUSH_ASID : TLB_CTRL_FLUSH_ALL;
--        return;
--    }
-+    struct vmcb_struct *vmcb = v->arch.hvm.svm.vmcb;
-+    struct hvm_asid *p_asid = &v->domain->arch.hvm.asid;
++/**
++ * struct sev_data_init - INIT command parameters
++ *
++ * @flags: processing flags
++ * @tmr_address: system physical address used for SEV-ES
++ * @tmr_len: len of tmr_address
++ */
++struct sev_data_init {
++    uint32_t flags;       /* In */
++    uint32_t reserved;    /* In */
++    uint64_t tmr_address; /* In */
++    uint32_t tmr_len;     /* In */
++} __packed;
 +
-+    ASSERT(p_asid->asid);
- 
--    if ( vmcb_get_asid(vmcb) != p_asid->asid )
--        vmcb_set_asid(vmcb, p_asid->asid);
-+    /* In case ASIDs are disabled, as ASID = 0 is reserved, guest can use 1 instead. */
-+    vmcb_set_asid(vmcb, asid_enabled ? p_asid->asid : 1);
-+}
++/**
++ * struct sev_data_init_ex - INIT_EX command parameters
++ *
++ * @length: len of the command buffer read by the PSP
++ * @flags: processing flags
++ * @tmr_address: system physical address used for SEV-ES
++ * @tmr_len: len of tmr_address
++ * @nv_address: system physical address used for PSP NV storage
++ * @nv_len: len of nv_address
++ */
++struct sev_data_init_ex {
++    uint32_t length;      /* In */
++    uint32_t flags;       /* In */
++    uint64_t tmr_address; /* In */
++    uint32_t tmr_len;     /* In */
++    uint32_t reserved;    /* In */
++    uint64_t nv_address;  /* In/Out */
++    uint32_t nv_len;      /* In */
++} __packed;
 +
-+/* Call to make a TLB flush at the next VMRUN. */
-+void svm_vcpu_set_tlb_control(struct vcpu *v)
-+{
-+    struct vmcb_struct *vmcb = v->arch.hvm.svm.vmcb;
-+    
++#define SEV_INIT_FLAGS_SEV_ES  0x01
++
++/**
++ * struct sev_data_pek_csr - PEK_CSR command parameters
++ *
++ * @address: PEK certificate chain
++ * @len: len of certificate
++ */
++struct sev_data_pek_csr {
++    uint64_t address; /* In */
++    uint32_t len;     /* In/Out */
++} __packed;
++
++/**
++ * struct sev_data_cert_import - PEK_CERT_IMPORT command parameters
++ *
++ * @pek_address: PEK certificate chain
++ * @pek_len: len of PEK certificate
++ * @oca_address: OCA certificate chain
++ * @oca_len: len of OCA certificate
++ */
++struct sev_data_pek_cert_import {
++    uint64_t pek_cert_address; /* In */
++    uint32_t pek_cert_len;     /* In */
++    uint32_t reserved;         /* In */
++    uint64_t oca_cert_address; /* In */
++    uint32_t oca_cert_len;     /* In */
++} __packed;
++
++/**
++ * struct sev_data_download_firmware - DOWNLOAD_FIRMWARE command parameters
++ *
++ * @address: physical address of firmware image
++ * @len: len of the firmware image
++ */
++struct sev_data_download_firmware {
++    uint64_t address; /* In */
++    uint32_t len;     /* In */
++} __packed;
++
++/**
++ * struct sev_data_get_id - GET_ID command parameters
++ *
++ * @address: physical address of region to place unique CPU ID(s)
++ * @len: len of the region
++ */
++struct sev_data_get_id {
++    uint64_t address; /* In */
++    uint32_t len;     /* In/Out */
++} __packed;
++/**
++ * struct sev_data_pdh_cert_export - PDH_CERT_EXPORT command parameters
++ *
++ * @pdh_address: PDH certificate address
++ * @pdh_len: len of PDH certificate
++ * @cert_chain_address: PDH certificate chain
++ * @cert_chain_len: len of PDH certificate chain
++ */
++struct sev_data_pdh_cert_export {
++    uint64_t pdh_cert_address;   /* In */
++    uint32_t pdh_cert_len;       /* In/Out */
++    uint32_t reserved;           /* In */
++    uint64_t cert_chain_address; /* In */
++    uint32_t cert_chain_len;     /* In/Out */
++} __packed;
++
++/**
++ * struct sev_data_decommission - DECOMMISSION command parameters
++ *
++ * @handle: handle of the VM to decommission
++ */
++struct sev_data_decommission {
++    uint32_t handle; /* In */
++} __packed;
++
++/**
++ * struct sev_data_activate - ACTIVATE command parameters
++ *
++ * @handle: handle of the VM to activate
++ * @asid: asid assigned to the VM
++ */
++struct sev_data_activate {
++    uint32_t handle; /* In */
++    uint32_t asid;   /* In */
++} __packed;
++
++/**
++ * struct sev_data_deactivate - DEACTIVATE command parameters
++ *
++ * @handle: handle of the VM to deactivate
++ */
++struct sev_data_deactivate {
++    uint32_t handle; /* In */
++} __packed;
++
++/**
++ * struct sev_data_guest_status - SEV GUEST_STATUS command parameters
++ *
++ * @handle: handle of the VM to retrieve status
++ * @policy: policy information for the VM
++ * @asid: current ASID of the VM
++ * @state: current state of the VM
++ */
++struct sev_data_guest_status {
++    uint32_t handle; /* In */
++    uint32_t policy; /* Out */
++    uint32_t asid;   /* Out */
++    uint8_t state;   /* Out */
++} __packed;
++
++/**
++ * struct sev_data_launch_start - LAUNCH_START command parameters
++ *
++ * @handle: handle assigned to the VM
++ * @policy: guest launch policy
++ * @dh_cert_address: physical address of DH certificate blob
++ * @dh_cert_len: len of DH certificate blob
++ * @session_address: physical address of session parameters
++ * @session_len: len of session parameters
++ */
++struct sev_data_launch_start {
++    uint32_t handle;          /* In/Out */
++    uint32_t policy;          /* In */
++    uint64_t dh_cert_address; /* In */
++    uint32_t dh_cert_len;     /* In */
++    uint32_t reserved;        /* In */
++    uint64_t session_address; /* In */
++    uint32_t session_len;     /* In */
++} __packed;
++
++/**
++ * struct sev_data_launch_update_data - LAUNCH_UPDATE_DATA command parameter
++ *
++ * @handle: handle of the VM to update
++ * @len: len of memory to be encrypted
++ * @address: physical address of memory region to encrypt
++ */
++struct sev_data_launch_update_data {
++    uint32_t handle;   /* In */
++    uint32_t reserved;
++    uint64_t address;  /* In */
++    uint32_t len;      /* In */
++} __packed;
++
++/**
++ * struct sev_data_launch_update_vmsa - LAUNCH_UPDATE_VMSA command
++ *
++ * @handle: handle of the VM
++ * @address: physical address of memory region to encrypt
++ * @len: len of memory region to encrypt
++ */
++struct sev_data_launch_update_vmsa {
++    uint32_t handle;   /* In */
++    uint32_t reserved;
++    uint64_t address;  /* In */
++    uint32_t len;      /* In */
++} __packed;
++
++/**
++ * struct sev_data_launch_measure - LAUNCH_MEASURE command parameters
++ *
++ * @handle: handle of the VM to process
++ * @address: physical address containing the measurement blob
++ * @len: len of measurement blob
++ */
++struct sev_data_launch_measure {
++    uint32_t handle;   /* In */
++    uint32_t reserved;
++    uint64_t address;  /* In */
++    uint32_t len;      /* In/Out */
++} __packed;
++
++/**
++ * struct sev_data_launch_secret - LAUNCH_SECRET command parameters
++ *
++ * @handle: handle of the VM to process
++ * @hdr_address: physical address containing the packet header
++ * @hdr_len: len of packet header
++ * @guest_address: system physical address of guest memory region
++ * @guest_len: len of guest_paddr
++ * @trans_address: physical address of transport memory buffer
++ * @trans_len: len of transport memory buffer
++ */
++struct sev_data_launch_secret {
++    uint32_t handle;         /* In */
++    uint32_t reserved1;
++    uint64_t hdr_address;    /* In */
++    uint32_t hdr_len;        /* In */
++    uint32_t reserved2;
++    uint64_t guest_address; /* In */
++    uint32_t guest_len;     /* In */
++    uint32_t reserved3;
++    uint64_t trans_address; /* In */
++    uint32_t trans_len;     /* In */
++} __packed;
++
++/**
++ * struct sev_data_launch_finish - LAUNCH_FINISH command parameters
++ *
++ * @handle: handle of the VM to process
++ */
++struct sev_data_launch_finish {
++    uint32_t handle; /* In */
++} __packed;
++
++/**
++ * struct sev_data_send_start - SEND_START command parameters
++ *
++ * @handle: handle of the VM to process
++ * @policy: policy information for the VM
++ * @pdh_cert_address: physical address containing PDH certificate
++ * @pdh_cert_len: len of PDH certificate
++ * @plat_certs_address: physical address containing platform certificate
++ * @plat_certs_len: len of platform certificate
++ * @amd_certs_address: physical address containing AMD certificate
++ * @amd_certs_len: len of AMD certificate
++ * @session_address: physical address containing Session data
++ * @session_len: len of session data
++ */
++struct sev_data_send_start {
++    uint32_t handle;           /* In */
++    uint32_t policy;           /* Out */
++    uint64_t pdh_cert_address; /* In */
++    uint32_t pdh_cert_len;     /* In */
++    uint32_t reserved1;
++    uint64_t plat_certs_address; /* In */
++    uint32_t plat_certs_len;     /* In */
++    uint32_t reserved2;
++    uint64_t amd_certs_address;  /* In */
++    uint32_t amd_certs_len;     /* In */
++    uint32_t reserved3;
++    uint64_t session_address; /* In */
++    uint32_t session_len;     /* In/Out */
++} __packed;
++
++/**
++ * struct sev_data_send_update - SEND_UPDATE_DATA command
++ *
++ * @handle: handle of the VM to process
++ * @hdr_address: physical address containing packet header
++ * @hdr_len: len of packet header
++ * @guest_address: physical address of guest memory region to send
++ * @guest_len: len of guest memory region to send
++ * @trans_address: physical address of host memory region
++ * @trans_len: len of host memory region
++ */
++struct sev_data_send_update_data {
++    uint32_t handle;        /* In */
++    uint32_t reserved1;
++    uint64_t hdr_address;   /* In */
++    uint32_t hdr_len;       /* In/Out */
++    uint32_t reserved2;
++    uint64_t guest_address; /* In */
++    uint32_t guest_len;     /* In */
++    uint32_t reserved3;
++    uint64_t trans_address; /* In */
++    uint32_t trans_len;     /* In */
++} __packed;
++
++/**
++ * struct sev_data_send_update - SEND_UPDATE_VMSA command
++ *
++ * @handle: handle of the VM to process
++ * @hdr_address: physical address containing packet header
++ * @hdr_len: len of packet header
++ * @guest_address: physical address of guest memory region to send
++ * @guest_len: len of guest memory region to send
++ * @trans_address: physical address of host memory region
++ * @trans_len: len of host memory region
++ */
++struct sev_data_send_update_vmsa {
++    uint32_t handle;      /* In */
++    uint64_t hdr_address; /* In */
++    uint32_t hdr_len;     /* In/Out */
++    uint32_t reserved2;
++    uint64_t guest_address; /* In */
++    uint32_t guest_len;     /* In */
++    uint32_t reserved3;
++    uint64_t trans_address; /* In */
++    uint32_t trans_len;     /* In */
++} __packed;
++
++/**
++ * struct sev_data_send_finish - SEND_FINISH command parameters
++ *
++ * @handle: handle of the VM to process
++ */
++struct sev_data_send_finish {
++    uint32_t handle; /* In */
++} __packed;
++
++/**
++ * struct sev_data_send_cancel - SEND_CANCEL command parameters
++ *
++ * @handle: handle of the VM to process
++ */
++struct sev_data_send_cancel {
++    uint32_t handle; /* In */
++} __packed;
++
++/**
++ * struct sev_data_receive_start - RECEIVE_START command parameters
++ *
++ * @handle: handle of the VM to perform receive operation
++ * @pdh_cert_address: system physical address containing PDH certificate blob
++ * @pdh_cert_len: len of PDH certificate blob
++ * @session_address: system physical address containing session blob
++ * @session_len: len of session blob
++ */
++struct sev_data_receive_start {
++    uint32_t handle;           /* In/Out */
++    uint32_t policy;           /* In */
++    uint64_t pdh_cert_address; /* In */
++    uint32_t pdh_cert_len;     /* In */
++    uint32_t reserved1;
++    uint64_t session_address; /* In */
++    uint32_t session_len;     /* In */
++} __packed;
++
++/**
++ * struct sev_data_receive_update_data - RECEIVE_UPDATE_DATA command parameters
++ *
++ * @handle: handle of the VM to update
++ * @hdr_address: physical address containing packet header blob
++ * @hdr_len: len of packet header
++ * @guest_address: system physical address of guest memory region
++ * @guest_len: len of guest memory region
++ * @trans_address: system physical address of transport buffer
++ * @trans_len: len of transport buffer
++ */
++struct sev_data_receive_update_data {
++    uint32_t handle;        /* In */
++    uint32_t reserved1;
++    uint64_t hdr_address;   /* In */
++    uint32_t hdr_len;       /* In */
++    uint32_t reserved2;
++    uint64_t guest_address; /* In */
++    uint32_t guest_len;     /* In */
++    uint32_t reserved3;
++    uint64_t trans_address; /* In */
++    uint32_t trans_len;     /* In */
++} __packed;
++
++/**
++ * struct sev_data_receive_update_vmsa - RECEIVE_UPDATE_VMSA command parameters
++ *
++ * @handle: handle of the VM to update
++ * @hdr_address: physical address containing packet header blob
++ * @hdr_len: len of packet header
++ * @guest_address: system physical address of guest memory region
++ * @guest_len: len of guest memory region
++ * @trans_address: system physical address of transport buffer
++ * @trans_len: len of transport buffer
++ */
++struct sev_data_receive_update_vmsa {
++    uint32_t handle;        /* In */
++    uint32_t reserved1;
++    uint64_t hdr_address;   /* In */
++    uint32_t hdr_len;       /* In */
++    uint32_t reserved2;
++    uint64_t guest_address; /* In */
++    uint32_t guest_len;     /* In */
++    uint32_t reserved3;
++    uint64_t trans_address; /* In */
++    uint32_t trans_len;     /* In */
++} __packed;
++
++/**
++ * struct sev_data_receive_finish - RECEIVE_FINISH command parameters
++ *
++ * @handle: handle of the VM to finish
++ */
++struct sev_data_receive_finish {
++    uint32_t handle; /* In */
++} __packed;
++
++/**
++ * struct sev_data_dbg - DBG_ENCRYPT/DBG_DECRYPT command parameters
++ *
++ * @handle: handle of the VM to perform debug operation
++ * @src_addr: source address of data to operate on
++ * @dst_addr: destination address of data to operate on
++ * @len: len of data to operate on
++ */
++struct sev_data_dbg {
++    uint32_t handle;   /* In */
++    uint32_t reserved;
++    uint64_t src_addr; /* In */
++    uint64_t dst_addr; /* In */
++    uint32_t len;      /* In */
++} __packed;
++
++/**
++ * struct sev_data_attestation_report - SEV_ATTESTATION_REPORT command parameters
++ *
++ * @handle: handle of the VM
++ * @mnonce: a random nonce that will be included in the report.
++ * @address: physical address where the report will be copied.
++ * @len: length of the physical buffer.
++ */
++struct sev_data_attestation_report {
++    uint32_t handle;    /* In */
++    uint32_t reserved;
++    uint64_t address;   /* In */
++    uint8_t mnonce[16]; /* In */
++    uint32_t len;       /* In/Out */
++} __packed;
++
++
++/**
++ * SEV platform commands
++ */
++enum {
++    SEV_FACTORY_RESET = 0,
++    SEV_PLATFORM_STATUS,
++    SEV_PEK_GEN,
++    SEV_PEK_CSR,
++    SEV_PDH_GEN,
++    SEV_PDH_CERT_EXPORT,
++    SEV_PEK_CERT_IMPORT,
++    SEV_GET_ID,  /* This command is deprecated, use SEV_GET_ID2 */
++    SEV_GET_ID2,
++
++    SEV_MAX,
++};
++
++/**
++ * SEV Firmware status code
++ */
++typedef enum {
 +    /*
-+     * If the vcpu is already running, the tlb control flag may not be
-+     * processed and will be cleared at the next VMEXIT, which will undo
-+     * what we are trying to do.
-+     */
-+    WARN_ON(v != current && v->is_running);
- 
-     vmcb->tlb_control =
--        !need_flush ? TLB_CTRL_NO_FLUSH :
-         cpu_has_svm_flushbyasid ? TLB_CTRL_FLUSH_ASID : TLB_CTRL_FLUSH_ALL;
- }
- 
-+void svm_vcpu_clear_tlb_control(struct vcpu *v)
-+{
-+    struct vmcb_struct *vmcb = v->arch.hvm.svm.vmcb;
++    * This error code is not in the SEV spec. Its purpose is to convey that
++    * there was an error that prevented the SEV firmware from being called.
++    * The SEV API error codes are 16 bits, so the -1 value will not overlap
++    * with possible values from the specification.
++    */
++    SEV_RET_NO_FW_CALL = -1,
++    SEV_RET_SUCCESS = 0,
++    SEV_RET_INVALID_PLATFORM_STATE,
++    SEV_RET_INVALID_GUEST_STATE,
++    SEV_RET_INAVLID_CONFIG,
++    SEV_RET_INVALID_LEN,
++    SEV_RET_ALREADY_OWNED,
++    SEV_RET_INVALID_CERTIFICATE,
++    SEV_RET_POLICY_FAILURE,
++    SEV_RET_INACTIVE,
++    SEV_RET_INVALID_ADDRESS,
++    SEV_RET_BAD_SIGNATURE,
++    SEV_RET_BAD_MEASUREMENT,
++    SEV_RET_ASID_OWNED,
++    SEV_RET_INVALID_ASID,
++    SEV_RET_WBINVD_REQUIRED,
++    SEV_RET_DFFLUSH_REQUIRED,
++    SEV_RET_INVALID_GUEST,
++    SEV_RET_INVALID_COMMAND,
++    SEV_RET_ACTIVE,
++    SEV_RET_HWSEV_RET_PLATFORM,
++    SEV_RET_HWSEV_RET_UNSAFE,
++    SEV_RET_UNSUPPORTED,
++    SEV_RET_INVALID_PARAM,
++    SEV_RET_RESOURCE_LIMIT,
++    SEV_RET_SECURE_DATA_INVALID,
++    SEV_RET_MAX,
++} sev_ret_code;
 +
-+    vmcb->tlb_control = TLB_CTRL_NO_FLUSH;
++/**
++ * struct sev_user_data_status - PLATFORM_STATUS command parameters
++ *
++ * @major: major API version
++ * @minor: minor API version
++ * @state: platform state
++ * @flags: platform config flags
++ * @build: firmware build id for API version
++ * @guest_count: number of active guests
++ */
++struct sev_user_data_status {
++    uint8_t api_major;   /* Out */
++    uint8_t api_minor;   /* Out */
++    uint8_t state;       /* Out */
++    uint8_t flags;       /* Out */
++    uint8_t build;       /* Out */
++    uint8_t guest_count; /* Out */
++} __packed;
++
++#define SEV_STATUS_FLAGS_CONFIG_ES  0x0100
++
++/**
++ * struct sev_user_data_pek_csr - PEK_CSR command parameters
++ *
++ * @address: PEK certificate chain
++ * @length: length of certificate
++ */
++struct sev_user_data_pek_csr {
++    uint8_t address; /* In */
++    uint8_t length;  /* In/Out */
++} __packed;
++
++/**
++ * struct sev_user_data_cert_import - PEK_CERT_IMPORT command parameters
++ *
++ * @pek_address: PEK certificate chain
++ * @pek_len: length of PEK certificate
++ * @oca_address: OCA certificate chain
++ * @oca_len: length of OCA certificate
++ */
++struct sev_user_data_pek_cert_import {
++    uint8_t pek_cert_address; /* In */
++    uint8_t pek_cert_len;     /* In */
++    uint8_t oca_cert_address; /* In */
++    uint8_t oca_cert_len;     /* In */
++} __packed;
++
++/**
++ * struct sev_user_data_pdh_cert_export - PDH_CERT_EXPORT command parameters
++ *
++ * @pdh_address: PDH certificate address
++ * @pdh_len: length of PDH certificate
++ * @cert_chain_address: PDH certificate chain
++ * @cert_chain_len: length of PDH certificate chain
++ */
++struct sev_user_data_pdh_cert_export {
++    uint8_t pdh_cert_address;   /* In */
++    uint8_t pdh_cert_len;       /* In/Out */
++    uint8_t cert_chain_address; /* In */
++    uint8_t cert_chain_len;     /* In/Out */
++} __packed;
++
++/**
++ * struct sev_user_data_get_id - GET_ID command parameters (deprecated)
++ *
++ * @socket1: Buffer to pass unique ID of first socket
++ * @socket2: Buffer to pass unique ID of second socket
++ */
++struct sev_user_data_get_id {
++    uint8_t socket1[64]; /* Out */
++    uint8_t socket2[64]; /* Out */
++} __packed;
++
++/**
++ * struct sev_user_data_get_id2 - GET_ID command parameters
++ * @address: Buffer to store unique ID
++ * @length: length of the unique ID
++ */
++struct sev_user_data_get_id2 {
++    uint8_t address; /* In */
++    uint8_t length;  /* In/Out */
++} __packed;
++
++extern int sev_do_cmd(int cmd, void *data, int *psp_ret, bool poll);
++
++#endif  /* __PSP_SEV_H__ */
+diff --git a/xen/drivers/Kconfig b/xen/drivers/Kconfig
+index 20050e9bb8..bed7d5a3e2 100644
+--- a/xen/drivers/Kconfig
++++ b/xen/drivers/Kconfig
+@@ -12,6 +12,8 @@ source "drivers/pci/Kconfig"
+ 
+ source "drivers/video/Kconfig"
+ 
++source "drivers/crypto/Kconfig"
++
+ config HAS_VPCI
+ 	bool
+ 
+diff --git a/xen/drivers/Makefile b/xen/drivers/Makefile
+index 2a1ae8ad13..f24f788fde 100644
+--- a/xen/drivers/Makefile
++++ b/xen/drivers/Makefile
+@@ -5,3 +5,4 @@ obj-$(CONFIG_HAS_VPCI) += vpci/
+ obj-$(CONFIG_HAS_PASSTHROUGH) += passthrough/
+ obj-$(CONFIG_ACPI) += acpi/
+ obj-$(CONFIG_VIDEO) += video/
++obj-y += crypto/
+diff --git a/xen/drivers/crypto/Kconfig b/xen/drivers/crypto/Kconfig
+new file mode 100644
+index 0000000000..ca3d3f5f1b
+--- /dev/null
++++ b/xen/drivers/crypto/Kconfig
+@@ -0,0 +1,10 @@
++config AMD_SP
++        bool "AMD Secure Processor (UNSUPPORTED)" if UNSUPPORTED
++        depends on X86
++        default n
++        help
++          Enables AMD Secure Processor.
++
++          If your platform includes AMD Secure Processor devices and you are
++          intended to use AMD Secure Encrypted Virtualization Technology, say Y.
++          If in doubt, say N.
+diff --git a/xen/drivers/crypto/Makefile b/xen/drivers/crypto/Makefile
+new file mode 100644
+index 0000000000..ff283c2cb5
+--- /dev/null
++++ b/xen/drivers/crypto/Makefile
+@@ -0,0 +1 @@
++obj-$(CONFIG_AMD_SP) += asp.o
+diff --git a/xen/drivers/crypto/asp.c b/xen/drivers/crypto/asp.c
+new file mode 100644
+index 0000000000..834e5d3b9b
+--- /dev/null
++++ b/xen/drivers/crypto/asp.c
+@@ -0,0 +1,830 @@
++#include <xen/init.h>
++#include <xen/pci.h>
++#include <xen/list.h>
++#include <xen/tasklet.h>
++#include <xen/pci_ids.h>
++#include <xen/delay.h>
++#include <xen/timer.h>
++#include <xen/wait.h>
++#include <xen/smp.h>
++#include <asm/msi.h>
++#include <asm/system.h>
++#include <asm/psp-sev.h>
++
++/*
++TODO:
++-  GLOBAL:
++     - add command line params for tunables
++ - INTERRUPT MODE:
++    - CET shadow stack: adapt #CP handler???
++    - Serialization: must be done by the client? adapt spinlock?
++ */
++
++#define PSP_CAPABILITY_SEV                      (1 << 0)
++#define PSP_CAPABILITY_TEE                      (1 << 1)
++#define PSP_CAPABILITY_PSP_SECURITY_REPORTING   (1 << 7)
++#define PSP_CAPABILITY_PSP_SECURITY_OFFSET      8
++
++#define PSP_INTSTS_CMD_COMPLETE       (1 << 1)
++
++#define SEV_CMDRESP_CMD_MASK          0x7ff0000
++#define SEV_CMDRESP_CMD_SHIFT         16
++#define SEV_CMDRESP_CMD(cmd)          ((cmd) << SEV_CMDRESP_CMD_SHIFT)
++#define SEV_CMDRESP_STS_MASK          0xffff
++#define SEV_CMDRESP_STS(x)            ((x) & SEV_CMDRESP_STS_MASK)
++#define SEV_CMDRESP_RESP              (1 << 31)
++#define SEV_CMDRESP_IOC               (1 << 0)
++
++#define ASP_CMD_BUFF_SIZE    0x1000
++#define SEV_FW_BLOB_MAX_SIZE 0x4000
++
++/*
++ * SEV platform state
++ */
++enum sev_state {
++        SEV_STATE_UNINIT                = 0x0,
++        SEV_STATE_INIT                  = 0x1,
++        SEV_STATE_WORKING               = 0x2,
++        SEV_STATE_MAX
++};
++
++struct sev_vdata {
++    const unsigned int cmdresp_reg;
++    const unsigned int cmdbuff_addr_lo_reg;
++    const unsigned int cmdbuff_addr_hi_reg;
++};
++
++struct psp_vdata {
++    const unsigned short   base_offset;
++    const struct sev_vdata *sev;
++    const unsigned int feature_reg;
++    const unsigned int inten_reg;
++    const unsigned int intsts_reg;
++    const char* name;
++};
++
++static struct sev_vdata sevv1 = {
++    .cmdresp_reg         = 0x10580,     /* C2PMSG_32 */
++    .cmdbuff_addr_lo_reg = 0x105e0,     /* C2PMSG_56 */
++    .cmdbuff_addr_hi_reg = 0x105e4,     /* C2PMSG_57 */
++};
++
++static struct sev_vdata sevv2 = {
++    .cmdresp_reg         = 0x10980,     /* C2PMSG_32 */
++    .cmdbuff_addr_lo_reg = 0x109e0,     /* C2PMSG_56 */
++    .cmdbuff_addr_hi_reg = 0x109e4,     /* C2PMSG_57 */
++};
++
++static struct psp_vdata pspv1 = {
++    .base_offset = PCI_BASE_ADDRESS_2,
++    .sev         = &sevv1,
++    .feature_reg = 0x105fc,     /* C2PMSG_63 */
++    .inten_reg   = 0x10610,     /* P2CMSG_INTEN */
++    .intsts_reg  = 0x10614,     /* P2CMSG_INTSTS */
++    .name = "pspv1",
++};
++
++static struct psp_vdata pspv2 = {
++    .base_offset = PCI_BASE_ADDRESS_2,
++    .sev         = &sevv2,
++    .feature_reg = 0x109fc,     /* C2PMSG_63 */
++    .inten_reg   = 0x10690,     /* P2CMSG_INTEN */
++    .intsts_reg  = 0x10694,     /* P2CMSG_INTSTS */
++    .name = "pspv2",
++};
++
++static struct psp_vdata pspv4 = {
++    .base_offset = PCI_BASE_ADDRESS_2,
++    .sev         = &sevv2,
++    .feature_reg = 0x109fc,     /* C2PMSG_63 */
++    .inten_reg   = 0x10690,     /* P2CMSG_INTEN */
++    .intsts_reg  = 0x10694,     /* P2CMSG_INTSTS */
++    .name = "pspv4",
++};
++
++static struct psp_vdata pspv6 = {
++    .base_offset =  PCI_BASE_ADDRESS_2,
++    .sev         = &sevv2,
++    .feature_reg = 0x109fc,     /* C2PMSG_63 */
++    .inten_reg   = 0x10510,     /* P2CMSG_INTEN */
++    .intsts_reg  = 0x10514,     /* P2CMSG_INTSTS */
++    .name = "pspv6",
++};
++
++struct amd_sp_dev
++{
++    struct list_head list;
++    struct pci_dev   *pdev;
++    struct  psp_vdata *vdata;
++    void    *io_base;
++    paddr_t io_pbase;
++    size_t  io_size;
++    int     irq;
++    int     state;
++    void* cmd_buff;
++    uint32_t cbuff_pa_low;
++    uint32_t cbuff_pa_high;
++    unsigned int capability;
++    uint8_t api_major;
++    uint8_t api_minor;
++    uint8_t build;
++    int     intr_rcvd;
++    int     cmd_timeout;
++    struct timer cmd_timer;
++    struct waitqueue_head cmd_in_progress;
++};
++
++LIST_HEAD(amd_sp_units);
++#define for_each_sp_unit(sp) \
++    list_for_each_entry(sp, &amd_sp_units, list)
++
++static spinlock_t _sp_cmd_lock = SPIN_LOCK_UNLOCKED;
++
++static struct amd_sp_dev *amd_sp_master;
++
++static void do_sp_irq(void *data);
++static DECLARE_SOFTIRQ_TASKLET(sp_irq_tasklet, do_sp_irq, NULL);
++
++static bool force_sync = false;
++static unsigned int asp_timeout_val = 30000;
++static unsigned long long asp_sync_delay = 100ULL;
++static int asp_sync_tries = 10;
++
++static void sp_cmd_lock(void)
++{
++    spin_lock(&_sp_cmd_lock);
 +}
 +
- /*
-  * Local variables:
-  * mode: C
-diff --git a/xen/arch/x86/hvm/svm/nestedsvm.c b/xen/arch/x86/hvm/svm/nestedsvm.c
-index dc2b6a4253..6e5dc2624f 100644
---- a/xen/arch/x86/hvm/svm/nestedsvm.c
-+++ b/xen/arch/x86/hvm/svm/nestedsvm.c
-@@ -5,6 +5,7 @@
-  *
-  */
- 
-+#include <asm/hvm/asid.h>
- #include <asm/hvm/support.h>
- #include <asm/hvm/svm/svm.h>
- #include <asm/hvm/svm/vmcb.h>
-@@ -699,7 +700,6 @@ nsvm_vcpu_vmentry(struct vcpu *v, struct cpu_user_regs *regs,
-     if ( svm->ns_asid != vmcb_get_asid(ns_vmcb))
-     {
-         nv->nv_flushp2m = 1;
--        hvm_asid_flush_vcpu_asid(&vcpu_nestedhvm(v).nv_n2asid);
-         svm->ns_asid = vmcb_get_asid(ns_vmcb);
-     }
- 
-diff --git a/xen/arch/x86/hvm/svm/svm.c b/xen/arch/x86/hvm/svm/svm.c
-index e33a38c1e4..cc19d80fe1 100644
---- a/xen/arch/x86/hvm/svm/svm.c
-+++ b/xen/arch/x86/hvm/svm/svm.c
-@@ -26,6 +26,7 @@
- #include <asm/hvm/monitor.h>
- #include <asm/hvm/nestedhvm.h>
- #include <asm/hvm/support.h>
-+#include <asm/hvm/asid.h>
- #include <asm/hvm/svm/svm.h>
- #include <asm/hvm/svm/svmdebug.h>
- #include <asm/hvm/svm/vmcb.h>
-@@ -183,14 +184,17 @@ static void cf_check svm_update_guest_cr(
-         if ( !nestedhvm_enabled(v->domain) )
-         {
-             if ( !(flags & HVM_UPDATE_GUEST_CR3_NOFLUSH) )
--                hvm_asid_flush_vcpu(v);
-+                v->needs_tlb_flush = true;
-         }
-         else if ( nestedhvm_vmswitch_in_progress(v) )
-             ; /* CR3 switches during VMRUN/VMEXIT do not flush the TLB. */
-         else if ( !(flags & HVM_UPDATE_GUEST_CR3_NOFLUSH) )
--            hvm_asid_flush_vcpu_asid(
--                nestedhvm_vcpu_in_guestmode(v)
--                ? &vcpu_nestedhvm(v).nv_n2asid : &v->arch.hvm.n1asid);
-+        {
-+            if (nestedhvm_vcpu_in_guestmode(v))
-+                vcpu_nestedhvm(v).nv_flushp2m = true;
-+            else
-+                v->needs_tlb_flush = true;
-+        }
-         break;
-     case 4:
-         value = HVM_CR4_HOST_MASK;
-@@ -991,8 +995,7 @@ static void noreturn cf_check svm_do_resume(void)
-         v->arch.hvm.svm.launch_core = smp_processor_id();
-         hvm_migrate_timers(v);
-         hvm_migrate_pirqs(v);
--        /* Migrating to another ASID domain.  Request a new ASID. */
--        hvm_asid_flush_vcpu(v);
-+        v->needs_tlb_flush = true;
-     }
- 
-     if ( !vcpu_guestmode && !vlapic_hw_disabled(vlapic) )
-@@ -1019,13 +1022,14 @@ void asmlinkage svm_vmenter_helper(void)
- 
-     ASSERT(hvmemul_cache_disabled(curr));
- 
--    svm_asid_handle_vmrun();
--
-     TRACE_TIME(TRC_HVM_VMENTRY |
-                (nestedhvm_vcpu_in_guestmode(curr) ? TRC_HVM_NESTEDFLAG : 0));
- 
-     svm_sync_vmcb(curr, vmcb_needs_vmsave);
- 
-+    if ( test_and_clear_bool(curr->needs_tlb_flush) )
-+        svm_vcpu_set_tlb_control(curr);
++static void sp_cmd_unlock(void)
++{
++    spin_unlock(&_sp_cmd_lock);
++}
 +
-     vmcb->rax = regs->rax;
-     vmcb->rip = regs->rip;
-     vmcb->rsp = regs->rsp;
-@@ -1146,6 +1150,8 @@ static int cf_check svm_vcpu_initialise(struct vcpu *v)
-         return rc;
-     }
- 
-+    svm_vcpu_assign_asid(v);
++static int sev_cmd_buffer_len(int cmd)
++{
++    switch (cmd) {
++        case SEV_CMD_INIT:                     
++            return sizeof(struct sev_data_init);
++        case SEV_CMD_INIT_EX:
++            return sizeof(struct sev_data_init_ex);
++        case SEV_CMD_PLATFORM_STATUS:
++            return sizeof(struct sev_user_data_status);
++        case SEV_CMD_PEK_CSR:
++            return sizeof(struct sev_data_pek_csr);
++        case SEV_CMD_PEK_CERT_IMPORT:
++            return sizeof(struct sev_data_pek_cert_import);
++        case SEV_CMD_PDH_CERT_EXPORT:
++            return sizeof(struct sev_data_pdh_cert_export);
++        case SEV_CMD_LAUNCH_START:
++            return sizeof(struct sev_data_launch_start);
++        case SEV_CMD_LAUNCH_UPDATE_DATA:
++            return sizeof(struct sev_data_launch_update_data);
++        case SEV_CMD_LAUNCH_UPDATE_VMSA:
++            return sizeof(struct sev_data_launch_update_vmsa);
++        case SEV_CMD_LAUNCH_FINISH:
++            return sizeof(struct sev_data_launch_finish);
++        case SEV_CMD_LAUNCH_MEASURE:
++            return sizeof(struct sev_data_launch_measure);
++        case SEV_CMD_ACTIVATE:
++            return sizeof(struct sev_data_activate);
++        case SEV_CMD_DEACTIVATE:
++            return sizeof(struct sev_data_deactivate);
++        case SEV_CMD_DECOMMISSION:
++            return sizeof(struct sev_data_decommission);
++        case SEV_CMD_GUEST_STATUS:
++            return sizeof(struct sev_data_guest_status);
++        case SEV_CMD_DBG_DECRYPT:
++            return sizeof(struct sev_data_dbg);
++        case SEV_CMD_DBG_ENCRYPT:
++            return sizeof(struct sev_data_dbg);
++        case SEV_CMD_SEND_START:
++            return sizeof(struct sev_data_send_start);
++        case SEV_CMD_SEND_UPDATE_DATA:
++            return sizeof(struct sev_data_send_update_data);
++        case SEV_CMD_SEND_UPDATE_VMSA:
++            return sizeof(struct sev_data_send_update_vmsa);
++        case SEV_CMD_SEND_FINISH:
++            return sizeof(struct sev_data_send_finish);
++        case SEV_CMD_RECEIVE_START:
++            return sizeof(struct sev_data_receive_start);
++        case SEV_CMD_RECEIVE_FINISH:
++            return sizeof(struct sev_data_receive_finish);
++        case SEV_CMD_RECEIVE_UPDATE_DATA:
++            return sizeof(struct sev_data_receive_update_data);
++        case SEV_CMD_RECEIVE_UPDATE_VMSA:
++            return sizeof(struct sev_data_receive_update_vmsa);
++        case SEV_CMD_LAUNCH_UPDATE_SECRET:
++            return sizeof(struct sev_data_launch_secret);
++        case SEV_CMD_DOWNLOAD_FIRMWARE:
++            return sizeof(struct sev_data_download_firmware);
++        case SEV_CMD_GET_ID:
++            return sizeof(struct sev_data_get_id);
++        case SEV_CMD_ATTESTATION_REPORT:
++            return sizeof(struct sev_data_attestation_report);
++        case SEV_CMD_SEND_CANCEL:
++            return sizeof(struct sev_data_send_cancel);
++        default:
++            return 0;
++    }
++}
 +
-     return 0;
- }
- 
-@@ -1572,9 +1578,6 @@ static int _svm_cpu_up(bool bsp)
-     /* check for erratum 383 */
-     svm_init_erratum_383(c);
- 
--    /* Initialize core's ASID handling. */
--    svm_asid_init(c);
--
-     /* Initialize OSVW bits to be used by guests */
-     svm_host_osvw_init();
- 
-@@ -2338,7 +2341,7 @@ static void svm_invlpga_intercept(
- {
-     svm_invlpga(linear,
-                 (asid == 0)
--                ? v->arch.hvm.n1asid.asid
-+                ? v->domain->arch.hvm.asid.asid
-                 : vcpu_nestedhvm(v).nv_n2asid.asid);
- }
- 
-@@ -2360,8 +2363,8 @@ static bool cf_check is_invlpg(
- 
- static void cf_check svm_invlpg(struct vcpu *v, unsigned long linear)
- {
--    /* Safe fallback. Take a new ASID. */
--    hvm_asid_flush_vcpu(v);
-+    /* Schedule a tlb flush on the VCPU. */
-+    v->needs_tlb_flush = true;
- }
- 
- static bool cf_check svm_get_pending_event(
-@@ -2528,6 +2531,8 @@ const struct hvm_function_table * __init start_svm(void)
-     svm_function_table.caps.hap_superpage_2mb = true;
-     svm_function_table.caps.hap_superpage_1gb = cpu_has_page1gb;
- 
-+    svm_asid_init();
++static void invalidate_cache(void *unused)
++{
++    wbinvd();
++}
 +
-     return &svm_function_table;
- }
- 
-@@ -2584,6 +2589,8 @@ void asmlinkage svm_vmexit_handler(void)
-                    (vlapic_get_reg(vlapic, APIC_TASKPRI) & 0x0F));
-     }
- 
-+    svm_vcpu_clear_tlb_control(v);
++int _sev_do_cmd(struct amd_sp_dev *sp, int cmd, void *data, int *psp_ret)
++{
++    unsigned int cbuff_pa_low, cbuff_pa_high, cmd_val;
++    int buf_len, cmdresp, rc;
 +
-     exit_reason = vmcb->exitcode;
- 
-     if ( hvm_long_mode_active(v) )
-@@ -2659,7 +2666,7 @@ void asmlinkage svm_vmexit_handler(void)
-         }
-     }
- 
--    if ( unlikely(exit_reason == VMEXIT_INVALID) )
-+    if ( unlikely(exit_reason == VMEXIT_INVALID || exit_reason == (uint32_t)VMEXIT_INVALID) )
-     {
-         gdprintk(XENLOG_ERR, "invalid VMCB state:\n");
-         svm_vmcb_dump(__func__, vmcb);
-diff --git a/xen/arch/x86/hvm/svm/svm.h b/xen/arch/x86/hvm/svm/svm.h
-index f5b0312d2d..92145c6d7b 100644
---- a/xen/arch/x86/hvm/svm/svm.h
-+++ b/xen/arch/x86/hvm/svm/svm.h
-@@ -12,12 +12,8 @@
- #include <xen/types.h>
- 
- struct cpu_user_regs;
--struct cpuinfo_x86;
- struct vcpu;
- 
--void svm_asid_init(const struct cpuinfo_x86 *c);
--void svm_asid_handle_vmrun(void);
--
- unsigned long *svm_msrbit(unsigned long *msr_bitmap, uint32_t msr);
- void __update_guest_eip(struct cpu_user_regs *regs, unsigned int inst_len);
- 
-diff --git a/xen/arch/x86/hvm/vmx/vmcs.c b/xen/arch/x86/hvm/vmx/vmcs.c
-index a44475ae15..b8a28e2cf8 100644
---- a/xen/arch/x86/hvm/vmx/vmcs.c
-+++ b/xen/arch/x86/hvm/vmx/vmcs.c
-@@ -20,6 +20,7 @@
- #include <asm/current.h>
- #include <asm/flushtlb.h>
- #include <asm/hvm/hvm.h>
-+#include <asm/hvm/asid.h>
- #include <asm/hvm/io.h>
- #include <asm/hvm/nestedhvm.h>
- #include <asm/hvm/vmx/vmcs.h>
-@@ -759,8 +760,6 @@ static int _vmx_cpu_up(bool bsp)
- 
-     this_cpu(vmxon) = 1;
- 
--    hvm_asid_init(cpu_has_vmx_vpid ? (1u << VMCS_VPID_WIDTH) : 0);
--
-     if ( cpu_has_vmx_ept )
-         ept_sync_all();
- 
-@@ -1941,7 +1940,7 @@ void cf_check vmx_do_resume(void)
-          */
-         v->arch.hvm.vmx.hostenv_migrated = 1;
- 
--        hvm_asid_flush_vcpu(v);
-+        v->needs_tlb_flush = true;
-     }
- 
-     debug_state = v->domain->debugger_attached
-@@ -2154,7 +2153,6 @@ void vmcs_dump_vcpu(struct vcpu *v)
-          (SECONDARY_EXEC_ENABLE_VPID | SECONDARY_EXEC_ENABLE_VM_FUNCTIONS) )
-         printk("Virtual processor ID = 0x%04x VMfunc controls = %016lx\n",
-                vmr16(VIRTUAL_PROCESSOR_ID), vmr(VM_FUNCTION_CONTROL));
--
-     vmx_vmcs_exit(v);
- }
- 
-diff --git a/xen/arch/x86/hvm/vmx/vmx.c b/xen/arch/x86/hvm/vmx/vmx.c
-index 827db6bdd8..8859ec4b38 100644
---- a/xen/arch/x86/hvm/vmx/vmx.c
-+++ b/xen/arch/x86/hvm/vmx/vmx.c
-@@ -37,6 +37,7 @@
- #include <asm/x86_emulate.h>
- #include <asm/hvm/vpt.h>
- #include <public/hvm/save.h>
-+#include <asm/hvm/asid.h>
- #include <asm/hvm/monitor.h>
- #include <asm/xenoprof.h>
- #include <asm/gdbsx.h>
-@@ -824,6 +825,18 @@ static void cf_check vmx_cpuid_policy_changed(struct vcpu *v)
-         vmx_update_secondary_exec_control(v);
-     }
- 
-+    if ( asid_enabled )
++    buf_len = sev_cmd_buffer_len(cmd);
++
++    if ( data )
++        memcpy(sp->cmd_buff, data, buf_len);
++
++    cbuff_pa_low  = data ? sp->cbuff_pa_low : 0;
++    cbuff_pa_high = data ? sp->cbuff_pa_high : 0;
++
++    writel(cbuff_pa_low, sp->io_base + sp->vdata->sev->cmdbuff_addr_lo_reg);
++    writel(cbuff_pa_high, sp->io_base + sp->vdata->sev->cmdbuff_addr_hi_reg);
++
++    cmd_val = SEV_CMDRESP_CMD(cmd) | SEV_CMDRESP_IOC;
++
++    sp->cmd_timeout = 0;
++    sp->intr_rcvd = 0;
++
++    writel(cmd_val, sp->io_base + sp->vdata->sev->cmdresp_reg);
++
++    set_timer(&sp->cmd_timer, NOW() + MILLISECS(asp_timeout_val));
++
++    /* FIXME: If the timer triggers here the device will be set offline */
++
++    wait_event(sp->cmd_in_progress, sp->cmd_timeout || sp->intr_rcvd);
++
++    stop_timer(&sp->cmd_timer);
++
++    if ( sp->intr_rcvd )
 +    {
-+        v->arch.hvm.vmx.secondary_exec_control |= SECONDARY_EXEC_ENABLE_VPID;
-+        vmx_update_secondary_exec_control(v);
++        cmdresp = readl(sp->io_base + sp->vdata->sev->cmdresp_reg);
++
++        ASSERT(cmdresp & SEV_CMDRESP_RESP);
++
++        rc = SEV_CMDRESP_STS(cmdresp) ? -EFAULT : 0;
++
++        if ( rc && psp_ret )
++            *psp_ret = SEV_CMDRESP_STS(cmdresp);
++
++        if ( data && (!rc) )
++            memcpy(data, sp->cmd_buff, buf_len);
 +    }
 +    else
 +    {
-+        v->arch.hvm.vmx.secondary_exec_control &= ~SECONDARY_EXEC_ENABLE_VPID;
-+        vmx_update_secondary_exec_control(v);
++        ASSERT(sp->cmd_timeout);
++
++        sp->state = SEV_STATE_UNINIT;
++
++        writel(0, sp->io_base + sp->vdata->inten_reg);
++
++        rc = -EIO;
++    }
++    return rc;
++}
++
++static int _sev_do_cmd_sync(struct amd_sp_dev *sp, int cmd, void *data, int *psp_ret)
++{
++    unsigned int cbuff_pa_low, cbuff_pa_high, cmd_val;
++    int buf_len, cmdresp, rc, i;
++
++    buf_len = sev_cmd_buffer_len(cmd);
++
++    if ( data )
++        memcpy(sp->cmd_buff, data, buf_len);
++
++    cbuff_pa_low  = data ? sp->cbuff_pa_low : 0;
++    cbuff_pa_high = data ? sp->cbuff_pa_high : 0;
++
++    writel(cbuff_pa_low, sp->io_base + sp->vdata->sev->cmdbuff_addr_lo_reg);
++    writel(cbuff_pa_high, sp->io_base + sp->vdata->sev->cmdbuff_addr_hi_reg);
++
++    cmd_val = SEV_CMDRESP_CMD(cmd);
++
++    writel(cmd_val, sp->io_base + sp->vdata->sev->cmdresp_reg);
++
++    for (rc = -EIO, i = asp_sync_tries; i; i-- )
++    {
++        mdelay(asp_sync_delay);
++
++        cmdresp = readl(sp->io_base + sp->vdata->sev->cmdresp_reg);
++        if ( cmdresp & SEV_CMDRESP_RESP )
++        {
++            rc = 0;
++            break;
++        }
 +    }
 +
++    if ( !rc && SEV_CMDRESP_STS(cmdresp) )
++	rc = -EFAULT;
 +
-     /*
-      * We can safely pass MSR_SPEC_CTRL through to the guest, even if STIBP
-      * isn't enumerated in hardware, as SPEC_CTRL_STIBP is ignored.
-@@ -1477,7 +1490,7 @@ static void cf_check vmx_handle_cd(struct vcpu *v, unsigned long value)
-             vmx_set_msr_intercept(v, MSR_IA32_CR_PAT, VMX_MSR_RW);
- 
-             wbinvd();               /* flush possibly polluted cache */
--            hvm_asid_flush_vcpu(v); /* invalidate memory type cached in TLB */
-+            v->needs_tlb_flush = true; /* invalidate memory type cached in TLB */
-             v->arch.hvm.cache_mode = NO_FILL_CACHE_MODE;
-         }
-         else
-@@ -1486,7 +1499,7 @@ static void cf_check vmx_handle_cd(struct vcpu *v, unsigned long value)
-             vmx_set_guest_pat(v, *pat);
-             if ( !is_iommu_enabled(v->domain) || iommu_snoop )
-                 vmx_clear_msr_intercept(v, MSR_IA32_CR_PAT, VMX_MSR_RW);
--            hvm_asid_flush_vcpu(v); /* no need to flush cache */
-+            v->needs_tlb_flush = true;
-         }
-     }
- }
-@@ -1847,7 +1860,7 @@ static void cf_check vmx_update_guest_cr(
-         __vmwrite(GUEST_CR3, v->arch.hvm.hw_cr[3]);
- 
-         if ( !(flags & HVM_UPDATE_GUEST_CR3_NOFLUSH) )
--            hvm_asid_flush_vcpu(v);
-+            v->needs_tlb_flush = true;
-         break;
- 
-     default:
-@@ -3128,6 +3141,8 @@ const struct hvm_function_table * __init start_vmx(void)
-     lbr_tsx_fixup_check();
-     ler_to_fixup_check();
- 
-+    BUG_ON(hvm_asid_init(cpu_has_vmx_vpid ? (1u << VMCS_VPID_WIDTH) : 1));
++    if ( rc &&  psp_ret )
++        *psp_ret = SEV_CMDRESP_STS(cmdresp);
 +
-     return &vmx_function_table;
- }
- 
-@@ -4901,9 +4916,7 @@ bool asmlinkage vmx_vmenter_helper(const struct cpu_user_regs *regs)
- {
-     struct vcpu *curr = current;
-     struct domain *currd = curr->domain;
--    u32 new_asid, old_asid;
--    struct hvm_vcpu_asid *p_asid;
--    bool need_flush;
-+    struct hvm_asid *p_asid;
- 
-     ASSERT(hvmemul_cache_disabled(curr));
- 
-@@ -4914,38 +4927,14 @@ bool asmlinkage vmx_vmenter_helper(const struct cpu_user_regs *regs)
-     if ( curr->domain->arch.hvm.pi_ops.vcpu_block )
-         vmx_pi_do_resume(curr);
- 
--    if ( !cpu_has_vmx_vpid )
-+    if ( !asid_enabled )
-         goto out;
-     if ( nestedhvm_vcpu_in_guestmode(curr) )
-         p_asid = &vcpu_nestedhvm(curr).nv_n2asid;
-     else
--        p_asid = &curr->arch.hvm.n1asid;
--
--    old_asid = p_asid->asid;
--    need_flush = hvm_asid_handle_vmenter(p_asid);
--    new_asid = p_asid->asid;
--
--    if ( unlikely(new_asid != old_asid) )
--    {
--        __vmwrite(VIRTUAL_PROCESSOR_ID, new_asid);
--        if ( !old_asid && new_asid )
--        {
--            /* VPID was disabled: now enabled. */
--            curr->arch.hvm.vmx.secondary_exec_control |=
--                SECONDARY_EXEC_ENABLE_VPID;
--            vmx_update_secondary_exec_control(curr);
--        }
--        else if ( old_asid && !new_asid )
--        {
--            /* VPID was enabled: now disabled. */
--            curr->arch.hvm.vmx.secondary_exec_control &=
--                ~SECONDARY_EXEC_ENABLE_VPID;
--            vmx_update_secondary_exec_control(curr);
--        }
--    }
-+        p_asid = &currd->arch.hvm.asid;
- 
--    if ( unlikely(need_flush) )
--        vpid_sync_all();
-+    __vmwrite(VIRTUAL_PROCESSOR_ID, p_asid->asid);
- 
-     if ( paging_mode_hap(curr->domain) )
-     {
-@@ -4954,12 +4943,18 @@ bool asmlinkage vmx_vmenter_helper(const struct cpu_user_regs *regs)
-         unsigned int inv = 0; /* None => Single => All */
-         struct ept_data *single = NULL; /* Single eptp, iff inv == 1 */
- 
-+        if ( test_and_clear_bool(curr->needs_tlb_flush)  )
++    if ( data && (!rc) )
++        memcpy(data, sp->cmd_buff, buf_len);
++
++    return rc;
++}
++
++int sev_do_cmd(int cmd, void *data, int *psp_ret, bool poll)
++{
++    struct amd_sp_dev *sp  = amd_sp_master;
++    int buf_len, rc;
++
++    if ( !sp )
++        return -ENODEV;
++
++    if ( sp->state < SEV_STATE_INIT )
++        return -ENODEV;
++
++    if ( cmd >= SEV_CMD_MAX )
++        return -EINVAL;
++
++    buf_len = sev_cmd_buffer_len(cmd);
++
++    if ( !data != !buf_len )
++        return -EINVAL;
++
++    if ( force_sync || poll )
++    {
++        sp_cmd_lock();
++        rc = _sev_do_cmd_sync(sp, cmd, data, psp_ret);
++        sp_cmd_unlock();
++    }
++    else
++    {
++        rc = _sev_do_cmd(sp, cmd, data, psp_ret);
++    }
++
++    return rc;
++}
++
++static void do_sp_cmd_timer(void *data)
++{
++    struct amd_sp_dev *sp = (struct amd_sp_dev*)data;
++
++    sp->cmd_timeout = 1;
++    wake_up_nr(&sp->cmd_in_progress, 1);
++}
++
++static void do_sp_irq(void *data)
++{
++    struct amd_sp_dev *sp;
++
++    for_each_sp_unit(sp)
++    {
++        uint32_t cmdresp = readl(sp->io_base + sp->vdata->sev->cmdresp_reg);
++        if ( cmdresp & SEV_CMDRESP_RESP )
 +        {
-+            inv = 1;
-+            single = ept;
++            sp->intr_rcvd = 1;
++            wake_up_nr(&sp->cmd_in_progress, 1);
++        }
++    }
++}
++
++static void sp_interrupt_handler(int irq, void *dev_id)
++{
++    struct amd_sp_dev *sp = (struct amd_sp_dev*)dev_id;
++    uint32_t status;
++
++    status = readl(sp->io_base + sp->vdata->intsts_reg);
++    writel(status, sp->io_base + sp->vdata->intsts_reg);
++
++    if ( status & PSP_INTSTS_CMD_COMPLETE )
++	    tasklet_schedule(&sp_irq_tasklet);
++}
++
++static int __init sp_get_capability(struct amd_sp_dev *sp)
++{
++    uint32_t val = readl(sp->io_base + sp->vdata->feature_reg);
++
++    if ( (val == 0xffffffff) || (!(val & PSP_CAPABILITY_SEV)) )
++        return -ENODEV;
++
++    sp->capability = val;
++
++    return 0;
++}
++
++static int __init sp_get_state(struct amd_sp_dev *sp, int *state, int *err)
++{
++    struct sev_user_data_status status;
++    int rc;
++
++    rc = _sev_do_cmd_sync(sp, SEV_CMD_PLATFORM_STATUS, &status, err);
++    if ( rc )
++        return rc;
++
++    *state = status.state;
++
++    return 0;
++}
++
++static int __init sp_get_api_version(struct amd_sp_dev *sp)
++{
++    struct sev_user_data_status status;
++    int err, rc;
++
++    rc = _sev_do_cmd_sync(sp, SEV_CMD_PLATFORM_STATUS, &status, &err);
++    if ( rc )
++    {
++        dprintk(XENLOG_ERR, "asp-%pp: can't get API version (%d 0x%x)\n",
++                &sp->pdev->sbdf, rc, err);
++        return rc;
++    }
++
++    sp->api_major = status.api_major;
++    sp->api_minor = status.api_minor;
++    sp->state     = status.state;
++
++    return 0;
++}
++
++static int __init sp_update_firmware(struct amd_sp_dev *sp)
++{
++    /*
++     * FIXME: nothing to do for now
++     */
++    return 0;
++}
++
++static int __init sp_alloc_special_regions(struct amd_sp_dev *sp)
++{
++    /*
++     * FIXME: allocate TMP memory area for SEV-ES
++     */
++    return 0;
++}
++
++static int __init sp_do_init(struct amd_sp_dev *sp)
++{
++    struct sev_data_init data;
++    int err, rc;
++
++    if ( sp->state == SEV_STATE_INIT )
++        return 0;
++
++    memset(&data, 0, sizeof(data));
++
++    rc = _sev_do_cmd_sync(sp, SEV_CMD_INIT, &data, &err);
++    if ( rc )
++        dprintk(XENLOG_ERR, "asp-%pp: can't init device: (%d 0x%x)\n", &sp->pdev->sbdf, rc, err);
++
++    return 0;
++}
++
++static int __init sp_df_flush(struct amd_sp_dev *sp)
++{
++    int rc, err;
++
++    rc = _sev_do_cmd_sync(sp, SEV_CMD_DF_FLUSH, NULL, &err);
++    if ( rc )
++        dprintk(XENLOG_ERR, "asp-%pp: can't flush device: (%d 0x%x)\n", &sp->pdev->sbdf, rc, err);
++
++    return 0;
++}
++
++static int __init sp_dev_init(struct amd_sp_dev *sp)
++{
++    int err, rc;
++
++    rc = sp_get_capability(sp);
++    if ( rc )
++    {
++        dprintk(XENLOG_ERR, "asp-%pp: capability is broken %d\n",
++		&sp->pdev->sbdf, rc);
++        return rc;
++    }
++
++    rc = sp_get_api_version(sp);
++    if ( rc )
++    {
++        dprintk(XENLOG_ERR, "asp-%pp: can't get API version %d\n",
++		&sp->pdev->sbdf, rc);
++        return rc;
++    }
++
++    rc = sp_update_firmware(sp);
++    if ( rc )
++    {
++        dprintk(XENLOG_ERR, "asp-%pp: can't update firmware %d\n",
++		&sp->pdev->sbdf, rc);
++        return rc;
++    }
++
++    rc = sp_alloc_special_regions(sp);
++    if ( rc )
++    {
++        dprintk(XENLOG_ERR, "asp-%pp: can't alloc special regions %d\n",
++		&sp->pdev->sbdf, rc);
++        return rc;
++    }
++
++    rc = sp_do_init(sp);
++    if ( rc )
++    {
++        dprintk(XENLOG_ERR, "asp-%pp: can't init device %d\n", &sp->pdev->sbdf,
++		rc);
++        return rc;
++    }
++
++    on_each_cpu(invalidate_cache, NULL, 1);
++
++    rc = sp_df_flush(sp);
++    if ( rc )
++    {
++        dprintk(XENLOG_ERR, "asp-%pp: can't flush %d\n", &sp->pdev->sbdf, rc);
++        return rc;
++    }
++
++    rc = sp_get_state(sp, &sp->state, &err);
++    if ( rc )
++        dprintk(XENLOG_ERR, "asp-%pp: can't get sate %d\n", &sp->pdev->sbdf,rc);
++
++
++    if ( sp->state != SEV_STATE_INIT )
++    {
++        dprintk(XENLOG_ERR, "asp-%pp: device is not inited 0x%x\n",
++		&sp->pdev->sbdf, sp->state);
++        return rc;
++    }
++
++    printk(XENLOG_INFO "inited asp-%pp device\n", &sp->pdev->sbdf);
++    return 0;
++}
++
++static int __init sp_init_irq(struct amd_sp_dev *sp)
++{
++    int irq, rc;
++    struct msi_info minfo;
++    struct msi_desc *mdesc;
++
++    /* Disable and clear interrupts until ready */
++    writel(0, sp->io_base + sp->vdata->inten_reg);
++    writel(-1, sp->io_base + sp->vdata->intsts_reg);
++
++    irq = create_irq(0, false);
++    if ( !irq )
++    {
++        dprintk(XENLOG_ERR, "asp-%pp: can't create interrupt\n", &sp->pdev->sbdf);
++        return -EBUSY;
++    }
++
++    minfo.sbdf = sp->pdev->sbdf;
++    minfo.irq  = irq;
++    minfo.entry_nr = 1;
++    if ( pci_find_cap_offset(sp->pdev->sbdf, PCI_CAP_ID_MSI) )
++        minfo.table_base = 0;
++    else
++    {
++        dprintk(XENLOG_ERR, "asp-%pp: only MSI is handled\n", &sp->pdev->sbdf);
++        return -EINVAL;
++    }
++
++    mdesc = NULL;
++
++    pcidevs_lock();
++
++    rc = pci_enable_msi(sp->pdev, &minfo, &mdesc);
++    if ( !rc )
++    {
++        struct irq_desc *idesc = irq_to_desc(irq);
++        unsigned long flags;
++
++        spin_lock_irqsave(&idesc->lock, flags);
++        rc = setup_msi_irq(idesc, mdesc);
++        spin_unlock_irqrestore(&idesc->lock, flags);
++
++        if ( rc )
++        {
++            pci_disable_msi(mdesc);
++            dprintk(XENLOG_ERR, "asp-%pp: can't setup msi %d\n", &sp->pdev->sbdf, rc);
++        }
++    }
++
++    pcidevs_unlock();
++
++    if ( rc )
++    {
++        if ( mdesc )
++            msi_free_irq(mdesc);
++        else
++            destroy_irq(irq);
++        return rc;
++
++    }
++
++    rc = request_irq(irq, 0, sp_interrupt_handler, "amd_sp", sp);
++
++    if ( rc )
++    {
++        dprintk(XENLOG_ERR, "asp-%pp: can't request interrupt %d\n", &sp->pdev->sbdf, rc);
++        return rc;
++    }
++
++    sp->irq = irq;
++
++        /* Enable interrupts */
++    writel(-1, sp->io_base + sp->vdata->inten_reg);
++
++    return 0;
++}
++
++static int __init sp_map_iomem(struct amd_sp_dev *sp)
++{
++    uint32_t base_low;
++    uint32_t base_high;
++    uint16_t cmd;
++    size_t   size;
++    bool     high_space;
++
++    base_low = pci_conf_read32(sp->pdev->sbdf, sp->vdata->base_offset);
++
++    if ( (base_low & PCI_BASE_ADDRESS_SPACE) != PCI_BASE_ADDRESS_SPACE_MEMORY )
++        return -EINVAL;
++
++    if ( (base_low & PCI_BASE_ADDRESS_MEM_TYPE_MASK) == PCI_BASE_ADDRESS_MEM_TYPE_64 )
++    {
++        base_high = pci_conf_read32(sp->pdev->sbdf, sp->vdata->base_offset + 4);
++        high_space = true;
++    } else {
++        base_high = 0;
++        high_space = false;
++    }
++
++    sp->io_pbase = ((paddr_t)base_high << 32) | (base_low & PCI_BASE_ADDRESS_MEM_MASK);
++    ASSERT(sp->io_pbase);
++
++    pci_conf_write32(sp->pdev->sbdf, sp->vdata->base_offset, 0xFFFFFFFF);
++
++    if ( high_space ) {
++        pci_conf_write32(sp->pdev->sbdf, sp->vdata->base_offset + 4, 0xFFFFFFFF);
++        size = (size_t)pci_conf_read32(sp->pdev->sbdf, sp->vdata->base_offset + 4) << 32;
++    } else
++        size = ~0xffffffffUL;
++
++    size |= pci_conf_read32(sp->pdev->sbdf, sp->vdata->base_offset);
++    sp->io_size = ~(size & PCI_BASE_ADDRESS_MEM_MASK) + 1;
++
++    pci_conf_write32(sp->pdev->sbdf, sp->vdata->base_offset, base_low);
++
++    if ( high_space )
++          pci_conf_write32(sp->pdev->sbdf, sp->vdata->base_offset + 4, base_high);
++
++    cmd = pci_conf_read16(sp->pdev->sbdf, PCI_COMMAND);
++    pci_conf_write16(sp->pdev->sbdf, PCI_COMMAND, cmd | PCI_COMMAND_MEMORY | PCI_COMMAND_MASTER);
++
++    sp->io_base = ioremap(sp->io_pbase, sp->io_size);
++    if ( !sp->io_base )
++        return -EFAULT;
++
++    if ( pci_ro_device(0, sp->pdev->bus, sp->pdev->devfn) )
++    {
++	dprintk(XENLOG_ERR, "asp-%pp: can't hide PCI device\n",&sp->pdev->sbdf);
++	return -EFAULT;
++    }
++
++    return 0;
++}
++
++static int  __init sp_dev_create(struct pci_dev *pdev, struct psp_vdata *vdata)
++{
++    struct amd_sp_dev *sp;
++    int rc;
++
++    printk(XENLOG_INFO "asp: discovered asp-%pp device\n", &pdev->sbdf);
++
++    sp = xzalloc(struct amd_sp_dev);
++    if ( !sp )
++        return -ENOMEM;
++
++    sp->pdev = pdev;
++    sp->vdata = vdata;
++    sp->state = SEV_STATE_UNINIT;
++
++    init_timer(&sp->cmd_timer, do_sp_cmd_timer, (void*)sp, 0);
++
++    init_waitqueue_head(&sp->cmd_in_progress);
++
++    rc = sp_map_iomem(sp);
++    if ( rc )
++    {
++        dprintk(XENLOG_ERR, "asp-%pp: can't map iomem %d\n", &sp->pdev->sbdf, rc);
++        return rc;
++    }
++
++    rc = sp_init_irq(sp);
++    if ( rc )
++    {
++        dprintk(XENLOG_ERR, "asp-%pp: can't init irq %d\n", &sp->pdev->sbdf, rc);
++        return rc;
++    }
++
++    sp->cmd_buff = alloc_xenheap_pages(get_order_from_bytes(ASP_CMD_BUFF_SIZE), 0);
++    if ( !sp->cmd_buff )
++    {
++        dprintk(XENLOG_ERR, "asp-%pp: can't allocate cmd buffer\n", &sp->pdev->sbdf);
++        return -ENOMEM;
++    }
++
++    sp->cbuff_pa_low = (uint32_t)(__pa(sp->cmd_buff));
++    sp->cbuff_pa_high = (uint32_t)(__pa(sp->cmd_buff) >> 32);
++
++    list_add(&sp->list, &amd_sp_units);
++
++    amd_sp_master = sp;
++
++    return 0;
++}
++
++static void sp_dev_destroy(struct amd_sp_dev* sp)
++{
++    if( sp->io_base )
++        writel(0, sp->io_base + sp->vdata->inten_reg);
++
++    if ( sp->cmd_buff )
++        free_xenheap_pages(sp->cmd_buff, get_order_from_bytes(ASP_CMD_BUFF_SIZE));
++
++    xfree(sp);
++}
++
++static void sp_devs_destroy(void)
++{
++    struct amd_sp_dev *sp, *next;
++
++    list_for_each_entry_safe ( sp, next, &amd_sp_units, list)
++    {
++        list_del(&sp->list);
++        sp_dev_destroy(sp);
++    }
++}
++
++static int __init amd_sp_probe(void)
++{
++    int bus = 0, devfn = 0, rc;
++    struct  amd_sp_dev *sp;
++
++     if ( boot_cpu_has(X86_FEATURE_XEN_SHSTK) )
++     {
++        force_sync = true;
++        printk(XENLOG_INFO "asp: CET-SS detected - sync mode forced\n");
++     }
++
++    for ( bus = 0; bus < 256; ++bus )
++        for ( devfn = 0; devfn < 256; ++devfn )
++        {
++            struct pci_dev *pdev;
++            pcidevs_lock();
++            pdev = pci_get_pdev(NULL, PCI_SBDF(0, bus, devfn));
++            pcidevs_unlock();
++
++            if ( !pdev || pci_conf_read16(pdev->sbdf, PCI_VENDOR_ID) !=
++                 PCI_VENDOR_ID_AMD )
++                continue;
++
++            switch ( pci_conf_read16(pdev->sbdf, PCI_DEVICE_ID) )
++            {
++                case 0x1456:
++                    rc = sp_dev_create(pdev, &pspv1);
++                    break;
++                case 0x1486:
++                    rc = sp_dev_create(pdev, &pspv2);
++                    break;
++                case 0x14CA:
++                    rc = sp_dev_create(pdev, &pspv4);
++                    break;
++                case 0x156E:
++                    rc = sp_dev_create(pdev, &pspv6);
++                    break;
++                default:
++                    rc = 0;
++                    break;
++            }
++            if ( rc )
++                goto err;
 +        }
 +
-         if ( cpumask_test_cpu(cpu, ept->invalidate) )
-         {
-             cpumask_clear_cpu(cpu, ept->invalidate);
- 
-             /* Automatically invalidate all contexts if nested. */
--            inv += 1 + nestedhvm_enabled(currd);
-+            inv = 1 + nestedhvm_enabled(currd);
-             single = ept;
-         }
- 
-@@ -4986,6 +4981,11 @@ bool asmlinkage vmx_vmenter_helper(const struct cpu_user_regs *regs)
-             __invept(inv == 1 ? INVEPT_SINGLE_CONTEXT : INVEPT_ALL_CONTEXT,
-                      inv == 1 ? single->eptp          : 0);
-     }
-+    else /* Shadow paging */
++    for_each_sp_unit(sp)
 +    {
-+        if ( test_and_clear_bool(curr->needs_tlb_flush) )
-+            vpid_sync_vcpu_context(curr);
++        rc = sp_dev_init(sp);
++        if ( rc )
++            goto err;
 +    }
- 
-  out:
-     if ( unlikely(curr->arch.hvm.vmx.lbr_flags & LBR_FIXUP_MASK) )
-diff --git a/xen/arch/x86/hvm/vmx/vvmx.c b/xen/arch/x86/hvm/vmx/vvmx.c
-index ceb5e5a322..fa84ee4e8f 100644
---- a/xen/arch/x86/hvm/vmx/vvmx.c
-+++ b/xen/arch/x86/hvm/vmx/vvmx.c
-@@ -12,6 +12,7 @@
- 
- #include <asm/mtrr.h>
- #include <asm/p2m.h>
-+#include <asm/hvm/hvm.h>
- #include <asm/hvm/support.h>
- #include <asm/hvm/vmx/vmx.h>
- #include <asm/hvm/vmx/vvmx.h>
-@@ -1254,7 +1255,7 @@ static void virtual_vmentry(struct cpu_user_regs *regs)
- 
-         if ( nvmx->guest_vpid != new_vpid )
-         {
--            hvm_asid_flush_vcpu_asid(&vcpu_nestedhvm(v).nv_n2asid);
-+            v->needs_tlb_flush = true;
-             nvmx->guest_vpid = new_vpid;
-         }
-     }
-@@ -2055,7 +2056,7 @@ static int nvmx_handle_invvpid(struct cpu_user_regs *regs)
-     case INVVPID_INDIVIDUAL_ADDR:
-     case INVVPID_SINGLE_CONTEXT:
-     case INVVPID_ALL_CONTEXT:
--        hvm_asid_flush_vcpu_asid(&vcpu_nestedhvm(current).nv_n2asid);
-+        hvm_flush_tlb(NULL);
-         break;
-     default:
-         vmfail(regs, VMX_INSN_INVEPT_INVVPID_INVALID_OP);
-diff --git a/xen/arch/x86/include/asm/hvm/asid.h b/xen/arch/x86/include/asm/hvm/asid.h
-index 17c58353d1..13ea357f70 100644
---- a/xen/arch/x86/include/asm/hvm/asid.h
-+++ b/xen/arch/x86/include/asm/hvm/asid.h
-@@ -8,25 +8,21 @@
- #ifndef __ASM_X86_HVM_ASID_H__
- #define __ASM_X86_HVM_ASID_H__
- 
-+#include <xen/stdbool.h>
-+#include <xen/stdint.h>
- 
--struct vcpu;
--struct hvm_vcpu_asid;
-+struct hvm_asid {
-+  uint32_t asid;
-+};
- 
--/* Initialise ASID management for the current physical CPU. */
--void hvm_asid_init(int nasids);
-+extern bool asid_enabled;
- 
--/* Invalidate a particular ASID allocation: forces re-allocation. */
--void hvm_asid_flush_vcpu_asid(struct hvm_vcpu_asid *asid);
-+/* Initialise ASID management distributed across all CPUs. */
-+int hvm_asid_init(unsigned long nasids);
- 
--/* Invalidate all ASID allocations for specified VCPU: forces re-allocation. */
--void hvm_asid_flush_vcpu(struct vcpu *v);
--
--/* Flush all ASIDs on this processor core. */
--void hvm_asid_flush_core(void);
--
--/* Called before entry to guest context. Checks ASID allocation, returns a
-- * boolean indicating whether all ASIDs must be flushed. */
--bool hvm_asid_handle_vmenter(struct hvm_vcpu_asid *asid);
-+int hvm_asid_alloc(struct hvm_asid *asid);
-+int hvm_asid_alloc_range(struct hvm_asid *asid, unsigned long min, unsigned long max);
-+void hvm_asid_free(struct hvm_asid *asid);
- 
- #endif /* __ASM_X86_HVM_ASID_H__ */
- 
-diff --git a/xen/arch/x86/include/asm/hvm/domain.h b/xen/arch/x86/include/asm/hvm/domain.h
-index 2608bcfad2..5fb37d342b 100644
---- a/xen/arch/x86/include/asm/hvm/domain.h
-+++ b/xen/arch/x86/include/asm/hvm/domain.h
-@@ -141,6 +141,7 @@ struct hvm_domain {
-     } write_map;
- 
-     struct hvm_pi_ops pi_ops;
-+    struct hvm_asid asid;
- 
-     union {
-         struct vmx_domain vmx;
-diff --git a/xen/arch/x86/include/asm/hvm/hvm.h b/xen/arch/x86/include/asm/hvm/hvm.h
-index bf8bc2e100..7af111cb39 100644
---- a/xen/arch/x86/include/asm/hvm/hvm.h
-+++ b/xen/arch/x86/include/asm/hvm/hvm.h
-@@ -268,6 +268,8 @@ int hvm_domain_initialise(struct domain *d,
- void hvm_domain_relinquish_resources(struct domain *d);
- void hvm_domain_destroy(struct domain *d);
- 
-+int hvm_flush_tlb(const unsigned long *vcpu_bitmap);
 +
- int hvm_vcpu_initialise(struct vcpu *v);
- void hvm_vcpu_destroy(struct vcpu *v);
- void hvm_vcpu_down(struct vcpu *v);
-@@ -483,17 +485,6 @@ static inline void hvm_set_tsc_offset(struct vcpu *v, uint64_t offset,
-     alternative_vcall(hvm_funcs.set_tsc_offset, v, offset, at_tsc);
- }
- 
--/*
-- * Called to ensure than all guest-specific mappings in a tagged TLB are 
-- * flushed; does *not* flush Xen's TLB entries, and on processors without a 
-- * tagged TLB it will be a noop.
-- */
--static inline void hvm_flush_guest_tlbs(void)
--{
--    if ( hvm_enabled )
--        hvm_asid_flush_core();
--}
--
- static inline unsigned int
- hvm_get_cpl(struct vcpu *v)
- {
-@@ -881,8 +872,6 @@ static inline int hvm_cpu_up(void)
- 
- static inline void hvm_cpu_down(void) {}
- 
--static inline void hvm_flush_guest_tlbs(void) {}
--
- static inline void hvm_invlpg(const struct vcpu *v, unsigned long linear)
- {
-     ASSERT_UNREACHABLE();
-diff --git a/xen/arch/x86/include/asm/hvm/svm/svm.h b/xen/arch/x86/include/asm/hvm/svm/svm.h
-index 32f6e48e30..1254e5f3ee 100644
---- a/xen/arch/x86/include/asm/hvm/svm/svm.h
-+++ b/xen/arch/x86/include/asm/hvm/svm/svm.h
-@@ -9,6 +9,11 @@
- #ifndef __ASM_X86_HVM_SVM_H__
- #define __ASM_X86_HVM_SVM_H__
- 
-+void svm_asid_init(void);
-+void svm_vcpu_assign_asid(struct vcpu *v);
-+void svm_vcpu_set_tlb_control(struct vcpu *v);
-+void svm_vcpu_clear_tlb_control(struct vcpu *v);
++    return 0;
 +
- /*
-  * PV context switch helpers.  Prefetching the VMCB area itself has been shown
-  * to be useful for performance.
-diff --git a/xen/arch/x86/include/asm/hvm/vcpu.h b/xen/arch/x86/include/asm/hvm/vcpu.h
-index 196fed6d5d..960bea6734 100644
---- a/xen/arch/x86/include/asm/hvm/vcpu.h
-+++ b/xen/arch/x86/include/asm/hvm/vcpu.h
-@@ -9,6 +9,7 @@
- #define __ASM_X86_HVM_VCPU_H__
- 
- #include <xen/tasklet.h>
-+#include <asm/hvm/asid.h>
- #include <asm/hvm/vlapic.h>
- #include <asm/hvm/vmx/vmcs.h>
- #include <asm/hvm/vmx/vvmx.h>
-@@ -17,11 +18,6 @@
- #include <asm/mtrr.h>
- #include <public/hvm/ioreq.h>
- 
--struct hvm_vcpu_asid {
--    uint64_t generation;
--    uint32_t asid;
--};
--
- struct hvm_vcpu_io {
-     /*
-      * HVM emulation:
-@@ -79,7 +75,7 @@ struct nestedvcpu {
-     bool stale_np2m; /* True when p2m_base in VMCx02 is no longer valid */
-     uint64_t np2m_generation;
- 
--    struct hvm_vcpu_asid nv_n2asid;
-+    struct hvm_asid nv_n2asid;
- 
-     bool nv_vmentry_pending;
-     bool nv_vmexit_pending;
-@@ -141,8 +137,6 @@ struct hvm_vcpu {
-     /* (MFN) hypervisor page table */
-     pagetable_t         monitor_table;
- 
--    struct hvm_vcpu_asid n1asid;
--
-     u64                 msr_tsc_adjust;
- 
-     union {
-diff --git a/xen/arch/x86/include/asm/hvm/vmx/vmx.h b/xen/arch/x86/include/asm/hvm/vmx/vmx.h
-index a55a31b42d..cae3613a61 100644
---- a/xen/arch/x86/include/asm/hvm/vmx/vmx.h
-+++ b/xen/arch/x86/include/asm/hvm/vmx/vmx.h
-@@ -462,14 +462,10 @@ static inline void vpid_sync_vcpu_context(struct vcpu *v)
-     if ( likely(cpu_has_vmx_vpid_invvpid_single_context) )
-         goto execute_invvpid;
- 
--    /*
--     * If single context invalidation is not supported, we escalate to
--     * use all context invalidation.
--     */
-     type = INVVPID_ALL_CONTEXT;
- 
- execute_invvpid:
--    __invvpid(type, v->arch.hvm.n1asid.asid, (u64)gva);
-+    __invvpid(type, v->domain->arch.hvm.asid.asid, 0);
- }
- 
- static inline void vpid_sync_vcpu_gva(struct vcpu *v, unsigned long gva)
-@@ -493,7 +489,7 @@ static inline void vpid_sync_vcpu_gva(struct vcpu *v, unsigned long gva)
-         type = INVVPID_ALL_CONTEXT;
- 
- execute_invvpid:
--    __invvpid(type, v->arch.hvm.n1asid.asid, (u64)gva);
-+    __invvpid(type, v->domain->arch.hvm.asid.asid, (u64)gva);
- }
- 
- static inline void vpid_sync_all(void)
-diff --git a/xen/arch/x86/mm/hap/hap.c b/xen/arch/x86/mm/hap/hap.c
-index ec5043a8aa..cf7ca1702a 100644
---- a/xen/arch/x86/mm/hap/hap.c
-+++ b/xen/arch/x86/mm/hap/hap.c
-@@ -27,6 +27,7 @@
- #include <asm/p2m.h>
- #include <asm/domain.h>
- #include <xen/numa.h>
-+#include <asm/hvm/asid.h>
- #include <asm/hvm/nestedhvm.h>
- #include <public/sched.h>
- 
-@@ -739,7 +740,7 @@ static bool cf_check flush_tlb(const unsigned long *vcpu_bitmap)
-         if ( !flush_vcpu(v, vcpu_bitmap) )
-             continue;
- 
--        hvm_asid_flush_vcpu(v);
-+        v->needs_tlb_flush = true;
- 
-         cpu = read_atomic(&v->dirty_cpu);
-         if ( cpu != this_cpu && is_vcpu_dirty_cpu(cpu) && v->is_running )
-@@ -748,9 +749,7 @@ static bool cf_check flush_tlb(const unsigned long *vcpu_bitmap)
- 
-     /*
-      * Trigger a vmexit on all pCPUs with dirty vCPU state in order to force an
--     * ASID/VPID change and hence accomplish a guest TLB flush. Note that vCPUs
--     * not currently running will already be flushed when scheduled because of
--     * the ASID tickle done in the loop above.
-+     * ASID/VPID flush and hence accomplish a guest TLB flush.
-      */
-     on_selected_cpus(mask, NULL, NULL, 0);
- 
-diff --git a/xen/arch/x86/mm/p2m.c b/xen/arch/x86/mm/p2m.c
-index 3a39b5d124..04b41cee12 100644
---- a/xen/arch/x86/mm/p2m.c
-+++ b/xen/arch/x86/mm/p2m.c
-@@ -25,6 +25,7 @@
- #include <asm/p2m.h>
- #include <asm/mem_sharing.h>
- #include <asm/hvm/nestedhvm.h>
-+#include <asm/hvm/vcpu.h>
- #include <asm/altp2m.h>
- #include <asm/vm_event.h>
- #include <xsm/xsm.h>
-@@ -1405,7 +1406,7 @@ p2m_flush(struct vcpu *v, struct p2m_domain *p2m)
-     ASSERT(v->domain == p2m->domain);
-     vcpu_nestedhvm(v).nv_p2m = NULL;
-     p2m_flush_table(p2m);
--    hvm_asid_flush_vcpu(v);
-+    v->needs_tlb_flush = true;
- }
- 
- void
-@@ -1464,7 +1465,7 @@ static void assign_np2m(struct vcpu *v, struct p2m_domain *p2m)
- 
- static void nvcpu_flush(struct vcpu *v)
- {
--    hvm_asid_flush_vcpu(v);
-+    v->needs_tlb_flush = true;
-     vcpu_nestedhvm(v).stale_np2m = true;
- }
- 
-@@ -1584,7 +1585,7 @@ void np2m_schedule(int dir)
-             if ( !np2m_valid )
-             {
-                 /* This vCPU's np2m was flushed while it was not runnable */
--                hvm_asid_flush_core();
-+                curr->needs_tlb_flush = true; /* TODO: Is it ok ? */
-                 vcpu_nestedhvm(curr).nv_p2m = NULL;
-             }
-             else
-diff --git a/xen/arch/x86/mm/paging.c b/xen/arch/x86/mm/paging.c
-index c77f4c1dac..26b6ce9e9b 100644
---- a/xen/arch/x86/mm/paging.c
-+++ b/xen/arch/x86/mm/paging.c
-@@ -964,7 +964,7 @@ void paging_update_nestedmode(struct vcpu *v)
-     else
-         /* TODO: shadow-on-shadow */
-         v->arch.paging.nestedmode = NULL;
--    hvm_asid_flush_vcpu(v);
-+    v->needs_tlb_flush = true;
- }
- 
- int __init paging_set_allocation(struct domain *d, unsigned int pages,
-diff --git a/xen/arch/x86/mm/shadow/hvm.c b/xen/arch/x86/mm/shadow/hvm.c
-index 114957a3e1..f98591f976 100644
---- a/xen/arch/x86/mm/shadow/hvm.c
-+++ b/xen/arch/x86/mm/shadow/hvm.c
-@@ -737,6 +737,7 @@ bool cf_check shadow_flush_tlb(const unsigned long *vcpu_bitmap)
-             continue;
- 
-         paging_update_cr3(v, false);
-+        v->needs_tlb_flush = true;
- 
-         cpu = read_atomic(&v->dirty_cpu);
-         if ( is_vcpu_dirty_cpu(cpu) )
-diff --git a/xen/arch/x86/mm/shadow/multi.c b/xen/arch/x86/mm/shadow/multi.c
-index 7be9c180ec..0e2865286e 100644
---- a/xen/arch/x86/mm/shadow/multi.c
-+++ b/xen/arch/x86/mm/shadow/multi.c
-@@ -3144,6 +3144,7 @@ sh_update_linear_entries(struct vcpu *v)
-      * without this change, it would fetch the wrong value due to a stale TLB.
-      */
-     sh_flush_local(d);
-+    v->needs_tlb_flush = true;
- }
- 
- static pagetable_t cf_check sh_update_cr3(struct vcpu *v, bool noflush)
-diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
-index 4ce9253284..f2f5a98534 100644
---- a/xen/include/xen/sched.h
-+++ b/xen/include/xen/sched.h
-@@ -228,6 +228,8 @@ struct vcpu
-     bool             defer_shutdown;
-     /* VCPU is paused following shutdown request (d->is_shutting_down)? */
-     bool             paused_for_shutdown;
-+    /* VCPU needs its TLB flushed before waking. */
-+    bool             needs_tlb_flush;
-     /* VCPU need affinity restored */
-     uint8_t          affinity_broken;
- #define VCPU_AFFINITY_OVERRIDE    0x01
++  err:
++    sp_devs_destroy();
++    return rc;
++}
++
++__initcall(amd_sp_probe);
 -- 
 2.49.0
 
