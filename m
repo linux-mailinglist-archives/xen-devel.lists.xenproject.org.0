@@ -2,35 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A4FAAB9A38
-	for <lists+xen-devel@lfdr.de>; Fri, 16 May 2025 12:32:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.986877.1372411 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6CF4FAB9A2F
+	for <lists+xen-devel@lfdr.de>; Fri, 16 May 2025 12:31:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.986848.1372371 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uFsMc-0006ay-Op; Fri, 16 May 2025 10:32:26 +0000
+	id 1uFsLZ-00049B-Li; Fri, 16 May 2025 10:31:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 986877.1372411; Fri, 16 May 2025 10:32:26 +0000
+Received: by outflank-mailman (output) from mailman id 986848.1372371; Fri, 16 May 2025 10:31:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uFsMc-0006YA-Lh; Fri, 16 May 2025 10:32:26 +0000
-Received: by outflank-mailman (input) for mailman id 986877;
- Fri, 16 May 2025 10:32:25 +0000
+	id 1uFsLZ-00047c-Hh; Fri, 16 May 2025 10:31:21 +0000
+Received: by outflank-mailman (input) for mailman id 986848;
+ Fri, 16 May 2025 10:31:19 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=jSjr=YA=bounce.vates.tech=bounce-md_30504962.6827125e.v1-63c856eaabcc465290ad4b5fa1439d25@srs-se1.protection.inumbo.net>)
- id 1uFsEz-0000kS-6p
- for xen-devel@lists.xenproject.org; Fri, 16 May 2025 10:24:33 +0000
-Received: from mail187-4.suw11.mandrillapp.com
- (mail187-4.suw11.mandrillapp.com [198.2.187.4])
+ <SRS0=kgnf=YA=bounce.vates.tech=bounce-md_30504962.68271268.v1-55be2ee1b05f4c71bac5a8b138fad311@srs-se1.protection.inumbo.net>)
+ id 1uFsF8-0000kS-Qw
+ for xen-devel@lists.xenproject.org; Fri, 16 May 2025 10:24:42 +0000
+Received: from mail133-28.atl131.mandrillapp.com
+ (mail133-28.atl131.mandrillapp.com [198.2.133.28])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f40480ea-323f-11f0-9ffb-bf95429c2676;
- Fri, 16 May 2025 12:24:31 +0200 (CEST)
-Received: from pmta09.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
- by mail187-4.suw11.mandrillapp.com (Mailchimp) with ESMTP id 4ZzNVQ3Hf8zlff4H
- for <xen-devel@lists.xenproject.org>; Fri, 16 May 2025 10:24:30 +0000 (GMT)
+ id f9c17d21-323f-11f0-9ffb-bf95429c2676;
+ Fri, 16 May 2025 12:24:41 +0200 (CEST)
+Received: from pmta13.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
+ by mail133-28.atl131.mandrillapp.com (Mailchimp) with ESMTP id
+ 4ZzNVc0flkzMQxhSc
+ for <xen-devel@lists.xenproject.org>; Fri, 16 May 2025 10:24:40 +0000 (GMT)
 Received: from [37.26.189.201] by mandrillapp.com id
- 63c856eaabcc465290ad4b5fa1439d25; Fri, 16 May 2025 10:24:30 +0000
+ 55be2ee1b05f4c71bac5a8b138fad311; Fri, 16 May 2025 10:24:40 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,591 +43,400 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f40480ea-323f-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: f9c17d21-323f-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1747391070; x=1747661070;
-	bh=lO1eWJXehJrWu+Ma1mFaorTOrllIBJiV30YAtkWYzO4=;
+	s=mte1; t=1747391080; x=1747661080;
+	bh=rmMyFtnQQP/M6lJv+2OTm80wHgu+FGdxuTTYePbwvvo=;
 	h=From:Subject:To:Cc:Message-Id:In-Reply-To:References:Feedback-ID:
 	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
 	 Subject:From;
-	b=ZoW1a4JDDudBZTiatl4lj4LA/6RPEvoUgWr8CxUyxau7862zRdHQXrN1A6WHnsed9
-	 n6Y+EhqNMTGmrlhft7tououRA1/fh3eyhmk2fWniSGUkG49F/2xx4fZFTXOjOhAVaI
-	 MsE3DxVV0QMPhK2Nmb4gbIA6xnLaGLrQV5wKXj1DNG3Q/hGF7EVLGeO5+mhbUFeaTI
-	 ylcKyg+vouPA+AMxMDyfJiHA/uGc4Ts21sC1SaPpv6XeHvYRF6gwh9uqBWCNrE/hT6
-	 RSQWDOTTMGDzqlCSG/Lo7zEXIhqA4j+GYLpSaQIiMQ9Y7AHGdf+hEv5OtaoEOd1KWY
-	 8LP8HKE7Wd9Pg==
+	b=QDuEbMATQOKPddW1ufK70fdBeatEr0CakgVN7waNQI9kJ5j9ABbZza4T5O79Iidkw
+	 5smVTwk0yrES1Pp7VugS3hE3t4Q2T0mE/BEQEzl1YYP0yBOEM1Popc5ATH0JEwsJIt
+	 nN0KMpD+Hgwa+LRSoPi5l/yYzr1wCsQpyrWO/RXFmdfDxu6oCa1I3TZnpvQYQ35GvM
+	 n8zIzXB7FQR+Tg9CBQirMsi3HU5bryIxr9wuW4gYI0ve2p+QvdHD1IKdjT90huxwzX
+	 VOI2DRvu7VPo4buRFZyEIzCQJwYf8BgKMrgjP8ycops/wi4NaQ77QmmRHofZCCek77
+	 dUhjU7tS5t8kA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1747391070; x=1747651570; i=teddy.astie@vates.tech;
-	bh=lO1eWJXehJrWu+Ma1mFaorTOrllIBJiV30YAtkWYzO4=;
+	t=1747391080; x=1747651580; i=teddy.astie@vates.tech;
+	bh=rmMyFtnQQP/M6lJv+2OTm80wHgu+FGdxuTTYePbwvvo=;
 	h=From:Subject:To:Cc:Message-Id:In-Reply-To:References:Feedback-ID:
 	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
 	 Subject:From;
-	b=GpjepVawJ1WbcosrlqMdqjwmmotYz8QZaE9vyGpm9yi7wRxoRKeiTywBfb5BPc7eo
-	 tciAA2H0KON5Wssbm4rzYlNDMbxx2H7yNrQVZE/sbKpx4LHCgGEptWtWByq32N8WwD
-	 SXP1N3puRGAuIuqPSNPHJ/qMOiV89DI9WwW3VEHoGcD117ubHwXbMgN+NjpagEPuEn
-	 e/c3R+WbrWTSrZ76K/xmOFRxD3eqk/6JR2GmRB2Svjsiyo+tP0Zft9+L6h/F+cN2at
-	 6egWnDrm86p1VFZUcDPedQEzQVSZz/xVy2bPMVrMYHkAM9ySnaezp4gkzz2M/T/0Wg
-	 EgJZNLUkFTMvg==
+	b=qKljt4eXIzjKpiRbjn9rvxgK70F9BWLWXx/pVT86itAsZglLmpx42itb1q2iv2PE5
+	 ID0i3ku/Txr/p0FvkN6v2y0SxzTIM5k3ZBq/+/TLDsnHsWlFvkEkmjZNUT3QQ986q/
+	 v+GGRkIQkP1c87qnssQdjLd9DM9mCnUK4sWWrBKPJ2MTuMYCOt/bCuJhEerG6w8Voc
+	 X9t7nNcN0aig8I6jM4u6H4uT2RMaTuj5KuYmF0SIYzYcGPRY5NFuSulJgIa81h4Poy
+	 eVzquOE6MsIlx4R7HyELmIQxpeG3wwzywRqftt+mUyAG6TphpxJiUTRZzPJ9T31qJg
+	 GpFBwkLhJRLjg==
 From: "Teddy Astie" <teddy.astie@vates.tech>
-Subject: =?utf-8?Q?[RFC=20PATCH=2013/16]=20x86/coco:=20Introduce=20AMD-SEV=20support?=
+Subject: =?utf-8?Q?[RFC=20PATCH=2014/16]=20sev/emulate:=20Handle=20some=20non-emulable=20HVM=20paths?=
 X-Mailer: git-send-email 2.49.0
 X-Bm-Disclaimer: Yes
 X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1747391069679
+X-Bm-Transport-Timestamp: 1747391079133
 To: xen-devel@lists.xenproject.org
 Cc: "Teddy Astie" <teddy.astie@vates.tech>, "Jan Beulich" <jbeulich@suse.com>, "Andrew Cooper" <andrew.cooper3@citrix.com>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>, "Andrei Semenov" <andrei.semenov@vates.tech>
-Message-Id: <0326909f629fd5b2dee9f17d9a566a79953bdd85.1747312394.git.teddy.astie@vates.tech>
+Message-Id: <b185e194c53258ea659c13f3b9c062daaa6942a5.1747312394.git.teddy.astie@vates.tech>
 In-Reply-To: <cover.1747312394.git.teddy.astie@vates.tech>
 References: <cover.1747312394.git.teddy.astie@vates.tech>
 X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.63c856eaabcc465290ad4b5fa1439d25?=
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.55be2ee1b05f4c71bac5a8b138fad311?=
 X-Mandrill-User: md_30504962
 Feedback-ID: 30504962:30504962.20250516:md
-Date: Fri, 16 May 2025 10:24:30 +0000
+Date: Fri, 16 May 2025 10:24:40 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 7bit
 
 From: Andrei Semenov <andrei.semenov@vates.tech>
 
-AMD-SEV is AMD implementation for confidential computing.
-
-This patch introduces SEV initialization and HVM enablement logic.
+Some code paths are not emulable under SEV or needs special handling.
 
 Signed-off-by: Andrei Semenov <andrei.semenov@vates.tech>
 Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
 ---
-Some possible improvement would be to slightly change the ASID allocation
-logic under SEV : 
+ xen/arch/x86/hvm/emulate.c | 137 ++++++++++++++++++++++++++++++++-----
+ xen/arch/x86/hvm/hvm.c     |  13 ++++
+ 2 files changed, 133 insertions(+), 17 deletions(-)
 
-With SEV support and usable :
- - non-SEV guest : Use ASID > NumSevGuests if possible
- - SEV guest : Use ASID in SEV range
-
-Such as we don't waste SEV-supported ASIDs.
-
-This currently lacks DF_FLUSH support, so SEV-enabled destroyed cannot
-reuse their ASIDs. This is currently workaround with "coco: Leak ASID for coco guests".
----
- xen/arch/x86/Makefile                  |   1 +
- xen/arch/x86/coco/Makefile             |   1 +
- xen/arch/x86/coco/sev.c                | 262 +++++++++++++++++++++++++
- xen/arch/x86/cpu/amd.c                 |  10 +
- xen/arch/x86/cpuid.c                   |   5 +
- xen/arch/x86/hvm/Kconfig               |  10 +
- xen/arch/x86/hvm/svm/svm.c             |   6 +
- xen/arch/x86/hvm/svm/vmcb.c            |  17 +-
- xen/arch/x86/include/asm/coco.h        |   8 +
- xen/arch/x86/include/asm/hvm/svm/sev.h |  14 ++
- xen/arch/x86/include/asm/hvm/svm/svm.h |  16 ++
- 11 files changed, 344 insertions(+), 6 deletions(-)
- create mode 100644 xen/arch/x86/coco/Makefile
- create mode 100644 xen/arch/x86/coco/sev.c
- create mode 100644 xen/arch/x86/include/asm/coco.h
- create mode 100644 xen/arch/x86/include/asm/hvm/svm/sev.h
-
-diff --git a/xen/arch/x86/Makefile b/xen/arch/x86/Makefile
-index bedb97cbee..220bff5e0a 100644
---- a/xen/arch/x86/Makefile
-+++ b/xen/arch/x86/Makefile
-@@ -1,5 +1,6 @@
- obj-y += acpi/
- obj-y += boot/
-+obj-$(CONFIG_COCO) += coco/
- obj-y += cpu/
- obj-y += efi/
- obj-y += genapic/
-diff --git a/xen/arch/x86/coco/Makefile b/xen/arch/x86/coco/Makefile
-new file mode 100644
-index 0000000000..59ab1c075f
---- /dev/null
-+++ b/xen/arch/x86/coco/Makefile
-@@ -0,0 +1 @@
-+obj-$(CONFIG_COCO_AMD_SEV) += sev.o
-\ No newline at end of file
-diff --git a/xen/arch/x86/coco/sev.c b/xen/arch/x86/coco/sev.c
-new file mode 100644
-index 0000000000..366ce42baa
---- /dev/null
-+++ b/xen/arch/x86/coco/sev.c
-@@ -0,0 +1,262 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * coco/sev.c: AMD SEV support
-+ * Copyright (c) Vates SAS
-+ */
+diff --git a/xen/arch/x86/hvm/emulate.c b/xen/arch/x86/hvm/emulate.c
+index 6ed8e03475..7ac3be2d59 100644
+--- a/xen/arch/x86/hvm/emulate.c
++++ b/xen/arch/x86/hvm/emulate.c
+@@ -26,6 +26,7 @@
+ #include <asm/hvm/hvm.h>
+ #include <asm/hvm/monitor.h>
+ #include <asm/hvm/support.h>
++#include <asm/hvm/svm/sev.h>
+ #include <asm/iocap.h>
+ #include <asm/vm_event.h>
+ 
+@@ -689,6 +690,9 @@ static void *hvmemul_map_linear_addr(
+         goto unhandleable;
+     }
+ 
++    if ( is_sev_domain(curr->domain) && (nr_frames > 1) )
++        goto unhandleable;
 +
-+#include <asm/cpu-policy.h>
-+#include <asm/cpufeature.h>
-+#include <asm/p2m.h>
-+#include <asm/hvm/asid.h>
-+ 
-+#include <public/hvm/coco.h>
-+
-+#include <xen/config.h>
-+#include <xen/coco.h>
-+#include <asm/psp-sev.h>
-+
-+static int sev_domain_initialise(struct domain *d)
-+{
-+    struct sev_data_launch_start sd_ls;
-+    struct sev_data_activate sd_a;
-+    int psp_ret;
-+    long rc = 0;
-+
-+    sd_ls.handle = 0;          /* generate new one */
-+    sd_ls.policy = 0;          /* NOKS policy */
-+    sd_ls.dh_cert_address = 0; /* do not DH stuff */
-+
-+    rc = sev_do_cmd(SEV_CMD_LAUNCH_START, (void *)(&sd_ls), &psp_ret, true);
-+    if ( rc )
-+    {
-+        printk(XENLOG_ERR "asp: failed to LAUNCH_START domain(%d): psp_ret %d\n",
-+                d->domain_id, psp_ret);
-+        return rc;
-+    }
-+
-+    sd_a.handle = sd_ls.handle;
-+    sd_a.asid = d->arch.hvm.asid.asid;
-+
-+    rc = sev_do_cmd(SEV_CMD_ACTIVATE, (void *)(&sd_a), &psp_ret, true);
-+    if ( rc )
-+    {
-+        printk(XENLOG_ERR "asp: failed to ACTIVATE domain(%d): psp_ret %d\n",
-+                d->domain_id, psp_ret);
-+        return rc;
-+    }
-+
-+    d->arch.hvm.svm.sev.asp_handle = sd_ls.handle;
-+    d->arch.hvm.svm.sev.asp_policy = 0;
-+
-+    return 0;
-+}
-+
-+static int sev_domain_prepare_initial_mem(struct domain *d, gfn_t gfn, size_t count)
-+{
-+    struct page_info *page;
-+    int rc, psp_ret;
-+    struct sev_data_launch_update_data sd_lud;
-+
-+    mfn_t mfn, mfn_base = INVALID_MFN;
-+    size_t segment_size = 0;
-+
-+    do {
-+        page = get_page_from_gfn(d, gfn_x(gfn), NULL, P2M_ALLOC);
-+        if ( unlikely(!page) )
-+            return rc;
-+
-+        mfn = page_to_mfn(page);
-+        put_page(page);
-+
-+        if ( !mfn_valid(mfn_base) )
-+            mfn_base = mfn;
+     for ( i = 0; i < nr_frames; i++ )
+     {
+         enum hvm_translation_result res;
+@@ -703,8 +707,16 @@ static void *hvmemul_map_linear_addr(
+         /* Error checking.  Confirm that the current slot is clean. */
+         ASSERT(mfn_x(*mfn) == 0);
+ 
+-        res = hvm_translate_get_page(curr, addr, true, pfec,
++        if ( is_sev_domain(curr->domain) )
++        {
++            struct hvm_vcpu_io *hvio = &curr->arch.hvm.hvm_io;
++            unsigned long gpa = pfn_to_paddr(hvio->mmio_gpfn) | (addr & ~PAGE_MASK);
++            res = hvm_translate_get_page(curr, gpa, false, pfec,
+                                      &pfinfo, &page, &gfn, &p2mt);
++        }
++        else
++            res = hvm_translate_get_page(curr, addr, true, pfec,
++                                         &pfinfo, &page, &gfn, &p2mt);
+ 
+         switch ( res )
+         {
+@@ -1173,6 +1185,7 @@ static int hvmemul_linear_mmio_access(
+                                                            dir, buffer_offset);
+     paddr_t gpa;
+     unsigned long one_rep = 1;
++    unsigned int chunk;
+     int rc;
+ 
+     if ( cache == NULL )
+@@ -1183,21 +1196,50 @@ static int hvmemul_linear_mmio_access(
+         ASSERT_UNREACHABLE();
+         return X86EMUL_UNHANDLEABLE;
+     }
++    
++    chunk = min_t(unsigned int, size, PAGE_SIZE - offset);
+ 
+     if ( known_gpfn )
+         gpa = pfn_to_paddr(hvio->mmio_gpfn) | offset;
+     else
+     {
+-        rc = hvmemul_linear_to_phys(gla, &gpa, size, &one_rep, pfec,
++        if ( is_sev_domain(current->domain) )
++            gpa = pfn_to_paddr(hvio->mmio_gpfn) | offset;
 +        else
 +        {
-+            // Check for a break.
-+            if (mfn_x(mfn_base) + segment_size != mfn_x(mfn) || segment_size == 512)
-+            {
-+                // Make launch update data.
-+                printk(XENLOG_DEBUG
-+                       "asp: LAUNCH_UPDATE_DATA d%d: base=%"PRI_xen_pfn", size=%zx\n",
-+                       d->domain_id, mfn_x(mfn_base), segment_size);
-+                
-+                sd_lud.reserved = 0;
-+                sd_lud.handle = d->arch.hvm.svm.sev.asp_handle;
-+                sd_lud.address = mfn_x(mfn_base) << PAGE_SHIFT;
-+                sd_lud.len = segment_size * PAGE_SIZE;
-+                rc = sev_do_cmd(SEV_CMD_LAUNCH_UPDATE_DATA, (void *)(&sd_lud),
-+                                &psp_ret, true);
-+                if (rc)
-+                {
-+                    printk(XENLOG_ERR
-+                           "asp: failed to LAUNCH_UPDATE_DATA dom(%d): err %d\n",
-+                           d->domain_id, psp_ret);
-+                    return rc;
-+                }
-+
-+                mfn_base = mfn_x(mfn);
-+                segment_size = 0;
-+            }
-+        }  
-+
-+        gfn = gfn_add(gfn, 1);
-+        segment_size++;
-+        count--;
-+    } while ( count );
-+
-+    // Last launch update data.
-+    if ( segment_size )
-+    {
-+        sd_lud.reserved = 0;
-+        sd_lud.handle = d->arch.hvm.svm.sev.asp_handle;
-+        sd_lud.address = mfn_x(mfn_base) << PAGE_SHIFT;
-+        sd_lud.len = segment_size * PAGE_SIZE;
-+        rc = sev_do_cmd(SEV_CMD_LAUNCH_UPDATE_DATA, (void *)(&sd_lud),
-+                        &psp_ret, true);
-+
-+        if ( rc )
-+            printk(XENLOG_ERR "asp: failed to LAUNCH_UPDATE_DATA dom(%d): err %d\n",
-+                   d->domain_id, psp_ret);
-+    }
-+
-+    return rc;
-+}
-+
-+static int sev_domain_creation_finished(struct domain *d)
-+{
-+    struct sev_data_launch_measure sd_lm;
-+    struct sev_data_launch_finish sd_lf;
-+    int psp_ret;
-+    long rc = 0;
-+
-+    sd_lm.handle = d->arch.hvm.svm.sev.asp_handle;
-+    sd_lm.address = virt_to_maddr(d->arch.hvm.svm.sev.measure);
-+    sd_lm.len = sizeof(d->arch.hvm.svm.sev.measure);
-+    sd_lm.reserved = 0;
-+
-+    rc = sev_do_cmd(SEV_CMD_LAUNCH_MEASURE, (void *)(&sd_lm), &psp_ret, true);
-+    if ( rc )
-+    {
-+        printk(XENLOG_ERR "asp: failed to LAUNCH_MEASURE for d%hu: psp_ret %hu, rc %ld\n",
-+               d->domain_id, psp_ret, rc);
-+        
-+        if (psp_ret == SEV_RET_INVALID_LEN)
-+            printk(XENLOG_ERR "asp: Expected %"PRIu32" bytes\n", sd_lm.len);
-+        return rc;
-+    }
-+
-+    sd_lf.handle = d->arch.hvm.svm.sev.asp_handle;
-+
-+    rc = sev_do_cmd(SEV_CMD_LAUNCH_FINISH, (void *)(&sd_lf), &psp_ret, true);
-+    if ( rc )
-+    {
-+        printk(XENLOG_ERR "asp: failed to LAUNCH_FINISH for d%hu: psp_ret %d, rc %ld\n",
-+                d->domain_id, psp_ret, rc);
-+        return rc;
-+    }
-+
-+    d->arch.hvm.svm.sev.measure_len = sd_lm.len;
-+    return 0;
-+}
-+
-+static void sev_domain_destroy(struct domain *d)
-+{
-+    struct sev_data_deactivate sd_da;
-+    struct sev_data_decommission sd_de;
-+    int psp_ret;
-+    long rc = 0;
-+
-+    sd_da.handle = d->arch.hvm.svm.sev.asp_handle;
-+
-+    rc = sev_do_cmd(SEV_CMD_DEACTIVATE, (void *)(&sd_da), &psp_ret, true);
-+    if (rc)
-+    {
-+        printk(XENLOG_ERR "asp: failed to DEACTIVATE for d%hu: psp_ret %d\n",
-+               d->domain_id, psp_ret);
-+        return;
-+    }
-+
-+    sd_de.handle = d->arch.hvm.svm.sev.asp_handle;
-+
-+    rc = sev_do_cmd(SEV_CMD_DECOMMISSION, (void *)(&sd_de), &psp_ret, true);
-+    if (rc)
-+    {
-+        printk(XENLOG_ERR "asp: failed to DECOMMISSION for d%hu: psp_ret %d\n",
-+               d->domain_id, psp_ret);
-+        return;
-+    }
-+
-+    d->arch.hvm.svm.sev.asp_handle = 0;
-+}
-+
-+static int sev_asid_alloc(struct domain *d, struct hvm_asid *asid)
-+{
-+    /* TODO: SEV-ES/SNP */
-+    unsigned long asid_min = raw_cpu_policy.extd.min_no_es_asid;
-+    unsigned long asid_max = raw_cpu_policy.extd.max_sev_guests;
-+
-+    return hvm_asid_alloc_range(asid, asid_min, asid_max);
-+}
-+
-+static struct coco_domain_ops sev_domain_ops = {
-+    .prepare_initial_mem = sev_domain_prepare_initial_mem,
-+    .domain_initialise = sev_domain_initialise,
-+    .domain_creation_finished = sev_domain_creation_finished,
-+    .domain_destroy = sev_domain_destroy,
-+    .asid_alloc = sev_asid_alloc,
-+};
-+
-+static int sev_init(void)
-+{
-+    unsigned long syscfg;
-+
-+    if ( WARN_ON(!cpu_has_sev) )
-+        return -ENOSYS;
-+
-+    ASSERT(raw_cpu_policy.extd.c_bit_pos > 0);
-+    ASSERT(raw_cpu_policy.extd.max_sev_guests > 0);
-+
-+    printk(XENLOG_INFO "sev: C-bit is %"PRIu32"\n", raw_cpu_policy.extd.c_bit_pos);
-+    printk(XENLOG_INFO "sev: Supports up to %"PRIu32" guests\n",
-+            raw_cpu_policy.extd.max_sev_guests);
-+
-+    /* Enable AMD SME */	
-+    rdmsrl(MSR_K8_SYSCFG, syscfg);
-+
-+    if ( !(syscfg & SYSCFG_MEM_ENCRYPT) )
-+    {
-+        syscfg |= SYSCFG_MEM_ENCRYPT;
-+        wrmsrl(MSR_K8_SYSCFG, syscfg);
-+
-+        printk(XENLOG_INFO "sev: Enabled AMD SME\n");
-+    }
-+
-+    return 0;
-+}
-+
-+static int sev_get_platform_status(struct coco_platform_status *status)
-+{
-+    status->platform = COCO_PLATFORM_amd_sev;
-+
-+    // if ( cpu_has_sev_es )
-+    //   status->platform_flags |= COCO_PLATFORM_FLAG_sev_es;
-+
-+    status->flags = COCO_STATUS_FLAG_supported;
-+
-+    return 0;
-+}
-+
-+static struct coco_domain_ops *sev_get_domain_ops(struct domain *d)
-+{
-+    // TODO: SEV-ES and SEV-SNP support
-+    return &sev_domain_ops;
-+}
-+
-+struct coco_ops sev_coco_ops = {
-+    .name = "SEV",
-+    .init = sev_init,
-+    .get_platform_status = sev_get_platform_status,
-+    .get_domain_ops = sev_get_domain_ops,
-+};
-+
-+
-diff --git a/xen/arch/x86/cpu/amd.c b/xen/arch/x86/cpu/amd.c
-index 37d67dd15c..28b5a0420d 100644
---- a/xen/arch/x86/cpu/amd.c
-+++ b/xen/arch/x86/cpu/amd.c
-@@ -1,4 +1,5 @@
- #include <xen/cpu.h>
-+#include <asm/cpu-policy.h>
- #include <xen/init.h>
- #include <xen/bitops.h>
- #include <xen/mm.h>
-@@ -19,6 +20,10 @@
- 
- #include "cpu.h"
- 
-+#ifdef CONFIG_COCO
-+#include <asm/coco.h>
-+#endif
-+
- /*
-  * Pre-canned values for overriding the CPUID features 
-  * and extended features masks.
-@@ -1333,6 +1338,11 @@ static void cf_check init_amd(struct cpuinfo_x86 *c)
- 	check_syscfg_dram_mod_en();
- 
- 	amd_log_freq(c);
-+
-+#ifdef CONFIG_COCO_AMD_SEV
-+	if ( cpu_has_sev )
-+		coco_register_ops(&sev_coco_ops);
-+#endif
- }
- 
- const struct cpu_dev __initconst_cf_clobber amd_cpu_dev = {
-diff --git a/xen/arch/x86/cpuid.c b/xen/arch/x86/cpuid.c
-index e2d94619c2..e1d6db4ad8 100644
---- a/xen/arch/x86/cpuid.c
-+++ b/xen/arch/x86/cpuid.c
-@@ -8,6 +8,7 @@
- #include <asm/cpu-policy.h>
- #include <asm/cpuid.h>
- #include <asm/hvm/viridian.h>
-+#include <asm/hvm/svm/sev.h>
- #include <asm/xstate.h>
- 
- #define EMPTY_LEAF ((struct cpuid_leaf){})
-@@ -250,6 +251,10 @@ void guest_cpuid(const struct vcpu *v, uint32_t leaf,
-             return;
- 
-         *res = array_access_nospec(p->extd.raw, leaf & 0xffff);
-+        
-+        /* For a SEV guest, passthrough the host SEV leaf. */
-+        if ( is_sev_domain(d) && leaf == 0x8000001fU )
-+            *res = raw_cpu_policy.extd.raw[0x1f];
-         break;
- 
-     default:
-diff --git a/xen/arch/x86/hvm/Kconfig b/xen/arch/x86/hvm/Kconfig
-index 2def0f98e2..a9332ab8ce 100644
---- a/xen/arch/x86/hvm/Kconfig
-+++ b/xen/arch/x86/hvm/Kconfig
-@@ -25,6 +25,16 @@ config AMD_SVM
- 	  If your system includes a processor with AMD-V support, say Y.
- 	  If in doubt, say Y.
- 
-+config COCO_AMD_SEV
-+	bool "AMD SEV (UNSUPPORTED)" if AMD && AMD_SVM && COCO && UNSUPPORTED
-+	default y
-+	select AMD_SP
-+	help
-+		Enables support for AMD Secure Encrypted Virtualization technology.
-+		This option is needed if you want to run confidential guests on a
-+		AMD platform that supports it.
-+		If in doubt, say N.
-+
- config INTEL_VMX
- 	bool "Intel VT-x" if INTEL && EXPERT
- 	default y
-diff --git a/xen/arch/x86/hvm/svm/svm.c b/xen/arch/x86/hvm/svm/svm.c
-index cc19d80fe1..63889bf803 100644
---- a/xen/arch/x86/hvm/svm/svm.c
-+++ b/xen/arch/x86/hvm/svm/svm.c
-@@ -27,6 +27,7 @@
- #include <asm/hvm/nestedhvm.h>
- #include <asm/hvm/support.h>
- #include <asm/hvm/asid.h>
-+#include <asm/hvm/svm/sev.h>
- #include <asm/hvm/svm/svm.h>
- #include <asm/hvm/svm/svmdebug.h>
- #include <asm/hvm/svm/vmcb.h>
-@@ -1865,6 +1866,11 @@ static int cf_check svm_msr_read_intercept(
-         break;
- 
-     case MSR_K8_SYSCFG:
-+        if ( is_sev_domain(d) )
-+        {
-+            *msr_content = SYSCFG_MEM_ENCRYPT;
-+            break;
++            rc = hvmemul_linear_to_phys(gla, &gpa, chunk, &one_rep, pfec,
++                                        hvmemul_ctxt);
++            if ( rc != X86EMUL_OKAY )
++                return rc;
 +        }
-     case MSR_K8_TOP_MEM1:
-     case MSR_K8_TOP_MEM2:
-     case MSR_K8_VM_CR:
-diff --git a/xen/arch/x86/hvm/svm/vmcb.c b/xen/arch/x86/hvm/svm/vmcb.c
-index 4e1f61dbe0..5157afe733 100644
---- a/xen/arch/x86/hvm/svm/vmcb.c
-+++ b/xen/arch/x86/hvm/svm/vmcb.c
-@@ -15,6 +15,7 @@
- #include <asm/hvm/svm/vmcb.h>
- #include <asm/msr-index.h>
- #include <asm/p2m.h>
-+#include <asm/hvm/svm/sev.h>
- #include <asm/hvm/svm/svm.h>
- #include <asm/hvm/svm/svmdebug.h>
- #include <asm/spec_ctrl.h>
-@@ -192,15 +193,19 @@ int svm_create_vmcb(struct vcpu *v)
-     svm->vmcb = nv->nv_n1vmcx;
-     rc = construct_vmcb(v);
-     if ( rc != 0 )
--    {
--        free_vmcb(nv->nv_n1vmcx);
--        nv->nv_n1vmcx = NULL;
--        svm->vmcb = NULL;
--        return rc;
--    }
-+        goto err;
 +
-+    if ( is_sev_domain(v->domain) )
-+        vmcb_set_np_ctrl(svm->vmcb, vmcb_get_np_ctrl(svm->vmcb) | NPCTRL_SEV_ENABLE);
++        latch_linear_to_phys(hvio, gla, gpa, dir == IOREQ_WRITE);
++    }
++
++    for ( ;; )
++    {
++        rc = hvmemul_phys_mmio_access(cache, gpa, chunk, dir, buffer, buffer_offset);
++        if ( rc != X86EMUL_OKAY )
++            break;
++
++        gla += chunk;
++        buffer_offset += chunk;
++        size -= chunk;
++
++        if ( size == 0 )
++            break;
++
++        if ( is_sev_domain(current->domain) )
++            return X86EMUL_UNHANDLEABLE;
++
++        chunk = min_t(unsigned int, size, PAGE_SIZE);
++        rc = hvmemul_linear_to_phys(gla, &gpa, chunk, &one_rep, pfec,
+                                     hvmemul_ctxt);
+         if ( rc != X86EMUL_OKAY )
+             return rc;
+-
+-        latch_linear_to_phys(hvio, gla, gpa, dir == IOREQ_WRITE);
+     }
  
-     svm->vmcb_pa = nv->nv_n1vmcx_pa = virt_to_maddr(svm->vmcb);
-     return 0;
-+
-+err:
-+    free_vmcb(nv->nv_n1vmcx);
-+    nv->nv_n1vmcx = NULL;
-+    svm->vmcb = NULL;
+-    return hvmemul_phys_mmio_access(cache, gpa, size, dir, buffer,
+-                                    buffer_offset);
 +    return rc;
  }
  
- void svm_destroy_vmcb(struct vcpu *v)
-diff --git a/xen/arch/x86/include/asm/coco.h b/xen/arch/x86/include/asm/coco.h
-new file mode 100644
-index 0000000000..874ef56327
---- /dev/null
-+++ b/xen/arch/x86/include/asm/coco.h
-@@ -0,0 +1,8 @@
-+#ifndef __ARCH_X86_COCO_H
-+#define __ARCH_X86_COCO_H
-+
-+#include <xen/coco.h>
-+
-+extern struct coco_ops sev_coco_ops;
-+
-+#endif /* __ARCH_X86_CACHE_H */
-\ No newline at end of file
-diff --git a/xen/arch/x86/include/asm/hvm/svm/sev.h b/xen/arch/x86/include/asm/hvm/svm/sev.h
-new file mode 100644
-index 0000000000..b7b5ab5591
---- /dev/null
-+++ b/xen/arch/x86/include/asm/hvm/svm/sev.h
-@@ -0,0 +1,14 @@
-+#ifndef __XEN_HVM_SEV_H__
-+#define __XEN_HVM_SEV_H__
-+
-+#include <asm/nospec.h>
-+#include <asm/cpufeature.h>
-+
-+#include <xen/sched.h>
-+
-+static always_inline bool is_sev_domain(const struct domain *d)
-+{
-+  return cpu_has_sev && evaluate_nospec(d->options & XEN_DOMCTL_CDF_coco);
-+}
-+
-+#endif /* __XEN_HVM_SEV_H__ */
-diff --git a/xen/arch/x86/include/asm/hvm/svm/svm.h b/xen/arch/x86/include/asm/hvm/svm/svm.h
-index 1254e5f3ee..efd54511aa 100644
---- a/xen/arch/x86/include/asm/hvm/svm/svm.h
-+++ b/xen/arch/x86/include/asm/hvm/svm/svm.h
-@@ -9,6 +9,8 @@
- #ifndef __ASM_X86_HVM_SVM_H__
- #define __ASM_X86_HVM_SVM_H__
+ static inline int hvmemul_linear_mmio_read(
+@@ -1254,6 +1296,9 @@ static int linear_read(unsigned long addr, unsigned int bytes, void *p_data,
+     {
+         unsigned int part1 = PAGE_SIZE - offset;
  
-+#include <xen/stdint.h>
++        if ( is_sev_domain(current->domain) )
++            return X86EMUL_UNHANDLEABLE;
 +
- void svm_asid_init(void);
- void svm_vcpu_assign_asid(struct vcpu *v);
- void svm_vcpu_set_tlb_control(struct vcpu *v);
-@@ -26,6 +28,16 @@ bool svm_load_segs(unsigned int ldt_ents, unsigned long ldt_base,
-                    unsigned long fs_base, unsigned long gs_base,
-                    unsigned long gs_shadow);
+         /* Split the access at the page boundary. */
+         rc = linear_read(addr, part1, p_data, pfec, hvmemul_ctxt);
+         if ( rc != X86EMUL_OKAY )
+@@ -1278,11 +1323,25 @@ static int linear_read(unsigned long addr, unsigned int bytes, void *p_data,
+      * upon replay) the RAM access for anything that's ahead of or past MMIO,
+      * i.e. in RAM.
+      */
+-    cache = hvmemul_find_mmio_cache(hvio, start, IOREQ_READ, ~0);
+-    if ( !cache ||
+-         addr + bytes <= start + cache->skip ||
+-         addr >= start + cache->size )
+-        rc = hvm_copy_from_guest_linear(p_data, addr, bytes, pfec, &pfinfo);
++     cache = hvmemul_find_mmio_cache(hvio, start, IOREQ_READ, ~0);
++     if ( !cache ||
++          addr + bytes <= start + cache->skip ||
++          addr >= start + cache->size )
++     {
++        if ( is_sev_domain(current->domain) )
++        {
++            if ( hvio->mmio_gpfn )
++            {
++                paddr_t gpa;
++                gpa = pfn_to_paddr(hvio->mmio_gpfn) | (addr & ~PAGE_MASK);
++                rc = hvm_copy_from_guest_phys(p_data, gpa, bytes);
++            }
++            else
++                return X86EMUL_UNHANDLEABLE;
++        }
++        else
++            rc = hvm_copy_from_guest_linear(p_data, addr, bytes, pfec, &pfinfo);
++    }
  
-+struct sev_state {
-+  uint32_t asp_handle;
-+  uint32_t asp_policy;
-+  uint8_t  measure[96];
-+  uint32_t measure_len; /* 96 bytes */
-+  uint8_t  state;
-+
-+  unsigned long flags;
-+};
-+                
- struct svm_domain {
-     /* OSVW MSRs */
-     union {
-@@ -35,6 +47,10 @@ struct svm_domain {
-             uint64_t status;
-         };
-     } osvw;
-+
-+    #ifdef CONFIG_COCO_AMD_SEV
-+    struct sev_state sev;
-+    #endif
- };
+     switch ( rc )
+     {
+@@ -1325,6 +1384,9 @@ static int linear_write(unsigned long addr, unsigned int bytes, void *p_data,
+     {
+         unsigned int part1 = PAGE_SIZE - offset;
  
- extern u32 svm_feature_flags;
++        if ( is_sev_domain(current->domain) )
++            return X86EMUL_UNHANDLEABLE;
++
+         /* Split the access at the page boundary. */
+         rc = linear_write(addr, part1, p_data, pfec, hvmemul_ctxt);
+         if ( rc != X86EMUL_OKAY )
+@@ -1340,9 +1402,23 @@ static int linear_write(unsigned long addr, unsigned int bytes, void *p_data,
+     /* See commentary in linear_read(). */
+     cache = hvmemul_find_mmio_cache(hvio, start, IOREQ_WRITE, ~0);
+     if ( !cache ||
+-         addr + bytes <= start + cache->skip ||
+-         addr >= start + cache->size )
+-        rc = hvm_copy_to_guest_linear(addr, p_data, bytes, pfec, &pfinfo);
++        addr + bytes <= start + cache->skip ||
++        addr >= start + cache->size )
++    {
++        if ( is_sev_domain(current->domain) )
++        {
++            if ( hvio->mmio_gpfn )
++            {
++                paddr_t gpa;
++                gpa = pfn_to_paddr(hvio->mmio_gpfn) | (addr & ~PAGE_MASK);
++                rc = hvm_copy_to_guest_phys(gpa, p_data, bytes, current);
++            }
++            else
++                return X86EMUL_UNHANDLEABLE;
++        }
++        else
++            rc = hvm_copy_to_guest_linear(addr, p_data, bytes, pfec, &pfinfo);
++    }
+ 
+     switch ( rc )
+     {
+@@ -1430,7 +1506,12 @@ int cf_check hvmemul_insn_fetch(
+     if ( !bytes ||
+          unlikely((insn_off + bytes) > hvmemul_ctxt->insn_buf_bytes) )
+     {
+-        int rc = __hvmemul_read(x86_seg_cs, offset, p_data, bytes,
++        int rc;
++
++        if ( is_sev_domain(current->domain) )
++            return X86EMUL_UNHANDLEABLE;
++
++        rc = __hvmemul_read(x86_seg_cs, offset, p_data, bytes,
+                                 hvm_access_insn_fetch, hvmemul_ctxt);
+ 
+         if ( rc == X86EMUL_OKAY && bytes )
+@@ -1485,6 +1566,7 @@ static int cf_check hvmemul_write(
+     if ( !known_gla(addr, bytes, pfec) )
+     {
+         mapping = hvmemul_map_linear_addr(addr, bytes, pfec, hvmemul_ctxt);
++
+         if ( IS_ERR(mapping) )
+              return ~PTR_ERR(mapping);
+     }
+@@ -1719,6 +1801,9 @@ static int cf_check hvmemul_cmpxchg(
+     int rc;
+     void *mapping = NULL;
+ 
++    if ( is_sev_domain(current->domain) )
++        return X86EMUL_UNHANDLEABLE;
++
+     rc = hvmemul_virtual_to_linear(
+         seg, offset, bytes, NULL, hvm_access_write, hvmemul_ctxt, &addr);
+     if ( rc != X86EMUL_OKAY )
+@@ -1821,6 +1906,9 @@ static int cf_check hvmemul_rep_ins(
+     p2m_type_t p2mt;
+     int rc;
+ 
++    if ( is_sev_domain(current->domain) )
++        return X86EMUL_UNHANDLEABLE;
++
+     rc = hvmemul_virtual_to_linear(
+         dst_seg, dst_offset, bytes_per_rep, reps, hvm_access_write,
+         hvmemul_ctxt, &addr);
+@@ -1899,6 +1987,9 @@ static int cf_check hvmemul_rep_outs(
+     p2m_type_t p2mt;
+     int rc;
+ 
++    if ( is_sev_domain(current->domain) )
++        return X86EMUL_UNHANDLEABLE;
++
+     if ( unlikely(hvmemul_ctxt->set_context) )
+         return hvmemul_rep_outs_set_context(dst_port, bytes_per_rep, reps);
+ 
+@@ -1944,6 +2035,9 @@ static int cf_check hvmemul_rep_movs(
+     int rc, df = !!(ctxt->regs->eflags & X86_EFLAGS_DF);
+     char *buf;
+ 
++    if ( is_sev_domain(current->domain) )
++        return X86EMUL_UNHANDLEABLE;
++
+     rc = hvmemul_virtual_to_linear(
+         src_seg, src_offset, bytes_per_rep, reps, hvm_access_read,
+         hvmemul_ctxt, &saddr);
+@@ -2109,9 +2203,13 @@ static int cf_check hvmemul_rep_stos(
+     paddr_t gpa;
+     p2m_type_t p2mt;
+     bool df = ctxt->regs->eflags & X86_EFLAGS_DF;
+-    int rc = hvmemul_virtual_to_linear(seg, offset, bytes_per_rep, reps,
+-                                       hvm_access_write, hvmemul_ctxt, &addr);
++    int rc;
++
++    if ( is_sev_domain(current->domain) )
++        return X86EMUL_UNHANDLEABLE;
+ 
++    rc = hvmemul_virtual_to_linear(seg, offset, bytes_per_rep, reps,
++                                   hvm_access_write, hvmemul_ctxt, &addr);
+     if ( rc != X86EMUL_OKAY )
+         return rc;
+ 
+@@ -2770,6 +2868,7 @@ static int _hvm_emulate_one(struct hvm_emulate_ctxt *hvmemul_ctxt,
+     struct vcpu *curr = current;
+     uint32_t new_intr_shadow;
+     struct hvm_vcpu_io *hvio = &curr->arch.hvm.hvm_io;
++
+     int rc;
+ 
+     /*
+@@ -2983,6 +3082,9 @@ void hvm_emulate_init_per_insn(
+         unsigned int pfec = PFEC_page_present | PFEC_insn_fetch;
+         unsigned long addr;
+ 
++        if ( is_sev_domain(current->domain) )
++            goto out;
++
+         if ( hvmemul_ctxt->seg_reg[x86_seg_ss].dpl == 3 )
+             pfec |= PFEC_user_mode;
+ 
+@@ -3000,6 +3102,7 @@ void hvm_emulate_init_per_insn(
+             sizeof(hvmemul_ctxt->insn_buf) : 0;
+     }
+ 
++out:
+     hvmemul_ctxt->is_mem_access = false;
+ }
+ 
+diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
+index e1bcf8e086..d3060329fb 100644
+--- a/xen/arch/x86/hvm/hvm.c
++++ b/xen/arch/x86/hvm/hvm.c
+@@ -56,6 +56,7 @@
+ #include <asm/hvm/monitor.h>
+ #include <asm/hvm/viridian.h>
+ #include <asm/hvm/vm_event.h>
++#include <asm/hvm/svm/sev.h>
+ #include <asm/altp2m.h>
+ #include <asm/mtrr.h>
+ #include <asm/apic.h>
+@@ -3477,6 +3478,9 @@ enum hvm_translation_result hvm_copy_to_guest_linear(
+     unsigned long addr, const void *buf, unsigned int size, uint32_t pfec,
+     pagefault_info_t *pfinfo)
+ {
++    if ( is_sev_domain(current->domain) )
++        return HVMTRANS_unhandleable;
++
+     return __hvm_copy((void *)buf /* HVMCOPY_to_guest doesn't modify */,
+                       addr, size, current, HVMCOPY_to_guest | HVMCOPY_linear,
+                       PFEC_page_present | PFEC_write_access | pfec, pfinfo);
+@@ -3486,6 +3490,9 @@ enum hvm_translation_result hvm_copy_from_guest_linear(
+     void *buf, unsigned long addr, unsigned int size, uint32_t pfec,
+     pagefault_info_t *pfinfo)
+ {
++    if ( is_sev_domain(current->domain) )
++        return HVMTRANS_unhandleable;
++
+     return __hvm_copy(buf, addr, size, current,
+                       HVMCOPY_from_guest | HVMCOPY_linear,
+                       PFEC_page_present | pfec, pfinfo);
+@@ -3495,6 +3502,9 @@ enum hvm_translation_result hvm_copy_from_vcpu_linear(
+     void *buf, unsigned long addr, unsigned int size, struct vcpu *v,
+     unsigned int pfec)
+ {
++    if ( is_sev_domain(v->domain) )
++        return HVMTRANS_unhandleable;
++
+     return __hvm_copy(buf, addr, size, v,
+                       HVMCOPY_from_guest | HVMCOPY_linear,
+                       PFEC_page_present | pfec, NULL);
+@@ -3522,6 +3532,9 @@ unsigned int clear_user_hvm(void *to, unsigned int len)
+ {
+     int rc;
+ 
++    if ( is_sev_domain(current->domain) )
++        return HVMTRANS_unhandleable;
++
+     if ( current->hcall_compat && is_compat_arg_xlat_range(to, len) )
+     {
+         memset(to, 0x00, len);
 -- 
 2.49.0
 
