@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A5B19AB9B90
-	for <lists+xen-devel@lfdr.de>; Fri, 16 May 2025 13:59:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.987034.1372512 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 87A01AB9C0A
+	for <lists+xen-devel@lfdr.de>; Fri, 16 May 2025 14:29:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.987062.1372522 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uFtim-0007V3-MC; Fri, 16 May 2025 11:59:24 +0000
+	id 1uFuBm-0003U3-2R; Fri, 16 May 2025 12:29:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 987034.1372512; Fri, 16 May 2025 11:59:24 +0000
+Received: by outflank-mailman (output) from mailman id 987062.1372522; Fri, 16 May 2025 12:29:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uFtim-0007Sp-JM; Fri, 16 May 2025 11:59:24 +0000
-Received: by outflank-mailman (input) for mailman id 987034;
- Fri, 16 May 2025 11:59:22 +0000
+	id 1uFuBl-0003SX-Vx; Fri, 16 May 2025 12:29:21 +0000
+Received: by outflank-mailman (input) for mailman id 987062;
+ Fri, 16 May 2025 12:29:20 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=C2cV=YA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uFtik-0007Sj-T6
- for xen-devel@lists.xenproject.org; Fri, 16 May 2025 11:59:22 +0000
-Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
- [2a00:1450:4864:20::535])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=T4W4=YA=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1uFuBk-0003SR-GX
+ for xen-devel@lists.xenproject.org; Fri, 16 May 2025 12:29:20 +0000
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [2a00:1450:4864:20::336])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 33b729b2-324d-11f0-9eb6-5ba50f476ded;
- Fri, 16 May 2025 13:59:21 +0200 (CEST)
-Received: by mail-ed1-x535.google.com with SMTP id
- 4fb4d7f45d1cf-6011407431cso1065518a12.3
- for <xen-devel@lists.xenproject.org>; Fri, 16 May 2025 04:59:21 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ad52d04b059sm152298366b.10.2025.05.16.04.59.19
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 16 May 2025 04:59:20 -0700 (PDT)
+ id 63aafdb7-3251-11f0-9eb6-5ba50f476ded;
+ Fri, 16 May 2025 14:29:19 +0200 (CEST)
+Received: by mail-wm1-x336.google.com with SMTP id
+ 5b1f17b1804b1-442ed8a275fso23346945e9.2
+ for <xen-devel@lists.xenproject.org>; Fri, 16 May 2025 05:29:19 -0700 (PDT)
+Received: from andrew-laptop.. ([46.149.103.12])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3a35ca4dfffsm2759532f8f.9.2025.05.16.05.29.18
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 16 May 2025 05:29:18 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,186 +45,103 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 33b729b2-324d-11f0-9eb6-5ba50f476ded
+X-Inumbo-ID: 63aafdb7-3251-11f0-9eb6-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1747396760; x=1748001560; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=pIFyXStJjbN7FXjwQkDmXRREFRbxUm51JKeGx6OS8MY=;
-        b=YQS4VtVpq09Z+UOQbYz45s8cFfy13uTbzJCGG5SLAsmB06T+maulA7Q0/6ZMzgsJjj
-         Z8+QGoE4aZarpJ+nths6x7XGvmGVFheiTWRRRJXAGn/jheRP0x7QoepRJ8TCtXsOREnk
-         34rXbdn4on77Q4zA+rq2G+F2ComUJrG8AoMPx1ewyvX9+z5h/kMNFynx/uxi5Whwhlvp
-         X1tJHmtJJoh3AD0vR3dR1IAwVjwi9Dqy5rxXPCXtaQ0d7eawI481XzeZRQFUitfKbo8O
-         yl32ikQXELj0cYyo3AiQZ//FcVyNVAM4ZEKFjV2waRa+Hx7QZe4knJtMcFrgjVkVbOBF
-         o3sw==
+        d=citrix.com; s=google; t=1747398559; x=1748003359; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=oM9b8wT66TmQJfExo6/g2uvlE85/1tsMkkMPcvkrzTY=;
+        b=U4Afe3FOk88cNcxGlRuqhximVwGOabMdtgAVJhkvV7dSvabuXHDD1A6kGgYHljlCkN
+         GpGI1a87R3NBtlljs4C6kJkzXA7vmr0+IYxVNl+BC8XW7mTCtzmoBlNVTFC1JCtgnRyu
+         KYd08U6VDcge2FMG2WLXOhrxn6X1Us3so3u8A=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747396760; x=1748001560;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=pIFyXStJjbN7FXjwQkDmXRREFRbxUm51JKeGx6OS8MY=;
-        b=IorPpyMokX9GhSrVVuBDVipmrBJMvzRf4Y04+vl8PW/wQbSI/8keCsmP7mE9YSxUph
-         +bHdBkznzbYVDjZlwyNr8Jgy0i+T2u8whvrP9VxFfJB1/MFBD8LsSYyNNxYvrLnMVxHC
-         nt9ljXARtDT0EoK91RdfZ66qPqUXoTqxbFDai/gJIJ2vxY8rR3XSDg8ee5XM0pjeVPRa
-         1kmSniHi7bJHYbu20MuMXqok+B4Hg08VPMXWlfnEqGkXOIMRt71ZnmI2h4sXLSP05PF2
-         6/P8hLHSrNYuBDNVFcHqpM0F4PYjlqMufVNBZTOMMsgc8z7CbAXbJ7sZXuail0MuPj38
-         ihtA==
-X-Forwarded-Encrypted: i=1; AJvYcCXG4HE+QBIjQsVZlcnEKrvBjW6vr2TbUd1yUgZbMqwa1pXKa7c3IRyw8Ty6QlubP50DhMjm/tNFZEg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy/BIQR8Wfhn7BhYOwYOYbvGBLewTtqvgkX1z/XTRkZAXM1+F8+
-	60JcuJJ3+sMqM7wVCCbNvzSDp6DG+HqgU5VLDvCiOvSMwQhmrJJWJdmOX8mSbA2lxA==
-X-Gm-Gg: ASbGncvQj6N7LIz3rw2Pd6NtIkC8Vvp15VOhUXB5OV4GY7X2Pdyrlpc0s2ARtv9Dnk2
-	0WAn+S/fYKU9XNSyAFJIJ/z7GXsFiam1/kbEXqUIXib0ucqOX9XLw5TFSUl8nojJSFKcFRIfRor
-	wYKaBjyxC/tgCORZOWaI/p8na21pfsL7y64/KhNcvSr50SmxQfv8F2PPNCTXXF5n9imuVoE2egT
-	uYFhLkkrdZz/YecYbgOvLkoOpGcwOD6XS/NnBY05xwpbd3lfgfa0lVhiLaq+E/ZwttyMSaGjzYu
-	c931hDt47iGSI9YOaGUlmzJO8MYy/3FRbyuk2k+W6CzeHH0FIq+JBU8XzRLLpJi4VrcNxyq+SdG
-	8Q0OpT+9t1ElxUbooc5LHTNuf1qy8hEWL8K9p
-X-Google-Smtp-Source: AGHT+IHxuMt3G7kJYQW+yHzmx9MUPNIFieDJHKHkP2QiOjkBHCGRFCPzZemp6BKM8SaYV+ZjACrK3A==
-X-Received: by 2002:a17:906:c14d:b0:ad2:3efc:dd7a with SMTP id a640c23a62f3a-ad536b57a13mr191001166b.4.1747396760490;
-        Fri, 16 May 2025 04:59:20 -0700 (PDT)
-Message-ID: <0e978f13-bc06-4d21-99b3-0e903c2bfedf@suse.com>
-Date: Fri, 16 May 2025 13:59:19 +0200
+        d=1e100.net; s=20230601; t=1747398559; x=1748003359;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=oM9b8wT66TmQJfExo6/g2uvlE85/1tsMkkMPcvkrzTY=;
+        b=FOlyx74KqZRBA61IrZS/Q0xEKmLpp4G76+te/5FavyiLuTZ6fgfIzl1UkiOLReYUAy
+         jAoMQxDyumUOp0d7oWKnn0qX+cjDwtq66YUvTspEkVod3zcRhs9XnDrYFlszcU2pldFw
+         x3ZVfnHEPFNLIIk6bdMEJU96kWdWocjgLqrD9B+BL7XnFQ+5dhO4V4ObZz4yG1dU4WUu
+         kOy1ugoZf8duO1d8WtK+zzCu4slQouGV26zlG6Gbwj/xgvfJpYY70SmeugpI4+SPkRGK
+         lWnaTQGPDHBYoqZ1NVRZAlCxoaU7NdMw5T+Kh6PWiuOu6NQsP8OrVdULX0tEK+xA5jLF
+         LKBw==
+X-Gm-Message-State: AOJu0YzyG4RT0pFyk9K1/KZNftV8vPNR5W6OiXCFkJgX1gIVP1H+x82O
+	F0GqjMTi7Vmmdh3q4ggwHMy5K4W/PnMlwzlUNTic0l7rEkJ4Uhob8b4ti+QgETTNvWiF8Ki5Z2g
+	iE3mq
+X-Gm-Gg: ASbGnctt+Ez8R1OiL+qemx4qzG3M7ddXIIg1XRHkOSoTmKEfM+lZkijtgBKHdkwhOHM
+	mVaQzCXtA8wtQ4/zA/4gFXYtRTwHF4k1yW2IvDeCyuNk3Dvml3CDSoo2sNopuiq4zAVRga956iL
+	2YLRQJeUbXH6cPyTDYPudYuPn1/RS/QOtzWLa6Alt41kT8vt2Q3aJKQxadwjj40klS6VeFNRP3I
+	fn79KsD3FXM+l75hqLPWe2jNHQ2/YRwC/jj/OKdT/3wbWtwKrNHIOIH/Xlsgc3StViAcTHErFXh
+	jMdffctPb2130kOz22AafbBqhIv96faqJoe8pisT0WtljYP1HEMFdrzIqo7OoOg=
+X-Google-Smtp-Source: AGHT+IFjbSA2rplbjLSxfKLQw8bGe/n2OmFf84NRYG9MLYnDr2qk+85wmcN8QJQvL1lc8hm9o6em8g==
+X-Received: by 2002:a05:600c:a413:b0:43d:98e7:38dc with SMTP id 5b1f17b1804b1-442fe3fd7eemr24602705e9.5.1747398558793;
+        Fri, 16 May 2025 05:29:18 -0700 (PDT)
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: xen-devel@lists.xenproject.org
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jan Beulich <JBeulich@suse.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Denis Mukhin <dmukhin@ford.com>
+Subject: [PATCH] x86/vmx: Annotate the VMCS field widths
+Date: Fri, 16 May 2025 13:29:16 +0100
+Message-Id: <20250516122916.27070-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 06/16] xen/riscv: introduce init_IRQ()
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1746530883.git.oleksii.kurochko@gmail.com>
- <2a57200785c710a5203a116bf9a933b4ea12d112.1746530883.git.oleksii.kurochko@gmail.com>
- <86738265-1137-45f0-ae9e-0db7f0451c08@suse.com>
- <43bc3c71-fa21-4373-b136-31f2f6bd29ab@gmail.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <43bc3c71-fa21-4373-b136-31f2f6bd29ab@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 16.05.2025 13:53, Oleksii Kurochko wrote:
-> On 5/14/25 4:49 PM, Jan Beulich wrote:
->> On 06.05.2025 18:51, Oleksii Kurochko wrote:
->>> --- a/xen/arch/riscv/include/asm/irq.h
->>> +++ b/xen/arch/riscv/include/asm/irq.h
->>> @@ -3,6 +3,11 @@
->>>   #define ASM__RISCV__IRQ_H
->>>   
->>>   #include <xen/bug.h>
->>> +#include <xen/device_tree.h>
->>> +
->>> +#include <asm/irq-dt.h>
->>> +
->>> +#define NR_IRQS 1024
->> Is this arbitrary or arch-induced? Imo it wants saying in a brief comment either
->> way. Then again maybe it's entirely obvious for a RISC-V person ...
-> 
-> 1024 it is number of interrupt sources for PLIC and APLIC. I will add the comment above:
-> /*
->   * According to the AIA spec:
->   *   The maximum number of interrupt sources an APLIC may support is 1023.
->   *
->   * The same is true for PLIC.
->   *
->   * Interrupt Source 0 is reserved and shall never generate an interrupt.
->   */
-> #define NR_CPUS 1024
+This helps identify the appropriate type to use.
 
-s/CPU/IRQ I suppose.
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Denis Mukhin <dmukhin@ford.com>
+---
+ xen/arch/x86/include/asm/hvm/vmx/vmcs.h | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-> Probably, it makes sense to change it to 1023 as interrupt 0 isn't really used.
+diff --git a/xen/arch/x86/include/asm/hvm/vmx/vmcs.h b/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
+index cde4fe011bcd..ff5dd66b0ad9 100644
+--- a/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
++++ b/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
+@@ -436,6 +436,7 @@ extern struct vmx_caps vmx_caps;
+ /* VMCS field encodings. */
+ #define VMCS_HIGH(x) ((x) | 1)
+ enum vmcs_field {
++    /* 16-bit fields. */
+     VIRTUAL_PROCESSOR_ID            = 0x00000000,
+     POSTED_INTR_NOTIFICATION_VECTOR = 0x00000002,
+     EPTP_INDEX                      = 0x00000004,
+@@ -457,6 +458,8 @@ enum vmcs_field {
+     HOST_FS_SELECTOR                = 0x00000c08,
+     HOST_GS_SELECTOR                = 0x00000c0a,
+     HOST_TR_SELECTOR                = 0x00000c0c,
++
++    /* 64-bit fields. */
+     IO_BITMAP_A                     = 0x00002000,
+     IO_BITMAP_B                     = 0x00002002,
+     MSR_BITMAP                      = 0x00002004,
+@@ -493,6 +496,8 @@ enum vmcs_field {
+     HOST_PAT                        = 0x00002c00,
+     HOST_EFER                       = 0x00002c02,
+     HOST_PERF_GLOBAL_CTRL           = 0x00002c04,
++
++    /* 32-bit fields. */
+     PIN_BASED_VM_EXEC_CONTROL       = 0x00004000,
+     CPU_BASED_VM_EXEC_CONTROL       = 0x00004002,
+     EXCEPTION_BITMAP                = 0x00004004,
+@@ -546,6 +551,8 @@ enum vmcs_field {
+     GUEST_SYSENTER_CS               = 0x0000482a,
+     GUEST_PREEMPTION_TIMER          = 0x0000482e,
+     HOST_SYSENTER_CS                = 0x00004c00,
++
++    /* Natural-width fields. */
+     CR0_GUEST_HOST_MASK             = 0x00006000,
+     CR4_GUEST_HOST_MASK             = 0x00006002,
+     CR0_READ_SHADOW                 = 0x00006004,
+-- 
+2.34.1
 
-I'd recommend against that. It would likely make things more difficult when
-range-checking IRQ numbers.
-
->>> --- /dev/null
->>> +++ b/xen/arch/riscv/irq.c
->>> @@ -0,0 +1,45 @@
->>> +/* SPDX-License-Identifier: GPL-2.0-or-later */
->>> +
->>> +/*
->>> + * RISC-V Trap handlers
->>> + *
->>> + * Copyright (c) 2024 Vates
->>> + */
->>> +
->>> +#include <xen/bug.h>
->>> +#include <xen/init.h>
->>> +#include <xen/irq.h>
->>> +
->>> +static irq_desc_t irq_desc[NR_IRQS];
->>> +
->>> +int arch_init_one_irq_desc(struct irq_desc *desc)
->>> +{
->>> +    desc->arch.type = IRQ_TYPE_INVALID;
->>> +
->>> +    return 0;
->>> +}
->>> +
->>> +static int __init init_irq_data(void)
->>> +{
->>> +    unsigned int irq;
->>> +
->>> +    for ( irq = 0; irq < NR_IRQS; irq++ )
->>> +    {
->>> +        struct irq_desc *desc = irq_to_desc(irq);
->>> +        int rc = init_one_irq_desc(desc);
->>> +
->>> +        if ( rc )
->>> +            return rc;
->>> +
->>> +        desc->irq = irq;
->>> +        desc->action  = NULL;
->> Nit: You copied a stray blank from Arm code. Actually I wonder why it isn't
->> init_one_irq_desc() that clears this field.
-> 
-> I can come up with the patch which does desc->action = NULL in init_one_irq_desc().
-> But considering that irq_desc[] is zero-initialized then perhaps there is no any
-> sense for desc->action = NULL, at all.
-
-Oh, yes, indeed.
-
->> It also feels like ->irq would
->> better be set ahead of calling that function, like x86 has it.
-> 
-> But what is the difference with an order of writing a value to ->irq? It isn't
-> really used in init_one_irq_desc().
-
-That's the present state of things, yes. There or ...
-
-> Or could ->irq be used in arch_init_one_irq_desc()
-> for something?
-
-... there it could be used e.g. for a log message. Maybe even just a transient
-debugging one. And there's no (proper) way to re-establish the IRQ number from
-the desc pointer, at least not in arch-independent code.
-
-Jan
 
