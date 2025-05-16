@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2CBA0AB968A
-	for <lists+xen-devel@lfdr.de>; Fri, 16 May 2025 09:26:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.986379.1371940 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 56724AB968C
+	for <lists+xen-devel@lfdr.de>; Fri, 16 May 2025 09:28:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.986386.1371950 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uFpRr-00047C-7J; Fri, 16 May 2025 07:25:39 +0000
+	id 1uFpUp-0004gp-LT; Fri, 16 May 2025 07:28:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 986379.1371940; Fri, 16 May 2025 07:25:39 +0000
+Received: by outflank-mailman (output) from mailman id 986386.1371950; Fri, 16 May 2025 07:28:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uFpRr-00045A-4b; Fri, 16 May 2025 07:25:39 +0000
-Received: by outflank-mailman (input) for mailman id 986379;
- Fri, 16 May 2025 07:25:37 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uFpUp-0004eJ-Hu; Fri, 16 May 2025 07:28:43 +0000
+Received: by outflank-mailman (input) for mailman id 986386;
+ Fri, 16 May 2025 07:28:42 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=C2cV=YA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uFpRp-000453-LV
- for xen-devel@lists.xenproject.org; Fri, 16 May 2025 07:25:37 +0000
-Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
- [2a00:1450:4864:20::533])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f5dc8b88-3226-11f0-9eb6-5ba50f476ded;
- Fri, 16 May 2025 09:25:36 +0200 (CEST)
-Received: by mail-ed1-x533.google.com with SMTP id
- 4fb4d7f45d1cf-5f5bef591d6so3591481a12.1
- for <xen-devel@lists.xenproject.org>; Fri, 16 May 2025 00:25:36 -0700 (PDT)
+ id 1uFpUo-0004eB-K6
+ for xen-devel@lists.xenproject.org; Fri, 16 May 2025 07:28:42 +0000
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [2a00:1450:4864:20::62c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5c9c5995-3227-11f0-9ffb-bf95429c2676;
+ Fri, 16 May 2025 09:28:28 +0200 (CEST)
+Received: by mail-ej1-x62c.google.com with SMTP id
+ a640c23a62f3a-ace333d5f7bso308488266b.3
+ for <xen-devel@lists.xenproject.org>; Fri, 16 May 2025 00:28:28 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6005a6e6366sm961876a12.44.2025.05.16.00.25.35
+ a640c23a62f3a-ad52d06cdccsm107153266b.49.2025.05.16.00.28.27
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 16 May 2025 00:25:35 -0700 (PDT)
+ Fri, 16 May 2025 00:28:27 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f5dc8b88-3226-11f0-9eb6-5ba50f476ded
+X-Inumbo-ID: 5c9c5995-3227-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1747380336; x=1747985136; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1747380508; x=1747985308; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=fKB6X3ffOlNz/9yfTbBf2Mvx10O/bznxOXd1Iqxid8I=;
-        b=bHocymCYEzS02oDvKwSoCzZVPuAV7W7+Iip46sDkFMDhUeGCuG2QKS8CSCdlUwq1pB
-         eMGRArZ/GSKvWlR4wJGrZlYWHmoTkxJ9Jn6BLFgB7zFCOOcosap+oBmfpNmsTVgAsbvf
-         ySlv7vcdDXcED25SVPQ4C5Dcvf4iZSTi8Rc77qCZwO/GJczCE5RufmgvvDNp2SWCx25p
-         SCn66xXIPsfzAhAwJFZrKl9NajPtGw/t/pGm33yo4mbcH3LyWPbQFUv6lF41J/g2XDDn
-         x9cL1Vu54Vl6+geJAYsKEC0qx1Ei7F91owYzDNJGEZHae7RIYIkoLozIZjIg2CH4E3ub
-         A7fA==
+        bh=jB7fVrQoyA+r4vLcvPaB1ddQ0Xr11hBWRr6evsrcrD8=;
+        b=PC696R470nUP6+xSCo/tY4XNDgQVgyLHORGV49kFgn+ZJvIm8e1hkiKIwNFXv7mRQ4
+         J98qc4GxgBA5UKjTF6Km4QwvvQ3NHjnydvSzNYW/Po0OkVQVXK2l32rX9vDD7tKx3yzH
+         8ESLB6+K9K5M+I/ZMn1pTp93a2mSG/zhp6TWf+xHnU+bIS8aVLqkLHOiWJJ8Sk0hjEBi
+         hkY1AqmQyk+aXjK5ZNXV+kcKc0IgbQM8mUPDZxIrGh5jsmPL+wLGM5sSesE5sjRkEyOR
+         CqynScL/hrXmUXhVNweL1DQMJdC3l/RSH1kYwqJfhzIuGacruaNkr9ETC6LpL3D6plx1
+         /Jvw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747380336; x=1747985136;
+        d=1e100.net; s=20230601; t=1747380508; x=1747985308;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=fKB6X3ffOlNz/9yfTbBf2Mvx10O/bznxOXd1Iqxid8I=;
-        b=iZf2j5Ls4/Lo8s6PJsh4R4afeP0j7uAgdP3P90bHSTBpi4IA8EIqZyeKBGSBU/Mr7r
-         63ghUhRsMsv172Sc90ceHsoAjL0gqFDGBZ/Cxa5lJqrKOhhxII7C+tFEtewRHjSLRUrA
-         gDusiKAq4fQZr+rq8pcF/+V/ejaAC98B575xnLBsBmajdGe5NkcwahfaguGHZAnbxOdq
-         OF+w31T1gNxNBCSEXpdMpLulkcMe3uaTXYp4QjR2RINoobHyIR30EMw0xYGuGpylACmR
-         xENNPko7OSwPh05rGAbLCF1K+lZsSLI8/VngUsJCcIvUJcSShq8ooPJI0VMz7fLHNFyP
-         kaWA==
-X-Gm-Message-State: AOJu0Yz4S5Ju55g+HbCMAPssJz7brCE0kOssEBMYztcSCMy/ZmlnxHX4
-	USO1SgvdqbQaVKGHh7kwEA8HGdjJKziZojBSBFJtC8kZJJ/uBny4rogHj5g03O4YDg==
-X-Gm-Gg: ASbGnct/8dm5h9u9UUIKfG90sRG2+ZupTMYo4189jLcvSLtZZli0TuIffdI3GxKfp90
-	iD/QIiSCSF15xKvyCrr3g+HAcegaVSOjcKgP5AZHf2Otjwt+gFcZrs5WZt4n4+W9ka4iEO5+l0v
-	xI1AfEmBgse0WSauNyNYtKj/YZkZkeCpgWWab6VdmZQ0xj0p/ayrXY1HetqphILj+bQEI1UUZsm
-	q4niEyvvYkLhrJXxJ4gMyvsRoTE6Vn5PchzWC0cCD+38U5xwRYsSNwpF/SBk0A68FUdN4GP0REn
-	msB7PqCbwYKkP58dDF/iBOcLFBOVru1rSsKPnUNiK+QMXcWQS3qYe3l75z4P8ukdOi+9S7xJ3U9
-	LS/bZUEYhWCWBgUflne9tnK07RR67XEQek+RF
-X-Google-Smtp-Source: AGHT+IFkSe1aDHqFjg0/M0fAna3fjoWHfOJMLIY3DM8xmJxPiPJWTQM0nn0fnvQCP/mmI0+viJExhA==
-X-Received: by 2002:a05:6402:268b:b0:5ff:8cba:cffb with SMTP id 4fb4d7f45d1cf-6009010f421mr1985328a12.25.1747380335915;
-        Fri, 16 May 2025 00:25:35 -0700 (PDT)
-Message-ID: <b1e6cf8b-c42f-447d-9d62-9153d30e9547@suse.com>
-Date: Fri, 16 May 2025 09:25:34 +0200
+        bh=jB7fVrQoyA+r4vLcvPaB1ddQ0Xr11hBWRr6evsrcrD8=;
+        b=SHhTF4UKYh91ArxRIuc1sOaKWP9bDnpAR3GF9pTXqfP4TbdIqeexjhBbp5ONhT4g5K
+         +XMxlFdLwpElEIm1/juapujIL4u0Dxga5vDgmpWPM/bARDCjyQo+g+qPqg8H09bXnUjT
+         FDPMo45TIxArvbpRnm3Tv6k67JodxqeKjEnmQWJ8dtflqpYVEWOs3yBC0Z5jLVFaSOig
+         SiV7HBzefVq6D3ZkGHAmrH1DQRXk/VV18PCJfYTKIPKeJ7uQjpyRG+WXu8MYp/6dM7la
+         FPOYalG+4fSg+K2jp16fEKrciaa0pG2pgYCIAD7p5mC8avPM7jE6uzBitk3pJkhBTrPk
+         zBAg==
+X-Forwarded-Encrypted: i=1; AJvYcCXpcCrR8i+RuyOqqjve+kEM/TUWqH8iuBR8wanrzDMOU385uCAK14KsyU4UmKtw5W72fUJ4dJO9IhE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzEzV9iZhXlrTsXnKb2pfx2HkixQSreyL8BBch2l1THHLWgbMnF
+	Y2rRwyiurrakAy/64v6LBPfwJ+ESzGdhvwHp5onDkAS1SdX7MsYuEV4neQdK2TecyQ==
+X-Gm-Gg: ASbGncv+fFWzkwx4srowIwcrpTkE+MODsCu7ew114cBRW5c4iIv3DdzXfRz+OzMs/4W
+	zBsKVP+LY7IJtXDGDvGx10WsZUKMQx6tz+ukW1SPM5Zd9dHoc8rJXF0mxVvvSx2H5li43FYXY2w
+	vDWbxcq9pgotejtqWXV+qbwkXQCUb2oUA9aZg1xAmuIBuFcChw5vwgbDt+blhbsllLFou3ZR4tC
+	jQQOdZA/PqnHUPoDwkKsz/QxWXRSokiaa0lvUghxOFeJN8kg8V+ETiGTB5jgEMZc3FQBCz8HlC6
+	FRcd4oMVt53pNDuks0AfuMCbDospoup6rQqwjpG+9CM69T6KD63RcNnnbrlFWu+cY+ww6gwqLcm
+	cYn6VEdyYCH2BBQRwTlRkMsIqLoSF/Eby+S8sLlI8VF16FFQ=
+X-Google-Smtp-Source: AGHT+IHcwCuMWyWR04moZN2Lxw2polE70sMCCy0v5MRtbBSxCpwFv6WzGnLiHhwnaXHXn/xPxUVRGg==
+X-Received: by 2002:a17:907:94ce:b0:ad4:f517:ca3 with SMTP id a640c23a62f3a-ad536bde67bmr135842266b.20.1747380508183;
+        Fri, 16 May 2025 00:28:28 -0700 (PDT)
+Message-ID: <6e37d964-5df8-4685-934b-0f8d31048123@suse.com>
+Date: Fri, 16 May 2025 09:28:26 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 9/9] xen/x86: track dirty pCPU caches for a given vCPU
+Subject: Re: [PATCH] x86/vpci: fix handling of BAR overlaps with non-hole
+ regions
 To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>
-References: <20250506083148.34963-1-roger.pau@citrix.com>
- <20250506083148.34963-10-roger.pau@citrix.com>
- <cecf40ed-9cf2-4e86-aa82-e0c33643868d@citrix.com>
- <aBoGyekf9KZeZCrK@macbook.lan>
- <d9a960ba-9690-4d0c-8b1a-1fa9275bcf22@suse.com>
- <aCXHhAdc-Woyzf65@macbook.lan>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Stefano Stabellini <stefano.stabellini@amd.com>,
+ xen-devel@lists.xenproject.org
+References: <20250515084123.43289-1-roger.pau@citrix.com>
+ <8b0fa959-6d00-4bfb-bef0-b3d1ae7ce7e0@suse.com>
+ <aCW9vfNEsDFLbE-y@macbook.lan>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,72 +125,87 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aCXHhAdc-Woyzf65@macbook.lan>
+In-Reply-To: <aCW9vfNEsDFLbE-y@macbook.lan>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 15.05.2025 12:52, Roger Pau Monné wrote:
-> On Mon, May 12, 2025 at 05:38:07PM +0200, Jan Beulich wrote:
->> On 06.05.2025 14:55, Roger Pau Monné wrote:
->>> On Tue, May 06, 2025 at 12:16:00PM +0100, Andrew Cooper wrote:
->>>> On 06/05/2025 9:31 am, Roger Pau Monne wrote:
->>>>> When a guest is allowed access to cache control operations such tracking
->>>>> prevents having to issue a system-wide cache flush, and rather just flush
->>>>> the pCPUs where the vCPU has been scheduled since the last flush.
->>>>>
->>>>> Note that domain-wide flushes accumulate the dirty caches from all the
->>>>> vCPUs, but clearing the vCPU masks will require pausing all vCPUs, which
->>>>> seems overkill.  Instead leave the vCPU dirty masks as-is, worse case it
->>>>> will result in redundant flushes in further calls.
->>>>>
->>>>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
->>>>
->>>> I'm afraid this doesn't work.
->>>>
->>>> Unlike TLBs, dirty cacheline can move sideways, e.g. by foreign or grant
->>>> mapping, but also naturally because of how cache coherency works.
+On 15.05.2025 12:11, Roger Pau Monné wrote:
+> On Thu, May 15, 2025 at 11:24:59AM +0200, Jan Beulich wrote:
+>> On 15.05.2025 10:41, Roger Pau Monne wrote:
+>>> For once the message printed when a BAR overlaps with a non-hole regions is
+>>> not accurate on x86.  While the BAR won't be mapped by the vPCI logic, it
+>>> is quite likely overlapping with a reserved region in the memory map, and
+>>> already mapped as by default all reserved regions are identity mapped in
+>>> the p2m.  Fix the message so it just warns about the overlap, without
+>>> mentioning that the BAR won't be mapped, as this has caused confusion in
+>>> the past.
 >>>
->>> Does such sideway moving also imply that local WB{NO,}INVD on native
->>> could be equally bogus?
+>>> Secondly, when an overlap is detected the BAR 'enabled' field is not set,
+>>> hence other vPCI code that depends on it like vPCI MSI-X handling won't
+>>> function properly, as it sees the BAR as disabled, even when memory
+>>> decoding is enabled for the device and the BAR is likely mapped in the
+>>> p2m.  Change the handling of BARs that overlap non-hole regions to instead
+>>> remove any overlapped regions from the rangeset, so the resulting ranges to
+>>> map just contain the hole regions.  This requires introducing a new
+>>> pci_sanitize_bar_memory() that's implemented per-arch and sanitizes the
+>>> address range to add to the p2m.
 >>>
->>> According to the SDM, cache lines can indeed move between processor
->>> caches, but the memory controller must always snoop such moves and
->>> flush the data to memory:
+>>> For x86 pci_sanitize_bar_memory() removes any regions present in the host
+>>> memory map, for ARM this is currently left as a dummy handler to not change
+>>> existing behavior.
 >>>
->>> "Here, the processor with the valid data may pass the data to the
->>> other processors without actually writing it to system memory;
->>> however, it is the responsibility of the memory controller to snoop
->>> this operation and update memory."
->>>
->>> So a cache line moving sideways will always be propagated to memory as
->>> part of the move, and hence the data in the previous pCPU cache will
->>> always hit memory.
+>>> Ultimately the above changes should fix the vPCI MSI-X handlers not working
+>>> correctly when the BAR that contains the MSI-X table overlaps with a
+>>> non-hole region, as then the 'enabled' BAR bit won't be set and the MSI-X
+>>> traps won't handle accesses as expected.
 >>
->> But that's only one of the two aspects of a flush. The other is to ensure
->> respective data isn't in any (covered) cache anymore. IOW dirty-ness (as
->> the title has it) isn't a criteria, unless of course you mean "dirty" in
->> a sense different from what it means in the cache coherency model.
+>> While all of this reads plausible, I may need to look at this again later,
+>> to hopefully grok the connections and implications.
 > 
-> Given the direct map, and the fact that the CPU can speculatively load
-> entries in the cache, I'm not sure there's much Xen can effectively do
-> ATM to ensure a certain cache line it's not in any cache anymore.
+> Thanks, it's indeed not trivial to follow.  I've attempted to write
+> this as best as I could.
 > 
-> It would possibly get better if/when the direct map is removed, but
-> even then Xen (or dom0) might map guest memory for emulation or IO
-> purposes.  Then Xen/dom0 would need to issue a wbinvd after unmapping
-> the memory, to ensure the cache is clean in case a vCPU from a domain
-> is scheduled there.
-> 
-> IMO being realistic it is very unlikely for Xen to be able to ensure
-> that after a guest wbinvd there are no guest owned cache lines in any
-> CPU cache, even if such wbinvd is propagated to all host CPUs.
+> I think the fix is far easier to understand than the description of
+> the issue and the connection with vPCI MSI-X handling.
 
-Well, see Andrew's reply on one of the two "restrict guest-induced WBINVD"
-of mine. What you say is effectively supporting the statement I make in
-the descriptions there ("We allow its use for writeback purposes only
-anyway, ..."). Which Andrew says is wrong for at least future use cases,
-possibly even today's. IOW I think we first need to find some common
-grounds on the underlying goals / principles.
+Right - the code change itself looks technically fine to me.
+
+>>> --- a/xen/arch/x86/include/asm/pci.h
+>>> +++ b/xen/arch/x86/include/asm/pci.h
+>>> @@ -2,6 +2,7 @@
+>>>  #define __X86_PCI_H__
+>>>  
+>>>  #include <xen/mm.h>
+>>> +#include <xen/rangeset.h>
+>>
+>> Please don't, ...
+>>
+>>> @@ -57,14 +58,7 @@ static always_inline bool is_pci_passthrough_enabled(void)
+>>>  
+>>>  void arch_pci_init_pdev(struct pci_dev *pdev);
+>>>  
+>>> -static inline bool pci_check_bar(const struct pci_dev *pdev,
+>>> -                                 mfn_t start, mfn_t end)
+>>> -{
+>>> -    /*
+>>> -     * Check if BAR is not overlapping with any memory region defined
+>>> -     * in the memory map.
+>>> -     */
+>>> -    return is_memory_hole(start, end);
+>>> -}
+>>> +bool pci_check_bar(const struct pci_dev *pdev, mfn_t start, mfn_t end);
+>>> +int pci_sanitize_bar_memory(struct rangeset *r);
+>>
+>> ... all you need is a struct forward decl here.
+> 
+> Hm, but any user that makes use of pci_sanitize_bar_memory() will need
+> to include rangeset.h anyway, hence it seemed better to just include
+> the header rather that pollute the current one by adding forward
+> declarations.
+
+Yet any user of the header not calling this function won't need the full
+definition of the struct, nor (perhaps) any other of the contents of
+xen/rangeset.h.
 
 Jan
 
