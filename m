@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2692CAB9E21
-	for <lists+xen-devel@lfdr.de>; Fri, 16 May 2025 16:04:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.987239.1372652 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A3621AB9E89
+	for <lists+xen-devel@lfdr.de>; Fri, 16 May 2025 16:21:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.987247.1372661 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uFvfV-00072m-Cd; Fri, 16 May 2025 14:04:09 +0000
+	id 1uFvvT-0001Pj-MI; Fri, 16 May 2025 14:20:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 987239.1372652; Fri, 16 May 2025 14:04:09 +0000
+Received: by outflank-mailman (output) from mailman id 987247.1372661; Fri, 16 May 2025 14:20:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uFvfV-0006zw-9r; Fri, 16 May 2025 14:04:09 +0000
-Received: by outflank-mailman (input) for mailman id 987239;
- Fri, 16 May 2025 14:04:07 +0000
+	id 1uFvvT-0001NS-JY; Fri, 16 May 2025 14:20:39 +0000
+Received: by outflank-mailman (input) for mailman id 987247;
+ Fri, 16 May 2025 14:20:38 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=n8HW=YA=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1uFvfT-0006zn-EU
- for xen-devel@lists.xenproject.org; Fri, 16 May 2025 14:04:07 +0000
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [2a00:1450:4864:20::434])
+ <SRS0=T4W4=YA=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1uFvvS-0001NM-A5
+ for xen-devel@lists.xenproject.org; Fri, 16 May 2025 14:20:38 +0000
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [2a00:1450:4864:20::435])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a1222eda-325e-11f0-9eb6-5ba50f476ded;
- Fri, 16 May 2025 16:04:06 +0200 (CEST)
-Received: by mail-wr1-x434.google.com with SMTP id
- ffacd0b85a97d-3a36463b9cbso133175f8f.2
- for <xen-devel@lists.xenproject.org>; Fri, 16 May 2025 07:04:06 -0700 (PDT)
-Received: from [192.168.1.5] (user-109-243-64-38.play-internet.pl.
- [109.243.64.38]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-442f482f1d6sm100456375e9.14.2025.05.16.07.04.04
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 16 May 2025 07:04:04 -0700 (PDT)
+ id efcca057-3260-11f0-9eb6-5ba50f476ded;
+ Fri, 16 May 2025 16:20:37 +0200 (CEST)
+Received: by mail-wr1-x435.google.com with SMTP id
+ ffacd0b85a97d-3a363d15c64so230155f8f.3
+ for <xen-devel@lists.xenproject.org>; Fri, 16 May 2025 07:20:37 -0700 (PDT)
+Received: from andrew-laptop.. ([46.149.103.10])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3a35ca5a04csm2938274f8f.23.2025.05.16.07.20.34
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 16 May 2025 07:20:35 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,153 +45,152 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a1222eda-325e-11f0-9eb6-5ba50f476ded
+X-Inumbo-ID: efcca057-3260-11f0-9eb6-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1747404245; x=1748009045; darn=lists.xenproject.org;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=/edY+Zskoh0wrOH6vmFE+9XhkCbiUGh0UQtxuebu1lo=;
-        b=cXCivGgBnOxboVq0nT8lUUE2S6bKblMHfTit2UwUATO+4f8XraY44Wz3hTqUe8tI1/
-         H/PXb9THauW9coSy1ljbTGra8/ipx4UPtpPlJhBW4hKi0VquficgOUTq2J9gDIlikCVg
-         3wjXBD6ezyGBJRXqzjLLpitsvvG6+R+0sNGWW5Gpi69f76cPG3vNsz5nU0qUfDdZSVcw
-         PPkPa3KXdt1mXddzDwXUa4/P941UDFPAjbANnul/uF+rYTuQe+mKpYv2yhMA8fwMW2PV
-         s2z0PsIpGwy+29c1Zy7l3mK60viGr3B/+0gBU+zzNluVJMDwrZ+kUgk7xTIy8iPqljgM
-         +toA==
+        d=citrix.com; s=google; t=1747405236; x=1748010036; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=9AXw0RKJ1u/9DoUFHhT/Kra6yYROZo8iN46o0ZEu/z0=;
+        b=bhApMIk//9gppn2sSJ+2deHOlErLq0htF/d0gv4MoUKVPvljs1owYjCxNKgLG0WraI
+         dstraxpYqtb772u/9Gg1gxvTZ1DUe1BU0l3vw/+OHe0ZvF9vUU8DdCAtMQYbucyMMmTK
+         sBfsZicLGu9UtVmiiVmx52z7AvgVpr/rcCEiw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747404245; x=1748009045;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=/edY+Zskoh0wrOH6vmFE+9XhkCbiUGh0UQtxuebu1lo=;
-        b=WPR3mJHW39pavL3kP+1l94EirxMjLLGaHnCUrtVJR3UGLxkcHH7iR8WfKLwB/sfppp
-         OfjpuTdKY94El23lqtLgCsbp2NMTmOwLrClPn92isA5nPpUGqOQwE7J4GOs8xoRvELur
-         qDttRyKgykRDNWtyxUq1+X3Zl2Aw3RsdFdKiGOg9On520r12vrP1uDAqgT2QyOCiYONy
-         LYe4QAuuSm89O6fWeNYiW4JV2PRTjxTGx2HyG80Uq5+GxAu50myZFd4BTH1aUKWqUt5x
-         RUkWxLOwl3J9/0MRZ/HqoNS97LeOjCaAMEbIIsSWbvSmkT0H4ch2+DGSCiAeIBT0nWg/
-         1ktg==
-X-Forwarded-Encrypted: i=1; AJvYcCXRfreujrRVE+AY+50eijITsQUQtJHeveL0FxNR0d2p7eWOtm6bYukfgRVSgf7oB2tZBC9j8EpLu5k=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzFk2DoHJuAqwTLetZmjHXqlqNF7QmLUbdyX5rp4sAD/xpYbdX8
-	L4Gju2vYoOk4IemJG0YfuAxNSzY4hTR9pwNdCvgdq8n2L2GLLQvtDGUK
-X-Gm-Gg: ASbGncttzv/v52p8UVkBy6P1UmSQfbgrmDCabEQ6mO9YNFVZyODvheNLJac/BJI5AWt
-	in5q+Etc+MRxlyBM57VRJw55cb0857HB3s2U67KGW3nTR+Znsih3kJRqWGd3NUmwxTs+u58uU+2
-	/JS87ChIMdZPpc0JHSocXFzRvXwoftQcnhfW5+yjHxCsICKR/CWrxTU9xge8r2JyhiwHWmENeqv
-	9HoqlqF55j7xFoG3oasQBkKfGQfludr9ZBy125jywuHvQMPOXzs61j8huHrDQWfIBf4EFC4gGD4
-	SVIztBjeC9Uxt8Edas8ZyN8zDKiCC8/pjXozm800DV7kPGjcvnegrfvU4CfW67NYQub9HaKOKNS
-	obrvRWTUeV1mmuTV97SCsLlpZ
-X-Google-Smtp-Source: AGHT+IGF2wSQmYpEBCL/akwVepdZjGoqTRKqOSNhvf4mx6gUMtkVlD2C4NLQy3ui62kqlWC5nwUmQw==
-X-Received: by 2002:a5d:5849:0:b0:3a1:f654:b84e with SMTP id ffacd0b85a97d-3a35c845c23mr3619414f8f.55.1747404245089;
-        Fri, 16 May 2025 07:04:05 -0700 (PDT)
-Content-Type: multipart/alternative;
- boundary="------------now59vvmZaF6uxg1wijNK0zA"
-Message-ID: <e6aea8e0-cf70-40ff-8729-24be0f432aeb@gmail.com>
-Date: Fri, 16 May 2025 16:04:03 +0200
+        d=1e100.net; s=20230601; t=1747405236; x=1748010036;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=9AXw0RKJ1u/9DoUFHhT/Kra6yYROZo8iN46o0ZEu/z0=;
+        b=gwidjAXf0XK0/QZUIaUZWTrwNMl07o/2we0uNPn1G9BPRXidC8lLBFb+YUjXY9e1gm
+         FQKCUCybV6V006nr/Wyn/IUhoPlcIrVwY2hXETTSfK5+7x5FnaraPE1tK//qj+KpSikb
+         +otLux1b0XzU8P/7Jj4tVscQF5oK+UvQ52lU/AgR2F/oBD5Cg7nFg8HmmSYg2N2+4tQD
+         NF14/mONfrXwTCszuHzcppoqV7jVZu3L4DvcS+sBwNuj9y+qyETbo9hgxvCAiDL96H8r
+         Ke9JASJEwZsedqSn4YzmVW8b/qfPasyE2ntFlqGrOgyDel598XSDL7qBEO4cPgsDwY/B
+         82lw==
+X-Gm-Message-State: AOJu0Ywl4urC4pZe3UVddw5KVz7rb1rE7fYru7WZjsvj+tNnSqzVO52c
+	8cKszq9E6FYr9hjt/xQvJfrTBSvkn3YDMAvT+bdAHK+LDSkbIpUECpkUK7r8V8JNRP/MIu+5O3k
+	ZHJhs
+X-Gm-Gg: ASbGncux1uKsUZevY/Q56L082HHJffxP+h+qZOgPqXUfDM4X/EHeiOXXjwu7kjSEGm6
+	qvXTkZkcrR6vxAcXSN6j1ecshE63xPspG9Ejkw2ewl3n38V8c4NKihWyhtzm7Wbbhip++fX659N
+	Ekpag/8jOvFWDqXY+zUGhcbFErRNrwt8GruzW77iocQYXORJZ++BURp8QE546cVEbrs0a9MKdIc
+	h0wbtyOntof6U8ZbhybolUfwQH79EjfGKWx6/V8An+0MuOAL1ejhSisPdSkXwdc9hrcCoxghRaR
+	l3EpL5YbBZLjoU+6jrCnknl6z1ZxqIPF9XzSKADfvIh1lzlyLiwLfOj5SpgF1IE=
+X-Google-Smtp-Source: AGHT+IEmf57B7rUn7ctquoKcCyMZQ/BuWf6Oj0WZzw1I62ESaI/EP7aa9S4jfbnOZudKM/G7E7mZgw==
+X-Received: by 2002:a05:6000:2ce:b0:3a0:8c45:d30e with SMTP id ffacd0b85a97d-3a35c82ec75mr4033116f8f.35.1747405236320;
+        Fri, 16 May 2025 07:20:36 -0700 (PDT)
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: xen-devel@lists.xenproject.org
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH] CODING_STYLE: Updated header guard recommendations
+Date: Fri, 16 May 2025 15:20:31 +0100
+Message-Id: <20250516142031.58693-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 07/16] xen/riscv: introduce platform_get_irq()
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Romain Caritey <Romain.Caritey@microchip.com>, xen-devel@lists.xenproject.org
-References: <cover.1746530883.git.oleksii.kurochko@gmail.com>
- <a6198571b19be1f10b549e68a1b712a6653429e6.1746530883.git.oleksii.kurochko@gmail.com>
- <f2d61436-739c-4e41-95a5-22a5176d9415@suse.com>
-Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <f2d61436-739c-4e41-95a5-22a5176d9415@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-This is a multi-part message in MIME format.
---------------now59vvmZaF6uxg1wijNK0zA
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Despite the best intentions at the time, the current recommendation
+lead to very long identifiers, bordering on the max limit we've chosen
+for certification.
 
+One observation is that we do have static analysis which will
+highlight if duplicate guards are created accidentally.
 
-On 5/15/25 9:33 AM, Jan Beulich wrote:
->> +int platform_get_irq(const struct dt_device_node *device, int index)
->> +{
->> +    struct dt_irq dt_irq;
->> +    int ret;
->> +
->> +    if ( (ret = dt_device_get_irq(device, index, &dt_irq)) != 0 )
->> +        return ret;
->> +
->> +    if ( (ret = irq_set_type(dt_irq.irq, dt_irq.type)) != 0 )
->> +        return ret;
->> +
->> +    return dt_irq.irq;
-> What guarantees the value to be at most INT_MAX (i.e. no silent conversion to
-> a negative value, signaling an error to the caller)? Actually, looking at
-> irq_set_type(), what guarantees irq_to_desc() there to not overrun irq_desc[]?
-> There are no bounds checks in aplic_irq_xlate().
+Therefore, relax the recommendations and in particular remove the
+specific tie to the directory structure.  This has the other advantage
+of being more similar to other projects.
 
-I'm afraid that both aren't guaranteed. I think to have the following in platform_get_irq()
-should be enough:
-     BUILD_BUG_ON(NR_IRQS > INT_MAX);
+This will hopefully mean there's less churn getting the tree in shape,
+and a random contributor is more likely to pick an appropriate guard
+given no specific knowledge of Xen.
 
-     if ( dt_irq.irq >= NR_IRQS )
-         panic("irq%d is bigger then NR_IRQS(%d)\n", dt_irq.irq, NR_IRQS);
+As always, it's something reviewers and maintainers should be aware
+of, and to advise on.
 
-Probably, the first could be dropped as I'm not sure that anyone will use such big
-number for NR_IRQS.
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Anthony PERARD <anthony.perard@vates.tech>
+CC: Michal Orzel <michal.orzel@amd.com>
+CC: Jan Beulich <jbeulich@suse.com>
+CC: Julien Grall <julien@xen.org>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Stefano Stabellini <sstabellini@kernel.org>
+---
+ CODING_STYLE | 49 ++++++++++++++++++-------------------------------
+ 1 file changed, 18 insertions(+), 31 deletions(-)
 
-~ Oleksii
+diff --git a/CODING_STYLE b/CODING_STYLE
+index e3b1da604802..5644f1697fc7 100644
+--- a/CODING_STYLE
++++ b/CODING_STYLE
+@@ -157,43 +157,30 @@ Header inclusion guards
+ -----------------------
+ 
+ Unless otherwise specified, all header files should include proper
+-guards to prevent multiple inclusions. The following naming conventions
+-apply:
+-
+-- Guard names are derived from directory path underneath xen/ and the
+-  actual file name.  Path components are separated by double
+-  underscores.  Alphabetic characters are converted to upper case.  Non-
+-  alphanumeric characters are replaced by single underscores.
+-- Certain directory components are omitted, to keep identifier length
+-  bounded:
+-  - the top level include/,
+-  - architecture-specific private files' arch/,
+-  - any architecture's arch/<arch>/include/asm/ collapses to
+-    ASM__<ARCH>__.
++guards to prevent multiple inclusions.  Guards need to be unique, and
++this property is checked by static analysis.
+ 
+-For example:
++Guards should be chosen based on the logical area, with enough
++disambiguation when the same filename exits in multiple locations in
++the source tree.  Commonly there should be a XEN or <arch> prefix.
++The guard should be spelt in ALL CAPITALS, ending with _H.
+ 
+-- Xen headers: XEN__<filename>_H
+-  - include/xen/something.h -> XEN__SOMETHING_H
++For example:
+ 
+-- asm-generic headers: ASM_GENERIC__<filename>_H
+-  - include/asm-generic/something.h -> ASM_GENERIC__SOMETHING_H
++- Xen headers: XEN_<something>_H
++  - include/xen/something.h -> XEN_SOMETHING_H
+ 
+-- arch-specific headers: ASM__<architecture>__<subdir>__<filename>_H
+-  - arch/x86/include/asm/something.h -> ASM__X86__SOMETHING_H
++- arch-specific headers: <arch>_<something>_H
++  - arch/x86/include/asm/something.h -> X86_SOMETHING_H
++  - arch/x86/include/asm/hvm/something.h -> X86_HVM_SOMETHING_H
++  - arch/x86/include/asm/pv/something.h -> X86_PV_SOMETHING_H
+ 
+-- Private headers: <dir>__<filename>_H
+-  - arch/arm/arm64/lib/something.h -> ARM__ARM64__LIB__SOMETHING_H
+-  - arch/x86/lib/something.h -> X86__LIB__SOMETHING_H
+-  - common/something.h -> COMMON__SOMETHING_H
++- Private headers: <something>_PRIVATE_H
++  - common/something/private.h -> <SOMETHING>_PRIVATE_H
++  - drivers/foo/something.h -> <SOMETHING>_H
+ 
+-Note that this requires some discipline on the naming of future new
+-sub-directories: There shouldn't be any other asm/ one anywhere, for
+-example.  Nor should any new ports be named the same as top-level
+-(within xen/) directories.  Which may in turn require some care if any
+-new top-level directories were to be added.  Rule of thumb: Whenever
+-adding a new subdirectory, check the rules to prevent any potential
+-collisions.
++A good choice of guard is one that wont become stale if the
++driver/subsystem/etc is shuffled around the source tree.
+ 
+ Emacs local variables
+ ---------------------
+-- 
+2.34.1
 
-
---------------now59vvmZaF6uxg1wijNK0zA
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 5/15/25 9:33 AM, Jan Beulich wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:f2d61436-739c-4e41-95a5-22a5176d9415@suse.com">
-      <pre class="moz-quote-pre" wrap=""><blockquote type="cite"
-      style="color: #007cff;"><pre wrap="" class="moz-quote-pre">+int platform_get_irq(const struct dt_device_node *device, int index)
-+{
-+    struct dt_irq dt_irq;
-+    int ret;
-+
-+    if ( (ret = dt_device_get_irq(device, index, &amp;dt_irq)) != 0 )
-+        return ret;
-+
-+    if ( (ret = irq_set_type(dt_irq.irq, dt_irq.type)) != 0 )
-+        return ret;
-+
-+    return dt_irq.irq;
-</pre></blockquote><pre wrap="" class="moz-quote-pre">What guarantees the value to be at most INT_MAX (i.e. no silent conversion to
-a negative value, signaling an error to the caller)? Actually, looking at
-irq_set_type(), what guarantees irq_to_desc() there to not overrun irq_desc[]?
-There are no bounds checks in aplic_irq_xlate().</pre></pre>
-    </blockquote>
-    <pre>I'm afraid that both aren't guaranteed. I think to have the following in platform_get_irq()
-should be enough:
-    BUILD_BUG_ON(NR_IRQS &gt; INT_MAX);
-
-    if ( dt_irq.irq &gt;= NR_IRQS )
-        panic("irq%d is bigger then NR_IRQS(%d)\n", dt_irq.irq, NR_IRQS);
-
-Probably, the first could be dropped as I'm not sure that anyone will use such big
-number for NR_IRQS.
-
-~ Oleksii
-
-
-</pre>
-  </body>
-</html>
-
---------------now59vvmZaF6uxg1wijNK0zA--
 
