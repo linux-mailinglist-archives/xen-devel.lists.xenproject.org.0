@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E5E6AB9C6E
-	for <lists+xen-devel@lfdr.de>; Fri, 16 May 2025 14:42:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.987088.1372542 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D4F06AB9C82
+	for <lists+xen-devel@lfdr.de>; Fri, 16 May 2025 14:45:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.987095.1372551 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uFuOW-0006vk-Bk; Fri, 16 May 2025 12:42:32 +0000
+	id 1uFuR4-0007R8-OJ; Fri, 16 May 2025 12:45:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 987088.1372542; Fri, 16 May 2025 12:42:32 +0000
+Received: by outflank-mailman (output) from mailman id 987095.1372551; Fri, 16 May 2025 12:45:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uFuOW-0006tL-8w; Fri, 16 May 2025 12:42:32 +0000
-Received: by outflank-mailman (input) for mailman id 987088;
- Fri, 16 May 2025 12:42:31 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uFuR4-0007Pa-LW; Fri, 16 May 2025 12:45:10 +0000
+Received: by outflank-mailman (input) for mailman id 987095;
+ Fri, 16 May 2025 12:45:09 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=T4W4=YA=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1uFuOV-0006tF-C1
- for xen-devel@lists.xenproject.org; Fri, 16 May 2025 12:42:31 +0000
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [2a00:1450:4864:20::334])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3a7ed84e-3253-11f0-9ffb-bf95429c2676;
- Fri, 16 May 2025 14:42:29 +0200 (CEST)
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-43edb40f357so15659005e9.0
- for <xen-devel@lists.xenproject.org>; Fri, 16 May 2025 05:42:29 -0700 (PDT)
-Received: from [10.81.43.161] ([46.149.103.10])
+ id 1uFuR2-0007PS-W6
+ for xen-devel@lists.xenproject.org; Fri, 16 May 2025 12:45:08 +0000
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [2a00:1450:4864:20::32e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 99294e2a-3253-11f0-9eb6-5ba50f476ded;
+ Fri, 16 May 2025 14:45:08 +0200 (CEST)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-43ede096d73so14547545e9.2
+ for <xen-devel@lists.xenproject.org>; Fri, 16 May 2025 05:45:08 -0700 (PDT)
+Received: from [10.81.43.161] ([46.149.103.13])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-443000ee99csm18110755e9.31.2025.05.16.05.42.25
+ 5b1f17b1804b1-442fd50eda6sm31916875e9.13.2025.05.16.05.45.06
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 16 May 2025 05:42:28 -0700 (PDT)
+ Fri, 16 May 2025 05:45:07 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3a7ed84e-3253-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 99294e2a-3253-11f0-9eb6-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1747399349; x=1748004149; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1747399508; x=1748004308; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=VxNrDdHwZDB4e7gQ0bftbwiTKA/WIFIRNRrPLF2lTbc=;
-        b=l9WrJ4u2ecxkb50Om083budSsq+cvFWOKWOUIZTQtjUpSPwUY3zNlEwchTBQvwhlLz
-         VnZX+G+P9CzZb7e/ZiYeircp3CXVErd3lIswE0xWxx1liHFC2pinsqqvfiHC1Y9Egq0w
-         cOtwfM4IPFZG2IvkMGKNQMRdcN3YW4K1cMjmY=
+        bh=hR6tfFpNGkgK83dfReZQaURSgcWQZAdu0yzou0TQTMg=;
+        b=avF6TvpigOb8xVyzSRQayifZ5nLzkI8kDHtUBw8AqpyepTTa4/4kZ39arplgBQky9Q
+         firB1J1VXDNZhV+D3IQmqxGNPc+XmqqKCdg96luH93wLsNOLAejDb0x1NP9lwvcwOYLi
+         Ec51OlgNvxLqZ7Xd1r6HSb0/a+L+un3fo4mGs=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747399349; x=1748004149;
+        d=1e100.net; s=20230601; t=1747399508; x=1748004308;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=VxNrDdHwZDB4e7gQ0bftbwiTKA/WIFIRNRrPLF2lTbc=;
-        b=G3juXVJOoPc6Yub4IDQVRs481DwfGV+xsOm/LUlVm83PL6TEqlK95bItCYp/yz+1Ym
-         sjraBPLam5u3s/y4cpBwPlb39lH3cGUAAY8+X6sCzMyV6vIBIUry4+Axp23XctgvsL4R
-         kdu0TfMiuBKhXsf5rCmMUMqGFAsZKMw4UyW+sJ0Ev2w4YEKc6Tq3msorX5PuCzrY0dPQ
-         cAub9uO+zwVB/HVi7TFyECdwFTkunhXOMuFIsRRi7PFDgsRdfXq/z324MfN+Mdx6aEW/
-         OjLd29a9psEB5Ci2ui63FCEkOEJWqEI2JjuES/UeEyl+Xzk6ICKNGBWZRuUwTgnzUeWv
-         eRaA==
-X-Forwarded-Encrypted: i=1; AJvYcCVAon2965E75MGb74N4fg2FI1wnroo/ACGUL9oSv8Gug/8Y6C5b7hWYfD8sbbayx7K/N26C8/lZU6c=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwGGLHfJhdpplbwCcYu+5LATa1RAjUha6peKnq4Vhx7e1HOBSmG
-	B0Ow/9vT1DH8KCgFYQgNlLF0iIiKhTIt3BsH+V86nwMmSgBb6J5Ww2EbfAwEFhx3YMc=
-X-Gm-Gg: ASbGncsLvrRhVwHDU5pkCUz5snwwV9ONUOVkHZIrJLmtW05axjIIvP/ZhW4rK3AlT2D
-	lz+D3BSoe3BFvbaHP/rGATB8Y/602apXOLBaAHe5D0hRM/oVdhiaFJao3JOP5S5Q8SOPi8ZQ/VS
-	2t7lLCx0CcZN7mT2HErv/fGA5tDfI0IxsPl2rt1cAcnD1qnv3tXN5FIi/pm4WqRkcr2B5HEtIVx
-	EH//pJqMvbcIQY1OEObD30JrdLBqYNJgYWvr0X0JbE5hh7a/5n4e2ZtWH7gUnDiUYf8TgLhrPTm
-	xYFxQ6iz8Hg+aYVQUi8vvLgwtRH5X/q3ICVEtMDCnam1jW+17C1LP0GOkL3T5UQ0/I/8JsUo
-X-Google-Smtp-Source: AGHT+IEeql+bDq0LLvixVb3OHq5FszKypJA8cDZcQQFqGxFLiA5On1Lpbfb6Maqshg6ub0P0I5BpkA==
-X-Received: by 2002:a05:600c:5305:b0:43c:fceb:91a with SMTP id 5b1f17b1804b1-442fd62733amr32335915e9.11.1747399348912;
-        Fri, 16 May 2025 05:42:28 -0700 (PDT)
-Message-ID: <7c0a689e-c116-49e2-9caa-f5679f8960eb@citrix.com>
-Date: Fri, 16 May 2025 13:42:23 +0100
+        bh=hR6tfFpNGkgK83dfReZQaURSgcWQZAdu0yzou0TQTMg=;
+        b=G8R/wiCnC3L/5g7+154h5uoIM7rFM1JZQSKpbUwLpVmsgNRsQ+0Mjgey229VUB53j+
+         H6nuGu+yUqN6x1Ktn48hsMDeHif2tk9FFumXdrXz75d7PSbalp4oWdf9xJCAhomYjMZA
+         quz9EldXl2Ln5PnOBze/wzeHAY/1/2GGRyaMAo8t8Akv7MRBi0K85gaekor+8mwXzm1S
+         r3ng6RhEOu2nz5JvAUH50Mj33zFKgpMfPv8uXkdhOxUIRd2XzSB1ePpHuVKHTvPU6cqs
+         ttu0JIiVu/H9kqMTHf4x9sjeT/sna9zm7I5h1bsLYZpVF6PdvPTZmkfpl8sWjZrsCuBx
+         yVlA==
+X-Forwarded-Encrypted: i=1; AJvYcCVc9QrED8914Be7qmXQtRrKP+84jS61tzdWj3AptTvcLFJf3v8dnosfTk8C0AzgqmBWMiZBD5w1LpE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx4MAe64+OjLLvzMhJRWHGR45t66CV0xoKhInLqV3iSUAHFmHFJ
+	EZfP2cNR0Q6+3GbK6MgNk6a5w+CmD1o550HUuIr6FRWyahYTakHlv9SERV5Pbi83Q9I=
+X-Gm-Gg: ASbGncvieDVVAeJ+s4iRswfhtTBMny3cP+Uc7uxZvcldoLDRyVbSAPqtzUeEjUwlqF1
+	5tRpwTT+b0BhdyrSvKFNlluEsiIbm4BvjhExZKNFq9ULFgMOaqVU6k+mo4X+36N3yu1wZFo3z79
+	vDVi0Z3nlcRv5t9dABZelcj3p498NC+GStjFDoVKiGo0YJIHqbXrjqokd+Xp1zFbAR0ySvBSnq4
+	81FBHqmn/Esrxv9tnETGYtAG64B7JB4YZ8uaTyGe4REdzj2fooT8zcgBHl24oMa66FKhS9olprO
+	6GG5++5cqyaFOyxQkHOGmwPofsAx+15+KyMi5Qb9o7SP5nmTywqv9UlSqrBD1g==
+X-Google-Smtp-Source: AGHT+IFH01s4vmp7V81rk2SUEj7hvywGZ4N7cJWaOuMfqJFjZIq5h3y+wkH5koR+O4eaUGVOkFh3ZQ==
+X-Received: by 2002:a05:600c:b88:b0:434:fa55:eb56 with SMTP id 5b1f17b1804b1-442fd60b4abmr29398215e9.7.1747399507710;
+        Fri, 16 May 2025 05:45:07 -0700 (PDT)
+Message-ID: <85f778d1-7fb5-47da-9153-35333e486d24@citrix.com>
+Date: Fri, 16 May 2025 13:45:06 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 1/2] x86/vmx: replace __vmread() with vmread()
+Subject: [PING MISRA] Re: [PATCH v5 2/2] x86/vmx: remove __vmread()
 To: dmkhn@proton.me, xen-devel@lists.xenproject.org
 Cc: jbeulich@suse.com, roger.pau@citrix.com, nicola.vetrini@bugseng.com,
- consulting@bugseng.com, dmukhin@ford.com
+ consulting@bugseng.com, dmukhin@ford.com,
+ Stefano Stabellini <sstabellini@kernel.org>
 References: <20250513052809.3947164-1-dmukhin@ford.com>
- <20250513052809.3947164-2-dmukhin@ford.com>
+ <20250513052809.3947164-3-dmukhin@ford.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -134,81 +135,67 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20250513052809.3947164-2-dmukhin@ford.com>
+In-Reply-To: <20250513052809.3947164-3-dmukhin@ford.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 13/05/2025 6:28 am, dmkhn@proton.me wrote:
-> diff --git a/xen/arch/x86/hvm/vmx/intr.c b/xen/arch/x86/hvm/vmx/intr.c
-> index 91b407e6bc..b622ae1e60 100644
-> --- a/xen/arch/x86/hvm/vmx/intr.c
-> +++ b/xen/arch/x86/hvm/vmx/intr.c
-> @@ -65,7 +65,7 @@ static void vmx_enable_intr_window(struct vcpu *v, struct hvm_intack intack)
->      {
->          unsigned long intr;
->  
-> -        __vmread(VM_ENTRY_INTR_INFO, &intr);
-> +        intr = vmread(VM_ENTRY_INTR_INFO);
->          TRACE(TRC_HVM_INTR_WINDOW, intack.vector, intack.source,
->                (intr & INTR_INFO_VALID_MASK) ? intr & 0xff : -1);
->      }
+Hello,
 
-As Jan said in v4, lots of these should now change away from being
-unsigned long.
+This is adjusting some MISRA configuration.  I'm reasonably sure the
+change is fine as we're simply removing the referenced helper, but can
+we get a second opinion from anyone who knows what
+function-macro-properties.json is supposed to be doing?
 
-For example, this delta alone:
-
-diff --git a/xen/arch/x86/hvm/vmx/vmx.c b/xen/arch/x86/hvm/vmx/vmx.c
-index 203ca83c16e7..c540ea5bd850 100644
---- a/xen/arch/x86/hvm/vmx/vmx.c
-+++ b/xen/arch/x86/hvm/vmx/vmx.c
-@@ -4154,9 +4154,8 @@ static void undo_nmis_unblocked_by_iret(void)
- 
- void asmlinkage vmx_vmexit_handler(struct cpu_user_regs *regs)
- {
--    unsigned long exit_qualification, exit_reason, idtv_info, intr_info
-= 0;
--    unsigned long cs_ar_bytes = 0;
--    unsigned int vector = 0;
-+    unsigned long exit_qualification;
-+    unsigned int exit_reason, idtv_info, intr_info = 0, cs_ar_bytes =
-0, vector = 0;
-     struct vcpu *v = current;
-     struct domain *currd = v->domain;
- 
-@@ -4830,7 +4829,7 @@ void asmlinkage vmx_vmexit_handler(struct
-cpu_user_regs *regs)
-     /* fall through */
-     default:
-     exit_and_crash:
--        gprintk(XENLOG_ERR, "Unexpected vmexit: reason %lu\n",
-exit_reason);
-+        gprintk(XENLOG_ERR, "Unexpected vmexit: reason %u\n", exit_reason);
- 
-         if ( vmx_get_cpl() )
-             hvm_inject_hw_exception(X86_EXC_UD,
-
-results in:
-
-    add/remove: 0/0 grow/shrink: 0/2 up/down: 0/-331 (-331)
-    Function                                     old     new   delta
-    vmx_vmexit_handler.cold                      929     839     -90
-    vmx_vmexit_handler                          5490    5249    -241
-
-worth of saving in the fastpath.  (Yes, I chose this example carefully
-because it's surely the largest win to be had.)
-
-I've just sent out a minor docs patch annotating the sizes of the fields.
-
-This patch wants splitting into at least 3:
-
- * One for the 64bit and natural fields which are a straight transform
-and no type-change away from unsigned long.
- * One for the 16bit fields (there are few enough that this can easily
-be a single patch).
- * One or more for the 32bit fields, doing a type change to unsigned int
-too.  (Might get quite large.  Hard to judge whether it wants to be one
-or more without seeing it.)
+Thanks,
 
 ~Andrew
+
+On 13/05/2025 6:28 am, dmkhn@proton.me wrote:
+> From: Denis Mukhin <dmukhin@ford.com>
+>
+> Remove __vmread() and adjust ECLAIR configuration to account for the change.
+>
+> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
+> ---
+>  docs/misra/function-macro-properties.json | 9 ---------
+>  xen/arch/x86/include/asm/hvm/vmx/vmx.h    | 5 -----
+>  2 files changed, 14 deletions(-)
+>
+> diff --git a/docs/misra/function-macro-properties.json b/docs/misra/function-macro-properties.json
+> index 74058297b5..59ba63626e 100644
+> --- a/docs/misra/function-macro-properties.json
+> +++ b/docs/misra/function-macro-properties.json
+> @@ -152,15 +152,6 @@
+>              "taken": ""
+>           }
+>        },
+> -      {
+> -         "type": "function",
+> -         "value": "^__vmread.*$",
+> -         "properties":{
+> -            "pointee_write": "2=always",
+> -            "pointee_read": "2=never",
+> -            "taken": ""
+> -         }
+> -      },
+>        {
+>           "type": "function",
+>           "value": "^hvm_pci_decode_addr.*$",
+> diff --git a/xen/arch/x86/include/asm/hvm/vmx/vmx.h b/xen/arch/x86/include/asm/hvm/vmx/vmx.h
+> index d85b52b9d5..299e2eff6b 100644
+> --- a/xen/arch/x86/include/asm/hvm/vmx/vmx.h
+> +++ b/xen/arch/x86/include/asm/hvm/vmx/vmx.h
+> @@ -336,11 +336,6 @@ static always_inline unsigned long vmread(unsigned long field)
+>      return value;
+>  }
+>  
+> -static always_inline void __vmread(unsigned long field, unsigned long *value)
+> -{
+> -    *value = vmread(field);
+> -}
+> -
+>  static always_inline void __vmwrite(unsigned long field, unsigned long value)
+>  {
+>      asm goto ( "vmwrite %[value], %[field]\n\t"
+
 
