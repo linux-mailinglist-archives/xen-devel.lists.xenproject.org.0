@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B6BCAB995F
-	for <lists+xen-devel@lfdr.de>; Fri, 16 May 2025 11:52:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.986757.1372300 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 47E5AAB9952
+	for <lists+xen-devel@lfdr.de>; Fri, 16 May 2025 11:49:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.986733.1372289 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uFrjD-0001rY-UU; Fri, 16 May 2025 09:51:43 +0000
+	id 1uFrgS-0000ED-HW; Fri, 16 May 2025 09:48:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 986757.1372300; Fri, 16 May 2025 09:51:43 +0000
+Received: by outflank-mailman (output) from mailman id 986733.1372289; Fri, 16 May 2025 09:48:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uFrjD-0001p7-R6; Fri, 16 May 2025 09:51:43 +0000
-Received: by outflank-mailman (input) for mailman id 986757;
- Fri, 16 May 2025 09:51:42 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=UFMR=YA=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1uFreT-0005Zo-D4
- for xen-devel@lists.xenproject.org; Fri, 16 May 2025 09:46:49 +0000
-Received: from mail-pl1-x629.google.com (mail-pl1-x629.google.com
- [2607:f8b0:4864:20::629])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id aebc1dac-323a-11f0-9ffb-bf95429c2676;
- Fri, 16 May 2025 11:46:47 +0200 (CEST)
-Received: by mail-pl1-x629.google.com with SMTP id
- d9443c01a7336-22e6344326dso20365185ad.1
- for <xen-devel@lists.xenproject.org>; Fri, 16 May 2025 02:46:47 -0700 (PDT)
-Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
- by smtp.gmail.com with UTF8SMTPSA id
- d9443c01a7336-231d4eedb3csm10689175ad.259.2025.05.16.02.46.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 16 May 2025 02:46:45 -0700 (PDT)
+	id 1uFrgS-0000Bl-Er; Fri, 16 May 2025 09:48:52 +0000
+Received: by outflank-mailman (input) for mailman id 986733;
+ Fri, 16 May 2025 09:48:51 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=C2cV=YA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uFrgR-0000BY-Gp
+ for xen-devel@lists.xenproject.org; Fri, 16 May 2025 09:48:51 +0000
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [2a00:1450:4864:20::62b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f8662931-323a-11f0-9eb6-5ba50f476ded;
+ Fri, 16 May 2025 11:48:50 +0200 (CEST)
+Received: by mail-ej1-x62b.google.com with SMTP id
+ a640c23a62f3a-ad510c259b9so333827166b.1
+ for <xen-devel@lists.xenproject.org>; Fri, 16 May 2025 02:48:50 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ad52d498544sm128200666b.143.2025.05.16.02.48.49
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 16 May 2025 02:48:49 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,105 +45,102 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: aebc1dac-323a-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: f8662931-323a-11f0-9eb6-5ba50f476ded
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1747388806; x=1747993606; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=DvMZEBj9rqnpNlTgFCVn6ltQWL+ib5z0Tm+s9auszek=;
-        b=GqkMALaUpYq+lBqDdqr01/btxozo4Tk4eUzM+cvPxnXHCWpxyw1RLU2lGkZNx3U0hJ
-         8SVRgU7kfIPwA3qJW6SeO8TYMEzeQRVXZdJ4TyE6qEadstizVV7kUvyWwfJhmreiyIM7
-         M8PnLm2aqoIpvANrwoeLBjC8GtYuXmNpsbJKo=
+        d=suse.com; s=google; t=1747388930; x=1747993730; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=RIF5zmO/6Lv+zyNKBNr/m5cj94Xq3FU9LAsp43XNSlI=;
+        b=KxUWru7VVMD/u5ShddgMlgPNXLUf91sDlUUf0u/bl+Ygdjkhd8vWMrmX2NogIf7fqu
+         KkTbJqa8VNv3NSQVMJb25tMulxxUcORa1gpOmwbP6iTd8og5Z0KtN80dxXiqoLjQRAGD
+         tDm7TDhwhUQDMZqVJ+NZ97twQwhYVG8PrVuCJDOdNg0ab7AtU2zE1lbfWQ2a/+wE8ctH
+         zfBOMgmGMWkLirdPxgWtracbb4nb6JOG1GGmsuFSChgVk/8ZxEIQl10ZEy/NifeZw43N
+         amiIm+SV/Et/bSm7/6Ct9NsJHdZwposf/J0GvJzl4ZwezmcKid6lRD9zDKwcD0Oqi+aC
+         J7gA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747388806; x=1747993606;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=DvMZEBj9rqnpNlTgFCVn6ltQWL+ib5z0Tm+s9auszek=;
-        b=KSGAoDKDjYMFN2LO7oIN8ZwPK6kbRiiZxcdomuLxJ8FOGKROFk/+F+rVBjzQ0YR5tK
-         +qb13Gw1Tbbzq/RJFqHM0kRriFOxLBYIDdM+TMoUJOHxdB8aorN+ZGg+HqaonDv+5zEb
-         6tqW9pUlHR09U8qkGUQKkTc2LY7ypfJp9C13H50vAsaOTfVn7xKEV9uftXmoJ4K6edQL
-         kzc3uTKLRtW9s6W8fz6yQtBIYdoW6CwgNaj3qQk4PTwEIAV3dKTl9KuJ0e8PcKsBU5aI
-         up9Zm+vdGd+EHd9DUuA+FXu6WsOexcLHT/quyJoxLoIEsflwFAVHeW9iWcDJhKZOPlbp
-         pn+w==
-X-Gm-Message-State: AOJu0YwUH0Ju5jdx7+RSd63/281A0ELvA6YEVtbYiR6aRhiGnoL0Zn//
-	1DMoH2+TQHVZor3ERQjF3OmWfuVkVO6xad6sETt2ZdLLm9rWmCyISmS27RImmU8Msi8kOARgJOV
-	nkwvf
-X-Gm-Gg: ASbGncuvC0evqGjvhgAn3HbfgHqO2OD/13dens/SR3q2xlrLO51fu8HWoPDvGepTm6j
-	vmVlqufJa674cSjc/dZ6kkwh2E7zBAd/XchWMrPHoJLrS80wTFHaXLJRz79EhrWqddYlCYVnAPN
-	OgUvcLQsVCVXcw2x06JXLEOa7phlgQTrtosGYYoDoYTKuU0A0M09lHQf3yMsbOm0G75RrhHMqMl
-	/sBMAbFGiUvOl/CoZHbAzWWJfeWUhFdFW7IslBKV7K9y+Qan6W1u2lhPWI3BpLGy35jI/OW0jV+
-	WjIHwxtfQlZjXyhSgNPyHt7DHTkSy9fP/vN6hqlsAkp4BxeNTVimx2p3iHihmugrZSn8+nizkNS
-	vsjJzEi9UfU9eUkvo470=
-X-Google-Smtp-Source: AGHT+IEFrl2Rf1t+jyArCkyEkmT+bpC87gkIhjrCFFH5Zjqv0iaG8NmbviWDO/c1x6zWCrj80ybppA==
-X-Received: by 2002:a17:902:c948:b0:220:e9f5:4b7c with SMTP id d9443c01a7336-231d44dc053mr29901695ad.17.1747388805836;
-        Fri, 16 May 2025 02:46:45 -0700 (PDT)
-From: Roger Pau Monne <roger.pau@citrix.com>
-To: xen-devel@lists.xenproject.org
-Cc: Roger Pau Monne <roger.pau@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: [PATCH v2 6/6] x86/hvm: reduce the need to flush caches in memory_type_changed()
-Date: Fri, 16 May 2025 11:45:35 +0200
-Message-ID: <20250516094535.63472-7-roger.pau@citrix.com>
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <20250516094535.63472-1-roger.pau@citrix.com>
-References: <20250516094535.63472-1-roger.pau@citrix.com>
+        d=1e100.net; s=20230601; t=1747388930; x=1747993730;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=RIF5zmO/6Lv+zyNKBNr/m5cj94Xq3FU9LAsp43XNSlI=;
+        b=m3IxQh4B2W+jXqT6R1SjO65ZxmMlnJrREdCIqLWZTfrWbLX8jnCsEmDg3J+Ni1Q/gG
+         tzTMrpnZNpzZfkMdeuZyafMsAx23GYpskT0uLEi2mzlXsTUKzecFEgufs1fwMAlugOPX
+         lI9f/DCWXXcu+fNH8odZAJBYuApVcgvnAVzDBhpH2shV4N4N6vgMQA8NO4Y9V0QVscVh
+         Bxq2WTlJjoyXedFUm3GD0+ET7u/f3JigtzL8jPvpOFpl++a55+3Cog3DFqy3u1q+H1/N
+         QfjSQ4g+1tatJsb33IoO5Ls5Rxha/CRUDLj6YkRvcEqwdr0skzcM/ui4J9+27KJCi3WZ
+         lOxA==
+X-Forwarded-Encrypted: i=1; AJvYcCVqd+ZwbBw5YF7kOlih+sgOHq9JJaS7Y7sYVisH9q96bM/w//DmjGsEUn5dwBFAR3qB6fFcf/Sv/qY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YztXQg0/y9ySm04a2qeNp1pk73p/w+zY6WldQoUgytbFLrocu+E
+	s6RY3cLKAAe9T4o8mEkFkVTyaA2oHhZ1vv9OQiBjPPiKGWip7h2rVy4Ey7/w2SBqMA==
+X-Gm-Gg: ASbGncskE4zA2e01gYaGV2yiAwUfAh1Q5610bqjhG/3imkXflc+fRmyGr4SaK0bm6jN
+	/Q1/pVY+tnlrslZ6iRB8KootAEjY/NURWbrJrE0m8dfYO7mTpS6Cpnk35rB9UYp1yibE65/P08q
+	NZqj9GHRwHnDXX5COqhlQpNW+WKzl8b4JZc1vEUgHUx1SSekcID/ZwgFqyssJXq5UKgAzg1QdMS
+	pydTIAoFEpY1v1TPpZ5kvG6ZfHohZQZi1phhcKy77SEwdohW6iGnesvd55VRb0oZpXzOe873tCR
+	uYT6hd1ywHHxi/lMjCJKFoyOBoMeNnldCMrwjQqwP1QtABnGyU8K8btI3GLt6dVQrYL5CLGPHh2
+	HfcApI8noWxHzrkqPUMa23VbgLiHQEoFWrr25
+X-Google-Smtp-Source: AGHT+IES3eLQZohr7RxXZdbCm4IWzcs8c3/ANyi26ELE69C62z0NjD1AMTkHvBI/JxpL8HlpYVv+vw==
+X-Received: by 2002:a17:907:a08a:b0:ad4:f91d:bfc2 with SMTP id a640c23a62f3a-ad52d43826emr259203766b.11.1747388929989;
+        Fri, 16 May 2025 02:48:49 -0700 (PDT)
+Message-ID: <b7d2f338-6918-4052-99e1-733dbb0aac7d@suse.com>
+Date: Fri, 16 May 2025 11:48:48 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/6] x86/gnttab: do not implement GNTTABOP_cache_flush
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Community Manager <community.manager@xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20250516094535.63472-1-roger.pau@citrix.com>
+ <20250516094535.63472-3-roger.pau@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20250516094535.63472-3-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-The current cache flushing done in memory_type_changed() is too wide, and
-this doesn't scale on boxes with high number of CPUs.  Attempt to limit
-cache flushes as a result of p2m type changes, and only do them if:
+On 16.05.2025 11:45, Roger Pau Monne wrote:
+> --- a/xen/common/Kconfig
+> +++ b/xen/common/Kconfig
+> @@ -35,6 +35,11 @@ config GRANT_TABLE
+>  
+>  	  If unsure, say Y.
+>  
+> +config HAS_GRANT_CACHE_FLUSH
+> +	bool
+> +	depends on GRANT_TABLE
+> +	default ARM
 
- * The CPU doesn't support (or has broken) self-snoop capability, otherwise
-   there would be leftover aliases in the cache.  For guest initiated
-   memory changes (like changes to MTRRs) the guest should already do a
-   cache flush.
- * The IOMMU cannot force all DMA accesses to be snooping ones.
+To keep arch stuff out of common file as much as possible, I think this instead
+wants to be a "select ..." from ARM. Then:
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
----
-Changes since v1:
- - New in this version.
----
-Not sure whether this attempt to reduce cache flushing should get some
-mention in the CHANGELOG.
----
- xen/arch/x86/hvm/mtrr.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
-
-diff --git a/xen/arch/x86/hvm/mtrr.c b/xen/arch/x86/hvm/mtrr.c
-index 8e1e15af8d73..9a6f6865a05e 100644
---- a/xen/arch/x86/hvm/mtrr.c
-+++ b/xen/arch/x86/hvm/mtrr.c
-@@ -782,14 +782,21 @@ HVM_REGISTER_SAVE_RESTORE(MTRR, hvm_save_mtrr_msr, NULL, hvm_load_mtrr_msr, 1,
- 
- void memory_type_changed(struct domain *d)
- {
--    if ( (is_iommu_enabled(d) || cache_flush_permitted(d)) &&
-+    if ( cache_flush_permitted(d) &&
-          d->vcpu && d->vcpu[0] && p2m_memory_type_changed(d) &&
-          /*
-           * Do the p2m type-change, but skip the cache flush if the domain is
-           * not yet running.  The check for creation_finished must strictly be
-           * done after the call to p2m_memory_type_changed().
-           */
--         d->creation_finished )
-+         d->creation_finished &&
-+         /*
-+          * The cache flush should be done if either: CPU doesn't have
-+          * self-snoop in which case there could be aliases left in the cache,
-+          * or IOMMUs cannot force all DMA device accesses to be snooped.
-+          */
-+         (!boot_cpu_has(X86_FEATURE_XEN_SELFSNOOP) ||
-+          (is_iommu_enabled(d) && !iommu_snoop)) )
-     {
-         flush_all(FLUSH_CACHE);
-     }
--- 
-2.48.1
-
+Jan
 
