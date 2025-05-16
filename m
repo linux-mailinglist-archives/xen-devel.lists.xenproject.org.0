@@ -2,34 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A89D1ABA628
-	for <lists+xen-devel@lfdr.de>; Sat, 17 May 2025 01:02:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.987683.1372896 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 85510ABA679
+	for <lists+xen-devel@lfdr.de>; Sat, 17 May 2025 01:21:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.987709.1372921 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uG44o-0002Dd-FC; Fri, 16 May 2025 23:02:50 +0000
+	id 1uG4Mr-0005cI-24; Fri, 16 May 2025 23:21:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 987683.1372896; Fri, 16 May 2025 23:02:50 +0000
+Received: by outflank-mailman (output) from mailman id 987709.1372921; Fri, 16 May 2025 23:21:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uG44o-0002Ae-BZ; Fri, 16 May 2025 23:02:50 +0000
-Received: by outflank-mailman (input) for mailman id 987683;
- Fri, 16 May 2025 23:02:49 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uG4Mq-0005aS-VV; Fri, 16 May 2025 23:21:28 +0000
+Received: by outflank-mailman (input) for mailman id 987709;
+ Fri, 16 May 2025 23:21:27 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=J/C0=YA=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1uG44n-0001yQ-GG
- for xen-devel@lists.xenproject.org; Fri, 16 May 2025 23:02:49 +0000
-Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e2a51b98-32a9-11f0-9eb6-5ba50f476ded;
- Sat, 17 May 2025 01:02:48 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id ECC6DA4E3A0;
- Fri, 16 May 2025 23:02:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28325C4CEE4;
- Fri, 16 May 2025 23:02:46 +0000 (UTC)
+ <SRS0=iQOe=YA=amd.com=stefano.stabellini@srs-se1.protection.inumbo.net>)
+ id 1uG4Mp-0005aL-3Y
+ for xen-devel@lists.xenproject.org; Fri, 16 May 2025 23:21:27 +0000
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on20600.outbound.protection.outlook.com
+ [2a01:111:f403:2417::600])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7bda57db-32ac-11f0-9ffb-bf95429c2676;
+ Sat, 17 May 2025 01:21:24 +0200 (CEST)
+Received: from CH2PR10CA0029.namprd10.prod.outlook.com (2603:10b6:610:4c::39)
+ by CYYPR12MB9015.namprd12.prod.outlook.com (2603:10b6:930:c8::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8722.32; Fri, 16 May
+ 2025 23:21:20 +0000
+Received: from CH1PEPF0000A348.namprd04.prod.outlook.com
+ (2603:10b6:610:4c:cafe::71) by CH2PR10CA0029.outlook.office365.com
+ (2603:10b6:610:4c::39) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8746.16 via Frontend Transport; Fri,
+ 16 May 2025 23:21:20 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ CH1PEPF0000A348.mail.protection.outlook.com (10.167.244.4) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8746.27 via Frontend Transport; Fri, 16 May 2025 23:21:19 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 16 May
+ 2025 18:21:19 -0500
+Received: from ubuntu-20.04.2-arm64.shared (10.180.168.240) by
+ SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.39 via Frontend Transport; Fri, 16 May 2025 18:21:18 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,242 +60,126 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e2a51b98-32a9-11f0-9eb6-5ba50f476ded
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1747436567;
-	bh=0q5vKVy/f59Np49UUn8XheEyTrFnrZAHgxEm7gLkGW8=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=L7re55XFsrq+PO4oM5dklPQPXeuiDfc7iSk0K3FVbFchaOn5IhvBWfxWIE8QTKUy7
-	 72Y42B1YoK7SHuASwDrZw+QExXnaiv2rGIbp0z1evQKkgOf4OodLSOHz9/2otyshME
-	 pQBqYrO8uhWqXNTRCNWrAROhA2ODJiICYvOGBseq1qwUG9Vpog92tdPaG6QbGXh1uj
-	 eDOTVJryXToZPCesnaIZwIMtPsbuPTIKgTpR4kQVuxTQ+TCM54cC6ni2V6SRrwbaUX
-	 fhsI5ZU016P7kxJydbVcOZBvznrasSYfMh7GyS7XDUe4X461MefDGgUsmVyvJPnD1v
-	 qA5xWAVhFzNow==
-Date: Fri, 16 May 2025 16:02:44 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
+X-Inumbo-ID: 7bda57db-32ac-11f0-9ffb-bf95429c2676
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=axNM8jPWFowmv5DoR89xAkdDQYfU9k6vgFQ1kL6kyUDYPvqxsiJSDoEKmTaLdPysGI1m229rifQXUMeI7cJH6s+YuzLAsZm9SAzxy0aUjTiU5D9SECiV+FBtBXu2mig3scTqMgQ17xBfvHgrH2HGsyPrCHIbDNFYk4Yj6Sypuan5zoUmATeK17oTAROLS0YWB45qabB2GSJkCMXUd7+C5tiTtRchi+PedEKvLLFjaymw17u5rlj30SsVwpl7CeAgfq6K6uU5ndrUNQhwWiLk/j2yCF0bFOKRfjbimcItq7LdmMjoXa8buvJryVar+zhCvjDxmRUwNoHlSPiMO3qcTA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Rw4/nff0CJxYiSOlOBcxXpmB+5/RpVGAfVJzqxDSIug=;
+ b=MFEdArR/IHFjyXt+lbGpyukyu84CmDuUWSOnxNgrfP/qJ5hgWRS/7hUhMXmG8nC01tZgIr7tBMEyZ9EsTdeyyiFVLe4mGOgQGz3FZ2featAXFdStZTHnBp76vb1fM2Il89E4ZFptfWgRUXMbSXYvIMDLAZ5u7Rxl2SRkWoWLED1JNRbjxtRKQES69EXxaxf9b1krpf4Y8c49xzFlRk+pD3f+TKx9ZBMIqR4jHEfGjdW+kMBjE6ABDs0U9rYwQFy58SHFS5p4Qyaf9hnP1+V82YpSeAuoQPQpVbUpCBbOdDgZtGFkprdwH1jiCyxJ3nsgQq2fg/JVAzOCe1EY3DBaDw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Rw4/nff0CJxYiSOlOBcxXpmB+5/RpVGAfVJzqxDSIug=;
+ b=uDksWBD6W+312hGPGA8Quq0y2rvbhMn8hCgH4G4wdjy/UTTPJjQPRM+djwchjWLTs/UzpWQuLEzJOD5ZOSuU8wWaU9gJlpfYJBsm/WAQxy9ujvldWw8NcssNSz3T2ePbZ/q3TCWWsBlFvqzHJ0Po0HtWjMxtsJ8k7/JNwnHnGVw=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Date: Fri, 16 May 2025 16:21:12 -0700
+From: Stefano Stabellini <stefano.stabellini@amd.com>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: dmkhn@proton.me
-cc: xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com, 
-    anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org, 
-    michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, 
-    dmukhin@ford.com
-Subject: Re: [PATCH v4 2/3] xen/console: introduce console_send()
-In-Reply-To: <20250516013508.1144162-3-dmukhin@ford.com>
-Message-ID: <alpine.DEB.2.22.394.2505161602190.145034@ubuntu-linux-20-04-desktop>
-References: <20250516013508.1144162-1-dmukhin@ford.com> <20250516013508.1144162-3-dmukhin@ford.com>
+To: <xen-devel@lists.xenproject.org>
+CC: <andrew.cooper3@citrix.com>, <michal.orzel@amd.com>, <jbeulich@suse.com>,
+	<julien@xen.org>, <roger.pau@citrix.com>, <sstabellini@kernel.org>,
+	<bertrand.marquis@arm.com>
+Subject: [PATCH 0/6] MISRA D4.10: fix header guards 
+Message-ID: <alpine.DEB.2.22.394.2505161618280.145034@ubuntu-linux-20-04-desktop>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="US-ASCII"
+Received-SPF: None (SATLEXMB03.amd.com: stefano.stabellini@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000A348:EE_|CYYPR12MB9015:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0b41fdbc-6c45-4cc5-9cb9-08dd94d05d50
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|36860700013|376014|1800799024;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?eC4BKzz8rVVpWy+oJpO6kxGNlOQ0lk2JouL7YSIDlw3tg3Sxrkg5ioTxXyxZ?=
+ =?us-ascii?Q?2HH4orzqiz+5DQQSXjU4uDAVf+8j2eBh4ljKPxiSZMgdrsC/JMP8YW31sOo2?=
+ =?us-ascii?Q?T1upnHxKvbktktiZSsJyQB1Rch1zpcBQGJWjaylEMnUp0gQnCtBPdHhCf7/P?=
+ =?us-ascii?Q?dDWwIVeM9opo5R5ddYb5BXOntezNp/lf/uu2KmHnhys2pMDMT+wavw115y9j?=
+ =?us-ascii?Q?bIj1Sf+nKecKW8BLxUZNdKlBhE5d+tdc+5QeF09e1lDMNT8K5xbc35bQn5IR?=
+ =?us-ascii?Q?eMEykMJs2iksGLkMNP7enU5eXp0GhbX/bSyYarhOWIoVqhlFREdsmEw1ztbD?=
+ =?us-ascii?Q?LgJ/QHPOP6GP1hLDXCjgP/EziiB7lS2jrBvWHuG1vGiknTYL1g6D3yVqaKhq?=
+ =?us-ascii?Q?NBqnq2KPhzRqacSVIZpxZEdlZwrGByXcCYf4jFtkKGS/haVYC0KYVFWocS5j?=
+ =?us-ascii?Q?eWYPAHdC8t60+q56UF5DlfWGox41Wx+P5IeU5NwfFKo/4mBCZzNAjd/up7Co?=
+ =?us-ascii?Q?tmAWHZgC/bPEzdxmhvcJZdGx0qnz9YaYPYVVW+wzoijHRxzdYrzYAo/tY0rU?=
+ =?us-ascii?Q?yZ+jBqpCoDs1DOFCy/+E4FWHDyZuA/z3nqB9MnBz5+e8kyCzTHxetFYLMZO5?=
+ =?us-ascii?Q?G5EbLKBCcvimdiadXwoKAv7erbC8awKjOzHe+9q90qAyOHGJeLKNVl+UnTAG?=
+ =?us-ascii?Q?QtGrG+GGCGqoD6q5+7oA+fzbnR9UiC3VskwnB7ApgVLaXDZpxua34qfWj2DK?=
+ =?us-ascii?Q?rkKqcefmWSIdb5vDoNUQh01dCAvX7Yc6k+Vs/FjF+1YSy0NFL1xZuCSKT/r8?=
+ =?us-ascii?Q?I/qzcugZZgxifsVrN8vuBsKyyApJmrBkxlXk+IyNTxj4kZWZnWTf9zK07Oms?=
+ =?us-ascii?Q?fONlDkCBWUf83Z09b+9bQFAB5u34KdeY/qDIr2eh9WtvdaP8YfiAqVP6u2vA?=
+ =?us-ascii?Q?Lcwkid+r944137nHKcm9QD16ommuZQLuF7qBLpamq6Vzk3Ml79wK6QGEGN+e?=
+ =?us-ascii?Q?9AFfILx/K4mhMDQLJFWjo63ZpHtdmYJ7FNenU7jW+HxXv5XMsqK3CkzMdeJX?=
+ =?us-ascii?Q?hXXU7+wg5HD6J17BO1PEQrvSrJjashrvX0Q8FI+V7hLjdH39nxe4XvZaSxoU?=
+ =?us-ascii?Q?t1EsRFmooPqRne15sBLjARPg3suET4uvLRRDvqbdEtjgWRmafaobiByXOpQ5?=
+ =?us-ascii?Q?yeCifr+jZvR5jwmZKWdrEEHAsmt3eLgp03LKZAfqOnOd9BzChP+k4EvilLuq?=
+ =?us-ascii?Q?ydMg5Uo5kwy6xtoMJKiZTCJLNt/vgIvvIdWqducRhtcjYw9sWdBl2C+v7bQv?=
+ =?us-ascii?Q?rrZ0UjiI39IMVedRmrVcUbxoOUvpm6RtW8uvVjpH7VKF/KyXUeNiROJy6F6w?=
+ =?us-ascii?Q?arXC/hazUKCtQlxhhmhGffbX/0xjMbQrmVFExq3ysaMHZsWLnZef2hwOK4hR?=
+ =?us-ascii?Q?K8ZQUM3wYuxaPke2PJoB6syN6rDb1KgwFgHAHv2csyjjsd/ThK391usMpDVl?=
+ =?us-ascii?Q?gTLrMSxL0etoRszXlPZMbcNj+haMyzH19zyG?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700013)(376014)(1800799024);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 May 2025 23:21:19.5590
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0b41fdbc-6c45-4cc5-9cb9-08dd94d05d50
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH1PEPF0000A348.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB9015
 
-On Fri, 16 May 2025, dmkhn@proton.me wrote:
-> From: Denis Mukhin <dmukhin@ford.com>
-> 
-> guest_console_write() duplicates the code from __putstr(), eliminate code
-> duplication.
-> 
-> Introduce console_send() for sending a message on console devices.
-> 
-> Also, introduce internal console flags to control which console devices
-> should be used.
-> 
-> No functional change intended.
-> 
-> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
+MISRA C Directive 4.10 states that "Precautions shall be taken in order
+to prevent the contents of a header file being included more than
+once".
 
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+Fix few remaining header guards, and update ECLAIR configuration
 
+Federico Serafini (6):
+  xen/arm: add inclusion guards
+  xen/x86: add inclusion guards
+  xen: add inclusion guards
+  xen: refactor include guards
+  x86/asm: refactor inclusion guards
+  automation/eclair: update configuration of D4.10
 
-> ---
-> Changes since v3:
-> - renamed console_puts() to console_send()
-> ---
->  xen/drivers/char/console.c | 131 +++++++++++++++++++++++--------------
->  1 file changed, 82 insertions(+), 49 deletions(-)
-> 
-> diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
-> index b4757844e6..3420e9630a 100644
-> --- a/xen/drivers/char/console.c
-> +++ b/xen/drivers/char/console.c
-> @@ -41,6 +41,28 @@
->  #include <asm/vpl011.h>
->  #endif
->  
-> +/* Internal console flags. */
-> +enum {
-> +    CONSOLE_SERIAL          = BIT(0, U),    /* Use serial device. */
-> +    CONSOLE_PV              = BIT(1, U),    /* Use PV console. */
-> +    CONSOLE_VIDEO           = BIT(2, U),    /* Use video device. */
-> +    CONSOLE_DEBUG           = BIT(3, U),    /* Use debug device. */
-> +    CONSOLE_RING            = BIT(4, U),    /* Use console ring. */
-> +    CONSOLE_RING_VIRQ       = BIT(5, U),    /* Use console ring VIRQ. */
-> +
-> +    /* Default console flags. */
-> +    CONSOLE_DEFAULT         = CONSOLE_SERIAL |
-> +                              CONSOLE_PV |
-> +                              CONSOLE_VIDEO |
-> +                              CONSOLE_RING_VIRQ |
-> +                              CONSOLE_DEBUG,
-> +
-> +    /* Use all known console devices. */
-> +    CONSOLE_ALL             = CONSOLE_DEFAULT | CONSOLE_RING,
-> +};
-> +
-> +static void console_send(const char *str, size_t len, unsigned int flags);
-> +
->  /* console: comma-separated list of console outputs. */
->  static char __initdata opt_console[30] = OPT_CONSOLE_STR;
->  string_param("console", opt_console);
-> @@ -428,9 +450,6 @@ void console_serial_puts(const char *s, size_t nr)
->          serial_steal_fn(s, nr);
->      else
->          serial_puts(sercon_handle, s, nr);
-> -
-> -    /* Copy all serial output into PV console */
-> -    pv_console_puts(s, nr);
->  }
->  
->  static void cf_check dump_console_ring_key(unsigned char key)
-> @@ -464,8 +483,7 @@ static void cf_check dump_console_ring_key(unsigned char key)
->          c += len;
->      }
->  
-> -    console_serial_puts(buf, sofar);
-> -    video_puts(buf, sofar);
-> +    console_send(buf, sofar, CONSOLE_SERIAL | CONSOLE_VIDEO | CONSOLE_PV);
->  
->      free_xenheap_pages(buf, order);
->  }
-> @@ -614,11 +632,69 @@ static inline void xen_console_write_debug_port(const char *buf, size_t len)
->  }
->  #endif
->  
-> +static inline void console_debug_puts(const char *str, size_t len)
-> +{
-> +#ifdef CONFIG_X86
-> +    if ( opt_console_xen )
-> +    {
-> +        if ( xen_guest )
-> +            xen_hypercall_console_write(str, len);
-> +        else
-> +            xen_console_write_debug_port(str, len);
-> +    }
-> +#endif
-> +}
-> +
-> +/*
-> + * Send a message on console device(s).
-> + *
-> + * That will handle all possible scenarios working w/ console
-> + * - physical console (serial console, VGA console (x86 only));
-> + * - PV console;
-> + * - debug console (x86 only): debug I/O port or __HYPERVISOR_console_io
-> + *   hypercall;
-> + * - console ring.
-> + */
-> +static void console_send(const char *str, size_t len, unsigned int flags)
-> +{
-> +    if ( flags & CONSOLE_SERIAL )
-> +        console_serial_puts(str, len);
-> +
-> +    if ( flags & CONSOLE_PV )
-> +        pv_console_puts(str, len);
-> +
-> +    if ( flags & CONSOLE_VIDEO )
-> +        video_puts(str, len);
-> +
-> +    if ( flags & CONSOLE_DEBUG )
-> +        console_debug_puts(str, len);
-> +
-> +    if ( flags & CONSOLE_RING )
-> +        conring_puts(str, len);
-> +
-> +    if ( flags & CONSOLE_RING_VIRQ )
-> +        tasklet_schedule(&conring_tasklet);
-> +}
-> +
-> +static inline void __putstr(const char *str)
-> +{
-> +    unsigned int flags = CONSOLE_ALL;
-> +
-> +    ASSERT(rspin_is_locked(&console_lock));
-> +
-> +    if ( conring_no_notify )
-> +        flags &= ~CONSOLE_RING_VIRQ;
-> +
-> +    console_send(str, strlen(str), flags);
-> +}
-> +
->  static long guest_console_write(XEN_GUEST_HANDLE_PARAM(char) buffer,
->                                  unsigned int count)
->  {
->      char kbuf[128];
->      unsigned int kcount = 0;
-> +    unsigned int flags = opt_console_to_ring
-> +                         ? CONSOLE_ALL : CONSOLE_DEFAULT;
->      struct domain *cd = current->domain;
->  
->      while ( count > 0 )
-> @@ -636,26 +712,7 @@ static long guest_console_write(XEN_GUEST_HANDLE_PARAM(char) buffer,
->          {
->              /* Use direct console output as it could be interactive */
->              nrspin_lock_irq(&console_lock);
-> -
-> -            console_serial_puts(kbuf, kcount);
-> -            video_puts(kbuf, kcount);
-> -
-> -#ifdef CONFIG_X86
-> -            if ( opt_console_xen )
-> -            {
-> -                if ( xen_guest )
-> -                    xen_hypercall_console_write(kbuf, kcount);
-> -                else
-> -                    xen_console_write_debug_port(kbuf, kcount);
-> -            }
-> -#endif
-> -
-> -            if ( opt_console_to_ring )
-> -            {
-> -                conring_puts(kbuf, kcount);
-> -                tasklet_schedule(&conring_tasklet);
-> -            }
-> -
-> +            console_send(kbuf, kcount, flags);
->              nrspin_unlock_irq(&console_lock);
->          }
->          else
-> @@ -756,30 +813,6 @@ long do_console_io(
->   * *****************************************************
->   */
->  
-> -static void __putstr(const char *str)
-> -{
-> -    size_t len = strlen(str);
-> -
-> -    ASSERT(rspin_is_locked(&console_lock));
-> -
-> -    console_serial_puts(str, len);
-> -    video_puts(str, len);
-> -
-> -#ifdef CONFIG_X86
-> -    if ( opt_console_xen )
-> -    {
-> -        if ( xen_guest )
-> -            xen_hypercall_console_write(str, len);
-> -        else
-> -            xen_console_write_debug_port(str, len);
-> -    }
-> -#endif
-> -
-> -    conring_puts(str, len);
-> -    if ( !conring_no_notify )
-> -        tasklet_schedule(&conring_tasklet);
-> -}
-> -
->  static int printk_prefix_check(char *p, char **pp)
->  {
->      int loglvl = -1;
-> -- 
-> 2.34.1
-> 
-> 
+ automation/eclair_analysis/ECLAIR/deviations.ecl | 14 +++++++++++---
+ automation/eclair_analysis/ECLAIR/tagging.ecl    |  1 +
+ docs/misra/deviations.rst                        | 15 +++++++++++++++
+ xen/arch/arm/efi/efi-boot.h                      |  6 ++++++
+ xen/arch/arm/include/asm/efibind.h               |  5 +++++
+ xen/arch/x86/Makefile                            |  8 ++++----
+ xen/arch/x86/cpu/cpu.h                           |  6 ++++++
+ xen/arch/x86/efi/efi-boot.h                      |  6 ++++++
+ xen/arch/x86/efi/runtime.h                       |  5 +++++
+ xen/arch/x86/include/asm/compat.h                |  5 +++++
+ xen/arch/x86/include/asm/efibind.h               |  5 +++++
+ xen/arch/x86/x86_64/mmconfig.h                   |  5 +++++
+ xen/arch/x86/x86_emulate/private.h               |  5 +++++
+ xen/common/decompress.h                          |  5 +++++
+ xen/common/efi/efi.h                             |  5 +++++
+ xen/common/event_channel.h                       |  5 +++++
+ xen/include/xen/err.h                            | 10 +++++++---
+ xen/include/xen/pci_ids.h                        |  5 +++++
+ xen/include/xen/softirq.h                        | 10 +++++++---
+ 19 files changed, 113 insertions(+), 13 deletions(-)
+
+-- 
+2.25.1
 
