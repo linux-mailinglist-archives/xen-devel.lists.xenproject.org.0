@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D315ABA742
-	for <lists+xen-devel@lfdr.de>; Sat, 17 May 2025 02:13:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.987866.1373102 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 74486ABA831
+	for <lists+xen-devel@lfdr.de>; Sat, 17 May 2025 06:44:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.988004.1373151 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uG5B5-0004qI-TS; Sat, 17 May 2025 00:13:23 +0000
+	id 1uG9OP-0002O3-5u; Sat, 17 May 2025 04:43:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 987866.1373102; Sat, 17 May 2025 00:13:23 +0000
+Received: by outflank-mailman (output) from mailman id 988004.1373151; Sat, 17 May 2025 04:43:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uG5B5-0004nB-Q1; Sat, 17 May 2025 00:13:23 +0000
-Received: by outflank-mailman (input) for mailman id 987866;
- Sat, 17 May 2025 00:13:22 +0000
+	id 1uG9OP-0002Mf-2J; Sat, 17 May 2025 04:43:25 +0000
+Received: by outflank-mailman (input) for mailman id 988004;
+ Sat, 17 May 2025 04:43:23 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=dgwh=YB=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1uG5B3-0004n4-Uk
- for xen-devel@lists.xenproject.org; Sat, 17 May 2025 00:13:21 +0000
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [2a00:1450:4864:20::430])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=JLOd=YB=zytor.com=xin@srs-se1.protection.inumbo.net>)
+ id 1uG9ON-0002MZ-1x
+ for xen-devel@lists.xenproject.org; Sat, 17 May 2025 04:43:23 +0000
+Received: from mail.zytor.com (terminus.zytor.com [2607:7c80:54:3::136])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id bcfa20be-32b3-11f0-9ffb-bf95429c2676;
- Sat, 17 May 2025 02:13:20 +0200 (CEST)
-Received: by mail-wr1-x430.google.com with SMTP id
- ffacd0b85a97d-3a1c85e77d7so1756989f8f.0
- for <xen-devel@lists.xenproject.org>; Fri, 16 May 2025 17:13:20 -0700 (PDT)
-Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3a35ca5a84csm4436355f8f.31.2025.05.16.17.13.17
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 16 May 2025 17:13:18 -0700 (PDT)
+ id 7272a4aa-32d9-11f0-9ffb-bf95429c2676;
+ Sat, 17 May 2025 06:43:17 +0200 (CEST)
+Received: from [192.168.7.202] ([71.202.166.45]) (authenticated bits=0)
+ by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 54H4ggxL509076
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
+ Fri, 16 May 2025 21:42:44 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,114 +40,141 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bcfa20be-32b3-11f0-9ffb-bf95429c2676
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1747440799; x=1748045599; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=qv+jkjlo6UD/rwczhf5/ZHkOayfPbwj7hg0EpuHNAzA=;
-        b=CCmYuakkT1lpjXSALkFYLtZ+HiPGviTpj1vh1l1+V3Ohsx448Txmy+2UHbTada4Kqq
-         YUVYww0VTeczO0vyVBpF1MiuR0x6UEG7wXCiqbWc8BdoOeQ7F17Fb12zk4rvB7pc2HUS
-         daqqpyv5EeoAZPG2wrOlgt3CAFx0x7w08mjIg=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747440799; x=1748045599;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=qv+jkjlo6UD/rwczhf5/ZHkOayfPbwj7hg0EpuHNAzA=;
-        b=w6VZnWxX+ZH7dfguNQuMpytaY0mOpdjZAQfm9igQSX9dHng8x9bUrtrtYCz70ntTMX
-         OgLqL7VhwT0dUnxCxWHckbeWiwxNp+Rc+MLXQG1+C6d7p7gjnal5Qes+3GPAZOy8zl+F
-         WE5qJSzcYum5/RDzVP6+gziRV1P597xiifTolx6nhAF1CrP6+iueBSM6pxip1m8u3qN+
-         LbN8CLKSG35QyVfW0uL951/aKRq15baLPn1OpDS68qU8Nzoqogf3o0IIIppNFK/kJ+74
-         xItTSmIyyhalhq7HCC/5ar5JvlMtjt/FdFYkSVzVdml7/T5RFU6mGUxlUCL6w+TJvGaV
-         8Ctg==
-X-Forwarded-Encrypted: i=1; AJvYcCVME9wjW0CgOCnHLQNFUt6nODGYaUFr/tUcPOtsVc6zWtwzPa+PiQTjK4CBP1gNv5WXhsL0eQvkha0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxBkIIo3ElpjEK9/MuhYxkPWE4V5Tf6DUrmT2o4AuOmfnF/4uFt
-	+AYfBkmTw5rxrlrQlsfwqI8a2P7AxvJT2C6iFW/kAZz92aWhvRiQbbODvFeQHL76ngc=
-X-Gm-Gg: ASbGnctchNnVinMZeFgjA9UI3/L59A5zAQJvH/xP90maAdc3LOmNyjN1NyVEVn/moBY
-	qn1Npj5Ip3rW+VOKDbVyMbPe6teF/tYZ0L+2G/0Q1fMvwUh4HZqqsCSkQxmjMMEM9vzLf4xSDc8
-	meRuOQ/qZ/4+gVSnwUgsobV0yFOE4YsmmzLNqfItP+sFp3pLbUqsTo4X6ZUKOZUG9bW+YSo+l+Q
-	jGy15m2W7giXfiqiip5iGJnL9cHpk57vjFkvwpT6w4IBKkWUotJhul49AOacOPUhmDU1Iv97RFw
-	qmu0Xx8RnzbyFyBTJyQ9xwyXc+aD27Boeqnq76UiGKrtwrXhQRJHgcGsUod5C9gZNxfzUmNZDLb
-	1k+KQHRZpwXktWqTR
-X-Google-Smtp-Source: AGHT+IHVv2KRAkGNad7cFQrd/ryIf6BvqE2XXZ+OAyl0DVfcaLWNiCETa4kBw9vGleKYvR1jolUIkA==
-X-Received: by 2002:a05:6000:430d:b0:3a1:fed3:7108 with SMTP id ffacd0b85a97d-3a3600da40fmr4291621f8f.40.1747440799577;
-        Fri, 16 May 2025 17:13:19 -0700 (PDT)
-Message-ID: <fa4f43d2-90a8-432e-8ae7-af7e8195dc53@citrix.com>
-Date: Sat, 17 May 2025 01:13:17 +0100
+X-Inumbo-ID: 7272a4aa-32d9-11f0-9ffb-bf95429c2676
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 54H4ggxL509076
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
+	s=2025042001; t=1747456965;
+	bh=ev5wOQfgz6bQFC1LEpzjYx5uyZaaYgjmzOQTSOQC6w8=;
+	h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
+	b=I9l7lrd9KpAOVvMoL8timZ4/9ZwbcewJp0cSTFePoDsLLFy4C/db/ARW/U+xSnNSh
+	 FHnm3VPe4fh+weL2KMTe5ssJGY7SIq3GjsBWsJU90wOV5V311/T2Hrnn3+ULXBt6bE
+	 wAtmfqdH5vll+dgbLvAeOmYpMZiLutzmTsQo7z/HWvc85+NNHeFnwXM6h2LQXqride
+	 eq6Ah0TXEfl5PAYGEdy3+jECn6RAJjk2XvhLhWZ3eVrEEX/dctqNJO/Bet7dEnCS8Q
+	 dzougJiqoghoU2XqffUwlFCGa88HvdIZ5GPhLgGIZGVe3/pLicB2bGgg4npA1mGyEl
+	 i0py6AVeH+DYQ==
+Message-ID: <b8f741d6-47a1-4cc8-a5b2-45ee86fcb773@zytor.com>
+Date: Fri, 16 May 2025 21:42:42 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/6] xen: refactor include guards
-To: Stefano Stabellini <stefano.stabellini@amd.com>,
- xen-devel@lists.xenproject.org
-Cc: michal.orzel@amd.com, jbeulich@suse.com, julien@xen.org,
- roger.pau@citrix.com, sstabellini@kernel.org, bertrand.marquis@arm.com,
- Federico Serafini <federico.serafini@bugseng.com>
-References: <d1bcab8a-873c-42ed-b7e8-071c009bcc3a@citrix.com>
- <20250517001005.860657-1-stefano.stabellini@amd.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <20250517001005.860657-1-stefano.stabellini@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v1 3/3] x86/msr: Convert a native_wrmsr() use to
+ native_wrmsrq()
+From: Xin Li <xin@zytor.com>
+To: Ingo Molnar <mingo@kernel.org>
+Cc: linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org,
+        linux-acpi@vger.kernel.org, tglx@linutronix.de, bp@alien8.de,
+        dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com,
+        peterz@infradead.org, jgross@suse.com, boris.ostrovsky@oracle.com,
+        rafael@kernel.org, lenb@kernel.org
+References: <20250512084552.1586883-1-xin@zytor.com>
+ <20250512084552.1586883-4-xin@zytor.com> <aCYH0UQzO_Ek27js@gmail.com>
+ <68dba45c-a677-4f6d-b7ec-e896aef3d27b@zytor.com>
+Content-Language: en-US
+Autocrypt: addr=xin@zytor.com; keydata=
+ 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
+ l75w1xInsg==
+In-Reply-To: <68dba45c-a677-4f6d-b7ec-e896aef3d27b@zytor.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 17/05/2025 1:10 am, Stefano Stabellini wrote:
-> From: Federico Serafini <federico.serafini@bugseng.com>
->
-> Refactor inclusion guards:
-> 1) use a syntax that is more likely to be recognized by static
->    analyzers;
-> 2) follow the CODING_STYLE.
->
-> No functional change.
->
-> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
-> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+On 5/15/2025 10:54 AM, Xin Li wrote:
+> On 5/15/2025 8:27 AM, Ingo Molnar wrote:
+>>
+>> * Xin Li (Intel) <xin@zytor.com> wrote:
+>>
+>>> Convert a native_wrmsr() use to native_wrmsrq() to zap meaningless type
+>>> conversions when a u64 MSR value is splitted into two u32.
+>>>
+>>
+>> BTW., at this point we should probably just replace
+>> sev_es_wr_ghcb_msr() calls with direct calls to:
+>>
+>>     native_wrmsrq(MSR_AMD64_SEV_ES_GHCB, ...);
+>>
+>> as sev_es_wr_ghcb_msr() is now basically an open-coded native_wrmsrq().
+>>
+> 
+> I thought about it, however it looks to me that current code prefers not
+> to spread MSR_AMD64_SEV_ES_GHCB in 17 callsites.  And anyway it's a 
+> __always_inline function.
+> 
+> But as you have asked, I will make the change unless someone objects.
 
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Hi Ingo,
+
+I took a further look and found that we can't simply replace
+sev_es_wr_ghcb_msr() with native_wrmsrq(MSR_AMD64_SEV_ES_GHCB, ...).
+
+There are two sev_es_wr_ghcb_msr() definitions.  One is defined in
+arch/x86/boot/compressed/sev.h and it references boot_wrmsr() defined in
+arch/x86/boot/msr.h to do MSR write.
+
+The other one is defined in arch/x86/include/asm/sev-internal.h, which
+uses native_wrmsrq() from arch/x86/include/asm/msr.h to write MSR.
+
+Because:
+1) arch/x86/boot/startup/sev-shared.c is included in both
+         arch/x86/boot/compressed/sev.c
+    and
+         arch/x86/boot/startup/sev-startup.c
+
+2) arch/x86/boot/startup/sev-shared.c has several references to
+    sev_es_wr_ghcb_msr(),
+
+sev_es_wr_ghcb_msr() is converted to boot_wrmsr() when included in
+arch/x86/boot/compressed/sev.c or native_wrmsrq() when included in
+arch/x86/boot/startup/sev-startup.c.
+
+It would change the compressed code to use native_wrmsrq() if we remove
+sev_es_wr_ghcb_msr() from arch/x86/include/asm/sev-internal.h and use 
+native_wrmsrq() directly in the startup code.
+
+We probably should get rid of boot_wrmsr() and use native_wrmsrq() in
+the compressed code because they are indeed the same thing.  But as we
+are so close to the v6.16 merge window, I don't think it's a good idea
+to make the change right now.
+
+So maybe I should just drop this patch and we can do the job after the 
+coming merge window.
+
+But if you think it's not a bad idea to replace native_wrmsr() with
+native_wrmsrq() right now, I can keep this original patch.
+
+Thanks!
+     Xin
+
+
+
+
+
 
