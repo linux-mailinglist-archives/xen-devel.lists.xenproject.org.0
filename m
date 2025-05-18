@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D1217ABAEC1
-	for <lists+xen-devel@lfdr.de>; Sun, 18 May 2025 10:23:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.988850.1373251 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E9F22ABAECD
+	for <lists+xen-devel@lfdr.de>; Sun, 18 May 2025 10:30:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.988859.1373262 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uGZJ1-0006UC-2X; Sun, 18 May 2025 08:23:35 +0000
+	id 1uGZPd-00081K-P1; Sun, 18 May 2025 08:30:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 988850.1373251; Sun, 18 May 2025 08:23:35 +0000
+Received: by outflank-mailman (output) from mailman id 988859.1373262; Sun, 18 May 2025 08:30:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uGZJ0-0006Si-WB; Sun, 18 May 2025 08:23:34 +0000
-Received: by outflank-mailman (input) for mailman id 988850;
- Sun, 18 May 2025 08:23:34 +0000
+	id 1uGZPd-0007zs-LF; Sun, 18 May 2025 08:30:25 +0000
+Received: by outflank-mailman (input) for mailman id 988859;
+ Sun, 18 May 2025 08:30:24 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=GB/u=YC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uGZJ0-0006Sa-7X
- for xen-devel@lists.xenproject.org; Sun, 18 May 2025 08:23:34 +0000
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [2a00:1450:4864:20::435])
+ id 1uGZPb-0007zm-VN
+ for xen-devel@lists.xenproject.org; Sun, 18 May 2025 08:30:23 +0000
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [2a00:1450:4864:20::42c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 627c8202-33c1-11f0-9ffb-bf95429c2676;
- Sun, 18 May 2025 10:23:32 +0200 (CEST)
-Received: by mail-wr1-x435.google.com with SMTP id
- ffacd0b85a97d-3a361b8a664so1949347f8f.3
- for <xen-devel@lists.xenproject.org>; Sun, 18 May 2025 01:23:32 -0700 (PDT)
+ id 567c57a9-33c2-11f0-9ffb-bf95429c2676;
+ Sun, 18 May 2025 10:30:22 +0200 (CEST)
+Received: by mail-wr1-x42c.google.com with SMTP id
+ ffacd0b85a97d-3a361b8a664so1952386f8f.3
+ for <xen-devel@lists.xenproject.org>; Sun, 18 May 2025 01:30:21 -0700 (PDT)
 Received: from [172.18.118.114] (ip-185-104-138-24.ptr.icomera.net.
  [185.104.138.24]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-442fd583f71sm95197565e9.27.2025.05.18.01.23.26
+ 5b1f17b1804b1-442fd59702asm95871195e9.39.2025.05.18.01.30.19
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 18 May 2025 01:23:31 -0700 (PDT)
+ Sun, 18 May 2025 01:30:20 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 627c8202-33c1-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 567c57a9-33c2-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1747556612; x=1748161412; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1747557021; x=1748161821; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=49j93buoqoZ+Qpg3aRYmy1EreytZ446wBKdsnMPO7xM=;
-        b=R+2BUwujsfIrpD2HrvuHO5ndLTq/FCqGHgxV6BF0BtWxyXStLIr5HTx05ZPLYAWjIx
-         QisMVXlkrz00jB/uqdFc8pYICjF1b/1l8LzF57N5Ur562UzpJcWD00B/HwF2utXDpjx9
-         9BWFoUTM6iCvOsvnalPpiNck6SPSTE8k1ZQO6fjEeFp8V58VMDOGOyN2xqwB0cqI9QGx
-         aUMyETHFMaOeMtmjSpeJ8OQr8L3vYTmDuA3aFRgFX6Jkb2zvwB1OSi3ODlRAbg3j9KMu
-         zfJcmhU0Yumn+kxPiDxj9A8xQHrWoskLbftqETY3IxJObSY21w3NSy0GsW6pk/WYu5lX
-         CK8w==
+        bh=vh4rP+360fa3Iqy37r1ALzCeWzwynlR+9jflAyXt+Tw=;
+        b=GJr7lQDxJJWRfIWvaY1SZmtbhi+eBWEppvmFax+iyUD0EYwCfOgF83MoPPQwtnql52
+         K3xtuqL1N75k/01o+fgagFVgQOxrxbjVHZg2y2GMaM+v2rWAgM9h3vy2LwbKJlYdC2PB
+         al7Gbjx1y4iQ7h6q2ZfQqzFMh3fZgCFip7Cb2PyZO5OxR3k8zUpx63DX1/f8zuzD1gYi
+         D8zhi0WcY/phDs013N/bvca9VYACatWnuSG/kCE4rN1nWw8wJZ6yZYUQ98KJtuLWPohu
+         Hqpdf9YE6xNWdLg5w506oPdfPYuzUKsgPREUYvZUEoySLj6eirVb+DGkwLr7S+wFXph4
+         ljMA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747556612; x=1748161412;
+        d=1e100.net; s=20230601; t=1747557021; x=1748161821;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=49j93buoqoZ+Qpg3aRYmy1EreytZ446wBKdsnMPO7xM=;
-        b=BysDCo1x2VOCmclFNbwYCbsyztenL+PUfemCWPpjPJV/GdUw5INF/rCipbbsITraDk
-         68fizlj1SRRTBeXiK+2jHo1pC3u0CPO8wXTRQvXk6ZnpYXtqnscZ+2aSCqWFm/PrgLQi
-         qHrgNQYtTMKnuz4hbY46nn8FvwxBQpMSKzBbpXdRqdiO4M/4lhoJ4fpIaU2dhQkezd6n
-         gwQK3T3LTJjiRqfCtjrtyKJgTcFZmsxQq4Esq5M2BAq0GPUXpvdDaPkYoNJioJ9hmbX9
-         P2sgOgFLkyTvemDHXpEVCQajWA/3dAwl85eWZA+u1KmFwuozbl17ZUbqJmg15v8nw9sc
-         /tGA==
-X-Forwarded-Encrypted: i=1; AJvYcCV5Qj1jCc0B0bjpVvo1mueIY89XKyJUT22+oYjx+XJP6pifmQOdEC58cQ2nhLP4B3zArgZsb4WCJrE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yxbe4vlRLOxadp2QHLybyYeP469FXRsqoPH9eUcsMbOG28ndJKl
-	+oFpTuUGVM1lYl38AUzws1ozdNbfe+KOWLqVrp6GIwiWcream5hy3YDaKlGUh+v/fw==
-X-Gm-Gg: ASbGncuBoTtq5M+m0g67IQbac0KBhTPwvH7JwneTT3SYMLqK7KPyL3W6THzi/gwtE3u
-	nO/iVS59pgDAmitVM+Xf+Hd+ZpurB9+G7DJPsooswkzMn7/TNv7sudgHjyLVxgch6lcDCb0QTw8
-	6iC8TUkntAhAem5vRjbqijP0GK8BMYQKkDHZzIfJpXaJHfqch2PusWYXFfNamo1pdNlysaZ0i2J
-	nprkvHrSWALIpqCFGTbEZD6IXKdQ6pjbiF6dy+6idSMBULhrptwz84rsi1sQZkxRzPJKGDyuzp8
-	Euz06OvPMpX4wVM48hngWhREGMJyCpTDeBso+wv8P8RbjOXwtbhmOuaQMWI9Vki5ZBVuK8tUhB0
-	5K4uDs10npEmmp6joV2dVZH6b
-X-Google-Smtp-Source: AGHT+IH1lN2al6JTw5QQsQ9qpNP6cxNTDsWTacqoyv01lc/4DCqB4SHp9Th/paa5zzUapLHOMA1Qdw==
-X-Received: by 2002:a5d:4ec8:0:b0:3a3:62fa:fb85 with SMTP id ffacd0b85a97d-3a362fafcb2mr5203658f8f.28.1747556611850;
-        Sun, 18 May 2025 01:23:31 -0700 (PDT)
-Message-ID: <b981b51d-afbc-4f49-8e44-2cd1a669bf6a@suse.com>
-Date: Sun, 18 May 2025 10:23:25 +0200
+        bh=vh4rP+360fa3Iqy37r1ALzCeWzwynlR+9jflAyXt+Tw=;
+        b=rFDc3OkYKg27pkYujKKp1PDfR6J4uAIbvqx97Tp4UeTgvUZzo+b9iDuWkezLD8ViUK
+         GCT7wpQGLkjZUddIfOXmdQ0RKViREe3ffKuDHmnXobVAMky+/Srp4XiU8omH2n2OmpRQ
+         8fXpypyR7cvrqS50J9+VJVBzyv4QugBc2mOq2P8262UKdSTbtqH8phCTLWlviHdhQJu3
+         MHisRj0c+jDZ6TAu0tKF20W6CkmdvSm7garfixf6FnBrAKX70brnsrPtOTDh+95/4mP5
+         QAvtIAss7ukMCi5kb89oHK/Hb0b//a4gx5GHqh53mblamcPfJc7q9xYPXmxsjrAdhh84
+         mXwQ==
+X-Forwarded-Encrypted: i=1; AJvYcCX3vjGcDoP6XzjIJLo7hKsGAgJdgOhDOQBZsijfVymgkZrgjefMBW3Uzqn96PuXga3S2EMKe99pNUc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YybM0C5e2YxX7Etbulp/3VLAj7SHa7dXMT9BE70pHm9sUbD8Mmx
+	ekpgCIJqkXSmbBUEKnotZdl9JippUNskjOTtTWxQ+3TNyN1I70oOt95QCze4ZwHIkQ==
+X-Gm-Gg: ASbGnctIq0WjbBxTUJ1zgHztKP2pcW2J5OciRRWODffVtVqN8CjpTnqac4K6kIz6Eb7
+	gzem08XQ7nedeKkiF7aMTPXZZOhWt3U6f/WyqBGj751UFq+bAfORqq6NYleqMasze/JlpI/Vggr
+	v10XV48TesVNYrywOnb3mEfEFzr3qSTVY5N/3hnGZU6th7dmvAVP8VteaCrZYvId6sfF/VV2wth
+	e11nPidQXDW3WAnhqL5xkxKMCK8cg71ox1toxvnLMMk//kdok9zyq66o/KrczNM8fM5JTDUwtXd
+	OhD5PNm/tc1x+lDZD0LFbY5QHDKtYx6L20YLE/7ytI0Q+kq4wGlLqM7Kl+U0UXCBjbBZKTkiYJt
+	iApJFAp9qBppyXoQ5H1O/KKjj9/Gz1f24eik=
+X-Google-Smtp-Source: AGHT+IHlcTN6AcT9ZeJRemXsHX5v5B3q0zlxC2LOR97S31OVh+WCBakJ8hYaW8qc0ucPnkS1zPayeQ==
+X-Received: by 2002:a05:6000:2012:b0:3a0:7b07:157 with SMTP id ffacd0b85a97d-3a35c808b0fmr8098089f8f.9.1747557021093;
+        Sun, 18 May 2025 01:30:21 -0700 (PDT)
+Message-ID: <8fab4920-c03b-4eed-8bf0-474cdb094e4d@suse.com>
+Date: Sun, 18 May 2025 10:30:18 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 07/16] xen/riscv: introduce platform_get_irq()
+Subject: Re: [PATCH v2 08/16] xen/riscv: dt_processor_cpuid() implementation
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Cc: Alistair Francis <alistair.francis@wdc.com>,
  Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
@@ -94,49 +94,193 @@ Cc: Alistair Francis <alistair.francis@wdc.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Romain Caritey <Romain.Caritey@microchip.com>, xen-devel@lists.xenproject.org
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org,
+ Bertrand Marquis <bertrand.marquis@arm.com>
 References: <cover.1746530883.git.oleksii.kurochko@gmail.com>
- <a6198571b19be1f10b549e68a1b712a6653429e6.1746530883.git.oleksii.kurochko@gmail.com>
- <f2d61436-739c-4e41-95a5-22a5176d9415@suse.com>
- <e6aea8e0-cf70-40ff-8729-24be0f432aeb@gmail.com>
+ <4e4b3a018e8dacbe85cc080d9209e2ba3cdf4330.1746530883.git.oleksii.kurochko@gmail.com>
+ <df77a5c5-de45-4432-a86f-d120e9417d86@suse.com>
+ <125e918d-7c0f-43dd-8ab9-c0e0bcbf640e@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <e6aea8e0-cf70-40ff-8729-24be0f432aeb@gmail.com>
+In-Reply-To: <125e918d-7c0f-43dd-8ab9-c0e0bcbf640e@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 16.05.2025 16:04, Oleksii Kurochko wrote:
+On 16.05.2025 18:02, Oleksii Kurochko wrote:
 > 
-> On 5/15/25 9:33 AM, Jan Beulich wrote:
->>> +int platform_get_irq(const struct dt_device_node *device, int index)
->>> +{
->>> +    struct dt_irq dt_irq;
->>> +    int ret;
->>> +
->>> +    if ( (ret = dt_device_get_irq(device, index, &dt_irq)) != 0 )
->>> +        return ret;
->>> +
->>> +    if ( (ret = irq_set_type(dt_irq.irq, dt_irq.type)) != 0 )
->>> +        return ret;
->>> +
->>> +    return dt_irq.irq;
->> What guarantees the value to be at most INT_MAX (i.e. no silent conversion to
->> a negative value, signaling an error to the caller)? Actually, looking at
->> irq_set_type(), what guarantees irq_to_desc() there to not overrun irq_desc[]?
->> There are no bounds checks in aplic_irq_xlate().
+> On 5/15/25 9:56 AM, Jan Beulich wrote:
+>> (adding Bertrand as the one further DT maintainer, for a respective question
+>> below)
+>>
+>> On 06.05.2025 18:51, Oleksii Kurochko wrote:
+>>> Implements dt_processor_hartid()
+>> There's no such function (anymore).
+>>
+>>> to get the hart ID of the given
+>>> device tree node and do some checks if CPU is available and given device
+>>> tree node has proper riscv,isa property.
+>>>
+>>> As a helper function dt_get_cpuid() is introduced to deal specifically
+>>> with reg propery of a CPU device node.
+>>>
+>>> Signed-off-by: Oleksii Kurochko<oleksii.kurochko@gmail.com>
+>>> ---
+>>> Changes in V2:
+>>>   - s/of_get_cpu_hwid()/dt_get_cpu_id().
+>>>   - Update prototype of dt_get_cpu_hwid(), use pointer-to-const for cpun arg.
+>>>   - Add empty line before last return in dt_get_cpu_hwid().
+>>>   - s/riscv_of_processor_hartid/dt_processor_cpuid().
+>>>   - Use pointer-to_const for node argument of dt_processor_cpuid().
+>>>   - Use for hart_id unsigned long type as according to the spec for RV128
+>>>     mhartid register will be 128 bit long.
+>>>   - Update commit message and subject.
+>>>   - use 'CPU' instead of 'HART'.
+>> Was this is good move? What is returned ...
+>>
+>>> --- a/xen/arch/riscv/include/asm/smp.h
+>>> +++ b/xen/arch/riscv/include/asm/smp.h
+>>> @@ -26,6 +26,9 @@ static inline void set_cpuid_to_hartid(unsigned long cpuid,
+>>>   
+>>>   void setup_tp(unsigned int cpuid);
+>>>   
+>>> +struct dt_device_node;
+>>> +int dt_processor_cpuid(const struct dt_device_node *node, unsigned long *cpuid);
+>> ... here isn't a number in Xen's CPU numbering space. From earlier discussions I'm
+>> not sure it's a hart ID either, so it may need further clarification (and I'd
+>> expect RISC-V to have suitable terminology to tell apart the different entities).
 > 
-> I'm afraid that both aren't guaranteed. I think to have the following in platform_get_irq()
-> should be enough:
->      BUILD_BUG_ON(NR_IRQS > INT_MAX);
+>  From device tree point of view (https://www.kernel.org/doc/Documentation/devicetree/bindings/riscv/cpus.txt)
+> it is just hart which is defined as a hardware execution context, which contains all the state mandated by
+> the RISC-V ISA: a PC and some registers.
+> And also based on this for DT binding:
+>    For example, my Intel laptop is
+>    described as having one socket with two cores, each of which has two hyper
+>    threads.  Therefore this system has four harts.
+> They are using just harts and in DT it will look like 4 node with a number in reg property which they
+> call hart. So from DT point of view hartid is pretty fine to use.
 > 
->      if ( dt_irq.irq >= NR_IRQS )
->          panic("irq%d is bigger then NR_IRQS(%d)\n", dt_irq.irq, NR_IRQS);
+>  From specification point of view (https://riscv.github.io/riscv-isa-manual/snapshot/unprivileged/#_risc_v_hardware_platform_terminology):
+>    A RISC-V hardware platform can contain one or more RISC-V-compatible processing cores together
+>    with other non-RISC-V-compatible cores, fixed-function accelerators, various physical memory
+>    structures, I/O devices, and an interconnect structure to allow the components to communicate.
 > 
-> Probably, the first could be dropped as I'm not sure that anyone will use such big
-> number for NR_IRQS.
+>    A component is termed a core if it contains an independent instruction fetch unit. A RISC-V-
+>    compatible core might support multiple RISC-V-compatible hardware threads, or harts, through
+>    multithreading.
+> and (https://riscv.github.io/riscv-isa-manual/snapshot/unprivileged/#_risc_v_software_execution_environments_and_harts):
+>    From the perspective of software running in a given execution environment, a hart is a resource that
+>    autonomously fetches and executes RISC-V instructions within that execution environment. In this
+>    respect, a hart behaves like a hardware thread resource even if time-multiplexed onto real hardware by
+>    the execution environment. Some EEIs support the creation and destruction of additional harts, for
+>    example, via environment calls to fork new harts.
+> 
+> DT's CPU node should be refer to core plus hardware thread (or threads in case of multithreading)
+> in reg property to be close to the spec(?) but basically in DT they IMO just describe what in the sepc
+> is called an independent instruction fetch unit.
+> 
+> I still think that it is fine just to use hart_id. If to be close more to a spec the unit_id(?)
+> but it is more confusing IMO with what is use in RISC-V's DT binding.
 
-I'd say better keep it, even if largely for doc purposes.
+Based on what you quoted above I think "hart ID" is indeed appropriate here.
+
+>>> +/*
+>>> + * Returns the cpuid of the given device tree node, or -ENODEV if the node
+>>> + * isn't an enabled and valid RISC-V hart node.
+>>> + */
+>>> +int dt_processor_cpuid(const struct dt_device_node *node, unsigned long *cpuid)
+>>> +{
+>>> +    const char *isa;
+>>> +
+>>> +    if ( !dt_device_is_compatible(node, "riscv") )
+>>> +    {
+>>> +        printk("Found incompatible CPU\n");
+>>> +        return -ENODEV;
+>>> +    }
+>>> +
+>>> +    *cpuid = dt_get_cpuid(node);
+>>> +    if ( *cpuid == ~0UL )
+>>> +    {
+>>> +        printk("Found CPU without CPU ID\n");
+>>> +        return -ENODEV;
+>>> +    }
+>>> +
+>>> +    if ( !dt_device_is_available(node))
+>>> +    {
+>>> +        printk("CPU with cpuid=%lu is not available\n", *cpuid);
+>>> +        return -ENODEV;
+>>> +    }
+>>> +
+>>> +    if ( dt_property_read_string(node, "riscv,isa", &isa) )
+>>> +    {
+>>> +        printk("CPU with cpuid=%lu has no \"riscv,isa\" property\n", *cpuid);
+>>> +        return -ENODEV;
+>>> +    }
+>>> +
+>>> +    if ( isa[0] != 'r' || isa[1] != 'v' )
+>>> +    {
+>>> +        printk("CPU with cpuid=%lu has an invalid ISA of \"%s\"\n", *cpuid, isa);
+>>> +        return -ENODEV;
+>>> +    }
+>>> +
+>>> +    return 0;
+>>> +}
+>> I view it as unhelpful that all errors result in -ENODEV. Yes, there are log
+>> messages for all of the cases, but surely there are errno values better
+>> representing the individual failure reasons?
+> 
+> I will update that to:
+> 
+> @@ -46,6 +46,7 @@ static unsigned long dt_get_cpuid(const struct dt_device_node *cpun)
+>   int dt_processor_cpuid(const struct dt_device_node *node, unsigned long *cpuid)
+>   {
+>       const char *isa;
+> +    int ret;
+>   
+>       if ( !dt_device_is_compatible(node, "riscv") )
+>       {
+> @@ -57,7 +58,7 @@ int dt_processor_cpuid(const struct dt_device_node *node, unsigned long *cpuid)
+>       if ( *cpuid == ~0UL )
+>       {
+>           printk("Found CPU without CPU ID\n");
+> -        return -ENODEV;
+> +        return -EINVAL;
+
+EINVAL is the most commonly used error code; I'd therefore recommend to
+avoid its use unless it is indeed properly describing the situation
+(invalid argument, i.e. invalid value _passed in_). Here ENODATA might
+be a suitable replacement, for example.
 
 Jan
+
+>       }
+>   
+>       if ( !dt_device_is_available(node))
+> @@ -66,16 +67,16 @@ int dt_processor_cpuid(const struct dt_device_node *node, unsigned long *cpuid)
+>           return -ENODEV;
+>       }
+>   
+> -    if ( dt_property_read_string(node, "riscv,isa", &isa) )
+> +    if ( (ret = dt_property_read_string(node, "riscv,isa", &isa)) )
+>       {
+>           printk("CPU with cpuid=%lu has no \"riscv,isa\" property\n", *cpuid);
+> -        return -ENODEV;
+> +        return ret;
+>       }
+>   
+>       if ( isa[0] != 'r' || isa[1] != 'v' )
+>       {
+>           printk("CPU with cpuid=%lu has an invalid ISA of \"%s\"\n", *cpuid, isa);
+> -        return -ENODEV;
+> +        return -EINVAL;
+>       }
+>   
+>       return 0;
+> 
+> I think it's better now.
+> 
+> Thanks.
+> 
+> ~ Oleksii
+> 
+
 
