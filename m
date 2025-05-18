@@ -2,41 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B9534ABB0B1
-	for <lists+xen-devel@lfdr.de>; Sun, 18 May 2025 17:38:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.989270.1373493 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 81823ABB151
+	for <lists+xen-devel@lfdr.de>; Sun, 18 May 2025 20:37:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.989333.1373504 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uGg4t-0002gx-2U; Sun, 18 May 2025 15:37:27 +0000
+	id 1uGirk-0006Rf-Sn; Sun, 18 May 2025 18:36:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 989270.1373493; Sun, 18 May 2025 15:37:27 +0000
+Received: by outflank-mailman (output) from mailman id 989333.1373504; Sun, 18 May 2025 18:36:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uGg4s-0002eG-WC; Sun, 18 May 2025 15:37:27 +0000
-Received: by outflank-mailman (input) for mailman id 989270;
- Sun, 18 May 2025 15:37:24 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uGirk-0006Oh-Q7; Sun, 18 May 2025 18:36:04 +0000
+Received: by outflank-mailman (input) for mailman id 989333;
+ Sun, 18 May 2025 18:36:03 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=4ra6=YC=a-greve.de=andreas.greve@srs-se1.protection.inumbo.net>)
- id 1uGg4q-0002eA-A1
- for xen-devel@lists.xenproject.org; Sun, 18 May 2025 15:37:24 +0000
-Received: from mo4-p00-ob.smtp.rzone.de (mo4-p00-ob.smtp.rzone.de
- [81.169.146.217]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id fc9a4c98-33fd-11f0-9ffb-bf95429c2676;
- Sun, 18 May 2025 17:37:21 +0200 (CEST)
-Received: from dmzmail.linux.bogus by smtp.strato.de (RZmta 51.3.0 DYNA|AUTH)
- with ESMTPSA id 6293ac14IFbJTns
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
- (Client did not present a certificate)
- for <xen-devel@lists.xenproject.org>;
- Sun, 18 May 2025 17:37:19 +0200 (CEST)
-Received: from [192.168.5.100] (p508196e9.dip0.t-ipconnect.de [80.129.150.233])
- (authenticated bits=0)
- by dmzmail.linux.bogus (8.17.1.9/8.17.1.9/Debian-2+deb12u2) with ESMTPSA id
- 54IFbHq4241291
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT);
- Sun, 18 May 2025 17:37:17 +0200
+ <SRS0=247E=YC=3mdeb.com=sergii.dmytruk@srs-se1.protection.inumbo.net>)
+ id 1uGiri-0006OZ-SX
+ for xen-devel@lists.xenproject.org; Sun, 18 May 2025 18:36:03 +0000
+Received: from 5.mo576.mail-out.ovh.net (5.mo576.mail-out.ovh.net
+ [46.105.43.105]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f1cf5dc8-3416-11f0-9eb8-5ba50f476ded;
+ Sun, 18 May 2025 20:36:00 +0200 (CEST)
+Received: from director2.ghost.mail-out.ovh.net (unknown [10.108.17.39])
+ by mo576.mail-out.ovh.net (Postfix) with ESMTP id 4b0qJb4fyPz1lH4
+ for <xen-devel@lists.xenproject.org>; Sun, 18 May 2025 18:35:59 +0000 (UTC)
+Received: from ghost-submission-5b5ff79f4f-srqkw (unknown [10.110.101.117])
+ by director2.ghost.mail-out.ovh.net (Postfix) with ESMTPS id 22F3D1FE24;
+ Sun, 18 May 2025 18:35:57 +0000 (UTC)
+Received: from 3mdeb.com ([37.59.142.109])
+ by ghost-submission-5b5ff79f4f-srqkw with ESMTPSA
+ id 7Bl6LY0oKmif/gQAmIYX7A
+ (envelope-from <sergii.dmytruk@3mdeb.com>); Sun, 18 May 2025 18:35:57 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -48,141 +46,177 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fc9a4c98-33fd-11f0-9ffb-bf95429c2676
-ARC-Seal: i=1; a=rsa-sha256; t=1747582639; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=qW8INH6a9Fy/q9DFE7qadpbd0EgG62cfRDeoO77c8FNUCYF0/OJ5FK3NtSUHTBChvQ
-    BPFfK+9KE+2YvPXCSfG+Z+MBWck4Gu8AK9Tm5QH78bMF1HZJaBqSabjYQSFkzdm4/y/e
-    NX0tho1AzgGsXApLRbx6uiDH87FSwTFiB2SKoy33sLFjwXiwU2Ll9P9NhKPeTeJKX/jg
-    kmvF4XY26E8cS990ouvdcpRH3YNJMFgo8cgN194QXd7ikBsYm112ra9govg8vwtFEAYn
-    kg27WllKFnG17udyMek20hwT5dsUDi26+rcUUXfaLve9MR+0M5/R3CBQEpOUlcqn+xBW
-    lFFQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1747582639;
-    s=strato-dkim-0002; d=strato.com;
-    h=In-Reply-To:From:Cc:References:To:Subject:Reply-To:Date:Message-ID:
-    Cc:Date:From:Subject:Sender;
-    bh=TxBzSHtsc9lclNxdJck3wIIncXDkvgK/dr0Fa6blPnI=;
-    b=VCBjLAmK2OTbhNfR1VWLdJqQ9VzDG/GJIIYD6yWtKEo3tV8Nqw3x/7RC2WRaH3p2Pu
-    WnT1UkmLihiu7amxBIv1SSgOcDezN10LWs1MChEU2rPLLmQ+3LLIJMpl6HnirXYZJlnC
-    t+9/TqHLK1bmwpaltJC4KDbag/G9ZM5yXsitFc7ECqb2zbI8DU593iUVJNoPMXxy7EIm
-    dxv2pOuaALFJZV1/HYWzHcOISEklFCu1hzEQafUxWE1Tx0itxIqj8iEINZj6TZA8EZJj
-    uwAAbf/6C0c+oZXMO/u98rQdb6PYbxhIcfKdwosS2F6iZku7v974nL9Iv3CoQai1rSxk
-    ljow==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo00
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1747582639;
-    s=strato-dkim-0002; d=a-greve.de;
-    h=In-Reply-To:From:Cc:References:To:Subject:Reply-To:Date:Message-ID:
-    Cc:Date:From:Subject:Sender;
-    bh=TxBzSHtsc9lclNxdJck3wIIncXDkvgK/dr0Fa6blPnI=;
-    b=i825Os2rWRWe0HYuMVgkpDuXQqWS58WE+5cGj4RHBYMoukKb4Qu89nzClcRW75sd8E
-    iHPBe8uGBVI61J4gKJBzkNf9CK/+gpIE62BWgm5r0fYAbqzAcgOfM7IOx7kdQB3D++gG
-    VRpfjiMO59ZwsfIlEQXvR9EuCV+YPiGTLiA2IHovT8mYIJ4jDow2xqRAK+o46WvngoVM
-    1SIOD6nf3MullIuPMSTpHRRvIB7F1MueCRpG01nnkBZvB+NUpeblQrQ7e/jgQjrKE39Z
-    qaBjVNDRh5kjH4LDrEHZvznDsKcjdbjpu8za+OxGFfHKN+4HFjpe+rVdTQftJmgpd+Tc
-    lzxA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1747582639;
-    s=strato-dkim-0003; d=a-greve.de;
-    h=In-Reply-To:From:Cc:References:To:Subject:Reply-To:Date:Message-ID:
-    Cc:Date:From:Subject:Sender;
-    bh=TxBzSHtsc9lclNxdJck3wIIncXDkvgK/dr0Fa6blPnI=;
-    b=t1Vw6PDOnyvkUckjI3fzSjuANyckig6Kh9GZvQav/lMp2HSHqg0CinLnEOGgd+Iw9w
-    UW4gb4Gxb1HfhvuJozBA==
-X-RZG-AUTH: ":I3kQck+hdfi/FoX876SYvGxtQu+BXCDuSQ9UENFBFhpuMtcK2yjIjEY8XWHyeFlVfYF7"
-Content-Type: multipart/alternative;
- boundary="------------lmiZ0fl3KS8jPP4VeNF5ri02"
-Message-ID: <93625976-e8af-4c39-90fb-45c926d420fd@a-greve.de>
-Date: Sun, 18 May 2025 17:37:17 +0200
+X-Inumbo-ID: f1cf5dc8-3416-11f0-9eb8-5ba50f476ded
+Authentication-Results:garm.ovh; auth=pass (GARM-109S0030239ee15-be38-48a1-8cc5-2fa894bc7de3,
+                    6FCDE7FC3973969C7D59E240015AF9737BA2D6B5) smtp.auth=sergii.dmytruk@3mdeb.com
+X-OVh-ClientIp:176.111.184.221
+Date: Sun, 18 May 2025 21:35:49 +0300
+From: Sergii Dmytruk <sergii.dmytruk@3mdeb.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: xen-devel@lists.xenproject.org,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	Ross Philipson <ross.philipson@oracle.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
+	Lukasz Hawrylko <lukasz@hawrylko.pl>,
+	Mateusz =?iso-8859-1?Q?M=F3wka?= <mateusz.mowka@intel.com>,
+	trenchboot-devel@googlegroups.com
+Subject: Re: [PATCH v2 01/22] x86/include/asm/intel-txt.h: constants and
+ accessors for TXT registers and heap
+Message-ID: <aCoohV1Ue0NBKmSL@MjU3Nj>
+References: <cover.1747155790.git.sergii.dmytruk@3mdeb.com>
+ <c049f4ced707769a630cbb8d38a617910279b404.1747155790.git.sergii.dmytruk@3mdeb.com>
+ <a286bb98-4c97-4a93-ad99-e2095d5c86e6@citrix.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Reply-To: andreas.greve@a-greve.de
-Subject: Re: BUG kernel 6.12.19 defautl_swiotlb_limit() returns wrong value
- for CONFIG_SWIOTLB_DYNAMIC=y effects atm only under XEN dom0
-To: xen-devel@lists.xenproject.org
-References: <f74668db-52fd-4575-8372-7bfdf10d62ac@a-greve.de>
-Content-Language: en-US
-Cc: andreas.greve@a-greve.de
-From: Andreas Greve <andreas.greve@a-greve.de>
-In-Reply-To: <f74668db-52fd-4575-8372-7bfdf10d62ac@a-greve.de>
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <a286bb98-4c97-4a93-ad99-e2095d5c86e6@citrix.com>
+X-Ovh-Tracer-Id: 2922554685630624924
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgeefvddrtddtgdefudelvdegucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhepfffhvfevuffkfhggtggugfgjsehtkeertddttddunecuhfhrohhmpefuvghrghhiihcuffhmhihtrhhukhcuoehsvghrghhiihdrughmhihtrhhukhesfehmuggvsgdrtghomheqnecuggftrfgrthhtvghrnhepveevhfdvfedtffeiveeigffhffetvdeltdeftddukefgvdeuvdelkeffteeifeetnecuffhomhgrihhnpehinhhtvghlrdgtohhmnecukfhppeduvdejrddtrddtrddupddujeeirdduuddurddukeegrddvvddupdefjedrheelrddugedvrddutdelnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehinhgvthepuddvjedrtddrtddruddpmhgrihhlfhhrohhmpehsvghrghhiihdrughmhihtrhhukhesfehmuggvsgdrtghomhdpnhgspghrtghpthhtohepuddprhgtphhtthhopeigvghnqdguvghvvghlsehlihhsthhsrdigvghnphhrohhjvggtthdrohhrghdpoffvtefjohhsthepmhhoheejiegmpdhmohguvgepshhmthhpohhuth
+DKIM-Signature: a=rsa-sha256; bh=hsdlVVehTPs587A8VqR0oCQI/MsgTIjwmYBXjl5EAfU=;
+ c=relaxed/relaxed; d=3mdeb.com; h=From; s=ovhmo3617313-selector1;
+ t=1747593359; v=1;
+ b=PBE6ZI+aNDcvAsU/K2jwmm7gBozROZxDjXbCjCYY13/2Cz6/LuiQynzBbkkzV5akAGgR0GXn
+ ciYw3nPOOjXu5DAu4sX1dhzLR8RKrUcGlUSaUptYiSu0eU6OtxmgLOjhbLHhV3x6b3el32EGBAb
+ netdrZ8IgA5jF4Cyf+yz0OH/7JniKmYGGghMEEEBnXckeXTumhVfk3AqhhnuEjColKJnX+L2ARL
+ 4+17KRtd/PYa9QS0IHx35ey6LP8/83KVeEiqce6I+N32TxeBb4R/D+vd2DsiEfpnpAYvhapY1G6
+ mb/a+Vyc4pJZe4qOvKMo2tYdmJMKVlhWh2/rRKRDekhJA==
 
-This is a multi-part message in MIME format.
---------------lmiZ0fl3KS8jPP4VeNF5ri02
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+On Wed, May 14, 2025 at 03:55:51PM +0100, Andrew Cooper wrote:
+> Please have at least a one-liner introduction to what TXT is.� Is there
+> a stable URL for the TXT spec?� (I can't spot an obvious one, googling
+> around)
 
-Hello to all,
+In addition to a short definition I'll add:
+ * https://www.intel.com/content/www/us/en/support/articles/000025873/processors.html
+ * unversioned link to Software Development Guide
+ * link to that unofficial archive (marked as such) mentioned by Krystian
 
-here is my BUG-Fix tested against kernel 6.12.19 and 6.12.28.
+> > +#ifndef ASM__X86__INTEL_TXT_H
+> > +#define ASM__X86__INTEL_TXT_H
+>
+> I realise this is what the documentation currently says, but we're just
+> in the process of finalising some changes.� Please make this
+> X86_INTEL_TXT_H.
 
-Signed-off-by: Andreas Greveandreas.greve@a-greve.de
+Will fix.
 
-diff --git a/kernel/dma/swiotlb.c b/kernel/dma/swiotlb.c
-index abcf3fa63a56..742e6cbbe852 100644
---- a/kernel/dma/swiotlb.c
-+++ b/kernel/dma/swiotlb.c
-@@ -1654,7 +1654,16 @@ phys_addr_t default_swiotlb_base(void)
-  phys_addr_t default_swiotlb_limit(void)
-  {
-  #ifdef CONFIG_SWIOTLB_DYNAMIC
--       return io_tlb_default_mem.phys_limit;
-+       struct io_tlb_mem *mem = &io_tlb_default_mem;
-+       phys_addr_t retval = mem->defpool.end;
-+       struct io_tlb_pool *pool;
-+       rcu_read_lock();
-+       list_for_each_entry_rcu(pool, &mem->pools, node) {
-+               if (pool->end > retval)
-+                       retval = pool->end;
-+       }
-+       rcu_read_unlock();
-+       return retval - 1;
-  #else
-         return io_tlb_default_mem.defpool.end - 1;
-  #endif
+> Commit message needs to note that you're swapping NR_TXT_CONFIG_PAGES
+> for NR_TXT_CONFIG_SIZE, hence the change in logic in
+> tboot_protect_mem_regions().
 
+Will clarify that.
 
---------------lmiZ0fl3KS8jPP4VeNF5ri02
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+> > +#ifndef __ASSEMBLY__
+> > +
+> > +/* Need to differentiate between pre- and post paging enabled. */
+> > +#ifdef __EARLY_SLAUNCH__
+> > +#include <xen/macros.h>
+> > +#define _txt(x) _p(x)
+> > +#else
+> > +#include <xen/types.h>
+> > +#include <asm/page.h>   // __va()
+> > +#define _txt(x) __va(x)
+> > +#endif
+>
+> I have to admit that I'm rather suspicious of this, but I'm going to
+> have to wait to see later patches before making a suggestion.� (I highly
+> suspect we'll want a fixmap entry).
 
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p>Hello to all,</p>
-    <p>here is my BUG-Fix tested against kernel 6.12.19 and 6.12.28.</p>
-    <pre>Signed-off-by: Andreas Greve <a class="moz-txt-link-abbreviated" href="mailto:andreas.greve@a-greve.de">andreas.greve@a-greve.de</a></pre>
-    <p></p>
-    <p>diff --git a/kernel/dma/swiotlb.c b/kernel/dma/swiotlb.c<br>
-      index abcf3fa63a56..742e6cbbe852 100644<br>
-      --- a/kernel/dma/swiotlb.c<br>
-      +++ b/kernel/dma/swiotlb.c<br>
-      @@ -1654,7 +1654,16 @@ phys_addr_t default_swiotlb_base(void)<br>
-       phys_addr_t default_swiotlb_limit(void)<br>
-       {<br>
-       #ifdef CONFIG_SWIOTLB_DYNAMIC<br>
-      -       return io_tlb_default_mem.phys_limit;<br>
-      +       struct io_tlb_mem *mem = &amp;io_tlb_default_mem;<br>
-      +       phys_addr_t retval = mem-&gt;defpool.end;<br>
-      +       struct io_tlb_pool *pool;<br>
-      +       rcu_read_lock();<br>
-      +       list_for_each_entry_rcu(pool, &amp;mem-&gt;pools, node) {<br>
-      +               if (pool-&gt;end &gt; retval)<br>
-      +                       retval = pool-&gt;end;<br>
-      +       }<br>
-      +       rcu_read_unlock();<br>
-      +       return retval - 1;<br>
-       #else<br>
-              return io_tlb_default_mem.defpool.end - 1;<br>
-       #endif<br>
-    </p>
-    <br>
-  </body>
-</html>
+Leaving it as is for now.
 
---------------lmiZ0fl3KS8jPP4VeNF5ri02--
+> > +/*
+> > + * Always use private space as some of registers are either read-only or not
+> > + * present in public space.
+> > + */
+> > +static inline uint64_t read_txt_reg(int reg_no)
+>
+> unsigned int reg
+
+OK, for both read and write functions.
+
+> I'd be tempted to name it simply txt_read().� I don't think the extra
+> "_reg" is a helpful suffix, and it makes the APIs consistent with
+> txt_reset().� But I expect others may have opinions here.
+
+Will be renamed to txt_read() and txt_write(), seems sensible to me.
+
+> > +static inline void write_txt_reg(int reg_no, uint64_t val)
+> > +{
+> > +    volatile uint64_t *reg = _txt(TXT_PRIV_CONFIG_REGS_BASE + reg_no);
+> > +    *reg = val;
+> > +    /* This serves as TXT register barrier */
+> > +    (void)read_txt_reg(TXTCR_ESTS);
+>
+> What is this barrier for?
+>
+> It's not for anything in the CPU side of things, because UC accesses are
+> strictly ordered.
+>
+> I presume it's for LPC bus ordering then, but making every write be a
+> write/read pair seems very expensive.
+
+The barrier will be moved to txt_reset() as suggested by Krystian in his
+reply.
+
+> > +static inline void txt_reset(uint32_t error)
+> > +{
+> > +    write_txt_reg(TXTCR_ERRORCODE, error);
+> > +    write_txt_reg(TXTCR_CMD_NO_SECRETS, 1);
+> > +    write_txt_reg(TXTCR_CMD_UNLOCK_MEM_CONFIG, 1);
+> > +    write_txt_reg(TXTCR_CMD_RESET, 1);
+> > +    while (1);
+>
+> for ( ;; )
+> ��� cpu_relax();
+>
+> please.
+>
+> Will the write to CMD_RESET try to initiate a platform reset, or will we
+> just hang here forever?
+
+Will mark the function as `noreturn` and use `unreachable()` instead.
+
+The write sends a platform into a warm reboot which retains the error
+code for later examination.
+
+> > +/*
+> > + * Functions to extract data from the Intel TXT Heap Memory. The layout
+> > + * of the heap is as follows:
+>
+> This is quite horrible, but I presume this is as specified by TXT?
+>
+> To confirm, it's a tightly packed data structure where each of the 4
+> blobs is variable size?� Are there any alignment requirements on the
+> table sizes?� I suspect not, given the __packed attributes.
+
+Will improve the comment to state this explicitly, including that no
+particular alignment is assumed and why (as in Krystian's reply).
+
+> > diff --git a/xen/arch/x86/tboot.c b/xen/arch/x86/tboot.c
+> > index d5db60d335..8a573d8c79 100644
+> > --- a/xen/arch/x86/tboot.c
+> > +++ b/xen/arch/x86/tboot.c
+> > @@ -15,6 +15,7 @@
+> >  #include <asm/tboot.h>
+> >  #include <asm/setup.h>
+> >  #include <asm/trampoline.h>
+> > +#include <asm/intel-txt.h>
+> >
+> >  #include <crypto/vmac.h>
+>
+> I'll send a prep patch to fix tboot.c, but we're trying to keep includes
+> sorted (for sanity of backports).
+>
+> ~Andrew
+
+I've seen commits sorting includes and trying to do the same, but files
+which don't have includes sorted yet often don't have any good place for
+a new entry and I refrain from sorting them at the same time as I add a
+new line.
+
+Regards
 
