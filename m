@@ -2,31 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 60201ABB00D
-	for <lists+xen-devel@lfdr.de>; Sun, 18 May 2025 13:25:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.988969.1373321 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E150AABB014
+	for <lists+xen-devel@lfdr.de>; Sun, 18 May 2025 13:30:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.988984.1373331 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uGc8b-0005pA-IP; Sun, 18 May 2025 11:25:01 +0000
+	id 1uGcEA-0007Q5-5b; Sun, 18 May 2025 11:30:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 988969.1373321; Sun, 18 May 2025 11:25:01 +0000
+Received: by outflank-mailman (output) from mailman id 988984.1373331; Sun, 18 May 2025 11:30:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uGc8b-0005mu-F1; Sun, 18 May 2025 11:25:01 +0000
-Received: by outflank-mailman (input) for mailman id 988969;
- Sun, 18 May 2025 11:25:00 +0000
+	id 1uGcEA-0007NB-34; Sun, 18 May 2025 11:30:46 +0000
+Received: by outflank-mailman (input) for mailman id 988984;
+ Sun, 18 May 2025 11:30:44 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=dxkC=YC=daemonizer.de=maxi@srs-se1.protection.inumbo.net>)
- id 1uGc8Z-0005mf-Nb
- for xen-devel@lists.xenproject.org; Sun, 18 May 2025 11:25:00 +0000
-Received: from mx1.somlen.de (typhoon.somlen.de [89.238.64.140])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=GB/u=YC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uGcE8-0007N2-Ia
+ for xen-devel@lists.xenproject.org; Sun, 18 May 2025 11:30:44 +0000
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [2a00:1450:4864:20::62b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b9915a83-33da-11f0-9eb8-5ba50f476ded;
- Sun, 18 May 2025 13:24:57 +0200 (CEST)
-Received: by mx1.somlen.de with ESMTPSA id 2F2C55030C4;
- Sun, 18 May 2025 13:24:55 +0200 (CEST)
+ id 888e7552-33db-11f0-9eb8-5ba50f476ded;
+ Sun, 18 May 2025 13:30:43 +0200 (CEST)
+Received: by mail-ej1-x62b.google.com with SMTP id
+ a640c23a62f3a-ad2216ef31cso600628966b.1
+ for <xen-devel@lists.xenproject.org>; Sun, 18 May 2025 04:30:43 -0700 (PDT)
+Received: from [172.18.118.114] (ip-185-104-138-68.ptr.icomera.net.
+ [185.104.138.68]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ad52d278257sm432995566b.82.2025.05.18.04.30.37
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sun, 18 May 2025 04:30:42 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,105 +45,82 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b9915a83-33da-11f0-9eb8-5ba50f476ded
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=daemonizer.de;
-	s=202303; t=1747567495;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=gTwALlSlBrfcKIjyGIAuCx9O/M4hyllBp+pmzkxrghA=;
-	b=NLboTpCL9YuPxkMVYXSQHmc1aokiwhG/MyQLYLHz5mdUXkUlPSptIOZ9W4TIM6/lstJEPz
-	XnSFE4dLD3zvHdin7d7SspGaB6qQ5t11TkKPTNz3yXfwx5Tu8Ipa7riNJr7xPA1zMfCiK8
-	XGfgO75k7Mw/sV9KpFje2mSqh8Gow21WqSf7k20QUuhe7RNUbeJaVqj1Ze51y7fe6xUuRw
-	h8nxCw3LVBEShrUO8X+rKfVLgVpqCj0d4jfgiQdgzgCRJeesYkqWVp0BGE8vYL06iEVoxV
-	sJevA8SyUH8sb9j98f3wuDJpkSTQRW1EKdUVinyRAAsGFfSSHiwj83lk6MsulA==
-From: Maximilian Engelhardt <maxi@daemonizer.de>
-To: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>
-Cc: Ngamia Djabiri Julie <Julie.NgamiaDjabiri@student.uliege.be>,
- pkg-xen-devel@alioth-lists.debian.net
-Subject: Re: Request for patch to fix boot loop issue in Xen 4.17.6
-Date: Sun, 18 May 2025 13:24:44 +0200
-Message-ID: <2911767.Y6S9NjorxK@localhost>
-In-Reply-To: <ccfce0be-8208-4431-b93d-da0e63f3552e@suse.com>
-References:
- <DB9P250MB05235527B537774F77EB9E26A08D2@DB9P250MB0523.EURP250.PROD.OUTLOOK.COM>
- <ccfce0be-8208-4431-b93d-da0e63f3552e@suse.com>
+X-Inumbo-ID: 888e7552-33db-11f0-9eb8-5ba50f476ded
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1747567842; x=1748172642; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=fT5qFUdstaJsfU0VbsAMfpbT7j0sIORq0zcqhKf+2xc=;
+        b=VKrYfExHvxnrStU2segaLEvPf5LbIeL6JjBgGzJ5NxtaAMv1Y+8AAqTm0tF7/XhJpi
+         Fo2f0D25vACcXqH1/3G5ClXvfj4cq7IBOv/6qiT87I51NQE8dyxbOlukF7wFA08/by5F
+         Gv7JTQB5ifgCpxn1P1NA0IrlmQH706gpGGYaIQSiJymZZb8MavbHFNGreTz++Q9WbD6f
+         UJoZocgnMk2BPWunnMR8xY7lrbsFCLVJejC75mwj8GgOTaXWqaVeUJXvBYu6CDAtNZEI
+         z2O1bHbcrWBQlA7oGFCSO8imIe8IcMQDBt6hbGgX42B0uWNTLSG2roaXJOPn+htNpBXK
+         xWYA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1747567842; x=1748172642;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=fT5qFUdstaJsfU0VbsAMfpbT7j0sIORq0zcqhKf+2xc=;
+        b=REZqB16DjJZDI2m300IhIsOT8DY5uIIJZWylYNcRD0DDGV2psluONv3DtYS0GntdW3
+         5G3NSyjmVdzzkvHl2z13zgqAc/tvQxDkpGOJ9nK9GNXhDOKbA/XCmzBDxuxsqHUppR3k
+         W7PrLz/rszKEvPQpgmCgqw/zjaY3hQ/pu06h/9j0fqBHKuCE76/aVLeNfwgviMCLE+1o
+         kjolzmbwFmb3hRVF8p19t+jmgycHWRy+YeuIUZKTZQ6ChMSazJ3t+oUiXMFO9Ut1TGi6
+         PVfaMVmxXDszgv+35tP8UUGa1IVeXJdPKXOECQo8dQo/APxip/IZMBy+5Ylhj1XCUgiT
+         n9iA==
+X-Forwarded-Encrypted: i=1; AJvYcCU8aWJ/YpkZumeFAZ2qr+43BR9RCwSz56xzn4DcsnX5/R+Qiz08vk06Qqqo1hZo3aISGXMAnpPuVCw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwFPrMiuARiTEo1jmDZ2HJcXfHi9AJvlpfIkiFgBUMxlS3/L9pv
+	M2GuFA4G0xRQBhlfDWXaEKkNkvAiEd9K/+6X/EDpknOHHg1hQ2Eeb+iathct8faajw==
+X-Gm-Gg: ASbGnctCTbg+PFG82wqaLqtX9lqXqdT9wrev7DgWoPul3Yys3zred1FnuzyuplXthgv
+	dqKN8jHXQBRCCQL9ULsyQGvyi+E2s41tZ/4voS+4HHP6vHCwDHnYk4jwCBd/oW+c6DgvZCX84Oa
+	IiY9dL9zlPQAAWTZ/5O8t69OXFuSw85lu0KsKUH1bgePT1JYVRfd/MALU6zPoLPu/8CKQvuDka0
+	IhNeoD/zdCVGViQxR+79wceO3UJ4G12/XtSFqsxy6g0m6d/U0NnzZm00RmGiESdA2w5/bEItmJv
+	6YcJD6h2429jm72w4x5WMcwGT3mWINQINg70DDAWcXQvsGnxwfNJ+BydYGvpKHzt9lI/gUSWdC/
+	NTWWYKIMgjbu2N3CeaCcS+cAl
+X-Google-Smtp-Source: AGHT+IERauixBHvi4TculVjOfou45Ib1nbCipmzvzJd9op95368vhRnLGBsUEdgQdrZeatupDmQcMQ==
+X-Received: by 2002:a17:906:580c:b0:ad5:4440:23 with SMTP id a640c23a62f3a-ad5444022c4mr461592666b.50.1747567842603;
+        Sun, 18 May 2025 04:30:42 -0700 (PDT)
+Message-ID: <03b9a6d4-26af-4da4-91a1-69d50ad0bc15@suse.com>
+Date: Sun, 18 May 2025 13:29:42 +0200
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="nextPart1803761.X513TT2pbd";
- micalg="pgp-sha512"; protocol="application/pgp-signature"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/6] xen/x86: rename cache_flush_permitted() to
+ has_arch_io_resources()
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20250516094535.63472-1-roger.pau@citrix.com>
+ <20250516094535.63472-4-roger.pau@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <20250516094535.63472-4-roger.pau@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
---nextPart1803761.X513TT2pbd
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"; protected-headers="v1"
-From: Maximilian Engelhardt <maxi@daemonizer.de>
-To: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>
-Subject: Re: Request for patch to fix boot loop issue in Xen 4.17.6
-Date: Sun, 18 May 2025 13:24:44 +0200
-Message-ID: <2911767.Y6S9NjorxK@localhost>
-In-Reply-To: <ccfce0be-8208-4431-b93d-da0e63f3552e@suse.com>
-MIME-Version: 1.0
+On 16.05.2025 11:45, Roger Pau Monne wrote:
+> To better describe the underlying implementation.  Define
+> cache_flush_permitted() as an alias of has_arch_io_resources(), so that
+> current users of cache_flush_permitted() are not effectively modified.
+> 
+> With the introduction of the new handler, change some of the call sites of
+> cache_flush_permitted() to instead use has_arch_io_resources() as such
+> callers are not after whether cache flush is enabled, but rather whether
+> the domain has any IO resources assigned.
+> 
+> No functional change intended.
+> 
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> ---
+> Changes since v1:
+>  - Drop adjustment to l1_disallow_mask().
 
-On Montag, 12. Mai 2025 10:54:50 CEST Jan Beulich wrote:
-> On 03.05.2025 16:02, Ngamia Djabiri Julie wrote:
-> > Dear Xen developers,
-> > 
-> > I would like to ask if the following fix can also be included in Xen
-> > 4.17.6 (and eventually in the Xen versions after 4.17.6 that don't have
-> > the fix) :
-> > 
-> > https://xenbits.xen.org/gitweb/?p=xen.git;a=commitdiff;h=dd05d265b8abda4cc
-> > 7206b29cd71b77fb46658bf
-> > 
-> > This bug causes a boot loop in nested virtualization environments (for
-> > instance nested environments that use VMware Workstation), making Xen
-> > unable to start. It was introduced in version 4.17.3 and the fix has
-> > already be included in 4.19(.2) and 4.20(.0) and woud be planned to be
-> > included in Xen 4.18.6 in the coming weeks.
-> > 
-> > Even though Xen 4.17 is in security-only support, this is an issue that
-> > blocks testing and usage for users and projects such as Alpine Linux.
-> I fear I don't view this severe enough an issue to break the security-only
-> status of that branch. People concerned ought to simply update to a branch
-> where the bug was fixed. Or the distro could include a backport.
+Moving the change to the next patch instead, as I see. For both
+patches:
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-The Debian Xen team now got a request to include this fix in Xen 4.17 in 
-Debian stable:
-
-https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=1105222
-
-We understand that Xen 4.17 is in upstream security-only support and thus this 
-patch will not land there.
-
-Debian can take the patch if it's confirmed by upstream Xen to be fine for Xen 
-4.17 and low risk. We had problems in the past with incomplete backports of 
-patches that turned out to cause regressions, so we try to avoid backporting 
-patches without upstream Xen confirmation.
-
-Maxi
---nextPart1803761.X513TT2pbd
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part.
-Content-Transfer-Encoding: 7Bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEQ8gZ7vwsPje0uPkIgepkfSQr0hUFAmgpw3wACgkQgepkfSQr
-0hUpDw/9GSBGt6WWiZIN2cHXYuJn/xxbWVkjUW+MlsoJYNi3xYiZCN/bS61oNTsk
-/+ma4eINfbskUyP7oBO9B0mvtkjss1eqpipVDFefTyZXlEuLUkD/U5uR0tnvzuNe
-sFWMcfpD90rcOHjiRNFiY/wTOIvc/774CXnxYHLdYaqZjbQB9LsZydDZlnW9XCrz
-v4MJtq5W8JeCT2PsKkOsn6fNX/VANsCJ9O3DjVYC44r8uQiT5m9BL6iSS3eBXEMD
-f4MzrxUES0r4sL5x146knTDto+APbCddIOy/HC0ZNQlyvZliSRX8U6b2oQNEWuis
-56aSkfp0Gs6rA87R44mnJNoUG0zyy88GU1XqIqI/zsgw4K+O6xnrW8QT2cXBxE3O
-azvplujT4oPmiDmtYixvIZrr3p0cS5ARnMgNBbAG4jSHoLFRg9kzKeQLhQ82bpnr
-gGcRlS2gLNeXzEo4yZM3hPe3bAGgEt0KEhhFsXgvgzd6EU61yOW2ks0LxWinKtOE
-bDABV+dXECdXcWxrVM7aSbUnGCTzrz7wIKWFNMWZHwq4scAa7mO34sM0z+s8Ei6k
-PwkqkPs+jqh7zsOzgEPz4YOVeNFMmY6ZtOyEoXN2gNvgG3vm7H/cYwazzXxdxdsR
-79wVliVrzpWRX1SwpKPz7e9sUcEzgEJEFf00dfa1P9GcMAU8wj8=
-=QgOQ
------END PGP SIGNATURE-----
-
---nextPart1803761.X513TT2pbd--
-
-
-
+Jan
 
