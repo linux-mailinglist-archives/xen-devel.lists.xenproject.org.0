@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DDE74ABAED5
-	for <lists+xen-devel@lfdr.de>; Sun, 18 May 2025 10:52:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.988885.1373292 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 15A22ABAED9
+	for <lists+xen-devel@lfdr.de>; Sun, 18 May 2025 10:58:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.988892.1373303 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uGZkz-0003kN-Uv; Sun, 18 May 2025 08:52:29 +0000
+	id 1uGZqC-0004ML-HS; Sun, 18 May 2025 08:57:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 988885.1373292; Sun, 18 May 2025 08:52:29 +0000
+Received: by outflank-mailman (output) from mailman id 988892.1373303; Sun, 18 May 2025 08:57:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uGZkz-0003hW-Rg; Sun, 18 May 2025 08:52:29 +0000
-Received: by outflank-mailman (input) for mailman id 988885;
- Sun, 18 May 2025 08:52:29 +0000
+	id 1uGZqC-0004JD-ER; Sun, 18 May 2025 08:57:52 +0000
+Received: by outflank-mailman (input) for mailman id 988892;
+ Sun, 18 May 2025 08:57:51 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=GB/u=YC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uGZkz-0003hP-9O
- for xen-devel@lists.xenproject.org; Sun, 18 May 2025 08:52:29 +0000
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [2a00:1450:4864:20::32b])
+ id 1uGZqB-0004J7-Mw
+ for xen-devel@lists.xenproject.org; Sun, 18 May 2025 08:57:51 +0000
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [2a00:1450:4864:20::62e])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6caa409a-33c5-11f0-9ffb-bf95429c2676;
- Sun, 18 May 2025 10:52:27 +0200 (CEST)
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-441d1ed82dbso34014495e9.0
- for <xen-devel@lists.xenproject.org>; Sun, 18 May 2025 01:52:27 -0700 (PDT)
+ id 2be8bbd4-33c6-11f0-9ffb-bf95429c2676;
+ Sun, 18 May 2025 10:57:48 +0200 (CEST)
+Received: by mail-ej1-x62e.google.com with SMTP id
+ a640c23a62f3a-ad560321ed9so52046066b.1
+ for <xen-devel@lists.xenproject.org>; Sun, 18 May 2025 01:57:48 -0700 (PDT)
 Received: from [172.18.118.114] (ip-185-104-138-24.ptr.icomera.net.
  [185.104.138.24]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3a35ca5a03fsm8654536f8f.22.2025.05.18.01.52.24
+ a640c23a62f3a-ad52d498747sm416150366b.137.2025.05.18.01.57.45
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 18 May 2025 01:52:26 -0700 (PDT)
+ Sun, 18 May 2025 01:57:47 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,88 +45,85 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6caa409a-33c5-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 2be8bbd4-33c6-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1747558347; x=1748163147; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1747558668; x=1748163468; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=7hQPszjAy/1n+/eu+fcw3zTmBHelRbdxongLDQosijs=;
-        b=TnvugMPIPkAPKlDDk6Jj0lPnKfzyhUaWVdTW+2t9r/LqZ+8tn7C/lgNuyvre1O9x6T
-         bqNFYQ5UrBQnPj4xMJk7QvroeD44nTcL/dvraXm+8V3iKniuR3xuONuZMWZY09bjtBPI
-         aL7siWeHdGpKD8tDGcTK3RJWiqFtekHGe+Sp+zUL3ZcV5fVZZal13jNit8+Gq3GSEWv0
-         iiJSbuCK+3fZhuOGoqcaUporsjIUvB8KYFAHqSpVgxM9vkP7C1aWErM2+nHECs3Ypxdg
-         lVLyRtesNy/6NaCuPRH2KA1ZUNJ0xN+YyAgdQ2PPR39gIR/lASseix2RpXBDfkL1i4k1
-         WDRQ==
+        bh=Kz7f1C2I6AGys/C5VOBEZ9aH2iob1WrVwTpTuQEnu1g=;
+        b=HIp5ceYxpIC2YqyAplrxTYgElEmyepZIFO0+JmTJKF5JySMq87uf/r2Inyk9L+GYFK
+         BJ/Me/biYf4q8Agm8QGZscddrWsjmWdTy2uwpKyL80VtgxNKoQ32kPaOWFBIwGGODghh
+         r41ftTi994MGW9/e8zloQxSTq3cQCVehKsNstao3SPF6oGgKyfQAVfadaWlhRlqDU1o2
+         rzaQm11vsadte5vvUfaSj33jiLRLvOqNG5Twd2icx0gXeWGNnwgrjbZ1x6dvj5PEwutS
+         0IaZk+43ICeOE6ExOpF8wu7yj6/Ac57DEouZzek5M5VL3sHe+dFJcxbxgdwghKTD8Po2
+         sqmQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747558347; x=1748163147;
+        d=1e100.net; s=20230601; t=1747558668; x=1748163468;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=7hQPszjAy/1n+/eu+fcw3zTmBHelRbdxongLDQosijs=;
-        b=WKyj511ex1dQ7YtzmLW+k6PNewFeHfXna3DvktBfrIYiOmm+E0+0y2gFppOWvRWdKo
-         FAI2BQaBeuHpDMWvNwS62CiNdBzZv0mjUU2sel7RGzxY2y9DnoQ5ARX+Z3ym6jXTr0wR
-         LDj6wkTNVuPZdWz2e2hNZjTq7WCzGAC6HrgrqveFHgdDvjRfmAmzo54+lbaRQhH/mMj3
-         8UKijPGix+mGhR8yJFWmTfKlvryYk7qchVhjoQKb8FsvDfh/R7e1cFm53U4AWorb7Qor
-         aGTShTIysZmXdnwLjD3Fe5sloCP3HSJOgS5DOzhrbvDz1vYshnHTtqyFx42F18JCU7KX
-         k6aw==
-X-Forwarded-Encrypted: i=1; AJvYcCVqoDeVDCFaIVqh/p/1Ydhbxb0YiKGpM+JyBqyxuWQphFoKQt88Cq4J/9zgaNxKHWwD7wqW/XxI/wQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Ywr8ASGDxdaZ+FVm8T1oUzUJkrk8MM8tkrwfKptwAA4L3B+FY0M
-	wGg0GQQtwmu0y0vQihgcO7/IIq7mFGunE2uE5NMISatcfD5lCE9kxppYC4ZG2DSbSg==
-X-Gm-Gg: ASbGnct6AGcmaasMGZtGlX3ZhrQloj0b0Us6VEIZN3oOFnwHDWDFYoCfd11+Lj20lw+
-	G5YZasRv8Tllh3E5+/hRIoTYOd6WV7n6JzZ4qrSAZj6zpRYFdCiYY/Wxywbn5xdWRhCo3Xu1Imt
-	prwr9oUqNd3numN0KoekAiZfsaWPSs69rUnLdrxwYR+egGjo0psF8SIJTSSQsFW0dnTo22aofLn
-	5sJR3iYPxyl/hErbERw5cIWaaf3clo7BypZKGS6U72Bx7yfT+hqHqPSmCC8tGXyZkzEQ24fayG1
-	Fxx/9oqbUuYmfSdgktZXxTsCKGpfOCAfA6yRlMzb0r0reCiXA1BMILIHV9c1P/d+S2s2g9x1yH/
-	UrF2KNTgEjYD70QYv6Q7IepFBIst6teHpA70=
-X-Google-Smtp-Source: AGHT+IGJHM3j1OoqHds2WTop51IEzxWY5/3TYMvbvkv/05LPVVv5adxHDtQ8ALQp90zdkJzj1VAibw==
-X-Received: by 2002:a05:6000:2289:b0:3a3:6a2b:ab25 with SMTP id ffacd0b85a97d-3a36a2bac49mr2005435f8f.45.1747558346848;
-        Sun, 18 May 2025 01:52:26 -0700 (PDT)
-Message-ID: <98c10f03-c5f9-4e89-9aed-596b5cc3f8fd@suse.com>
-Date: Sun, 18 May 2025 10:52:24 +0200
+        bh=Kz7f1C2I6AGys/C5VOBEZ9aH2iob1WrVwTpTuQEnu1g=;
+        b=FQlHK06XT/7JCnw+C9SlHnsxkjnD3MBntUyYY3CkMOnESeNLmhfH9JRuCnr+dR7inK
+         PsIPwdWSVI3aotjIDupoE34eIeLGFKo72AJKpnfdPUREEGWso4bhfC5qcLT0Pxzu19me
+         3a8aIz7778ZH3UrcV0Y5mcBewRUWWoTg0OOdezSIf4xqlg/ouotfme+j0WaRX9w69TZt
+         Tr8e8e4LMhTIWhnVAeOhhd+AHXh/AHZj9CVnHws8hCoYMPEvzoEiXuIrGruzAVcxgjQG
+         pgxRbSxifmrdTlH53hvO7V6M8QuZg5NHGrOlwkpIoDzHe8vPQNdksX3M0iWTkCjeP4BC
+         d6Sg==
+X-Forwarded-Encrypted: i=1; AJvYcCWfmwyjdItiGNRtTcG3f0PlDegbLclC33dKBuxBZBBj72/KQImY+UJZcBE3m4FOF0gnEM5mcgwc4P4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx7zRcFaW2pVD2ZbR7dingYUgqTDEr/9Xm29QsxzBvPrZ/cqDld
+	oexap4DPhjwe8c4uC05tM++ea3G3g4YBVmX8B+VnCKzj2RcJdMpWkJjUV8q8HykvgQ==
+X-Gm-Gg: ASbGncvCU+QW14197jp1J1LWGbBOv7gxfrs5PE7NpWePOqUcNMDwpSdAWCgJjd2wEIc
+	CkPtV3wgUpSITTe9mndsy4hBNqwfTvubT3ewj/06cmy8jermJKHCtbyuDWuvhTqYC7hUVVThbdE
+	8AOXci204ntpWnq2X4MI4bQYJq+6LGS2v+HOsTPyY9RoEyFaJNYEH7s4wqGYhpuTnakkhTKnIe6
+	qaGDgKgJvyhrV1u0WdH3IhiznWbtb7vq9zSjej6MvDxI0lVpz+FVvAnXc5AhWJZ+A231AijgzVb
+	6sGkIaMWln3xNxOqfy6IY4K2mCVrXWd1Ge3InLaLM6O4XVjxswcIypq7CUIsWMV1X4kTzZuecHb
+	3lCKKDQ5vI844r1H3Onf2Sqc8
+X-Google-Smtp-Source: AGHT+IGis5/2Fy94dOE0bzoO//MlEp19t3QCpX/GEXA4BCqLUSkXOxToXkttCKwPpnwaQFPvqfx+IQ==
+X-Received: by 2002:a17:906:c113:b0:ad5:6174:f944 with SMTP id a640c23a62f3a-ad56174fb0amr185603466b.50.1747558667720;
+        Sun, 18 May 2025 01:57:47 -0700 (PDT)
+Message-ID: <bbbf5488-e501-4e1d-8eff-c703e55f4456@suse.com>
+Date: Sun, 18 May 2025 10:57:44 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 1/2] xen/domain: unify domain ID allocation
+Subject: Re: [PATCH v6 2/2] xen/domain: adjust domain ID allocation for Arm
 To: dmkhn@proton.me
 Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org,
  michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org,
  dmukhin@ford.com, xen-devel@lists.xenproject.org
 References: <20250516020434.1145337-1-dmukhin@ford.com>
- <20250516020434.1145337-2-dmukhin@ford.com>
+ <20250516020434.1145337-3-dmukhin@ford.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <20250516020434.1145337-2-dmukhin@ford.com>
+In-Reply-To: <20250516020434.1145337-3-dmukhin@ford.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 16.05.2025 04:04, dmkhn@proton.me wrote:
-> From: Denis Mukhin <dmukhin@ford.com>
-> 
-> Currently, hypervisor code has two different non-system domain ID allocation
-> implementations:
-> 
->   (a) Sequential IDs allocation in dom0less Arm code based on max_init_domid;
-> 
->   (b) Sequential IDs allocation in XEN_DOMCTL_createdomain; does not use
->       max_init_domid (both Arm and x86).
-> 
-> It makes sense to have a common helper code for such task across architectures
-> (Arm and x86) and between dom0less / toolstack domU allocation.
-> 
-> Wrap the domain ID allocation as an arch-independent function domid_alloc() in
-> common/domain.c based on rangeset.
-> 
-> Allocation algorithm:
-> - If an explicit domain ID is provided, verify its availability and
->   use it if ID is not used;
-> - Otherwise, perform an exhaustive search starting from the end of the used
->   domain ID range. domid_alloc() guarantees that two subsequent calls will
->   result in different IDs allocation.
-While you properly retain original logic now, the above is not an accurate
-description thereof, imo. To search "from the end" usually is understood as
-a backwards search. Whereas what you mean is that the search starts off where
-the last one finished, wrapping around when hitting the end of the valid
-range.
+> --- a/xen/common/domain.c
+> +++ b/xen/common/domain.c
+> @@ -85,7 +85,7 @@ void __init domid_init(void)
+>   *
+>   * If hint is outside of valid [0..DOMID_FIRST_RESERVED - 1] range of IDs,
+>   * perform an exhaustive search starting from the end of the used domain ID
+> - * range.
+> + * range, excluding get_initial_domain_id() ID.
+>   */
+>  domid_t domid_alloc(domid_t domid)
+>  {
+> @@ -103,6 +103,9 @@ domid_t domid_alloc(domid_t domid)
+>              if ( domid == DOMID_FIRST_RESERVED )
+>                  domid = 0;
+>  
+> +            if ( domid == get_initial_domain_id() )
+> +                continue;
+> +
+>              if ( !rangeset_contains_singleton(domid_rangeset, domid) )
+>                  break;
+>          }
+
+Isn't there a (perhaps even pre-existing) issue here with a DomU potentially
+getting ID 0 assigned when get_initial_domain_id() returns non-zero?
 
 Jan
 
