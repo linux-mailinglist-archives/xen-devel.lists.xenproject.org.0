@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B212ABBEEB
-	for <lists+xen-devel@lfdr.de>; Mon, 19 May 2025 15:16:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.989800.1373753 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 18907ABBEF1
+	for <lists+xen-devel@lfdr.de>; Mon, 19 May 2025 15:19:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.989808.1373763 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uH0MI-00025E-MI; Mon, 19 May 2025 13:16:46 +0000
+	id 1uH0Oi-0002ce-1f; Mon, 19 May 2025 13:19:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 989800.1373753; Mon, 19 May 2025 13:16:46 +0000
+Received: by outflank-mailman (output) from mailman id 989808.1373763; Mon, 19 May 2025 13:19:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uH0MI-000230-J2; Mon, 19 May 2025 13:16:46 +0000
-Received: by outflank-mailman (input) for mailman id 989800;
- Mon, 19 May 2025 13:16:45 +0000
+	id 1uH0Oh-0002Zt-VA; Mon, 19 May 2025 13:19:15 +0000
+Received: by outflank-mailman (input) for mailman id 989808;
+ Mon, 19 May 2025 13:19:14 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=cAbn=YD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uH0MH-00022p-51
- for xen-devel@lists.xenproject.org; Mon, 19 May 2025 13:16:45 +0000
-Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
- [2a00:1450:4864:20::52d])
+ id 1uH0Og-0002Zn-U2
+ for xen-devel@lists.xenproject.org; Mon, 19 May 2025 13:19:14 +0000
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [2a00:1450:4864:20::62d])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8266f2e6-34b3-11f0-a2fa-13f23c93f187;
- Mon, 19 May 2025 15:16:44 +0200 (CEST)
-Received: by mail-ed1-x52d.google.com with SMTP id
- 4fb4d7f45d1cf-6020053cbd5so365932a12.3
- for <xen-devel@lists.xenproject.org>; Mon, 19 May 2025 06:16:44 -0700 (PDT)
+ id dbc06327-34b3-11f0-a2fa-13f23c93f187;
+ Mon, 19 May 2025 15:19:14 +0200 (CEST)
+Received: by mail-ej1-x62d.google.com with SMTP id
+ a640c23a62f3a-ad563b69908so194561166b.3
+ for <xen-devel@lists.xenproject.org>; Mon, 19 May 2025 06:19:14 -0700 (PDT)
 Received: from [10.1.250.198] ([80.188.125.198])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6005a6e746csm5914744a12.47.2025.05.19.06.16.42
+ a640c23a62f3a-ad52d04af35sm592297066b.32.2025.05.19.06.19.12
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 19 May 2025 06:16:43 -0700 (PDT)
+ Mon, 19 May 2025 06:19:13 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,139 +45,106 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8266f2e6-34b3-11f0-a2fa-13f23c93f187
+X-Inumbo-ID: dbc06327-34b3-11f0-a2fa-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1747660603; x=1748265403; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1747660753; x=1748265553; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=WD8V0FqycuvaqmNySlstSxhbQi/5XV6hGxtYY5KusOE=;
-        b=fdnV8OeV/BDpPhH3wk/1ukGTV/GY9G+odZGQwDA9uQm2VQwsSG+AwGRi7Nr4a/EOnK
-         JXPH+ewNh8spmV52riONWZQhaD85IaRDZ59U5HSBM0IMWPtwhjfF2x2h9Y8fUxkPuM6Q
-         KwURdwUN5isa9Pevt+qnVebt8FDIQC1JnIkIjic3Kb9OjqXl7Ebug+ZH8F1R1qIBmHZp
-         AFbuxQ+j8ahd/c0f9Q1bRemNJ40XbLLInWKOlTwrFKguRTMLhB65c+c4WtKkIIZICXDT
-         PTMUQyEq0BVPcPiEJJdngx7qSVR98rFZc9BVyHi9CsEbVLRL4OK0LNynfh2i22tvHCPO
-         kQNQ==
+        bh=7VcApOWdiLIxQVkLmWx6pEU+M+qAz3pD4fzMs27qcn8=;
+        b=E1FQl2IkM3GhdiGjF3E74oKFZeJ3wUG2sSLxCgedrCP2vnOofqcRU6QA3Cm0n15l4C
+         aDk0gK+TIfDRwXDy2svLuzN3/kdJv9RlUQPMd9VSSjnRecq4RCmme7Cz48xZKBn4A9Hs
+         mWhvcE5sp9Tt+9I0tezxHuafOIHh+YwwF8aXmcSZKHSTLKxwiUuxNH01TTVkMAhCKFIE
+         tLD2gnZQFbL8Gm9reKWiPtZoXSGSigTwAXaqA2GKeWv3MoG4vH9Hf2Ro3yamf7gAPCGy
+         4E+Op0lYwvtbEX9UJ7bSfqGViZLeiSL331NgZaFqRducz7rVDBXnatvCx7NLEwe9E7sz
+         xsiw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747660603; x=1748265403;
+        d=1e100.net; s=20230601; t=1747660753; x=1748265553;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=WD8V0FqycuvaqmNySlstSxhbQi/5XV6hGxtYY5KusOE=;
-        b=C8PFvGBe5i5eNUavARGDBrhuHBwtzpBMXH6rkQ7H2/nvljgLCoH5v+7NvYZ5ybVaEO
-         FUhSe3NvIm3wA5xiZWSg2KZUvZeFEIM/wNWigQJrHXo1LYgRlBauH6sdtDmUsCM2CDOq
-         O3LmjHL81qyoL9l/T6oatIk1pF7mrLpr2pBZm2Z4nzpGD5yXsEQXT1OJQ338DtxW7AK7
-         bGOf1MnLu4M0wK469fA6l6zj/i6GltAFWLSnjE3N/moKU2yT+OldKhGxsQOup1ou4mL6
-         3QJd0aytNm2hzRpMExUwKGkflc7o+o9/vhKG0Zx7foCb66JaBaP8bP0+Rt+dDzwFjzr1
-         pV7g==
-X-Forwarded-Encrypted: i=1; AJvYcCXf95x7olLU18kiMnHun1P9x1oa9omEg6Z7MJdnglijDml8vdUrEum/6XOAMAdtuHt3aDEbsPCd7F8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwUD9V0FGlLdb8SaRKrHUBaAuSY5ntPCFZE47i5eKV6flvsrqy+
-	9dqvLA7tjgfVhF3+lDKr4FFuVrv8YxHdQrCVe+NcuVc7r5fFmHh5xp6ZPoZuV3uOGw==
-X-Gm-Gg: ASbGncsSvXjV0bjCIHurS0ywyCnecYpwBE9F7c4TpYSCwMySl/rwWDhu6EVH3O/Naat
-	nY/cj7eg9hWqa1u/w1+TsezlQYAQB/ccA4y/GpB1zK6ARQsrLvvvpJ41LKus3652QhpB3YNfbwM
-	zLrDokqDVM6jcZJDSix185jOKtf4bU7vcLPOdfcT9ytK4IcRUBTD/PsAHUaykFmGqsZCuEh/yri
-	76yVSzPIKVlLrz9UGcFhxAtw+YMhAGWk5oRnAqNBrYCH81TcuEFPPBH912M0seLL00B4D15xhMU
-	La/y5uUkTJ4GprNUmqhwW+I8hHqzdd0DlPEoR0MmnSZm7LEdL1YqoLAxXsk6YTs7DPMeVaG7
-X-Google-Smtp-Source: AGHT+IHgXCOMh5m04LxzlKxcWSn8SZr41xZhUdqsVxheOpW75MnMHhY6kihnRo2GLQd3bZj01dFwUw==
-X-Received: by 2002:a05:6402:50c9:b0:601:a681:4d5c with SMTP id 4fb4d7f45d1cf-601a6814f05mr6213982a12.32.1747660603609;
-        Mon, 19 May 2025 06:16:43 -0700 (PDT)
-Message-ID: <0c167d88-798c-46df-a912-60c4252a8e26@suse.com>
-Date: Mon, 19 May 2025 15:16:41 +0200
+        bh=7VcApOWdiLIxQVkLmWx6pEU+M+qAz3pD4fzMs27qcn8=;
+        b=qa59LjlOHVaCoHm+4wa6Yhz3rpzXXyb7Mh8c8d8kmW1y4l7bx1BdRBqkP/BVD19vpb
+         2xo1tGQj36kt8jjSAyS6s7XrsGbbWiIse8pVpX7wuYpHIic+evV6IcLDgzVn1LOpnkWB
+         xtglEdTfXTs+CL/z3+cKoRaKhKt0aRwKa5KcKuSAXJPWl8q+e/RnNcoRXM70kbMCpCA+
+         rLrTG/2Q9gGUHQTMeSLHBxkg1VVflG4aOktc645CjyS7g3Lq0sMwadZzOqVh6ZmEsatO
+         tTktPcITPbUabPSMyHdaFUlUMjIfSN80njVrik0R3wMx4BmwpoRc1XXYbNBPpoyc2P6X
+         UIFA==
+X-Forwarded-Encrypted: i=1; AJvYcCX0B8TL32hKGO25JAcaOLcT4SovO+D7l5eZXn54M+yhnYrirqZO1YUG7mWPRZ9ZGSJAE7pkPVYNx2s=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwG+Sv/Xk5vXYoVefxRoVqcbKNtefCYINZx4pTT9cJjNz6denu+
+	h5CwCBDdwfWgqelXxqRNiJ9TzmZj/V4f9QeNiYxrFBoxo34zzLSC9QdDDYCV1LBNVQ==
+X-Gm-Gg: ASbGncsxeTGNxKdXAKzoZwHFkZlRWtLEKumS0fx/w9+PYQYiQxJUspRWRzuSJTTKxqC
+	E82SvJ8+l/dhwBuooERIq/Jc6OOSR/Fq1rJCJfqD04uCfkWKLdmmcKUhgDlpr+uHO69zcN4v0Fh
+	0igC693pBy7xK83X2JotciwXuFkHvfdi5gUCLXJRjuXA0wvV2wbXO4fkQGt1lOp0eOyAH5n8bHG
+	C9Gh5NNFliZRK5bLznoRfBA9ZlYxGAEED198de71dCAev8dmGYc/8fEH17pAIK3jkHHUiL85AYn
+	ChkEJimrzZzyIFUedIL325JFEV9LfcWtohB6LbIX84giU9mNOlhZuWJENg0jYA==
+X-Google-Smtp-Source: AGHT+IFHUULXT9f5NSn1u39Zbnhwb2Rok/uZ509CdN0U6e7DlyCAeOvE7ujcI5+EBi3HUar6tBDfLg==
+X-Received: by 2002:a17:907:3fa2:b0:ad2:3577:38fb with SMTP id a640c23a62f3a-ad536bbf0fbmr1034080766b.30.1747660753465;
+        Mon, 19 May 2025 06:19:13 -0700 (PDT)
+Message-ID: <0f673a09-840c-4319-bec8-62fd920a6b84@suse.com>
+Date: Mon, 19 May 2025 15:19:11 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 09/16] xen/riscv: introduce register_intc_ops() and
- intc_hw_ops.
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [PATCH v4 05/15] xen/x86: introduce "cpufreq=amd-cppc" xen
+ cmdline
+To: "Penny, Zheng" <penny.zheng@amd.com>
+Cc: "Huang, Ray" <Ray.Huang@amd.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ "Orzel, Michal" <Michal.Orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
- Romain Caritey <Romain.Caritey@microchip.com>, xen-devel@lists.xenproject.org
-References: <cover.1746530883.git.oleksii.kurochko@gmail.com>
- <7cd7d3780bb6db45b92c971ff8bcf2634570431f.1746530883.git.oleksii.kurochko@gmail.com>
- <2436be2e-28d4-4e48-a391-84b21651b339@suse.com>
- <9c202b56-ad59-481b-924a-addefcea84cd@gmail.com>
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <20250414074056.3696888-1-Penny.Zheng@amd.com>
+ <20250414074056.3696888-6-Penny.Zheng@amd.com>
+ <57a3b2c0-d57d-46e3-b248-0e243f715423@suse.com>
+ <IA1PR12MB846717BD0A9E985C9E22AEFDE19CA@IA1PR12MB8467.namprd12.prod.outlook.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <9c202b56-ad59-481b-924a-addefcea84cd@gmail.com>
+In-Reply-To: <IA1PR12MB846717BD0A9E985C9E22AEFDE19CA@IA1PR12MB8467.namprd12.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 19.05.2025 11:16, Oleksii Kurochko wrote:
+On 19.05.2025 10:36, Penny, Zheng wrote:
+> [Public]
 > 
-> On 5/15/25 10:06 AM, Jan Beulich wrote:
->> On 06.05.2025 18:51, Oleksii Kurochko wrote:
->>> --- a/xen/arch/riscv/include/asm/intc.h
->>> +++ b/xen/arch/riscv/include/asm/intc.h
->>> @@ -8,6 +8,8 @@
->>>   #ifndef ASM__RISCV__INTERRUPT_CONTOLLER_H
->>>   #define ASM__RISCV__INTERRUPT_CONTOLLER_H
->>>   
->>> +#include <xen/irq.h>
->> If you need this include anyway, why ...
+>> -----Original Message-----
+>> From: Jan Beulich <jbeulich@suse.com>
+>> Sent: Tuesday, April 29, 2025 8:52 PM
+>> To: Penny, Zheng <penny.zheng@amd.com>
+>> Cc: Huang, Ray <Ray.Huang@amd.com>; Andrew Cooper
+>> <andrew.cooper3@citrix.com>; Anthony PERARD <anthony.perard@vates.tech>;
+>> Orzel, Michal <Michal.Orzel@amd.com>; Julien Grall <julien@xen.org>; Roger Pau
+>> Monné <roger.pau@citrix.com>; Stefano Stabellini <sstabellini@kernel.org>; xen-
+>> devel@lists.xenproject.org
+>> Subject: Re: [PATCH v4 05/15] xen/x86: introduce "cpufreq=amd-cppc" xen
+>> cmdline
 >>
->>> @@ -17,6 +19,26 @@ struct intc_info {
->>>       const struct dt_device_node *node;
->>>   };
->>>   
->>> +struct irq_desc;
->> ... this "forward" decl for something that's then already fully defined?
->> I can't, however, spot why xen/irq.h would be needed for anything ...
-> 
-> forward decl for irq_desc could be really dropped.
-> 
-> Inclusion of xen/irq.h was added because of hw_irq_controller which is defined as:
->    typedef const struct hw_interrupt_type hw_irq_controller;
-> 
-> And I'm not sure how to do forward declaration properly in this case. Just use
-> an explicit definition of hw_irq_controller for host_irq_type member of struct
-> intc_hw_operations seems as not the best one option:
->    struct hw_interrupt_type;
-
-This isn't needed for the use below.
-
->    struct intc_hw_operations {
->        ...
->        // const hw_irq_controller *host_irq_type;
->        const struct hw_interrupt_type *host_irq_type;
-
-It might be that something like this is already done elsewhere in the tree,
-so not really an issue imo if a 2nd instance appeared.
-
-> It seems like the best one option is to do the following:
->    typedef const struct hw_interrupt_type hw_irq_controller; in asm/intc.h.
-> I will follow it then.
-
-Misra may dislike this.
-
->>> --- a/xen/arch/riscv/intc.c
->>> +++ b/xen/arch/riscv/intc.c
->>> @@ -5,6 +5,15 @@
->>>   #include <xen/init.h>
->>>   #include <xen/lib.h>
->>>   
->>> +#include <asm/intc.h>
->>> +
->>> +static struct __ro_after_init intc_hw_operations *intc_hw_ops;
->> Nit: Attributes between type and identifier please. Also shouldn't both
->> this and ...
+>> On 14.04.2025 09:40, Penny Zheng wrote:
+>>> --- a/xen/include/acpi/cpufreq/processor_perf.h
+>>> +++ b/xen/include/acpi/cpufreq/processor_perf.h
+>>> @@ -5,6 +5,9 @@
+>>>  #include <public/sysctl.h>
+>>>  #include <xen/acpi.h>
+>>>
+>>> +/* ability bits */
+>>> +#define XEN_PROCESSOR_PM_CPPC   8
 >>
->>> +void __init register_intc_ops(struct intc_hw_operations *ops)
->> ... the parameter here be pointer-to-const?
+>> This needs correlating (at least via commentary, better by build-time checking) with
+>> the other XEN_PROCESSOR_PM_* values. Otherwise someone adding a new
+>> #define in the public header may not (easily) notice a possible conflict. With that in
+>> mind I also question whether 8 is actually a good choice: That's the obvious next
+>> value to use in the public interface. SIF_PM_MASK is 8 bits wide, so a sensible
+>> value to use here would by e.g. 0x100.
+>>
 > 
-> Then|intc_hw_ops| should also be marked as|const| (with the removal of|__ro_after_init|),
+> I've added a public flag anchor "XEN_PROCESSOR_PM_PUBLIC_END" in public header:
+>          #define XEN_PROCESSOR_PM_PUBLIC_END    XEN_PROCESSOR_PM_TX
+> and will do the following build-time checking:
+>         BUILD_BUG_ON(XEN_PROCESSOR_PM_CPPC <= XEN_PROCESSOR_PM_PUBLIC_END);
 
-Why remove the attribute?
-
-> otherwise a compilation error will occur (something like/"assignment discards 'const' qualifier"/).
-> 
-> Additionally,|__ro_after_init| should be replaced with|const| for|aplic_ops| in future
-> patches.
-
-Same question here then.
+I don't really see why anything would need to be added to the public
+header (and we really should strive to avoid unnecessary additions).
 
 Jan
 
