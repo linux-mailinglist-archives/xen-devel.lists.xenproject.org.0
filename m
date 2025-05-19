@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D47ABABC768
-	for <lists+xen-devel@lfdr.de>; Mon, 19 May 2025 20:55:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.990135.1374074 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D8C5ABC79B
+	for <lists+xen-devel@lfdr.de>; Mon, 19 May 2025 21:11:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.990146.1374084 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uH5db-0002Fv-Pe; Mon, 19 May 2025 18:54:59 +0000
+	id 1uH5sz-00051J-2m; Mon, 19 May 2025 19:10:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 990135.1374074; Mon, 19 May 2025 18:54:59 +0000
+Received: by outflank-mailman (output) from mailman id 990146.1374084; Mon, 19 May 2025 19:10:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uH5db-0002Cq-MM; Mon, 19 May 2025 18:54:59 +0000
-Received: by outflank-mailman (input) for mailman id 990135;
- Mon, 19 May 2025 18:54:58 +0000
+	id 1uH5sy-0004yp-VK; Mon, 19 May 2025 19:10:52 +0000
+Received: by outflank-mailman (input) for mailman id 990146;
+ Mon, 19 May 2025 19:10:52 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=cAbn=YD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uH5da-0002Cj-1o
- for xen-devel@lists.xenproject.org; Mon, 19 May 2025 18:54:58 +0000
-Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
- [2a00:1450:4864:20::52b])
+ id 1uH5sy-0004yj-0n
+ for xen-devel@lists.xenproject.org; Mon, 19 May 2025 19:10:52 +0000
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [2a00:1450:4864:20::635])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c18fdbd5-34e2-11f0-a2fa-13f23c93f187;
- Mon, 19 May 2025 20:54:56 +0200 (CEST)
-Received: by mail-ed1-x52b.google.com with SMTP id
- 4fb4d7f45d1cf-601f278369bso2552657a12.1
- for <xen-devel@lists.xenproject.org>; Mon, 19 May 2025 11:54:56 -0700 (PDT)
+ id fa7eb413-34e4-11f0-a2fa-13f23c93f187;
+ Mon, 19 May 2025 21:10:50 +0200 (CEST)
+Received: by mail-ej1-x635.google.com with SMTP id
+ a640c23a62f3a-ad53cd163d9so551487266b.0
+ for <xen-devel@lists.xenproject.org>; Mon, 19 May 2025 12:10:50 -0700 (PDT)
 Received: from [10.1.250.198] ([80.188.125.198])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6005ae39995sm6076089a12.72.2025.05.19.11.54.54
+ a640c23a62f3a-ad52d490789sm628733566b.130.2025.05.19.12.10.48
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 19 May 2025 11:54:55 -0700 (PDT)
+ Mon, 19 May 2025 12:10:49 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,164 +45,95 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c18fdbd5-34e2-11f0-a2fa-13f23c93f187
+X-Inumbo-ID: fa7eb413-34e4-11f0-a2fa-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1747680896; x=1748285696; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1747681850; x=1748286650; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=5PK03mMqj/0S146CdDeFCztdaufZ9Ig4GSYXkx7uJko=;
-        b=SUgr68ZmQyHaXdEaR+8yUiFOAfnBzJ+1zQzLkQB9X607kC0VCq2Y0TDjfHkvDCPqdX
-         saxOB6uJ0RosAATHDiqjLgMAr+P44W1xlJMWkaTr/JkRoUvT7RR8iVIUkn9uGgPa6W1N
-         qr8h9Y3J/Kc1ARkFoXDSYaiKeOy11gI3kaGv++KslyEdmvUQsgf+sUW1fUprASPD5a1f
-         w4ZEjagQQNsQFw6u9KSRaW7JBY7jcf0lluaEWTewL2RGMbptTphfI2mb6BTQOq7zAT/u
-         JJAyXdwJ/YfMDyNbhUOd+Q1f7Dl/OqOabugIgJI8r14AM3Ake6hiktjg8sDXk7l5MY0Z
-         IeHw==
+        bh=R/wD01PMybT2LQnhKga9JH5u3GQCYLAHtw5OWeAnBH4=;
+        b=LQu7lI1aJcLYCg5mgeZ8iYzjRI+WseYirJtIf+ln1cuhxAE+wlrnRePYQZF+cnvp0I
+         btNIKl91cQesTAz/Kv5qPWIVGTmgm+x9Oy4NkFkuN+s+0Kvzdwm+eMpWM8tsHYQf89fW
+         rd+ShDVhbO5PReuSJQmbELonBaxQUQcB2EfK8dbLpq7Cootj7qPh1hxTizFOF7xZzrNk
+         WrMF4zfg6WYZLr+wdlTXkqmleO85BijgSHa6297pF9ueVqA7zqnQxsAOEzJCa9MrdMCu
+         y4l1EKhOQr54EmGhjg7NdKTT9gotOBYjslWy0Caeyu9+nkXXQFa1c6kItLjoFjrg6zfU
+         oOwQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747680896; x=1748285696;
+        d=1e100.net; s=20230601; t=1747681850; x=1748286650;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=5PK03mMqj/0S146CdDeFCztdaufZ9Ig4GSYXkx7uJko=;
-        b=i0muksvN160qoOxOVwVL/tah0DffBWhIxndah99h+vYEBQoK2/jsilw7O0t71mdQCh
-         mf6r8lh6ibnLDnElVY5jli/7VLTEGMBsi0PrzQ7ESvlAQ0/EbTzdp1rELbgvARY5fdi0
-         LYtIRVhX+UMSqD8ktZWvuMuNEcte3qyisdZErElEYoImhML1yXpz6uMYEQLZeSAwTBmv
-         b+g7PqfFww8gPNgT2PzgrwTfoPfajTVD+7qJT39Dz+jcYApso0bvS6KnstFbnk3r6ufq
-         cHXGkSY+LTSKqAO/MFtebQyfftSWTP0LFMqh8/booCHCmClb0x0gp62xmdsI2qmESbP2
-         xgOg==
-X-Forwarded-Encrypted: i=1; AJvYcCWFnFaxOMVXqu1JQh/ogpZ6KT5fbG7PqFBrXPsJIbQrG25qHFtw79EgCbe6lQE8vQ0u+07ApDtLzoE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Ywl9Tejd8uiN+Cwb83wNnfBn7tVyae09rAq8PXG8zCN50yrfdlA
-	zL4W6S8kJHcubI0q5Sxn+yJ38Zy800F1eydjrtFFRvWznrBHr44Pwb3/On5Fq+wTXQ==
-X-Gm-Gg: ASbGncsLt/zGQHbc70KxSsPjN21DUNK/LpNgVNwr2tZmBXl00jJ48UdSgRyFct8IMwj
-	LvWglCCF2rYkLEd/bh6cdVU1v147BO8VKBa0Q4AaipLKr3Zj6emmx5W8eN7k9XECmpzO01Bw4Td
-	G3I2SDqptlopt4xIZrt6rcfNc9K+AHgzxYGglUyBSpo/uzVhQ8c7VrCV9FZyR43XvMxiLj6WIrz
-	nIqGkmLJipeL500hNnR1TGiLtLFgtlfHvTVEbBY+X22Q1CUaDdXT8XSfK4qeDfFYiP6cvDSQeXg
-	+DeLppgw8lf5RfyJ3K9wlUsJ5jWX8b/rW72NBg/ZbU9dQZOOLyCD3JREmcKcQQ==
-X-Google-Smtp-Source: AGHT+IEOH7PUbOGQklXTnyGpdk04LH6cpNxSVHy3Eo28Zz5LxPUOR3xodbp2FNIkRQ4lyryKbTNXeQ==
-X-Received: by 2002:a05:6402:5216:b0:5fc:954e:efb6 with SMTP id 4fb4d7f45d1cf-6008a39230dmr12211691a12.6.1747680895814;
-        Mon, 19 May 2025 11:54:55 -0700 (PDT)
-Message-ID: <092559d7-ddfd-44f2-9854-779770e24b8a@suse.com>
-Date: Mon, 19 May 2025 20:54:54 +0200
+        bh=R/wD01PMybT2LQnhKga9JH5u3GQCYLAHtw5OWeAnBH4=;
+        b=N2Tc1AoYjoPjiQowEnvym8oMbveD+VnUTVB5hfwairZ7RuJSk7OPSHYHCpkc77ulnT
+         3ooerzKzlHq+i4k6Wwujzuvwmu0lHUXczBAXPVEvCGMIfmNv4DaA0maNP2SozbfpkTeo
+         MsOm1y+qkSl9yzYnQN/Y3hS2O1HTZBX1M1Yy0m2l2flh9j3EoJdGezDDMrAnc1HY0xZY
+         s2DrE1t5aircN6jqFKC8iBOzfaxc+k3EPwJMufDQr+eIeISc7GNZ48VQqBBpxYQb9/by
+         /hp2WHOzkMyvqXC+lVVkGoLLs5iRCd0QpuJzBoi1+SX5UoTSHRCOAXSwENgo8qaMbvih
+         O1Yg==
+X-Forwarded-Encrypted: i=1; AJvYcCUiUBdnx0sEtIrKLyyswa+HphjFaW11LbhziMTjYTVYdiGYYjSgmVcQHyoVVk1FAokoeQwO8eYAhSU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz3aGom9ZjiaPpPD0sy6MeOfS3frIajFOtJjT6jzv0yuetJkOBm
+	9LluIRU17v5f9Nhm7JI4acP/nAStEF0+i3l0jDFjAteWjRgbcZTcQWCdfPbsbpeNrg==
+X-Gm-Gg: ASbGncvuPnjpUXiq4yFFCpAvCeXP38EhDlGkwsPGh3F+wJCzDrJlzOd5bPz248RdfRx
+	lU7t6s4tlwCuKk0WvONC+tBPZfrPt9SGQGDWurCkM6uPhyA+voihTkl3THc8TaTCMnyROAxmUEv
+	e2wLBIIqIRxVhoS63dfUGaM+ltp35Qy8aabnkGD7QlmttWofVg8FAcNVfAXapLHM671Vym+l51h
+	qW/TQ6zGkc1C/M7cKFj7zWdnu9X2xDF9l3rarjcYH8+vQJaenp5uJOE1Salha7P9L4xlrbw2C2D
+	DGqEscLpo2u+8K7ew85lX0d67pzMeERM1jnGkuPqxMmeiNyOqek2qq6o4TfsVw==
+X-Google-Smtp-Source: AGHT+IFPNcA5rBMSQP1zWY2N+HkTWpXl/YTmKwrOvnW7ZGrZkvs1h6LeQwVibg/pOTPxJrFVuYK6xQ==
+X-Received: by 2002:a17:907:980d:b0:ad2:4736:9c07 with SMTP id a640c23a62f3a-ad52d42bf01mr1342163066b.2.1747681850436;
+        Mon, 19 May 2025 12:10:50 -0700 (PDT)
+Message-ID: <a967e60c-0474-46ac-87c0-d1d6ce5ce289@suse.com>
+Date: Mon, 19 May 2025 21:10:48 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v4 5/8] xen/domctl: extend XEN_DOMCTL_assign_device to
- handle not only iommu
-To: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>,
- Grygorii Strashko <grygorii_strashko@epam.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Bertrand Marquis <bertrand.marquis@arm.com>, Juergen Gross
- <jgross@suse.com>, Julien Grall <julien@xen.org>,
- Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <cover.1747669845.git.oleksii_moisieiev@epam.com>
- <4f58bf9c47c40413ee9250c4cd21458382aac857.1747669845.git.oleksii_moisieiev@epam.com>
+Subject: Re: [PATCH] xen: Give compile.h header guards
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20250519135227.27386-1-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <4f58bf9c47c40413ee9250c4cd21458382aac857.1747669845.git.oleksii_moisieiev@epam.com>
+In-Reply-To: <20250519135227.27386-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 19.05.2025 17:50, Oleksii Moisieiev wrote:
-> --- a/xen/arch/arm/firmware/sci.c
-> +++ b/xen/arch/arm/firmware/sci.c
-> @@ -126,6 +126,43 @@ int sci_assign_dt_device(struct domain *d, struct dt_device_node *dev)
->      return 0;
->  }
+On 19.05.2025 15:52, Andrew Cooper wrote:
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+Is this to please Misra in some way?
+
+> --- a/xen/include/xen/compile.h.in
+> +++ b/xen/include/xen/compile.h.in
+> @@ -1,3 +1,6 @@
+> +#ifndef XEN_COMPILE_H
+> +#define XEN_COMPILE_H
+> +
+>  #define XEN_COMPILE_DATE	"@@date@@"
+>  #define XEN_COMPILE_TIME	"@@time@@"
+>  #define XEN_COMPILE_BY		"@@whoami@@"
+> --- a/xen/tools/process-banner.sed
+> +++ b/xen/tools/process-banner.sed
+> @@ -12,3 +12,8 @@ s_(.*)_"\1\\n"_
 >  
-> +int sci_do_domctl(struct xen_domctl *domctl, struct domain *d,
-> +                  XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
-> +{
-> +    struct dt_device_node *dev;
-> +    int ret = 0;
+>  # Trailing \ on all but the final line.
+>  $!s_$_ \\_
 > +
-> +    switch ( domctl->cmd )
-> +    {
-> +    case XEN_DOMCTL_assign_device:
-> +        ret = -EOPNOTSUPP;
-> +        if ( domctl->u.assign_device.dev != XEN_DOMCTL_DEV_DT )
-> +            break;
-> +
-> +        if ( !cur_mediator )
-> +            break;
-> +
-> +        if ( !cur_mediator->assign_dt_device )
-> +            break;
-> +
-> +        ret = dt_find_node_by_gpath(domctl->u.assign_device.u.dt.path,
-> +                                    domctl->u.assign_device.u.dt.size, &dev);
-> +        if ( ret )
-> +            return ret;
-> +
-> +        ret = sci_assign_dt_device(d, dev);
-> +        if ( ret )
-> +            break;
+> +# Append closing header guard
+> +$a\
+> +\
+> +#endif /* XEN_COMPILE_H */
 
-These two lines are pointless when directly followed by ...
+This split of #ifndef and #endif is ugly. Can't we switch to something
+more conventional, like
 
-> +
-> +        break;
+#define XEN_BANNER		"@@banner@@"
 
-... this. Misra calls such "dead code" iirc.
-
-> --- a/xen/arch/arm/include/asm/firmware/sci.h
-> +++ b/xen/arch/arm/include/asm/firmware/sci.h
-> @@ -146,6 +146,14 @@ int sci_dt_finalize(struct domain *d, void *fdt);
->   * control" functionality.
->   */
->  int sci_assign_dt_device(struct domain *d, struct dt_device_node *dev);
-> +
-> +/*
-> + * SCI domctl handler
-> + *
-> + * Only XEN_DOMCTL_assign_device is handled for now.
-> + */
-> +int sci_do_domctl(struct xen_domctl *domctl, struct domain *d,
-> +                  XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl);
->  #else
->  
->  static inline bool sci_domain_is_enabled(struct domain *d)
-> @@ -195,6 +203,12 @@ static inline int sci_assign_dt_device(struct domain *d,
->      return 0;
->  }
->  
-> +static inline int sci_do_domctl(struct xen_domctl *domctl, struct domain *d,
-> +                                XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
-> +{
-> +    return 0;
-> +}
-> +
->  #endif /* CONFIG_ARM_SCI */
->  
->  #endif /* __ASM_ARM_SCI_H */
-
-This being an Arm-specific header, how does ...
-
-> @@ -851,6 +852,24 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
->      case XEN_DOMCTL_deassign_device:
->      case XEN_DOMCTL_get_device_group:
->          ret = iommu_do_domctl(op, d, u_domctl);
-> +
-> +        if ( !ret || ret == -EOPNOTSUPP )
-> +        {
-> +            int ret1;
-> +            /*
-> +             * Add chained handling of assigned DT devices to support
-> +             * access-controller functionality through SCI framework, so
-> +             * DT device assign request can be passed to FW for processing and
-> +             * enabling VM access to requested device.
-> +             * The access-controller DT device processing is chained after IOMMU
-> +             * processing and expected to be executed for any DT device
-> +             * regardless if DT device is protected by IOMMU or not (or IOMMU
-> +             * is disabled).
-> +             */
-> +            ret1 = sci_do_domctl(op, d, u_domctl);
-
-... this compile on non-Arm? I think I said so before: I don't like this
-sitting in common code anyway. Is there really no way to put it in Arm-
-specific code?
+with the first sed invocation then replacing this by the result of
+a nested sed invocation using process-banner.sed (which of course would
+need adjusting some)? (Maybe the double quotes would need omitting here,
+for process-banner.sed to uniformly apply them.)
 
 Jan
 
