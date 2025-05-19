@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D010ABC7D8
-	for <lists+xen-devel@lfdr.de>; Mon, 19 May 2025 21:31:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.990210.1374153 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD7EAABC7F2
+	for <lists+xen-devel@lfdr.de>; Mon, 19 May 2025 21:40:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.990217.1374164 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uH6Cc-0002n7-4u; Mon, 19 May 2025 19:31:10 +0000
+	id 1uH6LV-0004LC-0F; Mon, 19 May 2025 19:40:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 990210.1374153; Mon, 19 May 2025 19:31:10 +0000
+Received: by outflank-mailman (output) from mailman id 990217.1374164; Mon, 19 May 2025 19:40:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uH6Cc-0002kj-2I; Mon, 19 May 2025 19:31:10 +0000
-Received: by outflank-mailman (input) for mailman id 990210;
- Mon, 19 May 2025 19:31:09 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uH6LU-0004If-T3; Mon, 19 May 2025 19:40:20 +0000
+Received: by outflank-mailman (input) for mailman id 990217;
+ Mon, 19 May 2025 19:40:19 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=wD6k=YD=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
- id 1uH6Cb-0002kc-Jb
- for xen-devel@lists.xenproject.org; Mon, 19 May 2025 19:31:09 +0000
-Received: from mail-24417.protonmail.ch (mail-24417.protonmail.ch
- [109.224.244.17]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id cf8abddd-34e7-11f0-b892-0df219b8e170;
- Mon, 19 May 2025 21:31:07 +0200 (CEST)
+ id 1uH6LT-0004IZ-BU
+ for xen-devel@lists.xenproject.org; Mon, 19 May 2025 19:40:19 +0000
+Received: from mail-4316.protonmail.ch (mail-4316.protonmail.ch [185.70.43.16])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 17d4d88c-34e9-11f0-a2fa-13f23c93f187;
+ Mon, 19 May 2025 21:40:18 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,79 +36,70 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cf8abddd-34e7-11f0-b892-0df219b8e170
+X-Inumbo-ID: 17d4d88c-34e9-11f0-a2fa-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1747683066; x=1747942266;
-	bh=5WtLiQhEqyCqxTfrs3BWG+IdQfpdRybAo/Mk4kZdsAc=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector:List-Unsubscribe:List-Unsubscribe-Post;
-	b=XFVIaqknv5L59a4viFPwggTUz6jPPJc7QTs8tA2Ym2b1k5Y6+CVlBfvn7Y2MPgjDh
-	 k0FD95bbWcPcnjvoF/Q2DDuH6wzr1nmZV4DM3ZWRvevt5aY5080xJxyC2inSZ4pStM
-	 joRjrvi8rt0c4MBemeMtZ3KlGBQsNGBwNo7lKry2ijxAfiyrfvhzGuhjM8S35Xl9ZV
-	 LT5sOyiqEdDnIBl0vb8D9ulB+XNKlhGcbFu0N8RkBYB0Ix4hKeHb6Jl3vRS3SChiM4
-	 iId9GwOPvHjJM0T8JSNzwdBufe626v1OpiS0W/PpxnUmhlZ6qR/zlzt26Neb9TaMxq
-	 FI1EBWYlSRwbQ==
-Date: Mon, 19 May 2025 19:31:02 +0000
-To: Jan Beulich <jbeulich@suse.com>
+	s=protonmail; t=1747683616; x=1747942816;
+	bh=6QHXa3icmGRPFD0w15MS/LTXzAqACSE6Jxm0cnbJJuk=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector:
+	 List-Unsubscribe:List-Unsubscribe-Post;
+	b=X2/804Xy236AYGJ2af+wHt8nyjWCwIWi5A0+0BEoDR3clF3530UCo2x5jnuOByADG
+	 vOgK/4SCvYQSiAxyDxXAl5fTDv5z0WfPCB76GypXlwImmqOWodp9KfcwC5FKdiQcRv
+	 zfkY9PBsJ7fNhaEwKCX2x1bM1TYZfM+Z9nL/XOzbPNxFV0Y+4+KS3JDF7ryQtNo9XD
+	 RVd/xEW10M1WDFkO0/qsDO7lPLP50GD72LFvI8GUo3qZ5UKOZQc1zhPe0Xp1GCotbe
+	 VuV/Uy2MeFKhuVxBrb6LeP6Yq9bpFOiJ6olO43UCp1L5kxeKMzrfuCoj4OXs2lBomq
+	 q8vmGkm4iD6fQ==
+Date: Mon, 19 May 2025 19:40:11 +0000
+To: xen-devel@lists.xenproject.org
 From: dmkhn@proton.me
-Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com, xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v6 1/2] xen/domain: unify domain ID allocation
-Message-ID: <aCuG8TffcquVYWod@kraken>
-In-Reply-To: <98c10f03-c5f9-4e89-9aed-596b5cc3f8fd@suse.com>
-References: <20250516020434.1145337-1-dmukhin@ford.com> <20250516020434.1145337-2-dmukhin@ford.com> <98c10f03-c5f9-4e89-9aed-596b5cc3f8fd@suse.com>
+Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com
+Subject: [PATCH v5 0/3] xen/console: few cleanups in console driver
+Message-ID: <20250519194002.1365454-1-dmukhin@ford.com>
 Feedback-ID: 123220910:user:proton
-X-Pm-Message-ID: ff79bb8070c29cefbc1de661ba059bb16fec84b9
+X-Pm-Message-ID: 8a3d96259a16250a8a7f2bcba45492d1cbffbb46
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-On Sun, May 18, 2025 at 10:52:24AM +0200, Jan Beulich wrote:
-> On 16.05.2025 04:04, dmkhn@proton.me wrote:
-> > From: Denis Mukhin <dmukhin@ford.com>
-> >
-> > Currently, hypervisor code has two different non-system domain ID alloc=
-ation
-> > implementations:
-> >
-> >   (a) Sequential IDs allocation in dom0less Arm code based on max_init_=
-domid;
-> >
-> >   (b) Sequential IDs allocation in XEN_DOMCTL_createdomain; does not us=
-e
-> >       max_init_domid (both Arm and x86).
-> >
-> > It makes sense to have a common helper code for such task across archit=
-ectures
-> > (Arm and x86) and between dom0less / toolstack domU allocation.
-> >
-> > Wrap the domain ID allocation as an arch-independent function domid_all=
-oc() in
-> > common/domain.c based on rangeset.
-> >
-> > Allocation algorithm:
-> > - If an explicit domain ID is provided, verify its availability and
-> >   use it if ID is not used;
-> > - Otherwise, perform an exhaustive search starting from the end of the =
-used
-> >   domain ID range. domid_alloc() guarantees that two subsequent calls w=
-ill
-> >   result in different IDs allocation.
-> While you properly retain original logic now, the above is not an accurat=
-e
-> description thereof, imo. To search "from the end" usually is understood =
-as
-> a backwards search. Whereas what you mean is that the search starts off w=
-here
-> the last one finished, wrapping around when hitting the end of the valid
-> range.
+xen/console: few cleanups in console driver
 
-I have updated the description in v7:
-  https://lore.kernel.org/xen-devel/20250519192306.1364471-2-dmukhin@ford.c=
-om/
+The patch series introduces a few cleanups aimed at reducing code duplicati=
+on
+in the console driver and improving readability.
 
->=20
-> Jan
->=20
+Originally, patches 2 and 3 were part of NS16550 emulator v3 series [1].
+
+Patch 1 performs a cleanup in conring console.
+
+Patch 2 (see [2]) removes code duplication between __putstr() and the rest =
+of
+the driver. It also introduces private flags to select console devices for
+printout which simplifies some code paths.
+
+Patch 3 (see [3]) adds conring_flush() to send contents of conring to all
+currently available console devices.
+
+[1] https://lore.kernel.org/xen-devel/20250103-vuart-ns8250-v3-v1-0-c5d36b3=
+1d66c@ford.com/
+[2] https://lore.kernel.org/xen-devel/20250103-vuart-ns8250-v3-v1-16-c5d36b=
+31d66c@ford.com/
+[3] https://lore.kernel.org/xen-devel/20250103-vuart-ns8250-v3-v1-17-c5d36b=
+31d66c@ford.com/
+[4] Link to v4: https://lore.kernel.org/xen-devel/20250516013508.1144162-1-=
+dmukhin@ford.com/
+[5] Link to CI: https://gitlab.com/xen-project/people/dmukhin/xen/-/pipelin=
+es/1823639304
+
+Denis Mukhin (3):
+  xen/console: cleanup conring management
+  xen/console: introduce console_send()
+  xen/console: introduce conring_flush()
+
+ xen/drivers/char/console.c | 186 +++++++++++++++++++++++--------------
+ 1 file changed, 116 insertions(+), 70 deletions(-)
+
+--=20
+2.34.1
+
 
 
