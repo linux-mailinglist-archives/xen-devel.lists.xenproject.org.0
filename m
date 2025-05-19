@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96FEEABC534
-	for <lists+xen-devel@lfdr.de>; Mon, 19 May 2025 19:06:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.990076.1374024 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3EEABABC732
+	for <lists+xen-devel@lfdr.de>; Mon, 19 May 2025 20:26:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.990097.1374035 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uH3w3-0003xn-Jm; Mon, 19 May 2025 17:05:55 +0000
+	id 1uH5BD-0004xv-SL; Mon, 19 May 2025 18:25:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 990076.1374024; Mon, 19 May 2025 17:05:55 +0000
+Received: by outflank-mailman (output) from mailman id 990097.1374035; Mon, 19 May 2025 18:25:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uH3w3-0003v3-Gg; Mon, 19 May 2025 17:05:55 +0000
-Received: by outflank-mailman (input) for mailman id 990076;
- Mon, 19 May 2025 17:05:54 +0000
+	id 1uH5BD-0004uo-OC; Mon, 19 May 2025 18:25:39 +0000
+Received: by outflank-mailman (input) for mailman id 990097;
+ Mon, 19 May 2025 18:25:38 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=OMTq=YD=zytor.com=xin@srs-se1.protection.inumbo.net>)
- id 1uH3w2-0003ux-BY
- for xen-devel@lists.xenproject.org; Mon, 19 May 2025 17:05:54 +0000
-Received: from mail.zytor.com (terminus.zytor.com [2607:7c80:54:3::136])
+ (envelope-from <SRS0=cAbn=YD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uH5BC-0004ui-NP
+ for xen-devel@lists.xenproject.org; Mon, 19 May 2025 18:25:38 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 839dcb15-34d3-11f0-b892-0df219b8e170;
- Mon, 19 May 2025 19:05:51 +0200 (CEST)
-Received: from [192.168.7.202] ([71.202.166.45]) (authenticated bits=0)
- by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 54JH51I01806864
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
- Mon, 19 May 2025 10:05:02 -0700
+ id a89f2adb-34de-11f0-b892-0df219b8e170;
+ Mon, 19 May 2025 20:25:36 +0200 (CEST)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-ac3eb3fdd2eso869224166b.0
+ for <xen-devel@lists.xenproject.org>; Mon, 19 May 2025 11:25:36 -0700 (PDT)
+Received: from [10.1.250.198] ([80.188.125.198])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ad52d06eac2sm633858666b.63.2025.05.19.11.25.35
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 19 May 2025 11:25:35 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,103 +45,105 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 839dcb15-34d3-11f0-b892-0df219b8e170
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 54JH51I01806864
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
-	s=2025042001; t=1747674303;
-	bh=ts02ww6rWZGYsDbofaKTTtQ1Jg1+MlPMrtXd6RLkuKk=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
-	b=TDYGuEm2xJdqKpSk9HUb6mLJjH8QfE3z/oRA2V/xIDKmePX33e93goxahOmGQ2I3j
-	 tYmxL9ORcxAW+J0TECixYkLKG+VvUkIVrFR7yvt59YT3tr5smdcmQgUS0uVOC96Mkn
-	 sSYguCgZWvX68kWJfDpbLo49PiSKPGTK5KTXUuFPqjsw2DvpSrIN0U0mJhhDP8pDR3
-	 tivIbhQZNZ0T9EUyoseNddg/rbQq/eIVkdiejdUHd5BnnDJ3tTJPUqPT6EH/5Qi9t1
-	 GvaCx74S+pp94gbDUxJgdUmfAktr9DJqlgg4T78CgXwPWy65LB1zIctvM/IzjBuafK
-	 1u5AG60T+DDfw==
-Message-ID: <3486006e-f1ad-4ed2-bdb5-5d39c04c2691@zytor.com>
-Date: Mon, 19 May 2025 10:05:01 -0700
+X-Inumbo-ID: a89f2adb-34de-11f0-b892-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1747679136; x=1748283936; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=F/rjIQCBKeruqH8Cp+9464FqFbhFXXAV61zk0uTknmU=;
+        b=RM2sbBig1x7kcDZYv38h7BazmLOyeWVuF1R4VWTLAntFfuG4Bne+q+y9o9QD2QazdR
+         36Iv3cCHv8WuPF83FaL4SWaop1cXCbd60M24nl+0SdcdgcbgPUrW2VA0PHC0aczteiGy
+         VhZrJGWCNuH4VGEJ6njWxnOYunJawZYTGGlwHEOJURPWsvfyd1MTSrPfdN9MgiK/dCPc
+         aNMuD8UpqSzVu+S/E/SxLx0oA1oxyvS4zkcF83Ll7fQT3ZyD0BWduwtBOdcNDxWmk2He
+         K/mtC9J2yxplXPQ6ArOmM2IsIae8xGqs3Y9vhdEDbMF9W1aUj6Bc+SpACoSmWvQO9WFn
+         EL+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1747679136; x=1748283936;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=F/rjIQCBKeruqH8Cp+9464FqFbhFXXAV61zk0uTknmU=;
+        b=AkacFoj5PvhQ5eTy1qUJE839oYKPa0uxFNUhE2KoqIPc+ebQ96UxK1kzGfq2T2ltKC
+         TmDtvS1XAua+mzupreMw4OaI6kQv4t555yawNdgjSvSwnk47bQhHyHf3+W7G7QMaYuhD
+         pmxXpAlIDqW/7HcmjYNYQaDq1nngBK7f3lKe3iHYAcrYYyOZ0DOIxxa3Kx2jRt40Kk/4
+         pM8DiTpCWk5fIt8wQ+wsahxOiDmkzuTOCA0dcBlTqiJLh3egN90/lmePqcBL0EjGXTvh
+         jWoUOPl7z4OzhofStizdmF6etwYep35f14302zUmCRLodJDeXBHvnQPSX/tdpJD76psd
+         iPlg==
+X-Forwarded-Encrypted: i=1; AJvYcCWE0t+DOCEzRDY5wQTI4oxzhW3EG4Wt+dGKMSA7cAYw3W3rqIJ0NjwuL+G6CAhDvfiDlLgXGl+j8GA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw95nH6ghlJs/wQ5KssO/g5cwrFoEbNttNGvbqAh7gdxadnWAuo
+	yyjGSx+VOlyeLrPH3CRFhHH6NYUuoqTURlP9LVDZR5rKVZWVUyQ43uA8Grd5+I5Lix2TZ4nL+b2
+	qpyk=
+X-Gm-Gg: ASbGnct9o9D1j1dW8epICZu4Jx38crviUKQRh6Vu1O6vL/+YBon29qxZfDNJYUpGwbv
+	mYcT6jF2bZhCmCuymbdctcSMxUKcRkB83wEgEsXQ1d+lg8dO36IZ5dWoGh+QBWZ3A2PwkxI+byZ
+	anYCJj77zhCPe8U/XPIi8oICPTmuqmKk3t96b28M9xmPAAVCMX5dtKad8gOSRRjlP2B70RZzJup
+	BLTJwrk48m6KyOQ3ClkRkcGMK0PjnWj9Vpt6Bsm5tvfs1bA1cSWm3xqHhR9c5hGGYHmmQLORulz
+	z8ZyrY4np34HGlKHnNklx0UAUGtmUx424enbPXVxuEBIBf0hIBrcgs6ZwjNgMg==
+X-Google-Smtp-Source: AGHT+IGPZRIk+IkiMFLLJXxsto8tf6DT7jRLXt6Etl23qEUgCc8GJqAaIYAmvFMc+RcLzOyJHzmQjA==
+X-Received: by 2002:a17:906:e4a:b0:ad5:3156:2c0c with SMTP id a640c23a62f3a-ad531563099mr960496166b.26.1747679135951;
+        Mon, 19 May 2025 11:25:35 -0700 (PDT)
+Message-ID: <0e88db3c-0d68-4f4e-ba7c-e826dc0b9cd4@suse.com>
+Date: Mon, 19 May 2025 20:25:34 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 3/3] x86/msr: Convert a native_wrmsr() use to
- native_wrmsrq()
-From: Xin Li <xin@zytor.com>
-To: linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org,
-        linux-acpi@vger.kernel.org
-Cc: tglx@linutronix.de, mingo@kernel.org, bp@alien8.de,
-        dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com,
-        peterz@infradead.org, jgross@suse.com, boris.ostrovsky@oracle.com,
-        rafael@kernel.org, lenb@kernel.org
-References: <20250512084552.1586883-1-xin@zytor.com>
- <20250512084552.1586883-4-xin@zytor.com>
+Subject: Re: [PATCH v2 6/6] x86/hvm: reduce the need to flush caches in
+ memory_type_changed()
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+References: <20250516094535.63472-1-roger.pau@citrix.com>
+ <20250516094535.63472-7-roger.pau@citrix.com>
+ <c01ec6e8-bb45-4072-a527-99a7c72fc714@suse.com> <aCsRJBmoP-al6Kgk@Mac.lan>
+ <558c7ec2-77ea-42e6-8568-af8b74e19c88@suse.com> <aCtBRV3cTwTnKuLc@Mac.lan>
 Content-Language: en-US
-Autocrypt: addr=xin@zytor.com; keydata=
- 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
- l75w1xInsg==
-In-Reply-To: <20250512084552.1586883-4-xin@zytor.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <aCtBRV3cTwTnKuLc@Mac.lan>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 5/12/2025 1:45 AM, Xin Li (Intel) wrote:
-> Convert a native_wrmsr() use to native_wrmsrq() to zap meaningless type
-> conversions when a u64 MSR value is splitted into two u32.
+On 19.05.2025 16:33, Roger Pau Monné wrote:
+> On Mon, May 19, 2025 at 03:22:32PM +0200, Jan Beulich wrote:
+>> On 19.05.2025 13:08, Roger Pau Monné wrote:
+>>> On Sun, May 18, 2025 at 01:44:49PM +0200, Jan Beulich wrote:
+>>>> On 16.05.2025 11:45, Roger Pau Monne wrote:
+>>>>> Not sure whether this attempt to reduce cache flushing should get some
+>>>>> mention in the CHANGELOG.
+>>>>
+>>>> Err on the side of adding an entry there?
+>>>
+>>> Oleksii would you be fine with me adding:
+>>>
+>>> diff --git a/CHANGELOG.md b/CHANGELOG.md
+>>> index 1ea06524db20..fa971cd9e6ee 100644
+>>> --- a/CHANGELOG.md
+>>> +++ b/CHANGELOG.md
+>>> @@ -11,6 +11,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
+>>>     - For x86, GCC 5.1 and Binutils 2.25, or Clang/LLVM 11
+>>>     - For ARM32 and ARM64, GCC 5.1 and Binutils 2.25
+>>>   - Linux based device model stubdomains are now fully supported.
+>>> + - On x86:
+>>> +   - Restrict the cache flushing done in memory_type_changed() to improve
+>>> +     performance.
+>>
+>> Maybe better to mention function names here, saying "after a memory type change
+>> by a guest" instead?
 > 
-> Signed-off-by: Xin Li (Intel) <xin@zytor.com>
-> ---
->   arch/x86/coco/sev/core.c | 7 +------
->   1 file changed, 1 insertion(+), 6 deletions(-)
+> It's not just "after a memory type change by a guest", since
+> memory_type_changed() is also used for toolstack operations like
+> io{mem,ports}_{permit,deny}_access(), that strictly speaking are not
+> memory type changes,
+
+Sure, I'm aware. But I didn't think it would matter that much here. Still ...
+
+> neither are done by the guest itself.  I could
+> reword to:
 > 
-> diff --git a/arch/x86/coco/sev/core.c b/arch/x86/coco/sev/core.c
-> index ff82151f7718..b3ce6fc8b62d 100644
-> --- a/arch/x86/coco/sev/core.c
-> +++ b/arch/x86/coco/sev/core.c
-> @@ -282,12 +282,7 @@ static inline u64 sev_es_rd_ghcb_msr(void)
->   
->   static __always_inline void sev_es_wr_ghcb_msr(u64 val)
->   {
-> -	u32 low, high;
-> -
-> -	low  = (u32)(val);
-> -	high = (u32)(val >> 32);
-> -
-> -	native_wrmsr(MSR_AMD64_SEV_ES_GHCB, low, high);
-> +	native_wrmsrq(MSR_AMD64_SEV_ES_GHCB, val);
->   }
->   
->   static int vc_fetch_insn_kernel(struct es_em_ctxt *ctxt,
+>    - Restrict the cache flushing done as a result of guest physical
+>      memory map manipulations and memory type changes.
+> 
+> Does that sound better?
 
-Just noticed that this patch doesn't apply to tip/x86/core, I will send
-it as a separate one.
+... yes, let's go with this then.
 
-Thanks!
-     Xin
+Jan
 
