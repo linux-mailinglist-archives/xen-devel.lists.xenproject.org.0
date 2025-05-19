@@ -2,29 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E0805ABC831
-	for <lists+xen-devel@lfdr.de>; Mon, 19 May 2025 22:13:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.990265.1374254 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D53AABC8BF
+	for <lists+xen-devel@lfdr.de>; Mon, 19 May 2025 22:56:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.990301.1374264 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uH6r7-0003Uy-6k; Mon, 19 May 2025 20:13:01 +0000
+	id 1uH7WE-0000eK-5o; Mon, 19 May 2025 20:55:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 990265.1374254; Mon, 19 May 2025 20:13:01 +0000
+Received: by outflank-mailman (output) from mailman id 990301.1374264; Mon, 19 May 2025 20:55:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uH6r7-0003TU-26; Mon, 19 May 2025 20:13:01 +0000
-Received: by outflank-mailman (input) for mailman id 990265;
- Mon, 19 May 2025 20:12:59 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uH7WE-0000bi-2q; Mon, 19 May 2025 20:55:30 +0000
+Received: by outflank-mailman (input) for mailman id 990301;
+ Mon, 19 May 2025 20:55:28 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=wD6k=YD=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
- id 1uH6r4-0001j7-WE
- for xen-devel@lists.xenproject.org; Mon, 19 May 2025 20:12:59 +0000
-Received: from mail-24417.protonmail.ch (mail-24417.protonmail.ch
- [109.224.244.17]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a82ad5cf-34ed-11f0-a2fa-13f23c93f187;
- Mon, 19 May 2025 22:12:58 +0200 (CEST)
+ (envelope-from <SRS0=BiGJ=YD=gmail.com=persaur@srs-se1.protection.inumbo.net>)
+ id 1uH7WC-0000bW-My
+ for xen-devel@lists.xenproject.org; Mon, 19 May 2025 20:55:28 +0000
+Received: from mail-qv1-xf29.google.com (mail-qv1-xf29.google.com
+ [2607:f8b0:4864:20::f29])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 96c4ba0d-34f3-11f0-b892-0df219b8e170;
+ Mon, 19 May 2025 22:55:26 +0200 (CEST)
+Received: by mail-qv1-xf29.google.com with SMTP id
+ 6a1803df08f44-6f8d663fa22so22097626d6.0
+ for <xen-devel@lists.xenproject.org>; Mon, 19 May 2025 13:55:26 -0700 (PDT)
+Received: from smtpclient.apple (216-131-77-234.ord.as62651.net.
+ [216.131.77.234]) by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-6f8b08ac386sm61946206d6.39.2025.05.19.13.55.23
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 19 May 2025 13:55:24 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,108 +45,88 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a82ad5cf-34ed-11f0-a2fa-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1747685575; x=1747944775;
-	bh=6sXF1UKe68CpK8zF6xNGeqeo9Hd97I7fR8xMKBTgt9Q=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector:List-Unsubscribe:List-Unsubscribe-Post;
-	b=AoxtZYN3dQWGUjkd5u2yMRqvDReYphUtqaJlT+41xVoS/ZpGGeQ7zb/9u10Y7b1g0
-	 GUjV5h6VLlJ2RRoLpN9+frGQDtM43X1iJcw47C02D4Z+mxCAOu2FTumJl3Gxy9g7Wz
-	 b2FcgTwYVby+yNiud9mYdRbi97sbO1e9gBlKQRanRauOKJTOG77r2Ds+xGjiiXyDOw
-	 sYfs+2h+XRO9y7AY6I1EQzSo0+Q7stcpP6GGM5IIC1HwtxAwlRg5zQZVZUdgOMEZgi
-	 T+L+kXJFbAoBKSM+Ztg/2dGEcrDhKW6h4exmk+96H+/RD+RcXg0ljE21a0F+qPM91o
-	 mhl6qfJMc1B3Q==
-Date: Mon, 19 May 2025 20:12:51 +0000
-To: xen-devel@lists.xenproject.org
-From: dmkhn@proton.me
-Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com
-Subject: [PATCH v3 5/5] xen/console: rename console_rx to console_domid
-Message-ID: <20250519201211.1366244-6-dmukhin@ford.com>
-In-Reply-To: <20250519201211.1366244-1-dmukhin@ford.com>
-References: <20250519201211.1366244-1-dmukhin@ford.com>
-Feedback-ID: 123220910:user:proton
-X-Pm-Message-ID: 34962395dae726ecf123eaf0887728e83acd5270
-MIME-Version: 1.0
+X-Inumbo-ID: 96c4ba0d-34f3-11f0-b892-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1747688125; x=1748292925; darn=lists.xenproject.org;
+        h=to:in-reply-to:cc:references:message-id:date:subject:mime-version
+         :from:content-transfer-encoding:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=W8Dsf5NQkRj5qoRJxyN4VTtmUFp809jK0+xUddzDTBQ=;
+        b=k+YVSB+9FdjaLT2FMuLVyy072mtpsHi0g1fvjGAmZjnMCOOMuESGaMLNGamu+Z0Nvg
+         0pnVDmUehNVB0Qnaem8badfEkj61SUXjNvhMKB3p2tMK5vTCx9nDzuEiT3qrti9tiH5l
+         2MzqieZc/8opGIIjmh8ueBRmYCNo73trhTD7GsnRu1WF/ChLPhh17ORZQgfk3wAn0am9
+         g/ap3najLLdXjGW02yzyuCItJu3jrSN3iiyI3QafVoe93l0C+rOCE+EC8hGw8PExgmvm
+         NpWyfeORpa6rfjtP5bD77x+v7TTac3qxqr25Bqb20XC0ph8t2PVPAvDt2hW1fbCF61hU
+         XPjg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1747688125; x=1748292925;
+        h=to:in-reply-to:cc:references:message-id:date:subject:mime-version
+         :from:content-transfer-encoding:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=W8Dsf5NQkRj5qoRJxyN4VTtmUFp809jK0+xUddzDTBQ=;
+        b=QChy0P9rARs4elBZq3qb1Smn4Ss1TYxHIUavMfMa/jO9ZMuPj5HrDDlpZETX67j7CW
+         uYQaTbCHXsrYEvGVtN8w+JuduTsvcLMJeWntqOA9En/IVZVuJAUrKA+V6iMHNSJPy8g+
+         hT4Nz8hgFpc2QV6k9nYTYA9YlbxFL0+vdXpFfyZ0GpzWJY01HDtK2aExFpI34Mjh8XH7
+         PEgmG2JeaYM3cNc78D3s04WcgdPV/OyQRBXeMCG6Zl+feb0XSyEvA2mTurVy16WKWQz8
+         wDtOVRti66ZN6wa207DulYBBK1N831AGf0B4b7W2YgNGxC3iGBTM560iFtEvxAnWRtze
+         ShgA==
+X-Forwarded-Encrypted: i=1; AJvYcCXqSEmm3ueyMQPMKRlxLCtjTmEKXpPiSILRsuuguDx8QtH7mYtD8qUsXcpb+sWhMfssjNMxguLJLoo=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxD4udH7wQNhH0F9M6+TlVFRPoxesFpWUAr6ZVomm+ZZs+zsSYE
+	5X+vz3BYXiXb6CU7bfChxbrofPGpev73nlb6xauP2cGtoRHX2mORurcB
+X-Gm-Gg: ASbGncsfONEjj5WGZnui2BdrQXDSiU61DxnV23P2l80XC1jEA2DsxB9uTS53ngop4DG
+	uXOZWwzkjm6ljVg767giYbXiWq2y4EpejYIPoCbVqruoD5INlc9VCKkJ6Oa+71FUNN0lR8LnKXC
+	cH2QBO7sAwwL0nmzLL4ZyntsfTYNExwU4Kg/ZKnLqerg51BaZNct4S2xbBdnjV6Nw9gPwY2irNI
+	r1sz9Q7iIUHHuaNHv3RVKunU1MIlBGbG8ktRrMzCVhBRKZmlwZwDNvVX20Y4SojzdIlF0uXJ1l9
+	Z6clZ6qWRGffPUhpA+PzJPqegpUzTq5yLUdQcsY3Zy8dTEpY5H94YkZzPZUzoB+7dEYSxPa0buJ
+	mkPrb+La28gsPsE256Zz9J325HrI=
+X-Google-Smtp-Source: AGHT+IEWRVaJ99D0vmulsyhWMmEkYePOE8RGbpAE0UQ6wGaA+WJKfE3lrWgEqECq4tiaDQVDH3GtRw==
+X-Received: by 2002:a05:6214:1c8c:b0:6ed:1681:4846 with SMTP id 6a1803df08f44-6f8b2c95b84mr204349076d6.24.1747688125284;
+        Mon, 19 May 2025 13:55:25 -0700 (PDT)
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+From: Rich Persaud <persaur@gmail.com>
+Mime-Version: 1.0 (1.0)
+Subject: Re: [PATCH v2 01/22] x86/include/asm/intel-txt.h: constants and accessors for TXT registers and heap
+Date: Mon, 19 May 2025 16:55:13 -0400
+Message-Id: <AA106976-0221-460C-97E4-BD2C70777127@gmail.com>
+References: <aCs1iQp6AH0pNaKH@MjU3Nj>
+Cc: Andrew Cooper <Andrew.Cooper3@citrix.com>,
+ xen-devel@lists.xenproject.org,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ Ross Philipson <ross.philipson@oracle.com>,
+ Jan Beulich <jbeulich@suse.com>,
+ =?utf-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Lukasz Hawrylko <lukasz@hawrylko.pl>,
+ =?utf-8?Q?Mateusz_M=C3=B3wka?= <mateusz.mowka@intel.com>,
+ trenchboot-devel@googlegroups.com
+In-Reply-To: <aCs1iQp6AH0pNaKH@MjU3Nj>
+To: Sergii Dmytruk <sergii.dmytruk@3mdeb.com>
+X-Mailer: iPad Mail (22F76)
 
-From: Denis Mukhin <dmukhin@ford.com>
+On May 19, 2025, at 9:43=E2=80=AFAM, Sergii Dmytruk <sergii.dmytruk@3mdeb.co=
+m> wrote:
+>=20
+> =EF=BB=BFOn Sun, May 18, 2025 at 07:31:49PM -0400, Rich Persaud wrote:
+>> If there's no stable URL for the TXT spec, can we mirror the relevant
+>> doc(s) somewhere in the Xen docs tree? A trusted archive of the spec
+>> for trusted execution.
+>>=20
+>> Rich
+>=20
+> By "unversioned link to Software Development Guide" I meant
+> https://www.intel.com/content/www/us/en/content-details/315168/
+> which always provides the latest version.
 
-Update the symbol name to match the code better.
+By "trusted archive of the spec" I meant a server under control of Intel or t=
+he Xen community, hosting the specific version(s) of the spec that have been=
+ implemented in the Xen tree. =20
 
-No functional change.
+Unless Intel reference PDFs are digitally signed by an Intel certificate, we=
+ should not be linking to non-Intel mirrors of Intel PDFs, which could be ta=
+rgeted by attackers to relay malware onto the workstations of developers of t=
+rusted execution software. If Intel reference PDFs are signed, we should inc=
+lude instructions for verifying their authenticity, if we are linking to non=
+-Intel sources.
 
-Signed-off-by: Denis Mukhin <dmukhin@ford.com>
----
-Changes since v2:
-- new patch
----
- xen/drivers/char/console.c | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
-
-diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
-index ff20706ac9..afcc6a236e 100644
---- a/xen/drivers/char/console.c
-+++ b/xen/drivers/char/console.c
-@@ -467,11 +467,11 @@ static void cf_check dump_console_ring_key(unsigned c=
-har key)
- #define switch_code (opt_conswitch[0]-'a'+1)
-=20
- /* Console owner domain identifier. */
--static domid_t __read_mostly console_rx =3D DOMID_XEN;
-+static domid_t __read_mostly console_domid =3D DOMID_XEN;
-=20
- static struct domain *console_get_domain(void)
- {
--    struct domain *d =3D rcu_lock_domain_by_id(console_rx);
-+    struct domain *d =3D rcu_lock_domain_by_id(console_domid);
-=20
-     if ( !d )
-         return NULL;
-@@ -497,7 +497,7 @@ static void console_set_domid(domid_t domid)
-     else
-         printk("*** Serial input to DOM%u", domid);
-=20
--    console_rx =3D domid;
-+    console_domid =3D domid;
-=20
-     if ( switch_code )
-         printk(" (type 'CTRL-%c' three times to switch input)",
-@@ -507,7 +507,7 @@ static void console_set_domid(domid_t domid)
-=20
- domid_t console_get_domid(void)
- {
--    return console_rx;
-+    return console_domid;
- }
-=20
- /*
-@@ -518,10 +518,10 @@ static void console_switch_input(void)
- {
-     domid_t hint;
-=20
--    if ( console_rx =3D=3D DOMID_XEN )
-+    if ( console_domid =3D=3D DOMID_XEN )
-         hint =3D get_initial_domain_id();
-     else
--        hint =3D console_rx + 1;
-+        hint =3D console_domid + 1;
-=20
-     hint =3D domid_find_with_input_allowed(hint);
-=20
-@@ -533,7 +533,7 @@ static void __serial_rx(char c)
-     struct domain *d;
-     int rc =3D 0;
-=20
--    if ( console_rx =3D=3D DOMID_XEN )
-+    if ( console_domid =3D=3D DOMID_XEN )
-         return handle_keypress(c, false);
-=20
-     d =3D console_get_domain();
---=20
-2.34.1
-
-
+Rich=
 
