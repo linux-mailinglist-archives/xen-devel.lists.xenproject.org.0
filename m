@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C17D3ABC319
-	for <lists+xen-devel@lfdr.de>; Mon, 19 May 2025 17:51:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.989967.1373990 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 48BC4ABC3E2
+	for <lists+xen-devel@lfdr.de>; Mon, 19 May 2025 18:09:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.990052.1374003 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uH2lj-0006xM-UA; Mon, 19 May 2025 15:51:11 +0000
+	id 1uH33P-0003l1-GQ; Mon, 19 May 2025 16:09:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 989967.1373990; Mon, 19 May 2025 15:51:11 +0000
+Received: by outflank-mailman (output) from mailman id 990052.1374003; Mon, 19 May 2025 16:09:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uH2lj-0006sj-N2; Mon, 19 May 2025 15:51:11 +0000
-Received: by outflank-mailman (input) for mailman id 989967;
- Mon, 19 May 2025 15:51:09 +0000
+	id 1uH33P-0003ja-Dj; Mon, 19 May 2025 16:09:27 +0000
+Received: by outflank-mailman (input) for mailman id 990052;
+ Mon, 19 May 2025 16:09:25 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=DWXC=YD=epam.com=Oleksii_Moisieiev@srs-se1.protection.inumbo.net>)
- id 1uH2lh-00055d-Ey
- for xen-devel@lists.xenproject.org; Mon, 19 May 2025 15:51:09 +0000
-Received: from EUR03-AM7-obe.outbound.protection.outlook.com
- (mail-am7eur03on20625.outbound.protection.outlook.com
- [2a01:111:f403:260e::625])
+ <SRS0=KRlD=YD=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1uH33N-0003jU-My
+ for xen-devel@lists.xenproject.org; Mon, 19 May 2025 16:09:25 +0000
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [2a00:1450:4864:20::629])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 13f9ea66-34c9-11f0-b892-0df219b8e170;
- Mon, 19 May 2025 17:51:07 +0200 (CEST)
-Received: from PAVPR03MB8946.eurprd03.prod.outlook.com (2603:10a6:102:32e::21)
- by AS8PR03MB9023.eurprd03.prod.outlook.com (2603:10a6:20b:5b7::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8746.29; Mon, 19 May
- 2025 15:50:59 +0000
-Received: from PAVPR03MB8946.eurprd03.prod.outlook.com
- ([fe80::f12d:7394:bbe3:dfc]) by PAVPR03MB8946.eurprd03.prod.outlook.com
- ([fe80::f12d:7394:bbe3:dfc%4]) with mapi id 15.20.8722.031; Mon, 19 May 2025
- 15:50:59 +0000
+ id a0d88536-34cb-11f0-b892-0df219b8e170;
+ Mon, 19 May 2025 18:09:23 +0200 (CEST)
+Received: by mail-ej1-x629.google.com with SMTP id
+ a640c23a62f3a-ad5394be625so551749766b.2
+ for <xen-devel@lists.xenproject.org>; Mon, 19 May 2025 09:09:23 -0700 (PDT)
+Received: from [192.168.1.5] (user-109-243-64-38.play-internet.pl.
+ [109.243.64.38]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ad52d04aed7sm609812166b.9.2025.05.19.09.09.20
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 19 May 2025 09:09:21 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,328 +45,396 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 13f9ea66-34c9-11f0-b892-0df219b8e170
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=B+qpqXHemeHdhUk5bNtkj670k9kwlq9bz8R4ud466fq8HEfo37GRF5c1LdaI9ehawN5vW3bHzWxEwA+WfNU8jhrsm1njo9bG8RKJMT112lWfbNWon9lNnWG06DTsOITCgc7GgdmlonHkX4jCTJFjI0RMIdaw0uQyD+NDeaqN0B6j5k7ZkLA2SvejwnCIJdD6j26AgwqswnYZm2l4ozxLSIJBoXayjdLtqgsJFQSMAPqlmITz9EZ8clPAN8yfuQm3842724XwYz/iGtE+4UGojNDv7uK9D8tlG/RkD9EFgP8i4rIDAjfW6yOCTiX38JtEZy3f8L3OStHAecwuOLglxg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Jx3fLHSwk7VgFQnLSwZrpE1wKHHCAxXq7JgHsDxezbE=;
- b=v146IgmU/T1k7BOfqGeff1jZjNgNN0jyr//gG6kV+BK7A7k7iAtwSFO0uRzK9dn2Wp2rXzMUhxBy6BVAYAoeXZKpb5zXk90VXdWNwy9mGpyye3vmLUytEA6sK6bTakMR9IU0Os4nLaFWQ5fPPUQ8kYpqvMb3I9S6ddDo/HsAYZ9Vnmv82hM+vW7GueflZF/U8EeL3Et86pKGfAAxm9go0pmWhJzdIM1va5RytixRwkUZmTc6RG11cohAsAJM1/PXcpG/B6bhpunoYRZCwaPM3ebB+IHRdZkOO+BqB0YriO6wZ3UmG8NKwBIWMbwtSUVHC7GlIiNSD6Lwv9GKqmk6Ng==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Jx3fLHSwk7VgFQnLSwZrpE1wKHHCAxXq7JgHsDxezbE=;
- b=si3nX9+xO3BMFrsTFWYVQKGV2jtEn4JzH347aVU45h/dnG3LKk/Qy3n4pSDffYOs+dszNa0nQlGD2zY7x8OobL/c9ZWnBiVDTqtdVizsqGVkyVGJUsair+chl702sRGxCMNa5042NZIu21U1xEo15lUeDk/+P0oNh5N88mQdZHYeiRFLw7tcU0bQSHGt6/7CESiuEWHUSuWo+GjQQyP6y1EfhEBAR8PEKHlEmWTMBXlDSvIMaohppSd8LkXIu5ywNI6P1/p4cNUPHGxuYwaqvpDPqV1eZgHb0Vd/wMONZo5uDTmRLgJLvFC+rOwS+fZGWbuRIiHgERXp2//wbpinhw==
-From: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Anthony PERARD
-	<anthony.perard@vates.tech>, Bertrand Marquis <bertrand.marquis@arm.com>, Jan
- Beulich <jbeulich@suse.com>, Juergen Gross <jgross@suse.com>, Julien Grall
-	<julien@xen.org>, Michal Orzel <michal.orzel@amd.com>, Oleksii Moisieiev
-	<Oleksii_Moisieiev@epam.com>, =?utf-8?B?Um9nZXIgUGF1IE1vbm7DqQ==?=
-	<roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Grygorii Strashko
-	<grygorii_strashko@epam.com>
-Subject: [RFC PATCH v4 8/8] docs: arm: proposal to add separate SCMI node for
- Xen agent
-Thread-Topic: [RFC PATCH v4 8/8] docs: arm: proposal to add separate SCMI node
- for Xen agent
-Thread-Index: AQHbyNXQTZOEYVEinUiuxBk1KdhKoA==
-Date: Mon, 19 May 2025 15:50:58 +0000
-Message-ID:
- <3f7e1e99f5d1018064f3c4825aff16bd487cf558.1747669845.git.oleksii_moisieiev@epam.com>
-References: <cover.1747669845.git.oleksii_moisieiev@epam.com>
-In-Reply-To: <cover.1747669845.git.oleksii_moisieiev@epam.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=epam.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PAVPR03MB8946:EE_|AS8PR03MB9023:EE_
-x-ms-office365-filtering-correlation-id: 14106a3a-8921-49fa-a2b8-08dd96ecf319
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|376014|366016|7416014|38070700018|3613699012;
-x-microsoft-antispam-message-info:
- =?utf-8?B?bEk4UW45bThteXBjdFBtNStUL1pLb1NKTjBRcGg3U1Y5b1h2RDRKYzVwcVZx?=
- =?utf-8?B?dEZNK2xsMjU3M2U4enRyZDlMcjc1VUlqMkxJTDRNcnRQTC80S2d5a0lrTE5y?=
- =?utf-8?B?dkdtOFJIbGhZY0NBMTN5ZkpaYkRsc3hQdHNKaEd3OE1wcFBkQWFCTEtKZDBX?=
- =?utf-8?B?dkgvaVdsM0xQdUVTMEFHSmtuSUxjRDk4S3A4UHBqUFhabmlQN1AwTFZoN0gw?=
- =?utf-8?B?NGR1UC9oVEVlZ3pibHoxRFFZeWV4VUpOQWV3M1YzbGlDSmZsVXkraTNvcUpk?=
- =?utf-8?B?TkZGZ3dBQnFuTzB0TVhESnkzQzc2ZjdKUEdvOXA5MEx0OW91S3diMzVBOFFt?=
- =?utf-8?B?U0NIOHZaWE1FR2RGL3N1eWVqa2VlY25IK0tidnRSUzJEM3I3dGIvKy9HM2U0?=
- =?utf-8?B?ck9yT1Rxa3h2cE40V3REbjRDcVVKWm13NHBvRnhGcGhwTGE5UVJpM2toL3Uw?=
- =?utf-8?B?QVM2bWFmdkRWMHRDRnRNVC8vVUFiUml6SmpSbjF6blM2MldRUUZQOU8zTlBM?=
- =?utf-8?B?eWRXZFlQc3R2UXk3V3kxV0xJUnE3Q2MydWxVU0F4Qks0a1pwTjhQdGt4RURk?=
- =?utf-8?B?UkU4clVrZlVHVkkwaGxlVzJWT0JQMm1oalJlbnkrQ1RrUVM0OWF5V0tVSXRm?=
- =?utf-8?B?bkR3eitHdXJIR21ya2xMSmw5LzVUUWh5L1hMaTlXNDlxQkRVVXdLa01CZ1lk?=
- =?utf-8?B?QS9HdWk4UW5odno0NHRzZzBCQmtIZ3BaNDQ2WGNYTWpLV05zK3Y3UTNmTEp3?=
- =?utf-8?B?YlM2UnVnQkNlRU9JanJzZmNPODh6SWU3RFo3VTdHRk1MQjNuL2trMmlGaTNm?=
- =?utf-8?B?RnlJREE3ck5MWHNiTGgyQjFpVHh0K0FWMTlZL2t0Rjc4UkJ1YTVIMnAxVUJV?=
- =?utf-8?B?NmtTa1VRb25qbjA2NFFSUkJBM1ZiZWdhM1pQRmZjT0dGL0lzN1ZqenJvSGZI?=
- =?utf-8?B?aXIxQWtscWgwMXozSkdGUnZDcnVVRmhRWnBMNTJsWWhMQnpYMHpxa2pjQkxE?=
- =?utf-8?B?amdkYWNvdm5VQ0d3OXFUWHhGMzBEK1dXRUhFaUJsZE5RcDNrS2NoOUluVmJx?=
- =?utf-8?B?dnVXdXdwNFEzYmdFbkQ0K2hmWjhPdVJ0am96dHNDejhSVjljSERiWTlabEo1?=
- =?utf-8?B?aysvVUZwU3ZpVTBiWGlLbzVobVRpVmNuYkM1M0Y4UnhGZGJGVzNBVXFrWnBU?=
- =?utf-8?B?TmdxZGFCai9aWnFUOEp2OUI4RXZLL0N6eUZJTHJvRS95aEsva2IvV21TTGhY?=
- =?utf-8?B?RFBEUUlvbXlFSENkaUliOUxYS1hMcjA3NE5KYVZCVmpMcHliZTJBemdnbmhh?=
- =?utf-8?B?WTVDVHE1cytlcjVPc3ZyclNiWmdaekpjUHFHcHJZckx6MVlkcXJsZ2xWYllN?=
- =?utf-8?B?UmZuelZ6WTRqcWJkN2JtVGVVRzh0NjA1bnNHSE9kMlBjR1dDUVBYT3V3QzZZ?=
- =?utf-8?B?T0VJS3c1aEFEaks2M0JBTWZHMDY5R0tNZkFhL1NOK2RGUDd1Mm1aMytRT2Jn?=
- =?utf-8?B?U1BaUFg4emlFeEpGM0dBbWZpTDRJSCt6emtMbFM2NVpNV0t6bTl5UURyV1Zk?=
- =?utf-8?B?ci9lMlNOcWNra3pRUXR5M1FGWTRFTTMzREZ4YWthUW1KQkRpVVljU3RXZG40?=
- =?utf-8?B?b0R3ZzRpTXl0dmVrVzVycHliUTdyTEhGK05nZWMwM2hEMlJRZUVzZjZsMzNi?=
- =?utf-8?B?a1FBWi9kQVpFdi9xSlZEYm1XcFFpMkV0TDY3UERyRVpEQ0xkNDFFdE5jY2Qy?=
- =?utf-8?B?NGlNUi9FMWJmbjljUjcxUHpDeVdLSG5HRStrckdxQnkxMkRTdXA1ektxQ1Y4?=
- =?utf-8?B?VDE1QUpjWHQvOHhQTW9IVitVdGk1Z0xzNkFpNXpKWEJ3NGNzNFgyZmp5amt2?=
- =?utf-8?B?MFN5QTBTbTA3RmErWU94TmxnZmlMdHR4N3pRWEJGNGt0bVVYNSt4NmVnV1Ex?=
- =?utf-8?B?TXB3aGM4NnlIZjhzV1M0VEpNOEZQZEl2QmNURUxKNjBvbWZCbTc4Vks1bHQv?=
- =?utf-8?B?dTIzdFNzZ21vdkR4K2FCbDJIMjJib3I0ZS8wVDlWYmw2dkhNSWsyMFVjc3pL?=
- =?utf-8?Q?zecq1z?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAVPR03MB8946.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(7416014)(38070700018)(3613699012);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?Qk1yRnl0U2xNRjdDMjFoVzJCdXZDaDl5WHk2U2hhZUJoQmhSbDI1c3hSeFdX?=
- =?utf-8?B?aGttT2JWYWh0eWtPVTl5bnk3ZzhhODN1SHNVVFp3UGJKayt5UTBMaGZGRWMw?=
- =?utf-8?B?S1pvOFUwL0Vnb3ZWc2MrdnFIM0ZJKzd0ZTk4QzNPeXhtRkExVk8yS0tQamhL?=
- =?utf-8?B?MGVxQ2FGeFRrSXByQSttc05uRzhObFB3MEtnQkF5TTYzQzRmSklLWTRrUyt2?=
- =?utf-8?B?U05nNk0zVi93SHZBaE9NdkIwSkoxQnVDZFFwWXcveFM2UmVtbDEwSFRmaHZa?=
- =?utf-8?B?VUlINFgwc3VBb2FUOHYwMFhSQzNILzFGSENSdDlPd216ZzdHQi93TVNobS94?=
- =?utf-8?B?QklPUHBWV3VnVmZCR2V3aGFKcys1SHZIT3N4eitTdCsvVzNReWFVbnBJdmJw?=
- =?utf-8?B?clNIc1YzT0tsODNSd0FESEJaUzl1b2U5S3JPR1dkVHJmSGVpc0RYM05qcnJD?=
- =?utf-8?B?WVFaa08wcjlla2hzdlFydDNpWCtISnRjMXR1RmlNRy92a2JITzFFaUdUejJO?=
- =?utf-8?B?YW9aTzE1ckJhN0NBRHpNNTY5T0ltUkEzSXBCa25SRkZXc2VxbXBXS1E1aWhs?=
- =?utf-8?B?K0NPbFpXRUxWbXVrUFhEWHVtQWNvanY5YVE2b1NOSVcrcmNlQmFYRG1UdzFR?=
- =?utf-8?B?RXNYY2h2cG5wd2NLZWQxSFlVRVorTHNYMEhaTVNhY3JxZExGL1J0Ui95T0V6?=
- =?utf-8?B?T0dMc3Z0NDZJRzdySXc5MHU2NDdSN2hWMUFUZGh5eEEyaVp6UUxNVXlrVjg0?=
- =?utf-8?B?Z2pxcnJZWWEwL1k0Wm1MOTFKeFRKMk84QjBvMHI5WXpLSGoxM1VXdWsxR0hw?=
- =?utf-8?B?Z2VlRnhmMmJwWjZaRTBleG16b0VQdTNiaWw5OFBpc2hGWXZJQVZ4UjV5elpx?=
- =?utf-8?B?bXBYUTRTZUk2a3FaWmZ1S0lVTDZwdHNMZmpUb0M4dytFL3JQeXBtRThmYm0r?=
- =?utf-8?B?aXRMY2xaNXNwYlpWUjNKUWdJM1l4L2ZEYUFYcWFQbG85cXgyRmJPWERPdUFP?=
- =?utf-8?B?bHRVUThGaG9oaGlkWjZyYW41RThwUjlMY2M5Z2kxTVgvbmVPeHRiYlVIV21w?=
- =?utf-8?B?czZFeFpQZlBlcU5ZbEJPWmllaGcvUnRHMWdUalJzZ1JkZHBnQm1vb3BiTDBx?=
- =?utf-8?B?Q296bDYvN0RoVkRkak9ncG9jL3ozZm9KcDF4dnphb0Ftb0pQbjZaL2ljaE5z?=
- =?utf-8?B?OHpxUFhJcWIxd3lzejltVXZIMVl3VXJIWSs2bDN6bytZT1FtWWMvcXFBa0JB?=
- =?utf-8?B?ak0wVEEvZGJxaUU1cEtpV2tVWC9SNnorR09iTHZyRHZiemlWTFRmNFBEYmlJ?=
- =?utf-8?B?SzBaQVpnSGVHSm1NVTZvankzQ2hQdU9wT01FV3FadHlVbUhZTWw0UUZKZUJQ?=
- =?utf-8?B?QVNBYmZVaXZnNXJ0RXlLN01uMXZxeGZQVENLSXV5YUU2TFZaYnBPUkpHY1Vl?=
- =?utf-8?B?TkhUTVFYNmZWcjdLbS9kUFh5RkdDWWVoaEYzVmpQTkZ4Y3QwR0ttNVY5UE00?=
- =?utf-8?B?YWZvVzh0VkZzZTA3UllxZmxQRTRIZFc0bXg0RFAvZlZlYlkwekNWYmV6L3A5?=
- =?utf-8?B?UzlFNUhWdDB1M3dIOGF6M1U0em05dEFSSmRaanJLSlpMSmJtd1dBbUlkVHRo?=
- =?utf-8?B?MnlKNXlVaUxKM1c4dmVRbTQweTJPVDIwNG93SVFvSnE1dXBXNTFJNnFXRFdq?=
- =?utf-8?B?dzkxQU1WMFF5VzNYeWtXYlVsZng5K0tab290YnhrOHd3KytWOWYyMGJQRUxF?=
- =?utf-8?B?RkV3Mm5oQnNJaVpjUUp0QlY5cHVBSHpuMW1NNVJEOEZQalp5akJNK3N5Rnpr?=
- =?utf-8?B?dHdsYUxiUjdhVTBTdE50OFlVT2ZCcTFGZ1FKVFR2WExPMHhCYkxNY0ZJUGVZ?=
- =?utf-8?B?NGoydFFITTlXVlk5c2ZVTzNIb05wODZndFg4Slk3bFFVelhHLzVTU0dJc2Jh?=
- =?utf-8?B?bU1zOXZQVzlBVUdKV3FHN0xUYVdCdW1iaTZHZkhCVGVHVmlBZGJZRVE3Vkxi?=
- =?utf-8?B?SmFMcFdQbTdWbnRkUy84OGJsdWpDOTBvN0RmMkRXN3JBa1VQelFzbnRwNG11?=
- =?utf-8?B?VWxoT1BENFdLM3BpOTMrbk4rT1FrMk9OSy85MjNIanRJVXU0SFVFUG9PN3kw?=
- =?utf-8?B?dk1KU2VES0NoYzM3ZllyK0JmempaYVNWTzVaMEVWWlp5ZE52QWYreHRZbVRi?=
- =?utf-8?B?ZGc9PQ==?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <EBC7C069C6DF8643A110D231EC3DA9CB@eurprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
+X-Inumbo-ID: a0d88536-34cb-11f0-b892-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1747670962; x=1748275762; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=bg5mb81A6bM7YU+0LviaGY6QXJz6XtKaehihYECsyDg=;
+        b=KGiRSUimcQCkC1fqEmDUJBnJMPNP37LS15Fl091y2lA5dLCHi/aFNON8Z2YWSslskS
+         DgQSgYK4czopDZtozfS6a5SgwIqrUPmSrui6RVNuERuzCA19aS1IPPNUQsIJCNcUqZKY
+         bwr5l7YNXBy86AnNFGROeaS4hj+D2JOX8TSp8nThSctNjxIBfvHvuXCdldZp6q/yE4FC
+         QlZRiOX17uB5vry/7ftky8cD1iWZt2ztjImFIk2ONVgx9LHzL6vDBaEX42jl6oxlpGT0
+         1APUrm+gBT7ckZbT70vPdPaFm9DXvwApoIdTcGiv78t8vkef4BtF902ulPtpbi3L9tZP
+         Nf5Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1747670962; x=1748275762;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=bg5mb81A6bM7YU+0LviaGY6QXJz6XtKaehihYECsyDg=;
+        b=qOg+G2oEVsgI1JIGiuLsuEXw/H6k6o9Pi1HpGjl9/5AJtlrs8xYu/0WkSmrLHPxDNR
+         cUb3+r56WWu/+6b7oNWSyo1ayn6DqyS0ZyWONgM/6v+y3qo5kWHikLvXqIs0ZhcQlw/8
+         1QPyWAkZ/4HlBHL0kziR32JQvwEyJBuTdz518pPZDxpPxkG6njy1+PShXMK4/wZErl+a
+         qN0aTlufSZF/e3Qktwe8PR9VrSRCJnIbb48spNCvo/UZlcq7araIoigPbSTiCHChcVO+
+         0ne+PtIsbSRTt8wtdy7cLY34Mv2M4LJYCvO1T7P8JM3mhRN2gSTQtGQuUnljtGs249jI
+         rN3w==
+X-Forwarded-Encrypted: i=1; AJvYcCWKaCcmUvdSbRXgdJcCub5FY02dAR07Yw6GCwsCorP8n5NfOmYWfD6ATlxH+cpxQd8NpN50hUQUMvQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzMiJBwTcPSAZtRe/swsetYehZ5LZBiSjcF8ykr6CoVnRPXzAHL
+	03AfwNritY8bpGDdmR66qYI6uB071bTenHI+ffGNKVvcIVJyIq5eaB/3
+X-Gm-Gg: ASbGncvS9YEoNdXGhjD0Q4iytaoLKlh9wsJ9hvE+XyWTkd0+2sST8WzY0GfcHEpCTRM
+	1j54kuoN76RsvuibtnWbk0wpLKrkbqLbJlDlLKh0NAqRy0yjGbh862icFaSu3SYdlNnGHdJGlpG
+	IJx++KnSQY3IHS5jKg5oKMZ6Gvk9Q2XSsQ1qErq5sR8br9w5Dzd59qZDFPPoyIGY85cQ9GHeYGn
+	meiRRX2VAP9W0viaQdN4aMHwkhwRn9vRzsji6UFZD0OW1EURuMSJWPPYdaYUbWqvJysp0lIADJt
+	X40Jd9HiAOAhIlQoZcsqp+/eUeAVricjbTxXThMcibVgkDYBl/SzPujzsx+SZqE2wf/674n5ho9
+	6gneIf+QLUX2li53RF7VtfSL7N9H3c//xviA=
+X-Google-Smtp-Source: AGHT+IE7Qcskq+doyDIr6DYTFFajJaloDFJKuWkhhfJBgA0hHkLjZaj/hOuanixi07yq/J/reSlJ2w==
+X-Received: by 2002:a17:906:c14d:b0:ad2:26f0:a76 with SMTP id a640c23a62f3a-ad536b7f1d2mr1170595666b.13.1747670961569;
+        Mon, 19 May 2025 09:09:21 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------PMQ020XTGqPtvlBYXUp9Qtpu"
+Message-ID: <e06a00d9-7cbd-416e-8e1e-f3aaaedccf77@gmail.com>
+Date: Mon, 19 May 2025 18:09:20 +0200
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PAVPR03MB8946.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 14106a3a-8921-49fa-a2b8-08dd96ecf319
-X-MS-Exchange-CrossTenant-originalarrivaltime: 19 May 2025 15:50:58.4182
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: +USJlQBwp9TbfU5wIY/0M+9IagxRXCfnmYfStOR/FAXZvwd4EGgd140ZuYoq7E2eTEhWuoFvq+yYevUQ7aDNcmWuzf7SdyF/PLZLlHjXYJY=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR03MB9023
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 11/16] xen/riscv: aplic_init() implementation
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Romain Caritey <Romain.Caritey@microchip.com>, xen-devel@lists.xenproject.org
+References: <cover.1746530883.git.oleksii.kurochko@gmail.com>
+ <9129b10432dfc7ff8ba451842204342171da7dc1.1746530883.git.oleksii.kurochko@gmail.com>
+ <057fc2ce-d4d6-4e14-987d-bef6f909eaff@suse.com>
+Content-Language: en-US
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <057fc2ce-d4d6-4e14-987d-bef6f909eaff@suse.com>
 
-RnJvbTogR3J5Z29yaWkgU3RyYXNoa28gPGdyeWdvcmlpX3N0cmFzaGtvQGVwYW0uY29tPg0KDQpQ
-cm9wb3NhbCBkZXNjcmlwdGlvbiB0byBhZGQgc2VwYXJhdGUgU0NNSSBEVCBub2RlIGZvciBYZW4g
-bWFuYWdlbWVudCBhZ2VudA0KdW5kZXIgImNob3NlbiIgb3IgeGVuLWNvbmZpZyBub2RlLCBsaWtl
-IEh5cGVybGF1bmNoICJ4ZW4sY29uZmlnIi4NCg0KVGhpcyBwcm9wb3NhbCBpbnRyb2R1Y2VzIGEg
-bmV3IGFwcHJvYWNoIHRvIHRoZSBYZW4gbXVsdGktZG9tYWluDQpjb25maWd1cmF0aW9uLCB3aGVy
-ZSBhbGwgWGVuLXNwZWNpZmljIGNvbmZpZ3VyYXRpb24gaGFzIGJlZW4gbW92ZWQNCnVuZGVyIHRo
-ZSAiL2Nob3NlbiIgbm9kZS4gVGhpcyByZXF1aXJlcyBsZXNzIERvbTAgZGV2aWNlIHRyZWUNCm1h
-bmlwdWxhdGlvbiBhbmQgaXNvbGF0ZXMgWGVuIGNvbmZpZ3VyYXRpb24gZnJvbSBkb21haW4gY29u
-ZmlndXJhdGlvbi4NCg0KVGhpcyBhcHByb2FjaCBwcm92aWRlcyB0aGUgZm9sbG93aW5nIGRldmlj
-ZSB0cmVlIChEVCkgcGFyYW1ldGVyczoNCg0KLSAieGVuLHNjbWktc2Vjb25kYXJ5LWFnZW50cyI6
-IEEgWGVuLXNwZWNpZmljIHBhcmFtZXRlciB1bmRlciB0aGUNCiIvY2hvc2VuIiBub2RlLCB3aGlj
-aCBkZXNjcmliZXMgdGhlIFNDTUkgYWdlbnQgY29uZmlndXJhdGlvbiBmb3INCnRoZSBkb21haW5z
-Lg0KLSB0aGUgU0NNSSBjb25maWd1cmF0aW9uIGZvciBYZW4gKHByaXZpbGVnZWQgYWdlbnQpIGFu
-ZCB0aGUgc2hhcmVkDQptZW1vcnkgY29uZmlndXJhdGlvbiBmb3IgYWxsIGFnZW50cyBhcmUgcHJv
-dmlkZWQgdW5kZXIgdGhlICIvY2hvc2VuIg0Kbm9kZSBhbmQgYXJlIHVzZWQgc3RyaWN0bHkgYnkg
-WGVuIGZvciBpdHMgaW5pdGlhbCBjb25maWd1cmF0aW9uLg0KLSB0aGUgc2NtaV9zaG0gYW5kIFND
-TUkgY29uZmlndXJhdGlvbiBmb3IgRG9tMCBhcmUgcGxhY2VkIGluIHRoZQ0KIi9maXJtd2FyZS9z
-Y21pIiBub2RlIHNvIHRoYXQgdGhleSBjYW4gYmUgbW92ZWQgdG8gRG9tMCB3aXRob3V0DQphbnkg
-Y2hhbmdlcy4NCg0KVGhpcyBjb25maWd1cmF0aW9uIGFsbG93cyB0aGUgdXNlIG9mIFhlbi1zcGVj
-aWZpYyBub2RlcyB0byBwcm92aWRlDQppbmZvcm1hdGlvbiBzdHJpY3RseSBuZWVkZWQgYnkgWGVu
-IHdoaWxlIHVzaW5nIHRoZSBkZWZhdWx0IFNDTUkNCmNvbmZpZ3VyYXRpb24gZm9yIERvbTAgYW5k
-IG90aGVyIGRvbWFpbnMuIEFzIGEgcmVzdWx0LCBubyBhZGRpdGlvbmFsDQpiaW5kaW5ncyBuZWVk
-IHRvIGJlIGludHJvZHVjZWQgdG8gdGhlIGRldmljZSB0cmVlLg0KDQpTaWduZWQtb2ZmLWJ5OiBH
-cnlnb3JpaSBTdHJhc2hrbyA8Z3J5Z29yaWlfc3RyYXNoa29AZXBhbS5jb20+DQpTaWduZWQtb2Zm
-LWJ5OiBPbGVrc2lpIE1vaXNpZWlldiA8b2xla3NpaV9tb2lzaWVpZXZAZXBhbS5jb20+DQotLS0N
-Cg0KDQoNCiAuLi4vYXJtL2Zpcm13YXJlL2FybS1zY21pLXByb3Bvc2FsLnJzdCAgICAgICAgfCAy
-MjQgKysrKysrKysrKysrKysrKysrDQogMSBmaWxlIGNoYW5nZWQsIDIyNCBpbnNlcnRpb25zKCsp
-DQogY3JlYXRlIG1vZGUgMTAwNjQ0IGRvY3MvaHlwZXJ2aXNvci1ndWlkZS9hcm0vZmlybXdhcmUv
-YXJtLXNjbWktcHJvcG9zYWwucnN0DQoNCmRpZmYgLS1naXQgYS9kb2NzL2h5cGVydmlzb3ItZ3Vp
-ZGUvYXJtL2Zpcm13YXJlL2FybS1zY21pLXByb3Bvc2FsLnJzdCBiL2RvY3MvaHlwZXJ2aXNvci1n
-dWlkZS9hcm0vZmlybXdhcmUvYXJtLXNjbWktcHJvcG9zYWwucnN0DQpuZXcgZmlsZSBtb2RlIDEw
-MDY0NA0KaW5kZXggMDAwMDAwMDAwMC4uZmNjMmVkMmI2NQ0KLS0tIC9kZXYvbnVsbA0KKysrIGIv
-ZG9jcy9oeXBlcnZpc29yLWd1aWRlL2FybS9maXJtd2FyZS9hcm0tc2NtaS1wcm9wb3NhbC5yc3QN
-CkBAIC0wLDAgKzEsMjI0IEBADQorDQorUHJvcG9zYWwgZm9yIFNDTUkgbXVsdGktYWdlbnQgZHJp
-dmVyIGJpbmRpbmdzDQorPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
-PT09DQorDQorTm93IHRoZSBYZW4gY29uZmlndXJhdGlvbiBmb3IgU0NNSSBtdWx0aS1hZ2VudCBz
-dXBwb3J0IGlzIGRvbmUgaW4gYSBiaXQgY29tcGxpY2F0ZWQgd2F5LCBlc3BlY2lhbGx5DQorZnJv
-bSBTQ01JIG11bHRpLWFnZW50IGRyaXZlciBpbml0aWFsaXphdGlvbiBhbmQgRG9tMCBEVCBtYW5p
-cHVsYXRpb24gcG9pbnQgb2Ygdmlldy4NCitBbHNvIGl0IGRvZXMgbm90IHRha2UgaW50byBhY2Nv
-dW50IGZ1dHVyZSByZXF1aXJlbWVudHMgdG8gc3VwcG9ydCBTQ1AgU0NNSSBGVy4NCisNCitUbyBl
-bmFibGUgU0NNSSBtdWx0aS1hZ2VudCB1c2VyIG5lZWQ6DQorDQorKiB0YWtlIGhvc3QgRFQgd2l0
-aCBiYXNpYyBTQ01JIGVuYWJsZWQNCisqIGFkZCBTQ01JIHNoYXJlZC1tZW1vcnkgbm9kZXMgZm9y
-IGFsbCBhZ2VudHMNCisqIHVwZGF0ZSBTQ01JIG5vZGUgdG8gcG9pbnQgb24gU0NNSSBYZW4gbWFu
-YWdlbWVudCBjaGFubmVsIChgYFtzbWMtaWQsIHNobWVtXWBgKQ0KKyogYWRkICJ4ZW4sc2NtaS1z
-ZWNvbmRhcnktYWdlbnRzIiBwcm9wZXJ0eSB0byB0aGUgIlxjaG9zZW4iIG5vZGUNCisNCisuLiBj
-b2RlOjoNCisNCisgICBjaG9zZW4gew0KKyAgICAgIHhlbixzY21pLXNlY29uZGFyeS1hZ2VudHMg
-PSA8DQorICAgICAgICAgICAgICAgICAgICAxIDB4ODIwMDAwMDMgJnNjbWlfc2htXzENCisgICAg
-ICAgICAgICAgICAgICAgIDIgMHg4MjAwMDAwNCAmc2NtaV9zaG1fMg0KKyAgICAgICAgICAgICAg
-ICAgICAgMyAweDgyMDAwMDA1ICZzY21pX3NobV8zDQorICAgICAgICAgICAgICAgICAgICA0IDB4
-ODIwMDAwMDYgJnNjbWlfc2htXzQ+Ow0KKyAgICB9DQorDQorICAgIC97DQorICAgICAgICAgICAg
-Ly8gU0NNSSBzaGFyZWQtbWVtb3J5IG5vZGVzIGZvciBhbGwgYWdlbnRzDQorICAgICAgICAgICAg
-c2NtaV9zaG1fMCA6IHNyYW1ANDdmZjAwMDAgew0KKyAgICAgICAgICAgICAgICBjb21wYXRpYmxl
-ID0gImFybSxzY21pLXNobWVtIjsNCisgICAgICAgICAgICAgICAgcmVnID0gPDB4MCAweDQ3ZmYw
-MDAwIDB4MCAweDEwMDA+Ow0KKyAgICAgICAgICAgIH07DQorICAgICAgICAgICAgc2NtaV9zaG1f
-MTogc3JhbUA0N2ZmMTAwMCB7DQorICAgICAgICAgICAgICAgICAgICBjb21wYXRpYmxlID0gImFy
-bSxzY21pLXNobWVtIjsNCisgICAgICAgICAgICAgICAgICAgIHJlZyA9IDwweDAgMHg0N2ZmMTAw
-MCAweDAgMHgxMDAwPjsNCisgICAgICAgICAgICB9Ow0KKyAgICAgICAgICAgIHNjbWlfc2htXzI6
-IHNyYW1ANDdmZjIwMDAgew0KKyAgICAgICAgICAgICAgICAgICAgY29tcGF0aWJsZSA9ICJhcm0s
-c2NtaS1zaG1lbSI7DQorICAgICAgICAgICAgICAgICAgICByZWcgPSA8MHgwIDB4NDdmZjIwMDAg
-MHgwIDB4MTAwMD47DQorICAgICAgICAgICAgfTsNCisgICAgICAgICAgICBzY21pX3NobV8zOiBz
-cmFtQDQ3ZmYzMDAwIHsNCisgICAgICAgICAgICAgICAgICAgIGNvbXBhdGlibGUgPSAiYXJtLHNj
-bWktc2htZW0iOw0KKyAgICAgICAgICAgICAgICAgICAgcmVnID0gPDB4MCAweDQ3ZmYzMDAwIDB4
-MCAweDEwMDA+Ow0KKyAgICAgICAgICAgIH07DQorICAgICAgICAgICAgc2NtaV9zaG1fNDogc3Jh
-bUA0N2ZmNDAwMCB7DQorICAgICAgICAgICAgICAgICAgICBjb21wYXRpYmxlID0gImFybSxzY21p
-LXNobWVtIjsNCisgICAgICAgICAgICAgICAgICAgIHJlZyA9IDwweDAgMHg0N2ZmNDAwMCAweDAg
-MHgxMDAwPjsNCisgICAgICAgICAgICB9Ow0KKw0KKyAgICAgICAgICAgIGZpcm13YXJlIHsNCisg
-ICAgICAgICAgICAgICAgc2NtaTogc2NtaSB7DQorICAgICAgICAgICAgICAgICAgICBjb21wYXRp
-YmxlID0gImFybSxzY21pLXNtYyI7DQorICAgICAgICAgICAgICAgICAgICBhcm0sIHNtYyAtIGlk
-ID0gPDB4ODIwMDAwMDI+OyA8LS0tIFhlbiBtYW5hZ2VtZW50IGFnZW50IGNoYW5uZWwgInNtYy1p
-ZCINCisgICAgICAgICAgICAgICAgICAgICNhZGRyZXNzLWNlbGxzID0gPCAxPjsNCisgICAgICAg
-ICAgICAgICAgICAgICNzaXplLWNlbGxzID0gPCAwPjsNCisgICAgICAgICAgICAgICAgICAgICNh
-Y2Nlc3MtY29udHJvbGxlci1jZWxscyA9IDwgMT47DQorICAgICAgICAgICAgICAgICAgICBzaG1l
-bSA9IDwmc2NtaV9zaG1fMD47IDwtLS0gWGVuIG1hbmFnZW1lbnQgYWdlbnQgY2hhbm5lbCAic2ht
-ZW0iDQorDQorICAgICAgICAgICAgICAgICAgICBwcm90b2NvbEBYew0KKyAgICAgICAgICAgICAg
-ICAgICAgfTsNCisgICAgICAgICAgICAgICAgfTsNCisgICAgICAgICAgICB9Ow0KKyAgICB9DQor
-DQorSW1wb3J0YW50IHRoaW5nIHRvIG5vdGUgaXMgdGhhdCBhbGwgaW5mb3JtYXRpb24gYWJvdXQg
-bXVsdGktY2hhbm5lbCBzdXBwb3J0IGlzIHN0cmljdGx5IFhlbiBzcGVjaWZpYy4NCisNCitEdXJp
-bmcgaW5pdGlhbGl6YXRpb24gdGhlIFNDTUkgbXVsdGktYWdlbnQgZHJpdmVyIHVzZXMgSG9zdCBE
-VCBTQ01JIG5vZGUgYW5kDQorInhlbixzY21pLXNlY29uZGFyeS1hZ2VudHMiIHByb3BlcnR5IHRv
-IGluaXQgaXRzZWxmIGFuZCB0aGVuLCBkdXJpbmcgRG9tMCBjcmVhdGlvbiwgbWFuaXB1bGF0ZXMN
-CitEb20wIERUIHRvIHJlbW92ZSBYZW4gc3BlY2lmaWMgU0NNSSBpbmZvIGFuZCB1cGRhdGUgZG9t
-MCBTQ01JIG5vZGVzIHdpdGggRG9tMCBTQ01JIGFnZW50IHNwZWNpZmljDQoraW5mb3JtYXRpb24u
-DQorDQorVGhlcmUgYXJlIHR3byBuZWdhdGl2ZSBwb2ludHM6DQorDQorMSkgRG91YmxlIERUIG1v
-ZGlmaWNhdGlvbiAtIG9uZSBpcyB1c2VyIHRvIHNldCB1cCBTQ01JIFhlbiBzdXBwb3J0IGluIEhv
-c3QgRFQsIHNlY29uZCAtDQorICAgRG9tMCBEVCBtYW5pcHVsYXRpb24uDQorMikgSW4gY2FzZSBv
-ZiBmdXR1cmUgc3VwcG9ydCBvZiBtYWlsYm94IHNoYXJlZC1tZW1vcnkgdHJhbnNwb3J0IHRoZXJl
-IGNvdWxkIGJlIHVwIHRvIDQgbWFpbGJveGVzIGFuZA0KKyAgIHVwIHRvIDIgc2hhcmVkLW1lbW9y
-aWVzIHBlciBTQ01JIGFnZW50IGNoYW5uZWwuDQorDQorSGVuY2UgU0NNSSBtdWx0aS1hZ2VudCBz
-dXBwb3J0IGlzIFhlbiBzcGVjaWZpYyBrbm93bGVkZ2UgdGhlcmUgaXMgYSBwcm9wb3NhbCB0byBh
-ZGQgaXQgYXMgWGVuDQorc3BlY2lmaWMgRFQgZGVmaW5pdGlvbnMgYW5kIHNvIG1pbmltaXplIEhv
-c3QgYW5kIERvbTAgRFQgbWFuaXB1bGF0aW9ucy4NCitUaG9zZSBkZWZpbml0aW9ucyBjYW4gYmUg
-YWRkZWQgaW4gIi9jaG9zZW4iIG9yLCBpZGVhbGx5LCBpbiAieGVuLGNvbmZpZyIgbm9kZSAobGlr
-ZSBpbiBIeXBlcmxhdW5jaCBkZXNpZ24pLg0KKw0KK1RoZSBTQ01JIGJpbmRpbmcgc3RheXMgZ2Vu
-ZXJpYywganVzdCB0d28gU0NNSSBub2RlcyBkZWZpbmVkIC0gb25lIGZvciBYZW4gbWFuYWdlbWVu
-dCBjaGFubmVsIGFuZA0KK29uZSBmb3IgSG9zdCBEb20wIE9TUE0uDQorDQorRXhhbXBsZSBvZiB1
-c2luZyAiY2hvc2VuIiBmb3IgY29uZmlndXJhdGlvbjoNCisNCisuLiBjb2RlOjoNCisNCisgICAg
-L3sNCisNCisgICAgICAgIGNob3NlbiB7DQorICAgICAgICAgICAgLi4uDQorDQorICAgICAgICAg
-ICAgLy8gWGVuIFNDTUkgbWFuYWdlbWVudCBjaGFubmVsDQorICAgICAgICAgICAgc2NtaV9zaG1f
-MCA6IHNyYW1ANDdmZjAwMDAgew0KKyAgICAgICAgICAgICAgICBjb21wYXRpYmxlID0gImFybSxz
-Y21pLXNobWVtIjsNCisgICAgICAgICAgICAgICAgcmVnID0gPDB4MCAweDQ3ZmYwMDAwIDB4MCAw
-eDEwMDA+Ow0KKyAgICAgICAgICAgIH07DQorICAgICAgICAgICAgc2NtaV94ZW46IHNjbWkgew0K
-KyAgICAgICAgICAgICAgICBjb21wYXRpYmxlID0gImFybSxzY21pLXNtYyI7DQorICAgICAgICAg
-ICAgICAgIGFybSxzbWMtaWQgPSA8MHg4MjAwMDAwMj47IDwtLS0gWGVuIG1hbmVnZW1lbnQgYWdl
-bnQgc21jLWlkDQorICAgICAgICAgICAgICAgICNhZGRyZXNzLWNlbGxzID0gPCAxPjsNCisgICAg
-ICAgICAgICAgICAgI3NpemUtY2VsbHMgPSA8IDA+Ow0KKyAgICAgICAgICAgICAgICAjYWNjZXNz
-LWNvbnRyb2xsZXItY2VsbHMgPSA8IDE+Ow0KKyAgICAgICAgICAgICAgICBzaG1lbSA9IDwmc2Nt
-aV9zaG1fMD47IDwtLS0gWGVuIG1hbmVnZW1lbnQgYWdlbnQgc2htZW0NCisgICAgICAgICAgICB9
-Ow0KKw0KKyAgICAgICAgICAgIC8vIFNDTUkgbXVsdGktYWdlbnQgY29uZmlndXJhdGlvbg0KKyAg
-ICAgICAgICAgIHNjbWlfc2htXzI6IHNyYW1ANDdmZjIwMDAgew0KKyAgICAgICAgICAgICAgICAg
-ICAgY29tcGF0aWJsZSA9ICJhcm0sc2NtaS1zaG1lbSI7DQorICAgICAgICAgICAgICAgICAgICBy
-ZWcgPSA8MHgwIDB4NDdmZjIwMDAgMHgwIDB4MTAwMD47DQorICAgICAgICAgICAgfTsNCisgICAg
-ICAgICAgICBzY21pX3NobV8zOiBzcmFtQDQ3ZmYzMDAwIHsNCisgICAgICAgICAgICAgICAgICAg
-IGNvbXBhdGlibGUgPSAiYXJtLHNjbWktc2htZW0iOw0KKyAgICAgICAgICAgICAgICAgICAgcmVn
-ID0gPDB4MCAweDQ3ZmYzMDAwIDB4MCAweDEwMDA+Ow0KKyAgICAgICAgICAgIH07DQorICAgICAg
-ICAgICAgc2NtaV9zaG1fNDogc3JhbUA0N2ZmNDAwMCB7DQorICAgICAgICAgICAgICAgICAgICBj
-b21wYXRpYmxlID0gImFybSxzY21pLXNobWVtIjsNCisgICAgICAgICAgICAgICAgICAgIHJlZyA9
-IDwweDAgMHg0N2ZmNDAwMCAweDAgMHgxMDAwPjsNCisgICAgICAgICAgICB9Ow0KKyAgICAgICAg
-ICAgIHhlbixzY21pLXNlY29uZGFyeS1hZ2VudHMgPSA8DQorICAgICAgICAgICAgICAgICAgICAg
-ICAgMSAweDgyMDAwMDAzICZzY21pX3NobQ0KKyAgICAgICAgICAgICAgICAgICAgICAgIDIgMHg4
-MjAwMDAwNCAmc2NtaV9zaG1fMg0KKyAgICAgICAgICAgICAgICAgICAgICAgIDMgMHg4MjAwMDAw
-NSAmc2NtaV9zaG1fMw0KKyAgICAgICAgICAgICAgICAgICAgICAgIDQgMHg4MjAwMDAwNiAmc2Nt
-aV9zaG1fND47DQorICAgICAgICB9Ow0KKw0KKyAgICAgICAgLy8gSG9zdCBTQ01JIE9TUE0gY2hh
-bm5lbCAtIHByb3ZpZGVkIHRvIHRoZSBEb20wIGFzIGlzIGlmIFNDTUkgZW5hYmxlZCBmb3IgaXQN
-CisgICAgICAgIHNjbWlfc2htOiBzcmFtQDQ3ZmYxMDAwIHsNCisgICAgICAgICAgICAgICAgY29t
-cGF0aWJsZSA9ICJhcm0sc2NtaS1zaG1lbSI7DQorICAgICAgICAgICAgICAgIHJlZyA9IDwweDAg
-MHg0N2ZmMTAwMCAweDAgMHgxMDAwPjsNCisgICAgICAgIH07DQorDQorICAgICAgICBmaXJtd2Fy
-ZSB7DQorICAgICAgICAgICAgc2NtaTogc2NtaSB7DQorICAgICAgICAgICAgICAgIGNvbXBhdGli
-bGUgPSAiYXJtLHNjbWktc21jIjsNCisgICAgICAgICAgICAgICAgYXJtLHNtYy1pZCA9IDwweDgy
-MDAwMDAzPjsgPC0tLSBIb3N0IE9TUE0gYWdlbnQgc21jLWlkDQorICAgICAgICAgICAgICAgICNh
-ZGRyZXNzLWNlbGxzID0gPCAxPjsNCisgICAgICAgICAgICAgICAgI3NpemUtY2VsbHMgPSA8IDA+
-Ow0KKyAgICAgICAgICAgICAgICBzaG1lbSA9IDwmc2NtaV9zaG0+OyA8LS0tIEhvc3QgT1NQTSBh
-Z2VudCBzaG1lbQ0KKw0KKyAgICAgICAgICAgICAgICBwcm90b2NvbEBYew0KKyAgICAgICAgICAg
-ICAgICB9Ow0KKyAgICAgICAgICAgIH07DQorICAgICAgICB9Ow0KKyAgICB9DQorDQorDQorSW4g
-dGhlIGFib3ZlIGNhc2U6DQorDQorMSkgWGVuIFNDTUkgbXVsdGktYWdlbnQgY2FuIGJlIHByb2Jl
-ZCB3aXRoIERUIGNvbmZpZ3VyYXRpb24gZnJvbSAiY2hvc2VuIiAob3Igc3BlY2lhbCAieGVuLGNv
-bmZpZyIpDQorICAgbm9kZSBhbmQgYWxsIFhlbiByZWxhdGVkIG5vZGVzIGNhbiBiZSBlYXNpbHkg
-ZHJvcHBlZCBmcm9tIERvbTAgRFQuDQorMikgSG9zdCBTQ01JIE9TUE0gY2hhbm5lbCBEVCBub2Rl
-cyBjYW4gYmUgY29waWVkIHRvIERvbTAgRFQgd2l0aG91dCBjaGFuZ2VzIGlmIFNDTUkgZW5hYmxl
-ZCBmb3IgaXQuDQorMykgRnV0dXJlIHN1cHBvcnQgZm9yIG1haWxib3ggc2hhcmVkLW1lbW9yeSB0
-cmFuc3BvcnQgKFNDUCBTQ01JIEZXKSBjYW4gYmUgc2ltcGxpZmllZCBhcyBubyBtb3JlDQorICAg
-bWFuaXB1bGF0aW9uIHJlcXVpcmVkIHdpdGggRG9tMCBTQ01JICJhcm0sc21jLWlkIiBhbmQgInNo
-bWVtIiBEVCBwcm9wZXJ0aWVzLg0KKw0KKw0KK0V4YW1wbGUgb2YgdXNpbmcgInhlbixjb25maWci
-IGZvciBjb25maWd1cmF0aW9uOg0KKw0KKy4uIGNvZGU6Og0KKw0KKyAgICBoeXBlcnZpc29yIHsN
-CisgICAgICAgIGNvbXBhdGlibGUgPSDigJxoeXBlcnZpc29yLHhlbuKAnQ0KKw0KKyAgICAgICAg
-Ly8gQ29uZmlndXJhdGlvbiBjb250YWluZXINCisgICAgICAgIGNvbmZpZyB7DQorICAgICAgICAg
-ICAgY29tcGF0aWJsZSA9ICJ4ZW4sY29uZmlnIjsNCisgICAgICAgICAgICAuLi4NCisNCisgICAg
-ICAgICAgICAvLyBYZW4gU0NNSSBtYW5hZ2VtZW50IGNoYW5uZWwNCisgICAgICAgICAgICBzY21p
-X3NobV8wIDogc3JhbUA0N2ZmMDAwMCB7DQorICAgICAgICAgICAgICAgIGNvbXBhdGlibGUgPSAi
-YXJtLHNjbWktc2htZW0iOw0KKyAgICAgICAgICAgICAgICByZWcgPSA8MHgwIDB4NDdmZjAwMDAg
-MHgwIDB4MTAwMD47DQorICAgICAgICAgICAgfTsNCisgICAgICAgICAgICBzY21pX3hlbjogc2Nt
-aSB7DQorICAgICAgICAgICAgICAgIGNvbXBhdGlibGUgPSAiYXJtLHNjbWktc21jIjsNCisgICAg
-ICAgICAgICAgICAgYXJtLHNtYy1pZCA9IDwweDgyMDAwMDAyPjsgPC0tLSBYZW4gbWFuZWdlbWVu
-dCBhZ2VudCBzbWMtaWQNCisgICAgICAgICAgICAgICAgI2FkZHJlc3MtY2VsbHMgPSA8IDE+Ow0K
-KyAgICAgICAgICAgICAgICAjc2l6ZS1jZWxscyA9IDwgMD47DQorICAgICAgICAgICAgICAgICNh
-Y2Nlc3MtY29udHJvbGxlci1jZWxscyA9IDwgMT47DQorICAgICAgICAgICAgICAgIHNobWVtID0g
-PCZzY21pX3NobV8wPjsgPC0tLSBYZW4gbWFuZWdlbWVudCBhZ2VudCBzaG1lbQ0KKyAgICAgICAg
-ICAgIH07DQorDQorICAgICAgICAgICAgLy8gU0NNSSBtdWx0aS1hZ2VudCBjb25maWd1cmF0aW9u
-DQorICAgICAgICAgICAgc2NtaV9zaG1fMjogc3JhbUA0N2ZmMjAwMCB7DQorICAgICAgICAgICAg
-ICAgICAgICBjb21wYXRpYmxlID0gImFybSxzY21pLXNobWVtIjsNCisgICAgICAgICAgICAgICAg
-ICAgIHJlZyA9IDwweDAgMHg0N2ZmMjAwMCAweDAgMHgxMDAwPjsNCisgICAgICAgICAgICB9Ow0K
-KyAgICAgICAgICAgIHNjbWlfc2htXzM6IHNyYW1ANDdmZjMwMDAgew0KKyAgICAgICAgICAgICAg
-ICAgICAgY29tcGF0aWJsZSA9ICJhcm0sc2NtaS1zaG1lbSI7DQorICAgICAgICAgICAgICAgICAg
-ICByZWcgPSA8MHgwIDB4NDdmZjMwMDAgMHgwIDB4MTAwMD47DQorICAgICAgICAgICAgfTsNCisg
-ICAgICAgICAgICBzY21pX3NobV80OiBzcmFtQDQ3ZmY0MDAwIHsNCisgICAgICAgICAgICAgICAg
-ICAgIGNvbXBhdGlibGUgPSAiYXJtLHNjbWktc2htZW0iOw0KKyAgICAgICAgICAgICAgICAgICAg
-cmVnID0gPDB4MCAweDQ3ZmY0MDAwIDB4MCAweDEwMDA+Ow0KKyAgICAgICAgICAgIH07DQorICAg
-ICAgICAgICAgeGVuLHNjbWktc2Vjb25kYXJ5LWFnZW50cyA9IDwNCisgICAgICAgICAgICAgICAg
-ICAgICAgICAxIDB4ODIwMDAwMDMgJnNjbWlfc2htDQorICAgICAgICAgICAgICAgICAgICAgICAg
-MiAweDgyMDAwMDA0ICZzY21pX3NobV8yDQorICAgICAgICAgICAgICAgICAgICAgICAgMyAweDgy
-MDAwMDA1ICZzY21pX3NobV8zDQorICAgICAgICAgICAgICAgICAgICAgICAgNCAweDgyMDAwMDA2
-ICZzY21pX3NobV80PjsNCisgICAgICAgIH07DQorICAgIH07DQorDQorICAgIC97DQorICAgICAg
-ICAvLyBIb3N0IFNDTUkgT1NQTSBjaGFubmVsIC0gcHJvdmlkZWQgdG8gdGhlIERvbTAgYXMgaXMg
-aWYgU0NNSSBlbmFibGVkIGZvciBpdA0KKyAgICAgICAgc2NtaV9zaG06IHNyYW1ANDdmZjEwMDAg
-ew0KKyAgICAgICAgICAgICAgICBjb21wYXRpYmxlID0gImFybSxzY21pLXNobWVtIjsNCisgICAg
-ICAgICAgICAgICAgcmVnID0gPDB4MCAweDQ3ZmYxMDAwIDB4MCAweDEwMDA+Ow0KKyAgICAgICAg
-fTsNCisNCisgICAgICAgIGZpcm13YXJlIHsNCisgICAgICAgICAgICBzY21pOiBzY21pIHsNCisg
-ICAgICAgICAgICAgICAgY29tcGF0aWJsZSA9ICJhcm0sc2NtaS1zbWMiOw0KKyAgICAgICAgICAg
-ICAgICBhcm0sc21jLWlkID0gPDB4ODIwMDAwMDM+OyA8LS0tIEhvc3QgT1NQTSBhZ2VudCBzbWMt
-aWQNCisgICAgICAgICAgICAgICAgI2FkZHJlc3MtY2VsbHMgPSA8IDE+Ow0KKyAgICAgICAgICAg
-ICAgICAjc2l6ZS1jZWxscyA9IDwgMD47DQorICAgICAgICAgICAgICAgIHNobWVtID0gPCZzY21p
-X3NobT47IDwtLS0gSG9zdCBPU1BNIGFnZW50IHNobWVtDQorDQorICAgICAgICAgICAgICAgIHBy
-b3RvY29sQFh7DQorICAgICAgICAgICAgICAgIH07DQorICAgICAgICAgICAgfTsNCisgICAgICAg
-IH07DQorICAgIH0NCi0tIA0KMi4zNC4xDQo=
+This is a multi-part message in MIME format.
+--------------PMQ020XTGqPtvlBYXUp9Qtpu
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+
+
+On 5/15/25 11:06 AM, Jan Beulich wrote:
+>> --- a/xen/arch/riscv/aplic.c
+>> +++ b/xen/arch/riscv/aplic.c
+>> @@ -9,19 +9,121 @@
+>>    * Copyright (c) 2024-2025 Vates
+>>    */
+>>   
+>> +#include <xen/device_tree.h>
+>>   #include <xen/errno.h>
+>>   #include <xen/init.h>
+>>   #include <xen/irq.h>
+>> +#include <xen/mm.h>
+>>   #include <xen/sections.h>
+>>   #include <xen/types.h>
+>> +#include <xen/vmap.h>
+>> +
+>> +#include "aplic-priv.h"
+> Besides this, are there going to be any other files including this private
+> header? If not, why have the header in the first place?
+
+Yes, structure aplic_priv is going to be reused in vaplic.c (which isn't introduce yet):
+   https://gitlab.com/xen-project/people/olkur/xen/-/blob/latest/xen/arch/riscv/vaplic.c#L56
+
+>> +    /* Set interrupt type and default priority for all interrupts */
+>> +    for ( i = 1; i <= aplic_info.num_irqs; i++ )
+>> +    {
+>> +        writel(0, &aplic.regs->sourcecfg[i - 1]);
+> What guarantees the loop to not run past the array's size?
+
+riscv,aplic binding:
+   https://github.com/torvalds/linux/blob/a5806cd506af5a7c19bcd596e4708b5c464bfd21/Documentation/devicetree/bindings/interrupt-controller/riscv%2Caplic.yaml#L57
+Should I add an ASSERT() or panic() at the moment where num_irqs are
+initialized to double check a binding?
+
+>
+>> +        /*
+>> +         * Low bits of target register contains Interrupt Priority bits which
+>> +         * can't be zero according to AIA spec.
+>> +         * Thereby they are initialized to APLIC_DEFAULT_PRIORITY.
+>> +         */
+>> +        writel(APLIC_DEFAULT_PRIORITY, &aplic.regs->target[i - 1]);
+>> +    }
+> Seeing the subtractions of 1 here, why's the loop header not simply
+>
+>      for ( i = 0; i < aplic_info.num_irqs; i++ )
+>
+> (i.e. the more conventional form)?
+
+To follow the definition of aplic's binding mentioned about where minimum is 1.
+But I think we can use convention form.
+
+>
+>> +    writel(APLIC_DOMAINCFG_IE | APLIC_DOMAINCFG_DM, &aplic.regs->domaincfg);
+>> +}
+>> +
+>> +static int __init cf_check aplic_init(void)
+>> +{
+>> +    int rc;
+>> +    dt_phandle imsic_phandle;
+>> +    uint32_t irq_range[num_possible_cpus() * 2];
+> Are you going to have enough stack space when num_possible_cpus() is pretty
+> large?
+
+When num_possible_cpus() will be pretty large then it will better to allocate irq_range[]
+dynamically.
+
+Does it make sense to re-write now?
+
+>> +    const struct dt_device_node *node = aplic_info.node;
+>> +
+>> +    /* Check for associated imsic node */
+>> +    rc = dt_property_read_u32(node, "msi-parent", &imsic_phandle);
+>> +    if ( !rc )
+>> +        panic("%s: IDC mode not supported\n", node->full_name);
+>> +
+>> +    imsic_node = dt_find_node_by_phandle(imsic_phandle);
+>> +    if ( !imsic_node )
+>> +        panic("%s: unable to find IMSIC node\n", node->full_name);
+>> +
+>> +    rc = dt_property_read_u32_array(imsic_node, "interrupts-extended",
+>> +                                    irq_range, ARRAY_SIZE(irq_range));
+>> +    if ( rc )
+>> +        panic("%s: unable to find interrupt-extended in %s node\n",
+>> +              __func__, imsic_node->full_name);
+>> +
+>> +    if ( irq_range[1] == IRQ_M_EXT )
+> How do you know the array has had 2 or ...
+>
+>> +        /* Machine mode imsic node, ignore this aplic node */
+>> +        return 0;
+>> +
+>> +    for ( unsigned int i = 0; i < ARRAY_SIZE(irq_range); i += 2 )
+>> +    {
+>> +        if ( irq_range[i + 1] != irq_range[1] )
+>> +            panic("%s: mode[%d] != %d\n", __func__, i + 1, irq_range[1]);
+>> +    }
+> ... or even all of the slots populated? Anything not populated by the DT
+> function will still have the stack contents that had been left by earlier
+> call chains. (The loop also makes little sense to start from 0.)
+
+Do you mean I asked allocated irq_range[8*2] but DT node has only irq_range[4*2]?
+Then it will be really an issue. And out-of-range access will occur in
+dt_property_read_variable_u32_array(). I need another way to check then...
+
+>
+> I'm also puzzled by there not being any further use of the values later
+> in the function.
+
+Yes, because we need this values only to check that DT node's property is
+correctly created.
+
+>
+>> +    rc = imsic_init(imsic_node);
+>> +    if ( rc )
+>> +        panic("%s: Failded to initialize IMSIC\n", node->full_name);
+>> +
+>> +    /* Find out number of interrupt sources */
+>> +    rc = dt_property_read_u32(node, "riscv,num-sources", &aplic_info.num_irqs);
+>> +    if ( !rc )
+> Assigning a bool return value to an int local var, which generally hold
+> error codes, is confusing. I don't think you really need to use a local
+> variable here.
+
+Considering that I am panicing for all the case where rc is used and rc isn't printed
+then we can really just drop rc.
+
+~ Oleksii
+
+--------------PMQ020XTGqPtvlBYXUp9Qtpu
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 5/15/25 11:06 AM, Jan Beulich wrote:</div>
+    <blockquote type="cite"
+      cite="mid:057fc2ce-d4d6-4e14-987d-bef6f909eaff@suse.com">
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">--- a/xen/arch/riscv/aplic.c
++++ b/xen/arch/riscv/aplic.c
+@@ -9,19 +9,121 @@
+  * Copyright (c) 2024-2025 Vates
+  */
+ 
++#include &lt;xen/device_tree.h&gt;
+ #include &lt;xen/errno.h&gt;
+ #include &lt;xen/init.h&gt;
+ #include &lt;xen/irq.h&gt;
++#include &lt;xen/mm.h&gt;
+ #include &lt;xen/sections.h&gt;
+ #include &lt;xen/types.h&gt;
++#include &lt;xen/vmap.h&gt;
++
++#include "aplic-priv.h"
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Besides this, are there going to be any other files including this private
+header? If not, why have the header in the first place?</pre>
+    </blockquote>
+    <pre>Yes, structure aplic_priv is going to be reused in vaplic.c (which isn't introduce yet):
+  <a class="moz-txt-link-freetext" href="https://gitlab.com/xen-project/people/olkur/xen/-/blob/latest/xen/arch/riscv/vaplic.c#L56">https://gitlab.com/xen-project/people/olkur/xen/-/blob/latest/xen/arch/riscv/vaplic.c#L56</a>
+</pre>
+    <blockquote type="cite"
+      cite="mid:057fc2ce-d4d6-4e14-987d-bef6f909eaff@suse.com">
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+    /* Set interrupt type and default priority for all interrupts */
++    for ( i = 1; i &lt;= aplic_info.num_irqs; i++ )
++    {
++        writel(0, &amp;aplic.regs-&gt;sourcecfg[i - 1]);
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+<pre>What guarantees the loop to not run past the array's size?</pre></pre>
+    </blockquote>
+    <pre>riscv,aplic binding:
+  <a class="moz-txt-link-freetext" href="https://github.com/torvalds/linux/blob/a5806cd506af5a7c19bcd596e4708b5c464bfd21/Documentation/devicetree/bindings/interrupt-controller/riscv%2Caplic.yaml#L57">https://github.com/torvalds/linux/blob/a5806cd506af5a7c19bcd596e4708b5c464bfd21/Documentation/devicetree/bindings/interrupt-controller/riscv%2Caplic.yaml#L57</a>
+Should I add an ASSERT() or panic() at the moment where num_irqs are
+initialized to double check a binding?
+
+</pre>
+    <blockquote type="cite"
+      cite="mid:057fc2ce-d4d6-4e14-987d-bef6f909eaff@suse.com">
+      <pre wrap="" class="moz-quote-pre">
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+        /*
++         * Low bits of target register contains Interrupt Priority bits which
++         * can't be zero according to AIA spec.
++         * Thereby they are initialized to APLIC_DEFAULT_PRIORITY.
++         */
++        writel(APLIC_DEFAULT_PRIORITY, &amp;aplic.regs-&gt;target[i - 1]);
++    }
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Seeing the subtractions of 1 here, why's the loop header not simply
+
+    for ( i = 0; i &lt; aplic_info.num_irqs; i++ )
+
+(i.e. the more conventional form)?</pre>
+    </blockquote>
+    <pre>To follow the definition of aplic's binding mentioned about where minimum is 1.
+But I think we can use convention form.
+
+</pre>
+    <blockquote type="cite"
+      cite="mid:057fc2ce-d4d6-4e14-987d-bef6f909eaff@suse.com">
+      <pre wrap="" class="moz-quote-pre">
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+    writel(APLIC_DOMAINCFG_IE | APLIC_DOMAINCFG_DM, &amp;aplic.regs-&gt;domaincfg);
++}
++
++static int __init cf_check aplic_init(void)
++{
++    int rc;
++    dt_phandle imsic_phandle;
++    uint32_t irq_range[num_possible_cpus() * 2];
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Are you going to have enough stack space when num_possible_cpus() is pretty
+large?</pre>
+    </blockquote>
+    <pre>When num_possible_cpus() will be pretty large then it will better to allocate irq_range[]
+dynamically.
+
+Does it make sense to re-write now?
+
+</pre>
+    <blockquote type="cite"
+      cite="mid:057fc2ce-d4d6-4e14-987d-bef6f909eaff@suse.com">
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+    const struct dt_device_node *node = aplic_info.node;
++
++    /* Check for associated imsic node */
++    rc = dt_property_read_u32(node, "msi-parent", &amp;imsic_phandle);
++    if ( !rc )
++        panic("%s: IDC mode not supported\n", node-&gt;full_name);
++
++    imsic_node = dt_find_node_by_phandle(imsic_phandle);
++    if ( !imsic_node )
++        panic("%s: unable to find IMSIC node\n", node-&gt;full_name);
++
++    rc = dt_property_read_u32_array(imsic_node, "interrupts-extended",
++                                    irq_range, ARRAY_SIZE(irq_range));
++    if ( rc )
++        panic("%s: unable to find interrupt-extended in %s node\n",
++              __func__, imsic_node-&gt;full_name);
++
++    if ( irq_range[1] == IRQ_M_EXT )
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+How do you know the array has had 2 or ...
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+        /* Machine mode imsic node, ignore this aplic node */
++        return 0;
++
++    for ( unsigned int i = 0; i &lt; ARRAY_SIZE(irq_range); i += 2 )
++    {
++        if ( irq_range[i + 1] != irq_range[1] )
++            panic("%s: mode[%d] != %d\n", __func__, i + 1, irq_range[1]);
++    }
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+... or even all of the slots populated? Anything not populated by the DT
+function will still have the stack contents that had been left by earlier
+call chains. (The loop also makes little sense to start from 0.)</pre>
+    </blockquote>
+    <pre>Do you mean I asked allocated irq_range[8*2] but DT node has only irq_range[4*2]?
+Then it will be really an issue. And out-of-range access will occur in
+dt_property_read_variable_u32_array(). I need another way to check then...
+
+</pre>
+    <blockquote type="cite"
+      cite="mid:057fc2ce-d4d6-4e14-987d-bef6f909eaff@suse.com">
+      <pre wrap="" class="moz-quote-pre">
+
+I'm also puzzled by there not being any further use of the values later
+in the function.</pre>
+    </blockquote>
+    <pre>Yes, because we need this values only to check that DT node's property is
+correctly created.
+
+</pre>
+    <blockquote type="cite"
+      cite="mid:057fc2ce-d4d6-4e14-987d-bef6f909eaff@suse.com">
+      <pre wrap="" class="moz-quote-pre">
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+    rc = imsic_init(imsic_node);
++    if ( rc )
++        panic("%s: Failded to initialize IMSIC\n", node-&gt;full_name);
++
++    /* Find out number of interrupt sources */
++    rc = dt_property_read_u32(node, "riscv,num-sources", &amp;aplic_info.num_irqs);
++    if ( !rc )
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Assigning a bool return value to an int local var, which generally hold
+error codes, is confusing. I don't think you really need to use a local
+variable here.</pre>
+    </blockquote>
+    <pre>Considering that I am panicing for all the case where rc is used and rc isn't printed
+then we can really just drop rc.</pre>
+    <pre>~ Oleksii
+</pre>
+  </body>
+</html>
+
+--------------PMQ020XTGqPtvlBYXUp9Qtpu--
 
