@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9AF30ABB563
-	for <lists+xen-devel@lfdr.de>; Mon, 19 May 2025 08:54:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.989546.1373564 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 16510ABB566
+	for <lists+xen-devel@lfdr.de>; Mon, 19 May 2025 08:56:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.989552.1373574 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uGuOX-0006ON-68; Mon, 19 May 2025 06:54:41 +0000
+	id 1uGuPu-0006u1-F3; Mon, 19 May 2025 06:56:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 989546.1373564; Mon, 19 May 2025 06:54:41 +0000
+Received: by outflank-mailman (output) from mailman id 989552.1373574; Mon, 19 May 2025 06:56:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uGuOX-0006Mc-2T; Mon, 19 May 2025 06:54:41 +0000
-Received: by outflank-mailman (input) for mailman id 989546;
- Mon, 19 May 2025 06:54:40 +0000
+	id 1uGuPu-0006rD-Bq; Mon, 19 May 2025 06:56:06 +0000
+Received: by outflank-mailman (input) for mailman id 989552;
+ Mon, 19 May 2025 06:56:05 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=cAbn=YD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uGuOW-0006MW-A9
- for xen-devel@lists.xenproject.org; Mon, 19 May 2025 06:54:40 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
+ id 1uGuPt-0006r7-9Z
+ for xen-devel@lists.xenproject.org; Mon, 19 May 2025 06:56:05 +0000
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [2a00:1450:4864:20::332])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2175e4f1-347e-11f0-9ffb-bf95429c2676;
- Mon, 19 May 2025 08:54:38 +0200 (CEST)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-3a375888297so100988f8f.1
- for <xen-devel@lists.xenproject.org>; Sun, 18 May 2025 23:54:38 -0700 (PDT)
+ id 5448ba20-347e-11f0-9ffb-bf95429c2676;
+ Mon, 19 May 2025 08:56:03 +0200 (CEST)
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-43ede096d73so27664965e9.2
+ for <xen-devel@lists.xenproject.org>; Sun, 18 May 2025 23:56:03 -0700 (PDT)
 Received: from [192.168.61.201] (server.hotelpassage.eu. [88.146.207.194])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3a365bc0b5esm7928041f8f.9.2025.05.18.23.54.37
+ 5b1f17b1804b1-442fa3e2ce5sm147368205e9.13.2025.05.18.23.56.02
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 18 May 2025 23:54:37 -0700 (PDT)
+ Sun, 18 May 2025 23:56:02 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,70 +45,109 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2175e4f1-347e-11f0-9ffb-bf95429c2676
+X-Inumbo-ID: 5448ba20-347e-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1747637677; x=1748242477; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1747637763; x=1748242563; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=pr/iOLFC9VrC0CSrvGh5HRaU41gZYri8cVgn+uBHz/E=;
-        b=JPog3QbCxOovxaAe+S2jHjmGHD96351FEbsC5xCwa17kwgY5PscURc2P8aaZNBFt0s
-         9HvjMkewhVXepJ+XhF8hmiS4z/8hxWHe7MIKJ72AwUQ0NStmp+BtVq0ldMPlFThtdBIQ
-         POzMlgZosnGxn8QUwuU9ekITRKJg4be03yiIWoD61uOBpuSBHuAVXpq9ob0CTZ5187gs
-         0nrjv6HMMtBNwMi+5gzG1l2GOmNvI+QC/Zy123GdG9jkABDlVgF6QoTvsp/gvyRqhL/D
-         E7uTiGzXJ79pt9cyjnhXYXLSP7CIuZk2UD495di1CPhMwaW7SDZoody0WUNq7/0LWUaE
-         yJdQ==
+        bh=X0/GKlPUvMupEP+ImHEQUJ1iTl4muMylQqwc7FvNiE0=;
+        b=SawvEYuTanQARkZHTpBWdj8rn1gkvtYTIy8vOBK0lGuyyjmqeCAgpfupAHRO/ahqeR
+         Q5sYDiW2CW361MqGXwSywjKefbWkKl/6GycwPkhVWvngGhPUIP8oLkw+Mkai0PiiQGjW
+         MAfM1iQn1p1PcZMy/C1e+DhCZjIzmT7qEfUGvABjFajJb7wPfJQBuPW0ZYo5csVB6G2o
+         1i8e0zqbfnFoKc5n8YhBTn+75yoI9Z4cyTuAchHPC61KuByXWBmbkq4i1HaFBivX1qzm
+         5rOfgHjB0FubNDECYT0iQhAIZ47bYN5nz1ZFW5PjQ0PZxrzl/o1G6EbWNXRUW+4dAW/6
+         omQg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747637677; x=1748242477;
+        d=1e100.net; s=20230601; t=1747637763; x=1748242563;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=pr/iOLFC9VrC0CSrvGh5HRaU41gZYri8cVgn+uBHz/E=;
-        b=UPMMx/zAH8Nq8d3bHSt97tMMPYOfpQzLQKp18WN0mCg0KFyd0cKO+pcaBmA3eAyJID
-         BRiUCW/Qd0NKDMve8u/l3QofwnU+QDNKqoj7wfqiK6y+xfBnbSLob3NE5fdmWfCIrsBy
-         6U13NKB4uAFzXWdxtXmZK6VwY3djRLA6g3ag71au9s4AGrauOPhLOaN7o5zk9LswWbUO
-         1cMZvmufMcMSgSJvLF3wbq1+Yzs3USLSluKuGXp+MGlnhf5WEQaNN2tprgZRRb9zWgvs
-         20/V82Pdc7jI0RURMCQ9Q2t2GlxUzfpGJGYu5uA0/zF5VozLIQt1RFG5F4lhHItpsK/n
-         Kgbg==
-X-Forwarded-Encrypted: i=1; AJvYcCVBxzzPGX/ClPp/DgebExTxn/1eTRbbU4WUMoHTpot0ambQK56UICqR3Olbor7IW1GmaJj6AP5xKnc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzyxAwUJbdXvp6KdOoIx1kwHRpsh8MCVP5jGXn5+z1XGARpjh15
-	BwVRmANdrfMTKuj4Ti2aArxyEj7drTEDkp9DXxKNvAro2/03lf4ZJCnY09BGxEi2QA==
-X-Gm-Gg: ASbGncs/QONFxzTOxPQw0qUE+L8paMC7BuMdtiRly0diokGhbwFSneJNt4HxcHTiFZU
-	8u54YOgi3u5GkRru4pB9bYbXt+lX5gWjXCrJNf8bOggJz+ooJWPo3rXvSTdyVeIL+ouWjuUCujJ
-	qUXsqB17S0NqSssdIu00R7aYPoObgOrRmAsnV1JJVhB4hQkn6AvWtiOSx1BLHajhYu7kYER/jjg
-	90++9qS+ano8Lb0fJOwgvN8biQdunPNdv9r5L3xzhFl95FdKyxTLddzzVKIQ/5CtPF7kpCtrjV2
-	3nqs99F129aNIV6KhPth+Q1hRvk9WQsAJoZ6W8XZAytspAM5z3WBW96UyqysNan9QNOxxbebMPq
-	tOB0fZAsUUw==
-X-Google-Smtp-Source: AGHT+IH2YRVb8UqkUzFnfg7RZAW1DJuyyPc4TGKbWXhxn0wFbbMTEolC1973kmTtkGu4/kDUHXqayA==
-X-Received: by 2002:a05:6000:2507:b0:3a3:6a8d:99c4 with SMTP id ffacd0b85a97d-3a36a8d9a33mr3825445f8f.27.1747637677600;
-        Sun, 18 May 2025 23:54:37 -0700 (PDT)
-Message-ID: <b4ea2a79-68b5-465f-b4e0-652852596fae@suse.com>
-Date: Mon, 19 May 2025 08:54:36 +0200
+        bh=X0/GKlPUvMupEP+ImHEQUJ1iTl4muMylQqwc7FvNiE0=;
+        b=vg0Sb89Qq89RbMbI84qFdBOcr0XSrolfqn8YhXr/fycu8QtXruBAfpEE1kvGpAi/O3
+         1uGcxdBi5+802UmBdlGlKZ7BUVMbc6heNHYH7yIMLa1My+mzJYQekPVwvvhVwvSg5tml
+         5i+hmiOGXiJX2RlAU50o/wqiwhhVA2j46NmOiTbn51q4D9kEUm6lQ2YKql6DOCnvv1gM
+         i8jS4UO8+2VN0iuOL2UZQ0ImiSHti11wDk3b28mvAZUmduJQ/ByaHdNL10jUvKgfcUDz
+         O1niHIrln3+2bQlwuz7vvMrYziPLuC+nOUn1CYjb5+Ie5p+AGxcgz+N/gKOBo6/ifnDo
+         SaTQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVPCN/HnuXz+KizVmMO7w7XM+vSmYXaHnl780V34SEBuaz0CLa8yY16PWMtwFtiSehmFG4Y89/nIkQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yyww6mnGq+SMAul1f5pk7MOjLf9li2tfUA9b5xMPP/HHRxmAxui
+	PeoPvSgd2XOEhHAL1SRq47VYaUguwqHVQMFvAZo8wXYzQ/ZHVfywoPF69VgeeFsIIg==
+X-Gm-Gg: ASbGnctu5O2gWFxPGyjnNUiZq5O8xf1tSCCqIs/YKHD8o71cJs00SE8EgNpIlINkmPa
+	z/d5o0+jt0GKRE770Eoijk+aIdoHslj6YA4TCcjMx3z4Cl+D5CkfJrgQizoi9re7Sq/zohSnsRA
+	hxZx9wqFyxsP7nzy84lPdknB1ll4fy/6k6vVHewJ14Y6tAxBFRgYPV8x8VQahUn+e0eEZPferbo
+	nNyBF72JPU9dzy7eiUB5l1u+98BadNolGgOwrFrhkBsnK2l2ay1sB6TpI7L8DdNTgwcGcbgeDS4
+	KDrRAsOPsNQU33mHQHOqL3fgmkgXtnP3CCky6cRMa144auEjco6vbPk9+Xp6/OHwvYOOWQguoMs
+	eSYUgrQOxWIUHMpVbwK3u
+X-Google-Smtp-Source: AGHT+IH7v/Sxv1+T2Zg7DXIuADO4w8Glt3dyNf6FH7kbDHDkSg+Znm5kKu7jYQhu+KD9XFq2gjhpSw==
+X-Received: by 2002:a05:600c:a378:b0:43c:f70a:2af0 with SMTP id 5b1f17b1804b1-442fd64dfb3mr138504055e9.16.1747637762880;
+        Sun, 18 May 2025 23:56:02 -0700 (PDT)
+Message-ID: <bcdc0848-0c12-4ee0-b923-c7d5243bf097@suse.com>
+Date: Mon, 19 May 2025 08:56:01 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 08/10] vpci/rebar: Remove registers when init_rebar()
- fails
-To: Jiqian Chen <Jiqian.Chen@amd.com>
-Cc: Huang Rui <ray.huang@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v4 03/10] vpci/header: Emulate extended capability list
+ for dom0
+To: "Chen, Jiqian" <Jiqian.Chen@amd.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "Huang, Ray" <Ray.Huang@amd.com>
 References: <20250509090542.2199676-1-Jiqian.Chen@amd.com>
- <20250509090542.2199676-9-Jiqian.Chen@amd.com>
+ <20250509090542.2199676-4-Jiqian.Chen@amd.com>
+ <b569f90b-673d-44c0-b350-8a6f5f3c8d78@suse.com>
+ <BL1PR12MB5849E0E13D669CE6B2755399E79CA@BL1PR12MB5849.namprd12.prod.outlook.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <20250509090542.2199676-9-Jiqian.Chen@amd.com>
+In-Reply-To: <BL1PR12MB5849E0E13D669CE6B2755399E79CA@BL1PR12MB5849.namprd12.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 09.05.2025 11:05, Jiqian Chen wrote:
-> --- a/xen/drivers/vpci/rebar.c
-> +++ b/xen/drivers/vpci/rebar.c
-> @@ -49,6 +49,26 @@ static void cf_check rebar_ctrl_write(const struct pci_dev *pdev,
->      bar->guest_addr = bar->addr;
->  }
->  
-> +static void cleanup_rebar(struct pci_dev *pdev)
+On 19.05.2025 08:43, Chen, Jiqian wrote:
+> On 2025/5/18 22:20, Jan Beulich wrote:
+>> On 09.05.2025 11:05, Jiqian Chen wrote:
+>>> @@ -827,6 +827,34 @@ static int vpci_init_capability_list(struct pci_dev *pdev)
+>>>                                                   PCI_STATUS_RSVDZ_MASK);
+>>>  }
+>>>  
+>>> +static int vpci_init_ext_capability_list(struct pci_dev *pdev)
+>>> +{
+>>> +    unsigned int pos = PCI_CFG_SPACE_SIZE, ttl = 480;
+>>
+>> The ttl value exists (in the function you took it from) to make sure
+>> the loop below eventually ends. That is, to be able to kind of
+>> gracefully deal with loops in the linked list. Such loops, however,
+>> would ...
+>>
+>>> +    if ( !is_hardware_domain(pdev->domain) )
+>>> +        /* Extended capabilities read as zero, write ignore for guest */
+>>> +        return vpci_add_register(pdev->vpci, vpci_read_val, NULL,
+>>> +                                 pos, 4, (void *)0);
+>>> +
+>>> +    while ( pos >= PCI_CFG_SPACE_SIZE && ttl-- )
+>>> +    {
+>>> +        uint32_t header = pci_conf_read32(pdev->sbdf, pos);
+>>> +        int rc;
+>>> +
+>>> +        if ( !header )
+>>> +            return 0;
+>>> +
+>>> +        rc = vpci_add_register(pdev->vpci, vpci_read_val, vpci_hw_write32,
+>>> +                               pos, 4, (void *)(uintptr_t)header);
+>>
+>> ... mean we may invoke this twice for the same capability. Such
+>> a secondary invocation would fail with -EEXIST, causing device init
+>> to fail altogether. Which is kind of against our aim of exposing
+>> (in a controlled manner) as much of the PCI hardware as possible.
+> May I know what situation that can make this twice for one capability when initialization?
+> Does hardware capability list have a cycle?
 
-Just to remind you that any hook functions need to be cf_check.
+Any of this is to work around flawed hardware, I suppose.
+
+>> Imo we ought to be using a bitmap to detect the situation earlier
+>> and hence to be able to avoid redundant register addition. Thoughts?
+> Can we just let it go forward and continue to add register for next capability when rc == -EXIST, instead of returning error ?
+
+Possible, but feels wrong.
 
 Jan
 
