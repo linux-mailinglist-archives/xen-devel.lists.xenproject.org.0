@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4BB6AABC049
-	for <lists+xen-devel@lfdr.de>; Mon, 19 May 2025 16:08:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.989883.1373854 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B3C85ABC05A
+	for <lists+xen-devel@lfdr.de>; Mon, 19 May 2025 16:13:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.989891.1373863 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uH19T-0005L8-5F; Mon, 19 May 2025 14:07:35 +0000
+	id 1uH1FM-00073s-OL; Mon, 19 May 2025 14:13:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 989883.1373854; Mon, 19 May 2025 14:07:35 +0000
+Received: by outflank-mailman (output) from mailman id 989891.1373863; Mon, 19 May 2025 14:13:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uH19T-0005IO-2R; Mon, 19 May 2025 14:07:35 +0000
-Received: by outflank-mailman (input) for mailman id 989883;
- Mon, 19 May 2025 14:07:32 +0000
+	id 1uH1FM-00072N-Lj; Mon, 19 May 2025 14:13:40 +0000
+Received: by outflank-mailman (input) for mailman id 989891;
+ Mon, 19 May 2025 14:13:39 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=0Afj=YD=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1uH19Q-0005IG-US
- for xen-devel@lists.xenproject.org; Mon, 19 May 2025 14:07:32 +0000
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [2a00:1450:4864:20::32b])
+ <SRS0=U+fG=YD=bugseng.com=federico.serafini@srs-se1.protection.inumbo.net>)
+ id 1uH1FK-00072H-UH
+ for xen-devel@lists.xenproject.org; Mon, 19 May 2025 14:13:39 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9a5b2c89-34ba-11f0-b892-0df219b8e170;
- Mon, 19 May 2025 16:07:30 +0200 (CEST)
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-43cfe63c592so48460085e9.2
- for <xen-devel@lists.xenproject.org>; Mon, 19 May 2025 07:07:30 -0700 (PDT)
-Received: from localhost.localdomain (host-92-26-98-202.as13285.net.
- [92.26.98.202]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-442eb85a8f8sm126141505e9.0.2025.05.19.07.07.29
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 19 May 2025 07:07:29 -0700 (PDT)
+ id 738951c9-34bb-11f0-b892-0df219b8e170;
+ Mon, 19 May 2025 16:13:35 +0200 (CEST)
+Received: from [192.168.1.16] (host-87-1-204-51.retail.telecomitalia.it
+ [87.1.204.51]) (Authenticated sender: federico)
+ by support.bugseng.com (Postfix) with ESMTPSA id 3DC594EE7C49;
+ Mon, 19 May 2025 16:13:34 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,86 +40,87 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9a5b2c89-34ba-11f0-b892-0df219b8e170
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1747663650; x=1748268450; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=1k8nMQZQL4hONO9wT7+tWYlTJqUYvOSaiCyAXnp+mP4=;
-        b=VTzGcrZ0C/9FXPwaeyip1e539taQ3zjf2senycsSjCp+53LlFJBGeNCl9m4bOjkxhB
-         G6ZMPam99tLV59aKhFJj7EksnROqOO76PV6PIxajp3MKeKTj03uqZz54GqlvYh/yGsq0
-         63Wgx768KYumWdLhO+4kScCI46Mm6dC5u3kWw=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747663650; x=1748268450;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=1k8nMQZQL4hONO9wT7+tWYlTJqUYvOSaiCyAXnp+mP4=;
-        b=gW79F89aJPXuXxQqUMZfG87L2oWUWVHtSXHiV5hnaGyYUUo/Swl/StuQHIycIU9q1v
-         WGREogRpeM0Hacs+F6qcr5QLW2f0tvwO1Dkpa1f4z+GmJEai6zU10HE7AxtIxKpFHD54
-         SoLuE3dm3Cd80qC84YkYBzWwYT+FcAogMCLmReYMiaZxeIeKStS4aAQtsweu3Tksg4Iz
-         qm6SOiHwNiro+ebqaLCN8BkNQskzfx/p6VRsKgGZop7+GmhTE2cdszcxNzOpKV1zCVbc
-         PKf4I3x8OOkWxHdnZ6U9ahHRwJtJ5dryUwGVR/lnBEzfnEtRX/Zko9P+zcjGbFXWtuHk
-         LYwQ==
-X-Gm-Message-State: AOJu0Yzpd37ZfRzWQ1dnO0KSWWih+PKFGl3eJHYslYmF9/19IgTXaIKh
-	EiPjdOXd9nLrPnWAzV3lOB51ECT8Xo4CJjy+OSjk64/stL+bNeTDgVaaC2yneVt/lcNg3EavSlz
-	cJxmt
-X-Gm-Gg: ASbGncvhsX5mDPpjFtnxWIEtN+oIXZLsn0W9FTiRNIY98RktOwJcWtXtMgI9wdGhTsp
-	zeg9ilXtcWmZ5sIwbiW1bszPN0inONsm81wqfp5YJS1J4oyQ9n/eneJdbx9pTsPsVUtRraJ9ZER
-	bgx05QQC6l90KWqMmaSs5hpLiRnnWuNm1mGubGxENK6tgQLD7LOz1Ci8Qdh3tulcOgQCEcW3x++
-	Lh1uNBG9Ct19F+SjLgVSnOzs8OclkAGV8XcHRLwp7qWs5bqRaYCWdla9XGaO7BDlwAf0qZ6f8G/
-	ang1fQubhJkt5oONN3JOOfZR1OIWYtj2HChyGca4oroRJW3AfocvBW3Zul2cJ4DrwMcIoqrgIVl
-	yQeAcX+lDS3vvy70j3P8ruO8FFGNw01FM1Ag=
-X-Google-Smtp-Source: AGHT+IE6H6jQNmXrQFWxLpEsUCmXS+pAtcqY/yGfuXQWf5nBBPugmTP7rd2+zakIC9/f59Em/vSLJg==
-X-Received: by 2002:a05:600c:3114:b0:439:6118:c188 with SMTP id 5b1f17b1804b1-442fd63c6f6mr113232705e9.19.1747663649916;
-        Mon, 19 May 2025 07:07:29 -0700 (PDT)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	"consulting @ bugseng . com" <consulting@bugseng.com>,
-	Nicola Vetrini <nicola.vetrini@bugseng.com>
-Subject: [PATCH] CI/eclair: Remove ARM64 custom clean rules
-Date: Mon, 19 May 2025 15:07:27 +0100
-Message-Id: <20250519140727.28562-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.39.5
+X-Inumbo-ID: 738951c9-34bb-11f0-b892-0df219b8e170
+Authentication-Results: bugseng.com; arc=none smtp.remote-ip=87.1.204.51
+ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1747664014;
+	b=oQRwq/laYdRlV7m6fy1M+i8t0scIXiSc6TlkEbsBOS9s89iQdO9sfTMhFgIOdHEa2JnO
+	 UXFRqVRAn4YfTWkKVXYeh/wLiEeZPqUmulgjoLULcRS9k40OdlFCTtqvblsG8cHRsJO+K
+	 hfq8jsgryEx8fLYZ9iQQ/sO0k/2HIE83B4slJFkO9ajynV/RNgp2DUP7Ymv5mj+OwBUtT
+	 g20MbYJuQEj+VHTh7H7cWK9P/HHxrcMO5+GUMSMPKhFHOlJ4bQ1MZ3D35b7Edj7NIklQG
+	 6YK1M3CEP+sruZJQ6mFIFVnAXebpWcWzBHKpOn/soc1ZTXKPasJOKmZ+xx8tGvGTj5iJ5
+	 t3e272f1z1pFCUvXsI4h6+NDKgc/m72MVm0N9waKtBdrdYAfq4WSbs6gCivYNi1PdFlpk
+	 vn7W8VaW2ju3wUMkdCjDi5sVtZWX1p86PAinX/bPdSXymrTdvyCgi7/0WIIURb/ZM6i0u
+	 rX4KdUHXUr93i0NoWdIsSKdYrB/EC8IyzFmh+WvEXWnTsUdUoqtWKmbe+cA4Li88rTNOx
+	 EvHQhSu9DyGGMmKq0MuGabnQhFaN9ry10GrP6VjephZmE2o2GAva0775l/uYQSFIa9eKu
+	 Nk9b5dAMhRigRXLK1aY7QV7xhs9utrEhz6mVIasUWIG78MZQ0idYvMJAKy5Snzk=
+ARC-Message-Signature: i=1; d=bugseng.com; s=openarc; a=rsa-sha256;
+	c=relaxed/relaxed; t=1747664014;
+	h=DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:Organization:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=6GxuCxcKplKFny5zoZVzpfir6eib2sdPYIN9j+99JMg=;
+	b=duxnpCOUjHoTmWFJ2czUvLOF1nUxFcm0Bwwg0GpWXYLsOKXOEa9rFNh9SZP0QBzr7UiL
+	 qXWsjPr5L4B64IBD6tOft6oMoRuRSlSYAzHh7x/rf+7f3OkFMUdhiTVIRrOByQAkN7OxX
+	 2cp6QUUjGlzFC+ppQqxGL01C2mdjAxvRe9cab1wfLGdYquOGiJJ3Q+ufG+OXTA/I0bKAW
+	 b4SMW1Op6cwEvzNQN0DO+Do56PIZWIRXS8SbRxW19almQK8pgZvGnCvbZ4IjYE8xA3TEB
+	 txYzwzdu1qlYow+wkJuf/3GjqciQ40GtDf+AvZhRnrmY2UCTA3LL7Rpi+/2mbbEVoXYnY
+	 nZ+HEE48YPQMHhtCtYKC6YzSgmpW9yoyteTkckanporXkhiZbLeTCknDbh5HaN4TeeITJ
+	 BECXaUeTyxuq5iNlK1zcFyfG7/YkFgdmWYrTkgLlZ9OPo/Dav2UlwkhKVBVhvo14YSbFI
+	 GY9kt7adQQcMm6p2MCrBR4euD0mxZnS0HzJVBe4znVEe+y0tAZ/q4pGD2n9jzyxkG8LPA
+	 bipqwWCbzhbPexabsBsR6WIxhmB+yeZDar12OiYYNEK/jjl5ohBeaOVNOne1GGYLWmqTt
+	 KLeStcndXYSmIZZ0VejFBpYuv3Qh7wjNk3nY3o5PKe6B7c+uw1h+nrNZWkJ66R0=
+ARC-Authentication-Results: i=1; bugseng.com; arc=none smtp.remote-ip=87.1.204.51
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
+	t=1747664014; bh=+vRqquC7f5Vtsb58CFFeIBEBIcyFoTsEu1U6Uxa/VWI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=ynF6CUJe9Yt/pDn85ayEyI99jNM2kqVWgdKm5SqOF3RGOcBzokJAgN1lauHjW/pM7
+	 0AMOjKplTiaLrfFDDuMzYroFW0SiIvnyGcKeLKPpWmnENYzV+UuLVrmL0JpAjJf70N
+	 jvYgHfM49cTTyB0rSaATX7X5Yt8s3MM4vZEbbAjpKzo+2sFu/PAhMjO65yoZsSEz85
+	 du6elgsZUM0+5BECxIUdQi9D62lip8RZBTRNRoPAEodjb9JZfhDEjYQwcoFBVm1JBu
+	 ddKcFVwtSfC0pDFOJzuIbq2vMwI8KCLsonH56mHRWxC9uyCwUW7Mp1KA+APQb04vF3
+	 RtadadF8M3aYQ==
+Message-ID: <ac9179ed-32b5-4b80-9fb2-2f3e8012afe2@bugseng.com>
+Date: Mon, 19 May 2025 16:13:33 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6/6] automation/eclair: update configuration of D4.10
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Stefano Stabellini <stefano.stabellini@amd.com>,
+ xen-devel@lists.xenproject.org
+Cc: michal.orzel@amd.com, jbeulich@suse.com, julien@xen.org,
+ roger.pau@citrix.com, sstabellini@kernel.org, bertrand.marquis@arm.com
+References: <alpine.DEB.2.22.394.2505161618280.145034@ubuntu-linux-20-04-desktop>
+ <20250516232130.835779-6-stefano.stabellini@amd.com>
+ <5c2aa885-8877-4708-90cc-d65a76b729b3@citrix.com>
+Content-Language: en-US, it
+From: Federico Serafini <federico.serafini@bugseng.com>
+Organization: BUGSENG
+In-Reply-To: <5c2aa885-8877-4708-90cc-d65a76b729b3@citrix.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Rules 5.3, 11.2 and 16.6 are already listed in clean_guidelines_common and
-apply to all architectures.  There's no need for arm64 to give them a second
-time.
+Hi,
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Stefano Stabellini <sstabellini@kernel.org>
-CC: consulting@bugseng.com <consulting@bugseng.com>
-CC: Nicola Vetrini <nicola.vetrini@bugseng.com>
+On 17/05/25 01:57, Andrew Cooper wrote:
+> 
+>> +-config=MC3A2.D4.10,reports+={safe, "first_area(text(^/\\* Generated file, do not edit! \\*/$, begin-2))"}
+>>   -config=MC3A2.D4.10,reports+={safe, "first_area(text(^/\\* Generated file, do not edit! \\*/$, begin-3))"}
+> 
+> These seem to only differ by the begin-$N.  Why doesn't the regex work
+> in both cases?
 
-I've left the x86/arm split as-before so it's easier for those not familiar
-with Eclair syntax to add per-arch configuruation.
----
- automation/eclair_analysis/ECLAIR/tagging.ecl | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+"begin-N" expresses the position of a single line, not a range.
+For example, begin-2 means "two lines before the first reported area"
+and deviates:
 
-diff --git a/automation/eclair_analysis/ECLAIR/tagging.ecl b/automation/eclair_analysis/ECLAIR/tagging.ecl
-index 7e3095423b79..b95f07feb099 100644
---- a/automation/eclair_analysis/ECLAIR/tagging.ecl
-+++ b/automation/eclair_analysis/ECLAIR/tagging.ecl
-@@ -122,7 +122,7 @@ if(string_equal(target,"x86_64"),
- )
- 
- if(string_equal(target,"arm64"),
--    service_selector({"additional_clean_guidelines","MC3A2.R5.3||MC3.R11.2||MC3A2.R16.6"})
-+    service_selector({"additional_clean_guidelines","none()"})
- )
- 
- -reports+={clean:added,"service(clean_guidelines_common||additional_clean_guidelines)"}
+https://saas.eclairit.com:3787/fs/var/local/eclair/xen-project.ecdf/xen-project/hardware/xen/ECLAIR_normal/staging/X86_64/10063944407/PROJECT.ecd;/sources/xen/include/xen/hypercall-defs.h.html#R174_1{"select":true,"selection":{"hiddenAreaKinds":[],"hiddenSubareaKinds":[],"show":false,"selector":{"enabled":true,"negated":false,"kind":2,"children":[]}}}
 
-base-commit: 6fc02ebdd053856221f37ba5306232ac1575332d
-prerequisite-patch-id: 7bc1c498ba2c9c4a4939a56a0006f820f47f2a66
-prerequisite-patch-id: 8fcd84101ab012ed0aa427c30eca564c5ac10726
+If you prefer, I think we can use ranges and merge the two
+configurations.
+
 -- 
-2.39.5
+Federico Serafini, MSc
+Software Engineer, BUGSENG (https://bugseng.com)
+LinkedIn: https://linkedin.com/in/federico-serafini
 
 
