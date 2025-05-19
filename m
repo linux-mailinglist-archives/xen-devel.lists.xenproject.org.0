@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 45906ABC743
-	for <lists+xen-devel@lfdr.de>; Mon, 19 May 2025 20:32:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.990109.1374044 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C0BA2ABC745
+	for <lists+xen-devel@lfdr.de>; Mon, 19 May 2025 20:33:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.990116.1374054 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uH5Hp-0006fB-Kh; Mon, 19 May 2025 18:32:29 +0000
+	id 1uH5J4-00079v-TZ; Mon, 19 May 2025 18:33:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 990109.1374044; Mon, 19 May 2025 18:32:29 +0000
+Received: by outflank-mailman (output) from mailman id 990116.1374054; Mon, 19 May 2025 18:33:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uH5Hp-0006d6-HK; Mon, 19 May 2025 18:32:29 +0000
-Received: by outflank-mailman (input) for mailman id 990109;
- Mon, 19 May 2025 18:32:27 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uH5J4-000789-Q1; Mon, 19 May 2025 18:33:46 +0000
+Received: by outflank-mailman (input) for mailman id 990116;
+ Mon, 19 May 2025 18:33:44 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=cAbn=YD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uH5Hn-0006d0-NQ
- for xen-devel@lists.xenproject.org; Mon, 19 May 2025 18:32:27 +0000
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [2a00:1450:4864:20::52e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9d026d3a-34df-11f0-a2fa-13f23c93f187;
- Mon, 19 May 2025 20:32:26 +0200 (CEST)
-Received: by mail-ed1-x52e.google.com with SMTP id
- 4fb4d7f45d1cf-60119cd50b6so5508536a12.0
- for <xen-devel@lists.xenproject.org>; Mon, 19 May 2025 11:32:26 -0700 (PDT)
+ id 1uH5J2-000781-Sc
+ for xen-devel@lists.xenproject.org; Mon, 19 May 2025 18:33:44 +0000
+Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
+ [2a00:1450:4864:20::532])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ca885a25-34df-11f0-b892-0df219b8e170;
+ Mon, 19 May 2025 20:33:43 +0200 (CEST)
+Received: by mail-ed1-x532.google.com with SMTP id
+ 4fb4d7f45d1cf-5efe8d9ebdfso8639176a12.3
+ for <xen-devel@lists.xenproject.org>; Mon, 19 May 2025 11:33:43 -0700 (PDT)
 Received: from [10.1.250.198] ([80.188.125.198])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ad52d06dc99sm627028766b.62.2025.05.19.11.32.24
+ 4fb4d7f45d1cf-6005ac35e33sm6094828a12.60.2025.05.19.11.33.41
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 19 May 2025 11:32:25 -0700 (PDT)
+ Mon, 19 May 2025 11:33:42 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,44 +45,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9d026d3a-34df-11f0-a2fa-13f23c93f187
+X-Inumbo-ID: ca885a25-34df-11f0-b892-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1747679546; x=1748284346; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1747679622; x=1748284422; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=R0Ho4HsiCtAq+0A9bdVpMy3spydGkiAulkuYxB2+MOU=;
-        b=K1UPeEPq5cLV0KOb5iZhn8kp5QNtszriialp0anVCA1fV2P8356ddk7g7R/qVMeS/L
-         gFoNfY+jPF98VHUais3Ph/CIgJkQpyIL6eE97mH3yEXo6r8r/jYe3lptBpwzUxuymqQT
-         mvWY1mY8ywro/1ynAQrlPADwB5fIHV9WxiQE0ylLVaQ3JRPcrxXB7bV5mrMTOlSmqvBK
-         H0jHbxJW535cnQ9nxLN41iEbpFGu3+oZEDjodHKNd11mktVA1oDAxH9KTg5uWDESPPmD
-         b+igKFUFBuovAZ6Goh7stQ/scVZT7w6XBiGVA9dM25G361qHWC21lbULYGjCMDIoV5Cz
-         b+RA==
+        bh=kZxwnH2sbaztQap8EHDBZ7HxwD0Q+CBtn0Lhd116yDo=;
+        b=Ml/UOnk4/wSlxv78pBDMTuamn8gSZjNrZ2DEm3qOFOx8SFLcbxKbgjOmMRN1wGHXDK
+         gC/idt0fwX0ScwyI2Dnfb1T8uUmb22Ol/9Pe0aPuI+vRLXD3a518h4gX0maB7LYrbIyh
+         dAmm9IjTPWPRonV7RqWyl8KIp2YT2O5xI3wDy1W5awpRNHUJ4hW6hvCqZRU5hKkvWShE
+         sEZqrAZkLOLP2UHmWuZ/5iAobawUbA9rwJ15Gzc0qgOUnxVNsv5KC2uOOh6XoL7MB/nQ
+         qN7Rkwbgz+uhSn1hQxc8dS2GbxWY/H4A8ny1pOa6UE+4fpZS8KUYoKVXv3ra6Qs+yEqz
+         oJYg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747679546; x=1748284346;
+        d=1e100.net; s=20230601; t=1747679622; x=1748284422;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=R0Ho4HsiCtAq+0A9bdVpMy3spydGkiAulkuYxB2+MOU=;
-        b=eAvV9qeQ/issV8HDvFcS9HjGWgr9VkPEeCa7NGQa2VQAOrlKPcxefNH5EEok4RCqgC
-         EtUmGWqZPL98wxzgD1PvosAiijTppWFeCnBJ48P+wAYGOP9L2MUo/zmDAfdtsSbBAZeB
-         OwgBTYyJwGLmKuqSgc6rPwwEPM3WthaF4Omq1crDmh2C5aEATTDXA99AlgsaVXdIy3Gg
-         Z9OpsABA26AONPDCOi9y/58u/cHydWqeC+8R2q/li7Hyc5bqO/ukjVdWDJGYfxhUdoeK
-         9h+caCNU/Cv1qNlXw2oLLJ+fMCwElHM0WFmF74BNd+6UeL2JE9IoQkzrhQJoR6Fc46FM
-         e1uw==
-X-Forwarded-Encrypted: i=1; AJvYcCX0o97dMC7hBjOevnDPw8Q3OhRLqMvGI+6r3Pj5egCWXLoBCM9nlzsf/60QIEpI4968PagdPiMUGDE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yyfa2hqQlfZVQ+9v/XDlehA4hSThtlrR9enWOzc4UlXWhMqx2LP
-	6A5X3SYEkKAWnEJfE89eNhoc+SEgvL0E9doDqrg46LFdc6XPnak7HI9uDAN0hJuDaA==
-X-Gm-Gg: ASbGnctgpuFN+lnIIn3qhcqqCsTXmqVpeiyZ3Hvj9aF3WwHJASWIEtOnfUswVf2X5s4
-	sAb0URVO4JmGrz9aQ7Kk67ZbjJUmlvkhXdUKfbQMye2w5pDy+RH1B3qUdT4KsKtbfwxImi+T2nS
-	iOTAtb907S7w/wTqS1MFsEpy9/0hopGjQh1EetXto+uzCio+l/HjObcF0M3cHMIZJUWqlLTsu9K
-	/7nSWWoXq38wo+oExFLKzPWl89cJ4vFZzs0nw3nLZnJu3Enzr/ED0zM3pTutSCeqCsf63/cwWmc
-	RMr0O9EH6BCfkNygtBjH6GVzmzTHj2/MxA+9WIbVUtXw+w8XX3nkdy3ha3AuFg==
-X-Google-Smtp-Source: AGHT+IEi54FRDA09xpigR8fBmxy++yrKfXoZAKuNTwFe6yFPlHHDvib0enEtS1Q8w+8FTcAWu4BfDg==
-X-Received: by 2002:a17:907:6d06:b0:ad5:7732:675b with SMTP id a640c23a62f3a-ad5773276demr362003766b.40.1747679545947;
-        Mon, 19 May 2025 11:32:25 -0700 (PDT)
-Message-ID: <81c9f5f5-b5bb-4f3b-9993-dfca54f212c5@suse.com>
-Date: Mon, 19 May 2025 20:32:24 +0200
+        bh=kZxwnH2sbaztQap8EHDBZ7HxwD0Q+CBtn0Lhd116yDo=;
+        b=KcchPMOe0LVveiXOXea3GD2lNHyA4yb7n2FLTjjEOJkgLMpamSxGOVKEQUpHr7MFWd
+         wkDHTp6RZxKljTTKEHxe11XpZ4gbG16150vbcPqNE+eiBIdROzLiz7iQugV5a5VKQQ/J
+         eJ05jFHIbsEpWC02TP+c9c1PEZH+ibB/ark/yCkF8RJWvhY80FRm0bsEWp70eHRXWOTJ
+         SBoXwSizuKlIEWN57Z19lc83J9low7MY6jj/tXFwDEMQlhbRCaS7QtYA/M0x19XFiTQg
+         gNr3icRMu1eydJbrfppHjRWAmjuAbVh0rchIiehrGJ1g2JXO7EgzeWUN1HKV9l54Ya1H
+         8lew==
+X-Forwarded-Encrypted: i=1; AJvYcCVhlzAc1SwFrwaFONMIzD0YbTC9+yK9tWLUvOOUCPEkAb89yi7THyOHpNlAOOqGgRPGeWeltnqw+cI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzrayLrhJOePdgeiGJM8lqEJtFYOddEs8FGVxiCmJ5P/nlItxi7
+	MOhJ4xCczAdew+TUsWlBUF6chJEcsV1/29AzUN3BeJ/d+ChL+ucMhOi0ZtHL95x7TA==
+X-Gm-Gg: ASbGncu2tIGhaGfdg7LJBXGgbseUr6nz4xqySg1W8b4eing6Acew8gmSrFoDY7Jjd+0
+	BAtn8c/9hRIszGMgrQE2frTWh3+quX1IsKa7Mlqj+EgYDwhX9+wRN43VeA2j6GazM7E9JrQDWl+
+	2+QVS8ohX5RzLMOHKAm0WSzhva4llFF3nnc3FfiCkfKAGmmwDKL+AORb7Ffo/4JKLANY38PniGh
+	fJOMNxeONR9eMAsbAdhErmhUjFONc0JhOkFPPeJELoIyhG4XixdEpfjhVyMHtChjHlNuITJKs9J
+	cVvtlWJ8xShfblqJFhXH4DOnn5JKSlrXJvoi4FOtDCb+ISvCPy3/YG86lYKzaA==
+X-Google-Smtp-Source: AGHT+IG89LkTyeaGHkrc8e+4+N16se0aYXB66uAcA7R5H0Qo+l2IZPi951RrrLVcihmsuwThJNuYNQ==
+X-Received: by 2002:a05:6402:4410:b0:5f4:c5eb:50c9 with SMTP id 4fb4d7f45d1cf-60119cc8f77mr11797584a12.21.1747679622420;
+        Mon, 19 May 2025 11:33:42 -0700 (PDT)
+Message-ID: <2966ad6f-179f-47fe-acf1-7fb568cb4fb8@suse.com>
+Date: Mon, 19 May 2025 20:33:41 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v2 10/16] xen/riscv: imsic_init() implementation
@@ -98,56 +98,38 @@ Cc: Alistair Francis <alistair.francis@wdc.com>,
 References: <cover.1746530883.git.oleksii.kurochko@gmail.com>
  <f7588e93d0ddacc29ce5d89b2855624f82d6baa9.1746530883.git.oleksii.kurochko@gmail.com>
  <0d9a9a9e-3454-465f-ac1d-cd65ba4a5792@suse.com>
- <52c0be11-7c8e-4e12-9005-3a7ca7f12c43@gmail.com>
+ <4b948489-6fb9-4554-9a4c-4fa75de7345d@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <52c0be11-7c8e-4e12-9005-3a7ca7f12c43@gmail.com>
+In-Reply-To: <4b948489-6fb9-4554-9a4c-4fa75de7345d@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 19.05.2025 17:19, Oleksii Kurochko wrote:
+On 19.05.2025 17:26, Oleksii Kurochko wrote:
 > On 5/15/25 10:42 AM, Jan Beulich wrote:
->> On 06.05.2025 18:51, Oleksii Kurochko wrote:
->>> --- /dev/null
->>> +++ b/xen/arch/riscv/include/asm/imsic.h
->>> @@ -0,0 +1,65 @@
->>> +/* SPDX-License-Identifier: MIT */
+>>> +                   node->name, imsic_cfg.msi[cpuid].base_addr + reloff);
+>>> +            imsic_cfg.msi[cpuid].offset = 0;
+>>> +            imsic_cfg.msi[cpuid].base_addr = 0;
+>>> +            continue;
+>>> +        }
 >>> +
->>> +/*
->>> + * xen/arch/riscv/imsic.h
->>> + *
->>> + * RISC-V Incoming MSI Controller support
->>> + *
->>> + * (c) 2023 Microchip Technology Inc.
->>> + */
->>> +
->>> +#ifndef ASM__RISCV__IMSIC_H
->>> +#define ASM__RISCV__IMSIC_H
->>> +
->>> +#include <xen/types.h>
->>> +
->>> +#define IMSIC_MMIO_PAGE_SHIFT   12
->>> +#define IMSIC_MMIO_PAGE_SZ      (1UL << IMSIC_MMIO_PAGE_SHIFT)
->>> +
->>> +#define IMSIC_MIN_ID            63
->> This isn't the "minimum ID", but the "minimum permissible number of IDs" as per
->> its first use in imsic_parse_node(). Further uses there consider it a mask,
->> which makes me wonder whether the imsic_cfg.nr_ids field name is actually
->> correct: Isn't this the maximum valid ID rather than their count/number?
+>>> +        bitmap_set(imsic_cfg.mmios[index].cpus, cpuid, 1);
+>> Depending on clarification on the number space used, this may want to be
+>> cpumask_set_cpu() instead. Else I think this is simply __set_bit().
 > 
-> imsic_cfg.nr_ids it is a value of interrupt identities supported by IMSIC interrupt file according to
-> DT binding:
->    riscv,num-ids:
->      $ref: /schemas/types.yaml#/definitions/uint32
->      minimum: 63
->      maximum: 2047
->      description:
->        Number of interrupt identities supported by IMSIC interrupt file.
+> cpumask_set_cpu() requires cpumask_t which uses static definition but we are
+> using dynamic allocation.
 
-Unless this count accounts for 0 being invalid (and hence isn't counted), I'm
-still confused: With the maximum value this would mean 2046 is still valid,
-but 2047 isn't anymore. When normally such a boundary would be at an exact
-power of 2, i.e. between 2047 and 2048 here.
+But you're aware of cpumask_var_t (and respective allocation functions)?
 
 Jan
+
+> So it seems like bitmap_set() is the  best one option or reworking to static
+> allocation will require.
+> Am I missing something?
+> 
+> ~ Oleksii
+> 
+> 
+
 
