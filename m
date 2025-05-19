@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB686ABB51A
-	for <lists+xen-devel@lfdr.de>; Mon, 19 May 2025 08:30:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.989517.1373534 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A778AABB51D
+	for <lists+xen-devel@lfdr.de>; Mon, 19 May 2025 08:32:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.989524.1373544 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uGu15-0002GO-St; Mon, 19 May 2025 06:30:27 +0000
+	id 1uGu2f-0002qR-77; Mon, 19 May 2025 06:32:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 989517.1373534; Mon, 19 May 2025 06:30:27 +0000
+Received: by outflank-mailman (output) from mailman id 989524.1373544; Mon, 19 May 2025 06:32:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uGu15-0002Eu-P0; Mon, 19 May 2025 06:30:27 +0000
-Received: by outflank-mailman (input) for mailman id 989517;
- Mon, 19 May 2025 06:30:25 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uGu2f-0002oX-3r; Mon, 19 May 2025 06:32:05 +0000
+Received: by outflank-mailman (input) for mailman id 989524;
+ Mon, 19 May 2025 06:32:03 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=cAbn=YD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uGu13-0002Eo-Q8
- for xen-devel@lists.xenproject.org; Mon, 19 May 2025 06:30:25 +0000
-Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
- [2a00:1450:4864:20::536])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bef46651-347a-11f0-9eb8-5ba50f476ded;
- Mon, 19 May 2025 08:30:24 +0200 (CEST)
-Received: by mail-ed1-x536.google.com with SMTP id
- 4fb4d7f45d1cf-601d10de7e1so1408938a12.1
- for <xen-devel@lists.xenproject.org>; Sun, 18 May 2025 23:30:24 -0700 (PDT)
+ id 1uGu2d-0002oN-00
+ for xen-devel@lists.xenproject.org; Mon, 19 May 2025 06:32:03 +0000
+Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
+ [2a00:1450:4864:20::52a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f891f4ce-347a-11f0-9ffb-bf95429c2676;
+ Mon, 19 May 2025 08:32:01 +0200 (CEST)
+Received: by mail-ed1-x52a.google.com with SMTP id
+ 4fb4d7f45d1cf-600210e4219so5677217a12.0
+ for <xen-devel@lists.xenproject.org>; Sun, 18 May 2025 23:32:01 -0700 (PDT)
 Received: from [192.168.61.201] (server.hotelpassage.eu. [88.146.207.194])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ad52d4ea8aesm543602866b.179.2025.05.18.23.30.22
+ 4fb4d7f45d1cf-6004d501fe9sm5336419a12.20.2025.05.18.23.32.00
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 18 May 2025 23:30:23 -0700 (PDT)
+ Sun, 18 May 2025 23:32:00 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,70 +45,144 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bef46651-347a-11f0-9eb8-5ba50f476ded
+X-Inumbo-ID: f891f4ce-347a-11f0-9ffb-bf95429c2676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1747636224; x=1748241024; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1747636320; x=1748241120; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=TeQJ6IFBKtNjAc0HEkaLLlZ44u2eux9Uo/jLFOFCqeY=;
-        b=CV/K6LrauN9wga2KzJxqvbECX2IudBqQl4Dr3qN0gR3yYYLLTh4dIMkVSDt7DPcAhQ
-         n6o1twF2aSgEcoRbd6O/p+nFTtM9BDJbHZVjysSDBMZGfUpMi8LgfVw6GLR0JHwgoiBM
-         +SXPWrQCt/HWFAnkyoX1tRAh1lD0RszvcTPEbM8LcZdYmSCVZKDbl++23M1STWFIRoDJ
-         EVESPM172cQGqxbdiSVyvYeLaJStCQyu21QcUixS0T6zZlYuSWkqT0NnwZdJnrBzP8Of
-         61oUSXD5/MarvZDI6SzD1S3yjjf2al0e6bQvLXS0F8IlW6zjvsubwYnRE3gxCkri+9d7
-         5YtA==
+        bh=inVQoYGkJNXV0yd0t5SUJvuNQY5MUANJ2cdud0HaO3Q=;
+        b=YmkU2hH1qohznGQCqWSz4Bn+CCn1FohlO5/5UXeBr7Yeq2LGbpKDvA7gRdvJH7AgEV
+         U+hl8Z0lsIpGWhrDzWqGfWRK04zChT8JduHC+k07GijQyJ6K4HCSLwDI/FUPSeb/DfSt
+         qRadq7QHQaSM8CNQDIRV+6sg1n0qW1PwaXvq7c3ySb8i2B9oAwFskSBdrdvAawE4BDSq
+         +nMFTWX8d9sTFky6r1naVybOp9TKGFSlqW6mn9Sa/0zcD0rcrKBumPHTrfMiE4A+hzs2
+         0G6P9OwKUHxJhjMAo34m5m8e3EdM+1zFyn7qjKVZt6I/Fx4ibkrAZUTKPZUkfpZ/kLLk
+         j6ZA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747636224; x=1748241024;
+        d=1e100.net; s=20230601; t=1747636320; x=1748241120;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=TeQJ6IFBKtNjAc0HEkaLLlZ44u2eux9Uo/jLFOFCqeY=;
-        b=eJa8FCyt1Ns+MdFh+WeFL68tu687lrtUhG2l16pSaEhTrHA/CAnJ1oV0aUAWgESW0y
-         rrOmD3Q8L0K9lydBChRz6qeWHX0DADMAMw/v2liiq0hdiHKnWTtzaqyXgxrQzUu92vgO
-         O1lkVHOFvUx2AfwwBcRm89uTVj6fJqa99Pc+N8onw5ryvarC7R+McXJFfyCEsoKIVlGk
-         rexhMgyreoFXFYQdWQv0eH94Bshkzs0JUgfSJGvlj9kxv1aNoNqwY/KuZANnV4TL6R7d
-         HitajVwUX2m52RlIvLkg4ACDSKAP0UIJpeeMH0xJPwca4dUw+/TU7XIMwchA727lZkOA
-         rbcA==
-X-Forwarded-Encrypted: i=1; AJvYcCWKzkX2EfAaLVINbB/XHzWMUTaFoPW+fC7j9QpFjEgxCc1N5OutK6z6kldDvpAWkkepAle6wsZfNFw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxN1fgp5l1fMj3QicAFNqhma7kbLBn85MKWuVy6mhZxutfC18sF
-	lnBIx5VbH77q9MrLfYON2dJ+dML6VHtFSknQOF/egE51xKAGDu08gbT3fa+a759oajjOHilSTnD
-	kR3JEqA==
-X-Gm-Gg: ASbGncsFfyRnhaTtKyuWYS1zugZsrop5G6xm2gQ0UFw6bHdMXiGinl4XUb1vTNiUT+0
-	SlD186OQj/7IlnYP2oo968EbPRreUCqyu7wrv6IUwJG2mJFqYxcPhb2BQOpRbAWFHkWtD3A6bHb
-	fB/hXcH/Ym6cB6++jDk3FN8rTKspOzqT/ihoefAjWGwrnFXGvDjoE9Pp2U+0y1XkftlbuAlpsjr
-	ne9pzAwUeuaiUAEsOLRETf2HGoFELFphsPO2pG/s1FUJn0Ugi/OE8k0PSbXAQopp0O4xir1Dbhv
-	4jWXd0Am3r4SI/v7WUIOa4ywKm/KpQbISd75MzEKdt181wsIWXTfBt1TPzLpHe2A2niyduqC+Pn
-	LpWLXyybKKw==
-X-Google-Smtp-Source: AGHT+IH1aCS0MUgER9AE6jGST8Lpa+A0pq9OsFfrLHAIQV8PKbxUQeoPXMPW0NKyfMdq0HRtLkOjrg==
-X-Received: by 2002:a17:907:3e16:b0:ad4:f512:733 with SMTP id a640c23a62f3a-ad536dce6e4mr1085821366b.45.1747636223742;
-        Sun, 18 May 2025 23:30:23 -0700 (PDT)
-Message-ID: <7129d506-b03a-4f89-8128-84b8befe8799@suse.com>
-Date: Mon, 19 May 2025 08:30:22 +0200
+        bh=inVQoYGkJNXV0yd0t5SUJvuNQY5MUANJ2cdud0HaO3Q=;
+        b=sUWk4RbZ6QYPr6T/Xj88JzstiqJxnTTw/HTB99TWoaJbE3o+MRw8DrX/70v4wjny4Q
+         NxoxA+JoxFzc7Qil0p1YAdGTqIV8vtX1jGBqnLXQqJJmEN0Xeo+DjUJIE5NcZPBGPnXK
+         ZpDUEj9kApqJCg9C/TJ/1jP2cJzDA3iXYsZwlnuxpWfix1oaQv7oEfXUPMHcqG/3d8l0
+         KP15BaRRUz9e/8+ZJMG5W6p91ALKuRgwtLn6LsC0UHuXR3ZkxQKaGHE0/tUO7yVsG3vC
+         G05HP4qBFXW+LwutVD6jpEdTBPN4xmPGnuD8kl2AhmfZFfEZZgrv4/tsNZYoGHGK8ekv
+         COkw==
+X-Forwarded-Encrypted: i=1; AJvYcCUPDlCS7D3va9/WX7gwDJAHrX6VSSYcdpSg5diKmu/fFI9uHuAdPIDdWFWmhEdcmvvYCMsayTtldSQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzmZ8JV4jQWT9mZAVPS5HuDsKpTUfyLywa7nyGp09o8m5u8QmT8
+	PnIjXela52AQ0Wvpgy6B1Lq/t4l/lFNUgcaHQ7PxnWTsSBXBWL2BKsGzaTYZaupc4Q==
+X-Gm-Gg: ASbGncvfhwDZjadduRvNHqw662/nf3V5V5dYyXYBkgBOGXqrIq8YwZiJEvMIZNKhg+x
+	r4D/uJF1VE1wvpHKrK29kKbO0G0epHF3DXkvH8DBM/WXF9im8e9YEna7o+u/2x/Uia18N5I5IAm
+	A2tcVW0iKSQOey7cird5/7Aj5TxCLw86Av4UOYjzlqba2q4g7PrK05rpfd5tTeo8IJpB4V5Gm0N
+	YV4ZZk01tGp3yTb9a3XAPy81LvdNLboKBkhRGhmQM42eWCsYhIxiifI2zo6WoLAVl4X/oBBqkL5
+	3Gr/cg6lGMZZ/L0ep30xSGIabaSsKUTRe3i/qa80co7d9+u1Y51KT3eaXrgQ+TQgu8R9+d+jVl3
+	/yMRDXLnh/w==
+X-Google-Smtp-Source: AGHT+IGIlufVtEocN181MOEcmuAqbe4U/fqcmQ8xU28iVfemqt0YKq6Crv7bnL2xCBpFHvN9xcA/xA==
+X-Received: by 2002:a05:6402:3085:b0:600:a694:7a23 with SMTP id 4fb4d7f45d1cf-600a6947cecmr7439718a12.0.1747636320546;
+        Sun, 18 May 2025 23:32:00 -0700 (PDT)
+Message-ID: <b080ef7f-0355-42ed-a74a-642299c5d997@suse.com>
+Date: Mon, 19 May 2025 08:31:59 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 07/10] vpci: Refactor vpci_remove_register to remove
- matched registers
-To: Jiqian Chen <Jiqian.Chen@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
-Cc: Huang Rui <ray.huang@amd.com>, Anthony PERARD
- <anthony.perard@vates.tech>, xen-devel@lists.xenproject.org
-References: <20250509090542.2199676-1-Jiqian.Chen@amd.com>
- <20250509090542.2199676-8-Jiqian.Chen@amd.com>
+Subject: Re: [PATCH v4 04/15] xen/cpufreq: refactor cmdline "cpufreq=xxx"
+To: "Penny, Zheng" <penny.zheng@amd.com>
+Cc: "Huang, Ray" <Ray.Huang@amd.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <20250414074056.3696888-1-Penny.Zheng@amd.com>
+ <20250414074056.3696888-5-Penny.Zheng@amd.com>
+ <2f3702f3-a46b-4161-a890-7aad9bbbcac4@suse.com>
+ <889d2b2b-db42-43d2-9da0-dcd130d64d9c@suse.com>
+ <DM4PR12MB845196DB77AC3D6FBCC1C69BE188A@DM4PR12MB8451.namprd12.prod.outlook.com>
+ <eeb66db3-623f-4ca8-9ea5-4d89e5b4a824@suse.com>
+ <IA1PR12MB8467D276A22BAF765C9387F2E19CA@IA1PR12MB8467.namprd12.prod.outlook.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <20250509090542.2199676-8-Jiqian.Chen@amd.com>
+In-Reply-To: <IA1PR12MB8467D276A22BAF765C9387F2E19CA@IA1PR12MB8467.namprd12.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 09.05.2025 11:05, Jiqian Chen wrote:
-> vpci_remove_register() only supports removing a register in a time,
-> but the follow-on changes need to remove all registers within a range.
-> So, refactor it to support removing all matched registers in a calling
-> time.
+On 19.05.2025 08:27, Penny, Zheng wrote:
+>> -----Original Message-----
+>> From: Jan Beulich <jbeulich@suse.com>
+>> Sent: Monday, May 12, 2025 11:58 PM
+>> On 07.05.2025 05:18, Penny, Zheng wrote:
+>>>> -----Original Message-----
+>>>> From: Jan Beulich <jbeulich@suse.com>
+>>>> Sent: Tuesday, April 29, 2025 7:47 PM
+>>>> On 29.04.2025 12:36, Jan Beulich wrote:
+>>>>> On 14.04.2025 09:40, Penny Zheng wrote:
+>>>>>> --- a/xen/drivers/cpufreq/cpufreq.c
+>>>>>> +++ b/xen/drivers/cpufreq/cpufreq.c
+>>>>>> @@ -71,6 +71,49 @@ unsigned int __initdata cpufreq_xen_cnt = 1;
+>>>>>>
+>>>>>>  static int __init cpufreq_cmdline_parse(const char *s, const char
+>>>>>> *e);
+>>>>>>
+>>>>>> +static bool __init cpufreq_opts_contain(enum cpufreq_xen_opt
+>>>>>> +option) {
+>>>>>> +    unsigned int count = cpufreq_xen_cnt;
+>>>>>> +
+>>>>>> +    while ( count )
+>>>>>> +    {
+>>>>>> +        if ( cpufreq_xen_opts[--count] == option )
+>>>>>> +            return true;
+>>>>>> +    }
+>>>>>> +
+>>>>>> +    return false;
+>>>>>> +}
+>>>>>> +
+>>>>>> +static int __init handle_cpufreq_cmdline(enum cpufreq_xen_opt
+>>>>>> +option) {
+>>>>>> +    int ret = 0;
+>>>>>> +
+>>>>>> +    if ( cpufreq_opts_contain(option) )
+>>>>>> +    {
+>>>>>> +        const char *cpufreq_opts_str[] = { "CPUFREQ_xen",
+>>>>>> + "CPUFREQ_hwp" };
+>>>>>
+>>>>>         const char *const __initconstrel cpufreq_opts_str[] = {
+>>>>> "CPUFREQ_xen", "CPUFREQ_hwp" };
+>>>>>
+>>>>> (line wrapped suitably, of course) Or maybe even better
+>>>>>
+>>>>>         const char __initconst cpufreq_opts_str[][12] = {
+>>>>> "CPUFREQ_xen", "CPUFREQ_hwp" };
+>>>>>
+>>>>> for the string literals to also end up in .init.rodata.
+>>>>
+>>>> Actually, it didn't even occur to me that there might be a "static" missing here,
+>> too.
+>>>
+>>> Sorry, I may need more explanation, what is the "static" missing you are referring?
+>>
+>> In your code cpufreq_opts_str[] is an automatic variable, which the compiler needs
+>> to emit code for in order to instantiate it on the stack. This can be avoided if you
+>> make the array a static variable, as then all construction occurs at build time.
+>>
+>>>> Plus I'm missing any arrangement for the array slots to remain in
+>>>> sync with the corresponding enumerators. With that ...
+>>>>
+>>>
+>>> Thanks for the detailed instructions, learned and I'll change it to
+>>>         const char __initconst cpufreq_opts_str[][4] = { "xen", "hwp"
+>>> }; And for in sync with the corresponding enumerators, maybe we shall add
+>> comment here,
+>>>         /* The order of cpufreq string literal must be in sync with
+>>> the order in "enum cpufreq_xen_opt" */
+>>
+>> Instead of a comment I has rather hoping for some use of dedicated array slot
+>> initializers.
+> 
+> Understood. I'll use "CPUFREQ_xxx" as array slot index.
+>         static const char __initconst cpufreq_opts_str[][5] = {
+>                 [CPUFREQ_none] = "none",
+>                 [CPUFREQ_xen] = "xen",
+>                 [CPUFREQ_hwp] = "hwp",
+>         };
 
-Generally I'm a little wary of changing behavior for existing callers,
-but I guess Roger already did signal he's okay taking that route?
+Provided the "none" entry doesn't cause any anomalies, this way.
 
 Jan
 
