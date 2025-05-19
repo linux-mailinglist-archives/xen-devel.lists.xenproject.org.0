@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 37807ABC74D
-	for <lists+xen-devel@lfdr.de>; Mon, 19 May 2025 20:40:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.990124.1374064 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D47ABABC768
+	for <lists+xen-devel@lfdr.de>; Mon, 19 May 2025 20:55:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.990135.1374074 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uH5Pj-0000IO-IJ; Mon, 19 May 2025 18:40:39 +0000
+	id 1uH5db-0002Fv-Pe; Mon, 19 May 2025 18:54:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 990124.1374064; Mon, 19 May 2025 18:40:39 +0000
+Received: by outflank-mailman (output) from mailman id 990135.1374074; Mon, 19 May 2025 18:54:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uH5Pj-0000FI-FT; Mon, 19 May 2025 18:40:39 +0000
-Received: by outflank-mailman (input) for mailman id 990124;
- Mon, 19 May 2025 18:40:38 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uH5db-0002Cq-MM; Mon, 19 May 2025 18:54:59 +0000
+Received: by outflank-mailman (input) for mailman id 990135;
+ Mon, 19 May 2025 18:54:58 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=cAbn=YD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uH5Pi-0000FC-TE
- for xen-devel@lists.xenproject.org; Mon, 19 May 2025 18:40:38 +0000
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
- [2a00:1450:4864:20::636])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c13794dd-34e0-11f0-b892-0df219b8e170;
- Mon, 19 May 2025 20:40:36 +0200 (CEST)
-Received: by mail-ej1-x636.google.com with SMTP id
- a640c23a62f3a-ad52d9be53cso552518866b.2
- for <xen-devel@lists.xenproject.org>; Mon, 19 May 2025 11:40:36 -0700 (PDT)
+ id 1uH5da-0002Cj-1o
+ for xen-devel@lists.xenproject.org; Mon, 19 May 2025 18:54:58 +0000
+Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
+ [2a00:1450:4864:20::52b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c18fdbd5-34e2-11f0-a2fa-13f23c93f187;
+ Mon, 19 May 2025 20:54:56 +0200 (CEST)
+Received: by mail-ed1-x52b.google.com with SMTP id
+ 4fb4d7f45d1cf-601f278369bso2552657a12.1
+ for <xen-devel@lists.xenproject.org>; Mon, 19 May 2025 11:54:56 -0700 (PDT)
 Received: from [10.1.250.198] ([80.188.125.198])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ad52d4420ccsm613841166b.110.2025.05.19.11.40.35
+ 4fb4d7f45d1cf-6005ae39995sm6076089a12.72.2025.05.19.11.54.54
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 19 May 2025 11:40:36 -0700 (PDT)
+ Mon, 19 May 2025 11:54:55 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,140 +45,164 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c13794dd-34e0-11f0-b892-0df219b8e170
+X-Inumbo-ID: c18fdbd5-34e2-11f0-a2fa-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1747680036; x=1748284836; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1747680896; x=1748285696; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=3xJLKoGisEzELgLALhj8HI3qbKme4jRSwTX+rgaoSko=;
-        b=Mjg4T1ZO/WxHOyJBdaefXvNqLgeTYqOzNB2OSmGaWP5+Z61hnrMxpweqQjfNfI0s2i
-         0+euP0kEwsvlNhhyr+qZWqIb7t2CjRT+LCKNEivRffeihrktgs2Bchw8yesIUaaFAn5X
-         sQlyzGHKeJ0fmIelWN6RR8pw1qy9WIYwPRFVSQndCx7+K2by/ziNxLq618QJ50z90SHO
-         axFQ/utlz7v+QpZRuY30UXx+r3VRwh61Ff9ibnulohL+ahHg8Ocgl45GgdMmOzA2NYOX
-         g63qksuEUucR7uM2deyKgqn04bxcY7uPDVzYd+gd+/f+m16qUVCKwPzDArbdq+4NwJYy
-         02wg==
+        bh=5PK03mMqj/0S146CdDeFCztdaufZ9Ig4GSYXkx7uJko=;
+        b=SUgr68ZmQyHaXdEaR+8yUiFOAfnBzJ+1zQzLkQB9X607kC0VCq2Y0TDjfHkvDCPqdX
+         saxOB6uJ0RosAATHDiqjLgMAr+P44W1xlJMWkaTr/JkRoUvT7RR8iVIUkn9uGgPa6W1N
+         qr8h9Y3J/Kc1ARkFoXDSYaiKeOy11gI3kaGv++KslyEdmvUQsgf+sUW1fUprASPD5a1f
+         w4ZEjagQQNsQFw6u9KSRaW7JBY7jcf0lluaEWTewL2RGMbptTphfI2mb6BTQOq7zAT/u
+         JJAyXdwJ/YfMDyNbhUOd+Q1f7Dl/OqOabugIgJI8r14AM3Ake6hiktjg8sDXk7l5MY0Z
+         IeHw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747680036; x=1748284836;
+        d=1e100.net; s=20230601; t=1747680896; x=1748285696;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=3xJLKoGisEzELgLALhj8HI3qbKme4jRSwTX+rgaoSko=;
-        b=mbc4w2IqkiNdDE9mrohQqPtZAsTrBb+cTs9k1bN2i/gRygpqXklFHGKmOQdR2+DBrs
-         KPiKSdBIGS/E5Bh88nWyvbK7E9nFOsw9JDHfl7opinQcr9klN7RJ5G476lfTBYzuIpSC
-         Jd4kF6hDwLTHy7j8KE+YFmovbc5Ru0mwnXWshwFSKbJ3u26k5CLoW1JVdJ908WPxbLgY
-         2HGSnEwCDleOSHKUwC9xOIwEtqsbM7zOVDANqexZyxQidT3WLTmr0FEZOBzndlreV5rs
-         Q57hxaTVCwfUINzYb13dUmUX3cDf1L0jFItEBSnIXSmZ7uzo04IVrJ525G0Y6mWKyUxB
-         rbGg==
-X-Forwarded-Encrypted: i=1; AJvYcCXnMbTOk4vnRHcvWjDYHFBYoI49KKe7GGzbhFdQvqNTzt+Y+qnh6xBGIBYQofs9u+lJo23P9CCu624=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwT/+bXPGtxsM1mimXe05O/B0YUitBG8REDOMRyc/o926G/8y80
-	ev9sbID6QLGxEPga+pj1dES8Oba83lw6jOJH4gVbL3o21aGgFPXcSN8fUKFnEgHQsw==
-X-Gm-Gg: ASbGncu8/Uyzis/xSTjNHDZ/WZME+N0hUImRKF+TZopznBsMyjXD3/onig8DaWbKcAT
-	ZoHqBN3udWWh93gYZ6Ev2WgQyv4PE1CoIipHwXBK1ysCRXrn7qWKNOVsE7QK02MvkUKgiGwRiyd
-	3pxAOBlyCzdipkdWBSY6GcWduqpZy2A6Fo2YBQpXiI9HZp9y52R+4r3IywclfH3Ns7loMS9XI9h
-	UXvk1pBoeN1xmDlW5DxuWhx+sJC8JF98YxVcxt/EN9mXflrMOtAZpDEh3kp8mWV+uObe/Pkx75g
-	+9SZRk5Tgma0pYqQcrulZhFM1hYOAdYkqxiOCsC8GCZxZ0mxHS0g9iLi5Vh27A==
-X-Google-Smtp-Source: AGHT+IGaO5fvSDcdAOiqOQbSnPbQ3zTZunvU9ndj4O35x2M3xY7XO7mO1SE9trOWDqbEO3532zdqtg==
-X-Received: by 2002:a17:906:c28d:b0:ad5:3648:e2e4 with SMTP id a640c23a62f3a-ad53648eab0mr955935666b.45.1747680036286;
-        Mon, 19 May 2025 11:40:36 -0700 (PDT)
-Message-ID: <1b012912-c90e-45ad-8411-a4ddc4b2c3dc@suse.com>
-Date: Mon, 19 May 2025 20:40:34 +0200
+        bh=5PK03mMqj/0S146CdDeFCztdaufZ9Ig4GSYXkx7uJko=;
+        b=i0muksvN160qoOxOVwVL/tah0DffBWhIxndah99h+vYEBQoK2/jsilw7O0t71mdQCh
+         mf6r8lh6ibnLDnElVY5jli/7VLTEGMBsi0PrzQ7ESvlAQ0/EbTzdp1rELbgvARY5fdi0
+         LYtIRVhX+UMSqD8ktZWvuMuNEcte3qyisdZErElEYoImhML1yXpz6uMYEQLZeSAwTBmv
+         b+g7PqfFww8gPNgT2PzgrwTfoPfajTVD+7qJT39Dz+jcYApso0bvS6KnstFbnk3r6ufq
+         cHXGkSY+LTSKqAO/MFtebQyfftSWTP0LFMqh8/booCHCmClb0x0gp62xmdsI2qmESbP2
+         xgOg==
+X-Forwarded-Encrypted: i=1; AJvYcCWFnFaxOMVXqu1JQh/ogpZ6KT5fbG7PqFBrXPsJIbQrG25qHFtw79EgCbe6lQE8vQ0u+07ApDtLzoE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Ywl9Tejd8uiN+Cwb83wNnfBn7tVyae09rAq8PXG8zCN50yrfdlA
+	zL4W6S8kJHcubI0q5Sxn+yJ38Zy800F1eydjrtFFRvWznrBHr44Pwb3/On5Fq+wTXQ==
+X-Gm-Gg: ASbGncsLt/zGQHbc70KxSsPjN21DUNK/LpNgVNwr2tZmBXl00jJ48UdSgRyFct8IMwj
+	LvWglCCF2rYkLEd/bh6cdVU1v147BO8VKBa0Q4AaipLKr3Zj6emmx5W8eN7k9XECmpzO01Bw4Td
+	G3I2SDqptlopt4xIZrt6rcfNc9K+AHgzxYGglUyBSpo/uzVhQ8c7VrCV9FZyR43XvMxiLj6WIrz
+	nIqGkmLJipeL500hNnR1TGiLtLFgtlfHvTVEbBY+X22Q1CUaDdXT8XSfK4qeDfFYiP6cvDSQeXg
+	+DeLppgw8lf5RfyJ3K9wlUsJ5jWX8b/rW72NBg/ZbU9dQZOOLyCD3JREmcKcQQ==
+X-Google-Smtp-Source: AGHT+IEOH7PUbOGQklXTnyGpdk04LH6cpNxSVHy3Eo28Zz5LxPUOR3xodbp2FNIkRQ4lyryKbTNXeQ==
+X-Received: by 2002:a05:6402:5216:b0:5fc:954e:efb6 with SMTP id 4fb4d7f45d1cf-6008a39230dmr12211691a12.6.1747680895814;
+        Mon, 19 May 2025 11:54:55 -0700 (PDT)
+Message-ID: <092559d7-ddfd-44f2-9854-779770e24b8a@suse.com>
+Date: Mon, 19 May 2025 20:54:54 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 11/16] xen/riscv: aplic_init() implementation
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [RFC PATCH v4 5/8] xen/domctl: extend XEN_DOMCTL_assign_device to
+ handle not only iommu
+To: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>,
+ Grygorii Strashko <grygorii_strashko@epam.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Romain Caritey <Romain.Caritey@microchip.com>, xen-devel@lists.xenproject.org
-References: <cover.1746530883.git.oleksii.kurochko@gmail.com>
- <9129b10432dfc7ff8ba451842204342171da7dc1.1746530883.git.oleksii.kurochko@gmail.com>
- <057fc2ce-d4d6-4e14-987d-bef6f909eaff@suse.com>
- <e06a00d9-7cbd-416e-8e1e-f3aaaedccf77@gmail.com>
+ Bertrand Marquis <bertrand.marquis@arm.com>, Juergen Gross
+ <jgross@suse.com>, Julien Grall <julien@xen.org>,
+ Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <cover.1747669845.git.oleksii_moisieiev@epam.com>
+ <4f58bf9c47c40413ee9250c4cd21458382aac857.1747669845.git.oleksii_moisieiev@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <e06a00d9-7cbd-416e-8e1e-f3aaaedccf77@gmail.com>
+In-Reply-To: <4f58bf9c47c40413ee9250c4cd21458382aac857.1747669845.git.oleksii_moisieiev@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 19.05.2025 18:09, Oleksii Kurochko wrote:
-> On 5/15/25 11:06 AM, Jan Beulich wrote:
->>> +    /* Set interrupt type and default priority for all interrupts */
->>> +    for ( i = 1; i <= aplic_info.num_irqs; i++ )
->>> +    {
->>> +        writel(0, &aplic.regs->sourcecfg[i - 1]);
->> What guarantees the loop to not run past the array's size?
-> 
-> riscv,aplic binding:
->    https://github.com/torvalds/linux/blob/a5806cd506af5a7c19bcd596e4708b5c464bfd21/Documentation/devicetree/bindings/interrupt-controller/riscv%2Caplic.yaml#L57
-> Should I add an ASSERT() or panic() at the moment where num_irqs are
-> initialized to double check a binding?
+On 19.05.2025 17:50, Oleksii Moisieiev wrote:
+> --- a/xen/arch/arm/firmware/sci.c
+> +++ b/xen/arch/arm/firmware/sci.c
+> @@ -126,6 +126,43 @@ int sci_assign_dt_device(struct domain *d, struct dt_device_node *dev)
+>      return 0;
+>  }
+>  
+> +int sci_do_domctl(struct xen_domctl *domctl, struct domain *d,
+> +                  XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
+> +{
+> +    struct dt_device_node *dev;
+> +    int ret = 0;
+> +
+> +    switch ( domctl->cmd )
+> +    {
+> +    case XEN_DOMCTL_assign_device:
+> +        ret = -EOPNOTSUPP;
+> +        if ( domctl->u.assign_device.dev != XEN_DOMCTL_DEV_DT )
+> +            break;
+> +
+> +        if ( !cur_mediator )
+> +            break;
+> +
+> +        if ( !cur_mediator->assign_dt_device )
+> +            break;
+> +
+> +        ret = dt_find_node_by_gpath(domctl->u.assign_device.u.dt.path,
+> +                                    domctl->u.assign_device.u.dt.size, &dev);
+> +        if ( ret )
+> +            return ret;
+> +
+> +        ret = sci_assign_dt_device(d, dev);
+> +        if ( ret )
+> +            break;
 
-I may be paranoid, but I don't really trust anything coming from DT. Hence
-yes, just like you do in various other situations, perhaps best to panic()
-if too large a value is read. Or, if that's feasible, simply cap at the
-compiled-in count.
+These two lines are pointless when directly followed by ...
 
->>> +static int __init cf_check aplic_init(void)
->>> +{
->>> +    int rc;
->>> +    dt_phandle imsic_phandle;
->>> +    uint32_t irq_range[num_possible_cpus() * 2];
->> Are you going to have enough stack space when num_possible_cpus() is pretty
->> large?
-> 
-> When num_possible_cpus() will be pretty large then it will better to allocate irq_range[]
-> dynamically.
-> 
-> Does it make sense to re-write now?
+> +
+> +        break;
 
-Well, this kind of runtime-sized stack allocation should go away anyway.
-Plus you don't want to leave a trap like this in the code. Whether using
-dynamic allocation is the choice to address those concerns you'll need
-to judge.
+... this. Misra calls such "dead code" iirc.
 
->>> +    const struct dt_device_node *node = aplic_info.node;
->>> +
->>> +    /* Check for associated imsic node */
->>> +    rc = dt_property_read_u32(node, "msi-parent", &imsic_phandle);
->>> +    if ( !rc )
->>> +        panic("%s: IDC mode not supported\n", node->full_name);
->>> +
->>> +    imsic_node = dt_find_node_by_phandle(imsic_phandle);
->>> +    if ( !imsic_node )
->>> +        panic("%s: unable to find IMSIC node\n", node->full_name);
->>> +
->>> +    rc = dt_property_read_u32_array(imsic_node, "interrupts-extended",
->>> +                                    irq_range, ARRAY_SIZE(irq_range));
->>> +    if ( rc )
->>> +        panic("%s: unable to find interrupt-extended in %s node\n",
->>> +              __func__, imsic_node->full_name);
->>> +
->>> +    if ( irq_range[1] == IRQ_M_EXT )
->> How do you know the array has had 2 or ...
->>
->>> +        /* Machine mode imsic node, ignore this aplic node */
->>> +        return 0;
->>> +
->>> +    for ( unsigned int i = 0; i < ARRAY_SIZE(irq_range); i += 2 )
->>> +    {
->>> +        if ( irq_range[i + 1] != irq_range[1] )
->>> +            panic("%s: mode[%d] != %d\n", __func__, i + 1, irq_range[1]);
->>> +    }
->> ... or even all of the slots populated? Anything not populated by the DT
->> function will still have the stack contents that had been left by earlier
->> call chains. (The loop also makes little sense to start from 0.)
-> 
-> Do you mean I asked allocated irq_range[8*2] but DT node has only irq_range[4*2]?
-> Then it will be really an issue. And out-of-range access will occur in
-> dt_property_read_variable_u32_array(). I need another way to check then...
+> --- a/xen/arch/arm/include/asm/firmware/sci.h
+> +++ b/xen/arch/arm/include/asm/firmware/sci.h
+> @@ -146,6 +146,14 @@ int sci_dt_finalize(struct domain *d, void *fdt);
+>   * control" functionality.
+>   */
+>  int sci_assign_dt_device(struct domain *d, struct dt_device_node *dev);
+> +
+> +/*
+> + * SCI domctl handler
+> + *
+> + * Only XEN_DOMCTL_assign_device is handled for now.
+> + */
+> +int sci_do_domctl(struct xen_domctl *domctl, struct domain *d,
+> +                  XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl);
+>  #else
+>  
+>  static inline bool sci_domain_is_enabled(struct domain *d)
+> @@ -195,6 +203,12 @@ static inline int sci_assign_dt_device(struct domain *d,
+>      return 0;
+>  }
+>  
+> +static inline int sci_do_domctl(struct xen_domctl *domctl, struct domain *d,
+> +                                XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
+> +{
+> +    return 0;
+> +}
+> +
+>  #endif /* CONFIG_ARM_SCI */
+>  
+>  #endif /* __ASM_ARM_SCI_H */
 
-I described the opposite situation (not the full array being populated),
-but yes - both are a problem.
+This being an Arm-specific header, how does ...
+
+> @@ -851,6 +852,24 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
+>      case XEN_DOMCTL_deassign_device:
+>      case XEN_DOMCTL_get_device_group:
+>          ret = iommu_do_domctl(op, d, u_domctl);
+> +
+> +        if ( !ret || ret == -EOPNOTSUPP )
+> +        {
+> +            int ret1;
+> +            /*
+> +             * Add chained handling of assigned DT devices to support
+> +             * access-controller functionality through SCI framework, so
+> +             * DT device assign request can be passed to FW for processing and
+> +             * enabling VM access to requested device.
+> +             * The access-controller DT device processing is chained after IOMMU
+> +             * processing and expected to be executed for any DT device
+> +             * regardless if DT device is protected by IOMMU or not (or IOMMU
+> +             * is disabled).
+> +             */
+> +            ret1 = sci_do_domctl(op, d, u_domctl);
+
+... this compile on non-Arm? I think I said so before: I don't like this
+sitting in common code anyway. Is there really no way to put it in Arm-
+specific code?
 
 Jan
 
