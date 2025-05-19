@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 92A31ABCB6C
-	for <lists+xen-devel@lfdr.de>; Tue, 20 May 2025 01:30:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.990368.1374328 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA27DABCBB2
+	for <lists+xen-devel@lfdr.de>; Tue, 20 May 2025 01:46:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.990376.1374337 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uH9uz-0004ee-GM; Mon, 19 May 2025 23:29:13 +0000
+	id 1uHABC-0007Qv-PX; Mon, 19 May 2025 23:45:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 990368.1374328; Mon, 19 May 2025 23:29:13 +0000
+Received: by outflank-mailman (output) from mailman id 990376.1374337; Mon, 19 May 2025 23:45:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uH9uz-0004co-Cr; Mon, 19 May 2025 23:29:13 +0000
-Received: by outflank-mailman (input) for mailman id 990368;
- Mon, 19 May 2025 23:29:12 +0000
+	id 1uHABC-0007Oo-Mw; Mon, 19 May 2025 23:45:58 +0000
+Received: by outflank-mailman (input) for mailman id 990376;
+ Mon, 19 May 2025 23:45:57 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=klDL=YD=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1uH9uy-0004c9-80
- for xen-devel@lists.xenproject.org; Mon, 19 May 2025 23:29:12 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ id 1uHABB-0007Oh-A4
+ for xen-devel@lists.xenproject.org; Mon, 19 May 2025 23:45:57 +0000
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 10b29514-3509-11f0-a2fa-13f23c93f187;
- Tue, 20 May 2025 01:29:10 +0200 (CEST)
+ id 67312efc-350b-11f0-a2fa-13f23c93f187;
+ Tue, 20 May 2025 01:45:54 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id EE9585C566A;
- Mon, 19 May 2025 23:26:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C35EC4CEE4;
- Mon, 19 May 2025 23:29:07 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 79A2961120;
+ Mon, 19 May 2025 23:45:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 797F6C4CEEB;
+ Mon, 19 May 2025 23:45:51 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,18 +41,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 10b29514-3509-11f0-a2fa-13f23c93f187
+X-Inumbo-ID: 67312efc-350b-11f0-a2fa-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1747697348;
-	bh=pLdSU8aYNSRM4c6HfUiNt4SomeBz/h9Ae2mnyku9/os=;
+	s=k20201202; t=1747698353;
+	bh=yoqX8B6ldnLpDlSDOQ5Vatb8SMeCi4qN5BARC4x5qnw=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=XFGVaOhtQYLphp/zN5dRmroygyvG1Bb8rztCX44948LibrHcFUEBsfEDy11BRQa8w
-	 NQTp5nZOtqyCTIRKcFuwH6Ytgt4krah23NSC3oFgNdwJyCARCJKUkYwMXFt/wVfVDd
-	 MQesvTXArG617zV0dzH2yaUeZIgVnCvrO/Yc03V8jdKOa6CVu5Z62CE6w6wwlCS9m7
-	 wdvzZzViLipyLJYb7H0IvONSMNvXHx0aX1S1hJUESe1AR3ekjMmXoVSykSFZ0t2Gjv
-	 6BhaB/U7wimz6Zc2QfcgW/XlXmyDSxD5KT1gluqbxglpFCxn3mH+8rOEhApcFgNJV1
-	 vw/o8TxGQLcnw==
-Date: Mon, 19 May 2025 16:29:05 -0700 (PDT)
+	b=cbJADzsuE984dUrExhAahEPWCQ3FcR60ZmreQVCPr/c+cue4HsM5rVl6yrvstFQsI
+	 Sp5bXjoirmbOjQJV7v5A0SxIXFwE60BTLvAXDQG+4rbyU/+w4Z4vjabpEq6kAstniA
+	 O+genAbFdQaznOA3rr6AobQ1CIPXCrCDlMvU8kbyqOJOoLinwb7StPM0LpMN1VqLUg
+	 BmuxhwKD9WVA/VlYZOa930ug4C3bDvYtbS3z52SYkBu+ZNvbw/Gir0AM22aFA9bLHG
+	 TEAXkF1qXVFfn4as4nAMtidazz3NJWccjoOdnuAQvqeQrhyt2CjmAhH7Iv0BMP5CdP
+	 kh7yGL+EnVv/g==
+Date: Mon, 19 May 2025 16:45:50 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
@@ -66,334 +66,698 @@ cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
     Stefano Stabellini <sstabellini@kernel.org>, 
     Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
     Grygorii Strashko <grygorii_strashko@epam.com>
-Subject: Re: [RFC PATCH v4 2/8] xen/arm: scmi-smc: update to be used under
- sci subsystem
-In-Reply-To: <21bdecf961b60fb0094b1f722444a45228aef878.1747669845.git.oleksii_moisieiev@epam.com>
-Message-ID: <alpine.DEB.2.22.394.2505191628570.145034@ubuntu-linux-20-04-desktop>
-References: <cover.1747669845.git.oleksii_moisieiev@epam.com> <21bdecf961b60fb0094b1f722444a45228aef878.1747669845.git.oleksii_moisieiev@epam.com>
+Subject: Re: [RFC PATCH v4 1/8] xen/arm: add generic SCI subsystem
+In-Reply-To: <48b70b34c576d8dfcf6156d1997bc3c0f7cbbceb.1747669845.git.oleksii_moisieiev@epam.com>
+Message-ID: <alpine.DEB.2.22.394.2505191645210.145034@ubuntu-linux-20-04-desktop>
+References: <cover.1747669845.git.oleksii_moisieiev@epam.com> <48b70b34c576d8dfcf6156d1997bc3c0f7cbbceb.1747669845.git.oleksii_moisieiev@epam.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
 On Mon, 19 May 2025, Oleksii Moisieiev wrote:
-> From: Grygorii Strashko <grygorii_strashko@epam.com>
+> This patch adds the basic framework for ARM SCI mediator. SCI is System
+> Control Interface, which is designed to redirect requests from the Domains
+> to ARM specific Firmware (for example SCMI). This will allow the devices,
+> passed-through to the different Domains, to access to the System resources
+> (such as clocks/resets etc) by sending requests to the firmware.
 > 
-> The introduced SCI (System Control Interface) subsystem provides unified
-> interface to integrate in Xen SCI drivers which adds support for ARM
-> firmware (EL3, SCP) based software interfaces (like SCMI) that are used in
-> system management. The SCI subsystem allows to add drivers for different FW
-> interfaces or have different drivers for the same FW interface (for example,
-> SCMI with different transports).
+> ARM SCI subsystem allows to implement different SCI drivers to handle
+> specific ARM firmware interfaces (like ARM SCMI) and mediate requests
+> between the Domains and the Firmware. Also it allows SCI drivers to perform
+> proper action during Domain creation/destruction which is vital for
+> handling use cases like Domain reboot.
 > 
-> This patch updates SCMI over SMC calls handling layer, introduced by
-> commit 3e322bef8bc0 ("xen/arm: firmware: Add SCMI over SMC calls handling
-> layer"), to be SCI driver:
-> - convert to DT device;
-> - convert to SCI Xen interface.
+> This patch introduces new DEVICE_FIRMWARE device subclass for probing SCI
+> drivers basing on device tree, SCI drivers register itself with
+> DT_DEVICE_START/END macro. On init - the SCI drivers should register its
+> SCI ops with sci_register(). Only one SCI driver can be supported.
 > 
-> There are no functional changes in general, the driver is just adopted
-> to the SCI interface.
+> At run-time, the following SCI API calls are introduced:
 > 
-> Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
+> - sci_domain_sanitise_config() called from arch_sanitise_domain_config()
+> - sci_domain_init() called from arch_domain_create()
+> - sci_relinquish_resources() called from domain_relinquish_resources()
+> - sci_domain_destroy() called from arch_domain_destroy()
+> - sci_handle_call() called from vsmccc_handle_call()
+> - sci_dt_handle_node()
+>   sci_dt_finalize() called from handle_node() (Dom0 DT)
+> 
 > Signed-off-by: Oleksii Moisieiev <oleksii_moisieiev@epam.com>
+> Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
+
+This patch needs a pretty major rebase. But the looks OK to me.
 
 Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
 
 > ---
 > 
+> Changes in v4:
+> - fix SPDX-License
+> - rename DEVICE_ARM_SCI DT device class to FIRMWARE_DEVICE
+> - move XEN_DOMCTL_assign_device code in separate patch
+> - Add documentation for SCI SCMI drivers
 > 
+>  MAINTAINERS                             |   6 +
+>  xen/arch/arm/device.c                   |   5 +
+>  xen/arch/arm/dom0less-build.c           |   7 +
+>  xen/arch/arm/domain.c                   |  12 +-
+>  xen/arch/arm/domain_build.c             |   8 +
+>  xen/arch/arm/firmware/Kconfig           |   8 +
+>  xen/arch/arm/firmware/Makefile          |   1 +
+>  xen/arch/arm/firmware/sci.c             | 154 ++++++++++++++++++
+>  xen/arch/arm/include/asm/domain.h       |   5 +
+>  xen/arch/arm/include/asm/firmware/sci.h | 200 ++++++++++++++++++++++++
+>  xen/arch/arm/vsmc.c                     |   3 +
+>  xen/include/asm-generic/device.h        |   1 +
+>  xen/include/public/arch-arm.h           |   4 +
+>  13 files changed, 413 insertions(+), 1 deletion(-)
+>  create mode 100644 xen/arch/arm/firmware/sci.c
+>  create mode 100644 xen/arch/arm/include/asm/firmware/sci.h
 > 
->  xen/arch/arm/firmware/Kconfig                | 13 ++-
->  xen/arch/arm/firmware/scmi-smc.c             | 93 +++++++++++---------
->  xen/arch/arm/include/asm/firmware/scmi-smc.h | 41 ---------
->  xen/arch/arm/vsmc.c                          |  5 +-
->  xen/include/public/arch-arm.h                |  1 +
->  5 files changed, 64 insertions(+), 89 deletions(-)
->  delete mode 100644 xen/arch/arm/include/asm/firmware/scmi-smc.h
-> 
-> diff --git a/xen/arch/arm/firmware/Kconfig b/xen/arch/arm/firmware/Kconfig
-> index fc7918c7fc..bbf88fbb9a 100644
-> --- a/xen/arch/arm/firmware/Kconfig
-> +++ b/xen/arch/arm/firmware/Kconfig
-> @@ -8,9 +8,18 @@ config ARM_SCI
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index c11b82eca9..f5e3c48b96 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -507,6 +507,12 @@ R:	George Dunlap <gwd@xenproject.org>
+>  S:	Supported
+>  F:	xen/common/sched/
 >  
->  menu "Firmware Drivers"
->  
-> +choice
-> +	prompt "ARM SCI driver type"
-> +	default SCMI_SMC
-> +	help
-> +	Choose which ARM SCI driver to enable.
+> +SCI MEDIATORS
+> +M:	Oleksii Moisieiev <oleksii_moisieiev@epam.com>
+> +S:	Supported
+> +F:	xen/arch/arm/firmware/sci.c
+> +F:	xen/arch/arm/include/asm/firmware/sci.h
 > +
-> +config ARM_SCI_NONE
-> +	bool "none"
-> +
->  config SCMI_SMC
->  	bool "Forward SCMI over SMC calls from hwdom to EL3 firmware"
-> -	default y
-> +	select ARM_SCI
->  	help
->  	  This option enables basic awareness for SCMI calls using SMC as
->  	  doorbell mechanism and Shared Memory for transport ("arm,scmi-smc"
-> @@ -18,4 +27,6 @@ config SCMI_SMC
->  	  firmware node is used to trap and forward corresponding SCMI SMCs
->  	  to firmware running at EL3, for calls coming from the hardware domain.
->  
-> +endchoice
-> +
->  endmenu
-> diff --git a/xen/arch/arm/firmware/scmi-smc.c b/xen/arch/arm/firmware/scmi-smc.c
-> index 33473c04b1..13d1137592 100644
-> --- a/xen/arch/arm/firmware/scmi-smc.c
-> +++ b/xen/arch/arm/firmware/scmi-smc.c
-> @@ -9,6 +9,7 @@
->   * Copyright 2024 NXP
->   */
->  
-> +#include <asm/device.h>
->  #include <xen/acpi.h>
->  #include <xen/device_tree.h>
->  #include <xen/errno.h>
-> @@ -16,12 +17,11 @@
->  #include <xen/sched.h>
->  #include <xen/types.h>
+>  SEABIOS UPSTREAM
+>  M:	Wei Liu <wl@xen.org>
+>  S:	Supported
+> diff --git a/xen/arch/arm/device.c b/xen/arch/arm/device.c
+> index 5610cddcba..bdab96a408 100644
+> --- a/xen/arch/arm/device.c
+> +++ b/xen/arch/arm/device.c
+> @@ -13,6 +13,7 @@
+>  #include <xen/iocap.h>
+>  #include <xen/lib.h>
 >  
 > +#include <asm/firmware/sci.h>
->  #include <asm/smccc.h>
-> -#include <asm/firmware/scmi-smc.h>
+>  #include <asm/setup.h>
 >  
->  #define SCMI_SMC_ID_PROP   "arm,smc-id"
->  
-> -static bool __ro_after_init scmi_enabled;
->  static uint32_t __ro_after_init scmi_smc_id;
->  
->  /*
-> @@ -41,14 +41,11 @@ static bool scmi_is_valid_smc_id(uint32_t fid)
->   *
->   * Returns true if SMC was handled (regardless of response), false otherwise.
->   */
-> -bool scmi_handle_smc(struct cpu_user_regs *regs)
-> +static bool scmi_handle_smc(struct cpu_user_regs *regs)
->  {
->      uint32_t fid = (uint32_t)get_user_reg(regs, 0);
->      struct arm_smccc_res res;
->  
-> -    if ( !scmi_enabled )
-> -        return false;
-> -
->      if ( !scmi_is_valid_smc_id(fid) )
->          return false;
->  
-> @@ -78,49 +75,45 @@ bool scmi_handle_smc(struct cpu_user_regs *regs)
->      return true;
->  }
->  
-> -static int __init scmi_check_smccc_ver(void)
-> +static int scmi_smc_domain_init(struct domain *d,
-> +                                struct xen_domctl_createdomain *config)
->  {
-> -    if ( smccc_ver < ARM_SMCCC_VERSION_1_1 )
-> -    {
-> -        printk(XENLOG_WARNING
-> -               "SCMI: No SMCCC 1.1 support, SCMI calls forwarding disabled\n");
-> -        return -ENOSYS;
-> -    }
-> +    if ( !is_hardware_domain(d) )
-> +        return 0;
->  
-> +    d->arch.sci_enabled = true;
-> +    printk(XENLOG_DEBUG "SCMI: %pd init\n", d);
->      return 0;
->  }
->  
-> -static int __init scmi_dt_init_smccc(void)
-> +static void scmi_smc_domain_destroy(struct domain *d)
->  {
-> -    static const struct dt_device_match scmi_ids[] __initconst =
-> -    {
-> -        /* We only support "arm,scmi-smc" binding for now */
-> -        DT_MATCH_COMPATIBLE("arm,scmi-smc"),
-> -        { /* sentinel */ },
-> -    };
-> -    const struct dt_device_node *scmi_node;
-> -    int ret;
-> +    if ( !is_hardware_domain(d) )
-> +        return;
->  
-> -    /* If no SCMI firmware node found, fail silently as it's not mandatory */
-> -    scmi_node = dt_find_matching_node(NULL, scmi_ids);
-> -    if ( !scmi_node )
-> -        return -EOPNOTSUPP;
-> +    printk(XENLOG_DEBUG "SCMI: %pd destroy\n", d);
-> +}
->  
-> -    ret = dt_property_read_u32(scmi_node, SCMI_SMC_ID_PROP, &scmi_smc_id);
-> -    if ( !ret )
-> +static int __init scmi_check_smccc_ver(void)
-> +{
-> +    if ( smccc_ver < ARM_SMCCC_VERSION_1_1 )
->      {
-> -        printk(XENLOG_ERR "SCMI: No valid \"%s\" property in \"%s\" DT node\n",
-> -               SCMI_SMC_ID_PROP, scmi_node->full_name);
-> -        return -ENOENT;
-> +        printk(XENLOG_WARNING
-> +               "SCMI: No SMCCC 1.1 support, SCMI calls forwarding disabled\n");
-> +        return -ENOSYS;
+>  int map_irq_to_domain(struct domain *d, unsigned int irq,
+> @@ -303,6 +304,10 @@ int handle_device(struct domain *d, struct dt_device_node *dev, p2m_type_t p2mt,
+>                  return res;
+>              }
+>          }
+> +
+> +        res = sci_assign_dt_device(d, dev);
+> +        if ( res )
+> +            return res;
 >      }
 >  
-> -    scmi_enabled = true;
-> -
->      return 0;
+>      res = map_device_irqs_to_domain(d, dev, own_device, irq_ranges);
+> diff --git a/xen/arch/arm/dom0less-build.c b/xen/arch/arm/dom0less-build.c
+> index 49d1f14d65..a09c4c4bd7 100644
+> --- a/xen/arch/arm/dom0less-build.c
+> +++ b/xen/arch/arm/dom0less-build.c
+> @@ -14,6 +14,7 @@
+>  #include <asm/arm64/sve.h>
+>  #include <asm/dom0less-build.h>
+>  #include <asm/domain_build.h>
+> +#include <asm/firmware/sci.h>
+>  #include <asm/static-memory.h>
+>  #include <asm/static-shmem.h>
+>  
+> @@ -321,6 +322,10 @@ static int __init handle_passthrough_prop(struct kernel_info *kinfo,
+>          return -EINVAL;
+>      }
+>  
+> +    res = sci_assign_dt_device(kinfo->d, node);
+> +    if ( res )
+> +        return res;
+> +
+>      res = map_device_irqs_to_domain(kinfo->d, node, true, NULL);
+>      if ( res < 0 )
+>          return res;
+> @@ -970,6 +975,8 @@ void __init create_domUs(void)
+>          if ( !llc_coloring_enabled && llc_colors_str )
+>              panic("'llc-colors' found, but LLC coloring is disabled\n");
+>  
+> +        d_cfg.arch.arm_sci_type = XEN_DOMCTL_CONFIG_ARM_SCI_NONE;
+> +
+>          /*
+>           * The variable max_init_domid is initialized with zero, so here it's
+>           * very important to use the pre-increment operator to call
+> diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
+> index 3ba959f866..652aeb7a55 100644
+> --- a/xen/arch/arm/domain.c
+> +++ b/xen/arch/arm/domain.c
+> @@ -25,6 +25,7 @@
+>  #include <asm/platform.h>
+>  #include <asm/procinfo.h>
+>  #include <asm/regs.h>
+> +#include <asm/firmware/sci.h>
+>  #include <asm/tee/tee.h>
+>  #include <asm/vfp.h>
+>  #include <asm/vgic.h>
+> @@ -694,7 +695,7 @@ int arch_sanitise_domain_config(struct xen_domctl_createdomain *config)
+>          return -EINVAL;
+>      }
+>  
+> -    return 0;
+> +    return sci_domain_sanitise_config(config);
 >  }
 >  
-> +static const struct sci_mediator_ops scmi_smc_ops = {
-> +    .handle_call = scmi_handle_smc,
-> +    .domain_init = scmi_smc_domain_init,
-> +    .domain_destroy = scmi_smc_domain_destroy,
-> +};
+>  int arch_domain_create(struct domain *d,
+> @@ -786,6 +787,9 @@ int arch_domain_create(struct domain *d,
+>      d->arch.sve_vl = config->arch.sve_vl;
+>  #endif
+>  
+> +    if ( (rc = sci_domain_init(d, config)) != 0 )
+> +        goto fail;
 > +
->  /* Initialize the SCMI layer based on SMCs and Device-tree */
-> -static int __init scmi_init(void)
-> +static int __init scmi_dom0_init(struct dt_device_node *dev, const void *data)
->  {
->      int ret;
->  
-> @@ -134,22 +127,36 @@ static int __init scmi_init(void)
->      if ( ret )
->          return ret;
->  
-> -    ret = scmi_dt_init_smccc();
-> -    if ( ret == -EOPNOTSUPP )
-> -        return ret;
-> +    ret = dt_property_read_u32(dev, SCMI_SMC_ID_PROP, &scmi_smc_id);
-> +    if ( !ret )
-> +    {
-> +        printk(XENLOG_ERR "SCMI: No valid \"%s\" property in \"%s\" DT node\n",
-> +               SCMI_SMC_ID_PROP, dt_node_full_name(dev));
-> +        return -ENOENT;
-> +    }
-> +
-> +    ret = sci_register(&scmi_smc_ops);
->      if ( ret )
-> -        goto err;
-> +    {
-> +        printk(XENLOG_ERR "SCMI: mediator already registered (ret = %d)\n",
-> +               ret);
-> +        return ret;
-> +    }
->  
->      printk(XENLOG_INFO "Using SCMI with SMC ID: 0x%x\n", scmi_smc_id);
->  
 >      return 0;
-> -
-> - err:
-> -    printk(XENLOG_ERR "SCMI: Initialization failed (ret = %d)\n", ret);
-> -    return ret;
->  }
 >  
-> -__initcall(scmi_init);
-> +static const struct dt_device_match scmi_smc_match[] __initconst = {
-> +    DT_MATCH_COMPATIBLE("arm,scmi-smc"),
-> +    { /* sentinel */ },
+>  fail:
+> @@ -846,6 +850,7 @@ void arch_domain_destroy(struct domain *d)
+>      domain_vgic_free(d);
+>      domain_vuart_free(d);
+>      free_xenheap_page(d->shared_info);
+> +    sci_domain_destroy(d);
+>  #ifdef CONFIG_ACPI
+>      free_xenheap_pages(d->arch.efi_acpi_table,
+>                         get_order_from_bytes(d->arch.efi_acpi_len));
+> @@ -1039,6 +1044,7 @@ enum {
+>      PROG_p2m_root,
+>      PROG_p2m,
+>      PROG_p2m_pool,
+> +    PROG_sci,
+>      PROG_done,
+>  };
+>  
+> @@ -1098,6 +1104,10 @@ int domain_relinquish_resources(struct domain *d)
+>          ret = relinquish_p2m_mapping(d);
+>          if ( ret )
+>              return ret;
+> +    PROGRESS(sci):
+> +        ret = sci_relinquish_resources(d);
+> +        if ( ret )
+> +            return ret;
+>  
+>      PROGRESS(p2m_root):
+>          /*
+> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+> index 7b47abade1..36d28b52a4 100644
+> --- a/xen/arch/arm/domain_build.c
+> +++ b/xen/arch/arm/domain_build.c
+> @@ -24,6 +24,7 @@
+>  #include <asm/setup.h>
+>  #include <asm/tee/tee.h>
+>  #include <asm/pci.h>
+> +#include <asm/firmware/sci.h>
+>  #include <asm/platform.h>
+>  #include <asm/psci.h>
+>  #include <asm/setup.h>
+> @@ -1888,6 +1889,9 @@ static int __init handle_node(struct domain *d, struct kernel_info *kinfo,
+>          return 0;
+>      }
+>  
+> +    if ( sci_dt_handle_node(d, node) )
+> +        return 0;
+> +
+>      /*
+>       * The vGIC does not support routing hardware PPIs to guest. So
+>       * we need to skip any node using PPIs.
+> @@ -1988,6 +1992,10 @@ static int __init handle_node(struct domain *d, struct kernel_info *kinfo,
+>          if ( res )
+>              return res;
+>  
+> +        res = sci_dt_finalize(d, kinfo->fdt);
+> +        if ( res )
+> +            return res;
+> +
+>          /*
+>           * Create a second memory node to store the ranges covering
+>           * reserved-memory regions.
+> diff --git a/xen/arch/arm/firmware/Kconfig b/xen/arch/arm/firmware/Kconfig
+> index 817da745fd..fc7918c7fc 100644
+> --- a/xen/arch/arm/firmware/Kconfig
+> +++ b/xen/arch/arm/firmware/Kconfig
+> @@ -1,3 +1,11 @@
+> +config ARM_SCI
+> +	bool
+> +	depends on ARM
+> +	help
+> +	  This option enables generic Arm SCI (System Control Interface) mediators
+> +	  support. It allows domains to control system resources via one of
+> +	  Arm SCI mediators drivers implemented in XEN, like SCMI.
+> +
+>  menu "Firmware Drivers"
+>  
+>  config SCMI_SMC
+> diff --git a/xen/arch/arm/firmware/Makefile b/xen/arch/arm/firmware/Makefile
+> index a5e4542666..71bdefc24a 100644
+> --- a/xen/arch/arm/firmware/Makefile
+> +++ b/xen/arch/arm/firmware/Makefile
+> @@ -1 +1,2 @@
+> +obj-$(CONFIG_ARM_SCI) += sci.o
+>  obj-$(CONFIG_SCMI_SMC) += scmi-smc.o
+> diff --git a/xen/arch/arm/firmware/sci.c b/xen/arch/arm/firmware/sci.c
+> new file mode 100644
+> index 0000000000..e1522e10e2
+> --- /dev/null
+> +++ b/xen/arch/arm/firmware/sci.c
+> @@ -0,0 +1,154 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +/*
+> + * Generic part of the SCI (System Control Interface) subsystem.
+> + *
+> + * Oleksii Moisieiev <oleksii_moisieiev@epam.com>
+> + * Copyright (c) 2025 EPAM Systems
+> + */
+> +
+> +#include <xen/acpi.h>
+> +#include <xen/errno.h>
+> +#include <xen/init.h>
+> +#include <xen/sched.h>
+> +#include <xen/types.h>
+> +
+> +#include <asm/firmware/sci.h>
+> +
+> +static const struct sci_mediator_ops __read_mostly *cur_mediator;
+> +
+> +int sci_register(const struct sci_mediator_ops *ops)
+> +{
+> +    if ( cur_mediator )
+> +        return -EEXIST;
+> +
+> +    if ( !ops->domain_init || !ops->domain_destroy || !ops->handle_call )
+> +        return -EINVAL;
+> +
+> +    cur_mediator = ops;
+> +
+> +    return 0;
 > +};
 > +
-> +DT_DEVICE_START(scmi_smc, "SCMI SMC DOM0", DEVICE_FIRMWARE)
-> +    .dt_match = scmi_smc_match,
-> +    .init = scmi_dom0_init,
-> +DT_DEVICE_END
+> +bool sci_handle_call(struct cpu_user_regs *args)
+> +{
+> +    if ( unlikely(!cur_mediator) )
+> +        return false;
+> +
+> +    return cur_mediator->handle_call(args);
+> +}
+> +
+> +int sci_domain_init(struct domain *d, struct xen_domctl_createdomain *config)
+> +{
+> +    if ( !cur_mediator )
+> +        return 0;
+> +
+> +    return cur_mediator->domain_init(d, config);
+> +}
+> +
+> +int sci_domain_sanitise_config(struct xen_domctl_createdomain *config)
+> +{
+> +    if ( !cur_mediator )
+> +        return 0;
+> +
+> +    if ( !cur_mediator->domain_sanitise_config )
+> +        return 0;
+> +
+> +    return cur_mediator->domain_sanitise_config(config);
+> +}
+> +
+> +void sci_domain_destroy(struct domain *d)
+> +{
+> +    if ( !cur_mediator )
+> +        return;
+> +
+> +    cur_mediator->domain_destroy(d);
+> +}
+> +
+> +int sci_relinquish_resources(struct domain *d)
+> +{
+> +    if ( !cur_mediator )
+> +        return 0;
+> +
+> +    if ( !cur_mediator->relinquish_resources )
+> +        return 0;
+> +
+> +    return cur_mediator->relinquish_resources(d);
+> +}
+> +
+> +bool sci_dt_handle_node(struct domain *d, struct dt_device_node *node)
+> +{
+> +    if ( !cur_mediator )
+> +        return 0;
+> +
+> +    if ( !cur_mediator->dom0_dt_handle_node )
+> +        return 0;
+> +
+> +    return cur_mediator->dom0_dt_handle_node(d, node);
+> +}
+> +
+> +int sci_dt_finalize(struct domain *d, void *fdt)
+> +{
+> +    if ( !cur_mediator )
+> +        return 0;
+> +
+> +    if ( !cur_mediator->dom0_dt_finalize )
+> +        return 0;
+> +
+> +    return cur_mediator->dom0_dt_finalize(d, fdt);
+> +}
+> +
+> +int sci_assign_dt_device(struct domain *d, struct dt_device_node *dev)
+> +{
+> +    struct dt_phandle_args ac_spec;
+> +    int index = 0;
+> +    int ret;
+> +
+> +    if ( !cur_mediator )
+> +        return 0;
+> +
+> +    if ( !cur_mediator->assign_dt_device )
+> +        return 0;
+> +
+> +    while ( !dt_parse_phandle_with_args(dev, "access-controllers",
+> +                                        "#access-controller-cells", index,
+> +                                        &ac_spec) )
+> +    {
+> +        printk(XENLOG_DEBUG "sci: assign device %s to %pd\n",
+> +               dt_node_full_name(dev), d);
+> +
+> +        ret = cur_mediator->assign_dt_device(d, &ac_spec);
+> +        if ( ret )
+> +            return ret;
+> +
+> +        index++;
+> +    }
+> +
+> +    return 0;
+> +}
+> +
+> +static int __init sci_init(void)
+> +{
+> +    struct dt_device_node *np;
+> +    unsigned int num_sci = 0;
+> +    int rc;
+> +
+> +    dt_for_each_device_node(dt_host, np)
+> +    {
+> +        rc = device_init(np, DEVICE_FIRMWARE, NULL);
+> +        if ( !rc && num_sci )
+> +        {
+> +            printk(XENLOG_ERR
+> +                   "SCMI: Only one SCI controller is supported. found second %s\n",
+> +                   np->name);
+> +            return -EOPNOTSUPP;
+> +        }
+> +        else if ( !rc )
+> +            num_sci++;
+> +        else if ( rc != -EBADF && rc != -ENODEV )
+> +            return rc;
+> +    }
+> +
+> +    return 0;
+> +}
+> +
+> +__initcall(sci_init);
+> diff --git a/xen/arch/arm/include/asm/domain.h b/xen/arch/arm/include/asm/domain.h
+> index f1d72c6e48..fa0898b7cf 100644
+> --- a/xen/arch/arm/include/asm/domain.h
+> +++ b/xen/arch/arm/include/asm/domain.h
+> @@ -118,6 +118,11 @@ struct arch_domain
+>  #ifdef CONFIG_TEE
+>      void *tee;
+>  #endif
+> +#ifdef CONFIG_ARM_SCI
+> +    bool sci_enabled;
+> +    /* ARM SCI driver's specific data */
+> +    void *sci_data;
+> +#endif
 >  
->  /*
->   * Local variables:
-> diff --git a/xen/arch/arm/include/asm/firmware/scmi-smc.h b/xen/arch/arm/include/asm/firmware/scmi-smc.h
-> deleted file mode 100644
-> index 6b1a164a40..0000000000
-> --- a/xen/arch/arm/include/asm/firmware/scmi-smc.h
-> +++ /dev/null
-> @@ -1,41 +0,0 @@
-> -/* SPDX-License-Identifier: GPL-2.0-only */
-> -/*
-> - * xen/arch/arm/include/asm/firmware/scmi-smc.h
-> - *
-> - * ARM System Control and Management Interface (SCMI) over SMC
-> - * Generic handling layer
-> - *
-> - * Andrei Cherechesu <andrei.cherechesu@nxp.com>
-> - * Copyright 2024 NXP
-> - */
-> -
-> -#ifndef __ASM_SCMI_SMC_H__
-> -#define __ASM_SCMI_SMC_H__
-> -
-> -#include <xen/types.h>
-> -
-> -struct cpu_user_regs;
-> -
-> -#ifdef CONFIG_SCMI_SMC
-> -
-> -bool scmi_handle_smc(struct cpu_user_regs *regs);
-> -
-> -#else
-> -
-> -static inline bool scmi_handle_smc(struct cpu_user_regs *regs)
-> -{
-> -    return false;
-> -}
-> -
-> -#endif /* CONFIG_SCMI_SMC */
-> -
-> -#endif /* __ASM_SCMI_H__ */
-> -
-> -/*
-> - * Local variables:
-> - * mode: C
-> - * c-file-style: "BSD"
-> - * c-basic-offset: 4
-> - * indent-tabs-mode: nil
-> - * End:
-> - */
+>  }  __cacheline_aligned;
+>  
+> diff --git a/xen/arch/arm/include/asm/firmware/sci.h b/xen/arch/arm/include/asm/firmware/sci.h
+> new file mode 100644
+> index 0000000000..71fb54852e
+> --- /dev/null
+> +++ b/xen/arch/arm/include/asm/firmware/sci.h
+> @@ -0,0 +1,200 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +/*
+> + * Generic ARM SCI (System Control Interface) subsystem.
+> + *
+> + * Oleksii Moisieiev <oleksii_moisieiev@epam.com>
+> + * Copyright (c) 2025 EPAM Systems
+> + */
+> +
+> +#ifndef __ASM_ARM_SCI_H
+> +#define __ASM_ARM_SCI_H
+> +
+> +#include <xen/lib.h>
+> +#include <xen/types.h>
+> +#include <xen/device_tree.h>
+> +#include <xen/errno.h>
+> +#include <xen/sched.h>
+> +
+> +#ifdef CONFIG_ARM_SCI
+> +
+> +struct sci_mediator_ops {
+> +    /*
+> +     * Called during domain construction. If it is requested to enable
+> +     * SCI support, so SCI driver can create own structures for the new domain
+> +     * and inform firmware about new domain (if required).
+> +     * Mandatory.
+> +     */
+> +    int (*domain_init)(struct domain *d,
+> +                       struct xen_domctl_createdomain *config);
+> +
+> +    /*
+> +     * Called during domain construction. The SCI driver uses
+> +     * it to sanitize domain SCI configuration parameters.
+> +     * Optional.
+> +     */
+> +    int (*domain_sanitise_config)(struct xen_domctl_createdomain *config);
+> +
+> +    /*
+> +     * Called during domain destruction, releases all resources, that
+> +     * were allocated for domain.
+> +     * Mandatory.
+> +     */
+> +    void (*domain_destroy)(struct domain *d);
+> +
+> +    /*
+> +     * Called during domain destruction to relinquish resources used
+> +     * by SCI driver itself and request resources releasing from firmware.
+> +     * Optional.
+> +     */
+> +    int (*relinquish_resources)(struct domain *d);
+> +
+> +    /* SMC/HVC Handle callback */
+> +    bool (*handle_call)(struct cpu_user_regs *regs);
+> +
+> +    /*
+> +     * Dom0 DT nodes handling callback so SCI driver can detect DT nodes it
+> +     * need to handle and decide if those nodes need to be provided to Dom0.
+> +     * Optional.
+> +     */
+> +    bool (*dom0_dt_handle_node)(struct domain *d, struct dt_device_node *node);
+> +
+> +    /*
+> +     * SCI driver callback called at the end of Dom0 DT generation, so
+> +     * it can perform steps to modify DT to enable/disable SCI
+> +     * functionality for Dom0.
+> +     */
+> +    int (*dom0_dt_finalize)(struct domain *d, void *fdt);
+> +
+> +    /*
+> +     * SCI driver callback called when DT device is passed through to guest,
+> +     * so SCI driver can enable device access to the domain if SCI FW provides
+> +     * Device specific access control functionality.
+> +     * Optional.
+> +     */
+> +    int (*assign_dt_device)(struct domain *d, struct dt_phandle_args *ac_spec);
+> +};
+> +
+> +
+> +static inline bool sci_domain_is_enabled(struct domain *d)
+> +{
+> +    return d->arch.sci_enabled;
+> +}
+> +
+> +/*
+> + * Register SCI subsystem ops.
+> + *
+> + * Register SCI drivers operation and so enable SCI functionality.
+> + * Only one SCI driver is supported.
+> + */
+> +int sci_register(const struct sci_mediator_ops *ops);
+> +
+> +/*
+> + * Initialize SCI functionality for domain if configured.
+> + *
+> + * Initialization routine to enable SCI functionality for the domain.
+> + * The SCI configuration data and decision about enabling SCI functionality
+> + * for the domain is SCI driver specific.
+> + */
+> +int sci_domain_init(struct domain *d, struct xen_domctl_createdomain *config);
+> +
+> +/*
+> + * Sanitise domain configuration parameters.
+> + *
+> + */
+> +int sci_domain_sanitise_config(struct xen_domctl_createdomain *config);
+> +
+> +/*
+> + * Destroy SCI domain instance.
+> + */
+> +void sci_domain_destroy(struct domain *d);
+> +
+> +/*
+> + * Free resources assigned to the certain domain.
+> + */
+> +int sci_relinquish_resources(struct domain *d);
+> +
+> +/*
+> + * SMC/HVC Handle callback.
+> + *
+> + * SCI driver acts as SMC/HVC server for the registered domains and
+> + * does redirection of the domain calls to the SCI firmware,
+> + * such as ARM TF-A or similar.
+> + */
+> +bool sci_handle_call(struct cpu_user_regs *regs);
+> +
+> +/*
+> + * Dom0 DT nodes handling function.
+> + *
+> + * Allows SCI driver to detect DT nodes it need to handle and decide if
+> + * those nodes need to be provided to Dom0.
+> + */
+> +bool sci_dt_handle_node(struct domain *d, struct dt_device_node *node);
+> +
+> +/*
+> + * Dom0 DT generation finalize.
+> + *
+> + * Called at the end of Dom0 DT generation, so SCI driver can perform steps
+> + * to modify DT to enable/disable SCI functionality for Dom0.
+> + */
+> +int sci_dt_finalize(struct domain *d, void *fdt);
+> +
+> +/*
+> + * Assign DT device to domain.
+> + *
+> + * Called when DT device is passed through to guest, so SCI driver can enable
+> + * device access to the domain if SCI FW provides "Device specific access
+> + * control" functionality.
+> + */
+> +int sci_assign_dt_device(struct domain *d, struct dt_device_node *dev);
+> +#else
+> +
+> +static inline bool sci_domain_is_enabled(struct domain *d)
+> +{
+> +    return false;
+> +}
+> +
+> +static inline int sci_domain_init(struct domain *d,
+> +                                  struct xen_domctl_createdomain *config)
+> +{
+> +    return 0;
+> +}
+> +
+> +static inline int
+> +sci_domain_sanitise_config(struct xen_domctl_createdomain *config)
+> +{
+> +    return 0;
+> +}
+> +
+> +static inline void sci_domain_destroy(struct domain *d)
+> +{}
+> +
+> +static inline int sci_relinquish_resources(struct domain *d)
+> +{
+> +    return 0;
+> +}
+> +
+> +static inline bool sci_handle_call(struct cpu_user_regs *args)
+> +{
+> +    return false;
+> +}
+> +
+> +static inline bool sci_dt_handle_node(struct domain *d,
+> +                                      struct dt_device_node *node)
+> +{
+> +    return false;
+> +}
+> +
+> +static inline int sci_dt_finalize(struct domain *d, void *fdt)
+> +{
+> +    return false;
+> +}
+> +
+> +static inline int sci_assign_dt_device(struct domain *d,
+> +                                       struct dt_device_node *dev)
+> +{
+> +    return 0;
+> +}
+> +
+> +#endif /* CONFIG_ARM_SCI */
+> +
+> +#endif /* __ASM_ARM_SCI_H */
 > diff --git a/xen/arch/arm/vsmc.c b/xen/arch/arm/vsmc.c
-> index 51b3c02973..b33c69a1c2 100644
+> index 62d8117a12..51b3c02973 100644
 > --- a/xen/arch/arm/vsmc.c
 > +++ b/xen/arch/arm/vsmc.c
-> @@ -21,7 +21,6 @@
->  #include <asm/traps.h>
->  #include <asm/vpsci.h>
->  #include <asm/platform.h>
-> -#include <asm/firmware/scmi-smc.h>
->  
->  /* Number of functions currently supported by Hypervisor Service. */
->  #define XEN_SMCCC_FUNCTION_COUNT 3
-> @@ -233,7 +232,7 @@ static bool handle_sip(struct cpu_user_regs *regs)
->      if ( platform_smc(regs) )
->          return true;
->  
-> -    return scmi_handle_smc(regs);
-> +    return sci_handle_call(regs);
->  }
->  
->  /*
-> @@ -301,8 +300,6 @@ static bool vsmccc_handle_call(struct cpu_user_regs *regs)
+> @@ -12,6 +12,7 @@
+>  #include <public/arch-arm/smccc.h>
+>  #include <asm/cpuerrata.h>
+>  #include <asm/cpufeature.h>
+> +#include <asm/firmware/sci.h>
+>  #include <asm/monitor.h>
+>  #include <asm/regs.h>
+>  #include <asm/smccc.h>
+> @@ -300,6 +301,8 @@ static bool vsmccc_handle_call(struct cpu_user_regs *regs)
 >              break;
 >          case ARM_SMCCC_OWNER_SIP:
 >              handled = handle_sip(regs);
-> -            if ( !handled )
-> -                handled = sci_handle_call(regs);
+> +            if ( !handled )
+> +                handled = sci_handle_call(regs);
 >              break;
 >          case ARM_SMCCC_OWNER_TRUSTED_APP ... ARM_SMCCC_OWNER_TRUSTED_APP_END:
 >          case ARM_SMCCC_OWNER_TRUSTED_OS ... ARM_SMCCC_OWNER_TRUSTED_OS_END:
+> diff --git a/xen/include/asm-generic/device.h b/xen/include/asm-generic/device.h
+> index 1acd1ba1d8..e96c5558c2 100644
+> --- a/xen/include/asm-generic/device.h
+> +++ b/xen/include/asm-generic/device.h
+> @@ -18,6 +18,7 @@ enum device_class
+>      DEVICE_IOMMU,
+>      DEVICE_INTERRUPT_CONTROLLER,
+>      DEVICE_PCI_HOSTBRIDGE,
+> +    DEVICE_FIRMWARE,
+>      /* Use for error */
+>      DEVICE_UNKNOWN,
+>  };
 > diff --git a/xen/include/public/arch-arm.h b/xen/include/public/arch-arm.h
-> index 55eed9992c..095b1a23e3 100644
+> index 24840eeaa6..55eed9992c 100644
 > --- a/xen/include/public/arch-arm.h
 > +++ b/xen/include/public/arch-arm.h
-> @@ -328,6 +328,7 @@ DEFINE_XEN_GUEST_HANDLE(vcpu_guest_context_t);
+> @@ -327,6 +327,8 @@ DEFINE_XEN_GUEST_HANDLE(vcpu_guest_context_t);
+>  #define XEN_DOMCTL_CONFIG_TEE_OPTEE     1
 >  #define XEN_DOMCTL_CONFIG_TEE_FFA       2
 >  
->  #define XEN_DOMCTL_CONFIG_ARM_SCI_NONE      0
-> +#define XEN_DOMCTL_CONFIG_ARM_SCI_SCMI_SMC  1
->  
+> +#define XEN_DOMCTL_CONFIG_ARM_SCI_NONE      0
+> +
 >  struct xen_arch_domainconfig {
 >      /* IN/OUT */
+>      uint8_t gic_version;
+> @@ -350,6 +352,8 @@ struct xen_arch_domainconfig {
+>       *
+>       */
+>      uint32_t clock_frequency;
+> +    /* IN */
+> +    uint8_t arm_sci_type;
+>  };
+>  #endif /* __XEN__ || __XEN_TOOLS__ */
+>  
 > -- 
 > 2.34.1
 > 
