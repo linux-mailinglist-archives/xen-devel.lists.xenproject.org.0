@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B8852ABBF0A
-	for <lists+xen-devel@lfdr.de>; Mon, 19 May 2025 15:22:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.989819.1373773 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4BB37ABBF0B
+	for <lists+xen-devel@lfdr.de>; Mon, 19 May 2025 15:22:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.989826.1373783 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uH0RM-0004Nc-I0; Mon, 19 May 2025 13:22:00 +0000
+	id 1uH0Rw-0004pE-PI; Mon, 19 May 2025 13:22:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 989819.1373773; Mon, 19 May 2025 13:22:00 +0000
+Received: by outflank-mailman (output) from mailman id 989826.1373783; Mon, 19 May 2025 13:22:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uH0RM-0004Kv-F8; Mon, 19 May 2025 13:22:00 +0000
-Received: by outflank-mailman (input) for mailman id 989819;
- Mon, 19 May 2025 13:21:59 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=oG9i=YD=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1uH0RL-0004Kp-8g
- for xen-devel@lists.xenproject.org; Mon, 19 May 2025 13:21:59 +0000
-Received: from mail-pf1-x42f.google.com (mail-pf1-x42f.google.com
- [2607:f8b0:4864:20::42f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3c61edd1-34b4-11f0-b892-0df219b8e170;
- Mon, 19 May 2025 15:21:56 +0200 (CEST)
-Received: by mail-pf1-x42f.google.com with SMTP id
- d2e1a72fcca58-7399a2dc13fso5615316b3a.2
- for <xen-devel@lists.xenproject.org>; Mon, 19 May 2025 06:21:56 -0700 (PDT)
-Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
- by smtp.gmail.com with UTF8SMTPSA id
- 41be03b00d2f7-b26eaf6e6a5sm6185140a12.17.2025.05.19.06.21.53
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 19 May 2025 06:21:54 -0700 (PDT)
+	id 1uH0Rw-0004nU-Ma; Mon, 19 May 2025 13:22:36 +0000
+Received: by outflank-mailman (input) for mailman id 989826;
+ Mon, 19 May 2025 13:22:34 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=cAbn=YD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uH0Ru-0004f1-Qy
+ for xen-devel@lists.xenproject.org; Mon, 19 May 2025 13:22:34 +0000
+Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
+ [2a00:1450:4864:20::531])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 531a9687-34b4-11f0-a2fa-13f23c93f187;
+ Mon, 19 May 2025 15:22:34 +0200 (CEST)
+Received: by mail-ed1-x531.google.com with SMTP id
+ 4fb4d7f45d1cf-5fbcd9088a7so207092a12.0
+ for <xen-devel@lists.xenproject.org>; Mon, 19 May 2025 06:22:34 -0700 (PDT)
+Received: from [10.1.250.198] ([80.188.125.198])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-6005ae48253sm5785790a12.81.2025.05.19.06.22.33
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 19 May 2025 06:22:33 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,123 +45,84 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3c61edd1-34b4-11f0-b892-0df219b8e170
+X-Inumbo-ID: 531a9687-34b4-11f0-a2fa-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1747660915; x=1748265715; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=Sy1pJC7nbP1ymJfqNb61gZHd0v9aVsfr1yp1yHFOYIo=;
-        b=IVXNjCuaJl5A4HOln2DGVrhX1Mc8Y3iFcrHk+uUnp/LUiKLLZYRzNzYiyefdAj7gYX
-         i7+kA6u+PuH8LiencbZ57PwK/uJxRpI/PQUvaDt4HKunsCANQ6MC7pYxfCXw9wNizwOc
-         VKZK5Xu6YqrPJ9eb0utD+0B7sJxHaUM6RJYlM=
+        d=suse.com; s=google; t=1747660954; x=1748265754; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=uIDeus1vsoHTicE2Z2VgYl/dNp0Zsle+G/4lsoYeIBI=;
+        b=MbkrjCQ1B68iG9DACpwwU0WDP4Og4L14Lzjbt27vX9UjtregzeW4mMtn1GGjaJGmPK
+         YfLW9ZzjuqRy48kv1INQV6lokNFiV8SnONtbpv33ZMcSznu0CRWOXD9mn1VzUrTTpoXQ
+         fdOcukKoGGFff3780vnA0rtYMAOWZTi32WaBzN0bGJDTOVLYUS1R9+blSR3jDm76s3X/
+         IOm3CcMasjN8fKHf+8Qd4rIb7zp8MqrFo4+3nYQbUzhA3z8IaKK5NoyaKzCU+/QGqEkH
+         2xSgqpFJVL/oA4eE8g40E2BvzuwRA+/vNdvAv1SlFV77Pitsxmb79186MGChNRYyuaKQ
+         ydIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747660915; x=1748265715;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Sy1pJC7nbP1ymJfqNb61gZHd0v9aVsfr1yp1yHFOYIo=;
-        b=bu7PQdV+4ksviEZI7zks3id3XNFhBjOeNczGtBSjlXdKxr5mtrwA24WInlvsQHNES/
-         NNmlxGg7LsVCISBLesqhq9xKdtwc8YQOdiwPKIsqvOHKvoT2a8lrtCLIwAZW1w4+1Ofb
-         BzeGXhy/2CtiBabCMMAT04xg4Nab+jkTV84T7y8VAuBc/fXnJHOWPp7Po4682RIXjJkY
-         3IeYAemJa1sgaetwF70g4O10HlKAH2JOGfUlMgIh+AIyk0Sp+y4EVgqNViNa+18Vlqz0
-         YdiSlCrqQ5N8Z65ra8EPbwUULuWN5guAfA0+hDEMW0OEACnIryVARSwQ1J+1tZJvo+F2
-         0MCg==
-X-Forwarded-Encrypted: i=1; AJvYcCVOZrz2K3ziKGhyzVc44kNJC/TvptN2H+B+lRXqM6dyxhLrUSI630N9twjR7xWeV4F9zlze/deV6zM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyPsnpYaRAUAK8Kj/haZDWikdBA8c9UWVtTtRnHQTj20ckzXhA/
-	AoBkMUXr99CIv7f9YoXm1Uw2Mv337cFqvPQv9pklPoYtniWkm5K1AgK0FLTUZSasPic=
-X-Gm-Gg: ASbGncv+FEw7WEIfDPVV+mOAXyJdLWr9t29prHFi8/D3i0qikgjQ0nl5amA49cYuVpM
-	p34LYYlfpbgra2tF6srdv8Z4I7cSBWOGNxD/MlEQmVCf5gNsA0JniE0Ws2l0oyZs5W0u/GsEeRu
-	MSHD98c4wkoIZtYo2Ra4rTdgyr3hDM4ExcoP+JpnrD7tKtJ4uuVFAUBk+TtGLK3iDOXqQdSCuzO
-	W5S2vUGedMiJ4+XXTuG9CMMmUWQ3N3x+Ez9mGBozkEy2NlShp0E3kiuHWJ58oInwkFQKxZRNk2d
-	iHY5jtHvwTFd64rv+N60499cYN01MrWFgabaGNwERR/I/0ZdQEv4xWvcx60CUiDDyiOIZalbCzw
-	QTB2vNsKoQwZIC0GTU3NqI/coGERFF3kbIOY=
-X-Google-Smtp-Source: AGHT+IFRcFqUEmDbjhXB/nEScqqHFeANS3C8hjm3Bc9/htyd3VMNuG8wsrgsLzU/PI/36peBjVgi1g==
-X-Received: by 2002:a05:6a20:9c9b:b0:1fd:f8eb:d232 with SMTP id adf61e73a8af0-2170cc90d47mr19195985637.24.1747660915251;
-        Mon, 19 May 2025 06:21:55 -0700 (PDT)
-Date: Mon, 19 May 2025 15:21:49 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "Chen, Jiqian" <Jiqian.Chen@amd.com>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	"Huang, Ray" <Ray.Huang@amd.com>
-Subject: Re: [PATCH v4 03/10] vpci/header: Emulate extended capability list
- for dom0
-Message-ID: <aCswbbh-0GTdr1tr@Mac.lan>
-References: <20250509090542.2199676-1-Jiqian.Chen@amd.com>
- <20250509090542.2199676-4-Jiqian.Chen@amd.com>
- <b569f90b-673d-44c0-b350-8a6f5f3c8d78@suse.com>
- <BL1PR12MB5849E0E13D669CE6B2755399E79CA@BL1PR12MB5849.namprd12.prod.outlook.com>
- <bcdc0848-0c12-4ee0-b923-c7d5243bf097@suse.com>
- <BL1PR12MB58494740C0B258C63C3EBC08E79CA@BL1PR12MB5849.namprd12.prod.outlook.com>
- <20d48f86-d7fe-47c8-89ab-61d816e1d6e9@suse.com>
+        d=1e100.net; s=20230601; t=1747660954; x=1748265754;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=uIDeus1vsoHTicE2Z2VgYl/dNp0Zsle+G/4lsoYeIBI=;
+        b=opb3UJbe+G3GIQxmDv4gfDJRuXlxQN2XIddwsTlPT+tpir803WuqegZ0wZB4dWPiu1
+         UhDioE1RagYkMj7RnC7UMHrfVYdVued9OjOP4OefbQOUb7Z8RjhlJnD8qdBaPshgdk1a
+         QTX0tD2IZH8sj59GGxCqEBDI4LaDMoBFgpVEpPCk2aT2rPzIneLMi5T1+L1b0jY1nS8V
+         vmfY1jJGGte284yrDiqgTYVdj6X9Sjk7h/gVwiGeODO+tGZ0s0KFgsnQPFArn/SdK1pG
+         7zw8pxjIwQ7Au9XEuDE46T71NdEC+4m2InihsJIsgrfYitah+vQlkzqV8yXUcGuHs4C0
+         1+IQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVZVnKpl/47SNnnE3AcP29LNwh44faljwXAQF5JYOMiQF++3V31wu6JHqc2ApU8oIewsLw73dB2pzI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxGvb5zdBASm+WMV6yRMG/wwI9CIPpBtdZkIMyKwZgUG5kTYGJ9
+	N1d2lPGYKc/iBvvJ9qecFzhRTwdR3hueBorf/l7cR6q2sw04RzqerejcsUcpdkgegQ==
+X-Gm-Gg: ASbGnctN8twHHvDwehZZOM1dAfD+NcMNtTty3+rMZ9UT89MAkeQPGiE2HztQteku8YI
+	eqqf9uW550DyJlSKHavP5LgKExilNVpwm5s5Uc+XMsWl1DamnCtcv0bKj0A+vUwXlqHLyOI/F3X
+	8EGePvHqNRoS7PkfDMmu894m/NlfGqrSUZXdE8kPyOcs86j26/L4XsQMIYJgwwxjeYbCfzWVPCw
+	oDxgaBuzYvgs5W/44PiHev2b2FFjAO1yWXO1SjBPnrk5HrHq3PCcYhciHCoK4vUweWQFfejOs3z
+	9MtnNScEowYi1EKHlz/eBs3dj58zPuqLIzM8mBKYtKQ0f97bEJVry/QmW2SdgQ==
+X-Google-Smtp-Source: AGHT+IEWKi5lcrHZBb3KA1Ko4dCN4pOgwspWblnpZm8z7DEtrpo5pjWvI6ZnL8p32TEc5h6/iPOOPA==
+X-Received: by 2002:a05:6402:1057:b0:600:29cc:e061 with SMTP id 4fb4d7f45d1cf-60029cce38fmr9011601a12.13.1747660953728;
+        Mon, 19 May 2025 06:22:33 -0700 (PDT)
+Message-ID: <558c7ec2-77ea-42e6-8568-af8b74e19c88@suse.com>
+Date: Mon, 19 May 2025 15:22:32 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20d48f86-d7fe-47c8-89ab-61d816e1d6e9@suse.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 6/6] x86/hvm: reduce the need to flush caches in
+ memory_type_changed()
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+References: <20250516094535.63472-1-roger.pau@citrix.com>
+ <20250516094535.63472-7-roger.pau@citrix.com>
+ <c01ec6e8-bb45-4072-a527-99a7c72fc714@suse.com> <aCsRJBmoP-al6Kgk@Mac.lan>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <aCsRJBmoP-al6Kgk@Mac.lan>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Mon, May 19, 2025 at 03:10:17PM +0200, Jan Beulich wrote:
-> On 19.05.2025 09:13, Chen, Jiqian wrote:
-> > On 2025/5/19 14:56, Jan Beulich wrote:
-> >> On 19.05.2025 08:43, Chen, Jiqian wrote:
-> >>> On 2025/5/18 22:20, Jan Beulich wrote:
-> >>>> On 09.05.2025 11:05, Jiqian Chen wrote:
-> >>>>> @@ -827,6 +827,34 @@ static int vpci_init_capability_list(struct pci_dev *pdev)
-> >>>>>                                                   PCI_STATUS_RSVDZ_MASK);
-> >>>>>  }
-> >>>>>  
-> >>>>> +static int vpci_init_ext_capability_list(struct pci_dev *pdev)
-> >>>>> +{
-> >>>>> +    unsigned int pos = PCI_CFG_SPACE_SIZE, ttl = 480;
-> >>>>
-> >>>> The ttl value exists (in the function you took it from) to make sure
-> >>>> the loop below eventually ends. That is, to be able to kind of
-> >>>> gracefully deal with loops in the linked list. Such loops, however,
-> >>>> would ...
-> >>>>
-> >>>>> +    if ( !is_hardware_domain(pdev->domain) )
-> >>>>> +        /* Extended capabilities read as zero, write ignore for guest */
-> >>>>> +        return vpci_add_register(pdev->vpci, vpci_read_val, NULL,
-> >>>>> +                                 pos, 4, (void *)0);
-> >>>>> +
-> >>>>> +    while ( pos >= PCI_CFG_SPACE_SIZE && ttl-- )
-> >>>>> +    {
-> >>>>> +        uint32_t header = pci_conf_read32(pdev->sbdf, pos);
-> >>>>> +        int rc;
-> >>>>> +
-> >>>>> +        if ( !header )
-> >>>>> +            return 0;
-> >>>>> +
-> >>>>> +        rc = vpci_add_register(pdev->vpci, vpci_read_val, vpci_hw_write32,
-> >>>>> +                               pos, 4, (void *)(uintptr_t)header);
-> >>>>
-> >>>> ... mean we may invoke this twice for the same capability. Such
-> >>>> a secondary invocation would fail with -EEXIST, causing device init
-> >>>> to fail altogether. Which is kind of against our aim of exposing
-> >>>> (in a controlled manner) as much of the PCI hardware as possible.
-> >>> May I know what situation that can make this twice for one capability when initialization?
-> >>> Does hardware capability list have a cycle?
-> >>
-> >> Any of this is to work around flawed hardware, I suppose.
-> >>
-> >>>> Imo we ought to be using a bitmap to detect the situation earlier
-> >>>> and hence to be able to avoid redundant register addition. Thoughts?
-> >>> Can we just let it go forward and continue to add register for next capability when rc == -EXIST, instead of returning error ?
-> >>
-> >> Possible, but feels wrong.
-> > How about when EXIST, setting the next bits of previous extended capability to be zero and return 0? Then we break the cycle.
+On 19.05.2025 13:08, Roger Pau Monné wrote:
+> On Sun, May 18, 2025 at 01:44:49PM +0200, Jan Beulich wrote:
+>> On 16.05.2025 11:45, Roger Pau Monne wrote:
+>>> Not sure whether this attempt to reduce cache flushing should get some
+>>> mention in the CHANGELOG.
+>>
+>> Err on the side of adding an entry there?
 > 
-> Hmm. Again an option, yet again I'm not certain. But that's perhaps just
-> me, and Roger may be fine with it. IOW we might as well start out this way,
-> and adjust if (ever) an issue with a real device is found.
+> Oleksii would you be fine with me adding:
+> 
+> diff --git a/CHANGELOG.md b/CHANGELOG.md
+> index 1ea06524db20..fa971cd9e6ee 100644
+> --- a/CHANGELOG.md
+> +++ b/CHANGELOG.md
+> @@ -11,6 +11,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
+>     - For x86, GCC 5.1 and Binutils 2.25, or Clang/LLVM 11
+>     - For ARM32 and ARM64, GCC 5.1 and Binutils 2.25
+>   - Linux based device model stubdomains are now fully supported.
+> + - On x86:
+> +   - Restrict the cache flushing done in memory_type_changed() to improve
+> +     performance.
 
-Returning -EEXIST might be fine, but at that point there's no further
-capability to process.  There's a loop in the linked capability list,
-and we should just exit.  There needs to be a warning in this case,
-and since this is for the hardware domain only it shouldn't be fatal.
+Maybe better to mention function names here, saying "after a memory type change
+by a guest" instead?
 
-If it was for domUs we would possibly need to discuss whether
-assigning the device should fail if a capability linked list loop is
-found.
-
-Thanks, Roger.
+Jan
 
