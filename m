@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD10BABD76C
-	for <lists+xen-devel@lfdr.de>; Tue, 20 May 2025 13:54:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.990678.1374608 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 32A7DABD786
+	for <lists+xen-devel@lfdr.de>; Tue, 20 May 2025 13:57:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.990685.1374618 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uHLXY-0005rD-IN; Tue, 20 May 2025 11:53:48 +0000
+	id 1uHLb7-0006Q0-14; Tue, 20 May 2025 11:57:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 990678.1374608; Tue, 20 May 2025 11:53:48 +0000
+Received: by outflank-mailman (output) from mailman id 990685.1374618; Tue, 20 May 2025 11:57:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uHLXY-0005pm-FW; Tue, 20 May 2025 11:53:48 +0000
-Received: by outflank-mailman (input) for mailman id 990678;
- Tue, 20 May 2025 11:53:47 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uHLb6-0006Ng-Uc; Tue, 20 May 2025 11:57:28 +0000
+Received: by outflank-mailman (input) for mailman id 990685;
+ Tue, 20 May 2025 11:57:27 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=J32h=YE=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1uHLXX-0005pg-2s
- for xen-devel@lists.xenproject.org; Tue, 20 May 2025 11:53:47 +0000
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [2a00:1450:4864:20::632])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 145f6bf4-3571-11f0-b892-0df219b8e170;
- Tue, 20 May 2025 13:53:44 +0200 (CEST)
-Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-ad5394be625so52246666b.2
- for <xen-devel@lists.xenproject.org>; Tue, 20 May 2025 04:53:43 -0700 (PDT)
-Received: from [192.168.1.5] (user-109-243-64-38.play-internet.pl.
- [109.243.64.38]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6004d4f2cd8sm7093085a12.15.2025.05.20.04.53.42
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 20 May 2025 04:53:42 -0700 (PDT)
+ <SRS0=djEL=YE=cloud.com=kevin.lampis@srs-se1.protection.inumbo.net>)
+ id 1uHLb5-0006Na-FG
+ for xen-devel@lists.xenproject.org; Tue, 20 May 2025 11:57:27 +0000
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [2a00:1450:4864:20::629])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 9925649e-3571-11f0-a2fa-13f23c93f187;
+ Tue, 20 May 2025 13:57:26 +0200 (CEST)
+Received: by mail-ej1-x629.google.com with SMTP id
+ a640c23a62f3a-ad1a87d93f7so877411066b.0
+ for <xen-devel@lists.xenproject.org>; Tue, 20 May 2025 04:57:26 -0700 (PDT)
+Received: from fedora.eng.citrite.net ([185.25.67.249])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ad52d4cc5dbsm717040066b.169.2025.05.20.04.57.24
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 20 May 2025 04:57:24 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,168 +45,230 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 145f6bf4-3571-11f0-b892-0df219b8e170
+X-Inumbo-ID: 9925649e-3571-11f0-a2fa-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1747742023; x=1748346823; darn=lists.xenproject.org;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+        d=cloud.com; s=cloud; t=1747742245; x=1748347045; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=xfZkE131mIxLsC0cdTVCU8aUE78yQal29ryN+ESy2ss=;
-        b=TLh0j7qudPeUUe6zfaubnM/GP6wf1PK4gaf3ZmgDlI8U4IohGPoFLHUPS6tI0Y52AS
-         K04Bmg2b7cXZZ+NwObdA5x76GYdXNsmQKyGMEEx0S7A9zP5mn3gT8tdOV5G73gCV7hzg
-         wWn4jsnL9DV/4SLXHLBekLkifShNU2i4eHcowICZm2PXYyPOqvgUysJWFPprn5t1+7dp
-         +bnWKnYEGRZoo+4gdnOAHNrFYwfC+Ixd4pMr1M0DVQiNVlDn3/s5zAtlb2fGQ+naKR7d
-         yUOZLHhLK+s/14q4A5UKoLeEr7shSdBcZYaR1WdROV8sGrDFoQ914tNmLoFVrCOTh4A3
-         YD6Q==
+        bh=3mnj1/ZJr8WXSrPzXVOhf5MKDkqj6JCkA4uZU0rfdXg=;
+        b=cAmqkOhM5ZeQcppVqY/jwo8M/rRAgdlNMiivB9j4I/XxLyrSKO9IqoB5RnX9KbSdfu
+         eWdXW5vlkjc5Yke/uPNG9hZOk3ZMehe/KOBWhvPpkIlrxe3uR6Q+2pKUte0Yyr28IMNm
+         9MUHTnKomdC3ncw59/yp63gJNPlAJ5NS52bMY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747742023; x=1748346823;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=xfZkE131mIxLsC0cdTVCU8aUE78yQal29ryN+ESy2ss=;
-        b=UihU/mbcrmtd6l9hIGpZNjuzWxWBiIUgmEgZI8rMvF9mGrlBJKbwGk+ia4d5/yUNWI
-         zLZkB9/WYRqouGSMpD82RIciYSCmNNH4seLeqGAKtQiUVLisxSezFgB4suh3Dt70HIih
-         r+PoJ1xpg1hnLlyym2Bbjxhyo6IlkkJOMZcw+t/ZbIbDuTjrqJpjwGC9S5EXZ/ZFTzNH
-         NTc601BpwEgS5URKyn3h+x9YkdYg0ML3kYJ5lX7e0lUeO0cFEHfWSGRfWQQpyXQvQWLt
-         4EOPafF2mKTtxFTW0I+feb58+XB3ypc0lu8hymoLOcgwS8xxlzax4OVCmHcoKb2hv3W2
-         q3JQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUBbmZhohx7eyMcee+8J8OA/oXDVQFc4fvEMrVTcQ21WZeaRYPoDUX72w3RZJc+i7xbgJn5dwC7djc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzwVEwCtUNxPbCJMY+Blb0+SpsleroIsII+WnReCC/E07tudhrH
-	7znjoXNoPnaCzSwaOw8iqnFaGku9Tl7PYaahoSs9zRuArKzG+Y8N6oYW
-X-Gm-Gg: ASbGncv+pCmhrOB21D139K4dWSYH9dI2dcl/YUkAspmicmz+8F5z1MVgTSJLQNWSO+l
-	Hdkp3rSwx5yLyefaFwmgHoPfz9IQy6CsHDKjaXJGDi6FpwsSIaItTqJ+vrGSVpro6m/LIuEdRgK
-	Ev+AyT97tMIUIZGKoSy0seuuxP/nbsLMHtp7+Orb54PDprloHj8h4schWJCRMuHUVLXE1FAL2uY
-	49E5Tdhl9I25wKFbNN6wKzrGcIkBap8X2QCEw0y9sY7cd1+3GM6o3kGUV3ZCUYOAbkxgxufV89d
-	oeOkCh6ZmqBwYcLl+5xB1CTMQ+04oq+42jN8EGsh6A/JW0l24GTFlARJBOTrv+iUjndJnYaX58c
-	GE/RxBDArgxyhcPcWgoBKfdVh
-X-Google-Smtp-Source: AGHT+IFuwRSG4zKXovxptz9vbfe/65SZs9ADDF35ldbwi+trGwL0DwXS2UOvgfN/6LVqIMLCF9qHjA==
-X-Received: by 2002:a17:907:7da8:b0:ad2:4fb7:6cd7 with SMTP id a640c23a62f3a-ad536b5a0e6mr1437237566b.2.1747742022850;
-        Tue, 20 May 2025 04:53:42 -0700 (PDT)
-Content-Type: multipart/alternative;
- boundary="------------hZtnhytO99qVl3cCHO8z3lAw"
-Message-ID: <c24c40bb-7948-44bf-8144-a7bb7236a105@gmail.com>
-Date: Tue, 20 May 2025 13:53:41 +0200
+        d=1e100.net; s=20230601; t=1747742245; x=1748347045;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=3mnj1/ZJr8WXSrPzXVOhf5MKDkqj6JCkA4uZU0rfdXg=;
+        b=r0goDvVW2Pmh4M+UUZGpvmEzVGl/9OP2e6lyfyVr142UEsnaFv2oebjOEzcVAN8mxf
+         AzsHMTP/s4sYZwxJufUHSM3ynhXGzj9spvAUGGbiqumD2gPE2YoL7s851nev/JoViwLn
+         qsYdwswsoMCcN5Asel2xG6eL8A3emXovA5a9353eOaFgTwbis7JB9+UnM1U1aBMzx4/4
+         nvSz1io7T98ygEpG1kjpbm4J1WiHTcSF/3yNfTDeOMSvTSfcc06bRspKOFnQOlUNIYTF
+         MqvBswQG1lSKf+KT8IlIhPJ3COe6Z9kRlcAh/C6sitgLSyY1L2XTnRe4AnGoG5D1vZfE
+         yZrQ==
+X-Gm-Message-State: AOJu0Yy8r+d+yqeocidxoeTAqU1V1ZFua2D2FFwcoxyOtKxbOgRAkEpG
+	2obzTNkMycutF7acP+Pn0OT/XTuinwLWmLbIZHx1B9Vpue95Jbw9XK7KsZA+MYeJy7S8ekSCLOS
+	GTcmf
+X-Gm-Gg: ASbGncsX5J6SLdv6t0nU00gTKh3DBqHUpv1rRGypNeauXpNnavfXOxwjTNbi7dWjjvh
+	IKcq5f+8T0OzFJWedN0uf2Tm0nblSa4IPQA5hTabZe1X4SeqaNh/enra1YqGKfOrD1m1Yydm3G5
+	QS5SwsfyxaoIcChZKabTlHRxIhLrFjVHsMjqO/M3ByXrVsbgQqr+fYr+L4bgS+BTWk7CCeUCXuN
+	6CFJK+DP1/4o1rsOZGg8h/CpJF+xMLIxfkue5hFfDYaxEOxJYTPu62wumcSDSDeayjcmV6jEuC8
+	dXw1kSGEy5EQW1FzsCkSxcoOgPW5yefP799LvGikcbAET3tni60t8qPExonLl/qHUUW/
+X-Google-Smtp-Source: AGHT+IEFqCy2tk25vh/tS5BUxWQx81bsGoEoC3yPRt9XfaHP29VODL0/hkkrQ9F9zt3lvV7eXRbJRA==
+X-Received: by 2002:a17:907:3e16:b0:ad4:f512:733 with SMTP id a640c23a62f3a-ad536dce6e4mr1584479666b.45.1747742245432;
+        Tue, 20 May 2025 04:57:25 -0700 (PDT)
+From: Kevin Lampis <kevin.lampis@cloud.com>
+To: xen-devel@lists.xenproject.org
+Cc: Ross Lagerwall <ross.lagerwall@citrix.com>,
+	Kevin Lampis <kevin.lampis@cloud.com>
+Subject: [PATCH v2 2/3] Add lockdown mode
+Date: Tue, 20 May 2025 12:57:16 +0100
+Message-ID: <20250520115716.706100-1-kevin.lampis@cloud.com>
+X-Mailer: git-send-email 2.42.0
+In-Reply-To: <20250512195628.1728455-3-kevin.lampis@cloud.com>
+References: <20250512195628.1728455-3-kevin.lampis@cloud.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 15/16] xen/riscv: implement setup_irq()
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Romain Caritey <Romain.Caritey@microchip.com>, xen-devel@lists.xenproject.org
-References: <cover.1746530883.git.oleksii.kurochko@gmail.com>
- <6f17bbf0eb6240d7389d389f0973af6fda5cce29.1746530883.git.oleksii.kurochko@gmail.com>
- <5f8a2840-2080-4b04-8298-0f5e22eaf5c0@suse.com>
-Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <5f8a2840-2080-4b04-8298-0f5e22eaf5c0@suse.com>
+Content-Transfer-Encoding: 8bit
 
-This is a multi-part message in MIME format.
---------------hZtnhytO99qVl3cCHO8z3lAw
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+From: Ross Lagerwall <ross.lagerwall@citrix.com>
 
+The intention of lockdown mode is to prevent attacks from a rogue dom0
+userspace from compromising the system. Lockdown mode can be controlled by a
+Kconfig option and a command-line parameter. It is also enabled automatically
+when Secure Boot is enabled and it cannot be disabled in that case.
 
-On 5/15/25 11:57 AM, Jan Beulich wrote:
-> On 06.05.2025 18:51, Oleksii Kurochko wrote:
->> @@ -58,6 +59,89 @@ int platform_get_irq(const struct dt_device_node *device, int index)
->>       return dt_irq.irq;
->>   }
->>   
->> +static int _setup_irq(struct irq_desc *desc, unsigned int irqflags,
->> +                      struct irqaction *new)
->> +{
->> +    bool shared = irqflags & IRQF_SHARED;
->> +
->> +    ASSERT(new != NULL);
->> +
->> +    /*
->> +     * Sanity checks:
->> +     *  - if the IRQ is marked as shared
->> +     *  - dev_id is not NULL when IRQF_SHARED is set
->> +     */
->> +    if ( desc->action != NULL && (!(desc->status & IRQF_SHARED) || !shared) )
->> +        return -EINVAL;
->> +    if ( shared && new->dev_id == NULL )
->> +        return -EINVAL;
->> +
->> +    if ( shared )
->> +        desc->status |= IRQF_SHARED;
->> +
->> +#ifdef CONFIG_IRQ_HAS_MULTIPLE_ACTION
->> +    new->next = desc->action;
->> +#endif
-> Didn't you indicate you'd drop this?
+If enabled from the command-line then it is required to be first in the
+list otherwise Xen may process some insecure parameters before reaching
+the lockdown parameter.
 
-To one of replies I wrote that probably something (eg RISC-V's IOMMU) will want to setup
-multiple handler for the same interrupt. But I'm not sure yet. I can drop for now and
-return back when it will be really a use case.
+Signed-off-by: Ross Lagerwall <ross.lagerwall@citrix.com>
+Signed-off-by: Kevin Lampis <kevin.lampis@cloud.com>
+---
+Changes in v2:
+- Remove custom command line parsing
+- Print warning if lockdown is not first on command line
+---
+ xen/arch/x86/setup.c       |  1 +
+ xen/common/Kconfig         |  8 ++++++
+ xen/common/Makefile        |  1 +
+ xen/common/kernel.c        |  6 +++++
+ xen/common/lockdown.c      | 54 ++++++++++++++++++++++++++++++++++++++
+ xen/include/xen/lockdown.h | 11 ++++++++
+ 6 files changed, 81 insertions(+)
+ create mode 100644 xen/common/lockdown.c
+ create mode 100644 xen/include/xen/lockdown.h
 
-~ Oleksii
-
---------------hZtnhytO99qVl3cCHO8z3lAw
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 5/15/25 11:57 AM, Jan Beulich wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:5f8a2840-2080-4b04-8298-0f5e22eaf5c0@suse.com">
-      <pre wrap="" class="moz-quote-pre">On 06.05.2025 18:51, Oleksii Kurochko wrote:
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">@@ -58,6 +59,89 @@ int platform_get_irq(const struct dt_device_node *device, int index)
-     return dt_irq.irq;
- }
+diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
+index 2518954124..276957c4ed 100644
+--- a/xen/arch/x86/setup.c
++++ b/xen/arch/x86/setup.c
+@@ -15,6 +15,7 @@
+ #include <xen/kexec.h>
+ #include <xen/keyhandler.h>
+ #include <xen/lib.h>
++#include <xen/lockdown.h>
+ #include <xen/multiboot.h>
+ #include <xen/nodemask.h>
+ #include <xen/numa.h>
+diff --git a/xen/common/Kconfig b/xen/common/Kconfig
+index 6d43be2e6e..c84073563f 100644
+--- a/xen/common/Kconfig
++++ b/xen/common/Kconfig
+@@ -576,4 +576,12 @@ config BUDDY_ALLOCATOR_SIZE
+ 	  Amount of memory reserved for the buddy allocator to serve Xen heap,
+ 	  working alongside the colored one.
  
-+static int _setup_irq(struct irq_desc *desc, unsigned int irqflags,
-+                      struct irqaction *new)
++config LOCKDOWN_DEFAULT
++       bool "Enable lockdown mode by default"
++       default n
++       help
++         Lockdown mode prevents attacks from a rogue dom0 userspace from
++         compromising the system. This is automatically enabled when Secure
++         Boot is enabled.
++
+ endmenu
+diff --git a/xen/common/Makefile b/xen/common/Makefile
+index 98f0873056..b00a8a925a 100644
+--- a/xen/common/Makefile
++++ b/xen/common/Makefile
+@@ -26,6 +26,7 @@ obj-$(CONFIG_KEXEC) += kexec.o
+ obj-$(CONFIG_KEXEC) += kimage.o
+ obj-$(CONFIG_LIVEPATCH) += livepatch.o livepatch_elf.o
+ obj-$(CONFIG_LLC_COLORING) += llc-coloring.o
++obj-y += lockdown.o
+ obj-$(CONFIG_VM_EVENT) += mem_access.o
+ obj-y += memory.o
+ obj-y += multicall.o
+diff --git a/xen/common/kernel.c b/xen/common/kernel.c
+index 8b63ca55f1..3538f467ad 100644
+--- a/xen/common/kernel.c
++++ b/xen/common/kernel.c
+@@ -199,6 +199,8 @@ static int parse_params(const char *cmdline, const struct kernel_param *start,
+             printk("parameter \"%s\" unknown!\n", key);
+             final_rc = -EINVAL;
+         }
++
++        lockdown_clear_first_flag();
+     }
+ 
+     return final_rc;
+@@ -216,6 +218,9 @@ static void __init _cmdline_parse(const char *cmdline)
+  */
+ void __init cmdline_parse(const char *cmdline)
+ {
++    /* Call this early since it affects command-line parsing */
++    lockdown_init(cmdline);
++
+     if ( opt_builtin_cmdline[0] )
+     {
+         printk("Built-in command line: %s\n", opt_builtin_cmdline);
+@@ -227,6 +232,7 @@ void __init cmdline_parse(const char *cmdline)
+         return;
+ 
+     safe_strcpy(saved_cmdline, cmdline);
++    lockdown_set_first_flag();
+     _cmdline_parse(cmdline);
+ #endif
+ }
+diff --git a/xen/common/lockdown.c b/xen/common/lockdown.c
+new file mode 100644
+index 0000000000..cd3deeb63e
+--- /dev/null
++++ b/xen/common/lockdown.c
+@@ -0,0 +1,54 @@
++/* SPDX-License-Identifier: GPL-2.0-or-later */
++
++#include <xen/efi.h>
++#include <xen/lockdown.h>
++#include <xen/param.h>
++
++#define FIRST_ARG_FLAG 2
++
++static int __ro_after_init lockdown = IS_ENABLED(CONFIG_LOCKDOWN_DEFAULT);
++
++void __init lockdown_set_first_flag(void)
 +{
-+    bool shared = irqflags &amp; IRQF_SHARED;
++    lockdown |= FIRST_ARG_FLAG;
++}
 +
-+    ASSERT(new != NULL);
++void __init lockdown_clear_first_flag(void)
++{
++    lockdown &= ~FIRST_ARG_FLAG;
++}
 +
-+    /*
-+     * Sanity checks:
-+     *  - if the IRQ is marked as shared
-+     *  - dev_id is not NULL when IRQF_SHARED is set
-+     */
-+    if ( desc-&gt;action != NULL &amp;&amp; (!(desc-&gt;status &amp; IRQF_SHARED) || !shared) )
-+        return -EINVAL;
-+    if ( shared &amp;&amp; new-&gt;dev_id == NULL )
-+        return -EINVAL;
++static int __init parse_lockdown_opt(const char *s)
++{
++    if ( strncmp("no", s, 2) == 0 )
++        if ( efi_secure_boot )
++            printk("lockdown can't be disabled because Xen booted in Secure Boot mode\n");
++        else
++            lockdown = 0;
++    else
++    {
++        if ( !(lockdown & FIRST_ARG_FLAG) )
++            printk("lockdown was not the first argument, unsafe arguments may have been already processed\n");
 +
-+    if ( shared )
-+        desc-&gt;status |= IRQF_SHARED;
++        lockdown = 1;
++    }
 +
-+#ifdef CONFIG_IRQ_HAS_MULTIPLE_ACTION
-+    new-&gt;next = desc-&gt;action;
-+#endif
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-Didn't you indicate you'd drop this?</pre>
-    </blockquote>
-    <pre>To one of replies I wrote that probably something (eg RISC-V's IOMMU) will want to setup
-multiple handler for the same interrupt. But I'm not sure yet. I can drop for now and
-return back when it will be really a use case.
++    return 0;
++}
++custom_secure_param("lockdown", parse_lockdown_opt);
++
++bool is_locked_down(void)
++{
++    return lockdown & ~FIRST_ARG_FLAG;
++}
++
++void __init lockdown_init(const char *cmdline)
++{
++    if ( efi_secure_boot )
++    {
++        printk("Enabling lockdown mode because Secure Boot is enabled\n");
++        lockdown = 1;
++    }
++
++    printk("Lockdown mode is %s\n", is_locked_down() ? "enabled" : "disabled");
++}
+diff --git a/xen/include/xen/lockdown.h b/xen/include/xen/lockdown.h
+new file mode 100644
+index 0000000000..6ae97f9d5f
+--- /dev/null
++++ b/xen/include/xen/lockdown.h
+@@ -0,0 +1,11 @@
++#ifndef XEN__LOCKDOWN_H
++#define XEN__LOCKDOWN_H
++
++#include <xen/types.h>
++
++void lockdown_set_first_flag(void);
++void lockdown_clear_first_flag(void);
++bool is_locked_down(void);
++void lockdown_init(const char *cmdline);
++
++#endif /* XEN__LOCKDOWN_H */
+-- 
+2.42.0
 
-~ Oleksii
-</pre>
-  </body>
-</html>
-
---------------hZtnhytO99qVl3cCHO8z3lAw--
 
