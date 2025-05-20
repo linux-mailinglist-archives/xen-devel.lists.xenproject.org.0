@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B8904ABDDC4
-	for <lists+xen-devel@lfdr.de>; Tue, 20 May 2025 16:50:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.990860.1374788 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 75C6FABDDDB
+	for <lists+xen-devel@lfdr.de>; Tue, 20 May 2025 16:53:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.990870.1374798 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uHOIA-0003cl-Gk; Tue, 20 May 2025 14:50:06 +0000
+	id 1uHOLN-0004cV-Tx; Tue, 20 May 2025 14:53:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 990860.1374788; Tue, 20 May 2025 14:50:06 +0000
+Received: by outflank-mailman (output) from mailman id 990870.1374798; Tue, 20 May 2025 14:53:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uHOIA-0003bA-Cm; Tue, 20 May 2025 14:50:06 +0000
-Received: by outflank-mailman (input) for mailman id 990860;
- Tue, 20 May 2025 14:50:04 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=PJhk=YE=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uHOI8-0003K8-Tk
- for xen-devel@lists.xenproject.org; Tue, 20 May 2025 14:50:04 +0000
-Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
- [2a00:1450:4864:20::534])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b5e3c749-3589-11f0-b892-0df219b8e170;
- Tue, 20 May 2025 16:50:02 +0200 (CEST)
-Received: by mail-ed1-x534.google.com with SMTP id
- 4fb4d7f45d1cf-601f1914993so3424553a12.0
- for <xen-devel@lists.xenproject.org>; Tue, 20 May 2025 07:50:02 -0700 (PDT)
-Received: from [10.1.248.227] ([80.188.125.198])
- by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6004d4f1ca8sm7305830a12.6.2025.05.20.07.50.00
+	id 1uHOLN-0004ZZ-Qt; Tue, 20 May 2025 14:53:25 +0000
+Received: by outflank-mailman (input) for mailman id 990870;
+ Tue, 20 May 2025 14:53:24 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=J32h=YE=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1uHOLM-0004ZT-7B
+ for xen-devel@lists.xenproject.org; Tue, 20 May 2025 14:53:24 +0000
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [2a00:1450:4864:20::62e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2d7a6875-358a-11f0-a2fa-13f23c93f187;
+ Tue, 20 May 2025 16:53:23 +0200 (CEST)
+Received: by mail-ej1-x62e.google.com with SMTP id
+ a640c23a62f3a-ad5273c1fd7so930931966b.1
+ for <xen-devel@lists.xenproject.org>; Tue, 20 May 2025 07:53:23 -0700 (PDT)
+Received: from [192.168.1.5] (user-109-243-64-38.play-internet.pl.
+ [109.243.64.38]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-6005a6e63a0sm7241276a12.39.2025.05.20.07.53.21
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 20 May 2025 07:50:01 -0700 (PDT)
+ Tue, 20 May 2025 07:53:22 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,173 +45,144 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b5e3c749-3589-11f0-b892-0df219b8e170
+X-Inumbo-ID: 2d7a6875-358a-11f0-a2fa-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1747752602; x=1748357402; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=OsD37B8v/4hF2NDy+8qnJjAIlwwXacx2ZFwooaBKCqQ=;
-        b=H3Zu5tj3hHmiuXvDUOGdUd5xCra8V3rz+jP/cN0wAMFgiWmOC83pHNaEQfkyiVEYUu
-         d7j3wIgwF6YZQqKfqD6kKfVpZ41ZT2Uz1d0Z+Wm0j13Uk5h7mrdCdXlhUC6EHlJrMKu1
-         Bq5K4ctaE1EGIY+MIXkR4MmHKuKEXax82E1poOJ9/Txbzl7Jz71OCJDyELJiNLTasMGs
-         79yDNwIDcXP6ApMNjYSfEVte5TyNnq6tftvgI9cmrZCylefEJQSIMvC6xjYhQVzvy2/b
-         fiMmskSQ3EnORLxAcHu0EcyFQ8zN30AO085ILsOrdePSavTNA0dscjGjoPrAai6Qy6IO
-         Qefw==
+        d=gmail.com; s=20230601; t=1747752803; x=1748357603; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=SVy/BBRS4i0Veyi5PZGRDxrv2odRHZ3ji+yjuMVCGNs=;
+        b=iW+x4f28hg6He5bauqT7AjMErW4ffaZA73VHhKrE32lvh8y8Vfx91KN+2/nh+h0gN/
+         ymNEMZK6NtFQ4fVkR/YOTUo3ji4Yp6BJ51DdqnTmn97HBsWQbwXzo0CPLqA8197uABeN
+         YJ9WSnJ/rQsPux8iIa982HYhYGrQZ8FvUW6WS7zlKhyXWmPCqjPWhFfUFnRCAvaCibb1
+         hk4WXO47OG7w454xmacxfvxXURylg/kUOut7BcRqxMNU+JJL56NEmeL451pvtMYZ6+g0
+         L2u/q5xzdp8u4IXfgwfOQSi5sU0GkHcBDR2FEE7aPGFGvG1pW9DI88z0zJisbAFEtYLU
+         HWSA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747752602; x=1748357402;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=OsD37B8v/4hF2NDy+8qnJjAIlwwXacx2ZFwooaBKCqQ=;
-        b=fft/GMahWatU9Sjl0Ixh35Syoh8g4Ucj9oSJTkp0J8hlr/6wXo0hrgr/HyvhMMW+Yw
-         ccK/6/mHDMEqegfSPehRTcVBMHZ86Cr79R3alLYbrGYiQvgIGWvoVVO8uS4nfnGyebtB
-         Tlae6kvXHldk+ljp/6kxY7B5vDVvAYTp93X/gQcH3kwFqXP9s+TIkoyEoHbAwvYf5FBI
-         Gfb3iuEWk5/dCijrvgCC8wzvevkXcYoRt2RW4HM6T1n/AwGn/+Magk75RXxw0XcACfGM
-         29yIu55p6WrOMBrA7PHRpVQGzt1an9nyZd/MslUGe4tGlqpm4TS332SzVOcPdzK6tmVw
-         NmJA==
-X-Forwarded-Encrypted: i=1; AJvYcCU3fpBQIjTB8CPZXHleA3a/yImcIVG5prUZ4xdGq5WLIazg9taU1UjKlGeXvBMxry62uf0xUomHOag=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwueighO0Xmv5aooRjYLN2UMfwfp55lEAJC0pFNhJqif7AKETGS
-	xsxNHTGRpCHyABylMFpCJxVOh2Mff3s3GbkSlCWf1saQMLKxGIKIGkJq9hVNlHvqzw==
-X-Gm-Gg: ASbGnctBoy/UoBZVTSAMU1ZUj3K6WCdqfHK6B5NI4hOOYluGbpO/b8EVuBjfoC85CSi
-	YG3ROkfd+wdj6jG4Ep3o/V4kzst2rLlS9CoQ5K0eYapCq6TvE5VIQQPVWTOfKcUjVY1sBIWS6yK
-	I8sii5y4haAT+h6alrKysjTdwqa0VQgfadBEhAt/4JzN0gJL9NFqxCvrAYZ3AniS4afeuLiCBrX
-	yq8swBO8iHhWZS1xKsfzWmnwu5zQY8z3ZcU8WNRM0ZzViThP7RRqYi8YENpD/9AuaPsrF3dKTdh
-	Aqnkd+YzrrlqjbPRMYLSc6DJF20Pp4CvMadkaK9MOzDasaXilnfMw7J2wJXxew==
-X-Google-Smtp-Source: AGHT+IFg9o5sgnbz2y3cjjCxqkbb7WsYIjXM+F7+lLsSnae6wq4tnMkIvNtlboQdp+2I7DYlh9x7lQ==
-X-Received: by 2002:a05:6402:35c5:b0:602:29e0:5e24 with SMTP id 4fb4d7f45d1cf-60229e06128mr264066a12.0.1747752602248;
-        Tue, 20 May 2025 07:50:02 -0700 (PDT)
-Message-ID: <c36c2433-7db4-498e-b3cb-23b2bdc3090a@suse.com>
-Date: Tue, 20 May 2025 16:50:00 +0200
+        d=1e100.net; s=20230601; t=1747752803; x=1748357603;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=SVy/BBRS4i0Veyi5PZGRDxrv2odRHZ3ji+yjuMVCGNs=;
+        b=apl/fn0o2mskXwBPtuEh+N4PJqe7NL/YTnG+FFhZHK/5YfE5zyFzk7FDIR5XmaeSaX
+         SXfGt/X6/s9uy6CBB3irla1MtzBmQN0jLP66nN2pIqwBn1qaV5xOjGk9tDIpur3ndsjR
+         z6TAB10P3fUqaGxxmYA2k9K7B4YLtxtQsnDTNciG1jMHwNBMf1JjtDFz5IFtM6BMy6W9
+         mI0KmRwPemYwufnOP7+kr4WXLv/aFivmGHWt1MFtTstpyoTRz7c9YMJg8uCeAUJVBWmY
+         4HrkGdMS8gSa89DgJ6wMoeJ4t2B4Y9ZzCDCyvu7B2gwNsCr+kNjxIeuqC8aAttekHgBq
+         f6ZA==
+X-Forwarded-Encrypted: i=1; AJvYcCVsNpsfMHYJHBBZ+PkwHGLtiNVLzHkFZANOjS6W6isRx0e22W4jlE5vM5Zyne1QHnmqazMAjF2H5kU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw2jiLlkcDWC7oLbyt1Q2i8iF3jTOFu6KSs3VvU43Dyn/Z4kb2h
+	lLBweR9k+aKSQgwzKOqrX1q3Mmbgk+hvwwF/29Ytjkng0801rgKF4o1t
+X-Gm-Gg: ASbGnctFRtQq+Pcv0JEyRmtKXKDJNEjDAXhd+cg/lqDwofiK6VGEeunfInX2hpWLiTX
+	oVg1+MFnANBaQtbYb7F1pXbePJL8t5K9wSI1cQk6iRwB3tOs8HbIaoP2VJNbn2ItFIhDlM76Bfe
+	IGs0j44D+GkSbUTm8OqOY0532Vej+x17Qbvwf3eoirwNh29Rdb+OYa5N2YWlzKlsi3MKWcAo/8w
+	AUm0USak66zh1iKyVoef3L77bhQQ8ToW0TvieD2DUEC90YZTD/6K6yTizbt8ikqmm/GSgB7t20o
+	awbvH+L0TpXiv5XspdksuXnMC26C4vwR8MRE1HqHoNsInK2/BB/KL439gM2kBn6G5Sv6+BS82sg
+	KegIe2d0paii6z2u2S8+dJibf
+X-Google-Smtp-Source: AGHT+IH6IfMb6glmYwxgF4hVuemWn7cLDx0SIjtxXKpYDFQsIaece/lmQs2Xgn9gNj8EisP3kWzLTA==
+X-Received: by 2002:a17:907:94ce:b0:ad4:f517:ca3 with SMTP id a640c23a62f3a-ad536bde67bmr1563755366b.20.1747752802608;
+        Tue, 20 May 2025 07:53:22 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------0tJQ91MJTwezolrEhedV7Ugi"
+Message-ID: <9e27c4fd-f62a-417f-ac20-0a6301e30498@gmail.com>
+Date: Tue, 20 May 2025 16:53:20 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/5] public/sysctl: Clarify usage of pm_{px,cx}_stat
-To: Ross Lagerwall <ross.lagerwall@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [PATCH v2 10/16] xen/riscv: imsic_init() implementation
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20250512144656.314925-1-ross.lagerwall@citrix.com>
- <20250512144656.314925-3-ross.lagerwall@citrix.com>
- <3128bda3-d655-43ae-81a7-df61928a27aa@suse.com>
- <CAG7k0Ep0PdNOO0YTkaPa-uBsuQ8Jw6DFTZGLipUs1HbPoCRkgA@mail.gmail.com>
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Romain Caritey <Romain.Caritey@microchip.com>, xen-devel@lists.xenproject.org
+References: <cover.1746530883.git.oleksii.kurochko@gmail.com>
+ <f7588e93d0ddacc29ce5d89b2855624f82d6baa9.1746530883.git.oleksii.kurochko@gmail.com>
+ <0d9a9a9e-3454-465f-ac1d-cd65ba4a5792@suse.com>
+ <4b948489-6fb9-4554-9a4c-4fa75de7345d@gmail.com>
+ <2966ad6f-179f-47fe-acf1-7fb568cb4fb8@suse.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <CAG7k0Ep0PdNOO0YTkaPa-uBsuQ8Jw6DFTZGLipUs1HbPoCRkgA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <2966ad6f-179f-47fe-acf1-7fb568cb4fb8@suse.com>
 
-On 20.05.2025 16:25, Ross Lagerwall wrote:
-> On Tue, May 13, 2025 at 3:43 PM Jan Beulich <jbeulich@suse.com> wrote:
->>
->> On 12.05.2025 16:46, Ross Lagerwall wrote:
->>> --- a/xen/include/public/sysctl.h
->>> +++ b/xen/include/public/sysctl.h
->>> @@ -215,23 +215,51 @@ typedef struct pm_px_val pm_px_val_t;
->>>  DEFINE_XEN_GUEST_HANDLE(pm_px_val_t);
->>>
->>>  struct pm_px_stat {
->>> -    uint8_t total;        /* total Px states */
->>> -    uint8_t usable;       /* usable Px states */
->>> -    uint8_t last;         /* last Px state */
->>> -    uint8_t cur;          /* current Px state */
->>> -    XEN_GUEST_HANDLE_64(uint64) trans_pt;   /* Px transition table */
->>> +    /*
->>> +     * IN: Number of elements in pt, number of rows/columns in trans_pt
->>> +     *     (PMSTAT_get_pxstat)
->>> +     * OUT: total Px states (PMSTAT_get_max_px, PMSTAT_get_pxstat)
->>> +     */
->>> +    uint8_t total;
->>
->> The part for this field ought to go in patch 1, as already indicated there.
->>
->>> +    uint8_t usable;       /* OUT: usable Px states (PMSTAT_get_pxstat) */
->>> +    uint8_t last;         /* OUT: last Px state (PMSTAT_get_pxstat) */
->>> +    uint8_t cur;          /* OUT: current Px state (PMSTAT_get_pxstat) */
->>> +    /*
->>> +     * OUT: Px transition table. This should have total * total elements.
->>> +     *      This will not be copied if it is smaller than the hypervisor's
->>> +     *      Px transition table. (PMSTAT_get_pxstat)
->>> +     */
->>> +    XEN_GUEST_HANDLE_64(uint64) trans_pt;
->>> +    /* OUT: This should have total elements (PMSTAT_get_pxstat) */
->>>      XEN_GUEST_HANDLE_64(pm_px_val_t) pt;
->>
->> As also indicated there, the same constraint as for trans_pt applies to this
->> output buffer, just that it's having only one dimension.
->>
->>>  };
->>>
->>>  struct pm_cx_stat {
->>> -    uint32_t nr;    /* entry nr in triggers & residencies, including C0 */
->>> -    uint32_t last;  /* last Cx state */
->>> -    uint64_aligned_t idle_time;                 /* idle time from boot */
->>> -    XEN_GUEST_HANDLE_64(uint64) triggers;    /* Cx trigger counts */
->>> -    XEN_GUEST_HANDLE_64(uint64) residencies; /* Cx residencies */
->>> -    uint32_t nr_pc;                          /* entry nr in pc[] */
->>> -    uint32_t nr_cc;                          /* entry nr in cc[] */
->>>      /*
->>> +     * IN:  Number of elements in triggers, residencies (PMSTAT_get_cxstat)
->>> +     * OUT: entry nr in triggers & residencies, including C0
->>> +     *      (PMSTAT_get_cxstat, PMSTAT_get_max_cx)
->>> +     */
->>> +    uint32_t nr;
->>> +    uint32_t last;  /* OUT: last Cx state (PMSTAT_get_cxstat) */
->>> +    /* OUT: idle time from boot (PMSTAT_get_cxstat)*/
->>> +    uint64_aligned_t idle_time;
->>> +    /* OUT: Cx trigger counts, nr elements (PMSTAT_get_cxstat) */
->>> +    XEN_GUEST_HANDLE_64(uint64) triggers;
->>> +    /* OUT: Cx residencies, nr elements (PMSTAT_get_cxstat) */
->>> +    XEN_GUEST_HANDLE_64(uint64) residencies;
->>> +    /*
->>> +     * IN: entry nr in pc[] (PMSTAT_get_cxstat)
->>> +     * OUT: Index of highest non-zero entry set in pc[] (PMSTAT_get_cxstat)
->>> +     */
->>> +    uint32_t nr_pc;
->>> +    /*
->>> +     * IN: entry nr in cc[] (PMSTAT_get_cxstat)
->>> +     * OUT: Index of highest non-zero entry set in cc[] (PMSTAT_get_cxstat)
->>> +     */
->>
->> For both of these, it's not "highest non-zero" but, according to ...
->>
->>> +    uint32_t nr_cc;
->>> +    /*
->>> +     * OUT: (PMSTAT_get_cxstat)
->>>       * These two arrays may (and generally will) have unused slots; slots not
->>>       * having a corresponding hardware register will not be written by the
->>>       * hypervisor. It is therefore up to the caller to put a suitable sentinel
->>
->> ... this comment, "highest written by hypervisor". They're also not "index of",
->> but "one higher than the index of" (i.e. counts, not indexes).
->>
-> 
-> Looking at this again, I don't think that matches what Xen does (nor
-> does my previous attempt). The code in question:
-> 
-> #define PUT_xC(what, n) do { \
->         if ( stat->nr_##what >= n && \
->              copy_to_guest_offset(stat->what, n - 1, &hw_res.what##n, 1) ) \
->             return -EFAULT; \
->         if ( hw_res.what##n ) \
->             nr_##what = n; \
->     } while ( 0 )
+This is a multi-part message in MIME format.
+--------------0tJQ91MJTwezolrEhedV7Ugi
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Right. I should have inserted "that could be" in my reply.
 
-> Xen will copy all the hardware registers that it knows about (regardless
-> of whether the hardware actually has them) and will return in nr_pc /
-> nr_cc the index + 1 of the highest non-zero entry it _would_ have
-> written if there is sufficient space.
+On 5/19/25 8:33 PM, Jan Beulich wrote:
+> On 19.05.2025 17:26, Oleksii Kurochko wrote:
+>> On 5/15/25 10:42 AM, Jan Beulich wrote:
+>>>> +                   node->name, imsic_cfg.msi[cpuid].base_addr + reloff);
+>>>> +            imsic_cfg.msi[cpuid].offset = 0;
+>>>> +            imsic_cfg.msi[cpuid].base_addr = 0;
+>>>> +            continue;
+>>>> +        }
+>>>> +
+>>>> +        bitmap_set(imsic_cfg.mmios[index].cpus, cpuid, 1);
+>>> Depending on clarification on the number space used, this may want to be
+>>> cpumask_set_cpu() instead. Else I think this is simply __set_bit().
+>> cpumask_set_cpu() requires cpumask_t which uses static definition but we are
+>> using dynamic allocation.
+> But you're aware of cpumask_var_t (and respective allocation functions)?
 
-Which is kind of bogus when the last (or more) of those would merely be
-zero.
+Now yes, thanks.
 
-> I could describe it simply as "OUT: Required size of cc[]" ?
+~ Oleksii
 
-Maybe append something like "..., for all known to Xen entries to be
-written"? Provided we don't want to change the behavior anyway.
+--------------0tJQ91MJTwezolrEhedV7Ugi
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Jan
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 5/19/25 8:33 PM, Jan Beulich wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:2966ad6f-179f-47fe-acf1-7fb568cb4fb8@suse.com">
+      <pre wrap="" class="moz-quote-pre">On 19.05.2025 17:26, Oleksii Kurochko wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">On 5/15/25 10:42 AM, Jan Beulich wrote:
+</pre>
+        <blockquote type="cite">
+          <blockquote type="cite">
+            <pre wrap="" class="moz-quote-pre">+                   node-&gt;name, imsic_cfg.msi[cpuid].base_addr + reloff);
++            imsic_cfg.msi[cpuid].offset = 0;
++            imsic_cfg.msi[cpuid].base_addr = 0;
++            continue;
++        }
++
++        bitmap_set(imsic_cfg.mmios[index].cpus, cpuid, 1);
+</pre>
+          </blockquote>
+          <pre wrap="" class="moz-quote-pre">Depending on clarification on the number space used, this may want to be
+cpumask_set_cpu() instead. Else I think this is simply __set_bit().
+</pre>
+        </blockquote>
+        <pre wrap="" class="moz-quote-pre">
+cpumask_set_cpu() requires cpumask_t which uses static definition but we are
+using dynamic allocation.
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+But you're aware of cpumask_var_t (and respective allocation functions)?
+</pre>
+    </blockquote>
+    <pre>Now yes, thanks.
+
+~ Oleksii</pre>
+  </body>
+</html>
+
+--------------0tJQ91MJTwezolrEhedV7Ugi--
 
