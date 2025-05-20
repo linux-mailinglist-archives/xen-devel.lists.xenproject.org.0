@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A0A7ABD85C
-	for <lists+xen-devel@lfdr.de>; Tue, 20 May 2025 14:44:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.990715.1374647 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EED9BABD9A6
+	for <lists+xen-devel@lfdr.de>; Tue, 20 May 2025 15:38:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.990730.1374659 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uHMJx-00064J-TD; Tue, 20 May 2025 12:43:49 +0000
+	id 1uHNA6-0003zz-MD; Tue, 20 May 2025 13:37:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 990715.1374647; Tue, 20 May 2025 12:43:49 +0000
+Received: by outflank-mailman (output) from mailman id 990730.1374659; Tue, 20 May 2025 13:37:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uHMJx-00062R-Pz; Tue, 20 May 2025 12:43:49 +0000
-Received: by outflank-mailman (input) for mailman id 990715;
- Tue, 20 May 2025 12:43:48 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uHNA6-0003wr-Hm; Tue, 20 May 2025 13:37:42 +0000
+Received: by outflank-mailman (input) for mailman id 990730;
+ Tue, 20 May 2025 13:37:40 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=PJhk=YE=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uHMJw-00062L-Fe
- for xen-devel@lists.xenproject.org; Tue, 20 May 2025 12:43:48 +0000
-Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
- [2a00:1450:4864:20::52d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 126a870d-3578-11f0-a2fa-13f23c93f187;
- Tue, 20 May 2025 14:43:47 +0200 (CEST)
-Received: by mail-ed1-x52d.google.com with SMTP id
- 4fb4d7f45d1cf-601aa0cb92eso3621214a12.0
- for <xen-devel@lists.xenproject.org>; Tue, 20 May 2025 05:43:47 -0700 (PDT)
+ id 1uHNA4-0003wl-Ki
+ for xen-devel@lists.xenproject.org; Tue, 20 May 2025 13:37:40 +0000
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [2a00:1450:4864:20::52c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 97939fb2-357f-11f0-b892-0df219b8e170;
+ Tue, 20 May 2025 15:37:37 +0200 (CEST)
+Received: by mail-ed1-x52c.google.com with SMTP id
+ 4fb4d7f45d1cf-6020ff8d35dso1310784a12.0
+ for <xen-devel@lists.xenproject.org>; Tue, 20 May 2025 06:37:37 -0700 (PDT)
 Received: from [10.1.248.227] ([80.188.125.198])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ad52d04e665sm721788966b.5.2025.05.20.05.43.45
+ 4fb4d7f45d1cf-602047c4b73sm1360089a12.10.2025.05.20.06.37.34
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 20 May 2025 05:43:46 -0700 (PDT)
+ Tue, 20 May 2025 06:37:35 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,126 +45,289 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 126a870d-3578-11f0-a2fa-13f23c93f187
+X-Inumbo-ID: 97939fb2-357f-11f0-b892-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1747745026; x=1748349826; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1747748256; x=1748353056; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=ggUS9oTHJhmybZknx5MZc3EcGArj8C4sRd0GYfEHAew=;
-        b=gXuVzHkNaDFKJfaCLsIdtGnoVbkhkUJ6+QMx3dF1VJ8dy3P7l0fqa9ZMKN8Mus+rK8
-         LWS8KU4REXG0ZwmDyorRI2BS1oSq/Rsl6y8RGrVG+uv4a017cYKkwr7UUyPYao/THA7E
-         9CVGDfk3PnKA3KYiHxcCEpkXsvpsgBjuMmh6eufphZKGYGJev52pRVZ4NzWooNZoNdI+
-         rN5AV5BDdF5McMolhEMJU8/3BCOS5IgxjE1PjaPU52iGBTJcP4InR2oXVvmDp3OkA7lF
-         dNFbaCMx2nRPvs8D9Nzt04uvbSQ3qoZhqtdcutf0WkJNIXMSIOnd7k3+DpjKS1cvhmJb
-         zlYg==
+        bh=7R6D/GxI7OgZG5KDS3ZKKACfjTPFPi0ygsszjLevS3c=;
+        b=EEKERmizVW4My/XBX6kFMNCBVldyCZhGwIX0TZHGMmqpiqzKdjqsRGLxD/nWBrOoO0
+         2LPxDxkAMsRgsWT75O6y1b8e9HJugqgjoj4XyW9IMK0NezmFASa4iS+8bA+gkkgIIskM
+         sO5jUGwCgw3Iu9QUMdu1Gja5t38RjH6A3O7dfY4SuaGfx404o3m0qYkF0gVuOR/PWpjd
+         ZP6R89o8mfRcRVgCq66tVKS/Y9RnlYqi69CTqtRdsjMlJL1H3JWlXdsGjwSkhRv0fILo
+         y6gGF+UA3ZexUM/mbYMbuodWCUXBNY4SHH3etTvzUX3aPZB1gFQaW6wSwGgOAJkADdrM
+         Ri6Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747745026; x=1748349826;
+        d=1e100.net; s=20230601; t=1747748256; x=1748353056;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=ggUS9oTHJhmybZknx5MZc3EcGArj8C4sRd0GYfEHAew=;
-        b=v2AW024B481O2zh+0rvxWAcOjFQradUxX4hKuq8IaAyA3f1LbHiXtZCe/xClz7/5RR
-         TKugsvEaghQkL2HfRLgfub7Ore0oSNkQm/RV5393bc2WWOtjadlLA6sPi1sBpZ9/Mhzq
-         6eGF4IHwdBPLNJ9PLV+NlF/NusypxGkoJCeNwXgbsFA8wjNRdDoTFbqvPt7bKG5uP4NF
-         fMmd0HsEikcxCSG6K0quKahDKZ3OhPol7xLdZwUR72Hb30sZfHeJCOTh3aIJFrdIG6X6
-         d2iIsSGbid25Zi5pjMonTl/1eZeueWPwyWBm4VI6SlvbDb+WO6BTBtep+33IZOnMyP7m
-         0ATQ==
-X-Gm-Message-State: AOJu0Yzu1Vv0gMhYcqqnXhwABGw7ipEUus1ysEdTZ6PpmWyS8PG/KtQl
-	eqDgqeN9STtIPwvCBjwxhkzP0b7sW5pGOQpbnxWkRgew+W10mhGyBwSoOAwzj8tjeA==
-X-Gm-Gg: ASbGncu3QZ0ekPNUEFaWHcXwSLil6FxfR3R8dx9eEbErDq2uJVkMaZ3OhiKU5r2KvDR
-	10LU/Uw9Mhfc6oYS+MXA1CACJALMDJRT3/Cg1wNUSeW+KIPBznGRVYfJcWjnZ4GLXm2Ax5gDrIM
-	bi+H7v+6dWdJBJncHKeWFXzVTnYsRzWQzTwRwGf71veH0+2DPycn+6Zp7I6WIKZUzfHsj5HB1za
-	hpXtAtd7gvDXNz4dP2S7hlYRY59rqh0dYYEOAfv2tri13M6GdEWDzCqK0Bqv6gnSQMu4ruae51s
-	fRLOWKoi28DOJcbJYq8/gcHHXKfYy2kEWCjy5DGbfnhFVAbbss4fWtxr5d4ABZONrnBv1CDA
-X-Google-Smtp-Source: AGHT+IGtBBLq0vPjpBc6bWOjQqc6kftjS7Q902eBnAIwOfRw9ji+FTcokxJzDySKJMIQMttjXf49uA==
-X-Received: by 2002:a17:907:db16:b0:ad2:1a64:79c5 with SMTP id a640c23a62f3a-ad536b579e7mr1634160566b.7.1747745026437;
-        Tue, 20 May 2025 05:43:46 -0700 (PDT)
-Message-ID: <42ce8b15-90eb-4f54-acb3-81bfe2be7e1e@suse.com>
-Date: Tue, 20 May 2025 14:43:45 +0200
+        bh=7R6D/GxI7OgZG5KDS3ZKKACfjTPFPi0ygsszjLevS3c=;
+        b=glvRsHmyB36AQtxPvkWku57pGFnjYGhOnG5vtAtHNjmaEQqtlXYs4kqfZvug8ztAWO
+         QpDfFftHvVN5rfSZbWQnfc15QNkK9zrkDTg6FqsoPzmW8nHVfOXxlemYBJ49WTvWnMsq
+         1LNRbLVo5lx0FjytmpofYojkapxv4Qhj9gh4AAXGjFL8/hwNUP+w0FP2UQ+GGnTszNg4
+         SOEOwI3u28k+Zgzz+O03CYN9Z2C+MFldqJKnDw3yE/5EgTuAlCl3PlbF0v5vJ2S8X5MJ
+         mVK7zkNvjyY32+w6G3BZuF6ESgeWFsSK+mYnGAtQ8Sv7YoQ9aj/MclI/jZ5Es/Vvis7e
+         c3kQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWqgqLrx8wxgVpPIZDuHx4+yABGQcDdvMLRdD6yD+BEfkkiRf34uUg2RI/th8sm7MQLmgxmXjGhdTQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yxsqe0DLA84lRGK6Y1h401hCx7co0g0DXPvaLRfDtMqZt0p3e2Z
+	KJeUMKXxTyq/sT8PPGV/mp9Qb0Vq2WYeqU8D3WA+XSIFlJ5W0Cou+uvJCjuSjMiNlg==
+X-Gm-Gg: ASbGncugrcZOSdz4uYlfRyOd7zN0gbTwVfbbS5H+WNeB6GNfKcZaabVH4gPnw+exiWr
+	K3qkgZf9wfihe3HQY6mOXji8MowzFT9YFqG6jqPTrAYlXBzL9r+oEKliHinZZzfRF0QTHL8EBrD
+	m8sjQ4d+AoqOIevuM4yFRis4xo9/66ZvjT6ku7gh7UFgzjrHdpGEXrIrqTeOBXLMgaUCJiHLSHn
+	PHBYaeoul8AgchnvSV9mXPlg8x3XuEnOt1hnto+AZlzTs/Y/zQ7FgewLBCyyf9S+2/VgVcc6ThE
+	Ptgb+N6kGJNq4LfAVnU7pByOwMoMRAbPb90INWUhqQgwA/Rx6BQhBbL2DxW4v4AH2nNNxgaM
+X-Google-Smtp-Source: AGHT+IH871cDPbu2SMCyKdMIJJT+HlgRMOKMoiK64oZ6ngNPe2RrN8CeLB4Mie3wNOuW6H0gAGXBFw==
+X-Received: by 2002:a05:6402:4401:b0:5f4:8c80:77d with SMTP id 4fb4d7f45d1cf-6008a5a115emr14669156a12.6.1747748256344;
+        Tue, 20 May 2025 06:37:36 -0700 (PDT)
+Message-ID: <7ef3ca26-05f5-4e86-b7c7-852b6c74a3d0@suse.com>
+Date: Tue, 20 May 2025 15:37:34 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/5] x86/pmstat: Check size of PMSTAT_get_pxstat
- buffers
-To: Ross Lagerwall <ross.lagerwall@citrix.com>
-Cc: xen-devel@lists.xenproject.org
-References: <20250512144656.314925-1-ross.lagerwall@citrix.com>
- <20250512144656.314925-2-ross.lagerwall@citrix.com>
- <204e177c-beba-41a1-93bf-3ae6454875cc@suse.com>
- <CAG7k0EqeXPiBZ8AJG2VuszCPvcQAiVh25B8=3SfLsECk-FYs3g@mail.gmail.com>
+Subject: Re: [PATCH v1 2/6] xen/riscv: introduce things necessary for p2m
+ initialization
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1746805907.git.oleksii.kurochko@gmail.com>
+ <0a03d1f38649cfd8656147f209652dff0f9d170c.1746805907.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <CAG7k0EqeXPiBZ8AJG2VuszCPvcQAiVh25B8=3SfLsECk-FYs3g@mail.gmail.com>
+In-Reply-To: <0a03d1f38649cfd8656147f209652dff0f9d170c.1746805907.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 20.05.2025 12:53, Ross Lagerwall wrote:
-> On Tue, May 13, 2025 at 3:27 PM Jan Beulich <jbeulich@suse.com> wrote:
->>
->> On 12.05.2025 16:46, Ross Lagerwall wrote:
->>> Check that the total number of states passed in and hence the size of
->>> buffers is sufficient to avoid writing more than the caller has
->>> allocated.
->>>
->>> The interface is not explicit about whether getpx.total is expected to
->>> be set by the caller in this case but since it is always set in
->>> libxenctrl it seems reasonable to check it.
->>
->> Yet if we start checking the value, I think the public header should also
->> be made say so (in a comment).
->>
->>> --- a/xen/drivers/acpi/pmstat.c
->>> +++ b/xen/drivers/acpi/pmstat.c
->>> @@ -103,8 +103,10 @@ int do_get_pm_info(struct xen_sysctl_get_pmstat *op)
->>>
->>>          cpufreq_residency_update(op->cpuid, pxpt->u.cur);
->>>
->>> -        ct = pmpt->perf.state_count;
->>> -        if ( copy_to_guest(op->u.getpx.trans_pt, pxpt->u.trans_pt, ct*ct) )
->>> +        ct = min_t(uint32_t, pmpt->perf.state_count, op->u.getpx.total);
->>
->> With this, ...
->>
->>> +        if ( ct <= op->u.getpx.total &&
->>
->> ... this is going to be always true, isn't it? Which constitutes a violation
->> of Misra rule 14.3.
->>
->> Also it would be nice if the min_t() could become a normal min(), e.g. by
->> "promoting" op->u.getpx.total to unsigned int via adding 0U. This way it's
->> clear there's no hidden truncation (or else there might be an argument for
->> keeping the check above).
->>
->>> +             copy_to_guest(op->u.getpx.trans_pt, pxpt->u.trans_pt, ct * ct) )
->>>          {
->>>              spin_unlock(cpufreq_statistic_lock);
->>>              ret = -EFAULT;
->>
->> Why would you constrain this copy-out but not the one just out of context
->> below here? (The question is of course moot if the condition was dropped.)
->>
-> 
-> Oh, I had intended this condition to be...
-> 
->     if ( ct == op->u.getpx.total &&
-> 
-> ... based on your previous comment about the difficulties of partially
-> copying a 2d array.
-> 
->> An option may be to document that this array is copied only when the
->> buffer is large enough.
-> 
-> I left the other alone since partially copying a 1d array makes sense.
+On 09.05.2025 17:57, Oleksii Kurochko wrote:
+> --- a/xen/arch/riscv/include/asm/domain.h
+> +++ b/xen/arch/riscv/include/asm/domain.h
+> @@ -5,6 +5,8 @@
+>  #include <xen/xmalloc.h>
+>  #include <public/hvm/params.h>
+>  
+> +#include <asm/p2m.h>
+> +
+>  struct hvm_domain
+>  {
+>      uint64_t              params[HVM_NR_PARAMS];
+> @@ -16,8 +18,12 @@ struct arch_vcpu_io {
+>  struct arch_vcpu {
+>  };
+>  
+> +
 
-Right, if the relation there becomes == it indeed reflects that the 2-D
-one is different in this regard from the 1-D one.
+Nit: As before, no double blank lines please.
 
-> If you would prefer, I can drop the condition and just let the caller
-> deal with the partially copied 2d array?
+>  struct arch_domain {
+>      struct hvm_domain hvm;
+> +
+> +    struct p2m_domain p2m;
+> +
+>  };
 
-With the adjusted relation I think all is going to be fine as you
-(otherwise) had it. There may want to be a brief comment on that extra
-condition you add.
+Similarly, no blank lines please at the end of a struct/union/enum.
+
+> --- a/xen/arch/riscv/include/asm/mm.h
+> +++ b/xen/arch/riscv/include/asm/mm.h
+> @@ -149,6 +149,10 @@ extern struct page_info *frametable_virt_start;
+>  #define mfn_to_page(mfn)    (frametable_virt_start + mfn_x(mfn))
+>  #define page_to_mfn(pg)     _mfn((pg) - frametable_virt_start)
+>  
+> +/* Convert between machine addresses and page-info structures. */
+> +#define maddr_to_page(ma) mfn_to_page(maddr_to_mfn(ma))
+> +#define page_to_maddr(pg) (mfn_to_maddr(page_to_mfn(pg)))
+
+Nit: The outermost parentheses aren't really needed here. Or if you really
+want them, then please be consistent and also add them for the other macro
+you add.
+
+> --- /dev/null
+> +++ b/xen/arch/riscv/p2m.c
+> @@ -0,0 +1,168 @@
+> +#include <xen/domain_page.h>
+> +#include <xen/iommu.h>
+> +#include <xen/lib.h>
+> +#include <xen/mm.h>
+> +#include <xen/pfn.h>
+> +#include <xen/rwlock.h>
+> +#include <xen/sched.h>
+> +#include <xen/spinlock.h>
+> +
+> +#include <asm/page.h>
+> +#include <asm/p2m.h>
+> +
+> +/*
+> + * Force a synchronous P2M TLB flush.
+> + *
+> + * Must be called with the p2m lock held.
+> + *
+> + * TODO: add support of flushing TLB connected to VMID.
+> + */
+> +static void p2m_force_tlb_flush_sync(struct p2m_domain *p2m)
+> +{
+> +    ASSERT(p2m_is_write_locked(p2m));
+> +
+> +    /*
+> +     * TODO: shouldn't be this flush done for each physical CPU?
+> +     *       If yes, then SBI call sbi_remote_hfence_gvma() could
+> +     *       be used for that.
+> +     */
+> +#if defined(__riscv_hh) || defined(__riscv_h)
+
+This is a compiler capability check (which would be applicable if you
+used a built-in function below).
+
+> +    asm volatile ( "hfence.gvma" ::: "memory" );
+
+Whereas here you use a feature in the assembler, at least for the GNU
+toolchain.
+
+> +static void clear_and_clean_page(struct page_info *page)
+> +{
+> +    void *p = __map_domain_page(page);
+> +
+> +    clear_page(p);
+> +    unmap_domain_page(p);
+> +}
+
+What's the "clean" about in the function name? The "clear" is referring
+to the clear_page() call afaict. Also aren't you largely open-coding
+clear_domain_page() here?
+
+> +static struct page_info *p2m_get_clean_page(struct domain *d)
+> +{
+> +    struct page_info *page;
+> +
+> +    /*
+> +     * As mentioned in the Priviliged Architecture Spec (version 20240411)
+> +     * As explained in Section 18.5.1, for the paged virtual-memory schemes
+> +     * (Sv32x4, Sv39x4, Sv48x4, and Sv57x4), the root page table is 16 KiB
+> +     * and must be aligned to a 16-KiB boundary.
+> +     */
+> +    page = alloc_domheap_pages(NULL, 2, 0);
+
+Shouldn't this allocation come from the domain's P2M pool (which is yet
+to be introduced)? Also hard-coding 2 here as order effectively builds
+in an assumption that PAGE_SIZE will only ever be 4k. I think to wants
+properly calculating instead.
+
+> +    if ( page == NULL )
+> +        return NULL;
+> +
+> +    clear_and_clean_page(page);
+> +
+> +    return page;
+> +}
+
+Contrary to the function name you obtained 4 pages here, which is suitable
+for ...
+
+> +static struct page_info *p2m_allocate_root(struct domain *d)
+> +{
+> +    return p2m_get_clean_page(d);
+> +}
+
+... this but - I expect - no anywhere else.
+
+> +static unsigned long hgatp_from_page_info(struct page_info *page_info)
+
+Except for the struct name please drop _info; we don#t use such anywhere
+else.
+
+> +{
+> +    unsigned long ppn;
+> +    unsigned long hgatp_mode;
+> +
+> +    ppn = PFN_DOWN(page_to_maddr(page_info)) & HGATP_PPN;
+> +
+> +    /* ASID (VMID) not supported yet */
+> +
+> +#if RV_STAGE1_MODE == SATP_MODE_SV39
+> +    hgatp_mode = HGATP_MODE_SV39X4;
+> +#elif RV_STAGE1_MODE == SATP_MODE_SV48
+> +    hgatp_mode = HGATP_MODE_SV48X4;
+> +#else
+> +    #error "add HGATP_MODE"
+
+As before, please have the # of pre-processor directives in the first column.
+
+> +#endif
+> +
+> +    return ppn | (hgatp_mode << HGATP_MODE_SHIFT);
+
+Use MASK_INSR()?
+
+> +}
+> +
+> +static int p2m_alloc_table(struct domain *d)
+> +{
+> +    struct p2m_domain *p2m = p2m_get_hostp2m(d);
+> +
+> +    p2m->root = p2m_allocate_root(d);
+> +    if ( !p2m->root )
+> +        return -ENOMEM;
+> +
+> +    p2m->hgatp = hgatp_from_page_info(p2m->root);
+> +
+> +    /*
+> +     * Make sure that all TLBs corresponding to the new VMID are flushed
+> +     * before using it.
+> +     */
+> +    p2m_write_lock(p2m);
+> +    p2m_force_tlb_flush_sync(p2m);
+> +    p2m_write_unlock(p2m);
+
+While Andrew directed you towards a better model in general, it won't be
+usable here then, as the guest didn't run on any pCPU(s) yet. Imo you
+want to do a single global flush e.g. when VMIDs wrap around. That'll be
+fewer global flushes than one per VM creation.
+
+> +int p2m_init(struct domain *d)
+> +{
+> +    struct p2m_domain *p2m = p2m_get_hostp2m(d);
+> +    int rc;
+> +
+> +    rwlock_init(&p2m->lock);
+> +    INIT_PAGE_LIST_HEAD(&p2m->pages);
+> +
+> +    p2m->max_mapped_gfn = _gfn(0);
+> +    p2m->lowest_mapped_gfn = _gfn(ULONG_MAX);
+
+You don't ever read these two fields. Likely better to introduce them when
+they're actually needed. Same possibly for further things done in this
+function.
+
+> +    p2m->default_access = p2m_access_rwx;
+> +
+> +    radix_tree_init(&p2m->p2m_type);
+> +
+> +#ifdef CONFIG_HAS_PASSTHROUGH
+> +    /*
+> +     * Some IOMMUs don't support coherent PT walk. When the p2m is
+> +     * shared with the CPU, Xen has to make sure that the PT changes have
+> +     * reached the memory
+> +     */
+> +    p2m->clean_pte = is_iommu_enabled(d) &&
+> +        !iommu_has_feature(d, IOMMU_FEAT_COHERENT_WALK);
+> +#else
+> +    p2m->clean_pte = true;
+
+When there's no IOMMU (in use), doesn't this want to be "false"?
+
+> +#endif
+> +
+> +    /*
+> +     * "Trivial" initialisation is now complete.  Set the backpointer so
+> +     * p2m_teardown() and friends know to do something.
+> +     */
+> +    p2m->domain = d;
+
+And where is that p2m_teardown(), to cross-check the comment against?
 
 Jan
 
