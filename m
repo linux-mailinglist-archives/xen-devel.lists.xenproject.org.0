@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C360ABD704
-	for <lists+xen-devel@lfdr.de>; Tue, 20 May 2025 13:38:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.990662.1374598 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CD10BABD76C
+	for <lists+xen-devel@lfdr.de>; Tue, 20 May 2025 13:54:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.990678.1374608 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uHLI8-00039l-AW; Tue, 20 May 2025 11:37:52 +0000
+	id 1uHLXY-0005rD-IN; Tue, 20 May 2025 11:53:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 990662.1374598; Tue, 20 May 2025 11:37:52 +0000
+Received: by outflank-mailman (output) from mailman id 990678.1374608; Tue, 20 May 2025 11:53:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uHLI8-00037U-7E; Tue, 20 May 2025 11:37:52 +0000
-Received: by outflank-mailman (input) for mailman id 990662;
- Tue, 20 May 2025 11:37:50 +0000
+	id 1uHLXY-0005pm-FW; Tue, 20 May 2025 11:53:48 +0000
+Received: by outflank-mailman (input) for mailman id 990678;
+ Tue, 20 May 2025 11:53:47 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=J32h=YE=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1uHLI6-00037O-Rc
- for xen-devel@lists.xenproject.org; Tue, 20 May 2025 11:37:50 +0000
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [2a00:1450:4864:20::631])
+ id 1uHLXX-0005pg-2s
+ for xen-devel@lists.xenproject.org; Tue, 20 May 2025 11:53:47 +0000
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
+ [2a00:1450:4864:20::632])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id db0b0908-356e-11f0-b892-0df219b8e170;
- Tue, 20 May 2025 13:37:48 +0200 (CEST)
-Received: by mail-ej1-x631.google.com with SMTP id
- a640c23a62f3a-ad574992fcaso347671066b.1
- for <xen-devel@lists.xenproject.org>; Tue, 20 May 2025 04:37:48 -0700 (PDT)
+ id 145f6bf4-3571-11f0-b892-0df219b8e170;
+ Tue, 20 May 2025 13:53:44 +0200 (CEST)
+Received: by mail-ej1-x632.google.com with SMTP id
+ a640c23a62f3a-ad5394be625so52246666b.2
+ for <xen-devel@lists.xenproject.org>; Tue, 20 May 2025 04:53:43 -0700 (PDT)
 Received: from [192.168.1.5] (user-109-243-64-38.play-internet.pl.
  [109.243.64.38]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ad534ad59dasm682961566b.31.2025.05.20.04.37.44
+ 4fb4d7f45d1cf-6004d4f2cd8sm7093085a12.15.2025.05.20.04.53.42
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 20 May 2025 04:37:44 -0700 (PDT)
+ Tue, 20 May 2025 04:53:42 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: db0b0908-356e-11f0-b892-0df219b8e170
+X-Inumbo-ID: 145f6bf4-3571-11f0-b892-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1747741068; x=1748345868; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1747742023; x=1748346823; darn=lists.xenproject.org;
         h=in-reply-to:from:content-language:references:cc:to:subject
          :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=cNe/Fdb8PGYy3I9kFDJYzbm8nvTAawrSVm3/nUL5ym0=;
-        b=ZqUn6Eo9X5Y86QXVXdMhQM7Uf6nbyNuPNMAwzWegyFS3uQBuOIjqRh8z5w0AgK6syS
-         tzNANLrbIS0GzfBxNWUhr1ikch1EnhL/Mhivnaz1nSQqfSraE+0XyDI8lsXg5M2z4B+u
-         lfyr3/gpykHMdCDG0ea0XCexaPLa8YjUv+AIhMg+V0QfgWoVQfGs6Uxl5v1w3XoG8/bh
-         GIR2zwz1+0niykQ+W9OiEFaqEcM5zpLoRUUjPMMidn1aJ+JH4oY2ekwe788JojTx5W/+
-         P4miUVVrvjdSrFFZzN3PgDTMNMtiWr0nxk5MxB+ta657qUXhL9hwTu2pPooFGgE9GcHH
-         KbXw==
+        bh=xfZkE131mIxLsC0cdTVCU8aUE78yQal29ryN+ESy2ss=;
+        b=TLh0j7qudPeUUe6zfaubnM/GP6wf1PK4gaf3ZmgDlI8U4IohGPoFLHUPS6tI0Y52AS
+         K04Bmg2b7cXZZ+NwObdA5x76GYdXNsmQKyGMEEx0S7A9zP5mn3gT8tdOV5G73gCV7hzg
+         wWn4jsnL9DV/4SLXHLBekLkifShNU2i4eHcowICZm2PXYyPOqvgUysJWFPprn5t1+7dp
+         +bnWKnYEGRZoo+4gdnOAHNrFYwfC+Ixd4pMr1M0DVQiNVlDn3/s5zAtlb2fGQ+naKR7d
+         yUOZLHhLK+s/14q4A5UKoLeEr7shSdBcZYaR1WdROV8sGrDFoQ914tNmLoFVrCOTh4A3
+         YD6Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747741068; x=1748345868;
+        d=1e100.net; s=20230601; t=1747742023; x=1748346823;
         h=in-reply-to:from:content-language:references:cc:to:subject
          :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=cNe/Fdb8PGYy3I9kFDJYzbm8nvTAawrSVm3/nUL5ym0=;
-        b=PzZcZ0yS+ultTtxo21VV8LSR5Hx9AU5hOrCUVg058yooEevWCZ/UMhNmZ2DXgA6I3l
-         babV4hg/6wmQ+7vtKg7D+D33P9BVaA6uOmnglT3BZBinXPWC9Z8BFULEKh1Tx32TLzpD
-         lastLuaKIYPJhCrGn/5PeMVoq6YQmho2jy3ELBfAGubuPACO83bki3wRvifLwnfyON+X
-         37V4L1dCps1OMLSvfjN/bO/PCqkJEzi3ydnqLj+U2UwOl0uA1Py7so7ujktz3/7VZb4g
-         uu4SBaAPEXs1X3xdHsmpfonDeNoAE0hctYWc4SDyRROOoidIPaJlpa+PvxKPq5M6paO3
-         YqZA==
-X-Forwarded-Encrypted: i=1; AJvYcCWt9m6VxBqyMVXI8EQo2ObYU1S76i5kgb5xO+g1KVWzP74gXF8bridYZVHWf8Z3e6qtoG2hvwFUL4A=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw3exqydoCbgXA/bUUAFjp4eVfPi9UiRK4zY4QXm9prL/IzQuoH
-	GBl6klo9B+LZSOji57qQL2CbtwBLAeLiTSj5p7/trTkl6XrxiZ5SPFYX
-X-Gm-Gg: ASbGncsvRqk18wV16guQdXvrpch35lNfO40BrBow1OrR86Al0o0GNRrLrYSydm5abJY
-	qDX2SBG5cVirFR/ae4JI/cEazj6cNVGwAzUmXvVN3aAMKuJuKXS5GBdCK+qpoJXdfB+RDbIvoXE
-	iZp7OTJvPqt8dqjCYKFq3HqayFlBOP/GIeS7UlkGkuT97/oEC8UO8XRqJ9fvAdU1yJSAMYJYIv6
-	k2JG/Ws743g/tdzwQ94wN6hAuoIebikRjhOWRu2jJV0OJkJ0JpOoQkaErVGhXeJntMoRpMuhPse
-	SRN9K9M8tCXtLMygI2x2DsETMWPa48zmEriFVwE3HxR+hmd4SOFZ8zWRo31V5nmm9Jip2ezccvH
-	nWKtRJIZDyM2FWXzQJ1VKTxVR
-X-Google-Smtp-Source: AGHT+IE/St+FkE95V27zPOdtNnbkkPwKcrxcZZ5vJBzCOzCd1drpaI/O5mwSlA26yPvnzMRDLa0jNw==
-X-Received: by 2002:a17:906:dc93:b0:ad5:6ca3:c795 with SMTP id a640c23a62f3a-ad56ca3cb15mr695759866b.33.1747741067721;
-        Tue, 20 May 2025 04:37:47 -0700 (PDT)
+        bh=xfZkE131mIxLsC0cdTVCU8aUE78yQal29ryN+ESy2ss=;
+        b=UihU/mbcrmtd6l9hIGpZNjuzWxWBiIUgmEgZI8rMvF9mGrlBJKbwGk+ia4d5/yUNWI
+         zLZkB9/WYRqouGSMpD82RIciYSCmNNH4seLeqGAKtQiUVLisxSezFgB4suh3Dt70HIih
+         r+PoJ1xpg1hnLlyym2Bbjxhyo6IlkkJOMZcw+t/ZbIbDuTjrqJpjwGC9S5EXZ/ZFTzNH
+         NTc601BpwEgS5URKyn3h+x9YkdYg0ML3kYJ5lX7e0lUeO0cFEHfWSGRfWQQpyXQvQWLt
+         4EOPafF2mKTtxFTW0I+feb58+XB3ypc0lu8hymoLOcgwS8xxlzax4OVCmHcoKb2hv3W2
+         q3JQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUBbmZhohx7eyMcee+8J8OA/oXDVQFc4fvEMrVTcQ21WZeaRYPoDUX72w3RZJc+i7xbgJn5dwC7djc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzwVEwCtUNxPbCJMY+Blb0+SpsleroIsII+WnReCC/E07tudhrH
+	7znjoXNoPnaCzSwaOw8iqnFaGku9Tl7PYaahoSs9zRuArKzG+Y8N6oYW
+X-Gm-Gg: ASbGncv+pCmhrOB21D139K4dWSYH9dI2dcl/YUkAspmicmz+8F5z1MVgTSJLQNWSO+l
+	Hdkp3rSwx5yLyefaFwmgHoPfz9IQy6CsHDKjaXJGDi6FpwsSIaItTqJ+vrGSVpro6m/LIuEdRgK
+	Ev+AyT97tMIUIZGKoSy0seuuxP/nbsLMHtp7+Orb54PDprloHj8h4schWJCRMuHUVLXE1FAL2uY
+	49E5Tdhl9I25wKFbNN6wKzrGcIkBap8X2QCEw0y9sY7cd1+3GM6o3kGUV3ZCUYOAbkxgxufV89d
+	oeOkCh6ZmqBwYcLl+5xB1CTMQ+04oq+42jN8EGsh6A/JW0l24GTFlARJBOTrv+iUjndJnYaX58c
+	GE/RxBDArgxyhcPcWgoBKfdVh
+X-Google-Smtp-Source: AGHT+IFuwRSG4zKXovxptz9vbfe/65SZs9ADDF35ldbwi+trGwL0DwXS2UOvgfN/6LVqIMLCF9qHjA==
+X-Received: by 2002:a17:907:7da8:b0:ad2:4fb7:6cd7 with SMTP id a640c23a62f3a-ad536b5a0e6mr1437237566b.2.1747742022850;
+        Tue, 20 May 2025 04:53:42 -0700 (PDT)
 Content-Type: multipart/alternative;
- boundary="------------VDfO9UbkA8u0Q20q29arCSXj"
-Message-ID: <57765dd3-502a-4a28-8d15-2983b1f383ff@gmail.com>
-Date: Tue, 20 May 2025 13:37:43 +0200
+ boundary="------------hZtnhytO99qVl3cCHO8z3lAw"
+Message-ID: <c24c40bb-7948-44bf-8144-a7bb7236a105@gmail.com>
+Date: Tue, 20 May 2025 13:53:41 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 14/16] xen/riscv: add external interrupt handling for
- hypervisor mode
+Subject: Re: [PATCH v2 15/16] xen/riscv: implement setup_irq()
 To: Jan Beulich <jbeulich@suse.com>
 Cc: Alistair Francis <alistair.francis@wdc.com>,
  Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
@@ -100,82 +99,58 @@ Cc: Alistair Francis <alistair.francis@wdc.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
  Romain Caritey <Romain.Caritey@microchip.com>, xen-devel@lists.xenproject.org
 References: <cover.1746530883.git.oleksii.kurochko@gmail.com>
- <5688ed044febf734d9c75aa2e6f52affccd3fce9.1746530883.git.oleksii.kurochko@gmail.com>
- <1ca8df48-7e2d-4ad3-b1ad-8b4530fd22be@suse.com>
+ <6f17bbf0eb6240d7389d389f0973af6fda5cce29.1746530883.git.oleksii.kurochko@gmail.com>
+ <5f8a2840-2080-4b04-8298-0f5e22eaf5c0@suse.com>
 Content-Language: en-US
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <1ca8df48-7e2d-4ad3-b1ad-8b4530fd22be@suse.com>
+In-Reply-To: <5f8a2840-2080-4b04-8298-0f5e22eaf5c0@suse.com>
 
 This is a multi-part message in MIME format.
---------------VDfO9UbkA8u0Q20q29arCSXj
+--------------hZtnhytO99qVl3cCHO8z3lAw
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
 
-On 5/15/25 11:54 AM, Jan Beulich wrote:
+On 5/15/25 11:57 AM, Jan Beulich wrote:
 > On 06.05.2025 18:51, Oleksii Kurochko wrote:
->> +static void cf_check aplic_set_irq_type(struct irq_desc *desc, unsigned int type)
+>> @@ -58,6 +59,89 @@ int platform_get_irq(const struct dt_device_node *device, int index)
+>>       return dt_irq.irq;
+>>   }
+>>   
+>> +static int _setup_irq(struct irq_desc *desc, unsigned int irqflags,
+>> +                      struct irqaction *new)
 >> +{
+>> +    bool shared = irqflags & IRQF_SHARED;
+>> +
+>> +    ASSERT(new != NULL);
+>> +
 >> +    /*
->> +    * Interrupt 0 isn't possible based on the spec:
->> +    *   Each of an APLIC’s interrupt sources has a fixed unique identity number in the range 1 to N,
->> +    *   where N is the total number of sources at the APLIC. The number zero is not a valid interrupt
->> +    *   identity number at an APLIC. The maximum number of interrupt sources an APLIC may support
->> +    *   is 1023.
->> +    *
->> +    * Thereby interrupt 1 will correspond to bit 0 in sourcecfg[] register,
->> +    * interrupt 2 ->sourcecfg[1] and so on.
->> +    *
->> +    * And that is the reason why we need -1.
->> +    */
->> +    unsigned int irq_bit = desc->irq - 1;
+>> +     * Sanity checks:
+>> +     *  - if the IRQ is marked as shared
+>> +     *  - dev_id is not NULL when IRQF_SHARED is set
+>> +     */
+>> +    if ( desc->action != NULL && (!(desc->status & IRQF_SHARED) || !shared) )
+>> +        return -EINVAL;
+>> +    if ( shared && new->dev_id == NULL )
+>> +        return -EINVAL;
 >> +
->> +    spin_lock(&aplic.lock);
+>> +    if ( shared )
+>> +        desc->status |= IRQF_SHARED;
 >> +
->> +    switch(type)
-> Nit: style
->
->> +    {
->> +    case IRQ_TYPE_EDGE_RISING:
->> +        writel(APLIC_SOURCECFG_SM_EDGE_RISE, &aplic.regs->sourcecfg[irq_bit]);
->> +        break;
->> +
->> +    case IRQ_TYPE_EDGE_FALLING:
->> +        writel(APLIC_SOURCECFG_SM_EDGE_FALL, &aplic.regs->sourcecfg[irq_bit]);
->> +        break;
->> +
->> +    case IRQ_TYPE_LEVEL_HIGH:
->> +        writel(APLIC_SOURCECFG_SM_LEVEL_HIGH, &aplic.regs->sourcecfg[irq_bit]);
->> +        break;
->> +
->> +    case IRQ_TYPE_LEVEL_LOW:
->> +        writel(APLIC_SOURCECFG_SM_LEVEL_LOW, &aplic.regs->sourcecfg[irq_bit]);
->> +        break;
->> +
->> +    case IRQ_TYPE_NONE:
->> +        fallthrough;
-> This is pointless (and hampering readability) when there are no other statements.
+>> +#ifdef CONFIG_IRQ_HAS_MULTIPLE_ACTION
+>> +    new->next = desc->action;
+>> +#endif
+> Didn't you indicate you'd drop this?
 
-Oh, okay, it should be:
-   case IRQ_TYPE_NONE:
-   case IRQ_TYPE_INVALID:
-I thought fallthrough should be used always in such cases.
-Anyway, I'll drop it.
-
->
-> With both taken care of:
-> Acked-by: Jan Beulich<jbeulich@suse.com>
-
-Thanks.
-
-I am going also to add "ASSERT(spin_is_locked(&desc->lock));" at the start of this
-function to be algined with other callbacks which uses spin_{un}lock(&aplic.lock).
+To one of replies I wrote that probably something (eg RISC-V's IOMMU) will want to setup
+multiple handler for the same interrupt. But I'm not sure yet. I can drop for now and
+return back when it will be really a use case.
 
 ~ Oleksii
 
---------------VDfO9UbkA8u0Q20q29arCSXj
+--------------hZtnhytO99qVl3cCHO8z3lAw
 Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
 <!DOCTYPE html>
 <html>
@@ -185,85 +160,53 @@ Content-Transfer-Encoding: 8bit
   <body>
     <p><br>
     </p>
-    <div class="moz-cite-prefix">On 5/15/25 11:54 AM, Jan Beulich wrote:<br>
+    <div class="moz-cite-prefix">On 5/15/25 11:57 AM, Jan Beulich wrote:<br>
     </div>
     <blockquote type="cite"
-      cite="mid:1ca8df48-7e2d-4ad3-b1ad-8b4530fd22be@suse.com">
+      cite="mid:5f8a2840-2080-4b04-8298-0f5e22eaf5c0@suse.com">
       <pre wrap="" class="moz-quote-pre">On 06.05.2025 18:51, Oleksii Kurochko wrote:
 </pre>
       <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">+static void cf_check aplic_set_irq_type(struct irq_desc *desc, unsigned int type)
+        <pre wrap="" class="moz-quote-pre">@@ -58,6 +59,89 @@ int platform_get_irq(const struct dt_device_node *device, int index)
+     return dt_irq.irq;
+ }
+ 
++static int _setup_irq(struct irq_desc *desc, unsigned int irqflags,
++                      struct irqaction *new)
 +{
++    bool shared = irqflags &amp; IRQF_SHARED;
++
++    ASSERT(new != NULL);
++
 +    /*
-+    * Interrupt 0 isn't possible based on the spec:
-+    *   Each of an APLIC’s interrupt sources has a fixed unique identity number in the range 1 to N,
-+    *   where N is the total number of sources at the APLIC. The number zero is not a valid interrupt
-+    *   identity number at an APLIC. The maximum number of interrupt sources an APLIC may support
-+    *   is 1023.
-+    *
-+    * Thereby interrupt 1 will correspond to bit 0 in sourcecfg[] register,
-+    * interrupt 2 -&gt;sourcecfg[1] and so on.
-+    *
-+    * And that is the reason why we need -1.
-+    */
-+    unsigned int irq_bit = desc-&gt;irq - 1;
++     * Sanity checks:
++     *  - if the IRQ is marked as shared
++     *  - dev_id is not NULL when IRQF_SHARED is set
++     */
++    if ( desc-&gt;action != NULL &amp;&amp; (!(desc-&gt;status &amp; IRQF_SHARED) || !shared) )
++        return -EINVAL;
++    if ( shared &amp;&amp; new-&gt;dev_id == NULL )
++        return -EINVAL;
 +
-+    spin_lock(&amp;aplic.lock);
++    if ( shared )
++        desc-&gt;status |= IRQF_SHARED;
 +
-+    switch(type)
++#ifdef CONFIG_IRQ_HAS_MULTIPLE_ACTION
++    new-&gt;next = desc-&gt;action;
++#endif
 </pre>
       </blockquote>
       <pre wrap="" class="moz-quote-pre">
-Nit: style
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">+    {
-+    case IRQ_TYPE_EDGE_RISING:
-+        writel(APLIC_SOURCECFG_SM_EDGE_RISE, &amp;aplic.regs-&gt;sourcecfg[irq_bit]);
-+        break;
-+
-+    case IRQ_TYPE_EDGE_FALLING:
-+        writel(APLIC_SOURCECFG_SM_EDGE_FALL, &amp;aplic.regs-&gt;sourcecfg[irq_bit]);
-+        break;
-+
-+    case IRQ_TYPE_LEVEL_HIGH:
-+        writel(APLIC_SOURCECFG_SM_LEVEL_HIGH, &amp;aplic.regs-&gt;sourcecfg[irq_bit]);
-+        break;
-+
-+    case IRQ_TYPE_LEVEL_LOW:
-+        writel(APLIC_SOURCECFG_SM_LEVEL_LOW, &amp;aplic.regs-&gt;sourcecfg[irq_bit]);
-+        break;
-+
-+    case IRQ_TYPE_NONE:
-+        fallthrough;
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-This is pointless (and hampering readability) when there are no other statements.</pre>
+Didn't you indicate you'd drop this?</pre>
     </blockquote>
-    <pre>Oh, okay, it should be:
-  case IRQ_TYPE_NONE:
-  case IRQ_TYPE_INVALID:
-I thought fallthrough should be used always in such cases.
-Anyway, I'll drop it.
+    <pre>To one of replies I wrote that probably something (eg RISC-V's IOMMU) will want to setup
+multiple handler for the same interrupt. But I'm not sure yet. I can drop for now and
+return back when it will be really a use case.
 
-</pre>
-    <blockquote type="cite"
-      cite="mid:1ca8df48-7e2d-4ad3-b1ad-8b4530fd22be@suse.com">
-      <pre wrap="" class="moz-quote-pre">
-
-With both taken care of:
-Acked-by: Jan Beulich <a class="moz-txt-link-rfc2396E" href="mailto:jbeulich@suse.com">&lt;jbeulich@suse.com&gt;</a></pre>
-    </blockquote>
-    <pre>Thanks.
-
-I am going also to add "ASSERT(spin_is_locked(&amp;desc-&gt;lock));" at the start of this
-function to be algined with other callbacks which uses spin_{un}lock(&amp;aplic.lock).</pre>
-    <pre>~ Oleksii
+~ Oleksii
 </pre>
   </body>
 </html>
 
---------------VDfO9UbkA8u0Q20q29arCSXj--
+--------------hZtnhytO99qVl3cCHO8z3lAw--
 
