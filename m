@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 27B99ABDD26
-	for <lists+xen-devel@lfdr.de>; Tue, 20 May 2025 16:34:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.990835.1374757 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C90A6ABDD5B
+	for <lists+xen-devel@lfdr.de>; Tue, 20 May 2025 16:39:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.990842.1374768 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uHO2b-0008H4-LT; Tue, 20 May 2025 14:34:01 +0000
+	id 1uHO6z-0000R7-5q; Tue, 20 May 2025 14:38:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 990835.1374757; Tue, 20 May 2025 14:34:01 +0000
+Received: by outflank-mailman (output) from mailman id 990842.1374768; Tue, 20 May 2025 14:38:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uHO2b-0008FP-Ib; Tue, 20 May 2025 14:34:01 +0000
-Received: by outflank-mailman (input) for mailman id 990835;
- Tue, 20 May 2025 14:34:00 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=djEL=YE=cloud.com=kevin.lampis@srs-se1.protection.inumbo.net>)
- id 1uHO2a-0008FJ-H5
- for xen-devel@lists.xenproject.org; Tue, 20 May 2025 14:34:00 +0000
-Received: from mail-pl1-x633.google.com (mail-pl1-x633.google.com
- [2607:f8b0:4864:20::633])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7671bd44-3587-11f0-b892-0df219b8e170;
- Tue, 20 May 2025 16:33:58 +0200 (CEST)
-Received: by mail-pl1-x633.google.com with SMTP id
- d9443c01a7336-231f6af929eso41442575ad.2
- for <xen-devel@lists.xenproject.org>; Tue, 20 May 2025 07:33:58 -0700 (PDT)
+	id 1uHO6z-0000OT-2E; Tue, 20 May 2025 14:38:33 +0000
+Received: by outflank-mailman (input) for mailman id 990842;
+ Tue, 20 May 2025 14:38:31 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=PJhk=YE=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uHO6x-0000OI-F6
+ for xen-devel@lists.xenproject.org; Tue, 20 May 2025 14:38:31 +0000
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [2a00:1450:4864:20::629])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 191daccc-3588-11f0-a2fa-13f23c93f187;
+ Tue, 20 May 2025 16:38:30 +0200 (CEST)
+Received: by mail-ej1-x629.google.com with SMTP id
+ a640c23a62f3a-ad1f6aa2f84so1107833466b.0
+ for <xen-devel@lists.xenproject.org>; Tue, 20 May 2025 07:38:30 -0700 (PDT)
+Received: from [10.1.248.227] ([80.188.125.198])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ad52d49656bsm740208866b.136.2025.05.20.07.38.28
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 20 May 2025 07:38:29 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,62 +45,171 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7671bd44-3587-11f0-b892-0df219b8e170
+X-Inumbo-ID: 191daccc-3588-11f0-a2fa-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1747751636; x=1748356436; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=QitXDd875rVowBGx5A/RVuvufVa2CmaSg/+/XeeoSqY=;
-        b=Fd8CgE9faPNE0tBoNn85Mg+9CBIOTg/321Cu6Q0eXbDw8CY15e0TvR20CqOiBbLM3+
-         F1RO0H9PLeYDrA74xtqkMiwzCg7xLiDiN68nX6RoYDdCqT+0dg1lE8khbFQtwg97n+Vq
-         3sYIa5m8fIaq4cJwmryYvML+Bixrikns1FaIM=
+        d=suse.com; s=google; t=1747751910; x=1748356710; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=yJWY8FxySyE47zyNsu5PJeWPggpA1cZSYnZCpQKf/rg=;
+        b=ZFo9XUfv5E8kWXrRaIUuWb/M9yn7E1x/5LunDJMPSE2YgpNpx8ILQOcgLoMrMa4oxp
+         aZtzmNw9/Ll2wxhAgN7lo1k4Lfh3wA+/yQsJvccHc9R3CkhX5q66zslTw9UOGYgYw/hZ
+         9cAgNmoE/UKH9PPcoFkW9BZaei7GvpsaID00AcNy+XNELjYah7rytvNOVMkadI4nx1OM
+         GJpKj1GuWrQR/lDNz4YkK6WELHBHn0gWZ5y5jsCodpBzG/pi1oesAtiIJn8lvNuw2yCn
+         NiXBnNDcnD7JvZwkbm0YrCicNyYpZ+CHG2mQ6JxDt/5S2EYVIjYeM6PYy29XjLzGs/oj
+         56Mw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747751636; x=1748356436;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=QitXDd875rVowBGx5A/RVuvufVa2CmaSg/+/XeeoSqY=;
-        b=mVhmQMo26MftB4Ljdpfffqjmqfhsd/Ll4bKN2bj8207p/WroqJKDmieqaUt1MN7GBj
-         75m9QC99IUzE8tDiBFMBPrSjJUG+//pBf/pqTeb6FFvbJaqPGXV/X0mt58nEFL2JphNP
-         GF86C+V8uBKyWSnqCSAALRtCK09O5GB+DrGGJ0Az+ywhwbr9eMkNsuuZUkQO7o7iTeMW
-         qQviqrp9pY1f4mMFDKGaTkX+5/cWJW5jSkCY3+0FGFJomfscSayrV8EuvkpHN6t4kbKY
-         igaZQozemK2oxW/6MjMiNFxJr5wCc1t6pjIiCbIvU7VGWjKmseUEbAB3FUKDpHsF9coH
-         KmVw==
-X-Forwarded-Encrypted: i=1; AJvYcCUccP4KUTK4/WdzMfBREvcpSE/CDvVvsjaYW/OT2ZTeRlLq0jQin5VDzjCZzQ7+XmOgyzerUPkYH+4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxpSKOq7G55tKHpt2kTz+o87i6nEsv2MEQDJXwTef21XENeosCp
-	MEU6whPGc6ZH2i4/P6oF2JyQb5G3kenjjR+he8jb84scJVX89vH021p3neEyGmEqpjj4bfVgNmj
-	A4wEcHD6EtguGa+hRy99sRPNvDqPfGf+GhCqbV6nj3w==
-X-Gm-Gg: ASbGncsUHff5pTwjc4LjJr34OYTTHK9TFT3j0evdscg13qxZQG98GdNM9aV64E6EkJB
-	nRCsS0NPNtpnUOviLXz/ob2Ek80RNdDcuZvtaJKLxhMf93ocGdkuJyIOmfwB1hxQFb3gD85c5K3
-	zxb10c2rI8ERdepNH8O6arwADJz5HknAo=
-X-Google-Smtp-Source: AGHT+IEbMpcXEzAi8BIR9pKqFrhOm+e3uQPvwKTv2Z++644DHk8zGCgDQ79qmsgCZi/L+ku7k8CeedhRsaWYc4AHupU=
-X-Received: by 2002:a17:902:cf12:b0:224:2717:7993 with SMTP id
- d9443c01a7336-231d454dcaamr245702275ad.45.1747751636582; Tue, 20 May 2025
- 07:33:56 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1747751910; x=1748356710;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=yJWY8FxySyE47zyNsu5PJeWPggpA1cZSYnZCpQKf/rg=;
+        b=oML6I2aCMj/aUYED/nO0/HxQa7gcqckXE2gJwzSpRrGoma+e/JKllsIyEUZOXarqPe
+         NkBH6UtWhTwPJTvZAgq7aKaFnfBxhuBssBi1HPIV31bzYU529fT51TwJ6kobkHlt6M33
+         96i6m2E6WqVChYeISuUo8y7qc2Vbh/CDD38NfJ6mrciEeVR2dFL5+B1cFJT69EuPx/vD
+         l19XmeVf3HmUfTe840c2aNIx0StkG322Bjl1nm7QZWUUMtY/E9hW9ShzPWiPvTFnCOS9
+         xUNBAxRPyJIp8vZKnEyP/1xxiknD68vqV7Z4zibYJuyIQZtsrCgOCCmmF5DHZKXeaivr
+         ZL5Q==
+X-Forwarded-Encrypted: i=1; AJvYcCUMvxSl5lBuMMIEvDsjRFRPTlbiHmHqHXr5e1FfM13yft18Y4tTGSXvgQrU6lrvkROyCRp0P+IfkQM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzVSR4mpIO6IhxavJpl1NInQTeiR61bMarzb6tD5Zmh5eyAHIdR
+	EDRSU/5mwRbZjylsVfgpp/7k/yjcwlVU8MyQHDvW0PQ02Msdj/tOVhcpVZLl1FaunA==
+X-Gm-Gg: ASbGncsrTvj5GKdkAVekYKtvNjco6md9Jo4cv4ZJQF3faJK9i3BsejAXS+EQ145bU0f
+	oiKzFOnVj4kIj5PgNqRU0md4BHM8NMtyBfOyRazYCSy28LV/YiENQAJHnt2hMxq81aYao+F8y8E
+	T951aoo4pYh8SF71WuGNLHq7qbWFGzKhXCLOCGgb5287L2lQ014xfGhdZk/d96k1fGC5QYFWjn3
+	gl7uMUdqPCsL4UUj2LPmFtF9ZGqTNdj3VIQ+C6t/7IHq4qQRxJfbb0+A4ylBMCr2PrZ6I/h5bGX
+	6Zs6EhvP1WQytd8blReGkgHOx4dMJHiNuaEADIs/7hOeQx7O24oXKLqAno+arA==
+X-Google-Smtp-Source: AGHT+IGgEmcThuhxBeQ+R/qliZyRZ8dcXMqB7aOo7tWMgNq/O2lEPn16Y5z+hqk9MlcGAM2Mrb2Q8w==
+X-Received: by 2002:a17:907:2d87:b0:ad5:8593:2817 with SMTP id a640c23a62f3a-ad5859328abmr389211166b.6.1747751909688;
+        Tue, 20 May 2025 07:38:29 -0700 (PDT)
+Message-ID: <b0b4348e-38e5-4138-9e0b-3378f1207bfe@suse.com>
+Date: Tue, 20 May 2025 16:38:27 +0200
 MIME-Version: 1.0
-References: <20250512195628.1728455-3-kevin.lampis@cloud.com>
- <20250520115716.706100-1-kevin.lampis@cloud.com> <726c5069-2136-403a-910b-de003129b198@suse.com>
-In-Reply-To: <726c5069-2136-403a-910b-de003129b198@suse.com>
-From: Kevin Lampis <kevin.lampis@cloud.com>
-Date: Tue, 20 May 2025 15:33:44 +0100
-X-Gm-Features: AX0GCFtieeZ1z235CWoJnFAeC_11lkAsW6vr2yfXuOPs4dLfgWQPhzjcl8g3R2Q
-Message-ID: <CAHaoHxYaEtifpAskWCj28g-aHtGwo0S9JoT8ent4_ZcbJqucZg@mail.gmail.com>
-Subject: Re: [PATCH v2 2/3] Add lockdown mode
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Ross Lagerwall <ross.lagerwall@citrix.com>, xen-devel@lists.xenproject.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 3/6] xen/riscv: construct the P2M pages pool for guests
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1746805907.git.oleksii.kurochko@gmail.com>
+ <c9c60bb73fcae0b72d3bc18c10f5ca6cccc5a676.1746805907.git.oleksii.kurochko@gmail.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <c9c60bb73fcae0b72d3bc18c10f5ca6cccc5a676.1746805907.git.oleksii.kurochko@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, May 20, 2025 at 3:23=E2=80=AFPM Jan Beulich <jbeulich@suse.com> wro=
-te:
->
-> No comments on the patch itself (yet), just a formal remark: I was puzzle=
-d
-> by having only v2 2/3 and 3/3 in my inbox. Looks like you sent each as
-> reply on the v1 sub-threads. Very occasionally for a larger series it may
-> be okay to send just a single update that way. Here, however, please re-
-> send as a full, standalone v2 series.
+On 09.05.2025 17:57, Oleksii Kurochko wrote:
+> Implement p2m_set_allocation() to construct p2m pages pool for guests
+> based on required number of pages.
+> 
+> This is implemented by:
+> - Adding a `struct paging_domain` which contains a freelist, a
+>   counter variable and a spinlock to `struct arch_domain` to
+>   indicate the free p2m pages and the number of p2m total pages in
+>   the p2m pages pool.
+> - Adding a helper `p2m_set_allocation` to set the p2m pages pool
+>   size. This helper should be called before allocating memory for
+>   a guest and is called from domain_p2m_set_allocation(), the latter
+>   is a part of common dom0less code.
+> 
+> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
-Sorry I will do that in future.
+As already indicated in reply to patch 2, I expect this pool will want
+introducing ahead of that.
+
+> --- a/xen/arch/riscv/p2m.c
+> +++ b/xen/arch/riscv/p2m.c
+> @@ -1,4 +1,12 @@
+>  #include <xen/domain_page.h>
+> +/*
+> + * Because of general_preempt_check() from xen/sched.h which uses
+> + * local_events_need_delivery() but latter is declared in <asm/event.h>.
+> + * Thereby it is needed to icnlude <xen/event.h> here before xen/sched.h.
+> + *
+> + * Shouldn't be xen/event.h be included in <xen/sched.h>?
+> + */
+> +#include <xen/event.h>
+
+The question doesn't belong here; such could be put in the post-commit-
+message area. And the answer depends on what dependency you found missing.
+
+> @@ -166,3 +176,60 @@ int p2m_init(struct domain *d)
+>  
+>      return 0;
+>  }
+> +
+> +/*
+> + * Set the pool of pages to the required number of pages.
+> + * Returns 0 for success, non-zero for failure.
+> + * Call with d->arch.paging.lock held.
+> + */
+> +int p2m_set_allocation(struct domain *d, unsigned long pages, bool *preempted)
+> +{
+> +    struct page_info *pg;
+> +
+> +    ASSERT(spin_is_locked(&d->arch.paging.lock));
+> +
+> +    for ( ; ; )
+> +    {
+> +        if ( d->arch.paging.p2m_total_pages < pages )
+> +        {
+> +            /* Need to allocate more memory from domheap */
+> +            pg = alloc_domheap_page(d, MEMF_no_owner);
+> +            if ( pg == NULL )
+> +            {
+> +                printk(XENLOG_ERR "Failed to allocate P2M pages.\n");
+> +                return -ENOMEM;
+> +            }
+> +            ACCESS_ONCE(d->arch.paging.p2m_total_pages) =
+> +                d->arch.paging.p2m_total_pages + 1;
+
+Looks like you copied this from Arm, but this code is bogus: Using
+ACCESS_ONCE() just on the lhs is pretty pointless. Once also used on the
+rhs the expression can easily become
+
+                ACCESS_ONCE(d->arch.paging.p2m_total_pages) += 1;
+
+or even
+
+                ACCESS_ONCE(d->arch.paging.p2m_total_pages)++;
+
+.
+
+> +            page_list_add_tail(pg, &d->arch.paging.p2m_freelist);
+> +        }
+> +        else if ( d->arch.paging.p2m_total_pages > pages )
+> +        {
+> +            /* Need to return memory to domheap */
+> +            pg = page_list_remove_head(&d->arch.paging.p2m_freelist);
+> +            if( pg )
+> +            {
+> +                ACCESS_ONCE(d->arch.paging.p2m_total_pages) =
+> +                    d->arch.paging.p2m_total_pages - 1;
+
+Same here then, obviously.
+
+> +                free_domheap_page(pg);
+> +            }
+> +            else
+> +            {
+> +                printk(XENLOG_ERR
+> +                       "Failed to free P2M pages, P2M freelist is empty.\n");
+> +                return -ENOMEM;
+> +            }
+> +        }
+> +        else
+> +            break;
+> +
+> +        /* Check to see if we need to yield and try again */
+> +        if ( preempted && general_preempt_check() )
+
+While it's this way on both Arm and x86, I wonder how useful it is
+to check on every iteration, especially when freeing pages back to the
+buddy allocator.
+
+Jan
 
