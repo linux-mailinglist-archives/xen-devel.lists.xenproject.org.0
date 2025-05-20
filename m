@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 432C1ABD565
-	for <lists+xen-devel@lfdr.de>; Tue, 20 May 2025 12:44:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.990627.1374567 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F0695ABD599
+	for <lists+xen-devel@lfdr.de>; Tue, 20 May 2025 12:54:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.990639.1374577 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uHKRx-0004ID-1Y; Tue, 20 May 2025 10:43:57 +0000
+	id 1uHKbm-0005yF-VY; Tue, 20 May 2025 10:54:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 990627.1374567; Tue, 20 May 2025 10:43:57 +0000
+Received: by outflank-mailman (output) from mailman id 990639.1374577; Tue, 20 May 2025 10:54:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uHKRw-0004Gl-V6; Tue, 20 May 2025 10:43:56 +0000
-Received: by outflank-mailman (input) for mailman id 990627;
- Tue, 20 May 2025 10:43:55 +0000
+	id 1uHKbm-0005vu-Sr; Tue, 20 May 2025 10:54:06 +0000
+Received: by outflank-mailman (input) for mailman id 990639;
+ Tue, 20 May 2025 10:54:05 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=dvNd=YE=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
- id 1uHKRv-0004Gf-Ps
- for xen-devel@lists.xenproject.org; Tue, 20 May 2025 10:43:55 +0000
-Received: from mail-oa1-x2a.google.com (mail-oa1-x2a.google.com
- [2001:4860:4864:20::2a])
+ <SRS0=aDZd=YE=cloud.com=ross.lagerwall@srs-se1.protection.inumbo.net>)
+ id 1uHKbl-0005vo-QE
+ for xen-devel@lists.xenproject.org; Tue, 20 May 2025 10:54:05 +0000
+Received: from mail-oo1-xc2f.google.com (mail-oo1-xc2f.google.com
+ [2607:f8b0:4864:20::c2f])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 50b554f7-3567-11f0-b892-0df219b8e170;
- Tue, 20 May 2025 12:43:50 +0200 (CEST)
-Received: by mail-oa1-x2a.google.com with SMTP id
- 586e51a60fabf-2d4f8c42f49so2234393fac.1
- for <xen-devel@lists.xenproject.org>; Tue, 20 May 2025 03:43:50 -0700 (PDT)
+ id bddd5681-3568-11f0-b892-0df219b8e170;
+ Tue, 20 May 2025 12:54:03 +0200 (CEST)
+Received: by mail-oo1-xc2f.google.com with SMTP id
+ 006d021491bc7-601ad30bc0cso4527703eaf.0
+ for <xen-devel@lists.xenproject.org>; Tue, 20 May 2025 03:54:03 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,106 +40,121 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 50b554f7-3567-11f0-b892-0df219b8e170
+X-Inumbo-ID: bddd5681-3568-11f0-b892-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1747737829; x=1748342629; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1747738442; x=1748343242; darn=lists.xenproject.org;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=5uaftpOpgrsIuQy4iUAfyMgweupj/IjoBcEDbSzXkPo=;
-        b=b+NyJiaMLJfXOJ9WzTXH3uwNnvL5kVkJfaKiHsazCIyDHdx//LznnKBOLB17aa4yU+
-         gcI986bbXx98+qnSb2F70ZCflXKocAdzqAaHhAoUIbTIRvFOaA5fRxZJv0fyOEQPK8nj
-         Jy62+91YzcgnlBbidl2CFs6reh0sOb1hJjM6M=
+        bh=xGVwrBMgdBsxlnizpiLyvWOkFnjHtdjObKHW6G+TjR4=;
+        b=AYxyVNcaIQxOokA7O7Ve4KBZOAO1pOL0FrYwMCd1NQTNmE8BH837Rx8cCN8/4NMqO7
+         aHvo23fn40Ch/erKWIsJWmctdVz4na4hCMX5Xj6avKBydaDFHC7/mqaurKg+1MuDSkWw
+         vGTSk6QkoNRyc72fY99kySDGy1r2MZvEy4KFg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747737829; x=1748342629;
+        d=1e100.net; s=20230601; t=1747738442; x=1748343242;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=5uaftpOpgrsIuQy4iUAfyMgweupj/IjoBcEDbSzXkPo=;
-        b=FEQ+5zhxghZhiupg4PHbyEHEN0iR7Y9t/FS/PMf1zr2xIgOccoJiVnRwUWCWwbIx8H
-         LlHtk14YGocoHNUFpAgp2PhCjPampbA1mFkcsYo4OvY8tc2HJoOfWjsaG0VmB3qrew8J
-         1ZXHBnfAuHioFbaNQe5C/5ezYvk5BIj6WjSaKqHftEFldgwayHmbHCb5t3WBUhn/IwXA
-         cO8B3zd5MEtuXJ0+e03oUIj+P4yyWxQw5M0ftMwD5prL0J84N/hDDqdVIH0R9lpdXYaM
-         8fdg5zvm8im/i7xFEQGlWwZQzpw2WT+LkgfdsxdHvfULMhVlCFSbdXIER+dVVX24lG1E
-         xr5A==
-X-Gm-Message-State: AOJu0Ywqudxb+OFlGsNZjiGCL0YqCyjWY8L/IupZFu6qt++wiNISl0uv
-	+bOwpdz2ol+t8zlSdHSR5xw/XfxwkQbU+UxnXn8xdLcHdEwpW6Lk35HFfKatkkylQkF0ulqSMt0
-	h+RYSZfcPy2TtqKur7bFwl/xF77fR605wRXufMtv81g==
-X-Gm-Gg: ASbGncvlUAgDw6xufCStuVUCXa8Zkpfcbpg8qdWu0b73AVzl8f0DoAaW9+UM/GQFwwp
-	W4rsSbP8CY4up6uvi1btPVynWdYdkwLDfdTO//7xrA9HeXRAM8XTyo1loZrXz0rRASuECshjbv6
-	kkb7XS0DepiMnbt/TsR3tToWnhF6ucrr6UG3vE0r6EkA==
-X-Google-Smtp-Source: AGHT+IEwvPmgfvu29BWKNSBcnNDdzXnc3zNqQ435MZmgeN1kwzg3Isiw7XNtmmjK9lMkI11uPA3btHxq4X6dJFw+HZw=
-X-Received: by 2002:a05:6870:ef84:b0:2d4:e101:13f1 with SMTP id
- 586e51a60fabf-2e3c2a988d6mr9554270fac.13.1747737829425; Tue, 20 May 2025
- 03:43:49 -0700 (PDT)
+        bh=xGVwrBMgdBsxlnizpiLyvWOkFnjHtdjObKHW6G+TjR4=;
+        b=diM3KVc702wFC3x+KTkNuApzsLsteS15PfGmAv3AyObudd16B+6yk2osKD45IhOM1K
+         Sr2aTWZRf22Enhi6RjqFHSxHPGLud2pjd+qkjvt0tfuQqRbZ0uAFKROw1szrJ1m8x4pA
+         OLkAUPR/QxwPXzB/owERz3WmbazqeFbcVpenvxZO0usljonXuimdi2vh32ou0t43PP15
+         aatHb2T1RcHbRFqNjfWQGjwzRKF6VqEvRu3ZXer94nIxk+3cu9nA4qPEfV0XQpBbN/+N
+         2rIfhxdqDvZ5J0i8GSfWNIQhZwEjMyIjh/ztTsa9j4rl5OhuBgDMsZPVITKVM+Kwi4cF
+         nlXw==
+X-Gm-Message-State: AOJu0YxDBpRfNzdmoy0apzKk6HrEijtwKL6zAHnqNGNWMf/nO+4OPqkj
+	hj8TVaR5dYuQoZZMoglEnTATxymttLF43TJa34u5U5YaLQ7i8dyPyYVRynhD954KEGYEDFGotvo
+	/VMzm1kcsBGSqpdrwcqG5bGP7atEOmz8NmXaOTzZMgW5yLMSkKkvoNg==
+X-Gm-Gg: ASbGncvB+tocPMlGGXXS5PCHiOrq5CMqGnfF4aMJfwbk8rj1Q+GEcvT2SH2TJulf+8h
+	NiC7f5Cz1aJg1YCEEzjBOPFMJfkcq5nLIWNC/7JLUf1k2XoeI9SQ0QEr3rG9jBfym4Wze3Z67GV
+	wBmyP3W+kaXJL5aN+eTLK23xGtDoZBo8w=
+X-Google-Smtp-Source: AGHT+IFuQOj3S3pNtduZiarIFmLlJlJ1KXTXmEGZzD637yphG81T/AackFlkcxXZEcds3x0fZcdi08ZDHc7Hm+3ZSQI=
+X-Received: by 2002:a4a:ec43:0:b0:603:f809:ce19 with SMTP id
+ 006d021491bc7-609f38b5d20mr8515684eaf.3.1747738442026; Tue, 20 May 2025
+ 03:54:02 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250519135227.27386-1-andrew.cooper3@citrix.com>
-In-Reply-To: <20250519135227.27386-1-andrew.cooper3@citrix.com>
-From: Frediano Ziglio <frediano.ziglio@cloud.com>
-Date: Tue, 20 May 2025 11:43:38 +0100
-X-Gm-Features: AX0GCFtXgJw3il85Z0HktJWEvteU044WjO75y82oTWFjESGgTNteCBCC34zUN-4
-Message-ID: <CACHz=Zi33brKo6=w64qtDjb2ufSDmf-Db-XDFU3AFX0DRdDDuQ@mail.gmail.com>
-Subject: Re: [PATCH] xen: Give compile.h header guards
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>, 
-	Anthony PERARD <anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, 
-	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, 
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	Stefano Stabellini <sstabellini@kernel.org>
+References: <20250512144656.314925-1-ross.lagerwall@citrix.com>
+ <20250512144656.314925-2-ross.lagerwall@citrix.com> <204e177c-beba-41a1-93bf-3ae6454875cc@suse.com>
+In-Reply-To: <204e177c-beba-41a1-93bf-3ae6454875cc@suse.com>
+From: Ross Lagerwall <ross.lagerwall@citrix.com>
+Date: Tue, 20 May 2025 11:53:51 +0100
+X-Gm-Features: AX0GCFtrwzoYOnZoUGt8Lfv8goLG49nSFPprLdbqQR1YewUINpoSBO_ypMvy_lE
+Message-ID: <CAG7k0EqeXPiBZ8AJG2VuszCPvcQAiVh25B8=3SfLsECk-FYs3g@mail.gmail.com>
+Subject: Re: [PATCH v2 1/5] x86/pmstat: Check size of PMSTAT_get_pxstat buffers
+To: Jan Beulich <jbeulich@suse.com>
+Cc: xen-devel@lists.xenproject.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, May 19, 2025 at 2:52=E2=80=AFPM Andrew Cooper <andrew.cooper3@citri=
-x.com> wrote:
+On Tue, May 13, 2025 at 3:27=E2=80=AFPM Jan Beulich <jbeulich@suse.com> wro=
+te:
 >
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> ---
-> CC: Anthony PERARD <anthony.perard@vates.tech>
-> CC: Michal Orzel <michal.orzel@amd.com>
-> CC: Jan Beulich <jbeulich@suse.com>
-> CC: Julien Grall <julien@xen.org>
-> CC: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
-> CC: Stefano Stabellini <sstabellini@kernel.org>
-> ---
->  xen/include/xen/compile.h.in | 3 +++
->  xen/tools/process-banner.sed | 5 +++++
->  2 files changed, 8 insertions(+)
+> On 12.05.2025 16:46, Ross Lagerwall wrote:
+> > Check that the total number of states passed in and hence the size of
+> > buffers is sufficient to avoid writing more than the caller has
+> > allocated.
+> >
+> > The interface is not explicit about whether getpx.total is expected to
+> > be set by the caller in this case but since it is always set in
+> > libxenctrl it seems reasonable to check it.
 >
-> diff --git a/xen/include/xen/compile.h.in b/xen/include/xen/compile.h.in
-> index 3151d1e7d1bf..9206341ba692 100644
-> --- a/xen/include/xen/compile.h.in
-> +++ b/xen/include/xen/compile.h.in
-> @@ -1,3 +1,6 @@
-> +#ifndef XEN_COMPILE_H
-> +#define XEN_COMPILE_H
-> +
+> Yet if we start checking the value, I think the public header should also
+> be made say so (in a comment).
+>
+> > --- a/xen/drivers/acpi/pmstat.c
+> > +++ b/xen/drivers/acpi/pmstat.c
+> > @@ -103,8 +103,10 @@ int do_get_pm_info(struct xen_sysctl_get_pmstat *o=
+p)
+> >
+> >          cpufreq_residency_update(op->cpuid, pxpt->u.cur);
+> >
+> > -        ct =3D pmpt->perf.state_count;
+> > -        if ( copy_to_guest(op->u.getpx.trans_pt, pxpt->u.trans_pt, ct*=
+ct) )
+> > +        ct =3D min_t(uint32_t, pmpt->perf.state_count, op->u.getpx.tot=
+al);
+>
+> With this, ...
+>
+> > +        if ( ct <=3D op->u.getpx.total &&
+>
+> ... this is going to be always true, isn't it? Which constitutes a violat=
+ion
+> of Misra rule 14.3.
+>
+> Also it would be nice if the min_t() could become a normal min(), e.g. by
+> "promoting" op->u.getpx.total to unsigned int via adding 0U. This way it'=
+s
+> clear there's no hidden truncation (or else there might be an argument fo=
+r
+> keeping the check above).
+>
+> > +             copy_to_guest(op->u.getpx.trans_pt, pxpt->u.trans_pt, ct =
+* ct) )
+> >          {
+> >              spin_unlock(cpufreq_statistic_lock);
+> >              ret =3D -EFAULT;
+>
+> Why would you constrain this copy-out but not the one just out of context
+> below here? (The question is of course moot if the condition was dropped.=
+)
+>
 
-Why not follow CODING_STYLE ?
+Oh, I had intended this condition to be...
 
-OT: Maybe while on it, why not add SPDX comments too ?
+    if ( ct =3D=3D op->u.getpx.total &&
 
->  #define XEN_COMPILE_DATE       "@@date@@"
->  #define XEN_COMPILE_TIME       "@@time@@"
->  #define XEN_COMPILE_BY         "@@whoami@@"
-> diff --git a/xen/tools/process-banner.sed b/xen/tools/process-banner.sed
-> index 56c76558bcd9..4cf3f9a1163a 100755
-> --- a/xen/tools/process-banner.sed
-> +++ b/xen/tools/process-banner.sed
-> @@ -12,3 +12,8 @@ s_(.*)_"\1\\n"_
->
->  # Trailing \ on all but the final line.
->  $!s_$_ \\_
-> +
-> +# Append closing header guard
-> +$a\
-> +\
-> +#endif /* XEN_COMPILE_H */
->
-> base-commit: 6fc02ebdd053856221f37ba5306232ac1575332d
-> prerequisite-patch-id: 7bc1c498ba2c9c4a4939a56a0006f820f47f2a66
-> --
-> 2.39.5
->
->
-Frediano
+... based on your previous comment about the difficulties of partially
+copying a 2d array.
+
+> An option may be to document that this array is copied only when the
+> buffer is large enough.
+
+I left the other alone since partially copying a 1d array makes sense.
+
+If you would prefer, I can drop the condition and just let the caller
+deal with the partially copied 2d array?
+
+Thanks,
+Ross
 
