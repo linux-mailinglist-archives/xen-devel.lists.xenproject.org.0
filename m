@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A5D9ABDC83
-	for <lists+xen-devel@lfdr.de>; Tue, 20 May 2025 16:25:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.990811.1374738 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 65D0CABDCA9
+	for <lists+xen-devel@lfdr.de>; Tue, 20 May 2025 16:26:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.990823.1374748 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uHNts-0005kz-JQ; Tue, 20 May 2025 14:25:00 +0000
+	id 1uHNv8-0006NI-Ub; Tue, 20 May 2025 14:26:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 990811.1374738; Tue, 20 May 2025 14:25:00 +0000
+Received: by outflank-mailman (output) from mailman id 990823.1374748; Tue, 20 May 2025 14:26:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uHNts-0005jU-G1; Tue, 20 May 2025 14:25:00 +0000
-Received: by outflank-mailman (input) for mailman id 990811;
- Tue, 20 May 2025 14:24:58 +0000
+	id 1uHNv8-0006Lo-Ry; Tue, 20 May 2025 14:26:18 +0000
+Received: by outflank-mailman (input) for mailman id 990823;
+ Tue, 20 May 2025 14:26:16 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=BmRr=YE=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1uHNtq-0005jK-NT
- for xen-devel@lists.xenproject.org; Tue, 20 May 2025 14:24:58 +0000
-Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
- [2a00:1450:4864:20::52a])
+ <SRS0=aDZd=YE=cloud.com=ross.lagerwall@srs-se1.protection.inumbo.net>)
+ id 1uHNv6-0006Li-Qt
+ for xen-devel@lists.xenproject.org; Tue, 20 May 2025 14:26:16 +0000
+Received: from mail-qv1-xf2b.google.com (mail-qv1-xf2b.google.com
+ [2607:f8b0:4864:20::f2b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 33a72a8c-3586-11f0-b892-0df219b8e170;
- Tue, 20 May 2025 16:24:55 +0200 (CEST)
-Received: by mail-ed1-x52a.google.com with SMTP id
- 4fb4d7f45d1cf-601c5cd15ecso3802589a12.2
- for <xen-devel@lists.xenproject.org>; Tue, 20 May 2025 07:24:55 -0700 (PDT)
-Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-447f1fe4fa6sm32635055e9.16.2025.05.20.07.24.43
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 20 May 2025 07:24:44 -0700 (PDT)
+ id 627acc60-3586-11f0-b892-0df219b8e170;
+ Tue, 20 May 2025 16:26:14 +0200 (CEST)
+Received: by mail-qv1-xf2b.google.com with SMTP id
+ 6a1803df08f44-6f8d8fb211eso17735276d6.3
+ for <xen-devel@lists.xenproject.org>; Tue, 20 May 2025 07:26:14 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,131 +40,176 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 33a72a8c-3586-11f0-b892-0df219b8e170
+X-Inumbo-ID: 627acc60-3586-11f0-b892-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1747751095; x=1748355895; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=vukP6mAFAfc2z2Hy2jbrX5ANwFrMXoNMWXcrIYeDrBs=;
-        b=os9Kx8gRoxbc8RqNs6XI+SEtiv3xdUgb0NnGoDFDqwaMAw+aeuizvjUBJ6JePJ1SB4
-         mxPTWmGjWj+RGp29uzWzk5TRRhuqW33l10zzR6+xnGpdKD1rp4rRVZIjZycf0w115Lpb
-         o6xa2V/tAh8q04jQYa28rt0jY+JgYsQYhUzxo=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747751095; x=1748355895;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=citrix.com; s=google; t=1747751174; x=1748355974; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=vukP6mAFAfc2z2Hy2jbrX5ANwFrMXoNMWXcrIYeDrBs=;
-        b=pW4LYgPun4RiyKc6EAUR5ZDN+2SatphmhACEXvgS2w9rrM9j5BJGYHreaBtc95+fy2
-         /eP2gM2zre5pcoOIPBDaNfpR/wIiLNvMw+1kHz1SNNVOemhnpSxfIw3g7+Sh1EWPIOke
-         D63ecWo4QjW6l+54EJ1J7CAJ21Ti+qDpu6/4z+FJTg44N8h2E6SlmdWUk5yAgsM16JBo
-         LWh24v4qj70ysfTVsJIu3yVxKgEI+aWwK2Yz+uW8Xkj9sLesJEl7KhL8kfDZxxV55JL6
-         37UHi6GuVOkeFP/7ONgNfAGKtY56sBYuMCBEMMTiRMN9ghOv0y3x9vJlOt8OsCPftp7V
-         aLWA==
-X-Forwarded-Encrypted: i=1; AJvYcCVQw6LiQ/mAiD+9wCChDusm8RP2gRpG+8M1AefH2QfnOOR1hvrVvNRQVxmBgVNdRof4zUajYc7QlmQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxjJj+LJAUc+QsRrYKwn2uFywFQ7bfnxCiOGMMopSriGtvPO7Yf
-	pfTQrUiFjMh8MUeqa3PTwqFdBMxVlvrExgebJCnlzmtoN+mP7vtw/D7jXdlgU6f2bUeCI9G/t9o
-	s4qf9
-X-Gm-Gg: ASbGncvrEHzWvM6awv5KPhxKXuou6n7gxRJ1MRxBvb22dZn3wINKPcRfVO8hTIFovy8
-	h0fKdgOtLNJzsKNGCSuxm502uKV1nOt9MjbhAr62Sj5ov4/beDFFto0vgg+VUU1ziQeLZDzPoay
-	liNHfANSt4o1WLQtmwxK3r9X/cpin+ApNH4ZNL0MMNGbKcHfIVD0lXBg1J0DuUYEX5n6tmfxIFl
-	tapw7ZwLEGn3ftCEwYrFiIbY/mfJs5ZIVOWZ/8r1hCBA0svfch6l8ZAXyRUuAXLO0bP8FOF9Ez/
-	h6EYx7Y+tsV0z8/DIku/BEddZ8l9inn4KUTAFaq3Pcv8gc0oc/OoAPLV0eGA6cADVqeSw6NZEnT
-	aEkWt+skn2e8MIMOm
-X-Google-Smtp-Source: AGHT+IGRScKP989oJnjMGzL0TuMyyhiWGMxYCt8WoRzcsa2lYHP+dQ1qnySGYEoqoTaNcbC7GYjX1Q==
-X-Received: by 2002:a05:600c:c1b:b0:43c:e481:3353 with SMTP id 5b1f17b1804b1-442feffbb8dmr186256045e9.17.1747751084368;
-        Tue, 20 May 2025 07:24:44 -0700 (PDT)
-Message-ID: <26756272-790a-4418-b75e-5052f10319d1@citrix.com>
-Date: Tue, 20 May 2025 15:24:43 +0100
+        bh=E1JKAUHFWSui+XeHMlb9MsfSB+pHocjJanzL0Be9ELI=;
+        b=cIUySEeax604yUGBYAsZ6owPvtqJg2SZKVgT/W+UBYsPUzQcJvlmRIPufRrKDkJUyD
+         AmUoBukP/cRnzdoSBZ6BIoBljTuoTYMrWCSMAgH5zIppOkkmIO7dJXcLCsyiw53fJ5d3
+         9FgwHawJK5x2B5tRR8Upv6k2UTQGn/GoQ8Wpw=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1747751174; x=1748355974;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=E1JKAUHFWSui+XeHMlb9MsfSB+pHocjJanzL0Be9ELI=;
+        b=EYANbAE27eyCCSq7jcB4zuHdU4cBSw05ZuolBTATMR0isTD9DXk1oh5ceCZF/juq25
+         zD8VmQO+bncQXWDAJOO1B87oVtyjHALbkm3XXtVWG45LkPDF4S3sxm1rBxNgh4ASuaOy
+         JSW7peq+Wydj6HFKxUuWpLwAdU58VGmddQqj6stqUqM0wZgNBB06zFRKwdl0xnkSjYfz
+         wuRs1mlxTTipun+En0rhwRdM116rd7eiuX0sXRqC8Y5TT5JqJ2bozaSc5MLveeL1q53y
+         Cbq+sQ2TtWUBiDdfK7ipq48iAxA5hJgbUS1sBkHUahI4jhUqs88btwZvPEsmC7/h8fjV
+         PIDw==
+X-Forwarded-Encrypted: i=1; AJvYcCU2aWoxrC+jP3uTyY7+HFe6z2MKCgVod+TdepnoN3WSPXHOozQOGEfDtTlKE12/Ftcl8L5FcTIIOuI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwAg+Ni2+vpzBeBX+tGVs0+MLYxTJAvVQgfpmnTwa6ypC/SNeol
+	m+UY/HtAsGDAJJUkxg3uuPE+rV57ox3eD9Z6H5OhOb7bb//hMSYGgb7UwEBxqw18SjjRKwHDIiH
+	Zee8tfgb5ArQ4/bB9Rb7RSUtwd8PRXIoyneMCgVoxjXHi2E/hUqa2mg==
+X-Gm-Gg: ASbGnctMlJfFXCqCOtJr77fnNdzX/yiXjxyRFalTzYG2S0fzaCLK1q9ICMMYNWEArRJ
+	NYj333JvupHmy3QWuE/otKAYP8nLrWwjrv5n3e1iZ5w2DxQ1E0u10TFC9rwP0A16xpGqKgh0ew1
+	rLqXi+hfTwwUw3HVVa+fSqZtvvFmlNQrlOM02PvV/cTg==
+X-Google-Smtp-Source: AGHT+IHxdcPHNWoe4q2z8+xv8KZ4aqsSyV2BXEKTkgjfkUkIUX7h6k04VwkTy8y6Eh7hi4imUnE7cthxPYyId5MeuJo=
+X-Received: by 2002:a05:6808:608e:b0:3fe:b1fd:527f with SMTP id
+ 5614622812f47-404d8616f1emr8733829b6e.1.1747751161606; Tue, 20 May 2025
+ 07:26:01 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm/vgic-v3: Fix write_ignore_64's check in
- __vgic_v3_rdistr_rd_mmio_write()
-To: Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20250520134751.1460968-1-oleksandr_tyshchenko@epam.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <20250520134751.1460968-1-oleksandr_tyshchenko@epam.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20250512144656.314925-1-ross.lagerwall@citrix.com>
+ <20250512144656.314925-3-ross.lagerwall@citrix.com> <3128bda3-d655-43ae-81a7-df61928a27aa@suse.com>
+In-Reply-To: <3128bda3-d655-43ae-81a7-df61928a27aa@suse.com>
+From: Ross Lagerwall <ross.lagerwall@citrix.com>
+Date: Tue, 20 May 2025 15:25:50 +0100
+X-Gm-Features: AX0GCFvg4rTTBAIA7B3ytMnrxKNunW0_T3HZFPlokMbxJtPceQ5t4AHHfkuq4tk
+Message-ID: <CAG7k0Ep0PdNOO0YTkaPa-uBsuQ8Jw6DFTZGLipUs1HbPoCRkgA@mail.gmail.com>
+Subject: Re: [PATCH v2 2/5] public/sysctl: Clarify usage of pm_{px,cx}_stat
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>, 
+	Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>, 
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 20/05/2025 2:47 pm, Oleksandr Tyshchenko wrote:
-> An attempt to write access the register (i.e. GICR_PROPBASER, GICR_PENDBASER)
-> which should be ignored (i.e. no virtual ITS present) causes the data about
-
-Do you mean "data abort" here?  If not, I can't parse the sentence.
-
-> due to incorrect check at the write_ignore_64 label. The check should be
-> inverted.
+On Tue, May 13, 2025 at 3:43=E2=80=AFPM Jan Beulich <jbeulich@suse.com> wro=
+te:
 >
-> Fixes: c4d6bbdc12e5 ("xen/arm: vgic-v3: Support 32-bit access for 64-bit registers")
-> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-> ---
->  xen/arch/arm/vgic-v3.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+> On 12.05.2025 16:46, Ross Lagerwall wrote:
+> > --- a/xen/include/public/sysctl.h
+> > +++ b/xen/include/public/sysctl.h
+> > @@ -215,23 +215,51 @@ typedef struct pm_px_val pm_px_val_t;
+> >  DEFINE_XEN_GUEST_HANDLE(pm_px_val_t);
+> >
+> >  struct pm_px_stat {
+> > -    uint8_t total;        /* total Px states */
+> > -    uint8_t usable;       /* usable Px states */
+> > -    uint8_t last;         /* last Px state */
+> > -    uint8_t cur;          /* current Px state */
+> > -    XEN_GUEST_HANDLE_64(uint64) trans_pt;   /* Px transition table */
+> > +    /*
+> > +     * IN: Number of elements in pt, number of rows/columns in trans_p=
+t
+> > +     *     (PMSTAT_get_pxstat)
+> > +     * OUT: total Px states (PMSTAT_get_max_px, PMSTAT_get_pxstat)
+> > +     */
+> > +    uint8_t total;
 >
-> diff --git a/xen/arch/arm/vgic-v3.c b/xen/arch/arm/vgic-v3.c
-> index 2eaa48fadb..b366b046a2 100644
-> --- a/xen/arch/arm/vgic-v3.c
-> +++ b/xen/arch/arm/vgic-v3.c
-> @@ -649,7 +649,7 @@ bad_width:
->      return 0;
->  
->  write_ignore_64:
-> -    if ( vgic_reg64_check_access(dabt) ) goto bad_width;
-> +    if ( !vgic_reg64_check_access(dabt) ) goto bad_width;
+> The part for this field ought to go in patch 1, as already indicated ther=
+e.
+>
+> > +    uint8_t usable;       /* OUT: usable Px states (PMSTAT_get_pxstat)=
+ */
+> > +    uint8_t last;         /* OUT: last Px state (PMSTAT_get_pxstat) */
+> > +    uint8_t cur;          /* OUT: current Px state (PMSTAT_get_pxstat)=
+ */
+> > +    /*
+> > +     * OUT: Px transition table. This should have total * total elemen=
+ts.
+> > +     *      This will not be copied if it is smaller than the hypervis=
+or's
+> > +     *      Px transition table. (PMSTAT_get_pxstat)
+> > +     */
+> > +    XEN_GUEST_HANDLE_64(uint64) trans_pt;
+> > +    /* OUT: This should have total elements (PMSTAT_get_pxstat) */
+> >      XEN_GUEST_HANDLE_64(pm_px_val_t) pt;
+>
+> As also indicated there, the same constraint as for trans_pt applies to t=
+his
+> output buffer, just that it's having only one dimension.
+>
+> >  };
+> >
+> >  struct pm_cx_stat {
+> > -    uint32_t nr;    /* entry nr in triggers & residencies, including C=
+0 */
+> > -    uint32_t last;  /* last Cx state */
+> > -    uint64_aligned_t idle_time;                 /* idle time from boot=
+ */
+> > -    XEN_GUEST_HANDLE_64(uint64) triggers;    /* Cx trigger counts */
+> > -    XEN_GUEST_HANDLE_64(uint64) residencies; /* Cx residencies */
+> > -    uint32_t nr_pc;                          /* entry nr in pc[] */
+> > -    uint32_t nr_cc;                          /* entry nr in cc[] */
+> >      /*
+> > +     * IN:  Number of elements in triggers, residencies (PMSTAT_get_cx=
+stat)
+> > +     * OUT: entry nr in triggers & residencies, including C0
+> > +     *      (PMSTAT_get_cxstat, PMSTAT_get_max_cx)
+> > +     */
+> > +    uint32_t nr;
+> > +    uint32_t last;  /* OUT: last Cx state (PMSTAT_get_cxstat) */
+> > +    /* OUT: idle time from boot (PMSTAT_get_cxstat)*/
+> > +    uint64_aligned_t idle_time;
+> > +    /* OUT: Cx trigger counts, nr elements (PMSTAT_get_cxstat) */
+> > +    XEN_GUEST_HANDLE_64(uint64) triggers;
+> > +    /* OUT: Cx residencies, nr elements (PMSTAT_get_cxstat) */
+> > +    XEN_GUEST_HANDLE_64(uint64) residencies;
+> > +    /*
+> > +     * IN: entry nr in pc[] (PMSTAT_get_cxstat)
+> > +     * OUT: Index of highest non-zero entry set in pc[] (PMSTAT_get_cx=
+stat)
+> > +     */
+> > +    uint32_t nr_pc;
+> > +    /*
+> > +     * IN: entry nr in cc[] (PMSTAT_get_cxstat)
+> > +     * OUT: Index of highest non-zero entry set in cc[] (PMSTAT_get_cx=
+stat)
+> > +     */
+>
+> For both of these, it's not "highest non-zero" but, according to ...
+>
+> > +    uint32_t nr_cc;
+> > +    /*
+> > +     * OUT: (PMSTAT_get_cxstat)
+> >       * These two arrays may (and generally will) have unused slots; sl=
+ots not
+> >       * having a corresponding hardware register will not be written by=
+ the
+> >       * hypervisor. It is therefore up to the caller to put a suitable =
+sentinel
+>
+> ... this comment, "highest written by hypervisor". They're also not "inde=
+x of",
+> but "one higher than the index of" (i.e. counts, not indexes).
+>
 
-As you're modifying anyway, the goto should be on the next line.
+Looking at this again, I don't think that matches what Xen does (nor
+does my previous attempt). The code in question:
 
-~Andrew
+#define PUT_xC(what, n) do { \
+        if ( stat->nr_##what >=3D n && \
+             copy_to_guest_offset(stat->what, n - 1, &hw_res.what##n, 1) ) =
+\
+            return -EFAULT; \
+        if ( hw_res.what##n ) \
+            nr_##what =3D n; \
+    } while ( 0 )
+
+Xen will copy all the hardware registers that it knows about (regardless
+of whether the hardware actually has them) and will return in nr_pc /
+nr_cc the index + 1 of the highest non-zero entry it _would_ have
+written if there is sufficient space.
+
+I could describe it simply as "OUT: Required size of cc[]" ?
+
+Thanks,
+Ross
 
