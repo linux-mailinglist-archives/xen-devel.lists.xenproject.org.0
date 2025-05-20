@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F0695ABD599
-	for <lists+xen-devel@lfdr.de>; Tue, 20 May 2025 12:54:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.990639.1374577 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D11DABD6AC
+	for <lists+xen-devel@lfdr.de>; Tue, 20 May 2025 13:24:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.990650.1374588 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uHKbm-0005yF-VY; Tue, 20 May 2025 10:54:06 +0000
+	id 1uHL5A-0001Po-56; Tue, 20 May 2025 11:24:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 990639.1374577; Tue, 20 May 2025 10:54:06 +0000
+Received: by outflank-mailman (output) from mailman id 990650.1374588; Tue, 20 May 2025 11:24:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uHKbm-0005vu-Sr; Tue, 20 May 2025 10:54:06 +0000
-Received: by outflank-mailman (input) for mailman id 990639;
- Tue, 20 May 2025 10:54:05 +0000
+	id 1uHL5A-0001Ni-1n; Tue, 20 May 2025 11:24:28 +0000
+Received: by outflank-mailman (input) for mailman id 990650;
+ Tue, 20 May 2025 11:24:26 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=aDZd=YE=cloud.com=ross.lagerwall@srs-se1.protection.inumbo.net>)
- id 1uHKbl-0005vo-QE
- for xen-devel@lists.xenproject.org; Tue, 20 May 2025 10:54:05 +0000
-Received: from mail-oo1-xc2f.google.com (mail-oo1-xc2f.google.com
- [2607:f8b0:4864:20::c2f])
+ <SRS0=J32h=YE=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1uHL58-0001Nc-BY
+ for xen-devel@lists.xenproject.org; Tue, 20 May 2025 11:24:26 +0000
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [2a00:1450:4864:20::62c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id bddd5681-3568-11f0-b892-0df219b8e170;
- Tue, 20 May 2025 12:54:03 +0200 (CEST)
-Received: by mail-oo1-xc2f.google.com with SMTP id
- 006d021491bc7-601ad30bc0cso4527703eaf.0
- for <xen-devel@lists.xenproject.org>; Tue, 20 May 2025 03:54:03 -0700 (PDT)
+ id fb8258eb-356c-11f0-b892-0df219b8e170;
+ Tue, 20 May 2025 13:24:24 +0200 (CEST)
+Received: by mail-ej1-x62c.google.com with SMTP id
+ a640c23a62f3a-acacb8743a7so910838966b.1
+ for <xen-devel@lists.xenproject.org>; Tue, 20 May 2025 04:24:24 -0700 (PDT)
+Received: from [192.168.1.5] (user-109-243-64-38.play-internet.pl.
+ [109.243.64.38]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ad52d498bdcsm723964166b.145.2025.05.20.04.24.22
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 20 May 2025 04:24:23 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,121 +45,279 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bddd5681-3568-11f0-b892-0df219b8e170
+X-Inumbo-ID: fb8258eb-356c-11f0-b892-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1747738442; x=1748343242; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
+        d=gmail.com; s=20230601; t=1747740264; x=1748345064; darn=lists.xenproject.org;
+        h=in-reply-to:content-language:references:cc:to:subject:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=xGVwrBMgdBsxlnizpiLyvWOkFnjHtdjObKHW6G+TjR4=;
-        b=AYxyVNcaIQxOokA7O7Ve4KBZOAO1pOL0FrYwMCd1NQTNmE8BH837Rx8cCN8/4NMqO7
-         aHvo23fn40Ch/erKWIsJWmctdVz4na4hCMX5Xj6avKBydaDFHC7/mqaurKg+1MuDSkWw
-         vGTSk6QkoNRyc72fY99kySDGy1r2MZvEy4KFg=
+        bh=p5WkFV7gQKE7SnY5xtWN/tVTShcjVe3lU294m5RPPUM=;
+        b=HMIeVb8Q4T691UL4af02ZUlOGZdb14z9HVHgPPz85ldViC2VFJxXEx6QvvHaoGn3qg
+         uDx2GJo9snR0phHf1aVEdTfjs0p4oKCeGRC2lddAgwKs88bN6NR4zDPDAoGlOCF/NNxR
+         tZqgNwiZGCrfVj+zGc41gk7TG5jeUTZ2SMkAB7yay8rVQhdujtP4UNlv3DPz9kIgQqNS
+         6G6CC8rE9IlUhQlADSo1M6DxcYn/f54Btp9kSvE0Ntti2v74ruCwyZWybmMEyYxPQKep
+         8+OyeVseqnnHhC+fx8/U7xQyhjxefrefqYnc9NEdP3dhvxZwLf1pfPdk7PJQe+WncdhU
+         2kaw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747738442; x=1748343242;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=xGVwrBMgdBsxlnizpiLyvWOkFnjHtdjObKHW6G+TjR4=;
-        b=diM3KVc702wFC3x+KTkNuApzsLsteS15PfGmAv3AyObudd16B+6yk2osKD45IhOM1K
-         Sr2aTWZRf22Enhi6RjqFHSxHPGLud2pjd+qkjvt0tfuQqRbZ0uAFKROw1szrJ1m8x4pA
-         OLkAUPR/QxwPXzB/owERz3WmbazqeFbcVpenvxZO0usljonXuimdi2vh32ou0t43PP15
-         aatHb2T1RcHbRFqNjfWQGjwzRKF6VqEvRu3ZXer94nIxk+3cu9nA4qPEfV0XQpBbN/+N
-         2rIfhxdqDvZ5J0i8GSfWNIQhZwEjMyIjh/ztTsa9j4rl5OhuBgDMsZPVITKVM+Kwi4cF
-         nlXw==
-X-Gm-Message-State: AOJu0YxDBpRfNzdmoy0apzKk6HrEijtwKL6zAHnqNGNWMf/nO+4OPqkj
-	hj8TVaR5dYuQoZZMoglEnTATxymttLF43TJa34u5U5YaLQ7i8dyPyYVRynhD954KEGYEDFGotvo
-	/VMzm1kcsBGSqpdrwcqG5bGP7atEOmz8NmXaOTzZMgW5yLMSkKkvoNg==
-X-Gm-Gg: ASbGncvB+tocPMlGGXXS5PCHiOrq5CMqGnfF4aMJfwbk8rj1Q+GEcvT2SH2TJulf+8h
-	NiC7f5Cz1aJg1YCEEzjBOPFMJfkcq5nLIWNC/7JLUf1k2XoeI9SQ0QEr3rG9jBfym4Wze3Z67GV
-	wBmyP3W+kaXJL5aN+eTLK23xGtDoZBo8w=
-X-Google-Smtp-Source: AGHT+IFuQOj3S3pNtduZiarIFmLlJlJ1KXTXmEGZzD637yphG81T/AackFlkcxXZEcds3x0fZcdi08ZDHc7Hm+3ZSQI=
-X-Received: by 2002:a4a:ec43:0:b0:603:f809:ce19 with SMTP id
- 006d021491bc7-609f38b5d20mr8515684eaf.3.1747738442026; Tue, 20 May 2025
- 03:54:02 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1747740264; x=1748345064;
+        h=in-reply-to:content-language:references:cc:to:subject:from
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=p5WkFV7gQKE7SnY5xtWN/tVTShcjVe3lU294m5RPPUM=;
+        b=MqPfTxeO7mQsSqWFHlkne/p+galEavcSGftEzAxaKCK4czbFI9nOUnA7+rivuYkSRe
+         4XFFQYrkKkvaUg02XIpdkzzuvhBt6XyIOORugd18SB/uLbf77809M3beBpCCaD/wYqnR
+         a4WBHFm4nX21A1zmQe4z/UWMmoKUIncaNWMZXZ2Y06UFxgFYiTOjGbYQExzJNFP66I6b
+         8toRfGQTg1+Tu9gGmke0GmDnUcEQKrzbb/hDhmMRKuaNvx7GYGje5xS07o+tVSs4ssAc
+         9WfUpe9UxBU6Q/dq2gL64pYndsTqr6VAx/GHsRbLz56xIVO/3HnA1fO1F3xURbjFaCGL
+         S5Ig==
+X-Forwarded-Encrypted: i=1; AJvYcCUi7E79cpsA3qdpn0A9DxoEIu/YBC2UDUQhtG1zJw/o+n+mYZtkOg/Ll98f2y+3Yo2MpUoDaWJA5ZA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxI+J0dCEWvmCCMoUiFb8JC+W/Ufqc2c+lsVW07n72527HqUGBi
+	onq1UdCp5eZdd4WcaPqkKr4fw57umEkHjGZZQQ904iPznvM+h3H2EjeB
+X-Gm-Gg: ASbGncsUTeOnxMHqbX2VWOoDO98bJNIkE/+BA7Afd4iVGcGgamZ4bkJPm72lJISM8xh
+	is36zPkvofLqw8iEiuVEL6+3qz1/DJp6FisWrFLJywZAwFDm4xbO/PAfZGgMrOD9zsDkQvh47kc
+	iPKMSVyv6ci+WL2sx3qVbV7B9bldPbJb7BsXuqwz5CbnCx0CNr4kHAGWtcSY4CCpW4oEeOFZLx6
+	kXZLqy9sPIZ2xoYRp5oU7D60SaEcY/qD1241TPtO/3R7C6FJTf6E+oF9vanG/R10GcuotCg+i7/
+	FFNoK1Xgt+/5DlZdR40k7Rdk2viLQrBiuE2h3mOuW6rJAhgNVEkX/l0UJrgYFWJMXc2a/wQw6Yu
+	/LzllSduinsTFsPZW/D0icp30
+X-Google-Smtp-Source: AGHT+IGconidpi61EM1K21vFYjyKCvYVd66AyyQbuAXSHBdRAGYZn8jXqxqjgKCLEq4692a+h1q0aA==
+X-Received: by 2002:a17:906:c105:b0:ad5:74cd:1813 with SMTP id a640c23a62f3a-ad574cd1daemr571103666b.9.1747740263280;
+        Tue, 20 May 2025 04:24:23 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------VxayjQKBwJIkrf4DTCwCgXez"
+Message-ID: <14af72c4-56dd-4a50-978c-305de81373cd@gmail.com>
+Date: Tue, 20 May 2025 13:24:21 +0200
 MIME-Version: 1.0
-References: <20250512144656.314925-1-ross.lagerwall@citrix.com>
- <20250512144656.314925-2-ross.lagerwall@citrix.com> <204e177c-beba-41a1-93bf-3ae6454875cc@suse.com>
-In-Reply-To: <204e177c-beba-41a1-93bf-3ae6454875cc@suse.com>
-From: Ross Lagerwall <ross.lagerwall@citrix.com>
-Date: Tue, 20 May 2025 11:53:51 +0100
-X-Gm-Features: AX0GCFtrwzoYOnZoUGt8Lfv8goLG49nSFPprLdbqQR1YewUINpoSBO_ypMvy_lE
-Message-ID: <CAG7k0EqeXPiBZ8AJG2VuszCPvcQAiVh25B8=3SfLsECk-FYs3g@mail.gmail.com>
-Subject: Re: [PATCH v2 1/5] x86/pmstat: Check size of PMSTAT_get_pxstat buffers
+User-Agent: Mozilla Thunderbird
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Subject: Re: [PATCH v2 13/16] xen/riscv: implementation of aplic and imsic
+ operations
 To: Jan Beulich <jbeulich@suse.com>
-Cc: xen-devel@lists.xenproject.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Romain Caritey <Romain.Caritey@microchip.com>, xen-devel@lists.xenproject.org
+References: <cover.1746530883.git.oleksii.kurochko@gmail.com>
+ <37d309520a0adb8bb3f4e51a985a2d56b669ba9e.1746530883.git.oleksii.kurochko@gmail.com>
+ <bf9f3fb0-91df-4c00-af4b-87b9157e10fe@suse.com>
+Content-Language: en-US
+In-Reply-To: <bf9f3fb0-91df-4c00-af4b-87b9157e10fe@suse.com>
 
-On Tue, May 13, 2025 at 3:27=E2=80=AFPM Jan Beulich <jbeulich@suse.com> wro=
-te:
->
-> On 12.05.2025 16:46, Ross Lagerwall wrote:
-> > Check that the total number of states passed in and hence the size of
-> > buffers is sufficient to avoid writing more than the caller has
-> > allocated.
-> >
-> > The interface is not explicit about whether getpx.total is expected to
-> > be set by the caller in this case but since it is always set in
-> > libxenctrl it seems reasonable to check it.
->
-> Yet if we start checking the value, I think the public header should also
-> be made say so (in a comment).
->
-> > --- a/xen/drivers/acpi/pmstat.c
-> > +++ b/xen/drivers/acpi/pmstat.c
-> > @@ -103,8 +103,10 @@ int do_get_pm_info(struct xen_sysctl_get_pmstat *o=
-p)
-> >
-> >          cpufreq_residency_update(op->cpuid, pxpt->u.cur);
-> >
-> > -        ct =3D pmpt->perf.state_count;
-> > -        if ( copy_to_guest(op->u.getpx.trans_pt, pxpt->u.trans_pt, ct*=
-ct) )
-> > +        ct =3D min_t(uint32_t, pmpt->perf.state_count, op->u.getpx.tot=
-al);
->
-> With this, ...
->
-> > +        if ( ct <=3D op->u.getpx.total &&
->
-> ... this is going to be always true, isn't it? Which constitutes a violat=
-ion
-> of Misra rule 14.3.
->
-> Also it would be nice if the min_t() could become a normal min(), e.g. by
-> "promoting" op->u.getpx.total to unsigned int via adding 0U. This way it'=
-s
-> clear there's no hidden truncation (or else there might be an argument fo=
-r
-> keeping the check above).
->
-> > +             copy_to_guest(op->u.getpx.trans_pt, pxpt->u.trans_pt, ct =
-* ct) )
-> >          {
-> >              spin_unlock(cpufreq_statistic_lock);
-> >              ret =3D -EFAULT;
->
-> Why would you constrain this copy-out but not the one just out of context
-> below here? (The question is of course moot if the condition was dropped.=
-)
->
+This is a multi-part message in MIME format.
+--------------VxayjQKBwJIkrf4DTCwCgXez
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Oh, I had intended this condition to be...
 
-    if ( ct =3D=3D op->u.getpx.total &&
+On 5/15/25 11:44 AM, Jan Beulich wrote:
+>> @@ -159,6 +270,8 @@ static int __init aplic_preinit(struct dt_device_node *node, const void *dat)
+>>   
+>>       dt_irq_xlate = aplic_irq_xlate;
+>>   
+>> +    spin_lock_init(&aplic.lock);
+> Can't you have the struct field have a suitable initializer?
 
-... based on your previous comment about the difficulties of partially
-copying a 2d array.
+Sure, I will use struct initializer:
+   static struct aplic_priv aplic = {
+       .lock = SPIN_LOCK_UNLOCKED,
+   };
 
-> An option may be to document that this array is copied only when the
-> buffer is large enough.
+>> +static void imsic_local_eix_update(unsigned long base_id, unsigned long num_id,
+>> +                                   bool pend, bool val)
+>> +{
+>> +    unsigned long id = base_id, last_id = base_id + num_id;
+>> +
+>> +    while ( id < last_id )
+>> +    {
+>> +        unsigned long isel, ireg;
+>> +        unsigned long start_id = id & (__riscv_xlen - 1);
+>> +        unsigned long chunk = __riscv_xlen - start_id;
+>> +        unsigned long count = (last_id - id < chunk) ? last_id - id : chunk;
+>> +
+>> +        isel = id / __riscv_xlen;
+>> +        isel *= __riscv_xlen / IMSIC_EIPx_BITS;
+>> +        isel += pend ? IMSIC_EIP0 : IMSIC_EIE0;
+>> +
+>> +        ireg = GENMASK(start_id + count - 1, start_id);
+>> +
+>> +        id += count;
+>> +
+>> +        if ( val )
+>> +            imsic_csr_set(isel, ireg);
+>> +        else
+>> +            imsic_csr_clear(isel, ireg);
+>> +    }
+>> +}
+>> +
+>> +void imsic_irq_enable(unsigned int irq)
+>> +{
+>> +    unsigned long flags;
+>> +
+>> +    spin_lock_irqsave(&imsic_cfg.lock, flags);
+>> +    /*
+>> +     * There is no irq - 1 here (look at aplic_set_irq_type()) because:
+>> +     * From the spec:
+>> +     *   When an interrupt file supports distinct interrupt identities,
+>> +     *   valid identity numbers are between 1 and inclusive. The identity
+>> +     *   numbers within this range are said to be implemented by the interrupt
+>> +     *   file; numbers outside this range are not implemented. The number zero
+>> +     *   is never a valid interrupt identity.
+>> +     *   ...
+>> +     *   Bit positions in a valid eiek register that don’t correspond to a
+>> +     *   supported interrupt identity (such as bit 0 of eie0) are read-only zeros.
+>> +     *
+>> +     * So in EIx registers interrupt i corresponds to bit i in comparison wiht
+>> +     * APLIC's sourcecfg which starts from 0. (l)
+> What's this 'l' in parentheses here to indicate?
 
-I left the other alone since partially copying a 1d array makes sense.
+I don't really remember, it seems like I want to point to the spec, but
+then just make a quote from the spec instead. I'll just drop it.
 
-If you would prefer, I can drop the condition and just let the caller
-deal with the partially copied 2d array?
+>> +     */
+>> +    imsic_local_eix_update(irq, 1, false, true);
+>> +    spin_unlock_irqrestore(&imsic_cfg.lock, flags);
+>> +}
+>> +
+>> +void imsic_irq_disable(unsigned int irq)
+>> +{
+>> +    unsigned long flags;
+>> +
+>> +    spin_lock_irqsave(&imsic_cfg.lock, flags);
+>> +    imsic_local_eix_update(irq, 1, false, false);
+>> +    spin_unlock_irqrestore(&imsic_cfg.lock, flags);
+>> +}
+> The sole caller of the function has doubly turned off IRQs already; perhaps
+> no need to it a 3rd time, unless other callers are to appear? Same for
+> imsic_irq_enable() as it looks.
 
-Thanks,
-Ross
+I checked a code in private branches and it seems like these functions are called
+only in aplic_irq_{enable,disable}(), so we could do, at least,spin_lock(&imsic_cfg.lock)
++ ASSERT(!local_irq_is_enabled());
+
+~ Oleksii
+
+
+--------------VxayjQKBwJIkrf4DTCwCgXez
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 5/15/25 11:44 AM, Jan Beulich wrote:</div>
+    <blockquote type="cite"
+      cite="mid:bf9f3fb0-91df-4c00-af4b-87b9157e10fe@suse.com">
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">@@ -159,6 +270,8 @@ static int __init aplic_preinit(struct dt_device_node *node, const void *dat)
+ 
+     dt_irq_xlate = aplic_irq_xlate;
+ 
++    spin_lock_init(&amp;aplic.lock);
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">Can't you have the struct field have a suitable initializer?</pre>
+    </blockquote>
+    <pre>Sure, I will use struct initializer:
+  static struct aplic_priv aplic = {
+      .lock = SPIN_LOCK_UNLOCKED,
+  };
+
+</pre>
+    <blockquote type="cite"
+      cite="mid:bf9f3fb0-91df-4c00-af4b-87b9157e10fe@suse.com">
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+static void imsic_local_eix_update(unsigned long base_id, unsigned long num_id,
++                                   bool pend, bool val)
++{
++    unsigned long id = base_id, last_id = base_id + num_id;
++
++    while ( id &lt; last_id )
++    {
++        unsigned long isel, ireg;
++        unsigned long start_id = id &amp; (__riscv_xlen - 1);
++        unsigned long chunk = __riscv_xlen - start_id;
++        unsigned long count = (last_id - id &lt; chunk) ? last_id - id : chunk;
++
++        isel = id / __riscv_xlen;
++        isel *= __riscv_xlen / IMSIC_EIPx_BITS;
++        isel += pend ? IMSIC_EIP0 : IMSIC_EIE0;
++
++        ireg = GENMASK(start_id + count - 1, start_id);
++
++        id += count;
++
++        if ( val )
++            imsic_csr_set(isel, ireg);
++        else
++            imsic_csr_clear(isel, ireg);
++    }
++}
++
++void imsic_irq_enable(unsigned int irq)
++{
++    unsigned long flags;
++
++    spin_lock_irqsave(&amp;imsic_cfg.lock, flags);
++    /*
++     * There is no irq - 1 here (look at aplic_set_irq_type()) because:
++     * From the spec:
++     *   When an interrupt file supports distinct interrupt identities,
++     *   valid identity numbers are between 1 and inclusive. The identity
++     *   numbers within this range are said to be implemented by the interrupt
++     *   file; numbers outside this range are not implemented. The number zero
++     *   is never a valid interrupt identity.
++     *   ...
++     *   Bit positions in a valid eiek register that don’t correspond to a
++     *   supported interrupt identity (such as bit 0 of eie0) are read-only zeros.
++     *
++     * So in EIx registers interrupt i corresponds to bit i in comparison wiht
++     * APLIC's sourcecfg which starts from 0. (l)
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">What's this 'l' in parentheses here to indicate?</pre>
+    </blockquote>
+    <pre>I don't really remember, it seems like I want to point to the spec, but
+then just make a quote from the spec instead. I'll just drop it.
+
+</pre>
+    <blockquote type="cite"
+      cite="mid:bf9f3fb0-91df-4c00-af4b-87b9157e10fe@suse.com">
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+     */
++    imsic_local_eix_update(irq, 1, false, true);
++    spin_unlock_irqrestore(&amp;imsic_cfg.lock, flags);
++}
++
++void imsic_irq_disable(unsigned int irq)
++{
++    unsigned long flags;
++
++    spin_lock_irqsave(&amp;imsic_cfg.lock, flags);
++    imsic_local_eix_update(irq, 1, false, false);
++    spin_unlock_irqrestore(&amp;imsic_cfg.lock, flags);
++}
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">The sole caller of the function has doubly turned off IRQs already; perhaps
+no need to it a 3rd time, unless other callers are to appear? Same for
+imsic_irq_enable() as it looks.</pre>
+    </blockquote>
+    <pre>I checked a code in private branches and it seems like these functions are called
+only in aplic_irq_{enable,disable}(), so we could do, at least,spin_lock(&amp;imsic_cfg.lock)
++ ASSERT(!local_irq_is_enabled());
+
+~ Oleksii</pre>
+    <br>
+  </body>
+</html>
+
+--------------VxayjQKBwJIkrf4DTCwCgXez--
 
