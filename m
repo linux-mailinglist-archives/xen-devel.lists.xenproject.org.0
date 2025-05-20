@@ -2,35 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 162A1ABE451
-	for <lists+xen-devel@lfdr.de>; Tue, 20 May 2025 22:03:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.991107.1375007 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6566BABE4A4
+	for <lists+xen-devel@lfdr.de>; Tue, 20 May 2025 22:19:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.991116.1375018 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uHTB0-0007Mk-Dl; Tue, 20 May 2025 20:03:02 +0000
+	id 1uHTQi-0000oQ-Nc; Tue, 20 May 2025 20:19:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 991107.1375007; Tue, 20 May 2025 20:03:02 +0000
+Received: by outflank-mailman (output) from mailman id 991116.1375018; Tue, 20 May 2025 20:19:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uHTB0-0007KT-B6; Tue, 20 May 2025 20:03:02 +0000
-Received: by outflank-mailman (input) for mailman id 991107;
- Tue, 20 May 2025 20:03:00 +0000
+	id 1uHTQi-0000mQ-Kg; Tue, 20 May 2025 20:19:16 +0000
+Received: by outflank-mailman (input) for mailman id 991116;
+ Tue, 20 May 2025 20:19:16 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=t5uZ=YE=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1uHTAy-0007KJ-H4
- for xen-devel@lists.xenproject.org; Tue, 20 May 2025 20:03:00 +0000
-Received: from sea.source.kernel.org (sea.source.kernel.org
- [2600:3c0a:e001:78e:0:1991:8:25])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6ce2e59c-35b5-11f0-a2fa-13f23c93f187;
- Tue, 20 May 2025 22:02:59 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 437B14A90C;
- Tue, 20 May 2025 20:02:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F670C4CEE9;
- Tue, 20 May 2025 20:02:56 +0000 (UTC)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=UQuu=YE=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
+ id 1uHTQh-0000mK-5G
+ for xen-devel@lists.xenproject.org; Tue, 20 May 2025 20:19:16 +0000
+Received: from mail-10628.protonmail.ch (mail-10628.protonmail.ch
+ [79.135.106.28]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b1f45692-35b7-11f0-a2fa-13f23c93f187;
+ Tue, 20 May 2025 22:19:13 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,72 +36,87 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6ce2e59c-35b5-11f0-a2fa-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1747771377;
-	bh=kUJ98PLL4WbosrjwO3iyr66mZbx35KyWFRV12XfJfH0=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=pgyIy+1zFYu12dN+VYIYI6LQy9/QI0MYBnVwJlDZExO39F/kQNT6UPOD7GzrDcQ4u
-	 PwXMgqldsWgoei+CzIIbob3myLQ/UE15EvLeg1XbJ1jR+BpGRzGQQwmz1jZgTD3jSm
-	 PAsWqMVg1Rtqf5gvDEPdoDvvl0xPWQrvnM4iz+fXI1/cA9C6FlK8I/C6fvQjx+xzrw
-	 XIWND7ZErhVrO6ECm7ZXt0kFci5TK1FxretM+yX0i9mMQGi5dbIEPiS6xsRia3qsPo
-	 23DdKy1Q7iwsgoRiFlXywsxh5D9NBb3LPk0GSdf0VbMdH7+WltsUM9/W08tQQUPYWG
-	 6ohhL6AZLp5vg==
-Date: Tue, 20 May 2025 13:02:54 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+X-Inumbo-ID: b1f45692-35b7-11f0-a2fa-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail; t=1747772352; x=1748031552;
+	bh=clDefMXEPEmZIzclS1GpKOWlZqrN8tP4S0W+ZRs0nNM=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector:List-Unsubscribe:List-Unsubscribe-Post;
+	b=fOBIp1YQZYjQdWEFL39AY4lKKHiHr2XxkTt0PWOlc3v/oWmC8iGO5Q1O9OieJk89x
+	 eoOsdKLuLWlOJvZ5O1RAolm+5Adx1xAUbhAhPw7xfv68peYcPdGjYqX4ak664j9jGu
+	 YMbS8VR+QVq9N6z1tLasipdMaGazyHJqocNXnWTRBiaDuCReE1CCI59AIP9dGYpKp/
+	 zcs2aGypLGvnssENxlV+f76yzkY4tvIc+ypPjebdGvPtHb7q7HZF5xz2KDA/guGMSd
+	 rJupNOGhxE9zR4XZWPimuh6b+bqkaK3vajHg7YqHEguM+HNJHlkJgQbFKLXNK7ySgz
+	 QRFytgtZCpdtw==
+Date: Tue, 20 May 2025 20:19:08 +0000
 To: Andrew Cooper <andrew.cooper3@citrix.com>
-cc: Xen-devel <xen-devel@lists.xenproject.org>, 
-    Anthony PERARD <anthony.perard@vates.tech>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Subject: Re: [PATCH TEST-ARTEFACTS] (Re)add python3 to alpine rootfs
-In-Reply-To: <20250520195141.198061-1-andrew.cooper3@citrix.com>
-Message-ID: <alpine.DEB.2.22.394.2505201302480.2019926@ubuntu-linux-20-04-desktop>
-References: <20250520195141.198061-1-andrew.cooper3@citrix.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+From: dmkhn@proton.me
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, Christopher Clark <christopher.w.clark@gmail.com>, "Daniel P . Smith" <dpsmith@apertussolutions.com>
+Subject: Re: [PATCH] xen/argo: Command line handling improvements
+Message-ID: <aCzjek93ulhq2uHG@kraken>
+In-Reply-To: <20250520141027.120958-1-andrew.cooper3@citrix.com>
+References: <20250520141027.120958-1-andrew.cooper3@citrix.com>
+Feedback-ID: 123220910:user:proton
+X-Pm-Message-ID: d5074852dfa1a42e339fe44b1da18bcb3b21f600
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-1091536216-1747771377=:2019926"
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---8323329-1091536216-1747771377=:2019926
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
-
-On Tue, 20 May 2025, Andrew Cooper wrote:
-> XTF uses python, and we're looking to reintroduce XTF testing to Xen.
-> 
+On Tue, May 20, 2025 at 03:10:27PM +0100, Andrew Cooper wrote:
+> Treat "argo" on the command line as a positive boolean, rather than requi=
+ring
+> the user to pass "argo=3D1/on/enable/true".
+>=20
+> Move both opt_argo* variables into __ro_after_init.  They're set during
+> command line parsing and never modified thereafter.
+>=20
 > Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Acked-by: Stefano Stabellini <sstabellini@kernel.org>
-
+Reviewed-by: Denis Mukhin <dmukhin@ford.com>
 
 > ---
-> CC: Anthony PERARD <anthony.perard@vates.tech>
-> CC: Stefano Stabellini <sstabellini@kernel.org>
-> CC: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+> CC: Christopher Clark <christopher.w.clark@gmail.com>
+> CC: Daniel P. Smith <dpsmith@apertussolutions.com>
+> CC: Denis Mukhin <dmkhn@proton.me>
+>=20
+> Found while
 > ---
->  scripts/alpine-rootfs.sh | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/scripts/alpine-rootfs.sh b/scripts/alpine-rootfs.sh
-> index c304e2ebfbd9..c999b89dbcd8 100755
-> --- a/scripts/alpine-rootfs.sh
-> +++ b/scripts/alpine-rootfs.sh
-> @@ -22,6 +22,9 @@ PKGS=(
->      xz
->      yajl
->  
-> +    # Xen Test Framework
-> +    python3
-> +
->      # QEMU
->      glib
->      libaio
-> -- 
+>  xen/common/argo.c | 9 ++++++---
+>  1 file changed, 6 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/xen/common/argo.c b/xen/common/argo.c
+> index cbe8911a4364..027b37b18a6c 100644
+> --- a/xen/common/argo.c
+> +++ b/xen/common/argo.c
+> @@ -79,8 +79,8 @@ DEFINE_XEN_GUEST_HANDLE(xen_argo_unregister_ring_t);
+>  DEFINE_COMPAT_HANDLE(compat_argo_iov_t);
+>  #endif
+>=20
+> -static bool __read_mostly opt_argo;
+> -static bool __read_mostly opt_argo_mac_permissive;
+> +static bool __ro_after_init opt_argo;
+> +static bool __ro_after_init opt_argo_mac_permissive;
+>=20
+>  static int __init cf_check parse_argo(const char *s)
+>  {
+> @@ -92,7 +92,10 @@ static int __init cf_check parse_argo(const char *s)
+>          if ( !ss )
+>              ss =3D strchr(s, '\0');
+>=20
+> -        if ( (val =3D parse_bool(s, ss)) >=3D 0 )
+> +        /* Intepret "argo" as a positive boolean. */
+> +        if ( *s =3D=3D '\0' )
+> +            opt_argo =3D true;
+> +        else if ( (val =3D parse_bool(s, ss)) >=3D 0 )
+>              opt_argo =3D val;
+>          else if ( (val =3D parse_boolean("mac-permissive", s, ss)) >=3D =
+0 )
+>              opt_argo_mac_permissive =3D val;
+>=20
+> base-commit: 293abb9e0c5e8df96cc5dfe457c62dfcb7542b19
+> --
 > 2.39.5
-> 
---8323329-1091536216-1747771377=:2019926--
+>=20
+
 
