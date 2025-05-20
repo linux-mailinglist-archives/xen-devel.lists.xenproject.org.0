@@ -2,35 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F0A12ABE7D7
-	for <lists+xen-devel@lfdr.de>; Wed, 21 May 2025 01:00:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.991227.1375118 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 59DA5ABE814
+	for <lists+xen-devel@lfdr.de>; Wed, 21 May 2025 01:33:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.991239.1375129 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uHVwd-0000Zi-V9; Tue, 20 May 2025 23:00:23 +0000
+	id 1uHWRu-0004WY-Dq; Tue, 20 May 2025 23:32:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 991227.1375118; Tue, 20 May 2025 23:00:23 +0000
+Received: by outflank-mailman (output) from mailman id 991239.1375129; Tue, 20 May 2025 23:32:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uHVwd-0000Y6-SW; Tue, 20 May 2025 23:00:23 +0000
-Received: by outflank-mailman (input) for mailman id 991227;
- Tue, 20 May 2025 23:00:22 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uHWRu-0004TR-AI; Tue, 20 May 2025 23:32:42 +0000
+Received: by outflank-mailman (input) for mailman id 991239;
+ Tue, 20 May 2025 23:32:40 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=t5uZ=YE=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1uHVwc-0000Y0-Ck
- for xen-devel@lists.xenproject.org; Tue, 20 May 2025 23:00:22 +0000
-Received: from sea.source.kernel.org (sea.source.kernel.org
- [2600:3c0a:e001:78e:0:1991:8:25])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 328b1fc9-35ce-11f0-b892-0df219b8e170;
- Wed, 21 May 2025 01:00:18 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id E84FD43EAA;
- Tue, 20 May 2025 23:00:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97D70C4CEED;
- Tue, 20 May 2025 23:00:15 +0000 (UTC)
+ <SRS0=iUqS=YE=gmail.com=christopher.w.clark@srs-se1.protection.inumbo.net>)
+ id 1uHWRs-0004TL-R9
+ for xen-devel@lists.xenproject.org; Tue, 20 May 2025 23:32:40 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b7f3281c-35d2-11f0-a2fa-13f23c93f187;
+ Wed, 21 May 2025 01:32:39 +0200 (CEST)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-442ccf0e1b3so75846115e9.3
+ for <xen-devel@lists.xenproject.org>; Tue, 20 May 2025 16:32:39 -0700 (PDT)
+Received: from localhost.localdomain ([91.85.47.110])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-447f6b297easm50341795e9.6.2025.05.20.16.32.36
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 20 May 2025 16:32:37 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,68 +45,77 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 328b1fc9-35ce-11f0-b892-0df219b8e170
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1747782016;
-	bh=yf4qWMc/IA2YMVmMvjSwkXQJW55ZJqmF11D4O+oxhIo=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=lMFklAyCb+VeDKNcvvtf6T5R5ixorp1nQmPbb2SnAnCaFQA7dcOADT891R+Ie61JS
-	 k88+sZpb/xE0+hNMmP3zQZhh7kJqUFKqgnlbB4WcnU87Ydx3AB1Pd2xkF3wu0/xrnf
-	 lzAZeazat0b287mjA83QHmxdIy11NvTCgY9tc/arQ/pcV6chzshmPRL2yxlGAkgJzm
-	 3IlAqgY70wh3kc+NmVfA6HB0pI7mGUAivTe8ut3o2N/YVQ6Z/L6trwI2Vb7zHCmOY5
-	 FrdSp7aDZRxmqmul/4z4TyddxyyZ3ZpbPP2plOso6vJXgDlnpCfXwixiPD7/uRwUtN
-	 cbuXBx+FF9LBA==
-Date: Tue, 20 May 2025 16:00:14 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: dmkhn@proton.me
-cc: Jan Beulich <jbeulich@suse.com>, andrew.cooper3@citrix.com, 
-    anthony.perard@vates.tech, julien@xen.org, michal.orzel@amd.com, 
-    roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com, 
-    xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v2 2/2] xen/domain: rewrite emulation_flags_ok()
-In-Reply-To: <aC0EYzZgzCfOovVL@kraken>
-Message-ID: <alpine.DEB.2.22.394.2505201554440.2019926@ubuntu-linux-20-04-desktop>
-References: <20250516022855.1146121-1-dmukhin@ford.com> <20250516022855.1146121-3-dmukhin@ford.com> <e13d061a-16ee-4b8d-8d4a-db1bba609bdf@suse.com> <aC0EYzZgzCfOovVL@kraken>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: b7f3281c-35d2-11f0-a2fa-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1747783958; x=1748388758; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=I8V1hl11gRxp9GaliI0XC+7jI+TfFKoJTghQ0PP0k5o=;
+        b=blFgHdCcwnVg/AMZI3KpTm5eD5DCudocNl+8Y2cfrrP6OCvYjnfeqVvKDYIyCmZelx
+         imzDV70mUVBDaPSEIK3tJNTNiwmeEV5/QijloizJXSgiHde7BnumeuAbtEDmbAAnXb/9
+         H+T72pzNCWlSluv+rPnJzpgGUlzvXUIsJZL6rJIdK2AET+KDPWPY55VG+OvPvxiCu7eZ
+         Ag7JKNHx2Jb3SiGN0K8BlJ1p7xUl9kbkjwkkIIq1ROAv+CCmQgM2ZYHORa8soIOWhz1C
+         L3O95gjBrU5HCHHEXjxnc5fnvqzqiVxbYQW0f+smJrjXLTP8WejecEXGZNth8nu/OBkb
+         RvYA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1747783958; x=1748388758;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=I8V1hl11gRxp9GaliI0XC+7jI+TfFKoJTghQ0PP0k5o=;
+        b=pnx4F1GGosO2pQgG2bjtdGBfKXgSjiexZ7Y73/AG3TzaTdQVLYlHN61qX2tVlZZZk9
+         MfT7av5sJR8olb03orPEZ+n1OrfEzZ+3DRHxbUcjs25+IU1DTNgfWcqF+ezVksXKgoRF
+         ZgsT6yjp+8oaGyRJVwRkVJuaDM7pHgIwuLL/h2dhywVLAoyIOq/qv2yZ22i7jgmD2kxr
+         rVnsfgCmiC+J3BfcaRi30mu+dYvYgzK3VeRmG97gfYMTi/dEZtIqAqCMsvsfizxhXqAO
+         5J5HigGf5pNGlOrzwwDy9yk8Mra6I+7Q0nehAUe5oFcm6B6q0WYFDv/n/JRYF/hyIj9w
+         8W5A==
+X-Gm-Message-State: AOJu0Yzkv34hYbKiXKYIR2+r5Qo8AV2ZQ4s6SbkakseAt2Yrl8IXOcJ1
+	WWW1V5wBjZkbsvnRf7uWdncxG7NYM+amZrvZXpYrlffutGPdJvv95nj1AYEwzg==
+X-Gm-Gg: ASbGncv+sWH2o2bgzI3qFzFlmMPUEjL7kNNUPZt985uP5/DzXUW/4cU8f5ZYfvElzX3
+	APONZa3UfY1Sjl1ms+uPSMRggq2nPRjTg8njHGSf/9I3WJH+vuWzAVr2RZpOqp4XPCZ2cBJNN3O
+	q6FzVk8bkPsyqd34DupoBUaww9NkWLbZkUOvzVjPED4KKfhk1LOlmOzd5yfUFzkPGY1k88RgZtF
+	tmd6gzi6BLZUo406g2HhYQCGS5uxqxOS9g1sIbHrst5s0JNLRNGkftpfbKsWSOM/N2xnqyi+L1C
+	L9CmUueW9H6l5yzQf+EUqDiUWm270jfHLiQiDSLlZfaf3iehVGr3vqI9hz8Rppzhw5/a69ktT8U
+	=
+X-Google-Smtp-Source: AGHT+IHxFziV1JdmTPj33vQndpna0YnSHJI7adhPiuJPEVysxFsM8IEqWA40pZhj7DrjHxlMS9IXVA==
+X-Received: by 2002:a05:600c:4686:b0:442:f4a3:9338 with SMTP id 5b1f17b1804b1-442fd664a41mr150737175e9.21.1747783957932;
+        Tue, 20 May 2025 16:32:37 -0700 (PDT)
+From: Christopher Clark <christopher.w.clark@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Daniel Smith <dpsmith@apertussolutions.com>,
+	Rich Persaud <persaur@gmail.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH 1/2] MAINTAINERS: include Argo documentation in the ARGO section
+Date: Wed, 21 May 2025 00:32:19 +0100
+Message-Id: <20250520233220.868258-1-christopher.w.clark@gmail.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 8bit
 
-On Tue, 20 May 2025, dmkhn@proton.me wrote:
-> On Tue, May 20, 2025 at 05:24:33PM +0200, Jan Beulich wrote:
-> > On 16.05.2025 04:29, dmkhn@proton.me wrote:
-> > > --- a/xen/arch/x86/include/asm/domain.h
-> > > +++ b/xen/arch/x86/include/asm/domain.h
-> > > @@ -494,6 +494,12 @@ struct arch_domain
-> > >                                   X86_EMU_PIT | X86_EMU_USE_PIRQ |       \
-> > >                                   X86_EMU_VPCI)
-> > >
-> > > +/* User-selectable features. */
-> > > +#define X86_EMU_OPTIONAL        (X86_EMU_USE_PIRQ)
-> > > +
-> > > +#define X86_EMU_BASELINE        (X86_EMU_ALL & ~(X86_EMU_VPCI | \
-> > > +                                                 X86_EMU_OPTIONAL))
-> > 
-> > That is, VPCI is neither baseline nor optional. Certainly at least strange.
+Signed-off-by: Christopher Clark <christopher.w.clark@gmail.com>
+---
+ MAINTAINERS | 1 +
+ 1 file changed, 1 insertion(+)
 
-I think Denis tried to keep the code more similar to the original. This
-way it is easier to review the code change and it seems correct. But at
-the same time it is easier to spot inconsistency that were present even
-before the patch.
-
-
-> IMO, X86_EMU_OPTIONAL should include both VPCI and PIRQ.
-
-It looks that way to me too.
-
-However, then we need to be careful as the check would differ from the
-original, but maybe that's OK. We want vPCI to be potentially exposed to
-DomUs as well.
-
-
-> But that will be a behavior change: AFAIU, VPCI is injected implicitly for dom0
-> case only, "default" xl toolstack currently excludes VPCI for HVM domains.
-> 
-> Do I understand it correctly that "BASELINE" in the symbol name is a concern?
+diff --git a/MAINTAINERS b/MAINTAINERS
+index c11b82eca9..e7198363c5 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -226,6 +226,7 @@ S:	Maintained
+ F:	xen/include/public/argo.h
+ F:	xen/include/xen/argo.h
+ F:	xen/common/argo.c
++F:	docs/designs/argo.pandoc
+ 
+ ARINC653 SCHEDULER
+ M:	Nathan Studer <nathan.studer@dornerworks.com>
+-- 
+2.25.1
 
 
