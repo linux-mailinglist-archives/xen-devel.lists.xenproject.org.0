@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BFB68ABD3B6
-	for <lists+xen-devel@lfdr.de>; Tue, 20 May 2025 11:44:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.990614.1374557 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 432C1ABD565
+	for <lists+xen-devel@lfdr.de>; Tue, 20 May 2025 12:44:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.990627.1374567 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uHJVo-0004Y3-Om; Tue, 20 May 2025 09:43:52 +0000
+	id 1uHKRx-0004ID-1Y; Tue, 20 May 2025 10:43:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 990614.1374557; Tue, 20 May 2025 09:43:52 +0000
+Received: by outflank-mailman (output) from mailman id 990627.1374567; Tue, 20 May 2025 10:43:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uHJVo-0004Vc-Ln; Tue, 20 May 2025 09:43:52 +0000
-Received: by outflank-mailman (input) for mailman id 990614;
- Tue, 20 May 2025 09:43:50 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uHKRw-0004Gl-V6; Tue, 20 May 2025 10:43:56 +0000
+Received: by outflank-mailman (input) for mailman id 990627;
+ Tue, 20 May 2025 10:43:55 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=8eI0=YE=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1uHJVm-0004VU-RM
- for xen-devel@lists.xenproject.org; Tue, 20 May 2025 09:43:50 +0000
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [2a00:1450:4864:20::62b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id eed597e5-355e-11f0-a2fa-13f23c93f187;
- Tue, 20 May 2025 11:43:50 +0200 (CEST)
-Received: by mail-ej1-x62b.google.com with SMTP id
- a640c23a62f3a-ad5533c468cso416482966b.0
- for <xen-devel@lists.xenproject.org>; Tue, 20 May 2025 02:43:49 -0700 (PDT)
-Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
- by smtp.gmail.com with UTF8SMTPSA id
- a640c23a62f3a-ad52d438279sm694963366b.112.2025.05.20.02.43.48
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 20 May 2025 02:43:49 -0700 (PDT)
+ <SRS0=dvNd=YE=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
+ id 1uHKRv-0004Gf-Ps
+ for xen-devel@lists.xenproject.org; Tue, 20 May 2025 10:43:55 +0000
+Received: from mail-oa1-x2a.google.com (mail-oa1-x2a.google.com
+ [2001:4860:4864:20::2a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 50b554f7-3567-11f0-b892-0df219b8e170;
+ Tue, 20 May 2025 12:43:50 +0200 (CEST)
+Received: by mail-oa1-x2a.google.com with SMTP id
+ 586e51a60fabf-2d4f8c42f49so2234393fac.1
+ for <xen-devel@lists.xenproject.org>; Tue, 20 May 2025 03:43:50 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,93 +40,106 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: eed597e5-355e-11f0-a2fa-13f23c93f187
+X-Inumbo-ID: 50b554f7-3567-11f0-b892-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1747734229; x=1748339029; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=Nut/XAOkRnbpYt8eQOiWPhM34TBKF50Z6wETkr6wZ6I=;
-        b=uMt1wSx8R0DejzhaavHyu4u++MEXu6lDeksqXFMzeEmXO528EVJP7qxKEZWddSzf97
-         wqO5S79qHe/FTCSb3MKmHfBrB/5HVH6Vy4c0ynsD346OCM2tJYxGpzgU32/sA47CmjGv
-         GZqGZx0uokRRQAmxPHgoukrwvEV9VZMN8pm1c=
+        d=cloud.com; s=cloud; t=1747737829; x=1748342629; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=5uaftpOpgrsIuQy4iUAfyMgweupj/IjoBcEDbSzXkPo=;
+        b=b+NyJiaMLJfXOJ9WzTXH3uwNnvL5kVkJfaKiHsazCIyDHdx//LznnKBOLB17aa4yU+
+         gcI986bbXx98+qnSb2F70ZCflXKocAdzqAaHhAoUIbTIRvFOaA5fRxZJv0fyOEQPK8nj
+         Jy62+91YzcgnlBbidl2CFs6reh0sOb1hJjM6M=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747734229; x=1748339029;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Nut/XAOkRnbpYt8eQOiWPhM34TBKF50Z6wETkr6wZ6I=;
-        b=QHIvqDiSwTAGCbz4Vx7oHB1yTy03aZMx2+jB3/3wk15dMQbvPOeSoWs7tDFotLR0sa
-         5g45b3naZzJ3y+Ieuar5jlHRDRsChze5F203WmDpUrOxwKkoQir2lvj5D44zTg37rJ0a
-         /eigYSP3PeDcVorA3KmHHnIEat5oYHa8SY4lxn1LxIgwajfciUBVVEiWbVclQYOjFSpo
-         /NGD9iwVuFfb0QoUvlwCa8++ACToTZ+PynrO7r9wd4IhoppRuckc9zfQy5kdtrUf66J3
-         qW1CwVEZiMDZE2hI7HZqwBq/kuiO9wKe/o2Od/Q+a8KAGmKYX10xmr4wwOkqFK5iIvHN
-         ya7Q==
-X-Forwarded-Encrypted: i=1; AJvYcCXHNxoMiWwI+w4kpgknMWnMQ6GkDeouDkR5ooBOob9WBHO7wDB75yluAsnzLZK021oDf2GZ/i30SpM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzUFCFmuMJLhsfVP39WrfYZMIoxxqjaiKm4pyz8p/DHa/TI3vnf
-	ycIpZl71MUs3KdeScq87sJoN0Zocl62TxD7k7/blTR9NflDChnA2aC7LFdDws/9aSMk=
-X-Gm-Gg: ASbGncttPZSZ3clxm+4QyfpJ4ovGUD4by6hQKanPsnr6Ig5Tof7ue8P9GZgFXrUpdC0
-	CRoVyBWiuLQEatXs0JcVPOYM26Gg0rDpaOsVXw5GKlT/lldrMRFtyWmJFekLW7//F9lGpt4ytUo
-	352o9CXbNo3ZQAG4gD8mwQ95JUkTD3PaofTq5hKcf94602dOYIt6/D2FbgHJfidiIHJX8b3ClrE
-	wfGR/PYMQl2Zq9Kw9+O7t2rv6sZ14V7mKyF3Hk6pdlKLdDHAXcU82vc6J+ejC5rbXOh/U87wsC7
-	pQfypGe1cKFOyZBYMzw/fYpEFnVIS31LHuTaUwUZ51zg4+WeUQOaLGLuuaH/+RBX2usyoOCGyMT
-	h1XkJQejVubmEABZGI33z3DDoKEO8rQ==
-X-Google-Smtp-Source: AGHT+IG7sTx/TOMxTOjY5WNfUXjd+PWtSvkC72x+8yGuicaTFETKZbnD//YLNzA6zR+lbacm6FoWkw==
-X-Received: by 2002:a17:906:c156:b0:ad2:51d8:7931 with SMTP id a640c23a62f3a-ad536bde70emr1274134366b.21.1747734229290;
-        Tue, 20 May 2025 02:43:49 -0700 (PDT)
-Date: Tue, 20 May 2025 11:43:48 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Jiqian Chen <Jiqian.Chen@amd.com>, Huang Rui <ray.huang@amd.com>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v4 09/10] vpci/msi: Free MSI resources when init_msi()
- fails
-Message-ID: <aCxO1Gh_ehxpsznI@Mac.lan>
-References: <20250509090542.2199676-1-Jiqian.Chen@amd.com>
- <20250509090542.2199676-10-Jiqian.Chen@amd.com>
- <8d89f644-4ded-4490-ad23-518563d230d2@suse.com>
- <aCxGwSl_UuCWPf6B@Mac.lan>
- <e7ab7be1-e256-4f63-a835-cf1e13e0183f@suse.com>
+        d=1e100.net; s=20230601; t=1747737829; x=1748342629;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=5uaftpOpgrsIuQy4iUAfyMgweupj/IjoBcEDbSzXkPo=;
+        b=FEQ+5zhxghZhiupg4PHbyEHEN0iR7Y9t/FS/PMf1zr2xIgOccoJiVnRwUWCWwbIx8H
+         LlHtk14YGocoHNUFpAgp2PhCjPampbA1mFkcsYo4OvY8tc2HJoOfWjsaG0VmB3qrew8J
+         1ZXHBnfAuHioFbaNQe5C/5ezYvk5BIj6WjSaKqHftEFldgwayHmbHCb5t3WBUhn/IwXA
+         cO8B3zd5MEtuXJ0+e03oUIj+P4yyWxQw5M0ftMwD5prL0J84N/hDDqdVIH0R9lpdXYaM
+         8fdg5zvm8im/i7xFEQGlWwZQzpw2WT+LkgfdsxdHvfULMhVlCFSbdXIER+dVVX24lG1E
+         xr5A==
+X-Gm-Message-State: AOJu0Ywqudxb+OFlGsNZjiGCL0YqCyjWY8L/IupZFu6qt++wiNISl0uv
+	+bOwpdz2ol+t8zlSdHSR5xw/XfxwkQbU+UxnXn8xdLcHdEwpW6Lk35HFfKatkkylQkF0ulqSMt0
+	h+RYSZfcPy2TtqKur7bFwl/xF77fR605wRXufMtv81g==
+X-Gm-Gg: ASbGncvlUAgDw6xufCStuVUCXa8Zkpfcbpg8qdWu0b73AVzl8f0DoAaW9+UM/GQFwwp
+	W4rsSbP8CY4up6uvi1btPVynWdYdkwLDfdTO//7xrA9HeXRAM8XTyo1loZrXz0rRASuECshjbv6
+	kkb7XS0DepiMnbt/TsR3tToWnhF6ucrr6UG3vE0r6EkA==
+X-Google-Smtp-Source: AGHT+IEwvPmgfvu29BWKNSBcnNDdzXnc3zNqQ435MZmgeN1kwzg3Isiw7XNtmmjK9lMkI11uPA3btHxq4X6dJFw+HZw=
+X-Received: by 2002:a05:6870:ef84:b0:2d4:e101:13f1 with SMTP id
+ 586e51a60fabf-2e3c2a988d6mr9554270fac.13.1747737829425; Tue, 20 May 2025
+ 03:43:49 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <e7ab7be1-e256-4f63-a835-cf1e13e0183f@suse.com>
+References: <20250519135227.27386-1-andrew.cooper3@citrix.com>
+In-Reply-To: <20250519135227.27386-1-andrew.cooper3@citrix.com>
+From: Frediano Ziglio <frediano.ziglio@cloud.com>
+Date: Tue, 20 May 2025 11:43:38 +0100
+X-Gm-Features: AX0GCFtXgJw3il85Z0HktJWEvteU044WjO75y82oTWFjESGgTNteCBCC34zUN-4
+Message-ID: <CACHz=Zi33brKo6=w64qtDjb2ufSDmf-Db-XDFU3AFX0DRdDDuQ@mail.gmail.com>
+Subject: Re: [PATCH] xen: Give compile.h header guards
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, 
+	Anthony PERARD <anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, 
+	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, 
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, May 20, 2025 at 11:14:27AM +0200, Jan Beulich wrote:
-> On 20.05.2025 11:09, Roger Pau Monné wrote:
-> > On Tue, May 20, 2025 at 08:40:28AM +0200, Jan Beulich wrote:
-> >> On 09.05.2025 11:05, Jiqian Chen wrote:
-> >>> When init_msi() fails, the previous new changes will hide MSI
-> >>> capability, it can't rely on vpci_deassign_device() to remove
-> >>> all MSI related resources anymore, those resources must be
-> >>> removed in cleanup function of MSI.
-> >>
-> >> That's because vpci_deassign_device() simply isn't called anymore?
-> >> Could do with wording along these lines then. But (also applicable
-> >> to the previous patch) - doesn't this need to come earlier? And is
-> >> it sufficient to simply remove the register intercepts? Don't you
-> >> need to put in place ones dropping all writes and making all reads
-> >> return either 0 or ~0 (covering in particular Dom0, while for DomU-s
-> >> this may already be the case by default behavior)?
-> > 
-> > For domUs this is already the default behavior.
-> > 
-> > For dom0 I think it should be enough to hide the capability from the
-> > linked list, but not hide all the capability related
-> > registers.  IMO a well behaved dom0 won't try to access capabilities
-> > disconnected from the linked list,
-> 
-> Just that I've seen drivers knowing where their device has certain
-> capabilities, thus not bothering to look up the respective
-> capability.
+On Mon, May 19, 2025 at 2:52=E2=80=AFPM Andrew Cooper <andrew.cooper3@citri=
+x.com> wrote:
+>
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> ---
+> CC: Anthony PERARD <anthony.perard@vates.tech>
+> CC: Michal Orzel <michal.orzel@amd.com>
+> CC: Jan Beulich <jbeulich@suse.com>
+> CC: Julien Grall <julien@xen.org>
+> CC: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
+> CC: Stefano Stabellini <sstabellini@kernel.org>
+> ---
+>  xen/include/xen/compile.h.in | 3 +++
+>  xen/tools/process-banner.sed | 5 +++++
+>  2 files changed, 8 insertions(+)
+>
+> diff --git a/xen/include/xen/compile.h.in b/xen/include/xen/compile.h.in
+> index 3151d1e7d1bf..9206341ba692 100644
+> --- a/xen/include/xen/compile.h.in
+> +++ b/xen/include/xen/compile.h.in
+> @@ -1,3 +1,6 @@
+> +#ifndef XEN_COMPILE_H
+> +#define XEN_COMPILE_H
+> +
 
-OK, so let's make the control register read-only in case of failure.
+Why not follow CODING_STYLE ?
 
-If MSI(-X) is already enabled we should also make the entries
-read-only, and while that's not very complicated for MSI, it does get
-more convoluted for MSI-X.  I'm fine with just making the control
-register read-only for the time being.
+OT: Maybe while on it, why not add SPDX comments too ?
 
-Thanks, Roger.
+>  #define XEN_COMPILE_DATE       "@@date@@"
+>  #define XEN_COMPILE_TIME       "@@time@@"
+>  #define XEN_COMPILE_BY         "@@whoami@@"
+> diff --git a/xen/tools/process-banner.sed b/xen/tools/process-banner.sed
+> index 56c76558bcd9..4cf3f9a1163a 100755
+> --- a/xen/tools/process-banner.sed
+> +++ b/xen/tools/process-banner.sed
+> @@ -12,3 +12,8 @@ s_(.*)_"\1\\n"_
+>
+>  # Trailing \ on all but the final line.
+>  $!s_$_ \\_
+> +
+> +# Append closing header guard
+> +$a\
+> +\
+> +#endif /* XEN_COMPILE_H */
+>
+> base-commit: 6fc02ebdd053856221f37ba5306232ac1575332d
+> prerequisite-patch-id: 7bc1c498ba2c9c4a4939a56a0006f820f47f2a66
+> --
+> 2.39.5
+>
+>
+Frediano
 
