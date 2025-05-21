@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1DAFBABF8C3
-	for <lists+xen-devel@lfdr.de>; Wed, 21 May 2025 17:06:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.992036.1375820 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7EA43ABF8CD
+	for <lists+xen-devel@lfdr.de>; Wed, 21 May 2025 17:07:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.992042.1375831 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uHl0p-00076q-Ia; Wed, 21 May 2025 15:05:43 +0000
+	id 1uHl2L-0007ed-Tf; Wed, 21 May 2025 15:07:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 992036.1375820; Wed, 21 May 2025 15:05:43 +0000
+Received: by outflank-mailman (output) from mailman id 992042.1375831; Wed, 21 May 2025 15:07:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uHl0p-00074j-G0; Wed, 21 May 2025 15:05:43 +0000
-Received: by outflank-mailman (input) for mailman id 992036;
- Wed, 21 May 2025 15:05:41 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=TwEK=YF=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uHl0n-00074d-TC
- for xen-devel@lists.xenproject.org; Wed, 21 May 2025 15:05:41 +0000
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [2a00:1450:4864:20::631])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0fa91340-3655-11f0-a2fa-13f23c93f187;
- Wed, 21 May 2025 17:05:41 +0200 (CEST)
-Received: by mail-ej1-x631.google.com with SMTP id
- a640c23a62f3a-ad1d1f57a01so1214204366b.2
- for <xen-devel@lists.xenproject.org>; Wed, 21 May 2025 08:05:41 -0700 (PDT)
-Received: from [10.1.248.227] ([80.188.125.198])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ad52d06dcafsm932478666b.54.2025.05.21.08.05.38
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 21 May 2025 08:05:39 -0700 (PDT)
+	id 1uHl2L-0007bW-QA; Wed, 21 May 2025 15:07:17 +0000
+Received: by outflank-mailman (input) for mailman id 992042;
+ Wed, 21 May 2025 15:07:16 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=/Cb8=YF=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1uHl2K-0007bO-J3
+ for xen-devel@lists.xenproject.org; Wed, 21 May 2025 15:07:16 +0000
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [2a00:1450:4864:20::329])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 47180149-3655-11f0-b892-0df219b8e170;
+ Wed, 21 May 2025 17:07:14 +0200 (CEST)
+Received: by mail-wm1-x329.google.com with SMTP id
+ 5b1f17b1804b1-43cf848528aso62514665e9.2
+ for <xen-devel@lists.xenproject.org>; Wed, 21 May 2025 08:07:14 -0700 (PDT)
+Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
+ by smtp.gmail.com with UTF8SMTPSA id
+ 5b1f17b1804b1-442eb85a8f8sm160210345e9.0.2025.05.21.08.07.12
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 21 May 2025 08:07:13 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,95 +45,175 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0fa91340-3655-11f0-a2fa-13f23c93f187
+X-Inumbo-ID: 47180149-3655-11f0-b892-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1747839940; x=1748444740; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=5wuPi4LjeIrSrlnLi0ue8bh6SPLZgSeygRov7Xu7hTM=;
-        b=gVsmqXnHH75gOfkmBTIfWcz5l64kMAz2gXcjlpAOsylsRH2oSEAMsNr4JNTa7r5VoY
-         kAY1NfxPR/9HkZl+oD2WsydfY4UMu0zSK4FFY7q/Qd8VuPiZ4FI55JDkPWbtHmeONbIx
-         oPZ3sMy+5FVQfjTCvWm0gDee7Sx1c43jSSx5Ey5gRAnyq239mk6R8AzI/HdmFXfJoZBt
-         aTlUvtYzYWypnTufPNMnIjL930qj//0HSiAHx5qCeztLov8pmAg3KICLKaEcSuTj030F
-         8PCtRNR09A0rdr+87yGp+UaRIeJbr4HaxB8HffQJ1DG63wItH0oZWOk+jetwb7I37bUs
-         kBPQ==
+        d=citrix.com; s=google; t=1747840034; x=1748444834; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=zppJwBYcToytG4EhXhFNvwdzt1AUcH92gNWkwpcV0xM=;
+        b=YUhEpUW1XL0eWb7JAOltCfRT0VuCphHPlakijQUkES0Swe2mgOvg9/Nh46Zq1TvUMR
+         aocqyl3aHdqPT6qR6Qsj87soQF8IHQ3MCzWbYMa016NncdbZhk05VrQyWAGSq3nrYm1d
+         9znXaASvXa8kcBqjH/FHSdMDqZft6sQPfk1IM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747839940; x=1748444740;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
+        d=1e100.net; s=20230601; t=1747840034; x=1748444834;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=5wuPi4LjeIrSrlnLi0ue8bh6SPLZgSeygRov7Xu7hTM=;
-        b=JbVnqm8wDcoldhDHK2ueqfoQPnpiAIRrks9cov4bWzeQEYPw3yfKxtcYP3z5iDQ/BM
-         vpO0HLolJXxHWhJ3LfB9ZCsSnnWaCfr800vcCbdSSQdOzETyzJDwy/60Q5yol3qgv4s2
-         MELmlni8bUumefp4UPwEU5YY/DIP3CjpDqu0o6cqGG/CGTQix4JfAGcjm5RPW86+Yy70
-         Vis0ZqBZkeni4YwZuP4eVoGT8JismI7RBQfLbB42EDBqigc+w2SU8XM0566greCZKZ1L
-         zFtYVzwxfwu7LcdGlb71q32bp82pYMO7ZLRXoF3QP1jgK2eA62aMjfLV+ehqy221KSZM
-         OgiQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVmZbWYWQs1nTt2x3ooSjDHPtAflrHUik6kyVXaMZyWiIOcsayESAulxrMKlcYXiZsuLkDAn0LmuGE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzRaA8pxGDhSpD7DyGAmSJ0wQYH93K1Br7wAHajsCC/u2bHD+JC
-	LVS4VI4EE452Gf0OZ2MX8/NtUgq639KkJbLKHw/qTac65ATMkjEoIjigIbKn1MAigw==
-X-Gm-Gg: ASbGnctVoog7qKCuMY9DtXj7/k+8UVJ72+3bFOSL1hCSLSQPcGX/arySdLLZcc/Mg7F
-	jmUBDZvWadN7Zgmam1BEgE4/KBqrlPysjpunBKRLNGdlJqRMVBmTub2pdXKGCfyCkFIzyWVuDvu
-	Ufgj0pqT6trlGexNanLF2QVynHWfW51g74K4sovZkW4oUbNMXsYKBd1G11I3feBXoG2n0H9rXUq
-	Y0nYaB2IhCLrt+KE5bDVse7fQeprYas/H1b+6AjFcyflchUXZGTO4sSWB2ZuYcm2jorAp2L3Iju
-	CtE6qnthfKZchao83sYnqiujwqlVuRcFJ4fHclKduuqjvpznGfVPMHgJ1xVcVw==
-X-Google-Smtp-Source: AGHT+IEHG2qmB2LmzH3T0Zgn0rsKH84tg2w3jalJkB8NuWD2TTIccKDZvfqK+R3Ygm+t7XDwnb/JPQ==
-X-Received: by 2002:a17:907:728e:b0:ad5:5198:b2ad with SMTP id a640c23a62f3a-ad55198bc52mr1558639866b.48.1747839940014;
-        Wed, 21 May 2025 08:05:40 -0700 (PDT)
-Message-ID: <ebcc5380-b20d-4579-841e-89b66bacf1f6@suse.com>
-Date: Wed, 21 May 2025 17:05:37 +0200
+        bh=zppJwBYcToytG4EhXhFNvwdzt1AUcH92gNWkwpcV0xM=;
+        b=Li4Z/+XXGv+1wSK+JCj58+4zDjZiyQYfjrOpN3vUc/7OMM0eB8VSv5uG6fZMEl8aWe
+         KzTG3sNgYCIjaQ4glApJ6z0KPOSfngHWf4li9xCeFxPTo8Ugyi8l+CyVuk6oau6q3KS8
+         Jj+j4NLXwTrccpOMYmvMqWdkwURv1AYpslz/DMf8ohnlZaq9DbUlpuOdYWlO30T3+ajH
+         sK4oJCi7CgSgpIsKfXwn7XzxhULOLRIYcgaZWhfyTHNSI7T6UfA+JrhFG0cGKdVuOuO3
+         dlruZZp+VyZF8qZrW5+C5epa+eWAAmfSIS7qBN0lGbAPBi8lqtKVUwIAS3D2npVyfkp1
+         At6w==
+X-Gm-Message-State: AOJu0YxTMJ18HH/B0Ryby0N2tSIvveDEe7dvy8p8s9j5bY6ydHtGUu4i
+	ELQPvB9Kwt5KURKYocmDLPJP5n4J6eJCWn3WPthmDDJ07B3Hr+sPcJWjJ5absiK6eBg=
+X-Gm-Gg: ASbGncvhrDbfzjGxzTMdFug41eUPCxoO1v+gQhHjxUb7TxhIZx3da5U9aN2CcqLnUzV
+	dDa8AoC2fMomvgfNy8LCIRSyVz9LN3hlOFs3h9+4dR2gO5BgpOg1UWjJHcxd5WRhzQ0RENJ0N0N
+	NvjX1DrZZXp4bDep0R6n/UKZp0CgcHHGVkpwQOrjUHa7qhSBou2HdlqZe4yObgZ0OCHf8qhkiKe
+	WfwvBIMz2+vlYYaJ9HNYzMxAVQcBCVTRBwNksVKO5CPIrHpY67aRn6ijAQYl33ASldjvILnINFc
+	X5QvKBkQzoP1T6AILXaEvu+tzdzMeZADMDwyDrN4xZLPD25D7diy0j8L8Nm/y4aoMgUpA+IEvPc
+	0Lw20sQqjzMB0H+O5pTJpLx5y5GBx8Q==
+X-Google-Smtp-Source: AGHT+IHxXERf8wAAgHh075zWFqlNI4Uy3eoq4MmdAux2SPPfRdW10WhcFhkZBMY/m0PEF0FAB/uBSQ==
+X-Received: by 2002:a05:600c:1e0f:b0:43c:ec0a:ddfd with SMTP id 5b1f17b1804b1-442fd606a72mr191038855e9.6.1747840033664;
+        Wed, 21 May 2025 08:07:13 -0700 (PDT)
+Date: Wed, 21 May 2025 17:07:12 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: dmkhn@proton.me
+Cc: xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com,
+	anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org,
+	michal.orzel@amd.com, sstabellini@kernel.org, dmukhin@ford.com
+Subject: Re: [PATCH v2 2/2] xen/domain: rewrite emulation_flags_ok()
+Message-ID: <aC3sIHgUpCFxW35K@macbook.local>
+References: <20250516022855.1146121-1-dmukhin@ford.com>
+ <20250516022855.1146121-3-dmukhin@ford.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 01/22] x86/include/asm/intel-txt.h: constants and
- accessors for TXT registers and heap
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- Sergii Dmytruk <sergii.dmytruk@3mdeb.com>
-Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- Ross Philipson <ross.philipson@oracle.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Lukasz Hawrylko <lukasz@hawrylko.pl>, =?UTF-8?Q?Mateusz_M=C3=B3wka?=
- <mateusz.mowka@intel.com>, trenchboot-devel@googlegroups.com,
- xen-devel@lists.xenproject.org
-References: <cover.1747155790.git.sergii.dmytruk@3mdeb.com>
- <c049f4ced707769a630cbb8d38a617910279b404.1747155790.git.sergii.dmytruk@3mdeb.com>
- <a286bb98-4c97-4a93-ad99-e2095d5c86e6@citrix.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <a286bb98-4c97-4a93-ad99-e2095d5c86e6@citrix.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20250516022855.1146121-3-dmukhin@ford.com>
 
-On 14.05.2025 16:55, Andrew Cooper wrote:
-> On 13/05/2025 6:05 pm, Sergii Dmytruk wrote:
->> +/*
->> + * Always use private space as some of registers are either read-only or not
->> + * present in public space.
->> + */
->> +static inline uint64_t read_txt_reg(int reg_no)
+On Fri, May 16, 2025 at 02:29:16AM +0000, dmkhn@proton.me wrote:
+> From: Denis Mukhin <dmukhin@ford.com>
 > 
-> unsigned int reg
+> Rewrite emulation_flags_ok() to simplify future modifications.
 > 
-> I'd be tempted to name it simply txt_read().  I don't think the extra
-> "_reg" is a helpful suffix, and it makes the APIs consistent with
-> txt_reset().  But I expect others may have opinions here.
-
-+1
-
->> +static inline void txt_reset(uint32_t error)
->> +{
->> +    write_txt_reg(TXTCR_ERRORCODE, error);
->> +    write_txt_reg(TXTCR_CMD_NO_SECRETS, 1);
->> +    write_txt_reg(TXTCR_CMD_UNLOCK_MEM_CONFIG, 1);
->> +    write_txt_reg(TXTCR_CMD_RESET, 1);
->> +    while (1);
+> Also, introduce X86_EMU_{BASELINE,OPTIONAL} helper macros.
 > 
-> for ( ;; )
->     cpu_relax();
+> No functional change intended.
 > 
-> please.
+> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
+> ---
+> Changes since v1:
+> - kept use of non-public X86_EMU_XXX flags
+> - corrected some comments and macro definitions
+> ---
+>  xen/arch/x86/domain.c             | 29 +++++++++++------------------
+>  xen/arch/x86/include/asm/domain.h |  6 ++++++
+>  2 files changed, 17 insertions(+), 18 deletions(-)
+> 
+> diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
+> index f197dad4c0..c64c2c6fef 100644
+> --- a/xen/arch/x86/domain.c
+> +++ b/xen/arch/x86/domain.c
+> @@ -750,25 +750,18 @@ static bool emulation_flags_ok(const struct domain *d, uint32_t emflags)
+>      BUILD_BUG_ON(X86_EMU_ALL != XEN_X86_EMU_ALL);
+>  #endif
+>  
+> -    if ( is_hvm_domain(d) )
+> -    {
+> -        if ( is_hardware_domain(d) &&
+> -             emflags != (X86_EMU_VPCI | X86_EMU_LAPIC | X86_EMU_IOAPIC) )
+> -            return false;
+> -        if ( !is_hardware_domain(d) &&
+> -             /* HVM PIRQ feature is user-selectable. */
+> -             (emflags & ~X86_EMU_USE_PIRQ) !=
+> -             (X86_EMU_ALL & ~(X86_EMU_VPCI | X86_EMU_USE_PIRQ)) &&
+> -             emflags != X86_EMU_LAPIC )
+> -            return false;
+> -    }
+> -    else if ( emflags != 0 && emflags != X86_EMU_PIT )
+> -    {
+> -        /* PV or classic PVH. */
+> -        return false;
+> -    }
+> +    /* PV */
+> +    if ( !is_hvm_domain(d) )
+> +        return emflags == 0 || emflags == X86_EMU_PIT;
+>  
+> -    return true;
+> +    /* HVM */
+> +    if ( is_hardware_domain(d) )
+> +        return emflags == (X86_EMU_LAPIC |
+> +                           X86_EMU_IOAPIC |
+> +                           X86_EMU_VPCI);
+> +
+> +    return (emflags & ~X86_EMU_OPTIONAL) == X86_EMU_BASELINE ||
+> +            emflags == X86_EMU_LAPIC;
+>  }
+>  
+>  void __init arch_init_idle_domain(struct domain *d)
+> diff --git a/xen/arch/x86/include/asm/domain.h b/xen/arch/x86/include/asm/domain.h
+> index 8c0dea12a5..3a9a9fd80d 100644
+> --- a/xen/arch/x86/include/asm/domain.h
+> +++ b/xen/arch/x86/include/asm/domain.h
+> @@ -494,6 +494,12 @@ struct arch_domain
+>                                   X86_EMU_PIT | X86_EMU_USE_PIRQ |       \
+>                                   X86_EMU_VPCI)
+>  
+> +/* User-selectable features. */
+> +#define X86_EMU_OPTIONAL        (X86_EMU_USE_PIRQ)
+> +
+> +#define X86_EMU_BASELINE        (X86_EMU_ALL & ~(X86_EMU_VPCI | \
+> +
+> X86_EMU_OPTIONAL))
 
-With (style nit) another blank between the semicolons.
+If you go this route I think you need to name those
+X86_EMU_HVM_{BASELINE,OPTIONAL}, because they are really meaningful
+only for HVM domains.
 
-Jan
+Regarding vPCI and HVM: we might want to enable it in the future for
+domUs, but the fact is that right now it will collide badly with
+ioreqs.  So for the time being on x86 it would be best if vPCI is
+limited to PVH hardware domain exclusively, otherwise the hypervisor
+internals might malfunction.  We shouldn't really allow dom0 to create
+this kind of malformed domain as much as possible.
+
+static const struct {
+   bool pv, hwdom;
+   uint32_t base, optional;
+} allowed_conf[] = {
+    /* PV */
+    { true, false, 0, X86_EMU_PIT },
+    /* PVH hardware domain */
+    { false, true, X86_EMU_LAPIC | X86_EMU_IOAPIC | X86_EMU_VPCI, 0 },
+    /* PVH domU */
+    { false, false, X86_EMU_LAPIC, 0 },
+    /* HVM */
+    { false, false, X86_EMU_ALL & ~(X86_EMU_VPCI | X86_EMU_USE_PIRQ),
+      X86_EMU_VPCI | X86_EMU_USE_PIRQ },
+};
+unsigned int i;
+
+for ( i = 0; i < ARRAY_SIZE(allowed_conf); i++ )
+{
+    if ( is_pv_domain(d) == allowed_conf[i].pv &&
+         /*
+	  * A hardware domain can also use !hwdom entries, but not the
+	  * other way around
+	  */
+         (is_hardware_domain(d) || !allowed_conf[i].hwdom) &&
+	 (emflags & ~allowed_conf[i].optional) == allowed_conf[i].base )
+        return true;
+}
+
+printk(XENLOG_INFO "%pd: invalid emulation flags: %#x\n", d, emflags);
+
+return false;
+
+I think the above (not even build tested) is slightly clearer, and
+allows for easier expansion going forward?
+
+Regards, Roger.
 
