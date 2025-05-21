@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC02EABFAA0
-	for <lists+xen-devel@lfdr.de>; Wed, 21 May 2025 18:04:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.992141.1375955 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9528FABFA9E
+	for <lists+xen-devel@lfdr.de>; Wed, 21 May 2025 18:04:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.992142.1375971 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uHlvK-0005Mf-As; Wed, 21 May 2025 16:04:06 +0000
+	id 1uHlvL-0005kf-MZ; Wed, 21 May 2025 16:04:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 992141.1375955; Wed, 21 May 2025 16:04:06 +0000
+Received: by outflank-mailman (output) from mailman id 992142.1375971; Wed, 21 May 2025 16:04:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uHlvK-0005JY-4M; Wed, 21 May 2025 16:04:06 +0000
-Received: by outflank-mailman (input) for mailman id 992141;
- Wed, 21 May 2025 16:04:04 +0000
+	id 1uHlvL-0005fo-Fj; Wed, 21 May 2025 16:04:07 +0000
+Received: by outflank-mailman (input) for mailman id 992142;
+ Wed, 21 May 2025 16:04:05 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=hkAn=YF=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1uHlvI-0004XB-UM
- for xen-devel@lists.xenproject.org; Wed, 21 May 2025 16:04:04 +0000
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [2a00:1450:4864:20::52e])
+ id 1uHlvJ-0004XB-LD
+ for xen-devel@lists.xenproject.org; Wed, 21 May 2025 16:04:05 +0000
+Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
+ [2a00:1450:4864:20::532])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 37b46271-365d-11f0-a2fa-13f23c93f187;
- Wed, 21 May 2025 18:04:04 +0200 (CEST)
-Received: by mail-ed1-x52e.google.com with SMTP id
- 4fb4d7f45d1cf-601d10de7e1so5959327a12.1
- for <xen-devel@lists.xenproject.org>; Wed, 21 May 2025 09:04:04 -0700 (PDT)
+ id 38205288-365d-11f0-a2fa-13f23c93f187;
+ Wed, 21 May 2025 18:04:05 +0200 (CEST)
+Received: by mail-ed1-x532.google.com with SMTP id
+ 4fb4d7f45d1cf-601956fa3beso7489696a12.0
+ for <xen-devel@lists.xenproject.org>; Wed, 21 May 2025 09:04:05 -0700 (PDT)
 Received: from fedora.. (user-109-243-64-38.play-internet.pl. [109.243.64.38])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6004d502736sm9152513a12.25.2025.05.21.09.04.02
+ 4fb4d7f45d1cf-6004d502736sm9152513a12.25.2025.05.21.09.04.03
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 21 May 2025 09:04:02 -0700 (PDT)
+ Wed, 21 May 2025 09:04:03 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,42 +45,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 37b46271-365d-11f0-a2fa-13f23c93f187
+X-Inumbo-ID: 38205288-365d-11f0-a2fa-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1747843443; x=1748448243; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1747843444; x=1748448244; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=0/elDcf0J+uEdYg0IcO9C9ITYyw5kGwji+p9HGpFOSE=;
-        b=NCxNBcm79HEVCHuevHxMMiV7UoJqRfFEzLFCAM65zywkWPEMy0WzYQ48tdUspAGjlh
-         lRpDq7fPNEmPPAB1GLiR7bQjiXDP2N3vbrjovyNjWpIpkLGx6oISQ2Nd0y+klAgTFjHP
-         /q6cmLpWbrR+qLNvUU29uCsR5Vt0/lSXyZ1K106pRvqfnZb3R3URIZF2+RuTn/VQ6jqI
-         79o3WVUWTkV9a+Y1nOq3zeWOwbtzZfxkVEVt2lAiML1JwSaufJ3fuWtp1O3oa+fYyTXa
-         quDBHIw0WsJY+9gSkOP0P6cQsSTTbqSF00bsN+FnJKtBlC1gpVz+pwUOw1P2PFcG/tnj
-         fslQ==
+        bh=MuKFAgwAzdWX+jRW22HkNFtK9R6Dh6rQ/ItEXnnpjQ4=;
+        b=WSoFoG0V5iWtBFxt1xF0zUVz9exvvJ7jtpoJ0/Y+ZjxvjQkaC2fNYdcSJvXZiqJY3I
+         LOyQ8yzCNGt/AHOHkqNu5csmTy6Jq65ooDMhsxTXn0AJ0m9Hej7nmRfigIcMrjm8nwKJ
+         0ACh0u+wReNAU/OESz96NZnRLfRmrYjcA0rnsQijn45xz+Xb5/0XNUks5brZaLMVNvhz
+         l83LTYsB8eaoow4vtQ3PbT5C/jmI9IobjMdA0r7TwIAH99a8rcNRR3WVyEGRYOw7a4U6
+         WBFp/f1i0zRAJoFhBFvZIjQzyp6a9Q1wNG8cn19BsMaZy6IpggJh6GKH+p71Pahteabr
+         oLUw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747843443; x=1748448243;
+        d=1e100.net; s=20230601; t=1747843444; x=1748448244;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=0/elDcf0J+uEdYg0IcO9C9ITYyw5kGwji+p9HGpFOSE=;
-        b=bA6e8k0I0cD2st0dUT7ggJDLzw/7WjMZ7S/5BqftAMmUZvTOwUpSOdUmoikARWoF3l
-         RDlkCGCxgb62tm/fL5FERJX1nixI89JGb8i/bRgT6gxhEO6jiekuVGwA34PiTqSCPkby
-         TmrTAx/BHlMpOj4maQLVjE5mbT4LfxCin5ff++94RT/skj4DwmLb6fbWcCpXTwPslWAp
-         OuZKUC0o/Da5vNAC9KtMpk45FoGJvH8F6wlGkZg3/9vc2+LQRbSyormRXNVrm/MIg3de
-         HEWs6F/prgdwMuEyqEtupCP6njuKwmk3tdSMtixGxpYOhawM1m2EKT0p488BXn2Y4WOe
-         MJ8A==
-X-Gm-Message-State: AOJu0YxPjNZtveQ9tNdy6iNjB3Wuopxx/+ExNEgecJBsrZirxjkW1m5N
-	Qfa5PBJwkXCYHmuHGZ9J31+Ngl18Few1WY63o1NcaloTHGNeltJ9uD3oi9niDQ==
-X-Gm-Gg: ASbGncsoprYmWUm4fqwX2L8tUsbWwHQwQvgHafIFpgoWvyBbWp2ykfL8oWNE8wpo9h0
-	KLjlaCo7slsncFXmFQRf36j9+YMpSGu8DighxSFS1UZmom+DT1/fEa2yjOkKHetLZERsGMgIjZD
-	+JUXQ3CuGDMlJeV+/NXIT39RW6+VJnbYJJK+wCXwwtxb83LKM202ipvJzl5i7p0mukhtSpOJFnB
-	lPrYvvnacLJ6bimyG+SHK2FEgGZlDkN8OS5JvX73aokj5YXO+OdVUWC+WI8m2tU5Wl4B/haY5h7
-	pe8JFMsIYAwj6ysi5cABfx+qvQ6TIBceu5GRGs47z9lk9HbHr2EarrfMzlGj9quPFwEuODSoz8i
-	lykXSATMOevz8exUnqg==
-X-Google-Smtp-Source: AGHT+IEa+JUzcbczAQq8o2/fg/s1PT8cuwXsa9rgrAfOnPixs0ymYOgRRJ6fCt3JnFSA4qtF1tmLyw==
-X-Received: by 2002:a05:6402:2786:b0:602:29e0:5e05 with SMTP id 4fb4d7f45d1cf-60229e0615dmr3984646a12.14.1747843442984;
-        Wed, 21 May 2025 09:04:02 -0700 (PDT)
+        bh=MuKFAgwAzdWX+jRW22HkNFtK9R6Dh6rQ/ItEXnnpjQ4=;
+        b=MWPmBpDt2vwVj+qnJ4gp1/r6DTGVU/NRQClQADFn1biMUdq3dU/BlUmcRv+K/wQvg8
+         Hi4KJnuEzAsuGVmD3QJlz5UCJtpeFzTuT/Z29sFSAos+9S/WWX6MzrSs8axzcBwEyfBr
+         RQRBig1OGXDTUVuQfqEQgK74HNUyJaTJb6oT8gGd8/6XWk3Q+597vbJnaZC5BZI9VIYP
+         x1Jty5UkEytvRnESWgp+w58tmAuXQ/LL7YuePj/A4S6VZcyGI2N2BkCjuWGIPA7qVNVp
+         Yt+ri+Vg1Xsr+5bmmBLEcDCFY5sfvanAUQO0GLdsp1Iq/fNLlNb52NEaxN5i0+sTGca6
+         PueA==
+X-Gm-Message-State: AOJu0Yz9zKtvjMZMi6yAjTModplXdQLkRYWwdCe81nSawG4nlHRjWnjC
+	st0sAPsAqANp/60PwRX7uhJ/MTEqOOKZa0al9Z/QNlf8ChDyTp0m5cF8SLrsaQ==
+X-Gm-Gg: ASbGncvdA3dm1Exi/IBGSjXEuWV0aijcfm1yqb913uRM7fZtqHSiKhv3sVu9Z5V+50A
+	CgQp+U8quvidtLJl9e8wXffbB+OBDFc0Aa+yMIIXDaasEN3uBtTVr7BSwuzPCxRRCbqFH0lXqqN
+	JyV72ljloV7b2w3ZaNN1jEPgaH3SU9fM5I6caA49p1EGkMSIgyhOe+zTms70KOHXTjzDtHW3ltz
+	a0P9s13Yok96Opggg3JpympksLNJhhT/2sW4z++3R4ARJDTfzpHt+YMvSCe0aG3fguKVVQC52se
+	i5W7DdI7l5PcKAe4z8P21Rop3myfZe8pBVL+OfpuXl+X0tIv7E7R/u0JleY35InHhRFUftdUEaz
+	ejdlxXq40kZ/KqxHaaw==
+X-Google-Smtp-Source: AGHT+IHMiUE1RNqkd7CFA0gkM4DTS7mv6rwNoXKENbduXzPAJdFGKEhEHzlWMu7Blf5NHSFiWG9jtg==
+X-Received: by 2002:aa7:d28a:0:b0:601:31e6:697f with SMTP id 4fb4d7f45d1cf-60131e66b16mr14765902a12.26.1747843444003;
+        Wed, 21 May 2025 09:04:04 -0700 (PDT)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
@@ -93,199 +93,166 @@ Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Julien Grall <julien@xen.org>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v3 04/14] xen/riscv: introduce init_IRQ()
-Date: Wed, 21 May 2025 18:03:44 +0200
-Message-ID: <3f86f284ebccff9de877844f33c4588ac5631906.1747843009.git.oleksii.kurochko@gmail.com>
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Romain Caritey <Romain.Caritey@microchip.com>
+Subject: [PATCH v3 05/14] xen/riscv: introduce platform_get_irq()
+Date: Wed, 21 May 2025 18:03:45 +0200
+Message-ID: <1729279a0ab39e2a2f09e475c2eb48fefd4aef54.1747843009.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <cover.1747843009.git.oleksii.kurochko@gmail.com>
 References: <cover.1747843009.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Implement init_IRQ() to initalize various IRQs.
+platform_get_irq() recieves information about device's irq ( type
+and irq number ) from device tree node and using this information
+update irq descriptor in irq_desc[] array.
 
-Currently, this function initializes the irq_desc[] array,
-which stores IRQ descriptors containing various information
-about each IRQ, such as the type of hardware handling, whether
-the IRQ is disabled, etc.
-The initialization is basic at this point and includes setting
-IRQ_TYPE_INVALID as the IRQ type, assigning the IRQ number ( which
-is just a consequent index of irq_desc[] array ) to
-desc->irq.
+Introduce dt_irq_xlate and initialize with aplic_irq_xlate() as
+it is used by dt_device_get_irq() which is called by
+platform_get_irq().
 
-Additionally, the function init_irq_data() is introduced to
-initialize the IRQ descriptors for all IRQs in the system.
-
-Reuse defines of IRQ_TYPE_* from asm-generic/irq-dt.h.
-
+Co-developed-by: Romain Caritey <Romain.Caritey@microchip.com>
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 ---
- - Add an explanatory comment about NR_IRQS definitions.
- - Init desc->irq and desc->action before call of init_one_irq_desc().
- - Drop "desc->action = NULL" as irq_desc[] is zero-initialized.
- - Update the commit message: drop mention of NULLing of desc->action.
- - Drop year in Copyright.
+Changes in V3:
+ - Drop parentheses in return inside irq_validate_new_type().
+ - Add a check in platform_get_irq() that dt_irq.irq is less
+   then NR_IRQS.
+   Also, add BUILD_BUG_ON(NR_IRQS > INT_MAX).
 ---
-Changes in v2:
- - Move an introduction of IRQ_TYPE_* defines to the separate patch.
- - Reuse asm-generic/irq-dt.h.
- - Use 'unsigned int' for local irq variable inside init_irq_data().
+Changes in V2:
+ - Add cf_check for aplic_irq_xlate().
+ - Ident label in irq_set_type().
+ - Return proper -E... values for platform_get_irq().
 ---
- xen/arch/riscv/Makefile             |  1 +
- xen/arch/riscv/include/asm/Makefile |  1 +
- xen/arch/riscv/include/asm/irq.h    | 15 ++++++++++
- xen/arch/riscv/irq.c                | 45 +++++++++++++++++++++++++++++
- xen/arch/riscv/setup.c              |  3 ++
- xen/arch/riscv/stubs.c              |  5 ----
- 6 files changed, 65 insertions(+), 5 deletions(-)
- create mode 100644 xen/arch/riscv/irq.c
+ xen/arch/riscv/aplic.c           | 20 ++++++++++++++
+ xen/arch/riscv/include/asm/irq.h |  3 ++
+ xen/arch/riscv/irq.c             | 47 ++++++++++++++++++++++++++++++++
+ 3 files changed, 70 insertions(+)
 
-diff --git a/xen/arch/riscv/Makefile b/xen/arch/riscv/Makefile
-index f42cf3dfa6..a1c145c506 100644
---- a/xen/arch/riscv/Makefile
-+++ b/xen/arch/riscv/Makefile
-@@ -3,6 +3,7 @@ obj-y += cpufeature.o
- obj-$(CONFIG_EARLY_PRINTK) += early_printk.o
- obj-y += entry.o
- obj-y += intc.o
-+obj-y += irq.o
- obj-y += mm.o
- obj-y += pt.o
- obj-$(CONFIG_RISCV_64) += riscv64/
-diff --git a/xen/arch/riscv/include/asm/Makefile b/xen/arch/riscv/include/asm/Makefile
-index c989a7f89b..bfdf186c68 100644
---- a/xen/arch/riscv/include/asm/Makefile
-+++ b/xen/arch/riscv/include/asm/Makefile
-@@ -5,6 +5,7 @@ generic-y += div64.h
- generic-y += hardirq.h
- generic-y += hypercall.h
- generic-y += iocap.h
-+generic-y += irq-dt.h
- generic-y += paging.h
- generic-y += percpu.h
- generic-y += perfc_defn.h
+diff --git a/xen/arch/riscv/aplic.c b/xen/arch/riscv/aplic.c
+index caba8f8993..10ae81f7ac 100644
+--- a/xen/arch/riscv/aplic.c
++++ b/xen/arch/riscv/aplic.c
+@@ -11,6 +11,7 @@
+ 
+ #include <xen/errno.h>
+ #include <xen/init.h>
++#include <xen/irq.h>
+ #include <xen/sections.h>
+ #include <xen/types.h>
+ 
+@@ -21,6 +22,23 @@ static struct intc_info __ro_after_init aplic_info = {
+     .hw_version = INTC_APLIC,
+ };
+ 
++static int cf_check aplic_irq_xlate(const uint32_t *intspec,
++                                    unsigned int intsize,
++                                    unsigned int *out_hwirq,
++                                    unsigned int *out_type)
++{
++    if ( intsize < 2 )
++        return -EINVAL;
++
++    /* Mapping 1:1 */
++    *out_hwirq = intspec[0];
++
++    if ( out_type )
++        *out_type = intspec[1] & IRQ_TYPE_SENSE_MASK;
++
++    return 0;
++}
++
+ static int __init aplic_preinit(struct dt_device_node *node, const void *dat)
+ {
+     if ( aplic_info.node )
+@@ -35,6 +53,8 @@ static int __init aplic_preinit(struct dt_device_node *node, const void *dat)
+ 
+     aplic_info.node = node;
+ 
++    dt_irq_xlate = aplic_irq_xlate;
++
+     return 0;
+ }
+ 
 diff --git a/xen/arch/riscv/include/asm/irq.h b/xen/arch/riscv/include/asm/irq.h
-index 2a48da2651..ea555afd1a 100644
+index ea555afd1a..84c3c2904d 100644
 --- a/xen/arch/riscv/include/asm/irq.h
 +++ b/xen/arch/riscv/include/asm/irq.h
-@@ -3,6 +3,19 @@
- #define ASM__RISCV__IRQ_H
+@@ -38,6 +38,9 @@ static inline void arch_move_irqs(struct vcpu *v)
+     BUG_ON("unimplemented");
+ }
+ 
++struct dt_device_node;
++int platform_get_irq(const struct dt_device_node *device, int index);
++
+ void init_IRQ(void);
+ 
+ #endif /* ASM__RISCV__IRQ_H */
+diff --git a/xen/arch/riscv/irq.c b/xen/arch/riscv/irq.c
+index b5ae7a114b..669ef3ae9e 100644
+--- a/xen/arch/riscv/irq.c
++++ b/xen/arch/riscv/irq.c
+@@ -7,11 +7,58 @@
+  */
  
  #include <xen/bug.h>
 +#include <xen/device_tree.h>
-+
-+#include <asm/irq-dt.h>
-+
-+/*
-+ * According to the AIA spec:
-+ *   The maximum number of interrupt sources an APLIC may support is 1023.
-+ *
-+ * The same is true for PLIC.
-+ *
-+ * Interrupt Source 0 is reserved and shall never generate an interrupt.
-+ */
-+#define NR_IRQS 1024
- 
- /* TODO */
- #define nr_irqs 0U
-@@ -25,6 +38,8 @@ static inline void arch_move_irqs(struct vcpu *v)
-     BUG_ON("unimplemented");
- }
- 
-+void init_IRQ(void);
-+
- #endif /* ASM__RISCV__IRQ_H */
- 
- /*
-diff --git a/xen/arch/riscv/irq.c b/xen/arch/riscv/irq.c
-new file mode 100644
-index 0000000000..b5ae7a114b
---- /dev/null
-+++ b/xen/arch/riscv/irq.c
-@@ -0,0 +1,45 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
-+
-+/*
-+ * RISC-V Interrupt support
-+ *
-+ * Copyright (c) Vates
-+ */
-+
-+#include <xen/bug.h>
-+#include <xen/init.h>
-+#include <xen/irq.h>
-+
-+static irq_desc_t irq_desc[NR_IRQS];
-+
-+int arch_init_one_irq_desc(struct irq_desc *desc)
-+{
-+    desc->arch.type = IRQ_TYPE_INVALID;
-+
-+    return 0;
-+}
-+
-+static int __init init_irq_data(void)
-+{
-+    unsigned int irq;
-+
-+    for ( irq = 0; irq < NR_IRQS; irq++ )
-+    {
-+        struct irq_desc *desc = irq_to_desc(irq);
-+        int rc;
-+
-+        desc->irq = irq;
-+
-+        rc = init_one_irq_desc(desc);
-+        if ( rc )
-+            return rc;
-+    }
-+
-+    return 0;
-+}
-+
-+void __init init_IRQ(void)
-+{
-+    if ( init_irq_data() < 0 )
-+        panic("initialization of IRQ data failed\n");
-+}
-diff --git a/xen/arch/riscv/setup.c b/xen/arch/riscv/setup.c
-index a9c0c61fb6..8bcd19218d 100644
---- a/xen/arch/riscv/setup.c
-+++ b/xen/arch/riscv/setup.c
-@@ -6,6 +6,7 @@
- #include <xen/compile.h>
- #include <xen/device_tree.h>
++#include <xen/errno.h>
  #include <xen/init.h>
-+#include <xen/irq.h>
- #include <xen/mm.h>
- #include <xen/shutdown.h>
- #include <xen/smp.h>
-@@ -125,6 +126,8 @@ void __init noreturn start_xen(unsigned long bootcpu_id,
-         panic("Booting using ACPI isn't supported\n");
-     }
+ #include <xen/irq.h>
  
-+    init_IRQ();
+ static irq_desc_t irq_desc[NR_IRQS];
+ 
++static bool irq_validate_new_type(unsigned int curr, unsigned int new)
++{
++    return curr == IRQ_TYPE_INVALID || curr == new;
++}
 +
-     riscv_fill_hwcap();
- 
-     preinit_xen_time();
-diff --git a/xen/arch/riscv/stubs.c b/xen/arch/riscv/stubs.c
-index fdcf91054e..e396b67cd3 100644
---- a/xen/arch/riscv/stubs.c
-+++ b/xen/arch/riscv/stubs.c
-@@ -107,11 +107,6 @@ void irq_ack_none(struct irq_desc *desc)
-     BUG_ON("unimplemented");
- }
- 
--int arch_init_one_irq_desc(struct irq_desc *desc)
--{
--    BUG_ON("unimplemented");
--}
--
- void smp_send_state_dump(unsigned int cpu)
++static int irq_set_type(unsigned int irq, unsigned int type)
++{
++    unsigned long flags;
++    struct irq_desc *desc = irq_to_desc(irq);
++    int ret = -EBUSY;
++
++    spin_lock_irqsave(&desc->lock, flags);
++
++    if ( !irq_validate_new_type(desc->arch.type, type) )
++        goto err;
++
++    desc->arch.type = type;
++
++    ret = 0;
++
++ err:
++    spin_unlock_irqrestore(&desc->lock, flags);
++
++    return ret;
++}
++
++int platform_get_irq(const struct dt_device_node *device, int index)
++{
++    struct dt_irq dt_irq;
++    int ret;
++
++    if ( (ret = dt_device_get_irq(device, index, &dt_irq)) != 0 )
++        return ret;
++
++    BUILD_BUG_ON(NR_IRQS > INT_MAX);
++
++    if ( dt_irq.irq >= NR_IRQS )
++        panic("irq%d is bigger then NR_IRQS(%d)\n", dt_irq.irq, NR_IRQS);
++
++    if ( (ret = irq_set_type(dt_irq.irq, dt_irq.type)) != 0 )
++        return ret;
++
++    return dt_irq.irq;
++}
++
+ int arch_init_one_irq_desc(struct irq_desc *desc)
  {
-     BUG_ON("unimplemented");
+     desc->arch.type = IRQ_TYPE_INVALID;
 -- 
 2.49.0
 
