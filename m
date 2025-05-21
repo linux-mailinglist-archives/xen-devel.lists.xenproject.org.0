@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73234ABFC99
-	for <lists+xen-devel@lfdr.de>; Wed, 21 May 2025 20:01:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.992409.1376163 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D4058ABFCA8
+	for <lists+xen-devel@lfdr.de>; Wed, 21 May 2025 20:16:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.992417.1376173 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uHnkD-00040H-3n; Wed, 21 May 2025 18:00:45 +0000
+	id 1uHnzN-00064L-BS; Wed, 21 May 2025 18:16:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 992409.1376163; Wed, 21 May 2025 18:00:45 +0000
+Received: by outflank-mailman (output) from mailman id 992417.1376173; Wed, 21 May 2025 18:16:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uHnkD-0003xQ-0b; Wed, 21 May 2025 18:00:45 +0000
-Received: by outflank-mailman (input) for mailman id 992409;
- Wed, 21 May 2025 18:00:43 +0000
+	id 1uHnzN-000627-8j; Wed, 21 May 2025 18:16:25 +0000
+Received: by outflank-mailman (input) for mailman id 992417;
+ Wed, 21 May 2025 18:16:23 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=iqa2=YF=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1uHnkB-0003xK-Oy
- for xen-devel@lists.xenproject.org; Wed, 21 May 2025 18:00:43 +0000
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [2a00:1450:4864:20::42e])
+ id 1uHnzL-00061i-FS
+ for xen-devel@lists.xenproject.org; Wed, 21 May 2025 18:16:23 +0000
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [2a00:1450:4864:20::329])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 81b612a8-366d-11f0-b892-0df219b8e170;
- Wed, 21 May 2025 20:00:40 +0200 (CEST)
-Received: by mail-wr1-x42e.google.com with SMTP id
- ffacd0b85a97d-3a37a243388so2069243f8f.1
- for <xen-devel@lists.xenproject.org>; Wed, 21 May 2025 11:00:40 -0700 (PDT)
+ id b2779b36-366f-11f0-b892-0df219b8e170;
+ Wed, 21 May 2025 20:16:21 +0200 (CEST)
+Received: by mail-wm1-x329.google.com with SMTP id
+ 5b1f17b1804b1-43cfdc2c8c9so43733265e9.2
+ for <xen-devel@lists.xenproject.org>; Wed, 21 May 2025 11:16:21 -0700 (PDT)
 Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3a35ca9417dsm20097364f8f.101.2025.05.21.11.00.38
+ 5b1f17b1804b1-447f7baaf2asm78199995e9.34.2025.05.21.11.16.19
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 21 May 2025 11:00:39 -0700 (PDT)
+ Wed, 21 May 2025 11:16:19 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 81b612a8-366d-11f0-b892-0df219b8e170
+X-Inumbo-ID: b2779b36-366f-11f0-b892-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1747850440; x=1748455240; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1747851381; x=1748456181; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=CdEJW6WCmifQ+lA5KIs4zJTvaJPYfOdXrnMLZdJ9XSU=;
-        b=CADO1StQj4g7Had+MDi3SKOKoZyZvN+tv+jjg6kr8YYBctXaIcLN73x0VvJaDyliNT
-         Y+o/rfWNuyU41gKErA48+hdwl43mgac2XI9B6e5zA0omjZ6n7pd2xcEX2qH6Xqz6tBfM
-         AUcJLF97nAW39NYqkiUBTkLSp/4LLD0g9sQn8=
+        bh=GhcJzQKC5gshz1J2+48hyL/oKwr3Dj/y63z851yN1N0=;
+        b=YmfcPcVCV96q57nZEwYk10nh3EMwdCy84XUU6LsFG/aF9s1jxxLOSovegAmS+joyJ1
+         fOil63YqHXfpsJES1H5Ir+iyVNMQTThHFt5EBT3y5YvCRaemsd6s48CGqOjhXOYvoSVb
+         Kti2aUyO/cIvhip2r+fNmD4rOp/0r2neyBgtw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747850440; x=1748455240;
+        d=1e100.net; s=20230601; t=1747851381; x=1748456181;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=CdEJW6WCmifQ+lA5KIs4zJTvaJPYfOdXrnMLZdJ9XSU=;
-        b=ZMQmJ46NRSzoDP2Tv9XXSnDQCUsKuxlnOW5ueovIrJN5PpYpzetzzCvCvQVNfbNv/Q
-         ch2itBqfCzKAGBAtxXIg3VZh75XQDQLZfy++zeUIAZ5IBfROQohk1fGVyLekXVxY0l3I
-         Ss82F4/de3IXMPVfrF83wdyip0TY4Kv+5ogKgoIR5h5CBIbpr8zS7XklAeGD494bLqgT
-         TOebtEQdcmxBNJyuXP05vMxObEq2ajawxtu1gh9mjksgxrgKlysq829xmFy+9Fj/sbK6
-         Tuc0bEEXfd7UXwPmUojxeNEC2IoVR6W07awwdoMoRSdWdRLhwaoRq4K50Q4QF4ZrjUif
-         927w==
-X-Gm-Message-State: AOJu0YygCHdIRiGR0rUjh6dYfcRPf3eDvDo4pj/tc3O0hRbtLZXk/AEM
-	PHt/eildIfa2u260bpOyj37MRY/8pH+4nH8bCx11FAYzIoqoSi0vjVQwD3tVds+IequaNLHbQUI
-	JYeDU
-X-Gm-Gg: ASbGnctrX2jGVdxSqhejY05unFa0Cd4lQMcf7MZ3kDwGDBYaoovISkAKPzq2RnVXAly
-	CJiQZZgzMGGJ/LNOT68DNTe+nwv6yBwIvHh7DJyeurKwwF5/dtu1jjPsXURzH16wvnhaam0172W
-	utUbOpu6ij+pT3Rb7cJFDT2M5NncjkQqnQ9SVVJ/mb0Bt1AVH15CsDhhanIPjB2MR7CE57Pqb2t
-	hOP+b/N5pq/kj4KVcXBJ0tYwkRMBHQWWztOSZvy6YTUXufrjQN6AWLSfxwXXKwaHfUhJoDhFkXK
-	KsGO9dgu5Xm2h3lR0rne/oJSsvJvOyxkCrd15KAvTRfEGmApuqkHrKqI2BSCguDiAWqmKaDWYmm
-	S9dNxnGR0soGnZ6d0
-X-Google-Smtp-Source: AGHT+IFPfur7Je0SL9rNUVPBV/aZkrh4UoIuAtS8mLPh25UPELZULTa2OuYwH4jSR8dU8p8h9Lr07w==
-X-Received: by 2002:a05:6000:400f:b0:39f:175b:a68d with SMTP id ffacd0b85a97d-3a35c808b3dmr19777335f8f.11.1747850439694;
-        Wed, 21 May 2025 11:00:39 -0700 (PDT)
-Message-ID: <8504aab1-c48a-4981-a502-93a2fd18880b@citrix.com>
-Date: Wed, 21 May 2025 19:00:38 +0100
+        bh=GhcJzQKC5gshz1J2+48hyL/oKwr3Dj/y63z851yN1N0=;
+        b=vXNuCisZTfnTlFM463GyGJE9xdEpmj3DbglprnIO1IYv5ye42/dVZWX25XK75i/O27
+         g7/BhtjRUMU2Wl+QFRoO8UnicVd/e7mdeystYCr2woKC6ogTDz2aLh1+/pV+U51yFQFb
+         ZFQafQi9rKQw/fLt8uHJ6hMm6XqwiSWJaNQ4uQLCQrCL0pemszIZDdAnoTPBIipSCTRW
+         lPiNMMLsNx1RnUsSgdyIjitFCA9S805Iiopiub3ozJPxGvVcD+POJia67PuLJb0MGOJu
+         v5kX0aSH3g3lbDogAR0nroItLYZ3b/7gVr7NKwlbcOqwzFXdhAiH0izdqZEZuzwWjRvv
+         RQlg==
+X-Forwarded-Encrypted: i=1; AJvYcCWVlONhC9wOb4aF6JF2//+xjl6GGUoGHtADu15nU2oIf894vE9b0UEQkDyWQUVPK+dDXkkqRQv4lf4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Ywn/wzDOjErzqr/xXR90sRO2gn+7n52YeAMdByepcj4KChpe9tl
+	f0ywL9wNBCi0Yp0IDiqOOe4wBr4uBMAH36ORpj+iDtmqLm/GJzpi07p7/+ok6/t5x3A=
+X-Gm-Gg: ASbGncvdVS9WDRl6S1T4Ij9UfZ/NG6mbE0Q3AXWy3JbpqNBsxKd8Sop44IqAQ/FydUY
+	UV4ybb7TLoMvldLFyq6Ib8NoyBe3XpneXgc8MRVAxntHxBDk6e7rn9JeY4vNSD6PuouMiVW+iM2
+	9KIq8Ap/voUBPTCJRD2tR1Uwok+r5lzSlFW1yFKXENdIgpzTX8PUnftwO+xreI4Bq6hff/uC/Lh
+	sztzs2vlQY59K4gk2ZRJyHo9YzsS03GczUo1v4yaPLQc5SDerQHjoiQLlCmXIrYgEGvhw8l1A45
+	kSfeAtpVi4fARWOD5xy20B/Q3OijZPweB7pT++zioZZuL+sz5PDmpTwPYTzhje9F/LprleqMLnO
+	7SLj12gFGaNlBfgj7
+X-Google-Smtp-Source: AGHT+IGSnTJJvprQsF/PO2Qhvr509i65mjqnn9h2fhttHDdFkmg6eaLxuoCLskdG5P8Jo7A5071L7w==
+X-Received: by 2002:a05:600c:3e88:b0:43d:94:2d1e with SMTP id 5b1f17b1804b1-442fd627303mr212091845e9.13.1747851380662;
+        Wed, 21 May 2025 11:16:20 -0700 (PDT)
+Message-ID: <b66645c8-0e3e-4414-acd3-a0acc6731a14@citrix.com>
+Date: Wed, 21 May 2025 19:16:18 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [Eclair false positive] Re: [PATCH] x86/msr: Rework wrmsr_safe()
- using asm goto()
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Jan Beulich <JBeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, "consulting@bugseng.com" <consulting@bugseng.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Nicola Vetrini <nicola.vetrini@bugseng.com>
-References: <20250521143658.312514-1-andrew.cooper3@citrix.com>
+Subject: Re: [PATCH 2/2] x86/boot: attempt to print trace and panic on AP
+ bring up stall
+To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>
+References: <20250521165504.89885-1-roger.pau@citrix.com>
+ <20250521165504.89885-3-roger.pau@citrix.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -137,65 +135,95 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20250521143658.312514-1-andrew.cooper3@citrix.com>
+In-Reply-To: <20250521165504.89885-3-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 21/05/2025 3:36 pm, Andrew Cooper wrote:
-> diff --git a/xen/arch/x86/include/asm/msr.h b/xen/arch/x86/include/asm/msr.h
-> index 0d3b1d637488..4c4f18b3a54d 100644
-> --- a/xen/arch/x86/include/asm/msr.h
-> +++ b/xen/arch/x86/include/asm/msr.h
-> @@ -69,20 +69,20 @@ static inline void wrmsr_ns(uint32_t msr, uint32_t lo, uint32_t hi)
->  /* wrmsr with exception handling */
->  static inline int wrmsr_safe(unsigned int msr, uint64_t val)
->  {
-> -    int rc;
-> -    uint32_t lo, hi;
-> -    lo = (uint32_t)val;
-> -    hi = (uint32_t)(val >> 32);
-> -
-> -    __asm__ __volatile__(
-> -        "1: wrmsr\n2:\n"
-> -        ".section .fixup,\"ax\"\n"
-> -        "3: movl %5,%0\n; jmp 2b\n"
-> -        ".previous\n"
-> -        _ASM_EXTABLE(1b, 3b)
-> -        : "=&r" (rc)
-> -        : "c" (msr), "a" (lo), "d" (hi), "0" (0), "i" (-EFAULT));
-> -    return rc;
-> +    uint32_t lo = val, hi = val >> 32;
-> +
-> +    asm_inline goto (
-> +        "1: wrmsr\n\t"
-> +        _ASM_EXTABLE(1b, %l[fault])
-> +        :
-> +        : "a" (lo), "c" (msr), "d" (hi)
-> +        :
-> +        : fault );
-> +
-> +    return 0;
-> +
-> + fault:
-> +    return -EFAULT;
+On 21/05/2025 5:55 pm, Roger Pau Monne wrote:
+> With the current AP bring up code Xen can get stuck indefinitely if an AP
+
+You want a comma between "code, Xen" to make the sentence easier to parse.
+
+> freezes during boot after the 'callin' step.  Introduce a 10s timeout while
+> waiting for APs to finish startup.
+
+5s is the timeout used in other parts of AP bringup.  I'd suggest being
+consistent here.
+
+
+> On failure of an AP to complete startup send an NMI to trigger the printing
+
+Again, a comma between "startup, send" would go a long way.
+
+> of a stack backtrace on the stuck AP and panic on the BSP.
+>
+> The sending of the NMI re-uses the code already present in fatal_trap(), by
+> moving it to a separate function.
+
+I'd be tempted to split the patch in two.
+
+>
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> ---
+
+It may be worth nothing that this came from the ICX143 investigation,
+even if it wasn't relevant in the end?
+
+> diff --git a/xen/arch/x86/smpboot.c b/xen/arch/x86/smpboot.c
+> index 48ce996ba414..77dce3e3e22b 100644
+> --- a/xen/arch/x86/smpboot.c
+> +++ b/xen/arch/x86/smpboot.c
+> @@ -1388,10 +1389,17 @@ int __cpu_up(unsigned int cpu)
+>      time_latch_stamps();
+>  
+>      set_cpu_state(CPU_STATE_ONLINE);
+> +    start = NOW();
+>      while ( !cpu_online(cpu) )
+>      {
+>          cpu_relax();
+>          process_pending_softirqs();
+> +        if ( NOW() > start + SECONDS(10) )
+
+(NOW() - start) > SECONDS(10)
+
+It has one fewer boundary conditions, even if it is rather unlikely that
+start + 10s will overflow.
+
+> diff --git a/xen/arch/x86/traps.c b/xen/arch/x86/traps.c
+> index c94779b4ad4f..9b9e3726e2fb 100644
+> --- a/xen/arch/x86/traps.c
+> +++ b/xen/arch/x86/traps.c
+> @@ -734,6 +736,40 @@ static int cf_check nmi_show_execution_state(
+>      return 1;
 >  }
+>  
+> +void show_execution_state_nmi(const cpumask_t *mask, bool show_all)
+> +{
+> +    unsigned int msecs, pending;
+> +
+> +    force_show_all = show_all;
+> +
+> +    watchdog_disable();
+> +    console_start_sync();
+> +
+> +    cpumask_copy(&show_state_mask, mask);
+> +    set_nmi_callback(nmi_show_execution_state);
+> +    /* Ensure new callback is set before sending out the NMI. */
+> +    smp_wmb();
 
-It turns out this is the first piece of Eclair-scanned code using asm goto.
+I know this is only moving code, but this is wrong.  So is the smp_mb()
+in the x2apic drivers.
 
-https://gitlab.com/xen-project/hardware/xen-staging/-/jobs/10108558677
-(The run also contained an equivalent change to xsetbv())
+It would only be correct in principle for xAPIC (which is an MMIO
+store), except it's UC and is strongly ordered anyway.  Furthermore, the
+sequence point for the send_IPI_mask() prevents the compiler from
+reordering this unsafely.
 
-We're getting R1.1 and R2.6 violations.
+The x2APIC drivers need LFENCE;MFENCE on Intel, and just MFENCE on AMD,
+and this (critically) is not smp_mb(), which is now just a locked operation.
 
-R1.1 complains about [STD.adrslabl] "label address" not being valid C99.
-
-R2.6 complains about unused labels.
-
-I expect this means that Eclair doesn't know how to interpret asm goto()
-yet.  The labels listed are reachable from inside the asm block.
-
-From a qualification point of view, this allows for some extensive
-optimisations dropping emitted code.
+I bet these aren't the only examples of incorrect barriers WRT IPIs.  I
+guess we should fix those separately.
 
 ~Andrew
 
