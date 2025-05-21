@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E0C03ABF957
-	for <lists+xen-devel@lfdr.de>; Wed, 21 May 2025 17:31:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.992091.1375870 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 76C12ABF99B
+	for <lists+xen-devel@lfdr.de>; Wed, 21 May 2025 17:39:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.992100.1375879 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uHlPz-0005QG-HK; Wed, 21 May 2025 15:31:43 +0000
+	id 1uHlXJ-00066z-6V; Wed, 21 May 2025 15:39:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 992091.1375870; Wed, 21 May 2025 15:31:43 +0000
+Received: by outflank-mailman (output) from mailman id 992100.1375879; Wed, 21 May 2025 15:39:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uHlPz-0005Nu-EE; Wed, 21 May 2025 15:31:43 +0000
-Received: by outflank-mailman (input) for mailman id 992091;
- Wed, 21 May 2025 15:31:42 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uHlXJ-00064h-3c; Wed, 21 May 2025 15:39:17 +0000
+Received: by outflank-mailman (input) for mailman id 992100;
+ Wed, 21 May 2025 15:39:16 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=JvEX=YF=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1uHlPy-0005No-6X
- for xen-devel@lists.xenproject.org; Wed, 21 May 2025 15:31:42 +0000
+ id 1uHlXI-00064b-4S
+ for xen-devel@lists.xenproject.org; Wed, 21 May 2025 15:39:16 +0000
 Received: from sender4-of-o50.zoho.com (sender4-of-o50.zoho.com
- [136.143.188.50]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id aed1fce8-3658-11f0-b892-0df219b8e170;
- Wed, 21 May 2025 17:31:38 +0200 (CEST)
-Received: by mx.zohomail.com with SMTPS id 1747841490516469.7242626446938;
- Wed, 21 May 2025 08:31:30 -0700 (PDT)
+ [136.143.188.50]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id be5adc25-3659-11f0-a2fa-13f23c93f187;
+ Wed, 21 May 2025 17:39:13 +0200 (CEST)
+Received: by mx.zohomail.com with SMTPS id 1747841949196258.15362504154143;
+ Wed, 21 May 2025 08:39:09 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,39 +38,34 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: aed1fce8-3658-11f0-b892-0df219b8e170
-ARC-Seal: i=1; a=rsa-sha256; t=1747841491; cv=none; 
+X-Inumbo-ID: be5adc25-3659-11f0-a2fa-13f23c93f187
+ARC-Seal: i=1; a=rsa-sha256; t=1747841950; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=KzOdOSMBCdMezfTPObSsnAeWmoPx1HgeenyuFmbqPRQg96Xs2eGz3OZdRVCPtyiEqjIGPBd8VvQGNuWxR+mxINB9Bx8ueq+GKls8uARaz5nbqCyM2DMZe9Ep30Qy2/8h/uLjrnNTve8xicXECq81XiRKnrWyhuySiKf8C2ntUlg=
+	b=OZIUfmRvCVnNETPzommRHutb0jMPgejoNWFt8Xy8Tu1ot/pLPcUBagdWXppxlOgzXa4gNzXWh0uCTHkkWISejhIdw8lVp/L8JJcksOiOrPK+2xa58gdcDmetvu60f+40Wg8uNdFbVtd6a8uoF0CDQP1vOH0FwgbL0B4Y29le3Qo=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1747841491; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=k9zwI5bASVGJQ3uKxIsfubGuwhDLMhp3SxVDuBTuMHg=; 
-	b=FSnmNFSUylVKjs14VpStWvcOGtx7GdwL24YLbLBS702K3gs6/0/XOR5z34bvCFcXBHPjoMF/pIadrg9h6y9Rr03MIQC26bcYrk3rFg2nx2i0R0znf4dLJ6ceKNH6syB9jKeaUH13lzEegdwbJnQfmMYSY5vvZ4L+tXuKA8x5mM0=
+	t=1747841950; h=Content-Type:Content-Transfer-Encoding:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To:Cc; 
+	bh=wQvoDCGpLpyz8uDJKqSsfk2KWp4dhhdOk5HLxm6M23U=; 
+	b=Bwpey/p6Wkppjcuu1exIyCUE8u1mKYalgzT7+OSCRyJlbUEvpKKRDLFkczBRkz6CDG1AY8XOM+DzOrhuV6qplm8oqGiJtUVfgt+hxSXx2IdU/tGppqU3xvsswAoqgsZ/QHDosxjljlo60Cx0TSlYYWIxJk/U5TjzIQTr9CCaFDA=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
 	dkim=pass  header.i=apertussolutions.com;
 	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
 	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1747841491;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1747841950;
 	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=k9zwI5bASVGJQ3uKxIsfubGuwhDLMhp3SxVDuBTuMHg=;
-	b=hdWMgyhU0Do++cu74BkM7qypjQKxyZ++mEnHjd4o5Xub90jBV1sjAq780w+voDQ8
-	wD7h1iKcLDlCl/BqHy6M/c7t6+a13gkal732oTi2f8XvI2bKIhxnHivBV3BJLvEy2PQ
-	t8l8OtvwDsJg36AkdPBvAwQknzxVTfoZ0qCK8LS4=
-Message-ID: <958f591f-35ac-4a10-93e2-9301ccfc5353@apertussolutions.com>
-Date: Wed, 21 May 2025 11:31:28 -0400
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:References:From:From:To:To:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To:Cc;
+	bh=wQvoDCGpLpyz8uDJKqSsfk2KWp4dhhdOk5HLxm6M23U=;
+	b=pdcDbB1/DdXPqu3AQl7cd0KZ80j/sj5453BwDvCAynlEPMVmdeZpvKLaemvdA13j
+	1onvRzREoluoee6EJCyWXqld3+EUlv7ZDn9fmXKOkIqm72girFc25T/g67lNvnkhmI7
+	4G/G6yLD/KxaXTcwycwJ2BRKWIzcNvUq8tKulf0o=
+Message-ID: <ba4ace43-b736-409b-a582-b730c763694e@apertussolutions.com>
+Date: Wed, 21 May 2025 11:39:07 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: Hyperlaunch/dom0less code sharing
+Subject: Hyperlaunch Device Tree Discussion
 Content-Language: en-US
-To: Alejandro Vallejo <agarciav@amd.com>, xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
- Jason Andryuk <jason.andryuk@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Xenia Ragiadakou <xenia.ragiadakou@amd.com>
-References: <DA1WWRUQLCAG.ZTVR1HXJ85V0@amd.com>
+References: <85d65163-6120-4653-8ed5-e7752ae7ce48@apertussolutions.com>
 From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
 Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
  xsJuBFYrueARCACPWL3r2bCSI6TrkIE/aRzj4ksFYPzLkJbWLZGBRlv7HQLvs6i/K4y/b4fs
  JDq5eL4e9BdfdnZm/b+K+Gweyc0Px2poDWwKVTFFRgxKWq9R7McwNnvuZ4nyXJBVn7PTEn/Z
@@ -102,135 +97,208 @@ Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
  ke943EIUts9CmFAHt8cNPYOPRd20pPu4VFNBuT4fv9Ys0iv0XGCEP+sos7/pgJ3gV3pCOric
  p15jV4PCYQQYEQgACQUCViu54AIbDAAKCRBTc6WbYpR8Khu7AP9NJrBUn94C/3PeNbtQlEGZ
  NV46Mx5HF0P27lH3sFpNrwD/dVdZ5PCnHQYBZ287ZxVfVr4Zuxjo5yJbRjT93Hl0vMY=
-In-Reply-To: <DA1WWRUQLCAG.ZTVR1HXJ85V0@amd.com>
+In-Reply-To: <85d65163-6120-4653-8ed5-e7752ae7ce48@apertussolutions.com>
+X-Forwarded-Message-Id: <85d65163-6120-4653-8ed5-e7752ae7ce48@apertussolutions.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-ZohoMailClient: External
 
-On 5/21/25 10:35, Alejandro Vallejo wrote:
-> Hi,
-> 
-> (There's a TL;DR at the end)
-> 
-> While working on preparing and reworking the hyperlaunch series for
-> upstreaming it's slowly becoming apparent the degree of duplication with
-> dom0less.
+Greetings,
 
-Yes, this was by design so that when we got to the point of convergence 
-it would be apparent where the commonalities are and thus be collapsed.
-
-> Oleksii's latest effort to move all that code into common[*] (see
-> ad03faa942b9("xen/common: dom0less: make some...) makes this even clearer.
-> There are 1:1 relationships for every key data strucutre, and by deviating
-> we're overcomplicating the ability to share code.
-> 
->    [*] https://lore.kernel.org/xen-devel/cover.1746468003.git.oleksii.kurochko@gmail.com/
-> 
->      dom0less           Hyperlaunch
->      ------------------------------
->      kernel_info        boot_domain
->      bootmodule         boot_module
->      bootmodule_kind   bootmod_type
->      membanks                memmap
->      bootinfo             boot_info
-
-If you go back, you will see less of these differences. A lot of the 
-variations have been the results of reviewer's request. And that goes to 
-the fact that dom0less was developed with Arm mentality in terminology, 
-eg. memory banks verse memory map.
-
-> The difficulty in code sharing is not just unfortunate from a vague sense of
-> elegance or neatness. Having different code paths parsing the same DT bindings
-> means it's a matter of time before x86 and all other Xen ports have different
-> bindings, which would would only worsen the situation wrt code sharing and user
-> confusion.
-
-Only if we allowed it, but with that said there are subtleties between 
-the arch that will require variation. Such as mode, which is primarily 
-an x86 specific.
-
-> I've been trying to get _somewhere_ in using parts of dom0less on x86
-> and develop a credible PoC that highlights the use of dom0less parsing
-> code paths. The results are interesting.
-> 
-> While I didn't get to a full integration in the hyperlaunch series as I hoped
-> due to time constraints I did get far enough to:
-> 
->    1. Replace boot_module, boot_domain and bootmod_type with their dom0less
->       counterparts (pending some cleanup).
->    2. Isolate binding parsing code in common/device-tree so it's dettached from
->       the not-so-common dom0less domain building logic in dom0less-build.c
->    3. Do early module kind detection from x86 using code in (2).
->    4. Do late binding parsing also using code in (2) after unflattening the DTB.
-> 
-> And it works well enough under QEMU to populate boot_info to a first
-> approximation. It's missing hyperlaunch-specific bindings (like "domid"
-> or "mode"), but that's just a matter of adding them to the already
-> existing per-arch binding parser ("mode", maybe, would be a candidate
-> for this) or retrofit them in dom0less ("domid" is a very clear
-> candidate for this) and integrating in the larger series to be able to
-> actually boot domains.
-> 
-> The PoC does not go all the way due to time constraints, as I said, but
-> I think it goes far enough to convince me it's both feasible and
-> beneficial to go in this direction rather than that of a full
-> reimplementation on x86, specially seeing how Oleksii already aims to
-> have full code reuse on riscv.
-> 
-> A brave new world would reuse all data (including bootinfo) and code
-> (bootfdt.c/bootinfo.c), but I couldn't get that far, and I don't think
-> I'll be able to in a timely manner. IOW: I compiled-in device-tree.c,
-> but NOT bootfdt.c or bootinfo.c, or any of the others. I merely
-> extracted from those files the binding parsing bits of interest.
-> 
-> It'd be nice to use them, but the domain construction logic is just too
-> different at present. As for the code I tested with,  I need to do some serious
-> cleanup before it's ready for sharing, and even moreso for review, but before I
-> go through that I'd like to reach consensus on the following points before
-> investing any more of my time working on the side.
-> 
-> TL;DR:
-> 
-> I think we should aim to share binding code wherever possible, using common
-> datastructures (kernel_info and bootmodule) as dumping ground for the results
-> of the binding parsing functions. I seek agreement on the following 3 points
-> for the end goal of DTB multidomain boots on x86 before I start slicing
-> my hacks into reasonable chunks.
-> 
->    1. We want common data structures, with arch-specific fields to hold
->       information from xen,domain DT nodes
->    2. We want to have a single collection of DTB parsers in the code.
->    3. We want to operate on the unflattened DTB for the majority of parsing.
->      (plus a minimal version on the FDT in order to bootstrap, also common)
-
-As for 3, I can repost my original analysis that went to the working 
-group on why using this is not the best idea. Doing 3 would require 
-doing at least two, if not three passes on the DTB for x86 with zero 
-benefit/need since, unlike Arm, we never have to read from it after 
-boot. The way the x86 parser is today, we are walking the DTB only once.
-
-What I would suggest for 2 is that, perhaps, it might be an opportune 
-time to review the existing DTB parsing code. Providing a common 
-interface to parse standard/spec DTB structures regardless if it is 
-coming from an FTB or via the FTB index, aka "unflattened" DTB. Doing so 
-would enable a complete reuse within the DTB parsers and remove then 
-need for 3.
+Per my response to Allejandro's message, here is the response sent the 
+the DTB working group formed last year to discuss DTB parsing for x86.
 
 
-> (2) and (3) are tightly related. There's many reasons for wanting to use the
-> unflattened blobs as much as possible. They range from quirks in specific "dtc"
-> versions, to complexities parsing phandles, to corner cases involving duplicate
-> properties (i.e: due to .dtsi files), etc. Unflattening an FDT brings a
-> lots of "maybe-ok-after-sanitising" FDTs back into canonically correct DTs.
-> 
-> I'll share the PoC code as soon as as it's in a presentable state.
-> Hopefully by the end of the week. But I'm sending this ahead of time to
-> start collecting thoughts right away.
-> 
-> So. Thoughts?
+Original Message:
 
+I have copied everyone that attended the hyperlaunch working group a few 
+weeks back to ensure everyone has a chance to review and comment.
 
-v/r,
-dps
+As a start and to provide a common understanding, first is a quick 
+overview of Flattened Device Tree and Xen's "Unflattened Device Tree". 
+The intent is to assist everyone in having an equal footing when 
+considering the impacts that Device Tree parsing brings.
 
+A Flattened Device Tree (FDT) is a nested linear tree structure that 
+uses a combination of tags, layout definition, and headers to allow 
+navigation through the tree. Because the layout is nested, if given the 
+offset for a node in the FDT, it is possible to start at that node and 
+jump directly into the tree to access child nodes and properties. 
+Provided below is a visual representation of what any parent node, 
+including the root node, may look like:
+
++------------------------------+
+| NODE TAG (parent node)       |
++------------------------------+
+| Null-term String (node name) |
++------------------------------+
+| PROPERTY TAG                 |
++------------------------------+
+| struct property {            |
+|   u32 len                    |
+|   u32 name_offset            |
+| }                            |
++------------------------------+
+| Property Data                |
++------------------------------+
+| NODE TAG (child node)        |
++------------------------------+
+| Null-term String (node name) |
++------------------------------+
+| PROPERTY TAG                 |
++------------------------------+
+| struct property {            |
+|   u32 len                    |
+|   u32 name_offset            |
+| }                            |
++------------------------------+
+| Property Data                |
++------------------------------+
+| END NODE TAG (child node)    |
++------------------------------+
+| END NODE TAG (parent node)   |
++------------------------------+
+
+Before moving forward, let us clarify some terminology to ensure a 
+common understanding when discussing a tree.
+
+  - node path: represents a series of hierarchical child nodes starting 
+at the root node
+  - adjacent node: the logically next node that is at the same level in 
+the tree
+  - child node: a node that is a one level lower leaf to another node, 
+the parent node
+  - tree walk: incrementally walking the nodes, to locate a specific 
+node or to iterate over the whole tree
+
+The libfdt library provides handlers for finding the offset of a node, 
+as well as handlers to jump to a node offset and iterate only on the 
+child nodes. While the libfdt is fairly optimized, the reality is that 
+to find a node, the library must do a tree walk starting with the first 
+node written in the FDT. If a node is not a path match at the current 
+depth, it must cross a null terminated string, all the node's property 
+entries and all children nodes to reach the next adjacent node. Once a 
+path match for the depth is found, then the search may descend into the 
+next depth and repeat the process until a match at that level is found.
+
+This brings us to Xen's "Unflattened Device Tree" (UDT), for which I am 
+quoting as I find myself thinking of it in another way, which IMHO is a 
+more descriptive name, which is that it is an FDT lookup index. It just 
+happens that the implementation for the lookup index structure is a tree 
+structure. UDT uses a structure to represent a node and one to represent 
+a property. The node structure is a traditional tree structure with 
+adjacent and child node pointers. The contents of both structures are 
+pointers to the respective memory locations within the FDT. As with the 
+FDT, in order to locate a node in the index, a tree walk of the index 
+must be done. The difference comes when a node is not a path match, to 
+reach the adjacent node, it only needs to access the node pointed to by 
+the adjacent node pointer of the current node. UDT provides an API for 
+walking the node tree, walking the property list for a node, and methods 
+for type-interpreted extraction of property values. NB: the 
+type-interpreted extraction API is codified around taking a UDT property 
+structure, but the interpreted extraction logic isn't UDT specific as it 
+is still reading the property value from the FDT.
+
+The benefit UDT brings is when repeated node lookups and/or repeated 
+phandle dereferencing are done. For both FDT and UDT, a tree walk must 
+be done. The walk will start with a node, either the root node or one 
+for which a reference has already been found, walking each adjacent node 
+and descending into a node's children when a path match occurs. For 
+phandle dereferencing, the benefit is greater due to the fact that when 
+indexing the FDT, phandles get dereferenced, thus allowing direct 
+reference in the index. For comparison, a phandle dereference using 
+libfdt does a walk of the tree to find the node referenced by the phandle.
+
+The UDT, as implemented, is not without cost. The current implementation 
+takes two complete walks of the entire FDT using libfdt. The first pass 
+is to obtain the amount of memory that is required to allocate enough 
+instances of the UDT node and property structures to represent the full 
+tree. The second pass is when the FDT nodes and properties are indexed 
+into the UDT.
+
+With the expense of using FDT and UDT established, it is important to 
+put that expense into context. Consider hyperlaunch on x86 where the 
+arch itself has no DT requirements. In all likelihood, an FDT 
+constructed for this arch would only contain the nodes necessary for 
+hyperlaunch. If hyperlaunch were constructed x86 only, loading the 
+configuration could be done in a single full walk of the FDT, even when 
+considering phandle usage. The reason this is true for the phandles 
+case, is that as nodes known to be a phandle target are encountered, 
+their offset into the FDT could be stored with dereferencing resolved 
+post walk.
+
+For DT based archs, currently accepted costs are two FDT node lookups 
+along with the two full walks to construct the UDT. These first two node 
+lookups being the memory allocation table and the Xen command line. As 
+noted above, an FDT node lookup requires a walk of the linear tree until 
+the node is located. AIUI at this point is that the number of nodes that 
+must be crossed is indeterminate. I did not see anything in the device 
+tree specification that the FDT must be packed in the same order as the 
+string representation. NB: I have not reviewed the DT compiler to see if 
+it optimizes for early access nodes to be packed at the beginning of the 
+linear tree to reduce the number of nodes that must be crossed.
+
+While the aforementioned strategy for x86 would be optimal for x86, it 
+is not necessarily the best for DT based archs. Hyperlaunch started, and 
+currently is, focused on the x86 arch, but long term it was always 
+understood that its more expansive design would be desirable by all 
+archs. Like anything that moves into common, a slightly less efficient 
+approach for one platform is accepted for the benefit of a common 
+implementation that reduces the amount of code while increasing the 
+number of reviewers.
+
+After listening to everyone's concerns, re-reviewing all of Arm's device 
+tree logic, and considering everything in totality, the conclusion is 
+that there is a core root cause from with which all the concerns raised 
+flow. First a summary of the main concerns raised,
+
+  - The issue of memory allocator(s) available at the time when the 
+first FDT walk/parsing occurs.
+  - Overhead of doing a more than one FDT walk to obtain the hyperlaunch 
+configuration when phandles are in use.
+  - Supporting FDT would require the introduction of a 
+duplicate/competing set of property parsers.
+
+This root cause is due to a design decision difference made for the 
+hyperlaunch domain builder versus the dom0less domain builder and Arm's 
+approach to device tree parsing. For dom0less, the approach is to walk 
+the UDT index tree at the domain construction time, which appears to 
+stem from Arm's need and practice of repeatedly accessing device tree 
+entries. Whereas x86 has no need for the device tree and took the 
+approach to do a single walk to extract its configuration into a code 
+usable structure.
+
+With that understanding, it is believed that these two approaches are 
+not diametrically opposed and in fact can be blended together to result 
+in a generally optimized approach. The approach will be to conduct two 
+full walks of the FDT, an early boot pass before memory allocation is 
+available and a second pass after a memory allocator is set up. Both 
+passes serve to populate the proposed boot info structure, specifically 
+the scope of these passes are as follows:
+
+Early FDT Walk: (static values)
+  - calculate the space required for the device tree index
+  - count the number of domains defined
+  - Xen command line
+  - XSM policy
+  - arch specific static values, via an arch_early_fdt()
+
+Late FDT Walk: (dynamic values)
+  - construct device tree index, aka "unflattened device tree"
+  - populate boot modules entries (NB: boot modules are expected to be 
+static array)
+  - store device tree node index for top level index and hyperlaunch node
+  - populate boot domain entries, basis will be device tree index node
+  - arch specific dynamic values, via an arch_late_fdt()
+
+By taking this approach which is constructed around a set of arch 
+neutral structures will enable another goal of the hyperlaunch series, 
+which is to move to having a common domain creation/construction logic. 
+Currently, there is a significant amount of duplication in each arch's 
+branch for boot time construction of domains. It will also allow 
+removing arch specific code from the initialization of common 
+infrastructure such as XSM.
+
+V/r,
+Daniel P. Smith
 
