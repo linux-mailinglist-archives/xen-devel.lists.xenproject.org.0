@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 41FB0ABFBBE
-	for <lists+xen-devel@lfdr.de>; Wed, 21 May 2025 18:56:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.992349.1376123 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 016C4ABFBCC
+	for <lists+xen-devel@lfdr.de>; Wed, 21 May 2025 18:58:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.992371.1376133 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uHmjt-0007oy-SI; Wed, 21 May 2025 16:56:21 +0000
+	id 1uHmmA-0000R7-7i; Wed, 21 May 2025 16:58:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 992349.1376123; Wed, 21 May 2025 16:56:21 +0000
+Received: by outflank-mailman (output) from mailman id 992371.1376133; Wed, 21 May 2025 16:58:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uHmjt-0007n1-P8; Wed, 21 May 2025 16:56:21 +0000
-Received: by outflank-mailman (input) for mailman id 992349;
- Wed, 21 May 2025 16:56:20 +0000
+	id 1uHmmA-0000PA-4Y; Wed, 21 May 2025 16:58:42 +0000
+Received: by outflank-mailman (input) for mailman id 992371;
+ Wed, 21 May 2025 16:58:40 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=/Cb8=YF=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1uHmjs-0007kx-87
- for xen-devel@lists.xenproject.org; Wed, 21 May 2025 16:56:20 +0000
-Received: from mail-pf1-x42c.google.com (mail-pf1-x42c.google.com
- [2607:f8b0:4864:20::42c])
+ <SRS0=iqa2=YF=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1uHmm8-0000Oy-2O
+ for xen-devel@lists.xenproject.org; Wed, 21 May 2025 16:58:40 +0000
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [2a00:1450:4864:20::433])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 83e77f63-3664-11f0-a2fa-13f23c93f187;
- Wed, 21 May 2025 18:56:19 +0200 (CEST)
-Received: by mail-pf1-x42c.google.com with SMTP id
- d2e1a72fcca58-7425bd5a83aso6999631b3a.0
- for <xen-devel@lists.xenproject.org>; Wed, 21 May 2025 09:56:19 -0700 (PDT)
-Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
- by smtp.gmail.com with UTF8SMTPSA id
- 41be03b00d2f7-b26eb0a0b19sm9850067a12.74.2025.05.21.09.56.15
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 21 May 2025 09:56:16 -0700 (PDT)
+ id d78cd754-3664-11f0-a2fa-13f23c93f187;
+ Wed, 21 May 2025 18:58:39 +0200 (CEST)
+Received: by mail-wr1-x433.google.com with SMTP id
+ ffacd0b85a97d-3a3673e12c4so2821517f8f.2
+ for <xen-devel@lists.xenproject.org>; Wed, 21 May 2025 09:58:39 -0700 (PDT)
+Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3a35ca5a84csm20355774f8f.31.2025.05.21.09.58.37
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 21 May 2025 09:58:38 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,214 +45,131 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 83e77f63-3664-11f0-a2fa-13f23c93f187
+X-Inumbo-ID: d78cd754-3664-11f0-a2fa-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1747846577; x=1748451377; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=qDIOiRpQ/UWqZgclLlLXABuivH/D3ZP3P/vQMi7O+1g=;
-        b=QChupFmSgSzSRnbgEONq6e63zEA3OLWj8XuDXzvz0a6BxL6yDLhAtyc+3Bd3PfyrVs
-         bYRguGmAW8qHKz/aHsJjDRjj+PBWGf7/o2VxVny8EYyVn+GWyWmUjm9AO08IGCC+il8+
-         5v8RZkRfoUJgEH5zr4QJEXyIprVtFBQ2p0Abc=
+        d=citrix.com; s=google; t=1747846718; x=1748451518; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=UPyVRz9pXq4sGeCwWjKLzIei9u3zxgHoNDinNdva4vY=;
+        b=rw7mvv/F3YeVjUdcLHsjbSy4NFtiNxU2dwNdDWyLu4l2INeJmJ1pr+YUzMA96YozYa
+         QT6EnqAYYUEj8n4nwfmLPZz1Hety3MfWwICAuwiGWvXr2JYh1uaqNmiXm45lrNTmoSBh
+         ZAD98VNFJcQe7BJnRA8ickbDmsyQgPrUtxvc0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747846577; x=1748451377;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=qDIOiRpQ/UWqZgclLlLXABuivH/D3ZP3P/vQMi7O+1g=;
-        b=lQ6VpvkkSkotGRLJ49JNAp6Amwch7/TGOMR/G7XenmvR/bBt3m0S6PollK5QtKK8W3
-         RgMSJ/cN4M4tM/Km5GietSZG4HLuNFlAjriuCG8a+qLkFzz0ObHB4Xiy4GlCanJLm2A9
-         65C0J+1KTRf2X2Vda6tYr21iFybIM7v6BGJGZtEFlLixlI2wrymVJcTq12PdDQI+8Fah
-         q5cqmsCBlp5NLAui4CK1oiZjrwK1QqBnOhRxkuMHdjAve6AKBHnexwCCMJFIc7V1USSV
-         ZKRIhh+FDpyJgQFyZPApjyEKaKR0/ynnoFrzxK/anOiednNqqlHqR9NJWe+ze1f4F1OI
-         s5pA==
-X-Gm-Message-State: AOJu0YydvYjZEP1GhGw4T4IawiPuc9wGHaErZ31aGwQuAiPodunYL2oz
-	mtqb6w/R0/1b9K01yFBw3/VLxVFdlqZEy3iSYG0gukiTdG3EhRPEoEicD0KPuL3RrcbUejRUZNB
-	wOxx4
-X-Gm-Gg: ASbGncsUCySS+35nH5m3bbwYY3y+MU3VAlcUSaaw8VbRDJPD5XlxJ1vb5OPJUmebIU+
-	/2tkJY5TQfzZ7VxK91pUS8ab96hl6a4EFkhZYeMPT+647Tp5RahxqAoIGoALDtqc4HcPx1jBA6m
-	w6riJYtc0DF/xPb2d/QkY2xhSKEcWbOtlFTmXbhL+iyoPZwdnor4V1a4+FDoZPZksGPkj1TnIoY
-	kWdGBCSv9TG8Q/9naRYNJcECQs5t511UGfWol2OwejSy/Gm0dIDP4Z3ctGYtU3S+4uPfgv/odCe
-	8l76SlWmfUPyejcUaiu1GYToie6QW87DPAbGhmuUtQmLNs7/bAu1Nk+bnuDCni1vda9gz2T4gx6
-	tTKPfrph8eTnjOxSHUwE=
-X-Google-Smtp-Source: AGHT+IGXzgNihnHoIDZ49HYZOtoHdKkHpbangZQmlumpILsL+ggNAnIJfg1eVBtBYPorxJZCtPztZQ==
-X-Received: by 2002:a05:6a21:6e4a:b0:1f3:194b:30ae with SMTP id adf61e73a8af0-2162188b7d7mr32339282637.1.1747846577248;
-        Wed, 21 May 2025 09:56:17 -0700 (PDT)
-From: Roger Pau Monne <roger.pau@citrix.com>
-To: xen-devel@lists.xenproject.org
-Cc: Roger Pau Monne <roger.pau@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: [PATCH 2/2] x86/boot: attempt to print trace and panic on AP bring up stall
-Date: Wed, 21 May 2025 18:55:04 +0200
-Message-ID: <20250521165504.89885-3-roger.pau@citrix.com>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20250521165504.89885-1-roger.pau@citrix.com>
-References: <20250521165504.89885-1-roger.pau@citrix.com>
+        d=1e100.net; s=20230601; t=1747846718; x=1748451518;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=UPyVRz9pXq4sGeCwWjKLzIei9u3zxgHoNDinNdva4vY=;
+        b=DfLD/1ZT/uVOdTpRVMIFNOic+gYyTnZL81ySSlmZLbzpgOKQ7G+6Yr7n7MdmN/FKml
+         IVp8Z+DvVDsp7K1Cc+qeuBi05nYBpp2W4juI5oy7eDwzLLNuvtqTkIm7WS+MjPKKtEvO
+         V3mJhz138NDB3ZqU5lhh5TZCcOKEONj4OGMehqRl2PJ2v7ApU2rzePbbvA1pE4lLyLp2
+         1qMpY7Vi7dg9KqPgwFTPfiDjedJte/jHXgfSKbRgX4AHRwsYayqaxOtZkyFWc7SCdaYy
+         yQcx9sCHsOxBfvRMU9M6GjORCxP/NKoG8DaCP/hx1BeycFB0gkTLRj37fDLKqR1NPmcR
+         4c0Q==
+X-Forwarded-Encrypted: i=1; AJvYcCXK/yARysreRDAq3A4vuxGdsZnG8tJRlyEKPpgps8aHpS3Zz/Zae/Zrn8of/lFiFRBYBqvSd/OLhjU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzBbifPEN9K4LqFyxqIoi0tYVTITo3perervRRyi9cmwl2eeD4Z
+	MYCgZwdcAZgdhvUaP1zx1I1wtjwbhAN7TGSxyiBs3U2d8uR8fWI5IpbngVy2xkOrhZc=
+X-Gm-Gg: ASbGncuwcCYaApBfZ4YuJi7biX/P57xZwZXtROwh/5UeL1rvlJFAZkbKePgRXFWDIkP
+	VGK58XiszYjgkQoo4eL9WU/tqfOhA2J8Redi6eBgMoJTQVm/tyiZV5zUSTEg9s03GgYYCnkcg4X
+	vZwm28KMMlTtalPclajsb2i1wo181+RAsuaOVcu0xQol1TYXpWW3H0Z6mCjA4MA7lmOQCHTdxIY
+	JnslRpidof5gQO6cIjfKdky2EEi4ABp+mpx4XZI+WkOUZofsC+tUQKhruD2aHVXHa/cDhdCYYqn
+	q2G8s0E+YmZnYGrD858fjYrvl2g2lGt1Fccj31hL+ngS1mfPLpkv3QAuLJZ8FfwOMsWh3AlRuOZ
+	6zoary0JbUAJpd1fh
+X-Google-Smtp-Source: AGHT+IGrffbGCaVt/A3GOj3E5l3Rd9O4oUQG3nLUQFA0w0In1SB1U8RhmuNVdZKtkIbmmlQu1GbKuA==
+X-Received: by 2002:a5d:5f46:0:b0:3a0:7017:61f6 with SMTP id ffacd0b85a97d-3a35c825eefmr21237666f8f.14.1747846718497;
+        Wed, 21 May 2025 09:58:38 -0700 (PDT)
+Message-ID: <e3f405f8-82bf-41b5-badb-bd5ac51b1833@citrix.com>
+Date: Wed, 21 May 2025 17:58:37 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] x86/boot: print CPU number in bring up failure
+To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>
+References: <20250521165504.89885-1-roger.pau@citrix.com>
+ <20250521165504.89885-2-roger.pau@citrix.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <20250521165504.89885-2-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-With the current AP bring up code Xen can get stuck indefinitely if an AP
-freezes during boot after the 'callin' step.  Introduce a 10s timeout while
-waiting for APs to finish startup.
+On 21/05/2025 5:55 pm, Roger Pau Monne wrote:
+> Print the CPU ID that fails to respond to the init sequence, or that didn't
+> manage to reach the "callin" state.  Expand a bit the printed error
+> messages.  Otherwise the "Not responding." message is not easy to
+> understand by users.
+>
+> Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> ---
+>  xen/arch/x86/smpboot.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/xen/arch/x86/smpboot.c b/xen/arch/x86/smpboot.c
+> index 0189d6c332a4..48ce996ba414 100644
+> --- a/xen/arch/x86/smpboot.c
+> +++ b/xen/arch/x86/smpboot.c
+> @@ -618,10 +618,10 @@ static int do_boot_cpu(int apicid, int cpu)
+>              smp_mb();
+>              if ( bootsym(trampoline_cpu_started) == 0xA5 )
+>                  /* trampoline started but...? */
+> -                printk("Stuck ??\n");
+> +                printk("CPU%u: Didn't finish startup sequence\n", cpu);
+>              else
+>                  /* trampoline code not run */
+> -                printk("Not responding.\n");
+> +                printk("CPU%u: Not responding to startup\n", cpu);
+>          }
+>      }
+>  
 
-On failure of an AP to complete startup send an NMI to trigger the printing
-of a stack backtrace on the stuck AP and panic on the BSP.
+I'd suggest printing the APIC_ID too.  The next step here is always to
+cross-reference with the MADT.
 
-The sending of the NMI re-uses the code already present in fatal_trap(), by
-moving it to a separate function.
-
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
----
- xen/arch/x86/include/asm/processor.h |  1 +
- xen/arch/x86/smpboot.c               |  8 ++++
- xen/arch/x86/traps.c                 | 66 +++++++++++++++++-----------
- 3 files changed, 49 insertions(+), 26 deletions(-)
-
-diff --git a/xen/arch/x86/include/asm/processor.h b/xen/arch/x86/include/asm/processor.h
-index eacd425c5350..10d8078cc1ca 100644
---- a/xen/arch/x86/include/asm/processor.h
-+++ b/xen/arch/x86/include/asm/processor.h
-@@ -371,6 +371,7 @@ void show_registers(const struct cpu_user_regs *regs);
- #define dump_execution_state() run_in_exception_handler(show_execution_state)
- void show_page_walk(unsigned long addr);
- void noreturn fatal_trap(const struct cpu_user_regs *regs, bool show_remote);
-+void show_execution_state_nmi(const cpumask_t *mask, bool show_all);
- 
- extern void mtrr_ap_init(void);
- extern void mtrr_bp_init(void);
-diff --git a/xen/arch/x86/smpboot.c b/xen/arch/x86/smpboot.c
-index 48ce996ba414..77dce3e3e22b 100644
---- a/xen/arch/x86/smpboot.c
-+++ b/xen/arch/x86/smpboot.c
-@@ -1370,6 +1370,7 @@ int cpu_add(uint32_t apic_id, uint32_t acpi_id, uint32_t pxm)
- int __cpu_up(unsigned int cpu)
- {
-     int apicid, ret;
-+    s_time_t start;
- 
-     if ( (apicid = x86_cpu_to_apicid[cpu]) == BAD_APICID )
-         return -ENODEV;
-@@ -1388,10 +1389,17 @@ int __cpu_up(unsigned int cpu)
-     time_latch_stamps();
- 
-     set_cpu_state(CPU_STATE_ONLINE);
-+    start = NOW();
-     while ( !cpu_online(cpu) )
-     {
-         cpu_relax();
-         process_pending_softirqs();
-+        if ( NOW() > start + SECONDS(10) )
-+        {
-+            /* AP is stuck, send NMI and panic. */
-+            show_execution_state_nmi(cpumask_of(cpu), true);
-+            panic("CPU%u: Stuck while starting up\n", cpu);
-+        }
-     }
- 
-     return 0;
-diff --git a/xen/arch/x86/traps.c b/xen/arch/x86/traps.c
-index c94779b4ad4f..9b9e3726e2fb 100644
---- a/xen/arch/x86/traps.c
-+++ b/xen/arch/x86/traps.c
-@@ -714,13 +714,15 @@ static cpumask_t show_state_mask;
- static bool opt_show_all;
- boolean_param("async-show-all", opt_show_all);
- 
-+static bool force_show_all;
-+
- static int cf_check nmi_show_execution_state(
-     const struct cpu_user_regs *regs, int cpu)
- {
-     if ( !cpumask_test_cpu(cpu, &show_state_mask) )
-         return 0;
- 
--    if ( opt_show_all )
-+    if ( opt_show_all || force_show_all )
-         show_execution_state(regs);
-     else if ( guest_mode(regs) )
-         printk(XENLOG_ERR "CPU%d\t%pv\t%04x:%p in guest\n",
-@@ -734,6 +736,40 @@ static int cf_check nmi_show_execution_state(
-     return 1;
- }
- 
-+void show_execution_state_nmi(const cpumask_t *mask, bool show_all)
-+{
-+    unsigned int msecs, pending;
-+
-+    force_show_all = show_all;
-+
-+    watchdog_disable();
-+    console_start_sync();
-+
-+    cpumask_copy(&show_state_mask, mask);
-+    set_nmi_callback(nmi_show_execution_state);
-+    /* Ensure new callback is set before sending out the NMI. */
-+    smp_wmb();
-+    send_IPI_mask(mask, APIC_DM_NMI);
-+
-+    /* Wait at most 10ms for some other CPU to respond. */
-+    msecs = 10;
-+    pending = cpumask_weight(&show_state_mask);
-+    while ( pending && msecs-- )
-+    {
-+        unsigned int left;
-+
-+        mdelay(1);
-+        left = cpumask_weight(&show_state_mask);
-+        if ( left < pending )
-+        {
-+            pending = left;
-+            msecs = 10;
-+        }
-+    }
-+    if ( pending )
-+        printk("Non-responding CPUs: {%*pbl}\n", CPUMASK_PR(&show_state_mask));
-+}
-+
- const char *vector_name(unsigned int vec)
- {
-     static const char names[][4] = {
-@@ -780,33 +816,11 @@ void fatal_trap(const struct cpu_user_regs *regs, bool show_remote)
- 
-         if ( show_remote )
-         {
--            unsigned int msecs, pending;
-+            cpumask_t *scratch = this_cpu(scratch_cpumask);
- 
--            cpumask_andnot(&show_state_mask, &cpu_online_map,
-+            cpumask_andnot(scratch, &cpu_online_map,
-                            cpumask_of(smp_processor_id()));
--            set_nmi_callback(nmi_show_execution_state);
--            /* Ensure new callback is set before sending out the NMI. */
--            smp_wmb();
--            smp_send_nmi_allbutself();
--
--            /* Wait at most 10ms for some other CPU to respond. */
--            msecs = 10;
--            pending = cpumask_weight(&show_state_mask);
--            while ( pending && msecs-- )
--            {
--                unsigned int left;
--
--                mdelay(1);
--                left = cpumask_weight(&show_state_mask);
--                if ( left < pending )
--                {
--                    pending = left;
--                    msecs = 10;
--                }
--            }
--            if ( pending )
--                printk("Non-responding CPUs: {%*pbl}\n",
--                       CPUMASK_PR(&show_state_mask));
-+            show_execution_state_nmi(scratch, false);
-         }
-     }
- 
--- 
-2.49.0
-
+~Andrew
 
