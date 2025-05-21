@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 45A30ABFBB1
-	for <lists+xen-devel@lfdr.de>; Wed, 21 May 2025 18:54:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.992340.1376093 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C6BD3ABFBBC
+	for <lists+xen-devel@lfdr.de>; Wed, 21 May 2025 18:56:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.992347.1376102 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uHmhi-0006jP-2i; Wed, 21 May 2025 16:54:06 +0000
+	id 1uHmjk-0007GD-Bh; Wed, 21 May 2025 16:56:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 992340.1376093; Wed, 21 May 2025 16:54:06 +0000
+Received: by outflank-mailman (output) from mailman id 992347.1376102; Wed, 21 May 2025 16:56:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uHmhh-0006h3-VM; Wed, 21 May 2025 16:54:05 +0000
-Received: by outflank-mailman (input) for mailman id 992340;
- Wed, 21 May 2025 16:54:04 +0000
+	id 1uHmjk-0007EZ-95; Wed, 21 May 2025 16:56:12 +0000
+Received: by outflank-mailman (input) for mailman id 992347;
+ Wed, 21 May 2025 16:56:11 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=jPXp=YF=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
- id 1uHmhg-0006gx-Gu
- for xen-devel@lists.xenproject.org; Wed, 21 May 2025 16:54:04 +0000
-Received: from mail-oa1-x2a.google.com (mail-oa1-x2a.google.com
- [2001:4860:4864:20::2a])
+ <SRS0=/Cb8=YF=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1uHmjj-0007EC-Eh
+ for xen-devel@lists.xenproject.org; Wed, 21 May 2025 16:56:11 +0000
+Received: from mail-pg1-x531.google.com (mail-pg1-x531.google.com
+ [2607:f8b0:4864:20::531])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 312bd0c3-3664-11f0-b892-0df219b8e170;
- Wed, 21 May 2025 18:54:00 +0200 (CEST)
-Received: by mail-oa1-x2a.google.com with SMTP id
- 586e51a60fabf-2db9e29d3bcso2046117fac.1
- for <xen-devel@lists.xenproject.org>; Wed, 21 May 2025 09:54:00 -0700 (PDT)
+ id 7d29f359-3664-11f0-b892-0df219b8e170;
+ Wed, 21 May 2025 18:56:08 +0200 (CEST)
+Received: by mail-pg1-x531.google.com with SMTP id
+ 41be03b00d2f7-b26f01c638fso5239767a12.1
+ for <xen-devel@lists.xenproject.org>; Wed, 21 May 2025 09:56:08 -0700 (PDT)
+Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
+ by smtp.gmail.com with UTF8SMTPSA id
+ 98e67ed59e1d1-30f36366219sm3894848a91.6.2025.05.21.09.56.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 21 May 2025 09:56:05 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,244 +45,71 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 312bd0c3-3664-11f0-b892-0df219b8e170
+X-Inumbo-ID: 7d29f359-3664-11f0-b892-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1747846439; x=1748451239; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=jbHs+5nY9sp/4FUlljaXDfUYYdafIe7VtM5PIMYtNvQ=;
-        b=O8mcFRYvk6x+o7IYxfGn8zBM2+HTVjxkc/jcn17moQ4JNifeiEv5oqqqkqY/4cvf2e
-         v1qRlsXfeU7Vh8CklUy3VWfTpoCHBJpzti/HdB4Vhz08fCG31wn7pUYiZb4LXyB19D0R
-         g+vAmidz1elNDbfqx9hu4rhiyldsuP+vPAsWRpt9xh8HUCcNaA3ZPnIXnK6IaQeymdHc
-         DUJvjUKO5I8TNyjApcl86uz1kmjcgfDfNNWPLcE1AM5FWExO5YueSNjGVNm84xrGtzUA
-         X9ROWncDxNr0P/yTtDWnYNjfUO25ZI6Hul2pc/kml6oz8e9t4q9SaSXKTDwAaprw4jQO
-         LmWQ==
+        d=citrix.com; s=google; t=1747846566; x=1748451366; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=eliR2nkb7Vuh2naOk8wjTkjUYBIZCqckOsAyoeIiAw8=;
+        b=MY7nZ2oNdtu04gMfZBm0BzUKOUrZSh/GPOUMjkRvW3bVOEniUi2eOuATmUOUGCyAzm
+         wI/GFrV9qw9UznbXqTX5+DATmcDDQk5QqhXEHZo9eDUlWrFUXJ9qiKAUQy2p1JOc0FiD
+         51g5fbY/lhx49rlWOgrMlW5OqdIsIgPTYA9lg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747846439; x=1748451239;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=jbHs+5nY9sp/4FUlljaXDfUYYdafIe7VtM5PIMYtNvQ=;
-        b=IDwaLtYWLGRx+ZZ5NFMQBmuhIMy8b7iireGiQAxc9xGyaL4scMUYZol8uqI11ptLiQ
-         L/GnFxzvjR2hIivInurWeUkCefl9qeIYTqzDMx5O5+3GCjSd4er3z74rAgU2eMP3uvJu
-         xQBVbnFPoeMIS49MkeSVYHvUgysUTk8vj3LnUNhTLoAY4YWqMzCTu4F7RZgt8HRxKO4b
-         CZ66Y27tPnPNrRCs041J8ZBhUIBJUppUyFLzYKgjebuMAYxouC0cTEozuWs6sw5yzlfK
-         ozKN/yOQklMzvTauOIzaxeU0kUSHzMQdP5LfPQSEbz4/mN3Jo6Vrj/AHKvmm44dNsXKB
-         r2nw==
-X-Gm-Message-State: AOJu0YyjbIlPlR8hH+TOuSxxuK/tzC+uQAsEIRpVOtSik+pMSQ/PLSRY
-	1UH3/ggVGQvf2rU0Uo/u9+ejfCis2lchcUOPsAh3KMQXskEjVIdERyexVqcpKeTSElW1lsWnCDe
-	Y1XkKViXXeDR+7kKRsXvYORPn2SZ5jyYvXtlhQR8OoA==
-X-Gm-Gg: ASbGncss15kY8E4jP7httPHDF/h/mbX6n9WQWqm84uk4KOO6xSs5y23aeD2AMv3+IIu
-	t/NeCWNkrhjn1rPVQOgMcLKNsW9/6RtM+zptB5CGBMaKlNQtXDM+WWlxFIr6vstMeEajxnhHEQv
-	bg1VyIOnobiiWJu/g4PRF1oIz8/I+3RgITrw==
-X-Google-Smtp-Source: AGHT+IErp45iVYOCQvuZywNrTvp6HN8/ehvHQ/RjpNov1ey5jCy18yRv6uJsQ/JHlCOWVFFJl6TDJwYzv6UW8BQXBhc=
-X-Received: by 2002:a05:6871:50c7:b0:29e:2caf:8cc with SMTP id
- 586e51a60fabf-2e3c1fa7334mr12642844fac.37.1747846439193; Wed, 21 May 2025
- 09:53:59 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1747846566; x=1748451366;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=eliR2nkb7Vuh2naOk8wjTkjUYBIZCqckOsAyoeIiAw8=;
+        b=bUNbLmCqg4hrdvT7as23oetC10KHipaYBg8anv244FGzcDHeTmaSTDh19P8hGvV688
+         tytGB7c41jVeq7nQWqvKXuLv61V7SpvNMA2cR1iJDlkWQAcUDYCN6MDPSOhDdbp+nwZ6
+         2XdxpKraH8YRrGyr0kL3xJusF2oX1ZhD7fMqa2spj70PeVPxzlMyv4igUSbNjco57abu
+         mRmg/uev/UvQlhdkablbFUQ5wRpjL1JsWNflnjJMgIkoNY0OO2UTf7xzFMHEJBqEZEbz
+         aHa1VRlry3Pgi7b8QPU/ojb1NHOIha4JiYq97OI51/eUhJMmSCqEkYgdhJxxIHIh16FA
+         ChyQ==
+X-Gm-Message-State: AOJu0YzbFY/hAyF/7G/sa0Rg4kK0BOY2bPRHh+05XcBEeE7TENP9EI0N
+	3l3rMgyI4MpC57IOZzOCZKe0QzeAZsdbaYgG6osLgn8JZOEvFRiS/9/p7nf+rpRfPV3+H4OWuWa
+	wJME0
+X-Gm-Gg: ASbGncvIoh5WxvgbPmmn74QyxdOoTT7sCxvM64c2rvSE0pA+QH2XY/8/Z1yvaJGysV5
+	18JcrAv0jl6rQyBLUBz/eQuj1ByLidnoDXajFejhRQYvwrX77OPsLFSIDuTZVD59Us7/eryiZnN
+	sD83F4hbXn9EQ5zEs2zcvatrmOyQ9PMoCSR+hW5NHn3mCwPXuPA02NkyimTgS1hjdejs/uLPAjw
+	Vi6sxfRSBo6aFv9tYA9aznQIVXgkNIOAfH6QJZFj2sXyx1+kuTZVviZZ86nWnQKCHfdBkdgPcZZ
+	vS/eLFt63+uyDEP7NCPQWShbSietLMnjKejp0HHo03PEdq5ODcqqIBIBDIg5grdriNKdlVmgIff
+	ssIcNRtgU/AJEo7xkWMQ=
+X-Google-Smtp-Source: AGHT+IFnGhvdQp5Ng/qylonF/Sy2e22aJEsWRYp/IMAGZQyEg8GU55IGfE+OVTEm0VSX6MfKlGY2bw==
+X-Received: by 2002:a17:90b:2f0d:b0:2fe:6942:3710 with SMTP id 98e67ed59e1d1-30e7d4eea1bmr30531398a91.3.1747846566167;
+        Wed, 21 May 2025 09:56:06 -0700 (PDT)
+From: Roger Pau Monne <roger.pau@citrix.com>
+To: xen-devel@lists.xenproject.org
+Cc: Roger Pau Monne <roger.pau@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: [PATCH 0/2] x86/boot: provide better diagnostics in AP boot failure
+Date: Wed, 21 May 2025 18:55:02 +0200
+Message-ID: <20250521165504.89885-1-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.49.0
 MIME-Version: 1.0
-References: <cover.1744787720.git.bertrand.marquis@arm.com> <81ec9ce34c3990b02ec6427d95b6238445333b57.1744787720.git.bertrand.marquis@arm.com>
-In-Reply-To: <81ec9ce34c3990b02ec6427d95b6238445333b57.1744787720.git.bertrand.marquis@arm.com>
-From: Jens Wiklander <jens.wiklander@linaro.org>
-Date: Wed, 21 May 2025 18:53:47 +0200
-X-Gm-Features: AX0GCFttCTN8XoOGEuGwaCDV3kKZDkShiaEsTHPZyt_AzrXO7d5KwmSwGcgKO8s
-Message-ID: <CAHUa44G1qdtC7PY0bpsGXMhCdEn9greidJPgSNy0hymh7ckZ5A@mail.gmail.com>
-Subject: Re: [PATCH v5 5/6] xen/arm: ffa: Add indirect message between VM
-To: Bertrand Marquis <bertrand.marquis@arm.com>
-Cc: xen-devel@lists.xenproject.org, 
-	Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Stefano Stabellini <sstabellini@kernel.org>, 
-	Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Bertrand,
+Hello,
 
-On Wed, Apr 16, 2025 at 9:40=E2=80=AFAM Bertrand Marquis
-<bertrand.marquis@arm.com> wrote:
->
-> Add support for indirect messages between VMs.
-> This is only enabled if CONFIG_FFA_VM_TO_VM is selected.
->
-> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
-> ---
-> Changes in v5:
-> - Prevent potential overflow in send2 handling (Julien)
-> - Only use page_count with rx lock acquired
-> - Fix an issue where send2 between VMs was not doing the copy from the
->   tx buffer but from a wrong location in the stack. This bug was
->   introduced in v4 when switching to a local copy for the header.
-> Changes in v4:
-> - Use a local copy of the message header to prevent a TOC/TOU possible
->   issue when using the payload size
-> Changes in v3:
-> - Move vm to vm indirect message handling in a sub function to simplify
->   lock handling and make implementation easier to read
-> Changes in v2:
-> - Switch ifdef to IS_ENABLED
-> ---
->  xen/arch/arm/tee/ffa_msg.c | 115 ++++++++++++++++++++++++++++++++-----
->  1 file changed, 101 insertions(+), 14 deletions(-)
->
-> diff --git a/xen/arch/arm/tee/ffa_msg.c b/xen/arch/arm/tee/ffa_msg.c
-> index ee594e737fc7..35de260c013a 100644
-> --- a/xen/arch/arm/tee/ffa_msg.c
-> +++ b/xen/arch/arm/tee/ffa_msg.c
-> @@ -88,43 +88,130 @@ out:
->                   resp.a7 & mask);
->  }
->
-> +static int32_t ffa_msg_send2_vm(uint16_t dst_id, const void *src_buf,
-> +                                struct ffa_part_msg_rxtx *src_msg)
-> +{
-> +    struct domain *dst_d;
-> +    struct ffa_ctx *dst_ctx;
-> +    struct ffa_part_msg_rxtx *dst_msg;
-> +    int err;
-> +    int32_t ret;
-> +
-> +    if ( dst_id =3D=3D 0 )
-> +        /* FF-A ID 0 is the hypervisor, this is not valid */
-> +        return FFA_RET_INVALID_PARAMETERS;
-> +
-> +    /* This is also checking that dest is not src */
-> +    err =3D rcu_lock_live_remote_domain_by_id(dst_id - 1, &dst_d);
-> +    if ( err )
-> +        return FFA_RET_INVALID_PARAMETERS;
-> +
-> +    if ( dst_d->arch.tee =3D=3D NULL )
-> +    {
-> +        ret =3D FFA_RET_INVALID_PARAMETERS;
-> +        goto out_unlock;
-> +    }
-> +
-> +    dst_ctx =3D dst_d->arch.tee;
-> +    if ( !dst_ctx->guest_vers )
-> +    {
-> +        ret =3D FFA_RET_INVALID_PARAMETERS;
-> +        goto out_unlock;
-> +    }
-> +
-> +    /* This also checks that destination has set a Rx buffer */
-> +    ret =3D ffa_rx_acquire(dst_d);
-> +    if ( ret )
-> +        goto out_unlock;
-> +
-> +    /* we need to have enough space in the destination buffer */
-> +    if ( (dst_ctx->page_count * FFA_PAGE_SIZE -
-> +          sizeof(struct ffa_part_msg_rxtx)) < src_msg->msg_size )
-> +    {
-> +        ret =3D FFA_RET_NO_MEMORY;
-> +        ffa_rx_release(dst_d);
-> +        goto out_unlock;
-> +    }
-> +
-> +    dst_msg =3D dst_ctx->rx;
-> +
-> +    /* prepare destination header */
-> +    dst_msg->flags =3D 0;
-> +    dst_msg->reserved =3D 0;
-> +    dst_msg->msg_offset =3D sizeof(struct ffa_part_msg_rxtx);
-> +    dst_msg->send_recv_id =3D src_msg->send_recv_id;
-> +    dst_msg->msg_size =3D src_msg->msg_size;
-> +
-> +    memcpy(dst_ctx->rx + sizeof(struct ffa_part_msg_rxtx),
-> +           src_buf + src_msg->msg_offset, src_msg->msg_size);
-> +
-> +    /* receiver rx buffer will be released by the receiver*/
-> +
-> +out_unlock:
-> +    rcu_unlock_domain(dst_d);
-> +    if ( !ret )
-> +        ffa_raise_rx_buffer_full(dst_d);
-> +
-> +    return ret;
-> +}
-> +
->  int32_t ffa_handle_msg_send2(struct cpu_user_regs *regs)
->  {
->      struct domain *src_d =3D current->domain;
->      struct ffa_ctx *src_ctx =3D src_d->arch.tee;
-> -    const struct ffa_part_msg_rxtx *src_msg;
-> +    struct ffa_part_msg_rxtx src_msg;
->      uint16_t dst_id, src_id;
->      int32_t ret;
->
-> -    if ( !ffa_fw_supports_fid(FFA_MSG_SEND2) )
-> -        return FFA_RET_NOT_SUPPORTED;
-> +    BUILD_BUG_ON(sizeof(struct ffa_part_msg_rxtx) >=3D FFA_PAGE_SIZE);
->
->      if ( !spin_trylock(&src_ctx->tx_lock) )
->          return FFA_RET_BUSY;
->
-> -    src_msg =3D src_ctx->tx;
-> -    src_id =3D src_msg->send_recv_id >> 16;
-> -    dst_id =3D src_msg->send_recv_id & GENMASK(15,0);
-> +    /* create a copy of the message header */
-> +    memcpy(&src_msg, src_ctx->tx, sizeof(src_msg));
->
-> -    if ( src_id !=3D ffa_get_vm_id(src_d) || !FFA_ID_IS_SECURE(dst_id) )
-> +    src_id =3D src_msg.send_recv_id >> 16;
-> +    dst_id =3D src_msg.send_recv_id & GENMASK(15,0);
-> +
-> +    if ( src_id !=3D ffa_get_vm_id(src_d) )
->      {
->          ret =3D FFA_RET_INVALID_PARAMETERS;
-> -        goto out_unlock_tx;
-> +        goto out;
->      }
->
->      /* check source message fits in buffer */
-> -    if ( src_ctx->page_count * FFA_PAGE_SIZE <
-> -         src_msg->msg_offset + src_msg->msg_size ||
-> -         src_msg->msg_offset < sizeof(struct ffa_part_msg_rxtx) )
-> +    if ( src_msg.msg_offset < sizeof(struct ffa_part_msg_rxtx) ||
-> +            src_msg.msg_size =3D=3D 0 ||
-> +            src_msg.msg_offset > src_ctx->page_count * FFA_PAGE_SIZE ||
-> +            src_msg.msg_size > (src_ctx->page_count * FFA_PAGE_SIZE -
-> +                                src_msg.msg_offset) )
->      {
->          ret =3D FFA_RET_INVALID_PARAMETERS;
-> -        goto out_unlock_tx;
-> +        goto out;
->      }
->
-> -    ret =3D ffa_simple_call(FFA_MSG_SEND2,
-> +    if ( FFA_ID_IS_SECURE(dst_id) )
-> +    {
-> +        /* Message for a secure partition */
-> +        if ( !ffa_fw_supports_fid(FFA_MSG_SEND2) )
-> +        {
-> +            ret =3D FFA_RET_NOT_SUPPORTED;
-> +            goto out;
-> +        }
-> +
-> +        ret =3D ffa_simple_call(FFA_MSG_SEND2,
->                            ((uint32_t)ffa_get_vm_id(src_d)) << 16, 0, 0, =
-0);
+Both patches attempt to improve AP boot failure diagnosis by improving
+the printed failure messages (patch 1) and detecting AP getting stuck
+during bringup (patch 2).  They should be non-functional changes for
+systems working correctly.
 
-Please align with the opening '(' at the row above.
+Thanks, Roger.
 
-Other than that:
-Reviewed-by: Jens Wiklander <jens.wiklander@linaro.org>
+Roger Pau Monne (2):
+  x86/boot: print CPU number in bring up failure
+  x86/boot: attempt to print trace and panic on AP bring up stall
 
-Cheers,
-Jens
+ xen/arch/x86/include/asm/processor.h |  1 +
+ xen/arch/x86/smpboot.c               | 12 ++++-
+ xen/arch/x86/traps.c                 | 66 +++++++++++++++++-----------
+ 3 files changed, 51 insertions(+), 28 deletions(-)
 
-> +    }
-> +    else if ( IS_ENABLED(CONFIG_FFA_VM_TO_VM) )
-> +    {
-> +        /* Message for a VM */
-> +        ret =3D ffa_msg_send2_vm(dst_id, src_ctx->tx, &src_msg);
-> +    }
-> +    else
-> +        ret =3D FFA_RET_INVALID_PARAMETERS;
->
-> -out_unlock_tx:
-> +out:
->      spin_unlock(&src_ctx->tx_lock);
->      return ret;
->  }
-> --
-> 2.47.1
->
+-- 
+2.49.0
+
 
