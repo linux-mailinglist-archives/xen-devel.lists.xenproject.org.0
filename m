@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 27AB3ABF177
-	for <lists+xen-devel@lfdr.de>; Wed, 21 May 2025 12:25:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.991670.1375509 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C3C7ABF2B5
+	for <lists+xen-devel@lfdr.de>; Wed, 21 May 2025 13:24:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.991698.1375519 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uHgcA-0006mq-0T; Wed, 21 May 2025 10:23:58 +0000
+	id 1uHhY9-0005e2-Am; Wed, 21 May 2025 11:23:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 991670.1375509; Wed, 21 May 2025 10:23:57 +0000
+Received: by outflank-mailman (output) from mailman id 991698.1375519; Wed, 21 May 2025 11:23:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uHgc9-0006lM-Td; Wed, 21 May 2025 10:23:57 +0000
-Received: by outflank-mailman (input) for mailman id 991670;
- Wed, 21 May 2025 10:23:56 +0000
+	id 1uHhY9-0005cb-7x; Wed, 21 May 2025 11:23:53 +0000
+Received: by outflank-mailman (input) for mailman id 991698;
+ Wed, 21 May 2025 11:23:52 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Fb4M=YF=gmail.com=christopher.w.clark@srs-se1.protection.inumbo.net>)
- id 1uHgc8-0006lG-Fn
- for xen-devel@lists.xenproject.org; Wed, 21 May 2025 10:23:56 +0000
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [2a00:1450:4864:20::42b])
+ <SRS0=/Cb8=YF=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1uHhY8-0005cV-3A
+ for xen-devel@lists.xenproject.org; Wed, 21 May 2025 11:23:52 +0000
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [2a00:1450:4864:20::42a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b2c6d047-362d-11f0-a2fa-13f23c93f187;
- Wed, 21 May 2025 12:23:55 +0200 (CEST)
-Received: by mail-wr1-x42b.google.com with SMTP id
- ffacd0b85a97d-3a376da332aso2026902f8f.3
- for <xen-devel@lists.xenproject.org>; Wed, 21 May 2025 03:23:55 -0700 (PDT)
-Received: from localhost.localdomain ([91.85.47.110])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-447f38142aasm62329635e9.27.2025.05.21.03.23.53
+ id 11893d7d-3636-11f0-a2fa-13f23c93f187;
+ Wed, 21 May 2025 13:23:50 +0200 (CEST)
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-3a35919fa8bso2707619f8f.0
+ for <xen-devel@lists.xenproject.org>; Wed, 21 May 2025 04:23:50 -0700 (PDT)
+Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
+ by smtp.gmail.com with UTF8SMTPSA id
+ ffacd0b85a97d-3a35ca4d2d1sm20013991f8f.19.2025.05.21.04.23.48
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 21 May 2025 03:23:53 -0700 (PDT)
+ Wed, 21 May 2025 04:23:49 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,81 +45,132 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b2c6d047-362d-11f0-a2fa-13f23c93f187
+X-Inumbo-ID: 11893d7d-3636-11f0-a2fa-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1747823034; x=1748427834; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=BaaopXGzVQVS3ui+bxnu+lj+jxPd2TC7KpOv7bUuDVY=;
-        b=h4dDYknn30F8kw4++/wL49r2dINwkMIKVbMioWhDLlxdzDrstqdo3sZ6UXCFlUiIPn
-         0gseKl3c2r4C8ZC+KkAQFL9Agg0fQoXXGkAetU0qe+ioFLQ6smprchcm4+ulX0JyY9FM
-         vW/hCjXYOT1PEKCnNBfO37EAtExMk4luVBT6gy2fS79CfhLu6vCMxik0LTdmo7APCt/Q
-         nBifOitJ+YyQyGprJ/IXFZnjtHtcrFpWea4hnNaU6uz6qkulGDYf88nvsXSuIWRiXu+T
-         Ge4ZgIc3hI6/wbaXqKo4y75mW2Tq99dqr28CHM+CXckh7ivtj4AszmdqVU65d2dP9E64
-         1yFg==
+        d=citrix.com; s=google; t=1747826629; x=1748431429; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=u5i2XRUMt8Wc5XyeJDF55b4Gg6QTaNnRZIhf+cL4pUc=;
+        b=iYjSoVU7GPyxAJob7QDM2RoAhg2JNpkC00Rz23lKzwH0SVWDG+9dyl5vUFlJKxInbO
+         mPwVVrFlh87BYWa1ht2cOJBNbzgW1QaEO4Twqd1pefx/oPr8nQRva7WWoy0QX56FCN9+
+         HIyLXGTAPRUyeE+eFDpfePzIlmWmmxQM2xgAk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747823034; x=1748427834;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=BaaopXGzVQVS3ui+bxnu+lj+jxPd2TC7KpOv7bUuDVY=;
-        b=IAbIbZlz8+691X6unXHE4SocJewiueYXLNmI3HyA4JHzrsnGgL1GTwqdkaqO9jtd6V
-         yB1xNmFP8vhw9Q8fbFGCZFgDrW5OGkYjMAW/mxKDvYgzX/wdNikvyaQPps38HGY+aJwe
-         qWCXjOpP+tpmWIB2bs408BNNQ+Mr/K0K/78ujuKJejCFBFIenHrQVlaGgBOAx+ZKgLOF
-         KdNDng/vxBE4yRhEKZZ5/QCJxIfYkRbfRRaU5Epqnw/lAdtjcCP1twSEt7XV+5W8Q8K2
-         ow517xrEVhFn6cZMf5foPcX+F/IdDUAsqdKnXCLLzHUf6kX+4cJOhqe98VZHl20hr2KX
-         +qog==
-X-Gm-Message-State: AOJu0Yzo6GgG7LwAjDiRafHALrtPptVaTgQMxt/JjSYsF03E1OIIhVEU
-	MLOwMYZYvS7sC+CF/4OY6sBKbVx7XUxe5OdZpCR39gbuPzZH2Q70jaHdtve2Tkaq
-X-Gm-Gg: ASbGncvQ+fhp/XrCHI6dN2JmaY+QskYmv/bznLYhpHG7lqbZ+lb4BO21dwMs8Hlfxwd
-	bfTMyAQN2sc7ksMgzBV7993fPhGlWWYcoGZBQjgrhkY+TWBjkMRpzE5oIcmjd/XRK2MCI2FoW3e
-	Mx9kGHTygy2+blZRgR//DOZ6O/UsLL3PlR7FVA6Gkmgu0lYlKOb7mLQ0nC29tIPifzaOPqjBdWF
-	G3k0HqoyBEIPkQiJxoQ/AtzEWAIbjxZUM2ATshuaKs522v5aDEyBB/zmkptqwHY2QQv+z3MoBX3
-	aaJiapK1v6ZQs4XwJ3/F1IgSG9Sjxb7d0XB8f5vMwZv40Pe23d9rb37dRVHkanQubPefmPbjZ3g
-	=
-X-Google-Smtp-Source: AGHT+IGxmvRFi9KDEqAcIldo/Ag0nJf9tNOFdValeBXjknF6xvVgmXmMKi3lufkrQMJG2CSMnt7ndg==
-X-Received: by 2002:a05:6000:400f:b0:3a0:b4f1:8bd5 with SMTP id ffacd0b85a97d-3a35fe67aa7mr15728914f8f.18.1747823033960;
-        Wed, 21 May 2025 03:23:53 -0700 (PDT)
-From: Christopher Clark <christopher.w.clark@gmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Daniel Smith <dpsmith@apertussolutions.com>,
-	Rich Persaud <persaur@gmail.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v2] MAINTAINERS: add a reviewer for Argo
-Date: Wed, 21 May 2025 11:23:33 +0100
-Message-Id: <20250521102333.870789-1-christopher.w.clark@gmail.com>
-X-Mailer: git-send-email 2.25.1
+        d=1e100.net; s=20230601; t=1747826629; x=1748431429;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=u5i2XRUMt8Wc5XyeJDF55b4Gg6QTaNnRZIhf+cL4pUc=;
+        b=E4uezjimkX4YAUr9yDxhSoHlINwRvPqnRtdykboAri3qQs/mJk/GDyGtssMy7XH2xP
+         6XSEcu+vjaEdc1lJEFM8XbnoL840PWShAQx3oR/miwAdj+ICumijWbu1DUK9ab8D99hB
+         bhP7WYjsqgWi5byhfjVuyXj5tdvL3z4nfO3DaTNan+zBAip/+VMsDubi3/UbXLbik1XL
+         3iDOOkHMU4VfS/Og7i8YJ4ZC0crPrY7kt/yj8vCTnXjdCx8SwCs7B1rhK1plisdnZnP1
+         /sTC4MuE1h7RmO4SnlTvq507/L8Azt2VBQvpxdunN/PxLL/0MOtzOArsOYl+G1bzhFrW
+         tUWQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWA2bwFyiWgBELsbz5xHZMi4mHVvJGn1zGHk177V9Thay+64RR1sGjGYrKz9XRlRSPTlcpSSYb0ouE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwOIhXIO9OQTsSXB27CopaUE7qmZwO/Uqyz8MZ9mImzZoqR0rIv
+	yFWHYmPbqJM0XBHGRpOUa5ygt/GAdrCYiH1oYjF0xWWy3/a7nP7Xm8M6M2B9du1W4smTnIGaUbi
+	QRmNu
+X-Gm-Gg: ASbGncsuiDiBppEwfKmirAbCrj0FCdC6LOqP7C3V6uItXmhOXBaeWr7M3rwF6o8Epi8
+	zWdiYsYgiCgSjGsle9aS6yvnPzZuGycZxJWPnUaahlJc9itHmZt0XHSK1Qw209hbtSIzYYKPgva
+	klIK3WhfImVGSlrfgRm4l05zQTHWiTRRU9ImkspB+AvNq8r7Ruajw/M2On+oOumVNZ/LfBlvkAv
+	Ynf5XMXJQgN5sW5Za5WCRpSMu2YQYckiz0OwMlvjowrloEaJJBJGBNDPVVQpu6OzM5m57+kdAAd
+	eHD9dMIaVg+MR5bN/tk6L5e7PckH6WI9I3KXhzp993EVwfD5rUSJXve3HIhCYc5hMEYFw2TL7B8
+	ypE+2sgHqtD0KzenxVnl9hzbl
+X-Google-Smtp-Source: AGHT+IGUKR7sqx8CoV9YlU7kqFMHBgORAwfq23kSzJIcSUZ0jlnyPRqoj0J0qxYipwYA8iC0aAGvwQ==
+X-Received: by 2002:a05:6000:2405:b0:3a0:7a7c:2648 with SMTP id ffacd0b85a97d-3a35fe95381mr17283752f8f.27.1747826629384;
+        Wed, 21 May 2025 04:23:49 -0700 (PDT)
+Date: Wed, 21 May 2025 13:23:48 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: "Chen, Jiqian" <Jiqian.Chen@amd.com>
+Cc: Jan Beulich <jbeulich@suse.com>, "Huang, Ray" <Ray.Huang@amd.com>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH v4 09/10] vpci/msi: Free MSI resources when init_msi()
+ fails
+Message-ID: <aC23xI0qgsAqLb2S@macbook.local>
+References: <20250509090542.2199676-1-Jiqian.Chen@amd.com>
+ <20250509090542.2199676-10-Jiqian.Chen@amd.com>
+ <8d89f644-4ded-4490-ad23-518563d230d2@suse.com>
+ <aCxGwSl_UuCWPf6B@Mac.lan>
+ <e7ab7be1-e256-4f63-a835-cf1e13e0183f@suse.com>
+ <aCxO1Gh_ehxpsznI@Mac.lan>
+ <BL1PR12MB5849E2CD05D70E7A475646F3E79EA@BL1PR12MB5849.namprd12.prod.outlook.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <BL1PR12MB5849E2CD05D70E7A475646F3E79EA@BL1PR12MB5849.namprd12.prod.outlook.com>
 
-Adding Daniel P. Smith as a reviewer.
+On Wed, May 21, 2025 at 07:00:37AM +0000, Chen, Jiqian wrote:
+> On 2025/5/20 17:43, Roger Pau Monné wrote:
+> > On Tue, May 20, 2025 at 11:14:27AM +0200, Jan Beulich wrote:
+> >> On 20.05.2025 11:09, Roger Pau Monné wrote:
+> >>> On Tue, May 20, 2025 at 08:40:28AM +0200, Jan Beulich wrote:
+> >>>> On 09.05.2025 11:05, Jiqian Chen wrote:
+> >>>>> When init_msi() fails, the previous new changes will hide MSI
+> >>>>> capability, it can't rely on vpci_deassign_device() to remove
+> >>>>> all MSI related resources anymore, those resources must be
+> >>>>> removed in cleanup function of MSI.
+> >>>>
+> >>>> That's because vpci_deassign_device() simply isn't called anymore?
+> >>>> Could do with wording along these lines then. But (also applicable
+> >>>> to the previous patch) - doesn't this need to come earlier? And is
+> >>>> it sufficient to simply remove the register intercepts? Don't you
+> >>>> need to put in place ones dropping all writes and making all reads
+> >>>> return either 0 or ~0 (covering in particular Dom0, while for DomU-s
+> >>>> this may already be the case by default behavior)?
+> >>>
+> >>> For domUs this is already the default behavior.
+> >>>
+> >>> For dom0 I think it should be enough to hide the capability from the
+> >>> linked list, but not hide all the capability related
+> >>> registers.  IMO a well behaved dom0 won't try to access capabilities
+> >>> disconnected from the linked list,
+> >>
+> >> Just that I've seen drivers knowing where their device has certain
+> >> capabilities, thus not bothering to look up the respective
+> >> capability.
+> > 
+> > OK, so let's make the control register read-only in case of failure.
+> > 
+> > If MSI(-X) is already enabled we should also make the entries
+> > read-only, and while that's not very complicated for MSI, it does get
+> > more convoluted for MSI-X.  I'm fine with just making the control
+> > register read-only for the time being.
+> If I understand correctly, I need to avoid control register being removed and set the write hook of control register to be vpci_ignored_write and avoid freeing vpci->msi?
+> 
+> "
+>      if ( !msi_pos || !vpci->msi )
+>          return;
+> 
+> +    spin_lock(&vpci->lock);
+> +    control = vpci_get_register(vpci, msi_control_reg(msi_pos), 2);
+> +    if ( control )
+> +        control->write = vpci_ignored_write;
+> +    spin_unlock(&vpci->lock);
+> +
+>      if ( vpci->msi->masking )
+>          end = msi_pending_bits_reg(msi_pos, vpci->msi->address64);
+>      else
+>          end = msi_mask_bits_reg(msi_pos, vpci->msi->address64) - 2;
+> 
+> -    size = end - msi_control_reg(msi_pos);
+> +    start = msi_control_reg(msi_pos) + 2;
+> +    size = end - start;
+> 
+> -    vpci_remove_registers(vpci, msi_control_reg(msi_pos), size);
+> -    XFREE(vpci->msi);
+> +    vpci_remove_registers(vpci, start, size);
 
-Signed-off-by: Christopher Clark <christopher.w.clark@gmail.com>
----
-since v1: add to R: role
+I think you want to first purge all the MSI range, and then add the
+control register, also you want to keep the XFREE(), and set the
+register as:
 
- MAINTAINERS | 1 +
- 1 file changed, 1 insertion(+)
+vpci_add_register(vpci, vpci_hw_read16, NULL, msi_control_reg(msi_pos),
+                  2, NULL);
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index c11b82eca9..517143075d 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -222,6 +222,7 @@ F:	tools/libacpi/
- 
- ARGO
- M:	Christopher Clark <christopher.w.clark@gmail.com>
-+R:	Daniel P. Smith <dpsmith@apertussolutions.com>
- S:	Maintained
- F:	xen/include/public/argo.h
- F:	xen/include/xen/argo.h
--- 
-2.25.1
+So that you make it strictly hardware read-only, and not use the data
+in vpci->msi.
 
+Regards, Roger.
 
