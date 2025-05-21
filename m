@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 88E86ABF7F4
-	for <lists+xen-devel@lfdr.de>; Wed, 21 May 2025 16:37:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.991979.1375760 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F17CABF809
+	for <lists+xen-devel@lfdr.de>; Wed, 21 May 2025 16:42:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.991991.1375769 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uHkZ6-0008Ms-D6; Wed, 21 May 2025 14:37:04 +0000
+	id 1uHke6-0001ht-U8; Wed, 21 May 2025 14:42:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 991979.1375760; Wed, 21 May 2025 14:37:04 +0000
+Received: by outflank-mailman (output) from mailman id 991991.1375769; Wed, 21 May 2025 14:42:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uHkZ6-0008KT-9s; Wed, 21 May 2025 14:37:04 +0000
-Received: by outflank-mailman (input) for mailman id 991979;
- Wed, 21 May 2025 14:37:02 +0000
+	id 1uHke6-0001gS-RK; Wed, 21 May 2025 14:42:14 +0000
+Received: by outflank-mailman (input) for mailman id 991991;
+ Wed, 21 May 2025 14:42:13 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=iqa2=YF=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1uHkZ4-0007cs-TQ
- for xen-devel@lists.xenproject.org; Wed, 21 May 2025 14:37:02 +0000
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [2a00:1450:4864:20::336])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=TwEK=YF=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uHke5-0001g2-CX
+ for xen-devel@lists.xenproject.org; Wed, 21 May 2025 14:42:13 +0000
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [2a00:1450:4864:20::62d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0e63b085-3651-11f0-b892-0df219b8e170;
- Wed, 21 May 2025 16:37:01 +0200 (CEST)
-Received: by mail-wm1-x336.google.com with SMTP id
- 5b1f17b1804b1-43d0618746bso55999745e9.2
- for <xen-devel@lists.xenproject.org>; Wed, 21 May 2025 07:37:01 -0700 (PDT)
-Received: from localhost.localdomain (host-92-26-98-202.as13285.net.
- [92.26.98.202]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-447f23c07bfsm72631465e9.23.2025.05.21.07.36.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 21 May 2025 07:36:59 -0700 (PDT)
+ id c77eead0-3651-11f0-b892-0df219b8e170;
+ Wed, 21 May 2025 16:42:11 +0200 (CEST)
+Received: by mail-ej1-x62d.google.com with SMTP id
+ a640c23a62f3a-ad53a96baf9so800476566b.3
+ for <xen-devel@lists.xenproject.org>; Wed, 21 May 2025 07:42:11 -0700 (PDT)
+Received: from [10.1.248.227] ([80.188.125.198])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ad52d04b073sm898590966b.27.2025.05.21.07.42.10
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 21 May 2025 07:42:10 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,107 +45,91 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0e63b085-3651-11f0-b892-0df219b8e170
+X-Inumbo-ID: c77eead0-3651-11f0-b892-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1747838220; x=1748443020; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=SsF+xqOcNWx0UuYSVSIv0Shyn2lJXpUwn0fUWXAfkcg=;
-        b=fL5iRpRkhkNScWV+N9uVrjXO13FrE1uuVDd7LNHP+rzuj86eUy3HWBcdFaTXgabye9
-         bmL8XsTXqJ0XOdaWeBdKFN8DhFX34qN8wYlnMCNMAVjrJl5TJGs9UjM/BTCxyLRM38kO
-         uK8iEP407icUmQaW80wuiJGIB7YeTGJHUPe5Y=
+        d=suse.com; s=google; t=1747838531; x=1748443331; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=Fm8dZemQlRt96oetnrEy09QGZuP7WE9DX8CaQgTbvYg=;
+        b=WMASRhtirkZqKtdavi6N3/py3VmGXw3h5giUYdfEOYJFHxLlXsR3XUUHPpkX9JYboE
+         SdsijY1r7/4VE4tAdqfwZSGTd6ZVya1axAAUebq3/jwUfulupb8c9RJrQZTYqzsNpXgg
+         IsKpTin+kcXelPBBz9r02b/tbO6+gBhEr1kkYyoM/JRbOdPqVOUOEbV4tHOsL+xHiR02
+         uUK3xmRfGqqUd2Bs/WcGH9HAcvZka5mnAWJhAnlshDV7VjJRwyrEIKJDWSgUP2HljAgp
+         Dm8nlMowwB5DifS/Tlc/HKIUbpnEJfObknHwBcQndwyoF5GRyKoEVZk09TJNIx2U2NRz
+         WYog==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747838220; x=1748443020;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=SsF+xqOcNWx0UuYSVSIv0Shyn2lJXpUwn0fUWXAfkcg=;
-        b=SWW3F1ne8IwH74FbGsJ0p6igx86zVuyuiTk4kwUNpPVdb60zTCp/yEtLKz1lrfO8EK
-         wDxbRMnU78Q0y11v4ldgsVs2O9F9v2yM85LZPzJKpLIUef55Q48HaCNyFmOsViQgfmlF
-         h3J+RhRhRpgXw5f4zJRELIr7OXsmDmS2s0hAK656doo2iIUVpC9nMCCCtM4RldWAtYo5
-         HBHHWayCh2n6PkpFOJ/GTHEXuF/qbjZXiu/zkyykyw+1CjCr/ywMBPhStGzmOYzWZoz9
-         cxsj+EisQ8r5Z4Q0dxfU90GA7P2Mkhnwbz5AqFAnZcZV5nHxwdTwKaY3INTQ9a00CEdG
-         ijag==
-X-Gm-Message-State: AOJu0YyASKpUeFA+TUHioMHaLStYWyH22NcF9Ir3r79xEXsb3QCDywz9
-	66xMN4b7CiuVPyToeXcFfIKp7tFwrILmuVbaN2qdZ98gq3HGdEPDYTCm2mlvQ+lwHX6+FKBmLH8
-	dZztu
-X-Gm-Gg: ASbGncu8pIIUz2Z7yXpHDvvT7Sc/OnHT/Y+DpuuJT58zxWcvVMA0et3Qk+D7ANv/Bu2
-	WpQ1l12lU80GGr8QlDQ3cJSqBA9zz5tFexEaKaMXfXbs5jK5NyegcRbyypLnux0NUtG6XLnYbZc
-	nIDu+Q4m3bHQN7HAifPX3a/hO7yXdyqa6WpcK9VigMZZD5KnEk9Qfu95bhYamUtlFJMW+7a0PpA
-	6k04uJRleXoNGdSpgi/GR9FYIOaFOU3v03v0ibhOlLmAJyO62mpZ4VXT9+IB034iwjV3plOIPmc
-	fwb2aBdbHm3TTQNyx6l1puSId4afyHHx6fTXA3ESKmsneATZLGNkiIN8+HueoHxruvmH8Aymoau
-	GFz7vI3qhBcQlu4YBVomLQFM3
-X-Google-Smtp-Source: AGHT+IFWKoCLl+DCDDowO3fNcVlFbsc0m9RWCVSkdVvh/AQWPRUY4b7Zug36saFReF2JnxDg1R9IiA==
-X-Received: by 2002:a05:600c:c059:20b0:445:49e:796b with SMTP id 5b1f17b1804b1-445049e81c3mr104866955e9.17.1747838220239;
-        Wed, 21 May 2025 07:37:00 -0700 (PDT)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <JBeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH] x86/msr: Rework wrmsr_safe() using asm goto()
-Date: Wed, 21 May 2025 15:36:58 +0100
-Message-Id: <20250521143658.312514-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.39.5
+        d=1e100.net; s=20230601; t=1747838531; x=1748443331;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=Fm8dZemQlRt96oetnrEy09QGZuP7WE9DX8CaQgTbvYg=;
+        b=NdPl28smt0R4PnKuJ5I7shg8vXNUAqeG0YUi9AjZ6ZShNRA94zBAvinpRrNM8ioj2k
+         spVSdv23YYORgKkQix0fBEt0uWiP6JKtjrv4+ua2fhUM9UbU+HcRhj6QK3v0YB9p5fXH
+         i6NbbUwHOJOH+UHjXx28KnURIXUH5XnR1Y8CH+osV4zME+/QsjRmzntda/EThA20TajE
+         Ak/x10qSgSkjt1bwzgozXlTLwcegF8AXAC7TDPpr/PHF62tJIHdaNzB9Mv4cI/Zc78O3
+         nKIwFt1cRRGNLKgH44aNa9icZY5MBUUic4dyrqCa9Gx3OIfSpoJJL7fLxA3YOcrcfVE4
+         ztIQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWBHPvxci1eWAcng59Zbdoq3k2AOJWOp5KeaesE4C2nIyBpeb8tmHm88vIX50YZQLPGKpkfiaPfTlw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzRrAQaXUMr1DX9YvPM2gN90ittYbGnqODClTTFZ/W/bRc2QwVM
+	MEtgIYFKoHtY8I2dpFt5S/G4Gy61Mip9dvyUq0eeCpY+k5zeaE3XKHdPl4mNcGFCsQ==
+X-Gm-Gg: ASbGncva/K3AcFw4onvlj5igxB6ya2+4faZNNoaC+m1muwpEzKXRkgfpKlXrf2lqrTW
+	ZAqi+bP/UqYtxD1zc1RUrNs5uuKVrzdDUTyeBk0WY5P8e39Cjomj63RngkLdin5c1L7rb4kHMxK
+	tzBDLqoOYMnIV0ZrKzrQ0Ca6tnpwgu01/71JafM7Fc4AlLvCZmM0KlauLClBzoeretXkBntPOSz
+	7fsOXClyXAB41G9syaikNow2z1qDWEoYZ5ctLw45OV9ZT/2g0Nj1mfHArKRUzxMRijCQVBE3yh4
+	iFUV0bLMLmBWZlonJiNobRkU22NP5rdJaOgfH0zOBTZbYoeLYMfYUH3bgCOA3u0lg4NN770t
+X-Google-Smtp-Source: AGHT+IHPmqnesP22p+YCh5P/RuB9mzR9mwqMKDdeYQ3Weh8TRyY+4IrNpFLqOf8zUtKR+VQtjmJ76g==
+X-Received: by 2002:a17:906:f5a0:b0:aca:b72b:4576 with SMTP id a640c23a62f3a-ad52d509d1dmr1846497966b.33.1747838531096;
+        Wed, 21 May 2025 07:42:11 -0700 (PDT)
+Message-ID: <f601a1c1-c907-4e2d-878f-dc57507eb295@suse.com>
+Date: Wed, 21 May 2025 16:42:08 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: Hyperlaunch/dom0less code sharing
+To: Alejandro Vallejo <agarciav@amd.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ Michal Orzel <michal.orzel@amd.com>, Jason Andryuk <jason.andryuk@amd.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Xenia Ragiadakou <xenia.ragiadakou@amd.com>, xen-devel@lists.xenproject.org
+References: <DA1WWRUQLCAG.ZTVR1HXJ85V0@amd.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <DA1WWRUQLCAG.ZTVR1HXJ85V0@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-This avoids needing to hold rc in a register across the WRMSR, and in most
-cases removes direct testing and branching based on rc, as the fault label can
-be rearranged to directly land on the out-of-line block.
+On 21.05.2025 16:35, Alejandro Vallejo wrote:
+> I think we should aim to share binding code wherever possible, using common
+> datastructures (kernel_info and bootmodule) as dumping ground for the results
+> of the binding parsing functions. I seek agreement on the following 3 points
+> for the end goal of DTB multidomain boots on x86 before I start slicing
+> my hacks into reasonable chunks.
+> 
+>   1. We want common data structures, with arch-specific fields to hold
+>      information from xen,domain DT nodes
+>   2. We want to have a single collection of DTB parsers in the code.
+>   3. We want to operate on the unflattened DTB for the majority of parsing.
+>     (plus a minimal version on the FDT in order to bootstrap, also common)
 
-No functional change.
++1 on all three, with the caveat that I'm far from being an expert on DT.
 
-Resolves: https://gitlab.com/xen-project/xen/-/work_items/214
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
----
- xen/arch/x86/include/asm/msr.h | 28 ++++++++++++++--------------
- 1 file changed, 14 insertions(+), 14 deletions(-)
+Jan
 
-diff --git a/xen/arch/x86/include/asm/msr.h b/xen/arch/x86/include/asm/msr.h
-index 0d3b1d637488..4c4f18b3a54d 100644
---- a/xen/arch/x86/include/asm/msr.h
-+++ b/xen/arch/x86/include/asm/msr.h
-@@ -69,20 +69,20 @@ static inline void wrmsr_ns(uint32_t msr, uint32_t lo, uint32_t hi)
- /* wrmsr with exception handling */
- static inline int wrmsr_safe(unsigned int msr, uint64_t val)
- {
--    int rc;
--    uint32_t lo, hi;
--    lo = (uint32_t)val;
--    hi = (uint32_t)(val >> 32);
--
--    __asm__ __volatile__(
--        "1: wrmsr\n2:\n"
--        ".section .fixup,\"ax\"\n"
--        "3: movl %5,%0\n; jmp 2b\n"
--        ".previous\n"
--        _ASM_EXTABLE(1b, 3b)
--        : "=&r" (rc)
--        : "c" (msr), "a" (lo), "d" (hi), "0" (0), "i" (-EFAULT));
--    return rc;
-+    uint32_t lo = val, hi = val >> 32;
-+
-+    asm_inline goto (
-+        "1: wrmsr\n\t"
-+        _ASM_EXTABLE(1b, %l[fault])
-+        :
-+        : "a" (lo), "c" (msr), "d" (hi)
-+        :
-+        : fault );
-+
-+    return 0;
-+
-+ fault:
-+    return -EFAULT;
- }
- 
- static inline uint64_t msr_fold(const struct cpu_user_regs *regs)
--- 
-2.39.5
+> (2) and (3) are tightly related. There's many reasons for wanting to use the
+> unflattened blobs as much as possible. They range from quirks in specific "dtc"
+> versions, to complexities parsing phandles, to corner cases involving duplicate
+> properties (i.e: due to .dtsi files), etc. Unflattening an FDT brings a
+> lots of "maybe-ok-after-sanitising" FDTs back into canonically correct DTs.
+> 
+> I'll share the PoC code as soon as as it's in a presentable state.
+> Hopefully by the end of the week. But I'm sending this ahead of time to
+> start collecting thoughts right away.
+> 
+> So. Thoughts?
+> 
+> Cheers,
+> Alejandro
 
 
