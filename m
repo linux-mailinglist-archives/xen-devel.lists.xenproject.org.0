@@ -2,47 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1804BABF685
-	for <lists+xen-devel@lfdr.de>; Wed, 21 May 2025 15:46:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.991889.1375690 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6338DABF712
+	for <lists+xen-devel@lfdr.de>; Wed, 21 May 2025 16:05:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.991899.1375699 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uHjmK-0007J5-EL; Wed, 21 May 2025 13:46:40 +0000
+	id 1uHk4F-0001j3-QU; Wed, 21 May 2025 14:05:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 991889.1375690; Wed, 21 May 2025 13:46:40 +0000
+Received: by outflank-mailman (output) from mailman id 991899.1375699; Wed, 21 May 2025 14:05:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uHjmK-0007GM-B2; Wed, 21 May 2025 13:46:40 +0000
-Received: by outflank-mailman (input) for mailman id 991889;
- Wed, 21 May 2025 13:46:38 +0000
+	id 1uHk4F-0001gw-Nk; Wed, 21 May 2025 14:05:11 +0000
+Received: by outflank-mailman (input) for mailman id 991899;
+ Wed, 21 May 2025 14:05:10 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=9Tfb=YF=dingwall.me.uk=james@srs-se1.protection.inumbo.net>)
- id 1uHjmI-0007GG-HX
- for xen-devel@lists.xenproject.org; Wed, 21 May 2025 13:46:38 +0000
-Received: from smarthost01c.sbp.mail.zen.net.uk
- (smarthost01c.sbp.mail.zen.net.uk [212.23.1.5])
+ <SRS0=/Cb8=YF=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1uHk4E-0001gp-7z
+ for xen-devel@lists.xenproject.org; Wed, 21 May 2025 14:05:10 +0000
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [2a00:1450:4864:20::332])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 00d0b36c-364a-11f0-b892-0df219b8e170;
- Wed, 21 May 2025 15:46:32 +0200 (CEST)
-Received: from [217.155.64.189] (helo=mail0.xen.dingwall.me.uk)
- by smarthost01c.sbp.mail.zen.net.uk with esmtpsa (TLS1.0) tls
- TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA (Exim 4.95)
- (envelope-from <james@dingwall.me.uk>) id 1uHjm9-001FTY-DV;
- Wed, 21 May 2025 13:46:30 +0000
-Received: from localhost (localhost [IPv6:::1])
- by mail0.xen.dingwall.me.uk (Postfix) with ESMTP id B9EEBCB6CD9;
- Wed, 21 May 2025 14:46:30 +0100 (BST)
-Received: from mail0.xen.dingwall.me.uk ([IPv6:::1])
- by localhost (mail0.xen.dingwall.me.uk [IPv6:::1]) (amavis, port 10024)
- with ESMTP id RvbEaheKPvE1; Wed, 21 May 2025 14:46:30 +0100 (BST)
-Received: from behemoth.dingwall.me.uk (behemoth.dingwall.me.uk
- [IPv6:2a02:8010:698e:302::c0a8:105])
- by dingwall.me.uk (Postfix) with ESMTP id 7C3B1CB6CD6;
- Wed, 21 May 2025 14:46:30 +0100 (BST)
-Received: by behemoth.dingwall.me.uk (Postfix, from userid 1000)
- id 324F8F9245F; Wed, 21 May 2025 14:46:29 +0100 (BST)
+ id 98fe7b8a-364c-11f0-b892-0df219b8e170;
+ Wed, 21 May 2025 16:05:06 +0200 (CEST)
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-442f4a3a4d6so44475845e9.0
+ for <xen-devel@lists.xenproject.org>; Wed, 21 May 2025 07:05:06 -0700 (PDT)
+Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
+ by smtp.gmail.com with UTF8SMTPSA id
+ 5b1f17b1804b1-447f7ca2dd9sm68753125e9.37.2025.05.21.07.05.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 21 May 2025 07:05:05 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -54,142 +45,132 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 00d0b36c-364a-11f0-b892-0df219b8e170
-X-Virus-Scanned: Debian amavis at dingwall.me.uk
-Date: Wed, 21 May 2025 14:46:29 +0100
-From: James Dingwall <james-xen@dingwall.me.uk>
-To: xen-devel@lists.xenproject.org
-Cc: Paul Durrant <paul@xen.org>
-Subject: viridian time_ref_count triggers guest clock drift
-Message-ID: <aC3ZNTg0z8xu9V9H@dingwall.me.uk>
+X-Inumbo-ID: 98fe7b8a-364c-11f0-b892-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1747836305; x=1748441105; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=+66ej0K2+ae/eb+TyFmQBQuJEpdUsCdPkCcZeb5MUno=;
+        b=uzPY7SzxvS/6auN/nP+xQrAPFflZcfUC2+nZri0nHGFj4FjspTP0kdEfBt6VjKP5z1
+         4oXBVl6mXOrorc3Hv7QOo2Rtgol/t/3HOB3wGBz2RaBsdzhSVNVfYUTTq4aa7pomte75
+         oATRilAbwnBmizhy/K5gU6Tuer9GMpj9Dk+rA=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1747836305; x=1748441105;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=+66ej0K2+ae/eb+TyFmQBQuJEpdUsCdPkCcZeb5MUno=;
+        b=WqVzJkhqv91e8XvRjkadx843CcD4GNiVlibty90dwsvYXNdWbo5yhaJqdQx6ZJErAx
+         nI6oQNsdgGNGU/qYUNuZqKX9URVMBN2vu/4wwjG4Ax/KDvdvLspagCTDz/CCeZmzCYXl
+         ZUEvO0f23XosJImt6pUxos7CppOms36KvrTL0ngcbZ2F4kS961onUeN9/lOO69fd0yk+
+         Yvyfwl+qivpXxPnYmW0KCbSUwOBFQjsun4AH50uhwOTQz1FaxOhhivigyKXFqLojhNHO
+         edlDwsvNAoavj9HaR4nO5D2GPUo1/u4C9FrqwNdNWR6OgBoraD2GApecidcBF0ROs75f
+         qvhg==
+X-Gm-Message-State: AOJu0YyS/4fjBOvjWZLKjeBKtMxvF+6p4IudNAJm9zcDTKnuaTy/gLFN
+	l/yA35p9xKHgH6tVytjj0cudPVmTCDHcqGeeNa6OUAivnuZBHhlBx/tY14vgsTBwK2o=
+X-Gm-Gg: ASbGncufjJj5KB2isMQ+MF0tNIKk8bO1SxmPh8xeRcBgsQ71pJrthsXYobw4fqQk9LV
+	mMKn3jRv7FagT8NIamaA0w+0rAj/29gYThs1Z0+tyjJ/Quzp40FexpSVDGS+ODy1YaLFcVIamha
+	+cTgpwkPEqpIzPIssXS/f3y9Ya8XprJithgrC8SFdOuvyuppvYQ57H/e6orC6VbvyveWwImTvVi
+	RNBKIYiPuKDjrCXq4B94LB6SfFn7sw/ZS7Hy5ONTaVri/R2NnIqf9X15THzWMGQ4ObVcyLjzcED
+	V0kcBFnzU1IjD02lGn9OJuP24tOfKWb4Og0TQtSZomg3uzI2msl06yWbx2DrxsulOcUCtrRjmnr
+	a/rU6jIXChPbaRBCIGkUx7bke
+X-Google-Smtp-Source: AGHT+IGUOjBoJzBpZ1MW0VPvNs7SXUG/tUm3xzT4ztIDN7oe8wChxo6jh+7fbSdPAjF9I7LME8Qbew==
+X-Received: by 2002:a05:600c:1e09:b0:442:cd12:c68a with SMTP id 5b1f17b1804b1-442fd935c8emr198158225e9.1.1747836305449;
+        Wed, 21 May 2025 07:05:05 -0700 (PDT)
+Date: Wed, 21 May 2025 16:05:04 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: dmkhn@proton.me
+Cc: xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com,
+	anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org,
+	michal.orzel@amd.com, sstabellini@kernel.org, dmukhin@ford.com
+Subject: Re: [PATCH v2 1/2] xen/domain: introduce non-x86 hardware emulation
+ flags
+Message-ID: <aC3dkKyiIHRF8YO1@macbook.local>
+References: <20250516022855.1146121-1-dmukhin@ford.com>
+ <20250516022855.1146121-2-dmukhin@ford.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-X-Originating-smarthost01c-IP: [217.155.64.189]
-Feedback-ID: 217.155.64.189
+In-Reply-To: <20250516022855.1146121-2-dmukhin@ford.com>
 
-Hi,
+On Fri, May 16, 2025 at 02:29:09AM +0000, dmkhn@proton.me wrote:
+> From: Denis Mukhin <dmukhin@ford.com>
+> 
+> Define per-architecture emulation_flags for configuring domain emulation
+> features.
+> 
+> Print d->arch.emulation_flags from 'q' keyhandler for better traceability
+> while debugging.
+> 
+> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
+> ---
+> Changes since v1:
+> - dropped comments
+> ---
+>  xen/arch/arm/include/asm/domain.h   | 1 +
+>  xen/arch/ppc/include/asm/domain.h   | 1 +
+>  xen/arch/riscv/include/asm/domain.h | 1 +
+>  xen/common/keyhandler.c             | 1 +
+>  4 files changed, 4 insertions(+)
+> 
+> diff --git a/xen/arch/arm/include/asm/domain.h b/xen/arch/arm/include/asm/domain.h
+> index a3487ca713..70e6e7d49b 100644
+> --- a/xen/arch/arm/include/asm/domain.h
+> +++ b/xen/arch/arm/include/asm/domain.h
+> @@ -121,6 +121,7 @@ struct arch_domain
+>      void *tee;
+>  #endif
+>  
+> +    uint32_t emulation_flags;
+>  }  __cacheline_aligned;
+>  
+>  struct arch_vcpu
+> diff --git a/xen/arch/ppc/include/asm/domain.h b/xen/arch/ppc/include/asm/domain.h
+> index 3a447272c6..001116a0ab 100644
+> --- a/xen/arch/ppc/include/asm/domain.h
+> +++ b/xen/arch/ppc/include/asm/domain.h
+> @@ -21,6 +21,7 @@ struct arch_vcpu {
+>  
+>  struct arch_domain {
+>      struct hvm_domain hvm;
+> +    uint32_t emulation_flags;
+>  };
+>  
+>  #include <xen/sched.h>
+> diff --git a/xen/arch/riscv/include/asm/domain.h b/xen/arch/riscv/include/asm/domain.h
+> index c3d965a559..7bc242da55 100644
+> --- a/xen/arch/riscv/include/asm/domain.h
+> +++ b/xen/arch/riscv/include/asm/domain.h
+> @@ -18,6 +18,7 @@ struct arch_vcpu {
+>  
+>  struct arch_domain {
+>      struct hvm_domain hvm;
+> +    uint32_t emulation_flags;
+>  };
+>  
+>  #include <xen/sched.h>
+> diff --git a/xen/common/keyhandler.c b/xen/common/keyhandler.c
+> index 0bb842ec00..73f5134b68 100644
+> --- a/xen/common/keyhandler.c
+> +++ b/xen/common/keyhandler.c
+> @@ -306,6 +306,7 @@ static void cf_check dump_domains(unsigned char key)
+>              if ( test_bit(i, &d->watchdog_inuse_map) )
+>                  printk("    watchdog %d expires in %d seconds\n",
+>                         i, (u32)((d->watchdog_timer[i].expires - NOW()) >> 30));
+> +        printk("    emulation_flags %#x\n", d->arch.emulation_flags);
+>  
+>          arch_dump_domain_info(d);
 
-I've been looking at clock drift problem we've been having in Windows VMs
-which seems to come down to whether the time_ref_count enlightenment is
-enabled for the guest.  For migration compatibility reasons we had the
-list expanded to:
+Hello,
 
-viridian = ['base', 'freq', 'time_ref_count', 'apic_assist', 'crash_ctl']
+I think it might be easier to print emulation_flags in
+arch_dump_domain_info(), ideally it would be helpful if this could be
+printed in a user friendly way apart from the raw dump:
 
-The drift is no longer observed with:
+printk("    emulation_flags:%s%s... (%#x)\n",
+       !d->arch.emulation_flags ? " none" : "",
+       has_vlapic(d) ? " lapic" : "", ...
+       d->arch.emulation_flags);
 
-viridian = ['base', 'freq', 'apic_assist', 'crash_ctl']
-
-
-The drift is also absent with (enabled stime causes the guest gets stuck in
-boot):
-
-viridian = ['all', '!time_ref_count', '!stime']
-
-
-The drift is observed with:
-
-viridian = 1
-
-
-The method of testing the drift was to execute the following command in
-the guest:
-
-w32tm /stripchart /computer:0.pool.ntp.org /rdtsc
-
-first and last lines of output, default sample period is 2s, total 41 samples:
-
-The current time is 15/05/2025 14:32:25.
-RdtscStart, RdtscEnd, FileTime, RoundtripDelay, NtpOffset
-391444616392, 391478090002, 133917895450376964, +00.0100979, +10.3926898
-...
-637570858836, 637609379234, 133917896256928566, +00.0135181, +17.8456872
-
-
-Curiously the rate of drift is exacerbated by using 'spice = 1' approx
-0.1s / s, vs 'spice = 0' approx 0.02s / s.  When 'time_ref_count' is set it
-is possible to observe a higher than expected frequency in the guest 'System
-Information' (also reported with get-wmiobject Win32_Processor -Property
-CurrentClockSpeed) but the registry key HKEY_LOCAL_MACHINE\HARDWARE\DESCRIPTION\System\CentralProcessor\0
-~MHz was set to the expected speed and agreed with `xl debug-key s` output.
-
-Forcing the guest to use the platform clock (presumably using the hpet) also
-prevented the clock from drifting.
-
-bcdedit /set useplatformclock yes
-
-Other options relating to "Guest Virtual Time Controls" were tested without
-any option resolving the problem.  We could reproduce this with Intel and
-AMD processors.
-
-Guest operating system: Windows 2012, Windows 10
-
-Xen version: 4.19.3-pre, 4.18.3, 4.15.4, 4.14.3 (our internal ticket was opened
-for the two older releases but they haven't been checked again)
-
-Xen params: console=vga,com2 console_timestamps=datems dom0_max_vcpus=4-8 dom0_mem=min:6144,max:65536m iommu=on,required,intpost,verbose,debug x2apic=off sched=credit2 flask=enforcing gnttab_max_frames=128 xpti=off smt=on cpufreq=xen:performance spec-ctrl=gds-mit=0 com2=115200,8n1
-Guest config:
-
-memory = 2048
-vcpus = 2
-cpu_weight=256
-pae = 1
-acpi = 1
-apic = 1
-xen_platform_pci = 1
-viridian = ['base', 'freq', 'apic_assist', 'crash_ctl']
-vga = 'stdvga'
-videoram = 16
-soundhw = 'hda'
-spice = 1
-spicehost = '127.0.0.1'
-spiceport = 35999
-spicedisable_ticketing = 1
-spicevdagent = 1
-spice_clipboard_sharing = 0
-spice_image_compression = 'auto_glz'
-sdl = 0
-vnc = 1
-vncunused = 0
-vnclisten = '0.0.0.0:99'
-usb = 0
-usbdevice = 'tablet'
-keymap = 'en-us'
-vif = [
-    'vifname=winguest{%domid}.0,script=vif-local,bridge=wan,mac=00:16:3e:01:6e:d8,backend=netdom'
-]
-name = 'winguest-00'
-uuid = '08092537-70b6-4248-bfc4-4f6ecd92c230'
-disk = [
-    'phy:/dev/zvol/ztank/08092537-70b6-4248-bfc4-4f6ecd92c230/c,hda,w,no-discard',
-    'phy:/dev/zvol/ztank/08092537-70b6-4248-bfc4-4f6ecd92c230/d,hdb,w,no-discard'
-]
-type = 'hvm'
-dm_restrict = 1
-device_model_chroot = 0
-device_model_override = '/usr/lib/xen/bin/qemu-system-i386'
-device_model_args = [
-  '-object', 'tls-creds-x509,id=tls0,endpoint=client,dir=/etc/certificates/usb,verify-peer=yes,sanity-check=no',
-  # SERIAL
-  '-chardev', 'socket,id=charredir_serial0,host=127.0.0.1,port=48051,reconnect=2,nodelay=on,keepalive=on,user-timeout=3250',
-  '-device', 'isa-serial,chardev=charredir_serial0',
-  '-chardev', 'socket,id=charredir_serial1,host=127.0.0.1,port=48052,reconnect=2,nodelay=on,keepalive=on,user-timeout=3250',
-  '-device', 'isa-serial,chardev=charredir_serial1',
-  '-chardev', 'socket,id=charredir_serial2,host=127.0.0.1,port=48053,reconnect=2,nodelay=on,keepalive=on,user-timeout=3250',
-  '-device', 'pci-serial,chardev=charredir_serial2',
-  '-trace', 'events=/etc/xen/qemu-trace-options',
-]
-boot = 'cn'
-localtime = 1
-on_poweroff = 'destroy'
-on_crash = 'preserve'
-on_reboot = 'destroy'
-seclabel = 'system_u:system_r:migrate_domU_t'
-
-
-If there's any further information which would be useful please let me know.
-
-Thanks,
-James
+Regards, Roger.
 
