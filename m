@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C43CABFA9F
-	for <lists+xen-devel@lfdr.de>; Wed, 21 May 2025 18:04:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.992140.1375949 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC02EABFAA0
+	for <lists+xen-devel@lfdr.de>; Wed, 21 May 2025 18:04:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.992141.1375955 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uHlvJ-0005Hg-QG; Wed, 21 May 2025 16:04:05 +0000
+	id 1uHlvK-0005Mf-As; Wed, 21 May 2025 16:04:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 992140.1375949; Wed, 21 May 2025 16:04:05 +0000
+Received: by outflank-mailman (output) from mailman id 992141.1375955; Wed, 21 May 2025 16:04:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uHlvJ-0005D0-Lw; Wed, 21 May 2025 16:04:05 +0000
-Received: by outflank-mailman (input) for mailman id 992140;
- Wed, 21 May 2025 16:04:03 +0000
+	id 1uHlvK-0005JY-4M; Wed, 21 May 2025 16:04:06 +0000
+Received: by outflank-mailman (input) for mailman id 992141;
+ Wed, 21 May 2025 16:04:04 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=hkAn=YF=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1uHlvH-0004XB-On
- for xen-devel@lists.xenproject.org; Wed, 21 May 2025 16:04:03 +0000
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [2a00:1450:4864:20::531])
+ id 1uHlvI-0004XB-UM
+ for xen-devel@lists.xenproject.org; Wed, 21 May 2025 16:04:04 +0000
+Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
+ [2a00:1450:4864:20::52e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 36e88ac4-365d-11f0-a2fa-13f23c93f187;
- Wed, 21 May 2025 18:04:03 +0200 (CEST)
-Received: by mail-ed1-x531.google.com with SMTP id
- 4fb4d7f45d1cf-601d66f8cafso5698071a12.3
- for <xen-devel@lists.xenproject.org>; Wed, 21 May 2025 09:04:03 -0700 (PDT)
+ id 37b46271-365d-11f0-a2fa-13f23c93f187;
+ Wed, 21 May 2025 18:04:04 +0200 (CEST)
+Received: by mail-ed1-x52e.google.com with SMTP id
+ 4fb4d7f45d1cf-601d10de7e1so5959327a12.1
+ for <xen-devel@lists.xenproject.org>; Wed, 21 May 2025 09:04:04 -0700 (PDT)
 Received: from fedora.. (user-109-243-64-38.play-internet.pl. [109.243.64.38])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6004d502736sm9152513a12.25.2025.05.21.09.04.01
+ 4fb4d7f45d1cf-6004d502736sm9152513a12.25.2025.05.21.09.04.02
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 21 May 2025 09:04:01 -0700 (PDT)
+ Wed, 21 May 2025 09:04:02 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,42 +45,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 36e88ac4-365d-11f0-a2fa-13f23c93f187
+X-Inumbo-ID: 37b46271-365d-11f0-a2fa-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1747843442; x=1748448242; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1747843443; x=1748448243; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=GTDxJdlWqyBuUYAssfRiBPJ9qN2ELiVYcf2RQUhFW1U=;
-        b=cjcrTPPoqTY+uKyaNYt9GvbRuj4cwz0GKWt0P9Fzdjgo2N5ZNbWF2mcdfCdq8WbxbP
-         YxnfjKSdFS8HeW1PRX5gqGHNHGPgVfPcHGA2v7pU7tvF/3HQ2rQgLIGUdf0l2/ySUcy3
-         kN43AkjuiwsNmPXMSzLnPGEitJIf1WED8k0oAdcwgiqX9RI5FJ7SvqZOf0ZaRzBFGipZ
-         u2r3MSiZ+FGfoyHaG0FlXFyVUQyAN8mfl0D4f9EaOzcx10ko0NED3hgRbKYMWRWtMWMu
-         JptW6lgXxD77khgnQ6jq/XjlPOHJj0Oq6rAFr34FfaYRl/qKB9+bSLSbOE8xUFLNv87Y
-         Lx4A==
+        bh=0/elDcf0J+uEdYg0IcO9C9ITYyw5kGwji+p9HGpFOSE=;
+        b=NCxNBcm79HEVCHuevHxMMiV7UoJqRfFEzLFCAM65zywkWPEMy0WzYQ48tdUspAGjlh
+         lRpDq7fPNEmPPAB1GLiR7bQjiXDP2N3vbrjovyNjWpIpkLGx6oISQ2Nd0y+klAgTFjHP
+         /q6cmLpWbrR+qLNvUU29uCsR5Vt0/lSXyZ1K106pRvqfnZb3R3URIZF2+RuTn/VQ6jqI
+         79o3WVUWTkV9a+Y1nOq3zeWOwbtzZfxkVEVt2lAiML1JwSaufJ3fuWtp1O3oa+fYyTXa
+         quDBHIw0WsJY+9gSkOP0P6cQsSTTbqSF00bsN+FnJKtBlC1gpVz+pwUOw1P2PFcG/tnj
+         fslQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747843442; x=1748448242;
+        d=1e100.net; s=20230601; t=1747843443; x=1748448243;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=GTDxJdlWqyBuUYAssfRiBPJ9qN2ELiVYcf2RQUhFW1U=;
-        b=MhVAktMsTYAWJD48VdCDuh7h6KnBkupMEWMl1OLUliq4R2hOJC2NajIbSxLuHG78yj
-         5ZfZtv/c7WT8axmyhoPxZ3MaMBeQdZODphC1ydP+awtNg7GweDrFwfpKYSuhPuMBIWTF
-         cIGpUVTitlmAv2+nqoqorVHqohdL97D9leOX+Re09j8VAS79TnwOEio1PpP7ioKuR+L8
-         CzmDaxDHcplkNXCgsUZU1avW+RLqSW6Uf2thnfyhspFXr+cRVSPvjGWCD+2nRGVH3zAk
-         rLlriJAO72ywOqyTyfUgOR4ep2CpvP8j260wKLb3HunZZsoMEgwLoi+tj3NeBZ4V2kJp
-         QwVg==
-X-Gm-Message-State: AOJu0YxSlZIAuBUALfi5kS+TWpSufOENR9+uFH+pyeMYhAAq+LVffBiz
-	0WA7AURUrh01vlW+15Vv7NjiVDFciG/LCqKMI9gTVlwAAyRnja8BfMcNS/rIzA==
-X-Gm-Gg: ASbGncvGKKXbq7SGWaWqzAC/zqGkgPGlPI+Ar4fjzdcw1FHlbp8fqHg9NCo3Pb2wCoX
-	cTcNxPoZOmq+zrM5YflX8J7Ifr5sWhgGdw8DNXIzWT+pfN2qF1ECUppmNZKJUVV2CnXheouHZun
-	5uLRvwP2n5uIYoF1an4HO5z/1uWXfc1d6ixKik+X7Au8v9jfexVyOTX3tlJUcLQK1f7DY1guMX0
-	H1DRAjQiU42JiYAHnKH6900og6p4lQCb4Bpi5fT/vD0krpGhruLPauIFQ2GLz8rLUL6mNBqysyI
-	Ln2o05QEM0FMjs5+ouiRIF5xpwai6N31Inha0KTcH0oXiwzK8JEAXy8EzfWvCX0lI76vCtdDfDn
-	stiaW4njR0jrKFpGk9g==
-X-Google-Smtp-Source: AGHT+IHvMVemtY/rVmjCbwswGEM7HqhP6r5qb6LnqJDAtjjjAajYDr3TUYO5Abv8PQ6/cuQUXCR7zg==
-X-Received: by 2002:a05:6402:4304:b0:602:1d01:2869 with SMTP id 4fb4d7f45d1cf-6021d012c1cmr5908930a12.28.1747843441958;
-        Wed, 21 May 2025 09:04:01 -0700 (PDT)
+        bh=0/elDcf0J+uEdYg0IcO9C9ITYyw5kGwji+p9HGpFOSE=;
+        b=bA6e8k0I0cD2st0dUT7ggJDLzw/7WjMZ7S/5BqftAMmUZvTOwUpSOdUmoikARWoF3l
+         RDlkCGCxgb62tm/fL5FERJX1nixI89JGb8i/bRgT6gxhEO6jiekuVGwA34PiTqSCPkby
+         TmrTAx/BHlMpOj4maQLVjE5mbT4LfxCin5ff++94RT/skj4DwmLb6fbWcCpXTwPslWAp
+         OuZKUC0o/Da5vNAC9KtMpk45FoGJvH8F6wlGkZg3/9vc2+LQRbSyormRXNVrm/MIg3de
+         HEWs6F/prgdwMuEyqEtupCP6njuKwmk3tdSMtixGxpYOhawM1m2EKT0p488BXn2Y4WOe
+         MJ8A==
+X-Gm-Message-State: AOJu0YxPjNZtveQ9tNdy6iNjB3Wuopxx/+ExNEgecJBsrZirxjkW1m5N
+	Qfa5PBJwkXCYHmuHGZ9J31+Ngl18Few1WY63o1NcaloTHGNeltJ9uD3oi9niDQ==
+X-Gm-Gg: ASbGncsoprYmWUm4fqwX2L8tUsbWwHQwQvgHafIFpgoWvyBbWp2ykfL8oWNE8wpo9h0
+	KLjlaCo7slsncFXmFQRf36j9+YMpSGu8DighxSFS1UZmom+DT1/fEa2yjOkKHetLZERsGMgIjZD
+	+JUXQ3CuGDMlJeV+/NXIT39RW6+VJnbYJJK+wCXwwtxb83LKM202ipvJzl5i7p0mukhtSpOJFnB
+	lPrYvvnacLJ6bimyG+SHK2FEgGZlDkN8OS5JvX73aokj5YXO+OdVUWC+WI8m2tU5Wl4B/haY5h7
+	pe8JFMsIYAwj6ysi5cABfx+qvQ6TIBceu5GRGs47z9lk9HbHr2EarrfMzlGj9quPFwEuODSoz8i
+	lykXSATMOevz8exUnqg==
+X-Google-Smtp-Source: AGHT+IEa+JUzcbczAQq8o2/fg/s1PT8cuwXsa9rgrAfOnPixs0ymYOgRRJ6fCt3JnFSA4qtF1tmLyw==
+X-Received: by 2002:a05:6402:2786:b0:602:29e0:5e05 with SMTP id 4fb4d7f45d1cf-60229e0615dmr3984646a12.14.1747843442984;
+        Wed, 21 May 2025 09:04:02 -0700 (PDT)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
@@ -94,116 +94,198 @@ Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
 	Julien Grall <julien@xen.org>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v3 03/14] xen/riscv: add ioremap_*() variants using ioremap_attr()
-Date: Wed, 21 May 2025 18:03:43 +0200
-Message-ID: <2bdbb98adf5246cd1a10e1575b8bf0aa2bdb5f6d.1747843009.git.oleksii.kurochko@gmail.com>
+Subject: [PATCH v3 04/14] xen/riscv: introduce init_IRQ()
+Date: Wed, 21 May 2025 18:03:44 +0200
+Message-ID: <3f86f284ebccff9de877844f33c4588ac5631906.1747843009.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <cover.1747843009.git.oleksii.kurochko@gmail.com>
 References: <cover.1747843009.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Introduce ioremap_attr() as a shared helper to implement architecture-specific
-ioremap variants:
-- ioremap_cache()
-- ioremap_wc()
+Implement init_IRQ() to initalize various IRQs.
 
-These functions use __vmap() internally and apply appropriate memory attributes
-for RISC-V.
+Currently, this function initializes the irq_desc[] array,
+which stores IRQ descriptors containing various information
+about each IRQ, such as the type of hardware handling, whether
+the IRQ is disabled, etc.
+The initialization is basic at this point and includes setting
+IRQ_TYPE_INVALID as the IRQ type, assigning the IRQ number ( which
+is just a consequent index of irq_desc[] array ) to
+desc->irq.
 
-These functions are implemned not as static inline function or macros as it will
-require to include asm/page.h into asm/io.h what will lead to compilation
-issue.
+Additionally, the function init_irq_data() is introduced to
+initialize the IRQ descriptors for all IRQs in the system.
 
-Also, remove the unused ioremap_wt() macro from asm/io.h, as write-through
-mappings are not expected to be used on RISC-V.
+Reuse defines of IRQ_TYPE_* from asm-generic/irq-dt.h.
 
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 ---
-Changes in v3:
- - Drop ioremap_nocache() as ioremap() duplicates functionality of
-   ioremap_nocache().
- - Add __iomem to defintion of ioremap(), ioremap_attr().
- - Rename start to pa for all ioremap*() functions.
- - Update the commit message ioremap_nocache().
+ - Add an explanatory comment about NR_IRQS definitions.
+ - Init desc->irq and desc->action before call of init_one_irq_desc().
+ - Drop "desc->action = NULL" as irq_desc[] is zero-initialized.
+ - Update the commit message: drop mention of NULLing of desc->action.
+ - Drop year in Copyright.
 ---
 Changes in v2:
- - Update the commit subject + message.  
- - move out Svpbmt changes to separate patch.
- - Drop #ifdef SVPBMT for ioremap().
- - Redefine ioremap_* in io.h.
- - Introduce ioremap_attr().
+ - Move an introduction of IRQ_TYPE_* defines to the separate patch.
+ - Reuse asm-generic/irq-dt.h.
+ - Use 'unsigned int' for local irq variable inside init_irq_data().
 ---
- xen/arch/riscv/include/asm/io.h | 10 ++--------
- xen/arch/riscv/mm.c             | 30 ++++++++++++++++++++++++++++++
- 2 files changed, 32 insertions(+), 8 deletions(-)
+ xen/arch/riscv/Makefile             |  1 +
+ xen/arch/riscv/include/asm/Makefile |  1 +
+ xen/arch/riscv/include/asm/irq.h    | 15 ++++++++++
+ xen/arch/riscv/irq.c                | 45 +++++++++++++++++++++++++++++
+ xen/arch/riscv/setup.c              |  3 ++
+ xen/arch/riscv/stubs.c              |  5 ----
+ 6 files changed, 65 insertions(+), 5 deletions(-)
+ create mode 100644 xen/arch/riscv/irq.c
 
-diff --git a/xen/arch/riscv/include/asm/io.h b/xen/arch/riscv/include/asm/io.h
-index 8bab4ffa03..9aeafd6b3b 100644
---- a/xen/arch/riscv/include/asm/io.h
-+++ b/xen/arch/riscv/include/asm/io.h
-@@ -41,14 +41,8 @@
- #include <xen/macros.h>
- #include <xen/types.h>
+diff --git a/xen/arch/riscv/Makefile b/xen/arch/riscv/Makefile
+index f42cf3dfa6..a1c145c506 100644
+--- a/xen/arch/riscv/Makefile
++++ b/xen/arch/riscv/Makefile
+@@ -3,6 +3,7 @@ obj-y += cpufeature.o
+ obj-$(CONFIG_EARLY_PRINTK) += early_printk.o
+ obj-y += entry.o
+ obj-y += intc.o
++obj-y += irq.o
+ obj-y += mm.o
+ obj-y += pt.o
+ obj-$(CONFIG_RISCV_64) += riscv64/
+diff --git a/xen/arch/riscv/include/asm/Makefile b/xen/arch/riscv/include/asm/Makefile
+index c989a7f89b..bfdf186c68 100644
+--- a/xen/arch/riscv/include/asm/Makefile
++++ b/xen/arch/riscv/include/asm/Makefile
+@@ -5,6 +5,7 @@ generic-y += div64.h
+ generic-y += hardirq.h
+ generic-y += hypercall.h
+ generic-y += iocap.h
++generic-y += irq-dt.h
+ generic-y += paging.h
+ generic-y += percpu.h
+ generic-y += perfc_defn.h
+diff --git a/xen/arch/riscv/include/asm/irq.h b/xen/arch/riscv/include/asm/irq.h
+index 2a48da2651..ea555afd1a 100644
+--- a/xen/arch/riscv/include/asm/irq.h
++++ b/xen/arch/riscv/include/asm/irq.h
+@@ -3,6 +3,19 @@
+ #define ASM__RISCV__IRQ_H
  
--/*
-- * The RISC-V ISA doesn't yet specify how to query or modify PMAs, so we can't
-- * change the properties of memory regions.  This should be fixed by the
-- * upcoming platform spec.
-- */
--#define ioremap_nocache(addr, size) ioremap(addr, size)
--#define ioremap_wc(addr, size) ioremap(addr, size)
--#define ioremap_wt(addr, size) ioremap(addr, size)
-+void __iomem *ioremap_cache(paddr_t pa, size_t len);
-+void __iomem *ioremap_wc(paddr_t pa, size_t len);
+ #include <xen/bug.h>
++#include <xen/device_tree.h>
++
++#include <asm/irq-dt.h>
++
++/*
++ * According to the AIA spec:
++ *   The maximum number of interrupt sources an APLIC may support is 1023.
++ *
++ * The same is true for PLIC.
++ *
++ * Interrupt Source 0 is reserved and shall never generate an interrupt.
++ */
++#define NR_IRQS 1024
  
- /* Generic IO read/write.  These perform native-endian accesses. */
- static inline void __raw_writeb(uint8_t val, volatile void __iomem *addr)
-diff --git a/xen/arch/riscv/mm.c b/xen/arch/riscv/mm.c
-index d3ece9f132..4047d67c0e 100644
---- a/xen/arch/riscv/mm.c
-+++ b/xen/arch/riscv/mm.c
-@@ -11,6 +11,7 @@
- #include <xen/pfn.h>
- #include <xen/sections.h>
- #include <xen/sizes.h>
-+#include <xen/vmap.h>
- 
- #include <asm/early_printk.h>
- #include <asm/csr.h>
-@@ -583,3 +584,32 @@ void *__init arch_vmap_virt_end(void)
- {
-     return (void *)(VMAP_VIRT_START + VMAP_VIRT_SIZE);
+ /* TODO */
+ #define nr_irqs 0U
+@@ -25,6 +38,8 @@ static inline void arch_move_irqs(struct vcpu *v)
+     BUG_ON("unimplemented");
  }
+ 
++void init_IRQ(void);
 +
-+static void __iomem *ioremap_attr(paddr_t pa, size_t len,
-+                                  pte_attr_t attributes)
+ #endif /* ASM__RISCV__IRQ_H */
+ 
+ /*
+diff --git a/xen/arch/riscv/irq.c b/xen/arch/riscv/irq.c
+new file mode 100644
+index 0000000000..b5ae7a114b
+--- /dev/null
++++ b/xen/arch/riscv/irq.c
+@@ -0,0 +1,45 @@
++/* SPDX-License-Identifier: GPL-2.0-or-later */
++
++/*
++ * RISC-V Interrupt support
++ *
++ * Copyright (c) Vates
++ */
++
++#include <xen/bug.h>
++#include <xen/init.h>
++#include <xen/irq.h>
++
++static irq_desc_t irq_desc[NR_IRQS];
++
++int arch_init_one_irq_desc(struct irq_desc *desc)
 +{
-+    mfn_t mfn = _mfn(PFN_DOWN(pa));
-+    unsigned int offs = pa & (PAGE_SIZE - 1);
-+    unsigned int nr = PFN_UP(offs + len);
-+    void *ptr = __vmap(&mfn, nr, 1, 1, attributes, VMAP_DEFAULT);
++    desc->arch.type = IRQ_TYPE_INVALID;
 +
-+    if ( ptr == NULL )
-+        return NULL;
-+
-+    return ptr + offs;
++    return 0;
 +}
 +
-+void __iomem *ioremap_cache(paddr_t pa, size_t len)
++static int __init init_irq_data(void)
 +{
-+    return ioremap_attr(pa, len, PAGE_HYPERVISOR);
++    unsigned int irq;
++
++    for ( irq = 0; irq < NR_IRQS; irq++ )
++    {
++        struct irq_desc *desc = irq_to_desc(irq);
++        int rc;
++
++        desc->irq = irq;
++
++        rc = init_one_irq_desc(desc);
++        if ( rc )
++            return rc;
++    }
++
++    return 0;
 +}
 +
-+void __iomem *ioremap_wc(paddr_t pa, size_t len)
++void __init init_IRQ(void)
 +{
-+    return ioremap_attr(pa, len, PAGE_HYPERVISOR_WC);
++    if ( init_irq_data() < 0 )
++        panic("initialization of IRQ data failed\n");
 +}
+diff --git a/xen/arch/riscv/setup.c b/xen/arch/riscv/setup.c
+index a9c0c61fb6..8bcd19218d 100644
+--- a/xen/arch/riscv/setup.c
++++ b/xen/arch/riscv/setup.c
+@@ -6,6 +6,7 @@
+ #include <xen/compile.h>
+ #include <xen/device_tree.h>
+ #include <xen/init.h>
++#include <xen/irq.h>
+ #include <xen/mm.h>
+ #include <xen/shutdown.h>
+ #include <xen/smp.h>
+@@ -125,6 +126,8 @@ void __init noreturn start_xen(unsigned long bootcpu_id,
+         panic("Booting using ACPI isn't supported\n");
+     }
+ 
++    init_IRQ();
 +
-+void __iomem *ioremap(paddr_t pa, size_t len)
-+{
-+    return ioremap_attr(pa, len, PAGE_HYPERVISOR_NOCACHE);
-+}
+     riscv_fill_hwcap();
+ 
+     preinit_xen_time();
+diff --git a/xen/arch/riscv/stubs.c b/xen/arch/riscv/stubs.c
+index fdcf91054e..e396b67cd3 100644
+--- a/xen/arch/riscv/stubs.c
++++ b/xen/arch/riscv/stubs.c
+@@ -107,11 +107,6 @@ void irq_ack_none(struct irq_desc *desc)
+     BUG_ON("unimplemented");
+ }
+ 
+-int arch_init_one_irq_desc(struct irq_desc *desc)
+-{
+-    BUG_ON("unimplemented");
+-}
+-
+ void smp_send_state_dump(unsigned int cpu)
+ {
+     BUG_ON("unimplemented");
 -- 
 2.49.0
 
