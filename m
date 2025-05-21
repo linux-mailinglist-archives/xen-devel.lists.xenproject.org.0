@@ -2,54 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7993BABEE97
-	for <lists+xen-devel@lfdr.de>; Wed, 21 May 2025 10:52:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.991614.1375460 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 23E79ABEEA4
+	for <lists+xen-devel@lfdr.de>; Wed, 21 May 2025 10:54:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.991632.1375479 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uHfBI-0002A9-J9; Wed, 21 May 2025 08:52:08 +0000
+	id 1uHfDr-0003Gh-AK; Wed, 21 May 2025 08:54:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 991614.1375460; Wed, 21 May 2025 08:52:08 +0000
+Received: by outflank-mailman (output) from mailman id 991632.1375479; Wed, 21 May 2025 08:54:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uHfBI-00028D-FR; Wed, 21 May 2025 08:52:08 +0000
-Received: by outflank-mailman (input) for mailman id 991614;
- Wed, 21 May 2025 08:52:06 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=sDZD=YF=oracle.com=harshvardhan.j.jha@srs-se1.protection.inumbo.net>)
- id 1uHfBG-000287-SG
- for xen-devel@lists.xenproject.org; Wed, 21 May 2025 08:52:06 +0000
-Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com
- [205.220.165.32]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id dcc2233a-3620-11f0-b892-0df219b8e170;
- Wed, 21 May 2025 10:52:04 +0200 (CEST)
-Received: from pps.filterd (m0333521.ppops.net [127.0.0.1])
- by mx0b-00069f02.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 54L8Spjg026402;
- Wed, 21 May 2025 08:51:56 GMT
-Received: from iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com
- (iadpaimrmta01.appoci.oracle.com [130.35.100.223])
- by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 46sahbg66d-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 21 May 2025 08:51:55 +0000 (GMT)
-Received: from pps.filterd
- (iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
- by iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (8.18.1.2/8.18.1.2)
- with ESMTP id 54L7i855034623; Wed, 21 May 2025 08:51:47 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
- by iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTPS id
- 46rwepjar3-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 21 May 2025 08:51:47 +0000
-Received: from iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com
- (iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
- by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 54L8pjuj027328;
- Wed, 21 May 2025 08:51:47 GMT
-Received: from ca-dev112.us.oracle.com (ca-dev112.us.oracle.com
- [10.129.136.47])
- by iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTP id
- 46rwepjaq9-2; Wed, 21 May 2025 08:51:46 +0000
+	id 1uHfDr-0003EA-7a; Wed, 21 May 2025 08:54:47 +0000
+Received: by outflank-mailman (input) for mailman id 991632;
+ Wed, 21 May 2025 08:54:45 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=TwEK=YF=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uHfDp-0003E3-Qu
+ for xen-devel@lists.xenproject.org; Wed, 21 May 2025 08:54:45 +0000
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [2a00:1450:4864:20::52c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 3dc54cb5-3621-11f0-a2fa-13f23c93f187;
+ Wed, 21 May 2025 10:54:44 +0200 (CEST)
+Received: by mail-ed1-x52c.google.com with SMTP id
+ 4fb4d7f45d1cf-6020ff8d35dso3137451a12.0
+ for <xen-devel@lists.xenproject.org>; Wed, 21 May 2025 01:54:44 -0700 (PDT)
+Received: from [10.1.248.227] ([80.188.125.198])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-6005a6e6366sm8677401a12.44.2025.05.21.01.54.42
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 21 May 2025 01:54:43 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -61,114 +45,125 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dcc2233a-3620-11f0-b892-0df219b8e170
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=corp-2025-04-25; bh=YCUn1
-	PIbwBCxw1cn97O5FsKta9uLJW/+01K2MDVFP7A=; b=UcT01hPmJJP9Az+0HamHp
-	GRVQE4qd9IrqBk027upBdONbhbR3Hp9I1JtA8nyimgJGOBy8vz1kCZrwp80Lc1ML
-	bfoC5Yjnfw1rOPKCTDZX34QQDJxIVdEg81Jnldkf8JrXk+MIUram4f6/IzMO01EZ
-	GgMYpQTKFXVpqocVmxqC3mWTEQqVALe+SOlefwYzw7Lm4PLJ/pDSPZvweyg7IfXS
-	5a7jc2xYvhzhtOpgYZYsen5k800AISAUbBZxzka94hYIKp6Sy5sn6S0WJy0Yhi96
-	LgsdrNOf9O+xP8mqk+NfImd72Oet7IAlymasE47wHIlEG82oUBdFbTjdQ9Rrf71C
-	A==
-From: Harshvardhan Jha <harshvardhan.j.jha@oracle.com>
-To: jgross@suse.com, sstabellini@kernel.org, boris.ostrovsky@oracle.com
-Cc: harshvardhan.j.jha@oracle.com, xen-devel@lists.xenproject.org,
-        iommu@lists.linux.dev, stable@vger.kernel.org
-Subject: [PATCH 5.15.y v3 1/1] xen/swiotlb: relax alignment requirements
-Date: Wed, 21 May 2025 01:51:44 -0700
-Message-ID: <20250521085144.1578880-2-harshvardhan.j.jha@oracle.com>
-X-Mailer: git-send-email 2.47.1
-In-Reply-To: <20250521085144.1578880-1-harshvardhan.j.jha@oracle.com>
-References: <20250521085144.1578880-1-harshvardhan.j.jha@oracle.com>
+X-Inumbo-ID: 3dc54cb5-3621-11f0-a2fa-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1747817684; x=1748422484; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=TTcNcN/mn4vwLSDJHVvJ6D89I9AaCHM3ByCAn3FkYMk=;
+        b=TEc8N+sbBVXflUQOqn/+ygxvPNB7SUhqQ1rUfZLI2WW8olWLT3VgrQ7U38h3GAGE4B
+         cclEW+Lulsz9jYy2kYRdYLRffXiReBClPcg2yJRwx6bzGeVhZTp49wBVeI6VhbcPxsfF
+         pS8luvl/ZRifmK5nKDLKsHbZyU5207CZupCuBrlVGDRRG/TeF6v/NLN8uXVa8MRPq3Fj
+         EKh3hNrtTIlli3gc6yaCFpM3sWujJZmfBR3wtDecF7qmGiYiGtjvDFYfUVIgyGzUxjWF
+         AW1AmD3CjkwJxP8+uEnncNC6ajjiWn1Tck+eCqsxmZ7+VN8Z1qZKhZ2ms5qjphM0YXB5
+         +mXw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1747817684; x=1748422484;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=TTcNcN/mn4vwLSDJHVvJ6D89I9AaCHM3ByCAn3FkYMk=;
+        b=FIvKMNfwVFv91enozg/ieWEa3UU6MAafF8rh9nhnkiSpyEWlp9llDRScOz5TfzA2EX
+         6g7bOAMlU2bdttLiLzz5RuJAyjspSitD4z4FijICTRYgNOOVmhhIc+B/GjqjSTN/Tv1t
+         f5oSOjKGfHRBmIsIS9R+SXEKgTk1f9LogtmGYK75ZyJMALi67JidjCngWkOikvfKyrfN
+         x5ahZY56KmSpN6Jck1TWovIGooDuybuOTaIrSBNvCcBsnMKXVv5bRpq2k3TjY+R3/mSj
+         i5lS7w7J79etebU0O5IrtHinm9zZxlJ/x7lq14+M8jlV29IGMdmRcGV3NFVU/MbKNwDX
+         hhhA==
+X-Forwarded-Encrypted: i=1; AJvYcCXSO8C0oMJpzkYxEzA626QalP2Efe410ROZWzH+crSUpRz39/xOa5XJgy+53MHpxzwiVMn8NYi6g9M=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yydz8fK/hLuWIBdDjwdd/ZbWe4irGs0JFMvzFCAK0fNHdhwwdat
+	S/kEsbRmaNuiseyrK2W/X+qWqqbrU44tiua/ub4Klt7hy8LpgpogPmOdvAV11cnBFw==
+X-Gm-Gg: ASbGncuZJFR0D1l8WgmA+/l8hELmPFaDdIpXYAzLKHQwUk/M5mU3tG1h21qVlJKvWkH
+	ylCBAPu+jyaNYg1BB1I3h5MBtUAQB06ljSh49vPYpCoqT4NMfPQkoBqGmvMnM1pxY5k2zRZazG4
+	dLl/H+91xl6sHJ2zjXUa+LeMIsrJocBdNO77oBoeHHvDRUHuL5q+Aa3dO2cpyNfdnVmFviGALmu
+	NdBAGqrkmGhVk2GdvFY10GnBSAsq6JAZFgSb2txpGSbOmmS2ED3ParSUVxY6bWZiY4SCjQXTwcC
+	eE+UcBQRoDkza+AaUF2wepW39fP/42rmkvi9+MwlRkLjXNUNEoqxFe6luvnNSDdg6rGJgcd9
+X-Google-Smtp-Source: AGHT+IFEiyRbsFlJms7UqQ35HbVJNfGRON+KwNo949Pe5+OL5LqoqOuTfsywH8U+f40mCtHvtqvozQ==
+X-Received: by 2002:a05:6402:4307:b0:602:a0:1f2c with SMTP id 4fb4d7f45d1cf-60200a02e14mr6226619a12.9.1747817684230;
+        Wed, 21 May 2025 01:54:44 -0700 (PDT)
+Message-ID: <b57229cf-cdf9-46ea-89d4-4cce4b1bf0df@suse.com>
+Date: Wed, 21 May 2025 10:54:42 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
- definitions=2025-05-21_02,2025-05-20_03,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 bulkscore=0 mlxscore=0 spamscore=0
- suspectscore=0 adultscore=0 malwarescore=0 phishscore=0 mlxlogscore=999
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2505160000
- definitions=main-2505210086
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNTIxMDA4NyBTYWx0ZWRfX8f+U4oe/EQtS R/xiEPxMlpCBYcGuSQb5iApcpwt2bmOsBhLJna3sBQCLd5HDWYDNekKfY1QecnMQlfdNx1guQ6w b/HUBOQfH7SoRiXARMavCgfslIukAR6mpQBKRmmdISRxAjwX6iI7UWFK5QC5E1xDh6hQe9N4xCP
- Eg2fBmmEj79OkO1rnHahTu7bL7m+1rupo5HbijlmQzaxeGePPTFe4Ef/N9bQaXxHBGvKgwrCLRN FpUS51MqTZzh+1sp4UqjSFsHwL9cRzsaXXLNS3pfgY05jzK3q+bPLbHPhyEtoB0Y3gQ8l0iZI5J Ddu3ekRaYU3wNbFgYy77CAe0B5hT33E2I4FHNhGOrJbqyF5TK/qecCK9T9oP9ry31JAw9qQKenb
- vh5j+AJUHZwQMQUP/VcVcHMNcVFjAQR4AQc0ly/5ZTGEy7hitICqG1D1CGIjmDF75kfUMGHi
-X-Authority-Analysis: v=2.4 cv=VY/3PEp9 c=1 sm=1 tr=0 ts=682d942b b=1 cx=c_pps a=zPCbziy225d3KhSqZt3L1A==:117 a=zPCbziy225d3KhSqZt3L1A==:17 a=dt9VzEwgFbYA:10 a=iox4zFpeAAAA:8 a=yPCof4ZbAAAA:8 a=E5hRKjw2lWykmI9IJP0A:9 a=WzC6qhA0u3u7Ye7llzcV:22 cc=ntf
- awl=host:13206
-X-Proofpoint-GUID: 5_s0WM-cZWPJR4YTdgd_l_rYSXFz68xK
-X-Proofpoint-ORIG-GUID: 5_s0WM-cZWPJR4YTdgd_l_rYSXFz68xK
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 02/12] common/hyperlaunch: introduce the domain builder
+To: Alejandro Vallejo <agarciav@amd.com>
+Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Jason Andryuk <jason.andryuk@amd.com>, Denis Mukhin <dmukhin@ford.com>,
+ xen-devel@lists.xenproject.org
+References: <20250429123629.20839-1-agarciav@amd.com>
+ <20250429123629.20839-3-agarciav@amd.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <20250429123629.20839-3-agarciav@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-[ Upstream commit 85fcb57c983f423180ba6ec5d0034242da05cc54 ]
+On 29.04.2025 14:36, Alejandro Vallejo wrote:
+> @@ -1284,9 +1285,14 @@ void asmlinkage __init noreturn __start_xen(void)
+>                 bi->nr_modules);
+>      }
+>  
+> -    /* Dom0 kernel is always first */
+> -    bi->mods[0].type = BOOTMOD_KERNEL;
+> -    bi->domains[0].kernel = &bi->mods[0];
+> +    if ( builder_init(bi) == FDT_KIND_NONE )
 
-When mapping a buffer for DMA via .map_page or .map_sg DMA operations,
-there is no need to check the machine frames to be aligned according
-to the mapped areas size. All what is needed in these cases is that the
-buffer is contiguous at machine level.
+With this, can ...
 
-So carve out the alignment check from range_straddles_page_boundary()
-and move it to a helper called by xen_swiotlb_alloc_coherent() and
-xen_swiotlb_free_coherent() directly.
+> +    {
+> +        /* Find first unknown boot module to use as dom0 kernel */
+> +        i = first_boot_module_index(bi, BOOTMOD_UNKNOWN);
 
-Fixes: 9f40ec84a797 ("xen/swiotlb: add alignment check for dma buffers")
+... i ever be anything else than 0? If not, perhaps keeping the call here is
+still fine (kind of for doc purposes), but an assertion may then want adding.
 
-Signed-off-by: Juergen Gross <jgross@suse.com>
-Signed-off-by: Harshvardhan Jha <harshvardhan.j.jha@oracle.com>
----
- drivers/xen/swiotlb-xen.c | 18 +++++++++++-------
- 1 file changed, 11 insertions(+), 7 deletions(-)
+> +        bi->mods[i].type = BOOTMOD_KERNEL;
+> +        bi->domains[0].kernel = &bi->mods[i];
+> +        bi->hyperlaunch_enabled = false;
 
-diff --git a/drivers/xen/swiotlb-xen.c b/drivers/xen/swiotlb-xen.c
-index 0392841a822fa..65da97be06285 100644
---- a/drivers/xen/swiotlb-xen.c
-+++ b/drivers/xen/swiotlb-xen.c
-@@ -75,19 +75,21 @@ static inline phys_addr_t xen_dma_to_phys(struct device *dev,
- 	return xen_bus_to_phys(dev, dma_to_phys(dev, dma_addr));
- }
- 
-+static inline bool range_requires_alignment(phys_addr_t p, size_t size)
-+{
-+	phys_addr_t algn = 1ULL << (get_order(size) + PAGE_SHIFT);
-+	phys_addr_t bus_addr = pfn_to_bfn(XEN_PFN_DOWN(p)) << XEN_PAGE_SHIFT;
-+
-+	return IS_ALIGNED(p, algn) && !IS_ALIGNED(bus_addr, algn);
-+}
-+
- static inline int range_straddles_page_boundary(phys_addr_t p, size_t size)
- {
- 	unsigned long next_bfn, xen_pfn = XEN_PFN_DOWN(p);
- 	unsigned int i, nr_pages = XEN_PFN_UP(xen_offset_in_page(p) + size);
--	phys_addr_t algn = 1ULL << (get_order(size) + PAGE_SHIFT);
- 
- 	next_bfn = pfn_to_bfn(xen_pfn);
- 
--	/* If buffer is physically aligned, ensure DMA alignment. */
--	if (IS_ALIGNED(p, algn) &&
--	    !IS_ALIGNED((phys_addr_t)next_bfn << XEN_PAGE_SHIFT, algn))
--		return 1;
--
- 	for (i = 1; i < nr_pages; i++)
- 		if (pfn_to_bfn(++xen_pfn) != ++next_bfn)
- 			return 1;
-@@ -306,7 +308,8 @@ xen_swiotlb_alloc_coherent(struct device *hwdev, size_t size,
- 	phys = dma_to_phys(hwdev, *dma_handle);
- 	dev_addr = xen_phys_to_dma(hwdev, phys);
- 	if (((dev_addr + size - 1 <= dma_mask)) &&
--	    !range_straddles_page_boundary(phys, size))
-+	    !range_straddles_page_boundary(phys, size) &&
-+	    !range_requires_alignment(phys, size))
- 		*dma_handle = dev_addr;
- 	else {
- 		if (xen_create_contiguous_region(phys, order,
-@@ -347,6 +350,7 @@ xen_swiotlb_free_coherent(struct device *hwdev, size_t size, void *vaddr,
- 
- 	if (!WARN_ON((dev_addr + size - 1 > dma_mask) ||
- 		     range_straddles_page_boundary(phys, size)) &&
-+	    !range_requires_alignment(phys, size) &&
- 	    TestClearPageXenRemapped(page))
- 		xen_destroy_contiguous_region(phys, order);
- 
--- 
-2.47.1
+Is this necessary, when the field is supposed to be starting out clear?
 
+> --- /dev/null
+> +++ b/xen/common/domain-builder/Makefile
+> @@ -0,0 +1,2 @@
+> +obj-y += fdt.init.o
+> +obj-y += core.init.o
+
+Any reason for these not both adding to obj-bin-y, like we do elsewhere for
+*.init.o?
+
+Also please sort object lists alphabetically.
+
+> --- /dev/null
+> +++ b/xen/include/xen/domain-builder.h
+> @@ -0,0 +1,29 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +#ifndef __XEN_DOMAIN_BUILDER_H__
+> +#define __XEN_DOMAIN_BUILDER_H__
+> +
+> +struct boot_info;
+> +
+> +/* Return status of builder_init(). Shows which boot mechanism was detected */
+> +enum fdt_kind
+> +{
+> +    /* FDT not found. Skipped builder. */
+> +    FDT_KIND_NONE,
+> +    /* Found an FDT that wasn't hyperlaunch. */
+> +    FDT_KIND_UNKNOWN,
+> +};
+> +
+> +/*
+> + * Initialises `bi` if it detects a compatible FDT. Otherwise returns
+> + * FDT_KIND_NONE and leaves initialisation up to the caller.
+> + */
+> +#if IS_ENABLED(CONFIG_DOMAIN_BUILDER)
+
+For the pre-processor it wants to be the simpler #ifdef.
+
+Jan
 
