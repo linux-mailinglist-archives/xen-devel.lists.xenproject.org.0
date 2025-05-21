@@ -2,31 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76C12ABF99B
-	for <lists+xen-devel@lfdr.de>; Wed, 21 May 2025 17:39:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.992100.1375879 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 14F7AABF9C9
+	for <lists+xen-devel@lfdr.de>; Wed, 21 May 2025 17:45:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.992112.1375889 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uHlXJ-00066z-6V; Wed, 21 May 2025 15:39:17 +0000
+	id 1uHld0-00084K-Tz; Wed, 21 May 2025 15:45:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 992100.1375879; Wed, 21 May 2025 15:39:17 +0000
+Received: by outflank-mailman (output) from mailman id 992112.1375889; Wed, 21 May 2025 15:45:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uHlXJ-00064h-3c; Wed, 21 May 2025 15:39:17 +0000
-Received: by outflank-mailman (input) for mailman id 992100;
- Wed, 21 May 2025 15:39:16 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=JvEX=YF=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1uHlXI-00064b-4S
- for xen-devel@lists.xenproject.org; Wed, 21 May 2025 15:39:16 +0000
-Received: from sender4-of-o50.zoho.com (sender4-of-o50.zoho.com
- [136.143.188.50]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id be5adc25-3659-11f0-a2fa-13f23c93f187;
- Wed, 21 May 2025 17:39:13 +0200 (CEST)
-Received: by mx.zohomail.com with SMTPS id 1747841949196258.15362504154143;
- Wed, 21 May 2025 08:39:09 -0700 (PDT)
+	id 1uHld0-00081q-RJ; Wed, 21 May 2025 15:45:10 +0000
+Received: by outflank-mailman (input) for mailman id 992112;
+ Wed, 21 May 2025 15:45:09 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=TwEK=YF=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uHlcz-00081k-1E
+ for xen-devel@lists.xenproject.org; Wed, 21 May 2025 15:45:09 +0000
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
+ [2a00:1450:4864:20::633])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 918b6372-365a-11f0-b892-0df219b8e170;
+ Wed, 21 May 2025 17:45:06 +0200 (CEST)
+Received: by mail-ej1-x633.google.com with SMTP id
+ a640c23a62f3a-ad216a5a59cso980353066b.3
+ for <xen-devel@lists.xenproject.org>; Wed, 21 May 2025 08:45:06 -0700 (PDT)
+Received: from [10.1.248.227] ([80.188.125.198])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ad52d04b08bsm928214566b.13.2025.05.21.08.45.05
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 21 May 2025 08:45:05 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,267 +45,259 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: be5adc25-3659-11f0-a2fa-13f23c93f187
-ARC-Seal: i=1; a=rsa-sha256; t=1747841950; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=OZIUfmRvCVnNETPzommRHutb0jMPgejoNWFt8Xy8Tu1ot/pLPcUBagdWXppxlOgzXa4gNzXWh0uCTHkkWISejhIdw8lVp/L8JJcksOiOrPK+2xa58gdcDmetvu60f+40Wg8uNdFbVtd6a8uoF0CDQP1vOH0FwgbL0B4Y29le3Qo=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1747841950; h=Content-Type:Content-Transfer-Encoding:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To:Cc; 
-	bh=wQvoDCGpLpyz8uDJKqSsfk2KWp4dhhdOk5HLxm6M23U=; 
-	b=Bwpey/p6Wkppjcuu1exIyCUE8u1mKYalgzT7+OSCRyJlbUEvpKKRDLFkczBRkz6CDG1AY8XOM+DzOrhuV6qplm8oqGiJtUVfgt+hxSXx2IdU/tGppqU3xvsswAoqgsZ/QHDosxjljlo60Cx0TSlYYWIxJk/U5TjzIQTr9CCaFDA=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=apertussolutions.com;
-	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
-	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1747841950;
-	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:References:From:From:To:To:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To:Cc;
-	bh=wQvoDCGpLpyz8uDJKqSsfk2KWp4dhhdOk5HLxm6M23U=;
-	b=pdcDbB1/DdXPqu3AQl7cd0KZ80j/sj5453BwDvCAynlEPMVmdeZpvKLaemvdA13j
-	1onvRzREoluoee6EJCyWXqld3+EUlv7ZDn9fmXKOkIqm72girFc25T/g67lNvnkhmI7
-	4G/G6yLD/KxaXTcwycwJ2BRKWIzcNvUq8tKulf0o=
-Message-ID: <ba4ace43-b736-409b-a582-b730c763694e@apertussolutions.com>
-Date: Wed, 21 May 2025 11:39:07 -0400
+X-Inumbo-ID: 918b6372-365a-11f0-b892-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1747842306; x=1748447106; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=Fmlu9LIzefqsnSDBpgSUuQP5QuHaG/iY95IyALdJ1bA=;
+        b=DC1zWwHnoYwkX7cCJ82J6R43i2P8QgvHqpbl6PYvf3PuzQwpTJmFU+cnvkdygVP7iY
+         XLMWrwIsnOMcpOo3Zczldv3m+ceYMqf6rrM17XdexxPqFJ8rvzU/bRA99e4VD6IyUYgi
+         vdmlk0UPNO6EQSYVXd91Qnhkn7lGcGGkLe34lLyl58kVhhwmpmEFdxeT5L17xjc/Lq/q
+         sbkKbIPArqC1NglwEk8h89GcKjQcFD/u/XhYtq/2fGdFQmuLrpydov38NbFuf5f/KLWY
+         XMVk2td7RlJvewCfvSRPb3h8E/GL0XADp+FAggu6bFJ1WKyWptECIu1+KG6QEeb9+Ktt
+         RRXA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1747842306; x=1748447106;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=Fmlu9LIzefqsnSDBpgSUuQP5QuHaG/iY95IyALdJ1bA=;
+        b=Kfo7K0kjOvhtkYtslsDGNlbqlmADe05WOTwZ/OAQDyyzysuRaYbiFnr0X/50iUqd5+
+         V9an1gd50fDdQ0+qeyHq/cca6F0dt3QifGQqc182hZOsW+xR6K7N0WpjwwqJ6d+o2Zmg
+         2yc0mlQaUxv1ekfrpWkqLpPupTzJYsh4Krn1DFEVbg31CJLhstIqO+nTbJsw+cjz+7X/
+         NMJ/oAnTUArlS03hg2WlhIbzitDWkBlaMLKn3hG9kh9saUX2QlQOGF1vo8J9m4PTtNmM
+         afwtdmqvdXmXh6Q1OOLwxxIbcekjskkkX8j+OSZ/7DK0FH9BvgmOGURi7mMsRUgsGPm/
+         X1Yw==
+X-Forwarded-Encrypted: i=1; AJvYcCVd3tHX+E0N3IIYSIVLuhyG3BqMxAZelsjj4QTtB9Gq0UCuR5Y76XdwwXzKHKUes154VF7JoktGbBw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yxrpnsn6W88Wyw/p9DLolrbAv909kykxKs7XdQcHpfgYtjSzfwo
+	5d6BAXtr88Y1z7dUrvyF7eyt8CUg2oLk73hd+lcURDERPXVqLGqpzLR7OfrdvRHj/Q==
+X-Gm-Gg: ASbGncutRrzZ0CLx9nxPW+Y61omAGJgWmU+qc2nMDXfvIt0IHGiCYqdIVji7N/ObeQM
+	I0HZeY3I8gkq+WB1Nn30/rDabCr0rBUMo6wNPA1DfLnNJ7GFMcS19E/Egl1+yPh1oBqb/aMkbTg
+	oplQFkA8w5mJ/0MYcD22jnpVqqsgFxaWXb2BfY950WzvKe6ijQW6NLHKVH+q3mTMMUAomebC34Z
+	YlMpcQK2KtWegTAhTvOqw7EG7BfGIRH8utGlEC1riXQ66NBhOiJN92cr6owiP9zmmxTpJOMpapO
+	XX+2RCPqR0dSz/7LxrqVB5hhKe+dZs+I7NPJiXxvbCLa0zraXKdMpsbjBxfrGg==
+X-Google-Smtp-Source: AGHT+IFwY3EBkA9SdvbUJ07ZxcbYFvj6yaI0lJQioAfj14s6spZSvGy1E6QH2A+bdJV8Ez+fqfXDBA==
+X-Received: by 2002:a17:906:fb92:b0:ad5:3746:58fd with SMTP id a640c23a62f3a-ad537465b55mr1449347666b.51.1747842305973;
+        Wed, 21 May 2025 08:45:05 -0700 (PDT)
+Message-ID: <4896ab0b-f45e-43e9-bcee-f5496717eb2a@suse.com>
+Date: Wed, 21 May 2025 17:45:04 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Hyperlaunch Device Tree Discussion
+Subject: Re: [PATCH v2 02/22] include/xen/slr-table.h: Secure Launch Resource
+ Table definitions
+To: Sergii Dmytruk <sergii.dmytruk@3mdeb.com>
+Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ Ross Philipson <ross.philipson@oracle.com>,
+ trenchboot-devel@googlegroups.com, xen-devel@lists.xenproject.org
+References: <cover.1747155790.git.sergii.dmytruk@3mdeb.com>
+ <cdd7b9ff21c81683ce2245bc2b5e0a7a87e51e3c.1747155790.git.sergii.dmytruk@3mdeb.com>
 Content-Language: en-US
-References: <85d65163-6120-4653-8ed5-e7752ae7ce48@apertussolutions.com>
-From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
- 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
-In-Reply-To: <85d65163-6120-4653-8ed5-e7752ae7ce48@apertussolutions.com>
-X-Forwarded-Message-Id: <85d65163-6120-4653-8ed5-e7752ae7ce48@apertussolutions.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <cdd7b9ff21c81683ce2245bc2b5e0a7a87e51e3c.1747155790.git.sergii.dmytruk@3mdeb.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
 
-Greetings,
+On 13.05.2025 19:05, Sergii Dmytruk wrote:
+> The file provides constants, structures and several helper functions for
+> parsing SLRT.
+> 
+> Signed-off-by: Ross Philipson <ross.philipson@oracle.com>
+> Signed-off-by: Sergii Dmytruk <sergii.dmytruk@3mdeb.com>
+> ---
+>  xen/include/xen/slr-table.h | 268 ++++++++++++++++++++++++++++++++++++
+>  1 file changed, 268 insertions(+)
+>  create mode 100644 xen/include/xen/slr-table.h
+> 
+> --- /dev/null
+> +++ b/xen/include/xen/slr-table.h
+> @@ -0,0 +1,268 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
 
-Per my response to Allejandro's message, here is the response sent the 
-the DTB working group formed last year to discuss DTB parsing for x86.
+GPL-2.0-only is, I think, the one to use for new code.
 
+> +/*
+> + *  Copyright (c) 2025 Apertus Solutions, LLC
+> + *  Copyright (c) 2025 Oracle and/or its affiliates.
+> + *  Copyright (c) 2025 3mdeb Sp. z o.o
 
-Original Message:
+I'm curious: Considering the (just) 2 S-o-b, where's the 3rd copyright
+line coming from?
 
-I have copied everyone that attended the hyperlaunch working group a few 
-weeks back to ensure everyone has a chance to review and comment.
+> + *  Secure Launch Resource Table definitions
+> + */
+> +
+> +#ifndef XEN__SLR_TABLE_H
+> +#define XEN__SLR_TABLE_H
+> +
+> +#include <xen/types.h>
 
-As a start and to provide a common understanding, first is a quick 
-overview of Flattened Device Tree and Xen's "Unflattened Device Tree". 
-The intent is to assist everyone in having an equal footing when 
-considering the impacts that Device Tree parsing brings.
+Looks like xen/stdint.h would suffice?
 
-A Flattened Device Tree (FDT) is a nested linear tree structure that 
-uses a combination of tags, layout definition, and headers to allow 
-navigation through the tree. Because the layout is nested, if given the 
-offset for a node in the FDT, it is possible to start at that node and 
-jump directly into the tree to access child nodes and properties. 
-Provided below is a visual representation of what any parent node, 
-including the root node, may look like:
+> +#define UEFI_SLR_TABLE_GUID \
+> +    { 0x877a9b2aU, 0x0385, 0x45d1, { 0xa0, 0x34, 0x9d, 0xac, 0x9c, 0x9e, 0x56, 0x5f } }
 
-+------------------------------+
-| NODE TAG (parent node)       |
-+------------------------------+
-| Null-term String (node name) |
-+------------------------------+
-| PROPERTY TAG                 |
-+------------------------------+
-| struct property {            |
-|   u32 len                    |
-|   u32 name_offset            |
-| }                            |
-+------------------------------+
-| Property Data                |
-+------------------------------+
-| NODE TAG (child node)        |
-+------------------------------+
-| Null-term String (node name) |
-+------------------------------+
-| PROPERTY TAG                 |
-+------------------------------+
-| struct property {            |
-|   u32 len                    |
-|   u32 name_offset            |
-| }                            |
-+------------------------------+
-| Property Data                |
-+------------------------------+
-| END NODE TAG (child node)    |
-+------------------------------+
-| END NODE TAG (parent node)   |
-+------------------------------+
+I'm not sure this is a good place to put UEFI GUIDs. Considering e.g ...
 
-Before moving forward, let us clarify some terminology to ensure a 
-common understanding when discussing a tree.
+> +/* SLR table header values */
+> +#define SLR_TABLE_MAGIC         0x4452544d
+> +#define SLR_TABLE_REVISION      1
+> +
+> +/* Current revisions for the policy and UEFI config */
+> +#define SLR_POLICY_REVISION         1
+> +#define SLR_UEFI_CONFIG_REVISION    1
 
-  - node path: represents a series of hierarchical child nodes starting 
-at the root node
-  - adjacent node: the logically next node that is at the same level in 
-the tree
-  - child node: a node that is a one level lower leaf to another node, 
-the parent node
-  - tree walk: incrementally walking the nodes, to locate a specific 
-node or to iterate over the whole tree
+... this, is the whole concept perhaps bound to UEFI? In which casethe
+whole header may want to move to the efi/ subdir?
 
-The libfdt library provides handlers for finding the offset of a node, 
-as well as handlers to jump to a node offset and iterate only on the 
-child nodes. While the libfdt is fairly optimized, the reality is that 
-to find a node, the library must do a tree walk starting with the first 
-node written in the FDT. If a node is not a path match at the current 
-depth, it must cross a null terminated string, all the node's property 
-entries and all children nodes to reach the next adjacent node. Once a 
-path match for the depth is found, then the search may descend into the 
-next depth and repeat the process until a match at that level is found.
+> +/* SLR defined architectures */
+> +#define SLR_INTEL_TXT   1
+> +#define SLR_AMD_SKINIT  2
 
-This brings us to Xen's "Unflattened Device Tree" (UDT), for which I am 
-quoting as I find myself thinking of it in another way, which IMHO is a 
-more descriptive name, which is that it is an FDT lookup index. It just 
-happens that the implementation for the lookup index structure is a tree 
-structure. UDT uses a structure to represent a node and one to represent 
-a property. The node structure is a traditional tree structure with 
-adjacent and child node pointers. The contents of both structures are 
-pointers to the respective memory locations within the FDT. As with the 
-FDT, in order to locate a node in the index, a tree walk of the index 
-must be done. The difference comes when a node is not a path match, to 
-reach the adjacent node, it only needs to access the node pointed to by 
-the adjacent node pointer of the current node. UDT provides an API for 
-walking the node tree, walking the property list for a node, and methods 
-for type-interpreted extraction of property values. NB: the 
-type-interpreted extraction API is codified around taking a UDT property 
-structure, but the interpreted extraction logic isn't UDT specific as it 
-is still reading the property value from the FDT.
+These are both x86, yet the header is put in the common include dir?
 
-The benefit UDT brings is when repeated node lookups and/or repeated 
-phandle dereferencing are done. For both FDT and UDT, a tree walk must 
-be done. The walk will start with a node, either the root node or one 
-for which a reference has already been found, walking each adjacent node 
-and descending into a node's children when a path match occurs. For 
-phandle dereferencing, the benefit is greater due to the fact that when 
-indexing the FDT, phandles get dereferenced, thus allowing direct 
-reference in the index. For comparison, a phandle dereference using 
-libfdt does a walk of the tree to find the node referenced by the phandle.
+> +/* SLR defined bootloaders */
+> +#define SLR_BOOTLOADER_INVALID  0
+> +#define SLR_BOOTLOADER_GRUB     1
+> +
+> +/* Log formats */
+> +#define SLR_DRTM_TPM12_LOG      1
+> +#define SLR_DRTM_TPM20_LOG      2
+> +
+> +/* DRTM Policy Entry Flags */
+> +#define SLR_POLICY_FLAG_MEASURED    0x1
+> +#define SLR_POLICY_IMPLICIT_SIZE    0x2
+> +
+> +/* Array Lengths */
+> +#define TPM_EVENT_INFO_LENGTH       32
+> +#define TXT_VARIABLE_MTRRS_LENGTH   32
+> +
+> +/* Tags */
+> +#define SLR_ENTRY_INVALID       0x0000
+> +#define SLR_ENTRY_DL_INFO       0x0001
+> +#define SLR_ENTRY_LOG_INFO      0x0002
+> +#define SLR_ENTRY_DRTM_POLICY   0x0003
+> +#define SLR_ENTRY_INTEL_INFO    0x0004
+> +#define SLR_ENTRY_AMD_INFO      0x0005
+> +#define SLR_ENTRY_ARM_INFO      0x0006
+> +#define SLR_ENTRY_UEFI_INFO     0x0007
+> +#define SLR_ENTRY_UEFI_CONFIG   0x0008
+> +#define SLR_ENTRY_END           0xffff
+> +
+> +/* Entity Types */
+> +#define SLR_ET_UNSPECIFIED        0x0000
+> +#define SLR_ET_SLRT               0x0001
+> +#define SLR_ET_BOOT_PARAMS        0x0002
+> +#define SLR_ET_SETUP_DATA         0x0003
+> +#define SLR_ET_CMDLINE            0x0004
+> +#define SLR_ET_UEFI_MEMMAP        0x0005
+> +#define SLR_ET_RAMDISK            0x0006
+> +#define SLR_ET_MULTIBOOT2_INFO    0x0007
+> +#define SLR_ET_MULTIBOOT2_MODULE  0x0008
+> +#define SLR_ET_TXT_OS2MLE         0x0010
+> +#define SLR_ET_UNUSED             0xffff
+> +
+> +/*
+> + * Primary SLR Table Header
+> + */
+> +struct slr_table
+> +{
+> +    uint32_t magic;
+> +    uint16_t revision;
+> +    uint16_t architecture;
+> +    uint32_t size;
+> +    uint32_t max_size;
+> +    /* entries[] */
+> +} __packed;
 
-The UDT, as implemented, is not without cost. The current implementation 
-takes two complete walks of the entire FDT using libfdt. The first pass 
-is to obtain the amount of memory that is required to allocate enough 
-instances of the UDT node and property structures to represent the full 
-tree. The second pass is when the FDT nodes and properties are indexed 
-into the UDT.
+If x86-specific, the question on the need for some of the __packed arises
+again.
 
-With the expense of using FDT and UDT established, it is important to 
-put that expense into context. Consider hyperlaunch on x86 where the 
-arch itself has no DT requirements. In all likelihood, an FDT 
-constructed for this arch would only contain the nodes necessary for 
-hyperlaunch. If hyperlaunch were constructed x86 only, loading the 
-configuration could be done in a single full walk of the FDT, even when 
-considering phandle usage. The reason this is true for the phandles 
-case, is that as nodes known to be a phandle target are encountered, 
-their offset into the FDT could be stored with dereferencing resolved 
-post walk.
+> +/*
+> + * Common SLRT Table Header
+> + */
+> +struct slr_entry_hdr
+> +{
+> +    uint32_t tag;
+> +    uint32_t size;
+> +} __packed;
+> +
+> +/*
+> + * Boot loader context
+> + */
+> +struct slr_bl_context
+> +{
+> +    uint16_t bootloader;
+> +    uint16_t reserved[3];
+> +    uint64_t context;
+> +} __packed;
+> +
+> +/*
+> + * Prototype of a function pointed to by slr_entry_dl_info::dl_handler.
+> + */
+> +typedef void (*dl_handler_func)(struct slr_bl_context *bl_context);
 
-For DT based archs, currently accepted costs are two FDT node lookups 
-along with the two full walks to construct the UDT. These first two node 
-lookups being the memory allocation table and the Xen command line. As 
-noted above, an FDT node lookup requires a walk of the linear tree until 
-the node is located. AIUI at this point is that the number of nodes that 
-must be crossed is indeterminate. I did not see anything in the device 
-tree specification that the FDT must be packed in the same order as the 
-string representation. NB: I have not reviewed the DT compiler to see if 
-it optimizes for early access nodes to be packed at the beginning of the 
-linear tree to reduce the number of nodes that must be crossed.
+It being an internal header, ...
 
-While the aforementioned strategy for x86 would be optimal for x86, it 
-is not necessarily the best for DT based archs. Hyperlaunch started, and 
-currently is, focused on the x86 arch, but long term it was always 
-understood that its more expansive design would be desirable by all 
-archs. Like anything that moves into common, a slightly less efficient 
-approach for one platform is accepted for the benefit of a common 
-implementation that reduces the amount of code while increasing the 
-number of reviewers.
+> +/*
+> + * DRTM Dynamic Launch Configuration
+> + */
+> +struct slr_entry_dl_info
+> +{
+> +    struct slr_entry_hdr hdr;
+> +    uint64_t dce_size;
+> +    uint64_t dce_base;
+> +    uint64_t dlme_size;
+> +    uint64_t dlme_base;
+> +    uint64_t dlme_entry;
+> +    struct slr_bl_context bl_context;
+> +    uint64_t dl_handler;
 
-After listening to everyone's concerns, re-reviewing all of Arm's device 
-tree logic, and considering everything in totality, the conclusion is 
-that there is a core root cause from with which all the concerns raised 
-flow. First a summary of the main concerns raised,
+... why can't this type be used here then? This would presumably avoid a
+typecast later.
 
-  - The issue of memory allocator(s) available at the time when the 
-first FDT walk/parsing occurs.
-  - Overhead of doing a more than one FDT walk to obtain the hyperlaunch 
-configuration when phandles are in use.
-  - Supporting FDT would require the introduction of a 
-duplicate/competing set of property parsers.
+> +static inline void *
+> +slr_end_of_entries(struct slr_table *table)
+> +{
+> +    return (uint8_t *)table + table->size;
 
-This root cause is due to a design decision difference made for the 
-hyperlaunch domain builder versus the dom0less domain builder and Arm's 
-approach to device tree parsing. For dom0less, the approach is to walk 
-the UDT index tree at the domain construction time, which appears to 
-stem from Arm's need and practice of repeatedly accessing device tree 
-entries. Whereas x86 has no need for the device tree and took the 
-approach to do a single walk to extract its configuration into a code 
-usable structure.
+Considering the function's return type, why not cast to void * (or perhaps
+const void *, if the return type also can be such)?
 
-With that understanding, it is believed that these two approaches are 
-not diametrically opposed and in fact can be blended together to result 
-in a generally optimized approach. The approach will be to conduct two 
-full walks of the FDT, an early boot pass before memory allocation is 
-available and a second pass after a memory allocator is set up. Both 
-passes serve to populate the proposed boot info structure, specifically 
-the scope of these passes are as follows:
+> +}
+> +
+> +static inline struct slr_entry_hdr *
+> +slr_next_entry(struct slr_table *table, struct slr_entry_hdr *curr)
+> +{
+> +    struct slr_entry_hdr *next = (struct slr_entry_hdr *)
+> +                                 ((uint8_t *)curr + curr->size);
+> +
+> +    if ( (void *)next >= slr_end_of_entries(table) )
+> +        return NULL;
 
-Early FDT Walk: (static values)
-  - calculate the space required for the device tree index
-  - count the number of domains defined
-  - Xen command line
-  - XSM policy
-  - arch specific static values, via an arch_early_fdt()
+Is this sufficient as a check? With it fulfilled, ...
 
-Late FDT Walk: (dynamic values)
-  - construct device tree index, aka "unflattened device tree"
-  - populate boot modules entries (NB: boot modules are expected to be 
-static array)
-  - store device tree node index for top level index and hyperlaunch node
-  - populate boot domain entries, basis will be device tree index node
-  - arch specific dynamic values, via an arch_late_fdt()
+> +    if ( next->tag == SLR_ENTRY_END )
 
-By taking this approach which is constructed around a set of arch 
-neutral structures will enable another goal of the hyperlaunch series, 
-which is to move to having a common domain creation/construction logic. 
-Currently, there is a significant amount of duplication in each arch's 
-branch for boot time construction of domains. It will also allow 
-removing arch specific code from the initialization of common 
-infrastructure such as XSM.
+... this member access may still be out of bounds. IOW the question is what
+level of checking is really adequate here.
 
-V/r,
-Daniel P. Smith
+> +        return NULL;
+> +
+> +    return next;
+> +}
+> +
+> +static inline struct slr_entry_hdr *
+> +slr_next_entry_by_tag (struct slr_table *table,
+> +                       struct slr_entry_hdr *entry,
+> +                       uint16_t tag)
+> +{
+> +    if ( !entry ) /* Start from the beginning */
+> +        entry = (struct slr_entry_hdr *)((uint8_t *)table + sizeof(*table));
+
+Extending from the earlier comment - if the inner cast was to void * here,
+the outer one could be dropped altogether.
+
+Jan
 
