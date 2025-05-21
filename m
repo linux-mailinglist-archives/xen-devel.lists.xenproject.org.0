@@ -2,31 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 101FBABFC4D
-	for <lists+xen-devel@lfdr.de>; Wed, 21 May 2025 19:32:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.992402.1376153 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 73234ABFC99
+	for <lists+xen-devel@lfdr.de>; Wed, 21 May 2025 20:01:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.992409.1376163 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uHnIo-00088Y-WB; Wed, 21 May 2025 17:32:26 +0000
+	id 1uHnkD-00040H-3n; Wed, 21 May 2025 18:00:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 992402.1376153; Wed, 21 May 2025 17:32:26 +0000
+Received: by outflank-mailman (output) from mailman id 992409.1376163; Wed, 21 May 2025 18:00:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uHnIo-00085Y-TQ; Wed, 21 May 2025 17:32:26 +0000
-Received: by outflank-mailman (input) for mailman id 992402;
- Wed, 21 May 2025 17:32:25 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uHnkD-0003xQ-0b; Wed, 21 May 2025 18:00:45 +0000
+Received: by outflank-mailman (input) for mailman id 992409;
+ Wed, 21 May 2025 18:00:43 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=JvEX=YF=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1uHnIn-000849-E4
- for xen-devel@lists.xenproject.org; Wed, 21 May 2025 17:32:25 +0000
-Received: from sender4-of-o50.zoho.com (sender4-of-o50.zoho.com
- [136.143.188.50]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8d3e9078-3669-11f0-a2fa-13f23c93f187;
- Wed, 21 May 2025 19:32:23 +0200 (CEST)
-Received: by mx.zohomail.com with SMTPS id 17478487363520.5364171347913498;
- Wed, 21 May 2025 10:32:16 -0700 (PDT)
+ <SRS0=iqa2=YF=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1uHnkB-0003xK-Oy
+ for xen-devel@lists.xenproject.org; Wed, 21 May 2025 18:00:43 +0000
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [2a00:1450:4864:20::42e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 81b612a8-366d-11f0-b892-0df219b8e170;
+ Wed, 21 May 2025 20:00:40 +0200 (CEST)
+Received: by mail-wr1-x42e.google.com with SMTP id
+ ffacd0b85a97d-3a37a243388so2069243f8f.1
+ for <xen-devel@lists.xenproject.org>; Wed, 21 May 2025 11:00:40 -0700 (PDT)
+Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3a35ca9417dsm20097364f8f.101.2025.05.21.11.00.38
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 21 May 2025 11:00:39 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,94 +45,157 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8d3e9078-3669-11f0-a2fa-13f23c93f187
-ARC-Seal: i=1; a=rsa-sha256; t=1747848738; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=V2vYzP5s4TQ/bOD9hjVHW2NfdagKjH9iuvDLwHdbu6EnNcsAORmH49ujcqD7wLyyd/wae5LQy25SJiPSxQB4uD2e6SKOlmmfGav/1QLFDaJz+YJtfZigVKFxsq85l5NXyNQbqktCRWIQ+JmV9GZasaJNClAlVEmZmoVfeKfzJ7g=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1747848738; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=2M/ZHcqsRoeogBFbSY4UDqqx2mVwPC35qS2+XjLNMDA=; 
-	b=mbZpr1MIEqv1CjaJMO0Rnonzf3C4A+Mu6Q4Ajsp28dk4nmz2x4bQlByYILr9WCPb0ouD0KeFayNq3gTAzKHoE3T4m4053FjxBN6Z5LYGjm9JdNBEuCsbD0lLkRBIyzZqsXdH5o2twZcINBo+a65+kVFkg/rVTmDsvTnqXdsTa9c=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=apertussolutions.com;
-	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
-	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1747848738;
-	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:From:From:To:To:Cc:Cc:References:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=2M/ZHcqsRoeogBFbSY4UDqqx2mVwPC35qS2+XjLNMDA=;
-	b=pr7uT+D4udgkcUKMUOuL8uemuea8nx/rmRqjuhOYfQaMIXbKKQyDXI0FnIc0KETs
-	V3Cq25mr7T6+l5vO+H/EYMkcxEH27NGaTwJM4Sqe4fEnheRbIapUma9WFBv/9mbFXBJ
-	EDAGxoGYn5F+ROTgpa4RQjGbwpqg1XByfTfJsEBY=
-Message-ID: <40b3eb93-779f-478a-a8a8-6716693a68fa@apertussolutions.com>
-Date: Wed, 21 May 2025 13:32:14 -0400
+X-Inumbo-ID: 81b612a8-366d-11f0-b892-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1747850440; x=1748455240; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=CdEJW6WCmifQ+lA5KIs4zJTvaJPYfOdXrnMLZdJ9XSU=;
+        b=CADO1StQj4g7Had+MDi3SKOKoZyZvN+tv+jjg6kr8YYBctXaIcLN73x0VvJaDyliNT
+         Y+o/rfWNuyU41gKErA48+hdwl43mgac2XI9B6e5zA0omjZ6n7pd2xcEX2qH6Xqz6tBfM
+         AUcJLF97nAW39NYqkiUBTkLSp/4LLD0g9sQn8=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1747850440; x=1748455240;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=CdEJW6WCmifQ+lA5KIs4zJTvaJPYfOdXrnMLZdJ9XSU=;
+        b=ZMQmJ46NRSzoDP2Tv9XXSnDQCUsKuxlnOW5ueovIrJN5PpYpzetzzCvCvQVNfbNv/Q
+         ch2itBqfCzKAGBAtxXIg3VZh75XQDQLZfy++zeUIAZ5IBfROQohk1fGVyLekXVxY0l3I
+         Ss82F4/de3IXMPVfrF83wdyip0TY4Kv+5ogKgoIR5h5CBIbpr8zS7XklAeGD494bLqgT
+         TOebtEQdcmxBNJyuXP05vMxObEq2ajawxtu1gh9mjksgxrgKlysq829xmFy+9Fj/sbK6
+         Tuc0bEEXfd7UXwPmUojxeNEC2IoVR6W07awwdoMoRSdWdRLhwaoRq4K50Q4QF4ZrjUif
+         927w==
+X-Gm-Message-State: AOJu0YygCHdIRiGR0rUjh6dYfcRPf3eDvDo4pj/tc3O0hRbtLZXk/AEM
+	PHt/eildIfa2u260bpOyj37MRY/8pH+4nH8bCx11FAYzIoqoSi0vjVQwD3tVds+IequaNLHbQUI
+	JYeDU
+X-Gm-Gg: ASbGnctrX2jGVdxSqhejY05unFa0Cd4lQMcf7MZ3kDwGDBYaoovISkAKPzq2RnVXAly
+	CJiQZZgzMGGJ/LNOT68DNTe+nwv6yBwIvHh7DJyeurKwwF5/dtu1jjPsXURzH16wvnhaam0172W
+	utUbOpu6ij+pT3Rb7cJFDT2M5NncjkQqnQ9SVVJ/mb0Bt1AVH15CsDhhanIPjB2MR7CE57Pqb2t
+	hOP+b/N5pq/kj4KVcXBJ0tYwkRMBHQWWztOSZvy6YTUXufrjQN6AWLSfxwXXKwaHfUhJoDhFkXK
+	KsGO9dgu5Xm2h3lR0rne/oJSsvJvOyxkCrd15KAvTRfEGmApuqkHrKqI2BSCguDiAWqmKaDWYmm
+	S9dNxnGR0soGnZ6d0
+X-Google-Smtp-Source: AGHT+IFPfur7Je0SL9rNUVPBV/aZkrh4UoIuAtS8mLPh25UPELZULTa2OuYwH4jSR8dU8p8h9Lr07w==
+X-Received: by 2002:a05:6000:400f:b0:39f:175b:a68d with SMTP id ffacd0b85a97d-3a35c808b3dmr19777335f8f.11.1747850439694;
+        Wed, 21 May 2025 11:00:39 -0700 (PDT)
+Message-ID: <8504aab1-c48a-4981-a502-93a2fd18880b@citrix.com>
+Date: Wed, 21 May 2025 19:00:38 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: Hyperlaunch/dom0less code sharing
-Content-Language: en-US
-From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-To: Alejandro Vallejo <agarciav@amd.com>, xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
- Jason Andryuk <jason.andryuk@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Xenia Ragiadakou <xenia.ragiadakou@amd.com>
-References: <DA1WWRUQLCAG.ZTVR1HXJ85V0@amd.com>
- <958f591f-35ac-4a10-93e2-9301ccfc5353@apertussolutions.com>
-Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
- 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
-In-Reply-To: <958f591f-35ac-4a10-93e2-9301ccfc5353@apertussolutions.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
+Subject: [Eclair false positive] Re: [PATCH] x86/msr: Rework wrmsr_safe()
+ using asm goto()
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Jan Beulich <JBeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, "consulting@bugseng.com" <consulting@bugseng.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Nicola Vetrini <nicola.vetrini@bugseng.com>
+References: <20250521143658.312514-1-andrew.cooper3@citrix.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <20250521143658.312514-1-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 5/21/25 11:31, Daniel P. Smith wrote:
+On 21/05/2025 3:36 pm, Andrew Cooper wrote:
+> diff --git a/xen/arch/x86/include/asm/msr.h b/xen/arch/x86/include/asm/msr.h
+> index 0d3b1d637488..4c4f18b3a54d 100644
+> --- a/xen/arch/x86/include/asm/msr.h
+> +++ b/xen/arch/x86/include/asm/msr.h
+> @@ -69,20 +69,20 @@ static inline void wrmsr_ns(uint32_t msr, uint32_t lo, uint32_t hi)
+>  /* wrmsr with exception handling */
+>  static inline int wrmsr_safe(unsigned int msr, uint64_t val)
+>  {
+> -    int rc;
+> -    uint32_t lo, hi;
+> -    lo = (uint32_t)val;
+> -    hi = (uint32_t)(val >> 32);
+> -
+> -    __asm__ __volatile__(
+> -        "1: wrmsr\n2:\n"
+> -        ".section .fixup,\"ax\"\n"
+> -        "3: movl %5,%0\n; jmp 2b\n"
+> -        ".previous\n"
+> -        _ASM_EXTABLE(1b, 3b)
+> -        : "=&r" (rc)
+> -        : "c" (msr), "a" (lo), "d" (hi), "0" (0), "i" (-EFAULT));
+> -    return rc;
+> +    uint32_t lo = val, hi = val >> 32;
+> +
+> +    asm_inline goto (
+> +        "1: wrmsr\n\t"
+> +        _ASM_EXTABLE(1b, %l[fault])
+> +        :
+> +        : "a" (lo), "c" (msr), "d" (hi)
+> +        :
+> +        : fault );
+> +
+> +    return 0;
+> +
+> + fault:
+> +    return -EFAULT;
+>  }
 
-> As for 3, I can repost my original analysis that went to the working 
-> group on why using this is not the best idea. Doing 3 would require 
-> doing at least two, if not three passes on the DTB for x86 with zero 
-> benefit/need since, unlike Arm, we never have to read from it after 
-> boot. The way the x86 parser is today, we are walking the DTB only once.
-> 
-> What I would suggest for 2 is that, perhaps, it might be an opportune 
-> time to review the existing DTB parsing code. Providing a common 
-> interface to parse standard/spec DTB structures regardless if it is 
-> coming from an FTB or via the FTB index, aka "unflattened" DTB. Doing so 
-> would enable a complete reuse within the DTB parsers and remove then 
-> need for 3.
+It turns out this is the first piece of Eclair-scanned code using asm goto.
 
-Apologies, I did not CC anyone on the posting of the original analysis. 
-It is posted to xen-devel as "Hyperlaunch Device Tree Discussion".
+https://gitlab.com/xen-project/hardware/xen-staging/-/jobs/10108558677
+(The run also contained an equivalent change to xsetbv())
 
-v/r,
-dps
+We're getting R1.1 and R2.6 violations.
+
+R1.1 complains about [STD.adrslabl] "label address" not being valid C99.
+
+R2.6 complains about unused labels.
+
+I expect this means that Eclair doesn't know how to interpret asm goto()
+yet.  The labels listed are reachable from inside the asm block.
+
+From a qualification point of view, this allows for some extensive
+optimisations dropping emitted code.
+
+~Andrew
 
