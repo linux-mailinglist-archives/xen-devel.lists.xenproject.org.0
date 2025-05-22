@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA97DAC0E73
-	for <lists+xen-devel@lfdr.de>; Thu, 22 May 2025 16:40:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.994108.1377154 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B04CAC0E81
+	for <lists+xen-devel@lfdr.de>; Thu, 22 May 2025 16:43:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.994119.1377165 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uI75V-0005l2-Gg; Thu, 22 May 2025 14:40:01 +0000
+	id 1uI78G-0007M6-WD; Thu, 22 May 2025 14:42:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 994108.1377154; Thu, 22 May 2025 14:40:01 +0000
+Received: by outflank-mailman (output) from mailman id 994119.1377165; Thu, 22 May 2025 14:42:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uI75V-0005i4-De; Thu, 22 May 2025 14:40:01 +0000
-Received: by outflank-mailman (input) for mailman id 994108;
- Thu, 22 May 2025 14:40:00 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uI78G-0007Jy-Sh; Thu, 22 May 2025 14:42:52 +0000
+Received: by outflank-mailman (input) for mailman id 994119;
+ Thu, 22 May 2025 14:42:51 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ckVG=YG=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1uI75U-0005hS-31
- for xen-devel@lists.xenproject.org; Thu, 22 May 2025 14:40:00 +0000
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [2a00:1450:4864:20::529])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a30ed5df-371a-11f0-a2fb-13f23c93f187;
- Thu, 22 May 2025 16:39:59 +0200 (CEST)
-Received: by mail-ed1-x529.google.com with SMTP id
- 4fb4d7f45d1cf-601dbd75b74so7532764a12.1
- for <xen-devel@lists.xenproject.org>; Thu, 22 May 2025 07:39:59 -0700 (PDT)
+ id 1uI78F-0007Jn-Iu
+ for xen-devel@lists.xenproject.org; Thu, 22 May 2025 14:42:51 +0000
+Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
+ [2a00:1450:4864:20::52f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 089eb91d-371b-11f0-b892-0df219b8e170;
+ Thu, 22 May 2025 16:42:49 +0200 (CEST)
+Received: by mail-ed1-x52f.google.com with SMTP id
+ 4fb4d7f45d1cf-601609043cfso9762871a12.0
+ for <xen-devel@lists.xenproject.org>; Thu, 22 May 2025 07:42:49 -0700 (PDT)
 Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ad52d4ca358sm1089705766b.159.2025.05.22.07.39.58
+ 4fb4d7f45d1cf-6005ae3953esm10653845a12.73.2025.05.22.07.42.48
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 22 May 2025 07:39:58 -0700 (PDT)
+ Thu, 22 May 2025 07:42:48 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a30ed5df-371a-11f0-a2fb-13f23c93f187
+X-Inumbo-ID: 089eb91d-371b-11f0-b892-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1747924799; x=1748529599; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1747924969; x=1748529769; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=9ztd2eHgaCnm9ZXAs6NqoZr1LzxEFZN7X/GWXBUY5RE=;
-        b=SFZ7CH858Ot+/wUYHsBTgzirae2d/XU/UMNlcuCR0kHvw/ska+7sIXGoKGLSgbNr8Y
-         6sNm8DykmKGMYRVoaDLD/D23+zRzSSfH4YA+JN3sEyFdKc1lcfHoXOkVV0vSpFC+N8go
-         jDupr28PbM7cUFvja9Anu6+9suuAdGE9Isqc8=
+        bh=y3NTkdgLVJmWzTRtqaYUwk6F+4R/sk6sNQTp3bKkVpo=;
+        b=BcWnidNz6EKQdSOlUSbP4/QH9g7vbq6UxYmSJl+D16QGhdav1+Q0QElPUaKzn80Y52
+         3Is8iqhCnvbCxXroemSDkZL6bGUxzBHmx9D+5JDNMiSSWDkZKClZY5sa4kRnq+s/+Ben
+         xXsMFIXScgsSKUyfY2l4kk54SEbDPNzaEKYzs=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747924799; x=1748529599;
+        d=1e100.net; s=20230601; t=1747924969; x=1748529769;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=9ztd2eHgaCnm9ZXAs6NqoZr1LzxEFZN7X/GWXBUY5RE=;
-        b=NIWnnBBZ8jun7CkxHuWctn9evFRDPRm8LkNZLEpAyQeuCNNz6ClECxPgAydpNbgjhL
-         DkoquuaNgFjTjzw62ezh3zkMSlRMpcnbDRx3T7xfru7B2OsFfNXFYB7r5NoYcrJSLJP5
-         dHeO+LnUcsFb2YqMJr7Iz1eIdGfiULNnIjvq8eJ+HGKhy1kXwM/iIkpWnTZc3AfgJHxX
-         Z52SNRYJeH7bCH1yHAMyg/VbTvkQAjM/W3Nt7aAs7wQpB692sqjFPFWT+LyVcb+ZAGXL
-         G1HD26wworU0lxM260tRjwoh1dlwSEm8xnLX59ScE9UED0JPmvcaLsPXtUKt/zFT84Ob
-         hOhQ==
-X-Gm-Message-State: AOJu0YyJbkP6PnN6l0o2wgIX0SjClRVlZtGflIy+Wr4xmives2tHzZHB
-	5f6BwxI2AXkVHc2t78mFWrsTuORL5FHrQhsRmIiPHPg//OeiR6DWZeVqI19NTBWf+S0=
-X-Gm-Gg: ASbGncvjkaaSIMwYPCjKMZp/zIbS65txWer7WOEv5UYBm5aCq5s6Raw8nESwESjsUbL
-	/gPBlSbQePSb7bmUEB35oouylrR9XPRTSksWGGG3SuxElpwYqVCYt07ZQMF8kvrZj2lF0IVvi7v
-	YMuvcsg+i2ZJlQirfBX3qYRuxgysv9R6hjkNLXOmAEjHWfJe7qRjE0kSzwHY/x+1sFDmvnZX/dA
-	UIwgkkVSTgxYowpf3cHpXgmflIgoDZWVaeBENR1kMp0y/RpmtyPg6/CafsKZ3xmxOuf8LBTBj1v
-	8/LwJlOllhsn6ay6Ic7Pb6GQz6cgAs5Qv0O+gqTidxNLZ1pV6te1W3iAoT8+bQB/M0+TeUDhJhI
-	jNV9n1r7M3wvicA8U7LuGhoW7PJg=
-X-Google-Smtp-Source: AGHT+IHTNdWMcY7VZtf912e15tflPTPWuc2fb6pzsg1CCqNP1rWgYFbN0FtsWjm7LCoJ4rDQBk4z9Q==
-X-Received: by 2002:a17:907:930b:b0:ad2:2e99:8d9b with SMTP id a640c23a62f3a-ad5370339c4mr2601115366b.58.1747924798762;
-        Thu, 22 May 2025 07:39:58 -0700 (PDT)
-Message-ID: <8c1156a8-a626-4b62-9cc1-7790184b2b9b@citrix.com>
-Date: Thu, 22 May 2025 15:39:57 +0100
+        bh=y3NTkdgLVJmWzTRtqaYUwk6F+4R/sk6sNQTp3bKkVpo=;
+        b=Ydc5T/bz1JHRr5V0hlZjL13xHP5syewGtOS7S0e1oOYq0UGksPgpm0SvdX3tVleT1v
+         H1oMyL8IfD2xqLb3U6Z9jx/+C3wEnbVNRLBKmmw2HuTsVMwug4JnTZP4Iz7fSiQ7K84p
+         mncy884AomlFuBtkojctfG1XjEq8fkGUY6CAv+1XrkXr1w+QRMglRykOJitZHsvhEQKh
+         IEIcJyrMye/DlyzyYPnzgRWqc+ylSET7wBFVbc7Gz7uGcxesP5eWrMhCuL59V+n56BmH
+         hrmrFmLDKUwaMp6mClKlyz6zi8cJ8wKrwQAl8D0i7RJHGQYcvLc9VzzvMOGIg1dEbcVS
+         PqHA==
+X-Forwarded-Encrypted: i=1; AJvYcCWnq8BX3LQ62bSFnweKvQDzauoo7jMqgVLmlIc+wvcZrsTAAlYWWRebF+gNB9It6J4xlHx4ZHh6GCQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzRtEfgbFbp3gZBZUYwCtVxsNA1qxT4qkLgOTMETHn4Rq2SORaA
+	Q+tbQKNkX4eR1kCNNvmRsS4h11N2VWZWeeFU864QD50nn1msv5Xj249+0xJ22oNqO301POMUMWy
+	z2Jnv
+X-Gm-Gg: ASbGncvwoCwOF/wWIXmYS/nsO4g2MXsGOvunhj8I/0GaTr2S5svsMzjxYYrvsOt+gx3
+	rHeLHgD+6Kph1tC9H72YSoRq1DMp3rqTgU6Ll0ukv+gJ9o6c9WeU759gmA7us0hnIwWAEJNFv8X
+	uDHNH0ovYXYJ5J8fXwTNukLgGDn8WqKsB0khjbduL7TA+ETlZ50HX0sGSOi/HCEIr+KK+Sde1aI
+	Cwve5jI6kV6zmt4HPmElE0zEJ/V2L5jFgOKxjhDgzrh3LY2l9roMxCfVJeujW2H+tBLOjHlMO10
+	TRkBL3OqcUhGE9atyXvLJMeixhNWAoHJh615HZwLfQjQbh4LtW4y84CCGqC2EWm+9dRn4rgr678
+	GmKr2AtVtTxitsx8F
+X-Google-Smtp-Source: AGHT+IGNxH2U655aZK4F4n3D8eX7l68brGYlTtqeoZLMuGAfgxuvWLjFuQNbx2OhWc+OLmKMj9yPVQ==
+X-Received: by 2002:a05:6402:42c1:b0:5ec:c990:b578 with SMTP id 4fb4d7f45d1cf-6009008eb55mr20726488a12.19.1747924969155;
+        Thu, 22 May 2025 07:42:49 -0700 (PDT)
+Message-ID: <eb21053c-c1ae-4e51-bcc5-4e3762a489ce@citrix.com>
+Date: Thu, 22 May 2025 15:42:48 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/4] x86/boot: print CPU and APIC ID in bring up
- failure
-To: Jan Beulich <jbeulich@suse.com>, Roger Pau Monne <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v2 4/4] x86/boot: attempt to print trace and panic on AP
+ bring up stall
+To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>
 References: <20250522075440.99882-1-roger.pau@citrix.com>
- <20250522075440.99882-2-roger.pau@citrix.com>
- <0028ad37-95e7-4b6e-87b6-07cadcac64aa@suse.com>
+ <20250522075440.99882-5-roger.pau@citrix.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -135,62 +136,23 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <0028ad37-95e7-4b6e-87b6-07cadcac64aa@suse.com>
+In-Reply-To: <20250522075440.99882-5-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 22/05/2025 10:10 am, Jan Beulich wrote:
-> On 22.05.2025 09:54, Roger Pau Monne wrote:
->> Print the CPU and APIC ID that fails to respond to the init sequence, or
->> that didn't manage to reach the "callin" state.  Expand a bit the printed
->> error messages.  Otherwise the "Not responding." message is not easy to
->> understand by users.
->>
->> Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
->> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
->> ---
->> Changes since v1:
->>  - Also print APIC ID.
->> ---
->>  xen/arch/x86/smpboot.c | 6 ++++--
->>  1 file changed, 4 insertions(+), 2 deletions(-)
->>
->> diff --git a/xen/arch/x86/smpboot.c b/xen/arch/x86/smpboot.c
->> index 0189d6c332a4..dbc2f2f1d411 100644
->> --- a/xen/arch/x86/smpboot.c
->> +++ b/xen/arch/x86/smpboot.c
->> @@ -618,10 +618,12 @@ static int do_boot_cpu(int apicid, int cpu)
->>              smp_mb();
->>              if ( bootsym(trampoline_cpu_started) == 0xA5 )
->>                  /* trampoline started but...? */
->> -                printk("Stuck ??\n");
->> +                printk("CPU%u/APICID%u: Didn't finish startup sequence\n",
->> +                       cpu, apicid);
->>              else
->>                  /* trampoline code not run */
->> -                printk("Not responding.\n");
->> +                printk("CPU%u/APICID%u: Not responding to startup\n",
->> +                       cpu, apicid);
->>          }
->>      }
->>  
-> Elsewhere I think we print AIC IDs in hex; may be better to do so here, too.
-> That may then want some text re-arrangement though, e.g.
+On 22/05/2025 8:54 am, Roger Pau Monne wrote:
+> With the current AP bring up code, Xen can get stuck indefinitely if an AP
+> freezes during boot after the 'callin' step.  Introduce a 5s timeout while
+> waiting for APs to finish startup.
 >
-> "CPU%u: APICID %#x not responding to startup\n"
+> On failure of an AP to complete startup, send an NMI to trigger the
+> printing of a stack backtrace on the stuck AP and panic on the BSP.
 >
-> Thoughts?
+> This patch was done while investigating the issue caused by Intel erratum
+> ICX143.  It wasn't helpful in that case, but it's still and improvement
+> when debugging AP bring up related issues.
+>
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 
-Definitely hex.  Elsewhere APIC_ID always has an underscore.
-
-I'd suggest:
-
-"APIC_ID %#x (CPU%u) didn't respond to SIPI\n"
-
-The APIC_ID is the critical detail, and the CPU number is fairly incidental.
-
-Also as we're changing things, lets not retain the STARTUP name seeing
-as it only exists on pre-Pentium APICs.  SIPI is what we use these days.
-
-~Andrew
+Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
