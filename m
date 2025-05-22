@@ -2,34 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B810AC015F
-	for <lists+xen-devel@lfdr.de>; Thu, 22 May 2025 02:25:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.992697.1376332 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D2D0FAC0163
+	for <lists+xen-devel@lfdr.de>; Thu, 22 May 2025 02:27:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.992709.1376342 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uHtko-0000Db-TT; Thu, 22 May 2025 00:25:46 +0000
+	id 1uHtlv-0000px-AK; Thu, 22 May 2025 00:26:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 992697.1376332; Thu, 22 May 2025 00:25:46 +0000
+Received: by outflank-mailman (output) from mailman id 992709.1376342; Thu, 22 May 2025 00:26:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uHtko-0000BT-Qq; Thu, 22 May 2025 00:25:46 +0000
-Received: by outflank-mailman (input) for mailman id 992697;
- Thu, 22 May 2025 00:25:45 +0000
+	id 1uHtlv-0000nU-7e; Thu, 22 May 2025 00:26:55 +0000
+Received: by outflank-mailman (input) for mailman id 992709;
+ Thu, 22 May 2025 00:26:53 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Q4Gi=YG=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1uHtkn-00009y-8K
- for xen-devel@lists.xenproject.org; Thu, 22 May 2025 00:25:45 +0000
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4aea82e5-36a3-11f0-b892-0df219b8e170;
- Thu, 22 May 2025 02:25:42 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id B070A44C4E;
- Thu, 22 May 2025 00:25:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B928CC4CEE4;
- Thu, 22 May 2025 00:25:38 +0000 (UTC)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=45pF=YG=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
+ id 1uHtlt-00009y-KC
+ for xen-devel@lists.xenproject.org; Thu, 22 May 2025 00:26:53 +0000
+Received: from mail-10630.protonmail.ch (mail-10630.protonmail.ch
+ [79.135.106.30]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7446b271-36a3-11f0-b892-0df219b8e170;
+ Thu, 22 May 2025 02:26:50 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,248 +36,164 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4aea82e5-36a3-11f0-b892-0df219b8e170
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1747873540;
-	bh=iHJRHfIUDt6gGcKdt2Sy8LmCQtH7tBgOHKMOKeVYDsc=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=DBCtZatiWRca9YFOmpAOgxLcwZpIwXStPZKmWf/9xASOGAM4WmQk0R865A5nv0S48
-	 AA6xSQXyv4TulC+ZIF0arZS4Qbt2pCJbbw6lGOVyQp/4G+RY5cYU1kiz3Ye9gE+6V0
-	 9g1iEbDCKW6iNAeo/blY5Rx7qztQI8fW+ZvQlwvYJWObi3gGZypD05j9mGPYtSnBg7
-	 ys2HWyJqEJ/Qo3XgXblt6v4B3Hocn6DmED/aX/QQBvOLdywSn/a4Dc9/DjWS+uR6qC
-	 2CiE+5QGAv2QC863Ge0h9ITFcMRZ8av3jHaHWdfHWQ//u69xCvAVg7YnvJ37xIIAGw
-	 tNOHkNooikAuA==
-Date: Wed, 21 May 2025 17:25:37 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
-cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
-    Anthony PERARD <anthony.perard@vates.tech>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>, 
-    Jan Beulich <jbeulich@suse.com>, Juergen Gross <jgross@suse.com>, 
-    Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-    Grygorii Strashko <grygorii_strashko@epam.com>
-Subject: Re: [RFC PATCH v4 5/8] xen/domctl: extend XEN_DOMCTL_assign_device
- to handle not only iommu
-In-Reply-To: <4f58bf9c47c40413ee9250c4cd21458382aac857.1747669845.git.oleksii_moisieiev@epam.com>
-Message-ID: <alpine.DEB.2.22.394.2505211715210.147219@ubuntu-linux-20-04-desktop>
-References: <cover.1747669845.git.oleksii_moisieiev@epam.com> <4f58bf9c47c40413ee9250c4cd21458382aac857.1747669845.git.oleksii_moisieiev@epam.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: 7446b271-36a3-11f0-b892-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail; t=1747873609; x=1748132809;
+	bh=cDzBWx2PUvd+hyF8v9TP1zwOFBaZmTOPmpHMtGIx5UM=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector:List-Unsubscribe:List-Unsubscribe-Post;
+	b=nS19H3a0BK+8+rUoQMwXayWJG3CRBabHUg5rzN/UGviPRuf4EW+a/3Bt/PVegFBtA
+	 hwnqGfoJyAs2u62IjHnDMyfJtrFNsemVw2U2/dch5fT4I2f5ejSLv9K61uGSlrWSBS
+	 egURQaWSBcW75iSy02EBE64T2WP/ryAqbUbjgtPuSPjjxBA5sSuVkabx4Tbvb94I5A
+	 mgP+twPBZ/UUntpdRwPwSqTxd7XCrm+EflzpN/E/wZbvvpHxQWheIOcKfUtBM9N+My
+	 MXhwDz5nzYqFiEvcoBE0lXq1GFSZDQ5Jd7WZD9od7YZL7Hho3MM58+GIVevdvKaz1h
+	 xt1iZYz1MRjTA==
+Date: Thu, 22 May 2025 00:26:43 +0000
+To: =?utf-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+From: dmkhn@proton.me
+Cc: xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com, anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org, michal.orzel@amd.com, sstabellini@kernel.org, dmukhin@ford.com
+Subject: Re: [PATCH v2 2/2] xen/domain: rewrite emulation_flags_ok()
+Message-ID: <aC5vPS5dGScEBNSn@kraken>
+In-Reply-To: <aC3sIHgUpCFxW35K@macbook.local>
+References: <20250516022855.1146121-1-dmukhin@ford.com> <20250516022855.1146121-3-dmukhin@ford.com> <aC3sIHgUpCFxW35K@macbook.local>
+Feedback-ID: 123220910:user:proton
+X-Pm-Message-ID: fcdbfc96e22b2eff129ba87c7f3a38e1322409ed
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, 19 May 2025, Oleksii Moisieiev wrote:
-> From: Grygorii Strashko <grygorii_strashko@epam.com>
-> 
-> Add chained handling of assigned DT devices to support access-controller
-> functionality through SCI framework, so DT device assign request can be
-> passed to FW for processing and enabling VM access to requested device
-> (for example, device power management through FW interface like SCMI).
-> 
-> The SCI access-controller DT device processing is chained after IOMMU
-> processing and expected to be executed for any DT device regardless of its
-> protection by IOMMU (or if IOMMU is disabled).
-> 
-> This allows to pass not only IOMMU protected DT device through
-> xl.cfg:"dtdev" property for processing:
-> 
-> dtdev = [
->     "/soc/video@e6ef0000", <- IOMMU protected device
->     "/soc/i2c@e6508000", <- not IOMMU protected device
-> ]
-> 
-> The change is done in two parts:
-> 1) update iommu_do_dt_domctl() to check for dt_device_is_protected() and
-> not fail if DT device is not protected by IOMMU
-> 2) add chained call to sci_do_domctl() in do_domctl()
-> 
-> Signed-off-by: Grygorii Strashko <grygorii_strashko@epam.com>
-> Signed-off-by: Oleksii Moisieiev <oleksii_moisieiev@epam.com>
-> ---
-> 
-> 
-> 
->  xen/arch/arm/firmware/sci.c             | 37 +++++++++++++++++++++++++
->  xen/arch/arm/include/asm/firmware/sci.h | 14 ++++++++++
->  xen/common/domctl.c                     | 19 +++++++++++++
->  xen/drivers/passthrough/device_tree.c   |  6 ++++
->  4 files changed, 76 insertions(+)
-> 
-> diff --git a/xen/arch/arm/firmware/sci.c b/xen/arch/arm/firmware/sci.c
-> index e1522e10e2..8efd541c4f 100644
-> --- a/xen/arch/arm/firmware/sci.c
-> +++ b/xen/arch/arm/firmware/sci.c
-> @@ -126,6 +126,43 @@ int sci_assign_dt_device(struct domain *d, struct dt_device_node *dev)
->      return 0;
->  }
->  
-> +int sci_do_domctl(struct xen_domctl *domctl, struct domain *d,
-> +                  XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
-> +{
-> +    struct dt_device_node *dev;
-> +    int ret = 0;
-> +
-> +    switch ( domctl->cmd )
-> +    {
-> +    case XEN_DOMCTL_assign_device:
-> +        ret = -EOPNOTSUPP;
+On Wed, May 21, 2025 at 05:07:12PM +0200, Roger Pau Monn=C3=A9 wrote:
+> On Fri, May 16, 2025 at 02:29:16AM +0000, dmkhn@proton.me wrote:
+> > From: Denis Mukhin <dmukhin@ford.com>
+> >
+> > Rewrite emulation_flags_ok() to simplify future modifications.
+> >
+> > Also, introduce X86_EMU_{BASELINE,OPTIONAL} helper macros.
+> >
+> > No functional change intended.
+> >
+> > Signed-off-by: Denis Mukhin <dmukhin@ford.com>
+> > ---
+> > Changes since v1:
+> > - kept use of non-public X86_EMU_XXX flags
+> > - corrected some comments and macro definitions
+> > ---
+> >  xen/arch/x86/domain.c             | 29 +++++++++++------------------
+> >  xen/arch/x86/include/asm/domain.h |  6 ++++++
+> >  2 files changed, 17 insertions(+), 18 deletions(-)
+> >
+> > diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
+> > index f197dad4c0..c64c2c6fef 100644
+> > --- a/xen/arch/x86/domain.c
+> > +++ b/xen/arch/x86/domain.c
+> > @@ -750,25 +750,18 @@ static bool emulation_flags_ok(const struct domai=
+n *d, uint32_t emflags)
+> >      BUILD_BUG_ON(X86_EMU_ALL !=3D XEN_X86_EMU_ALL);
+> >  #endif
+> >
+> > -    if ( is_hvm_domain(d) )
+> > -    {
+> > -        if ( is_hardware_domain(d) &&
+> > -             emflags !=3D (X86_EMU_VPCI | X86_EMU_LAPIC | X86_EMU_IOAP=
+IC) )
+> > -            return false;
+> > -        if ( !is_hardware_domain(d) &&
+> > -             /* HVM PIRQ feature is user-selectable. */
+> > -             (emflags & ~X86_EMU_USE_PIRQ) !=3D
+> > -             (X86_EMU_ALL & ~(X86_EMU_VPCI | X86_EMU_USE_PIRQ)) &&
+> > -             emflags !=3D X86_EMU_LAPIC )
+> > -            return false;
+> > -    }
+> > -    else if ( emflags !=3D 0 && emflags !=3D X86_EMU_PIT )
+> > -    {
+> > -        /* PV or classic PVH. */
+> > -        return false;
+> > -    }
+> > +    /* PV */
+> > +    if ( !is_hvm_domain(d) )
+> > +        return emflags =3D=3D 0 || emflags =3D=3D X86_EMU_PIT;
+> >
+> > -    return true;
+> > +    /* HVM */
+> > +    if ( is_hardware_domain(d) )
+> > +        return emflags =3D=3D (X86_EMU_LAPIC |
+> > +                           X86_EMU_IOAPIC |
+> > +                           X86_EMU_VPCI);
+> > +
+> > +    return (emflags & ~X86_EMU_OPTIONAL) =3D=3D X86_EMU_BASELINE ||
+> > +            emflags =3D=3D X86_EMU_LAPIC;
+> >  }
+> >
+> >  void __init arch_init_idle_domain(struct domain *d)
+> > diff --git a/xen/arch/x86/include/asm/domain.h b/xen/arch/x86/include/a=
+sm/domain.h
+> > index 8c0dea12a5..3a9a9fd80d 100644
+> > --- a/xen/arch/x86/include/asm/domain.h
+> > +++ b/xen/arch/x86/include/asm/domain.h
+> > @@ -494,6 +494,12 @@ struct arch_domain
+> >                                   X86_EMU_PIT | X86_EMU_USE_PIRQ |     =
+  \
+> >                                   X86_EMU_VPCI)
+> >
+> > +/* User-selectable features. */
+> > +#define X86_EMU_OPTIONAL        (X86_EMU_USE_PIRQ)
+> > +
+> > +#define X86_EMU_BASELINE        (X86_EMU_ALL & ~(X86_EMU_VPCI | \
+> > +
+> > X86_EMU_OPTIONAL))
+>=20
+> If you go this route I think you need to name those
+> X86_EMU_HVM_{BASELINE,OPTIONAL}, because they are really meaningful
+> only for HVM domains.
+>=20
+> Regarding vPCI and HVM: we might want to enable it in the future for
+> domUs, but the fact is that right now it will collide badly with
+> ioreqs.  So for the time being on x86 it would be best if vPCI is
+> limited to PVH hardware domain exclusively, otherwise the hypervisor
+> internals might malfunction.  We shouldn't really allow dom0 to create
+> this kind of malformed domain as much as possible.
+>=20
+> static const struct {
+>    bool pv, hwdom;
+>    uint32_t base, optional;
+> } allowed_conf[] =3D {
+>     /* PV */
+>     { true, false, 0, X86_EMU_PIT },
+>     /* PVH hardware domain */
+>     { false, true, X86_EMU_LAPIC | X86_EMU_IOAPIC | X86_EMU_VPCI, 0 },
+>     /* PVH domU */
+>     { false, false, X86_EMU_LAPIC, 0 },
+>     /* HVM */
+>     { false, false, X86_EMU_ALL & ~(X86_EMU_VPCI | X86_EMU_USE_PIRQ),
+>       X86_EMU_VPCI | X86_EMU_USE_PIRQ },
+> };
+> unsigned int i;
+>=20
+> for ( i =3D 0; i < ARRAY_SIZE(allowed_conf); i++ )
+> {
+>     if ( is_pv_domain(d) =3D=3D allowed_conf[i].pv &&
+>          /*
+> =09  * A hardware domain can also use !hwdom entries, but not the
+> =09  * other way around
+> =09  */
+>          (is_hardware_domain(d) ||=C2=A0!allowed_conf[i].hwdom) &&
+> =09 (emflags & ~allowed_conf[i].optional) =3D=3D allowed_conf[i].base )
+>         return true;
+> }
+>=20
+> printk(XENLOG_INFO "%pd: invalid emulation flags: %#x\n", d, emflags);
+>=20
+> return false;
+>=20
+> I think the above (not even build tested) is slightly clearer, and
+> allows for easier expansion going forward?
 
-Are you sure -EOPNOTSUPP is the right error code for the 3 checks below?
+I like the idea! Thanks for the suggestion.
 
+I will wait a bit to collect some feedback, if any, before doing coding.
 
-> +        if ( domctl->u.assign_device.dev != XEN_DOMCTL_DEV_DT )
-> +            break;
+>=20
+> Regards, Roger.
 
-this one
-
-> +        if ( !cur_mediator )
-> +            break;
-
-this one
-
-> +        if ( !cur_mediator->assign_dt_device )
-> +            break;
-
-and also this one? It seems more like an -EINVAL as the caller used a
-wrong parameter?
-
-
-> +        ret = dt_find_node_by_gpath(domctl->u.assign_device.u.dt.path,
-> +                                    domctl->u.assign_device.u.dt.size, &dev);
-> +        if ( ret )
-> +            return ret;
-> +
-> +        ret = sci_assign_dt_device(d, dev);
-> +        if ( ret )
-> +            break;
-> +
-> +        break;
-> +    default:
-> +        /* do not fail here as call is chained with iommu handling */
-
-It looks like this should be an error
-
-
-> +        break;
-> +    }
-> +
-> +    return ret;
-> +}
-> +
->  static int __init sci_init(void)
->  {
->      struct dt_device_node *np;
-> diff --git a/xen/arch/arm/include/asm/firmware/sci.h b/xen/arch/arm/include/asm/firmware/sci.h
-> index 71fb54852e..b8d1bc8a62 100644
-> --- a/xen/arch/arm/include/asm/firmware/sci.h
-> +++ b/xen/arch/arm/include/asm/firmware/sci.h
-> @@ -146,6 +146,14 @@ int sci_dt_finalize(struct domain *d, void *fdt);
->   * control" functionality.
->   */
->  int sci_assign_dt_device(struct domain *d, struct dt_device_node *dev);
-> +
-> +/*
-> + * SCI domctl handler
-> + *
-> + * Only XEN_DOMCTL_assign_device is handled for now.
-> + */
-> +int sci_do_domctl(struct xen_domctl *domctl, struct domain *d,
-> +                  XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl);
->  #else
->  
->  static inline bool sci_domain_is_enabled(struct domain *d)
-> @@ -195,6 +203,12 @@ static inline int sci_assign_dt_device(struct domain *d,
->      return 0;
->  }
->  
-> +static inline int sci_do_domctl(struct xen_domctl *domctl, struct domain *d,
-> +                                XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
-> +{
-> +    return 0;
-> +}
-> +
->  #endif /* CONFIG_ARM_SCI */
->  
->  #endif /* __ASM_ARM_SCI_H */
-> diff --git a/xen/common/domctl.c b/xen/common/domctl.c
-> index 05abb581a0..a74ee92067 100644
-> --- a/xen/common/domctl.c
-> +++ b/xen/common/domctl.c
-> @@ -27,6 +27,7 @@
->  #include <xen/vm_event.h>
->  #include <xen/monitor.h>
->  #include <asm/current.h>
-> +#include <asm/firmware/sci.h>
->  #include <asm/irq.h>
->  #include <asm/page.h>
->  #include <asm/p2m.h>
-> @@ -851,6 +852,24 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
->      case XEN_DOMCTL_deassign_device:
->      case XEN_DOMCTL_get_device_group:
->          ret = iommu_do_domctl(op, d, u_domctl);
-> +
-> +        if ( !ret || ret == -EOPNOTSUPP )
-
-It is better to invert the check:
-
-if ( ret < 0 && ret != -EOPNOTSUPP )
-    return ret;
-
-
-> +        {
-> +            int ret1;
-> +            /*
-> +             * Add chained handling of assigned DT devices to support
-> +             * access-controller functionality through SCI framework, so
-> +             * DT device assign request can be passed to FW for processing and
-> +             * enabling VM access to requested device.
-> +             * The access-controller DT device processing is chained after IOMMU
-> +             * processing and expected to be executed for any DT device
-> +             * regardless if DT device is protected by IOMMU or not (or IOMMU
-> +             * is disabled).
-> +             */
-> +            ret1 = sci_do_domctl(op, d, u_domctl);
-> +            if ( ret1 != -EOPNOTSUPP )
-> +                ret = ret1;
-> +        }
->          break;
->  
->      case XEN_DOMCTL_get_paging_mempool_size:
-> diff --git a/xen/drivers/passthrough/device_tree.c b/xen/drivers/passthrough/device_tree.c
-> index 075fb25a37..2624767e51 100644
-> --- a/xen/drivers/passthrough/device_tree.c
-> +++ b/xen/drivers/passthrough/device_tree.c
-> @@ -318,6 +318,12 @@ int iommu_do_dt_domctl(struct xen_domctl *domctl, struct domain *d,
->              break;
->          }
->  
-> +        if ( !dt_device_is_protected(dev) )
-> +        {
-> +            ret = 0;
-> +            break;
-> +        }
-
-I am concerned about this: previously we would call
-iommu_assign_dt_device and the same check at the beginning of
-iommu_assign_dt_device would return -EINVAL. Now it is a success.
-
-I am not sure this is appropriate. I wonder if instead we should:
-
-- remove this chunk from the patch
-- change the return error for !dt_device_is_protected at the top of
-  iommu_assign_dt_device from -EINVAL to -EOPNOTSUPP
-- this would fall into the same ret != -EOPNOTSUPP check after
-  iommu_do_domctl
-
-
->          ret = iommu_assign_dt_device(d, dev);
->  
->          if ( ret )
-> -- 
-> 2.34.1
-> 
 
