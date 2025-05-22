@@ -2,56 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 906A7AC1030
-	for <lists+xen-devel@lfdr.de>; Thu, 22 May 2025 17:44:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.994309.1377370 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4BBAEAC1059
+	for <lists+xen-devel@lfdr.de>; Thu, 22 May 2025 17:53:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.994339.1377381 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uI863-00011C-DS; Thu, 22 May 2025 15:44:39 +0000
+	id 1uI8Ed-000383-8T; Thu, 22 May 2025 15:53:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 994309.1377370; Thu, 22 May 2025 15:44:39 +0000
+Received: by outflank-mailman (output) from mailman id 994339.1377381; Thu, 22 May 2025 15:53:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uI863-0000zY-99; Thu, 22 May 2025 15:44:39 +0000
-Received: by outflank-mailman (input) for mailman id 994309;
- Thu, 22 May 2025 15:44:38 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uI8Ed-00035i-3m; Thu, 22 May 2025 15:53:31 +0000
+Received: by outflank-mailman (input) for mailman id 994339;
+ Thu, 22 May 2025 15:53:29 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Wx/D=YG=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
- id 1uI862-0000b3-8q
- for xen-devel@lists.xenproject.org; Thu, 22 May 2025 15:44:38 +0000
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam04on20607.outbound.protection.outlook.com
- [2a01:111:f403:240a::607])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a8c96a08-3723-11f0-b892-0df219b8e170;
- Thu, 22 May 2025 17:44:36 +0200 (CEST)
-Received: from SJ0P220CA0005.NAMP220.PROD.OUTLOOK.COM (2603:10b6:a03:41b::12)
- by MN2PR12MB4335.namprd12.prod.outlook.com (2603:10b6:208:1d4::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8769.21; Thu, 22 May
- 2025 15:44:31 +0000
-Received: from SJ1PEPF00001CE4.namprd03.prod.outlook.com
- (2603:10b6:a03:41b:cafe::39) by SJ0P220CA0005.outlook.office365.com
- (2603:10b6:a03:41b::12) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8769.18 via Frontend Transport; Thu,
- 22 May 2025 15:44:29 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- SJ1PEPF00001CE4.mail.protection.outlook.com (10.167.242.20) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8769.18 via Frontend Transport; Thu, 22 May 2025 15:44:29 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 22 May
- 2025 10:44:28 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 22 May
- 2025 10:44:28 -0500
-Received: from [172.26.39.227] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Thu, 22 May 2025 10:44:27 -0500
+ <SRS0=fIul=YG=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1uI8Eb-00035V-Iy
+ for xen-devel@lists.xenproject.org; Thu, 22 May 2025 15:53:29 +0000
+Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
+ [2a00:1450:4864:20::530])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e71268c5-3724-11f0-a2fb-13f23c93f187;
+ Thu, 22 May 2025 17:53:28 +0200 (CEST)
+Received: by mail-ed1-x530.google.com with SMTP id
+ 4fb4d7f45d1cf-5f3f04b5dbcso12371956a12.1
+ for <xen-devel@lists.xenproject.org>; Thu, 22 May 2025 08:53:28 -0700 (PDT)
+Received: from [192.168.1.5] (user-109-243-64-38.play-internet.pl.
+ [109.243.64.38]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ad52d490789sm1100706166b.130.2025.05.22.08.53.26
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 22 May 2025 08:53:27 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,125 +45,567 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a8c96a08-3723-11f0-b892-0df219b8e170
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=oI5G+pclb17yxaM7baF4BXrqsKu8kG54J+GaR8NnGWw4wVggHDmWVyuH2avKv1NMN9F9XbE5TJPOewhKztskCuuNemnSiNEe1BIE4xMjJHVQAQioYdl+juxeKrHj+aXOL3zOi1BQVkHUtVqpDBrpvTkJl1HjwpHTo9/EjjmV7ViUE7s54VCFYRZ4XC3KFyblGgSudcEITilhmQUh4aIgUaBOT34e/0UDhLiaKFAG3utLbddRnw/2Zxh1bNqIZUJL9dpOlUHrD9oppj9uWvu0MS2LbaQJm/D8Xat2HtEVpteSo3Z9xd/DJWQxQoiI31wKuy4DE4FLISTbOS7JhM0A5g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eHwft3HEcPANxL9VLsIeuPPFsrYsAWz/qnq5FcH6Eko=;
- b=RnXONPhKj3EaEA1DTn/ToQrN82dr4UrU10BP80mgdz+seI0sx2tCBEk22Bg+da8/mJXaehwanUIMoPZu/SjCm9mHQKsLE/S5MZgk3TVuyeC5LmQen6EDPk8kVyD8LN3srRJKbSz0XLM1xSD+vBCp4GeCkXLk3aBppDvJndd7zLwuODZFIMz6zg78S1Q4tAPvTDMaZkHsme1DTgM5083ZO/CaZQmm8TAxjoZrQs6M+Ig/6Xj84oVy4GLRCE7sqMLbtXUW+n4Yg+GXtSukHLRAaQ2VOSwRHl2hJFofIzSu4hi75l+ThoPAvgpsLAyGGeWm56sqIPmrUaWTpd/he7RwPg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eHwft3HEcPANxL9VLsIeuPPFsrYsAWz/qnq5FcH6Eko=;
- b=mcjkgi4Sv6tV/xFO54SpRflqq0dCgHW7XA+tErMwwUKkTW4TAsDxsMOQY7tZkYmogRwTVlTDWnYF/Zur4VcHu8/TTDbG1lgcXb6KtHazE30jg1gIthkkqmuN55rfTK23W7m8uw/Ad7vvJeePfnJ3yn/XYOH8SZYbaM4kUhH9Rug=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Message-ID: <aa1105d7-758d-416e-84e7-c7492f4bd177@amd.com>
-Date: Thu, 22 May 2025 11:44:24 -0400
+X-Inumbo-ID: e71268c5-3724-11f0-a2fb-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1747929208; x=1748534008; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=5T+4F+BevpbyJhSD1mtoloF5rTRkKw3a00s5qodp4XQ=;
+        b=e1YYaZqg1y0ec+DYmQgCjORPesENJ94Hy3y7gIUh7tiuyq9JaZoc2RwIB9P7lDuGeW
+         Xn4nYvGiTuUbsr4hna2g6Otgo1Ecwf0wNuW0uFiSquJRYlTZDvaj49wtRz0Oj8B/ZI7z
+         qOIDK5dwHxFK3/+KkJPDrH3r+PBDfgIxvsXjzUpTXkR9es/F1VGYu1u2mlro5S+7VTRD
+         WmTBkT2eiTCdwhWyaLN/RtI4R+swotd5iWuholKc1DyD16MmjLyVygz9qh0iehZpm9b6
+         Qfq+yf3A0yqzCW/+XtzYQ8Avyt+dYQmlGxxLVUBURNBXLRkSBM5seJ3bj7685AtirLm6
+         OCSQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1747929208; x=1748534008;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=5T+4F+BevpbyJhSD1mtoloF5rTRkKw3a00s5qodp4XQ=;
+        b=ftffQs8J0tvZxcdR1RDtowP5cAGUkTPJWhA8TTfZnLq7HwdU68IPtBi3+ttAO0RXoW
+         J+d1zJlzCPysQ5lsmIQ7HGhqei9IFonWjWhrULUtd0wud4T1wB7CaOtIhvh4Km4/5Lbv
+         AlqYeNHWBiKmRNE3TWwqFsCqcxXvU12MYAZMBtFHsCR9Xu2iE+VGGnanI8hrScIq1Yyp
+         72ETpe57pbUoKOYxhjgmqUCxPwSL5Ue9YbbsOic5PtoiOlVplk6j6NnjqRpZvWbWOfLx
+         vU3ZZpwi2jac2n8kvNAw0GWvtG5nuqfCXThL07FTEXjFJdVc65PXQp6TgkatsOTrFNKT
+         hcmA==
+X-Forwarded-Encrypted: i=1; AJvYcCWis5VDab0oXQU2ydSB6/4lEn1dvDZSO7G068FgEV0VFRscetrslVrdKFDivVWox/N3Xmj4gEoTNc4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyJErpVHdKKv6nmDJ3KtjLct/CtEi+Jx4dsgZKo3fd9XuFwuB0W
+	lGKWAkAd9GP9XZEf2z5oPRiVnAcE0bXlBwrzffYBzdgR+MU+WqQHwS0om6hR0A==
+X-Gm-Gg: ASbGnctwhR6mdjF+D3DcvYJS85XJP+9avsCwBf7wNZfSlIzOMNz7U7BjNVTG+NVH4a6
+	b9yYPoaBZyQ1PL5nCgE2hAKmfKBrFtxg3HGpVfQcm+B811g5nRpNoxl1JvHvd1ANZyLgLPyrCuE
+	spBpBKs/MLJCKwq9fop/5N6QbZHRRNRWm300MvefF97l8ODM6KFqM0izJpd981mH9SjsfMIk/nx
+	tojDsaA0Goqqchfworh2woTMTR0A6LDNxW+TzzkxPAs5BCQgHJoGG8FDfsyoquCiiyFQEqdnK1r
+	dqK/H+KKVaZNgVtJPC8l0TFRV4ODFixQaj7Olq6xHjQRQoXcEt+5pMdg69gsEuMPVXvYN7nEYc7
+	QG1nOBOdcBdhrp3RNWBhFxkjc
+X-Google-Smtp-Source: AGHT+IEzLqx0c2jzSPB3oPprrg/78sOFFSOnsIbNJSEekqqr6YSuKCIBx0eVnPV3oImdCGAryd4WUg==
+X-Received: by 2002:a17:907:c29:b0:ad5:4923:a024 with SMTP id a640c23a62f3a-ad54923a173mr2198525566b.16.1747929207286;
+        Thu, 22 May 2025 08:53:27 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------nN0PHet1fX3NuT67iu0u457E"
+Message-ID: <1a0d3084-9e77-4df5-936a-c1a1317c0f18@gmail.com>
+Date: Thu, 22 May 2025 17:53:26 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] x86/vpci: refuse to map BARs at position 0
-To: Jan Beulich <jbeulich@suse.com>, Roger Pau Monne <roger.pau@citrix.com>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>,
-	<xen-devel@lists.xenproject.org>
-References: <20250522140356.5653-1-roger.pau@citrix.com>
- <20250522140356.5653-3-roger.pau@citrix.com>
- <3f274948-92bb-40c4-bcaf-7b538300140a@suse.com>
+Subject: Re: [PATCH v1 2/6] xen/riscv: introduce things necessary for p2m
+ initialization
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1746805907.git.oleksii.kurochko@gmail.com>
+ <0a03d1f38649cfd8656147f209652dff0f9d170c.1746805907.git.oleksii.kurochko@gmail.com>
+ <7ef3ca26-05f5-4e86-b7c7-852b6c74a3d0@suse.com>
 Content-Language: en-US
-From: Stewart Hildebrand <stewart.hildebrand@amd.com>
-In-Reply-To: <3f274948-92bb-40c4-bcaf-7b538300140a@suse.com>
-Content-Type: text/plain; charset="UTF-8"
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <7ef3ca26-05f5-4e86-b7c7-852b6c74a3d0@suse.com>
+
+This is a multi-part message in MIME format.
+--------------nN0PHet1fX3NuT67iu0u457E
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Received-SPF: None (SATLEXMB05.amd.com: stewart.hildebrand@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CE4:EE_|MN2PR12MB4335:EE_
-X-MS-Office365-Filtering-Correlation-Id: df10256d-ac82-49f2-fc1b-08dd99478a3e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|36860700013|82310400026|376014;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?ZzBsOVV0RXRLcEtSR1ZmSGMzRjkxOEREL1plUHpsZXhMUDBYSXM1ZWVtL1di?=
- =?utf-8?B?T2V1OStFeW01SzNtdlhDRnRvUW0vMHRiSGp4VmZzenJmdkxVU3h4TVFCUDlr?=
- =?utf-8?B?OVNUUXp3Tzh6eHR1S0pWUTZxMDhvZUhpbWlYT0xGMU5kOGJsUVh0VU5zRUg1?=
- =?utf-8?B?NjJINStjeEpyakVsL0F2MlAranlGWTNYRFpkeCtwWHVpSTFGZzRFekdQUW56?=
- =?utf-8?B?NDRIK0QzcSszQ0svV1VoQzZTS0ROMytZUE1uUCtRbUJ4a2hlNFMzMkdTbnUz?=
- =?utf-8?B?SGxSbHNBbEg5OTJ6MHh4d3ZKeFo4N1pkeE9SL25rSUw2QmhQQ2ZmQWlseVln?=
- =?utf-8?B?eERlQlpyZTVHT2ZzZU1VUG55L0hyTktiMlJlMWNnTTFrWFpKN3ZhTXRiM2RH?=
- =?utf-8?B?U2tQOEY2cEg0M240OGRTUG9kRzQzRTVGTGkwc0pZMHcrN0w1b2JYRzYySG9M?=
- =?utf-8?B?MUw5TFJIangyMjh6aGpYaGhOQ2x4czN1SnNCeWQ4U21Ja2N4V3pkSm9BSnQ5?=
- =?utf-8?B?RjNUNEw3ZllFS28renlsK1FKUE1VWXo1T1Z6MGhRWEw4N2F4V2NVdGlvWFVv?=
- =?utf-8?B?VzgzN0llTEtscytsWlBXZ1lPU0xldFBIYlVEWVFRWDAySm1ZcDlHVnN1M3pj?=
- =?utf-8?B?eVNlVUdSSnZMQ256cUpZVU5FTXVnTUV4VGYwZmpid2hqVHN6Z0VMYUVUM2VR?=
- =?utf-8?B?T2pxR1J3akNZQTlLcUxvS25jUWRBSlc4eHR1Q3hHN1MxUlY4MVV1VVpra1Fv?=
- =?utf-8?B?R1g3WHNZemNUQlhRVmRENVY5STJJMzM0bmxoK09LK3F6OVJTL3RQWEIxeEFI?=
- =?utf-8?B?RU1XU3lySGRvSzNxZ3ZPUHZlQXZjU2szV2VueWRiVlozaCttRnVRa1VXeE9p?=
- =?utf-8?B?dm9LU2JZR3puSHRuc0lNVC9ndVJqYnU4OTlvYlRaM2NoeVp6c25uakp6M0xr?=
- =?utf-8?B?MXRta1M5S3p5Z0plZnV2KzJOclBqRDZqOFpaSUROaEpSSlhyaE1NNVJzdVhV?=
- =?utf-8?B?SGVYQmxoU3h1UFpDZjRCUUdIZnh4S3VHN2JRa3V3elBHYlRHY3Jxd25CVFV4?=
- =?utf-8?B?MmpobEtuZ0YrWk5XdERLVVZyMHA3MUYxWk1hVkJLRXpEOFg5di8yUUxMbGtx?=
- =?utf-8?B?cWdkSk94U0xHdk5neVdiMWhjUHV4cE4xNkR3dXhJcnZBTy9RMGo0QW52djc0?=
- =?utf-8?B?Wm1zK2VpbUZhemUrUisyMVRDS0FMSXJzM29oT0lacUR5aGl4anp2V3d1Qmhj?=
- =?utf-8?B?VWwzTWhOZlVxM2J2bVZYSkp3eTB4WllFMC9ncnQxZzJtTDhvejFYczVsZ0c4?=
- =?utf-8?B?emtiL2VZb3pGbFMzT0p0UjB1SG1JcjBGZjRCWkJ3cENDMVc0WnZHQlZzbC9J?=
- =?utf-8?B?bXFQaExZMGwrZFZBUWlqdm9HWmU2OVV4eVMzMFpjKzVPTEh4YTlHUm1Nd1c1?=
- =?utf-8?B?eEpaQ3Q3L0dQWExNbkxRMVdxS2tTMmttb0pScW5RS3Avb1pqMjJqcVZTdlBx?=
- =?utf-8?B?V0x1YlFmbVJVU3NWQyt6UWZycjlta3Jta3U4dzhjUjFFRzdMMnV6dnVjRHZJ?=
- =?utf-8?B?S0J6TEY0USs0MjErTWRnNEU5bFBkb3VpU1FJTW4vd2VBcGRxeWpkRWQwVmQ4?=
- =?utf-8?B?a2FxYy8zRDlRSFB5eEVHTVM3Rmd2Z1JVWTQyN2VXT3h6eHRVQ004QkpXcjFL?=
- =?utf-8?B?ZWEwdHV1THR2bVZEOFdGQ2MxOG5MZHo4V2xGU1FwRVRJdUpRZUI4OFdic0VV?=
- =?utf-8?B?SERhZjUxVUs5U05FQ2hBQmZPU3JnUjFrYU12L05YTzJLKzhnam1hc1JvUXJy?=
- =?utf-8?B?L2J5aG1VNWc1N052SUVRU2lJbWpta1hYamNZR0VreXRKUW1la2ZNL3FSSjBW?=
- =?utf-8?B?aWp6VGtvV0o5ekdqSnRMcFdkUms2UlRaUW5vSkk0ZDZSTWVJZy9GbTN5TGlH?=
- =?utf-8?B?dHNsY0hramwvMzlkYUtqNDF0K2xLWWxCalF6cWNaZ0xTMjJkMllERHBMRU5H?=
- =?utf-8?B?QThZckMwZ1VmbWtzSjdwSHd5cWpLQm54UFc5K3dJVU5ENHhpSXFhRllIc3V2?=
- =?utf-8?Q?4tok99?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700013)(82310400026)(376014);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 May 2025 15:44:29.6315
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: df10256d-ac82-49f2-fc1b-08dd99478a3e
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF00001CE4.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4335
 
-On 5/22/25 10:59, Jan Beulich wrote:
-> On 22.05.2025 16:03, Roger Pau Monne wrote:
->> diff --git a/xen/arch/x86/pci.c b/xen/arch/x86/pci.c
->> index 26bb7f6a3c3a..39fd5a16a4aa 100644
->> --- a/xen/arch/x86/pci.c
->> +++ b/xen/arch/x86/pci.c
->> @@ -101,6 +101,15 @@ int pci_conf_write_intercept(unsigned int seg, unsigned int bdf,
->>  
->>  bool pci_check_bar(const struct pci_dev *pdev, mfn_t start, mfn_t end)
->>  {
+
+On 5/20/25 3:37 PM, Jan Beulich wrote:
+> On 09.05.2025 17:57, Oleksii Kurochko wrote:
+>> --- /dev/null
+>> +++ b/xen/arch/riscv/p2m.c
+>> +static void clear_and_clean_page(struct page_info *page)
+>> +{
+>> +    void *p = __map_domain_page(page);
+>> +
+>> +    clear_page(p);
+>> +    unmap_domain_page(p);
+>> +}
+> What's the "clean" about in the function name? The "clear" is referring
+> to the clear_page() call afaict.
+
+Missed to add clean_dcache_va_range() between clear_page() and unmap_domain_page().
+
+> Also aren't you largely open-coding
+> clear_domain_page() here?
+
+Yes, missed that it is almost the sane as clear_domain_page(), so we could re-write
+this function as:
+   static void clear_and_clean_page(struct page_info *page)
+   {
+       clean_dcache_va_range(page, PAGE_SIZE);
+       clear_domain_page(page_to_mfn(page));
+   }
+
+>> +static struct page_info *p2m_get_clean_page(struct domain *d)
+>> +{
+>> +    struct page_info *page;
+>> +
 >> +    /*
->> +     * Refuse to map BARs at position 0, those are not initialized.  This might
->> +     * be required by Linux, that can reposition BARs with memory decoding
->> +     * enabled.  By returning false here bar->enabled will be set to false, and
->> +     * bar_write() will work as expected.
+>> +     * As mentioned in the Priviliged Architecture Spec (version 20240411)
+>> +     * As explained in Section 18.5.1, for the paged virtual-memory schemes
+>> +     * (Sv32x4, Sv39x4, Sv48x4, and Sv57x4), the root page table is 16 KiB
+>> +     * and must be aligned to a 16-KiB boundary.
 >> +     */
->> +    if ( mfn_eq(start, _mfn(0)) )
->> +        return false;
-> 
-> Is this really x86-specific?
+>> +    page = alloc_domheap_pages(NULL, 2, 0);
+> Shouldn't this allocation come from the domain's P2M pool (which is yet
+> to be introduced)?
 
-No, I think Arm would benefit from this check too. I'm in favor of
-moving the check to common.
+First, I will drop p2m_get_clean_page() as it will be used only for p2m root page
+table allocation.
+
+p2m_init() is called by domain_create() [->arch_domain_create()->p2m_init()] from create_domUs():
+[https://gitlab.com/xen-project/xen/-/blob/staging/xen/common/device-tree/dom0less-build.c?ref_type=heads#L984].
+
+When p2m_init() is called, p2m pool isn't ready and domain isn't created yet. Last one
+is also crucial for usage of p2m pool as p2m pool belongs to domain and thereby it is
+using alloc_domheap_page(d, ...) (Not NULL as for allocation of p2m root table above),
+so domain should be created first.
+
+And only after domain_create() will created domain, p2m pool could be initialized during
+domain construction:
+   https://gitlab.com/xen-project/xen/-/blob/staging/xen/common/device-tree/dom0less-build.c?ref_type=heads#L756
+and the size of p2m pool depends on the value from memory property of domain node in DT.
+(line 748, the link the same as above).
+
+Also, if CONFIG_ARCH_PAGING_MEMPOOL=n, then p2m pool isn't used. But it isn't a case for RISC-V
+for the moment. Probably one day it would be useful if someone wanted to add support for MMU-less
+case. Something like Arm is doing now for R-cores.
+
+> Also hard-coding 2 here as order effectively builds
+> in an assumption that PAGE_SIZE will only ever be 4k. I think to wants
+> properly calculating instead.
+
+I haven't thought about that. I will update it with:
+   page = alloc_domheap_pages(NULL, get_order_from_bytes(KB(16)), 0);
+
+>
+>> +    if ( page == NULL )
+>> +        return NULL;
+>> +
+>> +    clear_and_clean_page(page);
+>> +
+>> +    return page;
+>> +}
+> Contrary to the function name you obtained 4 pages here, which is suitable
+> for ...
+>
+>> +static struct page_info *p2m_allocate_root(struct domain *d)
+>> +{
+>> +    return p2m_get_clean_page(d);
+>> +}
+> ... this but - I expect - no anywhere else.
+
+Totally agree, as mentioned above this function is used only for p2m_allocate_root().
+I will just open-code it in p2m_allocate_root().
+
+>> +{
+>> +    unsigned long ppn;
+>> +    unsigned long hgatp_mode;
+>> +
+>> +    ppn = PFN_DOWN(page_to_maddr(page_info)) & HGATP_PPN;
+>> +
+>> +    /* ASID (VMID) not supported yet */
+>> +
+>> +#if RV_STAGE1_MODE == SATP_MODE_SV39
+>> +    hgatp_mode = HGATP_MODE_SV39X4;
+>> +#elif RV_STAGE1_MODE == SATP_MODE_SV48
+>> +    hgatp_mode = HGATP_MODE_SV48X4;
+>> +#else
+>> +    #error "add HGATP_MODE"
+> As before, please have the # of pre-processor directives in the first column.
+>
+>> +#endif
+>> +
+>> +    return ppn | (hgatp_mode << HGATP_MODE_SHIFT);
+> Use MASK_INSR()?
+
+Do you mean MASK_INSR(hgatp_mode, HGATP_MODE_MASK)?
+If yes, then I didn't get what is the point then?
+
+>
+>> +}
+>> +
+>> +static int p2m_alloc_table(struct domain *d)
+>> +{
+>> +    struct p2m_domain *p2m = p2m_get_hostp2m(d);
+>> +
+>> +    p2m->root = p2m_allocate_root(d);
+>> +    if ( !p2m->root )
+>> +        return -ENOMEM;
+>> +
+>> +    p2m->hgatp = hgatp_from_page_info(p2m->root);
+>> +
+>> +    /*
+>> +     * Make sure that all TLBs corresponding to the new VMID are flushed
+>> +     * before using it.
+>> +     */
+>> +    p2m_write_lock(p2m);
+>> +    p2m_force_tlb_flush_sync(p2m);
+>> +    p2m_write_unlock(p2m);
+> While Andrew directed you towards a better model in general, it won't be
+> usable here then, as the guest didn't run on any pCPU(s) yet. Imo you
+> want to do a single global flush e.g. when VMIDs wrap around. That'll be
+> fewer global flushes than one per VM creation.
+
+I am not sure that I get a phrase 'VMIDs wrap around'.
+
+I am going to implement, p2m_force_tlb_flush_sync() as:
+  static void p2m_force_tlb_flush_sync(struct p2m_domain *p2m)
+  {
+    ...
+      sbi_remote_hfence_gvma(d->dirty_cpumask, 0, 0);
+    ...
+  }
+
+With such implementation if the guest didn't run on any pCPU(s) yet
+then d->dirty_cpumask is empty, then sbi_remote_hfence_gvma() will do nothing
+as hmask will be NULL (https://gitlab.com/xen-project/people/olkur/xen/-/blob/staging/xen/arch/riscv/sbi.c?ref_type=heads#L238).
+I am not sure that it is a good idea as I can't find a guarantee in the spec
+that TLB will be empty during boot time.
+
+But if another VM is being created then we should flush stage2 before run a VM
+so, the new VM won't re-use something from the old VM.
+Or in case of VMID if VMID is reused by new VM in case if, for example, the
+previous owner(domain) was destroyed and a new domain is reusing VMID, it is
+needed to flush stage2.
+
+p2m_alloc_table() looks a good place for that and I am not sure that we can
+do a single global flush, and I don't really know in first glance where it
+should be done.
+
+
+>> +    p2m->default_access = p2m_access_rwx;
+>> +
+>> +    radix_tree_init(&p2m->p2m_type);
+>> +
+>> +#ifdef CONFIG_HAS_PASSTHROUGH
+>> +    /*
+>> +     * Some IOMMUs don't support coherent PT walk. When the p2m is
+>> +     * shared with the CPU, Xen has to make sure that the PT changes have
+>> +     * reached the memory
+>> +     */
+>> +    p2m->clean_pte = is_iommu_enabled(d) &&
+>> +        !iommu_has_feature(d, IOMMU_FEAT_COHERENT_WALK);
+>> +#else
+>> +    p2m->clean_pte = true;
+> When there's no IOMMU (in use), doesn't this want to be "false"?
+
+I think you are right, "false" is more correct here.
+
+>
+>> +#endif
+>> +
+>> +    /*
+>> +     * "Trivial" initialisation is now complete.  Set the backpointer so
+>> +     * p2m_teardown() and friends know to do something.
+>> +     */
+>> +    p2m->domain = d;
+> And where is that p2m_teardown(), to cross-check the comment against?
+
+It is not introduced now as I expected it is need only when domain is needed to
+be stop for some reason. And it isn't really needed now.
+
+Anyway, it seems like it is a stale comment as on other arch-es p2m_teardown() has
+an argument with struct domain *d.
+
+I can update the commit to:
+  "Trivial" initialisation is now complete.  Set the backpointer so the users of p2m
+   could get an access to domain structure.
+
+~ Oleksii
+
+--------------nN0PHet1fX3NuT67iu0u457E
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 5/20/25 3:37 PM, Jan Beulich wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:7ef3ca26-05f5-4e86-b7c7-852b6c74a3d0@suse.com">
+      <pre wrap="" class="moz-quote-pre">On 09.05.2025 17:57, Oleksii Kurochko wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">--- /dev/null
++++ b/xen/arch/riscv/p2m.c
++static void clear_and_clean_page(struct page_info *page)
++{
++    void *p = __map_domain_page(page);
++
++    clear_page(p);
++    unmap_domain_page(p);
++}
+</pre>
+      </blockquote>
+    </blockquote>
+    <blockquote type="cite"
+      cite="mid:7ef3ca26-05f5-4e86-b7c7-852b6c74a3d0@suse.com">
+      <pre wrap="" class="moz-quote-pre">
+What's the "clean" about in the function name? The "clear" is referring
+to the clear_page() call afaict.</pre>
+    </blockquote>
+    <pre>Missed to add clean_dcache_va_range() between clear_page() and unmap_domain_page().
+</pre>
+    <blockquote type="cite"
+      cite="mid:7ef3ca26-05f5-4e86-b7c7-852b6c74a3d0@suse.com">
+      <pre wrap="" class="moz-quote-pre">Also aren't you largely open-coding
+clear_domain_page() here?</pre>
+    </blockquote>
+    <pre>Yes, missed that it is almost the sane as clear_domain_page(), so we could re-write
+this function as:
+  static void clear_and_clean_page(struct page_info *page)
+  {
+      clean_dcache_va_range(page, PAGE_SIZE);
+      clear_domain_page(page_to_mfn(page));
+  }
+
+</pre>
+    <blockquote type="cite"
+      cite="mid:7ef3ca26-05f5-4e86-b7c7-852b6c74a3d0@suse.com">
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+static struct page_info *p2m_get_clean_page(struct domain *d)
++{
++    struct page_info *page;
++
++    /*
++     * As mentioned in the Priviliged Architecture Spec (version 20240411)
++     * As explained in Section 18.5.1, for the paged virtual-memory schemes
++     * (Sv32x4, Sv39x4, Sv48x4, and Sv57x4), the root page table is 16 KiB
++     * and must be aligned to a 16-KiB boundary.
++     */
++    page = alloc_domheap_pages(NULL, 2, 0);
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Shouldn't this allocation come from the domain's P2M pool (which is yet
+to be introduced)? </pre>
+    </blockquote>
+    <pre>First, I will drop p2m_get_clean_page() as it will be used only for p2m root page
+table allocation.
+
+p2m_init() is called by domain_create() [-&gt;arch_domain_create()-&gt;p2m_init()] from create_domUs():
+[<a class="moz-txt-link-freetext" href="https://gitlab.com/xen-project/xen/-/blob/staging/xen/common/device-tree/dom0less-build.c?ref_type=heads#L984">https://gitlab.com/xen-project/xen/-/blob/staging/xen/common/device-tree/dom0less-build.c?ref_type=heads#L984</a>].
+
+When p2m_init() is called, p2m pool isn't ready and domain isn't created yet. Last one
+is also crucial for usage of p2m pool as p2m pool belongs to domain and thereby it is
+using alloc_domheap_page(d, ...) (Not NULL as for allocation of p2m root table above),
+so domain should be created first.
+
+And only after domain_create() will created domain, p2m pool could be initialized during
+domain construction:
+  <a class="moz-txt-link-freetext" href="https://gitlab.com/xen-project/xen/-/blob/staging/xen/common/device-tree/dom0less-build.c?ref_type=heads#L756">https://gitlab.com/xen-project/xen/-/blob/staging/xen/common/device-tree/dom0less-build.c?ref_type=heads#L756</a>
+and the size of p2m pool depends on the value from memory property of domain node in DT.
+(line 748, the link the same as above).
+
+Also, if CONFIG_ARCH_PAGING_MEMPOOL=n, then p2m pool isn't used. But it isn't a case for RISC-V
+for the moment. Probably one day it would be useful if someone wanted to add support for MMU-less
+case. Something like Arm is doing now for R-cores.
+
+</pre>
+    <blockquote type="cite"
+      cite="mid:7ef3ca26-05f5-4e86-b7c7-852b6c74a3d0@suse.com">
+      <pre wrap="" class="moz-quote-pre">Also hard-coding 2 here as order effectively builds
+in an assumption that PAGE_SIZE will only ever be 4k. I think to wants
+properly calculating instead.</pre>
+    </blockquote>
+    <pre>I haven't thought about that. I will update it with:
+  page = alloc_domheap_pages(NULL, get_order_from_bytes(KB(16)), 0);
+
+</pre>
+    <blockquote type="cite"
+      cite="mid:7ef3ca26-05f5-4e86-b7c7-852b6c74a3d0@suse.com">
+      <pre wrap="" class="moz-quote-pre">
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+    if ( page == NULL )
++        return NULL;
++
++    clear_and_clean_page(page);
++
++    return page;
++}
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Contrary to the function name you obtained 4 pages here, which is suitable
+for ...
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+static struct page_info *p2m_allocate_root(struct domain *d)
++{
++    return p2m_get_clean_page(d);
++}
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+... this but - I expect - no anywhere else.</pre>
+    </blockquote>
+    <pre>Totally agree, as mentioned above this function is used only for p2m_allocate_root().
+I will just open-code it in p2m_allocate_root().</pre>
+    <blockquote type="cite"
+      cite="mid:7ef3ca26-05f5-4e86-b7c7-852b6c74a3d0@suse.com">
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+{
++    unsigned long ppn;
++    unsigned long hgatp_mode;
++
++    ppn = PFN_DOWN(page_to_maddr(page_info)) &amp; HGATP_PPN;
++
++    /* ASID (VMID) not supported yet */
++
++#if RV_STAGE1_MODE == SATP_MODE_SV39
++    hgatp_mode = HGATP_MODE_SV39X4;
++#elif RV_STAGE1_MODE == SATP_MODE_SV48
++    hgatp_mode = HGATP_MODE_SV48X4;
++#else
++    #error "add HGATP_MODE"
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+As before, please have the # of pre-processor directives in the first column.
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+#endif
++
++    return ppn | (hgatp_mode &lt;&lt; HGATP_MODE_SHIFT);
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Use MASK_INSR()?</pre>
+    </blockquote>
+    <pre>Do you mean MASK_INSR(hgatp_mode, HGATP_MODE_MASK)?
+If yes, then I didn't get what is the point then?
+
+</pre>
+    <blockquote type="cite"
+      cite="mid:7ef3ca26-05f5-4e86-b7c7-852b6c74a3d0@suse.com">
+      <pre wrap="" class="moz-quote-pre">
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+}
++
++static int p2m_alloc_table(struct domain *d)
++{
++    struct p2m_domain *p2m = p2m_get_hostp2m(d);
++
++    p2m-&gt;root = p2m_allocate_root(d);
++    if ( !p2m-&gt;root )
++        return -ENOMEM;
++
++    p2m-&gt;hgatp = hgatp_from_page_info(p2m-&gt;root);
++
++    /*
++     * Make sure that all TLBs corresponding to the new VMID are flushed
++     * before using it.
++     */
++    p2m_write_lock(p2m);
++    p2m_force_tlb_flush_sync(p2m);
++    p2m_write_unlock(p2m);
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+While Andrew directed you towards a better model in general, it won't be
+usable here then, as the guest didn't run on any pCPU(s) yet. Imo you
+want to do a single global flush e.g. when VMIDs wrap around. That'll be
+fewer global flushes than one per VM creation.</pre>
+    </blockquote>
+    <pre>I am not sure that I get a phrase 'VMIDs wrap around'.
+
+I am going to implement, p2m_force_tlb_flush_sync() as:
+ static void p2m_force_tlb_flush_sync(struct p2m_domain *p2m)
+ {
+   ...
+     sbi_remote_hfence_gvma(d-&gt;dirty_cpumask, 0, 0);
+   ...
+ }
+
+With such implementation if the guest didn't run on any pCPU(s) yet
+then d-&gt;dirty_cpumask is empty, then sbi_remote_hfence_gvma() will do nothing
+as hmask will be NULL (<a class="moz-txt-link-freetext" href="https://gitlab.com/xen-project/people/olkur/xen/-/blob/staging/xen/arch/riscv/sbi.c?ref_type=heads#L238">https://gitlab.com/xen-project/people/olkur/xen/-/blob/staging/xen/arch/riscv/sbi.c?ref_type=heads#L238</a>).
+I am not sure that it is a good idea as I can't find a guarantee in the spec
+that TLB will be empty during boot time.
+
+But if another VM is being created then we should flush stage2 before run a VM
+so, the new VM won't re-use something from the old VM.
+Or in case of VMID if VMID is reused by new VM in case if, for example, the
+previous owner(domain) was destroyed and a new domain is reusing VMID, it is
+needed to flush stage2.
+
+p2m_alloc_table() looks a good place for that and I am not sure that we can
+do a single global flush, and I don't really know in first glance where it
+should be done.
+
+
+</pre>
+    <blockquote type="cite"
+      cite="mid:7ef3ca26-05f5-4e86-b7c7-852b6c74a3d0@suse.com">
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+    p2m-&gt;default_access = p2m_access_rwx;
++
++    radix_tree_init(&amp;p2m-&gt;p2m_type);
++
++#ifdef CONFIG_HAS_PASSTHROUGH
++    /*
++     * Some IOMMUs don't support coherent PT walk. When the p2m is
++     * shared with the CPU, Xen has to make sure that the PT changes have
++     * reached the memory
++     */
++    p2m-&gt;clean_pte = is_iommu_enabled(d) &amp;&amp;
++        !iommu_has_feature(d, IOMMU_FEAT_COHERENT_WALK);
++#else
++    p2m-&gt;clean_pte = true;
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+When there's no IOMMU (in use), doesn't this want to be "false"?</pre>
+    </blockquote>
+    <pre>I think you are right, "false" is more correct here.
+
+</pre>
+    <blockquote type="cite"
+      cite="mid:7ef3ca26-05f5-4e86-b7c7-852b6c74a3d0@suse.com">
+      <pre wrap="" class="moz-quote-pre">
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+#endif
++
++    /*
++     * "Trivial" initialisation is now complete.  Set the backpointer so
++     * p2m_teardown() and friends know to do something.
++     */
++    p2m-&gt;domain = d;
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+And where is that p2m_teardown(), to cross-check the comment against?</pre>
+    </blockquote>
+    <pre>It is not introduced now as I expected it is need only when domain is needed to
+be stop for some reason. And it isn't really needed now.
+
+Anyway, it seems like it is a stale comment as on other arch-es p2m_teardown() has
+an argument with struct domain *d.
+
+I can update the commit to:
+ "Trivial" initialisation is now complete.  Set the backpointer so the users of p2m
+  could get an access to domain structure.
+
+~ Oleksii</pre>
+  </body>
+</html>
+
+--------------nN0PHet1fX3NuT67iu0u457E--
 
