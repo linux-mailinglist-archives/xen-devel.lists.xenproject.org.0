@@ -2,33 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EBC4EAC0AFF
-	for <lists+xen-devel@lfdr.de>; Thu, 22 May 2025 14:01:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.993815.1376945 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD9CFAC0B09
+	for <lists+xen-devel@lfdr.de>; Thu, 22 May 2025 14:02:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.993826.1376955 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uI4bZ-0007wx-3m; Thu, 22 May 2025 12:00:57 +0000
+	id 1uI4d7-0000K6-Fl; Thu, 22 May 2025 12:02:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 993815.1376945; Thu, 22 May 2025 12:00:57 +0000
+Received: by outflank-mailman (output) from mailman id 993826.1376955; Thu, 22 May 2025 12:02:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uI4bZ-0007uR-0T; Thu, 22 May 2025 12:00:57 +0000
-Received: by outflank-mailman (input) for mailman id 993815;
- Thu, 22 May 2025 12:00:55 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uI4d7-0000Ic-BC; Thu, 22 May 2025 12:02:33 +0000
+Received: by outflank-mailman (input) for mailman id 993826;
+ Thu, 22 May 2025 12:02:31 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=XMjk=YG=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
- id 1uI4bX-0007uJ-HE
- for xen-devel@lists.xenproject.org; Thu, 22 May 2025 12:00:55 +0000
-Received: from mail-oo1-xc30.google.com (mail-oo1-xc30.google.com
- [2607:f8b0:4864:20::c30])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 68dbdc76-3704-11f0-b892-0df219b8e170;
- Thu, 22 May 2025 14:00:53 +0200 (CEST)
-Received: by mail-oo1-xc30.google.com with SMTP id
- 006d021491bc7-6065251725bso5263313eaf.1
- for <xen-devel@lists.xenproject.org>; Thu, 22 May 2025 05:00:53 -0700 (PDT)
+ <SRS0=D/RR=YG=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
+ id 1uI4d5-0000HA-8v
+ for xen-devel@lists.xenproject.org; Thu, 22 May 2025 12:02:31 +0000
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on20625.outbound.protection.outlook.com
+ [2a01:111:f403:2413::625])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a1dfddf1-3704-11f0-a2fb-13f23c93f187;
+ Thu, 22 May 2025 14:02:29 +0200 (CEST)
+Received: from BLAPR03CA0037.namprd03.prod.outlook.com (2603:10b6:208:32d::12)
+ by CY8PR12MB9036.namprd12.prod.outlook.com (2603:10b6:930:78::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8769.21; Thu, 22 May
+ 2025 12:02:25 +0000
+Received: from BL6PEPF0001AB4E.namprd04.prod.outlook.com
+ (2603:10b6:208:32d:cafe::eb) by BLAPR03CA0037.outlook.office365.com
+ (2603:10b6:208:32d::12) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8746.30 via Frontend Transport; Thu,
+ 22 May 2025 12:02:25 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BL6PEPF0001AB4E.mail.protection.outlook.com (10.167.242.72) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8769.18 via Frontend Transport; Thu, 22 May 2025 12:02:24 +0000
+Received: from localhost (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 22 May
+ 2025 07:02:22 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,405 +56,322 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 68dbdc76-3704-11f0-b892-0df219b8e170
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1747915252; x=1748520052; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=t0jE1d+dj1aqJlckob85ctjFQf41u4ekM7bLajv9lWg=;
-        b=Ol3iWFWvV2Feyli0Wbz3Zgi8t5TbJdSrdrBD5kM5Fn2DqDfC5q8Rm8SqulGv4uI3v2
-         S06GiN5gQsMPThuNI0RJ8AZSqd1Izs9TLixHT+IbbxUrEPhuxLPevUhhtDefkLevLvtK
-         PbUtcHUhiBzqG+m5NRao5qg2u/oD+0a5GzniWzXDEZmnWWEz7bQgWic2fg5gfL7Gizq/
-         +URflzLCRI61+A9iFP+2/glJ5gsn8uaLIvHFsUTu74/2bTr5vS/mTL+GTQpnIH8dkpBZ
-         wKc2Jsa1TAGsO3vY24WsprXNH4Nf8mrA3o+q+R3lCo7c9gvy2NIqQH5mkWHO2R9ug6+O
-         Mpxg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747915252; x=1748520052;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=t0jE1d+dj1aqJlckob85ctjFQf41u4ekM7bLajv9lWg=;
-        b=WxxdG6/BmdLjkurTH+xt85TNGQdbk+v3Ju2GgN9Hd2JxyGfK0c9LkvqDDUGyw0AvMH
-         qlgjlXACb4RKn0J9ml7s6vyPKIgZ2pRcFiOYBGPgMLwP6YVfH0oC+3NnKXunQqao+f4P
-         GZeRG/ViMo9vh8pun2GQkVYyNNCmKpSubjlCD3NHYDUMaxYePiErA+OtHsGejj6iry+7
-         gMxyFykuhxe6u99laWGIvYsmf5dj0MquEgEGk3WI9r2r/cztZPrV91WKVqF+evSOrw2I
-         MQnTM5+DemAb0vD/2OPjqshGEVC1/fEGATEmIA7xHboE+dUq+YMxDxCvhXwwM0wvpxv9
-         m/6w==
-X-Gm-Message-State: AOJu0Yw9fzx5GKPVNlqhXbeaBUvRoUrHuZVKoNnvKAUWWatVg2IasALA
-	9yeTo8EXsXb0T8BmehyyhzEEsvo+Y+mjh6kXU4vJAp9q1QQWVQevQ92is3Ot2KbAYrnyZjeNnvm
-	3QnoSqKJHuIxxL4ciJlSkMiIaZgzOaWpZvGu1mVYIxw==
-X-Gm-Gg: ASbGncsgZwLV69NYeXjBcLUvlONlJsmztVlKRiTyu+9U+7n8RHS9tOfy88iOmg13YXD
-	96HbT8BliPjuyap6HCbhrzrffZnxU6BNOyeNJm2V5DyKny5nIFGCp53OCWfvM0S0tAXuvhOiyfl
-	HFNDObnYer693DjrQwubxxkNAPJ21u16ybsg==
-X-Google-Smtp-Source: AGHT+IEs9ijzmYMadIx8/CsvSaL2OprLQIPbSRo1y19l4Q/MMeIk57HgwvmgGGPUvtrre0Zy5nh4BfVIfhODPgQhMOg=
-X-Received: by 2002:a4a:c38d:0:b0:609:f8f1:ce72 with SMTP id
- 006d021491bc7-609f8f1d126mr9942167eaf.1.1747915251774; Thu, 22 May 2025
- 05:00:51 -0700 (PDT)
+X-Inumbo-ID: a1dfddf1-3704-11f0-a2fb-13f23c93f187
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=No9qwNZEfinG8VZTFYbVUqHk/fE1OEgqu8bNc/y5tuxD0ojCoc9zMrBRqeQt/1PUMFhJA6/8m7xT7pXQE3wTQgKnPqIaUDkiz4LIPlNro6z0yKFAeLhyRNZ3dkvp31U4N1wvDjdlefxYIAWZwH/Nk9YRAca0ZsjXpoB8PUkCCuSgztgq0mR/g2uYBNfN1+gyvx5lbfv/Hj0NAgoderZ9qvAYn4ovvCWQwAJnMwNIP++GEsnRhRavxJX7uuIg53AmuAcxEr7yvECTqooSTmwYaWpMY1Cpg0D4DuhAaPjuUCJWhGARTRdmzmrk0RUsoLKWs8kQiXQvJmXoE+C/oUEbIg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=jex+Qt+qWx5kNzevt+0dG6ZIVPt4PtXsw3oH3ptE2Aw=;
+ b=CvzP/q374AIrxNy/F1gtda0NxoPSKSALkFc1E6lHPt3tWS0MXJFPyDyepWbqfzhwa6xpnutaCMfro7tH27iSJGPqGLVUlilpJu1+b1prdCO+0qp2GevFdvNGCO7rsa9UexL6JF4iPwiUQjol7h0nXx80V/yg100Sl9SrnGjZgmFj2oFqtlWZ3Ll7y1H0Cv7ga8WtGZbiqu/LLRnY8MQjKOfYJ+a2csp1r57VPLf8Ox4k8uL8v+BNTHKeD4uU3MPqJz26Y6RwBkj88HyzN5wpm7Ivgyiiwna49YV5HNRsmFys5M5HxyuJRBmQVDsMMKrFRj07gs/By5kly8dfmSTxTg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=apertussolutions.com smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=jex+Qt+qWx5kNzevt+0dG6ZIVPt4PtXsw3oH3ptE2Aw=;
+ b=2X8SjZbAVYw7f6f6rfhR+0m2MfTD3mVW1ujMpOHTCsqGCZ5aMgFFkV2f2P1HMgDud/BIHVOzZqpmwVt3JExpxcYNoGXm32i1lGDIirb/rb23cQFs5eXjC3HPqUyd3TPpvQSHn4/Bg7ZR6nBeiDI4G8mAqDlGX5NR6O/0f691N9A=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 MIME-Version: 1.0
-References: <cover.1744787720.git.bertrand.marquis@arm.com>
- <ec7213548581c176a2328d051aee77bbd8a6d45a.1744787720.git.bertrand.marquis@arm.com>
- <CAHUa44H5K+=eX_OhPMTCsNAeBb-XWMNout0UeLvSyJzYrnXRcg@mail.gmail.com>
- <D2791D4F-C357-43D3-A5ED-6719E5650F02@arm.com> <CAHUa44Gu2axg0UhXXt8U-W5kh=GejYJvCmcFOL0oiOa=iYKkfg@mail.gmail.com>
- <54AE155E-5D83-4C45-B21C-7BB264ADB7E9@arm.com>
-In-Reply-To: <54AE155E-5D83-4C45-B21C-7BB264ADB7E9@arm.com>
-From: Jens Wiklander <jens.wiklander@linaro.org>
-Date: Thu, 22 May 2025 14:00:40 +0200
-X-Gm-Features: AX0GCFvYwc_Rsismc8yTv_iyWWWmXuSYMwTEKrcgTBNoVNQjmQh_lCdebJgEjDY
-Message-ID: <CAHUa44ER4Mqe2DMFhajH5BM15oH+4-BOn6xtzQ4o+P7He8E_pQ@mail.gmail.com>
-Subject: Re: [PATCH v5 6/6] xen/arm: ffa: Enable VM to VM without firmware
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-	Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Stefano Stabellini <sstabellini@kernel.org>, 
-	Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="UTF-8"
+Date: Thu, 22 May 2025 14:02:21 +0200
+Message-ID: <DA2O9YGHUHXI.317T6SOVESFUE@amd.com>
+To: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	<xen-devel@lists.xenproject.org>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Michal Orzel
+	<michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, Jason Andryuk
+	<jason.andryuk@amd.com>, =?utf-8?q?Roger_Pau_Monn=C3=A9?=
+	<roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>, "Xenia
+ Ragiadakou" <xenia.ragiadakou@amd.com>
+Subject: Re: Hyperlaunch/dom0less code sharing
+From: Alejandro Vallejo <agarciav@amd.com>
+X-Mailer: aerc 0.20.1
+References: <DA1WWRUQLCAG.ZTVR1HXJ85V0@amd.com>
+ <958f591f-35ac-4a10-93e2-9301ccfc5353@apertussolutions.com>
+In-Reply-To: <958f591f-35ac-4a10-93e2-9301ccfc5353@apertussolutions.com>
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB4E:EE_|CY8PR12MB9036:EE_
+X-MS-Office365-Filtering-Correlation-Id: 94a14ceb-1e21-4984-866e-08dd99288417
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|82310400026|36860700013|376014;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?c0VtVXdrZTFheW5NTHFNNUJPeGw5dmpPcEJZVVRUTlBoN04wTTJEUHNIVkRG?=
+ =?utf-8?B?NXI5U3NNNC85N20rYXVsQ2owM1VPWnUyVmxFc2ZGbFl0eWZpT3VCQTl5QzFt?=
+ =?utf-8?B?bWJNeVN6ZWtvRnZrZnlReWhQWkNlb0JXSS9iUzlieHJxZFRsUEYyd1Z1ZTNR?=
+ =?utf-8?B?OHJraiszby9hcTZ4a3R3d0dOOFBocU4vR2tvZk9YcE8xWXJTWStyZDZ5djhG?=
+ =?utf-8?B?N3lFWEtybHdFWnVrV0hkY1BRVE5DUG9LKzhyRzFlYk03UUlKcjRhNEYrUHhm?=
+ =?utf-8?B?eldlcWZoam5tM3hNYy9JSWF2TEdxck5QQ3ZhRlRHL3g2cWpEZ0xoVUxDSHVM?=
+ =?utf-8?B?OTlJeEVZbHlXS2pXcGo3d1o3SzMzdUdONU95eGduQU9nSzlMKzB1bW94ZHRK?=
+ =?utf-8?B?K2pBZ3VaWFZQaHFUdWNuU1ZGKzdNaGpmSmF2ZUdwYlEraDNQL0d4QU1RWith?=
+ =?utf-8?B?Q2ZSaFF4MTNNYWNGeENRam53TTRab1lhVlhsVlZNcDVicm5VYmNPRE5PR1lB?=
+ =?utf-8?B?aFZvVTduWk9VRWdVcXMyQTdaR1dGeTRPL1dVQWdZK3lFTStSVHh3QWZ0Ync4?=
+ =?utf-8?B?bTErakUwNzVzS2s2WTVza29Hc3VJclhpMVdGd3JudSt0QnU1UTcrZ2FHNkt2?=
+ =?utf-8?B?SUg4cUNkYkZvOEU1amJpUGwyMis5YmdaUjEzbUtGVEJuZjdLWjJqQ0hiQ0JO?=
+ =?utf-8?B?Vk9kbm1raUhVV0g1NHY2cmtmSzBJdWJEbklTdjZKWjR4Tm1DNDhnZ1VMV2Zp?=
+ =?utf-8?B?ak9LWjlVUVBYQVV5VnkwcU8vNjVuMUdXWDNHQjFLU3pCWm54UmlDM1E4QUxI?=
+ =?utf-8?B?eUpQSmFFOXJZdjc0MHBKNmFvSVFCT3BrOCtCZ0YvQ29UcElGQ1pQOFlQd01j?=
+ =?utf-8?B?UHZjWHNxZVhYSFlzcnVRZW54d3kzZFczV0ZwaU5DaGdERm9pTk91cVZiamFq?=
+ =?utf-8?B?am9yT0pxdDRMQ2c5aDJtTmYzM0UxbnNENjhZTDlXeWhzY2Izd3RQTzlsVUx6?=
+ =?utf-8?B?VVp0S1hyaFJVV05XU2tJRzU0MTlyZVJUblUwOTRMM3BnN1Q1L3FaK3oyQ1F4?=
+ =?utf-8?B?TFB3cXR6bndXcUcrWGp5c2VEVmlWV2Z0NlhGNjdDLzUrR3dvTi9TT0ZVUDhh?=
+ =?utf-8?B?c283SE1YNzBWU2U5R0dsZVVPd1h2ckZBMWU3Q3JNT0FMeE8rMStMR3BFZk5U?=
+ =?utf-8?B?eWMxdjlUWDBLekdxMERJdjR2b0EwdC9qZmV4bzByYUttWElnZXBzMFVEeEFS?=
+ =?utf-8?B?U05kaGhOWmNNRk9xb1JFNHpBeE9rWnlvL0R3anpYWUI4SHhYMmpKRnlhSU5z?=
+ =?utf-8?B?NE9GOUNFODl6clpHeUFjUjZJOGcxN2pFWTk5T1N5aEU0SWZXaTlEQ1ZUYlBG?=
+ =?utf-8?B?MWwzZEFUbU9ISHNaTHlmOHJjbWtzNzV3Ulh1emNIVjJTUy8zTU5DRzRxZWs1?=
+ =?utf-8?B?V0d6elAvdS9xejVwL0c4TGw5SkEyMWdsU1ZpVDh3a1l2Q1RTMWxpa1I3U2Yv?=
+ =?utf-8?B?YTVxbU9YTnI2cms3NTNPZExFa3hRVnFHRXNwM3MwclNvQ1VDQlpITm9RTkF2?=
+ =?utf-8?B?NUtOMTJaRnBpeHpVaHZrSzRuWnBNSFZUWngxdzUrcmtSMyswaktDQzVYVTRm?=
+ =?utf-8?B?eVVtTTVTU2xEVktaZ09jQXFnMG9zUXllOUR2RjRkOGw4QjRtSk9xS05QWnlu?=
+ =?utf-8?B?RHRlUDdSNzJPcVNPM3llcDJTMlZWUDF6MU1WSUQ5L1FnRmRvLzh1K2NoZjFr?=
+ =?utf-8?B?S3ZqSnFrd1FjbXdlOEU1VVh0YUdBb3hWMHlCZjhjRWhTMXpRNXRvUkQ5SEh6?=
+ =?utf-8?B?WS9QVTYvODRNSktlb2FRY2xSK21mNVAvQitEdlpNYW5WTEpLRXpjNzRiWkFN?=
+ =?utf-8?B?WE5uaElyVG9wUDBtRlFmKzl3SDdwMGJBMXR3Z1NET0d5dnVwRkdBYkVOR3M4?=
+ =?utf-8?B?MzdCUTQzc1g1T05YRjR1cFY2SlZabXA3VzgvbU1JMnMvNkg0Mlc4eXZKc3N5?=
+ =?utf-8?B?Y2FwUWJUWnhBPT0=?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(36860700013)(376014);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 May 2025 12:02:24.9888
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 94a14ceb-1e21-4984-866e-08dd99288417
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BL6PEPF0001AB4E.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB9036
 
-Hi Bertrand,
+Hi,
 
-On Thu, May 22, 2025 at 11:11=E2=80=AFAM Bertrand Marquis
-<Bertrand.Marquis@arm.com> wrote:
+On Wed May 21, 2025 at 5:31 PM CEST, Daniel P. Smith wrote:
+> On 5/21/25 10:35, Alejandro Vallejo wrote:
+>> Hi,
+>>=20
+>> (There's a TL;DR at the end)
+>>=20
+>> While working on preparing and reworking the hyperlaunch series for
+>> upstreaming it's slowly becoming apparent the degree of duplication with
+>> dom0less.
 >
-> Hi Jens,
->
-> > On 22 May 2025, at 10:30, Jens Wiklander <jens.wiklander@linaro.org> wr=
-ote:
-> >
-> > Hi,
-> >
-> > On Thu, May 22, 2025 at 10:18=E2=80=AFAM Bertrand Marquis
-> > <Bertrand.Marquis@arm.com> wrote:
-> >>
-> >> Hi Jens,
-> >>
-> >>> On 22 May 2025, at 10:00, Jens Wiklander <jens.wiklander@linaro.org> =
-wrote:
-> >>>
-> >>> Hi Bertrand,
-> >>>
-> >>> On Wed, Apr 16, 2025 at 9:40=E2=80=AFAM Bertrand Marquis
-> >>> <bertrand.marquis@arm.com> wrote:
-> >>>>
-> >>>> When VM to VM support is activated and there is no suitable FF-A sup=
-port
-> >>>> in the firmware, enable FF-A support for VMs to allow using it for V=
-M to
-> >>>> VM communications.
-> >>>> If there is OP-TEE running in the secure world and using the non FF-=
-A
-> >>>> communication system, having CONFIG_FFA_VM_TO_VM could be non functi=
-onal
-> >>>> (if optee is probed first) or OP-TEE could be non functional (if FF-=
-A is
-> >>>> probed first) so it is not recommended to activate the configuration
-> >>>> option for such systems.
-> >>>>
-> >>>> To make buffer full notification work between VMs when there is no
-> >>>> firmware, rework the notification handling and modify the global fla=
-g to
-> >>>> only be used as check for firmware notification support instead.
-> >>>>
-> >>>> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
-> >>>> ---
-> >>>> Changes in v5:
-> >>>> - init ctx list when there is no firmware
-> >>>> - rework init a bit to prevent duplicates
-> >>>> - Remove Jens R-b due to changes done
-> >>>> Changes in v4:
-> >>>> - Fix Optee to OP-TEE in commit message
-> >>>> - Add Jens R-b
-> >>>> Changes in v3:
-> >>>> - fix typos in commit message
-> >>>> - add spaces around <<
-> >>>> - move notification id fix back into buffer full patch
-> >>>> - fix | position in if
-> >>>> Changes in v2:
-> >>>> - replace ifdef with IS_ENABLED when possible
-> >>>> ---
-> >>>> xen/arch/arm/tee/ffa.c       |  24 ++++++--
-> >>>> xen/arch/arm/tee/ffa_notif.c | 104 ++++++++++++++++-----------------=
---
-> >>>> 2 files changed, 67 insertions(+), 61 deletions(-)
-> >>>>
-> >>>> diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
-> >>>> index c1c4c0957091..b86c88cefa8c 100644
-> >>>> --- a/xen/arch/arm/tee/ffa.c
-> >>>> +++ b/xen/arch/arm/tee/ffa.c
-> >>>> @@ -342,8 +342,9 @@ static int ffa_domain_init(struct domain *d)
-> >>>>    struct ffa_ctx *ctx;
-> >>>>    int ret;
-> >>>>
-> >>>> -    if ( !ffa_fw_version )
-> >>>> +    if ( !IS_ENABLED(CONFIG_FFA_VM_TO_VM) && !ffa_fw_version )
-> >>>>        return -ENODEV;
-> >>>> +
-> >>>>    /*
-> >>>>     * We are using the domain_id + 1 as the FF-A ID for VMs as FF-A =
-ID 0 is
-> >>>>     * reserved for the hypervisor and we only support secure endpoin=
-ts using
-> >>>> @@ -579,11 +580,8 @@ static bool ffa_probe(void)
-> >>>>        goto err_rxtx_destroy;
-> >>>>
-> >>>>    ffa_notif_init();
-> >>>> -    INIT_LIST_HEAD(&ffa_teardown_head);
-> >>>> -    INIT_LIST_HEAD(&ffa_ctx_head);
-> >>>> -    init_timer(&ffa_teardown_timer, ffa_teardown_timer_callback, NU=
-LL, 0);
-> >>>>
-> >>>> -    return true;
-> >>>> +    goto exit;
-> >>>>
-> >>>> err_rxtx_destroy:
-> >>>>    ffa_rxtx_destroy();
-> >>>> @@ -592,6 +590,22 @@ err_no_fw:
-> >>>>    bitmap_zero(ffa_fw_abi_supported, FFA_ABI_BITMAP_SIZE);
-> >>>>    printk(XENLOG_WARNING "ARM FF-A No firmware support\n");
-> >>>>
-> >>>> +exit:
-> >>>> +    if ( IS_ENABLED(CONFIG_FFA_VM_TO_VM) || ffa_fw_version )
-> >>>> +    {
-> >>>> +        INIT_LIST_HEAD(&ffa_teardown_head);
-> >>>> +        INIT_LIST_HEAD(&ffa_ctx_head);
-> >>>> +        init_timer(&ffa_teardown_timer, ffa_teardown_timer_callback=
-, NULL, 0);
-> >>>> +    }
-> >>>> +
-> >>>> +    if ( IS_ENABLED(CONFIG_FFA_VM_TO_VM) )
-> >>>> +    {
-> >>>> +        printk(XENLOG_INFO "ARM FF-A only available between VMs\n")=
-;
-> >>>
-> >>> This should only be printed if ffa_fw_version =3D=3D 0
-> >>
-> >> Right i will fix but ...
-> >>
-> >>>
-> >>>> +        return true;
-> >>>> +    }
-> >>>> +    else if ( ffa_fw_version )
-> >>>
-> >>> The else isn't needed.
-> >>
-> >> the else is needed so that we return true and not false.
-> >
-> > I meant the "else" isn't needed, the "if" is still needed, as you expla=
-in.
-> >
-> >>
-> >> We have 3 cases:
-> >> - firmware is there: return true
-> >> - firmware not there but vm to vm enable: return true
-> >> - otherwise: return false
-> >>
-> >> I will modify it like this to make it clearer:
-> >> diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
-> >> index 57b648a22840..768b4e9ec968 100644
-> >> --- a/xen/arch/arm/tee/ffa.c
-> >> +++ b/xen/arch/arm/tee/ffa.c
-> >> @@ -601,13 +601,13 @@ exit:
-> >>         init_timer(&ffa_teardown_timer, ffa_teardown_timer_callback, N=
-ULL, 0);
-> >>     }
-> >>
-> >> -    if ( IS_ENABLED(CONFIG_FFA_VM_TO_VM) )
-> >> +    if ( ffa_fw_version )
-> >> +        return true;
-> >> +    else if ( IS_ENABLED(CONFIG_FFA_VM_TO_VM) )
-> >>     {
-> >>         printk(XENLOG_INFO "ARM FF-A only available between VMs\n");
-> >>         return true;
-> >>     }
-> >> -    else if ( ffa_fw_version )
-> >> -        return true;
-> >>
-> >>     return false;
-> >> }
-> >>
-> >> Tell me if you agree.
-> >
-> > Yes, this is an improvement. A return at the end of an if block makes
-> > the eventual following "else" redundant. I suppose there are coding
-> > styles where it's still preferred. I'm not sure if that applies in
-> > Xen, though.
->
-> I now get what you mean and you would like the return false to be in a el=
-se.
->
-> Relooking at the code, i actually do not like the fact that we do so much=
- in
-> exit and i think i can move a bit the code to be clearer:
-> - put the fw init in a sub function
-> - create a vm_to_vm init function
-> - in probe call both functions and do the common init part if at least on=
-e succeded
+> Yes, this was by design so that when we got to the point of convergence=
+=20
+> it would be apparent where the commonalities are and thus be collapsed.
 
-I was starting to think along those lines, too. :-)
+I'd say they are already fairly apparent. So long as we're all in
+agreement I'd like to collapse them sooner when the differences are
+small rather than later when it'll be a bigger PITA.
+
+I'll prepare and send what I have so far. It'll all be code motion and
+non-functional changes to remove struct duplication.
 
 >
-> Something like this:
-> diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
-> index 57b648a22840..42dfc71a12d7 100644
-> --- a/xen/arch/arm/tee/ffa.c
-> +++ b/xen/arch/arm/tee/ffa.c
-> @@ -478,38 +478,12 @@ static void ffa_init_secondary(void)
->      ffa_notif_init_interrupt();
->  }
->
-> -static bool ffa_probe(void)
-> +static bool ffa_probe_fw(void)
->  {
->      uint32_t vers;
->      unsigned int major_vers;
->      unsigned int minor_vers;
->
-> -    /*
-> -     * FF-A often works in units of 4K pages and currently it's assumed
-> -     * that we can map memory using that granularity. See also the comme=
-nt
-> -     * above the FFA_PAGE_SIZE define.
-> -     *
-> -     * It is possible to support a PAGE_SIZE larger than 4K in Xen, but
-> -     * until that is fully handled in this code make sure that we only u=
-se
-> -     * 4K page sizes.
-> -     */
-> -    BUILD_BUG_ON(PAGE_SIZE !=3D FFA_PAGE_SIZE);
-> -
-> -    printk(XENLOG_INFO "ARM FF-A Mediator version %u.%u\n",
-> -           FFA_MY_VERSION_MAJOR, FFA_MY_VERSION_MINOR);
-> -
-> -    if ( IS_ENABLED(CONFIG_FFA_VM_TO_VM) )
-> -    {
-> -        /*
-> -         * When FFA VM to VM is enabled, the current implementation does=
- not
-> -         * offer any way to limit which VM can communicate with which VM=
- using
-> -         * FF-A.
-> -         * Signal this in the xen console and taint the system as insecu=
-re.
-> -         * TODO: Introduce a solution to limit what a VM can do through =
-FFA.
-> -         */
-> -        printk(XENLOG_ERR "ffa: VM to VM is enabled, system is insecure =
-!!\n");
-> -        add_taint(TAINT_MACHINE_INSECURE);
-> -    }
->      /*
->       * psci_init_smccc() updates this value with what's reported by EL-3
->       * or secure world.
-> @@ -528,11 +502,6 @@ static bool ffa_probe(void)
->          goto err_no_fw;
->      }
->
-> -    /* Some sanity check in case we update the version we support */
-> -    BUILD_BUG_ON(FFA_MIN_SPMC_VERSION > FFA_MY_VERSION);
-> -    BUILD_BUG_ON(FFA_VERSION_MAJOR(FFA_MIN_SPMC_VERSION) !=3D
-> -                                   FFA_MY_VERSION_MAJOR);
-> -
->      major_vers =3D FFA_VERSION_MAJOR(vers);
->      minor_vers =3D FFA_VERSION_MINOR(vers);
->
-> @@ -584,7 +553,7 @@ static bool ffa_probe(void)
->
->      ffa_notif_init();
->
-> -    goto exit;
-> +    return true;
->
->  err_rxtx_destroy:
->      ffa_rxtx_destroy();
-> @@ -593,23 +562,59 @@ err_no_fw:
->      bitmap_zero(ffa_fw_abi_supported, FFA_ABI_BITMAP_SIZE);
->      printk(XENLOG_WARNING "ARM FF-A No firmware support\n");
->
-> -exit:
-> -    if ( IS_ENABLED(CONFIG_FFA_VM_TO_VM) || ffa_fw_version )
-> -    {
-> -        INIT_LIST_HEAD(&ffa_teardown_head);
-> -        INIT_LIST_HEAD(&ffa_ctx_head);
-> -        init_timer(&ffa_teardown_timer, ffa_teardown_timer_callback, NUL=
-L, 0);
-> -    }
-> +    return false;
-> +}
->
-> -    if ( IS_ENABLED(CONFIG_FFA_VM_TO_VM) )
-> -    {
-> +static bool ffa_probe_vm_to_vm(void)
-> +{
-> +    if ( !IS_ENABLED(CONFIG_FFA_VM_TO_VM) )
-> +        return false;
-> +
-> +    /*
-> +     * When FFA VM to VM is enabled, the current implementation does not
-> +     * offer any way to limit which VM can communicate with which VM usi=
+>> Oleksii's latest effort to move all that code into common[*] (see
+>> ad03faa942b9("xen/common: dom0less: make some...) makes this even cleare=
+r.
+>> There are 1:1 relationships for every key data strucutre, and by deviati=
 ng
-> +     * FF-A.
-> +     * Signal this in the xen console and taint the system as insecure.
-> +     * TODO: Introduce a solution to limit what a VM can do through FFA.
-> +     */
-> +    printk(XENLOG_ERR "ffa: VM to VM is enabled, system is insecure !!\n=
-");
-> +    add_taint(TAINT_MACHINE_INSECURE);
-> +
-> +    return true;
-> +}
-> +
-> +static bool ffa_probe(void)
-> +{
-> +    /*
-> +     * FF-A often works in units of 4K pages and currently it's assumed
-> +     * that we can map memory using that granularity. See also the comme=
-nt
-> +     * above the FFA_PAGE_SIZE define.
-> +     *
-> +     * It is possible to support a PAGE_SIZE larger than 4K in Xen, but
-> +     * until that is fully handled in this code make sure that we only u=
-se
-> +     * 4K page sizes.
-> +     */
-> +    BUILD_BUG_ON(PAGE_SIZE !=3D FFA_PAGE_SIZE);
-> +
-> +    /* Some sanity check in case we update the version we support */
-> +    BUILD_BUG_ON(FFA_MIN_SPMC_VERSION > FFA_MY_VERSION);
-> +    BUILD_BUG_ON(FFA_VERSION_MAJOR(FFA_MIN_SPMC_VERSION) !=3D
-> +                                   FFA_MY_VERSION_MAJOR);
-> +
-> +    printk(XENLOG_INFO "ARM FF-A Mediator version %u.%u\n",
-> +           FFA_MY_VERSION_MAJOR, FFA_MY_VERSION_MINOR);
-> +
-> +    if ( !ffa_probe_fw() && !ffa_probe_vm_to_vm() )
-> +        return false;
-> +
-> +    if ( !ffa_fw_version )
->          printk(XENLOG_INFO "ARM FF-A only available between VMs\n");
-> -        return true;
-> -    }
-> -    else if ( ffa_fw_version )
-> -        return true;
+>> we're overcomplicating the ability to share code.
+>>=20
+>>    [*] https://lore.kernel.org/xen-devel/cover.1746468003.git.oleksii.ku=
+rochko@gmail.com/
+>>=20
+>>      dom0less           Hyperlaunch
+>>      ------------------------------
+>>      kernel_info        boot_domain
+>>      bootmodule         boot_module
+>>      bootmodule_kind   bootmod_type
+>>      membanks                memmap
+>>      bootinfo             boot_info
 >
-> -    return false;
-> +    INIT_LIST_HEAD(&ffa_teardown_head);
-> +    INIT_LIST_HEAD(&ffa_ctx_head);
-> +    init_timer(&ffa_teardown_timer, ffa_teardown_timer_callback, NULL, 0=
-);
-> +
-> +    return true;
->  }
->
->  static const struct tee_mediator_ops ffa_ops =3D
->
-> I think this makes the code cleaner as we also get the proper error handl=
-ing with goto
-> inside the fw probe instead of the previous one which was trying to handl=
-e both cases.
->
-> What do you think ?
+> If you go back, you will see less of these differences. A lot of the=20
+> variations have been the results of reviewer's request. And that goes to=
+=20
+> the fact that dom0less was developed with Arm mentality in terminology,=
+=20
+> eg. memory banks verse memory map.
 
-This is good. It's much easier to follow.
+bootinfo and banks/maps are more complicated to merge (I do want to
+merge them, though, but one elephant at a time). All the others can be
+merged without much hassle with minor code adjustments.
+
+>
+>> The difficulty in code sharing is not just unfortunate from a vague sens=
+e of
+>> elegance or neatness. Having different code paths parsing the same DT bi=
+ndings
+>> means it's a matter of time before x86 and all other Xen ports have diff=
+erent
+>> bindings, which would would only worsen the situation wrt code sharing a=
+nd user
+>> confusion.
+>
+> Only if we allowed it,
+
+Granted. But mistakes happen, and if detected late enough you end up
+with aberrations like x86's compat layer for hypercall parsing. I know I
+don't want to see that kind of thing ever again if I can help it.
+
+> but with that said there are subtleties between the arch that will
+> require variation. Such as mode, which is primarily an x86 specific.
+
+Yes. Common code can't mean exclusively common. Fortunately, dom0less in
+common gained provisions for per-ach bindings (see arch_create_domUs()
+in staging). With those hunks extracted (keeping the arch hook in them),
+x86 could use the same, keeping private bindings where appropriate.
+
+>
+>> I've been trying to get _somewhere_ in using parts of dom0less on x86
+>> and develop a credible PoC that highlights the use of dom0less parsing
+>> code paths. The results are interesting.
+>>=20
+>> While I didn't get to a full integration in the hyperlaunch series as I =
+hoped
+>> due to time constraints I did get far enough to:
+>>=20
+>>    1. Replace boot_module, boot_domain and bootmod_type with their dom0l=
+ess
+>>       counterparts (pending some cleanup).
+>>    2. Isolate binding parsing code in common/device-tree so it's dettach=
+ed from
+>>       the not-so-common dom0less domain building logic in dom0less-build=
+.c
+>>    3. Do early module kind detection from x86 using code in (2).
+>>    4. Do late binding parsing also using code in (2) after unflattening =
+the DTB.
+>>=20
+>> And it works well enough under QEMU to populate boot_info to a first
+>> approximation. It's missing hyperlaunch-specific bindings (like "domid"
+>> or "mode"), but that's just a matter of adding them to the already
+>> existing per-arch binding parser ("mode", maybe, would be a candidate
+>> for this) or retrofit them in dom0less ("domid" is a very clear
+>> candidate for this) and integrating in the larger series to be able to
+>> actually boot domains.
+>>=20
+>> The PoC does not go all the way due to time constraints, as I said, but
+>> I think it goes far enough to convince me it's both feasible and
+>> beneficial to go in this direction rather than that of a full
+>> reimplementation on x86, specially seeing how Oleksii already aims to
+>> have full code reuse on riscv.
+>>=20
+>> A brave new world would reuse all data (including bootinfo) and code
+>> (bootfdt.c/bootinfo.c), but I couldn't get that far, and I don't think
+>> I'll be able to in a timely manner. IOW: I compiled-in device-tree.c,
+>> but NOT bootfdt.c or bootinfo.c, or any of the others. I merely
+>> extracted from those files the binding parsing bits of interest.
+>>=20
+>> It'd be nice to use them, but the domain construction logic is just too
+>> different at present. As for the code I tested with,  I need to do some =
+serious
+>> cleanup before it's ready for sharing, and even moreso for review, but b=
+efore I
+>> go through that I'd like to reach consensus on the following points befo=
+re
+>> investing any more of my time working on the side.
+>>=20
+>> TL;DR:
+>>=20
+>> I think we should aim to share binding code wherever possible, using com=
+mon
+>> datastructures (kernel_info and bootmodule) as dumping ground for the re=
+sults
+>> of the binding parsing functions. I seek agreement on the following 3 po=
+ints
+>> for the end goal of DTB multidomain boots on x86 before I start slicing
+>> my hacks into reasonable chunks.
+>>=20
+>>    1. We want common data structures, with arch-specific fields to hold
+>>       information from xen,domain DT nodes
+>>    2. We want to have a single collection of DTB parsers in the code.
+>>    3. We want to operate on the unflattened DTB for the majority of pars=
+ing.
+>>      (plus a minimal version on the FDT in order to bootstrap, also comm=
+on)
+>
+> As for 3, I can repost my original analysis that went to the working=20
+> group on why using this is not the best idea. Doing 3 would require=20
+> doing at least two, if not three passes on the DTB for x86 with zero=20
+> benefit/need since, unlike Arm, we never have to read from it after=20
+> boot. The way the x86 parser is today, we are walking the DTB only once.
+
+Note that some libfdt wrappers are deceptive and have hideous time
+complexities. Doing one pass might not mean a monotonically increasing
+cursor. Regardless, DTBs are always quite small (particularly so in
+x86), so the time complexity of the parsing algorithm is of little
+consequence. We could do 512 passes and the time it would take would
+still be negligible.
+
+>
+> What I would suggest for 2 is that, perhaps, it might be an opportune=20
+> time to review the existing DTB parsing code. Providing a common=20
+> interface to parse standard/spec DTB structures regardless if it is=20
+> coming from an FTB or via the FTB index, aka "unflattened" DTB. Doing so=
+=20
+> would enable a complete reuse within the DTB parsers and remove then=20
+> need for 3.
+
+The biggest reason for using the DTB unflattened is (imo) having arm and
+x86 parsing the same data structure. The unflattened tree is not merely
+an FDT with pointers. There's logic to merge nodes with the same names,
+remove duplicates, etc. A "quirky" DTB (e.g: with overlapping nodes),
+would thus behave differently on arm and x86 unless they both use the
+FDT or the unflattened DT.
+
+Furthermore, parsing strictly in the order you find properties in
+creates a danger to synthesise different systems when fed DTBs that have
+properties in different orders. imagebuilder could be instructed to
+reduce the danger of this by having a canonical order of properties, but
+I really dislike having room for diverging interpretations of identical
+source data. This isn't necessarily an issue with FDT parsing per se,
+but it is with the way it's been done in the existing series, whereas
+the code in dom0less looks up properties in a specific order.
+
+>
+>> (2) and (3) are tightly related. There's many reasons for wanting to use=
+ the
+>> unflattened blobs as much as possible. They range from quirks in specifi=
+c "dtc"
+>> versions, to complexities parsing phandles, to corner cases involving du=
+plicate
+>> properties (i.e: due to .dtsi files), etc. Unflattening an FDT brings a
+>> lots of "maybe-ok-after-sanitising" FDTs back into canonically correct D=
+Ts.
+>>=20
+>> I'll share the PoC code as soon as as it's in a presentable state.
+>> Hopefully by the end of the week. But I'm sending this ahead of time to
+>> start collecting thoughts right away.
+>>=20
+>> So. Thoughts?
+>
+>
+> v/r,
+> dps
+
+All this said, the analysis (thanks for sharing) seems still relevant
+and also seems like a reasonable goal for all architectures, but having
+everyone parsing the DTB in the exact same way leads to far better
+predictability. Once all the code is in common and in use, it'll be a
+lot easier to simply modify arm to use the FDT on the grounds of keeping
+arch-symmetry and the drop of code it'd mean for x86.
+
+For the time being, however, I'm more interested in getting staging to a
+working state where it can boot multiple domains off a DTB, without
+endangering arch-symmetry. Then the rest is refinement and optimisation.
 
 Cheers,
-Jens
+Alejandro
 
