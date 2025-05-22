@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D6656AC10F1
-	for <lists+xen-devel@lfdr.de>; Thu, 22 May 2025 18:25:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.994380.1377410 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C5209AC116D
+	for <lists+xen-devel@lfdr.de>; Thu, 22 May 2025 18:51:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.994409.1377420 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uI8j3-0000nf-0k; Thu, 22 May 2025 16:24:57 +0000
+	id 1uI981-0004vP-0P; Thu, 22 May 2025 16:50:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 994380.1377410; Thu, 22 May 2025 16:24:56 +0000
+Received: by outflank-mailman (output) from mailman id 994409.1377420; Thu, 22 May 2025 16:50:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uI8j2-0000kp-UJ; Thu, 22 May 2025 16:24:56 +0000
-Received: by outflank-mailman (input) for mailman id 994380;
- Thu, 22 May 2025 16:24:55 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uI980-0004sT-Sf; Thu, 22 May 2025 16:50:44 +0000
+Received: by outflank-mailman (input) for mailman id 994409;
+ Thu, 22 May 2025 16:50:43 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=GVKv=YG=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1uI8j1-0000kZ-G6
- for xen-devel@lists.xenproject.org; Thu, 22 May 2025 16:24:55 +0000
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [2a00:1450:4864:20::436])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4b95ce56-3729-11f0-a2fb-13f23c93f187;
- Thu, 22 May 2025 18:24:55 +0200 (CEST)
-Received: by mail-wr1-x436.google.com with SMTP id
- ffacd0b85a97d-3a36f26584bso2915897f8f.0
- for <xen-devel@lists.xenproject.org>; Thu, 22 May 2025 09:24:55 -0700 (PDT)
+ id 1uI97z-0004sN-7K
+ for xen-devel@lists.xenproject.org; Thu, 22 May 2025 16:50:43 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e537de80-372c-11f0-b892-0df219b8e170;
+ Thu, 22 May 2025 18:50:41 +0200 (CEST)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-43ede096d73so61345075e9.2
+ for <xen-devel@lists.xenproject.org>; Thu, 22 May 2025 09:50:41 -0700 (PDT)
 Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
  by smtp.gmail.com with UTF8SMTPSA id
- ffacd0b85a97d-3a36c6eeaf8sm16032214f8f.48.2025.05.22.09.24.54
+ ffacd0b85a97d-3a35ca5a04csm23390670f8f.23.2025.05.22.09.50.40
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 22 May 2025 09:24:54 -0700 (PDT)
+ Thu, 22 May 2025 09:50:40 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,88 +45,106 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4b95ce56-3729-11f0-a2fb-13f23c93f187
+X-Inumbo-ID: e537de80-372c-11f0-b892-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1747931094; x=1748535894; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=+VbyuGdmApotSy2XpQAnkCSLpSiOSHc4CYf4Pg7DI7c=;
-        b=WxorxFL4UBqknxGCD4rLygLH2Go7lczWR/euD/xh+7TZd3eU9E7/w1UQK4zif25nCK
-         MOHNUfd8hccPXLhSU5HRUwAomMJ3ge9kK9GD9iU594TLCvGbBtzDl7lIzrDTxhTbjx3f
-         VQadLTgcMmg8jVcP4uWyAOsHQ4LxyCnTMuNXA=
+        d=citrix.com; s=google; t=1747932641; x=1748537441; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=HoEeXAhluvwOo92HLwJ8Kfu/IuX2U+5O0BxMnCuG17Q=;
+        b=W+fSYRe5iSQKIR+PwYzAQoHNF0qmmpC8xKdnJTQUVUELqNreHElq6IPtyaxTbelJML
+         2RFOlHCmS4/sGPu0uEZNMsRa9k70pGMA4qk1tWGf38AJkCYQHUmREIxkPHymfI5fLsYn
+         EJp3fh9S6XMaLj/Rpx35+FL3K86ElYik0mSVA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747931094; x=1748535894;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=+VbyuGdmApotSy2XpQAnkCSLpSiOSHc4CYf4Pg7DI7c=;
-        b=kEFMnmCi2svKHNOm9ym7Hph1emwojZa4irZIzxXrsUcThvDaIvNTgMbdRJQ/ggI5bD
-         o670CaSqD+pofxsIL/fweFeFPkSH1YUA+cyCTRZBdcxJ0o5sS8U8dsDMJXdTHqkcFOYX
-         eC+epoH0Xu9gHYTum8+WNnTUKijRa/e+YAFgTIyZaKUqBcM64JnRmcL2GEEAZrdtTxay
-         sD+ejgcHQ/EngoccJ+5m6SVxp//5bh94j33PrbMxq/uobZaRth2HqzaiLAXVG5qS2qYG
-         sspbBCzdF2dCpkv3TaQRDPGilICQfriBsg0Cj18ReDvYBqkggHkbz6h+C9FdrUHuiqnu
-         GxoQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUPTwCzPr8558L+gGU5cv1xbBT9tdiFkYMR7BFHl33gPUtZ4v5tpdTWCJPICex3SnuPMD6jN0JPxr8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw3dl+xbDEaa9TzCYvjvfuoYieyuqmfXu+KnLh4LkQCuxJkDZU/
-	kUjSdf6rDj77dL9rwO0Vh6Wvyp1nURXRmhdYRwHZoRnFzQcPAANucyKwf+JH4XjC4BY=
-X-Gm-Gg: ASbGnctC+PAlfzHwwZnjGRd3vLnIK5feCSmrx7K0MyacpItDR+n7iWDxfckHkwlgvDn
-	q8gBb4JdRu6wV0uGYmVWgAUGzdfF5i9pv1G1FEdLFp+hmPalMKT+8heiT1ljksXN9mULe34FUqj
-	RW+CYCTv63Qwu+eajT+zE3zf9pmO6oaBry99dggKBlGO1chYp8X6l80Y8D4aELmkoNBu9oZI6ol
-	7lhukHcuGjoGCJ72l65jK9KEt7YLjzqVNBZAoUUpIVnRcchQbIUjRwQ2DbQGF469dwLUOJkrcyY
-	OEjcML3el6tYdOuo9ERg5snBfDYUIrPWiHPP29M00PZ5uIw17cUgL5kKNqAMUwbDy+guSzI0mRH
-	jYiJfa9O+WmRekqwHhPI=
-X-Google-Smtp-Source: AGHT+IF/W4PeCp4SCSV1X9CAzRjwurVV2GhB7kVIveKPIPmcVj7PEY+Bhw9c7zrQNLVv6YvD2388Fg==
-X-Received: by 2002:a5d:64eb:0:b0:3a3:6e85:a523 with SMTP id ffacd0b85a97d-3a36e85a8e2mr15340386f8f.42.1747931094488;
-        Thu, 22 May 2025 09:24:54 -0700 (PDT)
-Date: Thu, 22 May 2025 18:24:53 +0200
+        d=1e100.net; s=20230601; t=1747932641; x=1748537441;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=HoEeXAhluvwOo92HLwJ8Kfu/IuX2U+5O0BxMnCuG17Q=;
+        b=XffTDiIZnqy39a8yYlunO6HkbQZSFE+IfLdb/Q9raPdmgS3FHd57gttpGgSJx1OmAA
+         ou0BKP/IWx+qgjBDlML02twZz9FJBnEBWF3noA2m+JeGr1jpmwB2+c5NJtRlKbwPO/eJ
+         1zSvBkNgm2dFdt5xvLq7vndGUthxoNZxOybvgkHdAhXNu4spqwZrMJ63rincMTuC3vbm
+         MxTAsGAnxVOnFeaOG3N5NiMmxjndkWlBIOoj2Z5rh9RAoda6n5hsVY08x8X59NF2XaWc
+         FUd/+FhwW5DC6KMDZLAu+1CdeBBxHe6MOPODPb28I4WgPSVng1nfhJYkfToaVm5wsHHP
+         lohA==
+X-Forwarded-Encrypted: i=1; AJvYcCV04eZuLItSTIUn/uDhDbeHAK/Ecr8YQ7Btlq+27Hg75rSPzYAxpA4EYxG3D+dPTQqiIFS/c8TG7K0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyTTHNonuBZuKW6c2znX0h3VMaH488spUC5x6RBMWK/eT510r4+
+	msQMLVW1EPYrkPVroKhr6/cIBARjENsPFaAe8VPzFhuLIx6oPL16XGO2sLD42DcWhQnapQt6LUD
+	VMWNT
+X-Gm-Gg: ASbGnctAvdEjHYv8r4L9EwJvK1XinXary7O3CIegfvU79MwYz85xWqYtMFvwflQzi2/
+	4JdRyCmd6NPa68Qb9w8385rhHZTY651sFeSGf0w2kLOiyMsPC/dOmD3q6fCs60uOPic4ItzUmOd
+	aTNR+7RR5kYJfrZRTVWOoD0vFCqbXUxQyHQHXXfGPR+7OyYVHM70F7zy5JIMrPakh/e9aMKIMsD
+	8FdJ76AN6nuURYAc2ZmmM6ZNH06pi2Nm+4GCR05My4U2OSlpVT5dNNnbGZS82Mo4HULvJux/7ix
+	2V10/mdPPD/0kncQv8zWhSuLfLeBbbbybb9GPfSdxJCNTy3s1pgNjoGvxeksLIfK33WEqs3a3pD
+	G86jHyEze81H9MYup9GY=
+X-Google-Smtp-Source: AGHT+IGXp+x3Stus1k6Cbrd+wthlo2UV7WDRRs9oxBAaxamguTGWsvvxs8yAsIXawhugG11em3XyXg==
+X-Received: by 2002:a05:600c:3f07:b0:43d:77c5:9c1a with SMTP id 5b1f17b1804b1-442fd60b516mr268915745e9.4.1747932640493;
+        Thu, 22 May 2025 09:50:40 -0700 (PDT)
+Date: Thu, 22 May 2025 18:50:39 +0200
 From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Stewart Hildebrand <stewart.hildebrand@amd.com>
-Cc: Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH 2/2] x86/vpci: refuse to map BARs at position 0
-Message-ID: <aC9P1T4hCKbAdTVB@macbook.local>
-References: <20250522140356.5653-1-roger.pau@citrix.com>
- <20250522140356.5653-3-roger.pau@citrix.com>
- <3f274948-92bb-40c4-bcaf-7b538300140a@suse.com>
- <aa1105d7-758d-416e-84e7-c7492f4bd177@amd.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Jan Beulich <jbeulich@suse.com>, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v2 1/4] x86/boot: print CPU and APIC ID in bring up
+ failure
+Message-ID: <aC9V3-5SiBTBDsCE@macbook.local>
+References: <20250522075440.99882-1-roger.pau@citrix.com>
+ <20250522075440.99882-2-roger.pau@citrix.com>
+ <0028ad37-95e7-4b6e-87b6-07cadcac64aa@suse.com>
+ <8c1156a8-a626-4b62-9cc1-7790184b2b9b@citrix.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <aa1105d7-758d-416e-84e7-c7492f4bd177@amd.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <8c1156a8-a626-4b62-9cc1-7790184b2b9b@citrix.com>
 
-On Thu, May 22, 2025 at 11:44:24AM -0400, Stewart Hildebrand wrote:
-> On 5/22/25 10:59, Jan Beulich wrote:
-> > On 22.05.2025 16:03, Roger Pau Monne wrote:
-> >> diff --git a/xen/arch/x86/pci.c b/xen/arch/x86/pci.c
-> >> index 26bb7f6a3c3a..39fd5a16a4aa 100644
-> >> --- a/xen/arch/x86/pci.c
-> >> +++ b/xen/arch/x86/pci.c
-> >> @@ -101,6 +101,15 @@ int pci_conf_write_intercept(unsigned int seg, unsigned int bdf,
+On Thu, May 22, 2025 at 03:39:57PM +0100, Andrew Cooper wrote:
+> On 22/05/2025 10:10 am, Jan Beulich wrote:
+> > On 22.05.2025 09:54, Roger Pau Monne wrote:
+> >> Print the CPU and APIC ID that fails to respond to the init sequence, or
+> >> that didn't manage to reach the "callin" state.  Expand a bit the printed
+> >> error messages.  Otherwise the "Not responding." message is not easy to
+> >> understand by users.
+> >>
+> >> Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> >> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> >> ---
+> >> Changes since v1:
+> >>  - Also print APIC ID.
+> >> ---
+> >>  xen/arch/x86/smpboot.c | 6 ++++--
+> >>  1 file changed, 4 insertions(+), 2 deletions(-)
+> >>
+> >> diff --git a/xen/arch/x86/smpboot.c b/xen/arch/x86/smpboot.c
+> >> index 0189d6c332a4..dbc2f2f1d411 100644
+> >> --- a/xen/arch/x86/smpboot.c
+> >> +++ b/xen/arch/x86/smpboot.c
+> >> @@ -618,10 +618,12 @@ static int do_boot_cpu(int apicid, int cpu)
+> >>              smp_mb();
+> >>              if ( bootsym(trampoline_cpu_started) == 0xA5 )
+> >>                  /* trampoline started but...? */
+> >> -                printk("Stuck ??\n");
+> >> +                printk("CPU%u/APICID%u: Didn't finish startup sequence\n",
+> >> +                       cpu, apicid);
+> >>              else
+> >>                  /* trampoline code not run */
+> >> -                printk("Not responding.\n");
+> >> +                printk("CPU%u/APICID%u: Not responding to startup\n",
+> >> +                       cpu, apicid);
+> >>          }
+> >>      }
 > >>  
-> >>  bool pci_check_bar(const struct pci_dev *pdev, mfn_t start, mfn_t end)
-> >>  {
-> >> +    /*
-> >> +     * Refuse to map BARs at position 0, those are not initialized.  This might
-> >> +     * be required by Linux, that can reposition BARs with memory decoding
-> >> +     * enabled.  By returning false here bar->enabled will be set to false, and
-> >> +     * bar_write() will work as expected.
-> >> +     */
-> >> +    if ( mfn_eq(start, _mfn(0)) )
-> >> +        return false;
-> > 
-> > Is this really x86-specific?
+> > Elsewhere I think we print AIC IDs in hex; may be better to do so here, too.
+> > That may then want some text re-arrangement though, e.g.
+> >
+> > "CPU%u: APICID %#x not responding to startup\n"
+> >
+> > Thoughts?
 > 
-> No, I think Arm would benefit from this check too. I'm in favor of
-> moving the check to common.
+> Definitely hex.  Elsewhere APIC_ID always has an underscore.
 
-I think on ARM pci_check_bar() is more strict, and doesn't really need
-this check since it explicitly checks whether the BAR falls inside of
-a bridge window.
-
-So unless you have a bridge window at mfn 0 this won't make a
-difference.  And if you have a bridge window at mfn 0 you really want
-to be able to position BARs at address 0.
+Maybe I'm confused, but I don't think Xen uses an underscore, it's
+always 'APIC ID' when printed.  I don't mind adding it here, I assume
+what you mean with elsewhere is other projects like Linux?
 
 Thanks, Roger.
 
