@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A5D1AC184D
+	by mail.lfdr.de (Postfix) with ESMTPS id 2423FAC1848
 	for <lists+xen-devel@lfdr.de>; Fri, 23 May 2025 01:53:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.994757.1377639 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.994758.1377650 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uIFic-0002rS-6k; Thu, 22 May 2025 23:52:58 +0000
+	id 1uIFid-0003F4-VD; Thu, 22 May 2025 23:52:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 994757.1377639; Thu, 22 May 2025 23:52:58 +0000
+Received: by outflank-mailman (output) from mailman id 994758.1377650; Thu, 22 May 2025 23:52:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uIFib-0002oZ-V2; Thu, 22 May 2025 23:52:57 +0000
-Received: by outflank-mailman (input) for mailman id 994757;
- Thu, 22 May 2025 23:52:56 +0000
+	id 1uIFid-00037p-N9; Thu, 22 May 2025 23:52:59 +0000
+Received: by outflank-mailman (input) for mailman id 994758;
+ Thu, 22 May 2025 23:52:57 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=+3KA=YG=flex--seanjc.bounces.google.com=31LgvaAYKCU07tp2yrv33v0t.r31Ct2-stAt00x787.Ct2463ytr8.36v@srs-se1.protection.inumbo.net>)
- id 1uIFia-0007r7-3I
- for xen-devel@lists.xenproject.org; Thu, 22 May 2025 23:52:56 +0000
-Received: from mail-pj1-x1049.google.com (mail-pj1-x1049.google.com
- [2607:f8b0:4864:20::1049])
+ <SRS0=ux7D=YG=flex--seanjc.bounces.google.com=31rgvaAYKCU89vr40tx55x2v.t53Ev4-uvCv22z9A9.Ev46850vtA.58x@srs-se1.protection.inumbo.net>)
+ id 1uIFib-0007r7-D4
+ for xen-devel@lists.xenproject.org; Thu, 22 May 2025 23:52:57 +0000
+Received: from mail-pg1-x54a.google.com (mail-pg1-x54a.google.com
+ [2607:f8b0:4864:20::54a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e03f2c8b-3767-11f0-b892-0df219b8e170;
- Fri, 23 May 2025 01:52:54 +0200 (CEST)
-Received: by mail-pj1-x1049.google.com with SMTP id
- 98e67ed59e1d1-30e8aec4689so7733011a91.0
- for <xen-devel@lists.xenproject.org>; Thu, 22 May 2025 16:52:54 -0700 (PDT)
+ id e13ed2dc-3767-11f0-b892-0df219b8e170;
+ Fri, 23 May 2025 01:52:55 +0200 (CEST)
+Received: by mail-pg1-x54a.google.com with SMTP id
+ 41be03b00d2f7-b270145b864so3364564a12.3
+ for <xen-devel@lists.xenproject.org>; Thu, 22 May 2025 16:52:55 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,48 +40,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e03f2c8b-3767-11f0-b892-0df219b8e170
+X-Inumbo-ID: e13ed2dc-3767-11f0-b892-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20230601; t=1747957972; x=1748562772; darn=lists.xenproject.org;
+        d=google.com; s=20230601; t=1747957974; x=1748562774; darn=lists.xenproject.org;
         h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
          :date:reply-to:from:to:cc:subject:date:message-id:reply-to;
-        bh=jjMNjs+bdNtZTb3Wdy6sSLCs56ksmcfEkIHqJR2gBFc=;
-        b=UeglZ0gAZC/jLBoMIB9KNvdoRZnuqbQwj7Vr2df98rbD5hMnj5FwYpLTLo2sKd1eDv
-         f1ZKiSoPOoX8i8jwPWTBZ/jvDUjoFyFbyPLv8l6LnlnrnPAO2olYnieASNnQmpkj2+Cx
-         IMQDIGWC+GumCz/anvk9X7xwezzZKn3MNVd6ih0QhWZbXqbXgmGI8T0DjcELH9mChp3F
-         oJIl5nFUvEKoBEbPPS7g0V7oRbN19TvogXV1/okSJNdjvW1tZUTaJDIoCWhAhXVlwspK
-         GGrpHF9rHOox9AWvdF1YeMotFF7mfRS4Y//H1J/NOfIfEUVyIRLo+z00LmLMyp9u/Xi+
-         rxng==
+        bh=EKiGsGdj01NsitpTuPJ3Ew8X7lvRxIwEPSz2u8YI9Cs=;
+        b=aIEeDpG0kVlc73Z4xovesQ5Bk5o65TfuMnQIPzHxq/0LQUd02gHrh6wOjpnmXfIJag
+         gXFQzh/lV1j85Hi4rbxuYoq/is9ctigG+xsITwi9d70lQo573zTTQQg/GuGnKl/s83Ro
+         Mu9vJKhqKvZmhsDvI2UWOD55TF7ZLMM7iW1RQhXnTq6FHv3ab1XTQsuqXXkYP1Mb7tid
+         h+V/rYpA1V03p+SKTiDMNIL1T6YRK4rXQQ/lK6pqdY1jPoyscOIpO0MPynI89uMIU3i2
+         eJPOnEGHw2H2TUjYjYR8uSX2LWB+82ztmek9uM5s9x5bDBeZUDT7OT4mJNPgZsybjfBR
+         lRKg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747957972; x=1748562772;
+        d=1e100.net; s=20230601; t=1747957974; x=1748562774;
         h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
          :date:reply-to:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=jjMNjs+bdNtZTb3Wdy6sSLCs56ksmcfEkIHqJR2gBFc=;
-        b=HyPihbm4pe3Ca1feTGEKtWp5PaAlsfY+/z13uFHoEwDcayM3WGHD8oz6q8WGby0SCZ
-         J8YSkh4mqOoND1YRTuZDLKkzjp1uWXrchulynkP0IGtNRBsp7Y12RqVApeEFeNnw3zOO
-         uiuhmUSs32PUORxCOI9/XI82n4NAMGfkRozkBbw6xxPzWo2mKQK6zaDBTEyA2jFZTiUB
-         yzreGS1aAdacZw5lQEYXC2eeOSrWRDNVz1PPp6OiWUQGnZf+GjvC4wgXQfkEMe4vNkYc
-         gR+AIxea6ALlC9v+toOImiTxcx+/wEjf1gOPDCiBDm0FyJuImrJirS+7avyfckFKx50k
-         SrOg==
-X-Forwarded-Encrypted: i=1; AJvYcCUN2a1G4hB2ocrLiDOoWAJyM5tUivGtWNb8SSP82nogtj6HBLHtlQJPnG+ZiXcrN91f2Sl8J7YddWs=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YybjHXswrrmn5TYTN2Hc4kUb6lmqPwo+ELLL1e1veOjde0SFEEy
-	2YrBTMFN5bG312gyb8Fd7eoQv3FpPvAVBGMa5zMWF69Dp4FX4FwFftaTn373/2m7yrxCYPY7Sst
-	CgHJjdA==
-X-Google-Smtp-Source: AGHT+IH+y/4Vqk1KMF3LjOCFUbppIPh5ZUErAvUoiEDW2SE/2hXGiqyTLKxlZ9Xh8ZuSjxO0WF45GST49oM=
-X-Received: from pjbdy5.prod.google.com ([2002:a17:90b:6c5:b0:2fc:1356:bcc3])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:510f:b0:2ff:58e1:2bb1
- with SMTP id 98e67ed59e1d1-310e973e510mr1311217a91.32.1747957972660; Thu, 22
- May 2025 16:52:52 -0700 (PDT)
+        bh=EKiGsGdj01NsitpTuPJ3Ew8X7lvRxIwEPSz2u8YI9Cs=;
+        b=Qnfg2Yx6gJp+34TGvQUQ5YSi16YLtCOCjyxOBLz2r39SL398wWJPYKv+p95hBly0FS
+         4kIzTGWPCFRZN6siuNW7ntYLho6/q8by1YLc9K1Hq+ItGMVfq237MAESvHBuMcPf72W6
+         i8n2BW38Oku1ScXBdwTAF/xD11zVHDTPugZpcvCDaagEEEId/gJkhvAXGAPLrr5A6EYp
+         brbDbVKsGmTkMPrK/4hvD3lSxbwuqUhgH844f6wUgK7JQFHYaqFe4oC5LqaN6DPo+DKH
+         /cMIktxoWg7n9JMQvkdN5dRAL6EE1xnG+rmaVRjf1HF+jOOYQGXRuuxR/9emlOT3PRoX
+         yRpg==
+X-Forwarded-Encrypted: i=1; AJvYcCWSX0qXdz+1hBOfcH5W6y2wg5pJx9vCT1PQsD0OFpt3P0mF3heayEgoCm/dMRX9v9dZfWeij6+dVVg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy74fnaiH2sjXWPTlwtMZoiNk1mczqKi1Ya7jb/Cs78DodCLbnx
+	vUqwcYIjHQL2WLJEyx/XpqT2V7eSNN+PevIAFm2DPV5wubA7aQ86dMjGpx6sO6QgDYrMjH74PZF
+	48NxOKw==
+X-Google-Smtp-Source: AGHT+IFfHuwPoraxH7fHOxcJKjCs5i19crB1g3gqYt+qVLkDFB/zR2OG4BEQkHLANHuLxCZWJd/rEXtT30s=
+X-Received: from pga16.prod.google.com ([2002:a05:6a02:4f90:b0:af2:3385:de87])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:d527:b0:206:aa42:8e7c
+ with SMTP id adf61e73a8af0-2170cc715a0mr39501029637.18.1747957974292; Thu, 22
+ May 2025 16:52:54 -0700 (PDT)
 Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Thu, 22 May 2025 16:52:21 -0700
+Date: Thu, 22 May 2025 16:52:22 -0700
 In-Reply-To: <20250522235223.3178519-1-seanjc@google.com>
 Mime-Version: 1.0
 References: <20250522235223.3178519-1-seanjc@google.com>
 X-Mailer: git-send-email 2.49.0.1151.ga128411c76-goog
-Message-ID: <20250522235223.3178519-12-seanjc@google.com>
-Subject: [PATCH v3 11/13] KVM: selftests: Assert that eventfd() succeeds in
- Xen shinfo test
+Message-ID: <20250522235223.3178519-13-seanjc@google.com>
+Subject: [PATCH v3 12/13] KVM: selftests: Add utilities to create eventfds and
+ do KVM_IRQFD
 From: Sean Christopherson <seanjc@google.com>
 To: "K. Y. Srinivasan" <kys@microsoft.com>, Haiyang Zhang <haiyangz@microsoft.com>, 
 	Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>, 
@@ -98,37 +98,135 @@ Cc: linux-kernel@vger.kernel.org, linux-hyperv@vger.kernel.org,
 	David Matlack <dmatlack@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Assert that eventfd() succeeds in the Xen shinfo test instead of skipping
-the associated testcase.  While eventfd() is outside the scope of KVM, KVM
-unconditionally selects EVENTFD, i.e. the syscall should always succeed.
+Add helpers to create eventfds and to (de)assign eventfds via KVM_IRQFD.
 
 Signed-off-by: Sean Christopherson <seanjc@google.com>
 ---
- tools/testing/selftests/kvm/x86/xen_shinfo_test.c | 9 +++------
- 1 file changed, 3 insertions(+), 6 deletions(-)
+ tools/testing/selftests/kvm/arm64/vgic_irq.c  | 12 ++----
+ .../testing/selftests/kvm/include/kvm_util.h  | 40 +++++++++++++++++++
+ .../selftests/kvm/x86/xen_shinfo_test.c       | 18 ++-------
+ 3 files changed, 47 insertions(+), 23 deletions(-)
 
+diff --git a/tools/testing/selftests/kvm/arm64/vgic_irq.c b/tools/testing/selftests/kvm/arm64/vgic_irq.c
+index f4ac28d53747..a09dd423c2d7 100644
+--- a/tools/testing/selftests/kvm/arm64/vgic_irq.c
++++ b/tools/testing/selftests/kvm/arm64/vgic_irq.c
+@@ -620,18 +620,12 @@ static void kvm_routing_and_irqfd_check(struct kvm_vm *vm,
+ 	 * that no actual interrupt was injected for those cases.
+ 	 */
+ 
+-	for (f = 0, i = intid; i < (uint64_t)intid + num; i++, f++) {
+-		fd[f] = eventfd(0, 0);
+-		TEST_ASSERT(fd[f] != -1, __KVM_SYSCALL_ERROR("eventfd()", fd[f]));
+-	}
++	for (f = 0, i = intid; i < (uint64_t)intid + num; i++, f++)
++		fd[f] = kvm_new_eventfd();
+ 
+ 	for (f = 0, i = intid; i < (uint64_t)intid + num; i++, f++) {
+-		struct kvm_irqfd irqfd = {
+-			.fd  = fd[f],
+-			.gsi = i - MIN_SPI,
+-		};
+ 		assert(i <= (uint64_t)UINT_MAX);
+-		vm_ioctl(vm, KVM_IRQFD, &irqfd);
++		kvm_assign_irqfd(vm, i - MIN_SPI, fd[f]);
+ 	}
+ 
+ 	for (f = 0, i = intid; i < (uint64_t)intid + num; i++, f++) {
+diff --git a/tools/testing/selftests/kvm/include/kvm_util.h b/tools/testing/selftests/kvm/include/kvm_util.h
+index 373912464fb4..4f7bf8f000bb 100644
+--- a/tools/testing/selftests/kvm/include/kvm_util.h
++++ b/tools/testing/selftests/kvm/include/kvm_util.h
+@@ -18,6 +18,7 @@
+ #include <asm/atomic.h>
+ #include <asm/kvm.h>
+ 
++#include <sys/eventfd.h>
+ #include <sys/ioctl.h>
+ 
+ #include "kvm_util_arch.h"
+@@ -496,6 +497,45 @@ static inline int vm_get_stats_fd(struct kvm_vm *vm)
+ 	return fd;
+ }
+ 
++static inline int __kvm_irqfd(struct kvm_vm *vm, uint32_t gsi, int eventfd,
++			      uint32_t flags)
++{
++	struct kvm_irqfd irqfd = {
++		.fd = eventfd,
++		.gsi = gsi,
++		.flags = flags,
++		.resamplefd = -1,
++	};
++
++	return __vm_ioctl(vm, KVM_IRQFD, &irqfd);
++}
++
++static inline void kvm_irqfd(struct kvm_vm *vm, uint32_t gsi, int eventfd,
++			      uint32_t flags)
++{
++	int ret = __kvm_irqfd(vm, gsi, eventfd, flags);
++
++	TEST_ASSERT_VM_VCPU_IOCTL(!ret, KVM_IRQFD, ret, vm);
++}
++
++static inline void kvm_assign_irqfd(struct kvm_vm *vm, uint32_t gsi, int eventfd)
++{
++	kvm_irqfd(vm, gsi, eventfd, 0);
++}
++
++static inline void kvm_deassign_irqfd(struct kvm_vm *vm, uint32_t gsi, int eventfd)
++{
++	kvm_irqfd(vm, gsi, eventfd, KVM_IRQFD_FLAG_DEASSIGN);
++}
++
++static inline int kvm_new_eventfd(void)
++{
++	int fd = eventfd(0, 0);
++
++	TEST_ASSERT(fd >= 0, __KVM_SYSCALL_ERROR("eventfd()", fd));
++	return fd;
++}
++
+ static inline void read_stats_header(int stats_fd, struct kvm_stats_header *header)
+ {
+ 	ssize_t ret;
 diff --git a/tools/testing/selftests/kvm/x86/xen_shinfo_test.c b/tools/testing/selftests/kvm/x86/xen_shinfo_test.c
-index 287829f850f7..34d180cf4eed 100644
+index 34d180cf4eed..23909b501ac2 100644
 --- a/tools/testing/selftests/kvm/x86/xen_shinfo_test.c
 +++ b/tools/testing/selftests/kvm/x86/xen_shinfo_test.c
-@@ -548,14 +548,11 @@ int main(int argc, char *argv[])
+@@ -547,11 +547,8 @@ int main(int argc, char *argv[])
+ 	int irq_fd[2] = { -1, -1 };
  
  	if (do_eventfd_tests) {
- 		irq_fd[0] = eventfd(0, 0);
-+		TEST_ASSERT(irq_fd[0] >= 0, __KVM_SYSCALL_ERROR("eventfd()", irq_fd[0]));
-+
- 		irq_fd[1] = eventfd(0, 0);
-+		TEST_ASSERT(irq_fd[1] >= 0, __KVM_SYSCALL_ERROR("eventfd()", irq_fd[1]));
- 
--		/* Unexpected, but not a KVM failure */
--		if (irq_fd[0] == -1 || irq_fd[1] == -1)
--			do_evtchn_tests = do_eventfd_tests = false;
--	}
+-		irq_fd[0] = eventfd(0, 0);
+-		TEST_ASSERT(irq_fd[0] >= 0, __KVM_SYSCALL_ERROR("eventfd()", irq_fd[0]));
 -
--	if (do_eventfd_tests) {
+-		irq_fd[1] = eventfd(0, 0);
+-		TEST_ASSERT(irq_fd[1] >= 0, __KVM_SYSCALL_ERROR("eventfd()", irq_fd[1]));
++		irq_fd[0] = kvm_new_eventfd();
++		irq_fd[1] = kvm_new_eventfd();
+ 
  		irq_routes.info.nr = 2;
  
- 		irq_routes.entries[0].gsi = 32;
+@@ -569,15 +566,8 @@ int main(int argc, char *argv[])
+ 
+ 		vm_ioctl(vm, KVM_SET_GSI_ROUTING, &irq_routes.info);
+ 
+-		struct kvm_irqfd ifd = { };
+-
+-		ifd.fd = irq_fd[0];
+-		ifd.gsi = 32;
+-		vm_ioctl(vm, KVM_IRQFD, &ifd);
+-
+-		ifd.fd = irq_fd[1];
+-		ifd.gsi = 33;
+-		vm_ioctl(vm, KVM_IRQFD, &ifd);
++		kvm_assign_irqfd(vm, 32, irq_fd[0]);
++		kvm_assign_irqfd(vm, 33, irq_fd[1]);
+ 
+ 		struct sigaction sa = { };
+ 		sa.sa_handler = handle_alrm;
 -- 
 2.49.0.1151.ga128411c76-goog
 
