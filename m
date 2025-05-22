@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E84E9AC04D2
-	for <lists+xen-devel@lfdr.de>; Thu, 22 May 2025 08:51:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.992954.1376413 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1124DAC04E0
+	for <lists+xen-devel@lfdr.de>; Thu, 22 May 2025 08:55:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.992967.1376422 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uHzlt-0007T3-UB; Thu, 22 May 2025 06:51:17 +0000
+	id 1uHzqD-00083v-GL; Thu, 22 May 2025 06:55:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 992954.1376413; Thu, 22 May 2025 06:51:17 +0000
+Received: by outflank-mailman (output) from mailman id 992967.1376422; Thu, 22 May 2025 06:55:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uHzlt-0007PW-Qs; Thu, 22 May 2025 06:51:17 +0000
-Received: by outflank-mailman (input) for mailman id 992954;
- Thu, 22 May 2025 06:51:16 +0000
+	id 1uHzqD-00081Z-Dc; Thu, 22 May 2025 06:55:45 +0000
+Received: by outflank-mailman (input) for mailman id 992967;
+ Thu, 22 May 2025 06:55:43 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=ix6t=YG=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uHzls-0007PQ-KN
- for xen-devel@lists.xenproject.org; Thu, 22 May 2025 06:51:16 +0000
-Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
- [2a00:1450:4864:20::534])
+ id 1uHzqB-00081T-H4
+ for xen-devel@lists.xenproject.org; Thu, 22 May 2025 06:55:43 +0000
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [2a00:1450:4864:20::635])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 274fd9c4-36d9-11f0-a2fb-13f23c93f187;
- Thu, 22 May 2025 08:51:14 +0200 (CEST)
-Received: by mail-ed1-x534.google.com with SMTP id
- 4fb4d7f45d1cf-6016d401501so10176009a12.2
- for <xen-devel@lists.xenproject.org>; Wed, 21 May 2025 23:51:14 -0700 (PDT)
+ id c6d7c324-36d9-11f0-a2fb-13f23c93f187;
+ Thu, 22 May 2025 08:55:42 +0200 (CEST)
+Received: by mail-ej1-x635.google.com with SMTP id
+ a640c23a62f3a-ad574992fcaso757010766b.1
+ for <xen-devel@lists.xenproject.org>; Wed, 21 May 2025 23:55:42 -0700 (PDT)
 Received: from [10.1.248.227] ([80.188.125.198])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6004d501e19sm10401525a12.22.2025.05.21.23.51.11
+ a640c23a62f3a-ad52d4d27e8sm1035336566b.174.2025.05.21.23.55.40
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 21 May 2025 23:51:11 -0700 (PDT)
+ Wed, 21 May 2025 23:55:41 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,167 +45,115 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 274fd9c4-36d9-11f0-a2fb-13f23c93f187
+X-Inumbo-ID: c6d7c324-36d9-11f0-a2fb-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1747896674; x=1748501474; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1747896941; x=1748501741; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=Bd4mK2u+CfFvys3QXUw7XXnjE55NQfDRpthBE3KeDDE=;
-        b=biG6yi5TiSlYFoFeFv5c2pAZ2WkcaHTMDywvbjrN+P7Y+vNz4D8HAhsPt+80y8rduM
-         LTcbBLtRCrU4T9Zc0ASThA2bxX62Cd6Cw2CWP0ASjOWxgqRMPwmuwrlJgCctE1ZNmZSr
-         o6CDdQ4rI9IyaVy9kBWqgXq+SakI5xy/Aqv6CZW2ZpAkNc4ABz8z3sZpgtXpSqZHnFB6
-         27gBp1RKWV6c6oxvHyOoC3O3YdWB39GEOp1Cpcs7PjoZ5xRzoImc5dACk6MrHzZ0wkbo
-         8sueviXQbqqFmDKjqzg102mUxVnQTxfoLfXIBUuU+YWHzeohsmQaBM3mEfng3kMXDhQV
-         sWSQ==
+        bh=osglV1z/xntQZBv5YjuhrlhT7HeQkSny8853lD77kYU=;
+        b=C/2PILbq5TU4pyU/7LCx7Cg4lgIgbAKSWPJkFz8Q5BWAEExFG6kas+aN2shUtP9weI
+         hlnrD64mI1jpGC/SWEmDbcOJjk9vxbfU+erkH09yZaxjU1HymZnmUtqZFiesWPvb+j8e
+         0iMuS3JAbaCXc+GUH9KzwLnqe7Wf+QvFQG9P985eaeZ/k3Y/NIK4+QEVsYE5Vd1lRZAO
+         66HPG/XE3fGW/spaV/rJfT8VlfaRE2A9tLhq80tgyaOI/vpIwRYFLdBgXUGRcVBZMOFx
+         lbvpP6GOcdv6XohiY5Q+7o9uIv0tz0J36if7xk3TKHGVWiZetrrxae/561/NshpokcdM
+         EmwA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747896674; x=1748501474;
+        d=1e100.net; s=20230601; t=1747896941; x=1748501741;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Bd4mK2u+CfFvys3QXUw7XXnjE55NQfDRpthBE3KeDDE=;
-        b=NHBpBkzM11tQMVVy+13hGM7rbPApP327fmfBObmxqQXX+s51guQJjlkkhDjM77st3o
-         JnHhYaNyvDrB5OChp2nUWpWpqG5EKNwKYX644zkDqTHdfmkXNOSGa7SnO1ZsXVpV1LIj
-         PLO/28ExYFr8cxvCo043FRovCAjpsB4kzIAuhom5Ym6co7vHIc3AQ0avf/BajG27dsNj
-         qR7XviTUJKSgPNOyEBdG7LLWqDYaE9ZlDgGdUqV31BFe8LlDpuyEp9P+8F0oUXsQwO9G
-         e4zYGMMKMbo9/ttOk+hPj0rJiFo6VcE4E8IxHimtEzXCQbN+bBuOEmA1QlSAAYCKrkIZ
-         tvyg==
-X-Forwarded-Encrypted: i=1; AJvYcCVuKCHox9WbLO8rq+sZrT7dpGoMZlqwdUaBaa5bKlau1m91guTcftDTPTdvZjJEl6051Qi+aElordM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxaDY468gGg5sf4gEqmsf+RLCmmJ0C9GlV0nWu0VdWwAd/FJ0a0
-	V2+VZoUdmqPWF9DS/MieOvpl6hL8GRCtgWabGyNSwXPAu0p2tNVQDxiLiJIoQSKGmA==
-X-Gm-Gg: ASbGncsyqMuQ4+Q9p/mmSRBqGf8kIf82UwKA0yjH5KFiwu7TUYrV8qSeItW6i/7n6M/
-	n8t9Lc73qq6lb0+qFLLS/xzcsaR6LJRa69gnFoGaA32zKdnG2VzQhcyRhCJRLzYa6Zu7oYvdBt6
-	928pm/Egc/PRA7F4BHFi1vPLP6SCMDF9FhFfSkMFnc6glfa9v8AlyHqnpyEVx60tTUZGTfpHmUq
-	JSECcJ0PHnsagJTmzaIbOxJmQWqdwI7e3/CScAWT7LvM2XY0nANSASnjY0DVUggtMdWKs3mf1Id
-	d8Tlyk/W2PXLqnXn+pi1T5lVP8mbQXoWnyt6XMqQQw5Z00jkcCYb6ESjzt603SSPNx+NXG2A
-X-Google-Smtp-Source: AGHT+IHrHFNLJNTvFNdFHpx9TiLdPBXsI3TDI4zyzd1hfPOA/ApNrmXzT8gfyXxPxK8t+wz7HZZx1g==
-X-Received: by 2002:a05:6402:50cf:b0:5f7:f55a:e5e1 with SMTP id 4fb4d7f45d1cf-600900e014bmr19760528a12.24.1747896672037;
-        Wed, 21 May 2025 23:51:12 -0700 (PDT)
-Message-ID: <eaec44d4-8ff5-4b58-8b8e-d7a4d526a5bc@suse.com>
-Date: Thu, 22 May 2025 08:51:11 +0200
+        bh=osglV1z/xntQZBv5YjuhrlhT7HeQkSny8853lD77kYU=;
+        b=pSKoMVHXvWRBMxWebxzuMS/pJbZLkQhuf2B6PG1zGEHD9QkHC7fO2MVvlixefBH5eD
+         K3FMvzRWWv5NtmGeWS+dCsLCvx+fW8pJ3U/annP6ovFB46QlsvEaND8NMiYJjqeTfcVo
+         FsFJqhM+DsNwlYijYiC3KB3GBThy2/KKveft2sHcuS8FG/LYd6UrlypDMg0eNx0JfpJp
+         ulumHSlbPSZHJtFrJ+Ft9YEDZ5MGAGRkh1Ph+kiLiKKSOOMldD5D1Cb48PG5nZ7egwyh
+         svnlIIhWtGJAmvFZQ8/iDh5jA4bYfNOTUpsTmBs1OMYU/U3C+Rwv95rqR6m5Uw4z1M/D
+         hXxg==
+X-Forwarded-Encrypted: i=1; AJvYcCUvLSSMTVXGDcSz1pb8V4kpoDqzvzY0CXqBjN6JqfBH38CCWbqRwu/BwzrmmMtYPpqtYUIy8lcl934=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YygbJntrMTQI4nAM1XMrRelZsqNEiG34j73ae41qyzpqE7sPaP1
+	4A0fWHtEzz4yBYiUewpvKwh3iMyCYAegzyqn6hP9svMkqaxZHMGZcV3TtCRq6gFuRw==
+X-Gm-Gg: ASbGncsO2zCqDQwGa/0JktMEhg0T9qhai58bI8flOCL0kTspjL/wqySsCWVL1pShnB+
+	kettO14o/mDI8bAtJxeCn/vUrlPb0E7fFDVSMsqRHDpgk2qO0OTJFopArc+esroyAlLsT+lNQ7T
+	XTXzorJxtwhR5y/900UmGoOcnUIRS6aqZlfTiVOerKaWoWwMJorI5I1iHpZzPN2vxcP70MEQfEa
+	VPh47W0Xcm4EHQL0l/uqY9o85kAfnTLFkMQTOISRcZL8Y3kP+55+SyBGG8lAGTthY+h20yhegdV
+	wCEtFKcQVNXMjj/PNpvIS0zZM69fFsCNVcmhWt5s6o6MpLx5aj5iNQVVjUTj/g==
+X-Google-Smtp-Source: AGHT+IGVkUbAlS9lEJ+XZw8jgU+7FnmxHaBQhf1u5qgBeqH/zjmkazBWlG+RIMpBoeh51rPz2hKKmA==
+X-Received: by 2002:a17:907:60cd:b0:ad5:a203:b6ba with SMTP id a640c23a62f3a-ad5a203b86dmr678213166b.43.1747896941534;
+        Wed, 21 May 2025 23:55:41 -0700 (PDT)
+Message-ID: <8ac2d7fc-214b-40dd-a5d2-6e1dc8c0e4ad@suse.com>
+Date: Thu, 22 May 2025 08:55:39 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 15/15] xen/xenpm: Adapt SET/GET_CPUFREQ_CPPC
- xen_sysctl_pm_op for amd-cppc driver
-To: "Penny, Zheng" <penny.zheng@amd.com>
-Cc: "Huang, Ray" <Ray.Huang@amd.com>,
+Subject: Re: [PATCH v6 03/12] x86/hyperlaunch: initial support for hyperlaunch
+ device tree
+To: Alejandro Vallejo <agarciav@amd.com>
+Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <20250414074056.3696888-1-Penny.Zheng@amd.com>
- <20250414074056.3696888-16-Penny.Zheng@amd.com>
- <239e1256-a47d-44e1-a335-2199b880f5d7@suse.com>
- <DM4PR12MB845151DE494A9E7EF888E402E199A@DM4PR12MB8451.namprd12.prod.outlook.com>
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Jason Andryuk <jason.andryuk@amd.com>, Denis Mukhin <dmukhin@ford.com>,
+ xen-devel@lists.xenproject.org
+References: <20250429123629.20839-1-agarciav@amd.com>
+ <20250429123629.20839-4-agarciav@amd.com>
+ <6f821e28-b182-4d27-b2db-e3be80910c12@suse.com>
+ <DA20I56ZKPJ4.36GD5TP5BRZM6@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <DM4PR12MB845151DE494A9E7EF888E402E199A@DM4PR12MB8451.namprd12.prod.outlook.com>
+In-Reply-To: <DA20I56ZKPJ4.36GD5TP5BRZM6@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 22.05.2025 07:59, Penny, Zheng wrote:
-> [Public]
-> 
->> -----Original Message-----
->> From: Jan Beulich <jbeulich@suse.com>
->> Sent: Wednesday, April 30, 2025 11:02 PM
->> To: Penny, Zheng <penny.zheng@amd.com>
->> Cc: Huang, Ray <Ray.Huang@amd.com>; Andrew Cooper
->> <andrew.cooper3@citrix.com>; Roger Pau Monné <roger.pau@citrix.com>; xen-
->> devel@lists.xenproject.org
->> Subject: Re: [PATCH v4 15/15] xen/xenpm: Adapt SET/GET_CPUFREQ_CPPC
->> xen_sysctl_pm_op for amd-cppc driver
->>
->> On 14.04.2025 09:40, Penny Zheng wrote:
->>> +    /* Only allow values if params bit is set. */
->>> +    if ( (!(set_cppc->set_params & XEN_SYSCTL_CPPC_SET_DESIRED) &&
->>> +          set_cppc->desired) ||
->>> +         (!(set_cppc->set_params & XEN_SYSCTL_CPPC_SET_MINIMUM) &&
->>> +          set_cppc->minimum) ||
->>> +         (!(set_cppc->set_params & XEN_SYSCTL_CPPC_SET_MAXIMUM) &&
->>> +          set_cppc->maximum) ||
->>> +         (!(set_cppc->set_params &
->> XEN_SYSCTL_CPPC_SET_ENERGY_PERF) &&
->>> +          set_cppc->energy_perf) )
->>> +        return -EINVAL;
+On 21.05.2025 19:24, Alejandro Vallejo wrote:
+> On Wed May 21, 2025 at 5:00 PM CEST, Jan Beulich wrote:
+>> On 29.04.2025 14:36, Alejandro Vallejo wrote:
+>>> --- a/xen/common/domain-builder/fdt.c
+>>> +++ b/xen/common/domain-builder/fdt.c
+>>> @@ -13,6 +13,36 @@
+>>>  
+>>>  #include "fdt.h"
+>>>  
+>>> +static int __init find_hyperlaunch_node(const void *fdt)
+>>> +{
+>>> +    int hv_node = fdt_path_offset(fdt, "/chosen/hypervisor");
 >>> +
->>> +    /* Activity window not supported in MSR */
->>> +    if ( set_cppc->set_params & XEN_SYSCTL_CPPC_SET_ACT_WINDOW )
->>> +        return -EOPNOTSUPP;
+>>> +    if ( hv_node >= 0 )
+>>> +    {
+>>> +        /* Anything other than zero indicates no match */
+>>> +        if ( fdt_node_check_compatible(fdt, hv_node, "hypervisor,xen") )
+>>> +            return -ENODATA;
 >>> +
->>> +    /* Return if there is nothing to do. */
->>> +    if ( set_cppc->set_params == 0 )
->>> +        return 0;
->>> +
->>> +    epp = per_cpu(epp_init, cpu);
->>> +    /*
->>> +     * Apply presets:
->>> +     * XEN_SYSCTL_CPPC_SET_DESIRED reflects whether desired perf is set,
->> which
->>> +     * is also the flag to distiguish between passive mode and active mode.
->>> +     * When it is set, CPPC in passive mode, only
->>> +     * XEN_SYSCTL_CPPC_SET_PRESET_NONE could be chosen, where
->> min_perf =
->>> +     * lowest_nonlinear_perf to ensures performance in P-state range.
->>> +     * when it is not set, CPPC in active mode, three different profile
->>> +     *
->> XEN_SYSCTL_CPPC_SET_PRESET_POWERSAVE/PERFORMANCE/BALANC
->> E are provided,
->>> +     * where min_perf = lowest_perf having T-state range of performance.
->>> +     */
+>>> +        return hv_node;
+>>> +    }
+>>> +    else
 >>
->> I fear I'm struggling to parse some of this, making it difficult to suggest possible
->> adjustments (as I can't derive what is meant to be said). Plus where's the term T-
->> state coming from all of the sudden?
->>
+>> Please can such unnecessary (and potentially misleading) "else" be omitted?
 > 
-> Pasting description on "lowest_perf" and "nonlinear_lowest_perf":
-> "
-> Lowest Nonlinear Performance is the lowest performance level at which nonlinear power savings are achieved, for example, due to the combined effects of voltage and frequency scaling. Above this threshold, lower performance levels should be generally more energy efficient than higher performance levels. In traditional terms, this represents the P-state range of performance levels.
-> 
-> Lowest Performance is the absolute lowest performance level of the platform. Selecting a performance level lower than the lowest nonlinear performance level may actually cause an efficiency penalty, but should reduce the instantaneous power consumption of the processor. In traditional terms, this represents the T-state range of performance levels.
-> "
+> Not sure how it could be misleading,
 
-And again "T-state". The only T-ish thing I'm aware of is something that
-was never implemented in Xen's power management. Hence I fear I continue
-to be confused. (And btw, I searched PM vol 2 for the term, and it doesn't
-occur there at all.) As a result ...
-
-> IMO, in passive mode, we rely on Xen governor to do performance tuning. And Xen governor is thinking based on P-states. So I take non-linear lowest perf as min_perf
-> While in active mode, hardware itself is calculating suitable performance/frequency automatically based on workload, thermal, voltage, and etc. So maybe setting min_perf with lowest perf is a better choice?
-
-...answering this question isn't possible for me (yet).
-
->>> +        ret = get_amd_cppc_para(policy->cpu,
->>> + &op->u.get_para.u.cppc_para);
->>> +
->>> +    if ( strncmp(op->u.get_para.scaling_driver, XEN_HWP_DRIVER_NAME,
->>> +                 CPUFREQ_NAME_LEN) &&
->>> +         strncmp(op->u.get_para.scaling_driver,
->> XEN_AMD_CPPC_EPP_DRIVER_NAME,
->>> +                 CPUFREQ_NAME_LEN) )
->>>      {
->>>          if ( !(scaling_available_governors =
->>>                 xzalloc_array(char, gov_num * CPUFREQ_NAME_LEN)) )
->>
->> Isn't it the non-EPP driver which is governor-independent?
->>
-> 
-> EPP driver is governor-independent, indicating active mode.
-
-I'm confused here as well then: Early in the series, before the EPP driver
-is introduced (i.e. as preparation for the non-EPP one) you suppress use
-and reporting of the governor. Whereas for the EPP driver while you (also)
-don't use the governor as such, you use the choice of governor to determine
-the EPP setting. In that sense to me the EPP driver is less governor-
-independent than the non-EPP one. That's what I tried to express in my
-earlier reply.
+For context, just briefly looking at such a construct may leave one with
+the (wrong) impression that both branches of the conditional can fall through
+to subsequent code. This may be less of an issue as long as both sides are
+reasonably short, but then it is imo better to avoid the pattern altogether.
 
 Jan
 
-> Hardware itself will automatically calculate and set frequency. User only shall set min_perf, max_perf, and EPP at the beginning.
-> EPP is a preference ratio value towards performance over powersave, on the scale of 0-255, 0 as 100% percentage favoring performance, while 255 as 100% percentage favoring powersave
-> Non-EPP driver is still relying on Xen governor to do the tuning.
+> but...
 > 
->> Jan
+>> As ...
+>>
+>>> +    {
+>>> +        /* Look for dom0less config */
+>>> +        int node, chosen_node = fdt_path_offset(fdt, "/chosen");
+>>
+>> ... these will need to move to function scope then, one of the two may want
+>> folding with "hv_node" above.
+> 
+> ... there is indeed a more compact form the function could take. Noted.
+> 
+> Cheers,
+> Alejandro
 
 
