@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B823DAC0DC8
-	for <lists+xen-devel@lfdr.de>; Thu, 22 May 2025 16:12:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.994076.1377120 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B110AC0DF8
+	for <lists+xen-devel@lfdr.de>; Thu, 22 May 2025 16:23:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.994090.1377136 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uI6ep-0000vy-Vd; Thu, 22 May 2025 14:12:27 +0000
+	id 1uI6oy-00035F-V3; Thu, 22 May 2025 14:22:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 994076.1377120; Thu, 22 May 2025 14:12:27 +0000
+Received: by outflank-mailman (output) from mailman id 994090.1377136; Thu, 22 May 2025 14:22:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uI6ep-0000tV-Sz; Thu, 22 May 2025 14:12:27 +0000
-Received: by outflank-mailman (input) for mailman id 994076;
- Thu, 22 May 2025 14:12:26 +0000
+	id 1uI6oy-00032H-Rs; Thu, 22 May 2025 14:22:56 +0000
+Received: by outflank-mailman (input) for mailman id 994090;
+ Thu, 22 May 2025 14:22:55 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ckVG=YG=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1uI6eo-0000MS-Kg
- for xen-devel@lists.xenproject.org; Thu, 22 May 2025 14:12:26 +0000
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [2a00:1450:4864:20::62c])
+ id 1uI6ox-0002zG-PP
+ for xen-devel@lists.xenproject.org; Thu, 22 May 2025 14:22:55 +0000
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
+ [2a00:1450:4864:20::633])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c9babec6-3716-11f0-a2fb-13f23c93f187;
- Thu, 22 May 2025 16:12:26 +0200 (CEST)
-Received: by mail-ej1-x62c.google.com with SMTP id
- a640c23a62f3a-acbb85ce788so1570544766b.3
- for <xen-devel@lists.xenproject.org>; Thu, 22 May 2025 07:12:26 -0700 (PDT)
+ id 40a33811-3718-11f0-a2fb-13f23c93f187;
+ Thu, 22 May 2025 16:22:55 +0200 (CEST)
+Received: by mail-ej1-x633.google.com with SMTP id
+ a640c23a62f3a-ad56cbc7b07so664067166b.0
+ for <xen-devel@lists.xenproject.org>; Thu, 22 May 2025 07:22:55 -0700 (PDT)
 Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ad52d047749sm1081122966b.8.2025.05.22.07.12.24
+ a640c23a62f3a-ad52d06b497sm1073300766b.42.2025.05.22.07.22.54
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 22 May 2025 07:12:24 -0700 (PDT)
+ Thu, 22 May 2025 07:22:54 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c9babec6-3716-11f0-a2fb-13f23c93f187
+X-Inumbo-ID: 40a33811-3718-11f0-a2fb-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1747923146; x=1748527946; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1747923775; x=1748528575; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=5WT1DkfFx7R81SVI8Q9vhMQ65BedfWeBngMhtjc/b2Q=;
-        b=AKX8bV/SoWVdCjAW65127GZjESsKqsoT9FQ1b7mo72rKQLkChr6wZ5lmNpnhcCK1RD
-         zdwZcOVZ6G5PPTypZ4i5VL05aboulLN6VMvCJ1vKi5nVeFnIK+xf4SEMBgawMOWNy+PL
-         yLeGw/pKXACNNly+ICIXLqcqMv0DZgIDRipig=
+        bh=0Ix5KPQ+kVCua0Abuh8XfJpV2LATPjGLg5HSelMo16c=;
+        b=FqbgJYza002xkTUT47CL+5Gv08EnxbQzKlPpnb5hvFS4i+w1/Ox8bWTLWiq98FPsw8
+         s5OhVfpXlRTBTPEx9hL8dHEtbIP/O7Dv2CdAjCH+ZRil/fzwaWpmrKk86vqCN9J5hjTx
+         pClj59AjBQCb2QPcI1i6DN8ZX4Yrhv4RRhaaA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747923146; x=1748527946;
+        d=1e100.net; s=20230601; t=1747923775; x=1748528575;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=5WT1DkfFx7R81SVI8Q9vhMQ65BedfWeBngMhtjc/b2Q=;
-        b=b00RYatHwfOK+ff+Wy2BzqqEsn88g2IibxpSxoaUaIBPo5V4C5fpmbV+o5tNgBctQP
-         R1CSEvHNr7QiVClQYTI5u9DBqXMqJri01KLPzMuJNY34zGC8XrMLV/IQgfd0aiMEVTfg
-         lIkC5iYYP1yJTc5dRq1LR8wmL/eiDRPZ4gRXADRbBUGcANWSXe3ZLMYAcWWX9RBe5HS1
-         FrpvITsxuPZOM/HPa/fHIGIe4XCOe3cFcAk25QelFuRtZm1ccjb0iOaw0yJ8akHGynkn
-         HaHGusOb4/jvexFpoPBw+/uBJP76SSLxbaO6OIYmtvGStJEngx9fimM8no3E24pjVBWD
-         iO9Q==
-X-Forwarded-Encrypted: i=1; AJvYcCWvdTwhZf6MyMsFMiObRyN4St/1LQzXO0n+5GyPgMthPAs+DveQDwC/rm8AQjLMAgmLpTlYgLL3fOA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyhY2lbMgmCyqKlRPWEmsTSPWxY8S+s/z/KVoAS7aCu6sLe2Rmz
-	o946yVQ577M4/nanyBTtNhk7uIZa5YSvLDdCbaQ/VdtaUdFS9nBFrS7IQwHDdvWe06c=
-X-Gm-Gg: ASbGncumLaoNxhN65RsLph3V1ItWwkecTUag3M6Bngu20hw+4cTWVKEgNrm5O3jsmJM
-	FIWbX9/1hKu5eL2o10qHgBdjhmej3wJfmgqsu9AoE7xLcfFKnPzY6FBSZCbNfZuz4dknkEF/Ven
-	L+zWMzYCRBFZPQrUfav1wMSRge7V2igM1Ho9KXvOaPXCkutq4TCDMEgIFs4VQZ1zbRIt/fJk49E
-	SwIMO3Of0V3K/bFlC0d0AJM9Jd2lXteUlNFlPhLbSNhWMmUGiYQ7BWA2+oLyNo/nDU5A+ClZG9I
-	oHle5PyuZUTXWcWx3wXFxuKUFGObZqdggysRXY43jyrVEvPBdJeUnJNQaG3//Qw2kZfQvHqna2p
-	qyrZF0gnaBmIl9r1ZXxRH1y7alSI=
-X-Google-Smtp-Source: AGHT+IFzFozByInXjK711z2SmgVoJDgP+jbq+yfahBG3zec5Y3bpOA/R548xnRLW6gVGtX2NawndsQ==
-X-Received: by 2002:a17:907:6096:b0:ac7:e5c4:1187 with SMTP id a640c23a62f3a-ad52d45acebmr2290383066b.11.1747923145720;
-        Thu, 22 May 2025 07:12:25 -0700 (PDT)
-Message-ID: <4391373f-55d4-4e37-aa97-16b2e82fefc9@citrix.com>
-Date: Thu, 22 May 2025 15:12:24 +0100
+        bh=0Ix5KPQ+kVCua0Abuh8XfJpV2LATPjGLg5HSelMo16c=;
+        b=dOtzyBlrPOogaDgz1uFwah7wAoqXM/Z3Y4EUsgvu8gBVFUkhjUMMOZ1MNSySwZzwaH
+         XEIVG805KRWxdAS/A32N0eZSbrYFm+T7gZxN9Fx8376Uw2LBEMkGlPWyHek+7PPxOq/H
+         dEWFYnMcyTgA7t+Uw0hzyjJoRtQfj+FHVBl4O0EtMyxhy4MRWwnqtddlR/ub2EXFgM4W
+         g9mKG0l2cXWGaluRfsTB5e5p6IT92BESHuAUuk3UvctdzbMwRIo0t6lsdhqorrwBPhu8
+         HCxYWE+fIEjnd5FsXdEssRTseomr8p3JiEDHocyQ4DG+m2gZsNRHyBjK5N2WI4+qsZiT
+         JPKg==
+X-Forwarded-Encrypted: i=1; AJvYcCWXqe7e0/RE9H7g/bIIqBfR57oJKUK4dusPpNfL0uQLfurZZsOQQESLVIRMKlHn9/Xz6cLTJeydeQs=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz6Wd4jv2PdgI/pii7UK7z+NBM7vczPgb1ojiZUTrYiE3FAst2Y
+	49jOJfNmoPWxvzD0646qFk2DtgSDkTzKy/mjvsK2kv9qpXK4T9QSwuY11N75VHvJUT8=
+X-Gm-Gg: ASbGncuMwWELdsE7PlQjF/tCmnUfTVadk8bOGRVuYPXewVcITm9m8tbN35RosJZV6gs
+	yHDkX3uCNEMkAYXsaVXEtyZaoss1/gTBbCJrAr0w4LMBbY1Mj5bAz/lnrvgf4fAsCvcBqrggIZf
+	90HwycRN5RCo8heIxIKfdI8ACAdmIQW/dbqezJARE2Il72uevpqRr4jwjXZYDPsZ0ZX4S21754N
+	oMNNqI3MpeDfI2E6nQEgPbysNA1YE50+OgQnTOZHXK99hbhecxKamAG+/hKtpkbHBoVouj4SDSL
+	JVZt5hd+LlxnVjax+p9aPoE1/056akDR8Louawn8nZ61GR2+4lrFWwrB3KBrcz8/5XnvzTJ/NsH
+	92lfRDsElRQto/d9V
+X-Google-Smtp-Source: AGHT+IG9jJvmklsdYecQkZ3q4OJUM3b3nBNP1034iCLd8MQFDiZCcAmX19fOcFfHbEf2/qU72TqcHQ==
+X-Received: by 2002:a17:907:97cf:b0:ad2:4eef:d33a with SMTP id a640c23a62f3a-ad52d49b55cmr2251551066b.15.1747923774662;
+        Thu, 22 May 2025 07:22:54 -0700 (PDT)
+Message-ID: <ee13677a-e4ea-4d11-92d0-196b86a7df48@citrix.com>
+Date: Thu, 22 May 2025 15:22:53 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] x86/vpci: fix off-by-one
+Subject: Re: [PATCH 2/2] x86/vpci: refuse to map BARs at position 0
 To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
 Cc: Jan Beulich <jbeulich@suse.com>
 References: <20250522140356.5653-1-roger.pau@citrix.com>
- <20250522140356.5653-2-roger.pau@citrix.com>
+ <20250522140356.5653-3-roger.pau@citrix.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -134,16 +134,55 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20250522140356.5653-2-roger.pau@citrix.com>
+In-Reply-To: <20250522140356.5653-3-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 On 22/05/2025 3:03 pm, Roger Pau Monne wrote:
-> rangeset_remove_range() uses inclusive ranges, and hence the end of the
-> range should be calculated using PFN_DOWN(), not PFN_UP().
->
-> Fixes: 4acab25a9300 ('x86/vpci: fix handling of BAR overlaps with non-hole regions')
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> A BAR at position 0 is not initialized (not positioned).  While Xen could
+> attempt to map it into the p2m, marking it as mapped will prevent dom0 to
+> change the position of the BAR, as the vPCI code has a shortcomming of not
 
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Minor grammar point.  "prevent dom0 from changing".
+
+> allowing to write to BAR registers while the BAR is mapped on the p2m.
+>
+> Workaround this limitation by returning false from pci_check_bar() if the
+> BAR address is 0, thus causing the bar->enabled field to also be set to
+> false and allowing bar_write() to change the BAR position.
+>
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> ---
+>  xen/arch/x86/pci.c | 9 +++++++++
+>  1 file changed, 9 insertions(+)
+>
+> diff --git a/xen/arch/x86/pci.c b/xen/arch/x86/pci.c
+> index 26bb7f6a3c3a..39fd5a16a4aa 100644
+> --- a/xen/arch/x86/pci.c
+> +++ b/xen/arch/x86/pci.c
+> @@ -101,6 +101,15 @@ int pci_conf_write_intercept(unsigned int seg, unsigned int bdf,
+>  
+>  bool pci_check_bar(const struct pci_dev *pdev, mfn_t start, mfn_t end)
+>  {
+> +    /*
+> +     * Refuse to map BARs at position 0, those are not initialized.  This might
+
+"0, as they are not"
+
+> +     * be required by Linux, that can reposition BARs with memory decoding
+
+"Linux, which may reposition".
+
+Otherwise, Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+> +     * enabled.  By returning false here bar->enabled will be set to false, and
+> +     * bar_write() will work as expected.
+> +     */
+> +    if ( mfn_eq(start, _mfn(0)) )
+> +        return false;
+> +
+>      /*
+>       * Check if BAR is not overlapping with any memory region defined
+>       * in the memory map.
+
 
