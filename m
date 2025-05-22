@@ -2,38 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC0F7AC0F33
-	for <lists+xen-devel@lfdr.de>; Thu, 22 May 2025 17:00:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.994169.1377232 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD470AC0F75
+	for <lists+xen-devel@lfdr.de>; Thu, 22 May 2025 17:08:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.994202.1377248 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uI7PG-0004Np-64; Thu, 22 May 2025 15:00:26 +0000
+	id 1uI7X7-0006fl-V6; Thu, 22 May 2025 15:08:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 994169.1377232; Thu, 22 May 2025 15:00:26 +0000
+Received: by outflank-mailman (output) from mailman id 994202.1377248; Thu, 22 May 2025 15:08:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uI7PG-0004KC-1Y; Thu, 22 May 2025 15:00:26 +0000
-Received: by outflank-mailman (input) for mailman id 994169;
- Thu, 22 May 2025 15:00:24 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uI7X7-0006df-Rd; Thu, 22 May 2025 15:08:33 +0000
+Received: by outflank-mailman (input) for mailman id 994202;
+ Thu, 22 May 2025 15:08:32 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ckVG=YG=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1uI7PE-0003kR-B6
- for xen-devel@lists.xenproject.org; Thu, 22 May 2025 15:00:24 +0000
-Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
- [2a00:1450:4864:20::534])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7cf75ed1-371d-11f0-a2fb-13f23c93f187;
- Thu, 22 May 2025 17:00:24 +0200 (CEST)
-Received: by mail-ed1-x534.google.com with SMTP id
- 4fb4d7f45d1cf-601f278369bso9150926a12.1
- for <xen-devel@lists.xenproject.org>; Thu, 22 May 2025 08:00:24 -0700 (PDT)
-Received: from localhost.localdomain (host-92-26-98-202.as13285.net.
- [92.26.98.202]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6005ac32a7fsm10550119a12.56.2025.05.22.08.00.22
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 22 May 2025 08:00:22 -0700 (PDT)
+ <SRS0=isH4=YG=arm.com=bertrand.marquis@srs-se1.protection.inumbo.net>)
+ id 1uI7X6-0006dU-L4
+ for xen-devel@lists.xenproject.org; Thu, 22 May 2025 15:08:32 +0000
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTP
+ id 9eb9640d-371e-11f0-b892-0df219b8e170;
+ Thu, 22 May 2025 17:08:30 +0200 (CEST)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3CDFB1A2D;
+ Thu, 22 May 2025 08:08:15 -0700 (PDT)
+Received: from C3HXLD123V.arm.com (unknown [10.57.50.224])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 840413F673;
+ Thu, 22 May 2025 08:08:27 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,112 +42,91 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7cf75ed1-371d-11f0-a2fb-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1747926023; x=1748530823; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Lr3f4QVXBQIDCvAtm/J7FXqG+fuDtkqVk40mCLaFjM8=;
-        b=rXjMiK9JnMJRdG4PnhsWg2h4PlT+CAz96h165SNajgQoZNEin7atLn6c/iWpVjpTsi
-         Wv962se85Z+3GjDberiNeUkE9LoYBJ0BaeE+yyUCjs6hBH5luQ9SMJEwqsC/BRkTzvsg
-         k5Z6enxHV6YgqDl9Dtuaqyx6GAMtJtQETr04k=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747926023; x=1748530823;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=Lr3f4QVXBQIDCvAtm/J7FXqG+fuDtkqVk40mCLaFjM8=;
-        b=IAflsfANmTnaLivvIBKFLpXUjWqcqIAnmWoeYOB8daT0wpnxO+1DlA/s7nHyY6z3+f
-         9Hj5ctAlqJla8CPY04sC4B9Bj4iKfy/ejr+csO+mukAn5+MFN89pacWs/qoUrcei9UoC
-         hgRIsl2f3vU4A35JNtpD4OGtcqffB9RT01YzjqUj7PoG8dZVZ85s6+/zPsuTiTgFZYRu
-         Q/J0c+Ox+5LySfZDSI9YrnEvGTHmRDj2RmV0RdzYUik9LxPRQY6SoCbDMXe5NkoExNli
-         nXRRV7X6Vtwv3+TSnivLSRP69AY3NAwSpkKzit+Q5KvWV9sf0oS04cFYIc7DKd2BQSVm
-         q1vw==
-X-Gm-Message-State: AOJu0YwGuMX2wPBcgZrIhwkWrOW5V9hJd5D/UkFUy6tMEnH3/BBbc4cI
-	0HmLKUxmECNToJaKG2weg+DgcePIj+xMYbvxreIa/gG3jd+m2q9ELEF3GhBMaZhO/4XJ3E6vgiZ
-	ABEgs
-X-Gm-Gg: ASbGncuclKk9nRqynWHj8RCsTd+nvINalFWzDkYTgd+f9XYVsrLYzhwA5unCTP0bURh
-	V3r/p3lfZ8fK/z/Q5hdx55HD41eF8c671Eu0aDSqpqfbHeYM1rcOQc1x6q3fOkwBDkBwoRkK4fC
-	pHHFXG6RapxSW369miThBx7OWFQ6rU66fPM78A3bfRfX16qo8nMaPjZ+Zit1GCRNYBlDnRXA85P
-	qxWKLez+VlWtxPlX71n/008Q61hpKxh86NxTGksfYzO8fQ/dUkXL2IlCSS4i72j6rVxFDaJZdsm
-	zOA6bxFRz+rcmjXjjORP3bY8Z+7WHKtr9T/7TVl2uKLCmrnIm68JIuu9oBuCsd1F8MubbxOwzXZ
-	V5vpVaqg6eemavYXw1cthqX+l
-X-Google-Smtp-Source: AGHT+IGwN3+4ZGB1CCik2Dp+hZVMQfvh8ozffLpfJ+B7Xqh8901rhiCpfdZYsF8r17CSvH0+QTy0rw==
-X-Received: by 2002:a05:6402:50cc:b0:601:9dc3:2795 with SMTP id 4fb4d7f45d1cf-6019dc32e17mr18470941a12.7.1747926023055;
-        Thu, 22 May 2025 08:00:23 -0700 (PDT)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <JBeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH 3/3] x86/alternatives: Introduce init_or_livepatch_ro_after_init
-Date: Thu, 22 May 2025 16:00:15 +0100
-Message-Id: <20250522150015.555492-4-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20250522150015.555492-1-andrew.cooper3@citrix.com>
-References: <20250522150015.555492-1-andrew.cooper3@citrix.com>
+X-Inumbo-ID: 9eb9640d-371e-11f0-b892-0df219b8e170
+From: Bertrand Marquis <bertrand.marquis@arm.com>
+To: xen-devel@lists.xenproject.org
+Cc: jens.wiklander@linaro.org,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Volodymyr Babchuk <volodymyr_babchuk@epam.com>
+Subject: [PATCH v6 0/6] FF-A VM to VM support
+Date: Thu, 22 May 2025 17:08:01 +0200
+Message-ID: <cover.1747925287.git.bertrand.marquis@arm.com>
+X-Mailer: git-send-email 2.47.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-... and use it for ideal_nops and toolchain_nops_are_ideal; both of which are
-invariant after arch_init_ideal_nops() has run.
+This patch serie adds support to use FF-A between VM for communications
+using indirect messages.
 
-No functional change.
+It adds a Kconfig parameter to enable this feature and marks it as
+experimental as for now there is no system to restrict communication
+rights between VM using this system.
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
----
- xen/arch/x86/alternative.c  | 4 ++--
- xen/include/xen/livepatch.h | 2 ++
- 2 files changed, 4 insertions(+), 2 deletions(-)
+It also adds support to use VM to VM communications using FF-A even if
+there is no firmware support for FF-A. As this feature enables FF-A
+support in all cases, we also introduce a new command line parameter to
+allow the user to force which tee is to be used between FF-A and Optee
+to have a solution to enable optee support if FF-A VM to VM is enabled.
 
-diff --git a/xen/arch/x86/alternative.c b/xen/arch/x86/alternative.c
-index ff7d83c0ddbd..058a8b22d41f 100644
---- a/xen/arch/x86/alternative.c
-+++ b/xen/arch/x86/alternative.c
-@@ -47,7 +47,7 @@ static const unsigned char p6_nops[] init_or_livepatch_const = {
- };
- #endif
- 
--static const unsigned char *ideal_nops init_or_livepatch_data = p6_nops;
-+static const unsigned char *ideal_nops init_or_livepatch_ro_after_init = p6_nops;
- 
- #ifdef HAVE_AS_NOPS_DIRECTIVE
- 
-@@ -56,7 +56,7 @@ asm ( ".pushsection .init.rodata, \"a\", @progbits\n\t"
-       "toolchain_nops: .nops " __stringify(ASM_NOP_MAX) "\n\t"
-       ".popsection\n\t");
- extern char toolchain_nops[ASM_NOP_MAX];
--static bool init_or_livepatch_read_mostly toolchain_nops_are_ideal;
-+static bool init_or_livepatch_ro_after_init toolchain_nops_are_ideal;
- 
- #else
- # define toolchain_nops_are_ideal false
-diff --git a/xen/include/xen/livepatch.h b/xen/include/xen/livepatch.h
-index d074a5bebecc..62f8db2b55b4 100644
---- a/xen/include/xen/livepatch.h
-+++ b/xen/include/xen/livepatch.h
-@@ -29,6 +29,7 @@ struct xen_sysctl_livepatch_op;
- #define init_or_livepatch_constrel
- #define init_or_livepatch_data
- #define init_or_livepatch_read_mostly __read_mostly
-+#define init_or_livepatch_ro_after_init __ro_after_init
- #define init_or_livepatch
- 
- /* Convenience define for printk. */
-@@ -153,6 +154,7 @@ void revert_payload_tail(struct payload *data);
- #define init_or_livepatch_constrel    __initconstrel
- #define init_or_livepatch_data        __initdata
- #define init_or_livepatch_read_mostly __initdata
-+#define init_or_livepatch_ro_after_init __initdata
- #define init_or_livepatch             __init
- 
- static inline int livepatch_op(struct xen_sysctl_livepatch_op *op)
+Changes since v5:
+- coding style fixes
+- rework version negociation to use the context lock
+- split probe into fw and vm to vm probe to make code clearer
+- add some R-b from Jens
+
+Changes since v4:
+- fix typos and optimize command line parameter
+- split VM to VM support in 2 patches to ease review
+- organize ffa contexts in a chain list to be able to build the partinfo
+  result without taking the global domain lock
+- introduce a maximum number of SPs to prevent holding the CPU for too
+  long during partinfo call
+- use an atomic to store the number of FF-A VMs
+- prevent potential overflows in indirect message handling
+- fix copy bug in indirect message introduced in v4
+
+Changes since v3:
+- reintroduce firmare v1.0 support in partinfo
+- fix a possible TOC/TOU issue in indirect message handling
+- typos and small fixes
+
+Changes since v2:
+- Rework partition_info_get implementation
+- Taint Xen and display a message when VM to VM is enabled
+- Various fixes explained in each patch
+
+Changes since v1 (rfc):
+- add a tee command line parameter
+- use IS_ENABLED instead of ifdef when possible
+- rebase on latest staging
+
+
+Bertrand Marquis (6):
+  xen/arm: Create tee command line parameter
+  xen/arm: ffa: Rework partinfo_get implementation
+  xen/arm: ffa: Introduce VM to VM support
+  xen/arm: ffa: Add buffer full notification support
+  xen/arm: ffa: Add indirect message between VM
+  xen/arm: ffa: Enable VM to VM without firmware
+
+ docs/misc/xen-command-line.pandoc  |  14 ++
+ xen/arch/arm/include/asm/tee/tee.h |   4 +
+ xen/arch/arm/tee/Kconfig           |  11 ++
+ xen/arch/arm/tee/ffa.c             | 115 +++++++++---
+ xen/arch/arm/tee/ffa_msg.c         | 117 ++++++++++--
+ xen/arch/arm/tee/ffa_notif.c       | 140 +++++++-------
+ xen/arch/arm/tee/ffa_partinfo.c    | 286 ++++++++++++++++++++---------
+ xen/arch/arm/tee/ffa_private.h     | 157 +++++++++++++---
+ xen/arch/arm/tee/tee.c             |  32 ++++
+ 9 files changed, 660 insertions(+), 216 deletions(-)
+
 -- 
-2.39.5
+2.47.1
 
 
