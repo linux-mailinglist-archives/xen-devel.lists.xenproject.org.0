@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BDF43AC0D88
-	for <lists+xen-devel@lfdr.de>; Thu, 22 May 2025 16:04:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.994037.1377077 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A3378AC0D89
+	for <lists+xen-devel@lfdr.de>; Thu, 22 May 2025 16:04:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.994038.1377091 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uI6Wr-0005O0-Ey; Thu, 22 May 2025 14:04:13 +0000
+	id 1uI6Wu-0005le-NM; Thu, 22 May 2025 14:04:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 994037.1377077; Thu, 22 May 2025 14:04:13 +0000
+Received: by outflank-mailman (output) from mailman id 994038.1377091; Thu, 22 May 2025 14:04:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uI6Wr-0005HZ-Bh; Thu, 22 May 2025 14:04:13 +0000
-Received: by outflank-mailman (input) for mailman id 994037;
- Thu, 22 May 2025 14:04:12 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uI6Wu-0005im-JS; Thu, 22 May 2025 14:04:16 +0000
+Received: by outflank-mailman (input) for mailman id 994038;
+ Thu, 22 May 2025 14:04:15 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=GVKv=YG=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1uI6Wq-0005FK-CZ
- for xen-devel@lists.xenproject.org; Thu, 22 May 2025 14:04:12 +0000
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [2a00:1450:4864:20::32e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a2e4d617-3715-11f0-a2fb-13f23c93f187;
- Thu, 22 May 2025 16:04:11 +0200 (CEST)
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-44b1f5b917fso991515e9.3
- for <xen-devel@lists.xenproject.org>; Thu, 22 May 2025 07:04:11 -0700 (PDT)
+ id 1uI6Wt-0005FJ-2D
+ for xen-devel@lists.xenproject.org; Thu, 22 May 2025 14:04:15 +0000
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
+ [2a00:1450:4864:20::431])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a3fd8eab-3715-11f0-b892-0df219b8e170;
+ Thu, 22 May 2025 16:04:13 +0200 (CEST)
+Received: by mail-wr1-x431.google.com with SMTP id
+ ffacd0b85a97d-3a37a243388so3013307f8f.1
+ for <xen-devel@lists.xenproject.org>; Thu, 22 May 2025 07:04:13 -0700 (PDT)
 Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
  by smtp.gmail.com with UTF8SMTPSA id
- ffacd0b85a97d-3a35ca8896dsm23041682f8f.73.2025.05.22.07.04.09
+ ffacd0b85a97d-3a35ca5a7cbsm23663863f8f.35.2025.05.22.07.04.11
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 22 May 2025 07:04:10 -0700 (PDT)
+ Thu, 22 May 2025 07:04:11 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a2e4d617-3715-11f0-a2fb-13f23c93f187
+X-Inumbo-ID: a3fd8eab-3715-11f0-b892-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1747922651; x=1748527451; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1747922652; x=1748527452; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=0FktwtEW0Fmw4rJHIOF3iKnfB159BdV//CCT1areduY=;
-        b=WxjEoPvaVWa9gq9LLUDmBhAb6Ac5EeJZmyWg0oYGMmI4kiS62SbS1mYKbRHpKNnIsD
-         5+XcBlP9+I9IyNhkhSpvgKcf8x0BzXVPvS/n6C9QUNSKg1UHiTkEdQ6mUBLNnvrwgvZT
-         0m5KabIv8xYGCA4m2fsljgzF0w52aqSSyYQEA=
+        bh=AtChMzwK5++U3Ymy4zTRlMVtRVgKCf/lu2BCXNEbl+o=;
+        b=HutKwm5YkmDHOKtirX2SGvDRUM2yxYBpZy0cF8+YmrGPnAsGBcZT0cV5FzwXDpSJqi
+         Rcdk/79se3EzvL2282NTz36HySTE0XQwLOol4VKRHmoOUtBacxrqbKNl5kFUEGZxDI+b
+         WuVOsIElzfZIdEz7/mWWOWXbAfEm2ensjZgzM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747922651; x=1748527451;
+        d=1e100.net; s=20230601; t=1747922652; x=1748527452;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=0FktwtEW0Fmw4rJHIOF3iKnfB159BdV//CCT1areduY=;
-        b=Awc95+IA4P729VYQnkXibMzrjFLRtTdbh5Tif9Ik6Tyexr1Ce3+GSNkZKVQWmK9cZc
-         fN/DCODlHVQws9/VBpZDSuT3l9Z/p5H55Ht0JpQhTZ9RXHoWcr1Kdij3TolM/tt1sPhr
-         YOPW0Rp+pcCN9Y8GixJ7KfFyZTnKJZhmb2rnqacIp98vuC4B8cb05xNZAvdX/z013Ull
-         Bo/BbKgq5shVtAfGYnckl7wQ2LttCLTgU+8baUB0Hel2Z0ThmM6pFd0Vw54WUryKfqNR
-         y3F34BS+wrhZrdfVNyy164fx4qbzN4+PaUh4ndkZx8Z2+LIEbKAyqu6hpv3hoojHdr2s
-         z+zg==
-X-Gm-Message-State: AOJu0YzWYNl5xYdBYPY1ajAz8R53MI35P5wWEWMjPIh6pTVn4g5bKz0u
-	tHLW1V7kJwe7qlaBQo1w8hV3jzzZDZAir9tNVXhfjGV9e8W2hzsplpsB+YdtXq5I/xQIaRXDAHf
-	he2K/
-X-Gm-Gg: ASbGnct2qUFM5d9afsOEeTYVJrKlFTNiJonONJkikLqZRKlaCX/TGAkZrzoQMXwYug8
-	vlU0DdyNKZkmy23suxwGGZMc4NNLqX6iS8ZuuAqy2yLadBmVJVmZIJs+dgqXJeAim/DkswphMuz
-	xj06fidk8Ona8pAofbUg2SkWeC4sxyX6BZKKiwN73PG3H8lYXH3chWc1K44xS6NP6BxQVwNxUBQ
-	80xMt8/YeIVmRC1uWx8KRyxbPF3+Fq8iucKxCjdB0X4PugT0Yn7pvwPLbihStosaMVReFWXQhPC
-	zZ36L+vOTuTVO9AarVNtUjgKaBCiSnx1p1feX/zxkh5p5jXo/hxyislZiEShJZWlwT58HL6OfCF
-	N4asxwbhbpt4MfC6eyMLyKpSXCd/mbA==
-X-Google-Smtp-Source: AGHT+IF3POTYR7vwEVPnwq1opDQsoIMzXDAVykkFgf+t7uK8/81M9xz8IcuajOR1zLPq+mVUT9YB8A==
-X-Received: by 2002:a05:6000:4212:b0:3a3:7ba5:960e with SMTP id ffacd0b85a97d-3a37ba598e7mr10049647f8f.59.1747922650637;
-        Thu, 22 May 2025 07:04:10 -0700 (PDT)
+        bh=AtChMzwK5++U3Ymy4zTRlMVtRVgKCf/lu2BCXNEbl+o=;
+        b=UswjwW3WRx8LoFHRn4WvUlR17xZ0zm3zfaVXtpiM3BKs7wyrZPuKarfGkE9FMH2AW+
+         5r7AKjHQCFQZLs3QrR9uTu4Y+mRtTBNERctXtsxi9PRflxpf6B6o0s2I4ujq8Mc/9I5G
+         1PKSeSeO3nY3LiWPhA+SdKP0wpnazcQwAIlR9zHcCaJ1deDrPurp/mNJH9eIlINjAYFx
+         p6aSwO95Aer3TNPgclWgqpHguwoQ7lAVtBgxPSjTFWUHkB3CFIcyzlR+YcEaZUWOlbdT
+         PY9SsL8L8v2MYiY4+M81bJ6I7SLT8KIpog4tGfS9xk4vYFwWjdTGn9CU7SdpLFr4zR+i
+         cNiA==
+X-Gm-Message-State: AOJu0YzQu5A/t8IZRm28TaOOqzvDO/qSWoEQWr+p3lq8112TOAsVPAAj
+	vPGopeIwggSvk830tJeEYi/KOu/f6zCR2uBI86s/DPj6b3LjD61FVxD1MTumcN1vzn9MOFFxdU3
+	LfB4A
+X-Gm-Gg: ASbGncv8ycQvl7gGplI+dfbvOTQKTIEwvt/ibmtSp2ZtGje+0texSo7MiAengU8OJng
+	kzlhRJ54t6VWVwO9qP95gLgJyRPYGfQ3JNtMYNBw/fIxqDeQw7j5ZPDV7L1/kjvIy1/BqeGcZZY
+	ATXiN2USqIIFi38Fh1gjIpDfNoppjkX4yQrZiiKMa/TDF3amzTNlQvKnF9vVMGymPtF+aPOTqnF
+	G89bhuPGkw3vawSqCpGeYhI22gMwctuG8EdtTmuftAp6sTUNFlTM5tsceoU2YB2LyIEFhMkeEYt
+	HQr8vyQV6b+8oquft3/anN/6CkZE0u98bGg8K/8A+6jK4omyzbRB2Cu1lBuXZLaPO/B95TQWHxn
+	YZFICyVKBUTjBWMOwvB0=
+X-Google-Smtp-Source: AGHT+IEQSmb2g2Tp5adBDx1cXodRHDdoZCyJp+7sZXMZRxMGwnl4cqfYrfNVxG+DHBoMHXMs2rQN7Q==
+X-Received: by 2002:a05:6000:400f:b0:39f:175b:a68d with SMTP id ffacd0b85a97d-3a35c808b3dmr22770652f8f.11.1747922652530;
+        Thu, 22 May 2025 07:04:12 -0700 (PDT)
 From: Roger Pau Monne <roger.pau@citrix.com>
 To: xen-devel@lists.xenproject.org
 Cc: Roger Pau Monne <roger.pau@citrix.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: [PATCH 1/2] x86/vpci: fix off-by-one
-Date: Thu, 22 May 2025 16:03:55 +0200
-Message-ID: <20250522140356.5653-2-roger.pau@citrix.com>
+Subject: [PATCH 2/2] x86/vpci: refuse to map BARs at position 0
+Date: Thu, 22 May 2025 16:03:56 +0200
+Message-ID: <20250522140356.5653-3-roger.pau@citrix.com>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <20250522140356.5653-1-roger.pau@citrix.com>
 References: <20250522140356.5653-1-roger.pau@citrix.com>
@@ -94,28 +94,40 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-rangeset_remove_range() uses inclusive ranges, and hence the end of the
-range should be calculated using PFN_DOWN(), not PFN_UP().
+A BAR at position 0 is not initialized (not positioned).  While Xen could
+attempt to map it into the p2m, marking it as mapped will prevent dom0 to
+change the position of the BAR, as the vPCI code has a shortcomming of not
+allowing to write to BAR registers while the BAR is mapped on the p2m.
 
-Fixes: 4acab25a9300 ('x86/vpci: fix handling of BAR overlaps with non-hole regions')
+Workaround this limitation by returning false from pci_check_bar() if the
+BAR address is 0, thus causing the bar->enabled field to also be set to
+false and allowing bar_write() to change the BAR position.
+
 Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 ---
- xen/arch/x86/pci.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ xen/arch/x86/pci.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
 diff --git a/xen/arch/x86/pci.c b/xen/arch/x86/pci.c
-index afaf9fe1c053..26bb7f6a3c3a 100644
+index 26bb7f6a3c3a..39fd5a16a4aa 100644
 --- a/xen/arch/x86/pci.c
 +++ b/xen/arch/x86/pci.c
-@@ -131,7 +131,7 @@ int pci_sanitize_bar_memory(struct rangeset *r)
-             continue;
+@@ -101,6 +101,15 @@ int pci_conf_write_intercept(unsigned int seg, unsigned int bdf,
  
-         rc = rangeset_remove_range(r, PFN_DOWN(entry->addr),
--                                   PFN_UP(entry->addr + entry->size - 1));
-+                                   PFN_DOWN(entry->addr + entry->size - 1));
-         if ( rc )
-             return rc;
-     }
+ bool pci_check_bar(const struct pci_dev *pdev, mfn_t start, mfn_t end)
+ {
++    /*
++     * Refuse to map BARs at position 0, those are not initialized.  This might
++     * be required by Linux, that can reposition BARs with memory decoding
++     * enabled.  By returning false here bar->enabled will be set to false, and
++     * bar_write() will work as expected.
++     */
++    if ( mfn_eq(start, _mfn(0)) )
++        return false;
++
+     /*
+      * Check if BAR is not overlapping with any memory region defined
+      * in the memory map.
 -- 
 2.49.0
 
