@@ -2,35 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B139AC0F74
-	for <lists+xen-devel@lfdr.de>; Thu, 22 May 2025 17:08:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.994208.1377307 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B256AC0FEF
+	for <lists+xen-devel@lfdr.de>; Thu, 22 May 2025 17:27:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.994273.1377330 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uI7XJ-0008A4-Jk; Thu, 22 May 2025 15:08:45 +0000
+	id 1uI7ot-0004tE-7B; Thu, 22 May 2025 15:26:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 994208.1377307; Thu, 22 May 2025 15:08:45 +0000
+Received: by outflank-mailman (output) from mailman id 994273.1377330; Thu, 22 May 2025 15:26:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uI7XJ-00087h-DH; Thu, 22 May 2025 15:08:45 +0000
-Received: by outflank-mailman (input) for mailman id 994208;
- Thu, 22 May 2025 15:08:44 +0000
+	id 1uI7ot-0004qA-4T; Thu, 22 May 2025 15:26:55 +0000
+Received: by outflank-mailman (input) for mailman id 994273;
+ Thu, 22 May 2025 15:26:54 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=isH4=YG=arm.com=bertrand.marquis@srs-se1.protection.inumbo.net>)
- id 1uI7XI-0006dU-C2
- for xen-devel@lists.xenproject.org; Thu, 22 May 2025 15:08:44 +0000
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id a631e9ad-371e-11f0-b892-0df219b8e170;
- Thu, 22 May 2025 17:08:42 +0200 (CEST)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 03B101A32;
- Thu, 22 May 2025 08:08:28 -0700 (PDT)
-Received: from C3HXLD123V.arm.com (unknown [10.57.50.224])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E79E03F673;
- Thu, 22 May 2025 08:08:40 -0700 (PDT)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=ix6t=YG=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uI7os-0004q4-1t
+ for xen-devel@lists.xenproject.org; Thu, 22 May 2025 15:26:54 +0000
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
+ [2a00:1450:4864:20::634])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 2ef3da2f-3721-11f0-b892-0df219b8e170;
+ Thu, 22 May 2025 17:26:51 +0200 (CEST)
+Received: by mail-ej1-x634.google.com with SMTP id
+ a640c23a62f3a-ad51ef2424bso1301331066b.0
+ for <xen-devel@lists.xenproject.org>; Thu, 22 May 2025 08:26:50 -0700 (PDT)
+Received: from [10.0.5.8] ([213.235.133.42]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ad52d498d05sm1106889966b.149.2025.05.22.08.26.35
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 22 May 2025 08:26:50 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,397 +44,245 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a631e9ad-371e-11f0-b892-0df219b8e170
-From: Bertrand Marquis <bertrand.marquis@arm.com>
-To: xen-devel@lists.xenproject.org
-Cc: jens.wiklander@linaro.org,
-	Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Michal Orzel <michal.orzel@amd.com>
-Subject: [PATCH v6 6/6] xen/arm: ffa: Enable VM to VM without firmware
-Date: Thu, 22 May 2025 17:08:07 +0200
-Message-ID: <6e85a4a2de01aee23a366f33b3a856b52171bc40.1747925288.git.bertrand.marquis@arm.com>
-X-Mailer: git-send-email 2.47.1
-In-Reply-To: <cover.1747925287.git.bertrand.marquis@arm.com>
-References: <cover.1747925287.git.bertrand.marquis@arm.com>
+X-Inumbo-ID: 2ef3da2f-3721-11f0-b892-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1747927610; x=1748532410; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=w3IKMIDfnGzqMyfIXj44a4dok1PV18dQ4mP+tjrajBc=;
+        b=IlB6QErKLrACjiwxv3tSDVXS3lWTc2QA9KVDDQB6RYWlnCQa0LAE7O5Gz6KUkQoYxY
+         kNmmTbLyqJ1kYYxRd2AO8ukFbEdsLeOLYINjTAJbRw1iqjJLONYzOI3MH2lkR6yKU4F5
+         PIoQH7AW+zhGXYTd3n02BQj4XHsKuA7zZyfAUvC8fHVA+c6UPwAsOLio15qep8GGNdhq
+         L0BOkGdt9Y2ni0bykFuhB0jZqs/zyO6Rf2YMHKz1lPmT+NY+KK0T44tL/rE6ACz/N7KC
+         dgevsEvDc98OmseU6SdfZt/Z81mYpSILzkobD8+tWKumey00dHQMU67TDu2uGceHG0zQ
+         sndA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1747927610; x=1748532410;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=w3IKMIDfnGzqMyfIXj44a4dok1PV18dQ4mP+tjrajBc=;
+        b=wnKcG9wQvsTYjKLIaXIJRrwS8H8lDlBqYOpYReEVkEgDegjoiwqJPXVzqCPaWIMSmC
+         oS1HIJuwHmgyEyu0V3zFcNZRp2ETGnvbpmlUDjL+LvLSbQSF176IN15vZEbaWfMWc5Mr
+         PgiTK6IxZTcNJvJ87rENOE0+nx8M8An5Wj47/Yja0G6XPxXHRegfq4/8coiJXKpK+Hm9
+         2weLr/gSr9IogNlp9ULbfW5OPnhXhZqSeS0ayIxIg6fhxtrRC5F1HMt/VCVeeGd2516z
+         cbizSW3N5RsWNqvlJubRN6gCG8m7Q4Y2zGjsBFJIUudARmv1O8iIhANDS4Zh6qf2+V89
+         jPKw==
+X-Forwarded-Encrypted: i=1; AJvYcCUZUmjHjl/jMrJyVVSKnLPWmfS/msI+/+im/3dzBztr7jAkGvFwIaCkS4uIM/7szgkKg1uPgiC7wwk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyQlhsgVEVtfGv7NlS2/s2wmDnV4NILDVDYA8ScYVdTH0kAwHNJ
+	DIevgvXnYH1hduw2m0oepgfEA/EQgYsYiLj/kFoFaYu6NUl/SmrpANjm09hHWh95lA==
+X-Gm-Gg: ASbGncsvPZzpdF32OxSbHIxnIL/6+ipk9siBEhHlVs9qS4UQXXgI6ESTX3YRC5MLcy9
+	QjyfDHzmHasOacyKB+wn38uNqatILCDrC1jzaIvDMiPd6DVbsHIm8Wyh4BGm6BNgZhiGm8BRBF5
+	s1spBLo3buZsP0PE59PdwIhBecMiNvyc6OHd24eA30gsRmL5no3+uobivps0+cT3WGhnCy3ana2
+	CbYSaJkxAnySL/k+QyJI/QVacQPn3eRY0bXdULo1y6rcPSIhMR2h9qx3SPf2V1dEr7whtpOAh+A
+	bCHTub8Xc/KAn9s4Ndk=
+X-Google-Smtp-Source: AGHT+IGjyEHs7fWOD4uwDOriIouD9c4tgfl0GETpwffTGQvJnz6EJnplxTs2+3kVFUkIY3CYmvN00Q==
+X-Received: by 2002:a17:907:7f03:b0:ad1:77ae:d18e with SMTP id a640c23a62f3a-ad52d606a59mr2284826766b.56.1747927610403;
+        Thu, 22 May 2025 08:26:50 -0700 (PDT)
+Message-ID: <058d0610-0f48-4366-b1bc-4e31ecc79084@suse.com>
+Date: Thu, 22 May 2025 17:26:24 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 09/14] xen/riscv: aplic_init() implementation
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Romain Caritey <Romain.Caritey@microchip.com>, xen-devel@lists.xenproject.org
+References: <cover.1747843009.git.oleksii.kurochko@gmail.com>
+ <cf642d2ce83fdd9f32638b1c45ad5fef26d4992b.1747843009.git.oleksii.kurochko@gmail.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <cf642d2ce83fdd9f32638b1c45ad5fef26d4992b.1747843009.git.oleksii.kurochko@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-When VM to VM support is activated and there is no suitable FF-A support
-in the firmware, enable FF-A support for VMs to allow using it for VM to
-VM communications.
-If there is OP-TEE running in the secure world and using the non FF-A
-communication system, having CONFIG_FFA_VM_TO_VM could be non functional
-(if optee is probed first) or OP-TEE could be non functional (if FF-A is
-probed first) so it is not recommended to activate the configuration
-option for such systems.
+On 21.05.2025 18:03, Oleksii Kurochko wrote:
+> --- /dev/null
+> +++ b/xen/arch/riscv/aplic-priv.h
+> @@ -0,0 +1,34 @@
+> +/* SPDX-License-Identifier: MIT */
+> +
+> +/*
+> + * xen/arch/riscv/aplic-priv.h
+> + *
+> + * Private part of aplic.h header.
+> + *
+> + * RISC-V Advanced Platform-Level Interrupt Controller support
+> + *
+> + * Copyright (c) Microchip.
+> + * Copyright (c) Vates.
+> + */
+> +
+> +#ifndef ASM__RISCV_PRIV_APLIC_H
+> +#define ASM__RISCV_PRIV_APLIC_H
 
-To make buffer full notification work between VMs when there is no
-firmware, rework the notification handling and modify the global flag to
-only be used as check for firmware notification support instead.
+Nit: This one conforms to neither prior nor current rules.
 
-Also split probe function into one for firmware and one for vm to vm to
-make the implementation clearer.
+> --- a/xen/arch/riscv/aplic.c
+> +++ b/xen/arch/riscv/aplic.c
+> @@ -9,19 +9,113 @@
+>   * Copyright (c) 2024-2025 Vates
+>   */
+>  
+> +#include <xen/device_tree.h>
+>  #include <xen/errno.h>
+>  #include <xen/init.h>
+>  #include <xen/irq.h>
+> +#include <xen/mm.h>
+>  #include <xen/sections.h>
+>  #include <xen/types.h>
+> +#include <xen/vmap.h>
+> +
+> +#include "aplic-priv.h"
+>  
+>  #include <asm/device.h>
+> +#include <asm/imsic.h>
+>  #include <asm/intc.h>
+> +#include <asm/riscv_encoding.h>
+> +
+> +#define APLIC_DEFAULT_PRIORITY  1
+> +
+> +/* The maximum number of wired interrupt sources supported by APLIC domain. */
+> +#define APLIC_MAX_NUM_WIRED_IRQ_SOURCES 1023
 
-Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
----
-Changes in v6:
-- split probe into fw and vm_to_vm probe
-Changes in v5:
-- init ctx list when there is no firmware
-- rework init a bit to prevent duplicates
-- Remove Jens R-b due to changes done
-Changes in v4:
-- Fix Optee to OP-TEE in commit message
-- Add Jens R-b
-Changes in v3:
-- fix typos in commit message
-- add spaces around <<
-- move notification id fix back into buffer full patch
-- fix | position in if
-Changes in v2:
-- replace ifdef with IS_ENABLED when possible
----
- xen/arch/arm/tee/ffa.c       |  91 ++++++++++++++++++------------
- xen/arch/arm/tee/ffa_notif.c | 104 ++++++++++++++++-------------------
- 2 files changed, 103 insertions(+), 92 deletions(-)
+Wait - what's "wired" here? There's only MSI you said elsewhere?
 
-diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
-index 6d71c665ac35..42dfc71a12d7 100644
---- a/xen/arch/arm/tee/ffa.c
-+++ b/xen/arch/arm/tee/ffa.c
-@@ -345,8 +345,9 @@ static int ffa_domain_init(struct domain *d)
-     struct ffa_ctx *ctx;
-     int ret;
- 
--    if ( !ffa_fw_version )
-+    if ( !IS_ENABLED(CONFIG_FFA_VM_TO_VM) && !ffa_fw_version )
-         return -ENODEV;
-+
-     /*
-      * We are using the domain_id + 1 as the FF-A ID for VMs as FF-A ID 0 is
-      * reserved for the hypervisor and we only support secure endpoints using
-@@ -477,38 +478,12 @@ static void ffa_init_secondary(void)
-     ffa_notif_init_interrupt();
- }
- 
--static bool ffa_probe(void)
-+static bool ffa_probe_fw(void)
- {
-     uint32_t vers;
-     unsigned int major_vers;
-     unsigned int minor_vers;
- 
--    /*
--     * FF-A often works in units of 4K pages and currently it's assumed
--     * that we can map memory using that granularity. See also the comment
--     * above the FFA_PAGE_SIZE define.
--     *
--     * It is possible to support a PAGE_SIZE larger than 4K in Xen, but
--     * until that is fully handled in this code make sure that we only use
--     * 4K page sizes.
--     */
--    BUILD_BUG_ON(PAGE_SIZE != FFA_PAGE_SIZE);
--
--    printk(XENLOG_INFO "ARM FF-A Mediator version %u.%u\n",
--           FFA_MY_VERSION_MAJOR, FFA_MY_VERSION_MINOR);
--
--    if ( IS_ENABLED(CONFIG_FFA_VM_TO_VM) )
--    {
--        /*
--         * When FFA VM to VM is enabled, the current implementation does not
--         * offer any way to limit which VM can communicate with which VM using
--         * FF-A.
--         * Signal this in the xen console and taint the system as insecure.
--         * TODO: Introduce a solution to limit what a VM can do through FFA.
--         */
--        printk(XENLOG_ERR "ffa: VM to VM is enabled, system is insecure !!\n");
--        add_taint(TAINT_MACHINE_INSECURE);
--    }
-     /*
-      * psci_init_smccc() updates this value with what's reported by EL-3
-      * or secure world.
-@@ -527,11 +502,6 @@ static bool ffa_probe(void)
-         goto err_no_fw;
-     }
- 
--    /* Some sanity check in case we update the version we support */
--    BUILD_BUG_ON(FFA_MIN_SPMC_VERSION > FFA_MY_VERSION);
--    BUILD_BUG_ON(FFA_VERSION_MAJOR(FFA_MIN_SPMC_VERSION) !=
--                                   FFA_MY_VERSION_MAJOR);
--
-     major_vers = FFA_VERSION_MAJOR(vers);
-     minor_vers = FFA_VERSION_MINOR(vers);
- 
-@@ -582,9 +552,6 @@ static bool ffa_probe(void)
-         goto err_rxtx_destroy;
- 
-     ffa_notif_init();
--    INIT_LIST_HEAD(&ffa_teardown_head);
--    INIT_LIST_HEAD(&ffa_ctx_head);
--    init_timer(&ffa_teardown_timer, ffa_teardown_timer_callback, NULL, 0);
- 
-     return true;
- 
-@@ -598,6 +565,58 @@ err_no_fw:
-     return false;
- }
- 
-+static bool ffa_probe_vm_to_vm(void)
-+{
-+    if ( !IS_ENABLED(CONFIG_FFA_VM_TO_VM) )
-+        return false;
-+
-+    /*
-+     * When FFA VM to VM is enabled, the current implementation does not
-+     * offer any way to limit which VM can communicate with which VM using
-+     * FF-A.
-+     * Signal this in the xen console and taint the system as insecure.
-+     * TODO: Introduce a solution to limit what a VM can do through FFA.
-+     */
-+    printk(XENLOG_ERR "ffa: VM to VM is enabled, system is insecure !!\n");
-+    add_taint(TAINT_MACHINE_INSECURE);
-+
-+    return true;
-+}
-+
-+static bool ffa_probe(void)
-+{
-+    /*
-+     * FF-A often works in units of 4K pages and currently it's assumed
-+     * that we can map memory using that granularity. See also the comment
-+     * above the FFA_PAGE_SIZE define.
-+     *
-+     * It is possible to support a PAGE_SIZE larger than 4K in Xen, but
-+     * until that is fully handled in this code make sure that we only use
-+     * 4K page sizes.
-+     */
-+    BUILD_BUG_ON(PAGE_SIZE != FFA_PAGE_SIZE);
-+
-+    /* Some sanity check in case we update the version we support */
-+    BUILD_BUG_ON(FFA_MIN_SPMC_VERSION > FFA_MY_VERSION);
-+    BUILD_BUG_ON(FFA_VERSION_MAJOR(FFA_MIN_SPMC_VERSION) !=
-+                                   FFA_MY_VERSION_MAJOR);
-+
-+    printk(XENLOG_INFO "ARM FF-A Mediator version %u.%u\n",
-+           FFA_MY_VERSION_MAJOR, FFA_MY_VERSION_MINOR);
-+
-+    if ( !ffa_probe_fw() && !ffa_probe_vm_to_vm() )
-+        return false;
-+
-+    if ( !ffa_fw_version )
-+        printk(XENLOG_INFO "ARM FF-A only available between VMs\n");
-+
-+    INIT_LIST_HEAD(&ffa_teardown_head);
-+    INIT_LIST_HEAD(&ffa_ctx_head);
-+    init_timer(&ffa_teardown_timer, ffa_teardown_timer_callback, NULL, 0);
-+
-+    return true;
-+}
-+
- static const struct tee_mediator_ops ffa_ops =
- {
-     .probe = ffa_probe,
-diff --git a/xen/arch/arm/tee/ffa_notif.c b/xen/arch/arm/tee/ffa_notif.c
-index f6df2f15bb00..86bef6b3b2ab 100644
---- a/xen/arch/arm/tee/ffa_notif.c
-+++ b/xen/arch/arm/tee/ffa_notif.c
-@@ -16,7 +16,7 @@
- 
- #include "ffa_private.h"
- 
--static bool __ro_after_init notif_enabled;
-+static bool __ro_after_init fw_notif_enabled;
- static unsigned int __ro_after_init notif_sri_irq;
- 
- int ffa_handle_notification_bind(struct cpu_user_regs *regs)
-@@ -27,21 +27,17 @@ int ffa_handle_notification_bind(struct cpu_user_regs *regs)
-     uint32_t bitmap_lo = get_user_reg(regs, 3);
-     uint32_t bitmap_hi = get_user_reg(regs, 4);
- 
--    if ( !notif_enabled )
--        return FFA_RET_NOT_SUPPORTED;
--
-     if ( (src_dst & 0xFFFFU) != ffa_get_vm_id(d) )
-         return FFA_RET_INVALID_PARAMETERS;
- 
-     if ( flags )    /* Only global notifications are supported */
-         return FFA_RET_DENIED;
- 
--    /*
--     * We only support notifications from SP so no need to check the sender
--     * endpoint ID, the SPMC will take care of that for us.
--     */
--    return ffa_simple_call(FFA_NOTIFICATION_BIND, src_dst, flags, bitmap_lo,
--                           bitmap_hi);
-+    if ( FFA_ID_IS_SECURE(src_dst >> 16) && fw_notif_enabled )
-+        return ffa_simple_call(FFA_NOTIFICATION_BIND, src_dst, flags,
-+                               bitmap_lo, bitmap_hi);
-+
-+    return FFA_RET_NOT_SUPPORTED;
- }
- 
- int ffa_handle_notification_unbind(struct cpu_user_regs *regs)
-@@ -51,18 +47,14 @@ int ffa_handle_notification_unbind(struct cpu_user_regs *regs)
-     uint32_t bitmap_lo = get_user_reg(regs, 3);
-     uint32_t bitmap_hi = get_user_reg(regs, 4);
- 
--    if ( !notif_enabled )
--        return FFA_RET_NOT_SUPPORTED;
--
-     if ( (src_dst & 0xFFFFU) != ffa_get_vm_id(d) )
-         return FFA_RET_INVALID_PARAMETERS;
- 
--    /*
--     * We only support notifications from SP so no need to check the
--     * destination endpoint ID, the SPMC will take care of that for us.
--     */
--    return  ffa_simple_call(FFA_NOTIFICATION_UNBIND, src_dst, 0, bitmap_lo,
--                            bitmap_hi);
-+    if ( FFA_ID_IS_SECURE(src_dst >> 16) && fw_notif_enabled )
-+        return  ffa_simple_call(FFA_NOTIFICATION_UNBIND, src_dst, 0, bitmap_lo,
-+                                bitmap_hi);
-+
-+    return FFA_RET_NOT_SUPPORTED;
- }
- 
- void ffa_handle_notification_info_get(struct cpu_user_regs *regs)
-@@ -71,7 +63,7 @@ void ffa_handle_notification_info_get(struct cpu_user_regs *regs)
-     struct ffa_ctx *ctx = d->arch.tee;
-     bool notif_pending;
- 
--    if ( !notif_enabled )
-+    if ( !IS_ENABLED(CONFIG_FFA_VM_TO_VM) && !fw_notif_enabled )
-     {
-         ffa_set_regs_error(regs, FFA_RET_NOT_SUPPORTED);
-         return;
-@@ -108,7 +100,7 @@ void ffa_handle_notification_get(struct cpu_user_regs *regs)
-     uint32_t w6 = 0;
-     uint32_t w7 = 0;
- 
--    if ( !notif_enabled )
-+    if ( !IS_ENABLED(CONFIG_FFA_VM_TO_VM) && !fw_notif_enabled )
-     {
-         ffa_set_regs_error(regs, FFA_RET_NOT_SUPPORTED);
-         return;
-@@ -120,7 +112,8 @@ void ffa_handle_notification_get(struct cpu_user_regs *regs)
-         return;
-     }
- 
--    if ( flags & ( FFA_NOTIF_FLAG_BITMAP_SP | FFA_NOTIF_FLAG_BITMAP_SPM ) )
-+    if ( fw_notif_enabled && (flags & ( FFA_NOTIF_FLAG_BITMAP_SP |
-+                                        FFA_NOTIF_FLAG_BITMAP_SPM )) )
-     {
-         struct arm_smccc_1_2_regs arg = {
-             .a0 = FFA_NOTIFICATION_GET,
-@@ -177,15 +170,14 @@ int ffa_handle_notification_set(struct cpu_user_regs *regs)
-     uint32_t bitmap_lo = get_user_reg(regs, 3);
-     uint32_t bitmap_hi = get_user_reg(regs, 4);
- 
--    if ( !notif_enabled )
--        return FFA_RET_NOT_SUPPORTED;
--
-     if ( (src_dst >> 16) != ffa_get_vm_id(d) )
-         return FFA_RET_INVALID_PARAMETERS;
- 
--    /* Let the SPMC check the destination of the notification */
--    return ffa_simple_call(FFA_NOTIFICATION_SET, src_dst, flags, bitmap_lo,
--                           bitmap_hi);
-+    if ( FFA_ID_IS_SECURE(src_dst >> 16) && fw_notif_enabled )
-+        return ffa_simple_call(FFA_NOTIFICATION_SET, src_dst, flags, bitmap_lo,
-+                               bitmap_hi);
-+
-+    return FFA_RET_NOT_SUPPORTED;
- }
- 
- #ifdef CONFIG_FFA_VM_TO_VM
-@@ -371,7 +363,7 @@ void ffa_notif_init_interrupt(void)
- {
-     int ret;
- 
--    if ( notif_enabled && notif_sri_irq < NR_GIC_SGI )
-+    if ( fw_notif_enabled && notif_sri_irq < NR_GIC_SGI )
-     {
-         /*
-          * An error here is unlikely since the primary CPU has already
-@@ -402,41 +394,41 @@ void ffa_notif_init(void)
-     int ret;
- 
-     /* Only enable fw notification if all ABIs we need are supported */
--    if ( !(ffa_fw_supports_fid(FFA_NOTIFICATION_BITMAP_CREATE) &&
--           ffa_fw_supports_fid(FFA_NOTIFICATION_BITMAP_DESTROY) &&
--           ffa_fw_supports_fid(FFA_NOTIFICATION_GET) &&
--           ffa_fw_supports_fid(FFA_NOTIFICATION_INFO_GET_64)) )
--        return;
--
--    arm_smccc_1_2_smc(&arg, &resp);
--    if ( resp.a0 != FFA_SUCCESS_32 )
--        return;
--
--    irq = resp.a2;
--    notif_sri_irq = irq;
--    if ( irq >= NR_GIC_SGI )
--        irq_set_type(irq, IRQ_TYPE_EDGE_RISING);
--    ret = request_irq(irq, 0, notif_irq_handler, "FF-A notif", NULL);
--    if ( ret )
-+    if ( ffa_fw_supports_fid(FFA_NOTIFICATION_BITMAP_CREATE) &&
-+         ffa_fw_supports_fid(FFA_NOTIFICATION_BITMAP_DESTROY) &&
-+         ffa_fw_supports_fid(FFA_NOTIFICATION_GET) &&
-+         ffa_fw_supports_fid(FFA_NOTIFICATION_INFO_GET_64) )
-     {
--        printk(XENLOG_ERR "ffa: request_irq irq %u failed: error %d\n",
--               irq, ret);
--        return;
--    }
-+        arm_smccc_1_2_smc(&arg, &resp);
-+        if ( resp.a0 != FFA_SUCCESS_32 )
-+            return;
- 
--    notif_enabled = true;
-+        irq = resp.a2;
-+        notif_sri_irq = irq;
-+        if ( irq >= NR_GIC_SGI )
-+            irq_set_type(irq, IRQ_TYPE_EDGE_RISING);
-+        ret = request_irq(irq, 0, notif_irq_handler, "FF-A notif", NULL);
-+        if ( ret )
-+        {
-+            printk(XENLOG_ERR "ffa: request_irq irq %u failed: error %d\n",
-+                   irq, ret);
-+            return;
-+        }
-+        fw_notif_enabled = true;
-+    }
- }
- 
- int ffa_notif_domain_init(struct domain *d)
- {
-     int32_t res;
- 
--    if ( !notif_enabled )
--        return 0;
-+    if ( fw_notif_enabled )
-+    {
- 
--    res = ffa_notification_bitmap_create(ffa_get_vm_id(d), d->max_vcpus);
--    if ( res )
--        return -ENOMEM;
-+        res = ffa_notification_bitmap_create(ffa_get_vm_id(d), d->max_vcpus);
-+        if ( res )
-+            return -ENOMEM;
-+    }
- 
-     return 0;
- }
-@@ -447,6 +439,6 @@ void ffa_notif_domain_destroy(struct domain *d)
-      * Call bitmap_destroy even if bitmap create failed as the SPMC will
-      * return a DENIED error that we will ignore.
-      */
--    if ( notif_enabled )
-+    if ( fw_notif_enabled )
-         ffa_notification_bitmap_destroy(ffa_get_vm_id(d));
- }
--- 
-2.47.1
+Further - how's this 1023 related to any of the other uses of that number?
+Is this by chance ARRAY_SIZE(aplic.regs->sourcecfg)? If so, it wants
+expressing like that, to allow making the connection.
 
+> +static struct aplic_priv aplic;
+>  
+>  static struct intc_info __ro_after_init aplic_info = {
+>      .hw_version = INTC_APLIC,
+>  };
+>  
+> +static void __init aplic_init_hw_interrupts(void)
+> +{
+> +    unsigned int i;
+> +
+> +    /* Disable all interrupts */
+> +    for ( i = 0; i < ARRAY_SIZE(aplic.regs->clrie); i++)
+> +        writel(~0U, &aplic.regs->clrie[i]);
+> +
+> +    /* Set interrupt type and default priority for all interrupts */
+> +    for ( i = 0; i < aplic_info.num_irqs; i++ )
+> +    {
+> +        writel(0, &aplic.regs->sourcecfg[i]);
+> +        /*
+> +         * Low bits of target register contains Interrupt Priority bits which
+> +         * can't be zero according to AIA spec.
+> +         * Thereby they are initialized to APLIC_DEFAULT_PRIORITY.
+> +         */
+> +        writel(APLIC_DEFAULT_PRIORITY, &aplic.regs->target[i]);
+> +    }
+> +
+> +    writel(APLIC_DOMAINCFG_IE | APLIC_DOMAINCFG_DM, &aplic.regs->domaincfg);
+> +}
+> +
+> +static int __init cf_check aplic_init(void)
+> +{
+> +    dt_phandle imsic_phandle;
+> +    const __be32 *prop;
+> +    uint64_t size, paddr;
+> +    const struct dt_device_node *imsic_node;
+> +    const struct dt_device_node *node = aplic_info.node;
+> +    int rc;
+> +
+> +    /* Check for associated imsic node */
+> +    if ( !dt_property_read_u32(node, "msi-parent", &imsic_phandle) )
+> +        panic("%s: IDC mode not supported\n", node->full_name);
+> +
+> +    imsic_node = dt_find_node_by_phandle(imsic_phandle);
+> +    if ( !imsic_node )
+> +        panic("%s: unable to find IMSIC node\n", node->full_name);
+> +
+> +    rc = imsic_init(imsic_node);
+> +    if ( rc == IRQ_M_EXT )
+> +        /* Machine mode imsic node, ignore this aplic node */
+> +        return 0;
+> +    else if ( rc )
+
+As before: No "else" please when the earlier if() ends in an unconditional
+control flow change.
+
+> +        panic("%s: Failded to initialize IMSIC\n", node->full_name);
+> +
+> +    /* Find out number of interrupt sources */
+> +    if ( !dt_property_read_u32(node, "riscv,num-sources",
+> +                               &aplic_info.num_irqs) )
+> +        panic("%s: failed to get number of interrupt sources\n",
+> +              node->full_name);
+> +
+> +    if ( aplic_info.num_irqs > APLIC_MAX_NUM_WIRED_IRQ_SOURCES )
+> +        panic("%s: too big number of riscv,num-source: %u\n",
+> +               __func__, aplic_info.num_irqs);
+
+Is it actually necessary to panic() in this case? Can't you just lower
+.num_irqs instead (rendering higher IRQs,if any, non-functional)?
+
+> +    prop = dt_get_property(node, "reg", NULL);
+> +    dt_get_range(&prop, node, &paddr, &size);
+> +    if ( !paddr )
+> +        panic("%s: first MMIO resource not found\n", node->full_name);
+> +
+> +    aplic.paddr_start = paddr;
+> +    aplic.size = size;
+> +
+> +    aplic.regs = ioremap(paddr, size);
+
+Doesn't size need to match certain constraints? If too low, you may
+need to panic(), while if too high you may not need to map the entire
+range?
+
+Does paddr perhaps also need to match certain contraints, like having
+the low so many bits clear?
+
+> +static struct intc_hw_operations __ro_after_init aplic_ops = {
+> +    .info                = &aplic_info,
+> +    .init                = aplic_init,
+> +};
+
+Why's this __ro_after_init and not simply const? I can't spot any write
+to it.
+
+> --- /dev/null
+> +++ b/xen/arch/riscv/include/asm/aplic.h
+> @@ -0,0 +1,64 @@
+> +/* SPDX-License-Identifier: MIT */
+> +
+> +/*
+> + * xen/arch/riscv/asm/include/aplic.h
+> + *
+> + * RISC-V Advanced Platform-Level Interrupt Controller support
+> + *
+> + * Copyright (c) Microchip.
+> + */
+> +
+> +#ifndef ASM__RISCV__APLIC_H
+> +#define ASM__RISCV__APLIC_H
+
+Wants updating again.
+
+> +#include <xen/types.h>
+> +
+> +#include <asm/imsic.h>
+> +
+> +#define APLIC_DOMAINCFG_IE      BIT(8, UL)
+> +#define APLIC_DOMAINCFG_DM      BIT(2, UL)
+
+Why UL when ...
+
+> +struct aplic_regs {
+> +    uint32_t domaincfg;
+
+... this is just 32 bits wide?
+
+Jan
 
