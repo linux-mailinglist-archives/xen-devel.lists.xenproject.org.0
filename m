@@ -2,49 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D09BAC0D9B
-	for <lists+xen-devel@lfdr.de>; Thu, 22 May 2025 16:07:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.994058.1377101 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A299FAC0DC4
+	for <lists+xen-devel@lfdr.de>; Thu, 22 May 2025 16:12:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.994066.1377110 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uI6a2-0006qo-4I; Thu, 22 May 2025 14:07:30 +0000
+	id 1uI6eC-0000OD-Is; Thu, 22 May 2025 14:11:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 994058.1377101; Thu, 22 May 2025 14:07:30 +0000
+Received: by outflank-mailman (output) from mailman id 994066.1377110; Thu, 22 May 2025 14:11:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uI6a2-0006oQ-1T; Thu, 22 May 2025 14:07:30 +0000
-Received: by outflank-mailman (input) for mailman id 994058;
- Thu, 22 May 2025 14:07:28 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uI6eC-0000MY-Fw; Thu, 22 May 2025 14:11:48 +0000
+Received: by outflank-mailman (input) for mailman id 994066;
+ Thu, 22 May 2025 14:11:46 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=D/RR=YG=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
- id 1uI6a0-0006oK-Lb
- for xen-devel@lists.xenproject.org; Thu, 22 May 2025 14:07:28 +0000
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2061c.outbound.protection.outlook.com
- [2a01:111:f403:2417::61c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1616f900-3716-11f0-b892-0df219b8e170;
- Thu, 22 May 2025 16:07:26 +0200 (CEST)
-Received: from SJ0PR05CA0038.namprd05.prod.outlook.com (2603:10b6:a03:33f::13)
- by SA3PR12MB9089.namprd12.prod.outlook.com (2603:10b6:806:39f::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8769.20; Thu, 22 May
- 2025 14:07:22 +0000
-Received: from BY1PEPF0001AE1C.namprd04.prod.outlook.com
- (2603:10b6:a03:33f:cafe::50) by SJ0PR05CA0038.outlook.office365.com
- (2603:10b6:a03:33f::13) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8769.16 via Frontend Transport; Thu,
- 22 May 2025 14:07:22 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BY1PEPF0001AE1C.mail.protection.outlook.com (10.167.242.105) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8769.18 via Frontend Transport; Thu, 22 May 2025 14:07:21 +0000
-Received: from localhost (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 22 May
- 2025 09:07:19 -0500
+ <SRS0=GVKv=YG=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1uI6eA-0000MS-P7
+ for xen-devel@lists.xenproject.org; Thu, 22 May 2025 14:11:46 +0000
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [2a00:1450:4864:20::329])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b1481bd5-3716-11f0-a2fb-13f23c93f187;
+ Thu, 22 May 2025 16:11:45 +0200 (CEST)
+Received: by mail-wm1-x329.google.com with SMTP id
+ 5b1f17b1804b1-43cfdc2c8c9so49746465e9.2
+ for <xen-devel@lists.xenproject.org>; Thu, 22 May 2025 07:11:45 -0700 (PDT)
+Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
+ by smtp.gmail.com with UTF8SMTPSA id
+ 5b1f17b1804b1-442ebd6fe86sm235038105e9.0.2025.05.22.07.11.44
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 22 May 2025 07:11:44 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,206 +45,103 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1616f900-3716-11f0-b892-0df219b8e170
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=QjBIzlRu/rLQIFJThF0i7xDdBs4mirk5wY4YTCyn32gUx864E0xbiqRpGs028TmJHrPAsvNA/xHdanS7lR4hmt2sBojgiv2obLFspPzEALlJ/IQN80HV+vd8aScfyIYtWbjAKIUiXfLzPCEe6AB/3Y9WoMJgelHlTDMmUCIJgLGVoUqhPC8VRaBDOHkC5CRu9491T4JKBXV7MpUj2loRiYmxyH44GzLJ0rD1quA1NkoIi8kzqohM1vdNTbOyDJCc0DyJdB3Mg1d4HG9UeSc9xSkBZfQ1Yi5U1mXJQsdGG/dQTYMFGlvnW4hUAIbU9hdfUJMo89GjA1TGaJfDD6iNiw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IV6cTio2L9OT3+QQPqcHUlzTFaFVxKZcp8ZxyuZ4dqA=;
- b=qcALVtDAE2gatPfXl4oJOkUmYlJ7ptk8m+B/pgvIAP/pqofe8l8TUBY+cCC8FIN25IacFu4dUkw4IZh8aLqjIvZTGMkxEUj+sM5p3CQCMed6BA+Sd/VeK2JFXvCjVAj0IrD2pjt/6Y7hgDf+uAdhzhjSdfZzrSPXSv5q/sKhixNt1OzVJLJIyfofuxjybFk4OWmBIPtIsPpTeKotDPKc04Rle5HR28dq0MB+mmzk+Qn4kUIhRtMTObFVlZTgftabkGYcilsY7WYyh7vBIxIpAiGc8cS71STCQgeFaB7EdOfMWJ+6K9mr/dwRu8spPw3bw9ZOOsX07dyqPGbwa7P1QA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=apertussolutions.com smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IV6cTio2L9OT3+QQPqcHUlzTFaFVxKZcp8ZxyuZ4dqA=;
- b=PF/8dSFT5quHWncwmLeCJHy9mcm7plttwMPP7hxbL4XfRHG7drCyVNLUOQuMasgbdZPNPH0GXBIOFsBe/qNA/CJ1h8VGu13W7xDFr6Q0PlOQR4BVGymUBspyxN/vECMQoPtBFGMaPlXzVh1NP2rJYDaCttbj/O3MkbQIYIkZEhE=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+X-Inumbo-ID: b1481bd5-3716-11f0-a2fb-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1747923105; x=1748527905; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=oIr3xsAWBxp5cUCCFMKmy9bFr8l6tisioRoXZYH2AS0=;
+        b=QQ5daXO29JxuHd19fB5MRktcrO53hkCqXeluOF/rU31vgU8qG+vzniv6MKzXAfm97L
+         z48yhdmlE+0fs53vzm5S4KIM2eNGNY5WdtryxqozP3p5bmJkDD455oz8I4Joue3lwP3V
+         8Blgn1wja/KoNd/rCjQrqfBYKG5bwtdz/6gqI=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1747923105; x=1748527905;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=oIr3xsAWBxp5cUCCFMKmy9bFr8l6tisioRoXZYH2AS0=;
+        b=LuVkLzJHfbG3vygULq07SUDdlZvG7EDD6Ti1hqMRcZYPCl/HsG7PBzksULR5wo9Nmn
+         U8g6QFb4dFiD8MRFSJEXcdj8laZq8/5crbR/QDT2U3/auwFnoLmM8SKWyDr/LqzXx42j
+         4NUpYJ71ynyDcL1FZLs18yZFJkn+1SXYIGsJyWVLh+5MkJLhvppnotKp77kDGPq5kLf6
+         HyRlLjZmFy8lqB9eeLQMywx/i746K3OiTz8+n2B/PVRwbSbfFV8/QwcCGoH959rjdLhi
+         MM6RB/OH+DIIJKN3LvsOVSYy+3QX5G5UAfB3PPm8TAENZMluWyt2n2JJfs/2Lzop+eeQ
+         i2yw==
+X-Forwarded-Encrypted: i=1; AJvYcCXHCwsFMGOvF8kzfBV1BgJmNVUx+KTmEJXCgrgIryrFWeyJWgpmMPoFasI3vNrbFKXP9gE0rXlsDpI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YztTHYwmoS46B5+burZmD4NTn/CXIiRfAqZNu69MWXjAvt0m7z1
+	4rYozAAs5zbNwAFSE+E5SFRsrZLS+dfmNHGS1/HWLxM0dYPfIJF2qrjiw0XOaiELhnE=
+X-Gm-Gg: ASbGncv5T3IiRuybrOmGLFu+rV5IcV03HY0YkDwzaE84gyKvgT13HzIXJ0ACnHfya17
+	vpDnoAoWY2rJZyYeiD4bqAjBSaLrV4od8gVHW4gmp4LmXGyj2anzR3rby7Ujbj+HWbZvOVANLBE
+	tVUGZSBZ1xmvqiod2pPy1XsqfKwkNVvC030VctfcF4rI5lGsBTt0Vpl9w4+1g4t6D0jJE5YOmwC
+	0sYZhyZ3cFBVD+CFXOv5X60NYCRVoDVWFeDnsL3g70790pi33+k2Y5PBD+fP/KMJV3nVf+LKMx9
+	xH4x/vpe5j8DNVcVwGn9BQjznJdE9bcXYXxlLFI3dpQ+7l6j705DaPGwSgcPPyCo8bXXTauG8OZ
+	pMJSPrVBnZ2FG8F1IfpY=
+X-Google-Smtp-Source: AGHT+IGvvKaJaa4HL46t7/H21xRC5EjyP4/XTw1vAmcnwKAU2CGKFCDT+Uv7bI7zxB2E7jMew5XhHg==
+X-Received: by 2002:a05:600c:474a:b0:442:f44f:65b with SMTP id 5b1f17b1804b1-442fd675a33mr212277955e9.32.1747923104657;
+        Thu, 22 May 2025 07:11:44 -0700 (PDT)
+Date: Thu, 22 May 2025 16:11:43 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH 2/2] x86/boot: attempt to print trace and panic on AP
+ bring up stall
+Message-ID: <aC8wn_C2xf3OW94y@macbook.local>
+References: <20250521165504.89885-1-roger.pau@citrix.com>
+ <20250521165504.89885-3-roger.pau@citrix.com>
+ <8a39ec76-f050-488e-bf4c-ba378fae7275@suse.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="UTF-8"
-Date: Thu, 22 May 2025 16:07:17 +0200
-Message-ID: <DA2QXMFRM1ZY.306NI4IC9CCP1@amd.com>
-To: "Daniel P. Smith" <dpsmith@apertussolutions.com>, Jan Beulich
-	<jbeulich@suse.com>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?utf-8?q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Anthony PERARD
-	<anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, "Julien
- Grall" <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, "Jason
- Andryuk" <jason.andryuk@amd.com>, Denis Mukhin <dmukhin@ford.com>,
-	<xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH v6 02/12] common/hyperlaunch: introduce the domain
- builder
-From: Alejandro Vallejo <agarciav@amd.com>
-X-Mailer: aerc 0.20.1
-References: <20250429123629.20839-1-agarciav@amd.com>
- <20250429123629.20839-3-agarciav@amd.com>
- <9021c878-9605-4d6e-95b8-ab97da186542@apertussolutions.com>
- <29a55d44-c26e-4834-b93b-47cbd98f885e@suse.com>
- <f199c2a3-88c6-4578-8667-2060a79285d6@apertussolutions.com>
- <f8828ac3-face-401b-bad6-84eef390cab6@suse.com>
- <6e3f3727-d084-40b9-a42a-46c52e770c88@apertussolutions.com>
-In-Reply-To: <6e3f3727-d084-40b9-a42a-46c52e770c88@apertussolutions.com>
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BY1PEPF0001AE1C:EE_|SA3PR12MB9089:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5232ccfc-25b9-4420-7ed3-08dd9939f890
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|1800799024|36860700013|376014;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?QkpDMSs3YXpLQlBLYUYzb1Y4Sml2NXhRRHJuUlZMM1lXSm52Zkw4N2dCbVlN?=
- =?utf-8?B?YWV4WU56NG9hZEU5SHBzb2lsT3RNZU9qUHJSMWIwUnpmb0pvM0drbjJtMkty?=
- =?utf-8?B?aHlCVlY5Z2tmeitINTVXUVRwUUFoZUJOZ2JJMlhMQ3hpaTl6U04zREZPbjh2?=
- =?utf-8?B?OE02Y2ZaekRySWFTRlZIS21seFlZdlpKUnJQelBkZFpCUXVFQzU4UTJPbXJ4?=
- =?utf-8?B?c2lVZVVWbU9oQ1ZXVVNuQU5FcHdCV3loaTB2VWF6aGowOGJteHRiVDRocGlL?=
- =?utf-8?B?aGRJczd3MStPM2Nlckk5M3l1NUxnZDdtSWUrUUcvUzh6Z1lFSDVMQjlnT3Iw?=
- =?utf-8?B?c2hUOHhYOFd2OTRHbVR2SGwzYnhvd2Q3aHNIL0Rpb2MyY2h6R2tUY0d4ZVZB?=
- =?utf-8?B?dnN6cmJMU010TzQxblYyNmRvTExHbVNpZUF3Q0NiMU90cnlYUDBxc1VHWjZa?=
- =?utf-8?B?N0ZVNy9GV0I2K0RlMVlqV0N0Zm5MaTNyeVFrWGJVeTRUTEpaK3Rmb0VYb3FI?=
- =?utf-8?B?OEhLbTVHUTkxYWV1dXc3RVBSRmM4QzFTMGViWWVkMWh0amFORVVlcmtub3JT?=
- =?utf-8?B?Rkt4ajhwYzNpYnJwTnNEUnJ5VkZaeUZsUDB5eDRrWEYxcWdabndTNnFKazVD?=
- =?utf-8?B?dGtwSStpQWw3UU9TSUVuRnBjZVdxWGxyVE81c2hkcFVlYjZZR1plM3oxa1la?=
- =?utf-8?B?L0dkZFRwcXBMZUMyaHpRdVNpd1ZzdERTN3VJQ1lXbnMwYnNjTSs4dlc3bkhX?=
- =?utf-8?B?M3FYcHJteFowSkQxODAvOE5obm1nK2NsYzlVbVVNOUJRTDVJN1pUN0Q1WU9D?=
- =?utf-8?B?SWZWcGN0WjFKK3hNTnh3V0NIbkJtMW5RS1ZRYkkyc0Z6empoMEEzRHJBbHVK?=
- =?utf-8?B?SnZiWE1kaGhFdW4rTk5qdmQ3VStDc1UzeXdkYThJUFM1WXJmY1hKNDY4OFJs?=
- =?utf-8?B?dUJCdFVGb0lBbVJEWWlnTGN0QVVHQk5DbVlYb2VrMGRVb00vM0FjS0t2azRk?=
- =?utf-8?B?TmwyOWJTZmk4MHFrdU9MeXhTWTd4L2loZGh1NlkyQnovVTh0VXFiMm92ZFR0?=
- =?utf-8?B?WGs2N2xNZ2pJUVR1UjZldFdKUDArQmtWd0VJN0NGbGNSdm82SVhGRUgrTFdU?=
- =?utf-8?B?bTRoajJ5MkE4cm9yUWdXcVZJUVcvV2R4YnR5SWtHWU9leEdMcklGdVVtT1NP?=
- =?utf-8?B?ZVRzZ1duSzdPK2J2MXFYeDVybis2V3ZUditZUzBJQllFbmVPNE1VWGdCUXFx?=
- =?utf-8?B?UklZa054WXRJVkpXOXZ1UnNXZDBHNkVic3gyNmN6TFRZT2cxQTJFQTE3a1M4?=
- =?utf-8?B?VGxmRXZud2FJUWhJQkIzQUUxUmtVeUFUUngzbklQelp2NEdWcXhRMkwxWnFz?=
- =?utf-8?B?cmNsMS90Y1Nzdkd6ZFc4YjBpOWQxNFZXNG5xaC9JWlo5eWhmN0V1NlhINXEr?=
- =?utf-8?B?SkhJSHNmdTQ5L1dSTGtETnJCSUg3ODBYaTExdFZaR2g5cTYxSGtETzhEak1z?=
- =?utf-8?B?UFFKYkRmaUFPTm4zSllGcjNhbmFyVmY1Q1JUYTdzU01KelF5UTRpOGJJdm5V?=
- =?utf-8?B?UW1uV3gweWh0ZUhFN1JWc2M3M0cvSzZVV0ZPdXlhcythb0hCeC9yc1lROVJU?=
- =?utf-8?B?NzFoUDUyWHVqSFJObEtxRUQ5czdDK1V6YzhGbUlOaUh5KysvNkdycndoNGlo?=
- =?utf-8?B?ZTh3TVRyY0IyWGY1SXNBcHo4UFFmV0MrckM4MFBIRzFwMktrVTVCNDR3Y3Vn?=
- =?utf-8?B?Q0dWOHBTcGZWekdOWGNUYnpVSHliem5sN28yUUlJYjdCSWI0V2J2UXp3VUY3?=
- =?utf-8?B?ODMvdjBNTkJZTytteFhwOUlRT1lqalAyc2ozUkUvUkhGeUZhZ2U3enpNTTMz?=
- =?utf-8?B?V3ZqZ1NPS3k5V2sxbWFxamdTOW84SVFuejl0ZytFWmtoVXhYWERabGthSy9i?=
- =?utf-8?B?dXI4czNuRDZCUHNrRGFuaHJlZ1JLS2ZtOVVTdW9EU2RidHh2OHhIdEp2OXBt?=
- =?utf-8?B?VElNcFdDdVZibmx4a2hvMVBVcW5jMzVuYmtCYjZIYWZDNkVDMlRUeXY2eU1n?=
- =?utf-8?Q?vfPeOY?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(36860700013)(376014);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 May 2025 14:07:21.7623
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5232ccfc-25b9-4420-7ed3-08dd9939f890
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BY1PEPF0001AE1C.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB9089
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <8a39ec76-f050-488e-bf4c-ba378fae7275@suse.com>
 
-On Wed May 14, 2025 at 12:23 AM CEST, Daniel P. Smith wrote:
-> On 5/13/25 04:05, Jan Beulich wrote:
->> On 06.05.2025 21:29, Daniel P. Smith wrote:
->>> On 5/2/25 03:21, Jan Beulich wrote:
->>>> On 30.04.2025 20:56, Daniel P. Smith wrote:
->>>>> On 4/29/25 08:36, Alejandro Vallejo wrote:
->>>>>> --- a/xen/common/Makefile
->>>>>> +++ b/xen/common/Makefile
->>>>>> @@ -11,6 +11,7 @@ obj-$(filter-out $(CONFIG_X86),$(CONFIG_ACPI)) +=
-=3D device.o
->>>>>>     obj-$(CONFIG_HAS_DEVICE_TREE) +=3D device-tree/
->>>>>>     obj-$(CONFIG_IOREQ_SERVER) +=3D dm.o
->>>>>>     obj-y +=3D domain.o
->>>>>> +obj-$(CONFIG_DOMAIN_BUILDER) +=3D domain-builder/
->>>>>
->>>>> Please don't do this, use IF_ENABLED in core.c and then hide the
->>>>> unnecessary units in domain-builder/Makefile as I originally had it.
->>>>> This allows for a much easier time incrementally converting the dom0
->>>>> construction path into a generalized domain construction path.
->>>>
->>>> That is, are you viewing this as a transitional thing only? If the end
->>>> goal is to have it as Alejandro has it above, that may be acceptable
->>>> (even if not nice).
->>>
->>> There is/will be shared domain construction code between dom0-only and
->>> multidomain construction, with it will all living under domain builder.
->>> So no, the end goal is not what Alejandro just did. The end result will
->>> be the way I had it, with a different kconfig option to enable/disable
->>> the multidomain construction path.
->>=20
->> Isn't CONFIG_DOMAIN_BUILDER a misnomer then?
->
-> Which is why I originally had two kconfig flags, one to enable dtb=20
-> parsing for domain configuration, which allowed dom0 construction from=20
-> dtb. Then there was the second flag that was to enable multi-domain=20
-> construction. I have reworked a portion of the approach in the RFC based=
-=20
-> on feedback, which is based off of this series. In it, I tried to=20
-> minimize how much went into common, but you will see how I still had to=
-=20
-> rework the kconfig flags.
->
-> v/r,
-> dps
+On Thu, May 22, 2025 at 09:18:57AM +0200, Jan Beulich wrote:
+> On 21.05.2025 18:55, Roger Pau Monne wrote:
+> > --- a/xen/arch/x86/traps.c
+> > +++ b/xen/arch/x86/traps.c
+> > @@ -714,13 +714,15 @@ static cpumask_t show_state_mask;
+> >  static bool opt_show_all;
+> >  boolean_param("async-show-all", opt_show_all);
+> >  
+> > +static bool force_show_all;
+> > +
+> >  static int cf_check nmi_show_execution_state(
+> >      const struct cpu_user_regs *regs, int cpu)
+> >  {
+> >      if ( !cpumask_test_cpu(cpu, &show_state_mask) )
+> >          return 0;
+> >  
+> > -    if ( opt_show_all )
+> > +    if ( opt_show_all || force_show_all )
+> >          show_execution_state(regs);
+> >      else if ( guest_mode(regs) )
+> >          printk(XENLOG_ERR "CPU%d\t%pv\t%04x:%p in guest\n",
+> > @@ -734,6 +736,40 @@ static int cf_check nmi_show_execution_state(
+> >      return 1;
+> >  }
+> >  
+> > +void show_execution_state_nmi(const cpumask_t *mask, bool show_all)
+> > +{
+> > +    unsigned int msecs, pending;
+> > +
+> > +    force_show_all = show_all;
 
-Does it really make sense to have a flag to restrict multidomain while
-allowing parsing the DTB? There's virtually nothing compiled out in that
-case.
+Sorry, I did send v2 before seeing your comments.
 
-If you did it that way because it doesn't initially build several
-domains, that's just transitional and to be expected on any feature
-tagged as unsupported with (EXPERIMENTAL) in the name.
+> Both forms of the call can, aiui, in principle race with one another.
+> I think you want to avoid setting the static to false once it was set
+> to true.
+> 
+> Furthermore, as long as all calls here with the 2nd argument being
+> true are followed by panic() or alike, I see no reason why you couldn't
+> simply re-use opt_show_all, setting that one to true. (Or else there
+> would then also be some resetting of the new static.)
 
-What if I collapse everything under a single CONFIG_MULTIDOMAIN_BUILDER
-that compiles-in support for parsing DTBs while introducing an
-unconditional builder as I go? From what I'm seeing, there are no
-breaking changes in the series and the end goal is to have the builder
-be unconditionally used, after all.
+So basically do something like:
 
-In fact, with the bindings code in common, I can also collapse everything
-in core.c (and later domain.c) into a single arch/x86/domain-builder.c
-that is unconditionally compiled in. The DTB parsing logic is already=20
-in separate files and that can be compiled out with
-CONFIG_MULTIDOMAIN_BUILDER flag.
+if ( show_all )
+    opt_show_all = true;
 
-In retrospect, after looking at dom0less long enough there's bootfdt.c and
-bootinfo.c with similar intent, but far more ad-hoc cohesion. While the
-builder wants to be in common, no other arch is in a position to take
-it. It needs merging with the stuff done in bootfdt.c/bootinfo.c
+And only overwrite opt_show_all when the caller requests full traces?
 
-So, in short. I'm planning to:
-
-  1. Collapse domain-builder/{core,domain}.c into domain-builder.c
-     under arch/x86. There's little reason to have them separate.
-  2. Remove CONFIG_DOMAIN_BUILDER, and replace it with something that
-     reflects the intent of using a DTB. Either CONFIG_MULTIDOMAIN_BUILDER
-     or CONFIG_DTB_BUILDER. Or maybe even CONFIG_DTB_BOOT.
-      * I specifically want to avoid CONFIG_BOOTFDT, because that'd
-        create confusion with the already existing bootfdt.c in common.
-
-and, from the discussion in the other thread about code sharing in the
-spirit of getting somewhere soon:
-
-  3. Do minimal parsing at builder_init() (module identification,
-  basically), and do the full parsing by the create_dom0() mark,
-  immediately before constructing all domains. With the unflattened
-  tree.
-
-Moving forward I for sure want to merge the boot paths in the x86
-builder with those of arm/riscv. Having a unified boot frontend can only
-bring niceness.
-
-Cheers,
-Alejandro
+Thanks, Roger.
 
