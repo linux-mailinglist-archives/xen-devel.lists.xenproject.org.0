@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B001FAC0F76
-	for <lists+xen-devel@lfdr.de>; Thu, 22 May 2025 17:08:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.994207.1377297 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B139AC0F74
+	for <lists+xen-devel@lfdr.de>; Thu, 22 May 2025 17:08:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.994208.1377307 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uI7XI-0007uf-8y; Thu, 22 May 2025 15:08:44 +0000
+	id 1uI7XJ-0008A4-Jk; Thu, 22 May 2025 15:08:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 994207.1377297; Thu, 22 May 2025 15:08:44 +0000
+Received: by outflank-mailman (output) from mailman id 994208.1377307; Thu, 22 May 2025 15:08:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uI7XI-0007rp-5x; Thu, 22 May 2025 15:08:44 +0000
-Received: by outflank-mailman (input) for mailman id 994207;
- Thu, 22 May 2025 15:08:42 +0000
+	id 1uI7XJ-00087h-DH; Thu, 22 May 2025 15:08:45 +0000
+Received: by outflank-mailman (input) for mailman id 994208;
+ Thu, 22 May 2025 15:08:44 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=isH4=YG=arm.com=bertrand.marquis@srs-se1.protection.inumbo.net>)
- id 1uI7XG-0006dU-LQ
- for xen-devel@lists.xenproject.org; Thu, 22 May 2025 15:08:42 +0000
+ id 1uI7XI-0006dU-C2
+ for xen-devel@lists.xenproject.org; Thu, 22 May 2025 15:08:44 +0000
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id a538790b-371e-11f0-b892-0df219b8e170;
- Thu, 22 May 2025 17:08:41 +0200 (CEST)
+ id a631e9ad-371e-11f0-b892-0df219b8e170;
+ Thu, 22 May 2025 17:08:42 +0200 (CEST)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6497D293B;
- Thu, 22 May 2025 08:08:26 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 03B101A32;
+ Thu, 22 May 2025 08:08:28 -0700 (PDT)
 Received: from C3HXLD123V.arm.com (unknown [10.57.50.224])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 578443F673;
- Thu, 22 May 2025 08:08:39 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E79E03F673;
+ Thu, 22 May 2025 08:08:40 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,7 +42,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a538790b-371e-11f0-b892-0df219b8e170
+X-Inumbo-ID: a631e9ad-371e-11f0-b892-0df219b8e170
 From: Bertrand Marquis <bertrand.marquis@arm.com>
 To: xen-devel@lists.xenproject.org
 Cc: jens.wiklander@linaro.org,
@@ -50,191 +50,387 @@ Cc: jens.wiklander@linaro.org,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Julien Grall <julien@xen.org>,
 	Michal Orzel <michal.orzel@amd.com>
-Subject: [PATCH v6 5/6] xen/arm: ffa: Add indirect message between VM
-Date: Thu, 22 May 2025 17:08:06 +0200
-Message-ID: <594a9d91dc499c219489111e0c896825fae32300.1747925287.git.bertrand.marquis@arm.com>
+Subject: [PATCH v6 6/6] xen/arm: ffa: Enable VM to VM without firmware
+Date: Thu, 22 May 2025 17:08:07 +0200
+Message-ID: <6e85a4a2de01aee23a366f33b3a856b52171bc40.1747925288.git.bertrand.marquis@arm.com>
 X-Mailer: git-send-email 2.47.1
 In-Reply-To: <cover.1747925287.git.bertrand.marquis@arm.com>
 References: <cover.1747925287.git.bertrand.marquis@arm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add support for indirect messages between VMs.
-This is only enabled if CONFIG_FFA_VM_TO_VM is selected.
+When VM to VM support is activated and there is no suitable FF-A support
+in the firmware, enable FF-A support for VMs to allow using it for VM to
+VM communications.
+If there is OP-TEE running in the secure world and using the non FF-A
+communication system, having CONFIG_FFA_VM_TO_VM could be non functional
+(if optee is probed first) or OP-TEE could be non functional (if FF-A is
+probed first) so it is not recommended to activate the configuration
+option for such systems.
+
+To make buffer full notification work between VMs when there is no
+firmware, rework the notification handling and modify the global flag to
+only be used as check for firmware notification support instead.
+
+Also split probe function into one for firmware and one for vm to vm to
+make the implementation clearer.
 
 Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
-Reviewed-by: Jens Wiklander <jens.wiklander@linaro.org>
 ---
 Changes in v6:
-- fix code alignment (Jens)
-- add Jens R-b
+- split probe into fw and vm_to_vm probe
 Changes in v5:
-- Prevent potential overflow in send2 handling (Julien)
-- Only use page_count with rx lock acquired
-- Fix an issue where send2 between VMs was not doing the copy from the
-  tx buffer but from a wrong location in the stack. This bug was
-  introduced in v4 when switching to a local copy for the header.
+- init ctx list when there is no firmware
+- rework init a bit to prevent duplicates
+- Remove Jens R-b due to changes done
 Changes in v4:
-- Use a local copy of the message header to prevent a TOC/TOU possible
-  issue when using the payload size
+- Fix Optee to OP-TEE in commit message
+- Add Jens R-b
 Changes in v3:
-- Move vm to vm indirect message handling in a sub function to simplify
-  lock handling and make implementation easier to read
+- fix typos in commit message
+- add spaces around <<
+- move notification id fix back into buffer full patch
+- fix | position in if
 Changes in v2:
-- Switch ifdef to IS_ENABLED
+- replace ifdef with IS_ENABLED when possible
 ---
- xen/arch/arm/tee/ffa_msg.c | 117 ++++++++++++++++++++++++++++++++-----
- 1 file changed, 102 insertions(+), 15 deletions(-)
+ xen/arch/arm/tee/ffa.c       |  91 ++++++++++++++++++------------
+ xen/arch/arm/tee/ffa_notif.c | 104 ++++++++++++++++-------------------
+ 2 files changed, 103 insertions(+), 92 deletions(-)
 
-diff --git a/xen/arch/arm/tee/ffa_msg.c b/xen/arch/arm/tee/ffa_msg.c
-index ee594e737fc7..c20c5bec0f76 100644
---- a/xen/arch/arm/tee/ffa_msg.c
-+++ b/xen/arch/arm/tee/ffa_msg.c
-@@ -88,43 +88,130 @@ out:
-                  resp.a7 & mask);
+diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
+index 6d71c665ac35..42dfc71a12d7 100644
+--- a/xen/arch/arm/tee/ffa.c
++++ b/xen/arch/arm/tee/ffa.c
+@@ -345,8 +345,9 @@ static int ffa_domain_init(struct domain *d)
+     struct ffa_ctx *ctx;
+     int ret;
+ 
+-    if ( !ffa_fw_version )
++    if ( !IS_ENABLED(CONFIG_FFA_VM_TO_VM) && !ffa_fw_version )
+         return -ENODEV;
++
+     /*
+      * We are using the domain_id + 1 as the FF-A ID for VMs as FF-A ID 0 is
+      * reserved for the hypervisor and we only support secure endpoints using
+@@ -477,38 +478,12 @@ static void ffa_init_secondary(void)
+     ffa_notif_init_interrupt();
  }
  
-+static int32_t ffa_msg_send2_vm(uint16_t dst_id, const void *src_buf,
-+                                struct ffa_part_msg_rxtx *src_msg)
+-static bool ffa_probe(void)
++static bool ffa_probe_fw(void)
+ {
+     uint32_t vers;
+     unsigned int major_vers;
+     unsigned int minor_vers;
+ 
+-    /*
+-     * FF-A often works in units of 4K pages and currently it's assumed
+-     * that we can map memory using that granularity. See also the comment
+-     * above the FFA_PAGE_SIZE define.
+-     *
+-     * It is possible to support a PAGE_SIZE larger than 4K in Xen, but
+-     * until that is fully handled in this code make sure that we only use
+-     * 4K page sizes.
+-     */
+-    BUILD_BUG_ON(PAGE_SIZE != FFA_PAGE_SIZE);
+-
+-    printk(XENLOG_INFO "ARM FF-A Mediator version %u.%u\n",
+-           FFA_MY_VERSION_MAJOR, FFA_MY_VERSION_MINOR);
+-
+-    if ( IS_ENABLED(CONFIG_FFA_VM_TO_VM) )
+-    {
+-        /*
+-         * When FFA VM to VM is enabled, the current implementation does not
+-         * offer any way to limit which VM can communicate with which VM using
+-         * FF-A.
+-         * Signal this in the xen console and taint the system as insecure.
+-         * TODO: Introduce a solution to limit what a VM can do through FFA.
+-         */
+-        printk(XENLOG_ERR "ffa: VM to VM is enabled, system is insecure !!\n");
+-        add_taint(TAINT_MACHINE_INSECURE);
+-    }
+     /*
+      * psci_init_smccc() updates this value with what's reported by EL-3
+      * or secure world.
+@@ -527,11 +502,6 @@ static bool ffa_probe(void)
+         goto err_no_fw;
+     }
+ 
+-    /* Some sanity check in case we update the version we support */
+-    BUILD_BUG_ON(FFA_MIN_SPMC_VERSION > FFA_MY_VERSION);
+-    BUILD_BUG_ON(FFA_VERSION_MAJOR(FFA_MIN_SPMC_VERSION) !=
+-                                   FFA_MY_VERSION_MAJOR);
+-
+     major_vers = FFA_VERSION_MAJOR(vers);
+     minor_vers = FFA_VERSION_MINOR(vers);
+ 
+@@ -582,9 +552,6 @@ static bool ffa_probe(void)
+         goto err_rxtx_destroy;
+ 
+     ffa_notif_init();
+-    INIT_LIST_HEAD(&ffa_teardown_head);
+-    INIT_LIST_HEAD(&ffa_ctx_head);
+-    init_timer(&ffa_teardown_timer, ffa_teardown_timer_callback, NULL, 0);
+ 
+     return true;
+ 
+@@ -598,6 +565,58 @@ err_no_fw:
+     return false;
+ }
+ 
++static bool ffa_probe_vm_to_vm(void)
 +{
-+    struct domain *dst_d;
-+    struct ffa_ctx *dst_ctx;
-+    struct ffa_part_msg_rxtx *dst_msg;
-+    int err;
-+    int32_t ret;
++    if ( !IS_ENABLED(CONFIG_FFA_VM_TO_VM) )
++        return false;
 +
-+    if ( dst_id == 0 )
-+        /* FF-A ID 0 is the hypervisor, this is not valid */
-+        return FFA_RET_INVALID_PARAMETERS;
++    /*
++     * When FFA VM to VM is enabled, the current implementation does not
++     * offer any way to limit which VM can communicate with which VM using
++     * FF-A.
++     * Signal this in the xen console and taint the system as insecure.
++     * TODO: Introduce a solution to limit what a VM can do through FFA.
++     */
++    printk(XENLOG_ERR "ffa: VM to VM is enabled, system is insecure !!\n");
++    add_taint(TAINT_MACHINE_INSECURE);
 +
-+    /* This is also checking that dest is not src */
-+    err = rcu_lock_live_remote_domain_by_id(dst_id - 1, &dst_d);
-+    if ( err )
-+        return FFA_RET_INVALID_PARAMETERS;
-+
-+    if ( dst_d->arch.tee == NULL )
-+    {
-+        ret = FFA_RET_INVALID_PARAMETERS;
-+        goto out_unlock;
-+    }
-+
-+    dst_ctx = dst_d->arch.tee;
-+    if ( !dst_ctx->guest_vers )
-+    {
-+        ret = FFA_RET_INVALID_PARAMETERS;
-+        goto out_unlock;
-+    }
-+
-+    /* This also checks that destination has set a Rx buffer */
-+    ret = ffa_rx_acquire(dst_d);
-+    if ( ret )
-+        goto out_unlock;
-+
-+    /* we need to have enough space in the destination buffer */
-+    if ( (dst_ctx->page_count * FFA_PAGE_SIZE -
-+          sizeof(struct ffa_part_msg_rxtx)) < src_msg->msg_size )
-+    {
-+        ret = FFA_RET_NO_MEMORY;
-+        ffa_rx_release(dst_d);
-+        goto out_unlock;
-+    }
-+
-+    dst_msg = dst_ctx->rx;
-+
-+    /* prepare destination header */
-+    dst_msg->flags = 0;
-+    dst_msg->reserved = 0;
-+    dst_msg->msg_offset = sizeof(struct ffa_part_msg_rxtx);
-+    dst_msg->send_recv_id = src_msg->send_recv_id;
-+    dst_msg->msg_size = src_msg->msg_size;
-+
-+    memcpy(dst_ctx->rx + sizeof(struct ffa_part_msg_rxtx),
-+           src_buf + src_msg->msg_offset, src_msg->msg_size);
-+
-+    /* receiver rx buffer will be released by the receiver*/
-+
-+out_unlock:
-+    rcu_unlock_domain(dst_d);
-+    if ( !ret )
-+        ffa_raise_rx_buffer_full(dst_d);
-+
-+    return ret;
++    return true;
 +}
 +
- int32_t ffa_handle_msg_send2(struct cpu_user_regs *regs)
++static bool ffa_probe(void)
++{
++    /*
++     * FF-A often works in units of 4K pages and currently it's assumed
++     * that we can map memory using that granularity. See also the comment
++     * above the FFA_PAGE_SIZE define.
++     *
++     * It is possible to support a PAGE_SIZE larger than 4K in Xen, but
++     * until that is fully handled in this code make sure that we only use
++     * 4K page sizes.
++     */
++    BUILD_BUG_ON(PAGE_SIZE != FFA_PAGE_SIZE);
++
++    /* Some sanity check in case we update the version we support */
++    BUILD_BUG_ON(FFA_MIN_SPMC_VERSION > FFA_MY_VERSION);
++    BUILD_BUG_ON(FFA_VERSION_MAJOR(FFA_MIN_SPMC_VERSION) !=
++                                   FFA_MY_VERSION_MAJOR);
++
++    printk(XENLOG_INFO "ARM FF-A Mediator version %u.%u\n",
++           FFA_MY_VERSION_MAJOR, FFA_MY_VERSION_MINOR);
++
++    if ( !ffa_probe_fw() && !ffa_probe_vm_to_vm() )
++        return false;
++
++    if ( !ffa_fw_version )
++        printk(XENLOG_INFO "ARM FF-A only available between VMs\n");
++
++    INIT_LIST_HEAD(&ffa_teardown_head);
++    INIT_LIST_HEAD(&ffa_ctx_head);
++    init_timer(&ffa_teardown_timer, ffa_teardown_timer_callback, NULL, 0);
++
++    return true;
++}
++
+ static const struct tee_mediator_ops ffa_ops =
  {
-     struct domain *src_d = current->domain;
-     struct ffa_ctx *src_ctx = src_d->arch.tee;
--    const struct ffa_part_msg_rxtx *src_msg;
-+    struct ffa_part_msg_rxtx src_msg;
-     uint16_t dst_id, src_id;
-     int32_t ret;
+     .probe = ffa_probe,
+diff --git a/xen/arch/arm/tee/ffa_notif.c b/xen/arch/arm/tee/ffa_notif.c
+index f6df2f15bb00..86bef6b3b2ab 100644
+--- a/xen/arch/arm/tee/ffa_notif.c
++++ b/xen/arch/arm/tee/ffa_notif.c
+@@ -16,7 +16,7 @@
  
--    if ( !ffa_fw_supports_fid(FFA_MSG_SEND2) )
+ #include "ffa_private.h"
+ 
+-static bool __ro_after_init notif_enabled;
++static bool __ro_after_init fw_notif_enabled;
+ static unsigned int __ro_after_init notif_sri_irq;
+ 
+ int ffa_handle_notification_bind(struct cpu_user_regs *regs)
+@@ -27,21 +27,17 @@ int ffa_handle_notification_bind(struct cpu_user_regs *regs)
+     uint32_t bitmap_lo = get_user_reg(regs, 3);
+     uint32_t bitmap_hi = get_user_reg(regs, 4);
+ 
+-    if ( !notif_enabled )
 -        return FFA_RET_NOT_SUPPORTED;
-+    BUILD_BUG_ON(sizeof(struct ffa_part_msg_rxtx) >= FFA_PAGE_SIZE);
+-
+     if ( (src_dst & 0xFFFFU) != ffa_get_vm_id(d) )
+         return FFA_RET_INVALID_PARAMETERS;
  
-     if ( !spin_trylock(&src_ctx->tx_lock) )
-         return FFA_RET_BUSY;
+     if ( flags )    /* Only global notifications are supported */
+         return FFA_RET_DENIED;
  
--    src_msg = src_ctx->tx;
--    src_id = src_msg->send_recv_id >> 16;
--    dst_id = src_msg->send_recv_id & GENMASK(15,0);
-+    /* create a copy of the message header */
-+    memcpy(&src_msg, src_ctx->tx, sizeof(src_msg));
- 
--    if ( src_id != ffa_get_vm_id(src_d) || !FFA_ID_IS_SECURE(dst_id) )
-+    src_id = src_msg.send_recv_id >> 16;
-+    dst_id = src_msg.send_recv_id & GENMASK(15,0);
+-    /*
+-     * We only support notifications from SP so no need to check the sender
+-     * endpoint ID, the SPMC will take care of that for us.
+-     */
+-    return ffa_simple_call(FFA_NOTIFICATION_BIND, src_dst, flags, bitmap_lo,
+-                           bitmap_hi);
++    if ( FFA_ID_IS_SECURE(src_dst >> 16) && fw_notif_enabled )
++        return ffa_simple_call(FFA_NOTIFICATION_BIND, src_dst, flags,
++                               bitmap_lo, bitmap_hi);
 +
-+    if ( src_id != ffa_get_vm_id(src_d) )
++    return FFA_RET_NOT_SUPPORTED;
+ }
+ 
+ int ffa_handle_notification_unbind(struct cpu_user_regs *regs)
+@@ -51,18 +47,14 @@ int ffa_handle_notification_unbind(struct cpu_user_regs *regs)
+     uint32_t bitmap_lo = get_user_reg(regs, 3);
+     uint32_t bitmap_hi = get_user_reg(regs, 4);
+ 
+-    if ( !notif_enabled )
+-        return FFA_RET_NOT_SUPPORTED;
+-
+     if ( (src_dst & 0xFFFFU) != ffa_get_vm_id(d) )
+         return FFA_RET_INVALID_PARAMETERS;
+ 
+-    /*
+-     * We only support notifications from SP so no need to check the
+-     * destination endpoint ID, the SPMC will take care of that for us.
+-     */
+-    return  ffa_simple_call(FFA_NOTIFICATION_UNBIND, src_dst, 0, bitmap_lo,
+-                            bitmap_hi);
++    if ( FFA_ID_IS_SECURE(src_dst >> 16) && fw_notif_enabled )
++        return  ffa_simple_call(FFA_NOTIFICATION_UNBIND, src_dst, 0, bitmap_lo,
++                                bitmap_hi);
++
++    return FFA_RET_NOT_SUPPORTED;
+ }
+ 
+ void ffa_handle_notification_info_get(struct cpu_user_regs *regs)
+@@ -71,7 +63,7 @@ void ffa_handle_notification_info_get(struct cpu_user_regs *regs)
+     struct ffa_ctx *ctx = d->arch.tee;
+     bool notif_pending;
+ 
+-    if ( !notif_enabled )
++    if ( !IS_ENABLED(CONFIG_FFA_VM_TO_VM) && !fw_notif_enabled )
      {
-         ret = FFA_RET_INVALID_PARAMETERS;
--        goto out_unlock_tx;
-+        goto out;
+         ffa_set_regs_error(regs, FFA_RET_NOT_SUPPORTED);
+         return;
+@@ -108,7 +100,7 @@ void ffa_handle_notification_get(struct cpu_user_regs *regs)
+     uint32_t w6 = 0;
+     uint32_t w7 = 0;
+ 
+-    if ( !notif_enabled )
++    if ( !IS_ENABLED(CONFIG_FFA_VM_TO_VM) && !fw_notif_enabled )
+     {
+         ffa_set_regs_error(regs, FFA_RET_NOT_SUPPORTED);
+         return;
+@@ -120,7 +112,8 @@ void ffa_handle_notification_get(struct cpu_user_regs *regs)
+         return;
      }
  
-     /* check source message fits in buffer */
--    if ( src_ctx->page_count * FFA_PAGE_SIZE <
--         src_msg->msg_offset + src_msg->msg_size ||
--         src_msg->msg_offset < sizeof(struct ffa_part_msg_rxtx) )
-+    if ( src_msg.msg_offset < sizeof(struct ffa_part_msg_rxtx) ||
-+            src_msg.msg_size == 0 ||
-+            src_msg.msg_offset > src_ctx->page_count * FFA_PAGE_SIZE ||
-+            src_msg.msg_size > (src_ctx->page_count * FFA_PAGE_SIZE -
-+                                src_msg.msg_offset) )
+-    if ( flags & ( FFA_NOTIF_FLAG_BITMAP_SP | FFA_NOTIF_FLAG_BITMAP_SPM ) )
++    if ( fw_notif_enabled && (flags & ( FFA_NOTIF_FLAG_BITMAP_SP |
++                                        FFA_NOTIF_FLAG_BITMAP_SPM )) )
      {
-         ret = FFA_RET_INVALID_PARAMETERS;
--        goto out_unlock_tx;
-+        goto out;
-     }
+         struct arm_smccc_1_2_regs arg = {
+             .a0 = FFA_NOTIFICATION_GET,
+@@ -177,15 +170,14 @@ int ffa_handle_notification_set(struct cpu_user_regs *regs)
+     uint32_t bitmap_lo = get_user_reg(regs, 3);
+     uint32_t bitmap_hi = get_user_reg(regs, 4);
  
--    ret = ffa_simple_call(FFA_MSG_SEND2,
--                          ((uint32_t)ffa_get_vm_id(src_d)) << 16, 0, 0, 0);
-+    if ( FFA_ID_IS_SECURE(dst_id) )
-+    {
-+        /* Message for a secure partition */
-+        if ( !ffa_fw_supports_fid(FFA_MSG_SEND2) )
+-    if ( !notif_enabled )
+-        return FFA_RET_NOT_SUPPORTED;
+-
+     if ( (src_dst >> 16) != ffa_get_vm_id(d) )
+         return FFA_RET_INVALID_PARAMETERS;
+ 
+-    /* Let the SPMC check the destination of the notification */
+-    return ffa_simple_call(FFA_NOTIFICATION_SET, src_dst, flags, bitmap_lo,
+-                           bitmap_hi);
++    if ( FFA_ID_IS_SECURE(src_dst >> 16) && fw_notif_enabled )
++        return ffa_simple_call(FFA_NOTIFICATION_SET, src_dst, flags, bitmap_lo,
++                               bitmap_hi);
++
++    return FFA_RET_NOT_SUPPORTED;
+ }
+ 
+ #ifdef CONFIG_FFA_VM_TO_VM
+@@ -371,7 +363,7 @@ void ffa_notif_init_interrupt(void)
+ {
+     int ret;
+ 
+-    if ( notif_enabled && notif_sri_irq < NR_GIC_SGI )
++    if ( fw_notif_enabled && notif_sri_irq < NR_GIC_SGI )
+     {
+         /*
+          * An error here is unlikely since the primary CPU has already
+@@ -402,41 +394,41 @@ void ffa_notif_init(void)
+     int ret;
+ 
+     /* Only enable fw notification if all ABIs we need are supported */
+-    if ( !(ffa_fw_supports_fid(FFA_NOTIFICATION_BITMAP_CREATE) &&
+-           ffa_fw_supports_fid(FFA_NOTIFICATION_BITMAP_DESTROY) &&
+-           ffa_fw_supports_fid(FFA_NOTIFICATION_GET) &&
+-           ffa_fw_supports_fid(FFA_NOTIFICATION_INFO_GET_64)) )
+-        return;
+-
+-    arm_smccc_1_2_smc(&arg, &resp);
+-    if ( resp.a0 != FFA_SUCCESS_32 )
+-        return;
+-
+-    irq = resp.a2;
+-    notif_sri_irq = irq;
+-    if ( irq >= NR_GIC_SGI )
+-        irq_set_type(irq, IRQ_TYPE_EDGE_RISING);
+-    ret = request_irq(irq, 0, notif_irq_handler, "FF-A notif", NULL);
+-    if ( ret )
++    if ( ffa_fw_supports_fid(FFA_NOTIFICATION_BITMAP_CREATE) &&
++         ffa_fw_supports_fid(FFA_NOTIFICATION_BITMAP_DESTROY) &&
++         ffa_fw_supports_fid(FFA_NOTIFICATION_GET) &&
++         ffa_fw_supports_fid(FFA_NOTIFICATION_INFO_GET_64) )
+     {
+-        printk(XENLOG_ERR "ffa: request_irq irq %u failed: error %d\n",
+-               irq, ret);
+-        return;
+-    }
++        arm_smccc_1_2_smc(&arg, &resp);
++        if ( resp.a0 != FFA_SUCCESS_32 )
++            return;
+ 
+-    notif_enabled = true;
++        irq = resp.a2;
++        notif_sri_irq = irq;
++        if ( irq >= NR_GIC_SGI )
++            irq_set_type(irq, IRQ_TYPE_EDGE_RISING);
++        ret = request_irq(irq, 0, notif_irq_handler, "FF-A notif", NULL);
++        if ( ret )
 +        {
-+            ret = FFA_RET_NOT_SUPPORTED;
-+            goto out;
++            printk(XENLOG_ERR "ffa: request_irq irq %u failed: error %d\n",
++                   irq, ret);
++            return;
 +        }
-+
-+        ret = ffa_simple_call(FFA_MSG_SEND2,
-+                              ((uint32_t)ffa_get_vm_id(src_d)) << 16, 0, 0, 0);
++        fw_notif_enabled = true;
 +    }
-+    else if ( IS_ENABLED(CONFIG_FFA_VM_TO_VM) )
-+    {
-+        /* Message for a VM */
-+        ret = ffa_msg_send2_vm(dst_id, src_ctx->tx, &src_msg);
-+    }
-+    else
-+        ret = FFA_RET_INVALID_PARAMETERS;
+ }
  
--out_unlock_tx:
-+out:
-     spin_unlock(&src_ctx->tx_lock);
-     return ret;
+ int ffa_notif_domain_init(struct domain *d)
+ {
+     int32_t res;
+ 
+-    if ( !notif_enabled )
+-        return 0;
++    if ( fw_notif_enabled )
++    {
+ 
+-    res = ffa_notification_bitmap_create(ffa_get_vm_id(d), d->max_vcpus);
+-    if ( res )
+-        return -ENOMEM;
++        res = ffa_notification_bitmap_create(ffa_get_vm_id(d), d->max_vcpus);
++        if ( res )
++            return -ENOMEM;
++    }
+ 
+     return 0;
+ }
+@@ -447,6 +439,6 @@ void ffa_notif_domain_destroy(struct domain *d)
+      * Call bitmap_destroy even if bitmap create failed as the SPMC will
+      * return a DENIED error that we will ignore.
+      */
+-    if ( notif_enabled )
++    if ( fw_notif_enabled )
+         ffa_notification_bitmap_destroy(ffa_get_vm_id(d));
  }
 -- 
 2.47.1
