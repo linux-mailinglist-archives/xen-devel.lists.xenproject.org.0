@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4A6CDAC07A9
-	for <lists+xen-devel@lfdr.de>; Thu, 22 May 2025 10:49:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.993248.1376699 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B7D34AC07A2
+	for <lists+xen-devel@lfdr.de>; Thu, 22 May 2025 10:49:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.993235.1376663 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uI1cV-0005gX-Gz; Thu, 22 May 2025 08:49:43 +0000
+	id 1uI1bi-0004We-9n; Thu, 22 May 2025 08:48:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 993248.1376699; Thu, 22 May 2025 08:49:43 +0000
+Received: by outflank-mailman (output) from mailman id 993235.1376663; Thu, 22 May 2025 08:48:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uI1cV-0005dr-BP; Thu, 22 May 2025 08:49:43 +0000
-Received: by outflank-mailman (input) for mailman id 993248;
- Thu, 22 May 2025 08:49:42 +0000
+	id 1uI1bi-0004UZ-71; Thu, 22 May 2025 08:48:54 +0000
+Received: by outflank-mailman (input) for mailman id 993235;
+ Thu, 22 May 2025 08:48:53 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=GVKv=YG=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1uI1cU-0004UT-B9
- for xen-devel@lists.xenproject.org; Thu, 22 May 2025 08:49:42 +0000
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [2a00:1450:4864:20::32f])
+ <SRS0=ayyk=YG=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1uI1bh-0004UT-1X
+ for xen-devel@lists.xenproject.org; Thu, 22 May 2025 08:48:53 +0000
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on20619.outbound.protection.outlook.com
+ [2a01:111:f403:2414::619])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b3aef5b4-36e9-11f0-a2fb-13f23c93f187;
- Thu, 22 May 2025 10:49:42 +0200 (CEST)
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-441ab63a415so83607895e9.3
- for <xen-devel@lists.xenproject.org>; Thu, 22 May 2025 01:49:41 -0700 (PDT)
-Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
- by smtp.gmail.com with UTF8SMTPSA id
- ffacd0b85a97d-3a35ca888fcsm23433058f8f.78.2025.05.22.01.49.40
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 22 May 2025 01:49:40 -0700 (PDT)
+ id 9531915e-36e9-11f0-a2fb-13f23c93f187;
+ Thu, 22 May 2025 10:48:51 +0200 (CEST)
+Received: from BN9PR12MB5273.namprd12.prod.outlook.com (2603:10b6:408:11e::22)
+ by LV3PR12MB9213.namprd12.prod.outlook.com (2603:10b6:408:1a6::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8746.31; Thu, 22 May
+ 2025 08:48:47 +0000
+Received: from BN9PR12MB5273.namprd12.prod.outlook.com
+ ([fe80::cf66:58ab:47be:4b13]) by BN9PR12MB5273.namprd12.prod.outlook.com
+ ([fe80::cf66:58ab:47be:4b13%5]) with mapi id 15.20.8769.019; Thu, 22 May 2025
+ 08:48:47 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,401 +47,245 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b3aef5b4-36e9-11f0-a2fb-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1747903781; x=1748508581; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=wbA2N4Sx+9yCupSjz9rtr7Z+UbsRZXxcS06NGIutUUY=;
-        b=udcXFWMtRldhtN2jk1oxOGq30P46YeT3j6Qr9goEsqpLYbZDjfwGVmOmPIjGO2+m8Q
-         kTzPv76D0n/yJHTAOc4qhPFdwvYva+0aba/tleekZCXS8UzfUm7DPL/d2rCBs89KDHiR
-         0HVnax/SQbTgWeBhdWZNoAqk4cAArHWPBlV6k=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747903781; x=1748508581;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=wbA2N4Sx+9yCupSjz9rtr7Z+UbsRZXxcS06NGIutUUY=;
-        b=p+A4hLUP77qz3Es2IXD5zXMKDzE56Ewce/upGHRkKVCy+0P6q2xZRmDOi23Xxo4zvX
-         j4k5rb93X4H321/Y7zoDsYRgdbn5NXDI9VuOvz57tm343ft+1eIicAcasCk/HwnFe5sz
-         618oqiSn95aeD5CBR49YVHNQkjdMPnbvgr+cmF8IApb6ikp2NGGwIHP0JjNozDGd6KxZ
-         vsB13/H2BKo+knWF+1jncnmbCxg0hm3xtzIKXXi2zwHkPqMIKwFD/xo+jWG/lkyAt4tU
-         24PJv3K8Wl82jLsea3NNE4O2V9N5LwDFfFdct3d3Kdnld/FZ57YLLeGi9r2EQglEDWMt
-         BRDA==
-X-Gm-Message-State: AOJu0YzhQmFlUs3/EiTcOCU8a6c/jTzUSs1Qg0i+le2C9t57HG91coC0
-	s6wd6Y8fACSs6S28FPQLAtUZ4ejeLQmKFJ+0Qc1zkWdyaqGXQ7ATunXezoCqeC8Dor0aAf5lPem
-	nPWRU
-X-Gm-Gg: ASbGnct5LB47G7V2QxU7B/Q+mULrbrsyHSXwx7petEMzbba1egaMkMyDUEXls72nEJa
-	Ulxbl1/uxbXVRB3s44xgdOUGA4AtymJZT0ZTmAHQzki/0C9NaXtXjAsqkRhGUZMP97gs2pJZNtI
-	lf6Qi+BEh2SM/kKh4dqVGuzvssoGD3V2XXZ8ZIvaEei6LO2LlgZJcr73QU4FviZzeX5QXZxTcLC
-	s4qiD5Am2AAQzcfTUbpChYTaQ+wQROvFcoeFWZzaYa0hqwocR7btPT7JUY7SPGUbxcOGDV/BvLB
-	Q6+O1a1S8UQiDaGq+hKbFERsFb8tH8RPATmn6ccGjqnJ4cCY0axyidatJ8ZpRP1f3YV5NR+so37
-	yJzIhqHET07X+gmbL7QIQ5Tx/J1YSkg==
-X-Google-Smtp-Source: AGHT+IHkRhaunxLXl2soEk1ANBtB65BNTfNZfbNCiHa/VpK9eH15Hdp9wbjWw5ayH1Vdh+dcHL6znQ==
-X-Received: by 2002:a05:600c:1d81:b0:43c:fc04:6d35 with SMTP id 5b1f17b1804b1-442fd606b8emr230238295e9.4.1747903780774;
-        Thu, 22 May 2025 01:49:40 -0700 (PDT)
-From: Roger Pau Monne <roger.pau@citrix.com>
-To: xen-devel@lists.xenproject.org
-Cc: Roger Pau Monne <roger.pau@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH 2/2] x86/numa: introduce per-NUMA node flush locks
-Date: Thu, 22 May 2025 10:48:15 +0200
-Message-ID: <20250522084815.825-3-roger.pau@citrix.com>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20250522084815.825-1-roger.pau@citrix.com>
-References: <20250522084815.825-1-roger.pau@citrix.com>
-MIME-Version: 1.0
+X-Inumbo-ID: 9531915e-36e9-11f0-a2fb-13f23c93f187
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=d9i4o41MC2Zd5J0JPA3qDgQR7YTDWKHHAUGR75Z6HqTwaVh7nA7EOSCNTmaRrFu/oSNETA9BFk+v4pQ2G08+7cQQ9wH3WkIM56Lb0jXoNKATs9sVJUBTHeDz22ALZTEd7VgSX+eedbTAG5DFDBOuK6v5e3Lt1gcEJqE1OmBcNQqueBIWFN+LipINQTzuWwVHbsv/RmFOdSzTfmxDg99sVBdJp84WY32ajEILd4ogyvIVG9meqe83gzHscQbj2Ji2rPrIzT7JmdTC4UyGDMZ2JyeVjxUTeKbByVj6flw2BWFiu5irOTeOS7gUd0Ogb/Ex1CIb0Ra2Nrnq17WVbBqtWw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=p1LBU9Kn1Os0qoiuZLo3U/AMfrFQTFFhLK8MerzpK2A=;
+ b=pGiO6aQVBQNoITwjP3vsrd5lBQFMQDkUOEeSt4Xlfoiij9X3WOzF6cYL9dPjAVc9WvxNWgfdlNX9XeFk0QMKSdoYNBppMnuWu+I40jPx/ybq2ka8jMfC8h4NNVWWo8iIvt/ngTdT0gnVTPwLwsVr2b+p5pCNCKoUazvhkEmJ7bxyJ2r6yqRRMEjbOTxQ11vUeWbA5Dfvom2v4TPAugY7fZGIZH4atFi8/3if8kosTRrBeXy3qkiIzrTBUmBKG40oEnG7SosmN8NVf1znjZ3I6ZIG4BbI/Xi9iQD514Bv8Cr5ej3JbNCyNfVXmsk9uUt7QzOSjHVLP62D0cjjGa/ZqA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=p1LBU9Kn1Os0qoiuZLo3U/AMfrFQTFFhLK8MerzpK2A=;
+ b=bNfMue4Aa0M5PLkjMy/JOu28bq6Gob9+PCOyN2vSXi6wVi90Nh8X/59MRjLdz+cGyiul7J9cEvDSs+dsym5U2ips4OaN8PQfWOrkDLKqeLUVdsM/EvvyPK1lV974SgTy/SL4Ztny0yhepS/kLcdPOQ0Qz0VfyW3Ij8MQxXg/Afs=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Message-ID: <ddf26315-ff48-411d-a0ca-9a99867323a7@amd.com>
+Date: Thu, 22 May 2025 10:48:44 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 5/6] arm/mpu: Introduce utility functions for the pr_t
+ type
+To: Luca Fancellu <luca.fancellu@arm.com>, xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20250513084532.4059388-1-luca.fancellu@arm.com>
+ <20250513084532.4059388-6-luca.fancellu@arm.com>
+From: "Orzel, Michal" <michal.orzel@amd.com>
+Content-Language: en-US
+In-Reply-To: <20250513084532.4059388-6-luca.fancellu@arm.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: DU2PR04CA0198.eurprd04.prod.outlook.com
+ (2603:10a6:10:28d::23) To BN9PR12MB5273.namprd12.prod.outlook.com
+ (2603:10b6:408:11e::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5273:EE_|LV3PR12MB9213:EE_
+X-MS-Office365-Filtering-Correlation-Id: 513c4cd4-e2ab-483d-53f8-08dd990d776c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024|7053199007;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?SUUvL3hzV3ZpZnMzbGRXM3FRVEdtZ09pa2FZLzV3bnkvZnhncWM0T25mTHBm?=
+ =?utf-8?B?V09UeWRkOEZ3SE9Da2hYemZJcE1SaTJ2R05OdUxzYlVjOUtFUlpOTExWb2xN?=
+ =?utf-8?B?Vmg3UExGNFJEQjdYWjlKS2JGcW05NlFCYWR3Z1BkenBOMzlaSzRWNjB2dlYx?=
+ =?utf-8?B?bkxzeHFtR2hYNkpmWkUzUmdMdmJneDBaQTFLdE44QWhvTmNsR2Uwd0pveThv?=
+ =?utf-8?B?RG5ZTVQ5MjJTMGMwSVBRS0MyOUhmNUF6NDJnK21xNEJHYTlNdlJqNVNDL1gz?=
+ =?utf-8?B?ankxRHFsOUpqbnQ3cW5vS1QxWC9yc2tMRWwrNGFEQjFORVJIb29lZzI4V0lO?=
+ =?utf-8?B?VU9zcmc2YkZiUGxML0ZKcTVkakRhWWJuejZYaDNaV0JOTTBJZWJsanZXM1Fu?=
+ =?utf-8?B?QnYzZ2xuckEvNDdmZ2FMNThpVEJTU2FyakVtU1gxdXZ3eGJxZkd3clNaT1h2?=
+ =?utf-8?B?NExraTMxTTdkWWN3d3ZPWk5CVzhBb1NnV1hVUWZzaFI2a3duWnJmZGFkWEpD?=
+ =?utf-8?B?NENMbHpBU2RWcExSVytwSGZDZHJqbkZKMFNPZkdxdlJ5Y0FzbjlrcTQ5WCtI?=
+ =?utf-8?B?bmk5dXNMRHFhd1lwZ0RmZjE4R3h2RVhvN29DazkzMTluRXpWc3Jmb0ZoRTdB?=
+ =?utf-8?B?MWxZdDVtNmJDRmI0U0pOOG1tcDNrVzhDQTl2dEtmOVBWVjFXQ2hlTjBCUWIr?=
+ =?utf-8?B?SjNUWkpJMndxV3o5dXRydWJtWUlXN3BFczBod2NQblBOYWt2TVUrYnN3YVc1?=
+ =?utf-8?B?djQ0N3B6eGI2VkpNVERTQWlSOVVENVZxVWlOVEVWR2EySHhCSzVRL3R0MWFN?=
+ =?utf-8?B?bm4vUHVmRlM0UHBDWG5qQnpjWjF5N0E4NFpsQ1FBZHNTN1N5U1ozaVJBSk96?=
+ =?utf-8?B?bWJqOTVKcm9LNGpCK0J1RjA0ZlEwVmhaS0oxakF2R3ptditxdnE4bkVXSk0y?=
+ =?utf-8?B?Vk5qaXBEUldVYmZ2bHA1MHB3cHRhTHVaV3RzSjlFRTIvSHhEZFczTWgvZklC?=
+ =?utf-8?B?UVhqMlZ2dUJZU3FIcFQySEpKOSttbWs3YWdPQlJnYmxXMGlJREpCelV3aFRN?=
+ =?utf-8?B?dTM3dkNkSjdka3kyQWVQYWJ0Yjh6c2RXNXBoeXk2a09xcFZvaGlXTzczSEtW?=
+ =?utf-8?B?cldPWTdoSjVFRFZlY2krZjJ2am8vRHJIMUJUYytGVVhDS0dzeTF5SUZ2TEhl?=
+ =?utf-8?B?alBaVlF0LzB6bkhMeDlqUUttUkRFZVBLRk5oRW9Gem52QWJiY2FjOTlCN2dB?=
+ =?utf-8?B?bm8wWnBWOUdaUkFMdnkzTmhlbitwVk9qbzhnazk1aGVSL2wyd3FJWXdXNGlO?=
+ =?utf-8?B?a1ZTT1BpL1M2b05uaXhPZUVuM2Ixc1dzS1Q1UmdKNmNHbi8rMUZudUNBTjNE?=
+ =?utf-8?B?RDBYaUo5WkFUZjA2TjMyMkZUS3JuY0ZwZlhyVkdOdWtsbzJKaU1JSHcxRkJ2?=
+ =?utf-8?B?eDJSY0xJQ1Zhd1pKM2pVRkRSbDJwQzFhVUtZNVA4SUc3OGkwTVB4WHptMzRZ?=
+ =?utf-8?B?TUZPei9meVFjV0IwMncvbnY1N1MzR3F2WXNxaVppdFZjREZ6NkRhVmpzbWEv?=
+ =?utf-8?B?OVFsMVFBMnFDblBLcXk5QjhHNEh1eUtWSW13YXl3MFp6RTFFRzkyQUg3eE9x?=
+ =?utf-8?B?eXVUVU93Y0syWTN1UEIyb0NxVHVwOEFsbUNndFY3S3E1SDVSWGJyZ20ydTUw?=
+ =?utf-8?B?MkZRcituU2thTDFycDlKcGtTa3paQXozZ1I4M0tEdnVrK281aFd5bVJDQ0JW?=
+ =?utf-8?B?ZVEvWjhpT2R5aTRhNzlnSHc3SEl3Vy9tMnBFaEh1eU5uZGU5Yy81YlJsQ2JN?=
+ =?utf-8?B?OFBmcm5aaTUrazdWUzQ0SXZNQUhPQUdhOEkrM1B4eWQ0YmY0clBRd09pb2ZH?=
+ =?utf-8?B?NE9ZaVVHU1gwa3g1aStXcWpYWnh6ak85dXpKNGhWS0IvYWhQWWM4QTJCZmJq?=
+ =?utf-8?Q?kc9lxg/r+sQ=3D?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN9PR12MB5273.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(7053199007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?MWIrRjlEK3VvcmZrTEhENVFkK0UzZ083a29aV25CdnZJMEkxeFJyN09TbGlS?=
+ =?utf-8?B?aUNlVUF0RTJBVjJ2WDhibGpRNEh0VFhoYUV5VVNQQTlNOW9MMkpCQldjZWk0?=
+ =?utf-8?B?WSt1c3YxeHk4ZmxMYkVXQWlLTGJqODJMWDIyb2FxNU1GZFJMTVdJNHBXTS9O?=
+ =?utf-8?B?QVl6Z3dyVU9EaUpXNDYremJXTFBPS3B1VzNvVDFJNnAyU0ZlSFpabThxdWVn?=
+ =?utf-8?B?NGVYVjdtNitXcFR4SHBOOTVwaGFVMVBpNEZLYWdtL014VndpV3RocjdQY2NS?=
+ =?utf-8?B?aGdpNTlEVFBFWmlDQnVUTjVXcGY3MU9GQWcra3VpbTY2ZFpYSm50eEFOQ3I5?=
+ =?utf-8?B?Z2tkTjhUbkw2aDdBemRpVUpYOCsrNFJ1K3ZKNVBKR1E3VXUzU0lhNFBBd0Z0?=
+ =?utf-8?B?U1NZMUprWTAwVENLYmRBbkdUN1Z0eUJ2Ym1hV01jRlZqSTMrU1F0bkFzWDkr?=
+ =?utf-8?B?S1QyYVVkRFhsRm5vMllScXAxa0loVWNXQlQwTDdHREJNVmovdG1DNGdjSHpk?=
+ =?utf-8?B?TVZIekpzREN5ZTNJaHZOa0N4dkhHZEo0UG5EdnBtZ3MvNVE1YXB5am1Xa1Q1?=
+ =?utf-8?B?OFBSSUh4QTFEckN1eldoMWFpVGViTWx0SUZTWHg0SkV6djhidFQ4aXlGZ2t6?=
+ =?utf-8?B?cE4yazYyOVpnUXloeGdqUTE2bmNUVjl3c1JqK3dTV2U3MVo2Z3l2djYwd3pG?=
+ =?utf-8?B?U240djAxM0dXMFVmbnFpZjFHNEtnZDNBUmNNY3ZWSHRqOUNNbW90Zitwa1g5?=
+ =?utf-8?B?ODZtUlZJQ0ptRjA0U00vWVpVSk82RkdYc0VVUVJ1UVFyMVdsYllyVU53U1BY?=
+ =?utf-8?B?dDBFZ3ovQlA3K3hNSTZmMFFEUzN4WmtSQ01oZ28wSzk2QnFzcDVNWmhZU0kr?=
+ =?utf-8?B?SitEOHN0VWViSmdmL3hMdGR6eFN0SVdXNUVjc1NCblU0Szc4YXBiZzZMS09N?=
+ =?utf-8?B?OSs4MGNwNjFlaGJnYmRoNm01b2xzUTFQa2NLV1FpN2hDRmxJWWtUSnRDK2tl?=
+ =?utf-8?B?NWlhWGNkV1VMeUR2NTRPRWY0VzdBYXAvbHhnREJFWjlScEdjWndFS1pEWjZh?=
+ =?utf-8?B?THVNTEhnYTlyTFZCbEMrRDdTS0dUQWpFd1lXeTR2dTRnYm9peFAyeGdXQ1Vt?=
+ =?utf-8?B?b21NaFVaN1FUVGVycHR3amRLR0RqcjRTR0RtUjIzQlRrVkZ5MzBMdy9jenRO?=
+ =?utf-8?B?c2RSb1FPYXU5alM4S0lRRlJyeGlrbDRKTjBWaisvRGxUU21OR0FhbThnaEwy?=
+ =?utf-8?B?eE9JQ0tqOUJ1cmpyNWFQaWtwc1VXS3hMV1p4MUVqK3lYV1FsMGNVUElKaXVH?=
+ =?utf-8?B?clZCOEx6NmxBeG9EQXorUGlrOFNaY2FWMXFCYWJSN3dwN3EyTXB4QmJmMFhU?=
+ =?utf-8?B?dUM5cmVYZEhMRmczLzZNcU5wRnR4ZDU3R3Z2VE5NVVJXZ2N6ejBxWWRzeFl4?=
+ =?utf-8?B?Mk1Cd0ZMMjBBU0c4VDBzL00xNWFJTjRpODlNTTdKam1UTzNZYlJPdlFXdDdH?=
+ =?utf-8?B?VWV3QXFUYnlHdU1tTVo0OTU0c2p3eFdURDZvVlYySVIzcDFaUCs4T0Z0anJl?=
+ =?utf-8?B?ZXJkYmt2U0lQbDhnTitLaStaN0tGeTYwMVNqK0M3TFlTVm1iRUNkT2xFeWdS?=
+ =?utf-8?B?b3FyZjBmZWxEMkZReUs5aG94dUIxTGgrTlBkMHVkTzlFOHdUeVc5Q3lYVWYw?=
+ =?utf-8?B?R2ZzUEJ4cmh3VmgxMUhLRC84NlFmNkJnQy8zLytXb2lXa1N2UmFKUVFLWnp4?=
+ =?utf-8?B?a1NFalM2MktIeW1Tc3QzU1lBM080andQL1JNMXN2dmdYNGFyaS9nd1ZyOFV3?=
+ =?utf-8?B?UnNEbUFYc1BXdTlSQzRnSG1sMW1PMTBKMTViVDlSNUpOWjZYeHlVYU9TdXVE?=
+ =?utf-8?B?VTFCUXdHdm1KMmdkMzBSemtYUmNBeTVoWEV2ZFVTdnJUYVZDcjdQL25MK25y?=
+ =?utf-8?B?eDRHc1VCNThmVk9FdEtiQjE3OUs3NTU4c1NwQUNrYThzSmEzdSt1aWxYV2dQ?=
+ =?utf-8?B?ajB2eUlzOVZGamtHeVROcmpjRWZWM3hlK2ozbG9RV2pkZDFRSy9uTHJ0K0Rr?=
+ =?utf-8?B?SmZxSHhUa2xYb0RMNk5zQUg4UTE4VUFnQWNTU2M5Zm5xblR3cWdtczVkdUh3?=
+ =?utf-8?Q?csB7TJ2JHsAUyPnc7GwrbpKxu?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 513c4cd4-e2ab-483d-53f8-08dd990d776c
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5273.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 May 2025 08:48:47.5689
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: bhxoRI07j8wv3SMemEOi13FaRJw4vroKMHXJ62fAVGK63CGwzbAdg4ptl6Izf/ec
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9213
 
-Contention around the global flush_lock increases as the amount of physical
-CPUs on the host also increases.  Sadly this doesn't scale on big boxes.
-However most of the time Xen doesn't require broadcasting flushes to all
-CPUs on the system, and hence more fine grained (ie: covering less CPUs)
-locks could be used.
 
-A natural boundary to use when splitting the locks are NUMA nodes.  Most
-domains will be limited to running on a single node, specifically the one
-where the domain memory has been allocated from.  Flushes related to
-domains are most likely to be limited to a single NUMA node, and hence
-being able to execute per-node flushes allows to reduce the contention
-around the global flush_lock, while also allowing to perform concurrent
-flushes on different nodes.
 
-This however doesn't come for free.  A new vector must be allocated to be
-used for the per-NUMA flushes, and more logic is required in the flush
-dispatcher to figure out whether a flush is limited to a single node.
+On 13/05/2025 10:45, Luca Fancellu wrote:
+> Introduce a few utility functions to manipulate and handle the
+> pr_t type.
+> 
+> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+> ---
+> v5 changes:
+>  - Don't rely on bitfield and use the mask MPU_REGION_RES0 for
+>    pr_set_base and pr_set_limit to make it explicit. Fixed typos
+>    in commit message.
+> v4 changes:
+>  - Modify comment on top of the helpers. Clarify pr_set_limit
+>    takes exclusive address.
+>    Protected common code with #ifdef Arm64 until Arm32 is ready
+>    with pr_t
+> ---
+>  xen/arch/arm/include/asm/mpu.h | 65 ++++++++++++++++++++++++++++++++++
+>  1 file changed, 65 insertions(+)
+> 
+> diff --git a/xen/arch/arm/include/asm/mpu.h b/xen/arch/arm/include/asm/mpu.h
+> index fb93b8b19d24..b90ae8eab662 100644
+> --- a/xen/arch/arm/include/asm/mpu.h
+> +++ b/xen/arch/arm/include/asm/mpu.h
+> @@ -23,6 +23,71 @@
+>  #define NUM_MPU_REGIONS_MASK    (NUM_MPU_REGIONS - 1)
+>  #define MAX_MPU_REGION_NR       NUM_MPU_REGIONS_MASK
+>  
+> +#ifndef __ASSEMBLY__
+> +
+> +#ifdef CONFIG_ARM_64
+> +/*
+> + * Set base address of MPU protection region.
+> + *
+> + * @pr: pointer to the protection region structure.
+> + * @base: base address as base of the protection region.
+> + */
+> +static inline void pr_set_base(pr_t *pr, paddr_t base)
+> +{
+> +    pr->prbar.reg.base = ((base & ~MPU_REGION_RES0) >> MPU_REGION_SHIFT);
+> +}
+> +
+> +/*
+> + * Set limit address of MPU protection region.
+> + *
+> + * @pr: pointer to the protection region structure.
+> + * @limit: exclusive address as limit of the protection region.
+> + */
+> +static inline void pr_set_limit(pr_t *pr, paddr_t limit)
+> +{
+> +    pr->prlar.reg.limit = (((limit - 1) & ~MPU_REGION_RES0)
+Might be worth adding a comment that PRLAR expects inclusive limit hence (limit -1).
 
-The figures on a 2-node NUMA system are as follows, after having been
-running the same XenRT boot storm workload for 90 minutes.
+> +                           >> MPU_REGION_SHIFT);
+> +}
+> +
+> +/*
+> + * Access to get base address of MPU protection region.
+> + * The base address shall be zero extended.
+> + *
+> + * @pr: pointer to the protection region structure.
+> + * @return: Base address configured for the passed protection region.
+> + */
+> +static inline paddr_t pr_get_base(pr_t *pr)
+Why not const?
 
-Without the per-NUMA node flush:
+> +{
+> +    return (paddr_t)(pr->prbar.reg.base << MPU_REGION_SHIFT);
+> +}
+> +
+> +/*
+> + * Access to get limit address of MPU protection region.
+> + * The limit address shall be concatenated with 0x3f.
+> + *
+> + * @pr: pointer to the protection region structure.
+> + * @return: Inclusive limit address configured for the passed protection region.
+> + */
+> +static inline paddr_t pr_get_limit(pr_t *pr)
+Why not const?
 
-Global flush_lock: addr=ffff82d040837340, lockval=d8ded8de, not locked
-  lock:21878876(98178042228), block:1603338(6043805110)
+> +{
+> +    return (paddr_t)((pr->prlar.reg.limit << MPU_REGION_SHIFT)
+> +                     | ~MPU_REGION_MASK);
+> +}
+> +
+> +/*
+> + * Checks if the protection region is valid (enabled).
+NIT: in other helpers you use imperative mood, so this should be "Check if"
+> + *
+> + * @pr: pointer to the protection region structure.
+> + * @return: True if the region is valid (enabled), false otherwise.
+> + */
+> +static inline bool region_is_valid(pr_t *pr)
+Why not const?
 
-So a total block time of ~6s, and average block time of 3.7us.
+> +{
+> +    return pr->prlar.reg.en;
+> +}
+> +#endif
+Please add /* CONFIG_ARM_64 */
 
-With the per-node locks:
+> +
+> +#endif /* __ASSEMBLY__ */
+> +
+>  #endif /* __ARM_MPU_H__ */
+>  
+>  /*
 
-Global flush_lock: addr=ffff82d040837360, lockval=78e678e6, not locked
-  lock:6781028(41032945811), block:583712(2025657239)
-NUMA node 1 flush_lock: addr=ffff832fd085b110, lockval=5cd65cd6, not locked
-  lock:220374(766500536), block:4091(9933129)
-NUMA node 0 flush_lock: addr=ffff8310336a7110, lockval=5c715c71, not locked
-  lock:547953(1658170241), block:23856(51266297)
 
-The total block time goes down to ~2s, and the average block time is 3.4us.
-The total block time of the per-node locks is much lower compared to the
-global flush_lock, 9ms and 51ms respectively.
-
-Note the example here is possibly the system where such split locks don't
-make a lot of difference, being a 2 node system, but still there's a
-non-trivial difference between the block times.  On a 4 or 9 node system
-the figures should likely be even better.
-
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
----
-Kind of RFC, had this patch pending for some time on my queue.  Before
-working further on this I would like to make sure the approach is OK.
----
- xen/arch/x86/include/asm/irq-vectors.h |  9 ++-
- xen/arch/x86/include/asm/numa.h        |  3 +
- xen/arch/x86/include/asm/smp.h         |  3 +
- xen/arch/x86/numa.c                    | 95 ++++++++++++++++++++++++++
- xen/arch/x86/smp.c                     | 16 +++--
- xen/arch/x86/smpboot.c                 |  3 +
- xen/common/numa.c                      | 23 +++++++
- xen/include/xen/numa.h                 | 13 ++++
- 8 files changed, 160 insertions(+), 5 deletions(-)
-
-diff --git a/xen/arch/x86/include/asm/irq-vectors.h b/xen/arch/x86/include/asm/irq-vectors.h
-index f546aedd87de..3b8fee7e22cf 100644
---- a/xen/arch/x86/include/asm/irq-vectors.h
-+++ b/xen/arch/x86/include/asm/irq-vectors.h
-@@ -9,12 +9,19 @@
- #define CALL_FUNCTION_VECTOR	0xfb
- #define LOCAL_TIMER_VECTOR	0xfa
- #define PMU_APIC_VECTOR 	0xf9
-+
-+#ifdef CONFIG_NUMA
-+# define INVALIDATE_NUMA_VECTOR  0xf8
-+# define LAST_HIPRIORITY_VECTOR  0xf7
-+#else /* !CONFIG_NUMA */
-+# define LAST_HIPRIORITY_VECTOR  0xf8
-+#endif /* !CONFIG_NUMA */
-+
- /*
-  * High-priority dynamically-allocated vectors. For interrupts that
-  * must be higher priority than any guest-bound interrupt.
-  */
- #define FIRST_HIPRIORITY_VECTOR	0xf1
--#define LAST_HIPRIORITY_VECTOR  0xf8
- /* IRQ0 (timer) is statically allocated but must be high priority. */
- #define IRQ0_VECTOR             0xf0
- 
-diff --git a/xen/arch/x86/include/asm/numa.h b/xen/arch/x86/include/asm/numa.h
-index 7866afa40860..e68c2d9d9bea 100644
---- a/xen/arch/x86/include/asm/numa.h
-+++ b/xen/arch/x86/include/asm/numa.h
-@@ -25,4 +25,7 @@ void srat_parse_regions(paddr_t addr);
- extern u8 __node_distance(nodeid_t a, nodeid_t b);
- unsigned int arch_get_dma_bitsize(void);
- 
-+bool flush_numa_node(const cpumask_t *mask, const void *va, unsigned int flags);
-+void cf_check invalidate_tbl_numa(void);
-+
- #endif
-diff --git a/xen/arch/x86/include/asm/smp.h b/xen/arch/x86/include/asm/smp.h
-index c8c79601343d..1e6972fd7b39 100644
---- a/xen/arch/x86/include/asm/smp.h
-+++ b/xen/arch/x86/include/asm/smp.h
-@@ -79,6 +79,9 @@ extern bool unaccounted_cpus;
- 
- void *cpu_alloc_stack(unsigned int cpu);
- 
-+void invalidate_tlb_handler(const void *va, unsigned int flags,
-+                            cpumask_t *mask);
-+
- #endif /* !__ASSEMBLY__ */
- 
- #endif
-diff --git a/xen/arch/x86/numa.c b/xen/arch/x86/numa.c
-index ae3cc7a8d060..0139fe5377ba 100644
---- a/xen/arch/x86/numa.c
-+++ b/xen/arch/x86/numa.c
-@@ -8,8 +8,11 @@
- #include <xen/mm.h>
- #include <xen/nodemask.h>
- #include <xen/numa.h>
-+#include <xen/xvmalloc.h>
-+
- #include <asm/acpi.h>
- #include <asm/e820.h>
-+#include <asm/irq-vectors.h>
- 
- #ifndef Dprintk
- #define Dprintk(x...)
-@@ -126,3 +129,95 @@ int __init arch_get_ram_range(unsigned int idx, paddr_t *start, paddr_t *end)
- 
-     return 0;
- }
-+
-+static struct arch_numa_node {
-+    const void *flush_va;
-+    unsigned int flush_flags;
-+    cpumask_t flush_mask;
-+    spinlock_t flush_lock;
-+    struct lock_profile_qhead profile_head;
-+} *node_info[MAX_NUMNODES];
-+
-+static int __init cf_check arch_numa_init(void)
-+{
-+    unsigned int i;
-+
-+    if ( num_online_nodes() == 1 )
-+        return 0;
-+
-+    for_each_online_node ( i )
-+    {
-+        struct arch_numa_node *node =
-+            alloc_xenheap_pages(get_order_from_bytes(sizeof(*node)),
-+                                                     MEMF_node(i));
-+
-+        if ( node )
-+            clear_page(node);
-+        else
-+            node = xvzalloc(typeof(*node));
-+
-+        if ( !node )
-+        {
-+            printk(XENLOG_WARNING
-+                   "failed to allocate NUMA info struct for node %u\n", i);
-+            return 0;
-+        }
-+
-+        spin_lock_init(&node->flush_lock);
-+        lock_profile_register_struct(LOCKPROF_TYPE_PERNODE, node, i);
-+        spin_lock_init_prof(node, flush_lock);
-+        node_info[i] = node;
-+    }
-+
-+    return 0;
-+}
-+__initcall(arch_numa_init);
-+
-+void cf_check invalidate_tbl_numa(void)
-+{
-+    unsigned int cpu = smp_processor_id();
-+    nodeid_t node = cpu_to_node[cpu];
-+    struct arch_numa_node *info = node_info[node];
-+
-+    ASSERT(info);
-+
-+    invalidate_tlb_handler(info->flush_va, info->flush_flags,
-+                           &info->flush_mask);
-+}
-+
-+bool flush_numa_node(const cpumask_t *mask, const void *va, unsigned int flags)
-+{
-+    nodeid_t node = num_online_nodes() > 1 ? cpumask_to_node(mask)
-+                                           : NUMA_NO_NODE;
-+    struct arch_numa_node *info;
-+
-+    if ( node == NUMA_NO_NODE )
-+        return false;
-+
-+    info = node_info[node];
-+
-+    if ( !info )
-+        return false;
-+
-+    spin_lock(&info->flush_lock);
-+    cpumask_and(&info->flush_mask, mask, &cpu_online_map);
-+    cpumask_clear_cpu(smp_processor_id(), &info->flush_mask);
-+    info->flush_va = va;
-+    info->flush_flags = flags;
-+    send_IPI_mask(&info->flush_mask, INVALIDATE_NUMA_VECTOR);
-+    while ( !cpumask_empty(&info->flush_mask) )
-+        cpu_relax();
-+    spin_unlock(&info->flush_lock);
-+
-+    return true;
-+}
-+
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * tab-width: 4
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
-diff --git a/xen/arch/x86/smp.c b/xen/arch/x86/smp.c
-index 516dab5528c1..06acc5843f9a 100644
---- a/xen/arch/x86/smp.c
-+++ b/xen/arch/x86/smp.c
-@@ -247,16 +247,21 @@ static cpumask_t flush_cpumask;
- static const void *flush_va;
- static unsigned int flush_flags;
- 
--void cf_check invalidate_interrupt(void)
-+void invalidate_tlb_handler(const void *va, unsigned int flags,
-+                            cpumask_t *mask)
- {
--    unsigned int flags = flush_flags;
-     ack_APIC_irq();
-     perfc_incr(ipis);
-     if ( (flags & FLUSH_VCPU_STATE) && __sync_local_execstate() )
-         flags &= ~(FLUSH_TLB | FLUSH_TLB_GLOBAL | FLUSH_ROOT_PGTBL);
-     if ( flags & ~(FLUSH_VCPU_STATE | FLUSH_ORDER_MASK) )
--        flush_area_local(flush_va, flags);
--    cpumask_clear_cpu(smp_processor_id(), &flush_cpumask);
-+        flush_area_local(va, flags);
-+    cpumask_clear_cpu(smp_processor_id(), mask);
-+}
-+
-+void cf_check invalidate_interrupt(void)
-+{
-+    invalidate_tlb_handler(flush_va, flush_flags, &flush_cpumask);
- }
- 
- void flush_area_mask(const cpumask_t *mask, const void *va, unsigned int flags)
-@@ -281,6 +286,9 @@ void flush_area_mask(const cpumask_t *mask, const void *va, unsigned int flags)
-              !hypervisor_flush_tlb(mask, va, flags) )
-             return;
- 
-+        if ( flush_numa_node(mask, va, flags) )
-+            return;
-+
-         spin_lock(&flush_lock);
-         cpumask_and(&flush_cpumask, mask, &cpu_online_map);
-         cpumask_clear_cpu(cpu, &flush_cpumask);
-diff --git a/xen/arch/x86/smpboot.c b/xen/arch/x86/smpboot.c
-index 50c5674555e4..eb8600eb008f 100644
---- a/xen/arch/x86/smpboot.c
-+++ b/xen/arch/x86/smpboot.c
-@@ -1451,4 +1451,7 @@ void __init smp_intr_init(void)
-     set_direct_apic_vector(EVENT_CHECK_VECTOR, event_check_interrupt);
-     set_direct_apic_vector(INVALIDATE_TLB_VECTOR, invalidate_interrupt);
-     set_direct_apic_vector(CALL_FUNCTION_VECTOR, call_function_interrupt);
-+#ifdef CONFIG_NUMA
-+    set_direct_apic_vector(INVALIDATE_NUMA_VECTOR, invalidate_tbl_numa);
-+#endif
- }
-diff --git a/xen/common/numa.c b/xen/common/numa.c
-index ad75955a1622..b9bb8628fb6b 100644
---- a/xen/common/numa.c
-+++ b/xen/common/numa.c
-@@ -689,6 +689,29 @@ static int __init cf_check numa_setup(const char *opt)
- }
- custom_param("numa", numa_setup);
- 
-+/*
-+ * Return the NUMA node index if all CPUs in the mask belong to the same node,
-+ * otherwise return NUMA_NO_NODE.
-+ */
-+nodeid_t cpumask_to_node(const cpumask_t *mask)
-+{
-+    unsigned int cpu;
-+    nodeid_t node = NUMA_NO_NODE;
-+
-+    if ( num_online_nodes() == 1 )
-+        return cpu_to_node[0];
-+
-+    for_each_cpu ( cpu, mask )
-+    {
-+        if ( node == NUMA_NO_NODE )
-+            node = cpu_to_node[cpu];
-+        else if ( node != cpu_to_node[cpu] )
-+            return NUMA_NO_NODE;
-+    }
-+
-+    return node;
-+}
-+
- static void cf_check dump_numa(unsigned char key)
- {
-     s_time_t now = NOW();
-diff --git a/xen/include/xen/numa.h b/xen/include/xen/numa.h
-index f6c1f27ca105..256dfbcf85f8 100644
---- a/xen/include/xen/numa.h
-+++ b/xen/include/xen/numa.h
-@@ -128,6 +128,8 @@ extern bool numa_update_node_memblks(nodeid_t node, unsigned int arch_nid,
-                                      paddr_t start, paddr_t size, bool hotplug);
- extern void numa_set_processor_nodes_parsed(nodeid_t node);
- 
-+extern nodeid_t cpumask_to_node(const cpumask_t *mask);
-+
- #else
- 
- /* Fake one node for now. See also node_online_map. */
-@@ -148,6 +150,17 @@ static inline nodeid_t mfn_to_nid(mfn_t mfn)
-     return 0;
- }
- 
-+static inline nodeid_t cpumask_to_node(const cpumask_t *mask)
-+{
-+    return NUMA_NO_NODE;
-+}
-+
-+#ifdef CONFIG_X86
-+static inline bool flush_numa_node(const cpumask_t *mask, const void *va,
-+                                   unsigned int flags)
-+{ return false; }
-+#endif /* CONFIG_X86 */
-+
- #endif
- 
- #define page_to_nid(pg) mfn_to_nid(page_to_mfn(pg))
--- 
-2.49.0
+~Michal
 
 
