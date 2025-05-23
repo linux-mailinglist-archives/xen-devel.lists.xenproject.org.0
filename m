@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83520AC22F8
-	for <lists+xen-devel@lfdr.de>; Fri, 23 May 2025 14:49:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.995708.1377957 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C7F94AC233A
+	for <lists+xen-devel@lfdr.de>; Fri, 23 May 2025 14:58:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.995735.1377966 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uIRpy-00088Z-Lv; Fri, 23 May 2025 12:49:22 +0000
+	id 1uIRy8-0001TZ-Dr; Fri, 23 May 2025 12:57:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 995708.1377957; Fri, 23 May 2025 12:49:22 +0000
+Received: by outflank-mailman (output) from mailman id 995735.1377966; Fri, 23 May 2025 12:57:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uIRpy-000877-JC; Fri, 23 May 2025 12:49:22 +0000
-Received: by outflank-mailman (input) for mailman id 995708;
- Fri, 23 May 2025 12:49:22 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uIRy8-0001S2-BD; Fri, 23 May 2025 12:57:48 +0000
+Received: by outflank-mailman (input) for mailman id 995735;
+ Fri, 23 May 2025 12:57:47 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ep+V=YH=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1uIRpy-000871-33
- for xen-devel@lists.xenproject.org; Fri, 23 May 2025 12:49:22 +0000
-Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
- [2a00:1450:4864:20::532])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 58da08f2-37d4-11f0-a2fb-13f23c93f187;
- Fri, 23 May 2025 14:49:21 +0200 (CEST)
-Received: by mail-ed1-x532.google.com with SMTP id
- 4fb4d7f45d1cf-5efe8d9ebdfso17086941a12.3
- for <xen-devel@lists.xenproject.org>; Fri, 23 May 2025 05:49:21 -0700 (PDT)
+ id 1uIRy7-0001Rw-6o
+ for xen-devel@lists.xenproject.org; Fri, 23 May 2025 12:57:47 +0000
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [2a00:1450:4864:20::332])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 853625ce-37d5-11f0-b892-0df219b8e170;
+ Fri, 23 May 2025 14:57:45 +0200 (CEST)
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-43edb40f357so76011615e9.0
+ for <xen-devel@lists.xenproject.org>; Fri, 23 May 2025 05:57:45 -0700 (PDT)
 Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6005ac33757sm11894907a12.59.2025.05.23.05.49.20
+ ffacd0b85a97d-3a366e08747sm23449171f8f.95.2025.05.23.05.57.43
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 23 May 2025 05:49:20 -0700 (PDT)
+ Fri, 23 May 2025 05:57:44 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 58da08f2-37d4-11f0-a2fb-13f23c93f187
+X-Inumbo-ID: 853625ce-37d5-11f0-b892-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1748004561; x=1748609361; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1748005065; x=1748609865; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=9CVl9Kxzo6lE9JOiVku/hr4UIbWy7NMEmzAFYkSpUlE=;
-        b=RBBinJxg3n+2uPxNikgM5YePQndgaFs1bcbZu4iQ051lqSO6EuxRjy3FOg3eG5bzjC
-         bBZ+/kJlcPOF+WN0Y4cxw2kawui5v//h1crS7MhgV+HrJ61G6GlbmlxDRleqyEi7ytJ7
-         GZsr4vS6iiqioUsKMhRmNkfJnRej9ppnflTqY=
+        bh=MZPfaqjK/oRJFHgil/CdCmK1hYNGccxbjdeNMoweZXc=;
+        b=q76dSIg7ho924eJ1X1dpHwMjxYyOtIzrESoLVZBNHhWWnogai+3J8+6XirlrDu/i7B
+         QLAEwwg2QJWBFYQxyVHodSjN6A+TcrDmMTz+jjZoBcF4WSL13wULToGLVZbaZMjC9omP
+         w4WGdDDc//p5ehKvokk8POCiGD98eIlj8gOCE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1748004561; x=1748609361;
+        d=1e100.net; s=20230601; t=1748005065; x=1748609865;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=9CVl9Kxzo6lE9JOiVku/hr4UIbWy7NMEmzAFYkSpUlE=;
-        b=f0Ug5OI7Wlg4++ZWZ458me2peK512U9SLkBg2wiPliLH1LC1aaNVNhQg4h8xoVshjX
-         Y1EMxzAYFquEMPZh18etn0PYnFyXD74h8MpVEn8ujgV9/4K0auJIymcEn2sJF74tzAOw
-         LPlG7yZOkkg1KDmKt3Vds8+gbaEyjyvWsHUDzOmzsyEso46i6D4P6kBtxTO6CJd5sngU
-         SW0Fw3buzRbf50w2q9rOZcbObrQlqZNGCCMV8z/xGFY12AnZRFP+fFQxqE4cfBT6A7M8
-         0KLpA5c89CfxshWRGDDd8JyGuirOyiR/nzEgcIKDuoLUN88tdooh//rsJyNhvWNYWT6p
-         P6RQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXBWrrSWYxgPo5ljK21mxhVUGY++6Z70lZWO6haeYlotrUkGPrJT6SgXeP/Tb+HgOH7Ho307kHtsWU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwtrSHoJ5uJJt78ugQ1HPbB8O5Vplp7VqHDuCnsMY7IOjCPVWbf
-	vVqP/Sc9pNjU6tMGUHxg6ypbqadYT3oICkxWxIyuuKLhDOtzXUapcmSO2Fwi2MLePPU=
-X-Gm-Gg: ASbGnctroFW2pG+Y4A+qM0g0PaChhG1itSpOMvFdPi4yiXbyCoYtCJohMMXrIrn57v0
-	Lt1JQI69l1QUL4wi7gMCWUN2tQd+cfXYzG5g00bnIsSe3xJHU7BsNOFwgiyrG9IB4BvpwkYYuHd
-	S3FLK+I4u5+T+79Y9yxrdYKRgaQfOoIPKBzw9PXylRSrmtHrF1/7bluBwDMcScu8JWzdtJw2yXL
-	nDT6IJJIG3nrqL6/6oYw7BMRNAU47DE45gkEUarE4rcXoXkP7yA2QNb0tJwx0fgAhsQ0XBDEETj
-	4liSrBga1q8uYLVIpIbNywXoLKwqs1s1B6YdShNb0tzOoJumRVOOIHBhOeyg1coknQ9B9XEiHam
-	y0qWKlF2Hh3yLZEP6
-X-Google-Smtp-Source: AGHT+IEgGVF0a8o4FOy7JKbGAyKw98PJDdVmQ8wzS+s2fGxMRsg+DEcPFW5xTuKWyOM0MUfTYxl+lA==
-X-Received: by 2002:a05:6402:5252:b0:5fa:82a4:4879 with SMTP id 4fb4d7f45d1cf-601140b5286mr25794126a12.16.1748004560706;
-        Fri, 23 May 2025 05:49:20 -0700 (PDT)
-Message-ID: <dc7e9b9c-0225-4ba2-9d37-2c8fdd9de395@citrix.com>
-Date: Fri, 23 May 2025 13:49:19 +0100
+        bh=MZPfaqjK/oRJFHgil/CdCmK1hYNGccxbjdeNMoweZXc=;
+        b=s0A673m3+3Ylkq/dzlYoeQwsldsEgW6JZZGu27rZoZCZBegFuXWoXEqGkik5/WJeUH
+         If/JDBpGM2EOR3NPZCd81XjAxLlF/1+hliP3N6sUWGcy/EDAl8287+kIPOErw2y1SzxI
+         dSg3l8gWLlzCuv/7QCc+HIBLEnCJVvlb2Bf7IGCesBw7MKOXvDP4P0z6RXOQvrWON6qH
+         64RxIRtZzEt2xbiyi5GrPuCsr2LE2S28OIL2hQLLF264IBKdfU2WOuBx+ohniLExW0kO
+         sFNmEFIQhFeOWBfgPMpxd/qerrpOrdGCs2iOSZhYcNP9lh46LVpnctPIsxJhMy5Jn9Pn
+         nB/w==
+X-Forwarded-Encrypted: i=1; AJvYcCX1odDFHRb+cPUOtZSfIDOJtd8KtkEq0iMLkW6hUjZ2pb7SVJ7gryzeXOBydYi8mTkyTWUkXrQ8KS8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxJYxLJuCislhjcEqDcW0PBjcxo1ku0W1Ybsd4YOAEvGui1Shka
+	AaG91lCBmSywRCLMQSN4Zmxsc7e5bGQl5OWBO3Fa+MCNrPMWjWS+hoPWokywO/SsMXE=
+X-Gm-Gg: ASbGnctcqD9ERtDSTKii43yA7J3oPaSKJ+BlYJlrKXGdSMleLQMYi3xyMu2Q9u46Xzu
+	hconii0lEBStg5xjLi9MsdnDb6LvcR/TCoqHa6aJjvgF1f6lgsUAN7uY9vslHyV40pS1rzCLuic
+	Zi89L0dNb2N/yrPHcGqmsQyqz7kJxznDBxuSE2OmJUEycVyvaA1pNVBaKnavqWa/LXmDaNll3uL
+	+PDwTqT7O0QzNkbHdsoHZ99F8AmXanVNEdYezhhAhaBL1QISwLz3vUJ3Y6Q4HGFlM3EwsFXcziU
+	V8W6bf8KUDtdTH3SkKUjsLvcE9y3aEtmKwWcKB1Bx4Qe4OgsFllqWFFk/E3korcUVLBl306o6RG
+	QavoB+EkKXvZRrA4B
+X-Google-Smtp-Source: AGHT+IGgKAYE0eZYEoknWGJOxGCeBHfXSZcNpNTOt8IjWdFk3nb93TDIQ6MCtWyOpNkDI9XmjZn58w==
+X-Received: by 2002:a5d:5f91:0:b0:3a4:bafb:add2 with SMTP id ffacd0b85a97d-3a4bafbb48bmr6093623f8f.0.1748005064661;
+        Fri, 23 May 2025 05:57:44 -0700 (PDT)
+Message-ID: <7486eb78-50e8-4959-b494-5bd58e123af4@citrix.com>
+Date: Fri, 23 May 2025 13:57:43 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/3] x86/traps: split code to dump execution state to a
- separate helper
-To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>
-References: <20250523082135.18088-1-roger.pau@citrix.com>
- <20250523082135.18088-3-roger.pau@citrix.com>
+Subject: Re: [XEN PATCH] eclair: allow and document use of GCC extension for
+ label addresses
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>,
+ xen-devel@lists.xenproject.org
+Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
+ ayan.kumar.halder@amd.com, consulting@bugseng.com,
+ Doug Goldstein <cardoe@cardoe.com>,
+ Anthony PERARD <anthony.perard@vates.tech>, Jan Beulich <jbeulich@suse.com>,
+ Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
+References: <d9dbce35d6857f79a21b68e4edd45f0febe3d3c9.1747984747.git.nicola.vetrini@bugseng.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -135,19 +140,20 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20250523082135.18088-3-roger.pau@citrix.com>
+In-Reply-To: <d9dbce35d6857f79a21b68e4edd45f0febe3d3c9.1747984747.git.nicola.vetrini@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 23/05/2025 9:21 am, Roger Pau Monne wrote:
-> Split the code that triggers remote CPUs to dump stacks into a separate
-> function.  Also introduce a parameter that can be set by the caller of the
-> newly introduced function to force CPUs to dump the full stack, rather than
-> just dumping the current function name.
+On 23/05/2025 8:20 am, Nicola Vetrini wrote:
+> No functional change.
 >
-> No functional change intended.
->
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
 
-Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Ah, very nice and easy.
+
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+Is this dependent on the updated Eclair, or can it go in now?
+
+~Andrew
 
