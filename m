@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A691BAC2205
-	for <lists+xen-devel@lfdr.de>; Fri, 23 May 2025 13:35:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.995639.1377926 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C925AC222B
+	for <lists+xen-devel@lfdr.de>; Fri, 23 May 2025 13:48:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.995661.1377938 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uIQg2-0006Y2-P5; Fri, 23 May 2025 11:35:02 +0000
+	id 1uIQsX-0008Ml-Sq; Fri, 23 May 2025 11:47:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 995639.1377926; Fri, 23 May 2025 11:35:02 +0000
+Received: by outflank-mailman (output) from mailman id 995661.1377938; Fri, 23 May 2025 11:47:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uIQg2-0006Wb-MU; Fri, 23 May 2025 11:35:02 +0000
-Received: by outflank-mailman (input) for mailman id 995639;
- Fri, 23 May 2025 11:35:01 +0000
+	id 1uIQsX-0008Je-PC; Fri, 23 May 2025 11:47:57 +0000
+Received: by outflank-mailman (input) for mailman id 995661;
+ Fri, 23 May 2025 11:47:56 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=59Zg=YH=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1uIQg1-0006WV-FX
- for xen-devel@lists.xenproject.org; Fri, 23 May 2025 11:35:01 +0000
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [2a00:1450:4864:20::635])
+ id 1uIQsW-0008JY-AP
+ for xen-devel@lists.xenproject.org; Fri, 23 May 2025 11:47:56 +0000
+Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
+ [2a00:1450:4864:20::230])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f5532836-37c9-11f0-b892-0df219b8e170;
- Fri, 23 May 2025 13:34:59 +0200 (CEST)
-Received: by mail-ej1-x635.google.com with SMTP id
- a640c23a62f3a-ad5297704aaso1530101866b.2
- for <xen-devel@lists.xenproject.org>; Fri, 23 May 2025 04:34:59 -0700 (PDT)
+ id c23b1cf7-37cb-11f0-b892-0df219b8e170;
+ Fri, 23 May 2025 13:47:52 +0200 (CEST)
+Received: by mail-lj1-x230.google.com with SMTP id
+ 38308e7fff4ca-3105ef2a08dso81711781fa.0
+ for <xen-devel@lists.xenproject.org>; Fri, 23 May 2025 04:47:52 -0700 (PDT)
 Received: from [192.168.1.5] (user-109-243-64-38.play-internet.pl.
  [109.243.64.38]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ad52d4420ccsm1197136366b.110.2025.05.23.04.34.57
+ 38308e7fff4ca-328084caa90sm35702521fa.43.2025.05.23.04.47.50
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 23 May 2025 04:34:58 -0700 (PDT)
+ Fri, 23 May 2025 04:47:51 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f5532836-37c9-11f0-b892-0df219b8e170
+X-Inumbo-ID: c23b1cf7-37cb-11f0-b892-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1748000099; x=1748604899; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1748000872; x=1748605672; darn=lists.xenproject.org;
         h=in-reply-to:from:content-language:references:cc:to:subject
          :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=m/B3enXGVCVlxeacnZp2rSb6m1gRv4OfVjhKViwqA/U=;
-        b=WeHcmB9Bk4OzWzib8+V0aC58FdMyJ0ThpKcySCWfG39FNDkJvcxEhfzHK6XPGALraD
-         EhBc3bpHyyltaC+w6Kn4bmvejr+Aee12Pn2iAiokpvcZeSprvsxVJq3Qn9CdJgRkC5ur
-         582/f0jHhM44XYYLZ2kR5Fmvgv1AsQiXJgZLKElJaWQwQ2Mxkpgzdzol2UMYB2WXVJJF
-         i7SgQKBfIebxxmVGf9WDU1NgekWeHqXYXOIC5bbKubOU/iuRwwX815SO+y0sib0IDU+0
-         C5+9nJPuxoFcCRgGYnryXKZa3XtLNXZa064vSuWUjdvT262vyGffb2QSuDg0WyU+D0OA
-         CkGQ==
+        bh=c6GYp5639k1wRrhYrb3T+vDFQxM4wMPkfHBk6H9Ink0=;
+        b=D0Ok5Eh2naTBnZzcakFItsJg9F4UmSnU36raTgll140EAdfBJq6Z2jX6JVlPH7u4Un
+         rpItsdS/7X9I1Q6aS/zrIZBKM8BPy2b1e0N4qf5xU6T/zgo1VXIqL0/LMljgAA32NKSK
+         CZSXOvECbxpUlDwPsHmhBFj5praabHfFtY0v/IYqbVzNkCCASak3JSXOjj3ubFYZhBgB
+         JHoPUIgaAZEb2THiXQ9T7Nydvtidlo4R/u8LS7lT2ll5+RNEmTrR2rJ/Wd/oSvx9z7Hs
+         Jw3Aoed6z1YLLzTp8OH+fIXCEdGni8+0z2mQl+xil9s4k+ySaWlQ0brWbunb6z3nEXpk
+         BXew==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1748000099; x=1748604899;
+        d=1e100.net; s=20230601; t=1748000872; x=1748605672;
         h=in-reply-to:from:content-language:references:cc:to:subject
          :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=m/B3enXGVCVlxeacnZp2rSb6m1gRv4OfVjhKViwqA/U=;
-        b=UsqMZV30E4ImfeVyUCjMMWxAFNfPw1u/14FDmTSvStUHselYE7GnjN1vSMzU+OLueD
-         64VeDqD5e8GmItILMNgIibJLk7LlDfEbAU+rvqpJrvtrU/OTXXcKFenmRSbkKdDHvPib
-         mMXDSeoKNkLT8xFC7BTR6tU+lqXxqCNZtEEWe60OpWclg+u7RIsInrOUF54GCVIw/YBb
-         kfqUlVvovU+x0wmnQbuyjFFNoGBTXa7LyZ0uQLmXUk7HJNnNZWSJwVPBO0TSV8z9Xb+U
-         nW5Oth/GN0zsgyO8iuH/xmFB84Dwv+QMG+wUi3Yzm1plPj5wBM1hT64PeMhXvwJrs2oz
-         PHfg==
-X-Forwarded-Encrypted: i=1; AJvYcCVdc89/9jaYp3r6MW6YxxvP3u3/SJg/zbBxoizD4xNzD+mNNR9xpytgsmZHpGlFVE7Cmnu+UGdOmIE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz7mkkczmak2DICxgW3B1HMKWsNeE3U+/DiExQDV24bbfiuKAnQ
-	YALLJAzcL9gCnG65GxJu8vZFAaBy0fpvdP6p3+kWnwulqW03t/DTUEys
-X-Gm-Gg: ASbGncucrNO0hCHsSkmUD4jF4+cBCHlPdMpEtKXHBwqmGz8wr20fTDT3lmYBClFain2
-	Xkk3q2J7Op6MIoPxz51KD1yPMnNc82gKZaDEhHnI0y4m5QuOSlWVDRTNPZ+neoXN8M46RjHbs0c
-	2W8gc3zRyvB+jiKy9N2uk8lgmjQlJoCmYrEuhiYRTimXE/InCM9VJPxCcKTPE33UNItbur3uXzu
-	GDNznl6wDpK5zP2Z+AIMTnAtL3an7qMVQYNwuL6gF2xRZriTOg9/NAyTZYH8Jt0kolz1scuFXvX
-	EfqtKP/7s/m3e4j+l9sHt6uGMJFlrLrgD/0OhySLXqEdz//m4NzDQEP3SPL3EUVzL8NKQeqNGY+
-	uFURpmjX18qT3QXUqblj6IGAhvIM1zwi8sIo=
-X-Google-Smtp-Source: AGHT+IGHggtOf2c5gJg+CfrPL62I+mF8eF+SUMqk7FJZdqFlNKhxg8kkplPwJeNoFjsoI6q7nmDbew==
-X-Received: by 2002:a17:907:97c6:b0:abf:7453:1f1a with SMTP id a640c23a62f3a-ad52d5174e6mr2725320066b.36.1748000098682;
-        Fri, 23 May 2025 04:34:58 -0700 (PDT)
+        bh=c6GYp5639k1wRrhYrb3T+vDFQxM4wMPkfHBk6H9Ink0=;
+        b=syp9FBj/LdjACx4k4wc52PvP2PGcm2LKGU5WQLX32IMyjf/Dlk0KqcB96FMy+BKTbz
+         4+2pQuDrMwD6rAIhnXxv+xQBCItOu4K6KocPszesVXxaeSfWnKcieThzz7WBAKG8HUrw
+         wIKbMf4/BiuDI4+sjmGeOJTZke/T7oFqSIqqArrnda3zmaxlrKrscRNuKXXjUKKCngJY
+         R8FPkGTEF/mmj9Kr273jRR9BsCQC5DVzsVWrQT6oQCYSEAt1dFDWnh/b6aBvWZh/4sOB
+         8M4XsMmn5DogwqNM1wfTvdJSIMCNzreWjNaIvdUQP6tkfUjHtguGZi3ICK5GM1Iz7XgE
+         QG8w==
+X-Forwarded-Encrypted: i=1; AJvYcCVEx1RhCqPeFSWLdibXvkhlEWerbJ4kQ8ORn5wPIjM2PywLKcs7LJ71NibiMiajEpei3+SFGasqT+M=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxFms5ms8FwaWfF/U7zA1WdrB71moB8GYOvq9vcX2kJOiJpm8Rk
+	mM2TdZZQdfK1fGenFkuJm9vfDSUqUfs58b219k55NidX5WxmpwE1fz7Q
+X-Gm-Gg: ASbGncuYlEvIRBNWa6uN7qv3OPYrMBvKfSDFlaEITRY9ZrAPas9XGYUIVhPGsHOJRPS
+	YqkxSAFL9j9l6bXuMQUckr4C2Ud/rn6f+r8bJqRFR9LzukbYVqYKiyJepPThRzsZ1v4gx4y7Asv
+	2O+UnG4hytEYu/FaE8vhtHuZt5elnoeitPWEE2ix5zXBbYo/BYXJwiotdDD+KO9H6fOE2q1PtY/
+	r+x5LffurO+9v9+nojtHE7wgYqZPM1HoHCP0KSmMiK81wYp/abvU8BsDvhykcwyhSM9LCfpRlIg
+	HVmEOFHjqvE5Iv7aGy/NRxB99CwxAzRDV6+dWpGxmrphjxMOl9bFMNE35UafUg7dh+E4BwtqOwZ
+	5Sj6V3eRsEXpwOH2X3OyUIiRJWAP/GOXAgMA=
+X-Google-Smtp-Source: AGHT+IG19HrYp4DTtFLsYl8KAJfQ1k6OQaPVubRcmjzn2rNzWs/LFdBxiFj/dHZQ+8veSym8KOv6hA==
+X-Received: by 2002:a2e:ae10:0:b0:328:d9f:5ae7 with SMTP id 38308e7fff4ca-32950b95cffmr5897261fa.23.1748000871636;
+        Fri, 23 May 2025 04:47:51 -0700 (PDT)
 Content-Type: multipart/alternative;
- boundary="------------A8TRKA4dtCKZX41CdgjuMFbv"
-Message-ID: <c2be2642-0cba-48e2-8acf-1664a96f12c9@gmail.com>
-Date: Fri, 23 May 2025 13:34:57 +0200
+ boundary="------------CzanOoIozGJjy35Mu0ppKWop"
+Message-ID: <e877a21d-a5f1-4988-8082-cb87d914e2b8@gmail.com>
+Date: Fri, 23 May 2025 13:47:50 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 5/6] xen/riscv: add new p2m types and helper macros for
- type classification
+Subject: Re: [PATCH v1 6/6] xen/riscv: implement p2m mapping functionality
 To: Jan Beulich <jbeulich@suse.com>
 Cc: Alistair Francis <alistair.francis@wdc.com>,
  Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
@@ -99,62 +98,68 @@ Cc: Alistair Francis <alistair.francis@wdc.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <cover.1746805907.git.oleksii.kurochko@gmail.com>
- <52861198c7c363c4b0caf818345f4ffbec056337.1746805907.git.oleksii.kurochko@gmail.com>
- <ad1d0c41-a554-49f2-8397-a288b4b75eae@suse.com>
+ <c6324b268bf985e8a5e7254a4b181842a860dd94.1746805907.git.oleksii.kurochko@gmail.com>
+ <701620bf-b76f-4f21-8703-4a6d172eb812@suse.com>
 Content-Language: en-US
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <ad1d0c41-a554-49f2-8397-a288b4b75eae@suse.com>
+In-Reply-To: <701620bf-b76f-4f21-8703-4a6d172eb812@suse.com>
 
 This is a multi-part message in MIME format.
---------------A8TRKA4dtCKZX41CdgjuMFbv
+--------------CzanOoIozGJjy35Mu0ppKWop
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 
-On 5/20/25 5:11 PM, Jan Beulich wrote:
+On 5/20/25 5:16 PM, Jan Beulich wrote:
 > On 09.05.2025 17:57, Oleksii Kurochko wrote:
->> --- a/xen/arch/riscv/include/asm/p2m.h
->> +++ b/xen/arch/riscv/include/asm/p2m.h
->> @@ -80,8 +80,36 @@ struct p2m_domain {
->>   typedef enum {
->>       p2m_invalid = 0,    /* Nothing mapped here */
->>       p2m_ram_rw,         /* Normal read/write domain RAM */
->> +    p2m_ram_ro,         /* Read-only; writes are silently dropped */
-> This is pretty special a type, which imo better wouldn't be introduced
-> without there being proper support for it. (I don't suppose RISC-V
-> hardware alone can effect this type?)
+>> These utilities are needed for building and managing RISC-V guest page
+>> tables and MMIO mappings by using functions map_regions_p2mt() and
+>> guest_physmap_add_entry().
+>>
+>> To implement p2m mapping functionality the following is introduced:
+>> - Define P2M root level/order and entry count.
+>> - Introdude radix type for p2m types as it isn't enough free bits in pte
+>>    and the helpers (p2m_type_radix_{get,set}()) to deal with them.
+>> - Introduce p2m_is_*() helpers() as  pte_is_*() helpers are checking
+>>    the valid bit set in the PTE but we have to check p2m_type instead
+>>    (look at the comment above p2m_is_valid() for some details).
+> May I suggest to name them at least p2me_is_*() then, as they check entries
+> rather than entire P2Ms? Same perhaps elsewhere.
 
-It is possible to make ro by using r, w, x bits of page table entry in the
-same way Arm does that:
-     case p2m_ram_ro:
-         e->p2m.xn = 0;
-         e->p2m.write = 0;
-         break;
+Sure, I will handle that during a work on v2.
 
 >
->> +    p2m_mmio_direct_dev,/* Read/write mapping of genuine Device MMIO area */
->> +    p2m_map_foreign_rw, /* Read/write RAM pages from foreign domain */
->> +    p2m_map_foreign_ro, /* Read-only RAM pages from foreign domain */
-> Aiui you took these from Arm. Looking at its sole use, I'm not convinced
-> it's used correctly. If it is, the same comment as for p2m_ram_ro above
-> would apply here, too.
+>> - Introduce helper to set p2m's pte permission: p2m_set_permissions().
+>> - Introduce helper to create p2m entry based on mfn, p2m_type_t and
+>>    p2m_access_t.
+>> - Introduce helper to generate table entry with correct attributes:
+>>    page_to_p2m_table().
+>> - Introduce p2m page allocation function: p2m_alloc_page().
+>> - Introduce functions to write/remove p2m's entries: p2m_{write,remove}_pte().
+>> - Introduce function to allocate p2m table: p2m_create_table().
+>> - Introduce functions used to free p2m entry.
+>> - Introduce function for table walking: p2m_next_level().
+>> - Introduce function to insert an entry in the p2m (p2m_set_entry()).
+>> - Introduce superpage splitting: p2m_split_superpage()).
+>> - Introduce page table type defines (PGT_{none,writable_page}, etc).
+>>
+>> Signed-off-by: Oleksii Kurochko<oleksii.kurochko@gmail.com>
+>> ---
+>>   xen/arch/riscv/include/asm/mm.h   |  32 +-
+>>   xen/arch/riscv/include/asm/p2m.h  |  17 +-
+>>   xen/arch/riscv/include/asm/page.h |  11 +
+>>   xen/arch/riscv/p2m.c              | 780 ++++++++++++++++++++++++++++++
+>>   4 files changed, 829 insertions(+), 11 deletions(-)
+> It's imo too many things you do in one go here.
 
-p2m_mmio_direct_dev - this one is defintely needed as it is used for device
-pass through to guest domain to map device's MMIO. It seems to me like it is
-correctly used.
+I will split to smaller patches.
 
-Others we don't really use now in private branches but it seems like they could be
-useful, so I added them now.
-
-I can drop them now and return back if such functionality which uses them will be
-introduced for RISC-V, and at that moment I think it will be
-more clear if it is used correctly or not.
-Right now, I am not sure if it is.
+Thanks.
 
 ~ Oleksii
 
 
---------------A8TRKA4dtCKZX41CdgjuMFbv
+--------------CzanOoIozGJjy35Mu0ppKWop
 Content-Type: text/html; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
@@ -166,69 +171,73 @@ Content-Transfer-Encoding: 7bit
   <body>
     <p><br>
     </p>
-    <div class="moz-cite-prefix">On 5/20/25 5:11 PM, Jan Beulich wrote:<br>
+    <div class="moz-cite-prefix">On 5/20/25 5:16 PM, Jan Beulich wrote:<br>
     </div>
     <blockquote type="cite"
-      cite="mid:ad1d0c41-a554-49f2-8397-a288b4b75eae@suse.com">
+      cite="mid:701620bf-b76f-4f21-8703-4a6d172eb812@suse.com">
       <pre wrap="" class="moz-quote-pre">On 09.05.2025 17:57, Oleksii Kurochko wrote:
 </pre>
       <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">--- a/xen/arch/riscv/include/asm/p2m.h
-+++ b/xen/arch/riscv/include/asm/p2m.h
-@@ -80,8 +80,36 @@ struct p2m_domain {
- typedef enum {
-     p2m_invalid = 0,    /* Nothing mapped here */
-     p2m_ram_rw,         /* Normal read/write domain RAM */
-+    p2m_ram_ro,         /* Read-only; writes are silently dropped */
+        <pre wrap="" class="moz-quote-pre">These utilities are needed for building and managing RISC-V guest page
+tables and MMIO mappings by using functions map_regions_p2mt() and
+guest_physmap_add_entry().
+
+To implement p2m mapping functionality the following is introduced:
+- Define P2M root level/order and entry count.
+- Introdude radix type for p2m types as it isn't enough free bits in pte
+  and the helpers (p2m_type_radix_{get,set}()) to deal with them.
+- Introduce p2m_is_*() helpers() as  pte_is_*() helpers are checking
+  the valid bit set in the PTE but we have to check p2m_type instead
+  (look at the comment above p2m_is_valid() for some details).
 </pre>
       </blockquote>
       <pre wrap="" class="moz-quote-pre">
-This is pretty special a type, which imo better wouldn't be introduced
-without there being proper support for it. (I don't suppose RISC-V
-hardware alone can effect this type?)</pre>
+May I suggest to name them at least p2me_is_*() then, as they check entries
+rather than entire P2Ms? Same perhaps elsewhere.</pre>
     </blockquote>
-    <pre>It is possible to make ro by using r, w, x bits of page table entry in the
-same way Arm does that:
-    case p2m_ram_ro:
-        e-&gt;p2m.xn = 0;
-        e-&gt;p2m.write = 0;
-        break;
+    <pre>Sure, I will handle that during a work on v2.
 
 </pre>
     <blockquote type="cite"
-      cite="mid:ad1d0c41-a554-49f2-8397-a288b4b75eae@suse.com">
+      cite="mid:701620bf-b76f-4f21-8703-4a6d172eb812@suse.com">
       <pre wrap="" class="moz-quote-pre">
 
 </pre>
       <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">+    p2m_mmio_direct_dev,/* Read/write mapping of genuine Device MMIO area */
-+    p2m_map_foreign_rw, /* Read/write RAM pages from foreign domain */
-+    p2m_map_foreign_ro, /* Read-only RAM pages from foreign domain */
+        <pre wrap="" class="moz-quote-pre">- Introduce helper to set p2m's pte permission: p2m_set_permissions().
+- Introduce helper to create p2m entry based on mfn, p2m_type_t and
+  p2m_access_t.
+- Introduce helper to generate table entry with correct attributes:
+  page_to_p2m_table().
+- Introduce p2m page allocation function: p2m_alloc_page().
+- Introduce functions to write/remove p2m's entries: p2m_{write,remove}_pte().
+- Introduce function to allocate p2m table: p2m_create_table().
+- Introduce functions used to free p2m entry.
+- Introduce function for table walking: p2m_next_level().
+- Introduce function to insert an entry in the p2m (p2m_set_entry()).
+- Introduce superpage splitting: p2m_split_superpage()).
+- Introduce page table type defines (PGT_{none,writable_page}, etc).
+
+Signed-off-by: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
+---
+ xen/arch/riscv/include/asm/mm.h   |  32 +-
+ xen/arch/riscv/include/asm/p2m.h  |  17 +-
+ xen/arch/riscv/include/asm/page.h |  11 +
+ xen/arch/riscv/p2m.c              | 780 ++++++++++++++++++++++++++++++
+ 4 files changed, 829 insertions(+), 11 deletions(-)
 </pre>
       </blockquote>
       <pre wrap="" class="moz-quote-pre">
-Aiui you took these from Arm. Looking at its sole use, I'm not convinced
-it's used correctly. If it is, the same comment as for p2m_ram_ro above
-would apply here, too.</pre>
+It's imo too many things you do in one go here.</pre>
     </blockquote>
-    <pre>p2m_mmio_direct_dev - this one is defintely needed as it is used for device
-pass through to guest domain to map device's MMIO. It seems to me like it is
-correctly used.
+    <pre>I will split to smaller patches.
 
-Others we don't really use now in private branches but it seems like they could be
-useful, so I added them now.
+Thanks.
 
-I can drop them now and return back if such functionality which uses them will be
-introduced for RISC-V, and at that moment I think it will be
-more clear if it is used correctly or not.
-Right now, I am not sure if it is.
-
-~ Oleksii
-
-
-</pre>
+~ Oleksii</pre>
+    <br>
   </body>
 </html>
 
---------------A8TRKA4dtCKZX41CdgjuMFbv--
+--------------CzanOoIozGJjy35Mu0ppKWop--
 
