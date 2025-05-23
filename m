@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 31D09AC18DC
-	for <lists+xen-devel@lfdr.de>; Fri, 23 May 2025 02:08:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.994872.1377659 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 904A3AC1D47
+	for <lists+xen-devel@lfdr.de>; Fri, 23 May 2025 08:52:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.995182.1377701 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uIFwu-0001UQ-Ns; Fri, 23 May 2025 00:07:44 +0000
+	id 1uIMFh-0001g0-E8; Fri, 23 May 2025 06:51:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 994872.1377659; Fri, 23 May 2025 00:07:44 +0000
+Received: by outflank-mailman (output) from mailman id 995182.1377701; Fri, 23 May 2025 06:51:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uIFwu-0001Rg-Kr; Fri, 23 May 2025 00:07:44 +0000
-Received: by outflank-mailman (input) for mailman id 994872;
- Fri, 23 May 2025 00:07:42 +0000
+	id 1uIMFh-0001eZ-B1; Fri, 23 May 2025 06:51:33 +0000
+Received: by outflank-mailman (input) for mailman id 995182;
+ Fri, 23 May 2025 06:51:31 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=bA6T=YG=flex--seanjc.bounces.google.com=317gvaAYKCVAAws51uy66y3w.u64Fw5-vwDw330ABA.Fw57961wuB.69y@srs-se1.protection.inumbo.net>)
- id 1uIFid-0007r7-3l
- for xen-devel@lists.xenproject.org; Thu, 22 May 2025 23:52:59 +0000
-Received: from mail-pj1-x104a.google.com (mail-pj1-x104a.google.com
- [2607:f8b0:4864:20::104a])
+ <SRS0=JqHe=YH=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
+ id 1uIMFf-0001eT-Fw
+ for xen-devel@lists.xenproject.org; Fri, 23 May 2025 06:51:31 +0000
+Received: from mail-il1-x134.google.com (mail-il1-x134.google.com
+ [2607:f8b0:4864:20::134])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e21b213e-3767-11f0-b892-0df219b8e170;
- Fri, 23 May 2025 01:52:57 +0200 (CEST)
-Received: by mail-pj1-x104a.google.com with SMTP id
- 98e67ed59e1d1-30e896e116fso5559719a91.2
- for <xen-devel@lists.xenproject.org>; Thu, 22 May 2025 16:52:57 -0700 (PDT)
+ id 5853271c-37a2-11f0-b892-0df219b8e170;
+ Fri, 23 May 2025 08:51:26 +0200 (CEST)
+Received: by mail-il1-x134.google.com with SMTP id
+ e9e14a558f8ab-3da8e1259dfso64382315ab.3
+ for <xen-devel@lists.xenproject.org>; Thu, 22 May 2025 23:51:26 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,224 +40,154 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e21b213e-3767-11f0-b892-0df219b8e170
+X-Inumbo-ID: 5853271c-37a2-11f0-b892-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20230601; t=1747957976; x=1748562776; darn=lists.xenproject.org;
-        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
-         :date:reply-to:from:to:cc:subject:date:message-id:reply-to;
-        bh=iNuUWcLjakGfkNNM+8DkBjBlwJhpM767OVzB+eUiNIQ=;
-        b=w6B+1R/lodL5bHDVCn89QkY3h46a2X/l0bVftv5L7rvPV2Wrec1a1wUaplsOvZGejR
-         iLDQfgYct9y03UMOYftoWBjSCG0NGaH3CzajzqpxXoO012pfDR6tcvmoJtLuIbk+6ioG
-         rkCT4rOUYJJGeEW3qx7C6YRRoKeQKv5rDM//L2EyQm6LIWq9QgDGC5TXsbfZTZvIlMAk
-         EASL8O76ykgq7cI+7nr5wdlxYtql4egc7iHgDOtQyZUtqaJkjhv2iytml/K2q3UasbSK
-         zwzttWSvVl9oTRtCPSslAz6ihYc+bApadr8/TwaQ1t4HScEguH8yBi9rc+yhYUW46KRD
-         UtGw==
+        d=linaro.org; s=google; t=1747983085; x=1748587885; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Jv2FlgL6Ms54XQlvM5VUyvHV4/YVXgzvos+Dpzbmm2M=;
+        b=Z9g2yZJnLwgeUM6LI3QrVozgn6yxQiAthgwEg7xUgCZhn9ulsU2/Mi/zshohSKugx7
+         yxs2emzcR4W/wZazBdpbI4jBG97fcTDGAbhUspmDh1PCbiiz/XpLtiFVv0QtfSM1yLHa
+         uOktBnmMmu3FLwe8CEdIQg2q9kjbZjCfkA3U/ciXLoLVXrCwLWjgFc2/hZE/OgS8ZgUm
+         zh10wy6j/ap7qQZ9QLXGV/eUr0t7GJi44l2GGqVjEnMK5Y9sJi59wugoQwR+kZCzXSBI
+         g6+XJq9oHr+U5/XcqJOA4xK7/lcosbnu24/JNznO874j8wa5vQVISEmoe8wTKcDNFfEF
+         zA9w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747957976; x=1748562776;
-        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
-         :date:reply-to:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=iNuUWcLjakGfkNNM+8DkBjBlwJhpM767OVzB+eUiNIQ=;
-        b=F+updsJRw0v7xKlxQ5lqNJX7MPrSrLV64yOARFPWr01fr29wlqMYJGTflDMGWI6zXt
-         nHctLGFwiMgfEbJPwzbKxaminYK4BF8D51OAscR7msrcQbTPsQw9Em5ck+6q4Hw5IRsk
-         WZwhM2QEpYpoN+x+38gkjfqildYEjt0L7OXCAqy09pdHqYmZdYY51VPrMQNpWCKlBLVI
-         EK1MGRHY0pueZmdmKbIQ9V2vJr2u8Ti4YxK454LVgVgwXCiFWCSuD9Zp7XL11GSEiIek
-         seQxVexO8Qb1IaJZboE2K2wnu8H0Cio1xI9T4Ig0rpRuwv+bt5pvqwGYjz/3JrFMRajB
-         brsQ==
-X-Forwarded-Encrypted: i=1; AJvYcCX+mU0OYJaVKfFo0J9KBevv5v3O1jvAtFDsDkjA4LO1LOx9HCIUUU+E6hiiknY/DIgWhWajNzLiEzQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxnnKt97+S4ukax71rsjlxlzsK7HAV1lecLKCe4NwxT+EK+klCi
-	+0RxvzW9734dmTfnJlnWqRWoP38P0uhT7htc9g4zHx1vduKn3T47h1ExK0O2AWtdHGY6s9d3RIA
-	pd4xQoQ==
-X-Google-Smtp-Source: AGHT+IEoOvxAnrgVMqS3TC3RLkVh5nLtBQqPosDJG4xPj/XHWemBkiBPXcS2x1YfUhLo+1j7jd9m06w7XHM=
-X-Received: from pjbpm5.prod.google.com ([2002:a17:90b:3c45:b0:30a:9720:ea33])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90a:dfc7:b0:30c:5479:c92e
- with SMTP id 98e67ed59e1d1-30e830c7988mr39961520a91.4.1747957975748; Thu, 22
- May 2025 16:52:55 -0700 (PDT)
-Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Thu, 22 May 2025 16:52:23 -0700
-In-Reply-To: <20250522235223.3178519-1-seanjc@google.com>
-Mime-Version: 1.0
-References: <20250522235223.3178519-1-seanjc@google.com>
-X-Mailer: git-send-email 2.49.0.1151.ga128411c76-goog
-Message-ID: <20250522235223.3178519-14-seanjc@google.com>
-Subject: [PATCH v3 13/13] KVM: selftests: Add a KVM_IRQFD test to verify
- uniqueness requirements
-From: Sean Christopherson <seanjc@google.com>
-To: "K. Y. Srinivasan" <kys@microsoft.com>, Haiyang Zhang <haiyangz@microsoft.com>, 
-	Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>, 
-	Juergen Gross <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, 
-	Paolo Bonzini <pbonzini@redhat.com>, Ingo Molnar <mingo@redhat.com>, 
-	Peter Zijlstra <peterz@infradead.org>, Juri Lelli <juri.lelli@redhat.com>, 
-	Vincent Guittot <vincent.guittot@linaro.org>, Shuah Khan <shuah@kernel.org>, 
-	Marc Zyngier <maz@kernel.org>, Oliver Upton <oliver.upton@linux.dev>, 
-	Sean Christopherson <seanjc@google.com>
-Cc: linux-kernel@vger.kernel.org, linux-hyperv@vger.kernel.org, 
-	xen-devel@lists.xenproject.org, kvm@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	kvmarm@lists.linux.dev, K Prateek Nayak <kprateek.nayak@amd.com>, 
-	David Matlack <dmatlack@google.com>
+        d=1e100.net; s=20230601; t=1747983085; x=1748587885;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=Jv2FlgL6Ms54XQlvM5VUyvHV4/YVXgzvos+Dpzbmm2M=;
+        b=J3lHsNU4pGTMptGUtqXrS44Ck41rmghWUEXm7MzxUxQOEcy+ZgLiR6zTpcdLQ2SREu
+         qzPJa9BjVz2F3PJkt3YICx3YxO/IZ0YEbfec12UyD8nL7dr6yvcLY02JdFs9jYKMRimo
+         IO1l8Hgokl4eX1eIXoejHcy9f4kO115jr51CfLUyK8F5Il5R+tgYvD61SeFXcPZ51k6P
+         /NCYrt2ks0qkuIxh/FBwvHtD8lxzOq41T1JbrCzuQ6np99RWf3w8VrvfGAPEkdTtk3a8
+         8eZwyos63CCnr9IKhx0mArFKTq9AgdxN4HMwzuKIOIGzhZ7gE1HOnerxrsfMrhlR1SiA
+         mnWw==
+X-Gm-Message-State: AOJu0YzNb62Li3erW1aF/0iBq15Pwe/y5pvGrt/E3mkHZPvVOyWWrnEg
+	dW0NUk4MR5WwxuO9u/01HSF8bqdizwhdR7wYFkOCeIYv13GLwYyZOEDqECf6iSy1or30oljnA+r
+	JrXCyln/6UGvGnny5jxV7N7cyvc8RaeW55DBFdqaU5toyGOVl0qykjxk=
+X-Gm-Gg: ASbGncuyUjYX+TgaoICR+BHnErP+GL2YUor7w6eAoFVr/YXuAKPn6RNfxBN5NHMiNGY
+	ZieePmSBci6/Xj9uOBnttAyXxhECrjIKirm0J4y7A3Pc0YsuYDXM8ODXjCu3qmj5XmWgM6S12fG
+	H1PiqGHJ0/DKlr7cBCnq+W6wf79Xrk1kSJhQ==
+X-Google-Smtp-Source: AGHT+IFukozhMqaUDxabO/uMuohfJ7UiENQV4cPF2rk2OAC2W+PdWDZlHwhTnWWf36xAWFEjlMQGX5qa3l2/KvWu1Jo=
+X-Received: by 2002:a4a:ec49:0:b0:607:dd61:9c33 with SMTP id
+ 006d021491bc7-609f48646b0mr15960985eaf.1.1747983073932; Thu, 22 May 2025
+ 23:51:13 -0700 (PDT)
+MIME-Version: 1.0
+References: <cover.1747925287.git.bertrand.marquis@arm.com> <3405d6a545c5ad8fadf7b252c98ce4120fe63fd2.1747925287.git.bertrand.marquis@arm.com>
+In-Reply-To: <3405d6a545c5ad8fadf7b252c98ce4120fe63fd2.1747925287.git.bertrand.marquis@arm.com>
+From: Jens Wiklander <jens.wiklander@linaro.org>
+Date: Fri, 23 May 2025 08:51:01 +0200
+X-Gm-Features: AX0GCFuYk_q4tgQfcUyO6KQYcR52qBieNTLlOxr2SRafveq64FXPsFmTAKoxi58
+Message-ID: <CAHUa44EAEgRe=3v1sYyNLxSuzL92uY75TQLOPgMdSBCLZ0PPHA@mail.gmail.com>
+Subject: Re: [PATCH v6 3/6] xen/arm: ffa: Introduce VM to VM support
+To: Bertrand Marquis <bertrand.marquis@arm.com>
+Cc: xen-devel@lists.xenproject.org, 
+	Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Stefano Stabellini <sstabellini@kernel.org>, 
+	Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Add a selftest to verify that eventfd+irqfd bindings are globally unique,
-i.e. that KVM doesn't allow multiple irqfds to bind to a single eventfd,
-even across VMs.
+Hi Bertrand,
 
-Signed-off-by: Sean Christopherson <seanjc@google.com>
----
- tools/testing/selftests/kvm/Makefile.kvm |   1 +
- tools/testing/selftests/kvm/irqfd_test.c | 130 +++++++++++++++++++++++
- 2 files changed, 131 insertions(+)
- create mode 100644 tools/testing/selftests/kvm/irqfd_test.c
+On Thu, May 22, 2025 at 5:08=E2=80=AFPM Bertrand Marquis
+<bertrand.marquis@arm.com> wrote:
+>
+> Create a CONFIG_FFA_VM_TO_VM parameter to activate FFA communication
+> between VMs.
+> When activated list VMs in the system with FF-A support in part_info_get.
+>
+> When VM to VM is activated, Xen will be tainted as Insecure and a
+> message is displayed to the user during the boot as there is no
+> filtering of VMs in FF-A so any VM can communicate or see any other VM
+> in the system.
+>
+> WARNING: There is no filtering for now and all VMs are listed !!
+>
+> This patch is reorganizing the ffa_ctx structure to make clear which
+> lock is protecting what parts.
+>
+> This patch is introducing a chain list of the ffa_ctx with a FFA Version
+> negociated allowing to create the partinfo results for VMs without
 
-diff --git a/tools/testing/selftests/kvm/Makefile.kvm b/tools/testing/selftests/kvm/Makefile.kvm
-index f62b0a5aba35..318adf3ef6b6 100644
---- a/tools/testing/selftests/kvm/Makefile.kvm
-+++ b/tools/testing/selftests/kvm/Makefile.kvm
-@@ -54,6 +54,7 @@ TEST_PROGS_x86 += x86/nx_huge_pages_test.sh
- TEST_GEN_PROGS_COMMON = demand_paging_test
- TEST_GEN_PROGS_COMMON += dirty_log_test
- TEST_GEN_PROGS_COMMON += guest_print_test
-+TEST_GEN_PROGS_COMMON += irqfd_test
- TEST_GEN_PROGS_COMMON += kvm_binary_stats_test
- TEST_GEN_PROGS_COMMON += kvm_create_max_vcpus
- TEST_GEN_PROGS_COMMON += kvm_page_table_test
-diff --git a/tools/testing/selftests/kvm/irqfd_test.c b/tools/testing/selftests/kvm/irqfd_test.c
-new file mode 100644
-index 000000000000..286f2b15fde6
---- /dev/null
-+++ b/tools/testing/selftests/kvm/irqfd_test.c
-@@ -0,0 +1,130 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+#include <errno.h>
-+#include <pthread.h>
-+#include <stdio.h>
-+#include <stdlib.h>
-+#include <string.h>
-+#include <signal.h>
-+#include <stdint.h>
-+#include <sys/sysinfo.h>
-+
-+#include "kvm_util.h"
-+
-+static struct kvm_vm *vm1;
-+static struct kvm_vm *vm2;
-+static int __eventfd;
-+static bool done;
-+
-+/*
-+ * KVM de-assigns based on eventfd *and* GSI, but requires unique eventfds when
-+ * assigning (the API isn't symmetrical).  Abuse the oddity and use a per-task
-+ * GSI base to avoid false failures due to cross-task de-assign, i.e. so that
-+ * the secondary doesn't de-assign the primary's eventfd and cause assign to
-+ * unexpectedly succeed on the primary.
-+ */
-+#define GSI_BASE_PRIMARY	0x20
-+#define GSI_BASE_SECONDARY	0x30
-+
-+static void juggle_eventfd_secondary(struct kvm_vm *vm, int eventfd)
-+{
-+	int r, i;
-+
-+	/*
-+	 * The secondary task can encounter EBADF since the primary can close
-+	 * the eventfd at any time.  And because the primary can recreate the
-+	 * eventfd, at the safe fd in the file table, the secondary can also
-+	 * encounter "unexpected" success, e.g. if the close+recreate happens
-+	 * between the first and second assignments.  The secondary's role is
-+	 * mostly to antagonize KVM, not to detect bugs.
-+	 */
-+	for (i = 0; i < 2; i++) {
-+		r = __kvm_irqfd(vm, GSI_BASE_SECONDARY, eventfd, 0);
-+		TEST_ASSERT(!r || errno == EBUSY || errno == EBADF,
-+			    "Wanted success, EBUSY, or EBADF, r = %d, errno = %d",
-+			    r, errno);
-+
-+		/* De-assign should succeed unless the eventfd was closed. */
-+		r = __kvm_irqfd(vm, GSI_BASE_SECONDARY + i, eventfd, KVM_IRQFD_FLAG_DEASSIGN);
-+		TEST_ASSERT(!r || errno == EBADF,
-+			    "De-assign should succeed unless the fd was closed");
-+	}
-+}
-+
-+static void *secondary_irqfd_juggler(void *ign)
-+{
-+	while (!READ_ONCE(done)) {
-+		juggle_eventfd_secondary(vm1, READ_ONCE(__eventfd));
-+		juggle_eventfd_secondary(vm2, READ_ONCE(__eventfd));
-+	}
-+
-+	return NULL;
-+}
-+
-+static void juggle_eventfd_primary(struct kvm_vm *vm, int eventfd)
-+{
-+	int r1, r2;
-+
-+	/*
-+	 * At least one of the assigns should fail.  KVM disallows assigning a
-+	 * single eventfd to multiple GSIs (or VMs), so it's possible that both
-+	 * assignments can fail, too.
-+	 */
-+	r1 = __kvm_irqfd(vm, GSI_BASE_PRIMARY, eventfd, 0);
-+	TEST_ASSERT(!r1 || errno == EBUSY,
-+		    "Wanted success or EBUSY, r = %d, errno = %d", r1, errno);
-+
-+	r2 = __kvm_irqfd(vm, GSI_BASE_PRIMARY + 1, eventfd, 0);
-+	TEST_ASSERT(r1 || (r2 && errno == EBUSY),
-+		    "Wanted failure (EBUSY), r1 = %d, r2 = %d, errno = %d",
-+		    r1, r2, errno);
-+
-+	/*
-+	 * De-assign should always succeed, even if the corresponding assign
-+	 * failed.
-+	 */
-+	kvm_irqfd(vm, GSI_BASE_PRIMARY, eventfd, KVM_IRQFD_FLAG_DEASSIGN);
-+	kvm_irqfd(vm, GSI_BASE_PRIMARY + 1, eventfd, KVM_IRQFD_FLAG_DEASSIGN);
-+}
-+
-+int main(int argc, char *argv[])
-+{
-+	pthread_t racing_thread;
-+	int r, i;
-+
-+	/* Create "full" VMs, as KVM_IRQFD requires an in-kernel IRQ chip. */
-+	vm1 = vm_create(1);
-+	vm2 = vm_create(1);
-+
-+	WRITE_ONCE(__eventfd, kvm_new_eventfd());
-+
-+	kvm_irqfd(vm1, 10, __eventfd, 0);
-+
-+	r = __kvm_irqfd(vm1, 11, __eventfd, 0);
-+	TEST_ASSERT(r && errno == EBUSY,
-+		    "Wanted EBUSY, r = %d, errno = %d", r, errno);
-+
-+	r = __kvm_irqfd(vm2, 12, __eventfd, 0);
-+	TEST_ASSERT(r && errno == EBUSY,
-+		    "Wanted EBUSY, r = %d, errno = %d", r, errno);
-+
-+	kvm_irqfd(vm1, 11, READ_ONCE(__eventfd), KVM_IRQFD_FLAG_DEASSIGN);
-+	kvm_irqfd(vm1, 12, READ_ONCE(__eventfd), KVM_IRQFD_FLAG_DEASSIGN);
-+	kvm_irqfd(vm1, 13, READ_ONCE(__eventfd), KVM_IRQFD_FLAG_DEASSIGN);
-+	kvm_irqfd(vm1, 14, READ_ONCE(__eventfd), KVM_IRQFD_FLAG_DEASSIGN);
-+	kvm_irqfd(vm1, 10, READ_ONCE(__eventfd), KVM_IRQFD_FLAG_DEASSIGN);
-+
-+	close(__eventfd);
-+
-+	pthread_create(&racing_thread, NULL, secondary_irqfd_juggler, vm2);
-+
-+	for (i = 0; i < 10000; i++) {
-+		WRITE_ONCE(__eventfd, kvm_new_eventfd());
-+
-+		juggle_eventfd_primary(vm1, __eventfd);
-+		juggle_eventfd_primary(vm2, __eventfd);
-+		close(__eventfd);
-+	}
-+
-+	WRITE_ONCE(done, true);
-+	pthread_join(racing_thread, NULL);
-+}
--- 
-2.49.0.1151.ga128411c76-goog
+negotiated
 
+> taking a lock on the global domain list in Xen.
+>
+> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
+
+[...]
+> diff --git a/xen/arch/arm/tee/ffa_private.h b/xen/arch/arm/tee/ffa_privat=
+e.h
+> index 0a9c1082db28..08dbdf9fcddd 100644
+> --- a/xen/arch/arm/tee/ffa_private.h
+> +++ b/xen/arch/arm/tee/ffa_private.h
+> @@ -195,6 +195,18 @@
+>   */
+>  #define FFA_PARTITION_INFO_GET_COUNT_FLAG BIT(0, U)
+>
+> +/*
+> + * Partition properties we give for a normal world VM:
+> + * - can send direct message but not receive them
+> + * - can handle indirect messages
+> + * - can receive notifications
+> + * 32/64 bit flag is set depending on the VM
+> + */
+> +#define FFA_PART_VM_PROP    (FFA_PART_PROP_DIRECT_REQ_SEND | \
+> +                             FFA_PART_PROP_INDIRECT_MSGS | \
+> +                             FFA_PART_PROP_RECV_NOTIF | \
+> +                             FFA_PART_PROP_IS_PE_ID)
+> +
+>  /* Flags used in calls to FFA_NOTIFICATION_GET interface  */
+>  #define FFA_NOTIF_FLAG_BITMAP_SP        BIT(0, U)
+>  #define FFA_NOTIF_FLAG_BITMAP_VM        BIT(1, U)
+> @@ -297,36 +309,70 @@ struct ffa_ctx_notif {
+>  };
+>
+>  struct ffa_ctx {
+> -    void *rx;
+> -    const void *tx;
+> -    struct page_info *rx_pg;
+> -    struct page_info *tx_pg;
+> +    /*
+> +     * Chain list of all FF-A contexts, to prevent locking access to thi=
+s list,
+> +     * all "unlocked" data from the structure must be set before adding =
+an
+> +     * entry in the list and an entry must be removed from the list befo=
+re
+> +     * freeing a context.
+> +     */
+> +    struct list_head ctx_list; /* chain list of all FF-A contexts */
+> +
+> +    /*
+> +     * Data access unlocked (mainly for part_info_get in VM to VM).
+> +     * Those should be set before the ctx is added in the list.
+> +     */
+> +    /* FF-A Endpoint ID */
+> +    uint16_t ffa_id;
+> +    uint16_t num_vcpus;
+> +    bool is_64bit;
+> +
+> +    /*
+> +     * Global data accessed atomically or using ACCES_ONCE.
+> +     */
+> +    struct ffa_ctx_notif notif;
+> +
+> +    /*
+> +     * Global data accessed with lock locked.
+> +     */
+> +    spinlock_t lock;
+> +    /*
+> +     * FF-A version negociated by the guest, only modifications to
+
+negotiated
+
+With the two spell errors fixed.
+Reviewed-by: Jens Wiklander <jens.wiklander@linaro.org>
+
+Cheers,
+Jens
 
