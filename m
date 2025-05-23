@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80D5DAC2352
-	for <lists+xen-devel@lfdr.de>; Fri, 23 May 2025 15:03:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.995743.1377977 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 48112AC2514
+	for <lists+xen-devel@lfdr.de>; Fri, 23 May 2025 16:34:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.995818.1377986 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uIS2z-0003HH-03; Fri, 23 May 2025 13:02:49 +0000
+	id 1uITSw-0006Js-4t; Fri, 23 May 2025 14:33:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 995743.1377977; Fri, 23 May 2025 13:02:48 +0000
+Received: by outflank-mailman (output) from mailman id 995818.1377986; Fri, 23 May 2025 14:33:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uIS2y-0003Ep-SZ; Fri, 23 May 2025 13:02:48 +0000
-Received: by outflank-mailman (input) for mailman id 995743;
- Fri, 23 May 2025 13:02:48 +0000
+	id 1uITSw-0006I5-1I; Fri, 23 May 2025 14:33:42 +0000
+Received: by outflank-mailman (input) for mailman id 995818;
+ Fri, 23 May 2025 14:33:40 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=jXdV=YH=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1uIS2x-0003Ej-JB
- for xen-devel@lists.xenproject.org; Fri, 23 May 2025 13:02:47 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ <SRS0=4aiS=YH=flex--seanjc.bounces.google.com=3QIcwaAYKCVkJ51EA37FF7C5.3FDO5E-45M5CC9JKJ.O5EGIFA53K.FI7@srs-se1.protection.inumbo.net>)
+ id 1uITSt-0006Hz-QF
+ for xen-devel@lists.xenproject.org; Fri, 23 May 2025 14:33:39 +0000
+Received: from mail-pg1-x54a.google.com (mail-pg1-x54a.google.com
+ [2607:f8b0:4864:20::54a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3873f40e-37d6-11f0-a2fb-13f23c93f187;
- Fri, 23 May 2025 15:02:46 +0200 (CEST)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- (Authenticated sender: nicola)
- by support.bugseng.com (Postfix) with ESMTPA id E627F4EE7BD6;
- Fri, 23 May 2025 15:02:44 +0200 (CEST)
+ id e9e10396-37e2-11f0-a2fb-13f23c93f187;
+ Fri, 23 May 2025 16:33:38 +0200 (CEST)
+Received: by mail-pg1-x54a.google.com with SMTP id
+ 41be03b00d2f7-b26e4fe0c08so5576687a12.3
+ for <xen-devel@lists.xenproject.org>; Fri, 23 May 2025 07:33:38 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,89 +40,99 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3873f40e-37d6-11f0-a2fb-13f23c93f187
-Authentication-Results: bugseng.com; arc=none smtp.remote-ip=162.55.131.47
-ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1748005365;
-	b=eeAV/aai1PQnEefO5xKhvClq4hrEVHinntSJsw0Qhbs7FBWk6NiN9y2hVqskMYiCZVxE
-	 k8khlKMg4+JXHR006boSkMo1FFvQtn/EBmJmZ+lswOBUUxK3PmMC9lA3+UsJBUQ77UvZM
-	 M4LU2JQ/P5O2OVC6nYEzBbxVamIcqWI7SUpnQIEfqpjRB+PNepgCPtZCezA+Sqvf9M2QF
-	 464iy9x6CI+uArVlRPgSEoPlhOOauJKgCdlgXge41uxIkuSfMLSIcNufFuOxsS0pCqf84
-	 EqQ1f+AAYAjAXiSsuwVB1/+/BXagUoHKMYkoEPwHM6Rqi2fhHsfPkx9To4Yc37ogOAbP7
-	 4p5mPnqwrJECt1KcRWmuoMscY9WkNC5WpdpQTZW5RYmZxu/1zCSmrToBuCFTfSmFyvoIv
-	 pwFCTKVPV8UTtEnkRt/+0V0xloei5IsZn3yNnk4SJwOz/hccyMX7JPfDG3DFOGo7u5LLW
-	 MY0CRULfUh/LyA8pGIohL6qBPsQ1WWxo1OttmxQ6HTaCGVE18CnlwJIB3nX2OhdWgbytC
-	 SKxON/O439UA2wg8imicqiT9wm0AGRKZi4hbMX3EV7nQS+fKMyscgYDZOEoAFoHd+ZcNK
-	 ramAViRUgAeCexwUlvJpCjL7z6n6hR0buEoTWGCvKzx0tczWAhHErh+7pQ5mmWI=
-ARC-Message-Signature: i=1; d=bugseng.com; s=openarc; a=rsa-sha256;
-	c=relaxed/relaxed; t=1748005365;
-	h=DKIM-Signature:MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:
-	 References:Message-ID:X-Sender:Organization:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=QMhOkikQblqSeiPEaylQHLkswdulAMttTtfH5q+coI0=;
-	b=OQ41NEHitoyGTfVE2gsi21589rD954yUfozNKqIG0iSndIyvy21pwWhaZ7Kf1JwYL3Bp
-	 2CBoSJcuiAEW1SUz8jVRR/VXSa5mShZEBgr5uNmVru8jgUtm2unIQFAnI/XJF7QEw7XYO
-	 g8uYIG3FCjP6vbh6FgRTE4CGh/aPrJBMGxfs1KMbfReMr2TWxmHE1LkBzFkhi4xTZ05mT
-	 Rg/kDKzRv3b88lS5bLlR08b+pXftFt8SdDOaLtqs7egFdC6Rn5TEk2TnXGPbfU9aXyGSj
-	 9O8DFtClfPvB3bYyENtWS0xXI9EspTrJx3WAKpMwsxaTueqQj85mxYI+Zj6E7DvQADwe7
-	 Cnu05aCDEMsRRkazyYIWduFITQM39yAuXoWo/LuZtxMKEf2/Jx/80YcHfqhO6JkLrYNRR
-	 up703mm1gr8fVlYedEvHfB2qUaC/ZcleLSgD5df5+mbfVzMX4fY8pmuBct20/ZUuBe7kX
-	 8wn+Rh+fxO1tQgrHiOXWH1qwPoP8VTUU/s9d304jC0zbawDzhqmp4KuPEpMdL15b4eHuN
-	 AsqLolOgl04DYexAmvc1WeTie4M4MGF8qpryi72mm2qI75w3f/ojacjww24yb8qB40tmz
-	 stqSqrAQeGmT0jQiQVylmF0I5e5O71VfzSsT4IrfwyBVhh4Rfut/osF+Ys6M/UI=
-ARC-Authentication-Results: i=1; bugseng.com; arc=none smtp.remote-ip=162.55.131.47
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
-	t=1748005365; bh=LKM8JtUvIntWKxk9g+9bwG/Hl0rdwJTNx/O0T6hZcRQ=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=dQ50955XaaAE26x5hbIOfNMzG3KLx/ouerMxFJM4kFseY1HnniMZdswcT26ISJrD8
-	 pnZlfxalJKXtG9dq4lY8ZW2haJq38c/pxKdjIR7aJzqiQS/uPTeINaVEQ51R9HcxNw
-	 OhQvr3g4Wkx5xLSDOvQX4I8qKcNL9PiedOdHMnmYLyfJ6DkhWU7HWKCvLfJR5+sn7Z
-	 lzPb5VP4z8BaW5yUdJPqfgdDJW2AWj8rtA1RLiT0Y1kkw/uaQErq508rzHuuH7U2G0
-	 BN4QuVzmy8/7egEPCyOBIMvzda9AYe+9ui8d1pPxzC7bnWro5aMYtBCLeLUa6G95tI
-	 1BL1Vxj4Tmeqw==
-MIME-Version: 1.0
-Date: Fri, 23 May 2025 15:02:44 +0200
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org,
- michal.orzel@amd.com, xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com,
- consulting@bugseng.com, Doug Goldstein <cardoe@cardoe.com>, Anthony PERARD
- <anthony.perard@vates.tech>, Jan Beulich <jbeulich@suse.com>, Julien Grall
- <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: Re: [XEN PATCH] eclair: allow and document use of GCC extension for
- label addresses
-In-Reply-To: <7486eb78-50e8-4959-b494-5bd58e123af4@citrix.com>
-References: <d9dbce35d6857f79a21b68e4edd45f0febe3d3c9.1747984747.git.nicola.vetrini@bugseng.com>
- <7486eb78-50e8-4959-b494-5bd58e123af4@citrix.com>
-Message-ID: <cd4cf32a207802150b93d3b8b819a024@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
+X-Inumbo-ID: e9e10396-37e2-11f0-a2fb-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20230601; t=1748010817; x=1748615617; darn=lists.xenproject.org;
+        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
+         :date:from:to:cc:subject:date:message-id:reply-to;
+        bh=/uvu6aXDIrLF08vsxpzyNfXk0GOFzmWSaZdsX/BEX7c=;
+        b=2FoHgpKqd4XgsPJLmFoMnyWQrnLjU1898pRbBgOkjlb9qiCpc1CnQSDP3tZ3JFv8XO
+         bfr0bQNBcJcW30H+tu1IQkI/4ElEFugvKqUTeLaZSShhH04e+9YQII0NQIu3Hl7x0zdL
+         6FGRs3cdcORoJiGtg2iGDaFAaymCFyd3VbI6mFXcl87E0M5wb6nxl/N/Apy9DLCvx6F4
+         dpC1Rc51mBAgUO3TMAJ9igHcKuIfs2z39ltyaIBo7Alq1cJAHuQqje0djMsw8EJHOrhr
+         xDK6CvgaUEob5nNVkmqXlAg6ZrvxjybYVk9YBuJgag79XrJhF4/SeQgz7VKX2fd6QghK
+         lU4w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1748010817; x=1748615617;
+        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
+         :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=/uvu6aXDIrLF08vsxpzyNfXk0GOFzmWSaZdsX/BEX7c=;
+        b=xDOrvjDbWLSkuHMXRYe6bU0/3H3eLLDP7jD4Jdiyb7DWA3AxrbX5l4hKWF9J3g62N5
+         bYdBnrejE2oWms671leJPJPkt5MAaLV3xXCOIilbDPzZb7l6Y3ZTm+eNMtAL9QhhAx7G
+         w+xmjPpfUf5jx4h0T6wi5a12Z+CI+rMvIOGZeiBHPCyEKf2VT39Wi6bpkyRMsJGxQUQi
+         8u0Yjde8NjCGNJh7aobA8B61zh3eSFOA/J/yQ8xo3S93o00d7Cn6Ktmao5fKKKrG12e/
+         8bCLrHx07M71lCZpFZUlluVhQW6Ko98BjrVQPg5RkFWYwijcUC1FZfViE1jd2vtZuBU6
+         rzFg==
+X-Forwarded-Encrypted: i=1; AJvYcCUmd8+tnwW0ud+c79VPfUxWkbjd5rAsyuLdDk1JdYC2EwczO7KZDtmVRwymOdAsQ9r38epPldmRHDo=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzoF38FXYIaZ+p/ttRT1jn8xpOEp5YZoXAMtfosTVJZm0wACMWh
+	caM1+08mbWltql7wtqV/x5yzWsdv4DQDXWnaFIM+BRSoYBGcHEQsOzOjXorod2NRb2O9nLYNRTj
+	a4X6tFQ==
+X-Google-Smtp-Source: AGHT+IHsZ0QnOLBFT5oLqgFlsou+V6RqzdnkAMpT1uyTVqCC/FSYHIecluEf4Yy5p3wiVYxCHPutaUGV15c=
+X-Received: from pjbmf7.prod.google.com ([2002:a17:90b:1847:b0:30e:7b26:f68b])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:1846:b0:301:9f62:a944
+ with SMTP id 98e67ed59e1d1-30e7d5ca287mr50858908a91.33.1748010816755; Fri, 23
+ May 2025 07:33:36 -0700 (PDT)
+Date: Fri, 23 May 2025 07:33:30 -0700
+In-Reply-To: <2c52daad-0b64-48a9-8e73-d1aba977993b@amd.com>
+Mime-Version: 1.0
+References: <20250522235223.3178519-1-seanjc@google.com> <20250522235223.3178519-14-seanjc@google.com>
+ <2c52daad-0b64-48a9-8e73-d1aba977993b@amd.com>
+Message-ID: <aDB-2lcq4jJm9-OV@google.com>
+Subject: Re: [PATCH v3 13/13] KVM: selftests: Add a KVM_IRQFD test to verify
+ uniqueness requirements
+From: Sean Christopherson <seanjc@google.com>
+To: Sairaj Kodilkar <sarunkod@amd.com>
+Cc: "K. Y. Srinivasan" <kys@microsoft.com>, Haiyang Zhang <haiyangz@microsoft.com>, 
+	Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>, 
+	Juergen Gross <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, 
+	Paolo Bonzini <pbonzini@redhat.com>, Ingo Molnar <mingo@redhat.com>, 
+	Peter Zijlstra <peterz@infradead.org>, Juri Lelli <juri.lelli@redhat.com>, 
+	Vincent Guittot <vincent.guittot@linaro.org>, Shuah Khan <shuah@kernel.org>, 
+	Marc Zyngier <maz@kernel.org>, Oliver Upton <oliver.upton@linux.dev>, linux-kernel@vger.kernel.org, 
+	linux-hyperv@vger.kernel.org, xen-devel@lists.xenproject.org, 
+	kvm@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, 
+	K Prateek Nayak <kprateek.nayak@amd.com>, David Matlack <dmatlack@google.com>
+Content-Type: text/plain; charset="us-ascii"
 
-On 2025-05-23 14:57, Andrew Cooper wrote:
-> On 23/05/2025 8:20 am, Nicola Vetrini wrote:
->> No functional change.
->> 
->> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+On Fri, May 23, 2025, Sairaj Kodilkar wrote:
+> On 5/23/2025 5:22 AM, Sean Christopherson wrote:
 > 
-> Ah, very nice and easy.
+> > +
+> > +int main(int argc, char *argv[])
+> > +{
+> > +	pthread_t racing_thread;
+> > +	int r, i;
+> > +
+> > +	/* Create "full" VMs, as KVM_IRQFD requires an in-kernel IRQ chip. */
+> > +	vm1 = vm_create(1);
+> > +	vm2 = vm_create(1);
+> > +
+> > +	WRITE_ONCE(__eventfd, kvm_new_eventfd());
+> > +
+> > +	kvm_irqfd(vm1, 10, __eventfd, 0);
+> > +
+> > +	r = __kvm_irqfd(vm1, 11, __eventfd, 0);
+> > +	TEST_ASSERT(r && errno == EBUSY,
+> > +		    "Wanted EBUSY, r = %d, errno = %d", r, errno);
+> > +
+> > +	r = __kvm_irqfd(vm2, 12, __eventfd, 0);
+> > +	TEST_ASSERT(r && errno == EBUSY,
+> > +		    "Wanted EBUSY, r = %d, errno = %d", r, errno);
+> > +
+> > +	kvm_irqfd(vm1, 11, READ_ONCE(__eventfd), KVM_IRQFD_FLAG_DEASSIGN);
+> > +	kvm_irqfd(vm1, 12, READ_ONCE(__eventfd), KVM_IRQFD_FLAG_DEASSIGN);
+> > +	kvm_irqfd(vm1, 13, READ_ONCE(__eventfd), KVM_IRQFD_FLAG_DEASSIGN);
+> > +	kvm_irqfd(vm1, 14, READ_ONCE(__eventfd), KVM_IRQFD_FLAG_DEASSIGN);
 > 
-> Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> 
-> Is this dependent on the updated Eclair, or can it go in now?
-> 
+> Hi Sean,
+> I dont see any allocation for the GSI 13 and 14..
+> Is there any reason for the deassigning these two GSIs ?
 
-Hi Andrew,
-
-it's independent on the updated ECLAIR.
-
-Thanks,
-  Nicola
-
--- 
-Nicola Vetrini, B.Sc.
-Software Engineer
-BUGSENG (https://bugseng.com)
-LinkedIn: https://www.linkedin.com/in/nicola-vetrini-a42471253
+Yes, KVM's rather bizarre ABI is that DEASSIGN is allowed even if the VM doesn't
+have a corresponding assigned irqfd.  The reason I added these early DEASSIGN
+calls is so that there will be an easier-to-debug failure if KVM's behavior
+changes (the racing threads part of the test abuses KVM's ABI).  I didn't add a
+comment because the helpers already have comments, but looking at this again, I
+agree that main() needs a better comment.
 
