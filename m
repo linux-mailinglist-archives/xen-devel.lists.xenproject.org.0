@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B88F7AC1D8C
-	for <lists+xen-devel@lfdr.de>; Fri, 23 May 2025 09:20:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.995303.1377790 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A752AC1D8D
+	for <lists+xen-devel@lfdr.de>; Fri, 23 May 2025 09:20:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.995311.1377801 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uIMh8-0000lJ-S3; Fri, 23 May 2025 07:19:54 +0000
+	id 1uIMhx-0002Hs-67; Fri, 23 May 2025 07:20:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 995303.1377790; Fri, 23 May 2025 07:19:54 +0000
+Received: by outflank-mailman (output) from mailman id 995311.1377801; Fri, 23 May 2025 07:20:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uIMh8-0000jt-P7; Fri, 23 May 2025 07:19:54 +0000
-Received: by outflank-mailman (input) for mailman id 995303;
- Fri, 23 May 2025 07:19:54 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uIMhx-0002FD-1s; Fri, 23 May 2025 07:20:45 +0000
+Received: by outflank-mailman (input) for mailman id 995311;
+ Fri, 23 May 2025 07:20:43 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=GSxL=YH=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1uIMh8-0000jn-09
- for xen-devel@lists.xenproject.org; Fri, 23 May 2025 07:19:54 +0000
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [2a00:1450:4864:20::32d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 513eb175-37a6-11f0-b892-0df219b8e170;
- Fri, 23 May 2025 09:19:51 +0200 (CEST)
-Received: by mail-wm1-x32d.google.com with SMTP id
- 5b1f17b1804b1-43ede096d73so64981175e9.2
- for <xen-devel@lists.xenproject.org>; Fri, 23 May 2025 00:19:51 -0700 (PDT)
-Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
- by smtp.gmail.com with UTF8SMTPSA id
- 5b1f17b1804b1-447f6b29672sm138336565e9.3.2025.05.23.00.19.50
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 23 May 2025 00:19:50 -0700 (PDT)
+ <SRS0=jXdV=YH=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1uIMhv-0000jR-6G
+ for xen-devel@lists.xenproject.org; Fri, 23 May 2025 07:20:43 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 6f517023-37a6-11f0-a2fb-13f23c93f187;
+ Fri, 23 May 2025 09:20:42 +0200 (CEST)
+Received: from nico.tail79467d.ts.net (unknown [46.228.253.214])
+ (Authenticated sender: nicola)
+ by support.bugseng.com (Postfix) with ESMTPSA id 2BDED4EE8F7B;
+ Fri, 23 May 2025 09:20:39 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,115 +40,108 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 513eb175-37a6-11f0-b892-0df219b8e170
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1747984791; x=1748589591; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=WubEsBbl7epRqvikWw8YjkhJNj7xX8Sbr3wrYsv9VoA=;
-        b=OBV2wF3NPd2EJstax4NNSlfZCBFULZPTtksXHt6VuovYRn6qYhLzcwSyS7HqEidfQG
-         ECo3Gf+c1VPV23H9DZwAAb6iPAMWMTAx5MbdUokk89LCR6a2agC00VbKbmHLyXxEaBwl
-         DuXGZMMENfVsufGRRq41Wie+WV7YNJvoMU9kk=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747984791; x=1748589591;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=WubEsBbl7epRqvikWw8YjkhJNj7xX8Sbr3wrYsv9VoA=;
-        b=Pv3Q9rZNacPJad0x11voG0cEVJ3DrEDGcxQ/kllBFobq0hSlpBAkdHev013KXIU6pZ
-         C68++Kq+ZhebJdDgxdYOuMBSNYC3gp1HdY0iAkDqgFxov+mxgclYy3mD8gk2pNIpcMAN
-         fbTDtcb7AKWpyr49oc/pmWEQdSXlCWIagt8zScC7C5j6akzx72r+GF8T3as+aUo7u2rI
-         EMm8fn3sm715+zW9K/FPXWS2Bw2+mkSF6kUQzc3yOykqVwNLFVnKf52rpz8eN+CGyGfU
-         WUe/qf4WJ/gfLmK6p1TxhGKDp8vFBv7+dUD9dXQJeZHWQnYUE8X+KQ+FEPNMtVGkRH5J
-         7TfA==
-X-Forwarded-Encrypted: i=1; AJvYcCWdi+IUI+a3VwIC4pxtubJNJ9aI/0duQa4lISH9aV24/PDLpDbrchmH+yzSXJpziAkH0iZ/VKqT9jE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yx95pTuYnHhd5lpoEakyvXkrA7U0Eq2bsaqQPRXO50BhIXXamIH
-	2MI+3CY4qXNCCEmJXNuJnsl+eyfBjMG/GMwN6bhExVytweazi4dJPuDRmcbZzY2oLADCFaPiH1z
-	Pqjv7
-X-Gm-Gg: ASbGncvkdeA9hEkXVKIlW8iR8Tsgy2fyGR7KNcdphQ+kDR8nBlICHD+NZhjBrw+2sTf
-	59oX2I+urNB0QGHXx3lhR9bhr3Y5PUpIOhOcT+8BjSkTssJk7g+lNhLYrCl1Q9+8WyhfTZSFs+U
-	sD8NCBXGYgGKJa/Ggd0zKN67hhJeb0TOHEFKzlZTccsUk21MbDfIH5D2Dthn9Q6wyZE6jBQw3nF
-	NG9wTcZPAlszbTIg8id+2MhOinNJ9liBrrImqmiEIdRkfttTiJCbvhRhLcAfyaNOQ0OQElZh2Xf
-	BJows9HJsZ+lkBcGrDVIW8BHaXd91GlJT8G6uRRGHHrbelVaF+UVzACPVUCnsRc9u1jQZtLmTNu
-	U8A7vF+coqQeXcN3m3WVUtVeMreDsxw==
-X-Google-Smtp-Source: AGHT+IGxLEUvlCla7HMUlLreziIFmZleTjvp1LgzQbHS6EA2JArMY518yM8EsZHxLPIA6+A9rXvxyg==
-X-Received: by 2002:a05:600c:8487:b0:43d:683:8caa with SMTP id 5b1f17b1804b1-44b6d6b6939mr25527865e9.15.1747984791075;
-        Fri, 23 May 2025 00:19:51 -0700 (PDT)
-Date: Fri, 23 May 2025 09:19:49 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Jan Beulich <jbeulich@suse.com>, xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v2 1/4] x86/boot: print CPU and APIC ID in bring up
- failure
-Message-ID: <aDAhlTgTEaJ2BkVb@macbook.local>
-References: <20250522075440.99882-1-roger.pau@citrix.com>
- <20250522075440.99882-2-roger.pau@citrix.com>
- <0028ad37-95e7-4b6e-87b6-07cadcac64aa@suse.com>
- <8c1156a8-a626-4b62-9cc1-7790184b2b9b@citrix.com>
- <aC9V3-5SiBTBDsCE@macbook.local>
- <71b4666e-0efa-4020-83bb-ecaa9ede7ca9@citrix.com>
+X-Inumbo-ID: 6f517023-37a6-11f0-a2fb-13f23c93f187
+Authentication-Results: bugseng.com; arc=none smtp.remote-ip=46.228.253.214
+ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1747984841;
+	b=i/sOJpfDGh7JbbQoE74t8J9ZiD5r29g6xwihvWFPFr6MbHETFsRP8qTg4Dyw5EaUXYGq
+	 amstJF30T5FNysfRquw9aLicRo4hm2/BSMWyZ5S+4x5BbhByyFVLo1VjBFSnWwhB3vMsp
+	 Pgyr4xfQcpi0Bpt8ojLOXChyFB7OD6i8CAzRVNWdOar5bRsWtynSa7ex3Cks1i+5DW31E
+	 xfMTVyjhyWLBCZaDjxZnsXFEJheUd6Prne4fkYRzfdjBN08kpTN/CCPgDRWEIjzlGyb4H
+	 Bz77YvK+dJ6lINaaqp0PBRJpCtJT5qI5N/cfvjUjlLWcy6IdGwhiBTsmVTDyu0AAZEINp
+	 CVyn/JwEDt6kK3TJs8Lrv2QYyO94wQZzh4GzvR4hMmuMDiCrVO1EFRdgtQe1k3HTe9/g2
+	 jvVALq1LpTgjaddDx9GOHUkSbz3fSSE7C7ksstN9198dturS4WLMyKDHERbVQiKIJJvnu
+	 P1kHSWhKGay0HvGPi9uNS68t+lPArNjv5d+IpL9tEpyMlezRg61Iu5OAi5mt6x26aePag
+	 mSvwPBjQlUjjRho2Zupb94sEJx+0EvQGG+ylUAxRHQvt9iV+UNSyBqvzPmi8aUeJBzXdO
+	 RHx0QgfV/Kbg8sR8m1II6A9xgxCUKZVQRF3EowfxnoHrJbXPtlzgZBZuqKCSjW0=
+ARC-Message-Signature: i=1; d=bugseng.com; s=openarc; a=rsa-sha256;
+	c=relaxed/relaxed; t=1747984841;
+	h=DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=YPZz2jEAMMC36xD6hgsUyWuFj29BV8c7vMGDII9rtok=;
+	b=4zaQy2JYxqeUuZ85eHei8qSQD+2CzNSAHbpQzgi9z//kbnMlPMPIh/NKnfsW8QO7ks0R
+	 QHarQaskrY4WW4HihvxsteeAHOQq7/HVJ8NBqoIGeIGk01b4V/aavPnd0hZToxC+rX6Nk
+	 +r9M2kcvpg15jSTmiFjYN4TVhrJlgE80BgCnXgq6WxjeBFwzAExj8nawWCHQYDn1W+D0m
+	 ecwSwP5MWE9S0xFUWK52z38E7pjvTdT6lBuo9KmxZHQgj1SHrcs+YQS+fNE+tRiCF/Skv
+	 wG+qmHmFpIxJskYq4uwunYA156WaSvIr1vEeLG9RO9zi029ZYoeFc0tCSDNU3Ab5YtlSi
+	 VuE1GdBFHxntRP/JIhjSDaJM2YmPOcvzm5abDbHO6VCyPSShnsyqOHh4thD3cGfshNTeM
+	 FFr/koqqwfA5WWqgsk78RgQEC8sIPCoh00iSH3aj8qirgk/HIKP4zvX3B9Zyz7lInKQ2/
+	 pDQtbDo3LTLC4IY5Oj5jsORhn7ySvvsAOg6eZN8AfoJeUVXFENxPZqcMJAyYgejnrEBdu
+	 lBeDWZ/E6a/A+lcZZgBagXTkaRVaRyVGFFhstXEIJgFkZKHZXQQ0Guc9ULnD6qX5NXRnd
+	 pVpLVBf/YYNeLx7pEFV3x5Mrm7//THBl5Nyq/8YPwqbdZ1NdDDkZ+CUspCJ7PN4=
+ARC-Authentication-Results: i=1; bugseng.com; arc=none smtp.remote-ip=46.228.253.214
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
+	t=1747984841; bh=76iPtDtJiqJQwHtwd12Grf/gpmigtPd82qm3J8cUx08=;
+	h=From:To:Cc:Subject:Date:From;
+	b=XtuGPOYm/VFcNoXC6HMoT8WkdbMWi291e3D49h+Yi6F8ASDyCj6yjluzNt3dW04yO
+	 3IUvcIQGw0rrke/D1W6Cln/s33cEQrIoeRcLWDbRD1jtXnwVFQUeA3xgrcz4Vft2UK
+	 EBDy/zBoApVrhp9UuoFw0B3ujwcBpZVL5yzgIZw5EZTt+AmjmLtALkZyvYkfMoQTSJ
+	 xbAMfp8JLACetaZn+BeGwHNY07k6EvBehAzTClOK84fW+8/+hk6YG/FVgvuyj8mmw/
+	 wMfZwqKn38EjjdoQyVBKJqvcKc+4cTL3CsBIBStSnr9uV/RLiqyLwacHusZ6K1QcX2
+	 WJ9L1w3Tm14Fw==
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+To: xen-devel@lists.xenproject.org
+Cc: sstabellini@kernel.org,
+	michal.orzel@amd.com,
+	xenia.ragiadakou@amd.com,
+	ayan.kumar.halder@amd.com,
+	consulting@bugseng.com,
+	Nicola Vetrini <nicola.vetrini@bugseng.com>,
+	Doug Goldstein <cardoe@cardoe.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [XEN PATCH] eclair: allow and document use of GCC extension for label addresses
+Date: Fri, 23 May 2025 09:20:35 +0200
+Message-ID: <d9dbce35d6857f79a21b68e4edd45f0febe3d3c9.1747984747.git.nicola.vetrini@bugseng.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <71b4666e-0efa-4020-83bb-ecaa9ede7ca9@citrix.com>
 
-On Thu, May 22, 2025 at 06:22:19PM +0100, Andrew Cooper wrote:
-> On 22/05/2025 5:50 pm, Roger Pau Monné wrote:
-> > On Thu, May 22, 2025 at 03:39:57PM +0100, Andrew Cooper wrote:
-> >> On 22/05/2025 10:10 am, Jan Beulich wrote:
-> >>> On 22.05.2025 09:54, Roger Pau Monne wrote:
-> >>>> Print the CPU and APIC ID that fails to respond to the init sequence, or
-> >>>> that didn't manage to reach the "callin" state.  Expand a bit the printed
-> >>>> error messages.  Otherwise the "Not responding." message is not easy to
-> >>>> understand by users.
-> >>>>
-> >>>> Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> >>>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> >>>> ---
-> >>>> Changes since v1:
-> >>>>  - Also print APIC ID.
-> >>>> ---
-> >>>>  xen/arch/x86/smpboot.c | 6 ++++--
-> >>>>  1 file changed, 4 insertions(+), 2 deletions(-)
-> >>>>
-> >>>> diff --git a/xen/arch/x86/smpboot.c b/xen/arch/x86/smpboot.c
-> >>>> index 0189d6c332a4..dbc2f2f1d411 100644
-> >>>> --- a/xen/arch/x86/smpboot.c
-> >>>> +++ b/xen/arch/x86/smpboot.c
-> >>>> @@ -618,10 +618,12 @@ static int do_boot_cpu(int apicid, int cpu)
-> >>>>              smp_mb();
-> >>>>              if ( bootsym(trampoline_cpu_started) == 0xA5 )
-> >>>>                  /* trampoline started but...? */
-> >>>> -                printk("Stuck ??\n");
-> >>>> +                printk("CPU%u/APICID%u: Didn't finish startup sequence\n",
-> >>>> +                       cpu, apicid);
-> >>>>              else
-> >>>>                  /* trampoline code not run */
-> >>>> -                printk("Not responding.\n");
-> >>>> +                printk("CPU%u/APICID%u: Not responding to startup\n",
-> >>>> +                       cpu, apicid);
-> >>>>          }
-> >>>>      }
-> >>>>  
-> >>> Elsewhere I think we print AIC IDs in hex; may be better to do so here, too.
-> >>> That may then want some text re-arrangement though, e.g.
-> >>>
-> >>> "CPU%u: APICID %#x not responding to startup\n"
-> >>>
-> >>> Thoughts?
-> >> Definitely hex.  Elsewhere APIC_ID always has an underscore.
-> > Maybe I'm confused, but I don't think Xen uses an underscore, it's
-> > always 'APIC ID' when printed.  I don't mind adding it here, I assume
-> > what you mean with elsewhere is other projects like Linux?
-> 
-> It's apic_id in plenty of smpboot.c, but fine - lets do it with a space.
-> 
-> We do need to reduce from $N ways of rendering this down to 1.
+No functional change.
 
-Oh, so it's lowercase with underscore.  Anyway, will use uppercase and
-space as agreed.
+Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+---
+This fixes the CI error for R1.1 on this patch that stems from using the label inside asm goto:
+https://lore.kernel.org/xen-devel/20250521143658.312514-1-andrew.cooper3@citrix.com/
+---
+ automation/eclair_analysis/ECLAIR/toolchain.ecl | 5 +++++
+ docs/misra/C-language-toolchain.rst             | 4 ++++
+ 2 files changed, 9 insertions(+)
 
-Thanks, Roger.
+diff --git a/automation/eclair_analysis/ECLAIR/toolchain.ecl b/automation/eclair_analysis/ECLAIR/toolchain.ecl
+index 8ebf9f132cf2..842f8377e561 100644
+--- a/automation/eclair_analysis/ECLAIR/toolchain.ecl
++++ b/automation/eclair_analysis/ECLAIR/toolchain.ecl
+@@ -108,6 +108,11 @@ volatile"
+ -config=STD.funojptr,behavior+={c99,GCC_X86_64,specified}
+ -doc_end
+ 
++-doc_begin="See section \"6.3 Labels as Values\" of "GCC_MANUAL"."
++-config=STD.adrslabl,behavior={c99,GCC_ARM64,specified}
++-config=STD.adrslabl,behavior={c99,GCC_X86_64,specified}
++-doc_end
++
+ -doc_begin="
+     ext_c_missing_varargs_arg: see Section \"6.21 Macros with a Variable Number of Arguments\" of "GCC_MANUAL".
+     ext_enum_value_not_int: non-documented GCC extension.
+diff --git a/docs/misra/C-language-toolchain.rst b/docs/misra/C-language-toolchain.rst
+index 3a1ce651d7fd..cb81f5c09872 100644
+--- a/docs/misra/C-language-toolchain.rst
++++ b/docs/misra/C-language-toolchain.rst
+@@ -214,6 +214,10 @@ The table columns are as follows:
+      - All architectures
+      - See Section "4.5 Integers" of GCC_MANUAL.
+ 
++   * - Taking the address of a label
++     - All architectures
++     - See Section "6.3 Labels as Values" of GCC_MANUAL.
++
+ Translation Limits
+ __________________
+ 
+-- 
+2.43.0
+
 
