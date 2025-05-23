@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F111AC1E8D
-	for <lists+xen-devel@lfdr.de>; Fri, 23 May 2025 10:22:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.995381.1377848 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A131AC1FB1
+	for <lists+xen-devel@lfdr.de>; Fri, 23 May 2025 11:25:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.995492.1377871 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uINff-0003fZ-Ce; Fri, 23 May 2025 08:22:27 +0000
+	id 1uIOdI-0004TG-Ti; Fri, 23 May 2025 09:24:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 995381.1377848; Fri, 23 May 2025 08:22:27 +0000
+Received: by outflank-mailman (output) from mailman id 995492.1377871; Fri, 23 May 2025 09:24:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uINff-0003dg-7e; Fri, 23 May 2025 08:22:27 +0000
-Received: by outflank-mailman (input) for mailman id 995381;
- Fri, 23 May 2025 08:22:26 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uIOdI-0004Qj-QO; Fri, 23 May 2025 09:24:04 +0000
+Received: by outflank-mailman (input) for mailman id 995492;
+ Fri, 23 May 2025 09:24:03 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=GSxL=YH=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1uINfe-0003CJ-78
- for xen-devel@lists.xenproject.org; Fri, 23 May 2025 08:22:26 +0000
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [2a00:1450:4864:20::32a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0eda90b5-37af-11f0-a2fb-13f23c93f187;
- Fri, 23 May 2025 10:22:25 +0200 (CEST)
-Received: by mail-wm1-x32a.google.com with SMTP id
- 5b1f17b1804b1-442ea341570so62115555e9.1
- for <xen-devel@lists.xenproject.org>; Fri, 23 May 2025 01:22:25 -0700 (PDT)
+ id 1uIOdH-0004Qd-9y
+ for xen-devel@lists.xenproject.org; Fri, 23 May 2025 09:24:03 +0000
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [2a00:1450:4864:20::32b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a8f110c3-37b7-11f0-b892-0df219b8e170;
+ Fri, 23 May 2025 11:24:00 +0200 (CEST)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-43ede096d73so65694955e9.2
+ for <xen-devel@lists.xenproject.org>; Fri, 23 May 2025 02:24:00 -0700 (PDT)
 Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
  by smtp.gmail.com with UTF8SMTPSA id
- ffacd0b85a97d-3a35ca8896dsm25534645f8f.73.2025.05.23.01.22.24
+ 5b1f17b1804b1-44ab793a7d5sm45063185e9.1.2025.05.23.02.23.58
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 23 May 2025 01:22:24 -0700 (PDT)
+ Fri, 23 May 2025 02:23:59 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,114 +45,108 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0eda90b5-37af-11f0-a2fb-13f23c93f187
+X-Inumbo-ID: a8f110c3-37b7-11f0-b892-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1747988545; x=1748593345; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=fraFe1zTdvy9EaNNK6KT5rkWZR7WnEeg3OgF6ED/J8A=;
-        b=tAlPw8zE58fW71aIXqxN9JWSUeKDQs5p92lgHf2NjeRY8myT519JDlujT8uxYLy1Mu
-         G/uevgehutcJLYVdM0g6vXZnIwEwOBeFTPtZuOmyqaIagIbErUxWfMJAxaF9BsweS+sP
-         uSmxmqgthSLpcL5+Ktn4fpJo2IboLCVYQ88Jc=
+        d=citrix.com; s=google; t=1747992240; x=1748597040; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=IZJNTmOBPKYosd+xCBlKV6aSMJxN28zdgo/kHzmHxHA=;
+        b=GckQR0feSKl0EbsEo9P2dxlVQR714X4F5Ybt6U5rc9s2NE4fOUsv5Jxbi2DR9MYjP3
+         ZlR3eg7hk9eceu+r7djsaJUaESe4He4CgRmRT7Ds7f93W1RYcLNfewDQu+KSoK7juAOO
+         P8LMOTBsMUEqQHWlfeb8pfK4oGmg0rKT7Nmjo=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1747988545; x=1748593345;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=fraFe1zTdvy9EaNNK6KT5rkWZR7WnEeg3OgF6ED/J8A=;
-        b=A/u1jPmN8EiTP8PonTBnFj0AEldB52u7DLPciCvhFLoockALwq2Ozb7/I5LNZ1M1Lo
-         lmlOz+uVXywj7v8U+aiXfhibb+51q8bld2s/37LthAYwHEm4POhXztyyteyf1Yq50FFV
-         TP7NUYFd/qF5FmBu61IAxW1idcLOQh+97M3dzy23t+AQiZDeP0N6/afZSe3BEuGwz257
-         buQqgYF8SSKzP+yiVXtmqPc3F8YdWeYhdmYWsezx0JUMRzbzw3hGzkt1dcLZ0d3LrF61
-         tX/5r9H+MibekP0vdvl1JkAQ+NFBjY6gP/d8IkAORmMMt7qqAFR/TKSnCDtZSwv+voAi
-         T9dQ==
-X-Gm-Message-State: AOJu0Yw3pjXjHMrEyRqTau5EWoYlI9ADJGNkX8nTKg1pDNMFokPZIY/r
-	71ekxD/X4+Ug0ZiP9PaW1WPVJghvjzjFexUx5t8VvDmj4VARa3RewHOY5Ea/lPJG7epRSOJzBgl
-	d26Oj
-X-Gm-Gg: ASbGnctkBDB1YUKKdYJmUVQ4NuBY6MaChxgGH3Az4uCHrBb2rhk3jQitI/9/J5/hceV
-	VQ1x8Xb5wybAikKIez/iQvs7TpAm7VGbLbmcp5qIbmIUDeRpOwTW3PD7HtQS/BLaVQ9N6I/ru91
-	vogypB7qX9ZjJQ05ewYHv6n3r6OM+MMNR2tLOxHjYvu/8hxEmz/IJmXRSLg+JeBCayZt5FsLtJt
-	Gim61bF9UGL51zprWU2R3qrrz5ni/QYvrsXV4veTcZ6WO5okUalZLwzz+dhpd9Kh1QpqRQPR0xd
-	sCJVwjxsIYGURvaBjZin89MXCHg3Im3+Wou80luo4gLeKCtN5Kgg516hTNlHFyJycSgdc+7InU0
-	FCEbBRsSJt5a3G1TWx40=
-X-Google-Smtp-Source: AGHT+IH8WDpyb6K81BVOvpUEla557CAOvPbAlfr6x81iASyAMoDVtSY94hnMYALKX46FZeaLB0zJcA==
-X-Received: by 2002:a05:6000:2501:b0:3a3:6d1e:a517 with SMTP id ffacd0b85a97d-3a36d1ea854mr18226804f8f.31.1747988544941;
-        Fri, 23 May 2025 01:22:24 -0700 (PDT)
-From: Roger Pau Monne <roger.pau@citrix.com>
-To: xen-devel@lists.xenproject.org
-Cc: Roger Pau Monne <roger.pau@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
+        d=1e100.net; s=20230601; t=1747992240; x=1748597040;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=IZJNTmOBPKYosd+xCBlKV6aSMJxN28zdgo/kHzmHxHA=;
+        b=k3yS/sXQUSpFsLbn8DMYpLNgmJ6OkdzrSsNXktp2J7uI1OFsfXA3XfpoAXUhj2dM79
+         ismijvF2Bfkb6VIw+IRjwgP6PHqsgrlgFFFY3c0BzV/H3KY/45/JuS4KDx7KZxSMDF8z
+         2OExd/l4OWpLZtlPsfjCJDSXenam722E97qU6ZNzUswAAoKoE+f1niR/SVrX84lFN7zH
+         gnBbUrt5iRwgrH2cqXgGYyMImn3fiNub7QMlOPi1kwWxtyf+dTdew0s59ZKAGdOMKZeT
+         WP6uZxxZTGogL1HpNjEa92jMyvn6N7wr6mMqZQm8e5duJhY8AVwpw8U/eGTPJgMlaZOy
+         viDQ==
+X-Gm-Message-State: AOJu0YxsPh8Qb+r1g6fAMdCrfE4skSIxLXSWMkfDpYGltGOT83o9S/lx
+	0IxzvEB8oHMrxMxoG24QsJK/FksOnS3s41XeuwHahPYJ6Y1qglX8H08bqNcJ5XeNexS/OFyqgfA
+	yh4g4
+X-Gm-Gg: ASbGncumasBf6g+8LiOw3RLD5Mh+Sh+whhei2zLwxyAFeiFa6aYmUGB9F/D0lKCFvVa
+	lTIqsnH+guZeXioG7xM/noOrE6pTqRTeS/mNfi/k+8spgm/wCzsg6sJTN/vM4DWe/FCk5h3j+Hr
+	D+bnobDoMWodB66luXFgWXykWAEapzRnKU8PKKP/vhXQ9c5iANjpRD4psbZXZOVJbuXLXrDBKgy
+	B7u9umGng/FzZukPHmRxCsInXBoz+D7N5fV+hiaQroDFcR8ZXNlI39FQAmguHYNuW6C9LN2AH3+
+	YS1Fo+ZROeiy/CJrgkAW7BHX5oRbPYxH2M2kJPTEk3tU6fbbN7Yct1/rv9NzthDQ/yeocDCv5HN
+	wMeGPQ1398XrWH23NtbMMXBc8
+X-Google-Smtp-Source: AGHT+IGWQQyFxCg8OVdmZSzMnxZAnpvNtcD2gChq/YGOm+N986cciKgVkG9Cy2HbQFiotccAMNUWOA==
+X-Received: by 2002:a05:600c:4688:b0:442:f4a3:8c5c with SMTP id 5b1f17b1804b1-44b6d2cc4a9mr33037755e9.10.1747992239640;
+        Fri, 23 May 2025 02:23:59 -0700 (PDT)
+Date: Fri, 23 May 2025 11:23:58 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Teddy Astie <teddy.astie@vates.tech>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: [PATCH v3 3/3] x86/boot: attempt to print trace and panic on AP bring up stall
-Date: Fri, 23 May 2025 10:21:35 +0200
-Message-ID: <20250523082135.18088-4-roger.pau@citrix.com>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20250523082135.18088-1-roger.pau@citrix.com>
-References: <20250523082135.18088-1-roger.pau@citrix.com>
+Subject: Re: [PATCH] iommu/amd: Remove dead non-atomic update checking
+Message-ID: <aDA-rq89rWodAzvE@macbook.local>
+References: <761f464ae56a449291e38724a1f823606f3ba9d0.1747924653.git.teddy.astie@vates.tech>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <761f464ae56a449291e38724a1f823606f3ba9d0.1747924653.git.teddy.astie@vates.tech>
 
-With the current AP bring up code, Xen can get stuck indefinitely if an AP
-freezes during boot after the 'callin' step.  Introduce a 5s timeout while
-waiting for APs to finish startup.
+On Thu, May 22, 2025 at 03:44:12PM +0000, Teddy Astie wrote:
+> When updating a DTE, amd_iommu_setup_domain_device checks if the update had been
+> non-atomic (i.e rc > 0) and eventually throws a warning but since [1], rc can
+> no longer be positive, making this check never taken.
+> 
+> [1] x86/iommu: remove non-CX16 logic from DMA remapping
+>     https://gitlab.com/xen-project/xen/-/commit/3fc44151d83d3d63320036bcf06634dfbebe1ff3
 
-On failure of an AP to complete startup, send an NMI to trigger the
-printing of a stack backtrace on the stuck AP and panic on the BSP.
+I would avoid putting links to commits, and just reference the commit
+by hash:
 
-This patch was done while investigating the issue caused by Intel erratum
-ICX143.  It wasn't helpful in that case, but it's still and improvement
-when debugging AP bring up related issues.
+"When updating a DTE, amd_iommu_setup_domain_device() would check if
+the update had been non-atomic (i.e rc > 0) and throw a warning if
+such non-atomic update could be dangerous.  However since commit
+3fc44151d83d, rc can no longer be positive, making this branch
+unreachable code.
 
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-Changes since v2:
- - Adjust panic message to match the similar ones printed for AP start
-   failures.
+No functional change intended."
 
-Changes since v1:
- - Use 5s timeout.
- - Print APICID.
- - Split NMI dispatch code movement to a pre-patch.
- - Reorder timeout check condition.
----
- xen/arch/x86/smpboot.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+> Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
+> ---
+>  xen/drivers/passthrough/amd/iommu_map.c     |  4 +---
+>  xen/drivers/passthrough/amd/pci_amd_iommu.c | 18 ------------------
+>  2 files changed, 1 insertion(+), 21 deletions(-)
+> 
+> diff --git a/xen/drivers/passthrough/amd/iommu_map.c b/xen/drivers/passthrough/amd/iommu_map.c
+> index dde393645a..07f405ed63 100644
+> --- a/xen/drivers/passthrough/amd/iommu_map.c
+> +++ b/xen/drivers/passthrough/amd/iommu_map.c
+> @@ -157,9 +157,7 @@ static void set_iommu_ptes_present(unsigned long pt_mfn,
+>  /*
+>   * This function returns
+>   * - -errno for errors,
+> - * - 0 for a successful update, atomic when necessary
+> - * - 1 for a successful but non-atomic update, which may need to be warned
+> - *   about by the caller.
+> + * - 0 for a successful update
 
-diff --git a/xen/arch/x86/smpboot.c b/xen/arch/x86/smpboot.c
-index b5dcc77bd574..ac7bfca8b5c8 100644
---- a/xen/arch/x86/smpboot.c
-+++ b/xen/arch/x86/smpboot.c
-@@ -1372,6 +1372,7 @@ int cpu_add(uint32_t apic_id, uint32_t acpi_id, uint32_t pxm)
- int __cpu_up(unsigned int cpu)
- {
-     int apicid, ret;
-+    s_time_t start;
- 
-     if ( (apicid = x86_cpu_to_apicid[cpu]) == BAD_APICID )
-         return -ENODEV;
-@@ -1390,10 +1391,18 @@ int __cpu_up(unsigned int cpu)
-     time_latch_stamps();
- 
-     set_cpu_state(CPU_STATE_ONLINE);
-+    start = NOW();
-     while ( !cpu_online(cpu) )
-     {
-         cpu_relax();
-         process_pending_softirqs();
-+        if ( (NOW() - start) > SECONDS(5) )
-+        {
-+            /* AP is stuck, send NMI and panic. */
-+            show_execution_state_nmi(cpumask_of(cpu), true);
-+            panic("APIC ID %#x (CPU%u) stuck while starting up\n",
-+                  apicid, cpu);
-+        }
-     }
- 
-     return 0;
--- 
-2.49.0
+I think you can remove the comment completely.  Returning -errno or 0
+is the expected behavior.  We just add those comments when functions
+diverge from the classic -errno/0 return codes.
 
+>   */
+>  int amd_iommu_set_root_page_table(struct amd_iommu_dte *dte,
+>                                    uint64_t root_ptr, uint16_t domain_id,
+> diff --git a/xen/drivers/passthrough/amd/pci_amd_iommu.c b/xen/drivers/passthrough/amd/pci_amd_iommu.c
+> index d00697edb3..409752ffc8 100644
+> --- a/xen/drivers/passthrough/amd/pci_amd_iommu.c
+> +++ b/xen/drivers/passthrough/amd/pci_amd_iommu.c
+> @@ -225,24 +225,6 @@ static int __must_check amd_iommu_setup_domain_device(
+>              spin_unlock_irqrestore(&iommu->lock, flags);
+>              return rc;
+>          }
+
+You might want to also adjust the previous if condition (out of
+context here) so it's if ( rc ) rather than rc < 0.
+
+Thanks, Roger.
 
