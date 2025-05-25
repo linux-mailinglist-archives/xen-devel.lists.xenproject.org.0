@@ -2,39 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 74763AC2BB9
-	for <lists+xen-devel@lfdr.de>; Sat, 24 May 2025 00:20:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.996284.1378082 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4902DAC32BD
+	for <lists+xen-devel@lfdr.de>; Sun, 25 May 2025 09:35:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.997060.1378092 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uIajn-0008CD-PH; Fri, 23 May 2025 22:19:35 +0000
+	id 1uJ5s0-00089m-DN; Sun, 25 May 2025 07:34:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 996284.1378082; Fri, 23 May 2025 22:19:35 +0000
+Received: by outflank-mailman (output) from mailman id 997060.1378092; Sun, 25 May 2025 07:34:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uIajn-00089k-MO; Fri, 23 May 2025 22:19:35 +0000
-Received: by outflank-mailman (input) for mailman id 996284;
- Fri, 23 May 2025 22:19:34 +0000
+	id 1uJ5s0-00087k-Ad; Sun, 25 May 2025 07:34:08 +0000
+Received: by outflank-mailman (input) for mailman id 997060;
+ Sun, 25 May 2025 07:34:07 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Jiit=YH=3mdeb.com=sergii.dmytruk@srs-se1.protection.inumbo.net>)
- id 1uIajl-00089e-Jj
- for xen-devel@lists.xenproject.org; Fri, 23 May 2025 22:19:34 +0000
-Received: from 11.mo584.mail-out.ovh.net (11.mo584.mail-out.ovh.net
- [46.105.34.195]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ffc653bc-3823-11f0-a2fb-13f23c93f187;
- Sat, 24 May 2025 00:19:31 +0200 (CEST)
-Received: from director7.ghost.mail-out.ovh.net (unknown [10.108.25.12])
- by mo584.mail-out.ovh.net (Postfix) with ESMTP id 4b402C1hNgz1F9b
- for <xen-devel@lists.xenproject.org>; Fri, 23 May 2025 22:19:31 +0000 (UTC)
-Received: from ghost-submission-5b5ff79f4f-d7x5r (unknown [10.110.96.204])
- by director7.ghost.mail-out.ovh.net (Postfix) with ESMTPS id 70ED3C0152;
- Fri, 23 May 2025 22:19:30 +0000 (UTC)
-Received: from 3mdeb.com ([37.59.142.96])
- by ghost-submission-5b5ff79f4f-d7x5r with ESMTPSA
- id tj8sEnL0MGiFCAwASDrGwQ
- (envelope-from <sergii.dmytruk@3mdeb.com>); Fri, 23 May 2025 22:19:30 +0000
+ <SRS0=0YXF=YJ=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1uJ5rz-00087e-Dy
+ for xen-devel@lists.xenproject.org; Sun, 25 May 2025 07:34:07 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a2e918b4-393a-11f0-a2fb-13f23c93f187;
+ Sun, 25 May 2025 09:34:05 +0200 (CEST)
+Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
+ (Authenticated sender: nicola)
+ by support.bugseng.com (Postfix) with ESMTPA id 6B2134EE99B0;
+ Sun, 25 May 2025 09:34:04 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,174 +40,150 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ffc653bc-3823-11f0-a2fb-13f23c93f187
-Authentication-Results:garm.ovh; auth=pass (GARM-96R0014b5fd9bb-90f1-4b7c-bdb6-c6f1abd9979a,
-                    CD0F819BC38912917CA9DC5475EC3E7C21FBB083) smtp.auth=sergii.dmytruk@3mdeb.com
-X-OVh-ClientIp:176.111.184.221
-Date: Sat, 24 May 2025 01:19:17 +0300
-From: Sergii Dmytruk <sergii.dmytruk@3mdeb.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
-	Ross Philipson <ross.philipson@oracle.com>,
-	trenchboot-devel@googlegroups.com, xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v2 02/22] include/xen/slr-table.h: Secure Launch Resource
- Table definitions
-Message-ID: <aDD0ZYM-PtV7NKVc@MjU3Nj>
-References: <cover.1747155790.git.sergii.dmytruk@3mdeb.com>
- <cdd7b9ff21c81683ce2245bc2b5e0a7a87e51e3c.1747155790.git.sergii.dmytruk@3mdeb.com>
- <4896ab0b-f45e-43e9-bcee-f5496717eb2a@suse.com>
+X-Inumbo-ID: a2e918b4-393a-11f0-a2fb-13f23c93f187
+Authentication-Results: bugseng.com; arc=none smtp.remote-ip=162.55.131.47
+ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1748158444;
+	b=w/Qj20s1bo9x4pawXnuMK7oQoZnzlqlCubC3wwOZQJQRGUl3F03bEI3b4Ej8fzj/IOUz
+	 eFZ/FnB5gMx1pt2r81DOs7VuglowOvZwBc/1PUFiZCUKtMNQcLESj0JSndbWpb0GOhMU+
+	 nNLxrWrhpSi7tzBYR73bs8KmdKTSudaWhhAAjuWzts4+nQeh+n59fqrDKtdznPKActruK
+	 WOje8xKhgtb3BSe/XsnIabRipW5PWfYds4CbdaGwj9NA052+cXemlxXWOr20FD6ooNscb
+	 vbD9SLQ7YvHBaG15K9SqySaNtyvSUsddDtLpS/zexNfVZ/4ANHWB8lFP4IE7vAaWiss6W
+	 B/EiOIdZaLJ4LAWQ+VwmCPSX/npQ5JOTNWjTu7hxp13Kim6XlX+2i3B7qTpELBTxTaX05
+	 6bcgNIfc/tLJPFsh4GFzrm8OrWIz46OvBbY0/Ryy+irhmp4LNeOT3nKqfQjXFTnauOlGk
+	 iX2Ve0tHab31SJ6P4sDDzwBL/lpWhN2OCKNkpa7bM/booXCdEUxOcb1xjF7uaoklbHXLD
+	 6oNMzZ+UA7heB4y1mTPeofp86i10ub1+BpwDuGHIEneLR83ZMIwfWtAGSovHd8DJFTo5A
+	 THxcLF8fNRfcu6absQ913+GlQoMHHNAZwq+aW+xnxtPqzO5CvrkF54eQHFpxSF8=
+ARC-Message-Signature: i=1; d=bugseng.com; s=openarc; a=rsa-sha256;
+	c=relaxed/relaxed; t=1748158444;
+	h=DKIM-Signature:MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:
+	 References:Message-ID:X-Sender:Organization:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=faJ8k823wZEhLda1cYFvYfjBkRjovX6qCNGjUUvMt70=;
+	b=uUFgBEsU1xvV8NYzFrerulJoQG1wC5dWAdYSZ1D+aEds0wIN/PWgM6J/681I+u4U6SKT
+	 fnqhG1a4IpbTDHVW8EzF00yBD0jJJXEmp2oJwnrQb/P0ALHaveVcvsHXC7ybL6IQ43bOW
+	 diqkfcCQY0DJr0mCahD62ByS3mbOWBNzYCXUSDiFt3AHdctukfvc306r6cBHTcMUQurmd
+	 6MCe43MHuec1DxvKyi9OjBNSl85JL2eEW63BxupYAU3KCkc01jVMfDNz+g4nP6V90cmeR
+	 BCY6kvO2xU+vFDp4Z02NMptutvsiwWmWadVXlLvXd4Rttpr58km8g4zOmLECX6kADIj++
+	 PUM0z+Ok4QXXLIkfH+nN24TJB4fcrCh0WEbikzzUqOVpH539EAOp2d6aX6xNf7tT3C6h8
+	 y/T52rwxJ2eQuqJyYQk0bQlR2DrKa+d8Is3PGQQG2Sk8PainI8SWbjbtXs2IP8vheu9Bn
+	 9Wg1Gdw4PzgENX8Tdtd8nWIDASCVMqiumGFd9p3uUS5Z99qhKm9itBOjvYkJ5B51l+r/n
+	 DVUBNZGBOmR1We0XS0mtyMM92ZlRHYJwsoaAhj6E1EO4Zpq1H0SA9y1lERA6fri6H+fwV
+	 SOOenkEktSWyvhCn5IeDCCug7Ii+D8GhsjHocrz4gscNGm/i+Bu3l3Y7DxPJFRo=
+ARC-Authentication-Results: i=1; bugseng.com; arc=none smtp.remote-ip=162.55.131.47
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
+	t=1748158444; bh=7hBZWCNuA0RsOsR4BznSUhPqoXdSeUP+JJwjUVzDVLE=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=WUTdZfce59sEltHCpgYHMCOx8RA+Nu8beF0RyuxgACh0urKbFw0jyUNh9CGyXh7cA
+	 9M2MQzrEFK4kTR/kGkTDDRjnp5IvJZxQ35DcZpOJVaP1eCuUouA2Rd6RsyuJy6aol/
+	 iOFzFlbWqwj2QK58WwIQXRhnxPOM0K7BPM3xuIct22FUmTv7avecTdnwNFt9Bcr8h0
+	 W15nTijFfyn36SFPDbEfQ/Yo6Kdcd61QZglfrooIgj6ouI669L9HkBX3FP2NTIZsce
+	 9YXN3V40c64QjC45/6weDthc9///wrC52UPFtaSXwWISnzw0M4CxssPOydt6pDxZ8a
+	 Csl5AU7S3dFrA==
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <4896ab0b-f45e-43e9-bcee-f5496717eb2a@suse.com>
-X-Ovh-Tracer-Id: 17614422570925012057
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgeeffedrtddtgddutddtfeculddtuddrgeefvddrtddtmdcutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpeffhffvvefukfhfgggtuggjsehttdertddttddvnecuhfhrohhmpefuvghrghhiihcuffhmhihtrhhukhcuoehsvghrghhiihdrughmhihtrhhukhesfehmuggvsgdrtghomheqnecuggftrfgrthhtvghrnhepvdfgveegtdffhfdugeevieehkeetudevfeefgedtleejledvfeeutdetudeiveelnecukfhppeduvdejrddtrddtrddupddujeeirdduuddurddukeegrddvvddupdefjedrheelrddugedvrdelieenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepihhnvghtpeduvdejrddtrddtrddupdhmrghilhhfrhhomhepshgvrhhgihhirdgumhihthhruhhkseefmhguvggsrdgtohhmpdhnsggprhgtphhtthhopedupdhrtghpthhtohepgigvnhdquggvvhgvlheslhhishhtshdrgigvnhhprhhojhgvtghtrdhorhhgpdfovfetjfhoshhtpehmohehkeegmgdpmhhouggvpehsmhhtphhouhht
-DKIM-Signature: a=rsa-sha256; bh=hnb3sgRi2PbChx3uTtxmnmJ701Vr32dxeYKoEIZN/2g=;
- c=relaxed/relaxed; d=3mdeb.com; h=From; s=ovhmo3617313-selector1;
- t=1748038771; v=1;
- b=dEy0nCeXc6MHHc0gg/1Fmv3NYRd7j63FIhVM48Wo++kvgRURdpfB3WWJ05R5AiCK56h+7Ini
- +OrJaw5yl8Xrrl2cbvnWwWTsUw43v2ykFh2hLutlv3U6s0f3Q3B2jI36Dax6daFcNyr9VbKrEks
- sftsjfkkgLv1IT3uyMiIZflRVChp1u82kiQoI5QeuTYSnCRtpwiIoHLMfTZ17ITGkH2hDlj7odb
- /HG5OHUFHNMslmUwWfQR8lS4+0gcZZa/Q0buIHZp0eD3WmWb15NS/e9V09eg7IzTLjEWfTtmIXh
- AVEN1ciyjiC8m1xhrXhXtpLLgYJ38JzecuweTphqyMQkA==
+Date: Sun, 25 May 2025 09:34:04 +0200
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, Jan Beulich
+ <JBeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, consulting@bugseng.com, Stefano Stabellini
+ <sstabellini@kernel.org>
+Subject: Re: [Eclair false positive] Re: [PATCH] x86/msr: Rework wrmsr_safe()
+ using asm goto()
+In-Reply-To: <49f092f9-c0fb-4b66-af20-368c736dde91@citrix.com>
+References: <20250521143658.312514-1-andrew.cooper3@citrix.com>
+ <8504aab1-c48a-4981-a502-93a2fd18880b@citrix.com>
+ <e25858b4fedaa40d8934e5fe6bc40c01@bugseng.com>
+ <49f092f9-c0fb-4b66-af20-368c736dde91@citrix.com>
+Message-ID: <526fe46bf2e4b5985d1b8cd3361e5730@bugseng.com>
+X-Sender: nicola.vetrini@bugseng.com
+Organization: BUGSENG s.r.l.
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Wed, May 21, 2025 at 05:45:04PM +0200, Jan Beulich wrote:
-> > +/* SPDX-License-Identifier: GPL-2.0 */
->
-> GPL-2.0-only is, I think, the one to use for new code.
+On 2025-05-22 15:49, Andrew Cooper wrote:
+> On 22/05/2025 1:45 pm, Nicola Vetrini wrote:
+>> On 2025-05-21 20:00, Andrew Cooper wrote:
+>>> On 21/05/2025 3:36 pm, Andrew Cooper wrote:
+>>>> diff --git a/xen/arch/x86/include/asm/msr.h
+>>>> b/xen/arch/x86/include/asm/msr.h
+>>>> index 0d3b1d637488..4c4f18b3a54d 100644
+>>>> --- a/xen/arch/x86/include/asm/msr.h
+>>>> +++ b/xen/arch/x86/include/asm/msr.h
+>>>> @@ -69,20 +69,20 @@ static inline void wrmsr_ns(uint32_t msr,
+>>>> uint32_t lo, uint32_t hi)
+>>>>  /* wrmsr with exception handling */
+>>>>  static inline int wrmsr_safe(unsigned int msr, uint64_t val)
+>>>>  {
+>>>> -    int rc;
+>>>> -    uint32_t lo, hi;
+>>>> -    lo = (uint32_t)val;
+>>>> -    hi = (uint32_t)(val >> 32);
+>>>> -
+>>>> -    __asm__ __volatile__(
+>>>> -        "1: wrmsr\n2:\n"
+>>>> -        ".section .fixup,\"ax\"\n"
+>>>> -        "3: movl %5,%0\n; jmp 2b\n"
+>>>> -        ".previous\n"
+>>>> -        _ASM_EXTABLE(1b, 3b)
+>>>> -        : "=&r" (rc)
+>>>> -        : "c" (msr), "a" (lo), "d" (hi), "0" (0), "i" (-EFAULT));
+>>>> -    return rc;
+>>>> +    uint32_t lo = val, hi = val >> 32;
+>>>> +
+>>>> +    asm_inline goto (
+>>>> +        "1: wrmsr\n\t"
+>>>> +        _ASM_EXTABLE(1b, %l[fault])
+>>>> +        :
+>>>> +        : "a" (lo), "c" (msr), "d" (hi)
+>>>> +        :
+>>>> +        : fault );
+>>>> +
+>>>> +    return 0;
+>>>> +
+>>>> + fault:
+>>>> +    return -EFAULT;
+>>>>  }
+>>> 
+>>> It turns out this is the first piece of Eclair-scanned code using asm
+>>> goto.
+>>> 
+>>> https://gitlab.com/xen-project/hardware/xen-staging/-/jobs/10108558677
+>>> (The run also contained an equivalent change to xsetbv())
+>>> 
+>>> We're getting R1.1 and R2.6 violations.
+>>> 
+>>> R1.1 complains about [STD.adrslabl] "label address" not being valid 
+>>> C99.
+>>> 
+>>> R2.6 complains about unused labels.
+>>> 
+>>> I expect this means that Eclair doesn't know how to interpret asm 
+>>> goto()
+>>> yet.  The labels listed are reachable from inside the asm block.
+>>> 
+>> 
+>> That has been fixed upstream. I'll reach out to you when that fix
+>> trickles down to the runners, so that you're able to test and push
+>> that change.
+> 
+> Oh, fantastic thanks.
+> 
+> I'll hold off pushing until then.
+> 
+> ~Andrew
 
-Right.
+Hi Andrew,
 
-> > +/*
-> > + *  Copyright (c) 2025 Apertus Solutions, LLC
-> > + *  Copyright (c) 2025 Oracle and/or its affiliates.
-> > + *  Copyright (c) 2025 3mdeb Sp. z o.o
->
-> I'm curious: Considering the (just) 2 S-o-b, where's the 3rd copyright
-> line coming from?
+both runners are now updated with the new images, so you can rerun the 
+tests.
 
-I'll add "Daniel P. Smith" (already in CC), not sure why his S-o-B
-wasn't there.
+Thanks,
+  Nicola
 
-> > +#include <xen/types.h>
->
-> Looks like xen/stdint.h would suffice?
-
-It would for types, but there is also use of `NULL`.
-
-> > +#define UEFI_SLR_TABLE_GUID \
-> > +    { 0x877a9b2aU, 0x0385, 0x45d1, { 0xa0, 0x34, 0x9d, 0xac, 0x9c, 0x9e, 0x56, 0x5f } }
->
-> I'm not sure this is a good place to put UEFI GUIDs. Considering e.g ...
-
-It's here because the GUID is related more to SLRT than to EFI.  I can
-move it if there is a more fitting place for table GUIDs.
-
-> > +/* SLR table header values */
-> > +#define SLR_TABLE_MAGIC         0x4452544d
-> > +#define SLR_TABLE_REVISION      1
-> > +
-> > +/* Current revisions for the policy and UEFI config */
-> > +#define SLR_POLICY_REVISION         1
-> > +#define SLR_UEFI_CONFIG_REVISION    1
->
-> ... this, is the whole concept perhaps bound to UEFI? In which casethe
-> whole header may want to move to the efi/ subdir?
-
-This isn't EFI-specific, legacy boot is supported.  Some types of
-entries are there to provide EFI-specific information.
-
-> > +/* SLR defined architectures */
-> > +#define SLR_INTEL_TXT   1
-> > +#define SLR_AMD_SKINIT  2
->
-> These are both x86, yet the header is put in the common include dir?
-
-It's x86-specific with the goal to add more architectures in the future.
-I don't know, maybe the header should start as arch-specific and be
-moved later, your call.
-
-> > +/*
-> > + * Primary SLR Table Header
-> > + */
-> > +struct slr_table
-> > +{
-> > +    uint32_t magic;
-> > +    uint16_t revision;
-> > +    uint16_t architecture;
-> > +    uint32_t size;
-> > +    uint32_t max_size;
-> > +    /* entries[] */
-> > +} __packed;
->
-> If x86-specific, the question on the need for some of the __packed arises
-> again.
-
-The table is used to communicate data from pre-DRTM world to DRTM-world
-and is produced and consumed by unrelated software components that don't
-necessarily pad structures the same way by default.
-
-> > +/*
-> > + * Prototype of a function pointed to by slr_entry_dl_info::dl_handler.
-> > + */
-> > +typedef void (*dl_handler_func)(struct slr_bl_context *bl_context);
->
-> It being an internal header, ...
-> > +    uint64_t dl_handler;
->
-> ... why can't this type be used here then? This would presumably avoid a
-> typecast later.
-
-It's not an internal header in my understanding of the phrase, Xen
-parses what a bootloader has passed to it.  In principle, pointers could
-be 32-bit here.
-
-> > +static inline void *
-> > +slr_end_of_entries(struct slr_table *table)
-> > +{
-> > +    return (uint8_t *)table + table->size;
->
-> Considering the function's return type, why not cast to void * (or perhaps
-> const void *, if the return type also can be such)?
-
-No particular reason other than that pointer arithmetic on
-pointers-to-void typically causes build issues.  Can be changed for Xen.
-
-> > +static inline struct slr_entry_hdr *
-> > +slr_next_entry(struct slr_table *table, struct slr_entry_hdr *curr)
-> > +{
-> > +    struct slr_entry_hdr *next = (struct slr_entry_hdr *)
-> > +                                 ((uint8_t *)curr + curr->size);
-> > +
-> > +    if ( (void *)next >= slr_end_of_entries(table) )
-> > +        return NULL;
->
-> Is this sufficient as a check? With it fulfilled, ...
->
-> > +    if ( next->tag == SLR_ENTRY_END )
->
-> ... this member access may still be out of bounds. IOW the question is what
-> level of checking is really adequate here.
-
-SLR_ENTRY_END should really end the table, but it won't hurt to check
-for out of bounds.  Thanks, will correct the checks.
-
-> > +static inline struct slr_entry_hdr *
-> > +slr_next_entry_by_tag (struct slr_table *table,
-> > +                       struct slr_entry_hdr *entry,
-> > +                       uint16_t tag)
-> > +{
-> > +    if ( !entry ) /* Start from the beginning */
-> > +        entry = (struct slr_entry_hdr *)((uint8_t *)table + sizeof(*table));
->
-> Extending from the earlier comment - if the inner cast was to void * here,
-> the outer one could be dropped altogether.
->
-> Jan
-
-Will update.
-
-Regards
+-- 
+Nicola Vetrini, B.Sc.
+Software Engineer
+BUGSENG (https://bugseng.com)
+LinkedIn: https://www.linkedin.com/in/nicola-vetrini-a42471253
 
