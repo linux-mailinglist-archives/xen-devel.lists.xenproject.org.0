@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9267BAC4476
-	for <lists+xen-devel@lfdr.de>; Mon, 26 May 2025 22:32:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.997784.1378606 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 558BEAC4493
+	for <lists+xen-devel@lfdr.de>; Mon, 26 May 2025 22:53:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.997799.1378617 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uJeV3-0007AR-0V; Mon, 26 May 2025 20:32:45 +0000
+	id 1uJeom-0001js-Od; Mon, 26 May 2025 20:53:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 997784.1378606; Mon, 26 May 2025 20:32:44 +0000
+Received: by outflank-mailman (output) from mailman id 997799.1378617; Mon, 26 May 2025 20:53:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uJeV2-00078S-U4; Mon, 26 May 2025 20:32:44 +0000
-Received: by outflank-mailman (input) for mailman id 997784;
- Mon, 26 May 2025 20:32:43 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uJeom-0001h4-LS; Mon, 26 May 2025 20:53:08 +0000
+Received: by outflank-mailman (input) for mailman id 997799;
+ Mon, 26 May 2025 20:53:08 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=h+MF=YK=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1uJeV1-000786-8j
- for xen-devel@lists.xenproject.org; Mon, 26 May 2025 20:32:43 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 91fd5cff-3a70-11f0-a2fb-13f23c93f187;
- Mon, 26 May 2025 22:32:41 +0200 (CEST)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- (Authenticated sender: nicola)
- by support.bugseng.com (Postfix) with ESMTPA id C455B4EE8E26;
- Mon, 26 May 2025 22:32:40 +0200 (CEST)
+ <SRS0=pkau=YK=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1uJeom-0001gy-2C
+ for xen-devel@lists.xenproject.org; Mon, 26 May 2025 20:53:08 +0000
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [2a00:1450:4864:20::336])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 6be53ef9-3a73-11f0-b893-0df219b8e170;
+ Mon, 26 May 2025 22:53:05 +0200 (CEST)
+Received: by mail-wm1-x336.google.com with SMTP id
+ 5b1f17b1804b1-442ea341570so18939665e9.1
+ for <xen-devel@lists.xenproject.org>; Mon, 26 May 2025 13:53:05 -0700 (PDT)
+Received: from localhost.localdomain (host-92-26-98-202.as13285.net.
+ [92.26.98.202]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-447f18251basm243682185e9.4.2025.05.26.13.53.03
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 26 May 2025 13:53:04 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,175 +45,95 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 91fd5cff-3a70-11f0-a2fb-13f23c93f187
-Authentication-Results: bugseng.com; arc=none smtp.remote-ip=162.55.131.47
-ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1748291560;
-	b=Rl6FSbowBz+CBbxdZSW/FKWeAERgigb1sJCek7f5H4pmXVh3IlfomFMWp23lKbEGlcff
-	 qBKPra2NqdlEkzGUaMaxj7t853CO7IAEVYFBaLixVcXphN2mB9u+XCAWxSGTkgVg4wZD8
-	 IxtzCBWHCuwpZOrYRwZqNIpiVIMHp4OosIdEL7hIYIpJFi22n3vyXqQe86/1TMa5G2Rax
-	 1+2EZZvfYZHA/yIIUh94r3eECtdEBd3RKR//8FPm4P7yeVD4csNt1VWXDi1FImTKYUt1B
-	 eNOvHfzwklR9i2hp5/aAci9rqEISDC3Jj2PbVi3oAc7xgk0en9sJAiBfHZWKNapLwYHOX
-	 sQSuWLydGqUxnB64rjV7KrmR/mZjiXsrOkALdfZYYcYJgrZ8CmBPJ9qQ01WefAU/DHrrb
-	 xSJm7PxGMHCXxWNbYR+CFfKpXwY6Fqcfw4uzhT0mxr7zj+DjZnMCLqWedBlvA9Z/lERxu
-	 ACgK42uUuwrTPquwDfClYTFnfKz8jmfq0hiugUDoFOvJVoQ7iko+qTfV8gJKLl1kh1Ab5
-	 7J1k9UGDo5u/91MNTiFXB2TnC00Wm+Pcqg7qgRzevEHQI0mORth++oj7Zwte6/AlcJShx
-	 lO1wqZG2a4GLZHntd+tcoOaLhmYEIknSXEShug4K/7yFc01K85DcQg88ik1QlMo=
-ARC-Message-Signature: i=1; d=bugseng.com; s=openarc; a=rsa-sha256;
-	c=relaxed/relaxed; t=1748291560;
-	h=DKIM-Signature:MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:
-	 References:Message-ID:X-Sender:Organization:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=8yUKAiDNYHfFbobrtgzhNXm2dFqyLcF4xxhdylDJrr4=;
-	b=rSa4pMdHYhCOuteng9oXdAv8HmbGM9xrYzKqNQCiqw58qF6rgmnUWcchpjC9NXnzwIKB
-	 YCfOnfwJTqvN4470zPU11TPfO3WgPWhtF6/uKxVXjbz9Dm22KQAK/EwnxW+evfviUVa/q
-	 LHKkjLZ8+0iNYJUjUaRPwvkyrL5xjzOogCi7WKmbbmclmspRU1MZCNh/LnMNQqM4YR5Qe
-	 apfZvnM7QNN7BK87loRpRvaIFJ+qviIgtXtmwhki2kR8ytxbo7xC2H6MJDj/bcuq+5YBe
-	 oIAC1tk7W7ihZuwYwCCTds23rUo9JHsF2WIeYtkripsfn9Xf8ZhImcCs94WuMSy1OPOyZ
-	 Fywbu22JU6fXIQUulr+en5lw1ftPqCSMAufXjTcH0uRXLNloxWT/aLx7U48TGFz2S4yQX
-	 9ms9p00F05eC0QOE93bm4l8/Fm14wpHlY3F7pIDrg9hhEw1bX6NMPYhUPntpPTxWWwG9t
-	 AVi25XvWZm0BxCe6DNqUhs8qPrptUZJ27X2RALG4LHs761vjrLxHBstp9sQtPC1vEbTlm
-	 2AuBlxFmXw/L024w/MN+Xwxq2SWOS0sY1Bpxc+v8RMHWso6wOeme2Sgbm/wQOCkgLD5cb
-	 OtzFmy9Sme8I6LBt4bRsvO1evFWpDOuwUAOgauFSXSR2whxaFrNOzJYM0jjHFSo=
-ARC-Authentication-Results: i=1; bugseng.com; arc=none smtp.remote-ip=162.55.131.47
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
-	t=1748291560; bh=KLnQtA+kgQvNLbrHD0a5M+wnASmHFfwYRWwS/5XvNNw=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=vMFCPOjmdE650tiiyMyyQl99f9JuLjbRcvfkKmwpzhgEx7AZXp5a8kh+VRR+4NuXS
-	 0RZ1cmXLTK13n46M2qnN5VYDKRbuZBtHt1YPlz6de0O+0CA5odYGiZQrLJbB4r3BVr
-	 OUKpE9n496+t5KS7ECK0Bnwb8vB/sdRkuhRcdOm4ReHwT+OgPZxKph1WGj5zOUln0D
-	 HEPm9zsKCllDa9dSyylAGiC+AikgwfDzeoOu64wT1gtIBwK20kPSHWbL8JIVYeVt2g
-	 9NQzdhgDuRDDHmvoSt53M6odWXlhMi2OyzXyfmsEiIcBGQGV3pxuEDpEIAx7dxKcjj
-	 bqnm6x7tl1rCw==
+X-Inumbo-ID: 6be53ef9-3a73-11f0-b893-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1748292785; x=1748897585; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Qb25bEXVG3p9CU9Sg8KmV/sBuke8+/L1M/Zbvd+67i8=;
+        b=aeIEDEZM9nnq7weJdN+06u4w3NXYTGKHJQuQJiMWS3Kn+OPyT1UFoWFjEycmUgO2BV
+         Kb6De4PD7nZi4ZUQpS0wCXrqc1LlDGNgLvncFzXGhBAcjA/zjwfwI2SfNFfHBFYnnuPB
+         3Y4pGTZiPT4fmVK+gHLZaKehVHR/txpQfqjHw=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1748292785; x=1748897585;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=Qb25bEXVG3p9CU9Sg8KmV/sBuke8+/L1M/Zbvd+67i8=;
+        b=ZiX85G8Qw6nrwMjZ2MAXKY3yOHa3sgl8TiGlBO4AOSE5vwVmmBY8cVMNFOC3RWP0dG
+         Q4IJE2Wbs7dxUi9SdN04g6UYedhQte2WVKR0CYa6ggCqWmizSKuqtvAD1B0OaNFgyP6d
+         VsRbOsUPXSa+yhxPGwtNf3HDxIJppnqykvo7V/LCXs6h0BU3DA0pVNT141ZEIGW1yWIb
+         w+cXRkjv/HjBNP+fqB8iHOr7xiFmgDzowQQq3oSnucj35w1EGaTnjRAM50RTnnsKDsVZ
+         6OA9CdA5mAt6G1R3al68NgKMC1Ilki6WyTfKbXKJG4pCOn11nkNmc6f4X/FUzD3SZtf8
+         NGRQ==
+X-Gm-Message-State: AOJu0YySUTj2WX04EQ5wmKsdEXZ04sUWeMqO+FARsyPgM/gUlSvUGwKi
+	oNcwmZCWHN8XHbNW5f61FaB0h8d/BV0mzuNgtfgGGYFRqr/a64QxjtAMGY8qkSXpaS8p7b5yQ1G
+	WP4RZ
+X-Gm-Gg: ASbGncu63YGWcf6eL5eqeU0Oltmsdybogo4PbDESEaV7fOt4sgY+GVolYGHrvZDx1aI
+	+tOqA3ON5CwlGttifh3aPndXnm6f4z2+odIiq+TTrmwUoHXLALibX00c267p60UE2yfWpG3lXQU
+	Df8D2Hf104uunEfQqemmAauKTessDtq+xYvrkg03vYtLXBs9fcGca03GTgRBSTGbA0torMZM2Hp
+	Vy3J8nnm4mFNQBHYOykaxf3joRu6m2qyVnjY7p+fIWHNDyiZ5Dry6zfA7c5dHGJftcqMxiLOggA
+	q6QheaSYAsr45/hQ9A5gNjQxjzomPjJDd+w9feErmEj/kIzbZetmz30wjVMpJlL2Vg0dMqeGsMc
+	gk5KjkKmklx4SRIGDenHRua1y
+X-Google-Smtp-Source: AGHT+IFhtiPVFvy2L+RuChqZ8Sza3/nbyDe0zbfKlBB5ArCPhO1/1PN5F+kb5kRipzYLeRLpiawOqA==
+X-Received: by 2002:a05:600c:1e1c:b0:441:d438:4ea5 with SMTP id 5b1f17b1804b1-44c9493e6b1mr78478795e9.20.1748292784695;
+        Mon, 26 May 2025 13:53:04 -0700 (PDT)
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Manuel Bouyer <bouyer@antioche.eu.org>,
+	Jan Beulich <JBeulich@suse.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [PATCH] x86/pv: Fix breakpoint reporting
+Date: Mon, 26 May 2025 21:53:02 +0100
+Message-Id: <20250526205302.997387-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <aDSr8u-7w_Rbf4el@mail.soc.lip6.fr>
+References: <aDSr8u-7w_Rbf4el@mail.soc.lip6.fr>
 MIME-Version: 1.0
-Date: Mon, 26 May 2025 22:32:40 +0200
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>, Jan Beulich
- <JBeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, consulting@bugseng.com, Stefano Stabellini
- <sstabellini@kernel.org>
-Subject: Re: [Eclair false positive] Re: [PATCH] x86/msr: Rework wrmsr_safe()
- using asm goto()
-In-Reply-To: <76634ee243f9e51a777428904a8c0d5d@bugseng.com>
-References: <20250521143658.312514-1-andrew.cooper3@citrix.com>
- <8504aab1-c48a-4981-a502-93a2fd18880b@citrix.com>
- <e25858b4fedaa40d8934e5fe6bc40c01@bugseng.com>
- <49f092f9-c0fb-4b66-af20-368c736dde91@citrix.com>
- <526fe46bf2e4b5985d1b8cd3361e5730@bugseng.com>
- <a1fe2c69-b10b-41cb-9aaf-c21159248ad5@citrix.com>
- <76634ee243f9e51a777428904a8c0d5d@bugseng.com>
-Message-ID: <d60bfd168bee2980070c6072a125ae38@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 2025-05-25 15:36, Nicola Vetrini wrote:
-> On 2025-05-25 12:52, Andrew Cooper wrote:
->> On 25/05/2025 8:34 am, Nicola Vetrini wrote:
->>> On 2025-05-22 15:49, Andrew Cooper wrote:
->>>> On 22/05/2025 1:45 pm, Nicola Vetrini wrote:
->>>>> On 2025-05-21 20:00, Andrew Cooper wrote:
->>>>>> On 21/05/2025 3:36 pm, Andrew Cooper wrote:
->>>>>>> diff --git a/xen/arch/x86/include/asm/msr.h
->>>>>>> b/xen/arch/x86/include/asm/msr.h
->>>>>>> index 0d3b1d637488..4c4f18b3a54d 100644
->>>>>>> --- a/xen/arch/x86/include/asm/msr.h
->>>>>>> +++ b/xen/arch/x86/include/asm/msr.h
->>>>>>> @@ -69,20 +69,20 @@ static inline void wrmsr_ns(uint32_t msr,
->>>>>>> uint32_t lo, uint32_t hi)
->>>>>>>  /* wrmsr with exception handling */
->>>>>>>  static inline int wrmsr_safe(unsigned int msr, uint64_t val)
->>>>>>>  {
->>>>>>> -    int rc;
->>>>>>> -    uint32_t lo, hi;
->>>>>>> -    lo = (uint32_t)val;
->>>>>>> -    hi = (uint32_t)(val >> 32);
->>>>>>> -
->>>>>>> -    __asm__ __volatile__(
->>>>>>> -        "1: wrmsr\n2:\n"
->>>>>>> -        ".section .fixup,\"ax\"\n"
->>>>>>> -        "3: movl %5,%0\n; jmp 2b\n"
->>>>>>> -        ".previous\n"
->>>>>>> -        _ASM_EXTABLE(1b, 3b)
->>>>>>> -        : "=&r" (rc)
->>>>>>> -        : "c" (msr), "a" (lo), "d" (hi), "0" (0), "i" 
->>>>>>> (-EFAULT));
->>>>>>> -    return rc;
->>>>>>> +    uint32_t lo = val, hi = val >> 32;
->>>>>>> +
->>>>>>> +    asm_inline goto (
->>>>>>> +        "1: wrmsr\n\t"
->>>>>>> +        _ASM_EXTABLE(1b, %l[fault])
->>>>>>> +        :
->>>>>>> +        : "a" (lo), "c" (msr), "d" (hi)
->>>>>>> +        :
->>>>>>> +        : fault );
->>>>>>> +
->>>>>>> +    return 0;
->>>>>>> +
->>>>>>> + fault:
->>>>>>> +    return -EFAULT;
->>>>>>>  }
->>>>>> 
->>>>>> It turns out this is the first piece of Eclair-scanned code using 
->>>>>> asm
->>>>>> goto.
->>>>>> 
->>>>>> https://gitlab.com/xen-project/hardware/xen-staging/-/jobs/10108558677
->>>>>> (The run also contained an equivalent change to xsetbv())
->>>>>> 
->>>>>> We're getting R1.1 and R2.6 violations.
->>>>>> 
->>>>>> R1.1 complains about [STD.adrslabl] "label address" not being 
->>>>>> valid
->>>>>> C99.
->>>>>> 
->>>>>> R2.6 complains about unused labels.
->>>>>> 
->>>>>> I expect this means that Eclair doesn't know how to interpret asm
->>>>>> goto()
->>>>>> yet.  The labels listed are reachable from inside the asm block.
->>>>>> 
->>>>> 
->>>>> That has been fixed upstream. I'll reach out to you when that fix
->>>>> trickles down to the runners, so that you're able to test and push
->>>>> that change.
->>>> 
->>>> Oh, fantastic thanks.
->>>> 
->>>> I'll hold off pushing until then.
->>>> 
->>>> ~Andrew
->>> 
->>> Hi Andrew,
->>> 
->>> both runners are now updated with the new images, so you can rerun 
->>> the
->>> tests.
->> 
->> Both Eclair runs are unhappy, and not even completing analysis.
->> 
->> https://gitlab.com/xen-project/hardware/xen-staging/-/pipelines/1835567532
->> 
->> This is the same branch as before, plus your config change for R1.1
->> 
->> ~Andrew
-> 
-> There might be something wrong with the image I used, it's erroring on 
-> a speculative call to the compiler. I rolled back to the previous 
-> images (without the fix for R2.6). I will investigate tomorrow.
+x86_merge_dr6() is not a no-op when 0 is passed in; it will discard the
+previously latched breakpoint bits.
 
-Fixed, I will let you know when runners are updated. It was a change 
-unrelated to Rule 2.6.
+The combination of do_debug()'s manual call to x86_merge_dr6() for external
+debuggers, and pv_inject_DB() calling pv_inject_event(), results in two
+x86_merge_dr6() calls.
 
-Thanks,
-  Nicola
+Feed the same pending_dbg in the second time.  This makes pv_inject_event()'s
+update of dr6 effectively a no-op, retaining the correct breakpoint bits.
 
+Fixes: db39fa4b27ea ("x86/pv: Fix merging of new status bits into %dr6")
+Reported-by: Manuel Bouyer <bouyer@antioche.eu.org>
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Manuel Bouyer <bouyer@antioche.eu.org>
+
+Now to figure out why my testing didn't spot this...
+---
+ xen/arch/x86/traps.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/xen/arch/x86/traps.c b/xen/arch/x86/traps.c
+index 22f20629327d..e7b4693415cd 100644
+--- a/xen/arch/x86/traps.c
++++ b/xen/arch/x86/traps.c
+@@ -1823,7 +1823,7 @@ void asmlinkage do_debug(struct cpu_user_regs *regs)
+         return;
+     }
+ 
+-    pv_inject_DB(0 /* N/A, already merged */);
++    pv_inject_DB(dr6 ^ X86_DR6_DEFAULT);
+ }
+ 
+ void asmlinkage do_entry_CP(struct cpu_user_regs *regs)
+
+base-commit: 6cfe3ae346fc84fbd4380fc45c70780935da590a
 -- 
-Nicola Vetrini, B.Sc.
-Software Engineer
-BUGSENG (https://bugseng.com)
-LinkedIn: https://www.linkedin.com/in/nicola-vetrini-a42471253
+2.39.5
+
 
