@@ -2,49 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 181A6AC3D35
-	for <lists+xen-devel@lfdr.de>; Mon, 26 May 2025 11:46:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.997354.1378327 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F4A1AC3E07
+	for <lists+xen-devel@lfdr.de>; Mon, 26 May 2025 12:47:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.997485.1378339 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uJUPr-0006OO-8w; Mon, 26 May 2025 09:46:43 +0000
+	id 1uJVLh-0001En-DD; Mon, 26 May 2025 10:46:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 997354.1378327; Mon, 26 May 2025 09:46:43 +0000
+Received: by outflank-mailman (output) from mailman id 997485.1378339; Mon, 26 May 2025 10:46:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uJUPr-0006Iu-1O; Mon, 26 May 2025 09:46:43 +0000
-Received: by outflank-mailman (input) for mailman id 997354;
- Mon, 26 May 2025 09:46:41 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uJVLh-0001DK-96; Mon, 26 May 2025 10:46:29 +0000
+Received: by outflank-mailman (input) for mailman id 997485;
+ Mon, 26 May 2025 10:46:27 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Qdiq=YK=amd.com=Jiqian.Chen@srs-se1.protection.inumbo.net>)
- id 1uJUPp-0003hH-6E
- for xen-devel@lists.xenproject.org; Mon, 26 May 2025 09:46:41 +0000
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2062f.outbound.protection.outlook.com
- [2a01:111:f403:2009::62f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 527b233b-3a16-11f0-a2fb-13f23c93f187;
- Mon, 26 May 2025 11:46:40 +0200 (CEST)
-Received: from BL0PR0102CA0027.prod.exchangelabs.com (2603:10b6:207:18::40) by
- CH1PPF931B95D07.namprd12.prod.outlook.com (2603:10b6:61f:fc00::619)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8678.27; Mon, 26 May
- 2025 09:46:35 +0000
-Received: from BL02EPF0001A106.namprd05.prod.outlook.com
- (2603:10b6:207:18:cafe::93) by BL0PR0102CA0027.outlook.office365.com
- (2603:10b6:207:18::40) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8769.18 via Frontend Transport; Mon,
- 26 May 2025 09:46:26 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL02EPF0001A106.mail.protection.outlook.com (10.167.241.139) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8769.18 via Frontend Transport; Mon, 26 May 2025 09:46:35 +0000
-Received: from cjq-desktop.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 26 May
- 2025 04:46:33 -0500
+ <SRS0=xmSW=YK=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1uJVLf-0001DE-Sg
+ for xen-devel@lists.xenproject.org; Mon, 26 May 2025 10:46:27 +0000
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [2a00:1450:4864:20::62b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id abf57e0f-3a1e-11f0-b893-0df219b8e170;
+ Mon, 26 May 2025 12:46:25 +0200 (CEST)
+Received: by mail-ej1-x62b.google.com with SMTP id
+ a640c23a62f3a-ad5273c1fd7so403381866b.1
+ for <xen-devel@lists.xenproject.org>; Mon, 26 May 2025 03:46:25 -0700 (PDT)
+Received: from [192.168.1.5] (user-109-243-64-38.play-internet.pl.
+ [109.243.64.38]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ad52d49886esm1677493066b.144.2025.05.26.03.46.24
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 26 May 2025 03:46:24 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,183 +45,348 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 527b233b-3a16-11f0-a2fb-13f23c93f187
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GmgZEmrcDTqPmcvlYDCxSSxtBFhRAegAkgVpuX/L5WS4ELCI0XrwZIaf0rwq+VuXN/s/6lqD1WPwSVIaN/NadlXTelZjnufctCfnEOke1FogHrkUUPN5fb1+yvICX8oRYyTQ93pevc+chm0Ox88EWEoGsHjxJrkHVdhpP9C5lPhM638aQQmpYY9JNx0iD4L4QI6vx+MbiH1945+3xaUBuSVbn+D5Gsm0+lJlubi0a974E8qYfzDP5JL65X0j26pF4FocM8FP+idywfkvdezz4npKhlSoSSGY4H5GVJUwXLfD2GhW0h9RHbeMNss35DHXP58yepAb2pJQoS5eHxtvlg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fUJWfL2DY49Egk7Lf4LkxsuGcBQxC7mWhWoHagyWnjk=;
- b=vi0Dvoe3iBTq/IDVPnLD1SnB/dLAq2BJDZrWKsZVjHs51XJx/k9cXwl6ubItncVjgwoJ/EEQH5u3ns89vfVFirQpyw/lncID0Z/guxBFIb4ftSrXgWy2O+TVbvsBkZjPrxVE0g+tEWIKDJxrJBDraA5h1rb+l5kX0/6IlGSRzDHGpld7UBYREwJGksVe4MQjqBbdZJTygBkvVXqAzvCs4VV0uksskMZfZZbmWGMoJK/8DOl8lNleDpWmTOTcnVV4Muao9r7ZJh0MgZgrfXDqG6lMhgptEy27i11kqo4rv6voGHFSSplXYZbWzdCjNCzsn9X1zZ0pV/ZLbixMZdv/aA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fUJWfL2DY49Egk7Lf4LkxsuGcBQxC7mWhWoHagyWnjk=;
- b=X3E/pPG1QHTm+p7JgW5sT2Av3IxCBrRkdDTsqTCVAcykp7K1OML2EymjVs5dvmNrimdA54BHEjb8Jky2RP0fV3uh7keEZEH/ata7fnnr01EgB7Lotq1ZeokK6L7I5An1RXh0ZHbeUph8P+0dWRfpnA1gIs4ZyIDjCKDBFbgF/7o=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-From: Jiqian Chen <Jiqian.Chen@amd.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Huang Rui <ray.huang@amd.com>, Jiqian Chen <Jiqian.Chen@amd.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH v5 10/10] vpci/msix: Free MSIX resources when init_msix() fails
-Date: Mon, 26 May 2025 17:45:59 +0800
-Message-ID: <20250526094559.140423-11-Jiqian.Chen@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20250526094559.140423-1-Jiqian.Chen@amd.com>
-References: <20250526094559.140423-1-Jiqian.Chen@amd.com>
+X-Inumbo-ID: abf57e0f-3a1e-11f0-b893-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1748256385; x=1748861185; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=lh0J/KhR0RJ3yq6/xTnrXE/lER6llAbp0fp+6wrKs3U=;
+        b=Lwrqhg+obqsBDazeRKozuIUWAdq9DBHahylchI+OBLM0/DarDZo1ZUo/k41tSUciH/
+         azcn9qdvuNg0WAP2HWs8cBFOMrgFyY2cEzSfh4ZpYv0DMKn8erJGxi0xb0NSylQwa1xo
+         mEIAfBPCzuSkkrgf49NoS18iuHWQtifZ7oiBdqYArLZCndXRGszYC+VP9sWeNEce1Yxg
+         nFwBGiI1fr9TVA4IV4cnXw7Bs4G8zA6UHStb+YsBmz5IDJkc2t4px9aAsP957UqnD9Wh
+         tPFDFViKw9EyAiwLX3GoTgMmZSA+12Ie1EFZnoxC1QlIGuQJoiyMotfK+UYeGVhZcU/O
+         AWqQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1748256385; x=1748861185;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=lh0J/KhR0RJ3yq6/xTnrXE/lER6llAbp0fp+6wrKs3U=;
+        b=qs3LWDHuS7KaKZAiniJgdDWG8+U7Cca9V/em/nDuCRl3EV4EOxdfNeVKiQA3QaXys7
+         jdAZQPTDyYF14rgZGM7dKdvtyCgzQQxmJTBDIoTPu9qHTmUXttaj0BqXzNjxuGcyEGxB
+         Y4q6gp614DNwOyCl4owRwQUnHV5DJmnDAIZ7yRaCtQm3qzAJCPprGYWzF/QT/Vqg5X+r
+         dgzbvPfxwyJhDnovNit8s5aEaKov7bx+jI8V7F2eb+u6j3NGAUmIsF1el0/lymy+nQOA
+         wBfH9uXdYYdV0v3pq5/oINv7le9Ll3Cnq+TrVOU7gIMBBIRIEqi6ITai0fWvps5twMmq
+         iefg==
+X-Forwarded-Encrypted: i=1; AJvYcCWbb/eJMMw26QNQf9iby8snUF34dX1//ZJO8TvvGD8z9+vgaHsgTR5ysz4mYAGX0LoF3pYHpQXy6rk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwAUF0bN/5HaqvlVAous99s+dpw5eUiIwKB7/dr0Nraf3N59tWV
+	2lQxjN+0fewo4eDhdRC8pZ47kPiKx590R8zumM7g/Y2jzPufcCi5f3n2
+X-Gm-Gg: ASbGnctGcjHqTTb0y9sp4mmm4iUxzC9GHJNTSlUPxrd9BCs21+p0E2Wr2485ERrf2M0
+	41ShYavwyALCG9peUaHCS27AJ7mZqWy0hcCUNbIWIM7dxgnG7sOIstVPy6MEjsYOi+yq9sTGivR
+	uIkgdXmlDR8gnos6E/CcdTI03KL9qnFm/xThEFQHP4I+sFFC8u+ILbufD8m+SWacZ3H2XR0KwJ3
+	6qan/v//NvGjLl1GZ5VN5GlBUVA2uFUamhWQvEgZSJAOBgrrNmOSaEejyvLTJQhO/Q/1e7aOEgc
+	l+LYS5YP/kyyMqKW//beDK7LJ13CjBFeiNBAI9wjmbdwHAc3+UvHsmBl2OFbBDj1hfieB7XeP8K
+	w0U4fksTp8x5jYJq3p0+qzdte
+X-Google-Smtp-Source: AGHT+IHv7AG+unLmpvyVQGDehwFSBo1mDE1EFrcZup+7CRT26smAqvA9EL0+k0UUjqXtQEKwrPDwXg==
+X-Received: by 2002:a17:906:1e4d:b0:ad5:4806:4f07 with SMTP id a640c23a62f3a-ad85b0507dfmr543414666b.2.1748256384962;
+        Mon, 26 May 2025 03:46:24 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------q26XMfnJ0n5CxtIjpnhciyOE"
+Message-ID: <c4eac2d2-6cb3-4c3b-8ca6-3b7982893647@gmail.com>
+Date: Mon, 26 May 2025 12:46:23 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0001A106:EE_|CH1PPF931B95D07:EE_
-X-MS-Office365-Filtering-Correlation-Id: f9a88e34-37e9-45b7-4b49-08dd9c3a3409
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|82310400026|36860700013;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?REk2bHFEWURVZmRYd1FYWkVrTFJuVzdqWGpMOEF4N2QwZHZtRXdDc1ZvVVpG?=
- =?utf-8?B?S2RvMW1LemtuNDVPRUQ2ZWUraUk0V2VRTlY5bm50U1RRVkRKNWNXOFBNaHo4?=
- =?utf-8?B?bjMrYi9BRG9VWDJWaE1Ba3VhM1N2VGpCZllqcGlWWWNDa3ZScENuUi9SRjhB?=
- =?utf-8?B?ZnhEZzJHVWcxbWk4S0tuNlFKMHZ3MGdDZHE5S3dCNWgwaWVVM3RWOWtFd0o0?=
- =?utf-8?B?c212WjJYTmpuTVEvc1pqY2tKR21FaElycE5xNUF3UHcwcEFGcjNsMk5CV0t2?=
- =?utf-8?B?MVBEMkRPaXJZRDZVTVNzbkJ3bm1LdnJYUGdXV25nMkFQUzlIdWJnVEhjZXJu?=
- =?utf-8?B?czl6eGdlY21EZldOTU9iUzNUV2RUTnBnc1hXcUNuUjZ1UkxCemtucjdRU29y?=
- =?utf-8?B?bG5IMndha3plMzdDK2ZZZUpoM1BjWTBEbjNUdUNWcys0bkVDS2RWYmpieEZ1?=
- =?utf-8?B?TkhaSEVteno1OU9xbk9uekVkVklvQVVVbWhzL28zdUk0ZmVtb1FJRnpEN0VZ?=
- =?utf-8?B?eW5DUGQ5NHFSZ2F1QllmamxJMlk4T204M1N5cFczeUluZ09wRmpmN2tXUElz?=
- =?utf-8?B?MllSSUE2OEY1eWpKWTBHaWFZbnpqQ21qR2JmS0dQUFlsN3RZSnpDRGJucHNz?=
- =?utf-8?B?UzFnQi9tVkRiWERVbDJTSTNMV29mdndubWowNVcwRGh0SnhpRmpzV1ZYa2RV?=
- =?utf-8?B?eitSdGU0eWw5TFRpdVp1Y1ljdWtMZi9jUHc5UVcxR29zcjVnNWRtemZkNmNn?=
- =?utf-8?B?d1k5TDNUK1IwaGhiWkpIRkJMSEx6bVJwa01yaEFZUmk2QTJyVXdlMW5EUm1S?=
- =?utf-8?B?QjZKWXd0QXhmQnM4MDl0ekVKVlpoV1pqS3RtcU9HK3E4U2V3QVRHaVNDODNM?=
- =?utf-8?B?UDVKQWJoaXZrNUp2eUd6ZDdQbmFVSGhVcHJQQml0WHVkUEw0QlgwVFI2NDEv?=
- =?utf-8?B?RmVJOVZya1dyb0M2aXRZbHRtd2VJN3Vlb3pQLzNnL3JFdS9EUEhWMm1KWm1z?=
- =?utf-8?B?dUVMRXptSzl6UHM3cVV2RSsvQTZPYzNMNVAyUzZ6QWZvN1VzUEZDV1AvZHBF?=
- =?utf-8?B?eis3bnBZZ3RPdHNXbC9RZmZxU3RRQTczd1VZSlFudFk5ais1d1QvQ29PQ3VZ?=
- =?utf-8?B?V0dxazkvUHdsWW9YM1FtYnp2amVIeDlJMnpCQUhmYUY5UW4wTnFiRjdqa2hU?=
- =?utf-8?B?c2tRL2llRUZISDJCT1ZhcitlQVpLTEFKZjAzc2pqZStmdGZUT3pkZDRHVlBq?=
- =?utf-8?B?VHFqRFJ1UGxjN29PRDNvYkNhWU1PckZONU90TnVYRnFmN2xPeFJxdEJuTklv?=
- =?utf-8?B?YXgzR2t6YlAzQTEzY0t4cmY4aTJMN0lGSTFPNThGZjZja1BYcTRKMEVjUm5V?=
- =?utf-8?B?TFdxazNxVlh3ei9PTU4yemQxVVppZitKWkgxZTFWc3lhZDhtMlpSay9LKzBq?=
- =?utf-8?B?OG5DZ3RVbHFIaTFESWlaYUlrNXFSZVd6dmJmaEtLZGNmT2F3S0RhdGQ0RVNr?=
- =?utf-8?B?VDd3czUxb2duakZrS2ZDak1xQnJCcTZIM2EzcFJaeWhGcWxLQytBbkdWamRT?=
- =?utf-8?B?U2xaTDVsc2NTQkhIZTNzYjNCRmoxZ2pRK1VUYkVtaHoxQmpJQWdZb29VU2hR?=
- =?utf-8?B?Uk1jSG8vWDAvT29TZnZRY09pTHBMQkgvVWEyaGF4TFZmY1hIL3dBUGg3eGt3?=
- =?utf-8?B?Ui9IT0w1bDdQbmtWVGsySnorUXlmKzlzY01TYjZWUjIzY2w5TnI3NXZwSXV1?=
- =?utf-8?B?TlJMK1ZHTC9ENjhienBjS1FBYkIvUmxRODBZOWxoMGtVNHlqSVlaa1ZsWW9n?=
- =?utf-8?B?NEV6cXZ0WDh2SmVoSlhxTGpLVmw4RDZkaEhoYVg2V1g5YW1QQ3J5R2hjUHhX?=
- =?utf-8?B?ak9zS0U4S0JCTTI1Smd4WjdPeXh4bGd4SmhIT1A4ay9rS2h4SWlWYlZ6ZXdL?=
- =?utf-8?B?VWJmRGdWTEl4OFJ5YmJ2UjNWdTNCRGZnQkpEekRtMmxhcDJkdzZLbEhqYkdE?=
- =?utf-8?B?cnMxNlZOSU5MVzFMR3hPR0I2aExia1VqOGZ3WnlrcDBPUGZ4NGk5MUdweHFW?=
- =?utf-8?Q?d7djrV?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(82310400026)(36860700013);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 May 2025 09:46:35.1103
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f9a88e34-37e9-45b7-4b49-08dd9c3a3409
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BL02EPF0001A106.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PPF931B95D07
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 06/14] xen/riscv: dt_processor_hartid() implementation
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1747843009.git.oleksii.kurochko@gmail.com>
+ <5aec324c04c67ba88336244358542f3faa6726b2.1747843009.git.oleksii.kurochko@gmail.com>
+ <12e3ad4c-b7cc-4166-940f-b2301349680c@suse.com>
+Content-Language: en-US
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <12e3ad4c-b7cc-4166-940f-b2301349680c@suse.com>
 
-When init_msix() fails, current logic return fail and free MSIX-related
-resources in vpci_deassign_device(). But the previous new changes will
-hide MSIX capability and return success, it can't reach
-vpci_deassign_device() to remove resources if hiding success, so those
-resources must be removed in cleanup function of MSIX.
+This is a multi-part message in MIME format.
+--------------q26XMfnJ0n5CxtIjpnhciyOE
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-To do that, implement cleanup function for MSIX.
 
-Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
----
-cc: "Roger Pau Monné" <roger.pau@citrix.com>
----
-v4->v5 changes:
-* Change definition "static void cleanup_msix" to "static int cf_check cleanup_msix" since cleanup hook is changed to be int.
-* Add a read-only register for MSIX Control Register in the end of cleanup_msix().
+On 5/22/25 9:50 AM, Jan Beulich wrote:
+> On 21.05.2025 18:03, Oleksii Kurochko wrote:
+>> --- a/xen/arch/riscv/smpboot.c
+>> +++ b/xen/arch/riscv/smpboot.c
+>> @@ -1,5 +1,8 @@
+>>   #include <xen/cpumask.h>
+>> +#include <xen/device_tree.h>
+>> +#include <xen/errno.h>
+>>   #include <xen/init.h>
+>> +#include <xen/types.h>
+>>   #include <xen/sections.h>
+> Nit: The latter insertion wants to move one line down. Yet then - isn't
+> xen/stdint.h sufficient here?
 
-v3->v4 changes:
-* Change function name from fini_msix() to cleanup_msix().
-* Change to use XFREE to free vpci->msix.
-* In cleanup function, change the sequence of check and remove action according to init_msix().
+__be32 used in dt_get_hartid() is defined in xen/types.h.
 
-v2->v3 changes:
-* Remove unnecessary clean operations in fini_msix().
+>
+>> @@ -14,3 +17,69 @@ void __init smp_prepare_boot_cpu(void)
+>>       cpumask_set_cpu(0, &cpu_possible_map);
+>>       cpumask_set_cpu(0, &cpu_online_map);
+>>   }
+>> +
+>> +/**
+>> + * dt_get_hartid - Get the hartid from a CPU device node
+>> + *
+>> + * @cpun: CPU number(logical index) for which device node is required
+>> + *
+>> + * Return: The hartid for the CPU node or ~0UL if not found.
+>> + */
+>> +static unsigned long dt_get_hartid(const struct dt_device_node *cpun)
+>> +{
+>> +    const __be32 *cell;
+>> +    unsigned int ac;
+>> +    uint32_t len;
+>> +
+>> +    ac = dt_n_addr_cells(cpun);
+>> +    cell = dt_get_property(cpun, "reg", &len);
+>> +    if ( !cell || !ac || ((sizeof(*cell) * ac) > len) )
+> Does DT make any guarantees for this multiplication to not overflow?
 
-v1->v2 changes:
-new patch.
+I haven't tried of DTC checks such things during compilation but considering that
+ac value is uin32_t value (according to DT spec) then overflow could really happen.
+I will add the following to check an overflow:
+     if ( ac > ((sizeof(size_t) * BIT_PER_BYTE) / sizeof(*cell)) )
+     {
+         printk("%s: overflow detected\n", __func__);
+         return ~0UL;
+     }
 
-Best regards,
-Jiqian Chen.
----
- xen/drivers/vpci/msix.c | 29 ++++++++++++++++++++++++++++-
- 1 file changed, 28 insertions(+), 1 deletion(-)
+>
+>> +        return ~0UL;
+>> +
+>> +    return dt_read_number(cell, ac);
+>> +}
+>> +
+>> +/*
+>> + * Returns the hartid of the given device tree node, or -ENODEV if the node
+>> + * isn't an enabled and valid RISC-V hart node.
+>> + */
+>> +int dt_processor_hartid(const struct dt_device_node *node,
+>> +                        unsigned long *hartid)
+>> +{
+>> +    const char *isa;
+>> +    int ret;
+>> +
+>> +    if ( !dt_device_is_compatible(node, "riscv") )
+>> +    {
+>> +        printk("Found incompatible CPU\n");
+>> +        return -ENODEV;
+>> +    }
+>> +
+>> +    *hartid = dt_get_hartid(node);
+>> +    if ( *hartid == ~0UL )
+>> +    {
+>> +        printk("Found CPU without CPU ID\n");
+>> +        return -ENODATA;
+>> +    }
+>> +
+>> +    if ( !dt_device_is_available(node))
+>> +    {
+>> +        printk("CPU with hartid=%lu is not available\n", *hartid);
+> Considering that hart ID assignment is outside of our control, would we
+> perhaps better (uniformly) log such using %#lx?
 
-diff --git a/xen/drivers/vpci/msix.c b/xen/drivers/vpci/msix.c
-index 674815ead025..cf79320d3b6f 100644
---- a/xen/drivers/vpci/msix.c
-+++ b/xen/drivers/vpci/msix.c
-@@ -655,6 +655,33 @@ int vpci_make_msix_hole(const struct pci_dev *pdev)
-     return 0;
+It makes sense, DTC when generates dts from dtb also uses hex number, so it could
+help to find a failure node faster.
+
+>
+>> +        return -ENODEV;
+>> +    }
+>> +
+>> +    if ( (ret = dt_property_read_string(node, "riscv,isa", &isa)) )
+>> +    {
+>> +        printk("CPU with hartid=%lu has no \"riscv,isa\" property\n", *hartid);
+>> +        return ret;
+>> +    }
+>> +
+>> +    if ( isa[0] != 'r' || isa[1] != 'v' )
+>> +    {
+>> +        printk("CPU with hartid=%lu has an invalid ISA of \"%s\"\n", *hartid,
+>> +               isa);
+>> +        return -EINVAL;
+> As before -EINVAL is appropriate when input arguments have wrong values.
+> Here, however, you found an unexpected value in something the platform
+> has presented to you. While not entirely appropriate either, maybe
+> -ENODEV again (if nothing better can be found)?
+
+I don't see better candidate.
+
+Interesting if some reserved region exists for user
+defined errors.
+
+~ Oleksii
+
+--------------q26XMfnJ0n5CxtIjpnhciyOE
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 5/22/25 9:50 AM, Jan Beulich wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:12e3ad4c-b7cc-4166-940f-b2301349680c@suse.com">
+      <pre wrap="" class="moz-quote-pre">On 21.05.2025 18:03, Oleksii Kurochko wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">--- a/xen/arch/riscv/smpboot.c
++++ b/xen/arch/riscv/smpboot.c
+@@ -1,5 +1,8 @@
+ #include &lt;xen/cpumask.h&gt;
++#include &lt;xen/device_tree.h&gt;
++#include &lt;xen/errno.h&gt;
+ #include &lt;xen/init.h&gt;
++#include &lt;xen/types.h&gt;
+ #include &lt;xen/sections.h&gt;
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Nit: The latter insertion wants to move one line down. Yet then - isn't
+xen/stdint.h sufficient here?</pre>
+    </blockquote>
+    <pre>__be32 used in dt_get_hartid() is defined in xen/types.h.
+
+</pre>
+    <blockquote type="cite"
+      cite="mid:12e3ad4c-b7cc-4166-940f-b2301349680c@suse.com">
+      <pre wrap="" class="moz-quote-pre">
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">@@ -14,3 +17,69 @@ void __init smp_prepare_boot_cpu(void)
+     cpumask_set_cpu(0, &amp;cpu_possible_map);
+     cpumask_set_cpu(0, &amp;cpu_online_map);
  }
- 
-+static int cf_check cleanup_msix(struct pci_dev *pdev)
++
++/**
++ * dt_get_hartid - Get the hartid from a CPU device node
++ *
++ * @cpun: CPU number(logical index) for which device node is required
++ *
++ * Return: The hartid for the CPU node or ~0UL if not found.
++ */
++static unsigned long dt_get_hartid(const struct dt_device_node *cpun)
 +{
-+    int rc;
-+    struct vpci *vpci = pdev->vpci;
-+    const unsigned int msix_pos = pdev->msix_pos;
++    const __be32 *cell;
++    unsigned int ac;
++    uint32_t len;
 +
-+    if ( !msix_pos )
-+        return 0;
++    ac = dt_n_addr_cells(cpun);
++    cell = dt_get_property(cpun, "reg", &amp;len);
++    if ( !cell || !ac || ((sizeof(*cell) * ac) &gt; len) )
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Does DT make any guarantees for this multiplication to not overflow?</pre>
+    </blockquote>
+    <pre>I haven't tried of DTC checks such things during compilation but considering that
+ac value is uin32_t value (according to DT spec) then overflow could really happen.
+I will add the following to check an overflow:
+    if ( ac &gt; ((sizeof(size_t) * BIT_PER_BYTE) / sizeof(*cell)) )
+    {
+        printk("%s: overflow detected\n", __func__);
+        return ~0UL;
+    }
+
+</pre>
+    <blockquote type="cite"
+      cite="mid:12e3ad4c-b7cc-4166-940f-b2301349680c@suse.com">
+      <pre wrap="" class="moz-quote-pre">
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+        return ~0UL;
 +
-+    rc = vpci_remove_registers(vpci, msix_control_reg(msix_pos), 2);
-+    if ( rc )
-+        return rc;
-+
-+    if ( !vpci->msix )
-+        return 0;
-+
-+    for ( unsigned int i = 0; i < ARRAY_SIZE(vpci->msix->table); i++ )
-+        if ( vpci->msix->table[i] )
-+            iounmap(vpci->msix->table[i]);
-+
-+    list_del(&vpci->msix->next);
-+    XFREE(vpci->msix);
-+
-+    return vpci_add_register(pdev->vpci, vpci_hw_read16, NULL,
-+                             msix_control_reg(msix_pos), 2, NULL);
++    return dt_read_number(cell, ac);
 +}
 +
- static int cf_check init_msix(struct pci_dev *pdev)
- {
-     struct domain *d = pdev->domain;
-@@ -709,7 +736,7 @@ static int cf_check init_msix(struct pci_dev *pdev)
- 
-     return rc;
- }
--REGISTER_VPCI_CAP(PCI_CAP_ID_MSIX, init_msix, NULL);
-+REGISTER_VPCI_CAP(PCI_CAP_ID_MSIX, init_msix, cleanup_msix);
- 
- /*
-  * Local variables:
--- 
-2.34.1
++/*
++ * Returns the hartid of the given device tree node, or -ENODEV if the node
++ * isn't an enabled and valid RISC-V hart node.
++ */
++int dt_processor_hartid(const struct dt_device_node *node,
++                        unsigned long *hartid)
++{
++    const char *isa;
++    int ret;
++
++    if ( !dt_device_is_compatible(node, "riscv") )
++    {
++        printk("Found incompatible CPU\n");
++        return -ENODEV;
++    }
++
++    *hartid = dt_get_hartid(node);
++    if ( *hartid == ~0UL )
++    {
++        printk("Found CPU without CPU ID\n");
++        return -ENODATA;
++    }
++
++    if ( !dt_device_is_available(node))
++    {
++        printk("CPU with hartid=%lu is not available\n", *hartid);
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Considering that hart ID assignment is outside of our control, would we
+perhaps better (uniformly) log such using %#lx?</pre>
+    </blockquote>
+    <pre>It makes sense, DTC when generates dts from dtb also uses hex number, so it could
+help to find a failure node faster.
 
+</pre>
+    <blockquote type="cite"
+      cite="mid:12e3ad4c-b7cc-4166-940f-b2301349680c@suse.com">
+      <pre wrap="" class="moz-quote-pre">
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+        return -ENODEV;
++    }
++
++    if ( (ret = dt_property_read_string(node, "riscv,isa", &amp;isa)) )
++    {
++        printk("CPU with hartid=%lu has no \"riscv,isa\" property\n", *hartid);
++        return ret;
++    }
++
++    if ( isa[0] != 'r' || isa[1] != 'v' )
++    {
++        printk("CPU with hartid=%lu has an invalid ISA of \"%s\"\n", *hartid,
++               isa);
++        return -EINVAL;
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+As before -EINVAL is appropriate when input arguments have wrong values.
+Here, however, you found an unexpected value in something the platform
+has presented to you. While not entirely appropriate either, maybe
+-ENODEV again (if nothing better can be found)?</pre>
+    </blockquote>
+    <pre>I don't see better candidate.
+
+Interesting if some reserved region exists for user
+defined errors.
+
+~ Oleksii
+</pre>
+  </body>
+</html>
+
+--------------q26XMfnJ0n5CxtIjpnhciyOE--
 
