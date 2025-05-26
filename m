@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB69FAC3FE0
-	for <lists+xen-devel@lfdr.de>; Mon, 26 May 2025 14:58:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.997527.1378359 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ACFD4AC4003
+	for <lists+xen-devel@lfdr.de>; Mon, 26 May 2025 15:03:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.997537.1378369 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uJXNv-0000JM-PP; Mon, 26 May 2025 12:56:55 +0000
+	id 1uJXU8-0001vT-Fj; Mon, 26 May 2025 13:03:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 997527.1378359; Mon, 26 May 2025 12:56:55 +0000
+Received: by outflank-mailman (output) from mailman id 997537.1378369; Mon, 26 May 2025 13:03:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uJXNv-0000Gz-Mm; Mon, 26 May 2025 12:56:55 +0000
-Received: by outflank-mailman (input) for mailman id 997527;
- Mon, 26 May 2025 12:56:54 +0000
+	id 1uJXU8-0001sV-Cm; Mon, 26 May 2025 13:03:20 +0000
+Received: by outflank-mailman (input) for mailman id 997537;
+ Mon, 26 May 2025 13:03:19 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=xmSW=YK=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1uJXNu-0000Gt-0e
- for xen-devel@lists.xenproject.org; Mon, 26 May 2025 12:56:54 +0000
-Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
- [2a00:1450:4864:20::52f])
+ <SRS0=uXNe=YK=gmail.com=xakep.amatop@srs-se1.protection.inumbo.net>)
+ id 1uJXU7-0001sP-6j
+ for xen-devel@lists.xenproject.org; Mon, 26 May 2025 13:03:19 +0000
+Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
+ [2a00:1450:4864:20::135])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e3971867-3a30-11f0-a2fb-13f23c93f187;
- Mon, 26 May 2025 14:56:50 +0200 (CEST)
-Received: by mail-ed1-x52f.google.com with SMTP id
- 4fb4d7f45d1cf-602346b1997so3339244a12.3
- for <xen-devel@lists.xenproject.org>; Mon, 26 May 2025 05:56:50 -0700 (PDT)
-Received: from [192.168.1.5] (user-109-243-64-38.play-internet.pl.
- [109.243.64.38]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ad52d497214sm1688059466b.146.2025.05.26.05.56.47
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 26 May 2025 05:56:48 -0700 (PDT)
+ id cac2aa78-3a31-11f0-a2fb-13f23c93f187;
+ Mon, 26 May 2025 15:03:17 +0200 (CEST)
+Received: by mail-lf1-x135.google.com with SMTP id
+ 2adb3069b0e04-551fe540b74so2536146e87.0
+ for <xen-devel@lists.xenproject.org>; Mon, 26 May 2025 06:03:17 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,356 +40,406 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e3971867-3a30-11f0-a2fb-13f23c93f187
+X-Inumbo-ID: cac2aa78-3a31-11f0-a2fb-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1748264209; x=1748869009; darn=lists.xenproject.org;
-        h=in-reply-to:content-language:references:cc:to:from:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ChVp86LF6pNA1X83+c8xGdYu9ASIEbw1MOjMGQRZCQo=;
-        b=XRhPTqKgV3qJzCwu98azvOqMcqXbwjlNMrqNDxalOpiBTwI581rOHYdMF+4P43DrZb
-         m650tPVrtUsIM/At0Y9oeJal2HJdsk+dEnCYhp89ldG7EywUWkyWXcTcJV8weTM1L+OU
-         hVfpM5fV1gjaD3IcIXnp1pNUmgLkHcKyz47Jl2xLqAURS80mXrPscMaLNvD5X4vumN03
-         ico6SuNaBmJfImIa0YwbSHPnCHX97CoCfC1kh5PRH+7zpXqMKS+QBuC5HmUa3YLU279C
-         Z1/KTlArSWAzCyuTUg07aQWFOtetCLXk7pT33KGeZTRyF3ap1z9LLOHGyeaRfqjiVnQa
-         Wtmg==
+        d=gmail.com; s=20230601; t=1748264597; x=1748869397; darn=lists.xenproject.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=Go//RU6xzmSyHgSW+OWt7KIVzBB+xYiGlRtxx8cg2M4=;
+        b=Kz2WsjJoQeLStQgNh2sPeZ8O80vVHPBbl3L1sWDN2GFpjavOnyfo6vlZeGwf7pvZi4
+         kCmEZqj0nEE5JJyL0xrzE4FexPH0BscMGnHD0JRxKbt1q17Sy5CWzXZXBvDtLJM/4XxM
+         49/0KOb2brNzNthOp/QxFsRGUz8PflyslQ6SMXMs+1tWThBTZUx+gjzUs7yhSJq0HeE4
+         j8+quN557mbx5hKsaoL9KNPYFNP80aPsw1Xkyi1Rfpp2JZu8yYgWfjHxnPTg0tFKmNYz
+         BDzDA9yS1Ioi/cEJ8Zq5LEGB1Q1KMVVZvzwnT+B/Sr6uE3j//DgHrQyBTNctUuLwHOGy
+         jr7w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1748264209; x=1748869009;
-        h=in-reply-to:content-language:references:cc:to:from:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=ChVp86LF6pNA1X83+c8xGdYu9ASIEbw1MOjMGQRZCQo=;
-        b=lqpJv9sRjA4zY+GNQYC7l0p0LqVLgccMTvAHi8F2vaByUT4tPdGxCOLs/RkTCLCGVe
-         5OPv6gKLJCkaEyWaBdUM14ehV3h+5vmGcFy3pl/Yxh83PxclH8cXNw8wOkJqNBRDigVd
-         OfHTP/6blMH26z9c+EuyAIzGDvJWoFS80oZBCQDInVpD+b/Kw/E75BTR9G4j++RKiAtA
-         XP+9bJOosM6ktej6KLviDJhVmyHiAZ1z0Z6k1yUV0T/BhHDpyudskFxpVGC/sCDvsEgb
-         7XvBL9asu0XStUeufmdL6i52ds33+zOi1Cr0hrskXEKKv7bnK5R/x4SAMSLSfMAmPgON
-         JpOQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUypFWfXeKHgjFE5Nvhlj7vE2ApjFUrM75OOfwEYUXyZFWnn4A3bdsm1rEYJ00cvARc4Y77FRhiPi0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwPvN2iWqqeEZHOcIiMeVQzlh8+v21wIqJxCf0o5PszmLj/K8/c
-	cNKqy8qyjhKJU7pXg2DpmapLuefezCyOkXhBTuR0rUSSRq5NNteqlfC6
-X-Gm-Gg: ASbGncvRUePxBFNmEZd2QHqCTEyuMhBY3O6WKQ5AyM0TkxDW+Czo/IPOc3dz1YaNJTI
-	6X7xrmct/mZyqlzOV5D0jI7chql2kDztIOVV7CLPhTLe7XOFdPfLKH71H0dZ4euCI6iNjY68mTV
-	W3630pWRIaRzMi3vEcSDYC1ztarNSDUIMyPWIMW2zMDE1dLEm/esUFzMsDA4DN+a1Nbuy6GMSgF
-	fK04q3ILQhUyQW1dMEI6v+KzkENcpAfCp0YRXgFrNsgBbeQjwgozz9rnE4tufb6T9YMfjOemLIY
-	T/anPwho9pBbkAKUX8WusCSxIb4GuB1TIVBcpBSs8FGbfHrKR5oNk1ZhcY6y0vjpTcvSwMi+a5b
-	WKp6AKuZTrZ3iVub7DE8BmiGM
-X-Google-Smtp-Source: AGHT+IETOSAfx9D9xxYPhcDk8JY3HfJdASZjMAaTgZISynvYLegOZ9VOO6jIHaLlO08mImHJ+oUXAQ==
-X-Received: by 2002:a17:906:7945:b0:ad5:430b:9013 with SMTP id a640c23a62f3a-ad85b2d6f1fmr808672766b.42.1748264208961;
-        Mon, 26 May 2025 05:56:48 -0700 (PDT)
-Content-Type: multipart/alternative;
- boundary="------------VE7FDKaOts0sTevQqQLOlAUd"
-Message-ID: <bb6e5cab-d793-42db-83d5-9c7c1cf4e25a@gmail.com>
-Date: Mon, 26 May 2025 14:56:47 +0200
+        d=1e100.net; s=20230601; t=1748264597; x=1748869397;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=Go//RU6xzmSyHgSW+OWt7KIVzBB+xYiGlRtxx8cg2M4=;
+        b=YqzYfERxsC4aEwe7rxJvEWmgDWBN4+j/MTrH45XJ3ngx/5P2KgS9tYCbIH7kA1ICzE
+         HUUuashUInThi/RWSxy51+yOVM2zvr+osbBjXqoGDFwPB++WE96QLfUA1lBmhYNn/gf7
+         3LOtKQh2guNSn3gZ+VNDAavd+p8qIJYf/3pgE2y1grWYLCJZatWr+l961pe2rB/W33M8
+         8bhZ/YishcSBx6/OYCfSdMy4D3vklB/jg2FA7+2AQSlv/66krapJdD6EjJjFM+lCvhp2
+         NEPewKGE57HJqlQuzJ/YSm55bJGpENyUUxhOkWunZO9a0SLxHoWbNWQVEBlD1X6sRaOp
+         ol+A==
+X-Gm-Message-State: AOJu0YziP+dz0jyCW27G7Tcv7ZzWHIA4X39gO7/5m+oLZd/7yW+GV3YM
+	nsm2LmOquxriS1NeKXf+y9GWz14lWZLX0D3Nud6t+r2I9ytuDGZ6t8+2+gp67MY3VmByj8B8ddE
+	QwuV8JGVQ2mVouJf+FhYojulvtzLlLVU=
+X-Gm-Gg: ASbGncvZKiM+nwGaWN1q3UKRmt8XkgsWd6/r8axP01jfCToZdBmCi9jLTsctA4Ocv/7
+	EEi8sqiL80Y+HLJwGns6ryWNavutkvdJKyIvfUhBvq5zWIqu6u5xkz5mL2Vu5nYaCY6uiXisnXb
+	MJlnKHPFlfIi4c2G2kcCcwb4q/mGOTLODs
+X-Google-Smtp-Source: AGHT+IGiJ4M4+crjYAYAgHgFUEBl99Y+jSLo4E4ffi4kwcnYHqaIr4uKrZwu6rGLhtAOK3uPStvoa4q8gGlpG8LBQU0=
+X-Received: by 2002:a05:6512:1094:b0:553:241d:4e77 with SMTP id
+ 2adb3069b0e04-553241d5142mr779742e87.22.1748264596010; Mon, 26 May 2025
+ 06:03:16 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 06/14] xen/riscv: dt_processor_hartid() implementation
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1747843009.git.oleksii.kurochko@gmail.com>
- <5aec324c04c67ba88336244358542f3faa6726b2.1747843009.git.oleksii.kurochko@gmail.com>
- <12e3ad4c-b7cc-4166-940f-b2301349680c@suse.com>
- <c4eac2d2-6cb3-4c3b-8ca6-3b7982893647@gmail.com>
-Content-Language: en-US
-In-Reply-To: <c4eac2d2-6cb3-4c3b-8ca6-3b7982893647@gmail.com>
+References: <cover.1741164138.git.xakep.amatop@gmail.com> <15604985aae5333670467a84cccbaaa403a10000.1741164138.git.xakep.amatop@gmail.com>
+ <0d0ed573-d810-4e78-9a12-985e9150c107@xen.org>
+In-Reply-To: <0d0ed573-d810-4e78-9a12-985e9150c107@xen.org>
+From: Mykola Kvach <xakep.amatop@gmail.com>
+Date: Mon, 26 May 2025 16:03:04 +0300
+X-Gm-Features: AX0GCFuLBB0b0bWW883QrRHs4mQ1Zl7lhgsoGfQcw3woFop11TlL2PyofXX8xkM
+Message-ID: <CAGeoDV9Oum2rse56ucr+=oxeTzdbzkBLbMTkfA8ZZUtjWnzeEA@mail.gmail.com>
+Subject: Re: [PATCH 08/16] xen/arm: add watchdog domain suspend/resume helpers
+To: Julien Grall <julien@xen.org>
+Cc: xen-devel@lists.xenproject.org, Mykola Kvach <mykola_kvach@epam.com>, 
+	Dario Faggioli <dfaggioli@suse.com>, Juergen Gross <jgross@suse.com>, George Dunlap <gwd@xenproject.org>, 
+	Andrew Cooper <andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>, 
+	Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, 
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Mirela Simonovic <mirela.simonovic@aggios.com>, 
+	Saeed Nowshadi <saeed.nowshadi@xilinx.com>, Mykyta Poturai <mykyta_poturai@epam.com>
+Content-Type: multipart/alternative; boundary="00000000000037fb820636099278"
 
-This is a multi-part message in MIME format.
---------------VE7FDKaOts0sTevQqQLOlAUd
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+--00000000000037fb820636099278
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+Hi, @Julien Grall
 
-On 5/26/25 12:46 PM, Oleksii Kurochko wrote:
+On Tue, Mar 11, 2025 at 11:04=E2=80=AFPM Julien Grall <julien@xen.org> wrot=
+e:
 >
+> Hi Mykola,
 >
-> On 5/22/25 9:50 AM, Jan Beulich wrote:
->> On 21.05.2025 18:03, Oleksii Kurochko wrote:
->>> --- a/xen/arch/riscv/smpboot.c
->>> +++ b/xen/arch/riscv/smpboot.c
->>> @@ -1,5 +1,8 @@
->>>   #include <xen/cpumask.h>
->>> +#include <xen/device_tree.h>
->>> +#include <xen/errno.h>
->>>   #include <xen/init.h>
->>> +#include <xen/types.h>
->>>   #include <xen/sections.h>
->> Nit: The latter insertion wants to move one line down. Yet then - isn't
->> xen/stdint.h sufficient here?
-> __be32 used in dt_get_hartid() is defined in xen/types.h.
+> On 05/03/2025 09:11, Mykola Kvach wrote:
+> > From: Mykola Kvach <mykola_kvach@epam.com>
+> >
+> > This patch implements suspend/resume helpers for the watchdog.
+> > While a domain is suspended its watchdogs must be paused. Otherwise,
+> > if the domain stays in the suspend state for a longer period of time
+> > compared to the watchdog period, the domain would be shutdown on resume=
+.
+> > Proper solution to this problem is to stop (suspend) the watchdog timer=
+s
+> > after the domain suspends and to restart (resume) the watchdog timers
+> > before the domain resumes. The suspend/resume of watchdog timers is don=
+e
+> > in Xen and is invisible to the guests.
+> >
+> > Signed-off-by: Mirela Simonovic <mirela.simonovic@aggios.com>
+> > Signed-off-by: Saeed Nowshadi <saeed.nowshadi@xilinx.com>
+> > Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
+> > Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
+> > ---
+> > Changes in v3:
+> > - cover the code with CONFIG_SYSTEM_SUSPEND
+> >
+> > Changes in v2:
+> > - drop suspended field from timer structure
+> > - drop the call of watchdog_domain_resume from ctxt_switch_to
+> > ---
+> >   xen/common/sched/core.c | 39 +++++++++++++++++++++++++++++++++++++++
+> >   xen/include/xen/sched.h |  9 +++++++++
+> >   2 files changed, 48 insertions(+)
+> >
+> > diff --git a/xen/common/sched/core.c b/xen/common/sched/core.c
+> > index b1c6b6b9fa..6c2231826a 100644
+> > --- a/xen/common/sched/core.c
+> > +++ b/xen/common/sched/core.c
+> > @@ -1605,6 +1605,45 @@ void watchdog_domain_destroy(struct domain *d)
+> >           kill_timer(&d->watchdog_timer[i].timer);
+> >   }
+> >
+> > +#ifdef CONFIG_SYSTEM_SUSPEND
 >
->>> @@ -14,3 +17,69 @@ void __init smp_prepare_boot_cpu(void)
->>>       cpumask_set_cpu(0, &cpu_possible_map);
->>>       cpumask_set_cpu(0, &cpu_online_map);
->>>   }
->>> +
->>> +/**
->>> + * dt_get_hartid - Get the hartid from a CPU device node
->>> + *
->>> + * @cpun: CPU number(logical index) for which device node is required
->>> + *
->>> + * Return: The hartid for the CPU node or ~0UL if not found.
->>> + */
->>> +static unsigned long dt_get_hartid(const struct dt_device_node *cpun)
->>> +{
->>> +    const __be32 *cell;
->>> +    unsigned int ac;
->>> +    uint32_t len;
->>> +
->>> +    ac = dt_n_addr_cells(cpun);
->>> +    cell = dt_get_property(cpun, "reg", &len);
->>> +    if ( !cell || !ac || ((sizeof(*cell) * ac) > len) )
->> Does DT make any guarantees for this multiplication to not overflow?
-> I haven't tried of DTC checks such things during compilation but considering that
-> ac value is uin32_t value (according to DT spec) then overflow could really happen.
-> I will add the following to check an overflow:
->      if ( ac > ((sizeof(size_t) * BIT_PER_BYTE) / sizeof(*cell)) )
->      {
->          printk("%s: overflow detected\n", __func__);
->          return ~0UL;
->      }
+> The config option is Arm specific, yet this is common code. As x86,
+> already suspend/resume, then shouldn't the config option be common?
+>
+> But more importantly, why do we need to save/restore the watchdogs for
+> Arm but not x86? Is this a latent issue or design choice?
 
-Oops, I meant here size_t_max instead of (sizeof(size_t) * BIT_PER_BYTE), lost power of 2 minus 1.
-Probably, SIZE_T_MAX or something similar exists. I have to check.
+I=E2=80=99ve looked into this a bit. Here's what I've found:
 
-~ Oleksii
+A watchdog timer is created and initialized (but not started) for each
+domain during the domain_create call. This timer can be triggered either by
+the Linux kernel (I refer to Linux kernel=E2=80=93based operating systems b=
+ecause I
+have access to the code and can confirm that the Xen watchdog timer is
+implemented there. I don=E2=80=99t have knowledge about the existence or
+implementation of the Xen watchdog driver in other operating systems) Xen
+watchdog driver or by the xenwatchdogd service.
+
+Case 1: Watchdog started by the Linux kernel driver (I hope that operating
+systems not based on the Linux kernel also implement proper handling for
+the Xen watchdog timer driver during suspend and resume)
+When the Xen watchdog is started by the Linux kernel driver, everything
+works as expected. The driver correctly handles system suspend events:
+https://elixir.bootlin.com/linux/v6.14.8/source/drivers/watchdog/xen_wdt.c#=
+L169
+
+Case 2: Watchdog started by xenwatchdogd service
+However, when the watchdog is started by the xenwatchdogd service, neither
+the underlying OS nor the daemon takes care of stopping the watchdog timer
+during suspend:
+
+https://elixir.bootlin.com/xen/v4.20.0/source/tools/hotplug/Linux/init.d/xe=
+n-watchdog.in
+
+https://elixir.bootlin.com/xen/v4.20.0/source/tools/hotplug/NetBSD/rc.d/xen=
+-watchdog
+
+Behavior on x86 during suspend:
+- Linux guest is configured with xenwatchdogd, and the Xen watchdog is
+started at boot
+- the OS initiates suspend (we request)
+- at that moment, there's an active watchdog timer in Xen for the domain,
+set to, say, 15 seconds
+- after suspend preparations, domain_shutdown() is called with the
+SHUTDOWN_suspend argument inside Xen hypervisor internals
+- inside this function, the is_shutting_down flag is set in the domain
+structure
+- when the watchdog timer expires, the Xen handler skips the reset action
+because the domain is marked as shutting down:
+
+https://elixir.bootlin.com/xen/v4.20.0/source/xen/common/sched/core.c#L1539
+
+So far, everything behaves correctly.
+
+*BUT* *for the second case there is another flow. The domain starts
+resuming from suspend. As part of the resume process, the is_shutting_down
+flag inside the domain is cleared, which re-enables normal watchdog
+behavior. However, the watchdog timer=E2=80=94set before suspend=E2=80=94ha=
+s nearly
+expired. Because the OS and its user-space services (such as the watchdog
+pinging daemon) have not yet fully resumed and restarted, the watchdog
+timeout occurs before the ping can be sent. As a result, the watchdog
+triggers a reset or shutdown (as far as i know can't be another action of
+watchdog expiry, but we aren't interested in these options right now)
+before the service has a chance to take control again =E2=80=94 effectively=
+ making
+a clean resume impossible.*
+
+It's also unclear how common this situation is on x86 systems =E2=80=94
+specifically, whether xenwatchdogd is typically used in domU or dom0, or
+whether the kernel driver is more commonly relied upon instead.
+---
+
+In my opinion, since the guest OS is the one starting the Xen watchdog, it
+should also manage its state during suspend/resume transitions. The general
+expectation across architectures is that the OS handles device state
+management when transitioning between power states. This includes stopping
+or parking watchdog timers during suspend.
+I think proper handling should be added to the relevant services to avoid
+unexpected triggers.
+
+What=E2=80=99s your take on this?
 
 >
->>> +        return ~0UL;
->>> +
->>> +    return dt_read_number(cell, ac);
->>> +}
->>> +
->>> +/*
->>> + * Returns the hartid of the given device tree node, or -ENODEV if the node
->>> + * isn't an enabled and valid RISC-V hart node.
->>> + */
->>> +int dt_processor_hartid(const struct dt_device_node *node,
->>> +                        unsigned long *hartid)
->>> +{
->>> +    const char *isa;
->>> +    int ret;
->>> +
->>> +    if ( !dt_device_is_compatible(node, "riscv") )
->>> +    {
->>> +        printk("Found incompatible CPU\n");
->>> +        return -ENODEV;
->>> +    }
->>> +
->>> +    *hartid = dt_get_hartid(node);
->>> +    if ( *hartid == ~0UL )
->>> +    {
->>> +        printk("Found CPU without CPU ID\n");
->>> +        return -ENODATA;
->>> +    }
->>> +
->>> +    if ( !dt_device_is_available(node))
->>> +    {
->>> +        printk("CPU with hartid=%lu is not available\n", *hartid);
->> Considering that hart ID assignment is outside of our control, would we
->> perhaps better (uniformly) log such using %#lx?
-> It makes sense, DTC when generates dts from dtb also uses hex number, so it could
-> help to find a failure node faster.
+> > +
+> > +void watchdog_domain_suspend(struct domain *d)
+> > +{
+> > +    unsigned int i;
+> > +
+> > +    spin_lock(&d->watchdog_lock);
+> > +
+> > +    for ( i =3D 0; i < NR_DOMAIN_WATCHDOG_TIMERS; i++ )
+> > +    {
+> > +        if ( test_bit(i, &d->watchdog_inuse_map) )
+> > +        {
+> > +            stop_timer(&d->watchdog_timer[i].timer);
+> > +        }
+> > +    }
+> > +
+> > +    spin_unlock(&d->watchdog_lock);
+> > +}
+> > +
+> > +void watchdog_domain_resume(struct domain *d)
+> > +{
+> > +    unsigned int i;
+> > +
+> > +    spin_lock(&d->watchdog_lock);
+> > +
+> > +    for ( i =3D 0; i < NR_DOMAIN_WATCHDOG_TIMERS; i++ )
+> > +    {
+> > +        if ( test_bit(i, &d->watchdog_inuse_map) )
+> > +        {
+> > +            set_timer(&d->watchdog_timer[i].timer,
+> > +                      NOW() + SECONDS(d->watchdog_timer[i].timeout));
+> > +        }
+> > +    }
+> > +
+> > +    spin_unlock(&d->watchdog_lock);
+> > +}
+> > +
+> > +#endif /* CONFIG_SYSTEM_SUSPEND */
+> > +
+> >   /*
+> >    * Pin a vcpu temporarily to a specific CPU (or restore old pinning
+state if
+> >    * cpu is NR_CPUS).
+> > diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
+> > index d0d10612ce..caab4aad93 100644
+> > --- a/xen/include/xen/sched.h
+> > +++ b/xen/include/xen/sched.h
+> > @@ -1109,6 +1109,15 @@ void scheduler_disable(void);
+> >   void watchdog_domain_init(struct domain *d);
+> >   void watchdog_domain_destroy(struct domain *d);
+> >
+> > +#ifdef CONFIG_SYSTEM_SUSPEND
+> > +/*
+> > + * Suspend/resume watchdogs of domain (while the domain is suspended
+its
+> > + * watchdogs should be on pause)
+> > + */
+> > +void watchdog_domain_suspend(struct domain *d);
+> > +void watchdog_domain_resume(struct domain *d);
+> > +#endif /* CONFIG_SYSTEM_SUSPEND */
+> > +
+> >   /*
+> >    * Use this check when the following are both true:
+> >    *  - Using this feature or interface requires full access to the
+hardware
 >
->>> +        return -ENODEV;
->>> +    }
->>> +
->>> +    if ( (ret = dt_property_read_string(node, "riscv,isa", &isa)) )
->>> +    {
->>> +        printk("CPU with hartid=%lu has no \"riscv,isa\" property\n", *hartid);
->>> +        return ret;
->>> +    }
->>> +
->>> +    if ( isa[0] != 'r' || isa[1] != 'v' )
->>> +    {
->>> +        printk("CPU with hartid=%lu has an invalid ISA of \"%s\"\n", *hartid,
->>> +               isa);
->>> +        return -EINVAL;
->> As before -EINVAL is appropriate when input arguments have wrong values.
->> Here, however, you found an unexpected value in something the platform
->> has presented to you. While not entirely appropriate either, maybe
->> -ENODEV again (if nothing better can be found)?
-> I don't see better candidate.
+> Cheers,
 >
-> Interesting if some reserved region exists for user
-> defined errors.
+> --
+> Julien Grall
 >
-> ~ Oleksii
---------------VE7FDKaOts0sTevQqQLOlAUd
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 5/26/25 12:46 PM, Oleksii Kurochko
-      wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:c4eac2d2-6cb3-4c3b-8ca6-3b7982893647@gmail.com">
-      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-      <p><br>
-      </p>
-      <div class="moz-cite-prefix">On 5/22/25 9:50 AM, Jan Beulich
-        wrote:<br>
-      </div>
-      <blockquote type="cite"
-        cite="mid:12e3ad4c-b7cc-4166-940f-b2301349680c@suse.com">
-        <pre wrap="" class="moz-quote-pre">On 21.05.2025 18:03, Oleksii Kurochko wrote:
-</pre>
-        <blockquote type="cite">
-          <pre wrap="" class="moz-quote-pre">--- a/xen/arch/riscv/smpboot.c
-+++ b/xen/arch/riscv/smpboot.c
-@@ -1,5 +1,8 @@
- #include &lt;xen/cpumask.h&gt;
-+#include &lt;xen/device_tree.h&gt;
-+#include &lt;xen/errno.h&gt;
- #include &lt;xen/init.h&gt;
-+#include &lt;xen/types.h&gt;
- #include &lt;xen/sections.h&gt;
-</pre>
-        </blockquote>
-        <pre wrap="" class="moz-quote-pre">Nit: The latter insertion wants to move one line down. Yet then - isn't
-xen/stdint.h sufficient here?</pre>
-      </blockquote>
-      <pre>__be32 used in dt_get_hartid() is defined in xen/types.h.
+Kind regards,
+Mykola
 
-</pre>
-      <blockquote type="cite"
-        cite="mid:12e3ad4c-b7cc-4166-940f-b2301349680c@suse.com">
-        <blockquote type="cite">
-          <pre wrap="" class="moz-quote-pre">@@ -14,3 +17,69 @@ void __init smp_prepare_boot_cpu(void)
-     cpumask_set_cpu(0, &amp;cpu_possible_map);
-     cpumask_set_cpu(0, &amp;cpu_online_map);
- }
-+
-+/**
-+ * dt_get_hartid - Get the hartid from a CPU device node
-+ *
-+ * @cpun: CPU number(logical index) for which device node is required
-+ *
-+ * Return: The hartid for the CPU node or ~0UL if not found.
-+ */
-+static unsigned long dt_get_hartid(const struct dt_device_node *cpun)
-+{
-+    const __be32 *cell;
-+    unsigned int ac;
-+    uint32_t len;
-+
-+    ac = dt_n_addr_cells(cpun);
-+    cell = dt_get_property(cpun, "reg", &amp;len);
-+    if ( !cell || !ac || ((sizeof(*cell) * ac) &gt; len) )
-</pre>
-        </blockquote>
-        <pre wrap="" class="moz-quote-pre">Does DT make any guarantees for this multiplication to not overflow?</pre>
-      </blockquote>
-      <pre>I haven't tried of DTC checks such things during compilation but considering that
-ac value is uin32_t value (according to DT spec) then overflow could really happen.
-I will add the following to check an overflow:
-    if ( ac &gt; ((sizeof(size_t) * BIT_PER_BYTE) / sizeof(*cell)) )
-    {
-        printk("%s: overflow detected\n", __func__);
-        return ~0UL;
-    }</pre>
-    </blockquote>
-    <pre>Oops, I meant here size_t_max instead of (sizeof(size_t) * BIT_PER_BYTE), lost power of 2 minus 1.
-Probably, SIZE_T_MAX or something similar exists. I have to check.
+--00000000000037fb820636099278
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-~ Oleksii
-</pre>
-    <blockquote type="cite"
-      cite="mid:c4eac2d2-6cb3-4c3b-8ca6-3b7982893647@gmail.com">
-      <pre>
+<div dir=3D"ltr">Hi, @Julien Grall<br><br>On Tue, Mar 11, 2025 at 11:04=E2=
+=80=AFPM Julien Grall &lt;<a href=3D"mailto:julien@xen.org">julien@xen.org<=
+/a>&gt; wrote:<br>&gt;<br>&gt; Hi Mykola,<br>&gt;<br>&gt; On 05/03/2025 09:=
+11, Mykola Kvach wrote:<br>&gt; &gt; From: Mykola Kvach &lt;<a href=3D"mail=
+to:mykola_kvach@epam.com">mykola_kvach@epam.com</a>&gt;<br>&gt; &gt;<br>&gt=
+; &gt; This patch implements suspend/resume helpers for the watchdog.<br>&g=
+t; &gt; While a domain is suspended its watchdogs must be paused. Otherwise=
+,<br>&gt; &gt; if the domain stays in the suspend state for a longer period=
+ of time<br>&gt; &gt; compared to the watchdog period, the domain would be =
+shutdown on resume.<br>&gt; &gt; Proper solution to this problem is to stop=
+ (suspend) the watchdog timers<br>&gt; &gt; after the domain suspends and t=
+o restart (resume) the watchdog timers<br>&gt; &gt; before the domain resum=
+es. The suspend/resume of watchdog timers is done<br>&gt; &gt; in Xen and i=
+s invisible to the guests.<br>&gt; &gt;<br>&gt; &gt; Signed-off-by: Mirela =
+Simonovic &lt;<a href=3D"mailto:mirela.simonovic@aggios.com">mirela.simonov=
+ic@aggios.com</a>&gt;<br>&gt; &gt; Signed-off-by: Saeed Nowshadi &lt;<a hre=
+f=3D"mailto:saeed.nowshadi@xilinx.com">saeed.nowshadi@xilinx.com</a>&gt;<br=
+>&gt; &gt; Signed-off-by: Mykyta Poturai &lt;<a href=3D"mailto:mykyta_potur=
+ai@epam.com">mykyta_poturai@epam.com</a>&gt;<br>&gt; &gt; Signed-off-by: My=
+kola Kvach &lt;<a href=3D"mailto:mykola_kvach@epam.com">mykola_kvach@epam.c=
+om</a>&gt;<br>&gt; &gt; ---<br>&gt; &gt; Changes in v3:<br>&gt; &gt; - cove=
+r the code with CONFIG_SYSTEM_SUSPEND<br>&gt; &gt;<br>&gt; &gt; Changes in =
+v2:<br>&gt; &gt; - drop suspended field from timer structure<br>&gt; &gt; -=
+ drop the call of watchdog_domain_resume from ctxt_switch_to<br>&gt; &gt; -=
+--<br>&gt; &gt; =C2=A0 xen/common/sched/core.c | 39 +++++++++++++++++++++++=
+++++++++++++++++<br>&gt; &gt; =C2=A0 xen/include/xen/sched.h | =C2=A09 ++++=
++++++<br>&gt; &gt; =C2=A0 2 files changed, 48 insertions(+)<br>&gt; &gt;<br=
+>&gt; &gt; diff --git a/xen/common/sched/core.c b/xen/common/sched/core.c<b=
+r>&gt; &gt; index b1c6b6b9fa..6c2231826a 100644<br>&gt; &gt; --- a/xen/comm=
+on/sched/core.c<br>&gt; &gt; +++ b/xen/common/sched/core.c<br>&gt; &gt; @@ =
+-1605,6 +1605,45 @@ void watchdog_domain_destroy(struct domain *d)<br>&gt; =
+&gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 kill_timer(&amp;d-&gt;watchdog_time=
+r[i].timer);<br>&gt; &gt; =C2=A0 }<br>&gt; &gt; =C2=A0<br>&gt; &gt; +#ifdef=
+ CONFIG_SYSTEM_SUSPEND<br>&gt;<br>&gt; The config option is Arm specific, y=
+et this is common code. As x86,<br>&gt; already suspend/resume, then should=
+n&#39;t the config option be common?<br>&gt;<br>&gt; But more importantly, =
+why do we need to save/restore the watchdogs for<br>&gt; Arm but not x86? I=
+s this a latent issue or design choice?<br><br>I=E2=80=99ve looked into thi=
+s a bit. Here&#39;s what I&#39;ve found:<br><br>A watchdog timer is created=
+ and initialized (but not started) for each domain during the domain_create=
+ call. This timer can be triggered either by the Linux kernel (I refer to L=
+inux kernel=E2=80=93based operating systems because I have access to the co=
+de and can confirm that the Xen watchdog timer is implemented there. I don=
+=E2=80=99t have knowledge about the existence or implementation of the Xen =
+watchdog driver in other operating systems) Xen watchdog driver or by the x=
+enwatchdogd service.<br><br>Case 1: Watchdog started by the Linux kernel dr=
+iver (I hope that operating systems not based on the Linux kernel also impl=
+ement proper handling for the Xen watchdog timer driver during suspend and =
+resume)<br>When the Xen watchdog is started by the Linux kernel driver, eve=
+rything works as expected. The driver correctly handles system suspend even=
+ts:<br><a href=3D"https://elixir.bootlin.com/linux/v6.14.8/source/drivers/w=
+atchdog/xen_wdt.c#L169">https://elixir.bootlin.com/linux/v6.14.8/source/dri=
+vers/watchdog/xen_wdt.c#L169</a><br><br>Case 2: Watchdog started by xenwatc=
+hdogd service<br>However, when the watchdog is started by the xenwatchdogd =
+service, neither the underlying OS nor the daemon takes care of stopping th=
+e watchdog timer during suspend:<br>=C2=A0 =C2=A0 <a href=3D"https://elixir=
+.bootlin.com/xen/v4.20.0/source/tools/hotplug/Linux/init.d/xen-watchdog.in"=
+>https://elixir.bootlin.com/xen/v4.20.0/source/tools/hotplug/Linux/init.d/x=
+en-watchdog.in</a><br>=C2=A0 =C2=A0 <a href=3D"https://elixir.bootlin.com/x=
+en/v4.20.0/source/tools/hotplug/NetBSD/rc.d/xen-watchdog">https://elixir.bo=
+otlin.com/xen/v4.20.0/source/tools/hotplug/NetBSD/rc.d/xen-watchdog</a><br>=
+<br>Behavior on x86 during suspend:<br>- Linux guest is configured with xen=
+watchdogd, and the Xen watchdog is started at boot<br>- the OS initiates su=
+spend (we request)<br>- at that moment, there&#39;s an active watchdog time=
+r in Xen for the domain, set to, say, 15 seconds<br>- after suspend prepara=
+tions, domain_shutdown() is called with the SHUTDOWN_suspend argument insid=
+e Xen hypervisor internals<br>- inside this function, the is_shutting_down =
+flag is set in the domain structure<br>- when the watchdog timer expires, t=
+he Xen handler skips the reset action because the domain is marked as shutt=
+ing down:<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0<a href=3D"https://elixir.bootlin.c=
+om/xen/v4.20.0/source/xen/common/sched/core.c#L1539">https://elixir.bootlin=
+.com/xen/v4.20.0/source/xen/common/sched/core.c#L1539</a><br><br>So far, ev=
+erything behaves correctly.<br><br><b>BUT</b> <i>for the second case there =
+is another flow. The domain starts resuming from suspend. As part of the re=
+sume process, the is_shutting_down flag inside the domain is cleared, which=
+ re-enables normal watchdog behavior. However, the watchdog timer=E2=80=94s=
+et before suspend=E2=80=94has nearly expired. Because the OS and its user-s=
+pace services (such as the watchdog pinging daemon) have not yet fully resu=
+med and restarted, the watchdog timeout occurs before the ping can be sent.=
+ As a result, the watchdog triggers a reset or shutdown (as far as i know c=
+an&#39;t be another action of watchdog expiry, but we aren&#39;t interested=
+ in these options right now) before the service has a chance to take contro=
+l again =E2=80=94 effectively making a clean resume impossible.</i><br><br>=
+It&#39;s also unclear how common this situation is on x86 systems =E2=80=94=
+ specifically, whether xenwatchdogd is typically used in domU or dom0, or w=
+hether the kernel driver is more commonly relied upon instead.<br><div>---<=
+/div><div><br></div>In my opinion, since the guest OS is the one starting t=
+he Xen watchdog, it should also manage its state during suspend/resume tran=
+sitions. The general expectation across architectures is that the OS handle=
+s device state management when transitioning between power states. This inc=
+ludes stopping or parking watchdog timers during suspend.<br>I think proper=
+ handling should be added to the relevant services to avoid unexpected trig=
+gers.<br><br>What=E2=80=99s your take on this?<br><br>&gt;<br>&gt; &gt; +<b=
+r>&gt; &gt; +void watchdog_domain_suspend(struct domain *d)<br>&gt; &gt; +{=
+<br>&gt; &gt; + =C2=A0 =C2=A0unsigned int i;<br>&gt; &gt; +<br>&gt; &gt; + =
+=C2=A0 =C2=A0spin_lock(&amp;d-&gt;watchdog_lock);<br>&gt; &gt; +<br>&gt; &g=
+t; + =C2=A0 =C2=A0for ( i =3D 0; i &lt; NR_DOMAIN_WATCHDOG_TIMERS; i++ )<br=
+>&gt; &gt; + =C2=A0 =C2=A0{<br>&gt; &gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0if ( =
+test_bit(i, &amp;d-&gt;watchdog_inuse_map) )<br>&gt; &gt; + =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0{<br>&gt; &gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0stop=
+_timer(&amp;d-&gt;watchdog_timer[i].timer);<br>&gt; &gt; + =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0}<br>&gt; &gt; + =C2=A0 =C2=A0}<br>&gt; &gt; +<br>&gt; &gt; + =
+=C2=A0 =C2=A0spin_unlock(&amp;d-&gt;watchdog_lock);<br>&gt; &gt; +}<br>&gt;=
+ &gt; +<br>&gt; &gt; +void watchdog_domain_resume(struct domain *d)<br>&gt;=
+ &gt; +{<br>&gt; &gt; + =C2=A0 =C2=A0unsigned int i;<br>&gt; &gt; +<br>&gt;=
+ &gt; + =C2=A0 =C2=A0spin_lock(&amp;d-&gt;watchdog_lock);<br>&gt; &gt; +<br=
+>&gt; &gt; + =C2=A0 =C2=A0for ( i =3D 0; i &lt; NR_DOMAIN_WATCHDOG_TIMERS; =
+i++ )<br>&gt; &gt; + =C2=A0 =C2=A0{<br>&gt; &gt; + =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0if ( test_bit(i, &amp;d-&gt;watchdog_inuse_map) )<br>&gt; &gt; + =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0{<br>&gt; &gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0set_timer(&amp;d-&gt;watchdog_timer[i].timer,<br>&gt; &gt; + =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0NOW() + S=
+ECONDS(d-&gt;watchdog_timer[i].timeout));<br>&gt; &gt; + =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0}<br>&gt; &gt; + =C2=A0 =C2=A0}<br>&gt; &gt; +<br>&gt; &gt; + =C2=
+=A0 =C2=A0spin_unlock(&amp;d-&gt;watchdog_lock);<br>&gt; &gt; +}<br>&gt; &g=
+t; +<br>&gt; &gt; +#endif /* CONFIG_SYSTEM_SUSPEND */<br>&gt; &gt; +<br>&gt=
+; &gt; =C2=A0 /*<br>&gt; &gt; =C2=A0 =C2=A0* Pin a vcpu temporarily to a sp=
+ecific CPU (or restore old pinning state if<br>&gt; &gt; =C2=A0 =C2=A0* cpu=
+ is NR_CPUS).<br>&gt; &gt; diff --git a/xen/include/xen/sched.h b/xen/inclu=
+de/xen/sched.h<br>&gt; &gt; index d0d10612ce..caab4aad93 100644<br>&gt; &gt=
+; --- a/xen/include/xen/sched.h<br>&gt; &gt; +++ b/xen/include/xen/sched.h<=
+br>&gt; &gt; @@ -1109,6 +1109,15 @@ void scheduler_disable(void);<br>&gt; &=
+gt; =C2=A0 void watchdog_domain_init(struct domain *d);<br>&gt; &gt; =C2=A0=
+ void watchdog_domain_destroy(struct domain *d);<br>&gt; &gt; =C2=A0<br>&gt=
+; &gt; +#ifdef CONFIG_SYSTEM_SUSPEND<br>&gt; &gt; +/*<br>&gt; &gt; + * Susp=
+end/resume watchdogs of domain (while the domain is suspended its<br>&gt; &=
+gt; + * watchdogs should be on pause)<br>&gt; &gt; + */<br>&gt; &gt; +void =
+watchdog_domain_suspend(struct domain *d);<br>&gt; &gt; +void watchdog_doma=
+in_resume(struct domain *d);<br>&gt; &gt; +#endif /* CONFIG_SYSTEM_SUSPEND =
+*/<br>&gt; &gt; +<br>&gt; &gt; =C2=A0 /*<br>&gt; &gt; =C2=A0 =C2=A0* Use th=
+is check when the following are both true:<br>&gt; &gt; =C2=A0 =C2=A0* =C2=
+=A0- Using this feature or interface requires full access to the hardware<b=
+r>&gt;<br>&gt; Cheers,<br>&gt;<br>&gt; --<br>&gt; Julien Grall<br><div>&gt;=
+</div><div><br></div><div>Kind regards,</div><div>Mykola</div></div>
 
-</pre>
-      <blockquote type="cite"
-        cite="mid:12e3ad4c-b7cc-4166-940f-b2301349680c@suse.com">
-        <blockquote type="cite">
-          <pre wrap="" class="moz-quote-pre">+        return ~0UL;
-+
-+    return dt_read_number(cell, ac);
-+}
-+
-+/*
-+ * Returns the hartid of the given device tree node, or -ENODEV if the node
-+ * isn't an enabled and valid RISC-V hart node.
-+ */
-+int dt_processor_hartid(const struct dt_device_node *node,
-+                        unsigned long *hartid)
-+{
-+    const char *isa;
-+    int ret;
-+
-+    if ( !dt_device_is_compatible(node, "riscv") )
-+    {
-+        printk("Found incompatible CPU\n");
-+        return -ENODEV;
-+    }
-+
-+    *hartid = dt_get_hartid(node);
-+    if ( *hartid == ~0UL )
-+    {
-+        printk("Found CPU without CPU ID\n");
-+        return -ENODATA;
-+    }
-+
-+    if ( !dt_device_is_available(node))
-+    {
-+        printk("CPU with hartid=%lu is not available\n", *hartid);
-</pre>
-        </blockquote>
-        <pre wrap="" class="moz-quote-pre">Considering that hart ID assignment is outside of our control, would we
-perhaps better (uniformly) log such using %#lx?</pre>
-      </blockquote>
-      <pre>It makes sense, DTC when generates dts from dtb also uses hex number, so it could
-help to find a failure node faster.
-
-</pre>
-      <blockquote type="cite"
-        cite="mid:12e3ad4c-b7cc-4166-940f-b2301349680c@suse.com">
-        <blockquote type="cite">
-          <pre wrap="" class="moz-quote-pre">+        return -ENODEV;
-+    }
-+
-+    if ( (ret = dt_property_read_string(node, "riscv,isa", &amp;isa)) )
-+    {
-+        printk("CPU with hartid=%lu has no \"riscv,isa\" property\n", *hartid);
-+        return ret;
-+    }
-+
-+    if ( isa[0] != 'r' || isa[1] != 'v' )
-+    {
-+        printk("CPU with hartid=%lu has an invalid ISA of \"%s\"\n", *hartid,
-+               isa);
-+        return -EINVAL;
-</pre>
-        </blockquote>
-        <pre wrap="" class="moz-quote-pre">As before -EINVAL is appropriate when input arguments have wrong values.
-Here, however, you found an unexpected value in something the platform
-has presented to you. While not entirely appropriate either, maybe
--ENODEV again (if nothing better can be found)?</pre>
-      </blockquote>
-      <pre>I don't see better candidate.
-
-Interesting if some reserved region exists for user
-defined errors.
-
-~ Oleksii
-</pre>
-    </blockquote>
-  </body>
-</html>
-
---------------VE7FDKaOts0sTevQqQLOlAUd--
+--00000000000037fb820636099278--
 
