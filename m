@@ -2,49 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70B9FAC38D5
-	for <lists+xen-devel@lfdr.de>; Mon, 26 May 2025 06:57:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.997257.1378182 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D9D1AC39F8
+	for <lists+xen-devel@lfdr.de>; Mon, 26 May 2025 08:34:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.997312.1378208 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uJPsl-0000oI-IQ; Mon, 26 May 2025 04:56:15 +0000
+	id 1uJROd-00060g-GN; Mon, 26 May 2025 06:33:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 997257.1378182; Mon, 26 May 2025 04:56:15 +0000
+Received: by outflank-mailman (output) from mailman id 997312.1378208; Mon, 26 May 2025 06:33:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uJPsl-0000mZ-CD; Mon, 26 May 2025 04:56:15 +0000
-Received: by outflank-mailman (input) for mailman id 997257;
- Mon, 26 May 2025 03:36:56 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=E2/q=YK=amd.com=Sairaj.ArunKodilkar@srs-se1.protection.inumbo.net>)
- id 1uJOe0-0000D9-Li
- for xen-devel@lists.xenproject.org; Mon, 26 May 2025 03:36:56 +0000
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on20622.outbound.protection.outlook.com
- [2a01:111:f403:2414::622])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id aa716f2a-39e2-11f0-a2fb-13f23c93f187;
- Mon, 26 May 2025 05:36:54 +0200 (CEST)
-Received: from MW4P222CA0008.NAMP222.PROD.OUTLOOK.COM (2603:10b6:303:114::13)
- by BL3PR12MB9049.namprd12.prod.outlook.com (2603:10b6:208:3b8::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8769.26; Mon, 26 May
- 2025 03:36:48 +0000
-Received: from SJ1PEPF00001CE7.namprd03.prod.outlook.com
- (2603:10b6:303:114:cafe::91) by MW4P222CA0008.outlook.office365.com
- (2603:10b6:303:114::13) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8769.19 via Frontend Transport; Mon,
- 26 May 2025 03:36:48 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SJ1PEPF00001CE7.mail.protection.outlook.com (10.167.242.23) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8769.18 via Frontend Transport; Mon, 26 May 2025 03:36:47 +0000
-Received: from [10.85.47.107] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Sun, 25 May
- 2025 22:36:36 -0500
+	id 1uJROd-0005yI-DM; Mon, 26 May 2025 06:33:15 +0000
+Received: by outflank-mailman (input) for mailman id 997312;
+ Mon, 26 May 2025 06:33:14 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Eisf=YK=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1uJROc-0005yC-4T
+ for xen-devel@lists.xenproject.org; Mon, 26 May 2025 06:33:14 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 49b22c72-39fb-11f0-b893-0df219b8e170;
+ Mon, 26 May 2025 08:33:08 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 22E3F1FD8F;
+ Mon, 26 May 2025 06:33:08 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id EA65413964;
+ Mon, 26 May 2025 06:33:07 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id X3I1NyMLNGgrJAAAD6G6ig
+ (envelope-from <jgross@suse.com>); Mon, 26 May 2025 06:33:07 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,163 +51,96 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: aa716f2a-39e2-11f0-a2fb-13f23c93f187
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cyOutsl0JWDdUi3VF7Fbf6XYNd983YSiFIUvcFbSIxsKWZ4E6PtF+PVkPMa+ox7yk8Af/jYb3/UIcjv7IPJJJQfpjEaGN8z3GwksmThm2mDxJEnchROPa2UJ5JY4XZpWum38F2Vhc+r/fb52x97T84egFUubcPHej6YBun/lkC8WGqFMi3fzIJuW/set3BJapPWeOatbCEyfy2CBc+lTUF3mEydLN9kUsyJurUXCmRY+k0X4GNeb5ry6D6UrZ6PRfBqOanMSfmqJPiMY77UfMBfBPn7EuTHhxEhJ+l5oPjInk4t7lW4OxcQNT6N3O0sUypGc0vrPIeShI1ESgu9Leg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AcW/L6v+m+CrfjHxmtlsRoH+9g7AQSR4jQVgl1NCXok=;
- b=YWI93GBpJHbad4AzFVb6m92G5KJiIgT/GGpN4+agPRR/zGkGHnZfCvsLblFJcStwqyqcLQLv7Q2vgDDWjbjXW12wGI4oR0ER3zgmpimtKDw+BQFUECeaUA4wqRxhvOjzRrYnTGQkEQz+8Pg0U/tl0zrosiCL6QiMoEJBQp6o/3FE4khYJlvWkVDaVPW4Ag2mGcPAe44i06tnikyagiOqGVRLWIazAD0Vfpjla9hCErNEBLDc44T6VsBFZhor4dJZnRBGrdguCJQRowXe/FvBJ1+s6SebKKQ4yeCnPgfrwKhwNZrBVBiEZxfB6QEJEQMNytCfkVcus3Y4IVR9zuhffA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=google.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AcW/L6v+m+CrfjHxmtlsRoH+9g7AQSR4jQVgl1NCXok=;
- b=rG+8xNaa9F+5+WBOHbfSXgrc2X6ucBKfObO64gzRjAaLgcg5FEHYT82PL2sjILB1KLX9iS+JkPN5zxYguN6RWEy6PGe3h9Xk6ruVUktZ5d8g/WeBJtS2BLWAi1G40SbRM5nW4Mz6Bqk0pUGjUGFaYMGbb4OFTPjS+aMlshLEyyA=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <432193cf-e4bd-4cfb-a146-25b19c02d78e@amd.com>
-Date: Mon, 26 May 2025 09:06:35 +0530
+X-Inumbo-ID: 49b22c72-39fb-11f0-b893-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1748241188; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=zGNZ+JLXDJRRpx6LE3gwjhIvbIY7oVcOX1mEu7WDYc8=;
+	b=CkVCcY2l9LFAwNUuVz2jbCyutW0gPIWROrOY4Y1ZfJqlmAHoNX1ehAuTKDmSOrpfiA3k3d
+	3FIrTPceGsxN2/sDiBg1CKYYGcWkr7fH4Fn97ewGsYn9qW5JMB8bDu1WPjClHRZtxbAatn
+	g1pOZI4Ru9AmBjP0Uin7St2fGPOM/+w=
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1748241188; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=zGNZ+JLXDJRRpx6LE3gwjhIvbIY7oVcOX1mEu7WDYc8=;
+	b=CkVCcY2l9LFAwNUuVz2jbCyutW0gPIWROrOY4Y1ZfJqlmAHoNX1ehAuTKDmSOrpfiA3k3d
+	3FIrTPceGsxN2/sDiBg1CKYYGcWkr7fH4Fn97ewGsYn9qW5JMB8bDu1WPjClHRZtxbAatn
+	g1pOZI4Ru9AmBjP0Uin7St2fGPOM/+w=
+From: Juergen Gross <jgross@suse.com>
+To: torvalds@linux-foundation.org
+Cc: linux-kernel@vger.kernel.org,
+	xen-devel@lists.xenproject.org,
+	sstabellini@kernel.org
+Subject: [GIT PULL] xen: branch for v6.16-rc1
+Date: Mon, 26 May 2025 08:33:07 +0200
+Message-ID: <20250526063307.10920-1-jgross@suse.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 13/13] KVM: selftests: Add a KVM_IRQFD test to verify
- uniqueness requirements
-To: Sean Christopherson <seanjc@google.com>
-CC: "K. Y. Srinivasan" <kys@microsoft.com>, Haiyang Zhang
-	<haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, Dexuan Cui
-	<decui@microsoft.com>, Juergen Gross <jgross@suse.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, Paolo Bonzini <pbonzini@redhat.com>, Ingo Molnar
-	<mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, Juri Lelli
-	<juri.lelli@redhat.com>, Vincent Guittot <vincent.guittot@linaro.org>, "Shuah
- Khan" <shuah@kernel.org>, Marc Zyngier <maz@kernel.org>, Oliver Upton
-	<oliver.upton@linux.dev>, <linux-kernel@vger.kernel.org>,
-	<linux-hyperv@vger.kernel.org>, <xen-devel@lists.xenproject.org>,
-	<kvm@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <kvmarm@lists.linux.dev>, "K Prateek
- Nayak" <kprateek.nayak@amd.com>, David Matlack <dmatlack@google.com>
-References: <20250522235223.3178519-1-seanjc@google.com>
- <20250522235223.3178519-14-seanjc@google.com>
- <2c52daad-0b64-48a9-8e73-d1aba977993b@amd.com> <aDB-2lcq4jJm9-OV@google.com>
-Content-Language: en-US
-From: Sairaj Kodilkar <sarunkod@amd.com>
-In-Reply-To: <aDB-2lcq4jJm9-OV@google.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CE7:EE_|BL3PR12MB9049:EE_
-X-MS-Office365-Filtering-Correlation-Id: 93188829-a743-42d1-a849-08dd9c068b78
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700013|1800799024|376014|7416014;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?a0EralROS043WjhCbHFOZ2lydDZJaGFDRUdGR3JxZVVwT3FYbTZJOUdvZGhZ?=
- =?utf-8?B?YktPQXg5Zy9EMXcwMzFHaFNFOVBPc0UxUHBiUFlIeThjRmVaSW5IbDNKekpI?=
- =?utf-8?B?bWFnbTR5VXZ6WEVoTUFRcWN2alVDbHlKRU9BRzA4bEU2Qlp5aXZZcVl4cTgx?=
- =?utf-8?B?UHFqYm9Wbkx6ak9oWGpMRldMbmxsdy9OQ3ZxWVN6cTFSK2dmdy9pMFlHYVU5?=
- =?utf-8?B?MnNUWHZRRFNYNXRhR3o4blBQbksxM1FkN2dqL0hjdHhpRE9oTkRwRmFKY1Na?=
- =?utf-8?B?bUN6NG04UlBxM0tZczJqSEVOZ0FSNW44NFNLTWZMTDFCbERJQklhWnVvalFK?=
- =?utf-8?B?RDJsOXMxL2txVWl5cGJqdFU1OEwwSGU2eGtWaVNweWdJWVRscWFsNDQyNFdL?=
- =?utf-8?B?QTZBYW5Fd1RyY3pENHYzNmJsME0xOU5XOGovNmNkWmlkaDRIME5ncEFJQ0Fh?=
- =?utf-8?B?N2MwT2JydW15VWFOQ255VGxxNXhiM2FxSnFFRzl6dVo3UEo4bGRnS3ZzbnFq?=
- =?utf-8?B?SERiUGZpQnJndmRmbGc3eko5aFFhNGozUUI3d1U4TkorOHlpSFp3USs1NnZU?=
- =?utf-8?B?TjNJTnVTYVhlR0dnRWQzODlNQWQxTk4vWTgvVjI5Vm5pTnJEam5mOHdBWVdK?=
- =?utf-8?B?akE4MlVqRzM5R2UxTUZMSjFZbVA2T2hWQ1VHVHVkaC9mWWlldXFEdCs3NTk5?=
- =?utf-8?B?Mkd4Z21aSXViUG92ZHJaUkZxeHlteFcyNnRiTEZEd2F6QWhURS9ESkNFbmlB?=
- =?utf-8?B?N2FZT0tnTmZkdzU0eDFoSzhHbS8ydHJsWmRTN3FWdGlOVUhVa09ydSt5N3Fm?=
- =?utf-8?B?UjIvZnpVYkluSVVUdENzMzE2ZGdtd1I5WHZ1bmIxSGNtRzhLaElWc1JWZjFt?=
- =?utf-8?B?VW14b3dOVDMxU1B2bnQ3d0RBam5mcWwwUzdCRkZjWFJHUk1tTEN6aE9TTFhI?=
- =?utf-8?B?OVUvUzg2d2N1QjZGdjI0QkxFMzZDTEZOanYxQWdJcURDT3J4bnFZVkxhajht?=
- =?utf-8?B?dEF0cEs4SUhyRVNyVTErZzRqRS91ZXU2d2pDd3B4L0tJN2VBMEV6cDlidGJX?=
- =?utf-8?B?NkhxQnM3dDAyQnNpVDhqTVM3Ly9QS25NMWtUa3IvbE0vM2pVMmlrOHFPampn?=
- =?utf-8?B?LythNmVYUDN4ajFQWmdjbXpMbzdDUW1mUWpJb0E2aGdTc2dLZkNTdXU2MlBD?=
- =?utf-8?B?TnFLakZzWUlROWJNWDRXL3Rsb0dDYWhzcTFIQ0pPakp6VEVkWWNub1A0dFpP?=
- =?utf-8?B?MTRKSk1LRkYvYnJYb2gvTjRDbkx3ZFRqL3BtdUtoeUZmcFh2ZHBRMlJWSkRF?=
- =?utf-8?B?R0xVOEVEU1crVEJlV0ZzVlFTcWtCQmt0NWpHdnp6S2JmN3hacmgvMG5jOS9E?=
- =?utf-8?B?RWg3ZjhNMy9CRjhCS1Z4VGppKzdoYzdjbVhJREJ5ZGZobUFGTUtPVEFWZVUv?=
- =?utf-8?B?OVhySWhOVzBORXdmajJxK25TWE5JWnlxb05IRUVkcGt3RElRek1ycStzbFFG?=
- =?utf-8?B?NkFkTi8zb29TYUd1bGVWdXdtTENaQUFKOHpka0JSaUF0NVZZU2ZwVE9OM2M4?=
- =?utf-8?B?UGVRWHdTWE5KNis4STd1Mm9pU0FjUU9MUnBPT3l0cnpPTTRLaGY1dXZEL0Qx?=
- =?utf-8?B?czNURXVwUkFKS0JoMzFOalo5VzVNU3VYVHFtQnFSVkxzbGdicndNbU03dDla?=
- =?utf-8?B?TnRReVQ3eFM2dysxNThZWUgwZU9YUWRKNjFRb3RMMFNLdWdqUDFGcDAyS0VN?=
- =?utf-8?B?NldMbW5sWXNwb1JGYmxmd2lBUS9SRUZTNDdiT0l5MWtpc3YxaDFIdUdnQTFM?=
- =?utf-8?B?dmFtWEtaVEhtdUxjMjFCZU5rSXpCMFBUREJQdytINW5BN3dWT1NhT3FrQnMr?=
- =?utf-8?B?dGgvQThnVmJsd1VnVnIzRy83NlQ1bUdDWStmaVRoczk2WnhXSk9HZVFVcGQ4?=
- =?utf-8?B?WFhOL3FiZUxsck5KZ2lObjZTNXlIcWM3ajgzd3IzU1pUVmNqeVpzTUduYm16?=
- =?utf-8?B?bnNhWnJORGlUcVRZNGNuV21vbEFqYkl2Y2huT2dxTkwyYWIvbmQ3VktodCtF?=
- =?utf-8?Q?nSkLAd?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700013)(1800799024)(376014)(7416014);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 May 2025 03:36:47.8886
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 93188829-a743-42d1-a849-08dd9c068b78
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF00001CE7.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB9049
+Content-Transfer-Encoding: 8bit
+X-Spam-Level: 
+X-Spam-Flag: NO
+X-Spam-Score: 0.20
+X-Spamd-Result: default: False [0.20 / 50.00];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_CONTAINS_FROM(1.00)[];
+	R_MISSING_CHARSET(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	FUZZY_BLOCKED(0.00)[rspamd.com];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DKIM_SIGNED(0.00)[suse.com:s=susede1];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:mid];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_THREE(0.00)[4];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_DN_NONE(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	RCVD_TLS_ALL(0.00)[]
+
+Linus,
+
+Please git pull the following tag:
+
+ git://git.kernel.org/pub/scm/linux/kernel/git/xen/tip.git for-linus-6.16-rc1-tag
+
+xen: branch for v6.16-rc1
+
+It contains the following patches:
+
+- A fix for running as a Xen dom0 on the iMX8QXP Arm platform.
+
+- An update of the xen.config adding XEN_UNPOPULATED_ALLOC for better
+  support of PVH dom0.
+
+- A fix of the Xen balloon driver when running without
+  CONFIG_XEN_UNPOPULATED_ALLOC.
+
+- A fix of the dm_op Xen hypercall on Arm needed to pass user space
+  buffers to the hypervisor in certain configurations.
 
 
+Thanks.
 
-On 5/23/2025 8:03 PM, Sean Christopherson wrote:
-> On Fri, May 23, 2025, Sairaj Kodilkar wrote:
->> On 5/23/2025 5:22 AM, Sean Christopherson wrote:
->>
->>> +
->>> +int main(int argc, char *argv[])
->>> +{
->>> +	pthread_t racing_thread;
->>> +	int r, i;
->>> +
->>> +	/* Create "full" VMs, as KVM_IRQFD requires an in-kernel IRQ chip. */
->>> +	vm1 = vm_create(1);
->>> +	vm2 = vm_create(1);
->>> +
->>> +	WRITE_ONCE(__eventfd, kvm_new_eventfd());
->>> +
->>> +	kvm_irqfd(vm1, 10, __eventfd, 0);
->>> +
->>> +	r = __kvm_irqfd(vm1, 11, __eventfd, 0);
->>> +	TEST_ASSERT(r && errno == EBUSY,
->>> +		    "Wanted EBUSY, r = %d, errno = %d", r, errno);
->>> +
->>> +	r = __kvm_irqfd(vm2, 12, __eventfd, 0);
->>> +	TEST_ASSERT(r && errno == EBUSY,
->>> +		    "Wanted EBUSY, r = %d, errno = %d", r, errno);
->>> +
->>> +	kvm_irqfd(vm1, 11, READ_ONCE(__eventfd), KVM_IRQFD_FLAG_DEASSIGN);
->>> +	kvm_irqfd(vm1, 12, READ_ONCE(__eventfd), KVM_IRQFD_FLAG_DEASSIGN);
->>> +	kvm_irqfd(vm1, 13, READ_ONCE(__eventfd), KVM_IRQFD_FLAG_DEASSIGN);
->>> +	kvm_irqfd(vm1, 14, READ_ONCE(__eventfd), KVM_IRQFD_FLAG_DEASSIGN);
->>
->> Hi Sean,
->> I dont see any allocation for the GSI 13 and 14..
->> Is there any reason for the deassigning these two GSIs ?
-> 
-> Yes, KVM's rather bizarre ABI is that DEASSIGN is allowed even if the VM doesn't
-> have a corresponding assigned irqfd.  The reason I added these early DEASSIGN
-> calls is so that there will be an easier-to-debug failure if KVM's behavior
-> changes (the racing threads part of the test abuses KVM's ABI).  I didn't add a
-> comment because the helpers already have comments, but looking at this again, I
-> agree that main() needs a better comment.
+Juergen
 
-Makes sense, thanks for the explanation.
+ arch/arm64/xen/hypercall.S | 21 ++++++++++++++++++++-
+ drivers/xen/balloon.c      | 13 ++++++++-----
+ drivers/xen/swiotlb-xen.c  |  1 +
+ kernel/configs/xen.config  |  3 +++
+ 4 files changed, 32 insertions(+), 6 deletions(-)
 
-Thanks
-Sairaj Kodilkar
+John Ernberg (1):
+      xen: swiotlb: Wire up map_resource callback
 
+Roger Pau Monne (2):
+      xen: enable XEN_UNPOPULATED_ALLOC as part of xen.config
+      xen/x86: fix initial memory balloon target
+
+Stefano Stabellini (1):
+      xen/arm: call uaccess_ttbr0_enable for dm_op hypercall
 
