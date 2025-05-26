@@ -2,38 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD5F4AC4378
-	for <lists+xen-devel@lfdr.de>; Mon, 26 May 2025 19:31:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.997659.1378479 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B21CAC4387
+	for <lists+xen-devel@lfdr.de>; Mon, 26 May 2025 19:47:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.997673.1378488 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uJbfG-0004ev-0M; Mon, 26 May 2025 17:31:06 +0000
+	id 1uJbuM-0006Tj-BN; Mon, 26 May 2025 17:46:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 997659.1378479; Mon, 26 May 2025 17:31:05 +0000
+Received: by outflank-mailman (output) from mailman id 997673.1378488; Mon, 26 May 2025 17:46:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uJbfF-0004d2-Sl; Mon, 26 May 2025 17:31:05 +0000
-Received: by outflank-mailman (input) for mailman id 997659;
- Mon, 26 May 2025 17:31:04 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=pkau=YK=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1uJbfE-0004cw-MM
- for xen-devel@lists.xenproject.org; Mon, 26 May 2025 17:31:04 +0000
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [2a00:1450:4864:20::32a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 324af79c-3a57-11f0-a2fb-13f23c93f187;
- Mon, 26 May 2025 19:31:03 +0200 (CEST)
-Received: by mail-wm1-x32a.google.com with SMTP id
- 5b1f17b1804b1-43ea40a6e98so29535195e9.1
- for <xen-devel@lists.xenproject.org>; Mon, 26 May 2025 10:31:03 -0700 (PDT)
-Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-447f1ef0b20sm250860605e9.14.2025.05.26.10.31.00
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 26 May 2025 10:31:01 -0700 (PDT)
+	id 1uJbuM-0006RF-8G; Mon, 26 May 2025 17:46:42 +0000
+Received: by outflank-mailman (input) for mailman id 997673;
+ Mon, 26 May 2025 17:46:41 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1uJbuL-0006Qr-AI
+ for xen-devel@lists.xenproject.org; Mon, 26 May 2025 17:46:41 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.96)
+ (envelope-from <julien@xen.org>) id 1uJbuK-003SjM-1K;
+ Mon, 26 May 2025 17:46:40 +0000
+Received: from [2a02:8012:3a1:0:1d61:c8e1:4c80:6981]
+ by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
+ (envelope-from <julien@xen.org>) id 1uJbuK-00GPOc-1n;
+ Mon, 26 May 2025 17:46:40 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,171 +39,188 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 324af79c-3a57-11f0-a2fb-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1748280662; x=1748885462; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=bvNJ+N/BEp5lGbtN6GJv/Y00BO2+ci/AE44x/veE+Pk=;
-        b=Z1B8M11LTUHgfJUprSyVK1jo+rI4ORsXyr1wWmPDOusDZo3FpZMasrhFvUMqfTvwcS
-         2R9T2z8GVQVjVR1xHH0xX10Qs2snLMli207e98Q63FUmNH9O2X7aB3cv8984+8hlAN3q
-         oJXlbyQUyeApr/a725okpjlZhx7vruVDiJt78=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1748280662; x=1748885462;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=bvNJ+N/BEp5lGbtN6GJv/Y00BO2+ci/AE44x/veE+Pk=;
-        b=WsMON3K3+vOORBc9DpaBG1DUplWO6cN2PzbDG9TAOAnrnSD4v/Xxt/TsexBMIbunUP
-         l9mdHGVnwV4vKw0Y1ngA49o1Ur57Pj6NPITrcV0JntFoIfbMgq9K82yg3qNcoYW4xV5k
-         mTi3ljak7crp/fKJmg0y9Ziz5FlHYJuXc1eudBSkKhbaNETOLafbbr/zlPzOzY0nwvJF
-         gAh1ICvhYDhUqOV725CHQzFrM+b56VCLyFe6VPHf2S3IcvPQAEAth9bqnmP7QOVV+2+Q
-         cCoXN0DueByumwYbSmJEUvaR9+24x4bKrjp5kaiOUomLbuWrBJ8x9EsOAPnmwpWrDazG
-         Fx1A==
-X-Gm-Message-State: AOJu0YwCNbUC7PsyHme9VSafsAv5XRHha2VU9oxH1Pb1VTcGr5TyLyGF
-	BnHPUbc06o1yej3uf/oU/dl3iDWg/9ziPq5GnFE4odzpwhFx3Q8sTUKZ5ctk5gtkXoAhlMozZUB
-	bf1mX
-X-Gm-Gg: ASbGncvfS3vkLpcsFZ5sLAIY/UAJh2pW1fl3Z0/TPG//aekcIwvb43AXeh1Z4coUoPi
-	CAwpmOru8uE87Z3BYbRfQw2RqyL4ruZhZyapJ4NRGD+G9IhBbYddVbBEB+A3U4mdirasjmsTk5Q
-	RXnHM8ij2rJssbfMUtC8H0fJMMX3CY6bfQ51JtBB1Vn4+2F6KiYbHhMTYodA47JyDEdtGQhc5WO
-	+sswRczw2hYykH3q7xBwvRoTuL4mCLEC8j9EKdnacGHvHmGtxd7kPqRN25Ih54ZNDKTlEmmIo0g
-	5koUF4LjsDZGLjAjqf0ag3U0YEzg23YOC4rCDjlPKWrYyvaKsblygiMimKUUr5dinlsCFSeEy8a
-	wvO6ExpIWN0XrnLW5
-X-Google-Smtp-Source: AGHT+IHM8+7w6CK1cXqVSZFKLdG8vy3l0UIlCo4uRq1gi4B1ucEHkrWHkcTwkUY9lg8HRSXUrnkEcA==
-X-Received: by 2002:a05:600c:699a:b0:43c:f64c:44a4 with SMTP id 5b1f17b1804b1-44c91dd08c7mr88293095e9.8.1748280662442;
-        Mon, 26 May 2025 10:31:02 -0700 (PDT)
-Message-ID: <23aeac17-6fd0-4515-8c84-1a867c57a68d@citrix.com>
-Date: Mon, 26 May 2025 18:31:00 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=opX6bwnQQAfk4qljAyrpESc8Fh+iqX/iDD2BUyhkMRU=; b=erfpvz3m4CygCjOqVS48XxYPCF
+	V/loZ057IELwl/fHDK0LnY+vDMPPIC6SouAj+xcIvljzGOeWtJJZKKNoaRiUl+geQby2AEXOmWihI
+	MIsKlaNUkr/RaPjMvDJgE7cX9WHvBFKHVhJk+mQ9sbK4FaiKQM4oWXVs/qaOFZy2/Qq8=;
+Message-ID: <a2327784-851a-4c60-8216-04e81bcb9c83@xen.org>
+Date: Mon, 26 May 2025 18:46:37 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] CI: Drop custom handling of tools/tests
-To: Anthony PERARD <anthony@xenproject.org>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-References: <20250520205239.203253-1-andrew.cooper3@citrix.com>
- <20250520205239.203253-4-andrew.cooper3@citrix.com>
- <1e690ecb-5060-4dfe-a515-acbbf214bc99@citrix.com> <aDSjaewFMxUj6Tel@l14>
+Subject: Re: [PATCH v6 1/6] xen/arm: Create tee command line parameter
 Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <aDSjaewFMxUj6Tel@l14>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+To: Bertrand Marquis <bertrand.marquis@arm.com>,
+ xen-devel@lists.xenproject.org
+Cc: jens.wiklander@linaro.org, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <volodymyr_babchuk@epam.com>
+References: <cover.1747925287.git.bertrand.marquis@arm.com>
+ <896de1bf9055e38ba77f7762b7e2a1e1ec1b2d1e.1747925287.git.bertrand.marquis@arm.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <896de1bf9055e38ba77f7762b7e2a1e1ec1b2d1e.1747925287.git.bertrand.marquis@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 26/05/2025 6:22 pm, Anthony PERARD wrote:
-> On Mon, May 26, 2025 at 05:45:29PM +0100, Andrew Cooper wrote:
->> On 20/05/2025 9:52 pm, Andrew Cooper wrote:
->>> diff --git a/automation/scripts/run-tools-tests b/automation/scripts/run-tools-tests
->>> index 770e97c3e943..8d7aa8fa5140 100755
->>> --- a/automation/scripts/run-tools-tests
->>> +++ b/automation/scripts/run-tools-tests
->>> @@ -12,30 +12,25 @@ printf '<?xml version="1.0" encoding="UTF-8"?>\n' > "$xml_out"
->>>  printf '<testsuites name="tools.tests">\n' >> "$xml_out"
->>>  printf ' <testsuite name="tools.tests">\n' >> "$xml_out"
->>>  failed=
->>> -for dir in "$1"/*; do
->>> -    [ -d "$dir" ] || continue
->>> -    echo "Running test in $dir"
->>> -    printf '  <testcase name="%s">\n' "$dir" >> "$xml_out"
->>> -    ret=
->>> -    for f in "$dir"/*; do
->>> -        [ -f "$f" ] || continue
->>> -        [ -x "$f" ] || continue
->>> -        "$f" 2>&1 | tee /tmp/out
->>> -        ret=$?
->>> -        if [ "$ret" -ne 0 ]; then
->>> -            echo "FAILED: $ret"
->>> -            failed+=" $dir"
->>> -            printf '   <failure type="failure" message="binary %s exited with code %d">\n' "$f" "$ret" >> "$xml_out"
->>> -            # TODO: could use xml escaping... but current tests seems to
->>> -            # produce sane output
->>> -            cat /tmp/out >> "$xml_out"
->>> -            printf '   </failure>\n' >> "$xml_out"
->>> -        else
->>> -            echo "PASSED"
->>> -        fi
->>> -    done
->>> -    if [ -z "$ret" ]; then
->>> -        printf '   <skipped type="skipped" message="no executable test found in %s"/>\n' "$dir" >> "$xml_out"
->>> +for f in "$1"/*; do
->>> +    if [ -x "$f" ]; then
->>> +        echo "SKIP: $f not executable"
->>> +        continue
->> This should be ! -x
->>
->> I had that hunk in the wrong patch when posting this series.
-> With that fixed:
-> Reviewed-by: Anthony PERARD <anthony.perard@vates.tech>
+Hi Bertrand,
 
-Thanks.
+On 22/05/2025 16:08, Bertrand Marquis wrote:
+> Add a new command line parameter "tee=" to be used to explicitly select
+> what tee mediator is to be used by Xen and fail if it does not exist
+> or the probe function for it failed.
+> 
+> Without specifying which tee is to be used, Xen will use the first one
+> for which the probe function succeeds which depends on the order of the
+> mediator list which depends on the compiler.
+> Using the command line argument, it is now possible to explicit request
+> a specific TEE mediator and panic on boot if it is not available.
+> 
+> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
+> Reviewed-by: Jens Wiklander <jens.wiklander@linaro.org>
 
->
-> But I think there's an issue with the script...
->
->>> +    "$f" 2>&1 | tee /tmp/out
->>> +    ret=$?
->>> +    if [ "$ret" -ne 0 ]; then
-> Is this checking the correct exit value? It seems that without `set -o
-> pipefail`, we only have the exit value of `tee` which should never fail.
-> But I think we should grab the value of ${PIPESTATUS[0]} to actually
-> read the exit value of $f.
+Acked-by: Julien Grall <jgrall@amazon.com>
 
-Hmm yes, I think this needs adjusting.
+Cheers,
 
-It turns out there are multiple problems with junit, including the fact
-that putting failures in here doesn't cause the outer job to fail. 
+> ---
+> Changes in v6:
+> - Add Jens R-b
+> Changes in v5:
+> - Typo fix and rewording in command line doc (Julien)
+> - fix include order in tee.c (Julien)
+> - use a local bool instead of retesting the string each time in tee_init
+>    (Julien)
+> Changes in v4:
+> - None
+> Changes in v3:
+> - Properly classify tee as arm specific (Jan)
+> Changes in v2:
+> - Patch introduced to add a command line selection of the TEE
+> ---
+>   docs/misc/xen-command-line.pandoc  | 14 +++++++++++++
+>   xen/arch/arm/include/asm/tee/tee.h |  4 ++++
+>   xen/arch/arm/tee/tee.c             | 32 ++++++++++++++++++++++++++++++
+>   3 files changed, 50 insertions(+)
+> 
+> diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
+> index 89db6e83be66..472de1911363 100644
+> --- a/docs/misc/xen-command-line.pandoc
+> +++ b/docs/misc/xen-command-line.pandoc
+> @@ -2651,6 +2651,20 @@ Specify the per-cpu trace buffer size in pages.
+>   
+>   Flag to enable TSC deadline as the APIC timer mode.
+>   
+> +### tee (arm)
+> +> `= <string>`
+> +
+> +Specify the TEE mediator to be probed and use.
+> +
+> +The default behaviour is to probe all TEEs supported by Xen and use
+> +the first one successfully probed. When this parameter is passed, Xen will
+> +probe only the TEE mediator passed as argument and boot will fail if this
+> +mediator is not properly probed or if the requested TEE is not supported by
+> +Xen.
+> +
+> +This parameter can be set to `optee` or `ffa` if the corresponding mediators
+> +are compiled in.
+> +
+>   ### tevt_mask
+>   > `= <integer>`
+>   
+> diff --git a/xen/arch/arm/include/asm/tee/tee.h b/xen/arch/arm/include/asm/tee/tee.h
+> index 0169fd746bcd..15d664e28dce 100644
+> --- a/xen/arch/arm/include/asm/tee/tee.h
+> +++ b/xen/arch/arm/include/asm/tee/tee.h
+> @@ -55,6 +55,9 @@ struct tee_mediator_desc {
+>       /* Printable name of the TEE. */
+>       const char *name;
+>   
+> +    /* Command line name of the TEE (to be used with tee= cmdline option) */
+> +    const char *cmdline_name;
+> +
+>       /* Mediator callbacks as described above. */
+>       const struct tee_mediator_ops *ops;
+>   
+> @@ -77,6 +80,7 @@ void tee_free_domain_ctx(struct domain *d);
+>   static const struct tee_mediator_desc __tee_desc_##_name __used     \
+>   __section(".teemediator.info") = {                                  \
+>       .name = _namestr,                                               \
+> +    .cmdline_name = #_name,                                         \
+>       .ops = _ops,                                                    \
+>       .tee_type = _type                                               \
+>   }
+> diff --git a/xen/arch/arm/tee/tee.c b/xen/arch/arm/tee/tee.c
+> index 3f65e45a7892..8501443c8e57 100644
+> --- a/xen/arch/arm/tee/tee.c
+> +++ b/xen/arch/arm/tee/tee.c
+> @@ -18,6 +18,7 @@
+>   
+>   #include <xen/errno.h>
+>   #include <xen/init.h>
+> +#include <xen/param.h>
+>   #include <xen/types.h>
+>   
+>   #include <asm/tee/tee.h>
+> @@ -25,6 +26,10 @@
+>   extern const struct tee_mediator_desc _steemediator[], _eteemediator[];
+>   static const struct tee_mediator_desc __read_mostly *cur_mediator;
+>   
+> +/* Select the TEE mediator using a name on command line. */
+> +static char __initdata opt_mediator[16] = "";
+> +string_param("tee", opt_mediator);
+> +
+>   /*
+>    * TODO: Add function to alter Dom0 DTB, so we can properly describe
+>    * present TEE.
+> @@ -80,15 +85,42 @@ uint16_t tee_get_type(void)
+>   static int __init tee_init(void)
+>   {
+>       const struct tee_mediator_desc *desc;
+> +    bool select_mediator = strcmp(opt_mediator, "");
+> +
+> +    if ( select_mediator )
+> +        printk(XENLOG_INFO "TEE Mediator %s selected from command line\n",
+> +               opt_mediator);
+>   
+> +    /*
+> +     * When a specific TEE is selected using the 'tee=' command line
+> +     * argument, we panic if the probe fails or if the requested TEE is not
+> +     * supported.
+> +     */
+>       for ( desc = _steemediator; desc != _eteemediator; desc++ )
+>       {
+> +        if ( select_mediator &&
+> +             strncmp(opt_mediator, desc->cmdline_name, sizeof(opt_mediator)) )
+> +            continue;
+> +
+>           if ( desc->ops->probe() )
+>           {
+>               printk(XENLOG_INFO "Using TEE mediator for %s\n", desc->name);
+>               cur_mediator = desc;
+>               return 0;
+>           }
+> +        else if ( select_mediator )
+> +        {
+> +            panic("TEE mediator %s from command line probe failed\n",
+> +                  opt_mediator);
+> +            return -EFAULT;
+> +        }
+> +    }
+> +
+> +    if ( select_mediator )
+> +    {
+> +        panic("TEE Mediator %s from command line not supported\n",
+> +              opt_mediator);
+> +        return -EINVAL;
+>       }
+>   
+>       return 0;
 
-The internet suggest having a 'script: grep "<failure" junit.xml' step
-to work around this.
+-- 
+Julien Grall
 
-I think that wants to be a separate series.  The question is whether to
-do this series first or second.  I expect I'm going to need to backport
-all of this work to eventually get XTF back onto the older trees.
-
-~Andrew
 
