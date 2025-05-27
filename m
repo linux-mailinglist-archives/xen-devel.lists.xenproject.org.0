@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C746AC4AB2
-	for <lists+xen-devel@lfdr.de>; Tue, 27 May 2025 10:50:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.998000.1378874 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 78AB4AC4AB5
+	for <lists+xen-devel@lfdr.de>; Tue, 27 May 2025 10:51:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.998067.1378903 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uJq1E-0001mA-1i; Tue, 27 May 2025 08:50:44 +0000
+	id 1uJq1d-0004c6-65; Tue, 27 May 2025 08:51:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 998000.1378874; Tue, 27 May 2025 08:50:43 +0000
+Received: by outflank-mailman (output) from mailman id 998067.1378903; Tue, 27 May 2025 08:51:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uJq1D-0001fp-Mk; Tue, 27 May 2025 08:50:43 +0000
-Received: by outflank-mailman (input) for mailman id 998000;
- Tue, 27 May 2025 08:50:41 +0000
+	id 1uJq1c-0004XN-V4; Tue, 27 May 2025 08:51:08 +0000
+Received: by outflank-mailman (input) for mailman id 998067;
+ Tue, 27 May 2025 08:51:06 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=RJbA=YL=amd.com=penny.zheng@srs-se1.protection.inumbo.net>)
- id 1uJq0E-0002ks-81
- for xen-devel@lists.xenproject.org; Tue, 27 May 2025 08:49:42 +0000
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on20625.outbound.protection.outlook.com
- [2a01:111:f403:2414::625])
+ id 1uJq0F-0002ks-81
+ for xen-devel@lists.xenproject.org; Tue, 27 May 2025 08:49:43 +0000
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2060c.outbound.protection.outlook.com
+ [2a01:111:f403:2413::60c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 84058220-3ad7-11f0-b894-0df219b8e170;
+ id 84ab588a-3ad7-11f0-b894-0df219b8e170;
  Tue, 27 May 2025 10:49:36 +0200 (CEST)
-Received: from SJ0PR13CA0097.namprd13.prod.outlook.com (2603:10b6:a03:2c5::12)
- by CH3PR12MB7763.namprd12.prod.outlook.com (2603:10b6:610:145::10)
+Received: from SJ2PR07CA0009.namprd07.prod.outlook.com (2603:10b6:a03:505::6)
+ by SN7PR12MB7810.namprd12.prod.outlook.com (2603:10b6:806:34c::17)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8769.24; Tue, 27 May
- 2025 08:49:34 +0000
-Received: from SJ5PEPF000001F0.namprd05.prod.outlook.com
- (2603:10b6:a03:2c5:cafe::a8) by SJ0PR13CA0097.outlook.office365.com
- (2603:10b6:a03:2c5::12) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8769.15 via Frontend Transport; Tue,
- 27 May 2025 08:49:33 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8769.21; Tue, 27 May
+ 2025 08:49:36 +0000
+Received: from SJ5PEPF000001F1.namprd05.prod.outlook.com
+ (2603:10b6:a03:505:cafe::21) by SJ2PR07CA0009.outlook.office365.com
+ (2603:10b6:a03:505::6) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8769.20 via Frontend Transport; Tue,
+ 27 May 2025 08:49:35 +0000
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SJ5PEPF000001F0.mail.protection.outlook.com (10.167.242.68) with Microsoft
+ SJ5PEPF000001F1.mail.protection.outlook.com (10.167.242.69) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8769.18 via Frontend Transport; Tue, 27 May 2025 08:49:33 +0000
+ 15.20.8769.18 via Frontend Transport; Tue, 27 May 2025 08:49:35 +0000
 Received: from penny-System-Product-Name.amd.com (10.180.168.240) by
  SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39; Tue, 27 May 2025 03:49:31 -0500
+ 15.1.2507.39; Tue, 27 May 2025 03:49:33 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,22 +56,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 84058220-3ad7-11f0-b894-0df219b8e170
+X-Inumbo-ID: 84ab588a-3ad7-11f0-b894-0df219b8e170
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XMmlld2VPjyKlHcYfHGImSreZGxmHsc5X831ga8NQnUA8l2pujC4idddpvb3q5pWwKg9RdHaHw1zpqZN/RuZjUov4C3/9H1Ibr8l0pqdurbBvTqQI3mNM61ysTQco6ZuzNCe55/uWxFqULbrqMFV2IaZFONUXxX5Gyn2nS6o118tXsWmQ8xWn/M8zyumB4fG1GoYokaN+EeN0UltAN6JqVRrPHalGL8j2O/YbCZFgNYeRLr4jj2N4ZH1myz8C4Ui8n8yJDd7V1TTWcuAP3nx1W1SBBlAUcaBkctH4j1Mro04beNHac1PI2io4ujbIx+ZzOv3CugQBiFxMlZKKQdeBw==
+ b=i7Zm4GZQMTHpOJ/utqLehAb078P5Mxqsc/OC+NByfLRAW9CHiM2PxiYe/9BzNhd0/mQmb3ajefmTFcFdYeJ5g0it0dvh6kmedbvND57q9MPH5nB3soYWxzXdnkA69dqZqkL7QaTmqUKE3GJS2vPFWTZJe1Cbu+SswpEYMbyVP4JJchBhd7vNQCgDMCjSMRrzspojY/w02TQCYubqzrnZvXgsJ6poIC6v4qlg781CrHAmoWkE1VKRcDqH+3F+2EqIyZmH3xAa0KzlDPIRXWVjMnlIsJuBd/YUGXDScq0se/tNKLT0B6GGwyzIx4KksRPCSXLZbQThoo2o/KY9r5/LOQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uKMq5MghF8UFPlQJDia7shL8Q+N/pOobWNyzD8HVQKI=;
- b=mAZ3azt71GQbQnMIuaOFsHCuE2+su7gCdnHmS60eSR48e6W/TMYlRg2E8TC8VAlUxBpx89h9sykNWqsL24xkaARSmz8NBsiPbXI4nPotPORZzsI8eCqc0LERuSbfrhSQ4gbTbqH2EULv23+KwFoCbh5amSWuxpurXMufS/7GZUcYptq47PYDR9LV1g9AO7QjLTuLHsxDz0L6zWtkixoAt/RUlxOqhDsoHZyEvMAbNTI83ty/YIAWTV/JlNQuGl6atkAtlg4rPtpcb4E+5fio/g49gB6VbcLtDrLrStRgNhtfMlgL/4ZxgZPg/7f2NH6K6p3ah/yidMsBHBCBj7uz+g==
+ bh=w8UNDtkJ77Jej48aHtABIfIEduYhPVXTw5TZb7gBSLo=;
+ b=YvTzvSsz7/Y1BCH3fzCW1X0fZmsXmJA4mxJp2ELz8HJt2M7KFygjcDAwmEhb9RWecgaejtsdKzhjywqtCDUHQ1N4/3QNEHaPRFXAv/TYk/FSfTxntWqTK2srlnNgHR6aFU4S39Zkc3T5fNC52NsiQwZW4UM2T6w7K5Qw/vtILV0YjS7yH1jC9YXQldDey3DmTh6FVoi1BfUSQpRrKs1MDGMTPrzQlGRLxhcO6E3ob/LYgtM2EAaB5NwG1/lRnsdA0h+7P+9Qcy4lNnnfWIWDPDwCCMA0SZcdSKGroHRB34OgDYRgEJ9VP0zHdp/JKNU5EM/WPhGH4ivLwTyEh3YJ+w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uKMq5MghF8UFPlQJDia7shL8Q+N/pOobWNyzD8HVQKI=;
- b=YuS2gFTbJEPcn+aOz5m18Z8mwOwSo6JT5o9l4mO6yC86Y3sjM5Ucuo8etTclsOH8YG/6e/f+3uc2nCtXhgWz4YKC4BSXMJafNaCrXg2fHB0/mTYDdorXCbqlQrvMV9B5fpV7Ew8TjW9EYdbS6vL7KHTHe2rR7w/Yem0G6oolKAM=
+ bh=w8UNDtkJ77Jej48aHtABIfIEduYhPVXTw5TZb7gBSLo=;
+ b=vfFE3rA2KdTTHGJfe43JYLfF6lEC237f1NuYuSDG2YbV8oUlWjMfw+g1XD2O7Jl4+7Un8OI2FfqGg3NZYurc/XB6nDswgDsC4xqQwympdjgLZ2g3r2cRq0Kipfr7ZlYHntKW0vnwSp2DL6xUZHwFo6XEk8/L9/IeJhzqvbRgBKI=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -82,9 +82,9 @@ From: Penny Zheng <Penny.Zheng@amd.com>
 To: <xen-devel@lists.xenproject.org>
 CC: <ray.huang@amd.com>, Penny Zheng <Penny.Zheng@amd.com>, Jan Beulich
 	<jbeulich@suse.com>
-Subject: [PATCH v5 12/18] xen/cpufreq: get performance policy from governor set via xenpm
-Date: Tue, 27 May 2025 16:48:27 +0800
-Message-ID: <20250527084833.338427-13-Penny.Zheng@amd.com>
+Subject: [PATCH v5 13/18] xen/cpufreq: normalize hwp driver check with hwp_active()
+Date: Tue, 27 May 2025 16:48:28 +0800
+Message-ID: <20250527084833.338427-14-Penny.Zheng@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20250527084833.338427-1-Penny.Zheng@amd.com>
 References: <20250527084833.338427-1-Penny.Zheng@amd.com>
@@ -96,104 +96,81 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001F0:EE_|CH3PR12MB7763:EE_
-X-MS-Office365-Filtering-Correlation-Id: b3ca16e1-e993-4cb3-ed29-08dd9cfb672f
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001F1:EE_|SN7PR12MB7810:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9596d741-2bc9-4640-f764-08dd9cfb6815
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700013|376014|82310400026|1800799024;
+	BCL:0;ARA:13230040|36860700013|82310400026|1800799024|376014;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?tnMPAPpq/aq/cYKy2p0s5ZUIXBWJIOZS64pI8OkzeZoqN3AcTzQqO6eXYLY4?=
- =?us-ascii?Q?y0cq1Mbw7mqOS4EqIAivSfRDTeRhKkjH7E8Q33wbH4PEeB2JWfsBFu4g93im?=
- =?us-ascii?Q?ObrQ4P5tg46cLvN5+Gbu5R0rJcmp9GOys+e64wZlW8+e+eCXuz/ZHh6kiG/m?=
- =?us-ascii?Q?jYgQHcqtt0cMu54M9d4C1/Qzc4olBDsSMiiEzp1oDcGnxOt+9T37v2wFD3EV?=
- =?us-ascii?Q?JAt5kCzXevaoiFwyK01Ty82HLEfUYfuqNfVYwX8Fx7PsRmjP9mGRO6PZGe/Z?=
- =?us-ascii?Q?WfHIspdLZoDyQF6H/0XjtskFXyRVFbHEhGi3Jk9tlKx6/eTgs72fKnU7EDtj?=
- =?us-ascii?Q?fuxvboH1G06jo2+A8M86NZZ6eN7Uyy0ltH421faxwbljR/JSVRROKEZJD7VI?=
- =?us-ascii?Q?eq0Jf/L3QUHecZE4UHZYkPG+hnt4iprNDzIAL7TZxYIaNk3KCzxvqrafr+0i?=
- =?us-ascii?Q?ZDQ3X7eiVS5e+Bx4eBA8+fzGxFFQ3pBkEffWgr54kqHFnbZlDhJ5v+K8AZT9?=
- =?us-ascii?Q?PwgA89sOVj/zQVO2q+/muBDsKC2FKMLhQuxOfOA5SC2KD7hucuyfyTP/jTYu?=
- =?us-ascii?Q?4PbpwZpg9DspuZUZsXkNwuxs9aWIgM5OPpd3l0smsu9wM2HAGqzgzMQ9Tai/?=
- =?us-ascii?Q?obz/zeyFATX39TVMe2dsqhxtpwWYOciyJevlY2TWokqtzUHMg4FiBV9mYh5c?=
- =?us-ascii?Q?adbzYVPC1XnsJosT434TQw7bh0YDCy9C9cSjj6WNH4nQ7l33QUKXMgfg5j2K?=
- =?us-ascii?Q?QxlQNX7dA6S9ma+NVLhx6EhkvHIUIbxbevuLkdXzPHim5Kjm4tuxsA6F6bz4?=
- =?us-ascii?Q?x9SxUJIouK42ZWiyZPpndDz6phIk/GhW1JHMvOWnOF0e4gPfym+COFimloQp?=
- =?us-ascii?Q?R6ZvObJDt9JXSG7iphS7WPFIjWzdzg6K01ogHbAKt63RFsifmiBwXMPfERsC?=
- =?us-ascii?Q?yvKNQKOf3IRoa5RWti+AkX5oVMjzvkmcOSq73+EA86Lkwcpza8WNqz1cDw+O?=
- =?us-ascii?Q?ddqYjc9z2paDIbjHHQhztEpqS0DEZxPdtBY0TYlIkl+omEH3cPGuWF4kDpr4?=
- =?us-ascii?Q?LPMbCE8RIkybrsyiqg2ua3tLIGbiniBexZXgSRn9mO30Qf+Jr0ABEKDHPgD6?=
- =?us-ascii?Q?UW0arxvUxI3EC0dy2IfqV6VaHr6x2gdRqkkxcdtMREhdZ9qvgxknqBWWaVsu?=
- =?us-ascii?Q?5BoN5lRBpp2urDPcarvevuGiGeN24qESx4VfN5U1o4aAIZwU0n1WP/KW3/kn?=
- =?us-ascii?Q?2ZryeJ0GWfvm3I59jRwXVsUeC2Wes7t8AHBqziYFbtZ70pVjQCLb8deq6Uvd?=
- =?us-ascii?Q?GhU3yU9r06psh+3z8qFOSEAKemm/sIRIrLcdVjRHMyGS2mNpiT+btwBLFhFb?=
- =?us-ascii?Q?/Jd1VhFAle1ElpssHVannktkZ2a7KiMPzYLA9+nD7hsDSn7tDXfzZjJmjKVb?=
- =?us-ascii?Q?2Acvy4z0AJMwJi5EgQQHYQGqjuvQl9zxX7SMt1EZU+6o+8TV+f0PNjXqJbg6?=
- =?us-ascii?Q?t+ZSIR4z+RfWiW9q3GX3o22Gs/2oCGMZsLcs?=
+	=?us-ascii?Q?2V7q0DghCvDVWe4wE1IsFwapW+XICSdq2t0EU9CYOyD+3+XeMU8qRswEGPl1?=
+ =?us-ascii?Q?o95I9+COMKNn4R9/3b5BiKc7FHXvlW5Kkc88uXFFbjMJFY1e2elPTa4rDX8K?=
+ =?us-ascii?Q?ArapXye+P/zVbB6iosEFwvGk67cgTafYy5fNKV6U2alfQj/0f9ktjU/Jip4z?=
+ =?us-ascii?Q?v1uN8ekJwwp1MNfqAF67fZ9k9YBeX5CC095xEo+R1lVQnOR5RQW4QKD08JxN?=
+ =?us-ascii?Q?cAkNDaG19k12bC50jAGLqP7byyytt+IQC9So9gsulodIlKgBJI15W7GM02b3?=
+ =?us-ascii?Q?m8W1OjG/u8VFwsU7LsQwsZ47ZCHoeWJ8A8eJed5VVCgb4udP2CugXyaXp73p?=
+ =?us-ascii?Q?bEt82dS979WH/Okk6eSoWm4wIFQ+5fsKnd04UJxuH3AS9eSpoF4YiwrqLz7v?=
+ =?us-ascii?Q?8KkhYB9pjqhhfcfFcVkIieP2+vE9n3HdoXFBB8QdvBh6MkIS5lXgGwcXM21w?=
+ =?us-ascii?Q?zl4wogqG6DycIPYwTafHLNvFq8RBmoJIZunk+ehP1SkJH26CiVphaaXVmTd1?=
+ =?us-ascii?Q?Z7J1f4yZYvHVNsYoMKeMAiANcFSFlACz6RA6kEurD16ks5T8evNhBUBO3diH?=
+ =?us-ascii?Q?H0cVHeMaspWrXBzrpooldUpSoiKmJKxjetbvkVsTIueFlr4qDavTAQY2xo1h?=
+ =?us-ascii?Q?9zLls8jywPLAqQmNO7WYpoGGeahHwoqZ+sUxoTrW7Le0fAMKhHW0HOSJGg1a?=
+ =?us-ascii?Q?Y/F5bKOnhAyyE0wnKJ3pNt8XSFxRpQyOfKzrU7IzNs3XJOskMGzPxKSQ9tmW?=
+ =?us-ascii?Q?cZ9aLGWKi7GO67/uGYwTnD3rK0KKnrrPn19jnT9TqeOjOr5KnyHKjKVoj7kC?=
+ =?us-ascii?Q?xBkeKY+nL1Gu1JGHWAOIXzFhZB5YLbtX/rKPlwk/5QuXU3diTwk+rSvMtlok?=
+ =?us-ascii?Q?iBFt+8uIqPIBjm1HHe2TQNbz+LhShTO2YTIt/OXjQ9u9HrAvifd0SgdeYR7k?=
+ =?us-ascii?Q?auRiPk1qFD1KX+tk9F80jhDpFWlUGC9tnWkh6tj1jVvHRS6fl6XyVVoSA4Wg?=
+ =?us-ascii?Q?uvtfpZw0QY3fMaL82U6dIhXMVc2NVvPyF3g2ehxG94VibRU/fFx5xGB9GSjc?=
+ =?us-ascii?Q?15NbVk9J+6x0t0jQ5+7y439GzS86cLQLsql6h8S6l7JgJwAUGDhM8QPcZPI0?=
+ =?us-ascii?Q?BERffxby6ECVayc0/OfngGPmEWbqnx3DKyJquz6KnztVQE4EyFkWRtJ0MmOq?=
+ =?us-ascii?Q?78h5K5lGeKiVChtkI27IAnB81MZyGFtkh6UIVoQJ6LmplY7vwUJAeOS6iH/6?=
+ =?us-ascii?Q?iaxdJvSgJRtCubmxMm2QzOahkO7k0u+PzymvpU6tBZXe1B2nRdUr9aGv0P5p?=
+ =?us-ascii?Q?T4ixIzFdTmOpBCRhVrS6vfksv6h0m7wDYhi1eS9Ufoa7oqD/iXF3yPNT+nn8?=
+ =?us-ascii?Q?F8CMWs5R/6azFQGeR/cQF18H5UBCrlJlFZbnRvx+FSeMvCxOFLDqgVz4w3eZ?=
+ =?us-ascii?Q?z4PBJL1IzC/TDFQo4pwa2RZ25GTUJijAGawbgaCKFbRZsApkwQjMPsdXhZyq?=
+ =?us-ascii?Q?Bxbt0cJaH68nvhwKyZu+V/Bad03tk+N+VvlW?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(376014)(82310400026)(1800799024);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(82310400026)(1800799024)(376014);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 May 2025 08:49:33.7131
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 May 2025 08:49:35.2211
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b3ca16e1-e993-4cb3-ed29-08dd9cfb672f
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9596d741-2bc9-4640-f764-08dd9cfb6815
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	SJ5PEPF000001F0.namprd05.prod.outlook.com
+	SJ5PEPF000001F1.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7763
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7810
 
-Even if Xen governor is not used in amd-cppc active mode, we could
-somehow deduce which performance policy (CPUFREQ_POLICY_xxx) user wants to
-apply through which governor they choose, such as:
-If user chooses performance governor, they want maximum performance.
-If user chooses powersave governor, they want the least power consumption.
-Function cpufreq_policy_from_governor() is responsible for above transition,
-and it shall be also effective when users setting new governor through xenpm.
-
-ondemand and userspace are forbidden choices, and if users specify
-such options, we shall not only give warning message, but also error out.
+Instead of using hypercall passing parameter to identify hwp driver,
+we shall use hwp_active(). Also, we've already used hwp_active() in
+do_get_pm_info() in the same file to do hwp driver check, it's
+better syncing with same way.
 
 Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
 ---
 v4 -> v5:
 - new commit
 ---
- xen/drivers/acpi/pmstat.c     | 8 ++++++++
- xen/drivers/cpufreq/utility.c | 1 +
- 2 files changed, 9 insertions(+)
+ xen/drivers/acpi/pmstat.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
 diff --git a/xen/drivers/acpi/pmstat.c b/xen/drivers/acpi/pmstat.c
-index 330bc3a1c2..514475cf5c 100644
+index 514475cf5c..c09e001ec3 100644
 --- a/xen/drivers/acpi/pmstat.c
 +++ b/xen/drivers/acpi/pmstat.c
-@@ -319,6 +319,14 @@ static int set_cpufreq_gov(struct xen_sysctl_pm_op *op)
-     if (new_policy.governor == NULL)
-         return -EINVAL;
+@@ -253,9 +253,7 @@ static int get_cpufreq_para(struct xen_sysctl_pm_op *op)
+     else
+         strlcpy(op->u.get_para.scaling_driver, "Unknown", CPUFREQ_NAME_LEN);
  
-+    new_policy.policy = cpufreq_policy_from_governor(new_policy.governor);
-+    if ( new_policy.policy == CPUFREQ_POLICY_UNKNOWN )
-+    {
-+        printk("Failed to get performance policy from %s, and users shall write epp values to deliver preference towards performance over efficiency",
-+               new_policy.governor->name);
-+        return -EINVAL;
-+    }
-+
-     return __cpufreq_set_policy(old_policy, &new_policy);
- }
- 
-diff --git a/xen/drivers/cpufreq/utility.c b/xen/drivers/cpufreq/utility.c
-index 2617581125..734cd84be1 100644
---- a/xen/drivers/cpufreq/utility.c
-+++ b/xen/drivers/cpufreq/utility.c
-@@ -456,6 +456,7 @@ int __cpufreq_set_policy(struct cpufreq_policy *data,
-     data->min = policy->min;
-     data->max = policy->max;
-     data->limits = policy->limits;
-+    data->policy = policy->policy;
-     if (cpufreq_driver.setpolicy)
-         return alternative_call(cpufreq_driver.setpolicy, data);
- 
+-    if ( IS_ENABLED(CONFIG_INTEL) &&
+-         !strncmp(op->u.get_para.scaling_driver, XEN_HWP_DRIVER_NAME,
+-                  CPUFREQ_NAME_LEN) )
++    if ( hwp_active() )
+         ret = get_hwp_para(policy->cpu, &op->u.get_para.u.cppc_para);
+     else
+     {
 -- 
 2.34.1
 
