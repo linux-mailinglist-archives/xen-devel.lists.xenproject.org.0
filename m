@@ -2,45 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B84BEAC4F8C
-	for <lists+xen-devel@lfdr.de>; Tue, 27 May 2025 15:21:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.998394.1379125 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA5A4AC4F8E
+	for <lists+xen-devel@lfdr.de>; Tue, 27 May 2025 15:21:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.998395.1379136 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uJuET-0002hP-GG; Tue, 27 May 2025 13:20:41 +0000
+	id 1uJuEa-0002wr-OF; Tue, 27 May 2025 13:20:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 998394.1379125; Tue, 27 May 2025 13:20:41 +0000
+Received: by outflank-mailman (output) from mailman id 998395.1379136; Tue, 27 May 2025 13:20:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uJuET-0002fc-DT; Tue, 27 May 2025 13:20:41 +0000
-Received: by outflank-mailman (input) for mailman id 998394;
- Tue, 27 May 2025 13:20:40 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uJuEa-0002v8-KH; Tue, 27 May 2025 13:20:48 +0000
+Received: by outflank-mailman (input) for mailman id 998395;
+ Tue, 27 May 2025 13:20:47 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=D0pS=YL=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1uJuES-0002fW-R5
- for xen-devel@lists.xenproject.org; Tue, 27 May 2025 13:20:40 +0000
+ id 1uJuEZ-0002tx-7a
+ for xen-devel@lists.xenproject.org; Tue, 27 May 2025 13:20:47 +0000
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 61bd2c9b-3afd-11f0-a2fd-13f23c93f187;
- Tue, 27 May 2025 15:20:39 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 64e50872-3afd-11f0-b894-0df219b8e170;
+ Tue, 27 May 2025 15:20:44 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 7406122006;
- Tue, 27 May 2025 13:20:38 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 392D922008;
+ Tue, 27 May 2025 13:20:44 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0B5441388B;
- Tue, 27 May 2025 13:20:38 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E41E91388B;
+ Tue, 27 May 2025 13:20:43 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id MoKqACa8NWiwKAAAD6G6ig
- (envelope-from <jgross@suse.com>); Tue, 27 May 2025 13:20:38 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 3Ps7Niu8NWi2KAAAD6G6ig
+ (envelope-from <jgross@suse.com>); Tue, 27 May 2025 13:20:43 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,23 +51,27 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 61bd2c9b-3afd-11f0-a2fd-13f23c93f187
+X-Inumbo-ID: 64e50872-3afd-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1748352038; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=n1tNRQt6zFhFYYvUhdqgR/JquhHinbRBa7p6fBgvX4M=;
-	b=Vbv6WMhHpFngSkWk8Kd8De1gl6c6Y3uo23yOgmjq6cRe8BHOpKDsaB/Sr4iSkXfCQz54WA
-	9ZglBJhBpSRpQGrQt9lAz6xzZJYEbVPbSf6i6Pr4SONqJFJUGOpNrwKZsx9NAsZhcwPyZm
-	/CB9TttvkkqTvc2gU9cR4IQi9bbxqR8=
+	t=1748352044; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=sMkmTH35IgkTQldbS4H8ZzVZy4JQeGd0sxoFnseahf0=;
+	b=LswAkzh9f3xBU5tbrBBMpxjYN5laRPi7NNGr73LG/HEJPx5KpTAOhuBtWKRYB1A+rjFcpn
+	GSyWYh7Rq30wJXskMNxt8fn8ZcqUAklXEAZcAgKCdq1fGxB9X6pfi1LCBvpETYDgEMwoQx
+	GOemHmjAiy+K5s994sGYOZaTt5DE/2M=
 Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.com header.s=susede1 header.b=Vbv6WMhH
+	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1748352038; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=n1tNRQt6zFhFYYvUhdqgR/JquhHinbRBa7p6fBgvX4M=;
-	b=Vbv6WMhHpFngSkWk8Kd8De1gl6c6Y3uo23yOgmjq6cRe8BHOpKDsaB/Sr4iSkXfCQz54WA
-	9ZglBJhBpSRpQGrQt9lAz6xzZJYEbVPbSf6i6Pr4SONqJFJUGOpNrwKZsx9NAsZhcwPyZm
-	/CB9TttvkkqTvc2gU9cR4IQi9bbxqR8=
+	t=1748352044; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=sMkmTH35IgkTQldbS4H8ZzVZy4JQeGd0sxoFnseahf0=;
+	b=LswAkzh9f3xBU5tbrBBMpxjYN5laRPi7NNGr73LG/HEJPx5KpTAOhuBtWKRYB1A+rjFcpn
+	GSyWYh7Rq30wJXskMNxt8fn8ZcqUAklXEAZcAgKCdq1fGxB9X6pfi1LCBvpETYDgEMwoQx
+	GOemHmjAiy+K5s994sGYOZaTt5DE/2M=
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
 Cc: Juergen Gross <jgross@suse.com>,
@@ -78,131 +81,323 @@ Cc: Juergen Gross <jgross@suse.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Julien Grall <julien@xen.org>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
-	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Community Manager <community.manager@xenproject.org>,
-	Samuel Thibault <samuel.thibault@ens-lyon.org>
-Subject: [PATCH v4 0/4] remove qemu-traditional
-Date: Tue, 27 May 2025 15:20:29 +0200
-Message-ID: <20250527132035.985-1-jgross@suse.com>
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH v4 1/4] docs: remove qemu-traditional support from documentation
+Date: Tue, 27 May 2025 15:20:30 +0200
+Message-ID: <20250527132035.985-2-jgross@suse.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20250527132035.985-1-jgross@suse.com>
+References: <20250527132035.985-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-1.51 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
+X-Spamd-Result: default: False [0.20 / 50.00];
 	MID_CONTAINS_FROM(1.00)[];
 	NEURAL_HAM_LONG(-1.00)[-1.000];
 	R_MISSING_CHARSET(0.50)[];
 	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
 	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	MIME_TRACE(0.00)[0:+];
-	FUZZY_BLOCKED(0.00)[rspamd.com];
-	RCPT_COUNT_TWELVE(0.00)[13];
-	DKIM_SIGNED(0.00)[suse.com:s=susede1];
+	RCPT_COUNT_SEVEN(0.00)[9];
 	ARC_NA(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DKIM_SIGNED(0.00)[suse.com:s=susede1];
+	FUZZY_BLOCKED(0.00)[rspamd.com];
 	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FREEMAIL_CC(0.00)[suse.com,vates.tech,citrix.com,amd.com,xen.org,kernel.org,invisiblethingslab.com,gmail.com,xenproject.org,ens-lyon.org];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_TRACE(0.00)[suse.com:+];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
 	FROM_HAS_DN(0.00)[];
 	TO_DN_SOME(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.com:mid,suse.com:dkim];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	ASN(0.00)[asn:25478, ipnet:::/0, country:RU];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com]
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 7406122006
+	FROM_EQ_ENVFROM(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.com:mid,imap1.dmz-prg2.suse.org:helo];
+	RCVD_COUNT_TWO(0.00)[2];
+	RCVD_TLS_ALL(0.00)[]
 X-Spam-Flag: NO
+X-Spam-Score: 0.20
 X-Spam-Level: 
-X-Spam-Score: -1.51
 
-Remove the qemu-traditional support. This includes the Mini-OS
-based ioemu-stubdom.
+In preparation to no longer support qemu-traditional (including
+qemu-stubdom), remove it from documentation.
 
-Don't remove ROMBIOS for now, as it can be used with qemu (XenServer
-is doing that).
+Signed-off-by: Juergen Gross <jgross@suse.com>
+Reviewed-by: Anthony PERARD <anthony.perard@vates.tech>
+---
+V2:
+- mention "qemu_xen_traditional" in xenstore-paths.pandoc as a removed
+  device model variant (Andrew Cooper)
+- don't drop Config.mk related documentation for QEMU_TRADITIONAL_REVISION
+  (Jan Beulich)
+V3:
+- drop another opengl reference (Anthony Perard)
+- drop 2 superfluous sentences for gfx_passthru (Anthony Perard)
+- reword a bios_path_override note (Anthony Perard)
+---
+ docs/man/xl-pci-configuration.5.pod           |  4 +-
+ docs/man/xl.cfg.5.pod.in                      | 49 +++--------------
+ docs/misc/stubdom.txt                         | 52 -------------------
+ docs/misc/xenstore-paths.pandoc               |  3 +-
+ docs/process/branching-checklist.txt          |  3 --
+ docs/process/release-technician-checklist.txt |  2 -
+ docs/process/xen-release-management.pandoc    |  2 +-
+ 7 files changed, 13 insertions(+), 102 deletions(-)
 
-After adding the series a run of autoconf should be done.
-
-Changes in V2:
-- addressed comments
-
-Changes in V3:
-- patches 1 and 5 of V2 have been applied already
-- addressed comments
-
-Changes in V4:
-- addressed comments
-
-Juergen Gross (4):
-  docs: remove qemu-traditional support from documentation
-  tools: remove support for running a guest with qemu-traditional
-  tools: remove qemu-traditional
-  build: don't require full tools build for building stubdoms
-
- .gitignore                                    |   3 -
- CHANGELOG.md                                  |   2 +
- Config.mk                                     |  38 --
- INSTALL                                       |  13 -
- MAINTAINERS                                   |   4 -
- Makefile                                      |   2 +-
- README                                        |   2 +-
- SUPPORT.md                                    |  16 -
- config/Paths.mk.in                            |   3 +-
- config/Tools.mk.in                            |   1 -
- docs/man/xl-pci-configuration.5.pod           |   4 +-
- docs/man/xl.cfg.5.pod.in                      |  49 +--
- docs/misc/stubdom.txt                         |  52 ---
- docs/misc/xenstore-paths.pandoc               |   3 +-
- docs/process/branching-checklist.txt          |   4 -
- docs/process/release-technician-checklist.txt |   3 -
- docs/process/xen-release-management.pandoc    |   2 +-
- stubdom/.gitignore                            |   3 -
- stubdom/Makefile                              |  97 +-----
- stubdom/configure                             |  89 -----
- stubdom/configure.ac                          |  15 -
- stubdom/ioemu-minios.cfg                      |   6 -
- tools/Makefile                                |  58 ----
- tools/Rules.mk                                |   3 -
- tools/config.h.in                             |   3 -
- tools/configure                               |  42 +--
- tools/configure.ac                            |  21 +-
- tools/firmware/hvmloader/Makefile             |   4 +-
- tools/firmware/hvmloader/pci.c                |  17 +-
- tools/firmware/hvmloader/util.c               |   9 +-
- tools/libacpi/mk_dsdt.c                       | 185 +++-------
- tools/libs/light/libxl_create.c               |  78 +----
- tools/libs/light/libxl_device.c               |  19 -
- tools/libs/light/libxl_disk.c                 |   7 -
- tools/libs/light/libxl_dm.c                   | 327 +-----------------
- tools/libs/light/libxl_dom.c                  |  10 -
- tools/libs/light/libxl_dom_save.c             | 140 --------
- tools/libs/light/libxl_dom_suspend.c          |  65 ----
- tools/libs/light/libxl_domain.c               |  15 -
- tools/libs/light/libxl_exec.c                 |  75 ----
- tools/libs/light/libxl_internal.c             |   6 +-
- tools/libs/light/libxl_internal.h             |  68 +---
- tools/libs/light/libxl_pci.c                  | 183 ----------
- tools/libs/light/libxl_sr_stream_format.h     |   2 +-
- tools/libs/light/libxl_stream_write.c         |   4 -
- tools/libs/light/libxl_types.idl              |   2 +-
- tools/python/xen/migration/libxl.py           |   2 -
- tools/xl/xl_parse.c                           |   5 +-
- 48 files changed, 107 insertions(+), 1654 deletions(-)
- delete mode 100644 stubdom/ioemu-minios.cfg
-
+diff --git a/docs/man/xl-pci-configuration.5.pod b/docs/man/xl-pci-configuration.5.pod
+index ec76f590b7..0691f06ad3 100644
+--- a/docs/man/xl-pci-configuration.5.pod
++++ b/docs/man/xl-pci-configuration.5.pod
+@@ -111,8 +111,8 @@ if this parameter is not specified.
+ =item Description
+ 
+ By default pciback only allows PV guests to write "known safe" values
+-into PCI configuration space, likewise QEMU (both qemu-xen and
+-qemu-xen-traditional) imposes the same constraint on HVM guests.
++into PCI configuration space, likewise QEMU imposes the same constraint
++on HVM guests.
+ However, many devices require writes to other areas of the configuration space
+ in order to operate properly.  This option tells the backend (pciback or QEMU)
+ to allow all writes to the PCI configuration space of this device by this
+diff --git a/docs/man/xl.cfg.5.pod.in b/docs/man/xl.cfg.5.pod.in
+index 7339c44efd..c388899306 100644
+--- a/docs/man/xl.cfg.5.pod.in
++++ b/docs/man/xl.cfg.5.pod.in
+@@ -841,7 +841,7 @@ This option does not control the emulated graphics card presented to
+ an HVM guest. See B<Emulated VGA Graphics Device> below for how to
+ configure the emulated device. If B<Emulated VGA Graphics Device> options
+ are used in a PV guest configuration, B<xl> will pick up B<vnc>, B<vnclisten>,
+-B<vncpasswd>, B<vncdisplay>, B<vncunused>, B<sdl>, B<opengl> and
++B<vncpasswd>, B<vncdisplay>, B<vncunused>, B<sdl> and
+ B<keymap> to construct the paravirtual framebuffer device for the guest.
+ 
+ Each B<VFB_SPEC_STRING> is a comma-separated list of C<KEY=VALUE>
+@@ -895,12 +895,6 @@ is used.
+ Specifies the path to the X authority file that should be used to
+ connect to the X server when the B<sdl> option is used.
+ 
+-=item B<opengl=BOOLEAN>
+-
+-Enable OpenGL acceleration of the SDL display. Only effects machines
+-using B<device_model_version="qemu-xen-traditional"> and only if the
+-device-model was compiled with OpenGL support. The default is 0 (disabled).
+-
+ =item B<keymap=LANG>
+ 
+ Configure the keymap to use for the keyboard associated with this
+@@ -1215,17 +1209,11 @@ working graphics passthrough. See the XenVGAPassthroughTestedAdapters
+ L<https://wiki.xenproject.org/wiki/XenVGAPassthroughTestedAdapters> wiki page
+ for graphics cards currently supported by B<gfx_passthru>.
+ 
+-B<gfx_passthru> is currently supported both with the qemu-xen-traditional
+-device-model and upstream qemu-xen device-model.
+-
+ When given as a boolean the B<gfx_passthru> option either disables graphics
+ card passthrough or enables autodetection.
+ 
+ When given as a string the B<gfx_passthru> option describes the type
+-of device to enable. Note that this behavior is only supported with the
+-upstream qemu-xen device-model. With qemu-xen-traditional IGD (Intel Graphics
+-Device) is always assumed and options other than autodetect or explicit IGD
+-will result in an error.
++of device to enable.
+ 
+ Currently, valid values for the option are:
+ 
+@@ -1903,10 +1891,7 @@ it may be useful to request a different one, like UEFI.
+ 
+ =item B<rombios>
+ 
+-Loads ROMBIOS, a 16-bit x86 compatible BIOS. This is used by default
+-when B<device_model_version=qemu-xen-traditional>. This is the only BIOS
+-option supported when B<device_model_version=qemu-xen-traditional>. This is
+-the BIOS used by all previous Xen versions.
++Loads ROMBIOS, a 16-bit x86 compatible BIOS.
+ 
+ =item B<seabios>
+ 
+@@ -1926,8 +1911,7 @@ Override the path to the blob to be used as BIOS. The blob provided here MUST
+ be consistent with the B<bios=> which you have specified. You should not
+ normally need to specify this option.
+ 
+-This option does not have any effect if using B<bios="rombios"> or
+-B<device_model_version="qemu-xen-traditional">.
++Requires B<device_model_version="qemu-xen">.
+ 
+ =item B<pae=BOOLEAN>
+ 
+@@ -2516,15 +2500,10 @@ Sets the amount of RAM which the emulated video card will contain,
+ which in turn limits the resolutions and bit depths which will be
+ available.
+ 
+-When using the qemu-xen-traditional device-model, the default as well as
+-minimum amount of video RAM for stdvga is 8 MB, which is sufficient for e.g.
+-1600x1200 at 32bpp. For the upstream qemu-xen device-model, the default and
+-minimum is 16 MB.
++When using stdvga, the default and minimum is 16 MB.
+ 
+-When using the emulated Cirrus graphics card (B<vga="cirrus">) and the
+-qemu-xen-traditional device-model, the amount of video RAM is fixed at 4 MB,
+-which is sufficient for 1024x768 at 32 bpp. For the upstream qemu-xen
+-device-model, the default and minimum is 8 MB.
++When using the emulated Cirrus graphics card (B<vga="cirrus">), the
++default and minimum is 8 MB.
+ 
+ For QXL vga, both the default and minimal are 128MB.
+ If B<videoram> is set less than 128MB, an error will be triggered.
+@@ -2590,12 +2569,6 @@ B<qemu(1)> manpage. The default is B<en-us>.
+ Specifies that the display should be presented via an X window (using
+ Simple DirectMedia Layer). The default is (0) not enabled.
+ 
+-=item B<opengl=BOOLEAN>
+-
+-Enable OpenGL acceleration of the SDL display. Only effects machines
+-using B<device_model_version="qemu-xen-traditional"> and only if the
+-device-model was compiled with OpenGL support. Default is (0) false.
+-
+ =item B<nographic=BOOLEAN>
+ 
+ Enable or disable the virtual graphics device.  The default is to
+@@ -2925,11 +2898,6 @@ Valid values are:
+ Use the device-model merged into the upstream QEMU project.
+ This device-model is the default for Linux dom0.
+ 
+-=item B<qemu-xen-traditional>
+-
+-Use the device-model based upon the historical Xen fork of QEMU.
+-This device-model is still the default for NetBSD dom0.
+-
+ =back
+ 
+ It is recommended to accept the default value for new guests.  If
+@@ -2949,8 +2917,7 @@ to specify this option.
+ Override the path to the kernel image used as device-model stubdomain.
+ The binary provided here MUST be consistent with the
+ B<device_model_version> which you have specified.
+-In case of B<qemu-xen-traditional> it is expected to be MiniOS-based stubdomain
+-image, in case of B<qemu-xen> it is expected to be Linux-based stubdomain
++In case of B<qemu-xen> it is expected to be Linux-based stubdomain
+ kernel.
+ 
+ =item B<stubdomain_cmdline="STRING">
+diff --git a/docs/misc/stubdom.txt b/docs/misc/stubdom.txt
+index 64c220db20..cfcba4ba96 100644
+--- a/docs/misc/stubdom.txt
++++ b/docs/misc/stubdom.txt
+@@ -23,58 +23,6 @@ and https://wiki.xen.org/wiki/Device_Model_Stub_Domains for more
+ information on device model stub domains
+ 
+ 
+-Toolstack to MiniOS ioemu stubdomain protocol
+----------------------------------------------
+-
+-This section describe communication protocol between toolstack and
+-qemu-traditional running in MiniOS stubdomain. The protocol include
+-expectations of both qemu and stubdomain itself.
+-
+-Setup (done by toolstack, expected by stubdomain):
+- - Block devices for target domain are connected as PV disks to stubdomain,
+-   according to configuration order, starting with xvda
+- - Network devices for target domain are connected as PV nics to stubdomain,
+-   according to configuration order, starting with 0
+- - if graphics output is expected, VFB and VKB devices are set for stubdomain
+-   (its backend is responsible for exposing them using appropriate protocol
+-   like VNC or Spice)
+- - other target domain's devices are not connected at this point to stubdomain
+-   (may be hot-plugged later)
+- - QEMU command line (space separated arguments) is stored in
+-   /vm/<target-uuid>/image/dmargs xenstore path
+- - target domain id is stored in /local/domain/<stubdom-id>/target xenstore path
+-?? - bios type is stored in /local/domain/<target-id>/hvmloader/bios
+- - stubdomain's console 0 is connected to qemu log file
+- - stubdomain's console 1 is connected to qemu save file (for saving state)
+- - stubdomain's console 2 is connected to qemu save file (for restoring state)
+- - next consoles are connected according to target guest's serial console configuration
+-
+-Startup:
+-1. PV stubdomain is started with ioemu-stubdom.gz kernel and no initrd
+-2. stubdomain initialize relevant devices
+-3. stubdomain signal readiness by writing "running" to /local/domain/<stubdom-id>/device-model/<target-id>/state xenstore path
+-4. now stubdomain is considered running
+-
+-Runtime control (hotplug etc):
+-Toolstack can issue command through xenstore. The sequence is (from toolstack POV):
+-1. Write parameter to /local/domain/<stubdom-id>/device-model/<target-id>/parameter.
+-2. Write command to /local/domain/<stubdom-id>/device-model/<target-id>/command.
+-3. Wait for command result in /local/domain/<stubdom-id>/device-model/<target-id>/state (command specific value).
+-4. Write "running" back to /local/domain/<stubdom-id>/device-model/<target-id>/state.
+-
+-Defined commands:
+- - "pci-ins" - PCI hot plug, results:
+-   - "pci-inserted" - success
+-   - "pci-insert-failed" - failure
+- - "pci-rem" - PCI hot remove, results:
+-   - "pci-removed" - success
+-   - ??
+- - "save" - save domain state to console 1, results:
+-   - "paused" - success
+- - "continue" - resume domain execution, after loading state from console 2 (require -loadvm command argument), results:
+-   - "running" - success
+-
+-
+ Toolstack to Linux ioemu stubdomain protocol
+ --------------------------------------------
+ 
+diff --git a/docs/misc/xenstore-paths.pandoc b/docs/misc/xenstore-paths.pandoc
+index a604f6b1c6..01a340fafc 100644
+--- a/docs/misc/xenstore-paths.pandoc
++++ b/docs/misc/xenstore-paths.pandoc
+@@ -636,7 +636,8 @@ Trustworthy copy of /local/domain/$DOMID/backend/$KIND/$DEVID/$NODE.
+ 
+ #### /libxl/$DOMID/dm-version ("qemu_xen"|"qemu_xen_traditional") = [n,INTERNAL]
+ 
+-The device model version for a domain.
++The device model version for a domain. Note that "qemu_xen_traditional" is
++a device model variant which has been removed from Xen.
+ 
+ #### /libxl/$DOMID/remus/netbuf/$DEVID/ifb = STRING [n,INTERNAL]
+ 
+diff --git a/docs/process/branching-checklist.txt b/docs/process/branching-checklist.txt
+index 3dfa8ec257..aa7a27eed5 100644
+--- a/docs/process/branching-checklist.txt
++++ b/docs/process/branching-checklist.txt
+@@ -14,8 +14,6 @@ ov=4.0
+     cd ~/git/qemu-xen.git
+     git branch staging-$v staging
+     git branch stable-$v master
+-    cd ~/git/qemu-xen-traditional.git
+-    git branch stable-$v master
+ 
+ # make branch in libvirt
+     ssh xen@xenbits.xen.org
+@@ -63,7 +61,6 @@ ov=4.0
+     cp xen--staging.patchbot-reported-heads xen--staging-$v.patchbot-reported-heads
+     cp qemu-xen--master.patchbot-reported-heads  qemu-xen--stable-$v.patchbot-reported-heads
+     cp qemu-xen--staging.patchbot-reported-heads  qemu-xen--staging-$v.patchbot-reported-heads
+-    cp qemu-xen-traditional--master.patchbot-reported-heads qemu-xen-traditional--stable-$v.patchbot-reported-heads
+ 
+     #emacs versions
+     perl -i~ -pe 'next unless m/\b\Q'$ov'\E\b/; $x=$_; $x=~ s/\b\Q'$ov'\E\b/'$v'/g; print $x;' versions
+diff --git a/docs/process/release-technician-checklist.txt b/docs/process/release-technician-checklist.txt
+index 7bbe7c1489..829e8ec47b 100644
+--- a/docs/process/release-technician-checklist.txt
++++ b/docs/process/release-technician-checklist.txt
+@@ -32,8 +32,6 @@ t=RELEASE-$r
+   git show # should show appropriate intended commit
+   git-tag -u 'Xen.org Xen tree code signing' -m "Xen $v" xen-$v
+ 
+-  git-push xenbits.xen.org:/home/xen/git/qemu-xen-traditional.git $s:stable-$x xen-$v
+-
+ # consider making tag in minios, and updating xen.git Config.mk
+   git checkout SOMETHING
+   git show # should show appropriate intended commit
+diff --git a/docs/process/xen-release-management.pandoc b/docs/process/xen-release-management.pandoc
+index 7826419dad..5da18f6da1 100644
+--- a/docs/process/xen-release-management.pandoc
++++ b/docs/process/xen-release-management.pandoc
+@@ -193,7 +193,7 @@ from the last RC:
+ 
+ 1. Send out commit moratorium emails to committers@.
+ 
+-2. Check all the trees (mini-os, qemu-trad, qemu-xen, seabios, ovmf etc).
++2. Check all the trees (mini-os, qemu-xen, seabios, ovmf etc).
+ They have the correct commits and all security patches applied. There will be
+ tools provided.
+ 
 -- 
 2.43.0
 
