@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B370AC517A
-	for <lists+xen-devel@lfdr.de>; Tue, 27 May 2025 17:01:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.998502.1379221 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D08FFAC5186
+	for <lists+xen-devel@lfdr.de>; Tue, 27 May 2025 17:03:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.998508.1379232 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uJvnG-00039G-KR; Tue, 27 May 2025 15:00:42 +0000
+	id 1uJvq4-0003iJ-0e; Tue, 27 May 2025 15:03:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 998502.1379221; Tue, 27 May 2025 15:00:42 +0000
+Received: by outflank-mailman (output) from mailman id 998508.1379232; Tue, 27 May 2025 15:03:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uJvnG-00034u-HD; Tue, 27 May 2025 15:00:42 +0000
-Received: by outflank-mailman (input) for mailman id 998502;
- Tue, 27 May 2025 15:00:41 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uJvq3-0003fl-T6; Tue, 27 May 2025 15:03:35 +0000
+Received: by outflank-mailman (input) for mailman id 998508;
+ Tue, 27 May 2025 15:03:35 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=PBPV=YL=gmail.com=anthoine.bourgeois@srs-se1.protection.inumbo.net>)
- id 1uJvnF-00034o-Ey
- for xen-devel@lists.xenproject.org; Tue, 27 May 2025 15:00:41 +0000
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [2a00:1450:4864:20::430])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5a2a48ce-3b0b-11f0-b894-0df219b8e170;
- Tue, 27 May 2025 17:00:39 +0200 (CEST)
-Received: by mail-wr1-x430.google.com with SMTP id
- ffacd0b85a97d-3a4c6c0a9c7so2447774f8f.3
- for <xen-devel@lists.xenproject.org>; Tue, 27 May 2025 08:00:39 -0700 (PDT)
-Received: from gmail.com (163.red-2-139-141.dynamicip.rima-tde.net.
- [2.139.141.163]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3a4d0884cabsm9243985f8f.82.2025.05.27.08.00.37
+ <SRS0=Xrmh=YL=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1uJvq3-0003ff-3r
+ for xen-devel@lists.xenproject.org; Tue, 27 May 2025 15:03:35 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c21ec47a-3b0b-11f0-a2fd-13f23c93f187;
+ Tue, 27 May 2025 17:03:33 +0200 (CEST)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-43cfa7e7f54so27384505e9.1
+ for <xen-devel@lists.xenproject.org>; Tue, 27 May 2025 08:03:33 -0700 (PDT)
+Received: from andrew-laptop.. ([46.149.103.12])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-447f24b6471sm273166855e9.24.2025.05.27.08.03.31
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 27 May 2025 08:00:37 -0700 (PDT)
+ Tue, 27 May 2025 08:03:31 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,69 +45,127 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5a2a48ce-3b0b-11f0-b894-0df219b8e170
+X-Inumbo-ID: c21ec47a-3b0b-11f0-a2fd-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1748358039; x=1748962839; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=EbcGE31liYygPaQlvfT4jgI++U+bqFAoIpuS740Bkik=;
-        b=OotDrrKPVy03v42PWnbkb9yYI5UzLqupOLsEUAVy9CvJ5U8IeCpVfOdRr5gh9irxmk
-         D1AWwOz31l9f8wmbhYUl/zEOqWm1VSUA9uMxNJy1K3R3EXBOYzNLxsrGUs+sPqpzk7D+
-         tnD5kft+RmGhIPD0oTsOa2UP2CTEVip9OU1uqM8IMmiukrrllEIIGLHx1hmct4ZsnFYV
-         ZgdP6Jkoc7SJuhMvL7PkV8Tu1YoApIl8iMKbq+JFfh493T4yLGptLJCGzQJwYvmJR8BN
-         1eNcRAwDmTkC6HYzE6eccak3zxnZWG9UttX2GN3eZKInbZdNRasLVPU1+F0CUkC51Ch3
-         A7uA==
+        d=citrix.com; s=google; t=1748358213; x=1748963013; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=ztdVfT4mxbj+5WIVFfsMLxndJVFXBgQyRQpEKpBUWUw=;
+        b=mD23X3tDxgYLIbxrA6baMxtSkj3iWJqgACi7iCEqiezbGACX12jy7UVNgSWmxM7pB4
+         mMf5M4zj+uDh9FmXCvcDkzzoJKBcNLLpvHxhxO9iFmPs0ASmzK4dLJcGD49W9x9yF2/u
+         BgMCHR4tmtgsn2Sx1Hx3MerUwEWAIDo1RT8/4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1748358039; x=1748962839;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=EbcGE31liYygPaQlvfT4jgI++U+bqFAoIpuS740Bkik=;
-        b=ZtiTq2wbEHlGjkCvRFHDWpkOSzbh6/bmmx4K9f+IgAFcnazxExpo2RekP+2yemiTFM
-         cF/5tQxvQZmkNN3zZ5tNpl5PlGB0UUDYjIdBRXTFJL1lqb5GJljQdNl+BoprNAq6ikYB
-         or9VfjjYBwb9+9WANVly0Y58fOnoyNDLoE2s+xVkZNDgFdpJQG25lYeHw32+3N5WpUs+
-         UKJP3UzWMuxxILAttKnknLSWNHDu5nYdX4nhji1M89Nven1RiCLi2Or0GjHIoE7p5rOF
-         qSkcMIafOyshML7wbhKj9hwekWBceQzfE8eDNk7+JUPC3/1vO/PWawvwc9ZPhEBeIodz
-         q6kg==
-X-Gm-Message-State: AOJu0YyTSp7QHQWCqT42Td31WP5P+CbbXJqzWNJJxORFGTC7yLR0JndL
-	yhK3Ra8i8hwCfjfoYVkN8oAZOrkYIyF8EOpFbDo+PG+zyPTrbYciGG0+cXTznFc43aE=
-X-Gm-Gg: ASbGncvmOzubntl6zLMnIUHzSCEqE72jAuDt4vgHC3jzbJlrj2ZCf7uLj78xUmluOCZ
-	AHKISgBO9cc+YuHWFxgQBXvKSIT4HD36VnnAZ9ikZ677197t+i+ee2iNVIi8ShbGevPylQHacnU
-	TFzY6bgMJ7LLLIMZgR2TH7zoth8VLcIBFZCVNmafqqN29l4EzXzxkNveKIh8/2kA7DmDLL5Nx4b
-	4t+Eg1asvANtVLe8ZblYo6cMY+tK7zsWU4Evw0rbME+HrSmSSdQB4WefE2Jnq7iilWaoRfVFu2X
-	RHRu1FI6tEmCTANn6LER/HUMyv8VlZqiTiL0NLf8996q5MNCcQX21jtNrNoeQ5BUK1jMg+3koPQ
-	foMwdLB6y6bQlTeAdA69IXv9wlRfARxwGrU1SNGY=
-X-Google-Smtp-Source: AGHT+IH15dJpxkf7h50kEGkZNLHlucOkokN10sU+swFjECtylsCGjkGPcaoYMRF9DqmdzO0zdwfXGg==
-X-Received: by 2002:a05:6000:2503:b0:3a4:d7b2:4b16 with SMTP id ffacd0b85a97d-3a4d7b24cd5mr6113681f8f.16.1748358037694;
-        Tue, 27 May 2025 08:00:37 -0700 (PDT)
-Date: Tue, 27 May 2025 17:00:35 +0200
-From: Anthoine Bourgeois <anthoine.bourgeois@gmail.com>
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>
-Subject: Re: [PATCH] x86/hvmloader: fix order of PCI vs MTRR initialization
-Message-ID: <aDXTk7zLqD4jMuMu@gmail.com>
-References: <20250527085504.77444-1-roger.pau@citrix.com>
+        d=1e100.net; s=20230601; t=1748358213; x=1748963013;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=ztdVfT4mxbj+5WIVFfsMLxndJVFXBgQyRQpEKpBUWUw=;
+        b=VhGh1BBNpidTvaFMH5yGBm8Iuw7K0CBy15i8rwcD2v2Yv4H+rlaGEyllr5YdXcYY9N
+         DQN12fING3yZlftRna858vbkGuoHH/7NhIjiaVL7EDOg1DYd3+VC802rGXIaq/32O+Te
+         SSi46CMz72/BbpVC1aUbkPz0Fx5TZ60GnpvNoR+etkivmucUWWC2fsWjsM6UmS5Jpbau
+         TAT+dWVWTz80l+d3pa5HoNc05AJfvB+gF+Y0NhD9wb3VMqWMBlVXCOuO/jMN1uUuV8Bx
+         452nGsAGJoIkeOI6zVHhtlvI6hotRYILnhr56vGifcq3ao6aydsKyq6W/99Tuod9vAVj
+         COWA==
+X-Gm-Message-State: AOJu0YyEn+cvt3Q8iAPgptaFBMkOR+w5GkGbyDBUNw4KnVbRuURruFtI
+	DUEhgexV/2UEfe6CCx16TaLBbDfI+B+ljOArWUnS1C5tzkQ/Z7nr5hpYIAZIDESXi5Jj2tnHKvk
+	0EQZO
+X-Gm-Gg: ASbGncuhTeqmbOHpHxPSbWRB7flVZSWzFrHVNAwPMdEprGL4ESk+Y9A+tcIjlVXXWVg
+	BioAk2U9YSTwbG5EfKZ51S1mCLg81VJTc4kgGXr9yS5affB+hy0k92XzDSzVqgXhAN8sG69RMiF
+	ht5kgfoIOWnA0NvDewrqVVUL2zOoVmJomjQddWWkJhbRa1JrD5zO3BmQiT9DLhy6WAMsRBLH8Lq
+	pwhFHCx8Bbqh6eguO0CprSm7tl4S/JyIDRkx4A0sMppyZceRZdUvnFfSX+CoKzT15XZndORhySz
+	iBCNvO73hWy8YbhPRAGkWgbDRmyrsbNruZYlwEm+MsyDXbbn5EHfSgkQ+kcjkOg=
+X-Google-Smtp-Source: AGHT+IG8HOx/gt8VB9bumc5o8u1nlVH9jDCaITTRPrJJXYfW8RzY/eJFn3rZDzNXzv69KuKhQCH/qw==
+X-Received: by 2002:a05:600c:529b:b0:439:8878:5029 with SMTP id 5b1f17b1804b1-44fd1a021c5mr9943355e9.2.1748358212764;
+        Tue, 27 May 2025 08:03:32 -0700 (PDT)
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: xen-devel@lists.xenproject.org
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jan Beulich <JBeulich@suse.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [PATCH] x86/hvm: Drop unused vpic.h includes
+Date: Tue, 27 May 2025 16:03:30 +0100
+Message-Id: <20250527150330.47108-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1; format=flowed
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20250527085504.77444-1-roger.pau@citrix.com>
 
-On Tue, May 27, 2025 at 10:55:04AM +0200, Roger Pau Monne wrote:
->After some recent change the order of MTRR vs PCI initialization is
->inverted.  MTRR will get initialization ahead of PCI scanning and sizing of
->MMIO regions.  As a result when setting up MTRRs the MMIO window below 4GB
->will always have the same size, and there will be no window above 4GB.
->This results in malformed and incomplete MTRRs being setup.
->
->Fix by making sure PCI is initialized ahead of MTRR, also add a comment to
->notice the ordering dependency.
->
->Fixes: 2c3dffbaa324 ('tools/hvmloader: Replace LAPIC_ID() with cpu_to_apicid[]')
->Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+It's only hvm.c, irq.c and vcpi.c which need this header, and they all
+get it via asm/hvm/irq.h.
 
-Reviewed-by: Anthoine Bourgeois <anthoine.bourgeois@gmail.com>
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Roger Pau MonnÃ© <roger.pau@citrix.com>
+---
+ xen/arch/x86/hvm/io.c       | 1 -
+ xen/arch/x86/hvm/vioapic.c  | 1 -
+ xen/arch/x86/hvm/vmsi.c     | 1 -
+ xen/arch/x86/hvm/vmx/intr.c | 1 -
+ xen/arch/x86/hvm/vmx/vmx.c  | 1 -
+ 5 files changed, 5 deletions(-)
+
+diff --git a/xen/arch/x86/hvm/io.c b/xen/arch/x86/hvm/io.c
+index de6ee6c4dd4d..23a5ea0e6197 100644
+--- a/xen/arch/x86/hvm/io.c
++++ b/xen/arch/x86/hvm/io.c
+@@ -26,7 +26,6 @@
+ #include <asm/p2m.h>
+ #include <asm/hvm/hvm.h>
+ #include <asm/hvm/vpt.h>
+-#include <asm/hvm/vpic.h>
+ #include <asm/hvm/vlapic.h>
+ #include <asm/hvm/emulate.h>
+ #include <public/sched.h>
+diff --git a/xen/arch/x86/hvm/vioapic.c b/xen/arch/x86/hvm/vioapic.c
+index f896b9ea121b..7c725f9e471f 100644
+--- a/xen/arch/x86/hvm/vioapic.c
++++ b/xen/arch/x86/hvm/vioapic.c
+@@ -33,7 +33,6 @@
+ #include <xen/nospec.h>
+ #include <public/hvm/ioreq.h>
+ #include <asm/hvm/io.h>
+-#include <asm/hvm/vpic.h>
+ #include <asm/hvm/vlapic.h>
+ #include <asm/hvm/support.h>
+ #include <asm/current.h>
+diff --git a/xen/arch/x86/hvm/vmsi.c b/xen/arch/x86/hvm/vmsi.c
+index 61b89834d97d..32e417bc1592 100644
+--- a/xen/arch/x86/hvm/vmsi.c
++++ b/xen/arch/x86/hvm/vmsi.c
+@@ -38,7 +38,6 @@
+ #include <public/hvm/ioreq.h>
+ #include <asm/hvm/emulate.h>
+ #include <asm/hvm/io.h>
+-#include <asm/hvm/vpic.h>
+ #include <asm/hvm/vlapic.h>
+ #include <asm/hvm/support.h>
+ #include <asm/current.h>
+diff --git a/xen/arch/x86/hvm/vmx/intr.c b/xen/arch/x86/hvm/vmx/intr.c
+index 91b407e6bcc2..b35dc8c586f6 100644
+--- a/xen/arch/x86/hvm/vmx/intr.c
++++ b/xen/arch/x86/hvm/vmx/intr.c
+@@ -20,7 +20,6 @@
+ #include <asm/hvm/io.h>
+ #include <asm/hvm/vmx/vmx.h>
+ #include <asm/hvm/vmx/vmcs.h>
+-#include <asm/hvm/vpic.h>
+ #include <asm/hvm/vlapic.h>
+ #include <asm/hvm/nestedhvm.h>
+ #include <public/hvm/ioreq.h>
+diff --git a/xen/arch/x86/hvm/vmx/vmx.c b/xen/arch/x86/hvm/vmx/vmx.c
+index c2262c584822..d8879c304e15 100644
+--- a/xen/arch/x86/hvm/vmx/vmx.c
++++ b/xen/arch/x86/hvm/vmx/vmx.c
+@@ -32,7 +32,6 @@
+ #include <asm/hvm/vmx/vmcs.h>
+ #include <public/sched.h>
+ #include <public/hvm/ioreq.h>
+-#include <asm/hvm/vpic.h>
+ #include <asm/hvm/vlapic.h>
+ #include <asm/x86_emulate.h>
+ #include <asm/hvm/vpt.h>
+-- 
+2.34.1
+
 
