@@ -2,38 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90CA6AC5D25
-	for <lists+xen-devel@lfdr.de>; Wed, 28 May 2025 00:30:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.998771.1379474 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0AAF5AC5D2F
+	for <lists+xen-devel@lfdr.de>; Wed, 28 May 2025 00:38:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.998786.1379485 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uK2nk-0002Bt-8S; Tue, 27 May 2025 22:29:40 +0000
+	id 1uK2vx-0003pD-52; Tue, 27 May 2025 22:38:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 998771.1379474; Tue, 27 May 2025 22:29:40 +0000
+Received: by outflank-mailman (output) from mailman id 998786.1379485; Tue, 27 May 2025 22:38:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uK2nk-00029I-5m; Tue, 27 May 2025 22:29:40 +0000
-Received: by outflank-mailman (input) for mailman id 998771;
- Tue, 27 May 2025 22:29:38 +0000
+	id 1uK2vx-0003nk-1c; Tue, 27 May 2025 22:38:09 +0000
+Received: by outflank-mailman (input) for mailman id 998786;
+ Tue, 27 May 2025 22:38:08 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Xrmh=YL=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1uK2ni-00029C-CX
- for xen-devel@lists.xenproject.org; Tue, 27 May 2025 22:29:38 +0000
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [2a00:1450:4864:20::62f])
+ <SRS0=mfAC=YL=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
+ id 1uK2vw-0003ne-7S
+ for xen-devel@lists.xenproject.org; Tue, 27 May 2025 22:38:08 +0000
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on20627.outbound.protection.outlook.com
+ [2a01:111:f403:2412::627])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0fceeb35-3b4a-11f0-b894-0df219b8e170;
- Wed, 28 May 2025 00:29:32 +0200 (CEST)
-Received: by mail-ej1-x62f.google.com with SMTP id
- a640c23a62f3a-acb39c45b4eso598802566b.1
- for <xen-devel@lists.xenproject.org>; Tue, 27 May 2025 15:29:32 -0700 (PDT)
-Received: from localhost.localdomain (host-92-26-98-202.as13285.net.
- [92.26.98.202]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ad89f0890easm20956566b.60.2025.05.27.15.29.31
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 27 May 2025 15:29:31 -0700 (PDT)
+ id 3e6f77a4-3b4b-11f0-b894-0df219b8e170;
+ Wed, 28 May 2025 00:38:02 +0200 (CEST)
+Received: from BN1PR14CA0023.namprd14.prod.outlook.com (2603:10b6:408:e3::28)
+ by CY8PR12MB7586.namprd12.prod.outlook.com (2603:10b6:930:99::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8769.26; Tue, 27 May
+ 2025 22:37:58 +0000
+Received: from BN1PEPF0000467F.namprd03.prod.outlook.com
+ (2603:10b6:408:e3:cafe::86) by BN1PR14CA0023.outlook.office365.com
+ (2603:10b6:408:e3::28) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8769.27 via Frontend Transport; Tue,
+ 27 May 2025 22:37:57 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN1PEPF0000467F.mail.protection.outlook.com (10.167.243.84) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8769.18 via Frontend Transport; Tue, 27 May 2025 22:37:57 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 27 May
+ 2025 17:37:56 -0500
+Received: from fedora.mshome.net (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Tue, 27 May 2025 17:37:56 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,137 +59,115 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0fceeb35-3b4a-11f0-b894-0df219b8e170
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1748384972; x=1748989772; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=3oiHMMn1gOhGUbZjQ+nPA545Sb+2MYIAsishPZ9ofHY=;
-        b=neT+ZDog5GTry/drSZSUWQY4j3akrsAcBhtOpH/pRzRQLnrHK0Kw9/O82heihdTMKv
-         gJUdbvnz36B2iK2gzxr+Unc9tLedE/w5xmykhw8iJTy4cKpz2AGogKMcW4AeeoT4Oyfh
-         K3EjI+x4QOg7POtYtTSxOxTMWJo2u2MZ7HQ40=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1748384972; x=1748989772;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=3oiHMMn1gOhGUbZjQ+nPA545Sb+2MYIAsishPZ9ofHY=;
-        b=BvWotjMreITfBTd29GJdyWbRry8MuLCTUArAdVIoxtD6Tw2izUpB7JDEcuKN3SImlS
-         wtbFQzvuPwxNl4b/DJIJiItoZr20n+WVSb8Zr482MAzwPiS1UYFTMEfsAS3/a94qHWPd
-         Ekl5lFxKjQIuT9eKQl3sxY8OzYhuqYuKWR6gINHKCaAewGrpgbRxEGggg8kslkD3clDj
-         PtP8eLluepLV4d+UoIrmEsSEI1XNEdrzw6S+eKDlh6rL65w8Ch4l48SRGe1FqJsdt7MV
-         bgetbgyOLIlNUfD95uWh6bCgC8Mv6iM3D9HdIBO7Jy+MaXJEJfYxBbR7D3MRv9HzG8v9
-         8fgQ==
-X-Gm-Message-State: AOJu0YyA7JQEZUHnbOfq+20IHik6q8dvKkdkGtYvDrWv+L9s+Pb/9ggC
-	d7ziASjPr3YWO1lAttU8PxU0DRob5o1SJfLtWInEBFbqk60v7/VSV7Xswn7Cnmx4VwcMOL481AR
-	tbar9
-X-Gm-Gg: ASbGncuYat/VviWuI5cttskvJxfikMAyh2AOXu8QsNrq3YLSJwnG24oOoKYhavbakS9
-	OeCAAgsi+yrlc+PmC83EKLsZOwONqF8KlQt9DQt2UM/j7YvttzRkY9Unyo0B3FIzn/yO8KIx14v
-	cOvfp6rK1H76+CmHUkRbIPgAiseMFx+1oMnzG/xpfAcGfZ+TRS+nAvNCHRv78x157BAO57KeMLj
-	VNXfLbUuaCvSNeRNZYLc8sCXsX+B7Je9ESYyjE1kibtwJpuke7qj6SaHdsUnw38lh8hhzbqH484
-	cbqim5uV2hD14BGOJM8xjOUY/zXh98BF1GueR0+4oIf7PUeVjXF65A7PN8p+7UxfXgMFKNCiuEI
-	upukuSiSmsLfpYK38N4N5zCVdNsLvorD+b1k=
-X-Google-Smtp-Source: AGHT+IFeYNMBj5gwWxSZAb2E+zf1Ivvq+P1Oe4aPcpNWSVMNsf5CJA+r/eltnskHMFCHKbuM7FAYhQ==
-X-Received: by 2002:a17:907:9715:b0:ad8:8835:f794 with SMTP id a640c23a62f3a-ad88835f7bbmr492246066b.32.1748384972114;
-        Tue, 27 May 2025 15:29:32 -0700 (PDT)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <JBeulich@suse.com>,
+X-Inumbo-ID: 3e6f77a4-3b4b-11f0-b894-0df219b8e170
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=WThV6PPiYzwQdFsduHl7ho0mbPFeYTf+YEpT5ZouXGog5oDIvkhxu2H+3Xwt+dRaW3hn9aE9zrzqFVwYhKggeAIcjB/c+DxuAguURPsBgv4KMZXKnm+OHgaphWd2sfOY/lu3YI3y9nz/Ekj4RVYpflD069fi/aFOGZQltU42RJZzMhSBlLbKtxNxovoCGjkiZAcrUTlUBQJ0VUuzlzLBOgWZutFwhKrVDjeUyuKkeqiEwN6wI5dz2y5A0eGam2bbcLvTsqLoxw5MPRxDECi1VbA2TlL9eNTjxKCpWEt5V+zkLEKsaePdbsLEcSZvzGldnTh8Yyq/odcZkBKorU9pTw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=iOCIgSrhE370bSBnQ7ALiF16fphr5HjFCjkf66s7g44=;
+ b=ODiwtcVsbnpYzMroyciNnA6sW8+EN3Rnnmn41KmvWgDi5mYSl+sqtPh4dxiCHnpT2kd3Z1HnLztB0CHIogoX0OHC+7WPgRZKgYH4qf6/sC0z0lcm7aqDk4YFbrkdON7JA/Mgw4t/RmL+3CFIFp6FVNf+twQgGeSrlbz5NXA/Xu7Z4BMP95SNZaegQOJvJTc2iMgMnmqHeOa6nzLBICUMQyFF3fK+itPMqh9hxGd/AfmR0Audsow6lqG2uzd3M3EA6SisvWBHbQgT2Stu30y84vehExULTzQ4lMhHY1JBlThw9944gWpr0K8jLDee3hRLxUZYoOBgp51B4kP+G53v7A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=iOCIgSrhE370bSBnQ7ALiF16fphr5HjFCjkf66s7g44=;
+ b=ryT/3Ds537G4Re3U5n/vIN7cVHRHEr1ml3pe3GxnB8Om5H2isa9QNKHmRy0wnuSMBFPhW0q5EL58LM9MoAh4IqgEwWlr7FXl/IYHv2o1uFC1xqLLQBy+uArIWx1hBg5oacEWrtUksXSclcVssQ5oCGZCCZLhZL8wVExkCQ8vi60=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+From: Jason Andryuk <jason.andryuk@amd.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Jason Andryuk <jason.andryuk@amd.com>, Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH] x86/bitops: Optimise arch_ffs()/etc some more on AMD
-Date: Tue, 27 May 2025 23:29:30 +0100
-Message-Id: <20250527222930.1452674-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.39.5
+Subject: [PATCH] xen/x86: Remove is_periodic_irq() prototype
+Date: Tue, 27 May 2025 18:37:53 -0400
+Message-ID: <20250527223753.47055-1-jason.andryuk@amd.com>
+X-Mailer: git-send-email 2.49.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+Received-SPF: None (SATLEXMB04.amd.com: jason.andryuk@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN1PEPF0000467F:EE_|CY8PR12MB7586:EE_
+X-MS-Office365-Filtering-Correlation-Id: d9937ee1-07d6-4a6d-8186-08dd9d6f20cb
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700013|376014|82310400026|1800799024;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?v43PRb4JSHpxicjZwLQ7O+04lOpkkhffFX9j2nj7FIhGLSTytLdP8uysODjL?=
+ =?us-ascii?Q?np3yf4mBWb6CXtGPpYhEvC9Hj2MrSruVqcGrT1uU7kFy8B3/qQ5VC0SRqnPz?=
+ =?us-ascii?Q?AA+43kCwB5OlmrfC9N1DZ1xZV8dzKh/tZu+wDl/7oOTZajH/WmV2baP7dbpg?=
+ =?us-ascii?Q?LpE3oXIzFKdUHD5cf+mulVZbQONdPHc0OaHnk/CNwraDIgAp0/QeHd0DiEYS?=
+ =?us-ascii?Q?M0I+uRd49AfGD8ApzgkpHDjsCN9U836DOcHroQ1wNwlWwgvsO6fwEN34HGG4?=
+ =?us-ascii?Q?wfzl1/szb4PvvgVwtr1L/elWat+AuGqr0Kz3ObI3fUjUdAEub2rkTpl7s9td?=
+ =?us-ascii?Q?YcB+ppL7xbxfOFgSWRzkjaIfsy1ZKiEdaxKBb0K8QGvTYkjw0HQ5CDJizVT8?=
+ =?us-ascii?Q?fV2a23lFJ9qfgPqeq92JUTXc1A7q18vwYfX9kkx73QLVJ6JKkOddBL9THPRL?=
+ =?us-ascii?Q?VmDcGIyhtc/8KoVPWa0/N94b23mHOsW3k8pVCvByRwRR7yjdDK5rDttah4h0?=
+ =?us-ascii?Q?Hg821co4kmHSaXyqOKkendSeMznN1x4Mn5FpX9dpn+iee/9nzNZrMuA/1hr2?=
+ =?us-ascii?Q?fgzZH6wwIXzYsrW1RKczxjwQxeCEjSJ73lxVYbAeP1Av/3EReIaQbiiIYRZt?=
+ =?us-ascii?Q?R5TtulfhYj7OXX9RBHZz0r7VHI6o24WdTPuhB5O5u88xGQ59EzFJe2fnS4x9?=
+ =?us-ascii?Q?7/sU3YxlCCyqA692df3jCwuPpuADUTZqjGgsNK3MJdtAJWHIDV0YQorHTuhy?=
+ =?us-ascii?Q?MKSf5I3+qGKy+ua9zKjFSA9egFF5FVxZaAVIiyx/dEbLsQiRE6M5p08ACWqy?=
+ =?us-ascii?Q?2+irdFOJuF7ToQTsf9N8lbYWADeUtdAqp5boUBcOlaW+3VgFijBEmFjBxCaf?=
+ =?us-ascii?Q?Hb6XVizn1l54um0HPQpCRzeriHNPZsLfsF8436+1r7oZQuy9djUeZkBhWMIb?=
+ =?us-ascii?Q?ABHtxojCgX+6RIR1qyPg2LyDZtylp7SDzRUDwqPZM2OFqZ5MYEDDR0ArQTEE?=
+ =?us-ascii?Q?LhMbsohSpBVxF68VtSyyQKrSp09qckt/HQDu6ICmR/hnn+u+lyOnjwssIhh5?=
+ =?us-ascii?Q?8F/B04ne3qf0kmDgeFAVqfH7+kt2rdIHpOVlKlKJg9ui1Q7+vbRRBL/4EN7V?=
+ =?us-ascii?Q?EyXvD97J7flC25qtdyDpyKbFXQA0MHxfnszO9NpH2+Q11wDlo1lH3fN+yjDO?=
+ =?us-ascii?Q?CQY/BrmGbZPmFluPRRhgkaURW5+rqNlF91TbEtWKsXKEHiCIDYCmWn615+vc?=
+ =?us-ascii?Q?7Se6882FHC3wkXwe5kt7D2mgIxm9xmlRKiCWNq2mQO+24uC+YGHJLt66vkAf?=
+ =?us-ascii?Q?RlbXCKlwbJy0pANCd0itW5Fljc0wIyXN6szI4z1HVn3bshuCS5svyMst7DNx?=
+ =?us-ascii?Q?55G6/sruOKyqnkqOwNTkFtNEFjh4qrEfV/p7r8iBa6z1NG2D6FkfLopXw0vm?=
+ =?us-ascii?Q?czow5+lgRrD6rWONbDUZof1G8JRDLaxgRXN4/3AJDYOkGW3Sg0AOuensOz1L?=
+ =?us-ascii?Q?X9rcw39pyCRXO/dl9Bny9G6xlj1hNXXIcGt6?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(376014)(82310400026)(1800799024);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 May 2025 22:37:57.3186
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d9937ee1-07d6-4a6d-8186-08dd9d6f20cb
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN1PEPF0000467F.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7586
 
-One aspect of the old ffs()/etc infrastructure was the use of TZCNT/LZCNT
-without a CPUID check.  Given no obvious justification, I dropped it during
-the cleanup.
+is_periodic_irq() was removed in the Fixes commit, but the prototype
+remained.  Drop it now.
 
-It turns out there is a good reason, on all but the most recent AMD CPUs.
-
-Reinstate the use of "blind" TZCNT/LZCNT when safe to do so.  This happens to
-be preferentially in loops where a repeated saving of 5-6 uops becomes far
-more relevant than a one-off scenario.
-
-Leave an explanation of why.
-
-No functional change.
-
-Fixes: 989e5f08d33e ("x86/bitops: Improve arch_ffs() in the general case")
-Fixes: 5ed26fc0768d ("xen/bitops: Implement ffsl() in common logic")
-Fixes: 54b10ef6c810 ("xen/bitops: Implement fls()/flsl() in common logic")
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Fixes: ddc35d1cc994 ("[HVM] Enable more than one platform timer...")
+Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
 ---
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
+The full Fixes line is:
+Fixes: ddc35d1cc994 ("[HVM] Enable more than one platform timer (PIT/RTC/HPET) programmed as periodic timer and adds them to abstract layer, which keeps track of pending_intr_nr to avoid time interrupt lost and sync'ed timer with TSC.")
 ---
- xen/arch/x86/include/asm/bitops.h | 17 ++++++++++++-----
- 1 file changed, 12 insertions(+), 5 deletions(-)
+ xen/arch/x86/include/asm/hvm/vpic.h | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/xen/arch/x86/include/asm/bitops.h b/xen/arch/x86/include/asm/bitops.h
-index 87eac7782f10..62e6ca26f5b0 100644
---- a/xen/arch/x86/include/asm/bitops.h
-+++ b/xen/arch/x86/include/asm/bitops.h
-@@ -399,9 +399,16 @@ static always_inline unsigned int arch_ffs(unsigned int x)
-          *
-          * and the optimiser really can work with the knowledge of x being
-          * non-zero without knowing it's exact value, in which case we don't
--         * need to compensate for BSF's corner cases.  Otherwise...
-+         * need to compensate for BSF's corner cases.
-+         *
-+         * That said, we intentionally use TZCNT on capable hardware when the
-+         * behaviour for the 0 case doesn't matter.  On AMD CPUs prior to
-+         * Zen4, TZCNT is 1-2 uops while BSF is 6-8 with a latency to match.
-+         * Intel CPUs don't suffer this discrepancy.
-+         *
-+         * Otherwise...
-          */
--        asm ( "bsf %[val], %[res]"
-+        asm ( "rep bsf %[val], %[res]"
-               : [res] "=r" (r)
-               : [val] "rm" (x) );
-     }
-@@ -428,7 +435,7 @@ static always_inline unsigned int arch_ffsl(unsigned long x)
+diff --git a/xen/arch/x86/include/asm/hvm/vpic.h b/xen/arch/x86/include/asm/hvm/vpic.h
+index d71b270193..78ed33e9aa 100644
+--- a/xen/arch/x86/include/asm/hvm/vpic.h
++++ b/xen/arch/x86/include/asm/hvm/vpic.h
+@@ -35,6 +35,5 @@ void vpic_irq_negative_edge(struct domain *d, int irq);
+ void vpic_init(struct domain *d);
+ void vpic_reset(struct domain *d);
+ int vpic_ack_pending_irq(struct vcpu *v);
+-int is_periodic_irq(struct vcpu *v, int irq, int type);
  
-     /* See arch_ffs() for safety discussions. */
-     if ( __builtin_constant_p(x > 0) && x > 0 )
--        asm ( "bsf %[val], %q[res]"
-+        asm ( "rep bsf %[val], %q[res]"
-               : [res] "=r" (r)
-               : [val] "rm" (x) );
-     else
-@@ -446,7 +453,7 @@ static always_inline unsigned int arch_fls(unsigned int x)
- 
-     /* See arch_ffs() for safety discussions. */
-     if ( __builtin_constant_p(x > 0) && x > 0 )
--        asm ( "bsr %[val], %[res]"
-+        asm ( "rep bsr %[val], %[res]"
-               : [res] "=r" (r)
-               : [val] "rm" (x) );
-     else
-@@ -464,7 +471,7 @@ static always_inline unsigned int arch_flsl(unsigned long x)
- 
-     /* See arch_ffs() for safety discussions. */
-     if ( __builtin_constant_p(x > 0) && x > 0 )
--        asm ( "bsr %[val], %q[res]"
-+        asm ( "rep bsr %[val], %q[res]"
-               : [res] "=r" (r)
-               : [val] "rm" (x) );
-     else
-
-base-commit: d965e2ee07c56c341d8896852550914d87ea5374
-prerequisite-patch-id: 8da89000c73c38aab6abfa6622217ea9eff07fbd
-prerequisite-patch-id: 74830838bac94ed1e036a8173cf3210a314b35d8
-prerequisite-patch-id: 0654835c28df8d40b6c97006d041c4d31447a9a6
-prerequisite-patch-id: 2d47d646c6a6e0019918c57753d6c01a752c377f
-prerequisite-patch-id: d8f8c4221a2d7039bae6f3d38e93fe90b2091d01
-prerequisite-patch-id: e0397c86b545a1d65f2e6b2049c282b926c40c64
-prerequisite-patch-id: ea21abe4540ee229f4f8725ce3f701d9ba4bd4a8
+ #endif  /* __ASM_X86_HVM_VPIC_H__ */  
 -- 
-2.39.5
+2.49.0
 
 
