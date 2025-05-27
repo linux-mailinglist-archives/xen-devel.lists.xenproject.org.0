@@ -2,52 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 45129AC4A0E
-	for <lists+xen-devel@lfdr.de>; Tue, 27 May 2025 10:21:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.997932.1378718 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 06CE5AC4A9F
+	for <lists+xen-devel@lfdr.de>; Tue, 27 May 2025 10:49:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.997942.1378737 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uJpZB-0008LK-AG; Tue, 27 May 2025 08:21:45 +0000
+	id 1uJpzx-00031s-GD; Tue, 27 May 2025 08:49:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 997932.1378718; Tue, 27 May 2025 08:21:45 +0000
+Received: by outflank-mailman (output) from mailman id 997942.1378737; Tue, 27 May 2025 08:49:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uJpZB-0008IO-6v; Tue, 27 May 2025 08:21:45 +0000
-Received: by outflank-mailman (input) for mailman id 997932;
- Tue, 27 May 2025 08:21:44 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uJpzx-00030B-Br; Tue, 27 May 2025 08:49:25 +0000
+Received: by outflank-mailman (input) for mailman id 997942;
+ Tue, 27 May 2025 08:49:23 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=3hp9=YL=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1uJpZA-0008II-61
- for xen-devel@lists.xenproject.org; Tue, 27 May 2025 08:21:44 +0000
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on20623.outbound.protection.outlook.com
- [2a01:111:f403:2417::623])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9dc925d0-3ad3-11f0-a2fd-13f23c93f187;
- Tue, 27 May 2025 10:21:42 +0200 (CEST)
-Received: from DS7PR05CA0103.namprd05.prod.outlook.com (2603:10b6:8:56::18) by
- IA1PR12MB7709.namprd12.prod.outlook.com (2603:10b6:208:423::15) with
+ <SRS0=RJbA=YL=amd.com=penny.zheng@srs-se1.protection.inumbo.net>)
+ id 1uJpzv-0002ks-US
+ for xen-devel@lists.xenproject.org; Tue, 27 May 2025 08:49:23 +0000
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2061b.outbound.protection.outlook.com
+ [2a01:111:f403:2413::61b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 776ab30a-3ad7-11f0-b894-0df219b8e170;
+ Tue, 27 May 2025 10:49:14 +0200 (CEST)
+Received: from MW4PR04CA0159.namprd04.prod.outlook.com (2603:10b6:303:85::14)
+ by DM6PR12MB4073.namprd12.prod.outlook.com (2603:10b6:5:217::12) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8769.22; Tue, 27 May
- 2025 08:21:36 +0000
-Received: from DS1PEPF00017090.namprd03.prod.outlook.com
- (2603:10b6:8:56:cafe::4f) by DS7PR05CA0103.outlook.office365.com
- (2603:10b6:8:56::18) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8769.19 via Frontend Transport; Tue,
- 27 May 2025 08:21:36 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8769.25; Tue, 27 May
+ 2025 08:49:14 +0000
+Received: from SJ5PEPF000001F6.namprd05.prod.outlook.com
+ (2603:10b6:303:85:cafe::2c) by MW4PR04CA0159.outlook.office365.com
+ (2603:10b6:303:85::14) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8746.31 via Frontend Transport; Tue,
+ 27 May 2025 08:49:13 +0000
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS1PEPF00017090.mail.protection.outlook.com (10.167.17.132) with Microsoft
+ SJ5PEPF000001F6.mail.protection.outlook.com (10.167.242.74) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8769.18 via Frontend Transport; Tue, 27 May 2025 08:21:35 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 27 May
- 2025 03:21:35 -0500
-Received: from XIR-MICHALO-L1.xilinx.com (10.180.168.240) by
- SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39
- via Frontend Transport; Tue, 27 May 2025 03:21:33 -0500
+ 15.20.8769.18 via Frontend Transport; Tue, 27 May 2025 08:49:12 +0000
+Received: from penny-System-Product-Name.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.39; Tue, 27 May 2025 03:49:06 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,237 +56,185 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9dc925d0-3ad3-11f0-a2fd-13f23c93f187
+X-Inumbo-ID: 776ab30a-3ad7-11f0-b894-0df219b8e170
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=uPfW6FHIi0EOMa1iJwafhJivyP2sCXK7bYjaqWBerQ3Ege+2upNOSG9dGG4n4Hn9tOu17A2bdOHPRwlNi+KfNB+DlE1uZXKsrH1rM6kdMuwrGGuigGQMaVtcd/xQ/eq4mOhDXmURM5vbXk0VIJWawkZM3nbCMWtvHDqe6BkhmMzzYeX72iO22Rb9s2y8fQnIK7DyxI75Scj5XJt5hAfI8YAczhBJkVhG7EMVmvUr2d6DDUpyYO3lecuCF4sieZsp7gkpqZ7ctj3tElPssGY+KKJKunCj1l9umlMgCNf0oegiLBSJ4DkzPP4wJLXHbW428Tw/cflrPYhAATICgvo67A==
+ b=k9LxXrz4Ck6RanNgT2/Dv41yYywfygHIo9mFVp31FFpRIJgj4f2Kf41FI2Zjm2NCJZdBhpFb0XJTr/IFJFZozcAk4DqmAYx/wEV9+sJsqUD++7sF2H0+QgyKsCmwUeLEQrnAer1+4FZoEifJ6Z+Nwpo5lOpLcdfw1ibuYCzGIn4eL/rxATAcNgPSqY9A+XA2lEKjiJQxJB4BJP9ioQCbSyN/t1eQ1dstAxf5fMf47kVLyY7f4V72LfrnGrUrKGRwYlk43eguQ2y+avu63xKPdR/BUt3b5aq2uos09QHgrp8WD3T0chdsahmDpjfIn07bEQy+uB3PSsx+NkxHlO7TFQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=W0Z01jTySH/EuzySEtYep7TaxXxwh8oPDWV487W9Gjo=;
- b=XcupaXMNCZ1Jsf3KKG+bmyuWvwzfe4dbhpV17E7KvmXDqnzS/SP552RvBZj90u01MNvKNcwa9N54uIgCKtlc1062C9e7AQNJG0dx2551SxJAeDZenBPHeX+zaWODYbV7zunTqDorgMZ/TYkx4l5EmeWPwEqynmwlfx6h1ax1/Hrpp5DLUwo3X/9H7AdiJ7es6UYENPgB531Xpj3tWprI/jglIQrZi9yMCj/zOeqMCDdcw0zPYb20BiDT2ULKwE6U7AJBRwzVFne7ENiZ+o0Jlxso23LGw2rlYXVZF476b7r3KMh2Id8pSpyr9WPkAYABr9qbQu6+obDOebGSXzhkbQ==
+ bh=uz/bPWf90rgKVsHMue4aMMms4AT0/+u95OXPEnMq1ew=;
+ b=TQJjlacmSn5f7zRskxrlLkQlqtZXYLgdx7GClSrDaXHEIHJurUumjpGnjWjGhDxFmtrqGZhOADGuF1m3nRaGdwGF/XbneRMiz+d3S5Pc4BZ4AdmbQETR+IAPVx36qnMkXv55rwNpHfXBsBI2KgT1KnCVZu4ESdkZYKkyLydvKjKCnR9VLsCZHzqJb8BL9am/U04RLKiras/KF2BDtmmJz34Q9XLNoPO69Zb21u4bDfXGUpXkApgtwpMEqw1hhCBPJBXlMqceUgrjM4H4nlqkkC9ILuuaWmsvVSfzEJmbj0fLvAdQ5NOeelFOaOUg6ufj0K7n++eCfQ/hxRtJlTahJA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=W0Z01jTySH/EuzySEtYep7TaxXxwh8oPDWV487W9Gjo=;
- b=Fsz3QgLCY18Gq8bxoAUFj5U3vNuVpFjOFEcVT6/QEUGQRZlIA3LzQ5PD0dOXRN0TVoffrxBpOc4mhr+F8jgxWPYT4R0O9CrebnahFCxsOuE8tEffHHE7uYy1gLMVNCugu1EgPoSG/xuel3pWWcOpXjXldYPprUKXrvGufXKr640=
+ bh=uz/bPWf90rgKVsHMue4aMMms4AT0/+u95OXPEnMq1ew=;
+ b=MWh2TGMrb2CCDl4SSYkENK0MlGoJbIGk2XVQSWqw4PotJ9NgU6YXm0oceW4AwZB/a1NDwDvzntvwJVzUoyWzKcAqgbLoxgjTwH+JH03zIQTm+8HgZEDR+PCqpQuHY/fIXJAuaviRGNkT0NDeTh9D4CfBHpSOfFWBdb//5CRzixQ=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-From: Michal Orzel <michal.orzel@amd.com>
+From: Penny Zheng <Penny.Zheng@amd.com>
 To: <xen-devel@lists.xenproject.org>
-CC: Michal Orzel <michal.orzel@amd.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
-	<bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>, Anthony PERARD
-	<anthony.perard@vates.tech>, Jan Beulich <jbeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH] device-tree: Move Arm's static-evtchn feature to common
-Date: Tue, 27 May 2025 10:21:17 +0200
-Message-ID: <20250527082117.120214-1-michal.orzel@amd.com>
-X-Mailer: git-send-email 2.25.1
+CC: <ray.huang@amd.com>, Penny Zheng <Penny.Zheng@amd.com>, Jan Beulich
+	<jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Anthony PERARD
+	<anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, "Julien
+ Grall" <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+	"Juergen Gross" <jgross@suse.com>
+Subject: [PATCH v5 00/18] amd-cppc CPU Performance Scaling Driver
+Date: Tue, 27 May 2025 16:48:15 +0800
+Message-ID: <20250527084833.338427-1-Penny.Zheng@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-Received-SPF: None (SATLEXMB04.amd.com: michal.orzel@amd.com does not
- designate permitted sender hosts)
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS1PEPF00017090:EE_|IA1PR12MB7709:EE_
-X-MS-Office365-Filtering-Correlation-Id: db11e12c-15a8-4251-c6e7-08dd9cf77f14
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001F6:EE_|DM6PR12MB4073:EE_
+X-MS-Office365-Filtering-Correlation-Id: a002f5d1-dacc-4a0d-a014-08dd9cfb5ab8
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700013|376014|1800799024;
+	BCL:0;ARA:13230040|82310400026|1800799024|36860700013|376014;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?M4kGJMApsy61b9c72cHEK7Kfi67wI/0Mh2YdfDwTikTQUFIyYSY2kZca/2uo?=
- =?us-ascii?Q?iEwuaV5rvn5JH/0VCGNSeZii9ifWJrPTTw9ltVA1yD1YO8nWm2EyAS5srtiT?=
- =?us-ascii?Q?8wB5zI1kqNODMM7CZZ7ODFP70G5zdQpkCByofOrKvLVNoEzZ0VIYggYeuVl4?=
- =?us-ascii?Q?fzwMrF35dR3tzUMZYLfzA+hGg07ZGNhQmeYoAXrt8dFBp3fMg6SU5UtOImZH?=
- =?us-ascii?Q?EHnwBksHh9IxeyUhLN6UVlACaDkNmUTtML3jC85mB35AC9JN3ltofOk8kfT6?=
- =?us-ascii?Q?ne9vIdezgBn8XR9PDzxGVrMZcoT9xkIFmENWljOwsWzyAlIxubncfRAOJZbr?=
- =?us-ascii?Q?vC5zlqWlO5vkVIYptxeb3Poa/KxQhllhFp+GhvodRS9NkwsyshP2h91sVfsO?=
- =?us-ascii?Q?p8crPUjx7x5hIZNMER+6pLfgZdUPNuRi74jsA3qqz8XT307qld0KCP3xZaXy?=
- =?us-ascii?Q?xxb1wll8IF9BYx+fc5f1Zz1bd5pnUnO0Cg60/OnNgAalYSnEZqNj8BJnaO3g?=
- =?us-ascii?Q?U8t15G1mO/KxlWCg7+ydwXJTNJqvA1BA6945ErpEzXk26Ena3D/k6XM3/TFi?=
- =?us-ascii?Q?3Ger748O7HUCSgNVy7LzXLdO99YJ1Vw8ZuMTa1ZrT3lHlQWYCqpw+lofnL+8?=
- =?us-ascii?Q?iMduHPDmU5rph2wsFdhUFKMSX7mWb6EhWvOEmFucREFCNujUhOnxuRpxLW/+?=
- =?us-ascii?Q?AfebuaAr8ehb1mmhOsS3pbiSugSUh5w5ymOsuvIqGpDtsF61dk8Ri14WGFP2?=
- =?us-ascii?Q?u0LUFgjuZrFP7P10GN9BGtqC1zOcpRodC+Q5sNvgt8Mf2CRTmJTN2Lfkwsfk?=
- =?us-ascii?Q?wvyrolrxcI6oZLG86RD0Fb5v5Df52pK4cgNqOWgJfBMKxFO9pI//3L7mbBeI?=
- =?us-ascii?Q?YZ/VwilNlJyuJdzuDggDaYeL7p/IKM9t3INggEh8duEjWHDFDr9TxcNT4RQT?=
- =?us-ascii?Q?txEOmOZeXJ395czcg2Rnn0qf9+0xhv4LiMlayoekSGg6+rh3qlyMbBnqoTVp?=
- =?us-ascii?Q?YZZb0LzMt6exViEVIiBvJBBPYlXbpShZsqdHPHEcH5A1vIyoyHIwYavgl89v?=
- =?us-ascii?Q?vdM9ZtSYsQdVYkYnjsDqJPSuYhREbJzZg2a1VL7CanNY+0r6D81iST04m8xw?=
- =?us-ascii?Q?WNp3LQmDljEcaRNS3zC3sH2tnA0kUrFv/cZRb2wFsE1vv0micePKXiBYB4JH?=
- =?us-ascii?Q?aNLWRTSmcwW2+FuBuokdaPn+1AiU88LjUNymDtOfw8QyFOkVFql1EPnQhCdp?=
- =?us-ascii?Q?+eRgwtqFtwKHclydTeLFqOkWPEB8lghRpFwqXDtEPSrqIc4tXTHSwQsPpDor?=
- =?us-ascii?Q?xAFtfDW8toLsXuZ3Yba/NyJxmChdN6nQLtrGWbbj0+5pXsnJhWW/xXk/KuQN?=
- =?us-ascii?Q?CUXOO+lBmg9KrIhHXk7o/ut4jqAz1IijWV1s8vAcx/D3+XYvmwpdh0++Wv+G?=
- =?us-ascii?Q?ARhUw03G3A0jRuRLR2ptlO6wBpSYeDjIVC+iILkFieVYIPTNEZ9k4B9/yz1O?=
- =?us-ascii?Q?LBnZPZxPjF7biUkmP2CAKhbrBRzUH4+/jNY7?=
+	=?us-ascii?Q?XruPRAI6/PE1Fl6lUZ3lfphdI81K2FYySVy8/2YAJySmaqqY9+I1e67YtKZg?=
+ =?us-ascii?Q?j5ushAVdcGryscR9IvL2Iy6N9Fm9DuzhYbHlqI0i9jSYeRbO/zCr5tr32owJ?=
+ =?us-ascii?Q?Wp9EngIrZmNMzMN7DJ7HMmt+0mZQlxQr0HFUNxmKRiYDhmV/IK8lqH7kZFvZ?=
+ =?us-ascii?Q?D1kNbsax3Zik0xbkNpwzqtElrOstKqKICQ+zxuG0sfbKl+rMY539dv9MHsAB?=
+ =?us-ascii?Q?qQzA2JjGOnvT/O4Wo7jUqkmoCxfKYEpSp7mCgd969f/4e36nNVOlfZ8qVYJ3?=
+ =?us-ascii?Q?dT0vUmKKicqxTf3dx6UiGeyUmQQeSFXFIp0VAP8DaoHAxeHBR5tVyp9Go4wx?=
+ =?us-ascii?Q?HMRdwc9gX//Tw3fAfJ3aSpuIE9CMOgtasgr82gg9t7YhNmTrabd7uyJb0q25?=
+ =?us-ascii?Q?41Rl9wiqInWf5uPM5aoTs5ltmBgP9UeINi25OIVmK7ZczPJ7QEY3Y9Oarsmp?=
+ =?us-ascii?Q?5oEXX7c+0iI7lc05BdJeN3gFp2ELTMvPcHKEJesr377KCwrj+SSDtgEBcBw1?=
+ =?us-ascii?Q?/2vxnnBO/b5Jdn5hx/5HzyOTo9nXdmnL0RzcthZt9SAgRV+9gQoUWKZWX11x?=
+ =?us-ascii?Q?pvzOe7+KXcVAJ6+29eyP/1+P93b5f7mv9Fn4mmALZpXsK441tyFKS0rVPMWo?=
+ =?us-ascii?Q?2cHMCA5Jbh1TnOFS6KGb5h1K7YjwnBz0rLPUeFKlb1TkV5inrvR46EAcKqpy?=
+ =?us-ascii?Q?juhex9RqUzU4Uvwd9sm+tfZUo2WCOoMLwXDfRS19YTZQBnW4/TFtU82p1gbX?=
+ =?us-ascii?Q?zAztUnCdWTbERhsRdaFZ+exTz9I+q74gkEaMLY0y+yIM8Bc8iBK8h0bdnwi2?=
+ =?us-ascii?Q?seDfBYkEcX4i7/VWxwnIajZtZ2i5FAo++GhSn1LRBOiTyn0/IuhL9jXYJ1Hl?=
+ =?us-ascii?Q?iOTIkD27HmbFIMCYAW+glwLxN0YQ3jpiJWeqU9NV5z/4zJhLR5FAP7lyx5V3?=
+ =?us-ascii?Q?W+oyn/h1WulmdKAnzq6ZoLjFhVp6W7MUoX8T0/4+DXR/Gr7jIQSWanXhHBpi?=
+ =?us-ascii?Q?pjJPC/3Srn9kjm00lJQkJ29/WUKJ4TcjifpxxVy1WPL2vh/hdlj4AMQYAsu5?=
+ =?us-ascii?Q?w7UKqRm+SniF9q3EH8j4JGiaQdIRnhx9Z0Nk0TTkEf0n4YlwhX+boCeFoI/Z?=
+ =?us-ascii?Q?eropwn2XYcQCYgwSKyAVbfrDSBDkvSHWOOL7X48Pg2vk+JMJG+xCciXq/XzJ?=
+ =?us-ascii?Q?pHhCn3kGRaYlL/pvGXwIXm0TWhXQKfqJgq1zEkduYanynihfsqr+tUB6dvt9?=
+ =?us-ascii?Q?Orwf1PBtgYL8jYaVIE/vhRs+79RABTRI/OcZaIx//uJ9HwPyOjJ0Vk6SCspw?=
+ =?us-ascii?Q?z+6t0V8zYfZb7m+jBrc80jl+DMhftfZpJTA+iN9gdqAT3c4KZzHCVbL8ZmK9?=
+ =?us-ascii?Q?vsxG+YIhZZj4jVm4bazscMqd5sVYGVYjlpk+kphKjBmt3oLfW1q78tgvQAP9?=
+ =?us-ascii?Q?rDTjHL0huELD4aG7NbmxW0fGZ2t8IOMa4up0vBjem+1EKrQkBNerWtbVrW/R?=
+ =?us-ascii?Q?IuUc4Eh6pOdWbCkD7YFeoIpmB34FBFS9b5hj?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700013)(376014)(1800799024);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(36860700013)(376014);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 May 2025 08:21:35.8604
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 May 2025 08:49:12.7983
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: db11e12c-15a8-4251-c6e7-08dd9cf77f14
+X-MS-Exchange-CrossTenant-Network-Message-Id: a002f5d1-dacc-4a0d-a014-08dd9cfb5ab8
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	DS1PEPF00017090.namprd03.prod.outlook.com
+	SJ5PEPF000001F6.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7709
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4073
 
-There's nothing Arm specific about this feature. Move it to common as
-part of a larger activity to commonalize device tree related features.
-For now, select it only for ARM until others (e.g. RISC-V) verify it
-works for them too.
+amd-cppc is the AMD CPU performance scaling driver that introduces a
+new CPU frequency control mechanism on modern AMD APU and CPU series in
+Xen. The new mechanism is based on Collaborative Processor Performance
+Control (CPPC) which provides finer grain frequency management than
+legacy ACPI hardware P-States. Current AMD CPU/APU platforms are using
+the ACPI P-states driver to manage CPU frequency and clocks with
+switching only in 3 P-states. CPPC replaces the ACPI P-states controls
+and allows a flexible, low-latency interface for Xen to directly
+communicate the performance hints to hardware.
 
-Signed-off-by: Michal Orzel <michal.orzel@amd.com>
----
-Other candidates: static memory, shared memory
----
- xen/arch/arm/Kconfig                                      | 8 --------
- xen/arch/arm/Makefile                                     | 1 -
- xen/arch/arm/setup.c                                      | 2 +-
- xen/common/Kconfig                                        | 8 ++++++++
- xen/common/device-tree/Makefile                           | 1 +
- xen/{arch/arm => common/device-tree}/static-evtchn.c      | 3 +--
- xen/{arch/arm/include/asm => include/xen}/static-evtchn.h | 6 +++---
- 7 files changed, 14 insertions(+), 15 deletions(-)
- rename xen/{arch/arm => common/device-tree}/static-evtchn.c (99%)
- rename xen/{arch/arm/include/asm => include/xen}/static-evtchn.h (77%)
+amd_cppc driver has 2 operation modes: autonomous (active) mode,
+and non-autonomous (passive) mode. We register different CPUFreq driver
+for different modes, "amd-cppc" for passive mode and "amd-cppc-epp"
+for active mode.
 
-diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
-index a5aad97a688e..57919d8b3ac8 100644
---- a/xen/arch/arm/Kconfig
-+++ b/xen/arch/arm/Kconfig
-@@ -253,14 +253,6 @@ config STATIC_SHM
- 	help
- 	  This option enables statically shared memory on a dom0less system.
- 
--config STATIC_EVTCHN
--	bool "Static event channel support on a dom0less system"
--	depends on DOM0LESS_BOOT
--	default y
--	help
--	  This option enables establishing static event channel communication
--	  between domains on a dom0less system (domU-domU as well as domU-dom0).
--
- config PARTIAL_EMULATION
- 	bool "Enable partial emulation of system/coprocessor registers"
- 	default y
-diff --git a/xen/arch/arm/Makefile b/xen/arch/arm/Makefile
-index 129a109d6ec5..eeeac4e653ec 100644
---- a/xen/arch/arm/Makefile
-+++ b/xen/arch/arm/Makefile
-@@ -51,7 +51,6 @@ obj-y += setup.o
- obj-y += shutdown.o
- obj-y += smp.o
- obj-y += smpboot.o
--obj-$(CONFIG_STATIC_EVTCHN) += static-evtchn.init.o
- obj-$(CONFIG_STATIC_MEMORY) += static-memory.init.o
- obj-$(CONFIG_STATIC_SHM) += static-shmem.init.o
- obj-y += sysctl.o
-diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
-index 10b46d068405..734e23da4408 100644
---- a/xen/arch/arm/setup.c
-+++ b/xen/arch/arm/setup.c
-@@ -31,6 +31,7 @@
- #include <xen/version.h>
- #include <xen/vmap.h>
- #include <xen/stack-protector.h>
-+#include <xen/static-evtchn.h>
- #include <xen/trace.h>
- #include <xen/libfdt/libfdt-xen.h>
- #include <xen/acpi.h>
-@@ -39,7 +40,6 @@
- #include <asm/alternative.h>
- #include <asm/dom0less-build.h>
- #include <asm/page.h>
--#include <asm/static-evtchn.h>
- #include <asm/current.h>
- #include <asm/setup.h>
- #include <asm/gic.h>
-diff --git a/xen/common/Kconfig b/xen/common/Kconfig
-index 3d66d0939738..0951d4c2f286 100644
---- a/xen/common/Kconfig
-+++ b/xen/common/Kconfig
-@@ -162,6 +162,14 @@ config STATIC_MEMORY
- 
- 	  If unsure, say N.
- 
-+config STATIC_EVTCHN
-+	bool "Static event channel support on a dom0less system"
-+	depends on DOM0LESS_BOOT && ARM
-+	default y
-+	help
-+	  This option enables establishing static event channel communication
-+	  between domains on a dom0less system (domU-domU as well as domU-dom0).
-+
- menu "Speculative hardening"
- 
- config INDIRECT_THUNK
-diff --git a/xen/common/device-tree/Makefile b/xen/common/device-tree/Makefile
-index 831b91399b74..2df7eb27222e 100644
---- a/xen/common/device-tree/Makefile
-+++ b/xen/common/device-tree/Makefile
-@@ -6,3 +6,4 @@ obj-$(CONFIG_DOM0LESS_BOOT) += dom0less-build.o
- obj-$(CONFIG_OVERLAY_DTB) += dt-overlay.o
- obj-y += intc.o
- obj-$(CONFIG_DOMAIN_BUILD_HELPERS) += kernel.o
-+obj-$(CONFIG_STATIC_EVTCHN) += static-evtchn.init.o
-diff --git a/xen/arch/arm/static-evtchn.c b/xen/common/device-tree/static-evtchn.c
-similarity index 99%
-rename from xen/arch/arm/static-evtchn.c
-rename to xen/common/device-tree/static-evtchn.c
-index 49db08d5c6fc..8b82e6b3d8a6 100644
---- a/xen/arch/arm/static-evtchn.c
-+++ b/xen/common/device-tree/static-evtchn.c
-@@ -1,8 +1,7 @@
- /* SPDX-License-Identifier: GPL-2.0-only */
- 
- #include <xen/event.h>
--
--#include <asm/static-evtchn.h>
-+#include <xen/static-evtchn.h>
- 
- #define STATIC_EVTCHN_NODE_SIZE_CELLS 2
- 
-diff --git a/xen/arch/arm/include/asm/static-evtchn.h b/xen/include/xen/static-evtchn.h
-similarity index 77%
-rename from xen/arch/arm/include/asm/static-evtchn.h
-rename to xen/include/xen/static-evtchn.h
-index f964522f6a62..31ae92741aad 100644
---- a/xen/arch/arm/include/asm/static-evtchn.h
-+++ b/xen/include/xen/static-evtchn.h
-@@ -1,7 +1,7 @@
- /* SPDX-License-Identifier: GPL-2.0-only */
- 
--#ifndef __ASM_STATIC_EVTCHN_H_
--#define __ASM_STATIC_EVTCHN_H_
-+#ifndef XEN_STATIC_EVTCHN_H
-+#define XEN_STATIC_EVTCHN_H
- 
- #ifdef CONFIG_STATIC_EVTCHN
- 
-@@ -13,7 +13,7 @@ static inline void alloc_static_evtchn(void) {};
- 
- #endif /* CONFIG_STATIC_EVTCHN */
- 
--#endif /* __ASM_STATIC_EVTCHN_H_ */
-+#endif /* XEN_STATIC_EVTCHN_H */
- 
- /*
-  * Local variables:
+The passive mode leverages common governors such as *ondemand*,
+*performance*, etc, to manage the performance tuning. While the active mode
+uses epp to provides a hint to the hardware if software wants to bias
+toward performance (0x0) or energy efficiency (0xff). CPPC power algorithm
+in hardware will automatically calculate the runtime workload and adjust the
+realtime cpu cores frequency according to the power supply and thermal, core
+voltage and some other hardware conditions.
+
+amd-cppc is enabled on passive mode with a top-level `cpufreq=amd-cppc` option,
+while users add extra `active` flag to select active mode.
+
+With `cpufreq=amd-cppc,active`, we did a 60s sampling test to see the CPU
+frequency change, through tweaking the energy_perf preference from
+`xenpm set-cpufreq-cppc powersave` to `xenpm set-cpufreq-cppc performance`.
+The outputs are as follows:
+```
+Setting CPU in powersave mode
+Sampling and Outputs:
+  Avg freq      580000 KHz
+  Avg freq      580000 KHz
+  Avg freq      580000 KHz
+Setting CPU in performance mode
+Sampling and Outputs:
+  Avg freq      4640000 KHz
+  Avg freq      4220000 KHz
+  Avg freq      4640000 KHz
+
+Penny Zheng (18):
+  xen/cpufreq: guard perf.states[] access with XEN_PX_INIT
+  xen/cpufreq: move "init" flag into common structure
+  xen/cpufreq: extract _PSD info from "struct xen_processor_performance"
+  xen/cpufreq: introduce new sub-hypercall to propagate CPPC data
+  xen/cpufreq: refactor cmdline "cpufreq=xxx"
+  xen/cpufreq: introduce "cpufreq=amd-cppc" xen cmdline
+  xen/cpufreq: disable px statistic info in amd-cppc mode
+  xen/cpu: Expand core frequency calculation for AMD Family 1Ah CPUs
+  xen/amd: introduce amd_process_freq() to get processor frequency
+  xen/cpufreq: introduce a new amd cppc driver for cpufreq scaling
+  xen/cpufreq: implement EPP support for the amd-cppc driver in active
+    mode
+  xen/cpufreq: get performance policy from governor set via xenpm
+  xen/cpufreq: normalize hwp driver check with hwp_active()
+  xen/cpufreq: introduce GET_CPUFREQ_CPPC sub-cmd
+  xen/cpufreq: bypass governor-related para for amd-cppc-epp
+  tools: drop "has_num" condition check for cppc mode
+  tools: optimize cpufreq average freq print
+  xen/cpufreq: Adapt SET/GET_CPUFREQ_CPPC xen_sysctl_pm_op for amd-cppc
+    driver
+
+ docs/misc/xen-command-line.pandoc         |  15 +-
+ tools/include/xenctrl.h                   |   3 +-
+ tools/libs/ctrl/xc_pm.c                   |  71 ++-
+ tools/misc/xenpm.c                        | 121 ++--
+ xen/arch/x86/acpi/cpufreq/Makefile        |   1 +
+ xen/arch/x86/acpi/cpufreq/amd-cppc.c      | 674 ++++++++++++++++++++++
+ xen/arch/x86/acpi/cpufreq/cpufreq.c       |  63 +-
+ xen/arch/x86/cpu/amd.c                    |  83 ++-
+ xen/arch/x86/include/asm/amd.h            |   2 +
+ xen/arch/x86/include/asm/msr-index.h      |   6 +
+ xen/arch/x86/platform_hypercall.c         |  18 +-
+ xen/arch/x86/x86_64/cpufreq.c             |  19 +
+ xen/arch/x86/x86_64/platform_hypercall.c  |   3 +
+ xen/drivers/acpi/pmstat.c                 |  65 ++-
+ xen/drivers/cpufreq/cpufreq.c             | 316 ++++++++--
+ xen/drivers/cpufreq/utility.c             |  15 +
+ xen/include/acpi/cpufreq/cpufreq.h        |  24 +-
+ xen/include/acpi/cpufreq/processor_perf.h |  11 +-
+ xen/include/public/platform.h             |  30 +
+ xen/include/public/sysctl.h               |  10 +-
+ xen/include/xen/pmstat.h                  |   5 +
+ xen/include/xlat.lst                      |   1 +
+ 22 files changed, 1416 insertions(+), 140 deletions(-)
+ create mode 100644 xen/arch/x86/acpi/cpufreq/amd-cppc.c
+
 -- 
-2.25.1
+2.34.1
 
 
