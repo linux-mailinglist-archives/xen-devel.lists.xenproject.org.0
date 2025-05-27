@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 89543AC4B6E
-	for <lists+xen-devel@lfdr.de>; Tue, 27 May 2025 11:25:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.998198.1378977 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DCB03AC4BF0
+	for <lists+xen-devel@lfdr.de>; Tue, 27 May 2025 12:05:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.998219.1378999 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uJqYU-0007EK-9J; Tue, 27 May 2025 09:25:06 +0000
+	id 1uJrBT-0006tv-9h; Tue, 27 May 2025 10:05:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 998198.1378977; Tue, 27 May 2025 09:25:06 +0000
+Received: by outflank-mailman (output) from mailman id 998219.1378999; Tue, 27 May 2025 10:05:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uJqYU-0007CS-6b; Tue, 27 May 2025 09:25:06 +0000
-Received: by outflank-mailman (input) for mailman id 998198;
- Tue, 27 May 2025 09:25:04 +0000
+	id 1uJrBT-0006rq-6d; Tue, 27 May 2025 10:05:23 +0000
+Received: by outflank-mailman (input) for mailman id 998219;
+ Tue, 27 May 2025 10:05:22 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=wzHE=YL=cloud.com=ross.lagerwall@srs-se1.protection.inumbo.net>)
- id 1uJqYS-0007CM-AG
- for xen-devel@lists.xenproject.org; Tue, 27 May 2025 09:25:04 +0000
-Received: from mail-oo1-xc31.google.com (mail-oo1-xc31.google.com
- [2607:f8b0:4864:20::c31])
+ <SRS0=PdBa=YL=gmail.com=xakep.amatop@srs-se1.protection.inumbo.net>)
+ id 1uJrBS-0006rk-Fo
+ for xen-devel@lists.xenproject.org; Tue, 27 May 2025 10:05:22 +0000
+Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
+ [2a00:1450:4864:20::132])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 77616ff3-3adc-11f0-a2fd-13f23c93f187;
- Tue, 27 May 2025 11:25:02 +0200 (CEST)
-Received: by mail-oo1-xc31.google.com with SMTP id
- 006d021491bc7-60402c94319so1447449eaf.1
- for <xen-devel@lists.xenproject.org>; Tue, 27 May 2025 02:25:02 -0700 (PDT)
+ id 197e8360-3ae2-11f0-a2fd-13f23c93f187;
+ Tue, 27 May 2025 12:05:21 +0200 (CEST)
+Received: by mail-lf1-x132.google.com with SMTP id
+ 2adb3069b0e04-55324e35f49so1760313e87.3
+ for <xen-devel@lists.xenproject.org>; Tue, 27 May 2025 03:05:21 -0700 (PDT)
+Received: from yp-VivoBook-ASUSLaptop-M1503QA-M1503QA.. ([95.67.15.120])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-32a701214afsm1042331fa.72.2025.05.27.03.05.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 27 May 2025 03:05:19 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,87 +45,110 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 77616ff3-3adc-11f0-a2fd-13f23c93f187
+X-Inumbo-ID: 197e8360-3ae2-11f0-a2fd-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1748337901; x=1748942701; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=6DlyIgc4wsP5dpgdX2dvlV7LQrMg+Z3uJEcYLJjrogk=;
-        b=elYcwug0BvYPM8HlXsW+sHr/6DeBHoJQKYJNiDjIr0tjs488o7SWqFu5+cjTTJa9zR
-         co3ODExsPqIoDFcxmPK3Ye5hYDN9Kh30hI9r0PVGvbtFNiVqA9JprWDP5QrGDjmRU66z
-         dioS8E0cS+TmSnfO1HOix93mwygzl8w+rDqk0=
+        d=gmail.com; s=20230601; t=1748340321; x=1748945121; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=cl9xmdJKDQyhi2sVddtS7UKISQv1pEk5JbYWfqtFKVc=;
+        b=cDy03u8ysCz/cwOETnE5IjSxgMJdTl419Ch8cSWLyf/4Sq4pkUFxJb0DvJrV5PonT1
+         IB/EWwmpjaxdK2WSfO1eU/aGBpUDqwEvdfMUIFkqKrPX3bKIx8M3Lgv0u1pqPuaVbVPZ
+         ZFrzCQsFE51KSfBSFcOCnabpCX18XD5bFnX/yCkIk0q04ykVpr4vjEIdWMHdMXD2cnUi
+         dF1h3xRFhvgHBjg/5JhPa4pMYy+fFXs/g+IHZxR19o7+8ogKD5kYvBAuGPgKzVfn29IV
+         wuXNHkh95/UoWY/pAPX1/j77+Pvd9Xq5e6XlOyBqR8mndCpQ8L8KdCYUamF0Px2v+MY3
+         Jegg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1748337901; x=1748942701;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=6DlyIgc4wsP5dpgdX2dvlV7LQrMg+Z3uJEcYLJjrogk=;
-        b=gOCAdMtvRQQTVeymUZC6tDO0DenbUbuny5B3hw0Cw3s3L89IlncF7NKCnbuQ8Uc2MF
-         CnAHqf1ls4pCjtFgrXHoqh9CAUT7vDHyE7zXp0D2qJm1eiVsdQFDurOFpwYoOCJDJolB
-         bow8baRfLWnUoMN2mrlsmxtRulFT6eOfectcc42cwYPK2g8WvCtRC0xxb3N05o8UBRXg
-         X6EjVwyt1huz0SigA2iBOyNJEJ7rc5k9W1mh1Pn4FnIB4DxMhpZAsrKh7m7atpT0KFKs
-         seVmkDF1TiydGWspasxp7ko2rerDXos8uvStyObVv4bNEgUzXBwFUuWTlkbkC2ICOP5U
-         yimg==
-X-Gm-Message-State: AOJu0YyR3M5duw2h9bX9owSMbJwF3ft+4QESyYhP/h6ZvcTnDdh07mFm
-	FaXa6QNJwv4e0ne945eepZIPdUJQOhLgA4AGFLVoNYImjg7RmgVjiH39rTe6LKFKKBaqcICGpvz
-	zlzWSWaB2e6okcUdbjAqEZccs02t2rALOwAQarwiA
-X-Gm-Gg: ASbGncsSK3mXWMBN0hBQMvWMZ9OLSuQ/jOMPS8kOwEHufi0mcK1NuksMX6UIr/p0Ri6
-	31fGivw0CJJJ9obbn6gg5fS9/USV/ORW//lmp9vyh676N66wv6Pzrt8jM0fnmA+uo30h1zw1uW2
-	Xp7TxsyGKluwRvAMysnYb01dqGkcrE6Cc=
-X-Google-Smtp-Source: AGHT+IHjnGh+A5raDR6s7GdT0JaNmMLoghM0PB6lFoveyzPD+FVw8RnwN8+Zq53E5tdjFyJXvfi9jeQN8NzYFm4JjYY=
-X-Received: by 2002:a4a:ec42:0:b0:60b:c9a6:1d3d with SMTP id
- 006d021491bc7-60bc9a61da2mr1337107eaf.4.1748337901295; Tue, 27 May 2025
- 02:25:01 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1748340321; x=1748945121;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=cl9xmdJKDQyhi2sVddtS7UKISQv1pEk5JbYWfqtFKVc=;
+        b=MnzwvNAz3UgVItoke4YDbRiPeMrK8CEKgTvsR7hoslJLVhcN5C2Ro6eYnPCdVgEi7/
+         jQ3i6f4mu7xc7m8zzF7ON5qPieSvQnl5DJ0sITeGr3I4MTORXth3P/y34WA1yhcwEeUS
+         njT/+qx4rFhlYb/bNs1w96d+tBY6R0lCr/bob8fC2j0/+LlfMuh0IcbrTtFSmGzhiFVa
+         MK+zoyDpjmB2C4xzjJekHWj1xs3jUSc1kGlX9DyxnwWDhy4C3JBDk5kmnXxLI9osyJp7
+         0LmEPT6tMxX8laSNey6izU+GNuAofE6coLlCCPwwGGQuOwRZNeTzyJ28ePMVuJe6o2EO
+         Mb0w==
+X-Gm-Message-State: AOJu0YwWD3arSGckA4dbNSow5cFULZ28u05nR/HPGYG9Nko3BlmU1T1u
+	cwIxOZK6GE75q2xykH+jKreH2352rk76PsqLqcdv/PmVTjC7hgJ0oUbjL3IRow==
+X-Gm-Gg: ASbGnctfvoc3t/yd/iabLCaazF9I7iaZQt3OhGbaGVtxXJe5JcIdKi8CIvDxZH1OMiq
+	8ydLJSbKdR2o17nA3I7bwkuR6KK0OuD4cj/ixszn03kyR3i0CYA0vbmWf8yfw+1IJP0EYUlqt8i
+	7kXfR9yUgQkZD6A6/KmNTmXgdX4qeb62GCVxXKygk6C67PmC+wGd10TJrmLjiVZMlz/iZhE9foY
+	tJtarLrZNKt7txasx1uSV/OUmPCia9P1aA1v9BYq98xjA99L1JAi+uPwzVuTxuQuN8+rM5hyDTd
+	dEKtJT31taSa0Umm7zgLTLomAPMpzV1fEceKQWbs3qFFRHbGDQQnpb8ylsucccbthyp8vveS274
+	+NeBHUQQHLvtb9S0vcym3bbLQTw==
+X-Google-Smtp-Source: AGHT+IHtA5cbQXcv66vLIJ+B0V9HQvGx0l9+/ek5jA6SaPzu3djOQb096zzrHJ5YSqEbRokBPx7zTQ==
+X-Received: by 2002:a2e:a595:0:b0:32a:72de:c640 with SMTP id 38308e7fff4ca-32a72dec858mr850851fa.38.1748340320292;
+        Tue, 27 May 2025 03:05:20 -0700 (PDT)
+From: Mykola Kvach <xakep.amatop@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: Mykola Kvach <mykola_kvach@epam.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [PATCH] x86/ACPI: move scheduler enable/disable calls out of freeze/thaw_domains
+Date: Tue, 27 May 2025 13:04:16 +0300
+Message-ID: <974033e9ff0df3ce8a74efaa33f1cee1dcbdb030.1748340071.git.mykola_kvach@epam.com>
+X-Mailer: git-send-email 2.48.1
 MIME-Version: 1.0
-References: <20250512144656.314925-1-ross.lagerwall@citrix.com>
- <20250512144656.314925-5-ross.lagerwall@citrix.com> <aDR06TT7JJFqHc_u@l14>
-In-Reply-To: <aDR06TT7JJFqHc_u@l14>
-From: Ross Lagerwall <ross.lagerwall@citrix.com>
-Date: Tue, 27 May 2025 10:24:49 +0100
-X-Gm-Features: AX0GCFsc-BcA2B-DvBZ5R3DEkSvnrZnZqzUQvAUFCj_YuTxzM9goCBYwNd3qSto
-Message-ID: <CAG7k0EqN=aytaRfAtg4Nx9RGoAF8fOXvFRcpMQbYFNmipQnjfQ@mail.gmail.com>
-Subject: Re: [PATCH v2 4/5] libxc/PM: Ensure pxstat buffers are correctly sized
-To: Anthony PERARD <anthony@xenproject.org>
-Cc: xen-devel@lists.xenproject.org, Anthony PERARD <anthony.perard@vates.tech>, 
-	Juergen Gross <jgross@suse.com>, Jan Beulich <jbeulich@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Mon, May 26, 2025 at 3:04=E2=80=AFPM Anthony PERARD <anthony@xenproject.=
-org> wrote:
->
-> On Mon, May 12, 2025 at 03:46:55PM +0100, Ross Lagerwall wrote:
-> > diff --git a/tools/libs/ctrl/xc_pm.c b/tools/libs/ctrl/xc_pm.c
-> > index ff7b5ada053f..cffbd1b8a955 100644
-> > --- a/tools/libs/ctrl/xc_pm.c
-> > +++ b/tools/libs/ctrl/xc_pm.c
-> > @@ -46,35 +46,33 @@ int xc_pm_get_pxstat(xc_interface *xch, int cpuid, =
-struct xc_px_stat *pxpt)
-> >  {
-> >      struct xen_sysctl sysctl =3D {};
-> >      /* Sizes unknown until xc_pm_get_max_px */
->
-> This comment can be removed now.
->
-> > -    DECLARE_NAMED_HYPERCALL_BOUNCE(trans, pxpt->trans_pt, 0, XC_HYPERC=
-ALL_BUFFER_BOUNCE_BOTH);
-> > -    DECLARE_NAMED_HYPERCALL_BOUNCE(pt, pxpt->pt, 0, XC_HYPERCALL_BUFFE=
-R_BOUNCE_BOTH);
-> > +    DECLARE_NAMED_HYPERCALL_BOUNCE(trans, pxpt->trans_pt,
-> > +                                   pxpt->total * pxpt->total,
-> > +                                   XC_HYPERCALL_BUFFER_BOUNCE_BOTH);
-> > +    DECLARE_NAMED_HYPERCALL_BOUNCE(pt, pxpt->pt, pxpt->total,
-> > +                                   XC_HYPERCALL_BUFFER_BOUNCE_BOTH);
->
-> I don't think the macro takes the sizeof(*pt) or sizeof(*trans_pt) into
-> account when using the size provided. So it doesn't looks like you can
-> use `pxpt->total` alone, and you still need to multiple it by sizeof(*)
-> like it was done in the HYPERCALL_BOUNCE_SET_SIZE() call.
+From: Mykola Kvach <mykola_kvach@epam.com>
 
-Indeed I realized this when testing a v3 of this series. I'll send a
-new version now.
+The scheduler_disable and scheduler_enable calls have been removed
+from freeze_domains and thaw_domains, respectively, and relocated
+to their usage context in enter_state. This change addresses
+the concern about misleading function semantics, as the scheduler
+operations are not directly related to the domain pausing/resuming
+implied by the freeze/thaw naming.
 
-Thanks,
-Ross
+Suggested-by: Jan Beulich <jbeulich@suse.com>
+Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
+---
+The discussion about these changes can be found here:
+https://lists.xenproject.org/archives/html/xen-devel/2025-03/msg00229.html
+---
+ xen/arch/x86/acpi/power.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
+
+diff --git a/xen/arch/x86/acpi/power.c b/xen/arch/x86/acpi/power.c
+index 095ca391ad..448aa9f3a7 100644
+--- a/xen/arch/x86/acpi/power.c
++++ b/xen/arch/x86/acpi/power.c
+@@ -151,16 +151,12 @@ static void freeze_domains(void)
+     for_each_domain ( d )
+         domain_pause(d);
+     rcu_read_unlock(&domlist_read_lock);
+-
+-    scheduler_disable();
+ }
+ 
+ static void thaw_domains(void)
+ {
+     struct domain *d;
+ 
+-    scheduler_enable();
+-
+     rcu_read_lock(&domlist_read_lock);
+     for_each_domain ( d )
+         domain_unpause(d);
+@@ -216,6 +212,7 @@ static int enter_state(u32 state)
+     printk(XENLOG_INFO "Preparing system for ACPI S%d state.\n", state);
+ 
+     freeze_domains();
++    scheduler_disable();
+ 
+     acpi_dmar_reinstate();
+ 
+@@ -334,6 +331,7 @@ static int enter_state(u32 state)
+     mtrr_aps_sync_end();
+     iommu_adjust_irq_affinities();
+     acpi_dmar_zap();
++    scheduler_enable();
+     thaw_domains();
+     system_state = SYS_STATE_active;
+     spin_unlock(&pm_lock);
+-- 
+2.48.1
+
 
