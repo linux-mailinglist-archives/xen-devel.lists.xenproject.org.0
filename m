@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8460AAC6585
-	for <lists+xen-devel@lfdr.de>; Wed, 28 May 2025 11:17:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.999058.1379769 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AB490AC6588
+	for <lists+xen-devel@lfdr.de>; Wed, 28 May 2025 11:18:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.999061.1379789 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uKCv1-0001EE-OK; Wed, 28 May 2025 09:17:51 +0000
+	id 1uKCv9-0001nx-Bc; Wed, 28 May 2025 09:17:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 999058.1379769; Wed, 28 May 2025 09:17:51 +0000
+Received: by outflank-mailman (output) from mailman id 999061.1379789; Wed, 28 May 2025 09:17:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uKCv1-0001CC-Jc; Wed, 28 May 2025 09:17:51 +0000
-Received: by outflank-mailman (input) for mailman id 999058;
- Wed, 28 May 2025 09:17:50 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uKCv9-0001lY-6A; Wed, 28 May 2025 09:17:59 +0000
+Received: by outflank-mailman (input) for mailman id 999061;
+ Wed, 28 May 2025 09:17:57 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=4yDH=YM=amd.com=penny.zheng@srs-se1.protection.inumbo.net>)
- id 1uKCv0-0000yL-9S
- for xen-devel@lists.xenproject.org; Wed, 28 May 2025 09:17:50 +0000
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2060d.outbound.protection.outlook.com
- [2a01:111:f403:2418::60d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9f7c8793-3ba4-11f0-a2fe-13f23c93f187;
- Wed, 28 May 2025 11:17:49 +0200 (CEST)
-Received: from SN4PR0501CA0113.namprd05.prod.outlook.com
- (2603:10b6:803:42::30) by CY1PR12MB9700.namprd12.prod.outlook.com
- (2603:10b6:930:108::14) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8769.26; Wed, 28 May
- 2025 09:17:46 +0000
+ id 1uKCv7-0001jE-HX
+ for xen-devel@lists.xenproject.org; Wed, 28 May 2025 09:17:57 +0000
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2061c.outbound.protection.outlook.com
+ [2a01:111:f403:2412::61c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a2b298c8-3ba4-11f0-b894-0df219b8e170;
+ Wed, 28 May 2025 11:17:55 +0200 (CEST)
+Received: from SN4PR0501CA0121.namprd05.prod.outlook.com
+ (2603:10b6:803:42::38) by SJ2PR12MB8692.namprd12.prod.outlook.com
+ (2603:10b6:a03:543::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8769.21; Wed, 28 May
+ 2025 09:17:49 +0000
 Received: from SN1PEPF00036F42.namprd05.prod.outlook.com
- (2603:10b6:803:42:cafe::92) by SN4PR0501CA0113.outlook.office365.com
- (2603:10b6:803:42::30) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8792.19 via Frontend Transport; Wed,
- 28 May 2025 09:17:46 +0000
+ (2603:10b6:803:42:cafe::56) by SN4PR0501CA0121.outlook.office365.com
+ (2603:10b6:803:42::38) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8769.13 via Frontend Transport; Wed,
+ 28 May 2025 09:17:49 +0000
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  SN1PEPF00036F42.mail.protection.outlook.com (10.167.248.26) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8769.18 via Frontend Transport; Wed, 28 May 2025 09:17:46 +0000
+ 15.20.8769.18 via Frontend Transport; Wed, 28 May 2025 09:17:48 +0000
 Received: from penny-System-Product-Name.amd.com (10.180.168.240) by
  SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.39; Wed, 28 May 2025 04:17:43 -0500
+ 15.1.2507.39; Wed, 28 May 2025 04:17:45 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,22 +56,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9f7c8793-3ba4-11f0-a2fe-13f23c93f187
+X-Inumbo-ID: a2b298c8-3ba4-11f0-b894-0df219b8e170
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Xa4WyhsDYigSBWc43dWjwF+tfVdvQhmxB7TP16qn6/NXh/edWcpBYP9Two97KfEEVzf9Vdd0S4HuSqrxbFzvOB3W+D4mRHzudWwaDX5CZCGE2Gv6uz0rldlPhln0VRPEJZ+Wmzb3+4KpGIZo8loDYehqOXsKZkx2KFzFctA8UIj0feI92t5KGTWsAM6X8H8BIYLLGtkZCfnH2V9jO10iKXQ/KmHcwwsX7uXIHWE7ckyuaSVg9SAmDNCb3ys5d+EnsA7I2hQFtrxhKYehkn1CWTZ/8fLiw4ElWYG5/tk5/idr4RBIbmDiouWF+9OYwkr+if9MCJda7oG2w1UieXzDZQ==
+ b=vtELuvqUjmE9If4ZLTj9dHDlGd8BKwsf8YatmKSpKFs/jauaoeTs5j4FYzcG+2yaXz+MZWwFYqO2O2bek4KEkMq0gHtBDFUtejcyYI/7JN8IcAU/g6jpreIRWWnLdVJBX1zRB2FrC85M6t3UnvvScv1331y9vEidtL8GG+/kLm9Snh4hBs8gNlN3l8FE2usr4a2pDK4LhcXTrq+Mh9woNkCx3+k89uAaeVbT7VdKAgY2eWuQSs8Ka3lEzvyVQe/+UsTV7cAdEW4+h/t6nVyxwmJKD3ZK9qjPEESY1xTp/a3IntsuVPwF50/JN/793D+sdMGNBSrvVzHAmNP4kigkNA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/GfDRm9JhuMPhiHwATAYzNDZZibb4ZAY1VdgVn0JUz8=;
- b=kMyJEdVYQZyYlTmiEx1g1uqD5MGXhSDga7jVV9SfchVEXB+iZF8zRijNR5eAUjeQeKVUX76+JNLdKXxVP4/+ncVXLqRAt0O0Hkme86Ck4AcRcsFpvc57mrWNX+Eo4jmZy11Sp3KqTRb6aUh2ViN7SfhKCNM+p/YWPxgg0jGXJ86v5c/sbZqUOzD+38AW0ungPSK20OoHVHG6X80Vsyjkpkaaiuq1cQbkr061XCGX1uG8ibL0OANOQuuAZ3XdDvfXWUAQuMpUkFhwkcI6MK2lGsNID2BV24YYYH8Otd7CICYkbgyIpAnvp7ph6DXkykhlBL20qmGP26RFwD70wE/oZA==
+ bh=nEQJjo/wnWVr8f3Aer+P6n+okT/uMW1cOMLdB+X33/0=;
+ b=e+IayQh7+7SRG97fa7AEBpXj6O4aMkQ/BqQ+N0q/kkMW5Zl+ixi3iRwwZWCoNdZt+pycVQ4zZahj/0/7i4Nkck++gT1LMpHAEr1vB5AxAyJw431LBbNkoc+vEFVqDcen5uS0nh33Or50lS0UjE13xYHpu2IxnsCSAwamC4S251p7aSIVf1mV8H6OuLaALBWF/D9Trfp/qaDgwAISjbbZQhVaHjm2skyMGfp7T6xdCUPGhDE6sQTd++/DuY6OoyQevIt3FSTsR+W2vV6FSeVdqlizXko+tc+vltcTGWdz+9indY0IWfanECdlDSnkIdoHLoims5WLmvwfMbcEbrQJtg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/GfDRm9JhuMPhiHwATAYzNDZZibb4ZAY1VdgVn0JUz8=;
- b=NXGgtCc9eS48V3rPYpVVKp3uhizozXIWQLNuE1VtUzGXQBpJeKdC8GHrVj9JCo18Tpq6bmBx5Kimg1yKZT8etHpHe1KbNSMDlUr4gVbcmfG+A6VmlW1wMAIMsJlyMkUWBmhiXiR6cs2KzpGJGgfmVSw6AI/9Fm9TOhgOu9YsoQ0=
+ bh=nEQJjo/wnWVr8f3Aer+P6n+okT/uMW1cOMLdB+X33/0=;
+ b=aH/fSU08nHzBl9BGD3LLYbd2pN99DyJvhHz0VOvtbIXKka8fqfde9h7juLg9dbG22TjTn6P9/cSgq4UZ/wZ1jPCtsI46x9HXk0VjVXXWuhR6OAraE1qoE4KY9S4grX2JDfRkwbDRzjBXiAQQIcgRP6K/2e9qPp4j1Y8g0ydYbTY=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -80,14 +80,14 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 From: Penny Zheng <Penny.Zheng@amd.com>
 To: <xen-devel@lists.xenproject.org>
-CC: <ray.huang@amd.com>, Penny Zheng <Penny.Zheng@amd.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, "Julien
- Grall" <julien@xen.org>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
-	<roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v4 02/20] xen: make avail_domheap_pages() inlined into get_outstanding_claims()
-Date: Wed, 28 May 2025 17:16:50 +0800
-Message-ID: <20250528091708.390767-3-Penny.Zheng@amd.com>
+CC: <ray.huang@amd.com>, Penny Zheng <Penny.Zheng@amd.com>, Jan Beulich
+	<jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Anthony PERARD
+	<anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, "Julien
+ Grall" <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH v4 03/20] xen/x86: remove "depends on !PV_SHIM_EXCLUSIVE"
+Date: Wed, 28 May 2025 17:16:51 +0800
+Message-ID: <20250528091708.390767-4-Penny.Zheng@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20250528091708.390767-1-Penny.Zheng@amd.com>
 References: <20250528091708.390767-1-Penny.Zheng@amd.com>
@@ -99,170 +99,156 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF00036F42:EE_|CY1PR12MB9700:EE_
-X-MS-Office365-Filtering-Correlation-Id: f5d71637-5c8f-4e40-1214-08dd9dc8824a
+X-MS-TrafficTypeDiagnostic: SN1PEPF00036F42:EE_|SJ2PR12MB8692:EE_
+X-MS-Office365-Filtering-Correlation-Id: ed927bc3-95d0-4425-c329-08dd9dc88401
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|36860700013|82310400026|376014;
+	BCL:0;ARA:13230040|376014|36860700013|1800799024|82310400026;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?Vonb12ej2Fs1zx9gJIj0+5j1J8VgLT/WcogGN8yvGteMatyScBJPT7ppeJD6?=
- =?us-ascii?Q?DL7HH8yYCGB5BFvZSTOee6IbGNjllSd2JLFy5LRKqvfUHQdJ1KK0kv3U3ogW?=
- =?us-ascii?Q?lMCwZek4U2u+X1Zg53bbQXoNmwu95UaPNivV6k78HdnbPLr/n7IftoJxyLqK?=
- =?us-ascii?Q?KfNeDq4+dNCBpmWiUaVK+BjBoPY9kG4TFm7DR8YmESbeaP1PB4TetF4jeyTE?=
- =?us-ascii?Q?4d2epXEwb/rTDfPsfnkRDawgm8AQLSe/r8tFyYTNbErfrBgg3gv9WKiHdelJ?=
- =?us-ascii?Q?VWK0+0HaJue2R5tk1mChBMPR0SOyd6tBM1QEQqjF5hJt8/jjexbtyhgSRFJP?=
- =?us-ascii?Q?2735X0h1qctK2OB+YTG74psC0yeZfC+qkkGGiPC0wfI/zKycBGjnUK/hra2R?=
- =?us-ascii?Q?1oX3xbIUrh+QqvboopPQ/iB0G7RfyxEQyco8vBXgdrxJxwnswC8iSRFqHnB0?=
- =?us-ascii?Q?TuyhLhjb40WqIM9oJsiQf+cJH6G0KmS/is0OpFw/i983z+BmwVn7HouzqJRS?=
- =?us-ascii?Q?1/6L/6D60fJuAtOd5wD4HEUe46gULTh5A26HUQLoUZAkLC0KbJ/rP12BDiQ4?=
- =?us-ascii?Q?ZuP0p0na+fg7pkYMPFgkZsHLSeihC4UTvRoDgn718eZ1vlsz9Y3fUFUpCQoy?=
- =?us-ascii?Q?pFA96ZKYSMRQVyJtCNGFAbNpQSoCDLz5nosiZvJ2yMaP909nD+YIIjuaa4mE?=
- =?us-ascii?Q?cf+vCMPFeKn+S7+GoDaG686Y0qfe/bQaebyF7kjo4V4HjUkWSiONZ9Sra2YP?=
- =?us-ascii?Q?sLlP9FZS1wbVk97CXrV4BlvmONIlvUH2+RoVLq7I/tVRvC+aMKT1exRt9t9k?=
- =?us-ascii?Q?MKtoRimpky/SEv+BgvRZ2jWq8yo/16G/oWOw+rCLIKqWW5pi0869bgh/PEs9?=
- =?us-ascii?Q?pLfsa+TooSwR4MNgZl/ZaiUEo57wQT7YCOaFnUbbFSSQbAt3Kfgd5ak/18hV?=
- =?us-ascii?Q?CnwX1x281xzKNTcUWQ3PqQ/O5RIcVN4Sxb0JYHq5ZHilU0AW9RnXM6sJjIxm?=
- =?us-ascii?Q?AkIO3Jk4CqvcdEsnxB/9qGT4RgpWs43gByKn/zWYIxpbaoFypvDpKfYeycHy?=
- =?us-ascii?Q?NiJmnanaFxLJc0i6tFVMtIW3euesFtuoEkePoGYYKrmRvPDQBlE/ajo/5Irv?=
- =?us-ascii?Q?cvTuWr7CDh9V6AV9aesJ7B8JJTJDO36FFsatRVTI3LhMzZavr/szG48ia1P7?=
- =?us-ascii?Q?01HRIt47zPXgCP+Db8Bsx2l3OZOwe1asxrLyjFZz4iyr1cp8/hnh2u+cK5fd?=
- =?us-ascii?Q?pOtJNb3iyLlhj+XYjDCMf0fbpVHLBjihkpExRp/f/ooUNtn1T/ep7yazKvUi?=
- =?us-ascii?Q?SU96wvpssKEAb/Oqce3UAf0apO9yc2YWK2l2J3K+/q9EyOayHND7SB2+h9sm?=
- =?us-ascii?Q?GFjgGrsCHg3DkyK9cWjIIMTdc3BzsCqHq1+wJbZeK1ZaT+uy0whlGOyl9INB?=
- =?us-ascii?Q?CX+ngVQUg8o0jyvKp2EhHa7lY9WcwF7ceXqynPkdZkAkkqoLSs4kWzgOqk7r?=
- =?us-ascii?Q?szkIaTeTBBcuuKpnF9PyPr4b9eaF+DofX+rP?=
+	=?us-ascii?Q?66uNqdhPZh/3PfWpHzmKH1eZNta+L392t+5cXqaM0zP+jx8Ex+6/GutSCw12?=
+ =?us-ascii?Q?oNUV/24Tp9xNq8MNaNgSamMaVSbC2KzHV+xsb7jVBSn95eMGsIUnUc0nc2di?=
+ =?us-ascii?Q?f39XOR/Fbx4cU/gR+AxiUB2gi2uEztxxvW/ooaNxF4D82wrezM/qEZDdkwH9?=
+ =?us-ascii?Q?3bMRvU4JCOZ7g0Ieh0D49Lw/81ukQduUqp/xekjXzHmkvpjOeh6934AStalN?=
+ =?us-ascii?Q?b+8NoEQhsBBR10tin7tUmIhSAbyixz9EHGeZoAMyVSn0ZgH35an8UYnxy4FQ?=
+ =?us-ascii?Q?U42I3/U3/ZfWJgymbYytfXBq0a5ZcwTPbf2ZQDFZGa9/kdouRNYBZV1rCzzM?=
+ =?us-ascii?Q?5amv4f+U4wBJvql/rNOqDX/lzBAvBthLRaqcsYmOhSqy7dXgqKkdct+JGAhF?=
+ =?us-ascii?Q?Fe7dDynSxzO9rgF3hGWskaON7mj2tp9bfHH5740D1bDh7ewhOJhHyDm+rLfq?=
+ =?us-ascii?Q?Gogj9HmNp9Q/SacOOomzqiZOxXDSId9JeKrjfnYSELsCvqeyZkBjJwvCtlQv?=
+ =?us-ascii?Q?il9PQCQavaTjLBK62QZnpUzfl9KB+35WIeDk46xvwMel2ZHMXAcK+vNFXFqG?=
+ =?us-ascii?Q?fhR391TNX6WwJRNUH06wRSxYnQbmZVkehAteCZbKTwTWegsHe0vBNyk3Jnv6?=
+ =?us-ascii?Q?WJ1qHaUxCrF+9HXJ0rGOTj+KTJKwf5vh5cfv6+4ONkdk+eae0GKslNMCsKnV?=
+ =?us-ascii?Q?tN1b7lrqjUfm+f0TGVdHTQAVq3juPXDPzHCyQVb52ArxSHuBCLtjKtTZcQqb?=
+ =?us-ascii?Q?H8BUuofxOynNU7Jig59lEykIR64GoUU7moT/aRU/MZfn3gzyJWy0m+K1faMe?=
+ =?us-ascii?Q?oEqFZVokLyMg4nPG53Zl5hKdX4r9AsjV1qNeqbpxtKEy2/nlpEb0CfSnSf4L?=
+ =?us-ascii?Q?Eo/OFCIkg+etH5fbvlYwXXA2m1Bfs6Px2Df3bUK4ge6aoY/JRgcW+1vvLZO9?=
+ =?us-ascii?Q?imMDSGFLtpsCuks5RLIjTmIRho+RYHQ9HPKZndH8fV54mK12nTw3mob2AcZu?=
+ =?us-ascii?Q?HCZ2FTH1BmgnV7rBz/jtGEJfEzDhHY40GOyMhB/eR1PMdDFRpuXCcKW1CvD1?=
+ =?us-ascii?Q?jGODzMEdkFiHgOlL+iU6lRsyTUVKrh42PWyYGr5g4v+67TsW8n4ZUzzSLrng?=
+ =?us-ascii?Q?g39ch+wa4g11bQuPxmIrW6DdZwH5JSgcXkN3NAKYtpWh+PC4uizFfQ++c57c?=
+ =?us-ascii?Q?8c/IO+CUt8WktZsgk9P/vTJYljEEx9wiThct70CEWgZmpTq6ac3dh++XW9c3?=
+ =?us-ascii?Q?5c7ZslvgimJGiOXz3tjQwr/FsbGMr+EcUv5omFL7YJDVnETq+ny5l4h6Sjrx?=
+ =?us-ascii?Q?AjTFeG1OkhiqOdpbtzBgqUilQlVIzIl5UPXGESc71+ynyGj/fmoGrfAqbLpu?=
+ =?us-ascii?Q?ggGUv4EVbpiqS+N+TxBEjNWNyszT0Dstyqh+Iy6X1A0HvDHCjqdouuUqdGyK?=
+ =?us-ascii?Q?GQWUowOoihMAD2AOSC2IbTbQttIAAYX/wyAi02oMKltHLoTroAH4WDwRcdZq?=
+ =?us-ascii?Q?SNNvfWRPM+NLRk4rP8Hg4ffYfRZBrd8+mJsi?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700013)(82310400026)(376014);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(36860700013)(1800799024)(82310400026);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 May 2025 09:17:46.0745
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 May 2025 09:17:48.9564
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f5d71637-5c8f-4e40-1214-08dd9dc8824a
+X-MS-Exchange-CrossTenant-Network-Message-Id: ed927bc3-95d0-4425-c329-08dd9dc88401
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
 	SN1PEPF00036F42.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY1PR12MB9700
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8692
 
-Function avail_domheap_pages() is only invoked by get_outstanding_claims(),
-so it could be inlined into get_outstanding_claims().
-Move up avail_heap_pages() to avoid declaration before
-get_outstanding_claims().
+Remove all "depends on !PV_SHIM_EXCLUSIVE" (also the functionally
+equivalent "if !...") in Kconfig file, since negative dependancy will badly
+affect allyesconfig. To make sure unchanging produced config file based
+on "pvshim_defconfig", we shall explicitly state according Kconfig is not set
+
+Add "default y" for SHADOW_PAGING and TBOOT, otherwise we will have unset
+values when running make defconfig based on "x86_64_defconfig".
 
 Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
----
-v1 -> v2:
-- let avail_domheap_pages() being inlined into its sole caller
-- move up avail_heap_pages()
 ---
 v2 -> v3:
-- change the title
+- remove comment for PV_SHIM_EXCLUSIVE
 ---
-v4 -> v5:
-- move ahead and could go in right away
+v3 -> v4:
+- explicitly state "CONFIG_xxx is not set" in "pvshim_defconfig"
+- Add "default y" for SHADOW_PAGING and TBOOT
+- refactor commit message
 ---
- xen/common/page_alloc.c | 51 ++++++++++++++++++-----------------------
- xen/include/xen/mm.h    |  1 -
- 2 files changed, 22 insertions(+), 30 deletions(-)
+ xen/arch/x86/Kconfig                  | 6 ++----
+ xen/arch/x86/configs/pvshim_defconfig | 5 +++++
+ xen/arch/x86/hvm/Kconfig              | 1 -
+ xen/drivers/video/Kconfig             | 4 ++--
+ 4 files changed, 9 insertions(+), 7 deletions(-)
 
-diff --git a/xen/common/page_alloc.c b/xen/common/page_alloc.c
-index e57a287133..b204f22f50 100644
---- a/xen/common/page_alloc.c
-+++ b/xen/common/page_alloc.c
-@@ -488,6 +488,27 @@ static long total_avail_pages;
- static DEFINE_SPINLOCK(heap_lock);
- static long outstanding_claims; /* total outstanding claims by all domains */
+diff --git a/xen/arch/x86/Kconfig b/xen/arch/x86/Kconfig
+index 7afe879710..8c8e661d53 100644
+--- a/xen/arch/x86/Kconfig
++++ b/xen/arch/x86/Kconfig
+@@ -143,7 +143,7 @@ config XEN_IBT
  
-+static unsigned long avail_heap_pages(
-+    unsigned int zone_lo, unsigned int zone_hi, unsigned int node)
-+{
-+    unsigned int i, zone;
-+    unsigned long free_pages = 0;
-+
-+    if ( zone_hi >= NR_ZONES )
-+        zone_hi = NR_ZONES - 1;
-+
-+    for_each_online_node(i)
-+    {
-+        if ( !avail[i] )
-+            continue;
-+        for ( zone = zone_lo; zone <= zone_hi; zone++ )
-+            if ( (node == -1) || (node == i) )
-+                free_pages += avail[i][zone];
-+    }
-+
-+    return free_pages;
-+}
-+
- unsigned long domain_adjust_tot_pages(struct domain *d, long pages)
- {
-     ASSERT(rspin_is_locked(&d->page_alloc_lock));
-@@ -584,7 +605,7 @@ void get_outstanding_claims(uint64_t *free_pages, uint64_t *outstanding_pages)
- {
-     spin_lock(&heap_lock);
-     *outstanding_pages = outstanding_claims;
--    *free_pages =  avail_domheap_pages();
-+    *free_pages = avail_heap_pages(MEMZONE_XEN + 1, NR_ZONES - 1, -1);
-     spin_unlock(&heap_lock);
- }
+ config SHADOW_PAGING
+ 	bool "Shadow Paging"
+-	default !PV_SHIM_EXCLUSIVE
++	default y
+ 	depends on PV || HVM
+ 	help
  
-@@ -1962,27 +1983,6 @@ static void init_heap_pages(
-     }
- }
+@@ -175,7 +175,7 @@ config BIGMEM
+ config TBOOT
+ 	bool "Xen tboot support (UNSUPPORTED)"
+ 	depends on INTEL && UNSUPPORTED
+-	default !PV_SHIM_EXCLUSIVE
++	default y
+ 	select CRYPTO
+ 	help
+ 	  Allows support for Trusted Boot using the Intel(R) Trusted Execution
+@@ -288,7 +288,6 @@ config PV_SHIM_EXCLUSIVE
  
--static unsigned long avail_heap_pages(
--    unsigned int zone_lo, unsigned int zone_hi, unsigned int node)
--{
--    unsigned int i, zone;
--    unsigned long free_pages = 0;
--
--    if ( zone_hi >= NR_ZONES )
--        zone_hi = NR_ZONES - 1;
--
--    for_each_online_node(i)
--    {
--        if ( !avail[i] )
--            continue;
--        for ( zone = zone_lo; zone <= zone_hi; zone++ )
--            if ( (node == -1) || (node == i) )
--                free_pages += avail[i][zone];
--    }
--
--    return free_pages;
--}
--
- /*************************
-  * COLORED SIDE-ALLOCATOR
-  *
-@@ -2796,13 +2796,6 @@ unsigned long avail_domheap_pages_region(
-     return avail_heap_pages(zone_lo, zone_hi, node);
- }
+ 	  If unsure, say N.
  
--unsigned long avail_domheap_pages(void)
--{
--    return avail_heap_pages(MEMZONE_XEN + 1,
--                            NR_ZONES - 1,
--                            -1);
--}
--
- unsigned long avail_node_heap_pages(unsigned int nodeid)
- {
-     return avail_heap_pages(MEMZONE_XEN, NR_ZONES -1, nodeid);
-diff --git a/xen/include/xen/mm.h b/xen/include/xen/mm.h
-index e89942b87d..93c037d618 100644
---- a/xen/include/xen/mm.h
-+++ b/xen/include/xen/mm.h
-@@ -141,7 +141,6 @@ struct page_info *alloc_domheap_pages(
- void free_domheap_pages(struct page_info *pg, unsigned int order);
- unsigned long avail_domheap_pages_region(
-     unsigned int node, unsigned int min_width, unsigned int max_width);
--unsigned long avail_domheap_pages(void);
- unsigned long avail_node_heap_pages(unsigned int nodeid);
- #define alloc_domheap_page(d,f) (alloc_domheap_pages(d,0,f))
- #define free_domheap_page(p)  (free_domheap_pages(p,0))
+-if !PV_SHIM_EXCLUSIVE
+ 
+ config HYPERV_GUEST
+ 	bool "Hyper-V Guest"
+@@ -298,7 +297,6 @@ config HYPERV_GUEST
+ 
+ 	  If unsure, say N.
+ 
+-endif
+ 
+ config REQUIRE_NX
+ 	bool "Require NX (No eXecute) support"
+diff --git a/xen/arch/x86/configs/pvshim_defconfig b/xen/arch/x86/configs/pvshim_defconfig
+index 2ad27f898e..6f652e145e 100644
+--- a/xen/arch/x86/configs/pvshim_defconfig
++++ b/xen/arch/x86/configs/pvshim_defconfig
+@@ -26,3 +26,8 @@ CONFIG_EXPERT=y
+ # CONFIG_INTEL_IOMMU is not set
+ # CONFIG_DEBUG is not set
+ # CONFIG_GDBSX is not set
++# CONFIG_SHADOW_PAGING is not set
++# CONFIG_TBOOT is not set
++# HYPERV_HYPERV_GUEST is not set
++# CONFIG_HVM is not set
++# CONFIG_VGA is not set
+diff --git a/xen/arch/x86/hvm/Kconfig b/xen/arch/x86/hvm/Kconfig
+index 2def0f98e2..b903764bda 100644
+--- a/xen/arch/x86/hvm/Kconfig
++++ b/xen/arch/x86/hvm/Kconfig
+@@ -1,6 +1,5 @@
+ menuconfig HVM
+ 	bool "HVM support"
+-	depends on !PV_SHIM_EXCLUSIVE
+ 	default !PV_SHIM
+ 	select COMPAT
+ 	select IOREQ_SERVER
+diff --git a/xen/drivers/video/Kconfig b/xen/drivers/video/Kconfig
+index 245030beea..66ee1e7c9c 100644
+--- a/xen/drivers/video/Kconfig
++++ b/xen/drivers/video/Kconfig
+@@ -3,10 +3,10 @@ config VIDEO
+ 	bool
+ 
+ config VGA
+-	bool "VGA support" if !PV_SHIM_EXCLUSIVE
++	bool "VGA support"
+ 	select VIDEO
+ 	depends on X86
+-	default y if !PV_SHIM_EXCLUSIVE
++	default y
+ 	help
+ 	  Enable VGA output for the Xen hypervisor.
+ 
 -- 
 2.34.1
 
