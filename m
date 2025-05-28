@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 239B0AC5E06
-	for <lists+xen-devel@lfdr.de>; Wed, 28 May 2025 02:08:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.998832.1379534 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 51F19AC5E18
+	for <lists+xen-devel@lfdr.de>; Wed, 28 May 2025 02:16:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.998844.1379544 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uK4Kr-00016S-Ds; Wed, 28 May 2025 00:07:57 +0000
+	id 1uK4T4-0002tF-6I; Wed, 28 May 2025 00:16:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 998832.1379534; Wed, 28 May 2025 00:07:57 +0000
+Received: by outflank-mailman (output) from mailman id 998844.1379544; Wed, 28 May 2025 00:16:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uK4Kr-00014X-Ai; Wed, 28 May 2025 00:07:57 +0000
-Received: by outflank-mailman (input) for mailman id 998832;
- Wed, 28 May 2025 00:07:56 +0000
+	id 1uK4T4-0002rO-3d; Wed, 28 May 2025 00:16:26 +0000
+Received: by outflank-mailman (input) for mailman id 998844;
+ Wed, 28 May 2025 00:16:24 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=I8Hg=YM=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1uK4Kq-0000rc-QE
- for xen-devel@lists.xenproject.org; Wed, 28 May 2025 00:07:56 +0000
-Received: from tor.source.kernel.org (tor.source.kernel.org
- [2600:3c04:e001:324:0:1991:8:25])
+ id 1uK4T2-0002rI-Iq
+ for xen-devel@lists.xenproject.org; Wed, 28 May 2025 00:16:24 +0000
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id cd83fdee-3b57-11f0-a2fe-13f23c93f187;
- Wed, 28 May 2025 02:07:55 +0200 (CEST)
+ id fae57606-3b58-11f0-a2fe-13f23c93f187;
+ Wed, 28 May 2025 02:16:21 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id BD602614B3;
- Wed, 28 May 2025 00:07:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B56B1C4CEE9;
- Wed, 28 May 2025 00:07:52 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 750A844175;
+ Wed, 28 May 2025 00:16:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E0F3C4CEE9;
+ Wed, 28 May 2025 00:16:18 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,41 +41,114 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cd83fdee-3b57-11f0-a2fe-13f23c93f187
+X-Inumbo-ID: fae57606-3b58-11f0-a2fe-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1748390873;
-	bh=M1+i/XHruc3Dm6VRBbhQy2b1KfoqoxA04Ngy73RPfjg=;
+	s=k20201202; t=1748391379;
+	bh=WzhABPYJaAG4UTp5WISdWDZZsIZA/fOnZhZA+NM+Bfk=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=B7/X4KzwRD50SW5V1NTqg0jhnzAbWLvWWcAQn22rswcKl2N50ayS/kU1MubYoFlVw
-	 qP1DGGJrkjHRgAg1MiwbjGkEEQnb3C7tlXJU3njQzZqguXugIVIxww+K5wcrqvOZRx
-	 aCAzOV5If7OWKQmtYSVEw0jhZMKSChzQxDxD4BpFkBONFqW1tUVoDiCUUbdbj9O5EG
-	 93PGYsx+rx2+FxHWHBjZUlfLKa705C4GM/iMg8UTO8+dUmCes1+UJTP6FuMSldDKs0
-	 MlJ1cBYMuysMkFhTL096+Ef3ltdeaA9+ymdqrD8ElOq2/XH/0DYoxirBJ8HH0dSOwI
-	 DlPtyhGSzzEKQ==
-Date: Tue, 27 May 2025 17:07:51 -0700 (PDT)
+	b=J8ZIy36QR+cDxL7+XaZtlxjvUsNuNQq3cdEqfSCeC+atd2nKaslrjM3t3572nAkKT
+	 xhHPsPiVdV7pFaHcWW6eMpK9DjBJyhUTXLpWhSYbrafyURFpHI+9WLsIAwlfnI8+7K
+	 8jjcNbQRKlNXRgME/8QvL+2HYeC++765/Ck2tHKnCZ0mmp1j+TSTC6q9GAEtt/pesD
+	 bW2DUBBBV4DpoMsseQ98/4G+oXe5kALlIP6ssvc1yHnHKJ3CX7UT9G6D4IZYCo+P2/
+	 vpZQRREbsACGazkQOorRiRfbfqWx1+w/4JmzT1+97jNlItDHuGh3CpI7yX0Pj9VOPt
+	 gdqctBBgM2ayA==
+Date: Tue, 27 May 2025 17:16:17 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Anthony PERARD <anthony@xenproject.org>
-cc: Andrew Cooper <andrew.cooper3@citrix.com>, 
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+cc: Anthony PERARD <anthony@xenproject.org>, 
     Xen-devel <xen-devel@lists.xenproject.org>, 
     Stefano Stabellini <sstabellini@kernel.org>, 
     =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Subject: Re: [PATCH 2/3] tools/tests: Install tests into $(LIBEXEC)/tests
-In-Reply-To: <aDSdVx116mXNKJr5@l14>
-Message-ID: <alpine.DEB.2.22.394.2505271707430.135336@ubuntu-linux-20-04-desktop>
-References: <20250520205239.203253-1-andrew.cooper3@citrix.com> <20250520205239.203253-3-andrew.cooper3@citrix.com> <aDSdVx116mXNKJr5@l14>
+Subject: Re: [PATCH 3/3] CI: Drop custom handling of tools/tests
+In-Reply-To: <23aeac17-6fd0-4515-8c84-1a867c57a68d@citrix.com>
+Message-ID: <alpine.DEB.2.22.394.2505271715450.135336@ubuntu-linux-20-04-desktop>
+References: <20250520205239.203253-1-andrew.cooper3@citrix.com> <20250520205239.203253-4-andrew.cooper3@citrix.com> <1e690ecb-5060-4dfe-a515-acbbf214bc99@citrix.com> <aDSjaewFMxUj6Tel@l14> <23aeac17-6fd0-4515-8c84-1a867c57a68d@citrix.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: multipart/mixed; boundary="8323329-1555113110-1748391379=:135336"
 
-On Mon, 26 May 2025, Anthony PERARD wrote:
-> On Tue, May 20, 2025 at 09:52:38PM +0100, Andrew Cooper wrote:
-> > $(LIBEXEC_BIN) is a dumping ground of many things.  Separate the "clearly
-> > tests" from everything else so we can clean up how they're run in CI.
-> > 
-> > Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
+
+--8323329-1555113110-1748391379=:135336
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
+
+On Mon, 26 May 2025, Andrew Cooper wrote:
+> On 26/05/2025 6:22 pm, Anthony PERARD wrote:
+> > On Mon, May 26, 2025 at 05:45:29PM +0100, Andrew Cooper wrote:
+> >> On 20/05/2025 9:52 pm, Andrew Cooper wrote:
+> >>> diff --git a/automation/scripts/run-tools-tests b/automation/scripts/run-tools-tests
+> >>> index 770e97c3e943..8d7aa8fa5140 100755
+> >>> --- a/automation/scripts/run-tools-tests
+> >>> +++ b/automation/scripts/run-tools-tests
+> >>> @@ -12,30 +12,25 @@ printf '<?xml version="1.0" encoding="UTF-8"?>\n' > "$xml_out"
+> >>>  printf '<testsuites name="tools.tests">\n' >> "$xml_out"
+> >>>  printf ' <testsuite name="tools.tests">\n' >> "$xml_out"
+> >>>  failed=
+> >>> -for dir in "$1"/*; do
+> >>> -    [ -d "$dir" ] || continue
+> >>> -    echo "Running test in $dir"
+> >>> -    printf '  <testcase name="%s">\n' "$dir" >> "$xml_out"
+> >>> -    ret=
+> >>> -    for f in "$dir"/*; do
+> >>> -        [ -f "$f" ] || continue
+> >>> -        [ -x "$f" ] || continue
+> >>> -        "$f" 2>&1 | tee /tmp/out
+> >>> -        ret=$?
+> >>> -        if [ "$ret" -ne 0 ]; then
+> >>> -            echo "FAILED: $ret"
+> >>> -            failed+=" $dir"
+> >>> -            printf '   <failure type="failure" message="binary %s exited with code %d">\n' "$f" "$ret" >> "$xml_out"
+> >>> -            # TODO: could use xml escaping... but current tests seems to
+> >>> -            # produce sane output
+> >>> -            cat /tmp/out >> "$xml_out"
+> >>> -            printf '   </failure>\n' >> "$xml_out"
+> >>> -        else
+> >>> -            echo "PASSED"
+> >>> -        fi
+> >>> -    done
+> >>> -    if [ -z "$ret" ]; then
+> >>> -        printf '   <skipped type="skipped" message="no executable test found in %s"/>\n' "$dir" >> "$xml_out"
+> >>> +for f in "$1"/*; do
+> >>> +    if [ -x "$f" ]; then
+> >>> +        echo "SKIP: $f not executable"
+> >>> +        continue
+> >> This should be ! -x
+> >>
+> >> I had that hunk in the wrong patch when posting this series.
+> > With that fixed:
+> > Reviewed-by: Anthony PERARD <anthony.perard@vates.tech>
+
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+
+
+> Thanks.
 > 
-> Acked-by: Anthony PERARD <anthony.perard@vates.tech>
-
-Acked-by: Stefano Stabellini <sstabellini@kernel.org>
+> >
+> > But I think there's an issue with the script...
+> >
+> >>> +    "$f" 2>&1 | tee /tmp/out
+> >>> +    ret=$?
+> >>> +    if [ "$ret" -ne 0 ]; then
+> > Is this checking the correct exit value? It seems that without `set -o
+> > pipefail`, we only have the exit value of `tee` which should never fail.
+> > But I think we should grab the value of ${PIPESTATUS[0]} to actually
+> > read the exit value of $f.
+> 
+> Hmm yes, I think this needs adjusting.
+> 
+> It turns out there are multiple problems with junit, including the fact
+> that putting failures in here doesn't cause the outer job to fail. 
+> 
+> The internet suggest having a 'script: grep "<failure" junit.xml' step
+> to work around this.
+> 
+> I think that wants to be a separate series.  The question is whether to
+> do this series first or second.  I expect I'm going to need to backport
+> all of this work to eventually get XTF back onto the older trees.
+ 
+I'll leave the choice to you
+--8323329-1555113110-1748391379=:135336--
 
