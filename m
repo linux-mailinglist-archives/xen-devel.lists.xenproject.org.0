@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D253DAC63AA
-	for <lists+xen-devel@lfdr.de>; Wed, 28 May 2025 10:06:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.998970.1379636 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C722BAC63A8
+	for <lists+xen-devel@lfdr.de>; Wed, 28 May 2025 10:06:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.998971.1379645 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uKBnW-00032F-4h; Wed, 28 May 2025 08:06:02 +0000
+	id 1uKBnX-0003Eh-AH; Wed, 28 May 2025 08:06:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 998970.1379636; Wed, 28 May 2025 08:06:02 +0000
+Received: by outflank-mailman (output) from mailman id 998971.1379645; Wed, 28 May 2025 08:06:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uKBnW-0002zM-0Y; Wed, 28 May 2025 08:06:02 +0000
-Received: by outflank-mailman (input) for mailman id 998970;
- Wed, 28 May 2025 08:06:00 +0000
+	id 1uKBnX-0003Cp-6Q; Wed, 28 May 2025 08:06:03 +0000
+Received: by outflank-mailman (input) for mailman id 998971;
+ Wed, 28 May 2025 08:06:01 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ct5H=YM=gmail.com=xakep.amatop@srs-se1.protection.inumbo.net>)
- id 1uKBnU-0002zC-Pd
- for xen-devel@lists.xenproject.org; Wed, 28 May 2025 08:06:00 +0000
-Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
- [2a00:1450:4864:20::229])
+ id 1uKBnV-0002zC-NW
+ for xen-devel@lists.xenproject.org; Wed, 28 May 2025 08:06:01 +0000
+Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
+ [2a00:1450:4864:20::133])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 96e112f0-3b9a-11f0-a2fe-13f23c93f187;
- Wed, 28 May 2025 10:05:59 +0200 (CEST)
-Received: by mail-lj1-x229.google.com with SMTP id
- 38308e7fff4ca-3106217268dso38454721fa.1
- for <xen-devel@lists.xenproject.org>; Wed, 28 May 2025 01:05:59 -0700 (PDT)
+ id 981d18a0-3b9a-11f0-a2fe-13f23c93f187;
+ Wed, 28 May 2025 10:06:01 +0200 (CEST)
+Received: by mail-lf1-x133.google.com with SMTP id
+ 2adb3069b0e04-55324e35f49so3038485e87.3
+ for <xen-devel@lists.xenproject.org>; Wed, 28 May 2025 01:06:01 -0700 (PDT)
 Received: from yp-VivoBook-ASUSLaptop-M1503QA-M1503QA.. ([95.67.15.120])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-32a79f5478asm1437671fa.78.2025.05.28.01.05.56
+ 38308e7fff4ca-32a79f5478asm1437671fa.78.2025.05.28.01.05.58
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 28 May 2025 01:05:57 -0700 (PDT)
+ Wed, 28 May 2025 01:05:58 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,41 +45,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 96e112f0-3b9a-11f0-a2fe-13f23c93f187
+X-Inumbo-ID: 981d18a0-3b9a-11f0-a2fe-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1748419558; x=1749024358; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=Pf1pYaaf9NAukq3r1Eh0Q6+adfJo6MUqgAu5HCoZAxo=;
-        b=DSDBGFXlyTgEPMTwQa0/Yh0mniz5hSp4bhZY5GgNWvQvOgT/IzNU2tjetxQjgEez3c
-         lqx9dF8JHlyGajpR6rLxddARhfI+ZjWjpykVr4uHET++pXVjKJMDSYnlVjeWyqN04F3r
-         gFjc7HZIwCtLqeZ7HXujKH9/GpjniwM2y4XO6do5ufmoCYvBE89Z1cNVpsEjhOGkLYg0
-         ahmntJ8T3GLZcWb5wlDpfMKvgQEubkPAZxWHCyKsVktEjyT/vQzWQfHFccomB6Hj9YID
-         PBZUQ5AQ4zjVXQ6LB3AG8txk48vxipYf/TGTjCfuzJWHJUZKRE9G+nQc2jFdr9zsobTj
-         jTqg==
+        d=gmail.com; s=20230601; t=1748419560; x=1749024360; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=nWHKDiY0thxryffwYCZVKNiFBLA5cr2n5GezmHVCMtI=;
+        b=Rclji4/C+2uqJ/fusqYMZk9ouBX+bg+tNoTI6XS+4KHW45d4Se5q7HldrzNztUoUp0
+         rbxgFw/MuunS3+LJdHpUNH8RqIyOqLjw0kdGzjzY2Os4WW6l+LMYxlm1pMaRObadu0EO
+         lYqg3o+7JJvu2tRHPSbEvLtA8jkCphiEP1Q568squberN754C9WViIbF42BH7SsbblHQ
+         nytKffHcXjUgIxY93Ayalpa2yC/rK2DE/R1MWWa0ZatXm7qzguF0ePFE2/hoPV3WQRUz
+         3ucWYOf0q5e+anBVXfmRJMrZWiBRNOakmu2KB/2kMDWrPt4AeNyMjqOS7Rng4EK8ZQ73
+         v3Pg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1748419558; x=1749024358;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=Pf1pYaaf9NAukq3r1Eh0Q6+adfJo6MUqgAu5HCoZAxo=;
-        b=MMEcx9mx4qK96GaAPm2fp4f8y4LWCcj+v/6fifrU180bCLGcovASIep1JGReXoEIR8
-         7IFkI0SAKcc3zHcA6ltknjRroapZlDVzF/gkjUzmmNC//diZtX8JyGqmUncwbrp12caK
-         TRg7xnYfETBSdZPWQghBCtdIZvbBWMpOJKhXrp1+bEtdk+PAKH4/wD1tfJGbreS7Ggqn
-         7BdBET6oq+vnTZdLZszQeCqxYEkzdtL55R44flRf6QfG0LunPtmA8psUM+/0B2sOAjSo
-         OBDunyO55giyTjc7jpbM9spopcu0lYgNkj2cYvaCD9Nvoy6FHOih7pvAwvAswXxY3pyP
-         PV7w==
-X-Gm-Message-State: AOJu0YwqENYz2SGKW8/UKzb6i0Q8El6tJ/OLS/z74JkTzcbT/tWQ/It6
-	slGPW5p62jlBGDnXFc8fTaBPi7HQY150mj7jg9w7o1WBCppBzY7YzayIik/h4Q==
-X-Gm-Gg: ASbGncv4zuulgvD81XLOzsfYUvHta0bbxl233c704DrEpbra7BuIRPFotiD9tfRtMQW
-	A7H0oKflUWtlSDREBcZCauuh9F2owbZizsiiZ0ld+1Pe+5VzPQMnV8ngX7IGuuVsBed/mVTQfrP
-	vR3QZQgxSybZc10eGvVMXoonjLS+kJ5N8Aahh3rLZhHZFG4uAkN/B6QUyv+LySd3u8FO4lGYWD3
-	IyCsPyGYQyvcVTjiMM8uFyTZWniHbY9Q83KKHp9QMUnkSvxwOreVJYmNzgXXRXU69rllACMWLEG
-	SUgyvLabwCNPMmcEL9AITTgwbqOJc3z6jXlM3P3ggaMkKLUVt8qEfv4mlOsjNNrEeAWzk13Pzlz
-	RpmPBSDCn3ja9/MY6qvPJN45K/w76qVJqHmYn
-X-Google-Smtp-Source: AGHT+IEJC6MZ/9R31TiqlrRoh+pl7vlJu08vXFaha9FalWLofKJTuuF37SHQM4ZbAPScCvROp4CgRA==
-X-Received: by 2002:a05:651c:2207:b0:32a:7e4c:e915 with SMTP id 38308e7fff4ca-32a7e4ceb14mr1190761fa.29.1748419558020;
-        Wed, 28 May 2025 01:05:58 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1748419560; x=1749024360;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=nWHKDiY0thxryffwYCZVKNiFBLA5cr2n5GezmHVCMtI=;
+        b=gnHSPs1ZudQmG662oCjQNVcNDK+KGnWz8MTOGBxhJT7fqRRxjqJ9bHw8wGpDCCCA5M
+         19A6sigk5472ZFwcEU3m9/dzthf+3WpnW/4Jkq+eJkFZsAzapM6fYaQzKkWCWkfGeHAr
+         uKl/VL6ieH+YyPfH+g9MxSXmUAbQo4I2Y+BC2llhDiYOQYEjbpUr8ImH7GQ4tF1N0D+T
+         mrk3mCYxvaQZIxBYjTfCtjUYGrhqB0VjjYDKRMNZzezw4kvrTWX0u/0OrHE4AWm6O0aA
+         Fn+2sj4Jwm/zJJ0NieP/Fom17Mo/itn6gAF1ZlR/Dcn/FdcWD1z3SILWpJ5kFHaYi+Sv
+         jQmA==
+X-Gm-Message-State: AOJu0Yzu8wd/NIoHCx+p08RJ6JIh8x/yoZhh9QDSHpYA2rt0X2OXg/DM
+	sGYNp5JWyZrg1oRAdhrfqcUrw7QMoqjs3RT4h8eQR/kgMVHV+OaXJ6gp0eMyug==
+X-Gm-Gg: ASbGncs/YcuQzLEBSYxnhx/XgJwoKqiWV1FLYXUNIYv8xwUiuwNTugl6+KzuJ0sJcll
+	g4M+np3MFST6Qu8HO7m7KvWokZq719HiRMu5WP+qtoLp7YF26YS27IFLuAJZoW7DSLbGXw8yvyY
+	PeDhwQgUWLr6D9HyopR5mcYFWaALr9vKzqX/vVHpZJP1fRFOAN/Ai2OzmFu5qpv55v5mtMXvaWx
+	mnDqo4KOhUAhiFBZu4BcJDxdXJcFJ1AIjf+fGEyNB+wil5MR0YrUCkiBxPPkpMymu8XnyABsYly
+	cvSHspA7oxA62zbVmqTLS+DXgZFxnjFAqt7lmy3CRlKoLnufEF/eJ1vxztFDwaP4EN0fm53YUXh
+	q/KM609U52LYDo+s=
+X-Google-Smtp-Source: AGHT+IG46T1yCCola3jKBu0pKLJ9cYvzD+gAljJzZ9ZT8ZgrW91kJLWoq9Jcu3TK0gWyfe9oQp50dg==
+X-Received: by 2002:a2e:ae0c:0:b0:30b:b908:ce06 with SMTP id 38308e7fff4ca-32a79accc61mr2898571fa.19.1748419559953;
+        Wed, 28 May 2025 01:05:59 -0700 (PDT)
 From: Mykola Kvach <xakep.amatop@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Mykola Kvach <mykola_kvach@epam.com>,
@@ -90,66 +91,83 @@ Cc: Mykola Kvach <mykola_kvach@epam.com>,
 	Michal Orzel <michal.orzel@amd.com>,
 	Julien Grall <julien@xen.org>,
 	Stefano Stabellini <sstabellini@kernel.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH v2 0/2] Add CONFIG_SYSTEM_SUSPEND and SCIF UART suspend/resume handlers
-Date: Wed, 28 May 2025 11:05:17 +0300
-Message-ID: <cover.1748381788.git.mykola_kvach@epam.com>
+	Mykyta Poturai <mykyta_poturai@epam.com>
+Subject: [PATCH v2 1/2] xen: Introduce system suspend config option
+Date: Wed, 28 May 2025 11:05:18 +0300
+Message-ID: <eb586049ef5180bb33e9414c4754ee2621a772bc.1748381788.git.mykola_kvach@epam.com>
 X-Mailer: git-send-email 2.48.1
+In-Reply-To: <cover.1748381788.git.mykola_kvach@epam.com>
+References: <cover.1748381788.git.mykola_kvach@epam.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
 From: Mykola Kvach <mykola_kvach@epam.com>
 
-Hi all,
+This option enables the system suspend support. This is the mechanism that
+allows the system to be suspended to RAM and later resumed.
 
-This patch series introduces CONFIG_SYSTEM_SUSPEND to Xen and implements
-suspend/resume handlers for the SCIF UART driver. These changes address
-feedback and discussions on the Xen-devel mailing list:
+The patch introduces three options:
+- HAS_SYSTEM_SUSPEND: indicates suspend support is available on the platform.
+- SYSTEM_SUSPEND_ALWAYS_ON: used for architectures where suspend must always
+  be enabled.
+- SYSTEM_SUSPEND: user-facing option to enable/disable suspend if supported.
+  Defaults to enabled if SYSTEM_SUSPEND_ALWAYS_ON is set and depends on
+  HAS_SYSTEM_SUSPEND.
 
-    https://lists.xenproject.org/archives/html/xen-devel/2025-03/msg00169.html
-    https://lists.xenproject.org/archives/html/xen-devel/2025-03/msg02188.html
+On x86, both HAS_SYSTEM_SUSPEND and SYSTEM_SUSPEND_ALWAYS_ON are selected by
+default, making suspend support always enabled. The options are designed to
+be easily extensible to other architectures (e.g., PPC, RISC-V) as future
+support is added.
 
-I am marking this series as v2, as it is a logical continuation of the
-discussion linked above regarding the SCIF driver changes.
+Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
+Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
+---
+Discussion on adding the SYSTEM_SUSPEND config can be found here:
+https://lists.xenproject.org/archives/html/xen-devel/2025-03/msg00169.html
+---
+ xen/arch/x86/Kconfig |  2 ++
+ xen/common/Kconfig   | 17 +++++++++++++++++
+ 2 files changed, 19 insertions(+)
 
-Patch 1:
-  Introduces the CONFIG_SYSTEM_SUSPEND infrastructure, which enables Xen to
-support suspend-to-RAM functionality. It adds three new Kconfig options:
-    - HAS_SYSTEM_SUSPEND: Indicates whether the architecture supports suspend.
-    - SYSTEM_SUSPEND_ALWAYS_ON: Forces suspend support on platforms that
-      require it (e.g., x86).
-    - SYSTEM_SUSPEND: The user-facing option to enable suspend support,
-      enabled by default when SYSTEM_SUSPEND_ALWAYS_ON is set.
-      
-  This approach is intended to be easily extendable to other architectures in
-the future.
-
-Patch 2:
-  Implements suspend/resume callbacks for the SCIF UART driver. These functions
-ensure proper shutdown and reinitialization of the UART hardware across
-suspend/resume cycles. Their inclusion is gated by the CONFIG_SYSTEM_SUSPEND
-option.
-  The SCIF suspend/resume functionality has been tested on the Renesas R-Car H3
-Starter Kit board.
-  Compared to v1, the main change in this version is the addition of a
-CONFIG_SYSTEM_SUSPEND check around the SCIF driver's suspend/resume logic.
-
-Best regards,
-Mykola Kvach
-
-
-Mykola Kvach (1):
-  xen: Introduce system suspend config option
-
-Volodymyr Babchuk (1):
-  xen/char: implement suspend/resume calls for SCIF driver
-
- xen/arch/x86/Kconfig         |  2 ++
- xen/common/Kconfig           | 17 +++++++++++++++
- xen/drivers/char/scif-uart.c | 40 ++++++++++++++++++++++++++++++++++--
- 3 files changed, 57 insertions(+), 2 deletions(-)
-
+diff --git a/xen/arch/x86/Kconfig b/xen/arch/x86/Kconfig
+index 7afe879710..f7c026b0aa 100644
+--- a/xen/arch/x86/Kconfig
++++ b/xen/arch/x86/Kconfig
+@@ -33,6 +33,8 @@ config X86
+ 	select HAS_VMAP
+ 	select HAS_VPCI if HVM
+ 	select NEEDS_LIBELF
++	select HAS_SYSTEM_SUSPEND
++	select SYSTEM_SUSPEND_ALWAYS_ON
+ 
+ config ARCH_DEFCONFIG
+ 	string
+diff --git a/xen/common/Kconfig b/xen/common/Kconfig
+index 3d66d09397..3886a77e46 100644
+--- a/xen/common/Kconfig
++++ b/xen/common/Kconfig
+@@ -579,4 +579,21 @@ config BUDDY_ALLOCATOR_SIZE
+ 	  Amount of memory reserved for the buddy allocator to serve Xen heap,
+ 	  working alongside the colored one.
+ 
++config HAS_SYSTEM_SUSPEND
++	bool
++
++config SYSTEM_SUSPEND_ALWAYS_ON
++	bool
++
++config SYSTEM_SUSPEND
++	bool "System suspend support"
++	depends on HAS_SYSTEM_SUSPEND
++	default y if SYSTEM_SUSPEND_ALWAYS_ON
++	help
++	  This option enables the system suspend support. This is the
++	  mechanism that allows the system to be suspended to RAM and
++	  later resumed.
++
++	  If unsure, say N.
++
+ endmenu
 -- 
 2.48.1
 
