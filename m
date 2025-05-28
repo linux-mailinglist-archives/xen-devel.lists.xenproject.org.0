@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 656B7AC662F
-	for <lists+xen-devel@lfdr.de>; Wed, 28 May 2025 11:45:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.999292.1379970 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9ADF6AC67DD
+	for <lists+xen-devel@lfdr.de>; Wed, 28 May 2025 12:56:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.999320.1379998 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uKDLg-0002qY-G9; Wed, 28 May 2025 09:45:24 +0000
+	id 1uKERv-0007wo-NI; Wed, 28 May 2025 10:55:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 999292.1379970; Wed, 28 May 2025 09:45:24 +0000
+Received: by outflank-mailman (output) from mailman id 999320.1379998; Wed, 28 May 2025 10:55:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uKDLg-0002nT-CJ; Wed, 28 May 2025 09:45:24 +0000
-Received: by outflank-mailman (input) for mailman id 999292;
- Wed, 28 May 2025 09:45:22 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <anthony@xenproject.org>) id 1uKDLe-0002nN-Oj
- for xen-devel@lists.xenproject.org; Wed, 28 May 2025 09:45:22 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <anthony@xenproject.org>) id 1uKDLd-006dLC-2x;
- Wed, 28 May 2025 09:45:21 +0000
-Received: from [2a01:e0a:1da:8420:b77:bd5:6e45:7633] (helo=l14)
- by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <anthony@xenproject.org>) id 1uKDLe-000wwE-0G;
- Wed, 28 May 2025 09:45:21 +0000
+	id 1uKERv-0007ub-Ki; Wed, 28 May 2025 10:55:55 +0000
+Received: by outflank-mailman (input) for mailman id 999320;
+ Wed, 28 May 2025 10:55:54 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=isSc=YM=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1uKERu-0007uV-Cd
+ for xen-devel@lists.xenproject.org; Wed, 28 May 2025 10:55:54 +0000
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [2a00:1450:4864:20::629])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5272bc62-3bb2-11f0-b894-0df219b8e170;
+ Wed, 28 May 2025 12:55:52 +0200 (CEST)
+Received: by mail-ej1-x629.google.com with SMTP id
+ a640c23a62f3a-ad8a6cda6a4so48417666b.0
+ for <xen-devel@lists.xenproject.org>; Wed, 28 May 2025 03:55:52 -0700 (PDT)
+Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ad8a1b5ac15sm86980166b.163.2025.05.28.03.55.50
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 28 May 2025 03:55:51 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,131 +45,112 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=In-Reply-To:Content-Transfer-Encoding:
-	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date;
-	bh=3XSUshn+9ysuFhv88HRysdEbfKWggC5ZCgqhf2qipe4=; b=dxMst8uyCkARcR48zfhM7hefr4
-	kJ90i9e1wZr1V0hCr/O8MXaR9jFcuOl/Va9bgp8u0DSba3tr+++cNWTe3elFgnoFufoQ4E3e9m90/
-	bytaKGEKR9yck5d6HkaMmQ+TZOta6Ces0+hFD287bZab/1I4xbfevxLTOFcn0qGwQy48=;
-Date: Wed, 28 May 2025 11:45:19 +0200
-From: Anthony PERARD <anthony@xenproject.org>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Marek =?iso-8859-1?Q?Marczykowski-G=F3recki?= <marmarek@invisiblethingslab.com>,
-	Xen-devel <xen-devel@lists.xenproject.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Michal Orzel <michal.orzel@amd.com>
-Subject: Re: [PATCH 2/3] CI: Use bash arrays to simplfy dom0 rootfs
- construction
-Message-ID: <aDbbL9cgz5ZqFV5O@l14>
-References: <20250522173640.575452-1-andrew.cooper3@citrix.com>
- <20250522173640.575452-3-andrew.cooper3@citrix.com>
- <aDXFviVAxsscfKV2@l14>
- <aDXX-PagUgzu54u4@mail-itl>
- <b5dfadcb-6f22-40bb-84a9-fcc48955c44c@citrix.com>
+X-Inumbo-ID: 5272bc62-3bb2-11f0-b894-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1748429752; x=1749034552; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=Fi9t1orpgh2KSjxX3Nz+ieDaTQtV+mi94T2C3dVSgKc=;
+        b=FCctOy7YJLr69JpVNeKXSjI0UxPEotfjBX0PiXtlufCDqdFM+9nolG68pOX94V8S4/
+         mO/bEs7ntC3uypmDrpp13VGyD0em571RCIFbdTMMI3gyCEeE/z0H6v2/bWG/cJaDEQgd
+         INNPvYcWOkRHFANI6j1kABNdNUrfm2KoH7SN0=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1748429752; x=1749034552;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Fi9t1orpgh2KSjxX3Nz+ieDaTQtV+mi94T2C3dVSgKc=;
+        b=GXzK6oF4lxiaQC4pRS9CRjeL4e9LnwvnwIsUrTj42+6HMqYQFWfbvPDADzqEzetT/u
+         wyF4aHSgkSqvSgnO9Z48W5Jl68zv4fHL8eNSQBP7ADV+Q92sYTuJRTQnQYqwK9BqW6X1
+         JvzHiHtciTaI0eNpbjov/S1q2hQ6nC9d8v9iG5c9fR/B14PsBvtWI8vqXJ6jFaPFbIb/
+         zkRLzcgy2UFa9XoH84BIox2MSNMsAzHv/tTIHwtKhBIpBC2JXxXbT3kqkd8jh6aiZubr
+         tp3JpGhpgjFhNw55BTgAFl9x4bQ9/vOmDN9WWFLZWVJK3w/pKO5196wvwD9Kgi8IWp9k
+         gJFw==
+X-Forwarded-Encrypted: i=1; AJvYcCWK7+pNpYTknHgakd1QsWRBz3uqhivY5bloWAL7iV/rdRgRdZauSibjdCbIPDKheKd+Guul/0837QE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy1azsJYfE7MxXTbXIAHN0BYJAh0OMcsFg/2QKTRq39dzjt7EXH
+	vbYPz/hF9HFerMdhDCnWPsA+CiintR37W8WTIcrz4Xho94NGg6QgZyFgIWMDfclSMKg=
+X-Gm-Gg: ASbGncv8BvBzmrPmYUOqj/PCIyBRnBAet2AUuiSKcwSe2nEPQUk0nZwo7WaWbE5Sf5+
+	g6MYX2dlrDoQjkYMW/fVVkSRjz4mpejzYTFFGnKrnS4BgNHOYJEPPPU0Z2RRar1T1CPRuVrGnTi
+	KuF0iqk38YfrR8ytKT0AP4a0qZW8CgOzHE7Rjjj3CLzZxGPsCNtqt1SbYHCinamFzz1M8wbUguy
+	8RsPWUw9Bpow35k0h5EfDrSxCvDH2OXY0WhlD/NhOruSc4XkJM1lgXFwOu5yPngqGJz2GIlxWsQ
+	4meUELQBiQ2rr7Zty+maVW/F+Vf6i24Woav2TtavnH9XR+FWCavoZtU8FPkhYOXxC1KSJbKurCS
+	E3V+FAoWDRz9eBNiv
+X-Google-Smtp-Source: AGHT+IHVxFMaM/0qWNyOTRwCfUg3yzD4Yi0+BSa0Gks2boxk7fR8Nj8dOcMduGYSqZhkxY+aTmdj4g==
+X-Received: by 2002:a17:906:794c:b0:ad5:a122:c020 with SMTP id a640c23a62f3a-ad8988b2e36mr386499166b.16.1748429751624;
+        Wed, 28 May 2025 03:55:51 -0700 (PDT)
+Message-ID: <598650c5-386c-4384-9642-1cb77fb1d32c@citrix.com>
+Date: Wed, 28 May 2025 11:55:50 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <b5dfadcb-6f22-40bb-84a9-fcc48955c44c@citrix.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] x86/ACPI: move scheduler enable/disable calls out of
+ freeze/thaw_domains
+To: Mykola Kvach <xakep.amatop@gmail.com>, xen-devel@lists.xenproject.org
+Cc: Mykola Kvach <mykola_kvach@epam.com>, Jan Beulich <jbeulich@suse.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <974033e9ff0df3ce8a74efaa33f1cee1dcbdb030.1748340071.git.mykola_kvach@epam.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
+ VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
+ srM1oPXWRic8BIAdYOKOloF2300SL/bIpeD+x7h3w9B/qez7nOin5NzkxgFoaUeIal12pXSR
+ Q354FKFoy6Vh96gc4VRqte3jw8mPuJQpfws+Pb+swvSf/i1q1+1I4jsRQQh2m6OTADHIqg2E
+ ofTYAEh7R5HfPx0EXoEDMdRjOeKn8+vvkAwhviWXTHlG3R1QkbE5M/oywnZ83udJmi+lxjJ5
+ YhQ5IzomvJ16H0Bq+TLyVLO/VRksp1VR9HxCzItLNCS8PdpYYz5TC204ViycobYU65WMpzWe
+ LFAGn8jSS25XIpqv0Y9k87dLbctKKA14Ifw2kq5OIVu2FuX+3i446JOa2vpCI9GcjCzi3oHV
+ e00bzYiHMIl0FICrNJU0Kjho8pdo0m2uxkn6SYEpogAy9pnatUlO+erL4LqFUO7GXSdBRbw5
+ gNt25XTLdSFuZtMxkY3tq8MFss5QnjhehCVPEpE6y9ZjI4XB8ad1G4oBHVGK5LMsvg22PfMJ
+ ISWFSHoF/B5+lHkCKWkFxZ0gZn33ju5n6/FOdEx4B8cMJt+cWwARAQABzSlBbmRyZXcgQ29v
+ cGVyIDxhbmRyZXcuY29vcGVyM0BjaXRyaXguY29tPsLBegQTAQgAJAIbAwULCQgHAwUVCgkI
+ CwUWAgMBAAIeAQIXgAUCWKD95wIZAQAKCRBlw/kGpdefoHbdD/9AIoR3k6fKl+RFiFpyAhvO
+ 59ttDFI7nIAnlYngev2XUR3acFElJATHSDO0ju+hqWqAb8kVijXLops0gOfqt3VPZq9cuHlh
+ IMDquatGLzAadfFx2eQYIYT+FYuMoPZy/aTUazmJIDVxP7L383grjIkn+7tAv+qeDfE+txL4
+ SAm1UHNvmdfgL2/lcmL3xRh7sub3nJilM93RWX1Pe5LBSDXO45uzCGEdst6uSlzYR/MEr+5Z
+ JQQ32JV64zwvf/aKaagSQSQMYNX9JFgfZ3TKWC1KJQbX5ssoX/5hNLqxMcZV3TN7kU8I3kjK
+ mPec9+1nECOjjJSO/h4P0sBZyIUGfguwzhEeGf4sMCuSEM4xjCnwiBwftR17sr0spYcOpqET
+ ZGcAmyYcNjy6CYadNCnfR40vhhWuCfNCBzWnUW0lFoo12wb0YnzoOLjvfD6OL3JjIUJNOmJy
+ RCsJ5IA/Iz33RhSVRmROu+TztwuThClw63g7+hoyewv7BemKyuU6FTVhjjW+XUWmS/FzknSi
+ dAG+insr0746cTPpSkGl3KAXeWDGJzve7/SBBfyznWCMGaf8E2P1oOdIZRxHgWj0zNr1+ooF
+ /PzgLPiCI4OMUttTlEKChgbUTQ+5o0P080JojqfXwbPAyumbaYcQNiH1/xYbJdOFSiBv9rpt
+ TQTBLzDKXok86M7BTQRS4TZ/ARAAkgqudHsp+hd82UVkvgnlqZjzz2vyrYfz7bkPtXaGb9H4
+ Rfo7mQsEQavEBdWWjbga6eMnDqtu+FC+qeTGYebToxEyp2lKDSoAsvt8w82tIlP/EbmRbDVn
+ 7bhjBlfRcFjVYw8uVDPptT0TV47vpoCVkTwcyb6OltJrvg/QzV9f07DJswuda1JH3/qvYu0p
+ vjPnYvCq4NsqY2XSdAJ02HrdYPFtNyPEntu1n1KK+gJrstjtw7KsZ4ygXYrsm/oCBiVW/OgU
+ g/XIlGErkrxe4vQvJyVwg6YH653YTX5hLLUEL1NS4TCo47RP+wi6y+TnuAL36UtK/uFyEuPy
+ wwrDVcC4cIFhYSfsO0BumEI65yu7a8aHbGfq2lW251UcoU48Z27ZUUZd2Dr6O/n8poQHbaTd
+ 6bJJSjzGGHZVbRP9UQ3lkmkmc0+XCHmj5WhwNNYjgbbmML7y0fsJT5RgvefAIFfHBg7fTY/i
+ kBEimoUsTEQz+N4hbKwo1hULfVxDJStE4sbPhjbsPCrlXf6W9CxSyQ0qmZ2bXsLQYRj2xqd1
+ bpA+1o1j2N4/au1R/uSiUFjewJdT/LX1EklKDcQwpk06Af/N7VZtSfEJeRV04unbsKVXWZAk
+ uAJyDDKN99ziC0Wz5kcPyVD1HNf8bgaqGDzrv3TfYjwqayRFcMf7xJaL9xXedMcAEQEAAcLB
+ XwQYAQgACQUCUuE2fwIbDAAKCRBlw/kGpdefoG4XEACD1Qf/er8EA7g23HMxYWd3FXHThrVQ
+ HgiGdk5Yh632vjOm9L4sd/GCEACVQKjsu98e8o3ysitFlznEns5EAAXEbITrgKWXDDUWGYxd
+ pnjj2u+GkVdsOAGk0kxczX6s+VRBhpbBI2PWnOsRJgU2n10PZ3mZD4Xu9kU2IXYmuW+e5KCA
+ vTArRUdCrAtIa1k01sPipPPw6dfxx2e5asy21YOytzxuWFfJTGnVxZZSCyLUO83sh6OZhJkk
+ b9rxL9wPmpN/t2IPaEKoAc0FTQZS36wAMOXkBh24PQ9gaLJvfPKpNzGD8XWR5HHF0NLIJhgg
+ 4ZlEXQ2fVp3XrtocHqhu4UZR4koCijgB8sB7Tb0GCpwK+C4UePdFLfhKyRdSXuvY3AHJd4CP
+ 4JzW0Bzq/WXY3XMOzUTYApGQpnUpdOmuQSfpV9MQO+/jo7r6yPbxT7CwRS5dcQPzUiuHLK9i
+ nvjREdh84qycnx0/6dDroYhp0DFv4udxuAvt1h4wGwTPRQZerSm4xaYegEFusyhbZrI0U9tJ
+ B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
+ d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
+ 6+ahAA==
+In-Reply-To: <974033e9ff0df3ce8a74efaa33f1cee1dcbdb030.1748340071.git.mykola_kvach@epam.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, May 27, 2025 at 04:24:57PM +0100, Andrew Cooper wrote:
-> On 27/05/2025 4:19 pm, Marek Marczykowski-Górecki wrote:
-> > On Tue, May 27, 2025 at 04:01:34PM +0200, Anthony PERARD wrote:
-> >> On Thu, May 22, 2025 at 06:36:39PM +0100, Andrew Cooper wrote:
-> >>> For Qubes, this requires switching from sh to bash.
-> >>>
-> >>> This reduces the number of times the target filename needs to be written to 1.
-> >>>
-> >>> Expand the comment to explain the concatination constraints.
-> >> Isn't the correct spelling "concatenation"? Same for the two comments.
-> >>
-> >>> No functional change.
-> >>>
-> >>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> >>> ---
-> >>> I would like to find a slightly nicer way of conditional parts, but nothing
-> >>> comes to mind.
-> >> Well, one way I can think of is having a new variable which can carry
-> >> the rootfs part associated with a particular test, then that variable
-> >> can be updated at the time we configure for that test. Something like:
-> >>
-> >> # init
-> >> declare -a append_rootfs_part
-> >> # or append_rootfs_part=() is probably fine too.
-> >>
-> >> case $test in
-> >>   argo)
-> >>     append_rootfs_part+=(argo.cpio.gz)
-> >>     # ... other test configuration
-> >>     ;;
-> >> esac
-> >>
-> >> # Dom0 rootfs
-> >> parts=(
-> >>     rootfs.cpio.gz
-> >>     xen-tools.cpio.gz
-> >>     "${append_rootfs_part[@]}"
-> >> )
-> >>
-> >> And that should works fine, even if there isn't any extra rootfs part.
-> > That would work for compressed parts, but not for uncompressed - which
-> > need to come before all compressed. But maybe there could be two arrays
-> > - one for uncompressed and another for compressed? Then, each could be
-> > extended anywhere, without messing the order.
+On 27/05/2025 11:04 am, Mykola Kvach wrote:
+> From: Mykola Kvach <mykola_kvach@epam.com>
+>
+> The scheduler_disable and scheduler_enable calls have been removed
+> from freeze_domains and thaw_domains, respectively, and relocated
+> to their usage context in enter_state. This change addresses
+> the concern about misleading function semantics, as the scheduler
+> operations are not directly related to the domain pausing/resuming
+> implied by the freeze/thaw naming.
+>
+> Suggested-by: Jan Beulich <jbeulich@suse.com>
+> Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
 
-You could use "${append_rootfs_part:#*.gz}" and
-"${(M)append_rootfs_part:#*.gz}" to grab the uncompressed part then the
-compressed part... on zsh :-). But something similar could be codded in
-bash. But I guess two variables will be more acceptable.
-
-> Hmm, two might work, but they surely need to not be quoted when forming
-> parts=(), or having multiple entries will go wrong on the eventual cat
-> command line.
-
-The double quote are needed! Well not really because it's very unlikely
-that there's going to be blanked characters in paths to parts.
-
-Maybe this will help understand how "${var[@]}" is expended into
-multiple arguments:
-
-# Testing with just for loop, also show the difference between
-#  "${v[@]}" and "${v[*]}":
-
-$ parts=(one two)
-$ for i in "${parts[@]}"; do echo "- $i"; done
-- one
-- two
-$ for i in "${parts[*]}"; do echo "- $i"; done
-- one two
-$ extra=("first extra" "second extra")
-$ for i in "${extra[@]}"; do echo "- $i"; done
-- first extra
-- second extra
-$ parts=(one "${extra[@]}" two)
-$ for i in "${parts[@]}"; do echo "- $i"; done
-- one
-- first extra
-- second extra
-- two
-
-# And now with function
-
-$ print_array(){ for i in "$@"; do echo "- $i"; done; }
-$ print_array "${parts[@]}"
-- one
-- first extra
-- second extra
-- two
-$ print_array ${parts[@]}
-- one
-- first
-- extra
-- second
-- extra
-- two
-
-Cheers,
-
--- 
-Anthony PERARD
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
