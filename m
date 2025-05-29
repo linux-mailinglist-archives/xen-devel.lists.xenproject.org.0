@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC0F4AC7535
-	for <lists+xen-devel@lfdr.de>; Thu, 29 May 2025 02:56:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.999716.1380340 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 16F2BAC754B
+	for <lists+xen-devel@lfdr.de>; Thu, 29 May 2025 03:15:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.999729.1380351 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uKRZV-0002lH-PF; Thu, 29 May 2025 00:56:37 +0000
+	id 1uKRr0-0005Hy-5R; Thu, 29 May 2025 01:14:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 999716.1380340; Thu, 29 May 2025 00:56:37 +0000
+Received: by outflank-mailman (output) from mailman id 999729.1380351; Thu, 29 May 2025 01:14:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uKRZV-0002jK-Mb; Thu, 29 May 2025 00:56:37 +0000
-Received: by outflank-mailman (input) for mailman id 999716;
- Thu, 29 May 2025 00:56:35 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uKRr0-0005FS-2D; Thu, 29 May 2025 01:14:42 +0000
+Received: by outflank-mailman (input) for mailman id 999729;
+ Thu, 29 May 2025 01:14:40 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=lP5k=YN=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1uKRZT-0002jE-ML
- for xen-devel@lists.xenproject.org; Thu, 29 May 2025 00:56:35 +0000
+ id 1uKRqy-0005FE-6j
+ for xen-devel@lists.xenproject.org; Thu, 29 May 2025 01:14:40 +0000
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c416b1d6-3c27-11f0-a2fe-13f23c93f187;
- Thu, 29 May 2025 02:56:34 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 498dfe4d-3c2a-11f0-b894-0df219b8e170;
+ Thu, 29 May 2025 03:14:37 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 9064161156;
- Thu, 29 May 2025 00:56:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4E58C4CEE3;
- Thu, 29 May 2025 00:56:31 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 3CACF61156;
+ Thu, 29 May 2025 01:14:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2546BC4CEE3;
+ Thu, 29 May 2025 01:14:34 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,301 +41,738 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c416b1d6-3c27-11f0-a2fe-13f23c93f187
+X-Inumbo-ID: 498dfe4d-3c2a-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1748480192;
-	bh=eSvJ8OvpRSN/6GQMDPLNC/VPWLQ5QtM8LCKx0TjKUaY=;
+	s=k20201202; t=1748481275;
+	bh=rwadL/Wng9tKc3eHnmDgJKY6hwQqIw2Szk/Qzw3gv6Y=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=ItuXGeKn7CDWmoWQwRDEPaYsbcaxxfx2ynLmB8ep0nWFjQE324AU39/rfJJqzk9g2
-	 Y7b59VyhSWgmVaQ+iNKOdhy5VkHNdwa2BDJxiaP9ZJs6H0ZjYA0GLACT167xcRmW3n
-	 GN/LTJSUOKuu0JX+TSgJFlKuVG2bao4UUEJdG20/txEOFma56GHtxSzGYomekotUlI
-	 0CWQlpHNlQzd2U977oKPTuzoEHtXJfIDdvsjLW5NtomaHtYn3O3EzzIm3cc1wAgjGi
-	 w7sSqGWLhPZEocC3erttQ2mqyYr2HP4cWl6Fj9BKHT6obdTsMT0Rgbk0W4czPPLQGh
-	 l4pFUnrF98f+g==
-Date: Wed, 28 May 2025 17:56:30 -0700 (PDT)
+	b=DoUuRF5KegDJwab28HbXG/Fl2EdUDQjJTFTK3KNKM9/WGLgXGk5RY/i0u/xVZowSp
+	 H/93MyyjIVRc/HWMfJm2LVXgqvm5UpFYfAvc/aEdrXreafbCef0AkVre+9SbBBjXSy
+	 0POLkbXY6PBJByB+MGPz1WAB84Qs8eLGjE6CNcef9AR3jtrFTkyXirN8UK6aJDV9XU
+	 2w4NKIq+ijwVcdVDXDq9XisgFH14vRxkZ84/Giet2y5g0nVPsZ8prw7AmVuiGYr0/A
+	 yCenp02GqgUEfac/LBaCXY8BomvfbuQ3FEoR17boRBAL0mPJtamWZqZ6lPRpquLF0Y
+	 Ug33zawTkXTEA==
+Date: Wed, 28 May 2025 18:14:32 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Mykyta Poturai <Mykyta_Poturai@epam.com>
 cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-    Rahul Singh <rahul.singh@arm.com>, 
+    Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    Anthony PERARD <anthony.perard@vates.tech>, 
+    Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, 
+    Julien Grall <julien@xen.org>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
     Bertrand Marquis <bertrand.marquis@arm.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-    Michal Orzel <michal.orzel@amd.com>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-    Stewart Hildebrand <stewart.hildebrand@amd.com>
-Subject: Re: [PATCH v11 4/7] xen/arm: smmuv3: Add PCI devices support for
- SMMUv3
-In-Reply-To: <71741747bdc0cfcacbe86e66ddd6239ea2f5a3af.1748422217.git.mykyta_poturai@epam.com>
-Message-ID: <alpine.DEB.2.22.394.2505281756230.135336@ubuntu-linux-20-04-desktop>
-References: <cover.1748422217.git.mykyta_poturai@epam.com> <71741747bdc0cfcacbe86e66ddd6239ea2f5a3af.1748422217.git.mykyta_poturai@epam.com>
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [PATCH v5 4/4] xen/arm: add support for R-Car Gen4 PCI host
+ controller
+In-Reply-To: <06f5972dda6a8132be8eab5ad1b8586ff3c5aaf3.1747820844.git.mykyta_poturai@epam.com>
+Message-ID: <alpine.DEB.2.22.394.2505281814050.135336@ubuntu-linux-20-04-desktop>
+References: <cover.1747820844.git.mykyta_poturai@epam.com> <06f5972dda6a8132be8eab5ad1b8586ff3c5aaf3.1747820844.git.mykyta_poturai@epam.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Wed, 28 May 2025, Mykyta Poturai wrote:
-> From: Rahul Singh <rahul.singh@arm.com>
+On Wed, 21 May 2025, Mykyta Poturai wrote:
+> From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
 > 
-> Implement support for PCI devices in the SMMU driver. Trigger iommu-map
-> parsing when new PCI device is added. Add checks to assign/deassign
-> functions to ensure PCI devices are handled correctly. Implement basic
-> quarantining.
+> Add support for Renesas R-Car Gen4 PCI host controller, specifically
+> targeting the S4 and V4H SoCs. The implementation includes configuration
+> read/write operations for both root and child buses. For accessing the
+> child bus, iATU is used for address translation.
 > 
-> All pci devices are automatically assigned to hardware domain if it exists
-> to ensure it can probe them.
+> The host controller needs to be initialized by Dom0 first to be properly
+> handled by Xen. Xen itself only handles the runtime configuration of
+> the iATU for accessing different child devices.
 > 
-> TODO:
-> Implement scratch page quarantining support.
+> iATU programming is done similarly to Linux, where only window 0 is used
+> for dynamic configuration, and it is reconfigured for every config space
+> read/write.
 > 
-> Signed-off-by: Rahul Singh <rahul.singh@arm.com>
-> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
+> Code common to all DesignWare PCI host controllers is located in a
+> separate file to allow for easy reuse in other DesignWare-based PCI
+> host controllers.
+> 
+> Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
 > Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
 
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+Acked-by: Stefano Stabellini <sstabellini@kernel.org>
 
 
 > ---
-> v10->v11:
-> * no changes
-> 
-> v9->v10:
-> * return if iommu_add_pci_sidband_ids fails
-> 
-> v8->v9:
-> * no change
-> 
-> v7->v8:
-> * no change
-> 
-> v6->v7:
-> * address TODO: use d->pci_lock in arm_smmu_assign_dev()
-> * remove !is_hardware_domain and pdev->domain == d checks in assign to
->   support future dom0less use case when dom0 is using vPCI
-> * check if pdev->domain exists before assigning to it
-> * don't print ""
-> * change assign logic to remove reassign reimplementation
-> * explain pdev->devfn check
-> * make reassign check stricter and update comment
-> 
-> v5->v6:
-> * check for hardware_domain == NULL (dom0less test case)
-> * locking: assign pdev->domain before list_add()
-> 
 > v4->v5:
-> * deassign from hwdom
-> * add TODO regarding locking
-> * fixup after dropping ("xen/arm: Move is_protected flag to struct device")
+> * update license identifiers
+> * improve error checking
+> * use XENLOG_G_* where needed
+> * make macro defs more robust and minor style fixes
+> * add MAINTANERS entry
 > 
 > v3->v4:
-> * no change
+> * no changes
 > 
 > v2->v3:
-> * rebase
-> * invoke iommu_add_pci_sideband_ids() from add_device hook
+> * move priv allocation to dw_pcie_host_probe
 > 
 > v1->v2:
-> * ignore add_device/assign_device/reassign_device calls for phantom functions
->   (i.e. devfn != pdev->devfn)
-> 
-> downstream->v1:
-> * rebase
-> * move 2 replacements of s/dt_device_set_protected(dev_to_dt(dev))/device_set_protected(dev)/
->   from this commit to ("xen/arm: Move is_protected flag to struct device")
->   so as to not break ability to bisect
-> * adjust patch title (remove stray space)
-> * arm_smmu_(de)assign_dev: return error instead of crashing system
-> * remove arm_smmu_remove_device() stub
-> * update condition in arm_smmu_reassign_dev
-> * style fixup
-> 
-> (cherry picked from commit 7ed6c3ab250d899fe6e893a514278e406a2893e8 from
->  the downstream branch poc/pci-passthrough from
->  https://gitlab.com/xen-project/people/bmarquis/xen-arm-poc.git)
+> * move designware code in a separate file
 > ---
->  xen/drivers/passthrough/arm/smmu-v3.c | 119 +++++++++++++++++++++++---
->  1 file changed, 108 insertions(+), 11 deletions(-)
+>  MAINTAINERS                       |   6 +
+>  xen/arch/arm/pci/Makefile         |   2 +
+>  xen/arch/arm/pci/pci-designware.c | 416 ++++++++++++++++++++++++++++++
+>  xen/arch/arm/pci/pci-designware.h |  90 +++++++
+>  xen/arch/arm/pci/pci-host-rcar4.c |  94 +++++++
+>  5 files changed, 608 insertions(+)
+>  create mode 100644 xen/arch/arm/pci/pci-designware.c
+>  create mode 100644 xen/arch/arm/pci/pci-designware.h
+>  create mode 100644 xen/arch/arm/pci/pci-host-rcar4.c
 > 
-> diff --git a/xen/drivers/passthrough/arm/smmu-v3.c b/xen/drivers/passthrough/arm/smmu-v3.c
-> index df16235057..a3bbfda993 100644
-> --- a/xen/drivers/passthrough/arm/smmu-v3.c
-> +++ b/xen/drivers/passthrough/arm/smmu-v3.c
-> @@ -1469,14 +1469,37 @@ static bool arm_smmu_sid_in_range(struct arm_smmu_device *smmu, u32 sid)
->  }
->  /* Forward declaration */
->  static struct arm_smmu_device *arm_smmu_get_by_dev(const struct device *dev);
-> +static int arm_smmu_assign_dev(struct domain *d, u8 devfn, struct device *dev,
-> +			       u32 flag);
-> +static int arm_smmu_deassign_dev(struct domain *d, uint8_t devfn,
-> +				 struct device *dev);
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index c11b82eca9..dc1291e2b0 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -476,6 +476,12 @@ M:	Anthony Perard <anthony.perard@vates.tech>
+>  S:	Supported
+>  T:	git https://xenbits.xenproject.org/git-http/qemu-xen.git
 >  
->  static int arm_smmu_add_device(u8 devfn, struct device *dev)
->  {
->  	int i, ret;
->  	struct arm_smmu_device *smmu;
->  	struct arm_smmu_master *master;
-> -	struct iommu_fwspec *fwspec = dev_iommu_fwspec_get(dev);
-> +	struct iommu_fwspec *fwspec;
+> +RCAR PCI
+> +M:	Mykyta Poturai <mykyta_poturai@epam.com>
+> +S:	Supported
+> +F:	xen/arch/arm/pci/pci-host-rcar4.c
+> +F:	xen/arch/arm/pci/pci-designware*
 > +
-> +#ifdef CONFIG_HAS_PCI
-> +	if ( dev_is_pci(dev) )
-> +	{
-> +		struct pci_dev *pdev = dev_to_pci(dev);
-> +		int ret;
-> +				
-> +		/* Ignore calls for phantom functions */
-> +		if ( devfn != pdev->devfn )
-> +			return 0;
+>  REMUS
+>  S:	Orphan
+>  F:	docs/README.remus
+> diff --git a/xen/arch/arm/pci/Makefile b/xen/arch/arm/pci/Makefile
+> index 1d045ade01..ca6135e282 100644
+> --- a/xen/arch/arm/pci/Makefile
+> +++ b/xen/arch/arm/pci/Makefile
+> @@ -4,3 +4,5 @@ obj-y += pci-host-generic.o
+>  obj-y += pci-host-common.o
+>  obj-y += ecam.o
+>  obj-y += pci-host-zynqmp.o
+> +obj-y += pci-designware.o
+> +obj-y += pci-host-rcar4.o
+> diff --git a/xen/arch/arm/pci/pci-designware.c b/xen/arch/arm/pci/pci-designware.c
+> new file mode 100644
+> index 0000000000..fc8c6724f2
+> --- /dev/null
+> +++ b/xen/arch/arm/pci/pci-designware.c
+> @@ -0,0 +1,416 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only
+> + *
+> + * Based on Linux drivers/pci/controller/pci-host-common.c
+> + * Based on Linux drivers/pci/controller/pci-host-generic.c
+> + * Based on Linux drivers/pci/controller/dwc/pcie-designware.c
+> + * Based on xen/arch/arm/pci/pci-host-generic.c
+> + *
+> + */
 > +
-> +		ret = iommu_add_pci_sideband_ids(pdev);
-> +		if ( ret < 0 ) {
-> +			iommu_fwspec_free(dev);
-> +			return ret;
-> +		}
-> +	}
-> +#endif
->  
-> +	fwspec = dev_iommu_fwspec_get(dev);
->  	if (!fwspec)
->  		return -ENODEV;
->  
-> @@ -1521,17 +1544,38 @@ static int arm_smmu_add_device(u8 devfn, struct device *dev)
->  	 */
->  	arm_smmu_enable_pasid(master);
->  
-> -	if (dt_device_is_protected(dev_to_dt(dev))) {
-> -		dev_err(dev, "Already added to SMMUv3\n");
-> -		return -EEXIST;
-> -	}
-> +	if ( !dev_is_pci(dev) )
-> +	{
-> +		if (dt_device_is_protected(dev_to_dt(dev))) {
-> +			dev_err(dev, "Already added to SMMUv3\n");
-> +			return -EEXIST;
-> +		}
->  
-> -	/* Let Xen know that the master device is protected by an IOMMU. */
-> -	dt_device_set_protected(dev_to_dt(dev));
-> +		/* Let Xen know that the master device is protected by an IOMMU. */
-> +		dt_device_set_protected(dev_to_dt(dev));
-> +	}
->  
->  	dev_info(dev, "Added master device (SMMUv3 %s StreamIds %u)\n",
->  			dev_name(fwspec->iommu_dev), fwspec->num_ids);
->  
-> +#ifdef CONFIG_HAS_PCI
-> +	if ( dev_is_pci(dev) )
-> +	{
-> +		struct pci_dev *pdev = dev_to_pci(dev);
+> +#include <xen/delay.h>
+> +#include <asm/io.h>
 > +
-> +		/*
-> +		 * During PHYSDEVOP_pci_device_add, Xen does not assign the
-> +		 * device, so we must do it here.
-> +		 */
-> +		if ( pdev->domain )
-> +		{
-> +			ret = arm_smmu_assign_dev(pdev->domain, devfn, dev, 0);
-> +			if (ret)
-> +				goto err_free_master;
-> +		}
-> +	}
-> +#endif
+> +#include "pci-designware.h"
+> +/**
+> + * upper_32_bits - return bits 32-63 of a number
+> + * @n: the number we're accessing
+> + *
+> + * A basic shift-right of a 64- or 32-bit quantity.  Use this to suppress
+> + * the "right shift count >= width of type" warning when that quantity is
+> + * 32-bits.
+> + */
+> +#define upper_32_bits(n) ((uint32_t)(((n) >> 16) >> 16))
 > +
->  	return 0;
->  
->  err_free_master:
-> @@ -2624,6 +2668,42 @@ static int arm_smmu_assign_dev(struct domain *d, u8 devfn,
->  	struct arm_smmu_domain *smmu_domain;
->  	struct arm_smmu_xen_domain *xen_domain = dom_iommu(d)->arch.priv;
->  
-> +#ifdef CONFIG_HAS_PCI
-> +	if ( dev_is_pci(dev) )
-> +	{
-> +		struct pci_dev *pdev = dev_to_pci(dev);
+> +/**
+> + * lower_32_bits - return bits 0-31 of a number
+> + * @n: the number we're accessing
+> + */
+> +#define lower_32_bits(n) ((uint32_t)((n) & 0xffffffffU))
 > +
-> +		/* Ignore calls for phantom functions */
-> +		if ( devfn != pdev->devfn )
-> +			return 0;
+> +static int dw_pcie_read(void __iomem *addr, int len, uint32_t *val)
+> +{
+> +    if ( !IS_ALIGNED((uintptr_t)addr, len) )
+> +    {
+> +        *val = 0;
+> +        return -EFAULT;
+> +    }
 > +
-> +		ASSERT(pcidevs_locked());
+> +    switch ( len )
+> +    {
+> +    case 1:
+> +        *val = readb(addr);
+> +        break;
+> +    case 2:
+> +        *val = readw(addr);
+> +        break;
+> +    case 4:
+> +        *val = readl(addr);
+> +        break;
+> +    default:
+> +        ASSERT_UNREACHABLE();
+> +    }
 > +
-> +		write_lock(&pdev->domain->pci_lock);
-> +		list_del(&pdev->domain_list);
-> +		write_unlock(&pdev->domain->pci_lock);
+> +    return 0;
+> +}
 > +
-> +		pdev->domain = d;
+> +static int dw_pcie_write(void __iomem *addr, int len, uint32_t val)
+> +{
+> +    if ( !IS_ALIGNED((uintptr_t)addr, len) )
+> +        return -EFAULT;
 > +
-> +		write_lock(&d->pci_lock);
-> +		list_add(&pdev->domain_list, &d->pdev_list);
-> +		write_unlock(&d->pci_lock);
+> +    switch ( len )
+> +    {
+> +    case 1:
+> +        writeb(val, addr);
+> +        break;
+> +    case 2:
+> +        writew(val, addr);
+> +        break;
+> +    case 4:
+> +        writel(val, addr);
+> +        break;
+> +    default:
+> +        ASSERT_UNREACHABLE();
+> +    }
 > +
-> +		/* dom_io is used as a sentinel for quarantined devices */
-> +		if ( d == dom_io )
-> +		{
-> +			struct arm_smmu_master *master = dev_iommu_priv_get(dev);
-> +			if ( !iommu_quarantine )
-> +				return 0;
+> +    return 0;
+> +}
 > +
-> +			if ( master && master->domain )
-> +				arm_smmu_deassign_dev(master->domain->d, devfn, dev);
+> +static uint32_t dw_pcie_read_dbi(struct pci_host_bridge *bridge, uint32_t reg,
+> +                                 size_t size)
+> +{
+> +    void __iomem *addr = bridge->cfg->win + reg;
+> +    uint32_t val;
+> +    int ret;
 > +
-> +			return 0;
-> +		}
-> +	}
-> +#endif
+> +    ret = dw_pcie_read(addr, size, &val);
+> +    if ( ret )
+> +        printk(XENLOG_G_ERR "Read DBI address failed\n");
 > +
->  	spin_lock(&xen_domain->lock);
->  
->  	/*
-> @@ -2657,7 +2737,7 @@ out:
->  	return ret;
->  }
->  
-> -static int arm_smmu_deassign_dev(struct domain *d, struct device *dev)
-> +static int arm_smmu_deassign_dev(struct domain *d, uint8_t devfn, struct device *dev)
->  {
->  	struct iommu_domain *io_domain = arm_smmu_get_domain(d, dev);
->  	struct arm_smmu_xen_domain *xen_domain = dom_iommu(d)->arch.priv;
-> @@ -2669,6 +2749,21 @@ static int arm_smmu_deassign_dev(struct domain *d, struct device *dev)
->  		return -ESRCH;
->  	}
->  
-> +#ifdef CONFIG_HAS_PCI
-> +	if ( dev_is_pci(dev) )
-> +	{
-> +		struct pci_dev *pdev = dev_to_pci(dev);
+> +    return val;
+> +}
 > +
-> +		/* Ignore calls for phantom functions */
-> +		if ( devfn != pdev->devfn )
-> +			return 0;
+> +static void dw_pcie_write_dbi(struct pci_host_bridge *bridge, uint32_t reg,
+> +                              size_t size, uint32_t val)
+> +{
+> +    void __iomem *addr = bridge->cfg->win + reg;
+> +    int ret;
 > +
-> +		/* dom_io is used as a sentinel for quarantined devices */
-> +		if ( d == dom_io )
-> +			return 0;
-> +	}
-> +#endif
+> +    ret = dw_pcie_write(addr, size, val);
+> +    if ( ret )
+> +        printk(XENLOG_G_ERR "Write DBI address failed\n");
+> +}
 > +
->  	spin_lock(&xen_domain->lock);
->  
->  	arm_smmu_detach_dev(master);
-> @@ -2687,14 +2782,16 @@ static int arm_smmu_reassign_dev(struct domain *s, struct domain *t,
->  {
->  	int ret = 0;
->  
-> -	/* Don't allow remapping on other domain than hwdom */
-> -	if ( t && !is_hardware_domain(t) )
-> +	/* Don't allow remapping on other domain than hwdom
-> +	 * or dom_io for PCI devices
-> +	 */
-> +	if ( t && !is_hardware_domain(t) && (t != dom_io || !dev_is_pci(dev)) )
->  		return -EPERM;
->  
->  	if (t == s)
->  		return 0;
->  
-> -	ret = arm_smmu_deassign_dev(s, dev);
-> +	ret = arm_smmu_deassign_dev(s, devfn, dev);
->  	if (ret)
->  		return ret;
->  
+> +static uint32_t dw_pcie_readl_dbi(struct pci_host_bridge *bridge, uint32_t reg)
+> +{
+> +    return dw_pcie_read_dbi(bridge, reg, sizeof(uint32_t));
+> +}
+> +
+> +static void dw_pcie_writel_dbi(struct pci_host_bridge *pci, uint32_t reg,
+> +                               uint32_t val)
+> +{
+> +    dw_pcie_write_dbi(pci, reg, sizeof(uint32_t), val);
+> +}
+> +
+> +static void dw_pcie_read_iatu_unroll_enabled(struct pci_host_bridge *bridge)
+> +{
+> +    struct dw_pcie_priv *priv = bridge->priv;
+> +    uint32_t val;
+> +
+> +    val = dw_pcie_readl_dbi(bridge, PCIE_ATU_VIEWPORT);
+> +    if ( val == 0xffffffffU )
+> +        priv->iatu_unroll_enabled = true;
+> +
+> +    printk(XENLOG_G_DEBUG "%s iATU unroll: %sabled\n",
+> +           dt_node_full_name(bridge->dt_node),
+> +           priv->iatu_unroll_enabled ? "en" : "dis");
+> +}
+> +
+> +static uint32_t dw_pcie_readl_atu(struct pci_host_bridge *pci, uint32_t reg)
+> +{
+> +    struct dw_pcie_priv *priv = pci->priv;
+> +    int ret;
+> +    uint32_t val;
+> +
+> +    ret = dw_pcie_read(priv->atu_base + reg, 4, &val);
+> +    if ( ret )
+> +        printk(XENLOG_G_ERR "Read ATU address failed\n");
+> +
+> +    return val;
+> +}
+> +
+> +static void dw_pcie_writel_atu(struct pci_host_bridge *pci, uint32_t reg,
+> +                               uint32_t val)
+> +{
+> +    struct dw_pcie_priv *priv = pci->priv;
+> +    int ret;
+> +
+> +    ret = dw_pcie_write(priv->atu_base + reg, 4, val);
+> +    if ( ret )
+> +        printk(XENLOG_G_ERR "Write ATU address failed\n");
+> +}
+> +
+> +static uint32_t dw_pcie_readl_ob_unroll(struct pci_host_bridge *pci,
+> +                                        uint32_t index, uint32_t reg)
+> +{
+> +    uint32_t offset = PCIE_GET_ATU_OUTB_UNR_REG_OFFSET(index);
+> +
+> +    return dw_pcie_readl_atu(pci, offset + reg);
+> +}
+> +
+> +static void dw_pcie_writel_ob_unroll(struct pci_host_bridge *pci,
+> +                                     uint32_t index, uint32_t reg, uint32_t val)
+> +{
+> +    uint32_t offset = PCIE_GET_ATU_OUTB_UNR_REG_OFFSET(index);
+> +
+> +    dw_pcie_writel_atu(pci, offset + reg, val);
+> +}
+> +
+> +static uint32_t dw_pcie_enable_ecrc(uint32_t val)
+> +{
+> +    ASSERT_UNREACHABLE();
+> +    return 0;
+> +}
+> +
+> +static int dw_pcie_prog_outbound_atu_unroll(struct pci_host_bridge *pci,
+> +                                            uint8_t func_no, int index,
+> +                                            int type, uint64_t cpu_addr,
+> +                                            uint64_t pci_addr, uint64_t size)
+> +{
+> +    struct dw_pcie_priv *priv = pci->priv;
+> +    uint32_t retries, val;
+> +    uint64_t limit_addr = cpu_addr + size - 1;
+> +
+> +    dw_pcie_writel_ob_unroll(pci, index, PCIE_ATU_UNR_LOWER_BASE,
+> +                             lower_32_bits(cpu_addr));
+> +    dw_pcie_writel_ob_unroll(pci, index, PCIE_ATU_UNR_UPPER_BASE,
+> +                             upper_32_bits(cpu_addr));
+> +    dw_pcie_writel_ob_unroll(pci, index, PCIE_ATU_UNR_LOWER_LIMIT,
+> +                             lower_32_bits(limit_addr));
+> +    dw_pcie_writel_ob_unroll(pci, index, PCIE_ATU_UNR_UPPER_LIMIT,
+> +                             upper_32_bits(limit_addr));
+> +    dw_pcie_writel_ob_unroll(pci, index, PCIE_ATU_UNR_LOWER_TARGET,
+> +                             lower_32_bits(pci_addr));
+> +    dw_pcie_writel_ob_unroll(pci, index, PCIE_ATU_UNR_UPPER_TARGET,
+> +                             upper_32_bits(pci_addr));
+> +    val = type | PCIE_ATU_FUNC_NUM(func_no);
+> +    val = upper_32_bits(size - 1) ? val | PCIE_ATU_INCREASE_REGION_SIZE : val;
+> +    if ( priv->version == 0x490A )
+> +        val = dw_pcie_enable_ecrc(val);
+> +    dw_pcie_writel_ob_unroll(pci, index, PCIE_ATU_UNR_REGION_CTRL1, val);
+> +    dw_pcie_writel_ob_unroll(pci, index, PCIE_ATU_UNR_REGION_CTRL2,
+> +                             PCIE_ATU_ENABLE);
+> +
+> +    /*
+> +     * Make sure ATU enable takes effect before any subsequent config
+> +     * and I/O accesses.
+> +     */
+> +    for ( retries = 0; retries < LINK_WAIT_MAX_IATU_RETRIES; retries++ )
+> +    {
+> +        val = dw_pcie_readl_ob_unroll(pci, index, PCIE_ATU_UNR_REGION_CTRL2);
+> +        if ( val & PCIE_ATU_ENABLE )
+> +            return 0;
+> +
+> +        mdelay(LINK_WAIT_IATU);
+> +    }
+> +    printk(XENLOG_G_ERR "Outbound iATU is not being enabled\n");
+> +
+> +    return -ENXIO;
+> +}
+> +
+> +static int __dw_pcie_prog_outbound_atu(struct pci_host_bridge *pci,
+> +                                       uint8_t func_no, int index, int type,
+> +                                       uint64_t cpu_addr, uint64_t pci_addr,
+> +                                       uint64_t size)
+> +{
+> +    struct dw_pcie_priv *priv = pci->priv;
+> +    uint32_t retries, val;
+> +
+> +    if ( priv->iatu_unroll_enabled )
+> +        return dw_pcie_prog_outbound_atu_unroll(pci, func_no, index, type,
+> +                                                cpu_addr, pci_addr, size);
+> +
+> +    dw_pcie_writel_dbi(pci, PCIE_ATU_VIEWPORT,
+> +                       PCIE_ATU_REGION_OUTBOUND | index);
+> +    dw_pcie_writel_dbi(pci, PCIE_ATU_LOWER_BASE, lower_32_bits(cpu_addr));
+> +    dw_pcie_writel_dbi(pci, PCIE_ATU_UPPER_BASE, upper_32_bits(cpu_addr));
+> +    dw_pcie_writel_dbi(pci, PCIE_ATU_LIMIT, lower_32_bits(cpu_addr + size - 1));
+> +    if ( priv->version >= 0x460A )
+> +        dw_pcie_writel_dbi(pci, PCIE_ATU_UPPER_LIMIT,
+> +                           upper_32_bits(cpu_addr + size - 1));
+> +    dw_pcie_writel_dbi(pci, PCIE_ATU_LOWER_TARGET, lower_32_bits(pci_addr));
+> +    dw_pcie_writel_dbi(pci, PCIE_ATU_UPPER_TARGET, upper_32_bits(pci_addr));
+> +    val = type | PCIE_ATU_FUNC_NUM(func_no);
+> +    val = ((upper_32_bits(size - 1)) && (priv->version >= 0x460A))
+> +              ? val | PCIE_ATU_INCREASE_REGION_SIZE
+> +              : val;
+> +    if ( priv->version == 0x490A )
+> +        val = dw_pcie_enable_ecrc(val);
+> +    dw_pcie_writel_dbi(pci, PCIE_ATU_CR1, val);
+> +    dw_pcie_writel_dbi(pci, PCIE_ATU_CR2, PCIE_ATU_ENABLE);
+> +
+> +    /*
+> +     * Make sure ATU enable takes effect before any subsequent config
+> +     * and I/O accesses.
+> +     */
+> +    for ( retries = 0; retries < LINK_WAIT_MAX_IATU_RETRIES; retries++ )
+> +    {
+> +        val = dw_pcie_readl_dbi(pci, PCIE_ATU_CR2);
+> +        if ( val & PCIE_ATU_ENABLE )
+> +            return 0;
+> +
+> +        mdelay(LINK_WAIT_IATU);
+> +    }
+> +    printk(XENLOG_G_ERR "Outbound iATU is not being enabled\n");
+> +
+> +    return -ENXIO;
+> +}
+> +
+> +static int dw_pcie_prog_outbound_atu(struct pci_host_bridge *pci, int index,
+> +                                     int type, uint64_t cpu_addr,
+> +                                     uint64_t pci_addr, uint64_t size)
+> +{
+> +    return __dw_pcie_prog_outbound_atu(pci, 0, index, type, cpu_addr, pci_addr,
+> +                                       size);
+> +}
+> +
+> +void dw_pcie_set_version(struct pci_host_bridge *bridge, unsigned int version)
+> +{
+> +    struct dw_pcie_priv *priv = bridge->priv;
+> +
+> +    priv->version = version;
+> +}
+> +
+> +void __iomem *dw_pcie_child_map_bus(struct pci_host_bridge *bridge,
+> +                                    pci_sbdf_t sbdf, uint32_t where)
+> +{
+> +    uint32_t busdev;
+> +    int ret;
+> +
+> +    busdev = PCIE_ATU_BUS(sbdf.bus) | PCIE_ATU_DEV(PCI_SLOT(sbdf.devfn)) |
+> +             PCIE_ATU_FUNC(PCI_FUNC(sbdf.devfn));
+> +
+> +    /* FIXME: Parent is the root bus, so use PCIE_ATU_TYPE_CFG0. */
+> +    ret = dw_pcie_prog_outbound_atu(bridge, PCIE_ATU_REGION_INDEX1,
+> +                                    PCIE_ATU_TYPE_CFG0,
+> +                                    bridge->child_cfg->phys_addr, busdev,
+> +                                    bridge->child_cfg->size);
+> +    if ( ret )
+> +        return 0;
+> +
+> +    return bridge->child_cfg->win + where;
+> +}
+> +
+> +int dw_pcie_child_config_read(struct pci_host_bridge *bridge, pci_sbdf_t sbdf,
+> +                              uint32_t reg, uint32_t len, uint32_t *value)
+> +{
+> +    struct dw_pcie_priv *priv = bridge->priv;
+> +    int ret;
+> +
+> +    /*
+> +     * FIXME: we cannot read iATU settings at the early initialization
+> +     * (probe) as the host's HW is not yet initialized at that phase.
+> +     * This read operation is the very first thing Domain-0 will do
+> +     * during its initialization, so take this opportunity and read
+> +     * iATU setting now.
+> +     */
+> +    if ( unlikely(!priv->iatu_unroll_initilized) )
+> +    {
+> +        dw_pcie_read_iatu_unroll_enabled(bridge);
+> +        priv->iatu_unroll_initilized = true;
+> +    }
+> +
+> +    ret = pci_generic_config_read(bridge, sbdf, reg, len, value);
+> +    if ( !ret && (priv->num_viewport <= 2) )
+> +        ret = dw_pcie_prog_outbound_atu(bridge, PCIE_ATU_REGION_INDEX1,
+> +                                        PCIE_ATU_TYPE_IO,
+> +                                        bridge->child_cfg->phys_addr, 0,
+> +                                        bridge->child_cfg->size);
+> +
+> +    return ret;
+> +}
+> +
+> +int dw_pcie_child_config_write(struct pci_host_bridge *bridge, pci_sbdf_t sbdf,
+> +                               uint32_t reg, uint32_t len, uint32_t value)
+> +{
+> +    struct dw_pcie_priv *priv = bridge->priv;
+> +    int ret;
+> +
+> +    ret = pci_generic_config_write(bridge, sbdf, reg, len, value);
+> +    if ( !ret && (priv->num_viewport <= 2) )
+> +        ret = dw_pcie_prog_outbound_atu(bridge, PCIE_ATU_REGION_INDEX1,
+> +                                        PCIE_ATU_TYPE_IO,
+> +                                        bridge->child_cfg->phys_addr, 0,
+> +                                        bridge->child_cfg->size);
+> +    return ret;
+> +}
+> +
+> +bool __init dw_pcie_child_need_p2m_hwdom_mapping(struct domain *d,
+> +                                                 struct pci_host_bridge *bridge,
+> +                                                 uint64_t addr)
+> +{
+> +    struct pci_config_window *cfg = bridge->child_cfg;
+> +
+> +    /*
+> +     * We do not want ECAM address space to be mapped in Domain-0's p2m,
+> +     * so we can trap access to it.
+> +     */
+> +    return cfg->phys_addr != addr;
+> +}
+> +
+> +struct pci_host_bridge *__init
+> +dw_pcie_host_probe(struct dt_device_node *dev, const void *data,
+> +                   const struct pci_ecam_ops *ops,
+> +                   const struct pci_ecam_ops *child_ops)
+> +{
+> +    struct pci_host_bridge *bridge;
+> +    struct dw_pcie_priv *priv;
+> +
+> +    paddr_t atu_phys_addr;
+> +    paddr_t atu_size;
+> +    int atu_idx, ret;
+> +
+> +    bridge = pci_host_common_probe(dev, ops, child_ops);
+> +    if ( IS_ERR(bridge) )
+> +        return bridge;
+> +
+> +    priv = xzalloc(struct dw_pcie_priv);
+> +    if ( !priv )
+> +        return ERR_PTR(-ENOMEM);
+> +
+> +    bridge->priv = priv;
+> +
+> +    atu_idx = dt_property_match_string(dev, "reg-names", "atu");
+> +    if ( atu_idx < 0 )
+> +    {
+> +        printk(XENLOG_ERR "Cannot find \"atu\" range index in device tree\n");
+> +        return ERR_PTR(atu_idx);
+> +    }
+> +    ret = dt_device_get_address(dev, atu_idx, &atu_phys_addr, &atu_size);
+> +    if ( ret )
+> +    {
+> +        printk(XENLOG_ERR "Cannot find \"atu\" range in device tree\n");
+> +        return ERR_PTR(ret);
+> +    }
+> +    printk("iATU at [mem 0x%" PRIpaddr "-0x%" PRIpaddr "]\n", atu_phys_addr,
+> +           atu_phys_addr + atu_size - 1);
+> +    priv->atu_base = ioremap_nocache(atu_phys_addr, atu_size);
+> +    if ( !priv->atu_base )
+> +    {
+> +        printk(XENLOG_ERR "iATU ioremap failed\n");
+> +        return ERR_PTR(ENXIO);
+> +    }
+> +
+> +    if ( !dt_property_read_u32(dev, "num-viewport", &priv->num_viewport) )
+> +        priv->num_viewport = 2;
+> +
+> +    /*
+> +     * FIXME: we cannot read iATU unroll enable now as the host bridge's
+> +     * HW is not yet initialized by Domain-0: leave it for later.
+> +     */
+> +
+> +    printk(XENLOG_INFO "%s number of view ports: %d\n", dt_node_full_name(dev),
+> +           priv->num_viewport);
+> +
+> +    return bridge;
+> +}
+> diff --git a/xen/arch/arm/pci/pci-designware.h b/xen/arch/arm/pci/pci-designware.h
+> new file mode 100644
+> index 0000000000..df4a9afe75
+> --- /dev/null
+> +++ b/xen/arch/arm/pci/pci-designware.h
+> @@ -0,0 +1,90 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only
+> + *
+> + * Based on Linux drivers/pci/controller/pci-host-common.c
+> + * Based on Linux drivers/pci/controller/pci-host-generic.c
+> + * Based on Linux drivers/pci/controller/dwc/pcie-designware.c
+> + * Based on xen/arch/arm/pci/pci-host-generic.c
+> + */
+> +
+> +#include <xen/pci.h>
+> +#include <xen/init.h>
+> +
+> +#ifndef __PCI_DESIGNWARE_H__
+> +#define __PCI_DESIGNWARE_H__
+> +
+> +
+> +#define PCIE_ATU_VIEWPORT               0x900
+> +#define PCIE_ATU_REGION_OUTBOUND        0
+> +#define PCIE_ATU_CR1                    0x904
+> +#define PCIE_ATU_INCREASE_REGION_SIZE   BIT(13, UL)
+> +#define PCIE_ATU_CR2                    0x908
+> +#define PCIE_ATU_ENABLE                 BIT(31, UL)
+> +#define PCIE_ATU_LOWER_BASE             0x90C
+> +#define PCIE_ATU_UPPER_BASE             0x910
+> +#define PCIE_ATU_LIMIT                  0x914
+> +#define PCIE_ATU_LOWER_TARGET           0x918
+> +#define PCIE_ATU_UPPER_TARGET           0x91C
+> +#define PCIE_ATU_UPPER_LIMIT            0x924
+> +
+> +#define PCIE_ATU_REGION_INDEX1  0x1
+> +#define PCIE_ATU_TYPE_IO        0x2
+> +#define PCIE_ATU_TYPE_CFG0      0x4
+> +
+> +#define FIELD_PREP(_mask, _val) \
+> +    (((typeof(_mask))(_val) << (ffs64(_mask) - 1)) & (_mask))
+> +
+> +#define PCIE_ATU_BUS(x)         FIELD_PREP(GENMASK(31, 24), (x))
+> +#define PCIE_ATU_DEV(x)         FIELD_PREP(GENMASK(23, 19), (x))
+> +#define PCIE_ATU_FUNC(x)        FIELD_PREP(GENMASK(18, 16), (x))
+> +
+> +/* Register address builder */
+> +#define PCIE_GET_ATU_OUTB_UNR_REG_OFFSET(region) \
+> +    ((region) << 9)
+> +
+> +/*
+> + * iATU Unroll-specific register definitions
+> + * From 4.80 core version the address translation will be made by unroll
+> + */
+> +#define PCIE_ATU_UNR_REGION_CTRL1       0x00
+> +#define PCIE_ATU_UNR_REGION_CTRL2       0x04
+> +#define PCIE_ATU_UNR_LOWER_BASE         0x08
+> +#define PCIE_ATU_UNR_UPPER_BASE         0x0C
+> +#define PCIE_ATU_UNR_LOWER_LIMIT        0x10
+> +#define PCIE_ATU_UNR_LOWER_TARGET       0x14
+> +#define PCIE_ATU_UNR_UPPER_TARGET       0x18
+> +#define PCIE_ATU_UNR_UPPER_LIMIT        0x20
+> +
+> +#define PCIE_ATU_FUNC_NUM(pf)           ((pf) << 20)
+> +
+> +/* Parameters for the waiting for iATU enabled routine */
+> +#define LINK_WAIT_MAX_IATU_RETRIES      5
+> +#define LINK_WAIT_IATU                  9
+> +
+> +struct dw_pcie_priv {
+> +    uint32_t num_viewport;
+> +    bool iatu_unroll_initilized;
+> +    bool iatu_unroll_enabled;
+> +    void __iomem *atu_base;
+> +    unsigned int version;
+> +};
+> +
+> +void dw_pcie_set_version(struct pci_host_bridge *bridge, unsigned int version);
+> +
+> +void __iomem *dw_pcie_child_map_bus(struct pci_host_bridge *bridge,
+> +                                    pci_sbdf_t sbdf, uint32_t where);
+> +
+> +int dw_pcie_child_config_read(struct pci_host_bridge *bridge, pci_sbdf_t sbdf,
+> +                              uint32_t reg, uint32_t len, uint32_t *value);
+> +
+> +int dw_pcie_child_config_write(struct pci_host_bridge *bridge, pci_sbdf_t sbdf,
+> +                               uint32_t reg, uint32_t len, uint32_t value);
+> +
+> +bool __init dw_pcie_child_need_p2m_hwdom_mapping(struct domain *d,
+> +                                                 struct pci_host_bridge *bridge,
+> +                                                 uint64_t addr);
+> +
+> +struct pci_host_bridge *__init
+> +dw_pcie_host_probe(struct dt_device_node *dev, const void *data,
+> +                   const struct pci_ecam_ops *ops,
+> +                   const struct pci_ecam_ops *child_ops);
+> +#endif /* __PCI_DESIGNWARE_H__ */
+> diff --git a/xen/arch/arm/pci/pci-host-rcar4.c b/xen/arch/arm/pci/pci-host-rcar4.c
+> new file mode 100644
+> index 0000000000..62d2130a63
+> --- /dev/null
+> +++ b/xen/arch/arm/pci/pci-host-rcar4.c
+> @@ -0,0 +1,94 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only
+> + *
+> + * Based on Linux drivers/pci/controller/pci-host-common.c
+> + * Based on Linux drivers/pci/controller/pci-host-generic.c
+> + * Based on xen/arch/arm/pci/pci-host-generic.c
+> + */
+> +
+> +#include <xen/init.h>
+> +#include <xen/pci.h>
+> +
+> +#include <asm/device.h>
+> +#include <asm/io.h>
+> +#include <asm/pci.h>
+> +
+> +#include "pci-designware.h"
+> +
+> +#define RCAR4_DWC_VERSION       0x520A
+> +
+> +/*
+> + * PCI host bridges often have different ways to access the root and child
+> + * bus config spaces:
+> + *   "dbi"   : the aperture where root port's own configuration registers
+> + *             are available.
+> + *   "config": child's configuration space
+> + *   "atu"   : iATU registers for DWC version 4.80 or later
+> + */
+> +static int __init rcar4_cfg_reg_index(struct dt_device_node *np)
+> +{
+> +    return dt_property_match_string(np, "reg-names", "dbi");
+> +}
+> +
+> +static int __init rcar4_child_cfg_reg_index(struct dt_device_node *np)
+> +{
+> +    return dt_property_match_string(np, "reg-names", "config");
+> +}
+> +
+> +/* ECAM ops */
+> +const struct pci_ecam_ops rcar4_pcie_ops = {
+> +    .bus_shift  = 20,
+> +    .cfg_reg_index = rcar4_cfg_reg_index,
+> +    .pci_ops    = {
+> +        .map_bus                = pci_ecam_map_bus,
+> +        .read                   = pci_generic_config_read,
+> +        .write                  = pci_generic_config_write,
+> +        .need_p2m_hwdom_mapping = pci_ecam_need_p2m_hwdom_mapping,
+> +        .init_bus_range         = pci_generic_init_bus_range,
+> +    }
+> +};
+> +
+> +const struct pci_ecam_ops rcar4_pcie_child_ops = {
+> +    .bus_shift  = 20,
+> +    .cfg_reg_index = rcar4_child_cfg_reg_index,
+> +    .pci_ops    = {
+> +        .map_bus                = dw_pcie_child_map_bus,
+> +        .read                   = dw_pcie_child_config_read,
+> +        .write                  = dw_pcie_child_config_write,
+> +        .need_p2m_hwdom_mapping = dw_pcie_child_need_p2m_hwdom_mapping,
+> +        .init_bus_range         = pci_generic_init_bus_range_child,
+> +    }
+> +};
+> +
+> +static const struct dt_device_match __initconstrel rcar4_pcie_dt_match[] = {
+> +    { .compatible = "renesas,r8a779f0-pcie" },
+> +    { .compatible = "renesas,r8a779g0-pcie" },
+> +    {},
+> +};
+> +
+> +static int __init pci_host_rcar4_probe(struct dt_device_node *dev,
+> +                                       const void *data)
+> +{
+> +    struct pci_host_bridge *bridge;
+> +
+> +    bridge = dw_pcie_host_probe(dev, data, &rcar4_pcie_ops,
+> +                                &rcar4_pcie_child_ops);
+> +
+> +    dw_pcie_set_version(bridge, RCAR4_DWC_VERSION);
+> +
+> +    return 0;
+> +}
+> +
+> +DT_DEVICE_START(pci_gen, "PCI HOST R-CAR GEN4", DEVICE_PCI_HOSTBRIDGE)
+> +.dt_match = rcar4_pcie_dt_match,
+> +.init = pci_host_rcar4_probe,
+> +DT_DEVICE_END
+> +
+> +/*
+> + * Local variables:
+> + * mode: C
+> + * c-file-style: "BSD"
+> + * c-basic-offset: 4
+> + * tab-width: 4
+> + * indent-tabs-mode: nil
+> + * End:
+> + */
 > -- 
 > 2.34.1
 > 
