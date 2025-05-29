@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1F009AC742F
-	for <lists+xen-devel@lfdr.de>; Thu, 29 May 2025 00:51:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.999592.1380250 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E6211AC74D2
+	for <lists+xen-devel@lfdr.de>; Thu, 29 May 2025 02:09:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.999629.1380261 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uKPc4-0008PU-4Q; Wed, 28 May 2025 22:51:08 +0000
+	id 1uKQpe-0001Eh-Kf; Thu, 29 May 2025 00:09:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 999592.1380250; Wed, 28 May 2025 22:51:08 +0000
+Received: by outflank-mailman (output) from mailman id 999629.1380261; Thu, 29 May 2025 00:09:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uKPc4-0008LD-1X; Wed, 28 May 2025 22:51:08 +0000
-Received: by outflank-mailman (input) for mailman id 999592;
- Wed, 28 May 2025 22:51:06 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uKQpe-0001DG-Gn; Thu, 29 May 2025 00:09:14 +0000
+Received: by outflank-mailman (input) for mailman id 999629;
+ Thu, 29 May 2025 00:09:13 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ql61=YM=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
- id 1uKPc2-0007tz-Sh
- for xen-devel@lists.xenproject.org; Wed, 28 May 2025 22:51:06 +0000
-Received: from mail-10629.protonmail.ch (mail-10629.protonmail.ch
- [79.135.106.29]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3c9addbd-3c16-11f0-b894-0df219b8e170;
- Thu, 29 May 2025 00:51:05 +0200 (CEST)
+ (envelope-from <SRS0=VQJb=YN=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
+ id 1uKQpb-0001DA-S6
+ for xen-devel@lists.xenproject.org; Thu, 29 May 2025 00:09:12 +0000
+Received: from mail-4322.protonmail.ch (mail-4322.protonmail.ch [185.70.43.22])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 24946ce1-3c21-11f0-a2fe-13f23c93f187;
+ Thu, 29 May 2025 02:09:09 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,223 +36,87 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3c9addbd-3c16-11f0-b894-0df219b8e170
+X-Inumbo-ID: 24946ce1-3c21-11f0-a2fe-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=jyuo52idjzhdljhmxbj2pkmvci.protonmail; t=1748472664; x=1748731864;
-	bh=Ism5zqoyp25HVyCSFsCPOuacHsymbgmA3mLoHwRNEeM=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector:List-Unsubscribe:List-Unsubscribe-Post;
-	b=jQyjBnmrG0SwnHJiPVn01yU/w6/KmTNZhPWxjXe+6mxxwwmwVjmsauPv3GKoNPq68
-	 n2RNpR2zGz/EOYo1tsugZOH04/IaJ4bErWIU9BqsM+np8YPbP7MJaDegUxvYAEUYIb
-	 BnSr3q7O3u+UKCEPSTE6p47IlSrJffXWWbvIpUV6495pPvc/5E38/2RkPUanRXLJ3L
-	 gA8+mhghVA4ClK1SPJwdnCvVnuxWdwdGuVnCUwdrSLLZcuwa/GN8KYIrhgeKk7zoZN
-	 H7wu0OBUEZSRwqw8Hg0HCM5AgF+crFY7zmAnsVxFlsrMPAFVBqjY9q4wNDUb4c2NXN
-	 xfFu4yc0ZchEw==
-Date: Wed, 28 May 2025 22:50:57 +0000
+	s=protonmail; t=1748477348; x=1748736548;
+	bh=fXnq4428mtXJJTvN8RDXljIOFAvdt9NLb3tDvOQykf0=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector:
+	 List-Unsubscribe:List-Unsubscribe-Post;
+	b=PXNCM5xrL0ef41Ny2K/+880cFfsVjGHJ/YgzqYeWcuorLbRJegKISxrlDoztqEtEA
+	 +Ibbsg8bsg69gMjn5QiH39jGguZ/ttyRAaIfYO2LOKIpRd8Hwr2JaatoBuPjC2z2g2
+	 rA0TatyL1MSOP3Uk09fE93WCJJtGTgE48bPOCezfG48awTalH3tGe/rdsrAIGliFdX
+	 59OIWR5BkF40fGmdlNb1s0dMfK978p7mdSn53JLbcCW3BDdsYjH1WRvnB0iGXl07nk
+	 wR+ynxZFv/STZYfsMSLsvHlT5IZCC7BS8SMdW6xjjcQ16KtSaT2cjSO7VhcktbYrdy
+	 x0L9rIPhQnDeQ==
+Date: Thu, 29 May 2025 00:08:58 +0000
 To: xen-devel@lists.xenproject.org
 From: dmkhn@proton.me
-Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org, roger.pau@citrix.com, sstabellini@kernel.org, teddy.astie@vates.tech, dmukhin@ford.com, Denis Mukhin <dmkhn@proton.me>
-Subject: [PATCH v9 3/3] xen/domain: introduce CONFIG_MAX_DOMID
-Message-ID: <20250528225030.2652166-4-dmukhin@ford.com>
-In-Reply-To: <20250528225030.2652166-1-dmukhin@ford.com>
-References: <20250528225030.2652166-1-dmukhin@ford.com>
+Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com
+Subject: [PATCH v4 0/4] xen/console: cleanup console input switch logic
+Message-ID: <20250529000848.2675903-1-dmukhin@ford.com>
 Feedback-ID: 123220910:user:proton
-X-Pm-Message-ID: 14520f3a02d52d3de6bc444d5f814acc9862d8fa
+X-Pm-Message-ID: ccd94a3d72fd7dc839ba735fa2e7b99fb260556b
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-From: Denis Mukhin <dmkhn@proton.me>
+The patch series originates from the NS16550 UART emulator series [1] (x86)
+which requires ability to switch physical console input to a PVH/HVM domain
+with an emulated UART.
 
-From: Denis Mukhin <dmukhin@ford.com>
+Currently, on x86, console input can be rotated in round-robin manner only
+between dom0, PV shim, and Xen itself. On Arm the input rotation can includ=
+e
+domUs with vpl011.
 
-Embedded deployments of Xen do not need to have support for more than dozen=
- of
-domains.
+The main idea of this series is introducing a per-domain permission flag th=
+at
+is set during domain initialization and used by the console driver to switc=
+h
+the input across permitted domains.
 
-Introduce build-time configuration option to limit the number of domains du=
-ring
-run-time.
+Patch 1 performs rename of switch_serial_input() to fit the console driver
+notation.
 
-Suggested-by: Julien Grall <julien@xen.org>
-Signed-off-by: Denis Mukhin <dmukhin@ford.com>
----
-Changes since v8:
-- dropped hunk w/ compile-time check for DOMID_FIRST_RESERVED
-- updated CONFIG_MAX_DOMID explanation
-- dropped public header file changes
----
- xen/arch/x86/cpu/mcheck/mce.c       |  2 +-
- xen/arch/x86/cpu/vpmu.c             |  2 +-
- xen/common/Kconfig                  |  8 ++++++++
- xen/common/domain.c                 | 20 +++++++++++---------
- xen/common/sched/core.c             |  4 ++--
- xen/drivers/passthrough/vtd/iommu.c |  2 +-
- 6 files changed, 24 insertions(+), 14 deletions(-)
+Patch 2 introduces a new domain permission flag to mark ownership of the
+console input for the console driver.
 
-diff --git a/xen/arch/x86/cpu/mcheck/mce.c b/xen/arch/x86/cpu/mcheck/mce.c
-index 1c348e557d..ee8ddd33b0 100644
---- a/xen/arch/x86/cpu/mcheck/mce.c
-+++ b/xen/arch/x86/cpu/mcheck/mce.c
-@@ -1493,7 +1493,7 @@ long do_mca(XEN_GUEST_HANDLE_PARAM(xen_mc_t) u_xen_mc=
-)
-             d =3D rcu_lock_domain_by_any_id(mc_msrinject->mcinj_domid);
-             if ( d =3D=3D NULL )
-             {
--                if ( mc_msrinject->mcinj_domid >=3D DOMID_FIRST_RESERVED )
-+                if ( mc_msrinject->mcinj_domid >=3D CONFIG_MAX_DOMID )
-                     return x86_mcerr("do_mca inject: incompatible flag "
-                                      "MC_MSRINJ_F_GPADDR with domain %d",
-                                      -EINVAL, domid);
-diff --git a/xen/arch/x86/cpu/vpmu.c b/xen/arch/x86/cpu/vpmu.c
-index c28192ea26..67d423e088 100644
---- a/xen/arch/x86/cpu/vpmu.c
-+++ b/xen/arch/x86/cpu/vpmu.c
-@@ -174,7 +174,7 @@ void vpmu_do_interrupt(void)
-      * in XENPMU_MODE_ALL, for everyone.
-      */
-     if ( (vpmu_mode & XENPMU_MODE_ALL) ||
--         (sampled->domain->domain_id >=3D DOMID_FIRST_RESERVED) )
-+         (sampled->domain->domain_id >=3D CONFIG_MAX_DOMID) )
-     {
-         sampling =3D choose_hwdom_vcpu();
-         if ( !sampling )
-diff --git a/xen/common/Kconfig b/xen/common/Kconfig
-index 3d66d09397..ef083856b8 100644
---- a/xen/common/Kconfig
-+++ b/xen/common/Kconfig
-@@ -579,4 +579,12 @@ config BUDDY_ALLOCATOR_SIZE
- =09  Amount of memory reserved for the buddy allocator to serve Xen heap,
- =09  working alongside the colored one.
-=20
-+config MAX_DOMID
-+=09int "Maximum domain ID"
-+=09range 1 32752
-+=09default 32752
-+=09help
-+=09  Specifies the maximum domain ID (dom0 or late hwdom, predefined
-+=09  domains, post-boot domains, excluding Xen system domains).
-+
- endmenu
-diff --git a/xen/common/domain.c b/xen/common/domain.c
-index 129b4fcb37..87e5be35e5 100644
---- a/xen/common/domain.c
-+++ b/xen/common/domain.c
-@@ -68,7 +68,7 @@ struct domain *domain_list;
-=20
- /* Non-system domain ID allocator. */
- static DEFINE_SPINLOCK(domid_lock);
--static DECLARE_BITMAP(domid_bitmap, DOMID_FIRST_RESERVED);
-+static DECLARE_BITMAP(domid_bitmap, CONFIG_MAX_DOMID);
-=20
- /*
-  * Insert a domain into the domlist/hash.  This allows the domain to be lo=
-oked
-@@ -154,7 +154,7 @@ int domain_init_states(void)
-     ASSERT(rw_is_write_locked_by_me(&current->domain->event_lock));
-=20
-     dom_state_changed =3D xvzalloc_array(unsigned long,
--                                       BITS_TO_LONGS(DOMID_FIRST_RESERVED)=
-);
-+                                       BITS_TO_LONGS(CONFIG_MAX_DOMID));
-     if ( !dom_state_changed )
-         return -ENOMEM;
-=20
-@@ -234,7 +234,7 @@ int get_domain_state(struct xen_domctl_get_domain_state=
- *info, struct domain *d,
-     while ( dom_state_changed )
-     {
-         dom =3D find_first_bit(dom_state_changed, DOMID_MASK + 1);
--        if ( dom >=3D DOMID_FIRST_RESERVED )
-+        if ( dom >=3D CONFIG_MAX_DOMID )
-             break;
-         if ( test_and_clear_bit(dom, dom_state_changed) )
-         {
-@@ -823,7 +823,7 @@ struct domain *domain_create(domid_t domid,
-     /* Sort out our idea of is_hardware_domain(). */
-     if ( (flags & CDF_hardware) || domid =3D=3D hardware_domid )
-     {
--        if ( hardware_domid < 0 || hardware_domid >=3D DOMID_FIRST_RESERVE=
-D )
-+        if ( hardware_domid < 0 || hardware_domid >=3D CONFIG_MAX_DOMID )
-             panic("The value of hardware_dom must be a valid domain ID\n")=
-;
-=20
-         /* late_hwdom is only allowed for dom0. */
-@@ -2413,9 +2413,11 @@ domid_t get_initial_domain_id(void)
-=20
- domid_t domid_alloc(domid_t domid)
- {
-+    BUILD_BUG_ON(DOMID_FIRST_RESERVED < CONFIG_MAX_DOMID);
-+
-     spin_lock(&domid_lock);
-=20
--    if ( domid < DOMID_FIRST_RESERVED )
-+    if ( domid < CONFIG_MAX_DOMID )
-     {
-         if ( __test_and_set_bit(domid, domid_bitmap) )
-             domid =3D DOMID_INVALID;
-@@ -2427,13 +2429,13 @@ domid_t domid_alloc(domid_t domid)
-         const domid_t reserved_domid =3D get_initial_domain_id();
-         const bool reserved =3D __test_and_set_bit(reserved_domid, domid_b=
-itmap);
-=20
--        domid =3D find_next_zero_bit(domid_bitmap, DOMID_FIRST_RESERVED,
-+        domid =3D find_next_zero_bit(domid_bitmap, CONFIG_MAX_DOMID,
-                                    domid_last);
-=20
--        if ( domid =3D=3D DOMID_FIRST_RESERVED )
--            domid =3D find_next_zero_bit(domid_bitmap, DOMID_FIRST_RESERVE=
-D, 0);
-+        if ( domid =3D=3D CONFIG_MAX_DOMID )
-+            domid =3D find_next_zero_bit(domid_bitmap, CONFIG_MAX_DOMID, 0=
-);
-=20
--        if ( domid =3D=3D DOMID_FIRST_RESERVED )
-+        if ( domid =3D=3D CONFIG_MAX_DOMID )
-         {
-             domid =3D DOMID_INVALID;
-         }
-diff --git a/xen/common/sched/core.c b/xen/common/sched/core.c
-index 9043414290..f1bfb6f6a2 100644
---- a/xen/common/sched/core.c
-+++ b/xen/common/sched/core.c
-@@ -867,7 +867,7 @@ int sched_init_domain(struct domain *d, unsigned int po=
-olid)
-     int ret;
-=20
-     ASSERT(d->cpupool =3D=3D NULL);
--    ASSERT(d->domain_id < DOMID_FIRST_RESERVED);
-+    ASSERT(d->domain_id < CONFIG_MAX_DOMID);
-=20
-     if ( (ret =3D cpupool_add_domain(d, poolid)) )
-         return ret;
-@@ -891,7 +891,7 @@ int sched_init_domain(struct domain *d, unsigned int po=
-olid)
-=20
- void sched_destroy_domain(struct domain *d)
- {
--    ASSERT(d->domain_id < DOMID_FIRST_RESERVED);
-+    ASSERT(d->domain_id < CONFIG_MAX_DOMID);
-=20
-     if ( d->cpupool )
-     {
-diff --git a/xen/drivers/passthrough/vtd/iommu.c b/xen/drivers/passthrough/=
-vtd/iommu.c
-index c55f02c97e..5df85ca629 100644
---- a/xen/drivers/passthrough/vtd/iommu.c
-+++ b/xen/drivers/passthrough/vtd/iommu.c
-@@ -1509,7 +1509,7 @@ int domain_context_mapping_one(
-=20
-         prev_did =3D context_domain_id(lctxt);
-         domid =3D did_to_domain_id(iommu, prev_did);
--        if ( domid < DOMID_FIRST_RESERVED )
-+        if ( domid < CONFIG_MAX_DOMID )
-             prev_dom =3D rcu_lock_domain_by_id(domid);
-         else if ( pdev ? domid =3D=3D pdev->arch.pseudo_domid : domid > DO=
-MID_MASK )
-             prev_dom =3D rcu_lock_domain(dom_io);
+Patch 3 cleans up the console input switch logic by removing dependency
+on max_init_domid. Depends on patches 1, 2 and [2].
+
+Patch 4 performs rename of console_rx to console_domid to match the usage
+of the symbol in the code.
+
+[1] https://lore.kernel.org/xen-devel/20250103-vuart-ns8250-v3-v1-0-c5d36b3=
+1d66c@ford.com/
+[2] https://lore.kernel.org/xen-devel/20250528225030.2652166-1-dmukhin@ford=
+.com/
+[3] Link to v3: https://lore.kernel.org/xen-devel/20250519201211.1366244-1-=
+dmukhin@ford.com/
+[4] Link to CI: https://gitlab.com/xen-project/people/dmukhin/xen/-/pipelin=
+es/1841674752
+
+Denis Mukhin (4):
+  xen/console: rename switch_serial_input() to console_switch_input()
+  xen/console: introduce console input permission
+  xen/console: remove max_init_domid dependency
+  xen/console: rename console_rx to console_domid
+
+ xen/arch/arm/include/asm/setup.h        |  2 -
+ xen/arch/arm/setup.c                    |  2 -
+ xen/arch/arm/vpl011.c                   |  2 +
+ xen/arch/ppc/include/asm/setup.h        |  2 -
+ xen/arch/riscv/include/asm/setup.h      |  2 -
+ xen/arch/x86/include/asm/setup.h        |  2 -
+ xen/arch/x86/pv/shim.c                  |  2 +
+ xen/common/device-tree/dom0less-build.c |  2 -
+ xen/common/domain.c                     | 31 ++++++++
+ xen/drivers/char/console.c              | 96 +++++++++++--------------
+ xen/include/xen/domain.h                |  1 +
+ xen/include/xen/sched.h                 |  8 ++-
+ 12 files changed, 85 insertions(+), 67 deletions(-)
+
 --=20
 2.34.1
 
