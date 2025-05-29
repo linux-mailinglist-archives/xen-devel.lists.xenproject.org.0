@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 155EEAC8548
-	for <lists+xen-devel@lfdr.de>; Fri, 30 May 2025 01:47:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1000269.1380609 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 16C56AC858B
+	for <lists+xen-devel@lfdr.de>; Fri, 30 May 2025 01:55:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1000294.1380619 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uKmy6-0002SX-Km; Thu, 29 May 2025 23:47:26 +0000
+	id 1uKn5N-000491-9d; Thu, 29 May 2025 23:54:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1000269.1380609; Thu, 29 May 2025 23:47:26 +0000
+Received: by outflank-mailman (output) from mailman id 1000294.1380619; Thu, 29 May 2025 23:54:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uKmy6-0002Pr-HA; Thu, 29 May 2025 23:47:26 +0000
-Received: by outflank-mailman (input) for mailman id 1000269;
- Thu, 29 May 2025 23:47:25 +0000
+	id 1uKn5N-00047c-6j; Thu, 29 May 2025 23:54:57 +0000
+Received: by outflank-mailman (input) for mailman id 1000294;
+ Thu, 29 May 2025 23:54:55 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=lP5k=YN=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1uKmy5-0002Pl-GB
- for xen-devel@lists.xenproject.org; Thu, 29 May 2025 23:47:25 +0000
-Received: from nyc.source.kernel.org (nyc.source.kernel.org
- [2604:1380:45d1:ec00::3])
+ id 1uKn5L-00047Q-DM
+ for xen-devel@lists.xenproject.org; Thu, 29 May 2025 23:54:55 +0000
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 44077036-3ce7-11f0-a2ff-13f23c93f187;
- Fri, 30 May 2025 01:47:23 +0200 (CEST)
+ id 4fb354a0-3ce8-11f0-a2ff-13f23c93f187;
+ Fri, 30 May 2025 01:54:52 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id 2595CA4FD13;
- Thu, 29 May 2025 23:47:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 571C3C4CEE7;
- Thu, 29 May 2025 23:47:20 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id 27238A4FD0C;
+ Thu, 29 May 2025 23:54:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98152C4CEE7;
+ Thu, 29 May 2025 23:54:49 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,29 +41,29 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 44077036-3ce7-11f0-a2ff-13f23c93f187
+X-Inumbo-ID: 4fb354a0-3ce8-11f0-a2ff-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1748562441;
-	bh=VmHBNTzEsGFZH1JVr/mkgcHBWzzB4z5CYt3fb/dtee4=;
+	s=k20201202; t=1748562890;
+	bh=4BfsZ3augz5y7Ho+0ck+rFebHZj3y+T9LF9klbGr5jo=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=Dva+GxYFJpBYeGbRS3MiFVm/+j0HivfeBbqMzb4wDBijk2BPwk8HegZoLyluMyEZl
-	 ILXzXUcJIhh6u0t+ObzDBr3dpyXZVLP0QUQLneZrpdnkSR2qv6xV367KKgNmuQ9ung
-	 +P8pDlPzPcmqeaFb2J7xrg3A14zTehS/ETn5fBbdqwNZt6gn5VBjrsOxkbbG60o6nz
-	 cLzaz3UcaulbSnkjoXATG01yg85vo77E1k+fYioezqJ1kXyuCWs1w/YzjNlgDoPFaC
-	 oMLTP7eVmf65uMOpUB3oXjJGZzDJ2B8RhcDYMfy9pOLjFkTwbhTi5sk7YaW52jnqKl
-	 TH1DS6RXPtF1A==
-Date: Thu, 29 May 2025 16:47:18 -0700 (PDT)
+	b=Io9sFGDhUqk1Y9zHHrRrFC+BpvreBrn69FuODJCWhoXcwk++z5PEF86+K8W+/LgS0
+	 R/Tv/5EFHhoNPKiCihICQRGR7ryQ6to8lMbRqxZd507dJxJurfo0FxG3y2wrqVrXhy
+	 WE5LIJg7xA2/UE3hnDQuhT2eFWrwABbKSW15xF7VGtzNAT5vNHt7hZvqIbvJGl5OF0
+	 JTIIhlitTtKg5pXbP5EJT0KUJzlXnQMAzjQ9OA4fegHByg3gCV6lhgmmdif6jvbfGr
+	 hWT8a4vvkLmSR1056XN2OU/EYPCaxVlyyHm9JH4x234m4vF+YyLczTTRCI9UeFV9bq
+	 HK0ZoBFo2oEag==
+Date: Thu, 29 May 2025 16:54:47 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Denis Mukhin <dmkhn@proton.me>
 cc: xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com, 
     anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org, 
-    michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, 
+    roger.pau@citrix.com, sstabellini@kernel.org, teddy.astie@vates.tech, 
     dmukhin@ford.com
-Subject: Re: [PATCH v3 2/2] xen/domain: rewrite emulation_flags_ok()
-In-Reply-To: <20250528210139.2572609-3-dmukhin@ford.com>
-Message-ID: <alpine.DEB.2.22.394.2505291645090.135336@ubuntu-linux-20-04-desktop>
-References: <20250528210139.2572609-1-dmukhin@ford.com> <20250528210139.2572609-3-dmukhin@ford.com>
+Subject: Re: [PATCH v9 2/3] xen/domain: adjust domain ID allocation for Arm
+In-Reply-To: <20250528225030.2652166-3-dmukhin@ford.com>
+Message-ID: <alpine.DEB.2.22.394.2505291654200.135336@ubuntu-linux-20-04-desktop>
+References: <20250528225030.2652166-1-dmukhin@ford.com> <20250528225030.2652166-3-dmukhin@ford.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
@@ -74,139 +73,86 @@ On Wed, 28 May 2025, dmkhn@proton.me wrote:
 > 
 > From: Denis Mukhin <dmukhin@ford.com>
 > 
-> Rewrite emulation_flags_ok() to simplify future modifications.
+> Remove the hardcoded domain ID 0 allocation for hardware domain and replace it
+> with a call to get_initial_domain_id() (returns the value of hardware_domid on
+> Arm).
 > 
-> No functional change intended.
-> 
-> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
-> ---
-> Changes since v2:
-> - addressed review feedback
-> - added some explanatory comments for emulation_flags_ok()
-> ---
->  xen/arch/x86/domain.c | 92 ++++++++++++++++++++++++++++++++++---------
->  1 file changed, 74 insertions(+), 18 deletions(-)
-> 
-> diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
-> index 0363ccb384..1d41d26c4d 100644
-> --- a/xen/arch/x86/domain.c
-> +++ b/xen/arch/x86/domain.c
-> @@ -743,32 +743,88 @@ int arch_sanitise_domain_config(struct xen_domctl_createdomain *config)
->      return 0;
->  }
->  
-> +/*
-> + * Verify that the domain's emulation flags resolve to a supported configuration.
-> + *
-> + * This ensures we only allow a known, safe subset of emulation combinations
-> + * (for both functionality and security). Arbitrary mixes are likely to cause
-> + * errors (e.g., null pointer dereferences).
-> + *
-> + * NB: use the internal X86_EMU_XXX symbols, not the public XEN_X86_EMU_XXX
-> + * symbols.
-> + */
->  static bool emulation_flags_ok(const struct domain *d, uint32_t emflags)
->  {
-> +    enum {
-> +        CAP_PV          = BIT(0, U),
-> +        CAP_HVM         = BIT(1, U),
-> +        CAP_HWDOM       = BIT(2, U),
-> +        CAP_DOMU        = BIT(3, U),
-> +    };
-> +    static const struct {
-> +        unsigned int caps;
-> +        uint32_t min;
-> +        uint32_t opt;
-> +    } configs[] = {
-> +#ifdef CONFIG_PV
-> +        /* PV */
-> +        {
-> +            .caps   = CAP_PV | CAP_DOMU,
-> +            .min    = 0,
-> +            .opt    = 0,
-> +        },
-> +
-> +        /* PV (likely dom0) */
-> +        {
-> +            .caps   = CAP_PV | CAP_HWDOM,
-> +            .min    = X86_EMU_PIT,
-> +            .opt    = 0,
-> +        },
-> +#endif /* #ifdef CONFIG_PV */
-> +
-> +#ifdef CONFIG_HVM
-> +        /* PVH dom0/domU or HVM domU */
-> +        {
-> +            .caps   = CAP_HVM | CAP_HWDOM,
-> +            .min    = X86_EMU_LAPIC | X86_EMU_IOAPIC | X86_EMU_VPCI,
-> +            .opt    = 0,
-> +        },
-> +
-> +
+> Update domid_alloc(DOMID_INVALID) case to ensure that get_initial_domain_id()
+> ID is skipped during domain ID allocation to cover domU case in dom0less
+> configuration. That also fixes a potential issue with re-using ID#0 for domUs
+> when get_initial_domain_id() returns non-zero.
 
-NIT: double \n
+It looks like this sentence should be removed from the commit message as
+not valid anymore.
 
-I checked carefully and the new semantic matches the old one with the
-extra clarification that X86_EMU_PIT is only for hwdom.
+Aside from that, the code changes below as clear.
 
 Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
 
-> +        /* HVM domU */
-> +        {
-> +            .caps   = CAP_HVM | CAP_DOMU,
-> +            .min    = X86_EMU_ALL & ~(X86_EMU_VPCI | X86_EMU_USE_PIRQ),
-> +            /* HVM PIRQ feature is user-selectable. */
-> +            .opt    = X86_EMU_USE_PIRQ,
-> +        },
-> +
-> +        /* PVH */
-> +        {
-> +            .caps   = CAP_HVM | CAP_DOMU,
-> +            .min    = X86_EMU_LAPIC,
-> +            .opt    = 0,
-> +        },
-> +#endif /* #ifdef CONFIG_HVM */
-> +    };
-> +    unsigned int i, caps = is_hardware_domain(d) ? CAP_HWDOM : CAP_DOMU;
-> +
-> +    if ( is_pv_domain(d) )
-> +        caps |= CAP_PV;
-> +    else if ( is_hvm_domain(d) )
-> +        caps |= CAP_HVM;
-> +
->  #ifdef CONFIG_HVM
->      /* This doesn't catch !CONFIG_HVM case but it is better than nothing */
->      BUILD_BUG_ON(X86_EMU_ALL != XEN_X86_EMU_ALL);
->  #endif
+> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
+> ---
+> Changes since v8:
+> - rebased 
+> ---
+>  xen/arch/arm/domain_build.c             | 4 ++--
+>  xen/common/device-tree/dom0less-build.c | 9 +++------
+>  xen/common/domain.c                     | 4 ++--
+>  3 files changed, 7 insertions(+), 10 deletions(-)
+> 
+> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+> index e9d563c269..0ad80b020a 100644
+> --- a/xen/arch/arm/domain_build.c
+> +++ b/xen/arch/arm/domain_build.c
+> @@ -2035,9 +2035,9 @@ void __init create_dom0(void)
+>      if ( !llc_coloring_enabled )
+>          flags |= CDF_directmap;
 >  
-> -    if ( is_hvm_domain(d) )
-> -    {
-> -        if ( is_hardware_domain(d) &&
-> -             emflags != (X86_EMU_VPCI | X86_EMU_LAPIC | X86_EMU_IOAPIC) )
-> -            return false;
-> -        if ( !is_hardware_domain(d) &&
-> -             /* HVM PIRQ feature is user-selectable. */
-> -             (emflags & ~X86_EMU_USE_PIRQ) !=
-> -             (X86_EMU_ALL & ~(X86_EMU_VPCI | X86_EMU_USE_PIRQ)) &&
-> -             emflags != X86_EMU_LAPIC )
-> -            return false;
-> -    }
-> -    else if ( emflags != 0 && emflags != X86_EMU_PIT )
-> -    {
-> -        /* PV or classic PVH. */
-> -        return false;
-> -    }
-> +    for ( i = 0; i < ARRAY_SIZE(configs); i++ )
-> +        if ( caps == configs[i].caps &&
-> +             (emflags & ~configs[i].opt) == configs[i].min )
-> +            return true;
+> -    domid = domid_alloc(0);
+> +    domid = domid_alloc(get_initial_domain_id());
+>      if ( domid == DOMID_INVALID )
+> -        panic("Error allocating domain ID 0\n");
+> +        panic("Error allocating domain ID %d\n", get_initial_domain_id());
 >  
-> -    return true;
-> +    return false;
->  }
+>      dom0 = domain_create(domid, &dom0_cfg, flags);
+>      if ( IS_ERR(dom0) )
+> diff --git a/xen/common/device-tree/dom0less-build.c b/xen/common/device-tree/dom0less-build.c
+> index a509f8fecd..9a6015f4ce 100644
+> --- a/xen/common/device-tree/dom0less-build.c
+> +++ b/xen/common/device-tree/dom0less-build.c
+> @@ -974,14 +974,11 @@ void __init create_domUs(void)
 >  
->  void __init arch_init_idle_domain(struct domain *d)
+>          arch_create_domUs(node, &d_cfg, flags);
+>  
+> -        /*
+> -         * The variable max_init_domid is initialized with zero, so here it's
+> -         * very important to use the pre-increment operator to call
+> -         * domain_create() with a domid > 0. (domid == 0 is reserved for Dom0)
+> -         */
+> -        domid = domid_alloc(++max_init_domid);
+> +        domid = domid_alloc(DOMID_INVALID);
+>          if ( domid == DOMID_INVALID )
+>              panic("Error allocating ID for domain %s\n", dt_node_name(node));
+> +        if ( max_init_domid < domid )
+> +            max_init_domid = domid;
+>  
+>          d = domain_create(domid, &d_cfg, flags);
+>          if ( IS_ERR(d) )
+> diff --git a/xen/common/domain.c b/xen/common/domain.c
+> index ae0c44fcbb..129b4fcb37 100644
+> --- a/xen/common/domain.c
+> +++ b/xen/common/domain.c
+> @@ -2423,8 +2423,8 @@ domid_t domid_alloc(domid_t domid)
+>      else
+>      {
+>          static domid_t domid_last;
+> -        /* NB: account for late hwdom case, skip ID#0 */
+> -        const domid_t reserved_domid = 0;
+> +        /* NB: account for late hwdom case */
+> +        const domid_t reserved_domid = get_initial_domain_id();
+>          const bool reserved = __test_and_set_bit(reserved_domid, domid_bitmap);
+>  
+>          domid = find_next_zero_bit(domid_bitmap, DOMID_FIRST_RESERVED,
 > -- 
 > 2.34.1
 > 
