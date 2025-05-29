@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C6F6AAC80D2
-	for <lists+xen-devel@lfdr.de>; Thu, 29 May 2025 18:24:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1000065.1380500 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 33D2BAC80E6
+	for <lists+xen-devel@lfdr.de>; Thu, 29 May 2025 18:30:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1000076.1380511 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uKg2z-0006IP-WA; Thu, 29 May 2025 16:24:01 +0000
+	id 1uKg9G-0007tq-OQ; Thu, 29 May 2025 16:30:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1000065.1380500; Thu, 29 May 2025 16:24:01 +0000
+Received: by outflank-mailman (output) from mailman id 1000076.1380511; Thu, 29 May 2025 16:30:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uKg2z-0006GC-Sy; Thu, 29 May 2025 16:24:01 +0000
-Received: by outflank-mailman (input) for mailman id 1000065;
- Thu, 29 May 2025 16:24:01 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uKg9G-0007sJ-Kf; Thu, 29 May 2025 16:30:30 +0000
+Received: by outflank-mailman (input) for mailman id 1000076;
+ Thu, 29 May 2025 16:30:29 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=vnej=YN=gmail.com=edgar.iglesias@srs-se1.protection.inumbo.net>)
- id 1uKg2z-0006G6-7X
- for xen-devel@lists.xenproject.org; Thu, 29 May 2025 16:24:01 +0000
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [2a00:1450:4864:20::132])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5384f927-3ca9-11f0-a2ff-13f23c93f187;
- Thu, 29 May 2025 18:23:59 +0200 (CEST)
-Received: by mail-lf1-x132.google.com with SMTP id
- 2adb3069b0e04-55320ddb9edso1213455e87.1
- for <xen-devel@lists.xenproject.org>; Thu, 29 May 2025 09:23:59 -0700 (PDT)
+ id 1uKg9F-0007sD-RH
+ for xen-devel@lists.xenproject.org; Thu, 29 May 2025 16:30:29 +0000
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [2a00:1450:4864:20::12f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 3aec8f13-3caa-11f0-b894-0df219b8e170;
+ Thu, 29 May 2025 18:30:28 +0200 (CEST)
+Received: by mail-lf1-x12f.google.com with SMTP id
+ 2adb3069b0e04-5532a30ac41so1321759e87.0
+ for <xen-devel@lists.xenproject.org>; Thu, 29 May 2025 09:30:28 -0700 (PDT)
 Received: from gmail.com (213-67-3-247-no600.tbcn.telia.com. [213.67.3.247])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-32a85b35a9csm3164641fa.31.2025.05.29.09.23.58
+ 2adb3069b0e04-5533793780asm374527e87.222.2025.05.29.09.30.26
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 29 May 2025 09:23:58 -0700 (PDT)
+ Thu, 29 May 2025 09:30:26 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,271 +45,127 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5384f927-3ca9-11f0-a2ff-13f23c93f187
+X-Inumbo-ID: 3aec8f13-3caa-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1748535839; x=1749140639; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1748536227; x=1749141027; darn=lists.xenproject.org;
         h=user-agent:in-reply-to:content-disposition:mime-version:references
          :message-id:subject:cc:to:from:date:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=uKVZ8hM5JL9F4sY2jyOFCDZ+62Qu1GrwyfvDaA5kM10=;
-        b=JYvUh0/Q9WhpntmupqRU6ONlrBaA5pWoMH21YROGrc7S2gVHC/5hzGeuCaXhGpYnZg
-         hfFz1pxU94frO8EsS4t42j9mVZVJ663TTfRvTWG6Mmdv8KKKb60zDIYpRvJlapzsCC4X
-         nghFJCrgd1kl7XRhK/gPOZZP/rmSjvGreMNI7FgxgHt30FmwLduk3BZlol+YQ+oDHhe4
-         7uUalDGZ5WWXnZIj78xsolmcwV3+Upj6O7IilnoHhB4y2lalXJ9C6zJuZwaCT6uU2onS
-         7tflxaQ/wEO8tfxX7d4dZVYCK0bF3Q6v2qynM9zEl5JqGCx0qrTQT3pss0I2brGHECM1
-         SJ6Q==
+        bh=KDfozTeTL73IOCurOX4vdAd5idolzSMAe8Z1aI0ghlQ=;
+        b=B2fVjJeW/l3jo/q2O29R+0wR0iUe53yQZrY1R9VvPCvdt4AKllty6U1WuuaFxeIGSH
+         p2GflMUdsn0hJDtTE7FAdMexq3HAKkDXBL9WpzfkwcYFVOM+09WuQ2QbzukeJBu2q6fB
+         MNZFBIMYC+/2nzxJ+id80o8FTVhnPj1S2I3INQzdMhX7jJEHUt37R9vEQNWWBf03DUVw
+         dPBvYNfsvChJ/3IirinANkagQZ57ms525/TDKBGyikmzaVbKm2H+2dRnTYiqdm+y0I5W
+         +2Goym5MMFUzKwZmahzWSc2RnT2g4oHrPZ4k3A3+Vrxl+oh7Pcn3crJOAQ6W+6K0E/li
+         o13Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1748535839; x=1749140639;
+        d=1e100.net; s=20230601; t=1748536227; x=1749141027;
         h=user-agent:in-reply-to:content-disposition:mime-version:references
          :message-id:subject:cc:to:from:date:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=uKVZ8hM5JL9F4sY2jyOFCDZ+62Qu1GrwyfvDaA5kM10=;
-        b=Uf7I1lVbmiZdUNIVXqtJbZNQYeK5p58AWm2sNEZUmWSG/n8j+iq/TbXQ8EhMz91X7S
-         vqy4RDU3SWU0INxmTTwpxEsBSf7mIJ0hdBVrvJssTxx7+Q580TPWAlG5HL0tjb+5UUMM
-         umGTlrBL7aufGTopoMFopyam8dRN6UOTdl8JZM6VZFQIzzYSOm+iLbSL3loxxqQCIbkC
-         Nw3OFfbHBGbioqVHYUEgGdK/m5Vahrcphr6XWESvL0o91NqARSG1Rg5vFF0IiAKXJD3D
-         Ownc16W690F2nzJzCCzMXtArDHYn5UdpMvEtNCk0Kjh3SAZhUl+8zuG+twZgJlI1+Fwi
-         oHxA==
-X-Gm-Message-State: AOJu0Yw69uP5Kx2Iz9ZP3xCl3Dxq0/jtpbreJ1w4ZRmnZE3UFjT6BcSc
-	DAWHJFfHnxDWpSDfCDif8wIJAKVWbLAe2vPqHQATMLvPEt3izlikChQ+
-X-Gm-Gg: ASbGncutCPUMxtpt8Aaen7g0yBq9Z+16xGgm9IteTS+2NJIfvs0MEfUUI2clNpF1LMB
-	n5AXz6xGvyzpFu7pJeUobOGUnS222/KQIh51h4/a4+pyMBM5cjiZp80kki37B0Rv6fzjbOu2eNs
-	ktyuAnpVvhY2KPoC8aHIiyOYW09Jn4ph6xA3tsl1xz99z5kpEwl00QlcrGSQee/fEeSm/iZQZW2
-	BBO1GcmdkEa/jnmzwE0HdoW17VSIbmeDrsOjce9ZR8qq/4r4A5J5gItox8/GZ1XVQvib9BRPw+A
-	Hrkem34OJ0323l5+z8Uq+hlyDl4ztBCZwxW0z8V3PAc8BFhvb2NhdUfc6iUAeqI/RXSSlLuG7xF
-	it5Wm1PPJtvzUO/PQ/e08d08=
-X-Google-Smtp-Source: AGHT+IH5310xo/6BN95Ny48JOPY+x8KYx47NMZ1mnhTFARZ7rLFIQvy0ro3E7hNYDXsjgLGmC8lDWQ==
-X-Received: by 2002:a2e:ad90:0:b0:32a:8035:3f64 with SMTP id 38308e7fff4ca-32a8ce40d86mr2530711fa.33.1748535838995;
-        Thu, 29 May 2025 09:23:58 -0700 (PDT)
-Date: Thu, 29 May 2025 18:23:58 +0200
+        bh=KDfozTeTL73IOCurOX4vdAd5idolzSMAe8Z1aI0ghlQ=;
+        b=CXFze0PLv0F4JspnTB6MALNh/Zrg2GcHL3Y7e2VlWTmTj41RfhArMTL2Z0g7VC72wd
+         vfjARo1jQqgVaKZZ6quqsufsdAsizroqlsA1CpqWCJ3hzfsgwIYJj3tQ6Qar7LFwEyIH
+         7PQs5oeHi0Sf4eCqDAOWTjOqEMxOD13UxDdpjEmZErTPcURbcgMNOUjrSBH5hUdPhrrA
+         GU7QhhZ/OHdjQRs4OA7NS8DuNty4URJzgY2mk4mmJwnwxlWflWXyxblaF7iJJaWb27EE
+         5nhmqB7fvGpPUh8r6zvzN5fJZAWWonimMfCKvdGR2I4K87gWMOvEScRJLiJUQAeMPJFe
+         ywew==
+X-Gm-Message-State: AOJu0Yxmgq1bWckH1q7g4X479R8rFt7vsYseDn+//89Mnd8YuJGAI2tA
+	xAuHqmuZ6w7r2Ye5m0b2Bsm3cpRk5OyBZawMJ6B2/RJ42rl8Ta3X/G0oDCsoZ2Ixkrs=
+X-Gm-Gg: ASbGncvICAlC0vJd8DPjJPfLIKYzYI9NztueyZIMVP9dD+pQymFqtbVCtccHvU2YE1T
+	sdnukOBJA9Ulbbo7G3MwD1AJ0l8HdBrFjHHKJzVtp7BdgWdS2/NjWY+gKYB5bsXmUljg9nTdw1O
+	+8wlYu/7HAbaI4KbhktPcew5kV/MpCK2RdJf+lk+tcGoWQseeJWJeyHQA5wa2dw4rva+ePzYXUs
+	vLC6G9UQWTkwt5jbC2mYltMP0koybfNVNH1LCnX7Tjh+MTPop6rMqa+szJPUQpmq5hOqPiUKHD5
+	AMsHLpQ7GIefrsX+ntLJcH3A3B8JY+yljqEYQzsvjvAk/Gfb3ROa95xv5cd4UAmmM/vRaifFBg4
+	rOgx7iDgU6lyB0RMjboWOFtY=
+X-Google-Smtp-Source: AGHT+IGJGN4c8AQTzHLXkBWn5FEEMG/Oajv6MWTcgOJCzLoCOGI15v0yQfTSs5AcpIH1RwvRxhCsRA==
+X-Received: by 2002:a05:6512:3a86:b0:54f:c58a:f777 with SMTP id 2adb3069b0e04-5533b9098b7mr34372e87.34.1748536227236;
+        Thu, 29 May 2025 09:30:27 -0700 (PDT)
+Date: Thu, 29 May 2025 18:30:26 +0200
 From: "Edgar E. Iglesias" <edgar.iglesias@gmail.com>
 To: Julien Grall <julien@xen.org>
 Cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org,
 	bertrand.marquis@arm.com, michal.orzel@amd.com,
 	Volodymyr_Babchuk@epam.com, andrew.cooper3@citrix.com,
-	edgar.iglesias@amd.com, Anthony PERARD <anthony.perard@vates.tech>,
-	Juergen Gross <jgross@suse.com>, Jan Beulich <jbeulich@suse.com>,
-	Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
-Subject: Re: [PATCH v2 1/3] xen/arm: Add way to disable traps on accesses to
- unmapped addresses
-Message-ID: <aDiKHvtbApmT9OmH@zapote>
+	edgar.iglesias@amd.com
+Subject: Re: [PATCH v2 2/3] xen/arm: dom0less: Add trap-unmapped-accesses
+Message-ID: <aDiLosXtgTUHZdSv@zapote>
 References: <20250529155024.1284227-1-edgar.iglesias@gmail.com>
- <20250529155024.1284227-2-edgar.iglesias@gmail.com>
- <b77eb813-300a-4962-980e-02b236e2c5ca@xen.org>
+ <20250529155024.1284227-3-edgar.iglesias@gmail.com>
+ <8c93db26-fd37-4e37-9822-54986e5ee3cc@xen.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <b77eb813-300a-4962-980e-02b236e2c5ca@xen.org>
+In-Reply-To: <8c93db26-fd37-4e37-9822-54986e5ee3cc@xen.org>
 User-Agent: Mutt/2.2.14+84 (2efcabc4) (2025-03-23)
 
-On Thu, May 29, 2025 at 04:59:21PM +0100, Julien Grall wrote:
+On Thu, May 29, 2025 at 05:03:12PM +0100, Julien Grall wrote:
 > Hi Edgar,
-
-Hi Julien,
-
-
 > 
 > On 29/05/2025 16:50, Edgar E. Iglesias wrote:
 > > From: "Edgar E. Iglesias" <edgar.iglesias@amd.com>
 > > 
-> > Add a per-domain way to optionally disable traps for accesses
-> > to unmapped addresses.
-> > 
-> > The domain flag is general but it's only implemented for ARM for now.
+> > Add the trap-unmapped-accesses per-domain fdt property.
 > > 
 > > Signed-off-by: Edgar E. Iglesias <edgar.iglesias@amd.com>
 > > ---
-> >   tools/libs/light/libxl_arm.c  |  3 +++
-> >   xen/arch/arm/dom0less-build.c |  3 +++
-> >   xen/arch/arm/domain.c         |  3 ++-
-> >   xen/arch/arm/domain_build.c   |  3 ++-
-> >   xen/arch/arm/io.c             | 36 +++++++++++++++++++++++++++++++++--
-> >   xen/common/domain.c           |  3 ++-
-> >   xen/include/public/domctl.h   |  4 +++-
-> 
-> Looking at the changelog, I saw you removed the go bindings (although, they
-> were in patch 3). But I don't quite understand why.
-
-I got a little confused. The file tools/golang/xenlight/helpers.gen.go
-has the following at the top:
-// Code generated by gengotypes.py. DO NOT EDIT.
-// source: libxl_types.idl
-
-
-So I got the impression that we shouldn't be editing it.
-Should I edit it manually? Or should I try to rerun gengotypes.py
-to generate these bindings?
-
-
-> 
-> Also, I think you need to update the OCaml bindings.
-
-I see, I'll have a look.
-
-> 
-> 
-> >   7 files changed, 49 insertions(+), 6 deletions(-)
+> >   docs/misc/arm/device-tree/booting.txt | 9 +++++++++
+> >   xen/arch/arm/dom0less-build.c         | 9 ++++++++-
+> >   2 files changed, 17 insertions(+), 1 deletion(-)
 > > 
-> > diff --git a/tools/libs/light/libxl_arm.c b/tools/libs/light/libxl_arm.c
-> > index 75c811053c..9530996e72 100644
-> > --- a/tools/libs/light/libxl_arm.c
-> > +++ b/tools/libs/light/libxl_arm.c
-> > @@ -233,6 +233,9 @@ int libxl__arch_domain_prepare_config(libxl__gc *gc,
-> >           config->arch.sve_vl = d_config->b_info.arch_arm.sve_vl / 128U;
-> >       }
-> > +    /* Trap accesses to unmapped areas. */
-> > +    config->flags |= XEN_DOMCTL_CDF_trap_unmapped_accesses;
+> > diff --git a/docs/misc/arm/device-tree/booting.txt b/docs/misc/arm/device-tree/booting.txt
+> > index 59fa96a82e..8a5c40ddf3 100644
+> > --- a/docs/misc/arm/device-tree/booting.txt
+> > +++ b/docs/misc/arm/device-tree/booting.txt
+> > @@ -225,6 +225,15 @@ with the following properties:
+> >       option is provided with a non zero value, but the platform doesn't support
+> >       SVE.
+> > +- trap-unmapped-accesses
 > > +
-> >       return 0;
-> >   }
-> > diff --git a/xen/arch/arm/dom0less-build.c b/xen/arch/arm/dom0less-build.c
-> > index a49764f0ad..a4e0a33632 100644
-> > --- a/xen/arch/arm/dom0less-build.c
-> > +++ b/xen/arch/arm/dom0less-build.c
-> > @@ -343,6 +343,9 @@ void __init arch_create_domUs(struct dt_device_node *node,
-> >           panic("'sve' property found, but CONFIG_ARM64_SVE not selected\n");
-> >   #endif
-> >       }
-> > +
-> > +    /* Trap accesses to unmapped areas. */
-> > +    d_cfg->flags |= XEN_DOMCTL_CDF_trap_unmapped_accesses;
-> >   }
-> >   int __init init_intc_phandle(struct kernel_info *kinfo, const char *name,
-> > diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
-> > index 45aeb8bddc..be58a23dd7 100644
-> > --- a/xen/arch/arm/domain.c
-> > +++ b/xen/arch/arm/domain.c
-> > @@ -612,7 +612,8 @@ int arch_sanitise_domain_config(struct xen_domctl_createdomain *config)
-> >       unsigned int max_vcpus;
-> >       unsigned int flags_required = (XEN_DOMCTL_CDF_hvm | XEN_DOMCTL_CDF_hap);
-> >       unsigned int flags_optional = (XEN_DOMCTL_CDF_iommu | XEN_DOMCTL_CDF_vpmu |
-> > -                                   XEN_DOMCTL_CDF_xs_domain );
-> > +                                   XEN_DOMCTL_CDF_xs_domain |
-> > +                                   XEN_DOMCTL_CDF_trap_unmapped_accesses );
-> >       unsigned int sve_vl_bits = sve_decode_vl(config->arch.sve_vl);
-> >       if ( (config->flags & ~flags_optional) != flags_required )
-> > diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-> > index b189a7cfae..7ff9c1b584 100644
-> > --- a/xen/arch/arm/domain_build.c
-> > +++ b/xen/arch/arm/domain_build.c
-> > @@ -2003,7 +2003,8 @@ void __init create_dom0(void)
-> >   {
-> >       struct domain *dom0;
-> >       struct xen_domctl_createdomain dom0_cfg = {
-> > -        .flags = XEN_DOMCTL_CDF_hvm | XEN_DOMCTL_CDF_hap,
-> > +        .flags = XEN_DOMCTL_CDF_hvm | XEN_DOMCTL_CDF_hap |
-> > +                 XEN_DOMCTL_CDF_trap_unmapped_accesses,
-> >           .max_evtchn_port = -1,
-> >           .max_grant_frames = gnttab_dom0_frames(),
-> >           .max_maptrack_frames = -1,
-> > diff --git a/xen/arch/arm/io.c b/xen/arch/arm/io.c
-> > index 5a4b0e8f25..adfc822e7e 100644
-> > --- a/xen/arch/arm/io.c
-> > +++ b/xen/arch/arm/io.c
-> > @@ -21,6 +21,32 @@
-> >   #include "decode.h"
-> > +/* Handler for unmapped ranges. Writes ignored, reads return all ones.  */
-> > +static int unmapped_read(struct vcpu *v, mmio_info_t *info, register_t *r,
-> > +                         void *priv)
-> > +{
-> > +    uint64_t mask = GENMASK_ULL((1U << info->dabt.size) * 8 - 1, 0);
+> > +    Optional. An integer that configures handling of accesses to unmapped
+> > +    address ranges.
+> > +    If set to 0, guest accesses will read 0xFFFFFFFF and writes will be ignored.
 > 
-> NIT: Looking at the other part of io.c, we are using GENMASK. Any reason to
-> not use the same?
-
-Looking closer at it now and no, there's no good reason. I'll change
-to GENMASK in v3.
-
-
+> Looking at the code, if I am not mistaken, it will only return this value
+> for 32-bit. For 64-bit there will be a few Fs more and for less there will
+> be less. So I think this needs to be reworded.
 > 
-> > +
-> > +    /* Mask off upper bits.  */
-> > +    *r = UINT64_MAX & mask;
-> > +    return 1;
-> > +}
-> > +
-> > +static int unmapped_write(struct vcpu *v, mmio_info_t *info, register_t r,
-> > +                          void *priv)
-> > +{
-> > +    return 1;
-> > +}
-> > +
-> > +static const struct mmio_handler_ops unmapped_ops = {
-> > +    .read = unmapped_read,
-> > +    .write = unmapped_write
-> > +};
-> > +
-> > +static const struct mmio_handler unmapped_handler = {
-> > +    .ops = &unmapped_ops
-> > +};
-> > +
-> >   static enum io_state handle_read(const struct mmio_handler *handler,
-> >                                    struct vcpu *v,
-> >                                    mmio_info_t *info)
-> > @@ -175,11 +201,17 @@ enum io_state try_handle_mmio(struct cpu_user_regs *regs,
-> >       handler = find_mmio_handler(v->domain, info->gpa);
-> >       if ( !handler )
-> >       {
-> > +        bool trap_unmapped = v->domain->options &
-> > +                                         XEN_DOMCTL_CDF_trap_unmapped_accesses;
-> >           rc = try_fwd_ioserv(regs, v, info);
-> >           if ( rc == IO_HANDLED )
-> >               return handle_ioserv(regs, v);
-> > -
-> > -        return rc;
-> > +        else if ( rc == IO_UNHANDLED && !trap_unmapped )
-> > +        {
-> > +            /* Fallback to the unmapped handler. */
-> > +            handler = &unmapped_handler;
-> > +        } else
-> 
-> Style:
-> 
-> else if ( ... )
-> {
-> }
-> else
-> {
-> }
+> The rest looks good to me.
 
-Will fix for v3.
+Thanks, in v3 I'll change it to:
+    If set to 0, guest accesses will read all bits as ones, e.g 0xFFFFFFFF
+    for a 32bit access and writes will be ignored.
 
-Thanks,
+Cheers,
 Edgar
 
-
 > 
-> > +            return rc;
+> > +
+> > +    This option is only implemented for ARM where the default is 1.
+> > +
+> >   - xen,enhanced
+> >       A string property. Possible property values are:
+> > diff --git a/xen/arch/arm/dom0less-build.c b/xen/arch/arm/dom0less-build.c
+> > index a4e0a33632..69324aa597 100644
+> > --- a/xen/arch/arm/dom0less-build.c
+> > +++ b/xen/arch/arm/dom0less-build.c
+> > @@ -344,8 +344,15 @@ void __init arch_create_domUs(struct dt_device_node *node,
+> >   #endif
 > >       }
-> >       /*
-> > diff --git a/xen/common/domain.c b/xen/common/domain.c
-> > index abf1969e60..ac4f58f638 100644
-> > --- a/xen/common/domain.c
-> > +++ b/xen/common/domain.c
-> > @@ -721,7 +721,8 @@ static int sanitise_domain_config(struct xen_domctl_createdomain *config)
-> >            ~(XEN_DOMCTL_CDF_hvm | XEN_DOMCTL_CDF_hap |
-> >              XEN_DOMCTL_CDF_s3_integrity | XEN_DOMCTL_CDF_oos_off |
-> >              XEN_DOMCTL_CDF_xs_domain | XEN_DOMCTL_CDF_iommu |
-> > -           XEN_DOMCTL_CDF_nested_virt | XEN_DOMCTL_CDF_vpmu) )
-> > +           XEN_DOMCTL_CDF_nested_virt | XEN_DOMCTL_CDF_vpmu |
-> > +           XEN_DOMCTL_CDF_trap_unmapped_accesses) )
-> >       {
-> >           dprintk(XENLOG_INFO, "Unknown CDF flags %#x\n", config->flags);
-> >           return -EINVAL;
-> > diff --git a/xen/include/public/domctl.h b/xen/include/public/domctl.h
-> > index 5b2063eed9..be19ab5e26 100644
-> > --- a/xen/include/public/domctl.h
-> > +++ b/xen/include/public/domctl.h
-> > @@ -66,9 +66,11 @@ struct xen_domctl_createdomain {
-> >   #define XEN_DOMCTL_CDF_nested_virt    (1U << _XEN_DOMCTL_CDF_nested_virt)
-> >   /* Should we expose the vPMU to the guest? */
-> >   #define XEN_DOMCTL_CDF_vpmu           (1U << 7)
-> > +/* Should we trap guest accesses to unmapped addresses? */
-> > +#define XEN_DOMCTL_CDF_trap_unmapped_accesses  (1U << 8)
-> >   /* Max XEN_DOMCTL_CDF_* constant.  Used for ABI checking. */
-> > -#define XEN_DOMCTL_CDF_MAX XEN_DOMCTL_CDF_vpmu
-> > +#define XEN_DOMCTL_CDF_MAX XEN_DOMCTL_CDF_trap_unmapped_accesses
-> >       uint32_t flags;
+> > -    /* Trap accesses to unmapped areas. */
+> > +    /* Trap unmapped accesses by default. */
+> >       d_cfg->flags |= XEN_DOMCTL_CDF_trap_unmapped_accesses;
+> > +    if ( dt_property_read_u32(node, "trap-unmapped-accesses", &val) )
+> > +    {
+> > +        if ( val > 1 )
+> > +            panic("trap-unmapped-accesses: supported values are 0 or 1");
+> > +        if ( !val )
+> > +            d_cfg->flags &= ~XEN_DOMCTL_CDF_trap_unmapped_accesses;
+> > +    }
+> >   }
+> >   int __init init_intc_phandle(struct kernel_info *kinfo, const char *name,
+> 
+> Cheers,
 > 
 > -- 
 > Julien Grall
