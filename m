@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 47547AC84F8
-	for <lists+xen-devel@lfdr.de>; Fri, 30 May 2025 01:23:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1000247.1380588 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 67B5DAC8508
+	for <lists+xen-devel@lfdr.de>; Fri, 30 May 2025 01:36:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1000261.1380599 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uKmaV-0007RU-Dy; Thu, 29 May 2025 23:23:03 +0000
+	id 1uKmnL-0000nk-Mh; Thu, 29 May 2025 23:36:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1000247.1380588; Thu, 29 May 2025 23:23:03 +0000
+Received: by outflank-mailman (output) from mailman id 1000261.1380599; Thu, 29 May 2025 23:36:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uKmaV-0007Q2-B9; Thu, 29 May 2025 23:23:03 +0000
-Received: by outflank-mailman (input) for mailman id 1000247;
- Thu, 29 May 2025 23:23:01 +0000
+	id 1uKmnL-0000kg-Je; Thu, 29 May 2025 23:36:19 +0000
+Received: by outflank-mailman (input) for mailman id 1000261;
+ Thu, 29 May 2025 23:36:19 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=lP5k=YN=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1uKmaT-0007Pu-91
- for xen-devel@lists.xenproject.org; Thu, 29 May 2025 23:23:01 +0000
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ id 1uKmnK-0000ka-VL
+ for xen-devel@lists.xenproject.org; Thu, 29 May 2025 23:36:18 +0000
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d600d084-3ce3-11f0-b894-0df219b8e170;
- Fri, 30 May 2025 01:22:50 +0200 (CEST)
+ id b518cad6-3ce5-11f0-b894-0df219b8e170;
+ Fri, 30 May 2025 01:36:13 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id BB1794ACCF;
- Thu, 29 May 2025 23:22:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 622DAC4CEEB;
- Thu, 29 May 2025 23:22:47 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id ABAB5614BA;
+ Thu, 29 May 2025 23:36:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F465C4CEEE;
+ Thu, 29 May 2025 23:36:11 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,145 +41,165 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d600d084-3ce3-11f0-b894-0df219b8e170
+X-Inumbo-ID: b518cad6-3ce5-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1748560968;
-	bh=ae/9YhRWjVTNXpnYDKCwWz8NiJ2GS09KOAWo/M7aoRU=;
+	s=k20201202; t=1748561772;
+	bh=X+RXe1a1/XeaL0wDzjF38o/ft4ck/X3z761JJ7tOUjM=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=mnG1KlCxNyWiaXzSHzULKuC+WyY07B6DrkvrbfvACsJXmtqU6bEjPexWzp9bkIhtf
-	 UXRd5G4LHGhTaqix2dl0/FN0b2Mnx/Clqgu9B/ngqMTl3YeXtbEW+jvJutnwLC5psL
-	 7xDuvJ64ayj8omPltVj8JAOXB6oScYSXiXAL+LCAkfn6Sz+mGyZlb0wfIFd4+BTYAY
-	 LVO/niTh0bXdEQx15ypEuqoX3BsJN0idNBiXCibZp5pjEyrUNd4qcpp2H5PBKNZW+A
-	 hTsb2l6fJCh+2TTg1nPb69SURT3d1+5hbftEhKSDnOfhN/crNhTzDGZCPn/2vvSvII
-	 DQsQBxKbadBRg==
-Date: Thu, 29 May 2025 16:22:45 -0700 (PDT)
+	b=MTip0EQkRwOT8K4w2HFACLXCclt7GsgCE+LETy/Kq3uFFtk3NcU0VSZqayS5ds50i
+	 5sVpD1l4bzLEldyG/f6SECqf2AHpG7SvzmjXeWkvnLgzU6ASUjKWlxs613nD0oRdqt
+	 lzaDbOIVZL+B5skEbfBDZ58/ju2G4QGh7y2iJC0RVQEkXuqfhwti1g6gRG6CnPJhd5
+	 9P6AqQJ2zgYmqaYrbZUpBRty/99rHEfmE14AJbaMkwCYv2BZ50dfp6BbiREop0eYfL
+	 rLaMrkeTjSOVVusd++sb8Guw68j+nehoPOhQ57mRON5F72r7ORyLythFhbtroeXu8j
+	 HT94p7TsQyBoQ==
+Date: Thu, 29 May 2025 16:36:09 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Penny Zheng <Penny.Zheng@amd.com>
-cc: xen-devel@lists.xenproject.org, ray.huang@amd.com, 
-    Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    Anthony PERARD <anthony.perard@vates.tech>, 
-    Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>, 
-    Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH v4 03/20] xen/x86: remove "depends on
- !PV_SHIM_EXCLUSIVE"
-In-Reply-To: <20250528091708.390767-4-Penny.Zheng@amd.com>
-Message-ID: <alpine.DEB.2.22.394.2505291622390.135336@ubuntu-linux-20-04-desktop>
-References: <20250528091708.390767-1-Penny.Zheng@amd.com> <20250528091708.390767-4-Penny.Zheng@amd.com>
+To: Denis Mukhin <dmkhn@proton.me>
+cc: xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com, 
+    anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org, 
+    michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, 
+    dmukhin@ford.com
+Subject: Re: [PATCH v3 1/2] xen/domain: introduce common hardware emulation
+ flags
+In-Reply-To: <20250528210139.2572609-2-dmukhin@ford.com>
+Message-ID: <alpine.DEB.2.22.394.2505291629140.135336@ubuntu-linux-20-04-desktop>
+References: <20250528210139.2572609-1-dmukhin@ford.com> <20250528210139.2572609-2-dmukhin@ford.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Wed, 27 May 2025, Penny Zheng wrote:
-> Remove all "depends on !PV_SHIM_EXCLUSIVE" (also the functionally
-> equivalent "if !...") in Kconfig file, since negative dependancy will badly
-> affect allyesconfig. To make sure unchanging produced config file based
-> on "pvshim_defconfig", we shall explicitly state according Kconfig is not set
+On Wed, 28 May 2025, dmkhn@proton.me wrote:
+> From: Denis Mukhin <dmukhin@ford.com>
 > 
-> Add "default y" for SHADOW_PAGING and TBOOT, otherwise we will have unset
-> values when running make defconfig based on "x86_64_defconfig".
+> Add common emulation_flags for configuring domain emulation features.
 > 
-> Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
+> Print d->emulation_flags from 'q' keyhandler for better traceability while
+> debugging.
+> 
+> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
+> ---
+> Changes since v2:
+> - move emulation_flags to common domain struct
+> ---
+>  xen/arch/x86/domain.c             |  2 +-
+>  xen/arch/x86/domctl.c             |  2 +-
+>  xen/arch/x86/include/asm/domain.h | 25 +++++++++++--------------
+>  xen/common/keyhandler.c           |  1 +
+>  xen/include/xen/sched.h           |  2 ++
+>  5 files changed, 16 insertions(+), 16 deletions(-)
+> 
+> diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
+> index 7536b6c871..0363ccb384 100644
+> --- a/xen/arch/x86/domain.c
+> +++ b/xen/arch/x86/domain.c
+> @@ -831,7 +831,7 @@ int arch_domain_create(struct domain *d,
+>                 emflags);
+>          return -EOPNOTSUPP;
+>      }
+> -    d->arch.emulation_flags = emflags;
+> +    d->emulation_flags = emflags;
+>  
+>  #ifdef CONFIG_PV32
+>      HYPERVISOR_COMPAT_VIRT_START(d) =
+> diff --git a/xen/arch/x86/domctl.c b/xen/arch/x86/domctl.c
+> index 3044f706de..37d848f683 100644
+> --- a/xen/arch/x86/domctl.c
+> +++ b/xen/arch/x86/domctl.c
+> @@ -144,7 +144,7 @@ void arch_get_domain_info(const struct domain *d,
+>      if ( paging_mode_hap(d) )
+>          info->flags |= XEN_DOMINF_hap;
+>  
+> -    info->arch_config.emulation_flags = d->arch.emulation_flags;
+> +    info->arch_config.emulation_flags = d->emulation_flags;
+>      info->gpaddr_bits = hap_paddr_bits;
+>  }
+>  
+> diff --git a/xen/arch/x86/include/asm/domain.h b/xen/arch/x86/include/asm/domain.h
+> index 8c0dea12a5..eafd5cfc90 100644
+> --- a/xen/arch/x86/include/asm/domain.h
+> +++ b/xen/arch/x86/include/asm/domain.h
+> @@ -455,9 +455,6 @@ struct arch_domain
+>  
+>      /* Don't unconditionally inject #GP for unhandled MSRs. */
+>      bool msr_relaxed;
+> -
+> -    /* Emulated devices enabled bitmap. */
+> -    uint32_t emulation_flags;
+>  } __cacheline_aligned;
+>  
+>  #ifdef CONFIG_HVM
+> @@ -494,17 +491,17 @@ struct arch_domain
+>                                   X86_EMU_PIT | X86_EMU_USE_PIRQ |       \
+>                                   X86_EMU_VPCI)
+>  
+> -#define has_vlapic(d)      (!!((d)->arch.emulation_flags & X86_EMU_LAPIC))
+> -#define has_vhpet(d)       (!!((d)->arch.emulation_flags & X86_EMU_HPET))
+> -#define has_vpm(d)         (!!((d)->arch.emulation_flags & X86_EMU_PM))
+> -#define has_vrtc(d)        (!!((d)->arch.emulation_flags & X86_EMU_RTC))
+> -#define has_vioapic(d)     (!!((d)->arch.emulation_flags & X86_EMU_IOAPIC))
+> -#define has_vpic(d)        (!!((d)->arch.emulation_flags & X86_EMU_PIC))
+> -#define has_vvga(d)        (!!((d)->arch.emulation_flags & X86_EMU_VGA))
+> -#define has_viommu(d)      (!!((d)->arch.emulation_flags & X86_EMU_IOMMU))
+> -#define has_vpit(d)        (!!((d)->arch.emulation_flags & X86_EMU_PIT))
+> -#define has_pirq(d)        (!!((d)->arch.emulation_flags & X86_EMU_USE_PIRQ))
+> -#define has_vpci(d)        (!!((d)->arch.emulation_flags & X86_EMU_VPCI))
+> +#define has_vlapic(d)      (!!((d)->emulation_flags & X86_EMU_LAPIC))
+> +#define has_vhpet(d)       (!!((d)->emulation_flags & X86_EMU_HPET))
+> +#define has_vpm(d)         (!!((d)->emulation_flags & X86_EMU_PM))
+> +#define has_vrtc(d)        (!!((d)->emulation_flags & X86_EMU_RTC))
+> +#define has_vioapic(d)     (!!((d)->emulation_flags & X86_EMU_IOAPIC))
+> +#define has_vpic(d)        (!!((d)->emulation_flags & X86_EMU_PIC))
+> +#define has_vvga(d)        (!!((d)->emulation_flags & X86_EMU_VGA))
+> +#define has_viommu(d)      (!!((d)->emulation_flags & X86_EMU_IOMMU))
+> +#define has_vpit(d)        (!!((d)->emulation_flags & X86_EMU_PIT))
+> +#define has_pirq(d)        (!!((d)->emulation_flags & X86_EMU_USE_PIRQ))
+> +#define has_vpci(d)        (!!((d)->emulation_flags & X86_EMU_VPCI))
+>  
+>  #define gdt_ldt_pt_idx(v) \
+>        ((v)->vcpu_id >> (PAGETABLE_ORDER - GDT_LDT_VCPU_SHIFT))
+> diff --git a/xen/common/keyhandler.c b/xen/common/keyhandler.c
+> index 0bb842ec00..cd731452ba 100644
+> --- a/xen/common/keyhandler.c
+> +++ b/xen/common/keyhandler.c
+> @@ -306,6 +306,7 @@ static void cf_check dump_domains(unsigned char key)
+>              if ( test_bit(i, &d->watchdog_inuse_map) )
+>                  printk("    watchdog %d expires in %d seconds\n",
+>                         i, (u32)((d->watchdog_timer[i].expires - NOW()) >> 30));
+> +        printk("    emulation_flags %#x\n", d->emulation_flags);
+>  
+>          arch_dump_domain_info(d);
+>  
+> diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
+> index 559d201e0c..dc4f917664 100644
+> --- a/xen/include/xen/sched.h
+> +++ b/xen/include/xen/sched.h
+> @@ -651,6 +651,8 @@ struct domain
+>      unsigned int num_llc_colors;
+>      const unsigned int *llc_colors;
+>  #endif
+> +
+> +    uint32_t emulation_flags;
+
+I think it is a good idea to move emulation_flags to common and I think
+we can make use of them on ARM too because we have a choice of emulators
+on ARM as well (pl011, gicv2, gicv3, etc.). I think it makes sense to
+move at least kinfo->arch.vpl011 to be an emulation_flags instead.
+
+I was going to ask to add an #ifdef CONFIG_X86 around the
+emulation_flags field as it is currently still unused on other
+architectures, but then it would break the compilation of keyhandler.c.
+
+So maybe it is OK this way.
 
 Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
 
-> ---
-> v2 -> v3:
-> - remove comment for PV_SHIM_EXCLUSIVE
-> ---
-> v3 -> v4:
-> - explicitly state "CONFIG_xxx is not set" in "pvshim_defconfig"
-> - Add "default y" for SHADOW_PAGING and TBOOT
-> - refactor commit message
-> ---
->  xen/arch/x86/Kconfig                  | 6 ++----
->  xen/arch/x86/configs/pvshim_defconfig | 5 +++++
->  xen/arch/x86/hvm/Kconfig              | 1 -
->  xen/drivers/video/Kconfig             | 4 ++--
->  4 files changed, 9 insertions(+), 7 deletions(-)
-> 
-> diff --git a/xen/arch/x86/Kconfig b/xen/arch/x86/Kconfig
-> index 7afe879710..8c8e661d53 100644
-> --- a/xen/arch/x86/Kconfig
-> +++ b/xen/arch/x86/Kconfig
-> @@ -143,7 +143,7 @@ config XEN_IBT
+>  } __aligned(PAGE_SIZE);
 >  
->  config SHADOW_PAGING
->  	bool "Shadow Paging"
-> -	default !PV_SHIM_EXCLUSIVE
-> +	default y
->  	depends on PV || HVM
->  	help
->  
-> @@ -175,7 +175,7 @@ config BIGMEM
->  config TBOOT
->  	bool "Xen tboot support (UNSUPPORTED)"
->  	depends on INTEL && UNSUPPORTED
-> -	default !PV_SHIM_EXCLUSIVE
-> +	default y
->  	select CRYPTO
->  	help
->  	  Allows support for Trusted Boot using the Intel(R) Trusted Execution
-> @@ -288,7 +288,6 @@ config PV_SHIM_EXCLUSIVE
->  
->  	  If unsure, say N.
->  
-> -if !PV_SHIM_EXCLUSIVE
->  
->  config HYPERV_GUEST
->  	bool "Hyper-V Guest"
-> @@ -298,7 +297,6 @@ config HYPERV_GUEST
->  
->  	  If unsure, say N.
->  
-> -endif
->  
->  config REQUIRE_NX
->  	bool "Require NX (No eXecute) support"
-> diff --git a/xen/arch/x86/configs/pvshim_defconfig b/xen/arch/x86/configs/pvshim_defconfig
-> index 2ad27f898e..6f652e145e 100644
-> --- a/xen/arch/x86/configs/pvshim_defconfig
-> +++ b/xen/arch/x86/configs/pvshim_defconfig
-> @@ -26,3 +26,8 @@ CONFIG_EXPERT=y
->  # CONFIG_INTEL_IOMMU is not set
->  # CONFIG_DEBUG is not set
->  # CONFIG_GDBSX is not set
-> +# CONFIG_SHADOW_PAGING is not set
-> +# CONFIG_TBOOT is not set
-> +# HYPERV_HYPERV_GUEST is not set
-> +# CONFIG_HVM is not set
-> +# CONFIG_VGA is not set
-> diff --git a/xen/arch/x86/hvm/Kconfig b/xen/arch/x86/hvm/Kconfig
-> index 2def0f98e2..b903764bda 100644
-> --- a/xen/arch/x86/hvm/Kconfig
-> +++ b/xen/arch/x86/hvm/Kconfig
-> @@ -1,6 +1,5 @@
->  menuconfig HVM
->  	bool "HVM support"
-> -	depends on !PV_SHIM_EXCLUSIVE
->  	default !PV_SHIM
->  	select COMPAT
->  	select IOREQ_SERVER
-> diff --git a/xen/drivers/video/Kconfig b/xen/drivers/video/Kconfig
-> index 245030beea..66ee1e7c9c 100644
-> --- a/xen/drivers/video/Kconfig
-> +++ b/xen/drivers/video/Kconfig
-> @@ -3,10 +3,10 @@ config VIDEO
->  	bool
->  
->  config VGA
-> -	bool "VGA support" if !PV_SHIM_EXCLUSIVE
-> +	bool "VGA support"
->  	select VIDEO
->  	depends on X86
-> -	default y if !PV_SHIM_EXCLUSIVE
-> +	default y
->  	help
->  	  Enable VGA output for the Xen hypervisor.
->  
+>  static inline struct page_list_head *page_to_list(
 > -- 
 > 2.34.1
+> 
 > 
 
