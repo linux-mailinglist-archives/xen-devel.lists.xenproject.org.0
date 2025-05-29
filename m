@@ -2,39 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 773F2AC75A8
-	for <lists+xen-devel@lfdr.de>; Thu, 29 May 2025 04:11:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.999755.1380371 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1ACB1AC79F0
+	for <lists+xen-devel@lfdr.de>; Thu, 29 May 2025 09:49:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.999831.1380381 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uKSj8-0005Pl-9k; Thu, 29 May 2025 02:10:38 +0000
+	id 1uKY0N-0000P6-RT; Thu, 29 May 2025 07:48:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 999755.1380371; Thu, 29 May 2025 02:10:38 +0000
+Received: by outflank-mailman (output) from mailman id 999831.1380381; Thu, 29 May 2025 07:48:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uKSj8-0005NF-60; Thu, 29 May 2025 02:10:38 +0000
-Received: by outflank-mailman (input) for mailman id 999755;
- Thu, 29 May 2025 02:10:37 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Mu1X=YN=gmail.com=demiobenour@srs-se1.protection.inumbo.net>)
- id 1uKSj7-0005N9-2q
- for xen-devel@lists.xenproject.org; Thu, 29 May 2025 02:10:37 +0000
-Received: from mail-yb1-xb2b.google.com (mail-yb1-xb2b.google.com
- [2607:f8b0:4864:20::b2b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1b60cbf4-3c32-11f0-a2fe-13f23c93f187;
- Thu, 29 May 2025 04:10:36 +0200 (CEST)
-Received: by mail-yb1-xb2b.google.com with SMTP id
- 3f1490d57ef6-e7311e66a8eso346943276.2
- for <xen-devel@lists.xenproject.org>; Wed, 28 May 2025 19:10:35 -0700 (PDT)
-Received: from [10.138.10.6] ([45.134.140.51])
- by smtp.gmail.com with ESMTPSA id
- 3f1490d57ef6-e7f733cd118sm89161276.20.2025.05.28.19.10.33
- for <xen-devel@lists.xenproject.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 28 May 2025 19:10:33 -0700 (PDT)
+	id 1uKY0N-0000Mo-OJ; Thu, 29 May 2025 07:48:47 +0000
+Received: by outflank-mailman (input) for mailman id 999831;
+ Thu, 29 May 2025 07:48:46 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1uKY0L-0000Mi-UO
+ for xen-devel@lists.xenproject.org; Thu, 29 May 2025 07:48:45 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.96)
+ (envelope-from <julien@xen.org>) id 1uKY0L-008FOg-0i;
+ Thu, 29 May 2025 07:48:45 +0000
+Received: from [2a02:8012:3a1:0:d557:39f4:e427:823c]
+ by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
+ (envelope-from <julien@xen.org>) id 1uKY0L-00CP5B-0t;
+ Thu, 29 May 2025 07:48:45 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,283 +39,759 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1b60cbf4-3c32-11f0-a2fe-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1748484635; x=1749089435; darn=lists.xenproject.org;
-        h=in-reply-to:autocrypt:from:content-language:references:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=xgsYsWRQrwJopPuRltx1kxVmUJMAjcKC6cuG4q9IS8A=;
-        b=Fl7yV22OQMRzVbhDWj1TIJRiLWXihE19NhGpqW/zWMxoxcBPluUseM7wB0jcQj26FO
-         hY1NktQgXmCL4yh8KGS5s3bZ5ZeqHGYIRlvdQii5tv9kDGwtA+Sq2p/3GqZQDkB+1Neu
-         6YcKajfc4OkbpBaPOn8bi+X8ZwT1TaUgsS8pnxTxY+rn30Je/DQPbeHpXWScwM7F+oRO
-         pGZUlGZQqEX8QD5JFdrC4kUMoAB0d78gBEJz+2S+yK/vjFzCOAadWd+Ejhymm65uxd3s
-         Vltt7iKIJamFwktGj7ytQ4Ng6uT1cQq2MhmVfOv8b94z5dKmMgg+xTzAad/HD5T3IYvs
-         OS3Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1748484635; x=1749089435;
-        h=in-reply-to:autocrypt:from:content-language:references:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=xgsYsWRQrwJopPuRltx1kxVmUJMAjcKC6cuG4q9IS8A=;
-        b=lyB7OSw6/YwBdZQHIN7IqXhD8Ctvq9G8WiHHkvDaYmyz+DjhyGOkkBUJF4mda1S7q6
-         CVFphI3XXsPMxNp28/SAxnJ4SpJUJVgfpbEv3Z1TEPh8ZxuGwT3p4wbcyM3Ok9ngPw7B
-         wEqpbfo/qFeeML/rXbJxc+0w7Z4S7s9O2WAF9xKWYHeu9emoC8PoO8Zy1ANEZ6SLIiDi
-         Rp1NRusPpE/qjx0COnmtC6yJJ8Chhooq25U9YzSmBYT/JNgefdV1e5mocgcb8vADeYKt
-         9F5b7ct11+eKVy4WFApimvX6T5owrpU3T7h2EuohmhgwjvaGrGFxw0xilJE4FGZJClxy
-         1Glg==
-X-Gm-Message-State: AOJu0Yz1HAynT+fdda5QB3VIsUGUQ/jbAdthOwGi8775Q1MqqlNwkIxK
-	Wq9VS4yEYUFs0Tqm38qr9q58YNPi/GwoGxuAKf8NI5I5byBIL5XhoK1+1gBkFw==
-X-Gm-Gg: ASbGncuF/9DScUfM6VbVwRfbJKmx+5G6bc/Zrb3NDYcvfN7NQYkhpvHceXb3xEITa6L
-	TfZv/bqbY7OTsyA6ZEDCS/wERseeGTeX2ajt5lV6vzM3dZk9nQjSid9MXWho/EMvTi7NBEcOkuG
-	TsVYkuVcZ5NEvYtV2wTj8hAcrpHtMnO3Uo+URvvsGMKDZGdNBnQnSxW0c5yoRHE7E2TkT3BG731
-	0F57Z2DAvwKz8j0JdYpCVB146y6qsuvjH1AyUM4ksiUgemi0b7uDpRTgAPiPD3XakPSMCWike8w
-	vuEnCNUX5UoRN4jUDPz0o7yhbhwovgZCLjTZnq+hbDvKw+1wZl4TvD37FYhghP8FkQ==
-X-Google-Smtp-Source: AGHT+IEdjKb5kNCKpmLykW+YcuFBHmSlrj+2iUW17oZ3RLZQSNY2Kfd5bbcmg3KsN+/uX17LLaPXkQ==
-X-Received: by 2002:a05:6902:26c6:b0:e7f:6815:ce6f with SMTP id 3f1490d57ef6-e7f6815d071mr4368210276.23.1748484634644;
-        Wed, 28 May 2025 19:10:34 -0700 (PDT)
-Message-ID: <9bfc305b-602e-4c96-bd7a-763075e506d7@gmail.com>
-Date: Wed, 28 May 2025 22:10:25 -0400
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=FN7tu5y7Uvq8o9wCUDBTl/GSeaIdeAgpGe0geFfmOTk=; b=GqBwBi7fflLoYPalsHGEorR4gN
+	xqQOVwiuFtDhzM9EN+5f28fsbtdm2M/a1ipK+kLUVEdujfCX2/KyjSum+PWQ8KoSwx3SJ+C9pmNjY
+	g3GCc+ITdX+wCAyrnXmy9+Hn5Q2mlrpb8OWuw0HN9WH37kjbP+0RCDdxuJTi4GevC9Hw=;
+Message-ID: <357b1e9a-fdfc-4895-9f75-7b0256a57032@xen.org>
+Date: Thu, 29 May 2025 08:48:42 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v11 4/7] xen/arm: smmuv3: Add PCI devices support for
- SMMUv3
-To: xen-devel@lists.xenproject.org
-References: <cover.1748422217.git.mykyta_poturai@epam.com>
- <71741747bdc0cfcacbe86e66ddd6239ea2f5a3af.1748422217.git.mykyta_poturai@epam.com>
-Content-Language: en-US
-From: Demi Marie Obenour <demiobenour@gmail.com>
-Autocrypt: addr=demiobenour@gmail.com; keydata=
- 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
- +MYSfkEjBz0E8CLOcAw7JIwAaeBT
-In-Reply-To: <71741747bdc0cfcacbe86e66ddd6239ea2f5a3af.1748422217.git.mykyta_poturai@epam.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------30Z0W7Agk2Wso9aKLRElgnv0"
+Subject: Re: [PATCH v5 4/4] xen/arm: add support for R-Car Gen4 PCI host
+ controller
+To: Mykyta Poturai <Mykyta_Poturai@epam.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <cover.1747820844.git.mykyta_poturai@epam.com>
+ <06f5972dda6a8132be8eab5ad1b8586ff3c5aaf3.1747820844.git.mykyta_poturai@epam.com>
+Content-Language: en-GB
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <06f5972dda6a8132be8eab5ad1b8586ff3c5aaf3.1747820844.git.mykyta_poturai@epam.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------30Z0W7Agk2Wso9aKLRElgnv0
-Content-Type: multipart/mixed; boundary="------------0l4RY8JtTNNb7Wd8Ftdwk5Wj";
- protected-headers="v1"
-From: Demi Marie Obenour <demiobenour@gmail.com>
-To: xen-devel@lists.xenproject.org
-Message-ID: <9bfc305b-602e-4c96-bd7a-763075e506d7@gmail.com>
-Subject: Re: [PATCH v11 4/7] xen/arm: smmuv3: Add PCI devices support for
- SMMUv3
-References: <cover.1748422217.git.mykyta_poturai@epam.com>
- <71741747bdc0cfcacbe86e66ddd6239ea2f5a3af.1748422217.git.mykyta_poturai@epam.com>
-In-Reply-To: <71741747bdc0cfcacbe86e66ddd6239ea2f5a3af.1748422217.git.mykyta_poturai@epam.com>
+Hi,
 
---------------0l4RY8JtTNNb7Wd8Ftdwk5Wj
-Content-Type: multipart/mixed; boundary="------------kRvswQJg6E2amMnsYZlCweiI"
+On 21/05/2025 13:21, Mykyta Poturai wrote:
+> From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+> 
+> Add support for Renesas R-Car Gen4 PCI host controller, specifically
+> targeting the S4 and V4H SoCs. The implementation includes configuration
+> read/write operations for both root and child buses. For accessing the
+> child bus, iATU is used for address translation.
+> 
+> The host controller needs to be initialized by Dom0 first to be properly
+> handled by Xen. Xen itself only handles the runtime configuration of
+> the iATU for accessing different child devices.
+> 
+> iATU programming is done similarly to Linux, where only window 0 is used
+> for dynamic configuration, and it is reconfigured for every config space
+> read/write.
+> 
+> Code common to all DesignWare PCI host controllers is located in a
+> separate file to allow for easy reuse in other DesignWare-based PCI
+> host controllers.
 
---------------kRvswQJg6E2amMnsYZlCweiI
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Given this...
 
-On 5/28/25 05:12, Mykyta Poturai wrote:
-> From: Rahul Singh <rahul.singh@arm.com>
->=20
-> Implement support for PCI devices in the SMMU driver. Trigger iommu-map=
+> 
+> Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+> Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
+> ---
+> v4->v5:
+> * update license identifiers
+> * improve error checking
+> * use XENLOG_G_* where needed
+> * make macro defs more robust and minor style fixes
+> * add MAINTANERS entry
+> 
+> v3->v4:
+> * no changes
+> 
+> v2->v3:
+> * move priv allocation to dw_pcie_host_probe
+> 
+> v1->v2:
+> * move designware code in a separate file
+> ---
+>   MAINTAINERS                       |   6 +
+>   xen/arch/arm/pci/Makefile         |   2 +
+>   xen/arch/arm/pci/pci-designware.c | 416 ++++++++++++++++++++++++++++++
+>   xen/arch/arm/pci/pci-designware.h |  90 +++++++
+>   xen/arch/arm/pci/pci-host-rcar4.c |  94 +++++++
+>   5 files changed, 608 insertions(+)
+>   create mode 100644 xen/arch/arm/pci/pci-designware.c
+>   create mode 100644 xen/arch/arm/pci/pci-designware.h
+>   create mode 100644 xen/arch/arm/pci/pci-host-rcar4.c
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index c11b82eca9..dc1291e2b0 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -476,6 +476,12 @@ M:	Anthony Perard <anthony.perard@vates.tech>
+>   S:	Supported
+>   T:	git https://xenbits.xenproject.org/git-http/qemu-xen.git
+>   
+> +RCAR PCI
+> +M:	Mykyta Poturai <mykyta_poturai@epam.com>
+> +S:	Supported
+> +F:	xen/arch/arm/pci/pci-host-rcar4.c
+> +F:	xen/arch/arm/pci/pci-designware*
 
-> parsing when new PCI device is added. Add checks to assign/deassign
-> functions to ensure PCI devices are handled correctly. Implement basic
-> quarantining.
->=20
-> All pci devices are automatically assigned to hardware domain if it exi=
-sts
-> to ensure it can probe them.
-This is only safe for devices present at boot time.  It=E2=80=99s not saf=
-e for
-hotplugged devices, which should be quarantined.
---=20
-Sincerely,
-Demi Marie Obenour (she/her/hers)
---------------kRvswQJg6E2amMnsYZlCweiI
-Content-Type: application/pgp-keys; name="OpenPGP_0xB288B55FFF9C22C1.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB288B55FFF9C22C1.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+... I don't think pci-designware should be under the category "RCAR 
+PCI". It should go under ARM.
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+> +
+>   REMUS
+>   S:	Orphan
+>   F:	docs/README.remus
+> diff --git a/xen/arch/arm/pci/Makefile b/xen/arch/arm/pci/Makefile
+> index 1d045ade01..ca6135e282 100644
+> --- a/xen/arch/arm/pci/Makefile
+> +++ b/xen/arch/arm/pci/Makefile
+> @@ -4,3 +4,5 @@ obj-y += pci-host-generic.o
+>   obj-y += pci-host-common.o
+>   obj-y += ecam.o
+>   obj-y += pci-host-zynqmp.o
+> +obj-y += pci-designware.o
+> +obj-y += pci-host-rcar4.o
+> diff --git a/xen/arch/arm/pci/pci-designware.c b/xen/arch/arm/pci/pci-designware.c
+> new file mode 100644
+> index 0000000000..fc8c6724f2
+> --- /dev/null
+> +++ b/xen/arch/arm/pci/pci-designware.c
+> @@ -0,0 +1,416 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only
+> + *
+> + * Based on Linux drivers/pci/controller/pci-host-common.c
+> + * Based on Linux drivers/pci/controller/pci-host-generic.c
+> + * Based on Linux drivers/pci/controller/dwc/pcie-designware.c
+> + * Based on xen/arch/arm/pci/pci-host-generic.c
+> + *
+> + */
+> +
+> +#include <xen/delay.h>
+> +#include <asm/io.h>
+> +
+> +#include "pci-designware.h"
+> +/**
+> + * upper_32_bits - return bits 32-63 of a number
+> + * @n: the number we're accessing
+> + *
+> + * A basic shift-right of a 64- or 32-bit quantity.  Use this to suppress
+> + * the "right shift count >= width of type" warning when that quantity is
+> + * 32-bits.
+> + */
+> +#define upper_32_bits(n) ((uint32_t)(((n) >> 16) >> 16))
+> +
+> +/**
+> + * lower_32_bits - return bits 0-31 of a number
+> + * @n: the number we're accessing
+> + */
+> +#define lower_32_bits(n) ((uint32_t)((n) & 0xffffffffU))
+> +
+> +static int dw_pcie_read(void __iomem *addr, int len, uint32_t *val)
 
-xsFNBFp+A0oBEADffj6anl9/BHhUSxGTICeVl2tob7hPDdhHNgPR4C8xlYt5q49y
-B+l2nipdaq+4Gk6FZfqC825TKl7eRpUjMriwle4r3R0ydSIGcy4M6eb0IcxmuPYf
-bWpr/si88QKgyGSVZ7GeNW1UnzTdhYHuFlk8dBSmB1fzhEYEk0RcJqg4AKoq6/3/
-UorR+FaSuVwT7rqzGrTlscnTDlPWgRzrQ3jssesI7sZLm82E3pJSgaUoCdCOlL7M
-MPCJwI8JpPlBedRpe9tfVyfu3euTPLPxwcV3L/cfWPGSL4PofBtB8NUU6QwYiQ9H
-zx4xOyn67zW73/G0Q2vPPRst8LBDqlxLjbtx/WLR6h3nBc3eyuZ+q62HS1pJ5EvU
-T1vjyJ1ySrqtUXWQ4XlZyoEFUfpJxJoN0A9HCxmHGVckzTRl5FMWo8TCniHynNXs
-BtDQbabt7aNEOaAJdE7to0AH3T/Bvwzcp0ZJtBk0EM6YeMLtotUut7h2Bkg1b//r
-6bTBswMBXVJ5H44Qf0+eKeUg7whSC9qpYOzzrm7+0r9F5u3qF8ZTx55TJc2g656C
-9a1P1MYVysLvkLvS4H+crmxA/i08Tc1h+x9RRvqba4lSzZ6/Tmt60DPM5Sc4R0nS
-m9BBff0Nm0bSNRS8InXdO1Aq3362QKX2NOwcL5YaStwODNyZUqF7izjK4QARAQAB
-zTxEZW1pIE9iZW5vdXIgKElUTCBFbWFpbCBLZXkpIDxhdGhlbmFAaW52aXNpYmxl
-dGhpbmdzbGFiLmNvbT7CwY4EEwEIADgWIQR2h02fEza6IlkHHHGyiLVf/5wiwQUC
-X6YJvQIbAwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgAAKCRCyiLVf/5wiwWRhD/0Y
-R+YYC5Kduv/2LBgQJIygMsFiRHbR4+tWXuTFqgrxxFSlMktZ6gQrQCWe38WnOXkB
-oY6n/5lSJdfnuGd2UagZ/9dkaGMUkqt+5WshLFly4BnP7pSsWReKgMP7etRTwn3S
-zk1OwFx2lzY1EnnconPLfPBc6rWG2moA6l0WX+3WNR1B1ndqpl2hPSjT2jUCBWDV
-rGOUSX7r5f1WgtBeNYnEXPBCUUM51pFGESmfHIXQrqFDA7nBNiIVFDJTmQzuEqIy
-Jl67pKNgooij5mKzRhFKHfjLRAH4mmWZlB9UjDStAfFBAoDFHwd1HL5VQCNQdqEc
-/9lZDApqWuCPadZN+pGouqLysesIYsNxUhJ7dtWOWHl0vs7/3qkWmWun/2uOJMQh
-ra2u8nA9g91FbOobWqjrDd6x3ZJoGQf4zLqjmn/P514gb697788e573WN/MpQ5XI
-Fl7aM2d6/GJiq6LC9T2gSUW4rbPBiqOCeiUx7Kd/sVm41p9TOA7fEG4bYddCfDsN
-xaQJH6VRK3NOuBUGeL+iQEVF5Xs6Yp+U+jwvv2M5Lel3EqAYo5xXTx4ls0xaxDCu
-fudcAh8CMMqx3fguSb7Mi31WlnZpk0fDuWQVNKyDP7lYpwc4nCCGNKCj622ZSocH
-AcQmX28L8pJdLYacv9pU3jPy4fHcQYvmTavTqowGnM08RGVtaSBNYXJpZSBPYmVu
-b3VyIChsb3ZlciBvZiBjb2RpbmcpIDxkZW1pb2Jlbm91ckBnbWFpbC5jb20+wsF4
-BBMBAgAiBQJafgNKAhsDBgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRCyiLVf
-/5wiwYa/EACv8a2+MMou9cSCNoZBQaU+fTmyzft9hUE+0d5W2UY1RY3OsjFIzm9R
-/4SVccfsqOYLEo+S0vQMIIIqFEq3FCpXXwPzyimotps05VA8U3Bd7yseojFygOgK
-sAMOAee2RCaDDOnoJue01dfZMzzHPO/TVdp3OvnpWipfv5G1Xg96rwbhMLE3tg6N
-xwAHa31Bv4/Xq8CJOoIWvx6fcmZQpz01/lSvsYn0KrfEbTKkuUf0vM9JrCTCP2oz
-VNN5BYzqaq2M4r+jmSyeXLim922VOWqGkUEQ85BSEemqrRS06IU6NtEMsF8EWt/b
-hWjk/9GDKTcnpdJHTrMxTspExBiNrvpI2t+YPU5B/dJJAUxvmhFrbSIbdB8umBZs
-I3AMYrEmpAbh5x7jEjoskUC7uN3o9vpg1oCLS2ePDLtAtyBtbHnkA4xGD7ar8mem
-xpH9lY/i+sC6CyyIUWcUDnnagKyJP0m9ks0GLsTeOCA0bft2XA6rD6aaCnMUsndT
-ctrab42CV5XypjmC4U1rPJ8JQJUh1/3P48/8sMH+3krxpJ06KNWNFaUbaMTGiltZ
-7x9DngklSYrX0T+2G4kVXNmjaljwkoLahwLla2gUWwBSyofXdqyhQdwZsp01KXNQ
-UCyT/Pg+aDcm/E7OMV3d4lf7g/CSxiX2GSEe6BlhSz+Lmd7ZJ3g32M1ARGVtaSBN
-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
-EtJuZYM5blWncBOJCoWMnBEcTEo/viU3GgcVRw=3D=3D
-=3Dx94R
------END PGP PUBLIC KEY BLOCK-----
+As you switched to Xen coding style below: unlike Linux, we prefer using 
+"unsigned int" when a value is not be signed.
 
---------------kRvswQJg6E2amMnsYZlCweiI--
+ > +{> +    if ( !IS_ALIGNED((uintptr_t)addr, len) )
+> +    {
+> +        *val = 0;
+> +        return -EFAULT;
+> +    }
+> +
+> +    switch ( len )
+> +    {
+> +    case 1:
+> +        *val = readb(addr);
+> +        break;
+> +    case 2:
+> +        *val = readw(addr);
+> +        break;
+> +    case 4:
+> +        *val = readl(addr);
+> +        break;
+> +    default:
+> +        ASSERT_UNREACHABLE();
+> +    }
+> +
+> +    return 0;
+> +}
+> +
+> +static int dw_pcie_write(void __iomem *addr, int len, uint32_t val)
+> +{
+> +    if ( !IS_ALIGNED((uintptr_t)addr, len) )
+> +        return -EFAULT;
+> +
+> +    switch ( len )
+> +    {
+> +    case 1:
+> +        writeb(val, addr);
+> +        break;
+> +    case 2:
+> +        writew(val, addr);
+> +        break;
+> +    case 4:
+> +        writel(val, addr);
+> +        break;
+> +    default:
+> +        ASSERT_UNREACHABLE();
+> +    }
+> +
+> +    return 0;
+> +}
+> +
+> +static uint32_t dw_pcie_read_dbi(struct pci_host_bridge *bridge, uint32_t reg,
+> +                                 size_t size)
+> +{
+> +    void __iomem *addr = bridge->cfg->win + reg;
+> +    uint32_t val;
+> +    int ret;
+> +
+> +    ret = dw_pcie_read(addr, size, &val);
+> +    if ( ret )
+> +        printk(XENLOG_G_ERR "Read DBI address failed\n");
+> +
+> +    return val;
+> +}
+> +
+> +static void dw_pcie_write_dbi(struct pci_host_bridge *bridge, uint32_t reg,
+> +                              size_t size, uint32_t val)
+> +{
+> +    void __iomem *addr = bridge->cfg->win + reg;
+> +    int ret;
+> +
+> +    ret = dw_pcie_write(addr, size, val);
+> +    if ( ret )
+> +        printk(XENLOG_G_ERR "Write DBI address failed\n");
+> +}
+> +
+> +static uint32_t dw_pcie_readl_dbi(struct pci_host_bridge *bridge, uint32_t reg)
+> +{
+> +    return dw_pcie_read_dbi(bridge, reg, sizeof(uint32_t));
+> +}
+> +
+> +static void dw_pcie_writel_dbi(struct pci_host_bridge *pci, uint32_t reg,
+> +                               uint32_t val)
+> +{
+> +    dw_pcie_write_dbi(pci, reg, sizeof(uint32_t), val);
+> +}
+> +
+> +static void dw_pcie_read_iatu_unroll_enabled(struct pci_host_bridge *bridge)
+> +{
+> +    struct dw_pcie_priv *priv = bridge->priv;
+> +    uint32_t val;
+> +
+> +    val = dw_pcie_readl_dbi(bridge, PCIE_ATU_VIEWPORT);
+> +    if ( val == 0xffffffffU )
+> +        priv->iatu_unroll_enabled = true;
+> +
+> +    printk(XENLOG_G_DEBUG "%s iATU unroll: %sabled\n",
+> +           dt_node_full_name(bridge->dt_node),
+> +           priv->iatu_unroll_enabled ? "en" : "dis");
+> +}
+> +
+> +static uint32_t dw_pcie_readl_atu(struct pci_host_bridge *pci, uint32_t reg)
+> +{
+> +    struct dw_pcie_priv *priv = pci->priv;
+> +    int ret;
+> +    uint32_t val;
+> +
+> +    ret = dw_pcie_read(priv->atu_base + reg, 4, &val);
+> +    if ( ret )
+> +        printk(XENLOG_G_ERR "Read ATU address failed\n");
 
---------------0l4RY8JtTNNb7Wd8Ftdwk5Wj--
+I think it would be helpful to print the register. Same ...
 
---------------30Z0W7Agk2Wso9aKLRElgnv0
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+> +
+> +    return val;
+> +}
+> +
+> +static void dw_pcie_writel_atu(struct pci_host_bridge *pci, uint32_t reg,
+> +                               uint32_t val)
+> +{
+> +    struct dw_pcie_priv *priv = pci->priv;
+> +    int ret;
+> +
+> +    ret = dw_pcie_write(priv->atu_base + reg, 4, val);
+> +    if ( ret )
+> +        printk(XENLOG_G_ERR "Write ATU address failed\n");
 
------BEGIN PGP SIGNATURE-----
+... here.
 
-iQIzBAEBCAAdFiEEopQtqVJW1aeuo9/sszaHOrMp8lMFAmg3whIACgkQszaHOrMp
-8lMnCg//YlJW3y2omMJfX6oz81u0WevDNEhmM3S1cvbyyHZDyPRQMtjLsI0Clw22
-ROlqUbiZeYh09gaSdrIDL4rVMKQoNvqzUtax+0zFiuKvmmvsFEOUEzZXlLuydTZv
-70LZBiV9N+KxhRGRDMF3SSvTXBThOF57Yump1/WMiAneGHKwBI23SypbYgpo2I7a
-g1gRAotMsB6iKDGZzZRb926GdCv+j3RPRkvFAnHMCr81Srb3IGeIKZR68feSUMbh
-8e1JxNU70qrZO4YKWhurb6wag8U9JPPzmd9dZl5aN4kteJkyMliHd4CLn37rQiyL
-ljJcuD3T9UtiITZPK5AacKuEEXZsM5VJUMXGjfA0aeAuyvbiFyEw/kW6OctjTIhY
-d7AeKjOQUAyr9djEXY/ugTs42hgp0DC00XRdKa1YqcfbD0LuQJ3ZiD6BsfVu6n7M
-dC/68/WkZd5Pa0VRk3prufJCLj9mdqj73KkqP4djWElOrhHfkLjiP3oHbrCEHvfn
-FZm/wOCwE7YLyMNyi8FPbi42d0nlxrEuwohhsl7tQuqKR/jp7EhT5n+Jv181LGVX
-0/xNnAOp+g9HW9FBMYfZknN1xgqmfef3GrpfLtGIit9nVh/SDvExrh00NW3RtQgk
-49Jl8jt+Yz6nkSPkxDIjXv+hvspD86R0I4gOeEzeAt148CDtbXQ=
-=kqGl
------END PGP SIGNATURE-----
+> +}
+> +
+> +static uint32_t dw_pcie_readl_ob_unroll(struct pci_host_bridge *pci,
+> +                                        uint32_t index, uint32_t reg)
+> +{
+> +    uint32_t offset = PCIE_GET_ATU_OUTB_UNR_REG_OFFSET(index);
+> +
+> +    return dw_pcie_readl_atu(pci, offset + reg);
+> +}
+> +
+> +static void dw_pcie_writel_ob_unroll(struct pci_host_bridge *pci,
+> +                                     uint32_t index, uint32_t reg, uint32_t val)
+> +{
+> +    uint32_t offset = PCIE_GET_ATU_OUTB_UNR_REG_OFFSET(index);
+> +
+> +    dw_pcie_writel_atu(pci, offset + reg, val);
+> +}
+> +
+> +static uint32_t dw_pcie_enable_ecrc(uint32_t val)
+> +{
+> +    ASSERT_UNREACHABLE();
 
---------------30Z0W7Agk2Wso9aKLRElgnv0--
+Can you add a comment explaning why this function is not supposed to be 
+called? And if we trigger it, then what does it mean?
+
+> +    return 0;
+> +}
+ > +> +static int dw_pcie_prog_outbound_atu_unroll(struct 
+pci_host_bridge *pci,
+> +                                            uint8_t func_no, int index,
+> +                                            int type, uint64_t cpu_addr,
+> +                                            uint64_t pci_addr, uint64_t size)
+> +{
+> +    struct dw_pcie_priv *priv = pci->priv;
+> +    uint32_t retries, val;
+> +    uint64_t limit_addr = cpu_addr + size - 1;
+> +
+> +    dw_pcie_writel_ob_unroll(pci, index, PCIE_ATU_UNR_LOWER_BASE,
+> +                             lower_32_bits(cpu_addr));
+> +    dw_pcie_writel_ob_unroll(pci, index, PCIE_ATU_UNR_UPPER_BASE,
+> +                             upper_32_bits(cpu_addr));
+> +    dw_pcie_writel_ob_unroll(pci, index, PCIE_ATU_UNR_LOWER_LIMIT,
+> +                             lower_32_bits(limit_addr));
+> +    dw_pcie_writel_ob_unroll(pci, index, PCIE_ATU_UNR_UPPER_LIMIT,
+> +                             upper_32_bits(limit_addr));
+> +    dw_pcie_writel_ob_unroll(pci, index, PCIE_ATU_UNR_LOWER_TARGET,
+> +                             lower_32_bits(pci_addr));
+> +    dw_pcie_writel_ob_unroll(pci, index, PCIE_ATU_UNR_UPPER_TARGET,
+> +                             upper_32_bits(pci_addr));
+> +    val = type | PCIE_ATU_FUNC_NUM(func_no);
+> +    val = upper_32_bits(size - 1) ? val | PCIE_ATU_INCREASE_REGION_SIZE : val;
+> +    if ( priv->version == 0x490A )
+> +        val = dw_pcie_enable_ecrc(val);
+> +    dw_pcie_writel_ob_unroll(pci, index, PCIE_ATU_UNR_REGION_CTRL1, val);
+> +    dw_pcie_writel_ob_unroll(pci, index, PCIE_ATU_UNR_REGION_CTRL2,
+> +                             PCIE_ATU_ENABLE);
+> +
+> +    /*
+> +     * Make sure ATU enable takes effect before any subsequent config
+> +     * and I/O accesses.
+> +     */
+> +    for ( retries = 0; retries < LINK_WAIT_MAX_IATU_RETRIES; retries++ )
+> +    {
+> +        val = dw_pcie_readl_ob_unroll(pci, index, PCIE_ATU_UNR_REGION_CTRL2);
+> +        if ( val & PCIE_ATU_ENABLE )
+> +            return 0;
+> +
+> +        mdelay(LINK_WAIT_IATU);
+> +    }
+> +    printk(XENLOG_G_ERR "Outbound iATU is not being enabled\n");
+> +
+> +    return -ENXIO;
+> +}
+> +
+> +static int __dw_pcie_prog_outbound_atu(struct pci_host_bridge *pci,
+> +                                       uint8_t func_no, int index, int type,
+> +                                       uint64_t cpu_addr, uint64_t pci_addr,
+> +                                       uint64_t size)
+> +{
+> +    struct dw_pcie_priv *priv = pci->priv;
+> +    uint32_t retries, val;
+> +
+> +    if ( priv->iatu_unroll_enabled )
+> +        return dw_pcie_prog_outbound_atu_unroll(pci, func_no, index, type,
+> +                                                cpu_addr, pci_addr, size);
+> +
+> +    dw_pcie_writel_dbi(pci, PCIE_ATU_VIEWPORT,
+> +                       PCIE_ATU_REGION_OUTBOUND | index);
+> +    dw_pcie_writel_dbi(pci, PCIE_ATU_LOWER_BASE, lower_32_bits(cpu_addr));
+> +    dw_pcie_writel_dbi(pci, PCIE_ATU_UPPER_BASE, upper_32_bits(cpu_addr));
+> +    dw_pcie_writel_dbi(pci, PCIE_ATU_LIMIT, lower_32_bits(cpu_addr + size - 1));
+> +    if ( priv->version >= 0x460A )
+> +        dw_pcie_writel_dbi(pci, PCIE_ATU_UPPER_LIMIT,
+> +                           upper_32_bits(cpu_addr + size - 1));
+> +    dw_pcie_writel_dbi(pci, PCIE_ATU_LOWER_TARGET, lower_32_bits(pci_addr));
+> +    dw_pcie_writel_dbi(pci, PCIE_ATU_UPPER_TARGET, upper_32_bits(pci_addr));
+> +    val = type | PCIE_ATU_FUNC_NUM(func_no);
+> +    val = ((upper_32_bits(size - 1)) && (priv->version >= 0x460A))
+> +              ? val | PCIE_ATU_INCREASE_REGION_SIZE
+> +              : val;
+> +    if ( priv->version == 0x490A )
+> +        val = dw_pcie_enable_ecrc(val);
+> +    dw_pcie_writel_dbi(pci, PCIE_ATU_CR1, val);
+> +    dw_pcie_writel_dbi(pci, PCIE_ATU_CR2, PCIE_ATU_ENABLE);
+> +
+> +    /*
+> +     * Make sure ATU enable takes effect before any subsequent config
+> +     * and I/O accesses.
+> +     */
+> +    for ( retries = 0; retries < LINK_WAIT_MAX_IATU_RETRIES; retries++ )
+> +    {
+> +        val = dw_pcie_readl_dbi(pci, PCIE_ATU_CR2);
+> +        if ( val & PCIE_ATU_ENABLE )
+> +            return 0;
+> +
+> +        mdelay(LINK_WAIT_IATU);
+> +    }
+> +    printk(XENLOG_G_ERR "Outbound iATU is not being enabled\n");
+> +
+> +    return -ENXIO;
+> +}
+> +
+> +static int dw_pcie_prog_outbound_atu(struct pci_host_bridge *pci, int index,
+> +                                     int type, uint64_t cpu_addr,
+> +                                     uint64_t pci_addr, uint64_t size)
+> +{
+> +    return __dw_pcie_prog_outbound_atu(pci, 0, index, type, cpu_addr, pci_addr,
+> +                                       size);
+> +}
+> +
+> +void dw_pcie_set_version(struct pci_host_bridge *bridge, unsigned int version)
+> +{
+> +    struct dw_pcie_priv *priv = bridge->priv;
+> +
+> +    priv->version = version;
+> +}
+> +
+> +void __iomem *dw_pcie_child_map_bus(struct pci_host_bridge *bridge,
+> +                                    pci_sbdf_t sbdf, uint32_t where)
+> +{
+> +    uint32_t busdev;
+> +    int ret;
+> +
+> +    busdev = PCIE_ATU_BUS(sbdf.bus) | PCIE_ATU_DEV(PCI_SLOT(sbdf.devfn)) |
+> +             PCIE_ATU_FUNC(PCI_FUNC(sbdf.devfn));
+> +
+> +    /* FIXME: Parent is the root bus, so use PCIE_ATU_TYPE_CFG0. */
+> +    ret = dw_pcie_prog_outbound_atu(bridge, PCIE_ATU_REGION_INDEX1,
+> +                                    PCIE_ATU_TYPE_CFG0,
+> +                                    bridge->child_cfg->phys_addr, busdev,
+> +                                    bridge->child_cfg->size);
+> +    if ( ret )
+> +        return 0;
+> +
+> +    return bridge->child_cfg->win + where;
+> +}
+> +
+> +int dw_pcie_child_config_read(struct pci_host_bridge *bridge, pci_sbdf_t sbdf,
+> +                              uint32_t reg, uint32_t len, uint32_t *value)
+> +{
+> +    struct dw_pcie_priv *priv = bridge->priv;
+> +    int ret;
+> +
+> +    /*
+> +     * FIXME: we cannot read iATU settings at the early initialization
+> +     * (probe) as the host's HW is not yet initialized at that phase.
+> +     * This read operation is the very first thing Domain-0 will do
+> +     * during its initialization, so take this opportunity and read
+> +     * iATU setting now.
+> +     */
+> +    if ( unlikely(!priv->iatu_unroll_initilized) )
+> +    {
+> +        dw_pcie_read_iatu_unroll_enabled(bridge);
+> +        priv->iatu_unroll_initilized = true;
+> +    }
+> +
+> +    ret = pci_generic_config_read(bridge, sbdf, reg, len, value);
+> +    if ( !ret && (priv->num_viewport <= 2) )
+> +        ret = dw_pcie_prog_outbound_atu(bridge, PCIE_ATU_REGION_INDEX1,
+> +                                        PCIE_ATU_TYPE_IO,
+> +                                        bridge->child_cfg->phys_addr, 0,
+> +                                        bridge->child_cfg->size);
+> +
+> +    return ret;
+> +}
+> +
+> +int dw_pcie_child_config_write(struct pci_host_bridge *bridge, pci_sbdf_t sbdf,
+> +                               uint32_t reg, uint32_t len, uint32_t value)
+> +{
+> +    struct dw_pcie_priv *priv = bridge->priv;
+> +    int ret;
+> +
+> +    ret = pci_generic_config_write(bridge, sbdf, reg, len, value);
+> +    if ( !ret && (priv->num_viewport <= 2) )
+> +        ret = dw_pcie_prog_outbound_atu(bridge, PCIE_ATU_REGION_INDEX1,
+> +                                        PCIE_ATU_TYPE_IO,
+> +                                        bridge->child_cfg->phys_addr, 0,
+> +                                        bridge->child_cfg->size);
+> +    return ret;
+> +}
+> +
+> +bool __init dw_pcie_child_need_p2m_hwdom_mapping(struct domain *d,
+> +                                                 struct pci_host_bridge *bridge,
+> +                                                 uint64_t addr)
+> +{
+> +    struct pci_config_window *cfg = bridge->child_cfg;
+> +
+> +    /*
+> +     * We do not want ECAM address space to be mapped in Domain-0's p2m,
+> +     * so we can trap access to it.
+> +     */
+> +    return cfg->phys_addr != addr;
+> +}
+> +
+> +struct pci_host_bridge *__init
+> +dw_pcie_host_probe(struct dt_device_node *dev, const void *data,
+> +                   const struct pci_ecam_ops *ops,
+> +                   const struct pci_ecam_ops *child_ops)
+> +{
+> +    struct pci_host_bridge *bridge;
+> +    struct dw_pcie_priv *priv;
+> +
+> +    paddr_t atu_phys_addr;
+> +    paddr_t atu_size;
+> +    int atu_idx, ret;
+> +
+> +    bridge = pci_host_common_probe(dev, ops, child_ops);
+> +    if ( IS_ERR(bridge) )
+> +        return bridge;
+> +
+> +    priv = xzalloc(struct dw_pcie_priv);
+> +    if ( !priv )
+> +        return ERR_PTR(-ENOMEM);
+> +
+> +    bridge->priv = priv;
+> +
+> +    atu_idx = dt_property_match_string(dev, "reg-names", "atu");
+> +    if ( atu_idx < 0 )
+> +    {
+> +        printk(XENLOG_ERR "Cannot find \"atu\" range index in device tree\n");
+> +        return ERR_PTR(atu_idx);
+> +    }
+> +    ret = dt_device_get_address(dev, atu_idx, &atu_phys_addr, &atu_size);
+> +    if ( ret )
+> +    {
+> +        printk(XENLOG_ERR "Cannot find \"atu\" range in device tree\n");
+> +        return ERR_PTR(ret);
+> +    }
+> +    printk("iATU at [mem 0x%" PRIpaddr "-0x%" PRIpaddr "]\n", atu_phys_addr,
+> +           atu_phys_addr + atu_size - 1);
+> +    priv->atu_base = ioremap_nocache(atu_phys_addr, atu_size);
+> +    if ( !priv->atu_base )
+> +    {
+> +        printk(XENLOG_ERR "iATU ioremap failed\n");
+> +        return ERR_PTR(ENXIO);
+> +    }
+> +
+> +    if ( !dt_property_read_u32(dev, "num-viewport", &priv->num_viewport) )
+> +        priv->num_viewport = 2;
+> +
+> +    /*
+> +     * FIXME: we cannot read iATU unroll enable now as the host bridge's
+> +     * HW is not yet initialized by Domain-0: leave it for later.
+> +     */
+> +
+> +    printk(XENLOG_INFO "%s number of view ports: %d\n", dt_node_full_name(dev),
+> +           priv->num_viewport);
+> +
+> +    return bridge;
+> +}
+> diff --git a/xen/arch/arm/pci/pci-designware.h b/xen/arch/arm/pci/pci-designware.h
+> new file mode 100644
+> index 0000000000..df4a9afe75
+> --- /dev/null
+> +++ b/xen/arch/arm/pci/pci-designware.h
+> @@ -0,0 +1,90 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only
+> + *
+> + * Based on Linux drivers/pci/controller/pci-host-common.c
+> + * Based on Linux drivers/pci/controller/pci-host-generic.c
+> + * Based on Linux drivers/pci/controller/dwc/pcie-designware.c
+> + * Based on xen/arch/arm/pci/pci-host-generic.c
+> + */
+> +
+> +#include <xen/pci.h>
+> +#include <xen/init.h>
+> +
+> +#ifndef __PCI_DESIGNWARE_H__
+> +#define __PCI_DESIGNWARE_H__
+> +
+> +
+> +#define PCIE_ATU_VIEWPORT               0x900
+> +#define PCIE_ATU_REGION_OUTBOUND        0
+> +#define PCIE_ATU_CR1                    0x904
+> +#define PCIE_ATU_INCREASE_REGION_SIZE   BIT(13, UL)
+> +#define PCIE_ATU_CR2                    0x908
+> +#define PCIE_ATU_ENABLE                 BIT(31, UL)
+> +#define PCIE_ATU_LOWER_BASE             0x90C
+> +#define PCIE_ATU_UPPER_BASE             0x910
+> +#define PCIE_ATU_LIMIT                  0x914
+> +#define PCIE_ATU_LOWER_TARGET           0x918
+> +#define PCIE_ATU_UPPER_TARGET           0x91C
+> +#define PCIE_ATU_UPPER_LIMIT            0x924
+> +
+> +#define PCIE_ATU_REGION_INDEX1  0x1
+> +#define PCIE_ATU_TYPE_IO        0x2
+> +#define PCIE_ATU_TYPE_CFG0      0x4
+> +
+> +#define FIELD_PREP(_mask, _val) \
+> +    (((typeof(_mask))(_val) << (ffs64(_mask) - 1)) & (_mask))
+> +
+> +#define PCIE_ATU_BUS(x)         FIELD_PREP(GENMASK(31, 24), (x))
+> +#define PCIE_ATU_DEV(x)         FIELD_PREP(GENMASK(23, 19), (x))
+> +#define PCIE_ATU_FUNC(x)        FIELD_PREP(GENMASK(18, 16), (x))
+> +
+> +/* Register address builder */
+> +#define PCIE_GET_ATU_OUTB_UNR_REG_OFFSET(region) \
+> +    ((region) << 9)
+> +
+> +/*
+> + * iATU Unroll-specific register definitions
+> + * From 4.80 core version the address translation will be made by unroll
+> + */
+> +#define PCIE_ATU_UNR_REGION_CTRL1       0x00
+> +#define PCIE_ATU_UNR_REGION_CTRL2       0x04
+> +#define PCIE_ATU_UNR_LOWER_BASE         0x08
+> +#define PCIE_ATU_UNR_UPPER_BASE         0x0C
+> +#define PCIE_ATU_UNR_LOWER_LIMIT        0x10
+> +#define PCIE_ATU_UNR_LOWER_TARGET       0x14
+> +#define PCIE_ATU_UNR_UPPER_TARGET       0x18
+> +#define PCIE_ATU_UNR_UPPER_LIMIT        0x20
+> +
+> +#define PCIE_ATU_FUNC_NUM(pf)           ((pf) << 20)
+> +
+> +/* Parameters for the waiting for iATU enabled routine */
+> +#define LINK_WAIT_MAX_IATU_RETRIES      5
+> +#define LINK_WAIT_IATU                  9
+
+It would be helpful to either rename or add a comment explaining the 
+unit. I also noticed, that Linux wait up to 10ms. Can you explain why 
+Xen only need 9?
+
+> +
+> +struct dw_pcie_priv {
+> +    uint32_t num_viewport;
+> +    bool iatu_unroll_initilized;
+> +    bool iatu_unroll_enabled;
+> +    void __iomem *atu_base;
+> +    unsigned int version;
+> +};
+> +
+> +void dw_pcie_set_version(struct pci_host_bridge *bridge, unsigned int version);
+> +
+> +void __iomem *dw_pcie_child_map_bus(struct pci_host_bridge *bridge,
+> +                                    pci_sbdf_t sbdf, uint32_t where);
+> +
+> +int dw_pcie_child_config_read(struct pci_host_bridge *bridge, pci_sbdf_t sbdf,
+> +                              uint32_t reg, uint32_t len, uint32_t *value);
+> +
+> +int dw_pcie_child_config_write(struct pci_host_bridge *bridge, pci_sbdf_t sbdf,
+> +                               uint32_t reg, uint32_t len, uint32_t value);
+> +
+> +bool __init dw_pcie_child_need_p2m_hwdom_mapping(struct domain *d,
+> +                                                 struct pci_host_bridge *bridge,
+> +                                                 uint64_t addr);
+> +
+> +struct pci_host_bridge *__init
+> +dw_pcie_host_probe(struct dt_device_node *dev, const void *data,
+> +                   const struct pci_ecam_ops *ops,
+> +                   const struct pci_ecam_ops *child_ops);
+> +#endif /* __PCI_DESIGNWARE_H__ */
+> diff --git a/xen/arch/arm/pci/pci-host-rcar4.c b/xen/arch/arm/pci/pci-host-rcar4.c
+> new file mode 100644
+> index 0000000000..62d2130a63
+> --- /dev/null
+> +++ b/xen/arch/arm/pci/pci-host-rcar4.c
+> @@ -0,0 +1,94 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only
+> + *
+> + * Based on Linux drivers/pci/controller/pci-host-common.c
+> + * Based on Linux drivers/pci/controller/pci-host-generic.c
+> + * Based on xen/arch/arm/pci/pci-host-generic.c
+> + */
+> +
+> +#include <xen/init.h>
+> +#include <xen/pci.h>
+> +
+> +#include <asm/device.h>
+> +#include <asm/io.h>
+> +#include <asm/pci.h>
+> +
+> +#include "pci-designware.h"
+> +
+> +#define RCAR4_DWC_VERSION       0x520A
+> +
+> +/*
+> + * PCI host bridges often have different ways to access the root and child
+> + * bus config spaces:
+> + *   "dbi"   : the aperture where root port's own configuration registers
+> + *             are available.
+> + *   "config": child's configuration space
+> + *   "atu"   : iATU registers for DWC version 4.80 or later
+> + */
+> +static int __init rcar4_cfg_reg_index(struct dt_device_node *np)
+> +{
+> +    return dt_property_match_string(np, "reg-names", "dbi");
+> +}
+> +
+> +static int __init rcar4_child_cfg_reg_index(struct dt_device_node *np)
+> +{
+> +    return dt_property_match_string(np, "reg-names", "config");
+> +}
+> +
+> +/* ECAM ops */
+> +const struct pci_ecam_ops rcar4_pcie_ops = {
+> +    .bus_shift  = 20,
+> +    .cfg_reg_index = rcar4_cfg_reg_index,
+> +    .pci_ops    = {
+> +        .map_bus                = pci_ecam_map_bus,
+> +        .read                   = pci_generic_config_read,
+> +        .write                  = pci_generic_config_write,
+> +        .need_p2m_hwdom_mapping = pci_ecam_need_p2m_hwdom_mapping,
+> +        .init_bus_range         = pci_generic_init_bus_range,
+> +    }
+> +};
+> +
+> +const struct pci_ecam_ops rcar4_pcie_child_ops = {
+> +    .bus_shift  = 20,
+> +    .cfg_reg_index = rcar4_child_cfg_reg_index,
+> +    .pci_ops    = {
+> +        .map_bus                = dw_pcie_child_map_bus,
+> +        .read                   = dw_pcie_child_config_read,
+> +        .write                  = dw_pcie_child_config_write,
+> +        .need_p2m_hwdom_mapping = dw_pcie_child_need_p2m_hwdom_mapping,
+> +        .init_bus_range         = pci_generic_init_bus_range_child,
+> +    }
+> +};
+> +
+> +static const struct dt_device_match __initconstrel rcar4_pcie_dt_match[] = {
+> +    { .compatible = "renesas,r8a779f0-pcie" },
+> +    { .compatible = "renesas,r8a779g0-pcie" },
+> +    {},
+> +};
+> +
+> +static int __init pci_host_rcar4_probe(struct dt_device_node *dev,
+> +                                       const void *data)
+> +{
+> +    struct pci_host_bridge *bridge;
+> +
+> +    bridge = dw_pcie_host_probe(dev, data, &rcar4_pcie_ops,
+> +                                &rcar4_pcie_child_ops);
+> +
+> +    dw_pcie_set_version(bridge, RCAR4_DWC_VERSION);
+> +
+> +    return 0;
+> +}
+> +
+> +DT_DEVICE_START(pci_gen, "PCI HOST R-CAR GEN4", DEVICE_PCI_HOSTBRIDGE)
+> +.dt_match = rcar4_pcie_dt_match,
+> +.init = pci_host_rcar4_probe,
+> +DT_DEVICE_END
+> +
+> +/*
+> + * Local variables:
+> + * mode: C
+> + * c-file-style: "BSD"
+> + * c-basic-offset: 4
+> + * tab-width: 4
+> + * indent-tabs-mode: nil
+> + * End:
+> + */
+
+-- 
+Julien Grall
+
 
