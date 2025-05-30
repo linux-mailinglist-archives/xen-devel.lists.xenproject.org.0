@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD84BAC8FBE
+	by mail.lfdr.de (Postfix) with ESMTPS id 38948AC8FBD
 	for <lists+xen-devel@lfdr.de>; Fri, 30 May 2025 15:19:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1000952.1381198 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1000953.1381209 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uKzdp-0003tj-N4; Fri, 30 May 2025 13:19:21 +0000
+	id 1uKzdq-0004AI-UU; Fri, 30 May 2025 13:19:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1000952.1381198; Fri, 30 May 2025 13:19:21 +0000
+Received: by outflank-mailman (output) from mailman id 1000953.1381209; Fri, 30 May 2025 13:19:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uKzdp-0003sM-Iq; Fri, 30 May 2025 13:19:21 +0000
-Received: by outflank-mailman (input) for mailman id 1000952;
- Fri, 30 May 2025 13:19:20 +0000
+	id 1uKzdq-00048X-Pl; Fri, 30 May 2025 13:19:22 +0000
+Received: by outflank-mailman (input) for mailman id 1000953;
+ Fri, 30 May 2025 13:19:21 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=sDQw=YO=3mdeb.com=sergii.dmytruk@srs-se1.protection.inumbo.net>)
- id 1uKzdo-0003ZU-28
- for xen-devel@lists.xenproject.org; Fri, 30 May 2025 13:19:20 +0000
-Received: from 2.mo582.mail-out.ovh.net (2.mo582.mail-out.ovh.net
- [46.105.76.65]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id acbbac5f-3d58-11f0-b894-0df219b8e170;
- Fri, 30 May 2025 15:19:11 +0200 (CEST)
+ id 1uKzdp-0003ZU-28
+ for xen-devel@lists.xenproject.org; Fri, 30 May 2025 13:19:21 +0000
+Received: from 11.mo581.mail-out.ovh.net (11.mo581.mail-out.ovh.net
+ [87.98.173.157]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id aec1e352-3d58-11f0-b894-0df219b8e170;
+ Fri, 30 May 2025 15:19:14 +0200 (CEST)
 Received: from director8.ghost.mail-out.ovh.net (unknown [10.109.176.180])
- by mo582.mail-out.ovh.net (Postfix) with ESMTP id 4b83jW1B83z1YBR
- for <xen-devel@lists.xenproject.org>; Fri, 30 May 2025 13:19:11 +0000 (UTC)
-Received: from ghost-submission-5b5ff79f4f-sqt8x (unknown [10.108.42.198])
- by director8.ghost.mail-out.ovh.net (Postfix) with ESMTPS id 7555FC0286;
- Fri, 30 May 2025 13:19:10 +0000 (UTC)
-Received: from 3mdeb.com ([37.59.142.110])
- by ghost-submission-5b5ff79f4f-sqt8x with ESMTPSA
- id +3vSCk6wOWjKxgAAsdTabg
- (envelope-from <sergii.dmytruk@3mdeb.com>); Fri, 30 May 2025 13:19:10 +0000
+ by mo581.mail-out.ovh.net (Postfix) with ESMTP id 4b83jZ30WQz1Yxh
+ for <xen-devel@lists.xenproject.org>; Fri, 30 May 2025 13:19:14 +0000 (UTC)
+Received: from ghost-submission-5b5ff79f4f-5d8n2 (unknown [10.111.174.164])
+ by director8.ghost.mail-out.ovh.net (Postfix) with ESMTPS id 39E9EC024C;
+ Fri, 30 May 2025 13:19:13 +0000 (UTC)
+Received: from 3mdeb.com ([37.59.142.111])
+ by ghost-submission-5b5ff79f4f-5d8n2 with ESMTPSA
+ id pQ4+OFCwOWjaBgAA4lxFtg
+ (envelope-from <sergii.dmytruk@3mdeb.com>); Fri, 30 May 2025 13:19:13 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,8 +46,8 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: acbbac5f-3d58-11f0-b894-0df219b8e170
-Authentication-Results:garm.ovh; auth=pass (GARM-110S004aa21ae74-13c6-44dd-aa83-995d3ec55e96,
+X-Inumbo-ID: aec1e352-3d58-11f0-b894-0df219b8e170
+Authentication-Results:garm.ovh; auth=pass (GARM-111S0054b49fc25-ab36-4bb2-9224-4168f55b003f,
                     A4E380CC922F0B59227EC5DCC46884561651840B) smtp.auth=sergii.dmytruk@3mdeb.com
 X-OVh-ClientIp:176.111.184.221
 From: Sergii Dmytruk <sergii.dmytruk@3mdeb.com>
@@ -55,188 +55,260 @@ To: xen-devel@lists.xenproject.org
 Cc: Jan Beulich <jbeulich@suse.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	Ross Philipson <ross.philipson@oracle.com>,
 	trenchboot-devel@googlegroups.com
-Subject: [PATCH v3 14/22] x86/boot: choose AP stack based on APIC ID
-Date: Fri, 30 May 2025 16:17:56 +0300
-Message-ID: <16a5438f73a026d4db1a5340f599d4839c74fcc6.1748611041.git.sergii.dmytruk@3mdeb.com>
+Subject: [PATCH v3 15/22] x86/smpboot.c: TXT AP bringup
+Date: Fri, 30 May 2025 16:17:57 +0300
+Message-ID: <bca9943d4ffb37531ec8facac09e85996bc2acb7.1748611041.git.sergii.dmytruk@3mdeb.com>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <cover.1748611041.git.sergii.dmytruk@3mdeb.com>
 References: <cover.1748611041.git.sergii.dmytruk@3mdeb.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 12704373077045261468
+X-Ovh-Tracer-Id: 12705217499186640028
 X-VR-SPAMSTATE: OK
 X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgeeffedrtddtgddvleduudculddtuddrgeefvddrtddtmdcutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpefhvfevufffkffojghfggfgsedtkeertdertddtnecuhfhrohhmpefuvghrghhiihcuffhmhihtrhhukhcuoehsvghrghhiihdrughmhihtrhhukhesfehmuggvsgdrtghomheqnecuggftrfgrthhtvghrnhepveelieehudellefgleegieevteegudfhhefffefghfeltdevhfelvdfgkeefhfeunecuffhomhgrihhnpehhvggrugdrshgspdhtrhgrmhhpohhlihhnvgdrshgspdigkeeipgeigedrshgsnecukfhppeduvdejrddtrddtrddupddujeeirdduuddurddukeegrddvvddupdefjedrheelrddugedvrdduuddtnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehinhgvthepuddvjedrtddrtddruddpmhgrihhlfhhrohhmpehsvghrghhiihdrughmhihtrhhukhesfehmuggvsgdrtghomhdpnhgspghrtghpthhtohepuddprhgtphhtthhopeigvghnqdguvghvvghlsehlihhsthhsrdigvghnphhrohhjvggtthdrohhrghdpoffvtefjohhsthepmhhoheekvdgmpdhmohguvgepshhmthhpohhuth
-DKIM-Signature: a=rsa-sha256; bh=ez/L2d75KfUHpHUpt0ebohb99nk9msXfBgDhtfciYEI=;
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgeeffedrtddtgddvleduudculddtuddrgeefvddrtddtmdcutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpefhvfevufffkffojghfggfgsedtkeertdertddtnecuhfhrohhmpefuvghrghhiihcuffhmhihtrhhukhcuoehsvghrghhiihdrughmhihtrhhukhesfehmuggvsgdrtghomheqnecuggftrfgrthhtvghrnhepgeeguedvvdettdetvedujeejiedtfefhteekgeegffffleefiedvffduledtiefhnecuffhomhgrihhnpehtrhgrmhhpohhlihhnvgdrshgsnecukfhppeduvdejrddtrddtrddupddujeeirdduuddurddukeegrddvvddupdefjedrheelrddugedvrdduuddunecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehinhgvthepuddvjedrtddrtddruddpmhgrihhlfhhrohhmpehsvghrghhiihdrughmhihtrhhukhesfehmuggvsgdrtghomhdpnhgspghrtghpthhtohepuddprhgtphhtthhopeigvghnqdguvghvvghlsehlihhsthhsrdigvghnphhrohhjvggtthdrohhrghdpoffvtefjohhsthepmhhoheekudgmpdhmohguvgepshhmthhpohhuth
+DKIM-Signature: a=rsa-sha256; bh=gr1rPrDMI12BQGKfWWI47H6s2RO9Y2JqlRCdgepLO2s=;
  c=relaxed/relaxed; d=3mdeb.com; h=From; s=ovhmo3617313-selector1;
- t=1748611151; v=1;
- b=fi1gQgNbRQp0Yg5FRfZNGxUVBwnr6X0Ko8aZAbamWXVf53GH80iAa1FSdeDs3hGeZZtA2Xqf
- AKTBKxOEnQ+BppxveurAbKecRBTlhfAwskWw5MKwiwx1lKfBmVVu7jL8dvKB0kBpxes1TlhwMHw
- BTN4lfsJO+/8z28AfZguSZX7FYNKKvzOWmzgojHVDsKCcP3e1IpgzckxYR2vE6lnb1Fjg++XMTh
- /XZHFlekMFJxskCLj2QlHAt63YEV56osLIQoWRXDBFsKI2hIF+SEhFtuN0Egyws0ylrBeP6D0IX
- VwGJb2KBdWChpiDnooCKYFV4vO1UeuXMZppTKlFFo4NFQ==
+ t=1748611154; v=1;
+ b=Vxf6RhrwCxqkvQJezXfDi2WLBdjKF6Twig33138h07zBOd5pvSHlqX3Fx6o+3aiUz3pe2lKs
+ hAzCw74Gd9pI83+NTYGfqnTHm4D4BymoNxlep9zsdNXq7p4E+Ju6eYBuJJqdZCtL3lgzpfaZF0g
+ 9hRMn9rlql/gx+HxQXyn3qzCIiIeNZC2BJ4tP2C6KT0m6BNWJvQ7hY/bkqgNDowuSTrx9A4mbfS
+ bZt8VHBB++H75Xttax3p+88L/IturEkeut4bwmm6vLOpgqK6PAvaa5z+t6lzo0ylnQxxvLi/npz
+ MREedbh55kw5YYFb/nFrPQAMfF2qT0439iIkrisfGBoRg==
 
 From: Krystian Hebel <krystian.hebel@3mdeb.com>
 
-This is made as the first step of making parallel AP bring-up possible.
-It should be enough for pre-C code.
+On Intel TXT, APs are started in one of two ways, depending on ACM
+which reports it in its information table. In both cases, all APs are
+started simultaneously after BSP requests them to do so. Two possible
+ways are:
+- GETSEC[WAKEUP] instruction,
+- MONITOR address.
 
-Parallel AP bring-up is necessary because TXT by design releases all APs
-at once. In addition to that it reduces number of IPIs (and more
-importantly, delays between them) required to start all logical
-processors. This results in significant reduction of boot time, even
-when DRTM is not used, with performance gain growing with the number of
-logical CPUs.
+GETSEC[WAKEUP] requires versions >= 7 of SINIT to MLE Data, but there is
+no clear mapping of that version with regard to processor family and
+it's not known which CPUs actually use it. It could have been designed
+for TXT support on CPUs that lack MONITOR/MWAIT, because GETSEC[WAKEUP]
+seems to be more complicated, in software and hardware alike.
+
+This patch implements only MONITOR approach, GETSEC[WAKEUP] support will
+be added later once more details and means of testing are available and
+if there is a practical need for it.
+
+With this patch, every AP goes through assembly part, and only when in
+start_secondary() in C they re-enter MONITOR/MWAIT iff they are not the
+AP that was asked to boot. The same address is reused for simplicity,
+and on next wakeup call APs don't have to go through assembly part
+again (GDT, paging, stack setting).
 
 Signed-off-by: Krystian Hebel <krystian.hebel@3mdeb.com>
 Signed-off-by: Sergii Dmytruk <sergii.dmytruk@3mdeb.com>
 ---
- xen/arch/x86/boot/head.S             |  1 +
- xen/arch/x86/boot/trampoline.S       | 21 +++++++++++++++++++++
- xen/arch/x86/boot/x86_64.S           | 28 +++++++++++++++++++++++++++-
- xen/arch/x86/include/asm/apicdef.h   |  4 ++++
- xen/arch/x86/include/asm/msr-index.h |  3 +++
- xen/arch/x86/setup.c                 |  7 +++++++
- 6 files changed, 63 insertions(+), 1 deletion(-)
+ xen/arch/x86/boot/trampoline.S       | 19 ++++++++-
+ xen/arch/x86/include/asm/intel-txt.h |  6 +++
+ xen/arch/x86/include/asm/processor.h |  1 +
+ xen/arch/x86/smpboot.c               | 63 ++++++++++++++++++++++++++++
+ 4 files changed, 88 insertions(+), 1 deletion(-)
 
-diff --git a/xen/arch/x86/boot/head.S b/xen/arch/x86/boot/head.S
-index 9a272155e9..7376fa85d5 100644
---- a/xen/arch/x86/boot/head.S
-+++ b/xen/arch/x86/boot/head.S
-@@ -8,6 +8,7 @@
- #include <asm/page.h>
- #include <asm/processor.h>
- #include <asm/msr-index.h>
-+#include <asm/apicdef.h>
- #include <asm/cpufeature.h>
- #include <asm/trampoline.h>
- 
 diff --git a/xen/arch/x86/boot/trampoline.S b/xen/arch/x86/boot/trampoline.S
-index a92e399fbe..ed593acc46 100644
+index ed593acc46..8cd9881828 100644
 --- a/xen/arch/x86/boot/trampoline.S
 +++ b/xen/arch/x86/boot/trampoline.S
-@@ -71,6 +71,27 @@ trampoline_protmode_entry:
-         mov     $X86_CR4_PAE,%ecx
-         mov     %ecx,%cr4
+@@ -58,6 +58,16 @@ GLOBAL(entry_SIPI16)
+         ljmpl   $BOOT_CS32,$bootsym_rel(trampoline_protmode_entry,6)
  
+         .code32
++GLOBAL(txt_ap_entry)
 +        /*
-+         * Get APIC ID while we're in non-paged mode. Start by checking if
-+         * x2APIC is enabled.
++         * APs enter here in protected mode without paging. GDT is set in JOIN
++         * structure, it points to trampoline_gdt. Interrupts are disabled by
++         * TXT (including NMI and SMI), so IDT doesn't matter at this point.
++         * The only missing point is telling that we are AP by saving non-zero
++         * value in EBX.
 +         */
-+        mov     $MSR_APIC_BASE, %ecx
-+        rdmsr
-+        test    $APIC_BASE_EXTD, %eax
-+        jnz     .Lx2apic
++        mov     $1, %ebx
 +
-+        /* Not x2APIC, read from MMIO */
-+        and     $APIC_BASE_ADDR_MASK, %eax
-+        mov     APIC_ID(%eax), %esp
-+        shr     $24, %esp
-+        jmp     1f
-+
-+.Lx2apic:
-+        mov     $(MSR_X2APIC_FIRST + (APIC_ID >> MSR_X2APIC_SHIFT)), %ecx
-+        rdmsr
-+        mov     %eax, %esp
-+1:
-+
-         /* Load pagetable base register. */
-         mov     $sym_offs(idle_pg_table),%eax
-         add     bootsym_rel(trampoline_xen_phys_start,4,%eax)
-diff --git a/xen/arch/x86/boot/x86_64.S b/xen/arch/x86/boot/x86_64.S
-index 08ae97e261..ac33576d8f 100644
---- a/xen/arch/x86/boot/x86_64.S
-+++ b/xen/arch/x86/boot/x86_64.S
-@@ -15,7 +15,33 @@ ENTRY(__high_start)
-         mov     $XEN_MINIMAL_CR4,%rcx
-         mov     %rcx,%cr4
+ trampoline_protmode_entry:
+         /* Set up a few descriptors: on entry only CS is guaranteed good. */
+         mov     $BOOT_DS,%eax
+@@ -143,7 +153,7 @@ start64:
+         .word   0
+ idt_48: .word   0, 0, 0 # base = limit = 0
  
--        mov     stack_start(%rip),%rsp
-+        test    %ebx,%ebx
-+        cmovz   stack_start(%rip), %rsp
-+        jz      .L_stack_set
-+
-+        /* APs only: get stack base from APIC ID saved in %esp. */
-+        mov     $-1, %rax
-+        lea     x86_cpu_to_apicid(%rip), %rcx
-+1:
-+        add     $1, %rax
-+        cmp     $NR_CPUS, %eax
-+        jb      2f
-+        hlt
-+2:
-+        cmp     %esp, (%rcx, %rax, 4)
-+        jne     1b
-+
-+        /* %eax is now Xen CPU index. */
-+        lea     stack_base(%rip), %rcx
-+        mov     (%rcx, %rax, 8), %rsp
-+
-+        test    %rsp,%rsp
-+        jnz     1f
-+        hlt
-+1:
-+        add     $(STACK_SIZE - CPUINFO_sizeof), %rsp
-+
-+.L_stack_set:
+-trampoline_gdt:
++GLOBAL(trampoline_gdt)
+         .word   0                  /* 0x0000: unused (reused for GDTR) */
+ gdt_48:
+         .word   .Ltrampoline_gdt_end - trampoline_gdt - 1
+@@ -154,6 +164,13 @@ gdt_48:
+         .quad   0x00cf93000000ffff /* 0x0018: ring 0 data */
+         .quad   0x00009b000000ffff /* 0x0020: real-mode code @ BOOT_TRAMPOLINE */
+         .quad   0x000093000000ffff /* 0x0028: real-mode data @ BOOT_TRAMPOLINE */
++        /*
++         * Intel TXT requires these two in exact order. This isn't compatible
++         * with order required by syscall, so we have duplicated entries...
++         * If order ever changes, update selector numbers in asm/intel-txt.h.
++         */
++        .quad   0x00cf9b000000ffff /* 0x0030: ring 0 code, 32-bit mode */
++        .quad   0x00cf93000000ffff /* 0x0038: ring 0 data */
+ .Ltrampoline_gdt_end:
  
-         /* Reset EFLAGS (subsumes CLI and CLD). */
-         pushq   $0
-diff --git a/xen/arch/x86/include/asm/apicdef.h b/xen/arch/x86/include/asm/apicdef.h
-index 63dab01dde..e093a2aa3c 100644
---- a/xen/arch/x86/include/asm/apicdef.h
-+++ b/xen/arch/x86/include/asm/apicdef.h
-@@ -121,6 +121,10 @@
+         /* Relocations for trampoline Real Mode segments. */
+diff --git a/xen/arch/x86/include/asm/intel-txt.h b/xen/arch/x86/include/asm/intel-txt.h
+index de7f23d4ff..c032ebb2e1 100644
+--- a/xen/arch/x86/include/asm/intel-txt.h
++++ b/xen/arch/x86/include/asm/intel-txt.h
+@@ -91,6 +91,9 @@
  
- #define MAX_IO_APICS 128
+ #define SLAUNCH_BOOTLOADER_MAGIC             0x4c534254
  
-+#ifndef __ASSEMBLY__
++#define TXT_AP_BOOT_CS                  0x0030
++#define TXT_AP_BOOT_DS                  0x0038
 +
- extern bool x2apic_enabled;
+ #ifndef __ASSEMBLY__
  
-+#endif /* !__ASSEMBLY__ */
-+
+ #include <xen/slr-table.h>
+@@ -105,6 +108,9 @@
+ #define _txt(x) __va(x)
  #endif
-diff --git a/xen/arch/x86/include/asm/msr-index.h b/xen/arch/x86/include/asm/msr-index.h
-index 6f2c3147e3..73be38da17 100644
---- a/xen/arch/x86/include/asm/msr-index.h
-+++ b/xen/arch/x86/include/asm/msr-index.h
-@@ -172,6 +172,9 @@
- #define MSR_X2APIC_FIRST                    0x00000800
- #define MSR_X2APIC_LAST                     0x000008ff
  
-+/* MSR offset can be obtained by shifting MMIO offset this number of bits to the right. */
-+#define MSR_X2APIC_SHIFT                    4
++extern char txt_ap_entry[];
++extern uint32_t trampoline_gdt[];
 +
- #define MSR_X2APIC_TPR                      0x00000808
- #define MSR_X2APIC_PPR                      0x0000080a
- #define MSR_X2APIC_EOI                      0x0000080b
-diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
-index e4638acd12..87e4693a11 100644
---- a/xen/arch/x86/setup.c
-+++ b/xen/arch/x86/setup.c
-@@ -2097,6 +2097,7 @@ void asmlinkage __init noreturn __start_xen(void)
-      */
-     if ( !pv_shim )
-     {
-+        /* Separate loop to make parallel AP bringup possible. */
-         for_each_present_cpu ( i )
-         {
-             /* Set up cpu_to_node[]. */
-@@ -2104,6 +2105,12 @@ void asmlinkage __init noreturn __start_xen(void)
-             /* Set up node_to_cpumask based on cpu_to_node[]. */
-             numa_add_cpu(i);
+ /*
+  * Always use private space as some of registers are either read-only or not
+  * present in public space.
+diff --git a/xen/arch/x86/include/asm/processor.h b/xen/arch/x86/include/asm/processor.h
+index 96b9bf5f5e..20c85eb2f3 100644
+--- a/xen/arch/x86/include/asm/processor.h
++++ b/xen/arch/x86/include/asm/processor.h
+@@ -466,6 +466,7 @@ void set_in_pb_opt_ctrl(uint32_t mask, uint32_t val);
+ enum ap_boot_method {
+     AP_BOOT_NORMAL,
+     AP_BOOT_SKINIT,
++    AP_BOOT_TXT,
+ };
+ extern enum ap_boot_method ap_boot_method;
  
-+            if ( stack_base[i] == NULL )
-+                stack_base[i] = cpu_alloc_stack(i);
+diff --git a/xen/arch/x86/smpboot.c b/xen/arch/x86/smpboot.c
+index a90caf45a5..74a7cbe23b 100644
+--- a/xen/arch/x86/smpboot.c
++++ b/xen/arch/x86/smpboot.c
+@@ -29,6 +29,7 @@
+ #include <asm/flushtlb.h>
+ #include <asm/guest.h>
+ #include <asm/idt.h>
++#include <asm/intel-txt.h>
+ #include <asm/io_apic.h>
+ #include <asm/irq-vectors.h>
+ #include <asm/mc146818rtc.h>
+@@ -37,6 +38,7 @@
+ #include <asm/mtrr.h>
+ #include <asm/prot-key.h>
+ #include <asm/setup.h>
++#include <asm/slaunch.h>
+ #include <asm/spec_ctrl.h>
+ #include <asm/stubs.h>
+ #include <asm/tboot.h>
+@@ -321,6 +323,29 @@ void asmlinkage start_secondary(void)
+     struct cpu_info *info = get_cpu_info();
+     unsigned int cpu = smp_processor_id();
+ 
++    if ( ap_boot_method == AP_BOOT_TXT ) {
++        uint64_t misc_enable;
++        uint32_t my_apicid;
++        struct txt_sinit_mle_data *sinit_mle =
++              txt_sinit_mle_data_start(__va(txt_read(TXTCR_HEAP_BASE)));
++
++        /* TXT released us with MONITOR disabled in IA32_MISC_ENABLE. */
++        rdmsrl(MSR_IA32_MISC_ENABLE, misc_enable);
++        wrmsrl(MSR_IA32_MISC_ENABLE,
++               misc_enable | MSR_IA32_MISC_ENABLE_MONITOR_ENABLE);
++
++        /* get_apic_id() reads from x2APIC if it thinks it is enabled. */
++        x2apic_ap_setup();
++        my_apicid = get_apic_id();
++
++        while ( my_apicid != x86_cpu_to_apicid[cpu] ) {
++            asm volatile ("monitor; xor %0,%0; mwait"
++                          :: "a"(__va(sinit_mle->rlp_wakeup_addr)), "c"(0),
++                          "d"(0) : "memory");
++            cpu = smp_processor_id();
 +        }
++    }
 +
-+        for_each_present_cpu ( i )
-+        {
-             if ( (park_offline_cpus || num_online_cpus() < max_cpus) &&
-                  !cpu_online(i) )
-             {
+     /* Critical region without IDT or TSS.  Any fault is deadly! */
+ 
+     set_current(idle_vcpu[cpu]);
+@@ -418,6 +443,28 @@ void asmlinkage start_secondary(void)
+     startup_cpu_idle_loop();
+ }
+ 
++static int wake_aps_in_txt(void)
++{
++    struct txt_sinit_mle_data *sinit_mle =
++              txt_sinit_mle_data_start(__va(txt_read(TXTCR_HEAP_BASE)));
++    uint32_t *wakeup_addr = __va(sinit_mle->rlp_wakeup_addr);
++
++    uint32_t join[4] = {
++        trampoline_gdt[1],               /* GDT limit */
++        bootsym_phys(trampoline_gdt),    /* GDT base */
++        TXT_AP_BOOT_CS,                  /* CS selector, DS = CS+8 */
++        bootsym_phys(txt_ap_entry)       /* EIP */
++    };
++
++    txt_write(TXTCR_MLE_JOIN, __pa(join));
++
++    smp_mb();
++
++    *wakeup_addr = 1;
++
++    return 0;
++}
++
+ static int wakeup_secondary_cpu(int phys_apicid, unsigned long start_eip)
+ {
+     unsigned long send_status = 0, accept_status = 0;
+@@ -440,6 +487,9 @@ static int wakeup_secondary_cpu(int phys_apicid, unsigned long start_eip)
+     if ( tboot_in_measured_env() && !tboot_wake_ap(phys_apicid, start_eip) )
+         return 0;
+ 
++    if ( ap_boot_method == AP_BOOT_TXT )
++        return wake_aps_in_txt();
++
+     /*
+      * Be paranoid about clearing APIC errors.
+      */
+@@ -1147,6 +1197,13 @@ static struct notifier_block cpu_smpboot_nfb = {
+ 
+ void __init smp_prepare_cpus(void)
+ {
++    /*
++     * If the platform is performing a Secure Launch via TXT, secondary
++     * CPUs (APs) will need to be woken up in a TXT-specific way.
++     */
++    if ( slaunch_active && boot_cpu_data.x86_vendor == X86_VENDOR_INTEL )
++        ap_boot_method = AP_BOOT_TXT;
++
+     register_cpu_notifier(&cpu_smpboot_nfb);
+ 
+     mtrr_aps_sync_begin();
+@@ -1424,6 +1481,12 @@ void __init smp_cpus_done(void)
+ 
+     mtrr_save_state();
+     mtrr_aps_sync_end();
++
++    /*
++     * After the initial startup the DRTM-specific method for booting APs
++     * should not longer be used unless DRTM sequence is started again.
++     */
++    ap_boot_method = AP_BOOT_NORMAL;
+ }
+ 
+ void __init smp_intr_init(void)
 -- 
 2.49.0
 
