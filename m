@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C860AC8A37
-	for <lists+xen-devel@lfdr.de>; Fri, 30 May 2025 10:53:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1000599.1380828 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 17CFEAC8A57
+	for <lists+xen-devel@lfdr.de>; Fri, 30 May 2025 11:01:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1000607.1380839 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uKvUm-0006wm-UA; Fri, 30 May 2025 08:53:44 +0000
+	id 1uKvcG-0000ES-Lz; Fri, 30 May 2025 09:01:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1000599.1380828; Fri, 30 May 2025 08:53:44 +0000
+Received: by outflank-mailman (output) from mailman id 1000607.1380839; Fri, 30 May 2025 09:01:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uKvUm-0006uy-RV; Fri, 30 May 2025 08:53:44 +0000
-Received: by outflank-mailman (input) for mailman id 1000599;
- Fri, 30 May 2025 08:53:44 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=4Zpg=YO=bounce.vates.tech=bounce-md_30504962.68397214.v1-c7effae4a453497d94d501d7ca116e40@srs-se1.protection.inumbo.net>)
- id 1uKvUl-0006uq-KI
- for xen-devel@lists.xenproject.org; Fri, 30 May 2025 08:53:44 +0000
-Received: from mail145-2.atl61.mandrillapp.com
- (mail145-2.atl61.mandrillapp.com [198.2.145.2])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 95e4fc80-3d33-11f0-a2ff-13f23c93f187;
- Fri, 30 May 2025 10:53:42 +0200 (CEST)
-Received: from pmta06.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
- by mail145-2.atl61.mandrillapp.com (Mailchimp) with ESMTP id 4b7xq901nGzQXk4xS
- for <xen-devel@lists.xenproject.org>; Fri, 30 May 2025 08:53:41 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- c7effae4a453497d94d501d7ca116e40; Fri, 30 May 2025 08:53:40 +0000
+	id 1uKvcG-0000DY-IL; Fri, 30 May 2025 09:01:28 +0000
+Received: by outflank-mailman (input) for mailman id 1000607;
+ Fri, 30 May 2025 09:01:26 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1uKvcE-0000DS-Md
+ for xen-devel@lists.xenproject.org; Fri, 30 May 2025 09:01:26 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.96)
+ (envelope-from <julien@xen.org>) id 1uKvcE-009zfC-06;
+ Fri, 30 May 2025 09:01:26 +0000
+Received: from [15.248.2.232] (helo=[10.24.67.152])
+ by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
+ (envelope-from <julien@xen.org>) id 1uKvcE-00ErW2-0o;
+ Fri, 30 May 2025 09:01:25 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,122 +39,81 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 95e4fc80-3d33-11f0-a2ff-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1748595221; x=1748865221;
-	bh=sAnn1vNOxgAZHvWSPOmwAF0lrB3bmqpJkYpIh4BgxHg=;
-	h=From:Subject:To:Cc:Message-Id:Feedback-ID:Date:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
-	b=aa55YgKyKTuO9b/1CN0y7Ty/VtKBY6jN6aXmoHp+sLYeWOEZYGnXUPq9E94hIzdNE
-	 KEDSK+vuu0uQizsjKAVbVBUOLOO4lBNKnriKeP8G73qlpgt5izf7AgxqkmNrtGYRks
-	 mSPoxoj0y+f8Uob6/dKygBdOPpclFNLXPEpkhNiaya0MdhgksaZ2tXbEYbm3TwA3SN
-	 lwq1BT99Yh5sBhMqaNe3RdM8OGdCTIISRJ4FdAD0rliBoZu6NhIk/2wRCBti4AS0sQ
-	 FFVKVeZpD6DxJLZjCMdwh5RueqlsnsizXQclWR4uNEwmtlrEa4tG/1uUlWtS7+BI/j
-	 JuBUPz6a6ptLw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1748595221; x=1748855721; i=teddy.astie@vates.tech;
-	bh=sAnn1vNOxgAZHvWSPOmwAF0lrB3bmqpJkYpIh4BgxHg=;
-	h=From:Subject:To:Cc:Message-Id:Feedback-ID:Date:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
-	b=f04HdV0wylu7YsOZzrHbXhnP6Wa4+Ov7V8WBThRG5tQ1Yq3t15FKPM3TEUAfG5YJe
-	 h73lcqnl4/Q+dxw4FXVH3NBtRh7gGF78ujyHP62xUWbAfvvSD3TBPjJkH0xLZvSvoT
-	 NjpFU/9yTYU2oN2n+Nd4DemaHB2Vpm8C6n1fjAJQdBQtEvWwz3WYHq647W1KVXllvu
-	 VG7QoywdF55vk8Ws9Sgl+p6cna/pBZ5/L0YeJ+qoctPJDtsXLzntxuQ6zCMKlkYira
-	 KTrTeFnvMf04P0V8FZQPA++VYLxal5oP0C7nTLJABvzK8t5RhWJRBw/a17LIN9yEnB
-	 Kec17nTvJNDlw==
-From: "Teddy Astie" <teddy.astie@vates.tech>
-Subject: =?utf-8?Q?[PATCH]=20x86/svm:=20Move=20svm=5Fdomain=20structure=20to=20svm.h?=
-X-Mailer: git-send-email 2.49.0
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1748595219846
-To: xen-devel@lists.xenproject.org
-Cc: "Teddy Astie" <teddy.astie@vates.tech>, "Jan Beulich" <jbeulich@suse.com>, "Andrew Cooper" <andrew.cooper3@citrix.com>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>
-Message-Id: <f55cf69b228e77b736fe1969515cf561e3967d46.1748595000.git.teddy.astie@vates.tech>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.c7effae4a453497d94d501d7ca116e40?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20250530:md
-Date: Fri, 30 May 2025 08:53:40 +0000
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=WPUUA+yYZFe02ovXhflROyYZ5o2AFhC1iGttM5xBO9A=; b=g0kBMOpzxRbQVcm9iP/afnrJeT
+	Nzf23d6PbCon3+R9gxNoZH5UvCNeoJeDC5aaeayAjc29K4avjd0wYPgmyJm2gGn251bepOKlB/oQz
+	711eleeA5UXbAeX3Lju7CQ+ppOtnr7+lHkQ0PsZZep4mg0MO6oK9q3shq+gDPBT/UCI4=;
+Message-ID: <36dc6b2a-6dd0-4176-9f7e-a021a2427ed2@xen.org>
+Date: Fri, 30 May 2025 10:01:23 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/3] xen/arm: Add way to disable traps on accesses to
+ unmapped addresses
+Content-Language: en-GB
+To: "Edgar E. Iglesias" <edgar.iglesias@gmail.com>
+Cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org,
+ bertrand.marquis@arm.com, michal.orzel@amd.com, Volodymyr_Babchuk@epam.com,
+ andrew.cooper3@citrix.com, edgar.iglesias@amd.com,
+ Anthony PERARD <anthony.perard@vates.tech>, Juergen Gross <jgross@suse.com>,
+ Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
+References: <20250529155024.1284227-1-edgar.iglesias@gmail.com>
+ <20250529155024.1284227-2-edgar.iglesias@gmail.com>
+ <b77eb813-300a-4962-980e-02b236e2c5ca@xen.org> <aDiKHvtbApmT9OmH@zapote>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <aDiKHvtbApmT9OmH@zapote>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-struct svm_domain was in vmcb.h which is meant for VMCB specific operations and
-constants, move it to svm.h where it belongs.
 
-Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
----
- xen/arch/x86/include/asm/hvm/domain.h   |  1 +
- xen/arch/x86/include/asm/hvm/svm/svm.h  | 11 +++++++++++
- xen/arch/x86/include/asm/hvm/svm/vmcb.h | 11 -----------
- 3 files changed, 12 insertions(+), 11 deletions(-)
 
-diff --git a/xen/arch/x86/include/asm/hvm/domain.h b/xen/arch/x86/include/asm/hvm/domain.h
-index 333501d5f2..2608bcfad2 100644
---- a/xen/arch/x86/include/asm/hvm/domain.h
-+++ b/xen/arch/x86/include/asm/hvm/domain.h
-@@ -16,6 +16,7 @@
- #include <asm/hvm/io.h>
- #include <asm/hvm/vmx/vmcs.h>
- #include <asm/hvm/svm/vmcb.h>
-+#include <asm/hvm/svm/svm.h>
- 
- #ifdef CONFIG_MEM_SHARING
- struct mem_sharing_domain
-diff --git a/xen/arch/x86/include/asm/hvm/svm/svm.h b/xen/arch/x86/include/asm/hvm/svm/svm.h
-index 4eeeb25da9..32f6e48e30 100644
---- a/xen/arch/x86/include/asm/hvm/svm/svm.h
-+++ b/xen/arch/x86/include/asm/hvm/svm/svm.h
-@@ -21,6 +21,17 @@ bool svm_load_segs(unsigned int ldt_ents, unsigned long ldt_base,
-                    unsigned long fs_base, unsigned long gs_base,
-                    unsigned long gs_shadow);
- 
-+struct svm_domain {
-+    /* OSVW MSRs */
-+    union {
-+        uint64_t raw[2];
-+        struct {
-+            uint64_t length;
-+            uint64_t status;
-+        };
-+    } osvw;
-+};
-+
- extern u32 svm_feature_flags;
- 
- #define SVM_FEATURE_NPT            0 /* Nested page table support */
-diff --git a/xen/arch/x86/include/asm/hvm/svm/vmcb.h b/xen/arch/x86/include/asm/hvm/svm/vmcb.h
-index 28f715e376..3d871b6135 100644
---- a/xen/arch/x86/include/asm/hvm/svm/vmcb.h
-+++ b/xen/arch/x86/include/asm/hvm/svm/vmcb.h
-@@ -548,17 +548,6 @@ struct vmcb_struct {
-     u64 res18[291];
- };
- 
--struct svm_domain {
--    /* OSVW MSRs */
--    union {
--        uint64_t raw[2];
--        struct {
--            uint64_t length;
--            uint64_t status;
--        };
--    } osvw;
--};
--
- /*
-  * VMRUN doesn't switch fs/gs/tr/ldtr and SHADOWGS/SYSCALL/SYSENTER state.
-  * Therefore, guest state is in the hardware registers when servicing a
+On 29/05/2025 17:23, Edgar E. Iglesias wrote:
+> On Thu, May 29, 2025 at 04:59:21PM +0100, Julien Grall wrote:
+>> Hi Edgar,
+> 
+> Hi Julien,
+> 
+> 
+>>
+>> On 29/05/2025 16:50, Edgar E. Iglesias wrote:
+>>> From: "Edgar E. Iglesias" <edgar.iglesias@amd.com>
+>>>
+>>> Add a per-domain way to optionally disable traps for accesses
+>>> to unmapped addresses.
+>>>
+>>> The domain flag is general but it's only implemented for ARM for now.
+>>>
+>>> Signed-off-by: Edgar E. Iglesias <edgar.iglesias@amd.com>
+>>> ---
+>>>    tools/libs/light/libxl_arm.c  |  3 +++
+>>>    xen/arch/arm/dom0less-build.c |  3 +++
+>>>    xen/arch/arm/domain.c         |  3 ++-
+>>>    xen/arch/arm/domain_build.c   |  3 ++-
+>>>    xen/arch/arm/io.c             | 36 +++++++++++++++++++++++++++++++++--
+>>>    xen/common/domain.c           |  3 ++-
+>>>    xen/include/public/domctl.h   |  4 +++-
+>>
+>> Looking at the changelog, I saw you removed the go bindings (although, they
+>> were in patch 3). But I don't quite understand why.
+> 
+> I got a little confused. The file tools/golang/xenlight/helpers.gen.go
+> has the following at the top:
+> // Code generated by gengotypes.py. DO NOT EDIT.
+> // source: libxl_types.idl
+> 
+> 
+> So I got the impression that we shouldn't be editing it.
+> Should I edit it manually? Or should I try to rerun gengotypes.py
+> to generate these bindings?
+
+As the file is checked in, I think we expect the developper to rerun 
+gengotypes.py. Anthony, can you confirm?
+
+Cheers,
+
 -- 
-2.49.0
-
-
-
-Teddy Astie | Vates XCP-ng Developer
-
-XCP-ng & Xen Orchestra - Vates solutions
-
-web: https://vates.tech
+Julien Grall
 
 
