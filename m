@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 20CA7AC8FB6
-	for <lists+xen-devel@lfdr.de>; Fri, 30 May 2025 15:19:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1000932.1381139 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8298FAC8FB3
+	for <lists+xen-devel@lfdr.de>; Fri, 30 May 2025 15:19:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1000934.1381150 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uKzdA-0000cj-Vb; Fri, 30 May 2025 13:18:40 +0000
+	id 1uKzdG-0000xj-AK; Fri, 30 May 2025 13:18:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1000932.1381139; Fri, 30 May 2025 13:18:40 +0000
+Received: by outflank-mailman (output) from mailman id 1000934.1381150; Fri, 30 May 2025 13:18:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uKzdA-0000Zw-SO; Fri, 30 May 2025 13:18:40 +0000
-Received: by outflank-mailman (input) for mailman id 1000932;
- Fri, 30 May 2025 13:18:40 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uKzdG-0000u4-61; Fri, 30 May 2025 13:18:46 +0000
+Received: by outflank-mailman (input) for mailman id 1000934;
+ Fri, 30 May 2025 13:18:44 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=sDQw=YO=3mdeb.com=sergii.dmytruk@srs-se1.protection.inumbo.net>)
- id 1uKzdA-0008Jy-3F
- for xen-devel@lists.xenproject.org; Fri, 30 May 2025 13:18:40 +0000
-Received: from 10.mo575.mail-out.ovh.net (10.mo575.mail-out.ovh.net
- [46.105.79.203]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 998debce-3d58-11f0-a2ff-13f23c93f187;
- Fri, 30 May 2025 15:18:39 +0200 (CEST)
-Received: from director11.ghost.mail-out.ovh.net (unknown [10.109.148.22])
- by mo575.mail-out.ovh.net (Postfix) with ESMTP id 4b83ht5zchz289h
- for <xen-devel@lists.xenproject.org>; Fri, 30 May 2025 13:18:38 +0000 (UTC)
-Received: from ghost-submission-5b5ff79f4f-m2hqt (unknown [10.110.118.244])
- by director11.ghost.mail-out.ovh.net (Postfix) with ESMTPS id A20CDC61DA;
- Fri, 30 May 2025 13:18:37 +0000 (UTC)
-Received: from 3mdeb.com ([37.59.142.101])
- by ghost-submission-5b5ff79f4f-m2hqt with ESMTPSA
- id 8EEPHi2wOWjlBgAAzgKK1w
- (envelope-from <sergii.dmytruk@3mdeb.com>); Fri, 30 May 2025 13:18:37 +0000
+ id 1uKzdE-0000ql-Fr
+ for xen-devel@lists.xenproject.org; Fri, 30 May 2025 13:18:44 +0000
+Received: from 3.mo575.mail-out.ovh.net (3.mo575.mail-out.ovh.net
+ [46.105.58.60]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9b4d507d-3d58-11f0-b894-0df219b8e170;
+ Fri, 30 May 2025 15:18:42 +0200 (CEST)
+Received: from director2.ghost.mail-out.ovh.net (unknown [10.108.2.206])
+ by mo575.mail-out.ovh.net (Postfix) with ESMTP id 4b83hx5zZRz28B8
+ for <xen-devel@lists.xenproject.org>; Fri, 30 May 2025 13:18:41 +0000 (UTC)
+Received: from ghost-submission-5b5ff79f4f-2djnr (unknown [10.111.174.16])
+ by director2.ghost.mail-out.ovh.net (Postfix) with ESMTPS id 9CD20C3BB2;
+ Fri, 30 May 2025 13:18:40 +0000 (UTC)
+Received: from 3mdeb.com ([37.59.142.107])
+ by ghost-submission-5b5ff79f4f-2djnr with ESMTPSA
+ id B0t9EzCwOWhgJgAAIK2ldA
+ (envelope-from <sergii.dmytruk@3mdeb.com>); Fri, 30 May 2025 13:18:40 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,152 +46,300 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 998debce-3d58-11f0-a2ff-13f23c93f187
-Authentication-Results:garm.ovh; auth=pass (GARM-101G00483e32f39-353f-424e-a8fc-ffe6f4f47263,
+X-Inumbo-ID: 9b4d507d-3d58-11f0-b894-0df219b8e170
+Authentication-Results:garm.ovh; auth=pass (GARM-107S001d1b71519-d27e-408c-8523-b9c0e2d47a6d,
                     A4E380CC922F0B59227EC5DCC46884561651840B) smtp.auth=sergii.dmytruk@3mdeb.com
 X-OVh-ClientIp:176.111.184.221
 From: Sergii Dmytruk <sergii.dmytruk@3mdeb.com>
 To: xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
+Cc: Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	Ross Philipson <ross.philipson@oracle.com>,
 	trenchboot-devel@googlegroups.com
-Subject: [PATCH v3 03/22] x86/boot: add MLE header and Secure Launch entry point
-Date: Fri, 30 May 2025 16:17:45 +0300
-Message-ID: <916c87847457552583f1defb1aced37ea3ff58df.1748611041.git.sergii.dmytruk@3mdeb.com>
+Subject: [PATCH v3 04/22] x86/boot/slaunch-early: implement early initialization
+Date: Fri, 30 May 2025 16:17:46 +0300
+Message-ID: <16a544876163afece619d50f80869aaacc9c797c.1748611041.git.sergii.dmytruk@3mdeb.com>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <cover.1748611041.git.sergii.dmytruk@3mdeb.com>
 References: <cover.1748611041.git.sergii.dmytruk@3mdeb.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 12695084403030340764
+X-Ovh-Tracer-Id: 12695928826315977884
 X-VR-SPAMSTATE: OK
 X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgeeffedrtddtgddvleduudculddtuddrgeefvddrtddtmdcutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpefhvfevufffkffojghfggfgsedtkeertdertddtnecuhfhrohhmpefuvghrghhiihcuffhmhihtrhhukhcuoehsvghrghhiihdrughmhihtrhhukhesfehmuggvsgdrtghomheqnecuggftrfgrthhtvghrnhepkedugeefudeigeduieejleelkeefvddvhfehheevhfdukeejieefgedtudevhedtnecuffhomhgrihhnpehhvggrugdrshgsnecukfhppeduvdejrddtrddtrddupddujeeirdduuddurddukeegrddvvddupdefjedrheelrddugedvrddutddunecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehinhgvthepuddvjedrtddrtddruddpmhgrihhlfhhrohhmpehsvghrghhiihdrughmhihtrhhukhesfehmuggvsgdrtghomhdpnhgspghrtghpthhtohepuddprhgtphhtthhopeigvghnqdguvghvvghlsehlihhsthhsrdigvghnphhrohhjvggtthdrohhrghdpoffvtefjohhsthepmhhoheejhegmpdhmohguvgepshhmthhpohhuth
-DKIM-Signature: a=rsa-sha256; bh=REsQ4rGltjGtDGspVocQv2/Sf60+XBS+U8hI4FuZ0Cs=;
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgeeffedrtddtgddvleduudculddtuddrgeefvddrtddtmdcutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpefhvfevufffkffojghfggfgsedtkeertdertddtnecuhfhrohhmpefuvghrghhiihcuffhmhihtrhhukhcuoehsvghrghhiihdrughmhihtrhhukhesfehmuggvsgdrtghomheqnecuggftrfgrthhtvghrnhepffejgfduveektedugeeuiefhtdfhjefgieelkeeugfeggedtgeevheefheeffeeunecuffhomhgrihhnpegsrghsvgdrmhgrphdphhgvrggurdhssgenucfkphepuddvjedrtddrtddruddpudejiedrudduuddrudekgedrvddvuddpfeejrdehledrudegvddruddtjeenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepihhnvghtpeduvdejrddtrddtrddupdhmrghilhhfrhhomhepshgvrhhgihhirdgumhihthhruhhkseefmhguvggsrdgtohhmpdhnsggprhgtphhtthhopedupdhrtghpthhtohepgigvnhdquggvvhgvlheslhhishhtshdrgigvnhhprhhojhgvtghtrdhorhhgpdfovfetjfhoshhtpehmohehjeehmgdpmhhouggvpehsmhhtphhouhht
+DKIM-Signature: a=rsa-sha256; bh=GvKdVlecLh2PmzTm3hSectebiIzksYZuaxKe05SsphE=;
  c=relaxed/relaxed; d=3mdeb.com; h=From; s=ovhmo3617313-selector1;
- t=1748611118; v=1;
- b=AJwlGqENjuhLsTTl6afFnjmyNEklFCTYMEsMItvkax4JAE++9kXAudWVUE0Lebmf1/Q1s0rS
- WheNkVDW2KggJSxITVxdTJWi2n27BBlyEQSqAhaoUu6t/iplLrw/lY3nhRpwBroHZ11kqBDa5IE
- lyNLfF4RMGmsosWhP2nkjIVmjxJAd8LmlYdn8M8HAz2zAXqDS6IHLBOJjiSkamNhjC09ZTp6tD0
- nm0Qt1yJ4o/tQMf9uPyhH3jBFlVivGM2j5EEvkQnRnjrEQILOxOaoaobsGn/kJTco71kouDgWaB
- zSJsx4SufdBqMVBfzVUn0miVYgdF5G2S2LPDGSWYFf2pw==
+ t=1748611121; v=1;
+ b=YWF4HxQni853VwJ2/M7u7AJUwzUCW2rBUmmo7Iil0Sb4T6MHZdZcw+7Cdx9bGPsaHT9sRnBf
+ iKX3omW9+HJ4/rCPVZdIcPc6in7tDPmWlRrzwDBjLRMJFGpU74UwIXTt4P5cUciJ+es+am0T0Rd
+ JIDga3+IqfphDU98v6vXoNkMyi7E0pS+ioytkxiVt+gTga1fEcZE9zF+lyCgvBrR7NZy69qv5OD
+ 84hP29LLpnp69wfRFOGetK/fy0vAu0XW7VvDBE8dd3Dfx9Y2jTbHXRt1rJgHvjBKiBMOeitzg48
+ I/QBz1ndITA+URa6BbRvKpdpDMTUMKZKEvCJACaq/n6rA==
 
-From: Kacper Stojek <kacper.stojek@3mdeb.com>
+Make head.S invoke a C function to retrieve MBI and SLRT addresses in a
+platform-specific way.  This is also the place to perform sanity checks
+of DRTM.
 
-Signed-off-by: Kacper Stojek <kacper.stojek@3mdeb.com>
 Signed-off-by: Krystian Hebel <krystian.hebel@3mdeb.com>
 Signed-off-by: Sergii Dmytruk <sergii.dmytruk@3mdeb.com>
 ---
- docs/hypervisor-guide/x86/how-xen-boots.rst |  5 ++
- xen/arch/x86/boot/head.S                    | 53 +++++++++++++++++++++
- 2 files changed, 58 insertions(+)
+ xen/arch/x86/Makefile                |  1 +
+ xen/arch/x86/boot/Makefile           |  5 +++-
+ xen/arch/x86/boot/head.S             | 43 ++++++++++++++++++++++++++++
+ xen/arch/x86/boot/slaunch-early.c    | 41 ++++++++++++++++++++++++++
+ xen/arch/x86/include/asm/intel-txt.h | 16 +++++++++++
+ xen/arch/x86/include/asm/slaunch.h   | 26 +++++++++++++++++
+ xen/arch/x86/slaunch.c               | 27 +++++++++++++++++
+ 7 files changed, 158 insertions(+), 1 deletion(-)
+ create mode 100644 xen/arch/x86/boot/slaunch-early.c
+ create mode 100644 xen/arch/x86/include/asm/slaunch.h
+ create mode 100644 xen/arch/x86/slaunch.c
 
-diff --git a/docs/hypervisor-guide/x86/how-xen-boots.rst b/docs/hypervisor-guide/x86/how-xen-boots.rst
-index 8b3229005c..050fe9c61f 100644
---- a/docs/hypervisor-guide/x86/how-xen-boots.rst
-+++ b/docs/hypervisor-guide/x86/how-xen-boots.rst
-@@ -55,6 +55,11 @@ If ``CONFIG_PVH_GUEST`` was selected at build time, an Elf note is included
- which indicates the ability to use the PVH boot protocol, and registers
- ``__pvh_start`` as the entrypoint, entered in 32bit mode.
+diff --git a/xen/arch/x86/Makefile b/xen/arch/x86/Makefile
+index ce724a9daa..aa20eb42b5 100644
+--- a/xen/arch/x86/Makefile
++++ b/xen/arch/x86/Makefile
+@@ -58,6 +58,7 @@ obj-$(CONFIG_COMPAT) += x86_64/physdev.o
+ obj-$(CONFIG_X86_PSR) += psr.o
+ obj-y += setup.o
+ obj-y += shutdown.o
++obj-y += slaunch.o
+ obj-y += smp.o
+ obj-y += smpboot.o
+ obj-y += spec_ctrl.o
+diff --git a/xen/arch/x86/boot/Makefile b/xen/arch/x86/boot/Makefile
+index ff0d61d7ac..5471b966dd 100644
+--- a/xen/arch/x86/boot/Makefile
++++ b/xen/arch/x86/boot/Makefile
+@@ -5,6 +5,7 @@ obj-bin-y += $(obj64)
+ obj32 := cmdline.32.o
+ obj32 += reloc.32.o
+ obj32 += reloc-trampoline.32.o
++obj32 += slaunch-early.32.o
  
-+A combination of Multiboot 2 and MLE headers is used to implement DRTM for
-+legacy (BIOS) boot. The separate entry point is used mainly to differentiate
-+from other kinds of boots. It moves a magic number to EAX before jumping into
-+common startup code.
+ obj64 := reloc-trampoline.o
+ 
+@@ -28,6 +29,8 @@ $(obj32): XEN_CFLAGS := $(CFLAGS_x86_32) -fpic
+ $(obj)/%.32.o: $(src)/%.c FORCE
+ 	$(call if_changed_rule,cc_o_c)
+ 
++$(obj)/slaunch-early.32.o: XEN_CFLAGS += -D__EARLY_SLAUNCH__
 +
+ orphan-handling-$(call ld-option,--orphan-handling=error) := --orphan-handling=error
+ LDFLAGS_DIRECT-$(call ld-option,--warn-rwx-segments) := --no-warn-rwx-segments
+ LDFLAGS_DIRECT += $(LDFLAGS_DIRECT-y)
+@@ -81,7 +84,7 @@ cmd_combine = \
+               --bin1      $(obj)/built-in-32.base.bin \
+               --bin2      $(obj)/built-in-32.offset.bin \
+               --map       $(obj)/built-in-32.base.map \
+-              --exports   cmdline_parse_early,reloc,reloc_trampoline32 \
++              --exports   cmdline_parse_early,reloc,reloc_trampoline32,slaunch_early_init \
+               --output    $@
  
- xen.gz
- ~~~~~~
+ targets += built-in-32.S
 diff --git a/xen/arch/x86/boot/head.S b/xen/arch/x86/boot/head.S
-index 77bb7a9e21..a69107bd81 100644
+index a69107bd81..b4cf423c80 100644
 --- a/xen/arch/x86/boot/head.S
 +++ b/xen/arch/x86/boot/head.S
-@@ -4,6 +4,7 @@
- #include <public/xen.h>
- #include <asm/asm_defns.h>
- #include <asm/fixmap.h>
-+#include <asm/intel-txt.h>
- #include <asm/page.h>
- #include <asm/processor.h>
- #include <asm/msr-index.h>
-@@ -126,6 +127,25 @@ multiboot2_header:
-         .size multiboot2_header, . - multiboot2_header
-         .type multiboot2_header, @object
+@@ -472,6 +472,10 @@ __start:
+         /* Bootloaders may set multiboot{1,2}.mem_lower to a nonzero value. */
+         xor     %edx,%edx
  
-+        .balign 16
-+mle_header:
-+        .long   0x9082ac5a  /* UUID0 */
-+        .long   0x74a7476f  /* UUID1 */
-+        .long   0xa2555c0f  /* UUID2 */
-+        .long   0x42b651cb  /* UUID3 */
-+        .long   0x00000034  /* MLE header size */
-+        .long   0x00020002  /* MLE version 2.2 */
-+        .long   (slaunch_stub_entry - start)  /* Linear entry point of MLE (SINIT virt. address) */
-+        .long   0x00000000  /* First valid page of MLE */
-+        .long   0x00000000  /* Offset within binary of first byte of MLE */
-+        .long   (_end - start)  /* Offset within binary of last byte + 1 of MLE */
-+        .long   0x00000723  /* Bit vector of MLE-supported capabilities */
-+        .long   0x00000000  /* Starting linear address of command line (unused) */
-+        .long   0x00000000  /* Ending linear address of command line (unused) */
++        /* Check for TrenchBoot slaunch bootloader. */
++        cmp     $SLAUNCH_BOOTLOADER_MAGIC, %eax
++        je      .Lslaunch_proto
 +
-+        .size mle_header, .-mle_header
-+        .type mle_header, @object
-+
-         .section .init.rodata, "a", @progbits
+         /* Check for Multiboot2 bootloader. */
+         cmp     $MULTIBOOT2_BOOTLOADER_MAGIC,%eax
+         je      .Lmultiboot2_proto
+@@ -487,6 +491,45 @@ __start:
+         cmovnz  MB_mem_lower(%ebx),%edx
+         jmp     trampoline_bios_setup
  
- .Lbad_cpu_msg: .asciz "ERR: Not a 64-bit CPU!"
-@@ -332,6 +352,38 @@ cs32_switch:
-         /* Jump to earlier loaded address. */
-         jmp     *%edi
- 
++.Lslaunch_proto:
 +        /*
-+         * Entry point for TrenchBoot Secure Launch on Intel TXT platforms.
-+         *
-+         * CPU is in 32b protected mode with paging disabled. On entry:
-+         * - %ebx = %eip = MLE entry point,
-+         * - stack pointer is undefined,
-+         * - CS is flat 4GB code segment,
-+         * - DS, ES, SS, FS and GS are undefined according to TXT SDG, but this
-+         *   would make it impossible to initialize GDTR, because GDT base must
-+         *   be relocated in the descriptor, which requires write access that
-+         *   CS doesn't provide. Instead we have to assume that DS is set by
-+         *   SINIT ACM as flat 4GB data segment.
-+         *
-+         * Additional restrictions:
-+         * - some MSRs are partially cleared, among them IA32_MISC_ENABLE, so
-+         *   some capabilities might be reported as disabled even if they are
-+         *   supported by CPU
-+         * - interrupts (including NMIs and SMIs) are disabled and must be
-+         *   enabled later
-+         * - trying to enter real mode results in reset
-+         * - APs must be brought up by MONITOR or GETSEC[WAKEUP], depending on
-+         *   which is supported by a given SINIT ACM
++         * Upon reaching here, CPU state mostly matches the one setup by the
++         * bootloader with ESP, ESI and EDX being clobbered above.
 +         */
-+slaunch_stub_entry:
-+        /* Calculate the load base address. */
-+        mov     %ebx, %esi
-+        sub     $sym_offs(slaunch_stub_entry), %esi
 +
-+        /* Mark Secure Launch boot protocol and jump to common entry. */
-+        mov     $SLAUNCH_BOOTLOADER_MAGIC, %eax
-+        jmp     .Lset_stack
++        /* Save information that TrenchBoot slaunch was used. */
++        movb    $1, sym_esi(slaunch_active)
 +
- #ifdef CONFIG_PVH_GUEST
- ELFNOTE(Xen, XEN_ELFNOTE_PHYS32_ENTRY, .long sym_offs(__pvh_start))
++        /*
++         * Prepare space for output parameter of slaunch_early_init(), which is
++         * a structure of two uint32_t fields.
++         */
++        sub     $8, %esp
++
++        push    %esp                             /* pointer to output structure */
++        lea     sym_offs(__2M_rwdata_end), %ecx  /* end of target image */
++        lea     sym_offs(_start), %edx           /* target base address */
++        mov     %esi, %eax                       /* load base address */
++        /*
++         * slaunch_early_init(load/eax, tgt/edx, tgt_end/ecx, ret/stk) using
++         * fastcall calling convention.
++         */
++        call    slaunch_early_init
++        add     $4, %esp                         /* pop the fourth parameter */
++
++        /* Move outputs of slaunch_early_init() from stack into registers. */
++        pop     %eax  /* physical MBI address */
++        pop     %edx  /* physical SLRT address */
++
++        /* Save physical address of SLRT for C code. */
++        mov     %edx, sym_esi(slaunch_slrt)
++
++        /* Store MBI address in EBX where MB2 code expects it. */
++        mov     %eax, %ebx
++
++        /* Move magic number expected by Multiboot 2 to EAX and fall through. */
++        movl    $MULTIBOOT2_BOOTLOADER_MAGIC, %eax
++
+ .Lmultiboot2_proto:
+         /* Skip Multiboot2 information fixed part. */
+         lea     (MB2_fixed_sizeof+MULTIBOOT2_TAG_ALIGN-1)(%ebx),%ecx
+diff --git a/xen/arch/x86/boot/slaunch-early.c b/xen/arch/x86/boot/slaunch-early.c
+new file mode 100644
+index 0000000000..c9d364bcd5
+--- /dev/null
++++ b/xen/arch/x86/boot/slaunch-early.c
+@@ -0,0 +1,41 @@
++/*
++ * SPDX-License-Identifier: GPL-2.0-or-later
++ *
++ * Copyright (c) 2022-2025 3mdeb Sp. z o.o. All rights reserved.
++ */
++
++#include <xen/slr-table.h>
++#include <xen/types.h>
++#include <asm/intel-txt.h>
++
++struct early_init_results
++{
++    uint32_t mbi_pa;
++    uint32_t slrt_pa;
++} __packed;
++
++void asmlinkage slaunch_early_init(uint32_t load_base_addr,
++                                   uint32_t tgt_base_addr,
++                                   uint32_t tgt_end_addr,
++                                   struct early_init_results *result)
++{
++    void *txt_heap;
++    const struct txt_os_mle_data *os_mle;
++    const struct slr_table *slrt;
++    const struct slr_entry_intel_info *intel_info;
++
++    txt_heap = txt_init();
++    os_mle = txt_os_mle_data_start(txt_heap);
++
++    result->slrt_pa = os_mle->slrt;
++    result->mbi_pa = 0;
++
++    slrt = (const struct slr_table *)(uintptr_t)os_mle->slrt;
++
++    intel_info = (const struct slr_entry_intel_info *)
++        slr_next_entry_by_tag(slrt, NULL, SLR_ENTRY_INTEL_INFO);
++    if ( intel_info == NULL || intel_info->hdr.size != sizeof(*intel_info) )
++        return;
++
++    result->mbi_pa = intel_info->boot_params_base;
++}
+diff --git a/xen/arch/x86/include/asm/intel-txt.h b/xen/arch/x86/include/asm/intel-txt.h
+index cc2d312f4d..7658457e9d 100644
+--- a/xen/arch/x86/include/asm/intel-txt.h
++++ b/xen/arch/x86/include/asm/intel-txt.h
+@@ -292,6 +292,22 @@ static inline void *txt_sinit_mle_data_start(const void *heap)
+            sizeof(uint64_t);
+ }
  
-@@ -371,6 +423,7 @@ __start:
-         /* Restore the clobbered field. */
-         mov     %edx, (%ebx)
++static inline void *txt_init(void)
++{
++    void *txt_heap;
++
++    /* Clear the TXT error register for a clean start of the day. */
++    txt_write(TXTCR_ERRORCODE, 0);
++
++    txt_heap = _p(txt_read(TXTCR_HEAP_BASE));
++
++    if ( txt_os_mle_data_size(txt_heap) < sizeof(struct txt_os_mle_data) ||
++         txt_os_sinit_data_size(txt_heap) < sizeof(struct txt_os_sinit_data) )
++        txt_reset(SLAUNCH_ERROR_GENERIC);
++
++    return txt_heap;
++}
++
+ #endif /* __ASSEMBLY__ */
  
-+.Lset_stack:
-         /* Set up stack. */
-         lea     STACK_SIZE - CPUINFO_sizeof + sym_esi(cpu0_stack), %esp
- 
+ #endif /* X86_INTEL_TXT_H */
+diff --git a/xen/arch/x86/include/asm/slaunch.h b/xen/arch/x86/include/asm/slaunch.h
+new file mode 100644
+index 0000000000..df42defd92
+--- /dev/null
++++ b/xen/arch/x86/include/asm/slaunch.h
+@@ -0,0 +1,26 @@
++/*
++ * SPDX-License-Identifier: GPL-2.0-or-later
++ *
++ * Copyright (c) 2022-2025 3mdeb Sp. z o.o. All rights reserved.
++ */
++
++#ifndef X86_SLAUNCH_H
++#define X86_SLAUNCH_H
++
++#include <xen/types.h>
++
++/* Indicates an active Secure Launch boot. */
++extern bool slaunch_active;
++
++/*
++ * Holds physical address of SLRT.  Use slaunch_get_slrt() to access SLRT
++ * instead of mapping where this points to.
++ */
++extern uint32_t slaunch_slrt;
++
++/*
++ * Retrieves pointer to SLRT.  Checks table's validity and maps it as necessary.
++ */
++struct slr_table *slaunch_get_slrt(void);
++
++#endif /* X86_SLAUNCH_H */
+diff --git a/xen/arch/x86/slaunch.c b/xen/arch/x86/slaunch.c
+new file mode 100644
+index 0000000000..a3e6ab8d71
+--- /dev/null
++++ b/xen/arch/x86/slaunch.c
+@@ -0,0 +1,27 @@
++/*
++ * SPDX-License-Identifier: GPL-2.0-or-later
++ *
++ * Copyright (c) 2022-2025 3mdeb Sp. z o.o. All rights reserved.
++ */
++
++#include <xen/compiler.h>
++#include <xen/init.h>
++#include <xen/macros.h>
++#include <xen/types.h>
++#include <asm/slaunch.h>
++
++/*
++ * These variables are assigned to by the code near Xen's entry point.
++ *
++ * slaunch_active is not __initdata to allow checking for an active Secure
++ * Launch boot.
++ */
++bool slaunch_active;
++uint32_t __initdata slaunch_slrt; /* physical address */
++
++/* Using slaunch_active in head.S assumes it's a single byte in size, so enforce
++ * this assumption. */
++static void __maybe_unused compile_time_checks(void)
++{
++    BUILD_BUG_ON(sizeof(slaunch_active) != 1);
++}
 -- 
 2.49.0
 
