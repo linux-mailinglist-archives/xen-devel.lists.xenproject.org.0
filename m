@@ -2,35 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4181CAC92CD
-	for <lists+xen-devel@lfdr.de>; Fri, 30 May 2025 17:56:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1001360.1381548 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 48159AC938B
+	for <lists+xen-devel@lfdr.de>; Fri, 30 May 2025 18:28:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1001392.1381567 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uL25E-0001hR-6e; Fri, 30 May 2025 15:55:48 +0000
+	id 1uL2ap-0007G3-0a; Fri, 30 May 2025 16:28:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1001360.1381548; Fri, 30 May 2025 15:55:48 +0000
+Received: by outflank-mailman (output) from mailman id 1001392.1381567; Fri, 30 May 2025 16:28:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uL25E-0001eT-3O; Fri, 30 May 2025 15:55:48 +0000
-Received: by outflank-mailman (input) for mailman id 1001360;
- Fri, 30 May 2025 15:55:47 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uL2ao-0007Cw-Td; Fri, 30 May 2025 16:28:26 +0000
+Received: by outflank-mailman (input) for mailman id 1001392;
+ Fri, 30 May 2025 16:24:41 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=m5RA=YO=arm.com=ryan.roberts@srs-se1.protection.inumbo.net>)
- id 1uL25D-0001eN-2i
- for xen-devel@lists.xenproject.org; Fri, 30 May 2025 15:55:47 +0000
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id 8b3b35dc-3d6e-11f0-a2ff-13f23c93f187;
- Fri, 30 May 2025 17:55:44 +0200 (CEST)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 09446169C;
- Fri, 30 May 2025 08:55:27 -0700 (PDT)
-Received: from [10.57.95.14] (unknown [10.57.95.14])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id BF2053F673;
- Fri, 30 May 2025 08:55:37 -0700 (PDT)
+ <SRS0=ciSd=YO=oracle.com=liam.howlett@srs-se1.protection.inumbo.net>)
+ id 1uL2XB-0006ap-1u
+ for xen-devel@lists.xenproject.org; Fri, 30 May 2025 16:24:41 +0000
+Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com
+ [205.220.177.32]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 92bb5c27-3d72-11f0-b894-0df219b8e170;
+ Fri, 30 May 2025 18:24:35 +0200 (CEST)
+Received: from pps.filterd (m0246631.ppops.net [127.0.0.1])
+ by mx0b-00069f02.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 54UGN9np027654;
+ Fri, 30 May 2025 16:23:36 GMT
+Received: from iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com
+ (iadpaimrmta01.appoci.oracle.com [130.35.100.223])
+ by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 46wjbcpjh6-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 30 May 2025 16:23:36 +0000 (GMT)
+Received: from pps.filterd
+ (iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
+ by iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (8.18.1.2/8.18.1.2)
+ with ESMTP id 54UGE3kU019300; Fri, 30 May 2025 16:23:35 GMT
+Received: from dm5pr21cu001.outbound.protection.outlook.com
+ (mail-centralusazon11011016.outbound.protection.outlook.com [52.101.62.16])
+ by iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTPS id
+ 46u4jdg1uj-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 30 May 2025 16:23:35 +0000
+Received: from PH0PR10MB5777.namprd10.prod.outlook.com (2603:10b6:510:128::16)
+ by DM6PR10MB4218.namprd10.prod.outlook.com (2603:10b6:5:222::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8746.35; Fri, 30 May
+ 2025 16:23:32 +0000
+Received: from PH0PR10MB5777.namprd10.prod.outlook.com
+ ([fe80::75a8:21cc:f343:f68c]) by PH0PR10MB5777.namprd10.prod.outlook.com
+ ([fe80::75a8:21cc:f343:f68c%6]) with mapi id 15.20.8746.035; Fri, 30 May 2025
+ 16:23:32 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,180 +63,468 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8b3b35dc-3d6e-11f0-a2ff-13f23c93f187
-Message-ID: <af9a96e1-064b-4627-bd34-e7e7e8a05452@arm.com>
-Date: Fri, 30 May 2025 16:55:36 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v1 0/6] Lazy mmu mode fixes and improvements
-Content-Language: en-GB
-To: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+X-Inumbo-ID: 92bb5c27-3d72-11f0-b894-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=corp-2025-04-25; bh=z3IMNQdsmC2DCOkbLy
+	x7xZc2rQ1pHkFPsx8mRJLi9aQ=; b=Y9maxsATkcbroTC7Gs2beoJCLF7Q5vQT8t
+	oy17r4F49Nr8Ki1PdboBXmXfZSUM0V/Z2ipSfoKmZc2jRLvcbAXR3jAMSaMq3qGV
+	NH6UIgQA48LvblJE51LECKWW8cy7ffC+mbo678G+ubDwVl9/z0j2MDGEtX64txCG
+	G9IkH/b2GDbWno2pgUD6LVZXJzLxJQ3YWxX1/HGXFRrYEkcrkQhyU1HY3r40cRMY
+	Cl/i+hu6tGfYA9KZSbtApSDhyfQYLWGxi7WwPklPn+TcLqeJ8UWMoz6HDigToTnR
+	sWhXAD8ujMZBEsINl1/h0ah0jJJJr3mqy5VP+c31KnPQuXeW/E4g==
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=IIP9nKk1pq26oj2y5bu4bwf7t1LccVLx+R1Ij+q8Q2/aj9wIUCGhCcEKBXyhVHgdn3BOTBm3gQCwsBRJ2hWcL0ChguN0M2EVqUpvk7120FdGOMhEgVaIISbFbFk+yuRQ1tWk/+gRjCW6aFkdVc3aW85JbOC1RifjZyjht1lypqVa127f8vSAI8hMENS6StG6FQue+hXf57Uj5/AgfNJyJoGVhpQQMRGJ/As5lpAmwiYFz9gglSVJl7PTpBrxfsYkBeHzhFs/++NhwW894n+fxOkaNkgYwWJ+A8KY5w+dXGyZOS+kqpZxXT3hqRdP7OktlRCfOo1NQ8/ssBGPzeFWNQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=z3IMNQdsmC2DCOkbLyx7xZc2rQ1pHkFPsx8mRJLi9aQ=;
+ b=B05DTUNndrRC/znt9MkRGOhx/LJjPfABIjHA+o7uIe2T9KXcQflos/rNmHizW4YDj+puszCbmvuS7lhH5wG7veJTOj8TWpwMkV2CSltoubWVCeuvtwHdvIwlJ1vLf6nyFzwxf+Khbn3unjBiLM56dApgHyV7CC9b+x0qHehvLbEAPOTv4MCp2DFogOBo0veHVTomXZBGm/Jy/gOBEGzrKAehU0mdfLmau+kCGxaarpDygb22D3EigOtbOW/lvrxPFj4rCTRjMrt4ia6jzxdoPpZ/Mz8IQsjCHBG6Nrzw4APlgS+1kBi6haZ8it66rArcQBEDLtGlfjJyRGtiIL6ClA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=z3IMNQdsmC2DCOkbLyx7xZc2rQ1pHkFPsx8mRJLi9aQ=;
+ b=oCyl+mXFmpvBmRnPZxUw2KzJBEl6GocTDSe3Y1VqRHhhvj3wiDWH9alaPuD6cj60ovuNd7UxVNLF1ccohtV9TG7zhHWzY9HRCr+11MQ57JDXq9coHNsasy7szPdtscEU6gMwDirFj2PrmgA+3muA84uZozqe0EjWRn5masqUlEg=
+Date: Fri, 30 May 2025 12:23:19 -0400
+From: "Liam R. Howlett" <Liam.Howlett@oracle.com>
+To: Ryan Roberts <ryan.roberts@arm.com>
 Cc: Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- Christophe Leroy <christophe.leroy@csgroup.eu>,
- "David S. Miller" <davem@davemloft.net>,
- Andreas Larsson <andreas@gaisler.com>, Juergen Gross <jgross@suse.com>,
- Ajay Kaher <ajay.kaher@broadcom.com>,
- Alexey Makhalov <alexey.makhalov@broadcom.com>,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- "H. Peter Anvin" <hpa@zytor.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Peter Zijlstra <peterz@infradead.org>, Arnd Bergmann <arnd@arndb.de>,
- David Hildenbrand <david@redhat.com>,
- "Liam R. Howlett" <Liam.Howlett@oracle.com>, Vlastimil Babka
- <vbabka@suse.cz>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Alexei Starovoitov <ast@kernel.org>, Andrey Ryabinin
- <ryabinin.a.a@gmail.com>, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- sparclinux@vger.kernel.org, virtualization@lists.linux.dev,
- xen-devel@lists.xenproject.org, linux-mm@kvack.org,
- Jann Horn <jannh@google.com>
+        Madhavan Srinivasan <maddy@linux.ibm.com>,
+        Michael Ellerman <mpe@ellerman.id.au>,
+        Nicholas Piggin <npiggin@gmail.com>,
+        Christophe Leroy <christophe.leroy@csgroup.eu>,
+        "David S. Miller" <davem@davemloft.net>,
+        Andreas Larsson <andreas@gaisler.com>, Juergen Gross <jgross@suse.com>,
+        Ajay Kaher <ajay.kaher@broadcom.com>,
+        Alexey Makhalov <alexey.makhalov@broadcom.com>,
+        Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+        Borislav Petkov <bp@alien8.de>,
+        Dave Hansen <dave.hansen@linux.intel.com>,
+        "H. Peter Anvin" <hpa@zytor.com>,
+        Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+        "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+        Andrew Morton <akpm@linux-foundation.org>,
+        Peter Zijlstra <peterz@infradead.org>, Arnd Bergmann <arnd@arndb.de>,
+        David Hildenbrand <david@redhat.com>,
+        Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+        Vlastimil Babka <vbabka@suse.cz>, Mike Rapoport <rppt@kernel.org>,
+        Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+        Alexei Starovoitov <ast@kernel.org>,
+        Andrey Ryabinin <ryabinin.a.a@gmail.com>,
+        linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+        linuxppc-dev@lists.ozlabs.org, sparclinux@vger.kernel.org,
+        virtualization@lists.linux.dev, xen-devel@lists.xenproject.org,
+        linux-mm@kvack.org
+Subject: Re: [RFC PATCH v1 3/6] mm: Avoid calling page allocator from
+ apply_to_page_range()
+Message-ID: <6nf3cxwhij7jtfi2u6nmt4igezf754gmue5dfskn4jkfkxmjzr@7btdipzmzjuo>
+Mail-Followup-To: "Liam R. Howlett" <Liam.Howlett@oracle.com>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, Madhavan Srinivasan <maddy@linux.ibm.com>, 
+	Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
+	Christophe Leroy <christophe.leroy@csgroup.eu>, "David S. Miller" <davem@davemloft.net>, 
+	Andreas Larsson <andreas@gaisler.com>, Juergen Gross <jgross@suse.com>, 
+	Ajay Kaher <ajay.kaher@broadcom.com>, Alexey Makhalov <alexey.makhalov@broadcom.com>, 
+	Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>, 
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>, "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, Peter Zijlstra <peterz@infradead.org>, 
+	Arnd Bergmann <arnd@arndb.de>, David Hildenbrand <david@redhat.com>, 
+	Lorenzo Stoakes <lorenzo.stoakes@oracle.com>, Vlastimil Babka <vbabka@suse.cz>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Alexei Starovoitov <ast@kernel.org>, 
+	Andrey Ryabinin <ryabinin.a.a@gmail.com>, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, sparclinux@vger.kernel.org, 
+	virtualization@lists.linux.dev, xen-devel@lists.xenproject.org, linux-mm@kvack.org
 References: <20250530140446.2387131-1-ryan.roberts@arm.com>
- <5b5d6352-9018-4658-b8fe-6eadaad46881@lucifer.local>
-From: Ryan Roberts <ryan.roberts@arm.com>
-In-Reply-To: <5b5d6352-9018-4658-b8fe-6eadaad46881@lucifer.local>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+ <20250530140446.2387131-4-ryan.roberts@arm.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250530140446.2387131-4-ryan.roberts@arm.com>
+User-Agent: NeoMutt/20240425
+X-ClientProxiedBy: YQBPR0101CA0057.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c00:1::34) To PH0PR10MB5777.namprd10.prod.outlook.com
+ (2603:10b6:510:128::16)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH0PR10MB5777:EE_|DM6PR10MB4218:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2be6b663-a884-4de3-d462-08dd9f9651b4
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|376014|7416014|7053199007;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?5HT7V/TJEwTo2zZW0rM9ZsHJfQTrhquflzi9GU9aGf1bUgCnGmDpC0UHzee8?=
+ =?us-ascii?Q?pOM2WYan0fj2+qk9LPK0OfOeEUDrkmkC6XOW7D+NvjN0+sUp1q11nxzlYlWR?=
+ =?us-ascii?Q?KlgLCsM6FYGDxGH6Je8s9CQUAJRGAiGnDKt/C9Ts7WKzeqdBV5PqbLSn5+wN?=
+ =?us-ascii?Q?E77VM/DTfaQ4azHEJVyxBE4dx5G0UIBzscS/irKaZfJk6XCerh6NEc2CTt9u?=
+ =?us-ascii?Q?8G7w4se68aakL58PA5cRfLyJ5i/6zmd5Q38HxDtY0Iq/G7dl0leqUfGCs537?=
+ =?us-ascii?Q?MvU3eS0snhRQPRaPWYO56Izc56vBkAd9Es5Y1xLvJzkCqj6s9cu+uZVZfoA3?=
+ =?us-ascii?Q?9a6YKRlpECqk0eLV++maFZ3pMMm0LQMACiLADW7PCrqpm4P/qvSRI9agUVcd?=
+ =?us-ascii?Q?cQHF+WJRpMRBHrnj/p+vGjMas1Rp8qNe2z2r9YtiHPGYrD5+XyVDoP3P1qG6?=
+ =?us-ascii?Q?/7ZBIScpzdttNg04Z0GfRGjBkyxOmtzos/LZalUndL9e1+ZeuEPW629NN05S?=
+ =?us-ascii?Q?BoUy4g3UfcURMfvQAgHx3V3yCjiMMXpkaVdFQsgh1hXBw71tocPmAGtTq2Vg?=
+ =?us-ascii?Q?WomDLf0wg0N7hA+hmMppfCE0mZuoP8m4lURcOteJOLBuIvnTWS95iqk8I5CE?=
+ =?us-ascii?Q?QY/z/zgICyKwS3I6so1Y+Y9hqcyWq0WONxg7JhRLfkwPRpaO3YA4hqMeXH5c?=
+ =?us-ascii?Q?4B8baik83sep1jvilJ08XoH8JGf4wQw+jglLOviI7P131fcb6gRl06DPMKu4?=
+ =?us-ascii?Q?QJv6tkntdUJiWrg+r98N8uNge2i/cns23u3nwKVLRR9bqPdFgWftRUgiWAKP?=
+ =?us-ascii?Q?0/GHDnMK82RRo8ZsG8fbEeHGgxHqIRKdqg2Pg34CeTqbPbhc3pyjORRuiXZ/?=
+ =?us-ascii?Q?NPNVYFWTFOAOdF4yyR+dgLA0ry85yFj6Rr7Q04DY5T1pK29Pejr/9WI02wF0?=
+ =?us-ascii?Q?o/eoosvcKZCo5iI3zeQ+znaII/LAf9geILgq6FrziZ+Kr84hc7JLekYX+ZJM?=
+ =?us-ascii?Q?MPPrNtI0oEKvyluhw4P7oO64JMm8FZFzT6y05VVvjZ2NgM77/mFlns9thl2Z?=
+ =?us-ascii?Q?4ERLwjlqFKdJDy9nrHn9p48l+Q5NkrN1fgyR6RCYBGcRBasfRpd+zzBr7wIR?=
+ =?us-ascii?Q?MsdKtyFV9RcgFRw2P6DEyaKseiWw22AIA3EXfdd0clK7muvMG+vPWy8m6fMm?=
+ =?us-ascii?Q?EZQqVzAnuc6THMieZoiHoOtQH56c+NHHxnrjO4aqu82xikd89vozRKsgVip3?=
+ =?us-ascii?Q?SD1APnFBr56N4gLpDgq3n31pq3YiyPizlJ8wD9OkQAJJm07BQ7BLqj4hL9Sf?=
+ =?us-ascii?Q?I8cMLfJ+LLnCe2vhunntRdu1xEdCP5nJ2JaKsa8XyA8C/6KoI6GxQekc47+b?=
+ =?us-ascii?Q?L5HTpm9Hw8AEUKXZPkdXHd5s0v1jAW74PUjZ65L25A7Tgj4TPnPEUPbMQR5S?=
+ =?us-ascii?Q?CkWU6TSOH0o=3D?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR10MB5777.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(7416014)(7053199007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?1hbAFM/AdoIhAGVP9GYa+QS4ch2Ju6Gzvz8mraHPe2WuiBRp+TRJL2r5tnNB?=
+ =?us-ascii?Q?E1S68gKbzsMvaUrRGC5g9ftvF6uvzt4FW5b4frY6NxSL89U3/l0tgiKmJhRr?=
+ =?us-ascii?Q?y1Nxi2ot1qqklzX51nto8pOHTkrgMCPK6ERHyx6MATtP8Bbn8Bn2vFri/g6m?=
+ =?us-ascii?Q?q69vKgWMsgNLJCgBF+eIpwndG8suSQPwFHot13QHnheLfbjbqLHgkBMLuRmb?=
+ =?us-ascii?Q?JGOigdDO54+oGI9PzWrHzOm6Xtu7WEpG/nb/F92h3DVevnFYuGKMmlJR9MvX?=
+ =?us-ascii?Q?MKtJz4B96qEMKOZ8lHe4x1e7PUtjmjLFwFPDzLgIhmwz5BhnRuJT6otzwChy?=
+ =?us-ascii?Q?CcVBJn35OYnU1VM5CxLWMnhTU4HTssG0KMHmrKyP4PUt6LwV68MisX8x+1F7?=
+ =?us-ascii?Q?4ia8ABoABeygTq8XQZ83pbBNLIX1oeFU/O6U0+40m2eJuRW8be/9nb16cOWl?=
+ =?us-ascii?Q?0MDiFMEG9MpXssFit/FSBZgq8qK6iWaG8JnG6knJbg1W4mxpqquOClOGPpB8?=
+ =?us-ascii?Q?ogdRHTh/69guyjLnXeMRTlWMYAlnEgxM1yc3qJ4YAowtUIcCDi4qVMQkP7sw?=
+ =?us-ascii?Q?RRcgDbQcZgtpMlOxjMRDE39dV6ZcAldz+MHxKNEM2aXDPDkHTv9wapWJRaed?=
+ =?us-ascii?Q?GtFHFHCyxjiZO1ETSgclLjMWWQI5svITQ2KMpNqmiAi45UN7O3WHTTNPhmIb?=
+ =?us-ascii?Q?VKR1Enu50KtHh6IWaUeMBkPFB7ap8CfAjspDqZ48RQ3rBdLjlvFXoKC3x/gW?=
+ =?us-ascii?Q?2232Dd+IIc5jmxHrWE7+1P1LW+jYqqH9rTcOOzS5XR+794m5uZcgsAfxYXO3?=
+ =?us-ascii?Q?+lDPBSmDIa2xvumyC0HroxeJRNdrPz41ZrKrCpWkjKuaa+rnfarGIWOVKWCL?=
+ =?us-ascii?Q?7LsYMP41LQdORi2iWCVkvE65lwGLQqHZRtRXZPM5KqH4kBzEwk+ChkYFm25W?=
+ =?us-ascii?Q?pL17Zfmww4gniRB1/ZxQsGGYy49iGoKi9OtOrF1IEF72pFS8hLXxrbmD70SJ?=
+ =?us-ascii?Q?ofPKg6fr5ZsnCothc8x7CUn0/7X3QQhFGG0X7nqhceXlDpv6k0W1uB0RL+z5?=
+ =?us-ascii?Q?x+CCh+SNo5aJVbqoM3F7Z1VPTYOPw/n/wel+7yTQGM7WFkqxw2rkBS10qr9z?=
+ =?us-ascii?Q?cEIJW6kFrTbrBitzMFj4recrAG81JYUgXRGPD8XlS8VHsNw2EeFxnLs2a65N?=
+ =?us-ascii?Q?Cw7teRvrPnAg1PvGI6eagtk0xSgOAI3fpgX5nGgGjZmwXzOyninjcpJ7oVSY?=
+ =?us-ascii?Q?ijcdetf46ChCV6ck2RzcGRNngvKw1s2AThJlJwU2qkf7biQGWLrO6SxO5V/+?=
+ =?us-ascii?Q?eb+78lRA/K9GVUic4FACiyQ5JAenUJA3dSfiPjlETsetARZtQgFcKa0GykLR?=
+ =?us-ascii?Q?iPFtSNQ3eghjHXfAiYgv2xCKM5+D3irz/Gq8XPPHGOm0SCOVzDaDk7EyXE06?=
+ =?us-ascii?Q?McCEJxjaXTyrg56VOkd+WaS42dQJ6DVZIR0hnzbpIkaDGHa+sFW8JgAWv3G1?=
+ =?us-ascii?Q?qKjNdX/o6zk27hcm8Yun0ChCUYyq22PQNE0Zg0XIQk5h/AjBdpnJL+gTIuDB?=
+ =?us-ascii?Q?/QtHwlH6Iu8bHBFosP7fiU6991tCnfdU54ArLkd0?=
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
+	KBKr0pL5HgZGkOok8B5HfawQ6ctregPXPVEk5dUOaZlbBoHbLKDlIqatRX9hNxA86sQ443J+gwMIpQM09SIopc+UIwBlBzaxkTX/wqZPVbjhOhvFgE5DSyiXSIPswdjsZIT84BiTaDO6mtMAhSpJ3ZOsKtsAwbYpFEWKT4DNYmvddeQqVW+QTtjz69vO9afq903t/GwjIxzP4WZgIp3QHr4hNXMJEjTmENMVMi5cVkOJ2g8CA3TApIvLgfUZe9rTWajc6s6NfuSRFCZmNAS3vTGlcvCLOJCxFtQGcPqs6ZNLoAvDtBMk3mV2oSRFu8pTaXz05CTkakQU5/U0M9aCie7zq7OSJQ0x6nqFn+WpwedhTEesCgB1dcN4tANh+Jzzp5JLkmaG+hYnLZvdZjCHsfDF7T4BMluhtnRqQUTxD3ACSm2KyWG+znLXggy8DvFN+xlZ1/qOTtpfP9bGPbLWf8VnpdNAVDxs1kVx1f84JuEnI3KkijXSddsj3CgjhpOMy6GigmL+en3khWFpN/QQh8Wsbt0d0QWxegs9n+4sN7qUSgWPxYWJhqMQnPcY3h8PcLAUvNtiPFcfkeRJ8Y2VkubUxi87tQ1hW3Dvtj9C7qQ=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2be6b663-a884-4de3-d462-08dd9f9651b4
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR10MB5777.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 May 2025 16:23:32.3861
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 4LQLNejlDYm4KVGqjMxTNaABALov65WQAJAG4Yi73QiAYLLQ1CukZoXCPD5VgxF5S61Bi+QsjDfanrNCC/F19A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR10MB4218
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
+ definitions=2025-05-30_07,2025-05-30_01,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0 adultscore=0 spamscore=0
+ suspectscore=0 bulkscore=0 phishscore=0 mlxlogscore=999 mlxscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2505160000
+ definitions=main-2505300145
+X-Proofpoint-GUID: 22ulwtNqNm5tFI6AH-5TBf-qOW4Gyq_x
+X-Proofpoint-ORIG-GUID: 22ulwtNqNm5tFI6AH-5TBf-qOW4Gyq_x
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNTMwMDE0MyBTYWx0ZWRfX4HMZDLoR8DfV 37lOwoY4qz3TImL0+3UMQmzbvqkiwq5AxIlp9er8pJBSalRprWhESbEn1Q/dsfxN2wyzlKcZQMl DJariRI9Que0+Neq4NitZOpM6qOteaqH01fdiaa0vN2S5S+APAf+ug5Y2dKVMgNJk24iv2mmKkJ
+ Im9ghpzjm0tg/uacEIm7QHnDCpHutQnm37vEGNTivF7ketd1GoNwVETEXtUbavJms3IvxmEX/QA 1drbnuCa5/h286riEXFucRQZTLKF4VbaPjNbvuQq+WqXdQWbhv7HT++wXaD896ORBVP+q8vb9Ro 06xurYb3f+IT6GGx205Iidq0NJp7eJJnJvYZKYhbkR+sD1Oprl3h6TktY8TbTdZ8l4Anb7lmX8y
+ mdGyGB3Mwm4vpebfzRh+Xl47IsBlta80tNNMbhAX9+S1fip5IncFZlczjgSuHnsAILEt/+fL
+X-Authority-Analysis: v=2.4 cv=c8qrQQ9l c=1 sm=1 tr=0 ts=6839db88 b=1 cx=c_pps a=zPCbziy225d3KhSqZt3L1A==:117 a=zPCbziy225d3KhSqZt3L1A==:17 a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=wKuvFiaSGQ0qltdbU6+NXLB8nM8=:19
+ a=Ol13hO9ccFRV9qXi2t6ftBPywas=:19 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10 a=dt9VzEwgFbYA:10 a=GoEa3M9JfhUA:10 a=7CQSdrXTAAAA:8 a=BttKmYIqwxqZfdoHdj4A:9 a=CjuIK1q_8ugA:10 a=a-qgeE7W1pNrGK8U0ZQC:22 cc=ntf awl=host:13206
 
-On 30/05/2025 15:47, Lorenzo Stoakes wrote:
-> +cc Jann who is a specialist in all things page table-y and especially scary
-> edge cases :)
+* Ryan Roberts <ryan.roberts@arm.com> [250530 10:05]:
+> Lazy mmu mode applies to the current task and permits pte modifications
+> to be deferred and updated at a later time in a batch to improve
+> performance. apply_to_page_range() calls its callback in lazy mmu mode
+> and some of those callbacks call into the page allocator to either
+> allocate or free pages.
 > 
-> On Fri, May 30, 2025 at 03:04:38PM +0100, Ryan Roberts wrote:
->> Hi All,
->>
->> I recently added support for lazy mmu mode on arm64. The series is now in
->> Linus's tree so should be in v6.16-rc1. But during testing in linux-next we
->> found some ugly corners (unexpected nesting). I was able to fix those issues by
->> making the arm64 implementation more permissive (like the other arches). But
->> this is quite fragile IMHO. So I'd rather fix the root cause and ensure that
->> lazy mmu mode never nests, and more importantly, that code never makes pgtable
->> modifications expecting them to be immediate, not knowing that it's actually in
->> lazy mmu mode so the changes get deferred.
+> This is problematic with CONFIG_DEBUG_PAGEALLOC because
+> debug_pagealloc_[un]map_pages() calls the arch implementation of
+> __kernel_map_pages() which must modify the ptes for the linear map.
 > 
-> When you say fragile, are you confident it _works_ but perhaps not quite as well
-> as you want? Or are you concerned this might be broken upstream in any way?
-
-I'm confident that it _works_ for arm64 as it is, upstream. But if Dev's series
-were to go in _without_ the lazy_mmu bracketting in some manner, then it would
-be broken if the config includes CONFIG_DEBUG_PAGEALLOC.
-
-There's a lot more explanation in the later patches as to how it can be broken,
-but for arm64, the situation is currently like this, because our implementation
-of __change_memory_common() uses apply_to_page_range() which implicitly starts
-an inner lazy_mmu_mode. We enter multiple times, but we exit one the first call
-to exit. Everything works correctly but it's not optimal because C is no longer
-deferred:
-
-arch_enter_lazy_mmu_mode()                        << outer lazy mmu region
-  <do some pte changes (A)>
-  alloc_pages()
-    debug_pagealloc_map_pages()
-      __kernel_map_pages()
-        __change_memory_common()
-          arch_enter_lazy_mmu_mode()              << inner lazy mmu region
-            <change kernel pte to make valid (B)>
-          arch_leave_lazy_mmu_mode()              << exit; complete A + B
-    clear_page()
-  <do some more pte changes (C)>                  << no longer in lazy mode
-arch_leave_lazy_mmu_mode()                        << nop
-
-An alternative implementation would not add the nested lazy mmu mode, so we end
-up with this:
-
-arch_enter_lazy_mmu_mode()                        << outer lazy mmu region
-  <do some pte changes (A)>
-  alloc_pages()
-    debug_pagealloc_map_pages()
-      __kernel_map_pages()
-        __change_memory_common()
-            <change kernel pte to make valid (B)> << deferred due to lazy mmu
-    clear_page()                                  << BANG! B has not be actioned
-  <do some more pte changes (C)>
-arch_leave_lazy_mmu_mode()
-
-This is clearly a much worse outcome. It's not happening today but it could in
-future. That's why I'm claiming it's fragile. It's much better (IMHO) to
-disallow calling the page allocator when in lazy mmu mode.
-
-I won't speak for other arches; there may be more or less potential impact for them.
-
+> There are two possibilities at this point:
 > 
-> I am thinking specifically about the proposed use in Dev's new series [0] and
-> obviously hoping (and assuming in fact) that it's the former :)
-
-Dev's changes aren't directly related to this, but if a version was accepted
-that didn't include the lazy mmu mode, that would cause non-obvious issues.
-
-Hope that helps?
-
-Thanks,
-Ryan
-
+>  - If the arch implementation modifies the ptes directly without first
+>    entering lazy mmu mode, the pte modifications may get deferred until
+>    the existing lazy mmu mode is exited. This could result in taking
+>    spurious faults for example.
 > 
-> [0]: https://lore.kernel.org/linux-mm/20250530090407.19237-1-dev.jain@arm.com/
+>  - If the arch implementation enters a nested lazy mmu mode before
+>    modification of the ptes (many arches use apply_to_page_range()),
+>    then the linear map updates will definitely be applied upon leaving
+>    the inner lazy mmu mode. But because lazy mmu mode does not support
+>    nesting, the remainder of the outer user is no longer in lazy mmu
+>    mode and the optimization opportunity is lost.
 > 
->>
->> The first 2 patches are unrelated, very obvious bug fixes. They don't affect
->> arm64 because arm64 only uses lazy mmu for kernel mappings. But I noticed them
->> during code review and think they should be fixed.
->>
->> The next 3 patches are aimed at solving the nesting issue.
->>
->> And the final patch is reverting the "permissive" fix I did for arm64, which is
->> no longer needed after the previous 3 patches.
->>
->> I've labelled this RFC for now because it depends on the arm64 lazy mmu patches
->> in Linus's master, so it won't apply to mm-unstable. But I'm keen to get review
->> and siince I'm touching various arches and modifying some core mm stuff, I
->> thought that might take a while so thought I'd beat the rush and get a first
->> version out early.
->>
->> I've build-tested all the affected arches. And I've run mm selftests for the
->> arm64 build, with no issues (with DEBUG_PAGEALLOC and KFENCE enabled).
->>
->> Applies against Linus's master branch (f66bc387efbe).
->>
->> Thanks,
->> Ryan
->>
->>
->> Ryan Roberts (6):
->>   fs/proc/task_mmu: Fix pte update and tlb maintenance ordering in
->>     pagemap_scan_pmd_entry()
->>   mm: Fix pte update and tlb maintenance ordering in
->>     migrate_vma_collect_pmd()
->>   mm: Avoid calling page allocator from apply_to_page_range()
->>   mm: Introduce arch_in_lazy_mmu_mode()
->>   mm: Avoid calling page allocator while in lazy mmu mode
->>   Revert "arm64/mm: Permit lazy_mmu_mode to be nested"
->>
->>  arch/arm64/include/asm/pgtable.h              | 22 ++++----
->>  .../include/asm/book3s/64/tlbflush-hash.h     | 15 ++++++
->>  arch/sparc/include/asm/tlbflush_64.h          |  1 +
->>  arch/sparc/mm/tlb.c                           | 12 +++++
->>  arch/x86/include/asm/paravirt.h               |  5 ++
->>  arch/x86/include/asm/paravirt_types.h         |  1 +
->>  arch/x86/kernel/paravirt.c                    |  6 +++
->>  arch/x86/xen/mmu_pv.c                         |  6 +++
->>  fs/proc/task_mmu.c                            |  3 +-
->>  include/asm-generic/tlb.h                     |  2 +
->>  include/linux/mm.h                            |  6 +++
->>  include/linux/pgtable.h                       |  1 +
->>  kernel/bpf/arena.c                            |  6 +--
->>  mm/kasan/shadow.c                             |  2 +-
->>  mm/memory.c                                   | 54 ++++++++++++++-----
->>  mm/migrate_device.c                           |  3 +-
->>  mm/mmu_gather.c                               | 15 ++++++
->>  17 files changed, 128 insertions(+), 32 deletions(-)
->>
->> --
->> 2.43.0
->>
+> So let's just ensure that the page allocator is never called from within
+> lazy mmu mode. New "_nolazy" variants of apply_to_page_range() and
+> apply_to_existing_page_range() are introduced which don't enter lazy mmu
+> mode. Then users which need to call into the page allocator within their
+> callback are updated to use the _nolazy variants.
+> 
+> Signed-off-by: Ryan Roberts <ryan.roberts@arm.com>
+> ---
+>  include/linux/mm.h |  6 ++++++
+>  kernel/bpf/arena.c |  6 +++---
+>  mm/kasan/shadow.c  |  2 +-
+>  mm/memory.c        | 54 +++++++++++++++++++++++++++++++++++-----------
+>  4 files changed, 51 insertions(+), 17 deletions(-)
+> 
+> diff --git a/include/linux/mm.h b/include/linux/mm.h
+> index e51dba8398f7..11cae6ce04ff 100644
+> --- a/include/linux/mm.h
+> +++ b/include/linux/mm.h
+> @@ -3743,9 +3743,15 @@ static inline bool gup_can_follow_protnone(struct vm_area_struct *vma,
+>  typedef int (*pte_fn_t)(pte_t *pte, unsigned long addr, void *data);
+>  extern int apply_to_page_range(struct mm_struct *mm, unsigned long address,
+>  			       unsigned long size, pte_fn_t fn, void *data);
+> +extern int apply_to_page_range_nolazy(struct mm_struct *mm,
+> +				      unsigned long address, unsigned long size,
+> +				      pte_fn_t fn, void *data);
 
+We are removing externs as things are edited, so probably drop them
+here.
+
+>  extern int apply_to_existing_page_range(struct mm_struct *mm,
+>  				   unsigned long address, unsigned long size,
+>  				   pte_fn_t fn, void *data);
+> +extern int apply_to_existing_page_range_nolazy(struct mm_struct *mm,
+> +				   unsigned long address, unsigned long size,
+> +				   pte_fn_t fn, void *data);
+>  
+>  #ifdef CONFIG_PAGE_POISONING
+>  extern void __kernel_poison_pages(struct page *page, int numpages);
+> diff --git a/kernel/bpf/arena.c b/kernel/bpf/arena.c
+> index 0d56cea71602..ca833cfeefb7 100644
+> --- a/kernel/bpf/arena.c
+> +++ b/kernel/bpf/arena.c
+> @@ -187,10 +187,10 @@ static void arena_map_free(struct bpf_map *map)
+>  	/*
+>  	 * free_vm_area() calls remove_vm_area() that calls free_unmap_vmap_area().
+>  	 * It unmaps everything from vmalloc area and clears pgtables.
+> -	 * Call apply_to_existing_page_range() first to find populated ptes and
+> -	 * free those pages.
+> +	 * Call apply_to_existing_page_range_nolazy() first to find populated
+> +	 * ptes and free those pages.
+>  	 */
+> -	apply_to_existing_page_range(&init_mm, bpf_arena_get_kern_vm_start(arena),
+> +	apply_to_existing_page_range_nolazy(&init_mm, bpf_arena_get_kern_vm_start(arena),
+>  				     KERN_VM_SZ - GUARD_SZ, existing_page_cb, NULL);
+>  	free_vm_area(arena->kern_vm);
+>  	range_tree_destroy(&arena->rt);
+> diff --git a/mm/kasan/shadow.c b/mm/kasan/shadow.c
+> index d2c70cd2afb1..2325c5166c3a 100644
+> --- a/mm/kasan/shadow.c
+> +++ b/mm/kasan/shadow.c
+> @@ -590,7 +590,7 @@ void kasan_release_vmalloc(unsigned long start, unsigned long end,
+>  
+>  
+>  		if (flags & KASAN_VMALLOC_PAGE_RANGE)
+> -			apply_to_existing_page_range(&init_mm,
+> +			apply_to_existing_page_range_nolazy(&init_mm,
+>  					     (unsigned long)shadow_start,
+>  					     size, kasan_depopulate_vmalloc_pte,
+>  					     NULL);
+> diff --git a/mm/memory.c b/mm/memory.c
+> index 49199410805c..24436074ce48 100644
+> --- a/mm/memory.c
+> +++ b/mm/memory.c
+> @@ -2913,7 +2913,7 @@ EXPORT_SYMBOL(vm_iomap_memory);
+>  static int apply_to_pte_range(struct mm_struct *mm, pmd_t *pmd,
+>  				     unsigned long addr, unsigned long end,
+>  				     pte_fn_t fn, void *data, bool create,
+> -				     pgtbl_mod_mask *mask)
+> +				     pgtbl_mod_mask *mask, bool lazy_mmu)
+>  {
+>  	pte_t *pte, *mapped_pte;
+>  	int err = 0;
+> @@ -2933,7 +2933,8 @@ static int apply_to_pte_range(struct mm_struct *mm, pmd_t *pmd,
+>  			return -EINVAL;
+>  	}
+>  
+> -	arch_enter_lazy_mmu_mode();
+> +	if (lazy_mmu)
+> +		arch_enter_lazy_mmu_mode();
+>  
+>  	if (fn) {
+>  		do {
+> @@ -2946,7 +2947,8 @@ static int apply_to_pte_range(struct mm_struct *mm, pmd_t *pmd,
+>  	}
+>  	*mask |= PGTBL_PTE_MODIFIED;
+>  
+> -	arch_leave_lazy_mmu_mode();
+> +	if (lazy_mmu)
+> +		arch_leave_lazy_mmu_mode();
+>  
+>  	if (mm != &init_mm)
+>  		pte_unmap_unlock(mapped_pte, ptl);
+> @@ -2956,7 +2958,7 @@ static int apply_to_pte_range(struct mm_struct *mm, pmd_t *pmd,
+>  static int apply_to_pmd_range(struct mm_struct *mm, pud_t *pud,
+>  				     unsigned long addr, unsigned long end,
+>  				     pte_fn_t fn, void *data, bool create,
+> -				     pgtbl_mod_mask *mask)
+> +				     pgtbl_mod_mask *mask, bool lazy_mmu)
+
+I am having a hard time understanding why other lazy mmus were more
+self-contained, but arm has added arguments to generic code?
+
+>  {
+>  	pmd_t *pmd;
+>  	unsigned long next;
+> @@ -2983,7 +2985,7 @@ static int apply_to_pmd_range(struct mm_struct *mm, pud_t *pud,
+>  			pmd_clear_bad(pmd);
+>  		}
+>  		err = apply_to_pte_range(mm, pmd, addr, next,
+> -					 fn, data, create, mask);
+> +					 fn, data, create, mask, lazy_mmu);
+>  		if (err)
+>  			break;
+>  	} while (pmd++, addr = next, addr != end);
+> @@ -2994,7 +2996,7 @@ static int apply_to_pmd_range(struct mm_struct *mm, pud_t *pud,
+>  static int apply_to_pud_range(struct mm_struct *mm, p4d_t *p4d,
+>  				     unsigned long addr, unsigned long end,
+>  				     pte_fn_t fn, void *data, bool create,
+> -				     pgtbl_mod_mask *mask)
+> +				     pgtbl_mod_mask *mask, bool lazy_mmu)
+>  {
+>  	pud_t *pud;
+>  	unsigned long next;
+> @@ -3019,7 +3021,7 @@ static int apply_to_pud_range(struct mm_struct *mm, p4d_t *p4d,
+>  			pud_clear_bad(pud);
+>  		}
+>  		err = apply_to_pmd_range(mm, pud, addr, next,
+> -					 fn, data, create, mask);
+> +					 fn, data, create, mask, lazy_mmu);
+>  		if (err)
+>  			break;
+>  	} while (pud++, addr = next, addr != end);
+> @@ -3030,7 +3032,7 @@ static int apply_to_pud_range(struct mm_struct *mm, p4d_t *p4d,
+>  static int apply_to_p4d_range(struct mm_struct *mm, pgd_t *pgd,
+>  				     unsigned long addr, unsigned long end,
+>  				     pte_fn_t fn, void *data, bool create,
+> -				     pgtbl_mod_mask *mask)
+> +				     pgtbl_mod_mask *mask, bool lazy_mmu)
+>  {
+>  	p4d_t *p4d;
+>  	unsigned long next;
+> @@ -3055,7 +3057,7 @@ static int apply_to_p4d_range(struct mm_struct *mm, pgd_t *pgd,
+>  			p4d_clear_bad(p4d);
+>  		}
+>  		err = apply_to_pud_range(mm, p4d, addr, next,
+> -					 fn, data, create, mask);
+> +					 fn, data, create, mask, lazy_mmu);
+>  		if (err)
+>  			break;
+>  	} while (p4d++, addr = next, addr != end);
+> @@ -3065,7 +3067,7 @@ static int apply_to_p4d_range(struct mm_struct *mm, pgd_t *pgd,
+>  
+>  static int __apply_to_page_range(struct mm_struct *mm, unsigned long addr,
+>  				 unsigned long size, pte_fn_t fn,
+> -				 void *data, bool create)
+> +				 void *data, bool create, bool lazy_mmu)
+>  {
+>  	pgd_t *pgd;
+>  	unsigned long start = addr, next;
+> @@ -3091,7 +3093,7 @@ static int __apply_to_page_range(struct mm_struct *mm, unsigned long addr,
+>  			pgd_clear_bad(pgd);
+>  		}
+>  		err = apply_to_p4d_range(mm, pgd, addr, next,
+> -					 fn, data, create, &mask);
+> +					 fn, data, create, &mask, lazy_mmu);
+
+This is annoying.  We now have a bool, bool passed through with mask
+inserted in the middle.
+
+>  		if (err)
+>  			break;
+>  	} while (pgd++, addr = next, addr != end);
+> @@ -3105,11 +3107,14 @@ static int __apply_to_page_range(struct mm_struct *mm, unsigned long addr,
+>  /*
+>   * Scan a region of virtual memory, filling in page tables as necessary
+>   * and calling a provided function on each leaf page table.
+> + *
+> + * fn() is called in lazy mmu mode. As a result, the callback must be careful
+> + * not to perform memory allocation.
+>   */
+>  int apply_to_page_range(struct mm_struct *mm, unsigned long addr,
+>  			unsigned long size, pte_fn_t fn, void *data)
+>  {
+> -	return __apply_to_page_range(mm, addr, size, fn, data, true);
+> +	return __apply_to_page_range(mm, addr, size, fn, data, true, true);
+
+Please add something here to tell me what false, true is.
+
+>  }
+>  EXPORT_SYMBOL_GPL(apply_to_page_range);
+>  
+> @@ -3117,13 +3122,36 @@ EXPORT_SYMBOL_GPL(apply_to_page_range);
+>   * Scan a region of virtual memory, calling a provided function on
+>   * each leaf page table where it exists.
+>   *
+> + * fn() is called in lazy mmu mode. As a result, the callback must be careful
+> + * not to perform memory allocation.
+> + *
+>   * Unlike apply_to_page_range, this does _not_ fill in page tables
+>   * where they are absent.
+>   */
+>  int apply_to_existing_page_range(struct mm_struct *mm, unsigned long addr,
+>  				 unsigned long size, pte_fn_t fn, void *data)
+>  {
+> -	return __apply_to_page_range(mm, addr, size, fn, data, false);
+> +	return __apply_to_page_range(mm, addr, size, fn, data, false, true);
+
+every..
+
+> +}
+> +
+> +/*
+> + * As per apply_to_page_range() but fn() is not called in lazy mmu mode.
+> + */
+> +int apply_to_page_range_nolazy(struct mm_struct *mm, unsigned long addr,
+> +			       unsigned long size, pte_fn_t fn, void *data)
+> +{
+> +	return __apply_to_page_range(mm, addr, size, fn, data, true, false);
+
+one...
+
+> +}
+> +
+> +/*
+> + * As per apply_to_existing_page_range() but fn() is not called in lazy mmu
+> + * mode.
+> + */
+> +int apply_to_existing_page_range_nolazy(struct mm_struct *mm,
+> +					unsigned long addr, unsigned long size,
+> +					pte_fn_t fn, void *data)
+> +{
+> +	return __apply_to_page_range(mm, addr, size, fn, data, false, false);
+
+adds confusion :)
+
+
+These wrappers are terrible for readability and annoying for argument
+lists too.
+
+Could we do something like the pgtbl_mod_mask or zap_details and pass
+through a struct or one unsigned int for create and lazy_mmu?
+
+At least we'd have better self-documenting code in the wrappers.. and if
+we ever need a third boolean, we could avoid multiplying the wrappers
+again.
+
+WDYT?
+
+Cheers,
+Liam
 
