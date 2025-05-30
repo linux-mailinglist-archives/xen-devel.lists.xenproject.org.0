@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A8FECAC8FDB
-	for <lists+xen-devel@lfdr.de>; Fri, 30 May 2025 15:22:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1001022.1381299 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D7E0AC8FEF
+	for <lists+xen-devel@lfdr.de>; Fri, 30 May 2025 15:23:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1001065.1381325 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uKzgK-0002Rt-Nk; Fri, 30 May 2025 13:21:56 +0000
+	id 1uKzhg-0004iv-L0; Fri, 30 May 2025 13:23:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1001022.1381299; Fri, 30 May 2025 13:21:56 +0000
+Received: by outflank-mailman (output) from mailman id 1001065.1381325; Fri, 30 May 2025 13:23:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uKzgK-0002PW-KB; Fri, 30 May 2025 13:21:56 +0000
-Received: by outflank-mailman (input) for mailman id 1001022;
- Fri, 30 May 2025 13:21:56 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uKzhg-0004e0-GZ; Fri, 30 May 2025 13:23:20 +0000
+Received: by outflank-mailman (input) for mailman id 1001065;
+ Fri, 30 May 2025 13:23:19 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=sDQw=YO=3mdeb.com=sergii.dmytruk@srs-se1.protection.inumbo.net>)
- id 1uKzdu-0008Jy-Lm
- for xen-devel@lists.xenproject.org; Fri, 30 May 2025 13:19:26 +0000
-Received: from 5.mo583.mail-out.ovh.net (5.mo583.mail-out.ovh.net
- [87.98.173.103]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b3afa57d-3d58-11f0-a2ff-13f23c93f187;
- Fri, 30 May 2025 15:19:23 +0200 (CEST)
-Received: from director4.ghost.mail-out.ovh.net (unknown [10.108.25.4])
- by mo583.mail-out.ovh.net (Postfix) with ESMTP id 4b83jk5Jg2z1kgy
- for <xen-devel@lists.xenproject.org>; Fri, 30 May 2025 13:19:22 +0000 (UTC)
-Received: from ghost-submission-5b5ff79f4f-7mj9p (unknown [10.110.168.40])
- by director4.ghost.mail-out.ovh.net (Postfix) with ESMTPS id 0E7EFC57BA;
- Fri, 30 May 2025 13:19:21 +0000 (UTC)
-Received: from 3mdeb.com ([37.59.142.104])
- by ghost-submission-5b5ff79f4f-7mj9p with ESMTPSA
- id lFyANFmwOWgz4wAAMDjBXw
- (envelope-from <sergii.dmytruk@3mdeb.com>); Fri, 30 May 2025 13:19:21 +0000
+ id 1uKze4-0003ZU-3h
+ for xen-devel@lists.xenproject.org; Fri, 30 May 2025 13:19:36 +0000
+Received: from 2.mo582.mail-out.ovh.net (2.mo582.mail-out.ovh.net
+ [46.105.76.65]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b64ceedc-3d58-11f0-b894-0df219b8e170;
+ Fri, 30 May 2025 15:19:27 +0200 (CEST)
+Received: from director3.ghost.mail-out.ovh.net (unknown [10.109.148.49])
+ by mo582.mail-out.ovh.net (Postfix) with ESMTP id 4b83jq0y11z1dJf
+ for <xen-devel@lists.xenproject.org>; Fri, 30 May 2025 13:19:27 +0000 (UTC)
+Received: from ghost-submission-5b5ff79f4f-xc6mh (unknown [10.110.168.219])
+ by director3.ghost.mail-out.ovh.net (Postfix) with ESMTPS id 1E5BEC3326;
+ Fri, 30 May 2025 13:19:24 +0000 (UTC)
+Received: from 3mdeb.com ([37.59.142.105])
+ by ghost-submission-5b5ff79f4f-xc6mh with ESMTPSA
+ id fw8bLlywOWiZtgAAiTdl2Q
+ (envelope-from <sergii.dmytruk@3mdeb.com>); Fri, 30 May 2025 13:19:24 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,8 +46,8 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b3afa57d-3d58-11f0-a2ff-13f23c93f187
-Authentication-Results:garm.ovh; auth=pass (GARM-104R00545eb1c88-6e30-4b42-870d-eb4a1160ce4c,
+X-Inumbo-ID: b64ceedc-3d58-11f0-b894-0df219b8e170
+Authentication-Results:garm.ovh; auth=pass (GARM-105G0063501688f-cd43-4a5e-8213-abcfdd892099,
                     A4E380CC922F0B59227EC5DCC46884561651840B) smtp.auth=sergii.dmytruk@3mdeb.com
 X-OVh-ClientIp:176.111.184.221
 From: Sergii Dmytruk <sergii.dmytruk@3mdeb.com>
@@ -58,147 +58,219 @@ Cc: Jan Beulich <jbeulich@suse.com>,
 	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
 	Ross Philipson <ross.philipson@oracle.com>,
 	trenchboot-devel@googlegroups.com
-Subject: [PATCH v3 18/22] x86/boot/slaunch-early: find MBI and SLRT on AMD
-Date: Fri, 30 May 2025 16:18:00 +0300
-Message-ID: <7272ac988ae672f0a05486775e805a9513e86950.1748611041.git.sergii.dmytruk@3mdeb.com>
+Subject: [PATCH v3 19/22] x86/slaunch: support AMD SKINIT
+Date: Fri, 30 May 2025 16:18:01 +0300
+Message-ID: <20c2380bd920fea3009f6e5ae2d3011b0a3fe431.1748611041.git.sergii.dmytruk@3mdeb.com>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <cover.1748611041.git.sergii.dmytruk@3mdeb.com>
 References: <cover.1748611041.git.sergii.dmytruk@3mdeb.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 12707469300486354076
+X-Ovh-Tracer-Id: 12708876676210341020
 X-VR-SPAMSTATE: OK
 X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgeeffedrtddtgddvleduudculddtuddrgeefvddrtddtmdcutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpefhvfevufffkffojghfggfgsedtkeertdertddtnecuhfhrohhmpefuvghrghhiihcuffhmhihtrhhukhcuoehsvghrghhiihdrughmhihtrhhukhesfehmuggvsgdrtghomheqnecuggftrfgrthhtvghrnhepkedugeefudeigeduieejleelkeefvddvhfehheevhfdukeejieefgedtudevhedtnecuffhomhgrihhnpehhvggrugdrshgsnecukfhppeduvdejrddtrddtrddupddujeeirdduuddurddukeegrddvvddupdefjedrheelrddugedvrddutdegnecuvehluhhsthgvrhfuihiivgepudenucfrrghrrghmpehinhgvthepuddvjedrtddrtddruddpmhgrihhlfhhrohhmpehsvghrghhiihdrughmhihtrhhukhesfehmuggvsgdrtghomhdpnhgspghrtghpthhtohepuddprhgtphhtthhopeigvghnqdguvghvvghlsehlihhsthhsrdigvghnphhrohhjvggtthdrohhrghdpoffvtefjohhsthepmhhoheekfegmpdhmohguvgepshhmthhpohhuth
-DKIM-Signature: a=rsa-sha256; bh=6b/MBAdcX7V7P2Nt96V761xn41jitI/g+aKn4sKLesI=;
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgeeffedrtddtgddvleduudculddtuddrgeefvddrtddtmdcutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpefhvfevufffkffojghfggfgsedtkeertdertddtnecuhfhrohhmpefuvghrghhiihcuffhmhihtrhhukhcuoehsvghrghhiihdrughmhihtrhhukhesfehmuggvsgdrtghomheqnecuggftrfgrthhtvghrnhephfehfeehudeileeikeffgfffgfefuddtveelvedvhfffgfelvdfgtddutdehfeeinecukfhppeduvdejrddtrddtrddupddujeeirdduuddurddukeegrddvvddupdefjedrheelrddugedvrddutdehnecuvehluhhsthgvrhfuihiivgepgeenucfrrghrrghmpehinhgvthepuddvjedrtddrtddruddpmhgrihhlfhhrohhmpehsvghrghhiihdrughmhihtrhhukhesfehmuggvsgdrtghomhdpnhgspghrtghpthhtohepuddprhgtphhtthhopeigvghnqdguvghvvghlsehlihhsthhsrdigvghnphhrohhjvggtthdrohhrghdpoffvtefjohhsthepmhhoheekvdgmpdhmohguvgepshhmthhpohhuth
+DKIM-Signature: a=rsa-sha256; bh=wzJGPzWI7lL37VfLBh9g3OqTx3SpBQMv+io19vUhKSI=;
  c=relaxed/relaxed; d=3mdeb.com; h=From; s=ovhmo3617313-selector1;
- t=1748611162; v=1;
- b=RLVB/6EW7AX63X7XuboL0LJKFS1pB903Pl9pBA8I+sF6xEp+DiyWfHfvyC28iGPCi9fXbnNN
- dPlLSd5sfq7yAmN/Nan4hJvHqsa/Pk1vGJAtYyf5EkoQ5xI7wGsTCKUwGcuy5Ic0VH2PwOYsDwe
- +JoaPDGFketeAwhzz15C04F5uyP3q8jsxBrr0xqtWQNDMEzVCAKBq4N9ZVJcolGKzvwTq1qDSR/
- JfpsOLV1YhXJ3dwlw97i+yH09bkHxmuqFLhV4iC+2Gy8wiRO9/f0uF0JAHb6h9MrKgGaarSyp6v
- JC0TN191+SlBGDM5dHDW+1bC6q7regUIvkGz3hK/9RrGw==
+ t=1748611167; v=1;
+ b=P1yuXhTV2FhzHLEx6qizEKIvBbFXbXU4JRWkbqxJS/2eGtvmfU26yFqGaPeyj610TYhb7s+m
+ PmsQhcwSeVILCgvJCBSqDPy8dGGwJHBMAfXvzzaFpuXMmXkKbiDXchthBgvant6fxQFncNRPxh0
+ T5cKJP8sJrYArt0u7/ic6a6ycwsGSM18LBoEQbwn/GfhKdcNkrASz5HPyC8cL4FPbLg1KcLIb2S
+ FTPAppTrI5jjrWmsJpogzKzS3+B05KQEFAFGeyMeINre6lPOtLNZNqpw1T4UDmuLEXWZN/37duy
+ xpakrVFG70Qw0cTC7N1/rabPQMDshFS9JLzB3/iK42FLA==
 
-Use slr_entry_amd_info::boot_params_base on AMD with SKINIT to get MBI
-location.
+This mostly involves not running Intel-specific code when on AMD.
 
-Another thing of interest is the location of SLRT which is bootloader's
-data after SKL.
+There are only a few new AMD-specific implementation details:
+ - finding SLB start and size and then mapping and reserving it in e820
+ - managing offset for adding the next TPM log entry (TXT-compatible
+   data prepared by SKL is stored inside of vendor data field within TCG
+   header)
 
 Signed-off-by: Krystian Hebel <krystian.hebel@3mdeb.com>
 Signed-off-by: Sergii Dmytruk <sergii.dmytruk@3mdeb.com>
 ---
- xen/arch/x86/boot/head.S          | 38 ++++++++++++++++----
- xen/arch/x86/boot/slaunch-early.c | 58 +++++++++++++++++++++++++++++++
- 2 files changed, 90 insertions(+), 6 deletions(-)
+ xen/arch/x86/e820.c    |  2 +-
+ xen/arch/x86/slaunch.c | 90 ++++++++++++++++++++++++++++++++++--------
+ xen/arch/x86/tpm.c     | 68 ++++++++++++++++++++++++++++++-
+ 3 files changed, 141 insertions(+), 19 deletions(-)
 
-diff --git a/xen/arch/x86/boot/head.S b/xen/arch/x86/boot/head.S
-index 7376fa85d5..66e1a21033 100644
---- a/xen/arch/x86/boot/head.S
-+++ b/xen/arch/x86/boot/head.S
-@@ -354,10 +354,12 @@ cs32_switch:
-         jmp     *%edi
+diff --git a/xen/arch/x86/e820.c b/xen/arch/x86/e820.c
+index 60f00e5259..cf13ab269a 100644
+--- a/xen/arch/x86/e820.c
++++ b/xen/arch/x86/e820.c
+@@ -444,7 +444,7 @@ static uint64_t __init mtrr_top_of_ram(void)
+     ASSERT(paddr_bits);
+     addr_mask = ((1ULL << paddr_bits) - 1) & PAGE_MASK;
  
-         /*
--         * Entry point for TrenchBoot Secure Launch on Intel TXT platforms.
-+         * Entry point for TrenchBoot Secure Launch, common for Intel TXT and
-+         * AMD Secure Startup, but state is slightly different.
-          *
-+         * On Intel:
-          * CPU is in 32b protected mode with paging disabled. On entry:
--         * - %ebx = %eip = MLE entry point,
-+         * - %ebx = %eip = this entry point,
-          * - stack pointer is undefined,
-          * - CS is flat 4GB code segment,
-          * - DS, ES, SS, FS and GS are undefined according to TXT SDG, but this
-@@ -375,13 +377,34 @@ cs32_switch:
-          * - trying to enter real mode results in reset
-          * - APs must be brought up by MONITOR or GETSEC[WAKEUP], depending on
-          *   which is supported by a given SINIT ACM
-+         *
-+         * On AMD (as implemented by TrenchBoot's SKL):
-+         * CPU is in 32b protected mode with paging disabled. On entry:
-+         * - %ebx = %eip = this entry point,
-+         * - %ebp holds base address of SKL
-+         * - stack pointer is treated as undefined for parity with TXT,
-+         * - CS is flat 4GB code segment,
-+         * - DS, ES, SS are flat 4GB data segments, but treated as undefined for
-+         *   parity with TXT.
-+         *
-+         * Additional restrictions:
-+         * - interrupts (including NMIs and SMIs) are disabled and must be
-+         *   enabled later
-+         * - APs must be brought up by SIPI without an INIT
-          */
- slaunch_stub_entry:
-         /* Calculate the load base address. */
-         mov     %ebx, %esi
-         sub     $sym_offs(slaunch_stub_entry), %esi
+-    if ( slaunch_active )
++    if ( slaunch_active && boot_cpu_data.x86_vendor == X86_VENDOR_INTEL )
+         txt_restore_mtrrs(e820_verbose);
  
--        /* Mark Secure Launch boot protocol and jump to common entry. */
-+        /* On AMD, %ebp holds the base address of SLB, save it for later. */
-+        mov     %ebp, %ebx
+     rdmsrl(MSR_MTRRcap, mtrr_cap);
+diff --git a/xen/arch/x86/slaunch.c b/xen/arch/x86/slaunch.c
+index 2390d0a3f3..58a0de910d 100644
+--- a/xen/arch/x86/slaunch.c
++++ b/xen/arch/x86/slaunch.c
+@@ -17,6 +17,10 @@
+ #include <asm/slaunch.h>
+ #include <asm/tpm.h>
+ 
++/* SLB is 64k, 64k-aligned */
++#define SKINIT_SLB_SIZE   0x10000
++#define SKINIT_SLB_ALIGN  0x10000
 +
-+        /*
-+         * Mark Secure Launch boot protocol and jump to common entry. Note that
-+         * all general purpose registers except %ebx and %esi are clobbered
-+         * between here and .Lslaunch_proto.
-+         */
-         mov     $SLAUNCH_BOOTLOADER_MAGIC, %eax
-         jmp     .Lset_stack
+ /*
+  * These variables are assigned to by the code near Xen's entry point.
+  *
+@@ -39,6 +43,8 @@ struct slr_table *__init slaunch_get_slrt(void)
  
-@@ -508,15 +531,18 @@ __start:
-         sub     $8, %esp
+     if (slrt == NULL) {
+         int rc;
++        bool intel_cpu = (boot_cpu_data.x86_vendor == X86_VENDOR_INTEL);
++        uint16_t slrt_architecture = intel_cpu ? SLR_INTEL_TXT : SLR_AMD_SKINIT;
  
-         push    %esp                             /* pointer to output structure */
-+        push    %ebx                             /* Slaunch parameter on AMD */
-         lea     sym_offs(__2M_rwdata_end), %ecx  /* end of target image */
-         lea     sym_offs(_start), %edx           /* target base address */
-         mov     %esi, %eax                       /* load base address */
-         /*
--         * slaunch_early_init(load/eax, tgt/edx, tgt_end/ecx, ret/stk) using
--         * fastcall calling convention.
-+         * slaunch_early_init(load/eax, tgt/edx, tgt_end/ecx,
-+         *                     slaunch/stk, ret/stk)
-+         *
-+         * Uses fastcall calling convention.
-          */
-         call    slaunch_early_init
--        add     $4, %esp                         /* pop the fourth parameter */
-+        add     $8, %esp                         /* pop last two parameters */
+         slrt = __va(slaunch_slrt);
  
-         /* Move outputs of slaunch_early_init() from stack into registers. */
-         pop     %eax  /* physical MBI address */
-diff --git a/xen/arch/x86/boot/slaunch-early.c b/xen/arch/x86/boot/slaunch-early.c
-index 662144e42f..ac4c294e61 100644
---- a/xen/arch/x86/boot/slaunch-early.c
-+++ b/xen/arch/x86/boot/slaunch-early.c
-@@ -7,6 +7,20 @@
- #include <xen/slr-table.h>
- #include <xen/types.h>
- #include <asm/intel-txt.h>
-+#include <asm/x86-vendors.h>
-+
-+/*
-+ * The AMD-defined structure layout for the SLB. The last two fields are
-+ * SL-specific.
-+ */
-+struct skinit_sl_header
+@@ -50,9 +56,9 @@ struct slr_table *__init slaunch_get_slrt(void)
+         /* XXX: are newer revisions allowed? */
+         if ( slrt->revision != SLR_TABLE_REVISION )
+             panic("SLRT is of unsupported revision: %#04x!\n", slrt->revision);
+-        if ( slrt->architecture != SLR_INTEL_TXT )
+-            panic("SLRT is for unexpected architecture: %#04x!\n",
+-                  slrt->architecture);
++        if ( slrt->architecture != slrt_architecture )
++            panic("SLRT is for unexpected architecture: %#04x != %#04x!\n",
++                  slrt->architecture, slrt_architecture);
+         if ( slrt->size > slrt->max_size )
+             panic("SLRT is larger than its max size: %#08x > %#08x!\n",
+                   slrt->size, slrt->max_size);
+@@ -67,6 +73,23 @@ struct slr_table *__init slaunch_get_slrt(void)
+     return slrt;
+ }
+ 
++static uint32_t __init get_slb_start(void)
 +{
-+    uint16_t skl_entry_point;
-+    uint16_t length;
-+    uint8_t reserved[62];
-+    uint16_t skl_info_offset;
-+    uint16_t bootloader_data_offset;
-+} __packed;
- 
- struct early_init_results
++    /*
++     * The runtime computation relies on size being a power of 2 and equal to
++     * alignment. Make sure these assumptions hold.
++     */
++    BUILD_BUG_ON(SKINIT_SLB_SIZE != SKINIT_SLB_ALIGN);
++    BUILD_BUG_ON(SKINIT_SLB_SIZE == 0);
++    BUILD_BUG_ON((SKINIT_SLB_SIZE & (SKINIT_SLB_SIZE - 1)) != 0);
++
++    /*
++     * Rounding any address within SLB down to alignment gives SLB base and
++     * SLRT is inside SLB on AMD.
++     */
++    return slaunch_slrt & ~(SKINIT_SLB_SIZE - 1);
++}
++
+ void __init slaunch_map_mem_regions(void)
  {
-@@ -14,9 +28,25 @@ struct early_init_results
-     uint32_t slrt_pa;
- } __packed;
+     int rc;
+@@ -77,7 +100,10 @@ void __init slaunch_map_mem_regions(void)
+     BUG_ON(rc != 0);
  
-+static bool is_intel_cpu(void)
+     /* Vendor-specific part. */
+-    txt_map_mem_regions();
++    if ( boot_cpu_data.x86_vendor == X86_VENDOR_INTEL )
++        txt_map_mem_regions();
++    else if ( boot_cpu_data.x86_vendor == X86_VENDOR_AMD )
++        slaunch_map_l2(get_slb_start(), SKINIT_SLB_SIZE);
+ 
+     find_evt_log(slaunch_get_slrt(), &evt_log_addr, &evt_log_size);
+     if ( evt_log_addr != NULL )
+@@ -95,7 +121,18 @@ void __init slaunch_reserve_mem_regions(void)
+     uint32_t evt_log_size;
+ 
+     /* Vendor-specific part. */
+-    txt_reserve_mem_regions();
++    if ( boot_cpu_data.x86_vendor == X86_VENDOR_INTEL )
++    {
++        txt_reserve_mem_regions();
++    }
++    else if ( boot_cpu_data.x86_vendor == X86_VENDOR_AMD )
++    {
++        uint64_t slb_start = get_slb_start();
++        uint64_t slb_end = slb_start + SKINIT_SLB_SIZE;
++        printk("SLAUNCH: reserving SLB (%#lx - %#lx)\n", slb_start, slb_end);
++        rc = reserve_e820_ram(&e820_raw, slb_start, slb_end);
++        BUG_ON(rc == 0);
++    }
+ 
+     find_evt_log(slaunch_get_slrt(), &evt_log_addr, &evt_log_size);
+     if ( evt_log_addr != NULL )
+@@ -119,20 +156,41 @@ void __init slaunch_measure_slrt(void)
+          * In revision one of the SLRT, only platform-specific info table is
+          * measured.
+          */
+-        struct slr_entry_intel_info tmp;
+-        struct slr_entry_intel_info *entry;
++        if ( boot_cpu_data.x86_vendor == X86_VENDOR_INTEL )
++        {
++            struct slr_entry_intel_info tmp;
++            struct slr_entry_intel_info *entry;
++
++            entry = (struct slr_entry_intel_info *)
++                slr_next_entry_by_tag(slrt, NULL, SLR_ENTRY_INTEL_INFO);
++            if ( entry == NULL )
++                panic("SLRT is missing Intel-specific information!\n");
+ 
+-        entry = (struct slr_entry_intel_info *)
+-            slr_next_entry_by_tag(slrt, NULL, SLR_ENTRY_INTEL_INFO);
+-        if ( entry == NULL )
+-            panic("SLRT is missing Intel-specific information!\n");
++            tmp = *entry;
++            tmp.boot_params_base = 0;
++            tmp.txt_heap = 0;
+ 
+-        tmp = *entry;
+-        tmp.boot_params_base = 0;
+-        tmp.txt_heap = 0;
++            tpm_hash_extend(DRTM_LOC, DRTM_DATA_PCR, (uint8_t *)&tmp,
++                            sizeof(tmp), DLE_EVTYPE_SLAUNCH, NULL, 0);
++        }
++        else if ( boot_cpu_data.x86_vendor == X86_VENDOR_AMD )
++        {
++            struct slr_entry_amd_info tmp;
++            struct slr_entry_amd_info *entry;
++
++            entry = (struct slr_entry_amd_info *)
++                slr_next_entry_by_tag(slrt, NULL, SLR_ENTRY_AMD_INFO);
++            if ( entry == NULL )
++                panic("SLRT is missing AMD-specific information!\n");
+ 
+-        tpm_hash_extend(DRTM_LOC, DRTM_DATA_PCR, (uint8_t *)&tmp,
+-                        sizeof(tmp), DLE_EVTYPE_SLAUNCH, NULL, 0);
++            tmp = *entry;
++            tmp.next = 0;
++            tmp.slrt_base = 0;
++            tmp.boot_params_base = 0;
++
++            tpm_hash_extend(DRTM_LOC, DRTM_DATA_PCR, (uint8_t *)&tmp,
++                            sizeof(tmp), DLE_EVTYPE_SLAUNCH, NULL, 0);
++        }
+     }
+     else
+     {
+diff --git a/xen/arch/x86/tpm.c b/xen/arch/x86/tpm.c
+index 3c145fd3cc..77f910a8c9 100644
+--- a/xen/arch/x86/tpm.c
++++ b/xen/arch/x86/tpm.c
+@@ -11,6 +11,7 @@
+ #include <asm/intel-txt.h>
+ #include <asm/slaunch.h>
+ #include <asm/tpm.h>
++#include <asm/x86-vendors.h>
+ 
+ #ifdef __EARLY_SLAUNCH__
+ 
+@@ -52,11 +53,31 @@ void *(memcpy)(void *dest, const void *src, size_t n)
+     return dest;
+ }
+ 
++static bool is_amd_cpu(void)
 +{
 +    /*
 +     * asm/processor.h can't be included in early code, which means neither
@@ -208,53 +280,103 @@ index 662144e42f..ac4c294e61 100644
 +    asm volatile ( "cpuid"
 +          : "=a" (eax), "=b" (ebx), "=c" (ecx), "=d" (edx)
 +          : "0" (0), "c" (0) );
-+    return ebx == X86_VENDOR_INTEL_EBX
-+        && ecx == X86_VENDOR_INTEL_ECX
-+        && edx == X86_VENDOR_INTEL_EDX;
++    return ebx == X86_VENDOR_AMD_EBX
++        && ecx == X86_VENDOR_AMD_ECX
++        && edx == X86_VENDOR_AMD_EDX;
 +}
 +
- void asmlinkage slaunch_early_init(uint32_t load_base_addr,
-                                    uint32_t tgt_base_addr,
-                                    uint32_t tgt_end_addr,
-+                                   uint32_t slaunch_param,
-                                    struct early_init_results *result)
- {
-     void *txt_heap;
-@@ -26,6 +56,34 @@ void asmlinkage slaunch_early_init(uint32_t load_base_addr,
-     const struct slr_entry_intel_info *intel_info;
-     uint32_t size = tgt_end_addr - tgt_base_addr;
+ #else   /* __EARLY_SLAUNCH__ */
  
-+    if ( !is_intel_cpu() )
+ #include <xen/mm.h>
+ #include <xen/pfn.h>
+ 
++static bool is_amd_cpu(void)
++{
++    return boot_cpu_data.x86_vendor == X86_VENDOR_AMD;
++}
++
+ #endif  /* __EARLY_SLAUNCH__ */
+ 
+ #define TPM_LOC_REG(loc, reg)   (0x1000 * (loc) + (reg))
+@@ -241,6 +262,21 @@ struct TPM12_PCREvent {
+     uint8_t Data[];
+ };
+ 
++struct tpm1_spec_id_event {
++    uint32_t pcrIndex;
++    uint32_t eventType;
++    uint8_t digest[20];
++    uint32_t eventSize;
++    uint8_t signature[16];
++    uint32_t platformClass;
++    uint8_t specVersionMinor;
++    uint8_t specVersionMajor;
++    uint8_t specErrata;
++    uint8_t uintnSize;
++    uint8_t vendorInfoSize;
++    uint8_t vendorInfo[0];  /* variable number of members */
++} __packed;
++
+ struct txt_ev_log_container_12 {
+     char        Signature[20];      /* "TXT Event Container", null-terminated */
+     uint8_t     Reserved[12];
+@@ -384,6 +420,16 @@ static void *create_log_event12(struct txt_ev_log_container_12 *evt_log,
+ {
+     struct TPM12_PCREvent *new_entry;
+ 
++    if ( is_amd_cpu() )
 +    {
 +        /*
-+         * Not an Intel CPU. Currently the only other option is AMD with SKINIT
-+         * and secure-kernel-loader (SKL).
++         * On AMD, TXT-compatible structure is stored as vendor data of
++         * TCG-defined event log header.
 +         */
-+        const struct slr_entry_amd_info *amd_info;
-+        const struct skinit_sl_header *sl_header = (void *)slaunch_param;
-+
-+        /*
-+         * slaunch_param holds a physical address of SLB.
-+         * Bootloader's data is SLRT.
-+         */
-+        result->slrt_pa = slaunch_param + sl_header->bootloader_data_offset;
-+        result->mbi_pa = 0;
-+
-+        slrt = (struct slr_table *)(uintptr_t)result->slrt_pa;
-+
-+        amd_info = (const struct slr_entry_amd_info *)
-+            slr_next_entry_by_tag(slrt, NULL, SLR_ENTRY_AMD_INFO);
-+        /* Basic checks only, SKL checked and consumed the rest. */
-+        if ( amd_info == NULL || amd_info->hdr.size != sizeof(*amd_info) )
-+            return;
-+
-+        result->mbi_pa = amd_info->boot_params_base;
-+        return;
++        struct tpm1_spec_id_event *spec_id = (void *)evt_log;
++        evt_log = (struct txt_ev_log_container_12 *)&spec_id->vendorInfo[0];
 +    }
 +
-     txt_heap = txt_init();
-     os_mle = txt_os_mle_data_start(txt_heap);
-     os_sinit = txt_os_sinit_data_start(txt_heap);
+     new_entry = (void *)(((uint8_t *)evt_log) + evt_log->NextEventOffset);
+ 
+     /*
+@@ -832,11 +878,29 @@ static uint32_t tpm2_hash_extend(unsigned loc, const uint8_t *buf,
+ 
+ #endif /* __EARLY_SLAUNCH__ */
+ 
+-static struct heap_event_log_pointer_element2_1 *find_evt_log_ext_data(void)
++static struct heap_event_log_pointer_element2_1 *
++find_evt_log_ext_data(struct tpm2_spec_id_event *evt_log)
+ {
+     struct txt_os_sinit_data *os_sinit;
+     struct txt_ext_data_element *ext_data;
+ 
++    if ( is_amd_cpu() )
++    {
++        /*
++         * Event log pointer is defined by TXT specification, but
++         * secure-kernel-loader provides a compatible structure in vendor data
++         * of the log.
++         */
++        const uint8_t *data_size =
++            (void *)&evt_log->digestSizes[evt_log->digestCount];
++
++        if ( *data_size != sizeof(struct heap_event_log_pointer_element2_1) )
++            return NULL;
++
++        /* Vendor data directly follows one-byte size. */
++        return (void *)(data_size + 1);
++    }
++
+     os_sinit = txt_os_sinit_data_start(__va(txt_read(TXTCR_HEAP_BASE)));
+     ext_data = (void *)((uint8_t *)os_sinit + sizeof(*os_sinit));
+ 
+@@ -870,7 +934,7 @@ create_log_event20(struct tpm2_spec_id_event *evt_log, uint32_t evt_log_size,
+     unsigned i;
+     uint8_t *p;
+ 
+-    log_ext_data = find_evt_log_ext_data();
++    log_ext_data = find_evt_log_ext_data(evt_log);
+     if ( log_ext_data == NULL )
+         return log_hashes;
+ 
 -- 
 2.49.0
 
