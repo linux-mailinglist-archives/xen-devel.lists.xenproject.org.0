@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8298FAC8FB3
-	for <lists+xen-devel@lfdr.de>; Fri, 30 May 2025 15:19:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1000934.1381150 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 527C0AC8FB9
+	for <lists+xen-devel@lfdr.de>; Fri, 30 May 2025 15:19:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1000936.1381158 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uKzdG-0000xj-AK; Fri, 30 May 2025 13:18:46 +0000
+	id 1uKzdI-0001FS-LC; Fri, 30 May 2025 13:18:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1000934.1381150; Fri, 30 May 2025 13:18:46 +0000
+Received: by outflank-mailman (output) from mailman id 1000936.1381158; Fri, 30 May 2025 13:18:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uKzdG-0000u4-61; Fri, 30 May 2025 13:18:46 +0000
-Received: by outflank-mailman (input) for mailman id 1000934;
- Fri, 30 May 2025 13:18:44 +0000
+	id 1uKzdI-0001CJ-I2; Fri, 30 May 2025 13:18:48 +0000
+Received: by outflank-mailman (input) for mailman id 1000936;
+ Fri, 30 May 2025 13:18:47 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=sDQw=YO=3mdeb.com=sergii.dmytruk@srs-se1.protection.inumbo.net>)
- id 1uKzdE-0000ql-Fr
- for xen-devel@lists.xenproject.org; Fri, 30 May 2025 13:18:44 +0000
-Received: from 3.mo575.mail-out.ovh.net (3.mo575.mail-out.ovh.net
- [46.105.58.60]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9b4d507d-3d58-11f0-b894-0df219b8e170;
- Fri, 30 May 2025 15:18:42 +0200 (CEST)
-Received: from director2.ghost.mail-out.ovh.net (unknown [10.108.2.206])
- by mo575.mail-out.ovh.net (Postfix) with ESMTP id 4b83hx5zZRz28B8
- for <xen-devel@lists.xenproject.org>; Fri, 30 May 2025 13:18:41 +0000 (UTC)
-Received: from ghost-submission-5b5ff79f4f-2djnr (unknown [10.111.174.16])
- by director2.ghost.mail-out.ovh.net (Postfix) with ESMTPS id 9CD20C3BB2;
- Fri, 30 May 2025 13:18:40 +0000 (UTC)
-Received: from 3mdeb.com ([37.59.142.107])
- by ghost-submission-5b5ff79f4f-2djnr with ESMTPSA
- id B0t9EzCwOWhgJgAAIK2ldA
- (envelope-from <sergii.dmytruk@3mdeb.com>); Fri, 30 May 2025 13:18:40 +0000
+ id 1uKzdG-0000ql-U2
+ for xen-devel@lists.xenproject.org; Fri, 30 May 2025 13:18:46 +0000
+Received: from 10.mo583.mail-out.ovh.net (10.mo583.mail-out.ovh.net
+ [46.105.52.148]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9d18b53d-3d58-11f0-b894-0df219b8e170;
+ Fri, 30 May 2025 15:18:45 +0200 (CEST)
+Received: from director5.ghost.mail-out.ovh.net (unknown [10.109.176.202])
+ by mo583.mail-out.ovh.net (Postfix) with ESMTP id 4b83j06CYsz1kgY
+ for <xen-devel@lists.xenproject.org>; Fri, 30 May 2025 13:18:44 +0000 (UTC)
+Received: from ghost-submission-5b5ff79f4f-r8s5j (unknown [10.110.168.204])
+ by director5.ghost.mail-out.ovh.net (Postfix) with ESMTPS id B94B4100223;
+ Fri, 30 May 2025 13:18:43 +0000 (UTC)
+Received: from 3mdeb.com ([37.59.142.111])
+ by ghost-submission-5b5ff79f4f-r8s5j with ESMTPSA
+ id rs9PIzOwOWjQtgAAgydd6Q
+ (envelope-from <sergii.dmytruk@3mdeb.com>); Fri, 30 May 2025 13:18:43 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,300 +46,214 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9b4d507d-3d58-11f0-b894-0df219b8e170
-Authentication-Results:garm.ovh; auth=pass (GARM-107S001d1b71519-d27e-408c-8523-b9c0e2d47a6d,
+X-Inumbo-ID: 9d18b53d-3d58-11f0-b894-0df219b8e170
+Authentication-Results:garm.ovh; auth=pass (GARM-111S0054675508b-6510-4009-9374-a7b742f4e717,
                     A4E380CC922F0B59227EC5DCC46884561651840B) smtp.auth=sergii.dmytruk@3mdeb.com
 X-OVh-ClientIp:176.111.184.221
 From: Sergii Dmytruk <sergii.dmytruk@3mdeb.com>
 To: xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>,
+Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	Ross Philipson <ross.philipson@oracle.com>,
+	Jan Beulich <jbeulich@suse.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
-	Ross Philipson <ross.philipson@oracle.com>,
 	trenchboot-devel@googlegroups.com
-Subject: [PATCH v3 04/22] x86/boot/slaunch-early: implement early initialization
-Date: Fri, 30 May 2025 16:17:46 +0300
-Message-ID: <16a544876163afece619d50f80869aaacc9c797c.1748611041.git.sergii.dmytruk@3mdeb.com>
+Subject: [PATCH v3 05/22] x86/boot/slaunch-early: early TXT checks and boot data retrieval
+Date: Fri, 30 May 2025 16:17:47 +0300
+Message-ID: <a05ef5d70803eb25ab959de011c9717ce9194558.1748611041.git.sergii.dmytruk@3mdeb.com>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <cover.1748611041.git.sergii.dmytruk@3mdeb.com>
 References: <cover.1748611041.git.sergii.dmytruk@3mdeb.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 12695928826315977884
+X-Ovh-Tracer-Id: 12696773251544298652
 X-VR-SPAMSTATE: OK
 X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgeeffedrtddtgddvleduudculddtuddrgeefvddrtddtmdcutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpefhvfevufffkffojghfggfgsedtkeertdertddtnecuhfhrohhmpefuvghrghhiihcuffhmhihtrhhukhcuoehsvghrghhiihdrughmhihtrhhukhesfehmuggvsgdrtghomheqnecuggftrfgrthhtvghrnhepffejgfduveektedugeeuiefhtdfhjefgieelkeeugfeggedtgeevheefheeffeeunecuffhomhgrihhnpegsrghsvgdrmhgrphdphhgvrggurdhssgenucfkphepuddvjedrtddrtddruddpudejiedrudduuddrudekgedrvddvuddpfeejrdehledrudegvddruddtjeenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepihhnvghtpeduvdejrddtrddtrddupdhmrghilhhfrhhomhepshgvrhhgihhirdgumhihthhruhhkseefmhguvggsrdgtohhmpdhnsggprhgtphhtthhopedupdhrtghpthhtohepgigvnhdquggvvhgvlheslhhishhtshdrgigvnhhprhhojhgvtghtrdhorhhgpdfovfetjfhoshhtpehmohehjeehmgdpmhhouggvpehsmhhtphhouhht
-DKIM-Signature: a=rsa-sha256; bh=GvKdVlecLh2PmzTm3hSectebiIzksYZuaxKe05SsphE=;
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgeeffedrtddtgddvleduudculddtuddrgeefvddrtddtmdcutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpefhvfevufffkffojghfggfgsedtkeertdertddtnecuhfhrohhmpefuvghrghhiihcuffhmhihtrhhukhcuoehsvghrghhiihdrughmhihtrhhukhesfehmuggvsgdrtghomheqnecuggftrfgrthhtvghrnhephfehfeehudeileeikeffgfffgfefuddtveelvedvhfffgfelvdfgtddutdehfeeinecukfhppeduvdejrddtrddtrddupddujeeirdduuddurddukeegrddvvddupdefjedrheelrddugedvrdduuddunecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehinhgvthepuddvjedrtddrtddruddpmhgrihhlfhhrohhmpehsvghrghhiihdrughmhihtrhhukhesfehmuggvsgdrtghomhdpnhgspghrtghpthhtohepuddprhgtphhtthhopeigvghnqdguvghvvghlsehlihhsthhsrdigvghnphhrohhjvggtthdrohhrghdpoffvtefjohhsthepmhhoheekfegmpdhmohguvgepshhmthhpohhuth
+DKIM-Signature: a=rsa-sha256; bh=Ze8+L6G+0Rc7+4Bq+m7/6vFCoR62w3qclGgLacvIoZA=;
  c=relaxed/relaxed; d=3mdeb.com; h=From; s=ovhmo3617313-selector1;
- t=1748611121; v=1;
- b=YWF4HxQni853VwJ2/M7u7AJUwzUCW2rBUmmo7Iil0Sb4T6MHZdZcw+7Cdx9bGPsaHT9sRnBf
- iKX3omW9+HJ4/rCPVZdIcPc6in7tDPmWlRrzwDBjLRMJFGpU74UwIXTt4P5cUciJ+es+am0T0Rd
- JIDga3+IqfphDU98v6vXoNkMyi7E0pS+ioytkxiVt+gTga1fEcZE9zF+lyCgvBrR7NZy69qv5OD
- 84hP29LLpnp69wfRFOGetK/fy0vAu0XW7VvDBE8dd3Dfx9Y2jTbHXRt1rJgHvjBKiBMOeitzg48
- I/QBz1ndITA+URa6BbRvKpdpDMTUMKZKEvCJACaq/n6rA==
+ t=1748611124; v=1;
+ b=eHQo6MMWNilw9KMr/5ps9HwV90sMmmQb4iCsqFYY6RaZIbnl6BYqwYk2ch/L+oVHP4Cs+DGj
+ BRDKLlcBdEXL0aviHBoLHwJ5XRo+yzbyPAMzQvYCcz1tTH9xMgOh5L0xB+OWP2A8pHAyCYKM4M9
+ yEIJzoYaZWZH90ES0jz39TDIYF0uayV6RK2cU/oBe9o4DnAsvqvukBd4Jbtv0J9CijBkyNsqphN
+ +uYQHoJE5TLiETBh3xa7cCZwUjKHdEAGfOk9yy5IdF0Y9tyEUj1dOpW4LlEAnS1yCeh8MrJkxDM
+ N82/v94/hsyo4IMycSoccIQppINRE479nyELIOzOG3XjA==
 
-Make head.S invoke a C function to retrieve MBI and SLRT addresses in a
-platform-specific way.  This is also the place to perform sanity checks
-of DRTM.
+From: Krystian Hebel <krystian.hebel@3mdeb.com>
+
+The tests validate that important parts of memory are protected against
+DMA attacks, including Xen and MBI. Modules can be tested later, when it
+is possible to report issues to a user before invoking TXT reset.
+
+TPM event log validation is temporarily disabled due to an issue with
+its allocation by bootloader (GRUB) which will need to be modified to
+address this. Ultimately event log will also have to be validated early
+as it is used immediately after these tests to hold MBI measurements.
+See larger comment in txt_verify_pmr_ranges().
 
 Signed-off-by: Krystian Hebel <krystian.hebel@3mdeb.com>
 Signed-off-by: Sergii Dmytruk <sergii.dmytruk@3mdeb.com>
 ---
- xen/arch/x86/Makefile                |  1 +
- xen/arch/x86/boot/Makefile           |  5 +++-
- xen/arch/x86/boot/head.S             | 43 ++++++++++++++++++++++++++++
- xen/arch/x86/boot/slaunch-early.c    | 41 ++++++++++++++++++++++++++
- xen/arch/x86/include/asm/intel-txt.h | 16 +++++++++++
- xen/arch/x86/include/asm/slaunch.h   | 26 +++++++++++++++++
- xen/arch/x86/slaunch.c               | 27 +++++++++++++++++
- 7 files changed, 158 insertions(+), 1 deletion(-)
- create mode 100644 xen/arch/x86/boot/slaunch-early.c
- create mode 100644 xen/arch/x86/include/asm/slaunch.h
- create mode 100644 xen/arch/x86/slaunch.c
+ xen/arch/x86/boot/slaunch-early.c    |   6 ++
+ xen/arch/x86/include/asm/intel-txt.h | 112 +++++++++++++++++++++++++++
+ 2 files changed, 118 insertions(+)
 
-diff --git a/xen/arch/x86/Makefile b/xen/arch/x86/Makefile
-index ce724a9daa..aa20eb42b5 100644
---- a/xen/arch/x86/Makefile
-+++ b/xen/arch/x86/Makefile
-@@ -58,6 +58,7 @@ obj-$(CONFIG_COMPAT) += x86_64/physdev.o
- obj-$(CONFIG_X86_PSR) += psr.o
- obj-y += setup.o
- obj-y += shutdown.o
-+obj-y += slaunch.o
- obj-y += smp.o
- obj-y += smpboot.o
- obj-y += spec_ctrl.o
-diff --git a/xen/arch/x86/boot/Makefile b/xen/arch/x86/boot/Makefile
-index ff0d61d7ac..5471b966dd 100644
---- a/xen/arch/x86/boot/Makefile
-+++ b/xen/arch/x86/boot/Makefile
-@@ -5,6 +5,7 @@ obj-bin-y += $(obj64)
- obj32 := cmdline.32.o
- obj32 += reloc.32.o
- obj32 += reloc-trampoline.32.o
-+obj32 += slaunch-early.32.o
- 
- obj64 := reloc-trampoline.o
- 
-@@ -28,6 +29,8 @@ $(obj32): XEN_CFLAGS := $(CFLAGS_x86_32) -fpic
- $(obj)/%.32.o: $(src)/%.c FORCE
- 	$(call if_changed_rule,cc_o_c)
- 
-+$(obj)/slaunch-early.32.o: XEN_CFLAGS += -D__EARLY_SLAUNCH__
-+
- orphan-handling-$(call ld-option,--orphan-handling=error) := --orphan-handling=error
- LDFLAGS_DIRECT-$(call ld-option,--warn-rwx-segments) := --no-warn-rwx-segments
- LDFLAGS_DIRECT += $(LDFLAGS_DIRECT-y)
-@@ -81,7 +84,7 @@ cmd_combine = \
-               --bin1      $(obj)/built-in-32.base.bin \
-               --bin2      $(obj)/built-in-32.offset.bin \
-               --map       $(obj)/built-in-32.base.map \
--              --exports   cmdline_parse_early,reloc,reloc_trampoline32 \
-+              --exports   cmdline_parse_early,reloc,reloc_trampoline32,slaunch_early_init \
-               --output    $@
- 
- targets += built-in-32.S
-diff --git a/xen/arch/x86/boot/head.S b/xen/arch/x86/boot/head.S
-index a69107bd81..b4cf423c80 100644
---- a/xen/arch/x86/boot/head.S
-+++ b/xen/arch/x86/boot/head.S
-@@ -472,6 +472,10 @@ __start:
-         /* Bootloaders may set multiboot{1,2}.mem_lower to a nonzero value. */
-         xor     %edx,%edx
- 
-+        /* Check for TrenchBoot slaunch bootloader. */
-+        cmp     $SLAUNCH_BOOTLOADER_MAGIC, %eax
-+        je      .Lslaunch_proto
-+
-         /* Check for Multiboot2 bootloader. */
-         cmp     $MULTIBOOT2_BOOTLOADER_MAGIC,%eax
-         je      .Lmultiboot2_proto
-@@ -487,6 +491,45 @@ __start:
-         cmovnz  MB_mem_lower(%ebx),%edx
-         jmp     trampoline_bios_setup
- 
-+.Lslaunch_proto:
-+        /*
-+         * Upon reaching here, CPU state mostly matches the one setup by the
-+         * bootloader with ESP, ESI and EDX being clobbered above.
-+         */
-+
-+        /* Save information that TrenchBoot slaunch was used. */
-+        movb    $1, sym_esi(slaunch_active)
-+
-+        /*
-+         * Prepare space for output parameter of slaunch_early_init(), which is
-+         * a structure of two uint32_t fields.
-+         */
-+        sub     $8, %esp
-+
-+        push    %esp                             /* pointer to output structure */
-+        lea     sym_offs(__2M_rwdata_end), %ecx  /* end of target image */
-+        lea     sym_offs(_start), %edx           /* target base address */
-+        mov     %esi, %eax                       /* load base address */
-+        /*
-+         * slaunch_early_init(load/eax, tgt/edx, tgt_end/ecx, ret/stk) using
-+         * fastcall calling convention.
-+         */
-+        call    slaunch_early_init
-+        add     $4, %esp                         /* pop the fourth parameter */
-+
-+        /* Move outputs of slaunch_early_init() from stack into registers. */
-+        pop     %eax  /* physical MBI address */
-+        pop     %edx  /* physical SLRT address */
-+
-+        /* Save physical address of SLRT for C code. */
-+        mov     %edx, sym_esi(slaunch_slrt)
-+
-+        /* Store MBI address in EBX where MB2 code expects it. */
-+        mov     %eax, %ebx
-+
-+        /* Move magic number expected by Multiboot 2 to EAX and fall through. */
-+        movl    $MULTIBOOT2_BOOTLOADER_MAGIC, %eax
-+
- .Lmultiboot2_proto:
-         /* Skip Multiboot2 information fixed part. */
-         lea     (MB2_fixed_sizeof+MULTIBOOT2_TAG_ALIGN-1)(%ebx),%ecx
 diff --git a/xen/arch/x86/boot/slaunch-early.c b/xen/arch/x86/boot/slaunch-early.c
-new file mode 100644
-index 0000000000..c9d364bcd5
---- /dev/null
+index c9d364bcd5..662144e42f 100644
+--- a/xen/arch/x86/boot/slaunch-early.c
 +++ b/xen/arch/x86/boot/slaunch-early.c
-@@ -0,0 +1,41 @@
-+/*
-+ * SPDX-License-Identifier: GPL-2.0-or-later
-+ *
-+ * Copyright (c) 2022-2025 3mdeb Sp. z o.o. All rights reserved.
-+ */
+@@ -22,10 +22,13 @@ void asmlinkage slaunch_early_init(uint32_t load_base_addr,
+     void *txt_heap;
+     const struct txt_os_mle_data *os_mle;
+     const struct slr_table *slrt;
++    const struct txt_os_sinit_data *os_sinit;
+     const struct slr_entry_intel_info *intel_info;
++    uint32_t size = tgt_end_addr - tgt_base_addr;
+ 
+     txt_heap = txt_init();
+     os_mle = txt_os_mle_data_start(txt_heap);
++    os_sinit = txt_os_sinit_data_start(txt_heap);
+ 
+     result->slrt_pa = os_mle->slrt;
+     result->mbi_pa = 0;
+@@ -38,4 +41,7 @@ void asmlinkage slaunch_early_init(uint32_t load_base_addr,
+         return;
+ 
+     result->mbi_pa = intel_info->boot_params_base;
 +
-+#include <xen/slr-table.h>
-+#include <xen/types.h>
-+#include <asm/intel-txt.h>
-+
-+struct early_init_results
-+{
-+    uint32_t mbi_pa;
-+    uint32_t slrt_pa;
-+} __packed;
-+
-+void asmlinkage slaunch_early_init(uint32_t load_base_addr,
-+                                   uint32_t tgt_base_addr,
-+                                   uint32_t tgt_end_addr,
-+                                   struct early_init_results *result)
-+{
-+    void *txt_heap;
-+    const struct txt_os_mle_data *os_mle;
-+    const struct slr_table *slrt;
-+    const struct slr_entry_intel_info *intel_info;
-+
-+    txt_heap = txt_init();
-+    os_mle = txt_os_mle_data_start(txt_heap);
-+
-+    result->slrt_pa = os_mle->slrt;
-+    result->mbi_pa = 0;
-+
-+    slrt = (const struct slr_table *)(uintptr_t)os_mle->slrt;
-+
-+    intel_info = (const struct slr_entry_intel_info *)
-+        slr_next_entry_by_tag(slrt, NULL, SLR_ENTRY_INTEL_INFO);
-+    if ( intel_info == NULL || intel_info->hdr.size != sizeof(*intel_info) )
-+        return;
-+
-+    result->mbi_pa = intel_info->boot_params_base;
-+}
++    txt_verify_pmr_ranges(os_mle, os_sinit, intel_info,
++                          load_base_addr, tgt_base_addr, size);
+ }
 diff --git a/xen/arch/x86/include/asm/intel-txt.h b/xen/arch/x86/include/asm/intel-txt.h
-index cc2d312f4d..7658457e9d 100644
+index 7658457e9d..122b4293ea 100644
 --- a/xen/arch/x86/include/asm/intel-txt.h
 +++ b/xen/arch/x86/include/asm/intel-txt.h
-@@ -292,6 +292,22 @@ static inline void *txt_sinit_mle_data_start(const void *heap)
-            sizeof(uint64_t);
+@@ -93,6 +93,8 @@
+ 
+ #ifndef __ASSEMBLY__
+ 
++#include <xen/slr-table.h>
++
+ /* Need to differentiate between pre- and post paging enabled. */
+ #ifdef __EARLY_SLAUNCH__
+ #include <xen/macros.h>
+@@ -308,6 +310,116 @@ static inline void *txt_init(void)
+     return txt_heap;
  }
  
-+static inline void *txt_init(void)
++static inline int is_in_pmr(const struct txt_os_sinit_data *os_sinit,
++                            uint64_t base, uint32_t size, int check_high)
 +{
-+    void *txt_heap;
++    /* Check for size overflow. */
++    if ( base + size < base )
++        txt_reset(SLAUNCH_ERROR_INTEGER_OVERFLOW);
 +
-+    /* Clear the TXT error register for a clean start of the day. */
-+    txt_write(TXTCR_ERRORCODE, 0);
++    /* Low range always starts at 0, so its size is also end address. */
++    if ( base >= os_sinit->vtd_pmr_lo_base &&
++         base + size <= os_sinit->vtd_pmr_lo_size )
++        return 1;
 +
-+    txt_heap = _p(txt_read(TXTCR_HEAP_BASE));
++    if ( check_high && os_sinit->vtd_pmr_hi_size != 0 )
++    {
++        if ( os_sinit->vtd_pmr_hi_base + os_sinit->vtd_pmr_hi_size <
++             os_sinit->vtd_pmr_hi_size )
++            txt_reset(SLAUNCH_ERROR_INTEGER_OVERFLOW);
++        if ( base >= os_sinit->vtd_pmr_hi_base &&
++             base + size <= os_sinit->vtd_pmr_hi_base +
++                            os_sinit->vtd_pmr_hi_size )
++            return 1;
++    }
 +
-+    if ( txt_os_mle_data_size(txt_heap) < sizeof(struct txt_os_mle_data) ||
-+         txt_os_sinit_data_size(txt_heap) < sizeof(struct txt_os_sinit_data) )
-+        txt_reset(SLAUNCH_ERROR_GENERIC);
++    return 0;
++}
 +
-+    return txt_heap;
++static inline void txt_verify_pmr_ranges(
++    const struct txt_os_mle_data *os_mle,
++    const struct txt_os_sinit_data *os_sinit,
++    const struct slr_entry_intel_info *info,
++    uint32_t load_base_addr,
++    uint32_t tgt_base_addr,
++    uint32_t xen_size)
++{
++    int check_high_pmr = 0;
++
++    /* Verify the value of the low PMR base. It should always be 0. */
++    if ( os_sinit->vtd_pmr_lo_base != 0 )
++        txt_reset(SLAUNCH_ERROR_LO_PMR_BASE);
++
++    /*
++     * Low PMR size should not be 0 on current platforms. There is an ongoing
++     * transition to TPR-based DMA protection instead of PMR-based; this is not
++     * yet supported by the code.
++     */
++    if ( os_sinit->vtd_pmr_lo_size == 0 )
++        txt_reset(SLAUNCH_ERROR_LO_PMR_SIZE);
++
++    /* Check if regions overlap. Treat regions with no hole between as error. */
++    if ( os_sinit->vtd_pmr_hi_size != 0 &&
++         os_sinit->vtd_pmr_hi_base <= os_sinit->vtd_pmr_lo_size )
++        txt_reset(SLAUNCH_ERROR_HI_PMR_BASE);
++
++    /* All regions accessed by 32b code must be below 4G. */
++    if ( os_sinit->vtd_pmr_hi_base + os_sinit->vtd_pmr_hi_size <=
++         0x100000000ULL )
++        check_high_pmr = 1;
++
++    /*
++     * ACM checks that TXT heap and MLE memory is protected against DMA. We have
++     * to check if MBI and whole Xen memory is protected. The latter is done in
++     * case bootloader failed to set whole image as MLE and to make sure that
++     * both pre- and post-relocation code is protected.
++     */
++
++    /* Check if all of Xen before relocation is covered by PMR. */
++    if ( !is_in_pmr(os_sinit, load_base_addr, xen_size, check_high_pmr) )
++        txt_reset(SLAUNCH_ERROR_LO_PMR_MLE);
++
++    /* Check if all of Xen after relocation is covered by PMR. */
++    if ( load_base_addr != tgt_base_addr &&
++         !is_in_pmr(os_sinit, tgt_base_addr, xen_size, check_high_pmr) )
++        txt_reset(SLAUNCH_ERROR_LO_PMR_MLE);
++
++    /*
++     * If present, check that MBI is covered by PMR. MBI starts with 'uint32_t
++     * total_size'.
++     */
++    if ( info->boot_params_base != 0 &&
++         !is_in_pmr(os_sinit, info->boot_params_base,
++                    *(uint32_t *)(uintptr_t)info->boot_params_base,
++                    check_high_pmr) )
++        txt_reset(SLAUNCH_ERROR_BUFFER_BEYOND_PMR);
++
++    /* Check if TPM event log (if present) is covered by PMR. */
++    /*
++     * FIXME: currently commented out as GRUB allocates it in a hole between
++     * PMR and reserved RAM, due to 2MB resolution of PMR. There are no other
++     * easy-to-use DMA protection mechanisms that would allow to protect that
++     * part of memory. TPR (TXT DMA Protection Range) gives 1MB resolution, but
++     * it still wouldn't be enough.
++     *
++     * One possible solution would be for GRUB to allocate log at lower address,
++     * but this would further increase memory space fragmentation. Another
++     * option is to align PMR up instead of down, making PMR cover part of
++     * reserved region, but it is unclear what the consequences may be.
++     *
++     * In tboot this issue was resolved by reserving leftover chunks of memory
++     * in e820 and/or UEFI memory map. This is also a valid solution, but would
++     * require more changes to GRUB than the ones listed above, as event log is
++     * allocated much earlier than PMRs.
++     */
++    /*
++    if ( os_mle->evtlog_addr != 0 && os_mle->evtlog_size != 0 &&
++         !is_in_pmr(os_sinit, os_mle->evtlog_addr, os_mle->evtlog_size,
++                    check_high_pmr) )
++        txt_reset(SLAUNCH_ERROR_BUFFER_BEYOND_PMR);
++    */
 +}
 +
  #endif /* __ASSEMBLY__ */
  
  #endif /* X86_INTEL_TXT_H */
-diff --git a/xen/arch/x86/include/asm/slaunch.h b/xen/arch/x86/include/asm/slaunch.h
-new file mode 100644
-index 0000000000..df42defd92
---- /dev/null
-+++ b/xen/arch/x86/include/asm/slaunch.h
-@@ -0,0 +1,26 @@
-+/*
-+ * SPDX-License-Identifier: GPL-2.0-or-later
-+ *
-+ * Copyright (c) 2022-2025 3mdeb Sp. z o.o. All rights reserved.
-+ */
-+
-+#ifndef X86_SLAUNCH_H
-+#define X86_SLAUNCH_H
-+
-+#include <xen/types.h>
-+
-+/* Indicates an active Secure Launch boot. */
-+extern bool slaunch_active;
-+
-+/*
-+ * Holds physical address of SLRT.  Use slaunch_get_slrt() to access SLRT
-+ * instead of mapping where this points to.
-+ */
-+extern uint32_t slaunch_slrt;
-+
-+/*
-+ * Retrieves pointer to SLRT.  Checks table's validity and maps it as necessary.
-+ */
-+struct slr_table *slaunch_get_slrt(void);
-+
-+#endif /* X86_SLAUNCH_H */
-diff --git a/xen/arch/x86/slaunch.c b/xen/arch/x86/slaunch.c
-new file mode 100644
-index 0000000000..a3e6ab8d71
---- /dev/null
-+++ b/xen/arch/x86/slaunch.c
-@@ -0,0 +1,27 @@
-+/*
-+ * SPDX-License-Identifier: GPL-2.0-or-later
-+ *
-+ * Copyright (c) 2022-2025 3mdeb Sp. z o.o. All rights reserved.
-+ */
-+
-+#include <xen/compiler.h>
-+#include <xen/init.h>
-+#include <xen/macros.h>
-+#include <xen/types.h>
-+#include <asm/slaunch.h>
-+
-+/*
-+ * These variables are assigned to by the code near Xen's entry point.
-+ *
-+ * slaunch_active is not __initdata to allow checking for an active Secure
-+ * Launch boot.
-+ */
-+bool slaunch_active;
-+uint32_t __initdata slaunch_slrt; /* physical address */
-+
-+/* Using slaunch_active in head.S assumes it's a single byte in size, so enforce
-+ * this assumption. */
-+static void __maybe_unused compile_time_checks(void)
-+{
-+    BUILD_BUG_ON(sizeof(slaunch_active) != 1);
-+}
 -- 
 2.49.0
 
