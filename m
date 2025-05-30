@@ -2,49 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CDBFDAC8D50
-	for <lists+xen-devel@lfdr.de>; Fri, 30 May 2025 14:06:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1000741.1380989 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 31AF6AC8DAA
+	for <lists+xen-devel@lfdr.de>; Fri, 30 May 2025 14:30:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1000904.1381089 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uKyV4-0003rG-Hi; Fri, 30 May 2025 12:06:14 +0000
+	id 1uKys3-0004yy-KY; Fri, 30 May 2025 12:29:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1000741.1380989; Fri, 30 May 2025 12:06:14 +0000
+Received: by outflank-mailman (output) from mailman id 1000904.1381089; Fri, 30 May 2025 12:29:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uKyV4-0003p3-E0; Fri, 30 May 2025 12:06:14 +0000
-Received: by outflank-mailman (input) for mailman id 1000741;
- Fri, 30 May 2025 12:06:12 +0000
+	id 1uKys3-0004ww-Gn; Fri, 30 May 2025 12:29:59 +0000
+Received: by outflank-mailman (input) for mailman id 1000904;
+ Fri, 30 May 2025 12:29:58 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=U1Xx=YO=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
- id 1uKyV2-0003ov-OA
- for xen-devel@lists.xenproject.org; Fri, 30 May 2025 12:06:12 +0000
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on20628.outbound.protection.outlook.com
- [2a01:111:f403:2412::628])
+ <SRS0=OMCM=YO=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1uKys1-0004wq-Tg
+ for xen-devel@lists.xenproject.org; Fri, 30 May 2025 12:29:57 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 78d311b6-3d4e-11f0-b894-0df219b8e170;
- Fri, 30 May 2025 14:06:10 +0200 (CEST)
-Received: from SJ0PR03CA0185.namprd03.prod.outlook.com (2603:10b6:a03:2ef::10)
- by IA0PR12MB7773.namprd12.prod.outlook.com (2603:10b6:208:431::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8769.22; Fri, 30 May
- 2025 12:06:07 +0000
-Received: from CO1PEPF000042A9.namprd03.prod.outlook.com
- (2603:10b6:a03:2ef:cafe::d8) by SJ0PR03CA0185.outlook.office365.com
- (2603:10b6:a03:2ef::10) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8769.18 via Frontend Transport; Fri,
- 30 May 2025 12:06:06 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1PEPF000042A9.mail.protection.outlook.com (10.167.243.38) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8769.18 via Frontend Transport; Fri, 30 May 2025 12:06:05 +0000
-Received: from xcbagarciav01.xilinx.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 30 May
- 2025 07:06:02 -0500
+ id c8fd4d4d-3d51-11f0-b894-0df219b8e170;
+ Fri, 30 May 2025 14:29:52 +0200 (CEST)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-441d437cfaaso13123875e9.1
+ for <xen-devel@lists.xenproject.org>; Fri, 30 May 2025 05:29:52 -0700 (PDT)
+Received: from [10.81.43.171] ([46.149.103.12])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-450d7fa27b4sm16904945e9.15.2025.05.30.05.29.50
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 30 May 2025 05:29:50 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,173 +45,119 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 78d311b6-3d4e-11f0-b894-0df219b8e170
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Rn8c/C33E3HQyMYIFe6Ed2YxxvIW4lmgwcx+tw/jN1u1CGtv7V8GumDAV2WAng6HMheL2exr4kSLFsj71vcVT43JQpgMgXTHOm0prLnnYnD8ofv8eHBZyC1MWMAfjUlbi5XY4bAbYnttHVZqp2WGBczH5DbFKRsqt6Hpzr+CgODCx2/hQhT7apTcyBUJ7Zbjt1KxNxZueTG0DI5dEW0/TxDy33ximUqQE7idlnu/L42N7M3WdX0ujA3+rJ6FSc80PGVlU6qcbt0d/sdz9IcE3HVOHB7NageYEv6qkeQpLRXGlypnd/Yczltggvp/NAEQj6mkz2x6h1f+9Zvl0o1vbQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ocg88oX1BblcuPZqowSJkdIZmVKEQ9DR4WNp1Wf0MfQ=;
- b=UZLyjksUsCr7CLVKBk36Yt5G4zDnB6+9qmYNZ5GvUAPTIVAcLZhQOc8lDOGbBkNEsg8CW9/0vYEigXISYBjzLSlEqmtxi0cGFXRdASqgQRdRGnM8knR60tTai4F7Mt6eojzeOz5UoXHStXo16NBjo4D5QRrSyf3HNlNAdnXCVBkRwUOBllobwTiuVDn/nLDkwP9rcA+K+k6CRmhNtGaSJMLPlHSnaiFGyw731SupRjKpYUij5nimVXfxgYQQ8559gktyr3+KbOlE2QLlnC9STLM3DynffgRTAnflIZIZ+gaRvOY3SphEQjVDX0DlzW6U935KT0Gy0THV7K4/b6En+w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ocg88oX1BblcuPZqowSJkdIZmVKEQ9DR4WNp1Wf0MfQ=;
- b=Vozr5vmN4ZeueeJIXeBKTCCECjmNMSwYA6PPWgN80MrbgNM2tEuE8a6rJ6GufTh0RGeq6ZuNmbsNF82SvTJ6xtX6osz6VkLN3VYljm304KTyaULYlb0OdjwnpR4Dk8tZRG+ka6BJi4qdth3z3lROUU7C9p0q0XzmNf3ktNHRFLc=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-From: Alejandro Vallejo <agarciav@amd.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Alejandro Vallejo <agarciav@amd.com>, Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Anthony PERARD
-	<anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, "Julien
- Grall" <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
-	"Bertrand Marquis" <bertrand.marquis@arm.com>, "Daniel P. Smith"
-	<dpsmith@apertussolutions.com>
-Subject: [PATCH 19/19] kconfig: Allow x86 to pick CONFIG_DOM0LESS_BOOT
-Date: Fri, 30 May 2025 14:05:25 +0200
-Message-ID: <20250530120548.39550-1-agarciav@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20250530120242.39398-1-agarciav@amd.com>
-References: <20250530120242.39398-1-agarciav@amd.com>
+X-Inumbo-ID: c8fd4d4d-3d51-11f0-b894-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1748608192; x=1749212992; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=KsKJzvhM//UflZCltqZ6Kjnw2ewyvR2CQ3NOuVDUC0o=;
+        b=ISIxKsRtnyYqhUTCz3Am0wT6AksA4bBc85kZ27RDSetOHWcmtl+xDQzuLee/Ei7/SJ
+         sh9zlRNaTc3DMYLwkZF1bWC17MudWXFs3yO6yF1iURxj3XosvEU2alL7q16ysdp+umyu
+         xwYTIG0ZOGJ9L5XNWwtRz1IqZub+LbPz8oCS0=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1748608192; x=1749212992;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=KsKJzvhM//UflZCltqZ6Kjnw2ewyvR2CQ3NOuVDUC0o=;
+        b=BobocoMQszegHMBrokiGHnf+l8FtGXnDeR3QBvCY7mJnprCuivWoVN8hivczCcw5bz
+         QonrWuQui83NJMiEvfxkmdhYXahNGGCCRf2mANIYrKqwgbILJ0FWxgvsBv0AOtdwG721
+         ITzFHli589DawpHWbhYp3TKWIZTXTbQOad8GrSuOy13tHx3WB4JUdD72ade0PK5jBjJV
+         b2PfrzcLm8GlG0rFiU21FQvrMnuZOA3e+u2/dUAG8hmLyNZHytQK7W+WG8s/2iba+f5s
+         p0zt/AGvf5W+J5MQ9SN7lITu4hoRo+xkpA6KNESLJ6lMp2pVIV+3avRI3EZZ+HTqBbKI
+         37bw==
+X-Gm-Message-State: AOJu0YwU8WbMcPdAvh0fsSS/yAdIzDUPGO+gFxe9rPiZMTnPLL5XLrqm
+	RIZ/QN4bfPJbOwBJlqlFJGZkb/0rj/prYeFKM3Vkn0/clveWE3Pll6lUoAyqmYc1HBWsaUj1NM3
+	gGtXG
+X-Gm-Gg: ASbGnctIEqt64rKdJQ2q9gCihnLQ6aceeecaIV17AuwQxqvJLLG/Rk7JSwbcPUJ5SXI
+	GbfJ89DQ/6xmlOM+TttAHTRUb7gWeFBnC0ZKV3PzpDPVNqNLteAuejaeAiiGXPprVJfWALYzKI7
+	LfLiGKv/4UFTJoDs1qddpMW7emOu6K23PdtHQTgiMPeGuczpBx1hA7q26MkFDlT0C47pqPw3cGX
+	0Q+DPk8RwkQ2vHZRNpgkNqorjoWfhE9N/5v2MsKVxzIRsOlKg/IfXxtgB0BtPfoyPME8VjaB+2T
+	/ZSJzGjHng/zeBvlb76p6pD0iKrUTDG4+yNLIRMTs7B5VH5YLtIkmcxTgr6wT7M3F05PGcmA
+X-Google-Smtp-Source: AGHT+IHVIrKusi8+f68N/v9+R2bB/ECAMIbGptcYrYY5QLoFcGgTiLHhbIuAfOz9Ql9nN7s6aQz2aw==
+X-Received: by 2002:a05:600c:5250:b0:43c:fd27:a216 with SMTP id 5b1f17b1804b1-450d8875db2mr16855845e9.23.1748608191683;
+        Fri, 30 May 2025 05:29:51 -0700 (PDT)
+Message-ID: <2912f117-a898-41dd-9e1f-2723728a2237@citrix.com>
+Date: Fri, 30 May 2025 13:29:49 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] tools/tests: Add install target for vPCI
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ Anthony PERARD <anthony.perard@vates.tech>
+References: <20250530104307.2550886-1-andrew.cooper3@citrix.com>
+ <aDmPDlE2ZWDYg2wm@macbook.local>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <aDmPDlE2ZWDYg2wm@macbook.local>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000042A9:EE_|IA0PR12MB7773:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1c03a2cc-6085-464c-2c76-08dd9f725acc
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|36860700013|82310400026|376014;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?piimtZczPktlCGfXmQW52dwvGy0ZtGx4sj1qHbgkKMAPep0qq6DEjm2v2Tbm?=
- =?us-ascii?Q?YzLogKsuhHEhdaK0N4fvQfGPifsMjFkwmpKSr0wvCmICHAA+Ygy51ZIBGBIf?=
- =?us-ascii?Q?n6Q0E9kRCEp3KIvMRq4IuriA2+F48NrafgWUJzgZwyJl0Ly/eX4llkTMKBYr?=
- =?us-ascii?Q?AV7DRXmQHIAUKbrykC891opQnBvdGdMVeoLU3tvc9pknTvQJNSov0E1Q6Xzw?=
- =?us-ascii?Q?BmdhpcZBiJGOVDgh3/MQuphummMLXwjoFoHQXMyHlovAlwpSxRjjO7tM83l+?=
- =?us-ascii?Q?kZoNKvoRGWDPWUZ5vMnsI+MAadRWCM8X7HkB3u4urFF4TgDHkoocePPozIr/?=
- =?us-ascii?Q?weUMmy3dYsVdWziMMQIG0w5wS2inTGpmPTXsfusPVh2gQ1wUN/cUQVeOyKNG?=
- =?us-ascii?Q?NqKhuwbZtFtKBDzLe/Fg5HXs1y6oS7FAYHfZQYT7MAgNCpZWNa90VapJf+Kp?=
- =?us-ascii?Q?KYapQRhbFwz0KESudjaVH6WB4eGVIFqadNStyiHqxHjMdbUPksbgtzEV3aas?=
- =?us-ascii?Q?XvEH1GwYQ/kotezL9juFpu8O/GKiVPCk4o4B1i6I2muxenbi02AfF+3uj5Tk?=
- =?us-ascii?Q?xjr0eBox7Sjy1lamXHe9YL6oj1XTQdmyh7eEbIym5IApZQcdeYjnyOLg3nFk?=
- =?us-ascii?Q?tw0VnXpcfH2Z+U5Had+w05jIL/gjPUrceMr+eqAy9jeXoYKCnXJxKmRjgARd?=
- =?us-ascii?Q?/KdN2VxEm7ZffjGVeeAN7Ec1sUow8KW92DirAEdP5nhjAjeDBAwnGnKUarbp?=
- =?us-ascii?Q?AztaJukiVs0QLp0/Gi96EPl/dWsnXLlIrsOTMKJta8c3/FlAiQiLNYxPmj3n?=
- =?us-ascii?Q?1QkXw2DQRtZRkw45sxjGYDS3pcrSeKxSa6JXopSzjkRXju0n853GT4Jt/0//?=
- =?us-ascii?Q?k96R3o/1r3jn+MtsU+EkyLEQcP2UkSMzwsV/OiJGb5DQ6FIaXnYf78v7facK?=
- =?us-ascii?Q?u6lxtnZ3UvlvOl0npVrb2rIXYb8ZOYPVWeae1hkH5mf4A1cAuBWcY21U6GOl?=
- =?us-ascii?Q?1MJxNQeqQZ4IINd1joLWq3eP7iX/Kl0PlKjZILpVxhRcQ1Qaoinx9d9klBKo?=
- =?us-ascii?Q?85ac43Zi1GWeN6UtwGx1qMc/CCtmnRFyJlVLtpMcQ8b64oUdDWIaRi/a2qEl?=
- =?us-ascii?Q?iPUU33fozMM5FzT+hxb7JGaynGHy3iC5hY17/2DP0XKMoNphOv2RtTewnJ3x?=
- =?us-ascii?Q?RZlQlEvw8wBtz63TJE7C1/gTKBz021cfCOzmS1KcjTE4cAjYaLLaisiVStBF?=
- =?us-ascii?Q?V4D97wr2VoK6J7sfGhJQqIZcFfEVZ0jSiIEvyb6ZHmUzNqChctlhAvEYagqH?=
- =?us-ascii?Q?nozfNZv310xx3JBQgpcBQNILXhMyUoERvvX5vOIu2KirnvXR6cTqif4HOvnS?=
- =?us-ascii?Q?tBgTTxzFqDh/bN3Em4b32/BACo+TRVjyYrC4dt0fNCBleTZn3YSOCKqzj1y6?=
- =?us-ascii?Q?1SMkkVAUfX7+hSenRn5lOOlmoNzB9koWhiW4tsDyg2WifKSxfnWblIAIZhVQ?=
- =?us-ascii?Q?NJkT3EUAiV5FTefd97ktFd1Bgqi56TTaVIyd?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700013)(82310400026)(376014);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 May 2025 12:06:05.3438
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1c03a2cc-6085-464c-2c76-08dd9f725acc
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CO1PEPF000042A9.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7773
 
-Without picking CONFIG_HAS_DEVICE_TREE.
+On 30/05/2025 11:57 am, Roger Pau Monné wrote:
+> On Fri, May 30, 2025 at 11:43:07AM +0100, Andrew Cooper wrote:
+>> This lets it run automagically in CI.
+>>
+>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Acked-by: Roger Pau Monné <roger.pau@citrix.com>
+>
+> I had sent something similar long time ago:
+>
+> https://lore.kernel.org/xen-devel/20230313121226.86557-1-roger.pau@citrix.com/
+>
+> But got no reviews.
+>
+> Thanks, Roger.
 
-In order to do that. Allow CONFIG_DOM0LESS_BOOT to take include a subset
-of the common/device-tree/ directory. x86 doesn't want dom0less-build.c,
-as that's tightly integrated still to the ARM way of building domains.
+Sorry, that fell through the cracks too.
 
-Requires "unsupported" for the time being until all required patches
-make it through.
+What I'll do if you're happy is submit it as authored by you but with
+this content (seeing as it's the one I've tested in the past week), and
+A-by me.
 
-Only intended as a functional change for x86.
-
-Signed-off-by: Alejandro Vallejo <agarciav@amd.com>
----
-I'm compiling out dom0less-build.c because it relies heavily on
-bootinfo. Initially x86 will keep its private builder even for
-multidomain boots. And will do so until boot_info and bootinfo are
-properly unified.
-
----
- xen/arch/x86/Kconfig            | 1 +
- xen/common/Kconfig              | 8 +++++---
- xen/common/device-tree/Makefile | 2 +-
- 3 files changed, 7 insertions(+), 4 deletions(-)
-
-diff --git a/xen/arch/x86/Kconfig b/xen/arch/x86/Kconfig
-index 7afe879710..4344b4289c 100644
---- a/xen/arch/x86/Kconfig
-+++ b/xen/arch/x86/Kconfig
-@@ -18,6 +18,7 @@ config X86
- 	select HAS_COMPAT
- 	select HAS_CPUFREQ
- 	select HAS_DIT
-+	select HAS_DOM0LESS
- 	select HAS_EHCI
- 	select HAS_EX_TABLE
- 	select HAS_FAST_MULTIPLY
-diff --git a/xen/common/Kconfig b/xen/common/Kconfig
-index 353ccbd06f..6e66657550 100644
---- a/xen/common/Kconfig
-+++ b/xen/common/Kconfig
-@@ -13,15 +13,17 @@ config CORE_PARKING
- 	depends on NR_CPUS > 1
- 
- config DOM0LESS_BOOT
--	bool "Dom0less boot support" if EXPERT
-+	bool "Dom0less boot support" if EXPERT && (!X86 || UNSUPPORTED)
- 	select LIBFDT
--	depends on HAS_DOM0LESS && HAS_DEVICE_TREE && DOMAIN_BUILD_HELPERS
--	default y
-+	depends on HAS_DOM0LESS && (X86 || (HAS_DEVICE_TREE && DOMAIN_BUILD_HELPERS))
-+	default y if !X86
- 	help
- 	  Dom0less boot support enables Xen to create and start domU guests during
- 	  Xen boot without the need of a control domain (Dom0), which could be
- 	  present anyway.
- 
-+	  If unsure on x86, say N.
-+
- config DOMAIN_BUILD_HELPERS
- 	bool
- 
-diff --git a/xen/common/device-tree/Makefile b/xen/common/device-tree/Makefile
-index 4c09e3fb2d..49d061733e 100644
---- a/xen/common/device-tree/Makefile
-+++ b/xen/common/device-tree/Makefile
-@@ -3,7 +3,7 @@ obj-$(CONFIG_HAS_DEVICE_TREE) += bootinfo-fdt.init.o
- obj-$(CONFIG_HAS_DEVICE_TREE) += bootinfo.init.o
- obj-$(CONFIG_HAS_DEVICE_TREE) += device-tree.o
- obj-$(CONFIG_DOMAIN_BUILD_HELPERS) += domain-build.init.o
--obj-$(CONFIG_DOM0LESS_BOOT) += dom0less-build.init.o
-+obj-$(filter-out $(CONFIG_X86),$(CONFIG_DOM0LESS_BOOT)) += dom0less-build.init.o
- obj-$(CONFIG_OVERLAY_DTB) += dt-overlay.o
- obj-$(CONFIG_HAS_DEVICE_TREE) += intc.o
- obj-$(CONFIG_DOMAIN_BUILD_HELPERS) += kernel.o
--- 
-2.43.0
-
+~Andrew
 
