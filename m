@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B078AC8C13
-	for <lists+xen-devel@lfdr.de>; Fri, 30 May 2025 12:25:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1000664.1380859 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 08C4BAC8C56
+	for <lists+xen-devel@lfdr.de>; Fri, 30 May 2025 12:43:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1000672.1380868 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uKwv4-0002ff-MN; Fri, 30 May 2025 10:24:58 +0000
+	id 1uKxCn-0005NC-46; Fri, 30 May 2025 10:43:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1000664.1380859; Fri, 30 May 2025 10:24:58 +0000
+Received: by outflank-mailman (output) from mailman id 1000672.1380868; Fri, 30 May 2025 10:43:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uKwv4-0002eE-JQ; Fri, 30 May 2025 10:24:58 +0000
-Received: by outflank-mailman (input) for mailman id 1000664;
- Fri, 30 May 2025 10:24:57 +0000
+	id 1uKxCn-0005Kg-1U; Fri, 30 May 2025 10:43:17 +0000
+Received: by outflank-mailman (input) for mailman id 1000672;
+ Fri, 30 May 2025 10:43:15 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=sK0T=YO=gmail.com=anthoine.bourgeois@srs-se1.protection.inumbo.net>)
- id 1uKwv3-0002e8-5D
- for xen-devel@lists.xenproject.org; Fri, 30 May 2025 10:24:57 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
+ <SRS0=OMCM=YO=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1uKxCl-0005Ka-Qo
+ for xen-devel@lists.xenproject.org; Fri, 30 May 2025 10:43:15 +0000
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
+ [2a00:1450:4864:20::436])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5441fe79-3d40-11f0-b894-0df219b8e170;
- Fri, 30 May 2025 12:24:55 +0200 (CEST)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-3a37ed01aa0so1540563f8f.2
- for <xen-devel@lists.xenproject.org>; Fri, 30 May 2025 03:24:55 -0700 (PDT)
-Received: from gmail.com (163.red-2-139-141.dynamicip.rima-tde.net.
- [2.139.141.163]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-450d8000e9asm13960185e9.21.2025.05.30.03.24.43
+ id e1200739-3d42-11f0-b894-0df219b8e170;
+ Fri, 30 May 2025 12:43:10 +0200 (CEST)
+Received: by mail-wr1-x436.google.com with SMTP id
+ ffacd0b85a97d-3a376ba6f08so1124163f8f.1
+ for <xen-devel@lists.xenproject.org>; Fri, 30 May 2025 03:43:10 -0700 (PDT)
+Received: from localhost.localdomain (host-92-26-98-202.as13285.net.
+ [92.26.98.202]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3a4efe73eadsm4392675f8f.41.2025.05.30.03.43.08
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 30 May 2025 03:24:43 -0700 (PDT)
+ Fri, 30 May 2025 03:43:09 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,110 +45,82 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5441fe79-3d40-11f0-b894-0df219b8e170
+X-Inumbo-ID: e1200739-3d42-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1748600694; x=1749205494; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=1X9rxMVPFyCu2AkEbqxPhYR/MPNJ6FHvSsL1T/B5CtY=;
-        b=U6BRp0P2XYX88lTtyl/weXwAJL66Go//YjpEFN3Ux35bvWnN09u2x8l/ydl2gt+BjG
-         j8FO1Q28yi9yZcZJ28MK7NXV3WwLKjUFWYy/G0RfQfbHp7h4Xgz9EDYmyJ+gzNZStM9n
-         9JRpaW6fB22RzuB4ef0ryc/kdeptrb4qm3ScYmvGkNz/EHvOWfPx8ebza6ff2AHfPI/D
-         czb+TvQatgDZwgVK6GEBmOnxc6W9bcXvCLq9tyH6RautMNGVYjjEUGjcdjZDN7XpHBqe
-         JSGhUjhz3UvAsFClp/Lf/8ZTpL6YkPjjuJ0oxPHehQc1X52Hb2OH0+bMjLMY0HLWn5DZ
-         9PFA==
+        d=citrix.com; s=google; t=1748601789; x=1749206589; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=FcIkInxbMiL4bR2A67xJ46+UWHa19mS6X2LgqbhTGfg=;
+        b=Gh7rWU3E57om5LihnXotz2jf0wz33ZnZj+asFBwOLs1JOWDEu5XnGG2dX/RYGoKuEV
+         qPCeybwMFTP5cRxERgtYAe5xdiNyGK+0Ls8yDHknv+dr7I9YhnATg606yhRcxWsbQye7
+         JWYuq+ErHqVSRZ4lu3dNTwPlC4YJD5AYAVG8s=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1748600694; x=1749205494;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=1X9rxMVPFyCu2AkEbqxPhYR/MPNJ6FHvSsL1T/B5CtY=;
-        b=ClumSizS/J4EIuIda6EqomZvu8AhxJuVbNyADIGExuFZYYcGcen11j/N2rGGbqE+MZ
-         Pi9XHEU4XxNyGXaDrIh2fiQ67OHqhaZ74UeqS4Btmed65XJ6iBVf+S/4uygoTNlm34v+
-         SqFka2TWpIrBN0359xTkU6XalBDSpee1HKBhu9K6QpaEy5nPs5HXTx560l4P4F1MmVmr
-         7EHzaJUI6eLCDFA9UDmMkY3MqTheVYNJuAS/yTgGH44yep4x+EAoYAJqCHvLp1MCUCAF
-         Kdg6RJQNIAs+SeQYRVJKKOZAmiBo57qyoRH53O/q7CgzbQXL3Oaa4Ww7TucsAY3ilTIz
-         pvfg==
-X-Gm-Message-State: AOJu0YzwW3B0dZq+kIdeXnuqX6ydfbZVDKGwSVcZAmALQB/mg6zO+tRt
-	bjK0UXY7XuH3UVFa0CnbWeQCA8kQ3R5oocGhd5lbrWz09y+Uw0yWt7gaJDWZHKF5tKDw1A==
-X-Gm-Gg: ASbGncuEbB+4yLcCWV1g9myEue1ftldbSuDOGnwvoL4q1R6fxMoXLWL5C6kHrzVSlnm
-	euAajoYN2AaXBpwVbgQnhN9AL7mlFNcBY+4LwVmdmVW1y0YnJ28NdUG9eY+xzmh+xaL3z/yPAaH
-	EYAD0uBeS5lsb8/tpG/c1bHxF9a4qQMRvvy5eU44O/84pUYGLuRuFQPTQeejhQ6K0vmBxtaaU6n
-	HvQUy2czvzUSVCRhq1ebL7NwA+LwaEdbn3Vijqs17QU4Mtz4c9Ze3noPZxG/gsz/JnNSolQakMz
-	yyqSAI9OvG+/bTD0urLXuqwFXnkUKFQmqFBxhdeJbcyg/TGb//nLzUPbJoMyQTaVry0ittst6Uh
-	MC9LJl9ODW785tT0N7k5qRr5z28iH
-X-Google-Smtp-Source: AGHT+IGobE8D9Toxi9X3qI1AGxlvvF1VmPQsB6OvKbpf/Cc/KmYOzBV7OSdW4Xs6nYrVMftQmKYVyw==
-X-Received: by 2002:a05:600c:8207:b0:43c:fa24:873e with SMTP id 5b1f17b1804b1-450d652794amr27149965e9.13.1748600684043;
-        Fri, 30 May 2025 03:24:44 -0700 (PDT)
-Date: Fri, 30 May 2025 12:24:42 +0200
-From: Anthoine Bourgeois <anthoine.bourgeois@gmail.com>
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Anthoine Bourgeois <anthoine.bourgeois@vates.tech>
-Subject: Re: [PATCH] x86/hvmloader: don't set xenpci MMIO BAR as UC in MTRR
-Message-ID: <aDmHaoW8eiTfkxuA@gmail.com>
-References: <20250530092314.27306-1-roger.pau@citrix.com>
+        d=1e100.net; s=20230601; t=1748601789; x=1749206589;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=FcIkInxbMiL4bR2A67xJ46+UWHa19mS6X2LgqbhTGfg=;
+        b=e22ly3ukgAjyx0hCWMfEOXIJeChF7u0MescpqXCE3BZaOxp5XhIJs1Yw6k/2mzuveZ
+         r7fgsYYH0W0Ea/V0CW/4ZGpgpBhScB7qXCep6XXOWZWDkXaH2bbN0x7X7KprMIeS5SA9
+         EwMdhqfzqHowV5RitG80evC6XHJ7Mi1TRi8sd+3okFIKVYQakaVXYwyiDvkbzOpOxoHx
+         9z3f4UeGKgXMYoAphWExEIcb7GMFCodBAsi2P7/nIrHWo37HLtC+8C4oKpCKDMvVck/R
+         8f0zawPKm0Yh9PLGY1/asqvE3o7CGO4VwHFcND+WYarmf1sr48s/QRY8Ygx9qbR2toxb
+         RyPA==
+X-Gm-Message-State: AOJu0YxUzTxPTWAF5QUs58F3y9esL1ShMPT2T37eIENM5VkMKYmRIB8c
+	LDpN4qfZb5Sq20utOivzTO2kpX+32uraRjpSfu0cPs5n0PJTbqaYDRD/8b7AApCpqwST7ZAzyxf
+	9tkQa
+X-Gm-Gg: ASbGncseRYfiZ6BDLet1ZlBW8x5OYzELp9dUg7XLF+2lPGs/8c4gWR7LGLm/zxxHpX3
+	eCr5Q8Rnd8+HUllB5uPRNzZavRHX+SppQoeop/xVdmZlMRR051ig51EAlmizH+igulI0x1EftjJ
+	cY2tVAOFv8dCPqCAfIcA0FjNfYAg7IxxNUd4Bs78bkM4CsQvGhVtGZRZ/6n4vWdDkdxUg+2x8Fp
+	BmbJle45waBF/WF+p6VIgZrYPCJdqOkZSO/SWrw5BaRQksDfmTm7CQv/c/3GSkLNDPOr14LqmFm
+	pS4h3gfhW+jJ6AULUP4Xm+NoREBSCoeK+Htbkfe2GLax/1Qbcah2qa5G7e5IlY5QtRdmMixN9EV
+	ZBu73TgV52O44Ywxq8vzqY/61ML0+BJsNNFg=
+X-Google-Smtp-Source: AGHT+IGDYISf3/g51HqL2cpRRBysUFU8zZ+xhWlbQGaunBxzVmrsq5xsbMaHdjAaM52c+P0Tiszy4A==
+X-Received: by 2002:a5d:58dc:0:b0:3a4:f7db:6ff7 with SMTP id ffacd0b85a97d-3a4f7db764cmr1630713f8f.52.1748601789617;
+        Fri, 30 May 2025 03:43:09 -0700 (PDT)
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>
+Subject: [PATCH] tools/tests: Add install target for vPCI
+Date: Fri, 30 May 2025 11:43:07 +0100
+Message-Id: <20250530104307.2550886-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.39.5
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1; format=flowed
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20250530092314.27306-1-roger.pau@citrix.com>
 
-On Fri, May 30, 2025 at 11:23:14AM +0200, Roger Pau Monne wrote:
->The Xen PCI device (vendor ID 0x5853) exposed to x86 HVM guests doesn't
->have the functionality of a traditional PCI device.  The exposed MIO BAR is
->used by some guests (including Linux) as a safe place to map foreign
->memory, including the grant table itself.
->
->Traditionally BARs from devices have the uncacheable (UC) cache attribute
->from the MTRR, to ensure correct functionality of such devices.  hvmloader
->mimics this behaviour and sets the MTRR attributes of both the low and high
->PCI MMIO windows (where BARs of PCI devices reside) as UC in MTRR.
->
->This however causes performance issues for the users of the Xen PCI device
->BAR, as for the purposes of mapping remote memory there's no need to use
->the UC attribute.  On Intel systems this is worked around by using iPAT,
->that allows the hypervisor to force the effective cache attribute of a p2m
->entry regardless of the guest PAT value.  AMD however doesn't have an
->equivalent of iPAT, and guest PAT values are always considered.
->
->Linux commit:
->
->41925b105e34 xen: replace xen_remap() with memremap()
->
->Attempted to mitigate this by forcing mappings of the grant-table to use
->the write-back (WB) cache attribute.  However Linux memremap() takes MTRRs
->into account to calculate which PAT type to use, and seeing the MTRR cache
->attribute for the region being UC the PAT also ends up as UC, regardless of
->the caller having requested WB.
->
->As a workaround to allow current Linux to map the grant-table as WB using
->memremap() special case the Xen PCI device BAR in hvmloader and don't set
->its cache attribute as UC.  Such workaround in hvmloader should also be
->paired with a fix for Linux so it attempts to change the MTRR of the Xen
->PCI device BAR to WB by itself.
->
->Overall, the long term solution would be to provide the guest with a safe
->range in the guest physical address space where mappings to foreign pages
->can be created.
->
->Some vif throughput performance figures provided by Anthoine from a 8
->vCPUs, 4GB of RAM HVM guest(s) running on AMD hardware:
->
->Without this patch:
->vm -> dom0: 1.1Gb/s
->vm -> vm:   5.0Gb/s
->
->With the patch:
->vm -> dom0: 4.5Gb/s
->vm -> vm:   7.0Gb/s
->
->Reported-by: Anthoine Bourgeois <anthoine.bourgeois@vates.tech>
->Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+This lets it run automagically in CI.
 
-Also
-Tested-by: Anthoine Bourgeois <anthoine.bourgeois@vates.tech>
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Roger Pau MonnÃ© <roger.pau@citrix.com>
+CC: Anthony PERARD <anthony.perard@vates.tech>
+---
+ tools/tests/vpci/Makefile | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/tools/tests/vpci/Makefile b/tools/tests/vpci/Makefile
+index 62f21f341a01..9450f7593a41 100644
+--- a/tools/tests/vpci/Makefile
++++ b/tools/tests/vpci/Makefile
+@@ -21,7 +21,13 @@ clean:
+ distclean: clean
+ 
+ .PHONY: install
+-install:
++install: all
++	$(INSTALL_DIR) $(DESTDIR)$(LIBEXEC)/tests
++	$(INSTALL_PROG) $(TARGET) $(DESTDIR)$(LIBEXEC)/tests
++
++.PHONY: uninstall
++uninstall:
++	$(RM) -- $(DESTDIR)$(LIBEXEC)/tests/$(TARGET)
+ 
+ vpci.c: $(XEN_ROOT)/xen/drivers/vpci/vpci.c
+ 	# Remove includes and add the test harness header
+-- 
+2.39.5
+
 
