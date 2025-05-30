@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB493AC908B
-	for <lists+xen-devel@lfdr.de>; Fri, 30 May 2025 15:50:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1001172.1381409 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B0BDAC90F2
+	for <lists+xen-devel@lfdr.de>; Fri, 30 May 2025 16:03:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1001218.1381419 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uL07f-0008Nj-JC; Fri, 30 May 2025 13:50:11 +0000
+	id 1uL0KX-0005I4-Lu; Fri, 30 May 2025 14:03:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1001172.1381409; Fri, 30 May 2025 13:50:11 +0000
+Received: by outflank-mailman (output) from mailman id 1001218.1381419; Fri, 30 May 2025 14:03:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uL07f-0008Ld-GD; Fri, 30 May 2025 13:50:11 +0000
-Received: by outflank-mailman (input) for mailman id 1001172;
- Fri, 30 May 2025 13:50:10 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uL0KX-0005FJ-IT; Fri, 30 May 2025 14:03:29 +0000
+Received: by outflank-mailman (input) for mailman id 1001218;
+ Fri, 30 May 2025 14:03:28 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=EHdx=YO=cloud.com=christian.lindig@srs-se1.protection.inumbo.net>)
- id 1uL07d-0007IR-TZ
- for xen-devel@lists.xenproject.org; Fri, 30 May 2025 13:50:09 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id fda4923a-3d5c-11f0-b894-0df219b8e170;
- Fri, 30 May 2025 15:50:05 +0200 (CEST)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-3a374f727dbso1706809f8f.0
- for <xen-devel@lists.xenproject.org>; Fri, 30 May 2025 06:50:05 -0700 (PDT)
-Received: from smtpclient.apple ([46.149.103.8])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3a4efe7414fsm4942617f8f.55.2025.05.30.06.50.03
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 30 May 2025 06:50:04 -0700 (PDT)
+ <SRS0=OJNC=YO=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1uL0KW-0005FC-2G
+ for xen-devel@lists.xenproject.org; Fri, 30 May 2025 14:03:28 +0000
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [2a00:1450:4864:20::429])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id dbad9021-3d5e-11f0-a2ff-13f23c93f187;
+ Fri, 30 May 2025 16:03:27 +0200 (CEST)
+Received: by mail-wr1-x429.google.com with SMTP id
+ ffacd0b85a97d-3a4c6c0a9c7so1366308f8f.3
+ for <xen-devel@lists.xenproject.org>; Fri, 30 May 2025 07:03:27 -0700 (PDT)
+Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
+ by smtp.gmail.com with UTF8SMTPSA id
+ 5b1f17b1804b1-450d8012b09sm18715585e9.37.2025.05.30.07.03.14
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 30 May 2025 07:03:15 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,106 +45,79 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fda4923a-3d5c-11f0-b894-0df219b8e170
+X-Inumbo-ID: dbad9021-3d5e-11f0-a2ff-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1748613004; x=1749217804; darn=lists.xenproject.org;
-        h=to:references:message-id:content-transfer-encoding:cc:date
-         :in-reply-to:from:subject:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=qK2Ed9z4bG2W4/4I+bv1c1mEUgT6EAD8q9y3gJhg3uk=;
-        b=HtT/+e01DkMyjWJV5Fc3AvcrFXkcgm5g5MUNCrU2EXqIUB4OtlSzN8fpYOaJck5pal
-         wZDcIBpnr5GS+TTKAjbC5p5h1rltku9zomOK7helAO4cQIFcH91nk8rvhn0/xP5KPVdO
-         +u0rVvU1XThara5+/g6AKDJhg9vyzvMyY7Mfg=
+        d=citrix.com; s=google; t=1748613806; x=1749218606; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=pwoWV4YWQnhRonAsr2ZbQBGENx07n89BubpTlvVFG/0=;
+        b=Cvjjwkh7v7Fkng0IoPR1ZmnKYRgjbonvjl2Eh7OP1KCRfN46ZE7Ax5+OSr5oRqwIkj
+         nzC5lRvzFlFdhz6xUUxMrUJMNYpHOnmAcXAdb7oanpfJGD8BBfsO5kkY3Khq6nKWz12D
+         tYQ+rMUbUI0lnYWxKCsA3YFJodTgt4wtPwpQk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1748613004; x=1749217804;
-        h=to:references:message-id:content-transfer-encoding:cc:date
-         :in-reply-to:from:subject:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=qK2Ed9z4bG2W4/4I+bv1c1mEUgT6EAD8q9y3gJhg3uk=;
-        b=M4r0UtsuEETc8P3RCsA9IVWLl9H/bN0m/0zjbu2VP5ah5QpKMs0nfmBysv6OXJBITZ
-         BEODCoDHdYbDk2EamrqyIFVvOH7Kh/FYDoJkybGHtopclKmC4K4ZaERMqusNJUlvSpWa
-         sXGzOt/qplVuWJRSDyZszZj61RHKQQYdLXH4NSkPb6lOLLQtzHvN+3m1wAERTeb9vnMZ
-         34y40pObUxdUrgOkF3LGAWwtx3r/ZatmHW3CvNbiPeQvfEPr9sBm82N6q0cMOV5srYV/
-         cnI55kVGSaF+9jvuACVvLgClxpaRqeEL/4OukZT02+aqJI3Yw0iWVtNnA8Pchi6woAnr
-         IZEQ==
-X-Gm-Message-State: AOJu0YwZhZ67SB/mS4tooP2+WHsEkA1oMyWbWXx/fbT/WxhkMuFd2hds
-	XY99p6fdqMP1qbCHSt0XdA9K/d88vqyxcC5fJDOYKR31XMO6LqH0gMee+eJRnnTw2TY=
-X-Gm-Gg: ASbGncuKiKpiLe2hAgHfDb+S/J2aNJviaJJEqWAdUI12gs2Dcef35XAticUVHz9dCBW
-	tzJRbnBADLMl4U/4EF+UKc3gWYpjWzk8XwFmI/XnRNBkOhx6BbjRsc5qEdLi+79kWonPnGRb1T8
-	sUkYalq8D4GIpSDbE6q1bC3zJFEfKxnjpwUH85uSRlKax/VEq3Dxj5GRlgwcuRAvyb7d2gBLDQo
-	zjl1Mr8CWhWAfumng+47RyEjQrVcDgSguuiroOJN3i+VL6sOL3c27X6P2VKem/ZU/7u6CqJWw29
-	kGVYJpRCpxHqp1mM6tTv3Gs0JdARLHRkTjm53W3mRa0dtECSZX13fhxtS+L/okQAvBW625QfPph
-	pQWCl
-X-Google-Smtp-Source: AGHT+IE6xYFq0XqIerB02BuRQHWvWMJpmkmW6VZv6rhSrvuu1GkD/0S/MLnm/GJOHZc5Rf5xm2MFvw==
-X-Received: by 2002:a5d:588d:0:b0:3a4:e6c6:b8bf with SMTP id ffacd0b85a97d-3a4f89df3cdmr1913053f8f.52.1748613004559;
-        Fri, 30 May 2025 06:50:04 -0700 (PDT)
-Content-Type: text/plain;
-	charset=us-ascii
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.500.181.1.5\))
-Subject: Re: [PATCH v3 4/5] tools/ocaml: Update bindings for
- CDF_TRAP_UNMAPPED_ACCESSES
-From: Christian Lindig <christian.lindig@cloud.com>
-In-Reply-To: <20250530134559.1434255-5-edgar.iglesias@gmail.com>
-Date: Fri, 30 May 2025 14:49:53 +0100
-Cc: xen-devel@lists.xenproject.org,
- sstabellini@kernel.org,
- julien@xen.org,
- bertrand.marquis@arm.com,
- michal.orzel@amd.com,
- Volodymyr_Babchuk@epam.com,
- andrew.cooper3@citrix.com,
- edgar.iglesias@amd.com,
- Christian Lindig <christian.lindig@citrix.com>,
- David Scott <dave@recoil.org>,
- Anthony PERARD <anthony.perard@vates.tech>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <C3D88307-DF31-42BD-8384-7805B3CF54EB@cloud.com>
-References: <20250530134559.1434255-1-edgar.iglesias@gmail.com>
- <20250530134559.1434255-5-edgar.iglesias@gmail.com>
-To: "Edgar E. Iglesias" <edgar.iglesias@gmail.com>
-X-Mailer: Apple Mail (2.3826.500.181.1.5)
+        d=1e100.net; s=20230601; t=1748613806; x=1749218606;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=pwoWV4YWQnhRonAsr2ZbQBGENx07n89BubpTlvVFG/0=;
+        b=tnFBVT8N5jmNxPUG3y5VCxdsv2I4FjmEm/QygXDxgpa9ET9U8NyM/p6kIJDzrjQwTL
+         fam0IqbyxJObjG52Hq9t0vWF9mfzqsuQjtbezwCFVVEa/lstpi6VhwJi7zRS7ZPiWNPe
+         UMV+xQ/VZQWOwIfY1De6NHKwH3uyUR+SSfJbpfiQobOm291j6jtc3g6Jy8lc25gZkYxf
+         VLK2RKmAYRpmIdKYWP3yNYMkqHMWk4l62Iet6agFXkItnHHfNn+ypxBHRwTIZfzrl34k
+         kUiRp7wH9lNOuCuXQvFAeNWzFDUVrqPq/5oHGrqA1/NLVNVk9/J+9LwnTfVsrvMHSpxS
+         Zfdw==
+X-Gm-Message-State: AOJu0Yya9R0QGyNowuYxeMJIgtn6PMXi8BBXRMp/0UphYRTz//8kOobw
+	AgQHj5UjOTmHgxwQ6cyNxl3xbKUdAJINaD4e6q/oZh3YnOXfT40U2R4UVS7yb6xkhX2aHJCI3oj
+	XjKpO
+X-Gm-Gg: ASbGncvgrraQGWLK+zkAkofl8mDxI2K9OwTxx5oPxD4lPungWsID7LSzfPSRKcxVUSE
+	wKjpZdXz5BT2ejSOHPy+Fw3AZIxOjcSjfd4muJUjGVlHlyrmObQjWitfjXweHGgGpa3DpTgcEk6
+	t6dwgBl4l0qZGmFCIrRZVHOvdGYWgh/VoadDE+ZLFQ9HhOiF1KuajZ06Mt9GvBdMh0LrbPJwDNG
+	OVKvA2DkEgklnjUdqEaZJo0DCVN8w6is1LNq9ZpxmSoo5zbIErF8QQf68J/aUU8kJtTA7acRu8v
+	80h9syF+xyFZet20r9t+hubGG1Ein+jRI6/FniK0w8ArQQC/WPPUQwx0WRAmL9n34294mkh9DlA
+	mQcVbdEpIbftniLzs7gHBlZC7
+X-Google-Smtp-Source: AGHT+IFT7L+seHHQAf7Y5KFqVx7ZUGM54eSERjkDhRBxFY8sP+0s25jQ8CrpWtr6ui5qZw0emV8zIw==
+X-Received: by 2002:a05:6000:2886:b0:3a4:f722:f98d with SMTP id ffacd0b85a97d-3a4f89e8f63mr2027206f8f.51.1748613795492;
+        Fri, 30 May 2025 07:03:15 -0700 (PDT)
+Date: Fri, 30 May 2025 16:03:14 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+	Anthony PERARD <anthony.perard@vates.tech>
+Subject: Re: [PATCH] tools/tests: Add install target for vPCI
+Message-ID: <aDm6ooBjmFtUCqjI@macbook.local>
+References: <20250530104307.2550886-1-andrew.cooper3@citrix.com>
+ <aDmPDlE2ZWDYg2wm@macbook.local>
+ <2912f117-a898-41dd-9e1f-2723728a2237@citrix.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <2912f117-a898-41dd-9e1f-2723728a2237@citrix.com>
 
-Acked-by: Christian Lindig <christian.lindig@cloud.com>
+On Fri, May 30, 2025 at 01:29:49PM +0100, Andrew Cooper wrote:
+> On 30/05/2025 11:57 am, Roger Pau Monné wrote:
+> > On Fri, May 30, 2025 at 11:43:07AM +0100, Andrew Cooper wrote:
+> >> This lets it run automagically in CI.
+> >>
+> >> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> > Acked-by: Roger Pau Monné <roger.pau@citrix.com>
+> >
+> > I had sent something similar long time ago:
+> >
+> > https://lore.kernel.org/xen-devel/20230313121226.86557-1-roger.pau@citrix.com/
+> >
+> > But got no reviews.
+> >
+> > Thanks, Roger.
+> 
+> Sorry, that fell through the cracks too.
+> 
+> What I'll do if you're happy is submit it as authored by you but with
+> this content (seeing as it's the one I've tested in the past week), and
+> A-by me.
 
-> On 30 May 2025, at 14:45, Edgar E. Iglesias <edgar.iglesias@gmail.com> =
-wrote:
->=20
-> From: "Edgar E. Iglesias" <edgar.iglesias@amd.com>
->=20
-> Signed-off-by: Edgar E. Iglesias <edgar.iglesias@amd.com>
-> ---
-> tools/ocaml/libs/xc/xenctrl.ml  | 1 +
-> tools/ocaml/libs/xc/xenctrl.mli | 1 +
-> 2 files changed, 2 insertions(+)
->=20
-> diff --git a/tools/ocaml/libs/xc/xenctrl.ml =
-b/tools/ocaml/libs/xc/xenctrl.ml
-> index 2690f9a923..7e1aabad6c 100644
-> --- a/tools/ocaml/libs/xc/xenctrl.ml
-> +++ b/tools/ocaml/libs/xc/xenctrl.ml
-> @@ -70,6 +70,7 @@ type domain_create_flag =3D
->   | CDF_IOMMU
->   | CDF_NESTED_VIRT
->   | CDF_VPMU
-> +  | CDF_TRAP_UNMAPPED_ACCESSES
->=20
-> type domain_create_iommu_opts =3D
->   | IOMMU_NO_SHAREPT
-> diff --git a/tools/ocaml/libs/xc/xenctrl.mli =
-b/tools/ocaml/libs/xc/xenctrl.mli
-> index febbe1f6ae..f44dba61ae 100644
-> --- a/tools/ocaml/libs/xc/xenctrl.mli
-> +++ b/tools/ocaml/libs/xc/xenctrl.mli
-> @@ -63,6 +63,7 @@ type domain_create_flag =3D
->   | CDF_IOMMU
->   | CDF_NESTED_VIRT
->   | CDF_VPMU
-> +  | CDF_TRAP_UNMAPPED_ACCESSES
->=20
-> type domain_create_iommu_opts =3D
->   | IOMMU_NO_SHAREPT
-> --=20
-> 2.43.0
->=20
+Oh, no worries about authorship, you can just commit this one really.
 
+Thanks, Roger.
 
