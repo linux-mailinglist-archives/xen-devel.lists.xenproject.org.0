@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B09E3AC8FB4
-	for <lists+xen-devel@lfdr.de>; Fri, 30 May 2025 15:19:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1000939.1381178 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E8681AC8FCA
+	for <lists+xen-devel@lfdr.de>; Fri, 30 May 2025 15:20:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1000975.1381229 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uKzdN-0001ps-5A; Fri, 30 May 2025 13:18:53 +0000
+	id 1uKzfF-00074M-Kn; Fri, 30 May 2025 13:20:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1000939.1381178; Fri, 30 May 2025 13:18:53 +0000
+Received: by outflank-mailman (output) from mailman id 1000975.1381229; Fri, 30 May 2025 13:20:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uKzdN-0001nr-1K; Fri, 30 May 2025 13:18:53 +0000
-Received: by outflank-mailman (input) for mailman id 1000939;
- Fri, 30 May 2025 13:18:51 +0000
+	id 1uKzfF-00071l-Gp; Fri, 30 May 2025 13:20:49 +0000
+Received: by outflank-mailman (input) for mailman id 1000975;
+ Fri, 30 May 2025 13:20:48 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=sDQw=YO=3mdeb.com=sergii.dmytruk@srs-se1.protection.inumbo.net>)
- id 1uKzdL-0008Jy-RY
- for xen-devel@lists.xenproject.org; Fri, 30 May 2025 13:18:51 +0000
-Received: from 17.mo561.mail-out.ovh.net (17.mo561.mail-out.ovh.net
- [87.98.178.58]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a0779712-3d58-11f0-a2ff-13f23c93f187;
- Fri, 30 May 2025 15:18:50 +0200 (CEST)
-Received: from director9.ghost.mail-out.ovh.net (unknown [10.108.25.252])
- by mo561.mail-out.ovh.net (Postfix) with ESMTP id 4b83j623d7z1TGn
- for <xen-devel@lists.xenproject.org>; Fri, 30 May 2025 13:18:50 +0000 (UTC)
-Received: from ghost-submission-5b5ff79f4f-kbk5q (unknown [10.110.164.164])
- by director9.ghost.mail-out.ovh.net (Postfix) with ESMTPS id 8FAE58498F;
- Fri, 30 May 2025 13:18:49 +0000 (UTC)
-Received: from 3mdeb.com ([37.59.142.96])
- by ghost-submission-5b5ff79f4f-kbk5q with ESMTPSA
- id Gn6JDjmwOWg+tAAARlXHSA
- (envelope-from <sergii.dmytruk@3mdeb.com>); Fri, 30 May 2025 13:18:49 +0000
+ id 1uKzdO-0008Jy-S3
+ for xen-devel@lists.xenproject.org; Fri, 30 May 2025 13:18:54 +0000
+Received: from 7.mo582.mail-out.ovh.net (7.mo582.mail-out.ovh.net
+ [46.105.59.196]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a217e06e-3d58-11f0-a2ff-13f23c93f187;
+ Fri, 30 May 2025 15:18:53 +0200 (CEST)
+Received: from director6.ghost.mail-out.ovh.net (unknown [10.109.140.39])
+ by mo582.mail-out.ovh.net (Postfix) with ESMTP id 4b83j91wPNz1V3B
+ for <xen-devel@lists.xenproject.org>; Fri, 30 May 2025 13:18:53 +0000 (UTC)
+Received: from ghost-submission-5b5ff79f4f-jf7jg (unknown [10.110.96.35])
+ by director6.ghost.mail-out.ovh.net (Postfix) with ESMTPS id 2563980257;
+ Fri, 30 May 2025 13:18:52 +0000 (UTC)
+Received: from 3mdeb.com ([37.59.142.106])
+ by ghost-submission-5b5ff79f4f-jf7jg with ESMTPSA
+ id W9soOzuwOWg3twAAMsIQHg
+ (envelope-from <sergii.dmytruk@3mdeb.com>); Fri, 30 May 2025 13:18:52 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,8 +46,8 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a0779712-3d58-11f0-a2ff-13f23c93f187
-Authentication-Results:garm.ovh; auth=pass (GARM-96R001935d236c-c23a-46fa-83b9-c100e535bc6e,
+X-Inumbo-ID: a217e06e-3d58-11f0-a2ff-13f23c93f187
+Authentication-Results:garm.ovh; auth=pass (GARM-106R00679701ec5-0cea-4536-851d-f45d9eef6760,
                     A4E380CC922F0B59227EC5DCC46884561651840B) smtp.auth=sergii.dmytruk@3mdeb.com
 X-OVh-ClientIp:176.111.184.221
 From: Sergii Dmytruk <sergii.dmytruk@3mdeb.com>
@@ -55,195 +55,173 @@ To: xen-devel@lists.xenproject.org
 Cc: Jan Beulich <jbeulich@suse.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	Ross Philipson <ross.philipson@oracle.com>,
 	trenchboot-devel@googlegroups.com
-Subject: [PATCH v3 07/22] x86/mtrr: expose functions for pausing caching
-Date: Fri, 30 May 2025 16:17:49 +0300
-Message-ID: <8d6e871f055c2456ab194e49bd470eafd04e454e.1748611041.git.sergii.dmytruk@3mdeb.com>
+Subject: [PATCH v3 08/22] x86/slaunch: restore boot MTRRs after Intel TXT DRTM
+Date: Fri, 30 May 2025 16:17:50 +0300
+Message-ID: <5b6b9bf165a4fd9444dc53848fb8faa2cea30781.1748611041.git.sergii.dmytruk@3mdeb.com>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <cover.1748611041.git.sergii.dmytruk@3mdeb.com>
 References: <cover.1748611041.git.sergii.dmytruk@3mdeb.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 12698462102722688156
+X-Ovh-Tracer-Id: 12699306524953392284
 X-VR-SPAMSTATE: OK
 X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgeeffedrtddtgddvleduudculddtuddrgeefvddrtddtmdcutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpefhvfevufffkffojghfggfgsedtkeertdertddtnecuhfhrohhmpefuvghrghhiihcuffhmhihtrhhukhcuoehsvghrghhiihdrughmhihtrhhukhesfehmuggvsgdrtghomheqnecuggftrfgrthhtvghrnhephfehfeehudeileeikeffgfffgfefuddtveelvedvhfffgfelvdfgtddutdehfeeinecukfhppeduvdejrddtrddtrddupddujeeirdduuddurddukeegrddvvddupdefjedrheelrddugedvrdelieenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepihhnvghtpeduvdejrddtrddtrddupdhmrghilhhfrhhomhepshgvrhhgihhirdgumhihthhruhhkseefmhguvggsrdgtohhmpdhnsggprhgtphhtthhopedupdhrtghpthhtohepgigvnhdquggvvhgvlheslhhishhtshdrgigvnhhprhhojhgvtghtrdhorhhgpdfovfetjfhoshhtpehmohehiedumgdpmhhouggvpehsmhhtphhouhht
-DKIM-Signature: a=rsa-sha256; bh=p5/X8odYi3YN7N37QJCMftuc5hqSiV9vDM1ybqq3iiI=;
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgeeffedrtddtgddvleduudculddtuddrgeefvddrtddtmdcutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpefhvfevufffkffojghfgggtgfesthekredtredtjeenucfhrhhomhepufgvrhhgihhiucffmhihthhruhhkuceoshgvrhhgihhirdgumhihthhruhhkseefmhguvggsrdgtohhmqeenucggtffrrghtthgvrhhnpeegkeffieeitdevkefhudegffevieeggfelgedvgeehffdtteehfeeuleeiudekvdenucfkphepuddvjedrtddrtddruddpudejiedrudduuddrudekgedrvddvuddpfeejrdehledrudegvddruddtieenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepihhnvghtpeduvdejrddtrddtrddupdhmrghilhhfrhhomhepshgvrhhgihhirdgumhihthhruhhkseefmhguvggsrdgtohhmpdhnsggprhgtphhtthhopedupdhrtghpthhtohepgigvnhdquggvvhgvlheslhhishhtshdrgigvnhhprhhojhgvtghtrdhorhhgpdfovfetjfhoshhtpehmohehkedvmgdpmhhouggvpehsmhhtphhouhht
+DKIM-Signature: a=rsa-sha256; bh=wR1hVbpxxN9SQ0YmcXd59qUIZ1ZgOyrRB96NJpE74ts=;
  c=relaxed/relaxed; d=3mdeb.com; h=From; s=ovhmo3617313-selector1;
- t=1748611130; v=1;
- b=Aiqs0UheTfDL8AWg3gjFuTcW2oP2wzTA8ZmsvhoLDGbS1fV9zG+lGtq6QSzMu1DqiYV/1dh6
- xwdDJJJ01w+6RDY+TPEb7KxNczTJvKigPVqC5Jnvoo6SWzN31hY8pYux59K1BMRjpQKImuGQhNK
- 4LxoTe+3dTFlwhrgjBCwRqgxb+X2gnCj/k2cXWD2t3P8HuE/IE+0G8SKuQRo3DIBZYMmY3BheuB
- 2wjeGk88cIRKdXiyQuGuQf5+THQBQx44Hjb30r7feVHX4lSl18WybfveM6RuqDFjcoYSoZlubDf
- UesS9HFaE2w+CdB4T/LIC+lzP8JCcaVlFFOkvXmARcu6A==
+ t=1748611133; v=1;
+ b=PMvC/81ouczRL8OJeS1H4LvnV8SeaCAuNjd/xU5Yh7XEGSmZGOqtbxQJQGVoekhjaZjNWsy7
+ ywWqXeVEcu/tPro4xHpuUGEuwoHsS1fhuEISU57LwjwhqiyHLhphw8w4nmQtFsWoFXArUajhx24
+ vs6W6srHf1ZXBrCW7r5IqpJjdjyBGF0jDTa8qu+HDMSGyKj/+mFwwGDN/tx5mVa7/YGNOfWboPK
+ gWLFyZ0/CENTGXGeGRpPVZbN8mw9lXP/S5OQHLrB7slBtHqPXCp+FgeJYh4AK0QSdOJc99osmah
+ z2yWgMo/vIjX3KFbAdqV0r9dPcgbjAfNRiZNl3jNev+nQ==
 
-This allows the functionality to be reused by other units that need to
-update MTRRs.
+From: Krystian Hebel <krystian.hebel@3mdeb.com>
 
-This also gets rid of a static variable.
+In preparation for TXT SENTER call, GRUB had to modify MTRR settings
+to be UC for everything except SINIT ACM. Old values are restored
+from SLRT where they were saved by the bootloader.
 
+Signed-off-by: Krystian Hebel <krystian.hebel@3mdeb.com>
+Signed-off-by: Michał Żygowski <michal.zygowski@3mdeb.com>
 Signed-off-by: Sergii Dmytruk <sergii.dmytruk@3mdeb.com>
 ---
- xen/arch/x86/cpu/mtrr/generic.c | 51 ++++++++++++++++-----------------
- xen/arch/x86/include/asm/mtrr.h |  8 ++++++
- 2 files changed, 33 insertions(+), 26 deletions(-)
+ xen/arch/x86/e820.c                  |  5 ++
+ xen/arch/x86/include/asm/intel-txt.h |  3 ++
+ xen/arch/x86/intel-txt.c             | 75 ++++++++++++++++++++++++++++
+ 3 files changed, 83 insertions(+)
 
-diff --git a/xen/arch/x86/cpu/mtrr/generic.c b/xen/arch/x86/cpu/mtrr/generic.c
-index c587e9140e..2a8dd1d8ff 100644
---- a/xen/arch/x86/cpu/mtrr/generic.c
-+++ b/xen/arch/x86/cpu/mtrr/generic.c
-@@ -396,9 +396,7 @@ static bool set_mtrr_var_ranges(unsigned int index, struct mtrr_var_range *vr)
- 	return changed;
- }
+diff --git a/xen/arch/x86/e820.c b/xen/arch/x86/e820.c
+index ca577c0bde..60f00e5259 100644
+--- a/xen/arch/x86/e820.c
++++ b/xen/arch/x86/e820.c
+@@ -11,6 +11,8 @@
+ #include <asm/mtrr.h>
+ #include <asm/msr.h>
+ #include <asm/guest.h>
++#include <asm/intel-txt.h>
++#include <asm/slaunch.h>
  
--static uint64_t deftype;
--
--static unsigned long set_mtrr_state(void)
-+static unsigned long set_mtrr_state(uint64_t *deftype)
- /*  [SUMMARY] Set the MTRR state for this CPU.
-     <state> The MTRR state information to read.
-     <ctxt> Some relevant CPU context.
-@@ -416,14 +414,12 @@ static unsigned long set_mtrr_state(void)
- 	if (mtrr_state.have_fixed && set_fixed_ranges(mtrr_state.fixed_ranges))
- 		change_mask |= MTRR_CHANGE_MASK_FIXED;
+ /*
+  * opt_mem: Limit maximum address of physical RAM.
+@@ -442,6 +444,9 @@ static uint64_t __init mtrr_top_of_ram(void)
+     ASSERT(paddr_bits);
+     addr_mask = ((1ULL << paddr_bits) - 1) & PAGE_MASK;
  
--	/*  Set_mtrr_restore restores the old value of MTRRdefType,
--	   so to set it we fiddle with the saved value  */
--	if ((deftype & 0xff) != mtrr_state.def_type
--	    || MASK_EXTR(deftype, MTRRdefType_E) != mtrr_state.enabled
--	    || MASK_EXTR(deftype, MTRRdefType_FE) != mtrr_state.fixed_enabled) {
--		deftype = (deftype & ~0xcff) | mtrr_state.def_type |
--		          MASK_INSR(mtrr_state.enabled, MTRRdefType_E) |
--		          MASK_INSR(mtrr_state.fixed_enabled, MTRRdefType_FE);
-+	if ((*deftype & 0xff) != mtrr_state.def_type
-+	    || MASK_EXTR(*deftype, MTRRdefType_E) != mtrr_state.enabled
-+	    || MASK_EXTR(*deftype, MTRRdefType_FE) != mtrr_state.fixed_enabled) {
-+		*deftype = (*deftype & ~0xcff) | mtrr_state.def_type |
-+		           MASK_INSR(mtrr_state.enabled, MTRRdefType_E) |
-+		           MASK_INSR(mtrr_state.fixed_enabled, MTRRdefType_FE);
- 		change_mask |= MTRR_CHANGE_MASK_DEFTYPE;
- 	}
- 
-@@ -440,9 +436,10 @@ static DEFINE_SPINLOCK(set_atomicity_lock);
-  * has been called.
-  */
- 
--static bool prepare_set(void)
-+struct mtrr_pausing_state mtrr_pause_caching(void)
- {
- 	unsigned long cr4;
-+	struct mtrr_pausing_state state;
- 
- 	/*  Note that this is not ideal, since the cache is only flushed/disabled
- 	   for this CPU while the MTRRs are changed, but changing this requires
-@@ -462,7 +459,9 @@ static bool prepare_set(void)
- 	alternative("wbinvd", "", X86_FEATURE_XEN_SELFSNOOP);
- 
- 	cr4 = read_cr4();
--	if (cr4 & X86_CR4_PGE)
-+	state.pge = cr4 & X86_CR4_PGE;
++    if ( slaunch_active )
++        txt_restore_mtrrs(e820_verbose);
 +
-+	if (state.pge)
- 		write_cr4(cr4 & ~X86_CR4_PGE);
- 	else if (use_invpcid)
- 		invpcid_flush_all();
-@@ -470,27 +469,27 @@ static bool prepare_set(void)
- 		write_cr3(read_cr3());
+     rdmsrl(MSR_MTRRcap, mtrr_cap);
+     rdmsrl(MSR_MTRRdefType, mtrr_def);
  
- 	/*  Save MTRR state */
--	rdmsrl(MSR_MTRRdefType, deftype);
-+	rdmsrl(MSR_MTRRdefType, state.def_type);
+diff --git a/xen/arch/x86/include/asm/intel-txt.h b/xen/arch/x86/include/asm/intel-txt.h
+index ad3c41d86c..0b0bdc1bb2 100644
+--- a/xen/arch/x86/include/asm/intel-txt.h
++++ b/xen/arch/x86/include/asm/intel-txt.h
+@@ -426,6 +426,9 @@ void txt_map_mem_regions(void);
+ /* Marks TXT-specific memory as used to avoid its corruption. */
+ void txt_reserve_mem_regions(void);
  
- 	/*  Disable MTRRs, and set the default type to uncached  */
--	mtrr_wrmsr(MSR_MTRRdefType, deftype & ~0xcff);
-+	mtrr_wrmsr(MSR_MTRRdefType, state.def_type & ~0xcff);
- 
- 	/* Again, only flush caches if we have to. */
- 	alternative("wbinvd", "", X86_FEATURE_XEN_SELFSNOOP);
- 
--	return cr4 & X86_CR4_PGE;
-+	return state;
- }
- 
--static void post_set(bool pge)
-+void mtrr_resume_caching(struct mtrr_pausing_state state)
- {
- 	/* Intel (P6) standard MTRRs */
--	mtrr_wrmsr(MSR_MTRRdefType, deftype);
-+	mtrr_wrmsr(MSR_MTRRdefType, state.def_type);
- 
- 	/*  Enable caches  */
- 	write_cr0(read_cr0() & ~X86_CR0_CD);
- 
- 	/*  Reenable CR4.PGE (also flushes the TLB) */
--	if (pge)
-+	if (state.pge)
- 		write_cr4(read_cr4() | X86_CR4_PGE);
- 	else if (use_invpcid)
- 		invpcid_flush_all();
-@@ -504,15 +503,15 @@ void mtrr_set_all(void)
- {
- 	unsigned long mask, count;
- 	unsigned long flags;
--	bool pge;
-+	struct mtrr_pausing_state pausing_state;
- 
- 	local_irq_save(flags);
--	pge = prepare_set();
-+	pausing_state = mtrr_pause_caching();
- 
- 	/* Actually set the state */
--	mask = set_mtrr_state();
-+	mask = set_mtrr_state(&pausing_state.def_type);
- 
--	post_set(pge);
-+	mtrr_resume_caching(pausing_state);
- 	local_irq_restore(flags);
- 
- 	/*  Use the atomic bitops to update the global mask  */
-@@ -537,12 +536,12 @@ void mtrr_set(
- {
- 	unsigned long flags;
- 	struct mtrr_var_range *vr;
--	bool pge;
-+	struct mtrr_pausing_state pausing_state;
- 
- 	vr = &mtrr_state.var_ranges[reg];
- 
- 	local_irq_save(flags);
--	pge = prepare_set();
-+	pausing_state = mtrr_pause_caching();
- 
- 	if (size == 0) {
- 		/* The invalid bit is kept in the mask, so we simply clear the
-@@ -563,7 +562,7 @@ void mtrr_set(
- 		mtrr_wrmsr(MSR_IA32_MTRR_PHYSMASK(reg), vr->mask);
- 	}
- 
--	post_set(pge);
-+	mtrr_resume_caching(pausing_state);
- 	local_irq_restore(flags);
- }
- 
-diff --git a/xen/arch/x86/include/asm/mtrr.h b/xen/arch/x86/include/asm/mtrr.h
-index 25d442659d..82ea427ba0 100644
---- a/xen/arch/x86/include/asm/mtrr.h
-+++ b/xen/arch/x86/include/asm/mtrr.h
-@@ -66,6 +66,14 @@ extern uint8_t pat_type_2_pte_flags(uint8_t pat_type);
- extern void mtrr_aps_sync_begin(void);
- extern void mtrr_aps_sync_end(void);
- 
-+struct mtrr_pausing_state {
-+	bool pge;
-+	uint64_t def_type;
-+};
++/* Restores original MTRR values saved by a bootloader before starting DRTM. */
++void txt_restore_mtrrs(bool e820_verbose);
 +
-+extern struct mtrr_pausing_state mtrr_pause_caching(void);
-+extern void mtrr_resume_caching(struct mtrr_pausing_state state);
+ #endif /* __ASSEMBLY__ */
+ 
+ #endif /* X86_INTEL_TXT_H */
+diff --git a/xen/arch/x86/intel-txt.c b/xen/arch/x86/intel-txt.c
+index 163383b262..0c14d84486 100644
+--- a/xen/arch/x86/intel-txt.c
++++ b/xen/arch/x86/intel-txt.c
+@@ -10,6 +10,8 @@
+ #include <xen/types.h>
+ #include <asm/e820.h>
+ #include <asm/intel-txt.h>
++#include <asm/msr.h>
++#include <asm/mtrr.h>
+ #include <asm/slaunch.h>
+ 
+ static uint64_t __initdata txt_heap_base, txt_heap_size;
+@@ -111,3 +113,76 @@ void __init txt_reserve_mem_regions(void)
+                      E820_UNUSABLE);
+     BUG_ON(rc == 0);
+ }
 +
- extern bool mtrr_var_range_msr_set(struct domain *d, struct mtrr_state *m,
-                                    uint32_t msr, uint64_t msr_content);
- extern bool mtrr_fix_range_msr_set(struct domain *d, struct mtrr_state *m,
++void __init txt_restore_mtrrs(bool e820_verbose)
++{
++    struct slr_entry_intel_info *intel_info;
++    uint64_t mtrr_cap, mtrr_def, base, mask;
++    unsigned int i;
++    uint64_t def_type;
++    struct mtrr_pausing_state pausing_state;
++
++    rdmsrl(MSR_MTRRcap, mtrr_cap);
++    rdmsrl(MSR_MTRRdefType, mtrr_def);
++
++    if ( e820_verbose )
++    {
++        printk("MTRRs set previously for SINIT ACM:\n");
++        printk(" MTRR cap: %"PRIx64" type: %"PRIx64"\n", mtrr_cap, mtrr_def);
++
++        for ( i = 0; i < (uint8_t)mtrr_cap; i++ )
++        {
++            rdmsrl(MSR_IA32_MTRR_PHYSBASE(i), base);
++            rdmsrl(MSR_IA32_MTRR_PHYSMASK(i), mask);
++
++            printk(" MTRR[%d]: base %"PRIx64" mask %"PRIx64"\n",
++                   i, base, mask);
++        }
++    }
++
++    intel_info = (struct slr_entry_intel_info *)
++        slr_next_entry_by_tag(slaunch_get_slrt(), NULL, SLR_ENTRY_INTEL_INFO);
++
++    if ( (mtrr_cap & 0xFF) != intel_info->saved_bsp_mtrrs.mtrr_vcnt )
++    {
++        printk("Bootloader saved %ld MTRR values, but there should be %ld\n",
++               intel_info->saved_bsp_mtrrs.mtrr_vcnt, mtrr_cap & 0xFF);
++        /* Choose the smaller one to be on the safe side. */
++        mtrr_cap = (mtrr_cap & 0xFF) > intel_info->saved_bsp_mtrrs.mtrr_vcnt ?
++                   intel_info->saved_bsp_mtrrs.mtrr_vcnt : mtrr_cap;
++    }
++
++    def_type = intel_info->saved_bsp_mtrrs.default_mem_type;
++    pausing_state = mtrr_pause_caching();
++
++    for ( i = 0; i < (uint8_t)mtrr_cap; i++ )
++    {
++        base = intel_info->saved_bsp_mtrrs.mtrr_pair[i].mtrr_physbase;
++        mask = intel_info->saved_bsp_mtrrs.mtrr_pair[i].mtrr_physmask;
++        wrmsrl(MSR_IA32_MTRR_PHYSBASE(i), base);
++        wrmsrl(MSR_IA32_MTRR_PHYSMASK(i), mask);
++    }
++
++    pausing_state.def_type = def_type;
++    mtrr_resume_caching(pausing_state);
++
++    if ( e820_verbose )
++    {
++        printk("Restored MTRRs:\n"); /* Printed by caller, mtrr_top_of_ram(). */
++
++        /* If MTRRs are not enabled or WB is not a default type, MTRRs won't be printed */
++        if ( !test_bit(11, &def_type) || ((uint8_t)def_type == X86_MT_WB) )
++        {
++            for ( i = 0; i < (uint8_t)mtrr_cap; i++ )
++            {
++                rdmsrl(MSR_IA32_MTRR_PHYSBASE(i), base);
++                rdmsrl(MSR_IA32_MTRR_PHYSMASK(i), mask);
++                printk(" MTRR[%d]: base %"PRIx64" mask %"PRIx64"\n",
++                       i, base, mask);
++            }
++        }
++    }
++
++    /* Restore IA32_MISC_ENABLES */
++    wrmsrl(MSR_IA32_MISC_ENABLE, intel_info->saved_misc_enable_msr);
++}
 -- 
 2.49.0
 
