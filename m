@@ -2,38 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B0BDAC90F2
-	for <lists+xen-devel@lfdr.de>; Fri, 30 May 2025 16:03:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1001218.1381419 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A1E2CAC90FA
+	for <lists+xen-devel@lfdr.de>; Fri, 30 May 2025 16:05:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1001224.1381429 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uL0KX-0005I4-Lu; Fri, 30 May 2025 14:03:29 +0000
+	id 1uL0M9-00066J-V4; Fri, 30 May 2025 14:05:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1001218.1381419; Fri, 30 May 2025 14:03:29 +0000
+Received: by outflank-mailman (output) from mailman id 1001224.1381429; Fri, 30 May 2025 14:05:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uL0KX-0005FJ-IT; Fri, 30 May 2025 14:03:29 +0000
-Received: by outflank-mailman (input) for mailman id 1001218;
- Fri, 30 May 2025 14:03:28 +0000
+	id 1uL0M9-00064s-SF; Fri, 30 May 2025 14:05:09 +0000
+Received: by outflank-mailman (input) for mailman id 1001224;
+ Fri, 30 May 2025 14:05:08 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=OJNC=YO=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1uL0KW-0005FC-2G
- for xen-devel@lists.xenproject.org; Fri, 30 May 2025 14:03:28 +0000
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
- [2a00:1450:4864:20::429])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id dbad9021-3d5e-11f0-a2ff-13f23c93f187;
- Fri, 30 May 2025 16:03:27 +0200 (CEST)
-Received: by mail-wr1-x429.google.com with SMTP id
- ffacd0b85a97d-3a4c6c0a9c7so1366308f8f.3
- for <xen-devel@lists.xenproject.org>; Fri, 30 May 2025 07:03:27 -0700 (PDT)
-Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
- by smtp.gmail.com with UTF8SMTPSA id
- 5b1f17b1804b1-450d8012b09sm18715585e9.37.2025.05.30.07.03.14
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 30 May 2025 07:03:15 -0700 (PDT)
+ <SRS0=m5RA=YO=arm.com=ryan.roberts@srs-se1.protection.inumbo.net>)
+ id 1uL0M7-00064k-V4
+ for xen-devel@lists.xenproject.org; Fri, 30 May 2025 14:05:07 +0000
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTP
+ id 166495fb-3d5f-11f0-a2ff-13f23c93f187;
+ Fri, 30 May 2025 16:05:06 +0200 (CEST)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 82C55169C;
+ Fri, 30 May 2025 07:04:48 -0700 (PDT)
+Received: from e125769.cambridge.arm.com (e125769.cambridge.arm.com
+ [10.1.196.27])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D6E5D3F673;
+ Fri, 30 May 2025 07:04:59 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,79 +43,118 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dbad9021-3d5e-11f0-a2ff-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1748613806; x=1749218606; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=pwoWV4YWQnhRonAsr2ZbQBGENx07n89BubpTlvVFG/0=;
-        b=Cvjjwkh7v7Fkng0IoPR1ZmnKYRgjbonvjl2Eh7OP1KCRfN46ZE7Ax5+OSr5oRqwIkj
-         nzC5lRvzFlFdhz6xUUxMrUJMNYpHOnmAcXAdb7oanpfJGD8BBfsO5kkY3Khq6nKWz12D
-         tYQ+rMUbUI0lnYWxKCsA3YFJodTgt4wtPwpQk=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1748613806; x=1749218606;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=pwoWV4YWQnhRonAsr2ZbQBGENx07n89BubpTlvVFG/0=;
-        b=tnFBVT8N5jmNxPUG3y5VCxdsv2I4FjmEm/QygXDxgpa9ET9U8NyM/p6kIJDzrjQwTL
-         fam0IqbyxJObjG52Hq9t0vWF9mfzqsuQjtbezwCFVVEa/lstpi6VhwJi7zRS7ZPiWNPe
-         UMV+xQ/VZQWOwIfY1De6NHKwH3uyUR+SSfJbpfiQobOm291j6jtc3g6Jy8lc25gZkYxf
-         VLK2RKmAYRpmIdKYWP3yNYMkqHMWk4l62Iet6agFXkItnHHfNn+ypxBHRwTIZfzrl34k
-         kUiRp7wH9lNOuCuXQvFAeNWzFDUVrqPq/5oHGrqA1/NLVNVk9/J+9LwnTfVsrvMHSpxS
-         Zfdw==
-X-Gm-Message-State: AOJu0Yya9R0QGyNowuYxeMJIgtn6PMXi8BBXRMp/0UphYRTz//8kOobw
-	AgQHj5UjOTmHgxwQ6cyNxl3xbKUdAJINaD4e6q/oZh3YnOXfT40U2R4UVS7yb6xkhX2aHJCI3oj
-	XjKpO
-X-Gm-Gg: ASbGncvgrraQGWLK+zkAkofl8mDxI2K9OwTxx5oPxD4lPungWsID7LSzfPSRKcxVUSE
-	wKjpZdXz5BT2ejSOHPy+Fw3AZIxOjcSjfd4muJUjGVlHlyrmObQjWitfjXweHGgGpa3DpTgcEk6
-	t6dwgBl4l0qZGmFCIrRZVHOvdGYWgh/VoadDE+ZLFQ9HhOiF1KuajZ06Mt9GvBdMh0LrbPJwDNG
-	OVKvA2DkEgklnjUdqEaZJo0DCVN8w6is1LNq9ZpxmSoo5zbIErF8QQf68J/aUU8kJtTA7acRu8v
-	80h9syF+xyFZet20r9t+hubGG1Ein+jRI6/FniK0w8ArQQC/WPPUQwx0WRAmL9n34294mkh9DlA
-	mQcVbdEpIbftniLzs7gHBlZC7
-X-Google-Smtp-Source: AGHT+IFT7L+seHHQAf7Y5KFqVx7ZUGM54eSERjkDhRBxFY8sP+0s25jQ8CrpWtr6ui5qZw0emV8zIw==
-X-Received: by 2002:a05:6000:2886:b0:3a4:f722:f98d with SMTP id ffacd0b85a97d-3a4f89e8f63mr2027206f8f.51.1748613795492;
-        Fri, 30 May 2025 07:03:15 -0700 (PDT)
-Date: Fri, 30 May 2025 16:03:14 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
-	Anthony PERARD <anthony.perard@vates.tech>
-Subject: Re: [PATCH] tools/tests: Add install target for vPCI
-Message-ID: <aDm6ooBjmFtUCqjI@macbook.local>
-References: <20250530104307.2550886-1-andrew.cooper3@citrix.com>
- <aDmPDlE2ZWDYg2wm@macbook.local>
- <2912f117-a898-41dd-9e1f-2723728a2237@citrix.com>
+X-Inumbo-ID: 166495fb-3d5f-11f0-a2ff-13f23c93f187
+From: Ryan Roberts <ryan.roberts@arm.com>
+To: Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Christophe Leroy <christophe.leroy@csgroup.eu>,
+	"David S. Miller" <davem@davemloft.net>,
+	Andreas Larsson <andreas@gaisler.com>,
+	Juergen Gross <jgross@suse.com>,
+	Ajay Kaher <ajay.kaher@broadcom.com>,
+	Alexey Makhalov <alexey.makhalov@broadcom.com>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Arnd Bergmann <arnd@arndb.de>,
+	David Hildenbrand <david@redhat.com>,
+	Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+	"Liam R. Howlett" <Liam.Howlett@oracle.com>,
+	Vlastimil Babka <vbabka@suse.cz>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Andrey Ryabinin <ryabinin.a.a@gmail.com>
+Cc: Ryan Roberts <ryan.roberts@arm.com>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	sparclinux@vger.kernel.org,
+	virtualization@lists.linux.dev,
+	xen-devel@lists.xenproject.org,
+	linux-mm@kvack.org
+Subject: [RFC PATCH v1 0/6] Lazy mmu mode fixes and improvements
+Date: Fri, 30 May 2025 15:04:38 +0100
+Message-ID: <20250530140446.2387131-1-ryan.roberts@arm.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <2912f117-a898-41dd-9e1f-2723728a2237@citrix.com>
 
-On Fri, May 30, 2025 at 01:29:49PM +0100, Andrew Cooper wrote:
-> On 30/05/2025 11:57 am, Roger Pau Monné wrote:
-> > On Fri, May 30, 2025 at 11:43:07AM +0100, Andrew Cooper wrote:
-> >> This lets it run automagically in CI.
-> >>
-> >> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> > Acked-by: Roger Pau Monné <roger.pau@citrix.com>
-> >
-> > I had sent something similar long time ago:
-> >
-> > https://lore.kernel.org/xen-devel/20230313121226.86557-1-roger.pau@citrix.com/
-> >
-> > But got no reviews.
-> >
-> > Thanks, Roger.
-> 
-> Sorry, that fell through the cracks too.
-> 
-> What I'll do if you're happy is submit it as authored by you but with
-> this content (seeing as it's the one I've tested in the past week), and
-> A-by me.
+Hi All,
 
-Oh, no worries about authorship, you can just commit this one really.
+I recently added support for lazy mmu mode on arm64. The series is now in
+Linus's tree so should be in v6.16-rc1. But during testing in linux-next we
+found some ugly corners (unexpected nesting). I was able to fix those issues by
+making the arm64 implementation more permissive (like the other arches). But
+this is quite fragile IMHO. So I'd rather fix the root cause and ensure that
+lazy mmu mode never nests, and more importantly, that code never makes pgtable
+modifications expecting them to be immediate, not knowing that it's actually in
+lazy mmu mode so the changes get deferred.
 
-Thanks, Roger.
+The first 2 patches are unrelated, very obvious bug fixes. They don't affect
+arm64 because arm64 only uses lazy mmu for kernel mappings. But I noticed them
+during code review and think they should be fixed.
+
+The next 3 patches are aimed at solving the nesting issue.
+
+And the final patch is reverting the "permissive" fix I did for arm64, which is
+no longer needed after the previous 3 patches.
+
+I've labelled this RFC for now because it depends on the arm64 lazy mmu patches
+in Linus's master, so it won't apply to mm-unstable. But I'm keen to get review
+and siince I'm touching various arches and modifying some core mm stuff, I
+thought that might take a while so thought I'd beat the rush and get a first
+version out early.
+
+I've build-tested all the affected arches. And I've run mm selftests for the
+arm64 build, with no issues (with DEBUG_PAGEALLOC and KFENCE enabled).
+
+Applies against Linus's master branch (f66bc387efbe).
+
+Thanks,
+Ryan
+
+
+Ryan Roberts (6):
+  fs/proc/task_mmu: Fix pte update and tlb maintenance ordering in
+    pagemap_scan_pmd_entry()
+  mm: Fix pte update and tlb maintenance ordering in
+    migrate_vma_collect_pmd()
+  mm: Avoid calling page allocator from apply_to_page_range()
+  mm: Introduce arch_in_lazy_mmu_mode()
+  mm: Avoid calling page allocator while in lazy mmu mode
+  Revert "arm64/mm: Permit lazy_mmu_mode to be nested"
+
+ arch/arm64/include/asm/pgtable.h              | 22 ++++----
+ .../include/asm/book3s/64/tlbflush-hash.h     | 15 ++++++
+ arch/sparc/include/asm/tlbflush_64.h          |  1 +
+ arch/sparc/mm/tlb.c                           | 12 +++++
+ arch/x86/include/asm/paravirt.h               |  5 ++
+ arch/x86/include/asm/paravirt_types.h         |  1 +
+ arch/x86/kernel/paravirt.c                    |  6 +++
+ arch/x86/xen/mmu_pv.c                         |  6 +++
+ fs/proc/task_mmu.c                            |  3 +-
+ include/asm-generic/tlb.h                     |  2 +
+ include/linux/mm.h                            |  6 +++
+ include/linux/pgtable.h                       |  1 +
+ kernel/bpf/arena.c                            |  6 +--
+ mm/kasan/shadow.c                             |  2 +-
+ mm/memory.c                                   | 54 ++++++++++++++-----
+ mm/migrate_device.c                           |  3 +-
+ mm/mmu_gather.c                               | 15 ++++++
+ 17 files changed, 128 insertions(+), 32 deletions(-)
+
+--
+2.43.0
+
 
