@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C6B60ACB9EC
-	for <lists+xen-devel@lfdr.de>; Mon,  2 Jun 2025 19:01:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1003718.1383317 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F3290ACBA53
+	for <lists+xen-devel@lfdr.de>; Mon,  2 Jun 2025 19:30:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1003727.1383326 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uM8Wl-0006a3-HB; Mon, 02 Jun 2025 17:00:47 +0000
+	id 1uM8yk-0001KN-MX; Mon, 02 Jun 2025 17:29:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1003718.1383317; Mon, 02 Jun 2025 17:00:47 +0000
+Received: by outflank-mailman (output) from mailman id 1003727.1383326; Mon, 02 Jun 2025 17:29:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uM8Wl-0006YA-EY; Mon, 02 Jun 2025 17:00:47 +0000
-Received: by outflank-mailman (input) for mailman id 1003718;
- Mon, 02 Jun 2025 17:00:46 +0000
+	id 1uM8yk-0001I0-Ji; Mon, 02 Jun 2025 17:29:42 +0000
+Received: by outflank-mailman (input) for mailman id 1003727;
+ Mon, 02 Jun 2025 17:29:42 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=QKOU=YR=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1uM8Wj-0006XV-Vo
- for xen-devel@lists.xenproject.org; Mon, 02 Jun 2025 17:00:46 +0000
+ id 1uM8yk-0001Hu-2x
+ for xen-devel@lists.xenproject.org; Mon, 02 Jun 2025 17:29:42 +0000
 Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
  [2a00:1450:4864:20::330])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1f2a9802-3fd3-11f0-b894-0df219b8e170;
- Mon, 02 Jun 2025 19:00:44 +0200 (CEST)
+ id 29dbd978-3fd7-11f0-b894-0df219b8e170;
+ Mon, 02 Jun 2025 19:29:40 +0200 (CEST)
 Received: by mail-wm1-x330.google.com with SMTP id
- 5b1f17b1804b1-45024721cbdso36872105e9.2
- for <xen-devel@lists.xenproject.org>; Mon, 02 Jun 2025 10:00:44 -0700 (PDT)
+ 5b1f17b1804b1-43ea40a6e98so50944225e9.1
+ for <xen-devel@lists.xenproject.org>; Mon, 02 Jun 2025 10:29:40 -0700 (PDT)
 Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-450d7fb0654sm129639425e9.21.2025.06.02.10.00.42
+ ffacd0b85a97d-3a4f00a017esm15241435f8f.89.2025.06.02.10.29.38
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 02 Jun 2025 10:00:42 -0700 (PDT)
+ Mon, 02 Jun 2025 10:29:39 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1f2a9802-3fd3-11f0-b894-0df219b8e170
+X-Inumbo-ID: 29dbd978-3fd7-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1748883643; x=1749488443; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1748885380; x=1749490180; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=XaF1XeDmFm5BPaAg7i67sCNl7+5PLTKIgay5hbJydTA=;
-        b=VBL97N5PDFjtNHHfdCaq7bVRWqGV1H+cHiCIm8dBTMfIp6GF6N3bibuZNHwZkvhc2e
-         YLauuoczYdHjvTbhRPxjyQiU/mXMy/aXtJS2ATeBtMk4ZODzmrI1qxmUvjqNihqQ6uCn
-         E6LeHEWBEqmX8Xo3b9oa3WvTVJT9yqwTfvbE0=
+        bh=8EysBdXhVRcuwATGtq5Z+vV7iT4lpqk0/v0j0Cc1ok4=;
+        b=s0XNaPXpE+2G1t++chQBIa1livncLr2x9gluBrw9E8Bea6ZmpwmfLthBhgiSLttD/C
+         B2gYhbtWPIcISgC5cqSoHbpxS7nv1rlxYGCa2Nd0nQYXIgfpFXYOkEVFywCec8JIGM5g
+         4CqEprEezpoujXP0r86i/9YuWjbQObmPTOT9U=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1748883643; x=1749488443;
+        d=1e100.net; s=20230601; t=1748885380; x=1749490180;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=XaF1XeDmFm5BPaAg7i67sCNl7+5PLTKIgay5hbJydTA=;
-        b=FWFlb7dMfAS33AYcAc3f09IVOWWyJS+GJakOnSXsbc53rERQAWcn3bm+IomYnOSWe/
-         GU8dduFbiiSJ0aiSYq5QwNgtP17/JSAO6HPPFrLKGBAoblbN/pi1RE7yoj7MflsUhv70
-         eZ0CFghQRPUpQiVx8cNsFB6c3kopIrAMp+QPkdjWJ6Wfeyjm+9+uGcWtRf6TNgJhJecF
-         ZuRZsbPvsO7UEu+TK57crACeOtNYENbynqfklMAVA7oHmFibiC/bPxZZNKQlfg4fpFyh
-         KhEmaf1iaRenVbRqwNAb/9a9gCqzwFsTx72H01W56n768odejuqk4MJVYGSL5hjfnaoY
-         hq9w==
-X-Forwarded-Encrypted: i=1; AJvYcCWR0a1JpPM15xb5dcsdVaZpDZA7txLiOeGL9l6rJvLIoPoISYq32V1I9arotplR1/NADBtlcWnyTKY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Ywg7VF/pq7XFbSO23Ph2mAGgm0JUxxJlkC3SvdHQrl2Ui1+uaW/
-	7Hg0UQZYT41YZIMteUt935hi1Z/Uwdqqyw3r8m6ZEkCI8bPFTe1ofEKQPVLhPYNGEoU=
-X-Gm-Gg: ASbGncuFZCpaLzgGpySLPbOyEdhcS3O5mqFetYSEbBIc/hQJY1+kxcbgBQnXI+Bqapl
-	RVNKgw0BBBN8lcQ9+aJVuMWcoW6azPwRY50muP87zJos2I1nhbh1MgMNBwGL9xqMBX7cZWJlHw+
-	swLCMYoHgYoD3F1nzHHWIAgYKcsz93ZAhkCaNFKlqj9om9hmMSmzNS2dq4gdAxaZGdDEin/6Cwl
-	hxgKhLbCnJTk8H31xBWb9ZHW8nqqdnP8LIHMoB9by0F1evW3eqOYhd0PchYTWoWD83niJlzGIeC
-	fC6ygECEmeT2DJJRKqN4soxv7B6xnJQP7IYFy2URFdCiU9CU4AVN7mf2CGWVHhhKtZHGyqMmmpD
-	N18UZHErKpyLIj6sK
-X-Google-Smtp-Source: AGHT+IE0WcvOIbm1gMLspAkTw/IBE4RQPOaCldLN4vUmdCKi5/liFVNT7fVSWGNkvisYsZr4yD5Abw==
-X-Received: by 2002:a05:600c:5342:b0:450:ddb7:ee4d with SMTP id 5b1f17b1804b1-450ddb7ee6amr67661105e9.24.1748883643515;
-        Mon, 02 Jun 2025 10:00:43 -0700 (PDT)
-Message-ID: <214c8863-5cd4-4be9-948e-e44b67f541bd@citrix.com>
-Date: Mon, 2 Jun 2025 18:00:42 +0100
+        bh=8EysBdXhVRcuwATGtq5Z+vV7iT4lpqk0/v0j0Cc1ok4=;
+        b=hwN5IqXD6hkkHLW5z+OFfhpC3EJZvg19LX+W+uKaNmZkolkPYBRwKh1G/h8iZlsdIM
+         JfWuAy6B/cQ+Q3v9tdrOvP5mvyaW2k1i9H6qz2DFry0uYby/TX66S7GimfF02+38SUPR
+         77hblwij0xJlnfJQMaZdSKFKGkGtQskJ4rdefR1q6QJJJloj4rm6/Rlpwfq7H0gHkSI8
+         LR0UvfXrtbd/6gIXzeecuYkluVBM4pwamAfHQmq+8Z+z0adDrrO3d0plo/TinKrFZIrp
+         TCdoM1tXDXpZq0DHEfIfHdMaoE5LG11x3XUKgsVgxGEepa6L7cQ+RO0JwZ/8/i0Jj4h+
+         /Ucg==
+X-Forwarded-Encrypted: i=1; AJvYcCXx8VdDzDBlR+oC2Is38auy+R4W+eKVBelIg/dcCvB/BYTDMRFnmmeQjkTyVuS2lB7IcD1BFsvk4io=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxVbYeM7SOtqAW0Y9tGSxdM1O1zO9IrmZYxeilk0BnmPsa2WNeK
+	K/gcHD9bjJ5yqzM7M2Uv+fhUvK61yYJULYKKL5w8K6v54F7UCcuOgbjnlhREGS81R2w=
+X-Gm-Gg: ASbGncvH1WcU5nQhVVpn0j09KsCQ2mvgP+aAyqEzn4MFRlWfJGiY/XZEc7j3Hgy2gSM
+	VwuOkp3yCBnIb6sgBcxJqG+KUx7+gi+6WkBSlFgtzTKrmQ35+ZaRDTx9kijPWjpXQTl5lr1YSCr
+	6tzWcB3xj6L410hRhB3QytlSP59YeR1C41dfHpxvN36iF9vFOXABCEH/xd58eumWE+naevTwTZV
+	+/mGV47un3FkRrxAdk+XWCYIyeaV/2lE7ORrumEz4G+htQuw/qsIlGLOVBoaDHqfkLjkq+zjCen
+	sID7Sat+P32tQ8yzTipwD6x9Ckv83M6mzM9bic0/CjxpDtGUyaYLMTNq/Ebp4Z0OLlYRkWELock
+	+JPklw9yoDyWg3OfDjhNqkpKai5FVkP+j4KC+2Q==
+X-Google-Smtp-Source: AGHT+IGDctUQKiOKTosx4cih6zUBkhvYMnID3FemRn49+9EeLGa3AFkxRBWp4DJWHtpX+ZS8x5HO2Q==
+X-Received: by 2002:a05:6000:3112:b0:3a0:7f9c:189a with SMTP id ffacd0b85a97d-3a4f799acd4mr11101980f8f.0.1748885379610;
+        Mon, 02 Jun 2025 10:29:39 -0700 (PDT)
+Message-ID: <bf038fe7-c3b4-435b-8f02-94d8ea337e9e@citrix.com>
+Date: Mon, 2 Jun 2025 18:29:38 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 10/19] x86: Replace boot_module with bootmodule
-To: Alejandro Vallejo <agarciav@amd.com>, xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>
-References: <DA1WWRUQLCAG.ZTVR1HXJ85V0@amd.com>
- <20250530120242.39398-1-agarciav@amd.com>
- <20250530120242.39398-11-agarciav@amd.com>
+Subject: Re: [PATCH] vVMX: adjust VMPTRLD error handling
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Manuel Andreas <manuel.andreas@tum.de>
+References: <421e2f85-c1ed-4989-b8db-36e261826fa0@suse.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -139,22 +135,44 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20250530120242.39398-11-agarciav@amd.com>
+In-Reply-To: <421e2f85-c1ed-4989-b8db-36e261826fa0@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 30/05/2025 1:02 pm, Alejandro Vallejo wrote:
-> These types resemble each other very closely in layout and intent, and
-> with "struct bootmodule" already in common code it makes perfect sense
-> to merge them. In order to do so, add an arch-specific area for
-> x86-specific tidbits.
+On 02/06/2025 4:37 pm, Jan Beulich wrote:
+> There are two issues there: When hvm_map_guest_frame_rw() yields a r/o
+> page mapping, we fail to indicate the failure to the guest, and we fall
+> over the NULL pointer in nvcpu->nv_vvmcx when subsequently invoking
+> nvmx_set_vmcs_pointer() (if no earlier VMPTRLD put in place a valid
+> value).
 >
-> Signed-off-by: Alejandro Vallejo <agarciav@amd.com>
+> Fixes: 5dbbaa0fe121 ("x86/vvmx: fix I/O and MSR bitmaps mapping")
+> Reported-by: Manuel Andreas <manuel.andreas@tum.de>
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>
+> --- a/xen/arch/x86/hvm/vmx/vvmx.c
+> +++ b/xen/arch/x86/hvm/vmx/vvmx.c
+> @@ -1820,7 +1820,7 @@ static int nvmx_handle_vmptrld(struct cp
+>                  vvmcx = NULL;
+>              }
+>          }
+> -        else
+> +        if ( !vvmcx )
+>          {
+>              vmfail(regs, VMX_INSN_VMPTRLD_INVALID_PHYADDR);
+>              goto out;
 
-Yet this is a distinct backwards step in terms of legibility.
+To go back to one of Manuel's original questions, there is no such thing
+as a read-only page in real hardware (write ignore is the closest), but
+I'm certain that hardware will give us VMPTRLD_INVALID_PHYADDR for e.g.
+trying to overlay the APIC MMIO page, so I think it is a reasonable to
+use for this purpose.
 
-How about modifying the common code to be more legible, rather than
-regressing the x86 code.
+But, please insert a blank line.  I've spent 5 minutes thinking this
+patch was broken and trying to figure out how you'd covered the r/o case
+before realising I was reading it wrong.
+
+With that, Reviewed-By: Andrew Cooper <andrew.cooper3@citrix.com>
 
 ~Andrew
 
