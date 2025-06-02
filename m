@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 14AD7ACBCFC
-	for <lists+xen-devel@lfdr.de>; Tue,  3 Jun 2025 00:02:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1003822.1383427 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 494E5ACBD33
+	for <lists+xen-devel@lfdr.de>; Tue,  3 Jun 2025 00:19:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1003829.1383436 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uMDDP-0004Ns-Gm; Mon, 02 Jun 2025 22:01:07 +0000
+	id 1uMDVH-00067q-U6; Mon, 02 Jun 2025 22:19:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1003822.1383427; Mon, 02 Jun 2025 22:01:07 +0000
+Received: by outflank-mailman (output) from mailman id 1003829.1383436; Mon, 02 Jun 2025 22:19:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uMDDP-0004LW-DB; Mon, 02 Jun 2025 22:01:07 +0000
-Received: by outflank-mailman (input) for mailman id 1003822;
- Mon, 02 Jun 2025 22:01:05 +0000
+	id 1uMDVH-00065Q-R4; Mon, 02 Jun 2025 22:19:35 +0000
+Received: by outflank-mailman (input) for mailman id 1003829;
+ Mon, 02 Jun 2025 22:19:34 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=nif+=YR=3mdeb.com=sergii.dmytruk@srs-se1.protection.inumbo.net>)
- id 1uMDDM-0004LQ-Q9
- for xen-devel@lists.xenproject.org; Mon, 02 Jun 2025 22:01:05 +0000
-Received: from 8.mo584.mail-out.ovh.net (8.mo584.mail-out.ovh.net
- [188.165.33.112]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 11b8142a-3ffd-11f0-b894-0df219b8e170;
- Tue, 03 Jun 2025 00:01:00 +0200 (CEST)
-Received: from director9.ghost.mail-out.ovh.net (unknown [10.109.139.212])
- by mo584.mail-out.ovh.net (Postfix) with ESMTP id 4bB78D1vX1z1XD6
- for <xen-devel@lists.xenproject.org>; Mon,  2 Jun 2025 22:01:00 +0000 (UTC)
-Received: from ghost-submission-5b5ff79f4f-z7k6k (unknown [10.110.178.109])
- by director9.ghost.mail-out.ovh.net (Postfix) with ESMTPS id 80FB68427D;
- Mon,  2 Jun 2025 22:00:58 +0000 (UTC)
-Received: from 3mdeb.com ([37.59.142.104])
- by ghost-submission-5b5ff79f4f-z7k6k with ESMTPSA
- id Ul6XDRofPmhoPwAAZZ0Mgw
- (envelope-from <sergii.dmytruk@3mdeb.com>); Mon, 02 Jun 2025 22:00:58 +0000
+ id 1uMDVG-000651-HK
+ for xen-devel@lists.xenproject.org; Mon, 02 Jun 2025 22:19:34 +0000
+Received: from 11.mo581.mail-out.ovh.net (11.mo581.mail-out.ovh.net
+ [87.98.173.157]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a5f536fd-3fff-11f0-b894-0df219b8e170;
+ Tue, 03 Jun 2025 00:19:28 +0200 (CEST)
+Received: from director2.ghost.mail-out.ovh.net (unknown [10.109.148.12])
+ by mo581.mail-out.ovh.net (Postfix) with ESMTP id 4bB7YW6vCFz1SPG
+ for <xen-devel@lists.xenproject.org>; Mon,  2 Jun 2025 22:19:27 +0000 (UTC)
+Received: from ghost-submission-5b5ff79f4f-2249b (unknown [10.110.118.96])
+ by director2.ghost.mail-out.ovh.net (Postfix) with ESMTPS id A8CB8C3B95;
+ Mon,  2 Jun 2025 22:19:26 +0000 (UTC)
+Received: from 3mdeb.com ([37.59.142.100])
+ by ghost-submission-5b5ff79f4f-2249b with ESMTPSA
+ id +vF7GW4jPmjPbgIAM3Irlw
+ (envelope-from <sergii.dmytruk@3mdeb.com>); Mon, 02 Jun 2025 22:19:26 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,129 +46,82 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 11b8142a-3ffd-11f0-b894-0df219b8e170
-Authentication-Results:garm.ovh; auth=pass (GARM-104R005fbf77e3d-68e7-4982-8eec-f06a31c6c116,
+X-Inumbo-ID: a5f536fd-3fff-11f0-b894-0df219b8e170
+Authentication-Results:garm.ovh; auth=pass (GARM-100R003952fb7fe-7527-41fd-b0a6-24c88fefecaa,
                     22913471B39E4060B5DF5B2870BF10C0EF5640C4) smtp.auth=sergii.dmytruk@3mdeb.com
 X-OVh-ClientIp:176.111.184.221
-Date: Tue, 3 Jun 2025 01:00:36 +0300
+Date: Tue, 3 Jun 2025 01:19:04 +0300
 From: Sergii Dmytruk <sergii.dmytruk@3mdeb.com>
 To: Jan Beulich <jbeulich@suse.com>
 Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
 	Ross Philipson <ross.philipson@oracle.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
-	Lukasz Hawrylko <lukasz@hawrylko.pl>,
-	Mateusz =?iso-8859-1?Q?M=F3wka?= <mateusz.mowka@intel.com>,
 	trenchboot-devel@googlegroups.com, xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v2 01/22] x86/include/asm/intel-txt.h: constants and
- accessors for TXT registers and heap
-Message-ID: <aD4fBA6ouCrtdfX4@MjU3Nj>
+Subject: Re: [PATCH v2 02/22] include/xen/slr-table.h: Secure Launch Resource
+ Table definitions
+Message-ID: <aD4jWNhq6e8JDGsl@MjU3Nj>
 References: <cover.1747155790.git.sergii.dmytruk@3mdeb.com>
- <c049f4ced707769a630cbb8d38a617910279b404.1747155790.git.sergii.dmytruk@3mdeb.com>
- <bf892a80-fe3c-4163-b857-9d073a093451@suse.com>
- <aDDRrOviNNSvFig8@MjU3Nj>
- <31c7faf1-d393-40d5-87f9-1a01d1ab39cb@suse.com>
+ <cdd7b9ff21c81683ce2245bc2b5e0a7a87e51e3c.1747155790.git.sergii.dmytruk@3mdeb.com>
+ <4896ab0b-f45e-43e9-bcee-f5496717eb2a@suse.com>
+ <aDD0ZYM-PtV7NKVc@MjU3Nj>
+ <8521480a-f14d-4ac4-826e-6ed066619070@suse.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <31c7faf1-d393-40d5-87f9-1a01d1ab39cb@suse.com>
-X-Ovh-Tracer-Id: 2241666716339123289
+In-Reply-To: <8521480a-f14d-4ac4-826e-6ed066619070@suse.com>
+X-Ovh-Tracer-Id: 2553259515016229977
 X-VR-SPAMSTATE: OK
 X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgeeffedrtddtgdefkeekvdculddtuddrgeefvddrtddtmdcutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpeffhffvvefukfhfgggtuggjsehttdertddttddvnecuhfhrohhmpefuvghrghhiihcuffhmhihtrhhukhcuoehsvghrghhiihdrughmhihtrhhukhesfehmuggvsgdrtghomheqnecuggftrfgrthhtvghrnhepvdfgveegtdffhfdugeevieehkeetudevfeefgedtleejledvfeeutdetudeiveelnecukfhppeduvdejrddtrddtrddupddujeeirdduuddurddukeegrddvvddupdefjedrheelrddugedvrddutdegnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehinhgvthepuddvjedrtddrtddruddpmhgrihhlfhhrohhmpehsvghrghhiihdrughmhihtrhhukhesfehmuggvsgdrtghomhdpnhgspghrtghpthhtohepuddprhgtphhtthhopeigvghnqdguvghvvghlsehlihhsthhsrdigvghnphhrohhjvggtthdrohhrghdpoffvtefjohhsthepmhhoheekgegmpdhmohguvgepshhmthhpohhuth
-DKIM-Signature: a=rsa-sha256; bh=oVm7ZC4ZeWySj8lX3Edhum+W60jZvZ4icN77j/Wnutk=;
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgeeffedrtddtgdefkeekheculddtuddrgeefvddrtddtmdcutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpeffhffvvefukfhfgggtuggjsehttdertddttddvnecuhfhrohhmpefuvghrghhiihcuffhmhihtrhhukhcuoehsvghrghhiihdrughmhihtrhhukhesfehmuggvsgdrtghomheqnecuggftrfgrthhtvghrnhepvdfgveegtdffhfdugeevieehkeetudevfeefgedtleejledvfeeutdetudeiveelnecukfhppeduvdejrddtrddtrddupddujeeirdduuddurddukeegrddvvddupdefjedrheelrddugedvrddutddtnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehinhgvthepuddvjedrtddrtddruddpmhgrihhlfhhrohhmpehsvghrghhiihdrughmhihtrhhukhesfehmuggvsgdrtghomhdpnhgspghrtghpthhtohepuddprhgtphhtthhopeigvghnqdguvghvvghlsehlihhsthhsrdigvghnphhrohhjvggtthdrohhrghdpoffvtefjohhsthepmhhoheekudgmpdhmohguvgepshhmthhpohhuth
+DKIM-Signature: a=rsa-sha256; bh=8e5dtdmFkMnglKi+LBQl4WKLgk8ttsJC8rX2ANw4oew=;
  c=relaxed/relaxed; d=3mdeb.com; h=From; s=ovhmo3617313-selector1;
- t=1748901660; v=1;
- b=WpOdxqDcfo6s+/igEzL74R3V3J86EJPM39DOPikCFAEQe5lXrIXX1NWW92LclhiVqlzlED9S
- IRVlrX7n5CxXQ18jQ+x4hR+K0gbSaXcXnVThhhuDZ/i1fuRJSEib/w1/eYtl0Q4PTvDdYGaVW1R
- EhUB+hqcWWYUUSFcJfHQ73lpMV0Gk66eP+0S3gy6K6WNFPoxhL7YnI+Q3pXywD9LC5skk0U1ZIu
- kM7uBP+Ed7HRFRClScmsiTQkBnKP5C26CdXqeNjkLvb5yzvWmsnyhvpL7wDTW/VNzByqlV3NOf+
- 7MRFVt0wdjCbfY2OqhoW4Egoc3OX8Q6g+QUXrwRKq+nYw==
+ t=1748902768; v=1;
+ b=XKxH5J6e8suG/iFxgf+lmAbEMGzb1BrjPfmUgsiX9oA3cZbWS/qNdAgIEMs2974ro/TQ6NSx
+ 9qCkrBDhP9055LQSzVO6A7sq+Q444YdNCPmLZJkyxG3u5ZaM8VK76rBI7+SWeVE5YZtOv90Vfsi
+ 4IGAUPVhefifneiJfO58BpuiJSoW+9I3RGFsIgcf8GQ9QPoihIY5jK6FqMU/cyqphuM/jvQJjZ9
+ 70D6jbMKxsPWJ5oo+G2w3lOOoSl0uxPi4nTApMDnXT4rHdGvk0aHVzO+QgbdmhFjSWiYLYT6IdF
+ yZs/a51GdCYUHnHNiLy+gCjWzABIyzeqTAP0tlLZM7Svg==
 
-On Mon, Jun 02, 2025 at 09:17:37AM +0200, Jan Beulich wrote:
-> On 23.05.2025 21:51, Sergii Dmytruk wrote:
-> > On Wed, May 21, 2025 at 05:19:57PM +0200, Jan Beulich wrote:
-> >>> +/*
-> >>> + * Secure Launch defined OS/MLE TXT Heap table
-> >>> + */
-> >>> +struct txt_os_mle_data {
-> >>> +    uint32_t version;
-> >>> +    uint32_t reserved;
-> >>> +    uint64_t slrt;
-> >>> +    uint64_t txt_info;
-> >>> +    uint32_t ap_wake_block;
-> >>> +    uint32_t ap_wake_block_size;
-> >>> +    uint8_t mle_scratch[64];
-> >>> +} __packed;
+On Mon, Jun 02, 2025 at 09:31:11AM +0200, Jan Beulich wrote:
+> >>> +#define UEFI_SLR_TABLE_GUID \
+> >>> +    { 0x877a9b2aU, 0x0385, 0x45d1, { 0xa0, 0x34, 0x9d, 0xac, 0x9c, 0x9e, 0x56, 0x5f } }
 > >>
-> >> This being x86-specific, what's the __packed intended to achieve here?
+> >> I'm not sure this is a good place to put UEFI GUIDs. Considering e.g ...
 > >
-> > This structure is passed to Xen by a bootloader, __packed makes sure the
-> > structure has a compatible layout.
+> > It's here because the GUID is related more to SLRT than to EFI.  I can
+> > move it if there is a more fitting place for table GUIDs.
 >
-> And it won't have a compatible layout without the attribute?
+> It'll (at least somewhat) depend on where it's going to be used. A common problem
+> when definitions / declarations are introduced without any use.
 
-It will, but presence of __packed makes it trivial to see.
+It's only used in xen/common/efi/boot.c (patch #20), so looks like it
+should actually be defined there like the rest of GUIDs.
 
 > >>> +/*
-> >>> + * TXT specification defined BIOS data TXT Heap table
+> >>> + * Primary SLR Table Header
 > >>> + */
-> >>> +struct txt_bios_data {
-> >>> +    uint32_t version; /* Currently 5 for TPM 1.2 and 6 for TPM 2.0 */
-> >>> +    uint32_t bios_sinit_size;
-> >>> +    uint64_t reserved1;
-> >>> +    uint64_t reserved2;
-> >>> +    uint32_t num_logical_procs;
-> >>> +    /* Versions >= 3 && < 5 */
-> >>> +    uint32_t sinit_flags;
-> >>> +    /* Versions >= 5 with updates in version 6 */
-> >>> +    uint32_t mle_flags;
-> >>> +    /* Versions >= 4 */
-> >>> +    /* Ext Data Elements */
+> >>> +struct slr_table
+> >>> +{
+> >>> +    uint32_t magic;
+> >>> +    uint16_t revision;
+> >>> +    uint16_t architecture;
+> >>> +    uint32_t size;
+> >>> +    uint32_t max_size;
+> >>> +    /* entries[] */
 > >>> +} __packed;
 > >>
-> >> It does affect sizeof() here, which I'm unsure is going to matter.
+> >> If x86-specific, the question on the need for some of the __packed arises
+> >> again.
 > >
-> > It doesn't hurt anything and makes sure offsets match those in the
-> > specification.
+> > The table is used to communicate data from pre-DRTM world to DRTM-world
+> > and is produced and consumed by unrelated software components that don't
+> > necessarily pad structures the same way by default.
 >
-> It similarly doesn't appear to hurt anything if the attribute was omitted.
-> Imo we ought to use compiler extensions on when there is a need to do so.
+> How do other environments matter when this header is solely used by Xen?
 
-I would argue that it hurts maintainability and code readability to some
-extent:
- * when the attribute is used, there is no need to verify compatibility
-   in any way (manually or using pahole) neither now nor on any future
-   modification
- * when I see __packed, I immediately know the structure is defined
-   externally and can't be changed at will
- * having the attribute only for some structures seems inconsistent
-
-It would be nice if it was possible to verify the structure is packed
-via a static assert using only standard C, but without such means I see
-__packed as useful and harmless compiler extension.
-
-I can of course drop unnecessary attributes if that's a standard
-practice for Xen's sources, never thought it could be undesirable in
-a context like this one.
-
-> >>> +static inline uint64_t txt_bios_data_size(void *heap)
-> >>
-> >> Here, below, and in general: Please try to have code be const-correct, i.e.
-> >> use pointers-to-const wherever applicable.
-> >
-> > I assume this doesn't apply to functions returning `void *`.  The
-> > approach used in libc is to accept pointers-to-const but then cast the
-> > constness away for the return value, but this header isn't a widely-used
-> > code.
->
-> Which is, from all I know, bad practice not only by my own view.
->
-> Jan
-
-I actually ended up doing that to have const-correctness in v3.  In the
-absence of function overloads the casts have to be somewhere, can put
-them in the calling code instead.
+Xen uses this header to read data prepared for it.  Packing is an easy
+way to ensure the data will be parsed consistently regardless of the
+architecture or software component which prepared it (i.e., a way to
+enforce proper "API").
 
 Regards
 
