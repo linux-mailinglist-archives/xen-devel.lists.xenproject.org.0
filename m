@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C60AACAB53
-	for <lists+xen-devel@lfdr.de>; Mon,  2 Jun 2025 11:26:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1003062.1382501 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B54CACAB7B
+	for <lists+xen-devel@lfdr.de>; Mon,  2 Jun 2025 11:36:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1003069.1382511 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uM1RK-0002dn-TV; Mon, 02 Jun 2025 09:26:42 +0000
+	id 1uM1a6-0004xF-NF; Mon, 02 Jun 2025 09:35:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1003062.1382501; Mon, 02 Jun 2025 09:26:42 +0000
+Received: by outflank-mailman (output) from mailman id 1003069.1382511; Mon, 02 Jun 2025 09:35:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uM1RK-0002bd-Pw; Mon, 02 Jun 2025 09:26:42 +0000
-Received: by outflank-mailman (input) for mailman id 1003062;
- Mon, 02 Jun 2025 09:26:41 +0000
+	id 1uM1a6-0004vn-JS; Mon, 02 Jun 2025 09:35:46 +0000
+Received: by outflank-mailman (input) for mailman id 1003069;
+ Mon, 02 Jun 2025 09:35:45 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=QAfa=YR=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uM1RJ-0002bW-BN
- for xen-devel@lists.xenproject.org; Mon, 02 Jun 2025 09:26:41 +0000
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [2a00:1450:4864:20::433])
+ id 1uM1a4-0004vh-Ul
+ for xen-devel@lists.xenproject.org; Mon, 02 Jun 2025 09:35:44 +0000
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [2a00:1450:4864:20::435])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b07dbdf3-3f93-11f0-a300-13f23c93f187;
- Mon, 02 Jun 2025 11:26:40 +0200 (CEST)
-Received: by mail-wr1-x433.google.com with SMTP id
- ffacd0b85a97d-3a50956e5d3so738715f8f.1
- for <xen-devel@lists.xenproject.org>; Mon, 02 Jun 2025 02:26:40 -0700 (PDT)
+ id f41d928a-3f94-11f0-a300-13f23c93f187;
+ Mon, 02 Jun 2025 11:35:43 +0200 (CEST)
+Received: by mail-wr1-x435.google.com with SMTP id
+ ffacd0b85a97d-3a50fc819f2so202920f8f.2
+ for <xen-devel@lists.xenproject.org>; Mon, 02 Jun 2025 02:35:43 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-747afe96474sm7229219b3a.22.2025.06.02.02.26.31
+ 41be03b00d2f7-b2eceb396f6sm4491200a12.42.2025.06.02.02.35.39
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 02 Jun 2025 02:26:39 -0700 (PDT)
+ Mon, 02 Jun 2025 02:35:42 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,65 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b07dbdf3-3f93-11f0-a300-13f23c93f187
+X-Inumbo-ID: f41d928a-3f94-11f0-a300-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1748856400; x=1749461200; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1748856943; x=1749461743; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=DJXWp3fAzCxU30vF/SD3NX/7M+QmejJN6no0tmul914=;
-        b=W/+cUeA7Lm4qB7OX/zkBVIoUA4KRPtJGDKn5qWg0vL7rideX5jTWYoPN+6vKuhOMx5
-         5DFx+pFyPUCBmfuA6T2Cc7eyMwCN9s+L+O5L3OicupwYmhJIY4ltExntrbYJDhGX1reP
-         8GDRdG63fzKHM0TdLm7q3+cbKUItNPOKyE6qUWmsmleeZ2CCJxfF32huXL+lEjDwBj+m
-         E2oY1d9q9Z9zq7X/Hb0huDo8QH9emhBcWylqfVG0ZaELYUgD7otLEXl7A5v6eCXvfsK6
-         CmUigiYoM8ElO3cDzg9aXK48o3dMbiSKd7+37E9V/j2WOhvQLPI4mpBDN+96yvWyl9Y7
-         DBEQ==
+        bh=2Yu5AAL3zoKPvgz1Wy3fQ+yLKsDz3HqiqShgBRi5YVw=;
+        b=XGIhZJ6G7Imr4D8MiG9MCYy0J0czoI3glhq+WNYFAk4tjDvKOexzEJHQ43YnPB+7SI
+         yjO7e2Mhv4Rx1Xjjb8UWwT+CBxVMYTS18I9hZD53lSSzhhTGzTNhEgxw1nGGKIZftUbS
+         20hht4RnXsUbLwGKXl/Im/wVSyy250vLWPZQnlhln0NNCoe+apgyo4/9UFtwLQjX01pS
+         lIg5mUJF1JLb1FyNlE8SazUOgPOHzszYlNSoVbFYCsJ0/bK1cuBquNi4rA9urfvxo/1h
+         TxJSHKyUDtXiEI/X6i2yqYvGlY/t+k1R7KNqfVAdAnmE6kY5WCyuvPS480ul4m0ybWA7
+         QADw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1748856400; x=1749461200;
+        d=1e100.net; s=20230601; t=1748856943; x=1749461743;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=DJXWp3fAzCxU30vF/SD3NX/7M+QmejJN6no0tmul914=;
-        b=DNWZJmsJgI+npqWKO8aZh2FCBLWQdoQQNEgDClo+Lt2KCR7kcRdE9yWTIKe2FKTuZL
-         559knkItBEqJjKEOaTz3suAto4wiRTjpqNZVMon8nXXDh8awX5+OR6Yz1GOU/2UGWM8u
-         JEAOMcvQxc5IpzQXxD68T2uPuSGJavisG6CmhFCKUzwafxr9NySiAWERXLypfnloeGkp
-         VP41yNrSJfaXTGAwKZYg6V/2h9baMj6ezdFOOZFgBn1kSYEe8E+Hs1c+gOiXbgS2Izv2
-         VHt+h5ItP1VOwmhdthHYcCGLrqvpaQpjb7ebGM34HFbdriD+SI02WhdPkkPPrOFA7l3J
-         d47Q==
-X-Forwarded-Encrypted: i=1; AJvYcCVo6PLEC2CsIwcufvZrP9X0F0YYRVeGr4SAdRc64dQuhS46jDAzjr+W1XjC56ZKLPrGbQJyM7ymu4A=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwlHgOew3PWCI9628tuWbQdSFX3V+rCRl+WqiTZBaCCf3KbRVSX
-	oCmIvwAb0Oaw7XDAMSwnRn7EIubxaI9Ntp8gMZfYdZX1NisXww/ne5BKUQr9paJ9Uw==
-X-Gm-Gg: ASbGnculPb4E30cQklVm5SS3yveTcPP4kn6kgtNdC30HDkv1sk0Etn5uScWf/7MBo6P
-	l/bzpZkJRNzDdXFt5mt1lBhkvzh65i4EsYdgPEiRz94A18WSlQ6sqkJZ8exPWPgnRopHPmgFrrM
-	qs4xjK22eNAuT+1K6cAn9zC7DwkNge6otAu5QBvqSH26DpbQCHL34cVElZdBnO2rZmetq9Hbu+F
-	9/C6BUxkfC685oKBxunyAb6h8KARCMKFK+Z/Tb2ONWjTkOjtH3vf2W0h3I93kC1C+n3YK8LFM9c
-	9rIzvjupuseBSOMOsNK+kMZIsYaki1ipU7vGT2dy25+6/hcfk2nqFpJq1uxp7tr5QxhDWV9/O6H
-	R+PZ/5l8aAnTezeNCQStQF0yX6DJI0DDsb/PhDHrY9ovh6wxAMpVujUeoHg==
-X-Google-Smtp-Source: AGHT+IFP/6X/OfzSMdMb497K2+J4DcXrjq/ILa4TRv3Fk17NS0VMNPbxnjN2DFiBMrzWBd2+aha8yQ==
-X-Received: by 2002:a5d:64e7:0:b0:3a3:7a33:c96a with SMTP id ffacd0b85a97d-3a4f7ab15c3mr9542447f8f.51.1748856399662;
-        Mon, 02 Jun 2025 02:26:39 -0700 (PDT)
-Message-ID: <90048f71-8313-4110-924c-f956a2bec5a0@suse.com>
-Date: Mon, 2 Jun 2025 11:26:41 +0200
+        bh=2Yu5AAL3zoKPvgz1Wy3fQ+yLKsDz3HqiqShgBRi5YVw=;
+        b=nQpJX4SO5u/jVyumO4HppfsMuVxUghPdsvwn3Vjc5CmZvqzW6gOrxdzRwR/aMRVDBx
+         RKklXwKJ2Ov3YrxgNOV6mElOlhGfEsxK1g+nweCk0mYU57T/y+G3+Ak+8T3ciW9yz+gv
+         oq6gFgQHeZT3HcheDkB/7+uMaUcAdLr8qwMbWohxiMRuS+0ibyDzLHPY4vI2D4+Koi4b
+         SIKjTOPi/V/LdffQsIzvRyCBCn2l7EJ+5N4EcL9j1UV0ACG8Oib8m9gxuEAalMzVhirV
+         cElzLW6K6EHwPw6ksrbmunUBhtTUGwUE/Q2AN5EG8fhGeIqHFgPZujnAmuBvdDaimfQ+
+         N4ag==
+X-Forwarded-Encrypted: i=1; AJvYcCWYczmyhIKY4PmFtZwwIrNSvH+tblz0wASBb1BdYG8OI1IGGH4aeRgvKTkNTM3BA/J2rzG6XwtTUSU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy1qjUY/jbS9nzfqWlyzje1oIp1EGQhjIIMY+ItZOCcfTWjYZnx
+	+OXdgE5XW4bwHDeybcw3APSrU1W7LA9e/KVf0LMpbmfsEMGt+PlhHoeskBldHY7Qqg==
+X-Gm-Gg: ASbGncu6KVJyJKPpt5x8xlsCvzud7npdusc9die9ed01d3RjUHjERzDfxhrPtu29Dly
+	a8sxSz0blekwktdZJZf9/7IFVIa0HlYldoGh7kFk+kinEEFVB08zb17RNtZaumvE8+BvQAz8+bi
+	DBpSJO+cPgo63jylZ3CoQ9XU2S3s0XAu69ODKtszst4fXbh8AHx70eIIHXsXWgARYXp0v6gvctf
+	yVUXjOWpiDoeQALLHTxwRu8AgCjIarToLPrHRsuQFiD1ivRXSh4BbyeIkGmJCqc08o2eqSP4Yh5
+	rZaBtsWnfasluBoubqZiRrC8aaD2Yn9FnQCaB7nKyKd9qf7bv1JTi5EsutumDDq7yYa51mHzogI
+	zwQ8MoCSDIh6WBXFXiP5TwWyX/ohfSUfRAY7f5AFwFpPoFmE=
+X-Google-Smtp-Source: AGHT+IGTp70XTPR7UcAZewF3ACtFqXkDT/PZzqfQPlGgU/iZjWf6BOAc2yXMpR6D3IM6Imgh/AkSvQ==
+X-Received: by 2002:a05:6000:18ab:b0:3a4:fb33:85ce with SMTP id ffacd0b85a97d-3a4fb3388bbmr8265737f8f.46.1748856942606;
+        Mon, 02 Jun 2025 02:35:42 -0700 (PDT)
+Message-ID: <9ac69643-6510-4a14-8187-9e2d0c831576@suse.com>
+Date: Mon, 2 Jun 2025 11:35:50 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4][PART 2 07/10] xen/arm: Add support for system suspend
- triggered by hardware domain
-To: Mykola Kvach <xakep.amatop@gmail.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Shawn Anastasio <sanastasio@raptorengineering.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- xen-devel@lists.xenproject.org
-References: <cover.1748848482.git.mykola_kvach@epam.com>
- <7bd75ecfff5b0a75ea5abd7cc4934582d7e1250c.1748848482.git.mykola_kvach@epam.com>
+Subject: Re: [PATCH] x86/bitops: Optimise arch_ffs()/etc some more on AMD
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20250527222930.1452674-1-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -129,81 +117,95 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <7bd75ecfff5b0a75ea5abd7cc4934582d7e1250c.1748848482.git.mykola_kvach@epam.com>
+In-Reply-To: <20250527222930.1452674-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 02.06.2025 11:04, Mykola Kvach wrote:
-> @@ -857,8 +860,24 @@ void arch_domain_destroy(struct domain *d)
->      domain_io_free(d);
->  }
->  
-> -void arch_domain_shutdown(struct domain *d)
-> +int arch_domain_shutdown(struct domain *d)
->  {
-> +    switch ( d->shutdown_code )
-> +    {
-> +    case SHUTDOWN_suspend:
-> +#ifdef CONFIG_SYSTEM_SUSPEND
-> +        if ( !is_hardware_domain(d) )
-> +            break;
-> +
-> +        return host_system_suspend();
-> +#else
-> +        break;
-> +#endif
-> +    default:
-> +        break;
-> +    }
-> +
-> +    return 0;
->  }
+On 28.05.2025 00:29, Andrew Cooper wrote:
+> One aspect of the old ffs()/etc infrastructure was the use of TZCNT/LZCNT
+> without a CPUID check.  Given no obvious justification, I dropped it during
+> the cleanup.
+> 
+> It turns out there is a good reason, on all but the most recent AMD CPUs.
+> 
+> Reinstate the use of "blind" TZCNT/LZCNT when safe to do so.  This happens to
+> be preferentially in loops where a repeated saving of 5-6 uops becomes far
+> more relevant than a one-off scenario.
+> 
+> Leave an explanation of why.
+> 
+> No functional change.
+> 
+> Fixes: 989e5f08d33e ("x86/bitops: Improve arch_ffs() in the general case")
+> Fixes: 5ed26fc0768d ("xen/bitops: Implement ffsl() in common logic")
+> Fixes: 54b10ef6c810 ("xen/bitops: Implement fls()/flsl() in common logic")
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-What's wrong with
+In principle
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+but ...
 
-int arch_domain_shutdown(struct domain *d)
-{
-    switch ( d->shutdown_code )
-    {
-#ifdef CONFIG_SYSTEM_SUSPEND
-    case SHUTDOWN_suspend:
-        if ( !is_hardware_domain(d) )
-            break;
+> --- a/xen/arch/x86/include/asm/bitops.h
+> +++ b/xen/arch/x86/include/asm/bitops.h
+> @@ -399,9 +399,16 @@ static always_inline unsigned int arch_ffs(unsigned int x)
+>           *
+>           * and the optimiser really can work with the knowledge of x being
+>           * non-zero without knowing it's exact value, in which case we don't
+> -         * need to compensate for BSF's corner cases.  Otherwise...
+> +         * need to compensate for BSF's corner cases.
+> +         *
+> +         * That said, we intentionally use TZCNT on capable hardware when the
+> +         * behaviour for the 0 case doesn't matter.  On AMD CPUs prior to
+> +         * Zen4, TZCNT is 1-2 uops while BSF is 6-8 with a latency to match.
+> +         * Intel CPUs don't suffer this discrepancy.
+> +         *
+> +         * Otherwise...
+>           */
+> -        asm ( "bsf %[val], %[res]"
+> +        asm ( "rep bsf %[val], %[res]"
 
-        return host_system_suspend();
-#endif
-
-    default:
-        break;
-    }
-
-    return 0;
-}
-
-?
-
-> @@ -1311,13 +1316,13 @@ int domain_shutdown(struct domain *d, u8 reason)
->          v->paused_for_shutdown = 1;
->      }
->  
-> -    arch_domain_shutdown(d);
-> +    ret = arch_domain_shutdown(d);
-
-If non-zero comes back here, is ...
-
->      __domain_finalise_shutdown(d);
-
-... this still appropriate to call?
-
->      spin_unlock(&d->shutdown_lock);
->  
-> -    return 0;
-> +    return ret;
->  }
-
-Most callers don't care about the return value of this function. That likely
-needs to change, even if _for now_ you only alter the SHUTDOWN_suspend case
-(and hence some of the callers aren't immediately impacted)?
+... why would we use REP (again) when gas 2.25 supports LZCNT/TZCNT?
 
 Jan
+
+>                : [res] "=r" (r)
+>                : [val] "rm" (x) );
+>      }
+> @@ -428,7 +435,7 @@ static always_inline unsigned int arch_ffsl(unsigned long x)
+>  
+>      /* See arch_ffs() for safety discussions. */
+>      if ( __builtin_constant_p(x > 0) && x > 0 )
+> -        asm ( "bsf %[val], %q[res]"
+> +        asm ( "rep bsf %[val], %q[res]"
+>                : [res] "=r" (r)
+>                : [val] "rm" (x) );
+>      else
+> @@ -446,7 +453,7 @@ static always_inline unsigned int arch_fls(unsigned int x)
+>  
+>      /* See arch_ffs() for safety discussions. */
+>      if ( __builtin_constant_p(x > 0) && x > 0 )
+> -        asm ( "bsr %[val], %[res]"
+> +        asm ( "rep bsr %[val], %[res]"
+>                : [res] "=r" (r)
+>                : [val] "rm" (x) );
+>      else
+> @@ -464,7 +471,7 @@ static always_inline unsigned int arch_flsl(unsigned long x)
+>  
+>      /* See arch_ffs() for safety discussions. */
+>      if ( __builtin_constant_p(x > 0) && x > 0 )
+> -        asm ( "bsr %[val], %q[res]"
+> +        asm ( "rep bsr %[val], %q[res]"
+>                : [res] "=r" (r)
+>                : [val] "rm" (x) );
+>      else
+> 
+> base-commit: d965e2ee07c56c341d8896852550914d87ea5374
+> prerequisite-patch-id: 8da89000c73c38aab6abfa6622217ea9eff07fbd
+> prerequisite-patch-id: 74830838bac94ed1e036a8173cf3210a314b35d8
+> prerequisite-patch-id: 0654835c28df8d40b6c97006d041c4d31447a9a6
+> prerequisite-patch-id: 2d47d646c6a6e0019918c57753d6c01a752c377f
+> prerequisite-patch-id: d8f8c4221a2d7039bae6f3d38e93fe90b2091d01
+> prerequisite-patch-id: e0397c86b545a1d65f2e6b2049c282b926c40c64
+> prerequisite-patch-id: ea21abe4540ee229f4f8725ce3f701d9ba4bd4a8
+
 
