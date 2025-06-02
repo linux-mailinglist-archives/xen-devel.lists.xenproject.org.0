@@ -2,38 +2,54 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2FD12ACAD39
-	for <lists+xen-devel@lfdr.de>; Mon,  2 Jun 2025 13:32:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1003229.1382730 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CCE13ACAD3E
+	for <lists+xen-devel@lfdr.de>; Mon,  2 Jun 2025 13:33:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1003240.1382749 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uM3Or-0005T9-PR; Mon, 02 Jun 2025 11:32:17 +0000
+	id 1uM3Pr-0006FV-E8; Mon, 02 Jun 2025 11:33:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1003229.1382730; Mon, 02 Jun 2025 11:32:17 +0000
+Received: by outflank-mailman (output) from mailman id 1003240.1382749; Mon, 02 Jun 2025 11:33:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uM3Or-0005Q5-MT; Mon, 02 Jun 2025 11:32:17 +0000
-Received: by outflank-mailman (input) for mailman id 1003229;
- Mon, 02 Jun 2025 11:32:17 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uM3Pr-0006DC-93; Mon, 02 Jun 2025 11:33:19 +0000
+Received: by outflank-mailman (input) for mailman id 1003240;
+ Mon, 02 Jun 2025 11:33:17 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=QKOU=YR=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1uM3Or-0005Pz-37
- for xen-devel@lists.xenproject.org; Mon, 02 Jun 2025 11:32:17 +0000
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [2a00:1450:4864:20::132])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 39b648af-3fa5-11f0-b894-0df219b8e170;
- Mon, 02 Jun 2025 13:32:11 +0200 (CEST)
-Received: by mail-lf1-x132.google.com with SMTP id
- 2adb3069b0e04-5533c562608so3034583e87.3
- for <xen-devel@lists.xenproject.org>; Mon, 02 Jun 2025 04:32:11 -0700 (PDT)
-Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-450d7fa25besm117437555e9.14.2025.06.02.04.31.59
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 02 Jun 2025 04:32:00 -0700 (PDT)
+ <SRS0=XkTG=YR=oracle.com=harshvardhan.j.jha@srs-se1.protection.inumbo.net>)
+ id 1uM3Pp-0006CN-F9
+ for xen-devel@lists.xenproject.org; Mon, 02 Jun 2025 11:33:17 +0000
+Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com
+ [205.220.165.32]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5eda54ee-3fa5-11f0-a300-13f23c93f187;
+ Mon, 02 Jun 2025 13:33:15 +0200 (CEST)
+Received: from pps.filterd (m0246629.ppops.net [127.0.0.1])
+ by mx0b-00069f02.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 5525uF3Y004998;
+ Mon, 2 Jun 2025 11:33:09 GMT
+Received: from phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com
+ (phxpaimrmta01.appoci.oracle.com [138.1.114.2])
+ by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 46ysnctcna-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Mon, 02 Jun 2025 11:33:09 +0000 (GMT)
+Received: from pps.filterd
+ (phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
+ by phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com (8.18.1.2/8.18.1.2)
+ with ESMTP id 5529ZsOr039135; Mon, 2 Jun 2025 11:33:02 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+ by phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTPS id
+ 46yr77vhux-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Mon, 02 Jun 2025 11:33:02 +0000
+Received: from phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com
+ (phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
+ by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 552BWuca001684;
+ Mon, 2 Jun 2025 11:33:01 GMT
+Received: from ca-dev112.us.oracle.com (ca-dev112.us.oracle.com
+ [10.129.136.47])
+ by phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTP id
+ 46yr77vhuf-1; Mon, 02 Jun 2025 11:33:01 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,113 +61,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 39b648af-3fa5-11f0-b894-0df219b8e170
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1748863931; x=1749468731; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=rTsOX+udqNxI/5fhKLImuGMnxGdWhWIRzg4v6yd1PN4=;
-        b=EXkVISriaiqQ5G0jKarJJPU8/gjoH/0kBDW3KeBq9wZ3LBSMqXYxwvWWwEKWj8hvqr
-         hcDI9CPz2gUlJYffw6Mdnc9D09QFYy0KGrFykh2G14IKy/jhPCl5jARlRPkr6nV/QJ1G
-         qXlFBCpSKDjCPpYbk/+OGd6nDZUCq+9npW2OM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1748863931; x=1749468731;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=rTsOX+udqNxI/5fhKLImuGMnxGdWhWIRzg4v6yd1PN4=;
-        b=Ea94treCIUrkGaLw9xFppWdM2Rxs0amJRyd7vdRdJJXtGVZVHPft5ji6zFXdMc9CqO
-         9j7s4bJ0VkAwVnYeO3cDSU410GcOZ9qklZU5AXrKZw5np/5uZVr9oDg6rvPOukRfAPpJ
-         IIA8hZ9FG3a85f/+SOkR7wQMQIb5CKaplKGNK3sVgTXmecN/y+ZP5KxGvH4hcJjjNrdK
-         IYfZk5nTFRfIo7ctfLTQ2seBpWfmuGqr3HGfOd0yx9e8nv8sUUxhL6si2D6k6e0j0utn
-         Sgjs7cau1S2ePtNmsyGJQaMVc8j07oZU/hb69mzZJWenrR8+/yGP56uJN74xD224g0s/
-         GA9g==
-X-Gm-Message-State: AOJu0Yy249WFWvGQaiy9L9+FD3xdH1QKs+K8LgHfHFrsww96FKEbmOuJ
-	KtCA8gVXrtU9hITMBXloVawziZR7szMsBBL86CBJeyzCGDXxtBsKieybO6Lbrb7/hnEnwAInZLS
-	NOnlC
-X-Gm-Gg: ASbGncvGRIl7VCQ26XDg6tJGWTwCNLcctPxXfxQJwreFpWmU1Zpy1G8+dw0CRkO2FdX
-	tr91PNI8OxGc8LcqSXbbJNZiU2saga2idLOruzIvhLsp4YXjIXy33Y6YbWb3c4chZSFRpl7Wd9a
-	SnfmCLXo/1LdVLEgYwYeFAOS0+x2o1C1GqmQ6QUQ5mdT0auedWa047AhwkwiK6Iyy7HbRaZ63AG
-	SI5zIpeN7qZz4LKoTGoHcGkso3dqQBuKjl2/b/GaHgTFiY29vNZBLX460/GiQuN+qB2y4ktFSC9
-	aNnyGN57v/c8F85eLR6TxdTXo6T0i1GNWOJilX1jRTU44Fpbk5Vh4GUVNIQpyvwsSihHQbH5q73
-	uw5oFn0eWgCSUuuts
-X-Google-Smtp-Source: AGHT+IHJ0vrFtipV3bhdiTI54MJYxlgcbCjwWWTW4o78zfgD4ViZkePmHjJ8z9feLzX6f3DvWYDFbQ==
-X-Received: by 2002:a05:600c:1910:b0:450:d3c6:84d8 with SMTP id 5b1f17b1804b1-450d880ce23mr110309655e9.14.1748863920602;
-        Mon, 02 Jun 2025 04:32:00 -0700 (PDT)
-Message-ID: <ae5a5de4-22ce-443b-a88d-16b89b28ac11@citrix.com>
-Date: Mon, 2 Jun 2025 12:31:59 +0100
+X-Inumbo-ID: 5eda54ee-3fa5-11f0-a300-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
+	:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=corp-2025-04-25; bh=CfDjhvQigRmWcz+CuhlX6AvZKsSV2
+	OiOmpQmK2j9khE=; b=abk8xrq3xSmGyzaxVFHwBna5bmg5JiX6X9pHDoDNY4xwv
+	5dvXdaucHCmels5qSn3JScEk4Ra5L6aAIuxljx2+hAqm6SVRlbeZhLol3N8+DXBn
+	whuC8TofbjV0U8NUx2capxZuC3xRACg/F8adHKPdsFmm8xrts9mxvg+J66bw+N90
+	cp2P/f+F2aeFlZ0Jtxi1JwM2GIIbniHzHEQx8C0nk71SElANlpKwIPb2C64Kyxs7
+	jxT0cfiVIL/O58dHKAH3jRNqECAnHFG8m1uGwNbDBLZpgdmtlVy7L0rB50fNjWES
+	n5SkMEBYS/EMndZ+8U6VjzMjiuIURNkYxpSLmeP3w==
+From: Harshvardhan Jha <harshvardhan.j.jha@oracle.com>
+To: jgross@suse.com, sstabellini@kernel.org, boris.ostrovsky@oracle.com
+Cc: harshvardhan.j.jha@oracle.com, xen-devel@lists.xenproject.org,
+        iommu@lists.linux.dev, stable@vger.kernel.org
+Subject: [PATCH 5.10.y 0/1] Manual Backport of 099606a7b2d5 to 5.10
+Date: Mon,  2 Jun 2025 04:33:00 -0700
+Message-ID: <20250602113301.3475805-1-harshvardhan.j.jha@oracle.com>
+X-Mailer: git-send-email 2.47.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] Revert tools/python part of "tools: remove support for
- running a guest with qemu-traditional"
-To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- Anthony PERARD <anthony.perard@vates.tech>, Juergen Gross <jgross@suse.com>
-References: <20250602112253.2628571-1-andrew.cooper3@citrix.com>
- <aD2KpLtC257hlUj8@mail-itl>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <aD2KpLtC257hlUj8@mail-itl>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.0.736,FMLib:17.12.80.40
+ definitions=2025-06-02_05,2025-05-30_01,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0 bulkscore=0 suspectscore=0
+ phishscore=0 mlxlogscore=999 adultscore=0 malwarescore=0 mlxscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2505160000
+ definitions=main-2506020099
+X-Authority-Analysis: v=2.4 cv=Jdu8rVKV c=1 sm=1 tr=0 ts=683d8bf5 cx=c_pps a=XiAAW1AwiKB2Y8Wsi+sD2Q==:117 a=XiAAW1AwiKB2Y8Wsi+sD2Q==:17 a=6IFa9wvqVegA:10 a=cixntLcyVTLVvfsobb8A:9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNjAyMDEwMCBTYWx0ZWRfXyNIOyIVGfBrV ktK1V6Xu3f79srrd4w0S1bq7yGbLZgDZ3shoFa2l01puyzAxv6ParH9NBJtpHU6X+sTE/pvvDF+ WuUu4PvasOTDK9ZCxWkIbsfetzmDLj7F4jPgp5UdsjAIiaGAqLH5m0+5ViD6XLDcappv2I7292r
+ iEcrsXOGkx9mAyJvB4zK8418JuMVUR6K75n0icDT4u2AAYfthTfYjRHhcCLcr1joYEjz0mK5AuM eb6UB1YRXxUdwxJ+tax/ZqjIUECNJBSX3+NG6X5BPpVBtIzCwf/1G/5cjJREtoG8Pg+CQ88OAwp bIkymP/ni2Yn/Avq9Sb0r/XhB905U4q7WQQkQJIHlbELKqC2S6KRBXZarM/8+XYcsrEUYw1TWa8
+ gtD+nw4y0WsCSZJZaW5JABeXOJJ78061uHj/owALA5avyUG9p3kjnp9d4BdQuTCzzomDbVtn
+X-Proofpoint-GUID: LWPjPIADqO7-S79GFkKNeZQ-FKaukyki
+X-Proofpoint-ORIG-GUID: LWPjPIADqO7-S79GFkKNeZQ-FKaukyki
 
-On 02/06/2025 12:27 pm, Marek Marczykowski-Górecki wrote:
-> On Mon, Jun 02, 2025 at 12:22:53PM +0100, Andrew Cooper wrote:
->> The migration stream is a stable ABI.  What this does is break the ability to
->> inspection and operate on pre-Xen-4.21 streams.
-> Do you mean Xen 4.21 should be able to accept migration of a domU with
-> qemu trad? I don't think it's a desirable feature...
+The patch 099606a7b2d5 didn't cleanly apply to 5.10 due to the
+significant difference in codebases.
 
-xl is free to reject a qemu-trad stream if it wants.
+I've tried to manually bring it back to 5.10 via some minor conflict
+resolution but also invoking the newly introduced API using inverted
+logic as the conditionals present in 5.10 are the opposite of those in
+6.1 xen/swiotlib.
 
-What's not ok is verify-stream-v2 exploding with "unknown emulator 1"
-when I ask it to tell me what the bytes in this stream mean.
+Harshvardhan Jha (1):
+  xen/swiotlb: relax alignment requirements
 
-~Andrew
+ drivers/xen/swiotlb-xen.c | 18 +++++++++++-------
+ 1 file changed, 11 insertions(+), 7 deletions(-)
+
+-- 
+2.47.1
+
 
