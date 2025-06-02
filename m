@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5162BACAA6A
-	for <lists+xen-devel@lfdr.de>; Mon,  2 Jun 2025 10:11:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1002899.1382302 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 33F39ACAAB9
+	for <lists+xen-devel@lfdr.de>; Mon,  2 Jun 2025 10:37:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1002919.1382330 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uM0GG-0007DV-OQ; Mon, 02 Jun 2025 08:11:12 +0000
+	id 1uM0fh-0002iQ-Ti; Mon, 02 Jun 2025 08:37:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1002899.1382302; Mon, 02 Jun 2025 08:11:12 +0000
+Received: by outflank-mailman (output) from mailman id 1002919.1382330; Mon, 02 Jun 2025 08:37:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uM0GG-0007AM-LK; Mon, 02 Jun 2025 08:11:12 +0000
-Received: by outflank-mailman (input) for mailman id 1002899;
- Mon, 02 Jun 2025 08:11:10 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uM0fh-0002gA-Qz; Mon, 02 Jun 2025 08:37:29 +0000
+Received: by outflank-mailman (input) for mailman id 1002919;
+ Mon, 02 Jun 2025 08:37:28 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=QAfa=YR=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uM0GE-0007AG-Tc
- for xen-devel@lists.xenproject.org; Mon, 02 Jun 2025 08:11:10 +0000
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [2a00:1450:4864:20::431])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 24097668-3f89-11f0-a300-13f23c93f187;
- Mon, 02 Jun 2025 10:11:09 +0200 (CEST)
-Received: by mail-wr1-x431.google.com with SMTP id
- ffacd0b85a97d-3a4fdc27c4aso928214f8f.3
- for <xen-devel@lists.xenproject.org>; Mon, 02 Jun 2025 01:11:09 -0700 (PDT)
+ id 1uM0fg-0002g4-Sl
+ for xen-devel@lists.xenproject.org; Mon, 02 Jun 2025 08:37:28 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d01f06da-3f8c-11f0-b894-0df219b8e170;
+ Mon, 02 Jun 2025 10:37:27 +0200 (CEST)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-450d668c2a1so18297275e9.0
+ for <xen-devel@lists.xenproject.org>; Mon, 02 Jun 2025 01:37:26 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-23506cf908fsm65391385ad.193.2025.06.02.01.11.02
+ d9443c01a7336-23506bd92c7sm65941785ad.62.2025.06.02.01.37.20
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 02 Jun 2025 01:11:08 -0700 (PDT)
+ Mon, 02 Jun 2025 01:37:25 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,62 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 24097668-3f89-11f0-a300-13f23c93f187
+X-Inumbo-ID: d01f06da-3f8c-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1748851869; x=1749456669; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1748853446; x=1749458246; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=8h874oZetIgDTxJQnHT4qevISzGI0DoLGKur2SoUoUk=;
-        b=NOkXHm9wKcvkw7d7N39GQykmACW0oegHuCXNrDjVZfMwAt8VDOcXCBq28hdfvUd15o
-         FmGSbO8gQD/eNaE5UGH48CazONuGOkqScxx3Hj6P83/bYSvfATMjouHx5ybfrHC43+Vt
-         WtTQNxB9kwQ8jNcwYgaVKPB+8Ifd438RxsnYPyKCMZZk0tjr8YZGioRugY7ekmuXT01S
-         sZkxcdRRyBYVmkt9KkId90udzB7W08A3o0+KImOXIYYjOFRFvq0OxZGw/LHrA5h/whtO
-         GBVCE0yhfSZ+nlFoaB95iaCZEBbDg5GvPQTtu9CovEZ6k3vWG5XOq5UK7eYGTEkY27Uz
-         RPOw==
+        bh=s2CizzUvivBsJgNurFjR4ozFanrBFlQK/zlyrNxv9jE=;
+        b=fXKK8JKrv3dHira05MdICWSCYPw2pNNvgEGq7SDpYmvtuG6lducVB3jBSC6BTvdhwO
+         rLyQ+J9/ioAS6kEd+htnsv9KRASjy+HEUPeLVRt/uLQySVDf+zUICUPJs4nXHafJc+DI
+         h6Zl/J5TIfoDgP96U5tiU0pBwd0/1NVFwSqjsR1faPlXGrjedq8uEq44OzmFkvbguiZY
+         PvnkiX+TPWwTwtsfsQovS1xax3EgQdL9WwySI3IqOBnwg2xSONclWelmddLqJA1uM8RB
+         PahC46BcqD8VyZMLDytm1s9701WPv3w2MOno73WVGfYFwkTVXxTQbqwNq+UEL0nvETfS
+         PixA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1748851869; x=1749456669;
+        d=1e100.net; s=20230601; t=1748853446; x=1749458246;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=8h874oZetIgDTxJQnHT4qevISzGI0DoLGKur2SoUoUk=;
-        b=VtqPo8aK2EKtSetV3UTvm5T1UEH3bEUEuw86erjxUfgOemAEwNQWCu19fhnOViWpSI
-         qf/chk2JR2tdso8qgxTqcpXxnpUzNoSvNFqkp8LwvMVU2FVVk6o7N5fGrDgTkpIT2o3i
-         7qMFJOYJuDp8u5OUFXBBcC4YB0k2cMygxSeLIsW4q9d0tSghxpSATuJyp29Ukv//3WHN
-         CkROI5RNUDBYHrKGE70cY+izLkm+DH3mMdmHMP9QlXM/vTy4UJcL4P61hXlBAwO26rz8
-         WaLV+Yk6RkQM3If0LjDv4B9nzsinC6TcVmgHRSdG9/2r6Z3pqGbybpVjOKi8Y3GLWp6e
-         RS4A==
-X-Forwarded-Encrypted: i=1; AJvYcCXgYwPTmVX8HsuzkpZIQQmXeNT3gja3SWFLMAQIGAYrdHGNobvFBy3s/YH9VAndPCzvbX+0rcg/a8s=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YywtDSD6vREMSRyFpoz79+jJwrReyeu1WQoEKA0ifYZtsK31yI2
-	RGP+j4j7HkgeDfoU85TbP3w44f9zsAoPS2VfdZXoi40dhbO2SLl/hErYpwjVpqXwVw==
-X-Gm-Gg: ASbGncsMDrt16MGJQmVQwKTPh+jFtOkC4MS0z5AnJdHP94qounMa0Pti8/DNCHdGIwe
-	QVbbL3eAEXCozQ7l83P6QEoCMh1O+gdgs+I3GaGhESs6gEAPSOTpfw55hVcZ/QYMHdN2+BncNbg
-	LbST/51L06r/ozXrJ9r3+ib4Mim2PJAGktVlg/F6p2sVzgU3K4lsPlbezs3FyewqIKX8KjctxkZ
-	sCeQJp7cAHNKnhde7yaD0GSwvCUbBiVxc/uYyngssb5ZqbvD9pOhDqWUHYWv2nzlLxjgpZsWgKF
-	t3ZWLg43p+Lt9ojbz5iGWtRxQYMwVhFLCIJGOrlIuvy2lUIRoQCq4H3y0n47qRRUjLeOkFt66Rt
-	zRbxI9zMXuP84A4uIN7bfsYmWTeAlclOnT6EQkTCIS5vlYhQ=
-X-Google-Smtp-Source: AGHT+IFsrgjZwTZjW/JVCyivWRXNIYB3H84BslfVXB6S6wW8q0qP2SmsMax+HufZXoBPdAoo30V4/g==
-X-Received: by 2002:a05:6000:2087:b0:3a4:eaab:5111 with SMTP id ffacd0b85a97d-3a4f89ddd94mr7844197f8f.37.1748851869167;
-        Mon, 02 Jun 2025 01:11:09 -0700 (PDT)
-Message-ID: <66cda989-efe9-4389-ae8d-cb9bc4dc5239@suse.com>
-Date: Mon, 2 Jun 2025 10:11:12 +0200
+        bh=s2CizzUvivBsJgNurFjR4ozFanrBFlQK/zlyrNxv9jE=;
+        b=LVRZUstBm2d++IFHFpPPQTyu5j3B3q1Vd/9Qk3jB/5FbpOW+giEFmLCbZLDBKBPHNa
+         H51DX+MZBkoEPRrIGYwYnxdew88hWz6y1m62KqDC3l7akaKOrpVSrP5S15IRZCcqd3fK
+         cXF146oZUL2zy9bGDz14+KISRXJd4OV/M46lEkxHKg3LavZmKMNhzZ/ocGrulCjeiC4q
+         XeqwCGjO4PWuYNtueT1+9WMjfXoydAqWn2lzOLEr/O2sWLGpTsFtZYpO7KBcd4b4E+vK
+         AHFZ8zCyDBN7VcYq0dLgDCxJKjmfsMmTW+EoZvmea3kOKVmWxggNGmxeuGeM7ryWUsbm
+         g+HQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXcSeZFpfCE85qB6+HAzkvQuI2MGQxvpvrLPNhYopAcM4XC967ibwL1pW4njjm9yXwImYeVXvWxi24=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyStB6kwTwm+zY8qeHo5Rc1YAcN/ghNk5/jNJlUjeAhrpIUE9Pt
+	6Qw0ckkEIHA35vQ6/GWeqVB7Vl7UTQmw/nhHeBeYm7A2cKv+1RaQpAlkWldxnTm7bw==
+X-Gm-Gg: ASbGnctVOKvhwr6O6DMAa33ZGGzwoZFQY/C8wsS8KViION1PmVpkcVRjXJPjAac9Jhs
+	r7/qpP5PjTw1L3pSzrBpekWoabdkVSCPBbNBX0DvjQAuyGfkSWk240uirhdEv1UJiJIIV0/3zP2
+	OFCwXqW26X+5SIb4E1y6FtWWNOjCF3Pk30FKdW0VI2Zygxrep1/6ug4OPcvohY+mXroeCojyaC2
+	5I99j8/GjkZVZ3Fr3aV+0xv9Td38qXyummCh9V9YQ37ubKTZYpfYkjar0o1ebwMcB6+yTJkQUIL
+	duDQS7RxgIoJcCj07nwJMA4ytWYSs5i5CLrS4mu7wun9i7S/QcGP4onCLMiwG5vugKIP1H2ndK8
+	iTgmFBjUYlfVt3OPX71C+rrKMNQBpKeqvrvZb
+X-Google-Smtp-Source: AGHT+IFkApe44EvHCGqUgausq2lD8gYN51hsqftFsSXTAC6z/iteQWmoh0vEF5Nm/Lxz80TkinX9XQ==
+X-Received: by 2002:a05:6000:22c3:b0:3a4:d9d3:b7cc with SMTP id ffacd0b85a97d-3a4eedceccbmr13240142f8f.28.1748853446269;
+        Mon, 02 Jun 2025 01:37:26 -0700 (PDT)
+Message-ID: <344823d0-eb05-48e5-80c5-9598104f3a3b@suse.com>
+Date: Mon, 2 Jun 2025 10:37:30 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v11 6/7] xen/arm: enable dom0 to use PCI devices with
- pci-passthrough=no
-To: Mykyta Poturai <Mykyta_Poturai@epam.com>
-Cc: Stewart Hildebrand <stewart.hildebrand@amd.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
+Subject: Re: [PATCH] device-tree: Move Arm's static-evtchn feature to common
+To: Michal Orzel <michal.orzel@amd.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
  Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <cover.1748422217.git.mykyta_poturai@epam.com>
- <c0b080618909580e527d7c6cce6010edf5278d2c.1748422217.git.mykyta_poturai@epam.com>
+ xen-devel@lists.xenproject.org
+References: <20250527082117.120214-1-michal.orzel@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -126,42 +122,34 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <c0b080618909580e527d7c6cce6010edf5278d2c.1748422217.git.mykyta_poturai@epam.com>
+In-Reply-To: <20250527082117.120214-1-michal.orzel@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 28.05.2025 11:12, Mykyta Poturai wrote:
-> From: Stewart Hildebrand <stewart.hildebrand@amd.com>
+On 27.05.2025 10:21, Michal Orzel wrote:
+> There's nothing Arm specific about this feature. Move it to common as
+> part of a larger activity to commonalize device tree related features.
+> For now, select it only for ARM until others (e.g. RISC-V) verify it
+> works for them too.
 > 
-> Enable the use of IOMMU + PCI in dom0 without having to specify
-> "pci-passthrough=yes". Due to possible platform specific dependencies
-> of the PCI host, we rely on dom0 to initialize it and perform
-> a PHYSDEVOP_pci_device_add/remove call to add each device to SMMU.
-> PHYSDEVOP_pci_device_reset is left untouched as it does not have the
-> pci_passthrough_enabled check.
+> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
 
-Just to re-raise the question here: Is this actually correct?
+I realize this was already committed, but ...
 
-> --- a/xen/drivers/pci/physdev.c
-> +++ b/xen/drivers/pci/physdev.c
-> @@ -19,7 +19,7 @@ ret_t pci_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
->          struct pci_dev_info pdev_info;
->          nodeid_t node = NUMA_NO_NODE;
+> --- a/xen/common/Kconfig
+> +++ b/xen/common/Kconfig
+> @@ -162,6 +162,14 @@ config STATIC_MEMORY
 >  
-> -        if ( !is_pci_passthrough_enabled() )
-> +        if ( !is_pci_passthrough_enabled() && !arch_pci_device_physdevop())
->              return -EOPNOTSUPP;
+>  	  If unsure, say N.
 >  
->          ret = -EFAULT;
-> @@ -57,7 +57,7 @@ ret_t pci_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
->      case PHYSDEVOP_pci_device_remove: {
->          struct physdev_pci_device dev;
->  
-> -        if ( !is_pci_passthrough_enabled() )
-> +        if ( !is_pci_passthrough_enabled() && !arch_pci_device_physdevop())
->              return -EOPNOTSUPP;
+> +config STATIC_EVTCHN
+> +	bool "Static event channel support on a dom0less system"
+> +	depends on DOM0LESS_BOOT && ARM
 
-Nit (style): You're losing a relevant blank each.
+... I think we should strive to avoid such arch dependencies; they simply
+don't scale very well. Instead (if needed) HAS_* should be introduced, which
+each interested arch can select. In the case here, however, perhaps
+DOM0LESS_BOOT alone would have been sufficient as a dependency?
 
 Jan
 
