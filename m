@@ -2,38 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53F1EACAC70
-	for <lists+xen-devel@lfdr.de>; Mon,  2 Jun 2025 12:30:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1003146.1382611 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C24BACAC74
+	for <lists+xen-devel@lfdr.de>; Mon,  2 Jun 2025 12:31:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1003154.1382621 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uM2Qe-00015u-FG; Mon, 02 Jun 2025 10:30:04 +0000
+	id 1uM2Rp-0002Gh-Se; Mon, 02 Jun 2025 10:31:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1003146.1382611; Mon, 02 Jun 2025 10:30:04 +0000
+Received: by outflank-mailman (output) from mailman id 1003154.1382621; Mon, 02 Jun 2025 10:31:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uM2Qe-00011h-CB; Mon, 02 Jun 2025 10:30:04 +0000
-Received: by outflank-mailman (input) for mailman id 1003146;
- Mon, 02 Jun 2025 10:30:03 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uM2Rp-0002Do-P1; Mon, 02 Jun 2025 10:31:17 +0000
+Received: by outflank-mailman (input) for mailman id 1003154;
+ Mon, 02 Jun 2025 10:31:16 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=QKOU=YR=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1uM2Qd-0000gS-0F
- for xen-devel@lists.xenproject.org; Mon, 02 Jun 2025 10:30:03 +0000
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [2a00:1450:4864:20::32c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 88119ac6-3f9c-11f0-b894-0df219b8e170;
- Mon, 02 Jun 2025 12:29:58 +0200 (CEST)
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-450ce671a08so26204075e9.3
- for <xen-devel@lists.xenproject.org>; Mon, 02 Jun 2025 03:29:58 -0700 (PDT)
-Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-450d7fb00ccsm117601985e9.17.2025.06.02.03.29.56
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 02 Jun 2025 03:29:56 -0700 (PDT)
+ <SRS0=KqnP=YR=arm.com=ryan.roberts@srs-se1.protection.inumbo.net>)
+ id 1uM2Ro-0002CR-7w
+ for xen-devel@lists.xenproject.org; Mon, 02 Jun 2025 10:31:16 +0000
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTP
+ id b557793c-3f9c-11f0-a300-13f23c93f187;
+ Mon, 02 Jun 2025 12:31:14 +0200 (CEST)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D6EAD12FC;
+ Mon,  2 Jun 2025 03:30:56 -0700 (PDT)
+Received: from [10.57.95.206] (unknown [10.57.95.206])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7C8B93F673;
+ Mon,  2 Jun 2025 03:31:07 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,124 +42,159 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 88119ac6-3f9c-11f0-b894-0df219b8e170
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1748860197; x=1749464997; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=/8c2hU5Ue9eYT7KD2Rw85cVz8HZowY2V5aBlyfr3DLI=;
-        b=kgjACyfaUwPkuc52t91ATOVxEZoxn4GtcPwS9U6EM17lAdOm7JeO80bdNF7WD/LMth
-         AcUqi9FV2BK18zZ1yaQLksY0Eb0LjgJuNZfSKeEP69Xr3eqqICsekXBM5TwkaO635m5x
-         Rn+aOJOcsN4ULix1Pa5HdyeftFZqEIt70PQmg=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1748860197; x=1749464997;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=/8c2hU5Ue9eYT7KD2Rw85cVz8HZowY2V5aBlyfr3DLI=;
-        b=OxLaeiwt9jRMLtOXFtUStIAnMX6z/O9aVXqcnRZHDvKYlfmzfM/vSehPHEna1hfHwH
-         18R9UU2/U8eKtsIJAee+M6htB3gIu7QTYB/OCX3wa/tA594q4E+97jW7raNWMx7dvDtZ
-         MvBOCwFcF2w2HQASmtttX/xk8kpXgq9MsxJSmgZJaZjWbL7alrIAgidyX/96MxECuWcu
-         KRBR85xIuKuSCfXfukRxcFlG0E4Gour122FPXipWHMXHZxa9arZ5PFOWvU+d37aC4l3o
-         ZlVOLkqiK2lIOCo0xDtJwz9d3smQa6wLto32IMr/8fm58fHXGZUuXqlCTEZzAWwOC5ra
-         XqzQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVkGSPqOa+ucYbrfvD+1NdT4/x4y9EisHxXJPvYsfqKNxgIUk42tHMVdpvNerKTF5G0HcnCtSOYw7k=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzeFe6LFCyI4w6EmyotgcdSKai4mqA3B3rCJrFpwsYnWGHbAaQq
-	Qa6+LkzskwBybSAh9GLcY6/WBY+D39Uf4aJrrKgBqWhRZxvQcDyhvtt0ENdS/Xgk06U=
-X-Gm-Gg: ASbGnctZMr6Vf49jgAbWiwJtHdASRXVMQmMJyExOTDM2a+QaWsCBeB34aj2R9ogu9Cb
-	OQxljLl4DCMcV1eyDmPchlUjBpRT4vZCOHRGZHyCTwLRVzvfw1OLwHYzGTDZjVrOAoiSZvRYNgM
-	bNsse4A4GfdX84wsq1uj+f+n8T8M39NFqVaofBI1/GQ9ECBTz3f9mQr6dqL1O1zKzIj1E55k+nc
-	RuEpQeZXYd5yfcpTlSca1KRk4xFoluzLxmecr5dMvApeEJdW0IkKaWAbzJHcF32ZgTnN1hu9VWC
-	GnJ2830L8LO0CmZ/2X2Mbkuth/rbvNj0xixJnRltvPrQIcGYbxtvwvCoYdcyAH/a/NLXT9YSc9Y
-	VKB/1eIIItV1O8Ijg
-X-Google-Smtp-Source: AGHT+IH0QCKABEKIXAitKe2B9IsXkKrYBeIr/qvBp+oDnZbnWWNDiWx1+EWYP21X3ik8F9WSrvhVrA==
-X-Received: by 2002:a05:600c:314f:b0:450:d3b9:4ba4 with SMTP id 5b1f17b1804b1-451191fd426mr64754465e9.2.1748860197371;
-        Mon, 02 Jun 2025 03:29:57 -0700 (PDT)
-Message-ID: <af78b918-3ac3-442e-a128-97a72dbfcbb1@citrix.com>
-Date: Mon, 2 Jun 2025 11:29:56 +0100
+X-Inumbo-ID: b557793c-3f9c-11f0-a300-13f23c93f187
+Message-ID: <23bd2cdf-768f-4053-9839-a0613a25de51@arm.com>
+Date: Mon, 2 Jun 2025 11:31:05 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/x86: Remove is_periodic_irq() prototype
-To: Jan Beulich <jbeulich@suse.com>, Jason Andryuk <jason.andryuk@amd.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org,
- "consulting@bugseng.com" <consulting@bugseng.com>
-References: <20250527223753.47055-1-jason.andryuk@amd.com>
- <1c850e02-0d87-4fd1-8504-0aee53949136@citrix.com>
- <2c4f4c2a-b1d7-4cbb-834e-cee0fd3d2433@suse.com>
+Subject: Re: [RFC PATCH v1 0/6] Lazy mmu mode fixes and improvements
 Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <2c4f4c2a-b1d7-4cbb-834e-cee0fd3d2433@suse.com>
+To: Mike Rapoport <rppt@kernel.org>
+Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
+ Christophe Leroy <christophe.leroy@csgroup.eu>,
+ "David S. Miller" <davem@davemloft.net>,
+ Andreas Larsson <andreas@gaisler.com>, Juergen Gross <jgross@suse.com>,
+ Ajay Kaher <ajay.kaher@broadcom.com>,
+ Alexey Makhalov <alexey.makhalov@broadcom.com>,
+ Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ "H. Peter Anvin" <hpa@zytor.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Peter Zijlstra <peterz@infradead.org>, Arnd Bergmann <arnd@arndb.de>,
+ David Hildenbrand <david@redhat.com>,
+ "Liam R. Howlett" <Liam.Howlett@oracle.com>, Vlastimil Babka
+ <vbabka@suse.cz>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Alexei Starovoitov <ast@kernel.org>,
+ Andrey Ryabinin <ryabinin.a.a@gmail.com>,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, sparclinux@vger.kernel.org,
+ virtualization@lists.linux.dev, xen-devel@lists.xenproject.org,
+ linux-mm@kvack.org, Jann Horn <jannh@google.com>
+References: <20250530140446.2387131-1-ryan.roberts@arm.com>
+ <5b5d6352-9018-4658-b8fe-6eadaad46881@lucifer.local>
+ <af9a96e1-064b-4627-bd34-e7e7e8a05452@arm.com> <aDqz7H-oBo35FRXe@kernel.org>
+From: Ryan Roberts <ryan.roberts@arm.com>
+In-Reply-To: <aDqz7H-oBo35FRXe@kernel.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 02/06/2025 10:04 am, Jan Beulich wrote:
-> On 28.05.2025 00:39, Andrew Cooper wrote:
->> On 27/05/2025 11:37 pm, Jason Andryuk wrote:
->>> is_periodic_irq() was removed in the Fixes commit, but the prototype
->>> remained.  Drop it now.
+On 31/05/2025 08:46, Mike Rapoport wrote:
+> Hi Ryan,
+> 
+> On Fri, May 30, 2025 at 04:55:36PM +0100, Ryan Roberts wrote:
+>> On 30/05/2025 15:47, Lorenzo Stoakes wrote:
+>>> +cc Jann who is a specialist in all things page table-y and especially scary
+>>> edge cases :)
 >>>
->>> Fixes: ddc35d1cc994 ("[HVM] Enable more than one platform timer...")
->>> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
->> Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>>> On Fri, May 30, 2025 at 03:04:38PM +0100, Ryan Roberts wrote:
+>>>> Hi All,
+>>>>
+>>>> I recently added support for lazy mmu mode on arm64. The series is now in
+>>>> Linus's tree so should be in v6.16-rc1. But during testing in linux-next we
+>>>> found some ugly corners (unexpected nesting). I was able to fix those issues by
+>>>> making the arm64 implementation more permissive (like the other arches). But
+>>>> this is quite fragile IMHO. So I'd rather fix the root cause and ensure that
+>>>> lazy mmu mode never nests, and more importantly, that code never makes pgtable
+>>>> modifications expecting them to be immediate, not knowing that it's actually in
+>>>> lazy mmu mode so the changes get deferred.
+>>>
+>>> When you say fragile, are you confident it _works_ but perhaps not quite as well
+>>> as you want? Or are you concerned this might be broken upstream in any way?
 >>
->>> ---
->>> The full Fixes line is:
->>> Fixes: ddc35d1cc994 ("[HVM] Enable more than one platform timer (PIT/RTC/HPET) programmed as periodic timer and adds them to abstract layer, which keeps track of pending_intr_nr to avoid time interrupt lost and sync'ed timer with TSC.")
->> Yeah, the older commit messages weren't as well structured as we insist
->> on them being these days.
+>> I'm confident that it _works_ for arm64 as it is, upstream. But if Dev's series
+>> were to go in _without_ the lazy_mmu bracketting in some manner, then it would
+>> be broken if the config includes CONFIG_DEBUG_PAGEALLOC.
 >>
->> How did you find this?  inspection, or a tool?
-> What I'm curious about: Why didn't Eclair spot this?
+>> There's a lot more explanation in the later patches as to how it can be broken,
+>> but for arm64, the situation is currently like this, because our implementation
+>> of __change_memory_common() uses apply_to_page_range() which implicitly starts
+>> an inner lazy_mmu_mode. We enter multiple times, but we exit one the first call
+>> to exit. Everything works correctly but it's not optimal because C is no longer
+>> deferred:
+>>
+>> arch_enter_lazy_mmu_mode()                        << outer lazy mmu region
+>>   <do some pte changes (A)>
+>>   alloc_pages()
+>>     debug_pagealloc_map_pages()
+>>       __kernel_map_pages()
+>>         __change_memory_common()
+>>           arch_enter_lazy_mmu_mode()              << inner lazy mmu region
+>>             <change kernel pte to make valid (B)>
+>>           arch_leave_lazy_mmu_mode()              << exit; complete A + B
+>>     clear_page()
+>>   <do some more pte changes (C)>                  << no longer in lazy mode
+>> arch_leave_lazy_mmu_mode()                        << nop
+>>
+>> An alternative implementation would not add the nested lazy mmu mode, so we end
+>> up with this:
+>>
+>> arch_enter_lazy_mmu_mode()                        << outer lazy mmu region
+>>   <do some pte changes (A)>
+>>   alloc_pages()
+>>     debug_pagealloc_map_pages()
+>>       __kernel_map_pages()
+>>         __change_memory_common()
+>>             <change kernel pte to make valid (B)> << deferred due to lazy mmu
+>>     clear_page()                                  << BANG! B has not be actioned
+>>   <do some more pte changes (C)>
+>> arch_leave_lazy_mmu_mode()
+>>
+>> This is clearly a much worse outcome. It's not happening today but it could in
+>> future. That's why I'm claiming it's fragile. It's much better (IMHO) to
+>> disallow calling the page allocator when in lazy mmu mode.
+> 
+> First, I think it should be handled completely inside arch/arm64. Page
+> allocation worked on lazy mmu mode on other architectures, no reason it
+> should be changed because of the way arm64 implements lazy mmu.
+> 
+> Second, DEBUG_PAGEALLOC already implies that performance is bad, for it to
+> be useful the kernel should be mapped with base pages and there's map/unmap
+> for every page allocation so optimizing a few pte changes (C in your
+> example) won't matter much.
+> 
+> If there's a potential correctness issue with Dev's patches, it should be
+> dealt with as a part of those patches with the necessary updates of how
+> lazy mmu is implemented on arm64 and used in pageattr.c.
+> 
+> And it seems to me that adding something along the lines below to
+> __kernel_map_pages() would solve DEBUG_PAGEALLOC issue:
+> 
+> void __kernel_map_pages(struct page *page, int numpages, int enable)
+> {
+> 	unsigned long flags;
+> 	bool lazy_mmu = false;
+> 
+> 	if (!can_set_direct_map())
+> 		return;
+> 
+> 	flags = read_thread_flags();
+> 	if (flags & BIT(TIF_LAZY_MMU))
+> 		lazy_mmu = true;
+> 
+> 	set_memory_valid((unsigned long)page_address(page), numpages, enable);
+> 
+> 	if (lazy_mmu)
+> 		set_thread_flag(TIF_LAZY_MMU);
+> }
 
-I don't see how this case is distinguishable from the DCE case dropping
-calls to compiled-out functions, which is a deviation because of how Xen
-wants to work.
+Hi Mike,
 
-~Andrew
+I've thought about this for a bit, and concluded that you are totally right.
+This is a much smaller, arm64-contained patch. Sorry for the noise here, and
+thanks for the suggestion.
+
+Thanks,
+Ryan
+
+
+> 
+>> Thanks,
+>> Ryan
+> 
+
 
