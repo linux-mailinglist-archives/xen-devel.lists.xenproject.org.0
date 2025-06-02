@@ -2,50 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD1EFACBC21
-	for <lists+xen-devel@lfdr.de>; Mon,  2 Jun 2025 22:04:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1003796.1383407 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 61619ACBC44
+	for <lists+xen-devel@lfdr.de>; Mon,  2 Jun 2025 22:26:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1003803.1383416 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uMBNX-0006ov-1H; Mon, 02 Jun 2025 20:03:27 +0000
+	id 1uMBj4-000194-OM; Mon, 02 Jun 2025 20:25:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1003796.1383407; Mon, 02 Jun 2025 20:03:26 +0000
+Received: by outflank-mailman (output) from mailman id 1003803.1383416; Mon, 02 Jun 2025 20:25:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uMBNW-0006n5-UG; Mon, 02 Jun 2025 20:03:26 +0000
-Received: by outflank-mailman (input) for mailman id 1003796;
- Mon, 02 Jun 2025 20:03:25 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uMBj4-00016z-Ln; Mon, 02 Jun 2025 20:25:42 +0000
+Received: by outflank-mailman (input) for mailman id 1003803;
+ Mon, 02 Jun 2025 20:25:42 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=pxQh=YR=antarean.org=joost@srs-se1.protection.inumbo.net>)
- id 1uMBNV-0006mz-Ba
- for xen-devel@lists.xenproject.org; Mon, 02 Jun 2025 20:03:25 +0000
-Received: from gw3.antarean.org (gw3.antarean.org [84.247.13.64])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id a3c037bd-3fec-11f0-a300-13f23c93f187;
- Mon, 02 Jun 2025 22:03:24 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by gw3.antarean.org (Postfix) with ESMTP id 4bB4Y24pZZzNsTk;
- Mon, 02 Jun 2025 22:03:50 +0200 (CEST)
-Received: from gw3.antarean.org ([127.0.0.1])
- by localhost (gw3.antarean.org [127.0.0.1]) (amavis, port 10024) with ESMTP
- id 8OESF7r7NInZ; Mon,  2 Jun 2025 22:03:50 +0200 (CEST)
-Received: from mailstore1.adm.antarean.org (localhost [127.0.0.1])
- by gw3.antarean.org (Postfix) with ESMTP id 4bB4Y244pTzNl38;
- Mon, 02 Jun 2025 22:03:50 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by mailstore1.adm.antarean.org (Postfix) with ESMTP id 4bB4XW4Pvqz1G;
- Mon, 02 Jun 2025 20:03:23 +0000 (UTC)
-Received: from mailstore1.adm.antarean.org ([127.0.0.1])
- by localhost (mailstore1.adm.antarean.org [127.0.0.1]) (amavis, port 10024)
- with ESMTP id KKwbrsgDTe5q; Mon,  2 Jun 2025 20:03:22 +0000 (UTC)
-Received: from persephone.localnet (persephone.adm.antarean.org [10.55.16.48])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mailstore1.adm.antarean.org (Postfix) with ESMTPS id 4bB4XV5rLtz17;
- Mon, 02 Jun 2025 20:03:22 +0000 (UTC)
+ <SRS0=W+w/=YR=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
+ id 1uMBj3-00016t-QN
+ for xen-devel@lists.xenproject.org; Mon, 02 Jun 2025 20:25:41 +0000
+Received: from sender4-of-o50.zoho.com (sender4-of-o50.zoho.com
+ [136.143.188.50]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id be4e5753-3fef-11f0-b894-0df219b8e170;
+ Mon, 02 Jun 2025 22:25:38 +0200 (CEST)
+Received: by mx.zohomail.com with SMTPS id 1748895930344260.98692996946454;
+ Mon, 2 Jun 2025 13:25:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -57,187 +38,286 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a3c037bd-3fec-11f0-a300-13f23c93f187
-X-Virus-Scanned: amavis at antarean.org
-X-Virus-Scanned: amavis at antarean.org
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=antarean.org;
-	s=default; t=1748894602;
-	bh=lO4povlG+nifRCUarMVCoMNsX8KccwxbuFAlasir/z4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=OZnYIQFTWZqNRLdo4elycwh1KXyVshkU1sCrwJssRPEDCqXJXrDQChGg59A5Gpvvw
-	 fm/IJYjjncs5CgN7krmRb+//wmhP+CQHWOR5NEK22zc13BLm8IM151rJfZWFP1bz5T
-	 aSi2BeD8FJnc3oV+i2AOMj1c8RUhrMAgbFxENb7g=
-From: "J. Roeleveld" <joost@antarean.org>
-To: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>
-Cc: "J. Roeleveld" <joost@antarean.org>
-Subject: Re: Kernel panic when passing through 2 identical PCI devices
-Date: Mon, 02 Jun 2025 22:03:22 +0200
-Message-ID: <7829526.EvYhyI6sBW@persephone>
-In-Reply-To: <13792630.uLZWGnKmhe@persephone>
-References:
- <2226691.irdbgypaU6@persephone>
- <fa1814f9-5ebc-40ff-a6c8-616060079857@suse.com>
- <13792630.uLZWGnKmhe@persephone>
+X-Inumbo-ID: be4e5753-3fef-11f0-b894-0df219b8e170
+ARC-Seal: i=1; a=rsa-sha256; t=1748895932; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=HKzHGpEXYnRqGPCUZkth+IDpmu5A0WYc9TeI7GmpfXAgfIujcJsynV2gunhlCRjB/xAghjroyAs4aJG9dp82gsxHl2EVKobt0fF/DhCmx7ln6W2wujvFRzxc6R0Hktf0vdRVYm//tbZKaGMqmmkAW33Hds773T/T1NzUZkDIXvo=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1748895932; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=OFbGuhWeDFUWODp5A9qftGfaGuYqssnm/PhkfG9YU5w=; 
+	b=KxomQ/5+NJpEQwXuUc+gG28Pji4yjQfmlm0JVwhOpiOmTFnZRpBJzk7jm+NREknj1iFD7HPjfTDva4vHsdfJBr+93qwpbbQio4zLi8DecfYloXc05HSNvGtWomrnMFO6YvfaVPWSTAdPAPtCybJB2t1Nlk0PXrhGslGbcn/PzRI=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=apertussolutions.com;
+	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
+	dmarc=pass header.from=<dpsmith@apertussolutions.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1748895932;
+	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=OFbGuhWeDFUWODp5A9qftGfaGuYqssnm/PhkfG9YU5w=;
+	b=mlhx98A3RzWDcWBp1F/+rPLX2TlRSx98QyzoIcTZ9GR9kyv2AF8UGTqVZuTk3tuz
+	yeEEjweC2ByB8zZSgjyHxeaH9cXPXt74r82QhPHJ6iKL3G8nMRdg5B8dRkT56hc51Ty
+	pxsdbagBqiNwYOHEwfS10dlPZ5UGZY2S6AO5Cqzw=
+Message-ID: <a66c11c4-cfac-4934-b1f5-e07c728db8de@apertussolutions.com>
+Date: Mon, 2 Jun 2025 16:25:28 -0400
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 12/19] xen/dt: Move bootfdt functions to xen/bootfdt.h
+Content-Language: en-US
+To: Alejandro Vallejo <agarciav@amd.com>, xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <DA1WWRUQLCAG.ZTVR1HXJ85V0@amd.com>
+ <20250530120242.39398-1-agarciav@amd.com>
+ <20250530120242.39398-13-agarciav@amd.com>
+From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
+ 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
+In-Reply-To: <20250530120242.39398-13-agarciav@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 
-(top-posting as this has extra info and not sure where to put it otherwise)
-
-Jan, (and others),
-
-As the HBA devices seem to work correctly, I've been looking further into 
-differences.
-One thing that could be a problem is how the PCI-devices are connected.
-
-The HBAs are each in a seperate PCIe slot.
-The NVMe drives are in a single slot with bifurcation (4x4x4x4) enabled.
-There are a total of 4 drives. 2 are for the host, the other 2 for this guest 
-domain.
-Specifically, I use one of these:
-https://www.asus.com/motherboards-components/motherboards/accessories/hyper-m-2-x16-card-v2/
-
-Am currently trying to figure out which function/procedures in the kernel code 
-are being used and which would make sense to add additional output with.
-Will standard "printf" commands work? Or should I use something else to get 
-the output printed to the same output as the rest the kernel outputs?
-
-I could definitely use some assistance with this part. Ideally, I would like to 
-put extra output at all possible causes at once.
-
-Many thanks,
-
-Joost
-
-
-On Monday, 2 June 2025 16:37:36 CEST J. Roeleveld wrote:
-> On Monday, 2 June 2025 16:31:11 CEST Jan Beulich wrote:
-> > On 02.06.2025 16:19, J. Roeleveld wrote:
-> > > On Monday, 2 June 2025 15:43:37 CEST you wrote:
-> > >> On 02.06.2025 14:28, J. Roeleveld wrote:
-> > >>> I have a domain to which I pass through 4 PCI devices:
-> > >>> 2 NVMe drives
-> > >>> 83:00.0   Samsung 980 NVMe
-> > >>> 84:00.0   Samsung 980 NVMe
-> > >>> 
-> > >>> 2 HBA Controllers
-> > >>> 86:00.0   LSI SAS3008
-> > >>> 87:00.0   LSI SAS3008
-> > >>> 
-> > >>> This works fine with Xen version 4.18.4_pre1.
-> > >>> However, when trying to update to 4.19, this fails.
-> > >> 
-> > >> To make it explicit: The domain in question is a PV one.
-> > > 
-> > > Yes. I tried to convert it to PVH in the past, but PCI-passthrough
-> > > wasn't
-> > > working at all. And nothing I found since shows that it should be
-> > > working
-> > > now.>
-> > > 
-> > >>> Checking the output during boot, I think I found something. But my
-> > >>> knowledge is insufficient to figure out what is causing what I am
-> > >>> seeing
-> > >>> and how to fix this.
-> > >>> 
-> > >>> From the below (where I only focus on the 2 NVMe drives), it is
-> > >>> similar
-> > >>> to
-> > >>> the succesfull boot up until it tries to "claiming resource
-> > >>> 0000:84:00.0/0". At which point sysfs fails because the entry for "84"
-> > >>> is
-> > >>> already present.
-> > >> 
-> > >> What would be interesting is to know why / how this 2nd registration
-> > >> happens.
-> > > 
-> > > Only guess I can make: They are both the same brand/model/size. Only
-> > > serial number differs
-> > 
-> > I don't think this matters here at all. The guest isn't at the point yet
-> > where it would even be able to retrieve these. From the log you provided
-> > it's the PCI subsystem where the issue is triggered.
+On 5/30/25 08:02, Alejandro Vallejo wrote:
+> Part of an unpicking process to extract bootfdt contents independent of bootinfo
+> to a separate file for x86 to take.
 > 
-> This goes beyond my knowledge. Which means I'd rather provide too much
-> information then too little :)
+> Move functions required for early FDT parsing from device_tree.h and arm's
+> setup.h onto bootfdt.h
 > 
-> > >> It's the same (guest) kernel version afaics, so something must
-> > >> behave differently on the host. Are you sure the sole (host side)
-> > >> difference is the hypervisor version? I.e. the Dom0 kernel version is
-> > >> the
-> > >> same in the failing and successful cases? I ask because there's very
-> > >> little
-> > >> Xen itself does that would play into pass-through device discovery /
-> > >> resource setup by a (PV) guest (which doesn't mean Xen can't screw
-> > >> things
-> > >> up). The more relevant component is the xen-pciback driver in Dom0.
-> > > 
-> > > I can confirm it's dependent on the Xen version.
-> > > Kernel version  = 6.12.21
-> > > I get a succesful boot with Xen version 4.18.4_pre1.
-> > > When I use Xen version 4.19.1, the boot fails due to this issue.
-> > > 
-> > > The kernel and initramfs does not differ between the boot.
-> > 
-> > And that's the Dom0 kernel, just to clarify? There are two kernels
-> > involved
-> > here, after all.
+> Declaration motion only. Not a functional change.
 > 
-> Yes. Dom0 and the guest have their own kernel images.
-> However, both run the same version. (I compile kernels from source)
+> Signed-off-by: Alejandro Vallejo <agarciav@amd.com>
+> ---
+>   xen/arch/arm/include/asm/setup.h |  6 ----
+>   xen/include/xen/bootfdt.h        | 62 ++++++++++++++++++++++++++++++++
+>   xen/include/xen/device_tree.h    | 34 +-----------------
+>   3 files changed, 63 insertions(+), 39 deletions(-)
 > 
-> > >> Sadly the log provided does, to me at least, not have enough data to
-> > >> draw
-> > >> conclusions. Some instrumenting of the guest kernel may be necessary
-> > >> ...
-> > > 
-> > > The host boots using UEFI:
-> > > 
-> > > === (xen.cfg in the EFI partition) ===
-> > > [global]
-> > > default=xen
-> > > 
-> > > [xen]
-> > > options=dom0_mem=24576M,max:24576M dom0_max_vcpus=4 dom0_vcpus_pin
-> > > gnttab_max_frames=512 sched=credit console=vga extra_guest_irqs=768,1024
-> > > 
-> > > kernel=gentoo-6.12.21.efi dozfs root=ZFS=zhost/host/root by=id
-> > > elevator=noop logo.nologo triggers=zfs quiet refresh softlevel=prexen
-> > > nomodeset
-> > > nfs.callback_tcpport=32764 lockd.nlm_udpport=32768
-> > > lockd.nlm_tcpport=32768
-> > > xen-pciback.hide=(83:00.0)(84:00.0)(86:00.0)(87:00.0) xen-
-> > > pciback.passthrough=1
-> > > 
-> > > ramdisk=initramfs-6.12.21-gentoo-host.img
-> > > ===
-> > > 
-> > > Please let me know what other information you need and if there is
-> > > anything I can try/test to get more information.
-> > > Does the mailing list allow gzipped text files as attachment? Or how
-> > > would
-> > > you prefer the kernel-config of the host and guest?
-> > 
-> > I don't think these are relevant (for the moment).
-> 
-> Ok.
-> 
-> > > If there are tests to do, please give me several to try as I need to
-> > > schedule downtime for reboots.
-> > 
-> > That would be some kernel hacking, as indicated before: Instrument the
-> > (guest) kernel enough to figure out where the 1st and 2nd sysfs
-> > registrations come from. This may then give us a clue what's being driven
-> > the wrong way (by Xen, or maybe by the toolstack).
-> 
-> If you could point me to a guide on how to do this?
-> I know enough about C/C++ to write my own tools. But the kernel and Xen is
-> too complex for me to follow and I would not even know where to begin.
-> 
-> --
-> Joost
+> diff --git a/xen/arch/arm/include/asm/setup.h b/xen/arch/arm/include/asm/setup.h
+> index 0f9e531a34..32308837a9 100644
+> --- a/xen/arch/arm/include/asm/setup.h
+> +++ b/xen/arch/arm/include/asm/setup.h
+> @@ -55,12 +55,6 @@ void setup_mm(void);
+>   extern uint32_t hyp_traps_vector[];
+>   void init_traps(void);
+>   
+> -void device_tree_get_reg(const __be32 **cell, uint32_t address_cells,
+> -                         uint32_t size_cells, paddr_t *start, paddr_t *size);
+> -
+> -u32 device_tree_get_u32(const void *fdt, int node,
+> -                        const char *prop_name, u32 dflt);
+> -
+>   int handle_device(struct domain *d, struct dt_device_node *dev, p2m_type_t p2mt,
+>                     struct rangeset *iomem_ranges, struct rangeset *irq_ranges);
+>   
+> diff --git a/xen/include/xen/bootfdt.h b/xen/include/xen/bootfdt.h
+> index fa65e8fcf4..079259c719 100644
+> --- a/xen/include/xen/bootfdt.h
+> +++ b/xen/include/xen/bootfdt.h
+> @@ -2,6 +2,7 @@
+>   #ifndef XEN_BOOTFDT_H
+>   #define XEN_BOOTFDT_H
+>   
+> +#include <xen/byteorder.h>
+>   #include <xen/types.h>
+>   #include <xen/kernel.h>
+>   #include <xen/macros.h>
+> @@ -16,8 +17,53 @@
+>   #define NR_MEM_BANKS 256
+>   #define NR_SHMEM_BANKS 32
+>   
+> +/* Default #address and #size cells */
+> +#define DT_ROOT_NODE_ADDR_CELLS_DEFAULT 2
+> +#define DT_ROOT_NODE_SIZE_CELLS_DEFAULT 1
+> +
+>   #define MAX_MODULES 32 /* Current maximum useful modules */
+>   
+> +#define DEVICE_TREE_MAX_DEPTH 16
+> +
+> +/* Helper to read a big number; size is in cells (not bytes) */
+> +static inline u64 dt_read_number(const __be32 *cell, int size)
+> +{
+> +    u64 r = 0;
+> +
+> +    while ( size-- )
+> +        r = (r << 32) | be32_to_cpu(*(cell++));
+> +    return r;
+> +}
+
+I know you are trying to keep code changes to a minimal but let's not 
+allow poorly constructed logic like this to continue to persist. This is 
+an unbounded, arbitrary read function that is feed parameters via 
+externally input. The DT spec declares only two number types for a 
+property, u32 and u64, see Table 2.3 in Section 2.2.4. There is no 
+reason to have an unbounded, arbitrary read function lying around 
+waiting to be leveraged in exploitation.
 
 
-
+> +static inline u64 dt_next_cell(int s, const __be32 **cellp)
+> +{
+> +    const __be32 *p = *cellp;
+> +
+> +    *cellp = p + s;
+> +    return dt_read_number(p, s);
+> +}
+> +
+> +typedef int (*device_tree_node_func)(const void *fdt,
+> +                                     int node, const char *name, int depth,
+> +                                     u32 address_cells, u32 size_cells,
+> +                                     void *data);
+> +
+> +/**
+> + * device_tree_for_each_node - iterate over all device tree sub-nodes
+> + * @fdt: flat device tree.
+> + * @node: parent node to start the search from
+> + * @func: function to call for each sub-node.
+> + * @data: data to pass to @func.
+> + *
+> + * Any nodes nested at DEVICE_TREE_MAX_DEPTH or deeper are ignored.
+> + *
+> + * Returns 0 if all nodes were iterated over successfully.  If @func
+> + * returns a value different from 0, that value is returned immediately.
+> + */
+> +int device_tree_for_each_node(const void *fdt, int node,
+> +                              device_tree_node_func func,
+> +                              void *data);
+> +
+>   typedef enum {
+>       BOOTMOD_XEN,
+>       BOOTMOD_FDT,
+> @@ -246,4 +292,20 @@ static inline struct membanks *membanks_xzalloc(unsigned int nr,
+>       return banks;
+>   }
+>   
+> +/*
+> + * Interpret the property `prop_name` of `node` as a u32.
+> + *
+> + * Returns the property value on success; otherwise returns `dflt`.
+> + */
+> +uint32_t device_tree_get_u32(const void *fdt, int node,
+> +                             const char *prop_name, uint32_t dflt);
+> +
+> +/*
+> + * Interpret the property `prop_name` of `node` as a "reg".
+> + *
+> + * Returns outputs in `start` and `size`.
+> + */
+> +void device_tree_get_reg(const __be32 **cell, uint32_t address_cells,
+> +                         uint32_t size_cells, paddr_t *start, paddr_t *size);
+> +
+>   #endif /* XEN_BOOTFDT_H */
+> diff --git a/xen/include/xen/device_tree.h b/xen/include/xen/device_tree.h
+> index 6dc1fb5159..0a22b1ba1d 100644
+> --- a/xen/include/xen/device_tree.h
+> +++ b/xen/include/xen/device_tree.h
+> @@ -10,6 +10,7 @@
+>   #ifndef __XEN_DEVICE_TREE_H__
+>   #define __XEN_DEVICE_TREE_H__
+>   
+> +#include <xen/bootfdt.h>
+>   #include <xen/byteorder.h>
+>   
+>   #include <asm/device.h>
+> @@ -22,8 +23,6 @@
+>   #include <xen/list.h>
+>   #include <xen/rwlock.h>
+>   
+> -#define DEVICE_TREE_MAX_DEPTH 16
+> -
+>   /*
+>    * Struct used for matching a device
+>    */
+> @@ -164,17 +163,8 @@ struct dt_raw_irq {
+>       u32 specifier[DT_MAX_IRQ_SPEC];
+>   };
+>   
+> -typedef int (*device_tree_node_func)(const void *fdt,
+> -                                     int node, const char *name, int depth,
+> -                                     u32 address_cells, u32 size_cells,
+> -                                     void *data);
+> -
+>   extern const void *device_tree_flattened;
+>   
+> -int device_tree_for_each_node(const void *fdt, int node,
+> -                              device_tree_node_func func,
+> -                              void *data);
+> -
+>   /**
+>    * dt_unflatten_host_device_tree - Unflatten the host device tree
+>    *
+> @@ -245,10 +235,6 @@ void intc_dt_preinit(void);
+>   #define dt_node_cmp(s1, s2) strcasecmp((s1), (s2))
+>   #define dt_compat_cmp(s1, s2) strcasecmp((s1), (s2))
+>   
+> -/* Default #address and #size cells */
+> -#define DT_ROOT_NODE_ADDR_CELLS_DEFAULT 2
+> -#define DT_ROOT_NODE_SIZE_CELLS_DEFAULT 1
+> -
+>   #define dt_for_each_property_node(dn, pp)                   \
+>       for ( pp = (dn)->properties; (pp) != NULL; pp = (pp)->next )
+>   
+> @@ -258,16 +244,6 @@ void intc_dt_preinit(void);
+>   #define dt_for_each_child_node(dt, dn)                      \
+>       for ( dn = (dt)->child; (dn) != NULL; dn = (dn)->sibling )
+>   
+> -/* Helper to read a big number; size is in cells (not bytes) */
+> -static inline u64 dt_read_number(const __be32 *cell, int size)
+> -{
+> -    u64 r = 0;
+> -
+> -    while ( size-- )
+> -        r = (r << 32) | be32_to_cpu(*(cell++));
+> -    return r;
+> -}
+> -
+>   /* Wrapper for dt_read_number() to return paddr_t (instead of uint64_t) */
+>   static inline paddr_t dt_read_paddr(const __be32 *cell, int size)
+>   {
+> @@ -307,14 +283,6 @@ static inline int dt_size_to_cells(int bytes)
+>       return (bytes / sizeof(u32));
+>   }
+>   
+> -static inline u64 dt_next_cell(int s, const __be32 **cellp)
+> -{
+> -    const __be32 *p = *cellp;
+> -
+> -    *cellp = p + s;
+> -    return dt_read_number(p, s);
+> -}
+> -
+>   static inline const char *dt_node_full_name(const struct dt_device_node *np)
+>   {
+>       return (np && np->full_name) ? np->full_name : "<no-node>";
 
 
