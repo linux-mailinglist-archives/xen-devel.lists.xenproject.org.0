@@ -2,38 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A075CACAF4A
-	for <lists+xen-devel@lfdr.de>; Mon,  2 Jun 2025 15:43:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1003384.1382926 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C950ACAF56
+	for <lists+xen-devel@lfdr.de>; Mon,  2 Jun 2025 15:45:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1003391.1382938 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uM5S7-0005lN-VG; Mon, 02 Jun 2025 13:43:47 +0000
+	id 1uM5Tv-0006Jn-9y; Mon, 02 Jun 2025 13:45:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1003384.1382926; Mon, 02 Jun 2025 13:43:47 +0000
+Received: by outflank-mailman (output) from mailman id 1003391.1382938; Mon, 02 Jun 2025 13:45:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uM5S7-0005j5-Rq; Mon, 02 Jun 2025 13:43:47 +0000
-Received: by outflank-mailman (input) for mailman id 1003384;
- Mon, 02 Jun 2025 13:43:46 +0000
+	id 1uM5Tv-0006Gq-6M; Mon, 02 Jun 2025 13:45:39 +0000
+Received: by outflank-mailman (input) for mailman id 1003391;
+ Mon, 02 Jun 2025 13:45:37 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=QAfa=YR=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uM5S6-0005iz-HC
- for xen-devel@lists.xenproject.org; Mon, 02 Jun 2025 13:43:46 +0000
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [2a00:1450:4864:20::32d])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=I+dS=YR=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
+ id 1uM5Tt-0006Gj-FC
+ for xen-devel@lists.xenproject.org; Mon, 02 Jun 2025 13:45:37 +0000
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2061d.outbound.protection.outlook.com
+ [2a01:111:f403:2416::61d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 99fe48e1-3fb7-11f0-b894-0df219b8e170;
- Mon, 02 Jun 2025 15:43:44 +0200 (CEST)
-Received: by mail-wm1-x32d.google.com with SMTP id
- 5b1f17b1804b1-441ab63a415so47903785e9.3
- for <xen-devel@lists.xenproject.org>; Mon, 02 Jun 2025 06:43:44 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-b2eceb28c20sm5542304a12.21.2025.06.02.06.43.41
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 02 Jun 2025 06:43:43 -0700 (PDT)
+ id dae1bd6c-3fb7-11f0-b894-0df219b8e170;
+ Mon, 02 Jun 2025 15:45:34 +0200 (CEST)
+Received: from DM6PR06CA0039.namprd06.prod.outlook.com (2603:10b6:5:54::16) by
+ LV2PR12MB5822.namprd12.prod.outlook.com (2603:10b6:408:179::9) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.8792.34; Mon, 2 Jun 2025 13:45:29 +0000
+Received: from DS1PEPF0001709C.namprd05.prod.outlook.com
+ (2603:10b6:5:54:cafe::f1) by DM6PR06CA0039.outlook.office365.com
+ (2603:10b6:5:54::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8769.18 via Frontend Transport; Mon,
+ 2 Jun 2025 13:45:29 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DS1PEPF0001709C.mail.protection.outlook.com (10.167.18.106) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8792.29 via Frontend Transport; Mon, 2 Jun 2025 13:45:29 +0000
+Received: from localhost (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 2 Jun
+ 2025 08:45:27 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,169 +56,152 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 99fe48e1-3fb7-11f0-b894-0df219b8e170
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1748871824; x=1749476624; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=p5mRCfrBwdgU9xmW7xvQQcWoE9THaQT42+bThtdVls4=;
-        b=d5Ohb/QrD1T/ckqYdgIkbDaBYKj1TLEWeRKXQJChn2ExVUj/PAa3lCxcXKDc5lXxSN
-         f2QY61WRzAzqRggukE9OF8swI8wZF7Gl+FjwBmzfqRdkeGeJvAeqcX6xyphMzLxsF0z3
-         gtopiYdpDX8ayKiTRyBCMu3yVf62+A7gpIrcrzzQYKKuCiJYzF0hamiFnZBAFjhndt70
-         vehsNsLhW7y2INTn6e4JJ9dB8M/3J/MVW4RwKhsDTmZwJCy7HPJWPFLtJJ/e/ozrw1k/
-         eqLtM5S17moGQhHvo3FehrVvCwsl3U2vRhDb0J0QH37IZMgjwACabA3TNhffQLRVD0Pb
-         Yukg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1748871824; x=1749476624;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=p5mRCfrBwdgU9xmW7xvQQcWoE9THaQT42+bThtdVls4=;
-        b=rGCc5CFHWECQpJ989ltGX2ty6YXEy8GWXcIDMzCRgmPTg6eXSV0xML5LdDFslPuMaT
-         T0/WIqgSaZMUtuWCL2iUubBrx5yXv93OyW2SUmdQ7tFW8nOn2bWXLx65BRkskFbm22W1
-         BWsRliogTSIZbcR048Da1t0o3X+zhUIDhI9Nw9Fz6U+XryXRMC1/xGYySBzA6Pue9Bbk
-         tyTIFgOFvblTEKmZ0OlxRDie5VTokA4z0az0NT0L35PomH+d+Tp5lKae7BzxUQWJvTMs
-         Fb1RCsMneeFBCL11TbyFpZZKG2mRWusp6jvmZBZCsaiqc1lm/fhv3OFG6/LLWaIOOYZm
-         Vxrg==
-X-Gm-Message-State: AOJu0YzEyvovVQrFDwUvl6fJi1ZCzMWkoyGhvgTz2sZLD24NljjUzWo5
-	Zz/monajQPUXCXMRq+4Hetb31Gl0kkPzfizuSDSqjZZUJCBeGbyowYkPss0zpH8fZHq/IruEYvN
-	YDUE=
-X-Gm-Gg: ASbGnctAmYb1pfqsEOoyLXD3BJmdX7z7Jz1XWYcdbhvlGho7hk1bV0u9Q1xWnVQPHSX
-	SgAMPvkZPl3x/AZTuiaAXMNahqPRD3TuTCvWKHbmcU20kgCAgMErXHzAaV7xxzFK4xQgZ2W7KcO
-	OTe42nhaoFvzFc15i8kY1O52s/r89NzZDABXrZ82SDQV6+CIbu93s8xIJ6YqdWcEkgEadym/bXr
-	EEc385k9V+UW1FF8xrs5koCUvP1COV09/tjdHfdqMx0+2Wc1+hFkMBLtWRixZwGXTpbvjXaDwGB
-	VzdX8VXjEur887qaFXNyAQuizuNwn7pNcspUdko4xUs1dRXpbHomxhzCzB9/7m+XCZExHn5lFtc
-	UPu0wuwyxi3hvNpOzAsEGXf6rUtzzA47D3D1N
-X-Google-Smtp-Source: AGHT+IFDaALxptVo8kTH2xMW0nL84eAmgsC83l0Yxbtwknuw/gFrDkKi8IW5ialAKK0L64UYPYCcfg==
-X-Received: by 2002:a05:6000:250d:b0:3a4:c95f:c1d1 with SMTP id ffacd0b85a97d-3a4f7a3e4d6mr10111303f8f.4.1748871823929;
-        Mon, 02 Jun 2025 06:43:43 -0700 (PDT)
-Message-ID: <e55147a4-4894-4031-a22e-04ec926c5b4f@suse.com>
-Date: Mon, 2 Jun 2025 15:43:37 +0200
+X-Inumbo-ID: dae1bd6c-3fb7-11f0-b894-0df219b8e170
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=sBR0+8L3vqm+K7vs480inmY2pLH2sgGOr2BtB1ZqR18p5KHjmFJv8DjtnxF9yX550orVlN0tnfUoxGb2iAyf46VR4NdHjOrkgZ4PINpWm06fjTVwYYEHEnP0VRHDZUij1QkDhV5tLN8QVU5Qabr+hoG7CCgJNzlDU2Yu4YSZVxnBCnuzkxOsmqpj/ajb2KIJwys6xZm0fOwTOsz7eQjXI2Js+KQnvF9v0GTa49jwew9YWEysCgfE2VnJkbIwRtfTGwPpQQcIhhw3fdqN8tulGAjOT+lMbHp7F0oP5VFu/eC9p6FUdj2m99p0CPFmwlD4duf2go+5H66EPeCPS4iWew==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=jfnnRzDw+6tDzTcBk1dZpJldnwaZ1kJT2h30g57b2tU=;
+ b=W9gmTRBGS6JIqD15k0o8PAhoIdahWxug+JF9iu8+XEXy3tp9E4fjL/DKNi1ZAgRLddhWNe0pX75O97wgZuaThDZQQPEs4rP3yhefmCmaAZza3yKNiLHylQe1jUVwZTFMXty53J3oCdS0wg1dxc0IIPKNPOP4XcoBF24yFmo9zYZvA8Cx0yhCh3Zq/Oq/xwZ7+e24VSPdv52ZG4Cmhie9fAne57FV2wtJLWZzyDOtKi2oS5l9XsgzDvpOuVz8V+wjAE4Qm0UbGhxyHazFmXJG+zatzpl7XPiGUpBVQ1OkaYEwavwTdIpfYnnMrQwwPtF4mQurue2hmpRaHNn2kKBGrQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=jfnnRzDw+6tDzTcBk1dZpJldnwaZ1kJT2h30g57b2tU=;
+ b=rSChZk62YJctp+zRJE27EI9xk/nDGARSwFG/+C+xpBLP2ZQfv0UzGQ0QHOX2srXnmYXEzVYEd4kvdIhX5VzXTsszm9u/lxqAIbgZP1LxfvFI06Q8KTXzVXxc2t1/GHlvuXPvuv/zXLW8BDmOBiW0LKmxau/crzj0H7kDY/KchpY=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: Kernel panic when passing through 2 identical PCI devices
-To: "J. Roeleveld" <joost@antarean.org>
-References: <2226691.irdbgypaU6@persephone>
-Content-Language: en-US
-Cc: xen-devel@lists.xenproject.org
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <2226691.irdbgypaU6@persephone>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="UTF-8"
+Date: Mon, 2 Jun 2025 15:45:25 +0200
+Message-ID: <DAC3CVFT8BOJ.14O7AZHYMIEQE@amd.com>
+From: Alejandro Vallejo <agarciav@amd.com>
+To: Jason Andryuk <jason.andryuk@amd.com>, <xen-devel@lists.xenproject.org>
+CC: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, =?utf-8?q?Roger_Pau_Monn=C3=A9?=
+	<roger.pau@citrix.com>, "Daniel P. Smith" <dpsmith@apertussolutions.com>
+Subject: Re: [PATCH 02/19] x86: Add missing pci_dev forward declaration in
+ asm/pci.h
+X-Mailer: aerc 0.20.1
+References: <DA1WWRUQLCAG.ZTVR1HXJ85V0@amd.com>
+ <20250530120242.39398-1-agarciav@amd.com>
+ <20250530120242.39398-3-agarciav@amd.com>
+ <9b5a1599-d8dc-423d-b144-90bfe33cdae9@amd.com>
+In-Reply-To: <9b5a1599-d8dc-423d-b144-90bfe33cdae9@amd.com>
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS1PEPF0001709C:EE_|LV2PR12MB5822:EE_
+X-MS-Office365-Filtering-Correlation-Id: 648d7dfa-7f5d-4d70-a64d-08dda1dbbca5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700013|1800799024|82310400026|376014;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?cDJWTlp4eU56K1QvSmMwWUxSYXZqNG5LdXpzR3pnRVJOaW1HbGtNaStHSFg2?=
+ =?utf-8?B?OTZVOEYrMXMzN3BMUWZWY1hJYTRScWcrM0p3MXU5Q1pnd2YwU0JKcEUweDY1?=
+ =?utf-8?B?YVRoTDljNFY4Sm8xQkpCbm8yc2MrdjB0WXd3bXE1V01nNkF6V0wwblE2VlFs?=
+ =?utf-8?B?WXJERldmaEoyMkRxSlo1dVhQVzcvN2pLMHY1bG1SbmdNdnplWHZiVVhMWEgz?=
+ =?utf-8?B?RGloUSswUEk2SUNCMGZkUmJBdVVsWjJlVFdNaEJFM0J0bHU0cmZYSDlpckVQ?=
+ =?utf-8?B?ajdSdWVjY3VTTkQ3VEpLR3hIT1lndDYzWlhMdXcrc2tBTzZuSGg0cndXSG50?=
+ =?utf-8?B?bXpPbjV1NUNPMVJ5alMvMm9HaDN0MlloRnVEaEJJMlpISWNoQm9DUW1jSDNL?=
+ =?utf-8?B?blFvT2RpaThvdVFDTVhCdmw0MXNyS20reENzR1k4dkdVdUowOENZblBCVGVt?=
+ =?utf-8?B?ZEtnblJOelBidUttWDhEZkVGaVhtN05yb0Q0ektmL216dUIvTUg0cjVRSVlF?=
+ =?utf-8?B?RkIrQlo3QkNQZlN3NVNtMVFMdm9icVZOaWkyTUJSTlVkeHFhQ1A5NnY0M05l?=
+ =?utf-8?B?NkJDaWhOcUE3SkNjdVRuRDRMTU4xcVkwaHlDN0tzS1NzOTcxNHJSNjJIZlVR?=
+ =?utf-8?B?ODRrYzZjbTd1T1VBR3VqQkNzd0UyK2FTRXpWZTlqdEZxMDV6K215U2lySTlk?=
+ =?utf-8?B?aDFZZWx1UGlhVHMwSkpvdXloYUtyaWtRQVFWd2JIZE0vaTIweWYxbGJ4cEM5?=
+ =?utf-8?B?NEFUdnd5V05FUmJ0cVI1Tk4yTWd4WGV5NThJRmZFYkk4VVZMOUtvZms0eUpu?=
+ =?utf-8?B?ck9yRFl3WlpwRlVhNWltTE1WMUxpaTRJbkRWOXMwSm1BYkFKSmpXcFJ6b3E2?=
+ =?utf-8?B?YkNCcEdOS0JKMmNvZnlzaVAzNExsVjkzSXk4R2pxY1VZeTJKbkNnRk83WGg3?=
+ =?utf-8?B?ckQxVzNXaXoxL3dnanRMcjcyOU9EL3h0N0ZJSkJid2k0K0lhcmpOZE5sR2RJ?=
+ =?utf-8?B?ZmV6WmtwZTc4N2JTYXljVnlTcnZUdmF0aXBpdlpDQkFLSFhxZmZSbnZqM2k0?=
+ =?utf-8?B?bmprai9veEpYYlJZaVAzMkxZY1RtTTQxd0ZscUVKN3lUb3NzZGJTaVM4aDJ6?=
+ =?utf-8?B?TDZLR0JYL1Zham1FczYrL2JETG94Y3lnTFFTZHFZc3hBekYxOVluL0ZWcVho?=
+ =?utf-8?B?UFZLVWZBSzRkbUhLWFo2cVpjNXQ0ZlFxSXlvSWpMSHNyREYvR3pUMGxxOUtL?=
+ =?utf-8?B?ZEJEQ1RCbHAzUVdQV3N5MGpsaXA2ZDhmdU9rYmVLc3lmTHJZdkpsc2xiU0ZL?=
+ =?utf-8?B?cXB0YVNDY2Q2OHR3eExucGozME15ZFFSZ3V6U3k5UU1yb24wMjV2cXE5UTNk?=
+ =?utf-8?B?WkFlVTdodjJsMWJDMlhZOCtiTjhBeXZOMDg4OFI2cldXK2VaYlpoYWVMSXlu?=
+ =?utf-8?B?SHZLbFZUQWZ5QXhJVHVBS0VhTVFWazEvbHNsdHN4UWpYbThHUjVna3hBeS81?=
+ =?utf-8?B?ZDlmaFdOeWhpTnY1d3ZINTBVVHVOclpqOG8zdmZzWDExZ1U0cG85R0JET1FP?=
+ =?utf-8?B?dWE1dkdHNmxyM3daQXdkblZ6WldBVGJOMXFWODg5ajdCd0cxS3JPbHcvbXVQ?=
+ =?utf-8?B?cUNpenNPbm8wbmt1MkVnd0ZQMWNYL1BZSzcySko5aklxd2xhS3hJd1hXaDkx?=
+ =?utf-8?B?RU5sSmFqRWFXNy9JNmsraEU0MXdNL3ZDVWJXZ1RIdVhMK1JVaEczS1RLU2pF?=
+ =?utf-8?B?ZWkwWEhUaTdmaDlhYWdRZDRRQ1lyWDltQVBvZVF6bWEzZnNQNHlsMWNndzZt?=
+ =?utf-8?B?V1c3czJ0MjMzYlB1WW0ydWk5R3JVcXhlaEhETmZzc2hzZTB2VmtBVGNJQnM3?=
+ =?utf-8?B?d0xDVXJDRzFSMm9LdXJxWVN6VHlSbjkvcmk4NmRjeFFkNVBzOVZ6ME5nY29G?=
+ =?utf-8?B?YnlCSENsQXN1alJreURBTEVkZGd1STlQVW9LVTJBaTRPRzlTdUxNU2s1ajA1?=
+ =?utf-8?B?YkNWcFM5VkJQeUcrMXhYZjFsUkxHUWd0MEVuQWpDbGVnZ2VlbDVHbUhEalJ0?=
+ =?utf-8?Q?T3+mox?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(1800799024)(82310400026)(376014);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2025 13:45:29.0551
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 648d7dfa-7f5d-4d70-a64d-08dda1dbbca5
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DS1PEPF0001709C.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5822
 
-On 02.06.2025 14:28, J. Roeleveld wrote:
-> I have a domain to which I pass through 4 PCI devices:
-> 2 NVMe drives
-> 83:00.0   Samsung 980 NVMe
-> 84:00.0   Samsung 980 NVMe
-> 
-> 2 HBA Controllers
-> 86:00.0   LSI SAS3008
-> 87:00.0   LSI SAS3008
-> 
-> This works fine with Xen version 4.18.4_pre1.
-> However, when trying to update to 4.19, this fails.
+On Fri May 30, 2025 at 11:04 PM CEST, Jason Andryuk wrote:
+> On 2025-05-30 08:02, Alejandro Vallejo wrote:
+>> Not a functional change.
+>>=20
+>> Signed-off-by: Alejandro Vallejo <agarciav@amd.com>
+>
+> Some sort of reason would be good in the commit message.
+>
+> "struct pci_dev is used in function prototypes within the header.  This=
+=20
+> is in preparation for including (transitively) in device tree"?
 
-To make it explicit: The domain in question is a PV one.
+>
+> ... I'm guessing that is why.  Stating  it would be better.
 
-> Checking the output during boot, I think I found something. But my knowledge 
-> is insufficient to figure out what is causing what I am seeing and how to fix 
-> this.
->  
-> From the below (where I only focus on the 2 NVMe drives), it is similar to the 
-> succesfull boot up until it tries to "claiming resource 0000:84:00.0/0".
-> At which point sysfs fails because the entry for "84" is already present.
+Yes, but I'm not sure the second part of that explanation is relevant. Unle=
+ss
+specifically noted in the header, they are meant to stand by themselves whe=
+n
+possible and not require preinclusion of something else (in this case, xen/=
+pci.h).
 
-What would be interesting is to know why / how this 2nd registration happens.
-It's the same (guest) kernel version afaics, so something must behave
-differently on the host. Are you sure the sole (host side) difference is the
-hypervisor version? I.e. the Dom0 kernel version is the same in the failing
-and successful cases? I ask because there's very little Xen itself does
-that would play into pass-through device discovery / resource setup by a
-(PV) guest (which doesn't mean Xen can't screw things up). The more relevant
-component is the xen-pciback driver in Dom0.
+This patch would still be relevant (imo) even if I wasn't using the header =
+for
+anything.
 
-Sadly the log provided does, to me at least, not have enough data to draw
-conclusions. Some instrumenting of the guest kernel may be necessary ...
+>
+> With a suitable reason:
+>
+> Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
 
-Jan
+Thanks,
 
-> The SAS drives appear be dones correctly, but am unable to confirm this as the 
-> NVMEs are required for a succesful boot.
-> 
-> For completeness, I have attached the output for the failed boot, a normal 
-> succesfull boot (using 4.18.4_pre1) and my xl.conf (which might need 
-> adjusting)
-> 
-> === (output for just the NVME devices) ===
-> pci_bus 0000:83: root bus resource [io  0x0000-0xffff]
-> pci_bus 0000:83: root bus resource [mem 0x00000000-0x3fffffffffff]
-> pci_bus 0000:83: root bus resource [bus 00-ff]
-> pci 0000:83:00.0: [144d:a809] type 00 class 0x010802 PCIe Endpoint
-> pci 0000:83:00.0: BAR 0 [mem 0xfbc00000-0xfbc03fff 64bit]
-> pcifront pci-0: claiming resource 0000:83:00.0/0
-> pcifront pci-0: Creating PCI Frontend Bus 0000:84
-> pcifront pci-0: PCI host bridge to bus 0000:84
-> pci_bus 0000:84: root bus resource [io  0x0000-0xffff]
-> pci_bus 0000:84: root bus resource [mem 0x00000000-0x3fffffffffff]
-> pci_bus 0000:84: busn_res: can not insert [bus 84-ff] under domain [bus 00-ff] 
-> (conflicts with (null) [bus 83-ff])
-> pci_bus 0000:84: root bus resource [bus 00-ff]
-> pci 0000:84:00.0: [144d:a809] type 00 class 0x010802 PCIe Endpoint
-> pci 0000:84:00.0: BAR 0 [mem 0xfbb00000-0xfbb03fff 64bit]
-> pcifront pci-0: claiming resource 0000:84:00.0/0
-> sysfs: cannot create duplicate filename '/devices/pci-0/
-> pci0000:84/0000:84:00.0/resource0'
-> CPU: 2 UID: 0 PID: 39 Comm: xenwatch Not tainted 6.12.21-gentoo-generic #1
-> Call Trace:
->  <TASK>
->  dump_stack_lvl+0x56/0x80
->  sysfs_warn_dup+0x51/0x60
->  sysfs_add_bin_file_mode_ns+0x8a/0xa0
->  sysfs_create_bin_file+0x5e/0x80
->  pci_create_attr+0xfc/0x140
->  pci_create_resource_files+0x30/0x90
->  pci_bus_add_device+0x26/0x80
->  pci_bus_add_devices+0x27/0x60
->  pcifront_rescan_root+0x18a/0x220
->  pcifront_connect+0x117/0x170
->  ? xenbus_read_driver_state+0x32/0x60
->  ? xenbus_otherend_changed+0x49/0xa0
->  ? __pfx_xenwatch_thread+0x10/0x10
->  xenwatch_thread+0xf6/0x130
->  ? __pfx_autoremove_wake_function+0x10/0x10
->  kthread+0xea/0x100
->  ? __pfx_kthread+0x10/0x10
->  ret_from_fork+0x1f/0x40
->  ? __pfx_kthread+0x10/0x10
->  ret_from_fork_asm+0x1a/0x30
->  </TASK>
-> ===
-> 
+Does this sound reasonable?
 
+  struct pci_dev is used in function prototypes within the header, so it mu=
+st
+  be forward declared for asm/pci.h not to depend on xen/pci.h being includ=
+ed
+  first.
+
+>
+> Regards,
+> Jason
+
+Cheers,
+Alejandro
 
