@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E01DACAB4C
-	for <lists+xen-devel@lfdr.de>; Mon,  2 Jun 2025 11:24:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1003055.1382491 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C60AACAB53
+	for <lists+xen-devel@lfdr.de>; Mon,  2 Jun 2025 11:26:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1003062.1382501 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uM1PQ-000268-IX; Mon, 02 Jun 2025 09:24:44 +0000
+	id 1uM1RK-0002dn-TV; Mon, 02 Jun 2025 09:26:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1003055.1382491; Mon, 02 Jun 2025 09:24:44 +0000
+Received: by outflank-mailman (output) from mailman id 1003062.1382501; Mon, 02 Jun 2025 09:26:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uM1PQ-00024h-Fo; Mon, 02 Jun 2025 09:24:44 +0000
-Received: by outflank-mailman (input) for mailman id 1003055;
- Mon, 02 Jun 2025 09:24:43 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=5qKV=YR=gmail.com=xakep.amatop@srs-se1.protection.inumbo.net>)
- id 1uM1PP-00024b-Tr
- for xen-devel@lists.xenproject.org; Mon, 02 Jun 2025 09:24:43 +0000
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [2a00:1450:4864:20::132])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6a137796-3f93-11f0-b894-0df219b8e170;
- Mon, 02 Jun 2025 11:24:42 +0200 (CEST)
-Received: by mail-lf1-x132.google.com with SMTP id
- 2adb3069b0e04-551fe46934eso4813108e87.1
- for <xen-devel@lists.xenproject.org>; Mon, 02 Jun 2025 02:24:42 -0700 (PDT)
+	id 1uM1RK-0002bd-Pw; Mon, 02 Jun 2025 09:26:42 +0000
+Received: by outflank-mailman (input) for mailman id 1003062;
+ Mon, 02 Jun 2025 09:26:41 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=QAfa=YR=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uM1RJ-0002bW-BN
+ for xen-devel@lists.xenproject.org; Mon, 02 Jun 2025 09:26:41 +0000
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [2a00:1450:4864:20::433])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b07dbdf3-3f93-11f0-a300-13f23c93f187;
+ Mon, 02 Jun 2025 11:26:40 +0200 (CEST)
+Received: by mail-wr1-x433.google.com with SMTP id
+ ffacd0b85a97d-3a50956e5d3so738715f8f.1
+ for <xen-devel@lists.xenproject.org>; Mon, 02 Jun 2025 02:26:40 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-747afe96474sm7229219b3a.22.2025.06.02.02.26.31
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 02 Jun 2025 02:26:39 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,125 +45,165 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6a137796-3f93-11f0-b894-0df219b8e170
+X-Inumbo-ID: b07dbdf3-3f93-11f0-a300-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1748856281; x=1749461081; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=qzDXYs/TNa8CfSzGEAtyBDVTqaKRNSpTzDTdNGCr4zs=;
-        b=SCsk2C60scW5cO2jsaMgg5l+HybJva6UHh/D5cRy8V4HDxD8u+BYA3Np2W4TVx/PBa
-         RqcC8FUJcNeloEvhn3jRVXDtkiAhIh2eHgtx7lERTszC84NIqGNEBfaWx0mO6kSohQ8d
-         2YGbrmxqi19FSyohkjSu8pn2cQQsb4S9Ogbh0+UEL33dr9ecWRsyDtSRCTrbKO4CnHFk
-         0WvYEmNHMxoM0Pe7raYJay33pDrU/+3+g6gdUZf6mNyogvCqkWzlMKCqC3OegmPDmKG5
-         qIekbjTSXnMkbarfVnuc0R2rmibz5Ac5PNRCPElmXphhzmdYZ7eOT7PfgYT1gCL5IfIo
-         +N9g==
+        d=suse.com; s=google; t=1748856400; x=1749461200; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=DJXWp3fAzCxU30vF/SD3NX/7M+QmejJN6no0tmul914=;
+        b=W/+cUeA7Lm4qB7OX/zkBVIoUA4KRPtJGDKn5qWg0vL7rideX5jTWYoPN+6vKuhOMx5
+         5DFx+pFyPUCBmfuA6T2Cc7eyMwCN9s+L+O5L3OicupwYmhJIY4ltExntrbYJDhGX1reP
+         8GDRdG63fzKHM0TdLm7q3+cbKUItNPOKyE6qUWmsmleeZ2CCJxfF32huXL+lEjDwBj+m
+         E2oY1d9q9Z9zq7X/Hb0huDo8QH9emhBcWylqfVG0ZaELYUgD7otLEXl7A5v6eCXvfsK6
+         CmUigiYoM8ElO3cDzg9aXK48o3dMbiSKd7+37E9V/j2WOhvQLPI4mpBDN+96yvWyl9Y7
+         DBEQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1748856281; x=1749461081;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=qzDXYs/TNa8CfSzGEAtyBDVTqaKRNSpTzDTdNGCr4zs=;
-        b=vF3igTLyQlg65ArZbA5Sqa35xRnbZUBDZXGYQ/XgXB3egjN8GbT6gBiH1sxTP86JJb
-         zRWE0af5K588AfA5lu/cYFQK0N9awXipFXA3gp1YdXtHH819WFE55ePQL9YhtrT/RGTC
-         YdwY+rKjSJWCraNE9rXYGHltRZ7WaS3XUp69q1CbpRmpq80Hv7c+foV7MCvWlK71mgqz
-         eJlTC3JOKv1cAtVy9Oo+5T82x3qY/LbZUOD4AVfwu3aSYPotkPQ8Fcyox4tB4kePs+rK
-         DQvZjBPXsvciLtyqYvxzAIiobUlPmkjQJrm+/KqI/GqJxNCaBn1YvEATBbipXKTkoATb
-         dcnA==
-X-Gm-Message-State: AOJu0YwMY5jVP0BdDquraIiv8C8MpBbrjcSRNCVvBh84PDzMnNsm7Sto
-	jC4nxllVUg2tyKXOLK1+uTNySO+MBMwvRUPB9Y44m0UmlLLGTUvw9YsYaKulP5Jl9XXCel/Pbim
-	9yxxOa5o5nIjzB/T3OwIvsRf783vgqak=
-X-Gm-Gg: ASbGncvLQaKr5EJI5/WdcEHnETDMMiaQgt3qwpwGxWSy/qiKwITYWMOMEpmxslNt0PK
-	sOmv/FQa31cNCLW72oSlUsO86/4ofVL64DIc2MsKQkmmrix8ni0XshSUdQ3KIra7yoXtZ99VO1C
-	FXwm2OtUwEdtkwfshaTkrvEv6hg7BUyQvxRxLT/4JzGQ==
-X-Google-Smtp-Source: AGHT+IFGp3hOtFmFrnmNQpGZXL8QndS/jOoMW61IiBKpSMXmCsucKddHh1Y0bHLeiZv2hO/+IJi+qTfya5jTC9MHXyM=
-X-Received: by 2002:a05:6512:118d:b0:553:2bdf:8b87 with SMTP id
- 2adb3069b0e04-55335b117ebmr4686574e87.10.1748856281394; Mon, 02 Jun 2025
- 02:24:41 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1748856400; x=1749461200;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=DJXWp3fAzCxU30vF/SD3NX/7M+QmejJN6no0tmul914=;
+        b=DNWZJmsJgI+npqWKO8aZh2FCBLWQdoQQNEgDClo+Lt2KCR7kcRdE9yWTIKe2FKTuZL
+         559knkItBEqJjKEOaTz3suAto4wiRTjpqNZVMon8nXXDh8awX5+OR6Yz1GOU/2UGWM8u
+         JEAOMcvQxc5IpzQXxD68T2uPuSGJavisG6CmhFCKUzwafxr9NySiAWERXLypfnloeGkp
+         VP41yNrSJfaXTGAwKZYg6V/2h9baMj6ezdFOOZFgBn1kSYEe8E+Hs1c+gOiXbgS2Izv2
+         VHt+h5ItP1VOwmhdthHYcCGLrqvpaQpjb7ebGM34HFbdriD+SI02WhdPkkPPrOFA7l3J
+         d47Q==
+X-Forwarded-Encrypted: i=1; AJvYcCVo6PLEC2CsIwcufvZrP9X0F0YYRVeGr4SAdRc64dQuhS46jDAzjr+W1XjC56ZKLPrGbQJyM7ymu4A=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwlHgOew3PWCI9628tuWbQdSFX3V+rCRl+WqiTZBaCCf3KbRVSX
+	oCmIvwAb0Oaw7XDAMSwnRn7EIubxaI9Ntp8gMZfYdZX1NisXww/ne5BKUQr9paJ9Uw==
+X-Gm-Gg: ASbGnculPb4E30cQklVm5SS3yveTcPP4kn6kgtNdC30HDkv1sk0Etn5uScWf/7MBo6P
+	l/bzpZkJRNzDdXFt5mt1lBhkvzh65i4EsYdgPEiRz94A18WSlQ6sqkJZ8exPWPgnRopHPmgFrrM
+	qs4xjK22eNAuT+1K6cAn9zC7DwkNge6otAu5QBvqSH26DpbQCHL34cVElZdBnO2rZmetq9Hbu+F
+	9/C6BUxkfC685oKBxunyAb6h8KARCMKFK+Z/Tb2ONWjTkOjtH3vf2W0h3I93kC1C+n3YK8LFM9c
+	9rIzvjupuseBSOMOsNK+kMZIsYaki1ipU7vGT2dy25+6/hcfk2nqFpJq1uxp7tr5QxhDWV9/O6H
+	R+PZ/5l8aAnTezeNCQStQF0yX6DJI0DDsb/PhDHrY9ovh6wxAMpVujUeoHg==
+X-Google-Smtp-Source: AGHT+IFP/6X/OfzSMdMb497K2+J4DcXrjq/ILa4TRv3Fk17NS0VMNPbxnjN2DFiBMrzWBd2+aha8yQ==
+X-Received: by 2002:a5d:64e7:0:b0:3a3:7a33:c96a with SMTP id ffacd0b85a97d-3a4f7ab15c3mr9542447f8f.51.1748856399662;
+        Mon, 02 Jun 2025 02:26:39 -0700 (PDT)
+Message-ID: <90048f71-8313-4110-924c-f956a2bec5a0@suse.com>
+Date: Mon, 2 Jun 2025 11:26:41 +0200
 MIME-Version: 1.0
-References: <9b1f50a40e3634f859ad8e7446c24e43caaa38eb.1748637004.git.mykola_kvach@epam.com>
- <26d614da-3fb4-4209-8123-096512911897@amd.com>
-In-Reply-To: <26d614da-3fb4-4209-8123-096512911897@amd.com>
-From: Mykola Kvach <xakep.amatop@gmail.com>
-Date: Mon, 2 Jun 2025 12:24:29 +0300
-X-Gm-Features: AX0GCFtrFid9ZUNyeaH5UxXRhUqIPDgY2dSNowP9IBDHElpmBOujb6W1kMTWIdI
-Message-ID: <CAGeoDV8KksNYqGeTZf5Muq1AkrTGJ=8nuta=T202_3MJtp4=qg@mail.gmail.com>
-Subject: Re: [PATCH] xen/arm64: head: document missing input registers for MMU functions
-To: "Orzel, Michal" <michal.orzel@amd.com>
-Cc: xen-devel@lists.xenproject.org, Mykola Kvach <mykola_kvach@epam.com>, 
-	Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-	Bertrand Marquis <bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4][PART 2 07/10] xen/arm: Add support for system suspend
+ triggered by hardware domain
+To: Mykola Kvach <xakep.amatop@gmail.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Shawn Anastasio <sanastasio@raptorengineering.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ xen-devel@lists.xenproject.org
+References: <cover.1748848482.git.mykola_kvach@epam.com>
+ <7bd75ecfff5b0a75ea5abd7cc4934582d7e1250c.1748848482.git.mykola_kvach@epam.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <7bd75ecfff5b0a75ea5abd7cc4934582d7e1250c.1748848482.git.mykola_kvach@epam.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi, @Michal Orzel
+On 02.06.2025 11:04, Mykola Kvach wrote:
+> @@ -857,8 +860,24 @@ void arch_domain_destroy(struct domain *d)
+>      domain_io_free(d);
+>  }
+>  
+> -void arch_domain_shutdown(struct domain *d)
+> +int arch_domain_shutdown(struct domain *d)
+>  {
+> +    switch ( d->shutdown_code )
+> +    {
+> +    case SHUTDOWN_suspend:
+> +#ifdef CONFIG_SYSTEM_SUSPEND
+> +        if ( !is_hardware_domain(d) )
+> +            break;
+> +
+> +        return host_system_suspend();
+> +#else
+> +        break;
+> +#endif
+> +    default:
+> +        break;
+> +    }
+> +
+> +    return 0;
+>  }
 
-On Mon, Jun 2, 2025 at 10:10=E2=80=AFAM Orzel, Michal <michal.orzel@amd.com=
-> wrote:
->
->
->
-> On 30/05/2025 22:31, Mykola Kvach wrote:
-> > From: Mykola Kvach <mykola_kvach@epam.com>
-> >
-> > Add missing input register descriptions to enable_secondary_cpu_mm
-> > and enable_boot_cpu_mm functions.
-> >
-> > Specifically:
-> > - x19 is used in enable_boot_cpu_mm as physical start address.
-> > - x20 is used in both functions for physical offset passed to load_padd=
-r.
-> I'm not sure if we need to document register usage that is part of a comm=
-ent in
-> so called "Common register usage". It's repeating information for me. Tha=
-t said,
-> I can see that Arm32 does that too so no objection.
+What's wrong with
 
-I'll drop that sentence from the commit message.
+int arch_domain_shutdown(struct domain *d)
+{
+    switch ( d->shutdown_code )
+    {
+#ifdef CONFIG_SYSTEM_SUSPEND
+    case SHUTDOWN_suspend:
+        if ( !is_hardware_domain(d) )
+            break;
 
->
-> >
-> > This update improves code clarity and consistency in comments.
-> >
-> > No functional changes are introduced by this patch.
-> >
-> > Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
-> > ---
-> >  xen/arch/arm/arm64/mmu/head.S | 3 +++
-> >  1 file changed, 3 insertions(+)
-> >
-> > diff --git a/xen/arch/arm/arm64/mmu/head.S b/xen/arch/arm/arm64/mmu/hea=
-d.S
-> > index 634156f83d..033b3a018a 100644
-> > --- a/xen/arch/arm/arm64/mmu/head.S
-> > +++ b/xen/arch/arm/arm64/mmu/head.S
-> > @@ -313,6 +313,7 @@ END(enable_mmu)
-> >   *
-> >   * Inputs:
-> >   *   lr : Virtual address to return to.
-> > + *   x20: phys offset (used by load_paddr)
-> >   *
-> >   * Clobbers x0 - x6
-> >   */
-> > @@ -337,6 +338,8 @@ END(enable_secondary_cpu_mm)
-> >   *
-> >   * Inputs:
-> >   *   lr : Virtual address to return to.
-> > + *   x19: paddr(start) (used by remove_identity_mapping)
-> AFAICT it's also used by create_page_tables. I don't see it beneficial to
-> mention the places the register is used. It can easily go stale.
+        return host_system_suspend();
+#endif
 
-I'll remove the mention of usage locations.
+    default:
+        break;
+    }
 
->
-> With the remark addressed:
-> Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+    return 0;
+}
 
-Thank you for reviewing the patch.
+?
 
->
-> ~Michal
->
+> @@ -1311,13 +1316,13 @@ int domain_shutdown(struct domain *d, u8 reason)
+>          v->paused_for_shutdown = 1;
+>      }
+>  
+> -    arch_domain_shutdown(d);
+> +    ret = arch_domain_shutdown(d);
 
-~Mykola
+If non-zero comes back here, is ...
+
+>      __domain_finalise_shutdown(d);
+
+... this still appropriate to call?
+
+>      spin_unlock(&d->shutdown_lock);
+>  
+> -    return 0;
+> +    return ret;
+>  }
+
+Most callers don't care about the return value of this function. That likely
+needs to change, even if _for now_ you only alter the SHUTDOWN_suspend case
+(and hence some of the callers aren't immediately impacted)?
+
+Jan
 
