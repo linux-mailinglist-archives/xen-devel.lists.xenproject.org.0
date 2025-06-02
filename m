@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D3C4ACAC5F
-	for <lists+xen-devel@lfdr.de>; Mon,  2 Jun 2025 12:22:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1003132.1382591 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ACDD2ACAC62
+	for <lists+xen-devel@lfdr.de>; Mon,  2 Jun 2025 12:23:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1003138.1382601 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uM2Ia-0007i0-Gi; Mon, 02 Jun 2025 10:21:44 +0000
+	id 1uM2Ji-0008Ec-Pw; Mon, 02 Jun 2025 10:22:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1003132.1382591; Mon, 02 Jun 2025 10:21:44 +0000
+Received: by outflank-mailman (output) from mailman id 1003138.1382601; Mon, 02 Jun 2025 10:22:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uM2Ia-0007fS-D8; Mon, 02 Jun 2025 10:21:44 +0000
-Received: by outflank-mailman (input) for mailman id 1003132;
- Mon, 02 Jun 2025 10:21:42 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uM2Ji-0008C8-MU; Mon, 02 Jun 2025 10:22:54 +0000
+Received: by outflank-mailman (input) for mailman id 1003138;
+ Mon, 02 Jun 2025 10:22:54 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=QAfa=YR=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uM2IY-0007fM-FG
- for xen-devel@lists.xenproject.org; Mon, 02 Jun 2025 10:21:42 +0000
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [2a00:1450:4864:20::42e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5a8ee439-3f9b-11f0-b894-0df219b8e170;
- Mon, 02 Jun 2025 12:21:32 +0200 (CEST)
-Received: by mail-wr1-x42e.google.com with SMTP id
- ffacd0b85a97d-3a50fc7ac4dso208194f8f.0
- for <xen-devel@lists.xenproject.org>; Mon, 02 Jun 2025 03:21:32 -0700 (PDT)
+ id 1uM2Ji-0008C0-2T
+ for xen-devel@lists.xenproject.org; Mon, 02 Jun 2025 10:22:54 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8a90cd45-3f9b-11f0-a300-13f23c93f187;
+ Mon, 02 Jun 2025 12:22:53 +0200 (CEST)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-4508287895dso29961195e9.1
+ for <xen-devel@lists.xenproject.org>; Mon, 02 Jun 2025 03:22:53 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-747affadf7bsm7536163b3a.108.2025.06.02.03.21.24
+ d9443c01a7336-23506bd8e39sm67687625ad.58.2025.06.02.03.22.44
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 02 Jun 2025 03:21:31 -0700 (PDT)
+ Mon, 02 Jun 2025 03:22:51 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,46 +45,46 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5a8ee439-3f9b-11f0-b894-0df219b8e170
+X-Inumbo-ID: 8a90cd45-3f9b-11f0-a300-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1748859691; x=1749464491; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1748859772; x=1749464572; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=8qllOqqaeVhoUab7xw9pn8RJARRqQTvpElQ/c2lFnUI=;
-        b=Sz6c25yPmQ3xrf1WKNeWG8ud+MzR3IlY6ALjCP+stEIlsoFR2FYobjzOU8ZyyQxEDa
-         BcElZesHquw08astGbk0CqKjlRRgl1zrHwyZENjwQ4iTHlunGb7cc8fC35DetwyRcIVk
-         rRWJsiDbTuu0a7uqEK8WeP98sLsm/+DM6Tmj7my3zbENlSGNN8CLfWujIKbt9LQDmoRV
-         opHHFsUoMoSPPeplKZ8qh6znKDLJvj/pdCppDoVUM1D73JLFgs+RGxDq9xg0oMM2wbjm
-         KnR2C/d0nVCfJ6xO1pZvMZYOxZbMcAfdOsmX+GgxXdSf/etX6jgGHiRKPz2OczudtYif
-         JA7g==
+        bh=uQL4P1bUoJSru1C+GIX/VDusUlL+lX9SnKz25o0UXWw=;
+        b=XxAj6Hr+aPGXtK65H79pzVSq5R1hB1aXT0/vLRHmXH3BqYvTajrYi15Nvos/hSsXlj
+         UJrVe8VKl/kArleoSL6aYJ2eXDohkTdncJVy0iiGjPfS1bGtyuFPZeQrFWlcX9lI1T1Z
+         Oy/9v3wuow3N2Smc4idYn7iWvdxhep51tYwZYtxTj9FgUWtakd5hHd1lPAsxHNja3erp
+         DNnnGsHIIE/n3NJfr2u7O+vf0XAaY2Xn4Z+nMNil4phaaY4vx9t6NCIjRj4wkNabWEzk
+         G8uPgGJbl1QaCwq1O2rEfauk7kDCDK6MT/NtZkN5lzqb4kcBC7JzhAFtX+H1v5GwGKdM
+         2Ptg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1748859691; x=1749464491;
+        d=1e100.net; s=20230601; t=1748859772; x=1749464572;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=8qllOqqaeVhoUab7xw9pn8RJARRqQTvpElQ/c2lFnUI=;
-        b=mRy2NXREzNh+WCbEYaW9jBSSxB6aCDnPjCieLAmc3QvWbBoXPtlr6pDoJ+zMyKoe4G
-         NjeE0lRuZFIHUTAxo6bpKA2vEEi2SjduCZIaw/I0EmS90jgTHjnzpPsSeIhx+e+rPVCh
-         BAeN8t6LHsJLQU2bp7Rgt4lteTceMjlE5fHYcLGzSEs61wLsPTGDloO/LgJCO8rv62Tk
-         BVuTgJDyRUBQExNVdYVp0BmthhwFn/t3acx9MIY5m/yHHor5VlOHPDF77INmk8w0Qt8s
-         ZyCxehoNrM533L0PFU4hV61KJnpcbJ6E/+6q52zUBPDEmIYUZvA0SSgYb067R/386oSh
-         X/qg==
-X-Forwarded-Encrypted: i=1; AJvYcCU6Gu5LWn2Wu+8CcuLP6Ybdf6xSkCVpKCctE3FG5WSYG6NdCbSj39OeclPRoTAcvUibTeh+QlM1lf4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyGQXkgj7VpKli8H62f6azSxxvlw0ogfYfOCvws3cNEBJTZaBOL
-	gMNCQV6hkmOmYz6WBRibT/6CVBsKKIvHsq9fPSv0ty1GCxKXpjiYB5hqwoB4Mng2Gw==
-X-Gm-Gg: ASbGnctGayZvi6wdQFa6AIo6DQbpi9dwBuP4pC0lBy/gYNrhqdu0VZxa0o6NklOKFAQ
-	y72exzY/xF5vUheyvaJ0YCsgHu/KI6pqYRqVzfqmnAflxB7tsjs9HnrAIOuWO/xtOuyoWYVkffi
-	4h8hrk5Ny7TZA+vV886bCz4NDpbxf/4KU1OkH51CCQZ3P8KakQWyLgX3pROttrBmgZwFIYoBsEj
-	NYYng5gE5j2Jh8YB93CJjkTt/tSXTaEeF6d2ColpeMyQjkDYLTO2WdrPYIKwTqiwMHcVA/6Jc2m
-	NBQKYPfgEKqUspTF/6nS6Q55d3I7xP8YS1hafDs6/qOWcFHINujImWTtBiEIeKhST/wR4JhkNC5
-	6jx822i17v5VPOfkvxYRhMhB5ooZ1Uy0pI8rP
-X-Google-Smtp-Source: AGHT+IE1iJo0yZ38IM2z/ZK7O5XSdSEcvkAJW9rtUZ0bnNLgdrqcZDBLpsT2iH9Z+V6OE3VIB7986g==
-X-Received: by 2002:a05:6000:3109:b0:3a4:dcfb:3118 with SMTP id ffacd0b85a97d-3a4f7a3d5eemr10151434f8f.10.1748859691515;
-        Mon, 02 Jun 2025 03:21:31 -0700 (PDT)
-Message-ID: <8cd6c3e0-0361-4f3f-b3ca-8ffa49b9197d@suse.com>
-Date: Mon, 2 Jun 2025 12:21:34 +0200
+        bh=uQL4P1bUoJSru1C+GIX/VDusUlL+lX9SnKz25o0UXWw=;
+        b=tMgVGGsFiLjha6/mXI/94DIZhSPiypwj9a4cRlOE1kXk8jxTeNXOhIoUY7LKXZc3oP
+         h9LrXjt6pHRFwKha7GgXIBZaNGA4krHFuhd1N3UyBkSyRz/Xe6h4DogT8vk5oxcLLrFA
+         WGNbPC7tkiIuTGjfQ3d6R3YkrZqGqV0GUnX9GMi4+D4PadjpdSyO1DjVEvzLEE9n1qVf
+         3lMnszSdetR1L21IBOUey3Asgt8WAmcoIciSMIhGgvHQ5XdFmD0yuAkJWYxGmmI4IxRq
+         /Pzz3YnOHin5m0d6mf2mM9cyn6FUG4pn77iEDeo9mO6pvNOxzdpcV41aeYPioUoYBzX4
+         JEug==
+X-Forwarded-Encrypted: i=1; AJvYcCVpoqRlEjTXpOG0llLJWEvp7HhOc2SPDrUtEam4S9AyhwI0+VLaOehnXC+O5gahH7/qiEerOjDCSTs=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwQ+T20FqjjfLINJ3VzXwF7B6WFrOxg/OY27aA9LCqrzpuCZyB2
+	6kLDu7y3fdj7N58Pv2Fh8OD+ck4RsAvjdEfsH6NXabzS+rHHgSI83kerWTckY6WlPA==
+X-Gm-Gg: ASbGnctjlzvvJ1QHd5xAN423qYK5wMkb2/KP4d5aT2evglHx12LQUeV81FHNwm519PY
+	TDqjwOtNE9JZln6EPziENTWWat/dMWa0IkqR+Q2v0kw12tfI3fiShrXPzm+0yLiqxyVKxF0CvTK
+	cWSF9iC2a/VwsR5wFtXTCWLRk6ZckPxc1C9y7YC0LKHbFFUsAXrv2SZwfLVwmkJW71YZRiqZPRn
+	viFBpaoSuDy49fTrr2n2lfgabFrYV3o5Fce5WOq99YHSt9DbuBRtUUIRTvgxHAEEJMA4bb0B3+r
+	U044rUhS+vKLoNr7YBRY4f3Ek6tgd1WHjaO8SBhOjkFEB2uTI7EX6AgjL82RAsM8+xgOPTF4sP+
+	nibaxDpUNGF855vBvwJ8pInFJ/GIbshPXHnV5+Dq/iw9kgAA=
+X-Google-Smtp-Source: AGHT+IEbjXtZctthCHASUU1OZYTXEhFgwIS7nghbPqb0c36sMOlAZCFUpiSi7nmZyfjUujkqoM4iCg==
+X-Received: by 2002:a05:6000:26c2:b0:3a4:ce5c:5e8d with SMTP id ffacd0b85a97d-3a4eedb8adfmr14468096f8f.20.1748859772039;
+        Mon, 02 Jun 2025 03:22:52 -0700 (PDT)
+Message-ID: <9ab65452-497c-47b5-af18-92a7b2a86d9e@suse.com>
+Date: Mon, 2 Jun 2025 12:22:55 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v3 08/14] xen/riscv: imsic_init() implementation
@@ -101,6 +101,7 @@ References: <cover.1747843009.git.oleksii.kurochko@gmail.com>
  <421dad1bbd014a2d7ff588af088eadbd56345dbe.1747843009.git.oleksii.kurochko@gmail.com>
  <ec429b9d-7e16-4d9a-86c6-a5fa557047b7@suse.com>
  <d7ef87e5-75e0-4cf3-be8c-7af6e18df5a3@gmail.com>
+ <84c9f65a-b278-4be4-b053-5bfa410f9a97@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -126,111 +127,53 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <d7ef87e5-75e0-4cf3-be8c-7af6e18df5a3@gmail.com>
+In-Reply-To: <84c9f65a-b278-4be4-b053-5bfa410f9a97@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 26.05.2025 20:44, Oleksii Kurochko wrote:
-> On 5/22/25 4:46 PM, Jan Beulich wrote:
->> On 21.05.2025 18:03, Oleksii Kurochko wrote:
->>> +    /* Allocate MMIO resource array */
->>> +    imsic_cfg.mmios = xzalloc_array(struct imsic_mmios, nr_mmios);
->> How large can this and ...
->>
->>> +    if ( !imsic_cfg.mmios )
->>> +    {
->>> +        rc = -ENOMEM;
->>> +        goto imsic_init_err;
->>> +    }
->>> +
->>> +    imsic_cfg.msi = xzalloc_array(struct imsic_msi, nr_parent_irqs);
->> ... this array grow (in principle)?
+On 27.05.2025 13:30, Oleksii Kurochko wrote:
 > 
-> Roughly speaking, this is the number of processors. The highests amount of processors
-> on the market I saw it was 32. But it was over a year ago when I last checked this.
-
-Unless there's an architectural limit, I don't think it's a good idea to
-take as reference what's available at present. But yes, ...
-
->>   I think you're aware that in principle
->> new code is expected to use xvmalloc() and friends unless there are specific
->> reasons speaking against that.
+> On 5/26/25 8:44 PM, Oleksii Kurochko wrote:
+>>>> +    if ( !dt_property_read_u32(node, "riscv,guest-index-bits",
+>>>> +                               &imsic_cfg.guest_index_bits) )
+>>>> +        imsic_cfg.guest_index_bits = 0;
+>>>> +    tmp = BITS_PER_LONG - IMSIC_MMIO_PAGE_SHIFT;
+>>>> +    if ( tmp < imsic_cfg.guest_index_bits )
+>>>> +    {
+>>>> +        printk(XENLOG_ERR "%s: guest index bits too big\n",
+>>>> +               dt_node_name(node));
+>>>> +        rc = -ENOENT;
+>>>> +        goto cleanup;
+>>>> +    }
+>>>> +
+>>>> +    /* Find number of HART index bits */
+>>>> +    if ( !dt_property_read_u32(node, "riscv,hart-index-bits",
+>>>> +                               &imsic_cfg.hart_index_bits) )
+>>>> +    {
+>>>> +        /* Assume default value */
+>>>> +        imsic_cfg.hart_index_bits = fls(*nr_parent_irqs);
+>>>> +        if ( BIT(imsic_cfg.hart_index_bits, UL) < *nr_parent_irqs )
+>>>> +            imsic_cfg.hart_index_bits++;
+>>> Since fls() returns a 1-based bit number, isn't it rather that in the
+>>> exact-power-of-2 case you'd need to subtract 1?
+>> Agree, in this case, -1 should be taken into account.
 > 
-> Oh, missed 'v'...
-
-... adding the missing 'v' will take care of my concern. Provided of
-course this isn't running to early for vmalloc() to be usable just yet.
-
->>> +    if ( !imsic_cfg.msi )
->>> +    {
->>> +        rc = -ENOMEM;
->>> +        goto imsic_init_err;
->>> +    }
->>> +
->>> +    /* Check MMIO register sets */
->>> +    for ( unsigned int i = 0; i < nr_mmios; i++ )
->>> +    {
->>> +        if ( !alloc_cpumask_var(&imsic_cfg.mmios[i].cpus) )
->>> +        {
->>> +            rc = -ENOMEM;
->>> +            goto imsic_init_err;
->>> +        }
->>> +
->>> +        rc = dt_device_get_address(node, i, &imsic_cfg.mmios[i].base_addr,
->>> +                                   &imsic_cfg.mmios[i].size);
->>> +        if ( rc )
->>> +        {
->>> +            printk(XENLOG_ERR "%s: unable to parse MMIO regset %u\n",
->>> +                   node->name, i);
->>> +            goto imsic_init_err;
->>> +        }
->>> +
->>> +        base_addr = imsic_cfg.mmios[i].base_addr;
->>> +        base_addr &= ~(BIT(imsic_cfg.guest_index_bits +
->>> +                           imsic_cfg.hart_index_bits +
->>> +                           IMSIC_MMIO_PAGE_SHIFT, UL) - 1);
->>> +        base_addr &= ~((BIT(imsic_cfg.group_index_bits, UL) - 1) <<
->>> +                       imsic_cfg.group_index_shift);
->>> +        if ( base_addr != imsic_cfg.base_addr )
->>> +        {
->>> +            rc = -EINVAL;
->>> +            printk(XENLOG_ERR "%s: address mismatch for regset %u\n",
->>> +                   node->name, i);
->>> +            goto imsic_init_err;
->>> +        }
->> Maybe just for my own understanding: There's no similar check for the
->> sizes to match / be consistent wanted / needed?
+> Hmm, it seems like in case of fls() returns a 1-based bit number there
+> is not need for the check:
+>   (2) if ( BIT(imsic_cfg.hart_index_bits, UL) < *nr_parent_irqs )
 > 
-> If you are speaking about imsic_cfg.mmios[i].size then it depends fully on h/w will
-> provide, IMO.
-> So I don't what is possible range for imsic_cfg.mmios[i].size.
-
-Well, all I can say is that's it feels odd that you sanity check base_addr
-but permit effectively any size.
-
->>> @@ -18,6 +19,18 @@ static inline unsigned long cpuid_to_hartid(unsigned long cpuid)
->>>       return pcpu_info[cpuid].hart_id;
->>>   }
->>>   
->>> +static inline unsigned long hartid_to_cpuid(unsigned long hartid)
->>> +{
->>> +    for ( unsigned int cpuid = 0; cpuid < ARRAY_SIZE(pcpu_info); cpuid++ )
->>> +    {
->>> +        if ( hartid == cpuid_to_hartid(cpuid) )
->>> +            return cpuid;
->>> +    }
->>> +
->>> +    /* hartid isn't valid for some reason */
->>> +    return NR_CPUS;
->>> +}
->> Considering the values being returned, why's the function's return type
->> "unsigned long"?
+> We could do imsic_cfg.hart_index_bits = fls(*nr_parent_irqs - 1) (1) without
+> checking *nr_parent_irqs is power-of-two or not, and then just leave the
+> check (2).
+> And with (1), the check (2) is only needed for the case *nr_parent_irqs=1, if
+> I amn't mistaken something. And if I'm not mistaken, then probably it make
+> sense to change (2) to if ( *nr_parent_irqs == 1 ) + some comment why this
+> case is so special.
 > 
-> mhartid register has MXLEN length, so theoretically we could have from 0 to MXLEN-1
-> Harts and so we could have the same amount of Xen's CPUIDs. and MXLEN is 32 for RV32
-> and MXLEN is 64 for RV64.
+> Does it make sense?
 
-Yet the return value here is always constrained by NR_CPUS, isn't it?
+Can't easily tell; I'd like to see the resulting code instead of the textual
+description.
 
 Jan
 
