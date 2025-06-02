@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7BA71ACAB34
-	for <lists+xen-devel@lfdr.de>; Mon,  2 Jun 2025 11:15:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1003035.1382471 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 78A3AACAB49
+	for <lists+xen-devel@lfdr.de>; Mon,  2 Jun 2025 11:20:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1003049.1382480 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uM1GF-0007UU-GB; Mon, 02 Jun 2025 09:15:15 +0000
+	id 1uM1L9-0000cl-26; Mon, 02 Jun 2025 09:20:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1003035.1382471; Mon, 02 Jun 2025 09:15:15 +0000
+Received: by outflank-mailman (output) from mailman id 1003049.1382480; Mon, 02 Jun 2025 09:20:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uM1GF-0007Sq-Bt; Mon, 02 Jun 2025 09:15:15 +0000
-Received: by outflank-mailman (input) for mailman id 1003035;
- Mon, 02 Jun 2025 09:15:14 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uM1L8-0000al-Vq; Mon, 02 Jun 2025 09:20:18 +0000
+Received: by outflank-mailman (input) for mailman id 1003049;
+ Mon, 02 Jun 2025 09:20:17 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=QAfa=YR=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uM1GE-0007SZ-AY
- for xen-devel@lists.xenproject.org; Mon, 02 Jun 2025 09:15:14 +0000
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [2a00:1450:4864:20::32d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 14907edb-3f92-11f0-b894-0df219b8e170;
- Mon, 02 Jun 2025 11:15:09 +0200 (CEST)
-Received: by mail-wm1-x32d.google.com with SMTP id
- 5b1f17b1804b1-43ea40a6e98so44355865e9.1
- for <xen-devel@lists.xenproject.org>; Mon, 02 Jun 2025 02:15:09 -0700 (PDT)
+ id 1uM1L7-0000af-Eh
+ for xen-devel@lists.xenproject.org; Mon, 02 Jun 2025 09:20:17 +0000
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [2a00:1450:4864:20::42c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id cbc813e2-3f92-11f0-a300-13f23c93f187;
+ Mon, 02 Jun 2025 11:20:16 +0200 (CEST)
+Received: by mail-wr1-x42c.google.com with SMTP id
+ ffacd0b85a97d-3a4fea34e07so927828f8f.1
+ for <xen-devel@lists.xenproject.org>; Mon, 02 Jun 2025 02:20:16 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-747afe9681asm7396382b3a.12.2025.06.02.02.15.02
+ d2e1a72fcca58-747affd41c3sm7426903b3a.149.2025.06.02.02.20.10
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 02 Jun 2025 02:15:08 -0700 (PDT)
+ Mon, 02 Jun 2025 02:20:15 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 14907edb-3f92-11f0-b894-0df219b8e170
+X-Inumbo-ID: cbc813e2-3f92-11f0-a300-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1748855708; x=1749460508; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1748856016; x=1749460816; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=lPySZfbm9D5ca0VETYqleubXSTJeG2xriOZGDql9+Vo=;
-        b=BEKNLNJi63/ElCUYQr64d5LYemsBIKF4P4zrqssV7Qk4b7ID9dgaTir6XersW/hhJZ
-         6kv0q1HrAfQEaGxJwOlamDFJHUgNhci8ui6oYvY6odOxjssojolvwoVoZtrp2lA5i8Iw
-         ZL6EYVU64oCQohJd3i8sNz5Rzwo7wiDOc6nVWvv+wqnwRfeVMLFotYjqaie1U0nWb4O8
-         OiHhsRpDAWII0yYd1ZXCl0pwFOguW0xiyxtrySndha0JrllcJOrVK9jea/iYK4iMSD8T
-         h4qTZCjofr2iT/rqDMDCWHsQG/QxAk6NXDcvmCfeomui+vNd5xCS1uTHLlbGis0WSVXd
-         09fA==
+        bh=Z0cD2HHhOIx0K6TxQbxJpirEOQrDsyEh1e27Yog7Hec=;
+        b=BbX6+yDKXQhaj3XZ55Ax8ijFIRHQu8+IPSeXSdF5dEmEno+pP+6a1VmUxU+F7kLmDl
+         xe0M6RSdOP+rRuyTP70yPEPA+69Yp4rdHUw+9J6geCdJcQlrAb+GunQFxjYBzRWQbo6k
+         /MkcAfHEdOQO1r2fNvcd1Jl+SB5piMUYsKK19bDNfm5x9nxeYzxInNqsTNH1YPCbrPaB
+         kNYhF2aA2SaZFVFsoCnIL1AwxppM2zqGY1ywABPqBU0g9BHDjBBxM7HFUbogwTbZE95H
+         Q9BPlaWXf6bjHUMGeN7ii8krqfchpl+4eRotNV0cc0w+lJJeXhF8goiMKYOi+KgvnpSs
+         TfoQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1748855708; x=1749460508;
+        d=1e100.net; s=20230601; t=1748856016; x=1749460816;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=lPySZfbm9D5ca0VETYqleubXSTJeG2xriOZGDql9+Vo=;
-        b=MtXn7Qh1KzDLkcXLfTibVc+Ab7y4v2FgkqtuopljzqoRipX4f1kXcuV67J9lxK7GTQ
-         fQYIgAbkUxtzuTG/KcuJx0U0fNXfpcCT9d2vDYwqhEYxPRigSciFLqPeF9WjIplyMjIO
-         6E67r4eC90qkvoZ9xMwHu9D+4Ye9nDSTKgTTO7njcL5gQMf5g0A7pdwAjNHozvg7ctHE
-         qOpIl9p65jwcLMUbrmZistEfGCNKp5Tu52scuHXzKXokqSFY0ZI2qQFtDd9mV+BCsLMM
-         H43L0IE3kKwMEabcF7rpHhfcQ8OnsBGNSMRAPeGuJZaUAnPZ3+IpJpbKOTB/m9EkN3QH
-         wwpQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVd5AurHEP7XN2YthIUCz6FjUN4t3hVsNPonv3ruF+n+iWPw40B6AUvX0pyXQWWtxm4C/ITyJxwuag=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxvjrF3Gar771kCQJc6z8VDfMy1/MAQONV6YvpYGdbDdEayXBsv
-	x9exKUV+VpaEoDKLFmYhjbH5FSBmjyekygPoM6slUP9GwuUqxsW5/cI1u03HZ3OkZQ==
-X-Gm-Gg: ASbGncs1596GOUsjHnGW89EL5fiKWKkyR66m6hOkwZRoqP3w73Ckv8b2pk7K5WXiqrS
-	LBVLqSiPmqZqmPV8gldStp/YkWjawqQIisc3lXIci/cJsh8QB6WA+ndEYnpHOXhGy4yeTNFgi8R
-	/W0cRWvGkR2XOBgu0dufs41fXCTPPNtWOhQRc7atJXcJ+tIWY60cinoI4Qf6GcLCOt/3yvVmEZt
-	HyOSZIS26Ecaz1AMZfm5RUfaCqTEQUrd0tFePlEbiBnk/rizRxJ+CvXDjGnxihh2mMGng8uFbxQ
-	vvhPMJ8EAzqDsCcXv0Kiolom3PCtBV7LOmdakiNz30C5obY6cbn3PsymOM6ojDWPYNGDH8fagQ5
-	B0x61Mz4cqCv8f6ggLnZX7xcd9559wYkfRYmo
-X-Google-Smtp-Source: AGHT+IGZySKSZr/f1ttYZPglStKrSY8vsfwajd2hmSjJQa2zJ1RpCIsq24MLqKzl/bbV32vC8x2kvw==
-X-Received: by 2002:a05:6000:2303:b0:3a4:deb9:8964 with SMTP id ffacd0b85a97d-3a4f7a4d340mr9190816f8f.17.1748855708550;
-        Mon, 02 Jun 2025 02:15:08 -0700 (PDT)
-Message-ID: <66ec1282-808b-49c0-872e-e440a9b9384b@suse.com>
-Date: Mon, 2 Jun 2025 11:15:13 +0200
+        bh=Z0cD2HHhOIx0K6TxQbxJpirEOQrDsyEh1e27Yog7Hec=;
+        b=UmOxkZE4zemzE2CABsglqQkR8LB1+fSX8AyCudKaVgxs0kFgi/KjW6SYls3A4kwGhw
+         i/ktpu3omFQC4dZy+0B1GZ0KMUNJo45UfB9SMnOlGPET9+M8DmRuACz/0D6u1fu93FS+
+         wPcqUXBO1nx03usbGZDYy+eb6xjcBRKeG4YGYBK1cVvNmS83MrAtSc4l+vOzyACNRDgA
+         iePjtyeBiUAOjJfLvRFgn6teAlciaO/+dprI6VYtd+N/UW1PC11OTpPi2L5pZCNSc3qb
+         mcfyg2dAMDiesIcVYNJYEzBtLpfsXzFSidm4llY3Ioz6m7vMFhVkRyrMARI0gLRPK5q4
+         ScDA==
+X-Forwarded-Encrypted: i=1; AJvYcCX5aRtsSRSaBgDiQeVB5S8Fn2xo5jhXTqqDg+pI0AdQsmvEG+4o2YMzqgTi8JoRR0V0i6MdIg94XQk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxiFd8jCQPtcYvSArclJ58ZkPrTz9Bjze1IOPYi4IJiD4GhV/YN
+	JStUiiXNIyODMmsToLsaSS5yGDahzu27P2L81nIzWm//Wb/HB/FD9oDLYknjo5MAyg==
+X-Gm-Gg: ASbGncsAZnj5O+f/bRlfgQZHTJh9XCPQh/iMBA+/GtuXHm1vcDKyBrXJLczzFRdolSW
+	Y49Bhi9mfW3rpwHaNLiJLxvUHhH/gP8VX75+f+kacxq27uvti7AFtXu+1h+z/fKIc2ISaHETtZW
+	5mPy0q5g5DdBOJhuE6GOFYDlvB+VIughqfwzBJgR+2PbxV/zA23ra/itUG0I//GXhVnwXKs7eUb
+	duPXXV2oy/8EB2cAI6K8828d1rS7QGJOvJ29f5GbWD88bUm4jUDcUDn6peJsDpJP6AxtIbikojd
+	+vzIh0XDHpYGkD5L1qQjqimIyVD0IBkvzjb1VD+sJY2u9c0L4IP54dCXAuFcmyYDtAxQqq8SI3/
+	Xnc+nsk5pk+YtyWkdWjktTUora62maPLDTPzgKLi7thiCUGI=
+X-Google-Smtp-Source: AGHT+IH7gf5s/Ru8n5gf9eYTT0PRUgu02WTxxIBjfJmq8CfUdj1Z2yxsRwUzeA5Zpfkm+xBPG1NLZw==
+X-Received: by 2002:a05:6000:1889:b0:3a4:dc80:b932 with SMTP id ffacd0b85a97d-3a4f7a0251dmr9015734f8f.8.1748856015989;
+        Mon, 02 Jun 2025 02:20:15 -0700 (PDT)
+Message-ID: <4bfe5a9a-6128-4760-9121-46b0d9bd6789@suse.com>
+Date: Mon, 2 Jun 2025 11:20:20 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 3/3] xen/domain: introduce CONFIG_MAX_DOMID
-To: dmkhn@proton.me
-Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org,
- roger.pau@citrix.com, sstabellini@kernel.org, teddy.astie@vates.tech,
- dmukhin@ford.com, xen-devel@lists.xenproject.org
-References: <20250528225030.2652166-1-dmukhin@ford.com>
- <20250528225030.2652166-4-dmukhin@ford.com>
+Subject: Re: [PATCH v4][PART 2 01/10] xen/x86: Move freeze/thaw_domains to
+ common code
+To: Mykola Kvach <xakep.amatop@gmail.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1748848482.git.mykola_kvach@epam.com>
+ <a679ba83fcc0e8387158a218f3af1fa234ea3534.1748848482.git.mykola_kvach@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -119,41 +122,28 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250528225030.2652166-4-dmukhin@ford.com>
+In-Reply-To: <a679ba83fcc0e8387158a218f3af1fa234ea3534.1748848482.git.mykola_kvach@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 29.05.2025 00:50, dmkhn@proton.me wrote:
-> From: Denis Mukhin <dmkhn@proton.me>
+On 02.06.2025 11:04, Mykola Kvach wrote:
+> From: Mirela Simonovic <mirela.simonovic@aggios.com>
 > 
-> From: Denis Mukhin <dmukhin@ford.com>
+> The freeze_domains and thaw_domains functions are currently defined
+> in x86-specific suspend code. These functions are also useful on other
+> architectures, such as ARM, for implementing system-wide suspend and
+> resume functionality.
 > 
-> Embedded deployments of Xen do not need to have support for more than dozen of
-> domains.
+> This patch moves these functions to common code so they can be reused
+> across architectures.
 > 
-> Introduce build-time configuration option to limit the number of domains during
-> run-time.
-> 
-> Suggested-by: Julien Grall <julien@xen.org>
-> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
-> ---
-> Changes since v8:
-> - dropped hunk w/ compile-time check for DOMID_FIRST_RESERVED
-> - updated CONFIG_MAX_DOMID explanation
-> - dropped public header file changes
-> ---
->  xen/arch/x86/cpu/mcheck/mce.c       |  2 +-
->  xen/arch/x86/cpu/vpmu.c             |  2 +-
->  xen/common/Kconfig                  |  8 ++++++++
->  xen/common/domain.c                 | 20 +++++++++++---------
->  xen/common/sched/core.c             |  4 ++--
->  xen/drivers/passthrough/vtd/iommu.c |  2 +-
->  6 files changed, 24 insertions(+), 14 deletions(-)
+> Signed-off-by: Mirela Simonovic <mirela.simonovic@aggios.com>
+> Signed-off-by: Saeed Nowshadi <saeed.nowshadi@xilinx.com>
+> Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
+> Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
 
-What about checks against DOMID_FIRST_RESERVED in common/domctl.c? Indeed they
-must not be changed, but when not changing them, how are several of the checks
-you actually change going to be correct? (I'm sorry for noticing this only now;
-it should have occurred to me earlier on.)
+On the assumption that the transient Misra violation is okay:
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
 Jan
 
