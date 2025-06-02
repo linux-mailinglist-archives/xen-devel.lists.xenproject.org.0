@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DCBEBACAB1E
-	for <lists+xen-devel@lfdr.de>; Mon,  2 Jun 2025 11:05:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1002942.1382371 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7BA71ACAB34
+	for <lists+xen-devel@lfdr.de>; Mon,  2 Jun 2025 11:15:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1003035.1382471 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uM16F-0008Ei-RB; Mon, 02 Jun 2025 09:04:55 +0000
+	id 1uM1GF-0007UU-GB; Mon, 02 Jun 2025 09:15:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1002942.1382371; Mon, 02 Jun 2025 09:04:55 +0000
+Received: by outflank-mailman (output) from mailman id 1003035.1382471; Mon, 02 Jun 2025 09:15:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uM16F-0008CJ-Mx; Mon, 02 Jun 2025 09:04:55 +0000
-Received: by outflank-mailman (input) for mailman id 1002942;
- Mon, 02 Jun 2025 09:04:55 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uM1GF-0007Sq-Bt; Mon, 02 Jun 2025 09:15:15 +0000
+Received: by outflank-mailman (input) for mailman id 1003035;
+ Mon, 02 Jun 2025 09:15:14 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=QAfa=YR=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uM16F-00081k-3x
- for xen-devel@lists.xenproject.org; Mon, 02 Jun 2025 09:04:55 +0000
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [2a00:1450:4864:20::436])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a56f24f8-3f90-11f0-a300-13f23c93f187;
- Mon, 02 Jun 2025 11:04:53 +0200 (CEST)
-Received: by mail-wr1-x436.google.com with SMTP id
- ffacd0b85a97d-3a367ec7840so2772397f8f.2
- for <xen-devel@lists.xenproject.org>; Mon, 02 Jun 2025 02:04:53 -0700 (PDT)
+ id 1uM1GE-0007SZ-AY
+ for xen-devel@lists.xenproject.org; Mon, 02 Jun 2025 09:15:14 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 14907edb-3f92-11f0-b894-0df219b8e170;
+ Mon, 02 Jun 2025 11:15:09 +0200 (CEST)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-43ea40a6e98so44355865e9.1
+ for <xen-devel@lists.xenproject.org>; Mon, 02 Jun 2025 02:15:09 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-23506bc8b26sm66014585ad.9.2025.06.02.02.04.48
+ d2e1a72fcca58-747afe9681asm7396382b3a.12.2025.06.02.02.15.02
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 02 Jun 2025 02:04:52 -0700 (PDT)
+ Mon, 02 Jun 2025 02:15:08 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a56f24f8-3f90-11f0-a300-13f23c93f187
+X-Inumbo-ID: 14907edb-3f92-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1748855093; x=1749459893; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1748855708; x=1749460508; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ngZ6Vuh7hQeKo6LT9x+wiicwheB6dNz7u4CSeZREy7I=;
-        b=X92C0ClR1hPXNoLhvTspdhilb+TWmjBSQ8R7x7TUH1QBD2b4mhvi0lhaPwiQD3mhNs
-         veEyVIJz/XPeQD5krwPAMKcWs/d/0YLa2byuUBdHH1N5OlU/Qk+WDH7Up29W34owSQIB
-         Ca5jz5dr4u1MbFRHw8K3tYm2wKVN6pP3w66lZCY3NGzijNgDmwjqJbN2Txt7BWDwLSgZ
-         6Ct1CQaALQXdQNrP2Y8Be3tV3ffAkW1VZI3b95DgS2PR7yQP/K5gZLddheK9KuRtyaVN
-         uC60pd2sHik50BG5RFXARmp1ODio4W287EnkNxxECmq27WAZI98ZpISSLZyqYCR2vK8S
-         rCNg==
+        bh=lPySZfbm9D5ca0VETYqleubXSTJeG2xriOZGDql9+Vo=;
+        b=BEKNLNJi63/ElCUYQr64d5LYemsBIKF4P4zrqssV7Qk4b7ID9dgaTir6XersW/hhJZ
+         6kv0q1HrAfQEaGxJwOlamDFJHUgNhci8ui6oYvY6odOxjssojolvwoVoZtrp2lA5i8Iw
+         ZL6EYVU64oCQohJd3i8sNz5Rzwo7wiDOc6nVWvv+wqnwRfeVMLFotYjqaie1U0nWb4O8
+         OiHhsRpDAWII0yYd1ZXCl0pwFOguW0xiyxtrySndha0JrllcJOrVK9jea/iYK4iMSD8T
+         h4qTZCjofr2iT/rqDMDCWHsQG/QxAk6NXDcvmCfeomui+vNd5xCS1uTHLlbGis0WSVXd
+         09fA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1748855093; x=1749459893;
+        d=1e100.net; s=20230601; t=1748855708; x=1749460508;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ngZ6Vuh7hQeKo6LT9x+wiicwheB6dNz7u4CSeZREy7I=;
-        b=ArPkS/CzY/JDNcFOR/iolVHu68uLlew0P6TMOUcUxSOuxWZH+M6jmea46eeZU+U0Ud
-         8hXz4QSmVenb8/+fXHT29HJ4DmGsPuk41w06sKBDMG2nfWGh6KfKlA97FJSqU23omsbJ
-         sUfOfG6ppP/qpZNEaeCtfTQSdU9ePdtUC/SzngZ3sCzq5oCf94Avxz3fDgFMlQLjJ7xQ
-         VUVP/VZ9Kfx/pwHeFrn1LOOtPDrjDOd28WxFTPONUzddvjvCrGN38I57FLUdyjCDhSkg
-         MMgqageascFFcxzw+werl1vduJ8ybvAWfHFpNOC5N2APF4eUQLuomov6gP8z2vY6N5u3
-         k1KQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUWeMnxXJck0cC+Z8r2HBdkkc9GtdKnNAeseaEx/yT+ciKG2kiyuxWHZ4LV9tdnOoaAfYGEiunn3HU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwPJSBa7HCLbxyP0pAm+yUskDXfMHhE5nmYrn3DsMwNY0/HNZTv
-	FR1UyqVwqejpj09VGZGmu6g+P10LPsR87hM9KRLkRzpg6mCs0BgnnmcjDr0q04gJzw==
-X-Gm-Gg: ASbGnctFlA1Uw0qDFkKMd5fIUsJ+dakDFgQpmTEQ2l5n83SL/EpDT7Z7AgNlcxN2Atk
-	vpCjezR9adVLnVmG66vdh3BYQrjK3P3ARlCHuMp991/mqCZJDSUlMK+I2GdRe64YL7jl+9wHfOb
-	zWEKOy+M/5yygbhjlREPIU2gzuTKeiGHF+q8DGrJ1gDGRMNG8Oud+F9/WsuHqU28uMuit9riOuh
-	PFjNYW2ZToiIrHksEmQ1nzRMgJohXdrO3RaI1gljvxZE+VuSeP4fZeZR1H30IPonbuEZ3ALojwe
-	MMst6YA5+WWOWBN04ZZSH3A+v6GGu/JOl+0+YI0AYiztoVgiSRiokmAlLe2sM3ApAqSXG6c7Pyp
-	MgpGmTRV2pOMMliHyIoyBlE5nLwDuq9tNzPuy66oUw6DHPGE=
-X-Google-Smtp-Source: AGHT+IFx3pepFQ+9Hv0YIA9CI0Hq8K45c/r5jJbK5V+IFastwKJcN18fCSYaUS2VkFAFiXMlAxFAjA==
-X-Received: by 2002:a05:6000:2302:b0:3a3:6991:dcbb with SMTP id ffacd0b85a97d-3a4f89a7f8dmr7847316f8f.12.1748855092705;
-        Mon, 02 Jun 2025 02:04:52 -0700 (PDT)
-Message-ID: <2c4f4c2a-b1d7-4cbb-834e-cee0fd3d2433@suse.com>
-Date: Mon, 2 Jun 2025 11:04:59 +0200
+        bh=lPySZfbm9D5ca0VETYqleubXSTJeG2xriOZGDql9+Vo=;
+        b=MtXn7Qh1KzDLkcXLfTibVc+Ab7y4v2FgkqtuopljzqoRipX4f1kXcuV67J9lxK7GTQ
+         fQYIgAbkUxtzuTG/KcuJx0U0fNXfpcCT9d2vDYwqhEYxPRigSciFLqPeF9WjIplyMjIO
+         6E67r4eC90qkvoZ9xMwHu9D+4Ye9nDSTKgTTO7njcL5gQMf5g0A7pdwAjNHozvg7ctHE
+         qOpIl9p65jwcLMUbrmZistEfGCNKp5Tu52scuHXzKXokqSFY0ZI2qQFtDd9mV+BCsLMM
+         H43L0IE3kKwMEabcF7rpHhfcQ8OnsBGNSMRAPeGuJZaUAnPZ3+IpJpbKOTB/m9EkN3QH
+         wwpQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVd5AurHEP7XN2YthIUCz6FjUN4t3hVsNPonv3ruF+n+iWPw40B6AUvX0pyXQWWtxm4C/ITyJxwuag=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxvjrF3Gar771kCQJc6z8VDfMy1/MAQONV6YvpYGdbDdEayXBsv
+	x9exKUV+VpaEoDKLFmYhjbH5FSBmjyekygPoM6slUP9GwuUqxsW5/cI1u03HZ3OkZQ==
+X-Gm-Gg: ASbGncs1596GOUsjHnGW89EL5fiKWKkyR66m6hOkwZRoqP3w73Ckv8b2pk7K5WXiqrS
+	LBVLqSiPmqZqmPV8gldStp/YkWjawqQIisc3lXIci/cJsh8QB6WA+ndEYnpHOXhGy4yeTNFgi8R
+	/W0cRWvGkR2XOBgu0dufs41fXCTPPNtWOhQRc7atJXcJ+tIWY60cinoI4Qf6GcLCOt/3yvVmEZt
+	HyOSZIS26Ecaz1AMZfm5RUfaCqTEQUrd0tFePlEbiBnk/rizRxJ+CvXDjGnxihh2mMGng8uFbxQ
+	vvhPMJ8EAzqDsCcXv0Kiolom3PCtBV7LOmdakiNz30C5obY6cbn3PsymOM6ojDWPYNGDH8fagQ5
+	B0x61Mz4cqCv8f6ggLnZX7xcd9559wYkfRYmo
+X-Google-Smtp-Source: AGHT+IGZySKSZr/f1ttYZPglStKrSY8vsfwajd2hmSjJQa2zJ1RpCIsq24MLqKzl/bbV32vC8x2kvw==
+X-Received: by 2002:a05:6000:2303:b0:3a4:deb9:8964 with SMTP id ffacd0b85a97d-3a4f7a4d340mr9190816f8f.17.1748855708550;
+        Mon, 02 Jun 2025 02:15:08 -0700 (PDT)
+Message-ID: <66ec1282-808b-49c0-872e-e440a9b9384b@suse.com>
+Date: Mon, 2 Jun 2025 11:15:13 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/x86: Remove is_periodic_irq() prototype
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- Jason Andryuk <jason.andryuk@amd.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org,
- "consulting@bugseng.com" <consulting@bugseng.com>
-References: <20250527223753.47055-1-jason.andryuk@amd.com>
- <1c850e02-0d87-4fd1-8504-0aee53949136@citrix.com>
+Subject: Re: [PATCH v9 3/3] xen/domain: introduce CONFIG_MAX_DOMID
+To: dmkhn@proton.me
+Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org,
+ roger.pau@citrix.com, sstabellini@kernel.org, teddy.astie@vates.tech,
+ dmukhin@ford.com, xen-devel@lists.xenproject.org
+References: <20250528225030.2652166-1-dmukhin@ford.com>
+ <20250528225030.2652166-4-dmukhin@ford.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,30 +119,41 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <1c850e02-0d87-4fd1-8504-0aee53949136@citrix.com>
+In-Reply-To: <20250528225030.2652166-4-dmukhin@ford.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 28.05.2025 00:39, Andrew Cooper wrote:
-> On 27/05/2025 11:37 pm, Jason Andryuk wrote:
->> is_periodic_irq() was removed in the Fixes commit, but the prototype
->> remained.  Drop it now.
->>
->> Fixes: ddc35d1cc994 ("[HVM] Enable more than one platform timer...")
->> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
+On 29.05.2025 00:50, dmkhn@proton.me wrote:
+> From: Denis Mukhin <dmkhn@proton.me>
 > 
-> Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> From: Denis Mukhin <dmukhin@ford.com>
 > 
->> ---
->> The full Fixes line is:
->> Fixes: ddc35d1cc994 ("[HVM] Enable more than one platform timer (PIT/RTC/HPET) programmed as periodic timer and adds them to abstract layer, which keeps track of pending_intr_nr to avoid time interrupt lost and sync'ed timer with TSC.")
+> Embedded deployments of Xen do not need to have support for more than dozen of
+> domains.
 > 
-> Yeah, the older commit messages weren't as well structured as we insist
-> on them being these days.
+> Introduce build-time configuration option to limit the number of domains during
+> run-time.
 > 
-> How did you find this?  inspection, or a tool?
+> Suggested-by: Julien Grall <julien@xen.org>
+> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
+> ---
+> Changes since v8:
+> - dropped hunk w/ compile-time check for DOMID_FIRST_RESERVED
+> - updated CONFIG_MAX_DOMID explanation
+> - dropped public header file changes
+> ---
+>  xen/arch/x86/cpu/mcheck/mce.c       |  2 +-
+>  xen/arch/x86/cpu/vpmu.c             |  2 +-
+>  xen/common/Kconfig                  |  8 ++++++++
+>  xen/common/domain.c                 | 20 +++++++++++---------
+>  xen/common/sched/core.c             |  4 ++--
+>  xen/drivers/passthrough/vtd/iommu.c |  2 +-
+>  6 files changed, 24 insertions(+), 14 deletions(-)
 
-What I'm curious about: Why didn't Eclair spot this?
+What about checks against DOMID_FIRST_RESERVED in common/domctl.c? Indeed they
+must not be changed, but when not changing them, how are several of the checks
+you actually change going to be correct? (I'm sorry for noticing this only now;
+it should have occurred to me earlier on.)
 
 Jan
 
