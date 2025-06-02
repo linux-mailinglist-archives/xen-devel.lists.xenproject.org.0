@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9110ACAC2B
-	for <lists+xen-devel@lfdr.de>; Mon,  2 Jun 2025 11:59:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1003116.1382581 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D3C4ACAC5F
+	for <lists+xen-devel@lfdr.de>; Mon,  2 Jun 2025 12:22:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1003132.1382591 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uM1wi-0002lR-PT; Mon, 02 Jun 2025 09:59:08 +0000
+	id 1uM2Ia-0007i0-Gi; Mon, 02 Jun 2025 10:21:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1003116.1382581; Mon, 02 Jun 2025 09:59:08 +0000
+Received: by outflank-mailman (output) from mailman id 1003132.1382591; Mon, 02 Jun 2025 10:21:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uM1wi-0002jD-Md; Mon, 02 Jun 2025 09:59:08 +0000
-Received: by outflank-mailman (input) for mailman id 1003116;
- Mon, 02 Jun 2025 09:59:07 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uM2Ia-0007fS-D8; Mon, 02 Jun 2025 10:21:44 +0000
+Received: by outflank-mailman (input) for mailman id 1003132;
+ Mon, 02 Jun 2025 10:21:42 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=QAfa=YR=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uM1wh-0002j5-5q
- for xen-devel@lists.xenproject.org; Mon, 02 Jun 2025 09:59:07 +0000
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
- [2a00:1450:4864:20::429])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3867ecf4-3f98-11f0-a300-13f23c93f187;
- Mon, 02 Jun 2025 11:59:06 +0200 (CEST)
-Received: by mail-wr1-x429.google.com with SMTP id
- ffacd0b85a97d-3a5058d46ceso594209f8f.0
- for <xen-devel@lists.xenproject.org>; Mon, 02 Jun 2025 02:59:06 -0700 (PDT)
+ id 1uM2IY-0007fM-FG
+ for xen-devel@lists.xenproject.org; Mon, 02 Jun 2025 10:21:42 +0000
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [2a00:1450:4864:20::42e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5a8ee439-3f9b-11f0-b894-0df219b8e170;
+ Mon, 02 Jun 2025 12:21:32 +0200 (CEST)
+Received: by mail-wr1-x42e.google.com with SMTP id
+ ffacd0b85a97d-3a50fc7ac4dso208194f8f.0
+ for <xen-devel@lists.xenproject.org>; Mon, 02 Jun 2025 03:21:32 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-23506cf53a9sm67146545ad.196.2025.06.02.02.59.02
+ d2e1a72fcca58-747affadf7bsm7536163b3a.108.2025.06.02.03.21.24
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 02 Jun 2025 02:59:05 -0700 (PDT)
+ Mon, 02 Jun 2025 03:21:31 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3867ecf4-3f98-11f0-a300-13f23c93f187
+X-Inumbo-ID: 5a8ee439-3f9b-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1748858346; x=1749463146; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1748859691; x=1749464491; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=59uJKcR3b8YdfDVosBS568wBuugaBMdtBQd/BTjVOAk=;
-        b=TGv6nnjDHGeQ1HvCWqiyv14KIze0ar9p/QdK8l5FYPfRgLpk0GLioAd6d0fh4WPmVe
-         aEkWAg5HTtLPGEeUFwjMkNgM3ySh3DqnFK85jhJMrVyJoxIs87wsf0kbisT1dIag2lwZ
-         qmjOiXB0I9s2G3t5I/1uxC4mtq+8ULgCwXt0vSHFI0kgyjSz25HMm8TzCmGYM211bZSy
-         z516RNhawjPN4dSI4lGXXh+RhBT54VzP6GavoKYNUuFJUVAJyJr9aOrWu29r2QroAh6d
-         f7dTvIR/R42P2uGHrKLZo3msrzmjDy6F1D7UHEfOKT38YNhbQk563YcZsO4aUvOKGD1+
-         Y4rg==
+        bh=8qllOqqaeVhoUab7xw9pn8RJARRqQTvpElQ/c2lFnUI=;
+        b=Sz6c25yPmQ3xrf1WKNeWG8ud+MzR3IlY6ALjCP+stEIlsoFR2FYobjzOU8ZyyQxEDa
+         BcElZesHquw08astGbk0CqKjlRRgl1zrHwyZENjwQ4iTHlunGb7cc8fC35DetwyRcIVk
+         rRWJsiDbTuu0a7uqEK8WeP98sLsm/+DM6Tmj7my3zbENlSGNN8CLfWujIKbt9LQDmoRV
+         opHHFsUoMoSPPeplKZ8qh6znKDLJvj/pdCppDoVUM1D73JLFgs+RGxDq9xg0oMM2wbjm
+         KnR2C/d0nVCfJ6xO1pZvMZYOxZbMcAfdOsmX+GgxXdSf/etX6jgGHiRKPz2OczudtYif
+         JA7g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1748858346; x=1749463146;
+        d=1e100.net; s=20230601; t=1748859691; x=1749464491;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=59uJKcR3b8YdfDVosBS568wBuugaBMdtBQd/BTjVOAk=;
-        b=CZVMsxolNpk3XZJ7owF0G9KJSwPkpkXYk5MSu8cgbdp/Y5MybNo5icpKjQeowqXlwr
-         CdIG7v/APb82wsibL+Vb/HinLxSKIbJTk2WFKsudFpPXLdegW+YkQ8e/sWjAhcf7xdHQ
-         YTL1jwbP5G47yWlqUjhrpwF4VUxkQGYdMCsgP5MurwYI+KazP9YZM9a2oEgEcxb+L20c
-         F85N4KVo9+O8a1CMWtxze4MX0UbuxaXCdZAfoZ5r3Y+bz6yaimf9x16ylY3udB8e8+8Q
-         o5IaxvmWlPtVWnxo2uDOzt7tQxbkDibF69ucfu+wqHE0DJMiANacwjuCui6Xz21lBBY9
-         nT9A==
-X-Forwarded-Encrypted: i=1; AJvYcCUpattCBm1utOKJEaOT5Z51J+UXXxTNFjOe5cWl/MdOdgCukOu4+mE95TTNoP7jl/mF60dgfBB3exQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzGYVBuqPuHZSNImBn4JbgcgOJm5lU5TlvCCRJ6ho6CDlr4cMqa
-	GTSXHHvhDJNs6vKlSzGZVg9VJarsT8s809+Zo5Xo8Wlf83NKPvs+Ng98N+6Mx/BISA==
-X-Gm-Gg: ASbGncscvEcqMiU7FmNRL3t1TPKElqLu2nzqqppmIauD1bQpOOhUlgnLhUu0Cuh35qB
-	phWMIr4lHzYpLm3UHTG/luBGakqCVNgO82WgXaHVK0EVwnlEde+szuZgYWdUwv+8IcApMUyM+V2
-	aTc05fqE3f/W3B8HRujrXc/SzA3Y6YIEYmJBD46Xxu+4tKjN2zPN4n+USXzHptcQLiw+qZm37+R
-	kGB6wEjAx+RRy844MW1yCO/mZHLM1krtBd4EZGHq2nEB1/o/mRaAfsN92W05CZByjdmyq9zaKDr
-	JNz8xdMSg97RvXhxIT1tz3PN0FWh73xR6S3uGdXVrgA7D/sapf9JZ7ushWRK6fk+jXJ2q0wvPNH
-	urz9ekaOhGdd0TBPuFhlgemrzy5ZsCA3ZpxqW
-X-Google-Smtp-Source: AGHT+IGnsgeMxARjYDP3AiU3CSfmJcV6qrz0VEBbaJTeeZnby3QUM00rbz9Ut6pi2208XKxc9baqCg==
-X-Received: by 2002:a05:6000:178e:b0:3a1:f564:cd9d with SMTP id ffacd0b85a97d-3a4f89dee77mr9360115f8f.36.1748858345765;
-        Mon, 02 Jun 2025 02:59:05 -0700 (PDT)
-Message-ID: <0eb77cb2-0208-4fba-8663-6015dee3e015@suse.com>
-Date: Mon, 2 Jun 2025 11:59:12 +0200
+        bh=8qllOqqaeVhoUab7xw9pn8RJARRqQTvpElQ/c2lFnUI=;
+        b=mRy2NXREzNh+WCbEYaW9jBSSxB6aCDnPjCieLAmc3QvWbBoXPtlr6pDoJ+zMyKoe4G
+         NjeE0lRuZFIHUTAxo6bpKA2vEEi2SjduCZIaw/I0EmS90jgTHjnzpPsSeIhx+e+rPVCh
+         BAeN8t6LHsJLQU2bp7Rgt4lteTceMjlE5fHYcLGzSEs61wLsPTGDloO/LgJCO8rv62Tk
+         BVuTgJDyRUBQExNVdYVp0BmthhwFn/t3acx9MIY5m/yHHor5VlOHPDF77INmk8w0Qt8s
+         ZyCxehoNrM533L0PFU4hV61KJnpcbJ6E/+6q52zUBPDEmIYUZvA0SSgYb067R/386oSh
+         X/qg==
+X-Forwarded-Encrypted: i=1; AJvYcCU6Gu5LWn2Wu+8CcuLP6Ybdf6xSkCVpKCctE3FG5WSYG6NdCbSj39OeclPRoTAcvUibTeh+QlM1lf4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyGQXkgj7VpKli8H62f6azSxxvlw0ogfYfOCvws3cNEBJTZaBOL
+	gMNCQV6hkmOmYz6WBRibT/6CVBsKKIvHsq9fPSv0ty1GCxKXpjiYB5hqwoB4Mng2Gw==
+X-Gm-Gg: ASbGnctGayZvi6wdQFa6AIo6DQbpi9dwBuP4pC0lBy/gYNrhqdu0VZxa0o6NklOKFAQ
+	y72exzY/xF5vUheyvaJ0YCsgHu/KI6pqYRqVzfqmnAflxB7tsjs9HnrAIOuWO/xtOuyoWYVkffi
+	4h8hrk5Ny7TZA+vV886bCz4NDpbxf/4KU1OkH51CCQZ3P8KakQWyLgX3pROttrBmgZwFIYoBsEj
+	NYYng5gE5j2Jh8YB93CJjkTt/tSXTaEeF6d2ColpeMyQjkDYLTO2WdrPYIKwTqiwMHcVA/6Jc2m
+	NBQKYPfgEKqUspTF/6nS6Q55d3I7xP8YS1hafDs6/qOWcFHINujImWTtBiEIeKhST/wR4JhkNC5
+	6jx822i17v5VPOfkvxYRhMhB5ooZ1Uy0pI8rP
+X-Google-Smtp-Source: AGHT+IE1iJo0yZ38IM2z/ZK7O5XSdSEcvkAJW9rtUZ0bnNLgdrqcZDBLpsT2iH9Z+V6OE3VIB7986g==
+X-Received: by 2002:a05:6000:3109:b0:3a4:dcfb:3118 with SMTP id ffacd0b85a97d-3a4f7a3d5eemr10151434f8f.10.1748859691515;
+        Mon, 02 Jun 2025 03:21:31 -0700 (PDT)
+Message-ID: <8cd6c3e0-0361-4f3f-b3ca-8ffa49b9197d@suse.com>
+Date: Mon, 2 Jun 2025 12:21:34 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] x86/alternatives: Introduce
- init_or_livepatch_ro_after_init
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250522150015.555492-1-andrew.cooper3@citrix.com>
- <20250522150015.555492-4-andrew.cooper3@citrix.com>
+Subject: Re: [PATCH v3 08/14] xen/riscv: imsic_init() implementation
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Romain Caritey <Romain.Caritey@microchip.com>, xen-devel@lists.xenproject.org
+References: <cover.1747843009.git.oleksii.kurochko@gmail.com>
+ <421dad1bbd014a2d7ff588af088eadbd56345dbe.1747843009.git.oleksii.kurochko@gmail.com>
+ <ec429b9d-7e16-4d9a-86c6-a5fa557047b7@suse.com>
+ <d7ef87e5-75e0-4cf3-be8c-7af6e18df5a3@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -119,32 +126,111 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250522150015.555492-4-andrew.cooper3@citrix.com>
+In-Reply-To: <d7ef87e5-75e0-4cf3-be8c-7af6e18df5a3@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 22.05.2025 17:00, Andrew Cooper wrote:
-> ... and use it for ideal_nops and toolchain_nops_are_ideal; both of which are
-> invariant after arch_init_ideal_nops() has run.
+On 26.05.2025 20:44, Oleksii Kurochko wrote:
+> On 5/22/25 4:46 PM, Jan Beulich wrote:
+>> On 21.05.2025 18:03, Oleksii Kurochko wrote:
+>>> +    /* Allocate MMIO resource array */
+>>> +    imsic_cfg.mmios = xzalloc_array(struct imsic_mmios, nr_mmios);
+>> How large can this and ...
+>>
+>>> +    if ( !imsic_cfg.mmios )
+>>> +    {
+>>> +        rc = -ENOMEM;
+>>> +        goto imsic_init_err;
+>>> +    }
+>>> +
+>>> +    imsic_cfg.msi = xzalloc_array(struct imsic_msi, nr_parent_irqs);
+>> ... this array grow (in principle)?
 > 
-> No functional change.
+> Roughly speaking, this is the number of processors. The highests amount of processors
+> on the market I saw it was 32. But it was over a year ago when I last checked this.
+
+Unless there's an architectural limit, I don't think it's a good idea to
+take as reference what's available at present. But yes, ...
+
+>>   I think you're aware that in principle
+>> new code is expected to use xvmalloc() and friends unless there are specific
+>> reasons speaking against that.
 > 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Oh, missed 'v'...
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
-preferably with ...
+... adding the missing 'v' will take care of my concern. Provided of
+course this isn't running to early for vmalloc() to be usable just yet.
 
-> --- a/xen/arch/x86/alternative.c
-> +++ b/xen/arch/x86/alternative.c
-> @@ -47,7 +47,7 @@ static const unsigned char p6_nops[] init_or_livepatch_const = {
->  };
->  #endif
->  
-> -static const unsigned char *ideal_nops init_or_livepatch_data = p6_nops;
-> +static const unsigned char *ideal_nops init_or_livepatch_ro_after_init = p6_nops;
+>>> +    if ( !imsic_cfg.msi )
+>>> +    {
+>>> +        rc = -ENOMEM;
+>>> +        goto imsic_init_err;
+>>> +    }
+>>> +
+>>> +    /* Check MMIO register sets */
+>>> +    for ( unsigned int i = 0; i < nr_mmios; i++ )
+>>> +    {
+>>> +        if ( !alloc_cpumask_var(&imsic_cfg.mmios[i].cpus) )
+>>> +        {
+>>> +            rc = -ENOMEM;
+>>> +            goto imsic_init_err;
+>>> +        }
+>>> +
+>>> +        rc = dt_device_get_address(node, i, &imsic_cfg.mmios[i].base_addr,
+>>> +                                   &imsic_cfg.mmios[i].size);
+>>> +        if ( rc )
+>>> +        {
+>>> +            printk(XENLOG_ERR "%s: unable to parse MMIO regset %u\n",
+>>> +                   node->name, i);
+>>> +            goto imsic_init_err;
+>>> +        }
+>>> +
+>>> +        base_addr = imsic_cfg.mmios[i].base_addr;
+>>> +        base_addr &= ~(BIT(imsic_cfg.guest_index_bits +
+>>> +                           imsic_cfg.hart_index_bits +
+>>> +                           IMSIC_MMIO_PAGE_SHIFT, UL) - 1);
+>>> +        base_addr &= ~((BIT(imsic_cfg.group_index_bits, UL) - 1) <<
+>>> +                       imsic_cfg.group_index_shift);
+>>> +        if ( base_addr != imsic_cfg.base_addr )
+>>> +        {
+>>> +            rc = -EINVAL;
+>>> +            printk(XENLOG_ERR "%s: address mismatch for regset %u\n",
+>>> +                   node->name, i);
+>>> +            goto imsic_init_err;
+>>> +        }
+>> Maybe just for my own understanding: There's no similar check for the
+>> sizes to match / be consistent wanted / needed?
+> 
+> If you are speaking about imsic_cfg.mmios[i].size then it depends fully on h/w will
+> provide, IMO.
+> So I don't what is possible range for imsic_cfg.mmios[i].size.
 
-... the attribute moved to between type and identifier, as we generally have it
-elsewhere.
+Well, all I can say is that's it feels odd that you sanity check base_addr
+but permit effectively any size.
+
+>>> @@ -18,6 +19,18 @@ static inline unsigned long cpuid_to_hartid(unsigned long cpuid)
+>>>       return pcpu_info[cpuid].hart_id;
+>>>   }
+>>>   
+>>> +static inline unsigned long hartid_to_cpuid(unsigned long hartid)
+>>> +{
+>>> +    for ( unsigned int cpuid = 0; cpuid < ARRAY_SIZE(pcpu_info); cpuid++ )
+>>> +    {
+>>> +        if ( hartid == cpuid_to_hartid(cpuid) )
+>>> +            return cpuid;
+>>> +    }
+>>> +
+>>> +    /* hartid isn't valid for some reason */
+>>> +    return NR_CPUS;
+>>> +}
+>> Considering the values being returned, why's the function's return type
+>> "unsigned long"?
+> 
+> mhartid register has MXLEN length, so theoretically we could have from 0 to MXLEN-1
+> Harts and so we could have the same amount of Xen's CPUIDs. and MXLEN is 32 for RV32
+> and MXLEN is 64 for RV64.
+
+Yet the return value here is always constrained by NR_CPUS, isn't it?
 
 Jan
 
