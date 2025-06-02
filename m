@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 06546ACAB2A
-	for <lists+xen-devel@lfdr.de>; Mon,  2 Jun 2025 11:05:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1002941.1382358 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 89335ACAB26
+	for <lists+xen-devel@lfdr.de>; Mon,  2 Jun 2025 11:05:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1002943.1382381 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uM16E-0007uy-Jd; Mon, 02 Jun 2025 09:04:54 +0000
+	id 1uM16I-0008U1-36; Mon, 02 Jun 2025 09:04:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1002941.1382358; Mon, 02 Jun 2025 09:04:54 +0000
+Received: by outflank-mailman (output) from mailman id 1002943.1382381; Mon, 02 Jun 2025 09:04:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uM16E-0007qN-Fr; Mon, 02 Jun 2025 09:04:54 +0000
-Received: by outflank-mailman (input) for mailman id 1002941;
- Mon, 02 Jun 2025 09:04:53 +0000
+	id 1uM16H-0008RZ-Uy; Mon, 02 Jun 2025 09:04:57 +0000
+Received: by outflank-mailman (input) for mailman id 1002943;
+ Mon, 02 Jun 2025 09:04:56 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=5qKV=YR=gmail.com=xakep.amatop@srs-se1.protection.inumbo.net>)
- id 1uM16D-0007kh-Ch
- for xen-devel@lists.xenproject.org; Mon, 02 Jun 2025 09:04:53 +0000
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [2a00:1450:4864:20::12f])
+ id 1uM16G-0007kh-Gw
+ for xen-devel@lists.xenproject.org; Mon, 02 Jun 2025 09:04:56 +0000
+Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
+ [2a00:1450:4864:20::133])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a49eed8e-3f90-11f0-b894-0df219b8e170;
- Mon, 02 Jun 2025 11:04:51 +0200 (CEST)
-Received: by mail-lf1-x12f.google.com with SMTP id
- 2adb3069b0e04-5534f3722caso252521e87.0
- for <xen-devel@lists.xenproject.org>; Mon, 02 Jun 2025 02:04:51 -0700 (PDT)
+ id a6756e62-3f90-11f0-b894-0df219b8e170;
+ Mon, 02 Jun 2025 11:04:55 +0200 (CEST)
+Received: by mail-lf1-x133.google.com with SMTP id
+ 2adb3069b0e04-551fe46934eso4789596e87.1
+ for <xen-devel@lists.xenproject.org>; Mon, 02 Jun 2025 02:04:54 -0700 (PDT)
 Received: from yp-VivoBook-ASUSLaptop-M1503QA-M1503QA.. ([95.67.15.120])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5533791cdc3sm1507541e87.176.2025.06.02.02.04.50
+ 2adb3069b0e04-5533791cdc3sm1507541e87.176.2025.06.02.02.04.51
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 02 Jun 2025 02:04:50 -0700 (PDT)
+ Mon, 02 Jun 2025 02:04:53 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a49eed8e-3f90-11f0-b894-0df219b8e170
+X-Inumbo-ID: a6756e62-3f90-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1748855091; x=1749459891; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1748855094; x=1749459894; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Da/Gwj5SRn8BTf5+gC6RkaoWtjYeeb+pM91gG3eXP48=;
-        b=WR3l8b//HTc/vvydLQNzqKH2jZoqJMoFtrFpzqgrYQPUH6MXU8THOumo8n404ixRI2
-         RGxFsmuwH1drmlFovrnFeLlMVD9QmHZrTahXTcBz2GCkNowBvyoMj7jbpqM2OQE7GSrR
-         5e7Vq6k1+T61WtN4QMr2a7V03bO/fOiNge4jWH5bdrAHhTrDpVTCbfJEl6/O8qXdfYM7
-         kOned9m/DghJ4+GgUfYPUb8So0lS7BphcfRQ6LHJWko98qvx6PGSrzH1PCNpx9ANogjp
-         1kJUkfEhsw89dQvlrVrG/HkVBQJ+ansNuX4imaCi4dIGXve6mDdUV6D4VT1Dg8p92OMu
-         Sp4g==
+        bh=uqPcozH5cY7WTdc/VNhtz0ZQbmCe6X/v3JhqZHPKizE=;
+        b=ZVxmGu10AD80T/aX8tjvpkfnwdwwNWZ1Q5QtVFlL6jgZf9h6HEaAP7nSLceSVp8sTw
+         e103hUe2USC7pmv4VDkpRZpFFXktKXXa9/tEt7Ba5NuqBCw2I6ZZwONAQ8CAulhsusjf
+         8KEqhmp+azMXiYIiDtmjI6UiYBZc1Mp3TIH8+yVGc+BbN5gA8yw0kGlqxc8t3QSyIrl0
+         yoikQn8JbkdOg1smVhMpdz1M1JxDzgtV5Fg2JfGGlc/BkmmRq7aZPtQwlSZfWQRkJJpl
+         d4MXRyGm/lysnhMC90IfhbaAyUQEC78wcP2k6wsPtnmZPTydHPM22TI3jpUaLguvGk8F
+         87Jw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1748855091; x=1749459891;
+        d=1e100.net; s=20230601; t=1748855094; x=1749459894;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=Da/Gwj5SRn8BTf5+gC6RkaoWtjYeeb+pM91gG3eXP48=;
-        b=SnFdF6Hxf+muuaNfSSo1bKD6t67vMHAUmp5DMs4wFVQD1Fnn4ZmzjCwk2zdUzIObIC
-         90jMPSScRlo7n7Mx51j68N6SPkvt2FDzIJdX9xTmdEFoEaITUsC3kNYQIrfnHlYLlcpE
-         UnHfmM12DWCy0O31QgR8gMpJ4HjFKBvKXeA69oOnPKsn5d2f4EoTIPc1UJmmCv8ClY2X
-         LuwD9mO2MBSc+oEeUBsMdAYnJTyaZpEF14ilN8quxfShQFV/vNjLaR2Rg310lvuhGH8h
-         bhWvsvc1XPwr6spj1HLw8hMhmyFRLTX1rrMaeznTNWm8kywJM6gCuTAOZq+yPKSjt16p
-         BqMg==
-X-Gm-Message-State: AOJu0Yx3wM+sD2QSOmtPfBtvDY2+al5/3jnop+t6tv16o2McSRQ6Yfhm
-	AwvXg2GUVHeGO6xABcqsWhkTEyyjuKHoCeZB2/4PE0TNn5mgAzK7H1jIH34yqdQg
-X-Gm-Gg: ASbGnctaZ/53f0YRPEPCkBFUhuGY/LMbB9CNOVsWvIyEDN7gdil1RQ7cos1CnxvVATp
-	8Hxzze1/us7avs4oq0NI+9TmgIx81at9rfNEkIo0R0/q+0Tu1eFSG7IeTT2K/vkV7aGHSpsFAjH
-	D0e8ELsLPFuGqWEHLB6LcwFeB821jratEyDYQXPP3GzbzH6LUgXCto87iuWlgAeDrxtfJWQlg0A
-	eKMfxWc5xzBS8t+0t8NVQzbT16g2H8w/JiEs4ByK15ZrtOYoiB4PkwMD13ru+TGpMi7qQT0k3fV
-	N8H0uQUnUt9AFGHcDWcBx+2DDlxTdvHrnvLOMROT9vN741/xZuvlyqIgCEOXtyhRfzX0bgRKWXH
-	A95bEO59MTam1KZ8=
-X-Google-Smtp-Source: AGHT+IGSGQlhdjKcLLakl9LRgHis7Wp+dmnc2fkNECPVD/CuspGse8lLtiZIhN0uW5p+NxZ0WdrUqQ==
-X-Received: by 2002:a05:6512:3b2a:b0:553:3892:5ecc with SMTP id 2adb3069b0e04-55342f928d0mr1769232e87.36.1748855090890;
-        Mon, 02 Jun 2025 02:04:50 -0700 (PDT)
+        bh=uqPcozH5cY7WTdc/VNhtz0ZQbmCe6X/v3JhqZHPKizE=;
+        b=RBIdOQIuGB0gx4Ma8CcNhGaI/6c24zsFlH8+yWWzKMM/KegRY3CZ5Nb9VPkZlxM3fF
+         5u2QuDOqDI8Zm4LFDUcOxrP6EiZYfFjlujYyoEPp/rUFQndtYA7p1ogUwvMHkuD8pWwv
+         CprKs7P2XAjXorkFehmyQAw4ouMdyIGrnUkPLWU7GFF38GeN2Ou+TSv+FSr0MN0r2RJK
+         66mdyFzCQtRe8nz3CQWJh4SD0zFqOFtKVsyyErnJserqSm654Q6J8Glj973hbp2FFIPd
+         kM7irSGe6an848BML4u9MMKaeLaJiYP46A6SxO4B3vCykB9gtrFqVFUOG0yncWXeJtQs
+         4WvA==
+X-Gm-Message-State: AOJu0YyXrwYTaMcazVjQwp4YFb0yfdt8vHOp+4sb5UxHwrhm6a6AXeRL
+	1KPegG17nCoHzSYCtGVM4a8I9YkDg0HYab2ZzS6QaTOmlYBqgBcG4Tw+NM7MmvCr
+X-Gm-Gg: ASbGncut6InjXlKY7uekZRyCE5Hd+zwA7HiAV7BQBdKf3lyKnCrz2vfwJqGXSpdF0il
+	0xkR6lCYWLH/gedE2XKDpsiOleia8zu0UL966hEZspyCgnpsn4Kq1k12XoaBpcvf/1WgAGgcyvt
+	p47y1fDqvRuHQczh40DOyBd3R/KJh2dybNSu51DN4pi+zqCEAf8/gB64hIk6z/3I3PY7Z0HhY+T
+	7pbOtw7dSyrrj2VW3SsNDg/yI0909egj26v78oB4sOCT9aKW3iyFwMj5w+8w+JSgaIVGXqoUrQS
+	K25eDyLLmHFMuIQaDFtcHp7p5QTWofJYFmpKUjKW1sf+4Imq3ri2cyWwvWkdsYIzJjpK8qMiaPn
+	Z3CyleiTAZ7Wt9gI=
+X-Google-Smtp-Source: AGHT+IFEWk5B09gxMmpBvB5cg/vxGWxO+XS2KdbPTd/vJrhO5L40I2jeOSWpJi89b7J3UM5ZWg5JqQ==
+X-Received: by 2002:a05:6512:3b86:b0:54a:c4af:15 with SMTP id 2adb3069b0e04-5533ba8be3emr3554424e87.19.1748855093947;
+        Mon, 02 Jun 2025 02:04:53 -0700 (PDT)
 From: Mykola Kvach <xakep.amatop@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: xakep.amatop@gmail.com,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
 	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v4][PART 2 01/10] xen/x86: Move freeze/thaw_domains to common code
-Date: Mon,  2 Jun 2025 12:04:12 +0300
-Message-ID: <a679ba83fcc0e8387158a218f3af1fa234ea3534.1748848482.git.mykola_kvach@epam.com>
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [PATCH v4][PART 2 02/10] xen/arm: Add suspend and resume timer helpers
+Date: Mon,  2 Jun 2025 12:04:13 +0300
+Message-ID: <d57cba4cfc0944c5483e68440a5675db735805be.1748848482.git.mykola_kvach@epam.com>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <cover.1748848482.git.mykola_kvach@epam.com>
 References: <cover.1748848482.git.mykola_kvach@epam.com>
@@ -102,114 +100,118 @@ Content-Transfer-Encoding: 8bit
 
 From: Mirela Simonovic <mirela.simonovic@aggios.com>
 
-The freeze_domains and thaw_domains functions are currently defined
-in x86-specific suspend code. These functions are also useful on other
-architectures, such as ARM, for implementing system-wide suspend and
-resume functionality.
+Timer interrupts must be disabled while the system is suspended to prevent
+spurious wake-ups. Suspending the timers involves disabling both the EL1
+physical timer and the EL2 hypervisor timer. Resuming consists of raising
+the TIMER_SOFTIRQ, which prompts the generic timer code to reprogram the
+EL2 timer as needed. Re-enabling of the EL1 timer is left to the entity
+that uses it.
 
-This patch moves these functions to common code so they can be reused
-across architectures.
+Introduce a new helper, disable_physical_timers, to encapsulate disabling
+of the physical timers.
 
 Signed-off-by: Mirela Simonovic <mirela.simonovic@aggios.com>
 Signed-off-by: Saeed Nowshadi <saeed.nowshadi@xilinx.com>
-Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
 Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
 ---
-Changes in v4:
-- Enhanced commit message with a clearer explanation of the
-  rationale for moving freeze/thaw_domains to common code.
----
- xen/arch/x86/acpi/power.c | 25 -------------------------
- xen/common/domain.c       | 25 +++++++++++++++++++++++++
- xen/include/xen/sched.h   |  3 +++
- 3 files changed, 28 insertions(+), 25 deletions(-)
+Changes in V4:
+  - Rephrased comment and commit message for better clarity
+  - Created separate function for disabling physical timers
 
-diff --git a/xen/arch/x86/acpi/power.c b/xen/arch/x86/acpi/power.c
-index 448aa9f3a7..2ac162c997 100644
---- a/xen/arch/x86/acpi/power.c
-+++ b/xen/arch/x86/acpi/power.c
-@@ -138,31 +138,6 @@ static void device_power_up(enum dev_power_saved saved)
-     }
- }
+Changes in V3:
+  - time_suspend and time_resume are now conditionally compiled
+    under CONFIG_SYSTEM_SUSPEND
+---
+ xen/arch/arm/include/asm/time.h |  5 +++++
+ xen/arch/arm/time.c             | 38 +++++++++++++++++++++++++++------
+ 2 files changed, 37 insertions(+), 6 deletions(-)
+
+diff --git a/xen/arch/arm/include/asm/time.h b/xen/arch/arm/include/asm/time.h
+index 49ad8c1a6d..f4fd0c6af5 100644
+--- a/xen/arch/arm/include/asm/time.h
++++ b/xen/arch/arm/include/asm/time.h
+@@ -108,6 +108,11 @@ void preinit_xen_time(void);
  
--static void freeze_domains(void)
--{
--    struct domain *d;
--
--    rcu_read_lock(&domlist_read_lock);
--    /*
--     * Note that we iterate in order of domain-id. Hence we will pause dom0
--     * first which is required for correctness (as only dom0 can add domains to
--     * the domain list). Otherwise we could miss concurrently-created domains.
--     */
--    for_each_domain ( d )
--        domain_pause(d);
--    rcu_read_unlock(&domlist_read_lock);
--}
--
--static void thaw_domains(void)
--{
--    struct domain *d;
--
--    rcu_read_lock(&domlist_read_lock);
--    for_each_domain ( d )
--        domain_unpause(d);
--    rcu_read_unlock(&domlist_read_lock);
--}
--
- static void acpi_sleep_prepare(u32 state)
- {
-     void *wakeup_vector_va;
-diff --git a/xen/common/domain.c b/xen/common/domain.c
-index abf1969e60..58c5ffc466 100644
---- a/xen/common/domain.c
-+++ b/xen/common/domain.c
-@@ -2405,6 +2405,31 @@ domid_t get_initial_domain_id(void)
-     return hardware_domid;
- }
+ void force_update_vcpu_system_time(struct vcpu *v);
  
-+void freeze_domains(void)
-+{
-+    struct domain *d;
++#ifdef CONFIG_SYSTEM_SUSPEND
++void time_suspend(void);
++void time_resume(void);
++#endif /* CONFIG_SYSTEM_SUSPEND */
 +
-+    rcu_read_lock(&domlist_read_lock);
-+    /*
-+     * Note that we iterate in order of domain-id. Hence we will pause dom0
-+     * first which is required for correctness (as only dom0 can add domains to
-+     * the domain list). Otherwise we could miss concurrently-created domains.
-+     */
-+    for_each_domain ( d )
-+        domain_pause(d);
-+    rcu_read_unlock(&domlist_read_lock);
-+}
-+
-+void thaw_domains(void)
-+{
-+    struct domain *d;
-+
-+    rcu_read_lock(&domlist_read_lock);
-+    for_each_domain ( d )
-+        domain_unpause(d);
-+    rcu_read_unlock(&domlist_read_lock);
-+}
-+
+ #endif /* __ARM_TIME_H__ */
  /*
   * Local variables:
-  * mode: C
-diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
-index 559d201e0c..071ee19062 100644
---- a/xen/include/xen/sched.h
-+++ b/xen/include/xen/sched.h
-@@ -1070,6 +1070,9 @@ static inline struct vcpu *domain_vcpu(const struct domain *d,
-     return vcpu_id >= d->max_vcpus ? NULL : d->vcpu[idx];
+diff --git a/xen/arch/arm/time.c b/xen/arch/arm/time.c
+index e74d30d258..ad984fdfdd 100644
+--- a/xen/arch/arm/time.c
++++ b/xen/arch/arm/time.c
+@@ -303,6 +303,14 @@ static void check_timer_irq_cfg(unsigned int irq, const char *which)
+            "WARNING: %s-timer IRQ%u is not level triggered.\n", which, irq);
  }
  
-+void freeze_domains(void);
-+void thaw_domains(void);
++/* Disable physical timers for EL1 and EL2 on the current CPU */
++static inline void disable_physical_timers(void)
++{
++    WRITE_SYSREG(0, CNTP_CTL_EL0);    /* Physical timer disabled */
++    WRITE_SYSREG(0, CNTHP_CTL_EL2);   /* Hypervisor's timer disabled */
++    isb();
++}
 +
- void cpu_init(void);
+ /* Set up the timer interrupt on this CPU */
+ void init_timer_interrupt(void)
+ {
+@@ -310,9 +318,7 @@ void init_timer_interrupt(void)
+     WRITE_SYSREG64(0, CNTVOFF_EL2);     /* No VM-specific offset */
+     /* Do not let the VMs program the physical timer, only read the physical counter */
+     WRITE_SYSREG(CNTHCTL_EL2_EL1PCTEN, CNTHCTL_EL2);
+-    WRITE_SYSREG(0, CNTP_CTL_EL0);    /* Physical timer disabled */
+-    WRITE_SYSREG(0, CNTHP_CTL_EL2);   /* Hypervisor's timer disabled */
+-    isb();
++    disable_physical_timers();
  
- /*
+     request_irq(timer_irq[TIMER_HYP_PPI], 0, htimer_interrupt,
+                 "hyptimer", NULL);
+@@ -330,9 +336,7 @@ void init_timer_interrupt(void)
+  */
+ static void deinit_timer_interrupt(void)
+ {
+-    WRITE_SYSREG(0, CNTP_CTL_EL0);    /* Disable physical timer */
+-    WRITE_SYSREG(0, CNTHP_CTL_EL2);   /* Disable hypervisor's timer */
+-    isb();
++    disable_physical_timers();
+ 
+     release_irq(timer_irq[TIMER_HYP_PPI], NULL);
+     release_irq(timer_irq[TIMER_VIRT_PPI], NULL);
+@@ -372,6 +376,28 @@ void domain_set_time_offset(struct domain *d, int64_t time_offset_seconds)
+     /* XXX update guest visible wallclock time */
+ }
+ 
++#ifdef CONFIG_SYSTEM_SUSPEND
++
++void time_suspend(void)
++{
++    disable_physical_timers();
++}
++
++void time_resume(void)
++{
++    /*
++     * Raising the timer softirq triggers generic code to call reprogram_timer
++     * with the correct timeout (not known here).
++     *
++     * No further action is needed to restore timekeeping after power down,
++     * since the system counter is unaffected. See ARM DDI 0487 L.a, D12.1.2
++     * "The system counter must be implemented in an always-on power domain."
++     */
++    raise_softirq(TIMER_SOFTIRQ);
++}
++
++#endif /* CONFIG_SYSTEM_SUSPEND */
++
+ static int cpu_time_callback(struct notifier_block *nfb,
+                              unsigned long action,
+                              void *hcpu)
 -- 
 2.48.1
 
