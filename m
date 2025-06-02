@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C57C7ACB182
-	for <lists+xen-devel@lfdr.de>; Mon,  2 Jun 2025 16:20:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1003491.1383057 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A8441ACB1AC
+	for <lists+xen-devel@lfdr.de>; Mon,  2 Jun 2025 16:22:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1003504.1383077 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uM61h-0001m8-Kd; Mon, 02 Jun 2025 14:20:33 +0000
+	id 1uM63O-0003UO-4w; Mon, 02 Jun 2025 14:22:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1003491.1383057; Mon, 02 Jun 2025 14:20:33 +0000
+Received: by outflank-mailman (output) from mailman id 1003504.1383077; Mon, 02 Jun 2025 14:22:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uM61h-0001kL-HR; Mon, 02 Jun 2025 14:20:33 +0000
-Received: by outflank-mailman (input) for mailman id 1003491;
- Mon, 02 Jun 2025 14:20:32 +0000
+	id 1uM63O-0003RD-1o; Mon, 02 Jun 2025 14:22:18 +0000
+Received: by outflank-mailman (input) for mailman id 1003504;
+ Mon, 02 Jun 2025 14:22:16 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=zRGa=YR=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1uM61g-00008u-KC
- for xen-devel@lists.xenproject.org; Mon, 02 Jun 2025 14:20:32 +0000
-Received: from fhigh-b3-smtp.messagingengine.com
- (fhigh-b3-smtp.messagingengine.com [202.12.124.154])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=QAfa=YR=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uM63M-0003PY-NK
+ for xen-devel@lists.xenproject.org; Mon, 02 Jun 2025 14:22:16 +0000
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [2a00:1450:4864:20::430])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id bca2daae-3fbc-11f0-b894-0df219b8e170;
- Mon, 02 Jun 2025 16:20:30 +0200 (CEST)
-Received: from phl-compute-05.internal (phl-compute-05.phl.internal
- [10.202.2.45])
- by mailfhigh.stl.internal (Postfix) with ESMTP id B126B2540166;
- Mon,  2 Jun 2025 10:20:29 -0400 (EDT)
-Received: from phl-mailfrontend-02 ([10.202.2.163])
- by phl-compute-05.internal (MEProxy); Mon, 02 Jun 2025 10:20:29 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 2 Jun 2025 10:20:28 -0400 (EDT)
+ id fad5d7e1-3fbc-11f0-b894-0df219b8e170;
+ Mon, 02 Jun 2025 16:22:14 +0200 (CEST)
+Received: by mail-wr1-x430.google.com with SMTP id
+ ffacd0b85a97d-3a5123c1533so82518f8f.2
+ for <xen-devel@lists.xenproject.org>; Mon, 02 Jun 2025 07:22:14 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-23506bc85b8sm71329355ad.52.2025.06.02.07.22.10
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 02 Jun 2025 07:22:13 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,174 +45,103 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bca2daae-3fbc-11f0-b894-0df219b8e170
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1748874029;
-	 x=1748960429; bh=AV/igsfrrFWvo9IG6lLn9Rt0La8NTlknG/qFtz69sJY=; b=
-	kHyTEFDTlxfk3VRrr14Z3H8wcYR38pAalGbKRI6eSXIOHxuIh1kzNL3YamEHI6al
-	+2tx6U4YZjZyhuy8z0V11GtgusQmh39VKLjlqPZjx+ZCt3ZBLCpM0J4qi2BhfCyU
-	gMjoRhOVNHWJHW72sOahnv8hgYFkUR97z2ZQwPPIaoZaCwtKmj7UxrJl8RK07fv5
-	hAIwC+yzDb1xnQ1SIYy8KSfeapJyRPLjzCU6sXSZdA239Jypn8v7IYIDBD4t83ga
-	tqMRBwZr5U4ImYA9VmiI0nnok659XYaYGzNhmMmyIdQmVbK/aNKwPuzdfH1s42C7
-	ht+JhCQR/WJm5DanXgYL/w==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1748874029; x=1748960429; bh=AV/igsfrrFWvo9IG6lLn9Rt0La8NTlknG/q
-	Ftz69sJY=; b=PUvaREDggQpJbbKSgyuOjqdXHPoBzJKW+R8m22hRkGuSD9GtWT9
-	bXqLYL157WmQEJx+l60VCIXOD/TFXnB95qlOgDyr2CXG0V9w7jJIAdzCwkfpugdG
-	J5kNdHejHwKW4Ul1OXDwm7GptgAiBk+Bu8Jop8jRloUKPVo7+SWK59q4ftO7wZsI
-	MOl8H5SDmU131o9uSOQ07Ojl2S+r5abERX3Rvnl321GS/H1VnIN+8ZU0M+xZOkBu
-	SYiUFkORMC6srkhTPI6YHjoMWNKxe93bUgtpC6FkRajmMI5Z2Lam0H+BWaeJIK6B
-	/m1BDohqj+ILiJcgoLxeQjJawteZSOxUWaA==
-X-ME-Sender: <xms:LbM9aDmlqjVj2ZGLREtr7cLlx-7EAGSsA1wZ8ECg4slcA33nFU_KOA>
-    <xme:LbM9aG2rmzCsfU0NBtFajTe7rE1rWgFb6_0pA5wFkDwPSQ33fd23IxoiH1sYyk6Np
-    -Wmja2o4U8teQ>
-X-ME-Received: <xmr:LbM9aJpDKBSpaqTNEmnptzo4lwP62Gpbvx1dT1ZG6f2x3qHAKr2GflPGMmRBREXsPu9JuvoRsdjNBQ1EjcbUm4552GapwTO_0q0>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtddtgdefjeeltdculddtuddrgeefvddrtd
-    dtmdcutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpggft
-    fghnshhusghstghrihgsvgdpuffrtefokffrpgfnqfghnecuuegrihhlohhuthemuceftd
-    dtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpeffhffvvefukfhf
-    gggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghkucforghrtgiihihkohifsh
-    hkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhg
-    shhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpefgudelteefvefhfeehieetleeihf
-    ejhfeludevteetkeevtedtvdegueetfeejudenucevlhhushhtvghrufhiiigvpedtnecu
-    rfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthh
-    hinhhgshhlrggsrdgtohhmpdhnsggprhgtphhtthhopeefpdhmohguvgepshhmthhpohhu
-    thdprhgtphhtthhopehkvghvihhnrdhlrghmphhishestghlohhuugdrtghomhdprhgtph
-    htthhopeigvghnqdguvghvvghlsehlihhsthhsrdigvghnphhrohhjvggtthdrohhrghdp
-    rhgtphhtthhopehrohhsshdrlhgrghgvrhifrghllhestghithhrihigrdgtohhm
-X-ME-Proxy: <xmx:LbM9aLmQvOQ9gs-H0o9pAiFgOmKMThA6MiPfnWtRQRld4XzWYSxp6g>
-    <xmx:LbM9aB2ZH-P7vFQrs6wCSjDUyFIIkpqGBsYbPfvpXvqM--jCr_LSDQ>
-    <xmx:LbM9aKvbpuUC2JBR3y2JEoMS18AkCZldQaHfltS2mlPQ_Bwjledsog>
-    <xmx:LbM9aFW7qO8L0_nOJlCkg9j8uE3wgfMLxMee4Dfafm6xYguNDdzIwQ>
-    <xmx:LbM9aLOSB9XDM5poxqwV2chDSTQtNELk7goYEVPgFv606M3QkpWvT3Mo>
-Feedback-ID: i1568416f:Fastmail
-Date: Mon, 2 Jun 2025 16:20:26 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Kevin Lampis <kevin.lampis@cloud.com>
-Cc: xen-devel@lists.xenproject.org,
-	Ross Lagerwall <ross.lagerwall@citrix.com>
-Subject: Re: [PATCH v2 2/3] Add lockdown mode
-Message-ID: <aD2zKsIcsQt-LQlt@mail-itl>
-References: <20250602134656.3836280-1-kevin.lampis@cloud.com>
- <20250602134656.3836280-3-kevin.lampis@cloud.com>
+X-Inumbo-ID: fad5d7e1-3fbc-11f0-b894-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1748874134; x=1749478934; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=TTAs0LNSF1EHUIsw/UIDSNXNq8tvvSiD1S1MQhaB5cw=;
+        b=L8Fi6nSzT53141AljdfKckS6qwjVAuJs4+Q/xdYkIFwNRdYooMWNP5hebT7r8GzbKj
+         1fB+SG9rSLW4TAUN4twcHmqFtCyGZ5WOSvVlRxhiRCAQ+7/KMf81erg6foVZCHqH4m/C
+         3rnuzLJ6XF4oFcWgkPzOfYB3/xiX2s9X0fydi9pat/W68DRH6j49NsOVMbQVYQ2i+MmN
+         sDtF9+c/dEIrNSI+8YuPAInNpl4MO0/WoJ5vC6+Wzn6uCpQNwq/Rk1XLdQuu7R4sC5Lo
+         J71ArMhR06IrWO+2JddxyosnqZc5BxLwuUNqk66q2id7Tmn3um0E97DE7adT0Wd9kJNT
+         UVhw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1748874134; x=1749478934;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=TTAs0LNSF1EHUIsw/UIDSNXNq8tvvSiD1S1MQhaB5cw=;
+        b=FrsrRz43LhZRVJnYHzISk98Hl8jlXQ5AsCz4/8EI2coQUh/FOAGfAv5Ke3GEW12j9x
+         gf6A8thu4qTJhkRWcyoDR3I0nRQLX/wg6ECR+UbKTXqcwpl19jBy6ViZjSAvTzfixFjl
+         F1OPvJKy8EkegA8Qfey6KTQvoI866jnfRrtLFb83KX15QJ2N+HVCGhCrBs9+j0QX8TMi
+         207HssAVH9cXNOyE+A5NrGY+RsuJ5ogzwScLvyzrX5zY8dg/RylmbBhdLmBR6DoUoSLh
+         hGjIXiJYcSAdKfZiH7O6y2g9x1wKyqysWzuLL8nUuF0B2jVieZZJgE2plPaKWT709wQw
+         yTjQ==
+X-Gm-Message-State: AOJu0Yxlq59r4xvWrfdyGnRrrgLJEjfJz6oPwX8thdSVXky+al/Kdr/U
+	oqQdJyCXyx29ZdjzOmax2hBxK+VVVGig/q4af/4LeddSttbY8FpA7X85+/i5WLtKnQ==
+X-Gm-Gg: ASbGnctcJMaar9bxkyYLOfL3woRTVQtilNsQ63LkzoUIKupmEs+fZVBx5RugLLzYyNO
+	BoL51acSffsTqYCSpQ85TbAanRem7ebHIyQky8p1RZ0dONjBsrmQcGrvtRJIV+oC+kmCdHLY57h
+	azhJBlWn2fDIASc0VXA7G5RdHXFmQaW5vwkluWzWgEnRfn9Rd0GbROa8I9wvHtnCT7IFMQ4+1Zp
+	MuNUcz8ZUcUoR0yrT5AyNtovNFjLC0IVWJJgEIKKGlwmjk9XYU3y6fSEfupnqLkghvgwEBJx+ME
+	1vkJ3gbfUpizaoioecpmtKWyNyGa60Sj8OHl5S2cQSGMGFwXbRxNNoyp/Jp8/qdrAcGNE2skksw
+	G9lWURYrZVzpL3tISQht/syQLmG5P2ga+SwgzxZQVLe3qYu0=
+X-Google-Smtp-Source: AGHT+IHEXC6Uumottm9oIKFUcssW7+3tDoegr5i/csRPbP4io+NfA0fzHLWQHdGPxs6FmiNXc1FW6w==
+X-Received: by 2002:a05:6000:250f:b0:3a3:ec58:ebf2 with SMTP id ffacd0b85a97d-3a4f89a5a9cmr10633361f8f.7.1748874133857;
+        Mon, 02 Jun 2025 07:22:13 -0700 (PDT)
+Message-ID: <c6ad5c25-d5e3-4278-8e5d-1cd593e50c6a@suse.com>
+Date: Mon, 2 Jun 2025 16:22:06 +0200
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="ws1tl/B/3EL9OFd3"
-Content-Disposition: inline
-In-Reply-To: <20250602134656.3836280-3-kevin.lampis@cloud.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/3] Disallow most command-line options when lockdown
+ mode is enabled
+To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>
+Cc: xen-devel@lists.xenproject.org, Ross Lagerwall
+ <ross.lagerwall@citrix.com>, Kevin Lampis <kevin.lampis@cloud.com>
+References: <20250602134656.3836280-1-kevin.lampis@cloud.com>
+ <20250602134656.3836280-4-kevin.lampis@cloud.com> <aD2ySVoaV2RydE-L@mail-itl>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <aD2ySVoaV2RydE-L@mail-itl>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+On 02.06.2025 16:16, Marek Marczykowski-Górecki wrote:
+> On Mon, Jun 02, 2025 at 02:46:56PM +0100, Kevin Lampis wrote:
+>> --- a/xen/common/lockdown.c
+>> +++ b/xen/common/lockdown.c
+>> @@ -35,7 +35,7 @@ static int __init parse_lockdown_opt(const char *s)
+>>  
+>>      return 0;
+>>  }
+>> -custom_param("lockdown", parse_lockdown_opt);
+>> +custom_secure_param("lockdown", parse_lockdown_opt);
+> 
+> Is that really a good idea? It means `lockdown=yes lockdown=no` would
+> still disable it in the end. This may matter more if for example the
+> `lockdown=yes` part is in the built-in cmdline (possibly with other
+> integrity protection than UEFI SB).
 
---ws1tl/B/3EL9OFd3
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 2 Jun 2025 16:20:26 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Kevin Lampis <kevin.lampis@cloud.com>
-Cc: xen-devel@lists.xenproject.org,
-	Ross Lagerwall <ross.lagerwall@citrix.com>
-Subject: Re: [PATCH v2 2/3] Add lockdown mode
+But having a way to override an earlier "lockdown" by "lockdown=no" is
+intended? E.g. when your xen.cfg has the former, but you don't really
+want that (for, say, an experiment).
 
-On Mon, Jun 02, 2025 at 02:46:55PM +0100, Kevin Lampis wrote:
-> From: Ross Lagerwall <ross.lagerwall@citrix.com>
->=20
-> The intention of lockdown mode is to prevent attacks from a rogue dom0
-> userspace from compromising the system. Lockdown mode can be controlled b=
-y a
-> Kconfig option and a command-line parameter. It is also enabled automatic=
-ally
-> when Secure Boot is enabled and it cannot be disabled in that case.
->=20
-> If enabled from the command-line then it is required to be first in the
-> list otherwise Xen may process some insecure parameters before reaching
-> the lockdown parameter.
->=20
-> Signed-off-by: Ross Lagerwall <ross.lagerwall@citrix.com>
-> Signed-off-by: Kevin Lampis <kevin.lampis@cloud.com>
-> ---
-> Changes in v2:
-> - Remove custom command line parsing
-> - Print warning if lockdown is not first on command line
-> ---
-=2E..
-
-> diff --git a/xen/common/lockdown.c b/xen/common/lockdown.c
-> new file mode 100644
-> index 0000000000..84eabe9c83
-> --- /dev/null
-> +++ b/xen/common/lockdown.c
-> @@ -0,0 +1,54 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
-> +
-> +#include <xen/efi.h>
-> +#include <xen/lockdown.h>
-> +#include <xen/param.h>
-> +
-> +#define FIRST_ARG_FLAG 2
-> +
-> +static int __ro_after_init lockdown =3D IS_ENABLED(CONFIG_LOCKDOWN_DEFAU=
-LT);
-> +
-> +void __init lockdown_set_first_flag(void)
-> +{
-> +    lockdown |=3D FIRST_ARG_FLAG;
-> +}
-> +
-> +void __init lockdown_clear_first_flag(void)
-> +{
-> +    lockdown &=3D ~FIRST_ARG_FLAG;
-> +}
-> +
-> +static int __init parse_lockdown_opt(const char *s)
-> +{
-> +    if ( strncmp("no", s, 2) =3D=3D 0 )
-
-This is rather inconsistent with other bool options. I think you want to
-use parse_bool() here.
-
-> +        if ( efi_secure_boot )
-> +            printk("lockdown can't be disabled because Xen booted in Sec=
-ure Boot mode\n");
-> +        else
-> +            lockdown =3D 0;
-> +    else
-> +    {
-> +        if ( !(lockdown & FIRST_ARG_FLAG) )
-> +            printk("lockdown was not the first argument, unsafe argument=
-s may have been already processed\n");
-> +
-> +        lockdown =3D 1;
-> +    }
-> +
-> +    return 0;
-> +}
-> +custom_param("lockdown", parse_lockdown_opt);
-
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---ws1tl/B/3EL9OFd3
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmg9syoACgkQ24/THMrX
-1ywGAAgAkkdGb+Ji+h1zoL1o9UKy6Md6/Yf6cqEdulcY7MvpAwQM0tZ9p19Hlx2U
-w+ZD933uNMhpZYEMj/9+v6dgjnnzDKF3Aqni3j2zAG206LzNWyNj4j6SWGKK5dLD
-82iQ8j+AgPQMH+Uhd7fWrn4azDs0Yn7gIoLRFXJ/6XBqEcS3DWMocM25zhkvPq8m
-mFJ6AfXMHCtTOaE+jbEarrms8IB9/Pd/G9uPr4rj2MPaNC52aBt91xeyIVe/vWLW
-Q5ln68x4/FSPEDb6ullh0m7j1evSn9ud9X678L/xEs3M0wW9+mKIK68GCOFBzN/C
-ptxuECA+UgAi+nKICY/Y/7gIepW27A==
-=DS/K
------END PGP SIGNATURE-----
-
---ws1tl/B/3EL9OFd3--
+Jan
 
