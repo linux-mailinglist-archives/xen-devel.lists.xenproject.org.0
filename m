@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BFFACACA9F1
-	for <lists+xen-devel@lfdr.de>; Mon,  2 Jun 2025 09:31:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1002839.1382230 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 378A8ACAA14
+	for <lists+xen-devel@lfdr.de>; Mon,  2 Jun 2025 09:48:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1002846.1382241 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uLzdg-0005wf-D6; Mon, 02 Jun 2025 07:31:20 +0000
+	id 1uLztv-0007sU-L7; Mon, 02 Jun 2025 07:48:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1002839.1382230; Mon, 02 Jun 2025 07:31:20 +0000
+Received: by outflank-mailman (output) from mailman id 1002846.1382241; Mon, 02 Jun 2025 07:48:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uLzdg-0005uc-9Z; Mon, 02 Jun 2025 07:31:20 +0000
-Received: by outflank-mailman (input) for mailman id 1002839;
- Mon, 02 Jun 2025 07:31:18 +0000
+	id 1uLztv-0007q0-Hg; Mon, 02 Jun 2025 07:48:07 +0000
+Received: by outflank-mailman (input) for mailman id 1002846;
+ Mon, 02 Jun 2025 07:48:05 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=QAfa=YR=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uLzde-0005uU-GY
- for xen-devel@lists.xenproject.org; Mon, 02 Jun 2025 07:31:18 +0000
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
- [2a00:1450:4864:20::429])
+ id 1uLztt-0007pu-L4
+ for xen-devel@lists.xenproject.org; Mon, 02 Jun 2025 07:48:05 +0000
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [2a00:1450:4864:20::42e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8b02b86a-3f83-11f0-a300-13f23c93f187;
- Mon, 02 Jun 2025 09:31:05 +0200 (CEST)
-Received: by mail-wr1-x429.google.com with SMTP id
- ffacd0b85a97d-3a503d9ef59so762011f8f.3
- for <xen-devel@lists.xenproject.org>; Mon, 02 Jun 2025 00:31:05 -0700 (PDT)
+ id ea3ac6f9-3f85-11f0-a300-13f23c93f187;
+ Mon, 02 Jun 2025 09:48:04 +0200 (CEST)
+Received: by mail-wr1-x42e.google.com with SMTP id
+ ffacd0b85a97d-3a4f78ebec8so1584116f8f.0
+ for <xen-devel@lists.xenproject.org>; Mon, 02 Jun 2025 00:48:04 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-747affafa34sm7220962b3a.103.2025.06.02.00.31.00
+ 41be03b00d2f7-b2eceb396f6sm4343096a12.42.2025.06.02.00.47.59
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 02 Jun 2025 00:31:04 -0700 (PDT)
+ Mon, 02 Jun 2025 00:48:02 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8b02b86a-3f83-11f0-a300-13f23c93f187
+X-Inumbo-ID: ea3ac6f9-3f85-11f0-a300-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1748849465; x=1749454265; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1748850484; x=1749455284; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Gr0W4d9Z7GhDmdsc2sW5D6VLyrwB0V2fU8lbKoKoQUw=;
-        b=ALn+YBUnmGhbfoJLnLAjQZu2s6hB7uNBZMO3iC/7hIDFwFa1PuQdUH0IQEza6w7M1r
-         2LGsZZQkOqEUfOHbOeZLoTTVAXIFEaJBXsSd1zoWADsURTKbwQu0Gh8IeDSJ9dJ7FOQf
-         KaPxxKoeHoz2D/E+zlZkExROENnvarCn24FU3qrJ4d89xIiDxZ1P1cJZ0iaRKSLNOWhc
-         +LKG8AO/9eCOuKPob3Kjv4plDwjNWY7oorL/yN0O66XFTlwoCfLeNFvjPyOv9m/XaZpC
-         Ijj9/wwMPwqiJ+kry2SM2K1CaACnGUyYWEY+b+LUp9YBvcMeFlNfA/quyg1KDy80gN3w
-         vBQQ==
+        bh=VuQJh8JOIlFyJ8NwWZN9JrryHkYz8OsrTmzcYDIvA3Q=;
+        b=X/r4lK4lXR7ZtjEYccnVcr3yimo2lYgcrqVpsQ2Edc31d07mAyg65cSCTO9OmF2Ufa
+         KRHiPmwtgPzn9OZNOp5vqlAou2+cuJ6ExTCX9kXm6dbQhDGnjCAKz6NkrKjB4/ARcR6G
+         9B5EtfUYx+VV3PaUaqUu5gq93uH4tsSZ0eqLKP9tGUI2r+BIo/JD1X0tK6Csh88uDn7+
+         QYdv50B+X1PYcrBMT18goPw2/7EFjd7/sDw57+59FTRY51H+5zsLALyTM29ogq0LuAtx
+         9hme3Najcx/+RW6DUYRAR0614zWo8NuCsodhzp2GRB+gO4rHQTLw5x0ZU7fNdTmzYBdV
+         LxrQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1748849465; x=1749454265;
+        d=1e100.net; s=20230601; t=1748850484; x=1749455284;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Gr0W4d9Z7GhDmdsc2sW5D6VLyrwB0V2fU8lbKoKoQUw=;
-        b=Mc9Dhl8pf6MeNGgAf6bf8RnQe8znWH8QcEYqiJcomNbpiGrpvuQwehcmqHgb4cuVB3
-         KEi38OVNpVZx85ylxjTtIooUX3dMhhMV9ZOVIA0s3gw5jbGkNsjVfd+spBXpHEf3yBpv
-         ANLJdOJO0U3TTVi5PpqqcQ+vq91vxsdYl4RGL7hNLiH5p8RINsZv6Dh6d/YR9kFRRmU2
-         +P2hO1vZvedA4qBH384vFE8pAvSFI5z/Dg0fW4oOupTszN21hVWlqieSK/gaJ0CHe0Nd
-         /h+9wLJlMADR7iMWWruJXLM71WTacRJqanayOUHXnG3k1NoSiMgKN8kPGuKPOZSK8PAw
-         RFhQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXRQOUzw7ZA0BAug7CZlZfrTWGUugbwJ7127FFUtZd+Movpw2EZqpoa5vJ+rc3I/5VN21ynMQRKhLA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzJkXybXOppu6TykQkq9tNTCJ1popctFxFou4fMQF/KEc4B3Bco
-	GdnbZIlLwoBu0ma9jp+A/QhnORRpx9fN+G7sj9s4nZUCJJlb4pQszhxFYcSujMYt+w==
-X-Gm-Gg: ASbGnctYCbxOW2wGNOJciCyPeVV9OfobIxNpD4ZdUjCdE9InF3L4aU2XkwPOiJYFvYr
-	MPASll/7sFBjVbU9jWoFyLziVWb+FgHFnbYMEZzkhKJqmYyfn01FEghOKLX9ErBVoDki+X2l/Wn
-	DVvrYBFP4LsnjM7CspTeYGLaKXkzaU15xBN3cpwjptdm67s/eACskgiFdnASFeV0/6V1hgIsaem
-	GvzZRylls7jBohWEgOPowr9vYcBlZ3ucW/olYEleJQart8/u98MZLf8iANJG9BqqNabyTKDG1Uq
-	4veiU/4QvcLcErseTo4tCdy7Oex57IqM5hw+RauGNtJIeoO0sSKbE1lk3OfvGnqLfrcncZUGEzX
-	2Oxyu1Ao9eZRs5fhLE7zUxWYPzPnK1j4IfR/n
-X-Google-Smtp-Source: AGHT+IGqLImJUHq14zafjBMpIwNYTLdYQPzO6D2+lNiq0zbBU72tBlNz8fbGL1lf8k6mI676RmXLiQ==
-X-Received: by 2002:a05:6000:4013:b0:3a4:edf6:566b with SMTP id ffacd0b85a97d-3a4fe160d10mr4902997f8f.6.1748849464867;
-        Mon, 02 Jun 2025 00:31:04 -0700 (PDT)
-Message-ID: <8521480a-f14d-4ac4-826e-6ed066619070@suse.com>
-Date: Mon, 2 Jun 2025 09:31:11 +0200
+        bh=VuQJh8JOIlFyJ8NwWZN9JrryHkYz8OsrTmzcYDIvA3Q=;
+        b=KfwXuvEnAT40uue1ORXV94KJGpLrf1Snhgpjn8Kqh8IE01dh6yQB2QX28oJyZu9Wru
+         4XLKzDoLoBqsvjEn1VL/6Qfmrrbd5WBmYB0C+mqCo/cXHcmMd1JE7JYjvVUwLlLYzWIB
+         g/wbr7Oqm9AnFviAFW0SNV/dJzm1jEK/iNX6MZS1Z3l1XMXOHU/4613z+9wbxT1uRZ8G
+         1tk8V1V+xg5Hk41J2XLub5CHDZCE2vsVfHR+ILYovlDXt0Qo+X9IWSO0r8tyKodFIrCe
+         NsVtjB3TWElH9ZeQGfsIyZnzdogxLB+hMzq7ZtzeOX0h4HcbRwHF7/FqWI6iivD2AGjl
+         pd8w==
+X-Forwarded-Encrypted: i=1; AJvYcCW7x9EMTGrBEzJf18M9BGCDla/Ap/xeN3wk9ftb/Fq0pHk6p7UICzszUpooNcYpHXSIs7MCIczjRps=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwFRaYhDVcz0Snvf4hVEU0qw7k1uxjUzxg5IPEV4Kfjx62oZSlJ
+	7t/i+XC7pKFiIoshy4BDTv6MsOjfg7i6ihQX317d8EIenliI5cGoFvC/OmiPEuJtLA==
+X-Gm-Gg: ASbGncsgAb5iLKrlWXan/z1CWtBtTqHZvRMS0znY0BmTnsEde/DPR0Xn1enZEpFdkLY
+	UHprFpC5fzHq8wqXhTl0FYrMK0ionVXkkaz3Ytl4VkglA8xPM7/AVDcPL3cVBe97o/eeQSnzUJ0
+	jvIhDV7A2PiASSP1/xhpcrEW1x3zLkHz8DgvqkqnPy2ghb6ecJZpZqtbLx6+1454p1DaGcpua4V
+	rPwbVPTBDdteOVlDhSmfV19bT9rannQF0ERLfUdSloV5vnjA8Ym/Opxn1bbRfsn+QdQBAGKsaQH
+	rvDahI6myAOAiDsVsOhAl3VIJkdXOzyfG7FyJwo2Nen909QApz6SFjsTG7v01QIiRGNWdb0RvFL
+	KtF28itKeCqoMWZKrBAzICacgWwTZLeAQSGNy
+X-Google-Smtp-Source: AGHT+IHyW1eNEyTCSasXANQXDAtgz7lLhxfRwi5KfDWrlt58AlPDdJfdZpZXOftJAvwUXnz/CcBtpg==
+X-Received: by 2002:a05:6000:1445:b0:3a4:ef30:a4c8 with SMTP id ffacd0b85a97d-3a4f89a5d60mr8129392f8f.10.1748850483633;
+        Mon, 02 Jun 2025 00:48:03 -0700 (PDT)
+Message-ID: <680c7ba4-e4f4-4fb9-969d-ecaa206e37c6@suse.com>
+Date: Mon, 2 Jun 2025 09:48:09 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 02/22] include/xen/slr-table.h: Secure Launch Resource
- Table definitions
-To: Sergii Dmytruk <sergii.dmytruk@3mdeb.com>
-Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- Ross Philipson <ross.philipson@oracle.com>,
- trenchboot-devel@googlegroups.com, xen-devel@lists.xenproject.org
-References: <cover.1747155790.git.sergii.dmytruk@3mdeb.com>
- <cdd7b9ff21c81683ce2245bc2b5e0a7a87e51e3c.1747155790.git.sergii.dmytruk@3mdeb.com>
- <4896ab0b-f45e-43e9-bcee-f5496717eb2a@suse.com> <aDD0ZYM-PtV7NKVc@MjU3Nj>
+Subject: Re: [PATCH 02/19] x86: Add missing pci_dev forward declaration in
+ asm/pci.h
+To: Alejandro Vallejo <agarciav@amd.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ xen-devel@lists.xenproject.org
+References: <DA1WWRUQLCAG.ZTVR1HXJ85V0@amd.com>
+ <20250530120242.39398-1-agarciav@amd.com>
+ <20250530120242.39398-3-agarciav@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,75 +122,26 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aDD0ZYM-PtV7NKVc@MjU3Nj>
+In-Reply-To: <20250530120242.39398-3-agarciav@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 24.05.2025 00:19, Sergii Dmytruk wrote:
-> On Wed, May 21, 2025 at 05:45:04PM +0200, Jan Beulich wrote:
->>> +/*
->>> + *  Copyright (c) 2025 Apertus Solutions, LLC
->>> + *  Copyright (c) 2025 Oracle and/or its affiliates.
->>> + *  Copyright (c) 2025 3mdeb Sp. z o.o
->>
->> I'm curious: Considering the (just) 2 S-o-b, where's the 3rd copyright
->> line coming from?
-> 
-> I'll add "Daniel P. Smith" (already in CC), not sure why his S-o-B
-> wasn't there.
+On 30.05.2025 14:02, Alejandro Vallejo wrote:
+> --- a/xen/arch/x86/include/asm/pci.h
+> +++ b/xen/arch/x86/include/asm/pci.h
+> @@ -13,6 +13,8 @@
+>                          || (id) == 0x01128086 || (id) == 0x01228086 \
+>                          || (id) == 0x010A8086 )
+>  
+> +struct pci_dev;
+> +
+>  struct arch_pci_dev {
+>      vmask_t used_vectors;
+>      /*
 
-Just to mention it: Be careful there; aiui you can't simply add someone else's
-S-o-b without their agreement.
-
->>> +#define UEFI_SLR_TABLE_GUID \
->>> +    { 0x877a9b2aU, 0x0385, 0x45d1, { 0xa0, 0x34, 0x9d, 0xac, 0x9c, 0x9e, 0x56, 0x5f } }
->>
->> I'm not sure this is a good place to put UEFI GUIDs. Considering e.g ...
-> 
-> It's here because the GUID is related more to SLRT than to EFI.  I can
-> move it if there is a more fitting place for table GUIDs.
-
-It'll (at least somewhat) depend on where it's going to be used. A common problem
-when definitions / declarations are introduced without any use.
-
->>> +/*
->>> + * Primary SLR Table Header
->>> + */
->>> +struct slr_table
->>> +{
->>> +    uint32_t magic;
->>> +    uint16_t revision;
->>> +    uint16_t architecture;
->>> +    uint32_t size;
->>> +    uint32_t max_size;
->>> +    /* entries[] */
->>> +} __packed;
->>
->> If x86-specific, the question on the need for some of the __packed arises
->> again.
-> 
-> The table is used to communicate data from pre-DRTM world to DRTM-world
-> and is produced and consumed by unrelated software components that don't
-> necessarily pad structures the same way by default.
-
-How do other environments matter when this header is solely used by Xen?
-
->>> +/*
->>> + * Prototype of a function pointed to by slr_entry_dl_info::dl_handler.
->>> + */
->>> +typedef void (*dl_handler_func)(struct slr_bl_context *bl_context);
->>
->> It being an internal header, ...
->>> +    uint64_t dl_handler;
->>
->> ... why can't this type be used here then? This would presumably avoid a
->> typecast later.
-> 
-> It's not an internal header in my understanding of the phrase, Xen
-> parses what a bootloader has passed to it.  In principle, pointers could
-> be 32-bit here.
-
-"Internal" as opposed to "public", i.e. what's exposed to guests.
+Would it perhaps be better to put this ahead of xen/pci.h's #include, thus
+helping all architectures?
 
 Jan
+
 
