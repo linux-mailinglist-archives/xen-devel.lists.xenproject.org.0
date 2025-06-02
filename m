@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 72791ACB890
-	for <lists+xen-devel@lfdr.de>; Mon,  2 Jun 2025 17:42:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1003634.1383226 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 92959ACB8F7
+	for <lists+xen-devel@lfdr.de>; Mon,  2 Jun 2025 17:51:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1003647.1383237 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uM7JJ-0007eu-1J; Mon, 02 Jun 2025 15:42:49 +0000
+	id 1uM7R5-0000wc-Ts; Mon, 02 Jun 2025 15:50:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1003634.1383226; Mon, 02 Jun 2025 15:42:49 +0000
+Received: by outflank-mailman (output) from mailman id 1003647.1383237; Mon, 02 Jun 2025 15:50:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uM7JI-0007dT-UX; Mon, 02 Jun 2025 15:42:48 +0000
-Received: by outflank-mailman (input) for mailman id 1003634;
- Mon, 02 Jun 2025 15:42:47 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uM7R5-0000u5-QT; Mon, 02 Jun 2025 15:50:51 +0000
+Received: by outflank-mailman (input) for mailman id 1003647;
+ Mon, 02 Jun 2025 15:50:50 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=QAfa=YR=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uM7JG-0007dI-Vr
- for xen-devel@lists.xenproject.org; Mon, 02 Jun 2025 15:42:46 +0000
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [2a00:1450:4864:20::42b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3ab7e3bf-3fc8-11f0-a300-13f23c93f187;
- Mon, 02 Jun 2025 17:42:46 +0200 (CEST)
-Received: by mail-wr1-x42b.google.com with SMTP id
- ffacd0b85a97d-3a4f89c6e61so1806195f8f.3
- for <xen-devel@lists.xenproject.org>; Mon, 02 Jun 2025 08:42:46 -0700 (PDT)
+ id 1uM7R4-0000sm-RE
+ for xen-devel@lists.xenproject.org; Mon, 02 Jun 2025 15:50:50 +0000
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [2a00:1450:4864:20::435])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5a5823ef-3fc9-11f0-b894-0df219b8e170;
+ Mon, 02 Jun 2025 17:50:48 +0200 (CEST)
+Received: by mail-wr1-x435.google.com with SMTP id
+ ffacd0b85a97d-3a375888197so2333443f8f.0
+ for <xen-devel@lists.xenproject.org>; Mon, 02 Jun 2025 08:50:48 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-747affafba1sm7742560b3a.110.2025.06.02.08.42.42
+ d2e1a72fcca58-747afe96781sm7798189b3a.29.2025.06.02.08.50.44
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 02 Jun 2025 08:42:44 -0700 (PDT)
+ Mon, 02 Jun 2025 08:50:47 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3ab7e3bf-3fc8-11f0-a300-13f23c93f187
+X-Inumbo-ID: 5a5823ef-3fc9-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1748878965; x=1749483765; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1748879448; x=1749484248; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=f9mH8227pMYWB5HdwXe+aKUpdQxLpQw8jSjD6kN34NM=;
-        b=NNJVZ3KLpbCj/7U+vS30LIZg8uqwBLbocdfHyTK/0yXwkvuNd8hQ8mRj2HzWu0H1ZY
-         DEmVqb2AImwPZxYWvlz048QVXjwXG/8pGL8ePeY+DExix+HWrViMtKb9OgJ/t1ORWI7U
-         XW4rgkhIQM1AqVobquGTHPK+w/mlEf4Ijbgcmc/dbpBauFmOmFygLk4SWDfUlB050zx3
-         8MRt/RC1gQix6nH51gJc/OqWeu0gLcKX5oZtkxX8/WFUaE2YHqHXgNhvz6g+HEfkN/7w
-         w7FrxEuqkECUElvyHbas6gCKqO9s4mCenzTqvO6JT6wUvVXDL3I9WSlnGquhFKY8WYEJ
-         gjvg==
+        bh=JCcK73cs/9H9t85O0GxARqxzcSe8RU3p6Y+o+djw8jE=;
+        b=g54ub1LBp2eRMg3bm2/4uQMkquVBq3Zwt5LwYqlVed0AuLvgqeOC2yjlkB4LMtvoPE
+         YURY2WutJkhdu/73X7Wqv2spBmcvLPx4c9Z3z/FEQ0jWCmU0gcjUR/8sk+Ft7HCqKyn4
+         mXWWfRReYq7Fo98Y7QtWAvv/lx4i1AgwHd6ddSsb34RMaY8WM3V9eXydpP+iSV3dkJN7
+         IVsJnJJPVrhIq6dkGNUdtZm9R1z9UXI//JVS+x3Arq2FKt2/HA07pRFb0s6EgkGQ1pXm
+         rpjSthLZ0Nxsgtoqb4t1plzx1zP50wfyyVXYyWdvaH7Ve57cTJVpzRjoMq5PUVERakdB
+         4OdA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1748878965; x=1749483765;
+        d=1e100.net; s=20230601; t=1748879448; x=1749484248;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=f9mH8227pMYWB5HdwXe+aKUpdQxLpQw8jSjD6kN34NM=;
-        b=vRwX9ohogK2DyTFUuv+Yi+dIIs/bFilmBT6PeXKOHVCDaHGBbtTaSMkToKtPyTAENQ
-         bhyMTWliNaM8yqoI6qsdt79Ej7GGhxGgk1IdGGTCxprNAwJMYPNyuzSnVMjNfvtYcziT
-         0RR/i0K3qoGkYOSunKRk++MmC7nBCKZmG0nHOXWNXNhqHyIsoCpqu/sPmBc3tn2viEAv
-         BvZrGOvVI0BhaO6a0qU1hGS2MBCyk/Ze1HbE7bQSYReQ/cIQNBnSret4B2TV/xIk4BuK
-         7ksh/mWwXXqllOxrB1KX/BtpReBZVzg3xufGE1vEo/+jzIj5uH6BvQiyCEp+K4QjaeqQ
-         CIyA==
-X-Gm-Message-State: AOJu0YzGwr4RrlSxWufdhzdEuKGz7yEJt3oyPZf0ed6qe/ok5tRtUAOs
-	63ELuf/hnzyuoxzj9mqw3QC7O7EEz2aM/8c2l62+cY/9mrERgwfTg6dnZrCZ9Yv17w==
-X-Gm-Gg: ASbGnctCVlPFG/CCMZ99NcZTtV2l9ZQ0vuo2asR4wr7anFDWGD+JxQGr8hCcvNAkFr/
-	aH4W1pA91Nj1b82LUSGM7oSn1SMgPEyyk0tNuu6oz5t/t9Swabpe5bQ3ZCpuT6z+jOLTJNkL3Zd
-	/lVBgDThLIoFJMKu5khvsduz3ZOqxKxwDDeBpAyuygrwfRECuk+nb0kaM1wdqO/IfBzPG6DOCYN
-	rvu/txibkfERCHhWB3svdJC5Oqc695MT0nnYz686Rpw6xG0BFPV7/WVCm/XiDsk5JYeI8sP77tD
-	TEXM65liQ5kKwMY1V80MxdG3CZH8fixjOqICL6WBN7PL9KE28ghmo5SFVOdkgnXUibrLnr0IAqo
-	uIn5Tq3qMPevz0WXyY7+mounPc8HwQkA9gUdW
-X-Google-Smtp-Source: AGHT+IFBsu44e5wPODsgaqdd45Tq3ZfQ4XBfpq/sE6r+b5bkDmgYld8qKzeIoMSmzKbU2Ou3TP1TFg==
-X-Received: by 2002:a05:6000:26c3:b0:3a4:ed62:c7e2 with SMTP id ffacd0b85a97d-3a4fe394776mr6719290f8f.28.1748878965458;
-        Mon, 02 Jun 2025 08:42:45 -0700 (PDT)
-Message-ID: <cf307474-8404-41db-8fc5-8084b8671584@suse.com>
-Date: Mon, 2 Jun 2025 17:42:39 +0200
+        bh=JCcK73cs/9H9t85O0GxARqxzcSe8RU3p6Y+o+djw8jE=;
+        b=j3HGKr6N+PmestIvDxzz2xOkrHT1xv3fJJwPcLAgnDtDn3PUA5S0ObzyVg3zEwXUwU
+         JL6nbAY/aN5Z5r/Mg49ni3DchmFAcElPIrW1T3c9HNJhlt0q6ZiLRbM+fdqC7SJPDXwF
+         xbtw5GLBP91KHN8Tr+AMwyNpybuh/WPjcFUgc8oZJg5W3vmo4hgrbm7G1WIkru4GxPVL
+         FIXAK+D1B38JLIDOuGVJQ4ozyycI6lvj13JuL6CULKyerF2CGHilYoxUh9lI/nuou5+Q
+         mIbfXMHrndYsc+IVoDo9djEcNKL6HVuzrYFwc0CCFwZUCGUoJFQuppSk0DBLAictrihO
+         jPTQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWlJsIjvvNBzq1AtrOGMGeARBuwtKbYXGfB2gQa/x9XZg2H6nanoqS6PUvhme3JQsQ4NicTm01t3kA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz01/r2xf8/23JU1TWEQz2hDjSW2s3DuC/yOgD/T1Bp8TponYIK
+	0cuyQc8DwrcOgKT2VyRgNW1fWswZ2YQqrlVuCTjhukG5DAXD7bhTag/fJAO7FFlrsA==
+X-Gm-Gg: ASbGncuX9Ewd6tzLWSRmGWsTSVB3YgLTGbmMb8NTYJB5eheUTg5e4h9/iP/wY2YKELW
+	ZA8WMlqCFQZJICuKBdGTorNKF/qVCctGG7tTGHnNDS7smjs4T3a5hsMuYL3qo6UGDHsyJ/xrYF3
+	jxtntZXOgtUMk2as/8wtWF0I+S2GIboFFpiiDKnw9cv9WkRT7GJeYs2q5fNU+zfELxdxA/1QiuR
+	vRAWNlzLD4FT168WAupZxehs7HOp7t8rBu7vngBhOMXQFn0ZLbTTiOc7YsrzOd52X4wmW1N+ZX9
+	/546rjy0s7K5yMyZLMJMflK4WMrUT6688ACHHot0DORSPCJ43hhKES1SUtTt8FlIKWVkFu4xCOf
+	4V5m3C5zTp4bnw3ZbNtj9pDm19M07krGhp76vJFPAZWEwWLQ=
+X-Google-Smtp-Source: AGHT+IFu2iPd4yaF5j0v15LiN7mjt6B4RyMR9nCD6RCIe+3okpsyhVh6y/FN9tkswPETAwEt3xjhiQ==
+X-Received: by 2002:a5d:5f49:0:b0:3a4:f744:e00c with SMTP id ffacd0b85a97d-3a4fe39475bmr6730730f8f.29.1748879448024;
+        Mon, 02 Jun 2025 08:50:48 -0700 (PDT)
+Message-ID: <811c154c-d7d4-480c-8898-a21f62f2cf6a@suse.com>
+Date: Mon, 2 Jun 2025 17:50:40 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: Nullptr dereference in nested VMX when shadow VMCS support is
- available
-To: Manuel Andreas <manuel.andreas@tum.de>
-Cc: xen-devel@lists.xenproject.org
-References: <5f258e25-a4ed-4f9a-8ca6-9ea3400e2369@tum.de>
- <6d28eb0c-caed-4c58-a6ac-cbf8da357d22@tum.de>
- <21dcca4d-1c51-42f1-b73b-65702451de13@suse.com>
- <26f412e2-ba65-4e3f-8c5f-7e15f5f32491@tum.de>
+Subject: Re: [PATCH] tests/vpci: Use $(CC) instead of $(HOSTCC)
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, xen-devel@lists.xenproject.org
+References: <20250602150929.10679-1-michal.orzel@amd.com>
+ <e3f4b507-5f66-47f4-bffd-6cfda48bea3f@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -119,141 +119,34 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <26f412e2-ba65-4e3f-8c5f-7e15f5f32491@tum.de>
+In-Reply-To: <e3f4b507-5f66-47f4-bffd-6cfda48bea3f@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 02.06.2025 16:52, Manuel Andreas wrote:
-> On 6/2/25 4:12 PM, Jan Beulich wrote:
+On 02.06.2025 17:36, Andrew Cooper wrote:
+> On 02/06/2025 4:09 pm, Michal Orzel wrote:
+>> These tests are supposed to run on target. HOSTCC can be different than
+>> CC (when cross-compiling). At the moment, tests installation would put
+>> a binary of a wrong format in the destdir.
+>>
+>> Fixes: e90580f25bd7 ("vpci: introduce basic handlers to trap accesses to the PCI config space")
+>> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
 > 
->> On 02.06.2025 15:39, Manuel Andreas wrote:
->>> I've discovered an issue in the nested VMX implementation, where an
->>> unprivileged domain is able to force Xen to dereference a NULL pointer,
->>> resulting in a panic.
->> Sadly you provide no details on this NULL deref.
-> Here's the respective dump:
+> Oh.  This didn't explode in GitlabCI because there's no ARM version of
+> *-tools-tests-*.
 > 
-> ----[ Xen-4.20.0  x86_64  debug=y Tainted:     H  ]----
-> (XEN) CPU:    1
-> (XEN) RIP:    e008:[<ffff82d0402ae2b8>] nvmx_handle_vmx_insn+0x7ab/0xccb
-> (XEN) RFLAGS: 0000000000010202   CONTEXT: hypervisor (d1v0)
-> (XEN) rax: 0000000000000000   rbx: 0000000000000000   rcx: 8000000000000002
-> (XEN) rdx: 0000000000000000   rsi: 01ffffffffffffff   rdi: ffff82e0020155e0
-> (XEN) rbp: ffff830179407e68   rsp: ffff830179407e00   r8: ffff82c00023b000
-> (XEN) r9:  ffff830179413c40   r10: 0000000000000000   r11: 0000000000000200
-> (XEN) r12: ffff83010483d000  r13: ffff830179407ef8   r14: 0000000000000000
-> (XEN) r15: 0000000000000000   cr0: 0000000080050033   cr4: 00000000003526e0
-> (XEN) cr3: 000000010498f000   cr2: 0000000000000000
-> (XEN) fsb: 0000000000000000   gsb: 0000000000000000   gss: 0000000000000000
-> (XEN) ds: 0000   es: 0000   fs: 0000   gs: 0000   ss: 0000   cs: e008
-> (XEN) Xen code around <ffff82d0402ae2b8> (nvmx_handle_vmx_insn+0x7ab/0xccb):
-> (XEN)  75 b0 0f 86 12 05 00 00 <81> 08 00 00 00 80 41 8b 84 24 f4 05 00 
-> 00 80 cc
-> (XEN) Xen stack trace from rsp=ffff830179407e00:
-> (XEN)    ffff83010483d000 000000000011e000 0000000000000000 0000000000000000
-> (XEN)    ffff82d0402bfc4a 0000000100000000 0000000000119fa8 ffff82d000000008
-> (XEN)    ffff830100000006 ffff830179407ef8 0000000000000015 ffff83010483d000
-> (XEN)    0000000000000000 ffff830179407ee8 ffff82d0402a9a19 ffff82d04020361b
-> (XEN)    0000000000000000 0000000000000000 0000000000000000 ffff830100997000
-> (XEN)    ffff82d040203615 ffff82d04020361b ffff82d040203615 ffff82d04020361b
-> (XEN)    ffff83010483d000 0000000000000000 0000000000000000 0000000000000000
-> (XEN)    0000000000000000 00007cfe86bf80e7 ffff82d040203673 0000000000000000
-> (XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000001
-> (XEN)    0000000000000000 0000000000000000 0000000000000043 000000000000007b
-> (XEN)    0000000000000043 0000000000000000 0000000000000000 0000000011e57e00
-> (XEN)    0000000000000000 0000000000000000 0000beef0000beef 0000000000103fa2
-> (XEN)    000000bf0000beef 0000000000000046 0000000000119fa0 000000000000beef
-> (XEN)    000000000000beef 000000000000beef 000000000000beef 000000000000beef
-> (XEN)    0000e01000000001 ffff83010483d000 0000003136627000 00000000003526e0
-> (XEN)    0000000000000000 0000000000000000 0000000300000001 0000004e00000003
-> (XEN) Xen call trace:
-> (XEN)    [<ffff82d0402ae2b8>] R nvmx_handle_vmx_insn+0x7ab/0xccb
-> (XEN)    [<ffff82d0402a9a19>] F vmx_vmexit_handler+0xd97/0x1e14
-> (XEN)    [<ffff82d040203673>] F vmx_asm_vmexit_handler+0x103/0x220
-> (XEN)
-> (XEN) Pagetable walk from 0000000000000000:
+> Can we fix that too please, seeing as there is a real ARM board?
 > 
-> (XEN)  L4[0x000] = 0000000000000000 ffffffffffffffff
-> 
-> Where nvmx_handle_vmx_insn+0x7ab/0xccb resolves to 
-> xen/arch/x86/hvm/vmx/vvmx.c:1169
-> Specifically, in nvmx_handle_vmptrld we have:
-> 
-> 1830    if ( cpu_has_vmx_vmcs_shadowing )
-> 1831        nvmx_set_vmcs_pointer(v, nvcpu->nv_vvmcx);
+> Also, I guess we have to finally sort out the CC vs HOSTCC debate.
 
-Ah yes, this is what I overlooked (as seemingly innocent).
-
->>> This is possible when:
->>>
->>>   1. The malicious domain has nested HVM capabilities.
->>>   2. The CPU is running on top of VMX and supports shadow VMCS.
->>>
->>> To trigger the bug, the domain must first enable VMX operation for
->>> itself, execute VMXON and then finally execute VMPTRLD on a guest
->>> physical address that is backed by a non-writable p2m mapping.
->>> In `nvmx_handle_vmptrld`, after attempting to map the nested VMCS, Xen
->>> will check whether or not this mapping is suitable for writing and if
->>> not immediately unmap the nested VMCS again and abort the setup of
->>> `nvcpu->nv_vvmcx`. However, Xen at this point erroneously continues
->>> emulation of the VMPTRLD. In particular, if VMCS shadowing is available,
->>> Xen will nonetheless attempt to link up the nested VMCS to its own VMCS
->>> in `nvmx_set_vmcs_pointer`. Importantly, Xen here attempts to
->>> dereference the presumably mapped nested VMCS (which now is merely a
->>> NULL pointer) in order to mark it as a shadow VMCS by applying the
->>> `VMCS_RID_TYPE_MASK` to its revision identifier. Following, the page
->>> fault handler will panic Xen.
->>>
->>> I've attached an XTF reproducer that triggers the bug. To setup such a
->>> non-writable p2m mapping for the malicious VMCS, I first setup an
->>> appropriate grant table entry. I've tested it on Xen version 4.20.0.
->> I expect this to not work anymore on current staging or 4.20.1-pre.
->> See a8325f981ce4 ("x86/P2M: synchronize fast and slow paths of
->> p2m_get_page_from_gfn()").
-> On first glance I don't see how that would impact the type of the 
-> established p2m mapping.
-
-Thing is that with said change grant mappings will cause
-hvm_map_guest_frame_rw() to simply fail, rather than returning a r/o
-mapping for r/o grant entries.
-
->>> To fix the issue I believe the following patch should be suitable:
->>>
->>> --- a/xen/arch/x86/hvm/vmx/vvmx.c
->>> +++ b/xen/arch/x86/hvm/vmx/vvmx.c
->>> @@ -1817,7 +1817,9 @@ static int nvmx_handle_vmptrld(struct
->>> cpu_user_regs *regs)
->>>                else
->>>                {
->>>                    hvm_unmap_guest_frame(vvmcx, 1);
->>> -                vvmcx = NULL;
->>> +                vmfail(regs, VMX_INSN_VMPTRLD_INVALID_PHYADDR);
->>> +
->>> +                return X86EMUL_OKAY;
->>>                }
->>>            }
->>>            else
->>>
->>> The VMX error AFAICT does not strictly adhere to the Intel SDM, but
->>> providing the guest some indication on what went wrong is likely more
->>> sensible than silently failing.
->> Giving the guest some indication is certainly right. If we want to follow
->> the above route, I think the change would want doing a little differently,
->> to take the path that presently is the "else" at the bottom of the hunk
->> above. However, I can't presently see how invoking vmfail() would make a
->> difference as to the subsequent NULL deref: The guest could continue the
->> same irrespective of the failure. Hence why I'd like to understand what
->> NULL deref you did observe. (We may hence need two patches - one along
->> the above lines, and another one dealing with the NULL issue.)
-> 
-> The issue is really just in the latter part of nvmx_handle_vmptrld, 
-> which attempts to initialize its shadow VMCS even though establishing a 
-> mapping for the nested VMCS failed.
-> An early exit from that function (as my patch suggests) should be 
-> sufficient for that case.
-
-In fact there was correct code earlier on, and then the if() there was
-converted to "else". Which simply needs converting back; patch sent.
+I think the situation here makes pretty clear that HOSTCC is almost always
+wrong to use for tests/. The emulator test harness is special in that it (in
+principle) needs a target compiler (CC) and additionally an x86 one (with no
+present representation). The present way of (partly) distinguishing the two
+by using CC and HOSTCC was assigning wrong meaning to one (perhaps both) of
+them. The (or maybe just my) problem is that in the toolchain world it is
+build, host, and target which are distinguished. As per Michal's description
+my understanding is that HOSTCC is matching "build" there, not "host".
 
 Jan
 
