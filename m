@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 177D2ACAD31
-	for <lists+xen-devel@lfdr.de>; Mon,  2 Jun 2025 13:27:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1003222.1382718 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2FD12ACAD39
+	for <lists+xen-devel@lfdr.de>; Mon,  2 Jun 2025 13:32:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1003229.1382730 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uM3KR-0003gb-8X; Mon, 02 Jun 2025 11:27:43 +0000
+	id 1uM3Or-0005T9-PR; Mon, 02 Jun 2025 11:32:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1003222.1382718; Mon, 02 Jun 2025 11:27:43 +0000
+Received: by outflank-mailman (output) from mailman id 1003229.1382730; Mon, 02 Jun 2025 11:32:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uM3KR-0003eF-5H; Mon, 02 Jun 2025 11:27:43 +0000
-Received: by outflank-mailman (input) for mailman id 1003222;
- Mon, 02 Jun 2025 11:27:41 +0000
+	id 1uM3Or-0005Q5-MT; Mon, 02 Jun 2025 11:32:17 +0000
+Received: by outflank-mailman (input) for mailman id 1003229;
+ Mon, 02 Jun 2025 11:32:17 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=zRGa=YR=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1uM3KP-0003e8-Ew
- for xen-devel@lists.xenproject.org; Mon, 02 Jun 2025 11:27:41 +0000
-Received: from fout-a5-smtp.messagingengine.com
- (fout-a5-smtp.messagingengine.com [103.168.172.148])
+ <SRS0=QKOU=YR=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1uM3Or-0005Pz-37
+ for xen-devel@lists.xenproject.org; Mon, 02 Jun 2025 11:32:17 +0000
+Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
+ [2a00:1450:4864:20::132])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9673eeb1-3fa4-11f0-b894-0df219b8e170;
- Mon, 02 Jun 2025 13:27:38 +0200 (CEST)
-Received: from phl-compute-06.internal (phl-compute-06.phl.internal
- [10.202.2.46])
- by mailfout.phl.internal (Postfix) with ESMTP id 89ACF1380359;
- Mon,  2 Jun 2025 07:27:37 -0400 (EDT)
-Received: from phl-mailfrontend-01 ([10.202.2.162])
- by phl-compute-06.internal (MEProxy); Mon, 02 Jun 2025 07:27:37 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 2 Jun 2025 07:27:35 -0400 (EDT)
+ id 39b648af-3fa5-11f0-b894-0df219b8e170;
+ Mon, 02 Jun 2025 13:32:11 +0200 (CEST)
+Received: by mail-lf1-x132.google.com with SMTP id
+ 2adb3069b0e04-5533c562608so3034583e87.3
+ for <xen-devel@lists.xenproject.org>; Mon, 02 Jun 2025 04:32:11 -0700 (PDT)
+Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-450d7fa25besm117437555e9.14.2025.06.02.04.31.59
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 02 Jun 2025 04:32:00 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,144 +45,113 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9673eeb1-3fa4-11f0-b894-0df219b8e170
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1748863657;
-	 x=1748950057; bh=mMvL2rtjw+i9KmkxaJdZzgLgxjqBmDMDRwPbP2wBerI=; b=
-	PigVAwpTFCJ0F60l/TurgSQOBxnZDRB5L9ODITkdWMZOCJDv/F+X/4OoJtBmuE7/
-	/fO5UEag9+UA4Rd8KE69rqP46SqR23szN/E/gEx3f2pYfd6MS7eZfD/uC+OKZ97b
-	vwzRqANMmmagMGUXqbOUuSRz1yY20lAbqFnGCfw3tqj8iFlUam/jZ71QcblAUEMq
-	LxU2wDQSYf+Lv/ffIVB0YfZReqb2N67xejJnI/TS/4UuWffltu2lFVENAllmsNbi
-	Bu0FSQjy9XTIYrKk/QH60cujxOMbOZpjEiol2F7PttKu3k7LzWOhExSQ1uiEj1eq
-	pS76/PsDPstoM+0yHY5kfg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1748863657; x=1748950057; bh=mMvL2rtjw+i9KmkxaJdZzgLgxjqBmDMDRwP
-	bP2wBerI=; b=OuDdZ3w4+di4UbBv3xbUXGVRno0baVAwpatOkqF7ThcbD7id0Hz
-	QnzH5YL3jlIqFQpWBhfINdjpG8JQ2pEnr6StEsvQx1WMGGNQnMSN4sbaoBR7muN/
-	A8JyJokOSfW1HjU1yM2Wkg1/J3m7rNIQj+4p6fgVmNnezoqI/vh3MWVwrSprWjHc
-	tW/IlxJMWzzq9CEvG/r2Y0k5Pz1FeppAGmq7hcqN87mV546Z6udR6b4dWZco2DeI
-	FCRt692vjzS05Xlhi+onsrm/g4J8RuLnQlkxaB5P90+9mIp9mcWjQw6mSF/L1cYX
-	tf1RKsD2QGY9IP6gHhwcTLiqeOm8QdwzffQ==
-X-ME-Sender: <xms:qYo9aJBngtsOfIUvvHJZ8r6MumVb10wpGH7gLsM-CyTWnqbifoh3_Q>
-    <xme:qYo9aHiUR0A5yEwZE6lICJOhPR_3zSZCw1_4mc-s-TruVjVZI8m5a8pxLVfyz6utZ
-    uuXfz5oP7Yv9w>
-X-ME-Received: <xmr:qYo9aElf3pO5hfIpA5Euxp9VO1IEWGjc6QaMj9v5i0DMYiaP3wlnoVZmbH-k1bEJqQa50dxU2LFxYacssBMO0a6xCPeesPPmMsY>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtddtgdefjeehgeculddtuddrgeefvddrtd
-    dtmdcutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpggft
-    fghnshhusghstghrihgsvgdpuffrtefokffrpgfnqfghnecuuegrihhlohhuthemuceftd
-    dtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpeffhffvvefukfhf
-    gggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghkucforghrtgiihihkohifsh
-    hkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhg
-    shhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpefgudelteefvefhfeehieetleeihf
-    ejhfeludevteetkeevtedtvdegueetfeejudenucevlhhushhtvghrufhiiigvpedtnecu
-    rfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthh
-    hinhhgshhlrggsrdgtohhmpdhnsggprhgtphhtthhopeegpdhmohguvgepshhmthhpohhu
-    thdprhgtphhtthhopegrnhgurhgvfidrtghoohhpvghrfeestghithhrihigrdgtohhmpd
-    hrtghpthhtohepgigvnhdquggvvhgvlheslhhishhtshdrgigvnhhprhhojhgvtghtrdho
-    rhhgpdhrtghpthhtoheprghnthhhohhnhidrphgvrhgrrhgusehvrghtvghsrdhtvggthh
-    dprhgtphhtthhopehjghhrohhsshesshhushgvrdgtohhm
-X-ME-Proxy: <xmx:qYo9aDyUeSkbPU7mJ0saZle33d0twtDAmVL_B5AQe6tiefo8RYxm7A>
-    <xmx:qYo9aOTJhc_UMd4HWsgPPIsCfx-LeZPR1Z4TOXstQXIl2-G7k77Haw>
-    <xmx:qYo9aGZqcObxeMG_TnQQn3p-E01Jx42MseIlw--SuMBgChYqEkwXog>
-    <xmx:qYo9aPSCGhpswmPw96KoV6oqRzE8YkGF02Yvy5MirZ-HRc6o8tdiAw>
-    <xmx:qYo9aA04-R4AzGmmO-WmDqkYiaC4oYfTUkAtoVAXEaJXGV8FXMv_O-_G>
-Feedback-ID: i1568416f:Fastmail
-Date: Mon, 2 Jun 2025 13:27:32 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Juergen Gross <jgross@suse.com>
-Subject: Re: [PATCH] Revert tools/python part of "tools: remove support for
- running a guest with qemu-traditional"
-Message-ID: <aD2KpLtC257hlUj8@mail-itl>
-References: <20250602112253.2628571-1-andrew.cooper3@citrix.com>
+X-Inumbo-ID: 39b648af-3fa5-11f0-b894-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1748863931; x=1749468731; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=rTsOX+udqNxI/5fhKLImuGMnxGdWhWIRzg4v6yd1PN4=;
+        b=EXkVISriaiqQ5G0jKarJJPU8/gjoH/0kBDW3KeBq9wZ3LBSMqXYxwvWWwEKWj8hvqr
+         hcDI9CPz2gUlJYffw6Mdnc9D09QFYy0KGrFykh2G14IKy/jhPCl5jARlRPkr6nV/QJ1G
+         qXlFBCpSKDjCPpYbk/+OGd6nDZUCq+9npW2OM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1748863931; x=1749468731;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=rTsOX+udqNxI/5fhKLImuGMnxGdWhWIRzg4v6yd1PN4=;
+        b=Ea94treCIUrkGaLw9xFppWdM2Rxs0amJRyd7vdRdJJXtGVZVHPft5ji6zFXdMc9CqO
+         9j7s4bJ0VkAwVnYeO3cDSU410GcOZ9qklZU5AXrKZw5np/5uZVr9oDg6rvPOukRfAPpJ
+         IIA8hZ9FG3a85f/+SOkR7wQMQIb5CKaplKGNK3sVgTXmecN/y+ZP5KxGvH4hcJjjNrdK
+         IYfZk5nTFRfIo7ctfLTQ2seBpWfmuGqr3HGfOd0yx9e8nv8sUUxhL6si2D6k6e0j0utn
+         Sgjs7cau1S2ePtNmsyGJQaMVc8j07oZU/hb69mzZJWenrR8+/yGP56uJN74xD224g0s/
+         GA9g==
+X-Gm-Message-State: AOJu0Yy249WFWvGQaiy9L9+FD3xdH1QKs+K8LgHfHFrsww96FKEbmOuJ
+	KtCA8gVXrtU9hITMBXloVawziZR7szMsBBL86CBJeyzCGDXxtBsKieybO6Lbrb7/hnEnwAInZLS
+	NOnlC
+X-Gm-Gg: ASbGncvGRIl7VCQ26XDg6tJGWTwCNLcctPxXfxQJwreFpWmU1Zpy1G8+dw0CRkO2FdX
+	tr91PNI8OxGc8LcqSXbbJNZiU2saga2idLOruzIvhLsp4YXjIXy33Y6YbWb3c4chZSFRpl7Wd9a
+	SnfmCLXo/1LdVLEgYwYeFAOS0+x2o1C1GqmQ6QUQ5mdT0auedWa047AhwkwiK6Iyy7HbRaZ63AG
+	SI5zIpeN7qZz4LKoTGoHcGkso3dqQBuKjl2/b/GaHgTFiY29vNZBLX460/GiQuN+qB2y4ktFSC9
+	aNnyGN57v/c8F85eLR6TxdTXo6T0i1GNWOJilX1jRTU44Fpbk5Vh4GUVNIQpyvwsSihHQbH5q73
+	uw5oFn0eWgCSUuuts
+X-Google-Smtp-Source: AGHT+IHJ0vrFtipV3bhdiTI54MJYxlgcbCjwWWTW4o78zfgD4ViZkePmHjJ8z9feLzX6f3DvWYDFbQ==
+X-Received: by 2002:a05:600c:1910:b0:450:d3c6:84d8 with SMTP id 5b1f17b1804b1-450d880ce23mr110309655e9.14.1748863920602;
+        Mon, 02 Jun 2025 04:32:00 -0700 (PDT)
+Message-ID: <ae5a5de4-22ce-443b-a88d-16b89b28ac11@citrix.com>
+Date: Mon, 2 Jun 2025 12:31:59 +0100
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="M/HnU77sO5JUw4/c"
-Content-Disposition: inline
-In-Reply-To: <20250602112253.2628571-1-andrew.cooper3@citrix.com>
-
-
---M/HnU77sO5JUw4/c
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 2 Jun 2025 13:27:32 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Juergen Gross <jgross@suse.com>
+User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH] Revert tools/python part of "tools: remove support for
  running a guest with qemu-traditional"
+To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ Anthony PERARD <anthony.perard@vates.tech>, Juergen Gross <jgross@suse.com>
+References: <20250602112253.2628571-1-andrew.cooper3@citrix.com>
+ <aD2KpLtC257hlUj8@mail-itl>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <aD2KpLtC257hlUj8@mail-itl>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Mon, Jun 02, 2025 at 12:22:53PM +0100, Andrew Cooper wrote:
-> The migration stream is a stable ABI.  What this does is break the abilit=
-y to
-> inspection and operate on pre-Xen-4.21 streams.
+On 02/06/2025 12:27 pm, Marek Marczykowski-Górecki wrote:
+> On Mon, Jun 02, 2025 at 12:22:53PM +0100, Andrew Cooper wrote:
+>> The migration stream is a stable ABI.  What this does is break the ability to
+>> inspection and operate on pre-Xen-4.21 streams.
+> Do you mean Xen 4.21 should be able to accept migration of a domU with
+> qemu trad? I don't think it's a desirable feature...
 
-Do you mean Xen 4.21 should be able to accept migration of a domU with
-qemu trad? I don't think it's a desirable feature...
+xl is free to reject a qemu-trad stream if it wants.
 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> ---
-> CC: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.com>
-> CC: Anthony PERARD <anthony.perard@vates.tech>
-> CC: Juergen Gross <jgross@suse.com>
-> ---
->  tools/python/xen/migration/libxl.py | 2 ++
->  1 file changed, 2 insertions(+)
->=20
-> diff --git a/tools/python/xen/migration/libxl.py b/tools/python/xen/migra=
-tion/libxl.py
-> index dc5c7ac3550c..5dcb50fe0207 100644
-> --- a/tools/python/xen/migration/libxl.py
-> +++ b/tools/python/xen/migration/libxl.py
-> @@ -51,10 +51,12 @@ rec_type_to_str =3D {
->  EMULATOR_HEADER_FORMAT =3D "II"
-> =20
->  EMULATOR_ID_unknown       =3D 0x00000000
-> +EMULATOR_ID_qemu_trad     =3D 0x00000001
->  EMULATOR_ID_qemu_upstream =3D 0x00000002
-> =20
->  emulator_id_to_str =3D {
->      EMULATOR_ID_unknown       : "Unknown",
-> +    EMULATOR_ID_qemu_trad     : "Qemu Traditional",
->      EMULATOR_ID_qemu_upstream : "Qemu Upstream",
->  }
-> =20
->=20
-> base-commit: 286c4cc267005f73aba831d22d65abe6874ceaea
-> --=20
-> 2.39.5
->=20
+What's not ok is verify-stream-v2 exploding with "unknown emulator 1"
+when I ask it to tell me what the bytes in this stream mean.
 
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---M/HnU77sO5JUw4/c
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmg9iqQACgkQ24/THMrX
-1yxQkQgAiFicjWZbKDc1nduGygRW6117SSwtaeksBGvpBETN3lzPJFTnvBdDUB6o
-aflaVg/frCTB8r8RHU2GZbqUUZ4VvjczssETQaBGejvACD6rU5pEZIqbbJ6q9JMa
-xBA27D1eX/qLNpO4IYuSWnBzO+K8+p+UHQHxXExFapFzivM/ea4+W2qF/T+3iQHV
-4y4GLP4cBpHiX3Nvi38s4lsOlJ/3Ftalqoe3iLZkKBmF1tOBnbNj3NaWrXjU56Un
-0uaex9gYWMeFWVXdSyu2KgA/8J0jEdJVK6XCOC4+egE62jMDUmZ8C2DMUpAcvAKQ
-4Kz6voN7SVsIt0voSabOqhNAR2L1+w==
-=sn8e
------END PGP SIGNATURE-----
-
---M/HnU77sO5JUw4/c--
+~Andrew
 
