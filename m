@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 617DFACAA25
-	for <lists+xen-devel@lfdr.de>; Mon,  2 Jun 2025 09:55:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1002869.1382270 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BEEBFACAA4C
+	for <lists+xen-devel@lfdr.de>; Mon,  2 Jun 2025 10:00:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1002878.1382280 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uM017-0002Jn-SE; Mon, 02 Jun 2025 07:55:33 +0000
+	id 1uM05n-0004MO-Ft; Mon, 02 Jun 2025 08:00:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1002869.1382270; Mon, 02 Jun 2025 07:55:33 +0000
+Received: by outflank-mailman (output) from mailman id 1002878.1382280; Mon, 02 Jun 2025 08:00:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uM017-0002Hf-P4; Mon, 02 Jun 2025 07:55:33 +0000
-Received: by outflank-mailman (input) for mailman id 1002869;
- Mon, 02 Jun 2025 07:55:32 +0000
+	id 1uM05n-0004KH-DD; Mon, 02 Jun 2025 08:00:23 +0000
+Received: by outflank-mailman (input) for mailman id 1002878;
+ Mon, 02 Jun 2025 08:00:22 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=QAfa=YR=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uM016-0002HZ-Li
- for xen-devel@lists.xenproject.org; Mon, 02 Jun 2025 07:55:32 +0000
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [2a00:1450:4864:20::431])
+ id 1uM05m-0004KB-8W
+ for xen-devel@lists.xenproject.org; Mon, 02 Jun 2025 08:00:22 +0000
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [2a00:1450:4864:20::42d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f469ce6f-3f86-11f0-b894-0df219b8e170;
- Mon, 02 Jun 2025 09:55:30 +0200 (CEST)
-Received: by mail-wr1-x431.google.com with SMTP id
- ffacd0b85a97d-3a4f379662cso3070252f8f.0
- for <xen-devel@lists.xenproject.org>; Mon, 02 Jun 2025 00:55:30 -0700 (PDT)
+ id a0fbf742-3f87-11f0-b894-0df219b8e170;
+ Mon, 02 Jun 2025 10:00:20 +0200 (CEST)
+Received: by mail-wr1-x42d.google.com with SMTP id
+ ffacd0b85a97d-3a36efcadb8so3568375f8f.0
+ for <xen-devel@lists.xenproject.org>; Mon, 02 Jun 2025 01:00:20 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-23506cf539esm65320235ad.194.2025.06.02.00.55.26
+ 41be03b00d2f7-b2eceb0288fsm5057609a12.9.2025.06.02.01.00.14
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 02 Jun 2025 00:55:29 -0700 (PDT)
+ Mon, 02 Jun 2025 01:00:19 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f469ce6f-3f86-11f0-b894-0df219b8e170
+X-Inumbo-ID: a0fbf742-3f87-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1748850930; x=1749455730; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1748851220; x=1749456020; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=na4hsWIUgzqP17/7nLAHiigP7fiaicCJrWy9v/JjPtQ=;
-        b=E6t+H25fDHPwcnx/YTFZm2YItJuUd146j/3hU5WMlOCn0gVsdWBDU66AzaZhkEnZDN
-         vnnWxIXlhyrw6XmSeJoZOX1O06koKEOEsEy7Upbq4goQvtTsy7laZd5jgJXVdQTdSv4g
-         mKFhNPxJR+MC8fXIiRtJDMEKzdyRn3fjjvtOnWS6BliEm2BkbJnhf3PTcvHMwkI+TkwA
-         vzJ1lAM2gYnUH/2zIo0CsEaOp82J/zxUZaaUWf/EwzRJjOb/rIopic6CimM72D8HwWj+
-         JDLWQm6/cmbJWTnPqxC7p0YqA+d9Hp/yNnNo68LELRgjmrQctxy2NIEPybpYlHxo2h5s
-         TdrA==
+        bh=GqmeDNkJdMV6tc0fk79c9Oib5+eJkyYKFPZAKEz0tNE=;
+        b=a0niYQ1LoQJQua0fu5KEB/TQUcYmXZs54u8Dny5mMMD0clVy9GHkvLOY12eN1ki2gL
+         IHD/KKNn9Jpb23CBWzAwrfDNQlyDtrcn/t6AOx+5lPhTn0ejrPje+1L0ilb63jCVr9Xy
+         kDmzM9HrfK2DqmSU0tu1/ru3rMhTiehqWNCfktWBYP0aZkq+jLT506K9BhBSgOytfjdw
+         6taYJqX4rHKBDFCwCvEslcNTggRKFc6l48LPsLHNcFSHAFy+fOW1LeX+JDVpjVuBLnoW
+         OvIJ+tNw7f1p5Z+hVlljDYNkOsT9wfnGZ8N01k0haLB+GisOfiBSM/YYx1PHKZysm4qB
+         uroQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1748850930; x=1749455730;
+        d=1e100.net; s=20230601; t=1748851220; x=1749456020;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=na4hsWIUgzqP17/7nLAHiigP7fiaicCJrWy9v/JjPtQ=;
-        b=Hcv7D8lqyA3RjAj+967hN5WR46UzRYhrTJdh4NMBYJAe9/SpKsjQpecDC6bXjrdGer
-         f4B2GnABRezrjzMcxGZ60mGLbjFEJBe7zfr4chr6egDOdiRdL+XVJIg6RvVGDV6lB1Wy
-         +9z5X0NYDhm4ZKS0sxgFb/pmZXnb0YE69cLMuMkCs9Phjd5F1yBU9ISfFaOGTnWop/Lc
-         ZFQ4w0tsWzet1jGsn8JJOF/MThKoyge0ZPq//0PpzP7HYtClmblBUIIYrb+Q8KJpLa0u
-         a9JNcfwOo0jAHpRPwqE6vmkc1kf1lW8i/rgMiDnhsTnyPeojzoR9ed63VUO/4Y4MQnzK
-         Jy7w==
-X-Forwarded-Encrypted: i=1; AJvYcCXmpLBagHatqvimgS+ht5sH9GtsCuaYO3MiGaAnDIV92R3IEK2d0zDvF4VGGCUyMky2iF6yzhUfeqE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyhC0sf4rBc2OChwI0Ke2tQCun1dCX0ZbdVics4WpzR1ME7nV7D
-	F49WY7TdqAQJLncX97T9RqIRQkSoruNk57pfJ41S6z8fyR7I2Fp2prCur869I786mg==
-X-Gm-Gg: ASbGncuYaXKptWagfjDwMchQx6XeJy3pxiZdtHwDPWfJIICFEdL6AzR6a6R1VOg2ckD
-	v9V+lsZgEoS9OqRJvZaP1w7hlOwkPrk0UgRxLkct5u1Q+893fy6GyBzZ7UP8MGC2vMJQavQNWbw
-	qx4If6qige/ylEgPOS7/CT0IoI4tNcsaF4HkPzNt0C/0UKLmDbQlbt31CYPlf9V0T0EbIPvaKLo
-	Yt6920/2Uxdyvo7Jp4bGfb6MMNNMVLuMYMtmp5CYKWru+obv9uKeIqRIgNdgdd7+3MYARii81mQ
-	p7IDgGshj5IfKqb4uY97FBAKp8rqAsrBSk/duSRJbkaJ8X0ji9IFAl+weqiMwUsLumu1LIOhFLZ
-	O8IdKbmSsrxMuqWrukrYznwUacqNh/FNNSV1qCGYfRVcYyDA=
-X-Google-Smtp-Source: AGHT+IEe0cGAIcjlDFcf0JrEJvDh27LUcDOfQ1IiKMHpgNYaQKw9EmLuF9X54MuS5yYlyA/zH4agxA==
-X-Received: by 2002:a05:6000:220d:b0:3a3:4baa:3f3d with SMTP id ffacd0b85a97d-3a4fe154f5bmr4535272f8f.6.1748850930195;
-        Mon, 02 Jun 2025 00:55:30 -0700 (PDT)
-Message-ID: <2548f9a0-76f8-4e6e-8330-759b118b777b@suse.com>
-Date: Mon, 2 Jun 2025 09:55:36 +0200
+        bh=GqmeDNkJdMV6tc0fk79c9Oib5+eJkyYKFPZAKEz0tNE=;
+        b=W3uRl7ofidNWPBD+MmD+Zf7016O6ifxXcBNeeWpvKi9m/KR8yNEPi+Vj3wcfe/HXWO
+         edJ7NFsx0qQPScNLkK6HUjWJGf3yxDgRW+BuFWq5weXqIN6Sdw4I5+NGFQymUdKj6Laq
+         W4o5fPJd5HqD/6yK1GO77VauHis8sEnfTNvnh6Qk/4XucEroDwC9jkrO3W9thaiMxyNb
+         A3ZK9eP6ZDImQqJeOOXr6VvHz3eXlsa4oIgNXIOiwFGmujxLH+j2B9xQK3fXYkNu521f
+         I3KvOlU4GzbYSzxngH8HlK+BmyCA+Jcy0sEvfjKtUsxHHtIkIeL3slhfFGd4ZhJm89G7
+         gLNA==
+X-Gm-Message-State: AOJu0YyYK6qapJ44Y5Ftu7Sr/ICTx8AG0xi/jwdF6Oyku0cQeVHJHHrh
+	JuLCyUPRAZRQzqObllREY1BY9JQdxE1XyARbI9SSV/qqYiCwiZjIC3hwxnIxdFr9BA==
+X-Gm-Gg: ASbGnctsCE7RzBdRRAZsVQR2+bPQ6dla8XTb5cTJwr4wug7Nz12f8ZFJFOF7F+KRXPX
+	8BpohpvaWYshTYXSsE7kI9RPaFYHsTcgmjLxCrb0zy+dXBcqCgu8Oi1qDTN14X5Th5etPj5ZiBZ
+	D2/6n8xwFoFY3eGynQrvcKlpFjMvwQIOCfUgdsBuz2pwudsPp5rxt7jjf2HxX7sB6xaWbzjIX0+
+	JdzfW3rQopF73GAJV1fcXuIkTgC1H9lHd16ppnBgnIgv6zSp2AIODTcTjwzNriC2lL44/YuPTJc
+	sYZpkHsVc/WP1UOjshXhEDOQ53RwOeP3Smvf025eTT7kJvCnhApKf2z0b/Ywa3rA8SD4Xbjvqqr
+	aJIjF86zSqrlMK3HG1hzl128wzlTWNQ6YhOPB
+X-Google-Smtp-Source: AGHT+IEw8FU7DPK3ZDbfSq7h4rgIWjRGcdSfart7DivhOsBXCLmiwH+LK2gXPKb7QhC2/NgK9/+E9w==
+X-Received: by 2002:a05:6000:220b:b0:3a4:ef00:a7bb with SMTP id ffacd0b85a97d-3a4f7a4d637mr9432431f8f.18.1748851219660;
+        Mon, 02 Jun 2025 01:00:19 -0700 (PDT)
+Message-ID: <af4a3712-bff2-4e39-9c43-77a47cb511cf@suse.com>
+Date: Mon, 2 Jun 2025 10:00:25 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 09/19] x86: Preinitialise all modules to be of kind
- BOOTMOD_UNKNOWN
-To: Alejandro Vallejo <agarciav@amd.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- xen-devel@lists.xenproject.org
+Subject: Re: [PATCH 15/19] xen/dt: Move bootinfo-independent helpers out of
+ bootinfo-fdt.c
+To: Stefano Stabellini <sstabellini@kernel.org>,
+ Alejandro Vallejo <agarciav@amd.com>
+Cc: xen-devel@lists.xenproject.org, Julien Grall <julien@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>
 References: <DA1WWRUQLCAG.ZTVR1HXJ85V0@amd.com>
  <20250530120242.39398-1-agarciav@amd.com>
- <20250530120242.39398-10-agarciav@amd.com>
+ <20250530120242.39398-16-agarciav@amd.com>
+ <alpine.DEB.2.22.394.2505301845410.1147082@ubuntu-linux-20-04-desktop>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -122,35 +123,38 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250530120242.39398-10-agarciav@amd.com>
+In-Reply-To: <alpine.DEB.2.22.394.2505301845410.1147082@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 30.05.2025 14:02, Alejandro Vallejo wrote:
-> A later patch removes boot_module and replaces its uses with bootmodule.
-> The equivalent field for "type" doesn't have BOOTMOD_UNKNOWN as a zero
-> value, so it must be explicitly set in the static xen_boot_info.
+On 31.05.2025 03:47, Stefano Stabellini wrote:
+> On Fri, 30 May 2025, Alejandro Vallejo wrote:
+>> --- /dev/null
+>> +++ b/xen/common/device-tree/bootfdt.c
+>> @@ -0,0 +1,97 @@
+>> +/* SPDX-License-Identifier: GPL-2.0-only */
+>> +#include <xen/bootfdt.h>
+>> +#include <xen/bug.h>
+>> +#include <xen/lib.h>
+>> +#include <xen/libfdt/libfdt.h>
+>> +
+>> +uint32_t __init device_tree_get_u32(const void *fdt, int node,
+>> +                                    const char *prop_name, uint32_t dflt)
+>> +{
+>> +    const struct fdt_property *prop;
+>> +
+>> +    prop = fdt_get_property(fdt, node, prop_name, NULL);
+>> +    if ( !prop || prop->len < sizeof(u32) )
 > 
-> Not a functional change.
+> Ah this is where the u32->uint32_t renaming is done!
+> Since we are at it, we can change the u32 in the sizeof
 > 
-> Signed-off-by: Alejandro Vallejo <agarciav@amd.com>
-> ---
->  xen/arch/x86/setup.c | 1 +
->  1 file changed, 1 insertion(+)
 > 
-> diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
-> index 1f5cb67bd0..5da9df33c9 100644
-> --- a/xen/arch/x86/setup.c
-> +++ b/xen/arch/x86/setup.c
-> @@ -298,6 +298,7 @@ struct boot_info __initdata xen_boot_info = {
->      .loader = "unknown",
->      .cmdline = "",
->      .domains = { [0 ... MAX_NR_BOOTDOMS - 1] = { .domid = DOMID_INVALID } },
-> +    .mods = { [0 ... MAX_NR_BOOTMODS] = { .type = BOOTMOD_UNKNOWN } },
->  };
+>> +        return dflt;
+>> +
+>> +    return fdt32_to_cpu(*(uint32_t*)prop->data);
 
-A brief comment may be nice, to help readers understand that there is no off-
-by-1 here.
+And avoid to cast away const-ness here.
 
 Jan
 
