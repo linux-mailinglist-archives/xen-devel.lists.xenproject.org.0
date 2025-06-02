@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D13BACAB1F
-	for <lists+xen-devel@lfdr.de>; Mon,  2 Jun 2025 11:05:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1002952.1382457 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DCBEBACAB1E
+	for <lists+xen-devel@lfdr.de>; Mon,  2 Jun 2025 11:05:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1002942.1382371 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uM16S-0002A1-NP; Mon, 02 Jun 2025 09:05:08 +0000
+	id 1uM16F-0008Ei-RB; Mon, 02 Jun 2025 09:04:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1002952.1382457; Mon, 02 Jun 2025 09:05:08 +0000
+Received: by outflank-mailman (output) from mailman id 1002942.1382371; Mon, 02 Jun 2025 09:04:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uM16S-00021S-Fl; Mon, 02 Jun 2025 09:05:08 +0000
-Received: by outflank-mailman (input) for mailman id 1002952;
- Mon, 02 Jun 2025 09:05:06 +0000
+	id 1uM16F-0008CJ-Mx; Mon, 02 Jun 2025 09:04:55 +0000
+Received: by outflank-mailman (input) for mailman id 1002942;
+ Mon, 02 Jun 2025 09:04:55 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=5qKV=YR=gmail.com=xakep.amatop@srs-se1.protection.inumbo.net>)
- id 1uM16Q-00081k-4b
- for xen-devel@lists.xenproject.org; Mon, 02 Jun 2025 09:05:06 +0000
-Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
- [2a00:1450:4864:20::12a])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=QAfa=YR=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uM16F-00081k-3x
+ for xen-devel@lists.xenproject.org; Mon, 02 Jun 2025 09:04:55 +0000
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
+ [2a00:1450:4864:20::436])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id aca78b68-3f90-11f0-a300-13f23c93f187;
- Mon, 02 Jun 2025 11:05:05 +0200 (CEST)
-Received: by mail-lf1-x12a.google.com with SMTP id
- 2adb3069b0e04-55329bd977aso5224207e87.1
- for <xen-devel@lists.xenproject.org>; Mon, 02 Jun 2025 02:05:05 -0700 (PDT)
-Received: from yp-VivoBook-ASUSLaptop-M1503QA-M1503QA.. ([95.67.15.120])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5533791cdc3sm1507541e87.176.2025.06.02.02.05.03
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 02 Jun 2025 02:05:03 -0700 (PDT)
+ id a56f24f8-3f90-11f0-a300-13f23c93f187;
+ Mon, 02 Jun 2025 11:04:53 +0200 (CEST)
+Received: by mail-wr1-x436.google.com with SMTP id
+ ffacd0b85a97d-3a367ec7840so2772397f8f.2
+ for <xen-devel@lists.xenproject.org>; Mon, 02 Jun 2025 02:04:53 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-23506bc8b26sm66014585ad.9.2025.06.02.02.04.48
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 02 Jun 2025 02:04:52 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,285 +45,105 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: aca78b68-3f90-11f0-a300-13f23c93f187
+X-Inumbo-ID: a56f24f8-3f90-11f0-a300-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1748855105; x=1749459905; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=bD1e3cReyKifgfKVVK1ivsJtIILbWIwhcDmXv0PowdU=;
-        b=aqU9jxcieiQz9hYAEEwZt2MFz4xNK1EvE5cUp5vCASp1MUDMaJ1AvfUTBjaEb80wyd
-         +r9t4lIld9HOv+3l8UzM/pf6uXIRj62T2pUKyHr+QGl+6snbVs72vTT2JRX662x954kp
-         PwmmzhbCJH7Ks0sRBWuLzicerVKm4oMKi0HzxaQzQBHBtZ+0MbIcEZxHeWc4cQe5xAg2
-         p6BDfgrvJYa9yBzfynVqJY5lF4Lk2oavIJwFIt/RmZ2JKWfxfJEsGelsq7ALq9BtxAyY
-         cwJRT5bWZnHOaK9LYBpsJyXYFbpY9RnzYESwlfwsUCSZ5RLSn5Wdt69nMEb7ORXIpqt2
-         LiVw==
+        d=suse.com; s=google; t=1748855093; x=1749459893; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=ngZ6Vuh7hQeKo6LT9x+wiicwheB6dNz7u4CSeZREy7I=;
+        b=X92C0ClR1hPXNoLhvTspdhilb+TWmjBSQ8R7x7TUH1QBD2b4mhvi0lhaPwiQD3mhNs
+         veEyVIJz/XPeQD5krwPAMKcWs/d/0YLa2byuUBdHH1N5OlU/Qk+WDH7Up29W34owSQIB
+         Ca5jz5dr4u1MbFRHw8K3tYm2wKVN6pP3w66lZCY3NGzijNgDmwjqJbN2Txt7BWDwLSgZ
+         6Ct1CQaALQXdQNrP2Y8Be3tV3ffAkW1VZI3b95DgS2PR7yQP/K5gZLddheK9KuRtyaVN
+         uC60pd2sHik50BG5RFXARmp1ODio4W287EnkNxxECmq27WAZI98ZpISSLZyqYCR2vK8S
+         rCNg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1748855105; x=1749459905;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=bD1e3cReyKifgfKVVK1ivsJtIILbWIwhcDmXv0PowdU=;
-        b=NSL8C/5yCaladbBY6T4zXXPOsIeDrEpw3k/USDYV2b0TAUFndc83F2ql7T9YPV2EBP
-         VoFlwGPujmE+ennOY5yysIoiwcDw0ye86uGwZuILkjg6Y8zvpBVOhGGNnDTpBjLEgLlm
-         8lbkCQBykkMzhe7FxOHXXI7YGuyzo3ckje9xKsKlNGQLw1C5r+oeLMTKv3/J/eQO0n2m
-         KcCRBO3Z1ZQ7VCSRLnydDlN+3S5DeV1tSIG2AG9hAC1BxGgdyg4SrWvXstMcgJzVhxJT
-         4ia4tD+3LEbc84twuYmvbNWYbdtL+QKEjd1oA9K5Epa+3ojyduprcwZf9VcgSM1AObeQ
-         Zzlw==
-X-Gm-Message-State: AOJu0YynydaVDej2eOUO5FL78/RJBnvW8CPL4SKNF2Q7xxoYiMqgKi8/
-	Kcu+nHTFGBEd7MK9ta/l0bHfUENMprTYKIXKOe5h7Bzwnu3YcE0eQobFN7O++WZ1
-X-Gm-Gg: ASbGncuoLwDiNz8VRqy0zgRb1TwMy9TsponFm4voNadTq9RiKnZpMwjieuM5FIhukR4
-	zalGoBILXi/b3ec6jun66U/fQUSBqvm6h/IpeJ0jpKEnTq4W356mplmfFFXXanB8G/P2yuUbu5h
-	0X2nuA5/hM/IS9JtkpFnhJ+2dQ2z4r3Fiks84oJ5469EZ8eTxeYXJpmNbkiHM4MHEO99m5cR5Vk
-	g0triTtWOiyjo37cX2Gjzzoiq1RjP3AdsohAV9zd5GydWnVkRvdOu9rMgQX8T4J//CxBYwoNeXD
-	Kp086njUD33n2p6Ugf1NH67QlIVVO3UNra3kFqpgFd/J4TNKc2WZjgNBom3ARHUGDTpw9kMYbjn
-	D71IApzUVBaAOhIzOmLI194Ljmg==
-X-Google-Smtp-Source: AGHT+IFaBoA7Yo/WUepczn6Qruy6S1UWK4p6ZJeemhxCrjIh1ez95m44qZ2wj4raboedU+yZ8Qfwqw==
-X-Received: by 2002:a05:6512:1592:b0:553:2159:8716 with SMTP id 2adb3069b0e04-5533ba99850mr3614033e87.26.1748855104208;
-        Mon, 02 Jun 2025 02:05:04 -0700 (PDT)
-From: Mykola Kvach <xakep.amatop@gmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: xakep.amatop@gmail.com,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH v4][PART 2 10/10] xen/arm: Save/restore context on suspend/resume
-Date: Mon,  2 Jun 2025 12:04:21 +0300
-Message-ID: <8f5904bc8f4d8ee39e248b3a2213fb3ed6815aff.1748848482.git.mykola_kvach@epam.com>
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <cover.1748848482.git.mykola_kvach@epam.com>
-References: <cover.1748848482.git.mykola_kvach@epam.com>
+        d=1e100.net; s=20230601; t=1748855093; x=1749459893;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ngZ6Vuh7hQeKo6LT9x+wiicwheB6dNz7u4CSeZREy7I=;
+        b=ArPkS/CzY/JDNcFOR/iolVHu68uLlew0P6TMOUcUxSOuxWZH+M6jmea46eeZU+U0Ud
+         8hXz4QSmVenb8/+fXHT29HJ4DmGsPuk41w06sKBDMG2nfWGh6KfKlA97FJSqU23omsbJ
+         sUfOfG6ppP/qpZNEaeCtfTQSdU9ePdtUC/SzngZ3sCzq5oCf94Avxz3fDgFMlQLjJ7xQ
+         VUVP/VZ9Kfx/pwHeFrn1LOOtPDrjDOd28WxFTPONUzddvjvCrGN38I57FLUdyjCDhSkg
+         MMgqageascFFcxzw+werl1vduJ8ybvAWfHFpNOC5N2APF4eUQLuomov6gP8z2vY6N5u3
+         k1KQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUWeMnxXJck0cC+Z8r2HBdkkc9GtdKnNAeseaEx/yT+ciKG2kiyuxWHZ4LV9tdnOoaAfYGEiunn3HU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwPJSBa7HCLbxyP0pAm+yUskDXfMHhE5nmYrn3DsMwNY0/HNZTv
+	FR1UyqVwqejpj09VGZGmu6g+P10LPsR87hM9KRLkRzpg6mCs0BgnnmcjDr0q04gJzw==
+X-Gm-Gg: ASbGnctFlA1Uw0qDFkKMd5fIUsJ+dakDFgQpmTEQ2l5n83SL/EpDT7Z7AgNlcxN2Atk
+	vpCjezR9adVLnVmG66vdh3BYQrjK3P3ARlCHuMp991/mqCZJDSUlMK+I2GdRe64YL7jl+9wHfOb
+	zWEKOy+M/5yygbhjlREPIU2gzuTKeiGHF+q8DGrJ1gDGRMNG8Oud+F9/WsuHqU28uMuit9riOuh
+	PFjNYW2ZToiIrHksEmQ1nzRMgJohXdrO3RaI1gljvxZE+VuSeP4fZeZR1H30IPonbuEZ3ALojwe
+	MMst6YA5+WWOWBN04ZZSH3A+v6GGu/JOl+0+YI0AYiztoVgiSRiokmAlLe2sM3ApAqSXG6c7Pyp
+	MgpGmTRV2pOMMliHyIoyBlE5nLwDuq9tNzPuy66oUw6DHPGE=
+X-Google-Smtp-Source: AGHT+IFx3pepFQ+9Hv0YIA9CI0Hq8K45c/r5jJbK5V+IFastwKJcN18fCSYaUS2VkFAFiXMlAxFAjA==
+X-Received: by 2002:a05:6000:2302:b0:3a3:6991:dcbb with SMTP id ffacd0b85a97d-3a4f89a7f8dmr7847316f8f.12.1748855092705;
+        Mon, 02 Jun 2025 02:04:52 -0700 (PDT)
+Message-ID: <2c4f4c2a-b1d7-4cbb-834e-cee0fd3d2433@suse.com>
+Date: Mon, 2 Jun 2025 11:04:59 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] xen/x86: Remove is_periodic_irq() prototype
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Jason Andryuk <jason.andryuk@amd.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org,
+ "consulting@bugseng.com" <consulting@bugseng.com>
+References: <20250527223753.47055-1-jason.andryuk@amd.com>
+ <1c850e02-0d87-4fd1-8504-0aee53949136@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <1c850e02-0d87-4fd1-8504-0aee53949136@citrix.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Mirela Simonovic <mirela.simonovic@aggios.com>
+On 28.05.2025 00:39, Andrew Cooper wrote:
+> On 27/05/2025 11:37 pm, Jason Andryuk wrote:
+>> is_periodic_irq() was removed in the Fixes commit, but the prototype
+>> remained.  Drop it now.
+>>
+>> Fixes: ddc35d1cc994 ("[HVM] Enable more than one platform timer...")
+>> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
+> 
+> Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> 
+>> ---
+>> The full Fixes line is:
+>> Fixes: ddc35d1cc994 ("[HVM] Enable more than one platform timer (PIT/RTC/HPET) programmed as periodic timer and adds them to abstract layer, which keeps track of pending_intr_nr to avoid time interrupt lost and sync'ed timer with TSC.")
+> 
+> Yeah, the older commit messages weren't as well structured as we insist
+> on them being these days.
+> 
+> How did you find this?  inspection, or a tool?
 
-The context of CPU general purpose and system control registers
-has to be saved on suspend and restored on resume. This is
-implemented in hyp_suspend and before the return from hyp_resume
-function. The hyp_suspend is invoked just before the PSCI system
-suspend call is issued to the ATF. The hyp_suspend has to return a
-non-zero value so that the calling 'if' statement evaluates to true,
-causing the system suspend to be invoked. Upon the resume, context
-saved on suspend will be restored, including the link register.
-Therefore, after restoring the context the control flow will
-return to the address pointed by the saved link register, which
-is the place from which the hyp_suspend was called. To ensure
-that the calling 'if' statement doesn't again evaluate to true
-and initiate system suspend, hyp_resume has to return a zero value
-after restoring the context.
+What I'm curious about: Why didn't Eclair spot this?
 
-Note that the order of saving register context into cpu_context
-structure has to match the order of restoring.
-
-Support for ARM32 is not implemented. Instead, compilation fails with a
-build-time error if suspend is enabled for ARM32.
-
-Signed-off-by: Mirela Simonovic <mirela.simonovic@aggios.com>
-Signed-off-by: Saeed Nowshadi <saeed.nowshadi@xilinx.com>
-Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
-Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
----
-Changes in v4:
-- produce build-time error for ARM32 when CONFIG_SYSTEM_SUSPEND is enabled
-- use register_t instead of uint64_t in cpu_context structure
----
- xen/arch/arm/arm64/head.S          | 88 +++++++++++++++++++++++++++++-
- xen/arch/arm/include/asm/suspend.h | 20 +++++++
- xen/arch/arm/suspend.c             | 23 +++++++-
- 3 files changed, 127 insertions(+), 4 deletions(-)
-
-diff --git a/xen/arch/arm/arm64/head.S b/xen/arch/arm/arm64/head.S
-index 596e960152..70bb305ce3 100644
---- a/xen/arch/arm/arm64/head.S
-+++ b/xen/arch/arm/arm64/head.S
-@@ -562,6 +562,52 @@ END(efi_xen_start)
- #endif /* CONFIG_ARM_EFI */
- 
- #ifdef CONFIG_SYSTEM_SUSPEND
-+/*
-+ * int hyp_suspend(struct cpu_context *ptr)
-+ *
-+ * x0 - pointer to the storage where callee's context will be saved
-+ *
-+ * CPU context saved here will be restored on resume in hyp_resume function.
-+ * hyp_suspend shall return a non-zero value. Upon restoring context
-+ * hyp_resume shall return value zero instead. From C code that invokes
-+ * hyp_suspend, the return value is interpreted to determine whether the context
-+ * is saved (hyp_suspend) or restored (hyp_resume).
-+ */
-+FUNC(hyp_suspend)
-+        /* Store callee-saved registers */
-+        stp     x19, x20, [x0], #16
-+        stp     x21, x22, [x0], #16
-+        stp     x23, x24, [x0], #16
-+        stp     x25, x26, [x0], #16
-+        stp     x27, x28, [x0], #16
-+        stp     x29, lr, [x0], #16
-+
-+        /* Store stack-pointer */
-+        mov     x2, sp
-+        str     x2, [x0], #8
-+
-+        /* Store system control registers */
-+        mrs     x2, VBAR_EL2
-+        str     x2, [x0], #8
-+        mrs     x2, VTCR_EL2
-+        str     x2, [x0], #8
-+        mrs     x2, VTTBR_EL2
-+        str     x2, [x0], #8
-+        mrs     x2, TPIDR_EL2
-+        str     x2, [x0], #8
-+        mrs     x2, MDCR_EL2
-+        str     x2, [x0], #8
-+        mrs     x2, HSTR_EL2
-+        str     x2, [x0], #8
-+        mrs     x2, CPTR_EL2
-+        str     x2, [x0], #8
-+        mrs     x2, HCR_EL2
-+        str     x2, [x0], #8
-+
-+        /* hyp_suspend must return a non-zero value */
-+        mov     x0, #1
-+        ret
-+END(hyp_suspend)
- 
- FUNC(hyp_resume)
-         /* Initialize the UART if earlyprintk has been enabled. */
-@@ -580,7 +626,47 @@ FUNC(hyp_resume)
-         b     enable_secondary_cpu_mm
- 
- mmu_resumed:
--        b .
-+        /* Now we can access the cpu_context, so restore the context here */
-+        ldr     x0, =cpu_context
-+
-+        /* Restore callee-saved registers */
-+        ldp     x19, x20, [x0], #16
-+        ldp     x21, x22, [x0], #16
-+        ldp     x23, x24, [x0], #16
-+        ldp     x25, x26, [x0], #16
-+        ldp     x27, x28, [x0], #16
-+        ldp     x29, lr, [x0], #16
-+
-+        /* Restore stack pointer */
-+        ldr     x2, [x0], #8
-+        mov     sp, x2
-+
-+        /* Restore system control registers */
-+        ldr     x2, [x0], #8
-+        msr     VBAR_EL2, x2
-+        ldr     x2, [x0], #8
-+        msr     VTCR_EL2, x2
-+        ldr     x2, [x0], #8
-+        msr     VTTBR_EL2, x2
-+        ldr     x2, [x0], #8
-+        msr     TPIDR_EL2, x2
-+        ldr     x2, [x0], #8
-+        msr     MDCR_EL2, x2
-+        ldr     x2, [x0], #8
-+        msr     HSTR_EL2, x2
-+        ldr     x2, [x0], #8
-+        msr     CPTR_EL2, x2
-+        ldr     x2, [x0], #8
-+        msr     HCR_EL2, x2
-+        isb
-+
-+        /* Since context is restored return from this function will appear as
-+         * return from hyp_suspend. To distinguish a return from hyp_suspend
-+         * which is called upon finalizing the suspend, as opposed to return
-+         * from this function which executes on resume, we need to return zero
-+         * value here. */
-+        mov x0, #0
-+        ret
- END(hyp_resume)
- 
- #endif /* CONFIG_SYSTEM_SUSPEND */
-diff --git a/xen/arch/arm/include/asm/suspend.h b/xen/arch/arm/include/asm/suspend.h
-index 55041a5d06..ae71ccb87b 100644
---- a/xen/arch/arm/include/asm/suspend.h
-+++ b/xen/arch/arm/include/asm/suspend.h
-@@ -5,9 +5,29 @@
- 
- #ifdef CONFIG_SYSTEM_SUSPEND
- 
-+#ifdef CONFIG_ARM_64
-+struct cpu_context {
-+    register_t callee_regs[12];
-+    register_t sp;
-+    register_t vbar_el2;
-+    register_t vtcr_el2;
-+    register_t vttbr_el2;
-+    register_t tpidr_el2;
-+    register_t mdcr_el2;
-+    register_t hstr_el2;
-+    register_t cptr_el2;
-+    register_t hcr_el2;
-+} __aligned(16);
-+#else
-+#error "Define cpu_context structure for arm32"
-+#endif
-+
-+extern struct cpu_context cpu_context;
-+
- int host_system_suspend(void);
- 
- void hyp_resume(void);
-+int hyp_suspend(struct cpu_context *ptr);
- 
- #endif /* CONFIG_SYSTEM_SUSPEND */
- 
-diff --git a/xen/arch/arm/suspend.c b/xen/arch/arm/suspend.c
-index f3ad8517ac..b1b8644a75 100644
---- a/xen/arch/arm/suspend.c
-+++ b/xen/arch/arm/suspend.c
-@@ -1,6 +1,7 @@
- /* SPDX-License-Identifier: GPL-2.0-only */
- 
- #include <asm/psci.h>
-+#include <asm/suspend.h>
- #include <xen/console.h>
- #include <xen/cpu.h>
- #include <xen/sched.h>
-@@ -17,6 +18,8 @@
-  *  - Investigate feasibility and need for implementing system suspend on ARM32
-  */
- 
-+struct cpu_context cpu_context;
-+
- /* Xen suspend. Note: data is not used (suspend is the suspend to RAM) */
- static long system_suspend(void *data)
- {
-@@ -73,9 +76,23 @@ static long system_suspend(void *data)
-      */
-     update_boot_mapping(true);
- 
--    status = call_psci_system_suspend();
--    if ( status )
--        dprintk(XENLOG_WARNING, "PSCI system suspend failed, err=%d\n", status);
-+    if ( hyp_suspend(&cpu_context) )
-+    {
-+        status = call_psci_system_suspend();
-+        /*
-+         * If suspend is finalized properly by above system suspend PSCI call,
-+         * the code below in this 'if' branch will never execute. Execution
-+         * will continue from hyp_resume which is the hypervisor's resume point.
-+         * In hyp_resume CPU context will be restored and since link-register is
-+         * restored as well, it will appear to return from hyp_suspend. The
-+         * difference in returning from hyp_suspend on system suspend versus
-+         * resume is in function's return value: on suspend, the return value is
-+         * a non-zero value, on resume it is zero. That is why the control flow
-+         * will not re-enter this 'if' branch on resume.
-+         */
-+        if ( status )
-+            dprintk(XENLOG_WARNING, "PSCI system suspend failed, err=%d\n", status);
-+    }
- 
-     system_state = SYS_STATE_resume;
-     update_boot_mapping(false);
--- 
-2.48.1
-
+Jan
 
