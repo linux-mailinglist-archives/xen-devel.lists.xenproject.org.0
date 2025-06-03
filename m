@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 89DBEACC8D9
-	for <lists+xen-devel@lfdr.de>; Tue,  3 Jun 2025 16:12:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1004525.1384251 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 10206ACC8E3
+	for <lists+xen-devel@lfdr.de>; Tue,  3 Jun 2025 16:16:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1004532.1384261 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uMSNY-0008Ms-4x; Tue, 03 Jun 2025 14:12:36 +0000
+	id 1uMSRK-0000Wb-Jx; Tue, 03 Jun 2025 14:16:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1004525.1384251; Tue, 03 Jun 2025 14:12:36 +0000
+Received: by outflank-mailman (output) from mailman id 1004532.1384261; Tue, 03 Jun 2025 14:16:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uMSNY-0008LO-27; Tue, 03 Jun 2025 14:12:36 +0000
-Received: by outflank-mailman (input) for mailman id 1004525;
- Tue, 03 Jun 2025 14:12:35 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uMSRK-0000Ts-Gg; Tue, 03 Jun 2025 14:16:30 +0000
+Received: by outflank-mailman (input) for mailman id 1004532;
+ Tue, 03 Jun 2025 14:16:29 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=pD2F=YS=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1uMSNX-0008LI-Ev
- for xen-devel@lists.xenproject.org; Tue, 03 Jun 2025 14:12:35 +0000
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [2a00:1450:4864:20::434])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id cbc00204-4084-11f0-a300-13f23c93f187;
- Tue, 03 Jun 2025 16:12:34 +0200 (CEST)
-Received: by mail-wr1-x434.google.com with SMTP id
- ffacd0b85a97d-3a4f379662cso4449377f8f.0
- for <xen-devel@lists.xenproject.org>; Tue, 03 Jun 2025 07:12:34 -0700 (PDT)
+ id 1uMSRJ-0000Tl-Lv
+ for xen-devel@lists.xenproject.org; Tue, 03 Jun 2025 14:16:29 +0000
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [2a00:1450:4864:20::32a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 54b5a63d-4085-11f0-b894-0df219b8e170;
+ Tue, 03 Jun 2025 16:16:24 +0200 (CEST)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-441d437cfaaso39139075e9.1
+ for <xen-devel@lists.xenproject.org>; Tue, 03 Jun 2025 07:16:27 -0700 (PDT)
 Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3a4f009ff7asm18684433f8f.90.2025.06.03.07.12.32
+ ffacd0b85a97d-3a4efe6c842sm18186772f8f.29.2025.06.03.07.16.26
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 03 Jun 2025 07:12:33 -0700 (PDT)
+ Tue, 03 Jun 2025 07:16:26 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cbc00204-4084-11f0-a300-13f23c93f187
+X-Inumbo-ID: 54b5a63d-4085-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1748959954; x=1749564754; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1748960187; x=1749564987; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=xjmTYl8OxfXtbZBhYtLhFDJDlt08sG7sjuITSZQLHyk=;
-        b=czGyjkSZxyeHiAmhCHHDolBAl/itHWGgrUdzAFqcr0VaqTB+YwZu0C83OVOW3Zvykn
-         +Inm/60TXYBd/PT7EQO4HhfZDoGzcmm7yv+9193hY8HRIRO9glgwCCQLYOx1uVeQ8ZpS
-         JuiWrVItkZYH4Xhxw6wsOHZ0VEQDFeB2HsHXk=
+        bh=yw0+f7BJLdAUZiURTz5Gc9U5JJQs3FyRngWcjGXPPFc=;
+        b=mkFD9tTG6wGgiwqBvh+wgWHcEasCMkORznLkE8xVeuLSiWAdIuuQRWTvJxIoQVZQ7W
+         m769U/cboETXRbJ5lNoKE/f4aONc6R22ynGzG80N5yR8yIxTEi/4TxwNnrOSzeeKxzJO
+         lZrwXemQ00uoR4WNsaYr04b178/1VMSUwzeCs=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1748959954; x=1749564754;
+        d=1e100.net; s=20230601; t=1748960187; x=1749564987;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=xjmTYl8OxfXtbZBhYtLhFDJDlt08sG7sjuITSZQLHyk=;
-        b=mZZJNcchvIvcb+/VTq1Oh3NxV6kBXZAXUJIehzMg0gb4GkLY8BWWCRDYewMq8UJDvK
-         Dl/C3GhYqOAzLZ10Z/bDyWs7W8eepXuP/8/m2GkEZ5KSzxVNtt6+4osLkD5GCgSc6hn+
-         13sipqA80fV8TMQJIlD3ZXm4PFGbS9ozHS2X6lhvAw7Zyx1BsmLibuK8syXYydXlBsbQ
-         KAhYzuIQPNoIY0u7I2nLTIxorc2BZkpUNMngunpSmUhfZc3dyosqMzRzXx2jawnocSgL
-         71DegwSbGqiPQZx9t449xKHPOFxQURAWxRaBLOI7Geela68mk2Z95p0LTA8AlTeioRJU
-         RPMA==
-X-Forwarded-Encrypted: i=1; AJvYcCUs49f20B0FlE1MbS1Psz5h0gxKGumQyQtU4aIDdME+hShLHhQGp0Z7IhTebPOj9TqAM1NJ5232QMw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yxxe+G3Fp7hMehuh1VUaVBP//YCanbGG0D3GOopAxHMG9CgOeI+
-	aCl267pH6BdQEsBqlNriCFpBMjCSY0jmpIjWugDm3Jft3iFynbbkXEHm4E9S91gqa+k=
-X-Gm-Gg: ASbGncsy3uwsTsbztXBEUuLpDm8BY3sGNzlx42fha1RjUA3gnUe3ZHDFq/jdrJHCOKL
-	uhYWkQnWBX/mPMRJo9ae3ZNXnsBkUJKY9lXPTZEjYapSbNzGDO55fW7PNBEtaXUIC4YVLXMbkW6
-	Kii4CXlDDS2qdhExbkTqOv4/bkJt0ENwNoNVURJ4HKiLJJehsaKBzFPC4CD1KcLjVF2IFxlA6Mt
-	NyQ6BT6ld35ETOXkVWyahOggZC+gWdNrWI+ohpx8uh5tWp1Q3bZxf3ywsDcV10+w/dPM87GV5ot
-	PRnwiNP84GrmBL3PezZuL45DjAddnglkqusfsoiqQ7+bWugtjjXgBJpB9B7EnYGY50iocWsBGp0
-	EK2m6ezRlADcKYHjt9StVAbOJtZY=
-X-Google-Smtp-Source: AGHT+IGGgX+/jpAfumrhng1e13HR3ua6uvBQrBVvGc2j8KAcBVsvFdkwIqNjNYauOtcKxr5nE7STZw==
-X-Received: by 2002:adf:eacb:0:b0:3a4:ef36:1f4d with SMTP id ffacd0b85a97d-3a4fe391bc4mr7803029f8f.38.1748959954137;
-        Tue, 03 Jun 2025 07:12:34 -0700 (PDT)
-Message-ID: <86d3655f-f541-441e-bb6c-1dda0b03540f@citrix.com>
-Date: Tue, 3 Jun 2025 15:12:32 +0100
+        bh=yw0+f7BJLdAUZiURTz5Gc9U5JJQs3FyRngWcjGXPPFc=;
+        b=AfekpoooQ6NKiPtAP83gzYN1Fx7f9yF70UCzkx++y5XBINyhMqALuZcnHlyQ5/1XX+
+         gpNq5bbEF2rijXbWtEyPQ+uGk+WqVnb7baeC/WlptyK/ScuDHC5Bbds1kNmlY1NAmPaW
+         +kJX3RM7kR6dWR5r5Uou6yDq7+DLca+ks1hVSkVtyuvJJgnleyCqJaM9fJifLsEQ9D3Y
+         S7LEvRQlaA3vhPd9KfIGe5EmHO/2GW3mo9FeXjbiFd9wKBr+K1dTmW9McKPhCDLBVXhc
+         pfyo0Ry/eWr7WzmZLgNaVJUaZPr9fJtsDTuuHRWpaa1TRIH83QKNteMrnbLMaDNdRwHB
+         QtyQ==
+X-Forwarded-Encrypted: i=1; AJvYcCU7qDKnLdesS0fMSTh6rtQiC0L6k7SqCF05hpiMFCA/xg+N7RHKp/SRnKsM4OC9c/wwIquX8GT37+Q=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yxv2xXctHDnfbX1EJyVW8BsPhEPETLwnF7e4gVeOB1IAiKoE/V8
+	LmSu3w0cDSXtc3SF6in9JaGePGj88ofUFY7rkcEP+TUycpyVbCpd+td6Z2UVdV24WYk=
+X-Gm-Gg: ASbGncvrMwZsyXLLkHzm7vYkzaMdwlu4ZxqMgLJz1lhcEHmMXAsUWLTX4zR6pGH242X
+	gkODP/R7jDhy6sAMdazuSW/aEiijTEGylHZS2g8DNKaiimRElLjxLIiV27P+nEKhKC1+ewysem4
+	wbp/sn4L8B6NwhCTu0hp388HMnulel5i6wMWM4WEldd/g5P5xVpf90N50smE6hnERZlqDbjW3uY
+	CvV8KEAiBOm7DpLyFE4/tJC9Y8KLN5EqYD9ltGLzz2Z7VsVOdbISTJN2UVwjzw8kFryZTR3vFJO
+	wrjWHtp261hTB/C5UC55iQ72MIxkyawiE1Vul9UFK9wJ8jDjYXwwYoNST+Jo1fENxOqugIfh28P
+	w7Gnrp2gdFfzLckDd
+X-Google-Smtp-Source: AGHT+IFfJRs/Szwtq4iZ0OHZqQZIThzeum1Qg6P0iWiceJcXG8t9xTQoxuJ1An7ppDKVQ3N06Jd2GQ==
+X-Received: by 2002:a5d:5f8b:0:b0:3a4:e841:b236 with SMTP id ffacd0b85a97d-3a4f89ddd6fmr14482333f8f.33.1748960187029;
+        Tue, 03 Jun 2025 07:16:27 -0700 (PDT)
+Message-ID: <e5d562be-caad-498b-ad33-05ff126af1c9@citrix.com>
+Date: Tue, 3 Jun 2025 15:16:25 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH 8/9] CI: Workaround extra content in junit
+Subject: Re: [XEN PATCH 9/9] CI: Add timing to junit
 To: Anthony PERARD <anthony@xenproject.org>, xen-devel@lists.xenproject.org
 Cc: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
  <marmarek@invisiblethingslab.com>, Anthony PERARD
  <anthony.perard@vates.tech>, Doug Goldstein <cardoe@cardoe.com>,
  Stefano Stabellini <sstabellini@kernel.org>
 References: <20250603124222.52057-1-anthony@xenproject.org>
- <20250603124222.52057-9-anthony@xenproject.org>
+ <20250603124222.52057-10-anthony@xenproject.org>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -137,39 +137,38 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20250603124222.52057-9-anthony@xenproject.org>
+In-Reply-To: <20250603124222.52057-10-anthony@xenproject.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
 On 03/06/2025 1:42 pm, Anthony PERARD wrote:
 > From: Anthony PERARD <anthony.perard@vates.tech>
 >
 > Signed-off-by: Anthony PERARD <anthony.perard@vates.tech>
+
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
 > ---
->  automation/scripts/qubes-x86-64.sh | 6 ++++++
->  1 file changed, 6 insertions(+)
+>  automation/scripts/run-tools-tests | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
 >
-> diff --git a/automation/scripts/qubes-x86-64.sh b/automation/scripts/qubes-x86-64.sh
-> index 7a4c5ae489..6ab8412f45 100755
-> --- a/automation/scripts/qubes-x86-64.sh
-> +++ b/automation/scripts/qubes-x86-64.sh
-> @@ -298,6 +298,12 @@ TEST_RESULT=$?
->  
->  if [ -n "$retrieve_xml" ]; then
->      nc -w 10 "$SUT_ADDR" 8080 > tests-junit.xml </dev/null
-> +    # Workaround duplicated data been received
-> +    sed -i.old '/^<\/testsuites>/q' tests-junit.xml > /dev/null
-> +    extra_line_in_junit=$(($(wc -l < tests-junit.xml.old) - $(wc -l < tests-junit.xml)))
-> +    if [ $extra_line_in_junit -gt 0 ]; then
-> +        echo "WARNING: Found $extra_line_in_junit too many lines in junit."
-> +    fi
+> diff --git a/automation/scripts/run-tools-tests b/automation/scripts/run-tools-tests
+> index 852c1cfbcf..e38cc4068c 100755
+> --- a/automation/scripts/run-tools-tests
+> +++ b/automation/scripts/run-tools-tests
+> @@ -18,9 +18,12 @@ for f in "$1"/*; do
+>          continue
+>      fi
+>      echo "Running $f"
+> -    printf '  <testcase name="%s">\n' "$f" >> "$xml_out"
+> +    time_start=$EPOCHREALTIME
+>      "$f" 2>&1 | tee /tmp/out
+>      ret=${PIPESTATUS[0]}
+> +    time_end=$EPOCHREALTIME
+> +    time_test="$(bc <<<"$time_end - $time_start")"
+> +    printf '  <testcase name="%s" time="%f">\n' "$f" "$time_test" >> "$xml_out"
 
-Is this the cause of
-https://gitlab.com/xen-project/hardware/xen-staging/-/pipelines/1849342222/test_report
-getting a row of 0's for ADL ?
-
-Why are we getting duplicate data?  nc is running in TCP mode, not UDP,
-so it's not that.
+I'd suggest $time_delta rather than $time_test.
 
 ~Andrew
 
