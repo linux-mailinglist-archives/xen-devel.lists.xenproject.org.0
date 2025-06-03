@@ -2,56 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 404DEACC3E4
-	for <lists+xen-devel@lfdr.de>; Tue,  3 Jun 2025 12:04:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1004151.1383827 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E991ACC431
+	for <lists+xen-devel@lfdr.de>; Tue,  3 Jun 2025 12:16:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1004189.1383847 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uMOUs-0003BU-7c; Tue, 03 Jun 2025 10:03:54 +0000
+	id 1uMOgI-0006fs-JV; Tue, 03 Jun 2025 10:15:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1004151.1383827; Tue, 03 Jun 2025 10:03:54 +0000
+Received: by outflank-mailman (output) from mailman id 1004189.1383847; Tue, 03 Jun 2025 10:15:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uMOUs-00039V-3Q; Tue, 03 Jun 2025 10:03:54 +0000
-Received: by outflank-mailman (input) for mailman id 1004151;
- Tue, 03 Jun 2025 10:03:53 +0000
+	id 1uMOgI-0006dk-GB; Tue, 03 Jun 2025 10:15:42 +0000
+Received: by outflank-mailman (input) for mailman id 1004189;
+ Tue, 03 Jun 2025 10:15:40 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=0Vtc=YS=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1uMOUq-0002Ov-Qq
- for xen-devel@lists.xenproject.org; Tue, 03 Jun 2025 10:03:52 +0000
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on20615.outbound.protection.outlook.com
- [2a01:111:f403:2009::615])
+ <SRS0=idzp=YS=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
+ id 1uMOgG-0006de-CN
+ for xen-devel@lists.xenproject.org; Tue, 03 Jun 2025 10:15:40 +0000
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on20604.outbound.protection.outlook.com
+ [2a01:111:f403:2415::604])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0cb1a64b-4062-11f0-a300-13f23c93f187;
- Tue, 03 Jun 2025 12:03:52 +0200 (CEST)
-Received: from DS7PR03CA0360.namprd03.prod.outlook.com (2603:10b6:8:55::33) by
- DM6PR12MB4139.namprd12.prod.outlook.com (2603:10b6:5:214::18) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.8769.30; Tue, 3 Jun 2025 10:03:47 +0000
-Received: from CH3PEPF00000013.namprd21.prod.outlook.com
- (2603:10b6:8:55:cafe::cf) by DS7PR03CA0360.outlook.office365.com
- (2603:10b6:8:55::33) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8769.19 via Frontend Transport; Tue,
- 3 Jun 2025 10:03:47 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CH3PEPF00000013.mail.protection.outlook.com (10.167.244.118) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8835.2 via Frontend Transport; Tue, 3 Jun 2025 10:03:46 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 3 Jun
- 2025 05:03:46 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 3 Jun
- 2025 05:03:46 -0500
-Received: from XIR-MICHALO-L1.xilinx.com (10.180.168.240) by
- SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39
- via Frontend Transport; Tue, 3 Jun 2025 05:03:43 -0500
+ id b19490ce-4063-11f0-a300-13f23c93f187;
+ Tue, 03 Jun 2025 12:15:38 +0200 (CEST)
+Received: from PH8PR12MB7326.namprd12.prod.outlook.com (2603:10b6:510:216::7)
+ by PH8PR12MB6675.namprd12.prod.outlook.com (2603:10b6:510:1c2::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8769.27; Tue, 3 Jun
+ 2025 10:15:33 +0000
+Received: from PH8PR12MB7326.namprd12.prod.outlook.com
+ ([fe80::6d76:9c33:d230:8264]) by PH8PR12MB7326.namprd12.prod.outlook.com
+ ([fe80::6d76:9c33:d230:8264%2]) with mapi id 15.20.8769.031; Tue, 3 Jun 2025
+ 10:15:33 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,341 +47,367 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0cb1a64b-4062-11f0-a300-13f23c93f187
+X-Inumbo-ID: b19490ce-4063-11f0-a300-13f23c93f187
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bYrr3kgPW7dprhxVGTqfpblP9UV2h2bYFipCFJyrR006MoccKaFjd85zO+5TAf3qMiVaAulUhDVXHanC4HKZC84Bf0HDXCwHwZjThGArXIMDiyfVFXSP0WprtkThdiLeNMulsb8/eXl+Wjm7yihmAhDz7qPJ3jmw4CF9XxnOGgFynvslwFQ4ogHhX3DUHnCkxstJHIPdniCxQpgAjBEBth7ja8noT6d4hj9y0YWd8SNbPIMJ0I12bfioXjUq1VbFkgGBzOFWOeimEh3qIL5WvRZg4qpB/bXKIWRaahD0EC+X4GnKTVjPVQSVK7GKeLDjhfkUJLMc5faoJchqzaCjvw==
+ b=S0zORsoqMPDO7BG/kJq7g3omvibWtGutbh/iQK3MQX0BB3H7XLxOAg0UUZO7dzsEA0xBEhnt0ebauZ96bmZVA47n1W92D+xLpUCm2drU8tKNGe0qdt+cnZ7PIp2aTQ7//Toj2mAY5FRIMy+ZtLJst1JT4TYaiQ6LHGPee8eeAnJz3fEGXab02V/xSgJjhv5npBtn/EPMvrXQGSQQ9xq1Op+/dSrv0WVOsljONotsnIy22DvAOztRZHU4ztIQ12gNSTk3Z9sVzlZkMZ15bOxAftUP9CuymQYmvv5bZY/JG1qfLQwREHnvNu4KwJFL81gLzPB7bbuKlZSIE/Z3EoD57w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZnHGABcGglclp7hMY6MIJY9pwxZ/mgS16QSPWnOTu6U=;
- b=gVzn31GhpImft3ESWQPJXJ2ONYBzmrRAwMHxPHC+2gxH2aornsx/O5B9LrLkI8G2ngtdyxNodXLQ6Lclf5eS4mowyqV6HoaVGlojpsnMn5qYp2v3+J3wIISegoquQbnitVVn34Bw5g2y90FsFhdqS4sKXZHxmUV+uMYA6JhIux0yzUk88BR0qDWonSjTtaekhaYNUflpQUYSc1kyr3+ZN+JezJddH26ffBG6WTvzd2WQROvgTcGq7xnBywkDvoomusGlpCLbm2FPTIjXPH5Wytlz7RFLEE0hiJQmDrlyopkApZXpSIx2wCcGMwLwVW0K5RKjxivxmotjzQioSnQEJw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=VYOvf9r1OaYSnQZxFAyl2QboU/Idp5Ostc+Zjev2EhA=;
+ b=HMSdBa3Op3untwYspgVWHL1g4NsGYXDfaxxMuzc+ZtXOJEFDEteXuvuifG65lmlADCN8G/NX72MZnTLuRLEzqqXK1N3sVBXiB9ABpbmkrcEQ9S4BqdBTMEUobpXtyKFDBIP6BwCRjpsRbv2pTNTIIShDe0pYH4QHwA1rY/PB7xn96PZaRbe+YwH0og2tmb5y7Q+CSSuGf9FoDLasNOEz5p/DEdTJ7qtowM9AayOWByuhM66veIH71Hb+8JpmTfxPTvwt8RZp2WjnWkv5DovgTA1ed+I4v7Ldwu0HhsE2npvAmrIXyQGWC7zQ6CtDNaXqcrIu/3C6ZIY8hTD8EVJOzA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZnHGABcGglclp7hMY6MIJY9pwxZ/mgS16QSPWnOTu6U=;
- b=alGj6dlO8jWGv7BUMZ7ql6lTmDPPS4SpTLS30ImzdUqnxtA6hVk5PNlORdk6YnNx4iJze6Sb73hmLWVzk8z6f4X9x1iKGCDlMeGkd11Q9DOMoJc4/21DlL2PqMItf90G9QrTdosJoIt0HRP8ayks9ExitQbpG0T9O39ZhuBZIMo=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-From: Michal Orzel <michal.orzel@amd.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Michal Orzel <michal.orzel@amd.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
-	<bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>, Anthony PERARD
-	<anthony.perard@vates.tech>, Jan Beulich <jbeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH 4/4] device-tree: Move Arm's static-shmem feature to common
-Date: Tue, 3 Jun 2025 12:03:29 +0200
-Message-ID: <20250603100329.149851-5-michal.orzel@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20250603100329.149851-1-michal.orzel@amd.com>
-References: <20250603100329.149851-1-michal.orzel@amd.com>
+ bh=VYOvf9r1OaYSnQZxFAyl2QboU/Idp5Ostc+Zjev2EhA=;
+ b=Pr1eMP10EU4moHdLnUVW2Ov2q9D3vEWnj51qPGulnxOskM4gJ227h0Kp66czT9/MI/mdUJ4qEe3DxRbY8XKIw+MWyv2x9SOVUKCoX2bJm1cbYeBfxGFs7Vo/B/RPL5AJuZVfyAz0rXMKQARaVAcGZv7w2U4GljfRVu8Mfiv7h4E=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Message-ID: <31594e99-d509-4081-852f-67ef2122149b@amd.com>
+Date: Tue, 3 Jun 2025 11:15:28 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/2] docs: fusa: Define the requirements for
+ XEN_VERSION hypercall.
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Michal Orzel <michal.orzel@amd.com>, Artem Mygaiev <artem_mygaiev@epam.com>
+References: <20250509112447.2931909-1-ayan.kumar.halder@amd.com>
+ <2040B386-299A-4BC5-BC59-7D3F58835A2B@arm.com>
+Content-Language: en-GB
+From: Ayan Kumar Halder <ayankuma@amd.com>
+In-Reply-To: <2040B386-299A-4BC5-BC59-7D3F58835A2B@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MR2P264CA0075.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:500:32::15) To PH8PR12MB7326.namprd12.prod.outlook.com
+ (2603:10b6:510:216::7)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH3PEPF00000013:EE_|DM6PR12MB4139:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0565fbb1-c3b4-4913-2335-08dda285ee4d
+X-MS-TrafficTypeDiagnostic: PH8PR12MB7326:EE_|PH8PR12MB6675:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2e28583a-f6a9-4b41-fc0c-08dda2879324
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|36860700013|82310400026|376014;
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?tKS1xyMj8sY//SiJbeo5HHbpYz4pjtDAu5owu5SG+TQLHPFpNVJ5RlcIWs/v?=
- =?us-ascii?Q?JxuAMi8M5wIBMNYV/RcjsgKHg4xI6M10kWlLnPXq6LXj0d06KVatTNkw8QhP?=
- =?us-ascii?Q?qxrWEtetxI8yaeaVJJeoMCxiz7yT5dX6o7ROPPOxjBOD5ThLNHig2CH5+8wj?=
- =?us-ascii?Q?Bx8kYRgFERuUiQfcBslR4cNWVHvoqeFzhnmf4dOLzv/oeh7h2HownneJS9QA?=
- =?us-ascii?Q?fzxV7j1N0ewWPWdkQo9Zzj3AHeH26yi42uNyGqh4uxwt+Gn1d80kv6YA9qjL?=
- =?us-ascii?Q?m87CnhY9sukqb+T0tqMtUtczeyp/+z/DOU0u7ztEplw6rJlGdgGTGn7ZpGVA?=
- =?us-ascii?Q?D96UsGgnG8sEE+F4BDL6BgYcaOsBvXNX26uIdn4XZNZJiF4wpitNFe5GFeMz?=
- =?us-ascii?Q?GEOpanOX1L7/v/0Fmg9c2FwZulxVsPuU2ah0B4vCzyzezs+LzU5hMayPL9Ge?=
- =?us-ascii?Q?aNWIYxoU2BDLPKZwVD3rqIZzjUYIHW1F019pgfMQFwC1HHvLLpNuqCSCV/Dr?=
- =?us-ascii?Q?aCTYGIbbw4OeQluFpH1VQPF6ry13xu3cfPTxppfuiPuxXvpWEXzE7Rexwbro?=
- =?us-ascii?Q?Ca3wB8Bx3Hj/EjXTYkzGstY52dg/Xx2ESzw6t4JPi5jW/T1xuI1kevLISe+A?=
- =?us-ascii?Q?Ih9jE/n5i8Jj7ZlHtngHQ/OUi+E4q+GhqbPmXzb/EzpiAfnZ/Cz7weM9tWB6?=
- =?us-ascii?Q?IphBNnvQ7HVE8TtbVMjp7I/jfb21ynemPn9jyo32Lvnpe23K0KiRzqRqj0CW?=
- =?us-ascii?Q?AF2tNiGrxz3QdlF8tgLOm/wYjDwNSRExky4EAf1JKXPjdNwHIiz3BeN0M62z?=
- =?us-ascii?Q?SGNzekbQ2Sxwi6NuCJ5Q+DbVwSEdyebtZbSu3rYzmj3GNgF/tFtUOJosXswg?=
- =?us-ascii?Q?XEs7w7oBcpTai8z+fC1x5J9W0GTuTQvceQnB+uL1FTZy7NjZutT9u3+j68mZ?=
- =?us-ascii?Q?z4zmU8T41boMlZPJoT3G8n7Orb4I/wHkuWqDEvvPDXg0voIkUcnOb2XpeyoT?=
- =?us-ascii?Q?pcqEscLDtLjJp+6M365u3usu0w/nYJzyr07iWAgPgLb+SrTUHcXzJerOo++t?=
- =?us-ascii?Q?4LqJl/4xZOl/RqULLofoa3hAfLZ+MwTGiAu8c/gEo1zqZab49MumOggvEJXw?=
- =?us-ascii?Q?TRzR97uOxkxi9x5Wc4ec/zO8V60e9klGo74YX8NGIgNF191pmhKod/G4cjG+?=
- =?us-ascii?Q?CPZsmOcY7bS8/eu+pYg4VrlAtCH67E7KapfGuT6ZVraaT7Xd8J31C5Nq7knG?=
- =?us-ascii?Q?2I48jfrowll7KTfdkLqIv2xDL2G9IeIrkWLNzzP4kz6Y6l2WNK1OOqM6+u9y?=
- =?us-ascii?Q?WXtaD/tfhnbQoy74vh72biACyEkVVA76jJufIBvh0G0DA7Cl2vM9AF+7vd/B?=
- =?us-ascii?Q?EFLceDO+S3TKrk752brKNd0U8OQpZeaxLxm5GlkT1h7NuvDz1HbbxQBn/4Qn?=
- =?us-ascii?Q?IoCRa1xEwsVNxs7VXpRDPv60wcpyQJEIh7T1v6y7DfQf0rGLUBX1zfZOqQ+3?=
- =?us-ascii?Q?/gHtYKjvo/UkceKjoo4IYSn96ubI7scHtw7Y?=
+	=?utf-8?B?Y1VGQ3FmbXhVNCtMdi9EaUVKWWl1cnlQTXZjZndHWlF4WHNJMlpGR3UxV0VL?=
+ =?utf-8?B?UkpPbXdvS2RQb2YwbGJSTU9YNldkcmNCSlZ5M2JCL0ZKVjhWMDFqbFhPaktT?=
+ =?utf-8?B?TlptTXNOekZhWktucjJCdmE4SVhYdnl5MlF5STJaTjcxZkRmajNaSmppcVZS?=
+ =?utf-8?B?ckJNSFR2Qm1QTFBxODYwRWd0N1JlL2dPN1gxRUVrOHpmV2kyUXJ6dmpJMGJS?=
+ =?utf-8?B?Vzk3S29KTjhwODZ4NzRLWk90YlU3Ri9JSGhwOGFvSjBHN1RZNjBmSmp6M0d1?=
+ =?utf-8?B?Tzd5Ty9yQ2NWRlNXajBibFA4bThLMUJxU3VUbXczK1BRV1dWZk1yTGtjMWc5?=
+ =?utf-8?B?TlQyUCtjY3prRGZxSGxYcjZYb3Ivem9VVEpXd0Vhb2RjSnRYaUh0Y2F4bUZv?=
+ =?utf-8?B?cHg5R0wzdUZQMEFuamtXMGprMEIwWk1zNjdLdHpzYVBZZVhsd09oT2xrelJK?=
+ =?utf-8?B?MHpJQUwwOGl3Uzk3QmhMaWE1TXA4UXFEYzFDb2w0dVAyQW9wUVdGRkE1dHNo?=
+ =?utf-8?B?TFJ6Zk1rczFzOUdmL1JaNnA0dDVYN01ldzJpOVhBcFRUZFczOUxFcm0wQWFq?=
+ =?utf-8?B?OUxVNW1YSnNqQlpDNm9kd1pNS1pDZUg0cHIzYWlDNEJScWxHSWhGWXNEVUxG?=
+ =?utf-8?B?Q3dUcmhiSmxqaEJ4SUlVWGNNaDQwS1l4ZmhIdkIrRng5ejdrQmsrek14K1Ir?=
+ =?utf-8?B?WWlseFZUOHlzV0xidnp2cGw3dXdnOFNVdkU5MXEyVHdzbGErYTNBN1k5MWRQ?=
+ =?utf-8?B?K3E5NmxOQytPUXNPZnhJbVJ4em5Vb1FmbnV5aWNEalhzVWdidnROTFZxN3F0?=
+ =?utf-8?B?TEI3cTVTWG9YcEk1KzhSUnVybXAwRU9LNmRyWlpzK242ckpCTW5zRjZwV0lT?=
+ =?utf-8?B?cUVVN3NKTnhvNHU2azdWOFRxK29EcXBDUXVQcVdKbk1pbCthdzdOazFJSklB?=
+ =?utf-8?B?T25xMHNRbUs1TXk3T0xwWGh1ODJVUHNCWEZ0Zk40SU1YUTNSWlFGbkl2YW82?=
+ =?utf-8?B?RUlrUUV0MjBxT0VUaWtKN0xFajJkTTZhVWl3eEY0dEhkY0lia3hZVGI0NVk0?=
+ =?utf-8?B?c2lia05xRnpTSnJGQWRtTHVWN2YzaVBDWUR1aktINFNSdE40NzJyYXIvUTl1?=
+ =?utf-8?B?U3B3NWIra1hBaHcxZlBjaGNNOTRjdWNleWNzSm55dlI3djNxblAwMTFETkIr?=
+ =?utf-8?B?RnhNeE9SUTRybVNqZDNDMk5kNlh0a1JpT0Rab0FEU2s5dXpsOHhkQUdlVjQ0?=
+ =?utf-8?B?QU5ia0Nuay9uMTFMNVNlQWdRQWdZWDJSQllSWXRzTWNXNGJYOWczRWJUVUky?=
+ =?utf-8?B?K2ZxTEl2M0Z0akg1ZGVXM1B4L1V2aCtaUG8yM1N3QjNIejdpWDlJM0d4MEF6?=
+ =?utf-8?B?SDhPYnU3Ry9VK0Y3UWJ3TWJPRWFscFRncWFHWDRUU1JtNFBxeXViYldDbzRU?=
+ =?utf-8?B?d005b2xFeU5ZNGRqbXViSWZSVzFpcWZ1MU5oZmphb21LeURER0k3a1BwQkxB?=
+ =?utf-8?B?K2lIMlhRVEpaaFh1Zm5Jckp1TEs2YTAwR2VXVE5lR2xYOTl1MVAyY3k1d0Ur?=
+ =?utf-8?B?TWNVLys1Wlc5QkhvUXhkQzN6cndvMmxCZkdHV095eFc5a0NWRVprSzd1bFoy?=
+ =?utf-8?B?eThUV05vK3RVT3I4cy9SS1ErUGRUWGc4a3ZKWk5zOFV1RlJjYjFSVFlTTDA5?=
+ =?utf-8?B?MUYxbmU3eVBxbTRDS3N6Q1Vhc0pHQ05RcVNNVktQdlhGNDNOTlU0dzJLWExZ?=
+ =?utf-8?B?WDhiMDh4VmpJTUlBYkxOMkx2ZkR1cEp4MWFIS0I1MzdtNTVRV0xPRXBPaEFQ?=
+ =?utf-8?B?bWs0dW9LTmdLT25qZmd1aWNhSjIzN3pKbzhUSHlOa3F6L2Zhc1o5M3NLaXBj?=
+ =?utf-8?B?NHFoTERtTlNIbHZnS2E1MGloWXJrdm5lcG9WU0Rzc1JvamVtZ2NyRkFPQjdx?=
+ =?utf-8?Q?gW7yAWL64sA=3D?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700013)(82310400026)(376014);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR12MB7326.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?NlVtcU5NL2J3cysyYlRkaTB5YmZJc2dtR1VPQTJSeVg5cndxdk80NjM3ZHNY?=
+ =?utf-8?B?V1V3SkFvMmwwOUEzYXk3bmY2TlhjV0NPbG1GWVMvcG9HWCsyU090QmIrRXNH?=
+ =?utf-8?B?YnMwMjJzblIxQ1JvWmtGZytTQW52RGZ1R0FNbkFyTVBFQzdhbENkam1rRWVo?=
+ =?utf-8?B?azFiZ2x5dnV4UHE4TW5PbkNteGZzdDM3by85WDVYTHQwQWJVakVwM2xzemlk?=
+ =?utf-8?B?bDJ4SzFjRloxRlpMVmtMUzN6WXVoUW1SbjBLZXdLSStETjZRazY2YSszM1dp?=
+ =?utf-8?B?UEFueWtKWXQrOHYyRDExbFFVZ0Z0K3BCWk9PakFmallpK0JyUUZyS0NrNUtn?=
+ =?utf-8?B?RkI4cnR4bUJlejNKSWtTbDJKRm9DYWcrQXA5NSt1ZVZydEplSGxKNHprYVdp?=
+ =?utf-8?B?bEdyWmN1NDNFUnNYSlNZM3NMSDlJM3c0R01FM1VYdGtXS001dEFDaWlVaXgw?=
+ =?utf-8?B?R2R4bmhFN0NaUXQ1UXBLYlJtanVIaERUSnROREtwSzNQTXl5RkFobVNYdVpm?=
+ =?utf-8?B?dDFNUzhFNE45R1cxU3NlK0oyaEFTRHlIa2tOWnpkd0NJa21WSnlEenBvYkRD?=
+ =?utf-8?B?SmdLNVVSeUVDTk9lam9zdlhDOXVRL05lNGx0Q1FaS1pXM0Vndkp1K1Yrci8w?=
+ =?utf-8?B?RFMvbXY4Ujh0YTZYNFpTK09hcFJLSEhWQUtVOExJNmIyWFZndUZ2ZDQxc1lF?=
+ =?utf-8?B?R2FGbmtJeWpvbFkzc0FwcU9DOUQwWHlERERUSHlMaVpaWXBYQzIvM1NFWUtk?=
+ =?utf-8?B?eHVZaHRZVmZCZldGZ093d0kvYjNvK0RhcUJndy9CZjhhWENGbnJaclBGQ2tz?=
+ =?utf-8?B?RXZ2cUxYN01NVkxTcHRDUFBldVA5S2hOZ2xzTTRzajlEOHhRSHlTRmRyc3l3?=
+ =?utf-8?B?WmlMRzU1aTBKN2NnWnVkT01GWkZoTXp0T1pDL2dhdmZFZmhYdzdYSEdWRXIr?=
+ =?utf-8?B?SEpzM0pHWEp4TllzTmJ0Zm1sWC9jVEM4U1lrMElKSWEzSnBPbVJWSWpFa1l2?=
+ =?utf-8?B?WGpreHBqYkJxTUJWNGJMWnhLK0h0QzFIQW5ybG1lQTFaNC8yeXlPRFc3aGRr?=
+ =?utf-8?B?elZsbEc2aFUydUhWMHk5a0V2TTZqUE9ZSWdZVkVrTDEzbEdiSVFNcE5Wcks5?=
+ =?utf-8?B?N2RSbWRVKzcxbTNXVnNPWVlyZUJyUXdZdTlGYm9PbWxDYnNlZ210VTFtcTBT?=
+ =?utf-8?B?MnZaR3o0S1JEUzQvbFlWNkFtbVNaNmh1T2J3VWFYU01RZG1OZ0pvUU16WExF?=
+ =?utf-8?B?SGI5VXZzMEU3TnA2Um1RcElCdEI2WTJpd1didlRkS1pBbU9QTHllcURHYjBO?=
+ =?utf-8?B?b2Q4aUwyY04ydGtRbFlLSVErd3VkU0FNZzJXNGt1bDhNbDBYZDJ6NXZqTGJF?=
+ =?utf-8?B?VU1MVW4vTFovUXNqWWRuQ3RZTitZK3M0WDBGYUx5K2tRT1NDTUxOejkrQkl1?=
+ =?utf-8?B?czZXOXFFZjhIQmxYSXlGUlpkeTN3d3ZrRWRTUmJucmRoUDBraGJJMjJ3VHFC?=
+ =?utf-8?B?S3I4aDVEeEVBUlVXYTgzdmVrN09zamhSYTFDZXlUZWZZeEo5cHBWVm50RzVp?=
+ =?utf-8?B?T2hOMGRHSWJDOHp0bHYrMjdBV1YxVVQvRVV6bStkY1p5YzVGUlBvMmZ5WDNR?=
+ =?utf-8?B?VWd0bWNsNW4wYlV4QzByWUdLVE90cStIYTdOSGFIY3ErTEdiQk9DSmhQMU02?=
+ =?utf-8?B?eURWN3RQV2lyOFFRM213TlBYTTZrQWtEU2VOQzVxcmJIV2hBWlhrVmFWRmxy?=
+ =?utf-8?B?YkRoYlFxb0VtVlZOS0N5Y09qZVRSQmRGR050TXF4NlQrMjQyL0lRYXRxZkth?=
+ =?utf-8?B?NU15a0QrWjNjYTg1dnlMZytiZ2QvQzM5NEtuTEtSaHdxNElkd0ZsbWhmWHZn?=
+ =?utf-8?B?MUVLVGNocGlMdDBLMitsTTF2aXFGM3Z2WmFjK2NOWm5ZZ0o2ZFZvcjFHZlpZ?=
+ =?utf-8?B?MFNCM284b3d3WDRld05zRWprVGhUMzBPMkVueWZXaVFaaXd3dVFUenRobEtk?=
+ =?utf-8?B?UjhIcHhEcWdBL0Q4aG9ueEZYK3dRMFZlUG9taEtFVWpCYUNqTFM5dEY4M24v?=
+ =?utf-8?B?T0RWODVEVmk5Lzd1VDRCUDFYUlhyYnlVbDhPQ3lSd1VZR3puZERGcHRhcnZr?=
+ =?utf-8?Q?Q+zu6/9337jqxPu244qOCqne9?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jun 2025 10:03:46.8311
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2e28583a-f6a9-4b41-fc0c-08dda2879324
+X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB7326.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jun 2025 10:15:33.1127
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0565fbb1-c3b4-4913-2335-08dda285ee4d
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CH3PEPF00000013.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4139
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 0E0OOvPmwhMK+N48zJOgTNOlvSbXD3IAzNkbNBNEhRoWfV2RcuHAiwQoyfLSdSYQxtn2olG6RdjP+oDDqvnu/Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6675
 
-This feature is arch agnostic, thus move it to common.
 
-Signed-off-by: Michal Orzel <michal.orzel@amd.com>
----
- xen/arch/arm/Kconfig                                     | 6 ------
- xen/arch/arm/Makefile                                    | 1 -
- xen/arch/arm/arm32/mmu/mm.c                              | 2 +-
- xen/arch/arm/arm64/mmu/mm.c                              | 2 +-
- xen/arch/arm/dom0less-build.c                            | 2 +-
- xen/arch/arm/domain_build.c                              | 2 +-
- xen/common/Kconfig                                       | 6 ++++++
- xen/common/device-tree/Makefile                          | 1 +
- xen/common/device-tree/bootfdt.c                         | 4 +---
- xen/common/device-tree/dom0less-build.c                  | 9 +--------
- xen/{arch/arm => common/device-tree}/static-shmem.c      | 2 +-
- xen/{arch/arm/include/asm => include/xen}/static-shmem.h | 6 +++---
- 12 files changed, 17 insertions(+), 26 deletions(-)
- rename xen/{arch/arm => common/device-tree}/static-shmem.c (99%)
- rename xen/{arch/arm/include/asm => include/xen}/static-shmem.h (96%)
+On 21/05/2025 13:02, Bertrand Marquis wrote:
+> Hi Ayan,
 
-diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
-index 57919d8b3ac8..3f25da3ca5fd 100644
---- a/xen/arch/arm/Kconfig
-+++ b/xen/arch/arm/Kconfig
-@@ -247,12 +247,6 @@ config ARM64_BTI
- 
- source "arch/arm/tee/Kconfig"
- 
--config STATIC_SHM
--	bool "Statically shared memory on a dom0less system" if UNSUPPORTED
--	depends on STATIC_MEMORY
--	help
--	  This option enables statically shared memory on a dom0less system.
--
- config PARTIAL_EMULATION
- 	bool "Enable partial emulation of system/coprocessor registers"
- 	default y
-diff --git a/xen/arch/arm/Makefile b/xen/arch/arm/Makefile
-index 4f080145478d..ab0a0c2be6d8 100644
---- a/xen/arch/arm/Makefile
-+++ b/xen/arch/arm/Makefile
-@@ -51,7 +51,6 @@ obj-y += setup.o
- obj-y += shutdown.o
- obj-y += smp.o
- obj-y += smpboot.o
--obj-$(CONFIG_STATIC_SHM) += static-shmem.init.o
- obj-y += sysctl.o
- obj-y += time.o
- obj-y += traps.o
-diff --git a/xen/arch/arm/arm32/mmu/mm.c b/xen/arch/arm/arm32/mmu/mm.c
-index f3305e28e9df..4d22f35618aa 100644
---- a/xen/arch/arm/arm32/mmu/mm.c
-+++ b/xen/arch/arm/arm32/mmu/mm.c
-@@ -7,9 +7,9 @@
- #include <xen/param.h>
- #include <xen/pfn.h>
- #include <xen/static-memory.h>
-+#include <xen/static-shmem.h>
- #include <asm/fixmap.h>
- #include <asm/setup.h>
--#include <asm/static-shmem.h>
- 
- static unsigned long opt_xenheap_megabytes __initdata;
- integer_param("xenheap_megabytes", opt_xenheap_megabytes);
-diff --git a/xen/arch/arm/arm64/mmu/mm.c b/xen/arch/arm/arm64/mmu/mm.c
-index cded8f2787f9..a0a2dd8cc762 100644
---- a/xen/arch/arm/arm64/mmu/mm.c
-+++ b/xen/arch/arm/arm64/mmu/mm.c
-@@ -5,9 +5,9 @@
- #include <xen/mm.h>
- #include <xen/pfn.h>
- #include <xen/static-memory.h>
-+#include <xen/static-shmem.h>
- 
- #include <asm/setup.h>
--#include <asm/static-shmem.h>
- 
- /* Override macros from asm/page.h to make them work with mfn_t */
- #undef virt_to_mfn
-diff --git a/xen/arch/arm/dom0less-build.c b/xen/arch/arm/dom0less-build.c
-index bcfd686a8b7f..20aabf6be5c7 100644
---- a/xen/arch/arm/dom0less-build.c
-+++ b/xen/arch/arm/dom0less-build.c
-@@ -13,6 +13,7 @@
- #include <xen/serial.h>
- #include <xen/sizes.h>
- #include <xen/static-memory.h>
-+#include <xen/static-shmem.h>
- #include <xen/vmap.h>
- 
- #include <public/bootfdt.h>
-@@ -23,7 +24,6 @@
- #include <asm/domain_build.h>
- #include <asm/grant_table.h>
- #include <asm/setup.h>
--#include <asm/static-shmem.h>
- 
- #ifdef CONFIG_VGICV2
- static int __init make_gicv2_domU_node(struct kernel_info *kinfo)
-diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-index 068af31a62db..590f38e52053 100644
---- a/xen/arch/arm/domain_build.c
-+++ b/xen/arch/arm/domain_build.c
-@@ -21,6 +21,7 @@
- #include <xen/acpi.h>
- #include <xen/vmap.h>
- #include <xen/warning.h>
-+#include <xen/static-shmem.h>
- #include <asm/device.h>
- #include <asm/setup.h>
- #include <asm/tee/tee.h>
-@@ -32,7 +33,6 @@
- #include <asm/cpufeature.h>
- #include <asm/dom0less-build.h>
- #include <asm/domain_build.h>
--#include <asm/static-shmem.h>
- #include <xen/event.h>
- 
- #include <xen/irq.h>
-diff --git a/xen/common/Kconfig b/xen/common/Kconfig
-index 7ecf5a80315d..eece1370a3cc 100644
---- a/xen/common/Kconfig
-+++ b/xen/common/Kconfig
-@@ -162,6 +162,12 @@ config STATIC_MEMORY
- 
- 	  If unsure, say N.
- 
-+config STATIC_SHM
-+	bool "Statically shared memory on a dom0less system" if UNSUPPORTED
-+	depends on STATIC_MEMORY
-+	help
-+	  This option enables statically shared memory on a dom0less system.
-+
- config STATIC_EVTCHN
- 	bool "Static event channel support on a dom0less system"
- 	depends on DOM0LESS_BOOT
-diff --git a/xen/common/device-tree/Makefile b/xen/common/device-tree/Makefile
-index ed11f2c3b42c..13127296cb50 100644
---- a/xen/common/device-tree/Makefile
-+++ b/xen/common/device-tree/Makefile
-@@ -8,3 +8,4 @@ obj-y += intc.o
- obj-$(CONFIG_DOMAIN_BUILD_HELPERS) += kernel.o
- obj-$(CONFIG_STATIC_EVTCHN) += static-evtchn.init.o
- obj-$(CONFIG_STATIC_MEMORY) += static-memory.init.o
-+obj-$(CONFIG_STATIC_SHM) += static-shmem.init.o
-diff --git a/xen/common/device-tree/bootfdt.c b/xen/common/device-tree/bootfdt.c
-index aa44f5a67c34..9df80291b159 100644
---- a/xen/common/device-tree/bootfdt.c
-+++ b/xen/common/device-tree/bootfdt.c
-@@ -13,11 +13,9 @@
- #include <xen/lib.h>
- #include <xen/libfdt/libfdt-xen.h>
- #include <xen/sort.h>
-+#include <xen/static-shmem.h>
- #include <xsm/xsm.h>
- #include <asm/setup.h>
--#ifdef CONFIG_STATIC_SHM
--#include <asm/static-shmem.h>
--#endif
- 
- static void __init __maybe_unused build_assertions(void)
- {
-diff --git a/xen/common/device-tree/dom0less-build.c b/xen/common/device-tree/dom0less-build.c
-index c8c5a04f24cb..3d503c697337 100644
---- a/xen/common/device-tree/dom0less-build.c
-+++ b/xen/common/device-tree/dom0less-build.c
-@@ -29,10 +29,7 @@
- #include <asm/setup.h>
- 
- #include <xen/static-memory.h>
--
--#if __has_include(<asm/static-shmem.h>)
--#   include <asm/static-shmem.h>
--#endif
-+#include <xen/static-shmem.h>
- 
- #define XENSTORE_PFN_LATE_ALLOC UINT64_MAX
- 
-@@ -505,11 +502,9 @@ static int __init prepare_dtb_domU(struct domain *d, struct kernel_info *kinfo)
-     if ( ret )
-         goto err;
- 
--#ifdef CONFIG_STATIC_SHM
-     ret = make_resv_memory_node(kinfo, addrcells, sizecells);
-     if ( ret )
-         goto err;
--#endif
- 
-     /*
-      * domain_handle_dtb_bootmodule has to be called before the rest of
-@@ -802,11 +797,9 @@ static int __init construct_domU(struct domain *d,
-         else
-             assign_static_memory_11(d, &kinfo, node);
- 
--#ifdef CONFIG_STATIC_SHM
-         rc = process_shm(d, &kinfo, node);
-         if ( rc < 0 )
-             return rc;
--#endif
- 
-         rc = init_vuart(d, &kinfo, node);
-         if ( rc < 0 )
-diff --git a/xen/arch/arm/static-shmem.c b/xen/common/device-tree/static-shmem.c
-similarity index 99%
-rename from xen/arch/arm/static-shmem.c
-rename to xen/common/device-tree/static-shmem.c
-index 2055b7be0f3f..8023c0a484c1 100644
---- a/xen/arch/arm/static-shmem.c
-+++ b/xen/common/device-tree/static-shmem.c
-@@ -6,9 +6,9 @@
- #include <xen/rangeset.h>
- #include <xen/sched.h>
- #include <xen/static-memory.h>
-+#include <xen/static-shmem.h>
- 
- #include <asm/setup.h>
--#include <asm/static-shmem.h>
- 
- typedef struct {
-     struct domain *d;
-diff --git a/xen/arch/arm/include/asm/static-shmem.h b/xen/include/xen/static-shmem.h
-similarity index 96%
-rename from xen/arch/arm/include/asm/static-shmem.h
-rename to xen/include/xen/static-shmem.h
-index 6a4c33cca8c2..76a49869126c 100644
---- a/xen/arch/arm/include/asm/static-shmem.h
-+++ b/xen/include/xen/static-shmem.h
-@@ -1,7 +1,7 @@
- /* SPDX-License-Identifier: GPL-2.0-only */
- 
--#ifndef __ASM_STATIC_SHMEM_H_
--#define __ASM_STATIC_SHMEM_H_
-+#ifndef XEN_STATIC_SHMEM_H
-+#define XEN_STATIC_SHMEM_H
- 
- #include <xen/fdt-kernel.h>
- #include <xen/types.h>
-@@ -82,7 +82,7 @@ static inline void shm_mem_node_fill_reg_range(const struct kernel_info *kinfo,
- 
- #endif /* CONFIG_STATIC_SHM */
- 
--#endif /* __ASM_STATIC_SHMEM_H_ */
-+#endif /* XEN_STATIC_SHMEM_H */
- 
- /*
-  * Local variables:
--- 
-2.25.1
+Hi Bertrand,
 
+>
+>> On 9 May 2025, at 13:24, Ayan Kumar Halder <ayan.kumar.halder@amd.com> wrote:
+>>
+>> Define the requirements which are common for all the commands for XEN_VERSION
+>> hypercall.
+>>
+>> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+>> ---
+>> Changes from -
+>>
+>> v1 - 1. Fixed `XenProd~version_hyp_ret_val~1` requirement as Xen does not return
+>> 0 for success in all the cases.
+>> 2. Reworded the requirements so as to write them from Xen's perspective (not
+>> domain's perspective).
+>>
+>> v2 - 1. Specified the register details.
+>> 2. Specified the type of buffer.
+>>
+>> .../fusa/reqs/design-reqs/arm64/hypercall.rst | 58 +++++++++++++++++++
+>> docs/fusa/reqs/index.rst                      |  2 +
+>> docs/fusa/reqs/market-reqs/reqs.rst           | 16 +++++
+>> .../reqs/product-reqs/version_hypercall.rst   | 43 ++++++++++++++
+>> 4 files changed, 119 insertions(+)
+>> create mode 100644 docs/fusa/reqs/design-reqs/arm64/hypercall.rst
+>> create mode 100644 docs/fusa/reqs/product-reqs/version_hypercall.rst
+>>
+>> diff --git a/docs/fusa/reqs/design-reqs/arm64/hypercall.rst b/docs/fusa/reqs/design-reqs/arm64/hypercall.rst
+>> new file mode 100644
+>> index 0000000000..f00b0b00f9
+>> --- /dev/null
+>> +++ b/docs/fusa/reqs/design-reqs/arm64/hypercall.rst
+>> @@ -0,0 +1,58 @@
+>> +.. SPDX-License-Identifier: CC-BY-4.0
+>> +
+>> +Hypercall
+>> +=========
+>> +
+>> +Instruction
+>> +-----------
+>> +
+>> +`XenSwdgn~arm64_hyp_instr~1`
+>> +
+>> +Description:
+>> +Xen shall treat domain hypercall exception as hypercall requests.
+> This really reads weirdly.
+> Maybe: Xen shall treat domain hvc instruction execution as hypercall requests.
+>
+> Then you can add a comment to explain that this is detected through a specific exception.
+>
+> Also this is not completely true as hvc is also used in other scenarios:
+> - PSCI calls
+> - Firmware calls
+>
+> So i would put the 0xEA1 value as part of the requirement.
+
+Description:
+
+Xen shall treat domain hvc instruction execution (with 0xEA1) as hypercall requests.
+
+Comments:
+The exception syndrome register should have the following values :-
+ESR_EL2.ISS should be 0xEA1.
+ESR_EL2.EC should be 0x16.
+
+>
+>> +
+>> +Rationale:
+>> +
+>> +Comments:
+>> +Hypercall is one of the communication mechanism between Xen and domains.
+>> +Domains use hypercalls for various requests to Xen.
+>> +Domains use 'hvc #0xEA1' instruction to invoke hypercalls.
+>> +
+>> +Covers:
+>> + - `XenProd~version_hyp_first_param~1`
+>> + - `XenProd~version_hyp_second_param~1`
+>> +
+>> +Parameters
+>> +----------
+>> +
+>> +`XenSwdgn~arm64_hyp_param~1`
+>> +
+>> +Description:
+>> +Xen shall use the first five cpu core registers to obtain the arguments for
+>> +domain hypercall requests.
+> Why not say x0 to x4 registers instead ? You use x16 after anyway
+Ack
+>
+>> +
+>> +Rationale:
+>> +
+>> +Comments:
+>> +Xen shall read the first register for the first argument, second register for
+>> +the second argument and so on.
+>> +
+>> +Covers:
+>> + - `XenProd~version_hyp_first_param~1`
+>> + - `XenProd~version_hyp_second_param~1`
+>> +
+>> +Hypercall number
+>> +----------------
+>> +
+>> +`XenSwdgn~arm64_hyp_num~1`
+>> +
+>> +Description:
+>> +Xen shall read x16 to obtain the hypercall number.
+>> +
+>> +Rationale:
+>> +
+>> +Comments:
+>> +
+>> +Covers:
+>> + - `XenProd~version_hyp_first_param~1`
+>> + - `XenProd~version_hyp_second_param~1`
+>> diff --git a/docs/fusa/reqs/index.rst b/docs/fusa/reqs/index.rst
+>> index 1088a51d52..d8683edce7 100644
+>> --- a/docs/fusa/reqs/index.rst
+>> +++ b/docs/fusa/reqs/index.rst
+>> @@ -10,5 +10,7 @@ Requirements documentation
+>>     market-reqs/reqs
+>>     product-reqs/reqs
+>>     product-reqs/arm64/reqs
+>> +   product-reqs/version_hypercall
+>>     design-reqs/arm64/generic-timer
+>>     design-reqs/arm64/sbsa-uart
+>> +   design-reqs/arm64/hypercall
+>> diff --git a/docs/fusa/reqs/market-reqs/reqs.rst b/docs/fusa/reqs/market-reqs/reqs.rst
+>> index 2d297ecc13..0e29fe5362 100644
+>> --- a/docs/fusa/reqs/market-reqs/reqs.rst
+>> +++ b/docs/fusa/reqs/market-reqs/reqs.rst
+>> @@ -79,3 +79,19 @@ Comments:
+>>
+>> Needs:
+>>   - XenProd
+>> +
+>> +Version hypercall
+>> +-----------------
+>> +
+>> +`XenMkt~version_hypercall~1`
+>> +
+>> +Description:
+>> +Xen shall provide an interface for the domains to retrieve Xen's version, type
+>> +and compilation information.
+> I would say hypercall instead of interface here
+Ack
+>
+>> +
+>> +Rationale:
+>> +
+>> +Comments:
+>> +
+>> +Needs:
+>> + - XenProd
+>> diff --git a/docs/fusa/reqs/product-reqs/version_hypercall.rst b/docs/fusa/reqs/product-reqs/version_hypercall.rst
+>> new file mode 100644
+>> index 0000000000..400d51bbeb
+>> --- /dev/null
+>> +++ b/docs/fusa/reqs/product-reqs/version_hypercall.rst
+>> @@ -0,0 +1,43 @@
+>> +.. SPDX-License-Identifier: CC-BY-4.0
+>> +
+>> +Version hypercall
+>> +=================
+>> +
+>> +First Parameter
+>> +---------------
+>> +
+>> +`XenProd~version_hyp_first_param~1`
+>> +
+>> +Description:
+>> +Xen shall treat the first argument (as an integer) to denote the command number
+>> +for the hypercall.
+> I would be more precise and say x0 value.
+Ack
+>
+> Also "integer" is unspecified, use a more specific type definition (32/64 bit signed/unsigned integer).
+
+It is a signed integer. The size is not mentioned.
+
+ret = do_xen_version((int)(a1), (XEN_GUEST_HANDLE_PARAM(void)){ _p(a2) });
+
+>
+>> +
+>> +Rationale:
+>> +
+>> +Comments:
+>> +
+>> +Covers:
+>> + - `XenMkt~version_hypercall~1`
+>> +
+>> +Needs:
+>> + - XenSwdgn
+>> +
+>> +Second Parameter
+>> +----------------
+>> +
+>> +`XenProd~version_hyp_second_param~1`
+>> +
+>> +Description:
+>> +Xen shall treat the second argument as a virtual address (mapped as Normal
+>> +Inner Write-Back Outer Write-Back Inner-Shareable) to buffer in domain's
+>> +memory.
+> You should say "guest virtual address" to be more precise.
+
+Ack
+
+s/guest/domain
+
+- Ayan
+
+>
+>> +
+>> +Rationale:
+>> +
+>> +Comments:
+>> +
+>> +Covers:
+>> + - `XenMkt~version_hypercall~1`
+>> +
+>> +Needs:
+>> + - XenSwdgn
+>> -- 
+>> 2.25.1
+>>
+> Cheers
+> Bertrand
+>
 
