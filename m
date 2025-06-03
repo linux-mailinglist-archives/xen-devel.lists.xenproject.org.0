@@ -2,35 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 48809ACBE05
-	for <lists+xen-devel@lfdr.de>; Tue,  3 Jun 2025 03:01:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1003942.1383578 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D93A4ACBE09
+	for <lists+xen-devel@lfdr.de>; Tue,  3 Jun 2025 03:03:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1003949.1383587 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uMG1g-0003Yx-JY; Tue, 03 Jun 2025 01:01:12 +0000
+	id 1uMG3j-0001Lk-Tb; Tue, 03 Jun 2025 01:03:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1003942.1383578; Tue, 03 Jun 2025 01:01:12 +0000
+Received: by outflank-mailman (output) from mailman id 1003949.1383587; Tue, 03 Jun 2025 01:03:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uMG1g-0003TR-FW; Tue, 03 Jun 2025 01:01:12 +0000
-Received: by outflank-mailman (input) for mailman id 1003942;
- Tue, 03 Jun 2025 01:01:11 +0000
+	id 1uMG3j-0001Ij-Qr; Tue, 03 Jun 2025 01:03:19 +0000
+Received: by outflank-mailman (input) for mailman id 1003949;
+ Tue, 03 Jun 2025 01:03:18 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=D1uS=YS=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1uMG1f-0002ih-1A
- for xen-devel@lists.xenproject.org; Tue, 03 Jun 2025 01:01:11 +0000
-Received: from tor.source.kernel.org (tor.source.kernel.org
- [2600:3c04:e001:324:0:1991:8:25])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 36d545eb-4016-11f0-b894-0df219b8e170;
- Tue, 03 Jun 2025 03:01:00 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 859F961155;
- Tue,  3 Jun 2025 01:00:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3049AC4CEEB;
- Tue,  3 Jun 2025 01:00:57 +0000 (UTC)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=XduF=YS=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
+ id 1uMG3h-0001IU-RZ
+ for xen-devel@lists.xenproject.org; Tue, 03 Jun 2025 01:03:18 +0000
+Received: from mail-10628.protonmail.ch (mail-10628.protonmail.ch
+ [79.135.106.28]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 873f035b-4016-11f0-b894-0df219b8e170;
+ Tue, 03 Jun 2025 03:03:15 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,151 +36,393 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 36d545eb-4016-11f0-b894-0df219b8e170
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1748912458;
-	bh=gUWEOxy+ArxWs2+pcdbzIbJgdOuvw8mAqKKAjxlWx/U=;
-	h=Date:From:To:cc:Subject:From;
-	b=nAjLZ/1/2kXG1NmErzRnMeIeaWRt0rCj30kDhhJlqoWcfzymBZU25IKfrnOF9SX8j
-	 Tx8DLhXczRAxpmnkCfU+cHrlFvd5f5RsYqjHFlQzKgSQ9F2cmRW74FvKbnf01NXIcS
-	 TS9G4u0blI/Y7gNjpqcNP4y2W1fuDVYo6Yu70QkDF727yuqKzhk/AzS9vDst04anbb
-	 4ctVesektOE18CILlhOOOHaqDw25gCD7DW5LiZP7Mn3SzM1gPvgVSmXg89hM0y0cfS
-	 ygpXEqWwBAN6Bj1I3FQ2NeQ+GIHpAF1KAyHL10jVGmfsz91UKuONLv+a6MqejhKKqK
-	 l5b2XZSYbd6ow==
-Date: Mon, 2 Jun 2025 18:00:55 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: xen-devel@lists.xenproject.org
-cc: Andrew Cooper <andrew.cooper3@citrix.com>, 
-    Stefano Stabellini <stefano.stabellini@amd.com>, michal.orzel@amd.com, 
-    jbeulich@suse.com, julien@xen.org, roger.pau@citrix.com, 
-    sstabellini@kernel.org, bertrand.marquis@arm.com, 
-    federico.serafini@bugseng.com, Nicola Vetrini <nicola.vetrini@bugseng.com>
-Subject: [PATCH v2] automation/eclair: update configuration of D4.10
-Message-ID: <alpine.DEB.2.22.394.2506021754400.1147082@ubuntu-linux-20-04-desktop>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: 873f035b-4016-11f0-b894-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail; t=1748912593; x=1749171793;
+	bh=xb16ngmh0Y4gX1KL08ipj9+1nfE4yRAO6vOVfdFkpmA=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector:List-Unsubscribe:List-Unsubscribe-Post;
+	b=iK3d86RxaQd80PyD56bM/9TabG4rcH75iDx9QTRcCxnVTzCONgV4v5O5ewh8I1d/p
+	 4ZG3viDaZkoBH9TEWn8nCKWUx38FUe/lucRD6D4VBmiuvNYyqa+dW3pWWit6XDAcwj
+	 OqfeVmuhYbc8DrZHy3cFCXaKML0A8hjMzZtTJlksW2dH55KhG0AZFG8eC1Wler5VaK
+	 1hJdOoSlvDN1FEay82lkh4UPFNsEupPtyjxyEPn8ZLYbXdbVz8NoGZz0NqVtlhV+P6
+	 YdDLr23bng+hzYUxSatBex1urkfXThTOuS+dS94mnwqU7puTdxYpG715uOa+uZv8Bs
+	 esksEc2qxJcag==
+Date: Tue, 03 Jun 2025 01:03:08 +0000
+To: Stefano Stabellini <sstabellini@kernel.org>
+From: dmkhn@proton.me
+Cc: xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com, anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com, dmukhin@ford.com
+Subject: Re: [PATCH v5 3/4] xen/console: remove max_init_domid dependency
+Message-ID: <aD5JxnenoQ+83lpw@kraken>
+In-Reply-To: <alpine.DEB.2.22.394.2506021733330.1147082@ubuntu-linux-20-04-desktop>
+References: <20250530231841.73386-1-dmukhin@ford.com> <20250530231841.73386-4-dmukhin@ford.com> <alpine.DEB.2.22.394.2506021733330.1147082@ubuntu-linux-20-04-desktop>
+Feedback-ID: 123220910:user:proton
+X-Pm-Message-ID: 70ac7c5d8bfbc04b1a8f0c45f2c1aba9e03999db
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-MISRA C Directive 4.10 states that "Precautions shall be taken in order
-to prevent the contents of a header file being included more than
-once".
+On Mon, Jun 02, 2025 at 05:36:25PM -0700, Stefano Stabellini wrote:
+> On Fri, 30 May 2025, dmkhn@proton.me wrote:
+> > From: Denis Mukhin <dmukhin@ford.com>
+> >
+> > The physical console input rotation depends on max_init_domid symbol, w=
+hich is
+> > managed differently across architectures.
+> >
+> > Instead of trying to manage max_init_domid in the arch-common code the =
+console
+> > input rotation code can be reworked by removing dependency on max_init_=
+domid
+> > entirely.
+> >
+> > To do that, introduce domid_find_with_input_allowed() in arch-independe=
+nt
+> > location to find the ID of the next possible console owner domain. The =
+IDs
+> > are rotated across non-system domain IDs and DOMID_XEN.
+> >
+> > Also, introduce helper console_set_domid() for updating identifier of t=
+he
+> > current console input owner (points to Xen or domain).
+> >
+> > Use domid_find_with_input_allowed() and console_set_domid() in
+> > console_switch_input().
+> >
+> > Remove uses of max_init_domid in the code.
+> >
+> > Signed-off-by: Denis Mukhin <dmukhin@ford.com>
+> > ---
+> > Changes since v4:
+> > - fixed domid_find_with_input_allowed()
+> > - kept switching to get_initial_domain_id() in console_endboot()
+> > ---
+> >  xen/arch/arm/include/asm/setup.h        |  2 -
+> >  xen/arch/arm/setup.c                    |  2 -
+> >  xen/arch/ppc/include/asm/setup.h        |  2 -
+> >  xen/arch/riscv/include/asm/setup.h      |  2 -
+> >  xen/arch/x86/include/asm/setup.h        |  2 -
+> >  xen/common/device-tree/dom0less-build.c |  2 -
+> >  xen/common/domain.c                     | 33 +++++++++
+> >  xen/drivers/char/console.c              | 90 +++++++++----------------
+> >  xen/include/xen/domain.h                |  1 +
+> >  9 files changed, 65 insertions(+), 71 deletions(-)
+> >
+> > diff --git a/xen/arch/arm/include/asm/setup.h b/xen/arch/arm/include/as=
+m/setup.h
+> > index 6cf272c160..f107e8eebb 100644
+> > --- a/xen/arch/arm/include/asm/setup.h
+> > +++ b/xen/arch/arm/include/asm/setup.h
+> > @@ -25,8 +25,6 @@ struct map_range_data
+> >      struct rangeset *irq_ranges;
+> >  };
+> >
+> > -extern domid_t max_init_domid;
+> > -
+> >  void copy_from_paddr(void *dst, paddr_t paddr, unsigned long len);
+> >
+> >  size_t estimate_efi_size(unsigned int mem_nr_banks);
+> > diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
+> > index 734e23da44..0a18d479f9 100644
+> > --- a/xen/arch/arm/setup.c
+> > +++ b/xen/arch/arm/setup.c
+> > @@ -61,8 +61,6 @@ struct cpuinfo_arm __read_mostly system_cpuinfo;
+> >  bool __read_mostly acpi_disabled;
+> >  #endif
+> >
+> > -domid_t __read_mostly max_init_domid;
+> > -
+> >  static __used void init_done(void)
+> >  {
+> >      int rc;
+> > diff --git a/xen/arch/ppc/include/asm/setup.h b/xen/arch/ppc/include/as=
+m/setup.h
+> > index e4f64879b6..956fa6985a 100644
+> > --- a/xen/arch/ppc/include/asm/setup.h
+> > +++ b/xen/arch/ppc/include/asm/setup.h
+> > @@ -1,6 +1,4 @@
+> >  #ifndef __ASM_PPC_SETUP_H__
+> >  #define __ASM_PPC_SETUP_H__
+> >
+> > -#define max_init_domid (0)
+> > -
+> >  #endif /* __ASM_PPC_SETUP_H__ */
+> > diff --git a/xen/arch/riscv/include/asm/setup.h b/xen/arch/riscv/includ=
+e/asm/setup.h
+> > index c9d69cdf51..d1fc64b673 100644
+> > --- a/xen/arch/riscv/include/asm/setup.h
+> > +++ b/xen/arch/riscv/include/asm/setup.h
+> > @@ -5,8 +5,6 @@
+> >
+> >  #include <xen/types.h>
+> >
+> > -#define max_init_domid (0)
+> > -
+> >  void setup_mm(void);
+> >
+> >  void copy_from_paddr(void *dst, paddr_t paddr, unsigned long len);
+> > diff --git a/xen/arch/x86/include/asm/setup.h b/xen/arch/x86/include/as=
+m/setup.h
+> > index ac34c69855..b67de8577f 100644
+> > --- a/xen/arch/x86/include/asm/setup.h
+> > +++ b/xen/arch/x86/include/asm/setup.h
+> > @@ -69,6 +69,4 @@ extern bool opt_dom0_verbose;
+> >  extern bool opt_dom0_cpuid_faulting;
+> >  extern bool opt_dom0_msr_relaxed;
+> >
+> > -#define max_init_domid (0)
+> > -
+> >  #endif
+> > diff --git a/xen/common/device-tree/dom0less-build.c b/xen/common/devic=
+e-tree/dom0less-build.c
+> > index 9a6015f4ce..703f20faed 100644
+> > --- a/xen/common/device-tree/dom0less-build.c
+> > +++ b/xen/common/device-tree/dom0less-build.c
+> > @@ -977,8 +977,6 @@ void __init create_domUs(void)
+> >          domid =3D domid_alloc(DOMID_INVALID);
+> >          if ( domid =3D=3D DOMID_INVALID )
+> >              panic("Error allocating ID for domain %s\n", dt_node_name(=
+node));
+> > -        if ( max_init_domid < domid )
+> > -            max_init_domid =3D domid;
+> >
+> >          d =3D domain_create(domid, &d_cfg, flags);
+> >          if ( IS_ERR(d) )
+> > diff --git a/xen/common/domain.c b/xen/common/domain.c
+> > index d75ece1b61..4a54bc27a3 100644
+> > --- a/xen/common/domain.c
+> > +++ b/xen/common/domain.c
+> > @@ -2461,6 +2461,39 @@ void domid_free(domid_t domid)
+> >      spin_unlock(&domid_lock);
+> >  }
+> >
+> > +/*
+> > + * Find the ID of the next possible console owner domain.
+> > + *
+> > + * @return Domain ID: DOMID_XEN or non-system domain IDs within
+> > + * the range of [0..DOMID_FIRST_RESERVED-1].
+> > + */
+> > +domid_t domid_find_with_input_allowed(domid_t hint)
+> > +{
+> > +    domid_t domid =3D DOMID_XEN;
+> > +
+> > +    if ( hint < DOMID_FIRST_RESERVED )
+> > +    {
+> > +        struct domain *d;
+> > +
+> > +        rcu_read_lock(&domlist_read_lock);
+> > +
+> > +        for ( d =3D domid_to_domain(hint);
+> > +              d && get_domain(d) && d->domain_id < DOMID_FIRST_RESERVE=
+D;
+>=20
+> The get_domain(d) worries me because it is increasing the domain's
+> refcnt but I don't see a corresponding call to put_domain to decrease
+> it.
+>=20
+> If I keep rotating between consoles, I could keep increasing refcnt
+> indefinitely?
+>=20
+> I think we either need a corresponding put_domain(d) call when the domain
+> loses input focus, or we remove the get_domain(d) based on the fact that
+> we don't need it. I think before this patch we didn't increment refcnt
+> when a domain has focus but I am not sure it was correct.
 
-Add a SAF tag to the existing comment on top of cpufeatures.h.
-Add a header inclusion guard to compile.h.
+Thank you for catching this!
 
-Update ECLAIR configuration to:
-- extend existing deviation to other comments explicitly saying a file
-  is intended for multiple inclusion;
-- extend existing deviation to other autogenerated files;
-- tag the guidelines as clean.
+My understanding the code should be doing refcnt-ing properly to
+access the domain fields, so there has to be a put_domain() call.
 
-Update deviations.rst accordingly.
+Will update.
 
-Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
-Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
----
-Changes in v2:
-- merge the two "Generated file, do not edit!" deviations into one
-- change cpufeatures.h deviation to SAF
-- remove compile.h deviation and change compile.h.in instead
----
+>=20
+>=20
+> > +              d =3D rcu_dereference(d->next_in_list) )
+> > +        {
+> > +            if ( d->console.input_allowed )
+> > +            {
+> > +                domid =3D d->domain_id;
+> > +                break;
+> > +            }
+> > +        }
+> > +
+> > +        rcu_read_unlock(&domlist_read_lock);
+> > +    }
+> > +
+> > +    return domid;
+> > +}
+> > +
+> >  /*
+> >   * Local variables:
+> >   * mode: C
+> > diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
+> > index 9a9836ba91..37289d5558 100644
+> > --- a/xen/drivers/char/console.c
+> > +++ b/xen/drivers/char/console.c
+> > @@ -498,26 +498,17 @@ static void cf_check conring_dump_keyhandler(unsi=
+gned char key)
+> >
+> >  /*
+> >   * CTRL-<switch_char> changes input direction, rotating among Xen, Dom=
+0,
+> > - * and the DomUs started from Xen at boot.
+> > + * and the DomUs.
+> >   */
+> >  #define switch_code (opt_conswitch[0]-'a'+1)
+> > -/*
+> > - * console_rx=3D0 =3D> input to xen
+> > - * console_rx=3D1 =3D> input to dom0 (or the sole shim domain)
+> > - * console_rx=3DN =3D> input to dom(N-1)
+> > - */
+> > -static unsigned int __read_mostly console_rx =3D 0;
+> >
+> > -#define max_console_rx (max_init_domid + 1)
+> > +/* Console owner domain identifier. */
+> > +static domid_t __read_mostly console_rx =3D DOMID_XEN;
+> >
+> >  struct domain *console_get_domain(void)
+> >  {
+> > -    struct domain *d;
+> > +    struct domain *d =3D rcu_lock_domain_by_id(console_rx);
+> >
+> > -    if ( console_rx =3D=3D 0 )
+> > -            return NULL;
+> > -
+> > -    d =3D rcu_lock_domain_by_id(console_rx - 1);
+> >      if ( !d )
+> >          return NULL;
+> >
+> > @@ -535,43 +526,14 @@ void console_put_domain(struct domain *d)
+> >          rcu_unlock_domain(d);
+> >  }
+> >
+> > -static void console_switch_input(void)
+> > +static void console_set_domid(domid_t domid)
+> >  {
+> > -    unsigned int next_rx =3D console_rx;
+> > +    if ( domid =3D=3D DOMID_XEN )
+> > +        printk("*** Serial input to Xen");
+> > +    else
+> > +        printk("*** Serial input to DOM%u", domid);
+> >
+> > -    /*
+> > -     * Rotate among Xen, dom0 and boot-time created domUs while skippi=
+ng
+> > -     * switching serial input to non existing domains.
+> > -     */
+> > -    for ( ; ; )
+> > -    {
+> > -        domid_t domid;
+> > -        struct domain *d;
+> > -
+> > -        if ( next_rx++ >=3D max_console_rx )
+> > -        {
+> > -            console_rx =3D 0;
+> > -            printk("*** Serial input to Xen");
+> > -            break;
+> > -        }
+> > -
+> > -        if ( consoled_is_enabled() && next_rx =3D=3D 1 )
+> > -            domid =3D get_initial_domain_id();
+> > -        else
+> > -            domid =3D next_rx - 1;
+> > -        d =3D rcu_lock_domain_by_id(domid);
+> > -        if ( d )
+> > -        {
+> > -            rcu_unlock_domain(d);
+> > -
+> > -            if ( !d->console.input_allowed )
+> > -                continue;
+> > -
+> > -            console_rx =3D next_rx;
+> > -            printk("*** Serial input to DOM%u", domid);
+> > -            break;
+> > -        }
+> > -    }
+> > +    console_rx =3D domid;
+> >
+> >      if ( switch_code )
+> >          printk(" (type 'CTRL-%c' three times to switch input)",
+> > @@ -579,12 +541,30 @@ static void console_switch_input(void)
+> >      printk("\n");
+> >  }
+> >
+> > +/*
+> > + * Switch console focus.
+> > + * Rotates input focus among Xen and domains with console input permis=
+sion.
+> > + */
+> > +static void console_switch_input(void)
+> > +{
+> > +    domid_t hint;
+> > +
+> > +    if ( console_rx =3D=3D DOMID_XEN )
+> > +        hint =3D get_initial_domain_id();
+> > +    else
+> > +        hint =3D console_rx + 1;
+> > +
+> > +    hint =3D domid_find_with_input_allowed(hint);
+> > +
+> > +    console_set_domid(hint);
+> > +}
+> > +
+> >  static void __serial_rx(char c)
+> >  {
+> >      struct domain *d;
+> >      int rc =3D 0;
+> >
+> > -    if ( console_rx =3D=3D 0 )
+> > +    if ( console_rx =3D=3D DOMID_XEN )
+> >          return handle_keypress(c, false);
+> >
+> >      d =3D console_get_domain();
+> > @@ -1169,14 +1149,6 @@ void __init console_endboot(void)
+> >
+> >      video_endboot();
+> >
+> > -    /*
+> > -     * If user specifies so, we fool the switch routine to redirect in=
+put
+> > -     * straight back to Xen. I use this convoluted method so we still =
+print
+> > -     * a useful 'how to switch' message.
+> > -     */
+> > -    if ( opt_conswitch[1] =3D=3D 'x' )
+> > -        console_rx =3D max_console_rx;
+> > -
+> >      register_keyhandler('w', conring_dump_keyhandler,
+> >                          "synchronously dump console ring buffer (dmesg=
+)", 0);
+> >      register_irq_keyhandler('+', &do_inc_thresh,
+> > @@ -1186,8 +1158,8 @@ void __init console_endboot(void)
+> >      register_irq_keyhandler('G', &do_toggle_guest,
+> >                              "toggle host/guest log level adjustment", =
+0);
+> >
+> > -    /* Serial input is directed to DOM0 by default. */
+> > -    console_switch_input();
+> > +    if ( opt_conswitch[1] !=3D 'x' )
+> > +        (void)console_set_domid(get_initial_domain_id());
+> >  }
+> >
+> >  int __init console_has(const char *device)
+> > diff --git a/xen/include/xen/domain.h b/xen/include/xen/domain.h
+> > index 8aab05ae93..a88eb34f3f 100644
+> > --- a/xen/include/xen/domain.h
+> > +++ b/xen/include/xen/domain.h
+> > @@ -36,6 +36,7 @@ void getdomaininfo(struct domain *d, struct xen_domct=
+l_getdomaininfo *info);
+> >  void arch_get_domain_info(const struct domain *d,
+> >                            struct xen_domctl_getdomaininfo *info);
+> >
+> > +domid_t domid_find_with_input_allowed(domid_t hint);
+> >  domid_t get_initial_domain_id(void);
+> >
+> >  domid_t domid_alloc(domid_t domid);
+> > --
+> > 2.34.1
+> >
+> >
 
-diff --git a/automation/eclair_analysis/ECLAIR/deviations.ecl b/automation/eclair_analysis/ECLAIR/deviations.ecl
-index 9c67358d46..3490db5a13 100644
---- a/automation/eclair_analysis/ECLAIR/deviations.ecl
-+++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
-@@ -72,11 +72,16 @@ they are not instances of commented-out code."
- -config=MC3A2.D4.3,reports+={deliberate, "any_area(any_loc(file(arm64_bitops))&&context(name(int_clear_mask16)))"}
- -doc_end
- 
---doc_begin="Files that are intended to be included more than once do not need to
--conform to the directive."
-+-doc_begin="Files that are intended to be included more than once (and have
-+a comment that says this explicitly) do not need to conform to the directive."
- -config=MC3A2.D4.10,reports+={safe, "first_area(text(^/\\* This file is intended to be included multiple times\\. \\*/$, begin-4))"}
---config=MC3A2.D4.10,reports+={safe, "first_area(text(^/\\* Generated file, do not edit! \\*/$, begin-3))"}
---config=MC3A2.D4.10,reports+={safe, "all_area(all_loc(file(^xen/include/generated/autoconf.h$)))"}
-+-config=MC3A2.D4.10,reports+={safe, "first_area(text(^/\\* Generated file, do not edit! \\*/$, begin-3...begin-2))"}
-+-doc_end
-+
-+-doc_begin="Autogenerated files that do not need to conform to the directive."
-+-config=MC3A2.D4.10,reports+={safe, "all_area(all_loc(file(^xen/include/generated/autoconf\\.h$)))"}
-+-config=MC3A2.D4.10,reports+={safe, "all_area(all_loc(file(^xen/include/compat/xlat\\.h$)))"}
-+-config=MC3A2.D4.10,reports+={safe, "all_area(all_loc(file(^xen/arch/(arm||x86)/include/generated/asm/.*$)))"}
- -doc_end
- 
- -doc_begin="Including multiple times a .c file is safe because every function or data item
-diff --git a/automation/eclair_analysis/ECLAIR/tagging.ecl b/automation/eclair_analysis/ECLAIR/tagging.ecl
-index f9da5d5f4d..b95f07feb0 100644
---- a/automation/eclair_analysis/ECLAIR/tagging.ecl
-+++ b/automation/eclair_analysis/ECLAIR/tagging.ecl
-@@ -23,6 +23,7 @@
- "MC3A2.D1.1||
- MC3A2.D2.1||
- MC3A2.D4.1||
-+MC3A2.D4.10||
- MC3A2.D4.11||
- MC3A2.D4.14||
- MC3A2.R1.1||
-diff --git a/docs/misra/deviations.rst b/docs/misra/deviations.rst
-index fe0b1e10a2..57580fff5f 100644
---- a/docs/misra/deviations.rst
-+++ b/docs/misra/deviations.rst
-@@ -30,6 +30,20 @@ Deviations related to MISRA C:2012 Directives:
-        not to add an additional encapsulation layer.
-      - Tagged as `deliberate` for ECLAIR.
- 
-+   * - D4.10
-+     - Files that are intended to be included more than once (and have
-+       a comment that says this explicitly) do not need to conform to the
-+       directive.
-+     - Tagged as `safe` for ECLAIR.
-+
-+   * - D4.10
-+     - There are autogenerated files that do not need to comply to the
-+       directive.
-+     - Tagged as `safe` for ECLAIR. Such files are:
-+        - xen/include/generated/autoconf.h
-+        - xen/include/compat/xlat.h
-+        - xen/arch/{arm,x86}/include/generated/asm/\*
-+
-    * - D4.10
-      - Including multiple times a .c file is safe because every function or data item
-        it defines would in (the common case) be already defined.
-diff --git a/xen/arch/x86/include/asm/cpufeatures.h b/xen/arch/x86/include/asm/cpufeatures.h
-index 9e3ed21c02..02d5250b08 100644
---- a/xen/arch/x86/include/asm/cpufeatures.h
-+++ b/xen/arch/x86/include/asm/cpufeatures.h
-@@ -1,5 +1,5 @@
- /*
-- * Explicitly intended for multiple inclusion.
-+ * SAF-8-safe: Explicitly intended for multiple inclusion.
-  */
- 
- #include <xen/lib/x86/cpuid-autogen.h>
-diff --git a/xen/include/xen/compile.h.in b/xen/include/xen/compile.h.in
-index 3151d1e7d1..9206341ba6 100644
---- a/xen/include/xen/compile.h.in
-+++ b/xen/include/xen/compile.h.in
-@@ -1,3 +1,6 @@
-+#ifndef XEN_COMPILE_H
-+#define XEN_COMPILE_H
-+
- #define XEN_COMPILE_DATE	"@@date@@"
- #define XEN_COMPILE_TIME	"@@time@@"
- #define XEN_COMPILE_BY		"@@whoami@@"
-diff --git a/xen/tools/process-banner.sed b/xen/tools/process-banner.sed
-index 56c76558bc..2c56b5939d 100755
---- a/xen/tools/process-banner.sed
-+++ b/xen/tools/process-banner.sed
-@@ -12,3 +12,8 @@ s_(.*)_"\1\\n"_
- 
- # Trailing \ on all but the final line.
- $!s_$_ \\_
-++
-+# Append closing header guard
-+$a\
-+\
-+#endif /* XEN_COMPILE_H */
 
