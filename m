@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD8E6ACC4AC
-	for <lists+xen-devel@lfdr.de>; Tue,  3 Jun 2025 12:51:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1004219.1383887 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 58D94ACC4BC
+	for <lists+xen-devel@lfdr.de>; Tue,  3 Jun 2025 12:55:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1004231.1383897 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uMPEr-0005pe-WA; Tue, 03 Jun 2025 10:51:25 +0000
+	id 1uMPJ9-0006We-FT; Tue, 03 Jun 2025 10:55:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1004219.1383887; Tue, 03 Jun 2025 10:51:25 +0000
+Received: by outflank-mailman (output) from mailman id 1004231.1383897; Tue, 03 Jun 2025 10:55:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uMPEr-0005o7-S9; Tue, 03 Jun 2025 10:51:25 +0000
-Received: by outflank-mailman (input) for mailman id 1004219;
- Tue, 03 Jun 2025 10:51:24 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Zlp/=YS=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1uMPEq-0005iK-4s
- for xen-devel@lists.xenproject.org; Tue, 03 Jun 2025 10:51:24 +0000
-Received: from fhigh-a6-smtp.messagingengine.com
- (fhigh-a6-smtp.messagingengine.com [103.168.172.157])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b02467ee-4068-11f0-a300-13f23c93f187;
- Tue, 03 Jun 2025 12:51:23 +0200 (CEST)
-Received: from phl-compute-06.internal (phl-compute-06.phl.internal
- [10.202.2.46])
- by mailfhigh.phl.internal (Postfix) with ESMTP id 477F711400D8;
- Tue,  3 Jun 2025 06:51:22 -0400 (EDT)
-Received: from phl-mailfrontend-02 ([10.202.2.163])
- by phl-compute-06.internal (MEProxy); Tue, 03 Jun 2025 06:51:22 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 3 Jun 2025 06:51:21 -0400 (EDT)
+	id 1uMPJ9-0006Ud-Bn; Tue, 03 Jun 2025 10:55:51 +0000
+Received: by outflank-mailman (input) for mailman id 1004231;
+ Tue, 03 Jun 2025 10:55:50 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=/YrW=YS=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uMPJ8-0006UW-0T
+ for xen-devel@lists.xenproject.org; Tue, 03 Jun 2025 10:55:50 +0000
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [2a00:1450:4864:20::336])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4748924e-4069-11f0-b894-0df219b8e170;
+ Tue, 03 Jun 2025 12:55:36 +0200 (CEST)
+Received: by mail-wm1-x336.google.com with SMTP id
+ 5b1f17b1804b1-4508287895dso37381355e9.1
+ for <xen-devel@lists.xenproject.org>; Tue, 03 Jun 2025 03:55:36 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-23506be97e5sm85171895ad.103.2025.06.03.03.55.30
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 03 Jun 2025 03:55:35 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,226 +45,94 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b02467ee-4068-11f0-a300-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1748947882;
-	 x=1749034282; bh=A7s43Gt3U95U8A+lN2BlegnNS+gkbNUde2mvHC0ZhpU=; b=
-	TT7PUxyh1UV/qcFbQFRugdpcSH3nwz0KOWi9d5qACsBfnKLvYZjCBLkXLgL/u/YR
-	+jpiMjZLlmhd4eYop4Z+3Buw3cURfHzpUtq2nPkkLSbctvwXV7An8dkeKJzWSU9A
-	XCJmX8mZyUH6dkL5rwUtJjn5ckQiPXNSlb1vxrBM3S6gPaZqyfxQEZvQT0qjkPv6
-	gJtrufZNpid9dgpmLw8TGUiwY905rij5QgOP4oT48Z7FJ5ZOsVGzGNfV6JdpBUxA
-	mriaCVln3L4JtxLxYS5GISaZVWSVxVyPTzQjqdVP+htiitkThtgQur1qeG5rlY3r
-	TrRh88Qv54AityQLTOVYBg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1748947882; x=1749034282; bh=A7s43Gt3U95U8A+lN2BlegnNS+gkbNUde2m
-	vHC0ZhpU=; b=ovNTfvDg5PL/s7riHwCIKJHjJs+nxF1LSbAjoSp/4jsA3bvqYJV
-	k29LuMznmQTU3lrIX7kY95776hdYKps6M38E96eMZGe7UbAvfpdOnCQKWvNDWNsq
-	iZwXU3gamvtAVL4N3Yu/qB6glnSLoy7dsYpgCbZmc7y+0nwGOM3pcXSI7iWYsLoQ
-	b9Acw4SDQKWv/HGg3qRtqXtqiO+bVeRkuCqLcJ0VbNQuH3tx9rKvqBXGeOy/F2Lo
-	3JwygzzozRdKKVMPUf/HSgqMATZoXc5yurTOzpqr5yOz06TGH7sxRMjOc/6EHKef
-	+hcjPFihNmigvQrUnHfNU/0DdhxhHxwnbTA==
-X-ME-Sender: <xms:qtM-aDxs4T6PtVkhn4RTjvo0HqkbAR5xpaovxON8axOXcY5KAJ7eGg>
-    <xme:qtM-aLQZf2QdH_2soby8EjV6r62w5CkeJPZ3oj2YP30-_fNnHi8cVnI2i7ruYGbbg
-    y9fETUZGxQXwg>
-X-ME-Received: <xmr:qtM-aNUBhrxl256KmbmViENTGnu1pkei5B5qsYMa4sXmExdRAA-rmsaBSreCaNdFtrA4luGnAOmiPZcYNZ6IVA1dXnrjMAXbPf0>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtddugddtgecutefuodetggdotefrodftvf
-    curfhrohhfihhlvgemucfhrghsthforghilhdpggftfghnshhusghstghrihgsvgdpuffr
-    tefokffrpgfnqfghnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnth
-    hsucdlqddutddtmdenucfjughrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecu
-    hfhrohhmpeforghrvghkucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrg
-    hrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffr
-    rghtthgvrhhnpefgudelteefvefhfeehieetleeihfejhfeludevteetkeevtedtvdegue
-    etfeejudenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhm
-    pehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmpdhnsg
-    gprhgtphhtthhopeehpdhmohguvgepshhmthhpohhuthdprhgtphhtthhopegrnhgurhgv
-    fidrtghoohhpvghrfeestghithhrihigrdgtohhmpdhrtghpthhtohepgigvnhdquggvvh
-    gvlheslhhishhtshdrgigvnhhprhhojhgvtghtrdhorhhgpdhrtghpthhtoheprghnthhh
-    ohhnhidrphgvrhgrrhgusehvrghtvghsrdhtvggthhdprhgtphhtthhopehsshhtrggsvg
-    hllhhinhhisehkvghrnhgvlhdrohhrghdprhgtphhtthhopehmihgthhgrlhdrohhriigv
-    lhesrghmugdrtghomh
-X-ME-Proxy: <xmx:qtM-aNiR81UFfTS4n-FW30O3CXxO3WU2F59JPUnt1hJqDyKLZr39yw>
-    <xmx:qtM-aFDtIG0Dp5TJkhxIV-hqxu25lR1v8FWbVWcIK5WXF0wHKX37Lw>
-    <xmx:qtM-aGKH4bLQCbuegB6cgiGFth0irOmC-k3E6aYIGVFE5ub9IDONFQ>
-    <xmx:qtM-aEBCngZVg_TfOVDC1AKPfNNWaOZSX4YgJJQ6f_2MthXN66dceQ>
-    <xmx:qtM-aLxY2ViuUlJefLArZmyzoCCWmwHiWhq7wLBWG9kfGvN6eev9nqDw>
-Feedback-ID: i1568416f:Fastmail
-Date: Tue, 3 Jun 2025 12:51:19 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Michal Orzel <michal.orzel@amd.com>
-Subject: Re: [PATCH 2/2] CI: Adjust how domU is packaged in dom0
-Message-ID: <aD7Tp5BEkz0h0gyw@mail-itl>
-References: <20250602174618.2641439-1-andrew.cooper3@citrix.com>
- <20250602174618.2641439-3-andrew.cooper3@citrix.com>
+X-Inumbo-ID: 4748924e-4069-11f0-b894-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1748948135; x=1749552935; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=1tH0v/HEdC9WlxoFyWazLONSPy2Y2UaEV2FxRI6+Bsk=;
+        b=A8aSWHa7JckLJD0MQq0+KLNVMxuD5oV65IlabjxZCnJqT003xVcvjk47BalOWzb2v0
+         yPbGLC4L2EKxgLEVEmeyxz8vv0YCmy1sXFPuffKB4d/BmF0L9zy5NxqhTd2tTO1Aj9ze
+         nut8abmb4axSeoJgqRdha6m9vDnGS4cfkNqEuL1ViqfQ+Uh0UrrlS5FHssnrPmwSUN74
+         rJBEcsRHeux5OCsHxetoj1ZjOgtB74/JplQM+/z7ANJdx1qNsVXZnbxx5jnjXuNKKZLk
+         K5CcjjdZsDVS0nDa9xXC18ztXw7lnGkcav96/Hxjlf1BDs7GH8CbNBq/cHqBnyZaqfZM
+         N+0A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1748948135; x=1749552935;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=1tH0v/HEdC9WlxoFyWazLONSPy2Y2UaEV2FxRI6+Bsk=;
+        b=rU2Rib191lng/LWyTrBBCWLG2RQ6p2pXlxfUiTjoGQCpopJdlGMZY95JwwnQdeFfjF
+         d71JD/aDtCrt3+aLUOFTYVE4Q9n+5t/a1GmEL+DHBTEbZ0lYj0QT4ECZRohZR9G3j4Gn
+         IJYPfeBSbPgQoNSkC4xLkayXhaznbPjRHypDQtSlfIwlpI+ARzqcNfunr6LS7PAQDQCd
+         /Kg/4zm9Qdp+EJXgTyKaDh3joPfTzxTIcuqrp6e5Ovs3FnJxHIhEEb/DwNzBiYKxICCe
+         //DYDcYNC8TcNgc5fE/cDNKc+fNAv85ENBct9r1ecdBcr8VlI5ILsBM64Sng5Io7oP/z
+         3gbg==
+X-Forwarded-Encrypted: i=1; AJvYcCVHzL+Kc4XvDybsLINZS/eQ2vpECkxqEMw4JsIDIeFHqS+v5BRB98TO/Rup0E1UZHf+9IYJxmICZwU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzwM+z+xwQG7+TKlgK3i+iWcRPc80pfa9w9IhRf+KqcdaCWQj5y
+	jxKUvUghldCNY+GSTCoqYkAMp/AYdNbg4e6IhT3vK7XX1AqtkT2ILEZLww4OSZu7VA==
+X-Gm-Gg: ASbGnctsdp3JRV+bqok9vpM4imEu87yC62PDpWS452ihSz9UyBdfirCweDUqPsKNSUn
+	Jb8hdMWzjWn2caPGRUK6tkzcybRukG3wSdhY+F0BcE4KIeHUnTMoLoD4YkkpczTrLUyg43fEBGC
+	0meSbuVlZ6Plj4sr9/GRyLx2hhBUpl6faAth1HNwvIEVgNecbc8NjBsLjHNmJyCmH1GBIrajaaV
+	JEKzsSsHvg0t04J8amdCeH4I6EtikN4bbbSB2tvL/0MHPMPOKbtBPq9ArlA08P81EEQdc7073oc
+	Jtunyz/TxdfOEdBAKwWMZjcIoPdznRkp2fzKTcOZqsTTKDOtbYISjpdOUdhMMy+R8bM1VxpVDzl
+	BtHulMMP93B2RgHpXQmGeItGtSERGKr/8LujO
+X-Google-Smtp-Source: AGHT+IH4cOq0txEFv0mpCPLHW/uCS3ETLMRUw6O230Gg6ZwBtcIghw0IcqdSAyF9hWWM4nmPEyKCAg==
+X-Received: by 2002:a05:6000:3108:b0:3a4:d685:3de7 with SMTP id ffacd0b85a97d-3a51417af94mr1649306f8f.8.1748948135568;
+        Tue, 03 Jun 2025 03:55:35 -0700 (PDT)
+Message-ID: <d99ee841-5e11-4dc4-a9f0-ec2bba02e962@suse.com>
+Date: Tue, 3 Jun 2025 12:55:26 +0200
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="4TOChwVca9ELR8ro"
-Content-Disposition: inline
-In-Reply-To: <20250602174618.2641439-3-andrew.cooper3@citrix.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/4] common: Drop unneeded Arm dependency for
+ static-evtchn
+To: Michal Orzel <michal.orzel@amd.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20250603100329.149851-1-michal.orzel@amd.com>
+ <20250603100329.149851-2-michal.orzel@amd.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20250603100329.149851-2-michal.orzel@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
+On 03.06.2025 12:03, Michal Orzel wrote:
+> DOM0LESS_BOOT is sufficient (only Arm selects it today). If needed,
+> proper arch dependency can be introduced while adding support for it for
+> another architecture.
+> 
+> Suggested-by: Jan Beulich <jbeulich@suse.com>
+> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
 
---4TOChwVca9ELR8ro
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 3 Jun 2025 12:51:19 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Michal Orzel <michal.orzel@amd.com>
-Subject: Re: [PATCH 2/2] CI: Adjust how domU is packaged in dom0
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-On Mon, Jun 02, 2025 at 06:46:18PM +0100, Andrew Cooper wrote:
-> Package domU for dom0 and insert into the uncompressed part of dom0's roo=
-tfs,
-> rather than recompressing it as part of the overlay.
->=20
-> For Qubes, this avoids putting the domU kernel in dom0's rootfs for tests
-> which aren't going to boot a guest.
->=20
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
-Reviewed-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.c=
-om>
-
-> ---
-> CC: Anthony PERARD <anthony.perard@vates.tech>
-> CC: Stefano Stabellini <sstabellini@kernel.org>
-> CC: Michal Orzel <michal.orzel@amd.com>
-> CC: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.com>
->=20
-> v2:
->  * Rebase over dom0_rootfs_extra_{un,}comp changes
->  * Move back into boot.  There seem to be objections to having it in root.
-> ---
->  automation/scripts/qubes-x86-64.sh             | 17 ++++++++++++-----
->  automation/scripts/xilinx-smoke-dom0-x86_64.sh | 14 +++++++++++---
->  2 files changed, 23 insertions(+), 8 deletions(-)
->=20
-> diff --git a/automation/scripts/qubes-x86-64.sh b/automation/scripts/qube=
-s-x86-64.sh
-> index 5ec6eff6c469..d9ecc569c956 100755
-> --- a/automation/scripts/qubes-x86-64.sh
-> +++ b/automation/scripts/qubes-x86-64.sh
-> @@ -156,7 +156,7 @@ esac
->  domU_config=3D"
->  type =3D '${domU_type}'
->  name =3D 'domU'
-> -kernel =3D '/boot/vmlinuz'
-> +kernel =3D '/boot/vmlinuz-domU'
->  ramdisk =3D '/boot/initrd-domU'
->  cmdline =3D 'root=3D/dev/ram0 console=3Dhvc0'
->  memory =3D 512
-> @@ -187,6 +187,17 @@ Kernel \r on an \m (\l)
->      find . | cpio -H newc -o | gzip >> ../binaries/domU-rootfs.cpio.gz
->      cd ..
->      rm -rf rootfs
-> +
-> +    # Package domU kernel+rootfs in /boot for dom0 (uncompressed)
-> +    mkdir -p rootfs/boot
-> +    cd rootfs
-> +    cp ../binaries/bzImage boot/vmlinuz-domU
-> +    cp ../binaries/domU-rootfs.cpio.gz boot/initrd-domU
-> +    find . | cpio -H newc -o > ../binaries/domU-in-dom0.cpio
-> +    cd ..
-> +    rm -rf rootfs
-> +
-> +    dom0_rootfs_extra_uncomp+=3D(binaries/domU-in-dom0.cpio)
->  fi
-> =20
->  # Dom0 rootfs.  The order or concatination is important; ucode wants to =
-come
-> @@ -241,10 +252,6 @@ mkdir -p etc/default
->  echo "XENCONSOLED_TRACE=3Dall" >> etc/default/xencommons
->  echo "QEMU_XEN=3D/bin/false" >> etc/default/xencommons
->  mkdir -p var/log/xen/console
-> -cp ../binaries/bzImage boot/vmlinuz
-> -if [ -n "$domU_check" ]; then
-> -    cp ../binaries/domU-rootfs.cpio.gz boot/initrd-domU
-> -fi
->  find . | cpio -H newc -o | gzip >> ../binaries/dom0-rootfs.cpio.gz
->  cd ..
-> =20
-> diff --git a/automation/scripts/xilinx-smoke-dom0-x86_64.sh b/automation/=
-scripts/xilinx-smoke-dom0-x86_64.sh
-> index 45121f39400a..8981aee5d4f2 100755
-> --- a/automation/scripts/xilinx-smoke-dom0-x86_64.sh
-> +++ b/automation/scripts/xilinx-smoke-dom0-x86_64.sh
-> @@ -22,7 +22,7 @@ DOMU_CMD=3D""
->  DOMU_CFG=3D'
->  type =3D "pvh"
->  name =3D "domU"
-> -kernel =3D "/boot/vmlinuz"
-> +kernel =3D "/boot/vmlinuz-domU"
->  ramdisk =3D "/boot/initrd-domU"
->  extra =3D "root=3D/dev/ram0 console=3Dhvc0"
->  memory =3D 512
-> @@ -106,10 +106,20 @@ find . | cpio -H newc -o | gzip >> ../binaries/domU=
--rootfs.cpio.gz
->  cd ..
->  rm -rf rootfs
-> =20
-> +# Package domU kernel+rootfs in /boot for dom0 (uncompressed)
-> +mkdir -p rootfs/boot
-> +cd rootfs
-> +cp ../binaries/bzImage boot/vmlinuz-domU
-> +cp ../binaries/domU-rootfs.cpio.gz boot/initrd-domU
-> +find . | cpio -H newc -o > ../binaries/domU-in-dom0.cpio
-> +cd ..
-> +rm -rf rootfs
-> +
->  # Dom0 rootfs.  The order or concatination is important; ucode wants to =
-come
->  # first, and all uncompressed must be ahead of compressed.
->  dom0_rootfs_parts=3D(
->      binaries/ucode.cpio
-> +    binaries/domU-in-dom0.cpio
->      "${dom0_rootfs_extra_uncomp[@]}"
->      binaries/rootfs.cpio.gz
->      binaries/xen-tools.cpio.gz
-> @@ -131,8 +141,6 @@ echo "${DOMU_CFG}${DOMU_CFG_EXTRA}" > etc/xen/domU.cfg
->  echo "XENCONSOLED_TRACE=3Dall" >> etc/default/xencommons
->  echo "QEMU_XEN=3D/bin/false" >> etc/default/xencommons
->  mkdir -p var/log/xen/console
-> -cp ../binaries/bzImage boot/vmlinuz
-> -cp ../binaries/domU-rootfs.cpio.gz boot/initrd-domU
->  find . | cpio -H newc -o | gzip >> ../binaries/dom0-rootfs.cpio.gz
->  cd ..
-> =20
-> --=20
-> 2.39.5
->=20
-
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---4TOChwVca9ELR8ro
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmg+06cACgkQ24/THMrX
-1yzVqgf/QPy6lxz0dQ51KPTS4zJN2eRvoN6eY6Fb0qsWcE+4eC71+CADAoUSVbq+
-kOUdq+AzRdMYXXXbkJj/3uHA7QWAvEOLsCBtn8CSoVtpL6K1F9frPBNzQLmyHE4L
-j8uUJpWsuqkmwUw6vbfcL5SE8dEBxGyYZzZOMh6ec2ifr6qO3LdAlKDLHt6Z/8lt
-HI2wVFu0HusNhIOzIit3FKQ5nQ6ausaEoK1XB4RsTsGi5uHyMIp1m8nKIoz3WKTN
-Y1hskMnDOnU6G73sOhXMBMtgoMMMn/ZgPWm43FRT/POxQ9n8S0RxihEz+ndX+OyO
-ZmGfZYwRzt6yhx5u2mPeC8QdOKHF0w==
-=S/49
------END PGP SIGNATURE-----
-
---4TOChwVca9ELR8ro--
 
