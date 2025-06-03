@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 10206ACC8E3
-	for <lists+xen-devel@lfdr.de>; Tue,  3 Jun 2025 16:16:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1004532.1384261 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C285CACC90F
+	for <lists+xen-devel@lfdr.de>; Tue,  3 Jun 2025 16:26:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1004542.1384271 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uMSRK-0000Wb-Jx; Tue, 03 Jun 2025 14:16:30 +0000
+	id 1uMSar-0002am-F8; Tue, 03 Jun 2025 14:26:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1004532.1384261; Tue, 03 Jun 2025 14:16:30 +0000
+Received: by outflank-mailman (output) from mailman id 1004542.1384271; Tue, 03 Jun 2025 14:26:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uMSRK-0000Ts-Gg; Tue, 03 Jun 2025 14:16:30 +0000
-Received: by outflank-mailman (input) for mailman id 1004532;
- Tue, 03 Jun 2025 14:16:29 +0000
+	id 1uMSar-0002ZL-CL; Tue, 03 Jun 2025 14:26:21 +0000
+Received: by outflank-mailman (input) for mailman id 1004542;
+ Tue, 03 Jun 2025 14:26:19 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=pD2F=YS=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1uMSRJ-0000Tl-Lv
- for xen-devel@lists.xenproject.org; Tue, 03 Jun 2025 14:16:29 +0000
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [2a00:1450:4864:20::32a])
+ id 1uMSap-0002Z9-Te
+ for xen-devel@lists.xenproject.org; Tue, 03 Jun 2025 14:26:19 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 54b5a63d-4085-11f0-b894-0df219b8e170;
- Tue, 03 Jun 2025 16:16:24 +0200 (CEST)
-Received: by mail-wm1-x32a.google.com with SMTP id
- 5b1f17b1804b1-441d437cfaaso39139075e9.1
- for <xen-devel@lists.xenproject.org>; Tue, 03 Jun 2025 07:16:27 -0700 (PDT)
+ id b666289d-4086-11f0-b894-0df219b8e170;
+ Tue, 03 Jun 2025 16:26:18 +0200 (CEST)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-442f9043f56so34808225e9.0
+ for <xen-devel@lists.xenproject.org>; Tue, 03 Jun 2025 07:26:18 -0700 (PDT)
 Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3a4efe6c842sm18186772f8f.29.2025.06.03.07.16.26
+ ffacd0b85a97d-3a4f00971e4sm18765109f8f.65.2025.06.03.07.26.15
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 03 Jun 2025 07:16:26 -0700 (PDT)
+ Tue, 03 Jun 2025 07:26:16 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 54b5a63d-4085-11f0-b894-0df219b8e170
+X-Inumbo-ID: b666289d-4086-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1748960187; x=1749564987; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=yw0+f7BJLdAUZiURTz5Gc9U5JJQs3FyRngWcjGXPPFc=;
-        b=mkFD9tTG6wGgiwqBvh+wgWHcEasCMkORznLkE8xVeuLSiWAdIuuQRWTvJxIoQVZQ7W
-         m769U/cboETXRbJ5lNoKE/f4aONc6R22ynGzG80N5yR8yIxTEi/4TxwNnrOSzeeKxzJO
-         lZrwXemQ00uoR4WNsaYr04b178/1VMSUwzeCs=
+        d=citrix.com; s=google; t=1748960777; x=1749565577; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=c1d7pHUH7DhuO7y/k5Cv73v2UJqOlyFolZ+8cHMZUDI=;
+        b=Xmi5Ela1ezP5sg0vt5IMTwPy7d60lr9f2Qpc5yvk28WfjiBvxOHtFvWVoUumUPKWrK
+         lttuL6g9/TDiK7ankl0u6NeuETIucIfEZ96kK4g7r2OtB6bLumTFK0HLUC70IzWRFcpI
+         rA24AEkBhzLeIQ9GBd4rgAKM83Xg9S+PVY560=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1748960187; x=1749564987;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=yw0+f7BJLdAUZiURTz5Gc9U5JJQs3FyRngWcjGXPPFc=;
-        b=AfekpoooQ6NKiPtAP83gzYN1Fx7f9yF70UCzkx++y5XBINyhMqALuZcnHlyQ5/1XX+
-         gpNq5bbEF2rijXbWtEyPQ+uGk+WqVnb7baeC/WlptyK/ScuDHC5Bbds1kNmlY1NAmPaW
-         +kJX3RM7kR6dWR5r5Uou6yDq7+DLca+ks1hVSkVtyuvJJgnleyCqJaM9fJifLsEQ9D3Y
-         S7LEvRQlaA3vhPd9KfIGe5EmHO/2GW3mo9FeXjbiFd9wKBr+K1dTmW9McKPhCDLBVXhc
-         pfyo0Ry/eWr7WzmZLgNaVJUaZPr9fJtsDTuuHRWpaa1TRIH83QKNteMrnbLMaDNdRwHB
-         QtyQ==
-X-Forwarded-Encrypted: i=1; AJvYcCU7qDKnLdesS0fMSTh6rtQiC0L6k7SqCF05hpiMFCA/xg+N7RHKp/SRnKsM4OC9c/wwIquX8GT37+Q=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yxv2xXctHDnfbX1EJyVW8BsPhEPETLwnF7e4gVeOB1IAiKoE/V8
-	LmSu3w0cDSXtc3SF6in9JaGePGj88ofUFY7rkcEP+TUycpyVbCpd+td6Z2UVdV24WYk=
-X-Gm-Gg: ASbGncvrMwZsyXLLkHzm7vYkzaMdwlu4ZxqMgLJz1lhcEHmMXAsUWLTX4zR6pGH242X
-	gkODP/R7jDhy6sAMdazuSW/aEiijTEGylHZS2g8DNKaiimRElLjxLIiV27P+nEKhKC1+ewysem4
-	wbp/sn4L8B6NwhCTu0hp388HMnulel5i6wMWM4WEldd/g5P5xVpf90N50smE6hnERZlqDbjW3uY
-	CvV8KEAiBOm7DpLyFE4/tJC9Y8KLN5EqYD9ltGLzz2Z7VsVOdbISTJN2UVwjzw8kFryZTR3vFJO
-	wrjWHtp261hTB/C5UC55iQ72MIxkyawiE1Vul9UFK9wJ8jDjYXwwYoNST+Jo1fENxOqugIfh28P
-	w7Gnrp2gdFfzLckDd
-X-Google-Smtp-Source: AGHT+IFfJRs/Szwtq4iZ0OHZqQZIThzeum1Qg6P0iWiceJcXG8t9xTQoxuJ1An7ppDKVQ3N06Jd2GQ==
-X-Received: by 2002:a5d:5f8b:0:b0:3a4:e841:b236 with SMTP id ffacd0b85a97d-3a4f89ddd6fmr14482333f8f.33.1748960187029;
-        Tue, 03 Jun 2025 07:16:27 -0700 (PDT)
-Message-ID: <e5d562be-caad-498b-ad33-05ff126af1c9@citrix.com>
-Date: Tue, 3 Jun 2025 15:16:25 +0100
+        d=1e100.net; s=20230601; t=1748960777; x=1749565577;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=c1d7pHUH7DhuO7y/k5Cv73v2UJqOlyFolZ+8cHMZUDI=;
+        b=W3KAMcl7IxuoPIWyMJeGlJ1CyGwWjv2xgOK4bsS6QjWwAm9HyYWHMUFe61aUhar8Qu
+         5rQgTusHGGiNdL9Rsov3jPdt+deiJlkZLMwkZ6yNiTR8cAd1wwrlvYN83OfagMRVHbWt
+         trabRUmkJkBvNnB2zGJO23X5dg+jpyZxRndI9HpudRfPnGi4CW9IA7OJAACKV98b4rLp
+         8V30yL6n4jBt4nvC0zLFJ6xMOaw2Bp4h92zRzIuZD2kg4TZ69MDPN743Oy1vBMe+T5Ud
+         iSKqyHfcGmF5o43xTDWdN7x1DO0m57UTG3TNsRyw3T3RVqRDcgF1HuoIeK9Oy5dnIiyq
+         obYQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUrS9P1Fl3AFp8NiRA2ULsmFLXiSsxFO92UVAKVtJX0G2mQfDpeZcmkS5ckN20N4vXl3MXl8QqWqXc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyMu0cdfHeBVxmPcleKD+q0HTok3vuD3jpGGefZkD9EpuEIeaQP
+	7HIjTKcN+SguFy1ZgAvX17aYbm1grl9dZzBxldxr1TgE2vNZg/qxwLG8gFzx8Tx205Q=
+X-Gm-Gg: ASbGncsnnSDkFZZcQXGk2VZRGMxNImaw37SAgPycuNmZlo4Mlwqz8gEUj6/y+zRhJa+
+	0YfPg/9mnQLw8lmrU2cmS6YLEIWf7GWSFUkNwG5mC8ozOHXv14wHBEsYtujp4HOSeWovIidm4za
+	QCtibH8tv5iQOc0/qiiFw0KdNGe9ffCxhXKJM8nWhlq3EtlE/foZ7AV0kNXHdA/g3qnG+7K2zBi
+	vLgzkLAUAPg0BsYJ/nytvuCYwyK8QxGO04klRI3zqDi2tFY1jTsvVf24+RaB/zaziNpK58EgElC
+	kYfpOvx3u6sRmKBsgEBs7oA8w3XpZQxS5JKGLmiZi2H3P0weXbsAFZxS3n+eE9kFsuRND/Pj93Q
+	NkI1fOochmLmnT6xR
+X-Google-Smtp-Source: AGHT+IEp19aI7RJE6Gq625SPmnCewdA0ZEC7ow8HeR+xdftPOToxUin/ix9i4CGY4WPAiMJcJBKXaA==
+X-Received: by 2002:a05:6000:178e:b0:3a4:ed1e:405b with SMTP id ffacd0b85a97d-3a4fe39909bmr9843888f8f.46.1748960777242;
+        Tue, 03 Jun 2025 07:26:17 -0700 (PDT)
+Message-ID: <a08c9407-c6cf-40ef-b337-9a4f4b244683@citrix.com>
+Date: Tue, 3 Jun 2025 15:26:15 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH 9/9] CI: Add timing to junit
-To: Anthony PERARD <anthony@xenproject.org>, xen-devel@lists.xenproject.org
-Cc: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, Anthony PERARD
- <anthony.perard@vates.tech>, Doug Goldstein <cardoe@cardoe.com>,
+Subject: Re: [XEN PATCH 5/9] CI: Have the gitlab job fail on tools/tests
+ failure
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>
+Cc: Anthony PERARD <anthony@xenproject.org>, xen-devel@lists.xenproject.org,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Doug Goldstein <cardoe@cardoe.com>,
  Stefano Stabellini <sstabellini@kernel.org>
 References: <20250603124222.52057-1-anthony@xenproject.org>
- <20250603124222.52057-10-anthony@xenproject.org>
+ <20250603124222.52057-6-anthony@xenproject.org>
+ <ba57188a-77b9-4386-bd5a-073903062864@citrix.com> <aD78OU9fF5rqbHBh@mail-itl>
+ <7e545be5-bcfa-46f7-b2b6-bee8c258f91c@citrix.com>
 Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
  VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
@@ -137,38 +141,93 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20250603124222.52057-10-anthony@xenproject.org>
+In-Reply-To: <7e545be5-bcfa-46f7-b2b6-bee8c258f91c@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 03/06/2025 1:42 pm, Anthony PERARD wrote:
-> From: Anthony PERARD <anthony.perard@vates.tech>
+On 03/06/2025 3:09 pm, Andrew Cooper wrote:
+> On 03/06/2025 2:44 pm, Marek Marczykowski-Górecki wrote:
+>> On Tue, Jun 03, 2025 at 02:41:50PM +0100, Andrew Cooper wrote:
+>>> On 03/06/2025 1:42 pm, Anthony PERARD wrote:
+>>>> From: Anthony PERARD <anthony.perard@vates.tech>
+>>>>
+>>>> We can't rely on an exit value from `run-tools-tests` since we only
+>>>> have the console output. `console.exp` only look for success or it
+>>>> times out. We could parse the console output, but the junit is more
+>>>> concise. Also check if we have it or fail as well.
+>>>>
+>>>> Signed-off-by: Anthony PERARD <anthony.perard@vates.tech>
+>>>> ---
+>>>>  automation/scripts/qubes-x86-64.sh | 7 +++++++
+>>>>  1 file changed, 7 insertions(+)
+>>>>
+>>>> diff --git a/automation/scripts/qubes-x86-64.sh b/automation/scripts/qubes-x86-64.sh
+>>>> index 046137a4a6..7a4c5ae489 100755
+>>>> --- a/automation/scripts/qubes-x86-64.sh
+>>>> +++ b/automation/scripts/qubes-x86-64.sh
+>>>> @@ -298,6 +298,13 @@ TEST_RESULT=$?
+>>>>  
+>>>>  if [ -n "$retrieve_xml" ]; then
+>>>>      nc -w 10 "$SUT_ADDR" 8080 > tests-junit.xml </dev/null
+>>>> +    # Findout if one of the test failed
+>>>> +    if ! grep -q '</testsuites>' tests-junit.xml; then
+>>>> +        echo "ERROR: tests-junit.xml is incomplete or missing."
+>>>> +        TEST_RESULT=1
+>>>> +    elif grep -q '</failure>' tests-junit.xml; then
+>>>> +        TEST_RESULT=1
+>>>> +    fi
+>>>>  fi
+>>>>  
+>>>>  exit "$TEST_RESULT"
+>>> A couple of things.
+>>>
+>>> From my experimentation with junit,
+>>> https://gitlab.com/xen-project/hardware/xen-staging/-/pipelines/1849342222/test_report?job_name=kbl-xtf-x86-64-gcc-debug
+>>> we can also use </error> for classification.  I'm also very disappointed
+>>> in Gitlab classifying <warning> as success.
+>>>
+>>> Not for this patch, but for XTF I need to be able to express "tolerable
+>>> failure".  (All branches of Xen will run the same tests, and we don't
+>>> have OSSTest to deem "fail never passed" as non-blocking.)
+>>>
+>>> Even if the job passes overall, I want tolerable failures to show up in
+>>> the UI, so I have to use <failure> in junit.xml.  But that means needing
+>>> to be more selective, and I don't have a good idea of how to do this. 
+>>> (I have one terrible idea, which is </failure type=tolerable"> which
+>>> will escape that grep, but it feels like (ab)buse of XML.)
+>> But that automation/ dir (including the run-tools-tests script) is
+>> per-branch, so you can specify there which tests should be considered
+>> failure and which just warning, no? It will require few more bits in the
+>> script, but fundamentally shouldn't be a problem?
+>>
+> XTF is in a separate repo and does not have branches.
 >
-> Signed-off-by: Anthony PERARD <anthony.perard@vates.tech>
-
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
-> ---
->  automation/scripts/run-tools-tests | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
+> Now consider
+> https://xenbits.xen.org/gitweb/?p=xen.git;a=commitdiff;h=d965e2ee07c56c341d8896852550914d87ea5374,
+> and testing it.
 >
-> diff --git a/automation/scripts/run-tools-tests b/automation/scripts/run-tools-tests
-> index 852c1cfbcf..e38cc4068c 100755
-> --- a/automation/scripts/run-tools-tests
-> +++ b/automation/scripts/run-tools-tests
-> @@ -18,9 +18,12 @@ for f in "$1"/*; do
->          continue
->      fi
->      echo "Running $f"
-> -    printf '  <testcase name="%s">\n' "$f" >> "$xml_out"
-> +    time_start=$EPOCHREALTIME
->      "$f" 2>&1 | tee /tmp/out
->      ret=${PIPESTATUS[0]}
-> +    time_end=$EPOCHREALTIME
-> +    time_test="$(bc <<<"$time_end - $time_start")"
-> +    printf '  <testcase name="%s" time="%f">\n' "$f" "$time_test" >> "$xml_out"
+> Anything I put into XTF to test it will pass on staging but fail on the
+> older stable-* trees.  In due course it will get backported to the
+> bugfix branches, but it likely won't get fixed on the security-only
+> branches.
+>
+> Furthermore, I need to not change xen.git to make this work, and older
+> branches need to pick up newer XTF automatically.  (XSA tests *are*
+> expected to pass everywhere once the issue is public.)
+>
+> My current plan is to have logic of the form:
+>
+> if ( xenver >= $STAGING )
+>     xtf_failure(...);
+> else
+>     xtf_success("Expected Failure:" ...);
+>
+> where $STAGING moves when backports get done.  I still want the failures
+> to show up in the Tests UI.
 
-I'd suggest $time_delta rather than $time_test.
+P.S. I'm planning to teach ./xtf-runner how to write out a junit.xml
+directly.  I'm not interested in interpreting python's stdout and
+writing xml in shell...
 
 ~Andrew
 
