@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E443AACC8D3
-	for <lists+xen-devel@lfdr.de>; Tue,  3 Jun 2025 16:10:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1004513.1384240 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 89DBEACC8D9
+	for <lists+xen-devel@lfdr.de>; Tue,  3 Jun 2025 16:12:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1004525.1384251 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uMSKe-0006VU-KY; Tue, 03 Jun 2025 14:09:36 +0000
+	id 1uMSNY-0008Ms-4x; Tue, 03 Jun 2025 14:12:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1004513.1384240; Tue, 03 Jun 2025 14:09:36 +0000
+Received: by outflank-mailman (output) from mailman id 1004525.1384251; Tue, 03 Jun 2025 14:12:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uMSKe-0006TC-Hl; Tue, 03 Jun 2025 14:09:36 +0000
-Received: by outflank-mailman (input) for mailman id 1004513;
- Tue, 03 Jun 2025 14:09:34 +0000
+	id 1uMSNY-0008LO-27; Tue, 03 Jun 2025 14:12:36 +0000
+Received: by outflank-mailman (input) for mailman id 1004525;
+ Tue, 03 Jun 2025 14:12:35 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=pD2F=YS=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1uMSKc-0006T5-Sz
- for xen-devel@lists.xenproject.org; Tue, 03 Jun 2025 14:09:34 +0000
+ id 1uMSNX-0008LI-Ev
+ for xen-devel@lists.xenproject.org; Tue, 03 Jun 2025 14:12:35 +0000
 Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
  [2a00:1450:4864:20::434])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5fa1c73c-4084-11f0-a300-13f23c93f187;
- Tue, 03 Jun 2025 16:09:33 +0200 (CEST)
+ id cbc00204-4084-11f0-a300-13f23c93f187;
+ Tue, 03 Jun 2025 16:12:34 +0200 (CEST)
 Received: by mail-wr1-x434.google.com with SMTP id
- ffacd0b85a97d-3a50fc7ac4dso1163244f8f.0
- for <xen-devel@lists.xenproject.org>; Tue, 03 Jun 2025 07:09:33 -0700 (PDT)
+ ffacd0b85a97d-3a4f379662cso4449377f8f.0
+ for <xen-devel@lists.xenproject.org>; Tue, 03 Jun 2025 07:12:34 -0700 (PDT)
 Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3a4efe5b92bsm18151905f8f.9.2025.06.03.07.09.31
+ ffacd0b85a97d-3a4f009ff7asm18684433f8f.90.2025.06.03.07.12.32
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 03 Jun 2025 07:09:31 -0700 (PDT)
+ Tue, 03 Jun 2025 07:12:33 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5fa1c73c-4084-11f0-a300-13f23c93f187
+X-Inumbo-ID: cbc00204-4084-11f0-a300-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1748959773; x=1749564573; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1748959954; x=1749564754; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=28wcA/4J7tuGdXetpGefwBKi0uYNHb5+EE/7GG8Imj0=;
-        b=MbqkfODwgUCnFtCkcvS4n5m1wFA8M1vdtA2lJfEvAqeOZOGasvMDzkK/VlhUfCgEiU
-         FW0pxdVbSZvK7dNqj5NuY6839m+AO/YSXaIcOM/Xe1jK4A90yZnZNTxT0UKuY1beo8a/
-         1XY8XCD84Dddt+2SiYBl1UQdmozFmYCgfmoks=
+        bh=xjmTYl8OxfXtbZBhYtLhFDJDlt08sG7sjuITSZQLHyk=;
+        b=czGyjkSZxyeHiAmhCHHDolBAl/itHWGgrUdzAFqcr0VaqTB+YwZu0C83OVOW3Zvykn
+         +Inm/60TXYBd/PT7EQO4HhfZDoGzcmm7yv+9193hY8HRIRO9glgwCCQLYOx1uVeQ8ZpS
+         JuiWrVItkZYH4Xhxw6wsOHZ0VEQDFeB2HsHXk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1748959773; x=1749564573;
+        d=1e100.net; s=20230601; t=1748959954; x=1749564754;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=28wcA/4J7tuGdXetpGefwBKi0uYNHb5+EE/7GG8Imj0=;
-        b=oB72jb1kdXUGSQEXEj8nql1j5yNMdLZvxOMH4lNjmG7FWlrHUhE6TukuLUME75sDZh
-         ZmfqF/uDwhP2v+f0i9VvnkcXNkZY+2i6h7jYyBNLz3vyLPlAQSBNY0YcLiAWnwiisA0Q
-         RT0sVzsHUalgU31CrDhkTSNxzuRTrfc/ALCN26KqdgS0/E7eD6MQZKm76G9nMAdEx75L
-         FsN3ksenm8ivOU0P/2wSxbyGK8uYNyfw6sdhzB4xkyJGVntg+6xIJP+ZPQYH7d13H//A
-         0Z18wTgsl/sudYbPP2XUG84u2xC27EJvBTnnn2En1auq/3xk31M5/9fEb0t8rfJmFwrx
-         nQiw==
-X-Forwarded-Encrypted: i=1; AJvYcCUdBZQWHBWzjJIF8+Wh/szjldf12eOonvcm6NsdlLyLdt/LJx9QUHeNR8MBr5dHSZ7s5uetqd2LWMg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yzu+FCC8pthwa2wmnwTFbaRxKlCbegP638eI54+wPfLGTYt3dHb
-	Xn7lbtr46LHYuUOWtPPUgEom7uEeX+nwM3deU5cTcmInaLyiB+u1YfQsNcB6wMeLtBk=
-X-Gm-Gg: ASbGncvbGIZ+m2638lrlLrT0h3Ci5sFB1CAcEHzj+zvnSYAK1N1YQ68ELypcdBFpKCs
-	LZacHIip4dDcuWQUZ48cqmAA8zJq+hDvfx9gBqNwP1ZV8X+4BmnHuO2q6tBvM7uK4XC50M1/JHx
-	pGqpAU6kfBW10ukKpWgLtGELv3ToX9wAi+n7yev11B5p04pWFt48gIroP1a2mxlT3sQsf4YDsKE
-	bmg0YEZKwAnaurhfeQzszK++3zRcyiZn56g7wu42x8Zk+F1DPEb2/cwZYZ4l/tZDX5h7kEi2Ap7
-	yTnAyOvtsAXPKxptTMf8Dx6sODuCSQbbqH4khi+6pyEN7yKwNEm9hRjAR/rN0DatqDLyp1eCAIQ
-	26xEKp0XGr8p0vRD0
-X-Google-Smtp-Source: AGHT+IEXVckzvDFeMXZzOyfMLkFnVv3w3pscZKorSjZrTDx/Sb0dbtMLfPyNqiRj4TFLxJz6rbQbVA==
-X-Received: by 2002:a05:6000:288c:b0:3a4:dd02:f724 with SMTP id ffacd0b85a97d-3a4f7a9d48amr14467649f8f.43.1748959772695;
-        Tue, 03 Jun 2025 07:09:32 -0700 (PDT)
-Message-ID: <7e545be5-bcfa-46f7-b2b6-bee8c258f91c@citrix.com>
-Date: Tue, 3 Jun 2025 15:09:31 +0100
+        bh=xjmTYl8OxfXtbZBhYtLhFDJDlt08sG7sjuITSZQLHyk=;
+        b=mZZJNcchvIvcb+/VTq1Oh3NxV6kBXZAXUJIehzMg0gb4GkLY8BWWCRDYewMq8UJDvK
+         Dl/C3GhYqOAzLZ10Z/bDyWs7W8eepXuP/8/m2GkEZ5KSzxVNtt6+4osLkD5GCgSc6hn+
+         13sipqA80fV8TMQJIlD3ZXm4PFGbS9ozHS2X6lhvAw7Zyx1BsmLibuK8syXYydXlBsbQ
+         KAhYzuIQPNoIY0u7I2nLTIxorc2BZkpUNMngunpSmUhfZc3dyosqMzRzXx2jawnocSgL
+         71DegwSbGqiPQZx9t449xKHPOFxQURAWxRaBLOI7Geela68mk2Z95p0LTA8AlTeioRJU
+         RPMA==
+X-Forwarded-Encrypted: i=1; AJvYcCUs49f20B0FlE1MbS1Psz5h0gxKGumQyQtU4aIDdME+hShLHhQGp0Z7IhTebPOj9TqAM1NJ5232QMw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yxxe+G3Fp7hMehuh1VUaVBP//YCanbGG0D3GOopAxHMG9CgOeI+
+	aCl267pH6BdQEsBqlNriCFpBMjCSY0jmpIjWugDm3Jft3iFynbbkXEHm4E9S91gqa+k=
+X-Gm-Gg: ASbGncsy3uwsTsbztXBEUuLpDm8BY3sGNzlx42fha1RjUA3gnUe3ZHDFq/jdrJHCOKL
+	uhYWkQnWBX/mPMRJo9ae3ZNXnsBkUJKY9lXPTZEjYapSbNzGDO55fW7PNBEtaXUIC4YVLXMbkW6
+	Kii4CXlDDS2qdhExbkTqOv4/bkJt0ENwNoNVURJ4HKiLJJehsaKBzFPC4CD1KcLjVF2IFxlA6Mt
+	NyQ6BT6ld35ETOXkVWyahOggZC+gWdNrWI+ohpx8uh5tWp1Q3bZxf3ywsDcV10+w/dPM87GV5ot
+	PRnwiNP84GrmBL3PezZuL45DjAddnglkqusfsoiqQ7+bWugtjjXgBJpB9B7EnYGY50iocWsBGp0
+	EK2m6ezRlADcKYHjt9StVAbOJtZY=
+X-Google-Smtp-Source: AGHT+IGGgX+/jpAfumrhng1e13HR3ua6uvBQrBVvGc2j8KAcBVsvFdkwIqNjNYauOtcKxr5nE7STZw==
+X-Received: by 2002:adf:eacb:0:b0:3a4:ef36:1f4d with SMTP id ffacd0b85a97d-3a4fe391bc4mr7803029f8f.38.1748959954137;
+        Tue, 03 Jun 2025 07:12:34 -0700 (PDT)
+Message-ID: <86d3655f-f541-441e-bb6c-1dda0b03540f@citrix.com>
+Date: Tue, 3 Jun 2025 15:12:32 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH 5/9] CI: Have the gitlab job fail on tools/tests
- failure
-To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>
-Cc: Anthony PERARD <anthony@xenproject.org>, xen-devel@lists.xenproject.org,
- Anthony PERARD <anthony.perard@vates.tech>,
- Doug Goldstein <cardoe@cardoe.com>,
+Subject: Re: [XEN PATCH 8/9] CI: Workaround extra content in junit
+To: Anthony PERARD <anthony@xenproject.org>, xen-devel@lists.xenproject.org
+Cc: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, Anthony PERARD
+ <anthony.perard@vates.tech>, Doug Goldstein <cardoe@cardoe.com>,
  Stefano Stabellini <sstabellini@kernel.org>
 References: <20250603124222.52057-1-anthony@xenproject.org>
- <20250603124222.52057-6-anthony@xenproject.org>
- <ba57188a-77b9-4386-bd5a-073903062864@citrix.com> <aD78OU9fF5rqbHBh@mail-itl>
+ <20250603124222.52057-9-anthony@xenproject.org>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -140,89 +137,39 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <aD78OU9fF5rqbHBh@mail-itl>
+In-Reply-To: <20250603124222.52057-9-anthony@xenproject.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 03/06/2025 2:44 pm, Marek Marczykowski-Górecki wrote:
-> On Tue, Jun 03, 2025 at 02:41:50PM +0100, Andrew Cooper wrote:
->> On 03/06/2025 1:42 pm, Anthony PERARD wrote:
->>> From: Anthony PERARD <anthony.perard@vates.tech>
->>>
->>> We can't rely on an exit value from `run-tools-tests` since we only
->>> have the console output. `console.exp` only look for success or it
->>> times out. We could parse the console output, but the junit is more
->>> concise. Also check if we have it or fail as well.
->>>
->>> Signed-off-by: Anthony PERARD <anthony.perard@vates.tech>
->>> ---
->>>  automation/scripts/qubes-x86-64.sh | 7 +++++++
->>>  1 file changed, 7 insertions(+)
->>>
->>> diff --git a/automation/scripts/qubes-x86-64.sh b/automation/scripts/qubes-x86-64.sh
->>> index 046137a4a6..7a4c5ae489 100755
->>> --- a/automation/scripts/qubes-x86-64.sh
->>> +++ b/automation/scripts/qubes-x86-64.sh
->>> @@ -298,6 +298,13 @@ TEST_RESULT=$?
->>>  
->>>  if [ -n "$retrieve_xml" ]; then
->>>      nc -w 10 "$SUT_ADDR" 8080 > tests-junit.xml </dev/null
->>> +    # Findout if one of the test failed
->>> +    if ! grep -q '</testsuites>' tests-junit.xml; then
->>> +        echo "ERROR: tests-junit.xml is incomplete or missing."
->>> +        TEST_RESULT=1
->>> +    elif grep -q '</failure>' tests-junit.xml; then
->>> +        TEST_RESULT=1
->>> +    fi
->>>  fi
->>>  
->>>  exit "$TEST_RESULT"
->> A couple of things.
->>
->> From my experimentation with junit,
->> https://gitlab.com/xen-project/hardware/xen-staging/-/pipelines/1849342222/test_report?job_name=kbl-xtf-x86-64-gcc-debug
->> we can also use </error> for classification.  I'm also very disappointed
->> in Gitlab classifying <warning> as success.
->>
->> Not for this patch, but for XTF I need to be able to express "tolerable
->> failure".  (All branches of Xen will run the same tests, and we don't
->> have OSSTest to deem "fail never passed" as non-blocking.)
->>
->> Even if the job passes overall, I want tolerable failures to show up in
->> the UI, so I have to use <failure> in junit.xml.  But that means needing
->> to be more selective, and I don't have a good idea of how to do this. 
->> (I have one terrible idea, which is </failure type=tolerable"> which
->> will escape that grep, but it feels like (ab)buse of XML.)
-> But that automation/ dir (including the run-tools-tests script) is
-> per-branch, so you can specify there which tests should be considered
-> failure and which just warning, no? It will require few more bits in the
-> script, but fundamentally shouldn't be a problem?
+On 03/06/2025 1:42 pm, Anthony PERARD wrote:
+> From: Anthony PERARD <anthony.perard@vates.tech>
 >
+> Signed-off-by: Anthony PERARD <anthony.perard@vates.tech>
+> ---
+>  automation/scripts/qubes-x86-64.sh | 6 ++++++
+>  1 file changed, 6 insertions(+)
+>
+> diff --git a/automation/scripts/qubes-x86-64.sh b/automation/scripts/qubes-x86-64.sh
+> index 7a4c5ae489..6ab8412f45 100755
+> --- a/automation/scripts/qubes-x86-64.sh
+> +++ b/automation/scripts/qubes-x86-64.sh
+> @@ -298,6 +298,12 @@ TEST_RESULT=$?
+>  
+>  if [ -n "$retrieve_xml" ]; then
+>      nc -w 10 "$SUT_ADDR" 8080 > tests-junit.xml </dev/null
+> +    # Workaround duplicated data been received
+> +    sed -i.old '/^<\/testsuites>/q' tests-junit.xml > /dev/null
+> +    extra_line_in_junit=$(($(wc -l < tests-junit.xml.old) - $(wc -l < tests-junit.xml)))
+> +    if [ $extra_line_in_junit -gt 0 ]; then
+> +        echo "WARNING: Found $extra_line_in_junit too many lines in junit."
+> +    fi
 
-XTF is in a separate repo and does not have branches.
+Is this the cause of
+https://gitlab.com/xen-project/hardware/xen-staging/-/pipelines/1849342222/test_report
+getting a row of 0's for ADL ?
 
-Now consider
-https://xenbits.xen.org/gitweb/?p=xen.git;a=commitdiff;h=d965e2ee07c56c341d8896852550914d87ea5374,
-and testing it.
-
-Anything I put into XTF to test it will pass on staging but fail on the
-older stable-* trees.  In due course it will get backported to the
-bugfix branches, but it likely won't get fixed on the security-only
-branches.
-
-Furthermore, I need to not change xen.git to make this work, and older
-branches need to pick up newer XTF automatically.  (XSA tests *are*
-expected to pass everywhere once the issue is public.)
-
-My current plan is to have logic of the form:
-
-if ( xenver >= $STAGING )
-    xtf_failure(...);
-else
-    xtf_success("Expected Failure:" ...);
-
-where $STAGING moves when backports get done.  I still want the failures
-to show up in the Tests UI.
+Why are we getting duplicate data?  nc is running in TCP mode, not UDP,
+so it's not that.
 
 ~Andrew
 
