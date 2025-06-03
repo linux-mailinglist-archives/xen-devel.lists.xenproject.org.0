@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF38BACC458
-	for <lists+xen-devel@lfdr.de>; Tue,  3 Jun 2025 12:31:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1004196.1383857 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 40244ACC4A0
+	for <lists+xen-devel@lfdr.de>; Tue,  3 Jun 2025 12:47:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1004207.1383868 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uMOus-0001Sp-QK; Tue, 03 Jun 2025 10:30:46 +0000
+	id 1uMPAM-0003cv-56; Tue, 03 Jun 2025 10:46:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1004196.1383857; Tue, 03 Jun 2025 10:30:46 +0000
+Received: by outflank-mailman (output) from mailman id 1004207.1383868; Tue, 03 Jun 2025 10:46:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uMOus-0001RN-NE; Tue, 03 Jun 2025 10:30:46 +0000
-Received: by outflank-mailman (input) for mailman id 1004196;
- Tue, 03 Jun 2025 10:30:45 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uMPAM-0003aZ-0e; Tue, 03 Jun 2025 10:46:46 +0000
+Received: by outflank-mailman (input) for mailman id 1004207;
+ Tue, 03 Jun 2025 10:46:44 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=V7Ic=YS=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1uMOur-0001Pz-Hh
- for xen-devel@lists.xenproject.org; Tue, 03 Jun 2025 10:30:45 +0000
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [2a00:1450:4864:20::329])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ce160493-4065-11f0-a300-13f23c93f187;
- Tue, 03 Jun 2025 12:30:44 +0200 (CEST)
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-442eb5d143eso54777115e9.0
- for <xen-devel@lists.xenproject.org>; Tue, 03 Jun 2025 03:30:44 -0700 (PDT)
-Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
- by smtp.gmail.com with UTF8SMTPSA id
- 5b1f17b1804b1-450d8000f3esm158682575e9.23.2025.06.03.03.30.43
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 03 Jun 2025 03:30:43 -0700 (PDT)
+ <SRS0=Zlp/=YS=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1uMPAK-0003aT-Nm
+ for xen-devel@lists.xenproject.org; Tue, 03 Jun 2025 10:46:44 +0000
+Received: from fout-a4-smtp.messagingengine.com
+ (fout-a4-smtp.messagingengine.com [103.168.172.147])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0855fc02-4068-11f0-b894-0df219b8e170;
+ Tue, 03 Jun 2025 12:46:41 +0200 (CEST)
+Received: from phl-compute-01.internal (phl-compute-01.phl.internal
+ [10.202.2.41])
+ by mailfout.phl.internal (Postfix) with ESMTP id 6A2EE138011B;
+ Tue,  3 Jun 2025 06:46:40 -0400 (EDT)
+Received: from phl-mailfrontend-01 ([10.202.2.162])
+ by phl-compute-01.internal (MEProxy); Tue, 03 Jun 2025 06:46:40 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 3 Jun 2025 06:46:39 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,103 +45,123 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ce160493-4065-11f0-a300-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1748946644; x=1749551444; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=9Qcc1ZQtdUX84i6GJLDoeihRG+X6QiJugMzgDRCUCpA=;
-        b=Xhhuo0+E9xO7vpZOSNF/vGnJNHA4r0FSqh4O9vifjmCDDaw2Xb+pgMsffdH2UxXM0m
-         lfX5LgMx1lKfKT0uz+7tVYvdkCAxZfYIQSvp5etdcPeseUww+vXnV2o41NzDgUbfHN4E
-         dwsoDLE52z5IL2k0fr3dJD8S7m+z2tTxBJVN0=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1748946644; x=1749551444;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=9Qcc1ZQtdUX84i6GJLDoeihRG+X6QiJugMzgDRCUCpA=;
-        b=kEAR8Ee2camLmbEFzNe5GEuq0dvO+AqIuFQFdmlbxuKsxI+OMfrnFuwnqYvQXvrfjn
-         Tfsjv+WruMQiS5wmynTrXh/inymFk3sX5oyobmP4uSVZSIL5n0yp1NZDjPqVlXL8MsqF
-         CmrT35PEOFNEv4vpZ6VCegLGbx/N9otMlCa3CYWEK79IPxXpCy66+QXouwDu49DchBzc
-         UftldKQr4n1UkR9HXrVXV65npKEZcdI6XshsyrqBG4Ik9s6l4y4BQ8fm2a+zcX0+nb91
-         8i87jGFUymOYkDlrtVba0w0YxBwHSAPxi0uN6MRbnNp/P+jyJTz6gphmDaIsBUeqvGb4
-         ZRcQ==
-X-Gm-Message-State: AOJu0YwFVUNv/GVVpfSROg8vjSt46BWgbUHbFqy2IUkQLJXurqOhj3Xo
-	jrgsJLP2XMsi9SiGUQFc1wu+igm3WQnYxjuP51jYku6Bw023dQuwNbC16UMQgUa+16E=
-X-Gm-Gg: ASbGnctLou5jnV37sKzlcZzAvH5Q4lcc5TNQ0i3R6NJlXPj5FdrP+SHJeszypq1BxDB
-	Y7FL0S+ysYwgdR1WKwHwogYx23k5x9zn/sWoNKkaaasMRJ59LP3eyqybrKZGdst8WVQTlDBQvn7
-	yg2Cw+AKUBeY8EMVyblrE/+DeDsIxlGfrLq1Xuy1yVAbnVPOHQjAv1g4w7Ys2wENr9/FnocYf1P
-	ITYoKRGbRfK/3kkdTMd8m2bTGrERKdd+0CDVv5MOdd+W0u+1j57kG7Y/vuBv03S+3BoRKj4yrAp
-	600wOMazo1aivN35+KOijPpxwq01nI2LElwrnk/zsgzDE97D/M9eFN9CoLqDrbUtHWuJ08JRiOl
-	4i3BsoSoTzH29pkL8dDFo+/Du
-X-Google-Smtp-Source: AGHT+IHPToY1EEAsDqnXwPsSiO1r/W26mAt0+pUwtxoUtKs7JfjMV89Hngtgs3qrdlyjjRrWq+2hCA==
-X-Received: by 2002:a05:600c:8b0f:b0:43c:f63c:babb with SMTP id 5b1f17b1804b1-4511ecbbdc4mr94366225e9.1.1748946643561;
-        Tue, 03 Jun 2025 03:30:43 -0700 (PDT)
-Date: Tue, 3 Jun 2025 12:30:42 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: "Orzel, Michal" <michal.orzel@amd.com>
-Cc: xen-devel@lists.xenproject.org,
-	Anthony PERARD <anthony.perard@vates.tech>
-Subject: Re: [PATCH] tests/vpci: Use $(CC) instead of $(HOSTCC)
-Message-ID: <aD7O0nsfuKbKwlnD@macbook.local>
-References: <20250602150929.10679-1-michal.orzel@amd.com>
- <aD6aVzDZ4zDyEBHV@macbook.local>
- <6438a00b-a0fe-419d-b57e-5e1af48d43ce@amd.com>
+X-Inumbo-ID: 0855fc02-4068-11f0-b894-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1748947600;
+	 x=1749034000; bh=vzcA9HWTWIUMZB9oPmUpNB6+WB4ekEb8Hk9INiG/UfU=; b=
+	N69I8BVxr+V8NS4TAQss4jYyaDDwhC74i93UsKz6r8uaPROUu/R1WW/Er4H+KgFh
+	xf6vWETGeUuskcQ24X5HDqq5jBceV8Q7puqNFp2b7fAtMsz/I0cVcd2viCgMkwha
+	GD6ZnPkQcsRHpcXTTQAvTCDnEgI6awx159XfqfHPcP3mRKYwsEWp+W+hY9Jo2hnO
+	J2HbiMBMOuwjYSN8vFFEDUYFz7m/GkX3vHYWECh8yPLAa45ebouAcv6MQ2xnWN1O
+	920H7IuSdn+07V+BA3h8oE90C8zgAIHgv8R+o/1/X7d/t45lK7qj41Pe+zwG1D03
+	TzUN6ktnKz3X95ypmfwKfA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1748947600; x=1749034000; bh=vzcA9HWTWIUMZB9oPmUpNB6+WB4ekEb8Hk9
+	INiG/UfU=; b=ONj4NdSMLbp7TPMdYFAeL4/wNs+YcWPZDNjSLm8PDoPXABEdBbh
+	QMc+1zTpv0ZMqcW3Bp/8j35SdiDxLbWcDIgYaHgifwHxSzNA+QzDt1n2BbgzwSpx
+	+VKiO9Z26ObsHcuJtuss5mOk98He7syvPvW8AnNTZMlRtxcr2J72QJQInOXt8fzW
+	bdOpR+WBT4PW9YbOlnvTYB6/z6rcmkJxp+jMtpFIO0JkWtmS/ejh9xW/XDRQJbZz
+	NO5MzxWrFvWHZxKpcKfFi1cST+e9sq1Kkyy2htOM5LO+eCGQ9oEBG+TRzgOzyUGw
+	htq9LwrmoH2asbXzQB7oXMQnW2C7osj7zSw==
+X-ME-Sender: <xms:j9I-aLPG7wKcubpJHTAXkSnF1SDXOQCvADrpQyfJgzLdRD3kuSzlgA>
+    <xme:j9I-aF-IllsqTzKWGiLAu2krjnPm0mEhsmz0nA9-Ba9_dR6KbcyZGVLPCnpU90l2e
+    NZSN1mWtZsNoA>
+X-ME-Received: <xmr:j9I-aKTCkU6mUpT1oRxs10nDXn4pAADbYTUTjIN8MrU09VEl2_WdYoazx4gy_Gxo1eTsk8-ws67PFTEiBMsqUquw76Ea_1BO95o>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtddugddtgecutefuodetggdotefrodftvf
+    curfhrohhfihhlvgemucfhrghsthforghilhdpggftfghnshhusghstghrihgsvgdpuffr
+    tefokffrpgfnqfghnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnth
+    hsucdlqddutddtmdenucfjughrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecu
+    hfhrohhmpeforghrvghkucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrg
+    hrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffr
+    rghtthgvrhhnpefgudelteefvefhfeehieetleeihfejhfeludevteetkeevtedtvdegue
+    etfeejudenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhm
+    pehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmpdhnsg
+    gprhgtphhtthhopeegpdhmohguvgepshhmthhpohhuthdprhgtphhtthhopegrnhgurhgv
+    fidrtghoohhpvghrfeestghithhrihigrdgtohhmpdhrtghpthhtohepgigvnhdquggvvh
+    gvlheslhhishhtshdrgigvnhhprhhojhgvtghtrdhorhhgpdhrtghpthhtoheprghnthhh
+    ohhnhidrphgvrhgrrhgusehvrghtvghsrdhtvggthhdprhgtphhtthhopehjghhrohhssh
+    esshhushgvrdgtohhm
+X-ME-Proxy: <xmx:j9I-aPujAlXNlkTyi3PIJOiQ7q-BG09i5BynPkqI-FkqvvRcTiawWg>
+    <xmx:j9I-aDcYG6PWtIjCXRJHN0AESwnMM_9V5bYsHaHJB5RDg5MOx4SMOQ>
+    <xmx:j9I-aL1V5U9sZHzRb7QL2cChfRIHqtn1GiB0OCwzipWFQ-Sb5yHBmQ>
+    <xmx:j9I-aP_ghnIor2xbF91c4IIZarV77Gj_x4GM-4FzsU54c7dxXpMLgA>
+    <xmx:kNI-aIDbLuc2TcDAJO5ZOpm1exSQ8PEKCD2xJXCqUde9CSDixAsfcSw_>
+Feedback-ID: i1568416f:Fastmail
+Date: Tue, 3 Jun 2025 12:46:36 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Juergen Gross <jgross@suse.com>
+Subject: Re: [PATCH] Revert tools/python part of "tools: remove support for
+ running a guest with qemu-traditional"
+Message-ID: <aD7SjAXPrDDPaCAu@mail-itl>
+References: <20250602112253.2628571-1-andrew.cooper3@citrix.com>
+ <aD2KpLtC257hlUj8@mail-itl>
+ <ae5a5de4-22ce-443b-a88d-16b89b28ac11@citrix.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="RPDInwLMpp7r77WP"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <6438a00b-a0fe-419d-b57e-5e1af48d43ce@amd.com>
+In-Reply-To: <ae5a5de4-22ce-443b-a88d-16b89b28ac11@citrix.com>
 
-On Tue, Jun 03, 2025 at 08:52:38AM +0200, Orzel, Michal wrote:
-> 
-> 
-> On 03/06/2025 08:46, Roger Pau Monné wrote:
-> > On Mon, Jun 02, 2025 at 05:09:29PM +0200, Michal Orzel wrote:
-> >> These tests are supposed to run on target. HOSTCC can be different than
-> >> CC (when cross-compiling). At the moment, tests installation would put
-> >> a binary of a wrong format in the destdir.
-> >>
-> >> Fixes: e90580f25bd7 ("vpci: introduce basic handlers to trap accesses to the PCI config space")
 
-Hm, it's unclear to me whether this is the correct fixes tag.
-Previous to:
+--RPDInwLMpp7r77WP
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 3 Jun 2025 12:46:36 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Juergen Gross <jgross@suse.com>
+Subject: Re: [PATCH] Revert tools/python part of "tools: remove support for
+ running a guest with qemu-traditional"
 
-96a587a05736 tools/tests: Add install target for vPCI
+On Mon, Jun 02, 2025 at 12:31:59PM +0100, Andrew Cooper wrote:
+> On 02/06/2025 12:27 pm, Marek Marczykowski-G=C3=B3recki wrote:
+> > On Mon, Jun 02, 2025 at 12:22:53PM +0100, Andrew Cooper wrote:
+> >> The migration stream is a stable ABI.  What this does is break the abi=
+lity to
+> >> inspection and operate on pre-Xen-4.21 streams.
+> > Do you mean Xen 4.21 should be able to accept migration of a domU with
+> > qemu trad? I don't think it's a desirable feature...
+>=20
+> xl is free to reject a qemu-trad stream if it wants.
+>=20
+> What's not ok is verify-stream-v2 exploding with "unknown emulator 1"
+> when I ask it to tell me what the bytes in this stream mean.
 
-The test was not installed on the host, and hence didn't need to use
-CC instead of HOSTCC (or at least that's my understating).
+I see, in that case:
 
-> >> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
-> >> ---
-> >>  tools/tests/vpci/Makefile | 2 +-
-> >>  1 file changed, 1 insertion(+), 1 deletion(-)
-> >>
-> >> diff --git a/tools/tests/vpci/Makefile b/tools/tests/vpci/Makefile
-> >> index 9450f7593a41..1101a669e118 100644
-> >> --- a/tools/tests/vpci/Makefile
-> >> +++ b/tools/tests/vpci/Makefile
-> >> @@ -11,7 +11,7 @@ run: $(TARGET)
-> >>  	./$(TARGET)
-> >>  
-> >>  $(TARGET): vpci.c vpci.h list.h main.c emul.h
-> >> -	$(HOSTCC) $(CFLAGS_xeninclude) -g -o $@ vpci.c main.c
-> >> +	$(CC) $(CFLAGS_xeninclude) -g -o $@ vpci.c main.c
-> > 
-> > This was already posted in:
-> > 
-> > https://lore.kernel.org/xen-devel/20230313121226.86557-1-roger.pau@citrix.com/
-> > 
-> > And got no feedback.
-> > 
-> > I'm happy for your change to go in, but you might also consider
-> > picking up the run target adjustment part of that previous patch.
-> You're the maintainer of this file. You should tell me what I need to do
-> unless you want to wait for Anthony feedback.
+Acked-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.com>
 
-I would also add the chunk to adjust the run target if you use CC
-instead of HOSTCC.
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
 
-Thanks, Roger.
+--RPDInwLMpp7r77WP
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmg+0owACgkQ24/THMrX
+1yydpwf+KXqUOqyAfR2SazoUISvmNHq2abr7Fb96AngaDfMSqmXKoBnDVC5nhIPk
+z7WJ2ZlwNxub2eYWdkq3u9GICuIuwr1OmBJYfFsbpDlskm/I2/+XM9KHvEZqaa5G
++l1ojkbMFiGQbqJ0jMCfYZ5DMMMOkR1k3StoweluFW696FbyDwlZUapsukwkQEnI
+lXpQaj5g8qVszLdHk4mKBgeUZBO2fXRo/VU+bEbLAiOwdXMvvnuTzcPVnv5mYIFe
+D5jFYed0Lvdbf+O05XGd4srcDS2puWCxSRePUwSLf2M4um6is7Mud+AOKFOzghpu
+1onLoECMElWLBOGvPoyoz4U+Z7m/bA==
+=hdj1
+-----END PGP SIGNATURE-----
+
+--RPDInwLMpp7r77WP--
 
