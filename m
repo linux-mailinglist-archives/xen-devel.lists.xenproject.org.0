@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94515ACC00F
-	for <lists+xen-devel@lfdr.de>; Tue,  3 Jun 2025 08:13:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1003960.1383596 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 40712ACC01D
+	for <lists+xen-devel@lfdr.de>; Tue,  3 Jun 2025 08:20:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1003971.1383607 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uMKsf-0003c4-8A; Tue, 03 Jun 2025 06:12:13 +0000
+	id 1uML0o-0005bP-2j; Tue, 03 Jun 2025 06:20:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1003960.1383596; Tue, 03 Jun 2025 06:12:13 +0000
+Received: by outflank-mailman (output) from mailman id 1003971.1383607; Tue, 03 Jun 2025 06:20:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uMKsf-0003Zv-47; Tue, 03 Jun 2025 06:12:13 +0000
-Received: by outflank-mailman (input) for mailman id 1003960;
- Tue, 03 Jun 2025 06:12:12 +0000
+	id 1uML0n-0005Zx-W1; Tue, 03 Jun 2025 06:20:37 +0000
+Received: by outflank-mailman (input) for mailman id 1003971;
+ Tue, 03 Jun 2025 06:20:36 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=/YrW=YS=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uMKsd-0003Zp-Vp
- for xen-devel@lists.xenproject.org; Tue, 03 Jun 2025 06:12:12 +0000
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [2a00:1450:4864:20::42c])
+ id 1uML0l-0005VI-Up
+ for xen-devel@lists.xenproject.org; Tue, 03 Jun 2025 06:20:35 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a9df218b-4041-11f0-b894-0df219b8e170;
- Tue, 03 Jun 2025 08:12:01 +0200 (CEST)
-Received: by mail-wr1-x42c.google.com with SMTP id
- ffacd0b85a97d-3a50fc819f2so939401f8f.2
- for <xen-devel@lists.xenproject.org>; Mon, 02 Jun 2025 23:12:01 -0700 (PDT)
+ id da5858ae-4042-11f0-b894-0df219b8e170;
+ Tue, 03 Jun 2025 08:20:32 +0200 (CEST)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-43ea40a6e98so56543155e9.1
+ for <xen-devel@lists.xenproject.org>; Mon, 02 Jun 2025 23:20:32 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-23506bdb3f4sm80459875ad.86.2025.06.02.23.11.55
+ d9443c01a7336-23506cd75c7sm80874745ad.113.2025.06.02.23.20.25
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 02 Jun 2025 23:12:00 -0700 (PDT)
+ Mon, 02 Jun 2025 23:20:31 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a9df218b-4041-11f0-b894-0df219b8e170
+X-Inumbo-ID: da5858ae-4042-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1748931121; x=1749535921; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1748931632; x=1749536432; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=gCW1YWXzY7SUtJ7RPccHS3xdLZAmi9LuM82UNhqVUsY=;
-        b=Gkv5GMyLof2pG5ef99WS3AeGp4Js1dftdbDInJhMrUMHlUGP6cRyJO44XaTZi9aFpE
-         uUv9oRITz32d+bBLQhbubGndN3ICQk33XA/iCebLBJ2avQ9NwyqeZMtdXXoRKYEPuUsl
-         BuJnb9oySbFuKgJ9paVqROOHCNBsoHSeIDHkKIn+DW8EsBHlnPSYmqq2vQahIT0RNPtd
-         sgdh2bboTHpF9/yZwB4ebpapBrPmPGKWytlkhiveVXx14eU8kI4xMfoID+tuQKVdF+ac
-         KnrWa5XJu6R7sgr+/I6UyHVVrWpXB0CM33vQqqBNo3/Qga+WlvxJ+3IWjPZLFLr/NvDu
-         Wq4g==
+        bh=EFE0kA07gvknvsWKGuyUxWgAprZxrTL6NRaU0HWBkQA=;
+        b=Sj6hXd3ivSmWTvzXg3yam58OdUUOsT3qCwmVbKXEDF6FCEo5ozQZKNKMPwHTdNGb4F
+         47O6GT564QBZLNKpkzE/lwqTKCEdPE8BjG902x3gkSI8HaKE1BAB2WfZPCSwSaLhFav8
+         amU5ydIP0HCHiOv1ZTeyD0ZBweHYpNf/pl7zjMJqY4hTkv7SoFlT3Kf37AI0Ai507LlJ
+         EnqTydJ8TGK5me2xztZXXwvTI4LNujmhQnAlx/0RmQQgHa4Hsiqj0+0fiZrlPUQeoLRk
+         WOCNv6hZ5p/TwcX7ew4CafRMA6s161yXPN+rdAH4PX4mWnvofsnpcZ9qNLxUvYInbiSS
+         IaKA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1748931121; x=1749535921;
+        d=1e100.net; s=20230601; t=1748931632; x=1749536432;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=gCW1YWXzY7SUtJ7RPccHS3xdLZAmi9LuM82UNhqVUsY=;
-        b=RxpoNbskK+Ytr8DqfUMqObWVeccry77h1lRvVy/1oz195blpJB6r2u9YL15Xpyqmoj
-         3akvfzb62MuQtQQPvSDtiv8ecs5/HC2LmD7mWom7L1VNtoxKwdkzROAY+Fy826kOrqr4
-         Y5qBxLdtA8oY/QEjueKqJmDyPFjQbi6tZddUJt0Ant2BVNwf/P5dMO1ZGgBZU02y3O8b
-         B8eyGxXJQDt2ejRPvxsDLgyVmg/4yFrMYLjZS7fqEPkHqKREuX/D9F2YbUrydQE+bxCK
-         An9URifgqeX3q1YVvHP0QQcD2ny9bgnOvLeBYD9dMq+YN+HjacfefN523Gw7UcEVs6wb
-         gyog==
-X-Gm-Message-State: AOJu0YwcxgZEE5YCAxq2F3XyiJotUNULa4usMZNpx/Ol5PXii/Z+BXVO
-	Mh2GLZhwlLfQnVn51LOY/7lvMT4m+bmxfiV0crE7BENG2FPn8dwS/UznO95N6i+cQQ==
-X-Gm-Gg: ASbGnctWwdOCTio/7LRKMu4QxAx6kgwEYjpD/Z6yXSl6xE83OUkdfbwKFUULkyJRkjB
-	nEXRc16OFEoW7XtEMtNu7lfGLyudqaEnd11fTTMqwztnQ64hsKnSJ5WPZxbMOMt3lTWXhJIdlNb
-	b5ESh7pwH1KrvreYhWW93tPli4E+ebzgsF0aOP6nL4pJMxVTCKIWpKTpsWrryt+UKns0xfqWlxO
-	Bci3CNgHDGEviD9pWqMqCbQoL75XHHlE1rJeF69Cjta4n4Y8KhQ+npvl4fFGHo4DQGhE/yFjvd7
-	2qQsdjlyw9KkuVZxHVnEr4DuOWlrYjQdTYSttUvfDpwoRi//RO1f+7Enmc6KyUY/lHQ0zySknUs
-	E34wNzhX7EkOF3xBO4RXV6jGms79zuM1TKiLG2YCgHi0dmpg=
-X-Google-Smtp-Source: AGHT+IHGLmXc0ur50kXNPdlU5gfKgfT19cS/P5/yviC69hxHa8rxLZvwITKqg8YCs/CF2equlVXJFw==
-X-Received: by 2002:a5d:64ed:0:b0:3a4:e8c8:fb9e with SMTP id ffacd0b85a97d-3a4f7aaf9d5mr11601961f8f.49.1748931121111;
-        Mon, 02 Jun 2025 23:12:01 -0700 (PDT)
-Message-ID: <d08a45cd-2e63-4f6a-81ef-2a3702cdba97@suse.com>
-Date: Tue, 3 Jun 2025 08:11:51 +0200
+        bh=EFE0kA07gvknvsWKGuyUxWgAprZxrTL6NRaU0HWBkQA=;
+        b=gGBklzQ/hWB95aKwivWgWXUgDh2a8hVXB8byu85FqqZARuxxHWjeEH5XtKvv4swMKy
+         vcr7y2BM6UPkGuTdW/Qaow/xsuYxrUg1qZUtW8X9DXzNFjGjy+i3SxEQ65GxiHKM4/Gc
+         v6Tjjv1LnZLEMLbAzLmQf1j3dCT9K4gLJDTnE5mdSZ5hzwk/Ty/RiFVPA5tDv/xN3lTR
+         xHBzxuI9kq1vVJP4JyWQDjgl3qZQyXdj3Q5ylwNzKJkAAtdKBH9f6yOHJPxQFeTYE7CW
+         7q4rOwPMvpP+7/HioXI3++uDSmV9O9EEkwGK3qhcrNGYtSGg3SNWRJxpQwG1gFhxmj/1
+         0AXQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUVzGWs5gMiKT9ayEZj48nHRj23T1DGLb+CEjRsNDPt3Y9JXzc1XOQCRNU+G3SzcaDWlue/95dlv0g=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yzc9g7a9V+jrRuEpFG+c7+1ZmdTTjd8Ot3UT0lQsLXr042V6en9
+	7AMm3AsnfCizGadGy7jBv2/9lKkh33l4AKq++IG0XYvxGQAZ4E9GmcoIpne0KUWKqA==
+X-Gm-Gg: ASbGncuZFO71/EfM8P1AsZtmoO8ZI/CkXm80ATBUPpP8Voxy3e7T7SenEMEj9HjYO2L
+	WpAdF2JhCEF4NffjdtE78dOynLCvnQ+5Xu4SJbEYceuVzIZY4J6kYBj9XKmk6AEwAJhv8McCUbp
+	sgLc2vg862ePKPUoR77H57K9KII2II4HQr33OvfM2zwudDENCxLD9G+s/mNiS58nZiA66F7NExM
+	j8H4C8MkDSE00IelqO/XqRhuUepzZi/rK+dTb8g0mXEMzfvBgkVOV6uVD7YPI1gmiA4YH15rTeG
+	KfGthMqWnIpNa/RXbDf67UyslXNGoLetgNOdVEjZDuOMRgZEuu8LCwZIjD1kzzv06In2x2QstuR
+	+O1kyUmO5zxGQdYEdSb8lkMBdiJim8zKOfWIpcz3JEElH4qc=
+X-Google-Smtp-Source: AGHT+IFWGNjnITCGL9K3WGHZ94acrulLHw99byAKrkWthX/4eBTvyk7pidByofWIBTo30kygEICiRA==
+X-Received: by 2002:a5d:584e:0:b0:3a4:d8b6:ca40 with SMTP id ffacd0b85a97d-3a4f7a659e5mr12827273f8f.25.1748931631884;
+        Mon, 02 Jun 2025 23:20:31 -0700 (PDT)
+Message-ID: <a30543ac-2fce-409b-8105-e68980125535@suse.com>
+Date: Tue, 3 Jun 2025 08:20:21 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 3/4] xen/console: remove max_init_domid dependency
-To: Stefano Stabellini <sstabellini@kernel.org>, dmkhn@proton.me
-Cc: xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com,
- anthony.perard@vates.tech, julien@xen.org, michal.orzel@amd.com,
- roger.pau@citrix.com, dmukhin@ford.com
-References: <20250530231841.73386-1-dmukhin@ford.com>
- <20250530231841.73386-4-dmukhin@ford.com>
- <alpine.DEB.2.22.394.2506021733330.1147082@ubuntu-linux-20-04-desktop>
+Subject: Re: [PATCH v2] automation/eclair: update configuration of D4.10
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Stefano Stabellini <stefano.stabellini@amd.com>, michal.orzel@amd.com,
+ julien@xen.org, roger.pau@citrix.com, bertrand.marquis@arm.com,
+ federico.serafini@bugseng.com, Nicola Vetrini <nicola.vetrini@bugseng.com>,
+ xen-devel@lists.xenproject.org
+References: <alpine.DEB.2.22.394.2506021754400.1147082@ubuntu-linux-20-04-desktop>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -119,52 +120,35 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2506021733330.1147082@ubuntu-linux-20-04-desktop>
+In-Reply-To: <alpine.DEB.2.22.394.2506021754400.1147082@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 03.06.2025 02:36, Stefano Stabellini wrote:
-> On Fri, 30 May 2025, dmkhn@proton.me wrote:
->> --- a/xen/common/domain.c
->> +++ b/xen/common/domain.c
->> @@ -2461,6 +2461,39 @@ void domid_free(domid_t domid)
->>      spin_unlock(&domid_lock);
->>  }
->>  
->> +/*
->> + * Find the ID of the next possible console owner domain.
->> + *
->> + * @return Domain ID: DOMID_XEN or non-system domain IDs within
->> + * the range of [0..DOMID_FIRST_RESERVED-1].
->> + */
->> +domid_t domid_find_with_input_allowed(domid_t hint)
->> +{
->> +    domid_t domid = DOMID_XEN;
->> +
->> +    if ( hint < DOMID_FIRST_RESERVED )
->> +    {
->> +        struct domain *d;
->> +
->> +        rcu_read_lock(&domlist_read_lock);
->> +
->> +        for ( d = domid_to_domain(hint);
->> +              d && get_domain(d) && d->domain_id < DOMID_FIRST_RESERVED;
-> 
-> The get_domain(d) worries me because it is increasing the domain's
-> refcnt but I don't see a corresponding call to put_domain to decrease
-> it.
-> 
-> If I keep rotating between consoles, I could keep increasing refcnt
-> indefinitely?
-> 
-> I think we either need a corresponding put_domain(d) call when the domain
-> loses input focus, or we remove the get_domain(d) based on the fact that
-> we don't need it. I think before this patch we didn't increment refcnt
-> when a domain has focus but I am not sure it was correct.
+On 03.06.2025 03:00, Stefano Stabellini wrote:
+> --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
+> +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
+> @@ -72,11 +72,16 @@ they are not instances of commented-out code."
+>  -config=MC3A2.D4.3,reports+={deliberate, "any_area(any_loc(file(arm64_bitops))&&context(name(int_clear_mask16)))"}
+>  -doc_end
+>  
+> --doc_begin="Files that are intended to be included more than once do not need to
+> -conform to the directive."
+> +-doc_begin="Files that are intended to be included more than once (and have
+> +a comment that says this explicitly) do not need to conform to the directive."
+>  -config=MC3A2.D4.10,reports+={safe, "first_area(text(^/\\* This file is intended to be included multiple times\\. \\*/$, begin-4))"}
+> --config=MC3A2.D4.10,reports+={safe, "first_area(text(^/\\* Generated file, do not edit! \\*/$, begin-3))"}
+> --config=MC3A2.D4.10,reports+={safe, "all_area(all_loc(file(^xen/include/generated/autoconf.h$)))"}
+> +-config=MC3A2.D4.10,reports+={safe, "first_area(text(^/\\* Generated file, do not edit! \\*/$, begin-3...begin-2))"}
+> +-doc_end
+> +
+> +-doc_begin="Autogenerated files that do not need to conform to the directive."
+> +-config=MC3A2.D4.10,reports+={safe, "all_area(all_loc(file(^xen/include/generated/autoconf\\.h$)))"}
+> +-config=MC3A2.D4.10,reports+={safe, "all_area(all_loc(file(^xen/include/compat/xlat\\.h$)))"}
+> +-config=MC3A2.D4.10,reports+={safe, "all_area(all_loc(file(^xen/arch/(arm||x86)/include/generated/asm/.*$)))"}
+>  -doc_end
 
-I think it was. The code was - aiui - specifically prepared to deal with
-domains going away behind its back. A domain having input focus should
-not prevent it from being (fully) destroyed.
+I didn't look at the others, but at least xlat.h should be easy to take off of here
+by having it have a guard. I guess I'll make a patch ...
 
 Jan
 
