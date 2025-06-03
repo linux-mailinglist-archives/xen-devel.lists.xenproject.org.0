@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7FAADACC995
-	for <lists+xen-devel@lfdr.de>; Tue,  3 Jun 2025 16:50:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1004561.1384320 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5457DACC994
+	for <lists+xen-devel@lfdr.de>; Tue,  3 Jun 2025 16:50:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1004562.1384331 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uMSxk-0006zb-DN; Tue, 03 Jun 2025 14:50:00 +0000
+	id 1uMSxm-0007QR-Nx; Tue, 03 Jun 2025 14:50:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1004561.1384320; Tue, 03 Jun 2025 14:50:00 +0000
+Received: by outflank-mailman (output) from mailman id 1004562.1384331; Tue, 03 Jun 2025 14:50:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uMSxk-0006xi-7F; Tue, 03 Jun 2025 14:50:00 +0000
-Received: by outflank-mailman (input) for mailman id 1004561;
- Tue, 03 Jun 2025 14:49:58 +0000
+	id 1uMSxm-0007OJ-Id; Tue, 03 Jun 2025 14:50:02 +0000
+Received: by outflank-mailman (input) for mailman id 1004562;
+ Tue, 03 Jun 2025 14:50:00 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=4WdC=YS=gmail.com=edgar.iglesias@srs-se1.protection.inumbo.net>)
- id 1uMSxi-00060n-G3
- for xen-devel@lists.xenproject.org; Tue, 03 Jun 2025 14:49:58 +0000
-Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
- [2a00:1450:4864:20::135])
+ id 1uMSxk-00060n-3P
+ for xen-devel@lists.xenproject.org; Tue, 03 Jun 2025 14:50:00 +0000
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [2a00:1450:4864:20::12f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 04e74a9c-408a-11f0-a300-13f23c93f187;
- Tue, 03 Jun 2025 16:49:58 +0200 (CEST)
-Received: by mail-lf1-x135.google.com with SMTP id
- 2adb3069b0e04-5532a30ac41so6587144e87.0
- for <xen-devel@lists.xenproject.org>; Tue, 03 Jun 2025 07:49:58 -0700 (PDT)
+ id 05dc7897-408a-11f0-a300-13f23c93f187;
+ Tue, 03 Jun 2025 16:49:59 +0200 (CEST)
+Received: by mail-lf1-x12f.google.com with SMTP id
+ 2adb3069b0e04-54afb5fcebaso7319233e87.3
+ for <xen-devel@lists.xenproject.org>; Tue, 03 Jun 2025 07:49:59 -0700 (PDT)
 Received: from gmail.com (213-67-3-247-no600.tbcn.telia.com. [213.67.3.247])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-55337937409sm1926383e87.213.2025.06.03.07.49.55
+ 2adb3069b0e04-55350cab690sm450214e87.53.2025.06.03.07.49.57
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 03 Jun 2025 07:49:55 -0700 (PDT)
+ Tue, 03 Jun 2025 07:49:57 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,42 +45,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 04e74a9c-408a-11f0-a300-13f23c93f187
+X-Inumbo-ID: 05dc7897-408a-11f0-a300-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1748962197; x=1749566997; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1748962199; x=1749566999; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=8Rv9jkk9a7Mmckdgwtv3pi1GijaKXKBiRxq1uzaztv4=;
-        b=FryjlqXvPvaOSRJF9986RbyZ9g9VnxhhzDqBlwGAArYETqcwI+ZPuyZxtX31LYF0qs
-         5Tr6tB9QRTxJEQ78B21iuiqMkgfKhXBtu8obA8A4KJsZY8eYxq1THEa/lhNFjVT/NoUF
-         h2SSnMHMe/3RzhRyqCSffeMhaU63JlEHQQ/gIe06BK+Efa8LK3Ie3NOyP+rhdccpEGm5
-         0o5e31Y8p5MXssdoD8uhvVWq5TE2i/OuWRCQv97awg0683Q/jXck1+k3rlfsnHjIcwEe
-         4LuKZ9BEn9x9M2tDZYHDizdpCO+l13QZkKtnfiu7kksOtCOe2o0WbihA9vFGb7Cep7vc
-         EfuQ==
+        bh=vQZpCaGwN67bAjam9mj+oezbvKc88yCztRac3tGbr1g=;
+        b=PVpp1t+w6flUgorB/q0H5JkTZRl43mbgRsV3vvqaPpb4mTkXxdMoY2Xc2ORlO9vZmc
+         69kvN5NHEV6ocZAs2P4KF0RMPTT3t0LwL1SYSVacUPVuUzKfPxBcl/YsgqUJX3Akq77H
+         V5m8g732OPVlPEEOwMXSviGwjrIcTCd77zA3/QXIMOQZhE5NcdDrphhWDhJYISSvzhES
+         wpHT2MJlPYASUFWs7wewsyKSyFGgcfJ5CH/rlXGzgTNTfjcOE2MBLAmKBed3AwY15KKe
+         bcyDlRANoSvXRAjc3Co+dcLHv2G82koi2daZiIk6JoUcKbZPNJ6tmZrcgG8yYWEWFEWn
+         p3VA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1748962197; x=1749566997;
+        d=1e100.net; s=20230601; t=1748962199; x=1749566999;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=8Rv9jkk9a7Mmckdgwtv3pi1GijaKXKBiRxq1uzaztv4=;
-        b=DTh+l7074sLXUbO2ob99odm1QkyDf9E8TYBZDTh8M5+il3cqK8xLCB70sJGWYWWG0L
-         dKTFaCqfJbDq92k0NLaDvsdr+19iDBkLica1Of+PgO8/2BjLt15ycRzoHkUCXB/c9YT6
-         3rq6eyAD9Wr8fXremDfCg6FBFrhZPLW7tLO8oVVwpJ37D5VtAK6V7I/N5Wo5WhmtBmsq
-         Mvxx5TafBsRgXBnBufvUzN1nqJTzvmpT4qqjGd4GrREIbsyeav40R4vhCya7o+YUc2t2
-         mSccTs7J85gJse1IdOx+o1jr7ZpfueH315sjwKoTDdkDC/qNFAXy6RISXE+YY3/u103j
-         Jp1Q==
-X-Gm-Message-State: AOJu0YyMjmwOQ82uQrWt31QHjy1QhB31M+gDElFYZvbsjCX5uFt5nIrY
-	NrGA1Wus7yEgRhupO2MP4cqbKJ58IvljVvHCYtIbpjqxcdoYt+FBPJMQmiyvspglmlE=
-X-Gm-Gg: ASbGncuVSnTEqTS96P2CoA6OWlOfeqStzGyEFGFBq2RvnawOWcjGZzNn1ZE1G4gCW7V
-	ubEqoWQTGbLTWGVOLvOCJW1epiAe2gjNuGk2tiO3sGfuWmqIRNOkPqYrVJoHz+0vzVa5rhWi3In
-	35jTtb4oQ0sAMm5pGoyvoA822/33LpzDG6CQ28vQlE4mt0VRz6J5s8N4e8M+xmGnavaDHt1ew+y
-	HNZWMTZECB+wRM17t2PNlWQDdC1LAaPndcZu67juANc4XKAtBLLc4mLrZdP6Ob7fQ3WIY8W59cV
-	o2qWIbavleaTI+GcEgmqgGjTmPMWU3uH7td6IxrPdp/nPWPG4GC9wtwaBY1tlEjjX5875xQvHbF
-	bN6B1xaS5WjMc434LK41UCrM=
-X-Google-Smtp-Source: AGHT+IH8/jb/PldOgmQh1jF9CunVlSSRPSF7jucpLmiTBONZ2toTWA1eabhva7I9GfIVjFLmvX3g4A==
-X-Received: by 2002:a05:6512:3d2a:b0:553:35c4:db08 with SMTP id 2adb3069b0e04-5533b908034mr5543769e87.30.1748962196978;
-        Tue, 03 Jun 2025 07:49:56 -0700 (PDT)
+        bh=vQZpCaGwN67bAjam9mj+oezbvKc88yCztRac3tGbr1g=;
+        b=mQykN1m2NY5cgaKpKravjl54bsILQwk5T9K2PUMdNri/vu+VwisTJ0YiGwinOPbuV7
+         iZsMevlOVZXZG/JgjXWQg7iI0Stm8UkfcdEvcMNWApQcjtU6HgzOA4kwxNPTUfi/qypY
+         1R7rVcF31Z/KzEvW7LlILlC6rq6zCGxN8pK+2dTEYa9aSh3Hob8msgCXdNejazOmRpW6
+         rUvxWdyXmtQhd+e6iE+iIViAv/nweNP9MQih7JpzvGFLQn3VIE+rdqgiSszZj2eccthv
+         LGWSm1xUQGJo7LQS19YVzQ4XsfVY+uqFwkrY7r1ZLgfHpaiz4WZkC9nGFHpwGSoKDfBH
+         ZzHg==
+X-Gm-Message-State: AOJu0Yx1hWEfHe+pKA868+ILzDxltM/aLjsCyDqIvlDJwGfvvTrqSOAD
+	tVs9kqCxVZrk35hJX44rd3ocfi7G7K6vgnwx6aatZXWlc+XF2dWyBu2+FGvDfSL9r4A=
+X-Gm-Gg: ASbGncvn8zQRoe8q+avk/EIsXhxCBANu9O705YFEBGtM6xYGuKdSlnuUUtmw7OU0cc5
+	/y3wAXTIZqa1i8po9u6BtqBlGnNF09865+dXtDz7XZj9/Vsxqq4DT4HxH31Hnv628DHJocuN/0A
+	2ZsPq4LsqP8YAEEdD3tBEzjftC098miyw3OgMPm0+zb9NTCfUXSm8FMrxkFDbXL7x4X9cRI+yZD
+	7f8Q2ox+7CjbX19LDhXHfXuX+l+NO4czDWlQnCeE0T+Qp+1cMMH1ij4ul3fQYUg7ZnX5Lk6UwbE
+	j+qFlWU00IEge0AXP3DpRlnLuRUJXy7u0fuBsQM8JDux/u5a774JyAmG723S21Pvpnm8yDSgaus
+	Rjhk/4+JJBg1WiU6oeqi7lNBMQiIDaFplkw==
+X-Google-Smtp-Source: AGHT+IGGQ7NvgDsfuiAWCA46sv02b09CkDopMWaZ/5Lkp1s7+9CQeYnYoAEWbBDrB5w+u3eS1tdXLQ==
+X-Received: by 2002:a05:6512:2203:b0:553:3303:471 with SMTP id 2adb3069b0e04-5533b90af1emr4945561e87.30.1748962198615;
+        Tue, 03 Jun 2025 07:49:58 -0700 (PDT)
 From: "Edgar E. Iglesias" <edgar.iglesias@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: sstabellini@kernel.org,
@@ -90,13 +90,12 @@ Cc: sstabellini@kernel.org,
 	Volodymyr_Babchuk@epam.com,
 	andrew.cooper3@citrix.com,
 	edgar.iglesias@amd.com,
-	Christian Lindig <christian.lindig@cloud.com>,
-	Christian Lindig <christian.lindig@citrix.com>,
-	David Scott <dave@recoil.org>,
+	Nick Rosbrook <rosbrookn@gmail.com>,
+	George Dunlap <gwd@xenproject.org>,
 	Anthony PERARD <anthony.perard@vates.tech>
-Subject: [PATCH v4 4/5] tools/ocaml: Update bindings for CDF_TRAP_UNMAPPED_ACCESSES
-Date: Tue,  3 Jun 2025 16:49:47 +0200
-Message-ID: <20250603144948.1685047-5-edgar.iglesias@gmail.com>
+Subject: [PATCH v4 5/5] tools/golang: Regenerate bindings for trap_unmapped_accesses
+Date: Tue,  3 Jun 2025 16:49:48 +0200
+Message-ID: <20250603144948.1685047-6-edgar.iglesias@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20250603144948.1685047-1-edgar.iglesias@gmail.com>
 References: <20250603144948.1685047-1-edgar.iglesias@gmail.com>
@@ -105,37 +104,48 @@ Content-Transfer-Encoding: 8bit
 
 From: "Edgar E. Iglesias" <edgar.iglesias@amd.com>
 
-Acked-by: Christian Lindig <christian.lindig@cloud.com>
 Signed-off-by: Edgar E. Iglesias <edgar.iglesias@amd.com>
 ---
- tools/ocaml/libs/xc/xenctrl.ml  | 1 +
- tools/ocaml/libs/xc/xenctrl.mli | 1 +
- 2 files changed, 2 insertions(+)
+ tools/golang/xenlight/helpers.gen.go | 6 ++++++
+ tools/golang/xenlight/types.gen.go   | 1 +
+ 2 files changed, 7 insertions(+)
 
-diff --git a/tools/ocaml/libs/xc/xenctrl.ml b/tools/ocaml/libs/xc/xenctrl.ml
-index 2690f9a923..7e1aabad6c 100644
---- a/tools/ocaml/libs/xc/xenctrl.ml
-+++ b/tools/ocaml/libs/xc/xenctrl.ml
-@@ -70,6 +70,7 @@ type domain_create_flag =
-   | CDF_IOMMU
-   | CDF_NESTED_VIRT
-   | CDF_VPMU
-+  | CDF_TRAP_UNMAPPED_ACCESSES
+diff --git a/tools/golang/xenlight/helpers.gen.go b/tools/golang/xenlight/helpers.gen.go
+index 90846ea8e8..191be87297 100644
+--- a/tools/golang/xenlight/helpers.gen.go
++++ b/tools/golang/xenlight/helpers.gen.go
+@@ -1170,6 +1170,9 @@ x.Altp2M = Altp2MMode(xc.altp2m)
+ x.VmtraceBufKb = int(xc.vmtrace_buf_kb)
+ if err := x.Vpmu.fromC(&xc.vpmu);err != nil {
+ return fmt.Errorf("converting field Vpmu: %v", err)
++}
++if err := x.TrapUnmappedAccesses.fromC(&xc.trap_unmapped_accesses);err != nil {
++return fmt.Errorf("converting field TrapUnmappedAccesses: %v", err)
+ }
  
- type domain_create_iommu_opts =
-   | IOMMU_NO_SHAREPT
-diff --git a/tools/ocaml/libs/xc/xenctrl.mli b/tools/ocaml/libs/xc/xenctrl.mli
-index febbe1f6ae..f44dba61ae 100644
---- a/tools/ocaml/libs/xc/xenctrl.mli
-+++ b/tools/ocaml/libs/xc/xenctrl.mli
-@@ -63,6 +63,7 @@ type domain_create_flag =
-   | CDF_IOMMU
-   | CDF_NESTED_VIRT
-   | CDF_VPMU
-+  | CDF_TRAP_UNMAPPED_ACCESSES
+  return nil}
+@@ -1695,6 +1698,9 @@ xc.altp2m = C.libxl_altp2m_mode(x.Altp2M)
+ xc.vmtrace_buf_kb = C.int(x.VmtraceBufKb)
+ if err := x.Vpmu.toC(&xc.vpmu); err != nil {
+ return fmt.Errorf("converting field Vpmu: %v", err)
++}
++if err := x.TrapUnmappedAccesses.toC(&xc.trap_unmapped_accesses); err != nil {
++return fmt.Errorf("converting field TrapUnmappedAccesses: %v", err)
+ }
  
- type domain_create_iommu_opts =
-   | IOMMU_NO_SHAREPT
+  return nil
+diff --git a/tools/golang/xenlight/types.gen.go b/tools/golang/xenlight/types.gen.go
+index e7667f1ce3..656933c6c9 100644
+--- a/tools/golang/xenlight/types.gen.go
++++ b/tools/golang/xenlight/types.gen.go
+@@ -606,6 +606,7 @@ MsrRelaxed Defbool
+ Altp2M Altp2MMode
+ VmtraceBufKb int
+ Vpmu Defbool
++TrapUnmappedAccesses Defbool
+ }
+ 
+ type DomainBuildInfoTypeUnion interface {
 -- 
 2.43.0
 
