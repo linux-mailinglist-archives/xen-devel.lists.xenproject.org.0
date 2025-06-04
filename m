@@ -2,38 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F371ACE1AA
-	for <lists+xen-devel@lfdr.de>; Wed,  4 Jun 2025 17:42:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1005707.1385134 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC463ACE205
+	for <lists+xen-devel@lfdr.de>; Wed,  4 Jun 2025 18:15:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1005731.1385144 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uMqFV-0006zR-Id; Wed, 04 Jun 2025 15:41:53 +0000
+	id 1uMqlI-0003Pd-3w; Wed, 04 Jun 2025 16:14:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1005707.1385134; Wed, 04 Jun 2025 15:41:53 +0000
+Received: by outflank-mailman (output) from mailman id 1005731.1385144; Wed, 04 Jun 2025 16:14:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uMqFV-0006xU-Dn; Wed, 04 Jun 2025 15:41:53 +0000
-Received: by outflank-mailman (input) for mailman id 1005707;
- Wed, 04 Jun 2025 15:41:51 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uMqlI-0003Nv-11; Wed, 04 Jun 2025 16:14:44 +0000
+Received: by outflank-mailman (input) for mailman id 1005731;
+ Wed, 04 Jun 2025 16:14:42 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=MFxl=YT=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1uMqFT-0006xO-S7
- for xen-devel@lists.xenproject.org; Wed, 04 Jun 2025 15:41:51 +0000
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
- [2a00:1450:4864:20::636])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6deb51c1-415a-11f0-b894-0df219b8e170;
- Wed, 04 Jun 2025 17:41:49 +0200 (CEST)
-Received: by mail-ej1-x636.google.com with SMTP id
- a640c23a62f3a-ad89f9bb725so1383988266b.2
- for <xen-devel@lists.xenproject.org>; Wed, 04 Jun 2025 08:41:49 -0700 (PDT)
-Received: from [192.168.1.5] (user-109-243-64-38.play-internet.pl.
- [109.243.64.38]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ada6ad39e15sm1120304566b.149.2025.06.04.08.41.48
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 04 Jun 2025 08:41:48 -0700 (PDT)
+ <SRS0=J/xQ=YT=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
+ id 1uMqlF-0003Np-Ug
+ for xen-devel@lists.xenproject.org; Wed, 04 Jun 2025 16:14:42 +0000
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on20620.outbound.protection.outlook.com
+ [2a01:111:f403:2416::620])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 038db770-415f-11f0-a300-13f23c93f187;
+ Wed, 04 Jun 2025 18:14:40 +0200 (CEST)
+Received: from DS7P220CA0058.NAMP220.PROD.OUTLOOK.COM (2603:10b6:8:224::22) by
+ DM4PR12MB6133.namprd12.prod.outlook.com (2603:10b6:8:ae::7) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.8792.33; Wed, 4 Jun 2025 16:14:36 +0000
+Received: from DS1PEPF0001708F.namprd03.prod.outlook.com
+ (2603:10b6:8:224:cafe::50) by DS7P220CA0058.outlook.office365.com
+ (2603:10b6:8:224::22) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8792.32 via Frontend Transport; Wed,
+ 4 Jun 2025 16:14:36 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ DS1PEPF0001708F.mail.protection.outlook.com (10.167.17.139) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8792.29 via Frontend Transport; Wed, 4 Jun 2025 16:14:36 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 4 Jun
+ 2025 11:14:35 -0500
+Received: from [172.27.195.250] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Wed, 4 Jun 2025 11:14:33 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,272 +59,150 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6deb51c1-415a-11f0-b894-0df219b8e170
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1749051709; x=1749656509; darn=lists.xenproject.org;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=1PAiwpQjSuqDljXiId6xFvX/8pkDamWfADCpZlqFGx4=;
-        b=Q8q0VZHq2RMVlpIXH0i8U5Z9yBsn1x8eOAs4Y0abMalm+oH+HIVFf1DLCZxZqAGyi9
-         QUQ0iPmkRpfTKRvOEsTYUGvg/Ochv223y800bbdZoEmUU0LsaGKostshWCuc/rRA2/jL
-         sbJMo23n/ILo9a4amWbDFUypPuya/FqA0TqdwA6Ia3Ooms4Rkd1RbRPPzB0OKxN1354z
-         8ocLZyT2vwxzpGsZw/1dKgguuS4SEwjmYio/1Ss3YqKjwDbQiqVqFj6ajkUOjn25Zent
-         oEyu2yczULGIxjVUztvKKIIoALU+zmGpdM5TzzbInjGHIGBzc8ELDJlX3YERQCPvfkQv
-         BNBA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749051709; x=1749656509;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=1PAiwpQjSuqDljXiId6xFvX/8pkDamWfADCpZlqFGx4=;
-        b=EeSaviH70I1IceTe7137zkNQjqZM4HvPmFly9HCFBqZJ3+UMX7W9+o9wm6z0AIWte6
-         xEzD+yogpjcva/RIfLN9L63ghIkU10MCqbmY8t2FWOjpNohzZ3eAV1M9jhS0xkSSiWfz
-         faNDnROmOy1VyIq2HFKAyiP5DuiIXePF0c/5HI/btZ7EuuZRZAaWak6orgOMrfjqj7Be
-         S/HPsBMZ8hGLTh+/vQde6Ad7RRvv+rKssdTb8KcAXYCmynQlKkXvkm9xlviIbo0d3EqO
-         NfGVcOZHHiyujffujbvGKuyM2SOCnDHJkBGsBIDxv2B1rgeugFw7QCcKBAneJfX8EV9n
-         hDfQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXfzuKGHMqQ3o6qP87gDshoI/+FQnPdA1id4iEMPB4rt6QckHsPgobW8Ksh08+IwicNZi/mMjejMeg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzA0lK8TewuBAG1gmxbqbWs+pJgpHJG/Sylg8L0lE0qh4PIEc8m
-	ddGp5K37MUaKpmYZ6ot3oxpR6pzmWC76MqIkFF7kuxPr1LsFncswpITY
-X-Gm-Gg: ASbGncuLsBtwI21zHuZyjMjZeBinGXhEPyTYO/oIywLHm4uTZUgDRI8VDGNDwlolH+F
-	sf692Iiax2DRMvJ3nVmXBALXkqcpIUoKzs/YAPTB8oT8HaN2L+78RVtYeSdt9JzHsrnFns3tkyB
-	vnsANeU6Y4e3SEAUXwYJQpjB5L8yAd1T3u2IF/Jm73cOC8py/6Xw6h/AOUnKvkwKciDiCXQxgQS
-	1nZS5YzvZNKEgAT6FRnaO50AwYJIGHB2q4bO/g40JRgdH+UPOZtFvCbo/WCkEuW86v+mvK/TiDJ
-	4h92/2M8XX7tmWw7wticXmhTuT9Rq6db4rDRqkNnOE+zw6DdzWtXFLGE93/2XkUxt0MQW+Q8hp4
-	uy+zveeGyt9vVcVp/yVXIUOsv
-X-Google-Smtp-Source: AGHT+IGisFwpTKMJPaS2OeNRrVuPDIiYNgYjOPh70rEPDpw7ZhHD43alxzsQigNYuDmDexMXAhdd6g==
-X-Received: by 2002:a17:907:3f1a:b0:ada:4b3c:ea74 with SMTP id a640c23a62f3a-addf904cb61mr321971566b.59.1749051708911;
-        Wed, 04 Jun 2025 08:41:48 -0700 (PDT)
-Content-Type: multipart/alternative;
- boundary="------------Zf7zaXotRFKOUI97rdkYMQrA"
-Message-ID: <63d8882d-bd54-4cbd-8c48-24b296ce4a50@gmail.com>
-Date: Wed, 4 Jun 2025 17:41:47 +0200
+X-Inumbo-ID: 038db770-415f-11f0-a300-13f23c93f187
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=nOxm7/JMk7hRVq01wVdPUm+RhxTw7uD+Wnu/nHXFKL9PVPinddFR1Zz7tx98lXtkektc84dx9y5KhdWpSpc+MN4aRngHzZYSWoo23z/rUyWMYEflt6o3b7cdrmOz3GfxIgwm02YfvKNuZ9IzuBxrHs19+wXYAFkj7FN1D0mt/aJMc2TUDUfKbyyAD8vb/gJ91gPty8Qgyv+rSavAK8Q5rIxs4NqnG/cY70QeTMaa9lmTKJjrVl12h5Y+iDnl6eE7yfpKxcog3IYfRvMfhNU83q+nE/OooaXaOYYK6ihAzv1CV19h4Gzf2RPkqxxICYun2AfS2i7WmtmGG/XBkGGxFg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=eSOJ6meNppqIJCtLKD1Winmsj/qxt0d4kcfO69cMtAo=;
+ b=IYajzAh0DhBxwgTtDiho7j/3035nlyJvymyClvv7b0SVaK96+pEr3NQbwd7XcMqFiXhqGdbPGyz/XLcVFBmopQAWqOVU/CvdJvQ1s7Y57N9QKDLEVSzerzmxiQVWfwONZT1VjnqypEuKlRexPrPeyOQG3foZ3d4K3c9tDgm+PM9L+g4eUCn3NiYugz28P+JAhSf1Ev6D6M+htpB9PZVyaTufD7BsDv5CuB1TWBHN3SqOSA7rUa/1ncYLlzRtjbrd1pWha/Zm2RHnNZ0nETVvice5sRG6xngTyparLUTqAqmeNp4hE91JjQDtTBhzVCh7sW4KvXo+hL/Twlzf1AwNmQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=vates.tech smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=eSOJ6meNppqIJCtLKD1Winmsj/qxt0d4kcfO69cMtAo=;
+ b=goB+FOLTZV3FEBJ2w2Uxq+xanal4eebS6Ju+NhGy6vSMVdiew7iQM9DznWTUG/+5ydNfaVAN9jsdAcLr9Pd7FJKIn/fptNgOrrnD2l68iugmYZYI71yx7LRRjEGg+KcgaKF8fmj7yzrAdMDMiLzxgFoej5XQ74ygnB7IygbZCXU=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <c6e91b58-ea4f-4ea2-a820-bad97cf19306@amd.com>
+Date: Wed, 4 Jun 2025 11:42:33 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 08/14] xen/riscv: imsic_init() implementation
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Romain Caritey <Romain.Caritey@microchip.com>, xen-devel@lists.xenproject.org
-References: <cover.1747843009.git.oleksii.kurochko@gmail.com>
- <421dad1bbd014a2d7ff588af088eadbd56345dbe.1747843009.git.oleksii.kurochko@gmail.com>
- <ec429b9d-7e16-4d9a-86c6-a5fa557047b7@suse.com>
- <d7ef87e5-75e0-4cf3-be8c-7af6e18df5a3@gmail.com>
- <84c9f65a-b278-4be4-b053-5bfa410f9a97@gmail.com>
- <9ab65452-497c-47b5-af18-92a7b2a86d9e@suse.com>
- <aa1e4b21-beae-4b60-8a24-b6227cb8027e@gmail.com>
- <85d6f812-784a-4959-a1e6-589ebac8887c@suse.com>
+Subject: Re: [PATCH v3 1/3] docs: add documentation for Argo as a feature
+To: Teddy Astie <teddy.astie@vates.tech>, Christopher Clark
+	<christopher.w.clark@gmail.com>, <xen-devel@lists.xenproject.org>
+CC: Daniel Smith <dpsmith@apertussolutions.com>, Rich Persaud
+	<persaur@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>, "Anthony
+ PERARD" <anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>,
+	"Jan Beulich" <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Stefano Stabellini
+	<sstabellini@kernel.org>
+References: <20250528211040.10562-1-christopher.w.clark@gmail.com>
+ <f05fb94f-91ba-4abe-b59a-c14e25388e68@vates.tech>
 Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <85d6f812-784a-4959-a1e6-589ebac8887c@suse.com>
+From: Jason Andryuk <jason.andryuk@amd.com>
+In-Reply-To: <f05fb94f-91ba-4abe-b59a-c14e25388e68@vates.tech>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+Received-SPF: None (SATLEXMB03.amd.com: jason.andryuk@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS1PEPF0001708F:EE_|DM4PR12MB6133:EE_
+X-MS-Office365-Filtering-Correlation-Id: a8d242c3-8b10-49ae-b954-08dda382e645
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|82310400026|7416014|376014|36860700013;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?b1FTbURjR1FFMVlqWnJqa3hXVUsvRlJselZtRGJiWE9tQytac0daWW9RUkZr?=
+ =?utf-8?B?TmFQSGpRRThVcGd4YUE5L29HWFlrUUh6Vm5ndmcxNkdFOEFRSTBSNEMrOHJh?=
+ =?utf-8?B?LzZJbGplVkVaaG5rdEpLRTBnVzlXQW9jckRxYUFMVHFPYTdMOWVRN0FncmZD?=
+ =?utf-8?B?ZG1PSnU3VVhjVnlsWHRmWSt2d3pORUZONXVFZmUrSW5PRjlKNm1jeWFVM3hk?=
+ =?utf-8?B?eWdHSjM0V1FUbGFpOHNHeTRoWlM2NkJnYXFyQnQ0YlF0bytlZVZ1dDNFS2cw?=
+ =?utf-8?B?LzM3d1lGNGQ3UGxseC9FSXdqdWFLZExIRnVKOHhBdmxRTCtxUzFXRDhjeWIr?=
+ =?utf-8?B?R0xjNnRRZjI2Y05LWk5NbEV5ZUZycklMQWVva2NtczBCR2x0eTFjbm05MUNl?=
+ =?utf-8?B?N0hnK3JOK0EwL0ZFTDVlMzdQMUlzK201T3hJb0tUQUM2UDN0Q1B4RVUzY1F5?=
+ =?utf-8?B?czIrYm1PWEpYbThIVTgzWTRBczlYS25vMTk0VlVXdlpvczJxay9MMW5jR0RU?=
+ =?utf-8?B?VHJsbm9UMVpYVEpLVWFoWWpkNU5VK3Q5ZVdsS1dXYWMrMFZMMDJRSGZCenBm?=
+ =?utf-8?B?cDFWeEJBY2ZFUWg4cEpETGRCQ3J2ZnFkYy9RMkg2MFVsclFTdFNaaVRQR2xR?=
+ =?utf-8?B?ODFRWEZmM1pac215ZjBwNEttY0RKREladURpM3BCb1B3SHJhNUdNY2l3UFZQ?=
+ =?utf-8?B?T0RhbVVlT2F1MXp3Z2xheTZXS2tpT3FBS2tyeUZFdDYwVFJTRytzQTh2SFZW?=
+ =?utf-8?B?L0FkSVVlQy9UYjVHdEp2d0JYRWViY2lLLy8vOEFGV2cwcFF6bUcxc21EdSt4?=
+ =?utf-8?B?NEV4Q3cwYTJ1UlQzaWo2ZEt5dVg5YnNqVXc2cWlUNWZxSmZPa2dMaWZJUDdC?=
+ =?utf-8?B?YXlWNUJqWW5WaGRXM1pUZDlaU0JPODU2M3hCOENGZkMzUzlQNW1kZnFaaHJ0?=
+ =?utf-8?B?N1I0V3NhRGdRdGxMZDltNnk0N1duQnBiL1E3NUJYeUNpRUdncFVBK0gyUXRK?=
+ =?utf-8?B?VW5BNTRsNFhFOCtwSzRwR0IwbUlnNEhzTSs4TUx1NlJRNVh2TFZzajdZVUd4?=
+ =?utf-8?B?RzIrS0pZbVBLVHpHQmZEbFBudEdMM3pvK1o2alc1bVJUTkdxOFV2alpKeUl5?=
+ =?utf-8?B?dXB0Y1ZISWphOEx4QmlHb21mejRLVWxYcFdmVnlteHFaa0FETm4yZFpFQVIr?=
+ =?utf-8?B?TDkrU2JlNmFtUEI4VU8vbjhzQ0lGN0xNaHFTZXA1RGZEdUpkTmhnTjkxV3Fy?=
+ =?utf-8?B?ZS9XTzhVeUxNYjE3YnY0ZGxhSGVqeW1qdlYzYUl3cnpTTTQwdFY1Y0VCeGlY?=
+ =?utf-8?B?aVVnUlUrKzA0c2JDYVo3bDZqYU1ZOXdhYzlJTUlXbld3aVM5d0ZuN0NzYmFu?=
+ =?utf-8?B?bXVaTVgxVlRKTTF2UlJzVE8xS1Y4dTVHVzFmVUt5VGllR09ib3BqV3dWZFlH?=
+ =?utf-8?B?SnVHZS9LeWZRTUJpL1QrZThwb3JJMmovWUFYOHp0SnZHVE9GQUVhT2FYV2Ir?=
+ =?utf-8?B?aS96YW5IUWppUWVMZ3R3Nm1Hb1Vwc3lJejBYendaVXdMY04zVXRjT2htdHVL?=
+ =?utf-8?B?SXRCUERqRUh3RGphcDJLNFJSVjFOL1R5dk16cGkyR3FLajg1anY3ODVkcE9v?=
+ =?utf-8?B?NHhPS0kwZ2FRVEt1OUtzM1ZjRlF3Lzd6OGM3aWtpSGFiM0V4QUtacGJsNXl2?=
+ =?utf-8?B?OWJoTEc0alp4SDg2U1Y2YUx6dXJTUTdRQm9UN09BOXlZNW1DUG9sNlRoMm9o?=
+ =?utf-8?B?b21hY0VDdzQ1WmZiUkh4ckxnZXorNDJRRFhNK1dvZGdpeHhxazlrSVBTWTJ0?=
+ =?utf-8?B?K1FBcXhOZDV3RjFOUWdjY3BmU2NXd2liaWJ4ak5Oek9WQjc0eU1FeWFRM2Jy?=
+ =?utf-8?B?Tk1ZRVdWMmZiNEdoOG5XS3NCbmYzTlJnN2hDRHRIam15SkdsRitjUmdWNUVO?=
+ =?utf-8?B?U1pYQUdnTGdiWG9wMFhIeE5WMCtmVnNFaDhjcEJSb2l0QTVYRXlvN0hDM2VT?=
+ =?utf-8?B?bk55allTS09BPT0=?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(7416014)(376014)(36860700013);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jun 2025 16:14:36.0080
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a8d242c3-8b10-49ae-b954-08dda382e645
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DS1PEPF0001708F.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6133
 
-This is a multi-part message in MIME format.
---------------Zf7zaXotRFKOUI97rdkYMQrA
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+On 2025-05-29 18:40, Teddy Astie wrote:
+> Hello Christopher,
+> 
+> Le 28/05/2025 à 23:13, Christopher Clark a écrit :
 
+>> +## Argo and VirtIO
+>> +
+>> +References to design documentation for the development of an Argo
+>> +transport for VirtIO are available via:
+>> +https://wiki.xenproject.org/wiki/Virtio_On_Xen
+>> +
+> 
+> Are there news regarding this ?
+> 
+> There is work done on virtio-msg [1], which looks fairly similar to
+> virtio-argo (or at least, virtio-msg could work with Argo in a similar
+> fashion to what's described on the virtio-argo design).
+> 
+> [1] https://linaro.atlassian.net/wiki/spaces/HVAC/overview
 
-On 6/4/25 5:05 PM, Jan Beulich wrote:
-> On 04.06.2025 15:42, Oleksii Kurochko wrote:
->> On 6/2/25 12:22 PM, Jan Beulich wrote:
->>> On 27.05.2025 13:30, Oleksii Kurochko wrote:
->>>> On 5/26/25 8:44 PM, Oleksii Kurochko wrote:
->>>>>>> +    if ( !dt_property_read_u32(node, "riscv,guest-index-bits",
->>>>>>> +                               &imsic_cfg.guest_index_bits) )
->>>>>>> +        imsic_cfg.guest_index_bits = 0;
->>>>>>> +    tmp = BITS_PER_LONG - IMSIC_MMIO_PAGE_SHIFT;
->>>>>>> +    if ( tmp < imsic_cfg.guest_index_bits )
->>>>>>> +    {
->>>>>>> +        printk(XENLOG_ERR "%s: guest index bits too big\n",
->>>>>>> +               dt_node_name(node));
->>>>>>> +        rc = -ENOENT;
->>>>>>> +        goto cleanup;
->>>>>>> +    }
->>>>>>> +
->>>>>>> +    /* Find number of HART index bits */
->>>>>>> +    if ( !dt_property_read_u32(node, "riscv,hart-index-bits",
->>>>>>> +                               &imsic_cfg.hart_index_bits) )
->>>>>>> +    {
->>>>>>> +        /* Assume default value */
->>>>>>> +        imsic_cfg.hart_index_bits = fls(*nr_parent_irqs);
->>>>>>> +        if ( BIT(imsic_cfg.hart_index_bits, UL) < *nr_parent_irqs )
->>>>>>> +            imsic_cfg.hart_index_bits++;
->>>>>> Since fls() returns a 1-based bit number, isn't it rather that in the
->>>>>> exact-power-of-2 case you'd need to subtract 1?
->>>>> Agree, in this case, -1 should be taken into account.
->>>> Hmm, it seems like in case of fls() returns a 1-based bit number there
->>>> is not need for the check:
->>>>     (2) if ( BIT(imsic_cfg.hart_index_bits, UL) < *nr_parent_irqs )
->>>>
->>>> We could do imsic_cfg.hart_index_bits = fls(*nr_parent_irqs - 1) (1) without
->>>> checking *nr_parent_irqs is power-of-two or not, and then just leave the
->>>> check (2).
->>>> And with (1), the check (2) is only needed for the case *nr_parent_irqs=1, if
->>>> I amn't mistaken something. And if I'm not mistaken, then probably it make
->>>> sense to change (2) to if ( *nr_parent_irqs == 1 ) + some comment why this
->>>> case is so special.
->>>>
->>>> Does it make sense?
->>> Can't easily tell; I'd like to see the resulting code instead of the textual
->>> description.
->> Here is the code:
->>       /* Find number of HART index bits */
->>       if ( !dt_property_read_u32(node, "riscv,hart-index-bits",
->>                                  &imsic_cfg.hart_index_bits) )
->>       {
->>           /* Assume default value */
->>           imsic_cfg.hart_index_bits = fls(*nr_parent_irqs - 1) +
->>                                       (*nr_parent_irqs == 1);
->>       }
->>
->> It seems like it covers all the cases.
-> *nr_parent_irqs		imsic_cfg.hart_index_bits
-> 	 1			1 (0 + 1)
-> 	 2			1
-> 	 3			2
-> 	 4			2
-> 	 5			3
-> 	 6			3
->
-> IOW why the special casing of *nr_parent_irqs == 1?
+I think this should be dropped.  We don't need a link to a design 
+document without an implementation.  You can add it once you've 
+upstreamed the implementation.
 
-If we don't have "... + (*nr_parent_irqs == 1)" then for the case when *nr_parent_irqs == 1,
-we will have imsic_cfg.hart_index_bits = fls(1-1) = fls(0) = 0 because:
-   #define arch_fls(x)     ((x) ? BITS_PER_INT - __builtin_clz(x) : 0)
-and imsic_cfg.hart_index_bits = 0 doesn't seem correct because I expect that if I have only
-1 hart then at least 1 bit will be needed to point to it.
+>> +# Known issues
+>> +
+>> +* For development: sysctl/domctls for toolstack to control per-VM access
+>> +  to Argo
+>> +
+> 
+> Is it regarding disabling the argo on a per-guest basis, or regarding if
+> a specific VM can communicate with another VM ? i.e can the toolstack
+> decide to prevent 2 guest from communicating ?
+> 
+> IIRC, in Argo, a guest on his own can decide who can communicate with
+> him using separate registered rings. But I am not sure if there is more
+> on that regard.
 
-~ Oleksii
+Yes, I think the existing text needs to be rephrased to be more explicit 
+on the issue.  I can guess what it is, but I shouldn't have to.  I'd 
+recommend stating the issue as it exists, and then optionally clearly 
+state a proposed solution.
 
-
-
-
---------------Zf7zaXotRFKOUI97rdkYMQrA
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 6/4/25 5:05 PM, Jan Beulich wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:85d6f812-784a-4959-a1e6-589ebac8887c@suse.com">
-      <pre wrap="" class="moz-quote-pre">On 04.06.2025 15:42, Oleksii Kurochko wrote:
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">
-On 6/2/25 12:22 PM, Jan Beulich wrote:
-</pre>
-        <blockquote type="cite">
-          <pre wrap="" class="moz-quote-pre">On 27.05.2025 13:30, Oleksii Kurochko wrote:
-</pre>
-          <blockquote type="cite">
-            <pre wrap="" class="moz-quote-pre">On 5/26/25 8:44 PM, Oleksii Kurochko wrote:
-</pre>
-            <blockquote type="cite">
-              <blockquote type="cite">
-                <blockquote type="cite">
-                  <pre wrap="" class="moz-quote-pre">+    if ( !dt_property_read_u32(node, "riscv,guest-index-bits",
-+                               &amp;imsic_cfg.guest_index_bits) )
-+        imsic_cfg.guest_index_bits = 0;
-+    tmp = BITS_PER_LONG - IMSIC_MMIO_PAGE_SHIFT;
-+    if ( tmp &lt; imsic_cfg.guest_index_bits )
-+    {
-+        printk(XENLOG_ERR "%s: guest index bits too big\n",
-+               dt_node_name(node));
-+        rc = -ENOENT;
-+        goto cleanup;
-+    }
-+
-+    /* Find number of HART index bits */
-+    if ( !dt_property_read_u32(node, "riscv,hart-index-bits",
-+                               &amp;imsic_cfg.hart_index_bits) )
-+    {
-+        /* Assume default value */
-+        imsic_cfg.hart_index_bits = fls(*nr_parent_irqs);
-+        if ( BIT(imsic_cfg.hart_index_bits, UL) &lt; *nr_parent_irqs )
-+            imsic_cfg.hart_index_bits++;
-</pre>
-                </blockquote>
-                <pre wrap="" class="moz-quote-pre">Since fls() returns a 1-based bit number, isn't it rather that in the
-exact-power-of-2 case you'd need to subtract 1?
-</pre>
-              </blockquote>
-              <pre wrap="" class="moz-quote-pre">Agree, in this case, -1 should be taken into account.
-</pre>
-            </blockquote>
-            <pre wrap="" class="moz-quote-pre">Hmm, it seems like in case of fls() returns a 1-based bit number there
-is not need for the check:
-   (2) if ( BIT(imsic_cfg.hart_index_bits, UL) &lt; *nr_parent_irqs )
-
-We could do imsic_cfg.hart_index_bits = fls(*nr_parent_irqs - 1) (1) without
-checking *nr_parent_irqs is power-of-two or not, and then just leave the
-check (2).
-And with (1), the check (2) is only needed for the case *nr_parent_irqs=1, if
-I amn't mistaken something. And if I'm not mistaken, then probably it make
-sense to change (2) to if ( *nr_parent_irqs == 1 ) + some comment why this
-case is so special.
-
-Does it make sense?
-</pre>
-          </blockquote>
-          <pre wrap="" class="moz-quote-pre">Can't easily tell; I'd like to see the resulting code instead of the textual
-description.
-</pre>
-        </blockquote>
-        <pre wrap="" class="moz-quote-pre">
-Here is the code:
-     /* Find number of HART index bits */
-     if ( !dt_property_read_u32(node, "riscv,hart-index-bits",
-                                &amp;imsic_cfg.hart_index_bits) )
-     {
-         /* Assume default value */
-         imsic_cfg.hart_index_bits = fls(*nr_parent_irqs - 1) +
-                                     (*nr_parent_irqs == 1);
-     }
-
-It seems like it covers all the cases.
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-*nr_parent_irqs		imsic_cfg.hart_index_bits
-	 1			1 (0 + 1)
-	 2			1
-	 3			2
-	 4			2
-	 5			3
-	 6			3
-
-IOW why the special casing of *nr_parent_irqs == 1?
-</pre>
-    </blockquote>
-    <pre>If we don't have "... + (*nr_parent_irqs == 1)" then for the case when *nr_parent_irqs == 1,
-we will have imsic_cfg.hart_index_bits = fls(1-1) = fls(0) = 0 because:
-  #define arch_fls(x)     ((x) ? BITS_PER_INT - __builtin_clz(x) : 0)
-and imsic_cfg.hart_index_bits = 0 doesn't seem correct because I expect that if I have only
-1 hart then at least 1 bit will be needed to point to it.
-
-~ Oleksii
-
-
-
-</pre>
-    <p><br>
-    </p>
-  </body>
-</html>
-
---------------Zf7zaXotRFKOUI97rdkYMQrA--
+Regards,
+Jason
 
