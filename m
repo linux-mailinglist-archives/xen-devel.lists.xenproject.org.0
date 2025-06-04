@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 06D2BACDECB
-	for <lists+xen-devel@lfdr.de>; Wed,  4 Jun 2025 15:16:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1005547.1385003 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AED96ACDF81
+	for <lists+xen-devel@lfdr.de>; Wed,  4 Jun 2025 15:43:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1005562.1385013 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uMny4-0007PN-OB; Wed, 04 Jun 2025 13:15:44 +0000
+	id 1uMoNu-00038X-OW; Wed, 04 Jun 2025 13:42:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1005547.1385003; Wed, 04 Jun 2025 13:15:44 +0000
+Received: by outflank-mailman (output) from mailman id 1005562.1385013; Wed, 04 Jun 2025 13:42:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uMny4-0007Ns-LP; Wed, 04 Jun 2025 13:15:44 +0000
-Received: by outflank-mailman (input) for mailman id 1005547;
- Wed, 04 Jun 2025 13:15:42 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uMoNu-00036e-Lw; Wed, 04 Jun 2025 13:42:26 +0000
+Received: by outflank-mailman (input) for mailman id 1005562;
+ Wed, 04 Jun 2025 13:42:25 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=xa+O=YT=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1uMny2-0007Nm-Hd
- for xen-devel@lists.xenproject.org; Wed, 04 Jun 2025 13:15:42 +0000
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [2a00:1450:4864:20::42e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 03188d55-4146-11f0-b894-0df219b8e170;
- Wed, 04 Jun 2025 15:15:40 +0200 (CEST)
-Received: by mail-wr1-x42e.google.com with SMTP id
- ffacd0b85a97d-3a5123c1533so1407946f8f.2
- for <xen-devel@lists.xenproject.org>; Wed, 04 Jun 2025 06:15:40 -0700 (PDT)
-Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
- by smtp.gmail.com with UTF8SMTPSA id
- ffacd0b85a97d-3a4efe5b8f0sm21462296f8f.6.2025.06.04.06.15.39
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 04 Jun 2025 06:15:39 -0700 (PDT)
+ <SRS0=MFxl=YT=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1uMoNt-00036Y-Fl
+ for xen-devel@lists.xenproject.org; Wed, 04 Jun 2025 13:42:25 +0000
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [2a00:1450:4864:20::329])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id bf0ee6cf-4149-11f0-a300-13f23c93f187;
+ Wed, 04 Jun 2025 15:42:24 +0200 (CEST)
+Received: by mail-wm1-x329.google.com with SMTP id
+ 5b1f17b1804b1-451dbe494d6so36365775e9.1
+ for <xen-devel@lists.xenproject.org>; Wed, 04 Jun 2025 06:42:24 -0700 (PDT)
+Received: from [192.168.1.5] (user-109-243-64-38.play-internet.pl.
+ [109.243.64.38]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-451e505d40csm48115035e9.0.2025.06.04.06.42.22
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 04 Jun 2025 06:42:22 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,63 +45,220 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 03188d55-4146-11f0-b894-0df219b8e170
+X-Inumbo-ID: bf0ee6cf-4149-11f0-a300-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1749042940; x=1749647740; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=dE60K0Jg5UXM6f6JnTQ2Tr/PstGbb+8CXQfQV1ZFOHo=;
-        b=ONYirIvmqUZrzq7ra7e2CiA28yf4dWXF5F8sbWsdYNJycHuxunsRTUDZZRyq7lM+Df
-         7d40Iga+GpE5PK7l7SKatYMbi/ub4f1vJ2P1JJ51VB17Jx1cFDFBug9g0qfOlw5z2oYN
-         nl1SjMk9sgS1TlUr0wbUTm0sEyUInBBWi4JzY=
+        d=gmail.com; s=20230601; t=1749044544; x=1749649344; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=PF00C3kY/+mRujOxew52RXLgbaZA6/tfQkWDEf1jLfk=;
+        b=G/eCLH/WPynDT7vyJpCvycIkP9rz4zpb4MpmEwpmdxvzSogFnfcRJwLy+9/+Yt3FQW
+         pI/GXz1ENci9yDG/kdoTDWny6zevAHd5hQpF0/TkjXnfvoLwHMnXWzOX05uNxh/VFDi3
+         1yLsna2m8IO0hbgrKZ1SYuy8dN55laVqNtdfzEGtjYNcGHBS/nzaPq814f+xdFT5rx1y
+         16g2rwFRd7dBYwvGbt/NtA0G0cN27CvFZxWWm12QJ9nY7HguzhGyo24lrgXe4MmvHFEi
+         rgw+IEUctCiQ7fsGUfnVlwiHkPAH1x3WK0NYp62bFALrH3yDoZgNpUrICT1MpdpwhVtf
+         XVMA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749042940; x=1749647740;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=dE60K0Jg5UXM6f6JnTQ2Tr/PstGbb+8CXQfQV1ZFOHo=;
-        b=RIv9FC9MyG7bKAUd1hJGBfZPZk9yui//qW98B39SnCyqdG2y0aFN+BQbPiQqI4CJXc
-         +3yXivbmMSAOZcGKIATGa0+Hi2bgOo3zkfMwUII89yAtSuLYlWQTxA1/Ujaijk7aGqNK
-         D0wUBw5uARDy6ukFXE8pGPw4oMuD1ycsOppgeiM74gqaNIExs1NAnzpMpl0dHlYusi8O
-         MNrIZLSauBBLZuuqai2UNJz61ezoL5FaZEwpbptlwEgYNbIQ1U6+iIHJ246dvE592I4b
-         td9+Wy33iKv/XFRIikN+QEmr5j/oVDAnH0qSDY64FAuaCYOvc4XOhxeM8Pcep6wzIIRH
-         iVDw==
-X-Gm-Message-State: AOJu0YzoQ2jegUMts+690YYmZrC9EE0c1oTSO0FDleWwjohgNgqod9Gs
-	O1uY8hvaf/veRnIVXQAjp9HWmvUZOX43y47ch1O4zntzdcWJj7zxf2I9dVt98hB5eT4=
-X-Gm-Gg: ASbGncskkBuupcFadzy1+4Qg2EmlV2c2VdhxnZ8bfUt5hxDGeW1x9sDLUcBPdOQBzaf
-	TCNffPy3aI+s+uPKkDKueWYZqCP3S10yEc1mtuf4bkvnGlmEgIiKh+ToO3SOjKyGHS++FOGwq17
-	sTn70ouftSG2jh2QtFtidkLYGOnWrzQgmaDkRzxub2bZgg1XTvUcthF/W90xu5GkATaVSPjs7jU
-	sSujdV/7t28nVOcw0jpPeJInQX501nC95dOrwjdMaJgRF3tuDgTujjH6mkeUJ343hIGtSrTB6dx
-	IwB1YOYxxXAIfvTXwSJJ6Ay/BrYOS1oIxIMkkAqpUYflDurJOFbZc/Oh/pMNIwM0Hj9+DwDCpgO
-	at3BsefU2/F3EQ1z/s8pwvx5a
-X-Google-Smtp-Source: AGHT+IEznKm/nzynKwvMDtBIyUza3TBGYRFkzHVycvjYrPqiRsH9MEfpwQaNcoSdl15hQ+8jtIr7OA==
-X-Received: by 2002:a05:6000:2388:b0:3a4:f7af:b41 with SMTP id ffacd0b85a97d-3a51d91d9abmr2553077f8f.15.1749042939930;
-        Wed, 04 Jun 2025 06:15:39 -0700 (PDT)
-Date: Wed, 4 Jun 2025 15:15:38 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
-	Aidan Allen <aidan.allen1@cloud.com>,
-	Jan Beulich <JBeulich@suse.com>
-Subject: Re: [PATCH] x86/hvm: Process pending softirqs while dumping VMC[SB]s
-Message-ID: <aEBG-oo4quaRZFRo@macbook.local>
-References: <20250604130253.2805053-1-andrew.cooper3@citrix.com>
+        d=1e100.net; s=20230601; t=1749044544; x=1749649344;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=PF00C3kY/+mRujOxew52RXLgbaZA6/tfQkWDEf1jLfk=;
+        b=INaIbp09NcSVZ/MqOF/rskI/QtwfkHOsKyxQz6Q9PdhYd964vdxyDjcuzonOpt9Z1E
+         H+Rv4nVri96+RQ0X0mlTpowKIMbaYxnsTb8XU8guYuxlfFJNMNRzGKtpQkEHL9BHe7Jp
+         L0DRHSZRwL+i8K3ERTkRrNkxan6IY3EXCxdp4wCKjWFhEKaW6osGlQerkr4khcnLCzlX
+         7oPqqXaL7R2k+hyI5DIQ5DwKQIdNckvwW7cOlyo9VtzHs6ck/Fi1fEa8RnENvOnM5V+P
+         7O8TjRaYUmFx9LIN3Yd5z2Mg3NAw7WC4BFW2FQMO0d2s6a2zhelFeZE0JTwD1/ifc43m
+         uC/Q==
+X-Forwarded-Encrypted: i=1; AJvYcCUIdl/2nOrIZwzdTpKpngjO5PPJYrPuGmLAjLBnO4a2fDiBRgW1ecsZuev85+w6tPmRY/PxBMLdhLk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxmZrVX7vlbeHcNDiF9jsMBnQzKw5fXz+ju2rua/nvjupyFz1yt
+	K0zXq7G9pqC1mc0/XEKzoI6qOmwuwQa0QVdx4dUYCLsN9KJZsJSWwf4n
+X-Gm-Gg: ASbGncudgOmowemzDnX+yi9XwwM7aXiEu7Q/eqV5Dfa5TYQA3DNtWgVs0L9WI7Rmar5
+	Dnu+oq4kdN8VWLwHizBzOkwAbMf4G7+idXWaGR4ZFaldxoyOU3TwFlD5PYdC8HKk/Ni7Yw/5s1Y
+	u+bgxq58hV86yu/9wX1oxJmYddNSyiKbr02COyxJPMvLzSu1uOD8VrJU3DjfpNQ3/J7EMtV2dvi
+	mXtYNr7t3Ge1IVIOjIYVmWZgF0wZRjd0cqyMflXt8pFAdOpApDit4XgGqoA7SmXdncg2AOwSNfJ
+	6AQG2K81ZhAmJzvnBOhtjoJb4uZcwwGWQ1xbbeSzczWw4C3ZNPxdJFyscAa6Yy28W8wUMMiCAY+
+	nZhXC/uc5HuCfZ233vqd1jGkn
+X-Google-Smtp-Source: AGHT+IEN9mJdEqFGYwbNLgvBdx6zyqxxwExmwYHzZgQy9vDh1al1HP4mXTi03WpEPZpCjJJT3vPzAw==
+X-Received: by 2002:a05:600c:a015:b0:450:d37c:9fc8 with SMTP id 5b1f17b1804b1-451f0a74191mr27040095e9.13.1749044543371;
+        Wed, 04 Jun 2025 06:42:23 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------jLUq03l8pT5mI1PrASgE0rXy"
+Message-ID: <aa1e4b21-beae-4b60-8a24-b6227cb8027e@gmail.com>
+Date: Wed, 4 Jun 2025 15:42:21 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20250604130253.2805053-1-andrew.cooper3@citrix.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 08/14] xen/riscv: imsic_init() implementation
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Romain Caritey <Romain.Caritey@microchip.com>, xen-devel@lists.xenproject.org
+References: <cover.1747843009.git.oleksii.kurochko@gmail.com>
+ <421dad1bbd014a2d7ff588af088eadbd56345dbe.1747843009.git.oleksii.kurochko@gmail.com>
+ <ec429b9d-7e16-4d9a-86c6-a5fa557047b7@suse.com>
+ <d7ef87e5-75e0-4cf3-be8c-7af6e18df5a3@gmail.com>
+ <84c9f65a-b278-4be4-b053-5bfa410f9a97@gmail.com>
+ <9ab65452-497c-47b5-af18-92a7b2a86d9e@suse.com>
+Content-Language: en-US
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <9ab65452-497c-47b5-af18-92a7b2a86d9e@suse.com>
 
-On Wed, Jun 04, 2025 at 02:02:53PM +0100, Andrew Cooper wrote:
-> 24 guests with 8 vcpus each is sufficient to hit a 5 second watchdog.
-> 
-> Drop a piece of trailing whitespace while here.
-> 
-> Reported-by: Aidan Allen <aidan.allen1@cloud.com>
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+This is a multi-part message in MIME format.
+--------------jLUq03l8pT5mI1PrASgE0rXy
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Acked-by: Roger Pau Monné <roger.pau@citrix.com>
 
-Thanks, Roger.
+On 6/2/25 12:22 PM, Jan Beulich wrote:
+> On 27.05.2025 13:30, Oleksii Kurochko wrote:
+>> On 5/26/25 8:44 PM, Oleksii Kurochko wrote:
+>>>>> +    if ( !dt_property_read_u32(node, "riscv,guest-index-bits",
+>>>>> +                               &imsic_cfg.guest_index_bits) )
+>>>>> +        imsic_cfg.guest_index_bits = 0;
+>>>>> +    tmp = BITS_PER_LONG - IMSIC_MMIO_PAGE_SHIFT;
+>>>>> +    if ( tmp < imsic_cfg.guest_index_bits )
+>>>>> +    {
+>>>>> +        printk(XENLOG_ERR "%s: guest index bits too big\n",
+>>>>> +               dt_node_name(node));
+>>>>> +        rc = -ENOENT;
+>>>>> +        goto cleanup;
+>>>>> +    }
+>>>>> +
+>>>>> +    /* Find number of HART index bits */
+>>>>> +    if ( !dt_property_read_u32(node, "riscv,hart-index-bits",
+>>>>> +                               &imsic_cfg.hart_index_bits) )
+>>>>> +    {
+>>>>> +        /* Assume default value */
+>>>>> +        imsic_cfg.hart_index_bits = fls(*nr_parent_irqs);
+>>>>> +        if ( BIT(imsic_cfg.hart_index_bits, UL) < *nr_parent_irqs )
+>>>>> +            imsic_cfg.hart_index_bits++;
+>>>> Since fls() returns a 1-based bit number, isn't it rather that in the
+>>>> exact-power-of-2 case you'd need to subtract 1?
+>>> Agree, in this case, -1 should be taken into account.
+>> Hmm, it seems like in case of fls() returns a 1-based bit number there
+>> is not need for the check:
+>>    (2) if ( BIT(imsic_cfg.hart_index_bits, UL) < *nr_parent_irqs )
+>>
+>> We could do imsic_cfg.hart_index_bits = fls(*nr_parent_irqs - 1) (1) without
+>> checking *nr_parent_irqs is power-of-two or not, and then just leave the
+>> check (2).
+>> And with (1), the check (2) is only needed for the case *nr_parent_irqs=1, if
+>> I amn't mistaken something. And if I'm not mistaken, then probably it make
+>> sense to change (2) to if ( *nr_parent_irqs == 1 ) + some comment why this
+>> case is so special.
+>>
+>> Does it make sense?
+> Can't easily tell; I'd like to see the resulting code instead of the textual
+> description.
+
+Here is the code:
+     /* Find number of HART index bits */
+     if ( !dt_property_read_u32(node, "riscv,hart-index-bits",
+                                &imsic_cfg.hart_index_bits) )
+     {
+         /* Assume default value */
+         imsic_cfg.hart_index_bits = fls(*nr_parent_irqs - 1) +
+                                     (*nr_parent_irqs == 1);
+     }
+
+It seems like it covers all the cases.
+
+~ Oleksii
+
+--------------jLUq03l8pT5mI1PrASgE0rXy
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 6/2/25 12:22 PM, Jan Beulich wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:9ab65452-497c-47b5-af18-92a7b2a86d9e@suse.com">
+      <pre wrap="" class="moz-quote-pre">On 27.05.2025 13:30, Oleksii Kurochko wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">
+On 5/26/25 8:44 PM, Oleksii Kurochko wrote:
+</pre>
+        <blockquote type="cite">
+          <blockquote type="cite">
+            <blockquote type="cite">
+              <pre wrap="" class="moz-quote-pre">+    if ( !dt_property_read_u32(node, "riscv,guest-index-bits",
++                               &amp;imsic_cfg.guest_index_bits) )
++        imsic_cfg.guest_index_bits = 0;
++    tmp = BITS_PER_LONG - IMSIC_MMIO_PAGE_SHIFT;
++    if ( tmp &lt; imsic_cfg.guest_index_bits )
++    {
++        printk(XENLOG_ERR "%s: guest index bits too big\n",
++               dt_node_name(node));
++        rc = -ENOENT;
++        goto cleanup;
++    }
++
++    /* Find number of HART index bits */
++    if ( !dt_property_read_u32(node, "riscv,hart-index-bits",
++                               &amp;imsic_cfg.hart_index_bits) )
++    {
++        /* Assume default value */
++        imsic_cfg.hart_index_bits = fls(*nr_parent_irqs);
++        if ( BIT(imsic_cfg.hart_index_bits, UL) &lt; *nr_parent_irqs )
++            imsic_cfg.hart_index_bits++;
+</pre>
+            </blockquote>
+            <pre wrap="" class="moz-quote-pre">Since fls() returns a 1-based bit number, isn't it rather that in the
+exact-power-of-2 case you'd need to subtract 1?
+</pre>
+          </blockquote>
+          <pre wrap="" class="moz-quote-pre">Agree, in this case, -1 should be taken into account.
+</pre>
+        </blockquote>
+        <pre wrap="" class="moz-quote-pre">
+Hmm, it seems like in case of fls() returns a 1-based bit number there
+is not need for the check:
+  (2) if ( BIT(imsic_cfg.hart_index_bits, UL) &lt; *nr_parent_irqs )
+
+We could do imsic_cfg.hart_index_bits = fls(*nr_parent_irqs - 1) (1) without
+checking *nr_parent_irqs is power-of-two or not, and then just leave the
+check (2).
+And with (1), the check (2) is only needed for the case *nr_parent_irqs=1, if
+I amn't mistaken something. And if I'm not mistaken, then probably it make
+sense to change (2) to if ( *nr_parent_irqs == 1 ) + some comment why this
+case is so special.
+
+Does it make sense?
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Can't easily tell; I'd like to see the resulting code instead of the textual
+description.</pre>
+    </blockquote>
+    <pre>Here is the code:
+    /* Find number of HART index bits */
+    if ( !dt_property_read_u32(node, "riscv,hart-index-bits",
+                               &amp;imsic_cfg.hart_index_bits) )
+    {
+        /* Assume default value */
+        imsic_cfg.hart_index_bits = fls(*nr_parent_irqs - 1) +
+                                    (*nr_parent_irqs == 1);
+    }
+
+It seems like it covers all the cases.
+
+~ Oleksii</pre>
+  </body>
+</html>
+
+--------------jLUq03l8pT5mI1PrASgE0rXy--
 
