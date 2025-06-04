@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94B7BACDC0E
-	for <lists+xen-devel@lfdr.de>; Wed,  4 Jun 2025 12:43:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1005396.1384874 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A2FDFACDC1C
+	for <lists+xen-devel@lfdr.de>; Wed,  4 Jun 2025 12:48:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1005403.1384883 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uMlak-0008Eb-Q6; Wed, 04 Jun 2025 10:43:30 +0000
+	id 1uMlfJ-0000NT-A0; Wed, 04 Jun 2025 10:48:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1005396.1384874; Wed, 04 Jun 2025 10:43:30 +0000
+Received: by outflank-mailman (output) from mailman id 1005403.1384883; Wed, 04 Jun 2025 10:48:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uMlak-0008DA-NC; Wed, 04 Jun 2025 10:43:30 +0000
-Received: by outflank-mailman (input) for mailman id 1005396;
- Wed, 04 Jun 2025 10:43:29 +0000
+	id 1uMlfJ-0000L9-79; Wed, 04 Jun 2025 10:48:13 +0000
+Received: by outflank-mailman (input) for mailman id 1005403;
+ Wed, 04 Jun 2025 10:48:12 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=iVAg=YT=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uMlaj-0008D4-Rr
- for xen-devel@lists.xenproject.org; Wed, 04 Jun 2025 10:43:29 +0000
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
- [2a00:1450:4864:20::530])
+ id 1uMlfI-0000L3-82
+ for xen-devel@lists.xenproject.org; Wed, 04 Jun 2025 10:48:12 +0000
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [2a00:1450:4864:20::62d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id bdca830d-4130-11f0-b894-0df219b8e170;
- Wed, 04 Jun 2025 12:43:24 +0200 (CEST)
-Received: by mail-ed1-x530.google.com with SMTP id
- 4fb4d7f45d1cf-602346b1997so11477760a12.3
- for <xen-devel@lists.xenproject.org>; Wed, 04 Jun 2025 03:43:24 -0700 (PDT)
+ id 662343f4-4131-11f0-b894-0df219b8e170;
+ Wed, 04 Jun 2025 12:48:07 +0200 (CEST)
+Received: by mail-ej1-x62d.google.com with SMTP id
+ a640c23a62f3a-acb5ec407b1so1044976366b.1
+ for <xen-devel@lists.xenproject.org>; Wed, 04 Jun 2025 03:48:07 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-605fab0272csm4751346a12.17.2025.06.04.03.43.23
+ a640c23a62f3a-ada5d82ccedsm1075589066b.48.2025.06.04.03.48.06
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 04 Jun 2025 03:43:23 -0700 (PDT)
+ Wed, 04 Jun 2025 03:48:06 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bdca830d-4130-11f0-b894-0df219b8e170
+X-Inumbo-ID: 662343f4-4131-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1749033804; x=1749638604; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1749034087; x=1749638887; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=sCgXzljo2K/JIVDYKaT2wzXng1unvS3CANAtMI00h2w=;
-        b=df43tUAnUzhZ5i/hmzPDRhsiSm/u0lrbLXkhbbDVw69CNVwTcqyIcz96YIgwsv2v06
-         +VmeJeGKdW6LYQPiq3mkPOlsqhp4yt8dmW2vYqcqb8hww9mWrpVi8e0VGSIvjjedd0jl
-         ZAUUe6ug0nuPM9g1j5VYLeJXxJkz4Rp8KxS8K71rMLV6k9/HhrbfKpDZ1xkMUBkoWjSp
-         cL34tst8u1xhjgbw2mF1oZDHakhoLQoraaq8PUHqnUnKWin+PW5VR38ayavOxdAbFn+v
-         NASye/l2bvgfo6Ttrm6VhWQG+pNX+WDhsLhG0aaerqCn5hUGNYkoL2lvhoVb/i7fg730
-         Z9lw==
+        bh=fG3HJmUeDmAud3SYdcrzvH6XfWyeWXYbj4gkMX0vrTU=;
+        b=ZQ9mXe7mMGbePcsNGB98A8slRVRv78o888UT7SpKBl8zh1VQrBMovPcNwsr4pm2Cx1
+         fsX5cDNt+ZN5BEuCMipWeLFwIh5rmYdJp6gJ3Ow554ZnGHO+B573pzzgNwC+e/R7+pa1
+         HP5kkn7wF+nosJiIw3RooNtAIykRpFdB8BWxNllO5aj+wTKm9DRvpdXPXumzowsjxUKL
+         pz7lGKeaTnqMYuJxrDeUbygg3fg8vVCVJk4JHtPAuNAn5DOLeE1aPVvzUorLH9YSZ/6Y
+         zT2TWCCZD/BNdfm1CZy69bdvEDWwtZbppawdrFJd46MLyvfX0Fs2wyC36y1pY0VX4bjW
+         O8GQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749033804; x=1749638604;
+        d=1e100.net; s=20230601; t=1749034087; x=1749638887;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=sCgXzljo2K/JIVDYKaT2wzXng1unvS3CANAtMI00h2w=;
-        b=Lg/z2X3cBLK1/kdEIZl90xSS47o2jzIBdPOC3w/OurQghJpY2H4+/DT8F2VxoNIF8h
-         rpWHNVvQAR+XwdJ+3ljBYg6ExQb0Y74WeEYp74JVE/s2jCaMOKFw7lCm+1UzcMI49XEX
-         oGH7J+s7zl3k6B66AxeE9wmF7VVgzz+lKK0D3i8xQTVJO5aJZ8yLyFFhMerwHfXoth0P
-         1TF7p/yMX+BXLTNkaQjY3qSYHCA1OdPOAAsxH/GNltz1lm7KstLfdopCyP8hp6qLeSXj
-         JqqGqT60a9dQeisCCyKRBdpTZ9M3TNIeh3DDz5lUsyJWytg+cPLJ170SpqZgxaWF6NpO
-         pOjw==
-X-Forwarded-Encrypted: i=1; AJvYcCVH7kc2nMVUymovkCv/FRBGgcocPkrudIJ6ZmUSwel9e5nnccYGigZA8MVTAsY3XC3RsLFGF7uPNO0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwgQjOK59EYuNatfJxp+90DO/w5C46Kar6lJrd7Y7uwKRtIgl4N
-	C8okHGCDDC+ciz/MAIcyli3P/xNMyc6Hu9ExzrXUZHRLR2NzXqn4DWMrPszE6g36mA==
-X-Gm-Gg: ASbGnctn6jBsU/LvGyXdm57G/XmzMX3XGOuisK4yPo9WNci56EuGGygxLlVIDkfRPQe
-	G0rNDyioEzwFdG8poBJ3+soHTQSxruUCIM698BMfBI1Y+7yoMBkt1mWUntqBC3mJnqONPGS5x08
-	eAlNwmfiKIA4J7SjYRSlxx0j889zcglJSXdIM4mbEhaGg5qQ+Xu/aENg9FgcSIs8/JAT6ZTCAX6
-	W6JzWZf10fBIx6rljAzIX9bRNT4GsnAABc95QecJg5D30xt8Wci7lJAjR8D9qwrbYmVj8No656m
-	5+gavSXjQJQQTv/u0T9L9b5TVwGXESWbSnw7SkTVVukzoip5YFxzSUzyuCFJsLb0ExG/mHyWHPx
-	UHrPixEmwqjiNK2sUT8l4e/+Ns6U0gNsw+YmS
-X-Google-Smtp-Source: AGHT+IFo3zceErhBG/yUTlPOz1TJtpZoZAvwh+Bi7j1y6aK/nAE3eubsf+hTI4biordwJhr/o86PGg==
-X-Received: by 2002:a05:6402:27d0:b0:606:a99d:91d4 with SMTP id 4fb4d7f45d1cf-606ea16f586mr2465169a12.27.1749033804199;
-        Wed, 04 Jun 2025 03:43:24 -0700 (PDT)
-Message-ID: <b0970d27-ff9f-43ee-a7e4-b0aa24bf0916@suse.com>
-Date: Wed, 4 Jun 2025 12:43:22 +0200
+        bh=fG3HJmUeDmAud3SYdcrzvH6XfWyeWXYbj4gkMX0vrTU=;
+        b=la11ZhOJa9WTmR4x0jHcJ08lQOnOOimQeH9RozfH1LGQXTQ9H6v6/1g+HSjLjtlzlE
+         qgHt9AmLPBFY5nl1ApQGUZqg8FuNIqx6sHRgKksrhqQQr7EjhGZN3RhwqZ1osPqDJNF0
+         C9WAMTFs/GjI4SyJN/zxlr4eZ7XdiiSNwyabh7R7EchnZPAQ5j8bLgwUnsckqFKNHOF8
+         xoBVFuqoEBl1qj5/fBQZ46QIx870tXPAm1ya/u6rW75qZwxMsrNXEnuo8c8yy6QSLHfr
+         pDyGPRPmKjqeH5j0DHTzyqZChr2bqghhQnKtv/xxbkGQD++L2rhvOH/gK4u42f/1Ux/U
+         0ojQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWK624ZBI9JKawy8VodCIoJ67Ppei3x6XkZrybDM+hjTKkBz+DOX8hTu4tifyp4nuUna4fdUQBe9cU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Ywf9ciNEUJ5nbOtQmvIqLKL3iS5ubfgqN8tpSPEN96oSiGUd1qJ
+	R3Y1pu7HQrkGzzxIKav28yE0jhlI2EbfqfKtyuS2OIe9GpnQ6BOJ/HoKU1IQGHs/1A==
+X-Gm-Gg: ASbGncv5AtTCpvYTvFMcoeH+cnSfmwk44w2VQ1nOpPGn3RH/p82JkyVE7qX9HAv6VxP
+	wo/kSAyb5QYE1Mk0PsTU8C4ojNq8mHwDPNlWBEiqqVmntYbjRGAHQI1UUYXnvyGRrs7BrQwMgb+
+	38XQzitcOa76va5TzXbQzPNYRTFP47zyWbbkWnMV0eUr/eXdmLNX5VDKEvu6Nt2pFfkEs4SZfN+
+	FMNn0iyXBZX1CcJatQeJrhY+jSPRCiaSCshURG4ByBjMljXODlsBDmwLoJ9b/6yTP86HC1W7Liy
+	u+gHfTR4YGt9veDQk/NW7kGYvdJU6HX2PyHbPoucHEXEjExy9Zy1mUAMMJJU4j4aG/EId0lum/p
+	YxHmGb3vXP3cyRJ42+coPIuu9aXv91f3er0n9tZ1qTFBN+cQ=
+X-Google-Smtp-Source: AGHT+IFS6T++DZRcSRhV0nuL1AbAiV1mp0qSqBJmvvJsmTAN+nLpoYRCvT0Di+ZuryvlzPphIYpwrw==
+X-Received: by 2002:a17:907:7e8d:b0:ad4:cfbd:efd0 with SMTP id a640c23a62f3a-addf8f256admr197566666b.36.1749034086681;
+        Wed, 04 Jun 2025 03:48:06 -0700 (PDT)
+Message-ID: <71318dd2-0724-4c2a-9786-40b676411e56@suse.com>
+Date: Wed, 4 Jun 2025 12:48:05 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 2/2] xen/domain: rewrite emulation_flags_ok()
+Subject: Re: [PATCH v1 2/2] xen/console: unify printout behavior for UART
+ emulators
 To: dmkhn@proton.me
 Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org,
  michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org,
- teddy.astie@vates.tech, dmukhin@ford.com, xen-devel@lists.xenproject.org
-References: <20250602191717.148361-1-dmukhin@ford.com>
- <20250602191717.148361-3-dmukhin@ford.com>
+ dmukhin@ford.com, xen-devel@lists.xenproject.org
+References: <20250531000417.81750-1-dmukhin@ford.com>
+ <20250531000417.81750-3-dmukhin@ford.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -119,115 +120,62 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250602191717.148361-3-dmukhin@ford.com>
+In-Reply-To: <20250531000417.81750-3-dmukhin@ford.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 02.06.2025 21:17, dmkhn@proton.me wrote:
-> From: Denis Mukhin <dmukhin@ford.com>
-> 
-> Rewrite emulation_flags_ok() to simplify future modifications.
-> 
-> No functional change intended.
-> 
-> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
-> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-> Reviewed-by: Teddy Astie <teddy.astie@vates.tech>
-> ---
-> Changes since v4:
-> - updated commentaries
-> - added Teddy's R-b, kept Stefano's R-b
-> ---
->  xen/arch/x86/domain.c | 91 ++++++++++++++++++++++++++++++++++---------
->  1 file changed, 73 insertions(+), 18 deletions(-)
+On 31.05.2025 02:04, dmkhn@proton.me wrote:
+> --- a/xen/arch/x86/hvm/hvm.c
+> +++ b/xen/arch/x86/hvm/hvm.c
+> @@ -577,7 +577,7 @@ static int cf_check hvm_print_line(
+>      if ( (cd->pbuf_idx == (DOMAIN_PBUF_SIZE - 1)) || (c == '\n') )
+>      {
+>          cd->pbuf[cd->pbuf_idx] = '\0';
+> -        guest_printk(cd, XENLOG_G_DEBUG "%s\n", cd->pbuf);
+> +        guest_printk(cd, "%s\n", cd->pbuf);
+>          cd->pbuf_idx = 0;
+>      }
 
-Given this diffstat, I wonder what the other x86 maintainers think about
-this.
+Why this and ...
 
-> --- a/xen/arch/x86/domain.c
-> +++ b/xen/arch/x86/domain.c
-> @@ -743,32 +743,87 @@ int arch_sanitise_domain_config(struct xen_domctl_createdomain *config)
->      return 0;
+> @@ -755,7 +765,7 @@ static long guest_console_write(XEN_GUEST_HANDLE_PARAM(char) buffer,
+>              else
+>              {
+>                  cd->pbuf[cd->pbuf_idx] = '\0';
+> -                guest_printk(cd, XENLOG_G_DEBUG "%s%s\n", cd->pbuf, kbuf);
+> +                guest_printk(cd, "%s%s\n", cd->pbuf, kbuf);
+>                  cd->pbuf_idx = 0;
+>              }
+
+... this change? There's no compensation for it ...
+
+> @@ -1013,12 +1023,21 @@ void printk(const char *fmt, ...)
+>      va_end(args);
 >  }
 >  
 > +/*
-> + * Verify that the domain's emulation flags resolve to a supported configuration.
-> + *
-> + * This ensures we only allow a known, safe subset of emulation combinations
-> + * (for both functionality and security). Arbitrary mixes are likely to cause
-> + * errors (e.g., null pointer dereferences).
-> + *
-> + * NB: use the internal X86_EMU_XXX symbols, not the public XEN_X86_EMU_XXX
-> + * symbols.
+> + * Print message from the guest on the diagnostic console.
+> + * Prefixes all messages w/ "(dX)" if domain X does not own physical console
+> + * focus.
 > + */
->  static bool emulation_flags_ok(const struct domain *d, uint32_t emflags)
+>  void guest_printk(const struct domain *d, const char *fmt, ...)
 >  {
-> +    enum {
-> +        CAP_PV          = BIT(0, U),
-> +        CAP_HVM         = BIT(1, U),
-> +        CAP_HWDOM       = BIT(2, U),
-> +        CAP_DOMU        = BIT(3, U),
-> +    };
-> +    static const struct {
-> +        unsigned int caps;
-> +        uint32_t min;
-> +        uint32_t opt;
-> +    } configs[] = {
-> +#ifdef CONFIG_PV
-> +        /* PV */
-> +        {
-> +            .caps   = CAP_PV | CAP_DOMU,
-> +            .min    = 0,
-> +            .opt    = 0,
+>      va_list args;
+> -    char prefix[16];
+> +    char prefix[16] = "";
+> +    struct domain *consd;
+>  
+> -    snprintf(prefix, sizeof(prefix), "(d%d) ", d->domain_id);
+> +    consd = console_get_domain();
+> +    if ( consd != d )
+> +        snprintf(prefix, sizeof(prefix), "(d%d) ", d->domain_id);
+> +    console_put_domain(consd);
+>  
+>      va_start(args, fmt);
+>      vprintk_common(fmt, args, prefix);
 
-Why the latter two initializers? Imo adding ones which say nothing else than
-what's the default is only enlarging code without much real benefit.
-
-> +        },
-> +
-> +        /* PV dom0 */
-> +        {
-> +            .caps   = CAP_PV | CAP_HWDOM,
-> +            .min    = X86_EMU_PIT,
-> +            .opt    = 0,
-> +        },
-> +#endif /* #ifdef CONFIG_PV */
-> +
-> +#ifdef CONFIG_HVM
-> +        /* PVH dom0 */
-> +        {
-> +            .caps   = CAP_HVM | CAP_HWDOM,
-> +            .min    = X86_EMU_LAPIC | X86_EMU_IOAPIC | X86_EMU_VPCI,
-> +            .opt    = 0,
-> +        },
-> +
-> +        /* HVM domU */
-> +        {
-> +            .caps   = CAP_HVM | CAP_DOMU,
-> +            .min    = X86_EMU_ALL & ~(X86_EMU_VPCI | X86_EMU_USE_PIRQ),
-> +            /* HVM PIRQ feature is user-selectable. */
-> +            .opt    = X86_EMU_USE_PIRQ,
-> +        },
-> +
-> +        /* PVH domU */
-> +        {
-> +            .caps   = CAP_HVM | CAP_DOMU,
-> +            .min    = X86_EMU_LAPIC,
-> +            .opt    = 0,
-> +        },
-> +#endif /* #ifdef CONFIG_HVM */
-> +    };
-> +    unsigned int i, caps = is_hardware_domain(d) ? CAP_HWDOM : CAP_DOMU;
-> +
-> +    if ( is_pv_domain(d) )
-> +        caps |= CAP_PV;
-> +    else if ( is_hvm_domain(d) )
-> +        caps |= CAP_HVM;
-
-There's no 3rd case, so this could be expressed with plain "else", and hence
-also with a conditional operator, and hence could also be right in the
-initializer. How far to go with those transformations I'm not sure; personally
-I'd go all the way, but I'd be okay-ish with just the first of the steps.
+... here afaics, so it looks like you're undermining rate-limiting of
+those messages.
 
 Jan
 
