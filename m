@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AED96ACDF81
-	for <lists+xen-devel@lfdr.de>; Wed,  4 Jun 2025 15:43:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1005562.1385013 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F55FACE030
+	for <lists+xen-devel@lfdr.de>; Wed,  4 Jun 2025 16:22:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1005599.1385024 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uMoNu-00038X-OW; Wed, 04 Jun 2025 13:42:26 +0000
+	id 1uMp0b-0008MZ-Q4; Wed, 04 Jun 2025 14:22:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1005562.1385013; Wed, 04 Jun 2025 13:42:26 +0000
+Received: by outflank-mailman (output) from mailman id 1005599.1385024; Wed, 04 Jun 2025 14:22:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uMoNu-00036e-Lw; Wed, 04 Jun 2025 13:42:26 +0000
-Received: by outflank-mailman (input) for mailman id 1005562;
- Wed, 04 Jun 2025 13:42:25 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uMp0b-0008Jy-Mu; Wed, 04 Jun 2025 14:22:25 +0000
+Received: by outflank-mailman (input) for mailman id 1005599;
+ Wed, 04 Jun 2025 14:22:24 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=MFxl=YT=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1uMoNt-00036Y-Fl
- for xen-devel@lists.xenproject.org; Wed, 04 Jun 2025 13:42:25 +0000
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [2a00:1450:4864:20::329])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bf0ee6cf-4149-11f0-a300-13f23c93f187;
- Wed, 04 Jun 2025 15:42:24 +0200 (CEST)
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-451dbe494d6so36365775e9.1
- for <xen-devel@lists.xenproject.org>; Wed, 04 Jun 2025 06:42:24 -0700 (PDT)
-Received: from [192.168.1.5] (user-109-243-64-38.play-internet.pl.
- [109.243.64.38]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-451e505d40csm48115035e9.0.2025.06.04.06.42.22
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 04 Jun 2025 06:42:22 -0700 (PDT)
+ <SRS0=Sp6j=YT=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1uMp0a-0008Jr-Ah
+ for xen-devel@lists.xenproject.org; Wed, 04 Jun 2025 14:22:24 +0000
+Received: from fhigh-a7-smtp.messagingengine.com
+ (fhigh-a7-smtp.messagingengine.com [103.168.172.158])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 539447fa-414f-11f0-b894-0df219b8e170;
+ Wed, 04 Jun 2025 16:22:21 +0200 (CEST)
+Received: from phl-compute-06.internal (phl-compute-06.phl.internal
+ [10.202.2.46])
+ by mailfhigh.phl.internal (Postfix) with ESMTP id 417A21140237;
+ Wed,  4 Jun 2025 10:22:20 -0400 (EDT)
+Received: from phl-mailfrontend-01 ([10.202.2.162])
+ by phl-compute-06.internal (MEProxy); Wed, 04 Jun 2025 10:22:20 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 4 Jun 2025 10:22:18 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,220 +45,145 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bf0ee6cf-4149-11f0-a300-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1749044544; x=1749649344; darn=lists.xenproject.org;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=PF00C3kY/+mRujOxew52RXLgbaZA6/tfQkWDEf1jLfk=;
-        b=G/eCLH/WPynDT7vyJpCvycIkP9rz4zpb4MpmEwpmdxvzSogFnfcRJwLy+9/+Yt3FQW
-         pI/GXz1ENci9yDG/kdoTDWny6zevAHd5hQpF0/TkjXnfvoLwHMnXWzOX05uNxh/VFDi3
-         1yLsna2m8IO0hbgrKZ1SYuy8dN55laVqNtdfzEGtjYNcGHBS/nzaPq814f+xdFT5rx1y
-         16g2rwFRd7dBYwvGbt/NtA0G0cN27CvFZxWWm12QJ9nY7HguzhGyo24lrgXe4MmvHFEi
-         rgw+IEUctCiQ7fsGUfnVlwiHkPAH1x3WK0NYp62bFALrH3yDoZgNpUrICT1MpdpwhVtf
-         XVMA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749044544; x=1749649344;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=PF00C3kY/+mRujOxew52RXLgbaZA6/tfQkWDEf1jLfk=;
-        b=INaIbp09NcSVZ/MqOF/rskI/QtwfkHOsKyxQz6Q9PdhYd964vdxyDjcuzonOpt9Z1E
-         H+Rv4nVri96+RQ0X0mlTpowKIMbaYxnsTb8XU8guYuxlfFJNMNRzGKtpQkEHL9BHe7Jp
-         L0DRHSZRwL+i8K3ERTkRrNkxan6IY3EXCxdp4wCKjWFhEKaW6osGlQerkr4khcnLCzlX
-         7oPqqXaL7R2k+hyI5DIQ5DwKQIdNckvwW7cOlyo9VtzHs6ck/Fi1fEa8RnENvOnM5V+P
-         7O8TjRaYUmFx9LIN3Yd5z2Mg3NAw7WC4BFW2FQMO0d2s6a2zhelFeZE0JTwD1/ifc43m
-         uC/Q==
-X-Forwarded-Encrypted: i=1; AJvYcCUIdl/2nOrIZwzdTpKpngjO5PPJYrPuGmLAjLBnO4a2fDiBRgW1ecsZuev85+w6tPmRY/PxBMLdhLk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxmZrVX7vlbeHcNDiF9jsMBnQzKw5fXz+ju2rua/nvjupyFz1yt
-	K0zXq7G9pqC1mc0/XEKzoI6qOmwuwQa0QVdx4dUYCLsN9KJZsJSWwf4n
-X-Gm-Gg: ASbGncudgOmowemzDnX+yi9XwwM7aXiEu7Q/eqV5Dfa5TYQA3DNtWgVs0L9WI7Rmar5
-	Dnu+oq4kdN8VWLwHizBzOkwAbMf4G7+idXWaGR4ZFaldxoyOU3TwFlD5PYdC8HKk/Ni7Yw/5s1Y
-	u+bgxq58hV86yu/9wX1oxJmYddNSyiKbr02COyxJPMvLzSu1uOD8VrJU3DjfpNQ3/J7EMtV2dvi
-	mXtYNr7t3Ge1IVIOjIYVmWZgF0wZRjd0cqyMflXt8pFAdOpApDit4XgGqoA7SmXdncg2AOwSNfJ
-	6AQG2K81ZhAmJzvnBOhtjoJb4uZcwwGWQ1xbbeSzczWw4C3ZNPxdJFyscAa6Yy28W8wUMMiCAY+
-	nZhXC/uc5HuCfZ233vqd1jGkn
-X-Google-Smtp-Source: AGHT+IEN9mJdEqFGYwbNLgvBdx6zyqxxwExmwYHzZgQy9vDh1al1HP4mXTi03WpEPZpCjJJT3vPzAw==
-X-Received: by 2002:a05:600c:a015:b0:450:d37c:9fc8 with SMTP id 5b1f17b1804b1-451f0a74191mr27040095e9.13.1749044543371;
-        Wed, 04 Jun 2025 06:42:23 -0700 (PDT)
-Content-Type: multipart/alternative;
- boundary="------------jLUq03l8pT5mI1PrASgE0rXy"
-Message-ID: <aa1e4b21-beae-4b60-8a24-b6227cb8027e@gmail.com>
-Date: Wed, 4 Jun 2025 15:42:21 +0200
+X-Inumbo-ID: 539447fa-414f-11f0-b894-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1749046940;
+	 x=1749133340; bh=l9qTL6VyDfkoyc94nfz6CdcDFNs7QiHmBUzDCEMHvgE=; b=
+	Q4ErSjeW4VOznKj0N+l3iczNlcBj+NXKv2ttSNWavCZIq8sDZ9aSXq6qnKzCuMsG
+	K5In3r//KTUnq7X3M4aNES5WcC+p1RdR16RNz8VHhbvFYGcxnnODJGsc6p/D7OCs
+	cky8j3l8OKDIkYrT4eiKkaYXYRWgm5/wOCGEYGA93nmrED45BFUKl+TeZIvmUHDx
+	4r22XvBct4APiCGsoXjbFtSN+xZfCOz5tnKcN0m6gR1NvPlilC1MqyXdYE9Uqp+4
+	ZfWkw0JiMdovs2aE4Mn3pQ3xKcQR8J63AhorWedPjEsZ/ZnX9qQMCOemxn1VyoUZ
+	UrOQ9TirfiFKwq0Z/x/elg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1749046940; x=1749133340; bh=l9qTL6VyDfkoyc94nfz6CdcDFNs7QiHmBUz
+	DCEMHvgE=; b=D0j+LQ7cOJA1nQG4pbbCqsU+8T60bcyhWBSItXL5xkQ2AScoRup
+	D6g4gDmau1B431JqpfNxV3xt57U4JDhFpjfZ+nhowCNxV4g4f/rJ+htSU9nXGg3o
+	74J+lhyCe1zhavHk5HjkbV2NtYsXrLddg1LY6oYfM0d5FzrpEgbNxLawWBpNF7B9
+	J2asq5O3u4rMDl4ayVWbUvR1Or1mSbYOuDfy403SsoLyDEwcaPtx3oUM/bWPZdeF
+	u+Glkou7WcVwQHq6SKjdRXVkE7ZXYEkq8mBzvqvbs6VEMAd94p393OhV+ckBkhne
+	fVinQQncbTo5iuwokYLteKc5APqImwNbZzg==
+X-ME-Sender: <xms:m1ZAaPw6UWuK9hpeyxebyC6A52423UjSdibmiQKlGTFVdUVfMejm0w>
+    <xme:m1ZAaHSh2tywL0-gFkcmuHcEBkbc70T-H7K4mJybqLp1XTy1rjeOh1Nve0O9AN7YL
+    u8P6zxXU0V6XA>
+X-ME-Received: <xmr:m1ZAaJVOddxB3gO064bczIBpuj1OQ_vGKB4MPRikzRCKr0eQhzkg0jpWVpOm4iHKKpNjmQ1bfcgDd0QY8H3VcaLdHBTph-YOq6k>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtddugddvvdeiucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdggtfgfnhhsuhgsshgtrhhisggvpdfu
+    rfetoffkrfgpnffqhgenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnh
+    htshculddquddttddmnecujfgurhepfffhvfevuffkfhggtggujgesghdtroertddtjeen
+    ucfhrhhomhepofgrrhgvkhcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomh
+    grrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggft
+    rfgrthhtvghrnheptdetvdfhkedutedvleffgeeutdektefhtefhfffhfeetgefhieegle
+    dvtddtkedtnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhho
+    mhepmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomhdpnh
+    gspghrtghpthhtohepledpmhhouggvpehsmhhtphhouhhtpdhrtghpthhtoheprhhoghgv
+    rhdrphgruhestghithhrihigrdgtohhmpdhrtghpthhtohepjhhgrhhoshhssehsuhhsvg
+    drtghomhdprhgtphhtthhopeigvghnqdguvghvvghlsehlihhsthhsrdigvghnphhrohhj
+    vggtthdrohhrghdprhgtphhtthhopehlihhnuhigqdhkvghrnhgvlhesvhhgvghrrdhkvg
+    hrnhgvlhdrohhrghdprhgtphhtthhopehjrghsohhnrdgrnhgurhihuhhksegrmhgurdgt
+    ohhmpdhrtghpthhtohepjhifsehnuhgtlhgvrghrfhgrlhhlohhuthdrnhgvthdprhgtph
+    htthhopehsshhtrggsvghllhhinhhisehkvghrnhgvlhdrohhrghdprhgtphhtthhopeho
+    lhgvkhhsrghnughrpghthihshhgthhgvnhhkohesvghprghmrdgtohhmpdhrtghpthhtoh
+    epshhtrggslhgvsehvghgvrhdrkhgvrhhnvghlrdhorhhg
+X-ME-Proxy: <xmx:m1ZAaJi_yy7OaaEYivfAL-FTDb0mEe_8_itFv7hYF8TfdadF9Da2xQ>
+    <xmx:m1ZAaBDoRqc-amRoTlDHMh_luKJYVdJJq8m2ZY10fIqFT5830IZaLQ>
+    <xmx:m1ZAaCLLVT38noOg_E7NdYhKtNB50na0NfVage2tJKiaOL-_4fAA7Q>
+    <xmx:m1ZAaACb_WNon-eBBvWPrABlBSzf3x4PwdbrF_dWVL47s0fa_Ugsug>
+    <xmx:nFZAaP2ldpj4cJl3_ertUruqbAmMgG4SV2TvOG0W_agpxzhVp9iSGrxX>
+Feedback-ID: i1568416f:Fastmail
+Date: Wed, 4 Jun 2025 16:22:16 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org,
+	linux-kernel@vger.kernel.org, jason.andryuk@amd.com,
+	John <jw@nuclearfallout.net>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] xen/x86: fix initial memory balloon target
+Message-ID: <aEBWmAoDSaNpsrvQ@mail-itl>
+References: <20250514080427.28129-1-roger.pau@citrix.com>
+ <aCWtZNxfhazmmj_S@mail-itl>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 08/14] xen/riscv: imsic_init() implementation
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Romain Caritey <Romain.Caritey@microchip.com>, xen-devel@lists.xenproject.org
-References: <cover.1747843009.git.oleksii.kurochko@gmail.com>
- <421dad1bbd014a2d7ff588af088eadbd56345dbe.1747843009.git.oleksii.kurochko@gmail.com>
- <ec429b9d-7e16-4d9a-86c6-a5fa557047b7@suse.com>
- <d7ef87e5-75e0-4cf3-be8c-7af6e18df5a3@gmail.com>
- <84c9f65a-b278-4be4-b053-5bfa410f9a97@gmail.com>
- <9ab65452-497c-47b5-af18-92a7b2a86d9e@suse.com>
-Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <9ab65452-497c-47b5-af18-92a7b2a86d9e@suse.com>
-
-This is a multi-part message in MIME format.
---------------jLUq03l8pT5mI1PrASgE0rXy
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="rjdcZPeLS3c+Qw6Y"
+Content-Disposition: inline
+In-Reply-To: <aCWtZNxfhazmmj_S@mail-itl>
 
 
-On 6/2/25 12:22 PM, Jan Beulich wrote:
-> On 27.05.2025 13:30, Oleksii Kurochko wrote:
->> On 5/26/25 8:44 PM, Oleksii Kurochko wrote:
->>>>> +    if ( !dt_property_read_u32(node, "riscv,guest-index-bits",
->>>>> +                               &imsic_cfg.guest_index_bits) )
->>>>> +        imsic_cfg.guest_index_bits = 0;
->>>>> +    tmp = BITS_PER_LONG - IMSIC_MMIO_PAGE_SHIFT;
->>>>> +    if ( tmp < imsic_cfg.guest_index_bits )
->>>>> +    {
->>>>> +        printk(XENLOG_ERR "%s: guest index bits too big\n",
->>>>> +               dt_node_name(node));
->>>>> +        rc = -ENOENT;
->>>>> +        goto cleanup;
->>>>> +    }
->>>>> +
->>>>> +    /* Find number of HART index bits */
->>>>> +    if ( !dt_property_read_u32(node, "riscv,hart-index-bits",
->>>>> +                               &imsic_cfg.hart_index_bits) )
->>>>> +    {
->>>>> +        /* Assume default value */
->>>>> +        imsic_cfg.hart_index_bits = fls(*nr_parent_irqs);
->>>>> +        if ( BIT(imsic_cfg.hart_index_bits, UL) < *nr_parent_irqs )
->>>>> +            imsic_cfg.hart_index_bits++;
->>>> Since fls() returns a 1-based bit number, isn't it rather that in the
->>>> exact-power-of-2 case you'd need to subtract 1?
->>> Agree, in this case, -1 should be taken into account.
->> Hmm, it seems like in case of fls() returns a 1-based bit number there
->> is not need for the check:
->>    (2) if ( BIT(imsic_cfg.hart_index_bits, UL) < *nr_parent_irqs )
->>
->> We could do imsic_cfg.hart_index_bits = fls(*nr_parent_irqs - 1) (1) without
->> checking *nr_parent_irqs is power-of-two or not, and then just leave the
->> check (2).
->> And with (1), the check (2) is only needed for the case *nr_parent_irqs=1, if
->> I amn't mistaken something. And if I'm not mistaken, then probably it make
->> sense to change (2) to if ( *nr_parent_irqs == 1 ) + some comment why this
->> case is so special.
->>
->> Does it make sense?
-> Can't easily tell; I'd like to see the resulting code instead of the textual
-> description.
+--rjdcZPeLS3c+Qw6Y
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 4 Jun 2025 16:22:16 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org,
+	linux-kernel@vger.kernel.org, jason.andryuk@amd.com,
+	John <jw@nuclearfallout.net>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] xen/x86: fix initial memory balloon target
 
-Here is the code:
-     /* Find number of HART index bits */
-     if ( !dt_property_read_u32(node, "riscv,hart-index-bits",
-                                &imsic_cfg.hart_index_bits) )
-     {
-         /* Assume default value */
-         imsic_cfg.hart_index_bits = fls(*nr_parent_irqs - 1) +
-                                     (*nr_parent_irqs == 1);
-     }
+On Thu, May 15, 2025 at 11:01:24AM +0200, Marek Marczykowski-G=C3=B3recki w=
+rote:
+> On Wed, May 14, 2025 at 10:04:26AM +0200, Roger Pau Monne wrote:
+> > When adding extra memory regions as ballooned pages also adjust the bal=
+loon
+> > target, otherwise when the balloon driver is started it will populate
+> > memory to match the target value and consume all the extra memory regio=
+ns
+> > added.
+> >=20
+> > This made the usage of the Xen `dom0_mem=3D,max:` command line paramete=
+r for
+> > dom0 not work as expected, as the target won't be adjusted and when the
+> > balloon is started it will populate memory straight to the 'max:' value.
+> > It would equally affect domUs that have memory !=3D maxmem.
+> >=20
+> > Kernels built with CONFIG_XEN_UNPOPULATED_ALLOC are not affected, becau=
+se
+> > the extra memory regions are consumed by the unpopulated allocation dri=
+ver,
+> > and then balloon_add_regions() becomes a no-op.
+> >=20
+> > Reported-by: John <jw@nuclearfallout.net>
+> > Fixes: 87af633689ce ('x86/xen: fix balloon target initialization for PV=
+H dom0')
+> > Signed-off-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
+>=20
+> Tested-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.c=
+om>
 
-It seems like it covers all the cases.
+I think this wants Cc: stable, since the commit named in Fixes: got
+backported too. Or is the Fixes tag enough?
 
-~ Oleksii
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
 
---------------jLUq03l8pT5mI1PrASgE0rXy
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+--rjdcZPeLS3c+Qw6Y
+Content-Type: application/pgp-signature; name=signature.asc
 
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 6/2/25 12:22 PM, Jan Beulich wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:9ab65452-497c-47b5-af18-92a7b2a86d9e@suse.com">
-      <pre wrap="" class="moz-quote-pre">On 27.05.2025 13:30, Oleksii Kurochko wrote:
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">
-On 5/26/25 8:44 PM, Oleksii Kurochko wrote:
-</pre>
-        <blockquote type="cite">
-          <blockquote type="cite">
-            <blockquote type="cite">
-              <pre wrap="" class="moz-quote-pre">+    if ( !dt_property_read_u32(node, "riscv,guest-index-bits",
-+                               &amp;imsic_cfg.guest_index_bits) )
-+        imsic_cfg.guest_index_bits = 0;
-+    tmp = BITS_PER_LONG - IMSIC_MMIO_PAGE_SHIFT;
-+    if ( tmp &lt; imsic_cfg.guest_index_bits )
-+    {
-+        printk(XENLOG_ERR "%s: guest index bits too big\n",
-+               dt_node_name(node));
-+        rc = -ENOENT;
-+        goto cleanup;
-+    }
-+
-+    /* Find number of HART index bits */
-+    if ( !dt_property_read_u32(node, "riscv,hart-index-bits",
-+                               &amp;imsic_cfg.hart_index_bits) )
-+    {
-+        /* Assume default value */
-+        imsic_cfg.hart_index_bits = fls(*nr_parent_irqs);
-+        if ( BIT(imsic_cfg.hart_index_bits, UL) &lt; *nr_parent_irqs )
-+            imsic_cfg.hart_index_bits++;
-</pre>
-            </blockquote>
-            <pre wrap="" class="moz-quote-pre">Since fls() returns a 1-based bit number, isn't it rather that in the
-exact-power-of-2 case you'd need to subtract 1?
-</pre>
-          </blockquote>
-          <pre wrap="" class="moz-quote-pre">Agree, in this case, -1 should be taken into account.
-</pre>
-        </blockquote>
-        <pre wrap="" class="moz-quote-pre">
-Hmm, it seems like in case of fls() returns a 1-based bit number there
-is not need for the check:
-  (2) if ( BIT(imsic_cfg.hart_index_bits, UL) &lt; *nr_parent_irqs )
+-----BEGIN PGP SIGNATURE-----
 
-We could do imsic_cfg.hart_index_bits = fls(*nr_parent_irqs - 1) (1) without
-checking *nr_parent_irqs is power-of-two or not, and then just leave the
-check (2).
-And with (1), the check (2) is only needed for the case *nr_parent_irqs=1, if
-I amn't mistaken something. And if I'm not mistaken, then probably it make
-sense to change (2) to if ( *nr_parent_irqs == 1 ) + some comment why this
-case is so special.
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmhAVpgACgkQ24/THMrX
+1yxTXAf/f2m+HJfB41dbfKE54f3JNUqW0V87ci8kZTbhmd1/JxZFU+o1phpKn9Dd
+PW4Dd2qzBqcu7h+rlG6C3q9Y6ugtR17qU3eTWA3OCNmBgwK34ga3oJ6bJ5Fbvkyv
+//B71ZXIXTv3KxjQgRUH6v3n1WNNqLjkFQBtHqjlC/1K8NCierXgiQK25ysueo/K
+yybT8woevQgoZm1E6VINtDYo6c8sbtGE+RorVX8Q4DeSn3AutWRG/AFL/yw1RF7U
+QAgZq297ZSLAyHFVtNiGoWY5zELHTVb9EW/ajvPE0jPnuOjEgGw+Mwg2SnAmHejb
+rgokQ7UTD84BW7b58MHEMK0W190lRA==
+=Birs
+-----END PGP SIGNATURE-----
 
-Does it make sense?
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-Can't easily tell; I'd like to see the resulting code instead of the textual
-description.</pre>
-    </blockquote>
-    <pre>Here is the code:
-    /* Find number of HART index bits */
-    if ( !dt_property_read_u32(node, "riscv,hart-index-bits",
-                               &amp;imsic_cfg.hart_index_bits) )
-    {
-        /* Assume default value */
-        imsic_cfg.hart_index_bits = fls(*nr_parent_irqs - 1) +
-                                    (*nr_parent_irqs == 1);
-    }
-
-It seems like it covers all the cases.
-
-~ Oleksii</pre>
-  </body>
-</html>
-
---------------jLUq03l8pT5mI1PrASgE0rXy--
+--rjdcZPeLS3c+Qw6Y--
 
