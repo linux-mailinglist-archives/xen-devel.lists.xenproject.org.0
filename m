@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82969ACD94D
-	for <lists+xen-devel@lfdr.de>; Wed,  4 Jun 2025 10:08:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1005192.1384708 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC301ACD95C
+	for <lists+xen-devel@lfdr.de>; Wed,  4 Jun 2025 10:11:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1005202.1384718 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uMjAD-000749-U8; Wed, 04 Jun 2025 08:07:57 +0000
+	id 1uMjDL-0000Uo-Gn; Wed, 04 Jun 2025 08:11:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1005192.1384708; Wed, 04 Jun 2025 08:07:57 +0000
+Received: by outflank-mailman (output) from mailman id 1005202.1384718; Wed, 04 Jun 2025 08:11:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uMjAD-00072L-Qt; Wed, 04 Jun 2025 08:07:57 +0000
-Received: by outflank-mailman (input) for mailman id 1005192;
- Wed, 04 Jun 2025 08:07:57 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uMjDL-0000Rt-Ct; Wed, 04 Jun 2025 08:11:11 +0000
+Received: by outflank-mailman (input) for mailman id 1005202;
+ Wed, 04 Jun 2025 08:11:10 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=iVAg=YT=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uMjAD-00072F-1V
- for xen-devel@lists.xenproject.org; Wed, 04 Jun 2025 08:07:57 +0000
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [2a00:1450:4864:20::329])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 04c79826-411b-11f0-b894-0df219b8e170;
- Wed, 04 Jun 2025 10:07:55 +0200 (CEST)
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-442ea341570so45351415e9.1
- for <xen-devel@lists.xenproject.org>; Wed, 04 Jun 2025 01:07:55 -0700 (PDT)
+ id 1uMjDK-0000Rn-DH
+ for xen-devel@lists.xenproject.org; Wed, 04 Jun 2025 08:11:10 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 7890c3b5-411b-11f0-a300-13f23c93f187;
+ Wed, 04 Jun 2025 10:11:09 +0200 (CEST)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-ad8a8da2376so1072471666b.3
+ for <xen-devel@lists.xenproject.org>; Wed, 04 Jun 2025 01:11:09 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-747afed4566sm10661082b3a.80.2025.06.04.01.07.50
+ 98e67ed59e1d1-3130b823094sm899271a91.1.2025.06.04.01.10.50
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 04 Jun 2025 01:07:53 -0700 (PDT)
+ Wed, 04 Jun 2025 01:10:56 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 04c79826-411b-11f0-b894-0df219b8e170
+X-Inumbo-ID: 7890c3b5-411b-11f0-a300-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1749024474; x=1749629274; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1749024669; x=1749629469; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=LieOTA9FfiY7vHi/zrl88X3f6M26S9qGc7eS+VMX0lg=;
-        b=OJMJwQS6DTb9KFutsXHpwLP+jNa7nPuewKN/Jc+yBXGZY7+/4/W2YEkxXgpHYMGD0f
-         mawpMDriuoihgC2iiuZMcc6qii0akt7MComjxRQ6+Dy3q9Gl1nM9FVKR91k4J6SvRRAD
-         G56c3wvmsXD1Kf+yjfQxXyTxPTl+fxUZ6tN3u7kKSpb2mqO53TtUrtLXyumeoj6jGiq8
-         2kLeHGfYh3I7n0pTeQmzKB2fdMPNpGaVhnoW4Dho1/rKUKsWgUpEwDSznUxMG2JQXxWb
-         lw4vOGaGN3xjD05T7gA2IgP+1zICzv1pIoxeeSoWuDNZG9YyE0Q3ZXIF9nJRxXXMAlEd
-         kwSQ==
+        bh=W6s1y9MSe1f3GMnf2G7luNsLZfAczGqpzbbZXynEbAo=;
+        b=Jj1MXCwoFms0HyrDNybInLrrEbzVt+xhv6tIv93HUUE9KLsVWaPF4gEDVHXR64+p/J
+         Rl5zTj/RpXcEl3bjDL8OahkeTw568OfDnMmk81HQzyKHXbddxplbIO00W61QVHNSA3kZ
+         rSRrpOffutS0PEP9QzK6NCSpBmtEe6FrEyzSCn2uqxHRHDH6q7Xy8txj4XkjDCAYsVky
+         Dk7QPGNI4Vp0xf4EzQaLnD+b2l2ISV+zGIaLgrByZlUZ37j7720ARIQ3M3zMVMzi7k/B
+         7AfNq4cYz0GSswA1NMdcLcgEqwPp2GE64m4KaKsqkYdFuxY6HTMZqhsOegHX0tesGlXw
+         XvIA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749024474; x=1749629274;
+        d=1e100.net; s=20230601; t=1749024669; x=1749629469;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=LieOTA9FfiY7vHi/zrl88X3f6M26S9qGc7eS+VMX0lg=;
-        b=BjctsfoHkGkzJ7HJr8BQd3rwWzfRi8ADsYmRSoAGR91AyYUap3BkPv8C5wk6JO6QIX
-         fu4S2DY+jCrYp9FJ75XpxTYsu6fLEOgpnQ62eLsuFMdMG6LOA2ddkxQmm/wrzkxOqqRc
-         a64yTSV+Nzc44V4qRak2/vE2OWMj0U/qUnOl6vipsp3upeoxjnvbOfbslSnsj3CLLNrQ
-         OsmVxIhgDpX1NRo/y1E2qNhmjfJ3tFIvTAWGnKi26tNOfr7J/ovAi6C6OQSsYEdhPGZp
-         IoJsrqkMxx8wklg5NSgn4hrjSYjpYBk/YXYfKA0NfGc/HH0cs2qcxt93mvZrUvC+DGJh
-         LYng==
-X-Forwarded-Encrypted: i=1; AJvYcCVtnJpOoC6J78drm1msqUDpp7CIpEADULtC381vaX+WxLrkGyqAy61k8xgnA7GjLHFvRczOupD9f9U=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy0beCDURKzH3lFwLav2MK+eq6CMHehlFmd7uDhCfu7136ELW3W
-	ApGso87AGZ7wJKbPtG6ZvrWTzFTTanIBp8POvREhYcT+H3Kz7HNrmf43SyMBZvWuNg==
-X-Gm-Gg: ASbGncuyS6LS4DkgTUfA31IhokFafbEUeN8gVjhv0U+mQ2W1lKOXKCha/DsmFdnNvMN
-	JGz6g4PEkwZr5cCAya/ukUUQfkA6ZzgTwr2dNyreJH0Ck2esInVvquXqbrWHOdJfnAItGeOCCiu
-	fpCAahv45H0Lbp91AuA01RyvDy+Q64RIzUymc1TSpu2m+2em69kuYY4s219sliAPmW2tCSLVlMD
-	achZbAB8fFndFPiQrzB6aiMT8t5zmgr71dMTHNKxqdzTHgvu5AwlRDNkDlD7wz8ohNCoShYHqDF
-	crJYkAwgwLvi+X/EI2claciFS/ajnwv3ZyX+6dLzGX6ZmiX9QRGP+9xbi6enjdWRpSviWVIU5+U
-	34A+TmIZHaxO8XlrBEGYcGBTYJE0NJRIQi78yX3aAzzNicR4=
-X-Google-Smtp-Source: AGHT+IFPlLzhL7zpk4RRgRhoF5OJP5moBTZIMCiHuVjSUvw5+V62ROjnmRfT11TxDGnOld77BAQKdw==
-X-Received: by 2002:a5d:5f48:0:b0:3a4:ead4:5ea4 with SMTP id ffacd0b85a97d-3a51d930f6cmr1452485f8f.24.1749024474348;
-        Wed, 04 Jun 2025 01:07:54 -0700 (PDT)
-Message-ID: <d8fc3301-30b9-48bd-9832-b4fc18828a0c@suse.com>
-Date: Wed, 4 Jun 2025 10:07:46 +0200
+        bh=W6s1y9MSe1f3GMnf2G7luNsLZfAczGqpzbbZXynEbAo=;
+        b=g17WdYSYhUSTKgimJj1SC17x8/VlEUmJ9WSiHPIMShj7zewaeKAjltnwv5TzmzZKYA
+         m1PqzZRP7x539gD8RB5qKlVYScsVTuxPQjbTVJIloMpUSnGMBPX6C8AZ6rqotETXkikm
+         s+e3BFZQ57kAakQHCuFYFkkuPY6jFA+PZ5/lkWvgeKwGHeHvPIcoPAQMk3VOoKGiYOue
+         BUWww3k4EyTxY8U2mbaVSYVFhyaRVel4nmSxL6yJESK7lqhNl6x9JIIyyaUuoq/ab52Q
+         F5LOPt3hWmCR4n73vhUQfJOJRNXVNgfHjH8KrO6wo2Fa3/BuzinrKO4RygBdew9taN2e
+         4tKQ==
+X-Forwarded-Encrypted: i=1; AJvYcCURTdGyh41yH8fewfMsygRv0+7n/Vx8tIXtKiL0fAoWHynWYBznHzwxsS5fjJVH8UO8FNfjArceHCk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyH3ZvPwlnGCdHagK68r+r//lDwj4wRYM7f6QATDvv/SxLZLzvJ
+	yTdZQSppJsR9+MhfVr1zhoGG8rugrGVyzuPpTWqwtUj0gUQWAVwG6JxC+Lr6JKfR7LrBrKEeQQT
+	21DY=
+X-Gm-Gg: ASbGncsYveRrgmxwEqvTKLjofmaexqEvwZ9HQy6+VgxDd8kqAExrpitSXKr5GIdICi/
+	L38aJ9MjhPVX4w1zTzf23efeWdetbN4v+TL2qaofG6DaHB8ylFOQUnAShnCumyc5bX90IuEnLk4
+	LBb5vF3cI3AIQ6NJ2b/pi0YRiwVvcJlxsHyNjVAo12yYnj5kri97Km8S768J63kd80F9W+UwcJ+
+	MZar6pges3w1SFi0ltufl03TjOrf1zKgUHvOEU3tyhfi4R/xSMdR76TKxqDxW7vLBNr7zXSGCby
+	0Hc+4BU9AccrHIj4LP6BF6TXR2bzTCvDc/zNY3SPkmS+LanyM6N19wit7L5zIM6tbJiemzC38eo
+	fOQpC6ZXnUlb8DzV44RaTpJcqtOKrOvSimsd9
+X-Google-Smtp-Source: AGHT+IFrJ/orOagyAJymgJPSg/DJVqruqyKhIrkVeGYAF60SbrJ+3Q3sY0rzE/YfsLCXA6Yoo+krKw==
+X-Received: by 2002:a05:6000:2892:b0:3a4:f661:c3e0 with SMTP id ffacd0b85a97d-3a51d9807eamr1500605f8f.45.1749024656883;
+        Wed, 04 Jun 2025 01:10:56 -0700 (PDT)
+Message-ID: <84a62d70-a60b-475c-b0d8-275528dd4f33@suse.com>
+Date: Wed, 4 Jun 2025 10:10:46 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] tests/vpci: Use $(CC) instead of $(HOSTCC)
-To: Michal Orzel <michal.orzel@amd.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>, xen-devel@lists.xenproject.org
-References: <20250604072128.16628-1-michal.orzel@amd.com>
+Subject: Re: [PATCH v3] automation/eclair: update configuration of D4.10
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Stefano Stabellini <stefano.stabellini@amd.com>, michal.orzel@amd.com,
+ julien@xen.org, roger.pau@citrix.com, bertrand.marquis@arm.com,
+ federico.serafini@bugseng.com, Nicola Vetrini <nicola.vetrini@bugseng.com>,
+ xen-devel@lists.xenproject.org
+References: <alpine.DEB.2.22.394.2506031807340.2495561@ubuntu-linux-20-04-desktop>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -117,62 +121,57 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250604072128.16628-1-michal.orzel@amd.com>
+In-Reply-To: <alpine.DEB.2.22.394.2506031807340.2495561@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 04.06.2025 09:21, Michal Orzel wrote:
-> When cross-compiling, HOSTCC can be different than CC.
-
-I'm sorry for being pedantic, but the two can also be different for other
-reasons (and I'd like to avoid this becoming a bad precedent, then getting
-copied elsewhere). Both may target the same architecture. Hence I'd like
-to suggest ...
-
-> With the recent
-> `install` rule addition, this would put a binary of a wrong format in
-> the destdir (e.g. building tests on x86 host for Arm target).
+On 04.06.2025 03:11, Stefano Stabellini wrote:
+> MISRA C Directive 4.10 states that "Precautions shall be taken in order
+> to prevent the contents of a header file being included more than
+> once".
 > 
-> Take the opportunity to adjust the `run` rule to only run the test if
-> HOSTCC is CC, else print a warning message.
+> Add a SAF tag to the existing comment on top of cpufeatures.h.
+> Add a header inclusion guard to compile.h.
 > 
-> Fixes: 96a587a05736 ("tools/tests: Add install target for vPCI")
-> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+> Update ECLAIR configuration to:
+> - extend existing deviation to other comments explicitly saying a file
+>   is intended for multiple inclusion;
+> - extend existing deviation to other autogenerated files;
+> - tag the guidelines as clean.
+> 
+> Update deviations.rst accordingly.
+> 
+> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
+> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
 > ---
-> Changes in v2:
->  - change Fixes tag
->  - add `run` rule adjustment from Roger
-> ---
->  tools/tests/vpci/Makefile | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
-> 
-> diff --git a/tools/tests/vpci/Makefile b/tools/tests/vpci/Makefile
-> index 9450f7593a41..f2226a5543bc 100644
-> --- a/tools/tests/vpci/Makefile
-> +++ b/tools/tests/vpci/Makefile
-> @@ -8,10 +8,14 @@ all: $(TARGET)
+> Changes in v3:
+> - fix copy/paste error in process-banner.sed
+> - fix comment in cpufeatures.h so that ECLAIR picks it up properly
+> - remove xlat.h deviation thanks to Jan's patch
+
+With this in mind, ...
+
+> --- a/docs/misra/deviations.rst
+> +++ b/docs/misra/deviations.rst
+> @@ -30,6 +30,19 @@ Deviations related to MISRA C:2012 Directives:
+>         not to add an additional encapsulation layer.
+>       - Tagged as `deliberate` for ECLAIR.
 >  
->  .PHONY: run
->  run: $(TARGET)
-> +ifeq ($(CC),$(HOSTCC))
->  	./$(TARGET)
-> +else
-> +	$(warning HOSTCC != CC, cannot run test)
+> +   * - D4.10
+> +     - Files that are intended to be included more than once (and have
+> +       a comment that says this explicitly) do not need to conform to the
+> +       directive.
+> +     - Tagged as `safe` for ECLAIR.
+> +
+> +   * - D4.10
+> +     - There are autogenerated files that do not need to comply to the
+> +       directive.
+> +     - Tagged as `safe` for ECLAIR. Such files are:
+> +        - xen/include/generated/autoconf.h
+> +        - xen/arch/{arm,x86}/include/generated/asm/\*
 
-... s/cannot/will not/ here. Alternatively, -dumpmachine output of both
-could be compared, yet even that would leave us with false negatives
-(e.g. x86_64-suse-linux vs x86_64-pc-linux-gnu as I can see for my
-system compiler vs the ones I built myself).
+... why not deal with at least the latter (we may not want to fiddle with kconfig
+sources) as well?
 
 Jan
-
-> +endif
->  
->  $(TARGET): vpci.c vpci.h list.h main.c emul.h
-> -	$(HOSTCC) $(CFLAGS_xeninclude) -g -o $@ vpci.c main.c
-> +	$(CC) $(CFLAGS_xeninclude) -g -o $@ vpci.c main.c
->  
->  .PHONY: clean
->  clean:
-
 
