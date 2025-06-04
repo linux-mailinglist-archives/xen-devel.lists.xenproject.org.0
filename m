@@ -2,38 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22CFEACD071
-	for <lists+xen-devel@lfdr.de>; Wed,  4 Jun 2025 01:57:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1004961.1384601 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E7CEACD2EB
+	for <lists+xen-devel@lfdr.de>; Wed,  4 Jun 2025 03:12:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1004994.1384610 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uMbUh-00066i-FQ; Tue, 03 Jun 2025 23:56:35 +0000
+	id 1uMcfG-0006pi-Si; Wed, 04 Jun 2025 01:11:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1004961.1384601; Tue, 03 Jun 2025 23:56:35 +0000
+Received: by outflank-mailman (output) from mailman id 1004994.1384610; Wed, 04 Jun 2025 01:11:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uMbUh-00064W-CJ; Tue, 03 Jun 2025 23:56:35 +0000
-Received: by outflank-mailman (input) for mailman id 1004961;
- Tue, 03 Jun 2025 23:56:33 +0000
+	id 1uMcfG-0006oK-Pq; Wed, 04 Jun 2025 01:11:34 +0000
+Received: by outflank-mailman (input) for mailman id 1004994;
+ Wed, 04 Jun 2025 01:11:32 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=pD2F=YS=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1uMbUf-00064Q-QO
- for xen-devel@lists.xenproject.org; Tue, 03 Jun 2025 23:56:33 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
+ <SRS0=/Klp=YT=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1uMcfE-0006oE-SK
+ for xen-devel@lists.xenproject.org; Wed, 04 Jun 2025 01:11:32 +0000
+Received: from sea.source.kernel.org (sea.source.kernel.org
+ [2600:3c0a:e001:78e:0:1991:8:25])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5f6467b3-40d6-11f0-a300-13f23c93f187;
- Wed, 04 Jun 2025 01:56:31 +0200 (CEST)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-451ebd3d149so8877445e9.2
- for <xen-devel@lists.xenproject.org>; Tue, 03 Jun 2025 16:56:31 -0700 (PDT)
-Received: from localhost.localdomain (host-92-26-98-202.as13285.net.
- [92.26.98.202]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-450d7fb0467sm178723325e9.19.2025.06.03.16.56.29
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 03 Jun 2025 16:56:30 -0700 (PDT)
+ id d855a85d-40e0-11f0-a300-13f23c93f187;
+ Wed, 04 Jun 2025 03:11:30 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id DAA204419F;
+ Wed,  4 Jun 2025 01:11:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66208C4CEED;
+ Wed,  4 Jun 2025 01:11:27 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,115 +42,165 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5f6467b3-40d6-11f0-a300-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1748994991; x=1749599791; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=pODLuhqUvl+9jztQ6zVDSplRxKL2WIWuXC+a3efJm9g=;
-        b=nmewkGQahYU1B26of2Ie3D++1082Nung5k077P4PjAtbmb+ImqQjOGEdqHJNvJmcms
-         DzusykjH+eB3m2h378QeO69WiZeBVKFIfdrJAGcrb5EPp7VZCTWSdEeDwW+/nhdglIE2
-         gjVBB4X0vkApVmPThL4ZQkcPQbLTZazLNNKl4=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1748994991; x=1749599791;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=pODLuhqUvl+9jztQ6zVDSplRxKL2WIWuXC+a3efJm9g=;
-        b=rDrtnshpJukTp8gNPtmjcQIwl9wjtcSZoANCdIfYG/8+QJbkeyrHrCixGFHwdZltTh
-         jR/y45k4k9b16864gmoBqAqC35aqy05++ssFGI50xa8bMi1K+JoGYxfhoXRYQ3qPHtJP
-         FdvJvRSWdy3Q5YvMu7+MH5r4ARam7lgXF6BHVTpmi5coaUftpe9dnEUgEDaHVT3x7yIW
-         0o/zIYxVUO2h5dG01xVXWij99M7u11fmzKGCvO+F7gRTpiZxUp2JkBDGeI2eZzoJVNsR
-         63Q927cjB519IkvGS3ZpjI1SGmJpL0tyieTgRbnAmo4CadE8UZ0IkQAwph69mFzydnWX
-         tTsg==
-X-Gm-Message-State: AOJu0YwuUUoCzQpU9XV3L3m4gHSrRjAohtAxes6ZMzlmfxCslal6IYhv
-	P+OZuQPm74AQOHY5zIuRq0BCcAnuGXHeOv1P3XeMcJmnzgmKo2GNix3Ev4PVm3gMbDghalb068o
-	kSw+M
-X-Gm-Gg: ASbGncuCgXCERIk7Gw3fUIbiU4g2boZZhcH+gZHOu5Ortje2Ahn0eeiPifH1MHv4sD+
-	gJ9TxID32ecEiCX6HIF3XkEdbuiG33uJizRehKs7kNH5ColP2p1WY/U+DDJPROzw7tCeQxkxijs
-	0kgd0D66A2LzcIwErOe0/FVTy3/4ZHf0ziBRqQDOPQ/G9CQGMDJO3fkqoNGVOYvNQyJ3tN9cR4u
-	raPrDsVVpRnfi8ThEfVY3eX7ZX+V0NKTP2CdtSsTwPc9KEh2MoxvplYk3xY6PAoszA+BY02wxBn
-	8s2Q8DMhTZFJqwXCC4djMWjZluhW2IYxH/fKLd2/CkfLLllYRDpHSjogHIRVBhprLJQ02Y0yWcd
-	uzUq3Ix4ptr+9MrKvz5sahmlwodeL/ulJsUQ=
-X-Google-Smtp-Source: AGHT+IEYkIt5cApoydTDEeGe6Eamjf/vu4yo0zzuizQAvi7VqToTNX+2Q+5yW+W6wrr76H7m/o3QRQ==
-X-Received: by 2002:a5d:584a:0:b0:3a4:eecf:99af with SMTP id ffacd0b85a97d-3a51d9748c4mr416413f8f.44.1748994990974;
-        Tue, 03 Jun 2025 16:56:30 -0700 (PDT)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <JBeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH] x86/boot: Fix domain_cmdline_size()
-Date: Wed,  4 Jun 2025 00:56:28 +0100
-Message-Id: <20250603235628.2750156-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.39.5
+X-Inumbo-ID: d855a85d-40e0-11f0-a300-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1748999488;
+	bh=0LANvjNKYi3ekDv4nxB1reNihHSyLjryMxfmaUPKeao=;
+	h=Date:From:To:cc:Subject:From;
+	b=r3fJ/KCC0B2aghuY9oBFg6p0thtORSSDXHz2JcSZE1K9emzej6T9CiSO/JJ1DmQ8v
+	 DHO1c5MWdMKBm5pBB37mLlxAZxroKL/MQTPgueKxTGRwQJOPPCz6HMb4g16KkhAqy/
+	 eY0PahzCVPs4k043NVa2myXpzO302QDefMmE2DXjHrIW79UxXBl5cpmbrPhOKSU6Nc
+	 k8IOCpsy8E+XMoqjArddIkjTTlftmm6NKHfiPc5vfrO1BDDBCNeDWOo8t49dMtAi3j
+	 UC2SGUKQwggzqF2bsP/XhvydMDUyrOhy4xxPJHqgVs5l/6n0ufeMZAw7UK62S+Zryd
+	 ARQITw6jTYDUw==
+Date: Tue, 3 Jun 2025 18:11:26 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: xen-devel@lists.xenproject.org
+cc: Andrew Cooper <andrew.cooper3@citrix.com>, 
+    Stefano Stabellini <stefano.stabellini@amd.com>, michal.orzel@amd.com, 
+    jbeulich@suse.com, julien@xen.org, roger.pau@citrix.com, 
+    sstabellini@kernel.org, bertrand.marquis@arm.com, 
+    federico.serafini@bugseng.com, Nicola Vetrini <nicola.vetrini@bugseng.com>
+Subject: [PATCH v3] automation/eclair: update configuration of D4.10
+Message-ID: <alpine.DEB.2.22.394.2506031807340.2495561@ubuntu-linux-20-04-desktop>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
 
-The early exit from domain_cmdline_size() is buggy.  Even if there's no
-bootloader cmdline and no kextra, there still might be Xen parameters to
-forward, and therefore a nonzero cmdline.
+MISRA C Directive 4.10 states that "Precautions shall be taken in order
+to prevent the contents of a header file being included more than
+once".
 
-Explain what the function is doing, and rewrite it to be both more legible and
-more extendible.
+Add a SAF tag to the existing comment on top of cpufeatures.h.
+Add a header inclusion guard to compile.h.
 
-Fixes: 142f0a43a15a ("x86/boot: add cmdline to struct boot_domain")
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Update ECLAIR configuration to:
+- extend existing deviation to other comments explicitly saying a file
+  is intended for multiple inclusion;
+- extend existing deviation to other autogenerated files;
+- tag the guidelines as clean.
+
+Update deviations.rst accordingly.
+
+Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
+Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
 ---
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
+Changes in v3:
+- fix copy/paste error in process-banner.sed
+- fix comment in cpufeatures.h so that ECLAIR picks it up properly
+- remove xlat.h deviation thanks to Jan's patch
 
-And just to demonstrate how bad ternary operators are when they're not used
-over trivial scalars, this "no effective change in logic" still saves most of
-a cacheline of logic:
+Now it is fully tested and working as the ECLAIR runner is back online.
 
-  add/remove: 0/0 grow/shrink: 0/1 up/down: 0/-56 (-56)
-  Function                                     old     new   delta
-  __start_xen                                 8946    8890     -56
-
-The "if ( cmdline_size )" in create_dom0() could be dropped.  It's impossible
-to be 0 now, which is correct behaviour.  But, that should be deferred to a
-later change.
+Changes in v2:
+- merge the two "Generated file, do not edit!" deviations into one
+- change cpufeatures.h deviation to SAF
+- remove compile.h deviation and change compile.h.in instead
 ---
- xen/arch/x86/setup.c | 15 +++++++++++----
- 1 file changed, 11 insertions(+), 4 deletions(-)
 
-diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
-index 1f5cb67bd0ee..d47b99f1b2c9 100644
---- a/xen/arch/x86/setup.c
-+++ b/xen/arch/x86/setup.c
-@@ -980,15 +980,22 @@ static unsigned int __init copy_bios_e820(struct e820entry *map, unsigned int li
-     return n;
- }
+diff --git a/automation/eclair_analysis/ECLAIR/deviations.ecl b/automation/eclair_analysis/ECLAIR/deviations.ecl
+index 9c67358d46..8ec1b85350 100644
+--- a/automation/eclair_analysis/ECLAIR/deviations.ecl
++++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
+@@ -72,11 +72,15 @@ they are not instances of commented-out code."
+ -config=MC3A2.D4.3,reports+={deliberate, "any_area(any_loc(file(arm64_bitops))&&context(name(int_clear_mask16)))"}
+ -doc_end
  
-+/*
-+ * Calculate the maximum possible size of the dom0 cmdline.  Pieces of the
-+ * dom0 cmdline optionally come from the bootloader directly, from Xen's
-+ * cmdline (following " -- "), and individual Xen parameters are forwarded
-+ * too.
-+ */
- static size_t __init domain_cmdline_size(const struct boot_info *bi,
-                                          const struct boot_domain *bd)
- {
--    size_t s = bi->kextra ? strlen(bi->kextra) : 0;
-+    size_t s = 0;
+--doc_begin="Files that are intended to be included more than once do not need to
+-conform to the directive."
++-doc_begin="Files that are intended to be included more than once (and have
++a comment that says this explicitly) do not need to conform to the directive."
+ -config=MC3A2.D4.10,reports+={safe, "first_area(text(^/\\* This file is intended to be included multiple times\\. \\*/$, begin-4))"}
+--config=MC3A2.D4.10,reports+={safe, "first_area(text(^/\\* Generated file, do not edit! \\*/$, begin-3))"}
+--config=MC3A2.D4.10,reports+={safe, "all_area(all_loc(file(^xen/include/generated/autoconf.h$)))"}
++-config=MC3A2.D4.10,reports+={safe, "first_area(text(^/\\* Generated file, do not edit! \\*/$, begin-3...begin-2))"}
++-doc_end
++
++-doc_begin="Autogenerated files that do not need to conform to the directive."
++-config=MC3A2.D4.10,reports+={safe, "all_area(all_loc(file(^xen/include/generated/autoconf\\.h$)))"}
++-config=MC3A2.D4.10,reports+={safe, "all_area(all_loc(file(^xen/arch/(arm||x86)/include/generated/asm/.*$)))"}
+ -doc_end
  
--    s += bd->kernel->cmdline_pa ? strlen(__va(bd->kernel->cmdline_pa)) : 0;
-+    if ( bd->kernel->cmdline_pa )
-+        s += strlen(__va(bd->kernel->cmdline_pa));
+ -doc_begin="Including multiple times a .c file is safe because every function or data item
+diff --git a/automation/eclair_analysis/ECLAIR/tagging.ecl b/automation/eclair_analysis/ECLAIR/tagging.ecl
+index f9da5d5f4d..b95f07feb0 100644
+--- a/automation/eclair_analysis/ECLAIR/tagging.ecl
++++ b/automation/eclair_analysis/ECLAIR/tagging.ecl
+@@ -23,6 +23,7 @@
+ "MC3A2.D1.1||
+ MC3A2.D2.1||
+ MC3A2.D4.1||
++MC3A2.D4.10||
+ MC3A2.D4.11||
+ MC3A2.D4.14||
+ MC3A2.R1.1||
+diff --git a/docs/misra/deviations.rst b/docs/misra/deviations.rst
+index fe0b1e10a2..fd7a18983d 100644
+--- a/docs/misra/deviations.rst
++++ b/docs/misra/deviations.rst
+@@ -30,6 +30,19 @@ Deviations related to MISRA C:2012 Directives:
+        not to add an additional encapsulation layer.
+      - Tagged as `deliberate` for ECLAIR.
  
--    if ( s == 0 )
--        return s;
-+    if ( bi->kextra )
-+        s += strlen(bi->kextra);
++   * - D4.10
++     - Files that are intended to be included more than once (and have
++       a comment that says this explicitly) do not need to conform to the
++       directive.
++     - Tagged as `safe` for ECLAIR.
++
++   * - D4.10
++     - There are autogenerated files that do not need to comply to the
++       directive.
++     - Tagged as `safe` for ECLAIR. Such files are:
++        - xen/include/generated/autoconf.h
++        - xen/arch/{arm,x86}/include/generated/asm/\*
++
+    * - D4.10
+      - Including multiple times a .c file is safe because every function or data item
+        it defines would in (the common case) be already defined.
+diff --git a/xen/arch/x86/include/asm/cpufeatures.h b/xen/arch/x86/include/asm/cpufeatures.h
+index 9e3ed21c02..bd1f00f5d2 100644
+--- a/xen/arch/x86/include/asm/cpufeatures.h
++++ b/xen/arch/x86/include/asm/cpufeatures.h
+@@ -1,6 +1,6 @@
+-/*
+- * Explicitly intended for multiple inclusion.
+- */
++/* This file is intended to be included multiple times. */
++/*#ifndef X86_CPUFEATURES_H */
++/*#define X86_CPUFEATURES_H */
  
-     /*
-      * Certain parameters from the Xen command line may be added to the dom0
-
-base-commit: 2c4a3d688943b2034756859844b8337a5a97ce07
-prerequisite-patch-id: 32a8746877e6b92075be2f022dca25c6bfa6f31e
--- 
-2.39.5
-
+ #include <xen/lib/x86/cpuid-autogen.h>
+ 
+@@ -63,3 +63,5 @@ XEN_CPUFEATURE(USE_VMCALL,        X86_SYNTH(30)) /* Use VMCALL instead of VMMCAL
+ 
+ /* Total number of capability words, inc synth and bug words. */
+ #define NCAPINTS (FSCAPINTS + X86_NR_SYNTH + X86_NR_BUG) /* N 32-bit words worth of info */
++
++/*#endif X86_CPUFEATURES_H */
+diff --git a/xen/include/xen/compile.h.in b/xen/include/xen/compile.h.in
+index 3151d1e7d1..9206341ba6 100644
+--- a/xen/include/xen/compile.h.in
++++ b/xen/include/xen/compile.h.in
+@@ -1,3 +1,6 @@
++#ifndef XEN_COMPILE_H
++#define XEN_COMPILE_H
++
+ #define XEN_COMPILE_DATE	"@@date@@"
+ #define XEN_COMPILE_TIME	"@@time@@"
+ #define XEN_COMPILE_BY		"@@whoami@@"
+diff --git a/xen/tools/process-banner.sed b/xen/tools/process-banner.sed
+index 56c76558bc..4cf3f9a116 100755
+--- a/xen/tools/process-banner.sed
++++ b/xen/tools/process-banner.sed
+@@ -12,3 +12,8 @@ s_(.*)_"\1\\n"_
+ 
+ # Trailing \ on all but the final line.
+ $!s_$_ \\_
++
++# Append closing header guard
++$a\
++\
++#endif /* XEN_COMPILE_H */
 
