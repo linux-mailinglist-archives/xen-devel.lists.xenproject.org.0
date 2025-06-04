@@ -2,35 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E7CEACD2EB
-	for <lists+xen-devel@lfdr.de>; Wed,  4 Jun 2025 03:12:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1004994.1384610 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA5D2ACD796
+	for <lists+xen-devel@lfdr.de>; Wed,  4 Jun 2025 07:53:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1005080.1384620 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uMcfG-0006pi-Si; Wed, 04 Jun 2025 01:11:34 +0000
+	id 1uMh3W-00051G-PG; Wed, 04 Jun 2025 05:52:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1004994.1384610; Wed, 04 Jun 2025 01:11:34 +0000
+Received: by outflank-mailman (output) from mailman id 1005080.1384620; Wed, 04 Jun 2025 05:52:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uMcfG-0006oK-Pq; Wed, 04 Jun 2025 01:11:34 +0000
-Received: by outflank-mailman (input) for mailman id 1004994;
- Wed, 04 Jun 2025 01:11:32 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=/Klp=YT=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1uMcfE-0006oE-SK
- for xen-devel@lists.xenproject.org; Wed, 04 Jun 2025 01:11:32 +0000
-Received: from sea.source.kernel.org (sea.source.kernel.org
- [2600:3c0a:e001:78e:0:1991:8:25])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d855a85d-40e0-11f0-a300-13f23c93f187;
- Wed, 04 Jun 2025 03:11:30 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id DAA204419F;
- Wed,  4 Jun 2025 01:11:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66208C4CEED;
- Wed,  4 Jun 2025 01:11:27 +0000 (UTC)
+	id 1uMh3W-000503-MN; Wed, 04 Jun 2025 05:52:54 +0000
+Received: by outflank-mailman (input) for mailman id 1005080;
+ Wed, 04 Jun 2025 05:52:53 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=iVAg=YT=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uMh3V-0004zx-Ij
+ for xen-devel@lists.xenproject.org; Wed, 04 Jun 2025 05:52:53 +0000
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [2a00:1450:4864:20::330])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 26bd9628-4108-11f0-b894-0df219b8e170;
+ Wed, 04 Jun 2025 07:52:51 +0200 (CEST)
+Received: by mail-wm1-x330.google.com with SMTP id
+ 5b1f17b1804b1-442f9043f56so39181155e9.0
+ for <xen-devel@lists.xenproject.org>; Tue, 03 Jun 2025 22:52:51 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 41be03b00d2f7-b2ecebb5f40sm6914100a12.67.2025.06.03.22.52.44
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 03 Jun 2025 22:52:50 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,165 +45,119 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d855a85d-40e0-11f0-a300-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1748999488;
-	bh=0LANvjNKYi3ekDv4nxB1reNihHSyLjryMxfmaUPKeao=;
-	h=Date:From:To:cc:Subject:From;
-	b=r3fJ/KCC0B2aghuY9oBFg6p0thtORSSDXHz2JcSZE1K9emzej6T9CiSO/JJ1DmQ8v
-	 DHO1c5MWdMKBm5pBB37mLlxAZxroKL/MQTPgueKxTGRwQJOPPCz6HMb4g16KkhAqy/
-	 eY0PahzCVPs4k043NVa2myXpzO302QDefMmE2DXjHrIW79UxXBl5cpmbrPhOKSU6Nc
-	 k8IOCpsy8E+XMoqjArddIkjTTlftmm6NKHfiPc5vfrO1BDDBCNeDWOo8t49dMtAi3j
-	 UC2SGUKQwggzqF2bsP/XhvydMDUyrOhy4xxPJHqgVs5l/6n0ufeMZAw7UK62S+Zryd
-	 ARQITw6jTYDUw==
-Date: Tue, 3 Jun 2025 18:11:26 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: xen-devel@lists.xenproject.org
-cc: Andrew Cooper <andrew.cooper3@citrix.com>, 
-    Stefano Stabellini <stefano.stabellini@amd.com>, michal.orzel@amd.com, 
-    jbeulich@suse.com, julien@xen.org, roger.pau@citrix.com, 
-    sstabellini@kernel.org, bertrand.marquis@arm.com, 
-    federico.serafini@bugseng.com, Nicola Vetrini <nicola.vetrini@bugseng.com>
-Subject: [PATCH v3] automation/eclair: update configuration of D4.10
-Message-ID: <alpine.DEB.2.22.394.2506031807340.2495561@ubuntu-linux-20-04-desktop>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: 26bd9628-4108-11f0-b894-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1749016371; x=1749621171; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=6xysgJtuGxvMMNRBUfK61fJbx9rk+uZUzkoc8rRqP6Q=;
+        b=gPBlp8ldDpIrKvqmYjWf4c96i9O+zTUO+tfKZxq4zlbo16YHUsUo9yvsTT1I2BV7wK
+         jEnxGmdWKoc2xe1GIZ5Fz1fNECE4IMTeKBTmdJwvWgtZZmuL40ADxSphhAzbW0XqP7l3
+         n9aQiCufi6QiVhR8r6AII1m1O0ogbOlccvrWuk/xFPWkFd7qCT0kJNXwpQBD6X7XPAKK
+         5sNm4Ibbf9R1BHAeUfQaE1hYi/ycVTO2M9qRStUEB5qe6hUHTZYFVT+HbM6I6h8lXSX/
+         ESRxRPhKI8juA0uBFwGJJDMCQCB60OnYhMIVFlNJw/0HgebHSpRQJaNvebw6BoBDfeuI
+         G+nA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1749016371; x=1749621171;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=6xysgJtuGxvMMNRBUfK61fJbx9rk+uZUzkoc8rRqP6Q=;
+        b=iKrdB7S8Sx7NzKQYLRBsOsw3Mt1LopTZHX50cJ7ibutCbfrRyv/yOAQcb5LM4zMxtb
+         Aa8OzbwaSrOm+ojS38/XLr159p3zR4QmZwiPlbYzNlm1B9C4VVC6wxmS8K3KA+fQ1p05
+         HXH2gz18BaKPQx3RTaHmlyjvYY3c9ppfsZmUwxAbbNjNXD4PwISI3ylbBJ3t0NFD/w3D
+         w1Hxwv7HXSjAlg7ModIDJuVne0Yb6M7XP7smnJOhqkfmBoh5ZYfWK/gJx71T9QMxwJm9
+         Hkw8eibkGEkrmZQFXVHfTyThELjYLaGP2AMgik4j/yPE8klq8CpDZ3svIQNdeiZbo1Ze
+         ECcQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVvTfQFIPTpv37rWoT3Uip/sDE+gtl1iQApO3ge7UMU1sLfRztGDFPs6LaA74AtTOFiIKYjMp123jY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yyqva4Hyv2AatFEkR12js0zOHIls99+I9RK8BZpAt04GiZXRTYy
+	rTbAEXEud3wgDnzTqVmqS5F3PPj8S9PkJhqJfebSDT1VyvROcg9trMrHF7thEBzjVw==
+X-Gm-Gg: ASbGnctytwNZuyuHJsuBKGyvRvi4yuoEvdtKV+FPggOLDAkihATKFZSZxXV7flk36WR
+	OemGIKRkspqUx8JmUdPV6Giio610QamFyLTIe3t6i3+u7cqxy7um1K5hwV9R6B5RuXNkFokSHm6
+	42MHeTt+xJfg7rc+DyjUki2kZ8Zg4VO0KJbJBwgw1ZvnFe6Tn5235O5SMt8riguvW23snZ1rJzb
+	oBU0VWu/bXghdpLjhD0v3Td9xFeSh2SdoJCBoGMHMV3d4Qo50idUAxMnQZDmRXiyHotq0OBoBXI
+	5kS2cMfShdW6oLU1n+qkjMdtuNTD4WDtt0MSsw3NFNctp6m5MWc7h56rKTCL/Dz+tlr3BaHjGu4
+	2cLgoCnWM3g3zbBXH5Pc5S+DWL1v97HcVDrO8
+X-Google-Smtp-Source: AGHT+IH1QA9XaM7sNNEGRlTenWmHQ/dXp2xH90NrOuAIW4vSDmwDtCc3bfIt2F/VpyJQBHE1JIJ1ww==
+X-Received: by 2002:a05:6000:2913:b0:3a3:6415:96c8 with SMTP id ffacd0b85a97d-3a51d973ce1mr935968f8f.41.1749016370895;
+        Tue, 03 Jun 2025 22:52:50 -0700 (PDT)
+Message-ID: <a73e2e41-6101-4a4e-a50e-f68d28a0637f@suse.com>
+Date: Wed, 4 Jun 2025 07:52:39 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v11 6/7] xen/arm: enable dom0 to use PCI devices with
+ pci-passthrough=no
+To: Mykyta Poturai <Mykyta_Poturai@epam.com>
+Cc: Stewart Hildebrand <stewart.hildebrand@amd.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <cover.1748422217.git.mykyta_poturai@epam.com>
+ <c0b080618909580e527d7c6cce6010edf5278d2c.1748422217.git.mykyta_poturai@epam.com>
+ <66cda989-efe9-4389-ae8d-cb9bc4dc5239@suse.com>
+ <c5ff547e-4e0e-4f31-a07d-55527a6d8457@epam.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <c5ff547e-4e0e-4f31-a07d-55527a6d8457@epam.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-MISRA C Directive 4.10 states that "Precautions shall be taken in order
-to prevent the contents of a header file being included more than
-once".
+On 03.06.2025 15:31, Mykyta Poturai wrote:
+> On 02.06.25 11:11, Jan Beulich wrote:
+>> On 28.05.2025 11:12, Mykyta Poturai wrote:
+>>> From: Stewart Hildebrand <stewart.hildebrand@amd.com>
+>>>
+>>> Enable the use of IOMMU + PCI in dom0 without having to specify
+>>> "pci-passthrough=yes". Due to possible platform specific dependencies
+>>> of the PCI host, we rely on dom0 to initialize it and perform
+>>> a PHYSDEVOP_pci_device_add/remove call to add each device to SMMU.
+>>> PHYSDEVOP_pci_device_reset is left untouched as it does not have the
+>>> pci_passthrough_enabled check.
+>>
+>> Just to re-raise the question here: Is this actually correct?
+> 
+> I'm afraid I don't quite understand your concerns here.
+> 
+> The purpose of this patch is to relax the pci_passthrough_enabled checks 
+> and make PCI physdev ops work with passthrough disabled.
+> The reset op worked independently of PCI passthrough being on or off and 
+> will continue to do so after this patch.
+> If your concerns are about the correctness of allowing reset to always 
+> work, you specifically requested this behavior in the patches 
+> implementing it here[1].
 
-Add a SAF tag to the existing comment on top of cpufeatures.h.
-Add a header inclusion guard to compile.h.
+Right, yet even there I had already asked for possible differing opinions.
+Plus the case I had mentioned was specifically Dom0, which fits here.
 
-Update ECLAIR configuration to:
-- extend existing deviation to other comments explicitly saying a file
-  is intended for multiple inclusion;
-- extend existing deviation to other autogenerated files;
-- tag the guidelines as clean.
-
-Update deviations.rst accordingly.
-
-Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
-Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
----
-Changes in v3:
-- fix copy/paste error in process-banner.sed
-- fix comment in cpufeatures.h so that ECLAIR picks it up properly
-- remove xlat.h deviation thanks to Jan's patch
-
-Now it is fully tested and working as the ECLAIR runner is back online.
-
-Changes in v2:
-- merge the two "Generated file, do not edit!" deviations into one
-- change cpufeatures.h deviation to SAF
-- remove compile.h deviation and change compile.h.in instead
----
-
-diff --git a/automation/eclair_analysis/ECLAIR/deviations.ecl b/automation/eclair_analysis/ECLAIR/deviations.ecl
-index 9c67358d46..8ec1b85350 100644
---- a/automation/eclair_analysis/ECLAIR/deviations.ecl
-+++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
-@@ -72,11 +72,15 @@ they are not instances of commented-out code."
- -config=MC3A2.D4.3,reports+={deliberate, "any_area(any_loc(file(arm64_bitops))&&context(name(int_clear_mask16)))"}
- -doc_end
- 
---doc_begin="Files that are intended to be included more than once do not need to
--conform to the directive."
-+-doc_begin="Files that are intended to be included more than once (and have
-+a comment that says this explicitly) do not need to conform to the directive."
- -config=MC3A2.D4.10,reports+={safe, "first_area(text(^/\\* This file is intended to be included multiple times\\. \\*/$, begin-4))"}
---config=MC3A2.D4.10,reports+={safe, "first_area(text(^/\\* Generated file, do not edit! \\*/$, begin-3))"}
---config=MC3A2.D4.10,reports+={safe, "all_area(all_loc(file(^xen/include/generated/autoconf.h$)))"}
-+-config=MC3A2.D4.10,reports+={safe, "first_area(text(^/\\* Generated file, do not edit! \\*/$, begin-3...begin-2))"}
-+-doc_end
-+
-+-doc_begin="Autogenerated files that do not need to conform to the directive."
-+-config=MC3A2.D4.10,reports+={safe, "all_area(all_loc(file(^xen/include/generated/autoconf\\.h$)))"}
-+-config=MC3A2.D4.10,reports+={safe, "all_area(all_loc(file(^xen/arch/(arm||x86)/include/generated/asm/.*$)))"}
- -doc_end
- 
- -doc_begin="Including multiple times a .c file is safe because every function or data item
-diff --git a/automation/eclair_analysis/ECLAIR/tagging.ecl b/automation/eclair_analysis/ECLAIR/tagging.ecl
-index f9da5d5f4d..b95f07feb0 100644
---- a/automation/eclair_analysis/ECLAIR/tagging.ecl
-+++ b/automation/eclair_analysis/ECLAIR/tagging.ecl
-@@ -23,6 +23,7 @@
- "MC3A2.D1.1||
- MC3A2.D2.1||
- MC3A2.D4.1||
-+MC3A2.D4.10||
- MC3A2.D4.11||
- MC3A2.D4.14||
- MC3A2.R1.1||
-diff --git a/docs/misra/deviations.rst b/docs/misra/deviations.rst
-index fe0b1e10a2..fd7a18983d 100644
---- a/docs/misra/deviations.rst
-+++ b/docs/misra/deviations.rst
-@@ -30,6 +30,19 @@ Deviations related to MISRA C:2012 Directives:
-        not to add an additional encapsulation layer.
-      - Tagged as `deliberate` for ECLAIR.
- 
-+   * - D4.10
-+     - Files that are intended to be included more than once (and have
-+       a comment that says this explicitly) do not need to conform to the
-+       directive.
-+     - Tagged as `safe` for ECLAIR.
-+
-+   * - D4.10
-+     - There are autogenerated files that do not need to comply to the
-+       directive.
-+     - Tagged as `safe` for ECLAIR. Such files are:
-+        - xen/include/generated/autoconf.h
-+        - xen/arch/{arm,x86}/include/generated/asm/\*
-+
-    * - D4.10
-      - Including multiple times a .c file is safe because every function or data item
-        it defines would in (the common case) be already defined.
-diff --git a/xen/arch/x86/include/asm/cpufeatures.h b/xen/arch/x86/include/asm/cpufeatures.h
-index 9e3ed21c02..bd1f00f5d2 100644
---- a/xen/arch/x86/include/asm/cpufeatures.h
-+++ b/xen/arch/x86/include/asm/cpufeatures.h
-@@ -1,6 +1,6 @@
--/*
-- * Explicitly intended for multiple inclusion.
-- */
-+/* This file is intended to be included multiple times. */
-+/*#ifndef X86_CPUFEATURES_H */
-+/*#define X86_CPUFEATURES_H */
- 
- #include <xen/lib/x86/cpuid-autogen.h>
- 
-@@ -63,3 +63,5 @@ XEN_CPUFEATURE(USE_VMCALL,        X86_SYNTH(30)) /* Use VMCALL instead of VMMCAL
- 
- /* Total number of capability words, inc synth and bug words. */
- #define NCAPINTS (FSCAPINTS + X86_NR_SYNTH + X86_NR_BUG) /* N 32-bit words worth of info */
-+
-+/*#endif X86_CPUFEATURES_H */
-diff --git a/xen/include/xen/compile.h.in b/xen/include/xen/compile.h.in
-index 3151d1e7d1..9206341ba6 100644
---- a/xen/include/xen/compile.h.in
-+++ b/xen/include/xen/compile.h.in
-@@ -1,3 +1,6 @@
-+#ifndef XEN_COMPILE_H
-+#define XEN_COMPILE_H
-+
- #define XEN_COMPILE_DATE	"@@date@@"
- #define XEN_COMPILE_TIME	"@@time@@"
- #define XEN_COMPILE_BY		"@@whoami@@"
-diff --git a/xen/tools/process-banner.sed b/xen/tools/process-banner.sed
-index 56c76558bc..4cf3f9a116 100755
---- a/xen/tools/process-banner.sed
-+++ b/xen/tools/process-banner.sed
-@@ -12,3 +12,8 @@ s_(.*)_"\1\\n"_
- 
- # Trailing \ on all but the final line.
- $!s_$_ \\_
-+
-+# Append closing header guard
-+$a\
-+\
-+#endif /* XEN_COMPILE_H */
+Jan
 
