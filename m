@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A140ACDE3E
-	for <lists+xen-devel@lfdr.de>; Wed,  4 Jun 2025 14:43:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1005500.1384954 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 22CBEACDE40
+	for <lists+xen-devel@lfdr.de>; Wed,  4 Jun 2025 14:43:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1005506.1384963 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uMnSM-0000YX-G9; Wed, 04 Jun 2025 12:42:58 +0000
+	id 1uMnTC-00012x-OS; Wed, 04 Jun 2025 12:43:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1005500.1384954; Wed, 04 Jun 2025 12:42:58 +0000
+Received: by outflank-mailman (output) from mailman id 1005506.1384963; Wed, 04 Jun 2025 12:43:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uMnSM-0000WD-DN; Wed, 04 Jun 2025 12:42:58 +0000
-Received: by outflank-mailman (input) for mailman id 1005500;
- Wed, 04 Jun 2025 12:42:56 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uMnTC-000119-Lk; Wed, 04 Jun 2025 12:43:50 +0000
+Received: by outflank-mailman (input) for mailman id 1005506;
+ Wed, 04 Jun 2025 12:43:50 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=iVAg=YT=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uMnSK-0000Vd-Fh
- for xen-devel@lists.xenproject.org; Wed, 04 Jun 2025 12:42:56 +0000
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [2a00:1450:4864:20::434])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6f205ea7-4141-11f0-b894-0df219b8e170;
- Wed, 04 Jun 2025 14:42:54 +0200 (CEST)
-Received: by mail-wr1-x434.google.com with SMTP id
- ffacd0b85a97d-3a36e090102so3940694f8f.2
- for <xen-devel@lists.xenproject.org>; Wed, 04 Jun 2025 05:42:54 -0700 (PDT)
+ id 1uMnTC-00010z-3M
+ for xen-devel@lists.xenproject.org; Wed, 04 Jun 2025 12:43:50 +0000
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [2a00:1450:4864:20::429])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8fd26a96-4141-11f0-a300-13f23c93f187;
+ Wed, 04 Jun 2025 14:43:49 +0200 (CEST)
+Received: by mail-wr1-x429.google.com with SMTP id
+ ffacd0b85a97d-3a51481a598so1127258f8f.3
+ for <xen-devel@lists.xenproject.org>; Wed, 04 Jun 2025 05:43:49 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3124e2c284dsm8835785a91.11.2025.06.04.05.42.48
+ 98e67ed59e1d1-3124e3d4b6dsm8847157a91.45.2025.06.04.05.43.43
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 04 Jun 2025 05:42:53 -0700 (PDT)
+ Wed, 04 Jun 2025 05:43:48 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6f205ea7-4141-11f0-b894-0df219b8e170
+X-Inumbo-ID: 8fd26a96-4141-11f0-a300-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1749040974; x=1749645774; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1749041028; x=1749645828; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=mA4TmxYayexRiMjd9XMf0pd9INNo8GBli4r/JCX2tuA=;
-        b=R0IcJGo9+B2BPKa+wSXRHTwX60hpU91IMVz3GEEdeNU/zOmMX4T7nLkrsUJBjhN23B
-         uUhhPcKt12UlS3uO7Yhl02hEUuIm4BK3nXzy918T6fjllC9ALpfxRhVeKj1x1xFI9qrx
-         ZAPzJkhGFevmrK5iR6ttFu/Vz0IL5Hl8oBRaHIIoXH+Uet5K6Np1rCRjyUKLVlYbAB/U
-         5pb23VYICExPuicIOv9Cbqx1jqouLCW6bGeVDFLVsqtXeyw3vsEgWQOGQ8phZzenz8pP
-         t2ryOZ4MWuPwYjJ8Uw2oqKe1r/E4ERZgInN+1tEkseD68mfjtZK8RnH9zLDcXgU5ztxz
-         vWMA==
+        bh=555Hmb33Ir+0XtpJymECE0VBTEfBzKFFNJkE+4GGjdE=;
+        b=gpm1NpnVZruP/OF6x5C/Sg/9P1yQ2NgUVfQxLnIZp11F+MxO0ozgU37c7zh97z0bJ6
+         sXMXD/63hrRzVyfmRy0TskGE8RM2iDR8aTK9a1q2JFe9RGxzQ5tPye87ywRDIPFgmBQB
+         KSwYpST5Q34y3DC/f+J2hgvwKkacgzBK/BS2wD8Y/dgt7fzT9nN+gl+9YCtXTTpRuMrQ
+         wWocOdIBX1KP8Ku6c1BnmmSiDnwY1F7UgvKI7tDO34lMGZjRlZ8J/HwjLIojFzvNAGhb
+         Fs46VYtCplEot1Kx/9sVIaLUZxIuokJ0FcKmt09bR2HICTISghkuoEI+KNExjvX/lWKD
+         HF9g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749040974; x=1749645774;
+        d=1e100.net; s=20230601; t=1749041028; x=1749645828;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=mA4TmxYayexRiMjd9XMf0pd9INNo8GBli4r/JCX2tuA=;
-        b=oY9YJoDgd8OcM88M2INhhS1JHjT1zf53BRfloDSoLaZRNeXQuBwd+KVwqWPctb8Unk
-         o+oUTHFKV5hJN+xHgBzCs+vqzviBQ/VIz1X0vXnqT30iyEc6JJeRD4BXCSmydeYMYnks
-         smI4Zw9gfgpmcGIal9wDaD47rlyd3hqeOq26SC+8EOuwDpHgpHybJDXfqNI5ka+BFeWU
-         tknR33cEWx24dzctODdm0sOz06GWJLUdFP4uih1wZJ8qF2DWQzwFtV1+8v3KWbWfPKyA
-         ZH5TV7KBjUeWEF5ZpOFpjOnzYmPYoHSLLtQ+9EfkO+U1zGJwtyTyEV2uZjbaSiRCmF/O
-         1pxg==
-X-Forwarded-Encrypted: i=1; AJvYcCW6MLQArZqyPvlQZo5Hff6JfRO8s/N1dJZS7axv2uFp44U7aOv2BR8nnO3uKx6Z8DI5no/6ChQ+qVs=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YysLpb3UUPBwY8IAzLOh01unZ1suK+RJw50VO5q9ZzGnwoMLJmR
-	hahm1RYK14A20vD8O3/aFuSqSah/ZMt0me/JNGMlfzat7EQgNHgTE1Al6+Ol0d4rKg==
-X-Gm-Gg: ASbGncvBOcDAytc42ZAwhBwZDRTDOh1Nc0zeboowG9Zf8Bh1nbuBeRNWjMirosfsENS
-	Xv48TIJRtJcHTK9BjQhXHzAkXQVlhUfjk86ZJlIlDINm7+e8nWClxc7ZiqFhVnxQx5axMNWkWld
-	rNm8m/IQrlRRtonsSSO2XnyPXga4fViH6KN+4dMmjF6312Csx+U7iHXgwgAP7Q8sHb8tauAtEqI
-	WGlJKlqa6+wdmOKP3sDIVsyEIF3lQIs1U5cWLXfOT3VkL4tx8ekVTvm/b62PJz+vw8qL5RLy/XQ
-	Q9VQcg8eI/zC02Aqy2H/ZvPXVsXBRQt43WUe5f/ZBEeUIIGDAXWJntdKMIP1pQ2hBTUM/zupOMP
-	i+Yn1SQXFgd8pJnDdYa6zW3ZxFCYKy5HQ1fyBEYUTEORbXJ0=
-X-Google-Smtp-Source: AGHT+IH2DIwyN/2U28Q8nyTv+/5DQc1G3N6C56uxMa4glVhhGGnNtYx2FzenrLx2u33Dl8/tnARTBg==
-X-Received: by 2002:a5d:4805:0:b0:3a5:2182:bd17 with SMTP id ffacd0b85a97d-3a52182c0eamr1350639f8f.19.1749040973761;
-        Wed, 04 Jun 2025 05:42:53 -0700 (PDT)
-Message-ID: <2c120e48-edaa-4518-a92e-38872bfc6eac@suse.com>
-Date: Wed, 4 Jun 2025 14:42:45 +0200
+        bh=555Hmb33Ir+0XtpJymECE0VBTEfBzKFFNJkE+4GGjdE=;
+        b=j4ZHY735M75jro2t+zxx3J+5jqFWsfhvZGVf5rmeFEw5H5F2hHurolAGOm20RS4EHg
+         65SoBJl3qqQIvsgqnD/3iW2WiR921mSIvH/pNO3av3iRQ4bNaR46AFG1ivALm6GgmR6u
+         yKX0nmknYwW1AmrWAUD9QB0nJKx2ofUw2gyU7Kihign3DS59nwxY1hs9ouTK8kCI8hf4
+         5SrfF+tZUvFTwR4mopAG7Aegag2tChqJ7FwZtMw4/JxGd7KhYLzGx6L2rL1c0wrT56SH
+         Xsqi0+aYGeC/0f4SiatWhfPbNGoCYVqkw5ZFeI9grpNNTaeYqA72zs7iukCvpYtaNa71
+         cU1g==
+X-Forwarded-Encrypted: i=1; AJvYcCW9/vOsv8AQFJg8mo61qol6QrioiCsjMZt3DyIrlA3w8UPTYo5FadP/5YBcoRUDDVx3NsZw3HHTltM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxbZ7SycX8w5L10Pg3qfbb1g337uPk2o+x1fPGK2ljgFQhNlepG
+	lv1UWdw7BUZ9J6RILNKP8Upgt3ShzaQUsUvCL4osfg76F9jIAm7MrDJM9qivTJYYQg==
+X-Gm-Gg: ASbGncsLc65ptIoerBULVe4SVwJbkATfOg5e+oNquoeVH59Thn5a4CiBhDT1PU8GJTS
+	iOEkNcGbUTRSX5Cc9uo/D3BpnA7OGs+hytPrLfSSqw2zQd0UAA6l6RYIP32IWK79x+rgqoOBe00
+	VGAyjUJjYKZ1EnOHOrLchBxwTesINwHO6IWSx0TWCoxD4TYzqNVb8mXpirl/e3ChImirLEyeFvz
+	optxym1Jnc7d7fvW9gmVMWHYtZWqIEIAyPmByXBItiYDlE/m8gKA5bvAYpxd5uwyBm8I5B4rsfy
+	Ve7oiHwK2B0mST8RJy1ThuXGqWAyGpTJVvV1tYgtVmXY869exmVY/XoXhaM7BjgxbbfOwRnTF0i
+	LdFsrQtZX2A/HZX0zI90QehLxQvxbzTcYn6qo
+X-Google-Smtp-Source: AGHT+IGp7fmNwXlvYYX4jYZ5yBaRWzspEd1rgOH0yHzz1CcrYZ7UrfSBS2qlWErTB/4FG6O4rUDKoQ==
+X-Received: by 2002:a05:6000:3105:b0:3a4:ef00:a7ac with SMTP id ffacd0b85a97d-3a51d974cd2mr2454074f8f.45.1749041028577;
+        Wed, 04 Jun 2025 05:43:48 -0700 (PDT)
+Message-ID: <8ffbb281-6297-4f78-981b-1f4c6fc1ff29@suse.com>
+Date: Wed, 4 Jun 2025 14:43:40 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] x86/numa: introduce per-NUMA node flush locks
+Subject: Re: [PATCH 1/2] x86/numa: add per-node lock profile objects
 To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <20250522084815.825-1-roger.pau@citrix.com>
- <20250522084815.825-3-roger.pau@citrix.com>
+ <20250522084815.825-2-roger.pau@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,52 +120,25 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250522084815.825-3-roger.pau@citrix.com>
+In-Reply-To: <20250522084815.825-2-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
 On 22.05.2025 10:48, Roger Pau Monne wrote:
-> +bool flush_numa_node(const cpumask_t *mask, const void *va, unsigned int flags)
-> +{
-> +    nodeid_t node = num_online_nodes() > 1 ? cpumask_to_node(mask)
-> +                                           : NUMA_NO_NODE;
-> +    struct arch_numa_node *info;
-> +
-> +    if ( node == NUMA_NO_NODE )
-> +        return false;
+> Add some basic infrastructure to be able to use lockprofile with per NUMA
+> node locks.  This patch just introduces the required types, plus the
+> printing of the data for the newly introduced type.  There's no user of
+> per NUMA node locks introduced here.
+> 
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> ---
+>  tools/misc/xenlockprof.c    | 5 +++++
+>  xen/common/spinlock.c       | 1 +
+>  xen/include/public/sysctl.h | 3 ++-
+>  3 files changed, 8 insertions(+), 1 deletion(-)
 
-One further question: Here you limit NUMA flushing to a single node, using
-global flushes in all other cases. Did you consider extending this? Savings
-ought to be had also when you want to e.g. flush on 2 out of 8 nodes. That
-is, would it perhaps make sense to break up the file-scope flush_* variables
-in smp.c altogether, using the NUMA approach uniformly?
-
-> +    info = node_info[node];
-
-node_info[0] would then need populating from a static struct instance, of
-course, and ...
-
-> +    if ( !info )
-> +        return false;
-
-... such conditionals of course would need to go away. Then we'd also get
-away without requiring yet another direct-APIC-vector, as ...
-
-> +    spin_lock(&info->flush_lock);
-> +    cpumask_and(&info->flush_mask, mask, &cpu_online_map);
-> +    cpumask_clear_cpu(smp_processor_id(), &info->flush_mask);
-> +    info->flush_va = va;
-> +    info->flush_flags = flags;
-> +    send_IPI_mask(&info->flush_mask, INVALIDATE_NUMA_VECTOR);
-
-... INVALIDATE_TLB_VECTOR could then be used here.
+Just one nit: Nothing here is x86-specific, so the subject prefix may want
+adjusting.
 
 Jan
-
-> +    while ( !cpumask_empty(&info->flush_mask) )
-> +        cpu_relax();
-> +    spin_unlock(&info->flush_lock);
-> +
-> +    return true;
-> +}
 
