@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C333ACDE5B
-	for <lists+xen-devel@lfdr.de>; Wed,  4 Jun 2025 14:56:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1005532.1384984 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E4EDACDE6F
+	for <lists+xen-devel@lfdr.de>; Wed,  4 Jun 2025 15:03:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1005539.1384993 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uMner-0003cR-2J; Wed, 04 Jun 2025 12:55:53 +0000
+	id 1uMnlj-0005WJ-Mm; Wed, 04 Jun 2025 13:02:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1005532.1384984; Wed, 04 Jun 2025 12:55:53 +0000
+Received: by outflank-mailman (output) from mailman id 1005539.1384993; Wed, 04 Jun 2025 13:02:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uMneq-0003aY-VB; Wed, 04 Jun 2025 12:55:52 +0000
-Received: by outflank-mailman (input) for mailman id 1005532;
- Wed, 04 Jun 2025 12:55:51 +0000
+	id 1uMnlj-0005Uo-KE; Wed, 04 Jun 2025 13:02:59 +0000
+Received: by outflank-mailman (input) for mailman id 1005539;
+ Wed, 04 Jun 2025 13:02:58 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=iVAg=YT=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uMnep-0003aQ-DL
- for xen-devel@lists.xenproject.org; Wed, 04 Jun 2025 12:55:51 +0000
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [2a00:1450:4864:20::42c])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=/urA=YT=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1uMnli-0005Ui-0f
+ for xen-devel@lists.xenproject.org; Wed, 04 Jun 2025 13:02:58 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3dbb0ee3-4143-11f0-a300-13f23c93f187;
- Wed, 04 Jun 2025 14:55:50 +0200 (CEST)
-Received: by mail-wr1-x42c.google.com with SMTP id
- ffacd0b85a97d-3a375888297so631167f8f.1
- for <xen-devel@lists.xenproject.org>; Wed, 04 Jun 2025 05:55:50 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-747affd437asm11070294b3a.150.2025.06.04.05.55.43
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 04 Jun 2025 05:55:49 -0700 (PDT)
+ id 3bf3507d-4144-11f0-a300-13f23c93f187;
+ Wed, 04 Jun 2025 15:02:56 +0200 (CEST)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-450ce671a08so43956845e9.3
+ for <xen-devel@lists.xenproject.org>; Wed, 04 Jun 2025 06:02:56 -0700 (PDT)
+Received: from localhost.localdomain (host-92-26-98-202.as13285.net.
+ [92.26.98.202]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3a4f00a02cdsm21890755f8f.94.2025.06.04.06.02.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 04 Jun 2025 06:02:55 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,139 +45,117 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3dbb0ee3-4143-11f0-a300-13f23c93f187
+X-Inumbo-ID: 3bf3507d-4144-11f0-a300-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1749041750; x=1749646550; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=SwEsN8riVOQhHVvIwBUlpvCCfcOS2+JYdhTkiCBfZiA=;
-        b=ZYkb+Fw4zh5Xk1miz5RoWJo0pQPWvnIApYInbbhMOtOnsDcgslS8oPvlqZbSp+PHB0
-         f3iW80QJg3ddfDEdnBKcJN208D6PR6LI4FjD+4MdzFdPx/03VVk8zX1lH2ba8PeMdkQx
-         hcTSuQodi9b2rGzSolIMsvmy1XhqPBrn+HBH0mFq1rngo4A2ie4NzqN5L3nCpO1ZfxyV
-         o0fTgqW+lpZnrhhDyo9hes6Ap5AtuwEDzoOzuRAirg2Ctw73hL1sKCrYuyOI1Ksm5lSA
-         /Auv5XbtPSTXCUVNREldRiEfDHHyJMGfzDX583vZxgKVJweOlIdZ/LWlbcuh+P/yXQAq
-         24Bg==
+        d=citrix.com; s=google; t=1749042176; x=1749646976; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=W+k2cOatHut62eiVD86m0J41TDAOoAGZL4LtoHPLDVI=;
+        b=Th2z/cC+344Bfgo/HWcL7PaB8cNNzDS9PO9Qj1PYih18meuX2Oulfdo7F7ZGo+hnSW
+         091qelnZsUXsbQDVmQC9kq8HCtNkFBKSQj/vQf0Y0v4LsftckUDhZfw2OYM0ldGP1aEw
+         mEOL8u9MQLWdG6nZFfDtv9zZXbJZidMX2kVqA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749041750; x=1749646550;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=SwEsN8riVOQhHVvIwBUlpvCCfcOS2+JYdhTkiCBfZiA=;
-        b=YRxuQZaJ3jhlDETovTEv2uXzXKV+yp0UOKPX1toWAIRCAaeqwGpPTJTDaf07BrriRb
-         DNNicS1z02fqReaZjRnYgxt6Mk0yF7U2Gpfk513KZE5bfNIVixVCQIyObEOwa9OFG4V1
-         nY0Ez4iktK8DXZ+nYBG+J12tEBez45+rw2nNSR/yK06WfYSfpEVuYmtIaCEsJf9OlMT+
-         NUxCO3aSpOlmXSssczOi11znUcr1GofpICQwU7udg2zPLDCDtqzc53goiRyl3AyJsh5r
-         3NOLALTbIkX1Hb5vffCD656xu3WNa/ik1oo884WVoBu3YNITKTan2mq86bXnRnhtq7mf
-         vjOQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUjq9XunYo9P7J5Sdeq9SvxWO3ydwswWhK9gMviUsl82rffS59sxGs5VFfn+HKTlXeCofkDCybKS4c=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyK+t5G0R2TmmS2Wm7gnaDEcM7GuK0OhdkKr+JJWfNVOS+e5F6N
-	ircFSNhx64IkfRym0bpLHjFQ1jltlC2xf/yo/hA80+bTVE2m+sZO9anSwanpW+n7rw==
-X-Gm-Gg: ASbGncvrAG579JBEcwjp7b7SAW6PnVV4lY73V8DEfO7n+mh6FOPgHDE7wJB8fk2Jfn7
-	NAjuCRLJMpcMDKIgNKadosSFWbO2xr9DtDatn2mOFjFqV0zkPeeiw8cFAbrxRf0cb4nwgzicpHm
-	cZBHiKztQrosjSzu/ZIwA09uMXXGgYQ1DnCjY8Y030G9vyNPebfilombGTPl7+jdbvXCAOlShXL
-	+F58WdBqFaoGbrXNSEQjFlBVloLBiazrk9r5Vu9RuGC1rWyPOYAU3oJHS/LwWvnfKh3LeoTITg2
-	cMryxs9eE2pqiwpImXaopDe5TQryY+zl4KtV6Y05xwdxDhyYv4v57O/76rRcFToxJ3fzkmyQj8k
-	U+sCmYAYmFx7gQDEsjbM4B4XEj1lRbNsmo/Xr06aw+bW0uew=
-X-Google-Smtp-Source: AGHT+IEmSbwcKsgPKaH72eDwzO6/RXZClFff1QaiWghVzUznvO2srghKd3ULdRoN/TxlwKNXH2m6dg==
-X-Received: by 2002:a5d:5847:0:b0:3a4:ed9a:7016 with SMTP id ffacd0b85a97d-3a5141cfce3mr5426662f8f.26.1749041749761;
-        Wed, 04 Jun 2025 05:55:49 -0700 (PDT)
-Message-ID: <efbd8839-7556-498e-963b-8a04c1ec42bf@suse.com>
-Date: Wed, 4 Jun 2025 14:55:40 +0200
+        d=1e100.net; s=20230601; t=1749042176; x=1749646976;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=W+k2cOatHut62eiVD86m0J41TDAOoAGZL4LtoHPLDVI=;
+        b=FWSRqyF/qeuSGcu4h/J0psEoTMgmLu6oAEKr2ZFklTJ1CP5gRVKMUy/0xvKpFeMGUR
+         aq0JBZ+4SailAoepy39hbN9T2sent8noeRKzoDjHRtLDUKB7CxVG72FezVq6ZLmWmJ9e
+         jbjjWbL+/jzdBAFE8x1myIyBYl6OMpqMB+PVxw55Cn46Eu0V3PI4NKPBI7xwCkz8Y3rX
+         DYF8FgDUcE2aoTNOxzlpCeqGy9dwDWsXj8v4PxOqe6/ifhlc5I5e38CNc/UXyJ9xrfMU
+         /4826MLrdH3wYj6YbjZDR9n1evpiDb5JdqyO2rfkGV/sHjIFZ3K4brY7i/mLdVwwUDF3
+         yv3w==
+X-Gm-Message-State: AOJu0YylqJrfslILYme2N3wZPtZ/+sxdyliHP05lWKwar66QeMaLTUHU
+	IzXSe0YRZ1CactQW5KNRccMpXVJdKb6XPoir87dE5EmUdhl7otWPPW40cMZtXeFgFv1DSFALvi6
+	vEXB1
+X-Gm-Gg: ASbGncuX3obt7c6tIVBUMDzabOLAwKz0xtVMp8F4pFux4G+F5cS+bDVzDuCd0OgClJq
+	uQWpf5un8EqXowD7rnyk+ztgrMWlcJzGvYVFhWDbfxVpbqYwsWfxxAJezV+e7c5gHTHDV84gxn8
+	Hs/1qQPOPHzpqSjA9nw51C8cAEZtNIhAzui9o1034unhKXLPBeR85m39uEqh6qViSQHDE3G/p44
+	Ydfbm99eS4kdidn68e//knBAIiuX8ukMELVCyVx7pKB0eHsygMWtVLTZrDlJNr3YvYngC+7Stoh
+	zYBummn2QQarAKZCFvwFm1LrD83xODc9Uhg6xCLieBcIKZ3j6aq66zRS7wqYmTeTlh2xamU48F9
+	tQzfddWRBpaldkHX+5orv4h93
+X-Google-Smtp-Source: AGHT+IGxqKWgRu7Fty1BsVpcQl50CvKjUPbJmvS6U8jQOQI5ofW1ncRC47tjBdkrHdEe8gbrIVD7OA==
+X-Received: by 2002:a05:600c:3151:b0:450:d586:25ad with SMTP id 5b1f17b1804b1-451f0a9a4b2mr23571995e9.15.1749042175862;
+        Wed, 04 Jun 2025 06:02:55 -0700 (PDT)
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Aidan Allen <aidan.allen1@cloud.com>,
+	Jan Beulich <JBeulich@suse.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [PATCH] x86/hvm: Process pending softirqs while dumping VMC[SB]s
+Date: Wed,  4 Jun 2025 14:02:53 +0100
+Message-Id: <20250604130253.2805053-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.39.5
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 3/4] xen/console: remove max_init_domid dependency
-To: dmkhn@proton.me
-Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org,
- michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org,
- dmukhin@ford.com, xen-devel@lists.xenproject.org
-References: <20250530231841.73386-1-dmukhin@ford.com>
- <20250530231841.73386-4-dmukhin@ford.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250530231841.73386-4-dmukhin@ford.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 31.05.2025 01:19, dmkhn@proton.me wrote:
-> --- a/xen/common/domain.c
-> +++ b/xen/common/domain.c
-> @@ -2461,6 +2461,39 @@ void domid_free(domid_t domid)
->      spin_unlock(&domid_lock);
->  }
->  
-> +/*
-> + * Find the ID of the next possible console owner domain.
-> + *
-> + * @return Domain ID: DOMID_XEN or non-system domain IDs within
-> + * the range of [0..DOMID_FIRST_RESERVED-1].
-> + */
-> +domid_t domid_find_with_input_allowed(domid_t hint)
-> +{
-> +    domid_t domid = DOMID_XEN;
-> +
-> +    if ( hint < DOMID_FIRST_RESERVED )
-> +    {
-> +        struct domain *d;
-> +
-> +        rcu_read_lock(&domlist_read_lock);
-> +
-> +        for ( d = domid_to_domain(hint);
+24 guests with 8 vcpus each is sufficient to hit a 5 second watchdog.
 
-If the domain with ID "hint" went away, what is being switched to changes
-compared to behavior prior to this patch, if I'm not mistaken. While this
-_may_ be acceptable, not saying so in the description is imo a no-go.
+Drop a piece of trailing whitespace while here.
 
-> +              d && get_domain(d) && d->domain_id < DOMID_FIRST_RESERVED;
+Reported-by: Aidan Allen <aidan.allen1@cloud.com>
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Aidan Allen <aidan.allen1@cloud.com>
+---
+ xen/arch/x86/hvm/svm/vmcb.c | 4 ++++
+ xen/arch/x86/hvm/vmx/vmcs.c | 4 +++-
+ 2 files changed, 7 insertions(+), 1 deletion(-)
 
-What's the DOMID_FIRST_RESERVED check for? And where's the put_domain()
-for the get_domain() here?
+diff --git a/xen/arch/x86/hvm/svm/vmcb.c b/xen/arch/x86/hvm/svm/vmcb.c
+index 4e1f61dbe038..839d3ff91b5a 100644
+--- a/xen/arch/x86/hvm/svm/vmcb.c
++++ b/xen/arch/x86/hvm/svm/vmcb.c
+@@ -12,6 +12,8 @@
+ #include <xen/mm.h>
+ #include <xen/rcupdate.h>
+ #include <xen/sched.h>
++#include <xen/softirq.h>
++
+ #include <asm/hvm/svm/vmcb.h>
+ #include <asm/msr-index.h>
+ #include <asm/p2m.h>
+@@ -246,6 +248,8 @@ static void cf_check vmcb_dump(unsigned char ch)
+             }
+             printk("\tVCPU %d\n", v->vcpu_id);
+             svm_vmcb_dump("key_handler", v->arch.hvm.svm.vmcb);
++
++            process_pending_softirqs();
+         }
+     }
+ 
+diff --git a/xen/arch/x86/hvm/vmx/vmcs.c b/xen/arch/x86/hvm/vmx/vmcs.c
+index 57d49364db56..57bae6679dd5 100644
+--- a/xen/arch/x86/hvm/vmx/vmcs.c
++++ b/xen/arch/x86/hvm/vmx/vmcs.c
+@@ -2165,7 +2165,7 @@ static void cf_check vmcs_dump(unsigned char ch)
+ {
+     struct domain *d;
+     struct vcpu *v;
+-    
++
+     printk("*********** VMCS Areas **************\n");
+ 
+     rcu_read_lock(&domlist_read_lock);
+@@ -2184,6 +2184,8 @@ static void cf_check vmcs_dump(unsigned char ch)
+             }
+             printk("\tVCPU %d\n", v->vcpu_id);
+             vmcs_dump_vcpu(v);
++
++            process_pending_softirqs();
+         }
+     }
+ 
 
-> +              d = rcu_dereference(d->next_in_list) )
-> +        {
-> +            if ( d->console.input_allowed )
-> +            {
-> +                domid = d->domain_id;
-> +                break;
-> +            }
-> +        }
-> +
-> +        rcu_read_unlock(&domlist_read_lock);
-> +    }
-> +
-> +    return domid;
-> +}
+base-commit: eb57fe072232c9836d085020450ce1434b21a819
+prerequisite-patch-id: 32a8746877e6b92075be2f022dca25c6bfa6f31e
+prerequisite-patch-id: a048b84683314d3a731d79fb3cb11406afa29d7b
+-- 
+2.39.5
 
-My concern remains: With many domains, the loop here may take quite a few
-iterations. That's even more concerning because it regresses right away in
-environments where along with boot-time created domains (eligible for
-console focus) later further domains are created (non of which are eligible
-for console focus). That is, the step from last boot-time created back to
-DOMID_XEN may now take excessively long.
-
-Jan
 
