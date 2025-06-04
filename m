@@ -2,56 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E556ACE3D8
-	for <lists+xen-devel@lfdr.de>; Wed,  4 Jun 2025 19:43:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1005792.1385183 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 94154ACE48D
+	for <lists+xen-devel@lfdr.de>; Wed,  4 Jun 2025 20:58:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1005842.1385204 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uMs9M-0006QO-5M; Wed, 04 Jun 2025 17:43:40 +0000
+	id 1uMtIg-0007l5-HM; Wed, 04 Jun 2025 18:57:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1005792.1385183; Wed, 04 Jun 2025 17:43:40 +0000
+Received: by outflank-mailman (output) from mailman id 1005842.1385204; Wed, 04 Jun 2025 18:57:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uMs9M-0006Oj-1d; Wed, 04 Jun 2025 17:43:40 +0000
-Received: by outflank-mailman (input) for mailman id 1005792;
- Wed, 04 Jun 2025 17:43:38 +0000
+	id 1uMtIg-0007jU-EQ; Wed, 04 Jun 2025 18:57:22 +0000
+Received: by outflank-mailman (input) for mailman id 1005842;
+ Wed, 04 Jun 2025 18:57:21 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=eifV=YT=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
- id 1uMs9K-0005sE-LF
- for xen-devel@lists.xenproject.org; Wed, 04 Jun 2025 17:43:38 +0000
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2060a.outbound.protection.outlook.com
- [2a01:111:f403:2414::60a])
+ <SRS0=VGAl=YT=gmail.com=demiobenour@srs-se1.protection.inumbo.net>)
+ id 1uMtIf-0007jO-AK
+ for xen-devel@lists.xenproject.org; Wed, 04 Jun 2025 18:57:21 +0000
+Received: from mail-qv1-xf2a.google.com (mail-qv1-xf2a.google.com
+ [2607:f8b0:4864:20::f2a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 71669a7a-416b-11f0-a300-13f23c93f187;
- Wed, 04 Jun 2025 19:43:37 +0200 (CEST)
-Received: from BLAPR05CA0010.namprd05.prod.outlook.com (2603:10b6:208:36e::19)
- by DM4PR12MB5964.namprd12.prod.outlook.com (2603:10b6:8:6b::6) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.8792.34; Wed, 4 Jun 2025 17:43:32 +0000
-Received: from MN1PEPF0000ECD6.namprd02.prod.outlook.com
- (2603:10b6:208:36e:cafe::f8) by BLAPR05CA0010.outlook.office365.com
- (2603:10b6:208:36e::19) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8792.22 via Frontend Transport; Wed,
- 4 Jun 2025 17:43:32 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- MN1PEPF0000ECD6.mail.protection.outlook.com (10.167.242.135) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8792.29 via Frontend Transport; Wed, 4 Jun 2025 17:43:31 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 4 Jun
- 2025 12:43:30 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 4 Jun
- 2025 12:43:30 -0500
-Received: from xcbayankuma40.xilinx.com (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via
- Frontend Transport; Wed, 4 Jun 2025 12:43:29 -0500
+ id bd40c80b-4175-11f0-a300-13f23c93f187;
+ Wed, 04 Jun 2025 20:57:19 +0200 (CEST)
+Received: by mail-qv1-xf2a.google.com with SMTP id
+ 6a1803df08f44-6fafb6899c2so3410126d6.0
+ for <xen-devel@lists.xenproject.org>; Wed, 04 Jun 2025 11:57:19 -0700 (PDT)
+Received: from [10.138.10.6] ([89.187.178.201])
+ by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-7d09a0e9383sm1084023185a.20.2025.06.04.11.57.16
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 04 Jun 2025 11:57:17 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,306 +45,316 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 71669a7a-416b-11f0-a300-13f23c93f187
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=aR+nXiwif367zRAg0TWdwfLBmb+T+51XrgREj9L+rNpmwB6FOcvfLj9rEqp5Yn4/6UYkMjtoMgJsxujMHxQDRpFG1eBJu0JoJMegTUDvB9aCxfYKW5y43QbO1wZLmgY7Pph9O+FOg2sfUU9UWkQQyTmIfWuHEhUZSqt2XwvKKxtVvVtnBKCSmICIRnfBdgnLiUvo8yUgNIF2OTed3sQIad0B/TaVyotpcARZy10feHmYkXfzyPZm630FmZQr+F210oru5Xhba5N9lCcC4JtxRhcavZwAxmSoLopJg03JimFmSTFCGc0RFV7PkCJiiiZSWmu/xsQ/zJAVhRrE9V9Myg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8KI8E/qyLOB0LA8peY0GYGndGcJOK3jDcX0S5pyP3xs=;
- b=LPgaS5yxTyjDPPIAs+x3u4z07BxcgR86LCKgZtMXyvDufyKFruLSsC3hUxRLR24XD9ph73Pub9FQ3llAodmayXevWvSZU7XrdR6quj4w3pDYOkehLiRkbo+xEOf/s3Y3TD5+B980y+zlPhrtfjhO1MUmOWNtPbaY1XzDuxep/E5GzLSF5z7Z5DpJyKrpF5/bRgkJ/Fe76AAFQwiNo6vqfDfLkGGrVm0SUMEmetaQMT45PKdTmG/u6L+tAAmenpBn8kxRSZZ9Rh3xWwu6L0DlL360k5Z3D+u+I/fejx3U/YbTRy4fhCzJWWw9m4kWZ94/Ilx1SWy5N/aOZYN9H04kUg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8KI8E/qyLOB0LA8peY0GYGndGcJOK3jDcX0S5pyP3xs=;
- b=5czGjaZGMquxt9rluCJrBcn7p7XNr8WghASnBjlGFrRrLN2caZv/WmvTClvcXNl+KrUPsB2RFwX+O5smeYXWqm7EHNIUn8T9IHTy3mjqw1rQBoEL/AQRPnP6hKOCF4DrrqYWJCZgdGLRQ1a0PHpM2IsoNtnJZwMCrQxNaBpT6iU=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-From: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Ayan Kumar Halder <ayan.kumar.halder@amd.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
-	<bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, "Volodymyr
- Babchuk" <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH v1 3/3] arm/mpu: Provide access to the MPU region from the C code
-Date: Wed, 4 Jun 2025 18:43:11 +0100
-Message-ID: <20250604174311.754899-4-ayan.kumar.halder@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20250604174311.754899-1-ayan.kumar.halder@amd.com>
-References: <20250604174311.754899-1-ayan.kumar.halder@amd.com>
+X-Inumbo-ID: bd40c80b-4175-11f0-a300-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1749063438; x=1749668238; darn=lists.xenproject.org;
+        h=in-reply-to:autocrypt:from:content-language:references:cc:to
+         :subject:user-agent:mime-version:date:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=ZGhC2rXS5lSykmspzD2pmrb8c20kCRcKSB074ZH4zZk=;
+        b=eaco1+m+Fu9NtFyUN2+b+Q21Kwn6QthvSNSEtwK1qgvbn4faas674peCZEQQ7obmfk
+         UodNuHr0ee46JVrTBxVLXkNkPoP099460u/8gUTJV+XTdX7hEIayxqZxTBVQbfxoPGlr
+         +U7M2722uOvOmPfO335Yc5FT6iEu/6u9aZc0WwVM9JOkTMpnpbrKAQVYCmR95foCmgmw
+         NQdFoqAXsdWgzfzLF8Xlxflw2IPvXH9luSgeffZLUepSXmmUFGXgzaMwAUf+uKLa3FaF
+         VUgeghNjzelljXDiowiSTIDogZbvTWfpisfHOFsm43Pdsg5U6bsJi16LtuiFEnLEGUNw
+         O/xw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1749063438; x=1749668238;
+        h=in-reply-to:autocrypt:from:content-language:references:cc:to
+         :subject:user-agent:mime-version:date:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=ZGhC2rXS5lSykmspzD2pmrb8c20kCRcKSB074ZH4zZk=;
+        b=SQtLS8NDiE2z4wVDdYkYaPDJLt3iVwjwGIzVu7ooEVK1cIOz+XyyBZT+vi8npiOBhB
+         DExJSvpWG0ABYr67u6lK9GEMLDy/JioXS7ZcSQB0qIyT2E/yfWSp954bMav3DP2C63gG
+         B8KF4BacdtxH5vIlp/kJvwqfW+dih2HZCvmuUXqqxvs4U1UTcbi3D/LCaZaK+bdAInA8
+         QeTQpEK4FSjv+vd8W5jN47z7fYu+oexRuq8BvxU7m8g4ZpddSD5LlUcAnkbifjrbynnH
+         kj8Zz6UOXukYbOXMX1sMqLniWCbUkNb3Lcs7eZMoJwfY4S1kfJk7y5X29kXH9zogTyS5
+         XMzQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUBRsPbrsqHRPMyFNVCB9ocNOnHgXueOUZMTddxJn3cJTuvmk403vgukg0OrCKVVvOXYq+PIjEYwlY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzPVXY3HE/QvZw8wU/VOw8/CavV8aenTWeRKlKADeajMfsGNhk/
+	L+bFb6tx3Y0HqnXpP1vQac8vKzu/bnSBQ98b4y9dhCWhNIxaO2hIj+Ln
+X-Gm-Gg: ASbGncsex1AS4TmhHkZA1vAuy5f9zn6MQNc0mZysNbLn7bbJmyTJg/VXaba4yrjgHn0
+	n/2JpV9VXhVYNBTQmHY+KuiYPfv77EA8igxiwDTiZrn+V3MaUhZjp/nySnIFfU9Pm/OzuqYQcEh
+	2BkH/UMSk/S4muOeRyLg2pZfjkPFPPJxOeGgRUH2EhQjkm+K7goBcL6lU7lkZeSvY3ZvchreM3L
+	wR5uLbK7D7XpNFtz0BUksCaxkSfbK2Etcxp8hSrxDi77YHzhVsZS0SF/KJRZAWXOMVGC6BJ+Ni6
+	jlYnRIDBCSikkza9ObBIPeRLAVkjZUWbZG6G54zMgdgZFDXA+DnpVtRCk3P8WFWfSSY=
+X-Google-Smtp-Source: AGHT+IEMLpOMnL0T/qASyxXwy9fg20borwJufJ0r9FCkjmHy+IEWhqROlP4Qri0FLb6u70BCVaKv2g==
+X-Received: by 2002:a05:6214:248d:b0:6fa:9a9d:fe93 with SMTP id 6a1803df08f44-6faffeb2decmr10298086d6.21.1749063438457;
+        Wed, 04 Jun 2025 11:57:18 -0700 (PDT)
+Message-ID: <62b32285-8ce5-4bee-b3b7-66e3a91a0a26@gmail.com>
+Date: Wed, 4 Jun 2025 14:57:02 -0400
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-Received-SPF: None (SATLEXMB05.amd.com: ayan.kumar.halder@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECD6:EE_|DM4PR12MB5964:EE_
-X-MS-Office365-Filtering-Correlation-Id: b378e537-3325-477b-ee5e-08dda38f5250
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|82310400026|36860700013|376014;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?HWZyI3vynkps4EEWpIagT4erp7YW9/BBaPbX8YTtYyq2DHG7T91ZR8tojCNZ?=
- =?us-ascii?Q?zAT03D0G4aoRtrlW+CYL3d9w4rgMYUc0ajPjRTTaI4Li799/1SzRiS6khVPg?=
- =?us-ascii?Q?tkGG6YtFq6jCKUHMmTohAdaNt1VUmvfUL1qeUeT7LEjQxaEpFziiiONUx/UY?=
- =?us-ascii?Q?oVXRISkW9u9m5V9IXUG6nquh5khXWjaWEFvFTWz2TAk4nC5QO2rS5B6NoIMF?=
- =?us-ascii?Q?zOd+r9HXPx4ey4NMt1iGlhEhNH/C6JwzqQ3Q4Dmaa/A6nTXM4or4Iaq3koDb?=
- =?us-ascii?Q?msVq8ueMy6li7eLbNyb/gIf06j0TsjKYQoL/Do7M9WQFMCPFkCJJw1TFG/fi?=
- =?us-ascii?Q?hb/iEEG5SjAwgQ0qdm2S+d33WFEp8dU5JaeOJOYDkMYQDIEUiivCk2iYfPz1?=
- =?us-ascii?Q?Mq+g9qYgr4OtlEbpxux6AmUjDMr7qTltrJ3biO9m2EHcnhgtJNmbuNy8rg5G?=
- =?us-ascii?Q?iozW/cHyqz6qIDqeF9fQUIdxMg6g06aCckmtgq1gAqXa+Ax4g5cqpua5jCxf?=
- =?us-ascii?Q?+gw9V6XnLbkE/SyxvzKF1SnhiOLFBjg7h4hrzY0q1ksZkOo+uHG2Gs78lHDK?=
- =?us-ascii?Q?qM+YHpnQt9dFy1ffKWCRAsw8VuKlzQdWl5oSObKfth8UZuuj8ikvB7hbW5HR?=
- =?us-ascii?Q?acnOVlt57oiAKWFzGc5wJ3sRpKt5aOrT9I083gwCKzOemm3U82nn1LtThH/7?=
- =?us-ascii?Q?/G4VBjOHcNWlo7HUn6nd56XkukY/FO5EG7yQ82fpCU4UsezgLXrK1yVzBQjF?=
- =?us-ascii?Q?ZwcM0zxlLfwfNhQM2BcR3CSf419Dtc8bBO+RVxmDz9LqpbHML/kefX0rzJHI?=
- =?us-ascii?Q?fEG5o6kkokzHBN1N1rNMgmdHA2mG6hgagvJgSALoVctV4/e6ZJBWgXPYF8QX?=
- =?us-ascii?Q?8qQgh2pmpawoETSXHQwevTcuVryaixhWT/96R49Op7zvw51/LOKVx8mYDP/e?=
- =?us-ascii?Q?xubsAsINBiNk+ilpaegItpb9jGhmeuQTu+QUa9K7nT/2bh2A7T8XgftF2fvT?=
- =?us-ascii?Q?BW374Ai0AQsLZMMj0S5FD2nj+8mRnH+/E5T59vDc/Mypui2kAbDdGmhF/aBL?=
- =?us-ascii?Q?ZQRy6N92hBzByRHpXc/pB71weDqocsJx8gnJPaEhESnO+CA7Cd3yhGzUjjgb?=
- =?us-ascii?Q?AmqolqK40gnX6LQENRD49LxEMwGG6vgRkC9ERfeAlhmARtXefLZrxLJp+/4X?=
- =?us-ascii?Q?B6NEs0u5VBniibmrAZNw4JAANIYFNVxnvn5hHPCOTmFFj3XfIInPTvZELkJL?=
- =?us-ascii?Q?sGEXcCsLfu3NcWLlVxk0ip26/s5fY2uCnkcgVop0UTfoGrWNEQDgxFB+B0gg?=
- =?us-ascii?Q?Iwgga+Q6W5aaIyepqlhQafJ8hRziOZEJ6NwIAUyDPfi9bq0uq1hfGhY8KM0x?=
- =?us-ascii?Q?0GxH8Zb+EPVMgpxOxaMPVFZ2eC1gr3dlU+xSVnDuPV3j3YF0ce2E/3xHtHJQ?=
- =?us-ascii?Q?KB1Fpm5NIrpi49DeRffQ8G++VWw7nO8Wi3OCvuLPz6onOHBzvvfDekXZhE6Y?=
- =?us-ascii?Q?OAmHfI44OP1CqDVW+NWA3aeZ4Ir0327vA7be?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(36860700013)(376014);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jun 2025 17:43:31.2734
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b378e537-3325-477b-ee5e-08dda38f5250
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MN1PEPF0000ECD6.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5964
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v11 4/7] xen/arm: smmuv3: Add PCI devices support for
+ SMMUv3
+To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
+Cc: Bertrand Marquis <bertrand.marquis@arm.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Stewart Hildebrand <stewart.hildebrand@amd.com>,
+ Mykyta Poturai <Mykyta_Poturai@epam.com>
+References: <cover.1748422217.git.mykyta_poturai@epam.com>
+ <71741747bdc0cfcacbe86e66ddd6239ea2f5a3af.1748422217.git.mykyta_poturai@epam.com>
+ <9bfc305b-602e-4c96-bd7a-763075e506d7@gmail.com>
+ <56e44ec8-c9c0-4d58-98f3-730cc1c1bb86@xen.org>
+Content-Language: en-US
+From: Demi Marie Obenour <demiobenour@gmail.com>
+Autocrypt: addr=demiobenour@gmail.com; keydata=
+ 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
+ +MYSfkEjBz0E8CLOcAw7JIwAaeBT
+In-Reply-To: <56e44ec8-c9c0-4d58-98f3-730cc1c1bb86@xen.org>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------gZ1UpVam19FfOqUlsth20aeL"
 
-Enable the helper functions defined in mpu/mm.c and asm/mpu.h for ARM32.
-Define the register definitions for HPRBAR{0..31} and HPRLAR{0..31}.
-One can directly access the first 32 MPU regions using the above registers
-without the use of PRSELR.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------gZ1UpVam19FfOqUlsth20aeL
+Content-Type: multipart/mixed; boundary="------------MuW510iI600yHT6DWNk5Cg9R";
+ protected-headers="v1"
+From: Demi Marie Obenour <demiobenour@gmail.com>
+To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
+Cc: Bertrand Marquis <bertrand.marquis@arm.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Stewart Hildebrand <stewart.hildebrand@amd.com>,
+ Mykyta Poturai <Mykyta_Poturai@epam.com>
+Message-ID: <62b32285-8ce5-4bee-b3b7-66e3a91a0a26@gmail.com>
+Subject: Re: [PATCH v11 4/7] xen/arm: smmuv3: Add PCI devices support for
+ SMMUv3
+References: <cover.1748422217.git.mykyta_poturai@epam.com>
+ <71741747bdc0cfcacbe86e66ddd6239ea2f5a3af.1748422217.git.mykyta_poturai@epam.com>
+ <9bfc305b-602e-4c96-bd7a-763075e506d7@gmail.com>
+ <56e44ec8-c9c0-4d58-98f3-730cc1c1bb86@xen.org>
+In-Reply-To: <56e44ec8-c9c0-4d58-98f3-730cc1c1bb86@xen.org>
 
-Also fix the register definition for HPRLAR.
+--------------MuW510iI600yHT6DWNk5Cg9R
+Content-Type: multipart/mixed; boundary="------------UvkIgYfv3GO51dQuK5p9CjhF"
 
-Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
----
- xen/arch/arm/include/asm/mpu.h        |  2 -
- xen/arch/arm/include/asm/mpu/cpregs.h | 72 ++++++++++++++++++++++++++-
- xen/arch/arm/mpu/mm.c                 | 31 ++++++++++--
- 3 files changed, 98 insertions(+), 7 deletions(-)
+--------------UvkIgYfv3GO51dQuK5p9CjhF
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/xen/arch/arm/include/asm/mpu.h b/xen/arch/arm/include/asm/mpu.h
-index c8573a5980..29f507ce3c 100644
---- a/xen/arch/arm/include/asm/mpu.h
-+++ b/xen/arch/arm/include/asm/mpu.h
-@@ -31,7 +31,6 @@ typedef struct {
-     prlar_t prlar;
- } pr_t;
- 
--#ifdef CONFIG_ARM_64
- /*
-  * Set base address of MPU protection region.
-  *
-@@ -91,7 +90,6 @@ static inline bool region_is_valid(const pr_t *pr)
- {
-     return pr->prlar.reg.en;
- }
--#endif /* CONFIG_ARM_64 */
- 
- #endif /* __ASSEMBLY__ */
- 
-diff --git a/xen/arch/arm/include/asm/mpu/cpregs.h b/xen/arch/arm/include/asm/mpu/cpregs.h
-index d5cd0e04d5..9f3b32acd7 100644
---- a/xen/arch/arm/include/asm/mpu/cpregs.h
-+++ b/xen/arch/arm/include/asm/mpu/cpregs.h
-@@ -6,16 +6,86 @@
- /* CP15 CR0: MPU Type Register */
- #define HMPUIR          p15,4,c0,c0,4
- 
-+/* CP15 CR6: Protection Region Enable Register */
-+#define HPRENR          p15,4,c6,c1,1
-+
- /* CP15 CR6: MPU Protection Region Base/Limit/Select Address Register */
- #define HPRSELR         p15,4,c6,c2,1
- #define HPRBAR          p15,4,c6,c3,0
--#define HPRLAR          p15,4,c6,c8,1
-+#define HPRLAR          p15,4,c6,c3,1
-+
-+/* CP15 CR6: MPU Protection Region Base/Limit Address Register */
-+#define HPRBAR0         p15,4,c6,c8,0
-+#define HPRLAR0         p15,4,c6,c8,1
-+#define HPRBAR1         p15,4,c6,c8,4
-+#define HPRLAR1         p15,4,c6,c8,5
-+#define HPRBAR2         p15,4,c6,c9,0
-+#define HPRLAR2         p15,4,c6,c9,1
-+#define HPRBAR3         p15,4,c6,c9,4
-+#define HPRLAR3         p15,4,c6,c9,5
-+#define HPRBAR4         p15,4,c6,c10,0
-+#define HPRLAR4         p15,4,c6,c10,1
-+#define HPRBAR5         p15,4,c6,c10,4
-+#define HPRLAR5         p15,4,c6,c10,5
-+#define HPRBAR6         p15,4,c6,c11,0
-+#define HPRLAR6         p15,4,c6,c11,1
-+#define HPRBAR7         p15,4,c6,c11,4
-+#define HPRLAR7         p15,4,c6,c11,5
-+#define HPRBAR8         p15,4,c6,c12,0
-+#define HPRLAR8         p15,4,c6,c12,1
-+#define HPRBAR9         p15,4,c6,c12,4
-+#define HPRLAR9         p15,4,c6,c12,5
-+#define HPRBAR10        p15,4,c6,c13,0
-+#define HPRLAR10        p15,4,c6,c13,1
-+#define HPRBAR11        p15,4,c6,c13,4
-+#define HPRLAR11        p15,4,c6,c13,5
-+#define HPRBAR12        p15,4,c6,c14,0
-+#define HPRLAR12        p15,4,c6,c14,1
-+#define HPRBAR13        p15,4,c6,c14,4
-+#define HPRLAR13        p15,4,c6,c14,5
-+#define HPRBAR14        p15,4,c6,c15,0
-+#define HPRLAR14        p15,4,c6,c15,1
-+#define HPRBAR15        p15,4,c6,c15,4
-+#define HPRLAR15        p15,4,c6,c15,5
-+#define HPRBAR16        p15,5,c6,c8,0
-+#define HPRLAR16        p15,5,c6,c8,1
-+#define HPRBAR17        p15,5,c6,c8,4
-+#define HPRLAR17        p15,5,c6,c8,5
-+#define HPRBAR18        p15,5,c6,c9,0
-+#define HPRLAR18        p15,5,c6,c9,1
-+#define HPRBAR19        p15,5,c6,c9,4
-+#define HPRLAR19        p15,5,c6,c9,5
-+#define HPRBAR20        p15,5,c6,c10,0
-+#define HPRLAR20        p15,5,c6,c10,1
-+#define HPRBAR21        p15,5,c6,c10,4
-+#define HPRLAR21        p15,5,c6,c10,5
-+#define HPRBAR22        p15,5,c6,c11,0
-+#define HPRLAR22        p15,5,c6,c11,1
-+#define HPRBAR23        p15,5,c6,c11,4
-+#define HPRLAR23        p15,5,c6,c11,5
-+#define HPRBAR24        p15,5,c6,c12,0
-+#define HPRLAR24        p15,5,c6,c12,1
-+#define HPRBAR25        p15,5,c6,c12,4
-+#define HPRLAR25        p15,5,c6,c12,5
-+#define HPRBAR26        p15,5,c6,c13,0
-+#define HPRLAR26        p15,5,c6,c13,1
-+#define HPRBAR27        p15,5,c6,c13,4
-+#define HPRLAR27        p15,5,c6,c13,5
-+#define HPRBAR28        p15,5,c6,c14,0
-+#define HPRLAR28        p15,5,c6,c14,1
-+#define HPRBAR29        p15,5,c6,c14,4
-+#define HPRLAR29        p15,5,c6,c14,5
-+#define HPRBAR30        p15,5,c6,c15,0
-+#define HPRLAR30        p15,5,c6,c15,1
-+#define HPRBAR31        p15,5,c6,c15,4
-+#define HPRLAR31        p15,5,c6,c15,5
- 
- /* Aliases of AArch64 names for use in common code */
- #ifdef CONFIG_ARM_32
- /* Alphabetically... */
- #define MPUIR_EL2       HMPUIR
- #define PRBAR_EL2       HPRBAR
-+#define PRENR_EL2       HPRENR
- #define PRLAR_EL2       HPRLAR
- #define PRSELR_EL2      HPRSELR
- #endif /* CONFIG_ARM_32 */
-diff --git a/xen/arch/arm/mpu/mm.c b/xen/arch/arm/mpu/mm.c
-index 2fb6b822c6..9aea9fbacb 100644
---- a/xen/arch/arm/mpu/mm.c
-+++ b/xen/arch/arm/mpu/mm.c
-@@ -40,7 +40,10 @@ pr_t __cacheline_aligned __section(".data") xen_mpumap[MAX_MPU_REGION_NR];
- #define PRBAR_EL2_(n)   PRBAR##n##_EL2
- #define PRLAR_EL2_(n)   PRLAR##n##_EL2
- 
--#endif /* CONFIG_ARM_64 */
-+#else  /* CONFIG_ARM_64 */
-+#define PRBAR_EL2_(n)   HPRBAR##n
-+#define PRLAR_EL2_(n)   HPRLAR##n
-+#endif /* !CONFIG_ARM_64 */
- 
- #define GENERATE_WRITE_PR_REG_CASE(num, pr)                                 \
-     case num:                                                               \
-@@ -68,7 +71,6 @@ static void __init __maybe_unused build_assertions(void)
-     BUILD_BUG_ON(PAGE_SIZE != SZ_4K);
- }
- 
--#ifdef CONFIG_ARM_64
- /*
-  * Armv8-R supports direct access and indirect access to the MPU regions through
-  * registers:
-@@ -85,6 +87,7 @@ static void __init __maybe_unused build_assertions(void)
-  */
- static void prepare_selector(uint8_t *sel)
- {
-+#ifdef CONFIG_ARM_64
-     uint8_t cur_sel = *sel;
- 
-     /*
-@@ -98,7 +101,8 @@ static void prepare_selector(uint8_t *sel)
-         WRITE_SYSREG(cur_sel, PRSELR_EL2);
-         isb();
-     }
--    *sel &= 0xFU;
-+    *sel = *sel & 0xFU;
-+#endif
- }
- 
- void read_protection_region(pr_t *pr_read, uint8_t sel)
-@@ -123,6 +127,24 @@ void read_protection_region(pr_t *pr_read, uint8_t sel)
-         GENERATE_READ_PR_REG_CASE(13, pr_read);
-         GENERATE_READ_PR_REG_CASE(14, pr_read);
-         GENERATE_READ_PR_REG_CASE(15, pr_read);
-+#ifdef CONFIG_ARM_32
-+        GENERATE_READ_PR_REG_CASE(16, pr_read);
-+        GENERATE_READ_PR_REG_CASE(17, pr_read);
-+        GENERATE_READ_PR_REG_CASE(18, pr_read);
-+        GENERATE_READ_PR_REG_CASE(19, pr_read);
-+        GENERATE_READ_PR_REG_CASE(20, pr_read);
-+        GENERATE_READ_PR_REG_CASE(21, pr_read);
-+        GENERATE_READ_PR_REG_CASE(22, pr_read);
-+        GENERATE_READ_PR_REG_CASE(23, pr_read);
-+        GENERATE_READ_PR_REG_CASE(24, pr_read);
-+        GENERATE_READ_PR_REG_CASE(25, pr_read);
-+        GENERATE_READ_PR_REG_CASE(26, pr_read);
-+        GENERATE_READ_PR_REG_CASE(27, pr_read);
-+        GENERATE_READ_PR_REG_CASE(28, pr_read);
-+        GENERATE_READ_PR_REG_CASE(29, pr_read);
-+        GENERATE_READ_PR_REG_CASE(30, pr_read);
-+        GENERATE_READ_PR_REG_CASE(31, pr_read);
-+#endif
-     default:
-         BUG(); /* Can't happen */
-         break;
-@@ -208,7 +230,9 @@ pr_t pr_of_addr(paddr_t base, paddr_t limit, unsigned int flags)
-     /* Build up value for PRLAR_EL2. */
-     prlar = (prlar_t) {
-         .reg = {
-+#ifdef CONFIG_ARM_64
-             .ns = 0,        /* Hyp mode is in secure world */
-+#endif
-             .ai = attr_idx,
-             .en = 1,        /* Region enabled */
-         }};
-@@ -225,7 +249,6 @@ pr_t pr_of_addr(paddr_t base, paddr_t limit, unsigned int flags)
- 
-     return region;
- }
--#endif /* CONFIG_ARM_64 */
- 
- void __init setup_mm(void)
- {
--- 
-2.25.1
+On 6/4/25 08:48, Julien Grall wrote:
+> Hi Demi,
+>=20
+> When replying to a thread, please keep the folks in CC unless there is =
+a=20
+> reason to drop them. Sending to just xen-devel is likely going to be=20
+> lost. I personally don't always keep an eyes on discussion where I am=20
+> not CCed, there are too many!
+>=20
+> So adding re-adding the CC for you and keeping your reply as-is.
+>=20
+> On 29/05/2025 03:10, Demi Marie Obenour wrote:
+>> On 5/28/25 05:12, Mykyta Poturai wrote:
+>>> From: Rahul Singh <rahul.singh@arm.com>
+>>>
+>>> Implement support for PCI devices in the SMMU driver. Trigger iommu-m=
+ap
+>>> parsing when new PCI device is added. Add checks to assign/deassign
+>>> functions to ensure PCI devices are handled correctly. Implement basi=
+c
+>>> quarantining.
+>>>
+>>> All pci devices are automatically assigned to hardware domain if it e=
+xists
+>>> to ensure it can probe them.
+>> This is only safe for devices present at boot time.  It=E2=80=99s not =
+safe for
+>> hotplugged devices, which should be quarantined.
 
+Thank you!  This makes me wonder if Thunderbird is a good choice for an
+email client, or if I should use something like Mutt or Aerc.
+--=20
+Sincerely,
+Demi Marie Obenour (she/her/hers)
+--------------UvkIgYfv3GO51dQuK5p9CjhF
+Content-Type: application/pgp-keys; name="OpenPGP_0xB288B55FFF9C22C1.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB288B55FFF9C22C1.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+xsFNBFp+A0oBEADffj6anl9/BHhUSxGTICeVl2tob7hPDdhHNgPR4C8xlYt5q49y
+B+l2nipdaq+4Gk6FZfqC825TKl7eRpUjMriwle4r3R0ydSIGcy4M6eb0IcxmuPYf
+bWpr/si88QKgyGSVZ7GeNW1UnzTdhYHuFlk8dBSmB1fzhEYEk0RcJqg4AKoq6/3/
+UorR+FaSuVwT7rqzGrTlscnTDlPWgRzrQ3jssesI7sZLm82E3pJSgaUoCdCOlL7M
+MPCJwI8JpPlBedRpe9tfVyfu3euTPLPxwcV3L/cfWPGSL4PofBtB8NUU6QwYiQ9H
+zx4xOyn67zW73/G0Q2vPPRst8LBDqlxLjbtx/WLR6h3nBc3eyuZ+q62HS1pJ5EvU
+T1vjyJ1ySrqtUXWQ4XlZyoEFUfpJxJoN0A9HCxmHGVckzTRl5FMWo8TCniHynNXs
+BtDQbabt7aNEOaAJdE7to0AH3T/Bvwzcp0ZJtBk0EM6YeMLtotUut7h2Bkg1b//r
+6bTBswMBXVJ5H44Qf0+eKeUg7whSC9qpYOzzrm7+0r9F5u3qF8ZTx55TJc2g656C
+9a1P1MYVysLvkLvS4H+crmxA/i08Tc1h+x9RRvqba4lSzZ6/Tmt60DPM5Sc4R0nS
+m9BBff0Nm0bSNRS8InXdO1Aq3362QKX2NOwcL5YaStwODNyZUqF7izjK4QARAQAB
+zTxEZW1pIE9iZW5vdXIgKElUTCBFbWFpbCBLZXkpIDxhdGhlbmFAaW52aXNpYmxl
+dGhpbmdzbGFiLmNvbT7CwY4EEwEIADgWIQR2h02fEza6IlkHHHGyiLVf/5wiwQUC
+X6YJvQIbAwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgAAKCRCyiLVf/5wiwWRhD/0Y
+R+YYC5Kduv/2LBgQJIygMsFiRHbR4+tWXuTFqgrxxFSlMktZ6gQrQCWe38WnOXkB
+oY6n/5lSJdfnuGd2UagZ/9dkaGMUkqt+5WshLFly4BnP7pSsWReKgMP7etRTwn3S
+zk1OwFx2lzY1EnnconPLfPBc6rWG2moA6l0WX+3WNR1B1ndqpl2hPSjT2jUCBWDV
+rGOUSX7r5f1WgtBeNYnEXPBCUUM51pFGESmfHIXQrqFDA7nBNiIVFDJTmQzuEqIy
+Jl67pKNgooij5mKzRhFKHfjLRAH4mmWZlB9UjDStAfFBAoDFHwd1HL5VQCNQdqEc
+/9lZDApqWuCPadZN+pGouqLysesIYsNxUhJ7dtWOWHl0vs7/3qkWmWun/2uOJMQh
+ra2u8nA9g91FbOobWqjrDd6x3ZJoGQf4zLqjmn/P514gb697788e573WN/MpQ5XI
+Fl7aM2d6/GJiq6LC9T2gSUW4rbPBiqOCeiUx7Kd/sVm41p9TOA7fEG4bYddCfDsN
+xaQJH6VRK3NOuBUGeL+iQEVF5Xs6Yp+U+jwvv2M5Lel3EqAYo5xXTx4ls0xaxDCu
+fudcAh8CMMqx3fguSb7Mi31WlnZpk0fDuWQVNKyDP7lYpwc4nCCGNKCj622ZSocH
+AcQmX28L8pJdLYacv9pU3jPy4fHcQYvmTavTqowGnM08RGVtaSBNYXJpZSBPYmVu
+b3VyIChsb3ZlciBvZiBjb2RpbmcpIDxkZW1pb2Jlbm91ckBnbWFpbC5jb20+wsF4
+BBMBAgAiBQJafgNKAhsDBgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRCyiLVf
+/5wiwYa/EACv8a2+MMou9cSCNoZBQaU+fTmyzft9hUE+0d5W2UY1RY3OsjFIzm9R
+/4SVccfsqOYLEo+S0vQMIIIqFEq3FCpXXwPzyimotps05VA8U3Bd7yseojFygOgK
+sAMOAee2RCaDDOnoJue01dfZMzzHPO/TVdp3OvnpWipfv5G1Xg96rwbhMLE3tg6N
+xwAHa31Bv4/Xq8CJOoIWvx6fcmZQpz01/lSvsYn0KrfEbTKkuUf0vM9JrCTCP2oz
+VNN5BYzqaq2M4r+jmSyeXLim922VOWqGkUEQ85BSEemqrRS06IU6NtEMsF8EWt/b
+hWjk/9GDKTcnpdJHTrMxTspExBiNrvpI2t+YPU5B/dJJAUxvmhFrbSIbdB8umBZs
+I3AMYrEmpAbh5x7jEjoskUC7uN3o9vpg1oCLS2ePDLtAtyBtbHnkA4xGD7ar8mem
+xpH9lY/i+sC6CyyIUWcUDnnagKyJP0m9ks0GLsTeOCA0bft2XA6rD6aaCnMUsndT
+ctrab42CV5XypjmC4U1rPJ8JQJUh1/3P48/8sMH+3krxpJ06KNWNFaUbaMTGiltZ
+7x9DngklSYrX0T+2G4kVXNmjaljwkoLahwLla2gUWwBSyofXdqyhQdwZsp01KXNQ
+UCyT/Pg+aDcm/E7OMV3d4lf7g/CSxiX2GSEe6BlhSz+Lmd7ZJ3g32M1ARGVtaSBN
+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
+EtJuZYM5blWncBOJCoWMnBEcTEo/viU3GgcVRw=3D=3D
+=3Dx94R
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------UvkIgYfv3GO51dQuK5p9CjhF--
+
+--------------MuW510iI600yHT6DWNk5Cg9R--
+
+--------------gZ1UpVam19FfOqUlsth20aeL
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEopQtqVJW1aeuo9/sszaHOrMp8lMFAmhAlwcACgkQszaHOrMp
+8lOAZxAAjxTIhyxgUxM2nrpBpo54YN6v5qlmo83SLpK/O0OZXIkV+mwlVo2yOYQH
+l8Z33Q6eBgf3RNyJANdMGzJ9ZW53BiBhJIeBlfmymRtknRvAoD6PdT/TL1Dp/+OO
+3T0e27fHUafUuRxDviNZ1ODq9WsIt+ZepmTeexloZAKbuP4URIX+97tm8DT2gpEV
+UTboTFC47ecbuSRIcf+rLsd/lRAr90VTBYWlEHpDXubIlMgg1qpvFHbwwqenvkhY
+fub24cIUI45g1jDZkykGPy8vlvoQTqqgVX6DBPSVRalcEHPANRUh1qheWfr1VesB
+frxBGECur3McGAxIaLdrgwqnXLeJQ8jqf3fAQiMqdS193EKiQEPdmW5kyYlyfjN0
+zrC1bcTG7PAVd7FgmR7Kf6pJrjzovLxb7tSk8GGGRVX5NPhmsXjMm3BAggsvlQRy
+8AbL+gyAVDNUl0v2jEkYghTxSEMmO3EVnSFfYPqtOwrOWp5GDWlcRZ11W2CuwPpu
+2l2fJBhdajvSgzfm3E9kCs0/xQZQS7jVRLHeIrYucU8V/Kw6vw9OWHurvaybWG62
+vPGgarx+1XOximbDl+4rWfJWVZJeleo9JdlyNC4P4j4Efpbb3MhKnNSy9hM18yGM
+LShq4PHf06bdP8EJ2GSsVcN27ZOAlef3o4iE6/aG92gjHWEjVgQ=
+=/x8V
+-----END PGP SIGNATURE-----
+
+--------------gZ1UpVam19FfOqUlsth20aeL--
 
