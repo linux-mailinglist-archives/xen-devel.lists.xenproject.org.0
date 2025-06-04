@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA07DACD914
-	for <lists+xen-devel@lfdr.de>; Wed,  4 Jun 2025 10:00:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1005166.1384697 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 82969ACD94D
+	for <lists+xen-devel@lfdr.de>; Wed,  4 Jun 2025 10:08:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1005192.1384708 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uMj2F-0004eZ-2N; Wed, 04 Jun 2025 07:59:43 +0000
+	id 1uMjAD-000749-U8; Wed, 04 Jun 2025 08:07:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1005166.1384697; Wed, 04 Jun 2025 07:59:43 +0000
+Received: by outflank-mailman (output) from mailman id 1005192.1384708; Wed, 04 Jun 2025 08:07:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uMj2E-0004cM-W1; Wed, 04 Jun 2025 07:59:42 +0000
-Received: by outflank-mailman (input) for mailman id 1005166;
- Wed, 04 Jun 2025 07:59:41 +0000
+	id 1uMjAD-00072L-Qt; Wed, 04 Jun 2025 08:07:57 +0000
+Received: by outflank-mailman (input) for mailman id 1005192;
+ Wed, 04 Jun 2025 08:07:57 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=iVAg=YT=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uMj2D-0004cB-2b
- for xen-devel@lists.xenproject.org; Wed, 04 Jun 2025 07:59:41 +0000
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [2a00:1450:4864:20::430])
+ id 1uMjAD-00072F-1V
+ for xen-devel@lists.xenproject.org; Wed, 04 Jun 2025 08:07:57 +0000
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [2a00:1450:4864:20::329])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id dd2375fb-4119-11f0-b894-0df219b8e170;
- Wed, 04 Jun 2025 09:59:39 +0200 (CEST)
-Received: by mail-wr1-x430.google.com with SMTP id
- ffacd0b85a97d-3a4fb9c2436so2390016f8f.1
- for <xen-devel@lists.xenproject.org>; Wed, 04 Jun 2025 00:59:39 -0700 (PDT)
+ id 04c79826-411b-11f0-b894-0df219b8e170;
+ Wed, 04 Jun 2025 10:07:55 +0200 (CEST)
+Received: by mail-wm1-x329.google.com with SMTP id
+ 5b1f17b1804b1-442ea341570so45351415e9.1
+ for <xen-devel@lists.xenproject.org>; Wed, 04 Jun 2025 01:07:55 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-23506d20bfasm98947275ad.235.2025.06.04.00.59.35
+ d2e1a72fcca58-747afed4566sm10661082b3a.80.2025.06.04.01.07.50
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 04 Jun 2025 00:59:37 -0700 (PDT)
+ Wed, 04 Jun 2025 01:07:53 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dd2375fb-4119-11f0-b894-0df219b8e170
+X-Inumbo-ID: 04c79826-411b-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1749023978; x=1749628778; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1749024474; x=1749629274; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=irP3jzCjhLiox3DaGK3fe8uEpmp2A76YqA4wKhD5kSI=;
-        b=bW2TA6EY7RH6BpSEcSznazrRKiO1omnH5rMdqm8An/flUhyqhufMh5HCoZ45gtfhAz
-         MnQsoepQfacpOG6lbzg5x+D+XjiWammTw+HT9V+BgSR5GyqUE8AmYA5Y6FAXqkoVx9Rz
-         vTCNXZFOReqIdL7Z6+SChG+bMGrKfJ2WFeEtfSR13WqYqX2Ko4VeuaonKCjXRO0X/aET
-         XAVgszMFSHmnfF15DtvtTEtVNjCeJcZ8vtbQzgXJQftKvcsd7gqCM6Obc9OWDU9Iw4pg
-         v0vVpYctC8PqIx++hx2KmEQDtPawIF2Y6okhxUTXCmPegR8NOPa/BWao8xNwfy1Hczrd
-         9a3Q==
+        bh=LieOTA9FfiY7vHi/zrl88X3f6M26S9qGc7eS+VMX0lg=;
+        b=OJMJwQS6DTb9KFutsXHpwLP+jNa7nPuewKN/Jc+yBXGZY7+/4/W2YEkxXgpHYMGD0f
+         mawpMDriuoihgC2iiuZMcc6qii0akt7MComjxRQ6+Dy3q9Gl1nM9FVKR91k4J6SvRRAD
+         G56c3wvmsXD1Kf+yjfQxXyTxPTl+fxUZ6tN3u7kKSpb2mqO53TtUrtLXyumeoj6jGiq8
+         2kLeHGfYh3I7n0pTeQmzKB2fdMPNpGaVhnoW4Dho1/rKUKsWgUpEwDSznUxMG2JQXxWb
+         lw4vOGaGN3xjD05T7gA2IgP+1zICzv1pIoxeeSoWuDNZG9YyE0Q3ZXIF9nJRxXXMAlEd
+         kwSQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749023978; x=1749628778;
+        d=1e100.net; s=20230601; t=1749024474; x=1749629274;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=irP3jzCjhLiox3DaGK3fe8uEpmp2A76YqA4wKhD5kSI=;
-        b=Z68wRCG/1Fq80iMkf2kIcp3owCmxY71xPrcTKcdrZjSe2b8eI4///41Z+zROMoGZGi
-         rbs5uxJQRuO96VJb9U4FlmZQs/h3Z2TKU7P8dn+fLiP3Ny+9+r7gwzJBfE9PEcnV7SYs
-         ebgFtmW6C7k6DRhUS1qwq64UM1CPvkGSDk5auxK9/qlBCVw8TDU431mi2+HH0jrJ4aXu
-         M49OxcVwjzye3yPT3kYy87+rTzZ6qVRo13wSEF31UeFtx4bZh7Lz8rfTQIgeBUm6YcXB
-         9CDH3tLsJNdlwvosH1lpMSKe2Wow/+vDJzHwTEdhDcOrQKjF1RAI5LJoTL78cJi7nXd1
-         63VA==
-X-Forwarded-Encrypted: i=1; AJvYcCXTnKTDd5Ve/y4Ku8o7kTnWgOPHP4p7IgNfV5GyIMokv/xdrbggYIPWQdogfFp1wYY3pEQ3GIwckCk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyzZMEDfJ5AyGkDyyTyH/yzQuTgkt5BV6lDeJWCvXdUczWjXSEm
-	5204ay7AtJwunz8z2qvepIAHDEKz33ueahiJJd2SakQxqrcBVERJqJg6r8G42tv2Xw==
-X-Gm-Gg: ASbGnctzyngsGHcQb+1Jk3AlSdocIzCPCiR8f9WX+Lc4nB3ZHc0LKLqJk8QxnwSaA+p
-	QBsFEKdNGMIrn1kAV7eMVRzVEJxa3Vgh7eBaIV42rHubGXRsliadpPRWx8R9EY7y0qP0vnsxEEO
-	5VVT6m2kfKlVzuUA2PHBOv4PVJveErAb9oLlAjDIi4esUzZNUMapvb2gyFmJWrJ0AFBK2/Oazj2
-	wAIQxXTBc2wppB0kAT4rDqq1xqbi0u9kC/PkXhHk0cJ6RecUAYNoz5KTYVJRs/iLyiDUrROBD2p
-	dU1JCazUp73OvNzMqClrQeCwvF9j9daHrTbz16FlqrRAjYgB7MfTisO07Eb5THXtvkJODCpvpQ9
-	6xBJ6euwlrxe+cPO7nwzJSgZkbuDzWCdxe+b8
-X-Google-Smtp-Source: AGHT+IGrY50CqtMCczgXM+SVHPrh6Ru9ASkXq+24Hf4GO9BQFJDIqoF7Kh2tx4MLNpDCFJOaTWg8XQ==
-X-Received: by 2002:a5d:5f42:0:b0:3a4:e6b4:9c4b with SMTP id ffacd0b85a97d-3a51d8f6bbfmr1206717f8f.1.1749023978350;
-        Wed, 04 Jun 2025 00:59:38 -0700 (PDT)
-Message-ID: <20a7bc79-2359-4ee1-9d42-fe8524a2d3e1@suse.com>
-Date: Wed, 4 Jun 2025 09:59:31 +0200
+        bh=LieOTA9FfiY7vHi/zrl88X3f6M26S9qGc7eS+VMX0lg=;
+        b=BjctsfoHkGkzJ7HJr8BQd3rwWzfRi8ADsYmRSoAGR91AyYUap3BkPv8C5wk6JO6QIX
+         fu4S2DY+jCrYp9FJ75XpxTYsu6fLEOgpnQ62eLsuFMdMG6LOA2ddkxQmm/wrzkxOqqRc
+         a64yTSV+Nzc44V4qRak2/vE2OWMj0U/qUnOl6vipsp3upeoxjnvbOfbslSnsj3CLLNrQ
+         OsmVxIhgDpX1NRo/y1E2qNhmjfJ3tFIvTAWGnKi26tNOfr7J/ovAi6C6OQSsYEdhPGZp
+         IoJsrqkMxx8wklg5NSgn4hrjSYjpYBk/YXYfKA0NfGc/HH0cs2qcxt93mvZrUvC+DGJh
+         LYng==
+X-Forwarded-Encrypted: i=1; AJvYcCVtnJpOoC6J78drm1msqUDpp7CIpEADULtC381vaX+WxLrkGyqAy61k8xgnA7GjLHFvRczOupD9f9U=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy0beCDURKzH3lFwLav2MK+eq6CMHehlFmd7uDhCfu7136ELW3W
+	ApGso87AGZ7wJKbPtG6ZvrWTzFTTanIBp8POvREhYcT+H3Kz7HNrmf43SyMBZvWuNg==
+X-Gm-Gg: ASbGncuyS6LS4DkgTUfA31IhokFafbEUeN8gVjhv0U+mQ2W1lKOXKCha/DsmFdnNvMN
+	JGz6g4PEkwZr5cCAya/ukUUQfkA6ZzgTwr2dNyreJH0Ck2esInVvquXqbrWHOdJfnAItGeOCCiu
+	fpCAahv45H0Lbp91AuA01RyvDy+Q64RIzUymc1TSpu2m+2em69kuYY4s219sliAPmW2tCSLVlMD
+	achZbAB8fFndFPiQrzB6aiMT8t5zmgr71dMTHNKxqdzTHgvu5AwlRDNkDlD7wz8ohNCoShYHqDF
+	crJYkAwgwLvi+X/EI2claciFS/ajnwv3ZyX+6dLzGX6ZmiX9QRGP+9xbi6enjdWRpSviWVIU5+U
+	34A+TmIZHaxO8XlrBEGYcGBTYJE0NJRIQi78yX3aAzzNicR4=
+X-Google-Smtp-Source: AGHT+IFPlLzhL7zpk4RRgRhoF5OJP5moBTZIMCiHuVjSUvw5+V62ROjnmRfT11TxDGnOld77BAQKdw==
+X-Received: by 2002:a5d:5f48:0:b0:3a4:ead4:5ea4 with SMTP id ffacd0b85a97d-3a51d930f6cmr1452485f8f.24.1749024474348;
+        Wed, 04 Jun 2025 01:07:54 -0700 (PDT)
+Message-ID: <d8fc3301-30b9-48bd-9832-b4fc18828a0c@suse.com>
+Date: Wed, 4 Jun 2025 10:07:46 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/boot: Fix domain_cmdline_size()
-To: Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: [PATCH v2] tests/vpci: Use $(CC) instead of $(HOSTCC)
+To: Michal Orzel <michal.orzel@amd.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250603235628.2750156-1-andrew.cooper3@citrix.com>
+ Anthony PERARD <anthony.perard@vates.tech>, xen-devel@lists.xenproject.org
+References: <20250604072128.16628-1-michal.orzel@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -117,29 +117,62 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250603235628.2750156-1-andrew.cooper3@citrix.com>
+In-Reply-To: <20250604072128.16628-1-michal.orzel@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 04.06.2025 01:56, Andrew Cooper wrote:
-> The early exit from domain_cmdline_size() is buggy.  Even if there's no
-> bootloader cmdline and no kextra, there still might be Xen parameters to
-> forward, and therefore a nonzero cmdline.
+On 04.06.2025 09:21, Michal Orzel wrote:
+> When cross-compiling, HOSTCC can be different than CC.
+
+I'm sorry for being pedantic, but the two can also be different for other
+reasons (and I'd like to avoid this becoming a bad precedent, then getting
+copied elsewhere). Both may target the same architecture. Hence I'd like
+to suggest ...
+
+> With the recent
+> `install` rule addition, this would put a binary of a wrong format in
+> the destdir (e.g. building tests on x86 host for Arm target).
 > 
-> Explain what the function is doing, and rewrite it to be both more legible and
-> more extendible.
+> Take the opportunity to adjust the `run` rule to only run the test if
+> HOSTCC is CC, else print a warning message.
 > 
-> Fixes: 142f0a43a15a ("x86/boot: add cmdline to struct boot_domain")
+> Fixes: 96a587a05736 ("tools/tests: Add install target for vPCI")
+> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+> ---
+> Changes in v2:
+>  - change Fixes tag
+>  - add `run` rule adjustment from Roger
+> ---
+>  tools/tests/vpci/Makefile | 6 +++++-
+>  1 file changed, 5 insertions(+), 1 deletion(-)
+> 
+> diff --git a/tools/tests/vpci/Makefile b/tools/tests/vpci/Makefile
+> index 9450f7593a41..f2226a5543bc 100644
+> --- a/tools/tests/vpci/Makefile
+> +++ b/tools/tests/vpci/Makefile
+> @@ -8,10 +8,14 @@ all: $(TARGET)
+>  
+>  .PHONY: run
+>  run: $(TARGET)
+> +ifeq ($(CC),$(HOSTCC))
+>  	./$(TARGET)
+> +else
+> +	$(warning HOSTCC != CC, cannot run test)
 
-I don't think this is correct. Iirc I even commented on this apparent anomaly,
-being (validly) told that it preserved original behavior, where all the code
-was inside "if ( bd->kernel->cmdline_pa || bi->kextra )". Since I had asked to
-fix this already back then, ...
-
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
-with the Fixes: tag corrected (or dropped, for simplicity).
+... s/cannot/will not/ here. Alternatively, -dumpmachine output of both
+could be compared, yet even that would leave us with false negatives
+(e.g. x86_64-suse-linux vs x86_64-pc-linux-gnu as I can see for my
+system compiler vs the ones I built myself).
 
 Jan
+
+> +endif
+>  
+>  $(TARGET): vpci.c vpci.h list.h main.c emul.h
+> -	$(HOSTCC) $(CFLAGS_xeninclude) -g -o $@ vpci.c main.c
+> +	$(CC) $(CFLAGS_xeninclude) -g -o $@ vpci.c main.c
+>  
+>  .PHONY: clean
+>  clean:
+
 
