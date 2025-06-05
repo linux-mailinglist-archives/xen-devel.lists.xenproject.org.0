@@ -2,34 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA664ACF4FD
-	for <lists+xen-devel@lfdr.de>; Thu,  5 Jun 2025 19:07:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1007239.1386549 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 419D4ACF54C
+	for <lists+xen-devel@lfdr.de>; Thu,  5 Jun 2025 19:23:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1007252.1386558 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uNE3O-00032u-MV; Thu, 05 Jun 2025 17:06:58 +0000
+	id 1uNEJ1-0006Mb-Va; Thu, 05 Jun 2025 17:23:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1007239.1386549; Thu, 05 Jun 2025 17:06:58 +0000
+Received: by outflank-mailman (output) from mailman id 1007252.1386558; Thu, 05 Jun 2025 17:23:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uNE3O-00031D-JZ; Thu, 05 Jun 2025 17:06:58 +0000
-Received: by outflank-mailman (input) for mailman id 1007239;
- Thu, 05 Jun 2025 17:06:57 +0000
+	id 1uNEJ1-0006Kx-SV; Thu, 05 Jun 2025 17:23:07 +0000
+Received: by outflank-mailman (input) for mailman id 1007252;
+ Thu, 05 Jun 2025 17:23:06 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=95Iq=YU=bounce.vates.tech=bounce-md_30504962.6841ceae.v1-6c9a378f36024232a7564311669ba435@srs-se1.protection.inumbo.net>)
- id 1uNE3M-000317-UO
- for xen-devel@lists.xenproject.org; Thu, 05 Jun 2025 17:06:57 +0000
-Received: from mail36.us4.mandrillapp.com (mail36.us4.mandrillapp.com
- [205.201.136.36]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7b509377-422f-11f0-a300-13f23c93f187;
- Thu, 05 Jun 2025 19:06:55 +0200 (CEST)
-Received: from pmta15.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
- by mail36.us4.mandrillapp.com (Mailchimp) with ESMTP id 4bCrTV1kv6zS63LyK
- for <xen-devel@lists.xenproject.org>; Thu,  5 Jun 2025 17:06:54 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- 6c9a378f36024232a7564311669ba435; Thu, 05 Jun 2025 17:06:54 +0000
+ <SRS0=ZN0r=YU=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
+ id 1uNEJ0-0006Kr-B4
+ for xen-devel@lists.xenproject.org; Thu, 05 Jun 2025 17:23:06 +0000
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on20628.outbound.protection.outlook.com
+ [2a01:111:f403:2412::628])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id bc58ccfe-4231-11f0-a300-13f23c93f187;
+ Thu, 05 Jun 2025 19:23:05 +0200 (CEST)
+Received: from BN9PR03CA0874.namprd03.prod.outlook.com (2603:10b6:408:13c::9)
+ by PH7PR12MB7427.namprd12.prod.outlook.com (2603:10b6:510:202::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8792.37; Thu, 5 Jun
+ 2025 17:23:00 +0000
+Received: from MN1PEPF0000F0E4.namprd04.prod.outlook.com
+ (2603:10b6:408:13c:cafe::37) by BN9PR03CA0874.outlook.office365.com
+ (2603:10b6:408:13c::9) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8769.18 via Frontend Transport; Thu,
+ 5 Jun 2025 17:22:59 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ MN1PEPF0000F0E4.mail.protection.outlook.com (10.167.242.42) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8792.29 via Frontend Transport; Thu, 5 Jun 2025 17:22:59 +0000
+Received: from localhost (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 5 Jun
+ 2025 12:22:57 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,186 +56,196 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7b509377-422f-11f0-a300-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1749143214; x=1749413214;
-	bh=fKuSwTCyXu9Im5b8kMkxc1XVU5MJZjNRA+QKFgbejZQ=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=sn7MBWNYJQINSk1ehIS4/BS9g/m2TKO7euQGrr8nA9nwDJLyWFYjHNYzHKjbb3eXi
-	 JeUjuxWL9+VxUmlTzwQ+hiRfsFHUyINp7nx1iAjGkxpIiw9sWmln+Ql9VTs1c9qqTN
-	 XuiLEJopgNN2drfPsxr6ZLVJjjOokPjRZkSfGvXdRhnLwS6K/Jd5At3+WMA6l+zrDS
-	 DQo7f0vDat7++QIusW0K7OmjEWPhqHGYHVE4IK4gARGYm/IgEoTmBi63vBDz7tOzIZ
-	 Wb3D0JhXVynn7y5zeR6ietFOMcHINWYSWgE4nAUl7VwAdfFEAboaxpcATbcJGCqQ4W
-	 YrFed2Yt9n8kQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1749143214; x=1749403714; i=teddy.astie@vates.tech;
-	bh=fKuSwTCyXu9Im5b8kMkxc1XVU5MJZjNRA+QKFgbejZQ=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=xrB+24ihoyBNlOvQR07ThvppBH13Qi6W+lpoJ746ymHrQBtEWr+JIGjgEXuXbIrTG
-	 1vax12DaclQTuewSlw7anO23AgsyDknH/CcMW10DrNHdtmSXzGo1C2Rbk+a1UyJf5u
-	 Aitua51QQgsOW8DDZGU4lbCcrsG+fAZe5sHsprZEj6zMiC2T+U4aRuazVuiUpMFl9d
-	 T0eHKe0nAmKuKSr4ft4njCMPsXMxrPRB6DeNT19WkOv+WLagvBE/V97dvREPXcXwij
-	 astTigq3wpnZXzYUp8ucP6aTE5TwcmdHrXKLdzNv4JHjI/YYHUuRp+7yWAMmpjEFhi
-	 gPactjBjCKdWQ==
-From: "Teddy Astie" <teddy.astie@vates.tech>
-Subject: =?utf-8?Q?Re:=20[PATCH=20v5=203/6]=20x86:=20re-work=20memcpy()?=
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1749143213293
-Message-Id: <81da4e8e-9dcf-4630-a535-39ce0b07260c@vates.tech>
-To: "Jan Beulich" <jbeulich@suse.com>, xen-devel@lists.xenproject.org
-Cc: "Andrew Cooper" <andrew.cooper3@citrix.com>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>
-References: <73481cbf-337f-4e85-81d2-3487366cd822@suse.com> <017e689a-41a2-4722-a5e7-19ffef27500f@suse.com>
-In-Reply-To: <017e689a-41a2-4722-a5e7-19ffef27500f@suse.com>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.6c9a378f36024232a7564311669ba435?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20250605:md
-Date: Thu, 05 Jun 2025 17:06:54 +0000
+X-Inumbo-ID: bc58ccfe-4231-11f0-a300-13f23c93f187
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ctZm2dkUGRSZWsMZS3ZvpbvQQfng/nt/Z3o6YAXXvIJ57a+aoJ5DqHUQQNkmXUVW9ttEK6hvOgGl6iUuN1YM029pWo6ifgCNG6WkVAI20IljRf2cTKyb+BRSU988HNQs2FwkJWnEx7YMnD2Pfp/b7I1T1jKQmwEpvspi90UBpNHzN2v3gYGkBAuCW8KQ4Y3ekRpJPSKQ9YGOuOktpvme8UhcbH78U1MTDt1n8jbhBvYriY8PclLHCNHXjGQM/YSpsp1PagcQVxL6zmH5iUDB7uQ7ovpWigsE7Aqro395sF+9J/qq/HyqJB3W5ib8u0TYId/T8JjWGiNaOL4WFiHGLw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=H6kfwSE7s6bQuZ3N1lUT5jMKzInmxmzg2O+OG1b5az8=;
+ b=qMXsh8/8CL5F81hIibkrmiW5ZFt2OqMEax+Qnel40CYJkNf8YAvIetBW4qKkF0soKaRWqm0UvWS045K4TwGmXwofxTQsF/xQ1AmfsNxGuSintEA9TWJ43pAiXbsyauaQhWdnh/TE3N05v+XvatJFmmg+rVP9N/K2brMOpwusmY4EzVswoszViFAEZ1CXupgBAWCFLSDrmyhJ0MksASL0hrf0jMcaL9CBF0pU6RjaG6pw3oXjYpE78tUK7+YeXi7uKEu98HoipABmzLJC6iU0baRQXJfPZ5Vr4tt2BmUAtgqQ314lE1ztmfLGoxYcjLkZFDEk79kFHWoRQUixZdlz2A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=H6kfwSE7s6bQuZ3N1lUT5jMKzInmxmzg2O+OG1b5az8=;
+ b=xS7AG1GftEABFU2Bz+FTEDfOE/8mLRTsAQMTC2RU64SWJSBdYXkUU/OxS2VLs4XOMgJ9OKR7+cM8fiAXu1ecAWgF4I5A2OCLfLYUzuH+jqcBv13pitq7znAM7p4h25CZkOP1voW6LDiPCnerrBkmjLlgk0Yuj/8WZekjac9Jqfk=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="UTF-8"
+Date: Thu, 5 Jun 2025 19:22:56 +0200
+Message-ID: <DAERV1HLF871.2MROGL8YMCF9Z@amd.com>
+From: Alejandro Vallejo <agarciav@amd.com>
+To: Jan Beulich <jbeulich@suse.com>
+CC: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+	<julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, Michal Orzel
+	<michal.orzel@amd.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>, Anthony PERARD
+	<anthony.perard@vates.tech>, =?utf-8?q?Roger_Pau_Monn=C3=A9?=
+	<roger.pau@citrix.com>, "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	<xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH 07/19] arm/gnttab: Break cycle between asm/grant_table.h
+ and xen/grant_table.h
+X-Mailer: aerc 0.20.1
+References: <DA1WWRUQLCAG.ZTVR1HXJ85V0@amd.com>
+ <20250530120242.39398-1-agarciav@amd.com>
+ <20250530120242.39398-8-agarciav@amd.com>
+ <5f3de127-70cd-422f-a368-6c23d83c6cf9@suse.com>
+ <DAC4BPMR5N3A.3JYN5WXUSRGBG@amd.com>
+ <6cc4d172-793b-4d3e-990e-f8fd0d4bbabc@suse.com>
+ <DAC723JETPVO.2262JS2GW584S@amd.com>
+ <87224eb9-d4a6-4589-8cc2-e222619f8dde@suse.com>
+In-Reply-To: <87224eb9-d4a6-4589-8cc2-e222619f8dde@suse.com>
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN1PEPF0000F0E4:EE_|PH7PR12MB7427:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5ce2dff7-95d0-4cbb-cc8f-08dda4559eaa
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700013|376014|82310400026|7416014|1800799024;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?ZjZXMHk3T3BWenNnQWc4SDkvZWFVSW5KQitqaDhyOXpWVTBPQzhRd0pLaVIz?=
+ =?utf-8?B?bU82QVFieHBrZzNtT0xzb3R2VUxCa0ZvVklKcWtVQm1ENld1TzZsN25GWWVi?=
+ =?utf-8?B?Ky9YSlZTa3owQjFhM1hsQjJzREtlYjNaNklKVElSQ1RTSUEzVVUrZHVwc2d3?=
+ =?utf-8?B?QWh1VnRTSFZySmtxa3RrUlVEdkFydDlCdlpyenRuRVpqZUhGclV0cHpXOWNM?=
+ =?utf-8?B?WWVjOUpIbVUwTUZ4NXJpSFpybW1CM0RuV0tlVE1LbDBRT1d6V2hhdlBSVTA5?=
+ =?utf-8?B?L2FMSGJNMWpoS1FCVHg1b3NTRTZnSUhWMWYwcFZOVHFFdTA2YWROQ0wvejFs?=
+ =?utf-8?B?b1Z5REpabXF4Z0ZHNEYvaE9leHE3c0gwaDRtdmdyWUxtQ3dJbU5pMHBxR2F0?=
+ =?utf-8?B?SUVJWGlyc1B2M2dwSFJLSzRieVBxY3VzTjEzUndEaTl4bTNQOEpKT2RNWTA3?=
+ =?utf-8?B?cmlUTUZvdzJHMVFsL0NsRWFoREJsUnJOekhoOGFoQysrL3VJWHpqaCtoRXFG?=
+ =?utf-8?B?c2YrQng5Z1JBckNyQytnNGRpZnRNVE1zcHhCdU9iVnkyQTJOejltUk5wZWky?=
+ =?utf-8?B?WnVJUkxqQzNDWjBUSDJqZkxNdE85YTVUNm1xUGhaRjVQQjdtMVhTcEdlZ3ZV?=
+ =?utf-8?B?emFrU2d5bWxoMnRzQXk1YTc4cEE2ZTdqTXpjNFhpOURLM2VzZ3lGSUxvbFd0?=
+ =?utf-8?B?TG41ZUhJK2RKNVlHSld0WGVxQ3pDUE9yYkFVcU1qM2VYckFwMGFjeTdZSnBQ?=
+ =?utf-8?B?UkVVUThISzdYSGxSK2k1dzhmTGlFVjFEamxWOE45ejJvTzV6K0JSZGN3RGFG?=
+ =?utf-8?B?QnZaTURlTkMycWlmV29JNngwS0pDNW16eDdNeW5sUmFSZWVnWng3dzBVQ3JI?=
+ =?utf-8?B?eVVGNFJkdnByOERNSHJicTZjeUhISFh4d0VSNGVibE13Yko2TGJoUURzeUhW?=
+ =?utf-8?B?ZTVOYVNtKzdhZnp3OEI4OUQ3ZytMUk0za0o1ekN5WkNBdmRTUHJ4dXQ4Wm1R?=
+ =?utf-8?B?dk02cFZXak9RbmsvalVvNWVwNzA3UmRiV0tWbGdUN0RibTZaRWNVQmpneEpW?=
+ =?utf-8?B?bFNxSGIvT1o0bFNTVUxxZ3EwS21OaFkyUFBETmIyQUN5OTkrc0ZSOGd4Rmpo?=
+ =?utf-8?B?U2Z1Vy9UaVFnYnhobk5lVXV1ZTZ5cGU4bWgvY2dNbTFTczhDVjBwekhCU2tB?=
+ =?utf-8?B?TlcxOGN0Mlg1eWVZTTBUaEozZXhhcjdmMTFBWG9EeXZkS1VheTNURGNkR2Er?=
+ =?utf-8?B?bGM3ZUgvbzdVMmJKbHZNMDYyYnd0SFJCQ0FsODI4bVZVb1BZeHM5ekd5TTFD?=
+ =?utf-8?B?V3B3R1R1a2ZmUmpUL2Z2UDFmMG9oQU16eERuZjhvam1nYzZiTEtoVlFoMkVH?=
+ =?utf-8?B?R015V29ZbVZNcFh6QUdRcWd0Qk42UFAyWVVOVGE3cDhuV3F3VlpEK2QzNjQ1?=
+ =?utf-8?B?YVZJMEhkaE8va2MxSWtONEJQS0prYmJHUlhsUSt3eDc4NmRHMWFpOVpKb3Ix?=
+ =?utf-8?B?NmZXNU4xdjE3M0doWGN3Y2t3TDN0VjRiMnNmRGdLYVloTzl5eEtoZHExWkph?=
+ =?utf-8?B?Qyt2dGtSUUU5TENHTkxzNWFWZFVGa3NUNFUrcTZvR2N1Qzhtd1h2aGs0d0w1?=
+ =?utf-8?B?dXBWckg3M3JSd2RObkRyNUFSWEpaWlFiN2hoU3VtOEZ5STJzT2J1SkJiY1lL?=
+ =?utf-8?B?ME8vNzdiZ1UrL3Nyclo0SUtaNWRISkhOdkV3OE1XRjdTdHV4cjVHTmx4eWtj?=
+ =?utf-8?B?WmZ0dnNOQmJ0L0NPRWVwWnBVVTlPODIyaEU2TkVHTnB0SDJrZWJNMGxaUU9J?=
+ =?utf-8?B?bEJ3MnF1dEJlMlRlVTJsZk5rbWhUUEErMC9RQUZ5cUhyWlZtWWxZZEJEYzJX?=
+ =?utf-8?B?MmRqbitPVzdBYmNQUVovTzNaeTdsYnRwM3BCMWd3dy93OEZOT3dHYjdodWNs?=
+ =?utf-8?B?RU5nMGdYbG11U1QzSjEveW9nM3lDd095Uks4N1dDTFYxVWxwblJpT0lJcDZk?=
+ =?utf-8?B?NGhkemJXNzBnL0hjSEV2enlKRnVZVEpQd0wzakZ4NlQ0WXh2ZDBnQWI1U2M3?=
+ =?utf-8?Q?dEmKnE?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(376014)(82310400026)(7416014)(1800799024);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jun 2025 17:22:59.7188
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5ce2dff7-95d0-4cbb-cc8f-08dda4559eaa
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MN1PEPF0000F0E4.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7427
 
-Le 05/06/2025 =C3=A0 12:27, Jan Beulich a =C3=A9crit=C2=A0:
-> Move the function to its own assembly file. Having it in C just for the
-> entire body to be an asm() isn't really helpful. Then have two flavors:
-> A "basic" version using qword steps for the bulk of the operation, and an
-> ERMS version for modern hardware, to be substituted in via alternatives
-> patching.
-> 
-> Alternatives patching, however, requires an extra precaution: It uses
-> memcpy() itself, and hence the function may patch itself. Luckily the
-> patched-in code only replaces the prolog of the original function. Make
-> sure this remains this way.
-> 
+On Tue Jun 3, 2025 at 9:04 AM CEST, Jan Beulich wrote:
+> On 02.06.2025 18:39, Alejandro Vallejo wrote:
+>> On Mon Jun 2, 2025 at 4:51 PM CEST, Jan Beulich wrote:
+>>> On 02.06.2025 16:30, Alejandro Vallejo wrote:
+>>>> On Mon Jun 2, 2025 at 9:53 AM CEST, Jan Beulich wrote:
+>>>>> On 30.05.2025 14:02, Alejandro Vallejo wrote:> --- a/xen/include/xen/=
+grant_table.h
+>>>>>> +++ b/xen/include/xen/grant_table.h
+>>>>>> @@ -27,7 +27,7 @@
+>>>>>>  #include <xen/rwlock.h>
+>>>>>>  #include <public/grant_table.h>
+>>>>>> =20
+>>>>>> -#ifdef CONFIG_GRANT_TABLE
+>>>>>> +#if __has_include("asm/grant_table.h")
+>>>>>>  #include <asm/grant_table.h>
+>>>>>>  #endif
+>>>>>
+>>>>> This change looks wrong (or otherwise is lacking justification): With=
+ GRANT_TABLE=3Dn
+>>>>> the arch header isn't supposed to be included.
+>>>>
+>>>> It's not equivalent to the previous code; but that's a feature, not a =
+bug.
+>>>>
+>>>> Not including the header with GRANT_TABLE=3Dn  was the best we could w=
+ith
+>>>> the older toolchains in order to not try to include a header that migh=
+t not
+>>>> exist. The high number of sequential inclusions of xen/grant_table.h a=
+nd
+>>>> asm/grant_table.h seem to attest to that.
+>>>>
+>>>> I can ammend the commit message to be clearer, but IMO this is what it=
+ was always
+>>>> meant to be. I can replace the current commit message with:
+>>>>
+>>>>   "The previous toolchain base version didn't provide __has_include(),=
+ which
+>>>>    allows conditional inclusion based on a header's existence. Lacking=
+ that
+>>>>    feature the inclusion was guarded by the GRANT_TABLE option being p=
+resent
+>>>>    but even then sometimes the arch-specific header is required even w=
+hen
+>>>>    the option is not selected. This causes inclusion sites to needless=
+ly
+>>>>    include both asm/grant_table.h and xen/grant_table.h.
+>>>>
+>>>>    Using __has_include() removes this requirement at inclusion sites."
+>>>>
+>>>> Thoughts?
+>>>
+>>> So why would we include a header we don't need when GRANT_TABLE=3Dn? Ov=
+erall
+>>> we're trying to reduce dependency trees rather than growing them furthe=
+r.
+>>=20
+>> Because we do need it or the code doesn't compile. gnttab_dom0_frames(),=
+ for
+>> instance, exists and is used in unguarded statements.
+>
+> I fear I don't understand this: Things are building fine right now, aren'=
+t
+> they?
+>
+>> There's more case like
+>> that. It may be possible to break those dependencies so the inclusion is
+>> not always expected, but the reality is that you tend to need the other =
+header
+>> for pretty much the same class of reasons you needed xen/grant_table.h t=
+o begin
+>> with.
+>>=20
+>> Forcing the code to include both seems counter-productive to me.
+>
+> Depends on how frequent the double inclusion is, imo.
+>
+> Jan
 
-We can probably workaround that by using a separate memcpy for 
-alternatives patching. So it wouldn't end up patching itself.
+Not as much as I feared. I've removed both linkages for v2.
 
-> Additionally alternatives patching, while supposedly safe via enforcing
-> a control flow change when modifying already prefetched code, may not
-> really be. Afaict a request is pending to drop the first of the two
-> options in the SDM's "Handling Self- and Cross-Modifying Code" section.
-> Insert a serializing instruction there.
-> 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> ---
-> We may want to consider branching over the REP MOVSQ as well, if the
-> number of qwords turns out to be zero.
-> We may also want to consider using non-REP MOVS{L,W,B} for the tail.
-> 
-> TBD: We may further need a workaround similar to Linux'es 8ca97812c3c8
->       ("x86/mce: Work around an erratum on fast string copy
->       instructions").
-> 
-> TBD: Some older AMD CPUs have an issue with REP MOVS when source and
->       destination are misaligned with one another (modulo 32?), which may
->       require a separate memcpy() flavor.
-> ---
-> v5: Re-base.
-> v4: Use CR2 write as serializing insn, and limit its use to boot time.
-> v3: Re-base.
-> 
-> --- a/xen/arch/x86/Makefile
-> +++ b/xen/arch/x86/Makefile
-> @@ -47,6 +47,7 @@ obj-$(CONFIG_RETURN_THUNK) +=3D indirect-t
->   obj-$(CONFIG_PV) +=3D ioport_emulate.o
->   obj-y +=3D irq.o
->   obj-$(CONFIG_KEXEC) +=3D machine_kexec.o
-> +obj-y +=3D memcpy.o
->   obj-y +=3D memset.o
->   obj-y +=3D mm.o x86_64/mm.o
->   obj-$(CONFIG_VM_EVENT) +=3D monitor.o
-> --- a/xen/arch/x86/alternative.c
-> +++ b/xen/arch/x86/alternative.c
-> @@ -195,12 +195,16 @@ void *place_ret(void *ptr)
->    * executing.
->    *
->    * "noinline" to cause control flow change and thus invalidate I$ and
-> - * cause refetch after modification.
-> + * cause refetch after modification.  While the SDM continues to suggest=
- this
-> + * is sufficient, it may not be - issue a serializing insn afterwards as=
- well,
-> + * unless this is for live-patching.
->    */
->   static void init_or_livepatch noinline
->   text_poke(void *addr, const void *opcode, size_t len)
->   {
->       memcpy(addr, opcode, len);
-> +    if ( system_state < SYS_STATE_active )
-> +        asm volatile ( "mov %%rax, %%cr2" ::: "memory" );
->   }
->   
->   extern void *const __initdata_cf_clobber_start[];
-> --- /dev/null
-> +++ b/xen/arch/x86/memcpy.S
-> @@ -0,0 +1,20 @@
-> +#include <asm/asm_defns.h>
-> +
-> +FUNC(memcpy)
-> +        mov     %rdx, %rcx
-> +        mov     %rdi, %rax
-> +        /*
-> +         * We need to be careful here: memcpy() is involved in alternati=
-ves
-> +         * patching, so the code doing the actual copying (i.e. past set=
-ting
-> +         * up registers) may not be subject to patching (unless further
-> +         * precautions were taken).
-> +         */
-> +        ALTERNATIVE "and $7, %edx; shr $3, %rcx", \
-> +                    STR(rep movsb; RET), X86_FEATURE_ERMS
-> +        rep movsq
-> +        or      %edx, %ecx
-> +        jz      1f
-> +        rep movsb
-> +1:
-> +        RET
-> +END(memcpy)
-> --- a/xen/arch/x86/string.c
-> +++ b/xen/arch/x86/string.c
-> @@ -7,21 +7,6 @@
->   
->   #include <xen/lib.h>
->   
-> -void *(memcpy)(void *dest, const void *src, size_t n)
-> -{
-> -    long d0, d1, d2;
-> -
-> -    asm volatile (
-> -        "   rep ; movs"__OS" ; "
-> -        "   mov %k4,%k3      ; "
-> -        "   rep ; movsb        "
-> -        : "=3D&c" (d0), "=3D&D" (d1), "=3D&S" (d2)
-> -        : "0" (n/BYTES_PER_LONG), "r" (n%BYTES_PER_LONG), "1" (dest), "2=
-" (src)
-> -        : "memory" );
-> -
-> -    return dest;
-> -}
-> -
->   void *(memmove)(void *dest, const void *src, size_t n)
->   {
->       long d0, d1, d2;
-> 
-> 
-
-Aside that:
-Reviewed-by: Teddy Astie <teddy.astie@vates.tech>
-
-Teddy
-
-
-Teddy Astie | Vates XCP-ng Developer
-
-XCP-ng & Xen Orchestra - Vates solutions
-
-web: https://vates.tech
-
-
+Cheers,
+Alejandro
 
