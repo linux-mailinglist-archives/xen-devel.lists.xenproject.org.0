@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2ED93ACF3B0
-	for <lists+xen-devel@lfdr.de>; Thu,  5 Jun 2025 18:04:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1007154.1386455 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D481ACF3B4
+	for <lists+xen-devel@lfdr.de>; Thu,  5 Jun 2025 18:05:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1007159.1386466 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uND4f-0005q9-EI; Thu, 05 Jun 2025 16:04:13 +0000
+	id 1uND5e-0006Mw-NJ; Thu, 05 Jun 2025 16:05:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1007154.1386455; Thu, 05 Jun 2025 16:04:13 +0000
+Received: by outflank-mailman (output) from mailman id 1007159.1386466; Thu, 05 Jun 2025 16:05:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uND4f-0005o0-Bh; Thu, 05 Jun 2025 16:04:13 +0000
-Received: by outflank-mailman (input) for mailman id 1007154;
- Thu, 05 Jun 2025 16:04:12 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uND5e-0006KJ-K8; Thu, 05 Jun 2025 16:05:14 +0000
+Received: by outflank-mailman (input) for mailman id 1007159;
+ Thu, 05 Jun 2025 16:05:13 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=qREP=YU=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uND4e-0005nu-50
- for xen-devel@lists.xenproject.org; Thu, 05 Jun 2025 16:04:12 +0000
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [2a00:1450:4864:20::433])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b733ec22-4226-11f0-b894-0df219b8e170;
- Thu, 05 Jun 2025 18:04:10 +0200 (CEST)
-Received: by mail-wr1-x433.google.com with SMTP id
- ffacd0b85a97d-3a528243636so706619f8f.3
- for <xen-devel@lists.xenproject.org>; Thu, 05 Jun 2025 09:04:10 -0700 (PDT)
+ id 1uND5d-0006KD-Aj
+ for xen-devel@lists.xenproject.org; Thu, 05 Jun 2025 16:05:13 +0000
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [2a00:1450:4864:20::42c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id dc5a195b-4226-11f0-a300-13f23c93f187;
+ Thu, 05 Jun 2025 18:05:12 +0200 (CEST)
+Received: by mail-wr1-x42c.google.com with SMTP id
+ ffacd0b85a97d-3a36748920cso1182184f8f.2
+ for <xen-devel@lists.xenproject.org>; Thu, 05 Jun 2025 09:05:12 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-747affafbfcsm13004807b3a.89.2025.06.05.09.04.05
+ 41be03b00d2f7-b2eceb02a66sm10454509a12.1.2025.06.05.09.05.06
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 05 Jun 2025 09:04:08 -0700 (PDT)
+ Thu, 05 Jun 2025 09:05:11 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b733ec22-4226-11f0-b894-0df219b8e170
+X-Inumbo-ID: dc5a195b-4226-11f0-a300-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1749139449; x=1749744249; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1749139512; x=1749744312; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=y8oW7pQ5BcrODanKo9P3TQDy87pYMla9FTv6g//9z5c=;
-        b=bgS72avwDZnzmk3+lFOlhkqq5l0HfzS/7J9Fq9FXNzQl5M7Y/1yctWoi2M50+pAAz+
-         V8SrCERTnzoQp1dr1vrnNw8e2qpsT6qqurgvsr2h5nA3WHwkua1GSqU6/SGD++I+Ohq1
-         +jkQkic/txcGgL95llIKfckaj5zhu9tmtacxlPtMUrHdlxXJ2E2T/1SWuRjuWZBII5GF
-         WvLcz4hgo3zjMturAuQDsxByBFcsRUpQPKG2SAm1exvGEGzz2PGPDg6duTIicuC6rTb1
-         oOXvUb/nXaPCmkXV73z9j9vYIUPwOI4IvNsA+45pDoGcGKXCWhOTNMJ70EhMlGr4tOMB
-         AH2Q==
+        bh=Wqj6OlcbgO0YyjN1kGvVd4r8f1UZYdWIdKiSngFptn8=;
+        b=OLK+sEF9qYUx7+aJb7tD3qHrfo0BiKgoOIN549P9ggA6NF7u1LD5tY0ErXI3QJk+TN
+         lPemJulFJyQAZj3lsDhQaDSlXs1m3162ElRmU9DiAVy0/p3NwMvAIilo8luGVYdOjQG/
+         WVPmzv6XpOzYV/GVd8oEDJn3n4JH11gh/pg2B4s6cHW6yh49lkODNNGf7ezVD+GpgWcu
+         vxujAp2f4l9VjEgsC3iNxD3pCVZJk21voemXXIKj+0oDujEBLnMReEd7Qy9ehxAYq69g
+         1VA7u95i7F5aOCYGnSjkpBoO2TthUOpUGE0pcwJdor7Im+KRzT86nz2fegKoGoY7Pmkl
+         yhyg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749139449; x=1749744249;
+        d=1e100.net; s=20230601; t=1749139512; x=1749744312;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=y8oW7pQ5BcrODanKo9P3TQDy87pYMla9FTv6g//9z5c=;
-        b=bimShgEAFP3OYvZy2S5OxMSyLsNgnMuA0ZL7zT7e/IK4EHdBpoZLm9aYgMbSXADcKD
-         Yw/gpNyk6EloVfpHudpYfATUADXLigt2zPYQIpYE7M+6iy0QTcRl2/nBolgk45By2ST0
-         zHYVRv9Z2ZwooTCvTNhZp+k12wI3/AwedhgslPwdiYmcjzorNkaFHADrny4YZxO8hatw
-         rt5yw0y9GWX3llgjy3Rwm9ZXMofeAPIsTxqJn7oppjXAaUfq79MozHgkFRG2LYCbP2PY
-         0pVF3MPTqKhfJE3ThYx6VTUb0X0cljYU02ME3k7tU1kqWoTexbv0cW7d4ba+LJIQl6sd
-         qCpw==
-X-Forwarded-Encrypted: i=1; AJvYcCVtF8j9oLCMPUKt7GjKokeMmM+bgDkfKaOC/84FAFPAabrOEK9zW1TsGXC+0W/AXyt7MtCihEXm+y0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwfE3GLTUo275rWaXDkgY4VhH8IOI9PDrFCF6wuVCqFCtU/cFjY
-	4d9lWbWcJmwEc4nlAN/u/ZnHhWTS0GtU9N9jAjwaN+mpmoLIDXkXSP+UdIntO8errA==
-X-Gm-Gg: ASbGncuWRdfkjzR98qvuYNRQV/QJ2ansQVZ+WDAkYMAxeD94nLMID4p3zKkWidrnfY1
-	drVgTj1a3tojdquW4RAarPUsoNgYzho3smsh0ivLIy6CcQEKz25iT8zirI1+/fOl2i9jtPCsMzx
-	OEvrOe6ynaxuueOfGNfRcC9PSkxEage0doV9uOeksi5XlcVhwP/KkTqKgwNe8l+Pwd1GU4jqjhY
-	T5PIHDFoRdMine3DoN46VOK3/1XMGHwb/C/qGe8994xoiGfCGpKO6kJ9IOzme12/nWWNOCqqZXL
-	Ie9/BSjaqAJ6Hs7KQGBpDPbDoHADF1odOmodg0lKJR3wOqXWpLgexik2zfIKqWPXnTeYFxCT+qD
-	wsAN1Sdc5f+sRJbJPSpX7ied/6kPsHWI9m3Qz
-X-Google-Smtp-Source: AGHT+IFpyCfLQMstZOpHAy8FWHq7RTrhoR+trZB3+Q7HrzLI53Yy2XvlNwSOB36G5XVJKobt2k0NNQ==
-X-Received: by 2002:a05:6000:40d9:b0:3a4:ea8f:efe4 with SMTP id ffacd0b85a97d-3a51d921736mr6439695f8f.18.1749139449288;
-        Thu, 05 Jun 2025 09:04:09 -0700 (PDT)
-Message-ID: <698660d3-ab00-4942-872b-b73687e0350e@suse.com>
-Date: Thu, 5 Jun 2025 18:04:01 +0200
+        bh=Wqj6OlcbgO0YyjN1kGvVd4r8f1UZYdWIdKiSngFptn8=;
+        b=bR4VGXNSyiGnarqBlo5ANZXC3kEnfna07Ob4uJ/eBJYTA5+Eil5FxMXYSoRmgRjnmJ
+         09mKnJCHDlO4ZLpadw/CLDOBrDXz1mx3cHq4YA4nOqYyRWn015Omv3uiwgyQaf5BnNhd
+         JOmI22hbikBJ5CvKUfwwx34qpabVH5/p0pIfHye4T/uKPEBsiL6O2R2+gZPvZBH6fz0H
+         VbhRBkkYo2eWVtafZky+Z020v6YIrdz/Y/T75O2T+zTM/1rudmzU1oiAiWIoxFDY4eim
+         N0zdilfgvFNFq2mGaL5hKCANFXqdEzkjsFKRmEyEZ8FdpgbKjAH5RTNUVcybxwrR0PpB
+         TWtg==
+X-Gm-Message-State: AOJu0YxWFmWClAivYkqg6lIJDc5ozXslELxLghQlDgCBpIxgGvorKvJE
+	sBJnaeXqC6302+ZL6FB+9sD7A6HfjehFDvvNApB30Zp+dXNYPCqBjuayxGGB06ViSg==
+X-Gm-Gg: ASbGncsrAAqk3hyxptkbyFEarh11E7PWZ6lenrje4US01vVB06GNN4pWkWpiuvINCMc
+	I8NEXn3E0bUsZ9XmoJYvTYukux/D3dErG7mg1Gbe5Wa4oEhGlb3rvKKQMsS5Nr/tgcGyrewC3qt
+	2ZGii2NGLW/61IYH+hnk8HS6P1MQMLLQqBmf4au0i8XYXMTsRK3bAetLkohxKwASSqPqJ1x7lz0
+	2a9r8rS/jUDygJAFE1/GlmpDs/5dfe144xyvvEgBy/4FtGIwGzs0nobrJf66u6wfFzM+PFb9Efr
+	OZoU6O0XMhSnpmtiP/XRYjESB3BWm9Sp4hrPnTAxug5lInpr6H16GgXMKQ4oRgD3Cqmdl47WSOg
+	286ksVsv1SkiOUvd2yOgqL2GFwl9+eK2qBrSr
+X-Google-Smtp-Source: AGHT+IEfUSw1ZXD/eeCPtT5vaOlN9gz7Pxc44RukLfMdNf+RqU519TEGg95nNrVNs9uYY2Vbz66+jg==
+X-Received: by 2002:a05:6000:25c4:b0:3a4:d4cd:b06 with SMTP id ffacd0b85a97d-3a51d95dfb2mr6725737f8f.34.1749139511599;
+        Thu, 05 Jun 2025 09:05:11 -0700 (PDT)
+Message-ID: <ea285192-c39c-43b4-a879-7ca4ff7f9b4a@suse.com>
+Date: Thu, 5 Jun 2025 18:05:02 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] vmx: Introduce vcpu single context VPID invalidation
-To: Teddy Astie <teddy.astie@vates.tech>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <83d0e7dfc076e9453fb6537e5948c03d90e947da.1748594036.git.teddy.astie@vates.tech>
- <4ed9d6ce-5634-4dd9-86e9-5d1f84a43e10@suse.com>
- <76bf2d72-3834-4455-8023-a20c84db58d0@vates.tech>
+Subject: Re: [PATCH v1 1/5] console: add relocation hook
+To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>
+Cc: xen-devel@lists.xenproject.org, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
+References: <cover.defc562b917978814c8359bbd04f1dadba33fb77.1748182535.git-series.marmarek@invisiblethingslab.com>
+ <4f1889dc03ec4aa2cc0cd2bd14523a2c6f670bdb.1748182535.git-series.marmarek@invisiblethingslab.com>
+ <0b17da9c-57db-4a8b-90af-e53e45cb1243@citrix.com> <aDSLNeFRZWoxMTEt@mail-itl>
+ <66cfdee6-5dc2-4139-8550-ef441fa7a7a0@suse.com> <aEGu6-6dGqc_WUlg@mail-itl>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,33 +123,55 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <76bf2d72-3834-4455-8023-a20c84db58d0@vates.tech>
+In-Reply-To: <aEGu6-6dGqc_WUlg@mail-itl>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 05.06.2025 17:17, Teddy Astie wrote:
-> Le 05/06/2025 à 16:51, Jan Beulich a écrit :
->> On 30.05.2025 10:48, Teddy Astie wrote:
->>> +    /*
->>> +     * If single context invalidation is not supported, we escalate to
->>> +     * use all context invalidation.
->>> +     */
->>> +    if ( likely(cpu_has_vmx_vpid_invvpid_single_context) )
->>> +        goto execute_invvpid;
->>> +
->>> +    type = INVVPID_ALL_CONTEXT;
->>> +
->>> +execute_invvpid:
+On 05.06.2025 16:51, Marek Marczykowski-Górecki wrote:
+> On Thu, Jun 05, 2025 at 04:42:53PM +0200, Jan Beulich wrote:
+>> On 26.05.2025 17:39, Marek Marczykowski-Górecki wrote:
+>>> On Mon, May 26, 2025 at 04:08:17PM +0100, Andrew Cooper wrote:
+>>>> On 25/05/2025 3:15 pm, Marek Marczykowski-Górecki wrote:
+>>>>> diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
+>>>>> index 25189541244d..3ef819a252e4 100644
+>>>>> --- a/xen/arch/x86/setup.c
+>>>>> +++ b/xen/arch/x86/setup.c
+>>>>> @@ -1481,6 +1481,8 @@ void asmlinkage __init noreturn __start_xen(void)
+>>>>>          highmem_start &= ~((1UL << L3_PAGETABLE_SHIFT) - 1);
+>>>>>  #endif
+>>>>>  
+>>>>> +    console_init_pre_relocate();
+>>>>> +
+>>>>>      /*
+>>>>>       * Iterate backwards over all superpage-aligned RAM regions.
+>>>>>       *
+>>>>> @@ -1606,6 +1608,12 @@ void asmlinkage __init noreturn __start_xen(void)
+>>>>>      if ( !xen_phys_start )
+>>>>>          panic("Not enough memory to relocate Xen\n");
+>>>>>  
+>>>>> +    /*
+>>>>> +     * Notify console drivers about relocation, before reusing old Xen's
+>>>>> +     * memory.
+>>>>> +     */
+>>>>> +    console_init_post_relocate();
+>>>>> +
+>>>>
+>>>> With reference to the next patch, there are printk()'s in this region
+>>>> which want to work (in case something goes very wrong), so I don't think
+>>>> setting dbc->suspended is the best approach.
+>>>
+>>> I guess the post_relocate hook might be moved a bit earlier, but still,
+>>> once relocation happens, the xhci console is not functional until it
+>>> gets relocated too (for example - it would post new TRBs into a ring
+>>> that isn't actually monitored by the controller).
 >>
->> There no reason at all to use "goto" here (and with that replaced there's
->> then also no style issue with the label placement).
+>> Why is it that this ring is dependent upon Xen's position? If the ring was
+>> dynamically allocated, it wouldn't change position when Xen is moved.
 > 
-> Should a similar treatment be made for vpid_sync_vcpu_gva ?
+> The console is setup quite early, I don't think I can allocate memory at
+> this stage, no?
 
-I wouldn't require anyone to do a re-work, but the latest when it is touched
-the next time it likely should be polished some. For context, while iirc we
-didn't accept that rule, Misra in principle also demands that "goto" not be
-used.
+But you allocate before Xen is moved, I suppose.
 
 Jan
 
