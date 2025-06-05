@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 85DFFACE9FF
-	for <lists+xen-devel@lfdr.de>; Thu,  5 Jun 2025 08:18:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1006251.1385439 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 34876ACEA2A
+	for <lists+xen-devel@lfdr.de>; Thu,  5 Jun 2025 08:32:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1006257.1385450 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uN3w7-0005zE-G2; Thu, 05 Jun 2025 06:18:47 +0000
+	id 1uN48E-0000Ro-Iz; Thu, 05 Jun 2025 06:31:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1006251.1385439; Thu, 05 Jun 2025 06:18:47 +0000
+Received: by outflank-mailman (output) from mailman id 1006257.1385450; Thu, 05 Jun 2025 06:31:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uN3w7-0005ws-DB; Thu, 05 Jun 2025 06:18:47 +0000
-Received: by outflank-mailman (input) for mailman id 1006251;
- Thu, 05 Jun 2025 06:18:45 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uN48E-0000Pq-Ey; Thu, 05 Jun 2025 06:31:18 +0000
+Received: by outflank-mailman (input) for mailman id 1006257;
+ Thu, 05 Jun 2025 06:31:16 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=qREP=YU=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uN3w5-0005wm-OD
- for xen-devel@lists.xenproject.org; Thu, 05 Jun 2025 06:18:45 +0000
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [2a00:1450:4864:20::434])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ef099f64-41d4-11f0-a300-13f23c93f187;
- Thu, 05 Jun 2025 08:18:44 +0200 (CEST)
-Received: by mail-wr1-x434.google.com with SMTP id
- ffacd0b85a97d-3a36e090102so291569f8f.2
- for <xen-devel@lists.xenproject.org>; Wed, 04 Jun 2025 23:18:44 -0700 (PDT)
+ id 1uN48C-0000Pk-Hm
+ for xen-devel@lists.xenproject.org; Thu, 05 Jun 2025 06:31:16 +0000
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [2a00:1450:4864:20::429])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ad7b1d3a-41d6-11f0-b894-0df219b8e170;
+ Thu, 05 Jun 2025 08:31:14 +0200 (CEST)
+Received: by mail-wr1-x429.google.com with SMTP id
+ ffacd0b85a97d-3a5123c1533so284893f8f.2
+ for <xen-devel@lists.xenproject.org>; Wed, 04 Jun 2025 23:31:13 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-b2eceb96f74sm9592303a12.62.2025.06.04.23.18.38
+ d2e1a72fcca58-747affafa34sm12555519b3a.103.2025.06.04.23.31.09
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 04 Jun 2025 23:18:43 -0700 (PDT)
+ Wed, 04 Jun 2025 23:31:12 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ef099f64-41d4-11f0-a300-13f23c93f187
+X-Inumbo-ID: ad7b1d3a-41d6-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1749104324; x=1749709124; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1749105073; x=1749709873; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=jC4eir56QUeDqUtrV3PuuzEGAU9maPN452N8Yr+PYs0=;
-        b=Y5M4oERtV7xJKfH9I2SN8pn4svHpYdkF+6+5EoYvXOOQdaIDw/Jfy4FluwKc7d4X9o
-         FNEzvh16F9pkxK/uEU6OFOdto4Qp4pSq/lDDie3KZzx6C12m6vWUD5wRFRe4dyhbhNxR
-         /TIndb5dRcsKtD5dCLKgMvH+C9FJ7wsUV2eQlZn40aaPHJJoeAZ7npvMCF2m5uaiEKc/
-         kZ894I7d4cmNzTGJwNSCuKtpo+Emd7T2BtRIO4uEtdK4vC0/iGHFhHwwAAm7mwi6BgpF
-         OaP+whPH1I2y/IeDui8yedcFXpA7o0ieZJaiq1V2U36KZU4zIMLUIwm+N1KJzx9Q3cgc
-         ro6g==
+        bh=LD1YIKKhP4Y4E1+J+F+lZ84K9Y0IuCjjqTjOSBewbQM=;
+        b=XJ1XRCscL6eoGrHJvnEt6dYZvQxyyZ8dnXycR2dv+vGRi1ghO2NeDz/Yza2pMrUfyb
+         JACZ9S99/DriXMWvK4q4Mu2l85mptG7k7bcISAgHuK7KtqSubcnpw712b9QH47vN14Ij
+         sBuct6/aN8CCVHWh9Bm09ohOTcjnTsn9oibEug1GZX8TVljjmnlK/h4RkyrL7RvQ31XI
+         V8dwuZVjk3WbJv1S6p6zHN9jwtC9/IbHthSr3CNgV4FkTXxWufSN2l3O9sYqnKuQz+ez
+         czC2aga2jusiUylh+pUUkiW05KdooyjcozlIb9MhDOdpLrP3k6fm0QF1EPxXdJalnz9A
+         85iA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749104324; x=1749709124;
+        d=1e100.net; s=20230601; t=1749105073; x=1749709873;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=jC4eir56QUeDqUtrV3PuuzEGAU9maPN452N8Yr+PYs0=;
-        b=pN29U5RqgYa8eFiuuOmIekvKyysrXhA3RfTQVphGJQh1tQbLM+nqJF59VEFAMABxgK
-         v/i2gz6anMuPw9p7Gk8nrnWvSZfmTRajGqUc81EkJdtqETVXyy/4Zv0meUKnmGYe4oWU
-         Et9QW4dmSVJ39KOg3aLSXp+k2noftCiKP4VTQlWEmvf5P8rpZIhjVHm6LST4CTX35tNs
-         BQabNn2BmnBUeMafq98BEQAQ0XQKo/2RRgAH9aFqA8MEotMu6OlGLJIwZgsqJEFRLCFV
-         QCCc3ropP3f73evGHESpntnXZ6CfetmN1RAO/uH7n4+wWP3te79DmHV1n7z+k52MNDTg
-         FsqA==
-X-Forwarded-Encrypted: i=1; AJvYcCUiEdci6cQ6vUwyYOufoqBwKYHjQBTOoaA4aASlPBj630HzUkkTrG2fIwOo7FunlRSsBVLp7FpyI04=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yyz/rffRBJKumvpS05JQm9XXe5CzNjqNov6e2RdetX9FjHacSUT
-	SZD0HzGUP+o2xgdEj9Yn5yCT2kftn6k2C+iytXYwKrcmv9T3UX9xLiqul03PjeUanA==
-X-Gm-Gg: ASbGncvHS+D5ikDDlq0V+5GcQdDKc0IRonveknDIcQi/Y6jv7bXuy0AlcBRB68tHXXf
-	LWhrjdCYhYXz8jTq2FtGKYfDe+S6O8ELWUzCMd4XdYO83164CiMebUwNNmj8pIMRT9jpXSdXwm3
-	8HOm0nuo5P94seR6uj4yCDPY3gxjB1iFxnqwrAUYcHaIZzBe4/IxmbnR3EGwcOMHDzsb/nqrQNG
-	qBwOWJ40trCc9TFkq+RKPDDA031DN67N3VEaEWUlr83I9P8yB9RTHHY+djrGfK/8Pz1VRUDDNK4
-	xp1b78YRvUuIj9J12xwmZcxUkkJvTouHWWoQrM10TeTFO6Q1GAxp/A59J7raxLLcaBGpidQlfPQ
-	+P7sJ0W+ZAhcl1qhQV2ltiL2GyV1X6ROJJVw2
-X-Google-Smtp-Source: AGHT+IHadoUCl0ZXvlEzsufjYXp42virJcyCAo1Zop8+VZRJYrXMrTD7eD3GVj+WdeXFegM/HBJA9g==
-X-Received: by 2002:a5d:64c6:0:b0:3a4:dc80:b932 with SMTP id ffacd0b85a97d-3a51dbb5fbfmr4402134f8f.8.1749104324264;
-        Wed, 04 Jun 2025 23:18:44 -0700 (PDT)
-Message-ID: <842528df-d0ba-4ab2-b182-b6f824c82dc1@suse.com>
-Date: Thu, 5 Jun 2025 08:18:34 +0200
+        bh=LD1YIKKhP4Y4E1+J+F+lZ84K9Y0IuCjjqTjOSBewbQM=;
+        b=l/UfEEY//1FBSuD3z/kTBjWjI3d1ivjYJd1yHjSpnYoZams+eai7XmjpOw5FQoc8DV
+         sYbV2on27vWilqavnVH+/hx0qEw8/3a2S2iASskHxvliardZA5a2kfBI41udmvgjUMEn
+         /JEjVHUkQHDIjFExHtg9D8mWnzFqMaUNRDS6zLfKwgRBQjGRigcvIlIxWAjrwJAzMUDT
+         6t8PBWN5oI2FqSH664lAZlOHsv7TbRYq4NA2uEv90qw1pxqZZKJQOiW0NrltBhR9OFSs
+         JVQJIgR+b8o7V+QQm3uPWRb9Ce0mFxroRm+qDhV8zvJiU+0nMxjiHQhjFJYCMrt9uPc9
+         nRZw==
+X-Forwarded-Encrypted: i=1; AJvYcCVrwUsXNoxSf2TkAvQSfuaiujfLD35KcALaZxeiihoUJWsFtta6idjeQweQ32sDuKxpb64kJkSbaa8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy5TK1Cr6cyZBz/8tHCNeIu3qRpADZlyHuD48/pcycrji86Exv4
+	YA8R7BpDMXEOQS/mO38P3BqddZmZ82tw+emGykSWMlaoPgst9w5CiMSTPVEQJGm+3w==
+X-Gm-Gg: ASbGncsepQme/wjEhnBVXmN5uG4b6LmG3GNQ69Q3grLRlT07hH1nd1zCuUohh4LWONJ
+	XPlrFfXxWuleVf9M80b73R6vkIpSp8lWgBPpEtz+iNHGT17h750l8GSwbTfKzBhnXXhayR3RED0
+	tKEl9v71HKVrcQI1gwM4Ko5Jg6OV/dsat2D6FDVPK8wA87VlVauG+mlkVY6cGbh4et2TcLA4QSi
+	J3lCd9RqyK61MmNrZHVGqnHEerYLFidmoDyrhwIO/xzoGPtC5TaSFqMLVZbDK5xwQ8aHLucxXP8
+	aMbPyBOcNkompAtPU3ZoOKPDZDYFzFcSCh08MZjDQJV7MkzVDv1YX3oDPFygBDHSFDqFIgVqXoS
+	kLTVKWXED1Al3fg++R8yjK0wi7KtYrICwI7LvKyWLeUD+x+U=
+X-Google-Smtp-Source: AGHT+IEaWQ+kW/CdH9J4SmVMQMUWyP38GtH3Z1cvnjfiTCKnPKNcEWsZjPALlBNx2TK8ZZx0xd9zVA==
+X-Received: by 2002:adf:cf0b:0:b0:3a5:2208:41e3 with SMTP id ffacd0b85a97d-3a5220844f3mr2539475f8f.4.1749105073274;
+        Wed, 04 Jun 2025 23:31:13 -0700 (PDT)
+Message-ID: <c252a43a-4e00-4584-bbb1-05347aa9b49f@suse.com>
+Date: Thu, 5 Jun 2025 08:31:05 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] xen/console: unify printout behavior for UART
- emulators
-To: dmkhn@proton.me, xen-devel@lists.xenproject.org
-Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org,
- michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org,
- dmukhin@ford.com
-References: <20250605004601.1142090-1-dmukhin@ford.com>
- <20250605004601.1142090-3-dmukhin@ford.com>
+Subject: Re: [PATCH] x86: remove memcmp calls non-compliant with Rule 21.16.
+To: Stefano Stabellini <stefano.stabellini@amd.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>,
+ xen-devel@lists.xenproject.org
+References: <20250604233537.2892206-1-stefano.stabellini@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,48 +119,76 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250605004601.1142090-3-dmukhin@ford.com>
+In-Reply-To: <20250604233537.2892206-1-stefano.stabellini@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 05.06.2025 02:46, dmkhn@proton.me wrote:
-> From: Denis Mukhin <dmukhin@ford.com>
+On 05.06.2025 01:35, Stefano Stabellini wrote:
+> From: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
 > 
-> If virtual UART from domain X prints on the physical console, the behavior is
-> updated to (see [1]):
-> - console focus in domain X: do not prefix messages;
-> - no console focus in domain X: prefix all messages with "(dX)".
+> MISRA C Rule 21.16 states the following: "The pointer arguments to
+> the Standard Library function `memcmp' shall point to either a pointer
+> type, an essentially signed type, an essentially unsigned type, an
+> essentially Boolean type or an essentially enum type".
 > 
-> Use guest_printk() without rate-limiting in all current in-hypervisor UART
-> emulators. That aligns the behavior with debug I/O port 0xe9 handler on x86 and
-> slightly improves the logging since guest_printk() already prints the domain
-> ID. guest_printk() was modified to account for console focus ownership.
-> 
-> Modify guest_console_write() for hardware domain case by adding domain ID to
-> the message when hwdom does not have console focus.
-> 
-> [1] https://lore.kernel.org/xen-devel/alpine.DEB.2.22.394.2412121655360.463523@ubuntu-linux-20-04-desktop/
-> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
-> ---
-> Changes since v1:
-> - dropped change for debug port and for HYPERVISOR_console_io hypercall
+> Comparing string literals with char arrays is more appropriately
+> done via strncmp.
 
-Yet then what about ...
+More appropriately - maybe. Yet less efficiently. IOW I view ...
 
-> --- a/xen/arch/arm/vuart.c
-> +++ b/xen/arch/arm/vuart.c
-> @@ -89,7 +89,7 @@ static void vuart_print_char(struct vcpu *v, char c)
->          if ( c != '\n' )
->              uart->buf[uart->idx++] = '\n';
->          uart->buf[uart->idx] = '\0';
-> -        printk(XENLOG_G_DEBUG "DOM%u: %s", d->domain_id, uart->buf);
-> +        guest_printk(d, "%s", uart->buf);
->          uart->idx = 0;
->      }
->      spin_unlock(&uart->lock);
+> No functional change.
 
-... this dropping of XENLOG_G_DEBUG? In fact I'd have expected such to
-be _added_ where presently missing.
+... this as at the edge of not being true.
+
+> Signed-off-by: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
+
+Missing your own S-o-b.
+
+Also (nit) may I ask that you drop the full stop from the patch subject?
+
+> --- a/xen/arch/x86/dmi_scan.c
+> +++ b/xen/arch/x86/dmi_scan.c
+> @@ -233,7 +233,7 @@ void __init dmi_efi_get_table(const void *smbios, const void *smbios3)
+>  	const struct smbios_eps *eps = smbios;
+>  	const struct smbios3_eps *eps3 = smbios3;
+>  
+> -	if (eps3 && memcmp(eps3->anchor, "_SM3_", 5) == 0 &&
+> +	if (eps3 && strncmp(eps3->anchor, "_SM3_", 5) == 0 &&
+
+Unlike the last example given in the doc, this does not pose the risk of
+false "not equal" returns. Considering there's no example there exactly
+matching this situation, I'm not convinced a change is actually needed.
+(Applies to all other changes here, too.)
+
+> @@ -302,7 +302,7 @@ const char *__init dmi_get_table(paddr_t *base, u32 *len)
+>  				continue;
+>  			memcpy_fromio(&eps.dmi + 1, q + sizeof(eps.dmi),
+>  			              sizeof(eps.smbios3) - sizeof(eps.dmi));
+> -			if (!memcmp(eps.smbios3.anchor, "_SM3_", 5) &&
+> +			if (strncmp(eps.smbios3.anchor, "_SM3_", 5) == 0 &&
+
+Here and below there's a further (style) change, moving from ! to "== 0"
+(or from implicit boolean to "!= 0"). As we use the original style in many
+other places, some justification for this extra change would be needed in
+the description (or these extra adjustments be dropped).
+
+> @@ -720,10 +720,10 @@ static void __init efi_check_config(void)
+>  	__set_fixmap(FIX_EFI_MPF, PFN_DOWN(efi.mps), __PAGE_HYPERVISOR);
+>  	mpf = fix_to_virt(FIX_EFI_MPF) + ((long)efi.mps & (PAGE_SIZE-1));
+>  
+> -	if (memcmp(mpf->mpf_signature, "_MP_", 4) == 0 &&
+> -	    mpf->mpf_length == 1 &&
+> -	    mpf_checksum((void *)mpf, 16) &&
+> -	    (mpf->mpf_specification == 1 || mpf->mpf_specification == 4)) {
+> +	if (strncmp(mpf->mpf_signature, "_MP_", 4) == 0 &&
+> +            mpf->mpf_length == 1 &&
+> +            mpf_checksum((void *)mpf, 16) &&
+> +            (mpf->mpf_specification == 1 || mpf->mpf_specification == 4)) {
+>  		smp_found_config = true;
+>  		printk(KERN_INFO "SMP MP-table at %08lx\n", efi.mps);
+>  		mpf_found = mpf;
+
+There are extra (indentation) changes here which ought to be dropped.
 
 Jan
 
