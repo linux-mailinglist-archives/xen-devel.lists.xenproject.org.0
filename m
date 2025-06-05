@@ -2,49 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8FC19ACF19A
-	for <lists+xen-devel@lfdr.de>; Thu,  5 Jun 2025 16:15:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1006925.1386182 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D8BFACF19D
+	for <lists+xen-devel@lfdr.de>; Thu,  5 Jun 2025 16:19:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1006931.1386192 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uNBNZ-00012W-Hc; Thu, 05 Jun 2025 14:15:37 +0000
+	id 1uNBR9-0001ZY-Vy; Thu, 05 Jun 2025 14:19:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1006925.1386182; Thu, 05 Jun 2025 14:15:37 +0000
+Received: by outflank-mailman (output) from mailman id 1006931.1386192; Thu, 05 Jun 2025 14:19:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uNBNZ-00010S-Eu; Thu, 05 Jun 2025 14:15:37 +0000
-Received: by outflank-mailman (input) for mailman id 1006925;
- Thu, 05 Jun 2025 14:15:36 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ZN0r=YU=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
- id 1uNBNX-00010M-TD
- for xen-devel@lists.xenproject.org; Thu, 05 Jun 2025 14:15:36 +0000
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on20626.outbound.protection.outlook.com
- [2a01:111:f403:2414::626])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 89710c9b-4217-11f0-b894-0df219b8e170;
- Thu, 05 Jun 2025 16:15:33 +0200 (CEST)
-Received: from BLAPR05CA0006.namprd05.prod.outlook.com (2603:10b6:208:36e::9)
- by IA1PR12MB8191.namprd12.prod.outlook.com (2603:10b6:208:3f3::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8792.34; Thu, 5 Jun
- 2025 14:15:26 +0000
-Received: from BL6PEPF0001AB57.namprd02.prod.outlook.com
- (2603:10b6:208:36e:cafe::b4) by BLAPR05CA0006.outlook.office365.com
- (2603:10b6:208:36e::9) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8835.9 via Frontend Transport; Thu, 5
- Jun 2025 14:15:26 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL6PEPF0001AB57.mail.protection.outlook.com (10.167.241.9) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8792.29 via Frontend Transport; Thu, 5 Jun 2025 14:15:26 +0000
-Received: from localhost (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 5 Jun
- 2025 09:15:24 -0500
+	id 1uNBR9-0001XJ-TG; Thu, 05 Jun 2025 14:19:19 +0000
+Received: by outflank-mailman (input) for mailman id 1006931;
+ Thu, 05 Jun 2025 14:19:17 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=qREP=YU=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uNBR7-0001Wx-Og
+ for xen-devel@lists.xenproject.org; Thu, 05 Jun 2025 14:19:17 +0000
+Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
+ [2a00:1450:4864:20::529])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0ffdc22c-4218-11f0-a300-13f23c93f187;
+ Thu, 05 Jun 2025 16:19:16 +0200 (CEST)
+Received: by mail-ed1-x529.google.com with SMTP id
+ 4fb4d7f45d1cf-60461fc88d7so2011159a12.0
+ for <xen-devel@lists.xenproject.org>; Thu, 05 Jun 2025 07:19:16 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ada5d82d75bsm1270928466b.56.2025.06.05.07.19.14
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 05 Jun 2025 07:19:15 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,180 +45,332 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 89710c9b-4217-11f0-b894-0df219b8e170
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=SnKILXxAUXUvly7zGQaxGKzEA6plHLslSkK+fAsSDLZ+zBbP0hVGnfchowUpQQDuqRMrOm024OsRpKtOqLeDO710+rAvPBRN0+yY6Dkh+XkBfbtScROEQs/wQi2B/uH5FiRI+zA3vfT/MsaWTOMX2UdyGHC3bQbqF2q1JkoGx6zHtxXz4utsbt2KfgR+kpTA6XcvMAhk3ZRNupXmZHfl2gkK8T22AJsmFa5r9cBW0MB2AIEJI7be4NUUdQ6wtx2a0ksurHYbCApsS7f/qWk0SfldcgEKAWRsVNGLyNGbAimtZp9potf2M7i35t9IgHAtCUkW79qUu833faqkjubZsA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WHKjQfU4bxhYT26M6l0FU4nyZquQYBgbcOeFFL9KKsQ=;
- b=aAh5DlftbfHFxJQYz8U5+sKD8HURh6i+kRDfZDQCfV1dW72eyzZdk0xpVd4pT5iO8vBLXU0ZaRvi2nDkawi9YW1Xqix7qNt2mOsBGYVtKJXo2J/3Pnc2rNh3ZxB0jXQ3bBB8mtdeN/SSslFBQVSgLvabdndj5eE052CYie6WeV73wmBrYr6bpFaMQBsUZJZt15TO+u0Wp4oNCKd7q9qnnf+RgUhqRmHjy6q49eMnRSVP5fYLzGRzI+4mzlog5jRoPKISErDMQGp2x9JSE/G6tfRKDrcxo/CQ1QeZCNgGnvzYkmIdl9r06hBdXaAx1YFGavfiKR+AZXnMGOH1Va67Bg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WHKjQfU4bxhYT26M6l0FU4nyZquQYBgbcOeFFL9KKsQ=;
- b=U6isFvUSMriRi7J7vhBJ9fI4O4d06no4PypNaWRMdsXC4KDRYKP9tUfeNLKsk7FZ6zI7aZNCAZmUOpDjx4NY/mDuKZYJjsU1ql8itkrI+yzeb+q8q/mH7vTWBAs3YxPB8wivSndVJw2GPerpf723jSHs3oRbsqPP2cYYNxnYVDg=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+X-Inumbo-ID: 0ffdc22c-4218-11f0-a300-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1749133156; x=1749737956; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=rBsXLH+5x3o6U0TQhEf+zYxaUMXg/2xL2PPFdOR1Y9U=;
+        b=dR15qdgIX7onL9rnT4WbvBhjaQncbDV43u3W4TqRA1PO960ID2pDgC+geexhWvbVNa
+         DFaySsZ/F9M9Jr81MOypMgaj6brEaCRJnKpWWPVhk3Zhnql944RSmpAyONrZjudEy2gM
+         aic56wT9+3xp+96mWAOBmF5J1gksWVnnQjPCYfB0I9UsKUGl2Q5GHvUTdmcqesfnuzjx
+         5+cEbMOa95zjbrIpp4ISPrAkxVLJhGsuZRv8wp7HHiGS71fCNXxwIdoYnjcdQwSMV+MS
+         EX093KDGOK8MKFL9GF/+uGn/mxkoajrsdbUNQUSoS11pjgIjr+6zVMCd0fMWH3pHHMyA
+         RjRQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1749133156; x=1749737956;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=rBsXLH+5x3o6U0TQhEf+zYxaUMXg/2xL2PPFdOR1Y9U=;
+        b=aVBHQA/4zF5/d4xEabo62LB83sc8cdCLMTprztTFDut5znl+BZNgncn9wk8I6iAvLe
+         rtDzwI0vW70Z01V8ULF6FRfkaemH/c38bLCXxCqH6s/d25VAICXPvdIm4X8aSIS68xjI
+         3mbiBKoA8vjW2pEF3MkIVgnxx+ZV5SSK86EDhFoDxsY6+WOSivfQs7imQ1jPBhHiKKWv
+         Abnx9Tfhxb/qCeHpHD3MNl+bjhAqsJ1284evz1Kv1K5vt3AtoD2sjCEXihemyBwi4id3
+         vx9Rr6BEDPSUxEIZBui1qX+yOT1mk5+Lct89gNPav5sAb4+TCEu8LC62ihOfxOQlUTkV
+         OirA==
+X-Forwarded-Encrypted: i=1; AJvYcCVlDPOy4ZNs7eU4MBgT1XhvhxBDoH02OCVP96/bfZT1tiXKH8AkYftwtcOnw7eFC2UlziHwjZuHyZ0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxtYCbFmLN+DhV28U3L7HPt++LN8rCGE6M4+Tljjmrsmx8R1QrJ
+	HQ71xsUDT1rVdcVWwlMFCgtYz4MO39Web5ZbyWWeIMm+64g1i+mtpZ58NYMxEImOoQ==
+X-Gm-Gg: ASbGncvSAc/9OAwwClWhyfhBbaMLI8E04RNMUAuBA6QWwNMvOIlrq1WMssFgvvJXtLl
+	OI6xBWvNNplwDOt5Kt8QwOyqDYo0srMAF2sBaiRFTPL2n1Ant428CnRDOgzsobanWcit2yd7lPk
+	KJX3s3wpj6+1PWU3OEh5kZz4JlWdKOOt4mAJoJ7AT+LHtQsu6ELhtOYtsTVo4RjMI9fx8ieIGA4
+	BJPaWz6gAUFnE1IyccYWzNZYEbXOMb08x/ziIvB+CN4SH8svI9OaAIsPj11fqMsMSuI/q2EJTCo
+	hD8JM/EWWcjnKTZ3ZhZF/Atxvc//UwkKbrKFG+nIqmWnLCd7ptDx1DFCX1YiGdkWybrj2vwavV0
+	jE84gMVFapUFa1uHR2/0v1IRUqOtv/8qAPLu9nn2aYpbLAf4=
+X-Google-Smtp-Source: AGHT+IEB3xsj7VvRIyLNXs3qZ2sTZSe7gjgv3W7r/WH5Wt68voCsNpsc0FYQLL6DfaR5/7imeQfung==
+X-Received: by 2002:a17:906:6a16:b0:ad5:72d4:85ee with SMTP id a640c23a62f3a-addf8fb22e8mr681591766b.53.1749133155699;
+        Thu, 05 Jun 2025 07:19:15 -0700 (PDT)
+Message-ID: <c06d8833-dafb-430e-a9d5-f9baedecea40@suse.com>
+Date: Thu, 5 Jun 2025 16:19:14 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="UTF-8"
-Date: Thu, 5 Jun 2025 16:15:23 +0200
-Message-ID: <DAENVFUK1OBR.BKRNCOBGBQ9Q@amd.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: Alistair Francis <alistair.francis@wdc.com>, Bob Eshleman
-	<bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>, "Oleksii
- Kurochko" <oleksii.kurochko@gmail.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
-	=?utf-8?q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, "Daniel P. Smith" <dpsmith@apertussolutions.com>,
-	<xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH 06/19] xen: Clean up asm-generic/device.h
-From: Alejandro Vallejo <agarciav@amd.com>
-X-Mailer: aerc 0.20.1
-References: <DA1WWRUQLCAG.ZTVR1HXJ85V0@amd.com>
- <20250530120242.39398-1-agarciav@amd.com>
- <20250530120242.39398-7-agarciav@amd.com>
- <e69e572f-497d-4521-a28a-a554ac18c271@suse.com>
- <DAC42T9A7DMZ.3P5GWMI89RZ90@amd.com>
- <daa4bf8b-3082-47c0-abab-74a103c1b6b2@suse.com>
-In-Reply-To: <daa4bf8b-3082-47c0-abab-74a103c1b6b2@suse.com>
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB57:EE_|IA1PR12MB8191:EE_
-X-MS-Office365-Filtering-Correlation-Id: 29f00e70-14a7-4d2f-7451-08dda43b6b70
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|1800799024|7416014|376014|36860700013;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?b0Z0QVVlZExoUVJ1cG1LN3NKRXk2Q1BZQXNsazZuNWk4bDFudnVJTWx3Wlhv?=
- =?utf-8?B?UUUyZDd0MXZRY29rZld2OWFDaFFleGo4eFNmTFVqQXdyQ0pNTlFKNjlNVkVJ?=
- =?utf-8?B?cU91OHBidGE5WHBmbWtQZjdoRURDbTN2UGdnV3NCRGhhbEJ4NTRINXJteCth?=
- =?utf-8?B?VFBSdDVoazhtWUlzV3p1VzUzdHdCQisvaERTS0V5WGYwMFpSRnRTc0Zxa01F?=
- =?utf-8?B?MVVIYTRBNDFvRk1tREtPODBhMXVtZ3VKZlg2ZzRBcGoxWW1iWjFtTVU3UHV0?=
- =?utf-8?B?eGIxVFRBcHF0V082azh3KzZnd3ZRV1poaFl1Qk53UzN1TFdsSWhhUzRTVnR1?=
- =?utf-8?B?d0FUTTRiVGdVR1crZ3ZqMnpqTnE5N0k4NEVkYzFDRGF6S1FWamkwRHRQYzQ5?=
- =?utf-8?B?U25SWE1RN2czdCs3RVlacE1MLzc0QnA5bkNUS1g5VTJvYkNFRFdKR2Vtejg0?=
- =?utf-8?B?aXFXUHhORmUvcUF4bU9uY1lQU1dYa21iMFNGOXdTbW9sY1p1bDVtUk9EK3Nx?=
- =?utf-8?B?eHNQd0lNcitOVnFHOFpzSjJoOFVsSlZyTjM5QUloK29xb3BseGhyMllncU5i?=
- =?utf-8?B?STJVMlN5Sk1ybVdKc3RDYW9SWXJyTFVxSmdJeVYvVkhwK0xVTTNBQWxBOUMx?=
- =?utf-8?B?SWFndXhJRVlNTWVDZjNJcGhqRUhIRmtkdXhZOGtXSkQ4UjY2T0NHeTNubU9W?=
- =?utf-8?B?N1V3N2h2M1RwRURYenBCWGxoa2tPV01OSW5oc0J1VkZkT3RoOEZXbktnczBF?=
- =?utf-8?B?dnhnZVZlYUFZU09ZR2twczdTNk12NmNMdnY4R0NiM3JiM0wwNVZUdW94Wkc3?=
- =?utf-8?B?TlpaMXlEQjBCWEFtZUcrN2VoWWVERnlEMmROS1dyaUFJdStUMkprMXk0ZVJS?=
- =?utf-8?B?RTdMam5IUmJpeWEwRlBscmlXbDNYdTVqanBBdkdBL04yc1dlYmFCb043VnNB?=
- =?utf-8?B?VFJFbnFaTWpDditTWTR6ZWwyV0pudVF0dW1WNkFQOWRoZ2RzTDV4R1pucWpx?=
- =?utf-8?B?aWhINHYrcHFkM3FsV2Jick5oeFFsZGdRVktKZEhmMlJ4bEZUdlZhMlFCUWhi?=
- =?utf-8?B?RXhJc25UTjFoRWVubkN0RFJweUpJZ2h6MlYwMzRCbWNQd2VMQ1BaNDlJRytx?=
- =?utf-8?B?NEU2QlF5aVNsUmcvTEhhMUxlMkl0YmJqKzFTZWd0ZGxmcDEzTUtIdUV1NGR6?=
- =?utf-8?B?NGo5akM2YWxjNmVSUjczWEtZdVpwcjd6YnZXaFJDZ085SzVvSmcrT0FTOFA4?=
- =?utf-8?B?Mmt3OWNrN0dVWWJjZXVOWTVSZUF4NllXYnV1eFQvVnIzSkpGVlFBNHdoa3Zh?=
- =?utf-8?B?NnY1VTUzZUFzSVhRRnVIOTJySDJUak1CSFVqZmRCTE5pQjU4cjNIUWRBMTlD?=
- =?utf-8?B?UVY3MXpuNjJXSlNhSDM0N1NCVnY4VU9hNlh3dmgwalRMZkVINUJtZU5QZHNT?=
- =?utf-8?B?UWpFOFBQSnVORlZVdEtFOVBYdE9jUENhekJ3SUVnZlBjZ2NlSjJhU082aHJR?=
- =?utf-8?B?RCt1N0cvTFRxc0FocjdGWDBFUzhDQ2dGekFLbjBlTmozc0JTVXJUYlZPVlhu?=
- =?utf-8?B?d0xoZUpVZGxyWTVpc2VVYjdQMUxTQlpjNVBZSDdyMWt6OXIyQXQ5OUVGSll6?=
- =?utf-8?B?RldNckRMNW92dWxOSEtBUEUrYit1N1MzUGZSd1ZyQkE0U0hNT0gxUjRYOS8r?=
- =?utf-8?B?YWh5TDFhNEJjYnJ1MkxwS2s2bllCSzJIZDlzOSsvK0hZM2NhZjJIaUhab2pL?=
- =?utf-8?B?SlJqaXlRT3Rqb0xmbk9FUDVTaG9JR2s5aW1hNHZ1L3dZWmFEaVI2UWtyU2VL?=
- =?utf-8?B?MjJWTVJTeGRsQklQTnJTc0VQQVFwSm84OHg4aERJNzZ0U1A1U25nMW5vQW50?=
- =?utf-8?B?SEV5clJtcGkrZmI0Uy90aWp2US9SRXowd3FPdExaWXlnYnB2QytKaFB4VmtV?=
- =?utf-8?B?WDhGV1RnRW45VnFiNWV2SjlkaDlFUjdGNVZmU1RTOXRwZC9aU3c0NENtQy81?=
- =?utf-8?B?ajZVSWxBSGx0WGsrZm8zV3BSZjFWdHNOblRiN05UYTJLMHluazZZb1hjZHlh?=
- =?utf-8?Q?o6/hEz?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(7416014)(376014)(36860700013);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jun 2025 14:15:26.8600
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 29f00e70-14a7-4d2f-7451-08dda43b6b70
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BL6PEPF0001AB57.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8191
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 2/6] xen/riscv: introduce things necessary for p2m
+ initialization
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1746805907.git.oleksii.kurochko@gmail.com>
+ <0a03d1f38649cfd8656147f209652dff0f9d170c.1746805907.git.oleksii.kurochko@gmail.com>
+ <7ef3ca26-05f5-4e86-b7c7-852b6c74a3d0@suse.com>
+ <1a0d3084-9e77-4df5-936a-c1a1317c0f18@gmail.com>
+ <ab4b0ba8-4a81-4059-94b0-aae8bda3fbfe@suse.com>
+ <b9ea4b4c-c21d-4414-8c37-9447821ece8d@gmail.com>
+ <0175c281-b669-4412-971a-545e29077b34@suse.com>
+ <a91e8f71-5793-4c27-92fe-a4c1707ea6dc@gmail.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <a91e8f71-5793-4c27-92fe-a4c1707ea6dc@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon Jun 2, 2025 at 4:24 PM CEST, Jan Beulich wrote:
-> On 02.06.2025 16:19, Alejandro Vallejo wrote:
->> On Mon Jun 2, 2025 at 9:51 AM CEST, Jan Beulich wrote:
->>> On 30.05.2025 14:02, Alejandro Vallejo wrote:
->>>> --- a/xen/include/asm-generic/device.h
->>>> +++ b/xen/include/asm-generic/device.h
->>>> @@ -6,9 +6,7 @@
->>>> =20
->>>>  enum device_type
->>>>  {
->>>> -#ifdef CONFIG_HAS_DEVICE_TREE
->>>>      DEV_DT,
->>>> -#endif
+On 05.06.2025 16:10, Oleksii Kurochko wrote:
+> 
+> On 6/2/25 1:04 PM, Jan Beulich wrote:
+>> On 23.05.2025 11:44, Oleksii Kurochko wrote:
+>>> On 5/22/25 6:09 PM, Jan Beulich wrote:
+>>>> On 22.05.2025 17:53, Oleksii Kurochko wrote:
+>>>>> On 5/20/25 3:37 PM, Jan Beulich wrote:
+>>>>>> On 09.05.2025 17:57, Oleksii Kurochko wrote:
+>>>>>>> +static struct page_info *p2m_get_clean_page(struct domain *d)
+>>>>>>> +{
+>>>>>>> +    struct page_info *page;
+>>>>>>> +
+>>>>>>> +    /*
+>>>>>>> +     * As mentioned in the Priviliged Architecture Spec (version 20240411)
+>>>>>>> +     * As explained in Section 18.5.1, for the paged virtual-memory schemes
+>>>>>>> +     * (Sv32x4, Sv39x4, Sv48x4, and Sv57x4), the root page table is 16 KiB
+>>>>>>> +     * and must be aligned to a 16-KiB boundary.
+>>>>>>> +     */
+>>>>>>> +    page = alloc_domheap_pages(NULL, 2, 0);
+>>>>>> Shouldn't this allocation come from the domain's P2M pool (which is yet
+>>>>>> to be introduced)?
+>>>>> First, I will drop p2m_get_clean_page() as it will be used only for p2m root page
+>>>>> table allocation.
+>>>>>
+>>>>> p2m_init() is called by domain_create() [->arch_domain_create()->p2m_init()] from create_domUs():
+>>>>> [https://gitlab.com/xen-project/xen/-/blob/staging/xen/common/device-tree/dom0less-build.c?ref_type=heads#L984].
+>>>>>
+>>>>> When p2m_init() is called, p2m pool isn't ready and domain isn't created yet. Last one
+>>>>> is also crucial for usage of p2m pool as p2m pool belongs to domain and thereby it is
+>>>>> using alloc_domheap_page(d, ...) (Not NULL as for allocation of p2m root table above),
+>>>>> so domain should be created first.
+>>>> Yet that is part of my point: This allocation should be against the domain,
+>>>> so it is properly accounted. What's the problem with allocating the root
+>>>> table when the pools is being created / filled?
+>>> I can't use pages from pool for root table as they aren't properly aligned.
 >>>
->>> Why would this enumerator need exposing on a non-DT arch? In fact I wou=
-ld have
->>> hoped for ...
->>=20
->> A non-DT arch would not include this. x86 doesn't.
->
-> Both here and ...
->
->>>>      DEV_PCI
+>>> At the moment, creation of p2m pool looks like:
+>>>    int p2m_set_allocation(struct domain *d, unsigned long pages, bool *preempted)
+>>>    {
+>>>        struct page_info *pg;
 >>>
->>> ... this to be hidden for arch-es not supporting PCI.
+>>>        ASSERT(spin_is_locked(&d->arch.paging.lock));
 >>>
->>> Similar concerns elsewhere in this change.
->>=20
->> This file is exclusively used by arches supporting DT to abstract away w=
-here
->> the device came from. x86 does not use it at all, and while it wouldn't =
-be
->> impossible to compile-out DEV_PCI, it would needlessly pollute the codeb=
-ase with
->> no measurable gain, because the abstractions still need to stay.
->
-> ... here: In "xen/include/asm-generic/device.h" there's nothing at all sa=
-ying
-> that this file is a DT-only one. Instead there is something in there sayi=
-ng
-> that it's suitable to use in the entirely "generic" case.
->
-> Jan
+>>>        for ( ; ; )
+>>>        {
+>>>            if ( d->arch.paging.p2m_total_pages < pages )
+>>>            {
+>>>                /* Need to allocate more memory from domheap */
+>>>                pg = alloc_domheap_page(d, MEMF_no_owner);
+>>>                if ( pg == NULL )
+>>>                {
+>>>                    printk(XENLOG_ERR "Failed to allocate P2M pages.\n");
+>>>                    return -ENOMEM;
+>>>                }
+>>>                ACCESS_ONCE(d->arch.paging.p2m_total_pages) =
+>>>                    d->arch.paging.p2m_total_pages + 1;
+>>>                page_list_add_tail(pg, &d->arch.paging.p2m_freelist);
+>>>            }
+>>>            ...
+>>>        }
+>>>
+>>>        return 0;
+>>>    }
+>>> alloc_domheap_page(d, MEMF_no_owner) allocates page table with order 0, so 4k-aligned page table.
+>>> But if I needed 16k for root table and it should be 16k-aligned then I still have to use
+>>> alloc_domheap_pages(NULL, 2, 0);
+>>>
+>>> Or do you mean that I have to something like:
+>>>    int p2m_set_allocation(struct domain *d, unsigned long pages, bool *preempted)
+>>>    {
+>>>        struct page_info *pg;
+>>>    
+>>>        ASSERT(spin_is_locked(&d->arch.paging.lock));
+>>>    
+>>> +    if ( !d->arch.p2m.root )
+>>> +    {
+>>> +        unsigned int order = get_order_from_bytes(KB(16));
+>>> +        unsigned int nr_pages = _AC(1,U) << order;
+>>> +        /*
+>>> +        * As mentioned in the Priviliged Architecture Spec (version 20240411)
+>>> +        * As explained in Section 18.5.1, for the paged virtual-memory schemes
+>>> +        * (Sv32x4, Sv39x4, Sv48x4, and Sv57x4), the root page table is 16 KiB
+>>> +        * and must be aligned to a 16-KiB boundary.
+>>> +        */
+>>> +        d->arch.p2m.root = alloc_domheap_pages(d, order, MEMF_no_owner);
+>>> +        if ( d->arch.p2m.root == NULL )
+>>> +            panic("root page table hasn't been allocated\n");
+>>> +
+>>> +        clear_and_clean_page(d->arch.p2m.root);
+>>> +
+>>> +        /* TODO: do I need TLB flush here? */
+>>> +
+>>> +        ACCESS_ONCE(d->arch.paging.p2m_total_pages) =
+>>> +            d->arch.paging.p2m_total_pages + nr_pages;
+>>> +    }
+>>> +
+>>> ...
+>>> }
+>> Neither. I was thinking of you taking 4 pages off the pool in exchange for the
+>> order-2 allocation. Primarily to get the memory accounting right (or at least
+>> closer to reality).
+> 
+> Do you mean that I have to call 4 times page_list_remove_head(), something like
+> that:
+> --- a/xen/arch/riscv/p2m.c
+> +++ b/xen/arch/riscv/p2m.c
+> @@ -215,6 +215,44 @@ int p2m_set_allocation(struct domain *d, unsigned long pages, bool *preempted)
+>           }
+>       }
+>   
+> +    if ( !d->arch.p2m.root )
+> +    {
+> +        unsigned int order = get_order_from_bytes(KB(16));
+> +        unsigned int nr_pages = _AC(1,U) << order;
+> +
+> +        if ( ACCESS_ONCE(d->arch.paging.p2m_total_pages) < nr_pages )
+> +            panic("Specify more xen,domain-p2m-mem-mb\n");
+> +
+> +        /*
+> +         * As mentioned in the Priviliged Architecture Spec (version 20240411)
+> +         * As explained in Section 18.5.1, for the paged virtual-memory schemes
+> +         * (Sv32x4, Sv39x4, Sv48x4, and Sv57x4), the root page table is 16 KiB
+> +         * and must be aligned to a 16-KiB boundary.
+> +         */
+> +        d->arch.p2m.root = alloc_domheap_pages(NULL, order, 0);
 
-Try to use it from x86 and observe the build system catch fire. It could be=
- made
-to not go on fire, but it implies heavy refactoring in x86 (particularly IO=
-MMU
-code) for no good reason because there's no devices in a DTB to disambiguat=
-e.
+Imo you'd better not use NULL here, but instead pass MEMF_no_owner. See
+respective x86 code. I also think you want to do the freeing first, and
+only then do this allocation, such that ...
 
-How about adding this to the top of the header?
+> +        if (  d->arch.p2m.root == NULL )
+> +            panic("failed to allocate p2m root page table\n");
+> +
+> +        for ( unsigned int i = 0; i < nr_pages; i++ )
+> +        {
+> +            clear_and_clean_page(d->arch.p2m.root + i);
+> +
+> +            /* Return memory to domheap */
+> +            pg = page_list_remove_head(&d->arch.paging.p2m_freelist);
+> +            if( pg )
+> +            {
+> +                ACCESS_ONCE(d->arch.paging.p2m_total_pages)--;
+> +                free_domheap_page(pg);
+> +            }
+> +            else
+> +            {
+> +                printk(XENLOG_ERR
+> +                       "Failed to free P2M pages, P2M freelist is empty.\n");
+> +                return -ENOMEM;
 
-```
- /*
-  * This header helps DTB-based architectures abstract away where a particu=
-lar
-  * device comes from; be it the DTB itself or enumerated on a PCI bus.=20
-  */
+... this path will not have eaten more memory than was given back.
 
-  [snip]
+>>>>>>> +static int p2m_alloc_table(struct domain *d)
+>>>>>>> +{
+>>>>>>> +    struct p2m_domain *p2m = p2m_get_hostp2m(d);
+>>>>>>> +
+>>>>>>> +    p2m->root = p2m_allocate_root(d);
+>>>>>>> +    if ( !p2m->root )
+>>>>>>> +        return -ENOMEM;
+>>>>>>> +
+>>>>>>> +    p2m->hgatp = hgatp_from_page_info(p2m->root);
+>>>>>>> +
+>>>>>>> +    /*
+>>>>>>> +     * Make sure that all TLBs corresponding to the new VMID are flushed
+>>>>>>> +     * before using it.
+>>>>>>> +     */
+>>>>>>> +    p2m_write_lock(p2m);
+>>>>>>> +    p2m_force_tlb_flush_sync(p2m);
+>>>>>>> +    p2m_write_unlock(p2m);
+>>>>>> While Andrew directed you towards a better model in general, it won't be
+>>>>>> usable here then, as the guest didn't run on any pCPU(s) yet. Imo you
+>>>>>> want to do a single global flush e.g. when VMIDs wrap around. That'll be
+>>>>>> fewer global flushes than one per VM creation.
+>>>>> I am not sure that I get a phrase 'VMIDs wrap around'.
+>>>> You have to allocate them somehow. Typically you'll use the next one available.
+>>>> At some point you will need to start over, searching from the beginning. Prior
+>>>> to that now allocation of a new one will require any flush, as none of them
+>>>> had be in use before (after boot or the last such flush).
+>>> Thanks. Now I get your point.
+>>>
+>>> Won't be better to do TLB flushing during destroying of a domain so then we will
+>>> be sure that TLBs connected to freed VMID aren't present in TLB anymore?
+>> That's an option, but will result in more flushes. Furthermore there may be
+>> reasons to change the VMID for a domain while it's running.
+>>
+>>> IIUC, it will work only if VMID is used, right?
+>> Well, anything VMID related is of course only relevant when VMIDs are in use.
+>>
+>>> In case if VMID isn't used, probably we can drop flushing here and do a flush
+>>> during booting, right?
+>> That'll be too little flushing?
+> 
+> I meant that instead of having TLB flush in p2m_alloc_table() we could have a one flush
+> during booting. And of course, we still should have flush on each context switch.
 
- #ifndef CONFIG_HAS_DEVICE_TREE
- #error "Header meant to be used exclusively by DTB-base architectures."
- #endif
-```
+Yet as said - context switches are likely too frequent for having an
+unconditional flush there (if it can be avoided).
 
-Cheers,
-Alejandro
+>>> Won't be enough to flushing of guest TLB only during context switch?
+>> "only" is interesting here. Context switches are a relatively frequent
+>> operation, which in addition you want to be fast. If a flush is necessary
+>> there for correctness (e.g. when VMIDs aren't in use), you have to do it
+>> there. But if you can flush less frequently without violating correctness,
+>> you'd almost always want to use such an opportunity.
+> 
+> Then it is better to introduce VMID now, it seems it's only one place where
+> it should be set, when hgatp is initialized.
+> 
+> Does Xen have some framework to work with VMID?
+
+That's all arch-specific, I think.
+
+>>>>> I am going to implement, p2m_force_tlb_flush_sync() as:
+>>>>>     static void p2m_force_tlb_flush_sync(struct p2m_domain *p2m)
+>>>>>     {
+>>>>>       ...
+>>>>>         sbi_remote_hfence_gvma(d->dirty_cpumask, 0, 0);
+>>>>>       ...
+>>>>>     }
+>>>>>
+>>>>> With such implementation if the guest didn't run on any pCPU(s) yet
+>>>>> then d->dirty_cpumask is empty, then sbi_remote_hfence_gvma() will do nothing
+>>>>> as hmask will be NULL (https://gitlab.com/xen-project/people/olkur/xen/-/blob/staging/xen/arch/riscv/sbi.c?ref_type=heads#L238).
+>>>>> I am not sure that it is a good idea as I can't find a guarantee in the spec
+>>>>> that TLB will be empty during boot time.
+>>>> If in doubt, do one global flush while booting.
+>>> By booting you mean somewhere in continue_new_vcpu()?
+>> I don't particularly mean any specific place. However, continue_new_vcpu()
+>> (by its name) isn't involved in bringing up Xen, is it?
+>>
+> No, it isn't. By booting here I meant a boot of a guest domain, not Xen itself.
+
+Please don't call this "booting", but "starting of a guest" (or "launching" or
+some such). When you originally said "booting" I thought RISC-V wouldn't
+guarantee clean TLBs when being booted, and hence suggested to cover for this
+by doing a single flush during (Xen) boot. Looks like this may not be needed
+then, simply because of the misunderstanding.
+
+Jan
 
