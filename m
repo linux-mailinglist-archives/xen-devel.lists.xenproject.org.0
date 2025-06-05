@@ -2,38 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4A712ACF2C4
-	for <lists+xen-devel@lfdr.de>; Thu,  5 Jun 2025 17:15:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1007025.1386295 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C9D0BACF2D4
+	for <lists+xen-devel@lfdr.de>; Thu,  5 Jun 2025 17:17:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1007031.1386306 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uNCJ7-0006qF-0a; Thu, 05 Jun 2025 15:15:05 +0000
+	id 1uNCLO-0007MW-CA; Thu, 05 Jun 2025 15:17:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1007025.1386295; Thu, 05 Jun 2025 15:15:04 +0000
+Received: by outflank-mailman (output) from mailman id 1007031.1386306; Thu, 05 Jun 2025 15:17:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uNCJ6-0006oL-UF; Thu, 05 Jun 2025 15:15:04 +0000
-Received: by outflank-mailman (input) for mailman id 1007025;
- Thu, 05 Jun 2025 15:15:03 +0000
+	id 1uNCLO-0007K6-96; Thu, 05 Jun 2025 15:17:26 +0000
+Received: by outflank-mailman (input) for mailman id 1007031;
+ Thu, 05 Jun 2025 15:17:25 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=OIxA=YU=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1uNCJ5-0006oF-Hn
- for xen-devel@lists.xenproject.org; Thu, 05 Jun 2025 15:15:03 +0000
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [2a00:1450:4864:20::42c])
+ <SRS0=iek4=YU=bounce.vates.tech=bounce-md_30504962.6841b4fd.v1-4d8bcefe7eba4258a34eb4bab83edbfc@srs-se1.protection.inumbo.net>)
+ id 1uNCLN-0007K0-8x
+ for xen-devel@lists.xenproject.org; Thu, 05 Jun 2025 15:17:25 +0000
+Received: from mail132-4.atl131.mandrillapp.com
+ (mail132-4.atl131.mandrillapp.com [198.2.132.4])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d9b0cd6f-421f-11f0-b894-0df219b8e170;
- Thu, 05 Jun 2025 17:15:01 +0200 (CEST)
-Received: by mail-wr1-x42c.google.com with SMTP id
- ffacd0b85a97d-3a4f78ebec8so661143f8f.0
- for <xen-devel@lists.xenproject.org>; Thu, 05 Jun 2025 08:15:01 -0700 (PDT)
-Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
- by smtp.gmail.com with UTF8SMTPSA id
- 5b1f17b1804b1-451fb220385sm21590475e9.28.2025.06.05.08.15.00
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 05 Jun 2025 08:15:00 -0700 (PDT)
+ id 2b7ac91d-4220-11f0-b894-0df219b8e170;
+ Thu, 05 Jun 2025 17:17:19 +0200 (CEST)
+Received: from pmta09.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
+ by mail132-4.atl131.mandrillapp.com (Mailchimp) with ESMTP id 4bCp312jpbzlfcQV
+ for <xen-devel@lists.xenproject.org>; Thu,  5 Jun 2025 15:17:17 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ 4d8bcefe7eba4258a34eb4bab83edbfc; Thu, 05 Jun 2025 15:17:17 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,108 +42,132 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d9b0cd6f-421f-11f0-b894-0df219b8e170
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1749136501; x=1749741301; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=BzShc25RIK93H1a1luCRVsTdWpcCisBN+loG66/M3m4=;
-        b=IMFy7hPtsRpSNVZlvsG1c/oDpDaOuKJTTDX48RmzxFDUbp3fw/sidCmvtrDJN6Ru++
-         9RjaZ+9nWHus/0K8FFaG4cEnsYD3C+pEgr+14Qzc2GrKnJdy5r+H12hb1bFcxtFcSpFu
-         VIkFyX67uaCx5wsq0NHqfVWeeBkyEFfskp/a4=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749136501; x=1749741301;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=BzShc25RIK93H1a1luCRVsTdWpcCisBN+loG66/M3m4=;
-        b=ZRUTt08bGuOqaASQzTBqvPD4XDj4lSWBMeNjBhQ+DS+vY8CLl/MQaeWsvyHIWm7jLB
-         4IC1ilFurw4ePlFXwqgyAVSXecxXJYX++TA6FvEMysOljWPbh3x7bPwig0UVmv/A5Zll
-         SJ1JDp4WfdTo/wnIsgf+BO0EUlu4E3UYA0BkYi1k8mikDxMmC4QyVD9UZwED4Rqfe/Zj
-         Stzfbb5XtT/5F0J1crK/UGGaJuxI6wfAecNotnENJ5Qx6FYng7OhO7DFfhHIM18IzkUK
-         K/rGiVGCZ51gmQvNgXNJjUF3VF5kZdLcbdVBalyZPrDxyJZ0tE3GpjQ3epS1xLONG4Je
-         8+zw==
-X-Gm-Message-State: AOJu0YyBe4bwFgLKCcLKjJ6L0dmk6Ey7iB0UfppUa87tPeNk6eg5SGe0
-	uaI3jVklU39NK1f+SDdRZuwKP/DYAaIUbmca+u3BnpVl3T27XLNop0mfNAD9x0WKOxw=
-X-Gm-Gg: ASbGncuqvsklZ1MlDhVBufEvqDYksTqpvxPbp8fIBBb1UdfgljpfEruvurIq4O4UaDT
-	0LABbCEn5NtkoGoQLknpspWPQHm+WgR/RbNAouNApxG5y0hRGUnrts9lVC77UIIUMqn5MSNQbRq
-	PaIF//zBaIDk62wYSsWpfdjqEzKmSUCdRSPEegjqwqSLm63XLFYE4LDbEnCxueRJZx4tiA+76A7
-	hS3TsAtWyeGpPpgm6DPSAYT6V16rBc/MScWR+uH8+hdu9FvVKCEADci/IWa7VsBxE7jwDb6iPLk
-	UcjCH3EZrUOU87C3wnH5xtO8nV+Mce5Liajel1iMHkdkDwbfum9EIdZr3uk9Bl5Z3Kp9f5/mmaY
-	kdsujj5MSMr99vcx2SOT9Hg1L9kaf8A==
-X-Google-Smtp-Source: AGHT+IErPVrCdYMpgqeNmLE4IGMHQfw+R9SN/p6x04xatxuA8rwvp4FP6wNiHEAWK+HW62TI4TvIaA==
-X-Received: by 2002:a05:6000:250f:b0:3a4:edad:2a59 with SMTP id ffacd0b85a97d-3a51d8f6a3bmr6905314f8f.1.1749136500728;
-        Thu, 05 Jun 2025 08:15:00 -0700 (PDT)
-Date: Thu, 5 Jun 2025 17:14:59 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jiqian Chen <Jiqian.Chen@amd.com>
-Cc: xen-devel@lists.xenproject.org, Huang Rui <ray.huang@amd.com>
-Subject: Re: [PATCH v5 08/10] vpci/rebar: Free Rebar resources when
- init_rebar() fails
-Message-ID: <aEG0cx6Yyy7oUhwh@macbook.local>
-References: <20250526094559.140423-1-Jiqian.Chen@amd.com>
- <20250526094559.140423-9-Jiqian.Chen@amd.com>
+X-Inumbo-ID: 2b7ac91d-4220-11f0-b894-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1749136637; x=1749406637;
+	bh=Y0zoEZ+oUKLBb3F2PrV9vMIfEPCCp4im/a1FbEJ+45U=;
+	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=y9NLakJAOUC9A4xC1JcHfDsWNdYkcqSzpD7MnPGSINveQhxUm3FLuS5OE4nbAnRQV
+	 LY7z6U0TXbX2SgDU7fQ31AMnDPCWQPUFNFagaaxzh0WnzuyQXCBb1UKjDuPr2TgMYN
+	 IhyzeyphXveLLGj0gWbIZOIovPf65HoCTRaQUDmnyu5WrqzGUYoZno5IWR9zSC+eoL
+	 QREGhbfLBI/Y9HSH34MhrgEbW39tmydCFMTk1iLXO9G0qUwmajvsl7+aerz6EdlSQ6
+	 qW5TfPYl+E6ZWTqQcfbv/sMWI7iR4k/n8G8/2revoUH0yu5VcPHJ0sq7w5q666YbXG
+	 TsezpaV8bViTA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1749136637; x=1749397137; i=teddy.astie@vates.tech;
+	bh=Y0zoEZ+oUKLBb3F2PrV9vMIfEPCCp4im/a1FbEJ+45U=;
+	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=wAuftiU3qQN3z1kpjAe3VYIWc91O+Ykm7CNvT66NDR+Zv6x1UaE8ue25BCgn1vIgy
+	 vRVIHhRK4Ks2+Fs9gewQxrIG2sROGGlk9Z1SSXARU5xYPvmb9JpjKZAyyuOKPYs/lQ
+	 avQjf0hb9aEhB2Q0N/BlaiRZAMzRyjNtZgwnU2Z0oM1siOhwwObEz0Vcvf8D5izy+e
+	 1Lpsf28s2EoJ/ytKRbTeGYrAtgpxCWUn0IQFH2K2ftx3rA3L5DYiBx/GL7qBjwAPzr
+	 MAOMyiHdOG+4Gu7c8gcgH/Cc1iv8wFkIA3ayu9H9IUOh6AJMvXkaQJerfzn9zkqpYo
+	 ZvaWeag9HfBNw==
+From: "Teddy Astie" <teddy.astie@vates.tech>
+Subject: =?utf-8?Q?Re:=20[PATCH]=20vmx:=20Introduce=20vcpu=20single=20context=20VPID=20invalidation?=
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1749136636299
+Message-Id: <76bf2d72-3834-4455-8023-a20c84db58d0@vates.tech>
+To: "Jan Beulich" <jbeulich@suse.com>
+Cc: "Andrew Cooper" <andrew.cooper3@citrix.com>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
+References: <83d0e7dfc076e9453fb6537e5948c03d90e947da.1748594036.git.teddy.astie@vates.tech> <4ed9d6ce-5634-4dd9-86e9-5d1f84a43e10@suse.com>
+In-Reply-To: <4ed9d6ce-5634-4dd9-86e9-5d1f84a43e10@suse.com>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.4d8bcefe7eba4258a34eb4bab83edbfc?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20250605:md
+Date: Thu, 05 Jun 2025 15:17:17 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20250526094559.140423-9-Jiqian.Chen@amd.com>
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, May 26, 2025 at 05:45:57PM +0800, Jiqian Chen wrote:
-> When init_rebar() fails, current logic return fail and free Rebar-related
-> resources in vpci_deassign_device(). But the previous new changes will
-> hide Rebar capability and return success, it can't reach
-> vpci_deassign_device() to remove resources if hiding success, so those
-> resources must be removed in cleanup function of Rebar.
+Le 05/06/2025 =C3=A0 16:51, Jan Beulich a =C3=A9crit=C2=A0:
+> On 30.05.2025 10:48, Teddy Astie wrote:
+>> Introduce vpid_sync_vcpu_context to do a single-context invalidation
+>> on the vpid attached to the vcpu as a alternative to per-gva and all-con=
+texts
+>> invlidations.
+>>
+>> Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
+>> ---
+>> Extracted from SEV series.
+>> This will be used for instance in fixed-ASID patches (in SEV series).
 > 
-> To do that, implement cleanup function for Rebar.
+> I think it should be in that series, which may still be some long way out=
+.
+> Until then we'd carry dead/unreachable code (disliked by Misra), and we'd
+> risk that this bit-rots because of being unused.
 > 
-> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
 
-LGTM, just one nit about a bounds check.
+Yes, that make sense, it should exist along with patches that make use 
+of it.
 
-> ---
-> cc: "Roger Pau Monné" <roger.pau@citrix.com>
-> ---
-> v4->v5 changes:
-> * Change definition "static void cleanup_rebar" to "static int cf_check cleanup_rebar" since cleanup hook is changed to be int.
+>> --- a/xen/arch/x86/include/asm/
+hvm/vmx/vmx.h
+>> +++ b/xen/arch/x86/include/asm/hvm/vmx/vmx.h
+>> @@ -451,6 +451,23 @@ static inline void ept_sync_all(void)
+>>   
+>>   void ept_sync_domain(struct p2m_domain *p2m);
+>>   
+>> +static inline void vpid_sync_vcpu_context(struct vcpu *v)
 > 
-> v3->v4 changes:
-> * Change function name from fini_rebar() to cleanup_rebar().
-> * Change the error number to be E2BIG and ENXIO in init_rebar().
+> pointer-to-const?
 > 
-> v2->v3 changes:
-> * Use fini_rebar() to remove all register instead of in the failure path of init_rebar();
+>> +{
+>> +    int type =3D INVVPID_SINGLE_CONTEXT;
 > 
-> v1->v2 changes:
-> * Called vpci_remove_registers() to remove all possible registered registers instead of using a array to record all registered register.
+> Please don't use plain int when all values possibly held in a variable ar=
+e
+> non-negative.
 > 
-> Best regards,
-> Jiqian Chen.
-> ---
->  xen/drivers/vpci/rebar.c | 35 ++++++++++++++++++++++++-----------
->  1 file changed, 24 insertions(+), 11 deletions(-)
-> 
-> diff --git a/xen/drivers/vpci/rebar.c b/xen/drivers/vpci/rebar.c
-> index 9cafd80ca2c9..4b1892fab3d6 100644
-> --- a/xen/drivers/vpci/rebar.c
-> +++ b/xen/drivers/vpci/rebar.c
-> @@ -49,6 +49,26 @@ static void cf_check rebar_ctrl_write(const struct pci_dev *pdev,
->      bar->guest_addr = bar->addr;
->  }
->  
-> +static int cf_check cleanup_rebar(struct pci_dev *pdev)
-> +{
-> +    uint32_t ctrl;
-> +    unsigned int nbars;
-> +    unsigned int rebar_offset = pci_find_ext_capability(pdev->sbdf,
-> +                                                        PCI_EXT_CAP_ID_REBAR);
-> +
-> +    if ( !rebar_offset || !is_hardware_domain(pdev->domain) )
 
-I think you could check rebar_offset < PCI_CFG_SPACE_SIZE to be more
-accurate?
+I mostly took the code from other vcpu_sync_* functions. I will take a 
+look as a separate patch on reworking the existing vpid_sync_vcpu_gva 
+with these proposed changes, as it has the same problem.
 
-Thanks, Roger.
+>> +    /*
+>> +     * If single context invalidation is not supported, we escalate to
+>> +     * use all context invalidation.
+>> +     */
+>> +    if ( likely(cpu_has_vmx_vpid_invvpid_single_context) )
+>> +        goto execute_invvpid;
+>> +
+>> +    type =3D INVVPID_ALL_CONTEXT;
+>> +
+>> +execute_invvpid:
+> 
+> There no reason at all to use "goto" here (and with that replaced there's
+> then also no style issue with the label placement).
+> 
+
+Should a similar treatment be made for vpid_sync_vcpu_gva ?
+
+> Jan
+> 
+>> +    __invvpid(type, v->arch.hvm.n1asid.asid, 0);
+>> +}
+>> +
+>>   static inline void vpid_sync_vcpu_gva(struct vcpu *v, unsigned long gv=
+a)
+>>   {
+>>       int type =3D INVVPID_INDIVIDUAL_ADDR;
+> 
+> 
+
+Teddy
+
+
+
+Teddy Astie | Vates XCP-ng Developer
+
+XCP-ng & Xen Orchestra - Vates solutions
+
+web: https://vates.tech
+
+
 
