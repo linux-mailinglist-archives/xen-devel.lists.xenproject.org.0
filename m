@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D8BFACF19D
-	for <lists+xen-devel@lfdr.de>; Thu,  5 Jun 2025 16:19:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1006931.1386192 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B7C4AACF1A1
+	for <lists+xen-devel@lfdr.de>; Thu,  5 Jun 2025 16:21:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1006942.1386203 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uNBR9-0001ZY-Vy; Thu, 05 Jun 2025 14:19:19 +0000
+	id 1uNBSZ-000367-BG; Thu, 05 Jun 2025 14:20:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1006931.1386192; Thu, 05 Jun 2025 14:19:19 +0000
+Received: by outflank-mailman (output) from mailman id 1006942.1386203; Thu, 05 Jun 2025 14:20:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uNBR9-0001XJ-TG; Thu, 05 Jun 2025 14:19:19 +0000
-Received: by outflank-mailman (input) for mailman id 1006931;
- Thu, 05 Jun 2025 14:19:17 +0000
+	id 1uNBSZ-00033e-6j; Thu, 05 Jun 2025 14:20:47 +0000
+Received: by outflank-mailman (input) for mailman id 1006942;
+ Thu, 05 Jun 2025 14:20:45 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=qREP=YU=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uNBR7-0001Wx-Og
- for xen-devel@lists.xenproject.org; Thu, 05 Jun 2025 14:19:17 +0000
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [2a00:1450:4864:20::529])
+ id 1uNBSX-00032D-Jn
+ for xen-devel@lists.xenproject.org; Thu, 05 Jun 2025 14:20:45 +0000
+Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
+ [2a00:1450:4864:20::52a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0ffdc22c-4218-11f0-a300-13f23c93f187;
- Thu, 05 Jun 2025 16:19:16 +0200 (CEST)
-Received: by mail-ed1-x529.google.com with SMTP id
- 4fb4d7f45d1cf-60461fc88d7so2011159a12.0
- for <xen-devel@lists.xenproject.org>; Thu, 05 Jun 2025 07:19:16 -0700 (PDT)
+ id 44693dd8-4218-11f0-a300-13f23c93f187;
+ Thu, 05 Jun 2025 16:20:44 +0200 (CEST)
+Received: by mail-ed1-x52a.google.com with SMTP id
+ 4fb4d7f45d1cf-605b9488c28so1737299a12.2
+ for <xen-devel@lists.xenproject.org>; Thu, 05 Jun 2025 07:20:44 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ada5d82d75bsm1270928466b.56.2025.06.05.07.19.14
+ 4fb4d7f45d1cf-60566c5c5casm10476813a12.25.2025.06.05.07.20.43
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 05 Jun 2025 07:19:15 -0700 (PDT)
+ Thu, 05 Jun 2025 07:20:43 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,66 +45,67 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0ffdc22c-4218-11f0-a300-13f23c93f187
+X-Inumbo-ID: 44693dd8-4218-11f0-a300-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1749133156; x=1749737956; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1749133244; x=1749738044; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=rBsXLH+5x3o6U0TQhEf+zYxaUMXg/2xL2PPFdOR1Y9U=;
-        b=dR15qdgIX7onL9rnT4WbvBhjaQncbDV43u3W4TqRA1PO960ID2pDgC+geexhWvbVNa
-         DFaySsZ/F9M9Jr81MOypMgaj6brEaCRJnKpWWPVhk3Zhnql944RSmpAyONrZjudEy2gM
-         aic56wT9+3xp+96mWAOBmF5J1gksWVnnQjPCYfB0I9UsKUGl2Q5GHvUTdmcqesfnuzjx
-         5+cEbMOa95zjbrIpp4ISPrAkxVLJhGsuZRv8wp7HHiGS71fCNXxwIdoYnjcdQwSMV+MS
-         EX093KDGOK8MKFL9GF/+uGn/mxkoajrsdbUNQUSoS11pjgIjr+6zVMCd0fMWH3pHHMyA
-         RjRQ==
+        bh=kXvhzliBSn0/66s1rDoEisb24kfD7RiSMh+LlMkgfdE=;
+        b=V9AW+oS0/glAMgEpos93JJNGwY4xft9jSweyG3CME+bt/8lBlsUk8amfoTGSaEC/Am
+         XJETEsfGrjz1f9X+wM4F5uNZfJ/dX5gHb1EyQZeefDLXRi80HicOievXawRLaQkK2lTG
+         5gm2g5u7B9/0wVBO+RqshIdxGFGQejAONhXFVas1B1zbPDuPxe0RGs/vQkfP5E5DxbAL
+         q0BBBcPgmHER9mBTTGGJSvqhcqK9JthRFcIjrriV4kKvhEPXf58vSHMglyW7bIQLQ8Js
+         r4vWqhUGzE7bAjCEvhyMdozenT/aGPwVFnpVLQCpjz+0mKd2xqmrNkN7e4JujUfVAM/0
+         kUpA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749133156; x=1749737956;
+        d=1e100.net; s=20230601; t=1749133244; x=1749738044;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=rBsXLH+5x3o6U0TQhEf+zYxaUMXg/2xL2PPFdOR1Y9U=;
-        b=aVBHQA/4zF5/d4xEabo62LB83sc8cdCLMTprztTFDut5znl+BZNgncn9wk8I6iAvLe
-         rtDzwI0vW70Z01V8ULF6FRfkaemH/c38bLCXxCqH6s/d25VAICXPvdIm4X8aSIS68xjI
-         3mbiBKoA8vjW2pEF3MkIVgnxx+ZV5SSK86EDhFoDxsY6+WOSivfQs7imQ1jPBhHiKKWv
-         Abnx9Tfhxb/qCeHpHD3MNl+bjhAqsJ1284evz1Kv1K5vt3AtoD2sjCEXihemyBwi4id3
-         vx9Rr6BEDPSUxEIZBui1qX+yOT1mk5+Lct89gNPav5sAb4+TCEu8LC62ihOfxOQlUTkV
-         OirA==
-X-Forwarded-Encrypted: i=1; AJvYcCVlDPOy4ZNs7eU4MBgT1XhvhxBDoH02OCVP96/bfZT1tiXKH8AkYftwtcOnw7eFC2UlziHwjZuHyZ0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxtYCbFmLN+DhV28U3L7HPt++LN8rCGE6M4+Tljjmrsmx8R1QrJ
-	HQ71xsUDT1rVdcVWwlMFCgtYz4MO39Web5ZbyWWeIMm+64g1i+mtpZ58NYMxEImOoQ==
-X-Gm-Gg: ASbGncvSAc/9OAwwClWhyfhBbaMLI8E04RNMUAuBA6QWwNMvOIlrq1WMssFgvvJXtLl
-	OI6xBWvNNplwDOt5Kt8QwOyqDYo0srMAF2sBaiRFTPL2n1Ant428CnRDOgzsobanWcit2yd7lPk
-	KJX3s3wpj6+1PWU3OEh5kZz4JlWdKOOt4mAJoJ7AT+LHtQsu6ELhtOYtsTVo4RjMI9fx8ieIGA4
-	BJPaWz6gAUFnE1IyccYWzNZYEbXOMb08x/ziIvB+CN4SH8svI9OaAIsPj11fqMsMSuI/q2EJTCo
-	hD8JM/EWWcjnKTZ3ZhZF/Atxvc//UwkKbrKFG+nIqmWnLCd7ptDx1DFCX1YiGdkWybrj2vwavV0
-	jE84gMVFapUFa1uHR2/0v1IRUqOtv/8qAPLu9nn2aYpbLAf4=
-X-Google-Smtp-Source: AGHT+IEB3xsj7VvRIyLNXs3qZ2sTZSe7gjgv3W7r/WH5Wt68voCsNpsc0FYQLL6DfaR5/7imeQfung==
-X-Received: by 2002:a17:906:6a16:b0:ad5:72d4:85ee with SMTP id a640c23a62f3a-addf8fb22e8mr681591766b.53.1749133155699;
-        Thu, 05 Jun 2025 07:19:15 -0700 (PDT)
-Message-ID: <c06d8833-dafb-430e-a9d5-f9baedecea40@suse.com>
-Date: Thu, 5 Jun 2025 16:19:14 +0200
+        bh=kXvhzliBSn0/66s1rDoEisb24kfD7RiSMh+LlMkgfdE=;
+        b=X60rbe+ezLEA4ux7DQHzyPI3puP1Y6cOmgQzc0MfVZqSfhvvTKDeC3UIsl6lCALBiT
+         zCSlLmIxGwCQKEUWQN7bNHPqvASbq70AalCtr5LuG9rK49+c7LFaUF3ooG1MiRHqfTQv
+         gHjEDy/atHh4FXUkRJkquV+r1LVuja1pwxM2TQ+Dc04noAlUZdO0yov/iYFEpBmdIOgR
+         dnKFF4eyK0lyT6iz0nmBk4TAwy5Juq7Yuc7oW2U+LRD7hlj0zccO8pU55p+LduCwPczj
+         SwMu/Sw/zKh/sHR5WWg+wnxxKeKV26wj6yEaO+VxJZ+i/oG8zTACGaIg20WFJNCN/snr
+         L+SA==
+X-Forwarded-Encrypted: i=1; AJvYcCWYikS/jSBtqK2rM9QVdiTcOZgW71pGeb2ApID8jPlXSp776mBDVV1HR49Hrgr7YWcvYresOOVJai8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxE9SM8C5yEeqqVaWLjEYa+IUFeBkeS66aGY8rnH0/MHK+hWUDV
+	z/ApvnFFTGNyF9VqJL/uCZRfYFqiOn6inz3MIGIYFwDXpZnKVKectPlUAgW2XKHYAA==
+X-Gm-Gg: ASbGncu52oRep54sTStuYivIPfFrlLDxBBgMYtl5JDkoXrN/KMqHzYoq8OkMQe6BQ94
+	6skdsNKkMacoDBCcTJuTpzz2W/QHdChRQyV0Cxpo8XDedLWPYisvFgz7f+D+fX2L7IA5Meji1jE
+	gr27i7vJ3iU6h8eH6fXkOA/BUlJAtw+40AyB9y41ZVNG8sQ3NG40xRLdKWtiVGWSl2A9QyGukMr
+	CANtWzkaKp/veFl6lIxvj4qLnr920U6iHBIxPQziJ5duNjiZFnGj0L/roU5taZgZVcHiAP4brWi
+	5sabXpeDEKk1ATc+P9nGJEwG2+9mMQW8cM+2VUGiZNQkzz5zyOj1q7Dpda+QsrL5GySYWUoRjo5
+	jQJSg4PyTxlopgXx4YBOTwMqlgNPOUN2LZ7IL
+X-Google-Smtp-Source: AGHT+IHasvsxzOMZ7SBhAmuLBoNTQYAbWqktdrp2r7ZdmEHeMxBQxM8Rn62aacGLZaEMdz0a9SE+Zw==
+X-Received: by 2002:a05:6402:2351:b0:607:16b1:7489 with SMTP id 4fb4d7f45d1cf-60716b177dcmr4334550a12.20.1749133243785;
+        Thu, 05 Jun 2025 07:20:43 -0700 (PDT)
+Message-ID: <8768b970-6c62-4fc4-8ef5-b74f1aa650e6@suse.com>
+Date: Thu, 5 Jun 2025 16:20:42 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 2/6] xen/riscv: introduce things necessary for p2m
- initialization
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Subject: Re: [PATCH 06/19] xen: Clean up asm-generic/device.h
+To: Alejandro Vallejo <agarciav@amd.com>
 Cc: Alistair Francis <alistair.francis@wdc.com>,
  Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ <connojdavis@gmail.com>, Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1746805907.git.oleksii.kurochko@gmail.com>
- <0a03d1f38649cfd8656147f209652dff0f9d170c.1746805907.git.oleksii.kurochko@gmail.com>
- <7ef3ca26-05f5-4e86-b7c7-852b6c74a3d0@suse.com>
- <1a0d3084-9e77-4df5-936a-c1a1317c0f18@gmail.com>
- <ab4b0ba8-4a81-4059-94b0-aae8bda3fbfe@suse.com>
- <b9ea4b4c-c21d-4414-8c37-9447821ece8d@gmail.com>
- <0175c281-b669-4412-971a-545e29077b34@suse.com>
- <a91e8f71-5793-4c27-92fe-a4c1707ea6dc@gmail.com>
+ Stefano Stabellini <sstabellini@kernel.org>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ xen-devel@lists.xenproject.org
+References: <DA1WWRUQLCAG.ZTVR1HXJ85V0@amd.com>
+ <20250530120242.39398-1-agarciav@amd.com>
+ <20250530120242.39398-7-agarciav@amd.com>
+ <e69e572f-497d-4521-a28a-a554ac18c271@suse.com>
+ <DAC42T9A7DMZ.3P5GWMI89RZ90@amd.com>
+ <daa4bf8b-3082-47c0-abab-74a103c1b6b2@suse.com>
+ <DAENVFUK1OBR.BKRNCOBGBQ9Q@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -130,247 +131,69 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <a91e8f71-5793-4c27-92fe-a4c1707ea6dc@gmail.com>
+In-Reply-To: <DAENVFUK1OBR.BKRNCOBGBQ9Q@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 05.06.2025 16:10, Oleksii Kurochko wrote:
-> 
-> On 6/2/25 1:04 PM, Jan Beulich wrote:
->> On 23.05.2025 11:44, Oleksii Kurochko wrote:
->>> On 5/22/25 6:09 PM, Jan Beulich wrote:
->>>> On 22.05.2025 17:53, Oleksii Kurochko wrote:
->>>>> On 5/20/25 3:37 PM, Jan Beulich wrote:
->>>>>> On 09.05.2025 17:57, Oleksii Kurochko wrote:
->>>>>>> +static struct page_info *p2m_get_clean_page(struct domain *d)
->>>>>>> +{
->>>>>>> +    struct page_info *page;
->>>>>>> +
->>>>>>> +    /*
->>>>>>> +     * As mentioned in the Priviliged Architecture Spec (version 20240411)
->>>>>>> +     * As explained in Section 18.5.1, for the paged virtual-memory schemes
->>>>>>> +     * (Sv32x4, Sv39x4, Sv48x4, and Sv57x4), the root page table is 16 KiB
->>>>>>> +     * and must be aligned to a 16-KiB boundary.
->>>>>>> +     */
->>>>>>> +    page = alloc_domheap_pages(NULL, 2, 0);
->>>>>> Shouldn't this allocation come from the domain's P2M pool (which is yet
->>>>>> to be introduced)?
->>>>> First, I will drop p2m_get_clean_page() as it will be used only for p2m root page
->>>>> table allocation.
->>>>>
->>>>> p2m_init() is called by domain_create() [->arch_domain_create()->p2m_init()] from create_domUs():
->>>>> [https://gitlab.com/xen-project/xen/-/blob/staging/xen/common/device-tree/dom0less-build.c?ref_type=heads#L984].
->>>>>
->>>>> When p2m_init() is called, p2m pool isn't ready and domain isn't created yet. Last one
->>>>> is also crucial for usage of p2m pool as p2m pool belongs to domain and thereby it is
->>>>> using alloc_domheap_page(d, ...) (Not NULL as for allocation of p2m root table above),
->>>>> so domain should be created first.
->>>> Yet that is part of my point: This allocation should be against the domain,
->>>> so it is properly accounted. What's the problem with allocating the root
->>>> table when the pools is being created / filled?
->>> I can't use pages from pool for root table as they aren't properly aligned.
+On 05.06.2025 16:15, Alejandro Vallejo wrote:
+> On Mon Jun 2, 2025 at 4:24 PM CEST, Jan Beulich wrote:
+>> On 02.06.2025 16:19, Alejandro Vallejo wrote:
+>>> On Mon Jun 2, 2025 at 9:51 AM CEST, Jan Beulich wrote:
+>>>> On 30.05.2025 14:02, Alejandro Vallejo wrote:
+>>>>> --- a/xen/include/asm-generic/device.h
+>>>>> +++ b/xen/include/asm-generic/device.h
+>>>>> @@ -6,9 +6,7 @@
+>>>>>  
+>>>>>  enum device_type
+>>>>>  {
+>>>>> -#ifdef CONFIG_HAS_DEVICE_TREE
+>>>>>      DEV_DT,
+>>>>> -#endif
+>>>>
+>>>> Why would this enumerator need exposing on a non-DT arch? In fact I would have
+>>>> hoped for ...
 >>>
->>> At the moment, creation of p2m pool looks like:
->>>    int p2m_set_allocation(struct domain *d, unsigned long pages, bool *preempted)
->>>    {
->>>        struct page_info *pg;
->>>
->>>        ASSERT(spin_is_locked(&d->arch.paging.lock));
->>>
->>>        for ( ; ; )
->>>        {
->>>            if ( d->arch.paging.p2m_total_pages < pages )
->>>            {
->>>                /* Need to allocate more memory from domheap */
->>>                pg = alloc_domheap_page(d, MEMF_no_owner);
->>>                if ( pg == NULL )
->>>                {
->>>                    printk(XENLOG_ERR "Failed to allocate P2M pages.\n");
->>>                    return -ENOMEM;
->>>                }
->>>                ACCESS_ONCE(d->arch.paging.p2m_total_pages) =
->>>                    d->arch.paging.p2m_total_pages + 1;
->>>                page_list_add_tail(pg, &d->arch.paging.p2m_freelist);
->>>            }
->>>            ...
->>>        }
->>>
->>>        return 0;
->>>    }
->>> alloc_domheap_page(d, MEMF_no_owner) allocates page table with order 0, so 4k-aligned page table.
->>> But if I needed 16k for root table and it should be 16k-aligned then I still have to use
->>> alloc_domheap_pages(NULL, 2, 0);
->>>
->>> Or do you mean that I have to something like:
->>>    int p2m_set_allocation(struct domain *d, unsigned long pages, bool *preempted)
->>>    {
->>>        struct page_info *pg;
->>>    
->>>        ASSERT(spin_is_locked(&d->arch.paging.lock));
->>>    
->>> +    if ( !d->arch.p2m.root )
->>> +    {
->>> +        unsigned int order = get_order_from_bytes(KB(16));
->>> +        unsigned int nr_pages = _AC(1,U) << order;
->>> +        /*
->>> +        * As mentioned in the Priviliged Architecture Spec (version 20240411)
->>> +        * As explained in Section 18.5.1, for the paged virtual-memory schemes
->>> +        * (Sv32x4, Sv39x4, Sv48x4, and Sv57x4), the root page table is 16 KiB
->>> +        * and must be aligned to a 16-KiB boundary.
->>> +        */
->>> +        d->arch.p2m.root = alloc_domheap_pages(d, order, MEMF_no_owner);
->>> +        if ( d->arch.p2m.root == NULL )
->>> +            panic("root page table hasn't been allocated\n");
->>> +
->>> +        clear_and_clean_page(d->arch.p2m.root);
->>> +
->>> +        /* TODO: do I need TLB flush here? */
->>> +
->>> +        ACCESS_ONCE(d->arch.paging.p2m_total_pages) =
->>> +            d->arch.paging.p2m_total_pages + nr_pages;
->>> +    }
->>> +
->>> ...
->>> }
->> Neither. I was thinking of you taking 4 pages off the pool in exchange for the
->> order-2 allocation. Primarily to get the memory accounting right (or at least
->> closer to reality).
-> 
-> Do you mean that I have to call 4 times page_list_remove_head(), something like
-> that:
-> --- a/xen/arch/riscv/p2m.c
-> +++ b/xen/arch/riscv/p2m.c
-> @@ -215,6 +215,44 @@ int p2m_set_allocation(struct domain *d, unsigned long pages, bool *preempted)
->           }
->       }
->   
-> +    if ( !d->arch.p2m.root )
-> +    {
-> +        unsigned int order = get_order_from_bytes(KB(16));
-> +        unsigned int nr_pages = _AC(1,U) << order;
-> +
-> +        if ( ACCESS_ONCE(d->arch.paging.p2m_total_pages) < nr_pages )
-> +            panic("Specify more xen,domain-p2m-mem-mb\n");
-> +
-> +        /*
-> +         * As mentioned in the Priviliged Architecture Spec (version 20240411)
-> +         * As explained in Section 18.5.1, for the paged virtual-memory schemes
-> +         * (Sv32x4, Sv39x4, Sv48x4, and Sv57x4), the root page table is 16 KiB
-> +         * and must be aligned to a 16-KiB boundary.
-> +         */
-> +        d->arch.p2m.root = alloc_domheap_pages(NULL, order, 0);
-
-Imo you'd better not use NULL here, but instead pass MEMF_no_owner. See
-respective x86 code. I also think you want to do the freeing first, and
-only then do this allocation, such that ...
-
-> +        if (  d->arch.p2m.root == NULL )
-> +            panic("failed to allocate p2m root page table\n");
-> +
-> +        for ( unsigned int i = 0; i < nr_pages; i++ )
-> +        {
-> +            clear_and_clean_page(d->arch.p2m.root + i);
-> +
-> +            /* Return memory to domheap */
-> +            pg = page_list_remove_head(&d->arch.paging.p2m_freelist);
-> +            if( pg )
-> +            {
-> +                ACCESS_ONCE(d->arch.paging.p2m_total_pages)--;
-> +                free_domheap_page(pg);
-> +            }
-> +            else
-> +            {
-> +                printk(XENLOG_ERR
-> +                       "Failed to free P2M pages, P2M freelist is empty.\n");
-> +                return -ENOMEM;
-
-... this path will not have eaten more memory than was given back.
-
->>>>>>> +static int p2m_alloc_table(struct domain *d)
->>>>>>> +{
->>>>>>> +    struct p2m_domain *p2m = p2m_get_hostp2m(d);
->>>>>>> +
->>>>>>> +    p2m->root = p2m_allocate_root(d);
->>>>>>> +    if ( !p2m->root )
->>>>>>> +        return -ENOMEM;
->>>>>>> +
->>>>>>> +    p2m->hgatp = hgatp_from_page_info(p2m->root);
->>>>>>> +
->>>>>>> +    /*
->>>>>>> +     * Make sure that all TLBs corresponding to the new VMID are flushed
->>>>>>> +     * before using it.
->>>>>>> +     */
->>>>>>> +    p2m_write_lock(p2m);
->>>>>>> +    p2m_force_tlb_flush_sync(p2m);
->>>>>>> +    p2m_write_unlock(p2m);
->>>>>> While Andrew directed you towards a better model in general, it won't be
->>>>>> usable here then, as the guest didn't run on any pCPU(s) yet. Imo you
->>>>>> want to do a single global flush e.g. when VMIDs wrap around. That'll be
->>>>>> fewer global flushes than one per VM creation.
->>>>> I am not sure that I get a phrase 'VMIDs wrap around'.
->>>> You have to allocate them somehow. Typically you'll use the next one available.
->>>> At some point you will need to start over, searching from the beginning. Prior
->>>> to that now allocation of a new one will require any flush, as none of them
->>>> had be in use before (after boot or the last such flush).
->>> Thanks. Now I get your point.
->>>
->>> Won't be better to do TLB flushing during destroying of a domain so then we will
->>> be sure that TLBs connected to freed VMID aren't present in TLB anymore?
->> That's an option, but will result in more flushes. Furthermore there may be
->> reasons to change the VMID for a domain while it's running.
+>>> A non-DT arch would not include this. x86 doesn't.
 >>
->>> IIUC, it will work only if VMID is used, right?
->> Well, anything VMID related is of course only relevant when VMIDs are in use.
+>> Both here and ...
 >>
->>> In case if VMID isn't used, probably we can drop flushing here and do a flush
->>> during booting, right?
->> That'll be too little flushing?
-> 
-> I meant that instead of having TLB flush in p2m_alloc_table() we could have a one flush
-> during booting. And of course, we still should have flush on each context switch.
-
-Yet as said - context switches are likely too frequent for having an
-unconditional flush there (if it can be avoided).
-
->>> Won't be enough to flushing of guest TLB only during context switch?
->> "only" is interesting here. Context switches are a relatively frequent
->> operation, which in addition you want to be fast. If a flush is necessary
->> there for correctness (e.g. when VMIDs aren't in use), you have to do it
->> there. But if you can flush less frequently without violating correctness,
->> you'd almost always want to use such an opportunity.
-> 
-> Then it is better to introduce VMID now, it seems it's only one place where
-> it should be set, when hgatp is initialized.
-> 
-> Does Xen have some framework to work with VMID?
-
-That's all arch-specific, I think.
-
->>>>> I am going to implement, p2m_force_tlb_flush_sync() as:
->>>>>     static void p2m_force_tlb_flush_sync(struct p2m_domain *p2m)
->>>>>     {
->>>>>       ...
->>>>>         sbi_remote_hfence_gvma(d->dirty_cpumask, 0, 0);
->>>>>       ...
->>>>>     }
->>>>>
->>>>> With such implementation if the guest didn't run on any pCPU(s) yet
->>>>> then d->dirty_cpumask is empty, then sbi_remote_hfence_gvma() will do nothing
->>>>> as hmask will be NULL (https://gitlab.com/xen-project/people/olkur/xen/-/blob/staging/xen/arch/riscv/sbi.c?ref_type=heads#L238).
->>>>> I am not sure that it is a good idea as I can't find a guarantee in the spec
->>>>> that TLB will be empty during boot time.
->>>> If in doubt, do one global flush while booting.
->>> By booting you mean somewhere in continue_new_vcpu()?
->> I don't particularly mean any specific place. However, continue_new_vcpu()
->> (by its name) isn't involved in bringing up Xen, is it?
+>>>>>      DEV_PCI
+>>>>
+>>>> ... this to be hidden for arch-es not supporting PCI.
+>>>>
+>>>> Similar concerns elsewhere in this change.
+>>>
+>>> This file is exclusively used by arches supporting DT to abstract away where
+>>> the device came from. x86 does not use it at all, and while it wouldn't be
+>>> impossible to compile-out DEV_PCI, it would needlessly pollute the codebase with
+>>> no measurable gain, because the abstractions still need to stay.
 >>
-> No, it isn't. By booting here I meant a boot of a guest domain, not Xen itself.
+>> ... here: In "xen/include/asm-generic/device.h" there's nothing at all saying
+>> that this file is a DT-only one. Instead there is something in there saying
+>> that it's suitable to use in the entirely "generic" case.
+>>
+>> Jan
+> 
+> Try to use it from x86 and observe the build system catch fire. It could be made
+> to not go on fire, but it implies heavy refactoring in x86 (particularly IOMMU
+> code) for no good reason because there's no devices in a DTB to disambiguate.
+> 
+> How about adding this to the top of the header?
+> 
+> ```
+>  /*
+>   * This header helps DTB-based architectures abstract away where a particular
+>   * device comes from; be it the DTB itself or enumerated on a PCI bus. 
+>   */
+> 
+>   [snip]
+> 
+>  #ifndef CONFIG_HAS_DEVICE_TREE
+>  #error "Header meant to be used exclusively by DTB-base architectures."
+>  #endif
+> ```
 
-Please don't call this "booting", but "starting of a guest" (or "launching" or
-some such). When you originally said "booting" I thought RISC-V wouldn't
-guarantee clean TLBs when being booted, and hence suggested to cover for this
-by doing a single flush during (Xen) boot. Looks like this may not be needed
-then, simply because of the misunderstanding.
+Might be fine, together with giving the file a name somewhat referring to DT.
 
 Jan
 
