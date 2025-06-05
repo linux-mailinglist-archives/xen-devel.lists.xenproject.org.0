@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B6A3ACED8B
-	for <lists+xen-devel@lfdr.de>; Thu,  5 Jun 2025 12:27:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1006561.1385770 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 392A6ACED91
+	for <lists+xen-devel@lfdr.de>; Thu,  5 Jun 2025 12:27:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1006567.1385779 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uN7oI-0005Od-6k; Thu, 05 Jun 2025 10:26:58 +0000
+	id 1uN7p6-0005wO-Gp; Thu, 05 Jun 2025 10:27:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1006561.1385770; Thu, 05 Jun 2025 10:26:58 +0000
+Received: by outflank-mailman (output) from mailman id 1006567.1385779; Thu, 05 Jun 2025 10:27:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uN7oI-0005Ms-3m; Thu, 05 Jun 2025 10:26:58 +0000
-Received: by outflank-mailman (input) for mailman id 1006561;
- Thu, 05 Jun 2025 10:26:56 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uN7p6-0005tJ-E9; Thu, 05 Jun 2025 10:27:48 +0000
+Received: by outflank-mailman (input) for mailman id 1006567;
+ Thu, 05 Jun 2025 10:27:47 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=qREP=YU=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uN7oG-0005Mk-O4
- for xen-devel@lists.xenproject.org; Thu, 05 Jun 2025 10:26:56 +0000
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [2a00:1450:4864:20::42a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9a962fb2-41f7-11f0-a300-13f23c93f187;
- Thu, 05 Jun 2025 12:26:55 +0200 (CEST)
-Received: by mail-wr1-x42a.google.com with SMTP id
- ffacd0b85a97d-3a525eee2e3so526060f8f.2
- for <xen-devel@lists.xenproject.org>; Thu, 05 Jun 2025 03:26:55 -0700 (PDT)
+ id 1uN7p5-0005gE-RD
+ for xen-devel@lists.xenproject.org; Thu, 05 Jun 2025 10:27:47 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b8c026f8-41f7-11f0-b894-0df219b8e170;
+ Thu, 05 Jun 2025 12:27:46 +0200 (CEST)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-43edecbfb46so5597785e9.0
+ for <xen-devel@lists.xenproject.org>; Thu, 05 Jun 2025 03:27:46 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3132bff6688sm1224745a91.5.2025.06.05.03.26.52
+ d2e1a72fcca58-747afff7459sm12501568b3a.169.2025.06.05.03.27.42
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 05 Jun 2025 03:26:54 -0700 (PDT)
+ Thu, 05 Jun 2025 03:27:45 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9a962fb2-41f7-11f0-a300-13f23c93f187
+X-Inumbo-ID: b8c026f8-41f7-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1749119215; x=1749724015; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1749119265; x=1749724065; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=1v47NjpfklYXAFnt1Xg3d5eW/3aEbLVULucn4vLD+N4=;
-        b=DosBO0Gz/81wa4HianKDWqliA/kzP8Hmlif+/6lWy/w6zVMaKGmDeJHQl5AnhKQjGF
-         qVv9Grygcoane414JhCa+lfH3qCgfEOcO90jbpu4cK4Y4H3JxYqw7MdVuASevyCM7Zgv
-         11vDG89LTR79B1DBdi44R1rqvFSdIVibBTqugwNn29NOGgZd2iPALQGgpbyesBisIuwN
-         WQk/i0hmj+2DQ26XGsQo1O/jghH3vHDYc9TGjtbdftMoQGNP1bMIA5xoIJ7yHm5hsElJ
-         +nDfAYtPtX1amfXwsto4y3OmPduxhV8gzThsQyxClUdbcnsasJ1NVzd996krZ2KxkMIW
-         nX6Q==
+        bh=uAx+h4vdQMnFmuPeDTCptQ0FqB53/bxqCnS75yppj5g=;
+        b=D1ramRQt7YUhBQsQAK5+2I3EbpoHJsHf5j2KPwuOB/HJTk2cw2MZy/rbUoAr8iFkwJ
+         rDkJeqyuEa/eEtB6Q2yeiRNYIY0VK9o7d2QeP8cm/qcyEJz3Faz3gZJS5vMsvtuE5X6V
+         kKVry0Zg+BTdLEf5G5vb9ds4YTEIwvH9WAnB4Mcvj1IVCV2TTVIuFLrc1tnqWFD93Dbg
+         WNoESLP+KBRn9OBb+XoIVDmsxI82/nOaSuN9QONFiW5fZf3TCBHOYQAbOQyuJS+9AbsF
+         2VKetl4j2xy4RG1mLWxwv/SWoVHYZ7XJHZVBz63avH2f6Z6jQOzIUU3SUNkD0qkvyK12
+         DZmw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749119215; x=1749724015;
+        d=1e100.net; s=20230601; t=1749119265; x=1749724065;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=1v47NjpfklYXAFnt1Xg3d5eW/3aEbLVULucn4vLD+N4=;
-        b=htM6StGGG68s9btcBf3hwCdfTyzKKry/k2KiuiiZdhFJPaoodkLcfN1iAgZn6UEz+K
-         MiaLadxTZ6yDIH0NeYfZewpNLz3J+H9fmXJP8EW3rKqbOJigVwhb0ue7iov9WVpWtZyq
-         2QjvKY6XqzRko5/Z0ZwlV1cqYehmF6C49D33p+KfJ31k0BskjMGs0ZYMtSVPl1fcCz5X
-         HI5ZrdazXcd7GwiRqTiwfMqULUgMUs5nDwWjAcgzGVdMt2lKvx5fAsYrRkvDq27B5RIM
-         U4drxF6UM3pTRSPFAM+Msf2tF+TilAMRE37AgNK0D7DCvINhCGAUrWk8moExNxoBtTVK
-         2VAg==
-X-Gm-Message-State: AOJu0YyJML73KVBbnqdJS9qAkugCsyXstQPd2JhGaLRkJrGJEWGtRkPl
-	rVI0ymUf+UQtzz85aMjyvOfBHK5Q1Jtj3j0RgstWMDNPlVMCAceug9zdmXwctxRVVeqRfhQRHXt
-	05Kw=
-X-Gm-Gg: ASbGncuGJJ5xKEpH0MvqxKw7movLJhYY/4wUQj0VDN8/B7c/V6ArA31mrfBljLVPhvS
-	eiMvgt0DHimaz453vLWNcYnUuMFrZOFAMbCWoinjY9MhPTcWSjP2/aO3aezzdveOg4GRyNSVXVZ
-	2HGOviOIpLWhbqr4YXDPU9OQO37UMleRbcHxJKyzjEzFObi0GEoIpa9NU/b/sB1cdYoanrUKDxy
-	ctMM56wBfak89XuJaF80PUpcRlHNdDoQ6C/xLxiYUjb4ndH0hbyFW6iq9YodvTPXysbkJM2f8g6
-	v4I9FS0U1JMIl21zyAiSc4Gr8wSRuys01JhJx4O4lL6kbmRcj4DbHjKshea2HcZXo40xFvoCGkr
-	vFU6vgFdbS6CzK3+JB4so7YR5nl0J/e3CNoyWHc87pMVNYc0=
-X-Google-Smtp-Source: AGHT+IHeyyS21Ai+7nJZfxT9YbsjuA/gqHmUIi2J+XzzBjGSD6NPvK+8TuhRB9TSp5IKQQ1CoUx/KA==
-X-Received: by 2002:a05:6000:2c11:b0:3a4:f63b:4bfc with SMTP id ffacd0b85a97d-3a51d961af6mr5282398f8f.34.1749119215013;
-        Thu, 05 Jun 2025 03:26:55 -0700 (PDT)
-Message-ID: <f659ba34-a1cc-444b-8727-2ecfbcfb00e3@suse.com>
-Date: Thu, 5 Jun 2025 12:26:48 +0200
+        bh=uAx+h4vdQMnFmuPeDTCptQ0FqB53/bxqCnS75yppj5g=;
+        b=vVrncCVx5uWms6yv2fyE3XDy9scPq+RZsSyFFpe3el1hpLbTgnh3f+OvZgLJxELGMm
+         aS45Ao1sPHHhkG3nkv/KWs0971eeuALGbJY4Kxw2wwEOCkJwxaAR4z/I3VrQYAsRYGtl
+         OpN5O/Ci3VLN9a95IOQUohJeXWsbVCEQ2Nw65hR4oS0/gpdEuErjR84zUhS5kR/Qc5+F
+         4nlVWvILArZZVNxrHvTUvLuUcAqRwkZ79LJJUhinc8+9/vqCa+KLcnCTKCYIihTEbmzl
+         vR3SBjWyu8y1bVbN5Ln4SbZYvMmWic6oiQXV1w3XAr3NKIqKsfR7F9DG8vKe+LQky+sR
+         wkLQ==
+X-Gm-Message-State: AOJu0YzmTsWXZXlWIK2KNJ+52Wu7wVygzT0LuO147opMkjKuCl0979Kr
+	jMDAn2xnaP45DmrfQMLtyqjRkgfCyX/oEKMSIAUUOfKgrL5uUHYXV2/oP3CDfEw2NuMm4JWDMtE
+	86js=
+X-Gm-Gg: ASbGncv6yU/HJkA7iPgSnj1lYBSRmMEeYSb8RKi3tpzqsQp9usZHkesPQYmLPhFvKyH
+	4Eci13wSAltny2O5wqnOHv+4b6fJCswDp5bke5GBzX7ymE86xXJ/XnjbPGONv9xDVg7xXVuWOIf
+	S8UzAZKzvcGG8P7MH+jwg4Lilg7H4BxWXv6t57IDPvtyAuc/XdqHtApCTsXddBjMX/cuKP8a1NF
+	B0/5G7PoQ2KF/L2Zay5Qq/Sz4APuDHLPOGLu9JnqrpvgFM1i1YDGDnpq7yktbjNaCjWQcDfIkFh
+	njSvXDNjv4eHQT7p9vqGjtpBPTox0l3EYThP0ezsbtIAbxKoHhuxaNZlmoWo6HAWWra5nkUfAAM
+	BCzZ0L1Ad2lX4uamjct/dGWpEGN/OVA+8MFnnXYugYxnlN6U=
+X-Google-Smtp-Source: AGHT+IETgYM/WluMPaHlS/7Qy8wCK4I2i4OlczpWppxKMCL04DAhHEP67cEjUObBzP6EtYif7E9F+Q==
+X-Received: by 2002:a05:6000:2c10:b0:3a4:f8fa:9c94 with SMTP id ffacd0b85a97d-3a51d91ff46mr5283128f8f.13.1749119265441;
+        Thu, 05 Jun 2025 03:27:45 -0700 (PDT)
+Message-ID: <5fd7631c-a7aa-438b-ae7e-7f35af65cef2@suse.com>
+Date: Thu, 5 Jun 2025 12:27:38 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v5 4/6] x86: control memset() and memcpy() inlining
+Subject: [PATCH v5 5/6] x86: introduce "hot" and "cold" page clearing
+ functions
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -121,47 +122,178 @@ In-Reply-To: <73481cbf-337f-4e85-81d2-3487366cd822@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Stop the compiler from inlining non-trivial memset() and memcpy() (for
-memset() see e.g. map_vcpu_info() or kimage_load_segments() for
-examples). This way we even keep the compiler from using REP STOSQ /
-REP MOVSQ when we'd prefer REP STOSB / REP MOVSB (when ERMS is
-available).
+The present clear_page_sse2() is useful in case a page isn't going to
+get touched again soon, or if we want to limit churn on the caches.
+Amend it by alternatively using CLZERO, which has been found to be quite
+a bit faster on Zen2 hardware at least. Note that to use CLZERO, we need
+to know the cache line size, and hence a feature dependency on CLFLUSH
+gets introduced.
 
-With gcc10 this yields a modest .text size reduction (release build) of
-around 2k.
+For cases where latency is the most important aspect, or when it is
+expected that sufficiently large parts of a page will get accessed again
+soon after the clearing, introduce a "hot" alternative. Again use
+alternatives patching to select between a "legacy" and an ERMS variant.
 
-Unfortunately these options aren't understood by the clang versions I
-have readily available for testing with; I'm unaware of equivalents.
+Don't switch any callers just yet - this will be the subject of
+subsequent changes.
 
-Note also that using cc-option-add is not an option here, or at least I
-couldn't make things work with it (in case the option was not supported
-by the compiler): The embedded comma in the option looks to be getting
-in the way.
-
-Requested-by: Andrew Cooper <andrew.cooper3@citrix.com>
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
+v5: Re-base.
 v3: Re-base.
 v2: New.
 ---
-The boundary values are of course up for discussion - I wasn't really
-certain whether to use 16 or 32; I'd be less certain about using yet
-larger values.
+Note: Ankur indicates that for ~L3-size or larger regions MOVNT/CLZERO
+      is better even latency-wise.
 
-Similarly whether to permit the compiler to emit REP STOSQ / REP MOVSQ
-for known size, properly aligned blocks is up for discussion.
-
---- a/xen/arch/x86/arch.mk
-+++ b/xen/arch/x86/arch.mk
-@@ -58,6 +58,9 @@ endif
- $(call cc-option-add,CFLAGS_stack_boundary,CC,-mpreferred-stack-boundary=3)
- export CFLAGS_stack_boundary
+--- a/xen/arch/x86/clear_page.S
++++ b/xen/arch/x86/clear_page.S
+@@ -5,7 +5,7 @@
+ #include <asm/asm_defns.h>
+ #include <asm/page.h>
  
-+CFLAGS += $(call cc-option,$(CC),-mmemcpy-strategy=unrolled_loop:16:noalign$(comma)libcall:-1:noalign)
-+CFLAGS += $(call cc-option,$(CC),-mmemset-strategy=unrolled_loop:16:noalign$(comma)libcall:-1:noalign)
+-FUNC(clear_page_sse2)
++        .macro clear_page_sse2
+         mov     $PAGE_SIZE/32, %ecx
+         xor     %eax,%eax
+ 
+@@ -19,4 +19,42 @@ FUNC(clear_page_sse2)
+ 
+         sfence
+         RET
+-END(clear_page_sse2)
++        .endm
 +
- ifeq ($(CONFIG_UBSAN),y)
- # Don't enable alignment sanitisation.  x86 has efficient unaligned accesses,
- # and various things (ACPI tables, hypercall pages, stubs, etc) are wont-fix.
++        .macro clear_page_clzero
++        mov     %rdi, %rax
++        mov     $PAGE_SIZE/64, %ecx
++        .globl clear_page_clzero_post_count
++clear_page_clzero_post_count:
++
++0:      clzero
++        sub     $-64, %rax
++        .globl clear_page_clzero_post_neg_size
++clear_page_clzero_post_neg_size:
++        sub     $1, %ecx
++        jnz     0b
++
++        sfence
++        RET
++        .endm
++
++FUNC(clear_page_cold)
++        ALTERNATIVE clear_page_sse2, clear_page_clzero, X86_FEATURE_CLZERO
++END(clear_page_cold)
++
++        .macro clear_page_stosb
++        mov     $PAGE_SIZE, %ecx
++        xor     %eax,%eax
++        rep stosb
++        .endm
++
++        .macro clear_page_stosq
++        mov     $PAGE_SIZE/8, %ecx
++        xor     %eax, %eax
++        rep stosq
++        .endm
++
++FUNC(clear_page_hot)
++        ALTERNATIVE clear_page_stosq, clear_page_stosb, X86_FEATURE_ERMS
++        RET
++END(clear_page_hot)
+--- a/xen/arch/x86/cpu/common.c
++++ b/xen/arch/x86/cpu/common.c
+@@ -60,6 +60,9 @@ DEFINE_PER_CPU(bool, full_gdt_loaded);
+ 
+ DEFINE_PER_CPU(uint32_t, pkrs);
+ 
++extern uint32_t clear_page_clzero_post_count[];
++extern int8_t clear_page_clzero_post_neg_size[];
++
+ void __init setup_clear_cpu_cap(unsigned int cap)
+ {
+ 	const uint32_t *dfs;
+@@ -357,8 +360,38 @@ void __init early_cpu_init(bool verbose)
+ 
+ 	edx &= ~cleared_caps[FEATURESET_1d];
+ 	ecx &= ~cleared_caps[FEATURESET_1c];
+-	if (edx & cpufeat_mask(X86_FEATURE_CLFLUSH))
+-		c->x86_cache_alignment = ((ebx >> 8) & 0xff) * 8;
++	if (edx & cpufeat_mask(X86_FEATURE_CLFLUSH)) {
++		unsigned int size = ((ebx >> 8) & 0xff) * 8;
++
++		c->x86_cache_alignment = size;
++
++		/*
++		 * Patch in parameters of clear_page_cold()'s CLZERO
++		 * alternative. Note that for now we cap this at 128 bytes.
++		 * Larger cache line sizes would still be dealt with
++		 * correctly, but would cause redundant work done.
++		 */
++		if (size > 128)
++			size = 128;
++		if (size && !(size & (size - 1))) {
++			/*
++			 * Need to play some games to keep the compiler from
++			 * recognizing the negative array index as being out
++			 * of bounds. The labels in assembler code really are
++			 * _after_ the locations to be patched, so the
++			 * negative index is intentional.
++			 */
++			uint32_t *pcount = clear_page_clzero_post_count;
++			int8_t *neg_size = clear_page_clzero_post_neg_size;
++
++			OPTIMIZER_HIDE_VAR(pcount);
++			OPTIMIZER_HIDE_VAR(neg_size);
++			pcount[-1] = PAGE_SIZE / size;
++			neg_size[-1] = -size;
++		}
++		else
++			setup_clear_cpu_cap(X86_FEATURE_CLZERO);
++	}
+ 	/* Leaf 0x1 capabilities filled in early for Xen. */
+ 	c->x86_capability[FEATURESET_1d] = edx;
+ 	c->x86_capability[FEATURESET_1c] = ecx;
+--- a/xen/arch/x86/include/asm/asm-defns.h
++++ b/xen/arch/x86/include/asm/asm-defns.h
+@@ -1,5 +1,9 @@
+ #include <asm/page-bits.h>
+ 
++.macro clzero
++    .byte 0x0f, 0x01, 0xfc
++.endm
++
+ /*
+  * Call a noreturn function.  This could be JMP, but CALL results in a more
+  * helpful backtrace.  BUG is to catch functions which do decide to return...
+--- a/xen/arch/x86/include/asm/page.h
++++ b/xen/arch/x86/include/asm/page.h
+@@ -219,10 +219,11 @@ typedef struct { u64 pfn; } pagetable_t;
+ #define pagetable_from_paddr(p) pagetable_from_pfn((p)>>PAGE_SHIFT)
+ #define pagetable_null()        pagetable_from_pfn(0)
+ 
+-void clear_page_sse2(void *pg);
++void clear_page_hot(void *pg);
++void clear_page_cold(void *pg);
+ void copy_page_sse2(void *to, const void *from);
+ 
+-#define clear_page(_p)      clear_page_sse2(_p)
++#define clear_page(_p)      clear_page_cold(_p)
+ #define copy_page(_t, _f)   copy_page_sse2(_t, _f)
+ 
+ /* Convert between Xen-heap virtual addresses and machine addresses. */
+--- a/xen/tools/gen-cpuid.py
++++ b/xen/tools/gen-cpuid.py
+@@ -212,6 +212,10 @@ def crunch_numbers(state):
+         # the first place.
+         APIC: [X2APIC, TSC_DEADLINE, EXTAPIC],
+ 
++        # The CLZERO insn requires a means to determine the cache line size,
++        # which is tied to the CLFLUSH insn.
++        CLFLUSH: [CLZERO],
++
+         # AMD built MMXExtentions and 3DNow as extentions to MMX.
+         MMX: [MMXEXT, _3DNOW],
+ 
 
 
