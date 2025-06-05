@@ -2,35 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C9D0BACF2D4
-	for <lists+xen-devel@lfdr.de>; Thu,  5 Jun 2025 17:17:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1007031.1386306 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EC9B0ACF2E1
+	for <lists+xen-devel@lfdr.de>; Thu,  5 Jun 2025 17:19:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1007037.1386315 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uNCLO-0007MW-CA; Thu, 05 Jun 2025 15:17:26 +0000
+	id 1uNCNe-0007vi-O7; Thu, 05 Jun 2025 15:19:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1007031.1386306; Thu, 05 Jun 2025 15:17:26 +0000
+Received: by outflank-mailman (output) from mailman id 1007037.1386315; Thu, 05 Jun 2025 15:19:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uNCLO-0007K6-96; Thu, 05 Jun 2025 15:17:26 +0000
-Received: by outflank-mailman (input) for mailman id 1007031;
- Thu, 05 Jun 2025 15:17:25 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uNCNe-0007t8-LD; Thu, 05 Jun 2025 15:19:46 +0000
+Received: by outflank-mailman (input) for mailman id 1007037;
+ Thu, 05 Jun 2025 15:19:45 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=iek4=YU=bounce.vates.tech=bounce-md_30504962.6841b4fd.v1-4d8bcefe7eba4258a34eb4bab83edbfc@srs-se1.protection.inumbo.net>)
- id 1uNCLN-0007K0-8x
- for xen-devel@lists.xenproject.org; Thu, 05 Jun 2025 15:17:25 +0000
-Received: from mail132-4.atl131.mandrillapp.com
- (mail132-4.atl131.mandrillapp.com [198.2.132.4])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2b7ac91d-4220-11f0-b894-0df219b8e170;
- Thu, 05 Jun 2025 17:17:19 +0200 (CEST)
-Received: from pmta09.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
- by mail132-4.atl131.mandrillapp.com (Mailchimp) with ESMTP id 4bCp312jpbzlfcQV
- for <xen-devel@lists.xenproject.org>; Thu,  5 Jun 2025 15:17:17 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- 4d8bcefe7eba4258a34eb4bab83edbfc; Thu, 05 Jun 2025 15:17:17 +0000
+ <SRS0=OIxA=YU=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1uNCNd-0007t2-GB
+ for xen-devel@lists.xenproject.org; Thu, 05 Jun 2025 15:19:45 +0000
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [2a00:1450:4864:20::330])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8298e3eb-4220-11f0-a300-13f23c93f187;
+ Thu, 05 Jun 2025 17:19:44 +0200 (CEST)
+Received: by mail-wm1-x330.google.com with SMTP id
+ 5b1f17b1804b1-43cfe63c592so12809055e9.2
+ for <xen-devel@lists.xenproject.org>; Thu, 05 Jun 2025 08:19:44 -0700 (PDT)
+Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
+ by smtp.gmail.com with UTF8SMTPSA id
+ 5b1f17b1804b1-451f97f797bsm29144615e9.1.2025.06.05.08.19.43
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 05 Jun 2025 08:19:43 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,132 +45,109 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2b7ac91d-4220-11f0-b894-0df219b8e170
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1749136637; x=1749406637;
-	bh=Y0zoEZ+oUKLBb3F2PrV9vMIfEPCCp4im/a1FbEJ+45U=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=y9NLakJAOUC9A4xC1JcHfDsWNdYkcqSzpD7MnPGSINveQhxUm3FLuS5OE4nbAnRQV
-	 LY7z6U0TXbX2SgDU7fQ31AMnDPCWQPUFNFagaaxzh0WnzuyQXCBb1UKjDuPr2TgMYN
-	 IhyzeyphXveLLGj0gWbIZOIovPf65HoCTRaQUDmnyu5WrqzGUYoZno5IWR9zSC+eoL
-	 QREGhbfLBI/Y9HSH34MhrgEbW39tmydCFMTk1iLXO9G0qUwmajvsl7+aerz6EdlSQ6
-	 qW5TfPYl+E6ZWTqQcfbv/sMWI7iR4k/n8G8/2revoUH0yu5VcPHJ0sq7w5q666YbXG
-	 TsezpaV8bViTA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1749136637; x=1749397137; i=teddy.astie@vates.tech;
-	bh=Y0zoEZ+oUKLBb3F2PrV9vMIfEPCCp4im/a1FbEJ+45U=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=wAuftiU3qQN3z1kpjAe3VYIWc91O+Ykm7CNvT66NDR+Zv6x1UaE8ue25BCgn1vIgy
-	 vRVIHhRK4Ks2+Fs9gewQxrIG2sROGGlk9Z1SSXARU5xYPvmb9JpjKZAyyuOKPYs/lQ
-	 avQjf0hb9aEhB2Q0N/BlaiRZAMzRyjNtZgwnU2Z0oM1siOhwwObEz0Vcvf8D5izy+e
-	 1Lpsf28s2EoJ/ytKRbTeGYrAtgpxCWUn0IQFH2K2ftx3rA3L5DYiBx/GL7qBjwAPzr
-	 MAOMyiHdOG+4Gu7c8gcgH/Cc1iv8wFkIA3ayu9H9IUOh6AJMvXkaQJerfzn9zkqpYo
-	 ZvaWeag9HfBNw==
-From: "Teddy Astie" <teddy.astie@vates.tech>
-Subject: =?utf-8?Q?Re:=20[PATCH]=20vmx:=20Introduce=20vcpu=20single=20context=20VPID=20invalidation?=
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1749136636299
-Message-Id: <76bf2d72-3834-4455-8023-a20c84db58d0@vates.tech>
-To: "Jan Beulich" <jbeulich@suse.com>
-Cc: "Andrew Cooper" <andrew.cooper3@citrix.com>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
-References: <83d0e7dfc076e9453fb6537e5948c03d90e947da.1748594036.git.teddy.astie@vates.tech> <4ed9d6ce-5634-4dd9-86e9-5d1f84a43e10@suse.com>
-In-Reply-To: <4ed9d6ce-5634-4dd9-86e9-5d1f84a43e10@suse.com>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.4d8bcefe7eba4258a34eb4bab83edbfc?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20250605:md
-Date: Thu, 05 Jun 2025 15:17:17 +0000
+X-Inumbo-ID: 8298e3eb-4220-11f0-a300-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1749136784; x=1749741584; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=ZsVi9mFdE9OELkvO8XwzTUIVclaZPprJgsLHYTAHtCo=;
+        b=NIcYfn0Cjqu6hyeitzs1pWasbtB+wYF7NO27CCZLl0M2Qrzk6PfeVksrUQx4i1+P7j
+         xcUEStZWIW70ClPFl5KbQp/YZ7r9dCCzp1WptGdWR4sOO/UtnNbWHgllhb0dbeM93RTF
+         sJk61XOgfb3NC9vFsOnf1lIyR7bcPs5rirMik=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1749136784; x=1749741584;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=ZsVi9mFdE9OELkvO8XwzTUIVclaZPprJgsLHYTAHtCo=;
+        b=cat0p7d7XviWX1LpdbBSZg30DdGzee3Rj6kfJvxP2x7TU7F/o6Mqj9uL4w0BLZz8AA
+         /KyWxcimhyJiF9BZiuIOOiL6D1sINl3YO4G/5furxzR1n4V0h/HylHMxS//lw7tS/khh
+         Mte9AS/FwGV5td7DR9DA/XdJKdxXwTCbWsIq1l/vjamlChHP732ejkFNdJpzTE9tvRHh
+         ocyTXhwQqEDkBuIBRDL9ZK5CMuyS3PJrVunnL8rJYLqoLU4LMDTRkfELLvPZ3RtIIbkl
+         tz8Teu+cIjpfBl1tOwE8k+2pkQK9cB//CuxZiysW0UilWm0n50cRxEkoKb805vdca8kU
+         W0Sg==
+X-Gm-Message-State: AOJu0Yw5cTAu6tZHpOXQJu/CN+3yRDEz6NuSNF+qToito+nQXJeqaoe5
+	UxF5CyrzcEra3IGq8DC/8FHJfXslH651WASoicA5EN++8f7cJf+AFOwqjrPH0P8j7Kg=
+X-Gm-Gg: ASbGnctT2/X1ae0AtO29P0/CF2O1Mj2NwqQ59h0p+y3cW4RgJcs6ybfpnXSdgdMD07s
+	bhxfUwgmObjv6SmvjGm6ZzU3OW4xK2h55q8F1WZzfsA3W5NBiTngjbJOaEmFN61mHa3s6rpbNDT
+	Im4/T3ZhJDHrUGJBGpiUUtG2zkAsOWNOu3GTFSpkhDxVJkaPuLRCZ3plJh3WvnjH1OYyyZf1Au1
+	vPKwd+yeHM1YYWMVnl/5V+lgBcwv+dXyWzf8xcXKGsc6oimk4QT4szzYURcvp7Qfried6uCLvif
+	d6lSTRd9gPlbFKdnmmAjU43SwRxEk2CkjoCRdbdub0ZGluniZmC5Lm2qXGPZXi7puQoivZa6KH6
+	vp1NZWYx2/Q9rCgI1diNC9Abhaqi0BA==
+X-Google-Smtp-Source: AGHT+IEkbeKljRtN+ExWUey35MAcaufZT76wMhPkdP1lxGimX8xCjmOBuX+YWDBe+mhWjN7cXhhKaw==
+X-Received: by 2002:a05:600c:1c94:b0:450:30e4:bdf6 with SMTP id 5b1f17b1804b1-451f0b0cfc6mr65476455e9.19.1749136783911;
+        Thu, 05 Jun 2025 08:19:43 -0700 (PDT)
+Date: Thu, 5 Jun 2025 17:19:42 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jiqian Chen <Jiqian.Chen@amd.com>
+Cc: xen-devel@lists.xenproject.org, Huang Rui <ray.huang@amd.com>
+Subject: Re: [PATCH v5 09/10] vpci/msi: Free MSI resources when init_msi()
+ fails
+Message-ID: <aEG1jgbVJGF7HxzI@macbook.local>
+References: <20250526094559.140423-1-Jiqian.Chen@amd.com>
+ <20250526094559.140423-10-Jiqian.Chen@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20250526094559.140423-10-Jiqian.Chen@amd.com>
 
-Le 05/06/2025 =C3=A0 16:51, Jan Beulich a =C3=A9crit=C2=A0:
-> On 30.05.2025 10:48, Teddy Astie wrote:
->> Introduce vpid_sync_vcpu_context to do a single-context invalidation
->> on the vpid attached to the vcpu as a alternative to per-gva and all-con=
-texts
->> invlidations.
->>
->> Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
->> ---
->> Extracted from SEV series.
->> This will be used for instance in fixed-ASID patches (in SEV series).
+On Mon, May 26, 2025 at 05:45:58PM +0800, Jiqian Chen wrote:
+> When init_msi() fails, current logic return fail and free MSI-related
+> resources in vpci_deassign_device(). But the previous new changes will
+> hide MSI capability and return success, it can't reach
+> vpci_deassign_device() to remove resources if hiding success, so those
+> resources must be removed in cleanup function of MSI.
 > 
-> I think it should be in that series, which may still be some long way out=
-.
-> Until then we'd carry dead/unreachable code (disliked by Misra), and we'd
-> risk that this bit-rots because of being unused.
+> To do that, implement cleanup function for MSI.
 > 
-
-Yes, that make sense, it should exist along with patches that make use 
-of it.
-
->> --- a/xen/arch/x86/include/asm/
-hvm/vmx/vmx.h
->> +++ b/xen/arch/x86/include/asm/hvm/vmx/vmx.h
->> @@ -451,6 +451,23 @@ static inline void ept_sync_all(void)
->>   
->>   void ept_sync_domain(struct p2m_domain *p2m);
->>   
->> +static inline void vpid_sync_vcpu_context(struct vcpu *v)
+> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
+> ---
+> cc: "Roger Pau Monné" <roger.pau@citrix.com>
+> ---
+> v4->v5 changes:
+> * Change definition "static void cleanup_msi" to "static int cf_check cleanup_msi" since cleanup hook is changed to be int.
+> * Add a read-only register for MSI Control Register in the end of cleanup_msi.
 > 
-> pointer-to-const?
+> v3->v4 changes:
+> * Change function name from fini_msi() to cleanup_msi().
+> * Remove unnecessary comment.
+> * Change to use XFREE to free vpci->msi.
 > 
->> +{
->> +    int type =3D INVVPID_SINGLE_CONTEXT;
+> v2->v3 changes:
+> * Remove all fail path, and use fini_msi() hook instead.
+> * Change the method to calculating the size of msi registers.
 > 
-> Please don't use plain int when all values possibly held in a variable ar=
-e
-> non-negative.
+> v1->v2 changes:
+> * Added a new function fini_msi to free all MSI resources instead of using an array to record registered registers.
 > 
-
-I mostly took the code from other vcpu_sync_* functions. I will take a 
-look as a separate patch on reworking the existing vpid_sync_vcpu_gva 
-with these proposed changes, as it has the same problem.
-
->> +    /*
->> +     * If single context invalidation is not supported, we escalate to
->> +     * use all context invalidation.
->> +     */
->> +    if ( likely(cpu_has_vmx_vpid_invvpid_single_context) )
->> +        goto execute_invvpid;
->> +
->> +    type =3D INVVPID_ALL_CONTEXT;
->> +
->> +execute_invvpid:
+> Best regards,
+> Jiqian Chen.
+> ---
+>  xen/drivers/vpci/msi.c | 29 ++++++++++++++++++++++++++++-
+>  1 file changed, 28 insertions(+), 1 deletion(-)
 > 
-> There no reason at all to use "goto" here (and with that replaced there's
-> then also no style issue with the label placement).
-> 
+> diff --git a/xen/drivers/vpci/msi.c b/xen/drivers/vpci/msi.c
+> index 2d45c7867de7..4e106c39efae 100644
+> --- a/xen/drivers/vpci/msi.c
+> +++ b/xen/drivers/vpci/msi.c
+> @@ -193,6 +193,33 @@ static void cf_check mask_write(
+>      msi->mask = val;
+>  }
+>  
+> +static int cf_check cleanup_msi(struct pci_dev *pdev)
+> +{
+> +    int rc;
+> +    unsigned int end, size;
+> +    struct vpci *vpci = pdev->vpci;
+> +    const unsigned int msi_pos = pdev->msi_pos;
+> +    const unsigned int ctrl = msi_control_reg(msi_pos);
+> +
+> +    if ( !msi_pos || !vpci->msi )
 
-Should a similar treatment be made for vpid_sync_vcpu_gva ?
+Possibly same request as the previous patch, msi_pos should be after
+the PCI standard header.
 
-> Jan
-> 
->> +    __invvpid(type, v->arch.hvm.n1asid.asid, 0);
->> +}
->> +
->>   static inline void vpid_sync_vcpu_gva(struct vcpu *v, unsigned long gv=
-a)
->>   {
->>       int type =3D INVVPID_INDIVIDUAL_ADDR;
-> 
-> 
-
-Teddy
-
-
-
-Teddy Astie | Vates XCP-ng Developer
-
-XCP-ng & Xen Orchestra - Vates solutions
-
-web: https://vates.tech
-
-
+Thanks, Roger.
 
