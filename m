@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01A11ACF254
-	for <lists+xen-devel@lfdr.de>; Thu,  5 Jun 2025 16:51:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1007005.1386275 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA1FEACF275
+	for <lists+xen-devel@lfdr.de>; Thu,  5 Jun 2025 17:01:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1007015.1386285 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uNBwJ-0002jr-5X; Thu, 05 Jun 2025 14:51:31 +0000
+	id 1uNC5P-0004mG-Sf; Thu, 05 Jun 2025 15:00:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1007005.1386275; Thu, 05 Jun 2025 14:51:31 +0000
+Received: by outflank-mailman (output) from mailman id 1007015.1386285; Thu, 05 Jun 2025 15:00:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uNBwJ-0002hQ-2e; Thu, 05 Jun 2025 14:51:31 +0000
-Received: by outflank-mailman (input) for mailman id 1007005;
- Thu, 05 Jun 2025 14:51:30 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uNC5P-0004jt-Pp; Thu, 05 Jun 2025 15:00:55 +0000
+Received: by outflank-mailman (input) for mailman id 1007015;
+ Thu, 05 Jun 2025 15:00:54 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=B23G=YU=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1uNBwH-0002ge-UB
- for xen-devel@lists.xenproject.org; Thu, 05 Jun 2025 14:51:30 +0000
-Received: from fout-a4-smtp.messagingengine.com
- (fout-a4-smtp.messagingengine.com [103.168.172.147])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8f160b73-421c-11f0-a300-13f23c93f187;
- Thu, 05 Jun 2025 16:51:28 +0200 (CEST)
-Received: from phl-compute-06.internal (phl-compute-06.phl.internal
- [10.202.2.46])
- by mailfout.phl.internal (Postfix) with ESMTP id 23A8713802AB;
- Thu,  5 Jun 2025 10:51:27 -0400 (EDT)
-Received: from phl-mailfrontend-02 ([10.202.2.163])
- by phl-compute-06.internal (MEProxy); Thu, 05 Jun 2025 10:51:27 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 5 Jun 2025 10:51:25 -0400 (EDT)
+ <SRS0=OIxA=YU=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1uNC5O-0004iI-Ik
+ for xen-devel@lists.xenproject.org; Thu, 05 Jun 2025 15:00:54 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e004e94e-421d-11f0-b894-0df219b8e170;
+ Thu, 05 Jun 2025 17:00:53 +0200 (CEST)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-451d6ade159so9237915e9.1
+ for <xen-devel@lists.xenproject.org>; Thu, 05 Jun 2025 08:00:53 -0700 (PDT)
+Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
+ by smtp.gmail.com with UTF8SMTPSA id
+ ffacd0b85a97d-3a4efe5b8besm25068733f8f.16.2025.06.05.08.00.51
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 05 Jun 2025 08:00:51 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,161 +45,73 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8f160b73-421c-11f0-a300-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1749135087;
-	 x=1749221487; bh=gfg+NcyQfuLhm0vT8GeOOJR34EtiYSk1+xB/aBcVMmw=; b=
-	XeLv3gNulUCMrxNTOXfq8CddMxvkJ1XbUkh7IIb2l0uRPEYCZBq9OOKv03eyHtAl
-	p4nG5aW/yY9IabnFWOlwt5ywdlxrk07sAaF/7kW131unZYcMyj+BWLY0umNATf5T
-	sFVCGlXeKSa8A5foPqi8WmzrMgPkHY/tULF5cnJpXa7TvCTn6vOT0ElZlBTjXiWu
-	xEpykHNs0IM+EefiUaBmVg5LD+ST5v9M0fPBAdT7wNweJZnrPOpSuKRY7ScrGjCs
-	0HA7ssXl6ev4WqsnTu3D7FnncNTOa3OJjCZV/h5LnfA9u+up49p1cNISfww7jXKS
-	NCVxuMv1yb8TvYSuf/peTQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1749135087; x=1749221487; bh=gfg+NcyQfuLhm0vT8GeOOJR34EtiYSk1+xB
-	/aBcVMmw=; b=bcf9QxT6zPX0BwHKLuQp62TO3NqpB+ieDHWXx4/XCp8sDC3df36
-	OWQJwTluwKg9YADA5tFuv7JcHxgkiX7mgn8Cxoa8+qztdyUojg6fBG/Uo0Zr/p81
-	C8+f1W9C5Ff9+k4HFndYx1CMLe73LARpaApz8+R6TXNCtBg6ZtsSFSmd9pGjoPlw
-	V2YcxZ+RsbpWot18SHknfbigcPfEchSvRI8dfdEwtSK9sJ1pXFwi6+2+rsnzq75W
-	eS9k2XqXSscs1blOBwAcVXekplUV9WzJHqnlfVJM47TjdmOu09xKf5ui+Yj3SQKq
-	miP8nWpKpfQWWS3GxNwCN32V958pphyZsPw==
-X-ME-Sender: <xms:7q5BaKA_RWNVC2iUCQsut0m-pKm-_x6DoQec1bF8C8uNrD7zwlE3Tg>
-    <xme:7q5BaEjzGyuWJ7orD8YIXE57fg0vX65DbKNhigjbjZM6hNtfqx_xQaCsrzPXIhxhi
-    hUtdUooU2zcdw>
-X-ME-Received: <xmr:7q5BaNmdOSXDCDhjeG2wvr2rSspWc-gOM4D7Q1gTgEpg634R5yjbGohbHCPFYkeZpB0Y1JtPDZtpHXPIHhI3BXoxBptiXXDiszM>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtddugdefjeejucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdggtfgfnhhsuhgsshgtrhhisggvpdfu
-    rfetoffkrfgpnffqhgenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnh
-    htshculddquddttddmnecujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeen
-    ucfhrhhomhepofgrrhgvkhcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomh
-    grrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggft
-    rfgrthhtvghrnhepgfduleetfeevhfefheeiteeliefhjefhleduveetteekveettddvge
-    euteefjedunecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhho
-    mhepmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomhdpnh
-    gspghrtghpthhtohepkedpmhhouggvpehsmhhtphhouhhtpdhrtghpthhtohepjhgsvghu
-    lhhitghhsehsuhhsvgdrtghomhdprhgtphhtthhopeigvghnqdguvghvvghlsehlihhsth
-    hsrdigvghnphhrohhjvggtthdrohhrghdprhgtphhtthhopehrohhgvghrrdhprghusegt
-    ihhtrhhigidrtghomhdprhgtphhtthhopegrnhhthhhonhihrdhpvghrrghrugesvhgrth
-    gvshdrthgvtghhpdhrtghpthhtohepmhhitghhrghlrdhorhiivghlsegrmhgurdgtohhm
-    pdhrtghpthhtohepjhhulhhivghnseigvghnrdhorhhgpdhrtghpthhtohepshhsthgrsg
-    gvlhhlihhniheskhgvrhhnvghlrdhorhhgpdhrtghpthhtoheprghnughrvgifrdgtohho
-    phgvrhefsegtihhtrhhigidrtghomh
-X-ME-Proxy: <xmx:7q5BaIyXSJS6Z5rmm6p5B4ZroYjwIiF1dHaaStMpmTPaaHQo7QUwPQ>
-    <xmx:7q5BaPQSZLQSk9frLixydg-R7QMxyPxKiO96Mww0cNicMo-2mt7iFw>
-    <xmx:7q5BaDbmeUm7XMyU_jaKmqETVi5H_5yNqD-eUHRrygYL8VxYeb3ZmQ>
-    <xmx:7q5BaIQaIU7h5D50ZrXKDVC53YEVjYOyrAu4pYTSC56MeVYwDkPOBg>
-    <xmx:765BaBGYpLBqq7zp8ZYcGB0up4wY5aWbGZxjjCabhGS7RN3F_eeeMTAR>
-Feedback-ID: i1568416f:Fastmail
-Date: Thu, 5 Jun 2025 16:51:23 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: xen-devel@lists.xenproject.org,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH v1 1/5] console: add relocation hook
-Message-ID: <aEGu6-6dGqc_WUlg@mail-itl>
-References: <cover.defc562b917978814c8359bbd04f1dadba33fb77.1748182535.git-series.marmarek@invisiblethingslab.com>
- <4f1889dc03ec4aa2cc0cd2bd14523a2c6f670bdb.1748182535.git-series.marmarek@invisiblethingslab.com>
- <0b17da9c-57db-4a8b-90af-e53e45cb1243@citrix.com>
- <aDSLNeFRZWoxMTEt@mail-itl>
- <66cfdee6-5dc2-4139-8550-ef441fa7a7a0@suse.com>
+X-Inumbo-ID: e004e94e-421d-11f0-b894-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1749135652; x=1749740452; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=fvNIJJcSe7ZYoHm2rfWZcNYQeLM/PrCPi0zA+WJTgBA=;
+        b=oOpTPbHRHnmUIs3ht1SuJR1/H7NGshR6f2mnlXRQEK+nec/Emzga+D0rIVy8IBlJZe
+         dK9wZM/QYICjH7WypsRXUXX2aJMdAidR6t5co3EwF0cfxMXpdZT8B2zVar+o77mpkc2B
+         CSnLLQIWGE4Eb3ZwEaqL3J55TcwFCPLUJgu2E=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1749135652; x=1749740452;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=fvNIJJcSe7ZYoHm2rfWZcNYQeLM/PrCPi0zA+WJTgBA=;
+        b=T3xDXoi4YG5BF1bFZ7fID8q1Ke5vgqdgIIULbmj5Wgt+TdfO6z/6n77sLJrYbj0hFa
+         8QPwg0fdNcql/hYrHJ5pPxvgpwIy/cvselsqE8trCHexXhwoKqRh3LfagoEr/4br348Q
+         2U6XUTOpj8j396w42Tz8BKoLyM8mUjzc3O3Bs68oacCI3eL+EL6NYqzqTE7s4i7S8r/w
+         H3e2VrWbL/gdsRt1NnZVgaY9yTb0MvUAnitWP4nzOQjxa8HhzV0LF27lidHk6y1ObR0g
+         hFz54h7I9Rpf4EKNlZYTP6HUV+ZCdFz2+HTJhgLqGJiTsv4UsrHxHTkEzSfGCCNekYIo
+         LeMQ==
+X-Gm-Message-State: AOJu0YxBew5jXAuIw5PucKVy/S6PyPSyPi8ErTlDj0hLAOA9CIJIer+p
+	Psw1qjFNQJ2F2Jw73b1q/++7JL8ot9AzMPbyHHXXjp5BEj65oF/4QzbEcWfbQ2rheqs=
+X-Gm-Gg: ASbGncsSP64R5UXQiy6GNMEajH0x3iuO0yzys0o7CnXoQOOsDOIVdqHS3zl5FYaEqe0
+	mOWwCaCY3ekaIyQ3yY3/F4hMaIYbOcBLUegkthPi/Ei85hCmwPD3dIUbw4XnI1eoiRdbNOCKbjQ
+	Je8+UGg6OxG04RDhIw6AxD2zBaZOEP/e6fn3QxZoFB6wpDZBHDWtt1y55h42OODdIkrH3P4LL4Q
+	Q/GOCrPI3pEFYl6wxgS1s+np2IpVc++c+K0UQvnUY1niE+bEs+J6NZq7NBjp8qbUUfkWsiZxz1M
+	czr4dV1cBlyOI9MWye+FXldfA9Dr/FZMErKZSYNK5RygHcr66t/j+ooS4LEFPBejGT/EiXy7wSd
+	tpSLlUiy2Tv/1leivf1s=
+X-Google-Smtp-Source: AGHT+IG6A9WewjTN0p3wEnbBWSrHzRKowDOgkCfzLW0DgD481xJJYEEVUw/ZRVIA6EbqRuDzFcTs9Q==
+X-Received: by 2002:a05:600c:1d98:b0:43e:bdf7:7975 with SMTP id 5b1f17b1804b1-451f0b3988cmr63911675e9.32.1749135652064;
+        Thu, 05 Jun 2025 08:00:52 -0700 (PDT)
+Date: Thu, 5 Jun 2025 17:00:50 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jiqian Chen <Jiqian.Chen@amd.com>
+Cc: xen-devel@lists.xenproject.org, Huang Rui <ray.huang@amd.com>,
+	Anthony PERARD <anthony.perard@vates.tech>
+Subject: Re: [PATCH v5 07/10] vpci: Refactor vpci_remove_register to remove
+ matched registers
+Message-ID: <aEGxIjIApdSumCQJ@macbook.local>
+References: <20250526094559.140423-1-Jiqian.Chen@amd.com>
+ <20250526094559.140423-8-Jiqian.Chen@amd.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="hAch/rFUOg5PeioD"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <66cfdee6-5dc2-4139-8550-ef441fa7a7a0@suse.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20250526094559.140423-8-Jiqian.Chen@amd.com>
 
+On Mon, May 26, 2025 at 05:45:56PM +0800, Jiqian Chen wrote:
+> vpci_remove_register() only supports removing a register in a time,
+> but the follow-on changes need to remove all registers within a range.
+> So, refactor it to support removing all matched registers in a calling
 
---hAch/rFUOg5PeioD
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 5 Jun 2025 16:51:23 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: xen-devel@lists.xenproject.org,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH v1 1/5] console: add relocation hook
+"So, refactor it to support removing all registers in a given region."
 
-On Thu, Jun 05, 2025 at 04:42:53PM +0200, Jan Beulich wrote:
-> On 26.05.2025 17:39, Marek Marczykowski-G=C3=B3recki wrote:
-> > On Mon, May 26, 2025 at 04:08:17PM +0100, Andrew Cooper wrote:
-> >> On 25/05/2025 3:15 pm, Marek Marczykowski-G=C3=B3recki wrote:
-> >>> diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
-> >>> index 25189541244d..3ef819a252e4 100644
-> >>> --- a/xen/arch/x86/setup.c
-> >>> +++ b/xen/arch/x86/setup.c
-> >>> @@ -1481,6 +1481,8 @@ void asmlinkage __init noreturn __start_xen(voi=
-d)
-> >>>          highmem_start &=3D ~((1UL << L3_PAGETABLE_SHIFT) - 1);
-> >>>  #endif
-> >>> =20
-> >>> +    console_init_pre_relocate();
-> >>> +
-> >>>      /*
-> >>>       * Iterate backwards over all superpage-aligned RAM regions.
-> >>>       *
-> >>> @@ -1606,6 +1608,12 @@ void asmlinkage __init noreturn __start_xen(vo=
-id)
-> >>>      if ( !xen_phys_start )
-> >>>          panic("Not enough memory to relocate Xen\n");
-> >>> =20
-> >>> +    /*
-> >>> +     * Notify console drivers about relocation, before reusing old X=
-en's
-> >>> +     * memory.
-> >>> +     */
-> >>> +    console_init_post_relocate();
-> >>> +
-> >>
-> >> With reference to the next patch, there are printk()'s in this region
-> >> which want to work (in case something goes very wrong), so I don't thi=
-nk
-> >> setting dbc->suspended is the best approach.
-> >=20
-> > I guess the post_relocate hook might be moved a bit earlier, but still,
-> > once relocation happens, the xhci console is not functional until it
-> > gets relocated too (for example - it would post new TRBs into a ring
-> > that isn't actually monitored by the controller).
->=20
-> Why is it that this ring is dependent upon Xen's position? If the ring was
-> dynamically allocated, it wouldn't change position when Xen is moved.
+> time.
+> 
+> And it is no matter to remove a non exist register, so remove the
 
-The console is setup quite early, I don't think I can allocate memory at
-this stage, no?
+s/no matter/no issue/
 
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
+> __must_check prefix.
+> 
+> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
 
---hAch/rFUOg5PeioD
-Content-Type: application/pgp-signature; name=signature.asc
+Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmhBrusACgkQ24/THMrX
-1yy1XAf+I/S6cMtPZeGZosKFALu2NRpDqrK1ddIApICIzIjEbdjTISDHE/z+B7R0
-uN3qQrfVGq5RneXgUHmfrdFm1tLcktzoNrPR5Z2ExX/jdL+53sHVSdaKuZR4NhIr
-wI1nna0WGpBqFucBYDqWiDYh04GoFr+CoKEW8UmvAtEk0x74R0zRMKv0DpJ0LEva
-vrUo5beAZhaC6ujMqxyyQUqVQFDnFHJPBIXMN5X98/y7OvnF3skSwsp6BoPL5a6u
-ag4axr/+NzgjNRAmsa+RF3rVg/BFc5lBCvb019n3prV9humDEe5g4wwnnoNeLRQ2
-8giSyRIccC4ocusnktxwZqj9yDoYEA==
-=+AUt
------END PGP SIGNATURE-----
-
---hAch/rFUOg5PeioD--
+Thanks.
 
