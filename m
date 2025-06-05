@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 67205ACEFCA
-	for <lists+xen-devel@lfdr.de>; Thu,  5 Jun 2025 15:00:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1006821.1386073 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B53DACF000
+	for <lists+xen-devel@lfdr.de>; Thu,  5 Jun 2025 15:08:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1006828.1386082 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uNACC-0000du-Ip; Thu, 05 Jun 2025 12:59:48 +0000
+	id 1uNAKS-0002a6-BV; Thu, 05 Jun 2025 13:08:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1006821.1386073; Thu, 05 Jun 2025 12:59:48 +0000
+Received: by outflank-mailman (output) from mailman id 1006828.1386082; Thu, 05 Jun 2025 13:08:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uNACC-0000bu-Fe; Thu, 05 Jun 2025 12:59:48 +0000
-Received: by outflank-mailman (input) for mailman id 1006821;
- Thu, 05 Jun 2025 12:59:47 +0000
+	id 1uNAKS-0002Yi-8V; Thu, 05 Jun 2025 13:08:20 +0000
+Received: by outflank-mailman (input) for mailman id 1006828;
+ Thu, 05 Jun 2025 13:08:19 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=qREP=YU=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uNACB-0000bf-NR
- for xen-devel@lists.xenproject.org; Thu, 05 Jun 2025 12:59:47 +0000
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [2a00:1450:4864:20::330])
+ id 1uNAKR-0002Yc-9r
+ for xen-devel@lists.xenproject.org; Thu, 05 Jun 2025 13:08:19 +0000
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [2a00:1450:4864:20::430])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f45f7dea-420c-11f0-b894-0df219b8e170;
- Thu, 05 Jun 2025 14:59:45 +0200 (CEST)
-Received: by mail-wm1-x330.google.com with SMTP id
- 5b1f17b1804b1-450dd065828so6920205e9.2
- for <xen-devel@lists.xenproject.org>; Thu, 05 Jun 2025 05:59:45 -0700 (PDT)
+ id 25359a84-420e-11f0-b894-0df219b8e170;
+ Thu, 05 Jun 2025 15:08:17 +0200 (CEST)
+Received: by mail-wr1-x430.google.com with SMTP id
+ ffacd0b85a97d-3a36efcadb8so821143f8f.0
+ for <xen-devel@lists.xenproject.org>; Thu, 05 Jun 2025 06:08:17 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-23506cf468esm119156305ad.165.2025.06.05.05.59.39
+ d2e1a72fcca58-747affcf84asm13224472b3a.130.2025.06.05.06.08.11
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 05 Jun 2025 05:59:44 -0700 (PDT)
+ Thu, 05 Jun 2025 06:08:15 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f45f7dea-420c-11f0-b894-0df219b8e170
+X-Inumbo-ID: 25359a84-420e-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1749128385; x=1749733185; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1749128896; x=1749733696; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Yj4NPeTAaASdQyIvyzzXr2FuA+MvXm7IOjjmkv/2ItM=;
-        b=gfJUntxzyXfrFKv/w2elupzSngJqt7XmdzaVFZHNk0Nt5iREtgsfKY4YWNPK1Gt9/L
-         79FIcnMobaWdBm7iwdFa5voYhAV11yrD7oy5mq8hOy5B34HX2EcUiOltOBxMyI5C/MoK
-         BvFwGdtU1W6pW1q1NHTsV2DrUo3Oj1NhAJXvyQkT8gMtuBlEstLqGgrZh0jL8Mgxe3Zx
-         CxI2S/aJk7TOZG4GClnLwhJTjPZxKEqQzy73ykU+RhPVIaRxSRp2r1n2Dxo1H8Jl/4he
-         D3SSxUXF0TsDP+A4TJDdKysGhzJt09nY/vPSfxvyejM+Dc1PFRFh1XlPCQ8S87rOqJpB
-         D+2A==
+        bh=wFmhZ5gAy3m/BfHmDeD8ut2hZVZXROiOoMPg6M67dR8=;
+        b=PIxxGVNyZ/4DlkrgI2YsR4kp/4ls93bXlr1t9GJFlPJAqGUXV3fRu0aR6ThLfCkx6/
+         cLCMHRr81mv9vpbcJHKBhfrR8C7khF7mvjd5tBGXDFNwLATY6IdLReSM5jGP/aYdTUFi
+         SZ7CBsO+9l9nU8sJhypSeZxhKYZS0ofMzMAdCJZuw65qtnHuHLCNUkePZfMqvJW/L0BN
+         PrxVOkdLgoE31Lu8KThMe48SjZONgbK9WCTwqFWFwf4tW0DQwmgiB2fziPeb28IMs3Ra
+         cXzvdLYTtDP35TIi9+tV4JCfrpXc5xN73BKpa0gb9bWVe+tXc3/jyv2+gc+7tDnmdndv
+         uvJA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749128385; x=1749733185;
+        d=1e100.net; s=20230601; t=1749128896; x=1749733696;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Yj4NPeTAaASdQyIvyzzXr2FuA+MvXm7IOjjmkv/2ItM=;
-        b=l/+LPutw4zIiQq8y0YDCZGhp4OMnJjZbQmiWRYqizUhxLSadKJi/spR8FG4KyioXXS
-         rNi8MQAhJg3HC9+68nQNDhZ5j4YU1AF3rC7YNGHqRrPbbzTgSyMHNbDgRanQ1PRWxnOY
-         6grKBRcS7wHqEGo9n5yikzjp8hu9Bfcd+MVuj7wPNQ3uAjgKffdQ+uxrPpIHlnKlJ+SK
-         nXbXEmGeOyMIsiSN+5HjuyX3mQg22Ccn4LwnSPyAOFGGML4MiOwk/Y0CcNBOGqkyGXB9
-         EZLB0C+h3qHdNsbBGmZk44bzw0UUsAOm65Zmx+RHP+vCRPaZJQ+RDm0txdzSfNhChuK2
-         pT5Q==
-X-Gm-Message-State: AOJu0YwDFbhVIJl61r2hrdx/SaFsRYLcT5UOfd7bWNnI8rtrGsHTeHhM
-	jbTB2U9h/cXKDprIeX6z2qLSVROdok5r3DOceYfAIhyYMpAezxKs9X3juu92qWG8sA==
-X-Gm-Gg: ASbGncsuWksjDV1Kzzjs8ElTxTfOj2h8fsf61jqt8UYE8urd2G0sd1ABV//tHhh1xlk
-	kzcn63otD877+ZZ7OBbIH5/ikHxAxjZSb8M6/e+fyAkZIzvl/+fD8kCHeT1/7kWB9wpuQryi4+w
-	u+fW01ER1xKrOb6ahYilmsJIBuJzWNPbOHmgo/U0RbUQJddzFQLQ/2hx9BXp79CcniFrLWEMr3V
-	85i8EcTtxL+SHY+atc8e5DaC+tgoxuSSDWw+ywX2IttAzW07MprMzcGct9og7HeWYv66+IjBIkY
-	SGiNGyIBxp2SQ5ljB6aQNJ0gHQ/y1hb3y3m7tkCUWewGEq1cuabuNos6FRy/C297HvWL8oxpe5Q
-	agrzyu2f19RDQb1QUmwrX8gFK7MtPRFImsJ7S
-X-Google-Smtp-Source: AGHT+IEzeyHNuznvjgctLNohS/lDQw9Txuo1Bymnq5V3BprBvJai9znuzIDLH8/uyFUhOfXC3nHW+g==
-X-Received: by 2002:a05:6000:4202:b0:3a5:1241:ce99 with SMTP id ffacd0b85a97d-3a51d92f980mr6138706f8f.24.1749128385097;
-        Thu, 05 Jun 2025 05:59:45 -0700 (PDT)
-Message-ID: <d3ae8cce-755d-4e5a-ba84-e588fa1e245c@suse.com>
-Date: Thu, 5 Jun 2025 14:59:35 +0200
+        bh=wFmhZ5gAy3m/BfHmDeD8ut2hZVZXROiOoMPg6M67dR8=;
+        b=oIPPDsUptF7o0TgakG1aUGTZX0TiwbZUPoLDcGtSHXUi/tK4KHc4rmWmXK0+h98Vb9
+         7MGf9OhYUhnZPVFMlI11bFvcGqLTOtzqyEdaQEIwJ2UBWyYojohj6Zp2ZAJ5jPQMjNlx
+         1qTHtjVjVp5zQ+oczu6IN1snd6VL38QzhXT5FwEeQiWpaYU5TIdmdNc9FSFtkLcghHaJ
+         Cu1gVA+2mtKMuVtwE7wUQru34HMPD33vZKze+ww4gvS3p76vVqzpNVsb4nZgOTJdkBvf
+         7TuX/G19pD2UPFCBXZTjXSep2QaeJ/rJ810fqvrLET0LrgmFj1extvuDEdc7Rh99XbaS
+         27Aw==
+X-Forwarded-Encrypted: i=1; AJvYcCVdn5i2dKvtAHYAq/Pr0Vlov8+yJ+Y9E1JbsSm8B1GEXKxP/vzxIiGfD1gr3dne3q16r5du5Pu8xhc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzoBGkrXUF0cYxlqgsYDb3DSNj487uytO4IXvjGfvBK4wpTiVgk
+	X4igHZNDO0vIxpUQJO0fCu3XWz4KWG0SxxL/D2xLTwyJ5cz6CzpMRRj4owHuG28Uig==
+X-Gm-Gg: ASbGncvK0REzQ0ApAtJBd76bKIr7Zs5wedNwKJSGBgXwhSYeVHu8kjffb95iaYQY1OL
+	vOjBDtAyN3rF1QE/lHftOeeOjZu3XC7d7EK/nmKWwO7sHcZNMw54u/5xiaos8bogyMoJozn7HL9
+	6O9YZr7aP98QEgzR7/hZ5MfuxK7WASbdFYmlgcVCsELLTNPFXMBDBurmHeLl5feUtfQkTW7vc8W
+	1lqTdhHfrHRkFozM9sM8kPpLgNxxUGoUjiprcvI7/KoVNMlbIShst3ldWQfiucuw3pXqVDbOfdb
+	4axRI77P9VHHeC0M1DKgAGrEeyC6R7Rbjnkfp+kupS2n6d2pplasIR2mBlkh5PFVOFxjg9HjG7q
+	dA/xtNjnaAvq6IzFKIq5V/Kw64dOnpPlSfraYcpJBC6mITVg=
+X-Google-Smtp-Source: AGHT+IFOF4KmSNbYzhqpXnOOtBxXVvrGQHwcPOIv2mywKj+gjBNydfJ0xQOlcMtrTheFVJYyD4SwzA==
+X-Received: by 2002:a05:6000:26d3:b0:39f:175b:a68d with SMTP id ffacd0b85a97d-3a51d8f6075mr6515539f8f.11.1749128896130;
+        Thu, 05 Jun 2025 06:08:16 -0700 (PDT)
+Message-ID: <f2077d30-3324-4b86-91e5-54e3a6273c48@suse.com>
+Date: Thu, 5 Jun 2025 15:08:07 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 04/10] vpci: Refactor REGISTER_VPCI_INIT
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Jiqian Chen <Jiqian.Chen@amd.com>
-Cc: xen-devel@lists.xenproject.org, Huang Rui <ray.huang@amd.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <20250526094559.140423-1-Jiqian.Chen@amd.com>
- <20250526094559.140423-5-Jiqian.Chen@amd.com>
- <aEGSp-LKerGb-wIW@macbook.local>
+Subject: Re: [PATCH 1/3] x86/EFI: Fix detection of buildid
+To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ross Lagerwall <ross.lagerwall@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ "Daniel P . Smith" <dpsmith@apertussolutions.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20250605111638.2869914-1-andrew.cooper3@citrix.com>
+ <20250605111638.2869914-2-andrew.cooper3@citrix.com>
+ <0a314400-126a-4c2a-b36c-dda61bb0b751@suse.com> <aEGLjhw8kTXKbkdV@mail-itl>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -122,41 +123,51 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aEGSp-LKerGb-wIW@macbook.local>
+In-Reply-To: <aEGLjhw8kTXKbkdV@mail-itl>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 05.06.2025 14:50, Roger Pau Monné wrote:
-> On Mon, May 26, 2025 at 05:45:53PM +0800, Jiqian Chen wrote:
->> --- a/xen/drivers/vpci/vpci.c
->> +++ b/xen/drivers/vpci/vpci.c
->> @@ -36,8 +36,8 @@ struct vpci_register {
->>  };
->>  
->>  #ifdef __XEN__
->> -extern vpci_register_init_t *const __start_vpci_array[];
->> -extern vpci_register_init_t *const __end_vpci_array[];
->> +extern vpci_capability_t *const __start_vpci_array[];
->> +extern vpci_capability_t *const __end_vpci_array[];
-
-These also want to gain another const, to match ...
-
->> @@ -29,9 +30,22 @@ typedef int vpci_register_init_t(struct pci_dev *dev);
->>   */
->>  #define VPCI_MAX_VIRT_DEV       (PCI_SLOT(~0) + 1)
->>  
->> -#define REGISTER_VPCI_INIT(x, p)                \
->> -  static vpci_register_init_t *const x##_entry  \
->> -               __used_section(".data.vpci." p) = (x)
->> +#define REGISTER_PCI_CAPABILITY(cap, finit, fclean, ext) \
+On 05.06.2025 14:20, Marek Marczykowski-Górecki wrote:
+> On Thu, Jun 05, 2025 at 02:02:21PM +0200, Jan Beulich wrote:
+>> On 05.06.2025 13:16, Andrew Cooper wrote:
+>>> The format of the buildid is a property of the binary, not a property of how
+>>> it was loaded.  This fixes buildid recognition when starting xen.efi from it's
+>>> MB2 entrypoint.
+>>>
+>>> Suggested-by: Ross Lagerwall <ross.lagerwall@citrix.com>
+>>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>>
+>> I'll pick this up without a Fixes: tag, but I think it ought to have one. (I
+>> didn't check whether MB2 or build-id support came later, hence introducing the
+>> issue.)
+>>
+>>> --- a/xen/common/version.c
+>>> +++ b/xen/common/version.c
+>>> @@ -203,8 +203,11 @@ void __init xen_build_init(void)
+>>>      rc = xen_build_id_check(n, sz, &build_id_p, &build_id_len);
+>>>  
+>>>  #ifdef CONFIG_X86
+>>> -    /* Alternatively we may have a CodeView record from an EFI build. */
+>>> -    if ( rc && efi_enabled(EFI_LOADER) )
+>>> +    /*
+>>> +     * xen.efi built with a new enough toolchain will have a CodeView record,
+>>> +     * not an ELF note.
+>>> +     */
+>>> +    if ( rc )
+>>
+>> Instead of dropping the efi_enabled(), I think you want to replace EFI_LOADER
+>> by EFI_BOOT.
 > 
-> REGISTER_VPCI_CAPABILITY() if possible (note the added V).
-> 
->> +  static vpci_capability_t finit##_t = { \
-> 
-> static const?
+> Part of the motivation for MB2 entry point in xen.efi is using the
+> same binary in all boot modes, including legacy boot - in which case
+> none of EFI_* checks would be appropriate here. The grub series adds
+> support for loading PE binaries, and IIUC it isn't tied to booting via
+> EFI.
 
-... this.
+"The grub series" being which one? I didn't know xen.efi's non-EFI MB2 entry
+point could be used; instead I was under the impression that someone was
+having (half?) a patch eliminating the MB data from xen.efi, as being dead
+code.
 
 Jan
 
