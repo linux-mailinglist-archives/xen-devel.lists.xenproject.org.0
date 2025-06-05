@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95010ACEA72
-	for <lists+xen-devel@lfdr.de>; Thu,  5 Jun 2025 08:50:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1006292.1385491 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E95CDACEA77
+	for <lists+xen-devel@lfdr.de>; Thu,  5 Jun 2025 08:52:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1006303.1385500 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uN4Qa-0004rs-QY; Thu, 05 Jun 2025 06:50:16 +0000
+	id 1uN4Sa-0005nG-9j; Thu, 05 Jun 2025 06:52:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1006292.1385491; Thu, 05 Jun 2025 06:50:16 +0000
+Received: by outflank-mailman (output) from mailman id 1006303.1385500; Thu, 05 Jun 2025 06:52:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uN4Qa-0004p8-NE; Thu, 05 Jun 2025 06:50:16 +0000
-Received: by outflank-mailman (input) for mailman id 1006292;
- Thu, 05 Jun 2025 06:50:15 +0000
+	id 1uN4Sa-0005kJ-6u; Thu, 05 Jun 2025 06:52:20 +0000
+Received: by outflank-mailman (input) for mailman id 1006303;
+ Thu, 05 Jun 2025 06:52:18 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=qREP=YU=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uN4QZ-0004oz-N5
- for xen-devel@lists.xenproject.org; Thu, 05 Jun 2025 06:50:15 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
+ id 1uN4SY-0005k7-IS
+ for xen-devel@lists.xenproject.org; Thu, 05 Jun 2025 06:52:18 +0000
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
+ [2a00:1450:4864:20::431])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5568dbd6-41d9-11f0-a300-13f23c93f187;
- Thu, 05 Jun 2025 08:50:14 +0200 (CEST)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-451e24dfe1aso4568195e9.3
- for <xen-devel@lists.xenproject.org>; Wed, 04 Jun 2025 23:50:14 -0700 (PDT)
+ id 9eb0b5f2-41d9-11f0-a300-13f23c93f187;
+ Thu, 05 Jun 2025 08:52:17 +0200 (CEST)
+Received: by mail-wr1-x431.google.com with SMTP id
+ ffacd0b85a97d-3a3673e12c4so336004f8f.2
+ for <xen-devel@lists.xenproject.org>; Wed, 04 Jun 2025 23:52:17 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-747affd41edsm12583028b3a.146.2025.06.04.23.50.06
+ d2e1a72fcca58-747afff7e3bsm12542036b3a.175.2025.06.04.23.52.09
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 04 Jun 2025 23:50:13 -0700 (PDT)
+ Wed, 04 Jun 2025 23:52:16 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,46 +45,46 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5568dbd6-41d9-11f0-a300-13f23c93f187
+X-Inumbo-ID: 9eb0b5f2-41d9-11f0-a300-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1749106214; x=1749711014; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1749106337; x=1749711137; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=mZlcEnevP85+N4jveoMj+WxfN38GGi7vHzAT4VJJ5g8=;
-        b=CdngmDyv0pPk6OZBu0VpbNyxKceqjSYN45M2jFo2gwRsYRGRMNAXLMeMCtfHbzUi8L
-         /LUWsFlog+Y3pOnh7vBFgWbxOdnB7rgEMAfjVELu+6osTiFDk+gTsKCQNpGYv01wSOBO
-         Owj0oAtVIjHM+7BdmqrMhiwA2LJJeMkGn4RctNQRpx3TmmyhOz4sdrqAuVH9DrLWqJ7f
-         dbir7X859TB8+1d1OMbBBu/awdhcZ6ubqVDYy5/dC2Ym2rB9dMdIuJPjHFYTiZ3h2PjQ
-         Wvfxm/C1SLgYs4YuUYcPeervZlWbogbJcCSg7Tn4vNCpwiQFDRmO5tr/jlZQUUQwUtNO
-         GFmg==
+        bh=gPaSM6tyqkg4/i4DkBb0q2jQhcQsWsXzAM1RSQKJND8=;
+        b=NYKKOmBdpOAA5qlIEkgdDg5RnTn7/vQCJTe5bakQ98OY4Zz0F1lgI4UqJdHRCyMPmD
+         mq1imcvJB+/phRf+CrtmQZgNaQ48e/I1sx8xsq4sR9vSxJFGJzun0gm5i9pXQMHymfyK
+         0RzuUDRdiNbjwd2bTyxj8G1qQV7y2kG5JB/7Cyc58+bWn0+srhHqXMmZpxulq6WyG18N
+         we6VYirkL1XIQFhlhwTES+to6NJN8eQcFQWcnfRxdSURK/OudIoYIuSC/3Vqi8+W46KM
+         BA7N9A1HLllGsI8WPwfZ+WbyDqcYYRLb/7SZ88WoiIRT4IPfY93A+VlM3SCArXJJ5ctA
+         cHsw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749106214; x=1749711014;
+        d=1e100.net; s=20230601; t=1749106337; x=1749711137;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=mZlcEnevP85+N4jveoMj+WxfN38GGi7vHzAT4VJJ5g8=;
-        b=DLi+cSKh1fieBG5yQPtv89CFcPqtFtW7VwjYQz+XvcCVqRGbCDyof5lJH3vuZGplF7
-         qNWc97FShT3zfsYBVsmHwaxY9Rrh6JGjZDlFAF1wqljPV7XYZgMRAEcEDGXE9Aqzt8YV
-         D90x4pEDeO9rWq7m3Y2H2/N/ib/grwc05Vw4KoxHQNeCcHVBZQAOhyzFLM2/hR332Hmf
-         StUGXKQeHbTAHQA/vFNH5RPUtkfw2xCgyHE199vvnBaFbHwc2XysVOY5ENyXXxivhlRH
-         rQO53wshNK4YnUWSe2BwUXztAbyq3ymcAG6IBwzkntivLSpVriaG1/7ORjjg+Tdxd9tE
-         02Wg==
-X-Forwarded-Encrypted: i=1; AJvYcCUJeLyZBY8J/Gi8j8qL3Imf3lg4SxOoOGz0C2QtNibMqdBQj3lUi80TpYFpWUL2pfFdSL8qITiNjpw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyoIqZK9jaT5+/MHjUtgtbFkYsXMC2tuyJIxijsEBNzLpmkaa6w
-	kjtv1fxLSXJzTXUgpvgpZAPJ2nBvqwNpjf53fN/SPltowzCRg9Yw6U6xabaaQ3VzRQ==
-X-Gm-Gg: ASbGncukAjb1ol8KhiZ+ceT8YfDXq/pCZhZh6jrxnGJqEsQC9Vmg/BypT7PqcGXknRO
-	r8tI5IYo48xL5UDwSqyGW5CVQqJJ92hYdv+gVip/UF+zVVmG0zG/Pf/gJ0ICsjifo7ZJKv6lLhj
-	ujbpNe979OKqsq9vctYOkERpNSvDbdDUwo1S03QJR+VWPVetpwxY7fneOL9e+wfhGOK6ZKOnh8a
-	6btmGF+2vTWH7zIUa2R/hkZ6hUsk7NKCBSYK20mzEhMBMf75IKK9xhecboSqzcW7tHLYNj7b4zL
-	ZEzQ9KD9PWhiuooImnkNStVeZ3p0yHh0VA989x2omWh2EiiN93Y178mE+BpV9vYsuiKQ+uZGCd+
-	rCeTx6Xl5VNRFlqcgqpX+HTwNl+DPHOAth8ZO
-X-Google-Smtp-Source: AGHT+IGk7krn6O+QUL452+xgEbntSP7jZQonfSyg67U5irJluwlk5hor3sskPweURQGJf8fQQHMyag==
-X-Received: by 2002:a05:6000:288f:b0:3a4:d9fa:f1ed with SMTP id ffacd0b85a97d-3a51dbcc79fmr4730499f8f.13.1749106213999;
-        Wed, 04 Jun 2025 23:50:13 -0700 (PDT)
-Message-ID: <f0166994-be40-4210-b110-554d46535c85@suse.com>
-Date: Thu, 5 Jun 2025 08:50:02 +0200
+        bh=gPaSM6tyqkg4/i4DkBb0q2jQhcQsWsXzAM1RSQKJND8=;
+        b=CRazJa4v0v3RqRbgRODHDfPS5/yFg4K8qFeXCFQAL+9IGQHtfKduBes13OoThqjp7J
+         Z6X9m6T3WeeWxEEKjNp2FQNHHoQMUh1REpwEqGUgDLXdGg4r7QZy5iqsBZW5tdFoNjBS
+         4PgUkL+OY6ehAUqT5n1ZXDVAqo+L9HTuDPttgWLATf4zf4jnba4II5JCbVGEx104AaBK
+         AVXbXrzTlBM3GzbB2czVC8GbrhLeoUQ1UxYqURDVKeWxHHgvaZNQrDOoShvka662hJGm
+         SogAOAN3eUMJoOTy/FKCWrhpEHuDzRYMZxD9ooCNyAlgl+vrqzH4zNVTa91zw/sNGplo
+         YBRQ==
+X-Forwarded-Encrypted: i=1; AJvYcCX+suGRnqgTK6tVr74mkjeqkBPfHH/QLoQI55SxNmxrbsfvYq9iDAvKk79mjb2E49vJqCxa+OMPLEc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzjTB4xFBVGI7Ob6gPLt1H2f7njjc/gQ9Lv8MXzAeMJpTIoV0/z
+	5xUXamQmF1CNXR0FrGKV2tmSUqF0xeYYgo9Z/hnOocOpLtowudq9Sfoe3uFuc201kA==
+X-Gm-Gg: ASbGnctN7Ld+2ytuu6haPO4f+vVnh8nhZzhFrmmx5NrExFQdcLAtnLQT4d1T+sdQ1ir
+	ijwsN2l0NBAt0UiWn6kGbjkMETQOqDNVozK+6RYGnk8D7SDd7DM80oBqEDm1vmfAfpL3RaguG4l
+	km4U48AFJ066NveIeZ1aQeWB/nX2FCO5/jfBbKr4JAtEQsbp4Jh9awafzv/4xsnuq5eWmT5rg+a
+	HLP+N6ZaN6DdqJx9G25snC5Cx1c7i+waQBTeh4YTTG0pqLPpW3c8p93F50tzk3LrfzzdVW8uQLF
+	jKbLbDBPExENvRJ9+tJZiiaaAfMclycoaE+W0dH8gg9yV4m8+/E5426PsZ3OVIVHPzb3+hb2PS2
+	Zq6SxMeTAEc+PpWddyO1Pf5WDsUm1RVrbHcST
+X-Google-Smtp-Source: AGHT+IGN5A5YUUeiJjdZVFaaIdt1SS0nIhg8EonmQGtPkUca8kcDxFQ5BY7JWvLfrq9/4L6xgBTXHw==
+X-Received: by 2002:a5d:64cd:0:b0:3a5:2dae:9718 with SMTP id ffacd0b85a97d-3a52dae9eadmr80749f8f.41.1749106336966;
+        Wed, 04 Jun 2025 23:52:16 -0700 (PDT)
+Message-ID: <7c487a6e-474b-417e-a120-2d097eb3d178@suse.com>
+Date: Thu, 5 Jun 2025 08:52:05 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v3 08/14] xen/riscv: imsic_init() implementation
@@ -101,8 +101,11 @@ References: <cover.1747843009.git.oleksii.kurochko@gmail.com>
  <421dad1bbd014a2d7ff588af088eadbd56345dbe.1747843009.git.oleksii.kurochko@gmail.com>
  <ec429b9d-7e16-4d9a-86c6-a5fa557047b7@suse.com>
  <d7ef87e5-75e0-4cf3-be8c-7af6e18df5a3@gmail.com>
- <8cd6c3e0-0361-4f3f-b3ca-8ffa49b9197d@suse.com>
- <d3dd9f90-4bef-4f75-b36c-0a5834a5a0ae@gmail.com>
+ <84c9f65a-b278-4be4-b053-5bfa410f9a97@gmail.com>
+ <9ab65452-497c-47b5-af18-92a7b2a86d9e@suse.com>
+ <aa1e4b21-beae-4b60-8a24-b6227cb8027e@gmail.com>
+ <85d6f812-784a-4959-a1e6-589ebac8887c@suse.com>
+ <63d8882d-bd54-4cbd-8c48-24b296ce4a50@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -128,131 +131,83 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <d3dd9f90-4bef-4f75-b36c-0a5834a5a0ae@gmail.com>
+In-Reply-To: <63d8882d-bd54-4cbd-8c48-24b296ce4a50@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 04.06.2025 17:36, Oleksii Kurochko wrote:
-> On 6/2/25 12:21 PM, Jan Beulich wrote:
->> On 26.05.2025 20:44, Oleksii Kurochko wrote:
->>> On 5/22/25 4:46 PM, Jan Beulich wrote:
->>>> On 21.05.2025 18:03, Oleksii Kurochko wrote:
->>>>> +    /* Check MMIO register sets */
->>>>> +    for ( unsigned int i = 0; i < nr_mmios; i++ )
->>>>> +    {
->>>>> +        if ( !alloc_cpumask_var(&imsic_cfg.mmios[i].cpus) )
->>>>> +        {
->>>>> +            rc = -ENOMEM;
->>>>> +            goto imsic_init_err;
->>>>> +        }
->>>>> +
->>>>> +        rc = dt_device_get_address(node, i, &imsic_cfg.mmios[i].base_addr,
->>>>> +                                   &imsic_cfg.mmios[i].size);
->>>>> +        if ( rc )
->>>>> +        {
->>>>> +            printk(XENLOG_ERR "%s: unable to parse MMIO regset %u\n",
->>>>> +                   node->name, i);
->>>>> +            goto imsic_init_err;
->>>>> +        }
->>>>> +
->>>>> +        base_addr = imsic_cfg.mmios[i].base_addr;
->>>>> +        base_addr &= ~(BIT(imsic_cfg.guest_index_bits +
->>>>> +                           imsic_cfg.hart_index_bits +
->>>>> +                           IMSIC_MMIO_PAGE_SHIFT, UL) - 1);
->>>>> +        base_addr &= ~((BIT(imsic_cfg.group_index_bits, UL) - 1) <<
->>>>> +                       imsic_cfg.group_index_shift);
->>>>> +        if ( base_addr != imsic_cfg.base_addr )
->>>>> +        {
->>>>> +            rc = -EINVAL;
->>>>> +            printk(XENLOG_ERR "%s: address mismatch for regset %u\n",
->>>>> +                   node->name, i);
->>>>> +            goto imsic_init_err;
->>>>> +        }
->>>> Maybe just for my own understanding: There's no similar check for the
->>>> sizes to match / be consistent wanted / needed?
->>> If you are speaking about imsic_cfg.mmios[i].size then it depends fully on h/w will
->>> provide, IMO.
->>> So I don't what is possible range for imsic_cfg.mmios[i].size.
->> Well, all I can say is that's it feels odd that you sanity check base_addr
->> but permit effectively any size.
+On 04.06.2025 17:41, Oleksii Kurochko wrote:
 > 
-> Okay, I think I have two ideas how to check the size:
-> 1. Based on guest bits from IMSIC's DT node. QEMU calculates a size as:
->      for (socket = 0; socket < socket_count; socket++) {
->          imsic_addr = base_addr + socket * VIRT_IMSIC_GROUP_MAX_SIZE;
->          imsic_size = IMSIC_HART_SIZE(imsic_guest_bits) *
->                       s->soc[socket].num_harts;
->      ...
->     where:
->       #define IMSIC_MMIO_PAGE_SHIFT          12
->       #define IMSIC_MMIO_PAGE_SZ             (1UL << IMSIC_MMIO_PAGE_SHIFT)
->       
->       #define IMSIC_HART_NUM_GUESTS(__guest_bits)           \
->               (1U << (__guest_bits))
->       #define IMSIC_HART_SIZE(__guest_bits)                 \
->               (IMSIC_HART_NUM_GUESTS(__guest_bits) * IMSIC_MMIO_PAGE_SZ)
-> 
-> 2. Just take a theoretical maximum for S-mode IMSIC's node:
->      16,384 * 64 1(S-mode interrupt file) + 63(max guest interrupt files)) * 4 KiB
->     Where,
->       16,384 - maximum possible amount of harts according to AIA spec
->       64 - a maximum amount of possible interrupt file for S-mode IMSIC node:
->            1 - S interupt file + 63 guest interrupt files.
->       4 Kib - a maximum size of one interrupt file.
-> 
-> Which option is preferred?
-
-I would have said 2, if your outline used "actual" rather than "maximum" values.
-
-> The specification doesn’t seem to mention (or I couldn’t find) that all platforms
-> must calculate the MMIO size in the same way QEMU does. Therefore, it’s probably
-> better to use the approach described in option 2.
-> 
-> On the other hand, I don't think a platform should be considered correct if it
-> provides slightly more than needed but still less than the theoretical maximum.
-> 
+> On 6/4/25 5:05 PM, Jan Beulich wrote:
+>> On 04.06.2025 15:42, Oleksii Kurochko wrote:
+>>> On 6/2/25 12:22 PM, Jan Beulich wrote:
+>>>> On 27.05.2025 13:30, Oleksii Kurochko wrote:
+>>>>> On 5/26/25 8:44 PM, Oleksii Kurochko wrote:
+>>>>>>>> +    if ( !dt_property_read_u32(node, "riscv,guest-index-bits",
+>>>>>>>> +                               &imsic_cfg.guest_index_bits) )
+>>>>>>>> +        imsic_cfg.guest_index_bits = 0;
+>>>>>>>> +    tmp = BITS_PER_LONG - IMSIC_MMIO_PAGE_SHIFT;
+>>>>>>>> +    if ( tmp < imsic_cfg.guest_index_bits )
+>>>>>>>> +    {
+>>>>>>>> +        printk(XENLOG_ERR "%s: guest index bits too big\n",
+>>>>>>>> +               dt_node_name(node));
+>>>>>>>> +        rc = -ENOENT;
+>>>>>>>> +        goto cleanup;
+>>>>>>>> +    }
+>>>>>>>> +
+>>>>>>>> +    /* Find number of HART index bits */
+>>>>>>>> +    if ( !dt_property_read_u32(node, "riscv,hart-index-bits",
+>>>>>>>> +                               &imsic_cfg.hart_index_bits) )
+>>>>>>>> +    {
+>>>>>>>> +        /* Assume default value */
+>>>>>>>> +        imsic_cfg.hart_index_bits = fls(*nr_parent_irqs);
+>>>>>>>> +        if ( BIT(imsic_cfg.hart_index_bits, UL) < *nr_parent_irqs )
+>>>>>>>> +            imsic_cfg.hart_index_bits++;
+>>>>>>> Since fls() returns a 1-based bit number, isn't it rather that in the
+>>>>>>> exact-power-of-2 case you'd need to subtract 1?
+>>>>>> Agree, in this case, -1 should be taken into account.
+>>>>> Hmm, it seems like in case of fls() returns a 1-based bit number there
+>>>>> is not need for the check:
+>>>>>     (2) if ( BIT(imsic_cfg.hart_index_bits, UL) < *nr_parent_irqs )
+>>>>>
+>>>>> We could do imsic_cfg.hart_index_bits = fls(*nr_parent_irqs - 1) (1) without
+>>>>> checking *nr_parent_irqs is power-of-two or not, and then just leave the
+>>>>> check (2).
+>>>>> And with (1), the check (2) is only needed for the case *nr_parent_irqs=1, if
+>>>>> I amn't mistaken something. And if I'm not mistaken, then probably it make
+>>>>> sense to change (2) to if ( *nr_parent_irqs == 1 ) + some comment why this
+>>>>> case is so special.
+>>>>>
+>>>>> Does it make sense?
+>>>> Can't easily tell; I'd like to see the resulting code instead of the textual
+>>>> description.
+>>> Here is the code:
+>>>       /* Find number of HART index bits */
+>>>       if ( !dt_property_read_u32(node, "riscv,hart-index-bits",
+>>>                                  &imsic_cfg.hart_index_bits) )
+>>>       {
+>>>           /* Assume default value */
+>>>           imsic_cfg.hart_index_bits = fls(*nr_parent_irqs - 1) +
+>>>                                       (*nr_parent_irqs == 1);
+>>>       }
+>>>
+>>> It seems like it covers all the cases.
+>> *nr_parent_irqs		imsic_cfg.hart_index_bits
+>> 	 1			1 (0 + 1)
+>> 	 2			1
+>> 	 3			2
+>> 	 4			2
+>> 	 5			3
+>> 	 6			3
 >>
->>>>> @@ -18,6 +19,18 @@ static inline unsigned long cpuid_to_hartid(unsigned long cpuid)
->>>>>        return pcpu_info[cpuid].hart_id;
->>>>>    }
->>>>>    
->>>>> +static inline unsigned long hartid_to_cpuid(unsigned long hartid)
->>>>> +{
->>>>> +    for ( unsigned int cpuid = 0; cpuid < ARRAY_SIZE(pcpu_info); cpuid++ )
->>>>> +    {
->>>>> +        if ( hartid == cpuid_to_hartid(cpuid) )
->>>>> +            return cpuid;
->>>>> +    }
->>>>> +
->>>>> +    /* hartid isn't valid for some reason */
->>>>> +    return NR_CPUS;
->>>>> +}
->>>> Considering the values being returned, why's the function's return type
->>>> "unsigned long"?
->>> mhartid register has MXLEN length, so theoretically we could have from 0 to MXLEN-1
->>> Harts and so we could have the same amount of Xen's CPUIDs. and MXLEN is 32 for RV32
->>> and MXLEN is 64 for RV64.
->> Yet the return value here is always constrained by NR_CPUS, isn't it?
+>> IOW why the special casing of *nr_parent_irqs == 1?
 > 
-> I am not 100% sure that I get your point,
+> If we don't have "... + (*nr_parent_irqs == 1)" then for the case when *nr_parent_irqs == 1,
+> we will have imsic_cfg.hart_index_bits = fls(1-1) = fls(0) = 0 because:
+>    #define arch_fls(x)     ((x) ? BITS_PER_INT - __builtin_clz(x) : 0)
+> and imsic_cfg.hart_index_bits = 0 doesn't seem correct because I expect that if I have only
+> 1 hart then at least 1 bit will be needed to point to it.
 
-NR_CPUS is guaranteed to fit in a unsigned int. Furthermore variables / parameters
-holding Xen-internal CPU numbers also are unsigned int everywhere else.
-
-> but I put NR_CPUS here because of:
->    /*
->     * tp points to one of these per cpu.
->     *
->     * hart_id would be valid (no matter which value) if its
->     * processor_id field is valid (less than NR_CPUS).
->     */
->    struct pcpu_info pcpu_info[NR_CPUS] = { [0 ... NR_CPUS - 1] = {
->        .processor_id = NR_CPUS,
->    }};
-> 
-> As an option we could use ULONG_MAX. Would it be better?
-
-No. NR_CPUS is the appropriate value to use here, imo.
+No, why? To pick 1 out of 1 you need no bits at all to represent.
 
 Jan
 
