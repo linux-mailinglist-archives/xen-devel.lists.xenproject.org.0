@@ -2,49 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1AF3AACF54F
-	for <lists+xen-devel@lfdr.de>; Thu,  5 Jun 2025 19:24:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1007263.1386578 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 30CBAACF551
+	for <lists+xen-devel@lfdr.de>; Thu,  5 Jun 2025 19:25:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1007268.1386589 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uNEKf-0007Dx-Ka; Thu, 05 Jun 2025 17:24:49 +0000
+	id 1uNEKv-0007kH-SC; Thu, 05 Jun 2025 17:25:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1007263.1386578; Thu, 05 Jun 2025 17:24:49 +0000
+Received: by outflank-mailman (output) from mailman id 1007268.1386589; Thu, 05 Jun 2025 17:25:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uNEKf-0007CB-HM; Thu, 05 Jun 2025 17:24:49 +0000
-Received: by outflank-mailman (input) for mailman id 1007263;
- Thu, 05 Jun 2025 17:24:47 +0000
+	id 1uNEKv-0007iY-Nd; Thu, 05 Jun 2025 17:25:05 +0000
+Received: by outflank-mailman (input) for mailman id 1007268;
+ Thu, 05 Jun 2025 17:25:03 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ZN0r=YU=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
- id 1uNEKd-0007B4-O4
- for xen-devel@lists.xenproject.org; Thu, 05 Jun 2025 17:24:47 +0000
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on20608.outbound.protection.outlook.com
- [2a01:111:f403:2418::608])
+ <SRS0=fE9Y=YU=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1uNEKt-0007B4-O7
+ for xen-devel@lists.xenproject.org; Thu, 05 Jun 2025 17:25:03 +0000
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [2a00:1450:4864:20::433])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f8baeb5e-4231-11f0-b894-0df219b8e170;
- Thu, 05 Jun 2025 19:24:45 +0200 (CEST)
-Received: from BLAPR03CA0088.namprd03.prod.outlook.com (2603:10b6:208:329::33)
- by PH7PR12MB8425.namprd12.prod.outlook.com (2603:10b6:510:240::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8792.34; Thu, 5 Jun
- 2025 17:24:41 +0000
-Received: from MN1PEPF0000F0E2.namprd04.prod.outlook.com
- (2603:10b6:208:329:cafe::a0) by BLAPR03CA0088.outlook.office365.com
- (2603:10b6:208:329::33) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8792.34 via Frontend Transport; Thu,
- 5 Jun 2025 17:24:41 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- MN1PEPF0000F0E2.mail.protection.outlook.com (10.167.242.40) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8792.29 via Frontend Transport; Thu, 5 Jun 2025 17:24:40 +0000
-Received: from localhost (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 5 Jun
- 2025 12:24:39 -0500
+ id 014c0be6-4232-11f0-b894-0df219b8e170;
+ Thu, 05 Jun 2025 19:24:58 +0200 (CEST)
+Received: by mail-wr1-x433.google.com with SMTP id
+ ffacd0b85a97d-3a4f72cba73so1808771f8f.1
+ for <xen-devel@lists.xenproject.org>; Thu, 05 Jun 2025 10:24:58 -0700 (PDT)
+Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3a526f4c808sm2871357f8f.28.2025.06.05.10.24.57
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 05 Jun 2025 10:24:57 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,142 +45,146 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f8baeb5e-4231-11f0-b894-0df219b8e170
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bNWRAQhcgyxgIcmjrzglXaR9o3AY0a84Y48CMFUSvkd79EP5InWuRsCaqNzfQ8/MVM8MTs2Wtl7PppqYuSqPVGV9tfv8NIz0WERy0BfCmMwpcFtAElYrkXU/NJwQQ/HpiuVR3vsGX6LifUItEqqM6+r2KVx3wOSYlO2/0zErEMGrG/olnmyu2EWBLru1GH7Kb5lpfFiAMMAYDxEpzpBfBGgsEMht/wWFLDy/MviDZQl9KEQPq+jvPiBczwehUJqo4UWVs8OTeGdVjHQFAFqUy4goFnoorl2hytGbbzAJ0ss8WYdFLD/3wzjBJH0vlT/keCuW0BFmGXxqI7d392sNvw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hpmexu2+sCiQj18H24S9Ey/Mz6uQd491ofVzFdM9REw=;
- b=hJAWF2OV1JUYPuQ3EuzGrBiUsKc0EZk4WywGcWWsOXI6xq0VKNMuLyWq2bfk33RQY6aREzRM3BewEuC+HPdNh7og1Fc0TKXSejiVX+pXsFvD6SAtat0wWMPOBO71AC9BAYYUVO6FdkhfINb/6/fgrkGB8Ju9D1PYS3xmdeaecLsYsNz5plRcgNoEz/THZ7RqH3jLIutbPWx5Ov3oCBBhIiT9NdEJlQDdOtBqXQt7tIK0hCMRDAoMflFaqZrBHq3cA9fOAFBS1o6wdG0YOmSnm5NI3rqE1ZRMG2KlpeAHm7Vwrn2hQudBykapuIgOmVxdx5nD/Xt5blVJZeYp0Tw1rQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hpmexu2+sCiQj18H24S9Ey/Mz6uQd491ofVzFdM9REw=;
- b=sghFNBv1Md8MFvMsZFs4zecYA+/3RwT8NxcXutVUM6XzPbzAMUsamufuYMfrtUMiJ41cZLf7kCx9dUQ7e3Sksqp95l7ZOlH/il1G8GNgcirZm47JTgBuwD5/vsfmmK5K2jXgSzFtkUwxRygsEuz1Y4GH5VwFHgwb6YwM1wkZyxQ=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+X-Inumbo-ID: 014c0be6-4232-11f0-b894-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1749144298; x=1749749098; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=aT4xlVdmPM3dcSL4LpqxBEaD/CpUWMmlGqv27BCEQ3U=;
+        b=NirD4fFr0Fnj2IClbILsbMnV2c+8ku4FAKiuvXon0rxHjilmh+w2FpHVuwxuqRehLL
+         LHgMErkHw9jxKf1dvJcmvCV/kza7Au/JX/NKihLK/ePa3ezpL81WB4UQSfO3Vzull5L3
+         SdvUBEJ5TM107eHRtaDay/rDD8mEBJvj4Ihjw=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1749144298; x=1749749098;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=aT4xlVdmPM3dcSL4LpqxBEaD/CpUWMmlGqv27BCEQ3U=;
+        b=rBcsqVB8gPJCRm8VFQVNAsSkQMyXF6ZoJBkA0VQ46cdv7kwFaeYlC//3JB+IBk4Gp5
+         TDq7GQ9Bm8DZVYVfUZJVKQnba0C/QFtoH8+9w6R5NhFvm4Kx4TJtp6tJD+QgFPH73SYs
+         AHrbABXbUz6v/5Q1mHH8YgOCpZ4nuQ8z//vJ6mc2aNQ/bKYAr6Xg6llZg+IYv4Po3BA1
+         bw0zDLPErlwWOEQUnxFs1t+43p07Qbx7+EyWUD4Fddf52XXwdz54AzEM+tM358Xp1vQD
+         luR48494UTEyhskPwXwRUHLxnphnchlSzeUBD6aO4ZBrPHsroeCg4BDhpJRpLqXCqhjd
+         BUfw==
+X-Forwarded-Encrypted: i=1; AJvYcCWO5RF/DlrrqfuvBeG1LipwBwrLxOnHpGyU7kBO9h+7YHgkpicuxbfkax+a390QN+ha6sHQWeHGsIk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxUGExaD6ArJzxdRsfk+BUcbiwLGUFxUsKbQqYl19ledKNOVr1J
+	2NAvTqkDerqRbs7MNvfaUnZtUJHBo0eLsnbCufnYdgewuxiydvyQeUNwflKf9bG42fE=
+X-Gm-Gg: ASbGnctt/aiWERwJOtx8jdF0SRETlyeueTyKOALJ5mIgXy9/Z8mgJz0CsbQoYRoi+bb
+	6PgzvomWbN2NncaZqJlWEZ/zeWaEgt6yl79sIUIyRy/cK8hqN3wziNapVyl7yOtY9isuXxaJvz3
+	kp2rQfE74cBh6wnzDeNOrzDONO0Ixh3NaoJkkh6XxrHeu3lbQeZ2q+vfOXUPKswx3tE767i80e9
+	k5il702BX9i2XJeI0NbD5ZgMc2HlCAqMYU8L/yWAWcMcxuaCmVAt0Oj1HexDpVV++CheiwND4+G
+	P4iT/rD8AZf8tNWL/hwKk0nWE5XRK/23EUBROI/8iMGOYB+eZgrv91e3l4M+2X0hCMSz4GW/Ec5
+	B+aCVzANZhRyiaFUm
+X-Google-Smtp-Source: AGHT+IGC0eTU31ibD9zhhg55NHqzmmE+JYBds4NIPodJDnlj28KR92dp7BEIo1woQDP+sYkIG5enzA==
+X-Received: by 2002:a05:6000:144e:b0:3a4:ce5c:5e8d with SMTP id ffacd0b85a97d-3a526e0cf3emr4350327f8f.20.1749144298111;
+        Thu, 05 Jun 2025 10:24:58 -0700 (PDT)
+Message-ID: <dda11e5f-4802-4ef2-a086-fe85943dfcbc@citrix.com>
+Date: Thu, 5 Jun 2025 18:24:57 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="UTF-8"
-Date: Thu, 5 Jun 2025 19:24:37 +0200
-Message-ID: <DAERWC6PNNIL.2KAG1NVW9VHR9@amd.com>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?utf-8?q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, "Daniel P. Smith"
-	<dpsmith@apertussolutions.com>, <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH 09/19] x86: Preinitialise all modules to be of kind
- BOOTMOD_UNKNOWN
-From: Alejandro Vallejo <agarciav@amd.com>
-To: Jan Beulich <jbeulich@suse.com>
-X-Mailer: aerc 0.20.1
-References: <DA1WWRUQLCAG.ZTVR1HXJ85V0@amd.com>
- <20250530120242.39398-1-agarciav@amd.com>
- <20250530120242.39398-10-agarciav@amd.com>
- <2548f9a0-76f8-4e6e-8330-759b118b777b@suse.com>
-In-Reply-To: <2548f9a0-76f8-4e6e-8330-759b118b777b@suse.com>
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000F0E2:EE_|PH7PR12MB8425:EE_
-X-MS-Office365-Filtering-Correlation-Id: f9591976-8117-4f52-95a6-08dda455dac4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700013|1800799024|376014|82310400026;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?M0VEVno2RVExWXNTbU5VWGtURVVlMlF0L3E0RTFBWFBnaWdGOFh1eXBsN01E?=
- =?utf-8?B?U1h0dEpoVFlTdVcxMmY0bzE4QWQ4NjA1RXJXUjRzdGIxeXU0MnM5bWdkTmxw?=
- =?utf-8?B?ZmdoOEVUTElCT0dqVVdrMnplTlRPSkZrL1pRNVhvYnhra1VKRm1yQ3o1R21l?=
- =?utf-8?B?UG1meEhVaHp1ZktHK3BSbWRNY2RQNENwaGk4WURpVUNvUWExbk84WTczdkVi?=
- =?utf-8?B?TzVDdjk5eVBOWWQwaVRXNWZnS2I5MEFheGtGenRBVlhVNzdwQ0JMMWVISm5C?=
- =?utf-8?B?NkxUbDdhNytzSzVrTDhLc2pxTC8rZzRKVnBEVXlKWU1nTjJ5T0F1ZDlLeEZM?=
- =?utf-8?B?a09HS2tQZUxxTDhzUjRHaWpVS3FWRVRiME1RMWhueVkvaTM2VWh6ZlNRbWV3?=
- =?utf-8?B?OWJ6UWhaOGJ4YUJqWmhFd3Rzb2puSFFSc2xTZFRrdFl3OVA0Ym1lK3BzT2R6?=
- =?utf-8?B?MWpUM1o2L0tXNWQ0WkZRU3RuWk9vNW5keE1XZjVVc281ZkJWa3lrd3pFb0RM?=
- =?utf-8?B?SmtONTFWdGtlY3VDZVIwSjRVUGw0MndZaWVqL0s1c1czaGxpckVQWitPclIw?=
- =?utf-8?B?UGVhRWdwUENTWGNOL2twQStxdS9reCtBelpUYzRUTi9ZN2NYU3F2cXd4aEJw?=
- =?utf-8?B?MVJwaTBQZE5uMy9SVlovZ2pHSkhudWtTMksxbFlwU3ZCeFQwd1N0YzB1QkRs?=
- =?utf-8?B?SGN6TFJka0s5M01Ncm8zb1RlR3F2NWduOVdPSHdXL1QvUXg5MjhYVVZaWWg4?=
- =?utf-8?B?WTFSVFdXbks2MFVQUWM0cDd3aDdySk9ncHBxRk03WitsTUZuRjl6UTdpRC9B?=
- =?utf-8?B?Ty9HNi9hOGIzYWVxYWJIczBYTXJ4YjgrQmRhMWdMRGNKNUg2dlJSWVdWYXcr?=
- =?utf-8?B?YVJmMDBDcG5wbzFnUklmUnNTVi84eEdwalRqdzNrVzEzQUNUcjlua2o5ZUMv?=
- =?utf-8?B?RTczUzRVbWV3KytwMTFidHExNmVBT2hDTmM5QWNyWEFNSlRLenpOSmRpYnVv?=
- =?utf-8?B?Zm53cWFtR3hzT3hNNlVRVEdPcEsvMFhRQzgzVGRhT0s5akNOR2VYOXpMcVhp?=
- =?utf-8?B?WFFBMDhLOFA3OHlPL1dPYXNYMHkya3dwQnJCcUhJZFhBT1NHUGtHZ25sR0hx?=
- =?utf-8?B?WVcxSGM5Sk95QVk4eWRiOGZKSmh1bnliWFJZZEkxckZrWmFtSjNYUm9RMmd6?=
- =?utf-8?B?emM5ZWtPSGJjbUM0VWRwa2Z6bFlkcWRCK0kxZDVDKzVFOXRSYWhWWEFOQlM3?=
- =?utf-8?B?MHR0TllvbE5EWWM5Z0x4K0N3UTdLdU80bTJkL1lXdmE2VGp1RkJIemR6NXI2?=
- =?utf-8?B?Z0VtbVJNSXQ0TFJHS1lRSll0cWdVbWRQdExhcng0RGpna3RJL1FxQ2FsZ3lw?=
- =?utf-8?B?ME5PeHY1OHJHa21aaEN0dHgwaDVyblp2Q1puWGZrMGJCMVBtY0NkdWc0eVVl?=
- =?utf-8?B?MWhsZzBFR0NhRU5KdTdlZVo1czFhejc2Z2Y2aHI3aU5PTFhCOWRQTjAwYTVH?=
- =?utf-8?B?cHROUll3Y2FMT2xPYnFiaWRVc21kc2lrK0gzaU1EbFJ2d3hZanlmcnR2OGx5?=
- =?utf-8?B?U0R0RUFabG5ydEh4a29WNE5MMWQ5SnIzK21ITlJ0THgwTFFDd0c1ZWtjM2dX?=
- =?utf-8?B?MUM2cGtiVDJJTzE3c01OdU1ZMGVwdVlZaEhOL2w2QlpZY2lFQ0FPTVhFaDRF?=
- =?utf-8?B?cjRkeU9ZYitaQ0crZmZSY1puS1RYWVZyTlRFSXVIZHo5NjhXSDB6SmJrcDJk?=
- =?utf-8?B?NThnU0h5QzliVlp2NGtid00vbXdlZUY4TDh4cXJaaStNeUptUUlJbDJvMk9M?=
- =?utf-8?B?bnE0RjRrcStVUWhKR0RWMmk5MnhpaFVUYlhFcUY1YWk5emFpNnVmYjZRU2Rx?=
- =?utf-8?B?MjR3bytYREhYSCtLYkxkbTZxNTU5Q0NHeXlIU3k5ZUxaekp4dDdWOTg3TVhF?=
- =?utf-8?B?M1o4OFV6N010aU9adVBqdllVNlc4dGhkQ1lqMzZKMExaQzl5c2JUT3ptMncz?=
- =?utf-8?B?OVpmY0drMVNrMkR2YXM4UTBkdUlqWE15YWJPT0c4RXM4ejJSM0p1WkFhTHpU?=
- =?utf-8?Q?QaCNbI?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(1800799024)(376014)(82310400026);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jun 2025 17:24:40.5527
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f9591976-8117-4f52-95a6-08dda455dac4
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MN1PEPF0000F0E2.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8425
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 3/6] x86: re-work memcpy()
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <73481cbf-337f-4e85-81d2-3487366cd822@suse.com>
+ <017e689a-41a2-4722-a5e7-19ffef27500f@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <017e689a-41a2-4722-a5e7-19ffef27500f@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Mon Jun 2, 2025 at 9:55 AM CEST, Jan Beulich wrote:
-> On 30.05.2025 14:02, Alejandro Vallejo wrote:
->> A later patch removes boot_module and replaces its uses with bootmodule.
->> The equivalent field for "type" doesn't have BOOTMOD_UNKNOWN as a zero
->> value, so it must be explicitly set in the static xen_boot_info.
->>=20
->> Not a functional change.
->>=20
->> Signed-off-by: Alejandro Vallejo <agarciav@amd.com>
->> ---
->>  xen/arch/x86/setup.c | 1 +
->>  1 file changed, 1 insertion(+)
->>=20
->> diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
->> index 1f5cb67bd0..5da9df33c9 100644
->> --- a/xen/arch/x86/setup.c
->> +++ b/xen/arch/x86/setup.c
->> @@ -298,6 +298,7 @@ struct boot_info __initdata xen_boot_info =3D {
->>      .loader =3D "unknown",
->>      .cmdline =3D "",
->>      .domains =3D { [0 ... MAX_NR_BOOTDOMS - 1] =3D { .domid =3D DOMID_I=
-NVALID } },
->> +    .mods =3D { [0 ... MAX_NR_BOOTMODS] =3D { .type =3D BOOTMOD_UNKNOWN=
- } },
->>  };
->
-> A brief comment may be nice, to help readers understand that there is no =
-off-
-> by-1 here.
->
-> Jan
+On 05/06/2025 11:25 am, Jan Beulich wrote:
+> --- a/xen/arch/x86/alternative.c
+> +++ b/xen/arch/x86/alternative.c
+> @@ -195,12 +195,16 @@ void *place_ret(void *ptr)
+>   * executing.
+>   *
+>   * "noinline" to cause control flow change and thus invalidate I$ and
+> - * cause refetch after modification.
+> + * cause refetch after modification.  While the SDM continues to suggest this
+> + * is sufficient, it may not be - issue a serializing insn afterwards as well,
+> + * unless this is for live-patching.
+>   */
+>  static void init_or_livepatch noinline
+>  text_poke(void *addr, const void *opcode, size_t len)
+>  {
+>      memcpy(addr, opcode, len);
+> +    if ( system_state < SYS_STATE_active )
+> +        asm volatile ( "mov %%rax, %%cr2" ::: "memory" );
+>  }
 
-Sure.
+This hunk wants pulling out separately.  It's not really related to
+memcpy(), and probably ought to be backported.
 
-Cheers,
-Alejandro
+Architecturally, both the APM and SDM say you're ok doing nothing on
+64bit capable CPUs.
 
+However, there are errata, and at least one recent AMD CPU needs
+serialisation for self modifying code.  (Not sure if the rev guide has
+been updated yet, and I can't remember offhand which CPU it is.)
+
+You should also discuss the choice of serialising instruction in a
+comment.  Mov to %cr2 is serialising on everything more modern than the
+486, and least likely to be intercepted under virt (== most performant).
+
+You also need to explain that we only do true SMC during boot.  After
+boot for livepatch, it's prior to addr going live.
+
+Finally, you're loading rubble into %cr2.  It's not even reliably 'addr'
+because of the transformations the compiler is permitted to make on
+memcpy().  I really think you should be reliably feeding in 0.  We're
+doing self-modifying code here with serialisation; an extra xor won't be
+measurable.
+
+~Andrew
+
+P.S. We should drop the noinline.  That's only applicable to the P5(?)
+and earlier where you had to use branches to flush the prefetch queue. 
+It's irrelevant on 64bit capable CPUs.
 
