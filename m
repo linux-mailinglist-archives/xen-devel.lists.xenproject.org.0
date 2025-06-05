@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE3BCACF0C4
-	for <lists+xen-devel@lfdr.de>; Thu,  5 Jun 2025 15:35:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1006887.1386142 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6584CACF0CD
+	for <lists+xen-devel@lfdr.de>; Thu,  5 Jun 2025 15:35:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1006893.1386153 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uNAkS-0001NK-J7; Thu, 05 Jun 2025 13:35:12 +0000
+	id 1uNAl3-0001r4-Sa; Thu, 05 Jun 2025 13:35:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1006887.1386142; Thu, 05 Jun 2025 13:35:12 +0000
+Received: by outflank-mailman (output) from mailman id 1006893.1386153; Thu, 05 Jun 2025 13:35:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uNAkS-0001LR-GV; Thu, 05 Jun 2025 13:35:12 +0000
-Received: by outflank-mailman (input) for mailman id 1006887;
- Thu, 05 Jun 2025 13:35:10 +0000
+	id 1uNAl3-0001ok-Ow; Thu, 05 Jun 2025 13:35:49 +0000
+Received: by outflank-mailman (input) for mailman id 1006893;
+ Thu, 05 Jun 2025 13:35:48 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=B23G=YU=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1uNAkQ-0001LF-Fg
- for xen-devel@lists.xenproject.org; Thu, 05 Jun 2025 13:35:10 +0000
-Received: from fout-a3-smtp.messagingengine.com
- (fout-a3-smtp.messagingengine.com [103.168.172.146])
+ <SRS0=OIxA=YU=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1uNAl2-0001LF-3E
+ for xen-devel@lists.xenproject.org; Thu, 05 Jun 2025 13:35:48 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e2f9033e-4211-11f0-b894-0df219b8e170;
- Thu, 05 Jun 2025 15:35:04 +0200 (CEST)
-Received: from phl-compute-02.internal (phl-compute-02.phl.internal
- [10.202.2.42])
- by mailfout.phl.internal (Postfix) with ESMTP id 4B60D13802B5;
- Thu,  5 Jun 2025 09:35:03 -0400 (EDT)
-Received: from phl-mailfrontend-02 ([10.202.2.163])
- by phl-compute-02.internal (MEProxy); Thu, 05 Jun 2025 09:35:03 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 5 Jun 2025 09:35:01 -0400 (EDT)
+ id fc2480bd-4211-11f0-b894-0df219b8e170;
+ Thu, 05 Jun 2025 15:35:46 +0200 (CEST)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-450cfb79177so5203395e9.0
+ for <xen-devel@lists.xenproject.org>; Thu, 05 Jun 2025 06:35:46 -0700 (PDT)
+Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
+ by smtp.gmail.com with UTF8SMTPSA id
+ ffacd0b85a97d-3a5236d4466sm3830417f8f.100.2025.06.05.06.35.45
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 05 Jun 2025 06:35:45 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,174 +45,286 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e2f9033e-4211-11f0-b894-0df219b8e170
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1749130503;
-	 x=1749216903; bh=Ig8lrPs2/XgtloRy6DLLL604F/dk4LIwQ/GemHxYXTk=; b=
-	knnfLj+4zJxc8X+JwQnTdQpzKQkjhbMcLuxcUBus+H9/XQ+V41gg2TKOB97+Teux
-	q2OQeSSiWZMyuvZHuqNBkOu0xZjiSxsC+BBcuF/9q2Ll0tFAJC6c4j/JQ7TBd1Nr
-	qkQ2lS4vVn18xR3HtdSxoIxhIgpL5lHjV6iwJBN6m6Qqcd0nqkEqN+7GluEl/agd
-	qbsMVhC9Y5nvMQPvNl1oOCLf8sLI7W/k2Q36NzzfaAquCFHKq8HoZVOrsCrSnBm9
-	DNNBt0Fq4d8tZZJ5O+SpN1+XC+NkuMWf/XefwkAq1uI7PTFZN/YazS9X+gGSt+cW
-	KEIn/qE1GKorEfUndEAC3Q==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1749130503; x=1749216903; bh=Ig8lrPs2/XgtloRy6DLLL604F/dk4LIwQ/G
-	emHxYXTk=; b=YWWFWwhgB5MoaEGt40DnEX6VGmYsMQsKI4ZSSZY6puQPK0t6mxI
-	3torkpX7PS5PtMoSIYC/Uh2HuJZkU+KaBlkCj7HEo9RdPRIli5ne5zJ2CAv+LqsS
-	nsaecIRAilLo9Xin3Sx/tm7ZsvIE3fYqPyzqmpdIc2Tc0KChfCDhfznr6/pfc4U/
-	W8H608Yp1kLoSAaqpWXE0M0ARAdJZVpgs7xQyelzkga+aRd9MjKsrrReiLtIgQ0Q
-	85bcIiGY3gz6iGeaFozD31Xi41LX+zFmCUorr81l8Em+ldKShE1N7MS07KyeNvjZ
-	LLWd8mO86CmIIM8lC5bwmHaLQPsxzIUO2Og==
-X-ME-Sender: <xms:B51BaPOVUYTVE1P98y-HgGuo6gX1F8fJO_Jwzlow22rA3qKKF_DhiQ>
-    <xme:B51BaJ9Gb-ERFOtxctD9E_1frJyS4qExNgGDRXugdWKJBOVL5RyPkytJoF7x32jJD
-    8Efzg5bysVHtQ>
-X-ME-Received: <xmr:B51BaORDyOmnOcFxtmO0g0sTnNQokP_ANEsYzttTjkCnJ48rl3eZJbb91TO4C2P8eBtDKuJU8SMRKJAZUC4Xi5BTbCCQxrLqU8M>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtddugdefjedtucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdggtfgfnhhsuhgsshgtrhhisggvpdfu
-    rfetoffkrfgpnffqhgenuceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnh
-    htshculddquddttddmnecujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeen
-    ucfhrhhomhepofgrrhgvkhcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomh
-    grrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggft
-    rfgrthhtvghrnhepheegtdfgvedvueetheelgeetgefffeefvdehueelvdeiudefffelhf
-    evveejveeinecuffhomhgrihhnpehgnhhurdhorhhgpdhkvghrnhgvlhdrohhrghenucev
-    lhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrh
-    gvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmpdhnsggprhgtphhtthho
-    peeipdhmohguvgepshhmthhpohhuthdprhgtphhtthhopehjsggvuhhlihgthhesshhush
-    gvrdgtohhmpdhrtghpthhtoheprghnughrvgifrdgtohhophgvrhefsegtihhtrhhigidr
-    tghomhdprhgtphhtthhopehrohhsshdrlhgrghgvrhifrghllhestghithhrihigrdgtoh
-    hmpdhrtghpthhtoheprhhoghgvrhdrphgruhestghithhrihigrdgtohhmpdhrtghpthht
-    ohepughpshhmihhthhesrghpvghrthhushhsohhluhhtihhonhhsrdgtohhmpdhrtghpth
-    htohepgigvnhdquggvvhgvlheslhhishhtshdrgigvnhhprhhojhgvtghtrdhorhhg
-X-ME-Proxy: <xmx:B51BaDssVwqKGr5SkOa8rjsMCPy1DtIQgobcfq73f4MBgWbuAsUjBg>
-    <xmx:B51BaHebguXSYwZnhGvT3LFighpNvPXl3xcaz13wsrCsxXJ3Ad2YTw>
-    <xmx:B51BaP234xTmAMHWFy_Jpczbj60jmMJo2w8bOZvlTtPJF2v_yRpkHw>
-    <xmx:B51BaD82HPJq_N7CZfUe8W5VHP8bSDkEuadh14KY-2jmt9cVm5XuFg>
-    <xmx:B51BaAXcIOlxIdMFn7pBp8Q4sGDv_liAJJRJCTg1d0SOHzlO2hwidIAe>
-Feedback-ID: i1568416f:Fastmail
-Date: Thu, 5 Jun 2025 15:34:59 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Ross Lagerwall <ross.lagerwall@citrix.com>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
-	"Daniel P . Smith" <dpsmith@apertussolutions.com>,
-	Xen-devel <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH 1/3] x86/EFI: Fix detection of buildid
-Message-ID: <aEGdA1T3F1NTtcvO@mail-itl>
-References: <20250605111638.2869914-1-andrew.cooper3@citrix.com>
- <20250605111638.2869914-2-andrew.cooper3@citrix.com>
- <0a314400-126a-4c2a-b36c-dda61bb0b751@suse.com>
- <aEGLjhw8kTXKbkdV@mail-itl>
- <f2077d30-3324-4b86-91e5-54e3a6273c48@suse.com>
+X-Inumbo-ID: fc2480bd-4211-11f0-b894-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1749130546; x=1749735346; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=oQ/jRID1McYK5kSvWo683gzCCMc2GCjXLg/u+H+QyLA=;
+        b=QbuB2DskTkH4xby0VvSC2C1eqDm1u6Aog0pTGrZZdYSaOlJTvoB7bKRDJhKFbEdIkd
+         WEJEg1ZZK2ML9KaBymL0mIyfVUbI1CLQqc0S+QrQNdI5eAxeWM9G9cXd8GbXON0bOc1D
+         W8dZJanK+Z6SOsISH5JkH9t/S2jbQBljzf68E=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1749130546; x=1749735346;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=oQ/jRID1McYK5kSvWo683gzCCMc2GCjXLg/u+H+QyLA=;
+        b=dI2CWKvRbmdAN+hmtQMRbpLRK9Wzj2yT33Bc4dhNjtooCo+nPmf0lpRWd444nN8o2O
+         WFK/kd3/l/dW9b8onezSddYiPUXQoFGgJlfzRkZEtXmxMufXQUOiRvrndsfvJJoRB+lF
+         MLjnYt1asIyyrS3pDW2zbacpNY6CNL3qpddvFet9SwT8UF9IJvlZv9k9g5ly6JN1ivYM
+         Odd8TW6mbjnWWxtS6l8nq9kW+lfnDfqPhZcxBCIJ9sbD6lYNnhuMGx93hHkTW9WqslH8
+         BW7IfIzQQNMdRYiKT3Vz0QEdTKQ/wL+i96ga/yc7LXPqa1L8qXv7QoHqAMgAMd6/HVxH
+         mklA==
+X-Gm-Message-State: AOJu0YwkvGbNUn+zMvr1VHZSzbbKcYqQHdTenDs4cSo0UDAzPOTHDuEo
+	IutkoKLJjNVaPz6W39nK9fHtGQMQKp50Fy+eE6Pa+Fo0pHREsfBq40MN1UKMGMwFLFE=
+X-Gm-Gg: ASbGncu/URV9j+WdnPVLdPxjd86hnIF/M03vLFcBUkmRPOrXUoIybU1Nk6+a1c0o76U
+	DIl3/bTOlAtkHU3V3pRJeufwgrzG10aNpmZrxhRhjQiRPixKw/QT5bvtx8KQfUi6GfoVDe77ncv
+	EoQwKmnuTBweOe3KVRNBdIAfzwApA9W+mDiEFnRB2c4hqpLTKmr2Hr5o9Ni7eM60odzJt0Lk2h0
+	8dy/ArK405jlL0tLdkv2LJgeUgDlIkHxqtjwokSeGV2XIf42N9hYMGu6scnwGNNIRVvzr6mS+Ss
+	o05VTsjmenq+1N0fFxxj7Kt7Zgj8jXzEHAEI35To1QT540ZaFWGrEW4eKvio7sWEif4mV+ing+5
+	OC23xa/Z0pFqt8JdR55A=
+X-Google-Smtp-Source: AGHT+IFKvGAsjt58i8TD5iBhNxJeDuesXrMdBfrrvsKe2th459ziI4h37GCaLcWy+DHu1gAjpDp9GQ==
+X-Received: by 2002:a05:600c:190c:b0:43c:fffc:7886 with SMTP id 5b1f17b1804b1-451f0a75a7emr65555145e9.8.1749130545554;
+        Thu, 05 Jun 2025 06:35:45 -0700 (PDT)
+Date: Thu, 5 Jun 2025 15:35:44 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jiqian Chen <Jiqian.Chen@amd.com>
+Cc: xen-devel@lists.xenproject.org, Huang Rui <ray.huang@amd.com>
+Subject: Re: [PATCH v5 05/10] vpci: Hide legacy capability when it fails to
+ initialize
+Message-ID: <aEGdMBmZsfQaRdJC@macbook.local>
+References: <20250526094559.140423-1-Jiqian.Chen@amd.com>
+ <20250526094559.140423-6-Jiqian.Chen@amd.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="P0ORzQzBCX5mHtyo"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <f2077d30-3324-4b86-91e5-54e3a6273c48@suse.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20250526094559.140423-6-Jiqian.Chen@amd.com>
 
+On Mon, May 26, 2025 at 05:45:54PM +0800, Jiqian Chen wrote:
+> When vpci fails to initialize a legacy capability of device, it just
+> returns an error and vPCI gets disabled for the whole device.  That
+> most likely renders the device unusable, plus possibly causing issues
+> to Xen itself if guest attempts to program the native MSI or MSI-X
+> capabilities if present.
+> 
+> So, add new function to hide legacy capability when initialization
+> fails. And remove the failed legacy capability from the vpci emulated
+> legacy capability list.
+> 
+> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
+> ---
+> cc: "Roger Pau Monné" <roger.pau@citrix.com>
+> ---
+> v4->v5 changes:
+> * Modify vpci_get_register() to delete some unnecessary check, so that I don't need to move function vpci_register_cmp().
+> * Rename vpci_capability_mask() to vpci_capability_hide().
+> 
+> v3->v4 changes:
+> * Modify the commit message.
+> * In function vpci_get_previous_cap_register(), add an ASSERT_UNREACHABLE() if offset below 0x40.
+> * Modify vpci_capability_mask() to return error instead of using ASSERT.
+> * Use vpci_remove_register to remove PCI_CAP_LIST_ID register instead of open code.
+> * Add check "if ( !offset )" in vpci_capability_mask().
+> 
+> v2->v3 changes:
+> * Separated from the last version patch "vpci: Hide capability when it fails to initialize"
+> * Whole implementation changed because last version is wrong.
+>   This version adds a new helper function vpci_get_register() and uses it to get
+>   target handler and previous handler from vpci->handlers, then remove the target.
+> 
+> v1->v2 changes:
+> * Removed the "priorities" of initializing capabilities since it isn't used anymore.
+> * Added new function vpci_capability_mask() and vpci_ext_capability_mask() to
+>   remove failed capability from list.
+> * Called vpci_make_msix_hole() in the end of init_msix().
+> 
+> Best regards,
+> Jiqian Chen.
+> ---
+>  xen/drivers/vpci/vpci.c | 117 ++++++++++++++++++++++++++++++++++++++--
+>  1 file changed, 113 insertions(+), 4 deletions(-)
+> 
+> diff --git a/xen/drivers/vpci/vpci.c b/xen/drivers/vpci/vpci.c
+> index 2861557e06d2..60e7654ec377 100644
+> --- a/xen/drivers/vpci/vpci.c
+> +++ b/xen/drivers/vpci/vpci.c
+> @@ -83,6 +83,99 @@ static int assign_virtual_sbdf(struct pci_dev *pdev)
+>  
+>  #endif /* CONFIG_HAS_VPCI_GUEST_SUPPORT */
+>  
+> +static struct vpci_register *vpci_get_register(struct vpci *vpci,
+> +                                               unsigned int offset,
+> +                                               unsigned int size)
+> +{
+> +    struct vpci_register *rm;
 
---P0ORzQzBCX5mHtyo
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 5 Jun 2025 15:34:59 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Ross Lagerwall <ross.lagerwall@citrix.com>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
-	"Daniel P . Smith" <dpsmith@apertussolutions.com>,
-	Xen-devel <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH 1/3] x86/EFI: Fix detection of buildid
+Nit: I think you re-used part of the code from vpci_remove_register()
+that names the local variable rm (because it's for removal).  Here it
+would better to just name it 'r' (for register).
 
-On Thu, Jun 05, 2025 at 03:08:07PM +0200, Jan Beulich wrote:
-> On 05.06.2025 14:20, Marek Marczykowski-G=C3=B3recki wrote:
-> > On Thu, Jun 05, 2025 at 02:02:21PM +0200, Jan Beulich wrote:
-> >> On 05.06.2025 13:16, Andrew Cooper wrote:
-> >>> The format of the buildid is a property of the binary, not a property=
- of how
-> >>> it was loaded.  This fixes buildid recognition when starting xen.efi =
-=66rom it's
-> >>> MB2 entrypoint.
-> >>>
-> >>> Suggested-by: Ross Lagerwall <ross.lagerwall@citrix.com>
-> >>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> >>
-> >> I'll pick this up without a Fixes: tag, but I think it ought to have o=
-ne. (I
-> >> didn't check whether MB2 or build-id support came later, hence introdu=
-cing the
-> >> issue.)
-> >>
-> >>> --- a/xen/common/version.c
-> >>> +++ b/xen/common/version.c
-> >>> @@ -203,8 +203,11 @@ void __init xen_build_init(void)
-> >>>      rc =3D xen_build_id_check(n, sz, &build_id_p, &build_id_len);
-> >>> =20
-> >>>  #ifdef CONFIG_X86
-> >>> -    /* Alternatively we may have a CodeView record from an EFI build=
-=2E */
-> >>> -    if ( rc && efi_enabled(EFI_LOADER) )
-> >>> +    /*
-> >>> +     * xen.efi built with a new enough toolchain will have a CodeVie=
-w record,
-> >>> +     * not an ELF note.
-> >>> +     */
-> >>> +    if ( rc )
-> >>
-> >> Instead of dropping the efi_enabled(), I think you want to replace EFI=
-_LOADER
-> >> by EFI_BOOT.
-> >=20
-> > Part of the motivation for MB2 entry point in xen.efi is using the
-> > same binary in all boot modes, including legacy boot - in which case
-> > none of EFI_* checks would be appropriate here. The grub series adds
-> > support for loading PE binaries, and IIUC it isn't tied to booting via
-> > EFI.
->=20
-> "The grub series" being which one?=20
+> +
+> +    ASSERT(spin_is_locked(&vpci->lock));
+> +
+> +    list_for_each_entry ( rm, &vpci->handlers, node )
+> +    {
+> +        if ( rm->offset == offset && rm->size == size )
+> +            return rm;
+> +
+> +        if ( offset <= rm->offset )
+> +            break;
+> +    }
+> +
+> +    return NULL;
+> +}
+> +
+> +static struct vpci_register *vpci_get_previous_cap_register(
+> +    struct vpci *vpci, unsigned int offset)
+> +{
+> +    uint32_t next;
+> +    struct vpci_register *r;
+> +
+> +    if ( offset < 0x40 )
+> +    {
+> +        ASSERT_UNREACHABLE();
+> +        return NULL;
+> +    }
+> +
+> +    r = vpci_get_register(vpci, PCI_CAPABILITY_LIST, 1);
+> +    if ( !r )
+> +        return NULL;
+> +
+> +    next = (uint32_t)(uintptr_t)r->private;
+> +    while ( next >= 0x40 && next != offset )
+> +    {
+> +        r = vpci_get_register(vpci, next + PCI_CAP_LIST_NEXT, 1);
+> +        if ( !r )
+> +            return NULL;
+> +        next = (uint32_t)(uintptr_t)r->private;
+> +    }
+> +
+> +    if ( next < 0x40 )
+> +        return NULL;
 
-https://lists.gnu.org/archive/html/grub-devel/2024-03/msg00080.html
-| This patch series implements support for loading and verifying a signed
-| xen binary. This would allow the same xen binary to be used for BIOS
-| boot, UEFI boot, and UEFI boot with Secure Boot verification.
-| There is an accompanying Xen patch series.
+The code below I think it's a bit simpler (and compact) by having a
+single return instead of multiple ones:
 
-> I didn't know xen.efi's non-EFI MB2 entry
-> point could be used; instead I was under the impression that someone was
-> having (half?) a patch eliminating the MB data from xen.efi, as being dead
-> code.
+for ( r = vpci_get_register(vpci, PCI_CAPABILITY_LIST, 1); r;
+      r = next >= 0x40 ? vpci_get_register(vpci,
+                                           next + PCI_CAP_LIST_NEXT, 1)
+                       : NULL )
+{
+    next = (uint32_t)(uintptr_t)r->private;
+    ASSERT(next == (uintptr_t)r->private);
+    if ( next == offset )
+        break;
+}
 
-See also
-https://lore.kernel.org/xen-devel/CAG7k0EroeA=3DcRRDWnJqzH8esoaSmtg8-xjTwc-=
-01og5R9JwPzg@mail.gmail.com/
-for some extra context.
+return r;
 
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
+I haven't tested it however.
 
---P0ORzQzBCX5mHtyo
-Content-Type: application/pgp-signature; name=signature.asc
+> +
+> +    return r;
+> +}
+> +
+> +static int vpci_capability_hide(struct pci_dev *pdev, unsigned int cap)
+> +{
+> +    const unsigned int offset = pci_find_cap_offset(pdev->sbdf, cap);
+> +    struct vpci_register *prev_next_r, *next_r;
 
------BEGIN PGP SIGNATURE-----
+I think it might be clear to just name this prev_r, next_r,
+prev_next_r is IMO a bit confusing.  I understand it refers to the next
+capability register in the previous capability, and I think prev_r
+might be enough.
 
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmhBnQMACgkQ24/THMrX
-1ywnhwf/bAZrULA8myvNFHOWMClznpeJ3V+/Ex76QCVuzPtWzx4xdfpLGIukQWqL
-erl6hYDbaM8YyzUgGPcMfqIDKSh/hL3nuET/ZACWklqTA5XVGhTbTOZb/Hs7u+TR
-PgCzAhc3GLGx46/RggZrUDrbBh77jmD/rEC25n7wd9SzeKkpEZWChMoXShjAIsq8
-6I2uG4+pAwY2LqD/javYkdoz1TNkwflBMts0SfyGXWO2cfrmqJ23YWM4WE0Q4UmF
-6hBZjVTebIe+/rT28y67NnR//GNHo7HAJNPeXFM9LrPYfKDyb+uZ7Xrh9uvMeri4
-SvkmAuTDOh/xQj/V58kkBowiih1/9g==
-=/rtk
------END PGP SIGNATURE-----
+> +    struct vpci *vpci = pdev->vpci;
+> +
+> +    if ( !offset )
+> +    {
+> +        ASSERT_UNREACHABLE();
+> +        return 0;
+> +    }
+> +
+> +    spin_lock(&vpci->lock);
+> +    next_r = vpci_get_register(vpci, offset + PCI_CAP_LIST_NEXT, 1);
+> +    if ( !next_r )
+> +    {
+> +        spin_unlock(&vpci->lock);
+> +        return -ENODEV;
+> +    }
+> +
+> +    prev_next_r = vpci_get_previous_cap_register(vpci, offset);
+> +    if ( !prev_next_r )
+> +    {
+> +        spin_unlock(&vpci->lock);
+> +        return -ENODEV;
+> +    }
 
---P0ORzQzBCX5mHtyo--
+You can join both the above into a single check IMO:
+
+next_r = vpci_get_register(vpci, offset + PCI_CAP_LIST_NEXT, 1);
+prev_r = vpci_get_previous_cap_register(vpci, offset);
+if ( !next_r || !prev_r )
+{
+    spin_unlock(&vpci->lock);
+    return -ENODEV;
+}
+
+There's no benefit in using two equal error condition checks (just
+makes the code longer)
+
+> +
+> +    prev_next_r->private = next_r->private;
+> +    /*
+> +     * Not calling vpci_remove_register() here is to avoid redoing
+> +     * the register search
+> +     */
+> +    list_del(&next_r->node);
+> +    spin_unlock(&vpci->lock);
+> +    xfree(next_r);
+> +
+> +    if ( !is_hardware_domain(pdev->domain) )
+> +        return vpci_remove_register(vpci, offset + PCI_CAP_LIST_ID, 1);
+> +
+> +    return 0;
+> +}
+> +
+>  static int vpci_init_capabilities(struct pci_dev *pdev)
+>  {
+>      for ( unsigned int i = 0; i < NUM_VPCI_INIT; i++ )
+> @@ -91,7 +184,6 @@ static int vpci_init_capabilities(struct pci_dev *pdev)
+>          const unsigned int cap = capability->id;
+>          const bool is_ext = capability->is_ext;
+>          unsigned int pos;
+> -        int rc;
+>  
+>          if ( !is_ext )
+>              pos = pci_find_cap_offset(pdev->sbdf, cap);
+> @@ -103,9 +195,26 @@ static int vpci_init_capabilities(struct pci_dev *pdev)
+>          if ( !pos )
+>              continue;
+>  
+> -        rc = capability->init(pdev);
+> -        if ( rc )
+> -            return rc;
+> +        if ( capability->init(pdev) )
+
+I think you want to store rc here to print it in the warning message
+below.
+
+> +        {
+> +            int rc;
+> +
+> +            if ( capability->cleanup ) {
+> +                rc = capability->cleanup(pdev);
+> +                if ( rc )
+> +                    return rc;
+
+Here where both init and cleanup failed, you simply don't print any
+message.
+
+> +            }
+> +
+> +            printk(XENLOG_WARNING "%pd %pp: %s cap %u init fail, mask it\n",
+> +                   pdev->domain, &pdev->sbdf,
+> +                   is_ext ? "extended" : "legacy", cap);
+
+I think this needs to be done ahead of the cleanup(), and print the
+returned error code.  Overall we need messages printed when any of
+those fails, as that makes it easier to debug when things go wrong.
+
+Thanks, Roger.
 
