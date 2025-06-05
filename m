@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B0519ACF629
-	for <lists+xen-devel@lfdr.de>; Thu,  5 Jun 2025 20:04:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1007356.1386681 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B2666ACF644
+	for <lists+xen-devel@lfdr.de>; Thu,  5 Jun 2025 20:11:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1007363.1386691 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uNEwv-0002UT-QL; Thu, 05 Jun 2025 18:04:21 +0000
+	id 1uNF45-0004XM-Hm; Thu, 05 Jun 2025 18:11:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1007356.1386681; Thu, 05 Jun 2025 18:04:21 +0000
+Received: by outflank-mailman (output) from mailman id 1007363.1386691; Thu, 05 Jun 2025 18:11:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uNEwv-0002Ro-NP; Thu, 05 Jun 2025 18:04:21 +0000
-Received: by outflank-mailman (input) for mailman id 1007356;
- Thu, 05 Jun 2025 18:04:19 +0000
+	id 1uNF45-0004Vv-E7; Thu, 05 Jun 2025 18:11:45 +0000
+Received: by outflank-mailman (input) for mailman id 1007363;
+ Thu, 05 Jun 2025 18:11:43 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ZN0r=YU=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
- id 1uNEwt-0002Pu-LU
- for xen-devel@lists.xenproject.org; Thu, 05 Jun 2025 18:04:19 +0000
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam04on20618.outbound.protection.outlook.com
- [2a01:111:f403:2408::618])
+ id 1uNF43-0004Vp-30
+ for xen-devel@lists.xenproject.org; Thu, 05 Jun 2025 18:11:43 +0000
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on20613.outbound.protection.outlook.com
+ [2a01:111:f403:2413::613])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7d131c11-4237-11f0-b894-0df219b8e170;
- Thu, 05 Jun 2025 20:04:15 +0200 (CEST)
-Received: from SN7P222CA0005.NAMP222.PROD.OUTLOOK.COM (2603:10b6:806:124::22)
- by SJ2PR12MB8882.namprd12.prod.outlook.com (2603:10b6:a03:537::17)
+ id 8675f907-4238-11f0-b894-0df219b8e170;
+ Thu, 05 Jun 2025 20:11:40 +0200 (CEST)
+Received: from SJ0PR13CA0103.namprd13.prod.outlook.com (2603:10b6:a03:2c5::18)
+ by SJ2PR12MB9005.namprd12.prod.outlook.com (2603:10b6:a03:53d::10)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8769.27; Thu, 5 Jun
- 2025 18:04:09 +0000
-Received: from SN1PEPF00036F3F.namprd05.prod.outlook.com
- (2603:10b6:806:124:cafe::96) by SN7P222CA0005.outlook.office365.com
- (2603:10b6:806:124::22) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8792.34 via Frontend Transport; Thu,
- 5 Jun 2025 18:04:09 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8792.34; Thu, 5 Jun
+ 2025 18:11:33 +0000
+Received: from SJ5PEPF000001F4.namprd05.prod.outlook.com
+ (2603:10b6:a03:2c5:cafe::c5) by SJ0PR13CA0103.outlook.office365.com
+ (2603:10b6:a03:2c5::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8835.8 via Frontend Transport; Thu, 5
+ Jun 2025 18:11:33 +0000
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SN1PEPF00036F3F.mail.protection.outlook.com (10.167.248.23) with Microsoft
+ SJ5PEPF000001F4.mail.protection.outlook.com (10.167.242.72) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8792.29 via Frontend Transport; Thu, 5 Jun 2025 18:04:09 +0000
+ 15.20.8792.29 via Frontend Transport; Thu, 5 Jun 2025 18:11:33 +0000
 Received: from localhost (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 5 Jun
- 2025 13:04:06 -0500
+ 2025 13:11:31 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,22 +56,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7d131c11-4237-11f0-b894-0df219b8e170
+X-Inumbo-ID: 8675f907-4238-11f0-b894-0df219b8e170
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hMeICOW18kgXJUNVlIwDenzVC12DzqsPHEqdiT1Smb9EFKDebNuy0imIdxfjUjbYnomOUptJCg8f+2c6Jjl78qE8TzjL/6HFOoRd/NWPjqITfwbCTRQbJmviD0UHTegzG7AjdSb+lzjXn6IVB5DQXnNvauT7ggyi/E38pD/cVVaJgcXdxeIZ1PJDI/VuRNe0iPTxAE6M0ZQLavZGBFhrg71OqxugCq8f+SelzdNUw34VTBtJoXQGEZe0BBczZCBsuGXnioRHW/xjsouZg1GH1sAbF8p4zxRxzZyWCm+lP4mt2nySp/bPEbJTsqY5TRBTuDMcSBrz7W4eMKl566bY5g==
+ b=UY6EKDzeJ+Adj5OtlwYMavbjnL2v50vpazeC2C/eK64Kht3xfW8svOQoMdo9PmDINaKdJ483df0TbF4i3xE0zpSIR+YvEAKa7RLSgBvqHeftYpawJ4OOthKn+CH4curop1weI3m/POR+zn+UbRXvOLnOi6uyyjSqLca09NostajiRO2XJtoD2huBxkypUXyuxqfO07ExB/vsnEFBEiweDWVYfxp+REM9IKW07BAsD+8s4a4FiJVOd8XPHB8zA3ce6zjnW1fVEhchoqlfy7vFfq275H+Zhor2bJ3bLSjnr8gGeQzkEUNX8MmOhxf5hwP9tuwmrDBR0Gf6kfgpOdqNag==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EiLnOrisgAz1u9VniU4nunJ84BlQ/KNE/r2YdbvGLF0=;
- b=Ng6GMQBrwloB4tWCmVSSPUVtfT+xkzKoBqeX+Lu9d2oLDD2viXdKkstEVm+a6ECPkJinTNfjfiohet6xiWgUTrKwD94nr1TMG2m9KKDfQWW7xgrDfAoKUI0IGs3FyIiqKqRfu8qSdlGgmG57SjrMKR7xgvB9vmEAK8gAEav34EIjJUykceB5w7KSxKG8xfbR8i9tVHN7vRuuWZ+8uIy/Auim8GBzRlYV14od8qMak/zcUzaDTv+rVWiWEDmooi0jl96iXMALPusuypWwSd92z5UJBED/VRrtjGZMQqXfsU3TFGPiJj7bqG6suJ2DCm1vcLKjJbG/1Tt9KMGJ+7Mf2A==
+ bh=q6hEQ0Ew2urFydC8CohtLWSYByzbPs1HBrvhTlbfXdo=;
+ b=KrOtF/K3XLHCgekTfMYvvJRihmJB7ihgUtHmrO/cacmo6+XrlVkh1nz58SUKnivKigJRWys6w/OGGq0xwR7SD0Hh4EmhX7yFY05C2TPJpjOjTe0khaHS7auxyLEXwqeDPFsdavsJhG+BdesOkDc+BuRdpXguLIVeL4SRFu+26Z44kU2hHSr4epP/sRer+v0+Qwy3t6mmNEcVUF/RCrHdUIMyTwsRXjf7fyBJP5vdP3BNhc9zv5Kb1bvM11w2IPp/SB9AZVbVpCu2ud4L4xwynDlkiD3j3NGaM1ASc+20omBl+w+eCeNS+Pt/u+1AUImOEf6V3o/dzRBAbCZ9dypEHA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ 165.204.84.17) smtp.rcpttodomain=proton.me smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EiLnOrisgAz1u9VniU4nunJ84BlQ/KNE/r2YdbvGLF0=;
- b=jfKCXbAWVoVoO5hzvedQ2Rlg7g6fICTZFkC2oL/+w35oZ4k92c2vH4yuqK3UxaTYVVYKS46nXCbZSFuPwV389bmy8YROODLaLSwBfpkrNCBaofSok5d1mqdkg0FUWxZjsLPqPaEDGd5pelHzkhpVkvumJ8kbZGbDhjhFANfpf0A=
+ bh=q6hEQ0Ew2urFydC8CohtLWSYByzbPs1HBrvhTlbfXdo=;
+ b=aGLBe+Htc3RWnJpecDK05vTAEV80dkF4z9y7y6n5XSJgrkZY6p7BO0gGvr40zXCiLMbdNw7rSLMX7kvx+7uPejXbbm+7NpZVDPifA5hOLZdEVj05O3S7da1CTfMECu7uHVYHnp+D8wi62xA5a0Wnn1fB379hcLTYYC7wZWzqbkY=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -81,178 +81,377 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset="UTF-8"
-Date: Thu, 5 Jun 2025 20:04:04 +0200
-Message-ID: <DAESQJL4DFLQ.1HJH3KE56C3ZT@amd.com>
-To: Stefano Stabellini <sstabellini@kernel.org>
-CC: <xen-devel@lists.xenproject.org>, Julien Grall <julien@xen.org>, "Bertrand
- Marquis" <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>, "Jan
- Beulich" <jbeulich@suse.com>, =?utf-8?q?Roger_Pau_Monn=C3=A9?=
-	<roger.pau@citrix.com>, Alistair Francis <alistair.francis@wdc.com>, "Bob
- Eshleman" <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>,
-	Oleksii Kurochko <oleksii.kurochko@gmail.com>, "Daniel P. Smith"
-	<dpsmith@apertussolutions.com>
-Subject: Re: [PATCH 13/19] xen/dt: Move bootinfo functions to a new
- bootinfo.h
+Date: Thu, 5 Jun 2025 20:11:29 +0200
+Message-ID: <DAESW7Z62J87.2BR21MATNU16C@amd.com>
+Subject: Re: [PATCH 15/19] xen/dt: Move bootinfo-independent helpers out of
+ bootinfo-fdt.c
 From: Alejandro Vallejo <agarciav@amd.com>
+To: <dmkhn@proton.me>
+CC: <xen-devel@lists.xenproject.org>, Stefano Stabellini
+	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
+	<bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, "Daniel P.
+ Smith" <dpsmith@apertussolutions.com>
 X-Mailer: aerc 0.20.1
 References: <DA1WWRUQLCAG.ZTVR1HXJ85V0@amd.com>
  <20250530120242.39398-1-agarciav@amd.com>
- <20250530120242.39398-14-agarciav@amd.com>
- <alpine.DEB.2.22.394.2505301832520.1147082@ubuntu-linux-20-04-desktop>
-In-Reply-To: <alpine.DEB.2.22.394.2505301832520.1147082@ubuntu-linux-20-04-desktop>
+ <20250530120242.39398-16-agarciav@amd.com> <aDpPyk6MHv+4bseE@kraken>
+In-Reply-To: <aDpPyk6MHv+4bseE@kraken>
 X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF00036F3F:EE_|SJ2PR12MB8882:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5b934531-4681-4bb8-9e07-08dda45b5e8b
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001F4:EE_|SJ2PR12MB9005:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6eca36b0-5f7a-440b-9d47-08dda45c678c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|36860700013|7416014|82310400026|1800799024;
+	BCL:0;ARA:13230040|376014|36860700013|82310400026|1800799024;
 X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?RGRjaCtLUDMyOTlnSjdQN3BWTS9pdWFuVVE5YThTNkZXRUtBeFhuaUNDNW1s?=
- =?utf-8?B?ZldxRVZuSlFrYlhMVGZlUlErM3NEQW9TcHRDQkVzdFMxbkpEZEJMcnJrTW5h?=
- =?utf-8?B?MlovM0VRdmc3aTJlSkxNLzZJekJyMGtmQ2M2KytVOWVtR0kxRTZ5bENkZFlN?=
- =?utf-8?B?bEFCNGxLanhrMGNMeElzMmRqVjJwS3d6ekVKYkFyTWZHL1kvSVlGcDZvYmFr?=
- =?utf-8?B?VzR2WDlNYS9uMjVLOGV0V2tqS3djR0NvNzg0SjJDdVlWR1lCUmExSk8wMVR1?=
- =?utf-8?B?VUJEZGpLV0RZZTQ3SHhacUx6UWRRNlpxcFMrUThvbml6SFRoYjM3QjlscnQv?=
- =?utf-8?B?bk90bzQ1elZPQXkrVHY5Y1ZsRlF3REN3NmZTZDRLOWhrMGd1US9ZZGJYSkV3?=
- =?utf-8?B?UlJ6K2lwU1NTd2FYeTRxd0dRVlI2VnZ6eEkxT1h4alVrRmpnbi93c0tQRU1F?=
- =?utf-8?B?eUxFOGhQbXViVVdjdDE2UnpiSi9PdTMrWUJRdEhSbWd0Vk94a3l6NUZpTXhh?=
- =?utf-8?B?R3J2d2sySFlabk8vaUJacm5KZ0N4KzNOQlloWU1GRUc1QmJFWlltN0grWnk0?=
- =?utf-8?B?b1hDbjRsR3VmeTlXWXFPRWlKelNodWU1ZHlVcW5QZk5TSFpqeFMzS2dDeEpQ?=
- =?utf-8?B?S3ZPMHhlVFNXRnk0dkEwbG9zbS8rQUNVN2lvdWQ1Y0pSalNPTHkwOHNISFph?=
- =?utf-8?B?UHhtWnBiMzF6b2h0UkdwRXkxdXB4YTRqWkFkOHV1clJSbzVsSStkY3NXbDlS?=
- =?utf-8?B?aG93cmhhbU0yMndMTGtMWkVreG90WDBCYXpFVzh4VFZKZU1tOStLNTkxMkQx?=
- =?utf-8?B?cThjcHVXMENNWGlLWjNFZGs2YkxrMFVvV3B5eTFZelloZUJJemI3K3AyNlFJ?=
- =?utf-8?B?eWxFaEhWQXhRaVZCVVZRZVBPTnJ2bDhsc3gxeGtUZ21xMkVrbXhGNGh1b0Jq?=
- =?utf-8?B?dzZZaVA3ZExHQ3RLb0NvK1l1Q1pvMWNFQ0FBWi9SbVVtTzRucU4weEI0LzMy?=
- =?utf-8?B?U0NhT2w5Rzc5QzRZNFVOTUpYa1Rmb3R4TVhTRU9WUjVaUGk1NW01T3Z3Lzcv?=
- =?utf-8?B?VnU3bE1rR2pxRExhTVJZSElndG83aGJ0VDZNN2JxeFpuOFE4THB6dC8xbnhn?=
- =?utf-8?B?My81MUhTeWlXU21IRUZidFBpZ29pRk51VGVTc1Mvc0FIQVN3MW0vYWtoUTZB?=
- =?utf-8?B?MjVrbWVHR3RpaE5CenlwaUFrdWxUOXJ3MzRISHFhZGNsQkFLanc2emI5eE13?=
- =?utf-8?B?b2hLWVNINTd0d2tuNWhFOVhhaCtkdEVUM0JyWkZ6ZmNSZGhkb0NMT29pTEln?=
- =?utf-8?B?Nm94ZFBTWTEwTlRUd0k2d0xsRjg1WHlCTnZtY3JlZmZaS1BwZnp4YXhSekVa?=
- =?utf-8?B?L1kxK0JDMnhKOUhVRHFjR0orK0dpM25JenVlZVROU016Wjc4a0oyeHlxZGNy?=
- =?utf-8?B?TGxpcVRqQ1dIQzhKejU3dHB5Z1BEdWgwQldqTC9yUTRYOEVsMHRxNVZMeU1P?=
- =?utf-8?B?dGlVVU9EUGNWNGp1Nkl6cGFDeHM3RjNNdm55R244NTFIdnIvSHNweDJ6MkY0?=
- =?utf-8?B?NnE3SzE2eXlUOXliQ0pndTBLWnp1ZytBcTNybkoxY3gzcGkrZHljL3J1QUFn?=
- =?utf-8?B?b1QwLzRkdGh2ZDQvSTZ2Tmx5NzVjVFNLN0ppSHpneFJDVE1TUjliNHVIOTNM?=
- =?utf-8?B?dDEyVzJSNDVqdURWTXk1MDJSN243djAzeVhYeGk0RHBBV1dYellhbjliajdN?=
- =?utf-8?B?NFFKU2FKY1lkWnRVV1NUZDhNSWtlSUJzdTZiZy90cUJGVG8wbVFENWljdlB1?=
- =?utf-8?B?ZVM0eTVlSWNPN0pla2UvTDV2V3dXSGJaeU9RLzdJQlZtNTUzNDlQWkxyUlFw?=
- =?utf-8?B?M3EzekRKa09aTTQwYzBsNTIzbWl6dVdIQ0g2UHdCTlZ6L1d4WmNrc1BFVGha?=
- =?utf-8?B?Vkx2cjlycmVibG05UEMxN0t5VFFzOHBBY3R1bVFzNVBMeGl4N0FLQjVCL3ls?=
- =?utf-8?B?NHcxdlJoTWpXaC9nVnQvZnNuK0hJWFBMWjhjN2hGMVE4Qi9WeUhtZlgvajJn?=
- =?utf-8?Q?R5WGAo?=
+	=?utf-8?B?Y0E5dlMwT1RFcE96V3hMd2VDcCt5STRNeHkwSktwN3I4VnF4aWhJU2Y4UFQ2?=
+ =?utf-8?B?UlRkRzZzTFhRb0NHUHdydWxpc0JFN2ZUM2JIcTNUL3loc2I4dGFVTVlvbjlo?=
+ =?utf-8?B?SDNRdm95SktTZ3Z3NENoOStXekZUYkM2KzFLMG83S3Brdm55THdRb2IxaXhO?=
+ =?utf-8?B?ODF5K2pjNC94akNWbElPVC9zbnZ3di9wQVBYWFRRY04xcUFxUmNNTC9ydXlS?=
+ =?utf-8?B?SGZyQ244RDJwREprbExJYWdEZ2dlbTB5NG1iM053Yyt0Z0xsNFgvQWVVRGl4?=
+ =?utf-8?B?dGRrKzk3TVFnRDFMWUxkcDMxZkJaWDRmRFFYRGpJcFZXKzc0TUtxMlNtMTZ1?=
+ =?utf-8?B?dWlCaHp3YTFvU0JmMjB0NXU1RGxkaUs3RW8vSHF3ekp4VUFPL210bENaNjZw?=
+ =?utf-8?B?VS9QU2Q5N1dJcVc3WU8wdmpXcSt0ZlVnMm1tdTRtSGg1VnlQL3VtS1VTNWhx?=
+ =?utf-8?B?M0FxMk9TbitEVThIUVRjcnFndjBueUhSTGpVdnlsNjZMZFArZ2ltTnBKYVVS?=
+ =?utf-8?B?N1BwZHA5S25wUDcveWNnbXJlZUk4OXVXMVFRaGF4SERnOFV5RGZqOEJoQzdC?=
+ =?utf-8?B?ZWkyNHh5cFFkWUpIMGVuOEF1WjJXSEhHTDJYbU1ZNE5LV0M3c20wcllKRy9j?=
+ =?utf-8?B?ajMrcjdGTXV0cmZUSlhXZGVBRGZvbkZ0TXVzbVpiNzc5K0VOS2V5RnZoNjBN?=
+ =?utf-8?B?SXZPY3ZZUnZrQkVkOHhzK2FWY21wRm1laElObS9xcEUrdmZHc1BteHp2Q3hv?=
+ =?utf-8?B?d0VJbmNBWUVSSWRMSVBkZklHb3R0SUhQNDJ0ZnRUQ2VFbUZaL09XRXQ5TmI5?=
+ =?utf-8?B?Unc1MXpNV2l6bEFzSmJoTFlZU2xMRDJvT1dQZkQvWUVWTUloZm1yTnJTalF0?=
+ =?utf-8?B?ZUFWUEpxRnF6WjlZVVVkWmROTCtyVDlyTXpKb2VCK2xOV1Q1UW1ZN0dFWkdZ?=
+ =?utf-8?B?OEN5WWhYekVDL0ZSYmRtS282VVc3ZWw4YTlON0tlcmFKWWw3bDNWb1JGMUZG?=
+ =?utf-8?B?Rjl0MVErbGhxMktibzUrbk1pM0NxTGMweGRPS2F3RmdWZTMvREtXcDVvVkQw?=
+ =?utf-8?B?VFV3bkI0RTY2Z01lYXNiUGxhV1BXSWVQNXhHdU9NZDF2N1VxdnlpSFNBRHpV?=
+ =?utf-8?B?cUxKZjhUdkp0bTRjVTZCSTg0c3h4dWJYMHBEOXM4bGpzYTBkajRoMm11c2x3?=
+ =?utf-8?B?SkYrNG9nN0c1U2h1RHZ4dUkwUjNPWVR1bEhSazYxckdNcitvK3VBZkZTYXdL?=
+ =?utf-8?B?d3krYWF3WXlSTDJ2QUVkcGZTdW85ME8wSjBJVjE0Vm1iZXRBc2xhQzhMUkF6?=
+ =?utf-8?B?OTZxem03NnZmRlJua2MvQ0Vlc29tSDBnaVpGblZ6SkVIWFZ6ajlwN1JIS05R?=
+ =?utf-8?B?UHVjT1ltV1krUDhGOExVeFE4eU5CeVlVMCtDMmVGUWRtL3NjU3RkSEU0OGs5?=
+ =?utf-8?B?cWEwclc3SmlpV29LZlRuOXREUDI2K0pLWDBHU01HY3c3eU5FLzYvaGo2S1Uw?=
+ =?utf-8?B?QXRVVWdXTWhOS210MWEyYXdPL1NpWmgrdHdtbDF0RFVqUkNkWm9HbjlrWFkr?=
+ =?utf-8?B?dDVySGRGT2FKUzhRSTlya0FWaEhFd3AzS01QRzdzTXBEMzlMSmdKQzg0U0FC?=
+ =?utf-8?B?bzFZWVVlZzVUaSs5QnBrVlNZTU5TWms3bjFhcmc1Nzd0VDlpS3p2VjJlRXR3?=
+ =?utf-8?B?c1o1M2FXNHhlenhpVkFEVXAyZGZQcWhJRXowMGYvS2puTVB5akhWWHRQRC9I?=
+ =?utf-8?B?U25CT3N0T3hzQXFWZmRraWc0cDJ5Qi9GYTdScVVCWXRRd0dROU5QVXB3M3Mx?=
+ =?utf-8?B?bEhaOCtLMlJiUmdWb3lZSVZvVmU2d1dxc3ZnN09ET0JZa2NnZzh0Y3JrNDN6?=
+ =?utf-8?B?NWJCejNPZjdSYmh2WjR5WVM3VUcvVjBZSG9lMWxDS3JWbFRLMzdvSVdoUTVn?=
+ =?utf-8?B?SjFsR1B0cGRBZUVuS1IyYmpZeFRUSk5VamVJU0pnd2owU2Nid3lzZWFRQS83?=
+ =?utf-8?B?WkdzVzgvck1lZk4xQTgwWVhZUEZ1NnFzOFFFdEI3a3M4OXVJUWRMeWZmSVEv?=
+ =?utf-8?Q?XbxpJJ?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(36860700013)(7416014)(82310400026)(1800799024);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(36860700013)(82310400026)(1800799024);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jun 2025 18:04:09.0934
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jun 2025 18:11:33.6367
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5b934531-4681-4bb8-9e07-08dda45b5e8b
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6eca36b0-5f7a-440b-9d47-08dda45c678c
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	SN1PEPF00036F3F.namprd05.prod.outlook.com
+	SJ5PEPF000001F4.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8882
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB9005
 
-On Sat May 31, 2025 at 3:42 AM CEST, Stefano Stabellini wrote:
-> On Fri, 30 May 2025, Alejandro Vallejo wrote:
->> Part of an unpicking process to extract bootfdt contents independent of
->> bootinfo to a separate file for x86 to take.
+On Sat May 31, 2025 at 2:39 AM CEST, dmkhn wrote:
+> On Fri, May 30, 2025 at 02:02:23PM +0200, Alejandro Vallejo wrote:
+>> ... back into bootfdt.c
 >>=20
->> With this, bootfdt.h can be cleanly included from x86. A later patch
->> extracts the definitions so the functions may be called too.
+>> These will be required by x86 later on to detect modules in the early sc=
+an of
+>> the FDT. They are independent of bootinfo, so it's cleaner for them to e=
+xist in
+>> a separate file.
 >>=20
 >> Not a functional change.
 >>=20
 >> Signed-off-by: Alejandro Vallejo <agarciav@amd.com>
 >> ---
->>  xen/arch/arm/domain_build.c             |   1 +
->>  xen/arch/arm/mmu/mm.c                   |   1 +
->>  xen/arch/riscv/mm.c                     |   2 +-
->>  xen/arch/riscv/setup.c                  |   2 +-
->>  xen/common/device-tree/bootfdt.c        |   1 +
->>  xen/common/device-tree/bootinfo.c       |   2 +-
->>  xen/common/device-tree/dom0less-build.c |   2 +-
->>  xen/common/device-tree/domain-build.c   |   2 +-
->>  xen/common/device-tree/kernel.c         |   2 +-
->>  xen/include/xen/bootfdt.h               | 206 -----------------------
->>  xen/include/xen/bootinfo.h              | 212 ++++++++++++++++++++++++
->>  xen/include/xen/device_tree.h           |   2 +-
->>  xen/include/xen/fdt-domain-build.h      |   2 +-
->>  xen/include/xen/fdt-kernel.h            |   2 +-
->>  14 files changed, 224 insertions(+), 215 deletions(-)
->>  create mode 100644 xen/include/xen/bootinfo.h
+>>  xen/common/device-tree/Makefile       |   1 +
+>>  xen/common/device-tree/bootfdt.c      |  97 ++++++++++++++++++++++++
+>>  xen/common/device-tree/bootinfo-fdt.c | 104 --------------------------
+>>  3 files changed, 98 insertions(+), 104 deletions(-)
+>>  create mode 100644 xen/common/device-tree/bootfdt.c
 >>=20
->> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
->> index 11cc03e5db..c53da76682 100644
->> --- a/xen/arch/arm/domain_build.c
->> +++ b/xen/arch/arm/domain_build.c
->> @@ -1,5 +1,6 @@
->>  /* SPDX-License-Identifier: GPL-2.0-only */
->>  #include <xen/init.h>
->> +#include <xen/bootinfo.h>
->>  #include <xen/compile.h>
->>  #include <xen/fdt-domain-build.h>
->>  #include <xen/fdt-kernel.h>
->> diff --git a/xen/arch/arm/mmu/mm.c b/xen/arch/arm/mmu/mm.c
->> index 9c50479c63..77f82757bb 100644
->> --- a/xen/arch/arm/mmu/mm.c
->> +++ b/xen/arch/arm/mmu/mm.c
->> @@ -1,5 +1,6 @@
->>  /* SPDX-License-Identifier: GPL-2.0-or-later */
->> =20
->> +#include <xen/bootinfo.h>
->>  #include <xen/init.h>
->>  #include <xen/lib.h>
->>  #include <xen/macros.h>
->> diff --git a/xen/arch/riscv/mm.c b/xen/arch/riscv/mm.c
->> index d3ece9f132..040db73d00 100644
->> --- a/xen/arch/riscv/mm.c
->> +++ b/xen/arch/riscv/mm.c
->> @@ -1,6 +1,6 @@
->>  /* SPDX-License-Identifier: GPL-2.0-only */
->> =20
->> -#include <xen/bootfdt.h>
->> +#include <xen/bootinfo.h>
->>  #include <xen/bug.h>
->>  #include <xen/compiler.h>
->>  #include <xen/init.h>
->> diff --git a/xen/arch/riscv/setup.c b/xen/arch/riscv/setup.c
->> index 4e416f6e44..0a2d0dc1eb 100644
->> --- a/xen/arch/riscv/setup.c
->> +++ b/xen/arch/riscv/setup.c
->> @@ -2,7 +2,7 @@
->> =20
->>  #include <xen/acpi.h>
->>  #include <xen/bug.h>
->> -#include <xen/bootfdt.h>
->> +#include <xen/bootinfo.h>
->>  #include <xen/compile.h>
->>  #include <xen/device_tree.h>
->>  #include <xen/init.h>
+>> diff --git a/xen/common/device-tree/Makefile b/xen/common/device-tree/Ma=
+kefile
+>> index bb6d5ddec5..922c5bba9b 100644
+>> --- a/xen/common/device-tree/Makefile
+>> +++ b/xen/common/device-tree/Makefile
+>> @@ -1,3 +1,4 @@
+>> +obj-y +=3D bootfdt.init.o
+>>  obj-y +=3D bootinfo-fdt.init.o
+>>  obj-y +=3D bootinfo.init.o
+>>  obj-y +=3D device-tree.o
 >> diff --git a/xen/common/device-tree/bootfdt.c b/xen/common/device-tree/b=
 ootfdt.c
->> index 529c91e603..fb4ac06390 100644
->> --- a/xen/common/device-tree/bootfdt.c
+>> new file mode 100644
+>> index 0000000000..5decf17faf
+>> --- /dev/null
 >> +++ b/xen/common/device-tree/bootfdt.c
->> @@ -6,6 +6,7 @@
->>   */
->> =20
->>  #include <xen/bootfdt.h>
+>> @@ -0,0 +1,97 @@
+>> +/* SPDX-License-Identifier: GPL-2.0-only */
+>> +#include <xen/bootfdt.h>
+>> +#include <xen/bug.h>
+>> +#include <xen/lib.h>
+>> +#include <xen/libfdt/libfdt.h>
+>> +
+>> +uint32_t __init device_tree_get_u32(const void *fdt, int node,
+>> +                                    const char *prop_name, uint32_t dfl=
+t)
+>> +{
+>> +    const struct fdt_property *prop;
+>> +
+>> +    prop =3D fdt_get_property(fdt, node, prop_name, NULL);
+>> +    if ( !prop || prop->len < sizeof(u32) )
+>> +        return dflt;
+>> +
+>> +    return fdt32_to_cpu(*(uint32_t*)prop->data);
+>> +}
+>> +
+>> +int __init device_tree_for_each_node(const void *fdt, int node,
+>> +                                     device_tree_node_func func,
+>> +                                     void *data)
+>> +{
+>> +    /*
+>> +     * We only care about relative depth increments, assume depth of
+>> +     * node is 0 for simplicity.
+>> +     */
+>> +    int depth =3D 0;
+>> +    const int first_node =3D node;
+>> +    u32 address_cells[DEVICE_TREE_MAX_DEPTH];
+>> +    u32 size_cells[DEVICE_TREE_MAX_DEPTH];
+>> +    int ret;
+>> +
+>> +    do {
+>> +        const char *name =3D fdt_get_name(fdt, node, NULL);
+>> +        u32 as, ss;
+>> +
+>> +        if ( depth >=3D DEVICE_TREE_MAX_DEPTH )
+>> +        {
+>> +            printk("Warning: device tree node `%s' is nested too deep\n=
+",
+>> +                   name);
 >
-> Is this kept on purpose?
+> Use XENLOG_WARNING?
+>
+>> +            continue;
+>> +        }
+>> +
+>> +        as =3D depth > 0 ? address_cells[depth-1] : DT_ROOT_NODE_ADDR_C=
+ELLS_DEFAULT;
+>> +        ss =3D depth > 0 ? size_cells[depth-1] : DT_ROOT_NODE_SIZE_CELL=
+S_DEFAULT;
+>> +
+>> +        address_cells[depth] =3D device_tree_get_u32(fdt, node,
+>> +                                                   "#address-cells", as=
+);
+>> +        size_cells[depth] =3D device_tree_get_u32(fdt, node,
+>> +                                                "#size-cells", ss);
+>> +
+>> +        /* skip the first node */
+>> +        if ( node !=3D first_node )
+>> +        {
+>> +            ret =3D func(fdt, node, name, depth, as, ss, data);
+>> +            if ( ret !=3D 0 )
+>> +                return ret;
+>> +        }
+>> +
+>> +        node =3D fdt_next_node(fdt, node, &depth);
+>> +    } while ( node >=3D 0 && depth > 0 );
+>> +
+>> +    return 0;
+>> +}
+>> +
+>> +void __init device_tree_get_reg(const __be32 **cell, uint32_t address_c=
+ells,
+>> +                                uint32_t size_cells, paddr_t *start,
+>> +                                paddr_t *size)
+>> +{
+>> +    uint64_t dt_start, dt_size;
+>> +
+>> +    /*
+>> +     * dt_next_cell will return uint64_t whereas paddr_t may not be 64-=
+bit.
+>> +     * Thus, there is an implicit cast from uint64_t to paddr_t.
+>> +     */
+>> +    dt_start =3D dt_next_cell(address_cells, cell);
+>> +    dt_size =3D dt_next_cell(size_cells, cell);
+>> +
+>> +    if ( dt_start !=3D (paddr_t)dt_start )
+>> +    {
+>> +        printk("Physical address greater than max width supported\n");
+>
+> I would add current and expected dt_start values to the printout.
+>
+>> +        WARN();
+>> +    }
+>> +
+>> +    if ( dt_size !=3D (paddr_t)dt_size )
+>> +    {
+>> +        printk("Physical size greater than max width supported\n");
+>> +        WARN();
+>> +    }
+>> +
+>> +    /*
+>> +     * Xen will truncate the address/size if it is greater than the max=
+imum
+>> +     * supported width and it will give an appropriate warning.
+>> +     */
+>> +    *start =3D dt_start;
+>> +    *size =3D dt_size;
+>> +}
+>> diff --git a/xen/common/device-tree/bootinfo-fdt.c b/xen/common/device-t=
+ree/bootinfo-fdt.c
+>> index bb5f45771e..736f877616 100644
+>> --- a/xen/common/device-tree/bootinfo-fdt.c
+>> +++ b/xen/common/device-tree/bootinfo-fdt.c
+>> @@ -112,39 +112,6 @@ static bool __init device_tree_is_memory_node(const=
+ void *fdt, int node,
+>>      return true;
+>>  }
+>>=20
+>> -void __init device_tree_get_reg(const __be32 **cell, uint32_t address_c=
+ells,
+>> -                                uint32_t size_cells, paddr_t *start,
+>> -                                paddr_t *size)
+>> -{
+>> -    uint64_t dt_start, dt_size;
+>> -
+>> -    /*
+>> -     * dt_next_cell will return uint64_t whereas paddr_t may not be 64-=
+bit.
+>> -     * Thus, there is an implicit cast from uint64_t to paddr_t.
+>> -     */
+>> -    dt_start =3D dt_next_cell(address_cells, cell);
+>> -    dt_size =3D dt_next_cell(size_cells, cell);
+>> -
+>> -    if ( dt_start !=3D (paddr_t)dt_start )
+>> -    {
+>> -        printk("Physical address greater than max width supported\n");
+>> -        WARN();
+>> -    }
+>> -
+>> -    if ( dt_size !=3D (paddr_t)dt_size )
+>> -    {
+>> -        printk("Physical size greater than max width supported\n");
+>> -        WARN();
+>> -    }
+>> -
+>> -    /*
+>> -     * Xen will truncate the address/size if it is greater than the max=
+imum
+>> -     * supported width and it will give an appropriate warning.
+>> -     */
+>> -    *start =3D dt_start;
+>> -    *size =3D dt_size;
+>> -}
+>> -
+>>  static int __init device_tree_get_meminfo(const void *fdt, int node,
+>>                                            const char *prop_name,
+>>                                            u32 address_cells, u32 size_c=
+ells,
+>> @@ -205,77 +172,6 @@ static int __init device_tree_get_meminfo(const voi=
+d *fdt, int node,
+>>      return 0;
+>>  }
+>>=20
+>> -u32 __init device_tree_get_u32(const void *fdt, int node,
+>> -                               const char *prop_name, u32 dflt)
+>> -{
+>> -    const struct fdt_property *prop;
+>> -
+>> -    prop =3D fdt_get_property(fdt, node, prop_name, NULL);
+>> -    if ( !prop || prop->len < sizeof(u32) )
+>> -        return dflt;
+>> -
+>> -    return fdt32_to_cpu(*(uint32_t*)prop->data);
+>> -}
+>> -
+>> -/**
+>> - * device_tree_for_each_node - iterate over all device tree sub-nodes
+>> - * @fdt: flat device tree.
+>> - * @node: parent node to start the search from
+>> - * @func: function to call for each sub-node.
+>> - * @data: data to pass to @func.
+>> - *
+>> - * Any nodes nested at DEVICE_TREE_MAX_DEPTH or deeper are ignored.
+>> - *
+>> - * Returns 0 if all nodes were iterated over successfully.  If @func
+>> - * returns a value different from 0, that value is returned immediately=
+.
+>> - */
+>> -int __init device_tree_for_each_node(const void *fdt, int node,
+>> -                                     device_tree_node_func func,
+>> -                                     void *data)
+>> -{
+>> -    /*
+>> -     * We only care about relative depth increments, assume depth of
+>> -     * node is 0 for simplicity.
+>> -     */
+>> -    int depth =3D 0;
+>> -    const int first_node =3D node;
+>> -    u32 address_cells[DEVICE_TREE_MAX_DEPTH];
+>> -    u32 size_cells[DEVICE_TREE_MAX_DEPTH];
+>> -    int ret;
+>> -
+>> -    do {
+>> -        const char *name =3D fdt_get_name(fdt, node, NULL);
+>> -        u32 as, ss;
+>> -
+>> -        if ( depth >=3D DEVICE_TREE_MAX_DEPTH )
+>> -        {
+>> -            printk("Warning: device tree node `%s' is nested too deep\n=
+",
+>> -                   name);
+>> -            continue;
+>> -        }
+>> -
+>> -        as =3D depth > 0 ? address_cells[depth-1] : DT_ROOT_NODE_ADDR_C=
+ELLS_DEFAULT;
+>> -        ss =3D depth > 0 ? size_cells[depth-1] : DT_ROOT_NODE_SIZE_CELL=
+S_DEFAULT;
+>> -
+>> -        address_cells[depth] =3D device_tree_get_u32(fdt, node,
+>> -                                                   "#address-cells", as=
+);
+>> -        size_cells[depth] =3D device_tree_get_u32(fdt, node,
+>> -                                                "#size-cells", ss);
+>> -
+>> -        /* skip the first node */
+>> -        if ( node !=3D first_node )
+>> -        {
+>> -            ret =3D func(fdt, node, name, depth, as, ss, data);
+>> -            if ( ret !=3D 0 )
+>> -                return ret;
+>> -        }
+>> -
+>> -        node =3D fdt_next_node(fdt, node, &depth);
+>> -    } while ( node >=3D 0 && depth > 0 );
+>> -
+>> -    return 0;
+>> -}
+>> -
+>>  static int __init process_memory_node(const void *fdt, int node,
+>>                                        const char *name, int depth,
+>>                                        u32 address_cells, u32 size_cells=
+,
+>> --
+>> 2.43.0
+>>=20
+>>=20
 
-No. Should've been subsumed
+As I answered to Daniel, as I'd rather not introduce functional changes in
+code motion commits. I draw the line at trivial retyping (e.g: u32->uint32_=
+t)
+
+Otherwise it's just very confusing to future readers.
 
 Cheers,
 Alejandro
+
 
