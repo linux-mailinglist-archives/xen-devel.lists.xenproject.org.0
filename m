@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B02FACF493
-	for <lists+xen-devel@lfdr.de>; Thu,  5 Jun 2025 18:43:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1007187.1386496 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F830ACF49C
+	for <lists+xen-devel@lfdr.de>; Thu,  5 Jun 2025 18:46:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1007201.1386505 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uNDgD-0005s3-Ua; Thu, 05 Jun 2025 16:43:01 +0000
+	id 1uNDjg-0006RL-BS; Thu, 05 Jun 2025 16:46:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1007187.1386496; Thu, 05 Jun 2025 16:43:01 +0000
+Received: by outflank-mailman (output) from mailman id 1007201.1386505; Thu, 05 Jun 2025 16:46:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uNDgD-0005pm-Ra; Thu, 05 Jun 2025 16:43:01 +0000
-Received: by outflank-mailman (input) for mailman id 1007187;
- Thu, 05 Jun 2025 16:43:00 +0000
+	id 1uNDjg-0006Ov-8s; Thu, 05 Jun 2025 16:46:36 +0000
+Received: by outflank-mailman (input) for mailman id 1007201;
+ Thu, 05 Jun 2025 16:46:35 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=OIxA=YU=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1uNDgC-0005pg-FC
- for xen-devel@lists.xenproject.org; Thu, 05 Jun 2025 16:43:00 +0000
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [2a00:1450:4864:20::334])
+ id 1uNDjf-0006Op-EJ
+ for xen-devel@lists.xenproject.org; Thu, 05 Jun 2025 16:46:35 +0000
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [2a00:1450:4864:20::433])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 23768184-422c-11f0-a300-13f23c93f187;
- Thu, 05 Jun 2025 18:42:59 +0200 (CEST)
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-451d54214adso10551825e9.3
- for <xen-devel@lists.xenproject.org>; Thu, 05 Jun 2025 09:42:59 -0700 (PDT)
+ id a3f06573-422c-11f0-a300-13f23c93f187;
+ Thu, 05 Jun 2025 18:46:34 +0200 (CEST)
+Received: by mail-wr1-x433.google.com with SMTP id
+ ffacd0b85a97d-3a375888297so832794f8f.1
+ for <xen-devel@lists.xenproject.org>; Thu, 05 Jun 2025 09:46:34 -0700 (PDT)
 Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
  by smtp.gmail.com with UTF8SMTPSA id
- ffacd0b85a97d-3a526057278sm3275358f8f.63.2025.06.05.09.42.57
+ ffacd0b85a97d-3a4efe5b962sm24680645f8f.7.2025.06.05.09.46.33
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 05 Jun 2025 09:42:58 -0700 (PDT)
+ Thu, 05 Jun 2025 09:46:33 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,39 +45,39 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 23768184-422c-11f0-a300-13f23c93f187
+X-Inumbo-ID: a3f06573-422c-11f0-a300-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1749141778; x=1749746578; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1749141994; x=1749746794; darn=lists.xenproject.org;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=jS5ousCDstlmnF7/5OSdRCNjs1Jf2SFLpZF6K4Qv/2A=;
-        b=ujzpC09fULOULxDs93CXsb/jLswQTJ3QGsUXFbdYnB91lCzM4VFlxRSeiT3LU575+S
-         AfFw9ilsbF+9uAI2BmVlWJe50GndLtYI5be44a4OBQJI3fuSx8EYsAt02EZiyh5Mxjk6
-         MtXirI9ODe/3lar6ILC9ud4RwKB7ZfyJ5x0C8=
+        bh=tF2RYmlrfsihfCJDHABaxRuBbzTraqXR8hxQV/ylMr8=;
+        b=gr33vLP4I8lCoR2AWm90kohEu7MqlWwGESCaAHU+XuTnYL3nS+OF+a9tzBWIOgc/xI
+         5fJw3SpDCbitdS4ku8/M22Qfeao9H/KV7Y/D5w5w3vJ4wLHLkdY5uaKN36ALx4nX9EC7
+         bmonZg2HcBUAxiq/6kRHni1OebIgwrBT3UfQ0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749141778; x=1749746578;
+        d=1e100.net; s=20230601; t=1749141994; x=1749746794;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=jS5ousCDstlmnF7/5OSdRCNjs1Jf2SFLpZF6K4Qv/2A=;
-        b=luWUmZPrFOnfVrEHx6FuAft++GPEPSiMWIvKntoVcmiiZ1//9GqDi1S1uFTXuOmfEm
-         VE2ragBqvUJwEGWnVlUD90ty/rW1qCgJvLbcO3/qJvvmVXw2zswCpx8reWFvmMsWreqK
-         BP0tSEuomICaUUuTU/Bva7bWJJdA+Djrb1gjPI3xoNpG0gksH4h86iehZklKECt+sRqo
-         +A4VqjdJeTiYC5zdeHepL+TGJGzZkRg9FOcm/+osO2ERwrM123MsR7msFZQRbGbICcXV
-         BNx2ljbevzmZO7V16RCCXivv6oalnryJpi5gY0Rj+MYKtn0GDla10Nz3UrFRVeth+qbJ
-         L+sw==
-X-Gm-Message-State: AOJu0YywxOAS2fu8LgUW1zyQOeNcWHWd90PqFk4MGXC09XpnmmFkS3nA
-	dP3xPGnmxYUu9fFWjeMjjF+u/+224BEOX90yvv2wKdi1dqVvGskftYk8QueG0a+bnpE=
-X-Gm-Gg: ASbGncvx7CZxxumLiNNSFQbE3luElHiJydSp76TchCg61yffFKKTI9hxVbPARyNEUaT
-	8X2p/mFt7/DkYsp1L+0vNr5muhygD0W6D6MO+/F9NBFuQZY+2m32g6b45I1E/ESvYP8SPjeLzAj
-	QKBt+z75NDR+ZdUqT1M3KBJc7U+PQ/D/RnQWS/U8yzE85+Xk+hofvf76tIdK5cMB+zkcrkb/6Nr
-	93PULKnj39Khn3nxgTOxzkKkFNp736Vtph3q6faO1BVWLCPm+DKIdSkSoHlpOxSjs3Xhkoh98Iw
-	iz44+sPV2DSKtJFyE7+62in7XulaQMCDnudlTP28LA8vQoiZ9laUUoOqhly/jW/bAh/exYwdGBi
-	CEfwI/2inMm458qmZ/l0=
-X-Google-Smtp-Source: AGHT+IGW4zfyxVASdZjZXU2t5k0+1CB0DezzCdUkhzOB1D2Oso+yde2xrRETt41dj3ttXfPLUOCJ5w==
-X-Received: by 2002:a05:600c:3b2a:b0:43c:fceb:91a with SMTP id 5b1f17b1804b1-451f0a76e2dmr75227615e9.11.1749141778497;
-        Thu, 05 Jun 2025 09:42:58 -0700 (PDT)
-Date: Thu, 5 Jun 2025 18:42:57 +0200
+        bh=tF2RYmlrfsihfCJDHABaxRuBbzTraqXR8hxQV/ylMr8=;
+        b=tCS1GF39+H8KLJkc0feSvHIgOAZz6KjmtAkz0ugI044B40NHYmoV9CMFvxnwoFbWol
+         JiMOhh36Nvh6DLaqxofqZKVCYEBtUv7BHa2OSyKHgv6kNYaAp7BxZOigkQ4dBf8x6pG+
+         LRgnCMG6MIeDYL03WX9+hy9OZRHjox/D189k4pCMLQIkMsryFgH6PSEQVbKarsvIoR7N
+         75AW6NjS2w4uy6pov8VTwHDcSp2T2RlPZAIIKA76jV10uOC0ARimWAlXWZfrhtDmkMVE
+         OonP64RrOeJyngbDVMwyC2FZoYmp2WNHFkFEAt3+dJMNzVqFJJFNi5VRFx15GbQ2ccLk
+         Ljyg==
+X-Gm-Message-State: AOJu0YwgnvNKH0u0MFnVx0TQ8c4+YymWWf4YakrF3w6k1zo3uV7ULtZI
+	WPZADywT0BIwCQUVbhObrIGwuZDp2+WTBi/dLXg+wM1jTuC5fvZJ9JOjG7A2R1AmvkQ=
+X-Gm-Gg: ASbGncsm8NcsmXF0gUE8Orloj0BaioK7iVHWuHSea2oEGyk+5kh/JOO3wiA2Pm4b2XW
+	uVBK2Lj1qehps6O3hDTBBdGrPi4S0azgZeVlyFfgx2J1KeZQuch9SV1TNWaP4TkGCzChnM9WOy7
+	F38tUPPD/iWnWCWqC0zg8tij78ZOhLfwGkAOeswGIBHEOCfnS3yF/wlxGe2Q9dzVxDVj6YTw3rN
+	7mjNQEsD0jNeSm7+kUZiNUPJCmlxJDy/M4Sn1O7iszoSPoYTG/RwIzHE9Q6ouS9V9YwbuXA+Ppp
+	U5tjyQWrcwO9vU8bsTSf+5M1G3Ff6+srSMh13eZL+v1wTxjqjhnBJIY61rSaXX0v0KFkbXK/3cl
+	LuMEsDoWzMyGYFwYZ3oM=
+X-Google-Smtp-Source: AGHT+IG/mMzq/AsY9m/PASllsxJuaaE8S5HeQ9m4s0iN+w5ISImeeXMzN421WZNvEjhRvXAxvbV+Mw==
+X-Received: by 2002:a5d:5f96:0:b0:3a4:d685:3de7 with SMTP id ffacd0b85a97d-3a526dcdd91mr3846479f8f.8.1749141994007;
+        Thu, 05 Jun 2025 09:46:34 -0700 (PDT)
+Date: Thu, 5 Jun 2025 18:46:32 +0200
 From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
 To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 Cc: xen-devel@lists.xenproject.org,
@@ -87,38 +87,51 @@ Cc: xen-devel@lists.xenproject.org,
 	Michal Orzel <michal.orzel@amd.com>,
 	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH 02/11] xen/page_alloc: Remove `claim` from
- domain_set_outstanding_pages()
-Message-ID: <aEHJEc5Pht5xcMfO@macbook.local>
+Subject: Re: [PATCH 03/11] xen/page_alloc: Add static per-node counts of free
+ pages
+Message-ID: <aEHJ6FwvhaMXhVr9@macbook.local>
 References: <20250314172502.53498-1-alejandro.vallejo@cloud.com>
- <20250314172502.53498-3-alejandro.vallejo@cloud.com>
+ <20250314172502.53498-4-alejandro.vallejo@cloud.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20250314172502.53498-3-alejandro.vallejo@cloud.com>
+In-Reply-To: <20250314172502.53498-4-alejandro.vallejo@cloud.com>
 
-On Fri, Mar 14, 2025 at 05:24:53PM +0000, Alejandro Vallejo wrote:
-> With a single global count for the claims it's easy to substract
-> domain_tot_pages() from the claim so the number given in the hypercall
-> is the real reservation of the domain. This is the current behaviour.
+On Fri, Mar 14, 2025 at 05:24:54PM +0000, Alejandro Vallejo wrote:
+> These are effectively the sum of free memory in all zones of each node.
+> It's an optimization to avoid doing that operation frequently in
+> following patches that introduce exact-node claims.
 > 
-> However, a later patch introduces exact-node claims and those interact
-> very poorly with such a scheme. Since accounting domain_tot_pages() in
-> one case but not the other seems strictly worse than not accounting them
-> at all (which is at least consistent), this patch stops substracting
-> tot_pages from the claim and instead checks that claimed memory +
-> allocated memory don't exceed max_mem.
+> Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+> ---
+>  xen/common/page_alloc.c | 7 +++++++
+>  1 file changed, 7 insertions(+)
+> 
+> diff --git a/xen/common/page_alloc.c b/xen/common/page_alloc.c
+> index 49c3258169db..733b0300a767 100644
+> --- a/xen/common/page_alloc.c
+> +++ b/xen/common/page_alloc.c
+> @@ -485,6 +485,9 @@ static unsigned long node_need_scrub[MAX_NUMNODES];
+>  static unsigned long *avail[MAX_NUMNODES];
+>  static long total_avail_pages;
+>  
+> +/* Per-node counts of free pages */
+> +static unsigned long pernode_avail_pages[MAX_NUMNODES];
+> +
+>  static DEFINE_SPINLOCK(heap_lock);
+>  static long outstanding_claims; /* total outstanding claims by all domains */
+>  
+> @@ -1033,6 +1036,7 @@ static struct page_info *alloc_heap_pages(
+>  
+>      ASSERT(avail[node][zone] >= request);
+>      avail[node][zone] -= request;
+> +    pernode_avail_pages[node] -= request;
 
-Hm, while I don't have any specific interest in keeping the current
-behavior, XENMEM_claim_pages is part of the stable ABI (it's not a
-domctl), and hence should be stable.  Note also the comment above the
-definition of XENMEM_claim_pages how it states the specific behavior
-that you are trying to change (and which should have been adjusted as
-part of this change).
+Since it's done for the per-zone tracking, you might as well add:
 
-I have no idea why this was made a xenmem rather than a domctl
-hypercall, but if you want to change the semantics I think the only
-option is introducing a new hypercall.
+ASSERT(pernode_avail_pages[node] >= request);
+
+here?
 
 Thanks, Roger.
 
