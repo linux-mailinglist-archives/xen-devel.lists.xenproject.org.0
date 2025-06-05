@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6584CACF0CD
-	for <lists+xen-devel@lfdr.de>; Thu,  5 Jun 2025 15:35:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1006893.1386153 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F1BAACF0EB
+	for <lists+xen-devel@lfdr.de>; Thu,  5 Jun 2025 15:40:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1006903.1386163 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uNAl3-0001r4-Sa; Thu, 05 Jun 2025 13:35:49 +0000
+	id 1uNAp0-0002Xm-Fo; Thu, 05 Jun 2025 13:39:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1006893.1386153; Thu, 05 Jun 2025 13:35:49 +0000
+Received: by outflank-mailman (output) from mailman id 1006903.1386163; Thu, 05 Jun 2025 13:39:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uNAl3-0001ok-Ow; Thu, 05 Jun 2025 13:35:49 +0000
-Received: by outflank-mailman (input) for mailman id 1006893;
- Thu, 05 Jun 2025 13:35:48 +0000
+	id 1uNAp0-0002Vr-Ck; Thu, 05 Jun 2025 13:39:54 +0000
+Received: by outflank-mailman (input) for mailman id 1006903;
+ Thu, 05 Jun 2025 13:39:53 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=OIxA=YU=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1uNAl2-0001LF-3E
- for xen-devel@lists.xenproject.org; Thu, 05 Jun 2025 13:35:48 +0000
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [2a00:1450:4864:20::32c])
+ <SRS0=VsQq=YU=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
+ id 1uNAoz-0002Vk-Om
+ for xen-devel@lists.xenproject.org; Thu, 05 Jun 2025 13:39:53 +0000
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2061e.outbound.protection.outlook.com
+ [2a01:111:f403:2415::61e])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id fc2480bd-4211-11f0-b894-0df219b8e170;
- Thu, 05 Jun 2025 15:35:46 +0200 (CEST)
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-450cfb79177so5203395e9.0
- for <xen-devel@lists.xenproject.org>; Thu, 05 Jun 2025 06:35:46 -0700 (PDT)
-Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
- by smtp.gmail.com with UTF8SMTPSA id
- ffacd0b85a97d-3a5236d4466sm3830417f8f.100.2025.06.05.06.35.45
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 05 Jun 2025 06:35:45 -0700 (PDT)
+ id 8d63a341-4212-11f0-b894-0df219b8e170;
+ Thu, 05 Jun 2025 15:39:51 +0200 (CEST)
+Received: from PH8PR12MB7326.namprd12.prod.outlook.com (2603:10b6:510:216::7)
+ by PH0PR12MB7863.namprd12.prod.outlook.com (2603:10b6:510:28b::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8769.29; Thu, 5 Jun
+ 2025 13:39:45 +0000
+Received: from PH8PR12MB7326.namprd12.prod.outlook.com
+ ([fe80::6d76:9c33:d230:8264]) by PH8PR12MB7326.namprd12.prod.outlook.com
+ ([fe80::6d76:9c33:d230:8264%2]) with mapi id 15.20.8792.035; Thu, 5 Jun 2025
+ 13:39:45 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,286 +47,244 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fc2480bd-4211-11f0-b894-0df219b8e170
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1749130546; x=1749735346; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=oQ/jRID1McYK5kSvWo683gzCCMc2GCjXLg/u+H+QyLA=;
-        b=QbuB2DskTkH4xby0VvSC2C1eqDm1u6Aog0pTGrZZdYSaOlJTvoB7bKRDJhKFbEdIkd
-         WEJEg1ZZK2ML9KaBymL0mIyfVUbI1CLQqc0S+QrQNdI5eAxeWM9G9cXd8GbXON0bOc1D
-         W8dZJanK+Z6SOsISH5JkH9t/S2jbQBljzf68E=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749130546; x=1749735346;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=oQ/jRID1McYK5kSvWo683gzCCMc2GCjXLg/u+H+QyLA=;
-        b=dI2CWKvRbmdAN+hmtQMRbpLRK9Wzj2yT33Bc4dhNjtooCo+nPmf0lpRWd444nN8o2O
-         WFK/kd3/l/dW9b8onezSddYiPUXQoFGgJlfzRkZEtXmxMufXQUOiRvrndsfvJJoRB+lF
-         MLjnYt1asIyyrS3pDW2zbacpNY6CNL3qpddvFet9SwT8UF9IJvlZv9k9g5ly6JN1ivYM
-         Odd8TW6mbjnWWxtS6l8nq9kW+lfnDfqPhZcxBCIJ9sbD6lYNnhuMGx93hHkTW9WqslH8
-         BW7IfIzQQNMdRYiKT3Vz0QEdTKQ/wL+i96ga/yc7LXPqa1L8qXv7QoHqAMgAMd6/HVxH
-         mklA==
-X-Gm-Message-State: AOJu0YwkvGbNUn+zMvr1VHZSzbbKcYqQHdTenDs4cSo0UDAzPOTHDuEo
-	IutkoKLJjNVaPz6W39nK9fHtGQMQKp50Fy+eE6Pa+Fo0pHREsfBq40MN1UKMGMwFLFE=
-X-Gm-Gg: ASbGncu/URV9j+WdnPVLdPxjd86hnIF/M03vLFcBUkmRPOrXUoIybU1Nk6+a1c0o76U
-	DIl3/bTOlAtkHU3V3pRJeufwgrzG10aNpmZrxhRhjQiRPixKw/QT5bvtx8KQfUi6GfoVDe77ncv
-	EoQwKmnuTBweOe3KVRNBdIAfzwApA9W+mDiEFnRB2c4hqpLTKmr2Hr5o9Ni7eM60odzJt0Lk2h0
-	8dy/ArK405jlL0tLdkv2LJgeUgDlIkHxqtjwokSeGV2XIf42N9hYMGu6scnwGNNIRVvzr6mS+Ss
-	o05VTsjmenq+1N0fFxxj7Kt7Zgj8jXzEHAEI35To1QT540ZaFWGrEW4eKvio7sWEif4mV+ing+5
-	OC23xa/Z0pFqt8JdR55A=
-X-Google-Smtp-Source: AGHT+IFKvGAsjt58i8TD5iBhNxJeDuesXrMdBfrrvsKe2th459ziI4h37GCaLcWy+DHu1gAjpDp9GQ==
-X-Received: by 2002:a05:600c:190c:b0:43c:fffc:7886 with SMTP id 5b1f17b1804b1-451f0a75a7emr65555145e9.8.1749130545554;
-        Thu, 05 Jun 2025 06:35:45 -0700 (PDT)
-Date: Thu, 5 Jun 2025 15:35:44 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jiqian Chen <Jiqian.Chen@amd.com>
-Cc: xen-devel@lists.xenproject.org, Huang Rui <ray.huang@amd.com>
-Subject: Re: [PATCH v5 05/10] vpci: Hide legacy capability when it fails to
- initialize
-Message-ID: <aEGdMBmZsfQaRdJC@macbook.local>
-References: <20250526094559.140423-1-Jiqian.Chen@amd.com>
- <20250526094559.140423-6-Jiqian.Chen@amd.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+X-Inumbo-ID: 8d63a341-4212-11f0-b894-0df219b8e170
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=joiX8cbpeZtGFbfbBqnTLKCHWDxUoHZ53IAmXuvLIFwHJxArL7vQT22YHzonzWDoZ/LBuviICGy1bRTYL8kxJjFGZY6HELDudw50MbmZ3ffPW6ORpnjovh1BxOoo69q1nlnWvKeP6udLrWQ/VB2C/UeL54ChN3mJysByWF/0S98qByXxvhZL/uHgRnE+w00NYmXLm/pKVXeQ1BKnRTXpltjqLkX74B1HnQ9rW1dK7u2O+PDIjk+lF14oGLDxD6Acs2D02U1U6vPbHd5yU6JQ4ixrmQqlsqI4bS3ECYgrS5u93rD2MQHddkGDzIQ531iqT5l9jhoYJ0q3+rstx49eaQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=l3GLrIAh+ueQVINWLFF4tU/zqXrndxrvyjSzTP+6QRA=;
+ b=qfX3NKoN4RESow6ELwriqSTbjAfpX1Gz0X3Jt4ZRnOdNI+yaeNYGcdKC8Eu0Qudpz2GjALcS3griPxP5QnPPKot4hUx6PXBMMqxwbenKpRi+o5O4Ji0hZ4HcuU+z7EfGy4DExlL/weMIjDtidZPBIjBK1vtRTsdQb3c6l9Y+3KSGyFfnltGGscHMClEHpY9hJoLbbBxHh7kbE/v0oRvW0GgOAYg3V0jrDy6fJsQe/Le2fXr9w7L8Nhfqd1WpT57YtBz4HwJlLXbx5MIIP5YI8L1Tc3K7ukMmOcPPAGFbKPW7HkmsM3E81sEfFnNpWNo/kDPtLqpZ1x+NhEbVeiJFjg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=l3GLrIAh+ueQVINWLFF4tU/zqXrndxrvyjSzTP+6QRA=;
+ b=gtMC5NwN0pZB6OrnCow5zu2/N67dTNmzKxYHFy4WjMoANrbvu6nAjpvQrSa2eXuq/exMzz0W0djrIfncheG2osetjg6xAutc2/nrgb3jxfRb7ZIsIgMYUrouhpgliLT/HyDSR+XabUMsqyypG0xNVV+YIYoXwut05sUqxdZQcmA=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Message-ID: <bb3ce203-de59-41b7-ad7d-3b1f3f1c9833@amd.com>
+Date: Thu, 5 Jun 2025 14:39:41 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 1/3] arm/mpu: Introduce MPU memory region map structure
+Content-Language: en-GB
+To: "Orzel, Michal" <michal.orzel@amd.com>,
+ Ayan Kumar Halder <ayan.kumar.halder@amd.com>, xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20250604174311.754899-1-ayan.kumar.halder@amd.com>
+ <20250604174311.754899-2-ayan.kumar.halder@amd.com>
+ <a2f337f2-1f34-41f1-9728-5f87ef2c7420@amd.com>
+From: Ayan Kumar Halder <ayankuma@amd.com>
+In-Reply-To: <a2f337f2-1f34-41f1-9728-5f87ef2c7420@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20250526094559.140423-6-Jiqian.Chen@amd.com>
+X-ClientProxiedBy: AM0PR03CA0013.eurprd03.prod.outlook.com
+ (2603:10a6:208:14::26) To PH8PR12MB7326.namprd12.prod.outlook.com
+ (2603:10b6:510:216::7)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH8PR12MB7326:EE_|PH0PR12MB7863:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5c0f4fa3-5835-484a-fe19-08dda4366ee2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?Yi9DcFFRZjNxQnU3V3Z6QWNYRGF0cjcvbmZxQjZtWjNzMG1BcENjdTBrQTl5?=
+ =?utf-8?B?N2c2aFQzazRrNlZmTXJSUzIrN1E2Rzh2dzNZRnlzSTR2SVdWYUZjNnAvWVMr?=
+ =?utf-8?B?RENrUUxxeVZWbi9KbWgyMlE1bW9FRjZwQ1k5eGJSY1ZQZTB1eVovNStxOURG?=
+ =?utf-8?B?TlZkdnZvYURENlFHOTVYVmtVbUk3bUYyMzBQN3ZKREMrUlUzYlMyV3N3Z015?=
+ =?utf-8?B?L01ERlRRSTA2eUdweEsyZFJkNDFYQW1OWEhaaXZoaXlqVjFLc2tkVDlJWDhw?=
+ =?utf-8?B?a3kxTUpuMFNlVFphcFVIN1E0dWpqcFQ3RzlBUW10ZjZ6dG4rS1ZhZEZLV295?=
+ =?utf-8?B?OXVPMzFKWU5QZXA3bndDWXBTRWo2OUhLOXE2Mlg1b0RQdXRFc1JGby9HRVd2?=
+ =?utf-8?B?cTg5ak5hSlJkYlBlYXRJNk5SSS9tNUZLcmgxMWZMcWR0YmwrSGNVK3lzcE1B?=
+ =?utf-8?B?aFBmbjFlSkw1dTEvVWRUTm5sOVJWU3Nsa1BySEFkanJNRDhna1RwWGwyRUNJ?=
+ =?utf-8?B?OHA2R01YdjFhb1dUWFk1RG1xelNEL1V4MTlmMjB0RDJkNHZIdG5QZHdlbjBL?=
+ =?utf-8?B?QTB3WjZDRVViLysxYkY5VWpDUkFCNFlJNlY4ckVMamt5OHc3d3Jqc0gzcGQw?=
+ =?utf-8?B?Ym5xWVZCT3c0VnVOSHVEQ0ZKdXBPZWVoclkvaDVpZG8rVTMrSlAxL1gvODIv?=
+ =?utf-8?B?NUpoeEJqOERpSFJQMnF1bzJ0RldMdVhvNy9ZQlBKbm9NVnRCSC9yL2U4Nkd3?=
+ =?utf-8?B?ME03V0kzeU81S3I0dHg0OXRzZDJqZ2haYWJ0SVJmUzA0TTNVVTBjSllULzBY?=
+ =?utf-8?B?U1EzUHRJVVRyWjFva3ZaY0c2dW5rWmM1akp0N3VtTkJvSTNVOWFQSWJkZEVG?=
+ =?utf-8?B?bHo0UmpSbWVPSmxPa1VlZVV3KzZMNE1hS0pIWEsvZ1c4ZVZBbjdWdG0zM0xi?=
+ =?utf-8?B?OFFJU2VQWEg4bzBCL25EVSszTUdnbVdzRDFIekxLZ1pnT3NiYkFuZTRSNzZj?=
+ =?utf-8?B?VkJQOFZBRUFwQ2xURFVPYnUyUWdnbjlKKzhpaUN5VWd6VUpPNnVQQWNEbkU1?=
+ =?utf-8?B?dVpTS1UxdUR0OGIyQjBoK3lhRnlvY29lTXZ6ZlZpV0ZyM2hIT0FYVGZKclhI?=
+ =?utf-8?B?RGJ6amovMlJoaWcyaEI5ajZEeG1MMVZSYWVCUU1XNmNVNnEyQSs2eGVJb0xM?=
+ =?utf-8?B?UGwzWWFRV2s4QWFJdnJ3TW9IWTRTY2s5ekhXVkxSa0FCQXVCRzhqcWtUQ1RD?=
+ =?utf-8?B?N0FJWXFTcFFqV1pOT0hKMTZXNGlxeGFuZ1N1c0tFc0Y0REhLNDB1OEUrUTRC?=
+ =?utf-8?B?SXl3MlBGOW9FNTVkUVJsc2RiTEhaYjhGVk9LeXNHVjF5bVF4VHgxcThUNlFZ?=
+ =?utf-8?B?azMwRHNwVGZUOTVlNGlUMTl3WTVVNksvK3gwWnA4R1M4VTBPRHFrYVFsbG9q?=
+ =?utf-8?B?VFg3TVUySEkyNFVFbDdsR3RJOVE4dk9JR3VkZkRrVVBYMGdZVTg4dFZpbEJI?=
+ =?utf-8?B?bnQ2TndPVjhtQnNLeVBSQXUzbUdDV2x3aXN6d3dxb1BkQkdUM0pXK3ArNGN6?=
+ =?utf-8?B?VjZzbzBMOXpwcFlpaHhXemtKQjhWbTFOTnhqYWd6dHVuQm5Nb3RSRTcxU0Er?=
+ =?utf-8?B?ZGh5dVRpSFdSRkxhVStERUI5YzRNU0xaajcrV2VIeWxxSkNwZllsZjROMS9j?=
+ =?utf-8?B?ZzFGTU4yQW5nc2xKQlNQcTZXWVpLSnBWM2c0WnBHZXBvd1hsang5bytjZTJo?=
+ =?utf-8?B?NkIrNDV4RFNCckJJVW9QMGphbUJDRmdKR2JsMWZXR0FjUFZGcjd4UjFhTWJw?=
+ =?utf-8?B?SDdIVmR1cTRXSXdRb1lES3l1YmhwdzB2Y2Nwdzg1QkU3NUcrb214Vmd1VEhv?=
+ =?utf-8?B?Z3VqL0Z2eDY5VHhOYTErc2QzSXVSYkc1WTNhWFFONEFqZWxpSlFzelFBK3dQ?=
+ =?utf-8?Q?pte5PWEdE4U=3D?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR12MB7326.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?dmtIejU2MzJLam96RkVKQ1p1TWhVeU5KSmo2VW81UVUrNmdpY2tOSFhNOEIr?=
+ =?utf-8?B?VG5qVWJyL25nRnZCWm83M05yY1RNWUJlVjhUMDVZKzdDMysvSW1tOGNHTWEw?=
+ =?utf-8?B?UTVFb1BHOUl5cmZmaVdSemNqZFdoMkNRZnNBZWJCRVk2V1lEZ2owQ093WWIr?=
+ =?utf-8?B?UytZalQ1UThHYzlKZFJTeHhJb2MyNitEL3JtVXEyVnY5YjduVFVLMUdCSUlu?=
+ =?utf-8?B?RHJyYVU5TDJSdFpuMzg3Slh5TGMrZmg5N1VtdXM1QklrSmtDS0N3eERnUVVh?=
+ =?utf-8?B?T2pSUUd6RXJDZjh2Lzk3MlpicGk3dVA1d1VSeEhFdDZaWjV3ZGgyNjl4emQr?=
+ =?utf-8?B?QTVzd2xCRHVjTEJqVkkvYWhvR0FiVUtUeU1INkVZc29JazJaa2IxY1JVRVps?=
+ =?utf-8?B?VWt2NVY4WWRyVnpITEIzcHgrR0ZOaEpLYlk1blNUQThMVXE5LzUrSkcvdlpF?=
+ =?utf-8?B?UmtWZENrL0lMVndLemxJeE0vdFVZMnhCZnFoSUwrbVdrVlpISFh5cmNkeDFy?=
+ =?utf-8?B?ZlAzeUNkTmYrN0Y3MklsSFBucXNoQTNnZkx0UWcxUklHZ3IwNUpvaXN0ekxX?=
+ =?utf-8?B?S2lMclgxOXdDdDNxRkEybWhncmsvWFZSV2xHNVEzRjJ2ZjZwdHl0QmhhNDJY?=
+ =?utf-8?B?MCt2L3p0UjloK3dXT2JRb3MrMDFsMUVGTlBrbEVic0FiYk5qbE5TRXh4RFVn?=
+ =?utf-8?B?bnFNOGd1eTkrdUxyMThNYWpkMUJjTVBrcktRQXVqbkhCa0JSMmdCNXF2Tmw3?=
+ =?utf-8?B?QmQrN0Y2ZXJ5K1lBMnRTdWU0ejhNdnJhRjZCRG51S0QwcmY0TUd2RlpLbzBD?=
+ =?utf-8?B?cVJyYjA0VDlRNkxsOHpTWThubjN1blo4dDh3WlNQVzEza1R0cmk3dE5sc3dL?=
+ =?utf-8?B?RmRSU1FGNk9vZU1Dd3ZuS09Kay8xSTE4UFJCZDF6V1dpTkZpZklKWFFkSWxS?=
+ =?utf-8?B?Vk91ak1NbktRUFhBNGwvRXh1TGlJMXlabGR6T3FuaGdNRFRZcHh2V3BtNCtx?=
+ =?utf-8?B?Q2NORXZJQzcwM0RiYzNaL1dITzV0UWhrYzAyWXZYaVpjcEFRREtwZlNsbWxz?=
+ =?utf-8?B?U1pGcVlyT1JaQ1FUbEIyeGFIYXE4R0YyNTdNMGdvRm9HSEMzTTNLZExhalBK?=
+ =?utf-8?B?RlI5Yitjc1pmVHFVRnJ4VmU2cHFuOGFnSFErS1EwR2pSWkN6U1BLd29RbHUr?=
+ =?utf-8?B?VGc5Z1IzblF2dHRmVlRGeHQzaWEvNldKQ1NyUEs5bys2TlBINnZPNWhXNFF4?=
+ =?utf-8?B?YmRGTUZkOTRQUitRWGpEWXFvbVZva3RZQ2pweTkyWE1mSFV6SHhuQ2NGS2Vj?=
+ =?utf-8?B?R0JKVFlKcG5CbFlEVDFYQmFZbU9rWmc0Nk1EMGF3NDRVOEMzZ0tGbFpacTRq?=
+ =?utf-8?B?OGdTTEFZdmdjNWsyMUJmcms2cHY2K1NxTXpYMGFWc1dqeFRtSmg1b2JQZEZK?=
+ =?utf-8?B?bFJMem9kZklsSXFRL00zcVpYMFhJSkNBejlPTk5ZOVBoOEFWUHNtMC9KTWI4?=
+ =?utf-8?B?MWlHRUtER2RObzNUSjArWTFPSThRbTVUdDFDTDFGVzcxUGxrbzFMeVlvdWM0?=
+ =?utf-8?B?ZEZaUkoxWTArNjA5S2NEVDhUSVVKVFpXbnQ5S2M2NXBTaVl2N2E3bkxXVkZx?=
+ =?utf-8?B?RkRTYVJYNC9mQSt3c3Z5MUxTR0hocWowTkF2cE9kRlUxcDYyMWN5RXlPUm15?=
+ =?utf-8?B?Ni91NDRHNDMzT0tnMk45WTNqT0dUZWZGWVN4dFl2ZzZ6R1VBdkEzMit4eWFz?=
+ =?utf-8?B?dks5ZzlPRnJ3eitUZzlTMjFpNFhobE5HRHpENktXMXltUVhCbU1XZDc4L0Jh?=
+ =?utf-8?B?dk42TnFOZG5kWTV6RWtzZG1uSFY2SW1aWThjdmNGNHhOTG9Bd0t4MmhGZG05?=
+ =?utf-8?B?bHZQUHl6V0N6TzRRQkZPSW9CTjlvSHZubmx2OU5LS2Jady9YbkVoQmlnOE9B?=
+ =?utf-8?B?ZVcrTWgzSHZBcXZFdEJkU09PeWJ4MXdmT0JFMk9JRVFWMHpHS0dsUmNMWlEz?=
+ =?utf-8?B?N0pwYzFmR3dDdEE2Q3FoMXN2Z2dXVHE5TlVsdTJhdHhyVmpRcVVERmdnTGhS?=
+ =?utf-8?B?dnJrZWNHS3pMOC94QzBhaG1hYmhEY09XVGJLbWRTaUdwaTBsZXc5bm92VGNq?=
+ =?utf-8?Q?IG3bMCHDBa5xHy8m1qIyTZ3wB?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5c0f4fa3-5835-484a-fe19-08dda4366ee2
+X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB7326.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jun 2025 13:39:45.5190
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 4RhbYHd63zU7pELQCRF17fglTFltIXYtJgp6Xv7KghEEekkrKg0zpgalHaBfLVYfZORrM1kngjP+xjWGu9f7UA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7863
 
-On Mon, May 26, 2025 at 05:45:54PM +0800, Jiqian Chen wrote:
-> When vpci fails to initialize a legacy capability of device, it just
-> returns an error and vPCI gets disabled for the whole device.  That
-> most likely renders the device unusable, plus possibly causing issues
-> to Xen itself if guest attempts to program the native MSI or MSI-X
-> capabilities if present.
-> 
-> So, add new function to hide legacy capability when initialization
-> fails. And remove the failed legacy capability from the vpci emulated
-> legacy capability list.
-> 
-> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
-> ---
-> cc: "Roger Pau Monné" <roger.pau@citrix.com>
-> ---
-> v4->v5 changes:
-> * Modify vpci_get_register() to delete some unnecessary check, so that I don't need to move function vpci_register_cmp().
-> * Rename vpci_capability_mask() to vpci_capability_hide().
-> 
-> v3->v4 changes:
-> * Modify the commit message.
-> * In function vpci_get_previous_cap_register(), add an ASSERT_UNREACHABLE() if offset below 0x40.
-> * Modify vpci_capability_mask() to return error instead of using ASSERT.
-> * Use vpci_remove_register to remove PCI_CAP_LIST_ID register instead of open code.
-> * Add check "if ( !offset )" in vpci_capability_mask().
-> 
-> v2->v3 changes:
-> * Separated from the last version patch "vpci: Hide capability when it fails to initialize"
-> * Whole implementation changed because last version is wrong.
->   This version adds a new helper function vpci_get_register() and uses it to get
->   target handler and previous handler from vpci->handlers, then remove the target.
-> 
-> v1->v2 changes:
-> * Removed the "priorities" of initializing capabilities since it isn't used anymore.
-> * Added new function vpci_capability_mask() and vpci_ext_capability_mask() to
->   remove failed capability from list.
-> * Called vpci_make_msix_hole() in the end of init_msix().
-> 
-> Best regards,
-> Jiqian Chen.
-> ---
->  xen/drivers/vpci/vpci.c | 117 ++++++++++++++++++++++++++++++++++++++--
->  1 file changed, 113 insertions(+), 4 deletions(-)
-> 
-> diff --git a/xen/drivers/vpci/vpci.c b/xen/drivers/vpci/vpci.c
-> index 2861557e06d2..60e7654ec377 100644
-> --- a/xen/drivers/vpci/vpci.c
-> +++ b/xen/drivers/vpci/vpci.c
-> @@ -83,6 +83,99 @@ static int assign_virtual_sbdf(struct pci_dev *pdev)
->  
->  #endif /* CONFIG_HAS_VPCI_GUEST_SUPPORT */
->  
-> +static struct vpci_register *vpci_get_register(struct vpci *vpci,
-> +                                               unsigned int offset,
-> +                                               unsigned int size)
-> +{
-> +    struct vpci_register *rm;
+Hi Michal,
 
-Nit: I think you re-used part of the code from vpci_remove_register()
-that names the local variable rm (because it's for removal).  Here it
-would better to just name it 'r' (for register).
+On 05/06/2025 08:06, Orzel, Michal wrote:
+>
+> On 04/06/2025 19:43, Ayan Kumar Halder wrote:
+>> Introduce pr_t typedef which is a structure having the prbar and prlar members,
+>> each being structured as the registers of the AArch32 Armv8-R architecture.
+>>
+>> Also, define MPU_REGION_RES0 to 0 as there are no reserved 0 bits beyond the
+>> BASE or LIMIT bitfields in prbar or prlar respectively.
+>>
+>> Move pr_t definition to common code.
+>> Also, enclose xn_0 within ARM64 as it is not present for ARM32.
+>>
+>> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+>> ---
+>>   xen/arch/arm/include/asm/arm32/mpu.h | 30 +++++++++++++++++++++++-----
+>>   xen/arch/arm/include/asm/arm64/mpu.h |  6 ------
+>>   xen/arch/arm/include/asm/mpu.h       |  6 ++++++
+>>   xen/arch/arm/mpu/mm.c                |  2 ++
+>>   4 files changed, 33 insertions(+), 11 deletions(-)
+>>
+>> diff --git a/xen/arch/arm/include/asm/arm32/mpu.h b/xen/arch/arm/include/asm/arm32/mpu.h
+>> index f0d4d4055c..ae3b661fde 100644
+>> --- a/xen/arch/arm/include/asm/arm32/mpu.h
+>> +++ b/xen/arch/arm/include/asm/arm32/mpu.h
+>> @@ -5,11 +5,31 @@
+>>   
+>>   #ifndef __ASSEMBLY__
+>>   
+>> -/* MPU Protection Region */
+>> -typedef struct {
+>> -    uint32_t prbar;
+>> -    uint32_t prlar;
+>> -} pr_t;
+>> +#define MPU_REGION_RES0       0x0
+> The name of the macro does not make a lot of sense in AArch32 context
+> and can create a confusion for the reader.
 
-> +
-> +    ASSERT(spin_is_locked(&vpci->lock));
-> +
-> +    list_for_each_entry ( rm, &vpci->handlers, node )
-> +    {
-> +        if ( rm->offset == offset && rm->size == size )
-> +            return rm;
-> +
-> +        if ( offset <= rm->offset )
-> +            break;
-> +    }
-> +
-> +    return NULL;
-> +}
-> +
-> +static struct vpci_register *vpci_get_previous_cap_register(
-> +    struct vpci *vpci, unsigned int offset)
-> +{
-> +    uint32_t next;
-> +    struct vpci_register *r;
-> +
-> +    if ( offset < 0x40 )
-> +    {
-> +        ASSERT_UNREACHABLE();
-> +        return NULL;
-> +    }
-> +
-> +    r = vpci_get_register(vpci, PCI_CAPABILITY_LIST, 1);
-> +    if ( !r )
-> +        return NULL;
-> +
-> +    next = (uint32_t)(uintptr_t)r->private;
-> +    while ( next >= 0x40 && next != offset )
-> +    {
-> +        r = vpci_get_register(vpci, next + PCI_CAP_LIST_NEXT, 1);
-> +        if ( !r )
-> +            return NULL;
-> +        next = (uint32_t)(uintptr_t)r->private;
-> +    }
-> +
-> +    if ( next < 0x40 )
-> +        return NULL;
+I know, but I want to avoid introducing ifdef or have separate 
+implementation (for arm32 and arm64) for the following
 
-The code below I think it's a bit simpler (and compact) by having a
-single return instead of multiple ones:
+Refer xen/arch/arm/include/asm/mpu.h
 
-for ( r = vpci_get_register(vpci, PCI_CAPABILITY_LIST, 1); r;
-      r = next >= 0x40 ? vpci_get_register(vpci,
-                                           next + PCI_CAP_LIST_NEXT, 1)
-                       : NULL )
+static inline void pr_set_base(pr_t *pr, paddr_t base)
 {
-    next = (uint32_t)(uintptr_t)r->private;
-    ASSERT(next == (uintptr_t)r->private);
-    if ( next == offset )
-        break;
+     pr->prbar.reg.base = ((base & ~MPU_REGION_RES0) >> MPU_REGION_SHIFT);
 }
 
-return r;
+Let me know your preference.
 
-I haven't tested it however.
+>
+>> +
+>> +/* Hypervisor Protection Region Base Address Register */
+>> +typedef union {
+>> +    struct {
+>> +        unsigned int xn:1;       /* Execute-Never */
+>> +        unsigned int ap_0:1;     /* Acess Permission */
+> If you write AP[1] below, I would expect here AP[0]
 
-> +
-> +    return r;
-> +}
-> +
-> +static int vpci_capability_hide(struct pci_dev *pdev, unsigned int cap)
-> +{
-> +    const unsigned int offset = pci_find_cap_offset(pdev->sbdf, cap);
-> +    struct vpci_register *prev_next_r, *next_r;
+Again same reason as before, let me know if you want to have additional 
+ifdef in pr_of_addr() or separate functions for arm32 and arm64
 
-I think it might be clear to just name this prev_r, next_r,
-prev_next_r is IMO a bit confusing.  I understand it refers to the next
-capability register in the previous capability, and I think prev_r
-might be enough.
+pr_t pr_of_addr(...)
 
-> +    struct vpci *vpci = pdev->vpci;
-> +
-> +    if ( !offset )
-> +    {
-> +        ASSERT_UNREACHABLE();
-> +        return 0;
-> +    }
-> +
-> +    spin_lock(&vpci->lock);
-> +    next_r = vpci_get_register(vpci, offset + PCI_CAP_LIST_NEXT, 1);
-> +    if ( !next_r )
-> +    {
-> +        spin_unlock(&vpci->lock);
-> +        return -ENODEV;
-> +    }
-> +
-> +    prev_next_r = vpci_get_previous_cap_register(vpci, offset);
-> +    if ( !prev_next_r )
-> +    {
-> +        spin_unlock(&vpci->lock);
-> +        return -ENODEV;
-> +    }
+{...
 
-You can join both the above into a single check IMO:
+     prbar = (prbar_t) {
+         .reg = {
+#ifdef CONFIG_ARM64
+             .xn_0 = 0,
+#endif
+             .xn = PAGE_XN_MASK(flags),
+             .ap_0 = 0,
+             .ro = PAGE_RO_MASK(flags)
+         }};
 
-next_r = vpci_get_register(vpci, offset + PCI_CAP_LIST_NEXT, 1);
-prev_r = vpci_get_previous_cap_register(vpci, offset);
-if ( !next_r || !prev_r )
-{
-    spin_unlock(&vpci->lock);
-    return -ENODEV;
+...
+
 }
 
-There's no benefit in using two equal error condition checks (just
-makes the code longer)
+> Also s/acess/access/
+Ack.
+>
+>> +        unsigned long ro:1;      /* Access Permission AP[1] */
+>> +        unsigned int sh:2;       /* Sharebility */
+>> +        unsigned int res0:1;     /* Reserved as 0 */
+> Here your comment for RES0 (which IMO could be just RES0) does not match...
+I will remove the comment here and ..
+>
+>> +        unsigned int base:26;    /* Base Address */
+>> +    } reg;
+>> +    uint32_t bits;
+>> +} prbar_t;
+>> +
+>> +/* Hypervisor Protection Region Limit Address Register */
+>> +typedef union {
+>> +    struct {
+>> +        unsigned int en:1;     /* Region enable */
+>> +        unsigned int ai:3;     /* Memory Attribute Index */
+>> +        unsigned int res0:2;   /* Reserved 0 by hardware */
+> this one. I don't think you need to explain what RES0 means.
 
-> +
-> +    prev_next_r->private = next_r->private;
-> +    /*
-> +     * Not calling vpci_remove_register() here is to avoid redoing
-> +     * the register search
-> +     */
-> +    list_del(&next_r->node);
-> +    spin_unlock(&vpci->lock);
-> +    xfree(next_r);
-> +
-> +    if ( !is_hardware_domain(pdev->domain) )
-> +        return vpci_remove_register(vpci, offset + PCI_CAP_LIST_ID, 1);
-> +
-> +    return 0;
-> +}
-> +
->  static int vpci_init_capabilities(struct pci_dev *pdev)
->  {
->      for ( unsigned int i = 0; i < NUM_VPCI_INIT; i++ )
-> @@ -91,7 +184,6 @@ static int vpci_init_capabilities(struct pci_dev *pdev)
->          const unsigned int cap = capability->id;
->          const bool is_ext = capability->is_ext;
->          unsigned int pos;
-> -        int rc;
->  
->          if ( !is_ext )
->              pos = pci_find_cap_offset(pdev->sbdf, cap);
-> @@ -103,9 +195,26 @@ static int vpci_init_capabilities(struct pci_dev *pdev)
->          if ( !pos )
->              continue;
->  
-> -        rc = capability->init(pdev);
-> -        if ( rc )
-> -            return rc;
-> +        if ( capability->init(pdev) )
+here.
 
-I think you want to store rc here to print it in the warning message
-below.
+- Ayan
 
-> +        {
-> +            int rc;
-> +
-> +            if ( capability->cleanup ) {
-> +                rc = capability->cleanup(pdev);
-> +                if ( rc )
-> +                    return rc;
-
-Here where both init and cleanup failed, you simply don't print any
-message.
-
-> +            }
-> +
-> +            printk(XENLOG_WARNING "%pd %pp: %s cap %u init fail, mask it\n",
-> +                   pdev->domain, &pdev->sbdf,
-> +                   is_ext ? "extended" : "legacy", cap);
-
-I think this needs to be done ahead of the cleanup(), and print the
-returned error code.  Overall we need messages printed when any of
-those fails, as that makes it easier to debug when things go wrong.
-
-Thanks, Roger.
+>
+> ~Michal
+>
 
