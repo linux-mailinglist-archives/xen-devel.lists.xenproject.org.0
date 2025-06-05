@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C3E5ACF1A5
-	for <lists+xen-devel@lfdr.de>; Thu,  5 Jun 2025 16:23:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1006953.1386213 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A048ACF1D8
+	for <lists+xen-devel@lfdr.de>; Thu,  5 Jun 2025 16:28:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1006960.1386223 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uNBUb-0003vw-Oi; Thu, 05 Jun 2025 14:22:53 +0000
+	id 1uNBZR-0004Wf-AM; Thu, 05 Jun 2025 14:27:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1006953.1386213; Thu, 05 Jun 2025 14:22:53 +0000
+Received: by outflank-mailman (output) from mailman id 1006960.1386223; Thu, 05 Jun 2025 14:27:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uNBUb-0003td-LV; Thu, 05 Jun 2025 14:22:53 +0000
-Received: by outflank-mailman (input) for mailman id 1006953;
- Thu, 05 Jun 2025 14:22:53 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uNBZR-0004VD-6M; Thu, 05 Jun 2025 14:27:53 +0000
+Received: by outflank-mailman (input) for mailman id 1006960;
+ Thu, 05 Jun 2025 14:27:51 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=EkoY=YU=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1uNBUa-0003tX-U4
- for xen-devel@lists.xenproject.org; Thu, 05 Jun 2025 14:22:53 +0000
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [2a00:1450:4864:20::62c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8fb3b2d4-4218-11f0-b894-0df219b8e170;
- Thu, 05 Jun 2025 16:22:50 +0200 (CEST)
-Received: by mail-ej1-x62c.google.com with SMTP id
- a640c23a62f3a-acb39c45b4eso165969866b.1
- for <xen-devel@lists.xenproject.org>; Thu, 05 Jun 2025 07:22:50 -0700 (PDT)
-Received: from [192.168.1.5] (user-109-243-64-38.play-internet.pl.
- [109.243.64.38]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ada5e878152sm1273046866b.107.2025.06.05.07.22.48
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 05 Jun 2025 07:22:49 -0700 (PDT)
+ <SRS0=VsQq=YU=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
+ id 1uNBZP-0004V7-C0
+ for xen-devel@lists.xenproject.org; Thu, 05 Jun 2025 14:27:51 +0000
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2062c.outbound.protection.outlook.com
+ [2a01:111:f403:2414::62c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 4087ad56-4219-11f0-a300-13f23c93f187;
+ Thu, 05 Jun 2025 16:27:48 +0200 (CEST)
+Received: from PH8PR12MB7326.namprd12.prod.outlook.com (2603:10b6:510:216::7)
+ by IA0PR12MB7577.namprd12.prod.outlook.com (2603:10b6:208:43e::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8769.37; Thu, 5 Jun
+ 2025 14:27:44 +0000
+Received: from PH8PR12MB7326.namprd12.prod.outlook.com
+ ([fe80::6d76:9c33:d230:8264]) by PH8PR12MB7326.namprd12.prod.outlook.com
+ ([fe80::6d76:9c33:d230:8264%2]) with mapi id 15.20.8792.035; Thu, 5 Jun 2025
+ 14:27:44 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,393 +47,321 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8fb3b2d4-4218-11f0-b894-0df219b8e170
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1749133370; x=1749738170; darn=lists.xenproject.org;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Vh8RoyS43ThBKLQ/gHpTQbTpGCpGou6sj6M4xPMbD98=;
-        b=F2bMDftxMwFgMNLWMBKjC+WyJ9ow7Ah22I6xDof/fFTevcmoZmnNvbWNKXZNiEOntN
-         7w/l7Dw4z6v1qwdtngcrKzEfCr5ZltWCs1q4bYsgqjDq4rDlaxrneLPWRpP1yyiwZoDP
-         Bupz4lsrcOKVrcqArFxoWZ82pDT5TUduBsrT+ij4dP1ONuTXKVHzm/IpaFNbYrdVF1tM
-         IrzY9XVjXqISZGsD4OWYodyFBXPmTw422TTZ4yG5nh/B6kydbhoOz0u7CPQ5skyNF9kt
-         D1q6veH8eGuT6RFSW8WROaR49EPvxr3VLscNRjjzHPZOIzGMeLS9wwubU/ahdAr5AyI+
-         7SIg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749133370; x=1749738170;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=Vh8RoyS43ThBKLQ/gHpTQbTpGCpGou6sj6M4xPMbD98=;
-        b=eG3a8pMuGYBwccOaxqLy4kLMJJkfOv+r/v2yfN3RmPAEm3n4sZ/K7XzFHn8ghUmSN4
-         1eeqDGYEerA1hIeOM4qHQz7YGnUp/KGtiDTis8C7Bfac88PaK5Nn7vRqLFM1+ZOZh85i
-         wGTbsvnuM5mOYo4YiOmDzJXT31tl2Z5aM4M3M3J4we852anH2BRoYpUwAYvuQ+ew0cic
-         Cc1+d/w9Ilogj2IhaTb2/i3IW/1+V2w3xnMHR+NlVSbMOO7BsVk4/tFbfOqOwUDpdi1I
-         3+eOEhqOXBXVO8a8uqNXBHAmlx7w3TjWxlttEYvCqjY1JVHZop1ylCf9PRDWAsfolwJX
-         vYVg==
-X-Forwarded-Encrypted: i=1; AJvYcCWBFC7VA8w/tMS6SnEzbGgSIP31grlqadiGj61L0sbnxE5maGJIDwj2VIsldt/rP7sPMbJJQgPPXJA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz0S/MAIu+ejOQc5TyjmmcLslAsc9HgvFHY7Wc5sCueQweIIiHs
-	lkfw50VFHIq+IKYQ4erCyb7duLsYAHzV4QnY2s7GEgaiYAmYXBD57fgf
-X-Gm-Gg: ASbGncvtZjMZpxzJb6eWtdCrqvUc3YNn9Ypew+h9B2MVh05eUTzETwni15O0xsSu96x
-	19abI6l58bjvTKevSJSEmiQ2+iXn7BtmROSDeK2ykaYaeo3nQC1TYZYjW/7c7KTxazJ72vpUu4P
-	ttNWUJK3uXdpuY5hLwyUQ247TawMSLqwpybXyTZMtIQQ6+RugFjorz8Yl6PWZhCQU1l/SsdfnPT
-	VfZCO333Ry8DgkBc69tF2vRjXFYJl5H0fcUvzAlArDBpHyyxg0eXbZpLhxY1db5NSUG+ZlzFiHo
-	ojy5K40MO6ZpmrBXPjECw19zNTnkg/KuPHskdX835986CEBx4eY2+aTrC1FawHYvdBCbX+FdoPJ
-	8iHG7ib0N/1e8d6z1Q15iHN2N
-X-Google-Smtp-Source: AGHT+IEZaZe772STO1YoaJy3ybnIxxMxK8wqVE75Kf+2Dj9nd4QYZVxmheF2bkreCx/uVO3qs5F+9Q==
-X-Received: by 2002:a17:907:86a7:b0:add:ede0:b9d4 with SMTP id a640c23a62f3a-addf89e8fe6mr631997866b.0.1749133369779;
-        Thu, 05 Jun 2025 07:22:49 -0700 (PDT)
-Content-Type: multipart/alternative;
- boundary="------------FcvKDYp52KLyHVM0U0MgvD0D"
-Message-ID: <59b5d40e-8db8-4380-9cb9-b7fae8bac05d@gmail.com>
-Date: Thu, 5 Jun 2025 16:22:47 +0200
-MIME-Version: 1.0
+X-Inumbo-ID: 4087ad56-4219-11f0-a300-13f23c93f187
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=cm7+fef0sNWc/TWNS5XfXRNQ/eLZ5I/qCYAWvX9aNGELRF3TZTI615IF6aFhMzG7p66laEnHNUwNyYJivI/RVBt4pJbRTaPYzE5eTSnd7UXwq37aRGzdy6Qp6JyBPknoJiicn09B1UUlNdT/f7/PT8PPzyFx33omO8VMA8f1pkVIGJyBmTFPS8ADfR3rDonjunwebbEfsiFhNsGp0hLpWGDy9spkHuhDimGfcEl5ZSkt5jq0JHEp23k+6ZHjt82rGTgxP2okZ+YLfjQ8pdNfywgphjccrayYoXE4xjabSG5IUHYQ0brSy/eUxj5HY+vyNFlPBwJrxF1F/4Pacf1IVg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=DHooqomRs93lb8qYsexZdpkQ3AHpuxhKmbs61F9u2CM=;
+ b=vOJmodazRg545qyeI0ED3WlwmecgFoZe5d/df5CBEu9vTAAOGgebdAmejFtv3ck7sU/zI+/guF/nBDsff1LapjNf58i7i1XS2IyudPAtz+9au8P9n+x9mPy6ajrIWrkXusbOiuZnn7mL21rdr6nYOtu6rZUo6ZqR/zbN3lHpK+B7XRx6fj4O6EEBkb/B6ei4Jlahur2wBEwVgwgZdKMZpxklK+ZhBTDfaPTNSdld2sDKXW9KdV8ImV6sDYTgKfHibfTG7rZZjywZ89hBWDVT1YLVcB4BYs5vnZ7c++iNSBWUCrAQoSi/ml0ioAYlnFOqaP7AU78wFGSgelSDDTLzjQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=DHooqomRs93lb8qYsexZdpkQ3AHpuxhKmbs61F9u2CM=;
+ b=dMm4qPUXMvYW7EHJlnRH+jxNzVc5539PcCfesEKe8KJIYLOcVP7Ev80DaiLoo448vvMwzdB02eJ3wcJW4rU8/biPvSua9Ds3GmCnE5dOcFsIfLO/uZ72Pp5GgIHDvkPqYVawlLvpu347LUauAS2ze/xdQF1W2GdaX4cZhRLmRzc=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Message-ID: <fbfc728a-0d31-4f28-9a06-5f6458b91a55@amd.com>
+Date: Thu, 5 Jun 2025 15:27:39 +0100
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 3/6] xen/riscv: construct the P2M pages pool for guests
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1746805907.git.oleksii.kurochko@gmail.com>
- <c9c60bb73fcae0b72d3bc18c10f5ca6cccc5a676.1746805907.git.oleksii.kurochko@gmail.com>
- <b0b4348e-38e5-4138-9e0b-3378f1207bfe@suse.com>
- <4a6136c3-4146-48e6-85d5-4a6f30bc9920@gmail.com>
- <5ce4c4a6-8e2e-4b4e-9cec-03a78d1d0173@suse.com>
-Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <5ce4c4a6-8e2e-4b4e-9cec-03a78d1d0173@suse.com>
-
-This is a multi-part message in MIME format.
---------------FcvKDYp52KLyHVM0U0MgvD0D
+Subject: Re: [PATCH v1 2/3] arm/mpu: Provide and populate MPU C data
+ structures
+Content-Language: en-GB
+To: "Orzel, Michal" <michal.orzel@amd.com>,
+ Ayan Kumar Halder <ayan.kumar.halder@amd.com>, xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20250604174311.754899-1-ayan.kumar.halder@amd.com>
+ <20250604174311.754899-3-ayan.kumar.halder@amd.com>
+ <50c8e74e-95f6-4cea-b979-8b81d7575a21@amd.com>
+From: Ayan Kumar Halder <ayankuma@amd.com>
+In-Reply-To: <50c8e74e-95f6-4cea-b979-8b81d7575a21@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: AM6P193CA0082.EURP193.PROD.OUTLOOK.COM
+ (2603:10a6:209:88::23) To PH8PR12MB7326.namprd12.prod.outlook.com
+ (2603:10b6:510:216::7)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH8PR12MB7326:EE_|IA0PR12MB7577:EE_
+X-MS-Office365-Filtering-Correlation-Id: 99a1595d-a577-471e-6fe1-08dda43d228d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?dExLb3orWEtneit5T0pET2ZzUzFsbkxWQ1hGYklkdGc3WlZtYjM5eHpPVVdB?=
+ =?utf-8?B?MXhuSzNqZWk4M0JycENCT2ZDVkEyalE2bXJaSU1heGJnWHRyQXZIUWtDYkZH?=
+ =?utf-8?B?TFdEcUdjRENkNkxIRmN6UHRxVXpFWXR1NG93Wmt2TFFyUFo0NzRXakVOd2tz?=
+ =?utf-8?B?N1JIOVYrckRWSUFDeE1zaUpJTjI0SXc0alkrQUxodW9BNTI2ZjJIOCt4K2dT?=
+ =?utf-8?B?RnVOSVZKWUd3MFZNQVVxRVR2ZENHMUNsU3VxMk11VVhFOXhSaFFIWkNsbVR0?=
+ =?utf-8?B?QW80VHFJRFgvSEMyamxwdE1SdzFSRFRtSm5oSlM0aDZJSlF1SG9zU0YvYUNG?=
+ =?utf-8?B?STcwQVNyM2dzSE5QK0VqYUswcmJ0TGZPNCtWL0MzaUlrMGp2ZzhpdnpNd2pN?=
+ =?utf-8?B?S1V2eWxxeE9WNWN3MmxFVkRXclYybmVTUXhYbHM1a01mWGUwQjdyTG1RK1JL?=
+ =?utf-8?B?djF5eDlpOURjMytMM2ZnS1BGdjg3UXpzZVd0cVJkaWxVYmhkYTR4aGRIRzJT?=
+ =?utf-8?B?OXBBSHMrSDRpNmUyTUNXQnhQUEhtSCtkNFFaL21LNVFMNG1uaWI4RU9yR3Zx?=
+ =?utf-8?B?RE1WazJmYnQzYjNKZmoxVXhUWXNzbnMxanVFeWZrbnZ2cUNGeXZsM1hQVktv?=
+ =?utf-8?B?ZzVXVFM4S2NJY1pwNWFtRjA2RnNOcGF3bndIY3JMWXBYYitDa0ZSWkFuZlNj?=
+ =?utf-8?B?U0FwM0Z3ejZMRDVJWFdtNlp6M1V4VXlzMW51MXRuWlM2S1hlVEJodmd5VFQ1?=
+ =?utf-8?B?bjhuZ2tRQlJyOG91SnVYVDhNQitHR3dKdGJXVmlSYW52Q3JHYkxlMW50aVlL?=
+ =?utf-8?B?Zy8wM0JNOHpXbnFsZm1PQjNzOXFQekVGMjVma0ZoVlN6UlRDTi84YVFPaUR5?=
+ =?utf-8?B?OUEwd3lpSmdMU2pseGNkVHNSTngyYmNMOWV0VUtBR00vSFdWTElqa050TmFS?=
+ =?utf-8?B?R2l4a29kNlhNMFZqMkpqWmp2cHdkRGJiK0xkUDhUQUlVV3MybndrN3VlNko0?=
+ =?utf-8?B?Sk56cUlrUUdwL3VEUkJGWVU0dDBQMThJQlIzNUthRnJLNFZuRVVjdFBwZEJC?=
+ =?utf-8?B?citrSldLK3BNRms3Q0lDNXdaTml1M1FWeEVGY0ZJWXQ5MzJmUCs1c2Fybllo?=
+ =?utf-8?B?emp4a2ZsK3dJUFc4amJvdnlCdVk1UmMveHYwYU9JOEMzMjUzcFAxbEd5d1VI?=
+ =?utf-8?B?RlU0OTRRYmJjbzJtbi9QV2Q2UThWSmxrK2I5RW5rMDJtVXVyWU9PMmxpOEdM?=
+ =?utf-8?B?Mzg4MXIzNXJRMExqdldmR2JWTTlsVnR5MFJXdWNnWGNmTmZBSDE3c3BCZGdC?=
+ =?utf-8?B?VThlbFNIQzZIZlBXelpQbUZwL25tSE5OZ2MwSU0xNVdjL1RlYnlBc2tDdjVP?=
+ =?utf-8?B?N0VoTTExWnJXWXlaM2szME5sMWZkQ1RBTldVd25Ia2ZDOUNuVnR2T3VKVjdj?=
+ =?utf-8?B?d1BzL3F2YUY0MDladm9MdkxsUFlENko0OGk5SkNuZUc5MjNMeUFTZTBSWlRv?=
+ =?utf-8?B?a2JOTVNZa2wwRzM3b1l1dzlrc3dXQ2dwVkxwcWx0Q3V6aUhDa1Z5elg0TDZy?=
+ =?utf-8?B?citSbU5sVWI0OFRPUEpvRG12QnV3VTRXT1g0UVE4L3Yzd1RYZDAyYmtsRkNO?=
+ =?utf-8?B?aWJ5T3l4bDVvSk4wN2liR1dtRzU5NXZKRW45NGs1WEN3a3JPa01GbTd1Umdv?=
+ =?utf-8?B?Z0pvTllzM05HTFFVZlBCT1A5Q3lBQUFDS3oyU0pRNFNmYjRKV2dnSG9BSDJw?=
+ =?utf-8?B?WnRMclJBYStyYzNod3lMUDJGdzBtWHNpMDJJN3J3ZDArckFoODkxT0ZIL3Bi?=
+ =?utf-8?B?WENaUFJFczBTQzZoNzV4QkxvVWNlRWVtOHA1S1ZWVlBSQnBhY2NUZVcxOGRj?=
+ =?utf-8?B?YThCc1VYSldFVzBBMHdBT1RSTGt1ekhPdGJVZnJ6MmgxTjRZTjNNUlB1SEVq?=
+ =?utf-8?Q?1N72yB7xJXg=3D?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR12MB7326.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?U3BZdGFZZkZyZVVJeGpPOXRVNHNIdXVINEMxRVI3REJyUlUxRmVtY2dYdTd5?=
+ =?utf-8?B?U21WakpJL1RHWFNwUTVBN3E1Uk1ITDhWYkFZN3l5RWttQ29JVUFTRDVLQXJn?=
+ =?utf-8?B?ckVTWHNvbG1rM3dQZ0NuV1FXalU4OXBWMjJxZDlFbDBKMTh4K3hhMUExYTlL?=
+ =?utf-8?B?aGtUVW45Mis3RXJqalc4Yk4xYVR2L3p2MXlpOU91NXFJaGlHUWY0bmJNemJz?=
+ =?utf-8?B?aXNyVkYwdE9xTmZaak8zZ3RrQ1FqeFEwN2FyZGlJTzRQQUlRQ2YyZlZrdW11?=
+ =?utf-8?B?R2h4K2tGZ05LWUxUQVpyTDJYNGhrendFblBQYThYYi9PUmRZOTNMSFErL3pJ?=
+ =?utf-8?B?bFlQR1ZFSXdvRVdIZmpYK0hyb01EQkJ3M1RQUmpDaURtekRlRFovU1FYZ2lB?=
+ =?utf-8?B?OGpuVlF6cGhBUTlYSFFhVytGRnFrMjBrRy9mdVFaOVV4ZWwwenN0OHlwOGQy?=
+ =?utf-8?B?UDFWN1UxZHBYZDlNZFFuS3BodFNtYncrcjU4aU9YVEw3QkNKb2xDVmpzUWxL?=
+ =?utf-8?B?VWExbFF5RUxMZ2d5OUptNVpQYW9wemxUbk10ODgyRTVsKzBmVTlvSFhjQ2c5?=
+ =?utf-8?B?YTRpVkg0WEJOd1RiM2c1Znl3NG1QYjQ1aENlMmRzQW9laHhWOXNxODBBTWV6?=
+ =?utf-8?B?em9GYk9HVUlLc0x5bnJtRXFadDJhcjVPYTkzM1ZDcXBJcElDYjhJUVUrYjdD?=
+ =?utf-8?B?YU5wRS8yaVBNRlNIWnY4aU1zTzZsWTIra250SHBPblNOMTZGUmxYTmFQbTZI?=
+ =?utf-8?B?WXE5UjJKTFllMlUyK00zOHBPaVFzcW16ZS9NVVRWMkdwODJzWm05WmUzTXpk?=
+ =?utf-8?B?ekwzQ2pWUDJHcGI4L1U0WEp4ZTlRVkxOVWdTSzRhdGtFcmFqVnZWd2RqNXdX?=
+ =?utf-8?B?Uk53VFRud3d1M2Q1VFdGRnhUeXdJU0xVbVFuNkIvKzdhTEY5QmlsL2x2byt5?=
+ =?utf-8?B?blBWTEt0dVBiY3hpYU9obEhOWmhWV0plcGRSdHozZjF6cUx2Y3FXeUtZaFg4?=
+ =?utf-8?B?YnlzSVgwcTl6a281VVdXNTc1MDIyN01kVm9nVjZYeGI3NmRLUkEraHRNZWN0?=
+ =?utf-8?B?bktwZHJDMStLeU8zWTFhd2dWbENLdzM4MDk1bElPZXZpRnRJRUJQNXBtNGl0?=
+ =?utf-8?B?eXcxSmluTUQwTDBsWmR1NGFmZ204SmNicGZHdVJGYWt2OUVJb0hlVGFqbytr?=
+ =?utf-8?B?UGU5a0cvV2FiVXlLYWFUWW9wRHgvblU5Ukl0aXdkSHJpK0JtS1dWUlV3STFJ?=
+ =?utf-8?B?WjVqdHJpbzAzTWN3SFJKWEF2cXcrcEEzOE5IcFp3QkFSSXJiOG5NaEsxZmJP?=
+ =?utf-8?B?cXE3WjZVQmQ5V2VEek9VOUdMK1YxT2hNZ3hNVkNmVnFVVzM0Y25KWlBTajdE?=
+ =?utf-8?B?RzY4V1g3TjNaelRlUldEditrZ0dKL2ZlN2F3VmFtdWQ2dDA2YVV5aksrTlhP?=
+ =?utf-8?B?Ni9Qa25odmVGbVVGVlJMSVRqaGtqVyttSVFTM0tLYk4yU2h1RDI0VkhXT2dh?=
+ =?utf-8?B?QnJNdFJLdERUaXdodzRLaDZBMGhmT2xvalpZWU1nUk1OaE1HM2ZFQUY0VGpT?=
+ =?utf-8?B?ZWt0VTJrNmw4ZDROYlhvTVdleHVTM1FIODNWUWFHWDFCbkJ1ZS9Lc3VFcTBy?=
+ =?utf-8?B?blBHK0dtRDJ5S3VKZGplQ0ZObUZCQkhZWkoxRmxSOGRkQzJWcVg4d3BZZTNp?=
+ =?utf-8?B?ck1NUEdLYUF0WkxiRUp6ZDNkNTR6d1R1U0NGU0FCWnAxK0hvSTl3aTRsYks4?=
+ =?utf-8?B?TkM2T1BqUDhIY0c5bUR4VzZNME5memYzRzlhSC9WVW5XYVFCVWl0S2puZ1lw?=
+ =?utf-8?B?RG5lS2pmbzNsZFpMWjNHQ3JpVEVGeVd5OVc5NFVyb3F5MFRSZVV5aVA4S0lM?=
+ =?utf-8?B?NXVzUjBValMyM29wa214RTdJWTNQNVpvb2d1MFpxdFRHa0ZGVXZhU1VLOXpG?=
+ =?utf-8?B?d29zWHJMU0dvejRPRkRCYXFTR2djLzFLMko4TTZjNm15amFac2I3MzVjNFNz?=
+ =?utf-8?B?QTBNNWtpSFVFTm5Fa254MWtaVlQwaXVjRitTZFM0dXV5d1hVcnEyNnN1Ujcy?=
+ =?utf-8?B?SFVRcWpzQVJxRDQvRlRiTWZIb29haExBSVJwKy9wRXU3cVNLcHEwTlNaM0tF?=
+ =?utf-8?Q?TT0wOzs0eNZmsMhDhddzurv9/?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 99a1595d-a577-471e-6fe1-08dda43d228d
+X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB7326.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jun 2025 14:27:43.9212
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: +1BlExiwtuah+HOJNSp9P4dBdMaOJN/cuutHyJ767X+W4BLz33a3Rb+OE2JSgCVQ03vKVl/Ub/M8jRQmEQ5POw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7577
 
+Hi Michal/Julien,
 
-On 6/2/25 1:08 PM, Jan Beulich wrote:
-> On 23.05.2025 12:27, Oleksii Kurochko wrote:
->> On 5/20/25 4:38 PM, Jan Beulich wrote:
->>> On 09.05.2025 17:57, Oleksii Kurochko wrote:
->>>> --- a/xen/arch/riscv/p2m.c
->>>> +++ b/xen/arch/riscv/p2m.c
->>>> @@ -1,4 +1,12 @@
->>>>    #include <xen/domain_page.h>
->>>> +/*
->>>> + * Because of general_preempt_check() from xen/sched.h which uses
->>>> + * local_events_need_delivery() but latter is declared in <asm/event.h>.
->>>> + * Thereby it is needed to icnlude <xen/event.h> here before xen/sched.h.
->>>> + *
->>>> + * Shouldn't be xen/event.h be included in <xen/sched.h>?
->>>> + */
->>>> +#include <xen/event.h>
->>> The question doesn't belong here; such could be put in the post-commit-
->>> message area. And the answer depends on what dependency you found missing.
->> It is needed for local_events_need_delivery() which is used by general_preempt_check()
->> in p2m_set_allocation(). Otherwise, the following issue will occur:
->>
->> In file included from ././include/xen/config.h:17,
->>                    from <command-line>:
->> arch/riscv/p2m.c: In function 'p2m_set_allocation':
->> ./include/xen/sched.h:941:36: error: implicit declaration of function 'local_events_need_delivery' [-Werror=implicit-function-declaration]
->>     941 |         (!is_idle_vcpu(current) && local_events_need_delivery())    \
->>         |                                    ^~~~~~~~~~~~~~~~~~~~~~~~~~
->> ./include/xen/compiler.h:26:43: note: in definition of macro 'unlikely'
->>      26 | #define unlikely(x)   __builtin_expect(!!(x),0)
->>         |                                           ^
->> arch/riscv/p2m.c:244:27: note: in expansion of macro 'general_preempt_check'
->>     244 |         if ( preempted && general_preempt_check() )
->>         |                           ^~~~~~~~~~~~~~~~~~~~~
->> cc1: all warnings being treated as errors
-> In which case my answer to your question is "No". Others may take a different
-> perspective. (xen/sched.h being included virtually everywhere, imo we want to
-> avoid adding dependencies there which aren't strictly necessary to keep things
-> building.)
+On 05/06/2025 08:44, Orzel, Michal wrote:
+>
+> On 04/06/2025 19:43, Ayan Kumar Halder wrote:
+>> Do the arm32 equivalent initialization for commit id ca5df936c4.
+> This is not a good commit msg.
+> Also, we somewhat require passing 12 char long IDs.
 
-Okay, then I will just update the comment and leave inclusion of xen/event.h in riscv/p2mc.
+Modify Arm32 assembly boot code to reset any unused MPU region, 
+initialise 'max_mpu_regions' with the number of supported MPU regions 
+and set/clear the bitmap 'xen_mpumap_mask' used to track the enabled 
+regions.
+
+Use the macro definition for "dcache_line_size" from linux.
+
+Does ^^^ read fine ?
 
 >
->>>> @@ -166,3 +176,60 @@ int p2m_init(struct domain *d)
->>>>    
->>>>        return 0;
->>>>    }
->>>> +
->>>> +/*
->>>> + * Set the pool of pages to the required number of pages.
->>>> + * Returns 0 for success, non-zero for failure.
->>>> + * Call with d->arch.paging.lock held.
->>>> + */
->>>> +int p2m_set_allocation(struct domain *d, unsigned long pages, bool *preempted)
->>>> +{
->>>> +    struct page_info *pg;
->>>> +
->>>> +    ASSERT(spin_is_locked(&d->arch.paging.lock));
->>>> +
->>>> +    for ( ; ; )
->>>> +    {
->>>> +        if ( d->arch.paging.p2m_total_pages < pages )
->>>> +        {
->>>> +            /* Need to allocate more memory from domheap */
->>>> +            pg = alloc_domheap_page(d, MEMF_no_owner);
->>>> +            if ( pg == NULL )
->>>> +            {
->>>> +                printk(XENLOG_ERR "Failed to allocate P2M pages.\n");
->>>> +                return -ENOMEM;
->>>> +            }
->>>> +            ACCESS_ONCE(d->arch.paging.p2m_total_pages) =
->>>> +                d->arch.paging.p2m_total_pages + 1;
->>> Looks like you copied this from Arm, but this code is bogus: Using
->>> ACCESS_ONCE() just on the lhs is pretty pointless. Once also used on the
->>> rhs the expression can easily become
->>>
->>>                   ACCESS_ONCE(d->arch.paging.p2m_total_pages) += 1;
->>>
->>> or even
->>>
->>>                   ACCESS_ONCE(d->arch.paging.p2m_total_pages)++;
->>>
->>> .
->>>
->>>> +            page_list_add_tail(pg, &d->arch.paging.p2m_freelist);
->>>> +        }
->>>> +        else if ( d->arch.paging.p2m_total_pages > pages )
->>>> +        {
->>>> +            /* Need to return memory to domheap */
->>>> +            pg = page_list_remove_head(&d->arch.paging.p2m_freelist);
->>>> +            if( pg )
->>>> +            {
->>>> +                ACCESS_ONCE(d->arch.paging.p2m_total_pages) =
->>>> +                    d->arch.paging.p2m_total_pages - 1;
->>> Same here then, obviously.
->>>
->>>> +                free_domheap_page(pg);
->>>> +            }
->>>> +            else
->>>> +            {
->>>> +                printk(XENLOG_ERR
->>>> +                       "Failed to free P2M pages, P2M freelist is empty.\n");
->>>> +                return -ENOMEM;
->>>> +            }
->>>> +        }
->>>> +        else
->>>> +            break;
->>>> +
->>>> +        /* Check to see if we need to yield and try again */
->>>> +        if ( preempted && general_preempt_check() )
->>> While it's this way on both Arm and x86, I wonder how useful it is
->>> to check on every iteration, especially when freeing pages back to the
->>> buddy allocator.
->> IIUC, but a preemption request could happen for both cases. And destroying of
->> a domain could also consume long time and so not to block hypervisor if something
->> more urgent should be handled it could be also have this check for the case of
->> freeng pages back to the buddy allocator.
-> The question wasn't whether to check, but how frequently. The check itself is
-> consuming processing time, too, so one generally wants to balance the number
-> of checks against the size of the resulting time window without any check.
+>> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+>> ---
+>>   xen/arch/arm/arm32/asm-offsets.c         |  6 +++
+>>   xen/arch/arm/arm32/mpu/head.S            | 57 ++++++++++++++++++++++++
+>>   xen/arch/arm/include/asm/mpu/regions.inc |  8 +++-
+>>   3 files changed, 70 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/xen/arch/arm/arm32/asm-offsets.c b/xen/arch/arm/arm32/asm-offsets.c
+>> index 8bbb0f938e..c203ce269d 100644
+>> --- a/xen/arch/arm/arm32/asm-offsets.c
+>> +++ b/xen/arch/arm/arm32/asm-offsets.c
+>> @@ -75,6 +75,12 @@ void __dummy__(void)
+>>   
+>>      OFFSET(INITINFO_stack, struct init_info, stack);
+>>      BLANK();
+>> +
+>> +#ifdef CONFIG_MPU
+>> +   DEFINE(XEN_MPUMAP_MASK_sizeof, sizeof(xen_mpumap_mask));
+>> +   DEFINE(XEN_MPUMAP_sizeof, sizeof(xen_mpumap));
+>> +   BLANK();
+>> +#endif
+>>   }
+>>   
+>>   /*
+>> diff --git a/xen/arch/arm/arm32/mpu/head.S b/xen/arch/arm/arm32/mpu/head.S
+>> index b2c5245e51..1f9eec6e68 100644
+>> --- a/xen/arch/arm/arm32/mpu/head.S
+>> +++ b/xen/arch/arm/arm32/mpu/head.S
+>> @@ -10,6 +10,38 @@
+>>   #include <asm/mpu/regions.inc>
+>>   #include <asm/page.h>
+>>   
+>> +/*
+>> + * dcache_line_size - get the minimum D-cache line size from the CTR register.
+>> + */
+> I do think we should have a cache.S file to store cache related ops just like
+> for Arm64.
+ok, I will introduce a new file.
+> Also, no need for multiline comment.
+ack.
+>
+>> +    .macro  dcache_line_size, reg, tmp1, tmp2
+> I would prefer to use the macro from Linux that uses one temporary register
+/*
+  * dcache_line_size - get the minimum D-cache line size from the CTR 
+register
+  * on ARMv7.
+  */
+     .macro  dcache_line_size, reg, tmp
+     mrc p15, 0, \tmp, c0, c0, 1     /* read ctr */
+     lsr \tmp, \tmp, #16
+     and \tmp, \tmp, #0xf             /* cache line size encoding */
+     mov \reg, #4                          /* bytes per word */
+     mov \reg, \reg, lsl \tmp         /* actual cache line size */
+     .endm
 
-So you are expecting something like this:
-         /* Check to see if we need to yield and try again */
-         if ( !(d->arch.paging.p2m_total_pages % 30) && preempted &&
-              general_preempt_check() )
-         {
-             *preempted = true;
-             return -ERESTART;
-         }
-It still requires, at least, one check, but this check isn't so long as
-general_preempt_check() could be.
+>
+>> +    mrc CP32(\reg, CTR)           // read CTR
+> NIT: wrong comment style + wrong alignment
+yes, I should use /* ... */
+>
+>> +    ubfx   \tmp1, \reg, #16, #4   // Extract DminLine (bits 19:16) into tmp1
+>> +    mov    \tmp2, #1
+>> +    lsl    \tmp2, \tmp2, \tmp1    // tmp2 = 2^DminLine
+>> +    lsl    \tmp2, \tmp2, #2       // tmp2 = 4 * 2^DminLine = cache line size in bytes
+>> +    .endm
+>> +
+>> +/*
+>> + * __invalidate_dcache_area(addr, size)
+>> + *
+>> + * Ensure that the data held in the cache for the buffer is invalidated.
+>> + *
+>> + * - addr - start address of the buffer
+>> + * - size - size of the buffer
+>> + */
+>> +FUNC(__invalidate_dcache_area)
+>> +    dcache_line_size r2, r3, r4
+>> +    add   r1, r0, r1
+>> +    sub   r4, r2, #1
+>> +    bic   r0, r0, r4
+>> +1:  mcr   CP32(r0, DCIMVAC)     /* invalidate D line / unified line */
+>> +    add   r0, r0, r2
+>> +    cmp   r0, r1
+>> +    blo   1b
+>> +    dsb   sy
+>> +    ret
+>> +END(__invalidate_dcache_area)
+>> +
+>>   /*
+>>    * Set up the memory attribute type tables and enable EL2 MPU and data cache.
+>>    * If the Background region is enabled, then the MPU uses the default memory
+>> @@ -49,6 +81,10 @@ FUNC(enable_boot_cpu_mm)
+>>       mrc   CP32(r5, MPUIR_EL2)
+>>       and   r5, r5, #NUM_MPU_REGIONS_MASK
+>>   
+>> +    ldr   r0, =max_mpu_regions
+> Why ldr and not mov_w?
+mov_w   r0, max_mpu_regions
+>
+>> +    str   r5, [r0]
+>> +    mcr   CP32(r0, DCIMVAC) /* Invalidate cache for max_mpu_regions addr */
+>> +
+>>       /* x0: region sel */
+>>       mov   r0, #0
+>>       /* Xen text section. */
+>> @@ -83,6 +119,27 @@ FUNC(enable_boot_cpu_mm)
+>>       prepare_xen_region r0, r1, r2, r3, r4, r5, attr_prbar=REGION_DEVICE_PRBAR, attr_prlar=REGION_DEVICE_PRLAR
+>>   #endif
+>>   
+>> +zero_mpu:
+>> +    /* Reset remaining MPU regions */
+>> +    cmp   r0, r5
+>> +    beq   out_zero_mpu
+>> +    mov   r1, #0
+>> +    mov   r2, #1
+>> +    prepare_xen_region r0, r1, r2, r3, r4, r5, attr_prlar=REGION_DISABLED_PRLAR
+>> +    b     zero_mpu
+>> +
+>> +out_zero_mpu:
+>> +    /* Invalidate data cache for MPU data structures */
+>> +    mov r5, lr
+>> +    ldr r0, =xen_mpumap_mask
+> Why not mov_w?
+mov_w r0, xen_mpumap_mask
+>
+>> +    mov r1, #XEN_MPUMAP_MASK_sizeof
+>> +    bl __invalidate_dcache_area
+>> +
+>> +    ldr r0, =xen_mpumap
+>> +    mov r1, #XEN_MPUMAP_sizeof
+>> +    bl __invalidate_dcache_area
+>> +    mov lr, r5
+>> +
+>>       b    enable_mpu
+>>   END(enable_boot_cpu_mm)
+>>   
+>> diff --git a/xen/arch/arm/include/asm/mpu/regions.inc b/xen/arch/arm/include/asm/mpu/regions.inc
+>> index 6b8c233e6c..943bcda346 100644
+>> --- a/xen/arch/arm/include/asm/mpu/regions.inc
+>> +++ b/xen/arch/arm/include/asm/mpu/regions.inc
+>> @@ -24,7 +24,13 @@
+>>   #define XEN_MPUMAP_ENTRY_SHIFT  0x3     /* 8 byte structure */
+>>   
+>>   .macro store_pair reg1, reg2, dst
+>> -    .word 0xe7f000f0                    /* unimplemented */
+>> +    str \reg1, [\dst]
+>> +    add \dst, \dst, #4
+>> +    str \reg2, [\dst]
+> AFAIR there is STM instruction to do the same
+strd \reg1, \reg2, [\dst]
+>
+>> +.endm
+>> +
+>> +.macro invalidate_dcache_one reg
+>> +    mcr CP32(\reg, DCIMVAC)
+> Why? You don't seem to use this macro
 
-~ Oleksii
+oh, this can be removed.
 
---------------FcvKDYp52KLyHVM0U0MgvD0D
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+- Ayan
 
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 6/2/25 1:08 PM, Jan Beulich wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:5ce4c4a6-8e2e-4b4e-9cec-03a78d1d0173@suse.com">
-      <pre wrap="" class="moz-quote-pre">On 23.05.2025 12:27, Oleksii Kurochko wrote:
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">On 5/20/25 4:38 PM, Jan Beulich wrote:
-</pre>
-        <blockquote type="cite">
-          <pre wrap="" class="moz-quote-pre">On 09.05.2025 17:57, Oleksii Kurochko wrote:
-</pre>
-          <blockquote type="cite">
-            <pre wrap="" class="moz-quote-pre">--- a/xen/arch/riscv/p2m.c
-+++ b/xen/arch/riscv/p2m.c
-@@ -1,4 +1,12 @@
-  #include &lt;xen/domain_page.h&gt;
-+/*
-+ * Because of general_preempt_check() from xen/sched.h which uses
-+ * local_events_need_delivery() but latter is declared in &lt;asm/event.h&gt;.
-+ * Thereby it is needed to icnlude &lt;xen/event.h&gt; here before xen/sched.h.
-+ *
-+ * Shouldn't be xen/event.h be included in &lt;xen/sched.h&gt;?
-+ */
-+#include &lt;xen/event.h&gt;
-</pre>
-          </blockquote>
-          <pre wrap="" class="moz-quote-pre">The question doesn't belong here; such could be put in the post-commit-
-message area. And the answer depends on what dependency you found missing.
-</pre>
-        </blockquote>
-        <pre wrap="" class="moz-quote-pre">
-It is needed for local_events_need_delivery() which is used by general_preempt_check()
-in p2m_set_allocation(). Otherwise, the following issue will occur:
-
-In file included from ././include/xen/config.h:17,
-                  from &lt;command-line&gt;:
-arch/riscv/p2m.c: In function 'p2m_set_allocation':
-./include/xen/sched.h:941:36: error: implicit declaration of function 'local_events_need_delivery' [-Werror=implicit-function-declaration]
-   941 |         (!is_idle_vcpu(current) &amp;&amp; local_events_need_delivery())    \
-       |                                    ^~~~~~~~~~~~~~~~~~~~~~~~~~
-./include/xen/compiler.h:26:43: note: in definition of macro 'unlikely'
-    26 | #define unlikely(x)   __builtin_expect(!!(x),0)
-       |                                           ^
-arch/riscv/p2m.c:244:27: note: in expansion of macro 'general_preempt_check'
-   244 |         if ( preempted &amp;&amp; general_preempt_check() )
-       |                           ^~~~~~~~~~~~~~~~~~~~~
-cc1: all warnings being treated as errors
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-In which case my answer to your question is "No". Others may take a different
-perspective. (xen/sched.h being included virtually everywhere, imo we want to
-avoid adding dependencies there which aren't strictly necessary to keep things
-building.)</pre>
-    </blockquote>
-    <pre>Okay, then I will just update the comment and leave inclusion of xen/event.h in riscv/p2mc.
-
-</pre>
-    <blockquote type="cite"
-      cite="mid:5ce4c4a6-8e2e-4b4e-9cec-03a78d1d0173@suse.com">
-      <pre wrap="" class="moz-quote-pre">
-
-</pre>
-      <blockquote type="cite">
-        <blockquote type="cite">
-          <blockquote type="cite">
-            <pre wrap="" class="moz-quote-pre">@@ -166,3 +176,60 @@ int p2m_init(struct domain *d)
-  
-      return 0;
-  }
-+
-+/*
-+ * Set the pool of pages to the required number of pages.
-+ * Returns 0 for success, non-zero for failure.
-+ * Call with d-&gt;arch.paging.lock held.
-+ */
-+int p2m_set_allocation(struct domain *d, unsigned long pages, bool *preempted)
-+{
-+    struct page_info *pg;
-+
-+    ASSERT(spin_is_locked(&amp;d-&gt;arch.paging.lock));
-+
-+    for ( ; ; )
-+    {
-+        if ( d-&gt;arch.paging.p2m_total_pages &lt; pages )
-+        {
-+            /* Need to allocate more memory from domheap */
-+            pg = alloc_domheap_page(d, MEMF_no_owner);
-+            if ( pg == NULL )
-+            {
-+                printk(XENLOG_ERR "Failed to allocate P2M pages.\n");
-+                return -ENOMEM;
-+            }
-+            ACCESS_ONCE(d-&gt;arch.paging.p2m_total_pages) =
-+                d-&gt;arch.paging.p2m_total_pages + 1;
-</pre>
-          </blockquote>
-          <pre wrap="" class="moz-quote-pre">Looks like you copied this from Arm, but this code is bogus: Using
-ACCESS_ONCE() just on the lhs is pretty pointless. Once also used on the
-rhs the expression can easily become
-
-                 ACCESS_ONCE(d-&gt;arch.paging.p2m_total_pages) += 1;
-
-or even
-
-                 ACCESS_ONCE(d-&gt;arch.paging.p2m_total_pages)++;
-
-.
-
-</pre>
-          <blockquote type="cite">
-            <pre wrap="" class="moz-quote-pre">+            page_list_add_tail(pg, &amp;d-&gt;arch.paging.p2m_freelist);
-+        }
-+        else if ( d-&gt;arch.paging.p2m_total_pages &gt; pages )
-+        {
-+            /* Need to return memory to domheap */
-+            pg = page_list_remove_head(&amp;d-&gt;arch.paging.p2m_freelist);
-+            if( pg )
-+            {
-+                ACCESS_ONCE(d-&gt;arch.paging.p2m_total_pages) =
-+                    d-&gt;arch.paging.p2m_total_pages - 1;
-</pre>
-          </blockquote>
-          <pre wrap="" class="moz-quote-pre">Same here then, obviously.
-
-</pre>
-          <blockquote type="cite">
-            <pre wrap="" class="moz-quote-pre">+                free_domheap_page(pg);
-+            }
-+            else
-+            {
-+                printk(XENLOG_ERR
-+                       "Failed to free P2M pages, P2M freelist is empty.\n");
-+                return -ENOMEM;
-+            }
-+        }
-+        else
-+            break;
-+
-+        /* Check to see if we need to yield and try again */
-+        if ( preempted &amp;&amp; general_preempt_check() )
-</pre>
-          </blockquote>
-          <pre wrap="" class="moz-quote-pre">While it's this way on both Arm and x86, I wonder how useful it is
-to check on every iteration, especially when freeing pages back to the
-buddy allocator.
-</pre>
-        </blockquote>
-        <pre wrap="" class="moz-quote-pre">
-IIUC, but a preemption request could happen for both cases. And destroying of
-a domain could also consume long time and so not to block hypervisor if something
-more urgent should be handled it could be also have this check for the case of
-freeng pages back to the buddy allocator.
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-The question wasn't whether to check, but how frequently. The check itself is
-consuming processing time, too, so one generally wants to balance the number
-of checks against the size of the resulting time window without any check.</pre>
-    </blockquote>
-    <pre>So you are expecting something like this:
-        /* Check to see if we need to yield and try again */
-        if ( !(d-&gt;arch.paging.p2m_total_pages % 30) &amp;&amp; preempted &amp;&amp;
-             general_preempt_check() )
-        {
-            *preempted = true;
-            return -ERESTART;
-        }
-It still requires, at least, one check, but this check isn't so long as 
-general_preempt_check() could be.</pre>
-    <pre>~ Oleksii
-</pre>
-  </body>
-</html>
-
---------------FcvKDYp52KLyHVM0U0MgvD0D--
+>
+>>   .endm
+>>   
+>>   #endif
+> ~Michal
+>
 
