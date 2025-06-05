@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E5CA1ACE981
-	for <lists+xen-devel@lfdr.de>; Thu,  5 Jun 2025 07:55:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1006231.1385420 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 64847ACE9E8
+	for <lists+xen-devel@lfdr.de>; Thu,  5 Jun 2025 08:15:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1006245.1385431 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uN3Za-0002XU-D5; Thu, 05 Jun 2025 05:55:30 +0000
+	id 1uN3sv-0005TW-2T; Thu, 05 Jun 2025 06:15:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1006231.1385420; Thu, 05 Jun 2025 05:55:30 +0000
+Received: by outflank-mailman (output) from mailman id 1006245.1385431; Thu, 05 Jun 2025 06:15:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uN3Za-0002VG-92; Thu, 05 Jun 2025 05:55:30 +0000
-Received: by outflank-mailman (input) for mailman id 1006231;
- Thu, 05 Jun 2025 05:55:29 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uN3su-0005QO-Vn; Thu, 05 Jun 2025 06:15:28 +0000
+Received: by outflank-mailman (input) for mailman id 1006245;
+ Thu, 05 Jun 2025 06:15:27 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=qREP=YU=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uN3ZY-0002VA-SZ
- for xen-devel@lists.xenproject.org; Thu, 05 Jun 2025 05:55:29 +0000
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [2a00:1450:4864:20::431])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id abcbfced-41d1-11f0-b894-0df219b8e170;
- Thu, 05 Jun 2025 07:55:23 +0200 (CEST)
-Received: by mail-wr1-x431.google.com with SMTP id
- ffacd0b85a97d-3a366843fa6so292201f8f.1
- for <xen-devel@lists.xenproject.org>; Wed, 04 Jun 2025 22:55:23 -0700 (PDT)
+ id 1uN3st-0005QI-OI
+ for xen-devel@lists.xenproject.org; Thu, 05 Jun 2025 06:15:27 +0000
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [2a00:1450:4864:20::332])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 7882195b-41d4-11f0-a300-13f23c93f187;
+ Thu, 05 Jun 2025 08:15:26 +0200 (CEST)
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-451d6ade159so4380305e9.1
+ for <xen-devel@lists.xenproject.org>; Wed, 04 Jun 2025 23:15:26 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-747afe9639csm12504925b3a.17.2025.06.04.22.55.19
+ d9443c01a7336-235e7322a81sm17043625ad.66.2025.06.04.23.15.19
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 04 Jun 2025 22:55:22 -0700 (PDT)
+ Wed, 04 Jun 2025 23:15:25 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: abcbfced-41d1-11f0-b894-0df219b8e170
+X-Inumbo-ID: 7882195b-41d4-11f0-a300-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1749102923; x=1749707723; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1749104125; x=1749708925; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=4v2PFWgrpkN9/X6bYuWG9tQ8K+a6jECdX4qVTa/Ndjk=;
-        b=G8f4QtYZvDZbjkKzF0on4HE77vA5GEAD48+y7ZL7ZeHaN7jLMbzTG7wAtFS4It1XXP
-         09sJTnN+wfm1vmeN33WqnzgbBocg8puFdNdgtw3RAQl8I553eb2LC8wyB1oDWxyAuk2h
-         icylwT7IFa2TFdCIDg/Cz5Sd1K/Bkq35UPVav1IookuUZ/gRuJ/GqJnZMyl1orUGaLLl
-         5rOf89TYd5CLJhULCBsjycNeToCf51ro5d0IgnrcPMwHh6CHwdVwoNragbAVYf/CYuTl
-         VwZjyqvcJeVT54vYuADccgJaWOS/xFnyvCaE+IlTmCLVJVyeAwJugByiBHGGlqQQh1hA
-         V9hQ==
+        bh=AhHIwwgaIgRJqqWACaKi7GDCYSOcejbHNvKR1zKjwK8=;
+        b=F1xmzeNfmsJo+idmjv96NrxqbQEsXRdi1bI5HeBN4Y5DI9WeoxJC/1PV9zV3FMKhfO
+         d9VcplYrEKjp5M3uh5pQR1IKDTyEifY62e6z8vhGb/WdUOUpGvjgEJMuXiptFYLJ5Pi4
+         XstiGsX19jxhlfxqYqS+/0JR/QZ/TL/PsiKdNGIW5jvrz/LOq0xz6vQoqCHhOikf9Qxp
+         b5Mpb8TeyPNEU0aY16HQpWK4NQJ6kzlaUzRSDt3TQLztAtOVyYuAkw8R2PzAyxszhisK
+         y0fafI0VoX+cJc7iCPLFDL2Td9oPVEqSxdZvXAvbqSmf1Aq6SZG03ACOiEAdl0ljIQeK
+         t34A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749102923; x=1749707723;
+        d=1e100.net; s=20230601; t=1749104125; x=1749708925;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=4v2PFWgrpkN9/X6bYuWG9tQ8K+a6jECdX4qVTa/Ndjk=;
-        b=Zr5pBZiE/PZAm1keE7uZjahBkTFOM8vV+EfTxu/C3Qv08C0pCpbLcXF/Pm/3+nBvyL
-         nWl5ZSZbzsIg2TbDFgcOGax6u7lAB9nAmi5YQGuf9tZp/XanBdk9lP6+OSVUks/iNbzQ
-         aQ9P/RMf5oJpgudFHK8VASQWmZdcPiftRIReZfAC96bxAYfmXJF/f4rHJ9fMfhRPRxPl
-         sV1hatXqgdYdwtLes0D0VdGk++ZBAjOjSwZwW/GhRD/sh8+enFouYEspNSruvPOJX34C
-         M4D1JUQttbq9GE0QSqOZq/RcEkXMTFwcyevFhdP+ZmbXKW+Esr1rgkEgbSVXHU3yg8DU
-         z2/g==
-X-Forwarded-Encrypted: i=1; AJvYcCWkmBXdQuHzH/eEaHi2JGLcH+pN8uALTtLEWNKhqCLAbyt/bdkV5l+wjVQhm/Z2P3tFOOfkgitJWQo=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwmmRSYJOzj103adoXAhPz2J68ffsGJLZwGQs+GRDioWIs3iDNm
-	4EJUTKNrgnU8efYtMDMq4X8JyGbrLsk0y+Fh/V/crjfcaVn0uim4Q7hJV2D6aAL/KA==
-X-Gm-Gg: ASbGncsVii7BC76mAMuJ/CNXceMbeWgCNzu/g+/BQzJJYDZU8/k6YcFplx7gIvjVuOl
-	qYHs3KZncezoTBEnhXuPKklXVhcWklQ8fGmDW/kA8m+PmoXmDpPmYk4vj9zpxnDW2tcYUSeEmtN
-	sZpagJCLJPONpRz06/1lbKpGOB6bU5QBLhIUyFXDDtTf5dt8Zig18Yrw+xd02sCOJqZuXMK7X9e
-	Z51L/myvfbIdG2MddHALCR/5Z2OWSE+HCGk993CRslvbIyUQ6k8D5K0yK9WRzjl15mMQCyR/xeD
-	qNN7II8zbk2/AwVzIiazwGa/VikJdpgQmiZC0FeqQoRWpqlw14mj2JMJEhjGEZ1L/KZCJkJVLfN
-	unvLt7/9dykWGgpAhso6dpMuPidLw+BHG4lDb
-X-Google-Smtp-Source: AGHT+IExBX3PDnWv73qdy8MeSxoX+0zw92+HcCpsQKWY/+MQfdqKpSQ4ejrjy18MeEriilHeO/mtew==
-X-Received: by 2002:a05:6000:1a87:b0:3a4:ed2f:e82d with SMTP id ffacd0b85a97d-3a51d9306d8mr3935384f8f.22.1749102922788;
-        Wed, 04 Jun 2025 22:55:22 -0700 (PDT)
-Message-ID: <8cb2ec09-d806-4ee8-8e49-188f278ff2a4@suse.com>
-Date: Thu, 5 Jun 2025 07:55:15 +0200
+        bh=AhHIwwgaIgRJqqWACaKi7GDCYSOcejbHNvKR1zKjwK8=;
+        b=R2Z/JnsPtF6PPzQpcIx/nMPFcvl8+Iyvh2+guBZ6BWrsyTCI5P/VMtGgSeyqr8uETN
+         FAeTcFDTHJSQexu8qL2PbaFZ9LvcJV6Yq4JAOD1ESLcLFoJxbNcVzvxKsjQ3RrUvv7H6
+         cXOfoXo5yaIrHBEj8vvmZOtMBGftCrCkqazek2CcQkdWQYAQ/UdZrPSL/pRlWlx38wxz
+         QzOMQXBXpt4tr2noJXCZshv1h1bn+2LX3v0SxGSgg6GeQsFDxFnXT2jnSNM8DPBAapa/
+         alOiM1gorCRe7+NOeqCrOrpZ8UFJT+Iyau1zqhln+4syFeuj2CEsN0jw/CSPT7YI/WXx
+         FAdQ==
+X-Forwarded-Encrypted: i=1; AJvYcCU3kB//ADjEsjt9qF8UeoJMq6NWSQsPfIzX/NDn5PcZrjcXf4F9H5EiVofabfI+6+R7oBtCG/cbQwg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yxb/Iu/2+457LQe/eo33kYsXrxJMEXWvbnPjxlzmSPvq0ZBvgEV
+	QLqMBonuL33gk9Gj7OywYJEEhQhHqAx5zu1TzIr987UkpfDaL6ifUQePjpDthPCQWQ==
+X-Gm-Gg: ASbGncv40jyhFxM2aEpFnu4jqMT9Qjl23Z6Y+lEwk8JYtNpSc7M1cIUmQtC1yMz0gqV
+	U308y/1HBuaaS9ru0PxOTqnRk+ROwvpiugeEzfsH8+S7/ReWEOHErPLEFGJgVjeHpI2sdYcf5W2
+	LextFonGkgKKs1bpeiC+ifAt0+egynIdsc87DpG4w8CdhidLdWxUO/aP+jDjQ8GYltLRD31bCI9
+	wFhWObAp7jBS2QfBt7PYuDTr1rAWEJTZ1o0abeks5/JzLiD88DI3d04fRLlXqGjpe0kcs+SqCwa
+	oXK0qUqlt1WauJz59ghqHoAdw3sbBElIsMTEk2hl0opn1IahhcN4PYSiAImUviJPzDtjgBT/V6c
+	YzRboh40SARbXLR56nZiL3Og7a14dmuAfPI6K
+X-Google-Smtp-Source: AGHT+IHTpQz2jONjMnc2ZNbXX0DTzZ44iXVyzIgq7XEY/yF0j6iuEupiYkSykAlztXbBaZbTeyIZTw==
+X-Received: by 2002:a05:6000:2489:b0:3a4:ed1e:405b with SMTP id ffacd0b85a97d-3a51d974bddmr4548277f8f.46.1749104125466;
+        Wed, 04 Jun 2025 23:15:25 -0700 (PDT)
+Message-ID: <8585aaa1-65fc-44cf-822b-d69429d81020@suse.com>
+Date: Thu, 5 Jun 2025 08:15:15 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/hvm: Process pending softirqs while dumping VMC[SB]s
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Aidan Allen <aidan.allen1@cloud.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250604130253.2805053-1-andrew.cooper3@citrix.com>
- <b212dffb-0efa-48e4-9899-104db4754446@suse.com>
- <7c3f7bb0-b7b9-4909-8d8b-d412498aea59@citrix.com>
+Subject: Re: [PATCH v1 2/2] xen/console: unify printout behavior for UART
+ emulators
+To: dmkhn@proton.me
+Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org,
+ michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org,
+ dmukhin@ford.com, xen-devel@lists.xenproject.org
+References: <20250531000417.81750-1-dmukhin@ford.com>
+ <20250531000417.81750-3-dmukhin@ford.com>
+ <71318dd2-0724-4c2a-9786-40b676411e56@suse.com> <aEDrcJ9JE3p6Xj7Q@kraken>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,45 +121,74 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <7c3f7bb0-b7b9-4909-8d8b-d412498aea59@citrix.com>
+In-Reply-To: <aEDrcJ9JE3p6Xj7Q@kraken>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 04.06.2025 17:20, Andrew Cooper wrote:
-> On 04/06/2025 4:15 pm, Jan Beulich wrote:
->> On 04.06.2025 15:02, Andrew Cooper wrote:
->>> @@ -246,6 +248,8 @@ static void cf_check vmcb_dump(unsigned char ch)
+On 05.06.2025 02:57, dmkhn@proton.me wrote:
+> On Wed, Jun 04, 2025 at 12:48:05PM +0200, Jan Beulich wrote:
+>> On 31.05.2025 02:04, dmkhn@proton.me wrote:
+>>> --- a/xen/arch/x86/hvm/hvm.c
+>>> +++ b/xen/arch/x86/hvm/hvm.c
+>>> @@ -577,7 +577,7 @@ static int cf_check hvm_print_line(
+>>>      if ( (cd->pbuf_idx == (DOMAIN_PBUF_SIZE - 1)) || (c == '\n') )
+>>>      {
+>>>          cd->pbuf[cd->pbuf_idx] = '\0';
+>>> -        guest_printk(cd, XENLOG_G_DEBUG "%s\n", cd->pbuf);
+>>> +        guest_printk(cd, "%s\n", cd->pbuf);
+>>>          cd->pbuf_idx = 0;
+>>>      }
+>>
+>> Why this and ...
+>>
+>>> @@ -755,7 +765,7 @@ static long guest_console_write(XEN_GUEST_HANDLE_PARAM(char) buffer,
+>>>              else
+>>>              {
+>>>                  cd->pbuf[cd->pbuf_idx] = '\0';
+>>> -                guest_printk(cd, XENLOG_G_DEBUG "%s%s\n", cd->pbuf, kbuf);
+>>> +                guest_printk(cd, "%s%s\n", cd->pbuf, kbuf);
+>>>                  cd->pbuf_idx = 0;
 >>>              }
->>>              printk("\tVCPU %d\n", v->vcpu_id);
->>>              svm_vmcb_dump("key_handler", v->arch.hvm.svm.vmcb);
->>> +
->>> +            process_pending_softirqs();
->> It's only an RCU read lock we're holding here, but it still feels somewhat
->> odd to do this with any kind of lock held. Then again (I didn't even
->> consider this upon earlier insertions of such into keyhandler functions)
->> we may even be holding a real lock (the sysctl one) when getting here, yet
->> apparently that was deemed fine in the past. Plus dump_domains() does the
->> same as what we end up with here ...
+>>
+>> ... this change? There's no compensation for it ...
+>>
+>>> @@ -1013,12 +1023,21 @@ void printk(const char *fmt, ...)
+>>>      va_end(args);
+>>>  }
+>>>
+>>> +/*
+>>> + * Print message from the guest on the diagnostic console.
+>>> + * Prefixes all messages w/ "(dX)" if domain X does not own physical console
+>>> + * focus.
+>>> + */
+>>>  void guest_printk(const struct domain *d, const char *fmt, ...)
+>>>  {
+>>>      va_list args;
+>>> -    char prefix[16];
+>>> +    char prefix[16] = "";
+>>> +    struct domain *consd;
+>>>
+>>> -    snprintf(prefix, sizeof(prefix), "(d%d) ", d->domain_id);
+>>> +    consd = console_get_domain();
+>>> +    if ( consd != d )
+>>> +        snprintf(prefix, sizeof(prefix), "(d%d) ", d->domain_id);
+>>> +    console_put_domain(consd);
+>>>
+>>>      va_start(args, fmt);
+>>>      vprintk_common(fmt, args, prefix);
+>>
+>> ... here afaics, so it looks like you're undermining rate-limiting of
+>> those messages.
 > 
-> The debug keys are debug functionality, and do play rather fast and loose.
+> I droppped behavior change for I/O debug port on x86 and HYPERVISOR_console_io
+> hypercall.
 > 
-> While the Xen watchdog does hit first (5s), spending too long does cause
-> problems for the vCPU that's interrupted (usually soft lockup).
-> 
-> I was wondering if we should force schedule to idle before running most
-> keyhandlers.  That prevents holding a vCPU hostage (and if it's hard
-> pinned, then tough luck).
+> But my understanding is that all guest debugging facilities, if enabled, should
+> not be rate-limited.
 
-We already invoke a tasklet in most situations, the main exception being
-invocation via sysctl afaict.
-
-> We would want a way of blocking further sysctl-debug-key's while one is
-> pending.
-
-That's guaranteed already by the sysctl lock, isn't it? Or did you mean
-blocking sysctl ones while a non-sysctl one is in progress? (Along the
-lines of what you say in the first sentence of your reply, right now we
-simply assume responsible use by the host admin here.)
+I certainly disagree there. How much rate limiting to apply to guest output is a
+matter of the guest_loglvl= command line option. Its default settings are the way
+they are for a reason.
 
 Jan
 
