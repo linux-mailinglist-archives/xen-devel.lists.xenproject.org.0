@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E8947ACF057
-	for <lists+xen-devel@lfdr.de>; Thu,  5 Jun 2025 15:24:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1006847.1386093 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 94295ACF079
+	for <lists+xen-devel@lfdr.de>; Thu,  5 Jun 2025 15:28:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1006853.1386103 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uNAaD-0005qg-Oh; Thu, 05 Jun 2025 13:24:37 +0000
+	id 1uNAdR-0006NT-7Q; Thu, 05 Jun 2025 13:27:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1006847.1386093; Thu, 05 Jun 2025 13:24:37 +0000
+Received: by outflank-mailman (output) from mailman id 1006853.1386103; Thu, 05 Jun 2025 13:27:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uNAaD-0005oI-LK; Thu, 05 Jun 2025 13:24:37 +0000
-Received: by outflank-mailman (input) for mailman id 1006847;
- Thu, 05 Jun 2025 13:24:36 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uNAdR-0006L7-46; Thu, 05 Jun 2025 13:27:57 +0000
+Received: by outflank-mailman (input) for mailman id 1006853;
+ Thu, 05 Jun 2025 13:27:55 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=qREP=YU=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uNAaC-0005oC-EG
- for xen-devel@lists.xenproject.org; Thu, 05 Jun 2025 13:24:36 +0000
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [2a00:1450:4864:20::334])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6bb719db-4210-11f0-a300-13f23c93f187;
- Thu, 05 Jun 2025 15:24:34 +0200 (CEST)
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-43ea40a6e98so12021835e9.1
- for <xen-devel@lists.xenproject.org>; Thu, 05 Jun 2025 06:24:34 -0700 (PDT)
+ id 1uNAdP-0006L1-Ix
+ for xen-devel@lists.xenproject.org; Thu, 05 Jun 2025 13:27:55 +0000
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [2a00:1450:4864:20::430])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e274ff53-4210-11f0-b894-0df219b8e170;
+ Thu, 05 Jun 2025 15:27:53 +0200 (CEST)
+Received: by mail-wr1-x430.google.com with SMTP id
+ ffacd0b85a97d-3a4e742dc97so1365885f8f.0
+ for <xen-devel@lists.xenproject.org>; Thu, 05 Jun 2025 06:27:53 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-747afe967easm12789921b3a.21.2025.06.05.06.24.29
+ d9443c01a7336-23506d21802sm119390475ad.215.2025.06.05.06.27.46
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 05 Jun 2025 06:24:33 -0700 (PDT)
+ Thu, 05 Jun 2025 06:27:52 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,60 +45,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6bb719db-4210-11f0-a300-13f23c93f187
+X-Inumbo-ID: e274ff53-4210-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1749129874; x=1749734674; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1749130073; x=1749734873; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=u8+sxsowr6AU5P36Xo1cUQ+rCEgTxvqKRs52I670ZnA=;
-        b=Piw8DG1GHrhtpnAO9SvXVQMaGEBGiWUiopOmRgJNbSiHzEnapnwuKuR5Qko4+gbzMB
-         4B4i778VQzzRjOWoVcI7s3oreDCpp4Hi0Sc/U1H4fhwyM+PH5duz/cK/yfMogwT/Kk1h
-         NY6zFdmYAY/3SGlDVerpDZsaZyVWURXuoDeKr+rKO8nm9i01b5HPRNb7osze19YaIhF5
-         lm1cems3NaKAzEx6j1YA3ZhrrpUOBjsge4he3AHpMZ3utbN58FL7MT75Ta78jQxRZk/2
-         kql5Z7383ytLJ0PRCis7t3iO4suoq9eTCcL7NIAAsFBZ71HSnbAp/8ctNMeSNrM4G9wn
-         jNqA==
+        bh=s8BoNeAxz/18ooR6Va4Bog9IVU7MoN5pP9IrNWTfYXQ=;
+        b=B15AZAzIHbPA94tlEqf8CviAssQYk41PtpuFBiaRNGLLygYyPnvInM5U4othuh676h
+         jDHhYKER1Y9VjZaMZMrGD6z/eFv7z8ld/8JlzpxyF4BnLz5nAOIzXzVlHYSLMpXExzdy
+         bCF04akIueCAexWTVhq+TU5wlZm8RBWbnf2BvoRudVvrxxDey6Md6E2IjJwQ2wkQO+2e
+         S+lQ5usKKd6zQB6UvbNDL8isZJdeFRyQhUcCpbIKG2hSHnyR3+voqg5wKGPe+Jwc6/QV
+         C2P3NwC9lEcENHHbOQ8P0/5aFyuhWlt7RwnRgxZ0agc/pL3Tjiuo0lYpFBhc4BCy2HAt
+         zYKw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749129874; x=1749734674;
+        d=1e100.net; s=20230601; t=1749130073; x=1749734873;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=u8+sxsowr6AU5P36Xo1cUQ+rCEgTxvqKRs52I670ZnA=;
-        b=XnL1sFNqwYV0jLV9mnfhuVkdd8pqXSkvyYI+GTyz9t76ok5nGzHOklSNUyHu6vW/7a
-         xmNo2F4fLuN1O3ss3kTlfgnySbXL5m08ZQ+VUosi2+g7I7y+QJ4OXQW1oUa2etNAUXuY
-         +LXpKlpopiFY32MZXoZ3ceT0GI5XhjKLBcyI3HCjJoLIVp/FoQiUCz38YDcF80cinKIw
-         0AK3wP3PNC9G3Dge8TgclT9HZcN3RrmDvuKF97UztOpJpwf0Zoq9zRAqLSQ1TrWRRIti
-         x3lWDeUcLUBKGY5CQrI4nAkYnRg+Ldr6PDwmYEADwPn1MQ4FcuOG7lvCXbtAyu7ArLkX
-         Q23g==
-X-Forwarded-Encrypted: i=1; AJvYcCXQXsrRuvE9r3RQ/lsif9w6cG+1OLyDQavfpRrNHCSrXmmsIhelvl6t43XXEirGWSBL7A8i55jAtnM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxYfA7D1fLoUU7i8WqqOE/EAD8xhPDY7esq9Em8RKpmRUAELB8D
-	11j/efZuVpM2BmpkAJZWIs/RTfoaLyzLzcC98sUflvyy52HMQ8/Pg8DNLttL65btcA==
-X-Gm-Gg: ASbGncsxgOFWj63SUtflDe9AxzxAWhl9Yttb7ofWyFyAsUOpUNk97tvf5HMFkYADWCJ
-	t1cc6yMevqqIHg/XARqHAEy/4whRDFBwPJt/g277YxnzPZRuc4VuBqRkKat2r7jgWFwMKVXIIua
-	M1+S+pteog1qiyGlG6mkt0W72N7olRMPPXPMLLdrSq6tPxwz/ys7MjrDwb2Q5/cdCWisHc7l8Hp
-	dZH6hpj0TAFR5kKeqQEJmObm8huI/2p9Axp9Z8X6oypP3W7GvEJ4OYiwOgdTw5NloLgmbZv5S8H
-	Urk5Qzpdyz6moRi0WtbkzobXhB81iq5/Uiwiao5Bxi3ajv1ovPdinoBBpgO4317EAMSvmfPRBmv
-	Zj8lMlaug6pyu+KRtmVtUbcPfNSr2hMRIysUQ
-X-Google-Smtp-Source: AGHT+IFL8X4WjAs9RHgsM+f9mOC15fIN0FKD7wUFR7IdyO4+Vr1DYsdhd3IHsTS+NiImdstm9/nZRw==
-X-Received: by 2002:a05:6000:381:b0:3a4:d722:5278 with SMTP id ffacd0b85a97d-3a51d9769c2mr6155181f8f.39.1749129873757;
-        Thu, 05 Jun 2025 06:24:33 -0700 (PDT)
-Message-ID: <4d1f1b70-e309-453b-bae6-e066d49a417a@suse.com>
-Date: Thu, 5 Jun 2025 15:24:25 +0200
+        bh=s8BoNeAxz/18ooR6Va4Bog9IVU7MoN5pP9IrNWTfYXQ=;
+        b=m2h5wonm9hQ1ukw2R1FZ/Az+aETdxWwV6VYdRf//oJgua+b7lwxMxZFgh5B7+PMSk9
+         MMDuYo7CerQHPzqUiPfBsrZT9WVHufuGqdDu5AAfpV/SZVmqlzLs4jd8N59SQxww9rfC
+         PRotLG63DqjdudmVjnUbPOPT4/YyhKCOysIzTfxtYKiZNNxcN0Zp9DAl3cKy+sUSar6Q
+         8z8tItVE7i0TM1zCaJ/8KYSfFcMkQZyOsA9gVA85rTIZA5+8Dq5XkrGG/GHMFezQXc18
+         0VoHkGJcviFE4uDpKxNfwdzxtGEiBbvVuocgc1oKrtEEnQ0X28nTF1fTkcZF0cpMJOde
+         a+YA==
+X-Forwarded-Encrypted: i=1; AJvYcCVnUVaCZ9BlJKzOY1yktTrBBxJrrFdy4YjxyLWkn2Q9C3Y+5d/q7CShOYIElUr6rr2qN7ioOv/f8Rc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzOWSDvWvN9lM/diw8gRXhql4Xhi4jjlABnhrCnIY/ZPEFxSo+U
+	aeW090Ib7rioVu15oqAVUD/f/rbKipbn9+Ovd+tsiUL4zqc3ZNanSvt+RmmBV5OTDT/TMpuye46
+	f9DA=
+X-Gm-Gg: ASbGnctgmcGb8NBavu5cvnpgNj2XiMKai6+f0tB9GmDnnsKB+z66asMUCR+OQ/7hnh+
+	YKA/dpjPV4azoADxevqFmgzcQI5072N1Fjshw8J8F+F1nXi461PzjcMhvgXMqbb+TthRSrvtc2U
+	TC7I8WDwFk+DKi9p5T9JGsBYkyc6QcGXRk05eysmr5kwVR68vEnJrKePx/G8EOZnpaZEG+4hS0h
+	GMVRGonFfaHnORsIHYMHA/m53vUPQSq/gh05zCa5BbIPXIuKxwvvVYsngwKmCB8QSEARhWaTcGG
+	HLh+rxiPH+D/Yjyp+G8uyxi91T6mmXjdqMF4oL+BIh43NdjDs0lVs9zhcmryKD0hDDfJQ436QjN
+	4uE62W/KjACQdblJs6vV6WnP3jCxrmgP9nJLn
+X-Google-Smtp-Source: AGHT+IH9IzJwKclOgpgw0Izj0bXnkFsbx6HjRdazthC4nY2QgKGK5QzB649hLQbhZ1Lfvwp+T+yNng==
+X-Received: by 2002:a05:6000:2310:b0:3a4:cec5:b59c with SMTP id ffacd0b85a97d-3a526e1cf0fmr3252435f8f.25.1749130073015;
+        Thu, 05 Jun 2025 06:27:53 -0700 (PDT)
+Message-ID: <b10f8e18-4009-4168-9946-5a7ae9fcee73@suse.com>
+Date: Thu, 5 Jun 2025 15:27:42 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] x86/EFI: Fix detection of buildid
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Ross Lagerwall <ross.lagerwall@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>,
- "Daniel P . Smith" <dpsmith@apertussolutions.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250605111638.2869914-1-andrew.cooper3@citrix.com>
- <20250605111638.2869914-2-andrew.cooper3@citrix.com>
- <0a314400-126a-4c2a-b36c-dda61bb0b751@suse.com>
- <a477369d-77d0-48fa-8ac4-120d49e32d11@citrix.com>
+Subject: Re: [PATCH 1/3] xen/keyhandler: add missing noreturn attribute
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>
+Cc: victorm.lira@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?B?Um9nZXIgUGF1IE1vbm7Dg8Kp?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Federico Serafini <federico.serafini@bugseng.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>, xen-devel@lists.xenproject.org
+References: <20250604235034.1595881-1-victorm.lira@amd.com>
+ <9e3a7b1b-7fbe-428b-888a-c18c95d8ee37@suse.com>
+ <b258936e289290321e9a8b2d23723fc2@bugseng.com>
+ <3b24b1df1a0ce4a62b53067b09fe9a02@bugseng.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -124,60 +126,76 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <a477369d-77d0-48fa-8ac4-120d49e32d11@citrix.com>
+In-Reply-To: <3b24b1df1a0ce4a62b53067b09fe9a02@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 05.06.2025 14:14, Andrew Cooper wrote:
-> On 05/06/2025 1:02 pm, Jan Beulich wrote:
->> On 05.06.2025 13:16, Andrew Cooper wrote:
->>> The format of the buildid is a property of the binary, not a property of how
->>> it was loaded.  This fixes buildid recognition when starting xen.efi from it's
->>> MB2 entrypoint.
+On 05.06.2025 14:26, Nicola Vetrini wrote:
+> On 2025-06-05 14:22, Nicola Vetrini wrote:
+>> On 2025-06-05 09:17, Jan Beulich wrote:
+>>> On 05.06.2025 01:49, victorm.lira@amd.com wrote:
+>>>> From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+>>>>
+>>>> Function `reboot_machine' does not return, but lacks the `noreturn' 
+>>>> attribute,
+>>>> therefore causing a violation of MISRA C Rule 2.1: "A project shall 
+>>>> not contain
+>>>> unreachable code".
 >>>
->>> Suggested-by: Ross Lagerwall <ross.lagerwall@citrix.com>
->>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->> I'll pick this up without a Fixes: tag, but I think it ought to have one. (I
->> didn't check whether MB2 or build-id support came later, hence introducing the
->> issue.)
+>>> Is this (uniformly) true? Looking at ...
+>>>
+>>>> --- a/xen/common/keyhandler.c
+>>>> +++ b/xen/common/keyhandler.c
+>>>> @@ -251,7 +251,7 @@ static void cf_check 
+>>>> dump_hwdom_registers(unsigned char key)
+>>>>      }
+>>>>  }
+>>>>
+>>>> -static void cf_check reboot_machine(unsigned char key, bool unused)
+>>>> +static void noreturn cf_check reboot_machine(unsigned char key, bool 
+>>>> unused)
+>>>>  {
+>>>>      printk("'%c' pressed -> rebooting machine\n", key);
+>>>>      machine_restart(0);
+>>>
+>>> ... generated code here, I can see that the compiler is perfectly able 
+>>> to
+>>> leverage the noreturn that machine_restart() has, resulting in no
+>>> unreachable code to be generated. That is - neither in source nor in
+>>> binary there is any unreachable code. Therefore I'm having a hard time
+>>> seeing what the violation is here.
+>>>
+>>> That said, I certainly don't mind the addition of the (seemingly) 
+>>> missing
+>>> attribute. Otoh I wonder whether an attribute the removal of which has 
+>>> no
+>>> effect wouldn't count as "dead code" or alike, violating some other 
+>>> rule.
+>>>
+>>
+>> Inlining does not play a role in this case. Here reboot_machine() is 
+>> marked as a violation because machine_restart() is noreturn and there 
+>> is no other path upon which reboot_machine() may return, hence any 
+>> function calling reboot_machine() could have portions that are 
+>> inadvertently unreachable (as in never executed due to divergence) by 
+>> not having the annotation.
+
+Just that there's not going to be a 2nd caller, considering the purpose
+of the function.
+
+>> That said, in such trivial cases compilers 
+>> are typically able to derive the property automatically, but they are 
+>> not obliged to and, more importantly, the behavior may even differ with 
+>> the same compiler using different optimization levels.
 > 
-> MB2+EFI came long before any buildid support.  If you want a fixes tag,
-> it's eee5909e9d1
-
-That commit talks of an earlier hack, though. And no, MB2 work came later,
-albeit still in the 4.9 dev window (commit 9180f53655245).
-
->>> --- a/xen/common/version.c
->>> +++ b/xen/common/version.c
->>> @@ -203,8 +203,11 @@ void __init xen_build_init(void)
->>>      rc = xen_build_id_check(n, sz, &build_id_p, &build_id_len);
->>>  
->>>  #ifdef CONFIG_X86
->>> -    /* Alternatively we may have a CodeView record from an EFI build. */
->>> -    if ( rc && efi_enabled(EFI_LOADER) )
->>> +    /*
->>> +     * xen.efi built with a new enough toolchain will have a CodeView record,
->>> +     * not an ELF note.
->>> +     */
->>> +    if ( rc )
->> Instead of dropping the efi_enabled(), I think you want to replace EFI_LOADER
->> by EFI_BOOT.
+> Just a note: in later revisions of MISRA C this has become a rule of its 
+> own [1], which helps reduce confusion, but up to MISRA C:2012 Amendment 
+> 2 (currently used by Xen), this is part of Rule 2.1.
 > 
-> No - that's differently buggy.  I suppose the commit message wasn't
-> clear enough?
-> 
-> We'd still have a CodeView record if we booted xen.efi using it's MB2
-> entrypoint without the EFI extensions.
+> [1] Rule 17.11: "A function that never returns should be declared with a 
+> _Noreturn function specifier"
 
-Hmm, if that's a possible mode of operation (as said in reply to Marek, I
-wasn't aware of that) - yes.
-
-> This really is a property of being a PE32+ binary, and nothing to do
-> with EFI.
-
-Which still can be checked for without having this code path being taken
-for xen.gz, too: You could e.g. check for &efi > &_end. That's firmly an
-image property (yet I expect you're going to sigh about yet another hack).
+Oh, that's indeed quite a bit more explicit.
 
 Jan
 
