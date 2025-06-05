@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30CBAACF551
-	for <lists+xen-devel@lfdr.de>; Thu,  5 Jun 2025 19:25:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1007268.1386589 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E73EACF559
+	for <lists+xen-devel@lfdr.de>; Thu,  5 Jun 2025 19:27:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1007279.1386599 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uNEKv-0007kH-SC; Thu, 05 Jun 2025 17:25:05 +0000
+	id 1uNENb-00005Y-9H; Thu, 05 Jun 2025 17:27:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1007268.1386589; Thu, 05 Jun 2025 17:25:05 +0000
+Received: by outflank-mailman (output) from mailman id 1007279.1386599; Thu, 05 Jun 2025 17:27:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uNEKv-0007iY-Nd; Thu, 05 Jun 2025 17:25:05 +0000
-Received: by outflank-mailman (input) for mailman id 1007268;
- Thu, 05 Jun 2025 17:25:03 +0000
+	id 1uNENb-0008Uh-5P; Thu, 05 Jun 2025 17:27:51 +0000
+Received: by outflank-mailman (input) for mailman id 1007279;
+ Thu, 05 Jun 2025 17:27:49 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=fE9Y=YU=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1uNEKt-0007B4-O7
- for xen-devel@lists.xenproject.org; Thu, 05 Jun 2025 17:25:03 +0000
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [2a00:1450:4864:20::433])
+ id 1uNENZ-0008Ub-Hn
+ for xen-devel@lists.xenproject.org; Thu, 05 Jun 2025 17:27:49 +0000
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [2a00:1450:4864:20::435])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 014c0be6-4232-11f0-b894-0df219b8e170;
- Thu, 05 Jun 2025 19:24:58 +0200 (CEST)
-Received: by mail-wr1-x433.google.com with SMTP id
- ffacd0b85a97d-3a4f72cba73so1808771f8f.1
- for <xen-devel@lists.xenproject.org>; Thu, 05 Jun 2025 10:24:58 -0700 (PDT)
+ id 65fbb34e-4232-11f0-b894-0df219b8e170;
+ Thu, 05 Jun 2025 19:27:47 +0200 (CEST)
+Received: by mail-wr1-x435.google.com with SMTP id
+ ffacd0b85a97d-3a365a6804eso910053f8f.3
+ for <xen-devel@lists.xenproject.org>; Thu, 05 Jun 2025 10:27:47 -0700 (PDT)
 Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3a526f4c808sm2871357f8f.28.2025.06.05.10.24.57
+ ffacd0b85a97d-3a4f009745esm25319920f8f.71.2025.06.05.10.27.46
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 05 Jun 2025 10:24:57 -0700 (PDT)
+ Thu, 05 Jun 2025 10:27:46 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 014c0be6-4232-11f0-b894-0df219b8e170
+X-Inumbo-ID: 65fbb34e-4232-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1749144298; x=1749749098; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1749144467; x=1749749267; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=aT4xlVdmPM3dcSL4LpqxBEaD/CpUWMmlGqv27BCEQ3U=;
-        b=NirD4fFr0Fnj2IClbILsbMnV2c+8ku4FAKiuvXon0rxHjilmh+w2FpHVuwxuqRehLL
-         LHgMErkHw9jxKf1dvJcmvCV/kza7Au/JX/NKihLK/ePa3ezpL81WB4UQSfO3Vzull5L3
-         SdvUBEJ5TM107eHRtaDay/rDD8mEBJvj4Ihjw=
+        bh=wG53aF3P/FVLr8FUd22VowQZ62LTgckKUyZxkDap7hI=;
+        b=WFNQqTCWo8SbEDWxUcxGqWRD9RPJ0/usGSa4M3Wc3VVv67/Ms9m5QPi2AZcJnnV6sz
+         aXjOJw7KwlIrLKB6iKY8SQPpdLYlEMx19Hd8os1WJvDHDms+voTsKxcgsplugRjjlVbs
+         0KN83veL3JJ/I5y5UPSA9nXQyrJID1vJ4k4Rg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749144298; x=1749749098;
+        d=1e100.net; s=20230601; t=1749144467; x=1749749267;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=aT4xlVdmPM3dcSL4LpqxBEaD/CpUWMmlGqv27BCEQ3U=;
-        b=rBcsqVB8gPJCRm8VFQVNAsSkQMyXF6ZoJBkA0VQ46cdv7kwFaeYlC//3JB+IBk4Gp5
-         TDq7GQ9Bm8DZVYVfUZJVKQnba0C/QFtoH8+9w6R5NhFvm4Kx4TJtp6tJD+QgFPH73SYs
-         AHrbABXbUz6v/5Q1mHH8YgOCpZ4nuQ8z//vJ6mc2aNQ/bKYAr6Xg6llZg+IYv4Po3BA1
-         bw0zDLPErlwWOEQUnxFs1t+43p07Qbx7+EyWUD4Fddf52XXwdz54AzEM+tM358Xp1vQD
-         luR48494UTEyhskPwXwRUHLxnphnchlSzeUBD6aO4ZBrPHsroeCg4BDhpJRpLqXCqhjd
-         BUfw==
-X-Forwarded-Encrypted: i=1; AJvYcCWO5RF/DlrrqfuvBeG1LipwBwrLxOnHpGyU7kBO9h+7YHgkpicuxbfkax+a390QN+ha6sHQWeHGsIk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxUGExaD6ArJzxdRsfk+BUcbiwLGUFxUsKbQqYl19ledKNOVr1J
-	2NAvTqkDerqRbs7MNvfaUnZtUJHBo0eLsnbCufnYdgewuxiydvyQeUNwflKf9bG42fE=
-X-Gm-Gg: ASbGnctt/aiWERwJOtx8jdF0SRETlyeueTyKOALJ5mIgXy9/Z8mgJz0CsbQoYRoi+bb
-	6PgzvomWbN2NncaZqJlWEZ/zeWaEgt6yl79sIUIyRy/cK8hqN3wziNapVyl7yOtY9isuXxaJvz3
-	kp2rQfE74cBh6wnzDeNOrzDONO0Ixh3NaoJkkh6XxrHeu3lbQeZ2q+vfOXUPKswx3tE767i80e9
-	k5il702BX9i2XJeI0NbD5ZgMc2HlCAqMYU8L/yWAWcMcxuaCmVAt0Oj1HexDpVV++CheiwND4+G
-	P4iT/rD8AZf8tNWL/hwKk0nWE5XRK/23EUBROI/8iMGOYB+eZgrv91e3l4M+2X0hCMSz4GW/Ec5
-	B+aCVzANZhRyiaFUm
-X-Google-Smtp-Source: AGHT+IGC0eTU31ibD9zhhg55NHqzmmE+JYBds4NIPodJDnlj28KR92dp7BEIo1woQDP+sYkIG5enzA==
-X-Received: by 2002:a05:6000:144e:b0:3a4:ce5c:5e8d with SMTP id ffacd0b85a97d-3a526e0cf3emr4350327f8f.20.1749144298111;
-        Thu, 05 Jun 2025 10:24:58 -0700 (PDT)
-Message-ID: <dda11e5f-4802-4ef2-a086-fe85943dfcbc@citrix.com>
-Date: Thu, 5 Jun 2025 18:24:57 +0100
+        bh=wG53aF3P/FVLr8FUd22VowQZ62LTgckKUyZxkDap7hI=;
+        b=uq0CMW/3rvPMzHdHuwdB1P0KS2+NrPBjas4eGvavQV1aRWzLt396KSU2HAVe+HHF0q
+         K+xoAThUcs2hI/np24c7KxMCKaGRCAcW5+jmM5EFyUwVLMta2dFWIC1rZk+gIUccPak+
+         QnLjrGbvtimQKecu34yLDgV0rXXAwWGYYG6/E4Ljcwim1fsbWWGrHhFlfhQbxdC5BBcU
+         lqwnt2B3kG2qUkKGpg1MOtC8xTRdh2zL/Q2n3mM1GhqyYdy9Z6ImVwoDAFfvoZXgLO2x
+         FASJ1ocHeM+Sv1XWWrPqwvK6ZVJrKMMKcmciyvUJmJNu4H6mqri44aijRqlAJpY//etT
+         MuUg==
+X-Forwarded-Encrypted: i=1; AJvYcCWnOS29ZsSgmycOHBQ13bkitc2TQoTuFVuIIm5E64qC+M1nKJ5DyBsIxjGQcIrL7vln2IuxYGBNkFY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxQFaQLTP4Q5qA30CW2cDosBCtuMu2dFXEoriw1ZROPtelNAFR2
+	NJ2JiKjg3QWqATx6WsU4dctD+BI1AFKAu8EnttgD98unZ8V1g3Px6Lnd9RMntYzLphA=
+X-Gm-Gg: ASbGnctqUm5s0kQYv9xlseL5JcvYmSJ4Ir+A4A1PWuWJL9wwSjsuPvV0vmMB+zvgknk
+	xIbQtbE/XCQ9o5Gn8wwXSOxmFfH1Gdkj52CU5HzpMehOCM8XXm5ifO0bKzbcdeLZCSxjeP6A0MQ
+	PceuY9uWCbD0qD4vi0JaWm+/823zzs0yXYTj41/I4FGWIb1qWjgJLwmwmk9mqZXWE0GaxOYlLNs
+	aNN+oq6YLvnw1jTfTfvER4zNSxBnpr3msuL8kBERJP55TBuMdya8qGP9ONL7viJ/sFPslrIiW5A
+	JyuEQTdiXaJFwThv5LZ/qok9+iYZqmpt8NNOts4zXUUO8WwvoLaNNrEpJYaZAVJIr1Lessc9nvc
+	bItj7ybFtdodAncji
+X-Google-Smtp-Source: AGHT+IF//QMHvHUk6ZzTvJKR/CMoCbHcdoxm3Sgr/huzSN5eLZho3fvDuf9HIzoI2ekojma+H65Bcg==
+X-Received: by 2002:a05:6000:18a9:b0:3a5:2cb5:6402 with SMTP id ffacd0b85a97d-3a52cb56953mr2511721f8f.12.1749144467062;
+        Thu, 05 Jun 2025 10:27:47 -0700 (PDT)
+Message-ID: <cef03d51-1d5c-46fc-9195-4efe8d0488dc@citrix.com>
+Date: Thu, 5 Jun 2025 18:27:46 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v5 3/6] x86: re-work memcpy()
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+To: Teddy Astie <teddy.astie@vates.tech>, Jan Beulich <jbeulich@suse.com>,
+ xen-devel@lists.xenproject.org
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 References: <73481cbf-337f-4e85-81d2-3487366cd822@suse.com>
  <017e689a-41a2-4722-a5e7-19ffef27500f@suse.com>
+ <81da4e8e-9dcf-4630-a535-39ce0b07260c@vates.tech>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -135,56 +136,33 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <017e689a-41a2-4722-a5e7-19ffef27500f@suse.com>
+In-Reply-To: <81da4e8e-9dcf-4630-a535-39ce0b07260c@vates.tech>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 05/06/2025 11:25 am, Jan Beulich wrote:
-> --- a/xen/arch/x86/alternative.c
-> +++ b/xen/arch/x86/alternative.c
-> @@ -195,12 +195,16 @@ void *place_ret(void *ptr)
->   * executing.
->   *
->   * "noinline" to cause control flow change and thus invalidate I$ and
-> - * cause refetch after modification.
-> + * cause refetch after modification.  While the SDM continues to suggest this
-> + * is sufficient, it may not be - issue a serializing insn afterwards as well,
-> + * unless this is for live-patching.
->   */
->  static void init_or_livepatch noinline
->  text_poke(void *addr, const void *opcode, size_t len)
->  {
->      memcpy(addr, opcode, len);
-> +    if ( system_state < SYS_STATE_active )
-> +        asm volatile ( "mov %%rax, %%cr2" ::: "memory" );
->  }
+On 05/06/2025 6:06 pm, Teddy Astie wrote:
+> Le 05/06/2025 à 12:27, Jan Beulich a écrit :
+>> Move the function to its own assembly file. Having it in C just for the
+>> entire body to be an asm() isn't really helpful. Then have two flavors:
+>> A "basic" version using qword steps for the bulk of the operation, and an
+>> ERMS version for modern hardware, to be substituted in via alternatives
+>> patching.
+>>
+>> Alternatives patching, however, requires an extra precaution: It uses
+>> memcpy() itself, and hence the function may patch itself. Luckily the
+>> patched-in code only replaces the prolog of the original function. Make
+>> sure this remains this way.
+>>
+> We can probably workaround that by using a separate memcpy for 
+> alternatives patching. So it wouldn't end up patching itself.
 
-This hunk wants pulling out separately.  It's not really related to
-memcpy(), and probably ought to be backported.
+Not memcpy() you can't.
 
-Architecturally, both the APM and SDM say you're ok doing nothing on
-64bit capable CPUs.
+The compiler is permitted to invent calls to memset()/memcpy() out of
+thin air, e.g. struct big_foo = {}; as a local on the stack.
 
-However, there are errata, and at least one recent AMD CPU needs
-serialisation for self modifying code.  (Not sure if the rev guide has
-been updated yet, and I can't remember offhand which CPU it is.)
-
-You should also discuss the choice of serialising instruction in a
-comment.  Mov to %cr2 is serialising on everything more modern than the
-486, and least likely to be intercepted under virt (== most performant).
-
-You also need to explain that we only do true SMC during boot.  After
-boot for livepatch, it's prior to addr going live.
-
-Finally, you're loading rubble into %cr2.  It's not even reliably 'addr'
-because of the transformations the compiler is permitted to make on
-memcpy().  I really think you should be reliably feeding in 0.  We're
-doing self-modifying code here with serialisation; an extra xor won't be
-measurable.
+This is the same reason why it's impossible to do speculation safety in
+C; you cannot guarantee to get protections ahead of the first RET.
 
 ~Andrew
-
-P.S. We should drop the noinline.  That's only applicable to the P5(?)
-and earlier where you had to use branches to flush the prefetch queue. 
-It's irrelevant on 64bit capable CPUs.
 
