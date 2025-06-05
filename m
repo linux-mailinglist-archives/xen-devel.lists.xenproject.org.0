@@ -2,49 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76609ACF860
-	for <lists+xen-devel@lfdr.de>; Thu,  5 Jun 2025 21:51:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1007518.1386839 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7FA0EACF901
+	for <lists+xen-devel@lfdr.de>; Thu,  5 Jun 2025 22:59:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1007592.1386880 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uNGcL-0001ob-SH; Thu, 05 Jun 2025 19:51:13 +0000
+	id 1uNHfp-0005sP-Ln; Thu, 05 Jun 2025 20:58:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1007518.1386839; Thu, 05 Jun 2025 19:51:13 +0000
+Received: by outflank-mailman (output) from mailman id 1007592.1386880; Thu, 05 Jun 2025 20:58:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uNGcL-0001m9-PU; Thu, 05 Jun 2025 19:51:13 +0000
-Received: by outflank-mailman (input) for mailman id 1007518;
- Thu, 05 Jun 2025 19:51:12 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uNHfp-0005pg-HW; Thu, 05 Jun 2025 20:58:53 +0000
+Received: by outflank-mailman (input) for mailman id 1007592;
+ Thu, 05 Jun 2025 20:58:52 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ZN0r=YU=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
- id 1uNGau-0002fZ-VD
- for xen-devel@lists.xenproject.org; Thu, 05 Jun 2025 19:49:44 +0000
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2061d.outbound.protection.outlook.com
- [2a01:111:f403:2414::61d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 39b5f8fa-4246-11f0-b894-0df219b8e170;
- Thu, 05 Jun 2025 21:49:43 +0200 (CEST)
-Received: from BN9PR03CA0353.namprd03.prod.outlook.com (2603:10b6:408:f6::28)
- by IA1PR12MB7615.namprd12.prod.outlook.com (2603:10b6:208:428::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8792.34; Thu, 5 Jun
- 2025 19:49:39 +0000
-Received: from BN2PEPF000055DA.namprd21.prod.outlook.com
- (2603:10b6:408:f6:cafe::5a) by BN9PR03CA0353.outlook.office365.com
- (2603:10b6:408:f6::28) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8722.31 via Frontend Transport; Thu,
- 5 Jun 2025 19:49:39 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN2PEPF000055DA.mail.protection.outlook.com (10.167.245.4) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8835.2 via Frontend Transport; Thu, 5 Jun 2025 19:49:39 +0000
-Received: from xcbagarciav01.xilinx.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 5 Jun
- 2025 14:49:08 -0500
+ <SRS0=XjUw=YU=gmail.com=christopher.w.clark@srs-se1.protection.inumbo.net>)
+ id 1uNHfo-0005pa-M9
+ for xen-devel@lists.xenproject.org; Thu, 05 Jun 2025 20:58:52 +0000
+Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
+ [2a00:1450:4864:20::229])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id df96ca3e-424f-11f0-a300-13f23c93f187;
+ Thu, 05 Jun 2025 22:58:50 +0200 (CEST)
+Received: by mail-lj1-x229.google.com with SMTP id
+ 38308e7fff4ca-32a61af11ffso15830671fa.1
+ for <xen-devel@lists.xenproject.org>; Thu, 05 Jun 2025 13:58:47 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,188 +40,305 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 39b5f8fa-4246-11f0-b894-0df219b8e170
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dqrn+eRwFYb8IeyOs+q7asxyq4jvhOPsbC+AtByC6rA87zw7Vka68XAD09HuruPhVMK4xJ2+8PMHGgV6lagNVEdKYtVX03INFZWYsOpxe5GrVW1g5Hz9hxRW65Rfq2i79Fe+O0i16YsCTuaQfnHpfpCYqp8TsR6SgPQWE/YSggttQzL9Xw9c5tErDmRG9q4lIhdMRggTCrBeZ2+8NcnU/zof2kRiJ8LkK9KX+QOnfRiId8kLjF/kSTu4yahLzY9GqDSyEj+o0ojQxwxEFULx+MJHQ1YQXNWSBr4Y6DZYzJpX/RhyP468l8xnY7U39oIUeQqPv0gOsk/MsGH9BcQHiQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qBMHO1HIupXAcwfOdVU4/7q8edByJCbA+TOtQ6T2SUo=;
- b=TBUjHDIEzn2eHHxTNTmaEfOf8nvrbxqCkuuqpHk0vi6hRM2exHDL5aGDRqryg3oyZ7zBLMB/cOaTfKD1sEmoqIkCurMXAJQEOwhoTbGQ3BZePdmyE50rxNiH/f4j35BTSmn+u1TapGdJ4JoEtnxa3ACTgLTycpGmF2FVYxP71BrgZ9vA3YkMJmnP3LJqzQCQeXwl6dV8MKpFb8IwUZaggwvX0VN2AUsXLJexAsk7n79EuTTtdQnwmhpzPnA8joqVYVLvRV/9dPYDEhgo9KNOkseJN9NZiXO6yjuJywaaSEtbeuhE2+s4BpZKQNVcqZJZryB7VIr7Hdccp7QuJ2bv1A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qBMHO1HIupXAcwfOdVU4/7q8edByJCbA+TOtQ6T2SUo=;
- b=rdbGbY6FkvOOlr0ymnp3nYs3plHUd09dmFhPf1S5oYMEp/m0mE0Cb+iGigrb3pYlvc5QgA0SiYmhZaw44JP60iO5VunDWHOgAUgyfqPrHA5Eu+LBd49JcRKobhfFhrYVtwWKhn9C9f9ZQvDLh3N8ENFtB7HLcFJi66U7Xaxk+2Q=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-From: Alejandro Vallejo <agarciav@amd.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Alejandro Vallejo <agarciav@amd.com>, Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Anthony PERARD
-	<anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, "Julien
- Grall" <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
-	"Bertrand Marquis" <bertrand.marquis@arm.com>, "Daniel P. Smith"
-	<dpsmith@apertussolutions.com>
-Subject: [PATCH v2 15/15] kconfig: Allow x86 to pick CONFIG_DOM0LESS_BOOT
-Date: Thu, 5 Jun 2025 21:48:07 +0200
-Message-ID: <20250605194810.2782031-16-agarciav@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20250605194810.2782031-1-agarciav@amd.com>
-References: <20250605194810.2782031-1-agarciav@amd.com>
+X-Inumbo-ID: df96ca3e-424f-11f0-a300-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1749157126; x=1749761926; darn=lists.xenproject.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=0TgkpRK/oltZr7kizvAssmxFNxTBwjN1tXXnvLvlvRo=;
+        b=bOm6CrxrJ3Y78ch0JxUXCGX4R8xHY9k4EUhlehrnGfmHSTUDOrQ0XK1NLCjayJbHoz
+         uPK/86mlrTZQ6mX+EJRfBh8+cyqNEnTEyzZLvE7N3LJqhDt4LduBjIkXzEEltJht4vCr
+         VTdQZO0isTAp6icgO92LwWRyFELSNhZSGfYMMewAiE2wYeKDNiWi2FvPdRImwLVLu168
+         02RH+iurDpPtnP1QTKFV/M7t1cR5258pCWSMTv0dEvRYJ5kIMp4ya6cAD1iuFoyqoHMd
+         fPDQ546zXIE/4Gi024dxVb7z2i28ZpaZWRQNam5zpAg53S0Uno8zXxiWoUqcv6HVRLEZ
+         y8iw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1749157126; x=1749761926;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=0TgkpRK/oltZr7kizvAssmxFNxTBwjN1tXXnvLvlvRo=;
+        b=JGxmSMXbeU07wJewslclbHpMebQAfiyZW2nL5+J48Gu3neV2B+30TtM3ZEqHWVBjUG
+         c1Z94o5pNMtNGWONcAQkduM8hhwGPdQFeco0CDTveY22VWKtssvf71kS+KwhsvZRoVB8
+         a3EC9lhb++RW3jQNZqetdRckRPz1trfGHwFBxDqOwV0RfypJjyQu8gZCJpFua0GTxgZF
+         1OBg9aa5Cb3Mf8jr4jjUItgLXUqgri+yG/NfxYnoWSJO97SAvdJhlGmiYfvaAFZHwlJY
+         /Uz42mGySh/GVpplUvU3+80try7Cw0ea0sj0wIlXgHcPOyNv3iutkK+EWwPkTrYNUkRR
+         bS7A==
+X-Gm-Message-State: AOJu0YxUstJ0toUsWn2G5rK1vUdElLvPc0S2ASMGQAFeTZ2neUQfN6wg
+	d98hcYf6A57Yivj8w7QsA63uc5DaZSwhmarbcR8NoCWbSPPshiERSxwCRGv5Rr/OQqBJ+HcH0q5
+	+nwdmGLYEziLN/TsBsp74VC8m4i6e5sY=
+X-Gm-Gg: ASbGnctwDeiV0d46+Bvc1D6UlcZy8AZ3eF3NZ54KnNMc/sDLHhBLTEtWBcyMptF5Q/u
+	MRVba9dXGsWwi5hy+z0JpW3vgcoiH5G8MiUijSXO1LM7rt5gj5m1XjepCvyKeO2nguQaLDUrIeT
+	mYE5w+oCMP7z5QngdA/7/s6MpajYW058Q=
+X-Google-Smtp-Source: AGHT+IGLAXRYJ1kj0oTaQ+zdoFvMv1FkKnoq45sTpsEu5vEl5dHXU5S4gdLBALfBiCfyHD84Hc0jXG6TIBHUbqJF8U0=
+X-Received: by 2002:a05:651c:1a0c:b0:329:143e:ca3d with SMTP id
+ 38308e7fff4ca-32ad11c3e29mr15481731fa.11.1749157126118; Thu, 05 Jun 2025
+ 13:58:46 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF000055DA:EE_|IA1PR12MB7615:EE_
-X-MS-Office365-Filtering-Correlation-Id: e9760123-a68b-4eea-5822-08dda46a1b96
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|82310400026|1800799024|36860700013;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?e1QfQJBTKobVhuf7KNjYIs6V/h4wodUoT4EfCGxWqV8k4/CKmVjKYHrn3rI2?=
- =?us-ascii?Q?H2PSLNUP15CySrvDWM3ANwUfozyCrjvZJAvumwkwBJmD3FogAiqrtctLSA7P?=
- =?us-ascii?Q?d4p+xSLUa0DeY/F/J8ARKW5X6JGaqg3GOy7TdPHorSxr/svPLGYtkUMaghEx?=
- =?us-ascii?Q?gnt/Fpi9Ku3Phe5CyWCX/WQlqrc9pvZbrIa26DNzJU5buIFjZ7eA1eI+hhKS?=
- =?us-ascii?Q?0K03Vvet2QteQu4lMXNYhmsDCn1cTARGkvD+HHKEYl5S4F+YrT4We6QpmKYf?=
- =?us-ascii?Q?Hi7Nhd9ih/gTA/MoqhldvYvbKe8xGdUnYRHC9PO4Z6YI0OTiASZdCCIM7TPX?=
- =?us-ascii?Q?stEvktKpb4mwolPUEGfYfX9n0QqPA/XTc30Yrb6jpFcOH5u1xIUwE51hsw/9?=
- =?us-ascii?Q?0o3L8tdEx6pUipzbnfRq0aal8Qlin9YX+O6dPWCorzaJnOCMvDjQ907nyKjI?=
- =?us-ascii?Q?/XHWlvhxan0LAvnGyIksA/BXNGaxSB2uBAXxi+UiRknuyuEdr9utonKuYzpX?=
- =?us-ascii?Q?Q25k52Kq1MMEuvakeVJNab96+EwXJCvgv79QZhVDIjdrVIUe3ts4wQWts6Fs?=
- =?us-ascii?Q?YyjbB42CkIye7UPlyqDPu/Zh9aV9kjluVxgZsX8NvLcWurF3yCMO+EcrcqsA?=
- =?us-ascii?Q?voMnkbXIWWkOLUBqwkb10U9QzwMZZrIXH6tAO1jVEd0+hXXWs4M9QICZHkO4?=
- =?us-ascii?Q?95dssUSrsfSvJZ7CRfyaH7zNGQ2qPg8z05Q/5u/KbDMlAerLXttEnzTZ8fWE?=
- =?us-ascii?Q?Alu9ZgG24xUMCvLzihBY0yHQjVJH8U2ZxZiENU7yqIqFrpx12TcnHwaZRzOs?=
- =?us-ascii?Q?oV/HaIg8JuFqSp6L1NcOFNVJVRklJROXI1paHICxV6KO52qA4dPUGmsGjF9Q?=
- =?us-ascii?Q?DSBMGX9cGlI/1vaDrI/bicCtjvZgTeIakDZSiep6sJb/4W2k5h5GypeipwnA?=
- =?us-ascii?Q?xBXN5Y40n0TIOlW8xWvWLHfHS6yBTrOu7fO8xpcTxml/YO3rba0QsJMSNVAK?=
- =?us-ascii?Q?B2aqioAsY/vWPgUp68uDqoPHo8j5UTUsrtg77Bv7i8dh90yKi09SCJRnXV8U?=
- =?us-ascii?Q?ZmlQaxhimCxuvpF+72YNUSU6RTA7/IkoSqDC2fJzl/fuyTASM5APNuM581fO?=
- =?us-ascii?Q?3605QWcvlaEGt6EKQpipCfthFqjtbc3qpqfDzFWXgjzYpEMT3Vxx1I/LPVE+?=
- =?us-ascii?Q?ZkcXXXn/TA0xmbSP1DxA9ugeVx5xlQqhqjtHgWNVJ3voNv4biAKW0KchLBrl?=
- =?us-ascii?Q?FkZ2qDxkuvVUjhaAkowt1DSNgaCS0nOKrogIIpbQBqEA19s23DFQ7Ez1i2xe?=
- =?us-ascii?Q?+Gr8XLkt9UOpObR6b1l8/VvRWZNfIhBh8QEL3BMps8rVrWVlzEo0nrgYVlEA?=
- =?us-ascii?Q?8ztF4Mpxkylfx+dH/KHCXF65cgqWQAU9cFJIIERE8w/ogT4yt1fEGxtxn+yN?=
- =?us-ascii?Q?6KLanifox63fIqQy91kK8gwm44fJzR5i1I3fAdgeKmdkY05lh8H1MPN4um6j?=
- =?us-ascii?Q?n4259CcMewz3QLSuStdFqqVSYoggpeRVS702?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(1800799024)(36860700013);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jun 2025 19:49:39.2372
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e9760123-a68b-4eea-5822-08dda46a1b96
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF000055DA.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7615
+References: <20250528211040.10562-1-christopher.w.clark@gmail.com> <f05fb94f-91ba-4abe-b59a-c14e25388e68@vates.tech>
+In-Reply-To: <f05fb94f-91ba-4abe-b59a-c14e25388e68@vates.tech>
+From: Christopher Clark <christopher.w.clark@gmail.com>
+Date: Thu, 5 Jun 2025 21:58:34 +0100
+X-Gm-Features: AX0GCFtqAAxkT7e_oERL_Qkze87xfEf3IKtv5qc-Rvr82bKQubYMW4WV68nKi10
+Message-ID: <CACMJ4GZfhwoL-yT1cPssiaqdkaYwZBnAG9AVEomiGYmh_qgHyg@mail.gmail.com>
+Subject: Re: [PATCH v3 1/3] docs: add documentation for Argo as a feature
+To: Teddy Astie <teddy.astie@vates.tech>
+Cc: xen-devel@lists.xenproject.org, 
+	Daniel Smith <dpsmith@apertussolutions.com>, Rich Persaud <persaur@gmail.com>, 
+	Andrew Cooper <andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>, 
+	Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, 
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>
+Content-Type: multipart/alternative; boundary="00000000000028a3ce0636d961cd"
 
-Without picking CONFIG_HAS_DEVICE_TREE.
+--00000000000028a3ce0636d961cd
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-In order to do that. Allow CONFIG_DOM0LESS_BOOT to enable a subset
-of the common/device-tree/ directory. x86 doesn't want dom0less-build.c,
-as that's tightly integrated still to the ARM way of building domains.
+On Thu, May 29, 2025 at 11:40=E2=80=AFPM Teddy Astie <teddy.astie@vates.tec=
+h> wrote:
 
-Requires "unsupported" for the time being until all required patches
-make it through.
+> Hello Christopher,
+>
 
-Signed-off-by: Alejandro Vallejo <agarciav@amd.com>
----
-v2:
-  * (required on rebase) Add an explicit dependency on HAS_DEVICE_TREE
-    for STATIC_MEMORY and STATIC_EVTCHN so they're not pulled-in. Could
-    use !X86 as well.
----
- xen/arch/x86/Kconfig            |  1 +
- xen/common/Kconfig              | 12 +++++++-----
- xen/common/device-tree/Makefile |  2 +-
- 3 files changed, 9 insertions(+), 6 deletions(-)
+Hi Teddy, thanks for the review.
 
-diff --git a/xen/arch/x86/Kconfig b/xen/arch/x86/Kconfig
-index 7afe879710..4344b4289c 100644
---- a/xen/arch/x86/Kconfig
-+++ b/xen/arch/x86/Kconfig
-@@ -18,6 +18,7 @@ config X86
- 	select HAS_COMPAT
- 	select HAS_CPUFREQ
- 	select HAS_DIT
-+	select HAS_DOM0LESS
- 	select HAS_EHCI
- 	select HAS_EX_TABLE
- 	select HAS_FAST_MULTIPLY
-diff --git a/xen/common/Kconfig b/xen/common/Kconfig
-index 5353874e87..bcf87b4d9d 100644
---- a/xen/common/Kconfig
-+++ b/xen/common/Kconfig
-@@ -13,15 +13,17 @@ config CORE_PARKING
- 	depends on NR_CPUS > 1
- 
- config DOM0LESS_BOOT
--	bool "Dom0less boot support" if EXPERT
-+	bool "Dom0less boot support" if EXPERT && (!X86 || UNSUPPORTED)
- 	select LIBFDT
--	depends on HAS_DOM0LESS && HAS_DEVICE_TREE && DOMAIN_BUILD_HELPERS
--	default y
-+	depends on HAS_DOM0LESS && (X86 || (HAS_DEVICE_TREE && DOMAIN_BUILD_HELPERS))
-+	default y if !X86
- 	help
- 	  Dom0less boot support enables Xen to create and start domU guests during
- 	  Xen boot without the need of a control domain (Dom0), which could be
- 	  present anyway.
- 
-+	  If unsure on x86, say N.
-+
- config DOMAIN_BUILD_HELPERS
- 	bool
- 
-@@ -152,7 +154,7 @@ config NUMA
- 
- config STATIC_MEMORY
- 	bool "Static Allocation Support (UNSUPPORTED)" if UNSUPPORTED
--	depends on DOM0LESS_BOOT
-+	depends on HAS_DEVICE_TREE && DOM0LESS_BOOT
- 	help
- 	  Static Allocation refers to system or sub-system(domains) for
- 	  which memory areas are pre-defined by configuration using physical
-@@ -171,7 +173,7 @@ config STATIC_SHM
- 
- config STATIC_EVTCHN
- 	bool "Static event channel support on a dom0less system"
--	depends on DOM0LESS_BOOT
-+	depends on HAS_DEVICE_TREE && DOM0LESS_BOOT
- 	default y
- 	help
- 	  This option enables establishing static event channel communication
-diff --git a/xen/common/device-tree/Makefile b/xen/common/device-tree/Makefile
-index cc56f42df9..f5410e685b 100644
---- a/xen/common/device-tree/Makefile
-+++ b/xen/common/device-tree/Makefile
-@@ -3,7 +3,7 @@ obj-$(CONFIG_HAS_DEVICE_TREE) += bootinfo-fdt.init.o
- obj-$(CONFIG_HAS_DEVICE_TREE) += bootinfo.init.o
- obj-$(CONFIG_HAS_DEVICE_TREE) += device-tree.o
- obj-$(CONFIG_DOMAIN_BUILD_HELPERS) += domain-build.init.o
--obj-$(CONFIG_DOM0LESS_BOOT) += dom0less-build.init.o
-+obj-$(filter-out $(CONFIG_X86),$(CONFIG_DOM0LESS_BOOT)) += dom0less-build.init.o
- obj-$(CONFIG_OVERLAY_DTB) += dt-overlay.o
- obj-$(CONFIG_HAS_DEVICE_TREE) += intc.o
- obj-$(CONFIG_DOMAIN_BUILD_HELPERS) += kernel.o
--- 
-2.43.0
 
+>
+> Le 28/05/2025 =C3=A0 23:13, Christopher Clark a =C3=A9crit :
+> > Adds approachable documentation describing system components and
+> > introduces the support statement for feature status.
+> ...
+> > +# Overview
+> > +
+> > +Argo is a lightweight data transport for communication between virtual
+> > +machines, with a simple hypervisor interface that is accessible for
+> > +building embedded systems and designed to work with familiar primitive=
+s
+> > +within guest OS kernels. It supports policy control over communication
+> > +and isolation between VMs.
+> > +
+> > +# User details
+> > +
+> > +Argo is present in Xen, included since Xen 4.12. A Linux device driver
+> > +and userspace library are available and Argo is regularly tested in th=
+e
+> > +Xen Continuous Integration system.
+> > +
+>
+> Not really related to the documentation itself, but it would be
+> preferable to have the Linux driver upstreamed such as this sentence
+> sounds more as "it is supported" rather than "it's possible to make it
+> work".
+>
+
+I agree and I can work on a better description for the next posting.
+
+
+>
+> It would also make Argo easier to integrate in Xen-based projects.
+>
+
+Yes (for systems with Linux).
+
+
+>
+> > +To configure a Xen system to enable Argo:
+> > +
+> > +* ensure that Argo is enabled in the hypervisor with KConfig option
+> > +
+> > +* enable Argo on the Xen hypervisor command line
+> > +
+> > +* load the Argo guest kernel device driver
+> > +
+> > +* ensure that the Argo guest libraries are installed
+> > +
+> > +The guest userspace libraries support software designed for Argo
+> > +interfaces and also enables software designed for networks to
+> > +communicate between VMs by Argo.  This allows platform software to be
+> > +plumbed easily between virtual machines, without requiring networking
+> > +and with system policy controls over this communication.
+> > +
+> > +# Technical details
+> > +
+> > +## Argo components
+> > +
+> > +* Xen: Argo in the hypervisor provides communication between virtual
+> > +  machines.
+> > +
+> > +* Guest kernel: driver provides interfaces for data transport for use
+> > +  within the kernel, and implements familiar abstractions for
+> > +  networking software.
+> > +
+> > +* Guest libraries: provide application-level support for interdomain
+> > +  communication.
+> > +
+>
+> That sounds a bit confusing to me, the guest kernel provides familiar
+> abstractions for networking software (I hear through that something like
+> sockets), yet we still have guest libraries for application-level support=
+.
+>
+> I think the guest libraries provide a shim for some of the argo-specific
+> aspects (like ioctls and sockaddr_argo related bits); while the
+> interface is more unix-oriented with regular sockets operations
+> (sendmsg, ...).
+>
+
+OK, I wasn't sure what level of detail would be wanted for this so it's
+useful to know, thanks.
+
+
+>
+> > +## Argo implementation within Xen
+> > +
+> > +See the public Xen headers for the primary interface documentation.
+> > +
+>
+> There is the design document in docs/designs/argo.pandoc that explains
+> the inner design inside Xen. I think the public headers are more for
+> guest consumption.
+>
+
+OK, I'll add reference to the design document.
+
+
+>
+> As this document also targets guest developers, it would be great to
+> have some guidance (e.g a docs document) on how a guest should implement
+> argo support.
+>
+
+Thanks, I appreciate the enthusiasm for it to be written!
+
+best,
+
+Christopher
+
+--00000000000028a3ce0636d961cd
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr">On Thu, May 29, 2025 at 11:40=E2=80=AFPM =
+Teddy Astie &lt;teddy.astie@vates.tech&gt; wrote:</div><div class=3D"gmail_=
+quote gmail_quote_container"><blockquote class=3D"gmail_quote" style=3D"mar=
+gin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1=
+ex">Hello Christopher,<br></blockquote><div><br></div><div>Hi Teddy, thanks=
+ for the review.</div><div>=C2=A0</div><blockquote class=3D"gmail_quote" st=
+yle=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padd=
+ing-left:1ex">
+<br>
+Le 28/05/2025 =C3=A0 23:13, Christopher Clark a =C3=A9crit=C2=A0:<br>
+&gt; Adds approachable documentation describing system components and<br>
+&gt; introduces the support statement for feature status.<br>...<br>
+&gt; +# Overview<br>
+&gt; +<br>
+&gt; +Argo is a lightweight data transport for communication between virtua=
+l<br>
+&gt; +machines, with a simple hypervisor interface that is accessible for<b=
+r>
+&gt; +building embedded systems and designed to work with familiar primitiv=
+es<br>
+&gt; +within guest OS kernels. It supports policy control over communicatio=
+n<br>
+&gt; +and isolation between VMs.<br>
+&gt; +<br>
+&gt; +# User details<br>
+&gt; +<br>
+&gt; +Argo is present in Xen, included since Xen 4.12. A Linux device drive=
+r<br>
+&gt; +and userspace library are available and Argo is regularly tested in t=
+he<br>
+&gt; +Xen Continuous Integration system.<br>
+&gt; +<br>
+<br>
+Not really related to the documentation itself, but it would be <br>
+preferable to have the Linux driver upstreamed such as this sentence <br>
+sounds more as &quot;it is supported&quot; rather than &quot;it&#39;s possi=
+ble to make it <br>
+work&quot;.<br></blockquote><div><br></div><div>I agree and I can work on a=
+ better description for the next posting.</div><div>=C2=A0</div><blockquote=
+ class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px so=
+lid rgb(204,204,204);padding-left:1ex">
+<br>
+It would also make Argo easier to integrate in Xen-based projects.<br></blo=
+ckquote><div><br></div><div>Yes (for systems with Linux).</div><div>=C2=A0<=
+/div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;bo=
+rder-left:1px solid rgb(204,204,204);padding-left:1ex">
+<br>
+&gt; +To configure a Xen system to enable Argo:<br>
+&gt; +<br>
+&gt; +* ensure that Argo is enabled in the hypervisor with KConfig option<b=
+r>
+&gt; +<br>
+&gt; +* enable Argo on the Xen hypervisor command line<br>
+&gt; +<br>
+&gt; +* load the Argo guest kernel device driver<br>
+&gt; +<br>
+&gt; +* ensure that the Argo guest libraries are installed<br>
+&gt; +<br>
+&gt; +The guest userspace libraries support software designed for Argo<br>
+&gt; +interfaces and also enables software designed for networks to<br>
+&gt; +communicate between VMs by Argo.=C2=A0 This allows platform software =
+to be<br>
+&gt; +plumbed easily between virtual machines, without requiring networking=
+<br>
+&gt; +and with system policy controls over this communication.<br>
+&gt; +<br>
+&gt; +# Technical details<br>
+&gt; +<br>
+&gt; +## Argo components<br>
+&gt; +<br>
+&gt; +* Xen: Argo in the hypervisor provides communication between virtual<=
+br>
+&gt; +=C2=A0 machines.<br>
+&gt; +<br>
+&gt; +* Guest kernel: driver provides interfaces for data transport for use=
+<br>
+&gt; +=C2=A0 within the kernel, and implements familiar abstractions for<br=
+>
+&gt; +=C2=A0 networking software.<br>
+&gt; +<br>
+&gt; +* Guest libraries: provide application-level support for interdomain<=
+br>
+&gt; +=C2=A0 communication.<br>
+&gt; +<br>
+<br>
+That sounds a bit confusing to me, the guest kernel provides familiar <br>
+abstractions for networking software (I hear through that something like <b=
+r>
+sockets), yet we still have guest libraries for application-level support.<=
+br>
+<br>
+I think the guest libraries provide a shim for some of the argo-specific <b=
+r>
+aspects (like ioctls and sockaddr_argo related bits); while the <br>
+interface is more unix-oriented with regular sockets operations <br>
+(sendmsg, ...).<br></blockquote><div><br></div><div>OK, I wasn&#39;t sure w=
+hat level of detail would be wanted for this so it&#39;s useful to know, th=
+anks.</div><div>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"marg=
+in:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1e=
+x">
+<br>
+&gt; +## Argo implementation within Xen<br>
+&gt; +<br>
+&gt; +See the public Xen headers for the primary interface documentation.<b=
+r>
+&gt; +<br>
+<br>
+There is the design document in docs/designs/argo.pandoc that explains <br>
+the inner design inside Xen. I think the public headers are more for <br>
+guest consumption.<br></blockquote><div><br></div><div>OK, I&#39;ll add ref=
+erence to the design document.</div><div>=C2=A0</div><blockquote class=3D"g=
+mail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204=
+,204,204);padding-left:1ex">
+<br>
+As this document also targets guest developers, it would be great to <br>
+have some guidance (e.g a docs document) on how a guest should implement <b=
+r>
+argo support.<br></blockquote><div><br></div><div>Thanks, I appreciate the =
+enthusiasm for it to be written!</div><div><br></div><div>best,</div><div><=
+br></div><div>Christopher</div><div>=C2=A0<br><br></div></div></div>
+
+--00000000000028a3ce0636d961cd--
 
