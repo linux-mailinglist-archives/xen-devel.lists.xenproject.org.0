@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 888FDACF246
-	for <lists+xen-devel@lfdr.de>; Thu,  5 Jun 2025 16:47:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1006989.1386255 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4BF0EACF251
+	for <lists+xen-devel@lfdr.de>; Thu,  5 Jun 2025 16:50:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1006995.1386265 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uNBs1-0000f3-Bq; Thu, 05 Jun 2025 14:47:05 +0000
+	id 1uNBuy-00029O-PB; Thu, 05 Jun 2025 14:50:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1006989.1386255; Thu, 05 Jun 2025 14:47:05 +0000
+Received: by outflank-mailman (output) from mailman id 1006995.1386265; Thu, 05 Jun 2025 14:50:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uNBs1-0000dc-96; Thu, 05 Jun 2025 14:47:05 +0000
-Received: by outflank-mailman (input) for mailman id 1006989;
- Thu, 05 Jun 2025 14:47:04 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=OIxA=YU=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1uNBs0-0000dW-98
- for xen-devel@lists.xenproject.org; Thu, 05 Jun 2025 14:47:04 +0000
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [2a00:1450:4864:20::336])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f150ac9b-421b-11f0-a300-13f23c93f187;
- Thu, 05 Jun 2025 16:47:03 +0200 (CEST)
-Received: by mail-wm1-x336.google.com with SMTP id
- 5b1f17b1804b1-451d7b50815so9143025e9.2
- for <xen-devel@lists.xenproject.org>; Thu, 05 Jun 2025 07:47:03 -0700 (PDT)
-Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
- by smtp.gmail.com with UTF8SMTPSA id
- 5b1f17b1804b1-451fb22b09dsm20438105e9.39.2025.06.05.07.47.01
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 05 Jun 2025 07:47:01 -0700 (PDT)
+	id 1uNBuy-000272-MA; Thu, 05 Jun 2025 14:50:08 +0000
+Received: by outflank-mailman (input) for mailman id 1006995;
+ Thu, 05 Jun 2025 14:50:07 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=qREP=YU=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uNBux-00026v-LN
+ for xen-devel@lists.xenproject.org; Thu, 05 Jun 2025 14:50:07 +0000
+Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
+ [2a00:1450:4864:20::529])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5e29203c-421c-11f0-b894-0df219b8e170;
+ Thu, 05 Jun 2025 16:50:05 +0200 (CEST)
+Received: by mail-ed1-x529.google.com with SMTP id
+ 4fb4d7f45d1cf-604f26055c6so4431923a12.1
+ for <xen-devel@lists.xenproject.org>; Thu, 05 Jun 2025 07:50:05 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ada5d7ff08bsm1282987266b.17.2025.06.05.07.50.04
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 05 Jun 2025 07:50:04 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,270 +45,135 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f150ac9b-421b-11f0-a300-13f23c93f187
+X-Inumbo-ID: 5e29203c-421c-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1749134822; x=1749739622; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=di+wlchiJc2wLdNgQd/YIgUSr6Cs8eMtFIzEN8dijqA=;
-        b=Tb/pNMdKzDbkDm44RbmKhlN7/U7MpO8mglV6KPwyFRgLjMfxU0zSLvbENHJY96x2OS
-         bWvYNXknXKVYdxVDLyBjO/X8K8Z25pCjBMA5WOdPnpGKO52qLEZpb7z/Q47lCeUh49sS
-         ImjWWvdCG5WH+FUOrxPqu0HgvASnGiKozbPho=
+        d=suse.com; s=google; t=1749135005; x=1749739805; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=UPn8W6WrtLPVEY1yzLklS5GkBy2VKRHwBirs54XXYso=;
+        b=W85AYLiPaasz8Pyv3LRcFwTDltR3I1OBujL4BAUZUlkemlHP8f83/ITrFwMRV8+Fj+
+         DNvKfhA+xoE9edVsKkc5HZNdKtAjjSqOLVFsXiWr7ZgIEulwawFvRKCpVOuTYjbPI/K6
+         J6Y7bsFzgqgrk6KulSpBsdqkFfwBiqcVGmIzj6zK7y7GJmwhhcvuzWfb8ILP7vogoso2
+         x4EBGtzsogTHeFSztQ2OWJpHiPNSkKSH4Tu8+hpMAsreUsLaV93DF21p50I93prwh4OT
+         AyLAPfl86u7ul2boDIc9Pfx50ROaRbLluwKids/whN6Z1o9TUD4qcj/n/9t6sjMJRByx
+         bZ5Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749134822; x=1749739622;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=di+wlchiJc2wLdNgQd/YIgUSr6Cs8eMtFIzEN8dijqA=;
-        b=ptWbcke8pEERZXmyiBLpr/gG1X0XyRFGHV1fVmUtJ0XMhfqFPHjISpTHuYIRzSgOsq
-         +QSdxp94HgZ15/sPgtWOQMbaEDmwS+aQvdSsrHPHxiVwMLEYL4YERAQXi5tawwV/lPJ+
-         24Oc0iF72JsPKMesES9GQtM71T2/GHDAiD5fLAfoLOYKqwM0EPR/ZDlbcllYUE2sLTUV
-         mu5d1KUdmNQMxu5+6rlLqRZWwasxcF8VrIo2U/Z4wGPo1DnXkulCewSH5sXb3BqJQm7n
-         kR9pjVBzXF+k2BU2m/F6yX4ddCqauqRnNorL9Pi7j1Z0KkjRhEOBWuYMPdvuwaEm3egD
-         BKlQ==
-X-Gm-Message-State: AOJu0Yx5Q18XsIeNKtjw2lFibCttX5/2MOVIqUbo71eEPQR86q+C3EpJ
-	QT6WFuUrchA+CCBz6pPot2Emg1j5E6EHSxOu9ntsCAMsbSx8d4TCeP6cP1TThiTfoG0=
-X-Gm-Gg: ASbGnctaX5cBewkb285P1F5nKq8bP+rjf/UYexaLkdbchymwu7wLTOpUNk2zqBaIx/+
-	GOx4Cbr/RUhkVMsiBDf2RvXKQoiWOtL1b41juLlfSAoUj26QIKS1pCAFwxE9a3OBt4eVo5+iqxJ
-	qOjO+7p0UkDSZkfoMNn7Vl3oojS8pOAW6DotLFft79P5pfNRDJ/AA7cabVwPs4CXnhrqzqxTmAm
-	nxDxorNTlg4CE86WZLCm+YGAjjLGEXW3tNpyhU8bgWeJ6zz1o9IGO0o8YMvO5TV0rDML7aKAxci
-	QNQsyJqX8b1g90k+37xM4y07zSqMDPU+myPgVq1cWDAYQ7Xy22aLnWYwNxxW45vGy0YaN+Vf8iC
-	ydHCDK9InhmGDfV1YCUQ=
-X-Google-Smtp-Source: AGHT+IER/bpJNHlYfJHc+zoLblH6SNgUzD2o/kVjRW5JAXYVwPuEeCQnKZQltTkyTzqR8d7koVs3Ww==
-X-Received: by 2002:a05:600c:8cd:b0:442:f4a3:9388 with SMTP id 5b1f17b1804b1-451f270de8cmr45936035e9.19.1749134822318;
-        Thu, 05 Jun 2025 07:47:02 -0700 (PDT)
-Date: Thu, 5 Jun 2025 16:47:01 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jiqian Chen <Jiqian.Chen@amd.com>
-Cc: xen-devel@lists.xenproject.org, Huang Rui <ray.huang@amd.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH v5 06/10] vpci: Hide extended capability when it fails to
- initialize
-Message-ID: <aEGt5SJ32hovLinu@macbook.local>
-References: <20250526094559.140423-1-Jiqian.Chen@amd.com>
- <20250526094559.140423-7-Jiqian.Chen@amd.com>
+        d=1e100.net; s=20230601; t=1749135005; x=1749739805;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=UPn8W6WrtLPVEY1yzLklS5GkBy2VKRHwBirs54XXYso=;
+        b=fRjdrKpAKMZJJr2Tu6AFfq1CEEoDCzmbHM2tRdqCaZXm+ktkVXtTWEG2VDI9OsTqn4
+         2XvblzbOFiiGmdTSmrSxJ2uHf5z23Myj5JHVTzALJ5VBny91Po2KS4JnPrwWbtZSn73i
+         7htWC/JkJEsmrlCdFQgZ2s0Nx+7P33wxsMH1kBSnE4OaQDWCZxY8NuIVXISAjt6cw/wa
+         RG8UenqrCXFLMAPDUfPSK6/WuilC5YiW3z9o0+bhPEsKEX0+xGBL6MerIajJiMjaRNMs
+         SlY7E0Ie+6q4ivIghuk5Xt8wWLfa+6vA7KjdavxilUFoNZ0810nctb3zg9C71tEv0Mwm
+         R92A==
+X-Forwarded-Encrypted: i=1; AJvYcCWJnR+mWnRJcd+5ppksqhNUKY4Vk+pQeLg5S0nXfqXslOYp8TV7LCY+XXJ5QsXZxI0MlvUZjF4Gois=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwtEz1EpDpCPz7Ovlj9jtF5Zw11g+bHuJPgJyoosb7egcgIXINC
+	NEcIok4vz5nGyyQUr08gL/Tvl3DGOmjSF4DOgnMj8Wr7IcEWM2zs/gI0CzFnTORf3OIDRZR6vzi
+	b3XA=
+X-Gm-Gg: ASbGncsM0o/eHy/gmMaoLgzL63PhkVbA8U5OWbGXDKb0/m28lcy/+puVh4w+R39mkBn
+	HJnogPW5gafs2jXZwZlGW4tEzWvQSoSzBWNaM4KAFibPfpBvhRxPhKlvx7H2si7CNfF9WEH04oL
+	gznF3Y/qY6svdyRZm2W8/YxxoPsZWqqxIn3hC6e6j4t8yKnSn07CB9qfg0Mzn0ijvrJKQPnkoHO
+	RJONYQcuWqGhkEVbtygLN5hDxyzZ79clqQ6Uyp5r1Uw0CG96zJN1HquOxSexlD50eKe0x0PeGO8
+	TB7VU15uc05OilDmLE4pYLRktZAOTMN6kmVIDxuanwGp4TzgCildLlP+QZCF2HXPHF7ToxoXB9J
+	WYKn2dG1N7tHhzZtuTOzYoa5bP6i6ZpHU7ZaI
+X-Google-Smtp-Source: AGHT+IFvdt07i7uoSVz4j/cerryx8WdmIT9dO8j0lAJ58MYL8dlhUyydVFbTzvLJByaHi5VlKBUV+w==
+X-Received: by 2002:a17:907:3dac:b0:ad2:2fdb:b0ab with SMTP id a640c23a62f3a-ade07901184mr407296066b.29.1749135005014;
+        Thu, 05 Jun 2025 07:50:05 -0700 (PDT)
+Message-ID: <4ed9d6ce-5634-4dd9-86e9-5d1f84a43e10@suse.com>
+Date: Thu, 5 Jun 2025 16:50:03 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20250526094559.140423-7-Jiqian.Chen@amd.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] vmx: Introduce vcpu single context VPID invalidation
+To: Teddy Astie <teddy.astie@vates.tech>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <83d0e7dfc076e9453fb6537e5948c03d90e947da.1748594036.git.teddy.astie@vates.tech>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <83d0e7dfc076e9453fb6537e5948c03d90e947da.1748594036.git.teddy.astie@vates.tech>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, May 26, 2025 at 05:45:55PM +0800, Jiqian Chen wrote:
-> When vpci fails to initialize a extended capability of device, it
-> just returns an error and vPCI gets disabled for the whole device.
+On 30.05.2025 10:48, Teddy Astie wrote:
+> Introduce vpid_sync_vcpu_context to do a single-context invalidation
+> on the vpid attached to the vcpu as a alternative to per-gva and all-contexts
+> invlidations.
 > 
-> So, add function to hide extended capability when initialization
-> fails. And remove the failed extended capability handler from vpci
-> extended capability list.
-> 
-> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
+> Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
 > ---
-> cc: "Roger Pau Monné" <roger.pau@citrix.com>
-> cc: Andrew Cooper <andrew.cooper3@citrix.com>
-> cc: Anthony PERARD <anthony.perard@vates.tech>
-> cc: Michal Orzel <michal.orzel@amd.com>
-> cc: Jan Beulich <jbeulich@suse.com>
-> cc: Julien Grall <julien@xen.org>
-> cc: Stefano Stabellini <sstabellini@kernel.org>
-> ---
-> v4->v5 changes:
-> * Modify the hex digits of PCI_EXT_CAP_NEXT_MASK and PCI_EXT_CAP_NEXT to be low case.
-> * Rename vpci_ext_capability_mask to vpci_ext_capability_hide.
-> 
-> v3->v4 changes:
-> * Change definition of PCI_EXT_CAP_NEXT to be "#define PCI_EXT_CAP_NEXT(header) (MASK_EXTR(header, PCI_EXT_CAP_NEXT_MASK) & 0xFFCU)" to avoid redundancy.
-> * Modify the commit message.
-> * Change vpci_ext_capability_mask() to return error instead of using ASSERT.
-> * Set the capability ID part to be zero when we need to hide the capability of position 0x100U.
-> * Add check "if ( !offset )" in vpci_ext_capability_mask().
-> 
-> v2->v3 changes:
-> * Separated from the last version patch "vpci: Hide capability when it fails to initialize".
-> * Whole implementation changed because last version is wrong.
->   This version gets target handler and previous handler from vpci->handlers, then remove the target.
-> * Note: a case in function vpci_ext_capability_mask() needs to be discussed,
->   because it may change the offset of next capability when the offset of target
->   capability is 0x100U(the first extended capability), my implementation is just to
->   ignore and let hardware to handle the target capability.
-> 
-> v1->v2 changes:
-> * Removed the "priorities" of initializing capabilities since it isn't used anymore.
-> * Added new function vpci_capability_mask() and vpci_ext_capability_mask() to
->   remove failed capability from list.
-> * Called vpci_make_msix_hole() in the end of init_msix().
-> 
-> Best regards,
-> Jiqian Chen.
-> ---
->  xen/drivers/vpci/vpci.c    | 100 +++++++++++++++++++++++++++++++++++--
->  xen/include/xen/pci_regs.h |   5 +-
->  2 files changed, 100 insertions(+), 5 deletions(-)
-> 
-> diff --git a/xen/drivers/vpci/vpci.c b/xen/drivers/vpci/vpci.c
-> index 60e7654ec377..2d4794ff3dea 100644
-> --- a/xen/drivers/vpci/vpci.c
-> +++ b/xen/drivers/vpci/vpci.c
-> @@ -176,6 +176,98 @@ static int vpci_capability_hide(struct pci_dev *pdev, unsigned int cap)
->      return 0;
->  }
+> Extracted from SEV series.
+> This will be used for instance in fixed-ASID patches (in SEV series).
+
+I think it should be in that series, which may still be some long way out.
+Until then we'd carry dead/unreachable code (disliked by Misra), and we'd
+risk that this bit-rots because of being unused.
+
+> --- a/xen/arch/x86/include/asm/hvm/vmx/vmx.h
+> +++ b/xen/arch/x86/include/asm/hvm/vmx/vmx.h
+> @@ -451,6 +451,23 @@ static inline void ept_sync_all(void)
 >  
-> +static struct vpci_register *vpci_get_previous_ext_cap_register(
-> +    struct vpci *vpci, unsigned int offset)
+>  void ept_sync_domain(struct p2m_domain *p2m);
+>  
+> +static inline void vpid_sync_vcpu_context(struct vcpu *v)
+
+pointer-to-const?
+
 > +{
-> +    uint32_t header;
-> +    unsigned int pos = PCI_CFG_SPACE_SIZE;
-> +    struct vpci_register *r;
-> +
-> +    if ( offset <= PCI_CFG_SPACE_SIZE )
-> +    {
-> +        ASSERT_UNREACHABLE();
-> +        return NULL;
-> +    }
-> +
-> +    r = vpci_get_register(vpci, pos, 4);
-> +    if ( !r )
-> +        return NULL;
-> +
-> +    header = (uint32_t)(uintptr_t)r->private;
-> +    pos = PCI_EXT_CAP_NEXT(header);
-> +    while ( pos > PCI_CFG_SPACE_SIZE && pos != offset )
-> +    {
-> +        r = vpci_get_register(vpci, pos, 4);
-> +        if ( !r )
-> +            return NULL;
-> +        header = (uint32_t)(uintptr_t)r->private;
-> +        pos = PCI_EXT_CAP_NEXT(header);
-> +    }
-> +
-> +    if ( pos <= PCI_CFG_SPACE_SIZE )
-> +        return NULL;
+> +    int type = INVVPID_SINGLE_CONTEXT;
 
-Same comment as in the previous patch, I think the proposed for loop
-there can also be used here to reduce a bit the code size (and unify
-the return paths).
+Please don't use plain int when all values possibly held in a variable are
+non-negative.
 
+> +    /*
+> +     * If single context invalidation is not supported, we escalate to
+> +     * use all context invalidation.
+> +     */
+> +    if ( likely(cpu_has_vmx_vpid_invvpid_single_context) )
+> +        goto execute_invvpid;
 > +
-> +    return r;
+> +    type = INVVPID_ALL_CONTEXT;
+> +
+> +execute_invvpid:
+
+There no reason at all to use "goto" here (and with that replaced there's
+then also no style issue with the label placement).
+
+Jan
+
+> +    __invvpid(type, v->arch.hvm.n1asid.asid, 0);
 > +}
 > +
-> +static int vpci_ext_capability_hide(struct pci_dev *pdev, unsigned int cap)
-> +{
-> +    const unsigned int offset = pci_find_ext_capability(pdev->sbdf, cap);
-> +    struct vpci_register *rm, *prev_r;
-
-s/rm/r/
-
-> +    struct vpci *vpci = pdev->vpci;
-> +    uint32_t header, pre_header;
-> +
-> +    if ( !offset )
-
-I think you want offset < PCI_CFG_SPACE_SIZE here?
-
-> +    {
-> +        ASSERT_UNREACHABLE();
-> +        return 0;
-> +    }
-> +
-> +    spin_lock(&vpci->lock);
-> +    rm = vpci_get_register(vpci, offset, 4);
-> +    if ( !rm )
-> +    {
-> +        spin_unlock(&vpci->lock);
-> +        return -ENODEV;
-> +    }
-> +
-> +    header = (uint32_t)(uintptr_t)rm->private;
-> +    if ( offset == PCI_CFG_SPACE_SIZE )
-> +    {
-> +        if ( PCI_EXT_CAP_NEXT(header) <= PCI_CFG_SPACE_SIZE )
-> +            rm->private = (void *)(uintptr_t)0;
-> +        else
-> +            /*
-> +             * If this case removes target capability of position 0x100U, then
-> +             * it needs to move the next capability to be in position 0x100U,
-> +             * that would cause the offset of next capability in vpci different
-> +             * from the hardware, then cause error accesses, so here chooses to
-> +             * set the capability ID part to be zero.
-
-/*
- * The first extended capability (0x100) cannot be removed from the linked
- * list, so instead mask its capability ID to return 0 and force OSes
- * to skip it.
- */
-
-Is simpler IMO and conveys the same message.
-
-> +             */
-> +            rm->private = (void *)(uintptr_t)(header &
-> +                                              ~PCI_EXT_CAP_ID(header));
-> +
-> +        spin_unlock(&vpci->lock);
-> +        return 0;
-> +    }
-> +
-> +    prev_r = vpci_get_previous_ext_cap_register(vpci, offset);
-> +    if ( !prev_r )
-> +    {
-> +        spin_unlock(&vpci->lock);
-> +        return -ENODEV;
-> +    }
-> +
-> +    pre_header = (uint32_t)(uintptr_t)prev_r->private;
-> +    prev_r->private = (void *)(uintptr_t)((pre_header &
-> +                                           ~PCI_EXT_CAP_NEXT_MASK) |
-> +                                          (header & PCI_EXT_CAP_NEXT_MASK));
-
-No strong opinion (and your code is correct), but it might be easier
-to read as:
-
-pre_header &= ~PCI_EXT_CAP_NEXT_MASK;
-pre_header |= header & PCI_EXT_CAP_NEXT_MASK;
-prev_r->private = (void *)(uintptr_t)pre_header;
-
-It's still tree lines of code at the end.  I would also add a newline
-to separate from the removal of rm.
-
-> +    list_del(&rm->node);
-> +    spin_unlock(&vpci->lock);
-> +    xfree(rm);
-
-Newline before the return preferably.
-
-> +    return 0;
-> +}
-> +
->  static int vpci_init_capabilities(struct pci_dev *pdev)
+>  static inline void vpid_sync_vcpu_gva(struct vcpu *v, unsigned long gva)
 >  {
->      for ( unsigned int i = 0; i < NUM_VPCI_INIT; i++ )
-> @@ -209,11 +301,11 @@ static int vpci_init_capabilities(struct pci_dev *pdev)
->                     pdev->domain, &pdev->sbdf,
->                     is_ext ? "extended" : "legacy", cap);
->              if ( !is_ext )
-> -            {
->                  rc = vpci_capability_hide(pdev, cap);
-> -                if ( rc )
-> -                    return rc;
-> -            }
-> +            else
-> +                rc = vpci_ext_capability_hide(pdev, cap);
-> +            if ( rc )
-> +                return rc;
+>      int type = INVVPID_INDIVIDUAL_ADDR;
 
-Could the code in the previous patch be:
-
-if ( !is_ext )
-    rc = vpci_capability_hide(pdev, cap);
-
-if ( rc )
-    return rc;
-
-So that your introduction here is simpler?
-
-Thanks, Roger.
 
