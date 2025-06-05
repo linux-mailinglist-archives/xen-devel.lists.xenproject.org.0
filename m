@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 270FEACED7D
-	for <lists+xen-devel@lfdr.de>; Thu,  5 Jun 2025 12:24:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1006542.1385741 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C409ACED82
+	for <lists+xen-devel@lfdr.de>; Thu,  5 Jun 2025 12:25:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1006548.1385750 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uN7m8-0003n2-BW; Thu, 05 Jun 2025 10:24:44 +0000
+	id 1uN7mq-0004In-J8; Thu, 05 Jun 2025 10:25:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1006542.1385741; Thu, 05 Jun 2025 10:24:44 +0000
+Received: by outflank-mailman (output) from mailman id 1006548.1385750; Thu, 05 Jun 2025 10:25:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uN7m8-0003lJ-70; Thu, 05 Jun 2025 10:24:44 +0000
-Received: by outflank-mailman (input) for mailman id 1006542;
- Thu, 05 Jun 2025 10:24:43 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uN7mq-0004GZ-Fa; Thu, 05 Jun 2025 10:25:28 +0000
+Received: by outflank-mailman (input) for mailman id 1006548;
+ Thu, 05 Jun 2025 10:25:26 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=qREP=YU=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uN7m7-0003lD-FF
- for xen-devel@lists.xenproject.org; Thu, 05 Jun 2025 10:24:43 +0000
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [2a00:1450:4864:20::330])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4b46800b-41f7-11f0-a300-13f23c93f187;
- Thu, 05 Jun 2025 12:24:42 +0200 (CEST)
-Received: by mail-wm1-x330.google.com with SMTP id
- 5b1f17b1804b1-442ea341570so4983345e9.1
- for <xen-devel@lists.xenproject.org>; Thu, 05 Jun 2025 03:24:42 -0700 (PDT)
+ id 1uN7mo-00043g-N2
+ for xen-devel@lists.xenproject.org; Thu, 05 Jun 2025 10:25:26 +0000
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [2a00:1450:4864:20::435])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 64a44cf5-41f7-11f0-b894-0df219b8e170;
+ Thu, 05 Jun 2025 12:25:25 +0200 (CEST)
+Received: by mail-wr1-x435.google.com with SMTP id
+ ffacd0b85a97d-3a375888297so533036f8f.1
+ for <xen-devel@lists.xenproject.org>; Thu, 05 Jun 2025 03:25:25 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-747afff70b5sm12562346b3a.160.2025.06.05.03.24.38
+ d9443c01a7336-23506bc8b26sm116434025ad.9.2025.06.05.03.25.21
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 05 Jun 2025 03:24:41 -0700 (PDT)
+ Thu, 05 Jun 2025 03:25:24 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4b46800b-41f7-11f0-a300-13f23c93f187
+X-Inumbo-ID: 64a44cf5-41f7-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1749119082; x=1749723882; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1749119124; x=1749723924; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=CCGJJ+18Hx71qZ1BImD3aJBlrhNSiedNN3y6oo5smPU=;
-        b=GF7X7+tlnFvyN8NA1zazfNKkCmtE8tJXNwAtEl/ikNEwstsyrDmJyO2gkW/mfHaZ07
-         uvaznPONxsOeoasAiT0Rg0Gc01edBALulSUGNmokdMiHnsPVusu53HQ3LAjuj8vCksko
-         w/oFolNP6wwlXQIKz46qo5/HQcMd5Evu3aJ0/PbabpsW+nGRQuRb8g90EEQ1BFhnRLUP
-         nMRZgpGAPqkUVAekfIJJ7xUCxH8sxnlIs7FRNiFQFHcLrCgOTGDENt4lfmYdNjXa0jss
-         fYKkSi852ee0UrmSenUERpG5mQQsrspSKSPmWXtaDmxQiy0tHfG/2x5Hrdic7fBUz/Os
-         bVZQ==
+        bh=ODTNNGIVtgxD+7IVtLkWN/Ewp9sfVPUojE1+ozek4qQ=;
+        b=a5qugSiNPUXk/XrjAYZnN+37X449OrmlTgSSnntCsc0hWPVL4eTTvvl3xnH/29yLAc
+         HMoHOx+acffFA+P545esOq8Gy8X2SLsfa1AGXkzZDhmqS7G3QfS3bEjUnI0nhVrUGGpv
+         NGupieYowRJmWWbjVk4zfyfh14GVxA2Y13qiOHMSUgYENQViwsShNw6PXnAZoZEo+PbL
+         cWQ2nQeBg7NBfrKhrNGLgC+/Jezm0pVEKxKGNr/lhrbM0Isdth900g0ClH+W1CN0Ixmh
+         t0okw58DHZo2ckYYI/og63dq8ORv1d9xFa2/VUm7iqMU1Xq1J9aO3+rloKdCIsEJsiSI
+         jOkw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749119082; x=1749723882;
+        d=1e100.net; s=20230601; t=1749119124; x=1749723924;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=CCGJJ+18Hx71qZ1BImD3aJBlrhNSiedNN3y6oo5smPU=;
-        b=q8dOjvKBBfB6q7g+diJ3CdleyFGv8+S4gAOoriK1LwhNdxrM+scXkozW2jKbTWVT//
-         b7nKmlrOfevl+GFAJDQN/UQ7DgXCySl2gRhYKQBLzo0mGswjxVDJlAUZ3FWq+UaY9h3P
-         ocjZMtRtQt0Oi4357gX0o4ujQ84QrdIhBSM9teGhvZb6A9IA8U+zrAo9QcQ/HnrU0Pvy
-         FlGoFvsWb5bYUtY8JHHgfDbREX59YwuB2nnNdIwR/LqiI0JGf45E5SE/3wLxbLznVmSh
-         HXKbiR3FkcKmKw5kdv5Ndr4KxP4CnI4E1UN+CbpG4tR8rl8F1g0r+ua+X857dNLIDFul
-         GUig==
-X-Gm-Message-State: AOJu0YzXTVmAgOBTmQkYcbvmlpPK/Jz8dQihSkne5akcOuNg9T86AKBS
-	2tRhMJF38E9uTZ92tP+3wc2Rqqvc6v3GI+h4YvLYCANcdoEpXWnoFkaak1O54RCtVoqDhnXYENv
-	h5bw=
-X-Gm-Gg: ASbGnctjKS1XuUg9/E/4T1jLEG+XTuoPPVYpl0dVAjKsTttkQdQIx/tsgz96vwZPn85
-	VtG52AF6QWBPzz0i0G4CUL+m6ExYve2e7pZ7LdLLpiMvrk+q9HVPwuv72TAqXo9PXQWE9xIogQu
-	KV8YOUKhNAXmDL8qFWROnU61ggbqhvvmqJsBjZa77c8SEHP6+2YnK4AwqRBrshtxZBRXhBnndH1
-	Cttlc5RzZTj3jiiqSjPuZIwntAKId2HRrR88KeYkut2tAoZtz//Mmeu8k/OzSVU6mCq4lG72tn1
-	G0xIa6cGoUoYGOq/pAKSD6CtyXlXykAjyzMncELJtHCDVCaGl9SxUW3T3nKfXaxBnrObbQlE6PV
-	2pknlUH3mq7snQFF2QgKCk/9l8BZd8J1ySraEWXTX+aIOX18=
-X-Google-Smtp-Source: AGHT+IHCcgv3vgC11pIaE8euNozBhtxqfc142zYW33hG7ykrV9v+UuFD9NqILRK4vpfVAlbQsyjLkA==
-X-Received: by 2002:a05:6000:250f:b0:3a4:edad:2a59 with SMTP id ffacd0b85a97d-3a51d8f6a3bmr5700565f8f.1.1749119081922;
-        Thu, 05 Jun 2025 03:24:41 -0700 (PDT)
-Message-ID: <d292df93-eddb-4bad-b369-6035959a0095@suse.com>
-Date: Thu, 5 Jun 2025 12:24:34 +0200
+        bh=ODTNNGIVtgxD+7IVtLkWN/Ewp9sfVPUojE1+ozek4qQ=;
+        b=TMl0X8MkEvm3TxvU9r3eEkB900mLow2gXVvVFS86Q21vOmCNAmivB8DVdSqqIuECfb
+         76TYzwPHj/co4/xt9NBzhAcujSHlALkqLEqikDQHDPO4iQiST+KUK/2BZ1fiTynC289z
+         zDJfLOIZbNqoTgJnlLA6T8cJ/1mG6mll7X9A81fUG8xIW2/SxHWEqcPoEQvgRhSi6Ttl
+         vjL5r+eSEKoDYEoF/5yEG31SHb6dGhjHP761kHjmK2zervkoRqy5dw7DwXXNzZJYedQG
+         8YjLRLsRyeH3DThFzE+eoPzKYBQUgZHKtmSYSy2MZ5NClZSTnS9wE9ywdoQS8U2+sUKB
+         wOMQ==
+X-Gm-Message-State: AOJu0YxCF2ydK8wDHgTocJxmti4alz1yNr63eSYYUNv+dXLVYth5SnRw
+	FOSbckKsHLfKGr8AojCFpH6vgbl3rVu11B1nJ5qdZNyIVSM7n6W5rHYSF7TOe5ZOwo9qCuoSwgz
+	GQyA=
+X-Gm-Gg: ASbGnctF92kNcLhjJ4EcNNh68T5YJjKwaL5aFxS2EwYyAjtmH0d4TwrLAFNE6S+i/pz
+	KliLU2fandFyM9J9PyCxNKabg8nLP71zVgtI3K8EhWCalSG17wFrPSQ5pmegKL7Z/BTmIuIcZ0h
+	oyEYfZy0vgzoW0cmRvSnIqUOGsJrBbjsl/4uDqEgyXUiRweCkLo0FbDLNz9x/xQa6R2AM4DPULd
+	weju4KJZrcZ/yl7e0e7+/aYqHhy4DaF0FF51XcknyBBS50shIdaWk+ZOt02CzQRzytUUBsX0R+7
+	Z7DYGsK+EW2JEXYYVWQ7fjkagFib5IsW27mhoTdeYzvUOWnq2tZpvp+7bsFFbt/cM+6yk0fAAXf
+	4/7sUYPKzvXwl8WugnxNPG7UkyoTRJOrgQqCl
+X-Google-Smtp-Source: AGHT+IH/iUBcOUGxo/kZ1XOmLorzJ659k/mRMtiOrAHY23tAraBTACOClPoWtUOpiNH7ekY6pa8chQ==
+X-Received: by 2002:a05:6000:2890:b0:3a4:e603:3d2 with SMTP id ffacd0b85a97d-3a526a84717mr2559856f8f.0.1749119124473;
+        Thu, 05 Jun 2025 03:25:24 -0700 (PDT)
+Message-ID: <4592a702-acf3-4229-9069-d5b639151657@suse.com>
+Date: Thu, 5 Jun 2025 12:25:17 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v5 1/6] x86: suppress ERMS for internal use when
- MISC_ENABLE.FAST_STRING is clear
+Subject: [PATCH v5 2/6] x86: re-work memset()
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -122,87 +121,105 @@ In-Reply-To: <73481cbf-337f-4e85-81d2-3487366cd822@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Before we start actually adjusting behavior when ERMS is available,
-follow Linux commit 161ec53c702c ("x86, mem, intel: Initialize Enhanced
-REP MOVSB/STOSB") and zap the CPUID-derived feature flag when the MSR
-bit is clear. Don't extend the artificial clearing to guest view,
-though: Guests can take their own decision in this regard, as they can
-read (most of) MISC_ENABLE.
+Move the function to its own assembly file. Having it in C just for the
+entire body to be an asm() isn't really helpful. Then have two flavors:
+A "basic" version using qword steps for the bulk of the operation, and an
+ERMS version for modern hardware, to be substituted in via alternatives
+patching.
+
+For RET to be usable in an alternative's replacement code, extend the
+CALL/JMP patching to cover the case of "JMP __x86_return_thunk" coming
+last in replacement code.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
-TBD: Would be nice if "cpuid=no-erms" propagated to guest view (for
-     "cpuid=" generally meaning to affect guests as well as Xen), but
-     since both disabling paths use setup_clear_cpu_cap() they're
-     indistinguishable in guest_common_feature_adjustments(). A separate
-     boolean could take care of this, but would look clumsy to me.
+We may want to consider branching over the REP STOSQ as well, if the
+number of qwords turns out to be zero.
+We may also want to consider using non-REP STOS{L,W,B} for the tail.
 ---
-v5: Correct guest_common_max_feature_adjustments() addition.
-v4: Also adjust guest_common_max_feature_adjustments().
-v3: New.
+v5: Re-base.
+v4: Use %r8 instead of %rsi in a few places.
+v3: Re-base.
 
---- a/xen/arch/x86/cpu/intel.c
-+++ b/xen/arch/x86/cpu/intel.c
-@@ -366,8 +366,18 @@ static void cf_check early_init_intel(st
- 		paddr_bits = 36;
+--- a/xen/arch/x86/Makefile
++++ b/xen/arch/x86/Makefile
+@@ -47,6 +47,7 @@ obj-$(CONFIG_RETURN_THUNK) += indirect-t
+ obj-$(CONFIG_PV) += ioport_emulate.o
+ obj-y += irq.o
+ obj-$(CONFIG_KEXEC) += machine_kexec.o
++obj-y += memset.o
+ obj-y += mm.o x86_64/mm.o
+ obj-$(CONFIG_VM_EVENT) += monitor.o
+ obj-y += mpparse.o
+--- a/xen/arch/x86/alternative.c
++++ b/xen/arch/x86/alternative.c
+@@ -346,6 +346,12 @@ static int init_or_livepatch _apply_alte
+         /* 0xe8/0xe9 are relative branches; fix the offset. */
+         if ( a->repl_len >= 5 && (*buf & 0xfe) == 0xe8 )
+             *(int32_t *)(buf + 1) += repl - orig;
++        else if ( IS_ENABLED(CONFIG_RETURN_THUNK) &&
++                  a->repl_len > 5 && buf[a->repl_len - 5] == 0xe9 &&
++                  ((long)repl + a->repl_len +
++                   *(int32_t *)(buf + a->repl_len - 4) ==
++                   (long)__x86_return_thunk) )
++            *(int32_t *)(buf + a->repl_len - 4) += repl - orig;
  
- 	if (c == &boot_cpu_data) {
-+		uint64_t misc_enable;
-+
- 		check_memory_type_self_snoop_errata();
+         a->priv = 1;
  
-+		/*
-+		 * If fast string is not enabled in IA32_MISC_ENABLE for any reason,
-+		 * clear the enhanced fast string CPU capability.
-+		 */
-+		rdmsrl(MSR_IA32_MISC_ENABLE, misc_enable);
-+		if (!(misc_enable & MSR_IA32_MISC_ENABLE_FAST_STRING))
-+			setup_clear_cpu_cap(X86_FEATURE_ERMS);
+--- /dev/null
++++ b/xen/arch/x86/memset.S
+@@ -0,0 +1,30 @@
++#include <asm/asm_defns.h>
 +
- 		intel_init_levelling();
- 	}
- 
---- a/xen/arch/x86/cpu-policy.c
-+++ b/xen/arch/x86/cpu-policy.c
-@@ -487,6 +487,12 @@ static void __init guest_common_max_feat
-      */
-     if ( test_bit(X86_FEATURE_RTM, fs) )
-         __set_bit(X86_FEATURE_RTM_ALWAYS_ABORT, fs);
++.macro memset
++        and     $7, %edx
++        shr     $3, %rcx
++        movzbl  %sil, %esi
++        mov     $0x0101010101010101, %rax
++        imul    %rsi, %rax
++        mov     %rdi, %r8
++        rep stosq
++        or      %edx, %ecx
++        jz      0f
++        rep stosb
++0:
++        mov     %r8, %rax
++        RET
++.endm
 +
-+    /*
-+     * We expose MISC_ENABLE to guests, so our internal clearing of ERMS when
-+     * FAST_STRING is not set should not affect the view of migrating-in guests.
-+     */
-+    __set_bit(X86_FEATURE_ERMS, fs);
++.macro memset_erms
++        mov     %esi, %eax
++        mov     %rdi, %r8
++        rep stosb
++        mov     %r8, %rax
++        RET
++.endm
++
++FUNC(memset)
++        mov     %rdx, %rcx
++        ALTERNATIVE memset, memset_erms, X86_FEATURE_ERMS
++END(memset)
+--- a/xen/arch/x86/string.c
++++ b/xen/arch/x86/string.c
+@@ -22,19 +22,6 @@ void *(memcpy)(void *dest, const void *s
+     return dest;
  }
  
- static void __init guest_common_default_feature_adjustments(uint32_t *fs)
-@@ -567,6 +573,16 @@ static void __init guest_common_default_
-         __clear_bit(X86_FEATURE_RTM, fs);
-         __set_bit(X86_FEATURE_RTM_ALWAYS_ABORT, fs);
-     }
-+
-+    /*
-+     * We expose MISC_ENABLE to guests, so our internal clearing of ERMS when
-+     * FAST_STRING is not set should not propagate to guest view.  Guests can
-+     * judge on their own whether to ignore the CPUID bit when the MSR bit is
-+     * clear.  The bit being uniformly set in the max policies, we only need
-+     * to clear it here (if hardware doesn't have it).
-+     */
-+    if ( !raw_cpu_policy.feat.erms )
-+        __clear_bit(X86_FEATURE_ERMS, fs);
- }
- 
- static void __init guest_common_feature_adjustments(uint32_t *fs)
---- a/xen/arch/x86/include/asm/msr-index.h
-+++ b/xen/arch/x86/include/asm/msr-index.h
-@@ -493,6 +493,7 @@
- #define MSR_IA32_THERM_INTERRUPT	0x0000019b
- #define MSR_IA32_THERM_STATUS		0x0000019c
- #define MSR_IA32_MISC_ENABLE		0x000001a0
-+#define MSR_IA32_MISC_ENABLE_FAST_STRING  (1<<0)
- #define MSR_IA32_MISC_ENABLE_PERF_AVAIL   (1<<7)
- #define MSR_IA32_MISC_ENABLE_BTS_UNAVAIL  (1<<11)
- #define MSR_IA32_MISC_ENABLE_PEBS_UNAVAIL (1<<12)
+-void *(memset)(void *s, int c, size_t n)
+-{
+-    long d0, d1;
+-
+-    asm volatile (
+-        "rep stosb"
+-        : "=&c" (d0), "=&D" (d1)
+-        : "a" (c), "1" (s), "0" (n)
+-        : "memory");
+-
+-    return s;
+-}
+-
+ void *(memmove)(void *dest, const void *src, size_t n)
+ {
+     long d0, d1, d2;
 
 
