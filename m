@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 34876ACEA2A
-	for <lists+xen-devel@lfdr.de>; Thu,  5 Jun 2025 08:32:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1006257.1385450 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5CD1FACEA5C
+	for <lists+xen-devel@lfdr.de>; Thu,  5 Jun 2025 08:39:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1006263.1385460 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uN48E-0000Ro-Iz; Thu, 05 Jun 2025 06:31:18 +0000
+	id 1uN4GL-000140-A0; Thu, 05 Jun 2025 06:39:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1006257.1385450; Thu, 05 Jun 2025 06:31:18 +0000
+Received: by outflank-mailman (output) from mailman id 1006263.1385460; Thu, 05 Jun 2025 06:39:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uN48E-0000Pq-Ey; Thu, 05 Jun 2025 06:31:18 +0000
-Received: by outflank-mailman (input) for mailman id 1006257;
- Thu, 05 Jun 2025 06:31:16 +0000
+	id 1uN4GL-00012T-78; Thu, 05 Jun 2025 06:39:41 +0000
+Received: by outflank-mailman (input) for mailman id 1006263;
+ Thu, 05 Jun 2025 06:39:39 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=qREP=YU=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uN48C-0000Pk-Hm
- for xen-devel@lists.xenproject.org; Thu, 05 Jun 2025 06:31:16 +0000
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
- [2a00:1450:4864:20::429])
+ id 1uN4GJ-00012L-Cu
+ for xen-devel@lists.xenproject.org; Thu, 05 Jun 2025 06:39:39 +0000
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [2a00:1450:4864:20::32e])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ad7b1d3a-41d6-11f0-b894-0df219b8e170;
- Thu, 05 Jun 2025 08:31:14 +0200 (CEST)
-Received: by mail-wr1-x429.google.com with SMTP id
- ffacd0b85a97d-3a5123c1533so284893f8f.2
- for <xen-devel@lists.xenproject.org>; Wed, 04 Jun 2025 23:31:13 -0700 (PDT)
+ id d9b3373c-41d7-11f0-b894-0df219b8e170;
+ Thu, 05 Jun 2025 08:39:37 +0200 (CEST)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-451d41e1ad1so4345385e9.1
+ for <xen-devel@lists.xenproject.org>; Wed, 04 Jun 2025 23:39:37 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-747affafa34sm12555519b3a.103.2025.06.04.23.31.09
+ d9443c01a7336-23506bc8b04sm113474505ad.45.2025.06.04.23.39.31
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 04 Jun 2025 23:31:12 -0700 (PDT)
+ Wed, 04 Jun 2025 23:39:36 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ad7b1d3a-41d6-11f0-b894-0df219b8e170
+X-Inumbo-ID: d9b3373c-41d7-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1749105073; x=1749709873; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1749105577; x=1749710377; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=LD1YIKKhP4Y4E1+J+F+lZ84K9Y0IuCjjqTjOSBewbQM=;
-        b=XJ1XRCscL6eoGrHJvnEt6dYZvQxyyZ8dnXycR2dv+vGRi1ghO2NeDz/Yza2pMrUfyb
-         JACZ9S99/DriXMWvK4q4Mu2l85mptG7k7bcISAgHuK7KtqSubcnpw712b9QH47vN14Ij
-         sBuct6/aN8CCVHWh9Bm09ohOTcjnTsn9oibEug1GZX8TVljjmnlK/h4RkyrL7RvQ31XI
-         V8dwuZVjk3WbJv1S6p6zHN9jwtC9/IbHthSr3CNgV4FkTXxWufSN2l3O9sYqnKuQz+ez
-         czC2aga2jusiUylh+pUUkiW05KdooyjcozlIb9MhDOdpLrP3k6fm0QF1EPxXdJalnz9A
-         85iA==
+        bh=fwd3yPHT98LmiMqwu3HWqnIgMVBoMIjtt5dXJw+Tc+g=;
+        b=DUeJSXJ6/CIEDSIe+3QjLGbFksK9H5q/lyytfLD7E2yUe8Lfe6k3vI/tXJ5dLbxGoI
+         7cgPCqz1yeAba3vevhD8qKM8yGTGTA/jh0doaAQrK6UhsCXNn7J6CIkfVPlKOu3T2Y49
+         xmXOplTWmZZbPOF9uCGsQfZLES5irxHPSAppw3uMAiVlFFYfsqCfuGKm/zG29tq6yXi+
+         Kha0XSGAsifSNcmgE9fZJeqyWOZge6ueYcWt+2o7V/Lx0b6Vd8Vw5GiX9Sza0/Docukl
+         NmQY7Hur4gcKpcaE6EXEnO1xqWoTCGzqfY/iC+0F9I1xnCRVBUjJ+C9dlb89Q2l+bDYe
+         cJ8g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749105073; x=1749709873;
+        d=1e100.net; s=20230601; t=1749105577; x=1749710377;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=LD1YIKKhP4Y4E1+J+F+lZ84K9Y0IuCjjqTjOSBewbQM=;
-        b=l/UfEEY//1FBSuD3z/kTBjWjI3d1ivjYJd1yHjSpnYoZams+eai7XmjpOw5FQoc8DV
-         sYbV2on27vWilqavnVH+/hx0qEw8/3a2S2iASskHxvliardZA5a2kfBI41udmvgjUMEn
-         /JEjVHUkQHDIjFExHtg9D8mWnzFqMaUNRDS6zLfKwgRBQjGRigcvIlIxWAjrwJAzMUDT
-         6t8PBWN5oI2FqSH664lAZlOHsv7TbRYq4NA2uEv90qw1pxqZZKJQOiW0NrltBhR9OFSs
-         JVQJIgR+b8o7V+QQm3uPWRb9Ce0mFxroRm+qDhV8zvJiU+0nMxjiHQhjFJYCMrt9uPc9
-         nRZw==
-X-Forwarded-Encrypted: i=1; AJvYcCVrwUsXNoxSf2TkAvQSfuaiujfLD35KcALaZxeiihoUJWsFtta6idjeQweQ32sDuKxpb64kJkSbaa8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy5TK1Cr6cyZBz/8tHCNeIu3qRpADZlyHuD48/pcycrji86Exv4
-	YA8R7BpDMXEOQS/mO38P3BqddZmZ82tw+emGykSWMlaoPgst9w5CiMSTPVEQJGm+3w==
-X-Gm-Gg: ASbGncsepQme/wjEhnBVXmN5uG4b6LmG3GNQ69Q3grLRlT07hH1nd1zCuUohh4LWONJ
-	XPlrFfXxWuleVf9M80b73R6vkIpSp8lWgBPpEtz+iNHGT17h750l8GSwbTfKzBhnXXhayR3RED0
-	tKEl9v71HKVrcQI1gwM4Ko5Jg6OV/dsat2D6FDVPK8wA87VlVauG+mlkVY6cGbh4et2TcLA4QSi
-	J3lCd9RqyK61MmNrZHVGqnHEerYLFidmoDyrhwIO/xzoGPtC5TaSFqMLVZbDK5xwQ8aHLucxXP8
-	aMbPyBOcNkompAtPU3ZoOKPDZDYFzFcSCh08MZjDQJV7MkzVDv1YX3oDPFygBDHSFDqFIgVqXoS
-	kLTVKWXED1Al3fg++R8yjK0wi7KtYrICwI7LvKyWLeUD+x+U=
-X-Google-Smtp-Source: AGHT+IEaWQ+kW/CdH9J4SmVMQMUWyP38GtH3Z1cvnjfiTCKnPKNcEWsZjPALlBNx2TK8ZZx0xd9zVA==
-X-Received: by 2002:adf:cf0b:0:b0:3a5:2208:41e3 with SMTP id ffacd0b85a97d-3a5220844f3mr2539475f8f.4.1749105073274;
-        Wed, 04 Jun 2025 23:31:13 -0700 (PDT)
-Message-ID: <c252a43a-4e00-4584-bbb1-05347aa9b49f@suse.com>
-Date: Thu, 5 Jun 2025 08:31:05 +0200
+        bh=fwd3yPHT98LmiMqwu3HWqnIgMVBoMIjtt5dXJw+Tc+g=;
+        b=vJA7YAbw9UjjxQIbn4TxBHFRR4UQdFO1vMZ1WiUNB9YxsbhOI477Tn2SNtf1+SRdzx
+         icxsdVvxd17PYRnxXwA5XLnt2eNcdcJ2BvTjqr8ZqqAVfsxNoAtQhkZ3tuq2Nt92jyaB
+         rnjrGzA/wwFvS2UDqDi+Pf6yzcdt4k1J5KTxZbRqEJEA+NRCjaL0QqWAnOMXxgJhPePH
+         4tBKj9hsaCcMj4gc/p2nxwkxHUeC75v0fyKIhcVuOyYVQwZL0MysoXDdS3OC2IHRBHNd
+         39x+nErBCkFIa4BQ5JtVbpqbl0BhTY+ojwciK5VZ9VSoFB90trgOL4VsP3Zk3DQOPuMs
+         eBDA==
+X-Forwarded-Encrypted: i=1; AJvYcCUnqvcDaN0loQqoiGa4albaBycKVZrUGtWRfOSwZPdpey9O53EKcEYJQsjv2RGu2+yWvGg3pDZg0lA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwNGBf3McXDbh36emgbGXLJNAFOZdYlLEhsjb9ADeoXOQvG4Sx3
+	6leRav5eZUW+H0g6SHMqEB1QXP2OVKc4QxBXdvJCCvH8VtFvp6zhB1YvCJJYmhQxBw==
+X-Gm-Gg: ASbGncsSyu4usu+RwXMJ60Ek4O0g9UBXbcf99ALhUZ6pHzqcqlFkU+Jj+PHQdLETogT
+	f72AbHiPM/x3QruLJKg1OcspGhUvTS4kx+i641q+P7wBHG5SXpdWMgRPMJm2zHEZg3N20JIXt6P
+	9NyEtN9BwS1psr9JQql8aiVoK80uN9APRrbAs8YK8KOBEGReEju3OK2vpI78lUeWBLXcjdkHS72
+	s96Umr1ZedOT47Em0z6/pVrm3iW6t0jIFFCieXSn8NkoGVaQ506EU+3W8W15Cn3lshHvqLzvZQh
+	eAgsuSvQaUBkR+gzzRtQ8uV4sY8hxTkd0pBNYsQM0ViJMfJtqAOEBO891QjwF/07DlOzKuy5j9w
+	b5KmpTffCHMlpGfpboJ2PfHs5hB+Bavffbt90gCY/GLKA8gw=
+X-Google-Smtp-Source: AGHT+IFFYPO9uFt0RzK5cboGIq4WkTNLr37wMXWxt18xqBZHV/CEIsr6uH/HgxzF+9IeeQv4833e8Q==
+X-Received: by 2002:a05:6000:2dca:b0:3a4:e672:deef with SMTP id ffacd0b85a97d-3a51dc316bamr4424285f8f.36.1749105576900;
+        Wed, 04 Jun 2025 23:39:36 -0700 (PDT)
+Message-ID: <f5909546-ef4d-4ee3-95b2-1255f2de3652@suse.com>
+Date: Thu, 5 Jun 2025 08:39:27 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86: remove memcmp calls non-compliant with Rule 21.16.
-To: Stefano Stabellini <stefano.stabellini@amd.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>,
+Subject: Re: [PATCH] xen: add header guards to generated asm generic headers
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech,
+ michal.orzel@amd.com, julien@xen.org, roger.pau@citrix.com,
  xen-devel@lists.xenproject.org
-References: <20250604233537.2892206-1-stefano.stabellini@amd.com>
+References: <alpine.DEB.2.22.394.2506041605090.2495561@ubuntu-linux-20-04-desktop>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -119,76 +118,38 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250604233537.2892206-1-stefano.stabellini@amd.com>
+In-Reply-To: <alpine.DEB.2.22.394.2506041605090.2495561@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 05.06.2025 01:35, Stefano Stabellini wrote:
-> From: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
-> 
-> MISRA C Rule 21.16 states the following: "The pointer arguments to
-> the Standard Library function `memcmp' shall point to either a pointer
-> type, an essentially signed type, an essentially unsigned type, an
-> essentially Boolean type or an essentially enum type".
-> 
-> Comparing string literals with char arrays is more appropriately
-> done via strncmp.
-
-More appropriately - maybe. Yet less efficiently. IOW I view ...
-
-> No functional change.
-
-... this as at the edge of not being true.
-
-> Signed-off-by: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
-
-Missing your own S-o-b.
-
-Also (nit) may I ask that you drop the full stop from the patch subject?
-
-> --- a/xen/arch/x86/dmi_scan.c
-> +++ b/xen/arch/x86/dmi_scan.c
-> @@ -233,7 +233,7 @@ void __init dmi_efi_get_table(const void *smbios, const void *smbios3)
->  	const struct smbios_eps *eps = smbios;
->  	const struct smbios3_eps *eps3 = smbios3;
+On 05.06.2025 01:09, Stefano Stabellini wrote:
+> --- a/xen/scripts/Makefile.asm-generic
+> +++ b/xen/scripts/Makefile.asm-generic
+> @@ -32,7 +32,12 @@ old-headers := $(wildcard $(obj)/*.h)
+>  unwanted    := $(filter-out $(generic-y) $(generated-y),$(old-headers))
 >  
-> -	if (eps3 && memcmp(eps3->anchor, "_SM3_", 5) == 0 &&
-> +	if (eps3 && strncmp(eps3->anchor, "_SM3_", 5) == 0 &&
+>  quiet_cmd_wrap = WRAP    $@
+> -      cmd_wrap = echo "\#include <asm-generic/$*.h>" > $@
+> +      cmd_wrap = \
+> +	upper=$$(echo $*.h | tr a-z A-Z | tr '/.' '__'); \
+> +	printf "\#ifndef ASM_GENERIC_$${upper}\n" > $@; \
+> +	printf "\#define ASM_GENERIC_$${upper}\n" >> $@; \
+> +	printf "\#include <asm-generic/$*.h>\n" >> $@; \
+> +	printf "\#endif /* ASM_GENERIC_$${upper} */\n" >> $@
 
-Unlike the last example given in the doc, this does not pose the risk of
-false "not equal" returns. Considering there's no example there exactly
-matching this situation, I'm not convinced a change is actually needed.
-(Applies to all other changes here, too.)
+I'm curious: In what is now a0f56da94c3e I had to resort to "define" to
+get the rule to work (including a correct .*.cmd being generated). I
+can't claim I actually understood why things didn't work the "simple
+macro" way, and hence it's unclear to me whether the way it's done here
+will work with all make versions.
 
-> @@ -302,7 +302,7 @@ const char *__init dmi_get_table(paddr_t *base, u32 *len)
->  				continue;
->  			memcpy_fromio(&eps.dmi + 1, q + sizeof(eps.dmi),
->  			              sizeof(eps.smbios3) - sizeof(eps.dmi));
-> -			if (!memcmp(eps.smbios3.anchor, "_SM3_", 5) &&
-> +			if (strncmp(eps.smbios3.anchor, "_SM3_", 5) == 0 &&
+One further difference to that other commit: If make is interrupted in
+the middle of any of these printf-s, an incomplete file may remain. The
+cmd_xlat_h rule specifically uses "mv -f $@.new $@" to cover that corner
+case.
 
-Here and below there's a further (style) change, moving from ! to "== 0"
-(or from implicit boolean to "!= 0"). As we use the original style in many
-other places, some justification for this extra change would be needed in
-the description (or these extra adjustments be dropped).
-
-> @@ -720,10 +720,10 @@ static void __init efi_check_config(void)
->  	__set_fixmap(FIX_EFI_MPF, PFN_DOWN(efi.mps), __PAGE_HYPERVISOR);
->  	mpf = fix_to_virt(FIX_EFI_MPF) + ((long)efi.mps & (PAGE_SIZE-1));
->  
-> -	if (memcmp(mpf->mpf_signature, "_MP_", 4) == 0 &&
-> -	    mpf->mpf_length == 1 &&
-> -	    mpf_checksum((void *)mpf, 16) &&
-> -	    (mpf->mpf_specification == 1 || mpf->mpf_specification == 4)) {
-> +	if (strncmp(mpf->mpf_signature, "_MP_", 4) == 0 &&
-> +            mpf->mpf_length == 1 &&
-> +            mpf_checksum((void *)mpf, 16) &&
-> +            (mpf->mpf_specification == 1 || mpf->mpf_specification == 4)) {
->  		smp_found_config = true;
->  		printk(KERN_INFO "SMP MP-table at %08lx\n", efi.mps);
->  		mpf_found = mpf;
-
-There are extra (indentation) changes here which ought to be dropped.
+Finally - is ASM_GENERIC_$${upper} actually correct? Isn't that the
+guard that ought to be used _in_ asm-generic/$*.h?
 
 Jan
 
