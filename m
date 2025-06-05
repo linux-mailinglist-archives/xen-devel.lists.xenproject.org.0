@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7446BACF84D
-	for <lists+xen-devel@lfdr.de>; Thu,  5 Jun 2025 21:49:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1007452.1386730 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 94607ACF853
+	for <lists+xen-devel@lfdr.de>; Thu,  5 Jun 2025 21:49:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1007454.1386744 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uNGa8-0002uu-Sd; Thu, 05 Jun 2025 19:48:56 +0000
+	id 1uNGaB-0003EK-DI; Thu, 05 Jun 2025 19:48:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1007452.1386730; Thu, 05 Jun 2025 19:48:56 +0000
+Received: by outflank-mailman (output) from mailman id 1007454.1386744; Thu, 05 Jun 2025 19:48:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uNGa8-0002tE-PP; Thu, 05 Jun 2025 19:48:56 +0000
-Received: by outflank-mailman (input) for mailman id 1007452;
- Thu, 05 Jun 2025 19:48:55 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uNGaB-00039W-9R; Thu, 05 Jun 2025 19:48:59 +0000
+Received: by outflank-mailman (input) for mailman id 1007454;
+ Thu, 05 Jun 2025 19:48:57 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ZN0r=YU=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
- id 1uNGa7-0002fZ-MU
- for xen-devel@lists.xenproject.org; Thu, 05 Jun 2025 19:48:55 +0000
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on20612.outbound.protection.outlook.com
- [2a01:111:f403:2009::612])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1bc05c60-4246-11f0-b894-0df219b8e170;
- Thu, 05 Jun 2025 21:48:54 +0200 (CEST)
+ id 1uNGa9-0002tD-Kb
+ for xen-devel@lists.xenproject.org; Thu, 05 Jun 2025 19:48:57 +0000
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on20624.outbound.protection.outlook.com
+ [2a01:111:f403:2408::624])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 1d8bcc7f-4246-11f0-a300-13f23c93f187;
+ Thu, 05 Jun 2025 21:48:57 +0200 (CEST)
 Received: from BN9P223CA0028.NAMP223.PROD.OUTLOOK.COM (2603:10b6:408:10b::33)
- by SA0PR12MB7462.namprd12.prod.outlook.com (2603:10b6:806:24b::5)
+ by SJ2PR12MB7943.namprd12.prod.outlook.com (2603:10b6:a03:4c8::10)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8792.35; Thu, 5 Jun
- 2025 19:48:50 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8769.32; Thu, 5 Jun
+ 2025 19:48:51 +0000
 Received: from BN2PEPF000055DF.namprd21.prod.outlook.com
- (2603:10b6:408:10b:cafe::a4) by BN9P223CA0028.outlook.office365.com
+ (2603:10b6:408:10b:cafe::94) by BN9P223CA0028.outlook.office365.com
  (2603:10b6:408:10b::33) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.8769.19 via Frontend Transport; Thu,
- 5 Jun 2025 19:48:50 +0000
+ 5 Jun 2025 19:48:51 +0000
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  BN2PEPF000055DF.mail.protection.outlook.com (10.167.245.9) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8835.2 via Frontend Transport; Thu, 5 Jun 2025 19:48:50 +0000
+ 15.20.8835.2 via Frontend Transport; Thu, 5 Jun 2025 19:48:51 +0000
 Received: from xcbagarciav01.xilinx.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 5 Jun
- 2025 14:48:46 -0500
+ 2025 14:48:47 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,22 +56,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1bc05c60-4246-11f0-b894-0df219b8e170
+X-Inumbo-ID: 1d8bcc7f-4246-11f0-a300-13f23c93f187
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xNVPyuWLYTQT7XtRq8yNETWeiaxysNWfyMttO3W9GP2w7QvLtOJX6UEy0W5pctNWxf2OE+Y8LRDT9JT1dsItcL7Vo0lDCJMjiQMTu8KvnHNejAlCBgZ8eLWyoNQo6ZceYVL3Aa1IlNV3bBCLJB2LA1t1jXLl/6ErY79zNF1qjKTxR0KflHroylqlOQqOCtZXH+6fDuHtqnLjIylAXHJdMEyH/lAJj+1cA8ZHL1IcZchxl3PDGcb3aHGY1Tts8/tbA51RU+uLzfgOIliklcMkO06IbGds9/67sCifyvOuX0fdkOCnbf75L8rYdB+l3bWZD08h3vfcvZaO3TxRmuzlbA==
+ b=QqttT4haV1WbWrIVWeaTR5v2WtV6e8UNiX3ZkwWYVWsRqPHk5unITK6hMp8a9D6qIRSliKqPgdPtbOh+lPstRDu+jY4dS5c+LpDyw6On1xHnpsrz2RG7uRN+5NI8ANU1oEiiirf4G5KA2anXqX11PoserTcyA8z4k/T+e+top9qQJ7Gp/xKR0gIkQAdQph6PG/a1wxOBnFVWqIhKwGTYqu7QLmo/PJ9pmqN+qdB2UxOoSBO27IdcY0PUw9FR3fHXMw3hmyyyEtbVai70QBDK/aUNIy/Yjg1WbYDq9qgc2czrbruDtE+LuKOcwiIXWH10pH9D809eRDX1hJDnIe7a3w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PdgGRU93owYApIHVcIm7iZ88U71h29ScJQ/Sz6iodgg=;
- b=rgZvr7REDjzjKpuGKPnVSD0WYZsGMPB43armjmgbzmG/aWJTlDe7gPr+e3hmsiqF7hJ5++K8afkTzhPVpnPKPjLnidFKOQkYMJlKk6nAIwqDi4tSY0uv/FtMQFilymMy+eKakLPgRIc2hcdd9FouFPxFQHYm4fa2wjkO54uIVjJI64irHTkaxlO63aGiuPAgipnuZBqNaJ2/BiG4ftQ/P70gta7XRFbABAznghEZwmiLq0VZBb9SSYgR3abgSN2YhKxwtGcSYmzNUgYq/jKembrj0FT1ViLjWTnx11vkpDy4+lIXLuuNR86cZ/0BHm7Ld49ILzL8Yf0M8fcLe6+dTg==
+ bh=3VkYpXY3zUXAOIvQP6YVzVO5MyvNvAMex59q1ydAmDM=;
+ b=hA2UYD3tkKBV+RDbOPt5t0tLn/VRNqMjw1ee2OzljljS+u6eSnYmEYrorkZF2eD9gPvD0F6VB3RUez1iUqbBgxsK5XBDiIN7e0B6ekQGgPVw7JpGMwhoJk+q5JqgfcLA00RsFMVmfWQU9y/3Pwg18UxS8WJkNmKUJsy+R3wuRKKpwYwDITUQf2MSaGt10MaJ+ZQOtLhtbsTNTFxmTKpJ2Do2UX8znOm4sSHThDRJkz/VbFFUg5v/iVP8BzpZKvKfkQ/OYXgdQkHhyR26JKN87nXbzgraNSuKfFXYgOT5ZTjn/G7qhTjO7WY1a+mC1RvMWQZr/tYc+Fzcnr/R8VxF4A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PdgGRU93owYApIHVcIm7iZ88U71h29ScJQ/Sz6iodgg=;
- b=ZFb9GzLT6Bg6MO/vN8q3zZ6yL2tTJUzH85NXxk/lNq6DAUX8K15A5UNst4yK3PA0K5wSK/Lznf6a9bgb8JiA+O6D9gd9sgRABr5WcaFtvIi4VjyKkcUJbvvNJuMInFVy6vteRbmELah8B67tJH3EPMzpnG47wELnXp1TwUGI5RA=
+ bh=3VkYpXY3zUXAOIvQP6YVzVO5MyvNvAMex59q1ydAmDM=;
+ b=qTa/i+OeKTw+mQZGuKDuTQ7heGlkuLiiVY0AbCD6971giuPeQ11N5Pghwlan7fOE2dv5FSKnfE1fHJQjNYKU6uRQncxPnH61erUh4O5AbqXk+LklXktj7a/OZPFsMS+B1k8vLnl1pVkhYl7ORnDCHPLiFXP+Tn3dQpdcSETq+rc=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -80,13 +80,14 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 From: Alejandro Vallejo <agarciav@amd.com>
 To: <xen-devel@lists.xenproject.org>
-CC: Alejandro Vallejo <agarciav@amd.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
-	<bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, "Daniel P.
- Smith" <dpsmith@apertussolutions.com>
-Subject: [PATCH v2 03/15] xen/dt: Add BOOTMOD_MICROCODE
-Date: Thu, 5 Jun 2025 21:47:55 +0200
-Message-ID: <20250605194810.2782031-4-agarciav@amd.com>
+CC: Alejandro Vallejo <agarciav@amd.com>, Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, "Daniel P.
+ Smith" <dpsmith@apertussolutions.com>, Stefano Stabellini
+	<sstabellini@kernel.org>
+Subject: [PATCH v2 04/15] x86: Preinitialise all modules to be of kind BOOTMOD_UNKNOWN
+Date: Thu, 5 Jun 2025 21:47:56 +0200
+Message-ID: <20250605194810.2782031-5-agarciav@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20250605194810.2782031-1-agarciav@amd.com>
 References: <20250605194810.2782031-1-agarciav@amd.com>
@@ -98,102 +99,85 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF000055DF:EE_|SA0PR12MB7462:EE_
-X-MS-Office365-Filtering-Correlation-Id: 16efe8ab-8de1-4893-c800-08dda469fe88
+X-MS-TrafficTypeDiagnostic: BN2PEPF000055DF:EE_|SJ2PR12MB7943:EE_
+X-MS-Office365-Filtering-Correlation-Id: 52aba572-4434-4afe-583a-08dda469fef1
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|376014|1800799024|36860700013;
+	BCL:0;ARA:13230040|376014|36860700013|82310400026|1800799024;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?9bzTa0F8shATQti5V+211cPeq8ykB+KppC3oqZPQTJfwBuixmixGuP7U8/Rh?=
- =?us-ascii?Q?uN1vErjkUHY1+fnZuaJgBgdFuNS6Lk+mqFkBSR+vWXpZBoNqDT9ZZeYiIEdn?=
- =?us-ascii?Q?bE4TCdEhJxDvZ7ZzAx961N0PTi0odwl8ZnFLc4Xkz8d9yqryIH4+e0LzhkWv?=
- =?us-ascii?Q?TgR/2D5OINH/LhstA58LSCEieeR8nJQbaUCJcdEBcGmBS/xUYOzXixGv0JFy?=
- =?us-ascii?Q?1Xa2BJgRIQSeSenGBIHEui9zv3+YR+Wb9AH3qZQTDbhnu5v7AjUkW/glXSeq?=
- =?us-ascii?Q?kohzn8Rjh91h4R9fZEVSS/8mWvGFNcje6AcLaY3bHNL/jcOJ+ZngRuimdqst?=
- =?us-ascii?Q?yIh8mtf8BTqhwCfCoWrHZej3ww0MyslJLE0tARIr5Pju3v+GBJy8SS7Fm68f?=
- =?us-ascii?Q?GbQeBNpikrGkSYq9m601JhI4BnOvsX+IudAMEc7fZogctpZjCmcM87x1PQLZ?=
- =?us-ascii?Q?Ihd0l85mAgI3wmhGVgv0Casl+65gx028C+C/3bDE5w19Sg8YVvy8w8YC3oXk?=
- =?us-ascii?Q?fiKa0GZYKnrXi1UaJkYAj9VmebS9KG9sMEPIo6/HJiTI6xdBTd42UiyzzahE?=
- =?us-ascii?Q?CdNekEPpdmLimzYCGza4kNcz7B12onAUjxveYVDp0MMPvaybV5l9D6UITt9o?=
- =?us-ascii?Q?qZ5L2FeVMmRsMJ5kD9IgKMXXHx01va8b3+wKoNRNtJbGT1AW3/mt9u/Z3SxF?=
- =?us-ascii?Q?5bs1Ux3I0/G4n8mH8m9ZOfRPa/JPdAQifB78qE6UmR0x6Olqq3iD/rI68lb7?=
- =?us-ascii?Q?fEmSZkrprHKMeX+TI4eTCAfA0y3ZLtL7HOlC0JA8S3VUbdA+VgkT2MAR4jtx?=
- =?us-ascii?Q?AQDnd/SxWkRQXN0pnv/NE1ebByurNFeCWGmehXHzCRt+kmhevgpIbYbsj3s+?=
- =?us-ascii?Q?taNu+Z6Q/iFFDOE8Ec1zGejgll5nuzCafO9qPIMxuIdDBFlEwuJeB+t1J0EA?=
- =?us-ascii?Q?PCFZGQfsUrJnlWHAxBW/TXyKwQZEP8EVhBBC/73YNzmIuiHIiNgooiuIy52l?=
- =?us-ascii?Q?s5E8Hh88IvWRRMLkiSkAQXi3XRkdVY3d5OC/wV9eOSUKqkpr2c0z7GWnILAN?=
- =?us-ascii?Q?UPKz0mPlZR6dei6sW0m5qiv4e03CdLIvIBmEI9xzumGEiM9spRLbfIUO/jzG?=
- =?us-ascii?Q?7K5MiZwPf95oXThq+Xxf5RTjzcQ1fz30BJAbdETiRoYZd2nDpE+za0H0bvBk?=
- =?us-ascii?Q?O8Ok2YdZSs09XE0QaI+P7FHRwAA3ME6GhyP9L9m4XskY+p5YVuqXV82qoCNT?=
- =?us-ascii?Q?Vkncux1ac/g1SXAjOXToE5KKWtz/25/fZzz8kVZ50RH2rO2fbB89lkhT8u8M?=
- =?us-ascii?Q?VjmOJ1k9tSrDw2bS9E20/UvMQqzaORT0pBkPv/xK+Pm0VX1J0+tM2rxPukAg?=
- =?us-ascii?Q?GvCNTo3ZwMBYwZtYbW9Irl2Z8jSVTrRJ2DW2DG4IvAc0dRrKws3FUj7hOhhS?=
- =?us-ascii?Q?lktOL4ijDVX8DcHLeSaDrrEeT0wfILDCIFALt4e/cX4yTMVZG+rvJ5T8NsTf?=
- =?us-ascii?Q?v1gw5yit2QHkxjQnDE7sf93ugbZ6vNYxjtWi?=
+	=?us-ascii?Q?yp5qpJdcIurZPS6HYNVgpEw2lXTcfp7HauI44JIG/rdSBKBwxRgYBeyHCbXy?=
+ =?us-ascii?Q?C3+FudbaGUw+z23H8iLjWtZKnorLkiHG8Ub0kkyr0acIjtsGZ9fHQn/L565t?=
+ =?us-ascii?Q?jQxt00Xyt+tOlO7QNV0FgRJ036YsM8TdDLygsz4x2vJeabq9B/xN3fdlB6tb?=
+ =?us-ascii?Q?UK7tLXtMH6xPlHE1NqLiKyRRcCGg4JwNyNoQRkmVqji2q3RK9c9e/t+Sxf9W?=
+ =?us-ascii?Q?4QVEqpm6PXGJkgg0FbKy/MozAaRa08ct3kis+X8dlN6GZPLBQQhSEENUlmmz?=
+ =?us-ascii?Q?syWVj5jMQd6wOxEMGebMthOIcubT2QCY1osBStIxBhjatNt/uq4fxydctP9V?=
+ =?us-ascii?Q?hrhwzv0VioyjWGtlW5xy+N1sBHYLYr6lg7JOt7050YEBlXyM+WS7dvz6R525?=
+ =?us-ascii?Q?oBJMwkIaisZMNEtnD/zuF3N3P+Pmsz3dvztv+UA1lPMmNzbIs34uAK1Ekof5?=
+ =?us-ascii?Q?XO0fy1rGudLT8ICSnmHeKwXhIS7fyeUUSa0M0zaRZvZWQvHEzvCrYp3pDikX?=
+ =?us-ascii?Q?LfCcmvPl8yJmTKfMuX59iDar/0pDAaNpJhq64fxMNyrZ4qe8IcRY9+Ul+bZz?=
+ =?us-ascii?Q?oF1YwfTJlevL6SJpUz/+1sB7wqof9/tAxye3JsHCW23KQK3F1oOY6vvMZLPS?=
+ =?us-ascii?Q?umksFa7B2aCHIPlA5i9LfyIQtS8wHsZTZpL5WNULa1BoyrjUfWJ/fyDuoEVM?=
+ =?us-ascii?Q?GmnK4OmUKmR7uiU/S0FSpK5Wd/o+ZPFReBhK6xxAkZxU72DAxnZse0nZgTOD?=
+ =?us-ascii?Q?qciIxEjdUsqj50MPOD3/M8/qLXCg4fOr122Rj+h+k5fKZAPyHGRSm3aB/8gl?=
+ =?us-ascii?Q?ZI31R+X324adH8o4zt7oKCZF53GAQvSXnlyvN3H3iTqF1GVfOliNFLXENRwb?=
+ =?us-ascii?Q?emkrncY8i8d5yCCvT0sGjZb/IdQon5WfpT+2FpNJTQrpbK6TysXzC+6Ec7WH?=
+ =?us-ascii?Q?EvyYFH+9ZrmR58ULDfUw+zXJP68rA+C7DVvxu02i5/XaLUH1RpgcEQDKf5+C?=
+ =?us-ascii?Q?PkPoj+vEbfg2caO0qZxYHiM8LEj9rYDE+9sBVCPibwjpA53BZGHw0LkuDZGH?=
+ =?us-ascii?Q?f8NaBQ0fys/Xiwz0b/ixMQcLI1kKvUUFSS4ne5/TgnrOjrjiZ35KaZjKQryi?=
+ =?us-ascii?Q?pwW27TXm9karSULsHuvHVizzpLT/Og0r6QTEsTwB0P/eRswu1jK89crDkHFd?=
+ =?us-ascii?Q?vGGdPfBuW3nymZN2a3tLNJpxlKs5+S/Ui7SKXuH51D0Yw04HHsSAtrZ8dTRf?=
+ =?us-ascii?Q?En2evMgaiXcNXe3PQY/KSXf+m9Pw/vyZolR7oiNopjfIj/ncqQqiIeloStvS?=
+ =?us-ascii?Q?mTewl72zA2NkpRTemmBDfBYBfe3BauODz1/wINfv/ZEpXBHT2AAf/dWitPQ9?=
+ =?us-ascii?Q?mOKReJhANHlYQqtg4J1ofGu6/Tk+bPC3L6QhRtI/S9zoxYT8ZeV9RB3jDTmA?=
+ =?us-ascii?Q?4gxgAzh3MqujcIjKkOV0DWs/Vl+LW9Hpo6+PTWRLMy6mYrjMBtWBdNkNJDa/?=
+ =?us-ascii?Q?nMiF4R1xyLzTz20ozw6RHE+cGjGd2aJd5UJZ?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(376014)(1800799024)(36860700013);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(36860700013)(82310400026)(1800799024);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jun 2025 19:48:50.4949
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jun 2025 19:48:51.1799
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 16efe8ab-8de1-4893-c800-08dda469fe88
+X-MS-Exchange-CrossTenant-Network-Message-Id: 52aba572-4434-4afe-583a-08dda469fef1
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
 	BN2PEPF000055DF.namprd21.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB7462
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB7943
 
-In preparation for x86 to start using bootmodule instead of boot_module
+A later patch removes boot_module and replaces its uses with bootmodule.
+The equivalent field for "type" doesn't have BOOTMOD_UNKNOWN as a zero
+value, so it must be explicitly set in the static xen_boot_info.
+
+Not a functional change.
 
 Signed-off-by: Alejandro Vallejo <agarciav@amd.com>
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 ---
 v2:
-  * Added microcode detection in early probing
+  * Add comment stating why mods initialiser isn't off by one.
 ---
- xen/common/device-tree/bootfdt.c  | 2 ++
- xen/common/device-tree/bootinfo.c | 1 +
- xen/include/xen/bootfdt.h         | 1 +
- 3 files changed, 4 insertions(+)
+ xen/arch/x86/setup.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/xen/common/device-tree/bootfdt.c b/xen/common/device-tree/bootfdt.c
-index 9df80291b1..9daea06e57 100644
---- a/xen/common/device-tree/bootfdt.c
-+++ b/xen/common/device-tree/bootfdt.c
-@@ -351,6 +351,8 @@ static void __init process_multiboot_node(const void *fdt, int node,
-         kind = BOOTMOD_XSM;
-     else if ( fdt_node_check_compatible(fdt, node, "multiboot,device-tree") == 0 )
-         kind = BOOTMOD_GUEST_DTB;
-+    else if ( fdt_node_check_compatible(fdt, node, "multiboot,microcode") == 0 )
-+        kind = BOOTMOD_MICROCODE;
-     else
-         kind = BOOTMOD_UNKNOWN;
+diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
+index 1f5cb67bd0..7d3b30e1db 100644
+--- a/xen/arch/x86/setup.c
++++ b/xen/arch/x86/setup.c
+@@ -298,6 +298,12 @@ struct boot_info __initdata xen_boot_info = {
+     .loader = "unknown",
+     .cmdline = "",
+     .domains = { [0 ... MAX_NR_BOOTDOMS - 1] = { .domid = DOMID_INVALID } },
++    /*
++     * There's a MAX_NR_BOOTMODS-th entry in the array. It's not off by one.
++     *
++     * The extra entry exists to be able to add the Xen image as a module.
++     */
++    .mods = { [0 ... MAX_NR_BOOTMODS] = { .type = BOOTMOD_UNKNOWN } },
+ };
  
-diff --git a/xen/common/device-tree/bootinfo.c b/xen/common/device-tree/bootinfo.c
-index 76d652c0de..717cfa0962 100644
---- a/xen/common/device-tree/bootinfo.c
-+++ b/xen/common/device-tree/bootinfo.c
-@@ -31,6 +31,7 @@ const char * __init boot_module_kind_as_string(bootmodule_kind kind)
-     case BOOTMOD_RAMDISK: return "Ramdisk";
-     case BOOTMOD_XSM:     return "XSM";
-     case BOOTMOD_GUEST_DTB:     return "DTB";
-+    case BOOTMOD_MICROCODE:     return "Microcode";
-     case BOOTMOD_UNKNOWN: return "Unknown";
-     default: BUG();
-     }
-diff --git a/xen/include/xen/bootfdt.h b/xen/include/xen/bootfdt.h
-index 64db48f4fe..ff40f3078e 100644
---- a/xen/include/xen/bootfdt.h
-+++ b/xen/include/xen/bootfdt.h
-@@ -21,6 +21,7 @@ typedef enum {
-     BOOTMOD_RAMDISK,
-     BOOTMOD_XSM,
-     BOOTMOD_GUEST_DTB,
-+    BOOTMOD_MICROCODE,
-     BOOTMOD_UNKNOWN
- }  bootmodule_kind;
- 
+ static struct boot_info *__init multiboot_fill_boot_info(
 -- 
 2.43.0
 
