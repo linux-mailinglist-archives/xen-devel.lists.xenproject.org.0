@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 15F7CACF393
-	for <lists+xen-devel@lfdr.de>; Thu,  5 Jun 2025 17:59:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1007091.1386435 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2ED93ACF3B0
+	for <lists+xen-devel@lfdr.de>; Thu,  5 Jun 2025 18:04:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1007154.1386455 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uND04-0000jD-E1; Thu, 05 Jun 2025 15:59:28 +0000
+	id 1uND4f-0005q9-EI; Thu, 05 Jun 2025 16:04:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1007091.1386435; Thu, 05 Jun 2025 15:59:28 +0000
+Received: by outflank-mailman (output) from mailman id 1007154.1386455; Thu, 05 Jun 2025 16:04:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uND04-0000cv-8W; Thu, 05 Jun 2025 15:59:28 +0000
-Received: by outflank-mailman (input) for mailman id 1007091;
- Thu, 05 Jun 2025 15:59:26 +0000
+	id 1uND4f-0005o0-Bh; Thu, 05 Jun 2025 16:04:13 +0000
+Received: by outflank-mailman (input) for mailman id 1007154;
+ Thu, 05 Jun 2025 16:04:12 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=EkoY=YU=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1uND02-00071f-KL
- for xen-devel@lists.xenproject.org; Thu, 05 Jun 2025 15:59:26 +0000
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [2a00:1450:4864:20::52e])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=qREP=YU=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uND4e-0005nu-50
+ for xen-devel@lists.xenproject.org; Thu, 05 Jun 2025 16:04:12 +0000
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [2a00:1450:4864:20::433])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0d686ab8-4226-11f0-b894-0df219b8e170;
- Thu, 05 Jun 2025 17:59:25 +0200 (CEST)
-Received: by mail-ed1-x52e.google.com with SMTP id
- 4fb4d7f45d1cf-60179d8e65fso2083841a12.0
- for <xen-devel@lists.xenproject.org>; Thu, 05 Jun 2025 08:59:25 -0700 (PDT)
-Received: from fedora.. (user-109-243-64-38.play-internet.pl. [109.243.64.38])
- by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-60566c2aba9sm10443034a12.2.2025.06.05.08.59.23
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 05 Jun 2025 08:59:23 -0700 (PDT)
+ id b733ec22-4226-11f0-b894-0df219b8e170;
+ Thu, 05 Jun 2025 18:04:10 +0200 (CEST)
+Received: by mail-wr1-x433.google.com with SMTP id
+ ffacd0b85a97d-3a528243636so706619f8f.3
+ for <xen-devel@lists.xenproject.org>; Thu, 05 Jun 2025 09:04:10 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-747affafbfcsm13004807b3a.89.2025.06.05.09.04.05
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 05 Jun 2025 09:04:08 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,168 +45,108 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0d686ab8-4226-11f0-b894-0df219b8e170
+X-Inumbo-ID: b733ec22-4226-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1749139164; x=1749743964; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=wo4QtKZfWoJ+7BBnjSqXsA3jxl9wi6iGfitcuuiEYpg=;
-        b=H1nSa0P1o93KiPRp8C0eES6wRkabdquqAs00cVOrP3OM0CZIHtSRkUNLJ5v9eEp1Gy
-         NXImbg66ufEAdweSAzsEb3d83JrLDPFMP9iEyvWeu+YBU8rwX0yJySHsp3esYp9ZHQS/
-         4kvlcsrzIzgu4f7uJ5OO2fB2HVJ87gpj43Qs7yJJgW6mUawndnox2AV4m/0GdJUVuZNf
-         8+cS3fnGsyPdFa0yWoCEH1O1ZwL78fQWexhBtBKWdkJ8ifo32AZZXzyOpq6jwE9oN77P
-         uCNhhA/VOugf6lNcIj7/r4abW8KD7V2IjoFIe2Qy+NvBvYo9z4EL8Bt8HgyHag+BJq8c
-         lHpg==
+        d=suse.com; s=google; t=1749139449; x=1749744249; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=y8oW7pQ5BcrODanKo9P3TQDy87pYMla9FTv6g//9z5c=;
+        b=bgS72avwDZnzmk3+lFOlhkqq5l0HfzS/7J9Fq9FXNzQl5M7Y/1yctWoi2M50+pAAz+
+         V8SrCERTnzoQp1dr1vrnNw8e2qpsT6qqurgvsr2h5nA3WHwkua1GSqU6/SGD++I+Ohq1
+         +jkQkic/txcGgL95llIKfckaj5zhu9tmtacxlPtMUrHdlxXJ2E2T/1SWuRjuWZBII5GF
+         WvLcz4hgo3zjMturAuQDsxByBFcsRUpQPKG2SAm1exvGEGzz2PGPDg6duTIicuC6rTb1
+         oOXvUb/nXaPCmkXV73z9j9vYIUPwOI4IvNsA+45pDoGcGKXCWhOTNMJ70EhMlGr4tOMB
+         AH2Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749139164; x=1749743964;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=wo4QtKZfWoJ+7BBnjSqXsA3jxl9wi6iGfitcuuiEYpg=;
-        b=gIAIQTJrb95wh6C94aLb6MI5JxfQl9xvy+44xZXMwHGoMz7671kG8TvUa/074jIQEe
-         +zKKlxjbNFzJsvj4qAEBfT3wKrNKCBRCQCns/n1iozv2CTDJrW0pUyV4vfhcNx45m9G8
-         jKGw0vCnjtU6L8oq7mgzxdq+8IWIg9qozE8CAxKLkrjqu9iNz5GCRTqms81T0kZCQAeX
-         ED2WFgvEj9mMKzWMh/EvzvOtNmK5HjJSE3EPfuorRiaHtnfT39HPgYdwQIhYFX7hV+KG
-         m/EjM4/poW55GLxBWpr9H55Z7kF9UMSmvPdbVT6c17XLYMw9elz4XTc3eYKBjo5v1nfv
-         OVKQ==
-X-Gm-Message-State: AOJu0Yw2e0aaZ4RZzo/GWWp8Cv5NN6v15+vTMCGEudCqKEeXNrpDskvp
-	5BsAEq32KsvyilXFsk8eDV7t7VtyCIFajZYlUBdn7DxAmwQGtOdgaB8/Nc/o+A==
-X-Gm-Gg: ASbGnct/PGOigiB6KaS7JfX+QbMfQGWGQbUB1OVp0W6RLMALD+uo5GfqxD4rENivCMT
-	hJCDfL/caIxIAvGvuZOvnhZGUU3OTUwYN+UT3GGy272ECLyrPlfpEFLRZF+aqbNcgOsNQSgsr2p
-	uQ+fRodBtzJKEplklsgp9Xgv+h3+l0ctDlEjM3++tAP460vbIMWoUJetF9l/l9QH4qk6rpG30M/
-	B2dXZcXRPLCn/Z2BnNE2NsdXLcKMfB3d+w7wy+l4/+ZSLaymwFfLNqG787e4MWD12ahe8TvuCi/
-	2OC9OdSB0Y9UbdSK+Qp6crzx4pZQVNvnW2g2mtU1M3X6G724G+uREMtySkp2VHaaVvFm9ZTM1it
-	BtuHD/b0+gyLSYisdsQ==
-X-Google-Smtp-Source: AGHT+IHbvQkyjn3zbunZCFPyGEGBZEEKvOH0onRaiUVW35EdMdhPS1zgTJRFvAsmyfKFaILhQlB1mg==
-X-Received: by 2002:a05:6402:d08:b0:605:a076:b3bc with SMTP id 4fb4d7f45d1cf-606ea182266mr7661429a12.28.1749139164248;
-        Thu, 05 Jun 2025 08:59:24 -0700 (PDT)
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Alistair Francis <alistair.francis@wdc.com>,
-	Bob Eshleman <bobbyeshleman@gmail.com>,
-	Connor Davis <connojdavis@gmail.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v4 9/9] xen/riscv: add basic UART support
-Date: Thu,  5 Jun 2025 17:59:05 +0200
-Message-ID: <0b12815140e424fd019d57955073df3e11c5ea92.1749121437.git.oleksii.kurochko@gmail.com>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <cover.1749121437.git.oleksii.kurochko@gmail.com>
-References: <cover.1749121437.git.oleksii.kurochko@gmail.com>
+        d=1e100.net; s=20230601; t=1749139449; x=1749744249;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=y8oW7pQ5BcrODanKo9P3TQDy87pYMla9FTv6g//9z5c=;
+        b=bimShgEAFP3OYvZy2S5OxMSyLsNgnMuA0ZL7zT7e/IK4EHdBpoZLm9aYgMbSXADcKD
+         Yw/gpNyk6EloVfpHudpYfATUADXLigt2zPYQIpYE7M+6iy0QTcRl2/nBolgk45By2ST0
+         zHYVRv9Z2ZwooTCvTNhZp+k12wI3/AwedhgslPwdiYmcjzorNkaFHADrny4YZxO8hatw
+         rt5yw0y9GWX3llgjy3Rwm9ZXMofeAPIsTxqJn7oppjXAaUfq79MozHgkFRG2LYCbP2PY
+         0pVF3MPTqKhfJE3ThYx6VTUb0X0cljYU02ME3k7tU1kqWoTexbv0cW7d4ba+LJIQl6sd
+         qCpw==
+X-Forwarded-Encrypted: i=1; AJvYcCVtF8j9oLCMPUKt7GjKokeMmM+bgDkfKaOC/84FAFPAabrOEK9zW1TsGXC+0W/AXyt7MtCihEXm+y0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwfE3GLTUo275rWaXDkgY4VhH8IOI9PDrFCF6wuVCqFCtU/cFjY
+	4d9lWbWcJmwEc4nlAN/u/ZnHhWTS0GtU9N9jAjwaN+mpmoLIDXkXSP+UdIntO8errA==
+X-Gm-Gg: ASbGncuWRdfkjzR98qvuYNRQV/QJ2ansQVZ+WDAkYMAxeD94nLMID4p3zKkWidrnfY1
+	drVgTj1a3tojdquW4RAarPUsoNgYzho3smsh0ivLIy6CcQEKz25iT8zirI1+/fOl2i9jtPCsMzx
+	OEvrOe6ynaxuueOfGNfRcC9PSkxEage0doV9uOeksi5XlcVhwP/KkTqKgwNe8l+Pwd1GU4jqjhY
+	T5PIHDFoRdMine3DoN46VOK3/1XMGHwb/C/qGe8994xoiGfCGpKO6kJ9IOzme12/nWWNOCqqZXL
+	Ie9/BSjaqAJ6Hs7KQGBpDPbDoHADF1odOmodg0lKJR3wOqXWpLgexik2zfIKqWPXnTeYFxCT+qD
+	wsAN1Sdc5f+sRJbJPSpX7ied/6kPsHWI9m3Qz
+X-Google-Smtp-Source: AGHT+IFpyCfLQMstZOpHAy8FWHq7RTrhoR+trZB3+Q7HrzLI53Yy2XvlNwSOB36G5XVJKobt2k0NNQ==
+X-Received: by 2002:a05:6000:40d9:b0:3a4:ea8f:efe4 with SMTP id ffacd0b85a97d-3a51d921736mr6439695f8f.18.1749139449288;
+        Thu, 05 Jun 2025 09:04:09 -0700 (PDT)
+Message-ID: <698660d3-ab00-4942-872b-b73687e0350e@suse.com>
+Date: Thu, 5 Jun 2025 18:04:01 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] vmx: Introduce vcpu single context VPID invalidation
+To: Teddy Astie <teddy.astie@vates.tech>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <83d0e7dfc076e9453fb6537e5948c03d90e947da.1748594036.git.teddy.astie@vates.tech>
+ <4ed9d6ce-5634-4dd9-86e9-5d1f84a43e10@suse.com>
+ <76bf2d72-3834-4455-8023-a20c84db58d0@vates.tech>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <76bf2d72-3834-4455-8023-a20c84db58d0@vates.tech>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Update Kconfig to select GENERIC_UART_INIT for basic UART init ( find a dt node
-and call device specific device_init() ).
+On 05.06.2025 17:17, Teddy Astie wrote:
+> Le 05/06/2025 à 16:51, Jan Beulich a écrit :
+>> On 30.05.2025 10:48, Teddy Astie wrote:
+>>> +    /*
+>>> +     * If single context invalidation is not supported, we escalate to
+>>> +     * use all context invalidation.
+>>> +     */
+>>> +    if ( likely(cpu_has_vmx_vpid_invvpid_single_context) )
+>>> +        goto execute_invvpid;
+>>> +
+>>> +    type = INVVPID_ALL_CONTEXT;
+>>> +
+>>> +execute_invvpid:
+>>
+>> There no reason at all to use "goto" here (and with that replaced there's
+>> then also no style issue with the label placement).
+> 
+> Should a similar treatment be made for vpid_sync_vcpu_gva ?
 
-Drop `default n if RISCV` statement for config HAS_NS16550 as now ns16550 is
-ready to be compiled and used by RISC-V. Also, make the config user selectable
-for everyone except X86.
+I wouldn't require anyone to do a re-work, but the latest when it is touched
+the next time it likely should be polished some. For context, while iirc we
+didn't accept that rule, Misra in principle also demands that "goto" not be
+used.
 
-Initialize a minimal amount of stuff to have UART and Xen console:
- - Initialize uart by calling uart_init().
- - Initialize Xen console by calling console_init_{pre,post}irq().
- - Initialize timer and its internal lists which are used by
-   init_timer() which is called by ns16550_init_postirq(); otherwise
-   "Unhandled exception: Store/AMO Page Fault" occurs.
- - Enable local interrupt to recieve an input from UART
-
-Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Acked-by: Jan Beulich <jbeulich@suse.com>
----
-Changes in V4:
- - Nothing changed. Only rebase.
----
-Changes in v3:
- - Drop inclusion of <xen/percpu.h> as nothing in setup.c requires it.
- - Add Acked-by: Jan Beulich <jbeulich@suse.com>.
----
-Changes in v2:
- - Drop #include <xen/keyhandler.h> in setup.c, isn't needed anymore.
- - Drop call of percpu_init_areas() as it was needed when I used polling
-   mode for UART,  for this case percpu is used to receive serial port info:
-     struct serial_port *port = this_cpu(poll_port);
-   So percpu isn't really needed at the current development state.
- - Make HAS_NS16550 user selectable for everyone, except X86.
- - Update the commit message.
----
- xen/arch/riscv/Kconfig   |  1 +
- xen/arch/riscv/setup.c   | 12 ++++++++++++
- xen/drivers/char/Kconfig |  3 +--
- 3 files changed, 14 insertions(+), 2 deletions(-)
-
-diff --git a/xen/arch/riscv/Kconfig b/xen/arch/riscv/Kconfig
-index 62c5b7ba34..96bef90751 100644
---- a/xen/arch/riscv/Kconfig
-+++ b/xen/arch/riscv/Kconfig
-@@ -2,6 +2,7 @@ config RISCV
- 	def_bool y
- 	select FUNCTION_ALIGNMENT_16B
- 	select GENERIC_BUG_FRAME
-+	select GENERIC_UART_INIT
- 	select HAS_DEVICE_TREE
- 	select HAS_PMAP
- 	select HAS_UBSAN
-diff --git a/xen/arch/riscv/setup.c b/xen/arch/riscv/setup.c
-index 0e7398159c..a17096bf02 100644
---- a/xen/arch/riscv/setup.c
-+++ b/xen/arch/riscv/setup.c
-@@ -4,12 +4,15 @@
- #include <xen/bug.h>
- #include <xen/bootfdt.h>
- #include <xen/compile.h>
-+#include <xen/console.h>
- #include <xen/device_tree.h>
- #include <xen/init.h>
- #include <xen/irq.h>
- #include <xen/mm.h>
-+#include <xen/serial.h>
- #include <xen/shutdown.h>
- #include <xen/smp.h>
-+#include <xen/timer.h>
- #include <xen/vmap.h>
- #include <xen/xvmalloc.h>
- 
-@@ -134,8 +137,17 @@ void __init noreturn start_xen(unsigned long bootcpu_id,
- 
-     intc_preinit();
- 
-+    uart_init();
-+    console_init_preirq();
-+
-     intc_init();
- 
-+    timer_init();
-+
-+    local_irq_enable();
-+
-+    console_init_postirq();
-+
-     printk("All set up\n");
- 
-     machine_halt();
-diff --git a/xen/drivers/char/Kconfig b/xen/drivers/char/Kconfig
-index e6e12bb413..8e49a52c73 100644
---- a/xen/drivers/char/Kconfig
-+++ b/xen/drivers/char/Kconfig
-@@ -2,8 +2,7 @@ config GENERIC_UART_INIT
- 	bool
- 
- config HAS_NS16550
--	bool "NS16550 UART driver" if ARM
--	default n if RISCV
-+	bool "NS16550 UART driver" if !X86
- 	default y
- 	help
- 	  This selects the 16550-series UART support. For most systems, say Y.
--- 
-2.49.0
-
+Jan
 
