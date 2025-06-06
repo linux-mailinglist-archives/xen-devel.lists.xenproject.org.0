@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A95AACFEE7
-	for <lists+xen-devel@lfdr.de>; Fri,  6 Jun 2025 11:11:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1008248.1387502 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA06FACFEF0
+	for <lists+xen-devel@lfdr.de>; Fri,  6 Jun 2025 11:13:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1008254.1387513 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uNT6v-0006Ip-9K; Fri, 06 Jun 2025 09:11:37 +0000
+	id 1uNT8R-0006oh-K9; Fri, 06 Jun 2025 09:13:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1008248.1387502; Fri, 06 Jun 2025 09:11:37 +0000
+Received: by outflank-mailman (output) from mailman id 1008254.1387513; Fri, 06 Jun 2025 09:13:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uNT6v-0006H5-6X; Fri, 06 Jun 2025 09:11:37 +0000
-Received: by outflank-mailman (input) for mailman id 1008248;
- Fri, 06 Jun 2025 09:11:35 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uNT8R-0006m8-HA; Fri, 06 Jun 2025 09:13:11 +0000
+Received: by outflank-mailman (input) for mailman id 1008254;
+ Fri, 06 Jun 2025 09:13:10 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=U7n3=YV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uNT6t-0006Gz-RQ
- for xen-devel@lists.xenproject.org; Fri, 06 Jun 2025 09:11:35 +0000
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [2a00:1450:4864:20::435])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3dd78683-42b6-11f0-a301-13f23c93f187;
- Fri, 06 Jun 2025 11:11:33 +0200 (CEST)
-Received: by mail-wr1-x435.google.com with SMTP id
- ffacd0b85a97d-3a375888297so1206346f8f.1
- for <xen-devel@lists.xenproject.org>; Fri, 06 Jun 2025 02:11:33 -0700 (PDT)
+ id 1uNT8Q-0006m0-De
+ for xen-devel@lists.xenproject.org; Fri, 06 Jun 2025 09:13:10 +0000
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [2a00:1450:4864:20::42f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 763f35f3-42b6-11f0-b894-0df219b8e170;
+ Fri, 06 Jun 2025 11:13:08 +0200 (CEST)
+Received: by mail-wr1-x42f.google.com with SMTP id
+ ffacd0b85a97d-3a4f71831abso1782399f8f.3
+ for <xen-devel@lists.xenproject.org>; Fri, 06 Jun 2025 02:13:08 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-236032fccf1sm8377235ad.97.2025.06.06.02.11.29
+ 98e67ed59e1d1-31349fc3e72sm930172a91.31.2025.06.06.02.13.04
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 06 Jun 2025 02:11:32 -0700 (PDT)
+ Fri, 06 Jun 2025 02:13:07 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3dd78683-42b6-11f0-a301-13f23c93f187
+X-Inumbo-ID: 763f35f3-42b6-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1749201093; x=1749805893; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1749201188; x=1749805988; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=yuXnGITwwjCcJzqb+2/9XK9tqWFcCA2oZSa8lNn6TgI=;
-        b=AE2TZLYS22f2GODLqMl4meD+HdTt3z3IuewDCTLxFEq0xHCTujkWEfOL3xwJPj9Cut
-         0+ljfI0f4aZc03a74CnbIdNf4GUC9j98AIU5S5SgP7M3cNuwVOm9pnpt1cH8PWx2ZNcM
-         j2nJZXikjvjqlRiNpvBX3Wn3d3SvkxscSpRO3du4SjWwrr0hqCcZiYtQkgV97bVY8lZ3
-         YJP4TzA3bCuGCoLVcIVh6kOC0vCcknRX1OcQSlP9m3wZ4FLMzmJapiTITvsXYLXgRfGW
-         ab1bbsu8S5pSrywu5gf0mDYFY2wJfxNjyp7N/VfSrsfOy0KyQPTtDG5dLBE5z6/rPH33
-         PjnQ==
+        bh=3jUHxb0lKIug35Ut90AkAc+cVTWHgCRZEKL2C55fXF4=;
+        b=gcK3awgTmNpaaT47jdUkU/JzOIzeaoET1KkaLk6cAXG00JttQ1Vu6ekSHZtejDCvkj
+         jsPN0nhZfRGOWIE3o2mebgZdCzRGfxb4DDKLVClnFpybRt24bN5hCBJD2w47IsrVISpc
+         GrUjlrqBz/j/RfpXj3n+gEyDOT6jcMfdsX8QTaegO7RT7yDHElI08jh9sTv8+/27ruSS
+         dC9sZmSn624sR/Dw4xCMzm1YA9Hg+682GRCXr0ldLkgre9iZa0KprosSOlpycN2X3MYG
+         J12D6o/1Y8eJRGu5Jq4Owb2YHgrBgH6rIh/ej5SHT1/y1OU1SmVM4YSUVGwdRQqB9FGV
+         T+Ow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749201093; x=1749805893;
+        d=1e100.net; s=20230601; t=1749201188; x=1749805988;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=yuXnGITwwjCcJzqb+2/9XK9tqWFcCA2oZSa8lNn6TgI=;
-        b=cSDfZmNJYrhvuqzFu1vjnMQoeFwbxQ8vq7dn2D6YVrs2FeBqAcJKeuq3pm/Mjn4m4R
-         i7Q2noJLWICZylTpWmTrZFoYZ/LU80ZcHvLemZWPGlqeShtmccOMpy1WxfSJ0redOPkI
-         JnejpK4yP+FXW+emHCwWvSBoGgTm/czVdETBQUsWuMl4sb5S8MP4vO2RLI/gfUt/wwEq
-         lWnEPOsrGo43TDFI7WlULtM98Q8ZrVaFrigDLP1xedmSgYkzCCZU5VNE0LD13AyOFdWy
-         qbqBANE5bBLUatct8EpG92S9mkvp8o2Vx635hDqnIUDE9lscPusaDG6R7ddNOZJFiVA+
-         9wmw==
-X-Forwarded-Encrypted: i=1; AJvYcCXsB9+cNiW1sjln9aDAURE59UIAFXIdZEUHX+RUROTZNH4Tuc2XnFApiiQHhlFZtfpldQlQb7kmeaY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yxr5JFviZs7LSQYyXRlqD+Ex98HsWA7+LN1i9PoKQAyQ7c5hVLa
-	1kAcE9eTjL52iYdOx8If6w4y/jhzvf7A2D5QcT9KIW0oOiPC4pNgkHlBvWbbULVM6w==
-X-Gm-Gg: ASbGncv8l1v6tMbuCv0pzfPTFvsSYUgEcZeGR3pY9DSXsZS9YL4P4pv5X/JIpu/OSWw
-	xFqDuBkxamKzB2enYWws5Wq18HoSxiQxaqIs3/RcWBs87lnn4/DSiZYEkNm4XOnoXX8fPHhGL4B
-	NEI4j06E58C3/7pKG7IlcjOsyChnSt7h8coMOGP1jFQ2VauONR6xub23CQtddVJvlAGYeabuJjb
-	Trv9DXjLu0a+lKRwSpr54L1CyDTyjxvKRfBC/QZl3OhCzxkY/Qk7epr8Gg4CklHzvm7KowzRamc
-	P9T6fr8C7Y0XbuyFpda4bnbMOdvRQRdL4b+IcA5FnhxKSYR9N+d70mOOBZQAzJl8DCdEhosTNR8
-	RPDmxgondn4+zubBuyj6RtV66Lx+In7uY7ulH
-X-Google-Smtp-Source: AGHT+IHEYRJuQ0UxSTYS4yRDrMVFzajdesySE7JCtJMSmSPwoajs1ZIK6azSJVrOYGh03XhnqZYF+w==
-X-Received: by 2002:a5d:5f51:0:b0:3a4:e61e:dc93 with SMTP id ffacd0b85a97d-3a526dc53e9mr6798091f8f.1.1749201093237;
-        Fri, 06 Jun 2025 02:11:33 -0700 (PDT)
-Message-ID: <b3f470f0-4b69-4d8d-9d26-d54544690a4b@suse.com>
-Date: Fri, 6 Jun 2025 11:11:25 +0200
+        bh=3jUHxb0lKIug35Ut90AkAc+cVTWHgCRZEKL2C55fXF4=;
+        b=Sj1l4tG5J7ZWz615xCjljAZvmMH/pj93oR6p5/8ybE3WM8nrO8jV7Bux19w4Vt7Bc5
+         r9CfJlU3xykMS6vUgg/1j4KGLZhPUDDXU83ldRUXM45km/N4kvflNpGdY2G80E1cDcRU
+         TAEaBjok+Y4NT6vgzyggiAYcEmu3Y0ENyuPQbp4j+loAvdKBe+jkLfcWcnNcFlSUbKO+
+         +Fc64XUNu0AL/vXMvLII6vqbUIu0Y1aDOJWkSwvxNQJ5TJq2mWWl3qygpxBskRgqrY/H
+         0eWjr9HXlLYrlsbX8PYMlzCx2SILluOAqEH0eoNVQElnJ3t7wxdeArKOPNDYJYvMtXM+
+         9/KQ==
+X-Forwarded-Encrypted: i=1; AJvYcCV/RXG5MToIqmM2JutQEy6ZRoCc6Yiaj1TSJuhRNQGRZFbf+MAxqZ44Ov05Y66+uLNnpAL3lnkgGjY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwHeEW+RBPDXeurmveNkCELbkWqHyDtQBP28H7xpiPPSsbXBnSS
+	hDiKj+28tjp50FoT53niJl8T1Zqu1GglsNpSiSzpRdgOO9DE0XUXfDb0JF+0Wxa1Hg==
+X-Gm-Gg: ASbGnctGrs6JtkFypI92LTksH0FmINhZXiehcB0nzV8V97J2rsbAEsZotkwi0aSRVra
+	qJSMeLwFokPaMSMqZlgvh8v7tBkcXjAj5Cd+CEQL6R0OybbzbBvcLxq5Wu01EuaR5dXjLZVJnu4
+	9kIB7hB1RSNTqlqh2I7OlBJM+0noABE5gPB7yM8mGi0WIhrPEFw1GOwem/bT7c0QNr+pc7g+USC
+	2LXqbPBD/09ey0MsLMJ+DRnPxlXUZB8vk95g1e6geVA4cjcVLcYGnll2mvIpagoktG9jAtstYgV
+	k+J3jTy2ac1uEZKIXN7prc0eWpX5ZuIXti3FlESyeGaDSw71KhJTbATlauyh4erSo1aGaeu2hnQ
+	R/jqrdPdJ//mJ6yhDoZjDFNaB2RJtn6fm1NeC
+X-Google-Smtp-Source: AGHT+IGvuoYMyYUnQ8n/LQEDFxFJOc7hyvFm6gr4Msic7md6lRnyuq70UnCa3taYl6fcies92JWHfg==
+X-Received: by 2002:a05:6000:2307:b0:3a4:f519:ed3 with SMTP id ffacd0b85a97d-3a531abc793mr2235363f8f.44.1749201187963;
+        Fri, 06 Jun 2025 02:13:07 -0700 (PDT)
+Message-ID: <bac962f2-807c-4cf8-aab8-2480f38244e2@suse.com>
+Date: Fri, 6 Jun 2025 11:13:00 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 2/6] x86: re-work memset()
+Subject: Re: [PATCH v5 3/6] x86: re-work memcpy()
 To: Teddy Astie <teddy.astie@vates.tech>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  xen-devel@lists.xenproject.org
 References: <73481cbf-337f-4e85-81d2-3487366cd822@suse.com>
- <4592a702-acf3-4229-9069-d5b639151657@suse.com>
- <d01ed027-5cfc-4e0f-8d62-dadb3e76eed2@vates.tech>
+ <017e689a-41a2-4722-a5e7-19ffef27500f@suse.com>
+ <81da4e8e-9dcf-4630-a535-39ce0b07260c@vates.tech>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,80 +120,33 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <d01ed027-5cfc-4e0f-8d62-dadb3e76eed2@vates.tech>
+In-Reply-To: <81da4e8e-9dcf-4630-a535-39ce0b07260c@vates.tech>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 05.06.2025 18:59, Teddy Astie wrote:
-> Le 05/06/2025 à 12:26, Jan Beulich a écrit :
->> --- a/xen/arch/x86/alternative.c
->> +++ b/xen/arch/x86/alternative.c
->> @@ -346,6 +346,12 @@ static int init_or_livepatch _apply_alte
->>           /* 0xe8/0xe9 are relative branches; fix the offset. */
->>           if ( a->repl_len >= 5 && (*buf & 0xfe) == 0xe8 )
->>               *(int32_t *)(buf + 1) += repl - orig;
->> +        else if ( IS_ENABLED(CONFIG_RETURN_THUNK) &&
->> +                  a->repl_len > 5 && buf[a->repl_len - 5] == 0xe9 &&
->> +                  ((long)repl + a->repl_len +
->> +                   *(int32_t *)(buf + a->repl_len - 4) ==
->> +                   (long)__x86_return_thunk) )
->> +            *(int32_t *)(buf + a->repl_len - 4) += repl - orig;
+On 05.06.2025 19:06, Teddy Astie wrote:
+> Le 05/06/2025 à 12:27, Jan Beulich a écrit :
+>> Move the function to its own assembly file. Having it in C just for the
+>> entire body to be an asm() isn't really helpful. Then have two flavors:
+>> A "basic" version using qword steps for the bulk of the operation, and an
+>> ERMS version for modern hardware, to be substituted in via alternatives
+>> patching.
+>>
+>> Alternatives patching, however, requires an extra precaution: It uses
+>> memcpy() itself, and hence the function may patch itself. Luckily the
+>> patched-in code only replaces the prolog of the original function. Make
+>> sure this remains this way.
 > 
-> That looks a bit confusing, to me that probably some comment explaining 
-> what instructions transform it's looking to make.
+> We can probably workaround that by using a separate memcpy for 
+> alternatives patching. So it wouldn't end up patching itself.
 
-It's still the same comment ahead of the if() that applies here. This will all
-become easier with Andrew's decode-light, at which point we'll be able to spot
-CALL/JMP anywhere  in a blob.
+We could, yes, but imo we better wouldn't.
 
->> --- /dev/null
->> +++ b/xen/arch/x86/memset.S
->> @@ -0,0 +1,30 @@
->> +#include <asm/asm_defns.h>
->> +
-> 
-> It would be nice to have a reminder of the calling convention (i.e what 
-> register maps to what memset parameter) as it will definitely help 
-> future readers.
-> 
-> If I understand correctly here :
-> - rdi: destination (s)
-> - rsi: byte to write (c)
-> - rdx: number of bytes to write (n)
+> Aside that:
+> Reviewed-by: Teddy Astie <teddy.astie@vates.tech>
 
-I don't think the (default) ABI needs re-stating for every function in every
-assembly file.
-
->> +.macro memset
->> +        and     $7, %edx
->> +        shr     $3, %rcx
->> +        movzbl  %sil, %esi
->> +        mov     $0x0101010101010101, %rax
->> +        imul    %rsi, %rax
->> +        mov     %rdi, %r8
->> +        rep stosq
->> +        or      %edx, %ecx
->> +        jz      0f
->> +        rep stosb
->> +0:
->> +        mov     %r8, %rax
->> +        RET
->> +.endm
->> +
->> +.macro memset_erms
->> +        mov     %esi, %eax
->> +        mov     %rdi, %r8
->> +        rep stosb
->> +        mov     %r8, %rax
->> +        RET
->> +.endm
->> +
-> 
-> Overall, I am a bit confused on the mixing of 32-bits (edx, esi, ...) 
-> and 64-bits registers (rax, ...). But it looks ok to me.
-
-Since 64-bit forms require REX, 32-bit ones are used wherever that's sufficient
-for the purpose.
+Please clarify whether this applies without that suggestion of yours taken
+care of.
 
 Jan
 
