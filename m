@@ -2,34 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA5DCAD0355
-	for <lists+xen-devel@lfdr.de>; Fri,  6 Jun 2025 15:38:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1008580.1387852 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2672EAD0361
+	for <lists+xen-devel@lfdr.de>; Fri,  6 Jun 2025 15:42:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1008587.1387861 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uNXGh-0005Tw-MI; Fri, 06 Jun 2025 13:37:59 +0000
+	id 1uNXKQ-0007Cz-49; Fri, 06 Jun 2025 13:41:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1008580.1387852; Fri, 06 Jun 2025 13:37:59 +0000
+Received: by outflank-mailman (output) from mailman id 1008587.1387861; Fri, 06 Jun 2025 13:41:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uNXGh-0005Rt-Iz; Fri, 06 Jun 2025 13:37:59 +0000
-Received: by outflank-mailman (input) for mailman id 1008580;
- Fri, 06 Jun 2025 13:37:57 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uNXKQ-0007B9-1X; Fri, 06 Jun 2025 13:41:50 +0000
+Received: by outflank-mailman (input) for mailman id 1008587;
+ Fri, 06 Jun 2025 13:41:49 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=fdJq=YV=bounce.vates.tech=bounce-md_30504962.6842ef32.v1-4168c5e9f2574c5d8e300645e2c4cfbb@srs-se1.protection.inumbo.net>)
- id 1uNXGf-0005Rn-AC
- for xen-devel@lists.xenproject.org; Fri, 06 Jun 2025 13:37:57 +0000
-Received: from mail36.us4.mandrillapp.com (mail36.us4.mandrillapp.com
- [205.201.136.36]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 736fb3ea-42db-11f0-a301-13f23c93f187;
- Fri, 06 Jun 2025 15:37:55 +0200 (CEST)
-Received: from pmta15.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
- by mail36.us4.mandrillapp.com (Mailchimp) with ESMTP id 4bDMnt3fJzzS62JQf
- for <xen-devel@lists.xenproject.org>; Fri,  6 Jun 2025 13:37:54 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- 4168c5e9f2574c5d8e300645e2c4cfbb; Fri, 06 Jun 2025 13:37:54 +0000
+ <SRS0=DWpK=YV=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1uNXKP-0007B3-6x
+ for xen-devel@lists.xenproject.org; Fri, 06 Jun 2025 13:41:49 +0000
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [2a00:1450:4864:20::335])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id fdc19003-42db-11f0-b894-0df219b8e170;
+ Fri, 06 Jun 2025 15:41:47 +0200 (CEST)
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-450ccda1a6eso19867935e9.2
+ for <xen-devel@lists.xenproject.org>; Fri, 06 Jun 2025 06:41:47 -0700 (PDT)
+Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
+ by smtp.gmail.com with UTF8SMTPSA id
+ 5b1f17b1804b1-4526e155500sm21536425e9.9.2025.06.06.06.41.46
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 06 Jun 2025 06:41:46 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,88 +45,154 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 736fb3ea-42db-11f0-a301-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1749217074; x=1749487074;
-	bh=FVH3r1YoO0xTmK+f/mZlpEPpzXh0CkRhWDBPMn7fC+k=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=ylC+Q38s9Q8Gc3eNpa4h1koVjN1c/rBgBewd2EJxKZm8ghKasGXzJynJZywb+BlUt
-	 cNyT0ar8c3iExxtBPJNecUFfto90IiWOKD+y1BL9h6GC//yzdmSRmbFNnWezeQIK4v
-	 YDn+7IJtlJB9zs27aSe6xt1HtkZt05N685YlRT1NC217e1cnIhVlBZKnzWQszMIkMf
-	 nnsvIlBX2bLZZxVZ52dqM7qdBokCedMn08yhUIBDBvD1tiEosik9GzskZWXkcUaQlH
-	 DgT7q41MKy+do5VRcSHilvTDj/hEarIKox4O9pWhsPvMqC2eb05cx0YVjrqz/nftzk
-	 muHJLF1pnupfA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1749217074; x=1749477574; i=ngoc-tu.dinh@vates.tech;
-	bh=FVH3r1YoO0xTmK+f/mZlpEPpzXh0CkRhWDBPMn7fC+k=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=gP+EmS43DaKryPOr69N23kYl14w6P91D6PeidIrFcPFTFaJMliXOcCXhEFSMhVKBn
-	 cxod87EhaQVN3kEfe/x0LNv038tXfPP2EJrTF/oBRQytja+Ne71J2GLwKdUnE3MCPD
-	 NYaCRYT2cpMNdXjslx/pxleET5mYbxuSeFO7SQIxK7M0DdCQeGjO/3RGJz5r/CH6wM
-	 vNpmi9W3FUpdp+BXw057G3drjRTj6XteB8Fl+Hv2Fg/iALlLSEN2EBzV//uOlXafTF
-	 PrkX1u/hBiuIZOkiUvgkowdkJ7Gnou3ZkyTQswgC1VZs27FYMIcQWzh2iMuSm0Od8P
-	 S2PVP/wBtRRGg==
-From: "Tu Dinh" <ngoc-tu.dinh@vates.tech>
-Subject: =?utf-8?Q?Re:=20[PATCH=20v3]=20x86/hvmloader:=20select=20xenpci=20MMIO=20BAR=20UC=20or=20WB=20MTRR=20cache=20attribute?=
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1749217073208
-Message-Id: <5e6b51ba-1550-4896-bbc9-eb5076ce057c@vates.tech>
-To: "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org, "Anthony PERARD" <anthony.perard@vates.tech>, "Andrew Cooper" <andrew.cooper3@citrix.com>, "Michal Orzel" <michal.orzel@amd.com>, "Jan Beulich" <jbeulich@suse.com>, "Julien Grall" <julien@xen.org>, "Stefano Stabellini" <sstabellini@kernel.org>, "Juergen Gross" <jgross@suse.com>, "Anthoine Bourgeois" <anthoine.bourgeois@vates.tech>
-References: <20250605161659.18201-1-roger.pau@citrix.com> <1b290503-078e-491a-8552-b884df7ac747@vates.tech> <aELru4IZmqHilNiN@macbook.local>
-In-Reply-To: <aELru4IZmqHilNiN@macbook.local>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.4168c5e9f2574c5d8e300645e2c4cfbb?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20250606:md
-Date: Fri, 06 Jun 2025 13:37:54 +0000
+X-Inumbo-ID: fdc19003-42db-11f0-b894-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1749217307; x=1749822107; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=Ymo80vA0vHQD5Iy1MDAQhM1cAuhmA0PNB+gvHFqilmQ=;
+        b=qqsv4bWDRABsSllhvOOEUTIE+qWRgE06DFr8LAW4cvhqnYQbPrC/56wG3Pnsvkghc2
+         2H6RWTdqR7KO/XUbCerVJGVcAhnAapcs5vRmx5KGrPVFXPg6IYzXuTwkAvLrlzjbReQP
+         1neCjDJIyH14fCCohSVJh27+vLIyHcd6SgfEM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1749217307; x=1749822107;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=Ymo80vA0vHQD5Iy1MDAQhM1cAuhmA0PNB+gvHFqilmQ=;
+        b=P0kuUMvpiFwJkx1cSu9hgt46aAz0E7ekbmQxPX9tSSjSL5rEdaNrMV94UFWRR96oU5
+         dgs9GnT1xVdg4sse3M7O8j+tyxbdtPqsUuLbV+Du/3kgPkgaLEHeBBAb9hx4seqgGBnD
+         czIfnbisWuF8t5V2SJ9IHe6KUHtjPP4/Od0woHx3xfHaogxIYlnnU8pgvBdxPaXZo/bo
+         ZcWeLqH96UKN08aiCGoOyaKcSF6FmmUZz75AiSTudH3xa0clXuiXimOyGprJNYHlSt0i
+         md+C+j8o7AqAKfXuEoRBy71rkvS1jf1uezrfJliw+f0xKqdDYtfVPfg2/Z3eoJb/kzdr
+         qHFw==
+X-Gm-Message-State: AOJu0Yw4pM1T1P42QMhvRn3ucZ83T2RgD9C8hgl77fwLPg5JZPXXNtQ9
+	f+nNYRIjS7Bie2agJD5grWZVyk7QToUO9gTWU2k2advnwhjPELOk0+U26w9ptSwP7so=
+X-Gm-Gg: ASbGncvtSrmErvfHFuP++j81uRd2rfvD0FfNE+26e+Wyo7XUg7rsHZWy7Y+BdMaPovi
+	8HSHC+hOGZ0nrkHJw9lWVtvAYRnHf9X0sixqbF94TtkDKWderMKVrS2B/JojY1Lpgnxm8JzwzeX
+	YMTHfFw2laqjFgiI1UouED5IlUBqPHz63/SMSHWY5AUuI56HJkDxG/PSCuzXV3p4KoA+rXSudMh
+	RgcvZH5WPUST4Iv3lDjvAVIHHRhGmxH5Z6s+raCMvgKaTvSIbzb+CszFPdudcl915l+dYrkfhX5
+	Kh6G0gbPNDHrWBTwVp+XbM/C77UpcW1WZ0yZBw2hqWAhk7HEH090Q5HkxXZ7uHVaBCEexz5gm8l
+	ZtscnlmUi0nnigQCEqFI11ic6xtJJPHROfA+WhNRdaCXfHA==
+X-Google-Smtp-Source: AGHT+IG60L6n74zZ0jBzJQchWI5qq3g1s6FH6k7jETvY0XsYkfVjcSy/TZ4Ql5DQHNFI3Rfu+vOuZw==
+X-Received: by 2002:a05:600c:548d:b0:43d:3df:42d8 with SMTP id 5b1f17b1804b1-45201437aa8mr35379895e9.6.1749217306590;
+        Fri, 06 Jun 2025 06:41:46 -0700 (PDT)
+Date: Fri, 6 Jun 2025 15:41:45 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: xen-devel@lists.xenproject.org,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Juergen Gross <jgross@suse.com>,
+	Anthoine Bourgeois <anthoine.bourgeois@vates.tech>
+Subject: Re: [PATCH v3] x86/hvmloader: select xenpci MMIO BAR UC or WB MTRR
+ cache attribute
+Message-ID: <aELwGScJ_XME26Sq@macbook.local>
+References: <20250605161659.18201-1-roger.pau@citrix.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20250605161659.18201-1-roger.pau@citrix.com>
 
-On 06/06/2025 15:23, Roger Pau Monn=C3=A9 wrote:
-[...]
->>
->> Since this is meant to be a workaround, I wonder if it makes more sense
->> to flip the setting (`xenpci_bar_wb`) and make it 0 by default?
+On Thu, Jun 05, 2025 at 06:16:59PM +0200, Roger Pau Monne wrote:
+> The Xen PCI device (vendor ID 0x5853) exposed to x86 HVM guests doesn't
+> have the functionality of a traditional PCI device.  The exposed MMIO BAR
+> is used by some guests (including Linux) as a safe place to map foreign
+> memory, including the grant table itself.
 > 
-> I originally didn't want to go that route, because while it's true
-> that the default MTRR type is set to WB, and so any memory not covered
-> by a MTRR range will default to that memory type I got the impression
-> this was inferring too much.
+> Traditionally BARs from devices have the uncacheable (UC) cache attribute
+> from the MTRR, to ensure correct functionality of such devices.  hvmloader
+> mimics this behavior and sets the MTRR attributes of both the low and high
+> PCI MMIO windows (where BARs of PCI devices reside) as UC in MTRR.
 > 
-> Overall my intention would be for inverting the default long term, and
-> libxl setting build_info->u.hvm.xenpci_bar_uc =3D false by default,
-> which then makes all the naming nicer IMO.
+> This however causes performance issues for users of the Xen PCI device BAR,
+> as for the purposes of mapping remote memory there's no need to use the UC
+> attribute.  On Intel systems this is worked around by using iPAT, that
+> allows the hypervisor to force the effective cache attribute of a p2m entry
+> regardless of the guest PAT value.  AMD however doesn't have an equivalent
+> of iPAT, and guest PAT values are always considered.
 > 
->> It also
->> simplifies the logic for both hvmloader and the consumer (no need for
->> double negatives).
+> Linux commit:
 > 
-> I don't think there are double negatives?  That would happen if the
-> variable was named xenpci_bar_no_uc or similar?
-
-It's because from the flag consumer's viewpoint, I saw the flag 
-`xenpci_bar_uc` as rather "xenpci_bar_dont_apply_wb_workaround`. But if 
-the intention is to eventually make it default then the naming is OK for me=
-.
-
+> 41925b105e34 xen: replace xen_remap() with memremap()
 > 
-> Thanks, Roger.
+> Attempted to mitigate this by forcing mappings of the grant-table to use
+> the write-back (WB) cache attribute.  However Linux memremap() takes MTRRs
+> into account to calculate which PAT type to use, and seeing the MTRR cache
+> attribute for the region being UC the PAT also ends up as UC, regardless of
+> the caller having requested WB.
+> 
+> As a workaround to allow current Linux to map the grant-table as WB using
+> memremap() introduce an xl.cfg option (xenpci_bar_uc=0) that can be used to
+> select whether the Xen PCI device BAR will have the UC attribute in MTRR.
+> Such workaround in hvmloader should also be paired with a fix for Linux so
+> it attempts to change the MTRR of the Xen PCI device BAR to WB by itself.
+> 
+> Overall, the long term solution would be to provide the guest with a safe
+> range in the guest physical address space where mappings to foreign pages
+> can be created.
+> 
+> Some vif throughput performance figures provided by Anthoine from a 8
+> vCPUs, 4GB of RAM HVM guest(s) running on AMD hardware:
+> 
+> Without this patch:
+> vm -> dom0: 1.1Gb/s
+> vm -> vm:   5.0Gb/s
+> 
+> With the patch:
+> vm -> dom0: 4.5Gb/s
+> vm -> vm:   7.0Gb/s
+> 
+> Reported-by: Anthoine Bourgeois <anthoine.bourgeois@vates.tech>
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> ---
+> Changes since v2:
+>  - Add default value in xl.cfg.
+>  - List xenstore path in the pandoc file.
+>  - Adjust comment in hvmloader.
+>  - Fix commit message MIO -> MMIO.
+> 
+> Changes since v1:
+>  - Leave the xenpci BAR as UC by default.
+>  - Introduce an option to not set it as UC.
+> ---
+>  docs/man/xl.cfg.5.pod.in                |  8 ++++
+>  docs/misc/xenstore-paths.pandoc         |  5 +++
+>  tools/firmware/hvmloader/config.h       |  2 +-
+>  tools/firmware/hvmloader/pci.c          | 49 ++++++++++++++++++++++++-
+>  tools/firmware/hvmloader/util.c         |  2 +-
+>  tools/include/libxl.h                   |  9 +++++
+>  tools/libs/light/libxl_create.c         |  1 +
+>  tools/libs/light/libxl_dom.c            |  9 +++++
+>  tools/libs/light/libxl_types.idl        |  1 +
+>  tools/xl/xl_parse.c                     |  2 +
+>  xen/include/public/hvm/hvm_xs_strings.h |  2 +
+>  11 files changed, 86 insertions(+), 4 deletions(-)
 
+I've noticed this is missing a changelog entry, I propose the
+following:
 
+diff --git a/CHANGELOG.md b/CHANGELOG.md
+index 1ee2f42e7405..23215a8cc1e6 100644
+--- a/CHANGELOG.md
++++ b/CHANGELOG.md
+@@ -15,6 +15,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
+  - On x86:
+    - Restrict the cache flushing done as a result of guest physical memory map
+      manipulations and memory type changes.
++   - Allow controlling the MTRR cache attribute of the Xen PCI device BAR
++     for HVM guests, to improve performance of guests using it to map the grant
++     table or foreign memory.
+ 
+ ### Added
+  - On x86:
 
+I can fold into the patch if Oleksii and others agree.
 
-Ngoc Tu Dinh | Vates XCP-ng Developer
-
-XCP-ng & Xen Orchestra - Vates solutions
-
-web: https://vates.tech
-
-
+Thanks, Roger.
 
