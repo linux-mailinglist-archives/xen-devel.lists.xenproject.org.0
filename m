@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 72BC0ACFC87
-	for <lists+xen-devel@lfdr.de>; Fri,  6 Jun 2025 08:25:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1007873.1387043 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B2A86ACFC8E
+	for <lists+xen-devel@lfdr.de>; Fri,  6 Jun 2025 08:26:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1007888.1387053 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uNQVR-0000OV-2k; Fri, 06 Jun 2025 06:24:45 +0000
+	id 1uNQXR-0000v4-Df; Fri, 06 Jun 2025 06:26:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1007873.1387043; Fri, 06 Jun 2025 06:24:45 +0000
+Received: by outflank-mailman (output) from mailman id 1007888.1387053; Fri, 06 Jun 2025 06:26:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uNQVQ-0000LQ-Vo; Fri, 06 Jun 2025 06:24:44 +0000
-Received: by outflank-mailman (input) for mailman id 1007873;
- Fri, 06 Jun 2025 06:24:43 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uNQXR-0000td-Ag; Fri, 06 Jun 2025 06:26:49 +0000
+Received: by outflank-mailman (input) for mailman id 1007888;
+ Fri, 06 Jun 2025 06:26:47 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=U7n3=YV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uNQVP-0000LK-9X
- for xen-devel@lists.xenproject.org; Fri, 06 Jun 2025 06:24:43 +0000
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [2a00:1450:4864:20::433])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id eb25a77b-429e-11f0-b894-0df219b8e170;
- Fri, 06 Jun 2025 08:24:38 +0200 (CEST)
-Received: by mail-wr1-x433.google.com with SMTP id
- ffacd0b85a97d-3a375e72473so834450f8f.0
- for <xen-devel@lists.xenproject.org>; Thu, 05 Jun 2025 23:24:36 -0700 (PDT)
+ id 1uNQXP-0000iu-KX
+ for xen-devel@lists.xenproject.org; Fri, 06 Jun 2025 06:26:47 +0000
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [2a00:1450:4864:20::42e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 37077029-429f-11f0-a301-13f23c93f187;
+ Fri, 06 Jun 2025 08:26:44 +0200 (CEST)
+Received: by mail-wr1-x42e.google.com with SMTP id
+ ffacd0b85a97d-3a4ef2c2ef3so1448189f8f.2
+ for <xen-devel@lists.xenproject.org>; Thu, 05 Jun 2025 23:26:44 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-31349f17bd2sm682193a91.5.2025.06.05.23.24.28
+ d9443c01a7336-2360307832dsm5697815ad.52.2025.06.05.23.26.38
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 05 Jun 2025 23:24:35 -0700 (PDT)
+ Thu, 05 Jun 2025 23:26:43 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,69 +45,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: eb25a77b-429e-11f0-b894-0df219b8e170
+X-Inumbo-ID: 37077029-429f-11f0-a301-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1749191076; x=1749795876; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1749191203; x=1749796003; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=c6ZmDoNRz4N6sQ+bbBK0fVk623wioHylixoxsvSDo64=;
-        b=eSLY8RpS+QgnWLqharuI5XMIuXsB0kGRfwbJJzCExt5qNyu2wZbAgfkRMQcxvAYo1a
-         2uZEC+3dmpu836r26JJh4a40kMwo/Lu4my4smOg0Jkg1NQbfKqRdbJfrjqc+wVZY9BWo
-         D67f1Fzr0KVXeAMy91Cihbq7+bw2Nj4+4SBKzp41lh3y7AYDm4Wt2N3bveuuFl5ncF3x
-         WPLdXs5fMvBMT7+MpPhRKougS9Fzh1NvMfNOklqO+R/rC6j4ASHMo4/pz3xNmwF5zrOa
-         UB07yC2G4Qo7Zh3S1hai9cK6/jVmHN6DUv0oeYlNXiXKswabIs/bNfQCRVrpdZWaTy70
-         Vo/g==
+        bh=i03ce/j8kWJ56FGCgn62re4EOYij4bYvFBCVqTSi/7A=;
+        b=CvqwIqSNDe0FkPBlPR6gZjpvozJfOSw50zqq2rtOBMusErtQ5ajqhzvNCAG+rkKpgU
+         Chzw+G+IHoqC4Hp2d3+zQ+BGJgt7/zoD3vLpA/Sa9MQCxu8pXLyhbredMXed0zIHyiRH
+         b6E2bJqplMEDxe95KsR5MSxsLXAMmcXLWjtNEt0SbEP+VcTq5uYY+5ak+u0XwHfEM3Kj
+         bNOH8Um6Gl6X3Hg393EtMFGWeVhP6Xl3GjwB5+xCzGmVnQ/3LmAoQA611A1N36v15Lkz
+         s6kWGy94aY+MRR6oG4AEBcYflWLDVgd/eSgZiCH4tqTnfcm/Ohnnwv17riAi8NFzfk5S
+         bA/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749191076; x=1749795876;
+        d=1e100.net; s=20230601; t=1749191203; x=1749796003;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=c6ZmDoNRz4N6sQ+bbBK0fVk623wioHylixoxsvSDo64=;
-        b=CVXmgPBE0QVeoLw+k3h5mCwUXPsyyLtc92hHUb7ckaiVQ7qYZJNyxp2p8Z9K4UVt/W
-         SboUO1KNVQ9jJvS5AYz1DPrgY22XP/EvoKXrGQcJ103qf0yrNPFHPXX9exltGCjXTQGG
-         CfZncMqXE81faTHHeFm3/Bc/D/BMhylaopS3WZPpoHKnh+/POwYu4C2m13ME/EDj70sY
-         XoFi/a1m9hO9nVC9Iku3VZEcQ6ewxg/91a9Um1Cu/rKBfWR5FyukP5BvT9NmD8yceCDS
-         ZwEzTRdu7FePerAV7NSdO4PjKhiuShfcN/kN/YfbH/tl3ZcZiNyGzc5jnWWlOQIFrkSw
-         fc7g==
-X-Forwarded-Encrypted: i=1; AJvYcCUASIjFr4lUM3KGjGUc4sIEZyFObV3R/X6CA3PY1iqVyD5XFxPOIIIQQOkm0CV72hRGKNec1zvP52k=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yznz1QhRN/efgk3jb3nJY72cmWPPqLC6QCpUcau8W9UxYEdTJge
-	jlPNWTNDjKEKM368pvvfNU+CKB9Y7U2pD7gMI1nHAI5IjZMByiNW0apRH7UtVCImnw==
-X-Gm-Gg: ASbGncufizqYaDuh9VaQTW03xtvI6HlXUeGtqH0TfIywxrIdRSV+PzIPPOX5t+5wOxs
-	v69ddjElQ6sTM7hPQXRLz2I6oONgJE/3UvLXFD/cQ/xmGTZwJPLon95YBVZaaQl3gqZu5iCq+Rz
-	KbZzrmYroCEwVm4lyb4DrFKnjHU1GZHQ5WHuGxaHBG0VsA+ejjY2IAQrvfAEJet+AfIr8HFS7Au
-	sMh33cKdrBVvaLhquRCB2F4Uk2xouNjVR8KlcFzrrNK54JdfC9psAsC8F6heAAaUd5gu9jTJsQD
-	7eALFlGU7zN+ayviT7aQHbgsxo6P/n3t1e+pHNCG4xdiHGU9owVZUWDFuwm69PEgDsPkgwhVrOE
-	8s/+DMnuCJQCKkOT7SWnJKywAnEC0VsKUC5Apy/9nTc/CBnet0dkeHHKv/Q==
-X-Google-Smtp-Source: AGHT+IFWlqB67XrpaM7QjiSiwfMBJ9W7/iEIAezUwB2uCvQHvPDbqJO4g8zEEUul9usGkeSiPLIyLw==
-X-Received: by 2002:a05:6000:4013:b0:3a4:edf5:b942 with SMTP id ffacd0b85a97d-3a531cc1aaemr1789843f8f.57.1749191076029;
-        Thu, 05 Jun 2025 23:24:36 -0700 (PDT)
-Message-ID: <34dc92c0-9046-482b-b1e2-fab62972da8e@suse.com>
-Date: Fri, 6 Jun 2025 08:24:24 +0200
+        bh=i03ce/j8kWJ56FGCgn62re4EOYij4bYvFBCVqTSi/7A=;
+        b=dymg6dtY4JQHvtCP3LEFQQxnomWGEukO6s2lRUXjJpId5NBlhZyQmKlTV9uSCOoXJ2
+         r77Mi2Nyanlq5sAqt8770ewaEH5esmCrIxJTQ6NY0Q8SA2k0002cYVM6WDM5Kg3NszPB
+         CrtYiteQHMYe8t6w/p+9ml2pPhPw5NgH6Kfs57VJHqwRuUUZICYLZs5Yhure8+6LeT13
+         BAGZeCg5k209/U3c+mjV+wwwr18nppE3sk/+gRRwL5vCN+WuoUiGUF7/Ag/wziqmu8Ac
+         qtuH5LXtI1dylrm+jYA658rlY4i0qKwuhgAzVF5j8eE6MLDFPgxrvLyzL7JxJxuTO6jF
+         EB+A==
+X-Gm-Message-State: AOJu0YyH6omP2+KuO8SlHM0dO3UUzTdVvLdGKTPrRzaUhLcK+Lhnt9cp
+	KofH48FarP7UDuneQcwMakkw7NjMIevpXBE7G02MAQ3KLoBKaTnHOV+9/BnIWQbKCw==
+X-Gm-Gg: ASbGncu9X19uwlHqTB8dDiLyQeMwMheXZa//Yx7H2NWMDTvFZymdEZm13Ar5mcqOuVP
+	0Q0fAAfec7r0254c4QjuuS2lcbuU3QpHrYZhxl4l9wAaDvFIJpOLzpfAxXEgXXPLL3iZqgBWP61
+	Oqd5xh01vNYwvCzezGeDUnwrj3gNAL6Tv4PvrO1LiAg980aOYDBll9VbIVQBUiwlfPYmqWcDJ8R
+	zeISix+fNSXAabVGEz9BFTzOgEuut9GAVADZmP/1Jh1y0oULHzXup3KXYE1S/bz9f3O9SLXSTxR
+	dKJ+dajBf5Sm8DFEHLQrERB9cAyi2CSYYTsUSe3pCN9MTGVoPBARqDXewYLmgr1Qb3Uq+/91zA8
+	0izdnf//NUvu11p1kI56HDRTchmNHLx3N06uo
+X-Google-Smtp-Source: AGHT+IFLEYwVXmlMX4cd+pA0o9hHP0KQcsPN5qRXbFPr+e8ZMRQIbim4evRJLzOtGdf7Csu9fRm9BA==
+X-Received: by 2002:a5d:584e:0:b0:3a4:d5e8:e352 with SMTP id ffacd0b85a97d-3a5319b6a33mr1689221f8f.7.1749191203460;
+        Thu, 05 Jun 2025 23:26:43 -0700 (PDT)
+Message-ID: <83c22da9-62c5-4fb2-bc2d-f34ad5956d3e@suse.com>
+Date: Fri, 6 Jun 2025 08:26:33 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 06/19] xen: Clean up asm-generic/device.h
-To: Alejandro Vallejo <agarciav@amd.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
+Subject: Re: [PATCH v1 1/5] console: add relocation hook
+To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>
+Cc: xen-devel@lists.xenproject.org, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- xen-devel@lists.xenproject.org
-References: <DA1WWRUQLCAG.ZTVR1HXJ85V0@amd.com>
- <20250530120242.39398-1-agarciav@amd.com>
- <20250530120242.39398-7-agarciav@amd.com>
- <e69e572f-497d-4521-a28a-a554ac18c271@suse.com>
- <DAC42T9A7DMZ.3P5GWMI89RZ90@amd.com>
- <daa4bf8b-3082-47c0-abab-74a103c1b6b2@suse.com>
- <DAENVFUK1OBR.BKRNCOBGBQ9Q@amd.com>
- <8768b970-6c62-4fc4-8ef5-b74f1aa650e6@suse.com>
- <DAER4E9ML3N6.3IR8V47ATEDZL@amd.com>
+ Andrew Cooper <andrew.cooper3@citrix.com>
+References: <cover.defc562b917978814c8359bbd04f1dadba33fb77.1748182535.git-series.marmarek@invisiblethingslab.com>
+ <4f1889dc03ec4aa2cc0cd2bd14523a2c6f670bdb.1748182535.git-series.marmarek@invisiblethingslab.com>
+ <0b17da9c-57db-4a8b-90af-e53e45cb1243@citrix.com> <aDSLNeFRZWoxMTEt@mail-itl>
+ <66cfdee6-5dc2-4139-8550-ef441fa7a7a0@suse.com> <aEGu6-6dGqc_WUlg@mail-itl>
+ <ea285192-c39c-43b4-a879-7ca4ff7f9b4a@suse.com> <aEHBAsLFvZni1_5Y@mail-itl>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -133,78 +124,28 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <DAER4E9ML3N6.3IR8V47ATEDZL@amd.com>
+In-Reply-To: <aEHBAsLFvZni1_5Y@mail-itl>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 05.06.2025 18:48, Alejandro Vallejo wrote:
-> On Thu Jun 5, 2025 at 4:20 PM CEST, Jan Beulich wrote:
->> On 05.06.2025 16:15, Alejandro Vallejo wrote:
->>> On Mon Jun 2, 2025 at 4:24 PM CEST, Jan Beulich wrote:
->>>> On 02.06.2025 16:19, Alejandro Vallejo wrote:
->>>>> On Mon Jun 2, 2025 at 9:51 AM CEST, Jan Beulich wrote:
->>>>>> On 30.05.2025 14:02, Alejandro Vallejo wrote:
->>>>>>> --- a/xen/include/asm-generic/device.h
->>>>>>> +++ b/xen/include/asm-generic/device.h
->>>>>>> @@ -6,9 +6,7 @@
->>>>>>>  
->>>>>>>  enum device_type
->>>>>>>  {
->>>>>>> -#ifdef CONFIG_HAS_DEVICE_TREE
->>>>>>>      DEV_DT,
->>>>>>> -#endif
->>>>>>
->>>>>> Why would this enumerator need exposing on a non-DT arch? In fact I would have
->>>>>> hoped for ...
->>>>>
->>>>> A non-DT arch would not include this. x86 doesn't.
->>>>
->>>> Both here and ...
->>>>
->>>>>>>      DEV_PCI
->>>>>>
->>>>>> ... this to be hidden for arch-es not supporting PCI.
->>>>>>
->>>>>> Similar concerns elsewhere in this change.
->>>>>
->>>>> This file is exclusively used by arches supporting DT to abstract away where
->>>>> the device came from. x86 does not use it at all, and while it wouldn't be
->>>>> impossible to compile-out DEV_PCI, it would needlessly pollute the codebase with
->>>>> no measurable gain, because the abstractions still need to stay.
->>>>
->>>> ... here: In "xen/include/asm-generic/device.h" there's nothing at all saying
->>>> that this file is a DT-only one. Instead there is something in there saying
->>>> that it's suitable to use in the entirely "generic" case.
->>>>
->>>> Jan
+On 05.06.2025 18:08, Marek Marczykowski-Górecki wrote:
+> On Thu, Jun 05, 2025 at 06:05:02PM +0200, Jan Beulich wrote:
+>> On 05.06.2025 16:51, Marek Marczykowski-Górecki wrote:
+>>> On Thu, Jun 05, 2025 at 04:42:53PM +0200, Jan Beulich wrote:
+>>>> Why is it that this ring is dependent upon Xen's position? If the ring was
+>>>> dynamically allocated, it wouldn't change position when Xen is moved.
 >>>
->>> Try to use it from x86 and observe the build system catch fire. It could be made
->>> to not go on fire, but it implies heavy refactoring in x86 (particularly IOMMU
->>> code) for no good reason because there's no devices in a DTB to disambiguate.
->>>
->>> How about adding this to the top of the header?
->>>
->>> ```
->>>  /*
->>>   * This header helps DTB-based architectures abstract away where a particular
->>>   * device comes from; be it the DTB itself or enumerated on a PCI bus. 
->>>   */
->>>
->>>   [snip]
->>>
->>>  #ifndef CONFIG_HAS_DEVICE_TREE
->>>  #error "Header meant to be used exclusively by DTB-base architectures."
->>>  #endif
->>> ```
+>>> The console is setup quite early, I don't think I can allocate memory at
+>>> this stage, no?
 >>
->> Might be fine, together with giving the file a name somewhat referring to DT.
+>> But you allocate before Xen is moved, I suppose.
 > 
-> That would bring it out of sync with x86's asm/device.h. Both of them define
-> device_t and doing so in differently named headers would just be confusing for
-> everyone.
+> Well, I have those buffers in BSS exactly to avoid the need to allocate
+> them (or rather: have bootloader allocate them for me).
 
-Okay, then the name can't change. In which case the #ifdef-ary needs to remain,
-imo, to keep the header being "generic".
+Yet them remaining in .bss is now getting in the way. Imo moving them to
+.init.* and adding proper allocation is going to be easier than the hook-
+ary you are proposing.
 
 Jan
 
