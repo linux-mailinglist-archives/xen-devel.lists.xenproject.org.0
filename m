@@ -2,40 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E3FFAD028F
-	for <lists+xen-devel@lfdr.de>; Fri,  6 Jun 2025 14:51:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1008511.1387792 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A17E0AD02B0
+	for <lists+xen-devel@lfdr.de>; Fri,  6 Jun 2025 15:00:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1008526.1387802 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uNWXA-0005h5-3X; Fri, 06 Jun 2025 12:50:56 +0000
+	id 1uNWgK-0007JC-Vl; Fri, 06 Jun 2025 13:00:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1008511.1387792; Fri, 06 Jun 2025 12:50:56 +0000
+Received: by outflank-mailman (output) from mailman id 1008526.1387802; Fri, 06 Jun 2025 13:00:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uNWXA-0005fC-01; Fri, 06 Jun 2025 12:50:56 +0000
-Received: by outflank-mailman (input) for mailman id 1008511;
- Fri, 06 Jun 2025 12:50:54 +0000
+	id 1uNWgK-0007Gx-Rh; Fri, 06 Jun 2025 13:00:24 +0000
+Received: by outflank-mailman (input) for mailman id 1008526;
+ Fri, 06 Jun 2025 13:00:23 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=La23=YV=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
- id 1uNWX8-0005f6-DR
- for xen-devel@lists.xenproject.org; Fri, 06 Jun 2025 12:50:54 +0000
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on20616.outbound.protection.outlook.com
- [2a01:111:f403:2417::616])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e07f615b-42d4-11f0-a301-13f23c93f187;
- Fri, 06 Jun 2025 14:50:52 +0200 (CEST)
-Received: from PH8PR12MB7326.namprd12.prod.outlook.com (2603:10b6:510:216::7)
- by IA0PR12MB8746.namprd12.prod.outlook.com (2603:10b6:208:490::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8792.34; Fri, 6 Jun
- 2025 12:50:49 +0000
-Received: from PH8PR12MB7326.namprd12.prod.outlook.com
- ([fe80::6d76:9c33:d230:8264]) by PH8PR12MB7326.namprd12.prod.outlook.com
- ([fe80::6d76:9c33:d230:8264%2]) with mapi id 15.20.8792.035; Fri, 6 Jun 2025
- 12:50:48 +0000
+ <SRS0=XpM5=YV=bounce.vates.tech=bounce-md_30504962.6842e663.v1-4cd0901772964c1a977820f463d04020@srs-se1.protection.inumbo.net>)
+ id 1uNWgJ-0007Gr-2o
+ for xen-devel@lists.xenproject.org; Fri, 06 Jun 2025 13:00:23 +0000
+Received: from mail36.us4.mandrillapp.com (mail36.us4.mandrillapp.com
+ [205.201.136.36]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 33a53015-42d6-11f0-a301-13f23c93f187;
+ Fri, 06 Jun 2025 15:00:21 +0200 (CEST)
+Received: from pmta15.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
+ by mail36.us4.mandrillapp.com (Mailchimp) with ESMTP id 4bDLyW5NjYzS646YZ
+ for <xen-devel@lists.xenproject.org>; Fri,  6 Jun 2025 13:00:19 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ 4cd0901772964c1a977820f463d04020; Fri, 06 Jun 2025 13:00:19 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,216 +41,433 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e07f615b-42d4-11f0-a301-13f23c93f187
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=oThYLVF9msLT3G+2ZGnVlvIlbDhd5c2W4f5ua9Z1tDViP/DM344SP0KgAeKy/Y8mj1sv9n/kEFi8HVQAtdYNF95lU9cvXjShi8wIPfp9jvmEn21SwIy9Pr5oqsqVZaoeogFOSsvfaN40uIkldEUVw81M3snCqo9BSPYdBEisE7i4BFV8V67ALOAWd+WJI8E9CI8bmgFOyP3x28iqiQ+ed6J19P2sZvmZFY6FVbpqSki3plGCBVX0t4MRoQf2JpX/RHsU7PcctzkuZKvNVXQmza8RLRTaF1N3SqRIK5cz6Uq++SRnTMoHPlfdEqE3RvwYSqNTra3ZCgiZmAxnMLk4lA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jrekXxE7JMULCUejOBDPfwepwcIwYR0UA/vNmY58Ghk=;
- b=SmBibunbAchAbPpJQaf+oZU2zZEAcGIgofjWCFCF//r9zzMjqjvAB/Dv5OHqtzQvF3eoQcdqfq4oGmVrmW4s2N1sA1nlP/IxXtBgVEQOxEgGokozdn7SJwYJkcef16OWncyAwwSWktab+LSRUhEF/NlraKsgrSFrVKpUhFDIdmZnyIw6H3bPxTCQ0o33loygKAV6dcSxqB0wf5btjBjH1suYgiNSinfOiOuFod8SM/jQY/B64V92Wqbvgja1cE2JdQqMCYcfHIiw3kOFv9TYltQI/0RnH5hE7GchsAHMzAMt1A9BTOZ7gG0YQVvCf1Ujg19iDUP/vENXPdQlfQcbYA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jrekXxE7JMULCUejOBDPfwepwcIwYR0UA/vNmY58Ghk=;
- b=2OToSkrrmzahOtLkRNKAubnWMgaDhn4OPe+OH46YGaS63+8XnHY7YKgezS9gFmkr0FGPeRTZq3bO9ffiAR++h8I3aU99uzTkZ4NNBB05AaC2pV/QyY/fbBgmIAL0ak1mRbytCgfyE1pgRCdl0VMwNNXl16CoamfSGWJ7zdkR+Y8=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Message-ID: <dc310f57-9263-423d-a26d-839c4b91f0a5@amd.com>
-Date: Fri, 6 Jun 2025 13:50:44 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 1/3] arm/mpu: Introduce MPU memory region map structure
-Content-Language: en-GB
-From: Ayan Kumar Halder <ayankuma@amd.com>
-To: "Orzel, Michal" <michal.orzel@amd.com>,
- Ayan Kumar Halder <ayan.kumar.halder@amd.com>, xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20250604174311.754899-1-ayan.kumar.halder@amd.com>
- <20250604174311.754899-2-ayan.kumar.halder@amd.com>
- <a2f337f2-1f34-41f1-9728-5f87ef2c7420@amd.com>
- <bb3ce203-de59-41b7-ad7d-3b1f3f1c9833@amd.com>
- <dc8b0afb-aa0a-4ee5-93ef-ca6fa632b616@amd.com>
- <253dc1cc-b6b7-4cdc-a0e1-9fbd6be4efa0@amd.com>
-In-Reply-To: <253dc1cc-b6b7-4cdc-a0e1-9fbd6be4efa0@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: LO4P123CA0372.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:18e::17) To PH8PR12MB7326.namprd12.prod.outlook.com
- (2603:10b6:510:216::7)
+X-Inumbo-ID: 33a53015-42d6-11f0-a301-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1749214819; x=1749484819;
+	bh=kR4+96UQbS+FzQOrA4QYtX61B6OuEKqx78JOtEMdgtU=;
+	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=nVT5hmA2okz4FVkg6QKPaD71BuSljLpeoBbonqEkDDnsCYV8F3pipO3dStEAxP0Lw
+	 BaEYXQS5kgbMtowi0U4dU7GSP3wJMu4tVqyL7LoZzRCkA+7T495EYbLApX7yEN6XS9
+	 p2MzSE6jAep/fLgnaAe/FEfhrzbDrmBnZKKwKTq+HJ8h9EkJAi+MrJ3+Rf3AdKSuED
+	 PvG0MAQO6bm9nfXnUtxVWgzgOJypp2CtkIG14oOZKiKAX1ktQ0m8NMtmUhcBpb5PY6
+	 8++my48HiCZvySIpHtx8gfFmKHaRsOMOfR22CCp/kRBB0ar9r8Ke+4DvO+r6l5jUaI
+	 TyinguAKwz/kg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1749214819; x=1749475319; i=ngoc-tu.dinh@vates.tech;
+	bh=kR4+96UQbS+FzQOrA4QYtX61B6OuEKqx78JOtEMdgtU=;
+	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=fuqZadNO1w/svYOdkdYrdZtebox83A5alT5kDB60RxQ6efeCOs8tkkoOJY7qIzNRw
+	 xTuNTfOSm8WZaUrcHHVw9nf3VgjMyosfo8o0U7gZ+hQBcmdAq3C6e8VR8U9ieoc7hW
+	 xYZM5FTdOYk7Tk12nJlSi1XogLaw2Y0UZLEpGyVLIW7SOPWpzeIfAcBQ9LgY7rZT27
+	 5XdYOqVYzXxyQtSv5amnFeHSPai150TZMTwfPmvVM7RlUFGw12UzQ1Pmk4+io1ImU4
+	 gSwbp2CFpdT/dGsQ4bVX5iEkGhAyd+RDd5GrXS54PZAnGSZDtEUDmMw15O8xcR4Y5X
+	 p7duh3FvOT0FA==
+From: "Tu Dinh" <ngoc-tu.dinh@vates.tech>
+Subject: =?utf-8?Q?Re:=20[PATCH=20v3]=20x86/hvmloader:=20select=20xenpci=20MMIO=20BAR=20UC=20or=20WB=20MTRR=20cache=20attribute?=
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1749214817188
+Message-Id: <1b290503-078e-491a-8552-b884df7ac747@vates.tech>
+To: "Roger Pau Monne" <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
+Cc: "Anthony PERARD" <anthony.perard@vates.tech>, "Andrew Cooper" <andrew.cooper3@citrix.com>, "Michal Orzel" <michal.orzel@amd.com>, "Jan Beulich" <jbeulich@suse.com>, "Julien Grall" <julien@xen.org>, "Stefano Stabellini" <sstabellini@kernel.org>, "Juergen Gross" <jgross@suse.com>, "Anthoine Bourgeois" <anthoine.bourgeois@vates.tech>
+References: <20250605161659.18201-1-roger.pau@citrix.com>
+In-Reply-To: <20250605161659.18201-1-roger.pau@citrix.com>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.4cd0901772964c1a977820f463d04020?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20250606:md
+Date: Fri, 06 Jun 2025 13:00:19 +0000
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR12MB7326:EE_|IA0PR12MB8746:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7c1e347a-2a9a-432e-dc64-08dda4f8c2c7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?UUNLVlk2RkpFNmhmM2tGQTM4cGgzb2UybTkxMnI4Y1NsM1NGSUYrdjlaRVVQ?=
- =?utf-8?B?dHBpSGlpMmhjT3RmdVBzYm9oVDRaakNQVisxR0pwTFFTeHZxV1pMQXVFSnpk?=
- =?utf-8?B?RFhJMmlLYTdZOXFNMGxkSzlJRy9iUk5CZDgrMWhNSDR2UnRiWm1jcTRUS1dN?=
- =?utf-8?B?OWgzTi8yN3B0ODhrOGlmcHNlL1VWRHRYK05xSE8vQmlkRjJXbEY2ZnAwYWlD?=
- =?utf-8?B?eVlRemxuN1lJR1lpd0xmSmpZVksza04zRlFMdzJtSVNteUg2ZG54djNROTdw?=
- =?utf-8?B?eWJUaWJYbHJVNVgrbzJ3SFFoRzd4NHIvVEQwY0RmQkt0M3RXc3FLbURub1Rx?=
- =?utf-8?B?dzZ5ayt2Y0plYnVXMEpXME1FK25UNThzUGgzY1FpZ042dXJYUHdsZ256aGxu?=
- =?utf-8?B?Z2N3cXF6bGp4TlE0eW9CWHVIblVuditXeUJVMVpMWjFLQ3FweWF2RXZZZDhU?=
- =?utf-8?B?Z1Y0dEdDWGFDaEw3VGVTcGpwVnhKNE4yMnl6MkhGVUZOZnpKbEFKcWxtdWhJ?=
- =?utf-8?B?UzlLK1A5WE1BTzNNY2RIZHUzS3dQeTl5c3Jrcy9jTm40Y0VGRkdMRXFtVzg2?=
- =?utf-8?B?TXV4cGM0RkxsZUs1RXQ2UVhydEgzeVByWmFmV0VsL1dtVVNOc3VrRkt4Q1hY?=
- =?utf-8?B?N3FYMkprTzJLQkp2dENLa2JxVTVnU2pxN09OYlhVeDB3UnZJa2ZqaDdBeDFE?=
- =?utf-8?B?S2lZU21sUUtadXZyMnZ2bGd5aW50dmhBUzdvOHowMkozN0NVYUJNY3NST1dW?=
- =?utf-8?B?ZDBrQWZTK1NXZVdoR3J4K09SSUdWVzZ6SHUxU0ZCTU5LMmlkYjhDTStVcCt2?=
- =?utf-8?B?dTdLVWMxRkVlNm9lTHVnZlFuMXdmUElTalh4LzBabzlZdG9FQ05Xa1BVSC9h?=
- =?utf-8?B?cEpYNStycnNySlBBMDJnSldoUDZBbTRtZ25nTW5YcWtTMjVpTFJjb1JtY1RK?=
- =?utf-8?B?ZDZrRmVsUG9BZU9IZjRRQ0c0QUMyS2tUcHNEa1hDVWtMKzBQcnBxU3B1SVhm?=
- =?utf-8?B?K2dKVWk5UDBla05oajNwQ0RkR3hyRHpmYlBqbE5qRVdqQ1hNTVhnZjY3Risv?=
- =?utf-8?B?MDA1QWo0ZkFrTlJONVRBVC81RTJrY3BGN0tTaHFEZ292UkFjeEVERzZhZGFG?=
- =?utf-8?B?aDY3MTV5NTJTbHg0REFva0dEc2hsR1prRVhSMWgwTFlFWmR3V0o0bDZ1WnZZ?=
- =?utf-8?B?RmpzemxJdHZydUw2VEd4dk9kZ1I3K0p3bFF6MDY3VEhBQXdBYXlmd2doazk4?=
- =?utf-8?B?MlVOL0tEa1I0TUYveUNWTUdMRDhyV0g5U2VJVFZ0ZmovMWxkZ3FSMGNuTGZI?=
- =?utf-8?B?YTcwNkRQeXQ3SWNkSWJqdlN4NHYzVUZaMnhNUVcvY2o4VFlYYjVBZThNeEoz?=
- =?utf-8?B?Wmx1bTNoVkRwR0tTVVNidGt2RzdwNjcycU1land2Wmg1OXRQdW5QWis0WGtL?=
- =?utf-8?B?dS9oOEJabmhwdXltRG9qT3ZURGsxTmp3aGlkb2M0ZDRFUUZUcHVFbmZnOTR2?=
- =?utf-8?B?aTczTlFzVFNlbVlXRXhRSE01b05QYUZsYWllZllaSUV3YjhqZ0l0YVRWWDJK?=
- =?utf-8?B?d25mSkkyaFd1cUFUb3IxQy96YzUzREJ6WlhST0F2Q0pLVHQ4cTZLSVhOdmpW?=
- =?utf-8?B?NnQwaHNYMys1eUlwK2VNTC9NeXJkbXF4eUxmcW5uNUdaMWN6c2Q5Z3AvRjMr?=
- =?utf-8?B?WjVIbTF6dG5JNFEvMVFNeU0vRHdaZVBwUkRwMTlqVFY0Vk9SQzRHbVFybGlD?=
- =?utf-8?B?N3pqQU9MZnUzOG82RngzbHFrNEhxZ2pUNm03YWRVdmtwbkNCbWJyZGZ2Nm5r?=
- =?utf-8?B?MFo4OVpBUWdTc3Q4WjBzMEM1SlBYUUNmQ2V0MWtxUit3QjZxeS80aDNQTXRx?=
- =?utf-8?B?d3BjaTNPQ2o2VDFsZkwveHlxT25YYjNnTUZJK25xZytqWU5TL0pxNC9nanpy?=
- =?utf-8?Q?+dSxmVS7H5s=3D?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR12MB7326.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?anFRMlFwdTErUWYxQU9uY2ZWV09HVUFyaFpIU0xDMnE5Y1AzSjNqdU5ZWUdX?=
- =?utf-8?B?ODFiVVBWZTh3UE80cVEwQVBuVkJ6WXF6UG50NUhoWUdtQUFmWVA3YkwxODBx?=
- =?utf-8?B?TXBWOVNzTGgyMU5FZ1lqWDhNVEFwY2xNUzlIRzRieE9lNCtiL09TVFRLUWU1?=
- =?utf-8?B?aVpudjlmT3NXRnVySEMxemF2TkVwNFBFcFZhWjRvanFMeG1jZW5ld2V1MXU1?=
- =?utf-8?B?TTU3UldoTmVyUnVzb1NVWVpEaFM1OWp2YU85bDAyN3phNWlKbXQ1TG80bldU?=
- =?utf-8?B?Sy95a2ltbGpZNWZ0M2Y0cU5PT3RKNmI0aVV4M1QxSEQxK2lZNktQMEx6a0FM?=
- =?utf-8?B?M1YzT25aMnRVWjV6aVdlcVRGbkJBMEFSdW9tUnl5eHlnOXdlYXhNQ203dWFJ?=
- =?utf-8?B?STZaVmpGN1Erc2RzQzNjN3cvQmRGTHhOcG5lQVlpMGpyMmMwSVhneXhiN1E2?=
- =?utf-8?B?dmE0cnkwekhqWWNKTlNiMFBObG9Wbk1Cc09PenJxUE9jelFSMzM0Q2NxMUJt?=
- =?utf-8?B?WGdYd3JZU29wcDZsMTY2eHN4TFBlM1Zvd3Z4cGFJcmVINkRIOWY2MUpPaVpk?=
- =?utf-8?B?UkZmaVFwSWtER3pTZldNZlRoY1V0bVd3TFJtNm8rMmJvcVVFOWtSaVFWanJN?=
- =?utf-8?B?Vy9nUjQvT2dlTWh1T3FLakJ5WklOZ3VyTHNpZGJxTEFGRnZGamlqSkJqTnhZ?=
- =?utf-8?B?ZzE2THkxbjg0NTA3MlNtOUVweEJwZW41OUhvZzZvejErOFFNMGw0aGlDMFF0?=
- =?utf-8?B?SjFyekJGQUY5ZCt1aU5OS3l1blBVK2FFRnArczkrdkRubisvZVdhR3NnSEJW?=
- =?utf-8?B?dTRmeDBXeGNKcSt0U1JmditXWEdDMERuQ3kraE1SNEs2SGw0YTU1OFFtVnp1?=
- =?utf-8?B?NEVDQ1FpMHRHT0N6dEllU1lncEk2VXhpRUlCakJjak9CMElUcG83eHQwK1BD?=
- =?utf-8?B?TFI2T3htNEFvMG83RmFpcStRM3N4S05UV0szOCtiT09KU2JEcDRKMy9iRzl4?=
- =?utf-8?B?MTQ3dElKUFg0Q0JnU3Axc2NSL1hRZ3ZrL2FWeUlLb29IQmpyb0p0Rm4xaHZm?=
- =?utf-8?B?elo3cndDWWtaVW81RDNDYStvK01NVFBzRFVob1k5dHhTREoxNFBCejBFZWlY?=
- =?utf-8?B?WGc0T0FMUVpLQ1NLcXgxVURTclZYUTVMOStkRDFwWSs0TkxPeW1BbHpuNHEv?=
- =?utf-8?B?RUxPeENLRFNKWVlNQVFoS2RSdmpvTEhlZklHUzRITXpiUFdHQ0czNlVmdFpz?=
- =?utf-8?B?Y08vZlJTSUMzdTFvWEs3V1k4eThHTVQ5dVVocTdLRHpBRTVSYmNYZXljczVW?=
- =?utf-8?B?MEl3aXFXT1FmWmxIcUNBbFhRUy8xVUQ1M2FiVWgzZ0dkK1VqRjJtSXFkcW9I?=
- =?utf-8?B?MmMvMjNqWEIza1UxU0tuMXVmMzdWRHVLRXBRY1ZibWMrV2xYQ0k0TUJGQXly?=
- =?utf-8?B?M2s3ZkRqZkVDaUZoMWJMQzdrYTJQUU8vQ3ppc1U2Qk8vRkFCTzRBaW5yaEdk?=
- =?utf-8?B?cGtLTEs1V0tFRUVYYm51YXYzWHprUHJTUGFkMFY4Q1hWdHIvQWVmQk14MkR6?=
- =?utf-8?B?SFJIb3VVSS9hSm5PbUltSHhCN3pVN25mVTdXWkNOQTVsMHRSUEIrdEppUXRH?=
- =?utf-8?B?dlhJMmc0ZEdYNkdZbWxLQ3VlTWFwc29USTBnaXpQZXQyUEMwd0dWTDhKUUJl?=
- =?utf-8?B?UzRXSVE0bFRZM2lVbUZHVitBRkI5MDhvYnBLNmorZW9tZmlhakNlMHRyU1VJ?=
- =?utf-8?B?Ym9tQ2pQZ1ppZ0tHZTU5cFgrSi8vb1B1QW04OWpLbUpiK080R2pqalZmcERq?=
- =?utf-8?B?cGNMbEZGZkRka2wwdFM4c25RVnFDOFRRejBOVDZoMVpHSkloSDh4TU5JUWoy?=
- =?utf-8?B?M3dLMzZEUDY3UElqL0hkS241aHJvS2N2TVA1dVNFbEhTbER0RExuTHVSR3Fp?=
- =?utf-8?B?VXdkcEVpMDNGanJrcnZWVHA1VmRraG0zTjVYYlNLSzIwSmFoZGZ3QkJmNVVp?=
- =?utf-8?B?MG9rcXhzSVhEQ1pPa2lGQm1ralJsS3ZERjY1MGNISURpeUFoTE1iZnJnRFBx?=
- =?utf-8?B?RUJqd3NxL25mTlhxV0pDZTRacEZlSWlsbWJxa3FPaHZaVnRJTmZpYTkxSWdk?=
- =?utf-8?Q?5KgwG0Tyj/Qb4lF3v3ACZT4+4?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7c1e347a-2a9a-432e-dc64-08dda4f8c2c7
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB7326.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jun 2025 12:50:48.5893
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: bHBbl/rRSIOjN+D5NeczxaAGxeKY9dx5szWnu22FBkA3KV7dhPfmIyy8sVkJqSv6HmWIFxfGy2ta7rSA//Zu+w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8746
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+Hi Roger,
+
+On 05/06/2025 18:20, Roger Pau Monne wrote:
+> The Xen PCI device (vendor ID 0x5853) exposed to x86 HVM guests doesn't
+> have the functionality of a traditional PCI device.  The exposed MMIO BAR
+> is used by some guests (including Linux) as a safe place to map foreign
+> memory, including the grant table itself.
+> 
+> Traditionally BARs from devices have the uncacheable (UC) cache attribute
+> from the MTRR, to ensure correct functionality of such devices.  hvmloade=
+r
+> mimics this behavior and sets the MTRR attributes of both the low and hig=
+h
+> PCI MMIO windows (where BARs of PCI devices reside) as UC in MTRR.
+> 
+> This however causes performance issues for users of the Xen PCI device BA=
+R,
+> as for the purposes of mapping remote memory there's no need to use the U=
+C
+> attribute.  On Intel systems this is worked around by using iPAT, that
+> allows the hypervisor to force the effective cache attribute of a p2m ent=
+ry
+> regardless of the guest PAT value.  AMD however doesn't have an equivalen=
+t
+> of iPAT, and guest PAT values are always considered.
+> 
+> Linux commit:
+> 
+> 41925b105e34 xen: replace xen_remap() with memremap()
+> 
+> Attempted to mitigate this by forcing mappings of the grant-table to use
+> the write-back (WB) cache attribute.  However Linux memremap() takes MTRR=
+s
+> into account to calculate which PAT type to use, and seeing the MTRR cach=
+e
+> attribute for the region being UC the PAT also ends up as UC, regardless =
+of
+> the caller having requested WB.
+> 
+> As a workaround to allow current Linux to map the grant-table as WB using
+> memremap() introduce an xl.cfg option (xenpci_bar_uc=3D0) that can be use=
+d to
+> select whether the Xen PCI device BAR will have the UC attribute in MTRR.
+> Such workaround in hvmloader should also be paired with a fix for Linux s=
+o
+> it attempts to change the MTRR of the Xen PCI device BAR to WB by itself.
+> 
+> Overall, the long term solution would be to provide the guest with a safe
+> range in the guest physical address space where mappings to foreign pages
+> can be created.
+> 
+> Some vif throughput performance figures provided by Anthoine from a 8
+> vCPUs, 4GB of RAM HVM guest(s) running on AMD hardware:
+> 
+> Without this patch:
+> vm -> dom0: 1.1Gb/s
+> vm -> vm:   5.0Gb/s
+> 
+> With the patch:
+> vm -> dom0: 4.5Gb/s
+> vm -> vm:   7.0Gb/s
+> 
+> Reported-by: Anthoine Bourgeois <anthoine.bourgeois@vates.tech>
+> Signed-off-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
+> ---
+> Changes since v2:
+>   - Add default value in xl.cfg.
+>   - List xenstore path in the pandoc file.
+>   - Adjust comment in hvmloader.
+>   - Fix commit message MIO -> MMIO.
+> 
+> Changes since v1:
+>   - Leave the xenpci BAR as UC by default.
+>   - Introduce an option to not set it as UC.
+> ---
+>   docs/man/xl.cfg.5.pod.in                |  8 ++++
+>   docs/misc/xenstore-paths.pandoc         |  5 +++
+>   tools/firmware/hvmloader/config.h       |  2 +-
+>   tools/firmware/hvmloader/pci.c          | 49 ++++++++++++++++++++++++-
+>   tools/firmware/hvmloader/util.c         |  2 +-
+>   tools/include/libxl.h                   |  9 +++++
+>   tools/libs/light/libxl_create.c         |  1 +
+>   tools/libs/light/libxl_dom.c            |  9 +++++
+>   tools/libs/light/libxl_types.idl        |  1 +
+>   tools/xl/xl_parse.c                     |  2 +
+>   xen/include/public/hvm/hvm_xs_strings.h |  2 +
+>   11 files changed, 86 insertions(+), 4 deletions(-)
+> 
+> diff --git a/docs/man/xl.cfg.5.pod.in b/docs/man/xl.cfg.5.pod.in
+> index c388899306c2..ddbff6fffc16 100644
+> --- a/docs/man/xl.cfg.5.pod.in
+> +++ b/docs/man/xl.cfg.5.pod.in
+> @@ -2351,6 +2351,14 @@ Windows L<https://xenproject.org/windows-pv-driver=
+s/>.
+>   Setting B<xen_platform_pci=3D0> with the default device_model "qemu-xen=
+"
+>   requires at least QEMU 1.6.
+>   
+> +
+> +=3Ditem B<xenpci_bar_uc=3DBOOLEAN>
+> +
+> +B<x86 only:> Select whether the memory BAR of the Xen PCI device should =
+have
+> +uncacheable (UC) cache attribute set in MTRR.
+> +
+> +Default is B<true>.
+> +
+>   =3Ditem B<viridian=3D[ "GROUP", "GROUP", ...]> or B<viridian=3DBOOLEAN>
+>   
+>   The groups of Microsoft Hyper-V (AKA viridian) compatible enlightenment=
+s
+> diff --git a/docs/misc/xenstore-paths.pandoc b/docs/misc/xenstore-paths.p=
+andoc
+> index 01a340fafcbe..073bed91eec1 100644
+> --- a/docs/misc/xenstore-paths.pandoc
+> +++ b/docs/misc/xenstore-paths.pandoc
+> @@ -234,6 +234,11 @@ These xenstore values are used to override some of t=
+he default string
+>   values in the SMBIOS table constructed in hvmloader. See the SMBIOS
+>   table specification at http://www.dmtf.org/standards/smbios/
+>   
+> +#### ~/hvmloader/pci/xenpci-bar-uc =3D ("1"|"0") [HVM,INTERNAL]
+> +
+> +Select whether the Xen PCI device MMIO BAR will have the uncacheable cac=
+he
+> +attribute set in the MTRRs by hvmloader.
+> +
+>   #### ~/bios-strings/oem-* =3D STRING [HVM,INTERNAL]
+>   
+>   1 to 99 OEM strings can be set in xenstore using values of the form
+> diff --git a/tools/firmware/hvmloader/config.h b/tools/firmware/hvmloader=
+/config.h
+> index 6e1da137d779..c159db30eea9 100644
+> --- a/tools/firmware/hvmloader/config.h
+> +++ b/tools/firmware/hvmloader/config.h
+> @@ -58,7 +58,7 @@ extern uint32_t *cpu_to_apicid;
+>   #define ACPI_TIS_HDR_ADDRESS 0xFED40F00UL
+>   
+>   extern uint32_t pci_mem_start;
+> -extern const uint32_t pci_mem_end;
+> +extern uint32_t pci_mem_end;
+>   extern uint64_t pci_hi_mem_start, pci_hi_mem_end;
+>   
+>   extern bool acpi_enabled;
+> diff --git a/tools/firmware/hvmloader/pci.c b/tools/firmware/hvmloader/pc=
+i.c
+> index cc67b18c0361..747f6cfb6794 100644
+> --- a/tools/firmware/hvmloader/pci.c
+> +++ b/tools/firmware/hvmloader/pci.c
+> @@ -30,7 +30,7 @@
+>   #include <xen/hvm/e820.h>
+>   
+>   uint32_t pci_mem_start =3D HVM_BELOW_4G_MMIO_START;
+> -const uint32_t pci_mem_end =3D RESERVED_MEMBASE;
+> +uint32_t pci_mem_end =3D RESERVED_MEMBASE;
+>   uint64_t pci_hi_mem_start =3D 0, pci_hi_mem_end =3D 0;
+>   
+>   /*
+> @@ -116,6 +116,8 @@ void pci_setup(void)
+>        * experience the memory relocation bug described below.
+>        */
+>       bool allow_memory_relocate =3D 1;
+> +    /* Select the MTRR cache attribute of the xenpci device BAR. */
+> +    bool xenpci_bar_uc =3D false;
+
+Since this is meant to be a workaround, I wonder if it makes more sense 
+to flip the setting (`xenpci_bar_wb`) and make it 0 by default? It also 
+simplifies the logic for both hvmloader and the consumer (no need for 
+double negatives).
+
+>   
+>       BUILD_BUG_ON((typeof(*pci_devfn_decode_type))PCI_COMMAND_IO !=3D
+>                    PCI_COMMAND_IO);
+> @@ -130,6 +132,12 @@ void pci_setup(void)
+>       printf("Relocating guest memory for lowmem MMIO space %s\n",
+>              allow_memory_relocate?"enabled":"disabled");
+>   
+> +    s =3D xenstore_read(HVM_XS_XENPCI_BAR_UC, NULL);
+> +    if ( s )
+> +        xenpci_bar_uc =3D strtoll(s, NULL, 0);
+> +    printf("XenPCI device BAR MTRR cache attribute set to %s\n",
+> +           xenpci_bar_uc ? "UC" : "WB");
+> +
+>       s =3D xenstore_read("platform/mmio_hole_size", NULL);
+>       if ( s )
+>           mmio_hole_size =3D strtoll(s, NULL, 0);
+> @@ -271,6 +279,43 @@ void pci_setup(void)
+>               if ( bar_sz =3D=3D 0 )
+>                   continue;
+>   
+> +            if ( !xenpci_bar_uc &&
+> +                 ((bar_data & PCI_BASE_ADDRESS_SPACE) =3D=3D
+> +                   PCI_BASE_ADDRESS_SPACE_MEMORY) &&
+> +                 vendor_id =3D=3D 0x5853 &&
+> +                 (device_id =3D=3D 0x0001 || device_id =3D=3D 0x0002) )
+> +            {
+> +                if ( is_64bar )
+> +                {
+> +                     printf("xenpci dev %02x:%x unexpected MMIO 64bit BA=
+R%u\n",
+> +                            devfn >> 3, devfn & 7, bar);
+> +                     continue;
+> +                }
+> +
+> +                if ( bar_sz > pci_mem_end ||
+> +                     ((pci_mem_end - bar_sz) & ~(bar_sz - 1)) < pci_mem_=
+start )
+> +                {
+> +                     printf("xenpci dev %02x:%x BAR%u size %llx overflow=
+s low PCI hole\n",
+> +                            devfn >> 3, devfn & 7, bar, bar_sz);
+> +                     continue;
+> +                }
+> +
+> +                /* Put unconditionally at the end of the low PCI MMIO ho=
+le. */
+> +                pci_mem_end -=3D bar_sz;
+> +                pci_mem_end &=3D ~(bar_sz - 1);
+> +                bar_data &=3D ~PCI_BASE_ADDRESS_MEM_MASK;
+> +                bar_data |=3D pci_mem_end;
+> +                pci_writel(devfn, bar_reg, bar_data);
+> +                pci_devfn_decode_type[devfn] |=3D PCI_COMMAND_MEMORY;
+> +
+> +                /* Prefix BAR address with a 0 to match format used belo=
+w. */
+> +                printf("pci dev %02x:%x bar %02x size "PRIllx": 0%08x\n"=
+,
+> +                       devfn >> 3, devfn & 7, bar_reg,
+> +                       PRIllx_arg(bar_sz), bar_data);
+> +
+> +                continue;
+> +            }
+> +
+>               for ( i =3D 0; i < nr_bars; i++ )
+>                   if ( bars[i].bar_sz < bar_sz )
+>                       break;
+> @@ -310,7 +355,7 @@ void pci_setup(void)
+>           }
+>   
+>           /* Enable bus master for this function later */
+> -        pci_devfn_decode_type[devfn] =3D PCI_COMMAND_MASTER;
+> +        pci_devfn_decode_type[devfn] |=3D PCI_COMMAND_MASTER;
+>       }
+>   
+>       if ( mmio_hole_size )
+> diff --git a/tools/firmware/hvmloader/util.c b/tools/firmware/hvmloader/u=
+til.c
+> index 79c0e6bd4ad2..31b4411db7b4 100644
+> --- a/tools/firmware/hvmloader/util.c
+> +++ b/tools/firmware/hvmloader/util.c
+> @@ -867,7 +867,7 @@ void hvmloader_acpi_build_tables(struct acpi_config *=
+config,
+>           config->table_flags |=3D ACPI_HAS_HPET;
+>   
+>       config->pci_start =3D pci_mem_start;
+> -    config->pci_len =3D pci_mem_end - pci_mem_start;
+> +    config->pci_len =3D RESERVED_MEMBASE - pci_mem_start;
+>       if ( pci_hi_mem_end > pci_hi_mem_start )
+>       {
+>           config->pci_hi_start =3D pci_hi_mem_start;
+> diff --git a/tools/include/libxl.h b/tools/include/libxl.h
+> index b7ad7735ca4c..7ce7678e6836 100644
+> --- a/tools/include/libxl.h
+> +++ b/tools/include/libxl.h
+> @@ -1503,6 +1503,15 @@ void libxl_mac_copy(libxl_ctx *ctx, libxl_mac *dst=
+, const libxl_mac *src);
+>    */
+>   #define LIBXL_HAVE_CREATEINFO_XEND_SUSPEND_EVTCHN_COMPAT
+>   
+> +/*
+> + * LIBXL_HAVE_XENPCI_BAR_UC
+> + *
+> + * libxl_domain_build_info contains a boolean 'u.hvm.xenpci_bar_uc' fiel=
+d to
+> + * signal whether the XenPCI device BAR should have UC cache attribute s=
+et in
+> + * MTRR.
+> + */
+> +#define LIBXL_HAVE_XENPCI_BAR_UC
+> +
+>   typedef char **libxl_string_list;
+>   void libxl_string_list_dispose(libxl_string_list *sl);
+>   int libxl_string_list_length(const libxl_string_list *sl);
+> diff --git a/tools/libs/light/libxl_create.c b/tools/libs/light/libxl_cre=
+ate.c
+> index 8bc768b5156c..962fa820faec 100644
+> --- a/tools/libs/light/libxl_create.c
+> +++ b/tools/libs/light/libxl_create.c
+> @@ -313,6 +313,7 @@ int libxl__domain_build_info_setdefault(libxl__gc *gc=
+,
+>           libxl_defbool_setdefault(&b_info->u.hvm.usb,                fal=
+se);
+>           libxl_defbool_setdefault(&b_info->u.hvm.vkb_device,         tru=
+e);
+>           libxl_defbool_setdefault(&b_info->u.hvm.xen_platform_pci,   tru=
+e);
+> +        libxl_defbool_setdefault(&b_info->u.hvm.xenpci_bar_uc,      true=
+);
+>           libxl_defbool_setdefault(&b_info->u.hvm.pirq,               fal=
+se);
+>   
+>           libxl_defbool_setdefault(&b_info->u.hvm.spice.enable, false);
+> diff --git a/tools/libs/light/libxl_dom.c b/tools/libs/light/libxl_dom.c
+> index 4d67b0d28294..60ec0354d19a 100644
+> --- a/tools/libs/light/libxl_dom.c
+> +++ b/tools/libs/light/libxl_dom.c
+> @@ -819,6 +819,15 @@ static int hvm_build_set_xs_values(libxl__gc *gc,
+>               goto err;
+>       }
+>   
+> +    if (info->type =3D=3D LIBXL_DOMAIN_TYPE_HVM &&
+> +        libxl_defbool_val(info->u.hvm.xenpci_bar_uc)) {
+> +        path =3D GCSPRINTF("/local/domain/%d/"HVM_XS_XENPCI_BAR_UC, domi=
+d);
+> +        ret =3D libxl__xs_printf(gc, XBT_NULL, path, "%d",
+> +                               libxl_defbool_val(info->u.hvm.xenpci_bar_=
+uc));
+> +        if (ret)
+> +            goto err;
+> +    }
+> +
+>       return 0;
+>   
+>   err:
+> diff --git a/tools/libs/light/libxl_types.idl b/tools/libs/light/libxl_ty=
+pes.idl
+> index 198515383012..6054350b83c7 100644
+> --- a/tools/libs/light/libxl_types.idl
+> +++ b/tools/libs/light/libxl_types.idl
+> @@ -691,6 +691,7 @@ libxl_domain_build_info =3D Struct("domain_build_info=
+",[
+>                                          ("vkb_device",       libxl_defbo=
+ol),
+>                                          ("soundhw",          string),
+>                                          ("xen_platform_pci", libxl_defbo=
+ol),
+> +                                       ("xenpci_bar_uc",    libxl_defboo=
+l),
+>                                          ("usbdevice_list",   libxl_strin=
+g_list),
+>                                          ("vendor_device",    libxl_vendo=
+r_device),
+>                                          # See libxl_ms_vm_genid_generate=
+()
+> diff --git a/tools/xl/xl_parse.c b/tools/xl/xl_parse.c
+> index 219e924779ff..4da3bb9e91ab 100644
+> --- a/tools/xl/xl_parse.c
+> +++ b/tools/xl/xl_parse.c
+> @@ -2917,6 +2917,8 @@ skip_usbdev:
+>           xlu_cfg_replace_string (config, "soundhw", &b_info->u.hvm.sound=
+hw, 0);
+>           xlu_cfg_get_defbool(config, "xen_platform_pci",
+>                               &b_info->u.hvm.xen_platform_pci, 0);
+> +        xlu_cfg_get_defbool(config, "xenpci_bar_uc",
+> +                            &b_info->u.hvm.xenpci_bar_uc, 0);
+>   
+>           if(b_info->u.hvm.vnc.listen
+>              && b_info->u.hvm.vnc.display
+> diff --git a/xen/include/public/hvm/hvm_xs_strings.h b/xen/include/public=
+/hvm/hvm_xs_strings.h
+> index e1ed078628a0..ebb07b9fba56 100644
+> --- a/xen/include/public/hvm/hvm_xs_strings.h
+> +++ b/xen/include/public/hvm/hvm_xs_strings.h
+> @@ -14,6 +14,8 @@
+>   #define HVM_XS_BIOS                    "hvmloader/bios"
+>   #define HVM_XS_GENERATION_ID_ADDRESS   "hvmloader/generation-id-address=
+"
+>   #define HVM_XS_ALLOW_MEMORY_RELOCATE   "hvmloader/allow-memory-relocate=
+"
+> +/* Set xenpci device BAR as UC in MTRR */
+> +#define HVM_XS_XENPCI_BAR_UC           "hvmloader/pci/xenpci-bar-uc"
+>   
+>   /* The following values allow additional ACPI tables to be added to the
+>    * virtual ACPI BIOS that hvmloader constructs. The values specify the =
+guest
 
 
-On 06/06/2025 13:43, Ayan Kumar Halder wrote:
-> Hi Michal,
->
-> On 06/06/2025 11:13, Orzel, Michal wrote:
->>
->> On 05/06/2025 15:39, Ayan Kumar Halder wrote:
->>> Hi Michal,
->>>
->>> On 05/06/2025 08:06, Orzel, Michal wrote:
->>>> On 04/06/2025 19:43, Ayan Kumar Halder wrote:
->>>>> Introduce pr_t typedef which is a structure having the prbar and 
->>>>> prlar members,
->>>>> each being structured as the registers of the AArch32 Armv8-R 
->>>>> architecture.
->>>>>
->>>>> Also, define MPU_REGION_RES0 to 0 as there are no reserved 0 bits 
->>>>> beyond the
->>>>> BASE or LIMIT bitfields in prbar or prlar respectively.
->>>>>
->>>>> Move pr_t definition to common code.
->>>>> Also, enclose xn_0 within ARM64 as it is not present for ARM32.
->>>>>
->>>>> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
->>>>> ---
->>>>>    xen/arch/arm/include/asm/arm32/mpu.h | 30 
->>>>> +++++++++++++++++++++++-----
->>>>>    xen/arch/arm/include/asm/arm64/mpu.h |  6 ------
->>>>>    xen/arch/arm/include/asm/mpu.h       |  6 ++++++
->>>>>    xen/arch/arm/mpu/mm.c                |  2 ++
->>>>>    4 files changed, 33 insertions(+), 11 deletions(-)
->>>>>
->>>>> diff --git a/xen/arch/arm/include/asm/arm32/mpu.h 
->>>>> b/xen/arch/arm/include/asm/arm32/mpu.h
->>>>> index f0d4d4055c..ae3b661fde 100644
->>>>> --- a/xen/arch/arm/include/asm/arm32/mpu.h
->>>>> +++ b/xen/arch/arm/include/asm/arm32/mpu.h
->>>>> @@ -5,11 +5,31 @@
->>>>>       #ifndef __ASSEMBLY__
->>>>>    -/* MPU Protection Region */
->>>>> -typedef struct {
->>>>> -    uint32_t prbar;
->>>>> -    uint32_t prlar;
->>>>> -} pr_t;
->>>>> +#define MPU_REGION_RES0       0x0
->>>> The name of the macro does not make a lot of sense in AArch32 context
->>>> and can create a confusion for the reader.
->>> I know, but I want to avoid introducing ifdef or have separate
->>> implementation (for arm32 and arm64) for the following
->>>
->>> Refer xen/arch/arm/include/asm/mpu.h
->>>
->>> static inline void pr_set_base(pr_t *pr, paddr_t base)
->>> {
->>>       pr->prbar.reg.base = ((base & ~MPU_REGION_RES0) >> 
->>> MPU_REGION_SHIFT);
->>> }
->>>
->>> Let me know your preference.
->> I did not mean #ifdef-ing. I was more like suggesting to use a 
->> different macro
->> name that would be more meaningful than this one.
->
-> Now I understand you. However, I can't thing of a better name to make 
-> it more meaningful.
->
-> I have added a comment on top. Is this helpful ?
->
-> /* Unlike arm64, there are no reserved 0 bits beyond base in prbar 
-> register */
-/*
-  * Unlike arm64, there are no reserved 0 bits beyond base and limit 
-bitfield in
-  * prbar and prlar registers respectively.
-  */
 
+Ngoc Tu Dinh | Vates XCP-ng Developer
 
-- Ayan
+XCP-ng & Xen Orchestra - Vates solutions
+
+web: https://vates.tech
+
 
 
