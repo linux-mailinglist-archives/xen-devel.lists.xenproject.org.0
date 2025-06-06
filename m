@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2672EAD0361
-	for <lists+xen-devel@lfdr.de>; Fri,  6 Jun 2025 15:42:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1008587.1387861 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DADADAD0464
+	for <lists+xen-devel@lfdr.de>; Fri,  6 Jun 2025 17:02:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1008623.1387872 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uNXKQ-0007Cz-49; Fri, 06 Jun 2025 13:41:50 +0000
+	id 1uNYZZ-0000ub-Lk; Fri, 06 Jun 2025 15:01:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1008587.1387861; Fri, 06 Jun 2025 13:41:50 +0000
+Received: by outflank-mailman (output) from mailman id 1008623.1387872; Fri, 06 Jun 2025 15:01:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uNXKQ-0007B9-1X; Fri, 06 Jun 2025 13:41:50 +0000
-Received: by outflank-mailman (input) for mailman id 1008587;
- Fri, 06 Jun 2025 13:41:49 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uNYZZ-0000s3-I9; Fri, 06 Jun 2025 15:01:33 +0000
+Received: by outflank-mailman (input) for mailman id 1008623;
+ Fri, 06 Jun 2025 15:01:32 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=DWpK=YV=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1uNXKP-0007B3-6x
- for xen-devel@lists.xenproject.org; Fri, 06 Jun 2025 13:41:49 +0000
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [2a00:1450:4864:20::335])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id fdc19003-42db-11f0-b894-0df219b8e170;
- Fri, 06 Jun 2025 15:41:47 +0200 (CEST)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-450ccda1a6eso19867935e9.2
- for <xen-devel@lists.xenproject.org>; Fri, 06 Jun 2025 06:41:47 -0700 (PDT)
-Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
- by smtp.gmail.com with UTF8SMTPSA id
- 5b1f17b1804b1-4526e155500sm21536425e9.9.2025.06.06.06.41.46
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 06 Jun 2025 06:41:46 -0700 (PDT)
+ <SRS0=f0xc=YV=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1uNYZY-0000rx-O3
+ for xen-devel@lists.xenproject.org; Fri, 06 Jun 2025 15:01:32 +0000
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [2a00:1450:4864:20::12f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 218b9694-42e7-11f0-a301-13f23c93f187;
+ Fri, 06 Jun 2025 17:01:31 +0200 (CEST)
+Received: by mail-lf1-x12f.google.com with SMTP id
+ 2adb3069b0e04-54afb5fcebaso2559795e87.3
+ for <xen-devel@lists.xenproject.org>; Fri, 06 Jun 2025 08:01:31 -0700 (PDT)
+Received: from [192.168.86.29] ([90.250.112.104])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-45213709670sm26906945e9.25.2025.06.06.08.01.16
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 06 Jun 2025 08:01:16 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,154 +45,157 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fdc19003-42db-11f0-b894-0df219b8e170
+X-Inumbo-ID: 218b9694-42e7-11f0-a301-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1749217307; x=1749822107; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=Ymo80vA0vHQD5Iy1MDAQhM1cAuhmA0PNB+gvHFqilmQ=;
-        b=qqsv4bWDRABsSllhvOOEUTIE+qWRgE06DFr8LAW4cvhqnYQbPrC/56wG3Pnsvkghc2
-         2H6RWTdqR7KO/XUbCerVJGVcAhnAapcs5vRmx5KGrPVFXPg6IYzXuTwkAvLrlzjbReQP
-         1neCjDJIyH14fCCohSVJh27+vLIyHcd6SgfEM=
+        d=citrix.com; s=google; t=1749222091; x=1749826891; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=+nHSm0VmCP01wzN9C94Ehkh0QkA9bkuYeAVcGZ4qWLM=;
+        b=SgxnddYzkKBSb+I/coQjOO7MHos9wDjbSoihN/YVjCDaBebB1UVFgnmJOT5145ZMQj
+         b6Ey4+9S9cVVN0vXVZ+pff+Nz4uL37C2NxeZnQiRvR/h6kkTUQZ/g5NtRk/BjL5jOxE1
+         6HFm5dAAkZUmPVqkConQPRoVrheTaHZpoeIYM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749217307; x=1749822107;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Ymo80vA0vHQD5Iy1MDAQhM1cAuhmA0PNB+gvHFqilmQ=;
-        b=P0kuUMvpiFwJkx1cSu9hgt46aAz0E7ekbmQxPX9tSSjSL5rEdaNrMV94UFWRR96oU5
-         dgs9GnT1xVdg4sse3M7O8j+tyxbdtPqsUuLbV+Du/3kgPkgaLEHeBBAb9hx4seqgGBnD
-         czIfnbisWuF8t5V2SJ9IHe6KUHtjPP4/Od0woHx3xfHaogxIYlnnU8pgvBdxPaXZo/bo
-         ZcWeLqH96UKN08aiCGoOyaKcSF6FmmUZz75AiSTudH3xa0clXuiXimOyGprJNYHlSt0i
-         md+C+j8o7AqAKfXuEoRBy71rkvS1jf1uezrfJliw+f0xKqdDYtfVPfg2/Z3eoJb/kzdr
-         qHFw==
-X-Gm-Message-State: AOJu0Yw4pM1T1P42QMhvRn3ucZ83T2RgD9C8hgl77fwLPg5JZPXXNtQ9
-	f+nNYRIjS7Bie2agJD5grWZVyk7QToUO9gTWU2k2advnwhjPELOk0+U26w9ptSwP7so=
-X-Gm-Gg: ASbGncvtSrmErvfHFuP++j81uRd2rfvD0FfNE+26e+Wyo7XUg7rsHZWy7Y+BdMaPovi
-	8HSHC+hOGZ0nrkHJw9lWVtvAYRnHf9X0sixqbF94TtkDKWderMKVrS2B/JojY1Lpgnxm8JzwzeX
-	YMTHfFw2laqjFgiI1UouED5IlUBqPHz63/SMSHWY5AUuI56HJkDxG/PSCuzXV3p4KoA+rXSudMh
-	RgcvZH5WPUST4Iv3lDjvAVIHHRhGmxH5Z6s+raCMvgKaTvSIbzb+CszFPdudcl915l+dYrkfhX5
-	Kh6G0gbPNDHrWBTwVp+XbM/C77UpcW1WZ0yZBw2hqWAhk7HEH090Q5HkxXZ7uHVaBCEexz5gm8l
-	ZtscnlmUi0nnigQCEqFI11ic6xtJJPHROfA+WhNRdaCXfHA==
-X-Google-Smtp-Source: AGHT+IG60L6n74zZ0jBzJQchWI5qq3g1s6FH6k7jETvY0XsYkfVjcSy/TZ4Ql5DQHNFI3Rfu+vOuZw==
-X-Received: by 2002:a05:600c:548d:b0:43d:3df:42d8 with SMTP id 5b1f17b1804b1-45201437aa8mr35379895e9.6.1749217306590;
-        Fri, 06 Jun 2025 06:41:46 -0700 (PDT)
-Date: Fri, 6 Jun 2025 15:41:45 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: xen-devel@lists.xenproject.org,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Juergen Gross <jgross@suse.com>,
-	Anthoine Bourgeois <anthoine.bourgeois@vates.tech>
-Subject: Re: [PATCH v3] x86/hvmloader: select xenpci MMIO BAR UC or WB MTRR
- cache attribute
-Message-ID: <aELwGScJ_XME26Sq@macbook.local>
-References: <20250605161659.18201-1-roger.pau@citrix.com>
+        d=1e100.net; s=20230601; t=1749222091; x=1749826891;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=+nHSm0VmCP01wzN9C94Ehkh0QkA9bkuYeAVcGZ4qWLM=;
+        b=M26go2u4ePCfKZJNa1liu2XAKkS4nj6fAKZ9eX3AFdAldbqXjHcfy7BgbpKFy+tMl8
+         Aj9CH0M6YBh4xFUqg8JwttdVc+fHSv1KeD7hFpe3bbrQZnWktY/sOFGCQ3+2D+5lYPS3
+         9GNcaaH/y4hCeA3YcOE7+oG7JRfjO7h1rymABxLLLxhLVh2Fy5jQKsMPDFgituETona7
+         1zOW3dfmOhc73wW7MrDD2e/ueTZ2xXR+ZbIHaJ5U4SKjjZy0M5zmZjFq/DaQ4SPIGw6h
+         uP6l5DnaTncr3Ub5pFbnE3/tyQ+zLs0DCvWM8zaHUEOxfYwpN5popBwcGJGL3WEgwr31
+         fxpw==
+X-Forwarded-Encrypted: i=1; AJvYcCUeHmeWMU3v62DCSXJF9Glb+Rs3IAK3QW3lVU9BfbJoHofpz6SCUObn6nMBDVAIDJLQ/C3DxbxIP/E=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzITelZ8n1xpLf/U7VxMewGYLIy+r5D2uGHuIuXq2Qvp2CA1XG8
+	S0pJO387kpAFVJER6Z7dnaIvOJ4uFiIohvi1BMCwTtceWA7v0Dr3MyeAHVOrMz8its4fPN/pVvy
+	+1FGk
+X-Gm-Gg: ASbGncvNhLZEJpnTI0IKjbQV0mLAViUn2KsK5Y4wdnrh4yuUiDfYf1YdkV/JQAhYYVu
+	jGwnorXzrDz+StBEmlYg/UfUVDBJQUy05T2jXf7pv6rJamveyd9cYnER3Qh7cZD8kU6O8sQvfnj
+	aDwQdpdr6TCjk4Y54irxBavtRa8mLE/lLFKoR0aE67cbFaKXR9ffXivHR6MJ0ftOdUpxOFN33Lf
+	kxgGdaJUzYLA53HycdUPlFlZMRV7t/rUeACmQBke5EQV7VduV9eCxxdu3tO48ezDH6OVlPzBYJD
+	8StuaoZl1nMwz3AYH+67z0R1sfrkQf+qVQ4uhuU4b5p8XA1wHdpgnS790SJS2lV/aCk7skIKDP8
+	=
+X-Google-Smtp-Source: AGHT+IGSN9XfLtAcfIHxSPt/jW3uzPjLx+u/8tbbeWI5ipmEnZGm5UGTTZEms0kKajAdHOR9L3153w==
+X-Received: by 2002:a05:600c:83cf:b0:442:e147:bea6 with SMTP id 5b1f17b1804b1-45201391335mr40926935e9.11.1749222077174;
+        Fri, 06 Jun 2025 08:01:17 -0700 (PDT)
+Message-ID: <3f9c5a18-2ea1-4e2d-80a0-773abc3598ae@citrix.com>
+Date: Fri, 6 Jun 2025 16:01:15 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] x86/EFI: Fix detection of buildid
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Ross Lagerwall <ross.lagerwall@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>,
+ "Daniel P . Smith" <dpsmith@apertussolutions.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20250605111638.2869914-1-andrew.cooper3@citrix.com>
+ <20250605111638.2869914-2-andrew.cooper3@citrix.com>
+ <0a314400-126a-4c2a-b36c-dda61bb0b751@suse.com>
+ <a477369d-77d0-48fa-8ac4-120d49e32d11@citrix.com>
+ <4d1f1b70-e309-453b-bae6-e066d49a417a@suse.com>
+ <9200277c-aa8e-4fd9-ab6a-f9e106114f54@citrix.com>
+ <6eaf2b27-969a-4326-9726-8b6e0994e006@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <6eaf2b27-969a-4326-9726-8b6e0994e006@suse.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20250605161659.18201-1-roger.pau@citrix.com>
 
-On Thu, Jun 05, 2025 at 06:16:59PM +0200, Roger Pau Monne wrote:
-> The Xen PCI device (vendor ID 0x5853) exposed to x86 HVM guests doesn't
-> have the functionality of a traditional PCI device.  The exposed MMIO BAR
-> is used by some guests (including Linux) as a safe place to map foreign
-> memory, including the grant table itself.
-> 
-> Traditionally BARs from devices have the uncacheable (UC) cache attribute
-> from the MTRR, to ensure correct functionality of such devices.  hvmloader
-> mimics this behavior and sets the MTRR attributes of both the low and high
-> PCI MMIO windows (where BARs of PCI devices reside) as UC in MTRR.
-> 
-> This however causes performance issues for users of the Xen PCI device BAR,
-> as for the purposes of mapping remote memory there's no need to use the UC
-> attribute.  On Intel systems this is worked around by using iPAT, that
-> allows the hypervisor to force the effective cache attribute of a p2m entry
-> regardless of the guest PAT value.  AMD however doesn't have an equivalent
-> of iPAT, and guest PAT values are always considered.
-> 
-> Linux commit:
-> 
-> 41925b105e34 xen: replace xen_remap() with memremap()
-> 
-> Attempted to mitigate this by forcing mappings of the grant-table to use
-> the write-back (WB) cache attribute.  However Linux memremap() takes MTRRs
-> into account to calculate which PAT type to use, and seeing the MTRR cache
-> attribute for the region being UC the PAT also ends up as UC, regardless of
-> the caller having requested WB.
-> 
-> As a workaround to allow current Linux to map the grant-table as WB using
-> memremap() introduce an xl.cfg option (xenpci_bar_uc=0) that can be used to
-> select whether the Xen PCI device BAR will have the UC attribute in MTRR.
-> Such workaround in hvmloader should also be paired with a fix for Linux so
-> it attempts to change the MTRR of the Xen PCI device BAR to WB by itself.
-> 
-> Overall, the long term solution would be to provide the guest with a safe
-> range in the guest physical address space where mappings to foreign pages
-> can be created.
-> 
-> Some vif throughput performance figures provided by Anthoine from a 8
-> vCPUs, 4GB of RAM HVM guest(s) running on AMD hardware:
-> 
-> Without this patch:
-> vm -> dom0: 1.1Gb/s
-> vm -> vm:   5.0Gb/s
-> 
-> With the patch:
-> vm -> dom0: 4.5Gb/s
-> vm -> vm:   7.0Gb/s
-> 
-> Reported-by: Anthoine Bourgeois <anthoine.bourgeois@vates.tech>
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> ---
-> Changes since v2:
->  - Add default value in xl.cfg.
->  - List xenstore path in the pandoc file.
->  - Adjust comment in hvmloader.
->  - Fix commit message MIO -> MMIO.
-> 
-> Changes since v1:
->  - Leave the xenpci BAR as UC by default.
->  - Introduce an option to not set it as UC.
-> ---
->  docs/man/xl.cfg.5.pod.in                |  8 ++++
->  docs/misc/xenstore-paths.pandoc         |  5 +++
->  tools/firmware/hvmloader/config.h       |  2 +-
->  tools/firmware/hvmloader/pci.c          | 49 ++++++++++++++++++++++++-
->  tools/firmware/hvmloader/util.c         |  2 +-
->  tools/include/libxl.h                   |  9 +++++
->  tools/libs/light/libxl_create.c         |  1 +
->  tools/libs/light/libxl_dom.c            |  9 +++++
->  tools/libs/light/libxl_types.idl        |  1 +
->  tools/xl/xl_parse.c                     |  2 +
->  xen/include/public/hvm/hvm_xs_strings.h |  2 +
->  11 files changed, 86 insertions(+), 4 deletions(-)
+On 06/06/2025 8:22 am, Jan Beulich wrote:
+> On 05.06.2025 19:01, Andrew Cooper wrote:
+>> On 05/06/2025 2:24 pm, Jan Beulich wrote:
+>>> On 05.06.2025 14:14, Andrew Cooper wrote:
+>>>> On 05/06/2025 1:02 pm, Jan Beulich wrote:
+>>>>> On 05.06.2025 13:16, Andrew Cooper wrote:
+>>>> This really is a property of being a PE32+ binary, and nothing to do
+>>>> with EFI.
+>>> Which still can be checked for without having this code path being taken
+>>> for xen.gz, too: You could e.g. check for &efi > &_end. That's firmly an
+>>> image property (yet I expect you're going to sigh about yet another hack).
+>> It's all hacks, but no.
+>>
+>> I'm amazed MISRA hasn't spotted that we've got a global `struct efi
+>> efi;` and a label named efi, creating an alias for the object with it
+>> out of bounds in the compiled image.  But even then, it's based on
+>> XEN_BUILD_EFI not XEN_BUILD_PE and does not distinguish the property
+>> that matters.
+> The use of XEN_BUILD_EFI in the linker script should have been switched
+> to XEN_BUILD_PE when the split was introduced.
 
-I've noticed this is missing a changelog entry, I propose the
-following:
+That doesn't build.  As I already explained, the stubs aren't split in a
+way that allows that.
+>> But the argument I'm going to make this this:  Why do you want a check,
+>> even if you can find a correct one (and as said before, I cannot)?
+>>
+>> This function is run exactly once.  We've excluded "nothing given by the
+>> toolchain", and excluded "what the toolchain gave us was not the
+>> expected ELF note".  The only thing left (modulo toolchain bugs) is the
+>> CodeView region, and if it's not a valid CodeView region then we've
+>> wasted a handful of cycles.
+> Two reasons: Having code which cannot possibly do anything useful isn't
+> good. Misra calls the latest the body of the inner if() "unreachable code"
+> and objects to the presence of such in a build.
 
-diff --git a/CHANGELOG.md b/CHANGELOG.md
-index 1ee2f42e7405..23215a8cc1e6 100644
---- a/CHANGELOG.md
-+++ b/CHANGELOG.md
-@@ -15,6 +15,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
-  - On x86:
-    - Restrict the cache flushing done as a result of guest physical memory map
-      manipulations and memory type changes.
-+   - Allow controlling the MTRR cache attribute of the Xen PCI device BAR
-+     for HVM guests, to improve performance of guests using it to map the grant
-+     table or foreign memory.
- 
- ### Added
-  - On x86:
+It's not unreachable code, not even theoretically.
 
-I can fold into the patch if Oleksii and others agree.
+*If* there was a suitable check, I'd be using it, but everything you've
+proposed has been buggy or doesn't even compile.
 
-Thanks, Roger.
+> And then, based on your reasoning above, why don't you also drop the
+> #ifdef CONFIG_X86?
+
+Because that's the one non-buggy way of excluding an impossible case.
+
+x86 is the only architecture possibly linking with pep emulation, and
+therefore the only architecture to possibly have a CodeView record.
+
+~Andrew
 
