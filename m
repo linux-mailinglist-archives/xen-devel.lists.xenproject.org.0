@@ -2,34 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3909EAD08DE
-	for <lists+xen-devel@lfdr.de>; Fri,  6 Jun 2025 22:00:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1008804.1387965 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 116DAAD08F8
+	for <lists+xen-devel@lfdr.de>; Fri,  6 Jun 2025 22:11:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1008811.1387975 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uNdEF-0005ld-IS; Fri, 06 Jun 2025 19:59:51 +0000
+	id 1uNdPP-0008P3-Hk; Fri, 06 Jun 2025 20:11:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1008804.1387965; Fri, 06 Jun 2025 19:59:51 +0000
+Received: by outflank-mailman (output) from mailman id 1008811.1387975; Fri, 06 Jun 2025 20:11:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uNdEF-0005ip-FS; Fri, 06 Jun 2025 19:59:51 +0000
-Received: by outflank-mailman (input) for mailman id 1008804;
- Fri, 06 Jun 2025 19:59:50 +0000
+	id 1uNdPP-0008NO-EW; Fri, 06 Jun 2025 20:11:23 +0000
+Received: by outflank-mailman (input) for mailman id 1008811;
+ Fri, 06 Jun 2025 20:11:21 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=YRk0=YV=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1uNdEE-0005gT-5h
- for xen-devel@lists.xenproject.org; Fri, 06 Jun 2025 19:59:50 +0000
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ccd23e1a-4310-11f0-a301-13f23c93f187;
- Fri, 06 Jun 2025 21:59:49 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 89DC849F5B;
- Fri,  6 Jun 2025 19:59:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B55FC4CEEB;
- Fri,  6 Jun 2025 19:59:46 +0000 (UTC)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=fxa/=YV=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
+ id 1uNdPM-0008NH-9b
+ for xen-devel@lists.xenproject.org; Fri, 06 Jun 2025 20:11:21 +0000
+Received: from mail-24418.protonmail.ch (mail-24418.protonmail.ch
+ [109.224.244.18]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 673db203-4312-11f0-a301-13f23c93f187;
+ Fri, 06 Jun 2025 22:11:17 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,63 +36,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ccd23e1a-4310-11f0-a301-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1749239987;
-	bh=/A3ZcJBNH2YZ/Vl+1PMhBqGcJeXmBWYHrJbmCgyR3G8=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=NcTbdQV2c6d5rpagNxX9KMuGytDBABiruDVXXpU+GfnEnf2gV+8IkC5xmV0HxQi0J
-	 OqqZR3y8w/YzAix3RMdEZ81eU321IlJKjFE60jf5vrQG22pId8JVB0JAJ8t32NSt8u
-	 MX9h/1MhN6xXk3XtDqshnPqhQLc8VUv6OfdCR/hiU5K0j0rQXzMvjVzsDB4pQ1jHKk
-	 e43xnFqGzXnMbFCpsxiFbF9za5Czy7uq7k/r9pmhtGlSEawxABRwCq1PWPhfh7pTdd
-	 1cALO2TdqPNOLao1buZoupDemBYm2+tdQWhdEgQ9f8nKyFT0uTn35czeVFlYiwHAMA
-	 Q5SK4elmeZ6Uw==
-Date: Fri, 6 Jun 2025 12:59:45 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Alejandro Vallejo <agarciav@amd.com>
-cc: "Orzel, Michal" <michal.orzel@amd.com>, xen-devel@lists.xenproject.org, 
-    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-    "Daniel P. Smith" <dpsmith@apertussolutions.com>
-Subject: Re: [PATCH v2 08/15] xen/dt: Move bootfdt functions to
- xen/bootfdt.h
-In-Reply-To: <DAFD99VSFIEP.1VCU7C02XMFPO@amd.com>
-Message-ID: <alpine.DEB.2.22.394.2506061203360.2495561@ubuntu-linux-20-04-desktop>
-References: <20250605194810.2782031-1-agarciav@amd.com> <20250605194810.2782031-9-agarciav@amd.com> <633ffa7f-cf26-4ec3-a153-28404c39d882@amd.com> <DAFD99VSFIEP.1VCU7C02XMFPO@amd.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: 673db203-4312-11f0-a301-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail; t=1749240675; x=1749499875;
+	bh=Lp5h+FAjm96E/U9mx+er7ay1xqPjAsWEpNjB2aWoz0w=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector:
+	 List-Unsubscribe:List-Unsubscribe-Post;
+	b=lhqE34pEL5bZKydIo6keS7n88huBrluHONcspfGiyTl2oWGQ6tCCBqfSvJ8wxzC9B
+	 XTmMRDq+iJVKajpnavL6rDpUAzKuqMPpNwALvB7xoTMBntwkiz45Xf2Fw4lasuJkC1
+	 OO1Vg4bsDv+M3g37ualJW8FrrtpO67kQekJHFPrNxBE0OrtG8qhqILyatamAx9cytj
+	 bA8KP3XA+360ONBUAYkfRMuaGRXxDbPmplVHzWXYLphXajcgbqOqoiNzIS06INCsEV
+	 kDHHillJOZJyx0Ap94depQSH3Xo5/e9SPGdi/nmqz5zolpLBCWnQpDomlukvFnipcs
+	 iVQGbvsieQSVQ==
+Date: Fri, 06 Jun 2025 20:11:08 +0000
+To: xen-devel@lists.xenproject.org
+From: dmkhn@proton.me
+Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com
+Subject: [PATCH v3 0/2] xen/console: updates to diagnostic messages prefixes
+Message-ID: <20250606201102.2414022-1-dmukhin@ford.com>
+Feedback-ID: 123220910:user:proton
+X-Pm-Message-ID: 08c35cdaee586a798b484ebc1549e5acb79253c3
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, 6 Jun 2025, Alejandro Vallejo wrote:
-> On Fri Jun 6, 2025 at 10:59 AM CEST, Michal Orzel wrote:
-> >
-> >
-> > On 05/06/2025 21:48, Alejandro Vallejo wrote:
-> >> Part of an unpicking process to extract bootfdt contents independent of bootinfo
-> >> to a separate file for x86 to take.
-> >> 
-> >> Move functions required for early FDT parsing from device_tree.h and arm's
-> >> setup.h onto bootfdt.h
-> >> 
-> >> Declaration motion only. Not a functional change.
-> >> 
-> >> Signed-off-by: Alejandro Vallejo <agarciav@amd.com>
-> >> ---
-> >> v2:
-> >>   * Remove the u32 identifiers in the device_tree_get_u32() implementation
-> > I don't understand the reasoning behind changing u32->uint32_t only for one
-> > function in this patch while leaving others unmodified. Also what about u64?
-> > Either don't change any or change all.
-> 
-> Sure. Let's call the original u32->uint32_t change a misplaced mutation and
-> move on. The point is the motion, not these cleanups on top.
+Patch 1 is purely cosmetic change, adds a symbol for hypervisor's messages.
 
-Yes I agree. I know from past experience that Jan doesn't mind changes
-during code movements, but for me it is important that changes and code
-movement are separate. That is because I have almost automatic ways to
-check that code movement is correct if there are no changes. It saves me
-a lot of time during review. Then I can look at the individual changes
-separately.
+Patch 2 updates the logic how the domain prefix is formed for guest message=
+s
+sent over emulated UART.
+
+[1] Link to v2: https://lore.kernel.org/xen-devel/20250605004601.1142090-1-=
+dmukhin@ford.com/
+[2] Link to CI: https://gitlab.com/xen-project/people/dmukhin/xen/-/pipelin=
+es/1857923457
+
+Denis Mukhin (2):
+  xen/console: introduce CONSOLE_PREFIX
+  xen/console: unify printout behavior for UART emulators
+
+ xen/arch/arm/vpl011.c      |  6 +++---
+ xen/arch/arm/vuart.c       |  2 +-
+ xen/drivers/char/console.c | 30 ++++++++++++++++++++++++++----
+ 3 files changed, 30 insertions(+), 8 deletions(-)
+
+--=20
+2.34.1
+
+
 
