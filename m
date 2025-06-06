@@ -2,40 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6EE40AD0036
-	for <lists+xen-devel@lfdr.de>; Fri,  6 Jun 2025 12:15:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1008385.1387683 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5678DAD004D
+	for <lists+xen-devel@lfdr.de>; Fri,  6 Jun 2025 12:22:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1008405.1387693 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uNU6a-0007dm-Gt; Fri, 06 Jun 2025 10:15:20 +0000
+	id 1uNUCu-0001Hi-9o; Fri, 06 Jun 2025 10:21:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1008385.1387683; Fri, 06 Jun 2025 10:15:20 +0000
+Received: by outflank-mailman (output) from mailman id 1008405.1387693; Fri, 06 Jun 2025 10:21:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uNU6a-0007cK-DH; Fri, 06 Jun 2025 10:15:20 +0000
-Received: by outflank-mailman (input) for mailman id 1008385;
- Fri, 06 Jun 2025 10:15:18 +0000
+	id 1uNUCu-0001G9-68; Fri, 06 Jun 2025 10:21:52 +0000
+Received: by outflank-mailman (input) for mailman id 1008405;
+ Fri, 06 Jun 2025 10:21:50 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=1Fse=YV=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1uNU6Y-0007c5-F5
- for xen-devel@lists.xenproject.org; Fri, 06 Jun 2025 10:15:18 +0000
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on20627.outbound.protection.outlook.com
- [2a01:111:f403:2415::627])
+ <SRS0=+Tda=YV=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
+ id 1uNUCs-0001Et-61
+ for xen-devel@lists.xenproject.org; Fri, 06 Jun 2025 10:21:50 +0000
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam02on20617.outbound.protection.outlook.com
+ [2a01:111:f403:2405::617])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 22bfc8b0-42bf-11f0-b894-0df219b8e170;
- Fri, 06 Jun 2025 12:15:15 +0200 (CEST)
-Received: from BN9PR12MB5273.namprd12.prod.outlook.com (2603:10b6:408:11e::22)
- by CY8PR12MB9035.namprd12.prod.outlook.com (2603:10b6:930:77::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8792.35; Fri, 6 Jun
- 2025 10:15:11 +0000
-Received: from BN9PR12MB5273.namprd12.prod.outlook.com
- ([fe80::cf66:58ab:47be:4b13]) by BN9PR12MB5273.namprd12.prod.outlook.com
- ([fe80::cf66:58ab:47be:4b13%5]) with mapi id 15.20.8792.034; Fri, 6 Jun 2025
- 10:15:11 +0000
+ id 0b4a0176-42c0-11f0-b894-0df219b8e170;
+ Fri, 06 Jun 2025 12:21:45 +0200 (CEST)
+Received: from DM6PR06CA0061.namprd06.prod.outlook.com (2603:10b6:5:54::38) by
+ SN7PR12MB7909.namprd12.prod.outlook.com (2603:10b6:806:340::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8792.37; Fri, 6 Jun
+ 2025 10:21:37 +0000
+Received: from DS1PEPF00017099.namprd05.prod.outlook.com
+ (2603:10b6:5:54:cafe::e5) by DM6PR06CA0061.outlook.office365.com
+ (2603:10b6:5:54::38) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8769.18 via Frontend Transport; Fri,
+ 6 Jun 2025 10:21:37 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DS1PEPF00017099.mail.protection.outlook.com (10.167.18.103) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8792.29 via Frontend Transport; Fri, 6 Jun 2025 10:21:37 +0000
+Received: from localhost (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 6 Jun
+ 2025 05:21:34 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,330 +56,180 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 22bfc8b0-42bf-11f0-b894-0df219b8e170
+X-Inumbo-ID: 0b4a0176-42c0-11f0-b894-0df219b8e170
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ieH81qo0rIA3nxunL/+vjQ/nmMVNob3aJX2EoYy54MjOwQ9BtNZdwaiDThBah01/8ttFDYtsY2WCgAiKRSRKh2kyNhjqOMS2krmI0e2wSBw6RfndObXFDZIvbx6KLxlIEg4nNJ4leY1vkLTZWXUId0WlndivUSiEnZz/n5mTUt0XDF6qJHUWPpQ6kqK3o1emWwaDtGYW4kbTjQG6ZC7ur/zYkSOqAnLrHH7KzIRJ7cIpJXMHfDmKOswUsB5o8MoGjL70B8OOvRgPRypSa9ws4jRrGU3t/PixEOGhOATJ3mdQ+SclNcERSBmOqEnSZr44m/XEm87Qbsqq5b4pHA5IqQ==
+ b=mNubjrCPpIv+4+oKumy4iBnED8LUiZTSeWZrS/F1EQ7jxIPNHmAMCCaLn3TwgJC2AHreYy2L7xVs+xG7D8xdAz1Z51OUMRpmBUA+s6zZN+OC4zjIOGZRBtG2Sxr5g138Dh6ShxcI9d3D3nm5LQ3tAplT90rF/118Qh9rn9HiuXBJpkAhY+OjIHhTbSABQgytjiEKKZrVE1DmVMvU4W+/I+rEqoc+0ZF9lf5TKJlWCLpZ8T5AUUSOznrLPxki/Z5SgxwuwcSl7oA6VZLLV2+NdVR1QkX4MutLggHlzF64GrUiPDsHLzg5HpSwSs8jlHtOekIR9JipVClZAlpgzaCH3Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9Ufu3gGc+URal0FOVV605N524/8ns7uIDRLE5fGwWHg=;
- b=HZAIzmUMWo3qDafGxyNh02TaOff/Y4B4anOWRzQV1R35li6Od0X0vPDnvaQjG/U+WXdYWt3VlpMKXfooPxVCiRk7K7h7OIf2+KW77kJ+JwsLB98iQvyG1XTTfdUwEnCeSZz9oZIZN8jhiwPG9V2oo7TQawCLfgTodTVwvMNtAvRXtpGrNhMiEk0rRKLqPwxDE2TgWAoxOF6i3ag42uGimZtrAORRwxnAVGkOy7yvJw1Wl1LrMv7FY83A/6BXfin68QLp7CSItiUnCQf+aNSfacQhJAbI3bF9T0NM1Gu1psuQE+rYbohEjXp+4FSi+GUM70IxYuVNOl3RrxZNX5+C2g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=e9VZL+7u7O0wdQzIObCKnPDKU6jDyEgg825DwfufhCI=;
+ b=uYnfU7n9F1Tj8SuuQpkmOsfX89DSy6STxZThamSxEdrkX6V4fwD9PEffD+ZevVX8xN394liZUo5UxbHv80kDZ/iohSqFt6v77w0cj7HoTOQJDoiVF3mJTyJWMSZvOW1RgHV7vhPuQLkiXk2/t8jjveNUeLNtPSwkokCdEzxEdWGKkOqp40lF2sAuLf52Wtz3t7viiPojPV2u2dNakHEMUsWuJj7lAj6L+Oeq9ZRDQPwzftbzQ+yom+NsasgHMK70+OLTwof/qz417mHF/UjtHJdqG2fG5+JRWQfGY9NUbuzgW5vmO2/tF5ptGOioefOQHqGk63P571+qneH6WCvKHw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9Ufu3gGc+URal0FOVV605N524/8ns7uIDRLE5fGwWHg=;
- b=i1bXQP+oADRP1XwuZznFeU7QaU7i3DdP7TV6BKGWKOm1VgWM+gKTB4Eu6Q+tZfseMBXGtH1RhCOebbEBWZskFRc+DdaSmxX/M0q9QXcxcMnEpe8uL4pOZzokG3EvgaGPGd/9284o8BBiLYhkpcr4WlKTkyJqVPGSXlLs33TYYZA=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Message-ID: <bd96cdef-54a2-4e9f-bbc7-3c5653170f4f@amd.com>
-Date: Fri, 6 Jun 2025 12:15:07 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 2/3] arm/mpu: Provide and populate MPU C data
- structures
-To: Ayan Kumar Halder <ayankuma@amd.com>,
- Ayan Kumar Halder <ayan.kumar.halder@amd.com>, xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20250604174311.754899-1-ayan.kumar.halder@amd.com>
- <20250604174311.754899-3-ayan.kumar.halder@amd.com>
- <50c8e74e-95f6-4cea-b979-8b81d7575a21@amd.com>
- <fbfc728a-0d31-4f28-9a06-5f6458b91a55@amd.com>
-From: "Orzel, Michal" <michal.orzel@amd.com>
-Content-Language: en-US
-In-Reply-To: <fbfc728a-0d31-4f28-9a06-5f6458b91a55@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: LO4P123CA0216.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:1a5::23) To BN9PR12MB5273.namprd12.prod.outlook.com
- (2603:10b6:408:11e::22)
+ bh=e9VZL+7u7O0wdQzIObCKnPDKU6jDyEgg825DwfufhCI=;
+ b=kGmOC7K0CWExcWJVASmKxeX7rZJsoCqjDNmovN5RWMaavVwcBH5i8jOcct4GOItl8dWNbJq2kCfEO+JnJbYuzz0frczfHJBDJbk5zVahlmUJy5t34DoL2FqRAV3dWHcdK+3bVnhPfiPmXD9WZldRBY7EypxgGVOtzSUOBvfEWBA=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="UTF-8"
+Date: Fri, 6 Jun 2025 12:21:32 +0200
+Message-ID: <DAFDIY3ZUD7P.25YOTSEIDV71M@amd.com>
+CC: Alistair Francis <alistair.francis@wdc.com>, Bob Eshleman
+	<bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>, "Oleksii
+ Kurochko" <oleksii.kurochko@gmail.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+	=?utf-8?q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Stefano Stabellini
+	<sstabellini@kernel.org>, "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	<xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH v2 01/15] xen: Clean up asm-generic/device.h
+From: Alejandro Vallejo <agarciav@amd.com>
+To: Jan Beulich <jbeulich@suse.com>
+X-Mailer: aerc 0.20.1
+References: <20250605194810.2782031-1-agarciav@amd.com>
+ <20250605194810.2782031-2-agarciav@amd.com>
+ <38104467-fb7e-4aa3-9c78-0f9bf23183eb@suse.com>
+ <DAFCZ0J2JEVF.3TIHRWPDJA1PL@amd.com>
+ <20e6673b-bf85-4f9d-9938-7005a481b898@suse.com>
+In-Reply-To: <20e6673b-bf85-4f9d-9938-7005a481b898@suse.com>
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5273:EE_|CY8PR12MB9035:EE_
-X-MS-Office365-Filtering-Correlation-Id: ef986078-a0ba-47d0-eaa8-08dda4e30599
+X-MS-TrafficTypeDiagnostic: DS1PEPF00017099:EE_|SN7PR12MB7909:EE_
+X-MS-Office365-Filtering-Correlation-Id: 823466d1-5f5e-4251-f9d4-08dda4e3ebc6
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700013|7416014|376014|82310400026|1800799024;
 X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?QnlQREpOYVc0NjBtVWdVbEpXTFN6S1ppdEVEUFlJUFZTMm9wR3B6SUxnTTJS?=
- =?utf-8?B?ZTBtV2w1SDQ4bXdmMlRrLzRKdlluYU1JOW0yQ0c4S0oxK2Z6V3VsTnBtNGIx?=
- =?utf-8?B?UjErSnpra0dBMHZ6VStZVXA0MUpIQWdZUi9MUC9SWHovbDREWFNNRXFyUGpJ?=
- =?utf-8?B?cTlBTE02ZEhMRnM5WWRSYkw1VnhrdUwxbnp1QXUxcEQ2RnJpVFFCaWhyNFVn?=
- =?utf-8?B?M2s4M3NKengwRjJKYXM3MmNEVnZFMWNMWkdXVW1aNVdWUm1GcHQ3eHpZRGFQ?=
- =?utf-8?B?L1pVUGNYcVB0WDZZMzc3NC9pYUVRUWxTeGNXQ0UyaWQ2Q0Q5b2VlT01scS9V?=
- =?utf-8?B?bzVpZUQ2SWZaVFdUZmU2TnE2b2lUbXhLVjJqUTl1ektQNzlFSUFnV1paZVRa?=
- =?utf-8?B?amRjcC9MSFFodFMvRzZ2N2VLNlA4dm1aMW5SNy9xd3Z0QXlNRjNTWmxKK2NQ?=
- =?utf-8?B?RjkzWWhPTHhmQ0Z0WVF3SUhoY05URVVwVXFyMkkzTmtNeWQ2MHhZL1Q3TGZ2?=
- =?utf-8?B?ZzgrYWo5NzZQcmxxL0JuTFcxR2NQdEJGcmZFb0llRk1obFV3NmRQS2l5UlVU?=
- =?utf-8?B?bjc2ZjNuYTY1clJ5UnI2a3ptLzgvdjFnNjBxUFRmbmxOTHgrTEwvd1MzbmR5?=
- =?utf-8?B?UnFNbDlpZEh6Yjd3Mjk0cVJaUTl1VkU4ZEVDMGZPZUxsYjNDSEhWYnZqaUR3?=
- =?utf-8?B?QlBwWWxkTk5RcmRCcy8xR3ltN3IyWUYzQzRtbGt1cnNaTzJTaGh0NEJJOTJ5?=
- =?utf-8?B?TFpzcE1rR25uNGZjUnJyRmdnYkZIL1VDNW1GMWcxVzc3anFTLzdkVkxIVElw?=
- =?utf-8?B?akxNUXhSUkpqbUxNZW5aUGdDQ1N5Z3lESC9pTnhFTUM4VFp6cnhnbUtkc2ZX?=
- =?utf-8?B?aWE0T1VWYkE2cTJtOVlBNklXbEI3RDEzL1A5dmtDdktSUmNVY01JSENLS05I?=
- =?utf-8?B?emN3bGxHdWdMTytaU3MvdTFyb1BORTlpdUQzTWhkUjBPNGtCZ3ltbFM5aWRt?=
- =?utf-8?B?MXo4blcyTmt4QmRXRndzR3lKR0pLSkJKOTJwRU9RTTIzUktkczJCclcyM3Ax?=
- =?utf-8?B?RFQzVDZJUzgzelg4T0daVHBvWFBPSnFSQSthNUtzTnBVVnpQMTMweGEzT2Jr?=
- =?utf-8?B?dzJRdlJ3TDdNMnlrU0J1NUgxMVZidjFHRmhpZ25zVjNXUHk0MmxmTG8xUG5Z?=
- =?utf-8?B?T01DZjZ3OGdlSXdBRy8vZWRxUlFNbng3ZlFUUm0rbnA2Q0VkdFpwa251QU9E?=
- =?utf-8?B?ZTRZOHlZTk4zYUxuVkJUcWZIWDBXK1I5U25hSlBEUEJ3Mi9OdDFZajRUaWo2?=
- =?utf-8?B?VVAxYU1EWlU1Y1lCdExqdHVUQkdVWXJFdW5rckwwMWxCTkVlUjBJNFR4UWFy?=
- =?utf-8?B?bmcxTzBIOFpxR2dPWGRPcTcwVDV0Z09Bckh6cHB1Ykh3NnhxNXlQclM2SStr?=
- =?utf-8?B?ZW0rTlFSMFg5OTcxN2dPL25jSXB6TkFmKzRhdzNEWVBLcWJ3SDhJSFIyUmhW?=
- =?utf-8?B?czhlYk5KTFl4OG5hdUFJNmRIbG02dWEvYkNqeUJGRGdhNHp2U0NtbVI3eEVi?=
- =?utf-8?B?bW9VcnBBUi9GTFZGM20zL3A0Zm4rMW9xMDRKaXkvdlZaU25ZODNmL3pJaUg4?=
- =?utf-8?B?ZGFwM3RJcVdKRVV5MDdtWGtLcjFOZUY0MlRZUDA5ZlVWWTFoOXJFRUJ5cTFq?=
- =?utf-8?B?MEUwajZhb1NBaWtkam5XKzdyTGVJUnc3NUc5cGpnVzd4WnJSbEQvaDZuallu?=
- =?utf-8?B?TTJXaWk4SEFXSnpzWG1NQ1JkVnhYaTZUUEVxcElQcVBYNHNJR1hEcDJMZDFn?=
- =?utf-8?B?V2xtNlJSOCs4MlNlMnIwMlVUKy9FMFlpZmZ3cXJXbWlMb0Mwb1RUTTZ3ZFRv?=
- =?utf-8?B?Y3pWU3g5OE4xWGpaYWFpNWdNUjdwNVJkbW12UTlyVnQwcVNkL2dtaERiRWxp?=
- =?utf-8?Q?4kuIYovb5ng=3D?=
+	=?utf-8?B?U29yNkY3TG1xeW56TWphNW5XRmtKVllvaVpkUk9uOElnRndqQlZHaU95bVlz?=
+ =?utf-8?B?YXpSOFJ0M0FmUkpHaHYwa3lDaEpEWFdlSE81Rmw2TmttVnpyRjg2NW9QQ291?=
+ =?utf-8?B?T3RwNGNSNTlzTjRYVEdFaWoxQ0c4bFJDN3VhMU01SkgrTStRWlAxa1Y4REp5?=
+ =?utf-8?B?VXBBbW1YcXAzNGtlS2NodkVLaGJmODZtUnpuc3UrV3ZBZXFPc1FxK1FUWDlM?=
+ =?utf-8?B?MkF1MXQ1dDR3NmFxcnRwbUttdTJ6eHFVUXJVS1lhS2loUmVRdjloTVc4dmo0?=
+ =?utf-8?B?ZjRhZnZ0d2lFY3JzaUw4a2k4czBSZk83OXRtNUVSVEhQUEJaNkhodmRyK3Ir?=
+ =?utf-8?B?STN1Y3BweTBmV0ZXQjNCc2lQWGgwMGt2eldrNE5lVC9teG5lcXI3VmpaNXE0?=
+ =?utf-8?B?K0t0UVZ2MVl0RkFoWlkwakQ1U3JseFh6NXo2QTVZcUMrZEtVR1dwdnI0Sjdo?=
+ =?utf-8?B?dG9rRmh0OFRjakljRyt1RWNGTHNCR3VKc28vaHplNHVka3c2amxQTmp3RWhX?=
+ =?utf-8?B?SUJ6bEVMZ3ZVMkZVYUN1c3Rra1FoME9ick8rZ05MRkpsTUJ5YzdSQTlZcFJW?=
+ =?utf-8?B?TVVxb2lnK1pQVjJBbEhYWFJHOHZ4eDBsMG84dFI5RE5Gd0hkWTFtTGhweWdt?=
+ =?utf-8?B?R1RIVmFaeUdLcFpDSFNPeFM5c3hkaVJFMXhOMUcvYTNBWkVFUVZwSnNuU0lP?=
+ =?utf-8?B?eFVVZ0RDajRYdi9tRjd2N0oxNGxiV3hBcjQ1RlFhM2RqY0tNVUFyRCtkRGVM?=
+ =?utf-8?B?STNjWmVsNTd5NmRILy9YSUtCWFNzeXI0YThFQjMybXVqS0JrYTNCaXAzUTB0?=
+ =?utf-8?B?UVFHQTlRM2JEdFJoOXlqVzNFZXMrdW14MUhjSHNabmhYYjl1T1M1YjhlRXVU?=
+ =?utf-8?B?bnlBR2VWcHlZRlN3Q2Eyc3VySjVQZnI5NlMrMzJRZmhkRnprT0lJbU5vb2lj?=
+ =?utf-8?B?OTh5YWoxR3FCMUdiRTcrYThZMk9VUjF6NHZUdThDWFhoalEybHFPaWZlVkdX?=
+ =?utf-8?B?MUdtWFFMcFJXMTM5NjNqbndyQ2gyTmJLRjdqbEI5REc0S3lnQWM3UjQvQ2hU?=
+ =?utf-8?B?T2xLdGdqZmNzZmJZZGJHMlJleWZ0bzdTV2RuclY1WnA3cVpBc0dBcjZoY1lQ?=
+ =?utf-8?B?S0J6UXlqT0NydTJKaVl6NlRhQXhHaG1KZWpXU1FTQUtyU2h5ZGEwUkpJYTda?=
+ =?utf-8?B?T3h3T0JhV0N3dTljYlBqdENKM0dVeDNsdkJpU3pxRnArZVYweFJOaXN0dWJm?=
+ =?utf-8?B?Qkk0UTFHV3g0WEY5T3FnN3FDNzQ2S0pnK1RLWS9tUXIyL1I5YkYyQWh3V3Ew?=
+ =?utf-8?B?SG80Ykc1NU1hWmhoMFdSZ2hVWFgydVdaQXJ6MnVUT3I4ZEFUeGNIY0F4NXEy?=
+ =?utf-8?B?S1ozMzVHSkJPWnhLbW5GMFdja0tNY1BiOE8vVUlPVmgvaG1BdVUvRHZDTEFz?=
+ =?utf-8?B?NmtRRVFiVmFPSXl2bUhPSzlZWURCV09zM0c3bkwwbnVDZmVJUm41N2k3V01M?=
+ =?utf-8?B?SHJBaFUzQ1NZRUpwclZMUTh4SzRBOC93TjhMY1NPSEFPT1hlY20wWXVYNmQx?=
+ =?utf-8?B?ZnYrckY3YkZNa2RFK2pTQzNIc20wT3MydjVZckg0elgyVFhhQTR0aHRDQjZ4?=
+ =?utf-8?B?ejdIdG1rdjE1S3AydEoyNGl4YzlZdVl5SksyNkpUTE5UM2VjSEdDY3lGSGpj?=
+ =?utf-8?B?cFo5VHRYVHI4Z2kxN2w4UjhST0VvdmxwUU9Iem5hZHgwYUxIUFM1emM2ZjU4?=
+ =?utf-8?B?UkNQSlk3Y3Z1bFdtenVzZ2VHTHZqeFdKVWVDamM2UDlJSEttSHA4dVZ1Q3c5?=
+ =?utf-8?B?dlZ5dVozcWhVSis2N0tveW44OXVCdTNHUTRYTVVjSlBUbnhhbWUvdlRZcHRX?=
+ =?utf-8?B?UFhnRlQvV1BrbW1JMkU4RjRlZzdYVHZUSVl6ZUtMVTRRa1J5SEVlK1d3cjc2?=
+ =?utf-8?B?ZkI4cGlraUthSjlPRlJ0UEtJNjMrdmlyOW1rVHNTWXN1enE1bG5QRHBPT0xZ?=
+ =?utf-8?B?blhCb3VhditoQWk2WGR4US96cVA5YWxOR1dBZVZzVlFUVFR5MmFmYWlyeXVy?=
+ =?utf-8?Q?5Cn3HH?=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN9PR12MB5273.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?aFhkSldhYWtxL0UzMW14emdSS1duZVVhWUkzOU9zNGRrWkh3eVVyTGJ1cXV5?=
- =?utf-8?B?d0tEc1NYSm80UnhjbXovdWRyT2w1b0Y5UjdOZ3pRR3g5dytIb1Q3VjRpaTJl?=
- =?utf-8?B?NnN0aXNFSmUrczBpQ0JLRVJFNkgxbktPc0crd29UOWVBcllzUVhzNEZGcWhP?=
- =?utf-8?B?YzFacnVxNGJWQy9qSWRiKzhsRS9HUkxvR3JaTjlxMktJc1l6eklPTDhuZzVR?=
- =?utf-8?B?K0R1S2pHVVpyVWtGNVRtNFJxTHVtZVVhYkJweENKYW1oZHp4ZERLVUJsaVRa?=
- =?utf-8?B?dWp5UTlSYll1dkt1ZmRJcjhUR0c1eVAvcEpLM1Vhdm9Eb0F1U3M0dGEzWjN6?=
- =?utf-8?B?SSt1SkR2clY3U0U5UHFJdVNRQ3poNjJRNnBMN3JOeXJOaG5US25NVkxTeSs4?=
- =?utf-8?B?azY1cUpvTk1MbjlXSi9ZdVhjYVBtenYwajJ3YXd1bTVPUkdqOUQwSUJTWlI3?=
- =?utf-8?B?V1JFaUVXL3RGYlZpS3A4UTU4SjRlWnVKZHBGUjRpRHB3QnpmUm5uZ05pU1l4?=
- =?utf-8?B?cHY5M3MrRlFtakV4dUFNcHBlRFBDS0R4alR2Vm5IcmM2WmcwcWlXTys5TVpQ?=
- =?utf-8?B?aVpKUk9nR21iTUJKSU9GNjhweUJSdmxSYWJxTlhLa0xnZ3dBRGdDeDlteWVp?=
- =?utf-8?B?M3FoOFVDaHdrRmV6M0ZOV0tKSWZKWXBIcUM1UUw4UmJVNVZJOHRHSlc3TTJS?=
- =?utf-8?B?MEV1WlR5cE5Panc0OHlCR0Iwa3FOTW1XT1U3RnJQVlNLb1BqU2FkR3ltVE1k?=
- =?utf-8?B?Y05qNjdJcnpzWVJCd0RxaEQ0cUFnNGQxQVl1TlFFL3FwcXFNbnVsdjRteVBP?=
- =?utf-8?B?WVROOG9JbjNlQlNjVEE0bXMvRkF5QUJjSU5iL0ZjWW1KWmNEc2xJTktVdWo2?=
- =?utf-8?B?TkkyUmdxb3Vjc2pWcVFrWXFNblFXdm9OZFYvTXdoVGJGdXpoa01hNmkyMjdV?=
- =?utf-8?B?WUluelhmS0txNDV2ZmZ1bjNJNFhlRXBjVzJMcnVhOVBOdWNtQjNHTmh5R2ZG?=
- =?utf-8?B?UFdXM3dsb1lhV2VPR1FhS3dqMC9MNEt4NWp3ZVJLK1hEb3gvSzFoWDZCR1FZ?=
- =?utf-8?B?VTBBaGd3SVBDZEhzTmd2Q00wcGpYVHFOLzN2UXltdkVsR3FMSDBGczcwUWE0?=
- =?utf-8?B?RVlJY1h3clZCZ2YzRWRkcldid1ltcFpCempDQ0UwTUlQREhRVTdoek9NTGVm?=
- =?utf-8?B?SlNVUmpjWnRWTzZwSVB3S2g0SnhObHpad2drMkhOV1lGZjIrQzNOZ29ySndR?=
- =?utf-8?B?STRVOEI3YjJrN3VpcmpOa0VRZ2llYjBLcXA0elJ1VTY1YWc3MUdFdjZnL1N3?=
- =?utf-8?B?QlVrT2xVNnRHaXdsSTUzS1BOcUw5SWxIZFdTQ2JTb3IwcS9GanNVbmIxcGps?=
- =?utf-8?B?eFJUcW1jMEpDTkRLT09QWFJCRzBCWk9KdFdlTGt4MHB5YVN4ZWhkNGpia2xw?=
- =?utf-8?B?SEpIZXRxbTNSTFN4RWcvdEQxbzhLNWlrUGVjaDJ4VFJLRG1ib2IwK2ZkZ1Fm?=
- =?utf-8?B?d2lYRzZMNE8zTXF0a25JcVNReFBYRkdrU3hZZGp4MFJRRUZUbDhSU2dnemNt?=
- =?utf-8?B?dFMxUkh3YlYvc3lMUDlWT1hJaTB0czFENkRLSVhkR1Y1QTBHcFZMM1NsZVhO?=
- =?utf-8?B?MVAxT0FPbklxSnZzNDA3TkYvTjlXQXY5cWZpalQyM0NoMEx0emY4Ry8remh0?=
- =?utf-8?B?NENheVFUUVN2Z2QrSDZuTmJaL1Y5djFzTHlsRUEvMmdaemlyREtUS0RWT1Ax?=
- =?utf-8?B?N3JtZHg4RFlBVXNBcWtRQzMxOVFpeXdmcjhPMWVWbjllbS90QmxVOGp6blVr?=
- =?utf-8?B?YjdEYUNwdkwzajFLTWNIUm9uYWlYR25teW1Mejl0Q3hpbXFhVlcyTC9NVlZw?=
- =?utf-8?B?c2orcG1qT3Vib3VlcUVncUpkTXhRTExvbmZLTnZkRWZLTjJBQ1N0a3FaUlpQ?=
- =?utf-8?B?SHFoZkJlQVVyYTkvYWRCSldQVmo1czdpL0tqZkUxTFg0ZFJKR1BVVGhydmJt?=
- =?utf-8?B?emRzUGZGVXpveWNZbGxqbGdBUS9Bb3VkTGhuZDFtNFJYYmRMMndYWVVzL2Vy?=
- =?utf-8?B?c1ErNjVYTEdnNUp3cGZZZzVvUGc0b1d5akw2RkpjbnZRWWlpanZ3dnkvUmdE?=
- =?utf-8?Q?4vWX86RNdzqCd50f/QGqzlUe8?=
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(7416014)(376014)(82310400026)(1800799024);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ef986078-a0ba-47d0-eaa8-08dda4e30599
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5273.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jun 2025 10:15:11.7156
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jun 2025 10:21:37.5902
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Network-Message-Id: 823466d1-5f5e-4251-f9d4-08dda4e3ebc6
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: AZUVC9GwF6fiPEZliHq7snwA4sVXTuakYgw4IcAh754kvtlGY5tP+fRFQnLmB2Z2
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB9035
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DS1PEPF00017099.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7909
 
-
-
-On 05/06/2025 16:27, Ayan Kumar Halder wrote:
-> Hi Michal/Julien,
-> 
-> On 05/06/2025 08:44, Orzel, Michal wrote:
->>
->> On 04/06/2025 19:43, Ayan Kumar Halder wrote:
->>> Do the arm32 equivalent initialization for commit id ca5df936c4.
->> This is not a good commit msg.
->> Also, we somewhat require passing 12 char long IDs.
-> 
-> Modify Arm32 assembly boot code to reset any unused MPU region, 
-> initialise 'max_mpu_regions' with the number of supported MPU regions 
-> and set/clear the bitmap 'xen_mpumap_mask' used to track the enabled 
-> regions.
-> 
-> Use the macro definition for "dcache_line_size" from linux.
-> 
-> Does ^^^ read fine ?
-Yes, it certainly reads better.
-
-~Michal
-
-> 
->>
->>> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
->>> ---
->>>   xen/arch/arm/arm32/asm-offsets.c         |  6 +++
->>>   xen/arch/arm/arm32/mpu/head.S            | 57 ++++++++++++++++++++++++
->>>   xen/arch/arm/include/asm/mpu/regions.inc |  8 +++-
->>>   3 files changed, 70 insertions(+), 1 deletion(-)
+On Fri Jun 6, 2025 at 12:03 PM CEST, Jan Beulich wrote:
+> On 06.06.2025 11:55, Alejandro Vallejo wrote:
+>> On Fri Jun 6, 2025 at 8:51 AM CEST, Jan Beulich wrote:
+>>> On 05.06.2025 21:47, Alejandro Vallejo wrote:
+>>>> --- a/xen/include/asm-generic/device.h
+>>>> +++ b/xen/include/asm-generic/device.h
+>>>> @@ -1,14 +1,20 @@
+>>>>  /* SPDX-License-Identifier: GPL-2.0-only */
+>>>> +/*
+>>>> + * This header helps DTB-based architectures abstract away where a pa=
+rticular
+>>>> + * device came from, be it the DTB itself or enumerated on a PCI bus.
+>>>> + */
+>>>>  #ifndef __ASM_GENERIC_DEVICE_H__
+>>>>  #define __ASM_GENERIC_DEVICE_H__
+>>>> =20
+>>>> +#ifndef CONFIG_HAS_DEVICE_TREE
+>>>> +#error "Header for exclusive use of DTB-based architectures"
+>>>> +#endif
+>>>> +
+>>>>  #include <xen/stdbool.h>
+>>>> =20
+>>>>  enum device_type
+>>>>  {
+>>>> -#ifdef CONFIG_HAS_DEVICE_TREE
+>>>>      DEV_DT,
+>>>> -#endif
+>>>>      DEV_PCI
+>>>>  };
 >>>
->>> diff --git a/xen/arch/arm/arm32/asm-offsets.c b/xen/arch/arm/arm32/asm-offsets.c
->>> index 8bbb0f938e..c203ce269d 100644
->>> --- a/xen/arch/arm/arm32/asm-offsets.c
->>> +++ b/xen/arch/arm/arm32/asm-offsets.c
->>> @@ -75,6 +75,12 @@ void __dummy__(void)
->>>   
->>>      OFFSET(INITINFO_stack, struct init_info, stack);
->>>      BLANK();
->>> +
->>> +#ifdef CONFIG_MPU
->>> +   DEFINE(XEN_MPUMAP_MASK_sizeof, sizeof(xen_mpumap_mask));
->>> +   DEFINE(XEN_MPUMAP_sizeof, sizeof(xen_mpumap));
->>> +   BLANK();
->>> +#endif
->>>   }
->>>   
->>>   /*
->>> diff --git a/xen/arch/arm/arm32/mpu/head.S b/xen/arch/arm/arm32/mpu/head.S
->>> index b2c5245e51..1f9eec6e68 100644
->>> --- a/xen/arch/arm/arm32/mpu/head.S
->>> +++ b/xen/arch/arm/arm32/mpu/head.S
->>> @@ -10,6 +10,38 @@
->>>   #include <asm/mpu/regions.inc>
->>>   #include <asm/page.h>
->>>   
->>> +/*
->>> + * dcache_line_size - get the minimum D-cache line size from the CTR register.
->>> + */
->> I do think we should have a cache.S file to store cache related ops just like
->> for Arm64.
-> ok, I will introduce a new file.
->> Also, no need for multiline comment.
-> ack.
->>
->>> +    .macro  dcache_line_size, reg, tmp1, tmp2
->> I would prefer to use the macro from Linux that uses one temporary register
-> /*
->   * dcache_line_size - get the minimum D-cache line size from the CTR 
-> register
->   * on ARMv7.
->   */
->      .macro  dcache_line_size, reg, tmp
->      mrc p15, 0, \tmp, c0, c0, 1     /* read ctr */
->      lsr \tmp, \tmp, #16
->      and \tmp, \tmp, #0xf             /* cache line size encoding */
->      mov \reg, #4                          /* bytes per word */
->      mov \reg, \reg, lsl \tmp         /* actual cache line size */
->      .endm
-> 
->>
->>> +    mrc CP32(\reg, CTR)           // read CTR
->> NIT: wrong comment style + wrong alignment
-> yes, I should use /* ... */
->>
->>> +    ubfx   \tmp1, \reg, #16, #4   // Extract DminLine (bits 19:16) into tmp1
->>> +    mov    \tmp2, #1
->>> +    lsl    \tmp2, \tmp2, \tmp1    // tmp2 = 2^DminLine
->>> +    lsl    \tmp2, \tmp2, #2       // tmp2 = 4 * 2^DminLine = cache line size in bytes
->>> +    .endm
->>> +
->>> +/*
->>> + * __invalidate_dcache_area(addr, size)
->>> + *
->>> + * Ensure that the data held in the cache for the buffer is invalidated.
->>> + *
->>> + * - addr - start address of the buffer
->>> + * - size - size of the buffer
->>> + */
->>> +FUNC(__invalidate_dcache_area)
->>> +    dcache_line_size r2, r3, r4
->>> +    add   r1, r0, r1
->>> +    sub   r4, r2, #1
->>> +    bic   r0, r0, r4
->>> +1:  mcr   CP32(r0, DCIMVAC)     /* invalidate D line / unified line */
->>> +    add   r0, r0, r2
->>> +    cmp   r0, r1
->>> +    blo   1b
->>> +    dsb   sy
->>> +    ret
->>> +END(__invalidate_dcache_area)
->>> +
->>>   /*
->>>    * Set up the memory attribute type tables and enable EL2 MPU and data cache.
->>>    * If the Background region is enabled, then the MPU uses the default memory
->>> @@ -49,6 +81,10 @@ FUNC(enable_boot_cpu_mm)
->>>       mrc   CP32(r5, MPUIR_EL2)
->>>       and   r5, r5, #NUM_MPU_REGIONS_MASK
->>>   
->>> +    ldr   r0, =max_mpu_regions
->> Why ldr and not mov_w?
-> mov_w   r0, max_mpu_regions
->>
->>> +    str   r5, [r0]
->>> +    mcr   CP32(r0, DCIMVAC) /* Invalidate cache for max_mpu_regions addr */
->>> +
->>>       /* x0: region sel */
->>>       mov   r0, #0
->>>       /* Xen text section. */
->>> @@ -83,6 +119,27 @@ FUNC(enable_boot_cpu_mm)
->>>       prepare_xen_region r0, r1, r2, r3, r4, r5, attr_prbar=REGION_DEVICE_PRBAR, attr_prlar=REGION_DEVICE_PRLAR
->>>   #endif
->>>   
->>> +zero_mpu:
->>> +    /* Reset remaining MPU regions */
->>> +    cmp   r0, r5
->>> +    beq   out_zero_mpu
->>> +    mov   r1, #0
->>> +    mov   r2, #1
->>> +    prepare_xen_region r0, r1, r2, r3, r4, r5, attr_prlar=REGION_DISABLED_PRLAR
->>> +    b     zero_mpu
->>> +
->>> +out_zero_mpu:
->>> +    /* Invalidate data cache for MPU data structures */
->>> +    mov r5, lr
->>> +    ldr r0, =xen_mpumap_mask
->> Why not mov_w?
-> mov_w r0, xen_mpumap_mask
->>
->>> +    mov r1, #XEN_MPUMAP_MASK_sizeof
->>> +    bl __invalidate_dcache_area
->>> +
->>> +    ldr r0, =xen_mpumap
->>> +    mov r1, #XEN_MPUMAP_sizeof
->>> +    bl __invalidate_dcache_area
->>> +    mov lr, r5
->>> +
->>>       b    enable_mpu
->>>   END(enable_boot_cpu_mm)
->>>   
->>> diff --git a/xen/arch/arm/include/asm/mpu/regions.inc b/xen/arch/arm/include/asm/mpu/regions.inc
->>> index 6b8c233e6c..943bcda346 100644
->>> --- a/xen/arch/arm/include/asm/mpu/regions.inc
->>> +++ b/xen/arch/arm/include/asm/mpu/regions.inc
->>> @@ -24,7 +24,13 @@
->>>   #define XEN_MPUMAP_ENTRY_SHIFT  0x3     /* 8 byte structure */
->>>   
->>>   .macro store_pair reg1, reg2, dst
->>> -    .word 0xe7f000f0                    /* unimplemented */
->>> +    str \reg1, [\dst]
->>> +    add \dst, \dst, #4
->>> +    str \reg2, [\dst]
->> AFAIR there is STM instruction to do the same
-> strd \reg1, \reg2, [\dst]
->>
->>> +.endm
->>> +
->>> +.macro invalidate_dcache_one reg
->>> +    mcr CP32(\reg, DCIMVAC)
->> Why? You don't seem to use this macro
-> 
-> oh, this can be removed.
-> 
-> - Ayan
-> 
->>
->>>   .endm
->>>   
->>>   #endif
->> ~Michal
->>
+>>> My objection to these changes remains; as a generic header it ought to =
+be what
+>>> that attribute says - generic.
+>>=20
+>> It is generic for any architecture where platform DTs exist (that is, an=
+ything
+>> but x86).
+>
+> Here you're limiting things to what Xen presently "knows". I'm sure there=
+ are
+> other architectures where DT is entirely unknown.
 
+You'll struggle a lot to find one such arch unless you want to revive the
+itanium port, and even then itanium would simply re-use x86's asm override.
+
+>
+> Furthermore isn't the work here part of the hyperlaunch effort, where DT =
+will
+> be introduced to x86? Hence "anything but" isn't quite right either then.
+>
+> Jan
+
+Not a general DTB, no. A DTB defines the platform (in the same vein as a AC=
+PI/
+DSDT), with all platform devices enumerated there. x86 will not get any of =
+that.
+
+Without devices defined in the DTB, my original point still stands.
+
+In general, if you don't have DT devices you typedef device_t to pci_dev to
+avoid these wrappers altogether, and if you do you don't and the ifdef guar=
+ds
+stop having meaning.
+
+If you remain unconvinced and others don't pitch in I'll just drop it from =
+v3.
+As I said, it's not essential.
+
+Cheers,
+Alejandro
 
