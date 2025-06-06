@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ADDC6AD0926
-	for <lists+xen-devel@lfdr.de>; Fri,  6 Jun 2025 22:50:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1008864.1388035 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A4D03AD0948
+	for <lists+xen-devel@lfdr.de>; Fri,  6 Jun 2025 23:05:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1008878.1388044 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uNe0p-0006vj-99; Fri, 06 Jun 2025 20:50:03 +0000
+	id 1uNeF0-0000r2-EI; Fri, 06 Jun 2025 21:04:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1008864.1388035; Fri, 06 Jun 2025 20:50:03 +0000
+Received: by outflank-mailman (output) from mailman id 1008878.1388044; Fri, 06 Jun 2025 21:04:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uNe0p-0006t0-60; Fri, 06 Jun 2025 20:50:03 +0000
-Received: by outflank-mailman (input) for mailman id 1008864;
- Fri, 06 Jun 2025 20:50:01 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uNeF0-0000pI-Bg; Fri, 06 Jun 2025 21:04:42 +0000
+Received: by outflank-mailman (input) for mailman id 1008878;
+ Fri, 06 Jun 2025 21:04:40 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=YRk0=YV=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1uNe0n-0006Zl-N6
- for xen-devel@lists.xenproject.org; Fri, 06 Jun 2025 20:50:01 +0000
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id cf619af4-4317-11f0-a303-13f23c93f187;
- Fri, 06 Jun 2025 22:50:00 +0200 (CEST)
+ id 1uNeEy-0000p9-Rz
+ for xen-devel@lists.xenproject.org; Fri, 06 Jun 2025 21:04:40 +0000
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d94b8d4d-4319-11f0-b894-0df219b8e170;
+ Fri, 06 Jun 2025 23:04:35 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 62A254A004;
- Fri,  6 Jun 2025 20:49:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21248C4CEEB;
- Fri,  6 Jun 2025 20:49:57 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 1B5EB629D9;
+ Fri,  6 Jun 2025 21:04:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9887FC4CEF1;
+ Fri,  6 Jun 2025 21:04:32 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,91 +41,165 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cf619af4-4317-11f0-a303-13f23c93f187
+X-Inumbo-ID: d94b8d4d-4319-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1749242998;
-	bh=xAy6gZUzwwIuy9i+E0bR+GSdhMng2kiIqWPC2S9quIk=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=kv6hC3yYXEo3j9YzmQZAzC46fIpzTdVbfy++M3Bcw5k8iGFmeJKFb7voDlU6QY6bn
-	 jmWV25qqXF1EsJqJ/8e3ANtilF9HUsse6w6TfdnRc7huO2100IP8LvWmvIM1XOaiRJ
-	 b7ZO4AamEZbJ9CqiB6ZldbI18xtnv8V0MCiZxGE3gMp3t18WL33ek2qKeSXxXV02eX
-	 9+TQfsH5qVxy42lkKpJpKhG7xRF/+GXFA/upAOUHyIcgTagwreiOvl5w6sWhUzWdg5
-	 OItIQDCddDwcsqoy1BeNq180akgMn4U5KqhyTj+R/42yeiJciSmZA0m9XTOfuA+3sR
-	 f1irPngEc9BOw==
-Date: Fri, 6 Jun 2025 13:49:56 -0700 (PDT)
+	s=k20201202; t=1749243873;
+	bh=X8cYOL4YCMIKMC8uDJlrxH6w/ePZilNmWdJ2hhxLK8U=;
+	h=Date:From:To:cc:Subject:From;
+	b=WB5qk2004qx6eVgaTXdhl4aXvyTOvtYDFZ/sRLesYsRsJhy2iJ2OMBfsG8Ntaug6q
+	 U/Y/MHM5ZhQ0d7kUpXtpG1tfCUkI6n4p3iJFUPM/EnLrHbYhEpSkDhAVPJ3BTRC2Rc
+	 PPIFktCu69d6Bu2mLBZP/r+m0VvUDZ+Jzap4S4+AvfN4p6X3lwhGhbSGDTHAsbQTRf
+	 BQ5CblkmA+2UtkR3jHSxk+CV9Qm99y27gw5XYAQFkmtZnXg3sriZnM8hdFxIKjjX/p
+	 ntZjD7qdBovNUzLtN8QKvb34edKXDJYTn+0cfu4BActwJe2RSy/kgFng0x2bwOuGvP
+	 Ybw7e/c/m0QdQ==
+Date: Fri, 6 Jun 2025 14:04:32 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    Jan Beulich <jbeulich@suse.com>, 
-    Stefano Stabellini <stefano.stabellini@amd.com>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>, 
-    xen-devel@lists.xenproject.org, federico.serafini@bugseng.com
-Subject: Re: [PATCH] x86: remove memcmp calls non-compliant with Rule
- 21.16.
-In-Reply-To: <13ad335c1868bcc02e2dc0a8da521f6d@bugseng.com>
-Message-ID: <alpine.DEB.2.22.394.2506061347230.2495561@ubuntu-linux-20-04-desktop>
-References: <20250604233537.2892206-1-stefano.stabellini@amd.com> <c252a43a-4e00-4584-bbb1-05347aa9b49f@suse.com> <alpine.DEB.2.22.394.2506051624050.2495561@ubuntu-linux-20-04-desktop> <13ad335c1868bcc02e2dc0a8da521f6d@bugseng.com>
+To: xen-devel@lists.xenproject.org
+cc: Andrew Cooper <andrew.cooper3@citrix.com>, 
+    Stefano Stabellini <stefano.stabellini@amd.com>, michal.orzel@amd.com, 
+    jbeulich@suse.com, julien@xen.org, roger.pau@citrix.com, 
+    sstabellini@kernel.org, bertrand.marquis@arm.com, 
+    federico.serafini@bugseng.com, Nicola Vetrini <nicola.vetrini@bugseng.com>
+Subject: [PATCH v4] automation/eclair: update configuration of D4.10
+Message-ID: <alpine.DEB.2.22.394.2506061403280.2495561@ubuntu-linux-20-04-desktop>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Fri, 6 Jun 2025, Nicola Vetrini wrote:
-> > > > Signed-off-by: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
-> > > 
-> > > Missing your own S-o-b.
-> > > 
-> > > Also (nit) may I ask that you drop the full stop from the patch subject?
-> > 
-> > I'll add the S-o-B and fix the subject
-> > 
-> > 
-> > > > --- a/xen/arch/x86/dmi_scan.c
-> > > > +++ b/xen/arch/x86/dmi_scan.c
-> > > > @@ -233,7 +233,7 @@ void __init dmi_efi_get_table(const void *smbios,
-> > > const void *smbios3)
-> > > >  	const struct smbios_eps *eps = smbios;
-> > > >  	const struct smbios3_eps *eps3 = smbios3;
-> > > >
-> > > > -	if (eps3 && memcmp(eps3->anchor, "_SM3_", 5) == 0 &&
-> > > > +	if (eps3 && strncmp(eps3->anchor, "_SM3_", 5) == 0 &&
-> > > 
-> > > Unlike the last example given in the doc, this does not pose the risk of
-> > > false "not equal" returns. Considering there's no example there exactly
-> > > matching this situation, I'm not convinced a change is actually needed.
-> > > (Applies to all other changes here, too.)
-> > 
-> > If we consider string literals "pointer types", then I think you are
-> > right that this would fall under what is permitted by 21.16. Nicola,
-> > what do you think?
-> > 
-> 
-> While I agree that the result of the comparison is correct either way in these
-> cases, the rule is written to be simple to apply (i.e., not limited only to
-> those cases that may differ), and in particular in the rationale it is
-> indicated that using memcmp to compare string *may* indicate a mistake. As
-> written above, deviating the string literal comparisons is an option, which
-> can be justified with efficiency concerns, but it goes a bit against the
-> rationale of the rule itself.
+MISRA C Directive 4.10 states that "Precautions shall be taken in order
+to prevent the contents of a header file being included more than
+once".
 
-Also looking at Andrew's reply, it seems that the preference is to
-deviate string literals. The change to docs/misra/rules.rst is easy
-enough, but I am not sure how to make the corresponding change to
-analysis.ecl.
+Add a SAF tag to the existing comment on top of cpufeatures.h.
+Add a header inclusion guard to compile.h.
 
-diff --git a/docs/misra/rules.rst b/docs/misra/rules.rst
-index e1c26030e8..56b6e351df 100644
---- a/docs/misra/rules.rst
-+++ b/docs/misra/rules.rst
-@@ -813,7 +813,7 @@ maintainers if you want to suggest a change.
-        shall point to either a pointer type, an essentially signed type,
-        an essentially unsigned type, an essentially Boolean type or an
-        essentially enum type
--     - void* arguments are allowed
-+     - void* and string literals arguments are allowed
+Update ECLAIR configuration to:
+- extend existing deviation to other comments explicitly saying a file
+  is intended for multiple inclusion;
+- extend existing deviation to other autogenerated files;
+- tag the guidelines as clean.
+
+Update deviations.rst accordingly.
+
+Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
+Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+---
+Changes in v4:
+- remove deviation for
+  xen/arch/{arm,x86}/include/generated/asm/\*
+---
+ automation/eclair_analysis/ECLAIR/deviations.ecl | 11 +++++++----
+ automation/eclair_analysis/ECLAIR/tagging.ecl    |  1 +
+ docs/misra/deviations.rst                        | 12 ++++++++++++
+ xen/arch/x86/include/asm/cpufeatures.h           |  8 +++++---
+ xen/include/xen/compile.h.in                     |  3 +++
+ xen/tools/process-banner.sed                     |  5 +++++
+ 6 files changed, 33 insertions(+), 7 deletions(-)
+
+diff --git a/automation/eclair_analysis/ECLAIR/deviations.ecl b/automation/eclair_analysis/ECLAIR/deviations.ecl
+index 9c67358d46..3b5bc87e1d 100644
+--- a/automation/eclair_analysis/ECLAIR/deviations.ecl
++++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
+@@ -72,11 +72,14 @@ they are not instances of commented-out code."
+ -config=MC3A2.D4.3,reports+={deliberate, "any_area(any_loc(file(arm64_bitops))&&context(name(int_clear_mask16)))"}
+ -doc_end
  
-    * - `Rule 21.17 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_21_17.c>`_
-      - Mandatory
+--doc_begin="Files that are intended to be included more than once do not need to
+-conform to the directive."
++-doc_begin="Files that are intended to be included more than once (and have
++a comment that says this explicitly) do not need to conform to the directive."
+ -config=MC3A2.D4.10,reports+={safe, "first_area(text(^/\\* This file is intended to be included multiple times\\. \\*/$, begin-4))"}
+--config=MC3A2.D4.10,reports+={safe, "first_area(text(^/\\* Generated file, do not edit! \\*/$, begin-3))"}
+--config=MC3A2.D4.10,reports+={safe, "all_area(all_loc(file(^xen/include/generated/autoconf.h$)))"}
++-config=MC3A2.D4.10,reports+={safe, "first_area(text(^/\\* Generated file, do not edit! \\*/$, begin-3...begin-2))"}
++-doc_end
++
++-doc_begin="Autogenerated files that do not need to conform to the directive."
++-config=MC3A2.D4.10,reports+={safe, "all_area(all_loc(file(^xen/include/generated/autoconf\\.h$)))"}
+ -doc_end
+ 
+ -doc_begin="Including multiple times a .c file is safe because every function or data item
+diff --git a/automation/eclair_analysis/ECLAIR/tagging.ecl b/automation/eclair_analysis/ECLAIR/tagging.ecl
+index f9da5d5f4d..b95f07feb0 100644
+--- a/automation/eclair_analysis/ECLAIR/tagging.ecl
++++ b/automation/eclair_analysis/ECLAIR/tagging.ecl
+@@ -23,6 +23,7 @@
+ "MC3A2.D1.1||
+ MC3A2.D2.1||
+ MC3A2.D4.1||
++MC3A2.D4.10||
+ MC3A2.D4.11||
+ MC3A2.D4.14||
+ MC3A2.R1.1||
+diff --git a/docs/misra/deviations.rst b/docs/misra/deviations.rst
+index fe0b1e10a2..63caa8f4a2 100644
+--- a/docs/misra/deviations.rst
++++ b/docs/misra/deviations.rst
+@@ -30,6 +30,18 @@ Deviations related to MISRA C:2012 Directives:
+        not to add an additional encapsulation layer.
+      - Tagged as `deliberate` for ECLAIR.
+ 
++   * - D4.10
++     - Files that are intended to be included more than once (and have
++       a comment that says this explicitly) do not need to conform to the
++       directive.
++     - Tagged as `safe` for ECLAIR.
++
++   * - D4.10
++     - There are autogenerated files that do not need to comply to the
++       directive.
++     - Tagged as `safe` for ECLAIR. Such files are:
++        - xen/include/generated/autoconf.h
++
+    * - D4.10
+      - Including multiple times a .c file is safe because every function or data item
+        it defines would in (the common case) be already defined.
+diff --git a/xen/arch/x86/include/asm/cpufeatures.h b/xen/arch/x86/include/asm/cpufeatures.h
+index 9e3ed21c02..bd1f00f5d2 100644
+--- a/xen/arch/x86/include/asm/cpufeatures.h
++++ b/xen/arch/x86/include/asm/cpufeatures.h
+@@ -1,6 +1,6 @@
+-/*
+- * Explicitly intended for multiple inclusion.
+- */
++/* This file is intended to be included multiple times. */
++/*#ifndef X86_CPUFEATURES_H */
++/*#define X86_CPUFEATURES_H */
+ 
+ #include <xen/lib/x86/cpuid-autogen.h>
+ 
+@@ -63,3 +63,5 @@ XEN_CPUFEATURE(USE_VMCALL,        X86_SYNTH(30)) /* Use VMCALL instead of VMMCAL
+ 
+ /* Total number of capability words, inc synth and bug words. */
+ #define NCAPINTS (FSCAPINTS + X86_NR_SYNTH + X86_NR_BUG) /* N 32-bit words worth of info */
++
++/*#endif X86_CPUFEATURES_H */
+diff --git a/xen/include/xen/compile.h.in b/xen/include/xen/compile.h.in
+index 3151d1e7d1..9206341ba6 100644
+--- a/xen/include/xen/compile.h.in
++++ b/xen/include/xen/compile.h.in
+@@ -1,3 +1,6 @@
++#ifndef XEN_COMPILE_H
++#define XEN_COMPILE_H
++
+ #define XEN_COMPILE_DATE	"@@date@@"
+ #define XEN_COMPILE_TIME	"@@time@@"
+ #define XEN_COMPILE_BY		"@@whoami@@"
+diff --git a/xen/tools/process-banner.sed b/xen/tools/process-banner.sed
+index 56c76558bc..4cf3f9a116 100755
+--- a/xen/tools/process-banner.sed
++++ b/xen/tools/process-banner.sed
+@@ -12,3 +12,8 @@ s_(.*)_"\1\\n"_
+ 
+ # Trailing \ on all but the final line.
+ $!s_$_ \\_
++
++# Append closing header guard
++$a\
++\
++#endif /* XEN_COMPILE_H */
+-- 
+2.25.1
+
 
