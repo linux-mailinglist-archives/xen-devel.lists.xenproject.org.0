@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9E86AD0034
-	for <lists+xen-devel@lfdr.de>; Fri,  6 Jun 2025 12:14:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1008380.1387673 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6EE40AD0036
+	for <lists+xen-devel@lfdr.de>; Fri,  6 Jun 2025 12:15:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1008385.1387683 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uNU5D-00076p-7G; Fri, 06 Jun 2025 10:13:55 +0000
+	id 1uNU6a-0007dm-Gt; Fri, 06 Jun 2025 10:15:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1008380.1387673; Fri, 06 Jun 2025 10:13:55 +0000
+Received: by outflank-mailman (output) from mailman id 1008385.1387683; Fri, 06 Jun 2025 10:15:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uNU5D-00074U-47; Fri, 06 Jun 2025 10:13:55 +0000
-Received: by outflank-mailman (input) for mailman id 1008380;
- Fri, 06 Jun 2025 10:13:53 +0000
+	id 1uNU6a-0007cK-DH; Fri, 06 Jun 2025 10:15:20 +0000
+Received: by outflank-mailman (input) for mailman id 1008385;
+ Fri, 06 Jun 2025 10:15:18 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=1Fse=YV=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1uNU5B-00074L-Fa
- for xen-devel@lists.xenproject.org; Fri, 06 Jun 2025 10:13:53 +0000
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam04on2060e.outbound.protection.outlook.com
- [2a01:111:f403:240a::60e])
+ id 1uNU6Y-0007c5-F5
+ for xen-devel@lists.xenproject.org; Fri, 06 Jun 2025 10:15:18 +0000
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on20627.outbound.protection.outlook.com
+ [2a01:111:f403:2415::627])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f0c76958-42be-11f0-b894-0df219b8e170;
- Fri, 06 Jun 2025 12:13:51 +0200 (CEST)
+ id 22bfc8b0-42bf-11f0-b894-0df219b8e170;
+ Fri, 06 Jun 2025 12:15:15 +0200 (CEST)
 Received: from BN9PR12MB5273.namprd12.prod.outlook.com (2603:10b6:408:11e::22)
  by CY8PR12MB9035.namprd12.prod.outlook.com (2603:10b6:930:77::11)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8792.35; Fri, 6 Jun
- 2025 10:13:46 +0000
+ 2025 10:15:11 +0000
 Received: from BN9PR12MB5273.namprd12.prod.outlook.com
  ([fe80::cf66:58ab:47be:4b13]) by BN9PR12MB5273.namprd12.prod.outlook.com
  ([fe80::cf66:58ab:47be:4b13%5]) with mapi id 15.20.8792.034; Fri, 6 Jun 2025
- 10:13:46 +0000
+ 10:15:11 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,208 +47,330 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f0c76958-42be-11f0-b894-0df219b8e170
+X-Inumbo-ID: 22bfc8b0-42bf-11f0-b894-0df219b8e170
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NTbPGgJk7iRFbqOEqvMpEVpMcK2QQjIjO4wDn5e6KAXoQjVhsMLx4pNWOMsO1OOSqxninr4QWsgQ0ijdmOIxHNrZQDl+KkJP9PH2qyFZu9bYhsqgMMMbXA2Fw7vZZO6DfzwRDj+taGASHuPwmfLsxMTeirOswxyCLfNao3ilHqIG6/CtcMuKZV6gQF4SDOGJ04+LU5Xg1tUMnjMKK4xsISXYXP+5kmVqf6/CgTTqWAfT/VIYgH6k8w6IRl+9syLAol7mM3rvu+6ArkByFNSh4Iok178p0NEUm288R6S2C57/OTpj9K6FAAHvfp1gPaDa42VBPO3tCdDnW4xKnJs1IA==
+ b=ieH81qo0rIA3nxunL/+vjQ/nmMVNob3aJX2EoYy54MjOwQ9BtNZdwaiDThBah01/8ttFDYtsY2WCgAiKRSRKh2kyNhjqOMS2krmI0e2wSBw6RfndObXFDZIvbx6KLxlIEg4nNJ4leY1vkLTZWXUId0WlndivUSiEnZz/n5mTUt0XDF6qJHUWPpQ6kqK3o1emWwaDtGYW4kbTjQG6ZC7ur/zYkSOqAnLrHH7KzIRJ7cIpJXMHfDmKOswUsB5o8MoGjL70B8OOvRgPRypSa9ws4jRrGU3t/PixEOGhOATJ3mdQ+SclNcERSBmOqEnSZr44m/XEm87Qbsqq5b4pHA5IqQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ns4AgFo9XDRbp1s0mhDM41O9Qa5PyQc6OVVfa2WSwKI=;
- b=QLGjoolehJWQwLdmdN/TdVG2yF0ifo8P5ElQwCD+IcKjx6l2vtS3iz5sYonqFR7piFtriNYMvZ9suivJHDHOA29ZdSg0UcOJnTSAaH6C9yQlEtNXIObSSeO9iQmnTpGEpPyjUDIX8HQAdZ2Ah1iXnoIDuDCaUa59ludnB5/+VyQVltHj2cFyIDIIdvtlKnATQvCaLdtX8WuMfo1+c1PmesQM/ZP7U2q1ZUlsKK77gbXS2U4uT4aOvYKIMQuMBwnGxI60NVrgiCbP+btQ6nShfRjV5Jo4/E9p5eyvc7ITMGa8pXUXPazjw0nJaV7XMpgowBAt5JIly1y0wuqvnLdB0Q==
+ bh=9Ufu3gGc+URal0FOVV605N524/8ns7uIDRLE5fGwWHg=;
+ b=HZAIzmUMWo3qDafGxyNh02TaOff/Y4B4anOWRzQV1R35li6Od0X0vPDnvaQjG/U+WXdYWt3VlpMKXfooPxVCiRk7K7h7OIf2+KW77kJ+JwsLB98iQvyG1XTTfdUwEnCeSZz9oZIZN8jhiwPG9V2oo7TQawCLfgTodTVwvMNtAvRXtpGrNhMiEk0rRKLqPwxDE2TgWAoxOF6i3ag42uGimZtrAORRwxnAVGkOy7yvJw1Wl1LrMv7FY83A/6BXfin68QLp7CSItiUnCQf+aNSfacQhJAbI3bF9T0NM1Gu1psuQE+rYbohEjXp+4FSi+GUM70IxYuVNOl3RrxZNX5+C2g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ns4AgFo9XDRbp1s0mhDM41O9Qa5PyQc6OVVfa2WSwKI=;
- b=fQj6hnTZUvYbkfCxqn8En+8HItse46gvye8LhiRW5kMUNrrCpzLCvAw2axIVzSIwbWksWj6zLbsry8oUJmHuFsyW+fus4Rwq5bXrgg2DrXfi8BHxv6vSiSwlYv3aAf6PNsNXUm8AILyFwm4oTFJsKLIIoggjUNIg6xn+2hZa/hQ=
+ bh=9Ufu3gGc+URal0FOVV605N524/8ns7uIDRLE5fGwWHg=;
+ b=i1bXQP+oADRP1XwuZznFeU7QaU7i3DdP7TV6BKGWKOm1VgWM+gKTB4Eu6Q+tZfseMBXGtH1RhCOebbEBWZskFRc+DdaSmxX/M0q9QXcxcMnEpe8uL4pOZzokG3EvgaGPGd/9284o8BBiLYhkpcr4WlKTkyJqVPGSXlLs33TYYZA=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Message-ID: <dc8b0afb-aa0a-4ee5-93ef-ca6fa632b616@amd.com>
-Date: Fri, 6 Jun 2025 12:13:33 +0200
+Message-ID: <bd96cdef-54a2-4e9f-bbc7-3c5653170f4f@amd.com>
+Date: Fri, 6 Jun 2025 12:15:07 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 1/3] arm/mpu: Introduce MPU memory region map structure
+Subject: Re: [PATCH v1 2/3] arm/mpu: Provide and populate MPU C data
+ structures
 To: Ayan Kumar Halder <ayankuma@amd.com>,
  Ayan Kumar Halder <ayan.kumar.halder@amd.com>, xen-devel@lists.xenproject.org
 Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
  <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
  Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 References: <20250604174311.754899-1-ayan.kumar.halder@amd.com>
- <20250604174311.754899-2-ayan.kumar.halder@amd.com>
- <a2f337f2-1f34-41f1-9728-5f87ef2c7420@amd.com>
- <bb3ce203-de59-41b7-ad7d-3b1f3f1c9833@amd.com>
+ <20250604174311.754899-3-ayan.kumar.halder@amd.com>
+ <50c8e74e-95f6-4cea-b979-8b81d7575a21@amd.com>
+ <fbfc728a-0d31-4f28-9a06-5f6458b91a55@amd.com>
 From: "Orzel, Michal" <michal.orzel@amd.com>
 Content-Language: en-US
-In-Reply-To: <bb3ce203-de59-41b7-ad7d-3b1f3f1c9833@amd.com>
+In-Reply-To: <fbfc728a-0d31-4f28-9a06-5f6458b91a55@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: AUXP273CA0011.AREP273.PROD.OUTLOOK.COM
- (2603:1086:200:2::23) To BN9PR12MB5273.namprd12.prod.outlook.com
+X-ClientProxiedBy: LO4P123CA0216.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:1a5::23) To BN9PR12MB5273.namprd12.prod.outlook.com
  (2603:10b6:408:11e::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: BN9PR12MB5273:EE_|CY8PR12MB9035:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2ef0a836-16ca-431f-8904-08dda4e2d2b2
+X-MS-Office365-Filtering-Correlation-Id: ef986078-a0ba-47d0-eaa8-08dda4e30599
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
 X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?WUc2T3QvZmhaMEl0RS93SUc3Z1JmNlc3RjRzakRwa3NNeFZGbTN6QkF2eGlY?=
- =?utf-8?B?WjREMVFhbis0ZzBySzdKaE5FSTlXOUE3bGVuWGRrZ0VJSFVlWkF6cTV5d3Jj?=
- =?utf-8?B?RVhjTjVrZE12dHBrTkltdzF4QjN1UWxOMjA0VVp3U1l0b0VQRWpuV283RWQr?=
- =?utf-8?B?blZiSlBaTWpFN3VzUTc3ZXVxaXJ6WEJuY2NOK01uZ2t4VEpjTnVxSWlqV1ls?=
- =?utf-8?B?WmxDcGw4K01JUVpYM1l6b3FrNWF2akVhSlBKcDhHNms3V05SVXBVOFZxRDFV?=
- =?utf-8?B?ZjhQeGJFV2J0SEdpOE4wa1ROVGk1dmVIVzFHZGFmQ1c2QVpzNXd0NDFhdkRI?=
- =?utf-8?B?N254OFpjckJFdzJWdEpoNUZUSmdCRHdlT1huQzZ3QldjVkx0d3V3NktkMmlK?=
- =?utf-8?B?VTBmb1Rma3VybDZDbklXaS9hcEJUK2M4TjJBVEVPd1dhMFJjTmxCcnJtcmZw?=
- =?utf-8?B?eVc5TzBVRGJMS3ZSMlRrVkpvbmZCTGtLNm5SRXNFWFlWSGpnT1FLUCtGNEIz?=
- =?utf-8?B?eDhtSUVSbVBycjdvek5UOTdETXpzK2hlMUh3ZnhFbjBKc25peXNvbFlKR3Va?=
- =?utf-8?B?UUxkOUthKzBiQ1lSU21ScnJiNWNDQ2l1UFUzUE81TW5LMW1ZV28yNHVabFJj?=
- =?utf-8?B?dDVxcHlBcExNT1hzWml4Wm9xb1N3cFYvY1IyV0RXeXRZajBKQnBhOFNUNlVE?=
- =?utf-8?B?cm9CMitpd0krWlJ2d0Y1eXltRzFPbVVrRkhiczNCbkFWNzRnWEFhWDJicmln?=
- =?utf-8?B?TWJ4eDhLYWROUUp0RlJxQkQ3VEtDa1BvTzMvMVU3amxyVDVLbUVpbG04UmxT?=
- =?utf-8?B?S2puY08wdjJwUzR5emk4WXlLZDRBbldydTg2N2JXYVBaUlVXU3BseFd5dWxp?=
- =?utf-8?B?dDBnTGFGdGpGeDNnU0ZDeFRUVXJIbGpGMGJDQlRPOU1KRmlZVlJLZUxVczdm?=
- =?utf-8?B?bXE5VjR5ejFpMlhDM1VVaUk2aGRsZmlON2JQLzBkYXk0aFZHV2Q0ajYrQWdt?=
- =?utf-8?B?RWVKbnQwWkVRVW90VWVBQmF6OXlaSWQ4SUZFQXpid2VSV2xaWm5EdUdsL0N1?=
- =?utf-8?B?RDRHZUdwWEluTk9XU1BjSTBKRUxYbnoydk4vYjdlalZsZW5salU0MmlIRzAx?=
- =?utf-8?B?K0xyZkdsWUcxZXlLMTBKSTcvVjVjSzRzbnVheXUyK1ltdlc4NEl1K2xKWnM0?=
- =?utf-8?B?SUorNlhQNE43QVZ5STZyR0VFT3RDSmdKU0R5VzZ5aWp2T2xicC91UmZidzFj?=
- =?utf-8?B?U3lnMy9GRk1GM0g0RmJaYU9XL0o3Nk5BZG10OVIwMi9JdU1peW9YK2VHOUdN?=
- =?utf-8?B?OTN0YzhNd0VORVNpaVphVkxsd1NGTkhFb1Y5RlFCZzFaRHVMQmdoLzkwWFlp?=
- =?utf-8?B?VUxzdmdaWll1ZVY5Q2VlWGNPNm5GZi9iMHVXbXhYWGZoRTdHdGNZd1JhR2pH?=
- =?utf-8?B?cHA4NW5wUXpQajlUaTAxRnR3NUVxUmlVUHFvMG13cmw1d2RYSGNzZ091SHVz?=
- =?utf-8?B?RkwvL2FEeEVrT05GSzNwaytVZW9wYlBzRDlNbEFvS0V6cmoxcjZJSzBlQ1hp?=
- =?utf-8?B?R0lLaDRkdnVPbWhJa3dPdzYyRlJ0N3ZsQ1dDODZZZ0drS0pPc25wd0JMUGxr?=
- =?utf-8?B?N1FBZHlsNGc4RG1MUE10NHlnWWJndXJWSEF3VzNlUVdWYktINjg0dkllZE5i?=
- =?utf-8?B?Y2VIeHJhOTdYVGZ4dXc5aC9Yd2p6ZnY4SmdYZmZrbkROL2kwczkvWDJJbVQw?=
- =?utf-8?B?RmI0elpQZ3lxeUJza0g2VkI4VlkycFZTOU1Vbm9RVStMbmVldUpKb295dDVv?=
- =?utf-8?B?azZsQmxHVjFIT01KTDE5YnlPSUI3TjkwektiOTJYK3cyc3NVTGpydjcvQkl4?=
- =?utf-8?B?QWlNWUk0SFFQYXJNVEltd2RSZkRPa1FXeWExTVVjT0Y4bVJISkcwVlc3ZG96?=
- =?utf-8?Q?PzdZXSYVUmw=3D?=
+	=?utf-8?B?QnlQREpOYVc0NjBtVWdVbEpXTFN6S1ppdEVEUFlJUFZTMm9wR3B6SUxnTTJS?=
+ =?utf-8?B?ZTBtV2w1SDQ4bXdmMlRrLzRKdlluYU1JOW0yQ0c4S0oxK2Z6V3VsTnBtNGIx?=
+ =?utf-8?B?UjErSnpra0dBMHZ6VStZVXA0MUpIQWdZUi9MUC9SWHovbDREWFNNRXFyUGpJ?=
+ =?utf-8?B?cTlBTE02ZEhMRnM5WWRSYkw1VnhrdUwxbnp1QXUxcEQ2RnJpVFFCaWhyNFVn?=
+ =?utf-8?B?M2s4M3NKengwRjJKYXM3MmNEVnZFMWNMWkdXVW1aNVdWUm1GcHQ3eHpZRGFQ?=
+ =?utf-8?B?L1pVUGNYcVB0WDZZMzc3NC9pYUVRUWxTeGNXQ0UyaWQ2Q0Q5b2VlT01scS9V?=
+ =?utf-8?B?bzVpZUQ2SWZaVFdUZmU2TnE2b2lUbXhLVjJqUTl1ektQNzlFSUFnV1paZVRa?=
+ =?utf-8?B?amRjcC9MSFFodFMvRzZ2N2VLNlA4dm1aMW5SNy9xd3Z0QXlNRjNTWmxKK2NQ?=
+ =?utf-8?B?RjkzWWhPTHhmQ0Z0WVF3SUhoY05URVVwVXFyMkkzTmtNeWQ2MHhZL1Q3TGZ2?=
+ =?utf-8?B?ZzgrYWo5NzZQcmxxL0JuTFcxR2NQdEJGcmZFb0llRk1obFV3NmRQS2l5UlVU?=
+ =?utf-8?B?bjc2ZjNuYTY1clJ5UnI2a3ptLzgvdjFnNjBxUFRmbmxOTHgrTEwvd1MzbmR5?=
+ =?utf-8?B?UnFNbDlpZEh6Yjd3Mjk0cVJaUTl1VkU4ZEVDMGZPZUxsYjNDSEhWYnZqaUR3?=
+ =?utf-8?B?QlBwWWxkTk5RcmRCcy8xR3ltN3IyWUYzQzRtbGt1cnNaTzJTaGh0NEJJOTJ5?=
+ =?utf-8?B?TFpzcE1rR25uNGZjUnJyRmdnYkZIL1VDNW1GMWcxVzc3anFTLzdkVkxIVElw?=
+ =?utf-8?B?akxNUXhSUkpqbUxNZW5aUGdDQ1N5Z3lESC9pTnhFTUM4VFp6cnhnbUtkc2ZX?=
+ =?utf-8?B?aWE0T1VWYkE2cTJtOVlBNklXbEI3RDEzL1A5dmtDdktSUmNVY01JSENLS05I?=
+ =?utf-8?B?emN3bGxHdWdMTytaU3MvdTFyb1BORTlpdUQzTWhkUjBPNGtCZ3ltbFM5aWRt?=
+ =?utf-8?B?MXo4blcyTmt4QmRXRndzR3lKR0pLSkJKOTJwRU9RTTIzUktkczJCclcyM3Ax?=
+ =?utf-8?B?RFQzVDZJUzgzelg4T0daVHBvWFBPSnFSQSthNUtzTnBVVnpQMTMweGEzT2Jr?=
+ =?utf-8?B?dzJRdlJ3TDdNMnlrU0J1NUgxMVZidjFHRmhpZ25zVjNXUHk0MmxmTG8xUG5Z?=
+ =?utf-8?B?T01DZjZ3OGdlSXdBRy8vZWRxUlFNbng3ZlFUUm0rbnA2Q0VkdFpwa251QU9E?=
+ =?utf-8?B?ZTRZOHlZTk4zYUxuVkJUcWZIWDBXK1I5U25hSlBEUEJ3Mi9OdDFZajRUaWo2?=
+ =?utf-8?B?VVAxYU1EWlU1Y1lCdExqdHVUQkdVWXJFdW5rckwwMWxCTkVlUjBJNFR4UWFy?=
+ =?utf-8?B?bmcxTzBIOFpxR2dPWGRPcTcwVDV0Z09Bckh6cHB1Ykh3NnhxNXlQclM2SStr?=
+ =?utf-8?B?ZW0rTlFSMFg5OTcxN2dPL25jSXB6TkFmKzRhdzNEWVBLcWJ3SDhJSFIyUmhW?=
+ =?utf-8?B?czhlYk5KTFl4OG5hdUFJNmRIbG02dWEvYkNqeUJGRGdhNHp2U0NtbVI3eEVi?=
+ =?utf-8?B?bW9VcnBBUi9GTFZGM20zL3A0Zm4rMW9xMDRKaXkvdlZaU25ZODNmL3pJaUg4?=
+ =?utf-8?B?ZGFwM3RJcVdKRVV5MDdtWGtLcjFOZUY0MlRZUDA5ZlVWWTFoOXJFRUJ5cTFq?=
+ =?utf-8?B?MEUwajZhb1NBaWtkam5XKzdyTGVJUnc3NUc5cGpnVzd4WnJSbEQvaDZuallu?=
+ =?utf-8?B?TTJXaWk4SEFXSnpzWG1NQ1JkVnhYaTZUUEVxcElQcVBYNHNJR1hEcDJMZDFn?=
+ =?utf-8?B?V2xtNlJSOCs4MlNlMnIwMlVUKy9FMFlpZmZ3cXJXbWlMb0Mwb1RUTTZ3ZFRv?=
+ =?utf-8?B?Y3pWU3g5OE4xWGpaYWFpNWdNUjdwNVJkbW12UTlyVnQwcVNkL2dtaERiRWxp?=
+ =?utf-8?Q?4kuIYovb5ng=3D?=
 X-Forefront-Antispam-Report:
 	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN9PR12MB5273.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?R3ZTb1Y3TVgrNmVrajhEYXBPZDN2b3pGM3ppaTk3RHpnVHA1SGNpV3JXTlB0?=
- =?utf-8?B?akNsVXZSMmlvdCtycnFtdFh6bnY2OElvVFNpekZnR2VFMVlnQzFRQzlkeFE5?=
- =?utf-8?B?QXpiM0RFc2Z6T09heCtLOUNVaCttLzlPbmJ6UzVvREdieXgwVWc5SUgrNmFW?=
- =?utf-8?B?SDJ5djd6MU5OTTRvQVBYL0VPTUNmYjJJSk1GMTlZRWJKcDgwaElSdFlPdStF?=
- =?utf-8?B?RHJnU01BaEl2akZwVW8wRnpvdVVsVUxjUVgrb0QvZitsME4zODhTdk5mMmpo?=
- =?utf-8?B?N09YOXpiaFZaRjgxQUVMOEpOeTMvbElMN1ZaN1c0bVZNVzQ1UmZLRzRVby81?=
- =?utf-8?B?eVNLUkNjZzNhMEFQdjE5YlNKMVQxak44MHY3bW9MajhHYndHNWJ5cUUwVjBp?=
- =?utf-8?B?ejZnem0rWVRDM2F1S1A2aTJKUVR4SnV4Z3UwcU1KcnFhR0ZEU0tQbUpRdmhJ?=
- =?utf-8?B?UjR0elA0WE9lUk9XS29mYi9HUnNZRkw1RE93bGpvQ05GNFdkUjJqbjVmTkZn?=
- =?utf-8?B?S2o4dHRhYkd0b2RkcStWeWNnbUc5YUJ0M1F6TTNCaVNyeUZhcnRPQ1NBRGU1?=
- =?utf-8?B?SXYxcWJ4NEJjOGJzN3FpeVV3UUJMTnZGbEFFbDBEQS9PeFFtOG1FTC9HOU5k?=
- =?utf-8?B?YTV0Q2V3MmhFdkVGeTJ3dDdqaEt1eGR3dkNkc1VmNHp4bE9vNUtOS3RFTnlm?=
- =?utf-8?B?cldwUFMyZ1Q1dURCdkR6ZERxeFlaUHBERHlsYlNYRldiUGljUWZKREhwOXov?=
- =?utf-8?B?aTdmRmlJTm9ZZm15c3hMc1dwWFdGQUNuZW5ZSmtjc1M3Sk9wOWJwZEorTUNp?=
- =?utf-8?B?T0l3cVh3YU5Ya1d0SlNGR0h6ZndoclRXbXBlRU45YmJiZmVVYUhqSDlxNVZn?=
- =?utf-8?B?L2pEanladWRzMmFIbFZBdFJCNGNVZHVkSjRaVnpUTURnMlFoZDRHbWZUc1Zy?=
- =?utf-8?B?TDBGSk1TMmxEQlhUVWUvdUhScFJ1T1g5VlF0TjlUakpub1NXVTRQTjhKbXlx?=
- =?utf-8?B?T2VCQTgvTm5RK2VLT05ScGQ2UGJPcGlXN3Y1SHlXUTVDZGJHaWRWb0hNZFhj?=
- =?utf-8?B?djM5V05jV0JlYVYrQjNVOVJvMnUwSnd4cGI3UW1RYXF5bHZ2UmNjbHJZN2lD?=
- =?utf-8?B?MUtkakF1KzBvcVRLbnZOKy9IektkSFl4L2JRVXpnd253S0RBQjZBaCs5RnIz?=
- =?utf-8?B?b2RCYU9JR29kcFd6aGtaN3I3NnVNR1N1MXFHMXc4cXl2SndXS0RKZ2FkaVpI?=
- =?utf-8?B?VVNlYVJqRkswRkJKSG5LZ29Ba1FjTEhSbWRZUGV2WVB5QnRFRmtkanhVd1pJ?=
- =?utf-8?B?M2lucERlWHN5VUxaTlMvVlk2YS9TQXZwOW1NYU56OW1nUHNONUsxNkZjMHdK?=
- =?utf-8?B?VGtLbVpOR2xsNFlaRGw1ZXlMSGNFd1J2cHFpU0UxbnZwN0lMZlJYUXYwaTFq?=
- =?utf-8?B?blA5YXJZTHl1WUlVREVMMHNtdHJxSmI1U1pRS2t6TldMZVhHdWZoSEtCcThZ?=
- =?utf-8?B?bWc0bzVGbzFRbVdDOVJLT1huTVBpRFJaSkladVkrTHZnT1lXbmd3bzhxOWtL?=
- =?utf-8?B?UWdlazBEWmtKU3BVbzVzSnhxTzk3azB5a2Zqd2d0WXI0ank4ZmNwSERjazVY?=
- =?utf-8?B?T1YxWWJFNHRQVG5HdDZMdDM0eVI3TjJzOTZnVUlsMzVRUE5LR2JtNHhqeTRu?=
- =?utf-8?B?V25veGtQWWdsT1JhUEx1eU5rS3IyWHg1aitMSDF1Q3hTZFVvc0U1QWF6YXQw?=
- =?utf-8?B?QjZSaWZxRHNyU1A5QzVlOVhQNUFRcG5JOHlTOFdnOFYxK1N4eHpEczRqcXc0?=
- =?utf-8?B?ZG95TGkyVDAvbHMrNjBVWkFVQUUxc3NLWTgyWDBQZWg5VklMeFFyejBUM043?=
- =?utf-8?B?Vjc5K2NZdXUvSHFqaitVOXhmVGI2ZUJSdDFGdzRBZGRwSVBqT2U3eXd1c053?=
- =?utf-8?B?MHJpM1Y1dDlaNWdZMW9qUUtDdUV5Q3lham1qTmE1T3J3SFBSWjk5NzY3aldN?=
- =?utf-8?B?bXZMbG9JV2NvMVlMUVRnSzRaZGw0a0pKbUp5MEp3UHQ5anR4UDdoQW1YZXlq?=
- =?utf-8?B?Zis0ZjZXS25CTTI2eW1PUllxclJMSzhneElxbGticHJDQ0RkSTJtMnhXa1My?=
- =?utf-8?Q?VguPW43QbiFTgue9gQ9v4KyhI?=
+	=?utf-8?B?aFhkSldhYWtxL0UzMW14emdSS1duZVVhWUkzOU9zNGRrWkh3eVVyTGJ1cXV5?=
+ =?utf-8?B?d0tEc1NYSm80UnhjbXovdWRyT2w1b0Y5UjdOZ3pRR3g5dytIb1Q3VjRpaTJl?=
+ =?utf-8?B?NnN0aXNFSmUrczBpQ0JLRVJFNkgxbktPc0crd29UOWVBcllzUVhzNEZGcWhP?=
+ =?utf-8?B?YzFacnVxNGJWQy9qSWRiKzhsRS9HUkxvR3JaTjlxMktJc1l6eklPTDhuZzVR?=
+ =?utf-8?B?K0R1S2pHVVpyVWtGNVRtNFJxTHVtZVVhYkJweENKYW1oZHp4ZERLVUJsaVRa?=
+ =?utf-8?B?dWp5UTlSYll1dkt1ZmRJcjhUR0c1eVAvcEpLM1Vhdm9Eb0F1U3M0dGEzWjN6?=
+ =?utf-8?B?SSt1SkR2clY3U0U5UHFJdVNRQ3poNjJRNnBMN3JOeXJOaG5US25NVkxTeSs4?=
+ =?utf-8?B?azY1cUpvTk1MbjlXSi9ZdVhjYVBtenYwajJ3YXd1bTVPUkdqOUQwSUJTWlI3?=
+ =?utf-8?B?V1JFaUVXL3RGYlZpS3A4UTU4SjRlWnVKZHBGUjRpRHB3QnpmUm5uZ05pU1l4?=
+ =?utf-8?B?cHY5M3MrRlFtakV4dUFNcHBlRFBDS0R4alR2Vm5IcmM2WmcwcWlXTys5TVpQ?=
+ =?utf-8?B?aVpKUk9nR21iTUJKSU9GNjhweUJSdmxSYWJxTlhLa0xnZ3dBRGdDeDlteWVp?=
+ =?utf-8?B?M3FoOFVDaHdrRmV6M0ZOV0tKSWZKWXBIcUM1UUw4UmJVNVZJOHRHSlc3TTJS?=
+ =?utf-8?B?MEV1WlR5cE5Panc0OHlCR0Iwa3FOTW1XT1U3RnJQVlNLb1BqU2FkR3ltVE1k?=
+ =?utf-8?B?Y05qNjdJcnpzWVJCd0RxaEQ0cUFnNGQxQVl1TlFFL3FwcXFNbnVsdjRteVBP?=
+ =?utf-8?B?WVROOG9JbjNlQlNjVEE0bXMvRkF5QUJjSU5iL0ZjWW1KWmNEc2xJTktVdWo2?=
+ =?utf-8?B?TkkyUmdxb3Vjc2pWcVFrWXFNblFXdm9OZFYvTXdoVGJGdXpoa01hNmkyMjdV?=
+ =?utf-8?B?WUluelhmS0txNDV2ZmZ1bjNJNFhlRXBjVzJMcnVhOVBOdWNtQjNHTmh5R2ZG?=
+ =?utf-8?B?UFdXM3dsb1lhV2VPR1FhS3dqMC9MNEt4NWp3ZVJLK1hEb3gvSzFoWDZCR1FZ?=
+ =?utf-8?B?VTBBaGd3SVBDZEhzTmd2Q00wcGpYVHFOLzN2UXltdkVsR3FMSDBGczcwUWE0?=
+ =?utf-8?B?RVlJY1h3clZCZ2YzRWRkcldid1ltcFpCempDQ0UwTUlQREhRVTdoek9NTGVm?=
+ =?utf-8?B?SlNVUmpjWnRWTzZwSVB3S2g0SnhObHpad2drMkhOV1lGZjIrQzNOZ29ySndR?=
+ =?utf-8?B?STRVOEI3YjJrN3VpcmpOa0VRZ2llYjBLcXA0elJ1VTY1YWc3MUdFdjZnL1N3?=
+ =?utf-8?B?QlVrT2xVNnRHaXdsSTUzS1BOcUw5SWxIZFdTQ2JTb3IwcS9GanNVbmIxcGps?=
+ =?utf-8?B?eFJUcW1jMEpDTkRLT09QWFJCRzBCWk9KdFdlTGt4MHB5YVN4ZWhkNGpia2xw?=
+ =?utf-8?B?SEpIZXRxbTNSTFN4RWcvdEQxbzhLNWlrUGVjaDJ4VFJLRG1ib2IwK2ZkZ1Fm?=
+ =?utf-8?B?d2lYRzZMNE8zTXF0a25JcVNReFBYRkdrU3hZZGp4MFJRRUZUbDhSU2dnemNt?=
+ =?utf-8?B?dFMxUkh3YlYvc3lMUDlWT1hJaTB0czFENkRLSVhkR1Y1QTBHcFZMM1NsZVhO?=
+ =?utf-8?B?MVAxT0FPbklxSnZzNDA3TkYvTjlXQXY5cWZpalQyM0NoMEx0emY4Ry8remh0?=
+ =?utf-8?B?NENheVFUUVN2Z2QrSDZuTmJaL1Y5djFzTHlsRUEvMmdaemlyREtUS0RWT1Ax?=
+ =?utf-8?B?N3JtZHg4RFlBVXNBcWtRQzMxOVFpeXdmcjhPMWVWbjllbS90QmxVOGp6blVr?=
+ =?utf-8?B?YjdEYUNwdkwzajFLTWNIUm9uYWlYR25teW1Mejl0Q3hpbXFhVlcyTC9NVlZw?=
+ =?utf-8?B?c2orcG1qT3Vib3VlcUVncUpkTXhRTExvbmZLTnZkRWZLTjJBQ1N0a3FaUlpQ?=
+ =?utf-8?B?SHFoZkJlQVVyYTkvYWRCSldQVmo1czdpL0tqZkUxTFg0ZFJKR1BVVGhydmJt?=
+ =?utf-8?B?emRzUGZGVXpveWNZbGxqbGdBUS9Bb3VkTGhuZDFtNFJYYmRMMndYWVVzL2Vy?=
+ =?utf-8?B?c1ErNjVYTEdnNUp3cGZZZzVvUGc0b1d5akw2RkpjbnZRWWlpanZ3dnkvUmdE?=
+ =?utf-8?Q?4vWX86RNdzqCd50f/QGqzlUe8?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2ef0a836-16ca-431f-8904-08dda4e2d2b2
+X-MS-Exchange-CrossTenant-Network-Message-Id: ef986078-a0ba-47d0-eaa8-08dda4e30599
 X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5273.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jun 2025 10:13:46.3892
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jun 2025 10:15:11.7156
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: DStJy91VYEWwMwPUkrnhCVlOmxMY/6ONyIzdVCgnR15lPSArvqKhrpMzJVLepV+E
+X-MS-Exchange-CrossTenant-UserPrincipalName: AZUVC9GwF6fiPEZliHq7snwA4sVXTuakYgw4IcAh754kvtlGY5tP+fRFQnLmB2Z2
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB9035
 
 
 
-On 05/06/2025 15:39, Ayan Kumar Halder wrote:
-> Hi Michal,
+On 05/06/2025 16:27, Ayan Kumar Halder wrote:
+> Hi Michal/Julien,
 > 
-> On 05/06/2025 08:06, Orzel, Michal wrote:
+> On 05/06/2025 08:44, Orzel, Michal wrote:
 >>
 >> On 04/06/2025 19:43, Ayan Kumar Halder wrote:
->>> Introduce pr_t typedef which is a structure having the prbar and prlar members,
->>> each being structured as the registers of the AArch32 Armv8-R architecture.
->>>
->>> Also, define MPU_REGION_RES0 to 0 as there are no reserved 0 bits beyond the
->>> BASE or LIMIT bitfields in prbar or prlar respectively.
->>>
->>> Move pr_t definition to common code.
->>> Also, enclose xn_0 within ARM64 as it is not present for ARM32.
->>>
->>> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
->>> ---
->>>   xen/arch/arm/include/asm/arm32/mpu.h | 30 +++++++++++++++++++++++-----
->>>   xen/arch/arm/include/asm/arm64/mpu.h |  6 ------
->>>   xen/arch/arm/include/asm/mpu.h       |  6 ++++++
->>>   xen/arch/arm/mpu/mm.c                |  2 ++
->>>   4 files changed, 33 insertions(+), 11 deletions(-)
->>>
->>> diff --git a/xen/arch/arm/include/asm/arm32/mpu.h b/xen/arch/arm/include/asm/arm32/mpu.h
->>> index f0d4d4055c..ae3b661fde 100644
->>> --- a/xen/arch/arm/include/asm/arm32/mpu.h
->>> +++ b/xen/arch/arm/include/asm/arm32/mpu.h
->>> @@ -5,11 +5,31 @@
->>>   
->>>   #ifndef __ASSEMBLY__
->>>   
->>> -/* MPU Protection Region */
->>> -typedef struct {
->>> -    uint32_t prbar;
->>> -    uint32_t prlar;
->>> -} pr_t;
->>> +#define MPU_REGION_RES0       0x0
->> The name of the macro does not make a lot of sense in AArch32 context
->> and can create a confusion for the reader.
+>>> Do the arm32 equivalent initialization for commit id ca5df936c4.
+>> This is not a good commit msg.
+>> Also, we somewhat require passing 12 char long IDs.
 > 
-> I know, but I want to avoid introducing ifdef or have separate 
-> implementation (for arm32 and arm64) for the following
+> Modify Arm32 assembly boot code to reset any unused MPU region, 
+> initialise 'max_mpu_regions' with the number of supported MPU regions 
+> and set/clear the bitmap 'xen_mpumap_mask' used to track the enabled 
+> regions.
 > 
-> Refer xen/arch/arm/include/asm/mpu.h
+> Use the macro definition for "dcache_line_size" from linux.
 > 
-> static inline void pr_set_base(pr_t *pr, paddr_t base)
-> {
->      pr->prbar.reg.base = ((base & ~MPU_REGION_RES0) >> MPU_REGION_SHIFT);
-> }
-> 
-> Let me know your preference.
-I did not mean #ifdef-ing. I was more like suggesting to use a different macro
-name that would be more meaningful than this one.
+> Does ^^^ read fine ?
+Yes, it certainly reads better.
+
+~Michal
 
 > 
 >>
+>>> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+>>> ---
+>>>   xen/arch/arm/arm32/asm-offsets.c         |  6 +++
+>>>   xen/arch/arm/arm32/mpu/head.S            | 57 ++++++++++++++++++++++++
+>>>   xen/arch/arm/include/asm/mpu/regions.inc |  8 +++-
+>>>   3 files changed, 70 insertions(+), 1 deletion(-)
+>>>
+>>> diff --git a/xen/arch/arm/arm32/asm-offsets.c b/xen/arch/arm/arm32/asm-offsets.c
+>>> index 8bbb0f938e..c203ce269d 100644
+>>> --- a/xen/arch/arm/arm32/asm-offsets.c
+>>> +++ b/xen/arch/arm/arm32/asm-offsets.c
+>>> @@ -75,6 +75,12 @@ void __dummy__(void)
+>>>   
+>>>      OFFSET(INITINFO_stack, struct init_info, stack);
+>>>      BLANK();
 >>> +
->>> +/* Hypervisor Protection Region Base Address Register */
->>> +typedef union {
->>> +    struct {
->>> +        unsigned int xn:1;       /* Execute-Never */
->>> +        unsigned int ap_0:1;     /* Acess Permission */
->> If you write AP[1] below, I would expect here AP[0]
+>>> +#ifdef CONFIG_MPU
+>>> +   DEFINE(XEN_MPUMAP_MASK_sizeof, sizeof(xen_mpumap_mask));
+>>> +   DEFINE(XEN_MPUMAP_sizeof, sizeof(xen_mpumap));
+>>> +   BLANK();
+>>> +#endif
+>>>   }
+>>>   
+>>>   /*
+>>> diff --git a/xen/arch/arm/arm32/mpu/head.S b/xen/arch/arm/arm32/mpu/head.S
+>>> index b2c5245e51..1f9eec6e68 100644
+>>> --- a/xen/arch/arm/arm32/mpu/head.S
+>>> +++ b/xen/arch/arm/arm32/mpu/head.S
+>>> @@ -10,6 +10,38 @@
+>>>   #include <asm/mpu/regions.inc>
+>>>   #include <asm/page.h>
+>>>   
+>>> +/*
+>>> + * dcache_line_size - get the minimum D-cache line size from the CTR register.
+>>> + */
+>> I do think we should have a cache.S file to store cache related ops just like
+>> for Arm64.
+> ok, I will introduce a new file.
+>> Also, no need for multiline comment.
+> ack.
+>>
+>>> +    .macro  dcache_line_size, reg, tmp1, tmp2
+>> I would prefer to use the macro from Linux that uses one temporary register
+> /*
+>   * dcache_line_size - get the minimum D-cache line size from the CTR 
+> register
+>   * on ARMv7.
+>   */
+>      .macro  dcache_line_size, reg, tmp
+>      mrc p15, 0, \tmp, c0, c0, 1     /* read ctr */
+>      lsr \tmp, \tmp, #16
+>      and \tmp, \tmp, #0xf             /* cache line size encoding */
+>      mov \reg, #4                          /* bytes per word */
+>      mov \reg, \reg, lsl \tmp         /* actual cache line size */
+>      .endm
 > 
-> Again same reason as before, let me know if you want to have additional 
-> ifdef in pr_of_addr() or separate functions for arm32 and arm64
-I don't understand. My comment was only about changing comment to say /* Access
-Permission AP[0] */ because below you have a comment with AP[1].
-
-~Michal
+>>
+>>> +    mrc CP32(\reg, CTR)           // read CTR
+>> NIT: wrong comment style + wrong alignment
+> yes, I should use /* ... */
+>>
+>>> +    ubfx   \tmp1, \reg, #16, #4   // Extract DminLine (bits 19:16) into tmp1
+>>> +    mov    \tmp2, #1
+>>> +    lsl    \tmp2, \tmp2, \tmp1    // tmp2 = 2^DminLine
+>>> +    lsl    \tmp2, \tmp2, #2       // tmp2 = 4 * 2^DminLine = cache line size in bytes
+>>> +    .endm
+>>> +
+>>> +/*
+>>> + * __invalidate_dcache_area(addr, size)
+>>> + *
+>>> + * Ensure that the data held in the cache for the buffer is invalidated.
+>>> + *
+>>> + * - addr - start address of the buffer
+>>> + * - size - size of the buffer
+>>> + */
+>>> +FUNC(__invalidate_dcache_area)
+>>> +    dcache_line_size r2, r3, r4
+>>> +    add   r1, r0, r1
+>>> +    sub   r4, r2, #1
+>>> +    bic   r0, r0, r4
+>>> +1:  mcr   CP32(r0, DCIMVAC)     /* invalidate D line / unified line */
+>>> +    add   r0, r0, r2
+>>> +    cmp   r0, r1
+>>> +    blo   1b
+>>> +    dsb   sy
+>>> +    ret
+>>> +END(__invalidate_dcache_area)
+>>> +
+>>>   /*
+>>>    * Set up the memory attribute type tables and enable EL2 MPU and data cache.
+>>>    * If the Background region is enabled, then the MPU uses the default memory
+>>> @@ -49,6 +81,10 @@ FUNC(enable_boot_cpu_mm)
+>>>       mrc   CP32(r5, MPUIR_EL2)
+>>>       and   r5, r5, #NUM_MPU_REGIONS_MASK
+>>>   
+>>> +    ldr   r0, =max_mpu_regions
+>> Why ldr and not mov_w?
+> mov_w   r0, max_mpu_regions
+>>
+>>> +    str   r5, [r0]
+>>> +    mcr   CP32(r0, DCIMVAC) /* Invalidate cache for max_mpu_regions addr */
+>>> +
+>>>       /* x0: region sel */
+>>>       mov   r0, #0
+>>>       /* Xen text section. */
+>>> @@ -83,6 +119,27 @@ FUNC(enable_boot_cpu_mm)
+>>>       prepare_xen_region r0, r1, r2, r3, r4, r5, attr_prbar=REGION_DEVICE_PRBAR, attr_prlar=REGION_DEVICE_PRLAR
+>>>   #endif
+>>>   
+>>> +zero_mpu:
+>>> +    /* Reset remaining MPU regions */
+>>> +    cmp   r0, r5
+>>> +    beq   out_zero_mpu
+>>> +    mov   r1, #0
+>>> +    mov   r2, #1
+>>> +    prepare_xen_region r0, r1, r2, r3, r4, r5, attr_prlar=REGION_DISABLED_PRLAR
+>>> +    b     zero_mpu
+>>> +
+>>> +out_zero_mpu:
+>>> +    /* Invalidate data cache for MPU data structures */
+>>> +    mov r5, lr
+>>> +    ldr r0, =xen_mpumap_mask
+>> Why not mov_w?
+> mov_w r0, xen_mpumap_mask
+>>
+>>> +    mov r1, #XEN_MPUMAP_MASK_sizeof
+>>> +    bl __invalidate_dcache_area
+>>> +
+>>> +    ldr r0, =xen_mpumap
+>>> +    mov r1, #XEN_MPUMAP_sizeof
+>>> +    bl __invalidate_dcache_area
+>>> +    mov lr, r5
+>>> +
+>>>       b    enable_mpu
+>>>   END(enable_boot_cpu_mm)
+>>>   
+>>> diff --git a/xen/arch/arm/include/asm/mpu/regions.inc b/xen/arch/arm/include/asm/mpu/regions.inc
+>>> index 6b8c233e6c..943bcda346 100644
+>>> --- a/xen/arch/arm/include/asm/mpu/regions.inc
+>>> +++ b/xen/arch/arm/include/asm/mpu/regions.inc
+>>> @@ -24,7 +24,13 @@
+>>>   #define XEN_MPUMAP_ENTRY_SHIFT  0x3     /* 8 byte structure */
+>>>   
+>>>   .macro store_pair reg1, reg2, dst
+>>> -    .word 0xe7f000f0                    /* unimplemented */
+>>> +    str \reg1, [\dst]
+>>> +    add \dst, \dst, #4
+>>> +    str \reg2, [\dst]
+>> AFAIR there is STM instruction to do the same
+> strd \reg1, \reg2, [\dst]
+>>
+>>> +.endm
+>>> +
+>>> +.macro invalidate_dcache_one reg
+>>> +    mcr CP32(\reg, DCIMVAC)
+>> Why? You don't seem to use this macro
+> 
+> oh, this can be removed.
+> 
+> - Ayan
+> 
+>>
+>>>   .endm
+>>>   
+>>>   #endif
+>> ~Michal
+>>
 
 
