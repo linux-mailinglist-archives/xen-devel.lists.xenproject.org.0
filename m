@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 98197AD0002
-	for <lists+xen-devel@lfdr.de>; Fri,  6 Jun 2025 12:03:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1008335.1387613 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 54AE0AD000B
+	for <lists+xen-devel@lfdr.de>; Fri,  6 Jun 2025 12:08:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1008342.1387623 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uNTvN-0002Wv-58; Fri, 06 Jun 2025 10:03:45 +0000
+	id 1uNTzQ-00039A-Km; Fri, 06 Jun 2025 10:07:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1008335.1387613; Fri, 06 Jun 2025 10:03:45 +0000
+Received: by outflank-mailman (output) from mailman id 1008342.1387623; Fri, 06 Jun 2025 10:07:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uNTvN-0002Uv-2B; Fri, 06 Jun 2025 10:03:45 +0000
-Received: by outflank-mailman (input) for mailman id 1008335;
- Fri, 06 Jun 2025 10:03:44 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uNTzQ-00037E-HS; Fri, 06 Jun 2025 10:07:56 +0000
+Received: by outflank-mailman (input) for mailman id 1008342;
+ Fri, 06 Jun 2025 10:07:54 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=U7n3=YV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uNTvM-0002Up-AY
- for xen-devel@lists.xenproject.org; Fri, 06 Jun 2025 10:03:44 +0000
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [2a00:1450:4864:20::435])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 871f75f0-42bd-11f0-a301-13f23c93f187;
- Fri, 06 Jun 2025 12:03:43 +0200 (CEST)
-Received: by mail-wr1-x435.google.com with SMTP id
- ffacd0b85a97d-3a36e090102so1160360f8f.2
- for <xen-devel@lists.xenproject.org>; Fri, 06 Jun 2025 03:03:43 -0700 (PDT)
+ id 1uNTzO-000378-Qk
+ for xen-devel@lists.xenproject.org; Fri, 06 Jun 2025 10:07:54 +0000
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
+ [2a00:1450:4864:20::432])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1bdf9024-42be-11f0-b894-0df219b8e170;
+ Fri, 06 Jun 2025 12:07:52 +0200 (CEST)
+Received: by mail-wr1-x432.google.com with SMTP id
+ ffacd0b85a97d-3a36e090102so1164451f8f.2
+ for <xen-devel@lists.xenproject.org>; Fri, 06 Jun 2025 03:07:52 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-b2f5f66a622sm888967a12.38.2025.06.06.03.03.34
+ d2e1a72fcca58-7482af3824fsm998040b3a.19.2025.06.06.03.07.45
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 06 Jun 2025 03:03:42 -0700 (PDT)
+ Fri, 06 Jun 2025 03:07:51 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,64 +45,64 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 871f75f0-42bd-11f0-a301-13f23c93f187
+X-Inumbo-ID: 1bdf9024-42be-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1749204223; x=1749809023; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1749204472; x=1749809272; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=c8vug/+ZTsi8T4CoWMG4LEtISTJClyp/VV+jTSRjkZ0=;
-        b=Vo3FBbSPjKwK5fbSil5dkaUrev/HQvGRIc8c19/UWPw5dle0xMP/qfIvnVmuX7ve7a
-         pSgoIW6j/MOFkXEhVuECSIE9fC1A+DF+a6XZGHbdCvrhOiga0zM5fAR7u9ACUb3nwoFZ
-         u3IoHedJVZ+neGijDjW3K6KcAzJiDzyN5DhPdkEjF1X5sAqBnTY95Tv1b8Td4qpf/oNw
-         4X25aOV+dwC3NV8qHoeRVbLzurpM5QiZKBBYWieaIgeO1KS8N8o3wckr18S3LOqSGqK9
-         tAQgkO4cQ3h2qLbAv5Gj8ALMKOb16Lkn6CDUWkJIvFbZWHAo/XkmlAUEKeQ0R0jVcLA1
-         6uKw==
+        bh=AmikAL5cavKLcJ/8zdC6DtKWA3lk6mN6+P5caqth2G0=;
+        b=ND2DtpOfX91kfK1zcgEPNCWK3U35V0a1JEXIFsedfEbYcT8SalpktYLz4ruV4OwQe8
+         W+Htjv2OOXV7x94p+uviZUd1TLA3e6VB56yMAhub+jOqdtNiJat3qgH/XLSlEKAV5lYb
+         r6id2nfcRdwgcTdIdRfdn5JX6IQcpuKE+24kwXG3SOfQXuVnI4aB7odG/Hxm92QbGjac
+         io7WmmuVmQVzk0AZ45kPsJx+G3qKC6Vqr84xP/Wg7ZCy76f5qNgF66DLsxYlYa7VYI/W
+         NmOgGnK/JoYz8WU+Tdn6uxuUWZmB0KX0ddREYDKx2DsuphatHgJ4RAIDhoqnubXuQObh
+         tNPQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749204223; x=1749809023;
+        d=1e100.net; s=20230601; t=1749204472; x=1749809272;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=c8vug/+ZTsi8T4CoWMG4LEtISTJClyp/VV+jTSRjkZ0=;
-        b=OHauMKtGb36ZZIvcWYsrJy7s8YehrsQ7/cMEUDFPWm3cZ0OCEk/wFh/LRft0dxZ4Ro
-         WDc90PLpVwS5kH5ra9aZlNsztm34eIcobUhSUqCPB9dYmZtcEw+FxXQGkFuv0ezaD+MG
-         klRwTgFFfqjfc+rvV4XDpcZ5giaAAlmAwftt/k2wQXKnEZ+ktgtTExBxJUSY+tQOrStO
-         X49pf+0phRV5m0jOD/JLLYXfzIvPHmLetZlsmGxl6X6tDhk11UPTJ+ixfTGP1ntPh2uf
-         SWZIokiXxwbTat8yTt6cK4/FRJ5d1U8X754XP/pgEBtd6MfVabxG18LdaW+2ZV0wWHWA
-         0YWQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXjqp7hBaya16ZMTeiQL9U7QLcmz1XBPvT0qIHfx9x7s0YK8JT/KfweS0h+l/54ZcB/D7xoT8f8/Gc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxH6DbjTcLaDea3qqYTI7AAeq8YYLcqIJqL6gQMuZsAP0KVibQw
-	AuUqM57rde3BdJELMbyCzDaV2rhXh9cBnvoNERBCj46tSqdpD84jOleIv2tfa6Kg3w==
-X-Gm-Gg: ASbGncvHGzF0PWIH1Ve/T6kcM9elr4XriQmHCWmSjwPirgVMbMOfaaSdzQmFT+Qi3GK
-	A1lQxa31d1aqh2dAZTvH+JWpGVpokdBLmJly5vLTBHdLCXIroaAp0ppx4z+IQNsGwCce46ZkRbx
-	0YiNCIFsRMHHhAOzbxWSGZs40rfHX8TUBJLDUw7sBdRnfFSUMyTVPqleleCgSSHIKT/a7sJCFJ0
-	J8oe4PR+OQg9tko0pHqrBnne2GG2lPxGgLYs2yAPBOH3xPgb8Wu0oeDJruVfjmpsDqprwKG2/JX
-	NTAqdiMtoZCwcLTnOPQKGb7OHtGyKYDpay4sfWGA3lsznaCIgzlH5iHQfGhoH9wYxzeZdFjH4GA
-	cwpbYqzEXjOegvU+TRSwflmFLG83GBxWi5zb7
-X-Google-Smtp-Source: AGHT+IF0Bk6XCQvcCd9IOYay9d0mIQrpTJgAeJu87lkMcUWIyJ+V72xLHJmoBmQvPN2V1lGZ1n9OKw==
-X-Received: by 2002:a05:6000:2484:b0:3a4:d9fa:f1ed with SMTP id ffacd0b85a97d-3a53189aacdmr2422601f8f.13.1749204222594;
-        Fri, 06 Jun 2025 03:03:42 -0700 (PDT)
-Message-ID: <20e6673b-bf85-4f9d-9938-7005a481b898@suse.com>
-Date: Fri, 6 Jun 2025 12:03:31 +0200
+        bh=AmikAL5cavKLcJ/8zdC6DtKWA3lk6mN6+P5caqth2G0=;
+        b=EBQ3tgiu2J7evy0wZBy1slkS1IcwXfXm5d4iTJ3qtiJI1h7fO0HVMiG5TFPOVUnpQ8
+         rY0lqcEZiIiZ9cG9TLbtM+VaeewkhepZZSFwj27+34+fiLVCXAJmhpCr8cSEWHYnnjAj
+         WMklOwhN9Ua/Locx91t5UJ96/dV4FzUD5f3Z9TRk7qn/Yf8ZZhjHOgpG1jgcqwq35ayx
+         Z3ir83gLbTIiReVUvcGvasq6wyTBaQ9mo46PljoufQNCaiB2cv4uysGIUjkvpuwW/75S
+         WNIxNm9fZh82bk22hcXMxjmoVvMS0s6OCRyo+gCFcJmJwFD5STx7x3OQk7M2BfP8y5fE
+         My/g==
+X-Forwarded-Encrypted: i=1; AJvYcCXLJ6/2y+6a+JEK/B/6JHILDXsF19W8dfn2iiFrK6RerHn87d6s47LCJpbYNYpzy+sqxCJWLUy2ZCo=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxXGDieXQsKxfxP2UscOJbT+nhB5jBLl62pArFRjIWbMRcEUhio
+	TeSh9qzrAa+7DpwG8chZFgO9f3zbXtVhr/USrcTKfcowxHoLa3lmDUBx7LuD0SuL+A==
+X-Gm-Gg: ASbGncsehcq2r1DPIOCeon9pfJzNwWrQQqYrvr4oyg44WNqMSvK+GP4puvAiLwf69/d
+	IlVUQ/otxpDAaGHaANavZlTzgWUYx60+g3D9m3HSQIu75iEgMh5VLVH/doKDVFUz38jpwb+K9Qh
+	csdsbi6ZCwHjZr3nrOJ7JJOrmemPT71mSC43fE6/KM1shmy9KoYUbr7FnsdTsOsNeDZViLrwFJn
+	T8qQBLd/i3dXAzdSniXW1nHxb7SlS7qBCKjbDc8/bIozZKFJ6sEMBWSDwywes1rz8E78WVI2iaQ
+	Dd/LtkFa/A8BBPJTv6ThlB0IjhEH/biZMg6s5Zzt5O0XWTZcuO9e1pOqG1CH4xdIulqgF2LZO+i
+	wyyIy0w4KT5MVLIktbWod8afBv4ugnFeMyaVU
+X-Google-Smtp-Source: AGHT+IFeaZmCnY/jHj3OxcFpsPXKvhxf185KrVZvz4XgthDZfpBxzhS2qU93cr3TwnfDNZf2KQksQA==
+X-Received: by 2002:a05:6000:2504:b0:3a5:2653:7322 with SMTP id ffacd0b85a97d-3a53188a710mr2531258f8f.3.1749204472287;
+        Fri, 06 Jun 2025 03:07:52 -0700 (PDT)
+Message-ID: <66d75dad-4407-4b09-8dd3-c61b5d05ed91@suse.com>
+Date: Fri, 6 Jun 2025 12:07:41 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 01/15] xen: Clean up asm-generic/device.h
+Subject: Re: [PATCH v2 02/15] arm/gnttab: Break links between
+ asm/grant_table.h and xen/grant_table.h
 To: Alejandro Vallejo <agarciav@amd.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
  "Daniel P. Smith" <dpsmith@apertussolutions.com>,
  xen-devel@lists.xenproject.org
 References: <20250605194810.2782031-1-agarciav@amd.com>
- <20250605194810.2782031-2-agarciav@amd.com>
- <38104467-fb7e-4aa3-9c78-0f9bf23183eb@suse.com>
- <DAFCZ0J2JEVF.3TIHRWPDJA1PL@amd.com>
+ <20250605194810.2782031-3-agarciav@amd.com>
+ <765d42ec-a421-4b8c-80bd-30c909e81e8d@suse.com>
+ <DAFD46XOYPG8.3V37FNPAPPT3T@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -128,67 +128,56 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <DAFCZ0J2JEVF.3TIHRWPDJA1PL@amd.com>
+In-Reply-To: <DAFD46XOYPG8.3V37FNPAPPT3T@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 06.06.2025 11:55, Alejandro Vallejo wrote:
-> On Fri Jun 6, 2025 at 8:51 AM CEST, Jan Beulich wrote:
+On 06.06.2025 12:02, Alejandro Vallejo wrote:
+> On Fri Jun 6, 2025 at 8:52 AM CEST, Jan Beulich wrote:
 >> On 05.06.2025 21:47, Alejandro Vallejo wrote:
->>> --- a/xen/include/asm-generic/device.h
->>> +++ b/xen/include/asm-generic/device.h
->>> @@ -1,14 +1,20 @@
->>>  /* SPDX-License-Identifier: GPL-2.0-only */
->>> +/*
->>> + * This header helps DTB-based architectures abstract away where a particular
->>> + * device came from, be it the DTB itself or enumerated on a PCI bus.
->>> + */
->>>  #ifndef __ASM_GENERIC_DEVICE_H__
->>>  #define __ASM_GENERIC_DEVICE_H__
->>>  
->>> +#ifndef CONFIG_HAS_DEVICE_TREE
->>> +#error "Header for exclusive use of DTB-based architectures"
->>> +#endif
+>>> --- a/xen/common/grant_table.c
+>>> +++ b/xen/common/grant_table.c
+>>> @@ -42,8 +42,10 @@
+>>>  #include <xen/xvmalloc.h>
+>>>  #include <xen/nospec.h>
+>>>  #include <xsm/xsm.h>
 >>> +
->>>  #include <xen/stdbool.h>
+>>>  #include <asm/flushtlb.h>
+>>>  #include <asm/guest_atomics.h>
+>>> +#include <asm/grant_table.h>
 >>>  
->>>  enum device_type
->>>  {
->>> -#ifdef CONFIG_HAS_DEVICE_TREE
->>>      DEV_DT,
+>>>  #ifdef CONFIG_PV_SHIM
+>>>  #include <asm/guest.h>
+>>> --- a/xen/include/xen/grant_table.h
+>>> +++ b/xen/include/xen/grant_table.h
+>>> @@ -27,10 +27,6 @@
+>>>  #include <xen/rwlock.h>
+>>>  #include <public/grant_table.h>
+>>>  
+>>> -#ifdef CONFIG_GRANT_TABLE
+>>> -#include <asm/grant_table.h>
 >>> -#endif
->>>      DEV_PCI
->>>  };
+>>> -
+>>>  struct grant_table;
+>>>  
+>>>  /* Seed a gnttab entry for Hyperlaunch/dom0less. */
 >>
->> My objection to these changes remains; as a generic header it ought to be what
->> that attribute says - generic.
+>> The description doesn't make clear why these two files need changing.
 > 
-> It is generic for any architecture where platform DTs exist (that is, anything
-> but x86).
+> What sort of description? I removed a conditional include  and added it to one
+> of the few places it didn't include it already along with xen/grant_table.h.
+> 
+> The title does say the patch removes the crossed includes in asm/grant_table.h
+> and xen/grant_table.h.
+> 
+> It's, I hope, self-explanatory regular spring cleanup.
 
-Here you're limiting things to what Xen presently "knows". I'm sure there are
-other architectures where DT is entirely unknown.
-
-Furthermore isn't the work here part of the hyperlaunch effort, where DT will
-be introduced to x86? Hence "anything but" isn't quite right either then.
+Then I'm sorry, to me it isn't. "Break links" has an entirely different (file
+system) meaning to me, in the common case. Plus that says what is being done,
+but not why. And it's the "why" that I'm seeking clarification on. From your
+response to my remarks on v1 I was concluding that the issue is that in a few
+places asm/grant_table.h would need including additionally. I didn't expect
+any #include to (need to) go away.
 
 Jan
-
-> As the commit message states, these guards are useless, provide no functionality
-> and create the fiction that somehow this header is still relevant on an
-> architecture where only PCI is available. And that's just not true. x86 being
-> the sole architecture without DTs actively overrides it, and relies on device_t
-> (defined as struct device here) to be a "struct pci_dev" instead in
-> x86/include/asm/device.h, with dev_to_pci() and pci_to_dev() being irrelevant
-> because device_t* and struct pci_dev* are identical types in x86. Removing that
-> override header is not just a matter of performance. All the IOMMU ops are
-> referencing device_t, while the drivers are assuming pci_dev, so all IOMMU
-> code breaks immediately when x86 tries to use this.
-> 
-> To be perfectly clear, this patch isn't strictly required to do DT unflattening
-> on x86. But it's a piece of arm tech debt that Xen is better off without.
-> 
-> Cheers,
-> Alejandro
-
 
