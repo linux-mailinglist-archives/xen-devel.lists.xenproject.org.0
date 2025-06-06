@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E9C2ACFD6E
-	for <lists+xen-devel@lfdr.de>; Fri,  6 Jun 2025 09:24:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1008028.1387243 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 82B48ACFD73
+	for <lists+xen-devel@lfdr.de>; Fri,  6 Jun 2025 09:27:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1008034.1387253 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uNRQa-00025K-Mz; Fri, 06 Jun 2025 07:23:48 +0000
+	id 1uNRTn-0002fI-4r; Fri, 06 Jun 2025 07:27:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1008028.1387243; Fri, 06 Jun 2025 07:23:48 +0000
+Received: by outflank-mailman (output) from mailman id 1008034.1387253; Fri, 06 Jun 2025 07:27:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uNRQa-00023D-KG; Fri, 06 Jun 2025 07:23:48 +0000
-Received: by outflank-mailman (input) for mailman id 1008028;
- Fri, 06 Jun 2025 07:23:47 +0000
+	id 1uNRTn-0002cd-1a; Fri, 06 Jun 2025 07:27:07 +0000
+Received: by outflank-mailman (input) for mailman id 1008034;
+ Fri, 06 Jun 2025 07:27:05 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=U7n3=YV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uNRQZ-000236-99
- for xen-devel@lists.xenproject.org; Fri, 06 Jun 2025 07:23:47 +0000
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [2a00:1450:4864:20::42d])
+ id 1uNRTk-0002cO-Vj
+ for xen-devel@lists.xenproject.org; Fri, 06 Jun 2025 07:27:04 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2e0a816a-42a7-11f0-b894-0df219b8e170;
- Fri, 06 Jun 2025 09:23:44 +0200 (CEST)
-Received: by mail-wr1-x42d.google.com with SMTP id
- ffacd0b85a97d-3a375888297so1144088f8f.1
- for <xen-devel@lists.xenproject.org>; Fri, 06 Jun 2025 00:23:45 -0700 (PDT)
+ id a3c58f25-42a7-11f0-b894-0df219b8e170;
+ Fri, 06 Jun 2025 09:27:02 +0200 (CEST)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-450d668c2a1so20118905e9.0
+ for <xen-devel@lists.xenproject.org>; Fri, 06 Jun 2025 00:27:02 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3134b05c4c0sm680810a91.19.2025.06.06.00.23.40
+ d9443c01a7336-23603405e6esm6620405ad.170.2025.06.06.00.26.56
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 06 Jun 2025 00:23:44 -0700 (PDT)
+ Fri, 06 Jun 2025 00:27:01 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,65 +45,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2e0a816a-42a7-11f0-b894-0df219b8e170
+X-Inumbo-ID: a3c58f25-42a7-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1749194625; x=1749799425; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=KariCyR0dGZDPIE40ZrelzTAXlwAXQCM1p379V0kows=;
-        b=L0jO3fQtGYVgfurOrvZWmY+su/mLMvKx05L58YjrTTkvnzO0YvZciDZ9XLY1BAX4cw
-         Q8O9EOEkudXJLqKzjiAfHA6maTdQh4+xBJyDhoclH8XICW+tFXNhRd8LjZZy6a4mjDto
-         fyscHcIiK7jlUH3gOLXZaYrVIypNbbqZLgXMOY2MJLHLxVaq0qAfbRnT3l/FzMkaBPLx
-         +2u+0RechoP+WW4Y3jUG4mW8ylz6VbE3IuuZBxvNfvboxMTDNuRl56SJqiS0uWpJcb0U
-         Rm/r+2S2M/xRfFUDEICQyoK3JIIHW6pXGoCSrFWxn6T++ZV5nuYMHmyRCBqT/h9lXUn3
-         QevA==
+        d=suse.com; s=google; t=1749194822; x=1749799622; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=F2PNFm1B6tEmudltOwJqkR8JnZtHtLpwvfP7Dqa3JbQ=;
+        b=A9M9EEkMRCKg6RBCF1f+1Qh37ZN1rZtkf9FX/vEXf6cqSmwWVffzhueVuNB3tti9u+
+         5biknl8+vfREJIKbwvTC/HzWY1vyLwwWQSnMOG1DzfqCvXc1oVwStW9sFPuL01fg2MvZ
+         iWEFdD2a2DhEVxBn7iYttrmiHr51NrLaVpS1wzBjnpq3pmavvlpOVh+izkz2yPa7KPH9
+         WDvgCHxbqc2txTf9gv6euipRTtlPy6qfBb4red7Wa0bnO4sSiUVuf5DA+WoqimTJDCjT
+         dwGug5//CYPcPKXe3rSVzRwU9gLpG1OV9A7n3t5/vK13B2tF6GM2nsXX9A6NDWpwiZ4C
+         I+5A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749194625; x=1749799425;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=KariCyR0dGZDPIE40ZrelzTAXlwAXQCM1p379V0kows=;
-        b=iY8kfQa7j4YJqPRctb7kxfTP+4JtpxX5LuaLH0Te9H5Uhcgt155G+D8JRrLOQJ1JAA
-         ZZLo0lqbsxAA1IySNnhoobpi+c5AlFUlqo9YRyqu3H2D4q+oPZ9fAPAuXv1CMcg0Tdl4
-         6vHZyTP4uVYSPU0QY8/BzqYE/JuHHaxXlD8Iv5dZ/NOcfL9Yzm00lFGQi4S0RBSxTBOB
-         wXVRyadk8SlyLbHJjsV2OeuVd0d5BfHuxbyT/M0NgvQWEiY66REFQ79fEd3BBkN4ITqE
-         dcOdGuXRd75pz4NGsrrhJxQjFSK3OLrDrlCIQwdLD6iOq7rlsOAiNB26iO1ryUb28q1m
-         mjYA==
-X-Forwarded-Encrypted: i=1; AJvYcCVW67sltwnCywezME2Ut62IjvTFGnC916ln9pEYst8LfQ9jQOx6QJUyDvxQnVhC4hKEJ/5sLlVH5Ww=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yxy2S6HcMEjuIHq0nz9+SY4A61IU1npCz5Nb7tmm3Y3wwa13++4
-	F6NG47H/hVUcYmo7zUqpHBwwSWP/X5li97RpCM9zymOgwlDMiRxrFI6Jb9Z/zKzxqg==
-X-Gm-Gg: ASbGncuYaaKI9ESigMKxuRr2kcuMTFfgPDkkoI7x2RJsaSPs+2iBaN7wY9tMf8AWIjK
-	6SISAqiGMwX0ltwPcB7iNtMwwUP7Z+cXk06UEUHK7AXdNr+EXXYgBfBs/XFEcMA6z0uLGe42GJa
-	D3KcJ4foMxb/Vpt8nXM90zheoEB74qiPrHOaW2KgFB1xphF48fzMOlVgtbdfAfBa6swFsLwOuko
-	YizJmpcR+cwcpuh8vtOQGJZbgAwkKi6gi8erRRDIAkhh62C/E9vU4CFpp3VvL0YaCmsxbuzCa70
-	brxZ5EjjUTEfQlr4vyxRFpPOdcHXtc4Y4nsshn+L22CkzMcyPHq+bDuphOFj9CTPG89JMb2N/Dt
-	oF/wogbsUqdbSSMHMdi5lg+zkyftA9NddRsFv
-X-Google-Smtp-Source: AGHT+IGv6Z7GJARK7IlmLqRuy9scT1aAnFqw0/ILl3vuL2nuWsB3WAd7pInbSJ7D5d/hvMGyieqAnA==
-X-Received: by 2002:a05:6000:1acf:b0:3a4:eb7a:2ccb with SMTP id ffacd0b85a97d-3a526ddbaeamr5749196f8f.16.1749194624752;
-        Fri, 06 Jun 2025 00:23:44 -0700 (PDT)
-Message-ID: <a154fa09-57f3-4cb7-801a-b371dd06b08c@suse.com>
-Date: Fri, 6 Jun 2025 09:23:36 +0200
+        d=1e100.net; s=20230601; t=1749194822; x=1749799622;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=F2PNFm1B6tEmudltOwJqkR8JnZtHtLpwvfP7Dqa3JbQ=;
+        b=W0gSH3ukWxFA6sBxGndnEWc+HlWg915fKq+q9gqiZkOJlXhHeD+5aoHPjXBpCWjh3G
+         QcAd5Eh5PTa5PJvFabCDE6HinmJsgpZAFI4ay3w9ejheO6txCdilZWrU0b2NoAM1FhvX
+         SuXzA5gTPMvSmQIVh88gzXy3pDZ6OnyfYCOuziggYZOpg0N9FBMQE8AGh/XSr2e4EF0/
+         wjKWH5iTeuX2L6ykiyaNfavWQO9ExldPhK1EZYOuIbZ2UGsPp2hlEa8ZcapW5FLlhXid
+         +1oLyCSGARjxPZKt1D9hDcVQUf3EBKuxKAS9IOJ3VPfYKG1pLus5KFljSQNAXuiJJdF+
+         5vhQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXOtL2VyLy8WTR1jBjBXzBaASczUa8AjA+DVOYRKJx4Lsfyj+e8MJSio3uEEyC4pVXiYthxPEExrqo=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy+BAp9fy+0UxAo3TmxvV/4oKpTh0RX+C4nhL84EziqVBNEtInH
+	dok0rOEN9AesaC9XmF+25U+HfN9I95mQvBueCsyFuts+UfhZ5ryz0neEgfOoZ7pSWQ==
+X-Gm-Gg: ASbGncsyljSb/hPdoITphWI7/h9K2qKWDzpFtn9JDnCmlhzJxeQGDQIVLoS1ZlwQvfX
+	pN2/KVHzHaIGX7rUCIZmDD4HkCBS9WxeygMo34YZRbcID8g1R+pc8EhRX986Fpo2J+aIv/7h+o9
+	xFiIzh78OsrvhmrtstnmCtSQm0pa8rdqpt7tRYPB5qpcdYsKSKMrHb9BwwVItKdFLpRNSONPr82
+	nsjCNcjW+wpGeeVDPxEh5DdCkCRI6NeBSmubT0FvjtjkQUW16+8XKoTnLWwp8M4Hi4/7La4wBbI
+	o4YBgKFusa0aASesfdkDH2D5XKwmINmSbHaDm5OIBRizy0KZTDfYsPzJMz4qyM/iRxes+BkuC+2
+	TtZnw42JV92YKnP+i9T9wu8+bTKv3Xxk45MkM/QEr6RpjAGY=
+X-Google-Smtp-Source: AGHT+IGWZUGUQBl9TiCWlpo0ejevE5OzoxR4HkvPBDqBzXJnXnVQqQYWZzno2z0BRQ7wC+hVSFdPiA==
+X-Received: by 2002:a05:6000:240a:b0:3a5:1360:6b34 with SMTP id ffacd0b85a97d-3a526dc524cmr5756747f8f.2.1749194822160;
+        Fri, 06 Jun 2025 00:27:02 -0700 (PDT)
+Message-ID: <20badf36-f103-48af-ac9b-7e6f331cc0ac@suse.com>
+Date: Fri, 6 Jun 2025 09:26:52 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] x86/EFI: Fix detection of buildid
-From: Jan Beulich <jbeulich@suse.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Ross Lagerwall <ross.lagerwall@citrix.com>,
+Subject: Re: [PATCH] x86: remove memcmp calls non-compliant with Rule 21.16.
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+Cc: Stefano Stabellini <stefano.stabellini@amd.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>,
- "Daniel P . Smith" <dpsmith@apertussolutions.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250605111638.2869914-1-andrew.cooper3@citrix.com>
- <20250605111638.2869914-2-andrew.cooper3@citrix.com>
- <0a314400-126a-4c2a-b36c-dda61bb0b751@suse.com>
- <a477369d-77d0-48fa-8ac4-120d49e32d11@citrix.com>
- <4d1f1b70-e309-453b-bae6-e066d49a417a@suse.com>
- <9200277c-aa8e-4fd9-ab6a-f9e106114f54@citrix.com>
- <6eaf2b27-969a-4326-9726-8b6e0994e006@suse.com>
+ Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>,
+ xen-devel@lists.xenproject.org, federico.serafini@bugseng.com
+References: <20250604233537.2892206-1-stefano.stabellini@amd.com>
+ <c252a43a-4e00-4584-bbb1-05347aa9b49f@suse.com>
+ <alpine.DEB.2.22.394.2506051624050.2495561@ubuntu-linux-20-04-desktop>
+ <13ad335c1868bcc02e2dc0a8da521f6d@bugseng.com>
 Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -127,52 +124,122 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <6eaf2b27-969a-4326-9726-8b6e0994e006@suse.com>
+In-Reply-To: <13ad335c1868bcc02e2dc0a8da521f6d@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 06.06.2025 09:22, Jan Beulich wrote:
-> On 05.06.2025 19:01, Andrew Cooper wrote:
->> On 05/06/2025 2:24 pm, Jan Beulich wrote:
->>> On 05.06.2025 14:14, Andrew Cooper wrote:
->>>> On 05/06/2025 1:02 pm, Jan Beulich wrote:
->>>>> On 05.06.2025 13:16, Andrew Cooper wrote:
->>>> This really is a property of being a PE32+ binary, and nothing to do
->>>> with EFI.
->>> Which still can be checked for without having this code path being taken
->>> for xen.gz, too: You could e.g. check for &efi > &_end. That's firmly an
->>> image property (yet I expect you're going to sigh about yet another hack).
->>
->> It's all hacks, but no.
->>
->> I'm amazed MISRA hasn't spotted that we've got a global `struct efi
->> efi;` and a label named efi, creating an alias for the object with it
->> out of bounds in the compiled image.  But even then, it's based on
->> XEN_BUILD_EFI not XEN_BUILD_PE and does not distinguish the property
->> that matters.
+On 06.06.2025 09:12, Nicola Vetrini wrote:
+> On 2025-06-06 01:39, Stefano Stabellini wrote:
+>> On Thu, 5 Jun 2025, Jan Beulich wrote:
+>>> On 05.06.2025 01:35, Stefano Stabellini wrote:
+>>>> From: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
+>>>>
+>>>> MISRA C Rule 21.16 states the following: "The pointer arguments to
+>>>> the Standard Library function `memcmp' shall point to either a pointer
+>>>> type, an essentially signed type, an essentially unsigned type, an
+>>>> essentially Boolean type or an essentially enum type".
+>>>>
+>>>> Comparing string literals with char arrays is more appropriately
+>>>> done via strncmp.
+>>>
+>>> More appropriately - maybe. Yet less efficiently. IOW I view ...
+>>>
+>>>> No functional change.
+>>>
+>>> ... this as at the edge of not being true.
+>>>
 > 
-> The use of XEN_BUILD_EFI in the linker script should have been switched
-> to XEN_BUILD_PE when the split was introduced.
-> 
->> But the argument I'm going to make this this:  Why do you want a check,
->> even if you can find a correct one (and as said before, I cannot)?
->>
->> This function is run exactly once.  We've excluded "nothing given by the
->> toolchain", and excluded "what the toolchain gave us was not the
->> expected ELF note".  The only thing left (modulo toolchain bugs) is the
->> CodeView region, and if it's not a valid CodeView region then we've
->> wasted a handful of cycles.
-> 
-> Two reasons: Having code which cannot possibly do anything useful isn't
-> good. Misra calls the latest the body of the inner if() "unreachable code"
-> and objects to the presence of such in a build. (I'm pretty sure Eclair
-> wouldn't spot it, but that doesn't eliminate this being a violation of
-> the respective rule.)
-> 
-> And then, based on your reasoning above, why don't you also drop the
-> #ifdef CONFIG_X86?
+> Then our views of what constitutes a functional change clearly differ. 
+> If you are concerned about performance the patch may be dropped, but 
+> then does it make sense to apply the rule at all? An alternative 
+> suggestion might be that of deviating the rule for memcmp applied to 
+> string literals in either the first or second argument, or both).
 
-..., saying in the description "we can as well check for this uniformly"
+FTAOD (since Stefano also said it like this) - it's not just "string
+literal". The additional requirement is that the last argument passed
+must equal sizeof(<string literal>) for the comparison to work
+correctly.
 
 Jan
+
+>>>> Signed-off-by: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
+>>>
+>>> Missing your own S-o-b.
+>>>
+>>> Also (nit) may I ask that you drop the full stop from the patch 
+>>> subject?
+>>
+>> I'll add the S-o-B and fix the subject
+>>
+>>
+>>>> --- a/xen/arch/x86/dmi_scan.c
+>>>> +++ b/xen/arch/x86/dmi_scan.c
+>>>> @@ -233,7 +233,7 @@ void __init dmi_efi_get_table(const void *smbios, const void *smbios3)
+>>>>  	const struct smbios_eps *eps = smbios;
+>>>>  	const struct smbios3_eps *eps3 = smbios3;
+>>>>
+>>>> -	if (eps3 && memcmp(eps3->anchor, "_SM3_", 5) == 0 &&
+>>>> +	if (eps3 && strncmp(eps3->anchor, "_SM3_", 5) == 0 &&
+>>>
+>>> Unlike the last example given in the doc, this does not pose the risk 
+>>> of
+>>> false "not equal" returns. Considering there's no example there 
+>>> exactly
+>>> matching this situation, I'm not convinced a change is actually 
+>>> needed.
+>>> (Applies to all other changes here, too.)
+>>
+>> If we consider string literals "pointer types", then I think you are
+>> right that this would fall under what is permitted by 21.16. Nicola,
+>> what do you think?
+>>
+> 
+> While I agree that the result of the comparison is correct either way in 
+> these cases, the rule is written to be simple to apply (i.e., not 
+> limited only to those cases that may differ), and in particular in the 
+> rationale it is indicated that using memcmp to compare string *may* 
+> indicate a mistake. As written above, deviating the string literal 
+> comparisons is an option, which can be justified with efficiency 
+> concerns, but it goes a bit against the rationale of the rule itself.
+> 
+>>
+>>>> @@ -302,7 +302,7 @@ const char *__init dmi_get_table(paddr_t *base, u32 *len)
+>>>>  				continue;
+>>>>  			memcpy_fromio(&eps.dmi + 1, q + sizeof(eps.dmi),
+>>>>  			              sizeof(eps.smbios3) - sizeof(eps.dmi));
+>>>> -			if (!memcmp(eps.smbios3.anchor, "_SM3_", 5) &&
+>>>> +			if (strncmp(eps.smbios3.anchor, "_SM3_", 5) == 0 &&
+>>>
+>>> Here and below there's a further (style) change, moving from ! to "== 
+>>> 0"
+>>> (or from implicit boolean to "!= 0"). As we use the original style in 
+>>> many
+>>> other places, some justification for this extra change would be needed 
+>>> in
+>>> the description (or these extra adjustments be dropped).
+>>
+>> The adjustments can be dropped
+>>
+>>
+>>>> @@ -720,10 +720,10 @@ static void __init efi_check_config(void)
+>>>>  	__set_fixmap(FIX_EFI_MPF, PFN_DOWN(efi.mps), __PAGE_HYPERVISOR);
+>>>>  	mpf = fix_to_virt(FIX_EFI_MPF) + ((long)efi.mps & (PAGE_SIZE-1));
+>>>>
+>>>> -	if (memcmp(mpf->mpf_signature, "_MP_", 4) == 0 &&
+>>>> -	    mpf->mpf_length == 1 &&
+>>>> -	    mpf_checksum((void *)mpf, 16) &&
+>>>> -	    (mpf->mpf_specification == 1 || mpf->mpf_specification == 4)) {
+>>>> +	if (strncmp(mpf->mpf_signature, "_MP_", 4) == 0 &&
+>>>> +            mpf->mpf_length == 1 &&
+>>>> +            mpf_checksum((void *)mpf, 16) &&
+>>>> +            (mpf->mpf_specification == 1 || mpf->mpf_specification == 4)) {
+>>>>  		smp_found_config = true;
+>>>>  		printk(KERN_INFO "SMP MP-table at %08lx\n", efi.mps);
+>>>>  		mpf_found = mpf;
+>>>
+>>> There are extra (indentation) changes here which ought to be dropped.
+>>
+>> Yes
+> 
+
 
