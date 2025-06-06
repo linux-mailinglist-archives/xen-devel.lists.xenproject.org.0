@@ -2,29 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DEB22ACFD28
-	for <lists+xen-devel@lfdr.de>; Fri,  6 Jun 2025 08:55:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1007935.1387113 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A6ED2ACFD29
+	for <lists+xen-devel@lfdr.de>; Fri,  6 Jun 2025 08:56:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1007941.1387123 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uNQzK-00083W-R9; Fri, 06 Jun 2025 06:55:38 +0000
+	id 1uNR09-00006a-3u; Fri, 06 Jun 2025 06:56:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1007935.1387113; Fri, 06 Jun 2025 06:55:38 +0000
+Received: by outflank-mailman (output) from mailman id 1007941.1387123; Fri, 06 Jun 2025 06:56:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uNQzK-00081m-OQ; Fri, 06 Jun 2025 06:55:38 +0000
-Received: by outflank-mailman (input) for mailman id 1007935;
- Fri, 06 Jun 2025 06:55:37 +0000
+	id 1uNR09-0008V2-1B; Fri, 06 Jun 2025 06:56:29 +0000
+Received: by outflank-mailman (input) for mailman id 1007941;
+ Fri, 06 Jun 2025 06:56:28 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=fxa/=YV=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
- id 1uNQzI-00081f-FA
- for xen-devel@lists.xenproject.org; Fri, 06 Jun 2025 06:55:37 +0000
-Received: from mail-4316.protonmail.ch (mail-4316.protonmail.ch [185.70.43.16])
+ (envelope-from <SRS0=U7n3=YV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uNR08-00081f-7Y
+ for xen-devel@lists.xenproject.org; Fri, 06 Jun 2025 06:56:28 +0000
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [2a00:1450:4864:20::335])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3e34ee37-42a3-11f0-b894-0df219b8e170;
- Fri, 06 Jun 2025 08:55:34 +0200 (CEST)
+ id 5d8a954b-42a3-11f0-b894-0df219b8e170;
+ Fri, 06 Jun 2025 08:56:26 +0200 (CEST)
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-450cf0120cdso16931965e9.2
+ for <xen-devel@lists.xenproject.org>; Thu, 05 Jun 2025 23:56:26 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-3134b13ba47sm635844a91.40.2025.06.05.23.56.20
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 05 Jun 2025 23:56:25 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,351 +45,130 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3e34ee37-42a3-11f0-b894-0df219b8e170
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1749192932; x=1749452132;
-	bh=iVWTtAlXZPIUCCqlJJu2YtHiSgf61XcJ9kO3TkASNDM=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector:List-Unsubscribe:List-Unsubscribe-Post;
-	b=X3aurnJYW+no1NmCfR4YkujfThakW7ktJm3DD3uimajCMiqZlJ5EazO7Yfj4d/XmB
-	 5uvH98h3w43dyFIO0MjbZ9CFVIdxDiKc7d9khFgHgsR4d4jwpSnh4xWb1iXASv7pxl
-	 tSFRU8SB0B3ASl2hIN4V9bCLsGtgqq/eTA0qOLvO5274O5nZ/fgxDQ8OhHIXApeHFS
-	 6F+uTAEWETmZ0VqPICKcgD5lbiiEEV3qpr/ERRJC3Fcgu/xKH8eEvw/jiz+8GNSfza
-	 /eXpOk3GP7c8f51kFrrJzn7li6PlG3/N4aF38w4QQ7r8yVWi5NQQN5hPzUF17AtjtM
-	 CNg+gzoRFWzsA==
-Date: Fri, 06 Jun 2025 06:55:26 +0000
-To: Julien Grall <julien@xen.org>
-From: dmkhn@proton.me
-Cc: xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com, anthony.perard@vates.tech, jbeulich@suse.com, roger.pau@citrix.com, sstabellini@kernel.org, teddy.astie@vates.tech, dmukhin@ford.com
-Subject: Re: [PATCH v9 1/3] xen/domain: unify domain ID allocation
-Message-ID: <aEKQ2Fpfah+qVkB2@kraken>
-In-Reply-To: <d0829041-1375-4161-b2c4-f8dffadbb657@xen.org>
-References: <20250528225030.2652166-1-dmukhin@ford.com> <20250528225030.2652166-2-dmukhin@ford.com> <d0829041-1375-4161-b2c4-f8dffadbb657@xen.org>
-Feedback-ID: 123220910:user:proton
-X-Pm-Message-ID: 60c800d892fe51859f77e4f018191c785f9565ed
+X-Inumbo-ID: 5d8a954b-42a3-11f0-b894-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1749192986; x=1749797786; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=42e5ZGOtOGSOXXptCVVuYFxeFbUysynhGiyilV+BZkE=;
+        b=ZtGJSRHQMdhRAbQSlp4Uf8XXxLPbf4qZjB+aLxTG/BAxaZh1QTIQRi4oo01QB7/NiX
+         Iuk51VTqQjXzN0DxR4KR+gAo0ZLJcd0Twjruov19A/X9OOV0glkrdNAd6JA1nG1F+qUi
+         uQl9e68WHYD1LwncTlMiVRkM1SWAKtvWR/Fa05LpvnOeqjqXQmHOCc+9gfKajkgMmd0e
+         j7oH4N79FQnat5njdfpxbe+xhB16G1d/U+sdm2EA4InX86Zq47kbx44bFKHrQMJX9gtz
+         ey6ZQ6sjh95gg0pvgBxbcmZA1BKVkdBK22tAvHCYZWKGC89QDlaLcIPV0Ruc3TH/gEB8
+         R3Ug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1749192986; x=1749797786;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=42e5ZGOtOGSOXXptCVVuYFxeFbUysynhGiyilV+BZkE=;
+        b=QdDEcB7B4f3vfKdavdlIZzeafPD9J7q1G8aATklf6nvtJlzvo0q8Wl8I4gzenXZLlJ
+         Meyj0YTXvgrQcG2ZrsmR4frktWlhpJtcVhpa4tKKIYaOLYc3jieerk0j0iPypMnHx3+0
+         lso3oENbd6MvZNcqX54Ahx+ayAq7SdS8Wour3yhNVHOJvfrJNFw4JBqxlwazvGRE9sQy
+         xGFBXKMqNblBi1JLI98OyIT3Q3jmeTaWG4bjH+Sb6ilr4XD7/Mqrr0qjcaLICsy5M4/i
+         qCcqyvxGB2c4psbuvl6uH7hMbAuel6+C/7p2Ar/Ryyz1c53xqE2zPiU8MGY6FFezNoTm
+         ZjqA==
+X-Forwarded-Encrypted: i=1; AJvYcCXG+57eFg1Ly0jrPNmj8MZ40lOs1qzAk4scbHj/wcuKUH9PCLuK1uxMTUf4XOEt3XwA9TcM5fiF7d8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxhB60hI62LxgbT2D8MjpeOX+ey+hC8MrWfRToY0mxbaaWxvivZ
+	29HkhLQJewJfGMkh8k688mYY+Dsf+efiomnPHxHtjhL8mTVecPMOKrDtP8MJUAkzuQ==
+X-Gm-Gg: ASbGncsc9COim2Xx/dJH4odMHZ24s+Z6PRkjc0H69HT3bN4Ml0wcfpS3iqSRUjuCM2v
+	CGoELSgtidtp8K+G2jsWrKFujEUJ1zB+w+C3NalXwUgg8QVH/yygIUiFXmK6RF2mPdM//7PPxJE
+	Vo6y6ZjxsOb94LjtRZYC7kGJNsVN0t6rtJS2e7NTkED935g2QeeSxSX5pVlBdo1aLveZWnh5e+s
+	/TspaYFPf26fwyvMGrlUjA5Il5+hP64NeVZWFsy1bH5DvsAkE7LbRVhQhT9lIc6hF16J6b3KFkc
+	5tzeTgQGaUccx+s6lV0EUKP0VTmDiCffWl7iJKPp51Qa6qUmjdsMEj5v60FMcVcbcWdvHbUjGRG
+	N8c0EEC0/bsqVQz6xBr+CP7NE0Q52+igPTE6K1IKdIGHO/vs=
+X-Google-Smtp-Source: AGHT+IECLLRbhY8X5pS6svFkV7sqMOJz0VhKRUuItsE4WO2h+iCgE37iGHnpx9c55uXmZHPuPcuqcQ==
+X-Received: by 2002:a5d:5f4f:0:b0:3a4:f41d:696e with SMTP id ffacd0b85a97d-3a531cb3b6amr1926884f8f.27.1749192986042;
+        Thu, 05 Jun 2025 23:56:26 -0700 (PDT)
+Message-ID: <6490abdd-ac7c-4178-a174-25d13065ae04@suse.com>
+Date: Fri, 6 Jun 2025 08:56:16 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 10/19] x86: Replace boot_module with bootmodule
+To: Alejandro Vallejo <agarciav@amd.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+References: <DA1WWRUQLCAG.ZTVR1HXJ85V0@amd.com>
+ <20250530120242.39398-1-agarciav@amd.com>
+ <20250530120242.39398-11-agarciav@amd.com>
+ <214c8863-5cd4-4be9-948e-e44b67f541bd@citrix.com>
+ <DAERYXX8M48M.2X249UHMKARPF@amd.com> <DAES85NYFTFG.1VQE6GFHLL4GY@amd.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <DAES85NYFTFG.1VQE6GFHLL4GY@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Jun 05, 2025 at 10:58:48PM +0100, Julien Grall wrote:
-> Hi Denis,
->=20
-> On 28/05/2025 23:50, dmkhn@proton.me wrote:
-> > From: Denis Mukhin <dmkhn@proton.me>
-> >
-> > From: Denis Mukhin <dmukhin@ford.com>
-> >
-> > Currently, hypervisor code has two different domain ID allocation
-> > implementations:
-> >
-> >    (a) Sequential IDs allocation in dom0less Arm code based on max_init=
-_domid;
-> >
-> >    (b) Sequential IDs allocation in XEN_DOMCTL_createdomain; does not u=
-se
-> >        max_init_domid (both Arm and x86).
-> >
-> > The domain ID allocation covers dom0 or late hwdom, predefined domains,
-> > post-boot domains, excluding Xen system domains (domid >=3D
-> > DOMID_FIRST_RESERVED).
-> >
-> > It makes sense to have a common helper code for such task across archit=
-ectures
-> > (Arm and x86) and between dom0less / toolstack domU allocation.
-> >
-> > Wrap the domain ID allocation as an arch-independent function domid_all=
-oc() in
-> > common/domain.c based on the bitmap.
-> >
-> > Allocation algorithm:
-> > - If an explicit domain ID is provided, verify its availability and use=
- it if
-> >    ID is not used;
-> > - If DOMID_INVALID is provided, search the range [0..DOMID_FIRST_RESERV=
-ED-1],
-> >    starting from the last used ID and wrapping around as needed. It gua=
-rantees
-> >    that two consecutive calls will never return the same ID. ID#0 is ex=
-cluded
-> >    to account for late hwdom case.
-> >
-> > Also, remove is_free_domid() helper as it is not needed now.
-> >
-> > No functional change intended.
-> >
-> > Signed-off-by: Denis Mukhin <dmukhin@ford.com>
-> > ---
-> > Changes since v8:
-> > - skip ID #0 in domid_alloc() to account for late hwdom
-> > ---
-> >   xen/arch/arm/domain_build.c             | 17 +++++---
-> >   xen/arch/x86/setup.c                    | 11 +++--
-> >   xen/common/device-tree/dom0less-build.c | 10 +++--
-> >   xen/common/domain.c                     | 54 ++++++++++++++++++++++++=
-+
-> >   xen/common/domctl.c                     | 42 +++----------------
-> >   xen/include/xen/domain.h                |  3 ++
-> >   6 files changed, 87 insertions(+), 50 deletions(-)
-> >
-> > diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-> > index b189a7cfae..e9d563c269 100644
-> > --- a/xen/arch/arm/domain_build.c
-> > +++ b/xen/arch/arm/domain_build.c
-> > @@ -2010,6 +2010,7 @@ void __init create_dom0(void)
-> >           .grant_opts =3D XEN_DOMCTL_GRANT_version(opt_gnttab_max_versi=
-on),
-> >       };
-> >       unsigned int flags =3D CDF_privileged | CDF_hardware;
-> > +    domid_t domid;
-> >       int rc;
-> >
-> >       /* The vGIC for DOM0 is exactly emulating the hardware GIC */
-> > @@ -2034,19 +2035,25 @@ void __init create_dom0(void)
-> >       if ( !llc_coloring_enabled )
-> >           flags |=3D CDF_directmap;
-> >
-> > -    dom0 =3D domain_create(0, &dom0_cfg, flags);
-> > +    domid =3D domid_alloc(0);
-> > +    if ( domid =3D=3D DOMID_INVALID )
-> > +        panic("Error allocating domain ID 0\n");
-> > +
-> > +    dom0 =3D domain_create(domid, &dom0_cfg, flags);
-> >       if ( IS_ERR(dom0) )
-> > -        panic("Error creating domain 0 (rc =3D %ld)\n", PTR_ERR(dom0))=
-;
-> > +        panic("Error creating domain %d (rc =3D %ld)\n", domid, PTR_ER=
-R(dom0));
->=20
-> The change in the panic here and below seems unrelated to the goal of
-> the patch. I am ok to keep them here, but I think it should be mentioned
-> in the commit message.
+On 05.06.2025 19:40, Alejandro Vallejo wrote:
+> On Thu Jun 5, 2025 at 7:28 PM CEST, Alejandro Vallejo wrote:
+>> On Mon Jun 2, 2025 at 7:00 PM CEST, Andrew Cooper wrote:
+>>> On 30/05/2025 1:02 pm, Alejandro Vallejo wrote:
+>>>> These types resemble each other very closely in layout and intent, and
+>>>> with "struct bootmodule" already in common code it makes perfect sense
+>>>> to merge them. In order to do so, add an arch-specific area for
+>>>> x86-specific tidbits.
+>>>>
+>>>> Signed-off-by: Alejandro Vallejo <agarciav@amd.com>
+>>>
+>>> Yet this is a distinct backwards step in terms of legibility.
+>>>
+>>> How about modifying the common code to be more legible, rather than
+>>> regressing the x86 code.
+>>>
+>>> ~Andrew
+>>
+>> I meant to ifdef out the fields unused on x86, but after some massaging I
+>> think I got it lookin much nicer. It's essentially using the common parts of
+>> kernel_info and boot_domain as a header to kernel_info.
+>>
+>> That way, x86 keeps using a substantially smaller (yet common) data structure
+>> while the rest of dom0less can keep using the original as-is.
+>>
+>> Refactoring kernel_info to rationalise its contents is somewhere in my TODO
+>> list, but I have much more urgent fish to fry first.
+>>
+>> Cheers,
+>> Alejandro
+> 
+> ... I misread the comment and thought it was in the following patch rather than this one.
+> 
+> If it was indeed intended here, I'm at a loss as to what you'd rather do.
+> Common bindings need a common ground. This is such ground. The data structures
+> are virtually identical and used for identical purposes.
+> 
+> What's the legibility step you're talking about?
 
-Will do.
+The loss of the underscore (separating the words) in the struct tag, aiui.
 
->=20
-> >
-> >       if ( llc_coloring_enabled && (rc =3D dom0_set_llc_colors(dom0)) )
-> > -        panic("Error initializing LLC coloring for domain 0 (rc =3D %d=
-)\n", rc);
-> > +        panic("Error initializing LLC coloring for domain %pd (rc =3D =
-%d)\n",
-> > +              dom0, rc);
-> >
-> >       if ( alloc_dom0_vcpu0(dom0) =3D=3D NULL )
-> > -        panic("Error creating domain 0 vcpu0\n");
-> > +        panic("Error creating domain %pdv0\n", dom0);
-> >
-> >       rc =3D construct_dom0(dom0);
-> >       if ( rc )
-> > -        panic("Could not set up DOM0 guest OS (rc =3D %d)\n", rc);
-> > +        panic("Could not set up guest OS for domain %pd (rc =3D %d)\n"=
-,
-> > +              dom0, rc);
-> >
-> >       set_xs_domain(dom0);
-> >   }
-> > diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
-> > index 1f5cb67bd0..b36ce4491b 100644
-> > --- a/xen/arch/x86/setup.c
-> > +++ b/xen/arch/x86/setup.c
-> > @@ -1031,8 +1031,11 @@ static struct domain *__init create_dom0(struct =
-boot_info *bi)
-> >       if ( iommu_enabled )
-> >           dom0_cfg.flags |=3D XEN_DOMCTL_CDF_iommu;
-> >
-> > -    /* Create initial domain.  Not d0 for pvshim. */
-> > -    bd->domid =3D get_initial_domain_id();
-> > +    /* Allocate initial domain ID. Not d0 for pvshim. */
->=20
-> NIT: The two spaces were valid here. This is in fact quite common to
-> unambiguously mark the end of a sentence.
-
-Yep, I changed the text in comment and forgot to keep the double space.
-
->=20
-> > +    bd->domid =3D domid_alloc(get_initial_domain_id());
-> > +    if ( bd->domid =3D=3D DOMID_INVALID )
-> > +        panic("Error allocating domain ID %d\n", get_initial_domain_id=
-());
-> > +
-> >       d =3D domain_create(bd->domid, &dom0_cfg,
-> >                         pv_shim ? 0 : CDF_privileged | CDF_hardware);
-> >       if ( IS_ERR(d) )
-> > @@ -1064,7 +1067,7 @@ static struct domain *__init create_dom0(struct b=
-oot_info *bi)
-> >
-> >           if ( (strlen(acpi_param) =3D=3D 0) && acpi_disabled )
-> >           {
-> > -            printk("ACPI is disabled, notifying Domain 0 (acpi=3Doff)\=
-n");
-> > +            printk("ACPI is disabled, notifying domain %pd (acpi=3Doff=
-)\n", d);
-> >               safe_strcpy(acpi_param, "off");
-> >           }
-> >
-> > @@ -1079,7 +1082,7 @@ static struct domain *__init create_dom0(struct b=
-oot_info *bi)
-> >
-> >       bd->d =3D d;
-> >       if ( construct_dom0(bd) !=3D 0 )
-> > -        panic("Could not construct domain 0\n");
-> > +        panic("Could not construct domain %pd\n", d);
-> >
-> >       bd->cmdline =3D NULL;
-> >       xfree(cmdline);
-> > diff --git a/xen/common/device-tree/dom0less-build.c b/xen/common/devic=
-e-tree/dom0less-build.c
-> > index 39cb2cd5c7..a509f8fecd 100644
-> > --- a/xen/common/device-tree/dom0less-build.c
-> > +++ b/xen/common/device-tree/dom0less-build.c
-> > @@ -850,15 +850,13 @@ void __init create_domUs(void)
-> >           struct xen_domctl_createdomain d_cfg =3D {0};
-> >           unsigned int flags =3D 0U;
-> >           bool has_dtb =3D false;
-> > +        domid_t domid;
-> >           uint32_t val;
-> >           int rc;
-> >
-> >           if ( !dt_device_is_compatible(node, "xen,domain") )
-> >               continue;
-> >
-> > -        if ( (max_init_domid + 1) >=3D DOMID_FIRST_RESERVED )
->=20
-> I can't find a similar check in domid_alloc(). But if the value is
-> unlikely above DOMID_FIRST_RESERVED, then we would end up to allocate a
-> random domid.
-
-Yes, thanks.
-I think I need to add tools/tests with a self-test for the domain ID alloca=
-tion
-code.
-
->=20
-> > -            panic("No more domain IDs available\n");
-> > -
->  >           d_cfg.max_evtchn_port =3D 1023;>
-> d_cfg.max_grant_frames =3D -1;
-> >           d_cfg.max_maptrack_frames =3D -1;
-> > @@ -981,7 +979,11 @@ void __init create_domUs(void)
-> >            * very important to use the pre-increment operator to call
-> >            * domain_create() with a domid > 0. (domid =3D=3D 0 is reser=
-ved for Dom0)
-> >            */
-> > -        d =3D domain_create(++max_init_domid, &d_cfg, flags);
-> > +        domid =3D domid_alloc(++max_init_domid);
->=20
-> In the commit message you wrote:
->=20
->=20
-> """
->      (b) Sequential IDs allocation in XEN_DOMCTL_createdomain; does not u=
-se
->          max_init_domid (both Arm and x86).
-> """
->=20
-> I read it as max_init_domid should have been moved to common code. I see
-> this is done in the next patch. So I would suggest to clarify this will
-> be handled separately.
-
-Will do.
-
->=20
->=20
-> > +        if ( domid =3D=3D DOMID_INVALID )
-> > +            panic("Error allocating ID for domain %s\n", dt_node_name(=
-node));
-> > +
-> > +        d =3D domain_create(domid, &d_cfg, flags);
-> >           if ( IS_ERR(d) )
-> >               panic("Error creating domain %s (rc =3D %ld)\n",
-> >                     dt_node_name(node), PTR_ERR(d));
-> > diff --git a/xen/common/domain.c b/xen/common/domain.c
-> > index abf1969e60..ae0c44fcbb 100644
-> > --- a/xen/common/domain.c
-> > +++ b/xen/common/domain.c
-> > @@ -66,6 +66,10 @@ DEFINE_RCU_READ_LOCK(domlist_read_lock);
-> >   static struct domain *domain_hash[DOMAIN_HASH_SIZE];
-> >   struct domain *domain_list;
-> >
-> > +/* Non-system domain ID allocator. */
-> > +static DEFINE_SPINLOCK(domid_lock);
-> > +static DECLARE_BITMAP(domid_bitmap, DOMID_FIRST_RESERVED);
-> > +
-> >   /*
-> >    * Insert a domain into the domlist/hash.  This allows the domain to =
-be looked
-> >    * up by domid, and therefore to be the subject of hypercalls/etc.
-> > @@ -1449,6 +1453,8 @@ void domain_destroy(struct domain *d)
-> >
-> >       TRACE_TIME(TRC_DOM0_DOM_REM, d->domain_id);
-> >
-> > +    domid_free(d->domain_id);
-> > +
-> >       /* Remove from the domlist/hash. */
-> >       domlist_remove(d);
-> >
-> > @@ -2405,6 +2411,54 @@ domid_t get_initial_domain_id(void)
-> >       return hardware_domid;
-> >   }
-> >
-> > +domid_t domid_alloc(domid_t domid)
-> > +{
-> > +    spin_lock(&domid_lock);
-> > +
-> > +    if ( domid < DOMID_FIRST_RESERVED )
-> > +    {
-> > +        if ( __test_and_set_bit(domid, domid_bitmap) )
-> > +            domid =3D DOMID_INVALID;
-> > +    }
-> > +    else
-> > +    {
-> > +        static domid_t domid_last;
-> > +        /* NB: account for late hwdom case, skip ID#0 */
->=20
-> I am somewhat confused with this comment. For the late hwdom case, I
-> thought we were using a non-zero ID. Dom0 should also always be the
-> first dom0 to be reserved. Can you clarify?
-
-My current understanding is:
-- the ID of "domain 0" (privileged domain) can be overridden at the boot-ti=
-me
-  via hardware_domid parameter.
-
-- there's only one reserved (and configurable) domain ID =3D=3D hardware_do=
-mid in
-  the allocation range (which is 0 by default).
-
-- get_initial_domain_id() returns the reserved domain ID value (which is
-  used in the in the follow on change to keep the change isolated).
-
-Is my understanding correct?
-
-I will update the comment.
-
->=20
-> That said, if you want to skip to dom0. Wouldn't it be better to have
-> domid_last set to 1 and then ...
->=20
->  > +        const domid_t reserved_domid =3D 0;> +        const bool
-> reserved =3D __test_and_set_bit(reserved_domid, domid_bitmap);
-> > +
-> > +        domid =3D find_next_zero_bit(domid_bitmap, DOMID_FIRST_RESERVE=
-D,
-> > +                                   domid_last);
-> > +
-> > +        if ( domid =3D=3D DOMID_FIRST_RESERVED )
-> > +            domid =3D find_next_zero_bit(domid_bitmap, DOMID_FIRST_RES=
-ERVED, 0);
->=20
-> ... use 1 here? This would avoid to temporarily mark the domid 0 as
-> reserved.
->=20
-> Cheers,
->=20
-> --
-> Julien Grall
->=20
->=20
-
+Jan
 
