@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5678DAD004D
-	for <lists+xen-devel@lfdr.de>; Fri,  6 Jun 2025 12:22:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1008405.1387693 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 66A8EAD006C
+	for <lists+xen-devel@lfdr.de>; Fri,  6 Jun 2025 12:31:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1008412.1387706 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uNUCu-0001Hi-9o; Fri, 06 Jun 2025 10:21:52 +0000
+	id 1uNULT-00030T-3x; Fri, 06 Jun 2025 10:30:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1008405.1387693; Fri, 06 Jun 2025 10:21:52 +0000
+Received: by outflank-mailman (output) from mailman id 1008412.1387706; Fri, 06 Jun 2025 10:30:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uNUCu-0001G9-68; Fri, 06 Jun 2025 10:21:52 +0000
-Received: by outflank-mailman (input) for mailman id 1008405;
- Fri, 06 Jun 2025 10:21:50 +0000
+	id 1uNULT-0002yG-0O; Fri, 06 Jun 2025 10:30:43 +0000
+Received: by outflank-mailman (input) for mailman id 1008412;
+ Fri, 06 Jun 2025 10:30:42 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=+Tda=YV=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
- id 1uNUCs-0001Et-61
- for xen-devel@lists.xenproject.org; Fri, 06 Jun 2025 10:21:50 +0000
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on20617.outbound.protection.outlook.com
- [2a01:111:f403:2405::617])
+ id 1uNULS-0002yA-I8
+ for xen-devel@lists.xenproject.org; Fri, 06 Jun 2025 10:30:42 +0000
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2060c.outbound.protection.outlook.com
+ [2a01:111:f403:2412::60c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0b4a0176-42c0-11f0-b894-0df219b8e170;
- Fri, 06 Jun 2025 12:21:45 +0200 (CEST)
-Received: from DM6PR06CA0061.namprd06.prod.outlook.com (2603:10b6:5:54::38) by
- SN7PR12MB7909.namprd12.prod.outlook.com (2603:10b6:806:340::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8792.37; Fri, 6 Jun
- 2025 10:21:37 +0000
-Received: from DS1PEPF00017099.namprd05.prod.outlook.com
- (2603:10b6:5:54:cafe::e5) by DM6PR06CA0061.outlook.office365.com
- (2603:10b6:5:54::38) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8769.18 via Frontend Transport; Fri,
- 6 Jun 2025 10:21:37 +0000
+ id 4a4ab52a-42c1-11f0-b894-0df219b8e170;
+ Fri, 06 Jun 2025 12:30:40 +0200 (CEST)
+Received: from MN2PR18CA0020.namprd18.prod.outlook.com (2603:10b6:208:23c::25)
+ by PH7PR12MB7939.namprd12.prod.outlook.com (2603:10b6:510:278::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8769.27; Fri, 6 Jun
+ 2025 10:30:35 +0000
+Received: from MN1PEPF0000ECD9.namprd02.prod.outlook.com
+ (2603:10b6:208:23c:cafe::55) by MN2PR18CA0020.outlook.office365.com
+ (2603:10b6:208:23c::25) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8792.23 via Frontend Transport; Fri,
+ 6 Jun 2025 10:30:34 +0000
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS1PEPF00017099.mail.protection.outlook.com (10.167.18.103) with Microsoft
+ MN1PEPF0000ECD9.mail.protection.outlook.com (10.167.242.138) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8792.29 via Frontend Transport; Fri, 6 Jun 2025 10:21:37 +0000
+ 15.20.8792.29 via Frontend Transport; Fri, 6 Jun 2025 10:30:34 +0000
 Received: from localhost (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 6 Jun
- 2025 05:21:34 -0500
+ 2025 05:30:32 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,22 +56,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0b4a0176-42c0-11f0-b894-0df219b8e170
+X-Inumbo-ID: 4a4ab52a-42c1-11f0-b894-0df219b8e170
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mNubjrCPpIv+4+oKumy4iBnED8LUiZTSeWZrS/F1EQ7jxIPNHmAMCCaLn3TwgJC2AHreYy2L7xVs+xG7D8xdAz1Z51OUMRpmBUA+s6zZN+OC4zjIOGZRBtG2Sxr5g138Dh6ShxcI9d3D3nm5LQ3tAplT90rF/118Qh9rn9HiuXBJpkAhY+OjIHhTbSABQgytjiEKKZrVE1DmVMvU4W+/I+rEqoc+0ZF9lf5TKJlWCLpZ8T5AUUSOznrLPxki/Z5SgxwuwcSl7oA6VZLLV2+NdVR1QkX4MutLggHlzF64GrUiPDsHLzg5HpSwSs8jlHtOekIR9JipVClZAlpgzaCH3Q==
+ b=dUpvWkEymrz7LxdVAiYzVbKiuQA4hI1oTG0FbKshCSp1DnlX8OS/aa4l5XuN2HaUp+lsGXELib1pmGoMi5fu/HHZodpM0aEuuNEER6jNahDQHD3dJgMxWcokR/6A3utVSvDtGMBbz0s84Dkqqf9OUzqHtGPiua6kS/jPhm2O/brua6BnmiYAaQd85R1n6nWEMTkBKflTmnq6PmwLOyfdiOxsH0rTiN6BbBXvQDhIyN8x7ziTm3ewsVpPfnODM9vyTII7Uw3R9FiL7A/dx0IBY3aA/2X3Ez0k3e9sw5Y3jZqmefBnm8U6V7MGLEYxWm0n8qLyRlV1qjCalo8Xrk+HXQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=e9VZL+7u7O0wdQzIObCKnPDKU6jDyEgg825DwfufhCI=;
- b=uYnfU7n9F1Tj8SuuQpkmOsfX89DSy6STxZThamSxEdrkX6V4fwD9PEffD+ZevVX8xN394liZUo5UxbHv80kDZ/iohSqFt6v77w0cj7HoTOQJDoiVF3mJTyJWMSZvOW1RgHV7vhPuQLkiXk2/t8jjveNUeLNtPSwkokCdEzxEdWGKkOqp40lF2sAuLf52Wtz3t7viiPojPV2u2dNakHEMUsWuJj7lAj6L+Oeq9ZRDQPwzftbzQ+yom+NsasgHMK70+OLTwof/qz417mHF/UjtHJdqG2fG5+JRWQfGY9NUbuzgW5vmO2/tF5ptGOioefOQHqGk63P571+qneH6WCvKHw==
+ bh=wlI4OHdxVjEPk5j1MB5u+ErzkzH5FUOQtE2SUIybIJ8=;
+ b=sSX9IBU0ZEEABfgA0ThCaVzRMUNXiLPZpJSQ5Y65gqU9PksNs+yBDEvXZv9536sS2GjrHT/G5XOqeJ1aw31zCanttEh9LlTlSpKZybtcTzhn9NvfLOxAJijChDmHQ7DF5QWyOKygeZAeqEY4tkYCAS+2Om/ngakeM1jJf1ddIJD0if0F99Ih7LT9nIsasQY9Yn3t4vuNAYIyNWovz3a2N2DBcZ77F4/uNjTMfzCHW8BaJQaQy66iGr8CV30I5BF4gek8wDjYSqopKZ/YHQE5bGA/P2EYDNjFysQiGfwMO49jQh5nj3PrV9p/aVdHfkRH6PV7xGoD1ksiFtu5lnBDCA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=e9VZL+7u7O0wdQzIObCKnPDKU6jDyEgg825DwfufhCI=;
- b=kGmOC7K0CWExcWJVASmKxeX7rZJsoCqjDNmovN5RWMaavVwcBH5i8jOcct4GOItl8dWNbJq2kCfEO+JnJbYuzz0frczfHJBDJbk5zVahlmUJy5t34DoL2FqRAV3dWHcdK+3bVnhPfiPmXD9WZldRBY7EypxgGVOtzSUOBvfEWBA=
+ bh=wlI4OHdxVjEPk5j1MB5u+ErzkzH5FUOQtE2SUIybIJ8=;
+ b=43tbBtC/7jPbo4vgijqy33nRKDOwWOQtuQT9r77CUqLat/dBVSIVj1Dv6juzr+owgxB1d0xzaB2gORIwwuKe4xIACVRHF8DHDA9isVP2IN8FNauqXBoPyIp+Zn3uvTYE+KyDjsKASnoKD5UZ6GLpyg8vAn1s34LOOzogI/xF9Ug=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -81,154 +81,161 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset="UTF-8"
-Date: Fri, 6 Jun 2025 12:21:32 +0200
-Message-ID: <DAFDIY3ZUD7P.25YOTSEIDV71M@amd.com>
-CC: Alistair Francis <alistair.francis@wdc.com>, Bob Eshleman
-	<bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>, "Oleksii
- Kurochko" <oleksii.kurochko@gmail.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
-	=?utf-8?q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+Date: Fri, 6 Jun 2025 12:30:31 +0200
+Message-ID: <DAFDPTBLTEL9.3MTSVY5O3ONL0@amd.com>
+CC: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+	<julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, Michal Orzel
+	<michal.orzel@amd.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>, Anthony PERARD
+	<anthony.perard@vates.tech>, =?utf-8?q?Roger_Pau_Monn=C3=A9?=
+	<roger.pau@citrix.com>, "Daniel P. Smith" <dpsmith@apertussolutions.com>,
 	<xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH v2 01/15] xen: Clean up asm-generic/device.h
+Subject: Re: [PATCH v2 02/15] arm/gnttab: Break links between
+ asm/grant_table.h and xen/grant_table.h
 From: Alejandro Vallejo <agarciav@amd.com>
 To: Jan Beulich <jbeulich@suse.com>
 X-Mailer: aerc 0.20.1
 References: <20250605194810.2782031-1-agarciav@amd.com>
- <20250605194810.2782031-2-agarciav@amd.com>
- <38104467-fb7e-4aa3-9c78-0f9bf23183eb@suse.com>
- <DAFCZ0J2JEVF.3TIHRWPDJA1PL@amd.com>
- <20e6673b-bf85-4f9d-9938-7005a481b898@suse.com>
-In-Reply-To: <20e6673b-bf85-4f9d-9938-7005a481b898@suse.com>
+ <20250605194810.2782031-3-agarciav@amd.com>
+ <765d42ec-a421-4b8c-80bd-30c909e81e8d@suse.com>
+ <DAFD46XOYPG8.3V37FNPAPPT3T@amd.com>
+ <66d75dad-4407-4b09-8dd3-c61b5d05ed91@suse.com>
+In-Reply-To: <66d75dad-4407-4b09-8dd3-c61b5d05ed91@suse.com>
 X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS1PEPF00017099:EE_|SN7PR12MB7909:EE_
-X-MS-Office365-Filtering-Correlation-Id: 823466d1-5f5e-4251-f9d4-08dda4e3ebc6
+X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECD9:EE_|PH7PR12MB7939:EE_
+X-MS-Office365-Filtering-Correlation-Id: fea09f2a-1183-4a72-e267-08dda4e52bf4
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700013|7416014|376014|82310400026|1800799024;
+	BCL:0;ARA:13230040|376014|82310400026|36860700013|1800799024|7416014;
 X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?U29yNkY3TG1xeW56TWphNW5XRmtKVllvaVpkUk9uOElnRndqQlZHaU95bVlz?=
- =?utf-8?B?YXpSOFJ0M0FmUkpHaHYwa3lDaEpEWFdlSE81Rmw2TmttVnpyRjg2NW9QQ291?=
- =?utf-8?B?T3RwNGNSNTlzTjRYVEdFaWoxQ0c4bFJDN3VhMU01SkgrTStRWlAxa1Y4REp5?=
- =?utf-8?B?VXBBbW1YcXAzNGtlS2NodkVLaGJmODZtUnpuc3UrV3ZBZXFPc1FxK1FUWDlM?=
- =?utf-8?B?MkF1MXQ1dDR3NmFxcnRwbUttdTJ6eHFVUXJVS1lhS2loUmVRdjloTVc4dmo0?=
- =?utf-8?B?ZjRhZnZ0d2lFY3JzaUw4a2k4czBSZk83OXRtNUVSVEhQUEJaNkhodmRyK3Ir?=
- =?utf-8?B?STN1Y3BweTBmV0ZXQjNCc2lQWGgwMGt2eldrNE5lVC9teG5lcXI3VmpaNXE0?=
- =?utf-8?B?K0t0UVZ2MVl0RkFoWlkwakQ1U3JseFh6NXo2QTVZcUMrZEtVR1dwdnI0Sjdo?=
- =?utf-8?B?dG9rRmh0OFRjakljRyt1RWNGTHNCR3VKc28vaHplNHVka3c2amxQTmp3RWhX?=
- =?utf-8?B?SUJ6bEVMZ3ZVMkZVYUN1c3Rra1FoME9ick8rZ05MRkpsTUJ5YzdSQTlZcFJW?=
- =?utf-8?B?TVVxb2lnK1pQVjJBbEhYWFJHOHZ4eDBsMG84dFI5RE5Gd0hkWTFtTGhweWdt?=
- =?utf-8?B?R1RIVmFaeUdLcFpDSFNPeFM5c3hkaVJFMXhOMUcvYTNBWkVFUVZwSnNuU0lP?=
- =?utf-8?B?eFVVZ0RDajRYdi9tRjd2N0oxNGxiV3hBcjQ1RlFhM2RqY0tNVUFyRCtkRGVM?=
- =?utf-8?B?STNjWmVsNTd5NmRILy9YSUtCWFNzeXI0YThFQjMybXVqS0JrYTNCaXAzUTB0?=
- =?utf-8?B?UVFHQTlRM2JEdFJoOXlqVzNFZXMrdW14MUhjSHNabmhYYjl1T1M1YjhlRXVU?=
- =?utf-8?B?bnlBR2VWcHlZRlN3Q2Eyc3VySjVQZnI5NlMrMzJRZmhkRnprT0lJbU5vb2lj?=
- =?utf-8?B?OTh5YWoxR3FCMUdiRTcrYThZMk9VUjF6NHZUdThDWFhoalEybHFPaWZlVkdX?=
- =?utf-8?B?MUdtWFFMcFJXMTM5NjNqbndyQ2gyTmJLRjdqbEI5REc0S3lnQWM3UjQvQ2hU?=
- =?utf-8?B?T2xLdGdqZmNzZmJZZGJHMlJleWZ0bzdTV2RuclY1WnA3cVpBc0dBcjZoY1lQ?=
- =?utf-8?B?S0J6UXlqT0NydTJKaVl6NlRhQXhHaG1KZWpXU1FTQUtyU2h5ZGEwUkpJYTda?=
- =?utf-8?B?T3h3T0JhV0N3dTljYlBqdENKM0dVeDNsdkJpU3pxRnArZVYweFJOaXN0dWJm?=
- =?utf-8?B?Qkk0UTFHV3g0WEY5T3FnN3FDNzQ2S0pnK1RLWS9tUXIyL1I5YkYyQWh3V3Ew?=
- =?utf-8?B?SG80Ykc1NU1hWmhoMFdSZ2hVWFgydVdaQXJ6MnVUT3I4ZEFUeGNIY0F4NXEy?=
- =?utf-8?B?S1ozMzVHSkJPWnhLbW5GMFdja0tNY1BiOE8vVUlPVmgvaG1BdVUvRHZDTEFz?=
- =?utf-8?B?NmtRRVFiVmFPSXl2bUhPSzlZWURCV09zM0c3bkwwbnVDZmVJUm41N2k3V01M?=
- =?utf-8?B?SHJBaFUzQ1NZRUpwclZMUTh4SzRBOC93TjhMY1NPSEFPT1hlY20wWXVYNmQx?=
- =?utf-8?B?ZnYrckY3YkZNa2RFK2pTQzNIc20wT3MydjVZckg0elgyVFhhQTR0aHRDQjZ4?=
- =?utf-8?B?ejdIdG1rdjE1S3AydEoyNGl4YzlZdVl5SksyNkpUTE5UM2VjSEdDY3lGSGpj?=
- =?utf-8?B?cFo5VHRYVHI4Z2kxN2w4UjhST0VvdmxwUU9Iem5hZHgwYUxIUFM1emM2ZjU4?=
- =?utf-8?B?UkNQSlk3Y3Z1bFdtenVzZ2VHTHZqeFdKVWVDamM2UDlJSEttSHA4dVZ1Q3c5?=
- =?utf-8?B?dlZ5dVozcWhVSis2N0tveW44OXVCdTNHUTRYTVVjSlBUbnhhbWUvdlRZcHRX?=
- =?utf-8?B?UFhnRlQvV1BrbW1JMkU4RjRlZzdYVHZUSVl6ZUtMVTRRa1J5SEVlK1d3cjc2?=
- =?utf-8?B?ZkI4cGlraUthSjlPRlJ0UEtJNjMrdmlyOW1rVHNTWXN1enE1bG5QRHBPT0xZ?=
- =?utf-8?B?blhCb3VhditoQWk2WGR4US96cVA5YWxOR1dBZVZzVlFUVFR5MmFmYWlyeXVy?=
- =?utf-8?Q?5Cn3HH?=
+	=?utf-8?B?VzBrcm1Pc2ZhdVZsZzhQTkE3QUl1YjIrcVo5dEhuVGlGejlOODNXMGVCcFdx?=
+ =?utf-8?B?YmlPSVlERWJGbEZqLzlhUThXRmMwVUthdG5aSVJtS2t1UUhGNmRibVFDRE9R?=
+ =?utf-8?B?UkVOc2RZYTRzZ3BwS0lYMVZsd01SR2VnaTRVWnZQVEZ0T2xDSTVPd284MWJH?=
+ =?utf-8?B?aWVUUjYxQm16TFhPdi8remdneUhRRW9Nd1RnQmhxZmJDN1BLTHhqTG1EdE1K?=
+ =?utf-8?B?S1dMb2VBL1d3enpsOG9GUzhpWkZlak4zU3luTzBiaW5jSUx6ZXY4UXFra01a?=
+ =?utf-8?B?YzNIWmxkWTl1enoxYTJzK0lWRzBIaHNRR3RWOFcxMVVRays1TEo2TDRUMlJj?=
+ =?utf-8?B?UldlVHBWWncxYUlBODFHVHdaUDM0eWQ4UnphL2FzQlBpZElLZENkeEd2V3pi?=
+ =?utf-8?B?dHBBdXVTNHk0NVVrRllOL094OTAvb1ZzY2dWeEV6cXBWUFFPTDluTWt2a00r?=
+ =?utf-8?B?WnRLSVBPdjFCWFB0cjhScG1ld3FsdWU1alRWV2dHRDBySnRlZ3ZiWndNYU5n?=
+ =?utf-8?B?eUZmbkhYQU9zMUI0ZDZFNHRUS2JHMWh2dnV5Vkt1bkdqUnBVRWl2d0NFT0RO?=
+ =?utf-8?B?ODZIYWVpT0s2S0kvV2g1dlFVY0toQ3Fwa2gyOGtFc1VGVjM2NVU3NFowRnpz?=
+ =?utf-8?B?YjdGRWhuZisvMFIwNXFLMzgwUmdYYy9QYkVNT1ZmUjhaM3BueGtUdzNQVzBz?=
+ =?utf-8?B?UHdVNnYwZURYSUxGcTNvb2Jpc2hmWTQvSE9Kdll4RXFGbmhSTWZ3WWJkdjRm?=
+ =?utf-8?B?YmFkN3MyeEE3ckQ3M05KcWVneDJVV1hrelFhMTZkOUFlQndReEhwdnlwKzFJ?=
+ =?utf-8?B?cWJVeGczci9xQ01oZkxVYUlLWHcra1ZnV0p5ME1jSTBnQWVZbS93Q0VEUHU5?=
+ =?utf-8?B?RjJYamFibXkzOGZmQVFwOWdDOVZzbU5yUDF2V2VFWGJjNGp6Z3g2YUg0MnhM?=
+ =?utf-8?B?UkFhT0drSmt6V0NDYnYzc2FTVlFwVHc3eDVOS0FDR0NubEJvemJmSVNZckht?=
+ =?utf-8?B?WVhrcDlpUEVzaWF4TkxGNGw3RCt2aGl4dEFoTXRZcU1vRjB1N0J0VTdFOWdR?=
+ =?utf-8?B?RncvN1B2S1NOYVBzdVRqVy9HUXljeE5OSjFWZUM5NFN0WmFlWmJLL1NLak5o?=
+ =?utf-8?B?ZnlEYUVIaFZ0anI0Q3F6WllrV0ZBckdtTHh1dzVZS2lMYWwvMnJKeUtubzhh?=
+ =?utf-8?B?Zm5wdmRBVVVyb1kwS1ZGTGJNV0k0MlRYTDlkVzl0cmcrNGUvYnNlbnlDMDda?=
+ =?utf-8?B?TUFvZTZBRi9UcnIrUUhWRUtqZ1pRZEFsdEZzakVFZ0JtNWJObHFVSERIdkhF?=
+ =?utf-8?B?UHVlYzVuQmlCQjZoVTg2NzdPK3k3b1AzL3luaGJERnFGYVNpSGkwUHdMeHMw?=
+ =?utf-8?B?M1h2Zm14ZUZkRXJFSTFCdEJOT0FDbEZ3UXpOeER2eURtNklMY3R6WDRDQWZV?=
+ =?utf-8?B?QS9ydGdRUXJKRjFEQWN3M3R2UXlJU1M2TS9kWVNieXRka0w3VXA2a2MzS2xo?=
+ =?utf-8?B?VDl4NTJzSUtGeUg0MzBReitiSU5xVk82MEtyTTBXV3Q3TTBFT3JUbkhvTitW?=
+ =?utf-8?B?UkFrMUlRZGZDbC8rRVI2dS9GZEtsUENvbzR2Ukt1aklBalR3VXgzdmFwdHdT?=
+ =?utf-8?B?MGJqY0ZmZEhud083Ry96OHdqWGY5NmlDSUdBTEZiVDZpcnFUclIyRG5WbzZz?=
+ =?utf-8?B?SWowbzVYd0pGQll5eDlwTkErVlMwVlMxa00yTFlKOWU3TDQwM3o0aHlCL21D?=
+ =?utf-8?B?MUUyazdvc3RmLytYc0VDNFJLaHNEekZHOTF5Si9Rc0lCQ3JjU3dPby80NHov?=
+ =?utf-8?B?UjBUMHZPUjNYd09YeGFZcllQZHZIOExUeitVQzdaRy8zSXgvYktpT2paVjFz?=
+ =?utf-8?B?Q3FpK0ROYWVvRmdrM1lyYSt0cGFtZkYwVXRqRC8yeVhoUS9pTkc5WGluRHo5?=
+ =?utf-8?B?NWx4bVFzWHgySHVYRnlrYllvU3hOdE84K2RncHdSaWd2QllwMmdXVTk5T2Rx?=
+ =?utf-8?B?eFordXJXOElJajZkaDhvOXd5eDFJaTFtdjFtVStkZkhRcXJURk52cG8zS0Zy?=
+ =?utf-8?Q?sEglyl?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(7416014)(376014)(82310400026)(1800799024);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(36860700013)(1800799024)(7416014);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jun 2025 10:21:37.5902
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jun 2025 10:30:34.7945
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 823466d1-5f5e-4251-f9d4-08dda4e3ebc6
+X-MS-Exchange-CrossTenant-Network-Message-Id: fea09f2a-1183-4a72-e267-08dda4e52bf4
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	DS1PEPF00017099.namprd05.prod.outlook.com
+	MN1PEPF0000ECD9.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7909
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7939
 
-On Fri Jun 6, 2025 at 12:03 PM CEST, Jan Beulich wrote:
-> On 06.06.2025 11:55, Alejandro Vallejo wrote:
->> On Fri Jun 6, 2025 at 8:51 AM CEST, Jan Beulich wrote:
+On Fri Jun 6, 2025 at 12:07 PM CEST, Jan Beulich wrote:
+> On 06.06.2025 12:02, Alejandro Vallejo wrote:
+>> On Fri Jun 6, 2025 at 8:52 AM CEST, Jan Beulich wrote:
 >>> On 05.06.2025 21:47, Alejandro Vallejo wrote:
->>>> --- a/xen/include/asm-generic/device.h
->>>> +++ b/xen/include/asm-generic/device.h
->>>> @@ -1,14 +1,20 @@
->>>>  /* SPDX-License-Identifier: GPL-2.0-only */
->>>> +/*
->>>> + * This header helps DTB-based architectures abstract away where a pa=
-rticular
->>>> + * device came from, be it the DTB itself or enumerated on a PCI bus.
->>>> + */
->>>>  #ifndef __ASM_GENERIC_DEVICE_H__
->>>>  #define __ASM_GENERIC_DEVICE_H__
->>>> =20
->>>> +#ifndef CONFIG_HAS_DEVICE_TREE
->>>> +#error "Header for exclusive use of DTB-based architectures"
->>>> +#endif
+>>>> --- a/xen/common/grant_table.c
+>>>> +++ b/xen/common/grant_table.c
+>>>> @@ -42,8 +42,10 @@
+>>>>  #include <xen/xvmalloc.h>
+>>>>  #include <xen/nospec.h>
+>>>>  #include <xsm/xsm.h>
 >>>> +
->>>>  #include <xen/stdbool.h>
+>>>>  #include <asm/flushtlb.h>
+>>>>  #include <asm/guest_atomics.h>
+>>>> +#include <asm/grant_table.h>
 >>>> =20
->>>>  enum device_type
->>>>  {
->>>> -#ifdef CONFIG_HAS_DEVICE_TREE
->>>>      DEV_DT,
+>>>>  #ifdef CONFIG_PV_SHIM
+>>>>  #include <asm/guest.h>
+>>>> --- a/xen/include/xen/grant_table.h
+>>>> +++ b/xen/include/xen/grant_table.h
+>>>> @@ -27,10 +27,6 @@
+>>>>  #include <xen/rwlock.h>
+>>>>  #include <public/grant_table.h>
+>>>> =20
+>>>> -#ifdef CONFIG_GRANT_TABLE
+>>>> -#include <asm/grant_table.h>
 >>>> -#endif
->>>>      DEV_PCI
->>>>  };
+>>>> -
+>>>>  struct grant_table;
+>>>> =20
+>>>>  /* Seed a gnttab entry for Hyperlaunch/dom0less. */
 >>>
->>> My objection to these changes remains; as a generic header it ought to =
-be what
->>> that attribute says - generic.
+>>> The description doesn't make clear why these two files need changing.
 >>=20
->> It is generic for any architecture where platform DTs exist (that is, an=
-ything
->> but x86).
+>> What sort of description? I removed a conditional include  and added it =
+to one
+>> of the few places it didn't include it already along with xen/grant_tabl=
+e.h.
+>>=20
+>> The title does say the patch removes the crossed includes in asm/grant_t=
+able.h
+>> and xen/grant_table.h.
+>>=20
+>> It's, I hope, self-explanatory regular spring cleanup.
 >
-> Here you're limiting things to what Xen presently "knows". I'm sure there=
- are
-> other architectures where DT is entirely unknown.
-
-You'll struggle a lot to find one such arch unless you want to revive the
-itanium port, and even then itanium would simply re-use x86's asm override.
-
->
-> Furthermore isn't the work here part of the hyperlaunch effort, where DT =
-will
-> be introduced to x86? Hence "anything but" isn't quite right either then.
+> Then I'm sorry, to me it isn't. "Break links" has an entirely different (=
+file
+> system) meaning to me, in the common case. Plus that says what is being d=
+one,
+> but not why. And it's the "why" that I'm seeking clarification on. From y=
+our
+> response to my remarks on v1 I was concluding that the issue is that in a=
+ few
+> places asm/grant_table.h would need including additionally. I didn't expe=
+ct
+> any #include to (need to) go away.
 >
 > Jan
 
-Not a general DTB, no. A DTB defines the platform (in the same vein as a AC=
-PI/
-DSDT), with all platform devices enumerated there. x86 will not get any of =
-that.
+Let me take a step back then. How about this commit message for this same p=
+atch?
 
-Without devices defined in the DTB, my original point still stands.
+  xen/gnttab: Remove cyclic includes in xen/grant_table.h and arm's asm/gra=
+nt_table.h
 
-In general, if you don't have DT devices you typedef device_t to pci_dev to
-avoid these wrappers altogether, and if you do you don't and the ifdef guar=
-ds
-stop having meaning.
+  The way they currently include each other, with one of the includes being=
+ conditional
+  on CONFIG_GRANT_TABLE, makes it hard to know which contents are included =
+when.
 
-If you remain unconvinced and others don't pitch in I'll just drop it from =
-v3.
-As I said, it's not essential.
+  Seeing how nothing in either header depends on the other, let the include=
+ sites
+  include both if both are needed.
+
+  Signed-off-by: Alejandro Vallejo <agarciav@amd.com>
 
 Cheers,
 Alejandro
