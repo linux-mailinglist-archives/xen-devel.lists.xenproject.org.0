@@ -2,29 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 04E2BAD0A2A
-	for <lists+xen-devel@lfdr.de>; Sat,  7 Jun 2025 01:08:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1008963.1388094 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9EE0FAD0A38
+	for <lists+xen-devel@lfdr.de>; Sat,  7 Jun 2025 01:28:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1008970.1388104 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uNg9X-0000LX-2Z; Fri, 06 Jun 2025 23:07:11 +0000
+	id 1uNgU1-00034C-Jr; Fri, 06 Jun 2025 23:28:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1008963.1388094; Fri, 06 Jun 2025 23:07:11 +0000
+Received: by outflank-mailman (output) from mailman id 1008970.1388104; Fri, 06 Jun 2025 23:28:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uNg9W-0000JQ-Sq; Fri, 06 Jun 2025 23:07:10 +0000
-Received: by outflank-mailman (input) for mailman id 1008963;
- Fri, 06 Jun 2025 23:07:09 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=fxa/=YV=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
- id 1uNg9U-0000JK-73
- for xen-devel@lists.xenproject.org; Fri, 06 Jun 2025 23:07:09 +0000
-Received: from mail-4322.protonmail.ch (mail-4322.protonmail.ch [185.70.43.22])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f6b16186-432a-11f0-b894-0df219b8e170;
- Sat, 07 Jun 2025 01:07:05 +0200 (CEST)
+	id 1uNgU1-00031c-HC; Fri, 06 Jun 2025 23:28:21 +0000
+Received: by outflank-mailman (input) for mailman id 1008970;
+ Fri, 06 Jun 2025 23:28:19 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=YRk0=YV=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1uNgTz-00031W-I7
+ for xen-devel@lists.xenproject.org; Fri, 06 Jun 2025 23:28:19 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [2604:1380:4641:c500::1])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ebe22f9a-432d-11f0-a303-13f23c93f187;
+ Sat, 07 Jun 2025 01:28:16 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id ECBCB5C5D46;
+ Fri,  6 Jun 2025 23:25:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F1AAC4CEEB;
+ Fri,  6 Jun 2025 23:28:13 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,210 +42,377 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f6b16186-432a-11f0-b894-0df219b8e170
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1749251224; x=1749510424;
-	bh=qbaqTN/mef++TeA9JmNKxIFqEwBNLbAgRNs6naITzf0=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector:List-Unsubscribe:List-Unsubscribe-Post;
-	b=Y5RZ1nVoSUlHhYsCSs0lFQ1GF/dJ99RjG19Y0SRlFYcRiEz1eFlxSnx0Z+cpyORV3
-	 UYQZ5c4+VG/Gv+ucF3qIbeeTvKw1jKVRoaSSSKMsjT4XkIvwpbmZ4vr3AvQU8yPDEJ
-	 quzPFWFJwaLKSa4HM9VETXS3jC6tqJnFT4Wi5SgYQx+YfQCOucP/yNTYicjsNIwrcY
-	 qbrCqzliHJ/bWiNkwpOtm9Sq6H/ViBJ7zVgzqwxChydqC85ZYdnfTmj2w4Tdh/i1Ut
-	 xep/2Wp4R9oGXZLMuD4FgP1PzzAAG+sW6c4gu3fschWS9tk0eT2PY8LiLDyL68RwkJ
-	 xQmvz87VTjfaQ==
-Date: Fri, 06 Jun 2025 23:06:57 +0000
-To: Teddy Astie <teddy.astie@vates.tech>
-From: dmkhn@proton.me
-Cc: xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com, anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com
-Subject: Re: [PATCH v1] xen/console: group pbuf under console field
-Message-ID: <aEN0i6tD3humMN3a@kraken>
-In-Reply-To: <00ffcc4b-b63e-4b4d-8b8f-8d02fb7ef234@vates.tech>
-References: <20250606194937.2412579-1-dmukhin@ford.com> <00ffcc4b-b63e-4b4d-8b8f-8d02fb7ef234@vates.tech>
-Feedback-ID: 123220910:user:proton
-X-Pm-Message-ID: 36aa3f7d241158689357caf906bfc4bce5689522
+X-Inumbo-ID: ebe22f9a-432d-11f0-a303-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1749252495;
+	bh=qeSnsN3zYcNKQLmQMewBuJH7juTCHiyv2r+0SZjrPnI=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=GJCZRkUNnfsea98SvoiZLnfKkxrHbYJsq35cifW3EFlePyy7JIxSKoS7G4WQdV45/
+	 NthlaO0QSli141iLh8RobfKy6B8jzx+0f2SoubaCbN/haZRPgXG1y0Gc9XZN4TTBx7
+	 yF8UgF9V/968XEMQ1cZGisUBsat4OswM6Bizkcon/SsKhu/pcj/qMwerAovnnmWOXx
+	 4uX9RYIJybCDlp9/f/a+tAx7LDF3ngCGa3UR3ODXzk0SMH0k1M1H/xNnazW6+CJPYP
+	 P7ytPKPqDEj5M4U7hFU2cMjEo5UwdSpaYbb5QqWJEVohGVYWjneMc3yPd9ANmbrOvd
+	 F196bgB+PgkXA==
+Date: Fri, 6 Jun 2025 16:28:13 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Alejandro Vallejo <agarciav@amd.com>
+cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Michal Orzel <michal.orzel@amd.com>, 
+    "Daniel P. Smith" <dpsmith@apertussolutions.com>
+Subject: Re: [PATCH v2 07/15] x86: Replace boot_domain with bootdomain
+In-Reply-To: <20250605194810.2782031-8-agarciav@amd.com>
+Message-ID: <alpine.DEB.2.22.394.2506061623500.2495561@ubuntu-linux-20-04-desktop>
+References: <20250605194810.2782031-1-agarciav@amd.com> <20250605194810.2782031-8-agarciav@amd.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
 
-On Fri, Jun 06, 2025 at 08:24:44PM +0000, Teddy Astie wrote:
-> Hello,
->=20
-> Le 06/06/2025 =C3=A0 21:51, dmkhn@proton.me a =C3=A9crit=C2=A0:
-> > From: Denis Mukhin <dmukhin@ford.com>
-> >
-> > Group all pbuf-related data structures under domain's console field.
-> >
-> > No functional change.
-> >
-> > Signed-off-by: Denis Mukhin <dmukhin@ford.com>
-> > ---
-> >   xen/arch/x86/hvm/hvm.c     | 14 +++++++-------
-> >   xen/common/domain.c        |  8 ++++----
-> >   xen/drivers/char/console.c | 19 +++++++++++--------
-> >   xen/include/xen/sched.h    | 12 ++++++------
-> >   4 files changed, 28 insertions(+), 25 deletions(-)
-> >
-> > diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
-> > index 4cb2e13046..17d1fd42ce 100644
-> > --- a/xen/arch/x86/hvm/hvm.c
-> > +++ b/xen/arch/x86/hvm/hvm.c
-> > @@ -571,16 +571,16 @@ static int cf_check hvm_print_line(
-> >       if ( !is_console_printable(c) )
-> >           return X86EMUL_OKAY;
-> >
-> > -    spin_lock(&cd->pbuf_lock);
-> > +    spin_lock(&cd->console.pbuf_lock);
-> >       if ( c !=3D '\n' )
-> > -        cd->pbuf[cd->pbuf_idx++] =3D c;
-> > -    if ( (cd->pbuf_idx =3D=3D (DOMAIN_PBUF_SIZE - 1)) || (c =3D=3D '\n=
-') )
-> > +        cd->console.pbuf[cd->console.pbuf_idx++] =3D c;
-> > +    if ( (cd->console.pbuf_idx =3D=3D (DOMAIN_PBUF_SIZE - 1)) || (c =
-=3D=3D '\n') )
-> >       {
-> > -        cd->pbuf[cd->pbuf_idx] =3D '\0';
-> > -        guest_printk(cd, XENLOG_G_DEBUG "%s\n", cd->pbuf);
-> > -        cd->pbuf_idx =3D 0;
-> > +        cd->console.pbuf[cd->console.pbuf_idx] =3D '\0';
-> > +        guest_printk(cd, XENLOG_G_DEBUG "%s\n", cd->console.pbuf);
-> > +        cd->console.pbuf_idx =3D 0;
-> >       }
-> > -    spin_unlock(&cd->pbuf_lock);
-> > +    spin_unlock(&cd->console.pbuf_lock);
-> >
-> >       return X86EMUL_OKAY;
-> >   }
-> > diff --git a/xen/common/domain.c b/xen/common/domain.c
-> > index 153cd75340..dd1867b2fe 100644
-> > --- a/xen/common/domain.c
-> > +++ b/xen/common/domain.c
-> > @@ -669,7 +669,7 @@ static void _domain_destroy(struct domain *d)
-> >       BUG_ON(!d->is_dying);
-> >       BUG_ON(atomic_read(&d->refcnt) !=3D DOMAIN_DESTROYED);
-> >
-> > -    xfree(d->pbuf);
-> > +    xfree(d->console.pbuf);
-> >
-> >       argo_destroy(d);
-> >
-> > @@ -862,7 +862,7 @@ struct domain *domain_create(domid_t domid,
-> >       spin_lock_init(&d->shutdown_lock);
-> >       d->shutdown_code =3D SHUTDOWN_CODE_INVALID;
-> >
-> > -    spin_lock_init(&d->pbuf_lock);
-> > +    spin_lock_init(&d->console.pbuf_lock);
-> >
-> >       rwlock_init(&d->vnuma_rwlock);
-> >
-> > @@ -956,8 +956,8 @@ struct domain *domain_create(domid_t domid,
-> >           goto fail;
-> >
-> >       err =3D -ENOMEM;
-> > -    d->pbuf =3D xzalloc_array(char, DOMAIN_PBUF_SIZE);
-> > -    if ( !d->pbuf )
-> > +    d->console.pbuf =3D xzalloc_array(char, DOMAIN_PBUF_SIZE);
-> > +    if ( !d->console.pbuf )
-> >           goto fail;
-> >
-> >       if ( (err =3D sched_init_domain(d, config->cpupool_id)) !=3D 0 )
-> > diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
-> > index 616f4968b0..3855962af7 100644
-> > --- a/xen/drivers/char/console.c
-> > +++ b/xen/drivers/char/console.c
-> > @@ -769,22 +769,25 @@ static long guest_console_write(XEN_GUEST_HANDLE_=
-PARAM(char) buffer,
-> >               } while ( --kcount > 0 );
-> >
-> >               *kout =3D '\0';
-> > -            spin_lock(&cd->pbuf_lock);
-> > +            spin_lock(&cd->console.pbuf_lock);
-> >               kcount =3D kin - kbuf;
-> >               if ( c !=3D '\n' &&
-> > -                 (cd->pbuf_idx + (kout - kbuf) < (DOMAIN_PBUF_SIZE - 1=
-)) )
-> > +                 cd->console.pbuf_idx + kout - kbuf < DOMAIN_PBUF_SIZE=
- - 1 )
->=20
-> I don't think we want to drop the parentheses here.
+On Thu, 5 Jun 2025, Alejandro Vallejo wrote:
+> No functional change intended.
+> 
+> Signed-off-by: Alejandro Vallejo <agarciav@amd.com>
+> ---
+> v2:
+>   * Replaces the previous patch in which kernel_info replaced boot_domain
+> ---
+>  xen/arch/x86/dom0_build.c              |  2 +-
+>  xen/arch/x86/hvm/dom0_build.c          |  6 ++---
+>  xen/arch/x86/include/asm/boot-domain.h | 33 --------------------------
+>  xen/arch/x86/include/asm/bootfdt.h     |  7 ++++++
+>  xen/arch/x86/include/asm/bootinfo.h    |  3 +--
+>  xen/arch/x86/include/asm/dom0_build.h  |  6 ++---
+>  xen/arch/x86/include/asm/setup.h       |  4 ++--
+>  xen/arch/x86/pv/dom0_build.c           |  6 ++---
+>  xen/arch/x86/setup.c                   | 16 +++++++------
+>  xen/include/xen/bootfdt.h              |  4 ++++
+>  10 files changed, 33 insertions(+), 54 deletions(-)
+>  delete mode 100644 xen/arch/x86/include/asm/boot-domain.h
+> 
+> diff --git a/xen/arch/x86/dom0_build.c b/xen/arch/x86/dom0_build.c
+> index 0b467fd4a4..1c8c5140a3 100644
+> --- a/xen/arch/x86/dom0_build.c
+> +++ b/xen/arch/x86/dom0_build.c
+> @@ -615,7 +615,7 @@ int __init dom0_setup_permissions(struct domain *d)
+>      return rc;
+>  }
+>  
+> -int __init construct_dom0(const struct boot_domain *bd)
+> +int __init construct_dom0(const struct bootdomain *bd)
+>  {
+>      int rc;
+>      const struct domain *d = bd->d;
+> diff --git a/xen/arch/x86/hvm/dom0_build.c b/xen/arch/x86/hvm/dom0_build.c
+> index 96410344a8..85c000b259 100644
+> --- a/xen/arch/x86/hvm/dom0_build.c
+> +++ b/xen/arch/x86/hvm/dom0_build.c
+> @@ -644,11 +644,11 @@ static bool __init check_and_adjust_load_address(
+>  }
+>  
+>  static int __init pvh_load_kernel(
+> -    const struct boot_domain *bd, paddr_t *entry, paddr_t *start_info_addr)
+> +    const struct bootdomain *bd, paddr_t *entry, paddr_t *start_info_addr)
+>  {
+>      struct domain *d = bd->d;
+>      struct bootmodule *image = bd->kernel;
+> -    struct bootmodule *initrd = bd->module;
+> +    struct bootmodule *initrd = bd->initrd;
+>      void *image_base = bootstrap_map_bm(image);
+>      void *image_start = image_base + image->arch.headroom;
+>      unsigned long image_len = image->size;
+> @@ -1329,7 +1329,7 @@ static void __hwdom_init pvh_setup_mmcfg(struct domain *d)
+>      }
+>  }
+>  
+> -int __init dom0_construct_pvh(const struct boot_domain *bd)
+> +int __init dom0_construct_pvh(const struct bootdomain *bd)
+>  {
+>      paddr_t entry, start_info;
+>      struct domain *d = bd->d;
+> diff --git a/xen/arch/x86/include/asm/boot-domain.h b/xen/arch/x86/include/asm/boot-domain.h
+> deleted file mode 100644
+> index 242e9c9c2b..0000000000
+> --- a/xen/arch/x86/include/asm/boot-domain.h
+> +++ /dev/null
+> @@ -1,33 +0,0 @@
+> -/* SPDX-License-Identifier: GPL-2.0-or-later */
+> -/*
+> - * Copyright (c) 2024 Apertus Solutions, LLC
+> - * Author: Daniel P. Smith <dpsmith@apertussolutions.com>
+> - * Copyright (c) 2024 Christopher Clark <christopher.w.clark@gmail.com>
+> - */
+> -
+> -#ifndef __XEN_X86_BOOTDOMAIN_H__
+> -#define __XEN_X86_BOOTDOMAIN_H__
+> -
+> -#include <public/xen.h>
+> -
+> -struct boot_domain {
+> -    domid_t domid;
+> -
+> -    struct bootmodule *kernel;
+> -    struct bootmodule *module;
+> -    const char *cmdline;
+> -
+> -    struct domain *d;
+> -};
+> -
+> -#endif
+> -
+> -/*
+> - * Local variables:
+> - * mode: C
+> - * c-file-style: "BSD"
+> - * c-basic-offset: 4
+> - * tab-width: 4
+> - * indent-tabs-mode: nil
+> - * End:
+> - */
+> diff --git a/xen/arch/x86/include/asm/bootfdt.h b/xen/arch/x86/include/asm/bootfdt.h
+> index 2fc705a1cd..b30132381e 100644
+> --- a/xen/arch/x86/include/asm/bootfdt.h
+> +++ b/xen/arch/x86/include/asm/bootfdt.h
+> @@ -4,6 +4,13 @@
+>  
+>  #include <xen/types.h>
+>  
+> +#include <public/xen.h>
+> +
+> +struct arch_bootdomain
+> +{
+> +    domid_t domid;
+> +};
+> +
+>  struct arch_bootmodule
+>  {
+>      /*
+> diff --git a/xen/arch/x86/include/asm/bootinfo.h b/xen/arch/x86/include/asm/bootinfo.h
+> index f3210b7d6a..b8280ba357 100644
+> --- a/xen/arch/x86/include/asm/bootinfo.h
+> +++ b/xen/arch/x86/include/asm/bootinfo.h
+> @@ -12,7 +12,6 @@
+>  #include <xen/init.h>
+>  #include <xen/multiboot.h>
+>  #include <xen/types.h>
+> -#include <asm/boot-domain.h>
+>  
+>  /* Max number of boot modules a bootloader can provide in addition to Xen */
+>  #define MAX_NR_BOOTMODS 63
+> @@ -34,7 +33,7 @@ struct boot_info {
+>  
+>      unsigned int nr_modules;
+>      struct bootmodule mods[MAX_NR_BOOTMODS + 1];
+> -    struct boot_domain domains[MAX_NR_BOOTDOMS];
+> +    struct bootdomain  domains[MAX_NR_BOOTDOMS];
+>  };
+>  
+>  /*
+> diff --git a/xen/arch/x86/include/asm/dom0_build.h b/xen/arch/x86/include/asm/dom0_build.h
+> index ff021c24af..df03189870 100644
+> --- a/xen/arch/x86/include/asm/dom0_build.h
+> +++ b/xen/arch/x86/include/asm/dom0_build.h
+> @@ -13,9 +13,9 @@ unsigned long dom0_compute_nr_pages(struct domain *d,
+>                                      unsigned long initrd_len);
+>  int dom0_setup_permissions(struct domain *d);
+>  
+> -struct boot_domain;
+> -int dom0_construct_pv(const struct boot_domain *bd);
+> -int dom0_construct_pvh(const struct boot_domain *bd);
+> +struct bootdomain;
+> +int dom0_construct_pv(const struct bootdomain *bd);
+> +int dom0_construct_pvh(const struct bootdomain *bd);
+>  
+>  unsigned long dom0_paging_pages(const struct domain *d,
+>                                  unsigned long nr_pages);
+> diff --git a/xen/arch/x86/include/asm/setup.h b/xen/arch/x86/include/asm/setup.h
+> index c7deaba109..a8647f0fdf 100644
+> --- a/xen/arch/x86/include/asm/setup.h
+> +++ b/xen/arch/x86/include/asm/setup.h
+> @@ -26,8 +26,8 @@ void subarch_init_memory(void);
+>  
+>  void init_IRQ(void);
+>  
+> -struct boot_domain;
+> -int construct_dom0(const struct boot_domain *bd);
+> +struct bootdomain;
+> +int construct_dom0(const struct bootdomain *bd);
+>  
+>  void setup_io_bitmap(struct domain *d);
+>  
+> diff --git a/xen/arch/x86/pv/dom0_build.c b/xen/arch/x86/pv/dom0_build.c
+> index e6c77413f5..a6f212fe0a 100644
+> --- a/xen/arch/x86/pv/dom0_build.c
+> +++ b/xen/arch/x86/pv/dom0_build.c
+> @@ -355,7 +355,7 @@ static struct page_info * __init alloc_chunk(struct domain *d,
+>      return page;
+>  }
+>  
+> -static int __init dom0_construct(const struct boot_domain *bd)
+> +static int __init dom0_construct(const struct bootdomain *bd)
+>  {
+>      unsigned int i;
+>      int rc, order, machine;
+> @@ -375,7 +375,7 @@ static int __init dom0_construct(const struct boot_domain *bd)
+>      struct vcpu *v = d->vcpu[0];
+>  
+>      struct bootmodule *image = bd->kernel;
+> -    struct bootmodule *initrd = bd->module;
+> +    struct bootmodule *initrd = bd->initrd;
+>      void *image_base;
+>      unsigned long image_len;
+>      void *image_start;
+> @@ -1070,7 +1070,7 @@ out:
+>      return rc;
+>  }
+>  
+> -int __init dom0_construct_pv(const struct boot_domain *bd)
+> +int __init dom0_construct_pv(const struct bootdomain *bd)
+>  {
+>      unsigned long cr4 = read_cr4();
+>      int rc;
+> diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
+> index e9a70c2c2b..726adad0e5 100644
+> --- a/xen/arch/x86/setup.c
+> +++ b/xen/arch/x86/setup.c
+> @@ -297,7 +297,9 @@ static const char *cmdline_cook(const char *p, const char *loader_name);
+>  struct boot_info __initdata xen_boot_info = {
+>      .loader = "unknown",
+>      .cmdline = "",
+> -    .domains = { [0 ... MAX_NR_BOOTDOMS - 1] = { .domid = DOMID_INVALID } },
+> +    .domains = { [0 ... MAX_NR_BOOTDOMS - 1] = {
+> +        .arch.domid = DOMID_INVALID
+> +    }},
+>      /*
+>       * There's a MAX_NR_BOOTMODS-th entry in the array. It's not off by one.
+>       *
+> @@ -987,7 +989,7 @@ static unsigned int __init copy_bios_e820(struct e820entry *map, unsigned int li
+>  }
+>  
+>  static size_t __init domain_cmdline_size(const struct boot_info *bi,
+> -                                         const struct boot_domain *bd)
+> +                                         const struct bootdomain *bd)
+>  {
+>      size_t s = bi->kextra ? strlen(bi->kextra) : 0;
+>      const struct arch_bootmodule *abm = &bd->kernel->arch;
+> @@ -1022,7 +1024,7 @@ static struct domain *__init create_dom0(struct boot_info *bi)
+>              .misc_flags = opt_dom0_msr_relaxed ? XEN_X86_MSR_RELAXED : 0,
+>          },
+>      };
+> -    struct boot_domain *bd = &bi->domains[0];
+> +    struct bootdomain *bd = &bi->domains[0];
+>      struct domain *d;
+>  
+>      if ( opt_dom0_pvh )
+> @@ -1039,11 +1041,11 @@ static struct domain *__init create_dom0(struct boot_info *bi)
+>          dom0_cfg.flags |= XEN_DOMCTL_CDF_iommu;
+>  
+>      /* Create initial domain.  Not d0 for pvshim. */
+> -    bd->domid = get_initial_domain_id();
+> -    d = domain_create(bd->domid, &dom0_cfg,
+> +    bd->arch.domid = get_initial_domain_id();
+> +    d = domain_create(bd->arch.domid, &dom0_cfg,
+>                        pv_shim ? 0 : CDF_privileged | CDF_hardware);
+>      if ( IS_ERR(d) )
+> -        panic("Error creating d%u: %ld\n", bd->domid, PTR_ERR(d));
+> +        panic("Error creating d%u: %ld\n", bd->arch.domid, PTR_ERR(d));
+>  
+>      init_dom0_cpuid_policy(d);
+>  
+> @@ -2162,7 +2164,7 @@ void asmlinkage __init noreturn __start_xen(void)
+>      if ( initrdidx < MAX_NR_BOOTMODS )
+>      {
+>          bi->mods[initrdidx].kind = BOOTMOD_RAMDISK;
+> -        bi->domains[0].module = &bi->mods[initrdidx];
+> +        bi->domains[0].initrd = &bi->mods[initrdidx];
+>          if ( first_boot_module_index(bi, BOOTMOD_UNKNOWN) < MAX_NR_BOOTMODS )
+>              printk(XENLOG_WARNING
+>                     "Multiple initrd candidates, picking module #%u\n",
+> diff --git a/xen/include/xen/bootfdt.h b/xen/include/xen/bootfdt.h
+> index e6d52a599f..19d2ff0f0c 100644
+> --- a/xen/include/xen/bootfdt.h
+> +++ b/xen/include/xen/bootfdt.h
+> @@ -108,6 +108,10 @@ struct bootdomain {
+>      struct bootmodule *initrd;
+>  
+>      const char* cmdline;
+> +
+> +#if __has_include(<asm/bootfdt.h>)
+> +    struct arch_bootdomain arch;
+> +#endif
+>  };
 
-The line will will exceed 80 chars if I keep parentheses.
+One suggestion for improvement:
 
-Will something like the following work:
-
--                 (cd->pbuf_idx + (kout - kbuf) < (DOMAIN_PBUF_SIZE - 1)) )
-+                 (cd->console.pbuf_idx + (kout - kbuf) <
-+                    (DOMAIN_PBUF_SIZE - 1)) )
-
-?
-
->=20
-> >               {
-> >                   /* buffer the output until a newline */
-> > -                memcpy(cd->pbuf + cd->pbuf_idx, kbuf, kout - kbuf);
-> > -                cd->pbuf_idx +=3D (kout - kbuf);
-> > +                memcpy(cd->console.pbuf + cd->console.pbuf_idx,
-> > +                       kbuf,
-> > +                       kout - kbuf);
-> > +                cd->console.pbuf_idx +=3D (kout - kbuf);
-> >               }
-> >               else
-> >               {
-> > -                cd->pbuf[cd->pbuf_idx] =3D '\0';
-> > -                guest_printk(cd, XENLOG_G_DEBUG "%s%s\n", cd->pbuf, kb=
-uf);
-> > -                cd->pbuf_idx =3D 0;
-> > +                cd->console.pbuf[cd->console.pbuf_idx] =3D '\0';
-> > +                guest_printk(cd,
-> > +                             XENLOG_G_DEBUG "%s%s\n", cd->console.pbuf=
-, kbuf);
-> > +                cd->console.pbuf_idx =3D 0;
-> >               }
-> > -            spin_unlock(&cd->pbuf_lock);
-> > +            spin_unlock(&cd->console.pbuf_lock);
-> >           }
-> >
-> >           guest_handle_add_offset(buffer, kcount);
-> > diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
-> > index fe53d4fab7..637aa09ec4 100644
-> > --- a/xen/include/xen/sched.h
-> > +++ b/xen/include/xen/sched.h
-> > @@ -562,12 +562,6 @@ struct domain
-> >       /* Control-plane tools handle for this domain. */
-> >       xen_domain_handle_t handle;
-> >
-> > -    /* hvm_print_line() and guest_console_write() logging. */
-> > -#define DOMAIN_PBUF_SIZE 200
-> > -    char       *pbuf;
-> > -    unsigned int pbuf_idx;
-> > -    spinlock_t  pbuf_lock;
-> > -
-> >       /* OProfile support. */
-> >       struct xenoprof *xenoprof;
-> >
-> > @@ -654,6 +648,12 @@ struct domain
-> >
-> >       /* Console settings. */
-> >       struct {
-> > +        /* hvm_print_line() and guest_console_write() logging. */
-> > +#define DOMAIN_PBUF_SIZE 200
-> > +        char *pbuf;
-> > +        unsigned int pbuf_idx;
-> > +        spinlock_t pbuf_lock;
-> > +
-> >           /* Permission to take ownership of the physical console input=
-. */
-> >           bool input_allowed;
-> >       } console;
->=20
->=20
-> Teddy Astie | Vates XCP-ng Developer
->=20
-> XCP-ng & Xen Orchestra - Vates solutions
->=20
-> web: https://vates.tech
->=20
->=20
-
+diff --git a/xen/arch/x86/include/asm/bootfdt.h b/xen/arch/x86/include/asm/bootfdt.h
+index b30132381e..892a0e2373 100644
+--- a/xen/arch/x86/include/asm/bootfdt.h
++++ b/xen/arch/x86/include/asm/bootfdt.h
+@@ -6,11 +6,6 @@
+ 
+ #include <public/xen.h>
+ 
+-struct arch_bootdomain
+-{
+-    domid_t domid;
+-};
+-
+ struct arch_bootmodule
+ {
+     /*
+diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
+index 726adad0e5..39f294b88b 100644
+--- a/xen/arch/x86/setup.c
++++ b/xen/arch/x86/setup.c
+@@ -297,9 +297,6 @@ static const char *cmdline_cook(const char *p, const char *loader_name);
+ struct boot_info __initdata xen_boot_info = {
+     .loader = "unknown",
+     .cmdline = "",
+-    .domains = { [0 ... MAX_NR_BOOTDOMS - 1] = {
+-        .arch.domid = DOMID_INVALID
+-    }},
+     /*
+      * There's a MAX_NR_BOOTMODS-th entry in the array. It's not off by one.
+      *
+@@ -1026,6 +1023,7 @@ static struct domain *__init create_dom0(struct boot_info *bi)
+     };
+     struct bootdomain *bd = &bi->domains[0];
+     struct domain *d;
++    domid_t domid;
+ 
+     if ( opt_dom0_pvh )
+     {
+@@ -1041,11 +1039,11 @@ static struct domain *__init create_dom0(struct boot_info *bi)
+         dom0_cfg.flags |= XEN_DOMCTL_CDF_iommu;
+ 
+     /* Create initial domain.  Not d0 for pvshim. */
+-    bd->arch.domid = get_initial_domain_id();
+-    d = domain_create(bd->arch.domid, &dom0_cfg,
++    domid = get_initial_domain_id();
++    d = domain_create(domid, &dom0_cfg,
+                       pv_shim ? 0 : CDF_privileged | CDF_hardware);
+     if ( IS_ERR(d) )
+-        panic("Error creating d%u: %ld\n", bd->arch.domid, PTR_ERR(d));
++        panic("Error creating d%u: %ld\n", domid, PTR_ERR(d));
+ 
+     init_dom0_cpuid_policy(d);
+ 
+diff --git a/xen/include/xen/bootfdt.h b/xen/include/xen/bootfdt.h
+index 19d2ff0f0c..e6d52a599f 100644
+--- a/xen/include/xen/bootfdt.h
++++ b/xen/include/xen/bootfdt.h
+@@ -108,10 +108,6 @@ struct bootdomain {
+     struct bootmodule *initrd;
+ 
+     const char* cmdline;
+-
+-#if __has_include(<asm/bootfdt.h>)
+-    struct arch_bootdomain arch;
+-#endif
+ };
+ 
+ /*
 
