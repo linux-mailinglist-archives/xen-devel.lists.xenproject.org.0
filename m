@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E72B0AD08D5
-	for <lists+xen-devel@lfdr.de>; Fri,  6 Jun 2025 21:48:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1008778.1387945 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9FB14AD08D6
+	for <lists+xen-devel@lfdr.de>; Fri,  6 Jun 2025 21:50:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1008789.1387955 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uNd25-0003UH-8p; Fri, 06 Jun 2025 19:47:17 +0000
+	id 1uNd4p-00052H-O1; Fri, 06 Jun 2025 19:50:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1008778.1387945; Fri, 06 Jun 2025 19:47:17 +0000
+Received: by outflank-mailman (output) from mailman id 1008789.1387955; Fri, 06 Jun 2025 19:50:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uNd25-0003SE-5W; Fri, 06 Jun 2025 19:47:17 +0000
-Received: by outflank-mailman (input) for mailman id 1008778;
- Fri, 06 Jun 2025 19:47:16 +0000
+	id 1uNd4p-00050h-LC; Fri, 06 Jun 2025 19:50:07 +0000
+Received: by outflank-mailman (input) for mailman id 1008789;
+ Fri, 06 Jun 2025 19:50:06 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=fxa/=YV=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
- id 1uNd23-0003S8-B6
- for xen-devel@lists.xenproject.org; Fri, 06 Jun 2025 19:47:16 +0000
-Received: from mail-24418.protonmail.ch (mail-24418.protonmail.ch
- [109.224.244.18]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 09df2f02-430f-11f0-b894-0df219b8e170;
- Fri, 06 Jun 2025 21:47:12 +0200 (CEST)
+ id 1uNd4o-0004ub-F0
+ for xen-devel@lists.xenproject.org; Fri, 06 Jun 2025 19:50:06 +0000
+Received: from mail-10631.protonmail.ch (mail-10631.protonmail.ch
+ [79.135.106.31]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7086adf3-430f-11f0-b894-0df219b8e170;
+ Fri, 06 Jun 2025 21:50:04 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,108 +36,180 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 09df2f02-430f-11f0-b894-0df219b8e170
+X-Inumbo-ID: 7086adf3-430f-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1749239231; x=1749498431;
-	bh=BnQE95nEhr0HeFTdXiQDqAjIj1g84try2SvlY9hQV+A=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector:List-Unsubscribe:List-Unsubscribe-Post;
-	b=YIbBOrtn7M3MJiF7TYxMud2A3RgFlZmO9P1tahoLxn1ma9VYNXDJQS4ZeWw8BJ7qj
-	 HKmORPiq3rAVsPaJPjKRwF52lde3nsuA5kmDPsUbFisjeKalLGJW3/Vcrh5vqSXh2e
-	 3RErj7ACjahspGrtCLrlfsTpzaFHW2ZXkJW7W1MXT/TqJyKj9SQueK6QxqIoL5+NSW
-	 2MGRidLa0GTY2pwfOwd+otP71eVt9xGcVIfqfwqDPQmcYH7TVRdxVoe+uLlScEqV0N
-	 Lac5TXz8f5/uaNBN+xpxQlQMYv4tDnNAZd9NaWyAcdUYDFF0eJa49y4TAVJt4oXeOb
-	 lRiZdPCPLvMBg==
-Date: Fri, 06 Jun 2025 19:47:04 +0000
-To: Jan Beulich <jbeulich@suse.com>
+	s=protonmail; t=1749239403; x=1749498603;
+	bh=0LQ6dCGUKxJWJXyfgNN99Fw8rnMvgk0zd1TarhjT780=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector:
+	 List-Unsubscribe:List-Unsubscribe-Post;
+	b=LqWHsDtRLIvOA8Ja+86cRfRCYiO0ytu2K0ODBgLmHfTERf6mnFPnwr+nUWaHlG7Vw
+	 YWauQrL7pgMyu2R3NnDaIXW74rDYOdzXZF2QwXPiXXmGTANINj0Teh8Qqr9Zvl/u9a
+	 W/ACsoL5yamhZz/agVUiI9AvyR37KRQHTj6y5iA1nHJCdrHOGIJhBDIgJP0ADlWouM
+	 2oTkrtjW0ZMU+TLT+k1+X5DHRuGydgJv5jBZCFthSns5b/NoncmT5MLqFcbGV4iJ7r
+	 eqdcVRFZqbL0L3VgVxi+tuXoJCo8Jk5O1kDGL+Exhlyq/0e7L+6g3M06zrPRdzHmBQ
+	 WL2WeDl+E2LMQ==
+Date: Fri, 06 Jun 2025 19:49:57 +0000
+To: xen-devel@lists.xenproject.org
 From: dmkhn@proton.me
-Cc: xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com
-Subject: Re: [PATCH v2 2/2] xen/console: unify printout behavior for UART emulators
-Message-ID: <aENFsfo8J5HGg4tN@kraken>
-In-Reply-To: <a3145ba8-3372-4c3a-af39-df8cb84229ef@suse.com>
-References: <20250605004601.1142090-1-dmukhin@ford.com> <20250605004601.1142090-3-dmukhin@ford.com> <842528df-d0ba-4ab2-b182-b6f824c82dc1@suse.com> <aEKTfxwSZwE78mr5@kraken> <a3145ba8-3372-4c3a-af39-df8cb84229ef@suse.com>
+Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com
+Subject: [PATCH v1] xen/console: group pbuf under console field
+Message-ID: <20250606194937.2412579-1-dmukhin@ford.com>
 Feedback-ID: 123220910:user:proton
-X-Pm-Message-ID: 2d98d9230effb9e26878d248d16ae17a9faf88e3
+X-Pm-Message-ID: 375e6bda5775af11fff66bdb2b858c00a6f37865
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Jun 06, 2025 at 09:12:06AM +0200, Jan Beulich wrote:
-> On 06.06.2025 09:06, dmkhn@proton.me wrote:
-> > On Thu, Jun 05, 2025 at 08:18:34AM +0200, Jan Beulich wrote:
-> >> On 05.06.2025 02:46, dmkhn@proton.me wrote:
-> >>> From: Denis Mukhin <dmukhin@ford.com>
-> >>>
-> >>> If virtual UART from domain X prints on the physical console, the beh=
-avior is
-> >>> updated to (see [1]):
-> >>> - console focus in domain X: do not prefix messages;
-> >>> - no console focus in domain X: prefix all messages with "(dX)".
-> >>>
-> >>> Use guest_printk() without rate-limiting in all current in-hypervisor=
- UART
-> >>> emulators. That aligns the behavior with debug I/O port 0xe9 handler =
-on x86 and
-> >>> slightly improves the logging since guest_printk() already prints the=
- domain
-> >>> ID. guest_printk() was modified to account for console focus ownershi=
-p.
-> >>>
-> >>> Modify guest_console_write() for hardware domain case by adding domai=
-n ID to
-> >>> the message when hwdom does not have console focus.
-> >>>
-> >>> [1] https://lore.kernel.org/xen-devel/alpine.DEB.2.22.394.24121216553=
-60.463523@ubuntu-linux-20-04-desktop/
-> >>> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
-> >>> ---
-> >>> Changes since v1:
-> >>> - dropped change for debug port and for HYPERVISOR_console_io hyperca=
-ll
-> >>
-> >> Yet then what about ...
-> >>
-> >>> --- a/xen/arch/arm/vuart.c
-> >>> +++ b/xen/arch/arm/vuart.c
-> >>> @@ -89,7 +89,7 @@ static void vuart_print_char(struct vcpu *v, char c=
-)
-> >>>          if ( c !=3D '\n' )
-> >>>              uart->buf[uart->idx++] =3D '\n';
-> >>>          uart->buf[uart->idx] =3D '\0';
-> >>> -        printk(XENLOG_G_DEBUG "DOM%u: %s", d->domain_id, uart->buf);
-> >>> +        guest_printk(d, "%s", uart->buf);
-> >>>          uart->idx =3D 0;
-> >>>      }
-> >>>      spin_unlock(&uart->lock);
-> >>
-> >> ... this dropping of XENLOG_G_DEBUG? In fact I'd have expected such to
-> >> be _added_ where presently missing.
-> >
-> > vUART is a debugging facility. This flavor of UART is specifically for =
-guest OS
-> > early boot debugging.
-> > I think it is not desirable to potentially lose guest messages while do=
-ing such
-> > early guest OS boot debugging.
->=20
-> That is the host admin's decision, not a policy we should enforce.
+From: Denis Mukhin <dmukhin@ford.com>
 
-re: policy: agreed, I will drop that hunk.
+Group all pbuf-related data structures under domain's console field.
 
-I think for the policy control, there can be a compile time setting (separa=
-te
-patch) which enables/disables the debug output rate-limiting - and that set=
-ting
-applies to:
-  - vUARTs (currently vpl011 and "vuart", later ns16550 (x86) and upcoming
-    emulator for RISC-V)
-  - debug port on x86
-  - HYPERVISOR_console_io
+No functional change.
 
-What do you think?
+Signed-off-by: Denis Mukhin <dmukhin@ford.com>
+---
+ xen/arch/x86/hvm/hvm.c     | 14 +++++++-------
+ xen/common/domain.c        |  8 ++++----
+ xen/drivers/char/console.c | 19 +++++++++++--------
+ xen/include/xen/sched.h    | 12 ++++++------
+ 4 files changed, 28 insertions(+), 25 deletions(-)
 
->=20
-> Jan
+diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
+index 4cb2e13046..17d1fd42ce 100644
+--- a/xen/arch/x86/hvm/hvm.c
++++ b/xen/arch/x86/hvm/hvm.c
+@@ -571,16 +571,16 @@ static int cf_check hvm_print_line(
+     if ( !is_console_printable(c) )
+         return X86EMUL_OKAY;
+=20
+-    spin_lock(&cd->pbuf_lock);
++    spin_lock(&cd->console.pbuf_lock);
+     if ( c !=3D '\n' )
+-        cd->pbuf[cd->pbuf_idx++] =3D c;
+-    if ( (cd->pbuf_idx =3D=3D (DOMAIN_PBUF_SIZE - 1)) || (c =3D=3D '\n') )
++        cd->console.pbuf[cd->console.pbuf_idx++] =3D c;
++    if ( (cd->console.pbuf_idx =3D=3D (DOMAIN_PBUF_SIZE - 1)) || (c =3D=3D=
+ '\n') )
+     {
+-        cd->pbuf[cd->pbuf_idx] =3D '\0';
+-        guest_printk(cd, XENLOG_G_DEBUG "%s\n", cd->pbuf);
+-        cd->pbuf_idx =3D 0;
++        cd->console.pbuf[cd->console.pbuf_idx] =3D '\0';
++        guest_printk(cd, XENLOG_G_DEBUG "%s\n", cd->console.pbuf);
++        cd->console.pbuf_idx =3D 0;
+     }
+-    spin_unlock(&cd->pbuf_lock);
++    spin_unlock(&cd->console.pbuf_lock);
+=20
+     return X86EMUL_OKAY;
+ }
+diff --git a/xen/common/domain.c b/xen/common/domain.c
+index 153cd75340..dd1867b2fe 100644
+--- a/xen/common/domain.c
++++ b/xen/common/domain.c
+@@ -669,7 +669,7 @@ static void _domain_destroy(struct domain *d)
+     BUG_ON(!d->is_dying);
+     BUG_ON(atomic_read(&d->refcnt) !=3D DOMAIN_DESTROYED);
+=20
+-    xfree(d->pbuf);
++    xfree(d->console.pbuf);
+=20
+     argo_destroy(d);
+=20
+@@ -862,7 +862,7 @@ struct domain *domain_create(domid_t domid,
+     spin_lock_init(&d->shutdown_lock);
+     d->shutdown_code =3D SHUTDOWN_CODE_INVALID;
+=20
+-    spin_lock_init(&d->pbuf_lock);
++    spin_lock_init(&d->console.pbuf_lock);
+=20
+     rwlock_init(&d->vnuma_rwlock);
+=20
+@@ -956,8 +956,8 @@ struct domain *domain_create(domid_t domid,
+         goto fail;
+=20
+     err =3D -ENOMEM;
+-    d->pbuf =3D xzalloc_array(char, DOMAIN_PBUF_SIZE);
+-    if ( !d->pbuf )
++    d->console.pbuf =3D xzalloc_array(char, DOMAIN_PBUF_SIZE);
++    if ( !d->console.pbuf )
+         goto fail;
+=20
+     if ( (err =3D sched_init_domain(d, config->cpupool_id)) !=3D 0 )
+diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
+index 616f4968b0..3855962af7 100644
+--- a/xen/drivers/char/console.c
++++ b/xen/drivers/char/console.c
+@@ -769,22 +769,25 @@ static long guest_console_write(XEN_GUEST_HANDLE_PARA=
+M(char) buffer,
+             } while ( --kcount > 0 );
+=20
+             *kout =3D '\0';
+-            spin_lock(&cd->pbuf_lock);
++            spin_lock(&cd->console.pbuf_lock);
+             kcount =3D kin - kbuf;
+             if ( c !=3D '\n' &&
+-                 (cd->pbuf_idx + (kout - kbuf) < (DOMAIN_PBUF_SIZE - 1)) )
++                 cd->console.pbuf_idx + kout - kbuf < DOMAIN_PBUF_SIZE - 1=
+ )
+             {
+                 /* buffer the output until a newline */
+-                memcpy(cd->pbuf + cd->pbuf_idx, kbuf, kout - kbuf);
+-                cd->pbuf_idx +=3D (kout - kbuf);
++                memcpy(cd->console.pbuf + cd->console.pbuf_idx,
++                       kbuf,
++                       kout - kbuf);
++                cd->console.pbuf_idx +=3D (kout - kbuf);
+             }
+             else
+             {
+-                cd->pbuf[cd->pbuf_idx] =3D '\0';
+-                guest_printk(cd, XENLOG_G_DEBUG "%s%s\n", cd->pbuf, kbuf);
+-                cd->pbuf_idx =3D 0;
++                cd->console.pbuf[cd->console.pbuf_idx] =3D '\0';
++                guest_printk(cd,
++                             XENLOG_G_DEBUG "%s%s\n", cd->console.pbuf, kb=
+uf);
++                cd->console.pbuf_idx =3D 0;
+             }
+-            spin_unlock(&cd->pbuf_lock);
++            spin_unlock(&cd->console.pbuf_lock);
+         }
+=20
+         guest_handle_add_offset(buffer, kcount);
+diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
+index fe53d4fab7..637aa09ec4 100644
+--- a/xen/include/xen/sched.h
++++ b/xen/include/xen/sched.h
+@@ -562,12 +562,6 @@ struct domain
+     /* Control-plane tools handle for this domain. */
+     xen_domain_handle_t handle;
+=20
+-    /* hvm_print_line() and guest_console_write() logging. */
+-#define DOMAIN_PBUF_SIZE 200
+-    char       *pbuf;
+-    unsigned int pbuf_idx;
+-    spinlock_t  pbuf_lock;
+-
+     /* OProfile support. */
+     struct xenoprof *xenoprof;
+=20
+@@ -654,6 +648,12 @@ struct domain
+=20
+     /* Console settings. */
+     struct {
++        /* hvm_print_line() and guest_console_write() logging. */
++#define DOMAIN_PBUF_SIZE 200
++        char *pbuf;
++        unsigned int pbuf_idx;
++        spinlock_t pbuf_lock;
++
+         /* Permission to take ownership of the physical console input. */
+         bool input_allowed;
+     } console;
+--=20
+2.34.1
+
 
 
