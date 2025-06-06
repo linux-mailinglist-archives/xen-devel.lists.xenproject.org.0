@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2BCFEAD0901
-	for <lists+xen-devel@lfdr.de>; Fri,  6 Jun 2025 22:15:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1008831.1388004 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B6233AD090A
+	for <lists+xen-devel@lfdr.de>; Fri,  6 Jun 2025 22:25:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1008849.1388015 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uNdSp-0001Xb-Cu; Fri, 06 Jun 2025 20:14:55 +0000
+	id 1uNdcP-0003EW-5R; Fri, 06 Jun 2025 20:24:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1008831.1388004; Fri, 06 Jun 2025 20:14:55 +0000
+Received: by outflank-mailman (output) from mailman id 1008849.1388015; Fri, 06 Jun 2025 20:24:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uNdSp-0001VI-AA; Fri, 06 Jun 2025 20:14:55 +0000
-Received: by outflank-mailman (input) for mailman id 1008831;
- Fri, 06 Jun 2025 20:14:54 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uNdcP-0003Cz-2i; Fri, 06 Jun 2025 20:24:49 +0000
+Received: by outflank-mailman (input) for mailman id 1008849;
+ Fri, 06 Jun 2025 20:24:47 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=YRk0=YV=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1uNdSo-0001VC-1w
- for xen-devel@lists.xenproject.org; Fri, 06 Jun 2025 20:14:54 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e6a3902d-4312-11f0-b894-0df219b8e170;
- Fri, 06 Jun 2025 22:14:51 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 23A8A5C5B03;
- Fri,  6 Jun 2025 20:12:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61D8FC4CEEF;
- Fri,  6 Jun 2025 20:14:48 +0000 (UTC)
+ <SRS0=/Zps=YV=bounce.vates.tech=bounce-md_30504962.68434e8c.v1-aeed00e7af684050a1ed30281fe96756@srs-se1.protection.inumbo.net>)
+ id 1uNdcN-0003Cm-Ex
+ for xen-devel@lists.xenproject.org; Fri, 06 Jun 2025 20:24:47 +0000
+Received: from mail132-4.atl131.mandrillapp.com
+ (mail132-4.atl131.mandrillapp.com [198.2.132.4])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 49205a47-4314-11f0-a301-13f23c93f187;
+ Fri, 06 Jun 2025 22:24:46 +0200 (CEST)
+Received: from pmta09.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
+ by mail132-4.atl131.mandrillapp.com (Mailchimp) with ESMTP id 4bDXqJ1QW5zlgJ81
+ for <xen-devel@lists.xenproject.org>; Fri,  6 Jun 2025 20:24:44 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ aeed00e7af684050a1ed30281fe96756; Fri, 06 Jun 2025 20:24:44 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,88 +42,214 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e6a3902d-4312-11f0-b894-0df219b8e170
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1749240889;
-	bh=kzLpwseiVUQYwPvBV3QbnE8pI2WTTjcdXhv/mrBBSmc=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=hbJvNY9FfUhTHPoUouI+yacqb8QXqxC3TLKBFcmedA4v9Vrm12i7lRpanrpAFSw7E
-	 o7nnPABX5J0flrOwCSZqdOyUsUTIcFtHPpLW1PA9jgrSpXzs260KWp8A5fkk11JaDF
-	 sAQquGX3q+CV6Xw0a+NAH7SL67pQqud/xHOaP33I4hR/4vywXRMNmQCWjcJ6FxPkSx
-	 WtYSQUa+q5fly5DO9WN+QNxvbakUbMRqxtCXLJzTX8l7UY3i79pYwOvSlV9kOSW8Ka
-	 5HeQe0IQB0eP1PvPnrSvWF62TWKbBeNvia3tcWJhxK2ArVaVUkhqE2bEQ9zxKfTuVA
-	 irO4NP/fHAjWA==
-Date: Fri, 6 Jun 2025 13:14:47 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Jan Beulich <jbeulich@suse.com>
-cc: Alejandro Vallejo <agarciav@amd.com>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>, 
-    Michal Orzel <michal.orzel@amd.com>, 
-    "Daniel P. Smith" <dpsmith@apertussolutions.com>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-Subject: Re: [PATCH 10/19] x86: Replace boot_module with bootmodule
-In-Reply-To: <6490abdd-ac7c-4178-a174-25d13065ae04@suse.com>
-Message-ID: <alpine.DEB.2.22.394.2506061303080.2495561@ubuntu-linux-20-04-desktop>
-References: <DA1WWRUQLCAG.ZTVR1HXJ85V0@amd.com> <20250530120242.39398-1-agarciav@amd.com> <20250530120242.39398-11-agarciav@amd.com> <214c8863-5cd4-4be9-948e-e44b67f541bd@citrix.com> <DAERYXX8M48M.2X249UHMKARPF@amd.com> <DAES85NYFTFG.1VQE6GFHLL4GY@amd.com>
- <6490abdd-ac7c-4178-a174-25d13065ae04@suse.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: 49205a47-4314-11f0-a301-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1749241484; x=1749511484;
+	bh=qWTqrUaJ22be3xQmtAEmq7viKiC+H8tahl5o7BAj8Pg=;
+	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=OOLHcxROYxDFclRyRFTW6GgvQ3IIdSfKs9RPZKAVSOr7Hxr2hB0L+jicbTcWN+WaP
+	 XcWsNyxCOCoJRF50v4FJ4/YxJkNAfVChi8AAafJiwdSmxbZdYZu7YnFdy2c0VSGg70
+	 NyZHw9Ytw8XN2IBHdEblWpU9Vcd3TBni/w2foiPRFqVqCma4UDOafVGw4PdeFZmepd
+	 WC8sBEXAXpya5NBCPO6Q2GuCaJRl9MQVMadsmsosroeCcs6ux1qPuWOlgbtv5FW7PH
+	 W0ZQbcrTUsiEbulWKxvDMV7+sS+aRkvt+XWLZdmDA5plSkGUfXcLnyeO8ApCuVnyFk
+	 ixkiuF3Ui3zww==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1749241484; x=1749501984; i=teddy.astie@vates.tech;
+	bh=qWTqrUaJ22be3xQmtAEmq7viKiC+H8tahl5o7BAj8Pg=;
+	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=akiWoQVAlRF5kRS80/BEmVIxStLHNW5VUNSxU+W65AbAbVusy42LioJDIKIPdn6SZ
+	 sG3B6eRuroAgrmasl/hY0sz7U/jbWJvWXc3hycPzr1bjW08jKjIUgPM7qtqysorkOb
+	 7wmKWIlILKrt20a+nRDa0IRP81qQJrb2keVwtjW+T1N/5h78HeP241y5IDgMFAL3V4
+	 0OX69dPNWSgobo9Is+cWqgh2GEGYpqClPwmYu0/k/lNWC2WcEijI5jZV8jFU39Eab1
+	 6lOw/xRwi+SjUI/USXzlxM2WN6iDfsmiGOL0D14Fj9XFhB1Y+R65svicaoHkaRNwrS
+	 XQz525kHxQQNg==
+From: "Teddy Astie" <teddy.astie@vates.tech>
+Subject: =?utf-8?Q?Re:=20[PATCH=20v1]=20xen/console:=20group=20pbuf=20under=20console=20field?=
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1749241482674
+Message-Id: <00ffcc4b-b63e-4b4d-8b8f-8d02fb7ef234@vates.tech>
+To: dmkhn@proton.me, xen-devel@lists.xenproject.org
+Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com
+References: <20250606194937.2412579-1-dmukhin@ford.com>
+In-Reply-To: <20250606194937.2412579-1-dmukhin@ford.com>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.aeed00e7af684050a1ed30281fe96756?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20250606:md
+Date: Fri, 06 Jun 2025 20:24:44 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, 6 Jun 2025, Jan Beulich wrote:
-> On 05.06.2025 19:40, Alejandro Vallejo wrote:
-> > On Thu Jun 5, 2025 at 7:28 PM CEST, Alejandro Vallejo wrote:
-> >> On Mon Jun 2, 2025 at 7:00 PM CEST, Andrew Cooper wrote:
-> >>> On 30/05/2025 1:02 pm, Alejandro Vallejo wrote:
-> >>>> These types resemble each other very closely in layout and intent, and
-> >>>> with "struct bootmodule" already in common code it makes perfect sense
-> >>>> to merge them. In order to do so, add an arch-specific area for
-> >>>> x86-specific tidbits.
-> >>>>
-> >>>> Signed-off-by: Alejandro Vallejo <agarciav@amd.com>
-> >>>
-> >>> Yet this is a distinct backwards step in terms of legibility.
-> >>>
-> >>> How about modifying the common code to be more legible, rather than
-> >>> regressing the x86 code.
-> >>>
-> >>> ~Andrew
-> >>
-> >> I meant to ifdef out the fields unused on x86, but after some massaging I
-> >> think I got it lookin much nicer. It's essentially using the common parts of
-> >> kernel_info and boot_domain as a header to kernel_info.
-> >>
-> >> That way, x86 keeps using a substantially smaller (yet common) data structure
-> >> while the rest of dom0less can keep using the original as-is.
-> >>
-> >> Refactoring kernel_info to rationalise its contents is somewhere in my TODO
-> >> list, but I have much more urgent fish to fry first.
-> >>
-> >> Cheers,
-> >> Alejandro
-> > 
-> > ... I misread the comment and thought it was in the following patch rather than this one.
-> > 
-> > If it was indeed intended here, I'm at a loss as to what you'd rather do.
-> > Common bindings need a common ground. This is such ground. The data structures
-> > are virtually identical and used for identical purposes.
-> > 
-> > What's the legibility step you're talking about?
+Hello,
+
+Le 06/06/2025 =C3=A0 21:51, dmkhn@proton.me a =C3=A9crit=C2=A0:
+> From: Denis Mukhin <dmukhin@ford.com>
 > 
-> The loss of the underscore (separating the words) in the struct tag, aiui.
+> Group all pbuf-related data structures under domain's console field.
+> 
+> No functional change.
+> 
+> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
+> ---
+>   xen/arch/x86/hvm/hvm.c     | 14 +++++++-------
+>   xen/common/domain.c        |  8 ++++----
+>   xen/drivers/char/console.c | 19 +++++++++++--------
+>   xen/include/xen/sched.h    | 12 ++++++------
+>   4 files changed, 28 insertions(+), 25 deletions(-)
+> 
+> diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
+> index 4cb2e13046..17d1fd42ce 100644
+> --- a/xen/arch/x86/hvm/hvm.c
+> +++ b/xen/arch/x86/hvm/hvm.c
+> @@ -571,16 +571,16 @@ static int cf_check hvm_print_line(
+>       if ( !is_console_printable(c) )
+>           return X86EMUL_OKAY;
+>   
+> -    spin_lock(&cd->pbuf_lock);
+> +    spin_lock(&cd->console.pbuf_lock);
+>       if ( c !=3D '\n' )
+> -        cd->pbuf[cd->pbuf_idx++] =3D c;
+> -    if ( (cd->pbuf_idx =3D=3D (DOMAIN_PBUF_SIZE - 1)) || (c =3D=3D '\n')=
+ )
+> +        cd->console.pbuf[cd->console.pbuf_idx++] =3D c;
+> +    if ( (cd->console.pbuf_idx =3D=3D (DOMAIN_PBUF_SIZE - 1)) || (c =3D=
+=3D '\n') )
+>       {
+> -        cd->pbuf[cd->pbuf_idx] =3D '\0';
+> -        guest_printk(cd, XENLOG_G_DEBUG "%s\n", cd->pbuf);
+> -        cd->pbuf_idx =3D 0;
+> +        cd->console.pbuf[cd->console.pbuf_idx] =3D '\0';
+> +        guest_printk(cd, XENLOG_G_DEBUG "%s\n", cd->console.pbuf);
+> +        cd->console.pbuf_idx =3D 0;
+>       }
+> -    spin_unlock(&cd->pbuf_lock);
+> +    spin_unlock(&cd->console.pbuf_lock);
+>   
+>       return X86EMUL_OKAY;
+>   }
+> diff --git a/xen/common/domain.c b/xen/common/domain.c
+> index 153cd75340..dd1867b2fe 100644
+> --- a/xen/common/domain.c
+> +++ b/xen/common/domain.c
+> @@ -669,7 +669,7 @@ static void _domain_destroy(struct domain *d)
+>       BUG_ON(!d->is_dying);
+>       BUG_ON(atomic_read(&d->refcnt) !=3D DOMAIN_DESTROYED);
+>   
+> -    xfree(d->pbuf);
+> +    xfree(d->console.pbuf);
+>   
+>       argo_destroy(d);
+>   
+> @@ -862,7 +862,7 @@ struct domain *domain_create(domid_t domid,
+>       spin_lock_init(&d->shutdown_lock);
+>       d->shutdown_code =3D SHUTDOWN_CODE_INVALID;
+>   
+> -    spin_lock_init(&d->pbuf_lock);
+> +    spin_lock_init(&d->console.pbuf_lock);
+>   
+>       rwlock_init(&d->vnuma_rwlock);
+>   
+> @@ -956,8 +956,8 @@ struct domain *domain_create(domid_t domid,
+>           goto fail;
+>   
+>       err =3D -ENOMEM;
+> -    d->pbuf =3D xzalloc_array(char, DOMAIN_PBUF_SIZE);
+> -    if ( !d->pbuf )
+> +    d->console.pbuf =3D xzalloc_array(char, DOMAIN_PBUF_SIZE);
+> +    if ( !d->console.pbuf )
+>           goto fail;
+>   
+>       if ( (err =3D sched_init_domain(d, config->cpupool_id)) !=3D 0 )
+> diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
+> index 616f4968b0..3855962af7 100644
+> --- a/xen/drivers/char/console.c
+> +++ b/xen/drivers/char/console.c
+> @@ -769,22 +769,25 @@ static long guest_console_write(XEN_GUEST_HANDLE_PA=
+RAM(char) buffer,
+>               } while ( --kcount > 0 );
+>   
+>               *kout =3D '\0';
+> -            spin_lock(&cd->pbuf_lock);
+> +            spin_lock(&cd->console.pbuf_lock);
+>               kcount =3D kin - kbuf;
+>               if ( c !=3D '\n' &&
+> -                 (cd->pbuf_idx + (kout - kbuf) < (DOMAIN_PBUF_SIZE - 1))=
+ )
+> +                 cd->console.pbuf_idx + kout - kbuf < DOMAIN_PBUF_SIZE -=
+ 1 )
 
-As I wrote in reply to the other patch, I would ask that we keep the
-code movement and the renaming separate.
+I don't think we want to drop the parentheses here.
 
-With that said, I don't mind a global s/bootmodule/boot_module/g across
-the codebase, but please let's keep it as a separate patch to make it
-easier to review.
+>               {
+>                   /* buffer the output until a newline */
+> -                memcpy(cd->pbuf + cd->pbuf_idx, kbuf, kout - kbuf);
+> -                cd->pbuf_idx +=3D (kout - kbuf);
+> +                memcpy(cd->console.pbuf + cd->console.pbuf_idx,
+> +                       kbuf,
+> +                       kout - kbuf);
+> +                cd->console.pbuf_idx +=3D (kout - kbuf);
+>               }
+>               else
+>               {
+> -                cd->pbuf[cd->pbuf_idx] =3D '\0';
+> -                guest_printk(cd, XENLOG_G_DEBUG "%s%s\n", cd->pbuf, kbuf=
+);
+> -                cd->pbuf_idx =3D 0;
+> +                cd->console.pbuf[cd->console.pbuf_idx] =3D '\0';
+> +                guest_printk(cd,
+> +                             XENLOG_G_DEBUG "%s%s\n", cd->console.pbuf, =
+kbuf);
+> +                cd->console.pbuf_idx =3D 0;
+>               }
+> -            spin_unlock(&cd->pbuf_lock);
+> +            spin_unlock(&cd->console.pbuf_lock);
+>           }
+>   
+>           guest_handle_add_offset(buffer, kcount);
+> diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
+> index fe53d4fab7..637aa09ec4 100644
+> --- a/xen/include/xen/sched.h
+> +++ b/xen/include/xen/sched.h
+> @@ -562,12 +562,6 @@ struct domain
+>       /* Control-plane tools handle for this domain. */
+>       xen_domain_handle_t handle;
+>   
+> -    /* hvm_print_line() and guest_console_write() logging. */
+> -#define DOMAIN_PBUF_SIZE 200
+> -    char       *pbuf;
+> -    unsigned int pbuf_idx;
+> -    spinlock_t  pbuf_lock;
+> -
+>       /* OProfile support. */
+>       struct xenoprof *xenoprof;
+>   
+> @@ -654,6 +648,12 @@ struct domain
+>   
+>       /* Console settings. */
+>       struct {
+> +        /* hvm_print_line() and guest_console_write() logging. */
+> +#define DOMAIN_PBUF_SIZE 200
+> +        char *pbuf;
+> +        unsigned int pbuf_idx;
+> +        spinlock_t pbuf_lock;
+> +
+>           /* Permission to take ownership of the physical console input. =
+*/
+>           bool input_allowed;
+>       } console;
 
-However, we don't actually have a code style asking for _ in struct
-tags. So while I don't mind the global s/bootmodule/boot_module/g, it
-might be best we at least briefly discuss it as a group to make sure we
-are all aligned.
+
+Teddy Astie | Vates XCP-ng Developer
+
+XCP-ng & Xen Orchestra - Vates solutions
+
+web: https://vates.tech
+
+
 
