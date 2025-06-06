@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD9A1ACFA27
-	for <lists+xen-devel@lfdr.de>; Fri,  6 Jun 2025 01:46:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1007712.1386973 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C285EACFA4B
+	for <lists+xen-devel@lfdr.de>; Fri,  6 Jun 2025 02:08:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1007722.1386982 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uNKHj-0007D5-0m; Thu, 05 Jun 2025 23:46:11 +0000
+	id 1uNKcv-0002T1-K8; Fri, 06 Jun 2025 00:08:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1007712.1386973; Thu, 05 Jun 2025 23:46:10 +0000
+Received: by outflank-mailman (output) from mailman id 1007722.1386982; Fri, 06 Jun 2025 00:08:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uNKHi-0007B0-SU; Thu, 05 Jun 2025 23:46:10 +0000
-Received: by outflank-mailman (input) for mailman id 1007712;
- Thu, 05 Jun 2025 23:46:09 +0000
+	id 1uNKcv-0002QN-HS; Fri, 06 Jun 2025 00:08:05 +0000
+Received: by outflank-mailman (input) for mailman id 1007722;
+ Fri, 06 Jun 2025 00:08:04 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=QBp0=YU=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1uNKHh-0007Au-F4
- for xen-devel@lists.xenproject.org; Thu, 05 Jun 2025 23:46:09 +0000
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ <SRS0=YRk0=YV=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1uNKcu-0002QH-OG
+ for xen-devel@lists.xenproject.org; Fri, 06 Jun 2025 00:08:04 +0000
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3fc6aa1a-4267-11f0-b894-0df219b8e170;
- Fri, 06 Jun 2025 01:46:07 +0200 (CEST)
+ id 485d9e14-426a-11f0-b894-0df219b8e170;
+ Fri, 06 Jun 2025 02:07:50 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 1C5666154E;
- Thu,  5 Jun 2025 23:46:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37598C4CEE7;
- Thu,  5 Jun 2025 23:46:04 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id E347C4AA17;
+ Fri,  6 Jun 2025 00:07:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB073C4CEEF;
+ Fri,  6 Jun 2025 00:07:47 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,68 +41,82 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3fc6aa1a-4267-11f0-b894-0df219b8e170
+X-Inumbo-ID: 485d9e14-426a-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1749167165;
-	bh=gLHEgdpM3Jus7sfz9wERNI99jnA3VG3T8lURiWMaNYU=;
+	s=k20201202; t=1749168468;
+	bh=pFWt8ixJ5bjgXwtwhuvejUDxPeu3bdN7Wc76r3o+ct0=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=Y6ypvT25SdnQtcCofwbFlv6FoLDFtsR8IkiItrXi8cA+c2h2QUvMDc+lEwGdUGMle
-	 9QkACEfwNVlDxZasUlyDNtEnajM7w3LvsnWJK3s/AHwTGfmhYbAL4DkPi393+CWZI2
-	 okwtPftLFy6HREhrnH0nlSZsPQ2K2IK565PXIW9OukIop+Y6cMkM/uXNaRi3sETgCk
-	 JWRILgxRksmc1/JlGOegP/WJBFr3CmXjQihxuqY9gW4Oca/sO6o+ObIinaRLS8N24U
-	 48w3L0hhT2hhf/+cjlW33prBUN4b39JYrcLHtdorchzIeyyL6xX/WHFLoFCfVQyg/n
-	 IDXE3lme1daEg==
-Date: Thu, 5 Jun 2025 16:46:03 -0700 (PDT)
+	b=dSGoeiiEwe/9WvxgWLIwyw+UWy6uw8IxY/yuXS2qhvNb1rGw5NePhNfBkKfGgti7R
+	 EfNXcUGI2oGPVY++pqeY+Ht5v7qstcDIO20HO9fBsI1FP0rh2ai8H9iwK/0CaMdF6j
+	 p4eDrlUWnDAn/WTc91NPlKXEzlgPk2CSQyA8TUzXA3suzcugNuvUu3mJ9vfmJilWLc
+	 f5OOzYl7gYKO+LBE2DRVkQzn7u5QpPfNpT3xqrUs3Tf0+OCsKwZJk2NYn5s6+tcy+F
+	 JIfdz9nJUSok9Pn9I7Mv2GsSvSs/4alxlBX9Wujz6fT8I4xKRHiKkbJPzSXpCwx8/L
+	 c5ghbVP9YiDhw==
+Date: Thu, 5 Jun 2025 17:07:46 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Jan Beulich <jbeulich@suse.com>
-cc: dmkhn@proton.me, sstabellini@kernel.org, andrew.cooper3@citrix.com, 
-    anthony.perard@vates.tech, julien@xen.org, michal.orzel@amd.com, 
-    roger.pau@citrix.com, teddy.astie@vates.tech, dmukhin@ford.com, 
-    xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v5 1/2] xen/domain: introduce common hardware emulation
- flags
-In-Reply-To: <8412c795-610b-416e-8d22-4149d2492517@suse.com>
-Message-ID: <alpine.DEB.2.22.394.2506051642420.2495561@ubuntu-linux-20-04-desktop>
-References: <20250602191717.148361-1-dmukhin@ford.com> <20250602191717.148361-2-dmukhin@ford.com> <093dc85d-ebf3-4982-8888-db4e7cfd0e45@suse.com> <aEDwMrVu+3PVSh+Y@kraken> <8412c795-610b-416e-8d22-4149d2492517@suse.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, andrew.cooper3@citrix.com, 
+    anthony.perard@vates.tech, michal.orzel@amd.com, julien@xen.org, 
+    roger.pau@citrix.com, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH] xen: add header guards to generated asm generic
+ headers
+In-Reply-To: <f5909546-ef4d-4ee3-95b2-1255f2de3652@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2506051649010.2495561@ubuntu-linux-20-04-desktop>
+References: <alpine.DEB.2.22.394.2506041605090.2495561@ubuntu-linux-20-04-desktop> <f5909546-ef4d-4ee3-95b2-1255f2de3652@suse.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
 On Thu, 5 Jun 2025, Jan Beulich wrote:
-> On 05.06.2025 03:17, dmkhn@proton.me wrote:
-> > On Wed, Jun 04, 2025 at 12:36:17PM +0200, Jan Beulich wrote:
-> >> On 02.06.2025 21:17, dmkhn@proton.me wrote:
-> >>> From: Denis Mukhin <dmukhin@ford.com>
-> >>>
-> >>> Add common emulation_flags for configuring domain emulation features.
-> >>>
-> >>> Print d->emulation_flags from 'q' keyhandler for better traceability while
-> >>> debugging.
-> >>>
-> >>> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
-> >>> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-> >>
-> >> It's not becoming clear why this would want doing, nor in how far some of
-> >> the bits there may gain "common" meaning, too. Imo this kind of change is
-> >> meaningful only in a series where later the common-ness is also used.
-> > 
-> > I have a set of upcoming changes here:
-> >   https://gitlab.com/xen-project/people/dmukhin/xen/-/tree/vuart-framework?ref_type=heads
-> > 
-> > Specifically,
-> >  https://gitlab.com/xen-project/people/dmukhin/xen/-/commit/17f44d23c1904374963c4ec839bc8219041b5d26
-> > 
-> > enables the use of emulation_flags on Arm.
-> > 
-> > I can move this patch to the upcoming series, if needed, but looks like it is
-> > OK to have it for Arm even now.
+> On 05.06.2025 01:09, Stefano Stabellini wrote:
+> > --- a/xen/scripts/Makefile.asm-generic
+> > +++ b/xen/scripts/Makefile.asm-generic
+> > @@ -32,7 +32,12 @@ old-headers := $(wildcard $(obj)/*.h)
+> >  unwanted    := $(filter-out $(generic-y) $(generated-y),$(old-headers))
+> >  
+> >  quiet_cmd_wrap = WRAP    $@
+> > -      cmd_wrap = echo "\#include <asm-generic/$*.h>" > $@
+> > +      cmd_wrap = \
+> > +	upper=$$(echo $*.h | tr a-z A-Z | tr '/.' '__'); \
+> > +	printf "\#ifndef ASM_GENERIC_$${upper}\n" > $@; \
+> > +	printf "\#define ASM_GENERIC_$${upper}\n" >> $@; \
+> > +	printf "\#include <asm-generic/$*.h>\n" >> $@; \
+> > +	printf "\#endif /* ASM_GENERIC_$${upper} */\n" >> $@
 > 
-> Prior to that series making it to a ready-to-be-committed state, it'll be
-> (effectively) dead code on Arm. Which strictly speaking Misra objects to.
-> I wonder if you, Stefano, considered that when giving your R-b.
+> I'm curious: In what is now a0f56da94c3e I had to resort to "define" to
+> get the rule to work (including a correct .*.cmd being generated). I
+> can't claim I actually understood why things didn't work the "simple
+> macro" way, and hence it's unclear to me whether the way it's done here
+> will work with all make versions.
 
-We have not been enforcing the "no dead code" rule (R2.2) especially on
-a per patch basis. In general in my view, it is better to reduce dead
-code rather than increase dead code, but it is OK to do so temporarily.
+This works:
+
+cmd_xlat_h = \
+	printf "\#ifndef COMPAT_XLAT_H\n" >$@.new; \
+	printf "\#define COMPAT_XLAT_H\n" >>$@.new; \
+	cat $(filter %.h,$^) >>$@.new; \
+	printf "" >>$@.new; \
+	printf "\#endif /* COMPAT_XLAT_H */\n" >>$@.new; \
+	mv -f $@.new $@
+
+I made these changes:
+- tab instead of spaces
+- printf instead of echo
+- escape # and add \n
+
+
+
+> One further difference to that other commit: If make is interrupted in
+> the middle of any of these printf-s, an incomplete file may remain. The
+> cmd_xlat_h rule specifically uses "mv -f $@.new $@" to cover that corner
+> case.
+
+Good point I can fix it
+
+
+> Finally - is ASM_GENERIC_$${upper} actually correct? Isn't that the
+> guard that ought to be used _in_ asm-generic/$*.h?
+
+You are right
 
