@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83781ACFDF1
-	for <lists+xen-devel@lfdr.de>; Fri,  6 Jun 2025 10:08:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1008076.1387293 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D7DBACFE0E
+	for <lists+xen-devel@lfdr.de>; Fri,  6 Jun 2025 10:15:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1008089.1387303 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uNS7i-0002Oc-0o; Fri, 06 Jun 2025 08:08:22 +0000
+	id 1uNSDW-000470-Lk; Fri, 06 Jun 2025 08:14:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1008076.1387293; Fri, 06 Jun 2025 08:08:21 +0000
+Received: by outflank-mailman (output) from mailman id 1008089.1387303; Fri, 06 Jun 2025 08:14:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uNS7h-0002Mt-Tw; Fri, 06 Jun 2025 08:08:21 +0000
-Received: by outflank-mailman (input) for mailman id 1008076;
- Fri, 06 Jun 2025 08:08:20 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uNSDW-000453-Hb; Fri, 06 Jun 2025 08:14:22 +0000
+Received: by outflank-mailman (input) for mailman id 1008089;
+ Fri, 06 Jun 2025 08:14:20 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=1Fse=YV=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1uNS7g-0002Ma-B9
- for xen-devel@lists.xenproject.org; Fri, 06 Jun 2025 08:08:20 +0000
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2062f.outbound.protection.outlook.com
- [2a01:111:f403:2412::62f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 667b168c-42ad-11f0-b894-0df219b8e170;
- Fri, 06 Jun 2025 10:08:18 +0200 (CEST)
-Received: from BN9PR12MB5273.namprd12.prod.outlook.com (2603:10b6:408:11e::22)
- by BN3PR12MB9595.namprd12.prod.outlook.com (2603:10b6:408:2cb::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8792.34; Fri, 6 Jun
- 2025 08:08:12 +0000
-Received: from BN9PR12MB5273.namprd12.prod.outlook.com
- ([fe80::cf66:58ab:47be:4b13]) by BN9PR12MB5273.namprd12.prod.outlook.com
- ([fe80::cf66:58ab:47be:4b13%5]) with mapi id 15.20.8792.034; Fri, 6 Jun 2025
- 08:08:12 +0000
+ <SRS0=DWpK=YV=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1uNSDU-00044Y-UF
+ for xen-devel@lists.xenproject.org; Fri, 06 Jun 2025 08:14:20 +0000
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [2a00:1450:4864:20::32e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 3ecf7775-42ae-11f0-a301-13f23c93f187;
+ Fri, 06 Jun 2025 10:14:19 +0200 (CEST)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-450d668c2a1so20418015e9.0
+ for <xen-devel@lists.xenproject.org>; Fri, 06 Jun 2025 01:14:19 -0700 (PDT)
+Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
+ by smtp.gmail.com with UTF8SMTPSA id
+ 5b1f17b1804b1-45209ce0b97sm15915745e9.9.2025.06.06.01.14.18
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 06 Jun 2025 01:14:18 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,182 +45,184 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 667b168c-42ad-11f0-b894-0df219b8e170
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=e522IREaWf3rKqZaVtpAtW50X1pw2vukLGNwF5TOSUUdgih/B7tEpGTvv6MXKkzCOfV0xWXIXndIdVnESfVytH8toHZ8uE3A7aVn7YnjY0qAklsqaspjxLETpVeIRWqnle2fmVUC0UkPxVuazmbRj9zAehSwQF4kTmqoDiscKlca7x674pg0bCzZO9Mpzah4xw9l6K0i3c247NbO11jkoihlDnDTd5XV+/eLa4Th3APDXaoHH3Lrl/mlcN/8vVprLLP2bVyvSnMHzobUAHJgzl+BbyfX5LgiSrNGll1xIn9iqxY6g+o/An9eCaN+YJKGZQr6gcSAdpInuspxwnksSg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/H1oDzcywQO9/UntSnvfvZiyyNydwEGkaN2gA6gebSI=;
- b=xmMy7tw/AsEcJJWydkGLy8NXwjHhIue+MLCt5tDfKlke8ZPcIIKdPQf/PcIobD2qN96c+Bt/jLzWxkkGhQX1ikzv3uTS6BkSBMgmI+NmKFmEzsluIPevaxhIK5jh3Y42T2FbeFxyiIbUOaUNqAe189GQWGVQFQt0JTasPblon96nqXsJC9fuh6ITcqNdpiAcOQcC/nVmRPEe4xLRtMQQ2nk5dY9wC1cOiSLIRWAJsCGL3P0AzTCtoNCej42BhlgVWRkNpikX+MPP4icOTOsgVFXsUnuH5w/S7nRaOAWjL57LV43+QctbBGsyRJ34bQSeOE3gcdWmwcx3wDD1ckKOqw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/H1oDzcywQO9/UntSnvfvZiyyNydwEGkaN2gA6gebSI=;
- b=W1nbIL1cunoxDLsO1IdGmxFHggqYVFXG1DV1ip/vE1SC1ZmLOO+451u4KlPxUSejxh1TexA2wPmjHZ/GoMSdQuykOtzc5jit2oIIh55nEFPsSpC7kEFTl0+1LUbVxvqHdcvlIWM48Z3dI1oC9rnJlQZhyAJWa8tom8wHKn9S7y0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Message-ID: <f475f76e-c4e8-4662-9dee-5d09f4d07394@amd.com>
-Date: Fri, 6 Jun 2025 10:08:09 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH xen/arm 1/1] xen/arm: Standardize R-Car platform Kconfig
- descriptions
-To: Jahan Murudi <jahan.murudi.zg@renesas.com>, sstabellini@kernel.org,
- julien@xen.org, bertrand.marquis@arm.com, Volodymyr_Babchuk@epam.com
-Cc: xen-devel@lists.xenproject.org
-References: <20250606070501.3470801-1-jahan.murudi.zg@renesas.com>
-From: "Orzel, Michal" <michal.orzel@amd.com>
-Content-Language: en-US
-In-Reply-To: <20250606070501.3470801-1-jahan.murudi.zg@renesas.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AM6P193CA0084.EURP193.PROD.OUTLOOK.COM
- (2603:10a6:209:88::25) To BN9PR12MB5273.namprd12.prod.outlook.com
- (2603:10b6:408:11e::22)
+X-Inumbo-ID: 3ecf7775-42ae-11f0-a301-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1749197659; x=1749802459; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=p/nGcUxEK+SuKmowKg4XVxySr0bBKdS76bK7pSzUDSE=;
+        b=bTmUBwNNYQoXtWjKgnzjSo8ZsUeAN9PPS32sq6uVI4FFco4uqE6BaPNYHVjbYPTwyx
+         /oZDsz6GrNUr1HghWDmA7Yr6GuWqLXMmcils8J610vk8pVzmRqLX1UxRLSziEEBatpjN
+         j7j/HVCOY1XM2w29+eCz72nWCMuaIZxswIfdk=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1749197659; x=1749802459;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=p/nGcUxEK+SuKmowKg4XVxySr0bBKdS76bK7pSzUDSE=;
+        b=WeWOMxzKi4retnoHL3r7wf7Cdm46LyP/hxIXrDwUO9l8BQNVNT3FCbTGM+xKsmV2iK
+         TKR+DT9Sl16O3TbHCqSX+oMarqEenqfGzlw5AJnzLOzHqTI5JnhgvuKtaVerLpQmmgxI
+         hV7XjYtrKwS5NpFOsSC6//ICqHSfAG4u2vCMcvFB34GJKxnbfJEoEHpHZR1T+nBUwtZx
+         Tb6dnbhn5MK2BEWwngxwGL8Amer2UvVfF3IlsQJyC7qnXfmrg8PvEkVQ9gLErwT3UGkr
+         p/kQAljfQqK0UJ+lhaHQyDXz7PJLvTqPoGWp7qbFLrB/ur6xtZf2zRlUEYFIkkk8VmNP
+         yFMw==
+X-Gm-Message-State: AOJu0YxRbhd+apt1Ib146tSkDVJbF6acYmf5XKmyWIoR+aUsskWaIc7t
+	D0Sq73fqgVfy6IfDBgJHfcQQR7rnJnMkLIeXP9AvZ89qEG+etfwb8W2pm6BATRIDtOY=
+X-Gm-Gg: ASbGnctzpgb4PknOQxxKLEgCecGEN3cc/z2WeTeuiXXJ4hH7djjTcuhVtSv0LTWY8jO
+	BP1wqzFf4LMsPCLDy6TbVctI37LcbdxwFtSfLn68YloAFDCfZX91d5ZNs5GI33jcP1yFW0/P/lS
+	yi1NTU+om5IYPEdgzSbor3gWgfAcR07QTpWqeH29wr8ZePCCQSIwOeZcYBrG7Xm5tb3HetF8N+t
+	sp2xxz2opcXkrns+EnxjHxmqJdu1KALFQGg7zq0f34pkLbu/FGDDlfivVR2JNj7oyaG0aL5755g
+	CNj/goJ/SOCZkXSMuWjNvFmeJh3VisnCYDXD9g2XEtJJOJLAfsM27yXs1nJjazdpshQzaTrR2zP
+	UJY1nYJE24N762z3UBfJTUtsRQwgN2A==
+X-Google-Smtp-Source: AGHT+IF/1F3RsuJWsGXxmuB7HnlsS8mPbZFuIiUG+pKNCKu8rKvucsSpCE7Wt1mnPATcavGdCZF62Q==
+X-Received: by 2002:a05:600c:1c92:b0:441:d228:3a07 with SMTP id 5b1f17b1804b1-451f88bead1mr76413145e9.13.1749197658847;
+        Fri, 06 Jun 2025 01:14:18 -0700 (PDT)
+Date: Fri, 6 Jun 2025 10:14:17 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+Cc: xen-devel@lists.xenproject.org,
+	Bernhard Kaindl <bernhard.kaindl@cloud.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH 05/11] xen: Create per-node outstanding claims
+Message-ID: <aEKjWSkRXO099bRb@macbook.local>
+References: <20250314172502.53498-1-alejandro.vallejo@cloud.com>
+ <20250314172502.53498-6-alejandro.vallejo@cloud.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5273:EE_|BN3PR12MB9595:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0e1fb8f9-fbf0-4a7e-74f0-08dda4d1484d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016|7053199007;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?Z2JzRXlwVENFcXNhakNEaTBmekJhRnptNmtmWS9TV00zaGt1WG5RNGdjUVo5?=
- =?utf-8?B?SlVna2h6NENudW56NWtObXQ1MmhvRW5CQkpGYjVpcWEzRnBXUU1OME1iMElC?=
- =?utf-8?B?ZyttMXB3c1pkWldzVUxmQkRIZUdnd0VOUGlFT0dUNWNRRDdzU2I3UnVJY252?=
- =?utf-8?B?ZHlOU0Q3N3o1dUFjVy9VeFZVTU1UeWRsWDZPaXpKd0tzcDYydTVZN0U5eTZi?=
- =?utf-8?B?NzJNdExhSjljT0NDVkk5dmxTWWwwY3krV2NUZm9HRDBaQzBzUnhLajhYUjIz?=
- =?utf-8?B?OXNwOW1Nc1M0cnNvc1dBVVlPUEozaVM3L3Z0Q0J2Y29WSkdEZkx1VG1XNkxv?=
- =?utf-8?B?ZjREcEVETG9OcUppbitFV25lMTFYL3dRUWlRazBWSlE3TkY5c1VBc3oyL3cw?=
- =?utf-8?B?RFZSUjdtSTBGbXkzN0RmcUdGanJuUjQvUmtYdzhoVGI5bmd6TTN2N1RBVGFs?=
- =?utf-8?B?R2hOQkdzMlZkYzg0dS9KbElkQ2NWWHhUYWxkU0RRY0V4RllxS0ZyaTE4SlFh?=
- =?utf-8?B?Tld2Vit0dXFheEZiM0NIbHdkU2hlVENOUUF3eHNzNXZsd3E1ZndzeXVLaXBM?=
- =?utf-8?B?SUJsbE1zTGtzRnZUTHluNXRsNXFmYk1UVEM5ZitIYjdXdHB3U3I1Sjd2bm5F?=
- =?utf-8?B?NDVuaTcxNHowWGhtSXJBN0dWYXNlL0c5OGRUMzBpMk1Nd3l4NHFIVCtSM09N?=
- =?utf-8?B?KzdYdDg2K0xKN2I1ODQwaVAya3g2TnhlY1FxOU9ZdWlyOGtvd0hQbHFzbUJr?=
- =?utf-8?B?QmNTMXdVN0R5dmkyQzV4OFp4ck9xWU9jVDZ1dzI1NUg1aVh6aEF0NnFNM3lp?=
- =?utf-8?B?aktSZmpCYzQrSmVaQ01QZHpCaHNZeUNjY2N0bk1VUEptSzJXUUhnSmRvdDZp?=
- =?utf-8?B?RzdJWGVVOXMweFZjczdNZ3A3dXBnczZyUm0wRnc5TTVielFmaGk0T0F0R2hT?=
- =?utf-8?B?QS9mUnJ2Q2tERmpxcVp5TDh6akFMSkJCSmhRdCtBTGxyekRWanlWcFZ3SUda?=
- =?utf-8?B?ZDE0eWowM09wU0dDbkRiTEF6cWpnSmJIUjNPOC9tVmR3TjhaVEN4eDlNWm1l?=
- =?utf-8?B?dWtjS0JnWGJXcnRKeHlMS3FMbzd1S3IyVllGNHdtQUxneXlFVHQ2R3NrSFZO?=
- =?utf-8?B?Z1ZQeWs4TGZnb2VGN3pTM2dnZVZmMWZ1a3JmWDBQczc3Rko0WWJaMTQzdmF0?=
- =?utf-8?B?V01VSUMxVnNBQ1dLRDlYcmg0cTFIQ3g4S3VTWm5YVkxaR3ZEb01FTkpuaFFq?=
- =?utf-8?B?bkcveEFDcWo2QlUzRkRPTG0wa0sveE13dTVlN2pTZnd1cjEzNStBQ3BMQzY1?=
- =?utf-8?B?VkVIU2g2UzRSVmN6NG1IRWo2MHZ4akRXSzliR0tRemVjUElZVzVLTDU2TW1W?=
- =?utf-8?B?bGtZTTl4a1dJUzAzdk9nY3hGbUZxYkRCZHNPL2toVU1wMzBtWGVVRXZwRzdC?=
- =?utf-8?B?ZXB0clY1NHhRbXpjVUc4SkM0R2lnWFM1b3BuL1MvcmZVbTBxL2pMN2x2VHZi?=
- =?utf-8?B?bDV5VGJSMHo3RE1Td1JUVFlmeFZWdEdyUmVLWm9zNGxkcTF4RVJmdWZnWlpZ?=
- =?utf-8?B?V0RsclFRMC9CQ1hlaTM5N25mQ2M4NUJVM3JSUHlRbmN2SUhqdjJKR2xMckVr?=
- =?utf-8?B?dXpQdnhyZ05aNzFSaEhISExiQUs1aEhmZG9ibzZnNVozM09ZZjd3VjdVOHBp?=
- =?utf-8?B?Q05QcWZWVmp4Tm9BTEQwSzNsbExHY0szUzhXQm9wL3JONTNHR1RJamRtWHNT?=
- =?utf-8?B?U1I3YlB1Sm9qbml1VWJiWWc4WlFjaXgyT2gxazM3ODhSclNYTk9nRTI4RzJI?=
- =?utf-8?B?Nkw1a1dRMUx5c0VZR0JnZWNUQ2hEcVlTVjlvb1doYVYvcHVYNkFHeERlR295?=
- =?utf-8?B?dWRhaDhOb2wzSVZLYktYTXQ1L1dFOEcxVFh0cTNCQkdzTk9GVlpxQ3B0a2R2?=
- =?utf-8?Q?jMbZcdchDs4=3D?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN9PR12MB5273.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(7053199007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?WUtveFEybjYwMVlRTHRjdXpqV0w0ZWZDVjdJeGF0VENteXhwWWpVWEtJTnRp?=
- =?utf-8?B?V0hnays4Z3p5M2FqeklkcFZnWjMzNjNPSlFqTFo2dmJOejdNbWNQQk44bDE0?=
- =?utf-8?B?TWhPNzdzdTk3akhIaHRMdmdtbFA3QW1naHFDMysybHRvNGtrOHZGaVd6ZEFH?=
- =?utf-8?B?Qk1ucWFaaUl3RW4zWTY0Zmx2aUlOdlFxWFFSdDArME1KQ28rdkJtSnJuTFBY?=
- =?utf-8?B?YTBwL2xISEp2UXNNa0VIZVVRSDBqRy9pdndQRUJsMHZxTDRkUk1pK1k4U0lM?=
- =?utf-8?B?aWIwSm80Mk9HUjVaMlJUVlVpN01Iam5jdWpiVTlmS3d6TUNTNlZ1alM2Rll2?=
- =?utf-8?B?R2xWaXlmMVJ1ZlplNTNIU0RqalA2UElVQU45UVpieXk0cFFqYUFYNDhXam96?=
- =?utf-8?B?aGRLMDh4ajNnQWFJenFzeTZjMmFqZFA4NG1RYUdIZFE4ZWNtN3hLWmQ2c1JW?=
- =?utf-8?B?ZHd2RkJHeVJ1YkRUNDhMcVB4bHVZOHBEZGNSc0ZZY0xhTmxoYzU0YzNNUlpr?=
- =?utf-8?B?c1JXendTTlFpQW02enFiQThKUWROTkhMTHdTeUxDMVpaanROT3pBR0ovL3Ra?=
- =?utf-8?B?a2tsOUlJYjUwTytiM01DQWZBV0FUMUVLUm13NkFYTEZTQUJ1N3hDMDVjZ0J5?=
- =?utf-8?B?UXkzbHNST2ZRaDBHeE0xZXJ5V1FYdStSKzY4ZFpPUFpJMjRKVkpUNHJ1RTlE?=
- =?utf-8?B?WktpUjFFbzBhZnVHTnFSU0RuSENsOXlMNXBac0dMWHhvcC85VkFRUU8rY3RE?=
- =?utf-8?B?VkNWTWh6WjJsL003ZFpsMnZ4NjBibWZhdjZ2bWUxQkRkaVgyRXhEMWwvRHNY?=
- =?utf-8?B?RE5WTlFrdUQvRGtrakh5WG4yVjZDYlhYN3ZaTEt2R3ZZdG1hd2dyRURHTWMy?=
- =?utf-8?B?OXQ0d2dGbTNmV3dVMFMyUVVkVVZQRjVYZitUUGFrYzNyN3lIVURUbmFmNGxN?=
- =?utf-8?B?K1V0dXJvUmtrVE92eUI5NWFHREZOTm44N05vdnBxNjQ0U1hFbDlVN0dOVk1G?=
- =?utf-8?B?ei9PR2NscGRVM3lacFYrYmpWekJ6cHZ2Ry8ra0RDd1FYOE5TNU10azVDS1c1?=
- =?utf-8?B?NnNONll3c2VneThxN0w3ODZQUld5REsyZnpvRmpwUHI1SmRkblJBOTkzck5D?=
- =?utf-8?B?UHN0Vm1mcE5JZ0RrNDFiVkw1TmxSMmNOLzdreWlxWVdaTXRtZ2RlL0ZyclVv?=
- =?utf-8?B?b3hRV1gwN3g3azExSGlQK2JDVDlJM0dxTjRORTZsc1FvMnE1bCt4Zms0ZjY2?=
- =?utf-8?B?Q0tyRFFXYmJDMk5RK2x6bzk0S3IrbWo3VENhcWJzeHRySFVMRCtOU2Z2OVkv?=
- =?utf-8?B?MGxIYmdtOEdIc0ZySWRxL1JDNXhkSlpkOHBpcXVBQlowanE2T3NvcmVRcEJH?=
- =?utf-8?B?TjJ1elY5c3VWSTRleXdzekRPdGViNXhxTEcyWG5GdVFWY1RtS0Z0ZmxNMzl6?=
- =?utf-8?B?OVVhaHlmMExYRndLOHJWTDJzc0FMM2c1d2JHdDFzc3BoTmRJOXVKNG1Pd0lW?=
- =?utf-8?B?U2dMdW1hL3ZvSlh6RE94eDROQXhGb1cxRHczVnpjNXNUM1FTdVFHckdaaEVp?=
- =?utf-8?B?ZjdTeTJVakRnY0c5TFlHWWJ5TksrMUhiRlRRNUs4MThzWG5GaXhhT3JOaXU5?=
- =?utf-8?B?YzBnK2l3TU5SMkw2c2FSN1BYbGc5blJnemVpSk9oUVptWENLc05hdUxoNXBi?=
- =?utf-8?B?eVhzVkQzSVNqbmtXVXRTZXpneXFldDdMY1J2NVA3dExla3dMWkZubS8yckhJ?=
- =?utf-8?B?Y1N1R2NQUUJPRldGR2t5cW1ibGRaTW9zcGlhRkt4NEdoNk1IbnVWc0JMeUJI?=
- =?utf-8?B?TUxnUXFFdzRGcnl6RXg3RzAvVHZmV0kwWE9ZS0NqOWxXMWVvWEZwUFU0eXp6?=
- =?utf-8?B?bVFMY0crZ1BLQ0hYelBsZVdteWZpTGNweGs4NHNnWVJUVWVTYU93UG9jRzlK?=
- =?utf-8?B?bXpJSXV0a2pnZ29jdXlQZm90cHhBeVBDSlMreVJqWUp2SkJMQUdQdERUVGE2?=
- =?utf-8?B?UVN2Q2o3bm1Dd1B0V2phTlQzWnVkSDc1bHBLYUd5QXJVKzE2Q3B0cEZpYVM0?=
- =?utf-8?B?WVgzN1k0bTVLRHdqenJvbzkvbnBZMkswdWZSRm1YNW5kWm4xWVNJMXpyTE9n?=
- =?utf-8?Q?biG/uDNerQ//TBQk6kO/3iAEE?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0e1fb8f9-fbf0-4a7e-74f0-08dda4d1484d
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5273.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jun 2025 08:08:12.6294
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 2VgbeWivVIG0a7xI4gMyQYXmcHNg1y+ofxnh1fKj3OnmXWTou9AbPDio+xI6O0EL
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN3PR12MB9595
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20250314172502.53498-6-alejandro.vallejo@cloud.com>
 
-
-
-On 06/06/2025 09:05, Jahan Murudi wrote:
-> Changed "RCar3/RCar4" to "R-Car Gen3/Gen4" to match official Renesas branding
-I mentioned this in the previous review. Please use imperative mood:
-s/Changed/Change. Also, you're missing a dot at the end of sentence.
-
-> Aligns with documentation and industry-standard terminology
+On Fri, Mar 14, 2025 at 05:24:56PM +0000, Alejandro Vallejo wrote:
+> Extends domain_set_outstanding_claims() to allow staking claims on an
+> exact node. Also creates global per-node claim counts analogous to
+> `outstanding_claims`. Note that the per-node counts can't replace the
+> global one if we want exact-node claims to coexist with non-exact
+> claims.
 > 
-> Signed-off-by: Jahan Murudi <jahan.murudi.zg@renesas.com>
-Reviewed-by: Michal Orzel <michal.orzel@amd.com>
-
-~Michal
-
+> Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 > ---
->  xen/arch/arm/platforms/Kconfig | 10 ++++++----
->  1 file changed, 6 insertions(+), 4 deletions(-)
+>  xen/common/page_alloc.c | 32 +++++++++++++++++++++++++++++++-
+>  xen/include/xen/sched.h |  3 +++
+>  2 files changed, 34 insertions(+), 1 deletion(-)
 > 
-> diff --git a/xen/arch/arm/platforms/Kconfig b/xen/arch/arm/platforms/Kconfig
-> index 87bf614788..c8bc0bfae3 100644
-> --- a/xen/arch/arm/platforms/Kconfig
-> +++ b/xen/arch/arm/platforms/Kconfig
-> @@ -22,21 +22,23 @@ config QEMU
->  	  machine.
+> diff --git a/xen/common/page_alloc.c b/xen/common/page_alloc.c
+> index 9243c4f51370..7fe574b29407 100644
+> --- a/xen/common/page_alloc.c
+> +++ b/xen/common/page_alloc.c
+> @@ -490,6 +490,7 @@ static unsigned long pernode_avail_pages[MAX_NUMNODES];
 >  
->  config RCAR3
-> -	bool "Renesas RCar3 support"
-> +	bool "Renesas R-Car Gen3 support"
->  	depends on ARM_64
->  	select HAS_SCIF
->  	select IPMMU_VMSA
->  	help
-> -	  Enable all the required drivers for Renesas RCar3
-> +	  Enable support for Renesas R-Car Generation 3 SoCs (H3, M3, etc.).
-> +	  Includes all required drivers and platform-specific features.
+>  static DEFINE_SPINLOCK(heap_lock);
+>  static long outstanding_claims; /* total outstanding claims by all domains */
+> +static unsigned long pernode_oc[MAX_NUMNODES]; /* per-node outstanding claims */
 >  
->  config RCAR4
-> -	bool "Renesas RCar4 support"
-> +	bool "Renesas R-Car Gen4 support"
->  	depends on ARM_64
->  	select HAS_SCIF
->  	select HAS_ITS
->  	select IPMMU_VMSA
->  	help
-> -	Enable all the required drivers for Renesas RCar4
-> +	  Enable support for Renesas R-Car Generation 4 SoCs (V4H, V4M, etc.).
-> +	  Includes all required drivers and platform-specific features.
+>  unsigned long domain_adjust_tot_pages(struct domain *d, nodeid_t node,
+>                                        long pages)
+> @@ -501,20 +502,31 @@ unsigned long domain_adjust_tot_pages(struct domain *d, nodeid_t node,
+>       * can test d->outstanding_pages race-free because it can only change
+>       * if d->page_alloc_lock and heap_lock are both held, see also
+>       * domain_set_outstanding_pages below
+> +     *
+> +     * If `d` has an exact-node claim, we must exit early if this is an
+> +     * adjustment attributed to another node.
+>       */
+> -    if ( !d->outstanding_pages || pages <= 0 )
+> +    if ( !d->outstanding_pages || pages <= 0 ||
+> +         (d->claim_node != NUMA_NO_NODE && d->claim_node != node) )
+>          goto out;
 >  
->  config MPSOC
->  	bool "Xilinx Ultrascale+ MPSoC support"
+> +
+>      spin_lock(&heap_lock);
+>      BUG_ON(outstanding_claims < d->outstanding_pages);
+>      if ( d->outstanding_pages < pages )
+>      {
+>          /* `pages` exceeds the domain's outstanding count. Zero it out. */
+> +        if ( d->claim_node != NUMA_NO_NODE )
+> +            pernode_oc[d->claim_node] -= d->outstanding_pages;
+> +
+>          outstanding_claims -= d->outstanding_pages;
+>          d->outstanding_pages = 0;
+>      }
+>      else
+>      {
+> +        if ( d->claim_node != NUMA_NO_NODE )
+> +            pernode_oc[d->claim_node] -= pages;
+> +
+>          outstanding_claims -= pages;
+>          d->outstanding_pages -= pages;
+>      }
+> @@ -542,6 +554,10 @@ int domain_set_outstanding_pages(struct domain *d, nodeid_t node,
+>      if ( pages == 0 )
+>      {
+>          outstanding_claims -= d->outstanding_pages;
+> +
+> +        if ( d->claim_node != NUMA_NO_NODE )
+> +            pernode_oc[d->claim_node] -= d->outstanding_pages;
+> +
+>          d->outstanding_pages = 0;
+>          ret = 0;
+>          goto out;
+> @@ -564,12 +580,26 @@ int domain_set_outstanding_pages(struct domain *d, nodeid_t node,
+>      /* how much memory is available? */
+>      avail_pages = total_avail_pages - outstanding_claims;
+>  
+> +    /* This check can't be skipped for the NUMA case, or we may overclaim */
+>      if ( pages > avail_pages )
+>          goto out;
+>  
+> +    if ( node != NUMA_NO_NODE )
+> +    {
+> +        avail_pages = pernode_avail_pages[node] - pernode_oc[node];
+> +
+> +        if ( pages > avail_pages )
+> +            goto out;
+> +    }
+> +
+>      /* yay, claim fits in available memory, stake the claim, success! */
+>      d->outstanding_pages = pages;
+>      outstanding_claims += d->outstanding_pages;
+> +    d->claim_node = node;
+> +
+> +    if ( node != NUMA_NO_NODE )
+> +        pernode_oc[node] += pages;
+> +
+>      ret = 0;
+>  
+>  out:
+> diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
+> index 559d201e0c7e..307a9d749f5d 100644
+> --- a/xen/include/xen/sched.h
+> +++ b/xen/include/xen/sched.h
+> @@ -406,6 +406,9 @@ struct domain
+>      unsigned int     max_pages;         /* maximum value for domain_tot_pages() */
+>      unsigned int     extra_pages;       /* pages not included in domain_tot_pages() */
+>  
+> +    /* NUMA node from which outstanding pages have been reserved */
+> +    unsigned int     claim_node;
 
+This should possibly be nodeid_t rather than unsigned int?
+
+But why is this a single node?  The interface should allow for a
+domain to claim memory from multiple different nodes.
+
+The interface here seems to be focused on domains only being allowed
+to allocate from a single node, or otherwise you must first allocate
+memory from a node before moving to the next one (which defeats the
+purpose of claims?).
+
+I think we want to instead convert d->outstanding_pages into a
+per-node array, so that a domain can have outstanding claims for
+multiple NUMA nodes?
+
+The hypercall interface becomes a bit awkward then, as the toolstack
+has to perform a different hypercall for each memory claim from a
+different node (and rollback in case of failure).  Ideally we would
+need to introduce a new hypercall that allows making claims from
+multiple nodes in a single locked region, as to ensure success or
+failure in an atomic way.
+
+Thanks, Roger.
 
