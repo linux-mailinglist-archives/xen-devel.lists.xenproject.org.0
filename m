@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B95AAD0327
-	for <lists+xen-devel@lfdr.de>; Fri,  6 Jun 2025 15:26:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1008568.1387842 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA5DCAD0355
+	for <lists+xen-devel@lfdr.de>; Fri,  6 Jun 2025 15:38:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1008580.1387852 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uNX52-0003cO-JK; Fri, 06 Jun 2025 13:25:56 +0000
+	id 1uNXGh-0005Tw-MI; Fri, 06 Jun 2025 13:37:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1008568.1387842; Fri, 06 Jun 2025 13:25:56 +0000
+Received: by outflank-mailman (output) from mailman id 1008580.1387852; Fri, 06 Jun 2025 13:37:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uNX52-0003a4-Fn; Fri, 06 Jun 2025 13:25:56 +0000
-Received: by outflank-mailman (input) for mailman id 1008568;
- Fri, 06 Jun 2025 13:25:55 +0000
+	id 1uNXGh-0005Rt-Iz; Fri, 06 Jun 2025 13:37:59 +0000
+Received: by outflank-mailman (input) for mailman id 1008580;
+ Fri, 06 Jun 2025 13:37:57 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=UAog=YV=bounce.vates.tech=bounce-md_30504962.6842ec60.v1-a41518aacceb4cd2865e87b16ebd8c84@srs-se1.protection.inumbo.net>)
- id 1uNX51-0003Zy-0m
- for xen-devel@lists.xenproject.org; Fri, 06 Jun 2025 13:25:55 +0000
-Received: from mail132-4.atl131.mandrillapp.com
- (mail132-4.atl131.mandrillapp.com [198.2.132.4])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c5145c55-42d9-11f0-a301-13f23c93f187;
- Fri, 06 Jun 2025 15:25:53 +0200 (CEST)
-Received: from pmta09.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
- by mail132-4.atl131.mandrillapp.com (Mailchimp) with ESMTP id 4bDMX02tCjzlgMHS
- for <xen-devel@lists.xenproject.org>; Fri,  6 Jun 2025 13:25:52 +0000 (GMT)
+ <SRS0=fdJq=YV=bounce.vates.tech=bounce-md_30504962.6842ef32.v1-4168c5e9f2574c5d8e300645e2c4cfbb@srs-se1.protection.inumbo.net>)
+ id 1uNXGf-0005Rn-AC
+ for xen-devel@lists.xenproject.org; Fri, 06 Jun 2025 13:37:57 +0000
+Received: from mail36.us4.mandrillapp.com (mail36.us4.mandrillapp.com
+ [205.201.136.36]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 736fb3ea-42db-11f0-a301-13f23c93f187;
+ Fri, 06 Jun 2025 15:37:55 +0200 (CEST)
+Received: from pmta15.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
+ by mail36.us4.mandrillapp.com (Mailchimp) with ESMTP id 4bDMnt3fJzzS62JQf
+ for <xen-devel@lists.xenproject.org>; Fri,  6 Jun 2025 13:37:54 +0000 (GMT)
 Received: from [37.26.189.201] by mandrillapp.com id
- a41518aacceb4cd2865e87b16ebd8c84; Fri, 06 Jun 2025 13:25:52 +0000
+ 4168c5e9f2574c5d8e300645e2c4cfbb; Fri, 06 Jun 2025 13:37:54 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,90 +41,84 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c5145c55-42d9-11f0-a301-13f23c93f187
+X-Inumbo-ID: 736fb3ea-42db-11f0-a301-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1749216352; x=1749486352;
-	bh=pKtdmWwVTl323wr3IxBBT/chgkj+dBGCyHJFfn9HzSs=;
+	s=mte1; t=1749217074; x=1749487074;
+	bh=FVH3r1YoO0xTmK+f/mZlpEPpzXh0CkRhWDBPMn7fC+k=;
 	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
 	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
 	 Subject:From;
-	b=LOBADznMdhQixqm8UQ/+5eQPcpdZQo7Vp/YU8g5fL6mjf1clJndOZLjA/aB6sI6cI
-	 rGCO7kDvuTxdVaj6B6+Wznt5ejV3jN5Hxi+AruIOgpLPKPoCz6fDL59QThN/x6lrID
-	 TrZiPOxJqeOv2/aEnGC80IHJKU5i6adDyVMl/gpBT5n4iWzmPb/OmtXFar7k95SwLX
-	 wogFZagTnMghTjcu0Qpiivvy1Pch/rdBqz1uySrjLzPp/LZtDrJ2H8yynPeZZibar7
-	 vXqK3ODQpUSgEnAxzIyZx3ymYmtFonSXWW/xZckL+pRCUVR/OZIH65DfDymsUlnCqe
-	 o6AkA+Xix7Gzg==
+	b=ylC+Q38s9Q8Gc3eNpa4h1koVjN1c/rBgBewd2EJxKZm8ghKasGXzJynJZywb+BlUt
+	 cNyT0ar8c3iExxtBPJNecUFfto90IiWOKD+y1BL9h6GC//yzdmSRmbFNnWezeQIK4v
+	 YDn+7IJtlJB9zs27aSe6xt1HtkZt05N685YlRT1NC217e1cnIhVlBZKnzWQszMIkMf
+	 nnsvIlBX2bLZZxVZ52dqM7qdBokCedMn08yhUIBDBvD1tiEosik9GzskZWXkcUaQlH
+	 DgT7q41MKy+do5VRcSHilvTDj/hEarIKox4O9pWhsPvMqC2eb05cx0YVjrqz/nftzk
+	 muHJLF1pnupfA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1749216352; x=1749476852; i=teddy.astie@vates.tech;
-	bh=pKtdmWwVTl323wr3IxBBT/chgkj+dBGCyHJFfn9HzSs=;
+	t=1749217074; x=1749477574; i=ngoc-tu.dinh@vates.tech;
+	bh=FVH3r1YoO0xTmK+f/mZlpEPpzXh0CkRhWDBPMn7fC+k=;
 	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
 	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
 	 Subject:From;
-	b=1tpbsm825U1rLjA4A4S27fNxDvyUZzBOHQAjn9oziDymk4uARvBkHir+kpWP8ZngO
-	 K9JXo2ojV0q7LGJSCtGSrZzyrdKa6KJU3AL3gXABlHHWRvs44GtjbL1qnrhAEuvPE7
-	 HNY5EQLyAdW/eefd8eaXDj9Jz1g6Fzx5Mx78/oXjo3je5r5QUFu7SQS3fNMaTjtdvv
-	 xQwE8mRZvo1NDfPgNEgrulKzW6+U+K/bkNzDoSbcpc+4G2g1eiKwzVFeB/+NtPfXQu
-	 gkaqMfUiTZl7HOyjlJgltr0zXPuDVhvkUxGi8QUrqTsKkFvT8Xb5iZM6F69pEn0NWy
-	 7hDHD6kiX6GFA==
-From: "Teddy Astie" <teddy.astie@vates.tech>
-Subject: =?utf-8?Q?Re:=20[PATCH=20v5=203/6]=20x86:=20re-work=20memcpy()?=
+	b=gP+EmS43DaKryPOr69N23kYl14w6P91D6PeidIrFcPFTFaJMliXOcCXhEFSMhVKBn
+	 cxod87EhaQVN3kEfe/x0LNv038tXfPP2EJrTF/oBRQytja+Ne71J2GLwKdUnE3MCPD
+	 NYaCRYT2cpMNdXjslx/pxleET5mYbxuSeFO7SQIxK7M0DdCQeGjO/3RGJz5r/CH6wM
+	 vNpmi9W3FUpdp+BXw057G3drjRTj6XteB8Fl+Hv2Fg/iALlLSEN2EBzV//uOlXafTF
+	 PrkX1u/hBiuIZOkiUvgkowdkJ7Gnou3ZkyTQswgC1VZs27FYMIcQWzh2iMuSm0Od8P
+	 S2PVP/wBtRRGg==
+From: "Tu Dinh" <ngoc-tu.dinh@vates.tech>
+Subject: =?utf-8?Q?Re:=20[PATCH=20v3]=20x86/hvmloader:=20select=20xenpci=20MMIO=20BAR=20UC=20or=20WB=20MTRR=20cache=20attribute?=
 X-Bm-Disclaimer: Yes
 X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1749216351289
-Message-Id: <d7502059-baf8-4839-9371-d3812208cdbf@vates.tech>
-To: "Jan Beulich" <jbeulich@suse.com>
-Cc: "Andrew Cooper" <andrew.cooper3@citrix.com>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
-References: <73481cbf-337f-4e85-81d2-3487366cd822@suse.com> <017e689a-41a2-4722-a5e7-19ffef27500f@suse.com> <81da4e8e-9dcf-4630-a535-39ce0b07260c@vates.tech> <bac962f2-807c-4cf8-aab8-2480f38244e2@suse.com>
-In-Reply-To: <bac962f2-807c-4cf8-aab8-2480f38244e2@suse.com>
+X-Bm-Transport-Timestamp: 1749217073208
+Message-Id: <5e6b51ba-1550-4896-bbc9-eb5076ce057c@vates.tech>
+To: "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org, "Anthony PERARD" <anthony.perard@vates.tech>, "Andrew Cooper" <andrew.cooper3@citrix.com>, "Michal Orzel" <michal.orzel@amd.com>, "Jan Beulich" <jbeulich@suse.com>, "Julien Grall" <julien@xen.org>, "Stefano Stabellini" <sstabellini@kernel.org>, "Juergen Gross" <jgross@suse.com>, "Anthoine Bourgeois" <anthoine.bourgeois@vates.tech>
+References: <20250605161659.18201-1-roger.pau@citrix.com> <1b290503-078e-491a-8552-b884df7ac747@vates.tech> <aELru4IZmqHilNiN@macbook.local>
+In-Reply-To: <aELru4IZmqHilNiN@macbook.local>
 X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.a41518aacceb4cd2865e87b16ebd8c84?=
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.4168c5e9f2574c5d8e300645e2c4cfbb?=
 X-Mandrill-User: md_30504962
 Feedback-ID: 30504962:30504962.20250606:md
-Date: Fri, 06 Jun 2025 13:25:52 +0000
+Date: Fri, 06 Jun 2025 13:37:54 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-Le 06/06/2025 =C3=A0 11:13, Jan Beulich a =C3=A9crit=C2=A0:
-> On 05.06.2025 19:06, Teddy Astie wrote:
->> Le 05/06/2025 =C3=A0 12:27, Jan Beulich a =C3=A9crit=C2=A0:
->>> Move the function to its own assembly file. Having it in C just for the
->>> entire body to be an asm() isn't really helpful. Then have two flavors:
->>> A "basic" version using qword steps for the bulk of the operation, and =
-an
->>> ERMS version for modern hardware, to be substituted in via alternatives
->>> patching.
->>>
->>> Alternatives patching, however, requires an extra precaution: It uses
->>> memcpy() itself, and hence the function may patch itself. Luckily the
->>> patched-in code only replaces the prolog of the original function. Make
->>> sure this remains this way.
+On 06/06/2025 15:23, Roger Pau Monn=C3=A9 wrote:
+[...]
 >>
->> We can probably workaround that by using a separate memcpy for
->> alternatives patching. So it wouldn't end up patching itself.
+>> Since this is meant to be a workaround, I wonder if it makes more sense
+>> to flip the setting (`xenpci_bar_wb`) and make it 0 by default?
 > 
-> We could, yes, but imo we better wouldn't.
+> I originally didn't want to go that route, because while it's true
+> that the default MTRR type is set to WB, and so any memory not covered
+> by a MTRR range will default to that memory type I got the impression
+> this was inferring too much.
 > 
-
-As Andrew pointed out that it's not that simple to use a separate 
-memcpy. So should probably keep the current approach.
-
->> Aside that:
->> Reviewed-by: Teddy Astie <teddy.astie@vates.tech>
+> Overall my intention would be for inverting the default long term, and
+> libxl setting build_info->u.hvm.xenpci_bar_uc =3D false by default,
+> which then makes all the naming nicer IMO.
 > 
-> Please clarify whether this applies without that suggestion of yours take=
-n
-> care of.
+>> It also
+>> simplifies the logic for both hvmloader and the consumer (no need for
+>> double negatives).
 > 
+> I don't think there are double negatives?  That would happen if the
+> variable was named xenpci_bar_no_uc or similar?
 
-Yes.
+It's because from the flag consumer's viewpoint, I saw the flag 
+`xenpci_bar_uc` as rather "xenpci_bar_dont_apply_wb_workaround`. But if 
+the intention is to eventually make it default then the naming is OK for me=
+.
 
-> Jan
+> 
+> Thanks, Roger.
 
-Teddy
 
 
-Teddy Astie | Vates XCP-ng Developer
+
+Ngoc Tu Dinh | Vates XCP-ng Developer
 
 XCP-ng & Xen Orchestra - Vates solutions
 
