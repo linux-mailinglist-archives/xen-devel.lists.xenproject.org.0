@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7627AAD1BA3
-	for <lists+xen-devel@lfdr.de>; Mon,  9 Jun 2025 12:36:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1010222.1388388 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B821AD1BB5
+	for <lists+xen-devel@lfdr.de>; Mon,  9 Jun 2025 12:40:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1010228.1388398 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uOZrg-0003e2-3e; Mon, 09 Jun 2025 10:36:28 +0000
+	id 1uOZvm-00059P-Ho; Mon, 09 Jun 2025 10:40:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1010222.1388388; Mon, 09 Jun 2025 10:36:28 +0000
+Received: by outflank-mailman (output) from mailman id 1010228.1388398; Mon, 09 Jun 2025 10:40:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uOZrg-0003bt-0J; Mon, 09 Jun 2025 10:36:28 +0000
-Received: by outflank-mailman (input) for mailman id 1010222;
- Mon, 09 Jun 2025 10:36:26 +0000
+	id 1uOZvm-000576-EZ; Mon, 09 Jun 2025 10:40:42 +0000
+Received: by outflank-mailman (input) for mailman id 1010228;
+ Mon, 09 Jun 2025 10:40:41 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=bnjC=YY=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1uOZre-0003bn-Tg
- for xen-devel@lists.xenproject.org; Mon, 09 Jun 2025 10:36:26 +0000
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [2a00:1450:4864:20::32d])
+ id 1uOZvl-000570-H2
+ for xen-devel@lists.xenproject.org; Mon, 09 Jun 2025 10:40:41 +0000
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [2a00:1450:4864:20::336])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9826337c-451d-11f0-a304-13f23c93f187;
- Mon, 09 Jun 2025 12:36:25 +0200 (CEST)
-Received: by mail-wm1-x32d.google.com with SMTP id
- 5b1f17b1804b1-45024721cbdso36018055e9.2
- for <xen-devel@lists.xenproject.org>; Mon, 09 Jun 2025 03:36:25 -0700 (PDT)
+ id 2fdc70d5-451e-11f0-a304-13f23c93f187;
+ Mon, 09 Jun 2025 12:40:40 +0200 (CEST)
+Received: by mail-wm1-x336.google.com with SMTP id
+ 5b1f17b1804b1-453066fad06so9635435e9.2
+ for <xen-devel@lists.xenproject.org>; Mon, 09 Jun 2025 03:40:40 -0700 (PDT)
 Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
  by smtp.gmail.com with UTF8SMTPSA id
- 5b1f17b1804b1-452730c7761sm103435165e9.32.2025.06.09.03.36.24
+ ffacd0b85a97d-3a5323b67ccsm9261407f8f.40.2025.06.09.03.40.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 09 Jun 2025 03:36:24 -0700 (PDT)
+ Mon, 09 Jun 2025 03:40:39 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,167 +45,179 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9826337c-451d-11f0-a304-13f23c93f187
+X-Inumbo-ID: 2fdc70d5-451e-11f0-a304-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1749465385; x=1750070185; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=j2eSCMgOBkowmSy5gboI/K/V/rdKxTHVWcyzbMiQh4A=;
-        b=oM7s+V4ZJlSOW4AmiN6JsvQTdD80gxz5Rz5uUuYTp3cPRtA7ZR1GoGbNcMzKuCw/CC
-         mCWJQnpTXCg1vHhZWkGy5UT2tHCDv95MHIrzkipmvM9iMiEizFVK8E5WRYNn/108o5la
-         aCBllwh4UAS6ODyZHp+wEXnCOmbwVAoCis/KA=
+        d=citrix.com; s=google; t=1749465640; x=1750070440; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=y9vtwJwC4yXW/Zm9wPRw+HunVVWlInElqaYADj5QPK8=;
+        b=b1zBpd1U1kVIb/nmYTsamgPin9OE2QfDYu7Uae9IdqGf3IR4pASEQ4Rn/6XYTUyzXc
+         OTSFbCXmWT0AksF4HmIUwA7tYOIOhmT/H0SUzdsi7C04UMbOabyCm8PceiOapoYZDaio
+         whMEKuAL7x4Y5uhPclxD9L2LgKdlB6SOEtOrY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749465385; x=1750070185;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=j2eSCMgOBkowmSy5gboI/K/V/rdKxTHVWcyzbMiQh4A=;
-        b=jlJX4QaJ64o+gRfu0jP8W6JRs3g+ZTh8t15qIiesVn7ioWo0TfhUTO+oAYIviJPzEP
-         zCjbDmSbC3UvgWF0bHdfQY0UqSVG4bma+mJSHTLLqhw/lWximm21xLVKffwURpHYRfal
-         CvUzyAXU1UPTnD+dUKtMh54TSTOvR8tswUYrXCdnlPlssn2MfNvy2irVL8K54YnM0Ccr
-         ZXaaO7slsgTdol5s2DmtHPraJlmVDmLlrH3EdobulJZ9Vkr74rfwjBL+O502l3D5w5CM
-         xFMBLSIDKY4fDG10Y3TkhSsCTtFbgk6N1jmN66suRxRgRH3XmAmnmWuk/jB+JucvhyqI
-         8unw==
-X-Gm-Message-State: AOJu0YzXPSd+c+PsbQZ1AgBpnGjZLK/DniLgLMz5kqNCgTvmdkVrj4u0
-	0juh1hS39JUl3QVH1MqKMWPTKQM2rb1QKFrk8lpYbx+bn7M6qo2iYtfw65MV3JyCb/Y=
-X-Gm-Gg: ASbGnctsNac2Cupk7vxrIH9qfT4XG2JEdZ7B8ViApV2jp2hb6CbmGg7hZDxsh3KQNPm
-	lGqEh5ur3Z4aOCN2iEB2Qytqns5lGcbxqZGdI3s9cQ0YwB/z/rJsNkPjOfwVqIN5QP0MEQ3YG20
-	grVeFdSTncsULQo1xlqCQlH3EdkYO1EvXqflP6vFp7i1sqihj/D2TMcekmfRZhMf9ljF9N/F6SU
-	8Cu9hmYlEIp9lgbg6lDRTJsOKiJDiyKKR+eOm3LTQYD7p7z4Sv31iyj/Q56y2PXNanZfNRU0fts
-	EFZihfpBfW9A4PAS2auI15LlFl+rOK5uPyV42FAtjWbrXOIkyh5f+urxpsBaxulAU9BsPMLHrBY
-	3jxbN7iPJp9QsH4o55RU=
-X-Google-Smtp-Source: AGHT+IHvpfKTS/HWCq4Cz8Z0xH36vvgGE8cBtHcnKsYx7yrlcQkSfEWEZ3KYDu0g3vPvL9BPSebhFw==
-X-Received: by 2002:a05:600c:1391:b0:442:e9eb:cba2 with SMTP id 5b1f17b1804b1-452012b351amr130545445e9.0.1749465385208;
-        Mon, 09 Jun 2025 03:36:25 -0700 (PDT)
-Date: Mon, 9 Jun 2025 12:36:23 +0200
+        d=1e100.net; s=20230601; t=1749465640; x=1750070440;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=y9vtwJwC4yXW/Zm9wPRw+HunVVWlInElqaYADj5QPK8=;
+        b=Pa2WcVbkNuSgruAVvyE7tY0ZXFTpYkreA8vvZ4L+cjdRVNfI1thlLxN4IWAflyUVXG
+         4DbWyGGOoLL5klu63ERJDG8//LmPd/jQikmKp1/ysFa6kvQzcXfdLgFdQGRMuFSNgytn
+         09FRwh4GVs4MhtI+WEbInMJDxD+D/3nl9BIV4LcKsPWh0tT8qrZNXyQQv5f+Z9ksG9Bm
+         c7hwhVIM7Ye+zvkblGn/t/KwxknZL7L78l5TRdD6puGDPtT9vC7Ddt4UZpbJz6etGxkp
+         pE9IlYg55mZkw9O/zRIyeNJbN1QaqKax8D73OKfch7SGAznYcPAjeKUhrA2wBexPMwBG
+         FlXw==
+X-Gm-Message-State: AOJu0YwDDkCTl5QpNvSwd7tfBckist8hDcDP+jChQmrfu4ukGRSbISkP
+	rc52YLBVal5lFjxZ49KXkOXwbyunqx7D0oTe0qBDLmje2BdKGovHCA7GQxbbcZtSWVs=
+X-Gm-Gg: ASbGncu39+eIUvEWIUTGeYCs3ppQiFRhB5Zd+FW20i8XUveCnUbgq5SFYHOOzeY8Ffj
+	Luq/O8esx1pLlnrnyXR0skalT2fCgjJp/wvneEa8GuZw8cZgVBaBlC1WH9vu0Jdu04bamprrLJt
+	R5LEq1s4MSkzw1cEr5JTDr7hJASroWOyrKDIwovc0gzzntgwMYNoW0r17EVZW1TmRnibMPS1Hw+
+	AZcXeimYC6N5tnQQpQ3eoi0m+GK+S0crPWwjqIeGpT/PNxjbWe4u2xw3+srIW7XcU3/tRqXfwtT
+	sOroClqC8zFy81OXYCTlBz0JYgX0tmu2An79odjq4+moPSZvaBCawx3rsXe9ba5IsNz6iBqQIzd
+	yptfzZxoEOC+dGIz3hDE6gCSqL9hraQ==
+X-Google-Smtp-Source: AGHT+IHvM9B3HX+yuAtRiC0fNa3herefi7/3fe9LYJAdv0rjnvbQVxfA75DBCIofg93xb8X2Q5DsDg==
+X-Received: by 2002:a05:600c:4751:b0:453:c39:d0d0 with SMTP id 5b1f17b1804b1-4530c39d65fmr41804505e9.13.1749465639749;
+        Mon, 09 Jun 2025 03:40:39 -0700 (PDT)
+Date: Mon, 9 Jun 2025 12:40:38 +0200
 From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
+To: "Chen, Jiqian" <Jiqian.Chen@amd.com>
 Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
-Subject: Re: [PATCH v2] x86/HVM: restrict use of pinned cache attributes as
- well as associated flushing
-Message-ID: <aEa5J_TlSAdS9-m_@macbook.local>
-References: <78b3ddeb-4317-4d54-ad52-9eb03bdf7942@suse.com>
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	"Orzel, Michal" <Michal.Orzel@amd.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	"Huang, Ray" <Ray.Huang@amd.com>
+Subject: Re: [PATCH v5 04/10] vpci: Refactor REGISTER_VPCI_INIT
+Message-ID: <aEa6JsVwyWchp04u@macbook.local>
+References: <20250526094559.140423-1-Jiqian.Chen@amd.com>
+ <20250526094559.140423-5-Jiqian.Chen@amd.com>
+ <aEGSp-LKerGb-wIW@macbook.local>
+ <BL1PR12MB58497C341C79658B7221A67FE76EA@BL1PR12MB5849.namprd12.prod.outlook.com>
+ <752cff02-cef6-4a4c-80b9-eba3bbf9b264@suse.com>
+ <aEKxWLdDDyzmNvGF@macbook.local>
+ <BL1PR12MB5849CA0CBDAE1E49DE54BD03E76BA@BL1PR12MB5849.namprd12.prod.outlook.com>
+ <aEapjHyBxHkkylkh@macbook.local>
+ <BL1PR12MB5849102F05BD316C0BC20F9FE76BA@BL1PR12MB5849.namprd12.prod.outlook.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <78b3ddeb-4317-4d54-ad52-9eb03bdf7942@suse.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <BL1PR12MB5849102F05BD316C0BC20F9FE76BA@BL1PR12MB5849.namprd12.prod.outlook.com>
 
-On Wed, Jun 04, 2025 at 11:48:00AM +0200, Jan Beulich wrote:
-> We don't permit use of uncachable memory types elsewhere unless a domain
-> meets certain criteria. Enforce this also during registration of pinned
-> cache attribute ranges.
+On Mon, Jun 09, 2025 at 10:18:42AM +0000, Chen, Jiqian wrote:
+> On 2025/6/9 17:29, Roger Pau Monné wrote:
+> > On Mon, Jun 09, 2025 at 07:50:21AM +0000, Chen, Jiqian wrote:
+> >> On 2025/6/6 17:14, Roger Pau Monné wrote:
+> >>> On Fri, Jun 06, 2025 at 09:05:48AM +0200, Jan Beulich wrote:
+> >>>> On 06.06.2025 08:29, Chen, Jiqian wrote:
+> >>>>> On 2025/6/5 20:50, Roger Pau Monné wrote:
+> >>>>>> On Mon, May 26, 2025 at 05:45:53PM +0800, Jiqian Chen wrote: 
+> >>>>>>> +  }; \
+> >>>>>>> +  static vpci_capability_t *const finit##_entry  \
+> >>>>>>> +               __used_section(".data.vpci") = &finit##_t
+> >>>>>>
+> >>>>>> IMO this should better use .rodata instead of .data. 
+> >>>>> Is below change correct?
+> >>>>>
+> >>>>> +    static const vpci_capability_t *const finit##_entry  \
+> >>>>> +        __used_section(".rodata") = &finit##_t
+> >>>>
+> >>>> No, specifically because ...
+> >>>>
+> >>>>>> Not that it matters much in practice, as we place it in .rodata anyway.  Note
+> >>>>>> however you will have to move the placement of the VPCI_ARRAY in the
+> >>>>>> linker script ahead of *(.rodata.*), otherwise that section match will
+> >>>>>> consume the vPCI data.
+> >>>>> I am sorry, how to move it ahead of *(.rodata.*) ?
+> >>>>> Is below change correct?
+> >>>>>
+> >>>>> diff --git a/xen/include/xen/xen.lds.h b/xen/include/xen/xen.lds.h
+> >>>>> index 793d0e11450c..3817642135aa 100644
+> >>>>> --- a/xen/include/xen/xen.lds.h
+> >>>>> +++ b/xen/include/xen/xen.lds.h
+> >>>>> @@ -188,7 +188,7 @@
+> >>>>>  #define VPCI_ARRAY               \
+> >>>>>         . = ALIGN(POINTER_ALIGN); \
+> >>>>>         __start_vpci_array = .;   \
+> >>>>> -       *(SORT(.data.vpci.*))     \
+> >>>>> +       *(.rodata)             \
+> >>>>
+> >>>> ... this isn't - you'd move _all_ of .rodata into here, which definitely
+> >>>> isn't what you want. What I understand Roger meant was a .rodata-like
+> >>>> section, e.g. .rodata.vpci.* (much like it was .data.vpci.* before).
+> >>>
+> >>> Indeed, my suggestion was merely to use .rodata instead of .data, as
+> >>> that's more accurate IMO.  I think it should be *(.rodata.vpci) (and
+> >>> same section change for the __used_section() attribute.
+> >>
+> >> If I understand correctly, the next version will be:
+> >>
+> >> +    static const vpci_capability_t *const finit##_entry  \
+> >> +        __used_section(".rodata.vpci") = &finit##_t
+> >> +
+> >>
+> >> and
+> >>
+> >>  #define VPCI_ARRAY               \
+> >>         . = ALIGN(POINTER_ALIGN); \
+> >>         __start_vpci_array = .;   \
+> >> -       *(SORT(.data.vpci.*))     \
+> >> +       *(.rodata.vpci)           \
+> >>         __end_vpci_array = .;
+> > 
+> > Did you also move the instances of VPCI_ARRAY in the linker scripts so
+> > it's before the catch-all *(.rodata.*)?
+> > 
+> >>
+> >> But, that encountered an warning when compiling.
+> >> " {standard input}: Assembler messages:
+> >> {standard input}:1160: Warning: setting incorrect section attributes for .rodata.vpci
+> >> {standard input}: Assembler messages:
+> >> {standard input}:3034: Warning: setting incorrect section attributes for .rodata.vpci
+> >> {standard input}: Assembler messages:
+> >> {standard input}:6686: Warning: setting incorrect section attributes for .rodata.vpci "
+> > 
+> > What are the attributes for .rodata.vpci in the object files?  You can
+> > get those using objdump or readelf, for example:
+> > 
+> > $ objdump -h xen/drivers/vpci/msi.o
+> > [...]
+> >  17 .data.vpci.9  00000008  0000000000000000  0000000000000000  00000a50  2**3
+> >                   CONTENTS, ALLOC, LOAD, RELOC, DATA
+> > 
+> > It should be READONLY, otherwise you will get those messages.
+> > 
+> >> And, during booting Xen, all value of __start_vpci_array is incorrect.
+> >> Do I miss anything?
+> > 
+> > I think that's likely because you haven't moved the instance of
+> > VPCI_ARRAY in the linker script?
+> Oh, right. Sorry, I forgot to move it.
+> After changing this, it works now.
 > 
-> Furthermore restrict cache flushing to just uncachable range registration.
-> While there, also (mainly be calling memory_type_changed())
-> - take CPU self-snoop as well as IOMMU snoop into account (albeit the
->   latter still is a global property rather than a per-domain one),
-> - avoid flushes when the domain isn't running yet (which ought to be the
->   common case).
+> diff --git a/xen/arch/x86/xen.lds.S b/xen/arch/x86/xen.lds.S
+> index bf956b6c5fc0..c88fd62f4f0d 100644
+> --- a/xen/arch/x86/xen.lds.S
+> +++ b/xen/arch/x86/xen.lds.S
+> @@ -134,6 +134,7 @@ SECTIONS
+>         BUGFRAMES
 > 
-> Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> ---
-> At the expense of yet larger a diff it would be possible to get away
-> without any "goto", by moving the whole "new entry" handling into the
-> switch(). Personally I'd prefer that, but the larger diff may be
-> unwelcome.
-> 
-> I have to admit that I can't spot what part of epte_get_entry_emt() the
-> comment refers to that is being deleted. The function does use
-> hvm_get_mem_pinned_cacheattr(), yes, but there's nothing there that talks
-> about cache flushes (and their avoiding) in any way.
-> 
-> Is it really sensible to add/remove ranges once the guest is already
-> running? (If it is, limiting the scope of the flush would be nice, but
-> would require knowing dirtyness for the domain wrt the caches, which
-> currently we don't track.)
-> 
-> This is kind of amending XSA-428.
-> ---
-> v2: Use memory_type_changed() and conditionalize call to
->     p2m_memory_type_changed().
-> 
-> --- a/xen/arch/x86/hvm/mtrr.c
-> +++ b/xen/arch/x86/hvm/mtrr.c
-> @@ -582,6 +582,7 @@ int hvm_set_mem_pinned_cacheattr(struct
->  {
->      struct hvm_mem_pinned_cacheattr_range *range, *newr;
->      unsigned int nr = 0;
-> +    bool flush = false;
->      int rc = 1;
->  
->      if ( !is_hvm_domain(d) )
-> @@ -605,31 +606,35 @@ int hvm_set_mem_pinned_cacheattr(struct
->  
->                  type = range->type;
->                  call_rcu(&range->rcu, free_pinned_cacheattr_entry);
-> -                p2m_memory_type_changed(d);
->                  switch ( type )
->                  {
-> -                case X86_MT_UCM:
-> +                case X86_MT_WB:
-> +                case X86_MT_WP:
-> +                case X86_MT_WT:
->                      /*
-> -                     * For EPT we can also avoid the flush in this case;
-> -                     * see epte_get_entry_emt().
-> +                     * Flush since we don't know what the cachability is going
-> +                     * to be.
->                       */
-> -                    if ( hap_enabled(d) && cpu_has_vmx )
-> -                case X86_MT_UC:
-> -                        break;
-> -                    /* fall through */
-> -                default:
-> -                    flush_all(FLUSH_CACHE);
-> +                    if ( is_iommu_enabled(d) || cache_flush_permitted(d) )
-> +                        flush = true;
+>         *(.rodata)
+> +       VPCI_ARRAY
+>         *(.rodata.*)
+>         *(.data.rel.ro)
+>         *(.data.rel.ro.*)
+> @@ -148,7 +149,6 @@ SECTIONS
+>         *(.note.gnu.build-id)
+>         __note_gnu_build_id_end = .;
+>  #endif
+> -       VPCI_ARRAY
+>    } PHDR(text)
 
-Is the check here required?  memory_type_changed() will already check
-for is_iommu_enabled() and cache_flush_permitted(), and hence you
-could just set flush to true unconditionally here IMO.
-
->                      break;
->                  }
-> -                return 0;
-> +                rc = 0;
-> +                goto finish;
->              }
->          domain_unlock(d);
->          return -ENOENT;
->  
->      case X86_MT_UCM:
->      case X86_MT_UC:
-> -    case X86_MT_WB:
->      case X86_MT_WC:
-> +        /* Flush since we don't know what the cachability was. */
-> +        if ( !is_iommu_enabled(d) && !cache_flush_permitted(d) )
-> +            return -EPERM;
-> +        flush = true;
-> +        break;
-> +
-> +    case X86_MT_WB:
->      case X86_MT_WP:
->      case X86_MT_WT:
->          break;
-> @@ -682,9 +687,11 @@ int hvm_set_mem_pinned_cacheattr(struct
->  
->      xfree(newr);
->  
-> -    p2m_memory_type_changed(d);
-> -    if ( type != X86_MT_WB )
-> -        flush_all(FLUSH_CACHE);
-> + finish:
-> +    if ( flush )
-> +        memory_type_changed(d);
-> +    else if ( d->vcpu && d->vcpu[0] )
-> +        p2m_memory_type_changed(d);
-
-FWIW, I would just call memory_type_changed() unconditionally
-regardless of the change.  We suspect the hypercall is only used at
-domain creation time (where memory_type_changed() won't do a cache
-flush anyway).
+FWIW, I would put it ahead of *(.rodata).  Remember to also modify the
+linker script for all the other arches, not just x86.
 
 Thanks, Roger.
 
