@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B821AD1BB5
-	for <lists+xen-devel@lfdr.de>; Mon,  9 Jun 2025 12:40:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1010228.1388398 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 677B1AD1BC0
+	for <lists+xen-devel@lfdr.de>; Mon,  9 Jun 2025 12:44:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1010234.1388408 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uOZvm-00059P-Ho; Mon, 09 Jun 2025 10:40:42 +0000
+	id 1uOZz2-0005lW-W2; Mon, 09 Jun 2025 10:44:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1010228.1388398; Mon, 09 Jun 2025 10:40:42 +0000
+Received: by outflank-mailman (output) from mailman id 1010234.1388408; Mon, 09 Jun 2025 10:44:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uOZvm-000576-EZ; Mon, 09 Jun 2025 10:40:42 +0000
-Received: by outflank-mailman (input) for mailman id 1010228;
- Mon, 09 Jun 2025 10:40:41 +0000
+	id 1uOZz2-0005jM-SY; Mon, 09 Jun 2025 10:44:04 +0000
+Received: by outflank-mailman (input) for mailman id 1010234;
+ Mon, 09 Jun 2025 10:44:03 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=bnjC=YY=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1uOZvl-000570-H2
- for xen-devel@lists.xenproject.org; Mon, 09 Jun 2025 10:40:41 +0000
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [2a00:1450:4864:20::336])
+ <SRS0=8Wg0=YY=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
+ id 1uOZz1-0005jG-IE
+ for xen-devel@lists.xenproject.org; Mon, 09 Jun 2025 10:44:03 +0000
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam04on2062b.outbound.protection.outlook.com
+ [2a01:111:f403:2409::62b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2fdc70d5-451e-11f0-a304-13f23c93f187;
- Mon, 09 Jun 2025 12:40:40 +0200 (CEST)
-Received: by mail-wm1-x336.google.com with SMTP id
- 5b1f17b1804b1-453066fad06so9635435e9.2
- for <xen-devel@lists.xenproject.org>; Mon, 09 Jun 2025 03:40:40 -0700 (PDT)
-Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
- by smtp.gmail.com with UTF8SMTPSA id
- ffacd0b85a97d-3a5323b67ccsm9261407f8f.40.2025.06.09.03.40.39
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 09 Jun 2025 03:40:39 -0700 (PDT)
+ id a4a45f0a-451e-11f0-a304-13f23c93f187;
+ Mon, 09 Jun 2025 12:43:57 +0200 (CEST)
+Received: from MW4PR12MB7334.namprd12.prod.outlook.com (2603:10b6:303:219::21)
+ by IA0PR12MB8226.namprd12.prod.outlook.com (2603:10b6:208:403::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8792.36; Mon, 9 Jun
+ 2025 10:43:54 +0000
+Received: from MW4PR12MB7334.namprd12.prod.outlook.com
+ ([fe80::2e77:557:17d5:86f8]) by MW4PR12MB7334.namprd12.prod.outlook.com
+ ([fe80::2e77:557:17d5:86f8%4]) with mapi id 15.20.8792.038; Mon, 9 Jun 2025
+ 10:43:53 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,179 +47,200 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2fdc70d5-451e-11f0-a304-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1749465640; x=1750070440; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=y9vtwJwC4yXW/Zm9wPRw+HunVVWlInElqaYADj5QPK8=;
-        b=b1zBpd1U1kVIb/nmYTsamgPin9OE2QfDYu7Uae9IdqGf3IR4pASEQ4Rn/6XYTUyzXc
-         OTSFbCXmWT0AksF4HmIUwA7tYOIOhmT/H0SUzdsi7C04UMbOabyCm8PceiOapoYZDaio
-         whMEKuAL7x4Y5uhPclxD9L2LgKdlB6SOEtOrY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749465640; x=1750070440;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=y9vtwJwC4yXW/Zm9wPRw+HunVVWlInElqaYADj5QPK8=;
-        b=Pa2WcVbkNuSgruAVvyE7tY0ZXFTpYkreA8vvZ4L+cjdRVNfI1thlLxN4IWAflyUVXG
-         4DbWyGGOoLL5klu63ERJDG8//LmPd/jQikmKp1/ysFa6kvQzcXfdLgFdQGRMuFSNgytn
-         09FRwh4GVs4MhtI+WEbInMJDxD+D/3nl9BIV4LcKsPWh0tT8qrZNXyQQv5f+Z9ksG9Bm
-         c7hwhVIM7Ye+zvkblGn/t/KwxknZL7L78l5TRdD6puGDPtT9vC7Ddt4UZpbJz6etGxkp
-         pE9IlYg55mZkw9O/zRIyeNJbN1QaqKax8D73OKfch7SGAznYcPAjeKUhrA2wBexPMwBG
-         FlXw==
-X-Gm-Message-State: AOJu0YwDDkCTl5QpNvSwd7tfBckist8hDcDP+jChQmrfu4ukGRSbISkP
-	rc52YLBVal5lFjxZ49KXkOXwbyunqx7D0oTe0qBDLmje2BdKGovHCA7GQxbbcZtSWVs=
-X-Gm-Gg: ASbGncu39+eIUvEWIUTGeYCs3ppQiFRhB5Zd+FW20i8XUveCnUbgq5SFYHOOzeY8Ffj
-	Luq/O8esx1pLlnrnyXR0skalT2fCgjJp/wvneEa8GuZw8cZgVBaBlC1WH9vu0Jdu04bamprrLJt
-	R5LEq1s4MSkzw1cEr5JTDr7hJASroWOyrKDIwovc0gzzntgwMYNoW0r17EVZW1TmRnibMPS1Hw+
-	AZcXeimYC6N5tnQQpQ3eoi0m+GK+S0crPWwjqIeGpT/PNxjbWe4u2xw3+srIW7XcU3/tRqXfwtT
-	sOroClqC8zFy81OXYCTlBz0JYgX0tmu2An79odjq4+moPSZvaBCawx3rsXe9ba5IsNz6iBqQIzd
-	yptfzZxoEOC+dGIz3hDE6gCSqL9hraQ==
-X-Google-Smtp-Source: AGHT+IHvM9B3HX+yuAtRiC0fNa3herefi7/3fe9LYJAdv0rjnvbQVxfA75DBCIofg93xb8X2Q5DsDg==
-X-Received: by 2002:a05:600c:4751:b0:453:c39:d0d0 with SMTP id 5b1f17b1804b1-4530c39d65fmr41804505e9.13.1749465639749;
-        Mon, 09 Jun 2025 03:40:39 -0700 (PDT)
-Date: Mon, 9 Jun 2025 12:40:38 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: "Chen, Jiqian" <Jiqian.Chen@amd.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	"Orzel, Michal" <Michal.Orzel@amd.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	"Huang, Ray" <Ray.Huang@amd.com>
-Subject: Re: [PATCH v5 04/10] vpci: Refactor REGISTER_VPCI_INIT
-Message-ID: <aEa6JsVwyWchp04u@macbook.local>
-References: <20250526094559.140423-1-Jiqian.Chen@amd.com>
- <20250526094559.140423-5-Jiqian.Chen@amd.com>
- <aEGSp-LKerGb-wIW@macbook.local>
- <BL1PR12MB58497C341C79658B7221A67FE76EA@BL1PR12MB5849.namprd12.prod.outlook.com>
- <752cff02-cef6-4a4c-80b9-eba3bbf9b264@suse.com>
- <aEKxWLdDDyzmNvGF@macbook.local>
- <BL1PR12MB5849CA0CBDAE1E49DE54BD03E76BA@BL1PR12MB5849.namprd12.prod.outlook.com>
- <aEapjHyBxHkkylkh@macbook.local>
- <BL1PR12MB5849102F05BD316C0BC20F9FE76BA@BL1PR12MB5849.namprd12.prod.outlook.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+X-Inumbo-ID: a4a45f0a-451e-11f0-a304-13f23c93f187
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=lMgWITPgC69v+FjjFS7yj2gB1+q1GfXDHmhE0YS+LztRXO+BIT3ax4Z16lBTEA5cHdxUKWlLd0UtpFEkJN99a8FBcvWg1jytBWRHRECge43p+ZZe9lj2nSRGWA/TahME6miaDEY4czRyeXWR+/LjD3jZeH5+Ee7koEbJEE0IL+s5l2F18Mzpuh4bbRhW7W4MxmxW1dmNKUuD/xkA1Jx0jQmsDN/+lBeX1zO7ubxhxl0Qn3YwxyRKjXdqE6YUhJw08u9QbkcP6ozwlft5474CCRKBEqjPCibKebg8zkA8QBz2OdKT2jZLATmh0h3AcxrEENJGt0QQcQuSQxYXN6MVZA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Y6LUEIsuq0nFx2TIOmQ5bupBDyKIWNqB15EzXC+qyIM=;
+ b=roLXBB/pYfH8Vy1iTorwILDWajrdL5zhi581JzH2G9HZU2PfqCx5shzAHYlmARjHKENY2XGc4jJ3gAxRFart+l3FGsXw31oKHSfqOce7TPvnlYLuyoPihipBGK9UCVqFMz00R2+IJxtxxpFWbeJFYURl2ryI8F2GTDKwwfBxgXsPlMl2GStLU/QVzN42h6ZZH34yYMDrS2qxtvvxUGRhesiWLgh4B5onZvXr/VVlrV6vJguX9tpM1KU8iFfF+WarECgyPsHGrSc9AYvFy+WQ81JIAZlA9bPTWVQNNiZijxNs4iojGgea6BFtNJxPdYiS5Srtn+BDCa6ug2yYr1U/lg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Y6LUEIsuq0nFx2TIOmQ5bupBDyKIWNqB15EzXC+qyIM=;
+ b=Ty31gMcuptSbQ37j3BU7kWi9NGUpbAN50lYuIshzABiyWbpb+g8QQAeBuGnyGWiRdWK6JQfTg+y+O+gJHXulBkvhVxfN/h7NEGbrrn5NgeNEtSMyMmWqmoifjCtECMW6+MMX/6PHnXguU+PkpzCB6IEWjqIPZ2wetr9xPWjlOAE=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Message-ID: <55f6d0ca-e622-48b9-8e08-4cc7b7951bd8@amd.com>
+Date: Mon, 9 Jun 2025 11:43:48 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/3] arm/mpu: Provide and populate MPU C data
+ structures
+Content-Language: en-GB
+From: Ayan Kumar Halder <ayankuma@amd.com>
+To: Julien Grall <julien@xen.org>, "Orzel, Michal" <michal.orzel@amd.com>,
+ Ayan Kumar Halder <ayan.kumar.halder@amd.com>, xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20250606164854.1551148-1-ayan.kumar.halder@amd.com>
+ <20250606164854.1551148-3-ayan.kumar.halder@amd.com>
+ <ee8df4dd-1256-49e0-827e-c4dfe9543fc7@amd.com>
+ <a1b87894-9c9f-4ed7-ab81-63cc27440ad4@amd.com>
+ <b066c5fd-76e3-45c3-be1c-f8260d283cc3@xen.org>
+ <f19d8968-7a2f-4f62-830a-4a7c578a1d72@amd.com>
+In-Reply-To: <f19d8968-7a2f-4f62-830a-4a7c578a1d72@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <BL1PR12MB5849102F05BD316C0BC20F9FE76BA@BL1PR12MB5849.namprd12.prod.outlook.com>
+X-ClientProxiedBy: LO2P265CA0184.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:a::28) To PH8PR12MB7326.namprd12.prod.outlook.com
+ (2603:10b6:510:216::7)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR12MB7334:EE_|IA0PR12MB8226:EE_
+X-MS-Office365-Filtering-Correlation-Id: 273d1cc6-60f5-4941-bbaa-08dda74286c7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?Wk5rQTFNNEpaWXpjeUJyaTdtaGhKUERwWVUvaXo0MktXMGtWSC9UZ010MUR0?=
+ =?utf-8?B?YWRpV1pUUVZkSlNMeUVQMnFGdmRBVEwrUFo2WEtVQkZia1pwRXFJRlhWNzFi?=
+ =?utf-8?B?WjFLK1lKa0NtalRxcjZEL2JFSDVoQ3FkcTdkTm00WEl4WnIrYWdKWUd6eDhJ?=
+ =?utf-8?B?UE9GMmZFdmdJR2hLOWJDSFUzTk1pTEF4bFdCWEJESGN6SDFEWHJnQm5yNW9W?=
+ =?utf-8?B?ZkRMdU1vM2lOaUFoREFHM0g2VjBGS3RvTEtKdTVFNmR1dlQ0WXlWc1p1SkQr?=
+ =?utf-8?B?Y1EyQnlONjVoaWY2SkxKb0lmcld0Y1htRnNmOW00LzVoVUhWbyt6WE12OWda?=
+ =?utf-8?B?OHJCYUM0Wm8zK0grNGtPS1puYUVMcjVUVWU1Q3ZnTnZNWDcrMmV1QmNlNVpv?=
+ =?utf-8?B?VC9sSUJkSkI3QUw3TnhqYkdFQzdwdG5iSG1EeXNQS2Vva240S3pmR3ByK3k0?=
+ =?utf-8?B?anBCcnMxUUFCbkhNVHhGNlpRNWx0WGl3VDhrcWR3MjAxZFdsM216ZDZVM1kv?=
+ =?utf-8?B?aGlJUWlMOXlHVXViRTJBWU0xdXF6bUMvQXRrOGp4YUJ5K05PbnFobzVCUVVE?=
+ =?utf-8?B?VjdMYXA0TXE0eEkvQ2xNbmhjOHdjT1duRUU5eEEwTkE0cTJ0OEdYVlp4bGJo?=
+ =?utf-8?B?VXlWbmRGTGdqVGtPN2xjTXIyR0hLVy8rZFdPQklBWkRmamxOdmNzdmE1YVp2?=
+ =?utf-8?B?c2JLUFFCNTU0QlFPR1NNOGsramI0bE53N3AyV0hjclIrNGdmeHF0aFRjQTJ5?=
+ =?utf-8?B?RkkrSXFUczhZbGo4L0gyT3JvUWorRnlaTVZlVG02WHFSRkVmcGRFRUV4cHZ4?=
+ =?utf-8?B?ZmNXUkpOMEVEeHAzOC8ycGs1VzdXRDZhVFUwUjB6cXFBT3FwK3NuQVJibHBm?=
+ =?utf-8?B?aGs0eXB0WUdLYnRZNnM1b0JIUHZROHRBR0JNcThZanBjdmxWb1p6OU53S2ts?=
+ =?utf-8?B?NEs2SnZzbVY2cWw5a2hBN0paQjFIcmpOWmtVNWgrdGtCMXMrRlBCRWFWdlpj?=
+ =?utf-8?B?TjJITmRVV1UxUGlvcUtsNkVLeHM3WUhzcFZsUEFLSk9uTjFoQVM3aTh0MW5X?=
+ =?utf-8?B?Zk0xYW13eGk3ZUY2eHlpOUdaSHdNbjRRUDF5SU5nei9rUWJzVWJlWFZwVnNT?=
+ =?utf-8?B?aFFLSitxYWs0S2pxUlhEalNJcHFwTGpQMk5mcWlyYXcxbXE2M2YvTzArMTBm?=
+ =?utf-8?B?TTJaUC9GcGM5QVhSeCtUb2NaODBJVzU0UFlXcXkrYmRDM21wakZCYnRBVXda?=
+ =?utf-8?B?UmJjUjVFRDNhRStBTS9tT1BUQ1R0NDJ5RlppUm1QbURGMzRkR2grZmZ6Um83?=
+ =?utf-8?B?VXU4dklPSExkOGdhNXQxUllORFZxdWtIaFBENjZkMnpmeHNFNmtETmQ1UEpW?=
+ =?utf-8?B?bjFjTFBwUVV3NkE3V0VPQTZRVU1pTDVReEphdTlhcHN5eW1QOWU3aVlsS0tL?=
+ =?utf-8?B?eDR3aXZ2aGl0bStqaDlnNmN1VUhvd2JhYS9Td1RqZU9naVNUbCtpQmtndzB0?=
+ =?utf-8?B?THp0MDhQbWFOUXBqTGlwTzJleHViZWZldEE0TlpnNHdNTWVlVGJ4Z2llK0NT?=
+ =?utf-8?B?NFdKS0tweVRGYUg5RXBtR0hoeVJMWTQyV09pQktkSkxoaXFhWVJtSFcxOTFH?=
+ =?utf-8?B?dWd3MjVNaFBLTVBrRmE2akJsTWF3MG84bDc1MlpITUtuK2FkVFVyNEsyOU56?=
+ =?utf-8?B?NkVla1BWTS9Qb05VVXhoek9KaTh2YlF4UmhhZllSbklVR0hBVFdjSHc4QjBR?=
+ =?utf-8?B?K0Q5c3NZc2RvWWg3Sk9OVGt3TDIyL3crU0RKVkpONGRmNTdUTEpCcmFxb2Nr?=
+ =?utf-8?B?Q2dQcUo1ZVhnZFdoVldyRWJOUUNoQm91blV1Z2xEZkRsR0hyU1NGaHF6TWZQ?=
+ =?utf-8?B?NWdEVjgwUHI4NHYwYituSUt6KzhFK2ZNZlFYa1hqNEN5SDlrNGtialdvOVMz?=
+ =?utf-8?Q?7p5lqiOcSGU=3D?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB7334.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?YTZYUkp1QkR0aTF4NXE3eVpsYVBQdURrU3l4aWYrTGJFQTI3dG5iTlRXMDBx?=
+ =?utf-8?B?YnM0SmtwR0xQcytFV0J5RVIwdy9STjVLZG5YcVhOblQ0R2o4WDRBQWlNZFRx?=
+ =?utf-8?B?VUd2d1Q4dzNiSUhyMHFUTWlHelZjKzR0UjdjTmR0R1VIZmlYUnNoWnRsNFVF?=
+ =?utf-8?B?TERweTV5R3ZSMDN6OFJoc0dwZVdyZWFlc2ZvblAwYkxhdHJtVVNiWlk3UFBt?=
+ =?utf-8?B?YW1SNkVJSzJyMWRMVTJ0a25hV2lNdU5raUh4REMrUWZkWVFGOWxuMVoxWitC?=
+ =?utf-8?B?MXNaNERhNHV1QXdtWnB2djFzU005TTFkZUkyMUk4NnZQVEIydm5LZUxEWFRi?=
+ =?utf-8?B?UW5hQU1OWi9Qb1gwc1hrVnJHcEdmNC9maWxpT0NyR2doN3V4OWIyU1Q3U3VX?=
+ =?utf-8?B?VUVjeEJvNUZRZzFNR25OSmxobmk1MTIyRmg5VllQRjllZUFGdFljL2RjSzYr?=
+ =?utf-8?B?UFBOVWdWeEdGNVN0TTE5c3ovdm1aTmJrTXBXUnM5N1hkZEI0VjdQZlNFOXJT?=
+ =?utf-8?B?R2lzZEJDdTk1NVF2U1pZVUt0cEE1bVFCVWpWNllnWFBPZmpPSm1HcHlzcm9r?=
+ =?utf-8?B?NGhBNStXMmJaTmxJbU94eDZZK2hnejVSREo1VDZ0WlMyYjF4akQ0cm1uTHJO?=
+ =?utf-8?B?RCtTWXpNdERGQS9vTHBFb052T1VnOUlGRjRqSG1EbVhTNktjbVNzQmt2cDJ2?=
+ =?utf-8?B?K0FJMkhzc2E3MFl5Y0xKNlVpVWRlampHaENWMHhZT2kwOGVwekJRMlJIWDZ5?=
+ =?utf-8?B?VVBIVms4ZUlkZ2lwUHBPMGJUMHQxRjcyMytyaEFjN2dhNENKeW1uYnlSY0ZZ?=
+ =?utf-8?B?cGd6WDFwaUdIWTc4eVZlTUFPcFZMRFZpM0hyeitsY0MrT05VeDVpblpVVVFq?=
+ =?utf-8?B?QS9NclZRTTJmOTVjN1N0dXVycDIrWEZxTlRaRlNyVXR2clplL0lKTXpYbmk4?=
+ =?utf-8?B?YmZsZVJIU2taQUdxSG5RL0NkUDVHUk1neXUvWC9xaTVFdUp0THpMWnVQdE1E?=
+ =?utf-8?B?NU1LR0lCRnJKMlQ3OTZyN2tvYkVhcTN4czNQZHZML3h5MjdzSmkvWVB2YzJB?=
+ =?utf-8?B?NEQrd1NzZWhmRVhNRERxaGRBZXZ1S3c4SkhFSHJUNEExVnY3T0hDYjZ5a2kv?=
+ =?utf-8?B?UU1FZkJxT3dHUENhb3F4RVFWRUVBbFFCUzhETEd3NXNCZHA0VFkyckRMSlBK?=
+ =?utf-8?B?bnNIbmVVTWJHTm1ZVndxWEFDaklQWkk3c2VodjMvaytaL3NpWDErSWpQUU4v?=
+ =?utf-8?B?emVEVWNyamlhTW93VGdxNjM4dWZPak11RFJIVjYrSjRWZktWVFhFaVpjK0Rs?=
+ =?utf-8?B?VndaRVloY24xb3BVOTNCT0V2Z1NuY0praUhFWk9aUzNvckVqSm5hMmZCSTh0?=
+ =?utf-8?B?WVAxaERCTU13ZGd4UnJVUnAvTWFKcGxQVVVLbmZXMnlmY1pSRUZCT3R0Tkdu?=
+ =?utf-8?B?OHJBTjRWaVRId0wwTjBpR25EZGZVZjdINjdBdTM0M01heDFOakFnVmIyZ3lR?=
+ =?utf-8?B?eHZiRTN3eDFaK2JTNkpnK3JiTi9teWpQVDdXTDREYTVvU2gxeTVlWE5XaFUx?=
+ =?utf-8?B?b1F2c05nNnV1NWtFUEVLUzRqa2Evd2NQRU1QbnBPVHpEUDkrOEdoeTF1Wm1F?=
+ =?utf-8?B?QkI1amhwd1lwcGU2RWhEU0x6QWh2UXhHL1V6YUJMcGg2clpVanBsUHZZK0ly?=
+ =?utf-8?B?NXpldXhpTXBxQkxQMG9Ta2hvbEY2c1BzQ1d4MHB3c1hBdDRndkFjczRnN0Zq?=
+ =?utf-8?B?cUkrbEtjd1BQM0JnOTQ3MHNBSlQ5eStaTXdRQkpxcUNSbVlnUDJFY2R2ajc2?=
+ =?utf-8?B?TXNRNTRTMVBiYkxLVnptZ0pOTjhGb2VUMFNORGRXRENveFdaN1h1NVRjblh6?=
+ =?utf-8?B?aGYvREZjVEhMT1paQ21Uc1Rya1VyQmNhV3dXcHFjUTN5aUdFREo5OE1sQzlL?=
+ =?utf-8?B?Snd2OUZBTXV3L2dMUmM5U2JENW1UenlVQU5nTjVWdERJM29XNzl6dGFkU1pw?=
+ =?utf-8?B?ZHlBWnEzUnl1YVc2QTA0SzFCd29KYi9FWkdiZHhBUTdscWphQ1dpeDJ6ZG5k?=
+ =?utf-8?B?NnJXL1BrOUcvVVYvZmgxMDVzUzBIQVo5MmVZL0ZNSk9kWWNUb2hVNW1EWHMz?=
+ =?utf-8?Q?Jn457jMMaR2ARWjrWIavcvapx?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 273d1cc6-60f5-4941-bbaa-08dda74286c7
+X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB7326.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jun 2025 10:43:53.8396
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: PI7UihS00y94T9UrubJimBpuaNYJZWiptybWjlVZ7pmDggpM3CdfcavCNfg84OqsWDasEe0tzUdk7VrKXwNYmA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8226
 
-On Mon, Jun 09, 2025 at 10:18:42AM +0000, Chen, Jiqian wrote:
-> On 2025/6/9 17:29, Roger Pau Monné wrote:
-> > On Mon, Jun 09, 2025 at 07:50:21AM +0000, Chen, Jiqian wrote:
-> >> On 2025/6/6 17:14, Roger Pau Monné wrote:
-> >>> On Fri, Jun 06, 2025 at 09:05:48AM +0200, Jan Beulich wrote:
-> >>>> On 06.06.2025 08:29, Chen, Jiqian wrote:
-> >>>>> On 2025/6/5 20:50, Roger Pau Monné wrote:
-> >>>>>> On Mon, May 26, 2025 at 05:45:53PM +0800, Jiqian Chen wrote: 
-> >>>>>>> +  }; \
-> >>>>>>> +  static vpci_capability_t *const finit##_entry  \
-> >>>>>>> +               __used_section(".data.vpci") = &finit##_t
-> >>>>>>
-> >>>>>> IMO this should better use .rodata instead of .data. 
-> >>>>> Is below change correct?
-> >>>>>
-> >>>>> +    static const vpci_capability_t *const finit##_entry  \
-> >>>>> +        __used_section(".rodata") = &finit##_t
-> >>>>
-> >>>> No, specifically because ...
-> >>>>
-> >>>>>> Not that it matters much in practice, as we place it in .rodata anyway.  Note
-> >>>>>> however you will have to move the placement of the VPCI_ARRAY in the
-> >>>>>> linker script ahead of *(.rodata.*), otherwise that section match will
-> >>>>>> consume the vPCI data.
-> >>>>> I am sorry, how to move it ahead of *(.rodata.*) ?
-> >>>>> Is below change correct?
-> >>>>>
-> >>>>> diff --git a/xen/include/xen/xen.lds.h b/xen/include/xen/xen.lds.h
-> >>>>> index 793d0e11450c..3817642135aa 100644
-> >>>>> --- a/xen/include/xen/xen.lds.h
-> >>>>> +++ b/xen/include/xen/xen.lds.h
-> >>>>> @@ -188,7 +188,7 @@
-> >>>>>  #define VPCI_ARRAY               \
-> >>>>>         . = ALIGN(POINTER_ALIGN); \
-> >>>>>         __start_vpci_array = .;   \
-> >>>>> -       *(SORT(.data.vpci.*))     \
-> >>>>> +       *(.rodata)             \
-> >>>>
-> >>>> ... this isn't - you'd move _all_ of .rodata into here, which definitely
-> >>>> isn't what you want. What I understand Roger meant was a .rodata-like
-> >>>> section, e.g. .rodata.vpci.* (much like it was .data.vpci.* before).
-> >>>
-> >>> Indeed, my suggestion was merely to use .rodata instead of .data, as
-> >>> that's more accurate IMO.  I think it should be *(.rodata.vpci) (and
-> >>> same section change for the __used_section() attribute.
-> >>
-> >> If I understand correctly, the next version will be:
-> >>
-> >> +    static const vpci_capability_t *const finit##_entry  \
-> >> +        __used_section(".rodata.vpci") = &finit##_t
-> >> +
-> >>
-> >> and
-> >>
-> >>  #define VPCI_ARRAY               \
-> >>         . = ALIGN(POINTER_ALIGN); \
-> >>         __start_vpci_array = .;   \
-> >> -       *(SORT(.data.vpci.*))     \
-> >> +       *(.rodata.vpci)           \
-> >>         __end_vpci_array = .;
-> > 
-> > Did you also move the instances of VPCI_ARRAY in the linker scripts so
-> > it's before the catch-all *(.rodata.*)?
-> > 
-> >>
-> >> But, that encountered an warning when compiling.
-> >> " {standard input}: Assembler messages:
-> >> {standard input}:1160: Warning: setting incorrect section attributes for .rodata.vpci
-> >> {standard input}: Assembler messages:
-> >> {standard input}:3034: Warning: setting incorrect section attributes for .rodata.vpci
-> >> {standard input}: Assembler messages:
-> >> {standard input}:6686: Warning: setting incorrect section attributes for .rodata.vpci "
-> > 
-> > What are the attributes for .rodata.vpci in the object files?  You can
-> > get those using objdump or readelf, for example:
-> > 
-> > $ objdump -h xen/drivers/vpci/msi.o
-> > [...]
-> >  17 .data.vpci.9  00000008  0000000000000000  0000000000000000  00000a50  2**3
-> >                   CONTENTS, ALLOC, LOAD, RELOC, DATA
-> > 
-> > It should be READONLY, otherwise you will get those messages.
-> > 
-> >> And, during booting Xen, all value of __start_vpci_array is incorrect.
-> >> Do I miss anything?
-> > 
-> > I think that's likely because you haven't moved the instance of
-> > VPCI_ARRAY in the linker script?
-> Oh, right. Sorry, I forgot to move it.
-> After changing this, it works now.
-> 
-> diff --git a/xen/arch/x86/xen.lds.S b/xen/arch/x86/xen.lds.S
-> index bf956b6c5fc0..c88fd62f4f0d 100644
-> --- a/xen/arch/x86/xen.lds.S
-> +++ b/xen/arch/x86/xen.lds.S
-> @@ -134,6 +134,7 @@ SECTIONS
->         BUGFRAMES
-> 
->         *(.rodata)
-> +       VPCI_ARRAY
->         *(.rodata.*)
->         *(.data.rel.ro)
->         *(.data.rel.ro.*)
-> @@ -148,7 +149,6 @@ SECTIONS
->         *(.note.gnu.build-id)
->         __note_gnu_build_id_end = .;
->  #endif
-> -       VPCI_ARRAY
->    } PHDR(text)
+Hi,
 
-FWIW, I would put it ahead of *(.rodata).  Remember to also modify the
-linker script for all the other arches, not just x86.
+On 09/06/2025 10:16, Ayan Kumar Halder wrote:
+>
+> On 09/06/2025 09:42, Julien Grall wrote:
+>> Hi Ayan,
+> Hi Julien,
+>>
+>> On 09/06/2025 09:27, Ayan Kumar Halder wrote:
+>>> On 09/06/2025 08:41, Orzel, Michal wrote:
+>>>>> diff --git a/xen/arch/arm/include/asm/mpu/regions.inc 
+>>>>> b/xen/arch/arm/ include/asm/mpu/regions.inc
+>>>>> index 6b8c233e6c..631b0b2b86 100644
+>>>>> --- a/xen/arch/arm/include/asm/mpu/regions.inc
+>>>>> +++ b/xen/arch/arm/include/asm/mpu/regions.inc
+>>>>> @@ -24,7 +24,7 @@
+>>>>>   #define XEN_MPUMAP_ENTRY_SHIFT  0x3     /* 8 byte structure */
+>>>>>   .macro store_pair reg1, reg2, dst
+>>>>> -    .word 0xe7f000f0                    /* unimplemented */
+>>>>> +    stm \dst, {\reg1, \reg2}  /* reg2 should be a higher register 
+>>>>> than reg1 */
+>>>> Didn't we agree not to use STM (I suggested it but then Julien 
+>>>> pointed out that
+>>>> it's use in macro might not be the best)?
+>>>
+>>> Ah my last response was not sent.
+>>>
+>>> I realized that I cannot use strd due to the following error
+>>>
+>>> Error: first transfer register must be even -- `strd r3,r4,[r1]'
+>>
+>> Ah I missed the "even" part when reading the specification. However, 
+>> we control the set of registers, so we can't we follow the 
+>> restriction? This would be better...
+>
+> I am ok to follow this. I just want to make sure that this looks ok to 
+> you
+>
+> prepare_xen_region() invokes store_pair(). They are in common header.
+>
+> So we need to make the change wherever prepare_xen_region() is invoked 
+> from arm32/mpu/head.S. This would look like
+>
+> --- a/xen/arch/arm/arm32/mpu/head.S
+> +++ b/xen/arch/arm/arm32/mpu/head.S
+> @@ -58,33 +58,33 @@ FUNC(enable_boot_cpu_mm)
+>      /* Xen text section. */
+>      mov_w   r1, _stext
+>      mov_w   r2, _etext
+> -    prepare_xen_region r0, r1, r2, r3, r4, r5, 
+> attr_prbar=REGION_TEXT_PRBAR
+> +    prepare_xen_region r0, r1, r2, r4, r3, r5, 
+> attr_prbar=REGION_TEXT_PRBAR
 
-Thanks, Roger.
+My mistake, It should be
+
+prepare_xen_region r0, r1, r2, r4, r5, r6, attr_prbar=REGION_TEXT_PRBAR
+
+We will be clobbering an extra register.
+
+- Ayan
+
 
