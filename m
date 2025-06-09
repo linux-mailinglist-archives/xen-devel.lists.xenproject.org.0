@@ -2,33 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 955CEAD1455
-	for <lists+xen-devel@lfdr.de>; Sun,  8 Jun 2025 22:53:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1010038.1388208 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7621EAD18FE
+	for <lists+xen-devel@lfdr.de>; Mon,  9 Jun 2025 09:32:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1010106.1388226 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uON0D-00033f-A0; Sun, 08 Jun 2025 20:52:25 +0000
+	id 1uOWyU-0006uQ-0C; Mon, 09 Jun 2025 07:31:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1010038.1388208; Sun, 08 Jun 2025 20:52:25 +0000
+Received: by outflank-mailman (output) from mailman id 1010106.1388226; Mon, 09 Jun 2025 07:31:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uON0D-00031c-6q; Sun, 08 Jun 2025 20:52:25 +0000
-Received: by outflank-mailman (input) for mailman id 1010038;
- Sun, 08 Jun 2025 20:52:23 +0000
+	id 1uOWyT-0006sx-TP; Mon, 09 Jun 2025 07:31:17 +0000
+Received: by outflank-mailman (input) for mailman id 1010106;
+ Mon, 09 Jun 2025 07:31:16 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=I6AZ=YX=gmail.com=christopher.w.clark@srs-se1.protection.inumbo.net>)
- id 1uON0B-00031W-Ko
- for xen-devel@lists.xenproject.org; Sun, 08 Jun 2025 20:52:23 +0000
-Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
- [2a00:1450:4864:20::230])
+ <SRS0=1N5q=YY=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1uOWyR-0006sV-Sc
+ for xen-devel@lists.xenproject.org; Mon, 09 Jun 2025 07:31:16 +0000
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2062c.outbound.protection.outlook.com
+ [2a01:111:f403:2417::62c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 78f44b1b-44aa-11f0-b894-0df219b8e170;
- Sun, 08 Jun 2025 22:52:21 +0200 (CEST)
-Received: by mail-lj1-x230.google.com with SMTP id
- 38308e7fff4ca-32b019bdeaaso3597621fa.0
- for <xen-devel@lists.xenproject.org>; Sun, 08 Jun 2025 13:52:21 -0700 (PDT)
+ id b4cb051f-4503-11f0-b894-0df219b8e170;
+ Mon, 09 Jun 2025 09:31:08 +0200 (CEST)
+Received: from BN9PR12MB5273.namprd12.prod.outlook.com (2603:10b6:408:11e::22)
+ by DS0PR12MB8813.namprd12.prod.outlook.com (2603:10b6:8:14e::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8792.34; Mon, 9 Jun
+ 2025 07:31:04 +0000
+Received: from BN9PR12MB5273.namprd12.prod.outlook.com
+ ([fe80::cf66:58ab:47be:4b13]) by BN9PR12MB5273.namprd12.prod.outlook.com
+ ([fe80::cf66:58ab:47be:4b13%5]) with mapi id 15.20.8792.034; Mon, 9 Jun 2025
+ 07:31:04 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,235 +47,181 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 78f44b1b-44aa-11f0-b894-0df219b8e170
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1749415941; x=1750020741; darn=lists.xenproject.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=jiD4rSsm0cbKmHaYBj8e0g7Y2LMzANTCDe2PowGXfAs=;
-        b=Dt6Ih2LVuljTpvzjPxckey0oTy6dcdfGfeA5acZgiVrQHX2OnsO93xZvkL6xJcrpgD
-         05lyr+h5unCkNJYDs9whiqn7YZp7nEBAEt2YHVkQEvh8TvLbtrbef6jbAvEpUSHB1+nv
-         wqmKa2a531SPzeU927lekvGklltjaSJD5SR4x6KToyJOEh9KCLQkIFR+7h+z6lSsa3lY
-         JgU6KN/eid9eSTQfm1GcdjzfURv2RGWJ4HTTYjd1ifuUMBdXzbhC/xHoqozdNBqxPMnU
-         sPcJwlbQIP5rneditAfGIQgYvb4sXQUrb+zfgLOsdRmyfMQk8jOfG7eTSGsgF/85e2R0
-         Cv7Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749415941; x=1750020741;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=jiD4rSsm0cbKmHaYBj8e0g7Y2LMzANTCDe2PowGXfAs=;
-        b=NUWQ/o/kfGsHu6elS5jmE15TIh5qdEd/TtN2qOo64I+1DFhuy+IIT2u9Jfqs75UfVD
-         2tyiJiutI9rJUa6JcALKsTzPdkcwJ4Ajx8/g8k0NktGigmSvPxwaYHz49lRvsJZ8K2yo
-         pf4N9001F06k9pjzvkVWQvWE9X56SO1ojrD1TAo6l4ShQRShxSJWHmN4LqTqMYSt9lx8
-         AyJz4yiMnXeG1WwH9fAq4BsV0J9rNx/locdwOxVjKqVSv4lRQYqMHVEOAcGmB6WLYFWG
-         4+sq1qisjZtSZZleY6c5cMtvEeLqiRlA1j/4OdJQt2lBiXcP8ARdTRhnDldOC1RLu8bo
-         HgCQ==
-X-Gm-Message-State: AOJu0YyiGdsqtUDdlRHXEAokXXDEvzK/cruNYyOvScFVc6j7czSIJue9
-	4yab/sPUBHrHoFqyW2aP619CSRypNjxRkvBW3uQWowvW+i3s3hPC2oBKh2DHrjI6y9ieIzQeh3K
-	aKyEH/mUDXnlKPB4Xj49/m/JyvMTkCHI=
-X-Gm-Gg: ASbGncuFFcOLZ3Jcmk7FecytpAu1Wopkep9gwhWuBldS4uCmV4L+xz2fShZEySLv6uw
-	9O4bQsWd1RdQc8MSgoKunGkSVlcEOA74NfDeDq+LLlqiYs7iPpBfT/ojl7g1ZbxsUJTo+aKLOmT
-	ZusSgdpuyCeU9G0ougZ2+sxoK1gBm357dLoX69OL67pg==
-X-Google-Smtp-Source: AGHT+IELmomZm+dVKeBh2MmdMlQBzwDw4r9+kpmn1u0Tmr4m+OSd5O5GSwKGL25Mw9NewgnghMJaPtJxPkBYzacTLwU=
-X-Received: by 2002:a2e:a585:0:b0:32a:864a:46e4 with SMTP id
- 38308e7fff4ca-32adfcd4f8cmr28300131fa.3.1749415940394; Sun, 08 Jun 2025
- 13:52:20 -0700 (PDT)
+X-Inumbo-ID: b4cb051f-4503-11f0-b894-0df219b8e170
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=kfuBlFgzuRytQ3Vecw8Uqz4axHrebsHyNSCTeZbwCJrsAvBVJtSmhuucntIkppqYJTxy+kIaCr6QfnDLqioe4BG9M0CZRER6qZN4AhHCM7BqReamFAjIj184yCVo3jaxyQJl+NbKph3710nv4hPIV5xKl/qL2ufGVxhqQqO/JV03JNwET2+VK90rKI5DZh02iwL7IGqj0i2lf6M62++j5aJJfV2W1OROvVCKjHlClz6W8wOhYHQ3hS0mcek0YFl6KbXcQR8I+OqAX3MfIwE0PKDEINOQRzdlFqH/KJid216mA7Le5ojgqP7bYzzoryeANLtKxbmiYC0uTWL16latsQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=A/TamHO6pSL2Whnqo7Fx/IHd2dhXDBll+2sO2VIYHQg=;
+ b=EdLuN2QVRJPfChk8E248+TzpsWrYvAem6m8+oehAG4lJaTo58L/5bTZHdbTFcp/y+kIWqnZaiSkEeqp6q5CQTAQgyndLq+lwducVU1AcrQTKeP8LZY/v/J0eMAiqbvHzG7QNtlOY1uG4jWb9QhYe2WyhgZ58Zcg4zJv4hejEk0ru/yHzATNynO3tVBG5u3qQyllJcdLMctqvt65SjQw70llWUbtKvM8w1jwSdcUfPAhupm7d83fxSk55Lgc7czzQ8CbUPcHuQvkl9wdKsy14UdxcgqnKnYLC2ixNem7E17lWdrtUonmXLujVAPjNTeDez72uJ/IEvsBztPjKpdKMmg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=A/TamHO6pSL2Whnqo7Fx/IHd2dhXDBll+2sO2VIYHQg=;
+ b=zYxtQrIJ46bEqmPaSAaUlX67auF9WngewmklUGa6/06Jj5Yr3u+F5utpaE7815lxuus3Px/MktcqurxArqV1ZnIPV8NPW1ngmG2gz+kQ90+8PCeV/Bhw/g10wE8eGZSvKECS4qPCUVq4jZsFxi1LLlOOSNXEg4QMGX/K9YQ8oTw=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Message-ID: <e2249b3e-4e81-48de-9e15-e5dffb385dbb@amd.com>
+Date: Mon, 9 Jun 2025 09:31:00 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/3] arm/mpu: Introduce MPU memory region map structure
+To: Ayan Kumar Halder <ayan.kumar.halder@amd.com>,
+ xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20250606164854.1551148-1-ayan.kumar.halder@amd.com>
+ <20250606164854.1551148-2-ayan.kumar.halder@amd.com>
+From: "Orzel, Michal" <michal.orzel@amd.com>
+Content-Language: en-US
+In-Reply-To: <20250606164854.1551148-2-ayan.kumar.halder@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SV0P279CA0030.NORP279.PROD.OUTLOOK.COM
+ (2603:10a6:f10:12::17) To BN9PR12MB5273.namprd12.prod.outlook.com
+ (2603:10b6:408:11e::22)
 MIME-Version: 1.0
-References: <CACMJ4Gb35EAy2igefhzH5=g=cQstNvbJCZdiMHA7QHQ+v=4cOg@mail.gmail.com>
- <2EAAC8E1-2342-48F4-9B2E-849551291F22@gmail.com>
-In-Reply-To: <2EAAC8E1-2342-48F4-9B2E-849551291F22@gmail.com>
-From: Christopher Clark <christopher.w.clark@gmail.com>
-Date: Sun, 8 Jun 2025 21:52:09 +0100
-X-Gm-Features: AX0GCFuTtWHOqhfNn6nlrKGXPPjvcpB2tuRNY3y8Vi5WOGJ21wdupvh_2yNhgdI
-Message-ID: <CACMJ4GauN=Gmxn9=BTrF=QC=p11Q0uTVYTFw4=xQUxo4ppVw2w@mail.gmail.com>
-Subject: Re: [PATCH v3 1/3] docs: add documentation for Argo as a feature
-To: Rich Persaud <persaur@gmail.com>
-Cc: xen-devel@lists.xenproject.org, Jason Andryuk <jason.andryuk@amd.com>, 
-	Teddy Astie <teddy.astie@vates.tech>, Daniel Smith <dpsmith@apertussolutions.com>, 
-	Andrew Cooper <Andrew.Cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>, 
-	Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, 
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	Stefano Stabellini <sstabellini@kernel.org>, 
-	Community Manager <community.manager@xenproject.org>
-Content-Type: multipart/alternative; boundary="000000000000b1148d063715a347"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5273:EE_|DS0PR12MB8813:EE_
+X-MS-Office365-Filtering-Correlation-Id: 727300fb-0f18-4f46-986c-08dda727972e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?ZkhGMENNL25Va0tJdzlBSExDVVpnRklDRHh5elhlU0gybERUWEFGUy9qeXF4?=
+ =?utf-8?B?RGRSUndsL2dnK1kxbVBla2M0TVcrWUlYY3FpNUFrVnY0bENDaGgydUhhUktT?=
+ =?utf-8?B?ZDhxWUc1STd2NU1WTVJiQTY2Nm1LTS8vY0R3alQzeXNzUTV4MnYydU42M2Jx?=
+ =?utf-8?B?V2UyLzNKSkNJZ0JIMXJMUEVCaC80cGN5ZUxMbGVEQTFQbEdTRDZjdG5xK3Fo?=
+ =?utf-8?B?aVRjY3JCVFh4L2tlU0tROUM2SVZ5c1Vpa1B6bVBLdjh0ZmFVb29OK3NndDcx?=
+ =?utf-8?B?VEk0QWQ1SUVuV080ZzBDVnVQTVVhNmVhbWpzcHQ0MDB6MjdaOExlY0xEQXNw?=
+ =?utf-8?B?NGRETS9ZTkwxU0p1cnlXVHV1cGhWOWJTanFwa1JYUWFsditPNEhBLzVmR1Fz?=
+ =?utf-8?B?T0JsSXc4VnpwMjV0Nm5mTkRLVHAyRGprSWloeG5haFhOWXNJeEwrSkQxVlZn?=
+ =?utf-8?B?U2hDWnNLY0ZvVXY3Tmo0Z3hUWEV2UVhZM1l0ZjJ6OWNtVGpxTjV6eFppb05V?=
+ =?utf-8?B?SGE1OGpCbHdyWXJ2eE1mY2FncDFmWkFvUlFvcjNsOGRtUURGQnNIZXFJcTFw?=
+ =?utf-8?B?WU9FaEZRY21WcnNxem15dWxWcVMrUzlFT1lXUkZ1b0JIZ3RrdW96eGoyeEdm?=
+ =?utf-8?B?VFRUY2Z4dERXOFZQaysyZENRZmtRa2tPUG5vamw2Umt3T1hrSHppdWxuK3Vv?=
+ =?utf-8?B?ZkVnUzMrckY4WjJJeVdkaUtmQ1hhdEJLbUtDdi9WT21iU2Z5bUdUdVFpdUxH?=
+ =?utf-8?B?OWRTS1JvdmcvbWFHRG1UelpkMFNPaC9XNjRkWkZRRis4a2JoTzEvY08reE42?=
+ =?utf-8?B?eGVsYTQ1UDJSaG53dkh1RktRRHZtSkpZTmVvUE1xUGZIUlhDT0xRL3VUemdx?=
+ =?utf-8?B?REwwQTlkK2d1a28vWWVJVkIreEdkRVdpSXNLYjhJSGFtZjBjOFpEWmFvelNu?=
+ =?utf-8?B?T0svU3ZqVERnQ1RWMThGSElucFhtZllMMFQ1RFhWRGR2SndVSlJ0bW9WOTBt?=
+ =?utf-8?B?SERpbWRtaVJRdkZGNnB2c25la1UzOFFMbk5PZ0JnbGl2VFJnMHJ0WkVLd1FN?=
+ =?utf-8?B?L3NPUGppS254TlkyVmNKZTg4WExLWWZ5Y1dZMjBxWGFaQU5CMXArbkRBOC9D?=
+ =?utf-8?B?WktFdWozdWlJa2JkTG5jbzJ1cmxHbnh1a0Zoam94K0ZtMU9ORHpZR1FLb0FG?=
+ =?utf-8?B?NktOUzlnc2FMYURWL1BvM3hJbUdmOU5CYVMzV3VRNitLVURWendVMEczQ0Ja?=
+ =?utf-8?B?OCtyRFZNUEdUUTFFaHFneGNjazh3MTdSa2pVRmpwUEtHM21VZG1HRHphMXJQ?=
+ =?utf-8?B?V1l5Q1dFb1FHWUNRWWVpTS9UcjlpN2NHcm5UYTc2WlN2SWlHRFRhaGJJRkJD?=
+ =?utf-8?B?VDliYWRTTmk2RnFrVG5hV245blh4akhFN0JiMmxrdm11dXRaSyt2ZnVXMUs2?=
+ =?utf-8?B?a3JXaVVUQzFaZzBkVUIvMVoyOXhOcmxvUGdvTWtuZ2lUalVibFVabHZEV1Jz?=
+ =?utf-8?B?V1FrcHRidnUxU1drSWt4OXhCUXhWQS9WOG9BaU9wRjBsN2hRbjZ4eTB4ZTJq?=
+ =?utf-8?B?cjQxbkk0ZUd0SHFQYTVXTVpmaTJ3OTAzRjBuci95OGhKQ0ovRG5LUmx0UzEx?=
+ =?utf-8?B?V2FGYjZVc1R0dUZaOVFDMCtHZlM0VEtKNTRRWXNKS2dyOEVKZjhGK0RmYStp?=
+ =?utf-8?B?SndQOVFGRkJkNWM0WlVQUExKU0FzZEF4T1lCWUNoZ25KNE81OGtlYkRFcGsw?=
+ =?utf-8?B?YndDejFza2UxcGpWdG1tS3pUTXA5L0lLc2d2TWN5VEhnUDVHVWQzYyszd2FT?=
+ =?utf-8?B?K2xRcVk3OUpVTVBCeWFUVUoyblRrYlo3SEowSDNybXhObWlUVUFwSHdEeURO?=
+ =?utf-8?B?ckNEd3Fxc1NqR3NUM0RraGlwclFjMnN1eEFjRDNPbnZ3VGdZUnJKR0E1ZWZo?=
+ =?utf-8?Q?3PwwIpqQl2g=3D?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN9PR12MB5273.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?dDNDVm1DQUlzMVFQL1hrMHlLZkU2ZHhDTng5Y3VqbE9LYzVDOWpJdU5jbGor?=
+ =?utf-8?B?QnArNU01ZWdxZnhva3E0NU5lOUc3WEJsNk9Bbyt1Z1ROT1pTOHg2OXo1TUFi?=
+ =?utf-8?B?Uzl3NGc0eStTVlRxL2JHbWZab3dnM3VpeW1CeXYzMWpiOXNpNFRweDd3WE1Y?=
+ =?utf-8?B?WnVPT25NOENiYzA4TGlGbFJ1TmpUZ2MrNlYrWjJyTmszM1lDbjJFNGRKMjJo?=
+ =?utf-8?B?S214cDFlUTQ0ZnJiRlNnRUpmVGp0aXlHZEZTdkh0Vi9XcWVtN0lSbnJReEdW?=
+ =?utf-8?B?RWRrVXArVzFZcFJvRFFOd1dYclNmVktiZWtjYVA0aVpxMUY1US9wMGVSLzNZ?=
+ =?utf-8?B?S2FvMzJPUHJTbHpJMEZOeVE3MlNqRnJvbm4xRmtuUHd0cUxrWk1pMmJsUEt6?=
+ =?utf-8?B?NVNSRjdMY21VQTV4dWhkM1pzdmp6VmI0cERSdzJlTWpYdmV4bmI0a1YzYTBM?=
+ =?utf-8?B?eW82RHZIZVZwTjB5bTczM1poZVlXdzBUTEpZa0x3NzlTeTJnU09xa3o0WTFK?=
+ =?utf-8?B?RGMxdktXZEZhQ09qOU9rTXU4Qmk2dE1ZNDIwcmN1YXM0MVl5K2toazRUV1FT?=
+ =?utf-8?B?TXN2d01FMnluaEwwYzFPMmdvN1pmcGZpNGcxaE9BaGkrTzRwZ090QWhIU0hv?=
+ =?utf-8?B?dXd1ckkwLzRueE0yL2tCbHgrZ2dlMjdLUUVEZjFNd0liamM4ZnlsZlI2V3d4?=
+ =?utf-8?B?cTFFTEtDbU5wcGUzZ0FYeHhWbjh5RDZpOXVDNUxnWmJ5KzFHOCtUQ2FZSGx2?=
+ =?utf-8?B?VW53SEV0elZyMTlNYktlZ2IvU3pCMWllMmZObWRtYjNDWFZkaXhreEVKUnhq?=
+ =?utf-8?B?QmNNTkllMjdiTVZrb0dlZ2czUlIrK2s1eS93dGtFcGp2b2FVWDRxTGF2VVVy?=
+ =?utf-8?B?VmdtTFhOcThwZHJyOHRqTndmSlAvUiswTXh6NDdpWVd1TEV2TVk1UnFhSG5K?=
+ =?utf-8?B?VGNoU3FUZUc0S1pyQTF0d3FLanpqa3BFMUdmWWFEUkNwRndsZkxneEZ3TUlk?=
+ =?utf-8?B?aVZJSDIrYnlhK01qSkMwVFVublZyT21hdk5mK0dsaEJERklVb1ZrZ3llZXQ3?=
+ =?utf-8?B?dEc0QVV3bWJIVFFmY29XSzdxWlFDTmdqbkYxaXloenppU0dqU2JSYTFPbmNs?=
+ =?utf-8?B?c3hLNHZMRGhnYVhjOHRhZHNmaEpEc3JDREhKa09uQTh2Z0hOeHBmRWNyc0pC?=
+ =?utf-8?B?RElCMWhtYlVHUmY3RWpOUUZ0bi9tRktuU0t4S1lKZm9wbnJ3QjQyQnJSeHFK?=
+ =?utf-8?B?UkNUMjJ4TlQzN1hWTzdUSkp3cTF4QWx0ajlpTlNLSkxiMStEUWJUaHVHVnd1?=
+ =?utf-8?B?MWU4TEl2UE10dHB3WE4wMEozSHlhZjJwaTdzZ2hpendDRU9aZW5YNm41THFn?=
+ =?utf-8?B?elhwNmNVS3Fpa3lLVXl4QmtuTFQvRm5hM1pOeWludU5uQ2k1S2tua3E0Sm1j?=
+ =?utf-8?B?VGM1V0lPSWtiVFlTa3REb0U5V1dqWmFETXNPZ3NvbTZXTVRtM2E2VzZpYzRN?=
+ =?utf-8?B?UzM5R2k3NWdRMkVHUzFXQnA2Mk9vRzV1WnBvOVdXVHJUaDQ0dmFvbUZFQXhY?=
+ =?utf-8?B?Y1Uyd3pMcXdscFUxeEFxOXhLbCtOQUpiVWs2RC9OMm1MV0g2L2FVSkxITEgy?=
+ =?utf-8?B?RzJXZ0xZLzJCeTd6TGpOQ2wvWWV6QUU3M0UvMTBrU1gvR2dXMGdQSTV6Q0k4?=
+ =?utf-8?B?SGR4eGtUTUlVdHUvQnpFT3NmYUlmWW1SWVM0MENSY3c4bThLSUlwcUVWSWsy?=
+ =?utf-8?B?VGpWWkZZU005VVhYRnNWb0wrcnBqVENYNG04MGlCK0p1TGlhOElaSjFIZ3cz?=
+ =?utf-8?B?alM2VFdyU2lKNnNWd3oxTm4zdERWWVdudzh4RUdVTVE3eFdaVzdJcytOUXZh?=
+ =?utf-8?B?ZVlZNkVGMUo5K3QrR1RreU1jWlBEekZZMjdMVkVVeGxLUlp4c1V1YXhTTjBR?=
+ =?utf-8?B?Y0piS3UvUlNSNjlNVlpDWnBiVEplanQ2N3hUcm5VZXk0clFaTHZJY0R3SkpH?=
+ =?utf-8?B?dmdWZ2daZzlIMlVuckRST09JR0dqMW93b2pIblhZK29ad1ZqZFhXR2d2OFdG?=
+ =?utf-8?B?K2N1c2tuNDVrbmpEcVd6Zy9zSE5HZFJDZ2s4TkxVYUZ4b25rb3BkSm15UC9u?=
+ =?utf-8?Q?/6CW9oAxlXaEYbyBZjLdGv+He?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 727300fb-0f18-4f46-986c-08dda727972e
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5273.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jun 2025 07:31:04.0970
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: c3ckc4mxbRuDGFG7iYVGbtLtohPkEp1SLtof2qYe1Ml6ayUoPhfhXv8iWZkiv8MV
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8813
 
---000000000000b1148d063715a347
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Sun, Jun 8, 2025 at 7:37=E2=80=AFPM Rich Persaud <persaur@gmail.com> wro=
-te:
-
-> On Jun 8, 2025, at 5:49=E2=80=AFAM, Christopher Clark <
-> christopher.w.clark@gmail.com> wrote:
->
-> =EF=BB=BF
->
-> On Wed, Jun 4, 2025 at 5:14=E2=80=AFPM Jason Andryuk <jason.andryuk@amd.c=
-om>
-> wrote:
->
->>
->> I think this should be dropped.  We don't need a link to a design
->> document without an implementation.  You can add it once you've
->> upstreamed the implementation.
->>
->
-> OK, I'll remove this section for the next version of the series.
->
->
-> What's the recommended location of Xen design documents, requirements for
-> future improvements, roadmaps or pointers to related work in adjacent
-> open-source communities? The Xen wiki is being deprecated.
->
-
-Others CCd are likely better qualified than I to answer these (reasonable)
-questions, and I am interested to learn from any further answers.
-
-My preferred option is not to deprecate the wiki, or at least not without a
-replacement for it. I have found the wiki to be useful for many years for
-both publishing technical content and for access to helpful material not
-available anywhere else, even if the contents are rougher than the formal
-documentation. Its accessibility is an essential part of enabling that.
-
-If the wiki is deprecated, the available alternatives appear to be:
-
-* Pursuing formal acceptance of documents into one of the Xen git
-repositories;
-From my experience of doing so, less documentation will be produced if this
-is the standard required and unique knowledge will be lost at an ongoing
-cost to both the developer community and users of Xen. Review capacity is
-already scarce and this will further deplete that.
-
-* Publishing on the platforms of adjacent communities;
-Documentation will be less discoverable and at the mercy of external tools
-and processes, again at a cost to collaboration within the Xen community.
-
-* Repurposing the Xen issue tracker
-This would be a horrible bodge. Please no.
-
-* Self-hosting - similar to publishing in an adjacent community, but worse
-I would prefer not to have to do this and may not have time available to
-do so. Not everyone is able to.
-
-* Replace the wiki with another collaboratively-edited document hosting
-platform
-I am open to learning more about options for this if it is the recommended
-direction.
 
 
-> What's the recommended way for the Xen community to discover the existenc=
-e
-> of Argo documentation that is not hosted by the Xen community? If
-> necessary, we can create a new semantic label or Xen docs directory tree,
-> to host technical content that might otherwise be lost.
->
-> Should we add a sentence to Xen's Argo documentation, to the effect of
-> "Please refer to the Xen [wiki in archive.org, website, mailing list],
-> external sites [A, B, C, D], or your preferred [search engine, LLM] for
-> more technical documents on Argo design and implementation"?
->
+On 06/06/2025 18:48, Ayan Kumar Halder wrote:
+> Introduce pr_t typedef which is a structure having the prbar and prlar members,
+> each being structured as the registers of the AArch32 Armv8-R architecture.
+> 
+> Also, define MPU_REGION_RES0 to 0 as there are no reserved 0 bits beyond the
+> BASE or LIMIT bitfields in prbar or prlar respectively.
+> 
+> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+> ---
+> Changes from v1 :-
+> 
+> 1. Preserve pr_t typedef in arch specific files.
+> 
+> 2. Fix typo.
+> 
+>  xen/arch/arm/include/asm/arm32/mpu.h | 34 ++++++++++++++++++++++++++--
+>  xen/arch/arm/mpu/mm.c                |  2 ++
+>  2 files changed, 34 insertions(+), 2 deletions(-)
+> 
+> diff --git a/xen/arch/arm/include/asm/arm32/mpu.h b/xen/arch/arm/include/asm/arm32/mpu.h
+> index f0d4d4055c..fe139a2abe 100644
+> --- a/xen/arch/arm/include/asm/arm32/mpu.h
+> +++ b/xen/arch/arm/include/asm/arm32/mpu.h
+> @@ -5,10 +5,40 @@
+>  
+>  #ifndef __ASSEMBLY__
+>  
+> +/*
+> + * Unlike arm64, there are no reserved 0 bits beyond base and limit bitfield in
+> + * prbar and prlar registers respectively.
+> + */
+> +#define MPU_REGION_RES0       0x0
+> +
+> +/* Hypervisor Protection Region Base Address Register */
+> +typedef union {
+> +    struct {
+> +        unsigned int xn:1;       /* Execute-Never */
+> +        unsigned int ap_0:1;     /* Access Permission AP[0] */
+> +        unsigned long ro:1;      /* Access Permission AP[1] */
+It should be unsigned int, not long.
 
-The Virtio & Argo design documents, produced within an adjacent community
-so they are hosted there, are relevant to Xen and ought to be enabled to be
-discoverable (and if necessary hostable) via Xen community platforms.
-They are also a single instance of a general class: there will be
-developments of other Xen-related features within XCP-ng, Qubes and Linaro
-projects - and other adjacent communities - that also warrant description
-and linking from within Xen community documentation.
+With that fixed:
+Reviewed-by: Michal Orzel <michal.orzel@amd.com>
 
-To Jason's review point: I am willing to accept leaving the VirtIO section
-out of this specific Argo feature document but I do need an appropriate
-alternative place for it - eg. the Argo design document (already within the
-Xen source tree) could be extended to introduce it instead. The externally
-referenced design documents are part of how such future
-features get implemented, so referencing prior to implementation is helpful
-and supportive of the continued development of the technology.
+~Michal
 
-Christopher
-
---000000000000b1148d063715a347
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote g=
-mail_quote_container"><div dir=3D"ltr" class=3D"gmail_attr">On Sun, Jun 8, =
-2025 at 7:37=E2=80=AFPM Rich Persaud &lt;<a href=3D"mailto:persaur@gmail.co=
-m">persaur@gmail.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quo=
-te" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204=
-);padding-left:1ex"><div dir=3D"auto"><div dir=3D"ltr"></div><div dir=3D"lt=
-r">On Jun 8, 2025, at 5:49=E2=80=AFAM, Christopher Clark &lt;<a href=3D"mai=
-lto:christopher.w.clark@gmail.com" target=3D"_blank">christopher.w.clark@gm=
-ail.com</a>&gt; wrote:</div><div dir=3D"ltr"><blockquote type=3D"cite">=EF=
-=BB=BF</blockquote></div><blockquote type=3D"cite"><div dir=3D"ltr"><div di=
-r=3D"ltr"><div dir=3D"ltr">On Wed, Jun 4, 2025 at 5:14=E2=80=AFPM Jason And=
-ryuk &lt;<a href=3D"mailto:jason.andryuk@amd.com" target=3D"_blank">jason.a=
-ndryuk@amd.com</a>&gt; wrote:</div><div class=3D"gmail_quote"><blockquote c=
-lass=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px soli=
-d rgb(204,204,204);padding-left:1ex"><br></blockquote><blockquote class=3D"=
-gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(20=
-4,204,204);padding-left:1ex">
-I think this should be dropped.=C2=A0 We don&#39;t need a link to a design =
-<br>
-document without an implementation.=C2=A0 You can add it once you&#39;ve <b=
-r>
-upstreamed the implementation.<br></blockquote><div><br></div><div>OK, I&#3=
-9;ll remove this section for the next version of the series.</div></div></d=
-iv></div></blockquote><br><div>What&#39;s the recommended location of Xen d=
-esign documents, requirements for future improvements, roadmaps or pointers=
- to related work in adjacent open-source communities? The Xen wiki is being=
- deprecated.</div></div></blockquote><div><br></div><div>Others CCd are lik=
-ely better qualified than I to answer these (reasonable) questions, and I a=
-m interested to learn from any further answers.</div><div><br></div><div>My=
- preferred option is not to deprecate the wiki,=C2=A0or at least not withou=
-t a replacement for it.=C2=A0I have found the wiki to be useful for many ye=
-ars for both publishing technical content and for access to helpful materia=
-l not available anywhere else, even if the contents are rougher than the fo=
-rmal documentation. Its accessibility is an essential part of enabling that=
-.</div><div><br></div><div>If the wiki is deprecated, the available alterna=
-tives appear to be:</div><div><br></div><div>* Pursuing formal acceptance o=
-f documents into one of the Xen git repositories;<br>From my experience of =
-doing so, less documentation will be produced if this is the standard requi=
-red and unique knowledge will be lost at an ongoing cost to both the develo=
-per community and users of Xen. Review capacity is already scarce and this =
-will further deplete that.</div><div><br>* Publishing on the platforms of a=
-djacent communities;<br>Documentation will be less discoverable and at the =
-mercy of external tools and processes, again at a cost to collaboration wit=
-hin the Xen community.<br><br>* Repurposing the Xen issue tracker<br>This w=
-ould be a horrible bodge. Please no.<br><br>* Self-hosting - similar to pub=
-lishing in an adjacent community, but worse<br></div><div>I would prefer no=
-t to have to do this and may not have time available to do=C2=A0so. Not eve=
-ryone is able to.=C2=A0</div><div><br></div><div>* Replace the wiki with an=
-other collaboratively-edited=C2=A0document hosting platform</div><div>I am =
-open to learning more about options for this if it is the recommended direc=
-tion.</div><div><br></div><blockquote class=3D"gmail_quote" style=3D"margin=
-:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"=
-><div dir=3D"auto"><div><br></div><div>What&#39;s the recommended way for t=
-he Xen community to discover the existence of Argo documentation that is no=
-t hosted by the Xen community? If necessary, we can create a new semantic l=
-abel or Xen docs directory tree, to host technical content that might other=
-wise be lost.</div><div><br></div><div>Should we add a sentence to Xen&#39;=
-s Argo documentation, to the effect of &quot;Please refer to the Xen [wiki =
-in <a href=3D"http://archive.org" target=3D"_blank">archive.org</a>, websit=
-e, mailing list], external sites [A, B, C, D], or your preferred [search en=
-gine, LLM] for more technical documents on Argo design and implementation&q=
-uot;?</div></div></blockquote><div><br></div><div>The Virtio &amp; Argo des=
-ign documents, produced within an adjacent community so they are hosted the=
-re, are relevant to Xen and ought to be enabled to be discoverable (and if =
-necessary hostable) via Xen community platforms. They=C2=A0are also a singl=
-e instance of a general class: there will be developments of other Xen-rela=
-ted features within XCP-ng, Qubes and Linaro projects - and other=C2=A0adja=
-cent communities - that also warrant description and linking from within Xe=
-n community documentation.</div><div><br></div><div>To Jason&#39;s review p=
-oint: I am willing to accept leaving the VirtIO section out of this specifi=
-c Argo feature document but I do need an appropriate alternative place for =
-it - eg. the Argo design document (already within the Xen source tree) coul=
-d be extended to introduce it instead. The externally referenced=C2=A0desig=
-n documents are part of how such future features=C2=A0get=C2=A0implemented,=
- so referencing prior to implementation is helpful and supportive of the co=
-ntinued development of the technology.</div><div><br></div><div>Christopher=
-</div></div></div>
-
---000000000000b1148d063715a347--
 
