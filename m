@@ -2,56 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC809AD282E
-	for <lists+xen-devel@lfdr.de>; Mon,  9 Jun 2025 22:55:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1010441.1388537 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 83722AD297B
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Jun 2025 00:44:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1010452.1388547 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uOjVr-0005jj-NP; Mon, 09 Jun 2025 20:54:35 +0000
+	id 1uOlDg-0001J4-Ue; Mon, 09 Jun 2025 22:43:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1010441.1388537; Mon, 09 Jun 2025 20:54:35 +0000
+Received: by outflank-mailman (output) from mailman id 1010452.1388547; Mon, 09 Jun 2025 22:43:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uOjVr-0005hd-KN; Mon, 09 Jun 2025 20:54:35 +0000
-Received: by outflank-mailman (input) for mailman id 1010441;
- Mon, 09 Jun 2025 20:54:34 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uOlDg-0001Hd-Rz; Mon, 09 Jun 2025 22:43:56 +0000
+Received: by outflank-mailman (input) for mailman id 1010452;
+ Mon, 09 Jun 2025 22:43:55 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=7/lO=YY=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
- id 1uOjVp-0005hX-UT
- for xen-devel@lists.xenproject.org; Mon, 09 Jun 2025 20:54:34 +0000
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on20626.outbound.protection.outlook.com
- [2a01:111:f403:2009::626])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f088a1b0-4573-11f0-a305-13f23c93f187;
- Mon, 09 Jun 2025 22:54:31 +0200 (CEST)
-Received: from SN7P220CA0027.NAMP220.PROD.OUTLOOK.COM (2603:10b6:806:123::32)
- by SJ0PR12MB8091.namprd12.prod.outlook.com (2603:10b6:a03:4d5::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8792.39; Mon, 9 Jun
- 2025 20:54:27 +0000
-Received: from SA2PEPF00003AE6.namprd02.prod.outlook.com
- (2603:10b6:806:123:cafe::46) by SN7P220CA0027.outlook.office365.com
- (2603:10b6:806:123::32) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8769.21 via Frontend Transport; Mon,
- 9 Jun 2025 20:54:27 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SA2PEPF00003AE6.mail.protection.outlook.com (10.167.248.6) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8835.15 via Frontend Transport; Mon, 9 Jun 2025 20:54:25 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 9 Jun
- 2025 15:54:25 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 9 Jun
- 2025 15:54:25 -0500
-Received: from ubuntu.mshome.net (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Mon, 9 Jun 2025 15:54:24 -0500
+ <SRS0=InIE=YY=netscape.net=brchuckz@srs-se1.protection.inumbo.net>)
+ id 1uOlDf-0001HX-4B
+ for xen-devel@lists.xenproject.org; Mon, 09 Jun 2025 22:43:55 +0000
+Received: from sonic310-22.consmr.mail.gq1.yahoo.com
+ (sonic310-22.consmr.mail.gq1.yahoo.com [98.137.69.148])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 33ed73cf-4583-11f0-b894-0df219b8e170;
+ Tue, 10 Jun 2025 00:43:48 +0200 (CEST)
+Received: from sonic.gate.mail.ne1.yahoo.com by
+ sonic310.consmr.mail.gq1.yahoo.com with HTTP; Mon, 9 Jun 2025 22:43:45 +0000
+Received: by hermes--production-ne1-9495dc4d7-jhk9q (Yahoo Inc. Hermes SMTP
+ Server) with ESMTPA ID 2aa59b495c54eb04322430ca52fe5ded; 
+ Mon, 09 Jun 2025 22:43:43 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,131 +42,128 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f088a1b0-4573-11f0-a305-13f23c93f187
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ZMdVOyI5B5XfVQleCGRWs3Rf+YmSickz3FXn5tJvW2dGXvDQSBW1sCqWYMOa37+I1u3wZI/5s8FDi9xbr0/BGVTTBLKWxQ0d4VS8qG+bzC1WxZ5OadcscM4llMEMcDoK3as9soPIH/1jLXfEbLg+9DAxpsLR4IS5H6rIfz6EWSP/7ibd689Noa1VZN/5j5UOoI5yJXROjaOI4gGHKNjEG6VrZshmf3vmwNHASQGy06E3S8TSjwSZXjtpTz4HxHpE2hNM5QbulwHvI34LMeAhM1zGpJwd7owQgUWa46QtlF9lkoGHzyGzcdp/HwmW6ueBwTE3hH+B+WvMt9XQbrLWFA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8wbtqZhYC108wtkPXEr0Ks9WzyBY007ozYY9rvrT0qI=;
- b=wmmBKT+FeKX/Yljem4d1fUtAS5ZHVkq+Tkp12lB+YW65q2W8fy7kyErYSz3a/WqW7nWnlzY2VRxIhyIJ1cW53ZHoIZQXKhKQnB/6kq1OjLt1f2M9uKxcMIXfp3nvWbNHRc9AWdYmCdIdYYV9jPl1gluJvtc1O5CcB8XUdmDjYgmMRNsbjLIjApRgIVW27EKgj7UZ05lnlbiiuscc4ekam9+rA2uQ2OR10ABhAoD2Fi1i/+XPuZr+ApHw/vmL+rb6+2bFGj/K8dUbU26F9i54QF01WdKDgNJLd1QJtPaF6rpJmf3VCh1ZVA+EKytPznV6XmgoXR8AmsUjt1vjdc+GiA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8wbtqZhYC108wtkPXEr0Ks9WzyBY007ozYY9rvrT0qI=;
- b=geS0ogsVkMN8jKJ7zZYu6aSo6/rmD8oeVQIjoQtd64jVaUMjAf9xVzNNnTcRsqUU31WLiQy16mSb09ynOe/rjQvfeMYz3z/wFoYnVaZytP4EMNJ4gWoeddqEZf3AzHgSOT7+O+plkr8grRBlGTQgdxeazEsKL8DoiDkOxoNMVWM=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-From: Stewart Hildebrand <stewart.hildebrand@amd.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Stewart Hildebrand <stewart.hildebrand@amd.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
-	<bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, "Volodymyr
- Babchuk" <Volodymyr_Babchuk@epam.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
-	<roger.pau@citrix.com>
-Subject: [PATCH] xen/arm: fix build with HAS_PCI
-Date: Mon, 9 Jun 2025 16:54:21 -0400
-Message-ID: <20250609205422.180717-1-stewart.hildebrand@amd.com>
-X-Mailer: git-send-email 2.49.0
+X-Inumbo-ID: 33ed73cf-4583-11f0-b894-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netscape.net; s=a2048; t=1749509025; bh=7Bw3jXhW+wkA/wUNZMtibMU2KmDX3Hvp9ZvGY8+23r8=; h=Date:To:Cc:From:Subject:References:From:Subject:Reply-To; b=jl9FmF7JAkKQccD47YpFJdCq+k7/D9Tv2CegMDHO7qHIhIC/25Kf5mJjYilhydcAi6PvjEIC1aklanjKlqkfd9BHc3Zf3mXUao1oqo9ch6f0WP78j7fJMTCD6+HyISeLQaP4S+1F8vBDnWcCV0VLbQkzikmjMnYIIWadI8l0Fst5Uu+c9v1O3L+dG4/NMK0BT/g4Ii4tAdpOvNtUocdt4e3Do2AliCZ93AzVpp4/sai2EJV9QT8AQ5fBNjPrlFcmAShACwdbLRsgYbNXx4lsntSZpwD9CYtR0RfkXCYZ35yZJHlbHav3+C0kJ7zcgWmc6Y4kFZkduBNpNktw5jGCeg==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1749509025; bh=nG2iMdVHZOX6wNMXyzYfBxmJDHQT5MDJHts4/Ckhamu=; h=X-Sonic-MF:Date:To:From:Subject:From:Subject; b=jnZNGEWa2zZ4Ly0kE+uVpLprnJC0zieGpSrko/3KdHu/AXJ27DWx8Em5+y9kWkKoricJxJU4scEXLXcpHh3AE9InKooBpqmlCiy/k8Of239Qy/f3AyOsu19sZjuNSirZUNEsDfAz9pQpTX4VmgSCQc8Z+mFJg19uYLFJfJlI1lIBtJfKxfkC2dvQCnWMFr2FFsNobQ6Xu+sHWpzJZ/uGZeq3b8mtStyt6iysrcBufqKNeYMGqYfIZYlcSlwUQwGf4itbS+PG6U0RGzmA8oV6taKDnXmGtKiI/opl1ZUOUnOJ6AHS+fCekvnJHnFL/tpKEGDUjYxZPfg4A+XmoPFPxw==
+X-YMail-OSG: mjaEBDUVM1mziT1Wc_IHByQDroBWuuSdqxLiyffktXS2f60l5XiDlzQmO4Jjiqj
+ ZF8VdF4G6jsvrZLhzbeToJsDbucH8ZLaV0oaptyCGenBCdr5hghGIIw6lYaGXAzOTvvYRjnNmfxk
+ FEMFARgLGh_0d.a8gmqVplelCWaF9EPn5ztqivpRojwxfSrLFs.xxXr4aoPU7YxUbepR1nKblICj
+ FwWeXS3bofHTg7iibwG4ihaMcDwaVhHdQ.GqIpztBW2obqChBiDZVr9fueSCuamOqZGTykwuFNvu
+ .8oXPig.jkcLO5oZODMdqE26TCXLpWwiWhGS3bEUqO9BX5NneWUIIPCaATgmZJUJCH_4oshvJtUD
+ u1PI1agO904f_ZyxOX709s11gMj4upYrHQaCh78jrBPS7lpjVPvqSes5V25bNvYB5IJa29.6BRNh
+ _XQtzc670TgoDdkF63nvnrmRfTFmH0xhBMbJioubHf84OXMDWmweRL8d4KgaRPGD_eWvO7HgEgsz
+ 6LXVnHYSmHNPwnW3rS8DygBbtkdPSHA9.4QX21yG6NFKbGOmDOLXfcUkSvO01Yo8NMniRz1GvleX
+ J59LYgR3bwSn1PuFcevahQmEK5DA0IzpULg5I7ooD23e2pp1V7mggDlweDorpij1kvaCiR87IBNt
+ ql6TVMoMxDli_RbKdGdWjbtS554NAlCrCsrEqyfI6CDreNW3dhQpcXGy7ac.2NWNa9CW0NajpKCB
+ q4uJj86ODy47CIyli2bp38wr2AkgAxVnrmSmXfPEXq1gk_WarsaZ2wYz.FXHgoeum4Cal5ha.bOP
+ Z6lZ0H4b_OaxhvLZoz1Z0iSLeH.XDvQNL7UwQZPAct2XLY3X4Yw1nz47kF1kqBlrvssijrkLty4j
+ J9KTGPbA8kBMqmjpRojyjYP7hRM8rSA8YsGG48Bp9Aq21i4VKVKJX3hc1YsG4hLAssvgv9yqdoWy
+ FdInki_jHETdTk_v_SfR10Wh_y1ErwY0QxQcwZM.mjXKTTdDo.5KGbBRCS9YKmoQ1dCcMSmRX11M
+ 6Dq.qLmHXO60r7PeQi0bbGBwFYgnpgDquIDUadEm6GXNqp3iuPOZKYlXrPHHgb5J_Pkb9zVXAAju
+ tfVmVSDOFs750Fpy2fwb7.QjBCK5vGX0QWegpyUc_aAxkd4csxwtcVBbKVjenr4wJBlKmKiQushF
+ SpcIw77gyfInhyEDz8aqxygyTtD3G1qmrb.59G3p81g1maejkDHA9U3puHqos8BSQj7vXH4s9jdS
+ WFgiwSmeHaIFHr4nzda4DGD6KrDazLvh3t8ybS6VqmEyhDAzYdugy2kLVhDk5b.EttQx6I0mY9qE
+ 9JVuT42QnG1VovAYmKtywa3jQaas9.C.DJw9cCUbAnhPGzdUVWAp_U78MslHNUyKIv0hmwZwVe6h
+ f5Nwz69P9w193cvlqCjl2jWeuCShpIDKlLxgOAbDFxD3RcO_FTWnfMQkWyssixzeNh0TlT_cLHON
+ 84_QQ_GmlCT35GUbjS0vobb4neQpLUz7074XPMgZ.YFIalOYeXB2UjqvpAVLa7GMjWnd3CPGMBI8
+ fe9fkMc3uhPnRaHUYq1GLJ1WTMO._oGdw3IjEuro4aflxBaa9Ecp7vPouZ4oAhmONRToEL0DUuJO
+ E0pwr1OMbouqhT8.6vD4V_tEJdrTN6Z8swMXomJ9A37qoAr7t1eJ00GmTcj.nRJXQLloTMD3Y1FM
+ byJlFyu9ml6VgOofu0ZmBHep6hK96H91XgKSRx1tyqhX0gIfQ2qbaDC5UN2a3E6HDzXg_8C_osdb
+ BJRZy7ONjfqMBik2NU4bH5Go9gNYjtJiG8zYMfRGpwGU0564NyZWixkPYL.UtiXm480ST0BmS.aS
+ S8ZjMpgf7r5gbiZgJ5wkSviGDSHiHTmlzWbATN_e7sAzRGh7Yw6XQqj7dwcWxHa5EwV2qHaic4DY
+ Ac_8sywHkWW18dYNdpcuPIK7wfwc1ZXSeYSePIoVHCt4WFRQ6ftvquk_655G7wmAQdS296kEGjjO
+ FNO_dEfnLeQiVT27HYXgz0c1J0CjwsxBXdRg8oNCpx7N73XUYhFghndZR3znIULKyaKsNXpnGGCI
+ XMLmlJIsAubhZ0TI1BNXot1mTsE_pu8Y5uf8ASf_2vMVYkZub2K.Nrboa.PZRn9E6ZCzz0JY6wru
+ XKC71sbfDjcY8o8ewpwvQkCs_ju638IRhC.4k2JRvI6EHwKYuVejGxFIpkqHmq0EMrW3KVmBV__U
+ _l2GGc9dwTA--
+X-Sonic-MF: <brchuckz@netscape.net>
+X-Sonic-ID: 4b775504-7aeb-456f-8c31-c4ffb8f0136c
+Message-ID: <8ed96ec9-7c84-4bb4-90ec-5b753be9fd40@netscape.net>
+Date: Mon, 9 Jun 2025 18:43:41 -0400
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-Received-SPF: None (SATLEXMB05.amd.com: stewart.hildebrand@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF00003AE6:EE_|SJ0PR12MB8091:EE_
-X-MS-Office365-Filtering-Correlation-Id: e7fc7de6-8366-4ef2-8270-08dda797d1ed
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700013|1800799024|82310400026|376014;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?alVEUnQyYXN1YnRYS3hFb1lrRUE4WVdIOU9lRTBwbFFGdVF2Mk5MWmd1SHpj?=
- =?utf-8?B?OGlWK3pWL2RvcDhkSy9DK05WZGlHTm4zaU1jRVB4WkMrcGx4RDN3M2NHN0ZU?=
- =?utf-8?B?YlRtd2NCTWhHVVh1S0dCS1ZUSFBoQWZ1WVI1alVXL0JjNC92OTVMT1AycTVG?=
- =?utf-8?B?N2t4bGkyYi9NRWxONlJYdFRFYzZGY1htVDF5SnJlZ3phN05aUXFYMFBoeHRK?=
- =?utf-8?B?WFZtYjNET29YaTlkM0NydDNMa1BacTV3QmI4TzV4NVVzeGxOaUVvMVJvcGVO?=
- =?utf-8?B?VTlyQWRqVFByU3JRMDJEcm8vNjVhdnI1Y0FUVHpvKzlUdWFGU05GdHpibzZr?=
- =?utf-8?B?UkJCUENvekFOQ0FNdkNvN0xVWGI3WVJidnBJTkUrQjMrR0tzMWJwdG1FM21U?=
- =?utf-8?B?UGZPOVpVb2lMUjFYeFRINHMvRWtRL0paWVhrNXErbUpUK2ZJVEtIWjUvT0RQ?=
- =?utf-8?B?MUhlTE02SlpJVVR4cW02T1E2MWpyMzIyaVFiWkhJZFlGQ1lNUWY0TEtBVEk1?=
- =?utf-8?B?cTR3MWF2L0E1MC9nVnBHOU9IVjZNRGZSbTdDQi9RWWUwYi82M1hIb3FYK0R0?=
- =?utf-8?B?M2VoR3g5WVBRVnAwWXhtb0hOK290SGJYVjd6L2pLK25HQVBBNW5Db2RCQld5?=
- =?utf-8?B?N3FBNnB1V1dTNUdyZHJ2azltRzhnblNsSGEreENLT0N5bDJmNUEyYWpYbnZW?=
- =?utf-8?B?TlM0L2ZXN0J0WlI2eHBEeHBKYW15SGZnc0lsRzc1Z09yVnBwd2ljRUI4Uks3?=
- =?utf-8?B?eERLKzNBQW1iMGxSTmRJL2RibG5uejVUWlVsOG9tRFFVSTFBcDhxR2RwL3dx?=
- =?utf-8?B?Y1FQT3FQLzc4MnorWmJWWnNoVnN5aXdUTVQ3bnFtWTdJZTJidTRITWVtM3Np?=
- =?utf-8?B?cHBsZHJ1aHFrNFRXcTBqVFdhZ0I1QXVHVklkWkRNUVFzZkNQMGwrT3RPK2xK?=
- =?utf-8?B?K2tVeHlvN2FpTlNDWUVRYVc3ZmVyc0ZWeDFkbWVvWFFNSDcxU0VJUWgxQkxM?=
- =?utf-8?B?dVZwTlBVeDlnNUZPbGh5SzRaVENNMTFoT1ZheGluOUlMR01DNTl4RDFheUx4?=
- =?utf-8?B?cms3dzFhOXk3Y2FRYzNWNWtaclNhaS9QaU02WE9nMXEyb1R2UlpWUjk0QStO?=
- =?utf-8?B?OUhickI1cU1pMU1iRTZFbXJBQ21zMEtTanhHUFhrVFBuTTVNbDZsRXB4K2RU?=
- =?utf-8?B?amVJYWRlRnN5Z0tTRmtLQkhJSFN3ZXU5VUI4UDNLeWxpUG5Sc2hiaHgySUYz?=
- =?utf-8?B?QTE1elhNQk5WaHptZ2tXeEt6VTRza1M2dTFYNVlZeWcyemVqZlY1bU40Tm5q?=
- =?utf-8?B?TkFMOWRJN0s5RmdrMUJXRW1HQlBTTURWcGhXanlnUjhEVENMenpJa2UySDRH?=
- =?utf-8?B?UUNyWmFYK3kzdUZMZWMxYk5pMmFZY1pXWlVMQzJJeDlVWVhPN1VjSThuNG9V?=
- =?utf-8?B?TTFocEJlaDJ5RkFZTGpnTGJvSGFlTDkwWFIvMGZ3bDl0OGJyYmk5Tlo4ZHF4?=
- =?utf-8?B?YnlmdDJXTVNWazM2YUxwRjRkZFBrSFZBNTEyNVBrWTl6SWlTenM4OTZqUkVa?=
- =?utf-8?B?eDlMTGNockhTUXQvQkRGaWwrQkZyL0h2c2JNdnBrTUNaSkVhSXRTRkMrS1dW?=
- =?utf-8?B?alc4Y0NBV0gvb0VEV2J3MnNyZ1lOYnlvVGk2TWVHWWZUaEJMZ0JTd3VtRlJQ?=
- =?utf-8?B?SzFkbjg5NFNSNG9zcnp1b1NjdjVZM2pCNkRKNTRzS0VYby8zR2RYY2MwbTdG?=
- =?utf-8?B?dUpDbG9KRFVRWDRPTU5kc2VWQlNUTmRJc0J6c2tLNVhodHNGNW40eDNBYUhn?=
- =?utf-8?B?S2dXNmNLandWNFRTUDNGK05vQ2JqL2Q5c2xlUDFJSUh2UWJGcDBuTFJHbEFj?=
- =?utf-8?B?Zm9ZckhLcCtFL1JjUEtreVNsbTJtUVB0ZUYxME9EZ2Vyd05rR3JERlBWdVJR?=
- =?utf-8?B?dzJUZEdmTGl6SkJDN1JXRVp1dVNISE1uNG1Ec3BBazdUK0wwYnBmS0VmM1Az?=
- =?utf-8?B?ZXViWWdveFhKRkwySHRMWVZiVExBQ2hzWm13MWpFMnhuRC84bzlGaVA5WWpi?=
- =?utf-8?Q?QaD57+?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(1800799024)(82310400026)(376014);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jun 2025 20:54:25.9628
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e7fc7de6-8366-4ef2-8270-08dda797d1ed
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SA2PEPF00003AE6.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB8091
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: stable@vger.kernel.org
+Cc: regressions@lists.linux.dev, xen-devel <xen-devel@lists.xenproject.org>,
+ Juergen Gross <jgross@suse.com>, Boris Ostrovsky <boris.ostrovsky@oracle.com>
+From: Chuck Zmudzinski <brchuckz@netscape.net>
+Subject: [REGRESSION] Linux 6.15.1 xen/dom0 domain_crash_sync called from
+ entry.S
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+References: <8ed96ec9-7c84-4bb4-90ec-5b753be9fd40.ref@netscape.net>
+X-Mailer: WebService/1.1.23956 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.aol
 
-In file included from ./include/xen/pci.h:72,
-                 from drivers/pci/pci.c:8:
-./arch/arm/include/asm/pci.h:131:50: error: ‘struct rangeset’ declared inside parameter list will not be visible outside of this definition or declaration [-Werror]
-  131 | static inline int pci_sanitize_bar_memory(struct rangeset *r)
-      |                                                  ^~~~~~~~
-cc1: all warnings being treated as errors
+Hi,
 
-Fixes: 4acab25a9300 ("x86/vpci: fix handling of BAR overlaps with non-hole regions")
-Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
----
- xen/arch/arm/include/asm/pci.h | 2 ++
- 1 file changed, 2 insertions(+)
+I am seeing the following regression between Linux 6.14.8 and 6.15.1.
 
-diff --git a/xen/arch/arm/include/asm/pci.h b/xen/arch/arm/include/asm/pci.h
-index 1605ec660d0b..1bbb9d780193 100644
---- a/xen/arch/arm/include/asm/pci.h
-+++ b/xen/arch/arm/include/asm/pci.h
-@@ -17,6 +17,8 @@
- 
- #ifdef CONFIG_HAS_PCI
- 
-+#include <xen/rangeset.h>
-+
- #include <asm/p2m.h>
- 
- #define pci_to_dev(pcidev) (&(pcidev)->arch.dev)
+Kernel version 6.14.8 boots fine but version 6.15.1 crashes and
+reboots on Xen. I don't know if 6.14.9 or 6.14.10 is affected, or
+if 6.15 or the 6.15 release candidates are affected because I did
+not test them.
 
-base-commit: 86a12671c5d33063b6f958bdcca7c9d14cd5aac8
--- 
-2.49.0
+Also, Linux 6.15.1 boots fine on bare metal without Xen.
 
+Hardware: Intel i5-14500 Raptor Lake CPU, and ASRock B760M PG motherboard and 32 GB RAM.
+
+Xen version: 4.19.2 (mockbuild@dynavirt.com) (gcc (GCC) 13.3.1 20240611 (Red Hat 13.3.1-2)) debug=n Sun Apr 13 15:24:29 PDT 2025
+
+Xen Command line: placeholder dom0_mem=2G,max:2G conring_size=32k com1=9600,8n1,0x40c0,16,1:0.0 console=com1
+
+Linux version 6.15.1-1.el9.elrepo.x86_64 (mockbuild@5b7a5dab3b71429898b4f8474fab8fa0) (gcc (GCC) 11.5.0 20240719 (Red Hat 11.5.0-5), GNU ld version 2.35.2-63.el9) #1 SMP PREEMPT_DYNAMIC Wed Jun  4 16:42:58 EDT 2025
+
+Linux Kernel Command line: placeholder root=/dev/mapper/systems-rootalma ro crashkernel=1G-4G:192M,4G-64G:256M,64G-:512M resume=UUID=2ddc2e3b-8f7b-498b-a4e8-bb4d33a1e5a7 console=hvc0
+
+The Linux 6.15.1 dom0 kernel causes Xen to crash and reboot, here are
+the last messages on the serial console (includes messages from both
+dom0 and Xen) before crash:
+
+[    0.301573] Speculative Store Bypass: Mitigation: Speculative Store Bypass disabled via prctl
+
+[    0.301577] Register File Data Sampling: Vulnerable: No microcode
+
+[    0.301581] ITS: Mitigation: Aligned branch/return thunks
+
+[    0.301594] x86/fpu: Supporting XSAVE feature 0x001: 'x87 floating point registers'
+
+[    0.301598] x86/fpu: Supporting XSAVE feature 0x002: 'SSE registers'
+
+[    0.301602] x86/fpu: Supporting XSAVE feature 0x004: 'AVX registers'
+
+[    0.301605] x86/fpu: xstate_offset[2]:  576, xstate_sizes[2]:  256
+
+[    0.301609] x86/fpu: Enabled xstate features 0x7, context size is 832 bytes, using 'compacted' format.
+
+(XEN) Pagetable walk from ffffc9003ffffff8:
+(XEN)  L4[0x192] = 0000000855bee067 0000000000060e56
+(XEN)  L3[0x000] = 0000000855bed067 0000000000060e55
+(XEN)  L2[0x1ff] = 0000000855bf0067 0000000000060e58
+(XEN)  L1[0x1ff] = 8010000855bf2025 0000000000060e5a
+(XEN) domain_crash_sync called from entry.S: fault at ffff82d04036e5b0 x86_64/entry.S#domain_crash_page_fault_6x8+0/0x4
+(XEN) Domain 0 (vcpu#0) crashed on cpu#11:
+(XEN) ----[ Xen-4.19.2  x86_64  debug=n  Not tainted ]----
+(XEN) CPU:    11
+(XEN) RIP:    e033:[<ffffffff810014fe>]
+(XEN) RFLAGS: 0000000000010206   EM: 1   CONTEXT: pv guest (d0v0)
+(XEN) rax: ffffffff81fb12d0   rbx: 000000000000029a   rcx: 000000000000000c
+(XEN) rdx: 000000000000029a   rsi: ffffffff81000b99   rdi: ffffc900400000f0
+(XEN) rbp: 000000000000014d   rsp: ffffc90040000000   r8:  0000000000000f9c
+(XEN) r9:  0000000000000000   r10: 0000000000000000   r11: 0000000000000000
+(XEN) r12: 000000000000000c   r13: ffffffff82771530   r14: ffffffff827724cc
+(XEN) r15: ffffc900400000f0   cr0: 0000000080050033   cr4: 0000000000b526e0
+(XEN) cr3: 000000086ae24000   cr2: ffffc9003ffffff8
+(XEN) fsb: 0000000000000000   gsb: ffff88819ac55000   gss: 0000000000000000
+(XEN) ds: 0000   es: 0000   fs: 0000   gs: 0000   ss: e02b   cs: e033
+(XEN) Guest stack trace from rsp=ffffc90040000000:
+(XEN)   Stack empty.
+(XEN) Hardware Dom0 crashed: rebooting machine in 5 seconds.
+(XEN) Resetting with ACPI MEMORY or I/O RESET_REG.
+
+I searched mailing lists but could not find a report similar to what I am
+seeing here.
+
+I don't know what to try except to git bisect, but I have not done that yet.
+
+Chuck Zmudzinski
 
