@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F6B1AD3C85
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Jun 2025 17:17:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1011040.1389334 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A1C6BAD3CBB
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Jun 2025 17:22:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1011046.1389345 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uP0j2-0005Sy-EW; Tue, 10 Jun 2025 15:17:20 +0000
+	id 1uP0nw-000799-0c; Tue, 10 Jun 2025 15:22:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1011040.1389334; Tue, 10 Jun 2025 15:17:20 +0000
+Received: by outflank-mailman (output) from mailman id 1011046.1389345; Tue, 10 Jun 2025 15:22:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uP0j2-0005Qd-Bb; Tue, 10 Jun 2025 15:17:20 +0000
-Received: by outflank-mailman (input) for mailman id 1011040;
- Tue, 10 Jun 2025 15:17:18 +0000
+	id 1uP0nv-000779-TJ; Tue, 10 Jun 2025 15:22:23 +0000
+Received: by outflank-mailman (input) for mailman id 1011046;
+ Tue, 10 Jun 2025 15:22:22 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=6UIy=YZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uP0j0-0005QX-Rf
- for xen-devel@lists.xenproject.org; Tue, 10 Jun 2025 15:17:18 +0000
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [2a00:1450:4864:20::32c])
+ id 1uP0nu-000773-4t
+ for xen-devel@lists.xenproject.org; Tue, 10 Jun 2025 15:22:22 +0000
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [2a00:1450:4864:20::32a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fec89b6c-460d-11f0-a307-13f23c93f187;
- Tue, 10 Jun 2025 17:17:17 +0200 (CEST)
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-4530921461aso22357035e9.0
- for <xen-devel@lists.xenproject.org>; Tue, 10 Jun 2025 08:17:17 -0700 (PDT)
+ id b3f888fa-460e-11f0-a307-13f23c93f187;
+ Tue, 10 Jun 2025 17:22:21 +0200 (CEST)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-441d437cfaaso35600725e9.1
+ for <xen-devel@lists.xenproject.org>; Tue, 10 Jun 2025 08:22:21 -0700 (PDT)
 Received: from ?IPV6:2003:ca:b734:b49b:5992:e13c:c106:5fe0?
  (p200300cab734b49b5992e13cc1065fe0.dip0.t-ipconnect.de.
  [2003:ca:b734:b49b:5992:e13c:c106:5fe0])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3a53244f04dsm12510034f8f.73.2025.06.10.08.17.15
+ 5b1f17b1804b1-452730b9caasm141001195e9.20.2025.06.10.08.22.19
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 10 Jun 2025 08:17:16 -0700 (PDT)
+ Tue, 10 Jun 2025 08:22:20 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,50 +47,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fec89b6c-460d-11f0-a307-13f23c93f187
+X-Inumbo-ID: b3f888fa-460e-11f0-a307-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1749568637; x=1750173437; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1749568941; x=1750173741; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=b+EI1t4yLwz4LE9dJEOj7asJ8CJKXkDQIPd3rCYuxJE=;
-        b=DHC4Coe3zPyeEjCloJbk8Z+BY92QI0i6yS4RPRHonCmNKcj4ai9z3Jse8o0PYQlglj
-         rWBalsypyC718XyuYi2hLsKCrKToUAagFwJiFd8jL8Zo5lb/bzohfxbO7oxJFBSblevc
-         3uzqqyD8y6Iw3pCAcDFsEKyGnmO8ZO4cplsdIgEJM/OvK+IVmDRJjtS1gk8e9GPbKtAN
-         gYLO0t+2znKHS3zzb2MZR1GaYXDzJPnLeuHcalxyWxXqCYLR2RlMufuqBdvYd6qHIMAU
-         UkuuNhfX9wlin7ucfHLd6F19WNro8RZoTUsMMalWKBNIN71LApHe3WNyomO95poTQeEM
-         FAXA==
+        bh=tmmGaEsnvDUjUnQl8JBKrdKWGYxP5naWay+hjidSRKg=;
+        b=MUFkoZROp95LKWqr2drYz3xfMUSgnXKBKRPrX/gjZmDL2jLlgub4f2Gn/2R599G1Pg
+         rp0W7yvmFPThdRg9dQsAXt2NpX92TuyznDXqnx9EDhefLyBG4CrNHZz6RiM32znfwNhA
+         YrNMq8tUj31BkJVCDOdHiGIDD4q1ukWvALM5MVyIWIj2ocrfEnGg200fucejT90GIL8W
+         QgV/9RpWRhccRsJwwD6WEVqcwQblDuGfQ4J394mIS+fwa48QA1tbt5H6IkXp/fuquons
+         xdP1qZD8l1SvbV5vEcSiOFbRB9yxW2dCI+8q5K8WJVgIwLpan1S7QhJvWcowv/SozND1
+         5gMw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749568637; x=1750173437;
+        d=1e100.net; s=20230601; t=1749568941; x=1750173741;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=b+EI1t4yLwz4LE9dJEOj7asJ8CJKXkDQIPd3rCYuxJE=;
-        b=aP0DPDazoNqufOAodNPSyT0ruE60LRB3/VLYrwy1K3Vrm1XDRrIjZakIulSQpLC5KT
-         1YJNoW+zNuuMW1Qc4cKhO4V1eSgzCZvZyqD4qw+NYrUp1YRYzEqSNdow597pi8g0YGRx
-         BkFqhv807iQNu/1z6e7BWwzsLSSWZZjYREMYmQbawtbInLocGDd1giikDPSXcDDOnv4Y
-         XG65euTbnscqeBDlPdNy2Z0JTt0dd3it+EffUYsjEcXSfkjuUHQY0LbDH/QSChkFHA7j
-         z88XAP7v89M7JSifMuSw+QuEK2oISEFq91DnxCkajyIjCH9qtBJqVDhTum/2dO6w6ZZ5
-         x5Gg==
-X-Forwarded-Encrypted: i=1; AJvYcCUY0gyndMO3wkTJeZ33g8OT2FT4mlltbkQuM/qj5hbvtZwyjO61MAOouGX6X0mAWitdzoPDiTrzI4E=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz17uduoot9psYpuNTvb/hFyBfTV7Cy5TCWbVgUT48hRDbjzyqf
-	3sL9KQ+j+zMSmaHAnI+yWoociIdwKyYAV6/pYFpB9I43XxCqjtT/6H4rSKuqrDqvhw==
-X-Gm-Gg: ASbGncsHDVw1guJwiOEJHB+5V4+D4O5xAxklrWK5r4KQNqCTIny7plTYYFj9hQkPzJa
-	pKM/ZV+c6PfYhxyHj/uobh07C0TYFbWy7PK+627SGtGUAo20KpMt38AtUBFCkFJ1QZoWktsjooo
-	48l/iJL9/k4rMhcaUUStCilpWfa4JPSMmcx1JbUi6zPP4yBKse4mEzvkOvNMynPRZ+3hrs30agO
-	RLTE1A07CHNRAwHNLaGu99Oq41naq1Sc1Aaerc8gEPKsRz73JjqFKTTXefBn6RMchXFmtnKSzm+
-	+7e3C566FFLjKkX6dFTDT0EZj9qOo3k/mbAnb8Slspn8LvE87//1YSaxQwoiVyaeavn/+RPArPc
-	Am1pF1upaEs57r9hGesEnn5+j4GghlJh7Hpd2+I/1hLNSfFo6+pmJKaIEsUENeT8MkmRRiiQLO6
-	E3cMFQjutRHz0Q1jlkinBx
-X-Google-Smtp-Source: AGHT+IEK/l8vRvV8bzq+OsDJafI7PCcN9/JhQgBohhVEiRXPqIdQFNvmrpCDz3GXJR1cyausbfI0aA==
-X-Received: by 2002:a05:6000:188f:b0:3a4:f7dc:8a62 with SMTP id ffacd0b85a97d-3a531453ce7mr13059408f8f.0.1749568636615;
-        Tue, 10 Jun 2025 08:17:16 -0700 (PDT)
-Message-ID: <910ea6a2-2bd1-4499-bdb1-debc4a778502@suse.com>
-Date: Tue, 10 Jun 2025 17:17:15 +0200
+        bh=tmmGaEsnvDUjUnQl8JBKrdKWGYxP5naWay+hjidSRKg=;
+        b=V/kzzxJxaS9ISFREXcerhro47T3LxtOUWkKy3mpKirW5L+byHQd0JcmpgPj78HnJt4
+         0gIeh1FabGsXcTV1SJsHyZ3LjmZ4e6sHRS0cbS3/99TZX3zF/666yX6nnnecbYaFMdZu
+         0l+iQZMf/6q7oXpgfB1BQR0P1vxmGLy86GrX1+i2JyfMo1ik2wHrfi8OHOxsWOMfustd
+         DntY857v9aZ1bnZIvBjSrrrp1u1lKsfFaez+U3Eve9Ivo4fqVVguD/wp6UA1BpXbt301
+         1uTIJIVEXDmryqZJLDnqYiWCE+PIrS4FGD+MFMEB9MIab45gJyQfCIHgbV3FhMYjVnkH
+         XbJA==
+X-Forwarded-Encrypted: i=1; AJvYcCVCSXxIxxfHKvsFFmdh/jThyg26LRT7sYGnzrO8nvKIG2fCARYxsn5CcZLynIQUo8Q7HD6ZNGeMw0s=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy0ZG1rdaVjyuoiHmEIH1YFrdydDX2qZjjgKfvgeuTSKMXAg4+w
+	NdRB+etAU9VREcKcwMDg1cVq9P8zbZE/7qv/tK3IrH6OwBSRZaJKmXV/UISNjRomJw==
+X-Gm-Gg: ASbGnctGYqP/E9TJ45pZEMc2a2+B8Pq7AZ9F4gvHaHAlj4jVK4u+3CfpSC1F/lcSFZb
+	Kcq6AEGYNM8PpAbGIIih+XKR130HOCP62wASt/ZYAJEWsfSw0N+1L40ehDshUcqDr/60UnIOiTl
+	qu+XlBQcw6jSaVXFN23jqsMnthocMljjC8wgYnbeHJTbdLz30Vn7aRPV2p6Wlaqde9qfW+DnIM2
+	tDAJRUzWCbwcisHFGyAQpRurbJhESLq2UG3tjJJtPLzSnRYHIaXI5gEcWjGj/r+/KR32Z5l5QLn
+	63afsMBckk3gqYov5CY3OV73iKt/Nb20dY5Xea8CFE/wYf3xI5pLepktAhRMckYVO3LFa/gXMPG
+	SKAVl9CpMH9KBWHd8YUjp3+n+OFlJtWujh56E5I8U20+byi73vvZxdQLZVEIFpbZPJVE9Yl3iFC
+	zOFM2PWPVG9lNFKQPFBNLt
+X-Google-Smtp-Source: AGHT+IHNG/tq0IcOnNuzIA/MX+dFPVzd5OruvC4r13JTdmcr9HHZMOGCXxdhk8VFPhyErevx8WpgPw==
+X-Received: by 2002:a05:600c:1e8a:b0:450:d37d:7c with SMTP id 5b1f17b1804b1-452014976b1mr149242475e9.21.1749568940641;
+        Tue, 10 Jun 2025 08:22:20 -0700 (PDT)
+Message-ID: <17943f73-8123-40c1-91cb-56dac6e1976e@suse.com>
+Date: Tue, 10 Jun 2025 17:22:19 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 3/9] xen/riscv: imsic_init() implementation
+Subject: Re: [PATCH v4 4/9] xen/riscv: aplic_init() implementation
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Cc: Alistair Francis <alistair.francis@wdc.com>,
  Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
@@ -101,7 +101,7 @@ Cc: Alistair Francis <alistair.francis@wdc.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
  Romain Caritey <Romain.Caritey@microchip.com>, xen-devel@lists.xenproject.org
 References: <cover.1749121437.git.oleksii.kurochko@gmail.com>
- <a0816fb00eec29327146b828fa460b5a444e26a7.1749121437.git.oleksii.kurochko@gmail.com>
+ <1913a653568d51ed630dbbda1e1364b41aa5db89.1749121437.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -127,226 +127,66 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <a0816fb00eec29327146b828fa460b5a444e26a7.1749121437.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <1913a653568d51ed630dbbda1e1364b41aa5db89.1749121437.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 05.06.2025 17:58, Oleksii Kurochko wrote:
-> --- /dev/null
-> +++ b/xen/arch/riscv/imsic.c
-> @@ -0,0 +1,358 @@
-> +/* SPDX-License-Identifier: MIT */
-> +
-> +/*
-> + * xen/arch/riscv/imsic.c
-> + *
-> + * RISC-V Incoming MSI Controller support
-> + *
-> + * (c) Microchip Technology Inc.
-> + * (c) Vates
-> + */
-> +
-> +#include <xen/bitops.h>
-> +#include <xen/const.h>
-> +#include <xen/cpumask.h>
-> +#include <xen/device_tree.h>
-> +#include <xen/errno.h>
-> +#include <xen/init.h>
-> +#include <xen/macros.h>
-> +#include <xen/smp.h>
-> +#include <xen/spinlock.h>
-> +#include <xen/xvmalloc.h>
-> +
-> +#include <asm/imsic.h>
-> +
-> +#define IMSIC_HART_SIZE(guest_bits_) (BIT(guest_bits_, U) * IMSIC_MMIO_PAGE_SZ)
-
-Minor: Any particular reason for the trailing underscore here?
-
-> +/*
-> + * Initialize the imsic_cfg structure based on the IMSIC DT node.
-> + *
-> + * Returns 0 if initialization is successful, a negative value on failure,
-> + * or IRQ_M_EXT if the IMSIC node corresponds to a machine-mode IMSIC,
-> + * which should be ignored by the hypervisor.
-> + */
-> +int __init imsic_init(const struct dt_device_node *node)
+On 05.06.2025 17:59, Oleksii Kurochko wrote:
+> +static int __init cf_check aplic_init(void)
 > +{
+> +    dt_phandle imsic_phandle;
+> +    const __be32 *prop;
+> +    uint64_t size, paddr;
+> +    const struct dt_device_node *imsic_node;
+> +    const struct dt_device_node *node = aplic_info.node;
 > +    int rc;
-> +    unsigned long reloff, hartid;
-> +    unsigned int nr_parent_irqs, index, nr_handlers = 0;
-> +    paddr_t base_addr;
-> +    unsigned int nr_mmios;
-> +    struct imsic_mmios *mmios;
-> +    struct imsic_msi *msi = NULL;
 > +
-> +    /* Parse IMSIC node */
-> +    rc = imsic_parse_node(node, &nr_parent_irqs, &nr_mmios);
-> +    /*
-> +     * If machine mode imsic node => ignore it.
-> +     * If rc < 0 => parsing of IMSIC DT node failed.
-> +     */
-> +    if ( (rc == IRQ_M_EXT) || (rc < 0) )
-> +        return rc;
+> +    /* Check for associated imsic node */
+> +    if ( !dt_property_read_u32(node, "msi-parent", &imsic_phandle) )
+> +        panic("%s: IDC mode not supported\n", node->full_name);
 > +
-> +    /* Allocate MMIO resource array */
-> +    mmios = xvzalloc_array(struct imsic_mmios, nr_mmios);
-> +    if ( !mmios )
-> +    {
-> +        rc = -ENOMEM;
-> +        goto imsic_init_err;
-> +    }
+> +    imsic_node = dt_find_node_by_phandle(imsic_phandle);
+> +    if ( !imsic_node )
+> +        panic("%s: unable to find IMSIC node\n", node->full_name);
 > +
-> +    msi = xvzalloc_array(struct imsic_msi, nr_parent_irqs);
-> +    if ( !msi )
-> +    {
-> +        rc = -ENOMEM;
-> +        goto imsic_init_err;
-> +    }
+> +    rc = imsic_init(imsic_node);
+> +    if ( rc == IRQ_M_EXT )
+> +        /* Machine mode imsic node, ignore this aplic node */
+> +        return 0;
 > +
-> +    /* Check MMIO register sets */
-> +    for ( unsigned int i = 0; i < nr_mmios; i++ )
-> +    {
-> +        unsigned int guest_bits = imsic_cfg.guest_index_bits;
-> +        unsigned long expected_mmio_size =
-> +            IMSIC_HART_SIZE(guest_bits) * nr_parent_irqs;
-> +
-> +        rc = dt_device_get_address(node, i, &mmios[i].base_addr,
-> +                                   &mmios[i].size);
-> +        if ( rc )
-> +        {
-> +            printk(XENLOG_ERR "%s: unable to parse MMIO regset %u\n",
-> +                   node->name, i);
-> +            goto imsic_init_err;
-> +        }
-> +
-> +        base_addr = mmios[i].base_addr;
-> +        base_addr &= ~(BIT(guest_bits +
-> +                           imsic_cfg.hart_index_bits +
-> +                           IMSIC_MMIO_PAGE_SHIFT, UL) - 1);
-> +        base_addr &= ~((BIT(imsic_cfg.group_index_bits, UL) - 1) <<
-> +                       imsic_cfg.group_index_shift);
-> +        if ( base_addr != imsic_cfg.base_addr )
-> +        {
-> +            rc = -EINVAL;
-> +            printk(XENLOG_ERR "%s: address mismatch for regset %u\n",
-> +                   node->name, i);
-> +            goto imsic_init_err;
-> +        }
-> +
-> +        if ( mmios[i].size != expected_mmio_size )
-> +        {
-> +            rc = -EINVAL;
-> +            printk(XENLOG_ERR "%s: IMSIC MMIO size is incorrect %ld, "
-> +                   "expeced MMIO size: %ld\n", node->name, mmios[i].size,
+> +    if ( rc )
+> +        panic("%s: Failded to initialize IMSIC\n", node->full_name);
 
-To aid grep-ability, please avoid wrapping format strings across lines.
-(Same at least once more elsewhere.)
+Nit: Stray 'd'.
 
-> +                   expected_mmio_size);
-> +            goto imsic_init_err;
-> +        }
-> +    }
+> +    /* Find out number of interrupt sources */
+> +    if ( !dt_property_read_u32(node, "riscv,num-sources",
+> +                               &aplic_info.num_irqs) )
+> +        panic("%s: failed to get number of interrupt sources\n",
+> +              node->full_name);
 > +
-> +    /* Configure handlers for target CPUs */
-> +    for ( unsigned int i = 0; i < nr_parent_irqs; i++ )
-> +    {
-> +        unsigned long cpu;
-
-Along the lines of questions on earlier versions: Any reason this isn't
-unsigned int?
-
-> +        rc = imsic_get_parent_hartid(node, i, &hartid);
-> +        if ( rc )
-> +        {
-> +            printk(XENLOG_WARNING "%s: cpu ID for parent irq%u not found\n",
-> +                   node->name, i);
-> +            continue;
-> +        }
+> +    if ( aplic_info.num_irqs > ARRAY_SIZE(aplic.regs->sourcecfg) )
+> +        aplic_info.num_irqs = ARRAY_SIZE(aplic.regs->sourcecfg);
 > +
-> +        cpu = hartid_to_cpuid(hartid);
+> +    prop = dt_get_property(node, "reg", NULL);
+> +    dt_get_range(&prop, node, &paddr, &size);
+> +    if ( !paddr )
+> +        panic("%s: first MMIO resource not found\n", node->full_name);
 > +
-> +        if ( cpu >= num_possible_cpus() )
-> +        {
-> +            printk(XENLOG_WARNING "%s: unsupported hart ID=%#lx for parent "
-> +                   "irq%u\n", node->name, hartid, i);
-> +            continue;
-> +        }
+> +    if ( !IS_ALIGNED(paddr, KB(4)) )
+> +        panic("%s: paddr of memory-mapped control region should be 4Kb "
+> +              "aligned:%#lx\n", __func__, paddr);
 > +
-> +        /* Find MMIO location of MSI page */
-> +        reloff = i * BIT(imsic_cfg.guest_index_bits, UL) * IMSIC_MMIO_PAGE_SZ;
+> +    if ( !IS_ALIGNED(size, KB(4)) && (size < KB(16)) )
 
-Any reason to open-code IMSIC_HART_SIZE() here and ...
+DYM || instead of && here?
 
-> +        for ( index = 0; index < nr_mmios; index++ )
-> +        {
-> +            if ( reloff < mmios[index].size )
-> +                break;
-> +
-> +            /*
-> +             * MMIO region size may not be aligned to
-> +             * BIT(global->guest_index_bits) * IMSIC_MMIO_PAGE_SZ
-> +             * if holes are present.
-> +             */
-> +            reloff -= ROUNDUP(mmios[index].size,
-> +                      BIT(imsic_cfg.guest_index_bits, UL) * IMSIC_MMIO_PAGE_SZ);
+> +        panic("%s: memory-mapped control region should be a multiple of 4 KiB "
+> +              "in size and the smallest valid control is 16Kb: %#lx\n",
+> +              __func__, size);
 
-... here?
-
-> +        }
-> +
-> +        if ( index == nr_mmios )
-> +        {
-> +            printk(XENLOG_WARNING "%s: MMIO not found for parent irq%u\n",
-> +                   node->name, i);
-> +            continue;
-> +        }
-> +
-> +        if ( !IS_ALIGNED(msi[cpu].base_addr + reloff,
-
-DYM mmios[index].base_addr here, considering that ...
-
-> +                         IMSIC_MMIO_PAGE_SZ) )
-> +        {
-> +            printk(XENLOG_WARNING "%s: MMIO address %#lx is not aligned on "
-> +                   "a page\n", node->name, msi[cpu].base_addr + reloff);
-> +            msi[cpu].offset = 0;
-> +            msi[cpu].base_addr = 0;
-> +            continue;
-> +        }
-> +
-> +        msi[cpu].base_addr = mmios[index].base_addr;
-> +        msi[cpu].offset = reloff;
-
-msi[cpu] is set only here?
-
-Also is the setting to zero of both fields on the "continue" path really
-needed, seeing that the array starts out zero-filled? Can the same CPU
-be found twice, making it necessary(?) to invalidate the array slot later?
-
-> +        nr_handlers++;
-> +    }
-> +
-> +    if ( !nr_handlers )
-> +    {
-> +        printk(XENLOG_ERR "%s: No CPU handlers found\n", node->name);
-> +        rc = -ENODEV;
-> +        goto imsic_init_err;
-> +    }
-> +
-> +    imsic_cfg.msi = msi;
-> +
-> +    XFREE(mmios);
-
-No need to use the macro, and you really mean xvfree() now.
-
-> +    return 0;
-> +
-> + imsic_init_err:
-> +    XFREE(mmios);
-> +    XFREE(msi);
-
-Same here.
+Here and above: See my remark on the earlier patch regarding the wrapping
+of format strings.
 
 Jan
 
