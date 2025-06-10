@@ -2,52 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70396AD3EA7
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Jun 2025 18:17:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1011107.1389435 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D3C5AD3EF3
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Jun 2025 18:30:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1011116.1389445 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uP1ej-0002fc-PZ; Tue, 10 Jun 2025 16:16:57 +0000
+	id 1uP1ra-0005ik-1f; Tue, 10 Jun 2025 16:30:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1011107.1389435; Tue, 10 Jun 2025 16:16:57 +0000
+Received: by outflank-mailman (output) from mailman id 1011116.1389445; Tue, 10 Jun 2025 16:30:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uP1ej-0002do-MA; Tue, 10 Jun 2025 16:16:57 +0000
-Received: by outflank-mailman (input) for mailman id 1011107;
- Tue, 10 Jun 2025 16:16:56 +0000
+	id 1uP1rZ-0005gK-Uq; Tue, 10 Jun 2025 16:30:13 +0000
+Received: by outflank-mailman (input) for mailman id 1011116;
+ Tue, 10 Jun 2025 16:30:12 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ghGr=YZ=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
- id 1uP1eh-0002dg-Ru
- for xen-devel@lists.xenproject.org; Tue, 10 Jun 2025 16:16:55 +0000
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2062a.outbound.protection.outlook.com
- [2a01:111:f403:2414::62a])
+ <SRS0=HnHp=YZ=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1uP1rY-0005gE-Db
+ for xen-devel@lists.xenproject.org; Tue, 10 Jun 2025 16:30:12 +0000
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [2a00:1450:4864:20::435])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 51219e36-4616-11f0-a307-13f23c93f187;
- Tue, 10 Jun 2025 18:16:52 +0200 (CEST)
-Received: from DM5PR07CA0093.namprd07.prod.outlook.com (2603:10b6:4:ae::22) by
- PH8PR12MB7351.namprd12.prod.outlook.com (2603:10b6:510:215::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8746.30; Tue, 10 Jun
- 2025 16:16:48 +0000
-Received: from CY4PEPF0000EE3B.namprd03.prod.outlook.com
- (2603:10b6:4:ae:cafe::c) by DM5PR07CA0093.outlook.office365.com
- (2603:10b6:4:ae::22) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8746.30 via Frontend Transport; Tue,
- 10 Jun 2025 16:16:48 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- CY4PEPF0000EE3B.mail.protection.outlook.com (10.167.242.14) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8835.15 via Frontend Transport; Tue, 10 Jun 2025 16:16:47 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 10 Jun
- 2025 11:16:46 -0500
-Received: from [172.26.5.4] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Tue, 10 Jun 2025 11:16:45 -0500
+ id 2dbb8005-4618-11f0-a307-13f23c93f187;
+ Tue, 10 Jun 2025 18:30:11 +0200 (CEST)
+Received: by mail-wr1-x435.google.com with SMTP id
+ ffacd0b85a97d-3a528243636so3468147f8f.3
+ for <xen-devel@lists.xenproject.org>; Tue, 10 Jun 2025 09:30:11 -0700 (PDT)
+Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
+ by smtp.gmail.com with UTF8SMTPSA id
+ 5b1f17b1804b1-452730b9b27sm142268045e9.23.2025.06.10.09.30.09
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 10 Jun 2025 09:30:09 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,130 +45,395 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 51219e36-4616-11f0-a307-13f23c93f187
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=w4zb6Gi2kVhMc5DfRyerfLfCiX4704V4WgEu6e3864YNgCUXCrvaSB9oBxDmeUbbt2gAFyeY9gkK8VJGZ9CNJ41NDQRhRI8BytATJfg2XYCzsy/b/96rYPKUTViKd63kN7oRmZsOucM+X0qzLihP7uq7VU7vGJEf2ho9udXXVqh9o6iPvfiPGPBnly7xKhoIy9yr91Djalkzz5EQb3knF0Rr/nRahSlIkF17K83nmNPG1LLSYY7Dc2fnMu5z67wmmgapznCbiQpYYmAuUWZNgdVcv7CfXfmHpz8KERxvkNRX0g5VoCM3pOapahLO2/5m/3dgcc8V9gncC0rPofSgcQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+HtK1z3nKFtaZip35ISlSHt5D7JyiGZrIhHJlPCdsO4=;
- b=BSkPbLC8aWU8uERp307otEc4V2DFC7vXZsd6Eg04Wc1D02vvtMJEgwy9SliamId6EO6b3W2Ux/qYBflzJgAwp35vCK06/B9SL9YXoTd0GNgyeNJAiOe98wFOoVk4V1MVt+dVc8GVkmWoFI8ABtUaG7BJT5COFyRwXseXrg0gQ5hOJ69NyjRP/mNc1XGm7tYdPo6sHEHevOrAFbwHmpvm7bPOXtGoLXYgZ7Ec/zmI4fIt7zCn550m19n69xfn/xpPOe9/CxeeN24TeG7JxRhJ1MWIzzcmBRPcHRR815ol5p4ilD9588wTcxhtXRDbGBLeqZRo8Qx47AEJB27cuVKLgA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=citrix.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+HtK1z3nKFtaZip35ISlSHt5D7JyiGZrIhHJlPCdsO4=;
- b=WPz5mqoKsquo2Flmj3KtLkdsPcZ6TSzripg5NhkTFl5X3cmpdMTXe8jm4hmlH1lQN1fllLAPSniB2rxQ1xI7jcsGfcwDtooSAwFaTa5xsNCAsjXkuEkmr1ik5+b25nTPfCkm2q6yxTjuuj4g5zife+XTIAsbKtrqYltk0su4vn8=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Message-ID: <aceed733-37d5-4a34-9645-33d7bf27642f@amd.com>
-Date: Tue, 10 Jun 2025 12:16:42 -0400
+X-Inumbo-ID: 2dbb8005-4618-11f0-a307-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1749573010; x=1750177810; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=3hRPTR67tycMsLmTQyzN1miY9GK7NujqLa0zAwza2lM=;
+        b=FMS9c3/CvTq/xbR6ds1BTrLWzWHD0MiYUt9yTr5Z6lSEB3RsVas8egHb1FyKigUz2i
+         sDIf4DgcFeEzGRqvkZbYZ7qLLmK0adV6Aj71emd1YB4+f9ELWUPTV+NqpuHHgOxGH9rY
+         MXRl664OSLVbjct7Jz3rY/QyJFgVRUIfJpW6A=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1749573010; x=1750177810;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=3hRPTR67tycMsLmTQyzN1miY9GK7NujqLa0zAwza2lM=;
+        b=fSeBSD3DiGwhv2q/pe6AFYqUh5Cx82guYeaDCE6w5wErS6D4ILZM5MxIl4/5FY7Cu+
+         wxJiTvye0WalpEx/0PqgcrnGax13bViIRBRDlKW/dqCG2M//MYfepOipxO+iQg3wrZju
+         ZOuBSJZ+OvA2rQO4xEJm04mUVcLp50niDxXFWkFCVTg9Z3QGz3fLz44CTlaHv6cWkNU8
+         dRRGOXnfcc9xgxbZ/CRPLb+P8d/7X2SkJvxSA7puGtZmIsgI/O5xbCXokRUvz08CjEjn
+         WySPHoWlrnu01XDubve6+pu1IZ2Xxdsutf4FdaLuI1oXWm9KltvZMbG03E9ylNX6jdIb
+         56rw==
+X-Gm-Message-State: AOJu0YxDPvkPrM6cxYjTNP9MiKtSEBG+uyzAmEKcxpQb7wv6X5mW9bQr
+	ARGIZZRH9UKiMo1nxhKcSmlEpuXaRnGRB0E3a2l88FP6sRpbm8C/b7/4/Db8IefjgoRbYKLOKyD
+	shKo5
+X-Gm-Gg: ASbGncuJRyrf3QiXUEG1L6EqFfZCwaYGs2gCGVWshJWa6NJZWbrRghQAn+3VbXzefcV
+	2TFTHbb5j5HR8j1t6rWyFxbKvmpqJ0lZm2gHMGk7EfkrfH48FX+aEqoSR512lKMQpmw5iQLt9si
+	Vc4TsCEBe4E59ZJ+51cVl9GfjEoB4x84Ez4YV5FaJucUV0c6C63rqDbvA5JAYO/xn7H/7fG+svg
+	DFWPsU+MG4fUZ8ejafJ1lC7s0FLVN98fIp8d9zxogTDvqMkYEv/ZYbv6zbMK85102PEASN3XGCP
+	ayYD3ZHn2oc/1PHARJb0+jW8aSGDVy1a53EOnsM9661BnDKuzsJDgcFuQ4gQH6jPp5ht7hvRuog
+	RjTH+WhQgVWlGRsFjtso8CeaqUvC0SFqMq8A=
+X-Google-Smtp-Source: AGHT+IHVaOG9l5Mor7PRoBaZ5HE6MkkQr/zc/Lms0D5IQLLAs8yRa2JHTyWIqbCaCIIHyyQn7fY7Zg==
+X-Received: by 2002:a05:6000:2dc5:b0:3a5:2f23:376f with SMTP id ffacd0b85a97d-3a5318823d2mr13622029f8f.13.1749573009946;
+        Tue, 10 Jun 2025 09:30:09 -0700 (PDT)
+From: Roger Pau Monne <roger.pau@citrix.com>
+To: xen-devel@lists.xenproject.org
+Cc: Roger Pau Monne <roger.pau@citrix.com>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Community Manager <community.manager@xenproject.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Juergen Gross <jgross@suse.com>,
+	Anthoine Bourgeois <anthoine.bourgeois@vates.tech>
+Subject: [PATCH v4] x86/hvmloader: select xenpci MMIO BAR UC or WB MTRR cache attribute
+Date: Tue, 10 Jun 2025 18:29:30 +0200
+Message-ID: <20250610162930.89055-1-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.49.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] xen/arm: fix build with HAS_PCI
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-CC: <xen-devel@lists.xenproject.org>, Stefano Stabellini
-	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
-	<bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, "Volodymyr
- Babchuk" <Volodymyr_Babchuk@epam.com>
-References: <20250610142300.197599-1-stewart.hildebrand@amd.com>
- <aEhUe30Hojo8CoeP@macbook.local>
-Content-Language: en-US
-From: Stewart Hildebrand <stewart.hildebrand@amd.com>
-In-Reply-To: <aEhUe30Hojo8CoeP@macbook.local>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Received-SPF: None (SATLEXMB03.amd.com: stewart.hildebrand@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE3B:EE_|PH8PR12MB7351:EE_
-X-MS-Office365-Filtering-Correlation-Id: 517ec392-58c5-4518-842c-08dda83a332c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700013|82310400026|376014|1800799024;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?U0xYTVh1V0ZkTkcxTUQ0K1FRMERzcFJUeVZGTVB5T2lZODRQNXhSYklhL0N3?=
- =?utf-8?B?ZkdkNHJZN2NLYkpWanRTU2dJMmhnQ0pTUlFkazBUai85RUNhVjRzMlhLK2py?=
- =?utf-8?B?YzhqSEF1SldxdmR0djRXYjkxVDNHdWovbmpIMFdZMC96WStRUFBZdTB5R1k5?=
- =?utf-8?B?NmRBVmRzem9KNHlvZXkwbzI0eVg4bDdQRDBrWEJOOFlFbEVLTjErMjRGalpi?=
- =?utf-8?B?Q3BnYktVUldBZE9wRDFqbHFnNjI4WXovaTdZWWdWOFBqWGptaHpPOXJkNjh0?=
- =?utf-8?B?TjNNN3NNRlFBOFdyR2xKWmZXaHBwR2lVLzF5dEkzY1dnMlNIcUQ5cE9rUDhI?=
- =?utf-8?B?anRuTlU4WGNIVFZRQUYwdjVSR0xuYStRY0hrNkI2Y0VOMnh0dVhtaHp0c0p5?=
- =?utf-8?B?TFljZHIyc1dCRGlHOVQ4bmw3S3BYdUx2L1EzNTgxUUpEb0YwMVRCTlBEUGxR?=
- =?utf-8?B?SDVoU3huMDFrQkJRYkl6M3J4bno0VnhncjVuUHZGU2M0NkxnSGxUT2xlOFFZ?=
- =?utf-8?B?R3Y0RjJ1V1VaWWplcWdLYmRZbUFZR1NuNSt4dk1MVDVLaldFUmM3SkhxU0Y3?=
- =?utf-8?B?WVNuMHVVSGNETTk3RURQMFlkTlhhUmdwRVNKWlA3RnVuWjRWSHJoRTRWTXdr?=
- =?utf-8?B?TWhER2l3QzlvS2toQ0xBQ0tXQmZaVG9hN0YzNUduUUplTEdFMXZyNW9WQ3ht?=
- =?utf-8?B?ankzTDNBdVVHajZSdGlIaUdXcndDOTBuRktvTG5obW5Fa1Z3STZwbUtUbVZ2?=
- =?utf-8?B?eU9QbVJDVS94WXhtZVROM0FqUlJvdW0vdjJPcmt2NDBORVYxREwybktacnox?=
- =?utf-8?B?NWZWYm9scTJ0R1RITC9Oc3RBdHRXemxqQ05RZkFxVFdEZFFkcXU4MUl4RzQy?=
- =?utf-8?B?cjdBZlRjWjZGT1E0WnVibUJZWHVwTEMyK1pEZDAzSGY5UFdtbWxNYTlOamZJ?=
- =?utf-8?B?M3crRkJ0eU9DRjlRVXlad1FjZkw5aWkzRys3aTNmWkZlVWNXM1FRNUFQdzUy?=
- =?utf-8?B?a281aFd4Zzd0dmh0Syt1RUR0amxZZjFIOENLQXdVaWpTZDVIZzFzWDZBUEJL?=
- =?utf-8?B?alcxNHBoSTcvb1BKd2h6YnJHSFhWanp1TXlHbEFoS1dlZWxxSVdyWHpYMzg2?=
- =?utf-8?B?WUJkcnpPbGFRK0ZCNWVKcVFpcTVRcUFaVlZFZlVzd1dWZGJLaWhhbHk5RURx?=
- =?utf-8?B?SUEwTFY3aWNkdmRFUXJGWVc1dXluM29lNkNKLzVFN2hrREZGOC9DSmVjbVJS?=
- =?utf-8?B?Syt0TlBPeEFNZzRHQ2IvMW50aHZUTHZVeFFFZkY3MDFSTEc5REUwRWN5bkpo?=
- =?utf-8?B?UW1HY1M4WVlnbEpLcWRVa3R5S1dIREF0VzBya1VCQkVURHZOa0dzb1JkZzda?=
- =?utf-8?B?aFNVLzVmTHgvOFRjb01rNEJhQndtWndMemVjemtJbjFyOXNmZnpuRmxZb3dq?=
- =?utf-8?B?MEJnbTJ4ODF6eXBrdklIUS9GR3JYdlkxenVjMStOMG5ON2F4UDI2LyttT3Vn?=
- =?utf-8?B?ZVBtYTQ5K0QvVUhhTlhlek1TNkVqV21qbFJiM0xSOTBGTVhZcDhvbW9lTGZn?=
- =?utf-8?B?cFZxcFlnZHJYeWxTYnFTbkFNc3hzRGtNK2ZmZkNxZkhKOHFzdUFtbE9BTzBI?=
- =?utf-8?B?WWhtQ3pJYnJrME9RUytMb2lEdHliU0dHdHdzSlhDZkZHNlljWFlTSCtLdVlq?=
- =?utf-8?B?VGhROWVVTUNtajBFenoxT2haaCs4aiszeVdYQXFaZHhuWFRIbFRDbnR6bDBn?=
- =?utf-8?B?L3hCOGVHSmhnUms4djUzRThubXd4eWRONmZ2L2xVNUhRZG5jWVB2cm9aYzdt?=
- =?utf-8?B?ZnB6UjgyNExVYUE4azlLcjFlUFQ4QjFOMTg5Z0JoVlIvZjk4bUVXelJpU0pm?=
- =?utf-8?B?Ulo3VXgzdVZDVU1MTEJobFJiZ0x2eVIxYnBOemREdWtDZGhpTC8vWDBkc2k4?=
- =?utf-8?B?a1gyemZjSDJHbVpDY3VQNjBXYmlKVkFTZUZNL05tUjJmbXhrMTBtOWtGQTlJ?=
- =?utf-8?B?dnhrWnhmTURnNStJTXVXa2hoRkRCakZ4bjJrRnJMdkdsalVVdUI1TWJ5cG9m?=
- =?utf-8?B?OEIvaXhKVHZXTHNmUVFhR0dMTml6ZkdRbGd3dz09?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(82310400026)(376014)(1800799024);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jun 2025 16:16:47.5553
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 517ec392-58c5-4518-842c-08dda83a332c
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CY4PEPF0000EE3B.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7351
 
-On 6/10/25 11:51, Roger Pau Monné wrote:
-> On Tue, Jun 10, 2025 at 10:22:57AM -0400, Stewart Hildebrand wrote:
->> In file included from ./include/xen/pci.h:72,
->>                  from drivers/pci/pci.c:8:
->> ./arch/arm/include/asm/pci.h:131:50: error: ‘struct rangeset’ declared inside parameter list will not be visible outside of this definition or declaration [-Werror]
->>   131 | static inline int pci_sanitize_bar_memory(struct rangeset *r)
->>       |                                                  ^~~~~~~~
->> cc1: all warnings being treated as errors
->>
->> Fixes: 4acab25a9300 ("x86/vpci: fix handling of BAR overlaps with non-hole regions")
->> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
-> 
-> Sorry, it was my fault.
+The Xen PCI device (vendor ID 0x5853) exposed to x86 HVM guests doesn't
+have the functionality of a traditional PCI device.  The exposed MMIO BAR
+is used by some guests (including Linux) as a safe place to map foreign
+memory, including the grant table itself.
 
-No worries, it's pretty hard to catch when it can't be built without
-extra patches.
+Traditionally BARs from devices have the uncacheable (UC) cache attribute
+from the MTRR, to ensure correct functionality of such devices.  hvmloader
+mimics this behavior and sets the MTRR attributes of both the low and high
+PCI MMIO windows (where BARs of PCI devices reside) as UC in MTRR.
 
-> Would it make sense to introduce a Gitlab build that has HAS_PCI
-> enabled?  Or it won't build either without extra patches?
+This however causes performance issues for users of the Xen PCI device BAR,
+as for the purposes of mapping remote memory there's no need to use the UC
+attribute.  On Intel systems this is worked around by using iPAT, that
+allows the hypervisor to force the effective cache attribute of a p2m entry
+regardless of the guest PAT value.  AMD however doesn't have an equivalent
+of iPAT, and guest PAT values are always considered.
 
-It requires one extra patch ("xen/arm: pci: introduce PCI_PASSTHROUGH
-Kconfig option"):
+Linux commit:
 
-https://lore.kernel.org/xen-devel/20231113222118.825758-1-stewart.hildebrand@amd.com/T/#t
+41925b105e34 xen: replace xen_remap() with memremap()
 
-It has an ack, although it needs a rebase and we would probably want to
-add HAS_VPCI_GUEST_SUPPORT now that upstream has that config too.
+Attempted to mitigate this by forcing mappings of the grant-table to use
+the write-back (WB) cache attribute.  However Linux memremap() takes MTRRs
+into account to calculate which PAT type to use, and seeing the MTRR cache
+attribute for the region being UC the PAT also ends up as UC, regardless of
+the caller having requested WB.
+
+As a workaround to allow current Linux to map the grant-table as WB using
+memremap() introduce an xl.cfg option (xenpci_bar_uc=0) that can be used to
+select whether the Xen PCI device BAR will have the UC attribute in MTRR.
+Such workaround in hvmloader should also be paired with a fix for Linux so
+it attempts to change the MTRR of the Xen PCI device BAR to WB by itself.
+
+Overall, the long term solution would be to provide the guest with a safe
+range in the guest physical address space where mappings to foreign pages
+can be created.
+
+Some vif throughput performance figures provided by Anthoine from a 8
+vCPUs, 4GB of RAM HVM guest(s) running on AMD hardware:
+
+Without this patch:
+vm -> dom0: 1.1Gb/s
+vm -> vm:   5.0Gb/s
+
+With the patch:
+vm -> dom0: 4.5Gb/s
+vm -> vm:   7.0Gb/s
+
+Reported-by: Anthoine Bourgeois <anthoine.bourgeois@vates.tech>
+Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+Reviewed-by: Oleksii Kurochko<oleksii.kurochko@gmail.com>
+---
+Changes since v3:
+ - Add changelog.
+ - Assign BARs normally for xenpci if special casing fails.
+
+Changes since v2:
+ - Add default value in xl.cfg.
+ - List xenstore path in the pandoc file.
+ - Adjust comment in hvmloader.
+ - Fix commit message MIO -> MMIO.
+
+Changes since v1:
+ - Leave the xenpci BAR as UC by default.
+ - Introduce an option to not set it as UC.
+---
+ CHANGELOG.md                            |  3 ++
+ docs/man/xl.cfg.5.pod.in                |  8 ++++
+ docs/misc/xenstore-paths.pandoc         |  5 +++
+ tools/firmware/hvmloader/config.h       |  2 +-
+ tools/firmware/hvmloader/pci.c          | 50 ++++++++++++++++++++++++-
+ tools/firmware/hvmloader/util.c         |  2 +-
+ tools/include/libxl.h                   |  9 +++++
+ tools/libs/light/libxl_create.c         |  1 +
+ tools/libs/light/libxl_dom.c            |  9 +++++
+ tools/libs/light/libxl_types.idl        |  1 +
+ tools/xl/xl_parse.c                     |  2 +
+ xen/include/public/hvm/hvm_xs_strings.h |  2 +
+ 12 files changed, 90 insertions(+), 4 deletions(-)
+
+diff --git a/CHANGELOG.md b/CHANGELOG.md
+index 1ee2f42e7405..23215a8cc1e6 100644
+--- a/CHANGELOG.md
++++ b/CHANGELOG.md
+@@ -15,6 +15,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
+  - On x86:
+    - Restrict the cache flushing done as a result of guest physical memory map
+      manipulations and memory type changes.
++   - Allow controlling the MTRR cache attribute of the Xen PCI device BAR
++     for HVM guests, to improve performance of guests using it to map the grant
++     table or foreign memory.
+ 
+ ### Added
+  - On x86:
+diff --git a/docs/man/xl.cfg.5.pod.in b/docs/man/xl.cfg.5.pod.in
+index c388899306c2..ddbff6fffc16 100644
+--- a/docs/man/xl.cfg.5.pod.in
++++ b/docs/man/xl.cfg.5.pod.in
+@@ -2351,6 +2351,14 @@ Windows L<https://xenproject.org/windows-pv-drivers/>.
+ Setting B<xen_platform_pci=0> with the default device_model "qemu-xen"
+ requires at least QEMU 1.6.
+ 
++
++=item B<xenpci_bar_uc=BOOLEAN>
++
++B<x86 only:> Select whether the memory BAR of the Xen PCI device should have
++uncacheable (UC) cache attribute set in MTRR.
++
++Default is B<true>.
++
+ =item B<viridian=[ "GROUP", "GROUP", ...]> or B<viridian=BOOLEAN>
+ 
+ The groups of Microsoft Hyper-V (AKA viridian) compatible enlightenments
+diff --git a/docs/misc/xenstore-paths.pandoc b/docs/misc/xenstore-paths.pandoc
+index 01a340fafcbe..073bed91eec1 100644
+--- a/docs/misc/xenstore-paths.pandoc
++++ b/docs/misc/xenstore-paths.pandoc
+@@ -234,6 +234,11 @@ These xenstore values are used to override some of the default string
+ values in the SMBIOS table constructed in hvmloader. See the SMBIOS
+ table specification at http://www.dmtf.org/standards/smbios/ 
+ 
++#### ~/hvmloader/pci/xenpci-bar-uc = ("1"|"0") [HVM,INTERNAL]
++
++Select whether the Xen PCI device MMIO BAR will have the uncacheable cache
++attribute set in the MTRRs by hvmloader.
++
+ #### ~/bios-strings/oem-* = STRING [HVM,INTERNAL]
+ 
+ 1 to 99 OEM strings can be set in xenstore using values of the form
+diff --git a/tools/firmware/hvmloader/config.h b/tools/firmware/hvmloader/config.h
+index 6e1da137d779..c159db30eea9 100644
+--- a/tools/firmware/hvmloader/config.h
++++ b/tools/firmware/hvmloader/config.h
+@@ -58,7 +58,7 @@ extern uint32_t *cpu_to_apicid;
+ #define ACPI_TIS_HDR_ADDRESS 0xFED40F00UL
+ 
+ extern uint32_t pci_mem_start;
+-extern const uint32_t pci_mem_end;
++extern uint32_t pci_mem_end;
+ extern uint64_t pci_hi_mem_start, pci_hi_mem_end;
+ 
+ extern bool acpi_enabled;
+diff --git a/tools/firmware/hvmloader/pci.c b/tools/firmware/hvmloader/pci.c
+index cc67b18c0361..cfd39cc37cdc 100644
+--- a/tools/firmware/hvmloader/pci.c
++++ b/tools/firmware/hvmloader/pci.c
+@@ -30,7 +30,7 @@
+ #include <xen/hvm/e820.h>
+ 
+ uint32_t pci_mem_start = HVM_BELOW_4G_MMIO_START;
+-const uint32_t pci_mem_end = RESERVED_MEMBASE;
++uint32_t pci_mem_end = RESERVED_MEMBASE;
+ uint64_t pci_hi_mem_start = 0, pci_hi_mem_end = 0;
+ 
+ /*
+@@ -116,6 +116,8 @@ void pci_setup(void)
+      * experience the memory relocation bug described below.
+      */
+     bool allow_memory_relocate = 1;
++    /* Select the MTRR cache attribute of the xenpci device BAR. */
++    bool xenpci_bar_uc = false;
+ 
+     BUILD_BUG_ON((typeof(*pci_devfn_decode_type))PCI_COMMAND_IO !=
+                  PCI_COMMAND_IO);
+@@ -130,6 +132,12 @@ void pci_setup(void)
+     printf("Relocating guest memory for lowmem MMIO space %s\n",
+            allow_memory_relocate?"enabled":"disabled");
+ 
++    s = xenstore_read(HVM_XS_XENPCI_BAR_UC, NULL);
++    if ( s )
++        xenpci_bar_uc = strtoll(s, NULL, 0);
++    printf("XenPCI device BAR MTRR cache attribute set to %s\n",
++           xenpci_bar_uc ? "UC" : "WB");
++
+     s = xenstore_read("platform/mmio_hole_size", NULL);
+     if ( s )
+         mmio_hole_size = strtoll(s, NULL, 0);
+@@ -271,6 +279,44 @@ void pci_setup(void)
+             if ( bar_sz == 0 )
+                 continue;
+ 
++            if ( !xenpci_bar_uc &&
++                 ((bar_data & PCI_BASE_ADDRESS_SPACE) ==
++                   PCI_BASE_ADDRESS_SPACE_MEMORY) &&
++                 vendor_id == 0x5853 &&
++                 (device_id == 0x0001 || device_id == 0x0002) )
++            {
++                if ( is_64bar )
++                {
++                     printf("xenpci dev %02x:%x unexpected MMIO 64bit BAR%u\n",
++                            devfn >> 3, devfn & 7, bar);
++                     goto skip_xenpci;
++                }
++
++                if ( bar_sz > pci_mem_end ||
++                     ((pci_mem_end - bar_sz) & ~(bar_sz - 1)) < pci_mem_start )
++                {
++                     printf("xenpci dev %02x:%x BAR%u size %llx overflows low PCI hole\n",
++                            devfn >> 3, devfn & 7, bar, bar_sz);
++                     goto skip_xenpci;
++                }
++
++                /* Put unconditionally at the end of the low PCI MMIO hole. */
++                pci_mem_end -= bar_sz;
++                pci_mem_end &= ~(bar_sz - 1);
++                bar_data &= ~PCI_BASE_ADDRESS_MEM_MASK;
++                bar_data |= pci_mem_end;
++                pci_writel(devfn, bar_reg, bar_data);
++                pci_devfn_decode_type[devfn] |= PCI_COMMAND_MEMORY;
++
++                /* Prefix BAR address with a 0 to match format used below. */
++                printf("pci dev %02x:%x bar %02x size "PRIllx": 0%08x\n",
++                       devfn >> 3, devfn & 7, bar_reg,
++                       PRIllx_arg(bar_sz), bar_data);
++
++                continue;
++            }
++ skip_xenpci:
++
+             for ( i = 0; i < nr_bars; i++ )
+                 if ( bars[i].bar_sz < bar_sz )
+                     break;
+@@ -310,7 +356,7 @@ void pci_setup(void)
+         }
+ 
+         /* Enable bus master for this function later */
+-        pci_devfn_decode_type[devfn] = PCI_COMMAND_MASTER;
++        pci_devfn_decode_type[devfn] |= PCI_COMMAND_MASTER;
+     }
+ 
+     if ( mmio_hole_size )
+diff --git a/tools/firmware/hvmloader/util.c b/tools/firmware/hvmloader/util.c
+index 79c0e6bd4ad2..31b4411db7b4 100644
+--- a/tools/firmware/hvmloader/util.c
++++ b/tools/firmware/hvmloader/util.c
+@@ -867,7 +867,7 @@ void hvmloader_acpi_build_tables(struct acpi_config *config,
+         config->table_flags |= ACPI_HAS_HPET;
+ 
+     config->pci_start = pci_mem_start;
+-    config->pci_len = pci_mem_end - pci_mem_start;
++    config->pci_len = RESERVED_MEMBASE - pci_mem_start;
+     if ( pci_hi_mem_end > pci_hi_mem_start )
+     {
+         config->pci_hi_start = pci_hi_mem_start;
+diff --git a/tools/include/libxl.h b/tools/include/libxl.h
+index b7ad7735ca4c..7ce7678e6836 100644
+--- a/tools/include/libxl.h
++++ b/tools/include/libxl.h
+@@ -1503,6 +1503,15 @@ void libxl_mac_copy(libxl_ctx *ctx, libxl_mac *dst, const libxl_mac *src);
+  */
+ #define LIBXL_HAVE_CREATEINFO_XEND_SUSPEND_EVTCHN_COMPAT
+ 
++/*
++ * LIBXL_HAVE_XENPCI_BAR_UC
++ *
++ * libxl_domain_build_info contains a boolean 'u.hvm.xenpci_bar_uc' field to
++ * signal whether the XenPCI device BAR should have UC cache attribute set in
++ * MTRR.
++ */
++#define LIBXL_HAVE_XENPCI_BAR_UC
++
+ typedef char **libxl_string_list;
+ void libxl_string_list_dispose(libxl_string_list *sl);
+ int libxl_string_list_length(const libxl_string_list *sl);
+diff --git a/tools/libs/light/libxl_create.c b/tools/libs/light/libxl_create.c
+index 8bc768b5156c..962fa820faec 100644
+--- a/tools/libs/light/libxl_create.c
++++ b/tools/libs/light/libxl_create.c
+@@ -313,6 +313,7 @@ int libxl__domain_build_info_setdefault(libxl__gc *gc,
+         libxl_defbool_setdefault(&b_info->u.hvm.usb,                false);
+         libxl_defbool_setdefault(&b_info->u.hvm.vkb_device,         true);
+         libxl_defbool_setdefault(&b_info->u.hvm.xen_platform_pci,   true);
++        libxl_defbool_setdefault(&b_info->u.hvm.xenpci_bar_uc,      true);
+         libxl_defbool_setdefault(&b_info->u.hvm.pirq,               false);
+ 
+         libxl_defbool_setdefault(&b_info->u.hvm.spice.enable, false);
+diff --git a/tools/libs/light/libxl_dom.c b/tools/libs/light/libxl_dom.c
+index 4d67b0d28294..60ec0354d19a 100644
+--- a/tools/libs/light/libxl_dom.c
++++ b/tools/libs/light/libxl_dom.c
+@@ -819,6 +819,15 @@ static int hvm_build_set_xs_values(libxl__gc *gc,
+             goto err;
+     }
+ 
++    if (info->type == LIBXL_DOMAIN_TYPE_HVM &&
++        libxl_defbool_val(info->u.hvm.xenpci_bar_uc)) {
++        path = GCSPRINTF("/local/domain/%d/"HVM_XS_XENPCI_BAR_UC, domid);
++        ret = libxl__xs_printf(gc, XBT_NULL, path, "%d",
++                               libxl_defbool_val(info->u.hvm.xenpci_bar_uc));
++        if (ret)
++            goto err;
++    }
++
+     return 0;
+ 
+ err:
+diff --git a/tools/libs/light/libxl_types.idl b/tools/libs/light/libxl_types.idl
+index 198515383012..6054350b83c7 100644
+--- a/tools/libs/light/libxl_types.idl
++++ b/tools/libs/light/libxl_types.idl
+@@ -691,6 +691,7 @@ libxl_domain_build_info = Struct("domain_build_info",[
+                                        ("vkb_device",       libxl_defbool),
+                                        ("soundhw",          string),
+                                        ("xen_platform_pci", libxl_defbool),
++                                       ("xenpci_bar_uc",    libxl_defbool),
+                                        ("usbdevice_list",   libxl_string_list),
+                                        ("vendor_device",    libxl_vendor_device),
+                                        # See libxl_ms_vm_genid_generate()
+diff --git a/tools/xl/xl_parse.c b/tools/xl/xl_parse.c
+index 219e924779ff..4da3bb9e91ab 100644
+--- a/tools/xl/xl_parse.c
++++ b/tools/xl/xl_parse.c
+@@ -2917,6 +2917,8 @@ skip_usbdev:
+         xlu_cfg_replace_string (config, "soundhw", &b_info->u.hvm.soundhw, 0);
+         xlu_cfg_get_defbool(config, "xen_platform_pci",
+                             &b_info->u.hvm.xen_platform_pci, 0);
++        xlu_cfg_get_defbool(config, "xenpci_bar_uc",
++                            &b_info->u.hvm.xenpci_bar_uc, 0);
+ 
+         if(b_info->u.hvm.vnc.listen
+            && b_info->u.hvm.vnc.display
+diff --git a/xen/include/public/hvm/hvm_xs_strings.h b/xen/include/public/hvm/hvm_xs_strings.h
+index e1ed078628a0..ebb07b9fba56 100644
+--- a/xen/include/public/hvm/hvm_xs_strings.h
++++ b/xen/include/public/hvm/hvm_xs_strings.h
+@@ -14,6 +14,8 @@
+ #define HVM_XS_BIOS                    "hvmloader/bios"
+ #define HVM_XS_GENERATION_ID_ADDRESS   "hvmloader/generation-id-address"
+ #define HVM_XS_ALLOW_MEMORY_RELOCATE   "hvmloader/allow-memory-relocate"
++/* Set xenpci device BAR as UC in MTRR */
++#define HVM_XS_XENPCI_BAR_UC           "hvmloader/pci/xenpci-bar-uc"
+ 
+ /* The following values allow additional ACPI tables to be added to the
+  * virtual ACPI BIOS that hvmloader constructs. The values specify the guest
+-- 
+2.49.0
+
 
