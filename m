@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4883CAD3617
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Jun 2025 14:23:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1010727.1388891 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0384BAD3697
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Jun 2025 14:38:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1010733.1388902 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uOy0t-0003j2-6t; Tue, 10 Jun 2025 12:23:35 +0000
+	id 1uOyEN-0005U9-Cz; Tue, 10 Jun 2025 12:37:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1010727.1388891; Tue, 10 Jun 2025 12:23:35 +0000
+Received: by outflank-mailman (output) from mailman id 1010733.1388902; Tue, 10 Jun 2025 12:37:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uOy0t-0003hd-4F; Tue, 10 Jun 2025 12:23:35 +0000
-Received: by outflank-mailman (input) for mailman id 1010727;
- Tue, 10 Jun 2025 12:23:33 +0000
+	id 1uOyEN-0005Sc-8r; Tue, 10 Jun 2025 12:37:31 +0000
+Received: by outflank-mailman (input) for mailman id 1010733;
+ Tue, 10 Jun 2025 12:37:29 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=6UIy=YZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uOy0r-0003hX-Kx
- for xen-devel@lists.xenproject.org; Tue, 10 Jun 2025 12:23:33 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
+ id 1uOyEL-0005SW-N3
+ for xen-devel@lists.xenproject.org; Tue, 10 Jun 2025 12:37:29 +0000
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [2a00:1450:4864:20::42c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b6912ebe-45f5-11f0-b894-0df219b8e170;
- Tue, 10 Jun 2025 14:23:28 +0200 (CEST)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-450d668c2a1so43238865e9.0
- for <xen-devel@lists.xenproject.org>; Tue, 10 Jun 2025 05:23:28 -0700 (PDT)
+ id aa76f58f-45f7-11f0-b894-0df219b8e170;
+ Tue, 10 Jun 2025 14:37:27 +0200 (CEST)
+Received: by mail-wr1-x42c.google.com with SMTP id
+ ffacd0b85a97d-3a4f72cba73so4416782f8f.1
+ for <xen-devel@lists.xenproject.org>; Tue, 10 Jun 2025 05:37:27 -0700 (PDT)
 Received: from ?IPV6:2003:ca:b734:b49b:5992:e13c:c106:5fe0?
  (p200300cab734b49b5992e13cc1065fe0.dip0.t-ipconnect.de.
  [2003:ca:b734:b49b:5992:e13c:c106:5fe0])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-452730b92c9sm136768285e9.24.2025.06.10.05.23.27
+ ffacd0b85a97d-3a5324641c2sm12339184f8f.93.2025.06.10.05.37.25
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 10 Jun 2025 05:23:27 -0700 (PDT)
+ Tue, 10 Jun 2025 05:37:25 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,61 +47,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b6912ebe-45f5-11f0-b894-0df219b8e170
+X-Inumbo-ID: aa76f58f-45f7-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1749558208; x=1750163008; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1749559046; x=1750163846; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=4cD00wWmxfNau1SVpivJfeD9IwEnOTfInru4OFavM7g=;
-        b=Wn/S/+VczZcnPL+dfJntjz3AWXHLUkUdJympanN1zPkXi4i+qVEpZL+ANtwsKTt1Wh
-         Xc9BtNEtdta98MLT9AIWWv+uZMoFbpsNNQl5Z4TDTzQXPtu8ojTmhpqj/hsKsXgozb6u
-         tPxftm5C4Oe6vF/1vrgWEH5ryV2KzNXV1DofTSgFGn8bCd2tQWEsZbfLoyA6q/HBj/4E
-         lg1nl+idI4mfrla+wemeY18NNyVm379DaUTBvDkcFrkj1x6WX9AJHEhcWiDRZxac8N5i
-         wMBJCfpV3uooqmxPl6XjTsBOJrU2SUKX2q/oss9wF93eAKGw+REwkgqyU7mqbiNVAO2N
-         NTwA==
+        bh=mrCuqKhFUgUTqPRFOhuZ8VovxipnNe4BanDZ77aEmcw=;
+        b=FmlDEg/IYHfimvi/psmf0aAw4v6BI2agiEG5X4izu14gzortDAA419fxYLONPri8Sw
+         OPY48yzHxwjgKOwytVACXpOg8BeFVeuyP3KBaYEIxAoztcrRubE5zHeyBOMaErzk0laO
+         Q7/UrBLDo0kLHQSZB0tw5G2qPixagRBtwdTEMbAQy0Qwp1m4JPKqjXAWMDbqTSfsE2Cj
+         R5yboZG9dLo9KIlr2SqYgWc8cWEm3EP1F3mzDB2u0FCaYkl/kkO56GgENDSaYaUglojE
+         tkZy/0cdQjScIDcwenZ6MKMQSInitubCBwaZTw4Ae9W34vOzThX9FzMt0GZT1ze0Bhta
+         rurQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749558208; x=1750163008;
+        d=1e100.net; s=20230601; t=1749559046; x=1750163846;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=4cD00wWmxfNau1SVpivJfeD9IwEnOTfInru4OFavM7g=;
-        b=ovhE4Ho3AT/PWGRaVQBJ6rtIQPkel1ds4fkS6ki4+SWHqhrMaEco0gWS6LWbLTzp7T
-         yBTtw0XUlYkdfpg7p9WdlVZ4miVSAMYjMW5nc3bswADvGp/9hu58cndRbsEDWglem9kn
-         za3a3Coe+a6O0dr9dckQXd8xqdmtZUx9vrtPCzJWAoyqfZxqnUa1yVe+Qw+emz9dAiSF
-         Hs4i2ACHi9t2BrYfUJVuM8zEpOzpWvPH2j2jb5B5xSi6aZ1DVk3VaBQefGZSC9pir7N6
-         HZuFlHbSUFoyNjQyE2uuJwuHH4N3LAaP1QgVFhXozx9X5dIgHViWPAfjyyUjgkTCysMx
-         /Xvg==
-X-Gm-Message-State: AOJu0Yxy1qtYVVRUkQ0pqt+ny0o3xV6kJT/nJT2xHa6fJHxSP9Pq3SAf
-	TYuk9s6su74OL0NAWAud+D3p+hcu6pyjHUqjRwp0DudfqgPPJzdbg16W/xZdZiCiZA==
-X-Gm-Gg: ASbGncvwKm+WaPeBVIDhvDgGQivn7d3SmdBEYBG4lj+sYg3J+X9lPT+D9iZtbRKRHsS
-	aalZB8kwmPtXDLOlZFo7yuE8+ER/nQlAENt6JWYjOaKp2J2HaNK9f9IcHfhwnEJnYJReFi+o2jv
-	Isy8OvxEGK2zjZSsZ1EdMp5AACguGySHQiKOQgB3GZDepEd5uR5dawHq71XHhy1LW0jmnGTIwZN
-	SNw9cZM/UoZSSJma50RsSz60bkKAEW6iGhzeCjwbGbhN6F/RKG4sYKwkBMbH4bMiwoMzuGDp7NS
-	61V8coR+q7NTM5LWA1HPCTLG7CHhDdS49LDUMk9i4xKC6Qpn8iC0OsCBPsr0EpvRW4ptCMfVjcm
-	D6DTSmG6XtIGT0h50Uc+GGd+5LzQYXudBSz/HmyVgC2NvGOjasM4AeDzrOECPeoYJv/hmemvH7G
-	L9RF74pBSEHHa6Cqn+zjEC
-X-Google-Smtp-Source: AGHT+IE7EDJsAH2HWqmKVf6AvdBQpis/Kxsa9DYkhGjbiIS3O0B49HK/TUbRFFV3nItj6ecGaK2ZvQ==
-X-Received: by 2002:a05:6000:2dc7:b0:3a4:ed9a:7016 with SMTP id ffacd0b85a97d-3a551427f0emr3065473f8f.26.1749558207624;
-        Tue, 10 Jun 2025 05:23:27 -0700 (PDT)
-Message-ID: <89d4250e-20aa-4515-8199-7003afb0bcbf@suse.com>
-Date: Tue, 10 Jun 2025 14:23:26 +0200
+        bh=mrCuqKhFUgUTqPRFOhuZ8VovxipnNe4BanDZ77aEmcw=;
+        b=hqZenDiwU+10HvqvqpAXWmH/xC/Wl0Y8vrUq8e7akmvg1WvOoqDIcPUzFBgaDxdpug
+         44kNlkgBy1HLjh9rPQTFe9lAFBG4VlJeFRw973iwYtzle2Z9mMzgbLJToxh6h7FONkNy
+         6X9q/iXeTAZYWOiMQVLoQpLreNsGcrpSS5ZIy4Uitj4HCTdxmmCUHAdj3WRQIQNTr4m3
+         rYtqLIQyThI/4OSrzeWZg3gp0M+H6Nik+tnRNtVNQEq3Teftgvn6EKp0fL56cgQ0d1aG
+         GfxQea9mV8bBaTVwtu1+VF8FLQyZxWjujwKRZt45nbMcTqZilnpLVEhPOi9jsTLxAg+u
+         Bs1Q==
+X-Forwarded-Encrypted: i=1; AJvYcCW459kA/DbmBEvLr/g08BC6fer2fdrgPOaLyfnRWxxYnzDTvP0nHLQtbm1ldl4wJ0fhpQtB81LHt+w=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx5eezrfGGq3cFkzZcRYyP6dTCVP6h2zsE0c3k30y9P3Vnei9gU
+	4DQYoegRWivG8O3yBUBO8K9uda0NwJs5PUf1DungwoP+k1Fr0sDAM6mqAbjFfQiHBA==
+X-Gm-Gg: ASbGncs7Sj6xXoSEIsTHzMauoZuM7Zl8SufYcxYtUe1X0uFmo4AtTlMuQaXVwZzsUuq
+	YSA9K/W8wX6qa5Ji+4YNsvqFkT/ycg4Yrdiufu8EA+Ki8wFYEmUz9sEhrgBvpP739rvGreD8zyu
+	ygFgGG7kfBwS5zQ6Nn5b3I+F4PIUOIQu7VzTQuP5cmij4egGMJbF/GFm3QgPh66Z9Ucm5yIbMua
+	/2fzC2ad53OOyNNj9LerOVqHv8HCC9NjXT55w4aBM9WRIFUuqQk5AS0lH/wCrDSvZnTaQg6HSfN
+	4Zh5CBJkW/CUQwEVvqVcrVEW2DlxxxxVVA/yr9lU+/tr3aareYC7xQ/4Fek8WSjmkpEVcNx4XOU
+	zjOPaw4pSV0Smghf6iz2xce/9EH/3CYJ9/ZJ7BL0DwWOrgrTUPS/HkSNJfq3nV1fcEKmDhZbDYm
+	XJ15ve+4VYKyPeUCvg6zh+
+X-Google-Smtp-Source: AGHT+IHk1TIXnL7iSxQs9uuEX6kzC/QDR4bvlxG3KNz3Bd1K40HQZuNkV5CbZSMamNKGbG//OYwnwg==
+X-Received: by 2002:adf:eb87:0:b0:3a4:f7dd:6fad with SMTP id ffacd0b85a97d-3a5513f5298mr2293811f8f.14.1749559046345;
+        Tue, 10 Jun 2025 05:37:26 -0700 (PDT)
+Message-ID: <c81087de-25bd-4264-81f5-cccd0b0ae6de@suse.com>
+Date: Tue, 10 Jun 2025 14:37:25 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH 02/11] xen/page_alloc: Remove `claim` from
  domain_set_outstanding_pages()
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Alejandro Vallejo <alejandro.vallejo@cloud.com>
-Cc: xen-devel@lists.xenproject.org,
- Bernhard Kaindl <bernhard.kaindl@cloud.com>,
+To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+Cc: Bernhard Kaindl <bernhard.kaindl@cloud.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <20250314172502.53498-1-alejandro.vallejo@cloud.com>
  <20250314172502.53498-3-alejandro.vallejo@cloud.com>
- <aEHJEc5Pht5xcMfO@macbook.local>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -127,47 +126,33 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aEHJEc5Pht5xcMfO@macbook.local>
+In-Reply-To: <20250314172502.53498-3-alejandro.vallejo@cloud.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 05.06.2025 18:42, Roger Pau Monné wrote:
-> On Fri, Mar 14, 2025 at 05:24:53PM +0000, Alejandro Vallejo wrote:
->> With a single global count for the claims it's easy to substract
->> domain_tot_pages() from the claim so the number given in the hypercall
->> is the real reservation of the domain. This is the current behaviour.
->>
->> However, a later patch introduces exact-node claims and those interact
->> very poorly with such a scheme. Since accounting domain_tot_pages() in
->> one case but not the other seems strictly worse than not accounting them
->> at all (which is at least consistent), this patch stops substracting
->> tot_pages from the claim and instead checks that claimed memory +
->> allocated memory don't exceed max_mem.
-> 
-> Hm, while I don't have any specific interest in keeping the current
-> behavior, XENMEM_claim_pages is part of the stable ABI (it's not a
-> domctl), and hence should be stable.
+On 14.03.2025 18:24, Alejandro Vallejo wrote:
+> --- a/xen/common/page_alloc.c
+> +++ b/xen/common/page_alloc.c
+> @@ -523,7 +523,7 @@ out:
+>  int domain_set_outstanding_pages(struct domain *d, unsigned long pages)
+>  {
+>      int ret = -ENOMEM;
+> -    unsigned long claim, avail_pages;
+> +    unsigned long avail_pages;
+>  
+>      /*
+>       * take the domain's page_alloc_lock, else all d->tot_page adjustments
+> @@ -549,28 +549,21 @@ int domain_set_outstanding_pages(struct domain *d, unsigned long pages)
+>          goto out;
+>      }
+>  
+> -    /* disallow a claim not exceeding domain_tot_pages() or above max_pages */
+> -    if ( (pages <= domain_tot_pages(d)) || (pages > d->max_pages) )
+> +    /* Don't claim past max_pages */
+> +    if ( (domain_tot_pages(d) + pages) > d->max_pages )
 
-Is that true? It sits inside a
-
-#if defined(__XEN__) || defined(__XEN_TOOLS__)
-
-which generally de-marks unstable (tools-only) interfaces.
-
->  Note also the comment above the
-> definition of XENMEM_claim_pages how it states the specific behavior
-> that you are trying to change (and which should have been adjusted as
-> part of this change).
-
-This is the more important part, imo.
-
-> I have no idea why this was made a xenmem rather than a domctl
-> hypercall, but if you want to change the semantics I think the only
-> option is introducing a new hypercall.
-
-It _is_ a memory operation, and it re-uses one of the interface structs
-there. (Yes, none of these would technically have prevented it from
-being a domctl.)
+In addition to what Roger has said, how can such a behavioral change come without
+any caller-side adjustment?
 
 Jan
 
