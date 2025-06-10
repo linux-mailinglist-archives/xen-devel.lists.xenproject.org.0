@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 51EC9AD380D
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Jun 2025 15:06:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1010792.1389076 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 109FCAD380C
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Jun 2025 15:06:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1010791.1389070 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uOyfs-0007Kh-Il; Tue, 10 Jun 2025 13:05:56 +0000
+	id 1uOyfr-0007G5-UZ; Tue, 10 Jun 2025 13:05:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1010792.1389076; Tue, 10 Jun 2025 13:05:56 +0000
+Received: by outflank-mailman (output) from mailman id 1010791.1389070; Tue, 10 Jun 2025 13:05:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uOyfr-0007Fz-Vc; Tue, 10 Jun 2025 13:05:55 +0000
-Received: by outflank-mailman (input) for mailman id 1010792;
+	id 1uOyfr-0007BD-KV; Tue, 10 Jun 2025 13:05:55 +0000
+Received: by outflank-mailman (input) for mailman id 1010791;
  Tue, 10 Jun 2025 13:05:53 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=YRmu=YZ=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1uOyfp-0004Sm-E0
+ id 1uOyfp-0004iH-5G
  for xen-devel@lists.xenproject.org; Tue, 10 Jun 2025 13:05:53 +0000
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [2a00:1450:4864:20::631])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a2a0ba8a-45fb-11f0-b894-0df219b8e170;
- Tue, 10 Jun 2025 15:05:51 +0200 (CEST)
-Received: by mail-ej1-x631.google.com with SMTP id
- a640c23a62f3a-ade30256175so732559266b.1
- for <xen-devel@lists.xenproject.org>; Tue, 10 Jun 2025 06:05:51 -0700 (PDT)
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [2a00:1450:4864:20::52c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a3336bcd-45fb-11f0-a306-13f23c93f187;
+ Tue, 10 Jun 2025 15:05:52 +0200 (CEST)
+Received: by mail-ed1-x52c.google.com with SMTP id
+ 4fb4d7f45d1cf-60779962c00so5213372a12.0
+ for <xen-devel@lists.xenproject.org>; Tue, 10 Jun 2025 06:05:52 -0700 (PDT)
 Received: from fedora.. (user-109-243-64-38.play-internet.pl. [109.243.64.38])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ade32c42770sm626465466b.41.2025.06.10.06.05.49
+ a640c23a62f3a-ade32c42770sm626465466b.41.2025.06.10.06.05.50
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 10 Jun 2025 06:05:50 -0700 (PDT)
+ Tue, 10 Jun 2025 06:05:51 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,42 +45,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a2a0ba8a-45fb-11f0-b894-0df219b8e170
+X-Inumbo-ID: a3336bcd-45fb-11f0-a306-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1749560751; x=1750165551; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1749560752; x=1750165552; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=oVaSdEzC4kuCiD3ZiuCTTzD/g+ai4zWkigRCI0Mr+vI=;
-        b=MWJGlQtF4LJiNfUNvmSLhz2vdmMcmBxnWqAjqQvbzm87PH6H9SnKpmbzXBbjahBj5R
-         UtiwxXYLsSLKYZGDsYuCfrnZj7y8gIEm9kP9ggwHkBHOQU3BeE5DCZZWWfAbhnPP1rNq
-         PONijfB0kTAz05H82T7jDDnP2QboPZbsSN+B6IFsj2kK3MEJsmsn12pVNFG7yeqv25k/
-         ZEbslCg9jRKJp77S50eUa+CEZeSt6O3wZsaXo8jhDIJk6OrdQLzIMuirHLz5tCbtKJrx
-         VCDgv+n5Pmq5PeGQ9BeSrudVLB0oaM2WE5XDBFgJPh/z1+ayB0QE1BD1BZYRYpcj2YQ9
-         g4Sw==
+        bh=gNkxZ42334+z6GmMxmxS+7HSKZw12YWQKs0/M8Vj5io=;
+        b=VXGKD+3BuvSfjXDuVxFLUGSX/qdS+TkT9hIZOt5rs6BrZaMMYU3mLvV6mlqefJja7l
+         n+XYMCFxUHGLsTB4L86733oc/5PfGcPh5mquKlLF+etXoiAMBGfr3lWX9GkQlNik5V/r
+         rUmz3rzn3JMA9kc2Lmve4DdYEXThVRQk5msgRMcggnxe3zVDMvDXq/YaVijQ26R2pBw/
+         G16s/YUGOyRojK4OHDBQzegbfRBBwHYpZS/lJOxYva0weBaMWMSI22O+7s/s8+E/WO5R
+         QYL+P9oRcmDlqUFrULQHACAG20dxdynJaf6YCeDuvAPwcE4yqHIGYIGR5FF8rXDuJuSQ
+         RHSA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749560751; x=1750165551;
+        d=1e100.net; s=20230601; t=1749560752; x=1750165552;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=oVaSdEzC4kuCiD3ZiuCTTzD/g+ai4zWkigRCI0Mr+vI=;
-        b=fRvR4XvaUyg5zIn3vqjM8i/0mGrYNdokxduW2uBUbCwfLsDmQiATf/Xn7LnEhcoK7F
-         IS6Nrd8OCt1CNgCuLhJlc9gtpNSWIrBCTDgTXOLnpfS9RTEMya5UN1uw516tKXAiVNoY
-         p0HxiZL5vIX8qthvmoxO52jJNKWpvKG23iY/Odh8e8bNpe5CWSrX7TP8ucWxPqMYvvFC
-         05yvfYlMrtJ0r+nZJC0TJzI9SXyU2aNrAhtWY2vUr8zbcevNnqPD7wC17Z76w0RCloEm
-         5VXxHdkLnfZYCuOTSaH5gswLxB3NeV/hlJHeRO7x1JBPFGLQR7SXIXyE8dgbMABDGLPJ
-         ZjfA==
-X-Gm-Message-State: AOJu0YwPA4Up0/rqQxF6gfMqUqEEA9Z3vudrvWKq9atVZsDUA9tqvFC0
-	Yhx7iHigu4kZeIzXXPhVctKm9aF0x2/aM2ovfSPCgnjtrbv7ipKQlxXwfy1G8g==
-X-Gm-Gg: ASbGnctxsKx7td2q2cKr2y8fidJAzStxlsPeTh2Z7VFA5g21vyqrTXZGAC65X/vpAAb
-	WrV2YTv0azGGYZ9mTBS/muuzTSH738MYrIQW8iXNL0Nz2Pm39HLhD0Ntm4VUxikWdnCGhegxDAJ
-	/Z/7LL0cBWPmV8zHDTYhQsRTn9C0VS+V8WAZSuqeOcuifnaOCXaHjoKgX/QVBbcJwPjzjS/91Rv
-	Q3zklYPvxDW94aLIxf+gj/+79i5ivmKIZR4vumOhi2pvEcffgRPso1L/gaSZ/dYIHdxxcZiU6Bx
-	uHtZ94m0OkJirr+XSWXbLl3PwMC3oXWzLZK5sM0Dptahs+dq/aKZbJc8+B6L5wIEMwq3TrVI93E
-	loVdU4mCHU6E7UzRBpDOtpM/9aHiG
-X-Google-Smtp-Source: AGHT+IE57NqUZYYdmSJcp44+MSwcLpDkmkm3jzcquze2ekyofX7OKjw2jn8+5NYp/0z4UB7CpLhpug==
-X-Received: by 2002:a17:907:c15:b0:adb:3272:7df5 with SMTP id a640c23a62f3a-ade1a93bb89mr1797332166b.16.1749560750536;
-        Tue, 10 Jun 2025 06:05:50 -0700 (PDT)
+        bh=gNkxZ42334+z6GmMxmxS+7HSKZw12YWQKs0/M8Vj5io=;
+        b=BbsvKjPZKSFve0fqlJm6ATTN5IpTUAid6+sVt0GQhGf4zC4os82M0wTIoHs4V6/8XZ
+         J14exGyFZrxcr8u4e9bXKIJdoap2VvN81SMQrtPGhPOE4oPnLp/JZajn7xVqCnFiJ9j9
+         BYtDJHrFmoKUGS+aQ3h0KTNAK6fjmuScrHsnLXJDoRqMpXVqxL2wW6oE2E5R6O3iZkUS
+         Vfe6GKL3frf3B2Nn0mQwokcM8LQ1VKuCoR2t/K918oRbbuLlaA7bzHcLrIHp3AfbUg+i
+         PwwH2x3K/pcfhZXtgFL1WvLnPxWgpLnJqOUh5xDZ+5IsylMIAxxLSiUAu/YSiW96G+c3
+         wAXw==
+X-Gm-Message-State: AOJu0Yz6xb9nstFqwbX+yjfaiNNulmPOASU4GEZTcz+BbsLieuBIZi8r
+	io+iEQtWkOBLi+w06ar9VMI+Gli6nqzou6ezIXng9vlgyPI3QNhQ6JPlgz87Cw==
+X-Gm-Gg: ASbGncsOiyY6ulD8EfGY0R5JCWWX2gmq5zF/lOsA8vkq4KI4qfHpl57ojpzyt9zPl0V
+	U240fYchdxPi+VS6gMzbnDChWlQtBeTQQVr6QBhTzf7w8gDktv0punB0+jz+YwkLYr4QG9CwbFQ
+	2dWFKs7FS5+vVGwlCLFIUv4j44HxqDsEWTdhEriCkHkwR6z3Dlvvyr/v7dhBoNQsV+vtzX5Iifj
+	BxFeT53aK94185MhnX0G7ur19z7+rzhf2w5OB38MUFi5rGVXr6eXNYlDTFbYkLf6B8e0ktZ66sD
+	HzJQRb2hVo3o7VaClcJI1aOenuSx0Gecusc0TzCFY3MxG8PvclAzrIMluBWhWlv6pGTX0fY6peC
+	QBerDTnWltJzb/ufbwL24ogLStaI4
+X-Google-Smtp-Source: AGHT+IEwUk/N6nuaSDBPQ9NVq1w1pYsClr/9Kn8IdxMkNjnhzTDXDYOmLNhr3sE9Kt5YGObsT2BNMQ==
+X-Received: by 2002:a17:907:9349:b0:ad2:5499:7599 with SMTP id a640c23a62f3a-ade1a93baf1mr1471045166b.18.1749560751517;
+        Tue, 10 Jun 2025 06:05:51 -0700 (PDT)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
@@ -94,89 +94,112 @@ Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
 	Julien Grall <julien@xen.org>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v2 09/17] xen/riscv: introduce page_set_xenheap_gfn()
-Date: Tue, 10 Jun 2025 15:05:24 +0200
-Message-ID: <186e4a778a6dfab205428dfb4d0c59584a162a9f.1749555949.git.oleksii.kurochko@gmail.com>
+Subject: [PATCH v2 10/17] xen/riscv: implement guest_physmap_add_entry() for mapping GFNs to MFNs
+Date: Tue, 10 Jun 2025 15:05:25 +0200
+Message-ID: <0b1f7ead7eb1b7c8687d388cca50b46eefb8e408.1749555949.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <cover.1749555949.git.oleksii.kurochko@gmail.com>
 References: <cover.1749555949.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Introduce page_set_xenheap_gfn() helper to encode the GFN associated with
-a Xen heap page directly into the type_info field of struct page_info.
+Introduce an initial implementation of guest_physmap_add_entry() on RISC-V
+by adding a basic framework to insert guest physical memory mappings.
+This allows mapping a range of GFNs to MFNs using a placeholder
+p2m_set_entry() function, which currently returns -EOPNOTSUPP.
 
-Introduce a GFN field in the type_info of a Xen heap page by reserving 10
-bits (sufficient for both Sv32 and Sv39+ modes), and define PGT_gfn_mask
-and PGT_gfn_width accordingly. This ensures a consistent bit layout across
-all RISC-V MMU modes, avoiding the need for mode-specific ifdefs.
+Changes included:
+- Promoting guest_physmap_add_entry() from a stub to a functional
+  interface calling a new p2m_insert_mapping() helper.
+- Adding map_regions_p2mt() for generic mapping purposes.
+- Introducing p2m_insert_mapping() and a skeleton for p2m_set_entry() to
+  prepare for future support of actual page table manipulation.
+- Enclosing the actual mapping logic within
+  p2m_write_lock() / p2m_write_unlock() to ensure safe concurrent
+  updates to the P2M.
 
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 ---
 Changes in v2:
  - This changes were part of "xen/riscv: implement p2m mapping functionality".
-   No additional changes were done.
+   No additional signigicant changes were done.
 ---
- xen/arch/riscv/include/asm/mm.h | 32 +++++++++++++++++++++++++++++---
- 1 file changed, 29 insertions(+), 3 deletions(-)
+ xen/arch/riscv/include/asm/p2m.h | 12 ++++------
+ xen/arch/riscv/p2m.c             | 41 ++++++++++++++++++++++++++++++++
+ 2 files changed, 45 insertions(+), 8 deletions(-)
 
-diff --git a/xen/arch/riscv/include/asm/mm.h b/xen/arch/riscv/include/asm/mm.h
-index 912bc79e1b..41bf9002d7 100644
---- a/xen/arch/riscv/include/asm/mm.h
-+++ b/xen/arch/riscv/include/asm/mm.h
-@@ -12,6 +12,7 @@
- #include <xen/sections.h>
- #include <xen/types.h>
+diff --git a/xen/arch/riscv/include/asm/p2m.h b/xen/arch/riscv/include/asm/p2m.h
+index 0c05b58992..af2025b9fd 100644
+--- a/xen/arch/riscv/include/asm/p2m.h
++++ b/xen/arch/riscv/include/asm/p2m.h
+@@ -118,14 +118,10 @@ static inline int guest_physmap_mark_populate_on_demand(struct domain *d,
+     return -EOPNOTSUPP;
+ }
  
-+#include <asm/cmpxchg.h>
- #include <asm/page-bits.h>
+-static inline int guest_physmap_add_entry(struct domain *d,
+-                                          gfn_t gfn, mfn_t mfn,
+-                                          unsigned long page_order,
+-                                          p2m_type_t t)
+-{
+-    BUG_ON("unimplemented");
+-    return -EINVAL;
+-}
++int guest_physmap_add_entry(struct domain *d,
++                            gfn_t gfn, mfn_t mfn,
++                            unsigned long page_order,
++                            p2m_type_t t);
  
- extern vaddr_t directmap_virt_start;
-@@ -229,9 +230,21 @@ static inline bool arch_mfns_in_directmap(unsigned long mfn, unsigned long nr)
- #define PGT_writable_page PG_mask(1, 1)  /* has writable mappings?         */
- #define PGT_type_mask     PG_mask(1, 1)  /* Bits 31 or 63.                 */
+ /* Untyped version for RAM only, for compatibility */
+ static inline int __must_check
+diff --git a/xen/arch/riscv/p2m.c b/xen/arch/riscv/p2m.c
+index 2419a61d8c..cea37c8bda 100644
+--- a/xen/arch/riscv/p2m.c
++++ b/xen/arch/riscv/p2m.c
+@@ -324,3 +324,44 @@ int p2m_set_allocation(struct domain *d, unsigned long pages, bool *preempted)
  
--/* Count of uses of this frame as its current type. */
--#define PGT_count_width   PG_shift(2)
--#define PGT_count_mask    ((1UL << PGT_count_width) - 1)
-+ /* 9-bit count of uses of this frame as its current type. */
-+#define PGT_count_mask    PG_mask(0x3FF, 10)
+     return 0;
+ }
 +
-+/*
-+ * Sv32 has 22-bit GFN. Sv{39, 48, 57} have 44-bit GFN.
-+ * Thereby we can use for `type_info` 10 bits for all modes, having the same
-+ * amount of bits for `type_info` for all MMU modes let us avoid introducing
-+ * an extra #ifdef to that header:
-+ *   if we go with maximum possible bits for count on each configuration
-+ *   we would need to have a set of PGT_count_* and PGT_gfn_*).
-+ */
-+#define PGT_gfn_width     PG_shift(10)
-+#define PGT_gfn_mask      (BIT(PGT_gfn_width, UL) - 1)
-+
-+#define PGT_INVALID_XENHEAP_GFN   _gfn(PGT_gfn_mask)
- 
- /*
-  * Page needs to be scrubbed. Since this bit can only be set on a page that is
-@@ -283,6 +296,19 @@ static inline bool arch_mfns_in_directmap(unsigned long mfn, unsigned long nr)
- 
- #define PFN_ORDER(pg) ((pg)->v.free.order)
- 
-+static inline void page_set_xenheap_gfn(struct page_info *p, gfn_t gfn)
++static int p2m_set_entry(struct p2m_domain *p2m,
++                         gfn_t sgfn,
++                         unsigned long nr,
++                         mfn_t smfn,
++                         p2m_type_t t,
++                         p2m_access_t a)
 +{
-+    gfn_t gfn_ = gfn_eq(gfn, INVALID_GFN) ? PGT_INVALID_XENHEAP_GFN : gfn;
-+    unsigned long x, nx, y = p->u.inuse.type_info;
-+
-+    ASSERT(is_xen_heap_page(p));
-+
-+    do {
-+        x = y;
-+        nx = (x & ~PGT_gfn_mask) | gfn_x(gfn_);
-+    } while ( (y = cmpxchg(&p->u.inuse.type_info, x, nx)) != x );
++    return -EOPNOTSUPP;
 +}
 +
- extern unsigned char cpu0_boot_stack[];
- 
- void setup_initial_pagetables(void);
++static int p2m_insert_mapping(struct domain *d, gfn_t start_gfn,
++                              unsigned long nr, mfn_t mfn, p2m_type_t t)
++{
++    struct p2m_domain *p2m = p2m_get_hostp2m(d);
++    int rc;
++
++    p2m_write_lock(p2m);
++    rc = p2m_set_entry(p2m, start_gfn, nr, mfn, t, p2m->default_access);
++    p2m_write_unlock(p2m);
++
++    return rc;
++}
++
++int map_regions_p2mt(struct domain *d,
++                     gfn_t gfn,
++                     unsigned long nr,
++                     mfn_t mfn,
++                     p2m_type_t p2mt)
++{
++    return p2m_insert_mapping(d, gfn, nr, mfn, p2mt);
++}
++
++int guest_physmap_add_entry(struct domain *d,
++                            gfn_t gfn,
++                            mfn_t mfn,
++                            unsigned long page_order,
++                            p2m_type_t t)
++{
++    return p2m_insert_mapping(d, gfn, (1 << page_order), mfn, t);
++}
 -- 
 2.49.0
 
