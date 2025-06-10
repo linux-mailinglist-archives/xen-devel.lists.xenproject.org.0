@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 028FFAD2E2B
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Jun 2025 08:56:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1010516.1388628 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 81800AD2E54
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Jun 2025 09:08:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1010522.1388638 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uOsu6-0000Ys-LN; Tue, 10 Jun 2025 06:56:14 +0000
+	id 1uOt5d-0002Ju-M3; Tue, 10 Jun 2025 07:08:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1010516.1388628; Tue, 10 Jun 2025 06:56:14 +0000
+Received: by outflank-mailman (output) from mailman id 1010522.1388638; Tue, 10 Jun 2025 07:08:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uOsu6-0000XG-IL; Tue, 10 Jun 2025 06:56:14 +0000
-Received: by outflank-mailman (input) for mailman id 1010516;
- Tue, 10 Jun 2025 06:56:13 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uOt5d-0002HJ-IY; Tue, 10 Jun 2025 07:08:09 +0000
+Received: by outflank-mailman (input) for mailman id 1010522;
+ Tue, 10 Jun 2025 07:08:08 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=6UIy=YZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uOsu5-0000XA-Qc
- for xen-devel@lists.xenproject.org; Tue, 10 Jun 2025 06:56:13 +0000
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [2a00:1450:4864:20::42d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ff0cc77c-45c7-11f0-a305-13f23c93f187;
- Tue, 10 Jun 2025 08:56:13 +0200 (CEST)
-Received: by mail-wr1-x42d.google.com with SMTP id
- ffacd0b85a97d-3a50fc7ac4dso3272358f8f.0
- for <xen-devel@lists.xenproject.org>; Mon, 09 Jun 2025 23:56:13 -0700 (PDT)
+ id 1uOt5c-0002HD-13
+ for xen-devel@lists.xenproject.org; Tue, 10 Jun 2025 07:08:08 +0000
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [2a00:1450:4864:20::332])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a60c5e40-45c9-11f0-b894-0df219b8e170;
+ Tue, 10 Jun 2025 09:08:02 +0200 (CEST)
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-451e2f0d9c2so39086765e9.1
+ for <xen-devel@lists.xenproject.org>; Tue, 10 Jun 2025 00:08:02 -0700 (PDT)
 Received: from ?IPV6:2003:ca:b734:b49b:5992:e13c:c106:5fe0?
  (p200300cab734b49b5992e13cc1065fe0.dip0.t-ipconnect.de.
  [2003:ca:b734:b49b:5992:e13c:c106:5fe0])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3a53244df34sm11567746f8f.71.2025.06.09.23.56.11
+ ffacd0b85a97d-3a5323b33c3sm11559901f8f.34.2025.06.10.00.08.01
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 09 Jun 2025 23:56:12 -0700 (PDT)
+ Tue, 10 Jun 2025 00:08:01 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,63 +47,67 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ff0cc77c-45c7-11f0-a305-13f23c93f187
+X-Inumbo-ID: a60c5e40-45c9-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1749538572; x=1750143372; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1749539282; x=1750144082; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=897J7jDLs92ieMJFM2XGqS8hZldTET+6U7XnxbOkPpE=;
-        b=bMXE8uTYA1BBEx30t1FpCGGB5z86oW5fDH2oAFjCpYGY6ipglTlLRBYWAIBq9Gnci9
-         BpZd096qXdAhDaS1oeNBwASyWUCJPWXLr6WqYIfrWo+k5xHcFJNql5coUuOKJHzyzjwz
-         nLcvFHq2hfqv3zbQE6s9nAf4BJbTGeivANPfSkI5E0loBxfpy0DcFqzRSTJt8TOrPtgm
-         VFFTW3wOu1cZF5n975XsjMFHAZyqL6xnhK0eDh41aOKCG1Yon1v5NDEmWoc30AqGTg+j
-         te75rA6SLGBIcxG0zTQ20KbkauN6foiBzI5xyRtTFiO/US8Nqrn90G/9MTquZzIgZ4fD
-         3cNQ==
+        bh=7OIufhB56DSUHISwapg5RX9lWzyFlOwrJcEowX+vfyQ=;
+        b=cM+BfOQPbB9coTRvXK9VRCNfhxdou17KYe7zbm+fJYBHZ9c8XDHX2BJ/zUxahgP3hA
+         FD5ncHm+w+AeD48lGZ/i7d6uDqurHcrXzzarNGAX42QVsT3fkd+50yIhMSWgGJKvzoLJ
+         UGwZUzuHzBAA0XgL84EzEAYcScfYcylv/mwxLtvK6eZWAFdduZ39NlwBKUz2NN9HL5MI
+         FxSCS0eV4RVBtlORMYIAQSFvHHDM31sVCsb9K4lnXV6y7OnbgNmHbOrTQdJX2htX3cNY
+         Yvf+OYHUlJqFEutUrhAPDc+3f4JgX7LSX0iUaQcQdtuDUxoccWCzqcp83Tx+Eoyi9I8v
+         HBug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749538572; x=1750143372;
+        d=1e100.net; s=20230601; t=1749539282; x=1750144082;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=897J7jDLs92ieMJFM2XGqS8hZldTET+6U7XnxbOkPpE=;
-        b=PNu/P+lU0kmKOjR9es30k6eHPF5u+H1EkmQCG4Ltob2mkHDO1ed3d+Bz+nEBFH1Z4d
-         Lsb84l6TYwidp4q5yOKF9AOKCVn6+xTPy9tSFKS9rt8MYhKirFLDsOzoa5fyCiMNdwXl
-         bkXsI97A4CP8WCLK3n5X7skRuDq7nXICoTExWKoSQrddkFmBc9VxcDOZQLSbTKCrW/x2
-         ZRD2pD6coIFpoOjCykQ17JH6xWqm/JUE5V4382FrK8GFs0T0qmUXcAN0iIhqdO7U/w7R
-         ODbm64WqEi5NmUCooTg5/joA9e2DUyFJBrcabSoI8V0Hl7ziaI+XxBrc5sqo1b+k8NwH
-         oFIA==
-X-Forwarded-Encrypted: i=1; AJvYcCVCgIKMv1qyNa+Jkm7A/hSyOVIfb1BDXc/HOoHCXPjxbCEC0o/Ivv6/K/ErXrkT5VxCKgv0aP2jamE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yxmlg6MY607VhOKiMZ5cl2XOoH4hpUs0wRfTzMCMjgDzSmig+Kh
-	gP73+lmuvI60SxlitkdOuSIXeQcgOjnnZycLop2GFSBJIGXfJXotblmXef3pTMqtuA==
-X-Gm-Gg: ASbGnct7vT07YioddWYFohIaCgl7eptSd5/ZINkTlFxnkJDG+artA3opRxyjmLNsTt8
-	i1vkblz5Yvi8B9yZizYWox0ro8J3i130ASVrftNME/2rMV+5XP50WNIrOi8XkKuug484hHO/e7Q
-	j68XePThqXaUfn5FR4Jv922kgzn5Vv23fpqzO3kwTxhj6+Dz9qywFcUfAucnOGM/qpupofQzNrb
-	FHddD+x9uJLAePt/HQYx5o+DB/wVjNP+92f55JbbPpo+7KCrO7xjmwLUWooL73fQM9TWOmHzpFy
-	mNLD0PT3nlMtpIH0PwSYOVOIGDHhgieEltM4b4RS7/YjWsBoHMsaBQFTrt+3zGXx0IeazlF660M
-	WxrokDGVseo6BRaHjnnSjbQKWEarkJqMvg4S60dRqDTg6cOIlvjnQ31T8tqnyiGisxA02UDBnw2
-	Uo64RLd3TfRb6jXRbimKyn
-X-Google-Smtp-Source: AGHT+IEQ4lLW9lzQsSdVtn4yNpxUQXAV0U93zKFJNvUmtvxoLfECYZ+zliTA9fdLVw28g0lCt9sGaA==
-X-Received: by 2002:a05:6000:220d:b0:3a1:f5c4:b81b with SMTP id ffacd0b85a97d-3a5522786acmr1165699f8f.23.1749538572405;
-        Mon, 09 Jun 2025 23:56:12 -0700 (PDT)
-Message-ID: <02ffa9cf-b5cd-431a-834a-a11bbf310196@suse.com>
-Date: Tue, 10 Jun 2025 08:56:11 +0200
+        bh=7OIufhB56DSUHISwapg5RX9lWzyFlOwrJcEowX+vfyQ=;
+        b=h2rx5dT4huAaZAkl1xVkDfLyCRBME+tynII08gv6iv78pF6LfyUXBQ3pxxFDt/FA3C
+         +KUxElMORmFqibseUAIH9v7w9R+SyLXlvVoonYj83QUYUacGN+LUW66n1DCwnJymN5v8
+         y8Sv1Dq3GlCHOJIAb1GlJTTc6uDEzQVzjEZ+AgWe2n8dQ4APGnvEiJ0zWb9ARAwyaUdx
+         xjE/+Y0IzlE27PYor4n5LpVYQzj6YANgRzm/9/QKVP2z54/JjsL7QJa6chSakOtqC+OT
+         E9ZbK3NrxEpRLS9mppc4y51rQuN66Y9ZY1/JOJaVNCplimH7oZqBxDqxF+6nmRb4MXZN
+         vh9A==
+X-Gm-Message-State: AOJu0YwN2dEFjIu+AjDn5fVmiaL03YIabKgIqptM8CsxIptuUR4nn6lW
+	HY+f0IVC7D7Wk7TFC0erGxwCqofLmiUnBJ1nopv7EgaUWThM3F4SP5tG87jpriQgvw==
+X-Gm-Gg: ASbGnct4xF/Dig4vlGuhR/2QT3Z6iZgK3e4PLlNhQSW8yGV71YHAZTxfZBMXdne8J/H
+	T1Ng8Ci6VchLC246r9OKXUaO5SnXp0bqi1VHD1FoQOpxBfX+XhkGtLK9wbWrgebq/ewDFvcAvJV
+	/heT9i3MVCfe3rBCHxL2d4x0APJT0YJiTFPrT/4k0hXvGviNwXIRL6auoyGV+4gsKkF4f4kr+s1
+	vE+ZreJoyrtJNNZnU1T4Fgjp7cyD1UzY1wE2wPa8f4yN6sTkIjiVyf3RsP5+CMhxdZRS0ARZQxg
+	PgRsYen2i9Rd7DhE5FG4/MbHtoUak9q0V8Dp+So7C5ibGbnEZ6Epyex5gV3MCu+W+H20YtqJr7a
+	Z+T1dHTS50Yssn7dfr7wSDTp30sysqXPQOcV75KVL0bKaraj3pRj0rL0zPsXr9MQ4jCitb/8xsw
+	+AKp2LcFi1heyNSgaKPsyy
+X-Google-Smtp-Source: AGHT+IGFHpwHP632fG6AuLr4Iw5WYTdABjxm7wzoJBz9rRgqaEW7nQrqP6Gz7sO5dhUxzogg0KSYiw==
+X-Received: by 2002:a05:600c:5303:b0:442:f4a3:a2c0 with SMTP id 5b1f17b1804b1-4531cffa4bemr20889975e9.13.1749539282080;
+        Tue, 10 Jun 2025 00:08:02 -0700 (PDT)
+Message-ID: <6a7a1ab8-aabb-465b-bd22-a2bc1597b83b@suse.com>
+Date: Tue, 10 Jun 2025 09:08:01 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 06/12] x86/hyperlaunch: obtain cmdline from device tree
-To: Jason Andryuk <jason.andryuk@amd.com>
-Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+Subject: Re: [PATCH v5 04/10] vpci: Refactor REGISTER_VPCI_INIT
+To: "Chen, Jiqian" <Jiqian.Chen@amd.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>, Denis Mukhin
- <dmukhin@ford.com>, Alejandro Vallejo <agarciav@amd.com>,
- xen-devel@lists.xenproject.org
-References: <20250429123629.20839-1-agarciav@amd.com>
- <20250429123629.20839-7-agarciav@amd.com>
- <59f37fcc-9226-46c5-8dc8-7bd2100d8f59@amd.com>
+ "Orzel, Michal" <Michal.Orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, "Huang, Ray"
+ <Ray.Huang@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <20250526094559.140423-1-Jiqian.Chen@amd.com>
+ <20250526094559.140423-5-Jiqian.Chen@amd.com>
+ <aEGSp-LKerGb-wIW@macbook.local>
+ <BL1PR12MB58497C341C79658B7221A67FE76EA@BL1PR12MB5849.namprd12.prod.outlook.com>
+ <752cff02-cef6-4a4c-80b9-eba3bbf9b264@suse.com>
+ <aEKxWLdDDyzmNvGF@macbook.local>
+ <BL1PR12MB5849CA0CBDAE1E49DE54BD03E76BA@BL1PR12MB5849.namprd12.prod.outlook.com>
+ <aEapjHyBxHkkylkh@macbook.local>
+ <BL1PR12MB5849102F05BD316C0BC20F9FE76BA@BL1PR12MB5849.namprd12.prod.outlook.com>
+ <aEa6JsVwyWchp04u@macbook.local>
+ <PH7PR12MB5854FC2E82CD17483B6B6BCFE76AA@PH7PR12MB5854.namprd12.prod.outlook.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -129,49 +133,132 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <59f37fcc-9226-46c5-8dc8-7bd2100d8f59@amd.com>
+In-Reply-To: <PH7PR12MB5854FC2E82CD17483B6B6BCFE76AA@PH7PR12MB5854.namprd12.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 09.06.2025 19:07, Jason Andryuk wrote:
-> On 2025-04-29 08:36, Alejandro Vallejo wrote:
->> From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+On 10.06.2025 05:52, Chen, Jiqian wrote:
+> On 2025/6/9 18:40, Roger Pau Monné wrote:
+>> On Mon, Jun 09, 2025 at 10:18:42AM +0000, Chen, Jiqian wrote:
+>>> On 2025/6/9 17:29, Roger Pau Monné wrote:
+>>>> On Mon, Jun 09, 2025 at 07:50:21AM +0000, Chen, Jiqian wrote:
+>>>>> On 2025/6/6 17:14, Roger Pau Monné wrote:
+>>>>>> On Fri, Jun 06, 2025 at 09:05:48AM +0200, Jan Beulich wrote:
+>>>>>>> On 06.06.2025 08:29, Chen, Jiqian wrote:
+>>>>>>>> On 2025/6/5 20:50, Roger Pau Monné wrote:
+>>>>>>>>> On Mon, May 26, 2025 at 05:45:53PM +0800, Jiqian Chen wrote: 
+>>>>>>>>>> +  }; \
+>>>>>>>>>> +  static vpci_capability_t *const finit##_entry  \
+>>>>>>>>>> +               __used_section(".data.vpci") = &finit##_t
+>>>>>>>>>
+>>>>>>>>> IMO this should better use .rodata instead of .data. 
+>>>>>>>> Is below change correct?
+>>>>>>>>
+>>>>>>>> +    static const vpci_capability_t *const finit##_entry  \
+>>>>>>>> +        __used_section(".rodata") = &finit##_t
+>>>>>>>
+>>>>>>> No, specifically because ...
+>>>>>>>
+>>>>>>>>> Not that it matters much in practice, as we place it in .rodata anyway.  Note
+>>>>>>>>> however you will have to move the placement of the VPCI_ARRAY in the
+>>>>>>>>> linker script ahead of *(.rodata.*), otherwise that section match will
+>>>>>>>>> consume the vPCI data.
+>>>>>>>> I am sorry, how to move it ahead of *(.rodata.*) ?
+>>>>>>>> Is below change correct?
+>>>>>>>>
+>>>>>>>> diff --git a/xen/include/xen/xen.lds.h b/xen/include/xen/xen.lds.h
+>>>>>>>> index 793d0e11450c..3817642135aa 100644
+>>>>>>>> --- a/xen/include/xen/xen.lds.h
+>>>>>>>> +++ b/xen/include/xen/xen.lds.h
+>>>>>>>> @@ -188,7 +188,7 @@
+>>>>>>>>  #define VPCI_ARRAY               \
+>>>>>>>>         . = ALIGN(POINTER_ALIGN); \
+>>>>>>>>         __start_vpci_array = .;   \
+>>>>>>>> -       *(SORT(.data.vpci.*))     \
+>>>>>>>> +       *(.rodata)             \
+>>>>>>>
+>>>>>>> ... this isn't - you'd move _all_ of .rodata into here, which definitely
+>>>>>>> isn't what you want. What I understand Roger meant was a .rodata-like
+>>>>>>> section, e.g. .rodata.vpci.* (much like it was .data.vpci.* before).
+>>>>>>
+>>>>>> Indeed, my suggestion was merely to use .rodata instead of .data, as
+>>>>>> that's more accurate IMO.  I think it should be *(.rodata.vpci) (and
+>>>>>> same section change for the __used_section() attribute.
+>>>>>
+>>>>> If I understand correctly, the next version will be:
+>>>>>
+>>>>> +    static const vpci_capability_t *const finit##_entry  \
+>>>>> +        __used_section(".rodata.vpci") = &finit##_t
+>>>>> +
+>>>>>
+>>>>> and
+>>>>>
+>>>>>  #define VPCI_ARRAY               \
+>>>>>         . = ALIGN(POINTER_ALIGN); \
+>>>>>         __start_vpci_array = .;   \
+>>>>> -       *(SORT(.data.vpci.*))     \
+>>>>> +       *(.rodata.vpci)           \
+>>>>>         __end_vpci_array = .;
+>>>>
+>>>> Did you also move the instances of VPCI_ARRAY in the linker scripts so
+>>>> it's before the catch-all *(.rodata.*)?
+>>>>
+>>>>>
+>>>>> But, that encountered an warning when compiling.
+>>>>> " {standard input}: Assembler messages:
+>>>>> {standard input}:1160: Warning: setting incorrect section attributes for .rodata.vpci
+>>>>> {standard input}: Assembler messages:
+>>>>> {standard input}:3034: Warning: setting incorrect section attributes for .rodata.vpci
+>>>>> {standard input}: Assembler messages:
+>>>>> {standard input}:6686: Warning: setting incorrect section attributes for .rodata.vpci "
+>>>>
+>>>> What are the attributes for .rodata.vpci in the object files?  You can
+>>>> get those using objdump or readelf, for example:
+>>>>
+>>>> $ objdump -h xen/drivers/vpci/msi.o
+>>>> [...]
+>>>>  17 .data.vpci.9  00000008  0000000000000000  0000000000000000  00000a50  2**3
+>>>>                   CONTENTS, ALLOC, LOAD, RELOC, DATA
+>>>>
+>>>> It should be READONLY, otherwise you will get those messages.
+>>>>
+>>>>> And, during booting Xen, all value of __start_vpci_array is incorrect.
+>>>>> Do I miss anything?
+>>>>
+>>>> I think that's likely because you haven't moved the instance of
+>>>> VPCI_ARRAY in the linker script?
+>>> Oh, right. Sorry, I forgot to move it.
+>>> After changing this, it works now.
+>>>
+>>> diff --git a/xen/arch/x86/xen.lds.S b/xen/arch/x86/xen.lds.S
+>>> index bf956b6c5fc0..c88fd62f4f0d 100644
+>>> --- a/xen/arch/x86/xen.lds.S
+>>> +++ b/xen/arch/x86/xen.lds.S
+>>> @@ -134,6 +134,7 @@ SECTIONS
+>>>         BUGFRAMES
+>>>
+>>>         *(.rodata)
+>>> +       VPCI_ARRAY
+>>>         *(.rodata.*)
+>>>         *(.data.rel.ro)
+>>>         *(.data.rel.ro.*)
+>>> @@ -148,7 +149,6 @@ SECTIONS
+>>>         *(.note.gnu.build-id)
+>>>         __note_gnu_build_id_end = .;
+>>>  #endif
+>>> -       VPCI_ARRAY
+>>>    } PHDR(text)
 >>
->> Add support to read the command line from the hyperlaunch device tree.
->> The device tree command line is located in the "bootargs" property of the
->> "multiboot,kernel" node.
->>
->> A boot loader command line, e.g. a grub module string field, takes
->> precendence over the device tree one since it is easier to modify.
->>
->> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
->> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
->> Signed-off-by: Alejandro Vallejo <agarciav@amd.com>
->> Reviewed-by: Denis Mukhin <dmukhin@ford.com>
->> ---
+>> FWIW, I would put it ahead of *(.rodata).  Remember to also modify the
+>> linker script for all the other arches, not just x86.
 > 
->> diff --git a/xen/common/domain-builder/fdt.c b/xen/common/domain-builder/fdt.c
->> index cbb0ed30a2..dabe201b04 100644
->> --- a/xen/common/domain-builder/fdt.c
->> +++ b/xen/common/domain-builder/fdt.c
->> @@ -219,6 +219,12 @@ static int __init fdt_process_domain_node(
->>               printk(XENLOG_INFO "  kernel: multiboot-index=%d\n", idx);
->>               bi->mods[idx].type = BOOTMOD_KERNEL;
->>               bd->kernel = &bi->mods[idx];
->> +
->> +            /* If bootloader didn't set cmdline, see if FDT provides one. */
->> +            if ( bd->kernel->cmdline_pa &&
->> +                 !((char *)__va(bd->kernel->cmdline_pa))[0] )
-> 
-> The logic is incorrect - it should be:
-> 
->             if ( !bd->kernel->cmdline_pa ||
->                  !((char *)__va(bd->kernel->cmdline_pa))[0] )
-> 
-> If there is no cmdline_pa (which happens with the "reg" property) or the if there is a 0-length string, then check the DT for bootargs.
+> Whether before *(.rodata.*) or before *(.rodata), there still is the warning " Warning: setting incorrect section attributes for .rodata.vpci "
+> And the objdump shows "rodata.vpci" has no "readonly" word.
 
-Even that sounds bogus to me: There's a difference between "no command line"
-and "empty command line".
+Did you check what gcc emits? It may be requesting "aw" instead of the
+wanted "a" in the section attributes. Since there are relocations here,
+".rodata." may not be the correct prefix to use; it may instead need to
+be ".data.rel.ro.".
 
 Jan
 
