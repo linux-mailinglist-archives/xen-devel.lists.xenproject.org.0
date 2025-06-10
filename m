@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 85A41AD33C6
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Jun 2025 12:37:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1010677.1388848 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B943EAD33E1
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Jun 2025 12:44:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1010686.1388858 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uOwLt-0005XR-Vs; Tue, 10 Jun 2025 10:37:09 +0000
+	id 1uOwSm-0007Qw-LT; Tue, 10 Jun 2025 10:44:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1010677.1388848; Tue, 10 Jun 2025 10:37:09 +0000
+Received: by outflank-mailman (output) from mailman id 1010686.1388858; Tue, 10 Jun 2025 10:44:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uOwLt-0005Vw-SO; Tue, 10 Jun 2025 10:37:09 +0000
-Received: by outflank-mailman (input) for mailman id 1010677;
- Tue, 10 Jun 2025 10:37:08 +0000
+	id 1uOwSm-0007Ok-Hi; Tue, 10 Jun 2025 10:44:16 +0000
+Received: by outflank-mailman (input) for mailman id 1010686;
+ Tue, 10 Jun 2025 10:44:14 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Tqcb=YZ=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
- id 1uOwLs-0005EK-8h
- for xen-devel@lists.xenproject.org; Tue, 10 Jun 2025 10:37:08 +0000
-Received: from mail-oa1-x35.google.com (mail-oa1-x35.google.com
- [2001:4860:4864:20::35])
+ <SRS0=HnHp=YZ=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1uOwSk-0007Oe-Ot
+ for xen-devel@lists.xenproject.org; Tue, 10 Jun 2025 10:44:14 +0000
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
+ [2a00:1450:4864:20::432])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id db2bafe8-45e6-11f0-a306-13f23c93f187;
- Tue, 10 Jun 2025 12:37:07 +0200 (CEST)
-Received: by mail-oa1-x35.google.com with SMTP id
- 586e51a60fabf-2ea34731c5dso1400854fac.0
- for <xen-devel@lists.xenproject.org>; Tue, 10 Jun 2025 03:37:07 -0700 (PDT)
+ id d9780688-45e7-11f0-a306-13f23c93f187;
+ Tue, 10 Jun 2025 12:44:13 +0200 (CEST)
+Received: by mail-wr1-x432.google.com with SMTP id
+ ffacd0b85a97d-3a5257748e1so3552554f8f.2
+ for <xen-devel@lists.xenproject.org>; Tue, 10 Jun 2025 03:44:13 -0700 (PDT)
+Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
+ by smtp.gmail.com with UTF8SMTPSA id
+ 5b1f17b1804b1-4521375b5e1sm139079185e9.37.2025.06.10.03.44.12
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 10 Jun 2025 03:44:12 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,78 +45,167 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: db2bafe8-45e6-11f0-a306-13f23c93f187
+X-Inumbo-ID: d9780688-45e7-11f0-a306-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1749551826; x=1750156626; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=HQllWdWvQ6GyUrcNbIKWc6GTA25rlnnJsfpyeRJ6bq8=;
-        b=IaglCuio0JrWyAvqLKdWCczeC1hHCPhLgjBoJiTPNXOx8Upj7wCRuHUVVrbdxuTmQV
-         XqZmU+CpPtGZ6tIH0jaYU+upO2y6h3r2dy64d/uOkzAErkQfuCqh3bYksqDGL9cm6SiJ
-         mJAJhYlN7ZOLppGt4T1cGzdksxx0zlDVcKNJQ=
+        d=citrix.com; s=google; t=1749552253; x=1750157053; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=XHlXqnj3di+1NstG3GDVx/HOeqSCRdzBnhKtBH49vU0=;
+        b=brK8MMEl6OH9WJF0kF/ygJu70U3XcPnNPNPxtWeve5eRVjtCJzBOFWEc/HFpMtBf1l
+         V+80dpKJJopB4VRRptOFBOBo2twqeEGY9djTtRHKkRSyJCUScbYp3RaIFwDDUgwvzKFc
+         D4ufLcU13l+NPYo9J/PInrwu7bhUWocvtFSgo=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749551826; x=1750156626;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=HQllWdWvQ6GyUrcNbIKWc6GTA25rlnnJsfpyeRJ6bq8=;
-        b=rtz+UUtZV5wVZtzsj8L7JUxVnLBXk6yFRd8BZ8ft2rplDEW0yNVvwMU2K48P8xvPqq
-         V0inIZbMTlhOum4h7NQjsOMmL1Z8L0wWHgCn88j0xc92ExceMQvIopW4aCcCFZefBPfP
-         RsPnf2CdII548VUDq7wQOUe59nOaVQPkrCeQqoz2Oo8j6N/zEDoZ9uRAUoPbSfsi2msO
-         +cejsgUo5yrYdVTrgI1B6kTrTeiPkQs/dOtgjAZITkG+Ojqfb3fSDbYrrAhlBMOOiNjS
-         wroAfwI42YCab2IFRa7bJaeUHHzf98CENT43xQkJyBRZrdCzT6Ej9/Q4rpPSQig3UERF
-         oNiQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXiT40dVrM5hS/i/+IOi17p1EWVKhwUHh2E09q/SIKJPYyD8HTOEQsvHqMv0DHVlwFes2va+pydHmM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyZL+NVGn4PPACvdCUx/wCT/+2m64bKBifVj5is3AeEh+2TIXlK
-	wmTSnQcNybSf/GVhXwmhPJcWczP9V9iDF0J3IdG/7iOxBqD6AnLN1NA01jkFwdKiKNKa198/zbD
-	NBNdkUUrMce2WNTqRyG/aaN6f2NeVcYw+jjYRHv8ALQ==
-X-Gm-Gg: ASbGnctGOpXafAMXTUzO40cXA/XZkMm5v8tu52Kl8BVYsFltQq3TDR8ydBbiTnvbJxP
-	kPyf6qRZuuJcY9+clVUGGxCADxhJ4egms7wnDDRCPU62qJQRMrV46eLRdsjA6WLYOjtOWJf2CcF
-	OsWVdf3LmB83Z2e41Xuz8eUTLEIlnB4RXMbHlZX3VX3Vg8pdFBx4TF
-X-Google-Smtp-Source: AGHT+IEEI00uC9sZ7cAalAOoYq0t2BJVjAL/TiVQetB5KAFmU1n4zeIdDfGSt67mkbD818/2aVj8c81KOCgEW67UCcI=
-X-Received: by 2002:a05:6871:4b06:b0:2c2:bd31:cf37 with SMTP id
- 586e51a60fabf-2ea00679c87mr10431002fac.4.1749551826473; Tue, 10 Jun 2025
- 03:37:06 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1749552253; x=1750157053;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=XHlXqnj3di+1NstG3GDVx/HOeqSCRdzBnhKtBH49vU0=;
+        b=odlUWw4JGyn560jJEHllcnIC+RwZpau50svMA+DkdqzWnkesyiLCeOX8XgcWS9QRG4
+         iND5dzwUwa4NT13idkU54ieLge3u4YEJiCkN3OjZMIti3KkjlXc7PhBRMtLhU+7O6Cr0
+         +PnbSqYkPPcxNr8hXtYHLZd2rclh5j3Pv9bsLIFAbxV7YCP+CPoJDDJ1jaMeQhrhnmE4
+         hDhaox7rCgJc8+sDGlJKTxZeZhZfkue4hHleOE91j8gY4ipQ4WXOj8+3TShnaVEc+RQ+
+         lG1DwJcRBJoCPM28bliFtkbi5XyWxbTXs33zXuX2OJhBiFiKeNSkj5qUrMbv0mKzJiEp
+         yFkw==
+X-Gm-Message-State: AOJu0YwCMns7d5P8VxjnQ/KB1kPJfRFlQmSK0YHgnakOM9BS2pjVXckZ
+	CVPCfl2cCdCtE5b0j07NMx7r8HoEStPchAab0smgOhN4gPX7O9C8tHDod7qsrqML6aI=
+X-Gm-Gg: ASbGnctr+qZ5aGbJcSX7nXuypEaDKqaSTeJ98V3qDr219fCThKDJooXbz2lhyVb+3vG
+	+aMsK1rldpUlxwINmdVkmGzHFmfqqGWhLLcIoNiYOWeNMrRVB56vpmA2vM375rziZZh5oK4P1nq
+	fZC2PSqJrxjb2DqYX/HDjI0Tx1NjeNiUA9R4w/kCqOjSgYnLHLn2amP0KnYhP11Tk2BcOD+hzV6
+	Oir7a/NslKHwrfquCiLQYVSDQICmlO1Uy23/Pc7ZMmVUgx8BjR1hY0BvSYbCbhmjXiQVlvHApE+
+	Ck1LFhAGHm1sHSSSTZ3EWlJzj1m3iEVWvOWHdEJq7LIklgcxtnVDVV0IvuGNBxSfCnLxbFQ+ryw
+	qIbe+EDrsayaHCO2aOff1+VIpEQL5Z8uvRGk=
+X-Google-Smtp-Source: AGHT+IEbQ7b51Fk8Szk9nvVfHxMETQT7gRi1ktDmQmxnlznR4WhNe8rnJ+Wbkftsda3ZbRP93ugg6g==
+X-Received: by 2002:a5d:588a:0:b0:3a5:2e9c:edc with SMTP id ffacd0b85a97d-3a531886a28mr13142012f8f.34.1749552253130;
+        Tue, 10 Jun 2025 03:44:13 -0700 (PDT)
+Date: Tue, 10 Jun 2025 12:44:11 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: [PATCH v2] x86/HVM: restrict use of pinned cache attributes as
+ well as associated flushing
+Message-ID: <aEgMe1i4Rpmnz8M9@macbook.local>
+References: <78b3ddeb-4317-4d54-ad52-9eb03bdf7942@suse.com>
+ <aEa5J_TlSAdS9-m_@macbook.local>
+ <6e9e84eb-f98b-4c06-8952-03aecc82c0ea@suse.com>
 MIME-Version: 1.0
-References: <20250610101228.24460-1-freddy77@gmail.com> <d89d5d6d-c366-4511-8ffd-5aa83c0fc034@citrix.com>
-In-Reply-To: <d89d5d6d-c366-4511-8ffd-5aa83c0fc034@citrix.com>
-From: Frediano Ziglio <frediano.ziglio@cloud.com>
-Date: Tue, 10 Jun 2025 11:36:55 +0100
-X-Gm-Features: AX0GCFurVAGi2D5Izvq0V7p4mEjR4f-o3SFD-pkM8FCxB3B1vDF2pbxYzRrrNRc
-Message-ID: <CACHz=ZjRTa0R-oytF7HPNbao7SFzAwKvccmemGOPqgejF3PTyA@mail.gmail.com>
-Subject: Re: [PATCH] xen: Strip xen.efi by default
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Frediano Ziglio <freddy77@gmail.com>, xen-devel@lists.xenproject.org, 
-	Anthony PERARD <anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, 
-	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, 
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	Stefano Stabellini <sstabellini@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <6e9e84eb-f98b-4c06-8952-03aecc82c0ea@suse.com>
 
-On Tue, Jun 10, 2025 at 11:17=E2=80=AFAM Andrew Cooper
-<andrew.cooper3@citrix.com> wrote:
->
-> On 10/06/2025 11:12 am, Frediano Ziglio wrote:
-> > For xen.gz file we strip all symbols and have an additional
-> > xen-syms file version with all symbols.
-> > Make xen.efi more coherent stripping all symbols too.
-> > xen.efi.elf can be used for debugging.
->
-> Agreed.  What Xen previous had violates the principle of lease surprise.
->
-> > Signed-off-by: Frediano Ziglio <freddy77@gmail.com>
->
-> Did you intend to send this patch personally?
->
+On Tue, Jun 10, 2025 at 09:40:38AM +0200, Jan Beulich wrote:
+> On 09.06.2025 12:36, Roger Pau Monné wrote:
+> > On Wed, Jun 04, 2025 at 11:48:00AM +0200, Jan Beulich wrote:
+> >> @@ -605,31 +606,35 @@ int hvm_set_mem_pinned_cacheattr(struct
+> >>  
+> >>                  type = range->type;
+> >>                  call_rcu(&range->rcu, free_pinned_cacheattr_entry);
+> >> -                p2m_memory_type_changed(d);
+> >>                  switch ( type )
+> >>                  {
+> >> -                case X86_MT_UCM:
+> >> +                case X86_MT_WB:
+> >> +                case X86_MT_WP:
+> >> +                case X86_MT_WT:
+> >>                      /*
+> >> -                     * For EPT we can also avoid the flush in this case;
+> >> -                     * see epte_get_entry_emt().
+> >> +                     * Flush since we don't know what the cachability is going
+> >> +                     * to be.
+> >>                       */
+> >> -                    if ( hap_enabled(d) && cpu_has_vmx )
+> >> -                case X86_MT_UC:
+> >> -                        break;
+> >> -                    /* fall through */
+> >> -                default:
+> >> -                    flush_all(FLUSH_CACHE);
+> >> +                    if ( is_iommu_enabled(d) || cache_flush_permitted(d) )
+> >> +                        flush = true;
+> > 
+> > Is the check here required?  memory_type_changed() will already check
+> > for is_iommu_enabled() and cache_flush_permitted(), and hence you
+> > could just set flush to true unconditionally here IMO.
+> 
+> The behavioral difference is when both predicates are false: The way I have
+> it now, p2m_memory_type_changed() will then still be called (conditionally),
+> better matching prior behavior.
 
-I noted. No, it was developed as part of CSG work. I think some
-configuration left from the time we had issues with the email.
-Still me, so the signed off should be okay. Should I update and send it aga=
-in?
+I see.  Yes, p2m_memory_type_changed() needs to be called.
 
-> ~Andrew
->
-Frediano
+> 
+> >>                      break;
+> >>                  }
+> >> -                return 0;
+> >> +                rc = 0;
+> >> +                goto finish;
+> >>              }
+> >>          domain_unlock(d);
+> >>          return -ENOENT;
+> >>  
+> >>      case X86_MT_UCM:
+> >>      case X86_MT_UC:
+> >> -    case X86_MT_WB:
+> >>      case X86_MT_WC:
+> >> +        /* Flush since we don't know what the cachability was. */
+> >> +        if ( !is_iommu_enabled(d) && !cache_flush_permitted(d) )
+> >> +            return -EPERM;
+
+When assigning IO resources without an IOMMU enabled we likely need
+to allow the pinned cache attributes to be set, but there's no need to
+propagate the changes to the p2m, as the EMT calculation won't take
+into account the pinned attributes.
+
+IOW: I don't think we can safely short-circuit and return -EPERM here
+without agreeing that it's a behavioral difference form the previous
+implementation.
+
+> >> +        flush = true;
+> >> +        break;
+> >> +
+> >> +    case X86_MT_WB:
+> >>      case X86_MT_WP:
+> >>      case X86_MT_WT:
+> >>          break;
+> >> @@ -682,9 +687,11 @@ int hvm_set_mem_pinned_cacheattr(struct
+> >>  
+> >>      xfree(newr);
+> >>  
+> >> -    p2m_memory_type_changed(d);
+> >> -    if ( type != X86_MT_WB )
+> >> -        flush_all(FLUSH_CACHE);
+> >> + finish:
+> >> +    if ( flush )
+> >> +        memory_type_changed(d);
+> >> +    else if ( d->vcpu && d->vcpu[0] )
+> >> +        p2m_memory_type_changed(d);
+> > 
+> > FWIW, I would just call memory_type_changed() unconditionally
+> > regardless of the change.
+> 
+> In which case the need for the "flush" local var would go away, if I
+> understand your suggestion correctly. Like above, there'll then be
+> more of a behavioral change than intended. In particular ...
+
+There will be a behavioral change, but not one that the guest would
+notice IMO.
+
+> >  We suspect the hypercall is only used at
+> > domain creation time (where memory_type_changed() won't do a cache
+> > flush anyway).
+> 
+> ... "suspect" is not enough for my taste. The only alternative there
+> that I see (as mentioned in a post-commit-message remark) is to
+> refuse such "late" changes altogether. Yet for that we need to be
+> sure, which it looks like no-one of us is.
+
+Why do you say only alternative?
+
+Calling memory_type_changed() unconditionally (without taking into
+account the previous or new cache attributes) would also be an
+acceptable solution, that might wide the cache flushing a bit, but
+would still be correct and much simpler IMO.
+
+Thanks, Roger.
 
