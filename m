@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26150AD2E24
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Jun 2025 08:53:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1010510.1388618 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 028FFAD2E2B
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Jun 2025 08:56:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1010516.1388628 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uOsrE-0008SA-8g; Tue, 10 Jun 2025 06:53:16 +0000
+	id 1uOsu6-0000Ys-LN; Tue, 10 Jun 2025 06:56:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1010510.1388618; Tue, 10 Jun 2025 06:53:16 +0000
+Received: by outflank-mailman (output) from mailman id 1010516.1388628; Tue, 10 Jun 2025 06:56:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uOsrE-0008Q4-5U; Tue, 10 Jun 2025 06:53:16 +0000
-Received: by outflank-mailman (input) for mailman id 1010510;
- Tue, 10 Jun 2025 06:53:14 +0000
+	id 1uOsu6-0000XG-IL; Tue, 10 Jun 2025 06:56:14 +0000
+Received: by outflank-mailman (input) for mailman id 1010516;
+ Tue, 10 Jun 2025 06:56:13 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=6UIy=YZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uOsrC-0008Py-UZ
- for xen-devel@lists.xenproject.org; Tue, 10 Jun 2025 06:53:14 +0000
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [2a00:1450:4864:20::32c])
+ id 1uOsu5-0000XA-Qc
+ for xen-devel@lists.xenproject.org; Tue, 10 Jun 2025 06:56:13 +0000
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [2a00:1450:4864:20::42d])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 945d98be-45c7-11f0-a305-13f23c93f187;
- Tue, 10 Jun 2025 08:53:14 +0200 (CEST)
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-450ccda1a6eso47235415e9.2
- for <xen-devel@lists.xenproject.org>; Mon, 09 Jun 2025 23:53:14 -0700 (PDT)
+ id ff0cc77c-45c7-11f0-a305-13f23c93f187;
+ Tue, 10 Jun 2025 08:56:13 +0200 (CEST)
+Received: by mail-wr1-x42d.google.com with SMTP id
+ ffacd0b85a97d-3a50fc7ac4dso3272358f8f.0
+ for <xen-devel@lists.xenproject.org>; Mon, 09 Jun 2025 23:56:13 -0700 (PDT)
 Received: from ?IPV6:2003:ca:b734:b49b:5992:e13c:c106:5fe0?
  (p200300cab734b49b5992e13cc1065fe0.dip0.t-ipconnect.de.
  [2003:ca:b734:b49b:5992:e13c:c106:5fe0])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3a53244f07dsm11558364f8f.79.2025.06.09.23.53.12
+ ffacd0b85a97d-3a53244df34sm11567746f8f.71.2025.06.09.23.56.11
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 09 Jun 2025 23:53:13 -0700 (PDT)
+ Mon, 09 Jun 2025 23:56:12 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,58 +47,63 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 945d98be-45c7-11f0-a305-13f23c93f187
+X-Inumbo-ID: ff0cc77c-45c7-11f0-a305-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1749538393; x=1750143193; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1749538572; x=1750143372; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=SfvW4Xlh/9Vx6YPL9vMgWdJg+jlNLW7lnjHTKilal9M=;
-        b=G2RNDD/eDU6qnBRBKDkycS1RoqV5OCY4KB9BA66dZwM+H0sAp1QnMgS5tT4OuSdiFA
-         D5JaHjO22T4VfpBGbpY/dIX2MOmmb2aKrRIinAl/hoKJL5U+qinDild8aid4OuGVoh3E
-         YKTzQlDVdGbiekBWwOh0gwIWFkZu8Wj/zz9sw/aFEVa/qJ57mDTYoKIVJ0Mp44wL+OgK
-         zDyScvMwwOnIqs2wD0KH78KkgW3kwNlz1BaM6VgYQVUNzate7IWdEAhhtbXmJUDZEH55
-         CQQgjGtEUiYuY+iQDfpOTvCDXhwKiSLk8guMoWSRZUiwVyDrBrkPJjzhoR93+euuubIs
-         YW2w==
+        bh=897J7jDLs92ieMJFM2XGqS8hZldTET+6U7XnxbOkPpE=;
+        b=bMXE8uTYA1BBEx30t1FpCGGB5z86oW5fDH2oAFjCpYGY6ipglTlLRBYWAIBq9Gnci9
+         BpZd096qXdAhDaS1oeNBwASyWUCJPWXLr6WqYIfrWo+k5xHcFJNql5coUuOKJHzyzjwz
+         nLcvFHq2hfqv3zbQE6s9nAf4BJbTGeivANPfSkI5E0loBxfpy0DcFqzRSTJt8TOrPtgm
+         VFFTW3wOu1cZF5n975XsjMFHAZyqL6xnhK0eDh41aOKCG1Yon1v5NDEmWoc30AqGTg+j
+         te75rA6SLGBIcxG0zTQ20KbkauN6foiBzI5xyRtTFiO/US8Nqrn90G/9MTquZzIgZ4fD
+         3cNQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749538393; x=1750143193;
+        d=1e100.net; s=20230601; t=1749538572; x=1750143372;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=SfvW4Xlh/9Vx6YPL9vMgWdJg+jlNLW7lnjHTKilal9M=;
-        b=FSLOvbn6OvHj1I/SRGYnJ8SFmygEuDSrhvCnmnxA0XMSYCJwmxDvRjeMifgpxSjNuU
-         yGRVoQyzRBbw/0ZIINTdLgMg2HE00KCJTHeBaE4sKDL0pNlYY+zsolzfLj6OJ3om9nVy
-         1I0DDB3F2ecwW8RD5KNaPbxxsQ3bWlYaWndKYQCv0m/x/qO+MU52rXh1DshtYX/1+fct
-         a+hcH/X4i87vGhdok1wBrjFsRjaY2d8BPvPG1uVflzZNz6vb/F7ywSxtDDiKV2+21A+c
-         GDWgVmpWWqRlsj3AqSmBBe+nzD0A3QCBevbyOgm8w0kNAa3LHb1z9W432h2puWd/pWq4
-         cKuQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWHiazW4+v/juF9SbtOOZfDyK1hPIaTj+pB8qVTdy8O4imjnMiEkXgfy3J2tMMJnk6ypABORuSS7d0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy1oe8YWneZ4tT/2gNkMN4K2nXZJsfopaEDTow00b+Xei3sId5o
-	vNzlAsWrWZWExPIBk6yxFOcYN60gzs1nkzXYJ17t9g9da7pS5BNa9y+dlMFS4P0w+w==
-X-Gm-Gg: ASbGncvYDR7dUwVpikAfV2kZwvqR9rqv/9GQNYLcI/M1M5KqAZIzLrWqbXeAElBQ4Sv
-	NsNCF+7hhvwStKvGMw48LGZT8RUAuRqFccSS3ZqkZ7lr53S0p8GTI6wDtYwGZCKMpc1BC/1ppPk
-	/hQHVi2VLUkPsK1b4kOC+B092om7nzCYe12uDwFRAZm/GSL++4+HO2uiB4LK65AeSnkAeoWv49N
-	K5rrf0r4JdMX34T6QLkulKyCMjouocuIvuzgtXP5EVjAp3fe4sc0xoVaphtCZqWoarKtGrbjzq4
-	raoVYDtZrPsSwPSW2JFzLRLpkeGB8rI+mitTWRztxgb0tpR3tpcmazH7Cl7tcb0rNM0m5OV8KO9
-	0bjAixHhRhYopY1kJ+9JtOqnpktzP7V2qlzC/WscWZP1qN6qzVXWmYEvys1Jm2Mpz0P7yjDmk2j
-	D3y5meeCzy9FtnMSLE1JIG
-X-Google-Smtp-Source: AGHT+IFDHi+S1Yhxpm0uC7t6pV9GvEVh/xV66TGSImK1BpM9n/sDudrJwujBC62Qa9UqNeHAEFqqRg==
-X-Received: by 2002:a05:600c:154c:b0:453:b44:eb69 with SMTP id 5b1f17b1804b1-4530b44f1acmr68227515e9.13.1749538393374;
-        Mon, 09 Jun 2025 23:53:13 -0700 (PDT)
-Message-ID: <30c01c78-5a5e-435f-9b1c-faca3af04a76@suse.com>
-Date: Tue, 10 Jun 2025 08:53:12 +0200
+        bh=897J7jDLs92ieMJFM2XGqS8hZldTET+6U7XnxbOkPpE=;
+        b=PNu/P+lU0kmKOjR9es30k6eHPF5u+H1EkmQCG4Ltob2mkHDO1ed3d+Bz+nEBFH1Z4d
+         Lsb84l6TYwidp4q5yOKF9AOKCVn6+xTPy9tSFKS9rt8MYhKirFLDsOzoa5fyCiMNdwXl
+         bkXsI97A4CP8WCLK3n5X7skRuDq7nXICoTExWKoSQrddkFmBc9VxcDOZQLSbTKCrW/x2
+         ZRD2pD6coIFpoOjCykQ17JH6xWqm/JUE5V4382FrK8GFs0T0qmUXcAN0iIhqdO7U/w7R
+         ODbm64WqEi5NmUCooTg5/joA9e2DUyFJBrcabSoI8V0Hl7ziaI+XxBrc5sqo1b+k8NwH
+         oFIA==
+X-Forwarded-Encrypted: i=1; AJvYcCVCgIKMv1qyNa+Jkm7A/hSyOVIfb1BDXc/HOoHCXPjxbCEC0o/Ivv6/K/ErXrkT5VxCKgv0aP2jamE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yxmlg6MY607VhOKiMZ5cl2XOoH4hpUs0wRfTzMCMjgDzSmig+Kh
+	gP73+lmuvI60SxlitkdOuSIXeQcgOjnnZycLop2GFSBJIGXfJXotblmXef3pTMqtuA==
+X-Gm-Gg: ASbGnct7vT07YioddWYFohIaCgl7eptSd5/ZINkTlFxnkJDG+artA3opRxyjmLNsTt8
+	i1vkblz5Yvi8B9yZizYWox0ro8J3i130ASVrftNME/2rMV+5XP50WNIrOi8XkKuug484hHO/e7Q
+	j68XePThqXaUfn5FR4Jv922kgzn5Vv23fpqzO3kwTxhj6+Dz9qywFcUfAucnOGM/qpupofQzNrb
+	FHddD+x9uJLAePt/HQYx5o+DB/wVjNP+92f55JbbPpo+7KCrO7xjmwLUWooL73fQM9TWOmHzpFy
+	mNLD0PT3nlMtpIH0PwSYOVOIGDHhgieEltM4b4RS7/YjWsBoHMsaBQFTrt+3zGXx0IeazlF660M
+	WxrokDGVseo6BRaHjnnSjbQKWEarkJqMvg4S60dRqDTg6cOIlvjnQ31T8tqnyiGisxA02UDBnw2
+	Uo64RLd3TfRb6jXRbimKyn
+X-Google-Smtp-Source: AGHT+IEQ4lLW9lzQsSdVtn4yNpxUQXAV0U93zKFJNvUmtvxoLfECYZ+zliTA9fdLVw28g0lCt9sGaA==
+X-Received: by 2002:a05:6000:220d:b0:3a1:f5c4:b81b with SMTP id ffacd0b85a97d-3a5522786acmr1165699f8f.23.1749538572405;
+        Mon, 09 Jun 2025 23:56:12 -0700 (PDT)
+Message-ID: <02ffa9cf-b5cd-431a-834a-a11bbf310196@suse.com>
+Date: Tue, 10 Jun 2025 08:56:11 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 2/3] xen/domain: adjust domain ID allocation for Arm
-To: Julien Grall <julien@xen.org>, dmkhn@proton.me
-Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech,
- roger.pau@citrix.com, sstabellini@kernel.org, teddy.astie@vates.tech,
- dmukhin@ford.com, xen-devel@lists.xenproject.org
-References: <20250528225030.2652166-1-dmukhin@ford.com>
- <20250528225030.2652166-3-dmukhin@ford.com>
- <63087c42-d709-4e53-a2c3-8b812f13190a@xen.org>
- <a4c860d7-1fa0-43f4-8ae1-af59b7c6506f@xen.org>
+Subject: Re: [PATCH v6 06/12] x86/hyperlaunch: obtain cmdline from device tree
+To: Jason Andryuk <jason.andryuk@amd.com>
+Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>, Denis Mukhin
+ <dmukhin@ford.com>, Alejandro Vallejo <agarciav@amd.com>,
+ xen-devel@lists.xenproject.org
+References: <20250429123629.20839-1-agarciav@amd.com>
+ <20250429123629.20839-7-agarciav@amd.com>
+ <59f37fcc-9226-46c5-8dc8-7bd2100d8f59@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -124,87 +129,49 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <a4c860d7-1fa0-43f4-8ae1-af59b7c6506f@xen.org>
+In-Reply-To: <59f37fcc-9226-46c5-8dc8-7bd2100d8f59@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 06.06.2025 23:29, Julien Grall wrote:
-> Hi Denis,
-> 
-> On 05/06/2025 23:05, Julien Grall wrote:
->> Hi Denis,
+On 09.06.2025 19:07, Jason Andryuk wrote:
+> On 2025-04-29 08:36, Alejandro Vallejo wrote:
+>> From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
 >>
->> On 28/05/2025 23:50, dmkhn@proton.me wrote:
->>> From: Denis Mukhin <dmkhn@proton.me>
->>>
->>> From: Denis Mukhin <dmukhin@ford.com>
->>>
->>> Remove the hardcoded domain ID 0 allocation for hardware domain and replace it
->>> with a call to get_initial_domain_id() (returns the value of hardware_domid on
->>> Arm).
+>> Add support to read the command line from the hyperlaunch device tree.
+>> The device tree command line is located in the "bootargs" property of the
+>> "multiboot,kernel" node.
 >>
->> I am not entirely why this is done. Are you intending to pass a different domain ID? If so...
+>> A boot loader command line, e.g. a grub module string field, takes
+>> precendence over the device tree one since it is easier to modify.
 >>
->>>
->>> Update domid_alloc(DOMID_INVALID) case to ensure that get_initial_domain_id()
->>> ID is skipped during domain ID allocation to cover domU case in dom0less
->>> configuration. That also fixes a potential issue with re-using ID#0 for domUs
->>> when get_initial_domain_id() returns non-zero.
->>>
->>> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
->>> ---
->>> Changes since v8:
->>> - rebased
->>> ---
->>>   xen/arch/arm/domain_build.c             | 4 ++--
->>>   xen/common/device-tree/dom0less-build.c | 9 +++------
->>>   xen/common/domain.c                     | 4 ++--
->>>   3 files changed, 7 insertions(+), 10 deletions(-)
->>>
->>> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
->>> index e9d563c269..0ad80b020a 100644
->>> --- a/xen/arch/arm/domain_build.c
->>> +++ b/xen/arch/arm/domain_build.c
->>> @@ -2035,9 +2035,9 @@ void __init create_dom0(void)
->>
->> ... naming like create_dom0() probably wants to be renamed.
->>
->> That said, I am not convinced a domain other than 0 should have full privilege by default. So I would argue it should stay as ...
->>
->>>       if ( !llc_coloring_enabled )
->>>           flags |= CDF_directmap;
->>> -    domid = domid_alloc(0);
->>> +    domid = domid_alloc(get_initial_domain_id());
->>
->> ... 0.
+>> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+>> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
+>> Signed-off-by: Alejandro Vallejo <agarciav@amd.com>
+>> Reviewed-by: Denis Mukhin <dmukhin@ford.com>
+>> ---
 > 
-> Looking at the implementation of get_initial_domain_id(), I noticed the behavior was changed for x86 by [1].
+>> diff --git a/xen/common/domain-builder/fdt.c b/xen/common/domain-builder/fdt.c
+>> index cbb0ed30a2..dabe201b04 100644
+>> --- a/xen/common/domain-builder/fdt.c
+>> +++ b/xen/common/domain-builder/fdt.c
+>> @@ -219,6 +219,12 @@ static int __init fdt_process_domain_node(
+>>               printk(XENLOG_INFO "  kernel: multiboot-index=%d\n", idx);
+>>               bi->mods[idx].type = BOOTMOD_KERNEL;
+>>               bd->kernel = &bi->mods[idx];
+>> +
+>> +            /* If bootloader didn't set cmdline, see if FDT provides one. */
+>> +            if ( bd->kernel->cmdline_pa &&
+>> +                 !((char *)__va(bd->kernel->cmdline_pa))[0] )
 > 
-> Before, get_initial_domain_id() was returning 0 except for the PV shim.
-> But now, it would could return the domain ID specified on the command line (via hardware_dom).
+> The logic is incorrect - it should be:
 > 
-> From my understanding, the goal of the command line was to create the hardware domain *after* boot. So initially we create dom0 and then initialize the hardware domain. With the patch below, this has changed.
+>             if ( !bd->kernel->cmdline_pa ||
+>                  !((char *)__va(bd->kernel->cmdline_pa))[0] )
 > 
-> However, from the commit message, I don't understand why. It seems like we broke late hwdom?
-> 
-> For instance, late_hwdom_init() has the following assert:
-> 
->     dom0 = rcu_lock_domain_by_id(0);
->     ASSERT(dom0 != NULL);
-> 
-> Jan, I saw you were involved in the review of the series. Any idea why this was changed?
+> If there is no cmdline_pa (which happens with the "reg" property) or the if there is a 0-length string, then check the DT for bootargs.
 
-I simply overlooked this aspect when looking at the change. You're right, things
-were broken there. Unless a simple and clean fix can be made relatively soon, I
-think this simply needs reverting (which may mean to revert any later commits
-that depend on that). I can't help noting that in this console rework there were
-way too many issues, and I fear more than just this one may have slipped
-through. I therefore wonder whether taken as a whole this was/is worth both the
-submitter's and all the reviewers' time.
+Even that sounds bogus to me: There's a difference between "no command line"
+and "empty command line".
 
 Jan
-
-> [1] https://lore.kernel.org/all/20250306075819.154361-1-dmkhn@proton.me/
-> 
-
 
