@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 02158AD39E7
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Jun 2025 15:49:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1010968.1389231 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F974AD39FB
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Jun 2025 15:53:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1010978.1389241 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uOzLr-0001vm-3q; Tue, 10 Jun 2025 13:49:19 +0000
+	id 1uOzPW-0004ZO-Ko; Tue, 10 Jun 2025 13:53:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1010968.1389231; Tue, 10 Jun 2025 13:49:19 +0000
+Received: by outflank-mailman (output) from mailman id 1010978.1389241; Tue, 10 Jun 2025 13:53:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uOzLr-0001tW-0c; Tue, 10 Jun 2025 13:49:19 +0000
-Received: by outflank-mailman (input) for mailman id 1010968;
- Tue, 10 Jun 2025 13:49:18 +0000
+	id 1uOzPW-0004Xf-I3; Tue, 10 Jun 2025 13:53:06 +0000
+Received: by outflank-mailman (input) for mailman id 1010978;
+ Tue, 10 Jun 2025 13:53:05 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=fiUs=YZ=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1uOzLq-0001tL-HB
- for xen-devel@lists.xenproject.org; Tue, 10 Jun 2025 13:49:18 +0000
-Received: from fhigh-b7-smtp.messagingengine.com
- (fhigh-b7-smtp.messagingengine.com [202.12.124.158])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=6UIy=YZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uOzPV-0004XZ-O5
+ for xen-devel@lists.xenproject.org; Tue, 10 Jun 2025 13:53:05 +0000
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [2a00:1450:4864:20::332])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b0e14173-4601-11f0-b894-0df219b8e170;
- Tue, 10 Jun 2025 15:49:13 +0200 (CEST)
-Received: from phl-compute-02.internal (phl-compute-02.phl.internal
- [10.202.2.42])
- by mailfhigh.stl.internal (Postfix) with ESMTP id E56042540108;
- Tue, 10 Jun 2025 09:49:11 -0400 (EDT)
-Received: from phl-mailfrontend-02 ([10.202.2.163])
- by phl-compute-02.internal (MEProxy); Tue, 10 Jun 2025 09:49:12 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 10 Jun 2025 09:49:10 -0400 (EDT)
+ id 3a2fa61b-4602-11f0-b894-0df219b8e170;
+ Tue, 10 Jun 2025 15:53:03 +0200 (CEST)
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-451d3f72391so71265285e9.3
+ for <xen-devel@lists.xenproject.org>; Tue, 10 Jun 2025 06:53:03 -0700 (PDT)
+Received: from ?IPV6:2003:ca:b734:b49b:5992:e13c:c106:5fe0?
+ (p200300cab734b49b5992e13cc1065fe0.dip0.t-ipconnect.de.
+ [2003:ca:b734:b49b:5992:e13c:c106:5fe0])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4526e163113sm140988605e9.18.2025.06.10.06.53.01
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 10 Jun 2025 06:53:02 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,149 +47,113 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b0e14173-4601-11f0-b894-0df219b8e170
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1749563351;
-	 x=1749649751; bh=Bx0FUwl99RzMl79cCwMd39gQYljvINpdxyewwdtObUc=; b=
-	BGD2TPDEXDGvnHAfPFleIIPVdX9t9/hzzAtkVJ5eyFCRAEG7xuIgE49aknoXYFb3
-	fppUKFiZsM+rVoWEWd4hj3h+UKD7Q1zuTNRECkGx8OSHJ51AWFqL/987pmOEEUrG
-	SoauxnenvwfaiFBKHnFeemT9w4Rz1COPBNApM4vh9ga7sSYnFjXsD3bfHE6ONFJn
-	GkQu42mx6Bs+/xwhiP7eT3d60nKY9UkaZ9GtYLUzyQi/27goBaCaaR3v2YciDy0h
-	tPswEKwGu4mJyFN5oPhA5fWgVn4cb/Vd+kQ4Fv+rZHXDxRzAL+fR96oeF91i1Hez
-	wGZM3GhyKKw8IJilgHYozg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1749563351; x=1749649751; bh=Bx0FUwl99RzMl79cCwMd39gQYljvINpdxye
-	wwdtObUc=; b=KJQWG9mcHQRk/OwbOUWN+wVbbW1ujgbHB4iQTi5Cxc0dYgVqRAA
-	29Q8LfF34GFUAC/7YriJsSM7YYsO12zaGiVrCBVciPBtUzTEApTuDNF9fm25Aoy6
-	dqe7Wfqv5gHrACnaTON5LmImS49AcJxsv9L97safjBwMG2gu652eAc/sL4xaEiiV
-	cfYDCGsaifaTIJENJQnVjBSWPEJ11IqRNvAmFYvAd9gAN9KfdZdAdN6Gulx1gVNB
-	h1efdXGyIjjXTXcgX3Xp6LgAiFfdj4cyF7FdBrZBIjOUF++DWt/zOylx5EASWnS0
-	uf8PxOAQRD4M5lye9d9ats/KzmwZgsHBjmQ==
-X-ME-Sender: <xms:1zdIaG4PZ1gRTFXhSg7-Y-IrYLt2oZbCFmE_InktdrmVdovH8k8LFQ>
-    <xme:1zdIaP6BHCE1LszskidtuCP_sCp4gbhGvlEUpE_tfAGAUJCQY4rp_uksSpA3fxatN
-    H3bqxwapEo8Fw>
-X-ME-Received: <xmr:1zdIaFfldced5HJ226TPrM1trvcsKneza4Qg3OdCLcnb2hPnOHRxEkNtwSG6jHzi2ZlfRdWA9RRTjMjzo7_J-Y21AJJSAHmnmcg>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtddugddutdekvdcutefuodetggdotefrod
-    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpggftfghnshhusghstghrihgsvgdp
-    uffrtefokffrpgfnqfghnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivg
-    hnthhsucdlqddutddtmdenucfjughrpeffhffvvefukfhfgggtuggjsehgtderredttdej
-    necuhfhrohhmpeforghrvghkucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoe
-    hmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucgg
-    tffrrghtthgvrhhnpeeileduvdekjeeukefhffetgeefiefffeejjedvieejvdfgjeehte
-    duvdekffduieenucffohhmrghinhepkhgvrhhnvghlrdhorhhgnecuvehluhhsthgvrhfu
-    ihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghksehinhhvih
-    hsihgslhgvthhhihhnghhslhgrsgdrtghomhdpnhgspghrtghpthhtohepkedpmhhouggv
-    pehsmhhtphhouhhtpdhrtghpthhtohepjhgsvghulhhitghhsehsuhhsvgdrtghomhdprh
-    gtphhtthhopegrnhgurhgvfidrtghoohhpvghrfeestghithhrihigrdgtohhmpdhrtghp
-    thhtoheprghnthhhohhnhidrphgvrhgrrhgusehvrghtvghsrdhtvggthhdprhgtphhtth
-    hopehmihgthhgrlhdrohhriigvlhesrghmugdrtghomhdprhgtphhtthhopehjuhhlihgv
-    nhesgigvnhdrohhrghdprhgtphhtthhopehrohhgvghrrdhprghusegtihhtrhhigidrtg
-    homhdprhgtphhtthhopehsshhtrggsvghllhhinhhisehkvghrnhgvlhdrohhrghdprhgt
-    phhtthhopeigvghnqdguvghvvghlsehlihhsthhsrdigvghnphhrohhjvggtthdrohhrgh
-X-ME-Proxy: <xmx:1zdIaDI8VvxKjxAusRuTFL31YjRNNrIbz6ojLh1k19RjogTRf_3hPw>
-    <xmx:1zdIaKJRKAH0bj8uxnZ20VQWOswR3PKTqSF29XpnxFizvF9ahabFrQ>
-    <xmx:1zdIaEzqwPU6B1raXVvntV5BF3qdIOx7veLGZv48LVbVhRbVuF1aSA>
-    <xmx:1zdIaOKbUU5giFoiJkkbklwt8LFAS0cNAf-m4Ad7-uw5JL0KLpgseQ>
-    <xmx:1zdIaKdXJ_fti1c9Ce4kh40q1RqCy4-knHBJZPP9LiOKnW9LCJv5I-vT>
-Feedback-ID: i1568416f:Fastmail
-Date: Tue, 10 Jun 2025 15:49:08 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v1 5/5] console: support multiple serial console
- simultaneously
-Message-ID: <aEg31IPOTifE8Yir@mail-itl>
-References: <cover.defc562b917978814c8359bbd04f1dadba33fb77.1748182535.git-series.marmarek@invisiblethingslab.com>
- <98ff383ff2ee3dc162b2d12afaea2b3f1406d99e.1748182535.git-series.marmarek@invisiblethingslab.com>
- <cc661b69-9260-405c-b421-a75bdc8166af@suse.com>
+X-Inumbo-ID: 3a2fa61b-4602-11f0-b894-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1749563582; x=1750168382; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=dlJY4iRlUylEhN7xtuvFFCDc5o5qdJM0UQFUX1ID1TY=;
+        b=MKbzkTJK/PBsycYb2Tj+k+jK8gZSqma/yzggjxsWiPfwMH9d9ws5r6k9X1kqLuBzCB
+         m5TsinxtfsEsYuEaO88mK7H+r5MiTVRAWXndAvFX9Di1TOUmVVEznqluKbBQh6NTUcMf
+         ehyNsMz9IRqXVr7DDykxIWJSnUb1+FWjshQ90tMwFef0Qjv/MKfCL9mzE54DO911hb4Z
+         IJsz8ZZgXcUpuWNFLtK4n7E9Sibkk8RUAvPrv8np21T3pTlF7nkANHEZdxTW+fzgKcfy
+         wQMzAhA9u2CgFgerNnSoFHIz+XmJhwy8NDw5oR5hSf5ySzjuoNvZivRDRU31B4xZJ5n/
+         OvrQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1749563582; x=1750168382;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=dlJY4iRlUylEhN7xtuvFFCDc5o5qdJM0UQFUX1ID1TY=;
+        b=VVqUcQdJ0TZY2g6fKyMuLKK0AuAvSK0BaU55mBDQvazS9sOj/eS/PLW/pRKId40EeH
+         vCIxC0HppXG90pKtmMoVk9vNVXQzsHnYCUNLZ32KhJJzf2DftSu/8yH9mMm44jG7qc4f
+         IqCi2zBxb6TAvCTB7k7COCqAS/BtLDNxwGKFCM9yb54JbZO9GDUa4uPetNqGOX64/aB4
+         UsPgAe2WEH8mPYc6H/VEjPuLzFNyTgqPfXYwFQ0k9+bpqX6Er5FBjcouNz7jafk8uM5s
+         L12+XkENrdbUgazKvsTiOFhS604n4dPZfz1PCJetxZuur/1noCVt212UdxMHDQlEB1KQ
+         M1Pw==
+X-Forwarded-Encrypted: i=1; AJvYcCXvXq6uM8lS9E5srkodyT4CSD4M/Ms/l6iGLWARbbSiGMf8WklldMfWMpdRDDSU57Twe0+HR13K5Uo=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxPgkFozUEeGNfpZNsZw3yVaJK/Zv2XBkzfGqV+EW9GgMk0AR+w
+	PqlTFIf8dlfT45q0aLZNEkwjTVRB3lej3PLq+wIFHLwZZcQeftnzW/M1JZ0wZojtoQ==
+X-Gm-Gg: ASbGncvDyqt3z3xr1IoxEdQRyb+FrB0gJAoSdX5wl0GywKOq2838KjaaoLoTEQYLlU1
+	dV+omXEyMVSgOxN6uaqepZrHLYBKJmR8m1O2TgrEAadK2aRYCpAhuQAghQRZui1dgnJF9get7ap
+	p2t1Ek4Z6pieVeM/Cx+wexEppQy5gITO7XubSgq3u9D+KnQ/wec/Y6tExXxYqLrqqD8fQmEJ6B1
+	7gNKpfFMJ5nkB7WwmAFbldQ/dJj7Pv7FEJ/6xqCvRAINYUA7uWlcgnfLeF1dJ0fuG7RUC5zaep4
+	ZW2vXDFir11ItqlRzkux5uCA9BwY3TcyqPwmhbZ63x+jQPyPaDMdSIS37osj+ki5xghyvuGjtEl
+	kpOlNRXv9ZVl+PZp6bf3ArlzTMVX5J3x2WfMRPJkIMcZrBj8TES+3A3lpb1JPA9+oj5Opn7vY+B
+	CtMif5IabdbWmAgCwvF1HP
+X-Google-Smtp-Source: AGHT+IGNfnUVAodBZAoWm4dNiFWX5uzrzypnwAIYHO+KUqv0pO9QHQITHVH0NPdufAKuQYOKrK2nZw==
+X-Received: by 2002:a05:600c:6210:b0:44a:b7a3:b95f with SMTP id 5b1f17b1804b1-452014d99b7mr139911685e9.25.1749563582498;
+        Tue, 10 Jun 2025 06:53:02 -0700 (PDT)
+Message-ID: <a3e3945d-66c6-454d-a334-72f8154cab76@suse.com>
+Date: Tue, 10 Jun 2025 15:53:01 +0200
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="9KaVgZv5yGFTqEhj"
-Content-Disposition: inline
-In-Reply-To: <cc661b69-9260-405c-b421-a75bdc8166af@suse.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 20/20] xen/sysctl: wrap around sysctl hypercall
+To: Penny Zheng <Penny.Zheng@amd.com>
+Cc: ray.huang@amd.com, Stefano Stabellini <sstabellini@kernel.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <stefano.stabellini@amd.com>,
+ Sergiy Kibrik <Sergiy_Kibrik@epam.com>, xen-devel@lists.xenproject.org
+References: <20250528091708.390767-1-Penny.Zheng@amd.com>
+ <20250528091708.390767-21-Penny.Zheng@amd.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20250528091708.390767-21-Penny.Zheng@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
+On 28.05.2025 11:17, Penny Zheng wrote:
+> From: Stefano Stabellini <sstabellini@kernel.org>
+> 
+> Wrap sysctl hypercall def and sysctl.o with CONFIG_SYSCTL, and since
+> PV_SHIM_EXCLUSIVE needs sorting in the future, we move them out of
+> PV_SHIM_EXCLUSIVE condition at the same time.
+> 
+> We need to make SYSCTL with prompt back and state unsetting SYSCTL in
+> pvshim_defconfig to explicitly make it unavailable for PV shim.
 
---9KaVgZv5yGFTqEhj
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 10 Jun 2025 15:49:08 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v1 5/5] console: support multiple serial console
- simultaneously
+I'm struggling with this sentence. but nevertheless it seems pretty
+clear that what the latter half of the sentence says is not the effect
+of ...
 
-On Tue, Jun 10, 2025 at 02:48:54PM +0200, Jan Beulich wrote:
-> On 25.05.2025 16:15, Marek Marczykowski-G=C3=B3recki wrote:
-> > Previously only one serial console was supported at the same time. Using
-> > console=3Dcom1,dbgp,vga silently ignored all but last serial console (in
-> > this case: only dbgp and vga were active).
-> >=20
-> > Fix this by storing not a single sercon_handle, but an array of them, up
-> > to MAX_SERCONS entries. The value of MAX_SERCONS can be chosen in
-> > kconfig, the default (4) is arbitrary, inspired by the number of
-> > SERHND_IDX values.
-> >=20
-> > Make console_steal() aware of multiple consoles too. It can now either
-> > steal output from specific console (for gdbstub), or from all of them at
-> > once (for console suspend).
-> >=20
-> > Signed-off-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblething=
-slab.com>
-> > ---
-> > This was posted before as part of initial xhci console submission, it
-> > reached v6 (but last changes were in v4), but wasn't considered useful
-> > enough to review/ack:
-> > https://lore.kernel.org/xen-devel/Yu0XHUhsebE+WG0g@mail-itl/
-> >=20
-> > Since I needed this feature again, to debug xhci console issue, I'm
-> > including this patch again in the series.
->=20
-> Beyond this narrow aspect, has anything changed in the picture, compared
-> to what was said / discussed earlier on?
+> --- a/xen/arch/x86/configs/pvshim_defconfig
+> +++ b/xen/arch/x86/configs/pvshim_defconfig
+> @@ -31,3 +31,4 @@ CONFIG_EXPERT=y
+>  # HYPERV_HYPERV_GUEST is not set
+>  # CONFIG_HVM is not set
+>  # CONFIG_VGA is not set
+> +# CONFIG_SYSCTL is not set
 
-Not really. It's still quite useful for people doing console drivers
-debugging and have the luxury of having many options at the same time.
-For me it's xhci, but it could be useful also for debugging other
-drivers (outside of x86 too). And it's still not very useful for anybody
-else.
+... this change. The option is still going to be available; it's just
+that the preset is "off" now.
 
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---9KaVgZv5yGFTqEhj
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmhIN9QACgkQ24/THMrX
-1yxlZgf7Bm4HqeqtUWNtK+kGyetDUvfI0/l7AKgJoun+pbiF/UEVqipHqc62V8kv
-QGrom1xdU19KMccG8RkkbfgO3DzuUlbUnllrwsGYqXzN+IUK36czVC0lUf/8ZL50
-KovPtJj28PEfpUj88afpW7DjpEuE3T8uZC81tVrLVXkvjCRY6E9Pf3KsuexwlS0h
-9CgYui1AOjxYGn2xgnJi9l2hqtytIP0WXyXqLUC2A/QNK5ANGQD16fT9qm77Sa1p
-743g46K04iTwIcwzTtGJ23/AxS0prgVjaoHf2v3TM0zy4Dt5FA6XimNS0G08w1Dp
-rkO3l+3+DCfT18/b4Bqn0YwlfHgOQw==
-=7/9b
------END PGP SIGNATURE-----
-
---9KaVgZv5yGFTqEhj--
+Jan
 
