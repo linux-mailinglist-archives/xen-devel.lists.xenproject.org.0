@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A1C6BAD3CBB
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Jun 2025 17:22:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1011046.1389345 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E0D8AD3CF6
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Jun 2025 17:27:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1011055.1389354 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uP0nw-000799-0c; Tue, 10 Jun 2025 15:22:24 +0000
+	id 1uP0sS-0007lr-Lb; Tue, 10 Jun 2025 15:27:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1011046.1389345; Tue, 10 Jun 2025 15:22:23 +0000
+Received: by outflank-mailman (output) from mailman id 1011055.1389354; Tue, 10 Jun 2025 15:27:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uP0nv-000779-TJ; Tue, 10 Jun 2025 15:22:23 +0000
-Received: by outflank-mailman (input) for mailman id 1011046;
- Tue, 10 Jun 2025 15:22:22 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uP0sS-0007kN-Iu; Tue, 10 Jun 2025 15:27:04 +0000
+Received: by outflank-mailman (input) for mailman id 1011055;
+ Tue, 10 Jun 2025 15:27:03 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=6UIy=YZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uP0nu-000773-4t
- for xen-devel@lists.xenproject.org; Tue, 10 Jun 2025 15:22:22 +0000
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [2a00:1450:4864:20::32a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b3f888fa-460e-11f0-a307-13f23c93f187;
- Tue, 10 Jun 2025 17:22:21 +0200 (CEST)
-Received: by mail-wm1-x32a.google.com with SMTP id
- 5b1f17b1804b1-441d437cfaaso35600725e9.1
- for <xen-devel@lists.xenproject.org>; Tue, 10 Jun 2025 08:22:21 -0700 (PDT)
+ id 1uP0sR-0007kH-Ai
+ for xen-devel@lists.xenproject.org; Tue, 10 Jun 2025 15:27:03 +0000
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [2a00:1450:4864:20::433])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 573f5511-460f-11f0-b894-0df219b8e170;
+ Tue, 10 Jun 2025 17:26:55 +0200 (CEST)
+Received: by mail-wr1-x433.google.com with SMTP id
+ ffacd0b85a97d-3a503d9ef59so4690444f8f.3
+ for <xen-devel@lists.xenproject.org>; Tue, 10 Jun 2025 08:26:55 -0700 (PDT)
 Received: from ?IPV6:2003:ca:b734:b49b:5992:e13c:c106:5fe0?
  (p200300cab734b49b5992e13cc1065fe0.dip0.t-ipconnect.de.
  [2003:ca:b734:b49b:5992:e13c:c106:5fe0])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-452730b9caasm141001195e9.20.2025.06.10.08.22.19
+ ffacd0b85a97d-3a53229e014sm12527194f8f.3.2025.06.10.08.26.53
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 10 Jun 2025 08:22:20 -0700 (PDT)
+ Tue, 10 Jun 2025 08:26:54 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,50 +47,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b3f888fa-460e-11f0-a307-13f23c93f187
+X-Inumbo-ID: 573f5511-460f-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1749568941; x=1750173741; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1749569215; x=1750174015; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=tmmGaEsnvDUjUnQl8JBKrdKWGYxP5naWay+hjidSRKg=;
-        b=MUFkoZROp95LKWqr2drYz3xfMUSgnXKBKRPrX/gjZmDL2jLlgub4f2Gn/2R599G1Pg
-         rp0W7yvmFPThdRg9dQsAXt2NpX92TuyznDXqnx9EDhefLyBG4CrNHZz6RiM32znfwNhA
-         YrNMq8tUj31BkJVCDOdHiGIDD4q1ukWvALM5MVyIWIj2ocrfEnGg200fucejT90GIL8W
-         QgV/9RpWRhccRsJwwD6WEVqcwQblDuGfQ4J394mIS+fwa48QA1tbt5H6IkXp/fuquons
-         xdP1qZD8l1SvbV5vEcSiOFbRB9yxW2dCI+8q5K8WJVgIwLpan1S7QhJvWcowv/SozND1
-         5gMw==
+        bh=EJHvElI3KNhjRfVxoLk49hH8Wf1ZGRCL8DjojWz/gWE=;
+        b=cVoxK7ocsIIb1Fj/XODSxoApE7BcM+PnRxBpubBgrggL96RfsLHkrqJkl0yjnVrOss
+         BsqoWZ4ySiyX2CX86ikEaJ3TtKkxTvwn29L1z5S820+yaORvoWYT4JPukrubxjv8FKSq
+         PvEUSAOLj5P/BcTUnSXTV1vFnz/0y4vGolM9m75lt6KZ7Zd7CJrr4aLKyjnqx/nJ5xbQ
+         lkyjMmtRuVbh7bp2qJvNarUBd637Je/rtcNJ4fRIzGx0RFqkRvavsN1nIhmbSZtuqPa1
+         k4QLroYqDWRCvytzL3DWedtVs5GWx+Si8lxoISeWaFjWHoiXtly2w44mn0u5kauq4Wd+
+         xeVg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749568941; x=1750173741;
+        d=1e100.net; s=20230601; t=1749569215; x=1750174015;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=tmmGaEsnvDUjUnQl8JBKrdKWGYxP5naWay+hjidSRKg=;
-        b=V/kzzxJxaS9ISFREXcerhro47T3LxtOUWkKy3mpKirW5L+byHQd0JcmpgPj78HnJt4
-         0gIeh1FabGsXcTV1SJsHyZ3LjmZ4e6sHRS0cbS3/99TZX3zF/666yX6nnnecbYaFMdZu
-         0l+iQZMf/6q7oXpgfB1BQR0P1vxmGLy86GrX1+i2JyfMo1ik2wHrfi8OHOxsWOMfustd
-         DntY857v9aZ1bnZIvBjSrrrp1u1lKsfFaez+U3Eve9Ivo4fqVVguD/wp6UA1BpXbt301
-         1uTIJIVEXDmryqZJLDnqYiWCE+PIrS4FGD+MFMEB9MIab45gJyQfCIHgbV3FhMYjVnkH
-         XbJA==
-X-Forwarded-Encrypted: i=1; AJvYcCVCSXxIxxfHKvsFFmdh/jThyg26LRT7sYGnzrO8nvKIG2fCARYxsn5CcZLynIQUo8Q7HD6ZNGeMw0s=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy0ZG1rdaVjyuoiHmEIH1YFrdydDX2qZjjgKfvgeuTSKMXAg4+w
-	NdRB+etAU9VREcKcwMDg1cVq9P8zbZE/7qv/tK3IrH6OwBSRZaJKmXV/UISNjRomJw==
-X-Gm-Gg: ASbGnctGYqP/E9TJ45pZEMc2a2+B8Pq7AZ9F4gvHaHAlj4jVK4u+3CfpSC1F/lcSFZb
-	Kcq6AEGYNM8PpAbGIIih+XKR130HOCP62wASt/ZYAJEWsfSw0N+1L40ehDshUcqDr/60UnIOiTl
-	qu+XlBQcw6jSaVXFN23jqsMnthocMljjC8wgYnbeHJTbdLz30Vn7aRPV2p6Wlaqde9qfW+DnIM2
-	tDAJRUzWCbwcisHFGyAQpRurbJhESLq2UG3tjJJtPLzSnRYHIaXI5gEcWjGj/r+/KR32Z5l5QLn
-	63afsMBckk3gqYov5CY3OV73iKt/Nb20dY5Xea8CFE/wYf3xI5pLepktAhRMckYVO3LFa/gXMPG
-	SKAVl9CpMH9KBWHd8YUjp3+n+OFlJtWujh56E5I8U20+byi73vvZxdQLZVEIFpbZPJVE9Yl3iFC
-	zOFM2PWPVG9lNFKQPFBNLt
-X-Google-Smtp-Source: AGHT+IHNG/tq0IcOnNuzIA/MX+dFPVzd5OruvC4r13JTdmcr9HHZMOGCXxdhk8VFPhyErevx8WpgPw==
-X-Received: by 2002:a05:600c:1e8a:b0:450:d37d:7c with SMTP id 5b1f17b1804b1-452014976b1mr149242475e9.21.1749568940641;
-        Tue, 10 Jun 2025 08:22:20 -0700 (PDT)
-Message-ID: <17943f73-8123-40c1-91cb-56dac6e1976e@suse.com>
-Date: Tue, 10 Jun 2025 17:22:19 +0200
+        bh=EJHvElI3KNhjRfVxoLk49hH8Wf1ZGRCL8DjojWz/gWE=;
+        b=U8AXv+gWqhTwsqCyTXs9iDq/KfwgQD8wDhnzhv+/Tr2AGhHQXNzVgfb2pfaUMpzeRY
+         NroWyOexyah3ed5jlBIiDCdNL1M4kNdqKgudTwAOJbC8muegPqmzWLfvH/RelNKdESXQ
+         ikVNpL7hIfR01ycb1C0PoXzjAKhEpMdTQSqzAM+Tu/ssW1TH5Rca38lCi/1v9644VRC+
+         F/IMWOs4dNeJQEYM8otIJ4XfdIG4VWEFo7wA6ZAvytcyfT3t7iH8ZwwHYBA8Vpq60uIp
+         +7L5BfAs3qQY4qxU0I24BpEGhiqo67nxhVjkVVQkcDb+GqguyGEeZb/THvTXJu1AJ1/x
+         9C3Q==
+X-Forwarded-Encrypted: i=1; AJvYcCW8cwSwjjM8MBMmzQHbcduEVnu2cemE5sk4UIjj9zVzKfOHOnzifgWfDWHqTrSou6IQSlCPVmFahuQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxP9K8im2WRhsNWEXkgCoZ3YEcm5ty7jAvrFSgd7DlBnzGWnUIe
+	F8cp8SZK0cK7s3McVXR+I56cnPZof+zbLXX40KasoS1v+4yEG4jsj+FXPWJmvdzexA==
+X-Gm-Gg: ASbGnctxpHIZFX5Ny3sINSeNGMQh/n5v3B9Tw8rFB7BVVZm1/8MrglDmQbxqq6X9eWc
+	RRq4l5fClOVo5S2DDZTlucv/Z9UGq7wWZXAqH2qV2l4sO3S2hXW5sIOlmhdNJJMEpukQ1QOi1xV
+	MIFCQcEWLpXGXKYIt5SqosRd4ZEwa+PLWuWVPOR5JpWx53+mORUps/PZ9UlxF0qlFmSxp46gFyZ
+	wpLmOuKffWzMTQHCAiTXNhldm0E8kW+Mg/c1hff3fuWsukc5MDWsUpmWbpTg2g6AEsZ524HmNwX
+	Xr8XG4eVQjikxXtlj1BH/BeEOno2vkGs4bzao/K/yvSWqRZSvBdJbLV2UvSwlRopleYjoSMGQPj
+	ncWaFIGBulMkS7e3D0s/RWSNlFPAQKiKgqASucpVpcyJVpmIkObSrCGR1fkcnc0gCxFs/DIUs5K
+	vSiZb0rm0QjiIHJeI+G/Gi
+X-Google-Smtp-Source: AGHT+IGTp7klgxZ2iBkdgy2VXV3eo2EX4dr++tru2KhxzhCWUJ3ai1p6g1uF3qjYQy4pAZYcY9yDeA==
+X-Received: by 2002:a05:6000:26c8:b0:3a3:7077:aba1 with SMTP id ffacd0b85a97d-3a531ce677bmr14547341f8f.48.1749569214662;
+        Tue, 10 Jun 2025 08:26:54 -0700 (PDT)
+Message-ID: <072c6c93-7633-4662-982d-e57697993eed@suse.com>
+Date: Tue, 10 Jun 2025 17:26:53 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 4/9] xen/riscv: aplic_init() implementation
+Subject: Re: [PATCH v4 6/9] xen/riscv: implementation of aplic and imsic
+ operations
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Cc: Alistair Francis <alistair.francis@wdc.com>,
  Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
@@ -101,7 +102,7 @@ Cc: Alistair Francis <alistair.francis@wdc.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
  Romain Caritey <Romain.Caritey@microchip.com>, xen-devel@lists.xenproject.org
 References: <cover.1749121437.git.oleksii.kurochko@gmail.com>
- <1913a653568d51ed630dbbda1e1364b41aa5db89.1749121437.git.oleksii.kurochko@gmail.com>
+ <2135173f5ca0e43b54e97052c221ba04c25f830c.1749121437.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -127,66 +128,36 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <1913a653568d51ed630dbbda1e1364b41aa5db89.1749121437.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <2135173f5ca0e43b54e97052c221ba04c25f830c.1749121437.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 05.06.2025 17:59, Oleksii Kurochko wrote:
-> +static int __init cf_check aplic_init(void)
-> +{
-> +    dt_phandle imsic_phandle;
-> +    const __be32 *prop;
-> +    uint64_t size, paddr;
-> +    const struct dt_device_node *imsic_node;
-> +    const struct dt_device_node *node = aplic_info.node;
-> +    int rc;
-> +
-> +    /* Check for associated imsic node */
-> +    if ( !dt_property_read_u32(node, "msi-parent", &imsic_phandle) )
-> +        panic("%s: IDC mode not supported\n", node->full_name);
-> +
-> +    imsic_node = dt_find_node_by_phandle(imsic_phandle);
-> +    if ( !imsic_node )
-> +        panic("%s: unable to find IMSIC node\n", node->full_name);
-> +
-> +    rc = imsic_init(imsic_node);
-> +    if ( rc == IRQ_M_EXT )
-> +        /* Machine mode imsic node, ignore this aplic node */
-> +        return 0;
-> +
-> +    if ( rc )
-> +        panic("%s: Failded to initialize IMSIC\n", node->full_name);
+> Introduce interrupt controller descriptor for host APLIC to describe
+> the low-lovel hardare. It includes implementation of the following functions:
+>  - aplic_irq_startup()
+>  - aplic_irq_enable()
+>  - aplic_irq_disable()
+>  - aplic_set_irq_affinity()
+> 
+> As APLIC is used in MSI mode it requires to enable/disable interrupts not
+> only for APLIC but also for IMSIC. Thereby for the purpose of
+> aplic_irq_{enable,disable}() it is introduced imsic_irq_{enable,disable)().
+> 
+> For the purpose of aplic_set_irq_affinity() aplic_get_cpu_from_mask() is
+> introduced to get hart id.
+> 
+> Also, introduce additional interrupt controller h/w operations and
+> host_irq_type for APLIC:
+>  - aplic_host_irq_type
+> 
+> Patch is based on the code from [1].
+> 
+> [1] https://gitlab.com/xen-project/people/olkur/xen/-/commit/7390e2365828b83e27ead56b03114a56e3699dd5
+> 
+> Co-developed-by: Romain Caritey <Romain.Caritey@microchip.com>
+> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
-Nit: Stray 'd'.
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-> +    /* Find out number of interrupt sources */
-> +    if ( !dt_property_read_u32(node, "riscv,num-sources",
-> +                               &aplic_info.num_irqs) )
-> +        panic("%s: failed to get number of interrupt sources\n",
-> +              node->full_name);
-> +
-> +    if ( aplic_info.num_irqs > ARRAY_SIZE(aplic.regs->sourcecfg) )
-> +        aplic_info.num_irqs = ARRAY_SIZE(aplic.regs->sourcecfg);
-> +
-> +    prop = dt_get_property(node, "reg", NULL);
-> +    dt_get_range(&prop, node, &paddr, &size);
-> +    if ( !paddr )
-> +        panic("%s: first MMIO resource not found\n", node->full_name);
-> +
-> +    if ( !IS_ALIGNED(paddr, KB(4)) )
-> +        panic("%s: paddr of memory-mapped control region should be 4Kb "
-> +              "aligned:%#lx\n", __func__, paddr);
-> +
-> +    if ( !IS_ALIGNED(size, KB(4)) && (size < KB(16)) )
-
-DYM || instead of && here?
-
-> +        panic("%s: memory-mapped control region should be a multiple of 4 KiB "
-> +              "in size and the smallest valid control is 16Kb: %#lx\n",
-> +              __func__, size);
-
-Here and above: See my remark on the earlier patch regarding the wrapping
-of format strings.
-
-Jan
 
