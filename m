@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 19534AD399B
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Jun 2025 15:42:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1010954.1389212 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F2078AD39D3
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Jun 2025 15:48:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1010962.1389221 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uOzEv-0007ph-9E; Tue, 10 Jun 2025 13:42:09 +0000
+	id 1uOzKJ-0001Pk-PN; Tue, 10 Jun 2025 13:47:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1010954.1389212; Tue, 10 Jun 2025 13:42:09 +0000
+Received: by outflank-mailman (output) from mailman id 1010962.1389221; Tue, 10 Jun 2025 13:47:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uOzEv-0007nL-65; Tue, 10 Jun 2025 13:42:09 +0000
-Received: by outflank-mailman (input) for mailman id 1010954;
- Tue, 10 Jun 2025 13:42:07 +0000
+	id 1uOzKJ-0001OM-MR; Tue, 10 Jun 2025 13:47:43 +0000
+Received: by outflank-mailman (input) for mailman id 1010962;
+ Tue, 10 Jun 2025 13:47:42 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=6UIy=YZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uOzEt-0007n7-7V
- for xen-devel@lists.xenproject.org; Tue, 10 Jun 2025 13:42:07 +0000
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [2a00:1450:4864:20::431])
+ id 1uOzKI-0001OG-1j
+ for xen-devel@lists.xenproject.org; Tue, 10 Jun 2025 13:47:42 +0000
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [2a00:1450:4864:20::331])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b1b95d7c-4600-11f0-b894-0df219b8e170;
- Tue, 10 Jun 2025 15:42:04 +0200 (CEST)
-Received: by mail-wr1-x431.google.com with SMTP id
- ffacd0b85a97d-3a5257748e1so3700262f8f.2
- for <xen-devel@lists.xenproject.org>; Tue, 10 Jun 2025 06:42:04 -0700 (PDT)
+ id 798239b4-4601-11f0-b894-0df219b8e170;
+ Tue, 10 Jun 2025 15:47:39 +0200 (CEST)
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-450cb2ddd46so33047555e9.2
+ for <xen-devel@lists.xenproject.org>; Tue, 10 Jun 2025 06:47:39 -0700 (PDT)
 Received: from ?IPV6:2003:ca:b734:b49b:5992:e13c:c106:5fe0?
  (p200300cab734b49b5992e13cc1065fe0.dip0.t-ipconnect.de.
  [2003:ca:b734:b49b:5992:e13c:c106:5fe0])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3a5323b59d0sm12472992f8f.38.2025.06.10.06.42.03
+ 5b1f17b1804b1-452f8f011c8sm138911695e9.3.2025.06.10.06.47.38
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 10 Jun 2025 06:42:03 -0700 (PDT)
+ Tue, 10 Jun 2025 06:47:39 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,58 +47,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b1b95d7c-4600-11f0-b894-0df219b8e170
+X-Inumbo-ID: 798239b4-4601-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1749562924; x=1750167724; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1749563259; x=1750168059; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=fhDeyK19gibeZGsY9trGql/r1sfwOYt4mnYHfG14W+k=;
-        b=CJNlo9BIeQTqMbGXHF3BHhzEZk4j/SP1u5vRa8ndLRoYe54A6uiL5uKug8yxTcH06j
-         RJ+QHfCLB8Q8JHpZtXjKpL88NCWZJj/taY02NHuKM92qVtinE6RaHRV21N8QbVjXYw44
-         LcrqDE23/6MKXrU2dbgRtFdUEd7rJcm8FbptOzCpg/mgsd90lzViThK8osCaZyu2fPOr
-         vyd4QVLFvlQlBcNWE4X3w2IysU10eSWM9c9FNSxTkY1euqWXuQWUN3FxeWb/kkgRyYEg
-         ZkbapltwNjs2ogW0laj3MCRREqIa8FkpfZ3CCXZ7Qj2/R4aubAXXMiMj2fbezX9Sd/66
-         ixqQ==
+        bh=KrUvU1/a7/BiL6lFTe73Dy6Jg+5VeOIm2pPS/npSqrQ=;
+        b=KqO9u9WisrpJZIDHPZYwrxku4gqeMiPlzfaQlUhkp/WWaiNH2DIj02RIzXB05fixD2
+         Aqf9CishSqX9hRvuXh1LE36h1jlGsVK7+ZCG6xl7MAAJDhFmvRf+rCxSsfslv2Uu+gKG
+         YKoY/MWmBymjO4hhR5ISMqk3Itk9y4l2tpr9HuaY7HyzgJsAy7VN+gJo4AIZetSOHSxH
+         mYPBwDsVt2FgHu27y7z0wp096iq9nTUg1H06zsfxtVItR5g2Ue92U9ZtWP5/pUZjYgk3
+         C65kr4YpFqqScSrkqVfbo5ZlBhlJxs/YgPjO7FOM7JHp/eH+tKj5D2L6nUTm+TDqKJj0
+         N0CA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749562924; x=1750167724;
+        d=1e100.net; s=20230601; t=1749563259; x=1750168059;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=fhDeyK19gibeZGsY9trGql/r1sfwOYt4mnYHfG14W+k=;
-        b=N3ZU1lWpLNxo1zknGL0EM9fSmCjOtO/HpynUs4Rm7ciFDQ1PXdtSvcqdHHcMthYdSe
-         HzSsdNJ4BnaKih2unU6tE45dS5nHTX7zgtYJWturC6Ft9I5Vfy/Lw344q6DckeYwhh6Z
-         JUai9NrLygCgHYwzxiqgMG3/9fkbDN1+UtX5N+SM5HGvjq2y30ciPwN+Xhhxel9j/1KU
-         V9PIXprhtKJw1WOLO2ihPyAQroyhm/Ji9yPCjlGh/ixQUqmLP93B1nbie98iVccZ2ghR
-         BvlpysBFOeI0OaiVFOziNXBR8nFkQD84et4uwJyhlVyplBGHYU3WsVt96zHMmnipvf3j
-         cOTA==
-X-Forwarded-Encrypted: i=1; AJvYcCWePjgdNaSQkUdpkjHY5T7VA6SWf4Djc/L4TeYKYxwT6uycZB7BoJc0OMe7BO+yyS96PcdH7xblc1A=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwHvu1QWSzdMjqWZ5XmD0KEHpMmBVo0hzsbnfNhFMRCAfn8lhbp
-	VcmFCkLkvKmOkIyhAi/HT7NPHabak+cwTu3GmgBF1eb/oTUkHZPSaQyG1DYv15lRtA==
-X-Gm-Gg: ASbGnctTKdg9el7lDLT6KsW00213kzuV2nncSRKpIuTPEnfG/r20rH9c3d/ykDCfp8W
-	2f/dR+zlFbvL7YqhqvWBM9kpXjnz+6ryf2piuaTHWYNOQaaoLCJk/ovRaLkTbVMjXkVjVGay2RI
-	gkjmovIuNeCfZScGoWZMwYScnssTMXyLYwrgO/7e+e75V19ici+d3FmGGfSBbekwPsDS7wIhQwt
-	u91GqaK7KGOZlbBeEUXhyZ2TgPeUo3lQ2ThhwoIK9xWvZA3kHlEMLPQTS41iNv3Wlq1yZqHLajq
-	esNt2mK6gky2tLl/kLB7BecCphW02oY3YJmA2UnDeZB035FQf/5KE75xsOZMellSPbx+RHXDOeu
-	biy9IipoVxv6PWTsFq6r5LtgxnyS+ksQ1lD4zVvIkuYPZ+aKqnfsoCDDjypwso7KaEMib02wcKc
-	SX8EePe8Vm0krolTU8HdaJ
-X-Google-Smtp-Source: AGHT+IGEpLzt4qYukVYjaURPxBZ+KCw+RaHKM9w3Z+4jnT/vUdTFviAbrYTNYJEk53mgBYk0zEgqcQ==
-X-Received: by 2002:a05:6000:40c9:b0:3a4:f6ba:51da with SMTP id ffacd0b85a97d-3a531786845mr14202400f8f.15.1749562924086;
-        Tue, 10 Jun 2025 06:42:04 -0700 (PDT)
-Message-ID: <a87aee88-5c12-4281-a171-d959fae831f3@suse.com>
-Date: Tue, 10 Jun 2025 15:42:03 +0200
+        bh=KrUvU1/a7/BiL6lFTe73Dy6Jg+5VeOIm2pPS/npSqrQ=;
+        b=A+2ReAvJIY+OkaXz2EQ6d0OiDSKrWUv0jGex8aX34Mfl8Vwq5+8Vi5ZJ7WEAJOeMBJ
+         qdVtMCHk5vLExcndG+zzEIV06l2NxWRod15x9G8ZbpuQVEoJdMqcF5gjxJYWUcKRD6AZ
+         8AMQQJe9YXY3/WJoGgyVRZqXimgknrKTsNcb+heTNiFxLfk9LALBOq6pWMGq7hr9uSHX
+         z/zzaIKzeLm9JmGK8qadgedKOxvKOiAMDFIt6hOGJqCOvC1TnlKu/S3rswyZfPnzD/35
+         QgrGXFpjyScOHVvbWY5wrKAH+ECzBMxkOse5pVTUie6pyRXyP63VycPzxkFVhYaNEg+e
+         NOvg==
+X-Forwarded-Encrypted: i=1; AJvYcCXKyuyKs6/mAof80fJN77yMUDbnHCXEOb29eLZOZR/0blq9ZHXlO42554+GFq8CRovGRHVJ6OlcWIg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx7NGZubv96KEWCOnw6N8bgWcEbVh/OB/mKezS3nGXe74Mle6IM
+	fM33fOsaO6liKO2xRQXE4hqVKDGwkzCfX9CW3vwNrppScjp5IA3YnmNWzyezas5Xjw==
+X-Gm-Gg: ASbGnctJgov6hyQRJ+Tpm7sBl7+3ZcpbHBXPM+PMTWXr57ZfDn5m0IjfLmu7yJbGqd9
+	gWo8tZuvaeQ8rYdzRocSPNAdShDkxExTpv9MBgL0jCAnkyoBonVT6JERGvnggAsWgqS9pAT0Aym
+	gWAIRfFMclrw9Rqu2moqY/MNEPnFK4UCFBt2lmDYdP8MArJy50fl+LcWch1vZ7ktxouBh26QlbF
+	XMI+C33NOnn2iBy93o16W9CkjkeKrhQ+mTmdWCmXT2bVo3vRYRke1hJhDJw0bNFXci7IJcJ6PBq
+	5TGO4GtMlris0oB5XtpOhS1NBuu0HjhSUMHvT43sHRQgKl9nh/M/Pqb3esefFlc9TbWgj20BK5u
+	E+xfSXzwiq0Kr9xCVxOzQwAmqJoeYaLs/V5L1YsMP0bMXxrm3LNvR2zbX5R0+N3h/9N5Jk4volm
+	J/C/4B63IVcIwfFTVWU9De
+X-Google-Smtp-Source: AGHT+IET+108RstG7HFcII0VNyG2xCId9F7r3QS4hHGMgYf6p8h4pjeBvZLoGdA2xqR3QEYBssD6mA==
+X-Received: by 2002:a05:600c:a10c:b0:442:c993:6f94 with SMTP id 5b1f17b1804b1-4531de00a37mr22533885e9.12.1749563259284;
+        Tue, 10 Jun 2025 06:47:39 -0700 (PDT)
+Message-ID: <9db2daa0-8905-4b21-8161-27b7fb96dfef@suse.com>
+Date: Tue, 10 Jun 2025 15:47:38 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 12/20] xen/sysctl: introduce CONFIG_PM_STATS
+Subject: Re: [PATCH v4 17/20] xen/sysctl: make CONFIG_COVERAGE depend on
+ CONFIG_SYSCTL
 To: Penny Zheng <Penny.Zheng@amd.com>
 Cc: ray.huang@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <20250528091708.390767-1-Penny.Zheng@amd.com>
- <20250528091708.390767-13-Penny.Zheng@amd.com>
+ <20250528091708.390767-18-Penny.Zheng@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -124,28 +125,40 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250528091708.390767-13-Penny.Zheng@amd.com>
+In-Reply-To: <20250528091708.390767-18-Penny.Zheng@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 28.05.2025 11:17, Penny Zheng wrote:
-> --- a/xen/common/Kconfig
-> +++ b/xen/common/Kconfig
-> @@ -598,4 +598,12 @@ config PM_OP
->  	help
->  	  This option shall enable userspace performance management control
->  	  to do power/performance analyzing and tuning.
-> +
-> +config PM_STATS
-> +	bool "Enable Performance Management Statistics"
-> +	depends on ACPI && HAS_CPUFREQ && SYSCTL
-> +	default y
-> +	help
-> +	  Enable collection of performance management statistics to aid in
-> +	  analyzing and tuning power/performance characteristics of the system
->  endmenu
+> All coverage-related op shall be wrapped around with CONFIG_SYSCTL,
+> so we shall make CONFIG_COVERAGE depend on CONFIG_SYSCTL.
+> 
+> Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
+> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+> ---
+> v1 -> v2:
+> - commit message refactor
+> ---
+> v3 -> v4:
+> - commit message refactor
 
-Same comments here as on the previous patch.
+Despite these efforts the description still fails to say _why_ the
+supposed wrapping is needed. And "supposed" because I can't really
+see any wrapping. All you do is add a dependency.
+
+And btw ...
+
+> --- a/xen/Kconfig.debug
+> +++ b/xen/Kconfig.debug
+> @@ -37,7 +37,7 @@ config SELF_TESTS
+>  
+>  config COVERAGE
+>  	bool "Code coverage support"
+> -	depends on !LIVEPATCH
+> +	depends on !LIVEPATCH && SYSCTL
+
+... "depends on SYSCTL && !LIVEPATCH" would feel more naturally to
+me.
 
 Jan
 
