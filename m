@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7BE11AD2F02
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Jun 2025 09:41:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1010544.1388667 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1969DAD2F43
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Jun 2025 09:53:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1010554.1388678 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uOtb8-0008WE-Ij; Tue, 10 Jun 2025 07:40:42 +0000
+	id 1uOtmJ-0001vV-MY; Tue, 10 Jun 2025 07:52:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1010544.1388667; Tue, 10 Jun 2025 07:40:42 +0000
+Received: by outflank-mailman (output) from mailman id 1010554.1388678; Tue, 10 Jun 2025 07:52:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uOtb8-0008Uh-Ft; Tue, 10 Jun 2025 07:40:42 +0000
-Received: by outflank-mailman (input) for mailman id 1010544;
- Tue, 10 Jun 2025 07:40:41 +0000
+	id 1uOtmJ-0001su-Ja; Tue, 10 Jun 2025 07:52:15 +0000
+Received: by outflank-mailman (input) for mailman id 1010554;
+ Tue, 10 Jun 2025 07:52:13 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=6UIy=YZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uOtb7-0008TI-F5
- for xen-devel@lists.xenproject.org; Tue, 10 Jun 2025 07:40:41 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
+ id 1uOtmH-0001so-LO
+ for xen-devel@lists.xenproject.org; Tue, 10 Jun 2025 07:52:13 +0000
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [2a00:1450:4864:20::32e])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 303c4407-45ce-11f0-b894-0df219b8e170;
- Tue, 10 Jun 2025 09:40:32 +0200 (CEST)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-3a3798794d3so4356603f8f.1
- for <xen-devel@lists.xenproject.org>; Tue, 10 Jun 2025 00:40:39 -0700 (PDT)
+ id cc30dc15-45cf-11f0-b894-0df219b8e170;
+ Tue, 10 Jun 2025 09:52:03 +0200 (CEST)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-450cb2ddd46so30888125e9.2
+ for <xen-devel@lists.xenproject.org>; Tue, 10 Jun 2025 00:52:10 -0700 (PDT)
 Received: from ?IPV6:2003:ca:b734:b49b:5992:e13c:c106:5fe0?
  (p200300cab734b49b5992e13cc1065fe0.dip0.t-ipconnect.de.
  [2003:ca:b734:b49b:5992:e13c:c106:5fe0])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3a5324360a3sm11643349f8f.50.2025.06.10.00.40.38
+ 5b1f17b1804b1-4526e155ce7sm130848755e9.10.2025.06.10.00.52.08
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 10 Jun 2025 00:40:38 -0700 (PDT)
+ Tue, 10 Jun 2025 00:52:09 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,55 +47,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 303c4407-45ce-11f0-b894-0df219b8e170
+X-Inumbo-ID: cc30dc15-45cf-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1749541238; x=1750146038; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1749541929; x=1750146729; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=WGPmr254+fUvyiqnH6r2Z3+S7aNGdpLaH0Vp/MfxfO8=;
-        b=Vl6UAVQq1n9+7YmJvZKIDxsDlEEZ24vKTa2KPpD9KA4EmFAqkSIRAc4gYz/KuBcs9x
-         MQpuK78GcAYTXQvkDPYtggf9eHgS1jZrylh3pP8AJpXcQjSTbFj7fjV27sUNIoBfIJGH
-         joY5KWWG+iK3vt7rTLOnPr0mWy65MB8rB+zZic8gNubyaUzMXWaPXmP68hBF1VhOJIKU
-         2v8sKGzOBrlMbdp6LsU6kZfIEFcCyin3vYvEm7HQDX89I3BDiH9o9tg3qYc3uLw69I2L
-         n7LjQf9N/ONcHfCD1dj/xTDvVqIpSjqMDX1PwVWkF++CKFKJpZiTb/R5K0BRPQJlk2VG
-         v+5Q==
+        bh=KY/jOI8qYpQJ+ZeafdeIyn8phetCCWvIhpbSGUsnip8=;
+        b=KRDnMRshFHVIkuO9zVbeCHT/UrLfKxDe8Yb+YgUcdANdNGa/+VtLMWFjdVvqLRzI7w
+         g8lJAQFXNbrwceIAoTW5J4Yeo3WzkzlP/7E3eLVwbgvA55NLwr4+hs0lUJN2Yfh2n4Tm
+         +iSyOvDrioxKwCQRCYiz1qwPY2JH1EiV/YjH6SZjFGG5RLJVGLb3JjXJpTKTiHsmb926
+         +FSQG+uiCaH9ypSO9dmwBEVIdzV6UYNrRQEUVyqwmmdr2k/twcxwAMbdUyqcW/AnQghU
+         zNF/Tt9pl3k8A0BJxfmZc91jR1KvOdH/g8lFt3B+XW6pnWx/EtccKd4DQMjQztqlLx2k
+         PbKw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749541238; x=1750146038;
+        d=1e100.net; s=20230601; t=1749541929; x=1750146729;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=WGPmr254+fUvyiqnH6r2Z3+S7aNGdpLaH0Vp/MfxfO8=;
-        b=g9OkWLdBFHwKjDNjaWATvUjY0ZeOzQqpKErXYEW2EPDN6M5JzL0ug58G+ZNlmo22Rx
-         bWPtwT7dKX9e/2oj121c2ImzpDGExwvX2sS/9ku6gluZpGz54xM4PeXaKtflXEqm6h8u
-         vd32YN07ubYpWEqYKgksjW7bTvQgFwI8vG43ufDnT6+TipETCvjkHVvrI7heFcyUE4ol
-         7TgOtx1J/QaViAkIKb1GiwK7r1WDAJ0V8LnpYwbddd8R0H8AvZuF0AT+RjI7n8lfAFES
-         Ohgwg3BAjjlK9eGqLjzcY3mjl/gxfM+tA9YjM1gyjHcn3jM1ieCDZbXC4mDL0ftwCNVr
-         Knag==
-X-Gm-Message-State: AOJu0YxqWLLjOvuTEEhY8Gt48QBzJixWGMmidU9hGEbPdgpis8gFsL/N
-	d8V/kDYyy1O1+XGQChaX2crYCJatej+PRkGbw//RuwKckPRg3388apWzREFGQzp++Q==
-X-Gm-Gg: ASbGncvZ72JpYn5SxlLlPFwVOST/z3N2BfGlSao/60tA+znja0rIx8ulF+hBAfUtKse
-	wBoCrhLXH16qPbXjEuZZe7/q5RYZK28yMbJjWQhyIoGN7JD8Wiu7m1pAdrYE9pjJtNU4uIsKerv
-	HmJruzWiStp7V+QAFG3X+MNXKlBEBe+20cdkiAYZ06/5cETfx9ufDKNlS8JmWE+3wDqYLQH7p5T
-	E9AW3BPm2OEDCOAAwNyUejbj2ASw0BMi9rdB0QNf89KpoNZd44H3D37cYu9egaEsoYQrycOR87w
-	w6Nv+TnMjyRUCegSTV5WlymMmwjMErdwZ/gYAJJ/phbbFoSM5AgSTLa/YgEmeCaWVkyIuA5QMbr
-	Q7HucM4CdDbQ1bYU6eCmiZqQ36RoxOKKxD8nm85nDMavh3H8CE2jiWEipCuqwa6FZkiYzmIB+Ow
-	rqiUDzfaFfHaAjAjvMNxp1OMdszqam5jo=
-X-Google-Smtp-Source: AGHT+IH504FJdMWI939rh5fNfypQ3fKkpJw/a1y+bMxOAhBucalXorOPQ/jTWmkRcKxfLMsxAyYOhQ==
-X-Received: by 2002:a05:6000:178f:b0:3a5:2694:d75f with SMTP id ffacd0b85a97d-3a531ce73bbmr12799646f8f.52.1749541238525;
-        Tue, 10 Jun 2025 00:40:38 -0700 (PDT)
-Message-ID: <6e9e84eb-f98b-4c06-8952-03aecc82c0ea@suse.com>
-Date: Tue, 10 Jun 2025 09:40:38 +0200
+        bh=KY/jOI8qYpQJ+ZeafdeIyn8phetCCWvIhpbSGUsnip8=;
+        b=sAukoR184K3TbcPaacSQV1xgn/JAc+F5gTZphiqd74NiphpsaQBhw1mktqzdBDvB+5
+         gUI17rlXZCzqGz+ZUgqI/61cLztc5HutPwLmVjWb6PHXuntAoF9AooXVuVCgmeSTpTlM
+         cWE10RzoR7zIE7cZkLxVzu5BoyFlX5+DzLcuv/2pA9fz0ipyF+eTZbSbS/94y+oRPFiG
+         b3NuaNc5cqF2/UiyXo5guJiQAltPnehH92lj0lt1scF0WfU3/QM4QCn2bq3LmVmAhmgg
+         ebwmqzmvKlyznU44HcBNKY4ACMon7xoyjpP5tvKDxJaYKktaTmjf28yVOwpt4EfCa2bS
+         gsDw==
+X-Gm-Message-State: AOJu0YwAZPplqSUD8zmYPLaaSwMj9Tc2EIrQP69jdb8rnTNUjkLsJ/yl
+	4nXIWG9Y+8mxacgiPRfpzd1npSopR9KHwZ3YrWhKlyZ+quz+NGTxnH8LU32FOdL9sA==
+X-Gm-Gg: ASbGncsP3pPYB8L9PZEv8N4frj8+8k6ZSraJIXoFOIgoRrblaUajGI7Eb34tFzBPnoF
+	a54rzUm+5Mn5Tc5Xp6juYYZzUSE8AtED+1dZkJO0w92M5Wt0Cz0SuVCGl21SYZtTWiyKoUuy/r8
+	5JtahmBcwhG0JhxVmuTMWaYoiRiVXdPLrT7napbAQYcwoo3taIG+NeT2j4izOaMgcYb8h0QuRFM
+	IMYF+NYWTfQM5yVtmHUkoOEzhMN2fwml7ltJ0zabqt88w9kLxHRbIx3LBRaxq89cn8uMR/DNfVr
+	lpm92rEKQ+3ARKqeSX4SaNBq7ufnO/FrTz2T8uSMB0eHS34gI057KQ6V2azhGF2CpVMjm0aQlHw
+	nMhXK/a12iHp7FOTfGmhjSzkX3sGNwy7UIXqD1un8//d/lezoPkHLMOwiam0564kuVBZobVR5qH
+	7EP3MaYGnVrCYrXYUcQNgpy8HKyRCyQ2o=
+X-Google-Smtp-Source: AGHT+IEBvhmq6OLscxvxgZhDTcta1KkQd0Yh9W3dpRnzVaFg0PYi+8esUxhmPV9bTlryNb4o9YIoFQ==
+X-Received: by 2002:a05:600c:1d1c:b0:43c:e467:d6ce with SMTP id 5b1f17b1804b1-4531dde6bc9mr13579025e9.4.1749541929571;
+        Tue, 10 Jun 2025 00:52:09 -0700 (PDT)
+Message-ID: <cb408883-c6c7-4cd3-819c-0e5978086dd2@suse.com>
+Date: Tue, 10 Jun 2025 09:52:08 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] x86/HVM: restrict use of pinned cache attributes as
- well as associated flushing
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+Subject: Re: [PATCH v1 1/5] console: add relocation hook
+To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>
+Cc: xen-devel@lists.xenproject.org, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
  Andrew Cooper <andrew.cooper3@citrix.com>
-References: <78b3ddeb-4317-4d54-ad52-9eb03bdf7942@suse.com>
- <aEa5J_TlSAdS9-m_@macbook.local>
+References: <cover.defc562b917978814c8359bbd04f1dadba33fb77.1748182535.git-series.marmarek@invisiblethingslab.com>
+ <4f1889dc03ec4aa2cc0cd2bd14523a2c6f670bdb.1748182535.git-series.marmarek@invisiblethingslab.com>
+ <0b17da9c-57db-4a8b-90af-e53e45cb1243@citrix.com> <aDSLNeFRZWoxMTEt@mail-itl>
+ <66cfdee6-5dc2-4139-8550-ef441fa7a7a0@suse.com> <aEGu6-6dGqc_WUlg@mail-itl>
+ <ea285192-c39c-43b4-a879-7ca4ff7f9b4a@suse.com> <aEHBAsLFvZni1_5Y@mail-itl>
+ <83c22da9-62c5-4fb2-bc2d-f34ad5956d3e@suse.com> <aEMPMa0-1XwlbsPM@mail-itl>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,97 +128,43 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aEa5J_TlSAdS9-m_@macbook.local>
+In-Reply-To: <aEMPMa0-1XwlbsPM@mail-itl>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 09.06.2025 12:36, Roger Pau Monné wrote:
-> On Wed, Jun 04, 2025 at 11:48:00AM +0200, Jan Beulich wrote:
->> @@ -605,31 +606,35 @@ int hvm_set_mem_pinned_cacheattr(struct
->>  
->>                  type = range->type;
->>                  call_rcu(&range->rcu, free_pinned_cacheattr_entry);
->> -                p2m_memory_type_changed(d);
->>                  switch ( type )
->>                  {
->> -                case X86_MT_UCM:
->> +                case X86_MT_WB:
->> +                case X86_MT_WP:
->> +                case X86_MT_WT:
->>                      /*
->> -                     * For EPT we can also avoid the flush in this case;
->> -                     * see epte_get_entry_emt().
->> +                     * Flush since we don't know what the cachability is going
->> +                     * to be.
->>                       */
->> -                    if ( hap_enabled(d) && cpu_has_vmx )
->> -                case X86_MT_UC:
->> -                        break;
->> -                    /* fall through */
->> -                default:
->> -                    flush_all(FLUSH_CACHE);
->> +                    if ( is_iommu_enabled(d) || cache_flush_permitted(d) )
->> +                        flush = true;
+On 06.06.2025 17:54, Marek Marczykowski-Górecki wrote:
+> On Fri, Jun 06, 2025 at 08:26:33AM +0200, Jan Beulich wrote:
+>> On 05.06.2025 18:08, Marek Marczykowski-Górecki wrote:
+>>> On Thu, Jun 05, 2025 at 06:05:02PM +0200, Jan Beulich wrote:
+>>>> On 05.06.2025 16:51, Marek Marczykowski-Górecki wrote:
+>>>>> On Thu, Jun 05, 2025 at 04:42:53PM +0200, Jan Beulich wrote:
+>>>>>> Why is it that this ring is dependent upon Xen's position? If the ring was
+>>>>>> dynamically allocated, it wouldn't change position when Xen is moved.
+>>>>>
+>>>>> The console is setup quite early, I don't think I can allocate memory at
+>>>>> this stage, no?
+>>>>
+>>>> But you allocate before Xen is moved, I suppose.
+>>>
+>>> Well, I have those buffers in BSS exactly to avoid the need to allocate
+>>> them (or rather: have bootloader allocate them for me).
+>>
+>> Yet them remaining in .bss is now getting in the way. Imo moving them to
+>> .init.* and adding proper allocation is going to be easier than the hook-
+>> ary you are proposing.
 > 
-> Is the check here required?  memory_type_changed() will already check
-> for is_iommu_enabled() and cache_flush_permitted(), and hence you
-> could just set flush to true unconditionally here IMO.
+> So, when would you propose to allocate them? Wouldn't that be yet
+> another hook?
 
-The behavioral difference is when both predicates are false: The way I have
-it now, p2m_memory_type_changed() will then still be called (conditionally),
-better matching prior behavior.
-
->>                      break;
->>                  }
->> -                return 0;
->> +                rc = 0;
->> +                goto finish;
->>              }
->>          domain_unlock(d);
->>          return -ENOENT;
->>  
->>      case X86_MT_UCM:
->>      case X86_MT_UC:
->> -    case X86_MT_WB:
->>      case X86_MT_WC:
->> +        /* Flush since we don't know what the cachability was. */
->> +        if ( !is_iommu_enabled(d) && !cache_flush_permitted(d) )
->> +            return -EPERM;
->> +        flush = true;
->> +        break;
->> +
->> +    case X86_MT_WB:
->>      case X86_MT_WP:
->>      case X86_MT_WT:
->>          break;
->> @@ -682,9 +687,11 @@ int hvm_set_mem_pinned_cacheattr(struct
->>  
->>      xfree(newr);
->>  
->> -    p2m_memory_type_changed(d);
->> -    if ( type != X86_MT_WB )
->> -        flush_all(FLUSH_CACHE);
->> + finish:
->> +    if ( flush )
->> +        memory_type_changed(d);
->> +    else if ( d->vcpu && d->vcpu[0] )
->> +        p2m_memory_type_changed(d);
-> 
-> FWIW, I would just call memory_type_changed() unconditionally
-> regardless of the change.
-
-In which case the need for the "flush" local var would go away, if I
-understand your suggestion correctly. Like above, there'll then be
-more of a behavioral change than intended. In particular ...
-
->  We suspect the hypercall is only used at
-> domain creation time (where memory_type_changed() won't do a cache
-> flush anyway).
-
-... "suspect" is not enough for my taste. The only alternative there
-that I see (as mentioned in a post-commit-message remark) is to
-refuse such "late" changes altogether. Yet for that we need to be
-sure, which it looks like no-one of us is.
+Exactly one, yes. Given Andrew's earlier reply my understanding was that to
+get things correct in your proposed model would end up requiring more than
+one. However, the point in time where move_xen() is called is still too
+early to allocate memory a (somewhat) normal way - even the boot allocator
+gets seeded only later. So I guess console_init_preirq() may need to inform
+its caller how much memory is going to be needed later on (and what address
+constraints there are, if any). Then a suitable chunk would need setting
+aside kind of like it's done for kexec. That address would then need to be
+passed into the new hook.
 
 Jan
 
