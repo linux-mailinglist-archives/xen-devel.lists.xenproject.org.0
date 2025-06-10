@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0384BAD3697
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Jun 2025 14:38:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1010733.1388902 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D55AAAD3711
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Jun 2025 14:47:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1010738.1388912 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uOyEN-0005U9-Cz; Tue, 10 Jun 2025 12:37:31 +0000
+	id 1uOyNR-000792-6h; Tue, 10 Jun 2025 12:46:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1010733.1388902; Tue, 10 Jun 2025 12:37:31 +0000
+Received: by outflank-mailman (output) from mailman id 1010738.1388912; Tue, 10 Jun 2025 12:46:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uOyEN-0005Sc-8r; Tue, 10 Jun 2025 12:37:31 +0000
-Received: by outflank-mailman (input) for mailman id 1010733;
- Tue, 10 Jun 2025 12:37:29 +0000
+	id 1uOyNR-00077C-3Z; Tue, 10 Jun 2025 12:46:53 +0000
+Received: by outflank-mailman (input) for mailman id 1010738;
+ Tue, 10 Jun 2025 12:46:51 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=6UIy=YZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uOyEL-0005SW-N3
- for xen-devel@lists.xenproject.org; Tue, 10 Jun 2025 12:37:29 +0000
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [2a00:1450:4864:20::42c])
+ id 1uOyNP-000776-3s
+ for xen-devel@lists.xenproject.org; Tue, 10 Jun 2025 12:46:51 +0000
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [2a00:1450:4864:20::32a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id aa76f58f-45f7-11f0-b894-0df219b8e170;
- Tue, 10 Jun 2025 14:37:27 +0200 (CEST)
-Received: by mail-wr1-x42c.google.com with SMTP id
- ffacd0b85a97d-3a4f72cba73so4416782f8f.1
- for <xen-devel@lists.xenproject.org>; Tue, 10 Jun 2025 05:37:27 -0700 (PDT)
+ id f97fb559-45f8-11f0-b894-0df219b8e170;
+ Tue, 10 Jun 2025 14:46:49 +0200 (CEST)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-442fda876a6so48321625e9.0
+ for <xen-devel@lists.xenproject.org>; Tue, 10 Jun 2025 05:46:49 -0700 (PDT)
 Received: from ?IPV6:2003:ca:b734:b49b:5992:e13c:c106:5fe0?
  (p200300cab734b49b5992e13cc1065fe0.dip0.t-ipconnect.de.
  [2003:ca:b734:b49b:5992:e13c:c106:5fe0])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3a5324641c2sm12339184f8f.93.2025.06.10.05.37.25
+ ffacd0b85a97d-3a532464e3csm12395498f8f.99.2025.06.10.05.46.47
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 10 Jun 2025 05:37:25 -0700 (PDT)
+ Tue, 10 Jun 2025 05:46:48 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,60 +47,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: aa76f58f-45f7-11f0-b894-0df219b8e170
+X-Inumbo-ID: f97fb559-45f8-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1749559046; x=1750163846; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1749559608; x=1750164408; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=mrCuqKhFUgUTqPRFOhuZ8VovxipnNe4BanDZ77aEmcw=;
-        b=FmlDEg/IYHfimvi/psmf0aAw4v6BI2agiEG5X4izu14gzortDAA419fxYLONPri8Sw
-         OPY48yzHxwjgKOwytVACXpOg8BeFVeuyP3KBaYEIxAoztcrRubE5zHeyBOMaErzk0laO
-         Q7/UrBLDo0kLHQSZB0tw5G2qPixagRBtwdTEMbAQy0Qwp1m4JPKqjXAWMDbqTSfsE2Cj
-         R5yboZG9dLo9KIlr2SqYgWc8cWEm3EP1F3mzDB2u0FCaYkl/kkO56GgENDSaYaUglojE
-         tkZy/0cdQjScIDcwenZ6MKMQSInitubCBwaZTw4Ae9W34vOzThX9FzMt0GZT1ze0Bhta
-         rurQ==
+        bh=yDfzxJo6IHn2ojseQNrafzKIlvdEC0AItMszJe8rsEQ=;
+        b=GsHIw87q2AosZO2HrqVzKYO+e+RJd5X6kzHk773rDIRQ1gBY8zopRmRW4a27/w4zdH
+         3YquuhjQZdhISe9cwcz4oYEq9pG949So/XwrL4sy6bHeWlqeScN2cP/TpI9/amuCKU1J
+         rERkYETVnyh/kx0ICWYBTIDnGRwJt81AamzHuT7ssP3Rm1H2mVFafVsPkBz4FcYG+g/K
+         wl9+9tQfKFjFPgT9sZuLZq0XwmbKZdivbh3v6X+3teJLvPQKRhjgCFV1fDrppuAzjwX5
+         d01yRCTSH9eCi8hGpIYneHDFlq7H10aYat+qGQYHu9kpSr5WkuZVSQkox6TWDrpYAeNf
+         1QaA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749559046; x=1750163846;
+        d=1e100.net; s=20230601; t=1749559608; x=1750164408;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=mrCuqKhFUgUTqPRFOhuZ8VovxipnNe4BanDZ77aEmcw=;
-        b=hqZenDiwU+10HvqvqpAXWmH/xC/Wl0Y8vrUq8e7akmvg1WvOoqDIcPUzFBgaDxdpug
-         44kNlkgBy1HLjh9rPQTFe9lAFBG4VlJeFRw973iwYtzle2Z9mMzgbLJToxh6h7FONkNy
-         6X9q/iXeTAZYWOiMQVLoQpLreNsGcrpSS5ZIy4Uitj4HCTdxmmCUHAdj3WRQIQNTr4m3
-         rYtqLIQyThI/4OSrzeWZg3gp0M+H6Nik+tnRNtVNQEq3Teftgvn6EKp0fL56cgQ0d1aG
-         GfxQea9mV8bBaTVwtu1+VF8FLQyZxWjujwKRZt45nbMcTqZilnpLVEhPOi9jsTLxAg+u
-         Bs1Q==
-X-Forwarded-Encrypted: i=1; AJvYcCW459kA/DbmBEvLr/g08BC6fer2fdrgPOaLyfnRWxxYnzDTvP0nHLQtbm1ldl4wJ0fhpQtB81LHt+w=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yx5eezrfGGq3cFkzZcRYyP6dTCVP6h2zsE0c3k30y9P3Vnei9gU
-	4DQYoegRWivG8O3yBUBO8K9uda0NwJs5PUf1DungwoP+k1Fr0sDAM6mqAbjFfQiHBA==
-X-Gm-Gg: ASbGncs7Sj6xXoSEIsTHzMauoZuM7Zl8SufYcxYtUe1X0uFmo4AtTlMuQaXVwZzsUuq
-	YSA9K/W8wX6qa5Ji+4YNsvqFkT/ycg4Yrdiufu8EA+Ki8wFYEmUz9sEhrgBvpP739rvGreD8zyu
-	ygFgGG7kfBwS5zQ6Nn5b3I+F4PIUOIQu7VzTQuP5cmij4egGMJbF/GFm3QgPh66Z9Ucm5yIbMua
-	/2fzC2ad53OOyNNj9LerOVqHv8HCC9NjXT55w4aBM9WRIFUuqQk5AS0lH/wCrDSvZnTaQg6HSfN
-	4Zh5CBJkW/CUQwEVvqVcrVEW2DlxxxxVVA/yr9lU+/tr3aareYC7xQ/4Fek8WSjmkpEVcNx4XOU
-	zjOPaw4pSV0Smghf6iz2xce/9EH/3CYJ9/ZJ7BL0DwWOrgrTUPS/HkSNJfq3nV1fcEKmDhZbDYm
-	XJ15ve+4VYKyPeUCvg6zh+
-X-Google-Smtp-Source: AGHT+IHk1TIXnL7iSxQs9uuEX6kzC/QDR4bvlxG3KNz3Bd1K40HQZuNkV5CbZSMamNKGbG//OYwnwg==
-X-Received: by 2002:adf:eb87:0:b0:3a4:f7dd:6fad with SMTP id ffacd0b85a97d-3a5513f5298mr2293811f8f.14.1749559046345;
-        Tue, 10 Jun 2025 05:37:26 -0700 (PDT)
-Message-ID: <c81087de-25bd-4264-81f5-cccd0b0ae6de@suse.com>
-Date: Tue, 10 Jun 2025 14:37:25 +0200
+        bh=yDfzxJo6IHn2ojseQNrafzKIlvdEC0AItMszJe8rsEQ=;
+        b=V9+gll6ft4xgHKADR3E0D3nYIFhQRjU+n0bKOisPLYYASyjXSAy228+/+OTGAum7Kx
+         o6mWd0Wd5PLmF02g88orOIJLeZaVUdt6Po/lNCn15zoFAmkL9k9UPSAYYFFRBGyBz9kc
+         7fknqPiQ2xBuCvoUFok7gxbQ8CLsaYDjhPr0QYh58oI/W0BcFCvFZJBoqZCHoBks0dXU
+         hmxyojYxK+HG/VHgJWWBgO/Spf1HK/zE1HvAniRM3XmnXRMJuUNVojsn3dHCsc/NwktK
+         EkMRfH2ZnwwbBF+dMe0k2TwQMfkUb2DeTQR0kr/GTPUpQKaEyScAEt0fKtoJtsx68OZ5
+         DpmQ==
+X-Forwarded-Encrypted: i=1; AJvYcCV01jH3P2UeqQ3zseYDOqsMZM/Y/d4+cFr2U63cO/VaVh8O0XM69ewMZQ1CDNw8/B8ejVawAmRP4Ts=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz3cF0si7nqnEtEsm7x8arQNPSgOmmwNMgGMV5mcQJbru3zVP/D
+	sVh8qthOyHp3nHNhxDrpUgOny/33NxszRFMNHR8IjMYWE+4rpFnYMwA9arGxqLtyIw==
+X-Gm-Gg: ASbGncvY2CfPYCGaL8O3lllXaWtJtG06FPY9UubyOvW6SMx+mT9FHN3e+DFREmk+PDm
+	k//M5udD1Og77VmlLcletmLvPmmxclSRD7JsFZxIyeaQs1Lc3e9/I9aSzjniMygaesLvOT/5A9x
+	QGEgRpxP6RMwbdWWiubbzXarZbV1wjOSaaBVx77zi8KUWyzRcUKNY3WqfArs2/oqPhVuHU+SvrZ
+	NzMXiKdYVjkfCk4GE2lIlPN/LYpDQ3ubYymtQzFgwveBeY0dQycvphPuK5k+0q69HeYjxngSEqK
+	ZIo6kBN7oaVwhbOs4RF9hCMNXw4ALbuDc1yMsZQ7DE9qD17hPINrkcfBG3kPTHWMeiN9tYOO5kG
+	ZYnD4q/fvuuMH2QVGnan0WsnxlH0LwlhVw9ys3I9AzRUICIKB2Lk5wbXozZJcu9L0KY+9bt8shk
+	4+ufShWufQUB0CPzMhUHpJ7xwRzwDfyBo=
+X-Google-Smtp-Source: AGHT+IFcizkwiewT60FnJVnN9g1Q0MgChMgA74ylY3euXamUBKI/dq73UeUVTTfpCxWt9IKN7kR/Mg==
+X-Received: by 2002:a05:600c:1913:b0:453:9bf:6f7c with SMTP id 5b1f17b1804b1-45309bf71a7mr101084055e9.9.1749559608442;
+        Tue, 10 Jun 2025 05:46:48 -0700 (PDT)
+Message-ID: <6f705281-f7e3-4929-ab56-5fbe4e1db14c@suse.com>
+Date: Tue, 10 Jun 2025 14:46:47 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 02/11] xen/page_alloc: Remove `claim` from
- domain_set_outstanding_pages()
-To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-Cc: Bernhard Kaindl <bernhard.kaindl@cloud.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [PATCH v1 3/5] drivers/char: make dbc_uart_dump() a bit more
+ useful
+To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20250314172502.53498-1-alejandro.vallejo@cloud.com>
- <20250314172502.53498-3-alejandro.vallejo@cloud.com>
+References: <cover.defc562b917978814c8359bbd04f1dadba33fb77.1748182535.git-series.marmarek@invisiblethingslab.com>
+ <faf72a48d11a45de8139c9c1d3904cf7130393cb.1748182535.git-series.marmarek@invisiblethingslab.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -126,33 +126,43 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250314172502.53498-3-alejandro.vallejo@cloud.com>
+In-Reply-To: <faf72a48d11a45de8139c9c1d3904cf7130393cb.1748182535.git-series.marmarek@invisiblethingslab.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 14.03.2025 18:24, Alejandro Vallejo wrote:
-> --- a/xen/common/page_alloc.c
-> +++ b/xen/common/page_alloc.c
-> @@ -523,7 +523,7 @@ out:
->  int domain_set_outstanding_pages(struct domain *d, unsigned long pages)
->  {
->      int ret = -ENOMEM;
-> -    unsigned long claim, avail_pages;
-> +    unsigned long avail_pages;
->  
->      /*
->       * take the domain's page_alloc_lock, else all d->tot_page adjustments
-> @@ -549,28 +549,21 @@ int domain_set_outstanding_pages(struct domain *d, unsigned long pages)
->          goto out;
->      }
->  
-> -    /* disallow a claim not exceeding domain_tot_pages() or above max_pages */
-> -    if ( (pages <= domain_tot_pages(d)) || (pages > d->max_pages) )
-> +    /* Don't claim past max_pages */
-> +    if ( (domain_tot_pages(d) + pages) > d->max_pages )
+On 25.05.2025 16:15, Marek Marczykowski-Górecki wrote:
+> Make it safe to call also if xhci console is not enabled. And make it
+> non-static, to require one less modification when actually using it.
+> When using it, one still needs to add its declaration in some header
+> (or just next to the call site).
+> 
+> Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+> ---
+> IIUC Misra would not be happy about a declaration of an usused function.
+> And I'd rather avoid extending DBC_DEBUG scope beyond that single file.
 
-In addition to what Roger has said, how can such a behavioral change come without
-any caller-side adjustment?
+It's not going to be happy about a non-static one without declaration
+either. Misra-wise this is pretty much a no-go.
 
 Jan
+
+> --- a/xen/drivers/char/xhci-dbc.c
+> +++ b/xen/drivers/char/xhci-dbc.c
+> @@ -1498,11 +1498,14 @@ static void dbc_dump(struct dbc *dbc)
+>                readq(&r->cp) == virt_to_maddr(dbc->dbc_ctx));
+>  }
+>  
+> -static void dbc_uart_dump(void)
+> +void dbc_uart_dump(void)
+>  {
+>      struct dbc_uart *uart = &dbc_uart;
+>      struct dbc *dbc = &uart->dbc;
+>  
+> +    if ( !dbc->enable )
+> +        return;
+> +
+>      dbc_dump(dbc);
+>  }
+>  #endif
+
 
