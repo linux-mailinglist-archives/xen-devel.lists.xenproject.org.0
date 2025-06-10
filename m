@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8450CAD3572
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Jun 2025 14:00:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1010715.1388882 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4883CAD3617
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Jun 2025 14:23:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1010727.1388891 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uOxe1-0008Mp-BF; Tue, 10 Jun 2025 11:59:57 +0000
+	id 1uOy0t-0003j2-6t; Tue, 10 Jun 2025 12:23:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1010715.1388882; Tue, 10 Jun 2025 11:59:57 +0000
+Received: by outflank-mailman (output) from mailman id 1010727.1388891; Tue, 10 Jun 2025 12:23:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uOxe1-0008LN-89; Tue, 10 Jun 2025 11:59:57 +0000
-Received: by outflank-mailman (input) for mailman id 1010715;
- Tue, 10 Jun 2025 11:59:56 +0000
+	id 1uOy0t-0003hd-4F; Tue, 10 Jun 2025 12:23:35 +0000
+Received: by outflank-mailman (input) for mailman id 1010727;
+ Tue, 10 Jun 2025 12:23:33 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=6UIy=YZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uOxe0-0008LH-4F
- for xen-devel@lists.xenproject.org; Tue, 10 Jun 2025 11:59:56 +0000
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [2a00:1450:4864:20::430])
+ id 1uOy0r-0003hX-Kx
+ for xen-devel@lists.xenproject.org; Tue, 10 Jun 2025 12:23:33 +0000
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [2a00:1450:4864:20::332])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6b63c1a8-45f2-11f0-b894-0df219b8e170;
- Tue, 10 Jun 2025 13:59:53 +0200 (CEST)
-Received: by mail-wr1-x430.google.com with SMTP id
- ffacd0b85a97d-3a4fea34e07so3075411f8f.1
- for <xen-devel@lists.xenproject.org>; Tue, 10 Jun 2025 04:59:53 -0700 (PDT)
+ id b6912ebe-45f5-11f0-b894-0df219b8e170;
+ Tue, 10 Jun 2025 14:23:28 +0200 (CEST)
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-450d668c2a1so43238865e9.0
+ for <xen-devel@lists.xenproject.org>; Tue, 10 Jun 2025 05:23:28 -0700 (PDT)
 Received: from ?IPV6:2003:ca:b734:b49b:5992:e13c:c106:5fe0?
  (p200300cab734b49b5992e13cc1065fe0.dip0.t-ipconnect.de.
  [2003:ca:b734:b49b:5992:e13c:c106:5fe0])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3a532435f95sm7574175f8f.60.2025.06.10.04.59.52
+ 5b1f17b1804b1-452730b92c9sm136768285e9.24.2025.06.10.05.23.27
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 10 Jun 2025 04:59:52 -0700 (PDT)
+ Tue, 10 Jun 2025 05:23:27 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,57 +47,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6b63c1a8-45f2-11f0-b894-0df219b8e170
+X-Inumbo-ID: b6912ebe-45f5-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1749556793; x=1750161593; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1749558208; x=1750163008; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=raWaNDVxzAzVk17YF8f5juSCqNsqhhgPnYBtY+XkZWc=;
-        b=R4F3ZSubYnFXy35OTGpgvnVi6zmh5QPEwM6eGZAPypuldIabwM0uijq+gSUzprZNHC
-         ebOAwnxQsMD8XwXszSsYCEykBzOsJLeAVe6U+RWf0wWSDx61SxfbbvjAaabCaj4Ua+HM
-         gjOTKUITZWTDJzwees7wFWURTasiaGBGOHikS8F637dP7HvrVUeSMDbii+F/ew3YKdUc
-         4zEb94udfKQM6T7Be9l1VVH6J7pKEbbK5Mo/XQjC2fxU6XyTl/tOAQIvGLchP6gqPRhN
-         ooN+7mCsFa6jKS1SPBOYXCcB7nhjW9e1jihN0MUkhe9BX7VhX5Hx/Itftr7XD1rsTxUs
-         AdfA==
+        bh=4cD00wWmxfNau1SVpivJfeD9IwEnOTfInru4OFavM7g=;
+        b=Wn/S/+VczZcnPL+dfJntjz3AWXHLUkUdJympanN1zPkXi4i+qVEpZL+ANtwsKTt1Wh
+         Xc9BtNEtdta98MLT9AIWWv+uZMoFbpsNNQl5Z4TDTzQXPtu8ojTmhpqj/hsKsXgozb6u
+         tPxftm5C4Oe6vF/1vrgWEH5ryV2KzNXV1DofTSgFGn8bCd2tQWEsZbfLoyA6q/HBj/4E
+         lg1nl+idI4mfrla+wemeY18NNyVm379DaUTBvDkcFrkj1x6WX9AJHEhcWiDRZxac8N5i
+         wMBJCfpV3uooqmxPl6XjTsBOJrU2SUKX2q/oss9wF93eAKGw+REwkgqyU7mqbiNVAO2N
+         NTwA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749556793; x=1750161593;
+        d=1e100.net; s=20230601; t=1749558208; x=1750163008;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=raWaNDVxzAzVk17YF8f5juSCqNsqhhgPnYBtY+XkZWc=;
-        b=aBvrUVbVyVq2jHZSUVwD/LuD6juwxezpIpAtf9AMxyDi2AdqZ68W1AO9oi5FwzEeQs
-         /FRSJNtd7MDl3NW4jr7A+C6++HuPFzrlLsBOmyy2u+vL/dX8efs0jds23qHLaJxE/uhd
-         BbTLuG7xyW+QT7+9cB0r8gnsj0dgH/tRPZ0FGVxOtyQY5x4N3wR2kBGdSLbZIVPVuVnS
-         iQt3GGbb6S0Y55Wnt7w5kbFYpfJztvO1HgI3gdQA4vcqHtHG+O/Nf3T/z1vufM1i347G
-         Tb68AM66dCBkNxUSSe7ZYK4i9jwAvadYzv4TFuY93xHNzwk+aSso+/fKEPOZmHuufdqq
-         tfgg==
-X-Gm-Message-State: AOJu0YxEVgQuqW1asRADbftHsnUoVIKQegRqceWNRwNiarmI1qsgoI9y
-	YMfn0nGdzuvJXtnQPKdkxs+I4B1HS9JJ1jQmbOjD6tnHaTPRHbpB1ZjF3dzqJ4p4Uw==
-X-Gm-Gg: ASbGncvl/bo/MEojEcXvbexj1czUjBy4p/VIhE2SPbqOEWius3+vIQwuBp3OjrABOBu
-	ff64IW7X1QufW3vv5ngO9OZaTnqXV9p/56EunMgvdtjhQ5eYS6kMfvDfklyRcE3irXDABrcpDg8
-	Epa7+Sh4RrVqhKMUMbzPRs+uFwUn5AJb7zJ679cME6DzHGVLikxEk0G8le5RmlSYcwPpoZb7Xkv
-	H8bEA/quQwzCXjs9k6FtBTtosvct7zee2sN/yTWN5K1dTf2bbRR+dlF2tiO3Xs7Vax4sDlUeTfO
-	/lWpWAh0sZH0HTxDOedWQqWgRXsxye1hbxkmdEVVS+YpQ0qAw80K/AR00t3Gw3y1Ng/A0SMdP7h
-	yE21IT9woteOg9FK3jEx88voL1UTaxl7V4ImKW/igf8o4OjpKQGJ9Tg7BJbx0GoVO0mDNPcwxuf
-	h/5tvd5ako2H1sdVeIhCPX
-X-Google-Smtp-Source: AGHT+IEtJA0pLD/Z9FE0bvaVzVlpVjClivVfcA8JL9INM182EtCS2wRRREmwZT2CIysBzZnJ3WN2Yg==
-X-Received: by 2002:a05:6000:2088:b0:3a4:d98d:76b9 with SMTP id ffacd0b85a97d-3a531cadb37mr11442025f8f.41.1749556792874;
-        Tue, 10 Jun 2025 04:59:52 -0700 (PDT)
-Message-ID: <5f8d694f-e712-4869-879f-80b2c4907a45@suse.com>
-Date: Tue, 10 Jun 2025 13:59:52 +0200
+        bh=4cD00wWmxfNau1SVpivJfeD9IwEnOTfInru4OFavM7g=;
+        b=ovhE4Ho3AT/PWGRaVQBJ6rtIQPkel1ds4fkS6ki4+SWHqhrMaEco0gWS6LWbLTzp7T
+         yBTtw0XUlYkdfpg7p9WdlVZ4miVSAMYjMW5nc3bswADvGp/9hu58cndRbsEDWglem9kn
+         za3a3Coe+a6O0dr9dckQXd8xqdmtZUx9vrtPCzJWAoyqfZxqnUa1yVe+Qw+emz9dAiSF
+         Hs4i2ACHi9t2BrYfUJVuM8zEpOzpWvPH2j2jb5B5xSi6aZ1DVk3VaBQefGZSC9pir7N6
+         HZuFlHbSUFoyNjQyE2uuJwuHH4N3LAaP1QgVFhXozx9X5dIgHViWPAfjyyUjgkTCysMx
+         /Xvg==
+X-Gm-Message-State: AOJu0Yxy1qtYVVRUkQ0pqt+ny0o3xV6kJT/nJT2xHa6fJHxSP9Pq3SAf
+	TYuk9s6su74OL0NAWAud+D3p+hcu6pyjHUqjRwp0DudfqgPPJzdbg16W/xZdZiCiZA==
+X-Gm-Gg: ASbGncvwKm+WaPeBVIDhvDgGQivn7d3SmdBEYBG4lj+sYg3J+X9lPT+D9iZtbRKRHsS
+	aalZB8kwmPtXDLOlZFo7yuE8+ER/nQlAENt6JWYjOaKp2J2HaNK9f9IcHfhwnEJnYJReFi+o2jv
+	Isy8OvxEGK2zjZSsZ1EdMp5AACguGySHQiKOQgB3GZDepEd5uR5dawHq71XHhy1LW0jmnGTIwZN
+	SNw9cZM/UoZSSJma50RsSz60bkKAEW6iGhzeCjwbGbhN6F/RKG4sYKwkBMbH4bMiwoMzuGDp7NS
+	61V8coR+q7NTM5LWA1HPCTLG7CHhDdS49LDUMk9i4xKC6Qpn8iC0OsCBPsr0EpvRW4ptCMfVjcm
+	D6DTSmG6XtIGT0h50Uc+GGd+5LzQYXudBSz/HmyVgC2NvGOjasM4AeDzrOECPeoYJv/hmemvH7G
+	L9RF74pBSEHHa6Cqn+zjEC
+X-Google-Smtp-Source: AGHT+IE7EDJsAH2HWqmKVf6AvdBQpis/Kxsa9DYkhGjbiIS3O0B49HK/TUbRFFV3nItj6ecGaK2ZvQ==
+X-Received: by 2002:a05:6000:2dc7:b0:3a4:ed9a:7016 with SMTP id ffacd0b85a97d-3a551427f0emr3065473f8f.26.1749558207624;
+        Tue, 10 Jun 2025 05:23:27 -0700 (PDT)
+Message-ID: <89d4250e-20aa-4515-8199-7003afb0bcbf@suse.com>
+Date: Tue, 10 Jun 2025 14:23:26 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] x86/HVM: restrict use of pinned cache attributes as
- well as associated flushing
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>
-References: <78b3ddeb-4317-4d54-ad52-9eb03bdf7942@suse.com>
- <aEa5J_TlSAdS9-m_@macbook.local>
- <6e9e84eb-f98b-4c06-8952-03aecc82c0ea@suse.com>
- <aEgMe1i4Rpmnz8M9@macbook.local>
+Subject: Re: [PATCH 02/11] xen/page_alloc: Remove `claim` from
+ domain_set_outstanding_pages()
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Alejandro Vallejo <alejandro.vallejo@cloud.com>
+Cc: xen-devel@lists.xenproject.org,
+ Bernhard Kaindl <bernhard.kaindl@cloud.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>
+References: <20250314172502.53498-1-alejandro.vallejo@cloud.com>
+ <20250314172502.53498-3-alejandro.vallejo@cloud.com>
+ <aEHJEc5Pht5xcMfO@macbook.local>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -123,139 +127,47 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aEgMe1i4Rpmnz8M9@macbook.local>
+In-Reply-To: <aEHJEc5Pht5xcMfO@macbook.local>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 10.06.2025 12:44, Roger Pau Monné wrote:
-> On Tue, Jun 10, 2025 at 09:40:38AM +0200, Jan Beulich wrote:
->> On 09.06.2025 12:36, Roger Pau Monné wrote:
->>> On Wed, Jun 04, 2025 at 11:48:00AM +0200, Jan Beulich wrote:
->>>> @@ -605,31 +606,35 @@ int hvm_set_mem_pinned_cacheattr(struct
->>>>  
->>>>                  type = range->type;
->>>>                  call_rcu(&range->rcu, free_pinned_cacheattr_entry);
->>>> -                p2m_memory_type_changed(d);
->>>>                  switch ( type )
->>>>                  {
->>>> -                case X86_MT_UCM:
->>>> +                case X86_MT_WB:
->>>> +                case X86_MT_WP:
->>>> +                case X86_MT_WT:
->>>>                      /*
->>>> -                     * For EPT we can also avoid the flush in this case;
->>>> -                     * see epte_get_entry_emt().
->>>> +                     * Flush since we don't know what the cachability is going
->>>> +                     * to be.
->>>>                       */
->>>> -                    if ( hap_enabled(d) && cpu_has_vmx )
->>>> -                case X86_MT_UC:
->>>> -                        break;
->>>> -                    /* fall through */
->>>> -                default:
->>>> -                    flush_all(FLUSH_CACHE);
->>>> +                    if ( is_iommu_enabled(d) || cache_flush_permitted(d) )
->>>> +                        flush = true;
->>>
->>> Is the check here required?  memory_type_changed() will already check
->>> for is_iommu_enabled() and cache_flush_permitted(), and hence you
->>> could just set flush to true unconditionally here IMO.
+On 05.06.2025 18:42, Roger Pau Monné wrote:
+> On Fri, Mar 14, 2025 at 05:24:53PM +0000, Alejandro Vallejo wrote:
+>> With a single global count for the claims it's easy to substract
+>> domain_tot_pages() from the claim so the number given in the hypercall
+>> is the real reservation of the domain. This is the current behaviour.
 >>
->> The behavioral difference is when both predicates are false: The way I have
->> it now, p2m_memory_type_changed() will then still be called (conditionally),
->> better matching prior behavior.
+>> However, a later patch introduces exact-node claims and those interact
+>> very poorly with such a scheme. Since accounting domain_tot_pages() in
+>> one case but not the other seems strictly worse than not accounting them
+>> at all (which is at least consistent), this patch stops substracting
+>> tot_pages from the claim and instead checks that claimed memory +
+>> allocated memory don't exceed max_mem.
 > 
-> I see.  Yes, p2m_memory_type_changed() needs to be called.
-> 
->>
->>>>                      break;
->>>>                  }
->>>> -                return 0;
->>>> +                rc = 0;
->>>> +                goto finish;
->>>>              }
->>>>          domain_unlock(d);
->>>>          return -ENOENT;
->>>>  
->>>>      case X86_MT_UCM:
->>>>      case X86_MT_UC:
->>>> -    case X86_MT_WB:
->>>>      case X86_MT_WC:
->>>> +        /* Flush since we don't know what the cachability was. */
->>>> +        if ( !is_iommu_enabled(d) && !cache_flush_permitted(d) )
->>>> +            return -EPERM;
-> 
-> When assigning IO resources without an IOMMU enabled we likely need
-> to allow the pinned cache attributes to be set, but there's no need to
-> propagate the changes to the p2m, as the EMT calculation won't take
-> into account the pinned attributes.
+> Hm, while I don't have any specific interest in keeping the current
+> behavior, XENMEM_claim_pages is part of the stable ABI (it's not a
+> domctl), and hence should be stable.
 
-Why would it not do so? Am I overlooking a conditional there that would
-cause hvm_get_mem_pinned_cacheattr() to not be called? The only related
-one I see is
+Is that true? It sits inside a
 
-    if ( type != p2m_mmio_direct && !is_iommu_enabled(d) &&
-         !cache_flush_permitted(d) )
+#if defined(__XEN__) || defined(__XEN_TOOLS__)
 
-covering the without-IOMMU case just the same as the "with" one. (The
-"without" case looks dubious to me, as I don't think we arrange for
-any identity mapping, but that's a separate topic.)
+which generally de-marks unstable (tools-only) interfaces.
 
-> IOW: I don't think we can safely short-circuit and return -EPERM here
-> without agreeing that it's a behavioral difference form the previous
-> implementation.
+>  Note also the comment above the
+> definition of XENMEM_claim_pages how it states the specific behavior
+> that you are trying to change (and which should have been adjusted as
+> part of this change).
 
-There's no question there is a behavioral change here. Without I/O
-resources (and without IOMMU) we simply don't accept cache attributes
-other then WB elsewhere; the change is to avoid doing so here as well,
-to get things to be consistent. Hence the -EPERM return.
+This is the more important part, imo.
 
->>>> @@ -682,9 +687,11 @@ int hvm_set_mem_pinned_cacheattr(struct
->>>>  
->>>>      xfree(newr);
->>>>  
->>>> -    p2m_memory_type_changed(d);
->>>> -    if ( type != X86_MT_WB )
->>>> -        flush_all(FLUSH_CACHE);
->>>> + finish:
->>>> +    if ( flush )
->>>> +        memory_type_changed(d);
->>>> +    else if ( d->vcpu && d->vcpu[0] )
->>>> +        p2m_memory_type_changed(d);
->>>
->>> FWIW, I would just call memory_type_changed() unconditionally
->>> regardless of the change.
->>
->> In which case the need for the "flush" local var would go away, if I
->> understand your suggestion correctly. Like above, there'll then be
->> more of a behavioral change than intended. In particular ...
-> 
-> There will be a behavioral change, but not one that the guest would
-> notice IMO.
-> 
->>>  We suspect the hypercall is only used at
->>> domain creation time (where memory_type_changed() won't do a cache
->>> flush anyway).
->>
->> ... "suspect" is not enough for my taste. The only alternative there
->> that I see (as mentioned in a post-commit-message remark) is to
->> refuse such "late" changes altogether. Yet for that we need to be
->> sure, which it looks like no-one of us is.
-> 
-> Why do you say only alternative?
+> I have no idea why this was made a xenmem rather than a domctl
+> hypercall, but if you want to change the semantics I think the only
+> option is introducing a new hypercall.
 
-Oh, sorry, I meant "only" just in regard to options keeping the main
-code structure of the change. I agree ...
-
-> Calling memory_type_changed() unconditionally (without taking into
-> account the previous or new cache attributes) would also be an
-> acceptable solution, that might wide the cache flushing a bit, but
-> would still be correct and much simpler IMO.
-
-... that this, too, is a possibility. It would, however, go against the
-stated purpose of the change (in the subject "... as well as associated
-flushing"), which - after all - was the main goal here, seeing the
-series this was originally part of.
+It _is_ a memory operation, and it re-uses one of the interface structs
+there. (Yes, none of these would technically have prevented it from
+being a domctl.)
 
 Jan
 
