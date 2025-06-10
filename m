@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE238AD302A
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Jun 2025 10:26:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1010594.1388728 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CBC74AD306C
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Jun 2025 10:32:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1010600.1388738 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uOuJO-0000Uu-90; Tue, 10 Jun 2025 08:26:26 +0000
+	id 1uOuOv-0002GC-Rk; Tue, 10 Jun 2025 08:32:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1010594.1388728; Tue, 10 Jun 2025 08:26:26 +0000
+Received: by outflank-mailman (output) from mailman id 1010600.1388738; Tue, 10 Jun 2025 08:32:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uOuJO-0000TP-5S; Tue, 10 Jun 2025 08:26:26 +0000
-Received: by outflank-mailman (input) for mailman id 1010594;
- Tue, 10 Jun 2025 08:26:24 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uOuOv-0002Di-Oq; Tue, 10 Jun 2025 08:32:09 +0000
+Received: by outflank-mailman (input) for mailman id 1010600;
+ Tue, 10 Jun 2025 08:32:08 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=6UIy=YZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uOuJM-0000TJ-8r
- for xen-devel@lists.xenproject.org; Tue, 10 Jun 2025 08:26:24 +0000
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [2a00:1450:4864:20::329])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 97d66064-45d4-11f0-a306-13f23c93f187;
- Tue, 10 Jun 2025 10:26:23 +0200 (CEST)
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-450dd065828so34588385e9.2
- for <xen-devel@lists.xenproject.org>; Tue, 10 Jun 2025 01:26:23 -0700 (PDT)
+ id 1uOuOu-0002Dc-10
+ for xen-devel@lists.xenproject.org; Tue, 10 Jun 2025 08:32:08 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 62b0d03b-45d5-11f0-b894-0df219b8e170;
+ Tue, 10 Jun 2025 10:32:03 +0200 (CEST)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-442ea341570so33298545e9.1
+ for <xen-devel@lists.xenproject.org>; Tue, 10 Jun 2025 01:32:03 -0700 (PDT)
 Received: from ?IPV6:2003:ca:b734:b49b:5992:e13c:c106:5fe0?
  (p200300cab734b49b5992e13cc1065fe0.dip0.t-ipconnect.de.
  [2003:ca:b734:b49b:5992:e13c:c106:5fe0])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4521370936esm133663955e9.20.2025.06.10.01.26.22
+ ffacd0b85a97d-3a532436555sm11796928f8f.61.2025.06.10.01.32.02
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 10 Jun 2025 01:26:22 -0700 (PDT)
+ Tue, 10 Jun 2025 01:32:02 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,59 +47,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 97d66064-45d4-11f0-a306-13f23c93f187
+X-Inumbo-ID: 62b0d03b-45d5-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1749543983; x=1750148783; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1749544323; x=1750149123; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=8OtPQd3BNGsbzCYQd7Cgvi5Cg+O5c+T2fPfHfNlcul8=;
-        b=bKzeDZf/9XQ29g3ESVYxXsnMzcbthwTyP1kAoPEj+u5cbHjChJ1A7a0rdmHG+psuW0
-         y7BGBjXDH6JuO4/iP1mvrYL9KMVuKtcwqXkJQnNhi1omKOoh+tsvfdzwSOM1r4JMhV2H
-         aVCmE1kPQNq70McqttFz/MsXu4oHK0EIFvYn+fN1aivmLzWey1nNaEFvsmQEOMRVTaYA
-         ct3Q/quhBlC1eeaXP3zuztfvz9yvSZaNU8S2eD0tFd4psHvJq3B2gxbftG5RRTnZDDsH
-         /EVztYYhgtCDxnZ5HSZm5thwSlitYdwh+a5Y7yyk8xchQNmKF6OvaF9AbNb+eIRKd2Z1
-         725g==
+        bh=42DAYlwQ+tkYMtayZ9Mn7ArsepIwbn2TYcbLNZDnMhM=;
+        b=Rqk0gO6UUaRScAY39f0bBZR0qr6IClmJ7M2azjDEIGAhRcwQgJZvPQAC5f7yrr15dK
+         h6ZO6OtXMvEFZT5vOzg0PBTVwupEYHwQSQsBuD2jGiJLQIdBHmu7S9L8eud3cBnK9koj
+         WCIf7BeCltB/lhvxR2tVI7W9KjhCcfNifEFptxetBhB97nMcTR+0bg6l3b33OmlC1OMY
+         4Jb/mDqTspgLVUfbsMhQHke6X+o61lXfF7CcHYWLAlHnPmm/V1LK6cg9RV8QbsIL5Xli
+         VaXKam9MDS6UHSrNcmzEUDer2F/qyVuOe3S9GS6y4ay9vx66A5VsJofPWf8pgzsPOzJU
+         EbHA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749543983; x=1750148783;
+        d=1e100.net; s=20230601; t=1749544323; x=1750149123;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=8OtPQd3BNGsbzCYQd7Cgvi5Cg+O5c+T2fPfHfNlcul8=;
-        b=vZ+iaGkjaRR5pIy3WrFWF3MWkjdbDQmRJNeNV9wyxKRAaKqicE4PkAPMN8QJ7k3JMe
-         Mmi7BwB7kBbXkLyjpcag0xf3DJcKg+Aw2w+E3/QtclPJVQGDNvrdwv3PJn33pGK8a4NB
-         FJMRHgJDMax3jT38Yj4Qi8GdM2D4gRtG8aV9FWEZbouh4Jdt4TPcb2hrTyNbjtF8L+Ce
-         rW/BdaqJhafJrpahCYlKjJArBbJHBcTE9cDkGaWVGm2fbq/lzub9FUkjyPF7u7NQ72bp
-         +rbVz5xFpyFqdN1kLKkpLVlhgsPi3WXwqSPUWTvc5Ws0cVO5R4qvu3IL/ZNeSPMKZgQl
-         b9Uw==
-X-Forwarded-Encrypted: i=1; AJvYcCUDok03r4ibSALWbjZ5SS+O9rfW3x2F/dY7IYxlBzHHd7IuxKAmvK0dpCDfwsEbANbXdv8dg39LLMg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwlC1OdKI7rRd4THy+9iqLy6g7EhvOU5SUpWdlQQgjeHN3fWe8C
-	daf5eiY3i1TS8HK5wzWVhCe5/4rRZNyj6BiM0UrCRhrs0ndF3KSLT0/UJIJikZH2Yg==
-X-Gm-Gg: ASbGncs48UzEPY0hdRlVWcRaiDEAiyn3W5U0hC/8M4msAbmjzY2kOm5ZhpD4J/6rKn3
-	Wbs7yi/e7P2FhRLltWqggcWEBEWCOfARKkapeDg+PdLehtcVtVFmDFCmkUfeJoq9tsXQ+5Hjosj
-	TXbfm+HVdkxOlvWstVJmyZj9AlcmhCAlL3pr00pSXMlqLlvfgGrjijFEheXNI04qpyc4TEPlZSm
-	tSf2TTHOrdSbmz/Y+48JdltWMWuT2WBL6D7T0ZZ3bRDOVoE2kOsPlDD5BI/LM9XWMHFTCwIrBDM
-	Ddv4Mq0HiiQIAqGYLgmEyhI+O1mgwQO5eY6UpHsMymXMoMNGNKRscu2iHR6iZST66hovJoFX7Co
-	9dzLPUen0gBv690+nlqYK8OwYgeftyl2VwHmn4dr7hGZ+wt9V42fCtleGuT5zXa/CWW3+rl2xNZ
-	wWbjTyqGegrueQTO7hQ+uy
-X-Google-Smtp-Source: AGHT+IFyk04OF2d0aTUnSZNb7vhYnP/WewiwxKAkvPJASxvHReRWoeXSxb6IopI1N3+f7i6N7YFZjw==
-X-Received: by 2002:a05:600c:c163:b0:43c:fd27:a216 with SMTP id 5b1f17b1804b1-452fa7ed515mr113449025e9.23.1749543982676;
-        Tue, 10 Jun 2025 01:26:22 -0700 (PDT)
-Message-ID: <11ea9475-d963-473d-a85b-d1c461e7b213@suse.com>
-Date: Tue, 10 Jun 2025 10:26:22 +0200
+        bh=42DAYlwQ+tkYMtayZ9Mn7ArsepIwbn2TYcbLNZDnMhM=;
+        b=K478Z30CkijT+Zwis4AbkiiVEFvMpYthnRq1MbnyOPcVxET9890hCTrkTjL4hOs2eR
+         t28eAlXPGZIYSWj5A9c0lGC08uITDZcD92grzy2Stwhf4TpnyVilEENgdoWw7+xPkbgA
+         HJgbS7Owh75aGovFrjevvDnRUF5ocLKIWPKpCjYP2hbOWGr9KWECQSkw0I7gOqQm5xHN
+         hZAPCuwgkem083IwPEQSZoGmWBbCo/W4R008Kpzrunhuc7hEHZ3x7eU8eFCOcVWV64Ey
+         N1HXmY2Gj5HAOcXVoZ4isnALLkSPwsrDQC5TBZP0z3NJCVUNX31uDxeVQftfb360ynnI
+         9XOg==
+X-Forwarded-Encrypted: i=1; AJvYcCWf3k1wwZwByWyZ6q2TZe+ocBnObmdxFDFNWJvwQwOKJs7kRWtExzPVqeFI0Iq4dMGOHlcI+4X6dSw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyaQmxEXrcsPE5dHCrFnY/JjsH7epvX8GeeXG+PSZZ4kjOBtG/I
+	jlLLiKboEmssUzFkv8BQ6XcR/VRUYOEy5gqtm36FGFlIvtqh1JnaLEKq7NgHs9jC1g==
+X-Gm-Gg: ASbGncv1ymJFcoyrOWCc1OYFOsdc3QOJIIzqMQfixrxGYspPVftvgB+RRWc+9zT448b
+	l1RlvXn19HYfje+Vrn4vXoB0KWqPewtxt7uD4sF8SMpb/IRlgPczqlx9WIXhe6Q2o8Sx3zR+f4M
+	5CsdiuAeIPb94yxnrlrTccUNZCVafhsZaokxxEIfRpCGYUNkc7CaFiWJ/Tg8fn+N86gbi0hiya0
+	KsSXzYNSfvIRo3MW/NaRfkrJGJLF++Ya9I6Bq+aGRXGUxK0QSeB6ymYbunVgiFc0GJBCptCeQkY
+	5ejTCGIWHmZl7fYGw2Z0XvBDXW+QriF1inD/PzOqd5uhF4BoBP01XfrJMZy8bU3U4Y+wwbSLVHc
+	zrbWNEdXxzQYiNIrbwPs/R10u8/iI0mIg8k4JuY3/kD5asFFkym+ZHT3ww6UDMAl/SI3vBDI8eD
+	AK8p0587yS69l1RPji6viMHNdiCYEWUDM=
+X-Google-Smtp-Source: AGHT+IFQYXvafICc4tU35a9BqF5V/cqDwFMrCpHjfchQ/XsSN3oLjx9PvVX4qPtTUAPxWvcQXeHu5Q==
+X-Received: by 2002:a05:600c:5396:b0:441:b3eb:570a with SMTP id 5b1f17b1804b1-452013681efmr174664545e9.2.1749544323012;
+        Tue, 10 Jun 2025 01:32:03 -0700 (PDT)
+Message-ID: <fbcd83f4-8638-4da3-8555-36294a42c7d8@suse.com>
+Date: Tue, 10 Jun 2025 10:32:02 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 2/3] xen/domain: adjust domain ID allocation for Arm
-To: dmkhn@proton.me
-Cc: Julien Grall <julien@xen.org>, andrew.cooper3@citrix.com,
- anthony.perard@vates.tech, roger.pau@citrix.com, sstabellini@kernel.org,
- teddy.astie@vates.tech, dmukhin@ford.com, xen-devel@lists.xenproject.org
-References: <20250528225030.2652166-1-dmukhin@ford.com>
- <20250528225030.2652166-3-dmukhin@ford.com>
- <63087c42-d709-4e53-a2c3-8b812f13190a@xen.org>
- <a4c860d7-1fa0-43f4-8ae1-af59b7c6506f@xen.org>
- <30c01c78-5a5e-435f-9b1c-faca3af04a76@suse.com> <aEfmkMBW7r1KHuV0@kraken>
+Subject: Re: [PATCH v4] automation/eclair: update configuration of D4.10
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Stefano Stabellini <stefano.stabellini@amd.com>, michal.orzel@amd.com,
+ julien@xen.org, roger.pau@citrix.com, bertrand.marquis@arm.com,
+ federico.serafini@bugseng.com, Nicola Vetrini <nicola.vetrini@bugseng.com>,
+ xen-devel@lists.xenproject.org
+References: <alpine.DEB.2.22.394.2506061403280.2495561@ubuntu-linux-20-04-desktop>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -125,95 +123,30 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aEfmkMBW7r1KHuV0@kraken>
+In-Reply-To: <alpine.DEB.2.22.394.2506061403280.2495561@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 10.06.2025 10:02, dmkhn@proton.me wrote:
-> On Tue, Jun 10, 2025 at 08:53:12AM +0200, Jan Beulich wrote:
->> On 06.06.2025 23:29, Julien Grall wrote:
->>> Hi Denis,
->>>
->>> On 05/06/2025 23:05, Julien Grall wrote:
->>>> Hi Denis,
->>>>
->>>> On 28/05/2025 23:50, dmkhn@proton.me wrote:
->>>>> From: Denis Mukhin <dmkhn@proton.me>
->>>>>
->>>>> From: Denis Mukhin <dmukhin@ford.com>
->>>>>
->>>>> Remove the hardcoded domain ID 0 allocation for hardware domain and replace it
->>>>> with a call to get_initial_domain_id() (returns the value of hardware_domid on
->>>>> Arm).
->>>>
->>>> I am not entirely why this is done. Are you intending to pass a different domain ID? If so...
->>>>
->>>>>
->>>>> Update domid_alloc(DOMID_INVALID) case to ensure that get_initial_domain_id()
->>>>> ID is skipped during domain ID allocation to cover domU case in dom0less
->>>>> configuration. That also fixes a potential issue with re-using ID#0 for domUs
->>>>> when get_initial_domain_id() returns non-zero.
->>>>>
->>>>> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
->>>>> ---
->>>>> Changes since v8:
->>>>> - rebased
->>>>> ---
->>>>>   xen/arch/arm/domain_build.c             | 4 ++--
->>>>>   xen/common/device-tree/dom0less-build.c | 9 +++------
->>>>>   xen/common/domain.c                     | 4 ++--
->>>>>   3 files changed, 7 insertions(+), 10 deletions(-)
->>>>>
->>>>> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
->>>>> index e9d563c269..0ad80b020a 100644
->>>>> --- a/xen/arch/arm/domain_build.c
->>>>> +++ b/xen/arch/arm/domain_build.c
->>>>> @@ -2035,9 +2035,9 @@ void __init create_dom0(void)
->>>>
->>>> ... naming like create_dom0() probably wants to be renamed.
->>>>
->>>> That said, I am not convinced a domain other than 0 should have full privilege by default. So I would argue it should stay as ...
->>>>
->>>>>       if ( !llc_coloring_enabled )
->>>>>           flags |= CDF_directmap;
->>>>> -    domid = domid_alloc(0);
->>>>> +    domid = domid_alloc(get_initial_domain_id());
->>>>
->>>> ... 0.
->>>
->>> Looking at the implementation of get_initial_domain_id(), I noticed the behavior was changed for x86 by [1].
->>>
->>> Before, get_initial_domain_id() was returning 0 except for the PV shim.
->>> But now, it would could return the domain ID specified on the command line (via hardware_dom).
->>>
->>> From my understanding, the goal of the command line was to create the hardware domain *after* boot. So initially we create dom0 and then initialize the hardware domain. With the patch below, this has changed.
->>>
->>> However, from the commit message, I don't understand why. It seems like we broke late hwdom?
->>>
->>> For instance, late_hwdom_init() has the following assert:
->>>
->>>     dom0 = rcu_lock_domain_by_id(0);
->>>     ASSERT(dom0 != NULL);
->>>
->>> Jan, I saw you were involved in the review of the series. Any idea why this was changed?
->>
->> I simply overlooked this aspect when looking at the change. You're right, things
->> were broken there. Unless a simple and clean fix can be made relatively soon, I
->> think this simply needs reverting (which may mean to revert any later commits
->> that depend on that). I can't help noting that in this console rework there were
->> way too many issues, and I fear more than just this one may have slipped
->> through. I therefore wonder whether taken as a whole this was/is worth both the
->> submitter's and all the reviewers' time.
-> 
-> Yes, sorry, I overlooked late_hwdom_init() modification.
-> 
-> IMO, the clean fix would be adding another command line parameter
-> `control_domid` (with default value 0), make get_initial_domain_id() return it
-> instead of current `hardware_domid` and update late_hwdom_init() to use
-> `control_domid` insted of open-coded 0.
+On 06.06.2025 23:04, Stefano Stabellini wrote:
+> --- a/xen/arch/x86/include/asm/cpufeatures.h
+> +++ b/xen/arch/x86/include/asm/cpufeatures.h
+> @@ -1,6 +1,6 @@
+> -/*
+> - * Explicitly intended for multiple inclusion.
+> - */
+> +/* This file is intended to be included multiple times. */
 
-No, no new command line option will address this. Original behavior needs to be
-restored (either by correcting the earlier change or, as said, be reverting).
+While I can see that this may indeed be needed, ...
+
+> +/*#ifndef X86_CPUFEATURES_H */
+> +/*#define X86_CPUFEATURES_H */
+
+... I wonder what this is about. Sorry, I didn't spot this as a change
+in v3. If it's needed, these comments want to be well formed (have a
+space between * and #).
+
+Beyond this - why is this header ending up different from e.g.
+public/errno.h, where a SAF-8 comment is used?
 
 Jan
 
