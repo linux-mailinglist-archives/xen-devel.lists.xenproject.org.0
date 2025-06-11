@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D9871AD623B
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Jun 2025 00:15:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1012208.1390739 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C6606AD6268
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Jun 2025 00:37:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1012221.1390749 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uPTjE-0001Jv-0f; Wed, 11 Jun 2025 22:15:28 +0000
+	id 1uPU4J-00044r-OU; Wed, 11 Jun 2025 22:37:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1012208.1390739; Wed, 11 Jun 2025 22:15:27 +0000
+Received: by outflank-mailman (output) from mailman id 1012221.1390749; Wed, 11 Jun 2025 22:37:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uPTjD-0001Ht-T4; Wed, 11 Jun 2025 22:15:27 +0000
-Received: by outflank-mailman (input) for mailman id 1012208;
- Wed, 11 Jun 2025 22:15:26 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uPU4J-00043C-KY; Wed, 11 Jun 2025 22:37:15 +0000
+Received: by outflank-mailman (input) for mailman id 1012221;
+ Wed, 11 Jun 2025 22:37:15 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=J0ch=Y2=3mdeb.com=sergii.dmytruk@srs-se1.protection.inumbo.net>)
- id 1uPTjB-0001Hn-Fz
- for xen-devel@lists.xenproject.org; Wed, 11 Jun 2025 22:15:26 +0000
-Received: from 2.mo550.mail-out.ovh.net (2.mo550.mail-out.ovh.net
- [178.32.119.250]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 915b16e1-4711-11f0-b894-0df219b8e170;
- Thu, 12 Jun 2025 00:15:23 +0200 (CEST)
-Received: from director9.ghost.mail-out.ovh.net (unknown [10.109.148.164])
- by mo550.mail-out.ovh.net (Postfix) with ESMTP id 4bHg2f29XQz1SWB
- for <xen-devel@lists.xenproject.org>; Wed, 11 Jun 2025 22:15:22 +0000 (UTC)
-Received: from ghost-submission-5b5ff79f4f-fmjvw (unknown [10.110.168.167])
- by director9.ghost.mail-out.ovh.net (Postfix) with ESMTPS id 33AAE841F3;
- Wed, 11 Jun 2025 22:15:21 +0000 (UTC)
-Received: from 3mdeb.com ([37.59.142.114])
+ id 1uPU4I-000436-W3
+ for xen-devel@lists.xenproject.org; Wed, 11 Jun 2025 22:37:14 +0000
+Received: from 1.mo575.mail-out.ovh.net (1.mo575.mail-out.ovh.net
+ [46.105.41.146]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 9e551084-4714-11f0-a307-13f23c93f187;
+ Thu, 12 Jun 2025 00:37:13 +0200 (CEST)
+Received: from director7.ghost.mail-out.ovh.net (unknown [10.109.140.75])
+ by mo575.mail-out.ovh.net (Postfix) with ESMTP id 4bHgWr51RNz1fsH
+ for <xen-devel@lists.xenproject.org>; Wed, 11 Jun 2025 22:37:12 +0000 (UTC)
+Received: from ghost-submission-5b5ff79f4f-fmjvw (unknown [10.110.118.5])
+ by director7.ghost.mail-out.ovh.net (Postfix) with ESMTPS id BE370C01C6;
+ Wed, 11 Jun 2025 22:37:11 +0000 (UTC)
+Received: from 3mdeb.com ([37.59.142.97])
  by ghost-submission-5b5ff79f4f-fmjvw with ESMTPSA
- id YYnCN/j/SWgc+wQA2bOk2Q
- (envelope-from <sergii.dmytruk@3mdeb.com>); Wed, 11 Jun 2025 22:15:21 +0000
+ id U/H1IhcFSmiJBgUA2bOk2Q
+ (envelope-from <sergii.dmytruk@3mdeb.com>); Wed, 11 Jun 2025 22:37:11 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,103 +46,134 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 915b16e1-4711-11f0-b894-0df219b8e170
-Authentication-Results:garm.ovh; auth=pass (GARM-114S008e51bf213-26b3-4121-af28-2028cbb1de8f,
+X-Inumbo-ID: 9e551084-4714-11f0-a307-13f23c93f187
+Authentication-Results:garm.ovh; auth=pass (GARM-97G002b78441d9-2dcf-4999-814f-59a31c23654c,
                     CF5C07F8BFC6FE4C0252D8DD6CF7CA7F095CBCB3) smtp.auth=sergii.dmytruk@3mdeb.com
 X-OVh-ClientIp:176.111.184.221
-Date: Thu, 12 Jun 2025 01:14:53 +0300
+Date: Thu, 12 Jun 2025 01:36:44 +0300
 From: Sergii Dmytruk <sergii.dmytruk@3mdeb.com>
 To: ross.philipson@oracle.com
-Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
+Cc: xen-devel@lists.xenproject.org,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	Jan Beulich <jbeulich@suse.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
-	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
 	trenchboot-devel@googlegroups.com
-Subject: Re: [PATCH v3 04/22] x86/boot/slaunch-early: implement early
- initialization
-Message-ID: <aEn_3U3YxdeUXC6p@MjU3Nj>
+Subject: Re: [PATCH v3 05/22] x86/boot/slaunch-early: early TXT checks and
+ boot data retrieval
+Message-ID: <aEoE_FjSL0gU2z39@MjU3Nj>
 References: <cover.1748611041.git.sergii.dmytruk@3mdeb.com>
- <16a544876163afece619d50f80869aaacc9c797c.1748611041.git.sergii.dmytruk@3mdeb.com>
- <5792bec7-cd2f-4d27-aa3b-f417b07c8ea8@oracle.com>
+ <a05ef5d70803eb25ab959de011c9717ce9194558.1748611041.git.sergii.dmytruk@3mdeb.com>
+ <4ff41a13-1af9-4c87-ad6b-cd616b4d1840@oracle.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <5792bec7-cd2f-4d27-aa3b-f417b07c8ea8@oracle.com>
-X-Ovh-Tracer-Id: 18445055224532677788
+In-Reply-To: <4ff41a13-1af9-4c87-ad6b-cd616b4d1840@oracle.com>
+X-Ovh-Tracer-Id: 367043369900553372
 X-VR-SPAMSTATE: OK
 X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgeeffedrtddugddufeefiecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpeffhffvvefukfhfgggtuggjsehttdertddttddvnecuhfhrohhmpefuvghrghhiihcuffhmhihtrhhukhcuoehsvghrghhiihdrughmhihtrhhukhesfehmuggvsgdrtghomheqnecuggftrfgrthhtvghrnhepvdfgveegtdffhfdugeevieehkeetudevfeefgedtleejledvfeeutdetudeiveelnecukfhppeduvdejrddtrddtrddupddujeeirdduuddurddukeegrddvvddupdefjedrheelrddugedvrdduudegnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehinhgvthepuddvjedrtddrtddruddpmhgrihhlfhhrohhmpehsvghrghhiihdrughmhihtrhhukhesfehmuggvsgdrtghomhdpnhgspghrtghpthhtohepuddprhgtphhtthhopeigvghnqdguvghvvghlsehlihhsthhsrdigvghnphhrohhjvggtthdrohhrghdpoffvtefjohhsthepmhhoheehtdgmpdhmohguvgepshhmthhpohhuth
-DKIM-Signature: a=rsa-sha256; bh=PF45JHkS6yxBtHKhK/5xeoDWZAtphBhKMQ4IkDbNJbw=;
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgeeffedrtddugddufeegudcutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpeffhffvvefukfhfgggtuggjsehttdertddttddvnecuhfhrohhmpefuvghrghhiihcuffhmhihtrhhukhcuoehsvghrghhiihdrughmhihtrhhukhesfehmuggvsgdrtghomheqnecuggftrfgrthhtvghrnhepvdfgveegtdffhfdugeevieehkeetudevfeefgedtleejledvfeeutdetudeiveelnecukfhppeduvdejrddtrddtrddupddujeeirdduuddurddukeegrddvvddupdefjedrheelrddugedvrdeljeenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepihhnvghtpeduvdejrddtrddtrddupdhmrghilhhfrhhomhepshgvrhhgihhirdgumhihthhruhhkseefmhguvggsrdgtohhmpdhnsggprhgtphhtthhopedupdhrtghpthhtohepgigvnhdquggvvhgvlheslhhishhtshdrgigvnhhprhhojhgvtghtrdhorhhgpdfovfetjfhoshhtpehmohehjeehmgdpmhhouggvpehsmhhtphhouhht
+DKIM-Signature: a=rsa-sha256; bh=DKe/D5YYsQYWAntL4tHuj+vmsZ7qez3okCa6WA9eJE8=;
  c=relaxed/relaxed; d=3mdeb.com; h=From; s=ovhmo3617313-selector1;
- t=1749680122; v=1;
- b=JN9zRCvOdlXYI0SwwSnbP4MBm7Am2Q5QYi+VXwPOppiupGHNuN43y/pm/UO4rK1IYmxepgi4
- 5UnTNDVOUEWJAOb8E0H02fP92WXIGm42F13lNNJTvIuMxaO7BpHHRR+GaVSywplzENyDRuect3I
- TFZRgH//S+s1ycDhagz6WJVLypnpsn/CPLK00dxRPPjG+ktEpgwxsA1GXu1xeLc1bqQy/Y15qCL
- G7OB4su+INggzfhCMRe7KEz2k6bXYEjcUkSFBMMk1mDQLPmQo+PGH7h3XqnIboAZIHJd1PlRe/G
- PebFYSuWK78ENuzx4nsY2X6KWnFT9tpgcbGFox8o/jOxQ==
+ t=1749681432; v=1;
+ b=Ux3HnNp2snZUneMJikNUoQMosJhQhGyReZJK/uT5Gp2uO8Z90yYuZbjCIHkFG4P3DRSwPN9i
+ 0EPhJE8Faj4BmbawdPSl1tmXkzHOupiMW3WiorL8Fa5niVixaLmXsWMRix0HeTa59AgviOvg8Py
+ He/p/xUR1YWF4xEGNr7tNljpg3M17mXinNdVs9UVX87QlyHM0VQDf+Fp7s4Co/KwTHhpZTrlzMo
+ BQ1KuHPa86P+mhT3NfTB2Q12kujL763+34HQn/NkjNL7rhUbg6/oibDGY6mKDotrRoLynekSRvS
+ 1tj45ExoM50LF21PWCeFV135/6eQ0TLOFoFHQD9bt4kFw==
 
-On Tue, Jun 03, 2025 at 09:17:29AM -0700, ross.philipson@oracle.com wrote:
-> > +void asmlinkage slaunch_early_init(uint32_t load_base_addr,
-> > +                                   uint32_t tgt_base_addr,
-> > +                                   uint32_t tgt_end_addr,
-> > +                                   struct early_init_results *result)
-> > +{
-> > +    void *txt_heap;
-> > +    const struct txt_os_mle_data *os_mle;
-> > +    const struct slr_table *slrt;
-> > +    const struct slr_entry_intel_info *intel_info;
-> > +
-> > +    txt_heap = txt_init();
-> > +    os_mle = txt_os_mle_data_start(txt_heap);
-> > +
-> > +    result->slrt_pa = os_mle->slrt;
-> > +    result->mbi_pa = 0;
-> > +
-> > +    slrt = (const struct slr_table *)(uintptr_t)os_mle->slrt;
-> > +
-> > +    intel_info = (const struct slr_entry_intel_info *)
-> > +        slr_next_entry_by_tag(slrt, NULL, SLR_ENTRY_INTEL_INFO);
-> > +    if ( intel_info == NULL || intel_info->hdr.size != sizeof(*intel_info) )
-> > +        return;
+On Tue, Jun 03, 2025 at 10:03:31AM -0700, ross.philipson@oracle.com wrote:
+> > From: Krystian Hebel <krystian.hebel@3mdeb.com>
+> > 
+> > The tests validate that important parts of memory are protected against
+> > DMA attacks, including Xen and MBI. Modules can be tested later, when it
+> > is possible to report issues to a user before invoking TXT reset.
+> > 
+> > TPM event log validation is temporarily disabled due to an issue with
+> > its allocation by bootloader (GRUB) which will need to be modified to
+> > address this. Ultimately event log will also have to be validated early
+> > as it is used immediately after these tests to hold MBI measurements.
+> > See larger comment in txt_verify_pmr_ranges().
+> > 
+> > Signed-off-by: Krystian Hebel <krystian.hebel@3mdeb.com>
+> > Signed-off-by: Sergii Dmytruk <sergii.dmytruk@3mdeb.com>
+> > ---
+
+> > +static inline int is_in_pmr(const struct txt_os_sinit_data *os_sinit,
+> > +                            uint64_t base, uint32_t size, int check_high)
 >
-> Since these are the x86/TXT bits, it seems at this point, not finding the
-> TXT info structure would be fatal, no?
+> bool return val?
 
-It is fatal, but early code doesn't have means for reporting errors
-nicely, so it just continues.  You think it's better to reboot right
-away?
+Will change.
 
-> > +static inline void *txt_init(void)
-> > +{
-> > +    void *txt_heap;
+> > +    /*
+> > +     * ACM checks that TXT heap and MLE memory is protected against DMA. We have
+> > +     * to check if MBI and whole Xen memory is protected. The latter is done in
+> > +     * case bootloader failed to set whole image as MLE and to make sure that
+> > +     * both pre- and post-relocation code is protected.
+> > +     */
 > > +
-> > +    /* Clear the TXT error register for a clean start of the day. */
-> > +    txt_write(TXTCR_ERRORCODE, 0);
-> > +
-> > +    txt_heap = _p(txt_read(TXTCR_HEAP_BASE));
-> > +
-> > +    if ( txt_os_mle_data_size(txt_heap) < sizeof(struct txt_os_mle_data) ||
-> > +         txt_os_sinit_data_size(txt_heap) < sizeof(struct txt_os_sinit_data) )
-> > +        txt_reset(SLAUNCH_ERROR_GENERIC);
 >
-> I know the list of error codes pulled in are from the patches for Linux
-> Secure Launch which seems right. The Xen work is free to add more specific
-> error codes e.g. somewhere like here. We could even consider using regions
-> in the vendor error code space for different things like generic errors vs
-> architecture specific ones vs etc.
+> Is this the full list of entities that should be covered by PMRs? I am
+> thinking of entries in the SLR policy that should be covered. E.g. with
+> Linux we ensure setup_data entry blobs are covered before measuring.
+
+Xen's equivalent of setup_data is MBI which is checked below. Command-lines
+of Xen and modules are part of MBI as well.
+
+> > +    /* Check if all of Xen before relocation is covered by PMR. */
+> > +    if ( !is_in_pmr(os_sinit, load_base_addr, xen_size, check_high_pmr) )
+> > +        txt_reset(SLAUNCH_ERROR_LO_PMR_MLE);
+> > +
+> > +    /* Check if all of Xen after relocation is covered by PMR. */
+> > +    if ( load_base_addr != tgt_base_addr &&
+> > +         !is_in_pmr(os_sinit, tgt_base_addr, xen_size, check_high_pmr) )
+> > +        txt_reset(SLAUNCH_ERROR_LO_PMR_MLE);
+> > +
+> > +    /*
+> > +     * If present, check that MBI is covered by PMR. MBI starts with 'uint32_t
+> > +     * total_size'.
+> > +     */
+> > +    if ( info->boot_params_base != 0 &&
+> > +         !is_in_pmr(os_sinit, info->boot_params_base,
+> > +                    *(uint32_t *)(uintptr_t)info->boot_params_base,
+> > +                    check_high_pmr) )
+> > +        txt_reset(SLAUNCH_ERROR_BUFFER_BEYOND_PMR);
+
+> > +    /* Check if TPM event log (if present) is covered by PMR. */
+> > +    /*
+> > +     * FIXME: currently commented out as GRUB allocates it in a hole between
+> > +     * PMR and reserved RAM, due to 2MB resolution of PMR. There are no other
+> > +     * easy-to-use DMA protection mechanisms that would allow to protect that
+> > +     * part of memory. TPR (TXT DMA Protection Range) gives 1MB resolution, but
+> > +     * it still wouldn't be enough.
+> > +     *
+> > +     * One possible solution would be for GRUB to allocate log at lower address,
+> > +     * but this would further increase memory space fragmentation. Another
+> > +     * option is to align PMR up instead of down, making PMR cover part of
+> > +     * reserved region, but it is unclear what the consequences may be.
+>
+> The consequences depend on the firmware. The failure mode we used to see was
+> on some systems if the PMR covered certain areas marked as reserved, the
+> system will hang at boot. In this particular case, firmware was trying to
+> use an xHCI controller to get to the kb attached to use it at boot time.
+> When DMA to the host controller was blocked, the firmware was unhappy. We
+> have not seen this issue in a while and the current logic in the prologue
+> code just sets the upper bound to the highest RAM area below 4Gb which is
+> optimal.
+>
+> The most correct solution for PMRs is to read the VTd RMRR structures. These
+> can tell you what reserved regions should not be blocked like this (if any).
+> This will give more control over the best configuration for the PMRs and
+> what to avoid. This needs to be done in the prologue code and validated in
+> the DLME.
+>
+> And yea, TPR support too where available.
 >
 > Thanks
 > Ross
 
-I think some codes were already added and this is the only place where
-SLAUNCH_ERROR_GENERIC is used, not really sure why, will add a couple
-more.  By the way, the new errors were inserted in the middle making
-about half of the errors out of sync with Linux, should Xen and Linux be
-in sync?
-
-Not sure about usefulness of error regions, the errors codes are only
-for TXT and major/minor errors in TXT.ERRORCODE weren't helpful in
-debugging.
+I guess this needs checking whether it's still an issue.
 
 Regards
 
