@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 025E5AD5257
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Jun 2025 12:44:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1011496.1389957 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C236AD52A5
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Jun 2025 12:50:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1011525.1389981 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uPIwA-0003Oq-6D; Wed, 11 Jun 2025 10:44:06 +0000
+	id 1uPJ2e-0005ll-5s; Wed, 11 Jun 2025 10:50:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1011496.1389957; Wed, 11 Jun 2025 10:44:06 +0000
+Received: by outflank-mailman (output) from mailman id 1011525.1389981; Wed, 11 Jun 2025 10:50:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uPIwA-0003Mt-3M; Wed, 11 Jun 2025 10:44:06 +0000
-Received: by outflank-mailman (input) for mailman id 1011496;
- Wed, 11 Jun 2025 10:44:04 +0000
+	id 1uPJ2e-0005jU-33; Wed, 11 Jun 2025 10:50:48 +0000
+Received: by outflank-mailman (input) for mailman id 1011525;
+ Wed, 11 Jun 2025 10:50:47 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Z5UX=Y2=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uPIw8-0002CX-KM
- for xen-devel@lists.xenproject.org; Wed, 11 Jun 2025 10:44:04 +0000
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [2a00:1450:4864:20::42e])
+ id 1uPIwl-0002CX-1h
+ for xen-devel@lists.xenproject.org; Wed, 11 Jun 2025 10:44:43 +0000
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [2a00:1450:4864:20::42a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fdf916c7-46b0-11f0-a307-13f23c93f187;
- Wed, 11 Jun 2025 12:44:03 +0200 (CEST)
-Received: by mail-wr1-x42e.google.com with SMTP id
- ffacd0b85a97d-3a52874d593so6220707f8f.0
- for <xen-devel@lists.xenproject.org>; Wed, 11 Jun 2025 03:44:03 -0700 (PDT)
+ id 14fb8239-46b1-11f0-a307-13f23c93f187;
+ Wed, 11 Jun 2025 12:44:42 +0200 (CEST)
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-3a54700a463so532152f8f.1
+ for <xen-devel@lists.xenproject.org>; Wed, 11 Jun 2025 03:44:42 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-23603b6a5aasm84831165ad.112.2025.06.11.03.44.00
+ d2e1a72fcca58-7482b0edb54sm9164076b3a.173.2025.06.11.03.44.38
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 11 Jun 2025 03:44:02 -0700 (PDT)
+ Wed, 11 Jun 2025 03:44:41 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fdf916c7-46b0-11f0-a307-13f23c93f187
+X-Inumbo-ID: 14fb8239-46b1-11f0-a307-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1749638643; x=1750243443; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1749638682; x=1750243482; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=78s+oTdG4m8V+BkuHjMC+SQ/rabCHl4SaflHSRJvwWk=;
-        b=Ihp5lGw0xguKeUn1ASg8awTshC94Ybir7DI4qwPEUIhhzqc1Du/07tDaRdawu87JvF
-         WXw0vtUqQAh4AMLHJgv+Zm+NKYjpO1WPxayNsrjboGyX7+/Im99YM9zzF6yrRRnORxVN
-         D6mdkpP26e0rcqTle4DB9pMAQMf8MLWfOpoxHZRfU0rEw4EuBqyxK+SBiXCt4atoVMD6
-         D2Klx5ckQIZsRVZU0Jka4VwyxclarRWm8oiBtv92y5+ih+ogKSIRWqPFTK1qAljtuXq7
-         n1lmEvdBPc749/avGya04iu9z/J6BLGF4Gq+N1xEng1zS/+jZbljkQmTTMi/L1xJ2JVH
-         XX6w==
+        bh=qJe2b9Ve9u5yERr1EJ80GBKKaRjXsmkBckErKPpU0kg=;
+        b=LNmv7DieUcYF7vRUk+HxXaVBWNcHRYi8jC5MUBtBHICgTowB/jj55c21P9eE8QkeFp
+         0Lbm9scgb5lSpvkzaOfJq4yV9+fvhDwaoCMFmKnpY+aYobyr7/x5YQdKf3jpYlWOD2X8
+         rlmGGn+mUPuhL1KO8fVMRwWU8otsqcVYXVdGvKLr/08KhoF4BlOshbgpFqGXsMKkbF9f
+         TcaPbIQGCtdhUAKgLqcDUkuThyJwpN43TsUzwRx74ew/M7PjONsh96jUZ55+ouTXsd3i
+         9dhriES90o6v5khrw4Vtk0LjbdifBeOq51YcAhBIF0WktcYfyFARjn75Fes3ep3n5wfy
+         lvJw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749638643; x=1750243443;
+        d=1e100.net; s=20230601; t=1749638682; x=1750243482;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=78s+oTdG4m8V+BkuHjMC+SQ/rabCHl4SaflHSRJvwWk=;
-        b=l/jieDi/tt6Tkp0ccMUL4OBaAn7CGjDLMThWVloSjlh7Lqj8RAvpE45Cl/9tGr/Rex
-         3bsbd2ZJ0CgfJtb7UmD3/UWLMwNRd0Tq869S+XZb/+tVSJsO1Q4TRKAZDCEOOO7kbb+q
-         gM+hH1KAdQSzIuWgoi9EYcsBh7UuMGgujaTgtdXohBDTfqhCN/UvSRSG1oGlv5p3m0LA
-         YdqOX6kO5rSiFc30oNkqRahQf3gLsog5A0bmk2klC7iQGiyyxzNjn+oGdMyyk3crnIv7
-         m8OlOOpT1biF+yP3aG1QSxplqZ1DsGuFBPxqDpu9u4DoHIiCLNvl3GwclG/xVX/pFdo8
-         7PBg==
-X-Gm-Message-State: AOJu0Yx6/aQBjDwTwej/Pokb9Qk9JKP3AWDVz2SrwMssQ09yisVusWPp
-	A0tNyplx4Bw876zykqv2pGWbw6z4C6eZ/Z23e7fEIU56mZasMyzeOOw/UjARHXPyAHGsQ9lqf0o
-	xBl0=
-X-Gm-Gg: ASbGncvKZ0ixxSZmcyVQWXhQGvrIX/Julz8b5GuUtuMLxQPnwkU1EhRF3lQ8jR+kTEs
-	zVngvye6fV8we0Ho2JtmEopECBNAYfiiUZZnk2fDnR1yEJu8aPYUD3RbxeF99eD2MnJPGGdYNMA
-	o80xrOa5k1Meuh8IpP3p6fWRV1YQ9MbMDpmMr7KRKNhcyJKHKJbwsvrp4gM/De9Vwt0Nfr/xF9r
-	W95FJ30UigHVwgS8unnsHl9yX62EEpBxQYxF6Ux4CPav4h29FUIrWW/Xh/6wJK8EU0E4AVLmbFD
-	C486A/j/DOZjUdWkY7Xb8Mey0T6TkpDhWGgn3cNZplxcCk1uM3bR7QlBNj0Wnfdg7eSfG0msyjQ
-	iFW6xsgGMOTFTK/4nedLqjtAwiA8mTwEHPpqhqJgHCKEwjF8=
-X-Google-Smtp-Source: AGHT+IFACdp4m3LDG1YkFCFK1VppSwoqF/paJctwk6K1X+i8fFNYhou+1x10i8tCcMGEobd95MqfYA==
-X-Received: by 2002:a05:6000:2888:b0:3a4:d8f8:fba7 with SMTP id ffacd0b85a97d-3a558a9a0c7mr1954562f8f.2.1749638643304;
-        Wed, 11 Jun 2025 03:44:03 -0700 (PDT)
-Message-ID: <14bb65f3-5b6e-4b12-8914-25528efee557@suse.com>
-Date: Wed, 11 Jun 2025 12:44:00 +0200
+        bh=qJe2b9Ve9u5yERr1EJ80GBKKaRjXsmkBckErKPpU0kg=;
+        b=Fg0tdNzkedSQK3RPKvajIBTEa2ZfNaFSjAtU9A/rTw3Iihrw7gQDZryB0+TzY5aR/l
+         26eF15wNASIa66LxXxHiWIgPrWXX4cWj2z/egMikRCJOguqelIGygeatLN02DtfOoOtZ
+         nSFa5KUqRQzfr959rBI34UnyzQLyOeqVQaWeLmexpqcbFxiITzu7sSspYEDcHP+OVtcH
+         EIyPZ5N7dNF7x6ICajXXEqWRXKTU7fxZmxVfZotOsKc6LMM3K9c8XSbEYEVoLkoHYMpU
+         E6deBp95dhxu/WWZhwCh9PGWLBYEZKly68cZKbirJoV8PxsHFDqBGpw5YVVPB5Z5hvQq
+         Bbsg==
+X-Gm-Message-State: AOJu0Yw7iTFRHIuz+QY/Ue3dKtF65evULmePkrdoOuRbcOVhNmjTMFZd
+	WCxN0tWesW8KMI+Upqui4qzZGsBRjwadmexKtMimA4S//EBP1tE8bdweKqJwNXLTozs8uVx5Vbr
+	/h3Q=
+X-Gm-Gg: ASbGncurnHjNGDJMw2Ysuthjrk7MxEinGjeeeBprTEuA7x/rxxHYycfUKSaGlec8Cph
+	QeTV7jzRCu3ex2g1zQjuqG90WPx3TJBRXFDPyBy3flT18Yr8mNHXSsZUpwwwLMWho+cFyR1h0FQ
+	R6F4EqQ+VkcixCaqeeEz6hXHPs7n7Infjuq4L8emk8DW6We+S+NmcC18klCm0m4fKVcQnkCmuzX
+	hAGdbOt2BlsryjzCW6QFawx91HyqTpkLD86AamDnfEt4IlSJ3lTe134XyA8DAOk2SlodVPsPZsw
+	kMtJNb2vQkVRN5voPU2qgmHgvugB3aaHJr3gsxXJ8ggZm1jiiLfJevRxhTg8N5lOCE1/kubFDJC
+	jBuzpAZsAwok8AISnXzGvAUP2T/DXZ5t67GxyP8Qa290iRFw=
+X-Google-Smtp-Source: AGHT+IEThpE825vd6h/mVkbXdfWYgfywPI7WN9IWWju2j1Zh1DSGUJ9hblzZlgDPFzb/2sa9bWeH1g==
+X-Received: by 2002:adf:edc1:0:b0:3a5:270e:7d3 with SMTP id ffacd0b85a97d-3a55824dfdcmr1896420f8f.13.1749638681906;
+        Wed, 11 Jun 2025 03:44:41 -0700 (PDT)
+Message-ID: <9d0696eb-52d9-4501-8aa6-2d5e572d6433@suse.com>
+Date: Wed, 11 Jun 2025 12:44:39 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH 5/6] vVMX: operand size in decode_vmx_inst()
+Subject: [PATCH 6/6] vVMX: address size in decode_vmx_inst()
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -121,130 +121,28 @@ In-Reply-To: <44d67587-415e-4ec1-a433-64a12aea80d7@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Address size is entirely irrelevant to operand size determination; For
-VMREAD and VMWRITE outside of 64-bit mode operand size is 32 bits, while
-in 64-bit mode it's (naturally) 64 bits. For all other insns it's 64
-bits (a physical address) or 128 bits (INVEPT, INVVPID). To limit the
-amount of change here, keep the latter at reading only 64 bits from
-guest space.
+While the original use of the address size file in the instruction info
+provided was wrong, it still wants using: The offset into the designated
+segment still may need truncating accordingly.
 
 Fixes: 09fce8016596 ("Nested VMX: Emulation of guest VMXON/OFF instruction")
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-Beyond the wrong operand handling for INVEPT and INVVPID, the latter
-also doesn't even have the part read checked to have bits 16 and above
-all clear.
 
 --- a/xen/arch/x86/hvm/vmx/vvmx.c
 +++ b/xen/arch/x86/hvm/vmx/vvmx.c
-@@ -399,13 +399,13 @@ static inline u32 __n2_secondary_exec_co
- 
- static int decode_vmx_inst(struct cpu_user_regs *regs,
-                            struct vmx_inst_decoded *decode,
--                           unsigned long *poperandS)
-+                           unsigned long *poperandS, unsigned int size)
- {
-     struct vcpu *v = current;
-     union vmx_inst_info info;
-     struct segment_register seg;
-     unsigned long base, index, seg_base, disp, offset;
--    int scale, size;
-+    unsigned int scale;
- 
-     __vmread(VMX_INSTRUCTION_INFO, &offset);
-     info.word = offset;
-@@ -437,7 +437,8 @@ static int decode_vmx_inst(struct cpu_us
- 
-         __vmread(EXIT_QUALIFICATION, &disp);
- 
--        size = 1 << (info.fields.addr_size + 1);
-+        if ( !size )
-+            size = 4 << mode_64bit;
+@@ -441,6 +441,13 @@ static int decode_vmx_inst(struct cpu_us
+             size = 4 << mode_64bit;
  
          offset = base + index * scale + disp;
++        switch ( info.fields.addr_size )
++        {
++        case 0: offset = (uint16_t)offset; break;
++        case 1: offset = (uint32_t)offset; break;
++        default:                           break;
++        }
++
          base = !mode_64bit || info.fields.segment >= x86_seg_fs ?
-@@ -452,7 +453,9 @@ static int decode_vmx_inst(struct cpu_us
-         if ( poperandS != NULL )
-         {
-             pagefault_info_t pfinfo;
--            int rc = hvm_copy_from_guest_linear(poperandS, base, size,
-+            int rc = hvm_copy_from_guest_linear(poperandS, base,
-+                                                min_t(unsigned int, size,
-+                                                      sizeof(*poperandS)),
-                                                 0, &pfinfo);
- 
-             if ( rc == HVMTRANS_bad_linear_to_gfn )
-@@ -1549,7 +1552,7 @@ static int nvmx_handle_vmxon(struct cpu_
-     uint32_t nvmcs_revid;
-     int rc;
- 
--    rc = decode_vmx_inst(regs, &decode, &gpa);
-+    rc = decode_vmx_inst(regs, &decode, &gpa, sizeof(gpa));
-     if ( rc != X86EMUL_OKAY )
-         return rc;
- 
-@@ -1776,7 +1779,7 @@ static int nvmx_handle_vmptrld(struct cp
-     unsigned long gpa = 0;
-     int rc;
- 
--    rc = decode_vmx_inst(regs, &decode, &gpa);
-+    rc = decode_vmx_inst(regs, &decode, &gpa, sizeof(gpa));
-     if ( rc != X86EMUL_OKAY )
-         return rc;
- 
-@@ -1853,7 +1856,7 @@ static int nvmx_handle_vmptrst(struct cp
-     unsigned long gpa = 0;
-     int rc;
- 
--    rc = decode_vmx_inst(regs, &decode, &gpa);
-+    rc = decode_vmx_inst(regs, &decode, &gpa, sizeof(gpa));
-     if ( rc != X86EMUL_OKAY )
-         return rc;
- 
-@@ -1879,7 +1882,7 @@ static int nvmx_handle_vmclear(struct cp
-     void *vvmcs;
-     int rc;
- 
--    rc = decode_vmx_inst(regs, &decode, &gpa);
-+    rc = decode_vmx_inst(regs, &decode, &gpa, sizeof(gpa));
-     if ( rc != X86EMUL_OKAY )
-         return rc;
- 
-@@ -1941,7 +1944,7 @@ static int nvmx_handle_vmread(struct cpu
-     u64 value = 0;
-     int rc;
- 
--    rc = decode_vmx_inst(regs, &decode, NULL);
-+    rc = decode_vmx_inst(regs, &decode, NULL, 0);
-     if ( rc != X86EMUL_OKAY )
-         return rc;
- 
-@@ -1984,7 +1987,7 @@ static int nvmx_handle_vmwrite(struct cp
-     enum vmx_insn_errno err;
-     int rc;
- 
--    rc = decode_vmx_inst(regs, &decode, &operand);
-+    rc = decode_vmx_inst(regs, &decode, &operand, 0);
-     if ( rc != X86EMUL_OKAY )
-         return rc;
- 
-@@ -2026,7 +2029,7 @@ static int nvmx_handle_invept(struct cpu
-     unsigned long eptp;
-     int ret;
- 
--    if ( (ret = decode_vmx_inst(regs, &decode, &eptp)) != X86EMUL_OKAY )
-+    if ( (ret = decode_vmx_inst(regs, &decode, &eptp, 16)) != X86EMUL_OKAY )
-         return ret;
- 
-     switch ( reg_read(regs, decode.reg2) )
-@@ -2054,7 +2057,7 @@ static int nvmx_handle_invvpid(struct cp
-     unsigned long vpid;
-     int ret;
- 
--    if ( (ret = decode_vmx_inst(regs, &decode, &vpid)) != X86EMUL_OKAY )
-+    if ( (ret = decode_vmx_inst(regs, &decode, &vpid, 16)) != X86EMUL_OKAY )
-         return ret;
- 
-     switch ( reg_read(regs, decode.reg2) )
+                seg_base + offset : offset;
+         if ( offset + size - 1 < offset ||
 
 
