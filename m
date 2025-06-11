@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C236AD52A5
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Jun 2025 12:50:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1011525.1389981 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 56CA8AD529E
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Jun 2025 12:50:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1011516.1389970 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uPJ2e-0005ll-5s; Wed, 11 Jun 2025 10:50:48 +0000
+	id 1uPJ1v-0004gd-Uq; Wed, 11 Jun 2025 10:50:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1011525.1389981; Wed, 11 Jun 2025 10:50:48 +0000
+Received: by outflank-mailman (output) from mailman id 1011516.1389970; Wed, 11 Jun 2025 10:50:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uPJ2e-0005jU-33; Wed, 11 Jun 2025 10:50:48 +0000
-Received: by outflank-mailman (input) for mailman id 1011525;
- Wed, 11 Jun 2025 10:50:47 +0000
+	id 1uPJ1v-0004d0-RG; Wed, 11 Jun 2025 10:50:03 +0000
+Received: by outflank-mailman (input) for mailman id 1011516;
+ Wed, 11 Jun 2025 10:50:02 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Z5UX=Y2=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uPIwl-0002CX-1h
- for xen-devel@lists.xenproject.org; Wed, 11 Jun 2025 10:44:43 +0000
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [2a00:1450:4864:20::42a])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=/a1C=Y2=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
+ id 1uPJ1t-0004Fr-Vt
+ for xen-devel@lists.xenproject.org; Wed, 11 Jun 2025 10:50:02 +0000
+Received: from mail-ot1-x32c.google.com (mail-ot1-x32c.google.com
+ [2607:f8b0:4864:20::32c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 14fb8239-46b1-11f0-a307-13f23c93f187;
- Wed, 11 Jun 2025 12:44:42 +0200 (CEST)
-Received: by mail-wr1-x42a.google.com with SMTP id
- ffacd0b85a97d-3a54700a463so532152f8f.1
- for <xen-devel@lists.xenproject.org>; Wed, 11 Jun 2025 03:44:42 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-7482b0edb54sm9164076b3a.173.2025.06.11.03.44.38
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 11 Jun 2025 03:44:41 -0700 (PDT)
+ id d282d6ef-46b1-11f0-a307-13f23c93f187;
+ Wed, 11 Jun 2025 12:50:01 +0200 (CEST)
+Received: by mail-ot1-x32c.google.com with SMTP id
+ 46e09a7af769-72c47631b4cso4355974a34.1
+ for <xen-devel@lists.xenproject.org>; Wed, 11 Jun 2025 03:50:01 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,104 +40,114 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 14fb8239-46b1-11f0-a307-13f23c93f187
+X-Inumbo-ID: d282d6ef-46b1-11f0-a307-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1749638682; x=1750243482; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=qJe2b9Ve9u5yERr1EJ80GBKKaRjXsmkBckErKPpU0kg=;
-        b=LNmv7DieUcYF7vRUk+HxXaVBWNcHRYi8jC5MUBtBHICgTowB/jj55c21P9eE8QkeFp
-         0Lbm9scgb5lSpvkzaOfJq4yV9+fvhDwaoCMFmKnpY+aYobyr7/x5YQdKf3jpYlWOD2X8
-         rlmGGn+mUPuhL1KO8fVMRwWU8otsqcVYXVdGvKLr/08KhoF4BlOshbgpFqGXsMKkbF9f
-         TcaPbIQGCtdhUAKgLqcDUkuThyJwpN43TsUzwRx74ew/M7PjONsh96jUZ55+ouTXsd3i
-         9dhriES90o6v5khrw4Vtk0LjbdifBeOq51YcAhBIF0WktcYfyFARjn75Fes3ep3n5wfy
-         lvJw==
+        d=cloud.com; s=cloud; t=1749639000; x=1750243800; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=GG6aW3XDuEMUCKryLo/fh3k2eKKUNrqXRIEfIyGJ6II=;
+        b=gDn0GzJW7NoRLOpep9bGyNV4SXRHC6+F0FHQTFl+Uj15Br3OeujR7AcJbPqI7Cc8Dg
+         mVxkegPJUmUKc/+wBlfQQERMUDyYVxS1z1do41DcuP+uVlnfFIz19j01zOCGeuk8PT8i
+         SCHchn+9TL+5FGvXhxTRC/6Kt73HnhJ64qkAM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749638682; x=1750243482;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=qJe2b9Ve9u5yERr1EJ80GBKKaRjXsmkBckErKPpU0kg=;
-        b=Fg0tdNzkedSQK3RPKvajIBTEa2ZfNaFSjAtU9A/rTw3Iihrw7gQDZryB0+TzY5aR/l
-         26eF15wNASIa66LxXxHiWIgPrWXX4cWj2z/egMikRCJOguqelIGygeatLN02DtfOoOtZ
-         nSFa5KUqRQzfr959rBI34UnyzQLyOeqVQaWeLmexpqcbFxiITzu7sSspYEDcHP+OVtcH
-         EIyPZ5N7dNF7x6ICajXXEqWRXKTU7fxZmxVfZotOsKc6LMM3K9c8XSbEYEVoLkoHYMpU
-         E6deBp95dhxu/WWZhwCh9PGWLBYEZKly68cZKbirJoV8PxsHFDqBGpw5YVVPB5Z5hvQq
-         Bbsg==
-X-Gm-Message-State: AOJu0Yw7iTFRHIuz+QY/Ue3dKtF65evULmePkrdoOuRbcOVhNmjTMFZd
-	WCxN0tWesW8KMI+Upqui4qzZGsBRjwadmexKtMimA4S//EBP1tE8bdweKqJwNXLTozs8uVx5Vbr
-	/h3Q=
-X-Gm-Gg: ASbGncurnHjNGDJMw2Ysuthjrk7MxEinGjeeeBprTEuA7x/rxxHYycfUKSaGlec8Cph
-	QeTV7jzRCu3ex2g1zQjuqG90WPx3TJBRXFDPyBy3flT18Yr8mNHXSsZUpwwwLMWho+cFyR1h0FQ
-	R6F4EqQ+VkcixCaqeeEz6hXHPs7n7Infjuq4L8emk8DW6We+S+NmcC18klCm0m4fKVcQnkCmuzX
-	hAGdbOt2BlsryjzCW6QFawx91HyqTpkLD86AamDnfEt4IlSJ3lTe134XyA8DAOk2SlodVPsPZsw
-	kMtJNb2vQkVRN5voPU2qgmHgvugB3aaHJr3gsxXJ8ggZm1jiiLfJevRxhTg8N5lOCE1/kubFDJC
-	jBuzpAZsAwok8AISnXzGvAUP2T/DXZ5t67GxyP8Qa290iRFw=
-X-Google-Smtp-Source: AGHT+IEThpE825vd6h/mVkbXdfWYgfywPI7WN9IWWju2j1Zh1DSGUJ9hblzZlgDPFzb/2sa9bWeH1g==
-X-Received: by 2002:adf:edc1:0:b0:3a5:270e:7d3 with SMTP id ffacd0b85a97d-3a55824dfdcmr1896420f8f.13.1749638681906;
-        Wed, 11 Jun 2025 03:44:41 -0700 (PDT)
-Message-ID: <9d0696eb-52d9-4501-8aa6-2d5e572d6433@suse.com>
-Date: Wed, 11 Jun 2025 12:44:39 +0200
+        d=1e100.net; s=20230601; t=1749639000; x=1750243800;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=GG6aW3XDuEMUCKryLo/fh3k2eKKUNrqXRIEfIyGJ6II=;
+        b=lQLd+blIyE4yaXQ2Nt2eKobEtffzJEuuvUbCGfG+6FlxJoIyinSsxdhUaRR3TzDWK5
+         mmrUEib8o5ocxJ9fbyM7dwcCj0ivMha4qrD0orH1vFKvBqJ44QZABdique4hh4+de3W3
+         YMcF+uGtpHTNYHL+OI0l2L9RsLCRmfaiDQgPXCZsRRN4JtoWq6OIUMCrZ1lKAuZQARli
+         OvWvylWDuOwCPOo6L19pvcTy/4G5kO01TsFfl+rD/VA2KrL35jXWT9lT8l7eNqSsfC0t
+         pOvAiNAFLLj+7ziJjF6qyyDW2rERclxmMckEeLmYCgwKaIrC2pMsjm1dRrcBRaipFEeY
+         XlWw==
+X-Forwarded-Encrypted: i=1; AJvYcCWb+MlKwwYDLHkU/JOb3KuFJrfGVIhUJwll9sl4bRPb3e0msVd8kvnBYF/vljw6iE09dnGEat8lkSA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyWeQ6FZfCB5QEcU02gWQ9O7dAa7ePz2pyLSn6e7qKLWSRhUkz+
+	OwhytKgOiDn2XBTSINM7RNffszvMPr8l2IuO1WR9qdAZ87spFeOZIZ+iQPMroYfkF8rb1ybC0qD
+	uDhI/LvAPxWvJ/idknBO3jN29t18ySM3IZo2Yldly0g==
+X-Gm-Gg: ASbGnctMjVVg+YZal3HdMEnpZzyTZgtPx3kvjHELRaVvCZ4V8iUrQj4+pbAzP0k6VvS
+	NdeMzaSmbCAF+hLg0sSpgD18/nW395Moj5+flOnASsbjAn7XD6kvPA0TdgHofDaEEO9qD5Jbw0d
+	DVg9xR/cMBVhVP2ZU+IVecbNToKk6rin/luOSV82rDWBA=
+X-Google-Smtp-Source: AGHT+IFhWKNulhpb9zOz9n2F0dBdP5Ohpf3TBWv2HIvwUMGzYzjAFvPRNXTZ1J17WszAAVMERRPbLNWJq6gfKXXxEdM=
+X-Received: by 2002:a05:6871:9d02:b0:2cc:3523:9cd5 with SMTP id
+ 586e51a60fabf-2ea96d45dbfmr1566648fac.17.1749638999561; Wed, 11 Jun 2025
+ 03:49:59 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: [PATCH 6/6] vVMX: address size in decode_vmx_inst()
-From: Jan Beulich <jbeulich@suse.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <44d67587-415e-4ec1-a433-64a12aea80d7@suse.com>
-Content-Language: en-US
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <44d67587-415e-4ec1-a433-64a12aea80d7@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20250610101228.24460-1-freddy77@gmail.com> <02162717-25de-4ffb-a9c4-bf6d580c43bc@suse.com>
+In-Reply-To: <02162717-25de-4ffb-a9c4-bf6d580c43bc@suse.com>
+From: Frediano Ziglio <frediano.ziglio@cloud.com>
+Date: Wed, 11 Jun 2025 11:49:48 +0100
+X-Gm-Features: AX0GCFsWvTYgV-U5XmRdUnFrTzTbnb3Er66SILaFcBxBFv0Zwlq0OdAB8i0wmUk
+Message-ID: <CACHz=Zg5NDFOd5rinj-72TC82SiaQZbKErmLudLZVCE5kcvQbg@mail.gmail.com>
+Subject: Re: [PATCH] xen: Strip xen.efi by default
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Frediano Ziglio <freddy77@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
+	Anthony PERARD <anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, 
+	Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-While the original use of the address size file in the instruction info
-provided was wrong, it still wants using: The offset into the designated
-segment still may need truncating accordingly.
+On Wed, Jun 11, 2025 at 10:35=E2=80=AFAM Jan Beulich <jbeulich@suse.com> wr=
+ote:
+>
+> On 10.06.2025 12:12, Frediano Ziglio wrote:
+> > For xen.gz file we strip all symbols and have an additional
+> > xen-syms file version with all symbols.
+> > Make xen.efi more coherent stripping all symbols too.
+>
+> And the other difference (compressed vs not) still remains.
+>
+> > xen.efi.elf can be used for debugging.
+>
+> Hmm, that's the result of ...
+>
+> > --- a/xen/arch/x86/Makefile
+> > +++ b/xen/arch/x86/Makefile
+> > @@ -238,6 +238,7 @@ endif
+> >               > $@.map
+> >  ifeq ($(CONFIG_DEBUG_INFO),y)
+> >       $(if $(filter --strip-debug,$(EFI_LDFLAGS)),:$(space))$(OBJCOPY) =
+-O elf64-x86-64 $@ $@.elf
+> > +     $(if $(filter --strip-debug,$(EFI_LDFLAGS)),:$(space))$(STRIP) $@
+> >  endif
+> >       rm -f $(dot-target).[0-9]* $(@D)/..$(@F).[0-9]*
+> >  ifeq ($(CONFIG_XEN_IBT),y)
+>
+> ... objcopy. Having looked at the involved code in that utility, I mistru=
+st its
+> output from such a conversion to really be an exact representation of the=
+ input.
 
-Fixes: 09fce8016596 ("Nested VMX: Emulation of guest VMXON/OFF instruction")
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
+From https://xenbits.xen.org/gitweb/?p=3Dxen.git;a=3Dcommit;f=3Dxen/arch/x8=
+6/Makefile;h=3Df514bab30ef8d4ade77a27c926e283c9bbbf9ffd,
 
---- a/xen/arch/x86/hvm/vmx/vvmx.c
-+++ b/xen/arch/x86/hvm/vmx/vvmx.c
-@@ -441,6 +441,13 @@ static int decode_vmx_inst(struct cpu_us
-             size = 4 << mode_64bit;
- 
-         offset = base + index * scale + disp;
-+        switch ( info.fields.addr_size )
-+        {
-+        case 0: offset = (uint16_t)offset; break;
-+        case 1: offset = (uint32_t)offset; break;
-+        default:                           break;
-+        }
-+
-         base = !mode_64bit || info.fields.segment >= x86_seg_fs ?
-                seg_base + offset : offset;
-         if ( offset + size - 1 < offset ||
+    Today it is not possible to analyse crash dumps of a system in
+    hypervisor mode when it had been booted via EFI, as the crash utility
+    doesn't understand the file format of xen.efi.
 
+    This can easily be solved by creating an ELF file from xen.efi via
+    objcopy. Using that file as name list for crash enables the user to
+    analyse the dump in hypervisor mode. Note that crash isn't happy with
+    a file containing no text and data, so using --only-keep-debug is not
+    an option.
+
+Isn't that true anymore?
+
+> IOW I'd much rather use the original file. As a possible compromise, coul=
+d we
+> perhaps merely strip debug info, but retain the symbol table, matching th=
+e
+> prior default for $(efi-strip-opt)?
+
+Not clear the compromise you are intending here, the debug file has
+all information available, why do you need an intermediate one? We
+strip everything for ELF, why not be coherent?
+
+>
+> Jan
+>
+
+Frediano
 
