@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A521AAD4A68
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Jun 2025 07:24:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1011289.1389654 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 54838AD4A69
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Jun 2025 07:27:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1011294.1389665 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uPDw9-0002Ia-Ga; Wed, 11 Jun 2025 05:23:45 +0000
+	id 1uPDzD-0002rN-TG; Wed, 11 Jun 2025 05:26:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1011289.1389654; Wed, 11 Jun 2025 05:23:45 +0000
+Received: by outflank-mailman (output) from mailman id 1011294.1389665; Wed, 11 Jun 2025 05:26:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uPDw9-0002Hg-Ck; Wed, 11 Jun 2025 05:23:45 +0000
-Received: by outflank-mailman (input) for mailman id 1011289;
- Wed, 11 Jun 2025 05:23:44 +0000
+	id 1uPDzD-0002pm-QG; Wed, 11 Jun 2025 05:26:55 +0000
+Received: by outflank-mailman (input) for mailman id 1011294;
+ Wed, 11 Jun 2025 05:26:54 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Z5UX=Y2=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uPDw8-0002Ha-5o
- for xen-devel@lists.xenproject.org; Wed, 11 Jun 2025 05:23:44 +0000
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [2a00:1450:4864:20::334])
+ id 1uPDzC-0002pa-OT
+ for xen-devel@lists.xenproject.org; Wed, 11 Jun 2025 05:26:54 +0000
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [2a00:1450:4864:20::435])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3d278590-4684-11f0-a307-13f23c93f187;
- Wed, 11 Jun 2025 07:23:42 +0200 (CEST)
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-450cb2ddd46so36711025e9.2
- for <xen-devel@lists.xenproject.org>; Tue, 10 Jun 2025 22:23:42 -0700 (PDT)
+ id aeb9cfe7-4684-11f0-a307-13f23c93f187;
+ Wed, 11 Jun 2025 07:26:53 +0200 (CEST)
+Received: by mail-wr1-x435.google.com with SMTP id
+ ffacd0b85a97d-3a536ecbf6fso2753659f8f.2
+ for <xen-devel@lists.xenproject.org>; Tue, 10 Jun 2025 22:26:53 -0700 (PDT)
 Received: from ?IPV6:2003:ca:b734:b419:d0bf:1423:db44:9404?
  (p200300cab734b419d0bf1423db449404.dip0.t-ipconnect.de.
  [2003:ca:b734:b419:d0bf:1423:db44:9404])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-45326f3cf0fsm1102215e9.8.2025.06.10.22.23.41
+ ffacd0b85a97d-3a5323c0819sm13885567f8f.45.2025.06.10.22.26.51
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 10 Jun 2025 22:23:41 -0700 (PDT)
+ Tue, 10 Jun 2025 22:26:52 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,61 +47,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3d278590-4684-11f0-a307-13f23c93f187
+X-Inumbo-ID: aeb9cfe7-4684-11f0-a307-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1749619422; x=1750224222; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1749619612; x=1750224412; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=6e/6gqfZhP4cRkQrjpT/xeY16qenFE0pb27RUmfH1xU=;
-        b=Mludi6J2vpwohRaRbKCKYLLjoYF0+aEqfJC4f3uEWqAKA23g4dlaEzFbg485A7zK8s
-         mN3Nz1ZJDHWT15lrU5cinLbnUVmEeRGaQTP8eu9iPXMWRrEyVeL3VFivSYeXE48Kb57p
-         8JBNxzYqEwVbEWJMffCZwaET0k4RYvZtBft97k/EYHArU+95XXewFDAjVdguV/588PqH
-         aKcJ9FIK/cRwxUNYEhHT09G15UMnRZYYXKQEpLYs2TJjcb5lpGqviqJqctIH8R6JtiTl
-         zHvCAtSvd03n4qqRuBwA3Plfo3m/Dy5WObi+QKCfKI+gJI9WOUGCyZk9ED/Ct5rfl8Yq
-         cSlw==
+        bh=9cFIQX1ckg+EPJjekRYxRBF1854Xd4wUJXPfSnoLX1g=;
+        b=LXQCNzAarmg32cpEahUWJjDRzQS7yGAtnMjUmCKyhhnaLjTOTClo9xiUxKUllnzw1/
+         3/O1e+rL4YrYGfAwQUwUoQf1/gBqDF76ueNumfBv5fWdqt5u4cI13Cna+pu5ab22NBZp
+         hqdRKrgNfwhg2b2p1Kahig5j16Wox0wsId6WcnEjiXUgEDLak/8UidthsnjHtlrzEorX
+         IRV+Yh8wLYTCbWu+GiBkciHd2rQmfRM2YiJiCtFjVBbLs+Cu2M3MUVGNUCM5cyhclr1q
+         IPsdk+ERBtuIQWwv1dYDJ/MZwwK2a66fmkVokbGVP3NMjg/jJ8dMkCSTSjyqj1WSS+An
+         grrQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749619422; x=1750224222;
+        d=1e100.net; s=20230601; t=1749619612; x=1750224412;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=6e/6gqfZhP4cRkQrjpT/xeY16qenFE0pb27RUmfH1xU=;
-        b=S9QgVjdGs+JnO3dNLcftna56dJNde+Bw0WemL/3gXlEhUJSSrCcHkx+zNKC8Tv4EEn
-         tjV1T+NlU/igl1Wg2It/zUh06WhicF5763OZnZVdUvBD5MiPcD26F6kZofBT9r6OWl6U
-         87XGYy8bLo3h+Vl1uZ67EaWJwmgbb3YkPUUPfmYen+v020EGibU/SuJvtFLe5bThKB1z
-         EFfU1v+8Aw+1zF6uqG2kDTHkAbI9r9m6JputbxaELSAQHn5qwn+g3HxBg14m4dO65b6J
-         3Vo3YIxsGsOfRS8cc5FEfTeWQfQ7JHfaCgyQjsrig8JfPOGm+lr1xEospe+2CgkqU/nb
-         vI/w==
-X-Forwarded-Encrypted: i=1; AJvYcCW/HeetTcH+QHsxWxfmfQe+8ciig7G7YlzqtwZcJOAlf44ExAOyAbQur2sGJ7glO0h1j6ro1+VsD/M=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyoLyReq0JBV3rT0l0Zvez+SOLOQToZWmogSYQ6R9nkL6o8teqH
-	LNODbcfktA76q6B/2SMnk4goVfeLVghTj3OhFsijxGPU30JuqcgYrCKzr1EnGlwCYg==
-X-Gm-Gg: ASbGncuCDNNRuPd0CUf6ZMqkzePzUZV7irRYiolQWc0S67vRQyjCRM+5V7O59eaq7WG
-	6AbQsPiNiOfJ+j3TNG/PDWihg5zIchYYfVH3+jbA8grQb25TOkHFw3GVQTXmimDdKLZb5I7UZmp
-	GTOwn0emKFQkD8wn/OzuHslKLPEOmjU/qw6esJG5T+5lC5AbBZz6Zzkm91HdIv+pHR64iljDWja
-	I4ScWZTDcL4a+VW+rkdsnOzd5Wp0TU4ihwkYQTRstbSgwAh+8lXUBb02eH3smrzCOX5K96J346D
-	lAL0pFHgj32OcSjh25pTK1U1fEAHu8+DHSj531YeEcFIGOX3gvSW9y4Wn/xOAUhc2HuVARucNJr
-	QYWrNWDFd0W+NAzwYE28cXfQ0Dr60WJ3vivGJkjQQLdibHRaZTuEbNQ/xJBdXneKOG8OtDALkRL
-	ejYRrQDh00qUTXLCGmV5eP
-X-Google-Smtp-Source: AGHT+IELHaHtO7+uzpOM8NUK0BY2CD9uXomFLsiUZZlqg3wj105p4rfGgJEZMDnU6IP50RSkeqeeRQ==
-X-Received: by 2002:a05:600c:474c:b0:453:c39:d0c2 with SMTP id 5b1f17b1804b1-453248ca5c8mr11717425e9.24.1749619422027;
-        Tue, 10 Jun 2025 22:23:42 -0700 (PDT)
-Message-ID: <6ac8ffbc-5bd3-4bea-9ade-f31710747291@suse.com>
-Date: Wed, 11 Jun 2025 07:23:40 +0200
+        bh=9cFIQX1ckg+EPJjekRYxRBF1854Xd4wUJXPfSnoLX1g=;
+        b=cQKbtO1NEIhnn+WrFvbuZmocmaq8U/eTdlmelH5UbTaRwdETVsCYikVoNg5mWOfODk
+         WIRxCKFA1TF8FwCWahN4dthHElZUl/ZkVaMDU++X1VjKciQOu8CkZC+P4FFMH0DmGc+2
+         Q3toyVHlDyr51z3lLsEkJulhz5atBUsIpZCkworBA2fIDC3ih/jPv9Sn5836h+2H6Ljw
+         IcGjY2Y/fyPWY7pmoZ/050nGanDZ78+xXcVZSBPK5Vy+b2j/fkRQJ6Y5w946ZkRqtpSs
+         sDC5RTKvEBmQmD/rCzvMGlFbzI4e5WacyCuNvoPuJ9gDD6UUQEy16BHkGdFrVBrx16Kf
+         t8Tg==
+X-Forwarded-Encrypted: i=1; AJvYcCXGIGcxsj6SGQcdTe+OdQF9fMwNOVymXrQ55dO3JsARp/4XTPGG0tlBeDhcRF/ehlzCLJmryO46xNY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwjxvF5a4RcnlUhAQxo+81mhqJja8iG2nJw/2kcKyb490cjWpX3
+	Uzj+oUC7C3B+fRa5FFSrd2Tx/7zV0FJml2v3m85J8tNzOzhYfNQNWlkI1JL8LfU8vg==
+X-Gm-Gg: ASbGncsHzEhYqz+c//fkVRxUUf6gAMkDwqpl5DHHPzolnwNtD0/bsjlj+67acxyy7Uf
+	8HW5PJLyS0bLNcyMejtEm7kEmXhv2cB/wZOt3adOTKeiwFQSLdJis2ohFxiBE53mPBpDLTAyTix
+	6UAweGrrtKiXdM3OU67fZYOGpRGUC6A7JJb5SZuD8Xw/4ucOV8BZV9H8KUeX2aN/GbhetukdOdh
+	qziSIL4Cu3FbOrGUkgqgMo69jW9w/6SlEyXsAD9TGdKD37WI8OtJH+ccvwGvJb3n5zFf+pWQV9o
+	OtYOMI913kbJLlPXT9OTuCNNj1FpjWTcRZyWJdLMYJYccQUm1iy3ev7P2lwwuwfUDtZkUO6WuyU
+	+7SycPLfDChnjFCWZkoUrVRkjPEZCm7d7/6NGs5wY0xZFPcqPlW6ARh0fMhOwv6lC1WH0Dtm4Ri
+	rTFa0eYAGpwkoUfWe2hUXe
+X-Google-Smtp-Source: AGHT+IE100Z1ddsGq9Y2/LPisjm07X57Zptw60MbsV9iM8ORxSZ5r5gmDL3KAZ4VRZ7TZlf+87mNVg==
+X-Received: by 2002:a05:6000:400f:b0:3a5:2875:f986 with SMTP id ffacd0b85a97d-3a5586e8d38mr972210f8f.44.1749619612433;
+        Tue, 10 Jun 2025 22:26:52 -0700 (PDT)
+Message-ID: <31085457-a33d-4bd5-b6d7-edc0c358ee6c@suse.com>
+Date: Wed, 11 Jun 2025 07:26:51 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7] xen/arm: pci: introduce PCI_PASSTHROUGH Kconfig option
-To: Stewart Hildebrand <stewart.hildebrand@amd.com>
-Cc: Rahul Singh <rahul.singh@arm.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Stefano Stabellini <stefano.stabellini@amd.com>,
- xen-devel@lists.xenproject.org
-References: <20250610174635.203439-1-stewart.hildebrand@amd.com>
+Subject: Re: [PATCH v1] xen/console: group pbuf under console field
+To: dmkhn@proton.me
+Cc: anthony.perard@vates.tech, julien@xen.org, michal.orzel@amd.com,
+ roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com,
+ xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>
+References: <20250606194937.2412579-1-dmukhin@ford.com>
+ <db9d23ee-9115-45db-b428-104aeaabcb2a@suse.com>
+ <7f965335-68d9-4da5-8ce3-db68583db9a2@citrix.com> <aEhzOcbcfNydaqST@kraken>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -127,34 +123,27 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250610174635.203439-1-stewart.hildebrand@amd.com>
+In-Reply-To: <aEhzOcbcfNydaqST@kraken>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 10.06.2025 19:46, Stewart Hildebrand wrote:
-> --- a/xen/arch/arm/Kconfig
-> +++ b/xen/arch/arm/Kconfig
-> @@ -258,6 +258,16 @@ config PARTIAL_EMULATION
->  
->  source "arch/arm/firmware/Kconfig"
->  
-> +config PCI_PASSTHROUGH
-> +	bool "PCI passthrough" if EXPERT
-> +	depends on ARM_64
-> +	select HAS_PCI
-> +	select HAS_VPCI
-> +	select HAS_VPCI_GUEST_SUPPORT
+On 10.06.2025 20:02, dmkhn@proton.me wrote:
+> On Tue, Jun 10, 2025 at 12:24:57PM +0100, Andrew Cooper wrote:
+>> Separately, 200 is a silly and arbitrary number.  Furthermore the
+>> allocation is unconditional, despite the fact that in !VERSBOSE builds,
+>> domUs can't use this facility.  Also, where's the input buffer?
+> 
+> Thanks!
+> 
+> I will try to address those under individual changes.
+> 
+> re: arbitrary number: Will bumping the buffer size to the next power of 2 ==
+> 256 work?
 
-What about HAS_PASSTHROUGH? Seeing that being selected by MMU, what about
-that connection here?
-
-Selecting HAS_VPCI shouldn't really be necessary; HAS_VPCI_GUEST_SUPPORT
-does that for you already. (I further wonder whether HAS_VPCI wouldn't
-in turn better select HAS_PCI.)
-
-> +	default n
-
-This is unnecessary (redundant) and would hence better be omitted.
+Any other number would work, but would be as arbitrary. Since the buffer is
+dynamically allocated, one non-arbitrary aspect of the selection may want to
+be to make the number such that including allocation overhead it's an even
+multiple of cache line size.
 
 Jan
 
