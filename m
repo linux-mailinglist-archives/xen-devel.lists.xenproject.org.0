@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 79B28AD5463
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Jun 2025 13:44:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1011625.1390070 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B3E99AD547A
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Jun 2025 13:47:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1011631.1390080 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uPJsW-0000dA-K4; Wed, 11 Jun 2025 11:44:24 +0000
+	id 1uPJvh-00019I-1X; Wed, 11 Jun 2025 11:47:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1011625.1390070; Wed, 11 Jun 2025 11:44:24 +0000
+Received: by outflank-mailman (output) from mailman id 1011631.1390080; Wed, 11 Jun 2025 11:47:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uPJsW-0000bG-HH; Wed, 11 Jun 2025 11:44:24 +0000
-Received: by outflank-mailman (input) for mailman id 1011625;
- Wed, 11 Jun 2025 11:44:22 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=/mXZ=Y2=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1uPJsU-0000Zd-Oa
- for xen-devel@lists.xenproject.org; Wed, 11 Jun 2025 11:44:22 +0000
-Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
- [2a00:1450:4864:20::533])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 69d67a98-46b9-11f0-b894-0df219b8e170;
- Wed, 11 Jun 2025 13:44:20 +0200 (CEST)
-Received: by mail-ed1-x533.google.com with SMTP id
- 4fb4d7f45d1cf-60768f080d8so10030430a12.1
- for <xen-devel@lists.xenproject.org>; Wed, 11 Jun 2025 04:44:20 -0700 (PDT)
-Received: from fedora.. (user-109-243-64-38.play-internet.pl. [109.243.64.38])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ade1dc78b30sm864222566b.155.2025.06.11.04.44.18
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 11 Jun 2025 04:44:19 -0700 (PDT)
+	id 1uPJvg-00017q-V0; Wed, 11 Jun 2025 11:47:40 +0000
+Received: by outflank-mailman (input) for mailman id 1011631;
+ Wed, 11 Jun 2025 11:47:40 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Z5UX=Y2=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uPJvg-00017k-A7
+ for xen-devel@lists.xenproject.org; Wed, 11 Jun 2025 11:47:40 +0000
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [2a00:1450:4864:20::42a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e016766f-46b9-11f0-a307-13f23c93f187;
+ Wed, 11 Jun 2025 13:47:39 +0200 (CEST)
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-3a53359dea5so2924552f8f.0
+ for <xen-devel@lists.xenproject.org>; Wed, 11 Jun 2025 04:47:39 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-23603405fcdsm86149575ad.159.2025.06.11.04.47.35
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 11 Jun 2025 04:47:38 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,100 +45,103 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 69d67a98-46b9-11f0-b894-0df219b8e170
+X-Inumbo-ID: e016766f-46b9-11f0-a307-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1749642260; x=1750247060; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=/zrGz7vabRrqhZi8qJuCSsXTE3pK4LKCYUP1zEiLNUE=;
-        b=ao3zxjl9JD1Fk/JEMjcOYpzmSnM9cJCbEaY7ohProSWZFSDX7f6xtcb2JuUZ4BM5GW
-         8PywZiTGQM4MTppokWhuYP8XJrbzUemGiM7cnwz60Oj75OEOYzDh4G81rQXO8OZM6o4J
-         6NKwQ6R3vSm0y5ZQxZ8iN7DN1w3cUOn1fJpQjmJm0WN/qIRzgVnqPIsrpSWpmjTTKnnq
-         eGNgV8v2mnTWXtrRVrqX3ZlZB5oSRju1FbNGsQaf9+W3IjvOC8GGmyAl2pFrb3SEfFNn
-         vNLNCe7jOzwg/JwtWqz9LNdL3LpcJQInlDGN7L1SdfjGVU9j6b++yvdnUYueybvboMsn
-         X2JA==
+        d=suse.com; s=google; t=1749642459; x=1750247259; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=2oPiV7xhNtRl/qBq3/r3yErZS0CncZPYNUbUMggOG5g=;
+        b=e/VrpFLB6ZgvElAadp3xeTDK+uejBQF+GHOEZ8+PwPP+VtCmLFMVy6lUoU8vOMm5aR
+         nlDqrfIG5wxLxEX+m43iIkSkS524bTwH62xTyCPYJSUf5mXUrzbiv6L7o0bvCqPLmnd6
+         G6WtacAoclu9Frqkpp6V0M/x/34iM8/oR8xurHNfrUXlxzwDpP8lawfEKWNOq8Yitsc/
+         BJXdmWJWv46D5v9ffOuQA9PG2DXL2M3Zl3q2jftAMkGKVS+uqWnLaw/UKxe5L2TvhG7O
+         w5Ty1sx0MiA+P5TOycJr5+jiP7EYi1RSpCv1rnM7CJuN5PIJbUZvcwsDppRIZ7eKtrpo
+         sZdg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749642260; x=1750247060;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=/zrGz7vabRrqhZi8qJuCSsXTE3pK4LKCYUP1zEiLNUE=;
-        b=M0Rl+jqOXfm+Ax5anbtHgqoBPWOi8fKbsYLAn4FbIpS9SW2pxi7LsNoeewpz+PKmRu
-         4vmGWwfXRxTl7hy5L3uCPxiyRZR9hRhhlK56jrX2D5E1A3X5Qxq95CudbQc4AFO5gZkI
-         o2VgjzRYCp/tZJSP23jTrpddPVd2EwZum+9eBP3UTWgegrtmts74BFdLqYJecUNxcY58
-         7E4ikJYRxOQlVWdyk1hO7uh69QfX6qmP0vDnxSbJ9qChm1YFJsh81tlJcPEI6er8t+s6
-         Z762fCQkR3q8XYZJ3g/mXX8uL6MIQ/utAOK0/Xl0Z+ptuv67jnuaEP1ZFUBw+LRsRrLB
-         qTqg==
-X-Gm-Message-State: AOJu0Yw3ZR1Lo2Jae554pnmSU/iGL8I0ymQz+EuL8RpuCtiNn7Da+g5J
-	5mZOn4gShwZYgyD4Ckvps5PE4wNY0Ay9QyZDNSIYLQtsHlM/ZYQWYLmsvb1zmQ==
-X-Gm-Gg: ASbGncsclFNOyCaEPo9fZkrI6XSM1z65f9ORR1uKYUqPNFxBNu4lb68JQswgxhevOon
-	3eEZntSucOBCQvZIF/IjXcEYu2XV16SqiYXRCPeAuI2B/pGwySXe8Wz4J3XA7iTPoS1UqkYHIDg
-	iwoDlUqgqjxYk48gsklxeZFsfgQ4lI070A2M1o/N4QXoJS8nSGnG7x6t7IzFTF1wLAfcTYwOQTU
-	2JycJQAs/8sVLLYVq2Gazy/LSgatJhR2v8LlGnEZjh1Rc4a5T4UqTCP2POT3w/2qKeX0jc1Gh7+
-	47hz5fF3x4JBrUOktiFsfV0NT5gPag16oKE6SKaXIT1dvV2fTruqsUwQ962htIHBx1nyfxwXrPy
-	tLhRnxdlalPcxDgVhoG7T3m2CFXjv
-X-Google-Smtp-Source: AGHT+IG47uhql+aAwV5zCtMf8GbeovXhTBMwIRjf+/h6sBNXAW/mmreWQ8PD33WAIgV8Ip0eQ0pqxw==
-X-Received: by 2002:a17:907:3c8d:b0:ad9:db54:ba47 with SMTP id a640c23a62f3a-ade8c9111e1mr243374066b.43.1749642259824;
-        Wed, 11 Jun 2025 04:44:19 -0700 (PDT)
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH] xen: move declarations of device_tree_get_{reg,u32}() to xen/device_tree.h
-Date: Wed, 11 Jun 2025 13:44:15 +0200
-Message-ID: <20250611114415.64480-1-oleksii.kurochko@gmail.com>
-X-Mailer: git-send-email 2.49.0
+        d=1e100.net; s=20230601; t=1749642459; x=1750247259;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=2oPiV7xhNtRl/qBq3/r3yErZS0CncZPYNUbUMggOG5g=;
+        b=vCBhy9D25YUK0ltmc6CMWVtNzSbLdhq5IxxZ2pks2Ic0NDZk1bzCw4I0rKKZ2uSges
+         FXhk4PQu2W0EJDFoVjvmWqLgnPXQW7VKhG3MSL7HfbQ3hhO+wU29vaKO30olwCOiQP09
+         iqPjFPcuIwsl7F2a5SU2UfVT3pXmE4mYDAu+drhPGfNe9EH/ElQWrogPDOMt/rrIXpII
+         XIkHWtmQXw9VjljHSyzZ+JUeX9Df/2QHT6BiftTVxxxD6+yxIH1UIpzxKj3tvVCvMmW0
+         TewuF0MiW19JZTZGgotTRSmU7lKoNZG9pgne54Y8ZxWe8HrrjTjwYAFM3IVot2vSvFnz
+         lURg==
+X-Forwarded-Encrypted: i=1; AJvYcCUIppCdS3UZ7fVlTHrUX0ViwyQVlYPZ+xX2iVZVS4rIP+x3nkXTDq26r6TGfOdJ6ArZr2PD5+h7Dt0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxKBlkKohqwjSGIzk9t2/9ZbS0NDG6MxqHAAR7s9/QMxihoGFdK
+	1DySQBYmMBwb50VK/URbPzbgJWSvoqGB0LcmYY2mb6KPLD45xzCfX/KPGVAzu43NdA==
+X-Gm-Gg: ASbGncun8zbJm2QqrdDsIzSQuqlajtJQ9QxkHo019m2hf0fJjpjc155ucwF2p/ZGBMG
+	LGMUI2TenQ4u2PwKirY6/CV1GTPcSskcEtd2zd5LQH7J/0TvdFHBwf/B2m+hQzjh+1NfPkKNQlG
+	9qnAKNz5XgomQ13r2v/wwWQL32rcMfjhIVBAQNwCizv/KhVyRwwlx3y94/b9Hu9r3aOto3UK2gc
+	6wUSm+eZE8DBztWm/YyJgKUXw31kQatt4gWtDmcwq1W0Uzji6nUPQd570ZdPYUuviKr/1urKpQ8
+	nQ4D9zinDy9JCvrC0HqBzuPmOS6mDuhS9ugdhyGx9j4qgZgQjFhgXyacVA4QiNjv8WYjH/ZSQBu
+	ntWjEOmaG0ayZegX17dWnXXUaClZMOcUPBjSwmOSZg3v5KJk=
+X-Google-Smtp-Source: AGHT+IH83YBp6fqv5JecIv7cDC8jHanqvh9DHMJKokYY4hRc6xpazvNjuQaP04IA6Adm9irqsXRo4w==
+X-Received: by 2002:a05:6000:2313:b0:3a4:dc93:1e87 with SMTP id ffacd0b85a97d-3a5586f4375mr2278067f8f.1.1749642458561;
+        Wed, 11 Jun 2025 04:47:38 -0700 (PDT)
+Message-ID: <e247fad1-af53-4fb1-9411-1b1e494d858d@suse.com>
+Date: Wed, 11 Jun 2025 13:47:35 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 01/20] xen/pmstat: consolidate code into pmstat.c
+To: Penny Zheng <Penny.Zheng@amd.com>
+Cc: ray.huang@amd.com, Stefano Stabellini <sstabellini@kernel.org>,
+ xen-devel@lists.xenproject.org
+References: <20250528091708.390767-1-Penny.Zheng@amd.com>
+ <20250528091708.390767-2-Penny.Zheng@amd.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20250528091708.390767-2-Penny.Zheng@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-There is nothing Arm specific for these functions thereby it makes sense
-to move their declarations to common header: xen/device_tree.h.
+On 28.05.2025 11:16, Penny Zheng wrote:
+> @@ -518,34 +687,3 @@ int do_pm_op(struct xen_sysctl_pm_op *op)
+>  
+>      return ret;
+>  }
+> -
+> -int acpi_set_pdc_bits(uint32_t acpi_id, XEN_GUEST_HANDLE(uint32) pdc)
 
-Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
----
- xen/arch/arm/include/asm/setup.h | 6 ------
- xen/include/xen/device_tree.h    | 6 ++++++
- 2 files changed, 6 insertions(+), 6 deletions(-)
+You can't change ...
 
-diff --git a/xen/arch/arm/include/asm/setup.h b/xen/arch/arm/include/asm/setup.h
-index 6cf272c160..2b58549c1a 100644
---- a/xen/arch/arm/include/asm/setup.h
-+++ b/xen/arch/arm/include/asm/setup.h
-@@ -53,12 +53,6 @@ void setup_mm(void);
- extern uint32_t hyp_traps_vector[];
- void init_traps(void);
- 
--void device_tree_get_reg(const __be32 **cell, uint32_t address_cells,
--                         uint32_t size_cells, paddr_t *start, paddr_t *size);
--
--u32 device_tree_get_u32(const void *fdt, int node,
--                        const char *prop_name, u32 dflt);
--
- int handle_device(struct domain *d, struct dt_device_node *dev, p2m_type_t p2mt,
-                   struct rangeset *iomem_ranges, struct rangeset *irq_ranges);
- 
-diff --git a/xen/include/xen/device_tree.h b/xen/include/xen/device_tree.h
-index 6dc1fb5159..75017e4266 100644
---- a/xen/include/xen/device_tree.h
-+++ b/xen/include/xen/device_tree.h
-@@ -949,6 +949,12 @@ int dt_get_pci_domain_nr(struct dt_device_node *node);
- 
- struct dt_device_node *dt_find_node_by_phandle(dt_phandle handle);
- 
-+void device_tree_get_reg(const __be32 **cell, uint32_t address_cells,
-+                         uint32_t size_cells, paddr_t *start, paddr_t *size);
-+
-+u32 device_tree_get_u32(const void *fdt, int node,
-+                        const char *prop_name, u32 dflt);
-+
- #ifdef CONFIG_DEVICE_TREE_DEBUG
- #define dt_dprintk(fmt, args...)  \
-     printk(XENLOG_DEBUG fmt, ## args)
--- 
-2.49.0
+> --- a/xen/drivers/cpufreq/cpufreq.c
+> +++ b/xen/drivers/cpufreq/cpufreq.c
+> @@ -588,6 +588,37 @@ out:
+>      return ret;
+>  }
+>  
+> +int acpi_set_pdc_bits(unsigned int acpi_id, XEN_GUEST_HANDLE(uint32) pdc)
 
+... types like this, without also adjusting the declaration. I'm about to
+make a patch to address the resulting Misra regression.
+
+Jan
 
