@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D1BB5AD56C2
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Jun 2025 15:18:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1011721.1390173 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0ABA1AD56DD
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Jun 2025 15:24:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1011727.1390183 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uPLL7-0007vv-T9; Wed, 11 Jun 2025 13:18:01 +0000
+	id 1uPLRK-00019n-H3; Wed, 11 Jun 2025 13:24:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1011721.1390173; Wed, 11 Jun 2025 13:18:01 +0000
+Received: by outflank-mailman (output) from mailman id 1011727.1390183; Wed, 11 Jun 2025 13:24:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uPLL7-0007uG-Pv; Wed, 11 Jun 2025 13:18:01 +0000
-Received: by outflank-mailman (input) for mailman id 1011721;
- Wed, 11 Jun 2025 13:18:00 +0000
+	id 1uPLRK-00017H-ED; Wed, 11 Jun 2025 13:24:26 +0000
+Received: by outflank-mailman (input) for mailman id 1011727;
+ Wed, 11 Jun 2025 13:24:24 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Z5UX=Y2=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uPLL6-0007uA-0r
- for xen-devel@lists.xenproject.org; Wed, 11 Jun 2025 13:18:00 +0000
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [2a00:1450:4864:20::435])
+ id 1uPLRI-00017B-NJ
+ for xen-devel@lists.xenproject.org; Wed, 11 Jun 2025 13:24:24 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7dca2e23-46c6-11f0-b894-0df219b8e170;
- Wed, 11 Jun 2025 15:17:57 +0200 (CEST)
-Received: by mail-wr1-x435.google.com with SMTP id
- ffacd0b85a97d-3a54700a463so664030f8f.1
- for <xen-devel@lists.xenproject.org>; Wed, 11 Jun 2025 06:17:57 -0700 (PDT)
+ id 6324d1cf-46c7-11f0-b894-0df219b8e170;
+ Wed, 11 Jun 2025 15:24:22 +0200 (CEST)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-43edecbfb94so81173725e9.1
+ for <xen-devel@lists.xenproject.org>; Wed, 11 Jun 2025 06:24:22 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-7482b083ae1sm9109663b3a.74.2025.06.11.06.17.54
+ 41be03b00d2f7-b2f5ee6f5a0sm7221753a12.21.2025.06.11.06.24.14
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 11 Jun 2025 06:17:56 -0700 (PDT)
+ Wed, 11 Jun 2025 06:24:21 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,63 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7dca2e23-46c6-11f0-b894-0df219b8e170
+X-Inumbo-ID: 6324d1cf-46c7-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1749647877; x=1750252677; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1749648262; x=1750253062; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=XcFxeSfuko84GH6tSOHY91XfHiENIfUGAW0GnF0KzK4=;
-        b=hAfJb+lwP7jOdU2PLu7lBkG32f6ZvUYz8ROR5nChk6a6EVoeC9KDg1z9oueBpE5fgT
-         lZHRnW46EdYdLljmuGF9RHwnNfQJkiBkS6oSkeCU7cHYy30TrKHNUoSqsfr2fL91nvWn
-         6B0xEjqG95DIDuaI7kdbh5oylb5JElt+8jgpqRnYyOn2UB/wZmTph+h4QlFodMpOLWay
-         UB2DlQzCdy/vDXUCkmP3/tNM147FrTE1UNRmF/CTydWx6Jr5D4H/dlDwMxjAB7lD6Khh
-         fhA3gSSVihAK2ooV9gP84RcDqbrJVyeQ3IKc7zOQNB4uwDeiGBlJgBn/idUGiVDIqwKk
-         qFHg==
+        bh=KpYhWG9RKSTcTmwrmvAe0Ss2JhdNfWMbAPQxPTkYUbo=;
+        b=GwJGBURhvcDCkUuHl2nMp+o3Ra8ac+aW42m8RbxtTsUxkvy47MOOc9FPsibX5BOJHh
+         /rb1IpZSrD19alZ1FLp52WkEY/l3rjzobIWTXdgD2M4e6qXXzyKhXGCortSV9vsreDYm
+         EscEHWCi5CLuN07lJ2YdtJdl4dFA62De4BXpMxZtvCDBmb2OSxVt9HVQ5RmOr623Gch8
+         IhB8qB/x6+nHJlMfUYCjjqcHvsjI58OPrtZjsEH6NklzGAUWodPhtDHKRg5vSm8860sD
+         nXqLx+ErBjKCC4NrFFO7H802uR6TWJVDyFxqFzRcuFPmNdPH8GuyDpgg5nB6vICHYm91
+         vH1Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749647877; x=1750252677;
+        d=1e100.net; s=20230601; t=1749648262; x=1750253062;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=XcFxeSfuko84GH6tSOHY91XfHiENIfUGAW0GnF0KzK4=;
-        b=qG7BoSCAgXTfjwlBp6cMIhRgQyB3XkkT/OhrXkLavEFBGVgilYJAM2dBy5SV+bO3Qk
-         ZZ6m3sDepEMlBZZ/RVQBI0MgIpH+u7JaDEd4u/yHNR+ssYXMNVIy9q0MY+jFk/aQuRBr
-         9lAufWiSGQd+pauBZJQL9r0UDNCFi/0F0R2x4BXzlSR8BMqb4Cr2j2f1K+wOJkShxd+5
-         HTpdmEdM95KcttIsDZZqHlXlzQy1Jwfoqu8QvAmWPQsxDFgxyassu6YRoi775KSTz0wN
-         xTnba8SzCfEMxmdWbBoHIQ9NMZgsGh3FlDIP7FQI61ks98IjFtZTAh9UxY5vFpDiEkcX
-         dwUw==
-X-Forwarded-Encrypted: i=1; AJvYcCU9waOQXbBPOMAZx4/XpnNQSSkvnlUGLkRLeQkTHy4JGfdUhQmfvksSMMA39kBVO+kkFRGg8aPAGgU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxzvMDzKFa/cVyNacaz3eVDHeYr9nd5+KHvaGfZXYBNv59h3Q8I
-	DeX4H0xglZMZTkasliUE/ZWJxg8XV5Ei/FdckOmGjylPidWcBjkwxE4MDzaXsZorNA==
-X-Gm-Gg: ASbGncsU6gvNOf+6VtCpViPYaeepI47+6k8Bp0hZxEfLHbBXHHxr7gozu/uav3hmyLW
-	vW6UkqG+uZjvp4Sn17qJAUv3u4e3gt0GFwMz7NA80FzWG1cqTZ35yI0I/Fo3y3ppLhQrJabq/r8
-	SMpQzjwvt/UQOA/t/VMoxjCIyOS3nOE+6cE0EUM9fQPjN2y3SzoStHXvgbF42ajVpHhT3M03efT
-	TgWoOkVUYtTvPY8SBgmvlRVuUjts4+lBsT5XcPPtZ9SvDDPUiGWT7DWIdKSzRtt3xbD16C/Vtk5
-	ehrL37rXiifX9etCzFv/F9QYbGbdHFpmt6eAjY7qMxUyzZp+I9DYvE+VTSB89RXL4Oiq5Rt5PyH
-	pN5vJu1J2M6NixsBjuIGEFAj0nmFZAkA7JiUfFhgFL61N3XXmRwqAuJFInQ==
-X-Google-Smtp-Source: AGHT+IG5czkLSUgJWGoKUtq1nahTfBbvNSW0GYqM+DsTEw0cF701c8OJdxkpznK6KxKB/f4B7SybmQ==
-X-Received: by 2002:a05:6000:430e:b0:3a4:cec5:b59c with SMTP id ffacd0b85a97d-3a55826b355mr3069867f8f.25.1749647877117;
-        Wed, 11 Jun 2025 06:17:57 -0700 (PDT)
-Message-ID: <0f47268e-0674-46e7-bfd4-8a395ee1ddf6@suse.com>
-Date: Wed, 11 Jun 2025 15:17:50 +0200
+        bh=KpYhWG9RKSTcTmwrmvAe0Ss2JhdNfWMbAPQxPTkYUbo=;
+        b=lQcsl53Kpxbly9GLCX/kaHdKZDAdqEktSWQVeCXseL+2fKLpycfOvFnj7vXEKRkEvB
+         nxyNilnkG1n8Ot4S3gGoFgkKYGPvKk90A6HltywJpToV/Ad1MxBGx/Cwy7JBSmmTug4i
+         gObju9w4zPxd3zY9LYv4npxE9Wm2FgOxZrJu/Aj3A1O6HK5n92JdVw3uHEnXl+97WBR3
+         N654XCqtXjYfHuc26TEpduQYxh6WzjmjGfi6cE6acy3jRbNM5BDYHpzTHRuBS7eXQjVw
+         0a7vT2J5fTkhTk7ryLtaa1uhiFRg08mYDr30QcPIf7FzvNCmpEMEAP/QNeiXMrABzzno
+         ecog==
+X-Forwarded-Encrypted: i=1; AJvYcCUUhN61VJZAcGnPHBztrMPpYIiM5LtLDALXx2SGYFQawIqPeKHi8I/+jT9V8ATyw65cm23PXvGqXJ8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwWmVZ5BafujlN9r5hk/97HXxWmOrqxcf03zcxCSOnlIIv/4qKC
+	xr/wIis/ks8LOrQaqsUC8HIQ7foIthVH8Qpno0sJwgwrBssGYlWiGGnmPjr6MY+ynw==
+X-Gm-Gg: ASbGncv0HXm1u6UEr4paca86eAe0MTscx2efDtNLBHo6W1CBpUSTR5w5OaPwxqDTZ2L
+	4TrAsUV47YV6/0UEVz2FFk0MX85w8oNWQIcAUR5dgG0LDaKl7ia/TeXDsJkEPKVNHR+2oOSKqts
+	xYLIXYpallxd301HSGEbUKwuaaD1atEwHyPCX5W1dH1t6yBdu1oyiLuoQbLypPt/nU9bk5cT93h
+	uHUx2vtU3qXGQJeMNn4ndE6PvPuI0vF0XOESn+V5MUBTXQL4b/Z644PKqGA/EW5NgpgzQJQ2r+9
+	4l/mlLNDagPLtPhV/kUFeJ/Qf+t4ajpmGcDcHw9TaQh8MBXPdFfxdlHyk1FzCJuN2Ov2fsjRAJb
+	9sO6bqEtWFPuSVsOMRpzMM4zQmbWIM66Ic9uxzUiyQSHkVsQ=
+X-Google-Smtp-Source: AGHT+IHBMqSuRimEBzbgvVayZ3bReEEDINyesdmi93NMbjAS7Djwygfh9v0QfhA7E4totVSDOhg0Qw==
+X-Received: by 2002:a05:6000:288c:b0:3a5:2fad:17af with SMTP id ffacd0b85a97d-3a558a42896mr2806900f8f.57.1749648261941;
+        Wed, 11 Jun 2025 06:24:21 -0700 (PDT)
+Message-ID: <af247ba8-150f-4c19-b332-2bf5f53a81a5@suse.com>
+Date: Wed, 11 Jun 2025 15:24:10 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/4] xsm/silo: Support hwdom/control domains
+Subject: Re: [PATCH 3/4] xen: Add DOMAIN_CAPS_DEVICE_MODEL &
+ XEN_DOMCTL_CDF_device_model
 To: Jason Andryuk <jason.andryuk@amd.com>
-Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+Cc: Christian Lindig <christian.lindig@citrix.com>,
+ David Scott <dave@recoil.org>, Anthony PERARD <anthony.perard@vates.tech>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
  xen-devel@lists.xenproject.org
 References: <20250610225737.469690-1-jason.andryuk@amd.com>
- <20250610225737.469690-3-jason.andryuk@amd.com>
+ <20250610225737.469690-4-jason.andryuk@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -118,71 +127,29 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250610225737.469690-3-jason.andryuk@amd.com>
+In-Reply-To: <20250610225737.469690-4-jason.andryuk@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 11.06.2025 00:57, Jason Andryuk wrote:
-> In a disaggregated environment, dom0 is split into Control, Hardware,
-> and Xenstore domains, along with domUs.  The is_control_domain() check
-> is not sufficient to handle all these cases.  Add is_priv_domain() to
-> support allowing for the various domains.
+> To add more flexibility in system configuration add the new
+> DOMAIN_CAPS_DEVICE_MODEL flag and XEN_DOMCTL_CDF_device_model.
 > 
-> The purpose of SILO mode is to prevent domUs from interacting with each
-> other.  But dom0 was allowed to communicate with domUs to provide
-> services.  As the disaggregation of dom0, Control, Hardware and Xenstore
-> are all service domains that need to communicate with other domains.
+> Thie new flag corresponds to allowing XSM_DM_PRIV for the domain.  This
+> will enable running device model emulators (QEMU) from the assigne
+> domain for multiple target domains.
 > 
-> To provide xenstore connections, the Xenstore domain must be allowed to
-> connect via grants and event channels.  Xenstore domain must also be
-> allowed to connect to Control and Hardware to provide xenstore to them.
+> Stubdoms assign target allowing the stubdom to serve as the device
+> model for a single domain.  This new flag allows the single domain to
+> provide emulators for multiple guests.
+> 
+> The specific scenario is a disaggregated system with the hardware domain
+> providing device models for muitple guest domains.
 
-Are you suggesting that SILO at present is incompatible with a Xenstore
-domain? silo_mode_dom_check() in its original form has no special
-precautions, after all.
-
-> Hardware domain will provide PV devices to domains, so it must be
-> allowed to connect to domains.
-
-As a built-in policy, isn't this already going too far? There could
-conceivably be configurations with only pass-through devices in use, in
-which case neither grants nor the event channels operations intercepted
-by SILO would be required.
-
-> That leaves Control.  Xenstore and Hardware would already allow access
-> to Control, so it can obtain services that way.  Control should be
-> "privileged", which would mean it can make the connections.  But with
-> Xenstore and Hardware providing their services to domUs, there may not
-> be a reason to allow Control to use grants or event channels with domUs.
-> Still, Control is privileged, so it should be allowed to do something if
-> it chooses.  Establishing a grant, or event channel requires action on
-> both sides, so allow for the possibility.  This does open up an argo
-> wildcard ring from domUs, FWIW.
-
-Along the lines of my reply to patch 1, I think Hardware and Control
-need to have a pretty strong boundary between them. It's hard to see,
-for example, whether grant map/copy/transfer would indeed make sense
-between the two.
-
-Similarly I'm not convinced a strong boundary isn't also needed
-between Xenstore and Hardware.
-
-> --- a/xen/xsm/silo.c
-> +++ b/xen/xsm/silo.c
-> @@ -20,6 +20,12 @@
->  #define XSM_NO_WRAPPERS
->  #include <xsm/dummy.h>
->  
-> +static bool is_priv_domain(const struct domain *d)
-> +{
-> +    return is_xenstore_domain(d) || is_hardware_domain(d) ||
-> +           is_control_domain(d);
-> +}
-
-This construct expands to two evaluate_nospec(), which likely isn't
-wanted. Some open-coding may be pretty much unavoidable here. (I'm
-surprised it's not three, i.e. I find it odd that is_xenstore_domain()
-doesn't also use that guard.)
+Why the hardware domain? Unless a DM also needs access to some of the
+physical hardware, it ought to run in a separate domain. Conceivably
+such a domain could service multiply guests, so maybe the "single
+target" concept presently used for stubdom simply needed extending?
 
 Jan
 
