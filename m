@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54838AD4A69
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Jun 2025 07:27:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1011294.1389665 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 59821AD4A75
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Jun 2025 07:35:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1011299.1389674 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uPDzD-0002rN-TG; Wed, 11 Jun 2025 05:26:55 +0000
+	id 1uPE7b-0004WG-M4; Wed, 11 Jun 2025 05:35:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1011294.1389665; Wed, 11 Jun 2025 05:26:55 +0000
+Received: by outflank-mailman (output) from mailman id 1011299.1389674; Wed, 11 Jun 2025 05:35:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uPDzD-0002pm-QG; Wed, 11 Jun 2025 05:26:55 +0000
-Received: by outflank-mailman (input) for mailman id 1011294;
- Wed, 11 Jun 2025 05:26:54 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uPE7b-0004Uo-JI; Wed, 11 Jun 2025 05:35:35 +0000
+Received: by outflank-mailman (input) for mailman id 1011299;
+ Wed, 11 Jun 2025 05:35:34 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Z5UX=Y2=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uPDzC-0002pa-OT
- for xen-devel@lists.xenproject.org; Wed, 11 Jun 2025 05:26:54 +0000
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [2a00:1450:4864:20::435])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id aeb9cfe7-4684-11f0-a307-13f23c93f187;
- Wed, 11 Jun 2025 07:26:53 +0200 (CEST)
-Received: by mail-wr1-x435.google.com with SMTP id
- ffacd0b85a97d-3a536ecbf6fso2753659f8f.2
- for <xen-devel@lists.xenproject.org>; Tue, 10 Jun 2025 22:26:53 -0700 (PDT)
+ id 1uPE7a-0004Ui-EX
+ for xen-devel@lists.xenproject.org; Wed, 11 Jun 2025 05:35:34 +0000
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [2a00:1450:4864:20::42a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e250111d-4685-11f0-b894-0df219b8e170;
+ Wed, 11 Jun 2025 07:35:29 +0200 (CEST)
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-3a365a6804eso3819750f8f.3
+ for <xen-devel@lists.xenproject.org>; Tue, 10 Jun 2025 22:35:29 -0700 (PDT)
 Received: from ?IPV6:2003:ca:b734:b419:d0bf:1423:db44:9404?
  (p200300cab734b419d0bf1423db449404.dip0.t-ipconnect.de.
  [2003:ca:b734:b419:d0bf:1423:db44:9404])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3a5323c0819sm13885567f8f.45.2025.06.10.22.26.51
+ ffacd0b85a97d-3a5323b653dsm14234262f8f.39.2025.06.10.22.35.27
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 10 Jun 2025 22:26:52 -0700 (PDT)
+ Tue, 10 Jun 2025 22:35:28 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,57 +47,65 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: aeb9cfe7-4684-11f0-a307-13f23c93f187
+X-Inumbo-ID: e250111d-4685-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1749619612; x=1750224412; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1749620128; x=1750224928; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=9cFIQX1ckg+EPJjekRYxRBF1854Xd4wUJXPfSnoLX1g=;
-        b=LXQCNzAarmg32cpEahUWJjDRzQS7yGAtnMjUmCKyhhnaLjTOTClo9xiUxKUllnzw1/
-         3/O1e+rL4YrYGfAwQUwUoQf1/gBqDF76ueNumfBv5fWdqt5u4cI13Cna+pu5ab22NBZp
-         hqdRKrgNfwhg2b2p1Kahig5j16Wox0wsId6WcnEjiXUgEDLak/8UidthsnjHtlrzEorX
-         IRV+Yh8wLYTCbWu+GiBkciHd2rQmfRM2YiJiCtFjVBbLs+Cu2M3MUVGNUCM5cyhclr1q
-         IPsdk+ERBtuIQWwv1dYDJ/MZwwK2a66fmkVokbGVP3NMjg/jJ8dMkCSTSjyqj1WSS+An
-         grrQ==
+        bh=V3brsPWTEDu0RaHKwOcYmvWaS0b6yWvh3OrKsmioVpY=;
+        b=ff85+UXCnsvmRfWuSaT2TWIPup9ECtvfPbTZIMvQU9WVm54YPcmDQSfCvtghjPL8BT
+         ksPQKAvaj2do4PjX4QS/qaY2ch9BxXWukEv5D0YNIADpgGV9JdI6Ca6fyBkuBkI0Ov4g
+         N60Qt/GABP/f6pMFYHv1kyfLkvsca9DyTx71qEz3BelPbKICeFFXxo625ttyMSyhPRxh
+         grCRKtE+dPpUZ0t2go7TzTIOIAX7ANXN0fSWJXDqICo28BUw8j8p/rHYd8qmFcXybMPY
+         5eFMrBDAhAHycxl1aOs9iALl7UkJwskwR93ZQ/OuZaFO5dIhGunMuL/XWvJfZIxsZ/eT
+         z9Wg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749619612; x=1750224412;
+        d=1e100.net; s=20230601; t=1749620128; x=1750224928;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=9cFIQX1ckg+EPJjekRYxRBF1854Xd4wUJXPfSnoLX1g=;
-        b=cQKbtO1NEIhnn+WrFvbuZmocmaq8U/eTdlmelH5UbTaRwdETVsCYikVoNg5mWOfODk
-         WIRxCKFA1TF8FwCWahN4dthHElZUl/ZkVaMDU++X1VjKciQOu8CkZC+P4FFMH0DmGc+2
-         Q3toyVHlDyr51z3lLsEkJulhz5atBUsIpZCkworBA2fIDC3ih/jPv9Sn5836h+2H6Ljw
-         IcGjY2Y/fyPWY7pmoZ/050nGanDZ78+xXcVZSBPK5Vy+b2j/fkRQJ6Y5w946ZkRqtpSs
-         sDC5RTKvEBmQmD/rCzvMGlFbzI4e5WacyCuNvoPuJ9gDD6UUQEy16BHkGdFrVBrx16Kf
-         t8Tg==
-X-Forwarded-Encrypted: i=1; AJvYcCXGIGcxsj6SGQcdTe+OdQF9fMwNOVymXrQ55dO3JsARp/4XTPGG0tlBeDhcRF/ehlzCLJmryO46xNY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwjxvF5a4RcnlUhAQxo+81mhqJja8iG2nJw/2kcKyb490cjWpX3
-	Uzj+oUC7C3B+fRa5FFSrd2Tx/7zV0FJml2v3m85J8tNzOzhYfNQNWlkI1JL8LfU8vg==
-X-Gm-Gg: ASbGncsHzEhYqz+c//fkVRxUUf6gAMkDwqpl5DHHPzolnwNtD0/bsjlj+67acxyy7Uf
-	8HW5PJLyS0bLNcyMejtEm7kEmXhv2cB/wZOt3adOTKeiwFQSLdJis2ohFxiBE53mPBpDLTAyTix
-	6UAweGrrtKiXdM3OU67fZYOGpRGUC6A7JJb5SZuD8Xw/4ucOV8BZV9H8KUeX2aN/GbhetukdOdh
-	qziSIL4Cu3FbOrGUkgqgMo69jW9w/6SlEyXsAD9TGdKD37WI8OtJH+ccvwGvJb3n5zFf+pWQV9o
-	OtYOMI913kbJLlPXT9OTuCNNj1FpjWTcRZyWJdLMYJYccQUm1iy3ev7P2lwwuwfUDtZkUO6WuyU
-	+7SycPLfDChnjFCWZkoUrVRkjPEZCm7d7/6NGs5wY0xZFPcqPlW6ARh0fMhOwv6lC1WH0Dtm4Ri
-	rTFa0eYAGpwkoUfWe2hUXe
-X-Google-Smtp-Source: AGHT+IE100Z1ddsGq9Y2/LPisjm07X57Zptw60MbsV9iM8ORxSZ5r5gmDL3KAZ4VRZ7TZlf+87mNVg==
-X-Received: by 2002:a05:6000:400f:b0:3a5:2875:f986 with SMTP id ffacd0b85a97d-3a5586e8d38mr972210f8f.44.1749619612433;
-        Tue, 10 Jun 2025 22:26:52 -0700 (PDT)
-Message-ID: <31085457-a33d-4bd5-b6d7-edc0c358ee6c@suse.com>
-Date: Wed, 11 Jun 2025 07:26:51 +0200
+        bh=V3brsPWTEDu0RaHKwOcYmvWaS0b6yWvh3OrKsmioVpY=;
+        b=Lj352Ag2ltmWL/Cr0DlsgXNziEF1tfL2iOaihL7wncq4hSxDIdZNxwlSfRBEBt6l9f
+         vX8b4SpmMuyx1l81fWQCz0HFxSMiOuoB3UV+EcvoWaIFqNGy/yMm39RMfV3DF8q0kNO/
+         tzrJQm6Q+hPP+sU09K/p6s/r4kzbzi/nfipnOZrsK/tl40eTRFHJ7gotn+hcl7Eq8pLB
+         WAaIXbS/WC/Fx8htxeK+MQlbAaSV/3YNPcqqAwRBOPw3cQpfNFS0xglm/gd8cPs2QoWR
+         jyRTtUruZenBACvmKA/1oKZzPCm4hqLfETFxm41Fgs0dbeSbQgSR2IKi3J3UIEgBnTBX
+         rsjA==
+X-Forwarded-Encrypted: i=1; AJvYcCVOZxgYaAMc+CWkBDGu8FblPeTASLrX1mzNwHns7Sz+3OChrr6d1TaPUlXDF1U/97kS0agLEcDSO8A=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxppjYYxb1Rl8OrJZYTo3CgTcaiEEeiR4PnQniNXrflcdxWAC9u
+	7sG+rljUVbhzjD+HkW6VmnyaseJcDrwgu90JTbEe6wvofQ6VW9U9eSg+BBo4QAtfCw==
+X-Gm-Gg: ASbGncuxKzJO8m27sYB31spJUf9lPgYgkcrBetlRmFSsoSzVczPPjFSi70xmZRpkIzQ
+	71qsg4vCIUU0J07FyRyxvdBOMKUkEdckrciGD8MbD5Uu0oO5HWJNnMyg0lYyfVxkvmjWS8bYG5L
+	kaDwm4YHow2BKgIQrtC9WshQ4vG0LG3o7FDCNd9v5/oo6Ag5bcI41aVzYh659MY7Di19bQncB1t
+	rtR+2cmCVFOFBPZugpd0CHqwdkhufR4sdb+S+hSg3vsc16EBIqb29mTg0Fzx81FpYJ6/xBFAcZc
+	8B35GO6XNrN7GQz/qruY6unsuOC92rTknNIf/HxgRupcRyFj1Tz9LeeVRLxJYFFaM8T0usiahta
+	cUPNXdkokc5bvGe2THquc/8At2rJXPFaiQqxOx86smoS6pcd26wDmEmN5Izvy1BGSQ8M6WtECoZ
+	+BZKOoHW6VfiuVPaxM684+
+X-Google-Smtp-Source: AGHT+IG/57VMqqUUIEyILTVi5t+z3CgCv1A2iklfezP2C/9YNIQmiBDFsLUxXqUJl3t35PurUZE09g==
+X-Received: by 2002:a05:6000:4313:b0:3a5:2653:7308 with SMTP id ffacd0b85a97d-3a5586f450cmr1166272f8f.57.1749620128539;
+        Tue, 10 Jun 2025 22:35:28 -0700 (PDT)
+Message-ID: <ef46b3ec-af0e-480f-b206-5191c79e62f9@suse.com>
+Date: Wed, 11 Jun 2025 07:35:26 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1] xen/console: group pbuf under console field
-To: dmkhn@proton.me
-Cc: anthony.perard@vates.tech, julien@xen.org, michal.orzel@amd.com,
- roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com,
- xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>
-References: <20250606194937.2412579-1-dmukhin@ford.com>
- <db9d23ee-9115-45db-b428-104aeaabcb2a@suse.com>
- <7f965335-68d9-4da5-8ce3-db68583db9a2@citrix.com> <aEhzOcbcfNydaqST@kraken>
+Subject: Re: [PATCH v6 06/12] x86/hyperlaunch: obtain cmdline from device tree
+To: Jason Andryuk <jason.andryuk@amd.com>
+Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>, Denis Mukhin
+ <dmukhin@ford.com>, Alejandro Vallejo <agarciav@amd.com>,
+ xen-devel@lists.xenproject.org
+References: <20250429123629.20839-1-agarciav@amd.com>
+ <20250429123629.20839-7-agarciav@amd.com>
+ <59f37fcc-9226-46c5-8dc8-7bd2100d8f59@amd.com>
+ <02ffa9cf-b5cd-431a-834a-a11bbf310196@suse.com>
+ <03be429c-063d-4467-91e7-7ef2e148a2fb@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -123,27 +131,60 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aEhzOcbcfNydaqST@kraken>
+In-Reply-To: <03be429c-063d-4467-91e7-7ef2e148a2fb@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 10.06.2025 20:02, dmkhn@proton.me wrote:
-> On Tue, Jun 10, 2025 at 12:24:57PM +0100, Andrew Cooper wrote:
->> Separately, 200 is a silly and arbitrary number.  Furthermore the
->> allocation is unconditional, despite the fact that in !VERSBOSE builds,
->> domUs can't use this facility.  Also, where's the input buffer?
+On 10.06.2025 19:39, Jason Andryuk wrote:
 > 
-> Thanks!
 > 
-> I will try to address those under individual changes.
+> On 2025-06-10 02:56, Jan Beulich wrote:
+>> On 09.06.2025 19:07, Jason Andryuk wrote:
+>>> On 2025-04-29 08:36, Alejandro Vallejo wrote:
+>>>> From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+>>>>
+>>>> Add support to read the command line from the hyperlaunch device tree.
+>>>> The device tree command line is located in the "bootargs" property of the
+>>>> "multiboot,kernel" node.
+>>>>
+>>>> A boot loader command line, e.g. a grub module string field, takes
+>>>> precendence over the device tree one since it is easier to modify.
+>>>>
+>>>> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+>>>> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
+>>>> Signed-off-by: Alejandro Vallejo <agarciav@amd.com>
+>>>> Reviewed-by: Denis Mukhin <dmukhin@ford.com>
+>>>> ---
+>>>
+>>>> diff --git a/xen/common/domain-builder/fdt.c b/xen/common/domain-builder/fdt.c
+>>>> index cbb0ed30a2..dabe201b04 100644
+>>>> --- a/xen/common/domain-builder/fdt.c
+>>>> +++ b/xen/common/domain-builder/fdt.c
+>>>> @@ -219,6 +219,12 @@ static int __init fdt_process_domain_node(
+>>>>                printk(XENLOG_INFO "  kernel: multiboot-index=%d\n", idx);
+>>>>                bi->mods[idx].type = BOOTMOD_KERNEL;
+>>>>                bd->kernel = &bi->mods[idx];
+>>>> +
+>>>> +            /* If bootloader didn't set cmdline, see if FDT provides one. */
+>>>> +            if ( bd->kernel->cmdline_pa &&
+>>>> +                 !((char *)__va(bd->kernel->cmdline_pa))[0] )
+>>>
+>>> The logic is incorrect - it should be:
+>>>
+>>>              if ( !bd->kernel->cmdline_pa ||
+>>>                   !((char *)__va(bd->kernel->cmdline_pa))[0] )
+>>>
+>>> If there is no cmdline_pa (which happens with the "reg" property) or the if there is a 0-length string, then check the DT for bootargs.
+>>
+>> Even that sounds bogus to me: There's a difference between "no command line"
+>> and "empty command line".
 > 
-> re: arbitrary number: Will bumping the buffer size to the next power of 2 ==
-> 256 work?
+> Yes, you have a point.  The difficulty is grub always provides a NUL terminated string, so Xen can't differentiate the two.
 
-Any other number would work, but would be as arbitrary. Since the buffer is
-dynamically allocated, one non-arbitrary aspect of the selection may want to
-be to make the number such that including allocation overhead it's an even
-multiple of cache line size.
+Which may call for either special-casing GrUB, or at least calling out that
+behavior in the comment. (Ideally we'd still have a way to distinguish
+between both cases, but likely we'll need to resort to documenting that some
+dummy option will need adding to tell "none" from [intended to be] empty.)
 
 Jan
 
