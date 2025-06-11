@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 59821AD4A75
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Jun 2025 07:35:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1011299.1389674 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 753C2AD4A7C
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Jun 2025 07:39:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1011310.1389684 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uPE7b-0004WG-M4; Wed, 11 Jun 2025 05:35:35 +0000
+	id 1uPEB3-000597-7Z; Wed, 11 Jun 2025 05:39:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1011299.1389674; Wed, 11 Jun 2025 05:35:35 +0000
+Received: by outflank-mailman (output) from mailman id 1011310.1389684; Wed, 11 Jun 2025 05:39:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uPE7b-0004Uo-JI; Wed, 11 Jun 2025 05:35:35 +0000
-Received: by outflank-mailman (input) for mailman id 1011299;
- Wed, 11 Jun 2025 05:35:34 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uPEB3-00056R-4y; Wed, 11 Jun 2025 05:39:09 +0000
+Received: by outflank-mailman (input) for mailman id 1011310;
+ Wed, 11 Jun 2025 05:39:07 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Z5UX=Y2=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uPE7a-0004Ui-EX
- for xen-devel@lists.xenproject.org; Wed, 11 Jun 2025 05:35:34 +0000
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [2a00:1450:4864:20::42a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e250111d-4685-11f0-b894-0df219b8e170;
- Wed, 11 Jun 2025 07:35:29 +0200 (CEST)
-Received: by mail-wr1-x42a.google.com with SMTP id
- ffacd0b85a97d-3a365a6804eso3819750f8f.3
- for <xen-devel@lists.xenproject.org>; Tue, 10 Jun 2025 22:35:29 -0700 (PDT)
+ id 1uPEB1-00056L-AL
+ for xen-devel@lists.xenproject.org; Wed, 11 Jun 2025 05:39:07 +0000
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [2a00:1450:4864:20::336])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 639e7a2d-4686-11f0-a307-13f23c93f187;
+ Wed, 11 Jun 2025 07:39:06 +0200 (CEST)
+Received: by mail-wm1-x336.google.com with SMTP id
+ 5b1f17b1804b1-451d6ade159so53290815e9.1
+ for <xen-devel@lists.xenproject.org>; Tue, 10 Jun 2025 22:39:06 -0700 (PDT)
 Received: from ?IPV6:2003:ca:b734:b419:d0bf:1423:db44:9404?
  (p200300cab734b419d0bf1423db449404.dip0.t-ipconnect.de.
  [2003:ca:b734:b419:d0bf:1423:db44:9404])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3a5323b653dsm14234262f8f.39.2025.06.10.22.35.27
+ 5b1f17b1804b1-4531fe8526bsm22513885e9.0.2025.06.10.22.39.04
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 10 Jun 2025 22:35:28 -0700 (PDT)
+ Tue, 10 Jun 2025 22:39:05 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,65 +47,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e250111d-4685-11f0-b894-0df219b8e170
+X-Inumbo-ID: 639e7a2d-4686-11f0-a307-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1749620128; x=1750224928; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1749620345; x=1750225145; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=V3brsPWTEDu0RaHKwOcYmvWaS0b6yWvh3OrKsmioVpY=;
-        b=ff85+UXCnsvmRfWuSaT2TWIPup9ECtvfPbTZIMvQU9WVm54YPcmDQSfCvtghjPL8BT
-         ksPQKAvaj2do4PjX4QS/qaY2ch9BxXWukEv5D0YNIADpgGV9JdI6Ca6fyBkuBkI0Ov4g
-         N60Qt/GABP/f6pMFYHv1kyfLkvsca9DyTx71qEz3BelPbKICeFFXxo625ttyMSyhPRxh
-         grCRKtE+dPpUZ0t2go7TzTIOIAX7ANXN0fSWJXDqICo28BUw8j8p/rHYd8qmFcXybMPY
-         5eFMrBDAhAHycxl1aOs9iALl7UkJwskwR93ZQ/OuZaFO5dIhGunMuL/XWvJfZIxsZ/eT
-         z9Wg==
+        bh=D6QadpmVbw8/okvhf3T+sWyjH3XDcO5qMgmXqpsDaPc=;
+        b=d5GpHuz21KcxUbOj13mPY7VVnKcaCcTVYO3eMheSu6nBlDtwUoXkOHT4pdUQeIe60x
+         5ZyWMLOLHe4leUhXtfnZ6zXQ48xyckrE7oH/z1XPlsS6XP/OkZelLjvvsIKR6kbPlPiQ
+         6FRAo1V4nDEWxG/cGvmN/YK8cd7w325AAfsFdvUGv0rriNob+Zpathb3ZMT4Vxgoy3ID
+         92Jew5in+IjydCeODUmAAY7E+hic/dxcZVytElIUsbIcaf4mP7eiCckzwyx1zVRqUKrk
+         5R8crhVuN/p4AeBn4Nib8X0S9nc1vs9r6GthEqXfQUXVutI+HGIT2nrct4Utiz0FJkYB
+         AXFg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749620128; x=1750224928;
+        d=1e100.net; s=20230601; t=1749620345; x=1750225145;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=V3brsPWTEDu0RaHKwOcYmvWaS0b6yWvh3OrKsmioVpY=;
-        b=Lj352Ag2ltmWL/Cr0DlsgXNziEF1tfL2iOaihL7wncq4hSxDIdZNxwlSfRBEBt6l9f
-         vX8b4SpmMuyx1l81fWQCz0HFxSMiOuoB3UV+EcvoWaIFqNGy/yMm39RMfV3DF8q0kNO/
-         tzrJQm6Q+hPP+sU09K/p6s/r4kzbzi/nfipnOZrsK/tl40eTRFHJ7gotn+hcl7Eq8pLB
-         WAaIXbS/WC/Fx8htxeK+MQlbAaSV/3YNPcqqAwRBOPw3cQpfNFS0xglm/gd8cPs2QoWR
-         jyRTtUruZenBACvmKA/1oKZzPCm4hqLfETFxm41Fgs0dbeSbQgSR2IKi3J3UIEgBnTBX
-         rsjA==
-X-Forwarded-Encrypted: i=1; AJvYcCVOZxgYaAMc+CWkBDGu8FblPeTASLrX1mzNwHns7Sz+3OChrr6d1TaPUlXDF1U/97kS0agLEcDSO8A=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxppjYYxb1Rl8OrJZYTo3CgTcaiEEeiR4PnQniNXrflcdxWAC9u
-	7sG+rljUVbhzjD+HkW6VmnyaseJcDrwgu90JTbEe6wvofQ6VW9U9eSg+BBo4QAtfCw==
-X-Gm-Gg: ASbGncuxKzJO8m27sYB31spJUf9lPgYgkcrBetlRmFSsoSzVczPPjFSi70xmZRpkIzQ
-	71qsg4vCIUU0J07FyRyxvdBOMKUkEdckrciGD8MbD5Uu0oO5HWJNnMyg0lYyfVxkvmjWS8bYG5L
-	kaDwm4YHow2BKgIQrtC9WshQ4vG0LG3o7FDCNd9v5/oo6Ag5bcI41aVzYh659MY7Di19bQncB1t
-	rtR+2cmCVFOFBPZugpd0CHqwdkhufR4sdb+S+hSg3vsc16EBIqb29mTg0Fzx81FpYJ6/xBFAcZc
-	8B35GO6XNrN7GQz/qruY6unsuOC92rTknNIf/HxgRupcRyFj1Tz9LeeVRLxJYFFaM8T0usiahta
-	cUPNXdkokc5bvGe2THquc/8At2rJXPFaiQqxOx86smoS6pcd26wDmEmN5Izvy1BGSQ8M6WtECoZ
-	+BZKOoHW6VfiuVPaxM684+
-X-Google-Smtp-Source: AGHT+IG/57VMqqUUIEyILTVi5t+z3CgCv1A2iklfezP2C/9YNIQmiBDFsLUxXqUJl3t35PurUZE09g==
-X-Received: by 2002:a05:6000:4313:b0:3a5:2653:7308 with SMTP id ffacd0b85a97d-3a5586f450cmr1166272f8f.57.1749620128539;
-        Tue, 10 Jun 2025 22:35:28 -0700 (PDT)
-Message-ID: <ef46b3ec-af0e-480f-b206-5191c79e62f9@suse.com>
-Date: Wed, 11 Jun 2025 07:35:26 +0200
+        bh=D6QadpmVbw8/okvhf3T+sWyjH3XDcO5qMgmXqpsDaPc=;
+        b=FrBZWyVqmetL33e6Cm36hOTMCCA+ZiAmjmdAd0L+LbHeHtuHTpgmhr8fTjV2ydlOmG
+         0TbbnJTgEhp4MvBwQe9iTUFexK6JzWgOG1hnmNEnBUtjC6hk1YuUBsOXmtCu339haoaI
+         Qz55zznnyqgwUuK8vy1orn4LrGdz1ZyejPrqEuHoRnBLMKrHccar3bCl4XfNKF8FS/uL
+         SVz8f2cbP9d7hgt2zt3o8lx4/4Cu1XrDBpoGu6vYdLdfQwNGUZbj2cV/6DiwY4MYX48B
+         eaXnBVlD4gNH9r+g4Etd3UMbXdyhmXDOHSfV0HgQRJ00yV8gUXaHmbb4lHuno/AztdjG
+         DqUg==
+X-Forwarded-Encrypted: i=1; AJvYcCWWpMbcakVtXROf4YIjPDyfRNXHLRMFl3RDg8GsAHeVAIh1FPOb1XYWEK73ZKBNshEZOD43T2xs2cw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzOYtk4T8P+tdJM3D4fvQMoPhVGmwsIMrYpNvLKrh4QRkB1KVHE
+	P8vPkf08tvpF6RAPgiopCfJWW5J7VlTu9wdoePaB/tkfmmgRpuEOXYrgUwOIrKDRNw==
+X-Gm-Gg: ASbGncu9+NzgqUdLo9JLwvuPWqtx8i0TGZ1ObGoWXMpuWnDKauT4IoNmzdAnlKLxsak
+	xNKhGqduBAnHzpi84kFRjoJ+NpD7ir5ojqWdNYZgB1sajXUEu3LGqEQu0NZS8zcZk1fpBmTcLHN
+	rXYwqmNvkFna19/rR5WHPiNcMB+K8WkemSqhSchmZlg1oQa9qpsq8S2ME88ayPMxdyhOwnAkT1o
+	Nzp9MJuEb9wnhJ5q06sURArlLnShK7akjxcBMs8PTG7ZGpIteYoT9JIJjrFIt5rJznABXzQ/XLg
+	SnvP66yPUaquDyNyDZ3Z2vJHxyZ6CooGc4mHO03+uFujpFu7rVardxx9wIMOfmlagXMv4xswF4X
+	BnB1BZemMTCruy5wcjKqdaCkilfn/yZa9uZaZZfby2VEwY4DHoQMTL37B7nzDjUj8INi+Ee/IuA
+	EultjVsOKl0isXG1lx8nYU
+X-Google-Smtp-Source: AGHT+IGz5XwF6KqRmna1XGpf8GEGFBU/QG8Ku7rAdIzhiXWW9sHTDltWgJ/tZnDLAZwWglK5Rj0sRQ==
+X-Received: by 2002:a05:600c:a11:b0:43d:77c5:9c1a with SMTP id 5b1f17b1804b1-45324878fc2mr14065445e9.4.1749620345539;
+        Tue, 10 Jun 2025 22:39:05 -0700 (PDT)
+Message-ID: <b27f7652-424f-479c-a4bc-ed2ecd46ccc8@suse.com>
+Date: Wed, 11 Jun 2025 07:39:04 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 06/12] x86/hyperlaunch: obtain cmdline from device tree
-To: Jason Andryuk <jason.andryuk@amd.com>
-Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>, Denis Mukhin
- <dmukhin@ford.com>, Alejandro Vallejo <agarciav@amd.com>,
- xen-devel@lists.xenproject.org
-References: <20250429123629.20839-1-agarciav@amd.com>
- <20250429123629.20839-7-agarciav@amd.com>
- <59f37fcc-9226-46c5-8dc8-7bd2100d8f59@amd.com>
- <02ffa9cf-b5cd-431a-834a-a11bbf310196@suse.com>
- <03be429c-063d-4467-91e7-7ef2e148a2fb@amd.com>
+Subject: Re: [PATCH v3 2/2] xen/console: unify printout behavior for UART
+ emulators
+To: dmkhn@proton.me
+Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org,
+ michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org,
+ dmukhin@ford.com, xen-devel@lists.xenproject.org
+References: <20250606201102.2414022-1-dmukhin@ford.com>
+ <20250606201102.2414022-3-dmukhin@ford.com>
+ <bcb3d553-b8aa-42ab-a9c8-7abf6f5d02c3@suse.com> <aEjInVF3zaa+VVd2@kraken>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -131,60 +124,57 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <03be429c-063d-4467-91e7-7ef2e148a2fb@amd.com>
+In-Reply-To: <aEjInVF3zaa+VVd2@kraken>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 10.06.2025 19:39, Jason Andryuk wrote:
-> 
-> 
-> On 2025-06-10 02:56, Jan Beulich wrote:
->> On 09.06.2025 19:07, Jason Andryuk wrote:
->>> On 2025-04-29 08:36, Alejandro Vallejo wrote:
->>>> From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
->>>>
->>>> Add support to read the command line from the hyperlaunch device tree.
->>>> The device tree command line is located in the "bootargs" property of the
->>>> "multiboot,kernel" node.
->>>>
->>>> A boot loader command line, e.g. a grub module string field, takes
->>>> precendence over the device tree one since it is easier to modify.
->>>>
->>>> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
->>>> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
->>>> Signed-off-by: Alejandro Vallejo <agarciav@amd.com>
->>>> Reviewed-by: Denis Mukhin <dmukhin@ford.com>
->>>> ---
+On 11.06.2025 02:07, dmkhn@proton.me wrote:
+> On Tue, Jun 10, 2025 at 10:21:40AM +0200, Jan Beulich wrote:
+>> On 06.06.2025 22:11, dmkhn@proton.me wrote:
+>>> From: Denis Mukhin <dmukhin@ford.com>
 >>>
->>>> diff --git a/xen/common/domain-builder/fdt.c b/xen/common/domain-builder/fdt.c
->>>> index cbb0ed30a2..dabe201b04 100644
->>>> --- a/xen/common/domain-builder/fdt.c
->>>> +++ b/xen/common/domain-builder/fdt.c
->>>> @@ -219,6 +219,12 @@ static int __init fdt_process_domain_node(
->>>>                printk(XENLOG_INFO "  kernel: multiboot-index=%d\n", idx);
->>>>                bi->mods[idx].type = BOOTMOD_KERNEL;
->>>>                bd->kernel = &bi->mods[idx];
->>>> +
->>>> +            /* If bootloader didn't set cmdline, see if FDT provides one. */
->>>> +            if ( bd->kernel->cmdline_pa &&
->>>> +                 !((char *)__va(bd->kernel->cmdline_pa))[0] )
->>>
->>> The logic is incorrect - it should be:
->>>
->>>              if ( !bd->kernel->cmdline_pa ||
->>>                   !((char *)__va(bd->kernel->cmdline_pa))[0] )
->>>
->>> If there is no cmdline_pa (which happens with the "reg" property) or the if there is a 0-length string, then check the DT for bootargs.
+>>> If virtual UART from domain X prints on the physical console, the behavior is
+>>> updated to (see [1]):
+>>> - console focus in domain X: do not prefix messages;
+>>> - no console focus in domain X: prefix all messages with "(dX)".
 >>
->> Even that sounds bogus to me: There's a difference between "no command line"
->> and "empty command line".
+>> While, as indicated (much) earlier, I can see why omitting the prefix
+>> may make sense for the domain having input focus, ...
+>>
+>>> --- a/xen/drivers/char/console.c
+>>> +++ b/xen/drivers/char/console.c
+>>> @@ -740,7 +740,17 @@ static long guest_console_write(XEN_GUEST_HANDLE_PARAM(char) buffer,
+>>>          if ( is_hardware_domain(cd) )
+>>>          {
+>>>              /* Use direct console output as it could be interactive */
+>>> +            char prefix[16] = "";
+>>> +            struct domain *consd;
+>>> +
+>>> +            consd = console_get_domain();
+>>> +            if ( consd != cd )
+>>> +                snprintf(prefix, sizeof(prefix), "(d%d) ", cd->domain_id);
+>>> +            console_put_domain(consd);
+>>> +
+>>>              nrspin_lock_irq(&console_lock);
+>>> +            if ( prefix[0] != '\0' )
+>>> +                console_send(prefix, strlen(prefix), flags);
+>>>              console_send(kbuf, kcount, flags);
+>>>              nrspin_unlock_irq(&console_lock);
+>>>          }
+>>
+>> ... this, aiui, is a behavioral change for the non-dom0less case, where
+>> Dom0 output will suddenly also gain the prefix. Which I don't think is
+>> wanted: Switching focus between Xen and Dom0 should remain unaffected
+>> in this regard.
 > 
-> Yes, you have a point.  The difficulty is grub always provides a NUL terminated string, so Xen can't differentiate the two.
+> This change ensures that dom0 traces aren't mixed with domU traces when domU
+> has input focus, or with Xen traces when the administrator is in the diagnostic
+> console.
 
-Which may call for either special-casing GrUB, or at least calling out that
-behavior in the comment. (Ideally we'd still have a way to distinguish
-between both cases, but likely we'll need to resort to documenting that some
-dummy option will need adding to tell "none" from [intended to be] empty.)
+That's what the description also tries to describe, yet I still regard it as
+a behavioral regression in (at least) the described scenario. The hardware
+domain presently not having (d0) prefixed to its output is deliberate imo,
+not accidental.
 
 Jan
 
