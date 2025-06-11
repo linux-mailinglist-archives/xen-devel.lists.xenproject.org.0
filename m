@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82A1AAD531C
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Jun 2025 13:07:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1011568.1390019 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 80532AD5363
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Jun 2025 13:13:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1011605.1390041 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uPJIQ-0001Ai-2d; Wed, 11 Jun 2025 11:07:06 +0000
+	id 1uPJOm-0003P5-RR; Wed, 11 Jun 2025 11:13:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1011568.1390019; Wed, 11 Jun 2025 11:07:06 +0000
+Received: by outflank-mailman (output) from mailman id 1011605.1390041; Wed, 11 Jun 2025 11:13:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uPJIP-00018a-VY; Wed, 11 Jun 2025 11:07:05 +0000
-Received: by outflank-mailman (input) for mailman id 1011568;
- Wed, 11 Jun 2025 11:07:04 +0000
+	id 1uPJOm-0003MW-Oi; Wed, 11 Jun 2025 11:13:40 +0000
+Received: by outflank-mailman (input) for mailman id 1011605;
+ Wed, 11 Jun 2025 11:13:39 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=6lgg=Y2=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1uPJIO-00018T-9m
- for xen-devel@lists.xenproject.org; Wed, 11 Jun 2025 11:07:04 +0000
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [2a00:1450:4864:20::334])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Z5UX=Y2=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uPJOl-0003MQ-IP
+ for xen-devel@lists.xenproject.org; Wed, 11 Jun 2025 11:13:39 +0000
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [2a00:1450:4864:20::332])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 33a9b0f7-46b4-11f0-a307-13f23c93f187;
- Wed, 11 Jun 2025 13:07:02 +0200 (CEST)
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-442ea341570so43198125e9.1
- for <xen-devel@lists.xenproject.org>; Wed, 11 Jun 2025 04:07:02 -0700 (PDT)
-Received: from [192.168.86.29] ([90.250.112.104])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-45325228c2esm17790605e9.37.2025.06.11.04.07.00
+ id 1fb8584d-46b5-11f0-a307-13f23c93f187;
+ Wed, 11 Jun 2025 13:13:38 +0200 (CEST)
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-442ea341570so43246625e9.1
+ for <xen-devel@lists.xenproject.org>; Wed, 11 Jun 2025 04:13:38 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-236034050fasm85268415ad.146.2025.06.11.04.13.31
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 11 Jun 2025 04:07:01 -0700 (PDT)
+ Wed, 11 Jun 2025 04:13:37 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,127 +45,149 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 33a9b0f7-46b4-11f0-a307-13f23c93f187
+X-Inumbo-ID: 1fb8584d-46b5-11f0-a307-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1749640022; x=1750244822; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1749640418; x=1750245218; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=rJf7a7CEriqV9+fqxFzpKUGW4Wrmcm2whxa7AjjrNjY=;
-        b=upOk2SekjJjWyXpkxmgmf2RTbcVkTxTnf3P+FStKeY+ZG1hZPuqq6ccw+uz9Yq8UPz
-         NuMxlGHG6EXOElS39LaFyK9XlJ7ZafqSDFT+2W0eCznvKS6e5A3d3B06bKuUO+vnjl4F
-         pmBFHXCdeESPTTqTEHtqsf2ldS/gxJIo6hrfY=
+        bh=wseSpK5KfbzeQolgYUIbSSWmLkd5z3FwjPuWNFkf9aw=;
+        b=M2LmtewmOtNTpVm3sPwXvDLAAbOdlpt/B/LyKwlMGC3QSpwy8qDFfx9YtkwLHuXlQr
+         0EMB/I4VFf6H3a9Ra3/44x3UDSGhU0Pvo0QofJhROkkv73OxrxKIfdqW2zhgauDpV2so
+         DuhXle7pNIlhQOe5u2L6GMCrImLEm+wGWGyX4h4Myujawxf0kCEqmoRo4JElRHRD0OO1
+         Dl4itANJcArIpuz8wwuWOoS98wOLlaGWxQ4bmWXP5neI0aYDV7Qr1TuyuvyYDqv3sELi
+         M+g2vg54vh0PqEm/dP4SmKKn8q44l1ybqs7ta80leFTRjiUWV99MDK1KD7FfCNwuphGt
+         ZeVQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749640022; x=1750244822;
+        d=1e100.net; s=20230601; t=1749640418; x=1750245218;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=rJf7a7CEriqV9+fqxFzpKUGW4Wrmcm2whxa7AjjrNjY=;
-        b=ZNfs4os/yDcKSvHDs5ojWb21FRJ14rbhId7O+W6XQxkFjPp9h/ZgCbVlSE0wpC97gL
-         1uStVukB8zbWRylesrVkM4m1K5W1MeipyasA5pa6ueDZulygiWkzgoy9TqdiLHUL/v53
-         GNJSWhk1ZERGC88pZVWhMZtS6vz3831DOGJWX1qfoc9HxjOElAUTEgyxC6rDO2rT0her
-         eQ3/Vf7MGKtDrM2Ox3Hm4HxnDz0boDtgHE0HmOm3ekz2wbGgBQOsQLyQjE/rhtgNbv3b
-         cN2UgAMAPmlMAJBcyXJiH4uC29mfizTtfP10JHKQf/dsjcgbb4/4xpfX3h5MqLZ8e2qz
-         RPng==
-X-Forwarded-Encrypted: i=1; AJvYcCVrfghuDwLW4fdHSu6U9nOc4P0IOM/AUiftAJPPcVJ2bEldDdYdub6U3uHMg+RGWtes4Ryyqm04I1c=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwSe/g5KKAe7cz8Fv7B7O0jf6KsCChr9Ew3xmLivuyl6KevrdiH
-	0H4VNbKjCQ09JUvUZnRFQ2S9TYAFYGwgamjQmOp9RO/OCl04WfJtX1J4kToPYoN8Dic=
-X-Gm-Gg: ASbGnctSbAtHhLJl2fKZ1ETu8S9pU4uIfdKantmqGlbD7AUZHkvHgYL0tgihOMLGviU
-	6UChIKFxtarcMoYg6V4V4VQDOqSxOPmTqOSuj3QKHJmXmyTiC7z4THZTk0dDRs/jCyBuaYv6gJn
-	XvGoV1vDEIdEfwHQ6oiWlCcXUl9sgIynZEZPh0ht1Ygck6cD3VzF/hIaILrKSCFEFGWDZOvnlvU
-	q0nd8kkDBTjkv6jlKK4w07FZCtHF/RPLcUqOPCPwtFVthzeAsE6Aq/N2c5HJvbqZmHVuUlZs0Sn
-	eeUmYuoGpV0F6JS+1NjbbbrwD8uSDOOOwXVuh2Q4CO6+4bSDGHZOBOHEbYL66+Z6GvWPD20VBBz
-	RPy8jacqS9g==
-X-Google-Smtp-Source: AGHT+IHp7g4Ya8QktUVqtDDcOR9b0RdGhQuihIwrjwQC7/orz+KkURipHOO5ASfP+iC97pJLYUnsPg==
-X-Received: by 2002:a05:600c:c494:b0:450:d012:df85 with SMTP id 5b1f17b1804b1-45324f36ddcmr22720065e9.18.1749640021873;
-        Wed, 11 Jun 2025 04:07:01 -0700 (PDT)
-Message-ID: <ea269ff2-73bf-4c40-b2c2-aa147c2534ff@citrix.com>
-Date: Wed, 11 Jun 2025 12:07:00 +0100
+        bh=wseSpK5KfbzeQolgYUIbSSWmLkd5z3FwjPuWNFkf9aw=;
+        b=ddvXnppHKwM77w8zzRCukoh93OCLoo5a5Mn25Kr0/+zXgr3ofV1O5WrZHZF2+aVpPi
+         btuWmWm9RsF2BinTuy+lMW4dmfDpoDs2rurBGyhj0KLLT2sCXFhuHK1xxPEI8nt8ew4U
+         rIeIU5Q/tBeeFRNUawD5EDNuSBV9aKDwGajdRj2BpCOrVrmECkq/JAYXnwovCxv3u/3k
+         b3hLj0DtG8L7927HYMNFAE8dde0tW5zI8QZrwEtjQPQmUiRr80abxsQtZD+bELvZvNCI
+         EHnQwjothERgOJHtyCUbcJ4o8LI6qVTjWC6Xzjy67XQqE827Q5QNm4b9jKwuQtgJRE2b
+         949Q==
+X-Forwarded-Encrypted: i=1; AJvYcCWEEMNYfmMIkFnsVyf2RkjsLgICDSsppwasqjUED1QSjnS6ATfIQdn8PANhWaotvceCluCRJZSUY0Y=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwCu4j+j8kHXIhdAe5yEZTPuCI5E6ssn9pSgL+hc3npiskEdLjz
+	WbrLXhjbInOwoHYwKFYLEamWHl2Zv88b4xWm6hx94xvAowsovHQifF+TCwGijggcNA==
+X-Gm-Gg: ASbGncvqM1YMxAl2uYviovObNINjPP3OrJ2kiYeH3DkMnBZMI5kYeKt6LJG7N6Z+bcj
+	V9dFeqHrIMRYeQkWLflwalfGeSr0a+tSJRRYKM58lYtnU6/htx6tFhCgU8AEwWBoP+avDswrL5b
+	OCpB8wNfLBab+Low4ditKOHB9xApcxI9IPGJ5ZSUdYjOx5j03MTLx/ma2TkiUurWzT5f0PglHFU
+	GcUKx+D8Sz8ga5+VO3AtIZ6Cyp6GKybvZM+AAdPz08QwPuu9NZd8S64ijZ/UZxkVoMmGBTLJgOq
+	txX2BTUzqryvfQinTg09Uwi4423vPsC6BRjqtaHmcZGPMpbmopJYvCErbqHGxVaf1/3DadZ68HC
+	DMKKKDqPiOYhEa0v4f+9xfVa16GLWsbOoZ6/S4377/uaTdZ0=
+X-Google-Smtp-Source: AGHT+IFgayhYv4qXtue7iIMlvR3SrL1HZ7vrQGjWH8IexfoEYsBolZOEAMGoXh1K6qMxc0FABpUZyw==
+X-Received: by 2002:a5d:588c:0:b0:3a4:eb80:762d with SMTP id ffacd0b85a97d-3a558b09e25mr2278188f8f.56.1749640417775;
+        Wed, 11 Jun 2025 04:13:37 -0700 (PDT)
+Message-ID: <cd3fa87f-5dca-4d8f-b25f-a159f9b2859e@suse.com>
+Date: Wed, 11 Jun 2025 13:13:32 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/6] vVMX: adjust reg_read() for 32-bit guests
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <44d67587-415e-4ec1-a433-64a12aea80d7@suse.com>
- <9384234e-3a07-4ae1-b632-fe007beb4c4f@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <9384234e-3a07-4ae1-b632-fe007beb4c4f@suse.com>
+Subject: Re: [PATCH] xen: Strip xen.efi by default
+To: Frediano Ziglio <frediano.ziglio@cloud.com>
+Cc: Frediano Ziglio <freddy77@gmail.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20250610101228.24460-1-freddy77@gmail.com>
+ <02162717-25de-4ffb-a9c4-bf6d580c43bc@suse.com>
+ <CACHz=Zg5NDFOd5rinj-72TC82SiaQZbKErmLudLZVCE5kcvQbg@mail.gmail.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <CACHz=Zg5NDFOd5rinj-72TC82SiaQZbKErmLudLZVCE5kcvQbg@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 11/06/2025 11:42 am, Jan Beulich wrote:
-> Using the full 64-bit register values is wrong in this case; especially
-> soon after a mode switch from long mode to 32-bit one upper halves of
-> registers may continue to be non-zero.
->
-> Fixes: 09fce8016596 ("Nested VMX: Emulation of guest VMXON/OFF instruction")
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> ---
-> Note that the affected VMX insns are invalid to use from compatibility
-> mode, and hence the more expensive vmx_guest_x86_mode() doesn't need
-> using here.
+On 11.06.2025 12:49, Frediano Ziglio wrote:
+> On Wed, Jun 11, 2025 at 10:35 AM Jan Beulich <jbeulich@suse.com> wrote:
+>>
+>> On 10.06.2025 12:12, Frediano Ziglio wrote:
+>>> For xen.gz file we strip all symbols and have an additional
+>>> xen-syms file version with all symbols.
+>>> Make xen.efi more coherent stripping all symbols too.
+>>
+>> And the other difference (compressed vs not) still remains.
+>>
+>>> xen.efi.elf can be used for debugging.
+>>
+>> Hmm, that's the result of ...
+>>
+>>> --- a/xen/arch/x86/Makefile
+>>> +++ b/xen/arch/x86/Makefile
+>>> @@ -238,6 +238,7 @@ endif
+>>>               > $@.map
+>>>  ifeq ($(CONFIG_DEBUG_INFO),y)
+>>>       $(if $(filter --strip-debug,$(EFI_LDFLAGS)),:$(space))$(OBJCOPY) -O elf64-x86-64 $@ $@.elf
+>>> +     $(if $(filter --strip-debug,$(EFI_LDFLAGS)),:$(space))$(STRIP) $@
+>>>  endif
+>>>       rm -f $(dot-target).[0-9]* $(@D)/..$(@F).[0-9]*
+>>>  ifeq ($(CONFIG_XEN_IBT),y)
+>>
+>> ... objcopy. Having looked at the involved code in that utility, I mistrust its
+>> output from such a conversion to really be an exact representation of the input.
+> 
+> From https://xenbits.xen.org/gitweb/?p=xen.git;a=commit;f=xen/arch/x86/Makefile;h=f514bab30ef8d4ade77a27c926e283c9bbbf9ffd,
+> 
+>     Today it is not possible to analyse crash dumps of a system in
+>     hypervisor mode when it had been booted via EFI, as the crash utility
+>     doesn't understand the file format of xen.efi.
+> 
+>     This can easily be solved by creating an ELF file from xen.efi via
+>     objcopy. Using that file as name list for crash enables the user to
+>     analyse the dump in hypervisor mode. Note that crash isn't happy with
+>     a file containing no text and data, so using --only-keep-debug is not
+>     an option.
+> 
+> Isn't that true anymore?
 
-Fine, but you must have a comment to this effect in the code, and what
-prevents compatibility mode getting here?
+That's likely as true as before - heavily depending on objcopy not screwing up.
+I don't think any thorough analysis was done back when that commit was put
+together.
 
-> (VMCALL and VMFUNC, which are permitted in compatibility
-> mode, aren't taking this path. In fact both aren't dealt with at all
-> [explicitly] in vvmx.c.)
+>> IOW I'd much rather use the original file. As a possible compromise, could we
+>> perhaps merely strip debug info, but retain the symbol table, matching the
+>> prior default for $(efi-strip-opt)?
+> 
+> Not clear the compromise you are intending here, the debug file has
+> all information available, why do you need an intermediate one? We
+> strip everything for ELF, why not be coherent?
 
-VMCALL has no operands, implicit or otherwise.
+If I want to e.g. see the disassembly of xen.efi, I find it heavily misleading
+that I then would have to disassemble xen.efi.elf instead. One can get used to
+it, sure. But for xen.gz / xen-syms it just was that way from the very
+beginning (plus it's kind of obvious that a *.gz file cannot directly be
+disassembled anyway). And for disassembly, the loss of debug info is far less
+impactful than the loss of the symbol table. (Hence also why only debug info
+was being stripped during installation so far.)
 
-VMFUNC does have implicit operands, but post-dates the last time anyone
-did any serious nested virt work, hence why it's unhandled.
-
-Personally, I think vVMFUNC emulation can safely be left to whomever
-first wants it.  The only potential usecase I'm aware of has ceased to
-be for unrelated reasons.
-
-~Andrew
+Jan
 
