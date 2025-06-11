@@ -2,40 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B995FAD5795
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Jun 2025 15:53:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1011787.1390308 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B84CAD5B19
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Jun 2025 17:52:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1011901.1390438 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uPLtF-0000mc-Ml; Wed, 11 Jun 2025 13:53:17 +0000
+	id 1uPNkF-0006X9-Pe; Wed, 11 Jun 2025 15:52:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1011787.1390308; Wed, 11 Jun 2025 13:53:17 +0000
+Received: by outflank-mailman (output) from mailman id 1011901.1390438; Wed, 11 Jun 2025 15:52:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uPLtF-0000kW-Jq; Wed, 11 Jun 2025 13:53:17 +0000
-Received: by outflank-mailman (input) for mailman id 1011787;
- Wed, 11 Jun 2025 13:53:15 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uPNkF-0006VI-Mg; Wed, 11 Jun 2025 15:52:07 +0000
+Received: by outflank-mailman (input) for mailman id 1011901;
+ Wed, 11 Jun 2025 15:52:06 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=hVzw=Y2=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1uPLtD-0000Tp-EW
- for xen-devel@lists.xenproject.org; Wed, 11 Jun 2025 13:53:15 +0000
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2060a.outbound.protection.outlook.com
- [2a01:111:f403:2414::60a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6a3385f6-46cb-11f0-b894-0df219b8e170;
- Wed, 11 Jun 2025 15:53:13 +0200 (CEST)
-Received: from BN9PR12MB5273.namprd12.prod.outlook.com (2603:10b6:408:11e::22)
- by CH2PR12MB4151.namprd12.prod.outlook.com (2603:10b6:610:78::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8792.39; Wed, 11 Jun
- 2025 13:53:07 +0000
-Received: from BN9PR12MB5273.namprd12.prod.outlook.com
- ([fe80::cf66:58ab:47be:4b13]) by BN9PR12MB5273.namprd12.prod.outlook.com
- ([fe80::cf66:58ab:47be:4b13%5]) with mapi id 15.20.8792.034; Wed, 11 Jun 2025
- 13:53:07 +0000
+ <SRS0=sTmX=Y2=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
+ id 1uPNkE-0006VC-K7
+ for xen-devel@lists.xenproject.org; Wed, 11 Jun 2025 15:52:06 +0000
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2062b.outbound.protection.outlook.com
+ [2a01:111:f403:2416::62b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 031655a9-46dc-11f0-a307-13f23c93f187;
+ Wed, 11 Jun 2025 17:52:02 +0200 (CEST)
+Received: from CY8PR12CA0003.namprd12.prod.outlook.com (2603:10b6:930:4e::8)
+ by SN7PR12MB8148.namprd12.prod.outlook.com (2603:10b6:806:351::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8835.19; Wed, 11 Jun
+ 2025 15:51:57 +0000
+Received: from CY4PEPF0000EE3F.namprd03.prod.outlook.com
+ (2603:10b6:930:4e:cafe::54) by CY8PR12CA0003.outlook.office365.com
+ (2603:10b6:930:4e::8) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8835.17 via Frontend Transport; Wed,
+ 11 Jun 2025 15:51:57 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CY4PEPF0000EE3F.mail.protection.outlook.com (10.167.242.17) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8835.15 via Frontend Transport; Wed, 11 Jun 2025 15:51:57 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 11 Jun
+ 2025 10:51:56 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 11 Jun
+ 2025 10:51:55 -0500
+Received: from [172.27.195.250] (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Wed, 11 Jun 2025 10:51:54 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,299 +63,147 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6a3385f6-46cb-11f0-b894-0df219b8e170
+X-Inumbo-ID: 031655a9-46dc-11f0-a307-13f23c93f187
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fgznPjePDqIEe8XD+M6k8Go6yT1GQ++gq2l1KzP1oN9TkzdGWi44dJKCXJG4KYdMNm93oGjqnADro6wtS8SoiZHxLjt8L1QVaVBrpSvE9fQbJtF484Wm5c4qDA/KQeZjA9M00HBNTMpxK8x4fMzLnwvo3cHi8jTqUCHaeUDQAvJvSTpmmjSAmQUVRHhgAJHOv5wTuofwW1pbfci2v7LN6FpJsfeVXjyZmNKnbE+YoOBIPvhtpqAXvLdADUquIK6tk6QRDlhqKm0F53+90elEtUkm+kqGBh1HW/yN0qgfeMT2bRDW5itNbOnasm9RIqYAHHxmFJfI+SA/f6/prwPvSw==
+ b=KHB6nAhXsv7H8Erj0uCHpEsk1d3tmn7W3el2zR+3aYvZeVf8LWc/taZ4aBxVm2pD0qvFTB5YHXhYJ4VOJtrLddmxNCEcvSMAGv5+6YSCy7thu1xil7XkotCRwOPal+fv7B2BAf6pP+Ex/633v9agaJVU6v0rOpfqNcIM3VIiL72xxfaoo9cjpaCbv9hXGpN/VnQqHnFTi8gCRYwT9ocSsx9p+dJt7nyTqMhUocur7MkR6vVgJXC/mn7InOgbWKqLitiB/4ew9/JLFeC6u/Abs63KNvR2f//+z0plIWjbP0B/SM75uAncY++BGtHNyRBFznEVOTd0+6Gkgy9IkiyThQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VUEqhfbrTqoFATdGeSIV975frBPi2IJjMsFogOGtq40=;
- b=osHES38iNlP/NrHrgyDcOX9ZZ1E8Re8YCdgJptHH9hIB7BQCOK7Yz81AaJI4XxsL/RXPrszUEB4uLQ05896PMn/+gT4QIC7RLAtcpRwpTQ0xZQ9rWV4gSgEcSxmmdjowM7UX9ubVhJE5znSYUjqwIBbUM9mIkav2h2f4lJYzoEx3k4jLJlRE8yfeZY1PqQpDK/sbYxRzVGZm9svG9kDe7fTM8TogEbF5HUPz3A3A7HQCgptiqEW2bTD8+0wGVMy29H1t7pvCG2C7dux3bfU/7DHgfDBtxccWflh6HQHLhG1xd6/02bOwDDDLw6VdO35KGFvwvgm7NLUGuHWztZr8qg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=6knYC8fsWowFRgs5B54grYDA2NIIDK6L3C975z9rfC0=;
+ b=BHYgw/11TrWLhJqYww9AEINHKiwyfvGyuD4UheAaS+oNiMRUnuFkcTex4qRhQtJyve+RySKc0ADnsEyv1IUrDM7ZR+J6lLdL081JwwKO/FIn2pRq5s9tFmmbymGW3W0DyF8fAECTOqETs9PWYTz95M3MD0rJ2HtqoaQvQaz5vU9a/4WzR7GrrhSJorU5tqF/uDcny355RJc5Py9270lKTWArB64EjCIyrvwjcoM/II2dNFyn1rthN0USosUECnH2g1t72By/MYaBPJPyqJnbW+uXY+1zdG84sLHIHew6YhxLDPHT/6zFPDmtF1TGr1gOTjMj0/kpjyJT3G8/xQSHxQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VUEqhfbrTqoFATdGeSIV975frBPi2IJjMsFogOGtq40=;
- b=ICnlavNzkp5G9CVhdOVHa2HeUYtsF1Eyzlkhu+/M/Nn8knPDY8cAGX6IFqGD4GkeLJHf2JzdTmhiuTj/xye3QWT5bQF0Vz6CIAF9UpyekHYyu8GNcn77XxcvEqPPzo48TNbv9fHoo3EKY6ThWBm2dU+W2tKjZb825ZCb6D0O1OM=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Message-ID: <27fc7c41-3a8a-4bfe-bed9-b05b33c2d73e@amd.com>
-Date: Wed, 11 Jun 2025 15:53:04 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/2] xen/arm: exclude xen,reg from direct-map domU
- extended regions
-To: Stewart Hildebrand <stewart.hildebrand@amd.com>,
- xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20250609183438.178214-1-stewart.hildebrand@amd.com>
- <20250609183438.178214-2-stewart.hildebrand@amd.com>
- <6a52ad54-cac8-43fc-b396-87b0ac01d1dc@amd.com>
- <3ea5fec5-0083-4c83-9430-229550911b6b@amd.com>
-From: "Orzel, Michal" <michal.orzel@amd.com>
-Content-Language: en-US
-In-Reply-To: <3ea5fec5-0083-4c83-9430-229550911b6b@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR0P281CA0174.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:b4::7) To BN9PR12MB5273.namprd12.prod.outlook.com
- (2603:10b6:408:11e::22)
+ bh=6knYC8fsWowFRgs5B54grYDA2NIIDK6L3C975z9rfC0=;
+ b=cuAPXshBMFHb1lcDexf1+YA1cj9WwSEYPcz0Eob1pvEal+aw69GK50C0QxcRFX8Xca3q68T8pkdT6hXaAnEZj6C5BMsaRgPgjWH4YMnNIY/4qm0+7yA/cpp6JBnGSj8rzbU6NHmJRy0xVvCDCSw1ii871dQ/nPM9zPOzMj8hcGc=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Message-ID: <12700a8a-a969-42ed-aba8-753ff9da9a44@amd.com>
+Date: Tue, 10 Jun 2025 23:13:04 -0400
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/4] xen/xsm: Add XSM_HW_PRIV
+To: Jan Beulich <jbeulich@suse.com>
+CC: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+	<julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, Michal Orzel
+	<michal.orzel@amd.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>, Anthony PERARD
+	<anthony.perard@vates.tech>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+	<roger.pau@citrix.com>, "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	<xen-devel@lists.xenproject.org>
+References: <20250610225737.469690-1-jason.andryuk@amd.com>
+ <20250610225737.469690-2-jason.andryuk@amd.com>
+ <43725e7d-cb4c-44b7-a3e5-59d8d597c805@suse.com>
+Content-Language: en-US
+From: Jason Andryuk <jason.andryuk@amd.com>
+In-Reply-To: <43725e7d-cb4c-44b7-a3e5-59d8d597c805@suse.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+Received-SPF: None (SATLEXMB05.amd.com: jason.andryuk@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5273:EE_|CH2PR12MB4151:EE_
-X-MS-Office365-Filtering-Correlation-Id: cd387e37-5a65-4c32-cd20-08dda8ef4b67
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE3F:EE_|SN7PR12MB8148:EE_
+X-MS-Office365-Filtering-Correlation-Id: fda30669-1b97-42f7-46b6-08dda8ffe561
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016;
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|1800799024|36860700013|7416014|376014;
 X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?aElXbFRSNGErVjVkUTVhRFRjQm1MSXkwUE1KZmxia1NTWnRVSE9uWVZGVHZr?=
- =?utf-8?B?OXJVamVsRUhTN21CSVg1UnVVOUlPbTR6S3BuMHEybXhrb0xLRGF2WmxYU3g1?=
- =?utf-8?B?T2phNDRKUHlJbUdIeENvREpQNC9SMWhNeFNPRUFlWm9SQkg1SU04ajBhVlJY?=
- =?utf-8?B?YlJkRTNRcUNGbE16KzZ6bFdLS1BlSklTVUE0bnV6NUxVb0txSVNncXFKdmZT?=
- =?utf-8?B?SnRuVFZWMVZRMzRYUzhTV1g3aU8zV05pa1R3SWlZZ2hDN0tQNFAvT2lqQ1BU?=
- =?utf-8?B?K24yUEJ6cUZ5YzVYREhoK2lpSVNkdXdNV1pRTzRwU3NhUHZKVU0wWHd5dnFD?=
- =?utf-8?B?N2g5M2dBcHdLeG9jc1FjQVAvcFJtSXhpUElXdWdYTkJ0STBCeWl6Wmxud1h6?=
- =?utf-8?B?c2N4ZFhBVUpDMWM0bURLc2ZjWHpCVmc4cVVScDk5K05nc3dwQnErd2lQRmlX?=
- =?utf-8?B?ZXA4YTV2T1d4cGVGN0Fvem9PSW0zMm8ybmRzQXllRmtKb3FaWlJVa0ZVTUcz?=
- =?utf-8?B?Ymt6dU1zeVdGM1RucktFbzBuUnRuWWRFK2doNTBCYTk1MHJYTEI4VFhOV05Y?=
- =?utf-8?B?WkpGL2tJVXJxdnM0RHVNV3lRV1N3RWVabzhSSThMZGNUQlFuWkZneVZsbXlp?=
- =?utf-8?B?MVh6TGRiajBEVG9NVERoRGE0RDdhRzl4ckVNOVhPWWFmMEZENE1QLzJzR2tS?=
- =?utf-8?B?UDNWbE9VUWw2M2R4T0NIZTNjelkzb0c4QnVjU3daVkVqSldFY0h1ekIrdERB?=
- =?utf-8?B?OWNNMzk2dWpGKzBUbVRHZGoza0ltVVphSDZOSGJEdG5uUmplamthYTRtYm1j?=
- =?utf-8?B?YmRNTENDc1Z1UGl6T0hEZmNRNXp0RHB4ZmZlWjdONlp4VVJuUTN3ZENVUk4r?=
- =?utf-8?B?WmQzRitEK3ozc2J5bnlkUStpL25ZcGN1U0RZYzVuWjJZUERMMlE3U2g2VGtY?=
- =?utf-8?B?S3ZqeXJWSUJwb2x4SE5sVlppYmxpT2Izb1Awc05kak9JZzlSS0ZSSkhMY0g5?=
- =?utf-8?B?TGpPKzB5bi9uVzVqM1NubTNWd2VQYVcyRS8rS3ErWmJGYlRIK3dDb0x3L0RQ?=
- =?utf-8?B?TnVrVHNvVTF4aG85S1FFQkxjaW9OMWVyVVN3YTkvanVkUUxVN3dZTXp2eWVZ?=
- =?utf-8?B?L2E5WlpEYjBWVHJpd0ZHU3V5VWZxSnFkUEpoV1lyQnZHSEtTSE1UWEdwNmM5?=
- =?utf-8?B?RUF3ZFRIQ1NyT2M5eE5vb3d5MEZGUTROZzY2K0VOLzZpb1QvUUtud3pIR2tW?=
- =?utf-8?B?VzdmRGtrTzFYSm5XWHlMTTlla3JtVnlrYnJaZDhjaGVVd21xV2VlZWhpMVh2?=
- =?utf-8?B?UXMxcHFUZm94eThPSU1NL0E1WWgwc0N6TTUyc1J0dUpVTGJhMkpPcDJIS24y?=
- =?utf-8?B?N2EwY2M2bmJobVZjLzdQUUJPNDhIRDNoSCsrSFFKV2lUVzAvMUp0T2g5ZFdt?=
- =?utf-8?B?VWxuZWJNbUdrbGtSekVqY0tqczhKbXFaL2d0d3pRU0QzV2FscDhRZ0NtMXFs?=
- =?utf-8?B?dlYwdldYeXV3ZnRNWldvNnJmdVNONGNiWjJMbGkrYmFsT2dCK2c4c0ZCbTdQ?=
- =?utf-8?B?QVo4Z1Z4VE9QNU1OT094NU0vWnR4ZG9XckY0Kzc3QXBxNkdUTDZxQld3N2ZQ?=
- =?utf-8?B?MHBPempsc3IwaHJYcnJaNnJwWmZGWUcyd0p4NTl3aTJLN2ZpUjZpTGdZN3Ar?=
- =?utf-8?B?TkNKa3B4bGpXSk9Za1JrRnFDMFVONGZab280OTF5OS9FSEQ0d2xubW9vTHNW?=
- =?utf-8?B?ZmlSWjRnditJV0RDR290U1QwSzluVVROWk93WUNUSTVVMTlITDVSOGo1cnhq?=
- =?utf-8?B?NTNSYk9aN215Q3lhWUkvVUZmOHBVV09YVStJdDVSV2ZwOVpRd3pyc0hiSnhk?=
- =?utf-8?B?aUhLSVdJUVNmYWEwdkFxSzAzQnNscjRoU05BZGFCY3NxNWJqTjF0clhsNTJK?=
- =?utf-8?Q?ggzYH71y6f8=3D?=
+	=?utf-8?B?SlJhdmV4dWE3em1taTlLdVhsdlY4cWV4VTVaSGMxUDJRSkg3bUFhaFYrMVo1?=
+ =?utf-8?B?T0k4UURRMlZGM1pKbU9PZGpmeUtZb1IrUDQwZzh1OXZMQmwrN0x6Ri8zZ0pM?=
+ =?utf-8?B?bHJCZk1pSVJqZnNmV1Z2ZVhwSEtWdjhXRTZkb3FRWEJpSTBROC84d1BlVC9o?=
+ =?utf-8?B?dVF5Z2M3K2E5Yi9PaWZyY1gzQTRYR0s4ekN2NTY1RS9zMWk1cjdaSnZFL2dT?=
+ =?utf-8?B?MnZXNElDRDRYNEVNY1VCSEtSYjdEMHNmcXkvRlkwTCt0cll6K0VFSVJRZWIy?=
+ =?utf-8?B?VlBnUWYzR1ZDVFlsem1ybDNCUEJNTmozSWhHUmVWUjU1QUFWcS83bHlzUXRw?=
+ =?utf-8?B?RjdhZVFmOFR2d1ltejBjR3hhdzYvUERxcHM3UUlJMlhGMVc5QTlwSkU0T25r?=
+ =?utf-8?B?dU1DbzBUakdORWNTUklWakx4ZXV1a2JQRU9XR2tDbm4yeitnMkpmQVhYaU9P?=
+ =?utf-8?B?d0NFV29iL0dTVXFHcDgzRFhlbk1mOFpWdlh2N1dDZHNKZzZYZnN0RVJRUGND?=
+ =?utf-8?B?WkxKZE9kQW1UN1haUG93dTQ4NE1BTUNZcllTNFAwZEovcnpzRGNxOWlJbDNS?=
+ =?utf-8?B?Z1ZzazF5Y3JjRktpb3dEM3VXbit5Y0FTYVFhWk1TZEppbVp3M0RjcFpZSjFK?=
+ =?utf-8?B?OWRERHZ5WnpLWFg0UlJIT2ZvVldYWTNlVUxpUTUydjRBUGltNFk0cFdGanFp?=
+ =?utf-8?B?dzI4Y2NiNVlHejV3bGNrcFF1QUFUcU56bFhudE9SSmNCT3B3THdpSnQyc2Ja?=
+ =?utf-8?B?SmhBRFVQelRPNko2YVpLenA2dzR5ZzFZVy93cmVIY1ZtaUg2ZzUxU0RDMmEv?=
+ =?utf-8?B?dFhzbnBQaHJMTC8yWFlyczVTZGwrci9pWXlsd09jZWZnaHh6UE1sQVplbjBQ?=
+ =?utf-8?B?aGhrWHhYV2F3TmRxbHozd3AxaVJ5aUN5YVFNRVduZ0VDR3JXU3ZDZlBXRFJR?=
+ =?utf-8?B?WEpNT2FrS3J2a0trYUZsQUxLcTFYaXEvVGdyKytZWDlPbndvOUpxVGNvWDlZ?=
+ =?utf-8?B?NFduVzlHaXNTNmNpd202d25JNGQvMkRxTkNPc3FjQmFuM1BUS2oySjExaHNY?=
+ =?utf-8?B?b0NxZHFIemJQRCtSSTV2d3dMdndJbnhHWEJVeHpUalJWVVhvaVJ6czlHa2My?=
+ =?utf-8?B?S0lUWmhic2pnRG1BVE5QM3lyT1ZMWCtYcjIyN0hhcEtUTFYzYmJxVTZzZjZW?=
+ =?utf-8?B?UU9JTXVZcUYweWRSWDdQeTNaaHZVZG5XT2NjNEZXaUJTV0l2R3dtRUJJV2JS?=
+ =?utf-8?B?TkJnZlkzL0dkRnpiajZKMkFETUQwaVZ5aXZvZ0RmSFBURlpITnFSOUVoQnVJ?=
+ =?utf-8?B?YW9pbXJxZlIzS0paR1RXanF2aHh0R2ZRKyt4UzFoVmdDOVV5cGU3MkJYL092?=
+ =?utf-8?B?RjZPM3A4VWhvRXpPeFlmVHEvVFpieEVJSEFndkhlUVVIM1lKQk1GNVRLOG5I?=
+ =?utf-8?B?a3RUVkJlR0lzN2t0YlJlb0prL3ZnWTRaUk9RZmVNTkNXWWg3UHBZZHNnYU5F?=
+ =?utf-8?B?cGsyakNVT20vSXJZMVZmQlBzTm9MNnMxaVZrUEFQMURwOHJuMnRYZUVxVU40?=
+ =?utf-8?B?UUQrM3gzcWhiRlVTdjVvRzJ5enRzUEJURnQ1MERpWDgrQzNxczdhZXdlS0ln?=
+ =?utf-8?B?RzBmUjljN1JkUDhlb1dtYko3Zm8yUTdOOHgzOTFiNEt0bERBbXJuL0dVR0VT?=
+ =?utf-8?B?cE5rMGxuWmZncklVWUhBZWFXVkZFVmNtYXp0cC9XZ3R3a3RuNXBKdzZETXVa?=
+ =?utf-8?B?ZmtJd1ZuZFZ4dGlRQ3AwSVFSNDIzbms2UkpMSEEvZlhsUFRsdkFRamlDTGRt?=
+ =?utf-8?B?NG9WaE1JcFdHN0VXd0FkQ1dLQ1FyTlpOUndBbHRnOVZ4YVBJNHdOdkVLUkFj?=
+ =?utf-8?B?Q0xaeUhWbTNzVUhKV2U5TFZRc1pXa211NjhRam4zVDJyVDU3Tmp6dStTdWdz?=
+ =?utf-8?B?K3hSQ2tVMWNBZHlQSDhHMncrR0N5c1ZNZlJIYi9oTkhkT1p4Sm5kWXhpb3dz?=
+ =?utf-8?B?Vlhlbkh6UTFZN0M3eWQrbVVObW82aEN2Kys5QnI1bHRndVVCMEJLMkFXakt4?=
+ =?utf-8?Q?yQMsai?=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN9PR12MB5273.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?U1FKNXJreDdFNndmZWFXVWRhbVh1T3JxR2RtSjE3YmV5QUhadE11QnQ5MmN4?=
- =?utf-8?B?aVQ3Zklhak9vd09ld1FwM0NvTjgwQWlvMysxUEdCZkdZZmhFUWRvK1ppdktr?=
- =?utf-8?B?MzRsYUxVYTlVM1E0VXZ2N1N4dERMZjI1UDM5dVB1am4zU044N1pKRVpFSnQ4?=
- =?utf-8?B?eUpKYmxNbmFJNE9tbFVBajBzK25lNUZwOVNCSEcxK1FRQVZGdWY0aWNWc2ty?=
- =?utf-8?B?YzJDZnZDWEJlc2FzZDdtMks1c1Zhbk5aeWNyNVpvcHJBRmZtT2pqVVdZTVVv?=
- =?utf-8?B?cDBiOTBLTnBzVE5kK3NoWjYzeXg2Z0RsaCtleGc1SGUvcGh4czVYdXVsV05q?=
- =?utf-8?B?WFU4SGMzUCszanRFT3UyaHdBNXluTlVjNzRFMXlUQU9wbGRGTjI3RDN2T2xk?=
- =?utf-8?B?U0w2aEt6Q0pFdmgzaVlISmgzK3E5OTVhNlFhVmYweUF4NUVGNmsrZElhdmV4?=
- =?utf-8?B?Y01MRFpMNm0yRG9iYU03UnY5bEFSaUdhU21IR3FlOXE4N3QzTVEzS3MvN2Fx?=
- =?utf-8?B?ZnFNeENxek00UG1tN0tDRGpkUUFnY01ZYngxaCsvMTdhbWx2ekVFdW9iTDdF?=
- =?utf-8?B?d1dpbHZHMVRRb3ZodVdXVDM2ekdCMVZUQk9DWTJzdUExSUFvUURaazJUSElw?=
- =?utf-8?B?c3ZaYjBzM3RJLzMxaitUZVVVTVZ0a1JmY0lWZkZrMndCUDZieXlPUStvUzND?=
- =?utf-8?B?ZnJBcGM5Qis2ek1wT3FrcEVDUlQxVnZJVGFEaUxPOTRQZzQvc1NHVU1pZVla?=
- =?utf-8?B?bzkvWWJUbGZKMkxZRk1EK28zWUhFMEE3VkQ0NnUxZ0dXc3hhQjlDYzZ1T0RS?=
- =?utf-8?B?cE1YcUtMV2Q4WjlaRkpIMlNQZXJuMzNLaTcyN0xsVkNsaGtxdFhoeHJyak1S?=
- =?utf-8?B?UDdianpocU9sdk9WMDAxR2FtOHRSRFdTYVR2cTRrTFBDS2Z0UDVJYlhmYi9B?=
- =?utf-8?B?c0FoQXlJWEhNZ0taSzYza3VnRUpmamFFU0swcTgyZUpMYk80Sys2dU4rZ3g0?=
- =?utf-8?B?UmRJRkpGeWtLYlJkVU1sbkpXTkc3aXJGTTY5aDdTcU1zY0JaODllRG1qeERY?=
- =?utf-8?B?cVVyTTJnWjVHRW0rWUpIa21OYkQyL0dQS2RETjNSd295MGZVUHdIQVFXenBt?=
- =?utf-8?B?aGp5T1RLUitsWTd1TEpwUVprSDJMWVNVZVYycUpmdXZQSzBaV2cvNDIxaURV?=
- =?utf-8?B?RktzTlRmZmVxaE1EYkJOVFRTQkhqUHRTTVYrUU5LZjMzMkxSUW5UMkw2Q0g5?=
- =?utf-8?B?a0dTL1BLMWllamdCUGo1djhrUWVhcUJDWHo2ZS90ZFRqcmw0cGxSNysrWjVa?=
- =?utf-8?B?dHdCT1Bub09HT3VST2VyYXpjT09mbVZIdmtHVEIzV0pkY1J6L3VLdVI4d0RI?=
- =?utf-8?B?bXFtTG81Ni90eTNMbEl1QVRObEVOcEFSdGxuNSs4ZzZrU2hXT3ZrOXBWQVNJ?=
- =?utf-8?B?c09RZ0l6SHJFWGozd2FzZ1cvZGVFQ2pwQ1hEbkJmaUtYbzUvZVFCcmdRVWRP?=
- =?utf-8?B?U1Zpb0ZXVHdYZ3dOZ1BQQ2MwaGtDRnZacWNZY3V5VUYyUFNBaVQ0d0RwSlM2?=
- =?utf-8?B?aXYyOEpLV1NBYVoyRVhLcUVEbm5SbUFNR1YvRzRoUkpyQTY5dUhlczlEQ05n?=
- =?utf-8?B?N0RTaVlxTEcyanVEd3lyZmRsTmVxVVJKUWRLQWxFUmxiT2FPeVN0YXpnNVhO?=
- =?utf-8?B?MWwyMEU1dWxlMGlaRWNXcldiVUFGeWtqQWFLS3gwV0JTZHRhSUJwZThSTnlr?=
- =?utf-8?B?WUNxK3NOMmYvR1FKdHo3VXZtd2R4bXZ0K0JKZDVlYzlpRm5NWVp6QXJhZFc1?=
- =?utf-8?B?RVZNeEtrVXVyWUJ6dEtIUCs0NXRmVlUwUW1YOUlHbnBiOWZJTERSQlA2aUwr?=
- =?utf-8?B?ZkZrbUt0OFJXOFVCSndvVExPZGJYK1R3dnJJOHhWdVhlQ3ZQdjFsanBmOVpN?=
- =?utf-8?B?NGVlalR3Yzh3YU5PNS93V2dNMXcwVDUvNUVmN2ZrWis2YmNvTFZUaUVMcFpP?=
- =?utf-8?B?Vk91U2xQTzNGZjNJZjBBSm9wMCsrYVFiVmFjOW8wK3ZTWUdvQVBOOHZrblF3?=
- =?utf-8?B?RnVEMnlZNDl2cHpicU5lbFY5Z0ZUcWROOTFiZENycDlpeTJQNEZ1aUVmLzlP?=
- =?utf-8?Q?hGp4=3D?=
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(36860700013)(7416014)(376014);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cd387e37-5a65-4c32-cd20-08dda8ef4b67
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5273.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jun 2025 13:53:07.4842
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jun 2025 15:51:57.3951
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Network-Message-Id: fda30669-1b97-42f7-46b6-08dda8ffe561
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0AwwTFnAFhsf8qlVEa1OGSCuhTKsuvT46CQoZNh5kjDQQkKK09cjqtdPIXk2HNE1
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4151
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CY4PEPF0000EE3F.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8148
 
-
-
-On 11/06/2025 15:49, Stewart Hildebrand wrote:
-> On 6/10/25 03:27, Orzel, Michal wrote:
->> On 09/06/2025 20:34, Stewart Hildebrand wrote:
->>> Similarly to fba1b0974dd8, when a device is passed through to a
->>> direct-map dom0less domU, the xen,reg ranges may overlap with the
->>> extended regions. Remove xen,reg from direct-map domU extended regions.
->>>
->>> Take the opportunity to update the comment ahead of find_memory_holes().
->>>
->>> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
->>> ---
->>> v3->v4:
->>> * conditionally allocate xen_reg
->>> * use rangeset_report_ranges()
->>> * make find_unallocated_memory() cope with NULL entry
->>>
->>> v2->v3:
->>> * new patch
->>> ---
->>>  xen/arch/arm/domain_build.c           | 77 +++++++++++++++++++++++++--
->>>  xen/common/device-tree/domain-build.c |  5 ++
->>>  2 files changed, 77 insertions(+), 5 deletions(-)
->>>
->>> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
->>> index 590f38e52053..6632191cf602 100644
->>> --- a/xen/arch/arm/domain_build.c
->>> +++ b/xen/arch/arm/domain_build.c
->>> @@ -792,15 +792,17 @@ static int __init handle_pci_range(const struct dt_device_node *dev,
->>>  }
->>>  
->>>  /*
->>> - * Find the holes in the Host DT which can be exposed to Dom0 as extended
->>> - * regions for the special memory mappings. In order to calculate regions
->>> - * we exclude every addressable memory region described by "reg" and "ranges"
->>> - * properties from the maximum possible addressable physical memory range:
->>> + * Find the holes in the Host DT which can be exposed to Dom0 or a direct-map
->>> + * domU as extended regions for the special memory mappings. In order to
->>> + * calculate regions we exclude every addressable memory region described by
->>> + * "reg" and "ranges" properties from the maximum possible addressable physical
->>> + * memory range:
->>>   * - MMIO
->>>   * - Host RAM
->>>   * - PCI aperture
->>>   * - Static shared memory regions, which are described by special property
->>>   *   "xen,shared-mem"
->>> + * - xen,reg mappings
->>>   */
->>>  static int __init find_memory_holes(const struct kernel_info *kinfo,
->>>                                      struct membanks *ext_regions)
->>> @@ -882,6 +884,13 @@ static int __init find_memory_holes(const struct kernel_info *kinfo,
->>>          }
->>>      }
->>>  
->>> +    if ( kinfo->xen_reg_assigned )
->>> +    {
->>> +        res = rangeset_subtract(mem_holes, kinfo->xen_reg_assigned);
->>> +        if ( res )
->>> +            goto out;
->>> +    }
->>> +
->>>      start = 0;
->>>      end = (1ULL << p2m_ipa_bits) - 1;
->>>      res = rangeset_report_ranges(mem_holes, PFN_DOWN(start), PFN_DOWN(end),
->>> @@ -962,11 +971,48 @@ static int __init find_domU_holes(const struct kernel_info *kinfo,
->>>      return res;
->>>  }
->>>  
->>> +static int __init count(unsigned long s, unsigned long e, void *data)
->>> +{
->>> +    unsigned int *cnt = data;
->>> +
->>> +    (*cnt)++;
->>> +
->>> +    return 0;
->>> +}
->>> +
->>> +static int __init rangeset_to_membank(unsigned long s_gfn, unsigned long e_gfn,
->>> +                                      void *data)
->>> +{
->>> +    struct membanks *membank = data;
->>> +    paddr_t s = pfn_to_paddr(s_gfn);
->>> +    paddr_t e = pfn_to_paddr(e_gfn + 1) - 1;
->> Why do you subtract 1 here if ...
+On 2025-06-11 09:02, Jan Beulich wrote:
+> On 11.06.2025 00:57, Jason Andryuk wrote:
+>> Xen includes disctinct concepts of a control domain (privileged) and a
+>> hardware domain, but there is only a single XSM_PRIV check.  For dom0
+>> this is not an issue as they are one and the same.
 >>
->>> +
->>> +    if ( membank->nr_banks >= membank->max_banks )
->>> +        return 0;
->>> +
->>> +    membank->bank[membank->nr_banks].start = s;
->>> +    membank->bank[membank->nr_banks].size = e - s + 1;
->> you add it again here.
+>> With hyperlaunch and its build capabilities, a non-privileged hwdom and a
+>> privileged control domain should be possible.  Today the hwdom fails the
+>> XSM_PRIV checks for hardware-related hooks which it should be allowed
+>> access to.
+>>
+>> Introduce XSM_HW_PRIV, and use it to mark many of the physdev_op and
+>> platform_op.  The hwdom is allowed access for XSM_HW_PRIV.
+>>
+>> Make XSM_HW_PRIV a new privilege level that is given to the hardware
+>> domain, but is not exclusive.  The control domain can still execute
+>> XSM_HW_PRIV commands.  This is a little questionable since it's unclear
+>> how the control domain can meaningfully execute them.  But this approach
+>> is chosen to maintain the increasing privileges and keep control domain
+>> fully privileged.
 > 
-> To be consistent with add_ext_regions() and add_hwdom_free_regions(),
-> but I suppose there's no need for that. I'll drop the extraneous -1 and
-> +1.
-> 
->>> +    membank->nr_banks++;
->>> +
->>> +    return 0;
->>> +}
->>> +
->>>  static int __init find_host_extended_regions(const struct kernel_info *kinfo,
->>>                                               struct membanks *ext_regions)
->>>  {
->>>      int res;
->>>      struct membanks *gnttab = membanks_xzalloc(1, MEMORY);
->>> +    struct membanks *xen_reg =
->>> +        kinfo->xen_reg_assigned
->>> +        ? ({
->>> +            unsigned int xen_reg_cnt = 0;
->>> +
->>> +            rangeset_report_ranges(kinfo->xen_reg_assigned, 0,
->>> +                                   PFN_DOWN((1ULL << p2m_ipa_bits) - 1), count,
->>> +                                   &xen_reg_cnt);
->> This does not look really nice with ({. Why can't we create a helper function to
->> report the count for xen_reg_assigned and call it here? You could then also open
->> code your 'count' function that is not used by anything else and is quite ambiguous.
-> 
-> If I'm reading this right, I think you're suggesting something like this
-> (in domain_build.c):
-> 
-> static unsigned int __init count_ranges(struct rangeset *r)
-> {
->     unsigned int xen_reg_cnt = 0;
-> 
->     rangeset_report_ranges(r,
->                            0,
->                            PFN_DOWN((1ULL << p2m_ipa_bits) - 1),
->                            ({
->                                int count(unsigned long s, unsigned long e, void *data)
->                                {
->                                    unsigned int *cnt = data;
-> 
->                                    (*cnt)++;
-> 
->                                    return 0;
->                                }
->                                count;
->                            }),
->                            &xen_reg_cnt);
-> 
->     return xen_reg_cnt;
-> }
-> 
-> ...
-> 
->     struct membanks *xen_reg =
->         kinfo->xen_reg_assigned
->         ? membanks_xzalloc(count_ranges(kinfo->xen_reg_assigned), MEMORY)
->         : NULL;
-> 
-> 
-> However, the open-coded/anonymous count function, aside from being a
-> compiler extension, doesn't seem to play well with __init. As written,
-> this doesn't link:
-Sorry, I don't know why I wrote to open code count(). In conclusion my remark
-was to place this code in a separate function to avoid ({ in
-find_host_extended_regions(). So there will be count() helper and count_ranges().
+> I consider this conceptually wrong. "Control" aiui refers to software
+> (e.g. VMs or system-wide settings), but there ought to be a (pretty?)
+> clear boundary between control and hardware domains, imo. As to
+> "pretty" - should any overlap be necessary (xms_machine_memory_map()
+> comes to mind), such would need handling specially then, I think. At
+> the same time: The more of an overlap there is, the less clear it is
+> why the two want/need separating in the first place.
 
-~Michal
+So you are in favor of splitting control and hardware into distinct 
+sets?  I am okay with this.  I implemented that originally, but I 
+started doubting it.  Mainly, should control be denied any permission?
 
+We aren't using the toolstack to build domains - dom0less or Hyperlaunch 
+handles that.  This avoids issues that might arise from running the 
+toolstack.
+
+Thanks for your feedback.
+
+-Jason
 
