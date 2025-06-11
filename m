@@ -2,39 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16032AD5A6A
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Jun 2025 17:28:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1011888.1390418 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 32FFBAD5A92
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Jun 2025 17:34:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1011894.1390429 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uPNN5-0001tq-OM; Wed, 11 Jun 2025 15:28:11 +0000
+	id 1uPNSd-0003b9-AB; Wed, 11 Jun 2025 15:33:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1011888.1390418; Wed, 11 Jun 2025 15:28:11 +0000
+Received: by outflank-mailman (output) from mailman id 1011894.1390429; Wed, 11 Jun 2025 15:33:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uPNN5-0001rv-Lk; Wed, 11 Jun 2025 15:28:11 +0000
-Received: by outflank-mailman (input) for mailman id 1011888;
- Wed, 11 Jun 2025 15:28:10 +0000
+	id 1uPNSd-0003Z3-7S; Wed, 11 Jun 2025 15:33:55 +0000
+Received: by outflank-mailman (input) for mailman id 1011894;
+ Wed, 11 Jun 2025 15:33:53 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=zvo0=Y2=gmail.com=demiobenour@srs-se1.protection.inumbo.net>)
- id 1uPNN4-0001rp-GE
- for xen-devel@lists.xenproject.org; Wed, 11 Jun 2025 15:28:10 +0000
-Received: from mail-qk1-x72c.google.com (mail-qk1-x72c.google.com
- [2607:f8b0:4864:20::72c])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Z5UX=Y2=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uPNSb-0003Ye-Mk
+ for xen-devel@lists.xenproject.org; Wed, 11 Jun 2025 15:33:53 +0000
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [2a00:1450:4864:20::330])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ad9bf75d-46d8-11f0-a307-13f23c93f187;
- Wed, 11 Jun 2025 17:28:09 +0200 (CEST)
-Received: by mail-qk1-x72c.google.com with SMTP id
- af79cd13be357-7d38cfa9773so428959285a.2
- for <xen-devel@lists.xenproject.org>; Wed, 11 Jun 2025 08:28:09 -0700 (PDT)
-Received: from [10.138.10.6] ([89.187.178.201])
- by smtp.gmail.com with ESMTPSA id
- af79cd13be357-7d3901b12easm555313385a.67.2025.06.11.08.28.07
- for <xen-devel@lists.xenproject.org>
+ id 79a3bca9-46d9-11f0-a307-13f23c93f187;
+ Wed, 11 Jun 2025 17:33:51 +0200 (CEST)
+Received: by mail-wm1-x330.google.com with SMTP id
+ 5b1f17b1804b1-452f9735424so18946105e9.3
+ for <xen-devel@lists.xenproject.org>; Wed, 11 Jun 2025 08:33:51 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 41be03b00d2f7-b2f5ee6f6desm7406427a12.26.2025.06.11.08.33.47
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 11 Jun 2025 08:28:07 -0700 (PDT)
+ Wed, 11 Jun 2025 08:33:50 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,306 +45,165 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ad9bf75d-46d8-11f0-a307-13f23c93f187
+X-Inumbo-ID: 79a3bca9-46d9-11f0-a307-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1749655688; x=1750260488; darn=lists.xenproject.org;
-        h=in-reply-to:autocrypt:from:content-language:references:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=vF6Eu1t4nl7cgKzHCQTD+/J0Zt6/0RcO48KFHU6gbsA=;
-        b=fjg3lxteYbKwKrmfiy1NhTU2hMW7OBgHDEBaFVb2tIzm2Gfg6mvVQDzikJ6E22HN2V
-         O+dTXWznt7UqtBPbNQiF+pTLBUPIdKJ+5FN7txi7Mp6UgMRIM/MTcDBOLV7zQja0NHbR
-         BpcxawZ8o/nuLkKtoOLBvmXsLwzEJzEozx4O0LEkXwYjXG0TNz0QCt6qFIKvDloDMVOr
-         UemLdx8UN3j1/cT9ebKFN8e6ZIidqieeWakoBr6uPKhWR0RS92XHAMBYdZ5KtxMgX0Wi
-         zJdFG6Vd9KvTKP/fLIp3NhSPyLZcglWqypxemURbEOg7/vpCGSsjTdSJF5J94qe0Cgaw
-         QCuA==
+        d=suse.com; s=google; t=1749656031; x=1750260831; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=p6IijF46VP9n2iEZKPwXmjPunatZLRSO+wk+fQ8PcOw=;
+        b=W7cH9jpOFW4pGDEWulc3CGJrwJHUpPEtDzKCsxKriPIIT1NPtJDgE6eLM9VhTadTpA
+         A3LPcvDUGRTsDkg7/BscK6bon4e7cbCMUudSXNSBIxYsouOf//Bp2nmR1E1GdPYoSdEp
+         kfFvJAFXKDGTWFpZDFY9M0UxVY6vMzidPolHJU+oXLjIPyLQUKTXpVTft7ZCwVYMBTEy
+         xNKHajweOIaAOzOc7+s4vMyBiRjW7dwvVxfWuub8GNORYw0jBQP9LrRnOOIw+TmrncE7
+         1aS6Ne12Z49Ej26SZB4kBQ/qh23d7clZinYRpnE+5CkORAyybHowYX0TmOq70XP4PjUC
+         lAwA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749655688; x=1750260488;
-        h=in-reply-to:autocrypt:from:content-language:references:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=vF6Eu1t4nl7cgKzHCQTD+/J0Zt6/0RcO48KFHU6gbsA=;
-        b=r1Zk3BVRmJ6wcQRD5W5bNQkCZvMlyCe1niXU+OSebCd9/Pbi1Napv30aLGjZGM+1Lc
-         1ukG8BF6Iv6m8ybUDwLJOHrx3QP3l0/vsgjKxwk2E0B2n227ZH6ZscdQDt49V1R3Yj+t
-         36gXqiwOGaZWABR4MyONHr5+3BwhRPQol5beOP4FYyFzEYN3tjOjOXiR4zhNeat4AiuG
-         fOQyfcO7Cf5ycGVtVMliu5DE8XncGGIFGG+c2kwB2jELWA45uC0h1PR45upEVvsPxyf1
-         X7Ncskku1uvYCo8ChpybDliowQ3qDMdvmIbHWGy85TMnMpnzhQI8XgPELEd8roq/l1yR
-         n0lg==
-X-Gm-Message-State: AOJu0Yxe1EfZZIG7tJHeDsgRTHmRmvmGhfhqahYQjAvNEq2Jp2Y14XT4
-	/IurWeWkG3tiQWh1QdO57nJegxjPczaH45v/e7FgqVQciUPGtFMnr9SMp/iTcw==
-X-Gm-Gg: ASbGncs+CVylwe5i0ac72zBYJ4D6vUlx/O8R/jpTh90ghXODsTaunJYIVdw+l+5yzL6
-	6poPecLfkxj44+Sf6tNfYI9jCuxVSU+b2jMYGwXbG28tYz5eeRVWn+pJhA28eIe0VQqPJZpG97K
-	HdavmYrn8YLGfDYr8fGHAKO/3b9I3JlnvrwoOWZJnGGA0B/eToLjxgEkDBdl+CA51IPwDsNDWAe
-	Gq9ZsoQVDkOOKHhnwYi1dG1+Iphu4iRJU3Ufv4F5glCDJCDeJz5NSVpNCwG5G5hKa/Ivgy++rj4
-	1kNlybwRHGQUPXb+xxWleRkuPbrfLVo8fqmoTNBKuVX55IM/4nhY+Udp+GCN7XUgNm4=
-X-Google-Smtp-Source: AGHT+IFEE0C7q4UYbVk9Wh8w7hDd3dSYplNi08yYIkg/FlCM+mOW87dz4HapLnx9f9RNtFSZo6X75w==
-X-Received: by 2002:a05:620a:2411:b0:7d2:25df:8127 with SMTP id af79cd13be357-7d3a88062famr486025185a.3.1749655688163;
-        Wed, 11 Jun 2025 08:28:08 -0700 (PDT)
-Message-ID: <d6e0e6e6-471a-4887-9e8f-048870ef5a9a@gmail.com>
-Date: Wed, 11 Jun 2025 11:27:52 -0400
+        d=1e100.net; s=20230601; t=1749656031; x=1750260831;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=p6IijF46VP9n2iEZKPwXmjPunatZLRSO+wk+fQ8PcOw=;
+        b=e4Wy5FwI3KeRTitV9YxrkST27cx8FGBQJ8GSQFvZYFRt45BOO4PrJw99qYlhXYCO0n
+         gnY7g9jWpsxAyDS8xbBsOXJ63c0tHpivdS0DHNku6gko2OG08z71HMwOxxLQimvdkQVF
+         O74Ev+pSBkJtT9E7wxSxgRuODxHBk91JK0iWAsmXqrP8u8DubFo0zH6msk+SKkWNiP5T
+         bRI0sszNCRKQeg4/t627W0KoykCDt270AY1aLrVURZW86K7OOPslfFiw9r/Z3Ar4jNEn
+         vX3aiCkvC1ehDSvCCVisnW3IPvFxivL9/6P7ZsSOYvM2HWmJA9UMNGRCGOtLQxeU8/4b
+         GLEw==
+X-Forwarded-Encrypted: i=1; AJvYcCVHIUoWWjDGO0bgNKtHPNGvUXiQPjg/IvlzB3OeG75+vR93brFLLwxwPZj1bLsAjjaV+uLMwLASA0g=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Ywx8E9AEYaePEsQJWdVx1Z1+5xuHOFKpLWdY4LY1K659iiRFxxT
+	70x6+5Y05Hju7Y8u0Dq5Z0vs9kiibV2uFqN9EXx5nlsuAqdJpAM7GiGP1Ddyu7KBQg==
+X-Gm-Gg: ASbGncvWTHKZQHbFKsLQcuRI11lXZlJK8MngZZ3ehVLSJnQgYdO+Kzg0g7NZvp2XvIk
+	sFdJ7J3AvXztGxcHI1zjK/Laq4EBhhVFNtwSl7CbBf56n5/ccdq/bZZ1ddH95mXdlQNgZb/Wr51
+	8YyQ1V7Un+7sY2OX6QwM8AxiqiPFQPWMv7msMijuTzNFIiOb9LeZ9zZzUf9mCaXGWA6dK+Va5zg
+	G2eGy7TT6WZaSWel5j+cAOLwPemv0vYWGAN1uZTyEmixBc40ZiZyYCpY2PmuIVFXqSFSKsIADo9
+	tydnPKaUyZMZSrJHFwyQAEmnUcouaF/fY6Zr/cSziDNOyX0Exu9JooViwU21CtqRGT4ijXr7vYh
+	T/RYAOjdUpXKkVAekhlMJh/iqFo+gxylEmB61oNNm2GM+ahU=
+X-Google-Smtp-Source: AGHT+IGmL/ZgGEyce42QTh7zlT/kgshY0AoyCu32gzSNc2VUX0HtW3EiQpjEIDNNsZJX41qwnWSkyA==
+X-Received: by 2002:a05:6000:1a8f:b0:3a5:2182:bd17 with SMTP id ffacd0b85a97d-3a55869b80amr2849847f8f.19.1749656030660;
+        Wed, 11 Jun 2025 08:33:50 -0700 (PDT)
+Message-ID: <005a0e3a-dc8f-480f-8bb9-fd8eb164eb02@suse.com>
+Date: Wed, 11 Jun 2025 17:33:44 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen: Strip xen.efi by default
-To: xen-devel@lists.xenproject.org
-References: <20250610101228.24460-1-freddy77@gmail.com>
- <02162717-25de-4ffb-a9c4-bf6d580c43bc@suse.com>
+Subject: Re: [PATCH v5 03/18] xen/cpufreq: extract _PSD info from "struct
+ xen_processor_performance"
+To: Penny Zheng <Penny.Zheng@amd.com>
+Cc: ray.huang@amd.com, xen-devel@lists.xenproject.org
+References: <20250527084833.338427-1-Penny.Zheng@amd.com>
+ <20250527084833.338427-4-Penny.Zheng@amd.com>
 Content-Language: en-US
-From: Demi Marie Obenour <demiobenour@gmail.com>
-Autocrypt: addr=demiobenour@gmail.com; keydata=
- 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
- +MYSfkEjBz0E8CLOcAw7JIwAaeBT
-In-Reply-To: <02162717-25de-4ffb-a9c4-bf6d580c43bc@suse.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------SZh0OtwD2hklaDBkFlJdoMtq"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------SZh0OtwD2hklaDBkFlJdoMtq
-Content-Type: multipart/mixed; boundary="------------V3KwT0mpNvkhMqI3MbZH4XUh";
- protected-headers="v1"
-From: Demi Marie Obenour <demiobenour@gmail.com>
-To: xen-devel@lists.xenproject.org
-Message-ID: <d6e0e6e6-471a-4887-9e8f-048870ef5a9a@gmail.com>
-Subject: Re: [PATCH] xen: Strip xen.efi by default
-References: <20250610101228.24460-1-freddy77@gmail.com>
- <02162717-25de-4ffb-a9c4-bf6d580c43bc@suse.com>
-In-Reply-To: <02162717-25de-4ffb-a9c4-bf6d580c43bc@suse.com>
-
---------------V3KwT0mpNvkhMqI3MbZH4XUh
-Content-Type: multipart/mixed; boundary="------------wWK53dGH2ECQccZtj6osH3oh"
-
---------------wWK53dGH2ECQccZtj6osH3oh
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20250527084833.338427-4-Penny.Zheng@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
 
-On 6/11/25 05:35, Jan Beulich wrote:
-> On 10.06.2025 12:12, Frediano Ziglio wrote:
->> For xen.gz file we strip all symbols and have an additional
->> xen-syms file version with all symbols.
->> Make xen.efi more coherent stripping all symbols too.
->=20
-> And the other difference (compressed vs not) still remains.
->=20
->> xen.efi.elf can be used for debugging.
->=20
-> Hmm, that's the result of ...
->=20
->> --- a/xen/arch/x86/Makefile
->> +++ b/xen/arch/x86/Makefile
->> @@ -238,6 +238,7 @@ endif
->>  		> $@.map
->>  ifeq ($(CONFIG_DEBUG_INFO),y)
->>  	$(if $(filter --strip-debug,$(EFI_LDFLAGS)),:$(space))$(OBJCOPY) -O =
-elf64-x86-64 $@ $@.elf
->> +	$(if $(filter --strip-debug,$(EFI_LDFLAGS)),:$(space))$(STRIP) $@
->>  endif
->>  	rm -f $(dot-target).[0-9]* $(@D)/..$(@F).[0-9]*
->>  ifeq ($(CONFIG_XEN_IBT),y)
->=20
-> ... objcopy. Having looked at the involved code in that utility, I mist=
-rust its
-> output from such a conversion to really be an exact representation of t=
-he input.
-> IOW I'd much rather use the original file. As a possible compromise, co=
-uld we
-> perhaps merely strip debug info, but retain the symbol table, matching =
-the
-> prior default for $(efi-strip-opt)?
+On 27.05.2025 10:48, Penny Zheng wrote:
+> @@ -201,14 +221,14 @@ int cpufreq_add_cpu(unsigned int cpu)
+>      struct cpufreq_dom *cpufreq_dom = NULL;
+>      struct cpufreq_policy new_policy;
+>      struct cpufreq_policy *policy;
+> -    struct processor_performance *perf;
+> +    const struct xen_psd_package *domain_info;
+> +    const struct xen_psd_package **domain_info_ptr = &domain_info;
 
-The string table and all debug symbols need to be stripped.  This means n=
-o
-sections longer than 8 bytes and no debug information at all.  This is a
-requirement of the Portable Executable specification, and I really do not=
+Why's this latter variable needed? Can't you simply ...
 
-want this to be messed with given UEFI Secure Boot requirements.
---=20
-Sincerely,
-Demi Marie Obenour (she/her/hers)
---------------wWK53dGH2ECQccZtj6osH3oh
-Content-Type: application/pgp-keys; name="OpenPGP_0xB288B55FFF9C22C1.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB288B55FFF9C22C1.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+> +    uint32_t shared_type;
+>  
+>      /* to protect the case when Px was not controlled by xen */
+>      if ( !processor_pminfo[cpu] || !cpu_online(cpu) )
+>          return -EINVAL;
+>  
+> -    perf = &processor_pminfo[cpu]->perf;
+> -
+>      if ( !(processor_pminfo[cpu]->init & XEN_PX_INIT) )
+>          return -EINVAL;
+>  
+> @@ -218,10 +238,15 @@ int cpufreq_add_cpu(unsigned int cpu)
+>      if (per_cpu(cpufreq_cpu_policy, cpu))
+>          return 0;
+>  
+> -    if (perf->shared_type == CPUFREQ_SHARED_TYPE_HW)
+> +    ret = get_psd_info(cpu, &shared_type, domain_info_ptr);
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+... pass &domain_info here, ...
 
-xsFNBFp+A0oBEADffj6anl9/BHhUSxGTICeVl2tob7hPDdhHNgPR4C8xlYt5q49y
-B+l2nipdaq+4Gk6FZfqC825TKl7eRpUjMriwle4r3R0ydSIGcy4M6eb0IcxmuPYf
-bWpr/si88QKgyGSVZ7GeNW1UnzTdhYHuFlk8dBSmB1fzhEYEk0RcJqg4AKoq6/3/
-UorR+FaSuVwT7rqzGrTlscnTDlPWgRzrQ3jssesI7sZLm82E3pJSgaUoCdCOlL7M
-MPCJwI8JpPlBedRpe9tfVyfu3euTPLPxwcV3L/cfWPGSL4PofBtB8NUU6QwYiQ9H
-zx4xOyn67zW73/G0Q2vPPRst8LBDqlxLjbtx/WLR6h3nBc3eyuZ+q62HS1pJ5EvU
-T1vjyJ1ySrqtUXWQ4XlZyoEFUfpJxJoN0A9HCxmHGVckzTRl5FMWo8TCniHynNXs
-BtDQbabt7aNEOaAJdE7to0AH3T/Bvwzcp0ZJtBk0EM6YeMLtotUut7h2Bkg1b//r
-6bTBswMBXVJ5H44Qf0+eKeUg7whSC9qpYOzzrm7+0r9F5u3qF8ZTx55TJc2g656C
-9a1P1MYVysLvkLvS4H+crmxA/i08Tc1h+x9RRvqba4lSzZ6/Tmt60DPM5Sc4R0nS
-m9BBff0Nm0bSNRS8InXdO1Aq3362QKX2NOwcL5YaStwODNyZUqF7izjK4QARAQAB
-zTxEZW1pIE9iZW5vdXIgKElUTCBFbWFpbCBLZXkpIDxhdGhlbmFAaW52aXNpYmxl
-dGhpbmdzbGFiLmNvbT7CwY4EEwEIADgWIQR2h02fEza6IlkHHHGyiLVf/5wiwQUC
-X6YJvQIbAwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgAAKCRCyiLVf/5wiwWRhD/0Y
-R+YYC5Kduv/2LBgQJIygMsFiRHbR4+tWXuTFqgrxxFSlMktZ6gQrQCWe38WnOXkB
-oY6n/5lSJdfnuGd2UagZ/9dkaGMUkqt+5WshLFly4BnP7pSsWReKgMP7etRTwn3S
-zk1OwFx2lzY1EnnconPLfPBc6rWG2moA6l0WX+3WNR1B1ndqpl2hPSjT2jUCBWDV
-rGOUSX7r5f1WgtBeNYnEXPBCUUM51pFGESmfHIXQrqFDA7nBNiIVFDJTmQzuEqIy
-Jl67pKNgooij5mKzRhFKHfjLRAH4mmWZlB9UjDStAfFBAoDFHwd1HL5VQCNQdqEc
-/9lZDApqWuCPadZN+pGouqLysesIYsNxUhJ7dtWOWHl0vs7/3qkWmWun/2uOJMQh
-ra2u8nA9g91FbOobWqjrDd6x3ZJoGQf4zLqjmn/P514gb697788e573WN/MpQ5XI
-Fl7aM2d6/GJiq6LC9T2gSUW4rbPBiqOCeiUx7Kd/sVm41p9TOA7fEG4bYddCfDsN
-xaQJH6VRK3NOuBUGeL+iQEVF5Xs6Yp+U+jwvv2M5Lel3EqAYo5xXTx4ls0xaxDCu
-fudcAh8CMMqx3fguSb7Mi31WlnZpk0fDuWQVNKyDP7lYpwc4nCCGNKCj622ZSocH
-AcQmX28L8pJdLYacv9pU3jPy4fHcQYvmTavTqowGnM08RGVtaSBNYXJpZSBPYmVu
-b3VyIChsb3ZlciBvZiBjb2RpbmcpIDxkZW1pb2Jlbm91ckBnbWFpbC5jb20+wsF4
-BBMBAgAiBQJafgNKAhsDBgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRCyiLVf
-/5wiwYa/EACv8a2+MMou9cSCNoZBQaU+fTmyzft9hUE+0d5W2UY1RY3OsjFIzm9R
-/4SVccfsqOYLEo+S0vQMIIIqFEq3FCpXXwPzyimotps05VA8U3Bd7yseojFygOgK
-sAMOAee2RCaDDOnoJue01dfZMzzHPO/TVdp3OvnpWipfv5G1Xg96rwbhMLE3tg6N
-xwAHa31Bv4/Xq8CJOoIWvx6fcmZQpz01/lSvsYn0KrfEbTKkuUf0vM9JrCTCP2oz
-VNN5BYzqaq2M4r+jmSyeXLim922VOWqGkUEQ85BSEemqrRS06IU6NtEMsF8EWt/b
-hWjk/9GDKTcnpdJHTrMxTspExBiNrvpI2t+YPU5B/dJJAUxvmhFrbSIbdB8umBZs
-I3AMYrEmpAbh5x7jEjoskUC7uN3o9vpg1oCLS2ePDLtAtyBtbHnkA4xGD7ar8mem
-xpH9lY/i+sC6CyyIUWcUDnnagKyJP0m9ks0GLsTeOCA0bft2XA6rD6aaCnMUsndT
-ctrab42CV5XypjmC4U1rPJ8JQJUh1/3P48/8sMH+3krxpJ06KNWNFaUbaMTGiltZ
-7x9DngklSYrX0T+2G4kVXNmjaljwkoLahwLla2gUWwBSyofXdqyhQdwZsp01KXNQ
-UCyT/Pg+aDcm/E7OMV3d4lf7g/CSxiX2GSEe6BlhSz+Lmd7ZJ3g32M1ARGVtaSBN
-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
-EtJuZYM5blWncBOJCoWMnBEcTEo/viU3GgcVRw=3D=3D
-=3Dx94R
------END PGP PUBLIC KEY BLOCK-----
+> +    if ( ret )
+> +        return ret;
+> +    domain_info = *domain_info_ptr;
 
---------------wWK53dGH2ECQccZtj6osH3oh--
+... also eliminating the need for this assignment? (Same again further down.)
 
---------------V3KwT0mpNvkhMqI3MbZH4XUh--
+> @@ -464,6 +505,17 @@ static void print_PPC(unsigned int platform_limit)
+>      printk("\t_PPC: %d\n", platform_limit);
+>  }
+>  
+> +static int check_psd_pminfo(uint32_t shared_type)
+> +{
+> +    /* check domain coordination */
 
---------------SZh0OtwD2hklaDBkFlJdoMtq
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+Nit: Comment style (wants to start with a capital letter). Yes, there are many
+bad examples in this file (some even visible in patch context here), but in new
+code style guidelines should be followed.
 
------BEGIN PGP SIGNATURE-----
+> +    if ( shared_type != CPUFREQ_SHARED_TYPE_ALL &&
+> +         shared_type != CPUFREQ_SHARED_TYPE_ANY &&
+> +         shared_type != CPUFREQ_SHARED_TYPE_HW )
+> +        return -EINVAL;
+> +
+> +    return 0;
+> +}
 
-iQIzBAEBCAAdFiEEopQtqVJW1aeuo9/sszaHOrMp8lMFAmhJoIIACgkQszaHOrMp
-8lN+CQ//UYz/TCZeZPLhFHcyHIK8P4/TRFzmBUjrw1+wxv3fcESlejDwxRYzw56r
-J6L7isAshBbr0CML/t6nFhwug2PwZDDlQ6zmOw099cIGKINGfUjTH2+BbtlOiLX1
-IFEEBu74FFKVf1ouLi9LCXb00uhiZLh37RGUX5gAMGqfuTp4RS0vWJUiqPrzoHmN
-JhUj1ec3EATNR070CY7HGDMbM6Odim9a4hxffK940m2lVPwCsLm6m+BnXe6yud/w
-oVFeKvXTo/iNwu5v35LV0XgwUp4cCrZ3YifXpzGrhCdc7RyzPNLNkWyzBKWTpph2
-hSHUw35PNIs9R8iKsstXLkPIl8fy2eSI6AHF410rnlHJF4RpX3WYoLQRFvTaVDTK
-MDVSoVtdGB8vYkq/AGYAwfFJmDGDxVGwrClGxc9CF3NO4XxmcLhIBUMfm0ImNB7j
-kK5Ku2qvB4NE4ijepDa1gHY4WfApkN5a+NHLlG3adulPRoVVWOU7FOkz+XiNLsp2
-3CO+PJx//4BzLGUBK3pJdhDjpm+qE5h8BWVaOwXCjh8levC94sPFtNfSL+Q6TGy8
-Gs8RJ0htxLhkKadEhPuSxI/2KImYZrqHn0uWYwG9pKUadou31Vcn2LAOQrDBmbec
-dQbl5tMUw6ewrgnujW4Iw1QMqjyDXx42YVmaefzyb6tzlXO5Aag=
-=g8sL
------END PGP SIGNATURE-----
+Looks as if the function would rather want to return a boolean value.
 
---------------SZh0OtwD2hklaDBkFlJdoMtq--
+And anyway - I can't really spot the need for this helper, as I also can't
+spot ...
+
+> @@ -545,14 +597,9 @@ int set_px_pminfo(uint32_t acpi_id, struct xen_processor_performance *perf)
+>  
+>      if ( perf->flags & XEN_PX_PSD )
+>      {
+> -        /* check domain coordination */
+> -        if ( perf->shared_type != CPUFREQ_SHARED_TYPE_ALL &&
+> -             perf->shared_type != CPUFREQ_SHARED_TYPE_ANY &&
+> -             perf->shared_type != CPUFREQ_SHARED_TYPE_HW )
+> -        {
+> -            ret = -EINVAL;
+> +        ret = check_psd_pminfo(perf->shared_type);
+> +        if ( ret )
+>              goto out;
+> -        }
+>  
+>          pxpt->shared_type = perf->shared_type;
+>          memcpy(&pxpt->domain_info, &perf->domain_info,
+
+... the need for this change. And even if there is a need, a follow-on
+question would be how this relates to the subject of this patch.
+
+Jan
 
