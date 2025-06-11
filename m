@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F1457AD4E75
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Jun 2025 10:32:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1011360.1389735 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3571CAD4E7F
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Jun 2025 10:33:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1011369.1389745 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uPGsV-0002yQ-0u; Wed, 11 Jun 2025 08:32:11 +0000
+	id 1uPGtp-0003XQ-Eh; Wed, 11 Jun 2025 08:33:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1011360.1389735; Wed, 11 Jun 2025 08:32:10 +0000
+Received: by outflank-mailman (output) from mailman id 1011369.1389745; Wed, 11 Jun 2025 08:33:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uPGsU-0002vt-Ts; Wed, 11 Jun 2025 08:32:10 +0000
-Received: by outflank-mailman (input) for mailman id 1011360;
- Wed, 11 Jun 2025 08:32:09 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uPGtp-0003VC-AT; Wed, 11 Jun 2025 08:33:33 +0000
+Received: by outflank-mailman (input) for mailman id 1011369;
+ Wed, 11 Jun 2025 08:33:31 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Z5UX=Y2=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uPGsT-0002vn-6j
- for xen-devel@lists.xenproject.org; Wed, 11 Jun 2025 08:32:09 +0000
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [2a00:1450:4864:20::32b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8eb90bc8-469e-11f0-a307-13f23c93f187;
- Wed, 11 Jun 2025 10:32:06 +0200 (CEST)
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-451ebd3d149so40803825e9.2
- for <xen-devel@lists.xenproject.org>; Wed, 11 Jun 2025 01:32:06 -0700 (PDT)
+ id 1uPGtn-0003V4-82
+ for xen-devel@lists.xenproject.org; Wed, 11 Jun 2025 08:33:31 +0000
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [2a00:1450:4864:20::433])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c030e377-469e-11f0-b894-0df219b8e170;
+ Wed, 11 Jun 2025 10:33:29 +0200 (CEST)
+Received: by mail-wr1-x433.google.com with SMTP id
+ ffacd0b85a97d-3a528243636so3831683f8f.3
+ for <xen-devel@lists.xenproject.org>; Wed, 11 Jun 2025 01:33:29 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-236032fc7f4sm82694005ad.109.2025.06.11.01.31.58
+ d2e1a72fcca58-7482b0ea3cdsm8705075b3a.159.2025.06.11.01.33.23
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 11 Jun 2025 01:32:04 -0700 (PDT)
+ Wed, 11 Jun 2025 01:33:28 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,61 +45,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8eb90bc8-469e-11f0-a307-13f23c93f187
+X-Inumbo-ID: c030e377-469e-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1749630726; x=1750235526; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1749630809; x=1750235609; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Ht4BM9M3IWnU0USmV6YI+sH1g0X0CQNgkr2XSV0+iEU=;
-        b=ZXWheuis9GThvJUqShBDGNYp6ZcsbF9MKl0Y88yuMLM8GkEj0kC07+QMfUeCG8tHfs
-         egR9QTF62UKVf7L8iQ/zXzmuMjfRVr9bF1pjFwMVUjqLxlvZx5QJKV8sLI5zR0OUmGrW
-         W0EKrZD1zHv1lJ2t/KbW6HZpBjDijnuoAwx3839xGbd8vUY1aeHM1+HeSH2sJWPNPqPE
-         mO6nThldJQQUIvq8ykZJjrJ2kDhedIz0LnYggx/aUyurgQvOgEXy81BQ/5J+dzDb8YCo
-         RlPiX6D0rhICjOz1wW0OaAtcZM5l3bgexVNjM0RLLbbb3BwSxOuH0PN7Z1sZpGpftqr8
-         wgbw==
+        bh=iCvriiNkBzSZpS5vMPEQuI5NveEm5SIlC9r8udGlOjA=;
+        b=JpaQEWD04iMc2Ythgzs+8rHP43AOxCjz/nu2r4LEqo8MLGonA2LGIA4eFEc9U48ii1
+         w939ey0tNEYWgYzCPwwkRNu1uw9f3uzT8aVG3of+IXWw2QUZkiAuLjgbz/gUigej4k9Y
+         XHz7SmQDuPlA3x3D+RBIrQWfzSQ/UMBGIRqF0AbPycMaRdUxk3sw9RV6luOTrsxEQYTf
+         a4GZm2ACCm46jQiUnLK3dRa+yBdusOsVUd6ZHoO+7jFQftVo/EsdMGn00+Keu6/3eZso
+         v3NSXUhA0TLz85iZhsMI/mgl6+EfdI9N7pTKc6iZNuJ3DInxwN0U9bjXDOO5o7Emldz+
+         AMXA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749630726; x=1750235526;
+        d=1e100.net; s=20230601; t=1749630809; x=1750235609;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Ht4BM9M3IWnU0USmV6YI+sH1g0X0CQNgkr2XSV0+iEU=;
-        b=pj5cWOcTfRu+n9FjWrGdK7No7Oz5Ea/CqTViUROnLZSuerZeSYZmTvlkFOE0U9MDCL
-         QYvYG+hBWGKrg2yy7Cit+5lGsZCLxjc2uNDeRb1Cohcn3uq2siQGu/+n+X33U3bczE4D
-         S5nYNrAg2Yup4UlRsr9zT0ObN/H8Mvkn3KjI5ANMKcI90MRr+6J8slDgmNW2hJiTWo73
-         hGjnJOuRinEMdAFxjoxDrC/OB6A4pKmXD/C800jjn4j1+aGgd2hJuHua8nrfdcA57dop
-         LYguAWMtX+yZs71LzE78f3iNbSzlsJe5BMo+jT0yX/aWj4Ix93fDvcoORsxTrZoTPX0e
-         bQBw==
-X-Forwarded-Encrypted: i=1; AJvYcCULSUTt418ZC6OLwNSoGtSJhMzwrZQAjN+SWjAT+ZZezwD/ST8kbVNH97dQQnjXx2j+xM9j3lG40Sw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz4iTz/AzNh6/pEqn2h/RvtdDSqzeW9Jw4ECNZlmnY/n8aaI/Kz
-	ouKWDCu02i7TQuoep7+WBG3eVAHH8pB/3db8FhuZ6rsrbKA4dtRG6lMzo2hk4DS66g==
-X-Gm-Gg: ASbGnctp/WYTGCgU7LYbxBpkubIF1bhUsjQOsmp9aTcNGE6hye3j4L5aXuExmfjrfqt
-	NqGSgB7rvoN11vOS36huN6ue2cMrCTXugW3gpVvelappUNeKkAq91+tDtuUcqNwfsgSN+7fjz3+
-	BB3pjkRAGDGj0/QCPCU80qWeNBNeFq81pju9p59XRjlRz9VDo2/ij9wGK0tjsKJbsq221FqWlXm
-	VliCufUKhkg3Ux0s3gIj0R2hE+wobnYFNLFPHQ11OxYG/GiJVy5dyhKr1dRxIAJQJydOdboi/6H
-	HTRsCqfgynnCRdAFyP9Ijjk4YKj797b4Vd+XTASCMx6laahbwQNmiLvMUvwvHSXXkOLGcLOGoid
-	r4EV1aZWJr1M9DZkI0155TFqbTYBPIpTU/zYtwDUXwln1cOc=
-X-Google-Smtp-Source: AGHT+IHjwyaMDCgOc5iDKXEb2k9bZCHDlAUNHmS5L6diwomhoTrdF4jWyO8zW5mot9sebdvoAVz+DA==
-X-Received: by 2002:a05:6000:310d:b0:3a4:f744:e00c with SMTP id ffacd0b85a97d-3a558a325cdmr1483645f8f.29.1749630725616;
-        Wed, 11 Jun 2025 01:32:05 -0700 (PDT)
-Message-ID: <a3853a8e-02f1-48d1-ab50-d1b51ebd0dc8@suse.com>
-Date: Wed, 11 Jun 2025 10:31:58 +0200
+        bh=iCvriiNkBzSZpS5vMPEQuI5NveEm5SIlC9r8udGlOjA=;
+        b=Nd1S1+kgIgqslocRF4OVNv6dWR0X5wMdodgw+b5Udq2/OWw6fVc/5XerVQHjybic4y
+         +xgKLLkLi2cTuxufpvZoDwJIhgwuOfWpLCSangN3ufNeNeWGzYLHH/4vDZ5/lsgzBJhi
+         uv2B+zdKJSBXYgeBTcM+xuRnMDG8tkYOTC7tbXceQP2cx9YXWGrCLv+1t6sPjVCH3NDx
+         db5+yXNmnxRIsCjf5aKpY36CrMnHHMjAIesxquzSXLaSj7UAmh9wvOx0AN8GA99JMdPF
+         98NskrPta9qSkwTtM1/vMY4AWtRq7qGg/kYsLGjU6yn8EAcq//B8pMPydhQTqMidg+Ig
+         vB0g==
+X-Forwarded-Encrypted: i=1; AJvYcCUSSoMRxa9QQ6/BCAvelXqPGXdPt37asW6mebkDJPrQJRdP4H2NEOSmSEHsK0PJBOXmpODDbsCcE4o=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Ywn2N/x2ZVmFvmPC9ifhA0m9rH9zsUvNyzbn0MO62K23ZUyUrZS
+	CdbPnQzPONNHrvK2S32DLLJInPX+0ef5/D9m96N2x91pJVpxSpl8Tqz1zfPsGaRv4A==
+X-Gm-Gg: ASbGnct6/jL4Uqm873s22FPd3sJ9MKkwpYqpWuX+1I0GNqdGzfmKrqAChhwUaRT1D/E
+	rqcbPkrnM7oisTJfVzrjBokaFdpZdgrtxDuUtXSLfBbmLIM89ReZEw3MnbSY9CJ5wuYsOp/wEku
+	e4enjK/JvbxuHwvqsI+vcC/00mp1UFsSItWUG1ctMo50UnJ2b7LotpFmEiwc1IbH3Jius2lHu1v
+	bJP2WBXjVFC8krcJNi7XxYtf9BuJb10703E8EWcr5oiypRcBxDUiyIb8s1g+rqL93x2nxXo7yHW
+	LBgpLgqo6NVOFBWy0YiX0SujzjXsRjBpBeU63SliN8Ex4lQ4diKyqsDOqFyog310fH4vSjRmCqu
+	CICsS5q++jgMXkusjorEU5gMkI349dtR/HgjH3kWRQVwOmAA=
+X-Google-Smtp-Source: AGHT+IFPQzE2Hfm5qxibS6/1ek3HrBN6fGQ90K9DGCWi5psZIXl6X3MUTH4sWI/e7CCV4vw8mCvXyw==
+X-Received: by 2002:a05:6000:4027:b0:3a4:c909:ce16 with SMTP id ffacd0b85a97d-3a558ae6570mr1466170f8f.49.1749630808695;
+        Wed, 11 Jun 2025 01:33:28 -0700 (PDT)
+Message-ID: <7fbadeb6-9b7a-4781-90bb-4f54cfd85612@suse.com>
+Date: Wed, 11 Jun 2025 10:33:23 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/9] xen/riscv: dt_processor_hartid() implementation
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [PATCH v4][PART 2 01/10] xen/x86: Move freeze/thaw_domains to
+ common code
+To: Mykola Kvach <xakep.amatop@gmail.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1749121437.git.oleksii.kurochko@gmail.com>
- <751343d295c0fa6a9a7d8f2265ece3faecd44b64.1749121437.git.oleksii.kurochko@gmail.com>
- <6fe24545-1f76-4f3f-84bb-b0f8e225ac7b@suse.com>
- <e1b7b5ef-e20e-430e-a4d1-6da912c31f6f@gmail.com>
+References: <cover.1748848482.git.mykola_kvach@epam.com>
+ <a679ba83fcc0e8387158a218f3af1fa234ea3534.1748848482.git.mykola_kvach@epam.com>
+ <4bfe5a9a-6128-4760-9121-46b0d9bd6789@suse.com>
+ <CAGeoDV_QJrLM4ySknkNuV+xsg7Sxj+0iDe6bXGJpj+1+9_oYaw@mail.gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -125,114 +124,34 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <e1b7b5ef-e20e-430e-a4d1-6da912c31f6f@gmail.com>
+In-Reply-To: <CAGeoDV_QJrLM4ySknkNuV+xsg7Sxj+0iDe6bXGJpj+1+9_oYaw@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 11.06.2025 10:26, Oleksii Kurochko wrote:
-> 
-> On 6/10/25 4:08 PM, Jan Beulich wrote:
->> On 05.06.2025 17:58, Oleksii Kurochko wrote:
->>> @@ -14,3 +17,77 @@ void __init smp_prepare_boot_cpu(void)
->>>       cpumask_set_cpu(0, &cpu_possible_map);
->>>       cpumask_set_cpu(0, &cpu_online_map);
->>>   }
->>> +
->>> +/**
->>> + * dt_get_hartid - Get the hartid from a CPU device node
->>> + *
->>> + * @cpun: CPU number(logical index) for which device node is required
->>> + *
->>> + * Return: The hartid for the CPU node or ~0UL if not found.
->>> + */
->>> +static unsigned long dt_get_hartid(const struct dt_device_node *cpun)
->>> +{
->>> +    const __be32 *cell;
->>> +    unsigned int ac;
->>> +    uint32_t len;
->>> +    unsigned int max_cells = UINT32_MAX / sizeof(*cell);
->>> +
->>> +    ac = dt_n_addr_cells(cpun);
->>> +    cell = dt_get_property(cpun, "reg", &len);
->>> +
->>> +    if (ac > max_cells) {
->> Besides the (double) style issue, why's this needed? Can't you simply ...
+On 11.06.2025 07:55, Mykola Kvach wrote:
+> On Mon, Jun 2, 2025 at 12:20 PM Jan Beulich <jbeulich@suse.com> wrote:
 >>
->>> +        printk("%s: cell count overflow (ac=%u, max=%u)\n", __func__, ac,
->>> +               max_cells);
->>> +        return ~0UL;
->>> +    }
->>> +
->>> +    if ( !cell || !ac || ((sizeof(*cell) * ac) > len) )
->> ... write the last part here in a way that there can't be overflow?
->> ac > len / sizeof(*cell) that is? (Remaining question then is what to
->> do when len isn't evenly divisible by sizeof(*cell).)
-> 
-> reg property should be always evenly divisible by sizeof(*cell) according to device
-> tree binding:
->    The reg property describes the address of the device’s resources within 
-> the address space defined by its parent bus. Most commonly this means 
-> the offsets and lengths of memory-mapped IO register blocks, but may 
-> have a different meaning on some bus types. Addresses in the address 
-> space defined by the root node are CPU real addresses.
->    
->    The value is a <prop-encoded-array>, composed of an arbitrary number of 
-> pairs of address and length, <address length>. The number of <u32> cells 
-> required to specify the address and length are bus-specific and are 
-> specified by the #address-cells and #size-cells properties in the parent 
-> of the device node. If the parent node specifies a value of 0 for 
-> #size-cells, the length field in the value of reg shall be omitted. So 
-> it is guaranteed by DTC compiler and it would be enough to check 
-> overflow in suggested by you way: ac > len / sizeof(*cell)
-> But considering what you noticed below ...
-> 
+>> On 02.06.2025 11:04, Mykola Kvach wrote:
+>>> From: Mirela Simonovic <mirela.simonovic@aggios.com>
+>>>
+>>> The freeze_domains and thaw_domains functions are currently defined
+>>> in x86-specific suspend code. These functions are also useful on other
+>>> architectures, such as ARM, for implementing system-wide suspend and
+>>> resume functionality.
+>>>
+>>> This patch moves these functions to common code so they can be reused
+>>> across architectures.
+>>>
+>>> Signed-off-by: Mirela Simonovic <mirela.simonovic@aggios.com>
+>>> Signed-off-by: Saeed Nowshadi <saeed.nowshadi@xilinx.com>
+>>> Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
+>>> Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
 >>
->>> +        return ~0UL;
->>> +
->>> +    return dt_read_number(cell, ac);
->> What meaning does this have for ac > 2? (As per your checking above
->> it can be up to UINT32_MAX / 4.)
+>> On the assumption that the transient Misra violation is okay:
 > 
-> ... It will be an issue for dt_read_number() which could deal only with uint64_t what means
-> we can't have ac > 2. (UINT32_MAX / 4 it is a theoretical maximum IIUC)
-> 
-> Thereby we could do in the following way:
-> @@ -30,19 +30,18 @@ static unsigned long dt_get_hartid(const struct dt_device_node *cpun)
->       const __be32 *cell;
->       unsigned int ac;
->       uint32_t len;
-> -    unsigned int max_cells = UINT32_MAX / sizeof(*cell);
->   
->       ac = dt_n_addr_cells(cpun);
->       cell = dt_get_property(cpun, "reg", &len);
->   
-> -    if (ac > max_cells) {
-> -        printk("%s: cell count overflow (ac=%u, max=%u)\n", __func__, ac,
-> -               max_cells);
-> +    if ( !cell || !ac || (ac > len / sizeof(*cell)) )
->           return ~0UL;
-> -    }
->   
-> -    if ( !cell || !ac || ((sizeof(*cell) * ac) > len) )
-> -        return ~0UL;
-> +    /*
-> +     * If ac > 2, the result may be truncated or meaningless unless
-> +     * dt_read_number() supports wider integers.
-> +     */
-> +    BUG_ON(ac > 2);
->   
->       return dt_read_number(cell, ac);
->   }
-> 
-> I am not sure that BUG_ON() should be in dt_get_hartid(). Probably it would be better move it
-> to dt_read_number() as if one day support for RV128 will be needed I assume that it will be
-> needed to change a prototype of dt_read_number() to work with address-cells = 3.
-> What do you think? Could I go with the suggested above changes or it would be better to move
-> BUG_ON() to dt_read_number()?
+> Perhaps wrapping it with CONFIG_SYSTEM_SUSPEND would be sufficient.
 
-Don't know; the DT maintainers would have to judge. I don't, however, think it should
-be BUG_ON() - as said several times before, that's a check suitable to cover for
-possible mistakes in Xen code. Here however you're trying to cover for a flaw in DT.
+Quite likely, unless another use case for the functions would appear.
 
 Jan
 
