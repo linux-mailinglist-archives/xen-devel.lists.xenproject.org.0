@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5EAE7AD4F98
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Jun 2025 11:21:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1011397.1389817 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B9208AD5002
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Jun 2025 11:36:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1011402.1389826 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uPHdP-0002UT-Hp; Wed, 11 Jun 2025 09:20:39 +0000
+	id 1uPHrr-0004JC-Ij; Wed, 11 Jun 2025 09:35:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1011397.1389817; Wed, 11 Jun 2025 09:20:39 +0000
+Received: by outflank-mailman (output) from mailman id 1011402.1389826; Wed, 11 Jun 2025 09:35:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uPHdP-0002SR-EV; Wed, 11 Jun 2025 09:20:39 +0000
-Received: by outflank-mailman (input) for mailman id 1011397;
- Wed, 11 Jun 2025 09:20:38 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uPHrr-0004H8-G9; Wed, 11 Jun 2025 09:35:35 +0000
+Received: by outflank-mailman (input) for mailman id 1011402;
+ Wed, 11 Jun 2025 09:35:34 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Z5UX=Y2=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uPHdO-0002SG-2V
- for xen-devel@lists.xenproject.org; Wed, 11 Jun 2025 09:20:38 +0000
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [2a00:1450:4864:20::42f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 54f86aa9-46a5-11f0-b894-0df219b8e170;
- Wed, 11 Jun 2025 11:20:35 +0200 (CEST)
-Received: by mail-wr1-x42f.google.com with SMTP id
- ffacd0b85a97d-3a52874d593so6140449f8f.0
- for <xen-devel@lists.xenproject.org>; Wed, 11 Jun 2025 02:20:35 -0700 (PDT)
+ id 1uPHrq-0004H2-6l
+ for xen-devel@lists.xenproject.org; Wed, 11 Jun 2025 09:35:34 +0000
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
+ [2a00:1450:4864:20::432])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 6b97c72e-46a7-11f0-a307-13f23c93f187;
+ Wed, 11 Jun 2025 11:35:33 +0200 (CEST)
+Received: by mail-wr1-x432.google.com with SMTP id
+ ffacd0b85a97d-3a52874d593so6155711f8f.0
+ for <xen-devel@lists.xenproject.org>; Wed, 11 Jun 2025 02:35:32 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-7482b083abcsm9064790b3a.92.2025.06.11.02.20.29
+ 41be03b00d2f7-b2f5f66a7c9sm8009130a12.46.2025.06.11.02.35.26
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 11 Jun 2025 02:20:34 -0700 (PDT)
+ Wed, 11 Jun 2025 02:35:31 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 54f86aa9-46a5-11f0-b894-0df219b8e170
+X-Inumbo-ID: 6b97c72e-46a7-11f0-a307-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1749633635; x=1750238435; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1749634532; x=1750239332; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=RmmAk3ljw2xs7Jfo2z76cXMFwHIrLyQ23gotV90W91A=;
-        b=JvcYuFha/8P89JrbpqeyklP/0FOsIE4cRp3boZzO1vbXLlN1gOk/isOVWFVgji4kEX
-         I9sY4BeFMuRD548xT0IVxS1uG/bBgGzSfb2/KFn63iX7OFb0gXWZcYJFBko2bvOqXIq9
-         i3B7D5OW/0urXIymBhe6B81vihugAAG9bwGOFyI+V7v5jPduQjMhqEvBZjxxb+IYf8SL
-         qLM1uOJXPltkD7zpMmiJtz5bDDLCNLz5nKnvgcQgI5jW3hkPbTF49aQsGXovFrLh23Ex
-         9m8bodIRb/eDjLDZyBNTP+PLy0AFAjZtelY8NBKk077hMfp1IE2sdMrrlcmENsEWtYzi
-         Ok7A==
+        bh=8EHVCwcFEIYICyE4iqiEl06OzG5rQF6TaxMoUmsnhr0=;
+        b=U5Vj1N+VDsiogxFMplsqGUJYTUJy9JpRALaL5JIbEWd8AluAE7BWUOELLgXYPUKNuK
+         FqyMloWwYYGP6XzS28GZDXbiAP9+UUQA20R9JuLiCrChitHFF6roVlZBq2U4/qrko/ZV
+         zgtHlamYIHau5ixZwKvO9FjIusn32YCkCZH1izUZGPmJmsNGE6XtzEEnYd20lq339koC
+         8OCT9K/8Ot3yDuoD7hP0HE9islEnZ6xPs+L1V+dq9Je3vg16U+IZWdcZYn+oTDtRhko6
+         h4d/OOELTLs0ilUXuMquBkdE+hWSereXKTDTnNgPOv13/Fdj+zo4PEkyKmlobEBV9lCf
+         xEfA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749633635; x=1750238435;
+        d=1e100.net; s=20230601; t=1749634532; x=1750239332;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=RmmAk3ljw2xs7Jfo2z76cXMFwHIrLyQ23gotV90W91A=;
-        b=Ou7QMQrX+bVg4TZqfsPnP9ZYv0cMhamSldi8yWFGt0A9FrMtibz17tEFM2sOKPSPFC
-         BN42xs/nkxieOFQe7RMLAnc2RrhcOSadreigpayEphiBrDmxZpKrWwYyPnj6WN0BRgZj
-         nAG2C7uMrgWNQB/Dr6U3bITvdP6fFESI3opW6cyG3oDz4vlENAX5plZNMkL4dzUI0F7w
-         48Mo0RJCC/Z4ERf5Lks/A1oICuzwUy1IycTGXplz3xjZdSwgI3xPinAfigzlpQao8ols
-         shaJ5ZLJSUmF0fXDWGV3GSBkVRvRWE/SJHjPFuccBxIX9dxEPsDfJuSJaGKWJmjs64f+
-         /KZQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWzgO84V59sTQzz1Of6lvYPaPXKN2FIz4E7vXJQxzQrA3UtYx2unIlxgDgvIvKagWgi9OP+Sd0VrqM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzsZ7qjXPhT7DGVB7nQAYOBBbVlhkIshr2wfkYAkUJcQTKFj6W8
-	PJXXIFuEWvtC57SOT4RdbS8+iij09aahDPy3pX3ZKqlqHSUSfl3LEhF7A8Y77QEG3w==
-X-Gm-Gg: ASbGncuyNqbVazoJotZSDzIy7myW0m77k1iNF0WrlM0fJ4JHm1j7JtQVm2DzD1Lbx0x
-	jtmIX+p/RA4zNOFrhNw0Rh1buGi1spc0ZWevOt6MutLR2Cc86XekZDCEF9DMmnNNzPdWA49NLnY
-	1YbDJBJ87I2a3FpeD7Xh+ZbWle+dLQzoIKaA/kbCv3QPK4Ws2VNyTTkZUuFxh5k9BkYIPtz6PHX
-	lxitsRkiYdUee051nBPHsVHzUka+BVg1mFCOysYGWqJF1t/xMMoN4/R468aSpPOpTJortZHAWyi
-	jeYSEs/HrwCXFKD8uuoTXxV31oWCQzAFg6h0zKt/ouU2zqwvoQAu16fjJoGzG3wK5zmINP2CbHR
-	SwE0GEN5QvpNv5bVvU2azHhJ70UeOutZ6LCVPx9S3a1lvD86ZRWLucecVFg==
-X-Google-Smtp-Source: AGHT+IE0XkmQO2ozOglXdSorlrAS94jRzNH6FQCCpF9eM0+jXZ0teLS0oOv7L84TPhUONxKPGTxDYQ==
-X-Received: by 2002:a5d:5888:0:b0:3a4:eb7a:2cda with SMTP id ffacd0b85a97d-3a558ad707fmr1768474f8f.30.1749633635200;
-        Wed, 11 Jun 2025 02:20:35 -0700 (PDT)
-Message-ID: <6213c0dd-2145-48a2-9e8a-8a949da5e866@suse.com>
-Date: Wed, 11 Jun 2025 11:20:29 +0200
+        bh=8EHVCwcFEIYICyE4iqiEl06OzG5rQF6TaxMoUmsnhr0=;
+        b=GH0qaISa7YJOciUnSCI+PASSeK4T1kUjxgsuIfwk8AkIvNkyWf5ykhL7ZE11JdeC6d
+         OakzlkYu477GAzAVrwxzXd5SI/HhALOqreLb6nzw56/tW/PobLD3/xT1uYdzRySzpM9b
+         0ceutSF9/pMpS9kavA3JvRoAjK2U7aDHKeQiXZulP+ztgRdhBLHomGL5IhU20bRRsZ9q
+         hX26quuOy7qNBA5C0xvgBgkz8gefcFpZWs6HBtdanEILkPlUTg3vyTSC4xZN80tRngzF
+         8XaMKmEZ36pfgih5puBMSFLoFmKJp9apRsEsXH6QLcpmp+9rzwWVUTmqs2W6dmoLwm2z
+         MKEA==
+X-Forwarded-Encrypted: i=1; AJvYcCV+d+Op66oZEV3sqUZPa9C9TIECfWjXHzm59EZiLPslnPiQoQxXzKgRqTAyF6r752TJYu/UqICR3OQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxY6zTlci5i4T1KBH/pJYFQZR3Lt/n1Whom83fSGfQpLcoPwQSG
+	HWHuwcYFxNuamRay5qUhciF5uBUEnPH4jaP+W97FhkEqAV+p0/DDXTv7DXAaAub7JQ==
+X-Gm-Gg: ASbGnctU+rCEZeRABxuVS5Y1STHKwMUrtgqnfB7XEJfE85P/yzPMRF7LWJEu/auECfQ
+	SK4QixTIocfyjB4jZHb1Np25M+sew5J9w7f2aybweYtxo58iP9MMKG3ING0ScdDnxxdIykRenXx
+	i0IWRsa568BVtowvZ30lvSPGW0l2GZ2ONTiLNgk1VMSv1lrAfeQbOBPH7ZsGGK6HY0fXFzVbjdn
+	k7FSTa/g8giSCBuXzQtu6QPbkQ4HzowMn8j5D6ZGZlXHjnr9lyivgZzeFLB1UM0VSbjICDUpz6a
+	91tJFG3ESb4WdGfHH8qDlUT//45zFVAQAYFfaqDKGrg5VCX0qKKMzHHz8OoCyQr7WzTXuZOnIrH
+	VT+9KARGjDiLJIC+e5rISBg0d5Y4CjWRbgJ2KwIqSvHJgN4k=
+X-Google-Smtp-Source: AGHT+IGcvbc+EkPoMmmun9GyngQUCI8fLYPSzEVv6eIkazDXBR9mtjOi3D4bwzFimRKDg6FKIlqUTQ==
+X-Received: by 2002:a5d:5f91:0:b0:3a4:d4cd:b06 with SMTP id ffacd0b85a97d-3a558ad6ddcmr1698986f8f.34.1749634532282;
+        Wed, 11 Jun 2025 02:35:32 -0700 (PDT)
+Message-ID: <02162717-25de-4ffb-a9c4-bf6d580c43bc@suse.com>
+Date: Wed, 11 Jun 2025 11:35:26 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/domain: fix late hwdom feature
-To: dmkhn@proton.me
-Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org,
- michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org,
- dmukhin@ford.com, xen-devel@lists.xenproject.org
-References: <20250610234105.1082890-1-dmukhin@ford.com>
+Subject: Re: [PATCH] xen: Strip xen.efi by default
+To: Frediano Ziglio <freddy77@gmail.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20250610101228.24460-1-freddy77@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -118,28 +120,37 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250610234105.1082890-1-dmukhin@ford.com>
+In-Reply-To: <20250610101228.24460-1-freddy77@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 11.06.2025 01:42, dmkhn@proton.me wrote:
-> From: Denis Mukhin <dmukhin@ford.com>
-> 
-> Fix get_initial_domain_id() which how returns hardware_domid and breaks late
-> hwdom feature [1].
-> 
-> [1] https://lore.kernel.org/xen-devel/a4c860d7-1fa0-43f4-8ae1-af59b7c6506f@xen.org/
-> 
+On 10.06.2025 12:12, Frediano Ziglio wrote:
+> For xen.gz file we strip all symbols and have an additional
+> xen-syms file version with all symbols.
+> Make xen.efi more coherent stripping all symbols too.
 
-Reported-by: Julien Grall <julien@xen.org>
+And the other difference (compressed vs not) still remains.
 
-> Fixes: f147ccf2 ("xen/consoled: clean up console handling for PV shim")
+> xen.efi.elf can be used for debugging.
 
-12 hex digit please (see sending-patches.pandoc), i.e. f147ccf2b3c8 (largely for
-my own reference, to make respective adjustments while committing).
+Hmm, that's the result of ...
 
-> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
+> --- a/xen/arch/x86/Makefile
+> +++ b/xen/arch/x86/Makefile
+> @@ -238,6 +238,7 @@ endif
+>  		> $@.map
+>  ifeq ($(CONFIG_DEBUG_INFO),y)
+>  	$(if $(filter --strip-debug,$(EFI_LDFLAGS)),:$(space))$(OBJCOPY) -O elf64-x86-64 $@ $@.elf
+> +	$(if $(filter --strip-debug,$(EFI_LDFLAGS)),:$(space))$(STRIP) $@
+>  endif
+>  	rm -f $(dot-target).[0-9]* $(@D)/..$(@F).[0-9]*
+>  ifeq ($(CONFIG_XEN_IBT),y)
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
+... objcopy. Having looked at the involved code in that utility, I mistrust its
+output from such a conversion to really be an exact representation of the input.
+IOW I'd much rather use the original file. As a possible compromise, could we
+perhaps merely strip debug info, but retain the symbol table, matching the
+prior default for $(efi-strip-opt)?
 
+Jan
 
