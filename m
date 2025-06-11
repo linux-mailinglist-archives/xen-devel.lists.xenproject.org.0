@@ -2,32 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C73AAD5D37
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Jun 2025 19:26:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1012006.1390569 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8130DAD5D7A
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Jun 2025 19:51:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1012050.1390599 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uPPDJ-0007K6-4B; Wed, 11 Jun 2025 17:26:13 +0000
+	id 1uPPbc-0004ce-Jk; Wed, 11 Jun 2025 17:51:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1012006.1390569; Wed, 11 Jun 2025 17:26:13 +0000
+Received: by outflank-mailman (output) from mailman id 1012050.1390599; Wed, 11 Jun 2025 17:51:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uPPDI-0007Ic-WA; Wed, 11 Jun 2025 17:26:12 +0000
-Received: by outflank-mailman (input) for mailman id 1012006;
- Wed, 11 Jun 2025 17:26:10 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <anthony@xenproject.org>) id 1uPPDG-0007IU-R2
- for xen-devel@lists.xenproject.org; Wed, 11 Jun 2025 17:26:10 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <anthony@xenproject.org>) id 1uPPDF-00DsgD-23;
- Wed, 11 Jun 2025 17:26:09 +0000
-Received: from [2a01:e0a:1da:8420:b77:bd5:6e45:7633] (helo=l14)
- by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <anthony@xenproject.org>) id 1uPPDF-002vgZ-0s;
- Wed, 11 Jun 2025 17:26:09 +0000
+	id 1uPPbc-0004b2-FP; Wed, 11 Jun 2025 17:51:20 +0000
+Received: by outflank-mailman (input) for mailman id 1012050;
+ Wed, 11 Jun 2025 17:51:18 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=YTnm=Y2=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
+ id 1uPPba-0004au-MH
+ for xen-devel@lists.xenproject.org; Wed, 11 Jun 2025 17:51:18 +0000
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1nam02on2062c.outbound.protection.outlook.com
+ [2a01:111:f403:2406::62c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id aba2976b-46ec-11f0-a307-13f23c93f187;
+ Wed, 11 Jun 2025 19:51:16 +0200 (CEST)
+Received: from CH5PR05CA0003.namprd05.prod.outlook.com (2603:10b6:610:1f0::16)
+ by CH3PR12MB8233.namprd12.prod.outlook.com (2603:10b6:610:129::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8813.31; Wed, 11 Jun
+ 2025 17:51:12 +0000
+Received: from CH3PEPF00000018.namprd21.prod.outlook.com
+ (2603:10b6:610:1f0:cafe::77) by CH5PR05CA0003.outlook.office365.com
+ (2603:10b6:610:1f0::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8835.18 via Frontend Transport; Wed,
+ 11 Jun 2025 17:51:12 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ CH3PEPF00000018.mail.protection.outlook.com (10.167.244.123) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8835.2 via Frontend Transport; Wed, 11 Jun 2025 17:51:11 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 11 Jun
+ 2025 12:51:10 -0500
+Received: from ubuntu.mshome.net (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Wed, 11 Jun 2025 12:51:09 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,188 +59,119 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date;
-	bh=TvY8XJCtLseOyo7AdSpTBjkYvZb5kh/DRwYv1c3FU20=; b=yJMZ7x/1fDot2KpB3G2tXo3sff
-	oiFLAuCLktUKTGgZJAglj4XPdQvakri6g9cyFhAR7xDsTv1YYsjVFKaBIPB5J7cZdizdS3M1ygz1M
-	rdN0uouWA75s3wkRTBGLWkyuW1O8T2KMlzZ1T60T6WEJ73TbThqnmfkot6336jwTDOrc=;
-Date: Wed, 11 Jun 2025 19:26:06 +0200
-From: Anthony PERARD <anthony@xenproject.org>
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org,
-	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Community Manager <community.manager@xenproject.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Juergen Gross <jgross@suse.com>,
-	Anthoine Bourgeois <anthoine.bourgeois@vates.tech>
-Subject: Re: [PATCH v4] x86/hvmloader: select xenpci MMIO BAR UC or WB MTRR
- cache attribute
-Message-ID: <aEm8LuDrNBqjgaWF@l14>
-References: <20250610162930.89055-1-roger.pau@citrix.com>
+X-Inumbo-ID: aba2976b-46ec-11f0-a307-13f23c93f187
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=lS9+tL6o5AM6Bgm8ZOld/wkJKAa1hdLqURA3Dkdo9fZ/T0KCPIMbniMgtpNlgmEDNqNHSi7UdOkbn1W4gz/BAIi2lJN6awRo0Gj5HGzxino9GtOGaIEGNs0KfVuPrFiX7h+Rnmtl1fBAcTRUn+s+HmOvb4uai3PUCHPtLXrzKsGhss3XuYq+GFekjISLakotg7ODn9EaMzmHudpeJCNcKLXMC4wovxWne+YTBv2+eRi+xDBztB7tPcaIGJsKkoPBVWh3j9eABA37bKSNu7vLQx5VhMVVmw1PRXXAo4jFGVjx4jdmArMqunRE1rS/ryHzkiV4FZSdGxLw6sPCRbBw7Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=mwZGykq6VxPHFaXBhi0sOypRkWWF/eMi3Eh2+ERV1zI=;
+ b=R4s2ATpXzrHCBBWq/x3mBiTzE6TB0Nld5lepMAzSUKTprEZ1Tt2AV4PRvoEDJHYMe/qlxNGWRV/5PEq0LNcI33Xb5sgHMkgmRpMI/JNCNRxvzmu2+m4JWg8Zaerm2zHJWdSbceTy1O/0KuZ+EQQ//Zf7df+s+YK2jSbA/QEUiBaTZs+MYRXCe9ZGDkEvtUaXbSmqaNg28mIJoycsJEw80NocNz6vw0q/bVmtxMYIIJJbEW4LaoJWjciVyp8Dc7Z8l+syE55U6xCMNMRXJ06US50IyISKJpDcvZKeoJT1qfbj7DEFVn1F/iU2+L3C5vpv4i8WBk0kpaY71KxvVQUieg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=mwZGykq6VxPHFaXBhi0sOypRkWWF/eMi3Eh2+ERV1zI=;
+ b=K2t+FwA+zqfpiUAvp93nLd3EEz+TVn8T/XUnRMEn/kpz6bCXp+f0nUFO6ij/OUBFJMaNB5VPNSQJL2kOrTsR+FECZeQWo+L0Wt4b2f6buFROwpsqYCPKX/rJxvOQFq/kO0yncoYbL+d99mSWgtGUeyW0DQkJBLRZj8oL4LnaRp8=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+From: Stewart Hildebrand <stewart.hildebrand@amd.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Stewart Hildebrand <stewart.hildebrand@amd.com>, Stefano Stabellini
+	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
+	<bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, "Volodymyr
+ Babchuk" <Volodymyr_Babchuk@epam.com>, Anthony PERARD
+	<anthony.perard@vates.tech>, Juergen Gross <jgross@suse.com>
+Subject: [PATCH v5 0/2] arm: extended regions fixes
+Date: Wed, 11 Jun 2025 13:51:02 -0400
+Message-ID: <20250611175106.269829-1-stewart.hildebrand@amd.com>
+X-Mailer: git-send-email 2.49.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250610162930.89055-1-roger.pau@citrix.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+Received-SPF: None (SATLEXMB03.amd.com: stewart.hildebrand@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH3PEPF00000018:EE_|CH3PR12MB8233:EE_
+X-MS-Office365-Filtering-Correlation-Id: 42ffa8dc-3b45-4d20-7827-08dda9108d4d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700013|1800799024|82310400026|376014;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?3U4al701o4hms/Ks1TGe5ddnMWvtFBAzsSNkXoLrYHmAjgZt5cdA4SHCx3WH?=
+ =?us-ascii?Q?4OTpO2xEIJQP3GZpAeAh9xiDbW92sM4fD2K/oJ8QnjhApa8yzJ6EXo9XupSb?=
+ =?us-ascii?Q?v1GUhgXf8w8RazouX3IORNjJAqYUakPzZBrJ85sznKrfFw8kR3K4E07qOGxa?=
+ =?us-ascii?Q?SoVXbjeKict3Py9gZjmoNrqvnemfS1D6Dg/qX4RZAjLob4g6L+t+a7dDO6lt?=
+ =?us-ascii?Q?urmTOvy+VQ6ACV0oJS+gxJGZ7qFkhw9QDG4oZZB8FD1ylIewVkWluG10VbpX?=
+ =?us-ascii?Q?yU43KC1cHbQNYSUMroEZkK4uVOiQNW0DMONFDkPkG5XcsFG+xudvknUy1D5N?=
+ =?us-ascii?Q?XECenL9liJvBMEFL2uU5LW4mfYz8zewPGcit3NGgIZHWA8v9kyiFGnj8NZbU?=
+ =?us-ascii?Q?2SBLIEuCXI4TBVhxqu+W9NDvndle6oqCqkuPnGcUWpPdGH37SY/Rv2fjtAgU?=
+ =?us-ascii?Q?2mW73JuJf678S8TVAnR6tfC7ExpKTPiWlksoScsUYaggOvPb5xnepwgnjYTO?=
+ =?us-ascii?Q?PAbkd/sxXpBD472ffxzqnLEYf/xHQHB3RlZZC3/ufMxuQGCS5mOGQYCEot26?=
+ =?us-ascii?Q?VXySaDT2PxzyDPHiupDS85F3hgLhWjE4CUPLXhS+JiZ2ifYj3gco2TlIe3HJ?=
+ =?us-ascii?Q?wqPDFyaLP725LXPJPKllVRF75WlqB9hMXdECggU81eGcOBInfXIUmIwNicUD?=
+ =?us-ascii?Q?M8nu34KM/jsxlO1LXjsK6BykZEtyvJZldyOG0IRFVzablujxN+pjNXSMWZ09?=
+ =?us-ascii?Q?IJ0dJx+vN3sgkAoVrPi7ZtgVbAvdKRabuvqMIfKTk15TpDP2+aRX+WT64VgU?=
+ =?us-ascii?Q?WRKopXePmj/6Jfwtip5huwsfTBG8cTEUZGORmx8JIwcApt2wqZ9Ju05v7vXS?=
+ =?us-ascii?Q?bXM6U0xNj/4deQqIY1MtqkAuZ2XXS8calWbU/24+YqNacEThU9mu/3qpSJtp?=
+ =?us-ascii?Q?o+h4SMQyNM4iRawpdml8Y2rZSr+zUO+QAM8JtGPlm1JE0A+5Z1ccbaBhDZSK?=
+ =?us-ascii?Q?b08DARL1dn+UPE9i599VTHwNXsrhLVomIRBFth4DFGv6ntf6vL5wf2y7On/r?=
+ =?us-ascii?Q?cokRbY4VnFXBWKtryrfJ5/D4AkNwmSqWkFZ0Ph0bnPthQjAMf03L8J1PY2Oh?=
+ =?us-ascii?Q?Lsa/I9VolDJ08IPToXGiFU+p3NfB5qla6WJHA4tMBz6OIReYzoDollbUP7Ev?=
+ =?us-ascii?Q?uuoRZQuBxokiZ0TQJKlvfaMeJgEjn91DnbNKssFN32DDEj/73w/Z8OYNgZM1?=
+ =?us-ascii?Q?njDgo5jaiqUknjVVm4M8jVnQ1GjfQ0UbDjU9EHxVDjV6ELDIA30Xu1gaIVGP?=
+ =?us-ascii?Q?/vPr4ilsvc3V37VISMsEv+LuKDIFqLW6QNPEd4xvW1MNKK7Xfgw4opessjOP?=
+ =?us-ascii?Q?wJrUBw9dwQ21OoEvr/GaaXSIYoSGS9JyumGA1AXSaaNsM/lbYAXBRlCiqGht?=
+ =?us-ascii?Q?OTfTBoDSE94ij7aQwaqNDpxxtlE7uAL5G9+wj41EW6gra14+N1CoI7bv3Rje?=
+ =?us-ascii?Q?zQDNoojX2YwxvL+6Rt2ysJ5ohVAZBQLlDqDE?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(1800799024)(82310400026)(376014);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jun 2025 17:51:11.1165
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 42ffa8dc-3b45-4d20-7827-08dda9108d4d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH3PEPF00000018.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8233
 
-On Tue, Jun 10, 2025 at 06:29:30PM +0200, Roger Pau Monne wrote:
-> diff --git a/docs/man/xl.cfg.5.pod.in b/docs/man/xl.cfg.5.pod.in
-> index c388899306c2..ddbff6fffc16 100644
-> --- a/docs/man/xl.cfg.5.pod.in
-> +++ b/docs/man/xl.cfg.5.pod.in
-> @@ -2351,6 +2351,14 @@ Windows L<https://xenproject.org/windows-pv-drivers/>.
->  Setting B<xen_platform_pci=0> with the default device_model "qemu-xen"
->  requires at least QEMU 1.6.
->  
-> +
-> +=item B<xenpci_bar_uc=BOOLEAN>
-> +
-> +B<x86 only:> Select whether the memory BAR of the Xen PCI device should have
-> +uncacheable (UC) cache attribute set in MTRR.
+v4->v5:
+* see individual patches
 
-For information, here are different name used for this pci device:
+v3->v4:
+* see individual patches
 
-- man xl.cfg:
-    xen_platform_pci=<bool>
-        Xen platform PCI device
-- QEMU:
-    -device xen-platform
-    in comments: XEN platform pci device
-    with pci device-id PCI_DEVICE_ID_XEN_PLATFORM
-- EDK2 / OVMF:
-    XenIoPci
-        described virtual Xen PCI device
-        But XenIo is a generic protocol in EDK2
-    Before XenIo, the pci device would be linked to XenBus, and
-    loaded with PCI_DEVICE_ID_XEN_PLATFORM
-- Linux:
-    Seems to be called "xen-platform-pci"
+v2->v3:
+* drop committed patches
+* add ("xen/arm: exclude xen,reg from direct-map domU extended regions")
 
-Overall, this PCI device is mostly referenced as the Xen Platform PCI
-device. So "xenpci" or "Xen PCI device" is surprising to me, and I'm not
-quite sure what it is.
+v1->v2:
+* rebase
+* address feedback
 
+Stewart Hildebrand (2):
+  xen/arm: exclude xen,reg from direct-map domU extended regions
+  tools/arm: exclude iomem from domU extended regions
 
-> +
-> +Default is B<true>.
-> +
->  =item B<viridian=[ "GROUP", "GROUP", ...]> or B<viridian=BOOLEAN>
->  
->  The groups of Microsoft Hyper-V (AKA viridian) compatible enlightenments
-> diff --git a/tools/firmware/hvmloader/pci.c b/tools/firmware/hvmloader/pci.c
-> index cc67b18c0361..cfd39cc37cdc 100644
-> --- a/tools/firmware/hvmloader/pci.c
-> +++ b/tools/firmware/hvmloader/pci.c
-> @@ -116,6 +116,8 @@ void pci_setup(void)
->       * experience the memory relocation bug described below.
->       */
->      bool allow_memory_relocate = 1;
-> +    /* Select the MTRR cache attribute of the xenpci device BAR. */
-> +    bool xenpci_bar_uc = false;
-
-This default value for `xenpci_bar_uc` mean that hvmloader changes
-behavior compared to previous version, right? Shouldn't we instead have
-hvmloader keep the same behavior unless the toolstack want to use the
-new behavior? (Like it's done for `allow_memory_relocate`,
-"platform/mmio_hole_size")
-
-It would just mean that toolstack other than `xl` won't be surprised by
-a change of behavior.
-
->      BUILD_BUG_ON((typeof(*pci_devfn_decode_type))PCI_COMMAND_IO !=
->                   PCI_COMMAND_IO);
-> @@ -130,6 +132,12 @@ void pci_setup(void)
->      printf("Relocating guest memory for lowmem MMIO space %s\n",
->             allow_memory_relocate?"enabled":"disabled");
->  
-> +    s = xenstore_read(HVM_XS_XENPCI_BAR_UC, NULL);
-> +    if ( s )
-> +        xenpci_bar_uc = strtoll(s, NULL, 0);
-> +    printf("XenPCI device BAR MTRR cache attribute set to %s\n",
-> +           xenpci_bar_uc ? "UC" : "WB");
-> +
->      s = xenstore_read("platform/mmio_hole_size", NULL);
->      if ( s )
->          mmio_hole_size = strtoll(s, NULL, 0);
-> @@ -271,6 +279,44 @@ void pci_setup(void)
->              if ( bar_sz == 0 )
->                  continue;
->  
-> +            if ( !xenpci_bar_uc &&
-> +                 ((bar_data & PCI_BASE_ADDRESS_SPACE) ==
-> +                   PCI_BASE_ADDRESS_SPACE_MEMORY) &&
-> +                 vendor_id == 0x5853 &&
-> +                 (device_id == 0x0001 || device_id == 0x0002) )
-
-We don't have defines for 0x5853 in the tree (and those device_id)?
-Maybe introduce at least one for the vendor_id:
-
-These two names are use by QEMU, OVMF, Linux, for example.
-
-#define PCI_VENDOR_ID_XEN           0x5853
-#define PCI_DEVICE_ID_XEN_PLATFORM  0x0001
-
-There's even PCI_DEVICE_ID_XEN_PLATFORM_XS61 in Linux
+ tools/libs/light/libxl_arm.c          | 110 +++++++++++++++++++++-----
+ xen/arch/arm/domain_build.c           |  80 +++++++++++++++++--
+ xen/common/device-tree/domain-build.c |   5 ++
+ 3 files changed, 171 insertions(+), 24 deletions(-)
 
 
-> diff --git a/tools/firmware/hvmloader/util.c b/tools/firmware/hvmloader/util.c
-> index 79c0e6bd4ad2..31b4411db7b4 100644
-> --- a/tools/firmware/hvmloader/util.c
-> +++ b/tools/firmware/hvmloader/util.c
-> @@ -867,7 +867,7 @@ void hvmloader_acpi_build_tables(struct acpi_config *config,
->          config->table_flags |= ACPI_HAS_HPET;
->  
->      config->pci_start = pci_mem_start;
-> -    config->pci_len = pci_mem_end - pci_mem_start;
-> +    config->pci_len = RESERVED_MEMBASE - pci_mem_start;
->      if ( pci_hi_mem_end > pci_hi_mem_start )
->      {
->          config->pci_hi_start = pci_hi_mem_start;
-> diff --git a/tools/libs/light/libxl_create.c b/tools/libs/light/libxl_create.c
-> index 8bc768b5156c..962fa820faec 100644
-> --- a/tools/libs/light/libxl_create.c
-> +++ b/tools/libs/light/libxl_create.c
-> @@ -313,6 +313,7 @@ int libxl__domain_build_info_setdefault(libxl__gc *gc,
->          libxl_defbool_setdefault(&b_info->u.hvm.usb,                false);
->          libxl_defbool_setdefault(&b_info->u.hvm.vkb_device,         true);
->          libxl_defbool_setdefault(&b_info->u.hvm.xen_platform_pci,   true);
-> +        libxl_defbool_setdefault(&b_info->u.hvm.xenpci_bar_uc,      true);
->          libxl_defbool_setdefault(&b_info->u.hvm.pirq,               false);
->  
->          libxl_defbool_setdefault(&b_info->u.hvm.spice.enable, false);
-> diff --git a/tools/libs/light/libxl_dom.c b/tools/libs/light/libxl_dom.c
-> index 4d67b0d28294..60ec0354d19a 100644
-> --- a/tools/libs/light/libxl_dom.c
-> +++ b/tools/libs/light/libxl_dom.c
-> @@ -819,6 +819,15 @@ static int hvm_build_set_xs_values(libxl__gc *gc,
->              goto err;
->      }
->  
-> +    if (info->type == LIBXL_DOMAIN_TYPE_HVM &&
-> +        libxl_defbool_val(info->u.hvm.xenpci_bar_uc)) {
-
-I think this condition is wrong. You should always write the value of
-xenpci_bar_uc into xenstore, or only write it if a value have been
-selected. But I guess we already lost the information here about whether
-the value is the default or not, and it's probably not important, so I
-think you should always write the value.
-
-> +        path = GCSPRINTF("/local/domain/%d/"HVM_XS_XENPCI_BAR_UC, domid);
-> +        ret = libxl__xs_printf(gc, XBT_NULL, path, "%d",
-> +                               libxl_defbool_val(info->u.hvm.xenpci_bar_uc));
-> +        if (ret)
-> +            goto err;
-> +    }
-> +
->      return 0;
->  
->  err:
-
-Thanks,
-
+base-commit: 657a95a2baed48dc2ed6f2fc7ef6161ad7ba010b
 -- 
-Anthony PERARD
+2.49.0
+
 
