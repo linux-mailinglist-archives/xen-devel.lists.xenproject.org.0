@@ -2,56 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DAC71AD5D7F
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Jun 2025 19:51:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1012053.1390618 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 24ABDAD5D9C
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Jun 2025 19:58:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1012078.1390639 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uPPbp-0005HL-9J; Wed, 11 Jun 2025 17:51:33 +0000
+	id 1uPPid-0006t0-Cg; Wed, 11 Jun 2025 17:58:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1012053.1390618; Wed, 11 Jun 2025 17:51:33 +0000
+Received: by outflank-mailman (output) from mailman id 1012078.1390639; Wed, 11 Jun 2025 17:58:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uPPbp-0005Fz-5p; Wed, 11 Jun 2025 17:51:33 +0000
-Received: by outflank-mailman (input) for mailman id 1012053;
- Wed, 11 Jun 2025 17:51:32 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uPPid-0006qH-9R; Wed, 11 Jun 2025 17:58:35 +0000
+Received: by outflank-mailman (input) for mailman id 1012078;
+ Wed, 11 Jun 2025 17:58:33 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=YTnm=Y2=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
- id 1uPPbn-0005Bu-U8
- for xen-devel@lists.xenproject.org; Wed, 11 Jun 2025 17:51:32 +0000
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2060c.outbound.protection.outlook.com
- [2a01:111:f403:200a::60c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b33a52c0-46ec-11f0-b894-0df219b8e170;
- Wed, 11 Jun 2025 19:51:29 +0200 (CEST)
-Received: from DS7PR03CA0082.namprd03.prod.outlook.com (2603:10b6:5:3bb::27)
- by DS0PR12MB8019.namprd12.prod.outlook.com (2603:10b6:8:14e::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8792.38; Wed, 11 Jun
- 2025 17:51:25 +0000
-Received: from CH3PEPF00000016.namprd21.prod.outlook.com
- (2603:10b6:5:3bb:cafe::86) by DS7PR03CA0082.outlook.office365.com
- (2603:10b6:5:3bb::27) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8769.18 via Frontend Transport; Wed,
- 11 Jun 2025 17:51:24 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- CH3PEPF00000016.mail.protection.outlook.com (10.167.244.121) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8835.2 via Frontend Transport; Wed, 11 Jun 2025 17:51:24 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 11 Jun
- 2025 12:51:22 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 11 Jun
- 2025 12:51:22 -0500
-Received: from ubuntu.mshome.net (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Wed, 11 Jun 2025 12:51:21 -0500
+ <SRS0=6lgg=Y2=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1uPPib-0006MU-Qx
+ for xen-devel@lists.xenproject.org; Wed, 11 Jun 2025 17:58:33 +0000
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
+ [2a00:1450:4864:20::432])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b099147d-46ed-11f0-a307-13f23c93f187;
+ Wed, 11 Jun 2025 19:58:33 +0200 (CEST)
+Received: by mail-wr1-x432.google.com with SMTP id
+ ffacd0b85a97d-3a361b8a664so139692f8f.3
+ for <xen-devel@lists.xenproject.org>; Wed, 11 Jun 2025 10:58:33 -0700 (PDT)
+Received: from [192.168.86.29] ([90.250.112.104])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-453252056bbsm27705295e9.26.2025.06.11.10.58.32
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 11 Jun 2025 10:58:32 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,296 +45,168 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b33a52c0-46ec-11f0-b894-0df219b8e170
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=SDh/NYOK76VAUfe3NsGqu1T3/MPqr8CCvZI3gmkQOWiYtvucNaor135smGAN7awzZfA5zqq4FAH/vw1mz2FTuF6I6WiJ4x+ezkVlgCtHxZY74DaXvhYGjPhDHhwcS0z3WVxYjpZYhFdXEIcvy1MnVWjjTBFa33yT1jBDuUF70+JonvVVXPS6yZqZcJOgL9LE9/GdKVvjHUGbwlgAuRt8AmCkCCPXO8XDqkxyBH/woChVBn3M1lEU8OS/BZNO/5mXyoPIVsypqLZFiD03yQMl53i/phJCLTKcn7gKNd8UMYt6UUGywiIXYDk49B8mIDu0uicsN15vBw5H0b4HDh6RKQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OGLNAcHMQN3tEn5Sq+wi+jklFsofF17Ha4Z5ZK5ekUI=;
- b=m6VnlhnL6Sj9R+naMbZgq1d6M+CSZqCPsCa5AJ3HCYByS6VaM6y29CCatt+oWQ6lUHdt150OD1FoiFrM6hCEFtA0p2HnZpf/qpwPUVwF40VWzlnG9TZWL2mFW5K7IJyIw22jRsaLeH0XmuEaZN669kGqjUq+zGEZdVLhwtQwfsMqESRXOpiHKUj+3fFvwvdmWK+v/Q9U9gKSvD7I/+S66b0Jy1UFmAulw766PrGVfbVWT6RpeNsC2/HG9zuvzkpA3KEuImWTJI2pASE0rVddDbWuGUm8CcfdqMy5A2NjdafMWZ0CfKdYORQ76KLgToFE/npdaecfcESxpK06Gn20/A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OGLNAcHMQN3tEn5Sq+wi+jklFsofF17Ha4Z5ZK5ekUI=;
- b=YTmAHGjgvQZ35G+xnQckZU0RMs2aZcbm+dlTZv/lxCsyrHy+wRZiOm/xocHOqD1/whsf00d5S8nWG0OhNJSwtcYiw2ZcQu7Ce70j1wNfnR2Cj3VuLxKLIEHxKKcxFGyLAar9esWbWFbIihm1Z1XaN0HQqfJfP0tcJnvkDJ8Djvk=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-From: Stewart Hildebrand <stewart.hildebrand@amd.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Stewart Hildebrand <stewart.hildebrand@amd.com>, Anthony PERARD
-	<anthony.perard@vates.tech>, Juergen Gross <jgross@suse.com>, "Stefano
- Stabellini" <sstabellini@kernel.org>
-Subject: [PATCH v5 2/2] tools/arm: exclude iomem from domU extended regions
-Date: Wed, 11 Jun 2025 13:51:04 -0400
-Message-ID: <20250611175106.269829-3-stewart.hildebrand@amd.com>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20250611175106.269829-1-stewart.hildebrand@amd.com>
-References: <20250611175106.269829-1-stewart.hildebrand@amd.com>
+X-Inumbo-ID: b099147d-46ed-11f0-a307-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1749664713; x=1750269513; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=5gvOP0mKW1ypaQEOCG9IA46hEWtP+5hlN0TIFMVv5fg=;
+        b=Png1jZbOtbmHQJbbEA8XcQp2VvglQvGJo+GsfSEClyW0yYeN0+hYPuKpo2mK4KGynv
+         5NbuCRNnyc1baPWXHsirvY7U0qa5DAfV9+pM3Jn0vZo0OwKL1MAZOE9wRA+3XTjmSgBV
+         K7QSZk3NNgS8h88xWYZmMV3qqyY4XwKvw7M8o=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1749664713; x=1750269513;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=5gvOP0mKW1ypaQEOCG9IA46hEWtP+5hlN0TIFMVv5fg=;
+        b=TT18GnYujHyMZ/K97YrlZvWqcpWmni1dGr9ssFSf4a9KUGoXwzTdUdG2hJDPlIjJsL
+         jv8i5IjCdV63WGMecbNKefjPmi3gzIt5Xe99aMVFZL6FTAZoRB4Uz+7N4fxZdVmjwo+m
+         SfZRDq7u26UUJJtAY4EW8Me+Y2UAWf58avttv/cRjZMO/tax7Y6xTyvlzApTQMJBoi3Y
+         f81tF/YkU8MyYRdDsbL7Ko/h7KRJRDI8owjrLRQloZd2gcH2x1zlNgRBrEBxRnrqSId3
+         77hN9J6zi9L8tZGA8RgAnNygw8u10atMNgmDLotcoqPjZLv4rmuFUn6/8EgPs6MuyUAe
+         3O+Q==
+X-Forwarded-Encrypted: i=1; AJvYcCXXy5of86HOpJ3oxZ7gPZo/izbPljtyO3/Aubbn+hxTsO7s1rglEiS+yAyXpudy0mxfox16F2/5T6I=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyTm8i0qtWDrqfX1zvvMh9p80jq0mkRm6JDoizk+2ft2Gh9o+KO
+	hLwXqlgYFISjNiN3bk9sxAhI8Zj7LEftVAYBCr+YqlGUYnttNynRqILExb3bV66L5jQ=
+X-Gm-Gg: ASbGncvYQRVknZLj3x4/7prGowmh6qVcGK6izjKtXanJs5LDrw5CXdFQeXnr3fNS8eU
+	DvbIuorvLJ0tbv6YkGpyzNvShJ0Ffo/TRpAvi4X5fZIChDmdxt1od80w/bYxaXA1bM6KFhkFpaf
+	u6a69m0olE1LU9fIiu/KIm+lgp3O+XFPen6Mql23mPsHmuJoDzK/zLWg9Uxp8F7O13990Si6+CO
+	Yp4JjERLLvofbTk65ArtOPrIqsjqeBQxz8erQOqOBjUl1joPS0n2GxPdneL7jwPcXAfRPdezemu
+	oOv240rfxRin2zea9r45Uv15T+/e4tHJHWuZ821ZPFvUIy4Md7znYPckn4vpnrgQ5m/Lgwqo7yQ
+	=
+X-Google-Smtp-Source: AGHT+IFvAN/pIaBjnFe/+kc7F/hrDgz8XCXW6XBgbJqqNWMAc7NJmHMu+KFOYZH2rZktaKmSXWwjxA==
+X-Received: by 2002:a5d:584e:0:b0:3a5:52cc:5e29 with SMTP id ffacd0b85a97d-3a5586dcd10mr3712431f8f.7.1749664712725;
+        Wed, 11 Jun 2025 10:58:32 -0700 (PDT)
+Message-ID: <b78a4877-353d-4320-95a2-f3cefa018a61@citrix.com>
+Date: Wed, 11 Jun 2025 18:58:31 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/8] x86/pdx: simplify calculation of domain struct
+ allocation boundary
+To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>
+References: <20250611171636.5674-1-roger.pau@citrix.com>
+ <20250611171636.5674-2-roger.pau@citrix.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <20250611171636.5674-2-roger.pau@citrix.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-Received-SPF: None (SATLEXMB05.amd.com: stewart.hildebrand@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH3PEPF00000016:EE_|DS0PR12MB8019:EE_
-X-MS-Office365-Filtering-Correlation-Id: 369f911f-cf31-4ca9-d5e8-08dda9109558
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700013|82310400026|376014|1800799024;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?7iqFYPSaJBweMpj9Ldb35LKxV6mXE1vQapHUx06ySHGTXMGKJh7RD5M8Poxr?=
- =?us-ascii?Q?6SjE4Ew9dQTfU0Nld4VzTUyXWN85pQ3dTDj/0k2F3bRBSFeacnQ2w6Pd1ZRR?=
- =?us-ascii?Q?HaPobUQgLFSqWyr0emPQQDAzysoMrrRD823DtBcQ5crk2huheJbaXKPKE+DH?=
- =?us-ascii?Q?SaSOLbU/ZKrwJ4gl1h5463jZSOAv/hKu/vQb0prOH+/pUZX6+d1y5PjtoIKa?=
- =?us-ascii?Q?hefl3+F0UiToxzqp2L1cgYUaEkfZVP6DQCaIihS629ggLMICrbqRqDw+wXml?=
- =?us-ascii?Q?kTXSZhU8yGJ0/LDdjlc/ta4Ta7qo6NWxivIyiUMYRcUovwNotTd1neg2LCU5?=
- =?us-ascii?Q?QYiO124W+qhJDdFDFVHzs34Wkgyv+sSOyvo/4NkYhwLMEYgYmmikqE8yhAEE?=
- =?us-ascii?Q?1obXLoWfaRL6HzQmwA0+JPHRwKMzDIvCcFt6n73sEiz+W89U9y8pLGqn2wT9?=
- =?us-ascii?Q?gLkgWVBErE2KNIFKh+ReBsTL5v62jwAM2lwzwOJZa4HjMrK7kGX/dfqB1Tzz?=
- =?us-ascii?Q?yIL0nq56HINGXfily0bNL/dcjNM0EQgn7QcAJuOWN5htFJblb8xkZYVoLEvb?=
- =?us-ascii?Q?olXEUQ6p1CSOBaaP4qLsQDm0fKcWd/ig9pU08NgT7WY82563VdaHU0RM0LF0?=
- =?us-ascii?Q?oXb0T+F6Faya6YaAGpJWV+c9n1a1to1kiUMVkohJEj5JfUapbMpNsMwXdwpf?=
- =?us-ascii?Q?/loTrai9wSXkkW0Pci/4K4fERYGgjtgNdvSprBCq6eV/kGaCvM1Nt8pw1XZM?=
- =?us-ascii?Q?tRe0/udPDcMr31Xfrchu9MUKT1xnuBNOTVRyf1n91GfC88cR16lRzOLudoMB?=
- =?us-ascii?Q?45//6CkAYKebLKOvrz9zuKYNwODU7W3emw32cA0T/BNRk1r0Ef8UJtwAS0Ux?=
- =?us-ascii?Q?4PQoqiqFHNhlopcUOCi8rf+OL6b8SNJJPRZE0o692UI/h/OuDHVAbmBy3qqd?=
- =?us-ascii?Q?ru9mHAmZBXtpwQ/zd08NP2vXJCRRNxxdCUQLnSqETtm+mCHJwnAUK4pF4Bfy?=
- =?us-ascii?Q?aXpmIf2pqdofIqIH5IyBFXrjisEqwLfKYs3LAA5ZlcBZHjaYAoVqEIlY7usc?=
- =?us-ascii?Q?8Ot11FzTfubiuPStSOuzCzr34cn1ArCeccAXedBclaf0cp2hGcwWzm4h8Oec?=
- =?us-ascii?Q?LPxGMTyx/aA28NjTkLe99oBr+YLRTZ/MaLESsCY0RZkzj4qOaWynXflwY13t?=
- =?us-ascii?Q?nygsHS7rSGJ3m8GuEXp4UnjR884jt7v2u0S6nQs5TBKBFcnVRSDwwcUVv+FE?=
- =?us-ascii?Q?T3OkDLQd3dN/UeiFSlb4Nrc3utItYghp6ebUfin7UcQ5+/xoI7UuXix5H81r?=
- =?us-ascii?Q?r298kCeE+gWnt8NZagrHX5LJVcf4TlQcNwnjXjOdJYXHXMCeTK6vaeH4ATCW?=
- =?us-ascii?Q?Kl4WlEu2MlY4Yjx3Jo3RuHHKOXNBgsYVcf4aPHWunGuDl6CCd8lIJkQLuzz/?=
- =?us-ascii?Q?KQebHvjqufmftvnVNUGT+5wlLgavQFXddXBmbbdaAkiHt7W6VENrs7tC05ep?=
- =?us-ascii?Q?YF2W4VQaVgFL5uE=3D?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(82310400026)(376014)(1800799024);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jun 2025 17:51:24.6125
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 369f911f-cf31-4ca9-d5e8-08dda9109558
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CH3PEPF00000016.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8019
 
-When a device is passed through to a xl domU, the iomem ranges may
-overlap with the extended regions. Remove iomem from extended regions.
+On 11/06/2025 6:16 pm, Roger Pau Monne wrote:
+> diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
+> index 7536b6c8717e..2f438ce367cf 100644
+> --- a/xen/arch/x86/domain.c
+> +++ b/xen/arch/x86/domain.c
+> @@ -461,30 +461,6 @@ void domain_cpu_policy_changed(struct domain *d)
+>      }
+>  }
+>  
+> -#if !defined(CONFIG_BIGMEM) && defined(CONFIG_PDX_COMPRESSION)
+> -/*
+> - * The hole may be at or above the 44-bit boundary, so we need to determine
+> - * the total bit count until reaching 32 significant (not squashed out) bits
+> - * in PFN representations.
+> - * Note that the way "bits" gets initialized/updated/bounds-checked guarantees
+> - * that the function will never return zero, and hence will never be called
+> - * more than once (which is important due to it being deliberately placed in
+> - * .init.text).
+> - */
+> -static unsigned int __init noinline _domain_struct_bits(void)
+> -{
+> -    unsigned int bits = 32 + PAGE_SHIFT;
+> -    unsigned int sig = hweight32(~pfn_hole_mask);
+> -    unsigned int mask = pfn_hole_mask >> 32;
+> -
+> -    for ( ; bits < BITS_PER_LONG && sig < 32; ++bits, mask >>= 1 )
+> -        if ( !(mask & 1) )
+> -            ++sig;
+> -
+> -    return bits;
+> -}
+> -#endif
+> -
 
-Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
-Reviewed-by: Anthony PERARD <anthony.perard@vates.tech>
----
-Not sure if we need a Fixes: tag, but if we do:
-Fixes: 57f87857dc2d ("libxl/arm: Add handling of extended regions for DomU")
+I'm very happy to see this disappear.  Both because of a non-__init
+function calling an __init function, and because this internal is just
+horrible.
 
-v4->v5:
-* add Anthony's R-b
+>  struct domain *alloc_domain_struct(void)
+>  {
+>      struct domain *d;
+> @@ -498,14 +474,15 @@ struct domain *alloc_domain_struct(void)
+>       * On systems with CONFIG_BIGMEM there's no packing, and so there's no
+>       * such restriction.
+>       */
+> -#if defined(CONFIG_BIGMEM) || !defined(CONFIG_PDX_COMPRESSION)
+> -    const unsigned int bits = IS_ENABLED(CONFIG_BIGMEM) ? 0 :
+> -                                                          32 + PAGE_SHIFT;
+> +#if defined(CONFIG_BIGMEM)
+> +    const unsigned int bits = 0;
+>  #else
+> -    static unsigned int __read_mostly bits;
+> +    static unsigned int __ro_after_init bits;
+>  
+>      if ( unlikely(!bits) )
+> -         bits = _domain_struct_bits();
+> +         bits = flsl(pfn_to_paddr(pdx_to_pfn(
+> +             1UL << (sizeof(((struct page_info *)NULL)->v.inuse._domain) * 8))))
+> +             - 1;
 
-v3->v4:
-* use "else" instead of continue + another if statement
-* remove assert
-* s/iomem.end >=/unallocated.start >/ in two conditions
-* new variable to distinguish unallocated size from region size
-* print base + size - 1
+I think this would benefit greatly by not being a oneliner.  There's
+sizeof_field() which helps a little.
 
-v2->v3:
-* no change
+But, isn't this UB with CONFIG_BIGMEM?  You're shifting 1UL by 64.
 
-v1->v2:
-* no change
----
- tools/libs/light/libxl_arm.c | 110 +++++++++++++++++++++++++++++------
- 1 file changed, 91 insertions(+), 19 deletions(-)
+When __pdx_t is unsigned long, there's no bits restriction necessary. 
+Therefore, don't you want !bits && sizeof_field(...) < BYTES_PER_LONG as
+the entry criteria?
 
-diff --git a/tools/libs/light/libxl_arm.c b/tools/libs/light/libxl_arm.c
-index 75c811053c7c..3086c52acf83 100644
---- a/tools/libs/light/libxl_arm.c
-+++ b/tools/libs/light/libxl_arm.c
-@@ -798,6 +798,8 @@ static int make_timer_node(libxl__gc *gc, void *fdt,
-     return 0;
- }
- 
-+#define MAX_NR_EXT_REGIONS   256
-+
- static int make_hypervisor_node(libxl__gc *gc, void *fdt,
-                                 const libxl_version_info *vers)
- {
-@@ -821,7 +823,7 @@ static int make_hypervisor_node(libxl__gc *gc, void *fdt,
-      */
-     res = fdt_property_reg_placeholder(gc, fdt, GUEST_ROOT_ADDRESS_CELLS,
-                                        GUEST_ROOT_SIZE_CELLS,
--                                       GUEST_RAM_BANKS + 1);
-+                                       MAX_NR_EXT_REGIONS + 1);
-     if (res) return res;
- 
-     /*
-@@ -1517,17 +1519,29 @@ static void finalise_one_node(libxl__gc *gc, void *fdt, const char *uname,
- 
- #define EXT_REGION_MIN_SIZE   xen_mk_ullong(0x0004000000) /* 64MB */
- 
--static int finalize_hypervisor_node(libxl__gc *gc, struct xc_dom_image *dom)
-+static int compare_iomem(const void *a, const void *b)
-+{
-+    const libxl_iomem_range *x = a, *y = b;
-+
-+    if (x->gfn < y->gfn)
-+        return -1;
-+    if (x->gfn > y->gfn)
-+        return 1;
-+    return 0;
-+}
-+
-+static int finalize_hypervisor_node(libxl__gc *gc,
-+                                    libxl_domain_build_info *b_info,
-+                                    struct xc_dom_image *dom)
- {
-     void *fdt = dom->devicetree_blob;
--    uint64_t region_size[GUEST_RAM_BANKS] = {0}, region_base[GUEST_RAM_BANKS],
--        bankend[GUEST_RAM_BANKS];
-+    uint64_t region_base[MAX_NR_EXT_REGIONS], region_size[MAX_NR_EXT_REGIONS];
-     uint32_t regs[(GUEST_ROOT_ADDRESS_CELLS + GUEST_ROOT_SIZE_CELLS) *
--                  (GUEST_RAM_BANKS + 1)];
-+                  (MAX_NR_EXT_REGIONS + 1)];
-     be32 *cells = &regs[0];
-     const uint64_t bankbase[] = GUEST_RAM_BANK_BASES;
-     const uint64_t banksize[] = GUEST_RAM_BANK_SIZES;
--    unsigned int i, len, nr_regions = 0;
-+    unsigned int i, j, len, nr_regions = 0;
-     libxl_dominfo info;
-     int offset, rc;
- 
-@@ -1542,20 +1556,82 @@ static int finalize_hypervisor_node(libxl__gc *gc, struct xc_dom_image *dom)
-     if (info.gpaddr_bits > 64)
-         return ERROR_INVAL;
- 
-+    qsort(b_info->iomem, b_info->num_iomem, sizeof(libxl_iomem_range),
-+          compare_iomem);
-+
-     /*
-      * Try to allocate separate 2MB-aligned extended regions from the first
-      * and second RAM banks taking into the account the maximum supported
-      * guest physical address space size and the amount of memory assigned
-      * to the guest.
-      */
--    for (i = 0; i < GUEST_RAM_BANKS; i++) {
--        region_base[i] = bankbase[i] +
-+    for (i = 0; i < GUEST_RAM_BANKS && nr_regions < MAX_NR_EXT_REGIONS; i++) {
-+        struct {
-+            uint64_t start;
-+            uint64_t end; /* inclusive */
-+        } unallocated;
-+        uint64_t unallocated_size = 0;
-+
-+        unallocated.start = bankbase[i] +
-             ALIGN_UP_TO_2MB((uint64_t)dom->rambank_size[i] << XC_PAGE_SHIFT);
- 
--        bankend[i] = ~0ULL >> (64 - info.gpaddr_bits);
--        bankend[i] = min(bankend[i], bankbase[i] + banksize[i] - 1);
--        if (bankend[i] > region_base[i])
--            region_size[i] = bankend[i] - region_base[i] + 1;
-+        unallocated.end = ~0ULL >> (64 - info.gpaddr_bits);
-+        unallocated.end = min(unallocated.end, bankbase[i] + banksize[i] - 1);
-+
-+        if (unallocated.end >= unallocated.start)
-+            unallocated_size = unallocated.end - unallocated.start + 1;
-+
-+        if (unallocated_size < EXT_REGION_MIN_SIZE)
-+            continue;
-+
-+        /* Exclude iomem */
-+        for (j = 0; j < b_info->num_iomem && nr_regions < MAX_NR_EXT_REGIONS;
-+             j++) {
-+            struct {
-+                uint64_t start;
-+                uint64_t end; /* inclusive */
-+            } iomem;
-+
-+            iomem.start = b_info->iomem[j].gfn << XC_PAGE_SHIFT;
-+            iomem.end = ((b_info->iomem[j].gfn + b_info->iomem[j].number)
-+                         << XC_PAGE_SHIFT) - 1;
-+
-+            if (iomem.end >= unallocated.start
-+                && iomem.start <= unallocated.end) {
-+
-+                if (iomem.start <= unallocated.start) {
-+                    unallocated.start = iomem.end + 1;
-+
-+                    if (unallocated.start > unallocated.end)
-+                        break;
-+                } else {
-+                    uint64_t size = iomem.start - unallocated.start;
-+
-+                    if (size >= EXT_REGION_MIN_SIZE) {
-+                        region_base[nr_regions] = unallocated.start;
-+                        region_size[nr_regions] = size;
-+                        nr_regions++;
-+                    }
-+
-+                    unallocated.start = iomem.end + 1;
-+
-+                    if (unallocated.start > unallocated.end)
-+                        break;
-+                }
-+            }
-+        }
-+
-+        if (unallocated.end >= unallocated.start
-+            && nr_regions < MAX_NR_EXT_REGIONS)
-+        {
-+            uint64_t size = unallocated.end - unallocated.start + 1;
-+
-+            if (size >= EXT_REGION_MIN_SIZE) {
-+                region_base[nr_regions] = unallocated.start;
-+                region_size[nr_regions] = size;
-+                nr_regions++;
-+            }
-+        }
-     }
- 
-     /*
-@@ -1565,16 +1641,12 @@ static int finalize_hypervisor_node(libxl__gc *gc, struct xc_dom_image *dom)
-     set_range(&cells, GUEST_ROOT_ADDRESS_CELLS, GUEST_ROOT_SIZE_CELLS,
-               GUEST_GNTTAB_BASE, GUEST_GNTTAB_SIZE);
- 
--    for (i = 0; i < GUEST_RAM_BANKS; i++) {
--        if (region_size[i] < EXT_REGION_MIN_SIZE)
--            continue;
--
-+    for (i = 0; i < nr_regions; i++) {
-         LOG(DEBUG, "Extended region %u: %#"PRIx64"->%#"PRIx64"",
--            nr_regions, region_base[i], region_base[i] + region_size[i]);
-+            i, region_base[i], region_base[i] + region_size[i] - 1);
- 
-         set_range(&cells, GUEST_ROOT_ADDRESS_CELLS, GUEST_ROOT_SIZE_CELLS,
-                   region_base[i], region_size[i]);
--        nr_regions++;
-     }
- 
-     if (!nr_regions)
-@@ -1626,7 +1698,7 @@ int libxl__arch_domain_finalise_hw_description(libxl__gc *gc,
- 
-     }
- 
--    res = finalize_hypervisor_node(gc, dom);
-+    res = finalize_hypervisor_node(gc, &d_config->b_info, dom);
-     if (res)
-         return res;
- 
--- 
-2.49.0
-
+~Andrew
 
