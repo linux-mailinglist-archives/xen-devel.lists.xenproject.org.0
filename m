@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E3694AD56F5
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Jun 2025 15:28:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1011741.1390203 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A40D3AD574C
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Jun 2025 15:36:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1011747.1390212 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uPLVI-0002Eh-9Y; Wed, 11 Jun 2025 13:28:32 +0000
+	id 1uPLch-0003yH-0p; Wed, 11 Jun 2025 13:36:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1011741.1390203; Wed, 11 Jun 2025 13:28:32 +0000
+Received: by outflank-mailman (output) from mailman id 1011747.1390212; Wed, 11 Jun 2025 13:36:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uPLVI-0002CU-6Z; Wed, 11 Jun 2025 13:28:32 +0000
-Received: by outflank-mailman (input) for mailman id 1011741;
- Wed, 11 Jun 2025 13:28:30 +0000
+	id 1uPLcg-0003vw-UU; Wed, 11 Jun 2025 13:36:10 +0000
+Received: by outflank-mailman (input) for mailman id 1011747;
+ Wed, 11 Jun 2025 13:36:09 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Z5UX=Y2=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uPLVG-0002CM-Mj
- for xen-devel@lists.xenproject.org; Wed, 11 Jun 2025 13:28:30 +0000
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [2a00:1450:4864:20::433])
+ id 1uPLcf-0003vq-Dc
+ for xen-devel@lists.xenproject.org; Wed, 11 Jun 2025 13:36:09 +0000
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [2a00:1450:4864:20::32a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f67fa17c-46c7-11f0-a307-13f23c93f187;
- Wed, 11 Jun 2025 15:28:29 +0200 (CEST)
-Received: by mail-wr1-x433.google.com with SMTP id
- ffacd0b85a97d-3a361b8a664so5411024f8f.3
- for <xen-devel@lists.xenproject.org>; Wed, 11 Jun 2025 06:28:29 -0700 (PDT)
+ id 06964363-46c9-11f0-a307-13f23c93f187;
+ Wed, 11 Jun 2025 15:36:06 +0200 (CEST)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-450ce3a2dd5so59555055e9.3
+ for <xen-devel@lists.xenproject.org>; Wed, 11 Jun 2025 06:36:06 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-23603092640sm86888965ad.54.2025.06.11.06.28.21
+ d9443c01a7336-23603d14206sm87391795ad.34.2025.06.11.06.35.59
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 11 Jun 2025 06:28:28 -0700 (PDT)
+ Wed, 11 Jun 2025 06:36:05 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,61 +45,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f67fa17c-46c7-11f0-a307-13f23c93f187
+X-Inumbo-ID: 06964363-46c9-11f0-a307-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1749648509; x=1750253309; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1749648966; x=1750253766; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ZOHZkRc3ctKyMzq6MqCk9YchYthx0RwS7YGyu+lEHGw=;
-        b=MebklG83iwTOX5ltY8YqMNvAsRcjXs3LpUTfz1QSvfFFGv7Tzoj0Bo1XUa78UikW0w
-         k81lw3pmaWz9/XMUUDage0ScleIPObXHwuMSurLK4v3P98KjFCEfBrM4Y+0JBMYxdOCD
-         wqdsYjnqmDYhfXWemDq81LO3/5/bKaBqQ+N67vZJv/nHN65fzFCafz5CwDV+Nzvqiduh
-         IG9zSFO6B/NOpYUkC0Jadj7De+S1xRwZLdqkGfwAWJiTn3Lcxl4xfxHhz7+8ZIGjpFpu
-         sPIueHxYEgOCVgEo/n56frolSlXaP/hLF4Qj2CYfVKEygQaHGxQ7moKiIaNuAIqCiQOe
-         OFYQ==
+        bh=Rkuojl8eYF1ouZRGYRiishF0d8bI4Jee9szhrB+GhPw=;
+        b=chX6zJOamrqVv9l8LhZFGjNVk9KktWQoH1NL52wlA6sLbS38u+uWp9ZY3UIduF95+i
+         4CwzOvAblpHnf1KG5IxSS9wX53zomoyveNcKJXMAVFpYJRv3EpPrEg82lOgWUjyRWUCN
+         OvPfDX95JFpXMXVqoEoOlIp19xqcGvzojpZl3yCYw+BQw3IlcTmJKdBxHjhHrxR3T2Zn
+         LRO53uZXTFPxhQWUconR6R3RwkOhg+h0s8y1aobQEk5HJQZdpsPLdE2hvkI855p9LfQw
+         AMaOLy6j9yE2qGTrxuAPOhmfb7gLMatFpd9EsX21iNUoVKy1RVSeZ1zYcvmUw55UELge
+         2SQg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749648509; x=1750253309;
+        d=1e100.net; s=20230601; t=1749648966; x=1750253766;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ZOHZkRc3ctKyMzq6MqCk9YchYthx0RwS7YGyu+lEHGw=;
-        b=KUmsEKmGj96FNvfJ8PIIQk4w0GOW3K6zpYy0qQflKKdcw+kxFzVyyZBVFh7q9/eVjO
-         FImBmVZZ0IhOTlIcBxhq8UJbiS/B1purE4ukD/G/8VoexqHnL6CXjrRO9L4XKaw93su/
-         t5fhfuMMe5ULZBgj7W9oyDXJfyXritjs0ru5uxDYWaiPzaDYBp+K8GJBUr8Db1OyNifD
-         e1rQ1ITeNLKAR+eYZAKef1rst5f8xHWRXqGMW4SeXJhW91vo4iwyIozmSNBY0u4nijWm
-         QKDVexjB/k/B6GpoUapqu/hFq+eRRhZfLMMAM6kcOtutmhhtWwq6eWtVLp+kzCqHwsxl
-         psOQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUeWCe9ny3TRSrgNVwlhn3o5T+F+l6pHkLfKcMmWD5mn7bQvlCqF9jObOHQw78dk8tfwBvz3ZgKYDM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwPUvNbEfG0UfaJDIaoU3ZiY7FbwpiysfASPaGQzgEIr6BSBEB2
-	b1Wemkyeo1kZF49TfzfWYNRViWOmIQtpaoLeuQI+I8G/9cUTbc0vu9TLpt5b+KPLzw==
-X-Gm-Gg: ASbGncsYOSit824qy7cmVjVY05wpOehrygK8iqSj7JYQFmEVbfXqZrssFa+Tn2rIQTh
-	9ULakq9rQe6ErL7LkTxLZn4xXR5qpa1JEASrscyNDWzkmL73oy6bAPnBX5WPqozeSR6Vq2lHLSq
-	gweHCupqaqe0cfEy0qLbpsHXsqbfcX8HduQ769dCq7HNxCEZpPtmzNrj/RasVMfi/rvAwz+bYV2
-	wuVgFIsfMFFaioJ9JeZux4lc1qB6OFDrgIUmXzl6SxoDlHrvdYi1CrImMmmlIPPml0gGgStkSIM
-	/PtRXhSOpzqnHhWIdPREHmMZrCtyjWfIlsdf4g2p96xz0HBwG8ExzlSbYJ/Twzjev7yfij/li99
-	wndwHJeGxw5g5AYu/zPXnBaLmkyrOudDXojjgT7tTkZR8vWY=
-X-Google-Smtp-Source: AGHT+IG19wenMLI2OnajzGoCcP+u52UE3vvR5JGrjB1w0/KPS8sbeOLGR2AXeBrReiZsgnxuMPYAdg==
-X-Received: by 2002:a05:6000:4020:b0:3a4:f513:7f03 with SMTP id ffacd0b85a97d-3a558a3128cmr2940604f8f.44.1749648509242;
-        Wed, 11 Jun 2025 06:28:29 -0700 (PDT)
-Message-ID: <0defc4e7-382b-4651-8255-652da17a2129@suse.com>
-Date: Wed, 11 Jun 2025 15:28:17 +0200
+        bh=Rkuojl8eYF1ouZRGYRiishF0d8bI4Jee9szhrB+GhPw=;
+        b=hL5TxDQjugVDLK+zk1NrKJbTrbqgf3FxHr2Iu4M/OMF4m1elZGOjXs/2SejaoQoCZ8
+         aUXszc9IIB+KNniVzDA53QG7zVlYE87cyBbt66ZMuVQfaFyTHgGMMf67I/isBN5mAMnS
+         Q/8U3mhy/4/apwdxFSHQzjrucMY31kLwuMKDSVwTnCIrr1OwjlcCuPDcMCe9/EH1I+8J
+         SzI5sMWFi8O9Y+wAqOZZEJuzZOdLBJ3Bs3ty++f6e3YuD2m46fw5r7KvtI8pa+z7D2yr
+         IBI8+7sPG0J/hzXMs0oFces0Qve1mfkL9HeLBj8eh4aO9sDqfid9e/PloiuXdDuaK2a0
+         e6EA==
+X-Forwarded-Encrypted: i=1; AJvYcCVKwk+IltjfgWrj09RinSraMD2ElAOxgbMUk7hka0f/PFa43Hq99A3SxRSdjb3D2kFQN7qAdS0WGic=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Ywl8UlPnxC8uBx+UHm0yaKG959QWTBgA1XLazwsVntLSRCB9hU8
+	jLCCY3tm98QVF7OelMbeRN7TtBSwpBtCnS1x2UaJiYR0gzvi3xvp9f9pHWGE4K9B3A==
+X-Gm-Gg: ASbGnctXIMhENPQoneWn4CggTLkuDFhOs8MbM1KBTr740SBIgE0fsYe3dPeCPSr8R5c
+	i/fc3t1c8czqGxHieHd0mz/xGPSY48eJL/TP9RlSdyqC1OxXoh53QIOemSDEXPOoqgi3j5rPbxj
+	1pAK2ssEaPzzSC0KkJqP1IxxavgUAcIwtF1QiiSxkYMa9kwobVDSQVY//4ZEMyv9C2bubct0MrZ
+	RYDyocOHDthv26OJqYpVbNvZCwPkakCfaSzrP2GJtlUIR9+DmvfWFUsUDd4VnRVqfS6L9dZ3R0A
+	Uk3lujFr6Jl1iqjy0hGZRhsXo0eFqeiWaCyNLy/TZD7TOo/xSMh+NgdY0ZOoPMjNsqpTnhJcYNa
+	qT6Xg9RI5cdNrW6doIo5DvuRnK9VsNZzlTgH0lZX6gNK1hIY=
+X-Google-Smtp-Source: AGHT+IFLELa0I+JYgdF5kXyfkdmIhtJKoNRHLCZa6kcWFGppK0UDY5BFl/+m+b5n8iTIEhvjlcP1Yg==
+X-Received: by 2002:a05:6000:430c:b0:3a4:ef00:a78c with SMTP id ffacd0b85a97d-3a558a4296amr2428793f8f.55.1749648965690;
+        Wed, 11 Jun 2025 06:36:05 -0700 (PDT)
+Message-ID: <4352622c-f33a-405e-98c0-cad8f6b4f4f5@suse.com>
+Date: Wed, 11 Jun 2025 15:35:56 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/4] XSM changes for split hardware / control domain
-To: Jason Andryuk <jason.andryuk@amd.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+Subject: Re: [PATCH 03/11] xen/page_alloc: Add static per-node counts of free
+ pages
+To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+Cc: Bernhard Kaindl <bernhard.kaindl@cloud.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- Christian Lindig <christian.lindig@citrix.com>, David Scott
- <dave@recoil.org>, xen-devel@lists.xenproject.org
-References: <20250610225737.469690-1-jason.andryuk@amd.com>
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20250314172502.53498-1-alejandro.vallejo@cloud.com>
+ <20250314172502.53498-4-alejandro.vallejo@cloud.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -125,42 +123,27 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250610225737.469690-1-jason.andryuk@amd.com>
+In-Reply-To: <20250314172502.53498-4-alejandro.vallejo@cloud.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 11.06.2025 00:57, Jason Andryuk wrote:
-> Theses are the broad changes needed for a split hardware / control
-> domain.
-> 
-> An earlier posting gave device_model privileges to hardware domain.  For
-> this posting, it was split out into a new capability.  This way the
-> operator can choose where to run the device models without making the
-> hardware domain have the permissions.
-> 
-> The first patch add XSM_HW_PRIV for the hardware hypercalls.  Unlike the
-> first posting, the control domain can call these hypercalls even though
-> it doesn't really make sense.  The idea was to keep the control domain
-> all powerful from an XSM perspective.
-> 
-> SILO is changed to allow control, hardwware or xenstore to service
-> domUs.  Xenstore and hardware will use grants for PV interfaces.
-> Control wouldn't typically provide PV interfaces to domUs, but it is
-> given the permision to do so.  Again, to keep control all powerful.
-> 
-> xsm/dummy: Allow hwdom SYSCTL_readconsole/physinfo this is not strictly
-> needed.  xenconsoled could read Xen's dmesg.  If it's in hwdom, then
-> that permission would be required.  SYSCTL_physinfo is mainly to silence
-> xl messages, which are mostly cosmetic.
-> 
-> Jason Andryuk (4):
->   xen/xsm: Add XSM_HW_PRIV
->   xsm/silo: Support hwdom/control domains
->   xen: Add DOMAIN_CAPS_DEVICE_MODEL & XEN_DOMCTL_CDF_device_model
->   xsm/dummy: Allow hwdom SYSCTL_readconsole/physinfo
+On 14.03.2025 18:24, Alejandro Vallejo wrote:
+> --- a/xen/common/page_alloc.c
+> +++ b/xen/common/page_alloc.c
+> @@ -485,6 +485,9 @@ static unsigned long node_need_scrub[MAX_NUMNODES];
+>  static unsigned long *avail[MAX_NUMNODES];
+>  static long total_avail_pages;
+>  
+> +/* Per-node counts of free pages */
+> +static unsigned long pernode_avail_pages[MAX_NUMNODES];
 
-Overall I can't help the impression that this level of disaggregation simply
-requires the use of Flask.
+Performance-wise I find concerning any addition of yet another array like
+this one, which - unlike e.g. avail[] - is randomly written from all nodes.
+I think we either need to introduce per_node() paralleling per_cpu(), or
+(less desirable, but perhaps easier to carry out) data structures need to
+be introduced to make sure one particular cache line would only ever be
+written from a single node. As it's visible from patch context:
+node_need_scrub[] could/should move there, too, for example.
 
 Jan
 
