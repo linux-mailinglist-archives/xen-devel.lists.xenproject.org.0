@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED456AD6B29
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Jun 2025 10:43:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1012556.1391038 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 49E29AD6B37
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Jun 2025 10:44:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1012562.1391049 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uPdWm-0005xZ-Ol; Thu, 12 Jun 2025 08:43:16 +0000
+	id 1uPdYF-0006TF-1W; Thu, 12 Jun 2025 08:44:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1012556.1391038; Thu, 12 Jun 2025 08:43:16 +0000
+Received: by outflank-mailman (output) from mailman id 1012562.1391049; Thu, 12 Jun 2025 08:44:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uPdWm-0005vo-M9; Thu, 12 Jun 2025 08:43:16 +0000
-Received: by outflank-mailman (input) for mailman id 1012556;
- Thu, 12 Jun 2025 08:43:15 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=/UYN=Y3=ideasonboard.com=tomi.valkeinen@srs-se1.protection.inumbo.net>)
- id 1uPdWl-0005vi-FM
- for xen-devel@lists.xenproject.org; Thu, 12 Jun 2025 08:43:15 +0000
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 473f4130-4769-11f0-a309-13f23c93f187;
- Thu, 12 Jun 2025 10:43:14 +0200 (CEST)
-Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi
- [91.158.153.178])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 55F0C250;
- Thu, 12 Jun 2025 10:43:03 +0200 (CEST)
+	id 1uPdYE-0006Rn-Uu; Thu, 12 Jun 2025 08:44:46 +0000
+Received: by outflank-mailman (input) for mailman id 1012562;
+ Thu, 12 Jun 2025 08:44:45 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=TRIX=Y3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uPdYD-0006Rh-DD
+ for xen-devel@lists.xenproject.org; Thu, 12 Jun 2025 08:44:45 +0000
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [2a00:1450:4864:20::42a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7c4adf44-4769-11f0-b894-0df219b8e170;
+ Thu, 12 Jun 2025 10:44:43 +0200 (CEST)
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-3a528243636so423552f8f.3
+ for <xen-devel@lists.xenproject.org>; Thu, 12 Jun 2025 01:44:43 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2364e61b557sm8906275ad.2.2025.06.12.01.44.35
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 12 Jun 2025 01:44:41 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,148 +45,155 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 473f4130-4769-11f0-a309-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1749717784;
-	bh=DFZAKZf8wHZi/y9r247ZL0ZUXvFSN1yMyupDQcqZ3+0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=P97DiLsEsf/6i8aVwoi/8/jCDHmL9CIaqVE6F1kh5oZibLMLuYmgz4R5sZGO7dayi
-	 A9sBXgz1SuZs74C1VD4Xp16/e+PXSodQRenE1+LjsblMSGLXpOt87yMih54vtsY4Sp
-	 87w8fmpZjBB9PIYbdL6yYmzS28ULBjvl9UmrLU2M=
-Message-ID: <d7e016fd-3d0e-4822-a404-a53ba11e5dc4@ideasonboard.com>
-Date: Thu, 12 Jun 2025 11:43:08 +0300
+X-Inumbo-ID: 7c4adf44-4769-11f0-b894-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1749717882; x=1750322682; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=lauzLp4/BtyBk+0Qg2N8B8scQ9CseikuBjgHC7SlwKs=;
+        b=Oi0bFUStnusOoEvO176C0QfDe+cekK6ZWdf1+8z6VHpYr8L+ZkAt3hyi8k7yhES9l+
+         bnyj9hasf1DY5uK6DxNZM/X+V6PwTtuKKV/NzGy2iZ+to62ggG2Pz3R+OG9VmkUB6H4k
+         4bpqYC1J6eLXf7ElDTyNmoQg9bQSFJm/Fo0hdFnS6GGzrVHb8nRXBZM9xA5/spE1PPrw
+         rLEfCFxVs3x79Q4qzKVwOm8ZG5uK9Rmd98HsDSJfqC70+a3BzHcPwZ4tIBWO7xKEBiUI
+         Etd+lH0qe2iVnsU8i/U50fPbtBQQEYUTL3hgxwoG0nAAQ0b9UCWspQOnlblUyB6UL+iv
+         cziA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1749717882; x=1750322682;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=lauzLp4/BtyBk+0Qg2N8B8scQ9CseikuBjgHC7SlwKs=;
+        b=NbCSIX7qCnRKHCj3wSRKYDCoy1Y4Zjj15too870tz9FPTDP76t3zCTcAsle10xKKKd
+         eTQ3wzeNxZgk8GkYi8zm6upXWhNvJHWOeJZZf8CUVM9xZk7FyCptiXivkcEOGhYSjRgL
+         eoo3PTMqz0lEGkADnKz6dC15BKBF8e5OAb3tr9ATdwhzDSvTb1TmHzaOoX/0Qc43sKlL
+         Lvbvw1u9p76TZj4mHn8IpDN6PF4f2Qj5/lEVdzatXg/iSeohdRo4ytAQ6FguE8egCvSs
+         N1ultF8svAbkjIc73qUhMMcK9HU8ApgYbzAZ81DXutkd4GwQbR09/bC9HZG9kxadFCHt
+         aNeQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWo73ezeTvqRcqqxJqmXJH3OA2oc3WSXfPY3JSSqD3yk9OpxwOQYu2LLqgyU0iKk0Mv5E8zigv1zkI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxBdU7vM2psHd/gMDoyyCquEcgWAfUvmwXBfKty63zrJOoGw14D
+	UqP7rsQdpk5brXOjxpDFldwGRVfn2IXfHGMh1AiaXG9rxhLBOIGjCmNEDBM14YgxfQ==
+X-Gm-Gg: ASbGncvPYlREdqAW4OtYp2e2eZqePzRg+fwYB678F8phb8fnfcGGhtL/Qyvgq67c3kc
+	0r6qagjkb1KstamPhbMrW/NvxQkO/Y3MBvCDj06WV9inHCL6duxDQNTk3Vew4Rw2P2MFUkXGC7w
+	EKN2NMqkBp+Hw+8RYrPPVY917vVTCSFdeAG6vNW/U+epXdxFnaqELxTkxoTeYvP5f7p/bTqHmMS
+	D/EqCtlNbeQ0SzzIB8CFJq0HzEz6kuRNJcM/XlrvdffcLzSilOmnfDCeeu4vFDeJ2e8BYfF0gEA
+	UPvBZIcP/VLZnc4EIDGiOddBhq7uNCCLgmCwocDLe3uXeudkYVZTWaR9HqyISiRLvWvcuHXkIhh
+	nnuX/1WDTLAaeuuBlOKHt7vd5luOM96iVEKmyxT/iD85/qo0=
+X-Google-Smtp-Source: AGHT+IH5acxiR+LiqzrlaqbDD78/RRFeItz3s6x8W6APCnK6Q3D/1CxtdS6BzGpofqrDr3NlAS7GRA==
+X-Received: by 2002:a05:6000:3106:b0:3a4:d975:7d6f with SMTP id ffacd0b85a97d-3a56076b241mr2124525f8f.39.1749717882576;
+        Thu, 12 Jun 2025 01:44:42 -0700 (PDT)
+Message-ID: <51b5ddd4-6abc-4228-a2d6-fec349a16bfb@suse.com>
+Date: Thu, 12 Jun 2025 10:44:31 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 03/25] drm/gem-dma: Compute dumb-buffer sizes with
- drm_mode_size_dumb()
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
- freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- imx@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
- nouveau@lists.freedesktop.org, virtualization@lists.linux.dev,
- spice-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
- linux-rockchip@lists.infradead.org, linux-tegra@vger.kernel.org,
- intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org,
- simona@ffwll.ch, airlied@gmail.com, mripard@kernel.org,
- maarten.lankhorst@linux.intel.com, geert@linux-m68k.org
-References: <20250311155120.442633-1-tzimmermann@suse.de>
- <20250311155120.442633-4-tzimmermann@suse.de>
+Subject: Re: [PATCH v6 06/12] x86/hyperlaunch: obtain cmdline from device tree
+To: Alejandro Vallejo <agarciav@amd.com>
+Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>, Denis Mukhin
+ <dmukhin@ford.com>, xen-devel@lists.xenproject.org,
+ Jason Andryuk <jason.andryuk@amd.com>
+References: <20250429123629.20839-1-agarciav@amd.com>
+ <20250429123629.20839-7-agarciav@amd.com>
+ <59f37fcc-9226-46c5-8dc8-7bd2100d8f59@amd.com>
+ <02ffa9cf-b5cd-431a-834a-a11bbf310196@suse.com>
+ <03be429c-063d-4467-91e7-7ef2e148a2fb@amd.com>
+ <ef46b3ec-af0e-480f-b206-5191c79e62f9@suse.com>
+ <DAKEPTAU5XB4.3NA0LU38UFH6L@amd.com>
 Content-Language: en-US
-From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Autocrypt: addr=tomi.valkeinen@ideasonboard.com; keydata=
- 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
-In-Reply-To: <20250311155120.442633-4-tzimmermann@suse.de>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <DAKEPTAU5XB4.3NA0LU38UFH6L@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi,
-
-On 11/03/2025 17:47, Thomas Zimmermann wrote:
-> Call drm_mode_size_dumb() to compute dumb-buffer scanline pitch and
-> buffer size. Align the pitch to a multiple of 8.
+On 12.06.2025 10:20, Alejandro Vallejo wrote:
+> On Wed Jun 11, 2025 at 7:35 AM CEST, Jan Beulich wrote:
+>> On 10.06.2025 19:39, Jason Andryuk wrote:
+>>>
+>>>
+>>> On 2025-06-10 02:56, Jan Beulich wrote:
+>>>> On 09.06.2025 19:07, Jason Andryuk wrote:
+>>>>> On 2025-04-29 08:36, Alejandro Vallejo wrote:
+>>>>>> From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+>>>>>>
+>>>>>> Add support to read the command line from the hyperlaunch device tree.
+>>>>>> The device tree command line is located in the "bootargs" property of the
+>>>>>> "multiboot,kernel" node.
+>>>>>>
+>>>>>> A boot loader command line, e.g. a grub module string field, takes
+>>>>>> precendence over the device tree one since it is easier to modify.
+>>>>>>
+>>>>>> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+>>>>>> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
+>>>>>> Signed-off-by: Alejandro Vallejo <agarciav@amd.com>
+>>>>>> Reviewed-by: Denis Mukhin <dmukhin@ford.com>
+>>>>>> ---
+>>>>>
+>>>>>> diff --git a/xen/common/domain-builder/fdt.c b/xen/common/domain-builder/fdt.c
+>>>>>> index cbb0ed30a2..dabe201b04 100644
+>>>>>> --- a/xen/common/domain-builder/fdt.c
+>>>>>> +++ b/xen/common/domain-builder/fdt.c
+>>>>>> @@ -219,6 +219,12 @@ static int __init fdt_process_domain_node(
+>>>>>>                printk(XENLOG_INFO "  kernel: multiboot-index=%d\n", idx);
+>>>>>>                bi->mods[idx].type = BOOTMOD_KERNEL;
+>>>>>>                bd->kernel = &bi->mods[idx];
+>>>>>> +
+>>>>>> +            /* If bootloader didn't set cmdline, see if FDT provides one. */
+>>>>>> +            if ( bd->kernel->cmdline_pa &&
+>>>>>> +                 !((char *)__va(bd->kernel->cmdline_pa))[0] )
+>>>>>
+>>>>> The logic is incorrect - it should be:
+>>>>>
+>>>>>              if ( !bd->kernel->cmdline_pa ||
+>>>>>                   !((char *)__va(bd->kernel->cmdline_pa))[0] )
+>>>>>
+>>>>> If there is no cmdline_pa (which happens with the "reg" property) or the if there is a 0-length string, then check the DT for bootargs.
+>>>>
+>>>> Even that sounds bogus to me: There's a difference between "no command line"
+>>>> and "empty command line".
+>>>
+>>> Yes, you have a point.  The difficulty is grub always provides a NUL terminated string, so Xen can't differentiate the two.
+>>
+>> Which may call for either special-casing GrUB, or at least calling out that
+>> behavior in the comment. (Ideally we'd still have a way to distinguish
+>> between both cases, but likely we'll need to resort to documenting that some
+>> dummy option will need adding to tell "none" from [intended to be] empty.)
 > 
-> Push the current calculation into the only direct caller imx. Imx's
-> hardware requires the framebuffer width to be aligned to 8. The
-> driver's current approach is actually incorrect, as it only guarantees
-> this implicitly and requires bpp to be a multiple of 8 already. A
-> later commit will fix this problem by aligning the scanline pitch
-> such that an aligned width still fits into each scanline's memory.
+> We can add suitable comments where required, sure.
 > 
-> A number of other drivers are build on top of gem-dma helpers and
-> implement their own dumb-buffer allocation. These drivers invoke
-> drm_gem_dma_dumb_create_internal(), which is not affected by this
-> commit.
-> 
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> ---
->  drivers/gpu/drm/drm_gem_dma_helper.c     | 7 +++++--
->  drivers/gpu/drm/imx/ipuv3/imx-drm-core.c | 2 ++
->  2 files changed, 7 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/drm_gem_dma_helper.c b/drivers/gpu/drm/drm_gem_dma_helper.c
-> index b7f033d4352a..49be9b033610 100644
-> --- a/drivers/gpu/drm/drm_gem_dma_helper.c
-> +++ b/drivers/gpu/drm/drm_gem_dma_helper.c
-> @@ -20,6 +20,7 @@
->  #include <drm/drm.h>
->  #include <drm/drm_device.h>
->  #include <drm/drm_drv.h>
-> +#include <drm/drm_dumb_buffers.h>
->  #include <drm/drm_gem_dma_helper.h>
->  #include <drm/drm_vma_manager.h>
->  
-> @@ -304,9 +305,11 @@ int drm_gem_dma_dumb_create(struct drm_file *file_priv,
->  			    struct drm_mode_create_dumb *args)
->  {
->  	struct drm_gem_dma_object *dma_obj;
-> +	int ret;
->  
-> -	args->pitch = DIV_ROUND_UP(args->width * args->bpp, 8);
-> -	args->size = args->pitch * args->height;
-> +	ret = drm_mode_size_dumb(drm, args, SZ_8, 0);
-> +	if (ret)
-> +		return ret;
->  
->  	dma_obj = drm_gem_dma_create_with_handle(file_priv, drm, args->size,
->  						 &args->handle);
-> diff --git a/drivers/gpu/drm/imx/ipuv3/imx-drm-core.c b/drivers/gpu/drm/imx/ipuv3/imx-drm-core.c
-> index ec5fd9a01f1e..e7025df7b978 100644
-> --- a/drivers/gpu/drm/imx/ipuv3/imx-drm-core.c
-> +++ b/drivers/gpu/drm/imx/ipuv3/imx-drm-core.c
-> @@ -145,6 +145,8 @@ static int imx_drm_dumb_create(struct drm_file *file_priv,
->  	int ret;
->  
->  	args->width = ALIGN(width, 8);
-> +	args->pitch = DIV_ROUND_UP(args->width * args->bpp, 8);
-> +	args->size = args->pitch * args->height;
->  
->  	ret = drm_gem_dma_dumb_create(file_priv, drm, args);
->  	if (ret)
+> About the dummy option, note that even if we have an option for Xen, that does
+> nothing for the kernel cmdlines. If there's such dummy option there I don't know
+> of it.
 
-Won't the pitch and size just be overwritten by the
-drm_gem_dma_dumb_create() call?
+Indeed I meant we may need to introduce something.
 
- Tomi
-
+Jan
 
