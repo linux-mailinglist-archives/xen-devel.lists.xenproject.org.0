@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 88738AD686B
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Jun 2025 09:01:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1012393.1390829 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D1955AD6884
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Jun 2025 09:14:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1012408.1390839 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uPbwY-000624-VZ; Thu, 12 Jun 2025 07:01:46 +0000
+	id 1uPc87-0007u8-VP; Thu, 12 Jun 2025 07:13:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1012393.1390829; Thu, 12 Jun 2025 07:01:46 +0000
+Received: by outflank-mailman (output) from mailman id 1012408.1390839; Thu, 12 Jun 2025 07:13:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uPbwY-00060Q-Sp; Thu, 12 Jun 2025 07:01:46 +0000
-Received: by outflank-mailman (input) for mailman id 1012393;
- Thu, 12 Jun 2025 07:01:45 +0000
+	id 1uPc87-0007sA-S7; Thu, 12 Jun 2025 07:13:43 +0000
+Received: by outflank-mailman (input) for mailman id 1012408;
+ Thu, 12 Jun 2025 07:13:42 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=TRIX=Y3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uPbwX-0005RB-5m
- for xen-devel@lists.xenproject.org; Thu, 12 Jun 2025 07:01:45 +0000
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [2a00:1450:4864:20::42f])
+ id 1uPc86-0007s4-5u
+ for xen-devel@lists.xenproject.org; Thu, 12 Jun 2025 07:13:42 +0000
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [2a00:1450:4864:20::32a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 18b2a918-475b-11f0-b894-0df219b8e170;
- Thu, 12 Jun 2025 09:01:43 +0200 (CEST)
-Received: by mail-wr1-x42f.google.com with SMTP id
- ffacd0b85a97d-3a503d9ef59so546638f8f.3
- for <xen-devel@lists.xenproject.org>; Thu, 12 Jun 2025 00:01:43 -0700 (PDT)
+ id c40f6990-475c-11f0-b894-0df219b8e170;
+ Thu, 12 Jun 2025 09:13:40 +0200 (CEST)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-450ce3a2dd5so4981095e9.3
+ for <xen-devel@lists.xenproject.org>; Thu, 12 Jun 2025 00:13:40 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2364e71a2c7sm6881165ad.238.2025.06.12.00.01.34
+ d9443c01a7336-2364e6d9badsm7131205ad.93.2025.06.12.00.13.29
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 12 Jun 2025 00:01:40 -0700 (PDT)
+ Thu, 12 Jun 2025 00:13:35 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,61 +45,63 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 18b2a918-475b-11f0-b894-0df219b8e170
+X-Inumbo-ID: c40f6990-475c-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1749711702; x=1750316502; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1749712419; x=1750317219; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=3SzzgRwG19cOL5AnREHIrYN7mthTv93pvaXrzSKkzXU=;
-        b=dQxSQqyCvJCO2asnaRrSKbpnZuPrqqv2WPWbr4BwWoRwI2bZKoWQOjowbRDpkL54dh
-         ju5ick5DRd3wJqJo+Jb4Y07qTPHTe5XDpJPSMVuZ0p4qPVeMTtU1QTk15cGhX4SG/7FO
-         F9d83ubF++Kw55XKgMXoNk3AYpg2evP6ArR8gUbOZvWi0AnIeWh6ZM5ahieayCd6rKM7
-         Kc/pS2BrqOUtJkA0tnpLVfwXMBa17HHKLnarB3xxVMiK/UvFNSUGRlU5UYvH2YiapzRJ
-         nod2Y4SJPx/bSucACCUcSxGhxuPdM8VVyLC4TwIO0ipEMPaSSfvDSJjw9rAEgee3JWAc
-         7ktA==
+        bh=SThEqv3QD+IFOrdp1AvLe2umZa8d7tLuCqdV+qefQDE=;
+        b=CiVUk+ONPXTEXvXcgIzpir4g0rGtflUb1L5RZGM2owfkNAsvho3i5Fe4JT2MXNs2xo
+         jKKs7mQyrHwxsXBBnav3MUuMLT0MqvZUyoAGsyjIy4YKLx0ZGZ8JC4nYZYXQ/Cl8C+tI
+         /GwA8fhTYEP4wY/R0jheLsXHYVZjdFR26S3Z4k1mBnVN1iV7X6qnsnDsLLWg1csW+IfW
+         PXj5unvmIReJtJBdvqNRz/TdsRY6PxZaMe+sjfyeojksx6O5Y1cNJgGJBK0oyCJLObOV
+         0g3QW3mBJcaWS8UKpPr0ImFeWIT21rXC62qf7bCpZsPPv8HunS4SGojs25hGGgoB09uP
+         FYFw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749711702; x=1750316502;
+        d=1e100.net; s=20230601; t=1749712419; x=1750317219;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=3SzzgRwG19cOL5AnREHIrYN7mthTv93pvaXrzSKkzXU=;
-        b=qaRQNQp8n0kspqtTihGg2mjxvOfTLwZke5Aqx/xA97Cs2fvc3XQjUkzG2knfmoZwAm
-         nJ5NfGiNlW1kasPUZ1Z+xmazfHx/RMsYqJN3s/USK7ZuXoEDWn/eFbm9LwMzcA2ichjA
-         5ZWwCWTOIyxJ5g3lERy0pMbkBn1dBwkFO9/ugawk+LiHwnqHTZEfD4RcQd60B7T5fljd
-         nBydXaVBK8YD4EIgF6KRsg5YOR4fJ08Q52bbsyTmzL1teyrDkAXzx0knQoN58TatkI3F
-         LcXpR0Qxy/nhwxbDVp2X0Ik9evRC7vqDEpLhEBvIBdO0vbMMqMLODhmEw9iowjPGwKEn
-         Mv8A==
-X-Forwarded-Encrypted: i=1; AJvYcCUYdyjTxWPK5HeehTx/XD+hUe5THgNIPT6niJUybITH8IpMLTPlsSvD5DHFgW2rISCc4T/tBr8aCqw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxMzvxw4mTnGdu/uxEWCrQi7UiAowy6e+0iD9tn4EjLKvw6Xnn6
-	+muZU2h/GAymmHMu4EO2t5HDJjXYeEH5JPOkfCw+PJ0HjqfLtD5JGktorFu4G7yt6Q==
-X-Gm-Gg: ASbGncs7qUVFGDV0C8ho4WKaQeklf3G9DOhMOXHyg+OYcdU9Fs3PDrAXB5GFmQGma7G
-	CLiFlnUXB823zcjuJQCydCANN27f0+G2Dyp10tnHCC3mTFCJkDvPM4vr8QLWL3H86X/HS3iCNA0
-	NUgJZQS58kiUg/ULgfXH7A5LDJtfnilGY4mcbqh6jXeoILrCRtpaB0m04kWPa+/s2aMM9lFl5GK
-	D2EZ7Imv7cwFf7PW4670maTzZwbjXLKqtesr6FmD8Ch0/F0Hl3SfPO+6O8tmc52KIiZxHhBkynu
-	7nMuXzkfnTCllF24Ss3/AjSbZ81hi+JkMTMun9I39xWiPq1hE1A4g4VfLrIvGqIXFCpTEorsYrV
-	4+U4syDwLXNYgWjPzqWzm1iMYB1rblAbqEtWlU8NORY37EnA=
-X-Google-Smtp-Source: AGHT+IFe3iP75njw67ihFIhTDnUtvlZTuG/xmJQXBANevKtMkHsaqli3IV6JYTVzxHGmD/Lj/HGlFg==
-X-Received: by 2002:a05:6000:2889:b0:3a5:2670:e220 with SMTP id ffacd0b85a97d-3a5612db2a2mr1208226f8f.32.1749711701967;
-        Thu, 12 Jun 2025 00:01:41 -0700 (PDT)
-Message-ID: <b692d934-7f0a-427d-99df-2404662333eb@suse.com>
-Date: Thu, 12 Jun 2025 09:01:31 +0200
+        bh=SThEqv3QD+IFOrdp1AvLe2umZa8d7tLuCqdV+qefQDE=;
+        b=bo3kYHB7TrVnzC5FlAZWgMJoIF8YXkp6A92NaSfJMemAzXDAAcaoyUKm+km/J+1BP3
+         wP0pCXuY27lLCySNcIff9UbyAb7pIqgW/VdF1Wh1OApemCHqRlGWroyB7ZOu+TMRZVRy
+         X2f1ppDFt22S1Lq0G1XyWKJDcxwTw9k1Mhv6Rim2jOyLwsdWmf//QrCIUM+6biSJRuzL
+         /zqdkBUMNHWx+ffguGR/eBwce8DelW4ICW/8lG1hbXFGl5PPSuAhFu3fdtVc7+uJQOHZ
+         hyAfjgoSI9Vtvqkxl3FaUNnRuRY7V61AMr+2eV7hrjlb7Iu7lbN7nHZ3hZWvJB4QhqTt
+         agew==
+X-Forwarded-Encrypted: i=1; AJvYcCUvIQAmVBKpUOWx9cCviv2g/wxw2A0GjQIppvbIb6Xy7iRwsP0y9UTrE0oo7TrPymp1LRz1KeAu/k4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxAR7L2GC+77xJ50k/5eZ4MHtw84gvX9pKBiqPNzHegpNZNLHcx
+	QGi/GoWr8FVs7Ar9MsRmva5RwwcBKOQV9E241O1uqkmD+J5BEGI1fAcVsJjgcVbeHQ==
+X-Gm-Gg: ASbGncuA/Bm6gYXREIW89/8p96dazQfL1NcxrkJAxoTpoXpwxn/ViTMjDX1gkVKM1qN
+	sJAIbunhwAFuIM15aK+8fE18G46G+QgbSDPY2k7/U9ie8IuzdA92JHQWtl9ISEwNZyT1UFN9T9S
+	jsBDtp0aboDlWJuoTcX97R7gpQ2GK1j2DdYNHK9oGb+aaLoZip3TM+o2W3L+bpitm5p0HSr2nJg
+	hP3n+k8txyScRUdC05w41U8dk+ibbRh+YLofB7jdhpB2roN26q4XLeV6YOn8TPaz8IYhhgCxZog
+	nWQpSpyxbDb/QGxhT+kWRE/YgIC3x3m1zqVElnSt0x4hT8HG7gfUxgmpc+BPU1kspZoknhaOTyg
+	x12GvyTeE5o1/2Jx5EUw3LGn8/acs+GWVfQvx11HeGUiX2AQ=
+X-Google-Smtp-Source: AGHT+IGBPUs6Gb116GWWXvqzA6d6C9Q0NMUiJIbo5NDUQ+z1VF4jfvWGRs/Zj5Mx/jWe/FJ/tdf8TA==
+X-Received: by 2002:a05:6000:25c3:b0:3a4:f2ed:217e with SMTP id ffacd0b85a97d-3a5614c2053mr1366978f8f.42.1749712416378;
+        Thu, 12 Jun 2025 00:13:36 -0700 (PDT)
+Message-ID: <94442a1e-48e9-4236-b5e4-e192cf2a8261@suse.com>
+Date: Thu, 12 Jun 2025 09:13:25 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 03/20] xen/x86: remove "depends on !PV_SHIM_EXCLUSIVE"
+Subject: Re: [PATCH v4 04/20] xen: introduce CONFIG_SYSCTL
 To: "Penny, Zheng" <penny.zheng@amd.com>
 Cc: "Huang, Ray" <Ray.Huang@amd.com>,
+ "Stabellini, Stefano" <stefano.stabellini@amd.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  "Orzel, Michal" <Michal.Orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
+ Sergiy Kibrik <Sergiy_Kibrik@epam.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 References: <20250528091708.390767-1-Penny.Zheng@amd.com>
- <20250528091708.390767-4-Penny.Zheng@amd.com>
- <1a73c720-012a-4795-9f47-f9c23b643de1@suse.com>
- <DM4PR12MB8451B5CBFD6D9DCDDB7040DEE174A@DM4PR12MB8451.namprd12.prod.outlook.com>
+ <20250528091708.390767-5-Penny.Zheng@amd.com>
+ <51fde0e2-abca-43c8-9cfa-734219431970@suse.com>
+ <DM4PR12MB8451169A7B4D80FFE38A62FDE174A@DM4PR12MB8451.namprd12.prod.outlook.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -125,118 +127,67 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <DM4PR12MB8451B5CBFD6D9DCDDB7040DEE174A@DM4PR12MB8451.namprd12.prod.outlook.com>
+In-Reply-To: <DM4PR12MB8451169A7B4D80FFE38A62FDE174A@DM4PR12MB8451.namprd12.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 12.06.2025 06:09, Penny, Zheng wrote:
+On 12.06.2025 06:35, Penny, Zheng wrote:
 >> -----Original Message-----
 >> From: Jan Beulich <jbeulich@suse.com>
->> Sent: Tuesday, June 10, 2025 9:01 PM
+>> Sent: Tuesday, June 10, 2025 9:05 PM
 >>
 >> On 28.05.2025 11:16, Penny Zheng wrote:
->>> Remove all "depends on !PV_SHIM_EXCLUSIVE" (also the functionally
->>> equivalent "if !...") in Kconfig file, since negative dependancy will
->>> badly affect allyesconfig. To make sure unchanging produced config
->>> file based on "pvshim_defconfig", we shall explicitly state according
->>> Kconfig is not set
+>>> From: Stefano Stabellini <stefano.stabellini@amd.com>
 >>>
->>> Add "default y" for SHADOW_PAGING and TBOOT, otherwise we will have
->>> unset values when running make defconfig based on "x86_64_defconfig".
->>
->> I fear I don't understand this, perhaps related to me also not seeing how ...
-> 
-> If we just removed "default !PV_SHIM_EXCLUSIVE", .config file generated by "make defconfig"
-> will change, having unsetting values for SHADOW_PAGING (# CONFIG_SHADOW_PAGING is not set)
-> If changing it to "default y" is too casual, maybe we shall add "CONFIG_ SHADOW_PAGING=y" in x86_64_defconfig,
-> to at least retain consistent .config file.
-> My fault, Only considering "SHADOW_PAGING" is enough, as TBOOT depends on UNSUPPORTED firstly
-> 
->>> --- a/xen/arch/x86/Kconfig
->>> +++ b/xen/arch/x86/Kconfig
->>> @@ -143,7 +143,7 @@ config XEN_IBT
+>>> We introduce a new Kconfig CONFIG_SYSCTL, which shall only be disabled
+>>> on some dom0less systems or PV shim on x86, to reduce Xen footprint.
 >>>
->>>  config SHADOW_PAGING
->>>     bool "Shadow Paging"
->>> -   default !PV_SHIM_EXCLUSIVE
->>> +   default y
->>>     depends on PV || HVM
->>>     help
+>>> Making SYSCTL without prompt is transient and it will be fixed in the
+>>> final
+>>
+>> Nit: s/fixed/adjusted/ ? It's not a bug, after all.
+> 
+> Understood.
+
+At the risk of being overly blunt - did you really? You use ...
+
+>>> patch. Also, we will also state unsetting SYSCTL in pvshim_defconfig
+>>> to explicitly make it unavailable for PV shim in the final patch.
+>>
+>> Even without the double "also" this reads odd. But it's also unclear what it has to do
+>> here, nor whether what is being said is actually correct.
+> 
+> Hmmm, How about  "
+> The consequences of introducing "CONFIG_SYSCTL=y" in .config file generated from pvshim_defconfig
+> is transient and will be also fixed in the final."
+
+... "fixed" again right away, in the same misleading way. Apart from
+this - yes, this wording is quite a bit better.
+
+>>> --- a/xen/common/Kconfig
+>>> +++ b/xen/common/Kconfig
+>>> @@ -579,4 +579,15 @@ config BUDDY_ALLOCATOR_SIZE
+>>>       Amount of memory reserved for the buddy allocator to serve Xen heap,
+>>>       working alongside the colored one.
 >>>
->>> @@ -175,7 +175,7 @@ config BIGMEM
->>>  config TBOOT
->>>     bool "Xen tboot support (UNSUPPORTED)"
->>>     depends on INTEL && UNSUPPORTED
->>> -   default !PV_SHIM_EXCLUSIVE
->>> +   default y
->>>     select CRYPTO
->>>     help
->>>       Allows support for Trusted Boot using the Intel(R) Trusted
->>> Execution
+>>> +menu "Supported hypercall interfaces"
+>>> +   visible if EXPERT
+>>> +
+>>> +config SYSCTL
+>>> +   bool "Enable sysctl hypercall"
+>>> +   def_bool y
 >>
->> ... these two fit with title and description. The justification for removing
->> the !PV_SHIM_EXCLUSIVE here is not "breaks allyesconfig".
-> 
-> Hmmm, it is the consequence of "removing the !PV_SHIM_EXCLUSIVE"
-> Maybe I shall add more explanation in commit message?
-
-Just to clarify - my questions here were about the changes altogether, i.e.:
-Why are these two change - as a whole - needed, given the subject? And just
-to try to avoid any misunderstanding: My point is that "depends on ..." and
-"default ..." are different things, when the commit message discusses only
-the former. So yes, extending the commit message may be one way to address
-my remarks. But really I think changes to defaults (if needed at all) would
-better be separate from changes to "depends on ...".
-
->>> --- a/xen/arch/x86/configs/pvshim_defconfig
->>> +++ b/xen/arch/x86/configs/pvshim_defconfig
->>> @@ -26,3 +26,8 @@ CONFIG_EXPERT=y
->>>  # CONFIG_INTEL_IOMMU is not set
->>>  # CONFIG_DEBUG is not set
->>>  # CONFIG_GDBSX is not set
->>> +# CONFIG_SHADOW_PAGING is not set
->>> +# CONFIG_TBOOT is not set
->>> +# HYPERV_HYPERV_GUEST is not set
->>
->> This one doesn't look right, simply by its name.
->>
->>> +# CONFIG_HVM is not set
->>> +# CONFIG_VGA is not set
->>
->> Just to mention it - I'm unsure whether adding such at the end isn't going to cause
->> issues. But maybe I'm paranoid ...
+>> Why def_bool when you already have bool on the earlier line?
 >>
 > 
-> It could be too casual..
-> I will only leave VGA here, as we're sure that with removing "!PV_SHIM_EXCLUSIVE",
-> CONFIG_VGA is setting as y in pvshim_defconfig
+> Ack, then here maybe a simple
+> "
+> config SYSCTL
+>         def_bool y
+> "
+>  is enough.
 
-I don't follow: Why would a shim need VGA support compiled in?
-
->>> --- a/xen/drivers/video/Kconfig
->>> +++ b/xen/drivers/video/Kconfig
->>> @@ -3,10 +3,10 @@ config VIDEO
->>>     bool
->>>
->>>  config VGA
->>> -   bool "VGA support" if !PV_SHIM_EXCLUSIVE
->>> +   bool "VGA support"
->>>     select VIDEO
->>>     depends on X86
->>> -   default y if !PV_SHIM_EXCLUSIVE
->>> +   default y
->>>     help
->>>       Enable VGA output for the Xen hypervisor.
->>
->> Like above, this change also doesn't really fit with title and description.
-> 
-> I have added " (also the functionally equivalent "if !...") " in commit message to also
-> cover above change
-
-Well. There are multiple uses of "if ...". The one matching "depends on ..." is
-covered in the description, yes. But the two uses here don't fall in this same
-group. One is a prompt visibility change, and the other is a change to yet
-another default. See above for my recommendation (to split things properly).
+Indeed; see my later reply on this same topic.
 
 Jan
 
