@@ -2,33 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 25049AD6EAD
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Jun 2025 13:11:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1012868.1391365 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E164AD6EC1
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Jun 2025 13:16:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1012877.1391387 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uPfph-0002dO-7O; Thu, 12 Jun 2025 11:10:57 +0000
+	id 1uPfv9-0003KZ-VW; Thu, 12 Jun 2025 11:16:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1012868.1391365; Thu, 12 Jun 2025 11:10:57 +0000
+Received: by outflank-mailman (output) from mailman id 1012877.1391387; Thu, 12 Jun 2025 11:16:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uPfph-0002aj-4V; Thu, 12 Jun 2025 11:10:57 +0000
-Received: by outflank-mailman (input) for mailman id 1012868;
- Thu, 12 Jun 2025 11:10:55 +0000
+	id 1uPfv9-0003Ik-RF; Thu, 12 Jun 2025 11:16:35 +0000
+Received: by outflank-mailman (input) for mailman id 1012877;
+ Thu, 12 Jun 2025 11:16:34 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=NbtP=Y3=gmail.com=andy.shevchenko@srs-se1.protection.inumbo.net>)
- id 1uPfpf-0002ad-F9
- for xen-devel@lists.xenproject.org; Thu, 12 Jun 2025 11:10:55 +0000
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [2a00:1450:4864:20::62a])
+ <SRS0=PGhi=Y3=epam.com=Mykyta_Poturai@srs-se1.protection.inumbo.net>)
+ id 1uPfv8-0003Ie-Ea
+ for xen-devel@lists.xenproject.org; Thu, 12 Jun 2025 11:16:34 +0000
+Received: from OSPPR02CU001.outbound.protection.outlook.com
+ (mail-norwayeastazlp170130007.outbound.protection.outlook.com
+ [2a01:111:f403:c20f::7])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e7452c4d-477d-11f0-b894-0df219b8e170;
- Thu, 12 Jun 2025 13:10:53 +0200 (CEST)
-Received: by mail-ej1-x62a.google.com with SMTP id
- a640c23a62f3a-ad56cbc7b07so132280066b.0
- for <xen-devel@lists.xenproject.org>; Thu, 12 Jun 2025 04:10:52 -0700 (PDT)
+ id ac1f19ea-477e-11f0-b894-0df219b8e170;
+ Thu, 12 Jun 2025 13:16:23 +0200 (CEST)
+Received: from PAVPR03MB10102.eurprd03.prod.outlook.com
+ (2603:10a6:102:30d::12) by VI0PR03MB10784.eurprd03.prod.outlook.com
+ (2603:10a6:800:262::7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8813.27; Thu, 12 Jun
+ 2025 11:16:20 +0000
+Received: from PAVPR03MB10102.eurprd03.prod.outlook.com
+ ([fe80::35ac:8893:c31c:b971]) by PAVPR03MB10102.eurprd03.prod.outlook.com
+ ([fe80::35ac:8893:c31c:b971%6]) with mapi id 15.20.8835.018; Thu, 12 Jun 2025
+ 11:16:20 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,122 +47,177 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e7452c4d-477d-11f0-b894-0df219b8e170
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1749726652; x=1750331452; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=9nBrpMK9zZeZHFNOhk7Yg3FOCL/mJbGGTtA0TEp4ISs=;
-        b=kRCeEXcxL7MBg+hY/9JszHsWJUfWhRVQQdjPh3hgdn1eViGPuvLqq8lJeaKqIKLQA5
-         ASkPQnKNtF1V7XOKQK4izHqyiKC0ka191/uq9iYSgk3ox58r4mG3ttcSEOXvYY1XNL09
-         wVvXD/OjF4laUDlB88k2OZQ4Fa49pd08Zfa9ODqn/G75REnMx7SYyL/VSSe9mJZMNrU0
-         d8gJ0fD7Kj2NhXgJQs3LqeIadnp9sgEwd+rxOAwbx82XeUmQOa6GD06U7QQc6ZxrQHQO
-         fZtzaOxngVlKOmYlgoNCGFqzHE111n/DJowM1mfiSHMSq8qsqRmsDzva2hzgpKvOWoY2
-         UraQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749726652; x=1750331452;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=9nBrpMK9zZeZHFNOhk7Yg3FOCL/mJbGGTtA0TEp4ISs=;
-        b=Ybm5wQfmB7c82A4G9AjlcKoTtBwgVbPjHQtWRAneAc68Yo+nl6JAHMw1NamFaeOSzy
-         g0QUb3Hk4fFr1daC5Xz9su6lcd6/joDrXVmGnR2I2I8znG6i4tQ6AYevGuuNQUjoxYi0
-         c2i5T71BvvCXhwMdGvWGwnUlZjD56mM9aSXFPTv4fE0iBexT6d8YknJK53RUlA8qpKQm
-         eoHv5L2JPjKfreP3LKkBvwl3hn18p608TrmhpQKKJT7xpM+l+HErG0DN4A5xk7jkzsHu
-         lZ/oRyRD8GMTevdzJMPu7xbm7l9/1lCRZciyaH2OCRvEwgPjBP8e3XPMwvHjvY7xf0gI
-         qs5Q==
-X-Forwarded-Encrypted: i=1; AJvYcCUKs4uaj3G2LIN1JSwsry3TApBIs8JlhyNPXQye5DoQ/Qp5VwFoR558GLTgWlzGAa8alSrhTrFZHQ0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwfKZmEjml+vwVpbbDgALmEb19+JGzqsNXl16IMrIa4cLDj3fWM
-	iK5oO5aYMcjMKuKKFByOvL1erx5q8bs2qlPGGmQKWHT+zzpiuW5JXCsCqwqhuVDG9M7nRHH5Dtp
-	Y8kEM19+paFc3DVMcH96USJpLBGrgUvU=
-X-Gm-Gg: ASbGncuQP1CbohDbeYhzAMFq0UmUxLIdo+rMoX7+GpzlnzqxlDluLqU2Hiko7xb9Ims
-	Bu6hyB3MRb2WlPrlNuffBcCigbenr6hJEosggukLOJd4/17ICiLr46ZOYWQuBAzRufV9hpsL4wf
-	Hse0yyrJXeTRhvuMN0TkduF8rnoZiGh1xcxCJREST6Xe8=
-X-Google-Smtp-Source: AGHT+IFrX17XfYVkjVnepz8BihCrbdN9elHb1a1FwyoMbX0yLjH2EltV5lWsECJ7oLshTrIE21PMDORFUypei4zXNLs=
-X-Received: by 2002:a17:907:980f:b0:ad8:a515:767f with SMTP id
- a640c23a62f3a-adea9464061mr258576566b.51.1749726651742; Thu, 12 Jun 2025
- 04:10:51 -0700 (PDT)
-MIME-Version: 1.0
-References: <20250612093228.7655-1-chengzhenghan@uniontech.com> <84b14425-03e4-42be-8bd5-9bc010ebecda@suse.com>
-In-Reply-To: <84b14425-03e4-42be-8bd5-9bc010ebecda@suse.com>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Thu, 12 Jun 2025 14:10:15 +0300
-X-Gm-Features: AX0GCFubP_i495cQIkoSGfjK4G9pwjz7TYfQyvgZfj4JA8pwuaopIL7tecp4u7I
-Message-ID: <CAHp75Vc7AO_sRgB1Nj6CevbseMFyv5ku8ZS3PwzAuAgysKVxNg@mail.gmail.com>
-Subject: Re: [PATCH] x86: Fix build warnings about export.h
-To: Juergen Gross <jgross@suse.com>
-Cc: Zhenghan Cheng <chengzhenghan@uniontech.com>, tglx@linutronix.de, mingo@redhat.com, 
-	bp@alien8.de, dave.hansen@linux.intel.com, x86@kernel.org, 
-	mario.limonciello@amd.com, yazen.ghannam@amd.com, jpoimboe@kernel.org, 
-	tony.luck@intel.com, jarkko@kernel.org, bhelgaas@google.com, 
-	pbonzini@redhat.com, oleg@redhat.com, jbaron@akamai.com, ning.sun@intel.com, 
-	seanjc@google.com, luto@kernel.org, andy@kernel.org, jim.cromie@gmail.com, 
-	kirill.shutemov@linux.intel.com, hpa@zytor.com, 
-	pawan.kumar.gupta@linux.intel.com, vkuznets@redhat.com, rostedt@goodmis.org, 
-	ardb@kernel.org, thomas.lendacky@amd.com, nikunj@amd.com, 
-	ashish.kalra@amd.com, kees@kernel.org, alexandre.chartre@oracle.com, 
-	rppt@kernel.org, steve.wahl@hpe.com, jirislaby@kernel.org, 
-	apatel@ventanamicro.com, bvanassche@acm.org, ptsm@linux.microsoft.com, 
-	Jonathan.Cameron@huawei.com, beata.michalska@arm.com, xin@zytor.com, 
-	davydov-max@yandex-team.ru, ravi.bangoria@amd.com, joel.granados@kernel.org, 
-	ffmancera@riseup.net, kprateek.nayak@amd.com, akpm@linux-foundation.org, 
-	bhe@redhat.com, brgerst@gmail.com, coxu@redhat.com, dmaluka@chromium.org, 
-	linux-kernel@vger.kernel.org, linux-edac@vger.kernel.org, 
-	linux-sgx@vger.kernel.org, kvm@vger.kernel.org, 
-	virtualization@lists.linux.dev, tboot-devel@lists.sourceforge.net, 
-	nouveau@lists.freedesktop.org, linux-coco@lists.linux.dev, 
-	xen-devel@lists.xenproject.org, Huacai Chen <chenhuacai@loongson.cn>, 
-	Zhenghan Cheng <your_email@example.com>
-Content-Type: text/plain; charset="UTF-8"
+X-Inumbo-ID: ac1f19ea-477e-11f0-b894-0df219b8e170
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=y6R9bGXuAcSYR+ltGiSq5YroriVaP5jBmIMBt9+sV8w49bVILwsFnTm2OXMTXPQMeGu5GTIfPzeM6J8tUx3CNHC+Puj4yAGE8/fJjmfHPdvP2PIZV7TbwWiZSOLl9hMLeuRdu5yBuHI+VhKF3k3dOThelHnr07pcQtuU6RaGZWXItr1LcTlu80x2RXWHy1IoBZijGmmHxkmyWCaDftTogMQbnu0zLtQnqvZULQlkvOgh5NA8+YA7Y2ALK+Z53fIxyt1Cm5cOPARg1Bi+pxWNRronN697a48CJgtOWvZv+msmcJU8WKLIZv2zrcZjnGheO+qy9IsZpt/8PWHGvSryeQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=MkAcd66F7DOx8TKotTZNkzPXmPC0pC0/r8Ftv3gdFsQ=;
+ b=KUkzblBp2RSXuVg/iveXQcByP9Ze+bR7gunn7wCj7L53wF7kPNdEX419bx8tLX3Gc8UYsOtTuocG4XhMmVz0TjdwkzQWKRXr3dOX/yoTLBpwG1T173Qn02j3sh/02utf/4QJyyOrFiJri2u7EErlkUMDlhDINEb2c8s2xDdBqNdvkheIdqda2Q9by+/WEuxAxZKArw2KSIJUarlGgAO6D+n/76c9bmTXAkeJ3Jvrts9VJaD/5yaqlNhVrXKtfHBb6XMChwZmHa5DORXAkh2f9egnFsd3EXr/2qGBewrwgMj74yucyfKvF+/OvxKgRlUKjwIMKsQAz5jB50SGjEfANw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=MkAcd66F7DOx8TKotTZNkzPXmPC0pC0/r8Ftv3gdFsQ=;
+ b=kOM59G0rAKFynLN9faIblGXuPxR+yjeUkJCCSb+Oo5WM8WxDBOZxyFdKt2lU9JURL1y5oLrYlFT/0jVZSBVt5WQozIuMnBbpqg9cUJWJWHa8rHfFqRTI2+HetAPaRhj0jedqwqfSciN6g1sf4odOfPSYXY0Uv2pqCJrUoCdfolT4yAKImR5D+UWKNkomt54PyHITvt14T5AWQcYzmYo3uJyXg/JxXxoAZjVRi68ZdACuqpOBYlVixeJC2+pJqijt5565/zSLDL1GhGi5E7zRUeiFetaVqjX53xsGn6cDn+U9yomkd8TVlPVWcROnaXUB8cLINh1Fhiat9CcH8Pwl8g==
+From: Mykyta Poturai <Mykyta_Poturai@epam.com>
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+CC: Mykyta Poturai <Mykyta_Poturai@epam.com>, Stefano Stabellini
+	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
+	<bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, Volodymyr
+ Babchuk <Volodymyr_Babchuk@epam.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>, Jan
+ Beulich <jbeulich@suse.com>, =?iso-8859-1?Q?Roger_Pau_Monn=E9?=
+	<roger.pau@citrix.com>
+Subject: [PATCH v6 0/4] Add support for R-Car Gen4 PCI host controller
+Thread-Topic: [PATCH v6 0/4] Add support for R-Car Gen4 PCI host controller
+Thread-Index: AQHb24tsXsw/PPDp202VmuYARImAdQ==
+Date: Thu, 12 Jun 2025 11:16:20 +0000
+Message-ID: <cover.1749720912.git.mykyta_poturai@epam.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=epam.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PAVPR03MB10102:EE_|VI0PR03MB10784:EE_
+x-ms-office365-filtering-correlation-id: 95e81a22-72ef-4c32-5443-08dda9a28edd
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|376014|1800799024|366016|38070700018;
+x-microsoft-antispam-message-info:
+ =?iso-8859-1?Q?xtSWrYONxcfljyI3NWyoja+LozLwndS930SDZCsM+EH5kc81Y3l3Y6V7I0?=
+ =?iso-8859-1?Q?QEWHiMHWk1zx+wMcPh2011D72a4IUw6vvMzcChz5mqMvkBlOvVsYaT0jMx?=
+ =?iso-8859-1?Q?9QShXkfyoLHD4FUq2oMgN1kbC4PU6pcTKRAXWL7AacnC2U/VuIseuFsJZh?=
+ =?iso-8859-1?Q?WL++31otxFWsA5mNWADYO8Q7QNuClf40GxEVriJ338rx5UGIUvQKMMToVo?=
+ =?iso-8859-1?Q?/jrp83XlbTZYiURCmIX4eDCFf64TQGAcSmu7NQAudWfOFVYFGIgj0SkBfn?=
+ =?iso-8859-1?Q?IDLJ71XDYOO25sYk7RNU67xd6x87+TV9wAuTx4fknI2xhqJUyxuDG2ncn2?=
+ =?iso-8859-1?Q?lLqX5aFKDI/XurH6hqY/Kvl5RN6PJVAaP8vwPKwvBJsGOINX6PYjcujIbc?=
+ =?iso-8859-1?Q?kCMNcEistjYE4lSatoiiWWVHICgNyvOkwZb8hXq5AjwuVSVnKp9nWizWEa?=
+ =?iso-8859-1?Q?ncpDdDIkxgf4ZkfSyJX3IVQxaMN3X0EjfuePEo5+kXQTTMRJVKcZciZL4x?=
+ =?iso-8859-1?Q?l+V0ImkZJvsae7uff6JNGd83o4tvbnjwuynmEnwJxmfpDBpAiHafSdLv2T?=
+ =?iso-8859-1?Q?AI+G+rherC6+Gln9qVGHLK/7IhfroycHd/j2HxMMZDV7bY1/pFAuUlbs1N?=
+ =?iso-8859-1?Q?sDn3MKUIiRe4VLMkFOBTxKZMWF5ei9QVlLoGVRylOq3srhLZE9BZph2oI9?=
+ =?iso-8859-1?Q?Fgwmp8fQ1spi83tYEDsoPYLhyiiMlddhvu6pAkr4LDv3bJWVV/xfYdLhCJ?=
+ =?iso-8859-1?Q?CBHiMF5LYKAUmWDKVpEuof5ydI1J8QoLuRYTIxCmGrUi5JpEIuTJeXN333?=
+ =?iso-8859-1?Q?9u8+csi8bYWHhmSV9dDGzXW9MRd10JEPTcA1i/hzxLuj4mPN8HnW5s0ZLs?=
+ =?iso-8859-1?Q?TddmLQuQacoo9FvSOOr02oFHL+oBijCurFuSKA8LnuRp6QXpmlXUgMGGwN?=
+ =?iso-8859-1?Q?Q3XgUecyOpLD6p9x7XvIQS4Uxq0eIzeLmg7QxtH87jGoGVuGIyttLuWQ0C?=
+ =?iso-8859-1?Q?5JnuYgj+bq7OH+k4k/acA/G9aK2s6jgBUMqCJcQhvl/EmJhUMsk5W3Deqx?=
+ =?iso-8859-1?Q?Pd0rGiP4sGht2B3lHVyQy5QFkl9yRDbZjWWOFPyUKHGQIPiQQBttaoI1fc?=
+ =?iso-8859-1?Q?leK05WK/MdH3eym0ymvp3ROYHc6b/e2oiejJAsbzuzZhvFIw7ZddIf0pDx?=
+ =?iso-8859-1?Q?5G9GB5FqF3RWXsFfrGipaEpERC57Heww0oyrZnmkeZskGc522oM7ERlk/s?=
+ =?iso-8859-1?Q?WmcOqju+0afqHWb6osN2ylleDf65JtOFknTqvWjQFV9gxGnXxR3P/RLF33?=
+ =?iso-8859-1?Q?Zov+bKX3Fq11PU9UOoDixJJaTww3XvlsJTmbkv7DrMolP6ZdF86Xf6FKPW?=
+ =?iso-8859-1?Q?bYgJ5ZFEkMv4c2Dp1i2zKpsIaTfzafDljjcsWPhiFkpc+U+PELH/9ZDl/7?=
+ =?iso-8859-1?Q?E9Vilisevjyt1fJin829kzS0KIKBMJBMaJF+qmosB3ed2DHGdJG6dyLL7g?=
+ =?iso-8859-1?Q?T67N6HG9OOz+KHWwT8u4LPXqfcuj94xxNuc+aiusUbZhsnTH6zE1W9bMk5?=
+ =?iso-8859-1?Q?6AQClrQ=3D?=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAVPR03MB10102.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(38070700018);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?RyKuZtQOVtxM89/D1vkmWzOAJA42H8ZJBnvGlT4gMhhLKPnDqpJAVtHRDH?=
+ =?iso-8859-1?Q?X8MqGjzWJs05RmvAaDAKJzyLKh53U7m6l/T8xV5GpQkWBfQ2CR8srG2tzY?=
+ =?iso-8859-1?Q?am3gWlJFg4p9Acqz0Z39jCFiCYcWRsG2visUAPrgvgmkjLRc04PGTd+ShK?=
+ =?iso-8859-1?Q?MuMKU6zGY88UtsUDV9L/1YcKu1AQdSbfyDu08EZ41Y9MRSz0OaFj2eIjlR?=
+ =?iso-8859-1?Q?uEKYiixHIT/S3iAyWbfQ0GRes+QOQpirC/sFnpg786cNpdFyY8yOAe50mO?=
+ =?iso-8859-1?Q?38VWsVeP7KthGTb4yv4ZTtGl2HPag5dxdlgx7/i8y1WHn2yp6G75xi0yPV?=
+ =?iso-8859-1?Q?JmH9I9kOGskznz03/N+ba8ZJQeHCr9XaCjFDjI8uy5ciDaPbevGUIKu4bu?=
+ =?iso-8859-1?Q?NawWwQlxy+V572LjUjsDUbYgMIzG1g7JNWdfylAMTshZeEIapoccv5NhJU?=
+ =?iso-8859-1?Q?4e269nRlVEx5ac7gd4MkX6sbPL6ne5LNwZ0U//AwD2PQcyzp8rSZivwxpm?=
+ =?iso-8859-1?Q?PFpGS6gcAQ4rW2kM9eLreqYXOlp9rWE5BvuMM101DakaDe4P/J3j1zqlLv?=
+ =?iso-8859-1?Q?SGRuOvNjPgZkDxwl0dq5pm01p5S9za73Uiif153+6cbR7tmLV+3cFOYePp?=
+ =?iso-8859-1?Q?+KHSsjinXg7wq8FbApke0hePnt5/lmT45YkXkDNKPLG7JkkJgIFbJf5We2?=
+ =?iso-8859-1?Q?vtvu6SCe8ny13MwxPch6Ldve6/ZmqP1Y/sRMqTyb3wkqwU2NBjkYElakxb?=
+ =?iso-8859-1?Q?GesN49bkOCr8RLfmFe5jdR+QBq8gSplV8zsgdvRzPgczGaDZvRQiFGbBAP?=
+ =?iso-8859-1?Q?b7by3Bq9EVLM103L2epdhOS2t77kUHUIFDGNjyaQn+QKTWqI1HssO8ov7a?=
+ =?iso-8859-1?Q?RbRHGpd/gIxPADXzncLaGMIqDxABlwozz7AB/hobE0yoNzRlNm9hP9wB/4?=
+ =?iso-8859-1?Q?gx8LqnW/zUkXzuiqB1Amc1ps4bHaF0p8C1tBCis3TLI93tqct0AYCLzyBA?=
+ =?iso-8859-1?Q?K5CErusl6UlvLH7omsiRof55C8mUwXz1SutkWOGNUIgsz3XCSPtrLhvkmP?=
+ =?iso-8859-1?Q?72QoygpYC/RIXJjuE9D1aQYk/LgZtT9dMYR++rsUdZY5ppqtJ5qSyFRnsM?=
+ =?iso-8859-1?Q?KYb3oUNqh/EHKxMXB1bmLSgeczFDJvCGNHwblO7yzc0XbnCefce5z6NbRn?=
+ =?iso-8859-1?Q?FqEnBMEpsKctX7Yzhw2GlGXtKKwF/aIjT3WuYRgkPRmM0f+J7ruOQ0qVWB?=
+ =?iso-8859-1?Q?cS0YjiZjdnfNLotZyUnnyVDYJpx6X+Xn1dfZx83icDJD+1zHFv3jxFqXVg?=
+ =?iso-8859-1?Q?I2+5zVwUqUpG3MVNLhDftFUGLgElwNwFhY2DIl58EC+CmLh7sI/Wt4INyU?=
+ =?iso-8859-1?Q?w0Y+lmmRTHcgst1u1uZ6oET2JI9TNJnayc05MjgBh4eIC0ySSoPXljhMnn?=
+ =?iso-8859-1?Q?/3IFa9Jm7ri7e6gw17Y68uhfCV+SCUrnmtPdH6HhQwz/TqasrPHBMNHPit?=
+ =?iso-8859-1?Q?8bgZM5EHacnBkdXiSam3DdHy8mHNc9evhvE5WC09qk7G6nWTYagB0mCuow?=
+ =?iso-8859-1?Q?Ijup749aTudKiJUDnjr92SYgJ4U6Kc5DOXCT67ZWoL2RNSoAZdddkiQuxP?=
+ =?iso-8859-1?Q?fkI/YgrzDxFxKY9EmYvHMcyPMmypS69MkaTUXqKdsXBkpm6sBHnTIkEg?=
+ =?iso-8859-1?Q?=3D=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PAVPR03MB10102.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 95e81a22-72ef-4c32-5443-08dda9a28edd
+X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Jun 2025 11:16:20.2945
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: ZKYm+AO8eRr3lhomFpvgGWJBiZWyl989GyaYuD23WkF284bM/DV2wYqJHzOo1BZI+PQGSkdKRQHTWrUOdsrJSQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR03MB10784
 
-On Thu, Jun 12, 2025 at 1:19=E2=80=AFPM Juergen Gross <jgross@suse.com> wro=
-te:
->
-> On 12.06.25 11:32, Zhenghan Cheng wrote:
-> > After commit a934a57a42f64a4 ("scripts/misc-check:
-> > check missing #include <linux/export.h> when W=3D1")
-> > and commit 7d95680d64ac8e836c ("scripts/misc-check:
-> > check unnecessary #include <linux/export.h> when W=3D1"),
-> > we get some build warnings with W=3D1,such as:
-> >
-> > arch/x86/coco/sev/core.c: warning: EXPORT_SYMBOL() is used, but #includ=
-e <linux/export.h> is missing
-> > arch/x86/crypto/aria_aesni_avx2_glue.c: warning: EXPORT_SYMBOL() is use=
-d, but #include <linux/export.h> is missing
-> > arch/x86/kernel/unwind_orc.c: warning: EXPORT_SYMBOL() is used, but #in=
-clude <linux/export.h> is missing
-> > arch/x86/kvm/hyperv.c: warning: EXPORT_SYMBOL() is used, but #include <=
-linux/export.h> is missing
-> > arch/x86/events/intel/core.c: warning: EXPORT_SYMBOL() is not used, but=
- #include <linux/export.h> is present
-> > arch/x86/events/zhaoxin/core.c: warning: EXPORT_SYMBOL() is not used, b=
-ut #include <linux/export.h> is present
-> > arch/x86/kernel/crash.c: warning: EXPORT_SYMBOL() is not used, but #inc=
-lude <linux/export.h> is present
-> > arch/x86/kernel/devicetree.c: warning: EXPORT_SYMBOL() is not used, but=
- #include <linux/export.h> is present
-> >
-> > so fix these build warnings for x86.
-> >
-> > Signed-off-by: "Zhenghan Cheng" <chengzhenghan@uniontech.com>
-> > Suggested-by: "Huacai Chen" <chenhuacai@loongson.cn>
->
-> For Xen and paravirt:
->
-> Acked-by: Juergen Gross <jgross@suse.com>
->
-> Your patch is looking a little bit strange, as the list of modified files
-> is located between the patch hunks, followed by another "Signed-off-by:".
+This series adds support for R-Car Gen4 PCI host controller.
 
-Indeed.
-And at bare minimum please split at least to two:
-1) adding export.h;
-2) removing export.h.
+To fully support the controller, the following changes were made:
+- Generic mechanism to support PCI child buses is added.
+- Private data for PCI host bridge and means to access it are added.
 
+The series was tested as a part of the pci-passthrough patches[1] and
+build-tested standalone with enabled HAS_PCI and HAS_VPCI.
+CI pipeline results: [2]
+
+[1]: https://github.com/Deedone/xen/tree/pci_passthrough_wip
+[2]: https://gitlab.com/xen-project/people/mpoturai/xen/-/pipelines/1828720=
+661
+
+v5->v6:
+* see individual patches
+
+v4->v5:
+* see individual patches
+
+v3->v4:
+* rebase
+* see individual patches
+
+v2->v3:
+* dropped patches related to ATU programming delay
+* improved formatting
+
+v1->v2:
+* see individual patches
+
+Oleksandr Andrushchenko (4):
+  xen/arm: allow PCI host bridge to have private data
+  xen/arm: make pci_host_common_probe return the bridge
+  xen/arm: add support for PCI child bus
+  xen/arm: add support for R-Car Gen4 PCI host controller
+
+ MAINTAINERS                         |   5 +
+ xen/arch/arm/include/asm/pci.h      |  22 +-
+ xen/arch/arm/pci/Makefile           |   2 +
+ xen/arch/arm/pci/ecam.c             |   1 +
+ xen/arch/arm/pci/pci-access.c       |  37 ++-
+ xen/arch/arm/pci/pci-designware.c   | 405 ++++++++++++++++++++++++++++
+ xen/arch/arm/pci/pci-designware.h   |  90 +++++++
+ xen/arch/arm/pci/pci-host-common.c  |  92 +++++--
+ xen/arch/arm/pci/pci-host-generic.c |   2 +-
+ xen/arch/arm/pci/pci-host-rcar4.c   |  94 +++++++
+ xen/arch/arm/pci/pci-host-zynqmp.c  |   3 +-
+ xen/arch/arm/vpci.c                 |  91 +++++--
+ 12 files changed, 796 insertions(+), 48 deletions(-)
+ create mode 100644 xen/arch/arm/pci/pci-designware.c
+ create mode 100644 xen/arch/arm/pci/pci-designware.h
+ create mode 100644 xen/arch/arm/pci/pci-host-rcar4.c
 
 --=20
-With Best Regards,
-Andy Shevchenko
+2.34.1
 
