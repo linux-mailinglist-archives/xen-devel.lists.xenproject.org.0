@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 24FABAD6D09
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Jun 2025 12:07:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1012744.1391246 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E9E3AD6D0C
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Jun 2025 12:07:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1012750.1391257 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uPep8-0003qg-Bb; Thu, 12 Jun 2025 10:06:18 +0000
+	id 1uPeq3-0004J3-K4; Thu, 12 Jun 2025 10:07:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1012744.1391246; Thu, 12 Jun 2025 10:06:18 +0000
+Received: by outflank-mailman (output) from mailman id 1012750.1391257; Thu, 12 Jun 2025 10:07:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uPep8-0003oY-90; Thu, 12 Jun 2025 10:06:18 +0000
-Received: by outflank-mailman (input) for mailman id 1012744;
- Thu, 12 Jun 2025 10:06:17 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=TRIX=Y3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uPep6-0003oS-VP
- for xen-devel@lists.xenproject.org; Thu, 12 Jun 2025 10:06:16 +0000
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [2a00:1450:4864:20::32d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id da8d255c-4774-11f0-b894-0df219b8e170;
- Thu, 12 Jun 2025 12:06:05 +0200 (CEST)
-Received: by mail-wm1-x32d.google.com with SMTP id
- 5b1f17b1804b1-441ab63a415so7748955e9.3
- for <xen-devel@lists.xenproject.org>; Thu, 12 Jun 2025 03:06:14 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-313c1c5fd7esm1050475a91.37.2025.06.12.03.06.05
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 12 Jun 2025 03:06:12 -0700 (PDT)
+	id 1uPeq3-0004HT-Gi; Thu, 12 Jun 2025 10:07:15 +0000
+Received: by outflank-mailman (input) for mailman id 1012750;
+ Thu, 12 Jun 2025 10:07:14 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=iZHf=Y3=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
+ id 1uPeq2-0004EN-ET
+ for xen-devel@lists.xenproject.org; Thu, 12 Jun 2025 10:07:14 +0000
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [2a00:1450:4864:20::32e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0338948b-4775-11f0-a309-13f23c93f187;
+ Thu, 12 Jun 2025 12:07:14 +0200 (CEST)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-450ce3a2dd5so6622725e9.3
+ for <xen-devel@lists.xenproject.org>; Thu, 12 Jun 2025 03:07:14 -0700 (PDT)
+Received: from localhost.localdomain (188.226.6.51.dyn.plus.net.
+ [51.6.226.188]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4532e2354fbsm15346475e9.15.2025.06.12.03.07.12
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 12 Jun 2025 03:07:12 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,213 +45,172 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: da8d255c-4774-11f0-b894-0df219b8e170
+X-Inumbo-ID: 0338948b-4775-11f0-a309-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1749722774; x=1750327574; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=4DyTLW2TAd5MFMWJ1jXtSh6zGkLFxgctzrhtPNP6aOw=;
-        b=TSiEFrN/wXm0OaMp3qPrDyuLl6R2KUJI59kZOr4WBpvKNEV7PPopNHw4a9QPmb+X7d
-         rA69JBJvPzidNv+kjHzI5ytRZoxAbYajoJ0IU05Xj/wdKYWS9PT2F+8yvzhg8tLpZmgP
-         2C4hf7pmGt0/QbIas+YLU6hYtCFN5ZZX+MNVERxeI+Yczqnk63YWfdvBgtrIWzJjgXEm
-         ADKV2EDqOAm037d4Zcoc0JRTcCVM+x21mCOGQ27nPp+ZmwDfg+ovQf2npEOxuD6KkGta
-         RmEvlH5SBBXX05i51tcQVXVUNLxRVTBLSdH+qxsZI7RROLLeTj6Nhclml9DjX9Uom30h
-         1fQQ==
+        d=cloud.com; s=cloud; t=1749722833; x=1750327633; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=bUko4TzvIlHQks/LPst4s4YFTFwvXxHrUO/t6ns3ywA=;
+        b=Fu5lkdhoeNGWv0BJ44XQUr+AWKRirliCHxKrrguKSho607KL+p82t7deUN1pIS2o2d
+         6RtYeQ3LifhmqBkxNOovhxj7OmFMnP3NANHOpId3GtEu/cQpQGkPfYSvj9QtGhnEKirz
+         vm3SlbvB9Y5Tzrfj7aiHzBkKM8IN+8CJlf8U0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749722774; x=1750327574;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=4DyTLW2TAd5MFMWJ1jXtSh6zGkLFxgctzrhtPNP6aOw=;
-        b=r/SMApwZLCJdcZVwq5f5SvfRKUq3FOTPAp49wc38xhBOfuP5S6vHueVa+lXKR5Ph5P
-         yhFdUte+/i6bhu6MUAPwjQzClqQM9KdNcjdj7ESGl1QhFbNNVmiNxhLV3uExRms8xT5c
-         zjqBS4Ef+cEX+iT99d0MDZKBOnA/mCjIokyoNrrODbRHu1n3RWQlzRos/6d7ToTLCRRw
-         g7wp1lmroERVOk2WL+Gy7vPHrm6QMkMr4RzeBdPjwhKbFShANC9gMWsqxmoIuU2ZgSBe
-         jbnu+H/XcgIrmFC3GQ52pk6UpE8b2sM2uOsEPZae2X1C5aOSpZA7mgKH/pblgnNpxCxT
-         du9g==
-X-Forwarded-Encrypted: i=1; AJvYcCWSdWVd5I36iwdiHdxW9mr/8DbAVZyET2jzn+H18YCQiZdlsOlCN9pDxl7sOuYzH8vfBlJuz4VtnKU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwRJpr3zAp9Js7fZvF+zPXb/oPVq1+7ryTspGM7l+y9y0pLX2N5
-	dLkJs8XUg2qPhV7j3/9Ak0uEPM92vg7OQCij/L60TJFifQe9bsqSA72Eklulsbmuqw==
-X-Gm-Gg: ASbGncsKOm+omqndIPceE7hkkW1t78y5QNmV65jM/d8MPPtDE+yjDmYAg6hWCOaix9R
-	+Ata394catABO+3grcbb3FImpnC/99vQgXpgdG7fBdvogSr8kO9KRy8DAPMx5RYj/4bIQv14Lgx
-	s9Kv95/jR+wUL+SChIdn0YmkUG831Tu5UL5KHTe8v6TozHQtTmEZsmDDWJ62StHqCLzhwdegvLV
-	BYSI6czbixifkhFnyGKF8QKshkaXiqgArKRIGiXro9pur0KlbV+vvjiocq71qxYOvW42WInaSLl
-	1D32IcD8r4M+lDM6kE0WqPgrcmWoB91XZB+C8QoP4gHUfkoyAJN1Uc2GzUgX0BlM7vU67q3HQl4
-	HqFkkB/hSFaJrXLNFx7GW1Kjve9OV1nxTExUe58atM13H27g=
-X-Google-Smtp-Source: AGHT+IGpodWvKnVXUDs0/XXkjLihdGLd8F2E7N+fA6LekM59CPgXhB/fEvPtQllGPCpWM7YcwsvlRg==
-X-Received: by 2002:a05:6000:2313:b0:3a4:ee51:8144 with SMTP id ffacd0b85a97d-3a5586f21d8mr5934651f8f.13.1749722773690;
-        Thu, 12 Jun 2025 03:06:13 -0700 (PDT)
-Message-ID: <5aad2d39-31e1-44c6-b167-a3275dc6b747@suse.com>
-Date: Thu, 12 Jun 2025 12:06:01 +0200
+        d=1e100.net; s=20230601; t=1749722833; x=1750327633;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=bUko4TzvIlHQks/LPst4s4YFTFwvXxHrUO/t6ns3ywA=;
+        b=wRq0hRWO+z8FI07ZH5XGHRYpboDBJFN7Px9nrsMtL7tqnPs2AWVTIQCCJ0xFsv+BTp
+         6Mg9+gSSeczE+EpmRFFvUVUekGeXoLsoWU8eu7CsWiUrrhs0CXtjp++T1z5qhp3cl7Oc
+         zyH4uNHivFCQsq3BpDjy45SZCna6oi17PvotslS+4RdXWFp9APM803MJR8Aeko8Wn88J
+         2Uxnn1A4YzxKYBsugxEBeMy59wbhzYxOz2z8rtdToJ04Ts5dXHkd5ZT+stnq5E/+lR3S
+         hfGO4FbrgumqlPGOxwoG5HtNt2VGjzHPSP3qFdo/C7jlgxrCv2HvkdSlL3pXMc21ToVd
+         dwpA==
+X-Gm-Message-State: AOJu0Yx6mrCktyPJiYDuhe7bhqeVtVklrtx89TxJuFLHEK+HIersK11H
+	u0kE6mNlkPD6xTW/R23YXcjp9dale7SdQciDMMpGHWg09nptlLmvJjxWs1iHOluvzLGb0sQIaUy
+	BSeEJ10I=
+X-Gm-Gg: ASbGnct16mgXvi2iG/XCGcHfCZExuuxxf1xNOwiFLpC1RSEZuhlGnbu6yvUmVbp5sXR
+	itN9hjP89oa1Qyy+SrN8rH89cl3zX3OmQRWChaVUPRBou7HfW9QRT8jU3Pm0dQQGEp23IHKYguq
+	zKOyXWu4nQ/o+wWve/RnUBhL0LG1oWhOn/9bk7Uc7lw4rXGetiVjA/QD4d4Nvhf0dgWND+WzCzA
+	ijpET2Os28qGLDID6se7nqkSUzqPZpscpxwxuDNsxn6yW6iSsqEs3IvJeULC3LPVk8+gMmZOEVx
+	31XlqNxZROnMbUil8S3wgHL+R6bg19/x8sOROdtVlc9/2Iq7HozeMjCxQIuDGlhiLAYnfM0JIQI
+	h53/+YP6NwcZdTbK6OEEWDIOxCXznCw==
+X-Google-Smtp-Source: AGHT+IGNe8PRN8RpZpUO8SDjWIaT9c4E5wW6Vm1JyH4OneUxjJ8Tc1IakSSjhXpqj66KcXSnKZlxng==
+X-Received: by 2002:a05:600c:6385:b0:450:cea0:1781 with SMTP id 5b1f17b1804b1-4532d33de4bmr25336035e9.16.1749722833094;
+        Thu, 12 Jun 2025 03:07:13 -0700 (PDT)
+From: Frediano Ziglio <frediano.ziglio@cloud.com>
+To: xen-devel@lists.xenproject.org
+Cc: Frediano Ziglio <frediano.ziglio@cloud.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH v2] xen: Strip xen.efi by default
+Date: Thu, 12 Jun 2025 11:07:03 +0100
+Message-ID: <20250612100705.21988-1-frediano.ziglio@cloud.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] docs: UEFI Secure Boot security policy
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Juergen Gross
- <jgross@suse.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, Trammell Hudson <hudson@trmm.net>,
- Ross Lagerwall <ross.lagerwall@cloud.com>,
- Frediano Ziglio <frediano.ziglio@cloud.com>,
- Gerald Elder-Vass <gerald.elder-vass@cloud.com>,
- Kevin Lampis <kevin.lampis@cloud.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250611235851.167385-1-andrew.cooper3@citrix.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250611235851.167385-1-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 12.06.2025 01:58, Andrew Cooper wrote:
-> Obviously RFC at this point.  It's worth saying that XenServer is intending to
-> use Shim and get a signature from Microsoft, retaining all exiting features
-> such as Livepatching and Kexec crash reporting.
-> 
-> This trails off into more TODOs towards the end.  Individual tasks should
-> expand on the start made and resulting conversation from this thread.  As a
-> reminder, the target audience for this doc is an administrator running a Xen
-> deployment, but who is not necesserily a developer.
-> 
-> Several things are hard to express and want further discussion.  Suggestions
-> welcome:
-> 
-> 1) Content of CONFIG_CMDLINE and the various CONFIG_*_DEFAULT options.  Xen is
-> not going to be issuing XSAs for "downstream chose an unsafe configuration,
-> then signed and deployed the result", yet Xen probably should be on the hook
-> for bad "default ..." settings in Kconfig.
+For xen.gz file we strip all symbols and have an additional
+xen-syms file version with all symbols.
+Make xen.efi more coherent stripping all symbols too.
+xen.efi.elf can be used for debugging.
 
-Imo it simply needs stating largely like this. As indicated by Marek, some
-annotations are going to be needed to help people realize what is or is not
-safe to use. If we wrongly marked a command line option (or Kconfig setting,
-if applicable there) as safe to use, I think we'd be on the hook to issue an
-XSN or XSA.
+Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
+---
+Changes since v1:
+- avoid leaving target if some command fails
+---
+ docs/misc/efi.pandoc  |  8 +-------
+ xen/Kconfig.debug     |  9 ++-------
+ xen/Makefile          | 19 -------------------
+ xen/arch/x86/Makefile |  8 +++++---
+ 4 files changed, 8 insertions(+), 36 deletions(-)
 
-> 2) Pre-boot DMA Protection.  Microsoft consider this a platform feature
-> requiring OEM enablement, and do not consider its absence to be a Secure Boot
-> vulnerability.  But, it is less clear what the policy ought to be for Xen
-> booting on a capable system and failing to do a correct live-handover of the
-> IOMMU across ExitBootServices().
+diff --git a/docs/misc/efi.pandoc b/docs/misc/efi.pandoc
+index 11c1ac3346..c66b18a66b 100644
+--- a/docs/misc/efi.pandoc
++++ b/docs/misc/efi.pandoc
+@@ -20,13 +20,7 @@ Xen to load the configuration file even if multiboot modules are found.
+ Once built, `make install-xen` will place the resulting binary directly into
+ the EFI boot partition, provided `EFI_VENDOR` is set in the environment (and
+ `EFI_MOUNTPOINT` is overridden as needed, should the default of `/boot/efi` not
+-match your system). When built with debug info, the binary can be quite large.
+-Setting `INSTALL_EFI_STRIP=1` in the environment will cause it to be stripped
+-of debug info in the process of installing. `INSTALL_EFI_STRIP` can also be set
+-to any combination of options suitable to pass to `strip`, in case the default
+-ones don't do. The xen.efi binary will also be installed in `/usr/lib64/efi/`,
+-unless `EFI_DIR` is set in the environment to override this default. This
+-binary will not be stripped in the process.
++match your system).
+ 
+ The binary itself will require a configuration file (names with the `.efi`
+ extension of the binary's name replaced by `.cfg`, and - until an existing
+diff --git a/xen/Kconfig.debug b/xen/Kconfig.debug
+index d14093017e..cafbb1236c 100644
+--- a/xen/Kconfig.debug
++++ b/xen/Kconfig.debug
+@@ -147,12 +147,7 @@ config DEBUG_INFO
+ 	  Say Y here if you want to build Xen with debug information. This
+ 	  information is needed e.g. for doing crash dump analysis of the
+ 	  hypervisor via the "crash" tool.
+-	  Saying Y will increase the size of the xen-syms and xen.efi
+-	  binaries. In case the space on the EFI boot partition is rather
+-	  limited, you may want to install a stripped variant of xen.efi in
+-	  the EFI boot partition (look for "INSTALL_EFI_STRIP" in
+-	  docs/misc/efi.pandoc for more information - when not using
+-	  "make install-xen" for installing xen.efi, stripping needs to be
+-	  done outside the Xen build environment).
++	  Saying Y will increase the size of the xen-syms and xen.efi.elf
++	  binaries.
+ 
+ endmenu
+diff --git a/xen/Makefile b/xen/Makefile
+index 8fc4e042ff..664c4ea7b8 100644
+--- a/xen/Makefile
++++ b/xen/Makefile
+@@ -488,22 +488,6 @@ endif
+ .PHONY: _build
+ _build: $(TARGET)$(CONFIG_XEN_INSTALL_SUFFIX)
+ 
+-# Strip
+-#
+-# INSTALL_EFI_STRIP, if defined, will cause xen.efi to be stripped before it
+-# is installed. If INSTALL_EFI_STRIP is '1', then the default option(s) below
+-# will be used. Otherwise, INSTALL_EFI_STRIP value will be used as the
+-# option(s) to the strip command.
+-ifdef INSTALL_EFI_STRIP
+-
+-ifeq ($(INSTALL_EFI_STRIP),1)
+-efi-strip-opt := --strip-debug --keep-file-symbols
+-else
+-efi-strip-opt := $(INSTALL_EFI_STRIP)
+-endif
+-
+-endif
+-
+ .PHONY: _install
+ _install: D=$(DESTDIR)
+ _install: T=$(notdir $(TARGET))
+@@ -530,9 +514,6 @@ _install: $(TARGET)$(CONFIG_XEN_INSTALL_SUFFIX)
+ 		ln -sf $(T)-$(XEN_FULLVERSION).efi $(D)$(EFI_DIR)/$(T)-$(XEN_VERSION).efi; \
+ 		ln -sf $(T)-$(XEN_FULLVERSION).efi $(D)$(EFI_DIR)/$(T).efi; \
+ 		if [ -n '$(EFI_MOUNTPOINT)' -a -n '$(EFI_VENDOR)' ]; then \
+-			$(if $(efi-strip-opt), \
+-			     $(STRIP) $(efi-strip-opt) -p -o $(TARGET).efi.stripped $(TARGET).efi && \
+-			     $(INSTALL_DATA) $(TARGET).efi.stripped $(D)$(EFI_MOUNTPOINT)/efi/$(EFI_VENDOR)/$(T)-$(XEN_FULLVERSION).efi ||) \
+ 			$(INSTALL_DATA) $(TARGET).efi $(D)$(EFI_MOUNTPOINT)/efi/$(EFI_VENDOR)/$(T)-$(XEN_FULLVERSION).efi; \
+ 		elif [ "$(D)" = "$(patsubst $(shell cd $(XEN_ROOT) && pwd)/%,%,$(D))" ]; then \
+ 			echo 'EFI installation only partially done (EFI_VENDOR not set)' >&2; \
+diff --git a/xen/arch/x86/Makefile b/xen/arch/x86/Makefile
+index ce724a9daa..e0ebc8c73e 100644
+--- a/xen/arch/x86/Makefile
++++ b/xen/arch/x86/Makefile
+@@ -232,14 +232,16 @@ endif
+ 	$(MAKE) $(build)=$(@D) .$(@F).1r.o .$(@F).1s.o
+ 	$(LD) $(call EFI_LDFLAGS,$(VIRT_BASE)) -T $(obj)/efi.lds $< \
+ 	      $(dot-target).1r.o $(dot-target).1s.o $(orphan-handling-y) \
+-	      $(note_file_option) -o $@
+-	$(NM) -pa --format=sysv $@ \
++	      $(note_file_option) -o $@.tmp
++	$(NM) -pa --format=sysv $@.tmp \
+ 		| $(objtree)/tools/symbols --all-symbols --xensyms --sysv --sort \
+ 		> $@.map
+ ifeq ($(CONFIG_DEBUG_INFO),y)
+-	$(if $(filter --strip-debug,$(EFI_LDFLAGS)),:$(space))$(OBJCOPY) -O elf64-x86-64 $@ $@.elf
++	$(if $(filter --strip-debug,$(EFI_LDFLAGS)),:$(space))$(OBJCOPY) -O elf64-x86-64 $@.tmp $@.elf
++	$(if $(filter --strip-debug,$(EFI_LDFLAGS)),:$(space))$(STRIP) $@.tmp
+ endif
+ 	rm -f $(dot-target).[0-9]* $(@D)/..$(@F).[0-9]*
++	mv -f $@.tmp $@
+ ifeq ($(CONFIG_XEN_IBT),y)
+ 	$(SHELL) $(srctree)/tools/check-endbr.sh $@
+ endif
+-- 
+2.43.0
 
-Shouldn't this be another TODO item at the bottom? We don't support yet taking
-over when the IOMMUs are already enabled, do we?
-
-> 3) The AMD microcode signature vulnerability.  While it's not Xen's bug per
-> say, it's clearly a Secure Boot bypass because we do offer microcode loading
-> capabilties to userspace, and malicious userspace can load an unauthorised
-> microcode which allows them to read/write physical memory and bypass further
-> signature checks.
-
-While in general I continue to think that people ought to be paying attention
-to advisories from HW vendors, we can certainly continue to issue at least
-XSNs in such events.
-
-> 4) Userspace Hypercalls.  To anyone who isn't already aware, /dev/xen/privcmd
-> in the various Unicies is a giant priv-esc hole, as root userspace can
-> e.g. issue direct memory hypercalls behind the back of an (intentionally)
-> oblivious kernel, and cannot be handwaved away as "it's fine because it's
-> root" under Secure Boot.  It's not a Xen vuln (Xen *does* audit pointers in
-> guest hypercalls), but it is a guest kernel vuln because of failing to
-> correctly audit hypercall parameters.  However, it does require substantial
-> changes in Xen in order to allow guest kernels to do something half-way safe.
-
-I'm having trouble seeing what's "hard to express" here. Auditing needs to be
-added in kernels wanting to act as hwdom or ctldom. Flaws there would
-require advisories (and revocation) by respective parties; for Linux that
-would still be the Xen Security Team.
-
-IOW imo this wording could just move down to the respective sub-item of the
-TODO section.
-
-> +Principles
-> +^^^^^^^^^^
-> +
-> + * Privileged code shall include Xen and the kernel(s) of the control and
-> +   hardware domain (both, if they're split).  While there is a privilege split
-> +   here in Xen's regular security model, they are equal from Secure Boot's
-> +   point of view.
-
-In this context, may I direct your attention to Jason's plans for Xenstore
-domain? It, in the SILO model, being permitted interaction with the other
-two special types might end up being a problem here.
-
-See https://lists.xen.org/archives/html/xen-devel/2025-06/msg00703.html.
-
-> +In Progress
-> +-----------
-> +
-> +.. warning::
-> +
-> +   The following work is still in progress.  It is provisional, and not
-> +   security supported yet.
-
-Isn't this an overstatement? None of the below had even parts thereof go
-in so far.
-
-> +Secure Boot Advanced Targeting
-> +^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-> +
-> +SBAT is a recovation scheme for Secure Boot enabled components, using a
-> +generation based scheme.  See `Shim SBAT.md
-> +<https://github.com/rhboot/shim/blob/main/SBAT.md>`_ for full details.
-> +
-> +Upstream Xen provides the infrastructure to embed SBAT metadata in
-> +``xen.efi``, but does not maintain a generation number itself.  Downstreams
-> +are expected to maintain their own generation numbers.
-> +
-> +
-> +Lockdown Mode
-> +^^^^^^^^^^^^^
-> +
-> +A mode which causes the enforcement of the properties necessary to conform to
-> +the Secure Boot specification.  Lockdown Mode is forced active when Secure
-> +Boot is active in the platform, but may be activated independently too for
-> +development purposes with the ``lockdown`` command line option.
-> +
-> +TODO
-> +^^^^
-> +
-> + * Command Line
-> + * Livepatching
-> + * Kexec
-> + * Userspace hypercalls
-
-What about Dom0 being able to access almost(?) all memory, including all MMIO?
-In this context, isn't iommu=dom0-strict a requirement for SB (while that's
-still not the default mode of operation for PV Dom0, despite me keeping to
-suggest that we ought to change that default)?
-
-As a general remark (no good place to put it): In the eventual final patch I
-expect a reference to this new doc is going to be inserted in the respective
-section in SUPPORT.md.
-
-Jan
 
