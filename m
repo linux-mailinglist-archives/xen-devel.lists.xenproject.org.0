@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D401AD6FA6
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Jun 2025 14:02:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1012944.1391479 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F689AD6FAD
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Jun 2025 14:03:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1012950.1391488 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uPgdV-0006Cz-Ky; Thu, 12 Jun 2025 12:02:25 +0000
+	id 1uPgeN-0006i2-TU; Thu, 12 Jun 2025 12:03:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1012944.1391479; Thu, 12 Jun 2025 12:02:25 +0000
+Received: by outflank-mailman (output) from mailman id 1012950.1391488; Thu, 12 Jun 2025 12:03:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uPgdV-0006B3-HV; Thu, 12 Jun 2025 12:02:25 +0000
-Received: by outflank-mailman (input) for mailman id 1012944;
- Thu, 12 Jun 2025 12:02:23 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uPgeN-0006fp-QN; Thu, 12 Jun 2025 12:03:19 +0000
+Received: by outflank-mailman (input) for mailman id 1012950;
+ Thu, 12 Jun 2025 12:03:18 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=TRIX=Y3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uPgdT-0006As-SZ
- for xen-devel@lists.xenproject.org; Thu, 12 Jun 2025 12:02:23 +0000
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [2a00:1450:4864:20::42a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 19108feb-4785-11f0-a309-13f23c93f187;
- Thu, 12 Jun 2025 14:02:22 +0200 (CEST)
-Received: by mail-wr1-x42a.google.com with SMTP id
- ffacd0b85a97d-3a54700a463so538642f8f.1
- for <xen-devel@lists.xenproject.org>; Thu, 12 Jun 2025 05:02:22 -0700 (PDT)
+ id 1uPgeM-0006fe-Jl
+ for xen-devel@lists.xenproject.org; Thu, 12 Jun 2025 12:03:18 +0000
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [2a00:1450:4864:20::430])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 3923b8f6-4785-11f0-b894-0df219b8e170;
+ Thu, 12 Jun 2025 14:03:16 +0200 (CEST)
+Received: by mail-wr1-x430.google.com with SMTP id
+ ffacd0b85a97d-3a51481a598so544028f8f.3
+ for <xen-devel@lists.xenproject.org>; Thu, 12 Jun 2025 05:03:16 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2364e6d99b1sm12124005ad.116.2025.06.12.05.02.16
+ d9443c01a7336-2364e71d0e0sm12092495ad.241.2025.06.12.05.03.09
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 12 Jun 2025 05:02:21 -0700 (PDT)
+ Thu, 12 Jun 2025 05:03:15 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 19108feb-4785-11f0-a309-13f23c93f187
+X-Inumbo-ID: 3923b8f6-4785-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1749729742; x=1750334542; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1749729796; x=1750334596; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=jz1D4NLhV0Y5c5KxrDkXzqtjgWF7HMWo307y7/2+RrQ=;
-        b=RmW3cX8cbpSvNm71Ds3ftj+6QR1dFNs75M+sDLWSLIc541kPxxuC+B1oHbOH/bfjpf
-         WVM6FCjcM+rLqFo4C87ZR4EGYZKUglAVwWX+kz2hdBjrZ5UqW5KcIarlTKIKKMhE51qW
-         WgpaVu4M9Mz6TZXQIeTTUDzAQGUbYwqvbGEuNZCzwSzj9cj5g/V9qAqkXHPV6uaxbK7P
-         SK7xNrWk1qMQ9rbeLNwu+LuwLF3SEnkDuG4c+by69Vpsn3yvmCWmdFBKie3r1B9YIOYS
-         9HUQkrety0f06DneIgGg9uTYHX/4QqoJJIAVeA+j+7n3qgM0hz1FtDlalSkdDzZxiJyk
-         OpZg==
+        bh=/HPRT47sa0BC/JSNfhp1oo02hX3npktkJyUI/nd+AMs=;
+        b=cXLEZ3VGC65y39nJaotgVbf/AxhGvgqMGVULK5bCAbKysDorBGfu2w7gIeBFg07ibi
+         Gdc5/5EMCOFPOtDJQulDQO8cn9uLJCCFefzw6sAKJ+rgKKsbjO90/xEHdWy72YaYOgOK
+         BaId/04mYlNa2/kdy0R4f+QD38utvLqRN9+SYfSDxyXLJolMU0lBDn3Rf0WZCpGaLWqM
+         BgHGpgt/CbXCiRhcRmp1jhL0vncIFnnPwR+iHl6zp2SvVluToDu/d37DL/KxAj2DjxCR
+         ifffv9vxsYvBRhgBsukTBuK0852l1a9fALVIQIp/8Efh68+zA6z5hFrwfLqGSlBQ2wOH
+         Igyg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749729742; x=1750334542;
+        d=1e100.net; s=20230601; t=1749729796; x=1750334596;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=jz1D4NLhV0Y5c5KxrDkXzqtjgWF7HMWo307y7/2+RrQ=;
-        b=uDNufAh+ZEmagYdB/vQnb+fTob12DU2jp3vu4D6y8CtEr2yo3rm1v7RHb/FrQbTYTj
-         7oVeFog9ita5N2Z4R2cDgGKGJrHP6q/8CDVSyyFfuPjAnuupA+da6idNa1ZWjSQ73ayA
-         GQdyH5M8dCHyx51yQjJebTsWpqfdLFjHzj+7lOx/5F0IS1L7DqZiJQZY6VGSdzcLZrZt
-         oAxR4ZZOhHhVHwRUqSm4o7KLH9AyjkFIt8tbjMCvdLgom7zZ3Yfw6YhoGWdu0P1UopOD
-         /rIZTSoCBPDK3VCpdQFHEIjuQ57i7J1MrIubIBijTKnj4991GatDZiSF9y1dkKhEaqrb
-         aM7A==
-X-Forwarded-Encrypted: i=1; AJvYcCWbeRw86fROlmHEZdk7692vmRuMje1/jIqnDjBgzOqiHJeOe/+BbZxqOIqLHGaIB8Mm7YEJUukxc8I=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yx4T9TCTzdTFc2Am68mOnI63DYXaBM1YybG+mFmCPJ59FLOyQTy
-	QJpM9LE44WwlnUnqXZHiS1grgOomRMZG3L5PqOa1IRqcFOsMeiLm6oJzyh92y/WfIA==
-X-Gm-Gg: ASbGncsEmyz9E5GBRXc1hZdgsXUVR93QzqDocXfA/0LPxSAdp1+IWgCcY0uvT6JL7yp
-	04BbARkCzdGMEpW9LHo+YFqhDmpQJTveBKeVX3sPc1/lv0sL4JNQycpN6HHDaX0jqlKhX422ems
-	vf6pFvwpDBy50q5wATMxP0OZDFsPWuaGgWI4+nMEtO8T+eXuqpN3lx49E65jo0uqjrj22e9ifMR
-	c4jFG9N68eQNvy5rfbIiIW6kvIQi9EzP2KLxy94l+4f51noHyKsADHMOFKNYxoEny2zdq0A8tdH
-	/bxoWqbm+vaMQv8uc9BS8AgzU3SphYAjWGUEF6HymS7F3VhYL6zhwzEpfnbUDDUqN5K67fwgtYE
-	wPs/Vud4S3+j0uMs7t3JwRpEuD6xHAGN8mx/iv58nBOLvALA=
-X-Google-Smtp-Source: AGHT+IF84x8rjTtpG3ogTw4fedIa2jSnt/AOCR8gnICiC60itGzx/aRwt+xLQHNkb4rwOEWI04ZTEw==
-X-Received: by 2002:a05:6000:2086:b0:3a3:70ab:b274 with SMTP id ffacd0b85a97d-3a56078f39cmr2569776f8f.12.1749729741866;
-        Thu, 12 Jun 2025 05:02:21 -0700 (PDT)
-Message-ID: <9074f1a6-a605-43f4-97f3-d0a626252d3f@suse.com>
-Date: Thu, 12 Jun 2025 14:02:13 +0200
+        bh=/HPRT47sa0BC/JSNfhp1oo02hX3npktkJyUI/nd+AMs=;
+        b=F2Mi8bdkk43fZLHuUMjgF1mHDDv+sNOgwVhDHK2zWbRGmOF2L+BSNhSPMlafWAP3+h
+         YR558BKZZW/yuMypmj4Gb03aehjJNLsxRApDucuCTPPR2DcbibTUD5YkQJTSev+qPsDF
+         rOdEuw/ngLDFKqClPYg1cE9Uw9worEvAQRUilBcd45NA07pj5vAfyi8Yk6sEl/zjJPnC
+         P2WvfxEl3exqImoYLD/zwCN5RFz+2v5yKH01sTvWCHSHxyZ3lSFtoC9vfnTWWIdeZ5kW
+         BfTaoFwZvr1FWMrNx0RI5whYseNMOqrDTWmoHruPrHDJ2YobKzkHVnR3IAovLkw6sKwZ
+         KH5w==
+X-Forwarded-Encrypted: i=1; AJvYcCXO36bIS1ixrXEFFsIWljyHG29z+RY2Dx+JrV7dq6j3+ekdQPQ+bWIy9ww47PmIB8Uv4BEFwvaWD+8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yzz4+/UHa+qVtVuUyVFZiX6iVhSBtIj7px1azS2hYd20H45nmGv
+	1VrVGFbNvl2VzfLXCo6wn//VLN097DWlU1ZvJkDcUL6Kzn8xEfJZUt7Qarf5KnqfIA==
+X-Gm-Gg: ASbGncuIO+ZoP62Jy1DWFkRwS/Eo3NXuxLtFrPMlPna4xX5W9Rq76Wxe3wNFxw2zF/S
+	oDtQyiIrPZc54CrNRjZ5/n/sX0+D5Ae2XATfA0UwFexKrvXdg2+IEvKYVvx50sHTAnCtz7akoZm
+	Dw3PbCoA7Z3fxQq48zwTBeS8zuEFM8wBb0dPyv0LgxWSrnDSS4oTNURwv62g6SqOUpaux60h8gD
+	2kV+YwGTSWmJIgV2mxYicuCMR32CJPmBYymRF61vrvstuTfOb7/fsQCw3+qLb9FnsoeruJW/l4Y
+	WYSa2epsWJw1Gy8FOtd8xW8HHX4Rs9zheK/GZGdxjq68MU4T2MilIsn1WmsarPPPY32HHFSEQMS
+	29tL1LabPbVnnWH8IlPzVo7mjEzLCsu1YvbYbGR5Hmz2Bt2M=
+X-Google-Smtp-Source: AGHT+IF6Y0PsbuJ37jhEenRuoacjKhySlnxuigS+87dKehiQLPVNZZrAz+QI9D/YbcMla/qMe4LApg==
+X-Received: by 2002:a5d:64c3:0:b0:3a4:d994:be7d with SMTP id ffacd0b85a97d-3a56130a6a1mr2105412f8f.23.1749729795839;
+        Thu, 12 Jun 2025 05:03:15 -0700 (PDT)
+Message-ID: <62236850-5c20-429c-befb-6cb12692598e@suse.com>
+Date: Thu, 12 Jun 2025 14:03:06 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/8] pdx: introduce function to calculate max PFN based on
- PDX compression
-To: Julien Grall <julien@xen.org>, Stefano Stabellini
- <sstabellini@kernel.org>, Michal Orzel <michal.orzel@amd.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>, xen-devel@lists.xenproject.org,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: Re: [PATCH 4/8] pdx: provide a unified set of unit functions
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>, xen-devel@lists.xenproject.org
 References: <20250611171636.5674-1-roger.pau@citrix.com>
- <20250611171636.5674-3-roger.pau@citrix.com>
- <9e7925c4-3695-4320-8552-4ee0e39350e4@suse.com>
- <aEqwdKXaugedfAm4@macbook.local>
+ <20250611171636.5674-5-roger.pau@citrix.com>
+ <84080c88-b68f-4ab3-8b69-a3e45e9c74d9@suse.com>
+ <aEqxOmmdn_1eeGdg@macbook.local>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -123,38 +124,42 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aEqwdKXaugedfAm4@macbook.local>
+In-Reply-To: <aEqxOmmdn_1eeGdg@macbook.local>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 12.06.2025 12:48, Roger Pau Monné wrote:
-> On Thu, Jun 12, 2025 at 11:11:14AM +0200, Jan Beulich wrote:
+On 12.06.2025 12:51, Roger Pau Monné wrote:
+> On Thu, Jun 12, 2025 at 10:36:36AM +0200, Jan Beulich wrote:
 >> On 11.06.2025 19:16, Roger Pau Monne wrote:
->>> This is the code already present and used by x86 in setup_max_pdx(), which
->>> takes into account the current PDX compression, plus the limitation of the
->>> virtual memory layout to return the maximum usable PFN in the system,
->>> possibly truncating the input PFN provided by the caller.
->>>
->>> This helper will be used by upcoming PDX related changes that introduce a
->>> new compression algorithm.
->>>
->>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
->>> ---
->>>  xen/arch/x86/setup.c  | 19 ++-----------------
->>>  xen/common/pdx.c      | 25 +++++++++++++++++++++++++
->>>  xen/include/xen/pdx.h |  8 ++++++++
->>>  3 files changed, 35 insertions(+), 17 deletions(-)
+>>> @@ -80,6 +81,39 @@ unsigned long get_max_pfn(unsigned long top_pfn)
+>>>      return pdx_to_pfn(pdx - 1) + 1;
+>>>  }
+>>>  
+>>> +#ifndef CONFIG_PDX_NONE
+>>> +
+>>> +#ifdef CONFIG_X86
+>>> +# include <asm/e820.h>
+>>> +# define MAX_PFN_RANGES E820MAX
+>>> +#elif defined(CONFIG_HAS_DEVICE_TREE)
+>>> +# include <xen/bootfdt.h>
+>>> +# define MAX_PFN_RANGES NR_MEM_BANKS
+>>> +#else
+>>> +# error "Missing architecture maximum number of RAM ranges"
+>>> +#endif
+>>> +
+>>> +/* Generic PFN compression helpers. */
+>>> +static struct pfn_range {
+>>> +    unsigned long base, size;
+>>> +} ranges[MAX_PFN_RANGES] __initdata;
+>>> +static unsigned int __initdata nr;
 >>
->> This is all fine for x86, but on Arm you introduce unreachable code, which
->> Misra dislikes. Yet then it feels like it's wrong anyway that the function
->> isn't used there.
+>> One other remark / nit: For my taste, "nr" isn't a suitable name for a static.
+>> It's too short, and hence the risk is too high that some function would add a
+>> local aliasing this one.
 > 
-> I was also concerned regarding why ARM doesn't have an equivalent
-> function.  Is the frametable there supposed to cover up to the maximum
-> physical address?  In which case there's likely no need for any PDX
-> compression in the first place?
+> Is nr_ranges enough to avoid aliasing?
 
-Question goes to Arm folks.
+Yes, at least as far as I'm concerned.
 
 Jan
 
