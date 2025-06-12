@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 60348AD716C
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Jun 2025 15:16:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1013076.1391611 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C359FAD71A3
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Jun 2025 15:22:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1013085.1391620 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uPhmt-0005LT-4A; Thu, 12 Jun 2025 13:16:11 +0000
+	id 1uPhso-0007Ri-My; Thu, 12 Jun 2025 13:22:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1013076.1391611; Thu, 12 Jun 2025 13:16:11 +0000
+Received: by outflank-mailman (output) from mailman id 1013085.1391620; Thu, 12 Jun 2025 13:22:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uPhmt-0005Jx-0X; Thu, 12 Jun 2025 13:16:11 +0000
-Received: by outflank-mailman (input) for mailman id 1013076;
- Thu, 12 Jun 2025 13:16:10 +0000
+	id 1uPhso-0007P6-KJ; Thu, 12 Jun 2025 13:22:18 +0000
+Received: by outflank-mailman (input) for mailman id 1013085;
+ Thu, 12 Jun 2025 13:22:17 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=TRIX=Y3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uPhms-0004pC-9c
- for xen-devel@lists.xenproject.org; Thu, 12 Jun 2025 13:16:10 +0000
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [2a00:1450:4864:20::433])
+ id 1uPhsn-0007Oy-Ft
+ for xen-devel@lists.xenproject.org; Thu, 12 Jun 2025 13:22:17 +0000
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
+ [2a00:1450:4864:20::436])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 671337ee-478f-11f0-b894-0df219b8e170;
- Thu, 12 Jun 2025 15:16:08 +0200 (CEST)
-Received: by mail-wr1-x433.google.com with SMTP id
- ffacd0b85a97d-3a51481a598so595959f8f.3
- for <xen-devel@lists.xenproject.org>; Thu, 12 Jun 2025 06:16:08 -0700 (PDT)
+ id 41bc7563-4790-11f0-b894-0df219b8e170;
+ Thu, 12 Jun 2025 15:22:15 +0200 (CEST)
+Received: by mail-wr1-x436.google.com with SMTP id
+ ffacd0b85a97d-3a4f78ebec8so721743f8f.0
+ for <xen-devel@lists.xenproject.org>; Thu, 12 Jun 2025 06:22:15 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-748809d308fsm1371179b3a.72.2025.06.12.06.16.02
+ d9443c01a7336-2364e6d99d2sm13377755ad.130.2025.06.12.06.22.05
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 12 Jun 2025 06:16:06 -0700 (PDT)
+ Thu, 12 Jun 2025 06:22:13 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,65 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 671337ee-478f-11f0-b894-0df219b8e170
+X-Inumbo-ID: 41bc7563-4790-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1749734168; x=1750338968; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1749734535; x=1750339335; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=35U+F60uK7YOaJDMYu0EyRE5z0hyPIp9rPmS9rZMj30=;
-        b=PWFu2n+wFa0X7SAGZWUKbIoIFV3GdCelL35BZ6sAyKLygcGnI9uAOlO7w8NLGnVhPm
-         h1Y6lsvhtXiZqKDgddDz9L6Mzjw9KNdlpS4+c3olY2cnCRa+ShfRtX9pyEHqS+O7P/Vj
-         0ei92fW0e4iKlTcMsPE5iZ+LHtaX0zUCPfR/axhKWyM/zd6jGfT/jYP0XLZFZ6KAXcic
-         PYKiw0kRDZPlQKN0oLBn/wzw5ZdKCRpAN+mq69Z2SQLzvUMpvRc2WG5xBFd9UjV3Jmqb
-         7nbSacCRpovF5irRD4wzBJVv+ic0AR0M+INRQseQSqt7As9AIHSgGemYyrq27HvvxCzR
-         FNaw==
+        bh=kqT5/LLk930IJEsFDdlPEKdhXsX/vrLGpTstZqfZ4cw=;
+        b=ec+cuIyczGtRc3GVcxoqUV+MIF5R80ZwvefOVIrHBSupHgW/f3p0pSUcx2dd8dIQdK
+         UJcnavGZNHyL5kdy7aDixKof2BKIRTH5dejWv2RZjKYfk38oqwvh+XRoHgWCMmGu7J69
+         lfeoe2o1X/FqlrqNSFtFd6HhH1SS1mrSU0nkyfVSkVZ6QGnCbKU4JnWsayYv3tNuXIsY
+         OkgswiIsxIbOp+GBLuS5bjfJhee4Quw9ErOAwKz9z49KP6PQnVrvnFgsKd2CQzQ2vOxH
+         5TyomQxyP8VOoUiDCp6F6Vlp5a4jbgJXBt6FLh768o+raZxGZzY6NEl+RVx9zp0czKFx
+         UK2A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749734168; x=1750338968;
+        d=1e100.net; s=20230601; t=1749734535; x=1750339335;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=35U+F60uK7YOaJDMYu0EyRE5z0hyPIp9rPmS9rZMj30=;
-        b=CY1KY0AYuZhYcpIBCVJ8dTb5TBJdh7bBeuh62dFJMuCQgu3X8tnt4JWutplifjT5dz
-         R7jxRZd7Lw3DzEBZbE29raeSWFXTePoIkHWuK2QymLJsaXAK09R53fnXNxjuKyzGBUfN
-         AcIXTpZEuFKgX+c5QRGoXJ+riFwosa1WASCTBTxSHXT4NcPndAzE8Pn5hUJ+jbicO8SA
-         pcMMq/D6NOSIq0mbCKGRMh3zndkJZ0pXMXGhb1yS0gf8XOfEN0uDD4O5jQioIeQ9nmxV
-         gBXwIhrGL6ib3+TKFV9RqVFU2F+Nd0OJbxvKqF5xcVFaREIrV5inr967jHnp+CF6hxOJ
-         VAww==
-X-Forwarded-Encrypted: i=1; AJvYcCX7xjc9OVdYc1NAkTpxnbtw361ujQBWT6uIg6kIifDEfKpwGEUdd60yZHheC/44wfId06DB+wmYCxM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzSCT1tj892rGct4NS0TTBl+PnRz40RneWyVemwOSgM0jCVOBIP
-	muPL8GvHqyaj+OL9fVIAhs4W0GU1yzGWuI5qR3IBSNZvXINGIXQGH0DZToVLt1yJNw==
-X-Gm-Gg: ASbGncue7RIDh2EDwe6JdKOjfY3z/DVDQ294k7iB3RAekGWlpXeNIq/G7SyPh9jIASx
-	jgvgveZ2/34S0Kkun/cozYB8VgOD0Y8cDsgiZqBYBTj2kQZudDcmgT73Wd0DMfm5c3ejsqqRcaU
-	t00VzI0GssKFMhPe1b/DnGueE6CMjzgUnrhEnoNUfWYdcy50f6hIgoz68uEpDqYtrHslMpCe404
-	KZZc49mfyuhg7UgybdtvK+MfTWPwAO16S6xBfaYw/jKYC8DpQ6zvmGr5BVmsHndAQa7TE6l44BC
-	pR1cLxfBsUMBn9DpoCil08jz1OFs83Sw2rbOrYlpedqCHNfFRKVnKAeRJTK7G/js0VPkM5D53y/
-	GVJt208W3GTI5GMgpyNUAuD/bXV/UiOIu4GRjZA+eNzXta/5VuZcPIrBV+g==
-X-Google-Smtp-Source: AGHT+IE3+Jk4YsqtoeyABIQV7PELxHOzIF5uU++RSNuNABcKNqIBz9tHHx4ZSUOLBZZi+JZRy6OP5g==
-X-Received: by 2002:a05:6000:40c7:b0:3a5:2e9c:edc with SMTP id ffacd0b85a97d-3a56134958dmr2629906f8f.34.1749734167570;
-        Thu, 12 Jun 2025 06:16:07 -0700 (PDT)
-Message-ID: <8993b948-24e3-4e3e-bf17-22aa77ba4f25@suse.com>
-Date: Thu, 12 Jun 2025 15:15:59 +0200
+        bh=kqT5/LLk930IJEsFDdlPEKdhXsX/vrLGpTstZqfZ4cw=;
+        b=vEY8Z/5Y0Xm1mBkDbjBXZ6ZGICQQeVp1Kr28oZ8hNY6K/b2Pc4vnuCSi16dxgDTZsK
+         jj52Rk4wew/xu610NRkiIv0l3Y7scKcbQHDF3Xp9diUjfAtPPynT18hm8x1tOib9J6pM
+         BA5Qy09G0TGA4s+yFgDozkgD+72yHt+nwfjR201akM3gUZchXLkDYZSJvgqQDxrj10HB
+         7KNjXX1J2F2SKvzDrD1H8yhAhmDD2UPsuqYyJKib54fFmK7Gry/+OvB+AqcC4S72rIMT
+         FAUYnQbNa6wA26RaP9PrdhcM+Ku00/eiwZuGoC4TDS6LHXh/F7ITuCFPwq77LaXCpGVZ
+         5jgw==
+X-Forwarded-Encrypted: i=1; AJvYcCWB8UwBsPPAChliS/5ABrvuGXSAjanfR7FuAgKmL/MTHJoCGmTfZ87Zi/u0zC3jtm7fxe3MbjjYAoo=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzMtLEDjtTeM1MVujp5897URug2m8P5FCHiphOfAwiSbiROsWRO
+	RBjt8eqji6ricbeIyco5JRf65/kLIRZMsaGOXeEdy33uw0ksLV8urJX2H2wqXRGRbA==
+X-Gm-Gg: ASbGncuoQzxppSS4sImUTRvffWcVjjMP6AWVDWvgyoMI5w9xWlShGawacYmrLw4q0Q0
+	u6i8+qkSt7/hvmcgE+R2y3EZOpYfqrw8BdAG/dMBYiQ0IOhOARU2CXZDENyOlHuD4VkROwDTDCI
+	oEST6YAAfkJOCZi7KgruK6rWm1O4irdC0yJArM4SUSUlFczkwO1Mi2gLc6AnMlXe/vRojXeS1Hc
+	is/a+Qjh412bczK5wU2mHcspRcCJUSV7JXTSbsDas95mPSv+fLqjcG8u9NKCP/Oja4nqJhxZYU0
+	4MeIm2KzdFLUncRDm4ZaYp1EsZX5oAcmmbSIAKQXCU00QfmLZN7trM0u4hEd5zpiRx3gAe6Mdct
+	epzM/9B4H9yBVr6d6K6ac9p+sdalEgz4bsqmqGXnSievvQgE=
+X-Google-Smtp-Source: AGHT+IHLyXGMPFj3xjDuT5iKPffAPIr21r4xBqfCo5jDkqom6JJNreu37j3/tpv+8pmIbysaPT32Kw==
+X-Received: by 2002:a05:6000:2481:b0:3a4:e8bc:594 with SMTP id ffacd0b85a97d-3a56069467dmr2702440f8f.8.1749734534639;
+        Thu, 12 Jun 2025 06:22:14 -0700 (PDT)
+Message-ID: <53e8cacd-e035-47ca-906e-35f748559328@suse.com>
+Date: Thu, 12 Jun 2025 15:22:01 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 09/18] xen/amd: introduce amd_process_freq() to get
- processor frequency
-To: Penny Zheng <Penny.Zheng@amd.com>
-Cc: ray.huang@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [PATCH] docs: UEFI Secure Boot security policy
+To: Tu Dinh <ngoc-tu.dinh@vates.tech>
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <20250527084833.338427-1-Penny.Zheng@amd.com>
- <20250527084833.338427-10-Penny.Zheng@amd.com>
+ Stefano Stabellini <sstabellini@kernel.org>, Juergen Gross
+ <jgross@suse.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, Trammell Hudson <hudson@trmm.net>,
+ Ross Lagerwall <ross.lagerwall@cloud.com>,
+ Frediano Ziglio <frediano.ziglio@cloud.com>,
+ Gerald Elder-Vass <gerald.elder-vass@cloud.com>,
+ Kevin Lampis <kevin.lampis@cloud.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
+References: <20250611235851.167385-1-andrew.cooper3@citrix.com>
+ <4226d6ef-a1eb-4210-8cae-2b9b2d906d1c@vates.tech>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,122 +129,36 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250527084833.338427-10-Penny.Zheng@amd.com>
+In-Reply-To: <4226d6ef-a1eb-4210-8cae-2b9b2d906d1c@vates.tech>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 27.05.2025 10:48, Penny Zheng wrote:
-> When _CPC table could not provide processor frequency range
-> values for Xen governor, we need to read processor max frequency
-> as anchor point.
-> So we extract amd cpu core frequency calculation logic from amd_log_freq(),
-> and wrap it as a new helper amd_process_freq().
+On 12.06.2025 15:15, Tu Dinh wrote:
+> On 12/06/2025 02:03, Andrew Cooper wrote:
+>> +Secure Boot Advanced Targeting
+>> +^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>> +
+>> +SBAT is a recovation scheme for Secure Boot enabled components, using a
+>> +generation based scheme.  See `Shim SBAT.md
+>> +<https://github.com/rhboot/shim/blob/main/SBAT.md>`_ for full details.
+>> +
+>> +Upstream Xen provides the infrastructure to embed SBAT metadata in
+>> +``xen.efi``, but does not maintain a generation number itself.  Downstreams
+>> +are expected to maintain their own generation numbers.
+>> +
 > 
-> Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
-> ---
-> v1 -> v2:
-> - new commit
-> ---
-> v3 -> v4
-> - introduce amd_process_freq()
-> ---
-> v4 -> v5:
-> - make amd_process_freq() static to statisfy Misra demand
-> - change "low_mhz", "nom_mhz" and "hi_mhz" parameter to unsigned int
-> - fix order of logged frequencies
-> ---
->  xen/arch/x86/cpu/amd.c | 58 +++++++++++++++++++++++++++++-------------
->  1 file changed, 40 insertions(+), 18 deletions(-)
-> 
-> diff --git a/xen/arch/x86/cpu/amd.c b/xen/arch/x86/cpu/amd.c
-> index 3770d75150..8c985466fa 100644
-> --- a/xen/arch/x86/cpu/amd.c
-> +++ b/xen/arch/x86/cpu/amd.c
-> @@ -611,14 +611,15 @@ static unsigned int attr_const amd_parse_freq(unsigned int family,
->  	return freq;
->  }
->  
-> -void amd_log_freq(const struct cpuinfo_x86 *c)
-> +static void amd_process_freq(const struct cpuinfo_x86 *c,
-> +			     unsigned int *low_mhz,
-> +			     unsigned int *nom_mhz,
-> +			     unsigned int *hi_mhz)
->  {
->  	unsigned int idx = 0, h;
->  	uint64_t hi, lo, val;
->  
-> -	if (c->x86 < 0x10 || c->x86 > 0x1A ||
-> -	    (c != &boot_cpu_data &&
-> -	     (!opt_cpu_info || (c->apicid & (c->x86_num_siblings - 1)))))
-> +	if (c->x86 < 0x10 || c->x86 > 0x1A)
->  		return;
->  
->  	if (c->x86 < 0x17) {
-> @@ -699,20 +700,20 @@ void amd_log_freq(const struct cpuinfo_x86 *c)
->  
->  	if (idx && idx < h &&
->  	    !rdmsr_safe(0xC0010064 + idx, val) && (val >> 63) &&
-> -	    !rdmsr_safe(0xC0010064, hi) && (hi >> 63))
-> -		printk("CPU%u: %u (%u ... %u) MHz\n",
-> -		       smp_processor_id(),
-> -		       amd_parse_freq(c->x86, val),
-> -		       amd_parse_freq(c->x86, lo),
-> -		       amd_parse_freq(c->x86, hi));
-> -	else if (h && !rdmsr_safe(0xC0010064, hi) && (hi >> 63))
-> -		printk("CPU%u: %u ... %u MHz\n",
-> -		       smp_processor_id(),
-> -		       amd_parse_freq(c->x86, lo),
-> -		       amd_parse_freq(c->x86, hi));
-> -	else
-> -		printk("CPU%u: %u MHz\n", smp_processor_id(),
-> -		       amd_parse_freq(c->x86, lo));
-> +	    !rdmsr_safe(0xC0010064, hi) && (hi >> 63)) {
-> +		if (nom_mhz)
-> +			*nom_mhz = amd_parse_freq(c->x86, val);
-> +		if (low_mhz)
-> +			*low_mhz = amd_parse_freq(c->x86, lo);
-> +		if (hi_mhz)
-> +			*hi_mhz = amd_parse_freq(c->x86, hi);
-> +	} else if (h && !rdmsr_safe(0xC0010064, hi) && (hi >> 63)) {
-> +		if (low_mhz)
-> +			*low_mhz = amd_parse_freq(c->x86, lo);
-> +		if (hi_mhz)
-> +			*hi_mhz = amd_parse_freq(c->x86, hi);
-> +	} else if (low_mhz)
-> +		*low_mhz = amd_parse_freq(c->x86, lo);
->  }
->  
->  void cf_check early_init_amd(struct cpuinfo_x86 *c)
-> @@ -723,6 +724,27 @@ void cf_check early_init_amd(struct cpuinfo_x86 *c)
->  	ctxt_switch_levelling(NULL);
->  }
->  
-> +void amd_log_freq(const struct cpuinfo_x86 *c)
-> +{
-> +	unsigned int low_mhz = 0, nom_mhz = 0, hi_mhz = 0;
-> +
-> +	if (c != &boot_cpu_data &&
-> +	    (!opt_cpu_info || (c->apicid & (c->x86_num_siblings - 1))))
-> +		return;
-> +
-> +	amd_process_freq(c, &low_mhz, &nom_mhz, &hi_mhz);
-> +
-> +	if (!low_mhz && !nom_mhz && !hi_mhz)
+> Why would Xen not maintain its own SBAT generation? An upstream SBAT 
+> incremented for every Secure Boot bypass XSA would make it far easier to 
+> block vulnerable variants and help downstreams coordinate fixes.
 
-With this ...
+Quoting from the SBAT patch that was submitted a little while ago:
 
-> +		printk("CPU%u: %u (%u ... %u) MHz\n",
-> +		       smp_processor_id(),
-> +		       nom_mhz, low_mhz, hi_mhz);
+"The SBAT section provides a way for the binary to declare a generation
+ id for its upstream source and any vendor changes applied."
 
-.. aren't you logging three zeroes here? Considering the earlier mistake
-of the order of logged frequencies, did you not think of looking at the
-resulting output in the hypervisor boot log?
-
-Same issue again below then.
-
-With all instances corrected:
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+That is, the generation ID is per-vendor. Upstream incrementing whatever
+ID would be meaningless to downstreams then. Hence we can as well not do
+so in the first place.
 
 Jan
 
