@@ -2,44 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DDC09AD6D6E
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Jun 2025 12:19:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1012773.1391277 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 010BAAD6D90
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Jun 2025 12:24:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1012782.1391287 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uPf1h-0006t4-VJ; Thu, 12 Jun 2025 10:19:17 +0000
+	id 1uPf6e-0000Cs-Fz; Thu, 12 Jun 2025 10:24:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1012773.1391277; Thu, 12 Jun 2025 10:19:17 +0000
+Received: by outflank-mailman (output) from mailman id 1012782.1391287; Thu, 12 Jun 2025 10:24:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uPf1h-0006rF-Rr; Thu, 12 Jun 2025 10:19:17 +0000
-Received: by outflank-mailman (input) for mailman id 1012773;
- Thu, 12 Jun 2025 10:19:16 +0000
+	id 1uPf6e-0000AI-C3; Thu, 12 Jun 2025 10:24:24 +0000
+Received: by outflank-mailman (input) for mailman id 1012782;
+ Thu, 12 Jun 2025 10:24:22 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=CuCZ=Y3=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1uPf1g-0006r9-5A
- for xen-devel@lists.xenproject.org; Thu, 12 Jun 2025 10:19:16 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=W6bR=Y3=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1uPf6c-00008a-4s
+ for xen-devel@lists.xenproject.org; Thu, 12 Jun 2025 10:24:22 +0000
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [2a00:1450:4864:20::62c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id aadbdce1-4776-11f0-b894-0df219b8e170;
- Thu, 12 Jun 2025 12:19:05 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id AF127218E7;
- Thu, 12 Jun 2025 10:19:11 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E1D23132D8;
- Thu, 12 Jun 2025 10:19:09 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id qsicNZ2pSmglUAAAD6G6ig
- (envelope-from <jgross@suse.com>); Thu, 12 Jun 2025 10:19:09 +0000
+ id 66caeb9f-4777-11f0-b894-0df219b8e170;
+ Thu, 12 Jun 2025 12:24:20 +0200 (CEST)
+Received: by mail-ej1-x62c.google.com with SMTP id
+ a640c23a62f3a-ade5b8aab41so170956366b.0
+ for <xen-devel@lists.xenproject.org>; Thu, 12 Jun 2025 03:24:20 -0700 (PDT)
+Received: from fedora.. (user-109-243-64-38.play-internet.pl. [109.243.64.38])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-6086a58f08csm977967a12.21.2025.06.12.03.24.18
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 12 Jun 2025 03:24:18 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,273 +45,105 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: aadbdce1-4776-11f0-b894-0df219b8e170
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1749723551; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=mdhllsYptJzWpWRaCohWre8At5dUtUcWHkcMPixG5dA=;
-	b=oj14FmZwawggQFz/mpwdPbpGxwCSq2yPj3hGSfoo0OU/wstTt5Fn2/rZHE96f+GGsfXZNz
-	ExJsQpevYaVkROYm3SA5qZq8slxwMNs6Ubm+g7AedPOk6tq42b2faUsAZONoDMO7D7SwIf
-	2igyxskJsSksCKMTFbKdg8mOB2yntgw=
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1749723551; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=mdhllsYptJzWpWRaCohWre8At5dUtUcWHkcMPixG5dA=;
-	b=oj14FmZwawggQFz/mpwdPbpGxwCSq2yPj3hGSfoo0OU/wstTt5Fn2/rZHE96f+GGsfXZNz
-	ExJsQpevYaVkROYm3SA5qZq8slxwMNs6Ubm+g7AedPOk6tq42b2faUsAZONoDMO7D7SwIf
-	2igyxskJsSksCKMTFbKdg8mOB2yntgw=
-Message-ID: <84b14425-03e4-42be-8bd5-9bc010ebecda@suse.com>
-Date: Thu, 12 Jun 2025 12:19:09 +0200
+X-Inumbo-ID: 66caeb9f-4777-11f0-b894-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1749723859; x=1750328659; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=9UdVJFrxjHJKFfacS1TeLALqEa8kEbmNvmZtmUfINTM=;
+        b=UbzXpjNW0NcWoazJd0tDA0M2nX63qsmC3JOVgj2aWxT1MbPJQPfpclVXfr0J/EKRN8
+         WjUzVYMnHUw9p/FAS5GF3T0U7OQt7wdrXLx8UxTyed68AQ76zxXvj8bSKBLAlLjuShsS
+         mMAZtyCHvwdZOUKwLvHjlrV0JHR3PPA0O/d4ZsMV72eECIbuDTogx5bYMzqV8rDn8jad
+         l5txB2FG0KLrwb7WMh3fG8qci2Pji7e0yapqcgP1bYRXBKDgsEkhWkLyONf0+vXjeecV
+         I3dseNBMi3D0PTq6UQKC11tVsjUFoECHqOYWvqt5XL/kfKsRCAoaeHskC0nigkGAPcR/
+         UICw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1749723859; x=1750328659;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=9UdVJFrxjHJKFfacS1TeLALqEa8kEbmNvmZtmUfINTM=;
+        b=dgZG3w+omlLmqGv6vAtOP8wdhGPQlERZFZvmK3Mhq3dIkoKuw+GULEHxlONj8qw45A
+         0J40WL79AgjPVQUvJvfzsiY6ixhn15G3W3S2WKSP77MyTvw/x8traaeF6ASjuGcjEztp
+         V0B+dHILkyCNuuL8BMRz3u2N30L7y1BszxX0K3GUOc5zazh1tnb1OXHfFvcBUUkhdmzC
+         pg++aPQYf3SD7zgvxIvc9kCPTmiYloEJezKj+WX6Ee2DywnGJMB/E6+pt1ebVh6PHcQM
+         sHV5xY1ea86occ/rcmb40reSkxW1gpq7KoXpxk1vryd/a60qtmEPmbzevXF6wv98vP6C
+         aHzA==
+X-Gm-Message-State: AOJu0Ywrltzb5lRPxRwR3ZSS1q+mbVkYR5aAkhCr+7vemfE0SUzNcbwF
+	Aj5BGTV0u2/uO4WTksZ0Vl+Gez7KNM+x/nlZVZVG2xNs0bKojNxuDt3GKN4eTA==
+X-Gm-Gg: ASbGncsGZBT2LVL+2G4R5gahZKqZs1YaOn9j14zVt37ycVCYWIwzol3L/RCtz453zTu
+	bX8UXxM9FauEPK/iK+ex4uCfn/2RZYf2SwMqfGKFUBUnd0Ppf1yPyfNOVphi6V447uDYJJf4pEX
+	tqromGp1yCeEzPNnHQ4WkF6y0QVWOnbI0us/j/GL6tDcXgRZzjTb3gG3CFYEPDX+hNaq39IR9xX
+	PMfhQ9FKApr7TUh3+ap9vBbVHj6bv8ROKk56+d56wA4ovWKgvPbKCPC7PJoOa90W/oBW0DPzIRd
+	jSlTgX9aQ0rlQFoBb5dpShbROALI1e/6DS6SYbFWwaGVFgSVa0nPJ/YkM5ClVDjWV8xQ/IHTGV4
+	ApAMhOS+Ige7m800FSvG3aNy9YPOB
+X-Google-Smtp-Source: AGHT+IH0JchigwQ8+ZY0LMinpF7PXANOo5GP/CgCmtRn6+c+7SJtcPipORpXfagUFAV4CmvPbF5SkA==
+X-Received: by 2002:a17:907:9728:b0:ad2:4fa0:88cd with SMTP id a640c23a62f3a-adea927a0ecmr194139566b.9.1749723859090;
+        Thu, 12 Jun 2025 03:24:19 -0700 (PDT)
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [PATCH v2] xen: move declarations of device_tree_get_{reg,u32}() to xen/device_tree.h
+Date: Thu, 12 Jun 2025 12:24:12 +0200
+Message-ID: <df9a07fe958c8830f453eff162be448c5afe7765.1749723802.git.oleksii.kurochko@gmail.com>
+X-Mailer: git-send-email 2.49.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86: Fix build warnings about export.h
-To: Zhenghan Cheng <chengzhenghan@uniontech.com>, tglx@linutronix.de,
- mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com, x86@kernel.org,
- mario.limonciello@amd.com, yazen.ghannam@amd.com, jpoimboe@kernel.org,
- tony.luck@intel.com, jarkko@kernel.org, bhelgaas@google.com,
- pbonzini@redhat.com, oleg@redhat.com, jbaron@akamai.com, ning.sun@intel.com,
- seanjc@google.com, luto@kernel.org, andy@kernel.org, jim.cromie@gmail.com,
- kirill.shutemov@linux.intel.com
-Cc: hpa@zytor.com, pawan.kumar.gupta@linux.intel.com, vkuznets@redhat.com,
- rostedt@goodmis.org, ardb@kernel.org, thomas.lendacky@amd.com,
- nikunj@amd.com, ashish.kalra@amd.com, kees@kernel.org,
- alexandre.chartre@oracle.com, rppt@kernel.org, steve.wahl@hpe.com,
- jirislaby@kernel.org, apatel@ventanamicro.com, bvanassche@acm.org,
- ptsm@linux.microsoft.com, Jonathan.Cameron@huawei.com,
- beata.michalska@arm.com, xin@zytor.com, davydov-max@yandex-team.ru,
- ravi.bangoria@amd.com, joel.granados@kernel.org, ffmancera@riseup.net,
- kprateek.nayak@amd.com, akpm@linux-foundation.org, bhe@redhat.com,
- brgerst@gmail.com, coxu@redhat.com, dmaluka@chromium.org,
- linux-kernel@vger.kernel.org, linux-edac@vger.kernel.org,
- linux-sgx@vger.kernel.org, kvm@vger.kernel.org,
- virtualization@lists.linux.dev, tboot-devel@lists.sourceforge.net,
- nouveau@lists.freedesktop.org, linux-coco@lists.linux.dev,
- xen-devel@lists.xenproject.org, Huacai Chen <chenhuacai@loongson.cn>,
- Zhenghan Cheng <your_email@example.com>
-References: <20250612093228.7655-1-chengzhenghan@uniontech.com>
-Content-Language: en-US
-From: Juergen Gross <jgross@suse.com>
-Autocrypt: addr=jgross@suse.com; keydata=
- xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
- ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
- dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
- NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
- XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
- AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
- CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
- mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
- G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
- kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
- Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
- RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
- vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
- sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
- aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
- w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
- auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
- 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
- fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
- HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
- QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
- ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <20250612093228.7655-1-chengzhenghan@uniontech.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------r5mQdgOt4Whh0CrWNE4SR5Wo"
-X-Spam-Flag: NO
-X-Spam-Score: -3.69
-X-Spamd-Result: default: False [-3.69 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SIGNED_PGP(-2.00)[];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MIME_BASE64_TEXT_BOGUS(1.00)[];
-	MIME_GOOD(-0.20)[multipart/signed,multipart/mixed,text/plain];
-	NEURAL_HAM_SHORT(-0.19)[-0.964];
-	MIME_BASE64_TEXT(0.10)[];
-	MIME_UNKNOWN(0.10)[application/pgp-keys];
-	DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	FUZZY_BLOCKED(0.00)[rspamd.com];
-	MIME_TRACE(0.00)[0:+,1:+,2:+,3:+,4:~,5:~];
-	FREEMAIL_CC(0.00)[zytor.com,linux.intel.com,redhat.com,goodmis.org,kernel.org,amd.com,oracle.com,hpe.com,ventanamicro.com,acm.org,linux.microsoft.com,huawei.com,arm.com,yandex-team.ru,riseup.net,linux-foundation.org,gmail.com,chromium.org,vger.kernel.org,lists.linux.dev,lists.sourceforge.net,lists.freedesktop.org,lists.xenproject.org,loongson.cn,example.com];
-	ARC_NA(0.00)[];
-	FREEMAIL_TO(0.00)[uniontech.com,linutronix.de,redhat.com,alien8.de,linux.intel.com,kernel.org,amd.com,intel.com,google.com,akamai.com,gmail.com];
-	RCVD_TLS_ALL(0.00)[];
-	R_RATELIMIT(0.00)[to_ip_from(RLf5ioe8sym7mk9p7n1hwm4mac)];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	HAS_ATTACHMENT(0.00)[];
-	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCPT_COUNT_GT_50(0.00)[61];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:mid,suse.com:email]
-X-Spam-Level: 
+Content-Transfer-Encoding: 8bit
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------r5mQdgOt4Whh0CrWNE4SR5Wo
-Content-Type: multipart/mixed; boundary="------------K0XYKHlxFzsICF9SMBfAUlSE";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Zhenghan Cheng <chengzhenghan@uniontech.com>, tglx@linutronix.de,
- mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com, x86@kernel.org,
- mario.limonciello@amd.com, yazen.ghannam@amd.com, jpoimboe@kernel.org,
- tony.luck@intel.com, jarkko@kernel.org, bhelgaas@google.com,
- pbonzini@redhat.com, oleg@redhat.com, jbaron@akamai.com, ning.sun@intel.com,
- seanjc@google.com, luto@kernel.org, andy@kernel.org, jim.cromie@gmail.com,
- kirill.shutemov@linux.intel.com
-Cc: hpa@zytor.com, pawan.kumar.gupta@linux.intel.com, vkuznets@redhat.com,
- rostedt@goodmis.org, ardb@kernel.org, thomas.lendacky@amd.com,
- nikunj@amd.com, ashish.kalra@amd.com, kees@kernel.org,
- alexandre.chartre@oracle.com, rppt@kernel.org, steve.wahl@hpe.com,
- jirislaby@kernel.org, apatel@ventanamicro.com, bvanassche@acm.org,
- ptsm@linux.microsoft.com, Jonathan.Cameron@huawei.com,
- beata.michalska@arm.com, xin@zytor.com, davydov-max@yandex-team.ru,
- ravi.bangoria@amd.com, joel.granados@kernel.org, ffmancera@riseup.net,
- kprateek.nayak@amd.com, akpm@linux-foundation.org, bhe@redhat.com,
- brgerst@gmail.com, coxu@redhat.com, dmaluka@chromium.org,
- linux-kernel@vger.kernel.org, linux-edac@vger.kernel.org,
- linux-sgx@vger.kernel.org, kvm@vger.kernel.org,
- virtualization@lists.linux.dev, tboot-devel@lists.sourceforge.net,
- nouveau@lists.freedesktop.org, linux-coco@lists.linux.dev,
- xen-devel@lists.xenproject.org, Huacai Chen <chenhuacai@loongson.cn>,
- Zhenghan Cheng <your_email@example.com>
-Message-ID: <84b14425-03e4-42be-8bd5-9bc010ebecda@suse.com>
-Subject: Re: [PATCH] x86: Fix build warnings about export.h
-References: <20250612093228.7655-1-chengzhenghan@uniontech.com>
-In-Reply-To: <20250612093228.7655-1-chengzhenghan@uniontech.com>
+The definitions of device_tree_get_reg() and device_tree_get_u32() are already
+in common code, so move their prototypes there as well.
 
---------------K0XYKHlxFzsICF9SMBfAUlSE
-Content-Type: multipart/mixed; boundary="------------nwabp6M47v7PnA12GBXmtNk0"
+Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+---
+Changes in v2:
+ - Update the commit message.
+ - Add Reviewed-by: Michal Orzel <michal.orzel@amd.com>.
+---
+ xen/arch/arm/include/asm/setup.h | 6 ------
+ xen/include/xen/device_tree.h    | 6 ++++++
+ 2 files changed, 6 insertions(+), 6 deletions(-)
 
---------------nwabp6M47v7PnA12GBXmtNk0
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+diff --git a/xen/arch/arm/include/asm/setup.h b/xen/arch/arm/include/asm/setup.h
+index 6cf272c160..2b58549c1a 100644
+--- a/xen/arch/arm/include/asm/setup.h
++++ b/xen/arch/arm/include/asm/setup.h
+@@ -53,12 +53,6 @@ void setup_mm(void);
+ extern uint32_t hyp_traps_vector[];
+ void init_traps(void);
+ 
+-void device_tree_get_reg(const __be32 **cell, uint32_t address_cells,
+-                         uint32_t size_cells, paddr_t *start, paddr_t *size);
+-
+-u32 device_tree_get_u32(const void *fdt, int node,
+-                        const char *prop_name, u32 dflt);
+-
+ int handle_device(struct domain *d, struct dt_device_node *dev, p2m_type_t p2mt,
+                   struct rangeset *iomem_ranges, struct rangeset *irq_ranges);
+ 
+diff --git a/xen/include/xen/device_tree.h b/xen/include/xen/device_tree.h
+index 6dc1fb5159..75017e4266 100644
+--- a/xen/include/xen/device_tree.h
++++ b/xen/include/xen/device_tree.h
+@@ -949,6 +949,12 @@ int dt_get_pci_domain_nr(struct dt_device_node *node);
+ 
+ struct dt_device_node *dt_find_node_by_phandle(dt_phandle handle);
+ 
++void device_tree_get_reg(const __be32 **cell, uint32_t address_cells,
++                         uint32_t size_cells, paddr_t *start, paddr_t *size);
++
++u32 device_tree_get_u32(const void *fdt, int node,
++                        const char *prop_name, u32 dflt);
++
+ #ifdef CONFIG_DEVICE_TREE_DEBUG
+ #define dt_dprintk(fmt, args...)  \
+     printk(XENLOG_DEBUG fmt, ## args)
+-- 
+2.49.0
 
-T24gMTIuMDYuMjUgMTE6MzIsIFpoZW5naGFuIENoZW5nIHdyb3RlOg0KPiBBZnRlciBjb21t
-aXQgYTkzNGE1N2E0MmY2NGE0ICgic2NyaXB0cy9taXNjLWNoZWNrOg0KPiBjaGVjayBtaXNz
-aW5nICNpbmNsdWRlIDxsaW51eC9leHBvcnQuaD4gd2hlbiBXPTEiKQ0KPiBhbmQgY29tbWl0
-IDdkOTU2ODBkNjRhYzhlODM2YyAoInNjcmlwdHMvbWlzYy1jaGVjazoNCj4gY2hlY2sgdW5u
-ZWNlc3NhcnkgI2luY2x1ZGUgPGxpbnV4L2V4cG9ydC5oPiB3aGVuIFc9MSIpLA0KPiB3ZSBn
-ZXQgc29tZSBidWlsZCB3YXJuaW5ncyB3aXRoIFc9MSxzdWNoIGFzOg0KPiANCj4gYXJjaC94
-ODYvY29jby9zZXYvY29yZS5jOiB3YXJuaW5nOiBFWFBPUlRfU1lNQk9MKCkgaXMgdXNlZCwg
-YnV0ICNpbmNsdWRlIDxsaW51eC9leHBvcnQuaD4gaXMgbWlzc2luZw0KPiBhcmNoL3g4Ni9j
-cnlwdG8vYXJpYV9hZXNuaV9hdngyX2dsdWUuYzogd2FybmluZzogRVhQT1JUX1NZTUJPTCgp
-IGlzIHVzZWQsIGJ1dCAjaW5jbHVkZSA8bGludXgvZXhwb3J0Lmg+IGlzIG1pc3NpbmcNCj4g
-YXJjaC94ODYva2VybmVsL3Vud2luZF9vcmMuYzogd2FybmluZzogRVhQT1JUX1NZTUJPTCgp
-IGlzIHVzZWQsIGJ1dCAjaW5jbHVkZSA8bGludXgvZXhwb3J0Lmg+IGlzIG1pc3NpbmcNCj4g
-YXJjaC94ODYva3ZtL2h5cGVydi5jOiB3YXJuaW5nOiBFWFBPUlRfU1lNQk9MKCkgaXMgdXNl
-ZCwgYnV0ICNpbmNsdWRlIDxsaW51eC9leHBvcnQuaD4gaXMgbWlzc2luZw0KPiBhcmNoL3g4
-Ni9ldmVudHMvaW50ZWwvY29yZS5jOiB3YXJuaW5nOiBFWFBPUlRfU1lNQk9MKCkgaXMgbm90
-IHVzZWQsIGJ1dCAjaW5jbHVkZSA8bGludXgvZXhwb3J0Lmg+IGlzIHByZXNlbnQNCj4gYXJj
-aC94ODYvZXZlbnRzL3poYW94aW4vY29yZS5jOiB3YXJuaW5nOiBFWFBPUlRfU1lNQk9MKCkg
-aXMgbm90IHVzZWQsIGJ1dCAjaW5jbHVkZSA8bGludXgvZXhwb3J0Lmg+IGlzIHByZXNlbnQN
-Cj4gYXJjaC94ODYva2VybmVsL2NyYXNoLmM6IHdhcm5pbmc6IEVYUE9SVF9TWU1CT0woKSBp
-cyBub3QgdXNlZCwgYnV0ICNpbmNsdWRlIDxsaW51eC9leHBvcnQuaD4gaXMgcHJlc2VudA0K
-PiBhcmNoL3g4Ni9rZXJuZWwvZGV2aWNldHJlZS5jOiB3YXJuaW5nOiBFWFBPUlRfU1lNQk9M
-KCkgaXMgbm90IHVzZWQsIGJ1dCAjaW5jbHVkZSA8bGludXgvZXhwb3J0Lmg+IGlzIHByZXNl
-bnQNCj4gDQo+IHNvIGZpeCB0aGVzZSBidWlsZCB3YXJuaW5ncyBmb3IgeDg2Lg0KPiANCj4g
-U2lnbmVkLW9mZi1ieTogIlpoZW5naGFuIENoZW5nIiA8Y2hlbmd6aGVuZ2hhbkB1bmlvbnRl
-Y2guY29tPg0KPiBTdWdnZXN0ZWQtYnk6ICJIdWFjYWkgQ2hlbiIgPGNoZW5odWFjYWlAbG9v
-bmdzb24uY24+DQoNCkZvciBYZW4gYW5kIHBhcmF2aXJ0Og0KDQpBY2tlZC1ieTogSnVlcmdl
-biBHcm9zcyA8amdyb3NzQHN1c2UuY29tPg0KDQpZb3VyIHBhdGNoIGlzIGxvb2tpbmcgYSBs
-aXR0bGUgYml0IHN0cmFuZ2UsIGFzIHRoZSBsaXN0IG9mIG1vZGlmaWVkIGZpbGVzDQppcyBs
-b2NhdGVkIGJldHdlZW4gdGhlIHBhdGNoIGh1bmtzLCBmb2xsb3dlZCBieSBhbm90aGVyICJT
-aWduZWQtb2ZmLWJ5OiIuDQoNCg0KSnVlcmdlbg0K
---------------nwabp6M47v7PnA12GBXmtNk0
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
-
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-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
-kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
-=3DeeAB
------END PGP PUBLIC KEY BLOCK-----
-
---------------nwabp6M47v7PnA12GBXmtNk0--
-
---------------K0XYKHlxFzsICF9SMBfAUlSE--
-
---------------r5mQdgOt4Whh0CrWNE4SR5Wo
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmhKqZ0FAwAAAAAACgkQsN6d1ii/Ey9X
-VQf/R7PwyvgEHQL+aCN+trwA+f6BOxwLSPkJMa068wO/uqFIQUIrHnSm8vuItp8K4TbRoujnCAmD
-qc6aLD0w2pHhHkmvJEUFNDGKVeqlukRm3AyTCVbqN1RMw7Nd+hcM8yJv1P6hxJznNVTeuamYww6n
-jrWmU9VBqFABUMVuH42in3ngALypAG9sx3Sm05R0vn6DAV+GI3mrnpKCTF1ONoMcXQBPJEohtgLC
-f0LvToJeeeHnNhc6c20AIKOrxbdMXjosMfS2hDhX3tTDPm9LELql34Z7n1nGuloLqgbq2/590hw6
-4PZuTMy6Qxf5Pw92YW24Jc6NEWR5myQo2FWARFNaMw==
-=FXNZ
------END PGP SIGNATURE-----
-
---------------r5mQdgOt4Whh0CrWNE4SR5Wo--
 
