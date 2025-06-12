@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E3C7AD6948
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Jun 2025 09:39:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1012451.1390900 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C068AD6939
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Jun 2025 09:37:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1012445.1390889 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uPcWj-0005JP-6h; Thu, 12 Jun 2025 07:39:09 +0000
+	id 1uPcUj-0004lT-RQ; Thu, 12 Jun 2025 07:37:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1012451.1390900; Thu, 12 Jun 2025 07:39:09 +0000
+Received: by outflank-mailman (output) from mailman id 1012445.1390889; Thu, 12 Jun 2025 07:37:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uPcWj-0005GI-3e; Thu, 12 Jun 2025 07:39:09 +0000
-Received: by outflank-mailman (input) for mailman id 1012451;
- Thu, 12 Jun 2025 07:39:08 +0000
+	id 1uPcUj-0004k2-Nh; Thu, 12 Jun 2025 07:37:05 +0000
+Received: by outflank-mailman (input) for mailman id 1012445;
+ Thu, 12 Jun 2025 07:37:04 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=TRIX=Y3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uPcWi-0005GC-EF
- for xen-devel@lists.xenproject.org; Thu, 12 Jun 2025 07:39:08 +0000
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [2a00:1450:4864:20::435])
+ id 1uPcUi-0004jw-IW
+ for xen-devel@lists.xenproject.org; Thu, 12 Jun 2025 07:37:04 +0000
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [2a00:1450:4864:20::42d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 51ba1bad-4760-11f0-b894-0df219b8e170;
- Thu, 12 Jun 2025 09:39:06 +0200 (CEST)
-Received: by mail-wr1-x435.google.com with SMTP id
- ffacd0b85a97d-3a4ef2c2ef3so586845f8f.2
- for <xen-devel@lists.xenproject.org>; Thu, 12 Jun 2025 00:39:06 -0700 (PDT)
+ id 07c7d0da-4760-11f0-b894-0df219b8e170;
+ Thu, 12 Jun 2025 09:37:02 +0200 (CEST)
+Received: by mail-wr1-x42d.google.com with SMTP id
+ ffacd0b85a97d-3a4ef2c2ef3so584861f8f.2
+ for <xen-devel@lists.xenproject.org>; Thu, 12 Jun 2025 00:37:02 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-313c1bf63afsm784840a91.22.2025.06.12.00.33.53
+ d9443c01a7336-2364e6fe4ffsm7522275ad.147.2025.06.12.00.36.54
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 12 Jun 2025 00:34:00 -0700 (PDT)
+ Thu, 12 Jun 2025 00:37:00 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 51ba1bad-4760-11f0-b894-0df219b8e170
+X-Inumbo-ID: 07c7d0da-4760-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1749713946; x=1750318746; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1749713822; x=1750318622; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Kk1EuVWguEFFQAsK4ZoZZZZmGwMo+W72seNJuPLyBOQ=;
-        b=Kg0gpzoyVNjbcJRk8byPSMtF5/RyrMBqkehwqUpf7bbwzav8P6Ze1hKxNsp2AtvFxp
-         wRTmEBFxDBEyMj4saEX/RcLO4aE3m0GT2HnI63wGjvHy/cUmUaYxTGTFleJGYgLw3KnT
-         Zq8UuQ84ViSdl7V7KtXrg4I5tQkYiOHwqyIXAeDs+aA7uluOfoJcFrD2bVQHDoSMKbLu
-         VLojdI4CIuNY5gA17YhK+/ESvNGeoutQgLpTr/yjV3f9OdTDKs1GhwZfNHIJEHtQpM3z
-         AtJzshfbloVrv6EdEMZVRMSWOhrhUkiNdo5eRd8LgPU943Ajd7V90MhFCnWznDw5D2zs
-         sHXw==
+        bh=tKDXjh3y1KHATX2Lze2A5b6PHBxoCfqOzkkQrLCFP0k=;
+        b=dRUBm9drLJ4mCjyTuPip/extZzMuwNtChERVoUOPxS9rydpCPIm843BLNvWiGHNqIk
+         SHGwNY4smeJnOSxD8KZlThMOT6/QT9lXdyqsq1cZ/eFCymLk5bnlwYJCawms3bC5O+pE
+         Im3cH6uAjL1IFl1+ThOPaNXtPQsB+HKOIOaalqqzrJ0B1LDbN7GYhA+BIDVaLNsPwwll
+         axX41tv2mltxrWwsKUnuaqXsMtMqT9OoIk8LvLmXpSwx+iLv3u2QOxCvEepfXuE/u7/d
+         +cUwfvxBoJeOUqNI/e1R6Pw1n3fLu5BXAKpq3fiEogt5AM3OU1IkdS6RKnPfmuY1iatd
+         HdGA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749713946; x=1750318746;
+        d=1e100.net; s=20230601; t=1749713822; x=1750318622;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Kk1EuVWguEFFQAsK4ZoZZZZmGwMo+W72seNJuPLyBOQ=;
-        b=h9W1OCxz9EVfLXhjaAexpuIbgqJP6tpjavU2ZgL7gVWR8qMXyGDEu9jUvX0RqNfLGK
-         31QLY0mvwkl2f4SY79gtYwTbdZyVYCpe77zttSl8wkHFVfVqanRUxWOg65Zu7XGKGApg
-         ylR0Fw+j8jxWLgSd8whHcNmBt+/ICbI3wPPu/QE31mlASuefBgEHb7ybIBEVtvNYbIWc
-         noK1StBNLXQ2HSy4bVGMRnmAE4WLgm2dZAHzmsJVFqqXII7jmwpHEbDDdFtydDl0IrFG
-         zJb0IM2Xb5zrKyzDnOAZyq8AVmYWNrCwP+7ewKUEs8065MBdS8lxV77KVyabMek+OC6U
-         4Fpw==
-X-Forwarded-Encrypted: i=1; AJvYcCXYbd6IDClgQ+HLyBhOfdhx3uB7/QQdzt7colcAWsiDPs61iXyJ/L8RZn2KZ7QgAOMv/Qg+Js/3XF0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz8Q+skdQgfVSMK16gW764KEXmCzYd6Tdx1Yhf1EFFnEafGJ5Vs
-	t6+gGZhmArviRMB3ioTysp+N2ZDB+481LjzpXzXaQIiYBJLi1b1qJXlzYJu78eZ1sgAm25fPqCy
-	UZLg=
-X-Gm-Gg: ASbGnct8oVK/OXdsHRgUT6eZS/qdCh5Bw6oJGCNw9eQ+m5KOcKkzFWDZCKzMs1DgdCJ
-	eznHcqoFF4W2WHtCa8IlLv2HlZxsCQ3vptmLMwDV3bkI+fM0K1XGscMsmG+x6Q+9CJx/bj2FrK7
-	UIKI8LdzBm26ntAMYFRydyuUi2Xst/7819QpuAsCRFb2sBHPttzxqzIcPpYp/wR/Zw5HvJ63w9L
-	PxM4rAQ2xJd5rhd4PRf9uP3kzgVQWHRdSPXeFR7oksKcOkqJN+Y5YLyCMXgDzcLDiKBhsc8Diu5
-	XLDzs5c8ZR8YMsiKgPO0AsKCl3CGIKZA5X/DYEyl50NEOyq6nLQMYYJCay1FfH4UPQlOW823Per
-	C/7FUbd+3LnB/FA+VxDT18o+qmMgoGmfMQsHEuluqBokZNpI=
-X-Google-Smtp-Source: AGHT+IFBaq0RwwbcIip8Izuk0nLO04nvkeMufnFU77a6smivEi3KEwmTGQazt8N/nLRhfvEkQ9zt9g==
-X-Received: by 2002:a05:6000:2886:b0:3a5:1471:d89b with SMTP id ffacd0b85a97d-3a5614dcdd8mr1604868f8f.53.1749713641500;
-        Thu, 12 Jun 2025 00:34:01 -0700 (PDT)
-Message-ID: <eecfaf59-3b7a-4330-863f-bbdc66a355e7@suse.com>
-Date: Thu, 12 Jun 2025 09:33:49 +0200
+        bh=tKDXjh3y1KHATX2Lze2A5b6PHBxoCfqOzkkQrLCFP0k=;
+        b=ZGs5xRojkVVbrJbjRBihKj8MRsVaaThmmkcoatybJQe9NVHIVdTOxJqr05iliFVhuc
+         /xLmMUHDQI2NzLAGIwjS0ttNIYMJ/CVQhnCu+vJpAbRjRE8/3bGt40GWY3hcptCn0QPV
+         e+92U3/NlF3JS5Jp9QKsHuZ2SqI5Rl9DRZvxGSSDOMYsYvtPOcmlEq+vndlPPKS+wTTp
+         zEpsf13NoIANKtDzqe0JOS0DAU/bRUnMjfLteB0iOqotcwuFSCHQXQYBtmbYORoktDob
+         Mx/j2aiGKX/gEfrIwro+ofk1WKZ/Te97JsA94v6dVL4hYHGgk1gLxsEVe1m1H2OoRR3I
+         1bAQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVABCtL8GR7UTBtdQKCwFgBuGTZE1Vd3veN77rFyWSIl/VfyvfZVp/jBAYHKa69lt2L/efIZHF5JL0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzABSA7e1ZDFX0Bgy3p3h2Tna1I3G1wpKn2bqRKFTTJrdMpppkx
+	CCMrt1Pw+wzIfrP5akey+qXKgiFQfk5dh/fTiJ4KJzqfK8dtvApmJhNd2y4JffGF+Q==
+X-Gm-Gg: ASbGncvZ91KrvQ9eKAILCilt5+z6Gmnhzm42is5eGvpg1vi8OJdOumsx7VF1NzovQkd
+	Ja56T/cHLQPiVGDN4rbNEKjxUcSRygKTMiWz8jBvIAqsGgXPppdbQ9OKLqn4XGoj749onXMmmRi
+	PWmlW5RlK6YpTcQkvtKPkTd7ii3l04+lQuI2GeAjSCMSknPgkF/c6GJ1fo4gZXn2lr1gpP1aNZP
+	hYTWP7FZDCV5p+4Z2q7hGBWk+8TevpBStVN8gpS5B+/VFv39WQbibvg2E+BnNwa5P8COOPSwrVn
+	J+W1OD9zmv6hmoh1rGL5z0f3awF/BcBFI4NfJyvc6zxH3O9wdg7oRgdrtozplNzUa8O4RNx6dkt
+	MuuerwzJzhUqreAsBJt5jT6izPRvjzCGW4DLdKrryoSTWRVw0AKYRNquZrA==
+X-Google-Smtp-Source: AGHT+IFvtstEMZJvbyw4DpqNTirNHefkClEQ6PkVI+oc/Nxh+GipWw7XVCdfSZe7+tSvc0epoTrqBg==
+X-Received: by 2002:a05:6000:2909:b0:3a5:287b:da02 with SMTP id ffacd0b85a97d-3a5614c1aacmr1440024f8f.40.1749713821588;
+        Thu, 12 Jun 2025 00:37:01 -0700 (PDT)
+Message-ID: <789e1d1d-bfd0-434f-b697-678ab5e6f912@suse.com>
+Date: Thu, 12 Jun 2025 09:36:50 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/4] XSM changes for split hardware / control domain
+Subject: Re: [PATCH 1/4] xen/xsm: Add XSM_HW_PRIV
 To: Jason Andryuk <jason.andryuk@amd.com>
 Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
  <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
@@ -98,11 +97,11 @@ Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
  Anthony PERARD <anthony.perard@vates.tech>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- Christian Lindig <christian.lindig@citrix.com>, David Scott
- <dave@recoil.org>, xen-devel@lists.xenproject.org
+ xen-devel@lists.xenproject.org
 References: <20250610225737.469690-1-jason.andryuk@amd.com>
- <0defc4e7-382b-4651-8255-652da17a2129@suse.com>
- <4b0b7554-e22f-4ef2-9236-bcc2079842d2@amd.com>
+ <20250610225737.469690-2-jason.andryuk@amd.com>
+ <43725e7d-cb4c-44b7-a3e5-59d8d597c805@suse.com>
+ <12700a8a-a969-42ed-aba8-753ff9da9a44@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -128,63 +127,53 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <4b0b7554-e22f-4ef2-9236-bcc2079842d2@amd.com>
+In-Reply-To: <12700a8a-a969-42ed-aba8-753ff9da9a44@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 11.06.2025 07:08, Jason Andryuk wrote:
-> On 2025-06-11 09:28, Jan Beulich wrote:
+On 11.06.2025 05:13, Jason Andryuk wrote:
+> On 2025-06-11 09:02, Jan Beulich wrote:
 >> On 11.06.2025 00:57, Jason Andryuk wrote:
->>> Theses are the broad changes needed for a split hardware / control
->>> domain.
+>>> Xen includes disctinct concepts of a control domain (privileged) and a
+>>> hardware domain, but there is only a single XSM_PRIV check.  For dom0
+>>> this is not an issue as they are one and the same.
 >>>
->>> An earlier posting gave device_model privileges to hardware domain.  For
->>> this posting, it was split out into a new capability.  This way the
->>> operator can choose where to run the device models without making the
->>> hardware domain have the permissions.
+>>> With hyperlaunch and its build capabilities, a non-privileged hwdom and a
+>>> privileged control domain should be possible.  Today the hwdom fails the
+>>> XSM_PRIV checks for hardware-related hooks which it should be allowed
+>>> access to.
 >>>
->>> The first patch add XSM_HW_PRIV for the hardware hypercalls.  Unlike the
->>> first posting, the control domain can call these hypercalls even though
->>> it doesn't really make sense.  The idea was to keep the control domain
->>> all powerful from an XSM perspective.
+>>> Introduce XSM_HW_PRIV, and use it to mark many of the physdev_op and
+>>> platform_op.  The hwdom is allowed access for XSM_HW_PRIV.
 >>>
->>> SILO is changed to allow control, hardwware or xenstore to service
->>> domUs.  Xenstore and hardware will use grants for PV interfaces.
->>> Control wouldn't typically provide PV interfaces to domUs, but it is
->>> given the permision to do so.  Again, to keep control all powerful.
->>>
->>> xsm/dummy: Allow hwdom SYSCTL_readconsole/physinfo this is not strictly
->>> needed.  xenconsoled could read Xen's dmesg.  If it's in hwdom, then
->>> that permission would be required.  SYSCTL_physinfo is mainly to silence
->>> xl messages, which are mostly cosmetic.
->>>
->>> Jason Andryuk (4):
->>>    xen/xsm: Add XSM_HW_PRIV
->>>    xsm/silo: Support hwdom/control domains
->>>    xen: Add DOMAIN_CAPS_DEVICE_MODEL & XEN_DOMCTL_CDF_device_model
->>>    xsm/dummy: Allow hwdom SYSCTL_readconsole/physinfo
+>>> Make XSM_HW_PRIV a new privilege level that is given to the hardware
+>>> domain, but is not exclusive.  The control domain can still execute
+>>> XSM_HW_PRIV commands.  This is a little questionable since it's unclear
+>>> how the control domain can meaningfully execute them.  But this approach
+>>> is chosen to maintain the increasing privileges and keep control domain
+>>> fully privileged.
 >>
->> Overall I can't help the impression that this level of disaggregation simply
->> requires the use of Flask.
+>> I consider this conceptually wrong. "Control" aiui refers to software
+>> (e.g. VMs or system-wide settings), but there ought to be a (pretty?)
+>> clear boundary between control and hardware domains, imo. As to
+>> "pretty" - should any overlap be necessary (xms_machine_memory_map()
+>> comes to mind), such would need handling specially then, I think. At
+>> the same time: The more of an overlap there is, the less clear it is
+>> why the two want/need separating in the first place.
 > 
-> I have thought about that.  The problem with Flask is the complexity of 
-> the security server.  We don't want to have to deal with all that code. 
-> A fixed policy is easier for our coverage testing.
-> 
-> Exposing separate control, hardware and xenstore capabilities, it makes 
-> sense for the default policy to function with them.
+> So you are in favor of splitting control and hardware into distinct 
+> sets?  I am okay with this.  I implemented that originally, but I 
+> started doubting it.  Mainly, should control be denied any permission?
 
-Yet as indicated in replies to individual patches - the boundaries between
-the three aren't clear, which imo goes (to some degree at least) against the
-purpose of "disaggregation".
+Yes, imo: Fundamentally for anything the hardware domain is supposed to
+be doing. Yet as indicated in other replies to this series - boundaries
+aren't always as clear as they ought to be for a clean separation.
+
+> We aren't using the toolstack to build domains - dom0less or Hyperlaunch 
+> handles that.  This avoids issues that might arise from running the 
+> toolstack.
+
+IOW you don't have a control domain there in the first place?
 
 Jan
-
->  This would be a 
-> coarse level of functionality, and Flask would remain for fine-grain and 
-> MAC enforcement.
-> 
-> Regards,
-> Jason
-
 
