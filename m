@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B137CAD683F
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Jun 2025 08:52:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1012371.1390799 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 68AE0AD6854
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Jun 2025 08:57:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1012377.1390809 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uPbmn-0003IE-It; Thu, 12 Jun 2025 06:51:41 +0000
+	id 1uPbsJ-0003t3-5j; Thu, 12 Jun 2025 06:57:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1012371.1390799; Thu, 12 Jun 2025 06:51:41 +0000
+Received: by outflank-mailman (output) from mailman id 1012377.1390809; Thu, 12 Jun 2025 06:57:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uPbmn-0003Fo-Et; Thu, 12 Jun 2025 06:51:41 +0000
-Received: by outflank-mailman (input) for mailman id 1012371;
- Thu, 12 Jun 2025 06:51:40 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=TRIX=Y3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uPbmm-0003Fi-Hj
- for xen-devel@lists.xenproject.org; Thu, 12 Jun 2025 06:51:40 +0000
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [2a00:1450:4864:20::433])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a9d7a0d6-4759-11f0-b894-0df219b8e170;
- Thu, 12 Jun 2025 08:51:27 +0200 (CEST)
-Received: by mail-wr1-x433.google.com with SMTP id
- ffacd0b85a97d-3a361b8a664so533179f8f.3
- for <xen-devel@lists.xenproject.org>; Wed, 11 Jun 2025 23:51:27 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-748808964eesm701275b3a.46.2025.06.11.23.51.20
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 11 Jun 2025 23:51:26 -0700 (PDT)
+	id 1uPbsJ-0003qw-2E; Thu, 12 Jun 2025 06:57:23 +0000
+Received: by outflank-mailman (input) for mailman id 1012377;
+ Thu, 12 Jun 2025 06:57:21 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=xDy9=Y3=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1uPbsH-0003qq-HJ
+ for xen-devel@lists.xenproject.org; Thu, 12 Jun 2025 06:57:21 +0000
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [2a00:1450:4864:20::42d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 7c30ff73-475a-11f0-a309-13f23c93f187;
+ Thu, 12 Jun 2025 08:57:20 +0200 (CEST)
+Received: by mail-wr1-x42d.google.com with SMTP id
+ ffacd0b85a97d-3a54700a463so318130f8f.1
+ for <xen-devel@lists.xenproject.org>; Wed, 11 Jun 2025 23:57:20 -0700 (PDT)
+Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
+ by smtp.gmail.com with UTF8SMTPSA id
+ 5b1f17b1804b1-4532e172b03sm10812955e9.36.2025.06.11.23.57.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 11 Jun 2025 23:57:19 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,175 +45,133 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a9d7a0d6-4759-11f0-b894-0df219b8e170
+X-Inumbo-ID: 7c30ff73-475a-11f0-a309-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1749711087; x=1750315887; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ShrYksDKkyCJfTLNCZKiloLLKzjKcP5cPvKqfsiGPyE=;
-        b=EpqcBV+htpJCqoXzMbUrMm07wr8TW4CzhaBju9O4QTm52AXxGLgrjMLnouj8h2VNrb
-         9QQJas3jtKYy+zIXSVoEnCve09fyZgeftljnsQrl3RXMQwYuL3ye/ww+ay/GqOzraQPR
-         6gVTZ8/CfkovWhtq19+9D2Yqf8eKmIIAS42EqjPB3EPjQgPiaLFtYKg4sMi4dbXz5+wX
-         Y/y9SZ6dt8xO9Xe6mXZYmcRbMNBqfoUWYDG0FEnUXTcQaMKxrjVyBe+Cx04V9fZb72su
-         9hQz1dAZspDV2ApAaJvp7AyZYURuKRuO7FG/2AWXCSn9AEfS8BeG/30uXZ4bwvb3FySZ
-         jvxA==
+        d=citrix.com; s=google; t=1749711440; x=1750316240; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=55o822H8e2PldMgk8POtsqloOM8M58Ext2aqbafU+dE=;
+        b=LbQ+Z7Nqv7k0DfgMgmu8rKnjSahmQtwQCkiTodGGDXgTYjBNPj7fWJuK8IgdQmqvdt
+         DMdBa5E6nUDMs3O2Bn3LzmNMP1j7JddRyBUufSgz+QX8XTTZEuJvfXfhbsvosUE1UEa+
+         x761f3ykhMMS4RrQcksEmc/Aidrn2pymZP7X8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749711087; x=1750315887;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ShrYksDKkyCJfTLNCZKiloLLKzjKcP5cPvKqfsiGPyE=;
-        b=ClvdEijRNmEKLBHI6dzMej4XYoMRbdRGv1WfZEVBmwIf2sZm3l1blfQlxFuiODrTrb
-         BKb02yD2fjvi4jObviZi+kP/icwG3tTK76WTEc2KY6cHGwE+0hrrEq2uKS0KZk6qHjAl
-         6T1u2J1j3qfkSCW0cv5PvZ3kNBpE51px2Dk/LKnEu5ucoQMzddMoC6u59k2k6a/HKahj
-         e1arec0Zq6V01/hrGxuaT6LXdYO58D8P+G9DXU9pQRECXDQSvB1p9uKGzK7tEpNJWEr1
-         XbWXKGTsYnYp1Hm4Adlg4Fy/GmhxFJdo1igg5ycetD6pRvqGf/o1wXwxnBGkAPrR0sPs
-         gPJg==
-X-Forwarded-Encrypted: i=1; AJvYcCXHOgRSWftNFh1vp0YD/ANE0kw/TAClyVWdYgMkk/oPWkoGA294FuOzzJV7p2r42UPyHHzWnVLgids=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxW6ZF74ageOXMO3iLX+07+EeTB3jHDVeIm0h6qnbrhaOYVGXul
-	t8yZhOF8L9EtRhsFKJbYmMNdqv6rJ6bhdXXSpcF9E5+b9XvMFr+PU+hHFYTNIrTpUw==
-X-Gm-Gg: ASbGncvTpUy9qkBGou2PujEnyqF7Oy1rg8PQ/fz1wUvAcnEWxf8tqpodHcUs27ocuez
-	02HlKUE/VnNCLq0Sd7rG/S6Vcn4FKcPWGmg3LYf4AldjwiPdCU/d8Q43kHI9hKstzVdQm02q6Cm
-	EUfg+1XitO87ppHqDGwtkNnfuAHSmCTPBaBCngLnlvKfEd2Jp8wiemTqHpu6rI+ZtulTSUL3z3m
-	gcz3Hy/bMJXS0p01k6gTDjLYVh+A/aG88NXgVwZAd3TsTpui2NuhutSh+wsdk+Ri1vZPABHgVYh
-	kzY/eCdvOmrb06uJNsEItaVkKTPIXKU5ajQsBp/JowHwe9VXJ4/JaiZsb6SEy/+lr/pGOjI+Dcr
-	VgSn1kzeYvox/xNyi+DiGksndVGvEZIjMoo+ntsDlYo7ueRU=
-X-Google-Smtp-Source: AGHT+IGikqYbarbpbCx77Ih9WX/ib4+mLbtsWlJuiBqJAtkhgROgJHq3WZuQmXrcSQr9wYvJSZiGGg==
-X-Received: by 2002:a05:6000:2508:b0:3a5:2ef8:3505 with SMTP id ffacd0b85a97d-3a558a27684mr4402957f8f.37.1749711087028;
-        Wed, 11 Jun 2025 23:51:27 -0700 (PDT)
-Message-ID: <b9c263e0-3d8d-4966-8f54-611e58572118@suse.com>
-Date: Thu, 12 Jun 2025 08:51:16 +0200
+        d=1e100.net; s=20230601; t=1749711440; x=1750316240;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=55o822H8e2PldMgk8POtsqloOM8M58Ext2aqbafU+dE=;
+        b=jU89ETceyEs/2FzSs1X/bgsMXZgocGO1Ns53TsBB4mo+8/Tc6Rv1njrm1/o7DMV2/n
+         GJGRhiT5Z/GUxa83ooy7RKyKfhqdlJ3fDK6kIG0RrzN/sZNV29NRDBVu5QdehlIq9OWf
+         J+ocOEKWY0nvWV6fSd/2vqikVrtLvZ60qPoj2W6smEalyaaV4vis+EZFfxCQVooBQN2N
+         QFH9LJRtl0RzdrFeJn5REJrxIc2mFiaHmZuhfgzwp7lyXF09/LQ7erva4QMABBbwAQwX
+         QNuCdwlsp5ASyFoil7MUbCrp6IWlu7A8jASKR/lWECnZSvnCDNXHqQIRIZCnDfNOVulj
+         uiZQ==
+X-Gm-Message-State: AOJu0Yz9srNZhOGPaIOx4XpisFkkW3HNp8ec9iH4zKHr9aJgxOjZ0Os1
+	VlKKUVWYPr3ARzsL+baBnv3QmDT64T2MDDLOKckedKKz4Pw4mE828sTc4qR3mrmffRA=
+X-Gm-Gg: ASbGncsnnWz3bX0QAXeJiitl30u7LSAENfBteovt3pkm8bLGa5o45CJeWADpnWdZk0f
+	PIcIPj3NwBlBv+fDITYkWaGJOoA6onjB0/F3SqSiMxJ0RunJMeJ74Rt5Ug8svLW7DVa/ubADq5x
+	AeaDC1czYLde6l4SclLhJTSlwfezJDx4j0xEGMX+nEr4KJnghNqBjcyGUvq9GL5L8WufxhgzunN
+	dd/2G4zG73AVkM9HoVsvHDhqwbjtulxMw0Rx2ZNP7t3O9g+9iWm5y2Sx/96KlzRvA+9rVbI0mL6
+	5tQ/zQMMArpKb0AwyHngZ1jUYXUmg56TVI3XZns9BnQTjyjrj6Pse/8Z/X2Gfa5U5zygTxWtfab
+	U4K46pfXg/yVgMKrWrPaK1WFofFNMG4bMX70=
+X-Google-Smtp-Source: AGHT+IH6KxSbGu7iPPUZlR8DT419YjztuQPT/Aznzs+FBEBKbb3cKfsD41jtpatF8nrJpwifpnwxMg==
+X-Received: by 2002:a5d:64e3:0:b0:3a5:1220:36d4 with SMTP id ffacd0b85a97d-3a560814c09mr1799097f8f.22.1749711439872;
+        Wed, 11 Jun 2025 23:57:19 -0700 (PDT)
+Date: Thu, 12 Jun 2025 08:57:18 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>
+Subject: Re: [PATCH 1/8] x86/pdx: simplify calculation of domain struct
+ allocation boundary
+Message-ID: <aEp6TveXYxHXFgnF@macbook.local>
+References: <20250611171636.5674-1-roger.pau@citrix.com>
+ <20250611171636.5674-2-roger.pau@citrix.com>
+ <b78a4877-353d-4320-95a2-f3cefa018a61@citrix.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] xen/console: unify printout behavior for UART
- emulators
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: dmkhn@proton.me, andrew.cooper3@citrix.com, anthony.perard@vates.tech,
- julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com,
- dmukhin@ford.com, xen-devel@lists.xenproject.org
-References: <20250606201102.2414022-1-dmukhin@ford.com>
- <20250606201102.2414022-3-dmukhin@ford.com>
- <bcb3d553-b8aa-42ab-a9c8-7abf6f5d02c3@suse.com> <aEjInVF3zaa+VVd2@kraken>
- <b27f7652-424f-479c-a4bc-ed2ecd46ccc8@suse.com>
- <alpine.DEB.2.22.394.2506111155400.542113@ubuntu-linux-20-04-desktop>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2506111155400.542113@ubuntu-linux-20-04-desktop>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <b78a4877-353d-4320-95a2-f3cefa018a61@citrix.com>
 
-On 11.06.2025 21:07, Stefano Stabellini wrote:
-> On Wed, 11 Jun 2025, Jan Beulich wrote:
->> On 11.06.2025 02:07, dmkhn@proton.me wrote:
->>> On Tue, Jun 10, 2025 at 10:21:40AM +0200, Jan Beulich wrote:
->>>> On 06.06.2025 22:11, dmkhn@proton.me wrote:
->>>>> From: Denis Mukhin <dmukhin@ford.com>
->>>>>
->>>>> If virtual UART from domain X prints on the physical console, the behavior is
->>>>> updated to (see [1]):
->>>>> - console focus in domain X: do not prefix messages;
->>>>> - no console focus in domain X: prefix all messages with "(dX)".
->>>>
->>>> While, as indicated (much) earlier, I can see why omitting the prefix
->>>> may make sense for the domain having input focus, ...
->>>>
->>>>> --- a/xen/drivers/char/console.c
->>>>> +++ b/xen/drivers/char/console.c
->>>>> @@ -740,7 +740,17 @@ static long guest_console_write(XEN_GUEST_HANDLE_PARAM(char) buffer,
->>>>>          if ( is_hardware_domain(cd) )
->>>>>          {
->>>>>              /* Use direct console output as it could be interactive */
->>>>> +            char prefix[16] = "";
->>>>> +            struct domain *consd;
->>>>> +
->>>>> +            consd = console_get_domain();
->>>>> +            if ( consd != cd )
->>>>> +                snprintf(prefix, sizeof(prefix), "(d%d) ", cd->domain_id);
->>>>> +            console_put_domain(consd);
->>>>> +
->>>>>              nrspin_lock_irq(&console_lock);
->>>>> +            if ( prefix[0] != '\0' )
->>>>> +                console_send(prefix, strlen(prefix), flags);
->>>>>              console_send(kbuf, kcount, flags);
->>>>>              nrspin_unlock_irq(&console_lock);
->>>>>          }
->>>>
->>>> ... this, aiui, is a behavioral change for the non-dom0less case, where
->>>> Dom0 output will suddenly also gain the prefix. Which I don't think is
->>>> wanted: Switching focus between Xen and Dom0 should remain unaffected
->>>> in this regard.
->>>
->>> This change ensures that dom0 traces aren't mixed with domU traces when domU
->>> has input focus, or with Xen traces when the administrator is in the diagnostic
->>> console.
->>
->> That's what the description also tries to describe, yet I still regard it as
->> a behavioral regression in (at least) the described scenario. The hardware
->> domain presently not having (d0) prefixed to its output is deliberate imo,
->> not accidental.
+On Wed, Jun 11, 2025 at 06:58:31PM +0100, Andrew Cooper wrote:
+> On 11/06/2025 6:16 pm, Roger Pau Monne wrote:
+> > diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
+> > index 7536b6c8717e..2f438ce367cf 100644
+> > --- a/xen/arch/x86/domain.c
+> > +++ b/xen/arch/x86/domain.c
+> > @@ -461,30 +461,6 @@ void domain_cpu_policy_changed(struct domain *d)
+> >      }
+> >  }
+> >  
+> > -#if !defined(CONFIG_BIGMEM) && defined(CONFIG_PDX_COMPRESSION)
+> > -/*
+> > - * The hole may be at or above the 44-bit boundary, so we need to determine
+> > - * the total bit count until reaching 32 significant (not squashed out) bits
+> > - * in PFN representations.
+> > - * Note that the way "bits" gets initialized/updated/bounds-checked guarantees
+> > - * that the function will never return zero, and hence will never be called
+> > - * more than once (which is important due to it being deliberately placed in
+> > - * .init.text).
+> > - */
+> > -static unsigned int __init noinline _domain_struct_bits(void)
+> > -{
+> > -    unsigned int bits = 32 + PAGE_SHIFT;
+> > -    unsigned int sig = hweight32(~pfn_hole_mask);
+> > -    unsigned int mask = pfn_hole_mask >> 32;
+> > -
+> > -    for ( ; bits < BITS_PER_LONG && sig < 32; ++bits, mask >>= 1 )
+> > -        if ( !(mask & 1) )
+> > -            ++sig;
+> > -
+> > -    return bits;
+> > -}
+> > -#endif
+> > -
 > 
-> If we only consider the classic dom0 and dom0less usage models, then
-> what you wrote makes perfect sense. In the classic dom0 case, it is best
-> for dom0 to have no prefix, which is the current behavior.
+> I'm very happy to see this disappear.  Both because of a non-__init
+> function calling an __init function, and because this internal is just
+> horrible.
 > 
-> However, things become more complex with dom0less. As we have discussed
-> previously, it has already become desirable on both ARM and x86 to align
-> on the same behavior. During our last discussion, the preference was to
-> add a '(d0)' prefix to clearly differentiate output from dom0 and other
-> domains.
+> >  struct domain *alloc_domain_struct(void)
+> >  {
+> >      struct domain *d;
+> > @@ -498,14 +474,15 @@ struct domain *alloc_domain_struct(void)
+> >       * On systems with CONFIG_BIGMEM there's no packing, and so there's no
+> >       * such restriction.
+> >       */
+> > -#if defined(CONFIG_BIGMEM) || !defined(CONFIG_PDX_COMPRESSION)
+> > -    const unsigned int bits = IS_ENABLED(CONFIG_BIGMEM) ? 0 :
+> > -                                                          32 + PAGE_SHIFT;
+> > +#if defined(CONFIG_BIGMEM)
+> > +    const unsigned int bits = 0;
+> >  #else
+> > -    static unsigned int __read_mostly bits;
+> > +    static unsigned int __ro_after_init bits;
+> >  
+> >      if ( unlikely(!bits) )
+> > -         bits = _domain_struct_bits();
+> > +         bits = flsl(pfn_to_paddr(pdx_to_pfn(
+> > +             1UL << (sizeof(((struct page_info *)NULL)->v.inuse._domain) * 8))))
+> > +             - 1;
 > 
-> Up to now, we could easily detect the two different cases depending on
-> the boot configuration. The problem arises with Denis' patches, which
-> add the ability for dynamically created guests via `xl` to access an
-> emulated NS16550 UART that prints to the console. Because these guests
-> are created dynamically, it is not clear how we are going to handle
-> this case.
+> I think this would benefit greatly by not being a oneliner.  There's
+> sizeof_field() which helps a little.
 
-Why would this be not clear? We already prefix their output with "(d<N>)"
-when going the traditional way. The same would then apply to output
-coming through the emulated UART.
+Oh, I missed that.  I was expecting to find something like
+member_size() or similar.
 
-> If we follow the dom0less preference, then we would need a '(d0)' prefix
-> for dom0. If we follow the classic dom0 model, then dom0 would remain
-> without a prefix, and the new domUs would have a prefix. This would
-> cause an inconsistency. However, this is what we have today on ARM with
-> dom0less.
-> 
-> If Jan feels strongly that we should retain no prefix for the classic
-> dom0 case, which is understandable, then I believe the best course of
-> action would be to change our stance on dom0less on both ARM and x86 and
-> also use no prefix for dom0 in the dom0less case (which is the current
-> state on ARM).
+> But, isn't this UB with CONFIG_BIGMEM?  You're shifting 1UL by 64.
 
-Leaving aside that "dom0 in the dom0less" ought to really be not-a-thing,
-I disagree. Present behavior of not prefixing the domain's output which
-has input focus continues to make sense. That requires Dom0 to have a
-prefix whenever it doesn't have input focus.
+CONFIG_BIGMEM doesn't get here (see the #fidef above).
 
-Jan
+> When __pdx_t is unsigned long, there's no bits restriction necessary. 
+> Therefore, don't you want !bits && sizeof_field(...) < BYTES_PER_LONG as
+> the entry criteria?
+
+__pdx_t being unsigned long can only happen for CONFIG_BIGMEM, and
+that's still handled separately using a #if defined(CONFIG_BIGMEM) ...
+(which I should have converted to #ifdef instead).
+
+Thanks, Roger.
 
