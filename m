@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C359FAD71A3
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Jun 2025 15:22:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1013085.1391620 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 05D6AAD71DD
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Jun 2025 15:28:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1013090.1391631 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uPhso-0007Ri-My; Thu, 12 Jun 2025 13:22:18 +0000
+	id 1uPhyD-00080x-9X; Thu, 12 Jun 2025 13:27:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1013085.1391620; Thu, 12 Jun 2025 13:22:18 +0000
+Received: by outflank-mailman (output) from mailman id 1013090.1391631; Thu, 12 Jun 2025 13:27:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uPhso-0007P6-KJ; Thu, 12 Jun 2025 13:22:18 +0000
-Received: by outflank-mailman (input) for mailman id 1013085;
- Thu, 12 Jun 2025 13:22:17 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uPhyD-0007z1-6j; Thu, 12 Jun 2025 13:27:53 +0000
+Received: by outflank-mailman (input) for mailman id 1013090;
+ Thu, 12 Jun 2025 13:27:51 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=TRIX=Y3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uPhsn-0007Oy-Ft
- for xen-devel@lists.xenproject.org; Thu, 12 Jun 2025 13:22:17 +0000
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [2a00:1450:4864:20::436])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 41bc7563-4790-11f0-b894-0df219b8e170;
- Thu, 12 Jun 2025 15:22:15 +0200 (CEST)
-Received: by mail-wr1-x436.google.com with SMTP id
- ffacd0b85a97d-3a4f78ebec8so721743f8f.0
- for <xen-devel@lists.xenproject.org>; Thu, 12 Jun 2025 06:22:15 -0700 (PDT)
+ id 1uPhyB-0007yv-Ic
+ for xen-devel@lists.xenproject.org; Thu, 12 Jun 2025 13:27:51 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 095c8589-4791-11f0-a309-13f23c93f187;
+ Thu, 12 Jun 2025 15:27:50 +0200 (CEST)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-43cfe63c592so11026405e9.2
+ for <xen-devel@lists.xenproject.org>; Thu, 12 Jun 2025 06:27:50 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2364e6d99d2sm13377755ad.130.2025.06.12.06.22.05
+ 41be03b00d2f7-b2fd62c2d65sm1108433a12.52.2025.06.12.06.27.45
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 12 Jun 2025 06:22:13 -0700 (PDT)
+ Thu, 12 Jun 2025 06:27:48 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,65 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 41bc7563-4790-11f0-b894-0df219b8e170
+X-Inumbo-ID: 095c8589-4791-11f0-a309-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1749734535; x=1750339335; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1749734870; x=1750339670; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=kqT5/LLk930IJEsFDdlPEKdhXsX/vrLGpTstZqfZ4cw=;
-        b=ec+cuIyczGtRc3GVcxoqUV+MIF5R80ZwvefOVIrHBSupHgW/f3p0pSUcx2dd8dIQdK
-         UJcnavGZNHyL5kdy7aDixKof2BKIRTH5dejWv2RZjKYfk38oqwvh+XRoHgWCMmGu7J69
-         lfeoe2o1X/FqlrqNSFtFd6HhH1SS1mrSU0nkyfVSkVZ6QGnCbKU4JnWsayYv3tNuXIsY
-         OkgswiIsxIbOp+GBLuS5bjfJhee4Quw9ErOAwKz9z49KP6PQnVrvnFgsKd2CQzQ2vOxH
-         5TyomQxyP8VOoUiDCp6F6Vlp5a4jbgJXBt6FLh768o+raZxGZzY6NEl+RVx9zp0czKFx
-         UK2A==
+        bh=Fxnfw+jwQYw5NuVhxc0jjRyWOMGtOF6GJ0xpu9TzAvQ=;
+        b=Sks2tKri9V0fwqzOoX3/Oy7n2RZHAcHMlgZFQv6D18m6Ww3bEd1+6he4ws/5Nx+Z/i
+         3piKm/m3+sJMC7sSrch18hFyDgNFLa6lDpxe0hGGVXwRdeMxZn9HnGkTr0iOdEBx5Xcs
+         Nshf1C6WDB8hl+ZWTB1dsjwMvmY2V8YTNvRsZeX0lwSpftL/O2QWc45YNv1IOrAGg507
+         /DnikYnwhPrLh7TB8s5y5zs2OLQDNPhy5tQuYE7GpE2ltDAtEtgZN7YOQYEttPyqBLEu
+         Jc7gxUOr7q+1jKJFdGmZBpfudLKHgf4uA9Q47neacZ1VvuWLrLpuyXVCBhSODBJAIwZn
+         otmQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749734535; x=1750339335;
+        d=1e100.net; s=20230601; t=1749734870; x=1750339670;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=kqT5/LLk930IJEsFDdlPEKdhXsX/vrLGpTstZqfZ4cw=;
-        b=vEY8Z/5Y0Xm1mBkDbjBXZ6ZGICQQeVp1Kr28oZ8hNY6K/b2Pc4vnuCSi16dxgDTZsK
-         jj52Rk4wew/xu610NRkiIv0l3Y7scKcbQHDF3Xp9diUjfAtPPynT18hm8x1tOib9J6pM
-         BA5Qy09G0TGA4s+yFgDozkgD+72yHt+nwfjR201akM3gUZchXLkDYZSJvgqQDxrj10HB
-         7KNjXX1J2F2SKvzDrD1H8yhAhmDD2UPsuqYyJKib54fFmK7Gry/+OvB+AqcC4S72rIMT
-         FAUYnQbNa6wA26RaP9PrdhcM+Ku00/eiwZuGoC4TDS6LHXh/F7ITuCFPwq77LaXCpGVZ
-         5jgw==
-X-Forwarded-Encrypted: i=1; AJvYcCWB8UwBsPPAChliS/5ABrvuGXSAjanfR7FuAgKmL/MTHJoCGmTfZ87Zi/u0zC3jtm7fxe3MbjjYAoo=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzMtLEDjtTeM1MVujp5897URug2m8P5FCHiphOfAwiSbiROsWRO
-	RBjt8eqji6ricbeIyco5JRf65/kLIRZMsaGOXeEdy33uw0ksLV8urJX2H2wqXRGRbA==
-X-Gm-Gg: ASbGncuoQzxppSS4sImUTRvffWcVjjMP6AWVDWvgyoMI5w9xWlShGawacYmrLw4q0Q0
-	u6i8+qkSt7/hvmcgE+R2y3EZOpYfqrw8BdAG/dMBYiQ0IOhOARU2CXZDENyOlHuD4VkROwDTDCI
-	oEST6YAAfkJOCZi7KgruK6rWm1O4irdC0yJArM4SUSUlFczkwO1Mi2gLc6AnMlXe/vRojXeS1Hc
-	is/a+Qjh412bczK5wU2mHcspRcCJUSV7JXTSbsDas95mPSv+fLqjcG8u9NKCP/Oja4nqJhxZYU0
-	4MeIm2KzdFLUncRDm4ZaYp1EsZX5oAcmmbSIAKQXCU00QfmLZN7trM0u4hEd5zpiRx3gAe6Mdct
-	epzM/9B4H9yBVr6d6K6ac9p+sdalEgz4bsqmqGXnSievvQgE=
-X-Google-Smtp-Source: AGHT+IHLyXGMPFj3xjDuT5iKPffAPIr21r4xBqfCo5jDkqom6JJNreu37j3/tpv+8pmIbysaPT32Kw==
-X-Received: by 2002:a05:6000:2481:b0:3a4:e8bc:594 with SMTP id ffacd0b85a97d-3a56069467dmr2702440f8f.8.1749734534639;
-        Thu, 12 Jun 2025 06:22:14 -0700 (PDT)
-Message-ID: <53e8cacd-e035-47ca-906e-35f748559328@suse.com>
-Date: Thu, 12 Jun 2025 15:22:01 +0200
+        bh=Fxnfw+jwQYw5NuVhxc0jjRyWOMGtOF6GJ0xpu9TzAvQ=;
+        b=HiO1I654M1H3mZf3InAqf1EcHlwya1AE5OSnYqpc4C8e4FAakT13Ch8OOkwIdR8lAm
+         IG2afqs+770C4sXm78h53peJojgt8BTvJw7M6WtK9gJhAJ+2pIIvTPNPCPYVzwA/H6Kd
+         +TDUIdzdeZ5BOyalO+JXckUTkkGr2hqddTmSMlesGTGOrFTzZIPs6ReQDgj6M18wQcLB
+         75pX4CmKSLkCkBH/kW5AVqKz77zCWOLldOTAJVvqG2KPQEEncn1uq88fy7hUkyh6Kp5x
+         77icv4YxZwoRsyKVHx6sc43e0zF9LBMtoVOHksmwykyKjUfJKZdQlZB+AizwP3bxLJ/n
+         Khlw==
+X-Forwarded-Encrypted: i=1; AJvYcCUxn2TCzucuQqUP4ErezlZyhCC0TPHljS3kF/g8SwVrbP45vx8GbOv0gnLagebrI1at/9oeKeBV7oA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyE55lvNxWZ4PXQbdUQYXq8DOnoNv7ngF/Oo6a4B1o5SxMSMb2t
+	s+1gpyC+iFybwGAxjfohzPzPRS71DdnKE4Kp/GwkWcMYC0R9iJ6U1cTl2RU1tZjpmg==
+X-Gm-Gg: ASbGncuCrlXoeXfXtDVbC/StkO/rfKHXT5+ynITRkwpnXw5F7GVLo90vFcbKcyS/M8Y
+	yzip0fwZkWl3EtM0Rf3OHfp4Q/9nIDwv7sfWo3V+19tioBVjy0D0hrHULm3cOcWb4mvL4hyFzel
+	zE5LVAOr55SP/HC5/QvPO6oCAHWi3gMl1MbfwW4MZiahFGzzQQEtxV4WqUSthnEr6rNhYHEtAzE
+	+TpmoyZAZszRSyUbZ1Rn1rWraej1FY+zPS2TFYCDUic642pBGm7imUJgNpZu1+MUQRrwGR/7RA0
+	0Ze5MoGnT/pSva9QqWtDwxinV9jaWPwg5pVP+BQ9/h/dR8bA7QPMMPln8IP6XfK7B7/irKMhGth
+	8vSfiWv/+oXqwsgx3ZuypaiTKJ6MzlvTRQBuqUooMCEe0XX8=
+X-Google-Smtp-Source: AGHT+IH3iUPlYVXlklur4seHf5ZUvRv/WrRApQz9xyWpA867rJrMtly69CFMzHp2u+lMMjJ7Hxtziw==
+X-Received: by 2002:a05:6000:188d:b0:3a4:d0dc:184f with SMTP id ffacd0b85a97d-3a5612f42a1mr2811521f8f.39.1749734869550;
+        Thu, 12 Jun 2025 06:27:49 -0700 (PDT)
+Message-ID: <26da6299-4000-46f3-835e-ad926a4f91a7@suse.com>
+Date: Thu, 12 Jun 2025 15:27:41 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] docs: UEFI Secure Boot security policy
-To: Tu Dinh <ngoc-tu.dinh@vates.tech>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Juergen Gross
- <jgross@suse.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, Trammell Hudson <hudson@trmm.net>,
- Ross Lagerwall <ross.lagerwall@cloud.com>,
- Frediano Ziglio <frediano.ziglio@cloud.com>,
- Gerald Elder-Vass <gerald.elder-vass@cloud.com>,
- Kevin Lampis <kevin.lampis@cloud.com>,
- Xen-devel <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>
-References: <20250611235851.167385-1-andrew.cooper3@citrix.com>
- <4226d6ef-a1eb-4210-8cae-2b9b2d906d1c@vates.tech>
+Subject: Re: [PATCH v5 16/18] tools: drop "has_num" condition check for cppc
+ mode
+To: Penny Zheng <Penny.Zheng@amd.com>
+Cc: ray.huang@amd.com, Anthony PERARD <anthony.perard@vates.tech>,
+ Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
+References: <20250527084833.338427-1-Penny.Zheng@amd.com>
+ <20250527084833.338427-17-Penny.Zheng@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -129,36 +119,95 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <4226d6ef-a1eb-4210-8cae-2b9b2d906d1c@vates.tech>
+In-Reply-To: <20250527084833.338427-17-Penny.Zheng@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 12.06.2025 15:15, Tu Dinh wrote:
-> On 12/06/2025 02:03, Andrew Cooper wrote:
->> +Secure Boot Advanced Targeting
->> +^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
->> +
->> +SBAT is a recovation scheme for Secure Boot enabled components, using a
->> +generation based scheme.  See `Shim SBAT.md
->> +<https://github.com/rhboot/shim/blob/main/SBAT.md>`_ for full details.
->> +
->> +Upstream Xen provides the infrastructure to embed SBAT metadata in
->> +``xen.efi``, but does not maintain a generation number itself.  Downstreams
->> +are expected to maintain their own generation numbers.
->> +
+On 27.05.2025 10:48, Penny Zheng wrote:
+> In `xenpm get-cpufreq-para <cpuid>`, ->freq_num and ->cpu_num checking are
+> tied together via variable "has_num", while ->freq_num only has non-zero value
+> when cpufreq driver in legacy P-states mode.
 > 
-> Why would Xen not maintain its own SBAT generation? An upstream SBAT 
-> incremented for every Secure Boot bypass XSA would make it far easier to 
-> block vulnerable variants and help downstreams coordinate fixes.
+> So we drop the "has_num" condition check, and mirror the ->gov_num check for
+> both ->freq_num and ->cpu_num in xc_get_cpufreq_para().
+> 
+> Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
+> ---
+> v3 -> v4:
+> - drop the "has_num" condition check
+> ---
+> v4 -> v5:
+> - refactor title and commit
+> - make all three pieces (xc_hypercall_bounce_pre()) be as similar as possible
+> ---
+>  tools/libs/ctrl/xc_pm.c | 43 +++++++++++++++++++++++------------------
+>  1 file changed, 24 insertions(+), 19 deletions(-)
+> 
+> diff --git a/tools/libs/ctrl/xc_pm.c b/tools/libs/ctrl/xc_pm.c
+> index 3c9e272aee..cdc072e757 100644
+> --- a/tools/libs/ctrl/xc_pm.c
+> +++ b/tools/libs/ctrl/xc_pm.c
+> @@ -212,34 +212,41 @@ int xc_get_cpufreq_para(xc_interface *xch, int cpuid,
+>      DECLARE_NAMED_HYPERCALL_BOUNCE(scaling_available_governors,
+>  			 user_para->scaling_available_governors,
+>  			 user_para->gov_num * CPUFREQ_NAME_LEN * sizeof(char), XC_HYPERCALL_BUFFER_BOUNCE_BOTH);
+> -    bool has_num = user_para->cpu_num && user_para->freq_num;
+>  
+> -    if ( has_num )
+> +    if ( (user_para->cpu_num && !user_para->affected_cpus) ||
+> +         (user_para->freq_num && !user_para->scaling_available_frequencies) ||
+> +         (user_para->gov_num && !user_para->scaling_available_governors) )
+> +    {
+> +        errno = EINVAL;
+> +        return -1;
+> +    }
+> +    if ( user_para->cpu_num )
+>      {
+> -        if ( (!user_para->affected_cpus)                    ||
+> -             (!user_para->scaling_available_frequencies)    ||
+> -             (user_para->gov_num && !user_para->scaling_available_governors) )
+> -        {
+> -            errno = EINVAL;
+> -            return -1;
+> -        }
+>          ret = xc_hypercall_bounce_pre(xch, affected_cpus);
+>          if ( ret )
+>              return ret;
+> +    }
+> +    if ( user_para->freq_num )
+> +    {
+>          ret = xc_hypercall_bounce_pre(xch, scaling_available_frequencies);
+>          if ( ret )
+>              goto unlock_2;
+> -        if ( user_para->gov_num )
+> -            ret = xc_hypercall_bounce_pre(xch, scaling_available_governors);
+> +    }
+> +    if ( user_para->gov_num )
+> +    {
+> +        ret = xc_hypercall_bounce_pre(xch, scaling_available_governors);
+>          if ( ret )
+>              goto unlock_3;
+> +    }
+>  
+> +    if ( user_para->cpu_num )
+>          set_xen_guest_handle(sys_para->affected_cpus, affected_cpus);
 
-Quoting from the SBAT patch that was submitted a little while ago:
+Any reason this can't simply move up to the bottom of the identical conditional
+above?
 
-"The SBAT section provides a way for the binary to declare a generation
- id for its upstream source and any vendor changes applied."
+> -        set_xen_guest_handle(sys_para->scaling_available_frequencies, scaling_available_frequencies);
+> -        if ( user_para->gov_num )
+> -            set_xen_guest_handle(sys_para->scaling_available_governors,
+> -                                 scaling_available_governors);
+> -    }
+> +    if ( user_para->freq_num )
+> +        set_xen_guest_handle(sys_para->scaling_available_frequencies,
+> +                             scaling_available_frequencies);
+> +    if ( user_para->gov_num )
+> +        set_xen_guest_handle(sys_para->scaling_available_governors,
+> +                             scaling_available_governors);
 
-That is, the generation ID is per-vendor. Upstream incrementing whatever
-ID would be meaningless to downstreams then. Hence we can as well not do
-so in the first place.
+Same for these two then.
 
 Jan
 
