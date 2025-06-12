@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C0B32AD68FC
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Jun 2025 09:26:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1012424.1390858 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A9C96AD68FD
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Jun 2025 09:28:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1012430.1390869 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uPcKV-0001sc-Bz; Thu, 12 Jun 2025 07:26:31 +0000
+	id 1uPcM1-0002Pd-Ms; Thu, 12 Jun 2025 07:28:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1012424.1390858; Thu, 12 Jun 2025 07:26:31 +0000
+Received: by outflank-mailman (output) from mailman id 1012430.1390869; Thu, 12 Jun 2025 07:28:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uPcKV-0001qv-9H; Thu, 12 Jun 2025 07:26:31 +0000
-Received: by outflank-mailman (input) for mailman id 1012424;
- Thu, 12 Jun 2025 07:26:30 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=xDy9=Y3=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1uPcKU-0001qp-B8
- for xen-devel@lists.xenproject.org; Thu, 12 Jun 2025 07:26:30 +0000
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [2a00:1450:4864:20::32c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8dbe0ae8-475e-11f0-b894-0df219b8e170;
- Thu, 12 Jun 2025 09:26:28 +0200 (CEST)
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-43ea40a6e98so6804825e9.1
- for <xen-devel@lists.xenproject.org>; Thu, 12 Jun 2025 00:26:28 -0700 (PDT)
-Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
- by smtp.gmail.com with UTF8SMTPSA id
- 5b1f17b1804b1-4532e25fd3asm11175935e9.36.2025.06.12.00.26.26
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 12 Jun 2025 00:26:26 -0700 (PDT)
+	id 1uPcM1-0002NF-Ji; Thu, 12 Jun 2025 07:28:05 +0000
+Received: by outflank-mailman (input) for mailman id 1012430;
+ Thu, 12 Jun 2025 07:28:04 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=TRIX=Y3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uPcM0-0002N7-E3
+ for xen-devel@lists.xenproject.org; Thu, 12 Jun 2025 07:28:04 +0000
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [2a00:1450:4864:20::42b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c6a58592-475e-11f0-a309-13f23c93f187;
+ Thu, 12 Jun 2025 09:28:03 +0200 (CEST)
+Received: by mail-wr1-x42b.google.com with SMTP id
+ ffacd0b85a97d-3a531fcaa05so344402f8f.3
+ for <xen-devel@lists.xenproject.org>; Thu, 12 Jun 2025 00:28:03 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 41be03b00d2f7-b2fd62d19d9sm726367a12.51.2025.06.12.00.27.59
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 12 Jun 2025 00:28:02 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,266 +45,114 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8dbe0ae8-475e-11f0-b894-0df219b8e170
+X-Inumbo-ID: c6a58592-475e-11f0-a309-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1749713187; x=1750317987; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=vBtTCutt4E4HmflxkY6wA3WXJFyxhZ3IS3pg2CYsXnY=;
-        b=W8LDgLDy4EIXQpjCHEnIajWKq4yPW6AhdYVuOGOyAKWwsryl6N4nlC2Ro3unnC1ejS
-         tdvkmIw5M4oa2XAbqVXy5wtPX1DB+vkQHvE4XCmWhj7WcvDcNx3LXSP8d4ah5w/xJ+sU
-         BDfnxd1PSeArrHvPPyov/RsURg5/5GJzpTwOM=
+        d=suse.com; s=google; t=1749713283; x=1750318083; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=2sNmT0citRf2K+fYNL2kahnq8yRRwGmnyfVBQeTZBzQ=;
+        b=JFsDFoD4O901q4P1QoLcCFzxC3zPMC+c545CIMVplcUfVMHosl5CH3UGd/m5zcTkiu
+         /hfOXb12EV8xFW/hED+zv/D5swE/w0xc7e3+CnEe0AyU8vurAVfm3uxrC9DTy23BqInv
+         GCFuArUxUVZWbCQJe43CSKwyMC9AxFdM07X8H0bCzxZlUJAwSwQhVpEucbyC08pAe0uQ
+         adELkC/Lvr1YKQ6pNd3resSLBrmhxxboZbI5bxiRBytyAKsVaLaGTWTZ7vmTz7VwE8cE
+         Y0Y/z6dczXk1T0zF6CHQUEGZRF2afm64gc+b/bWVMOLakpK2DG35xHjJXckQV6mMVAPx
+         +FvA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749713187; x=1750317987;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=vBtTCutt4E4HmflxkY6wA3WXJFyxhZ3IS3pg2CYsXnY=;
-        b=cEEvz5HzP7ZoIV60WiuhtfHm2f6opuv2UZnmMFIJqXDqHi/iPEY8ggoi5CSsoPncCu
-         51DHrLDn5j7CmTLk4xNt1bnepvnuLsuZYYGKoaGlwa4NekwDpd8zQPivrZvNa7QmdWd7
-         sL3wjGHKOKToqs9yE2E6h1DuwsJWwwICk5RUUs9IjiC8lLFGPqBn3XxBS1RgEmqky8Kb
-         Htb3P53/LZe42368Yq2gNO63MJly55b6LWmxU10aP5ZEVzPHhh7J5D0q56aCyYr5Bc8A
-         jSt0GnHjMi1TR1JojhTqq35Uls2ElaUic5yobOZnknEa8jsW/aRYCepACr/wOpd2RdkU
-         yc/Q==
-X-Gm-Message-State: AOJu0YznN3f6Tdj2NKuh4Hllub3KDrjTOhoXFghm8TIRYV+I4MC99tx3
-	6Uxp7M6Qfo8R251s2ucBookYLNCcr8JZsflvbl8a0qTdZfYY7GNB0rCORswKFAzI2FA=
-X-Gm-Gg: ASbGncutO76FT1wsf27YfwPza1upzpHUlX4mCAoi4fyzf/tDGOHS48xl4tcvWzZeMLm
-	cAZQwJSIyEeKtHM/Zv/TSqPgbsQOlHag2X1m/3RmjGdZf0SHLazYlPA3pq3B8/qB6vFr9Nb9iI1
-	ixRPMibbKvUwVCbJWyuRgZ/5uCe3Ix1Y1F0aRjbyZHWET+97MWN5Y0/tyCcUToWous0JIlkGEWp
-	OFa25SXdasjUnMjDdx8ncJB3NrLqMSn2aws4t5SAlFPG5rAkQnH/arxIADk5RhvoALgL9mQkCfI
-	ti/R1OtqOdhH90kHWGwDaimHiBrVX9x5pvBE8ACZGDwP7CVpJ4vvgA2QH2wqT788WSg+AgMwHTM
-	O266ty6qa1cNxrke4vyXtFpqcwTWcQg==
-X-Google-Smtp-Source: AGHT+IHYl8ZOvFgzF2jO+mlLuhxGAgDDORvc6Oxw6qhJjKXdSzu9rGi7CKAwicbANSRXI5vkHXDf5g==
-X-Received: by 2002:a05:600c:3b1a:b0:450:d012:df7a with SMTP id 5b1f17b1804b1-453248cfda0mr51048425e9.28.1749713187233;
-        Thu, 12 Jun 2025 00:26:27 -0700 (PDT)
-Date: Thu, 12 Jun 2025 09:26:25 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: xen-devel@lists.xenproject.org,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH 6/8] pdx: introduce a new compression algorithm based on
- offsets between regions
-Message-ID: <aEqBIdImfwmSOIRS@macbook.local>
-References: <20250611171636.5674-1-roger.pau@citrix.com>
- <20250611171636.5674-7-roger.pau@citrix.com>
- <8e34ac22-d05b-4ef3-9e31-6e5663cc1dc5@citrix.com>
+        d=1e100.net; s=20230601; t=1749713283; x=1750318083;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=2sNmT0citRf2K+fYNL2kahnq8yRRwGmnyfVBQeTZBzQ=;
+        b=nb4QXzj0SL7N0RJ+14XXpxZ6hzLJKdVcxlv3AcWOs4LJZhTJjZzsIHzRjL3f1/ZaKk
+         EvUwsKMvRn0BhEioAmgWnzpwyLBTKo4pLcl9curQ24jNyCjMPIHIJ7Q3EjbfH5wie0dw
+         LTTvKzDbdXGyy5q7j2opiaoLbcviz0EZKKZitY/5JQlCYpezqRP78F25auoMt3Q5BJa1
+         qMXht7g0Sthc90euz5rcDgyTMGXG0/qYOhpf9Xxp4xJcaOrpB52hw5NE1qOdU6SRFp2K
+         x2ZscIvB6WMUyhymUEICQi1n9fjWvMb9NbAkmfjZPhfIe9PcbNLxTJdZq9iQRopWMqmH
+         1ssA==
+X-Forwarded-Encrypted: i=1; AJvYcCV4nKopeaVCJpGL1HP2QWrpgGgiu7+dEQ3FSEjKkVy81+vK7ePUxKVaZsnrbI6LOk5DB/klNIL9Il0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yyn4UyDgeCpfaApllsKii0R5cqGPkt0bOVwf2xj5sLJL6xynV0p
+	Z8pHZnJm3NizXA89TjWflF18eKrcKBPfErx2dVX2P2RuwXONcA4/wg/C4oWuPaaWiQ==
+X-Gm-Gg: ASbGncsKzoM6Sapy7ZhBIWiWZvFFqFAh7gsVKIR4yalOpERDSA8un4pCPE6zBYxFKQt
+	yzItKOHf/VRT7xOycsmt5xFPsXoTSmFeZ2qeG23SOK3dao/VVUemEc1l4JLCmUPC9IKUL5O9wEy
+	VXem6TgQrSwQeJLZaJLTfa2oov4f0jv/P2IOkk1jl68ra/+06/OJHM5SmP0Pqsd9Av6Hpo/LH+W
+	QXXvb3guxDlm8cWiaiyiwrzaUG9Y15WqCFsjLgqj4uh7wPIFyXTrv9JOMnkAHJMqLdRJh7NQ1RI
+	naFK/JtwnPUzbTCREGbRwE+myOsxtjCpjyi6KFRW3WgVMuhr79KHVhodcW75YDaTW6AM9Zyloy4
+	QGpxQPwfAh7DHnstw9yU7NPFIkQBGnvtzoWhTyTNpKF8roz0=
+X-Google-Smtp-Source: AGHT+IHiVz/7mUHIqZjfoiZPk/yWQx9A5o/NnRnW4vwoH7eVnWYk758M0LuGVU5O+uP937981D9vVg==
+X-Received: by 2002:a05:6000:2008:b0:3a4:d6ed:8df7 with SMTP id ffacd0b85a97d-3a56076cb79mr1665914f8f.59.1749713282941;
+        Thu, 12 Jun 2025 00:28:02 -0700 (PDT)
+Message-ID: <fb05e3af-6b7a-4831-997d-1240c72cd0d1@suse.com>
+Date: Thu, 12 Jun 2025 09:27:56 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <8e34ac22-d05b-4ef3-9e31-6e5663cc1dc5@citrix.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 5/5] vpci: allow 32-bit BAR writes with memory decoding
+ enabled
+To: Stewart Hildebrand <stewart.hildebrand@amd.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <20250531125405.268984-1-stewart.hildebrand@amd.com>
+ <20250531125405.268984-6-stewart.hildebrand@amd.com>
+ <9ec5079f-9bc1-4843-a266-d74bf0556619@suse.com>
+ <e10959a7-4e72-4477-b8dd-b9d62e2a0ccf@amd.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <e10959a7-4e72-4477-b8dd-b9d62e2a0ccf@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Jun 11, 2025 at 08:33:55PM +0100, Andrew Cooper wrote:
-> On 11/06/2025 6:16 pm, Roger Pau Monne wrote:
-> > With the appearance of Intel Sierra Forest and Granite Rapids it's not
+On 11.06.2025 22:22, Stewart Hildebrand wrote:
+> On 6/5/25 06:41, Jan Beulich wrote:
+>> On 31.05.2025 14:54, Stewart Hildebrand wrote:
+>>> Currently, Xen vPCI refuses BAR writes if the BAR is mapped in p2m. If
+>>> firmware initializes a 32-bit BAR to a bad address, Linux may try to
+>>> write a new address to the BAR without disabling memory decoding. Since
+>>> Xen refuses such writes, the BAR (and thus PCI device) will be
+>>> non-functional.
+>>
+>> Doing this for 32-bit BARs only, with not even an outline what to do about
+>> the same issue with 64-bit ones, seems like it won't buy us very much.
 > 
-> s/not/now ?
+> It buys us quite a lot: it means the difference between booting vs.
+> booting with degraded functionality or not booting at all with PVH dom0
+> on some platforms with certain PCI devices plugged in.
 > 
-> The problem here is that it's very possible to get such a system.
+> The plan for 64-bit BARs for now is to continue to refuse the write(s)
+> when the 64-bit BAR is mapped to avoid mapping half-updated BARs in p2m.
 > 
-> It might be worth nothing that SRF and GNR are socket compatible, in
-> Birch Stream platforms, which is relevant to why they're similar in this
-> regard.
-> 
-> > possible to get a production x86 host wit the following memory map:
-> >
-> > SRAT: Node 0 PXM 0 [0000000000000000, 000000007fffffff]
-> > SRAT: Node 0 PXM 0 [0000000100000000, 000000407fffffff]
-> > SRAT: Node 1 PXM 1 [0000061e80000000, 0000065e7fffffff]
-> > SRAT: Node 2 PXM 2 [00000c3e80000000, 00000c7e7fffffff]
-> > SRAT: Node 3 PXM 3 [0000125e80000000, 0000129e7fffffff]
-> >
-> > This is from a four socket system, with each node having 256GB of memory.
-> > The total amount of RAM on the system is 1TB, but without enabling
-> > CONFIG_BIGMEM the last range is not accessible, as it's above the 16TB
-> > boundary covered by the frame table.
-> >
-> > Note that while the memory map is very sparse, it won't be compressible
-> > using the current algorithm that relies on all ranges having a shared
-> > zeroed region of bits that can be removed.
-> 
-> ", it couldn't be compressed using the current PDX_MASK compression
-> algorithm, which relies ..."
-> 
-> 
-> >
-> > The memory map presented above has the property of all regions being
-> > similarly spaced between each other, and all having also a similar size.
-> > This allows to compress them using the following formula:
-> >
-> >  pdx = (pfn % offset) + ((pfn / offset) * size)
-> >
-> > Where offset and size are two static coefficients calculated at
-> > initialization.
-> >
-> > Obtaining the optimum offset and size coefficients is the complicated part.
-> > In this patch I introduce two different algorithms, a fast one that works
-> > correctly when the offset and size between ranges is mostly equal.  If such
-> > fast algorithm doesn't work, or the resulting compression is not enough to
-> > avoid truncation of the maximum usable page, it's possible to attempt a
-> > brute force approach for calculating the coefficients.  This is also
-> > implemented in this patch as the slow variant.  I've attempted to restrict
-> > the number of iterations in the slow approach so it can exit early if no
-> > better coefficients can be found due to the input constrains (minimum
-> > region size).
-> >
-> > The patch here focuses on introducing the logic to calculate the
-> > compression coefficients, plus adding a unit test to exercise the logic
-> > easily from user-space in order to test different layouts and possibly
-> > improve the generation of the coefficients.  The added unit tests only
-> > covers the newly added compression, but could also be extended to cover the
-> > existing PDX mask compression.
-> 
-> Is it possible to split out the userspace harness into an earlier patch,
-> and e.g. do some token testing of PDX_MASK ?
+> I'll add something to this effect to the commit message.
 
-It would need a different testing harness IMO, as the current testing
-harness is tied to the offset implementation internals (as it wants to
-compare the results of both the fast and slow coefficient
-calculations).  I could add a test harness for the mask compression,
-but it would be a different file, with slightly different logic, and
-hence I don't think it would reduce much the size of this patch.
+Yes please, in particular ...
 
-> That halves the size of this patch.
-> 
-> >
-> > Note the translation functions (pfn to pdx, maddr to direct map offset),
-> > are not implemented as part of this patch, an identity set of macros are
-> > added to satisfy the build requirements.  The patch is already long enough
-> > without those.
-> >
-> > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> > ---
-> > We can discuss whether we want both the fast and the slow variants.  The
-> > slow (brute force) was added as a result of me playing with weird region
-> > layouts where the fast one didn't manage to compress, or the resulting
-> > coefficients had a poor compression ratio.  However at this point the
-> > slow variant has only proven helpful in synthetic cases, I haven't (yet?)
-> > seen a real host memory layout that would benefit from it.
-> 
-> I'm going to hold off on opinions until I've read the rest of the series.
-> 
-> One question through.  Can we round offset up to the next power of two,
-> so we can replace the divide with a shift?
+> Also see https://gitlab.com/xen-project/xen/-/issues/197
 
-I've tried to round up both offset and size, but that resulted in no
-compression in some cases.  I can try to maybe round just one of
-those?
-
-Note that the divide is done once with offset and once with size,
-depending on the direction of the translation.  I can explore this a
+... to make clear that Linux indeed aims at disabling memory decode when
+fiddling with 64-bit BARs. That reduces the set of remaining cases quite a
 bit.
 
-> size is not a nice power of two, but I guarantee you that hardware is
-> not doing this routing with a divide.
-> 
-> It would result in some holes in PDX space, but it is almost certainly
-> faster.
-
-On my TGL NUC the cost of the conversion in pfn_to_pdx() measured in
-TSC cycles is:
-
-    N           Min           Max        Median           Avg        Stddev
-x 2811            26           271            29     39.224831     33.516395
-
-It's from the user-space harness, so might not be fully accurate.  I
-the average time for the operation is ~14ns on my specific system
-(2800Mhz nominal frequency).
-
-> > diff --git a/tools/tests/pdx/harness.h b/tools/tests/pdx/harness.h
-> > new file mode 100644
-> > index 000000000000..3d31cf488daf
-> > --- /dev/null
-> > +++ b/tools/tests/pdx/harness.h
-> > @@ -0,0 +1,73 @@
-> > ...
-> > +#define sort(elem, nr, size, cmp, swp) {                                \
-> > +    /* Consume swp() so compiler doesn't complain it's unused. */       \
-> > +    swp(&elem[0], &elem[0], size);                                      \
-> 
-> (void)swp;   ?
-
-Hm, yes, that might be enough to make the compiler happy about swp()
-being unused, I will try it.
-
-> 
-> > diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
-> > index 93ebfc29635e..e71908b99c14 100644
-> > --- a/xen/arch/arm/setup.c
-> > +++ b/xen/arch/arm/setup.c
-> > @@ -258,7 +258,7 @@ void __init init_pdx(void)
-> >      unsigned int bank;
-> >  
-> >      for ( bank = 0 ; bank < mem->nr_banks; bank++ )
-> > -        pfn_pdx_add_region(mem->bank[bank].start, mem->bank[bank].size);
-> > +        pfn_pdx_add_region(mem->bank[bank].start, mem->bank[bank].size, bank);
-> >  
-> 
-> I'd suggest plumbing bank down in a previous patch.
-> 
-> > diff --git a/xen/common/pdx.c b/xen/common/pdx.c
-> > index 7d14100224fe..f2cf60bbc3f8 100644
-> > --- a/xen/common/pdx.c
-> > +++ b/xen/common/pdx.c
-> > @@ -21,6 +21,15 @@
-> >  #include <xen/nospec.h>
-> >  #include <xen/pfn.h>
-> >  #include <xen/sections.h>
-> > +#include <xen/sort.h>
-> > +
-> > +#ifdef __XEN__ /* For building the file in user-space. */
-> > +
-> > +/*
-> > + * Use a define for the static keyword, we want to export some otherwise static
-> > + * functions for the unit tests.
-> > + */
-> > +#define STATIC static
-> 
-> Most unit testing gets around this problem with the test harness itself
-> doing
-> 
-> #include "path/to/pdx.c"
-
-I see.  I've been kind of doing that with __XEN__, but it might be
-clearer to instead use _TEST_HARNESS_, I could avoid the sed with
-that.  I need to see how it looks.
-
-My original idea was that the pdx object could be used by the PDX mask
-testing also, but given the algorithm is selected at build time we
-would need to generate two different object files from pdx.c anyway.
-
-> If you do this right, the only thing needed is some #ifndef
-> _TEST_HARNESS around the includes at a the top.
-> 
-> > +static int __init cf_check cmp_node(const void *a, const void *b)
-> > +{
-> > +    const struct pfn_range *l = a;
-> > +    const struct pfn_range *r = b;
-> > +
-> > +    if ( l->base > r->base )
-> > +        return 1;
-> > +    if ( l->base < r->base )
-> > +        return -1;
-> > +
-> > +    ASSERT_UNREACHABLE();
-> 
-> I'm not sure if this is appropriate.  It's perfectly reachable if both
-> ->base's are the same, and it may interfere with the inlining heuristics
-> for sort().
-> 
-> What you mean is "there shouldn't be two nodes that look like this", and
-> I'm not sure that the middle of sort() is the place to check this properly.
-> 
-> AFAICT, The real property you want is "len[i] && base[i] + len[i] <=
-> base[i+1]".
-
-I could possibly do the filtering from the sanitize function.
-
-Thanks, Roger.
+Jan
 
