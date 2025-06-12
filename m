@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A627AD6AA4
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Jun 2025 10:27:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1012518.1390989 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A106AD6AB9
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Jun 2025 10:29:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1012530.1390999 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uPdHI-0000Yn-LL; Thu, 12 Jun 2025 08:27:16 +0000
+	id 1uPdJB-00015D-0B; Thu, 12 Jun 2025 08:29:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1012518.1390989; Thu, 12 Jun 2025 08:27:16 +0000
+Received: by outflank-mailman (output) from mailman id 1012530.1390999; Thu, 12 Jun 2025 08:29:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uPdHI-0000Wm-Ig; Thu, 12 Jun 2025 08:27:16 +0000
-Received: by outflank-mailman (input) for mailman id 1012518;
- Thu, 12 Jun 2025 08:27:15 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uPdJA-00012f-TE; Thu, 12 Jun 2025 08:29:12 +0000
+Received: by outflank-mailman (input) for mailman id 1012530;
+ Thu, 12 Jun 2025 08:29:11 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=TRIX=Y3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uPdHH-0000Wg-Nr
- for xen-devel@lists.xenproject.org; Thu, 12 Jun 2025 08:27:15 +0000
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [2a00:1450:4864:20::433])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0b0a89a8-4767-11f0-a309-13f23c93f187;
- Thu, 12 Jun 2025 10:27:14 +0200 (CEST)
-Received: by mail-wr1-x433.google.com with SMTP id
- ffacd0b85a97d-3a4fd1ba177so415011f8f.0
- for <xen-devel@lists.xenproject.org>; Thu, 12 Jun 2025 01:27:14 -0700 (PDT)
+ id 1uPdJ9-00012Z-Cl
+ for xen-devel@lists.xenproject.org; Thu, 12 Jun 2025 08:29:11 +0000
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [2a00:1450:4864:20::430])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4dea4b90-4767-11f0-b894-0df219b8e170;
+ Thu, 12 Jun 2025 10:29:06 +0200 (CEST)
+Received: by mail-wr1-x430.google.com with SMTP id
+ ffacd0b85a97d-3a5257748e1so508464f8f.2
+ for <xen-devel@lists.xenproject.org>; Thu, 12 Jun 2025 01:29:06 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-b2fd6388307sm820027a12.65.2025.06.12.01.27.07
+ d9443c01a7336-2364e6f9947sm8477765ad.165.2025.06.12.01.29.00
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 12 Jun 2025 01:27:13 -0700 (PDT)
+ Thu, 12 Jun 2025 01:29:05 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,60 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0b0a89a8-4767-11f0-a309-13f23c93f187
+X-Inumbo-ID: 4dea4b90-4767-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1749716834; x=1750321634; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1749716946; x=1750321746; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Wh542Foqzy9CXMj7KWhI4Fot+RPodj2Dclo5YjnMjdM=;
-        b=ZGWs9TattTDt28IT4yVDKYtiI6Hsl2BwYLHEQPKI+ZqYX4pT4eHOWBekqwmfJkRSQo
-         sqLG4kS2im+fKPlfpHrh1aDeeNa/bx5MyW2CbtlYQvoi2ZrVakqMAbsIJ7jgCO2D3zAW
-         tJHRWgUHyJt2Jd3UW7UAysxxYQADARHs+1a5xY+XzVs26xtqFFxbvEXDvG+ldG23QUhk
-         DwqGW/vccJnIkKWRJlofw4Ok7y5M+ENFVwfFDwXCc3Qbcp+9mSV4YGHCZ9bvPDpRoaqA
-         mFHPhKH/a7HNTYC7h+paYa86ecyqR0rHi++pQRpwDA+RISMKh1sihSqhrlHLduXCvU6L
-         xcaQ==
+        bh=tfYnUlMdjfkjCy+wffoMiBlnRhmb8dVbSvb5s3dGTwc=;
+        b=efNDeojhv+Nf9eS35HFjJQEROtyrJtI/MeYmXVLRv6UmygCLotgNF1DsixRJrhff4v
+         0DY7Uaf5FVK1wRb5nJ+b80Uw6WXiNgSEGyn7gCI1Vt7WJIkxeSBtSJ08ZJEnUpupBi2Q
+         ib6BqX01yXHk5Rfe4796R2nFbyCI2FNElpg/m8wHFofZ+LdlusqIOYp9wnwCapKCIWXl
+         hBVtbqK9FGe0Scxv/GR5Gw3QC5ZlZbq9oCfvj/28CEljtEVCOrRCE1RSdjYDYthyfcuN
+         ub+3F0Tt96dKfuATjHui+55rk4mkKaxxvPXwPHtGYGz4Ywjl1lyEq82wvOlnPdOyqhop
+         JwuQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749716834; x=1750321634;
+        d=1e100.net; s=20230601; t=1749716946; x=1750321746;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Wh542Foqzy9CXMj7KWhI4Fot+RPodj2Dclo5YjnMjdM=;
-        b=F/o6TQXeV2n5/clsK52bxn7QZ+Fzm3kEJG4HSa/pAr6UXPPIsZRg1c4bzm//4PzrBi
-         FHDXg/1IhWQYD9T2FO6cKTLkXA7BBlEPvLOKnHr3vx4MC+65klVR5xxU3N/nBwyQYj9C
-         2h0dz9c0NVlqSzQhAy/zKn65h3QIRUbJDCXp8s68O++O4QeH24zvxCnY+nuqKVBodLVC
-         0BOxX2k+Vkpg2NC7MGY4o6xJknfa126bn7/agurl8Jti3XEGvgmktA8+5sP4sR8JZ9KL
-         toNpSwzgh/EpBM81Ak6VC4CNTFbpJb7w4f058rYqZKXbfYNFdq8brQYTdgDkCE22otQg
-         4PKg==
-X-Forwarded-Encrypted: i=1; AJvYcCX/P7AJt4NBIRfb1s9X157m6iA52MJVoujOgSnkuwmaF2NYu/z/VP0ItGMRcYPKofLCWfesxxsLKH0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwHhFl5k+YfxqmapAy8utQQRjqnZdHehA7dlJ0gpxiDP1BaekwT
-	mBFPFPeZda7glCIFc01+Ogycez5h0wmPM4XffWI0sNevJkxQmfKuIzcPkM1P9LtpMw==
-X-Gm-Gg: ASbGncumhwZnjU2M66fNbfEgT4jpwCfpztNyVWl31eCqWp18Fd1XWTbNwr1YXAeFo1P
-	ad+Nqj212zCY7xfiUjNk/PJpM6WIUKQAfMCyDPGe8Nk/nNEzEnNenXTQsU0DGkFwIEXvNmnMXGg
-	TKhV3eo/2VOAv6xFmtlRPS8YNLyQD38/qUKtXumboA4MRhG/sugdCQI7o+ryuTAVymwEsYwOwfZ
-	X/fcW+I7ZOXRtqkdHbfCCuotnqjMvHORZcZwual3qkQQugUHXJbbXnwanJunewP9rEMypKnwe4N
-	q7G8BPX/ZJSzwF/W6nW1SI46fILeRMoYKVXR2jp+oGwUNbN205+RW/u7yxRAwHwd5dbY5bynjLp
-	m+PuAIZQZ4hREqfjzYHqkQK8GkFsKoN3zYtm/CRC3uST7p3I=
-X-Google-Smtp-Source: AGHT+IEXqjhujpgMlu2VeVGD8ZFYVxDMMrLLcL+5iz0zT/11Ws/WiROR6ZQqKhPx6U3Ikqi7M0chPA==
-X-Received: by 2002:a05:6000:4283:b0:3a5:24cc:6d5e with SMTP id ffacd0b85a97d-3a560763290mr1894171f8f.3.1749716833649;
-        Thu, 12 Jun 2025 01:27:13 -0700 (PDT)
-Message-ID: <f7c9bb4a-4006-4be6-955a-cc3b2c4934a1@suse.com>
-Date: Thu, 12 Jun 2025 10:27:03 +0200
+        bh=tfYnUlMdjfkjCy+wffoMiBlnRhmb8dVbSvb5s3dGTwc=;
+        b=MqXnorhmZY+RInP/++9RSO/pLnDx61AT143dKD0+wsYZiihvOIIgO5x9B/a51ysIXW
+         UTlhGjzCJEovevbmEph+11WbcvnsZ2qBKYIIsfqRqxqry1V0AVU23jSZMjH/aJVq0geY
+         w67S/NfPLJcYkPEphcPQIl/tYaT0ixSIfOEFSwV9j1vSTWsKJIl7zjScaU98Cp1D9uCu
+         Bi/dDntMZw9vBDtMysyYeE+80ptFhPCj913rVNx+38/2v0A8fOxcYUD3zn/C4IEmSwEi
+         DosCH3B+Cxp0/H5wnZG8A5I9jtQbbvS3z9RcugYXAi/N1yXW7h9b6xaxhqFpiKQGZWLM
+         lpzQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUDJ7tDhDtZwIR8puZHuCSZy0TKwF8PPGC4j6kHziY9C2xk1xhUBjZpZ+MN2Y3iruy9YSQuOxyWrD4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyEL6HRrnSFJSD1tbI2+kW0waRDXjOiNThWGh63rcAHbnKNOudu
+	Flr3xRdHyDG7g4oprD/Td5Afs7dOmuW4JRo/J7Y13R4vF2Zv4XoD9srV+fQSBVUwYQ==
+X-Gm-Gg: ASbGncsuX1+uFsrX+xoUyv8bSu9y5jIhZ0OwzxD2FXvxdkHqTv3lwpKPL9ariG2fy4+
+	1mkBmQJGF2uZctV/K6Sla+2Q6hj4h+AlBvEjHz6Hf68VMSD+taLf7OGCzvsqRuTw6KXbrvjF4gj
+	u8rD9o23o9lh43PhzMKtBq8viabubrLg9iYrwzB95Hb9Z8AFLuEW11e2wv47Xx3qeQrcu8geOoJ
+	Fe7HHD8XE3oj8T6oQnYvEQsruEisYR9BpJVXNmb0eXddOnGmPAuJx3ut811gjkf40LKNd+Ta+YE
+	j2F3YeoxY5UONpQehYGe4Df48Hc3VYCS0dyaWwtUTdxj1OVPgZY+KfB/YV1GE31VN5xPhgOXLVf
+	M7R5CAH49/R8vjRKpUr+Gu91KG41PtsmHKieYUyQAUsuAmaI=
+X-Google-Smtp-Source: AGHT+IENprURkM4AtEC+0GB35h7UXDu9b2J8WguGdmFd3MmgFbgTXqHqsciMUCh3imOXuHrDb4p/kA==
+X-Received: by 2002:a05:6000:2893:b0:3a4:eed9:755d with SMTP id ffacd0b85a97d-3a5612f1629mr1390844f8f.3.1749716945844;
+        Thu, 12 Jun 2025 01:29:05 -0700 (PDT)
+Message-ID: <d145be23-c55e-4565-91ee-f77c93399aae@suse.com>
+Date: Thu, 12 Jun 2025 10:28:57 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6/8] pdx: introduce a new compression algorithm based on
- offsets between regions
+Subject: Re: [PATCH 3/8] kconfig: turn PDX compression into a choice
 To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- xen-devel@lists.xenproject.org
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <20250611171636.5674-1-roger.pau@citrix.com>
- <20250611171636.5674-7-roger.pau@citrix.com>
+ <20250611171636.5674-4-roger.pau@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -124,62 +120,30 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250611171636.5674-7-roger.pau@citrix.com>
+In-Reply-To: <20250611171636.5674-4-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
 On 11.06.2025 19:16, Roger Pau Monne wrote:
-> With the appearance of Intel Sierra Forest and Granite Rapids it's not
-> possible to get a production x86 host wit the following memory map:
+> Rename the current CONFIG_PDX_COMPRESSION to CONFIG_PDX_MASK_COMPRESSION,
+> and make it part of the PDX compression choice block, in preparation for
+> adding further PDX compression algorithms.
 > 
-> SRAT: Node 0 PXM 0 [0000000000000000, 000000007fffffff]
-> SRAT: Node 0 PXM 0 [0000000100000000, 000000407fffffff]
-> SRAT: Node 1 PXM 1 [0000061e80000000, 0000065e7fffffff]
-> SRAT: Node 2 PXM 2 [00000c3e80000000, 00000c7e7fffffff]
-> SRAT: Node 3 PXM 3 [0000125e80000000, 0000129e7fffffff]
+> No functional change intended as the PDX compression defaults should still
+> be the same for all architectures, however the choice block cannot be
+> protected under EXPERT and still have a default choice being
+> unconditionally selected.  As a result, the new "PDX (Page inDeX)
+> compression" item will be unconditionally visible in Kconfig.
 > 
-> This is from a four socket system, with each node having 256GB of memory.
-> The total amount of RAM on the system is 1TB, but without enabling
-> CONFIG_BIGMEM the last range is not accessible, as it's above the 16TB
-> boundary covered by the frame table.
+> As part of this preparation work to introduce new PDX compressions, adjust
+> some of the comments on pdx.h to note they apply to a specific PDX
+> compression.  Also shuffle function prototypes and dummy implementations
+> around to make it easier to introduce a new PDX compression.  Note all
+> PDX compression implementations are expected to provide a
+> pdx_is_region_compressible() that takes the same set of arguments.
 > 
-> Note that while the memory map is very sparse, it won't be compressible
-> using the current algorithm that relies on all ranges having a shared
-> zeroed region of bits that can be removed.
-> 
-> The memory map presented above has the property of all regions being
-> similarly spaced between each other, and all having also a similar size.
-> This allows to compress them using the following formula:
-> 
->  pdx = (pfn % offset) + ((pfn / offset) * size)
-> 
-> Where offset and size are two static coefficients calculated at
-> initialization.
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 
-What I would find useful here in addition would be offset and size values
-resulting from the example memory map above. In particular, without looking
-at the code in detail, it doesn't become quite clear how the two ranges on
-node 0 are being dealt with. For what follows I'll assume they'd be folded
-into a single range covering all of node 0.
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-Along the lines of Andrew's concern regarding the division (and modulo)
-involved, I wonder whether there might be an alternative with a lookup
-array, holding bias values (e.g.) for each node. Main question there would
-be how to quickly determine the array index to use, both from an incoming
-MFN and an incoming PDX. If such an array wouldn't have too many entries,
-such a lookup may end up being faster (on average) than a division.
-
-Taking the example above, such an array could be:
-
-[0x00] = 0,
-[0x06] = 0x061e80000 - 1 * 0x5000000,
-[0x0c] = 0x0c3e80000 - 2 * 0x5000000,
-[0x12] = 0x125e80000 - 3 * 0x5000000,
-
-indexed by the top-so-many bits of the MFN. For the reverse array some
-gap would need to be left between ranges (i.e. the 0x5000000 above would
-perhaps need doubling; maybe a little less than that would suffice), such
-that the array slot to use could be determined easily there as well.
-
-Jan
 
