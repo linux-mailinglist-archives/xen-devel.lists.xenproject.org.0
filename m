@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90640AD7109
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Jun 2025 15:03:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1013043.1391570 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B74EAD712E
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Jun 2025 15:08:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1013048.1391580 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uPha9-00026f-2t; Thu, 12 Jun 2025 13:03:01 +0000
+	id 1uPhf6-0002h2-LD; Thu, 12 Jun 2025 13:08:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1013043.1391570; Thu, 12 Jun 2025 13:03:01 +0000
+Received: by outflank-mailman (output) from mailman id 1013048.1391580; Thu, 12 Jun 2025 13:08:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uPha9-00024D-0K; Thu, 12 Jun 2025 13:03:01 +0000
-Received: by outflank-mailman (input) for mailman id 1013043;
- Thu, 12 Jun 2025 13:03:00 +0000
+	id 1uPhf6-0002eK-IS; Thu, 12 Jun 2025 13:08:08 +0000
+Received: by outflank-mailman (input) for mailman id 1013048;
+ Thu, 12 Jun 2025 13:08:07 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=TRIX=Y3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uPha8-000247-56
- for xen-devel@lists.xenproject.org; Thu, 12 Jun 2025 13:03:00 +0000
-Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
- [2a00:1450:4864:20::129])
+ id 1uPhf5-0002eD-U2
+ for xen-devel@lists.xenproject.org; Thu, 12 Jun 2025 13:08:07 +0000
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
+ [2a00:1450:4864:20::431])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8f254185-478d-11f0-b894-0df219b8e170;
- Thu, 12 Jun 2025 15:02:56 +0200 (CEST)
-Received: by mail-lf1-x129.google.com with SMTP id
- 2adb3069b0e04-5534f3722caso1013773e87.0
- for <xen-devel@lists.xenproject.org>; Thu, 12 Jun 2025 06:02:56 -0700 (PDT)
+ id 477fe48e-478e-11f0-b894-0df219b8e170;
+ Thu, 12 Jun 2025 15:08:06 +0200 (CEST)
+Received: by mail-wr1-x431.google.com with SMTP id
+ ffacd0b85a97d-3a4fea34e07so599705f8f.1
+ for <xen-devel@lists.xenproject.org>; Thu, 12 Jun 2025 06:08:06 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-7488087e769sm1419408b3a.11.2025.06.12.06.02.52
+ 98e67ed59e1d1-313c19cd3cbsm1397220a91.11.2025.06.12.06.08.01
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 12 Jun 2025 06:02:54 -0700 (PDT)
+ Thu, 12 Jun 2025 06:08:04 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8f254185-478d-11f0-b894-0df219b8e170
+X-Inumbo-ID: 477fe48e-478e-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1749733376; x=1750338176; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1749733685; x=1750338485; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=niArqT7V6tzGmiUGru0YJoC/Q3HSp+fFuua2zUzXqTQ=;
-        b=MssvEvJYbQfn6073i7Jn9a7KV1RT00aVzWbpYCejIrhhlSfIGvy0KRgHlz5LB9hl/Z
-         I9fEoglCq463jsMJM5gL539lgKe/ntuUNMpo1zBHicuQZWcGmhbDeeQNTBl6uiLLcK0M
-         bFhXZYvyz0fGcDARdITAq6DKLB7F7mBc2w3/USHcApRPDlxntVXzk2+l7uF2R2KJYSS4
-         Skqh2CJ+hnlyG2cbdWnT/QGW1/d5TLrAM6GCd+Wz9uP8QMxU5e1DmdN8mJ9nnTx7d4au
-         EZYxJz9NJExH2q6RBVAQmplAWsfMFwLXJR1li4z1BawI0LpWFdyvdhSFHvTDyxJVgdM0
-         99Wg==
+        bh=Cm+TVXQBkZ0iVl3W+nqNHlYed0rm5BC+82GjMjw6EOc=;
+        b=c3H0L42dYSISVUCB3x2rtrOGwbo478beaXvvnphRbhFAQ8NClYEM7k7teRuhzktHaS
+         3l5snnkk1WdgFXU0qVPVPbEXqEXIOz/ASFDo9tA10jRdfjr1r2yFPSpIem1xPg7fGyDm
+         ItHhXTqQV9O7TLKFZjbwLxKIgacfssdFm1Vqz0LW5Yy4qp/q4buYmR1hrmN553N4UaG1
+         fqFkZcGgz2PMe0+2eKYEE9SPKmySLRHWxurhPdJ8pWpVVxpQId53Gf1pvn7ITEwY3759
+         ePsv/di0eRonPvuaDmH83U7N5wt0Oh8YC7+f58OTh6E65kY4H2s8XQcWyhN6MZOUu+ze
+         +cqg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749733376; x=1750338176;
+        d=1e100.net; s=20230601; t=1749733685; x=1750338485;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=niArqT7V6tzGmiUGru0YJoC/Q3HSp+fFuua2zUzXqTQ=;
-        b=T7Gy2ZOVfivym5pn+YymoddFaLSNqliNbDp+uU3ZSYtauivvzdEERhUM0epOsT5nQM
-         g1rhvnPfPUNRPkJLUZ52eSEWSFpMH8ztpV/7lz7k1zdh45iEtQbJiwb3Isp2RBSbHVsd
-         EuZQMphyvlqNm4D8uFSjKfCvJvttCQvTYJ4ASrY1urUU6LxYv0JSyQevfs9QaGw81OMR
-         YwMEUsAw7FYOhkZBtl9P7ZqRpfuBFh9xY745cJVE64Sp7mJg/njD5P0o5nPuxyQp/ldB
-         MZCYfcNvBsy0vIn8kT/NQf3++RFNGhnq1Ade8cZl9HdeYsooCdpnMlrfFf7ygFg1T9c2
-         caGA==
-X-Forwarded-Encrypted: i=1; AJvYcCWv8v/JK2pTemMRI/ZcIMFnwsgDv/wSn4F4CkT3bBC0aM4O9kMZCQ0C5S9t+Nkai79gGX4JUmLau7g=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy+G5MfI55nxQCzf1ZQqWCyaMiCfchhMz3t8ilp94rTw10Nn+BZ
-	1fOng3bMAidJBd8DoDemyzNCmAC1ImcJQrdrg4uTzw7sHiyzd5X7pxrS6GEic+sG4w==
-X-Gm-Gg: ASbGnct0zS+IS/14m5LjY2j1eUCigm8L1Iyc1F575JP7M1gGjpUOOZCEZwUyGwY/NoE
-	XiYR7/J2PmHRWBWF38ep0Ciex3gIEHYPpbwnXUehWj6sEIBqzXOtS28zmdSvgikSEonJXStw1++
-	9sLILFH/av5+WgRHVd+l3y2EBgU7MrqVnMdASaa0WWnaCGECK7etm1bxNjJ/uNoIla98ESS7Brw
-	E0Byv2GbeWAA4Rc7YpRZcNrJKrWw2qzkPVK/YriF/p+Fvv/riasRu1/yyqI8KJ5PTSj4ESCcfwg
-	JIDZ/j4X40Nchwwf9SE9wXtO4Cq4xqU716D3ndZn6SWiR3/alPwEJlmX8h+Z/HZ9RUftx2Vm+Gj
-	MODYmP0yu/ivECrsYw5HMY9DI0qo/zwsQMqqjp3vj5sqA0+A=
-X-Google-Smtp-Source: AGHT+IGy5cp0OjzybkdEJmP57uw4j2n7b1ezM6HadPUhx/dohvoavhxgyAMDrfvn+eGSgWU21a0YcQ==
-X-Received: by 2002:a05:6512:31c3:b0:553:642f:b037 with SMTP id 2adb3069b0e04-553a646804dmr716292e87.13.1749733375830;
-        Thu, 12 Jun 2025 06:02:55 -0700 (PDT)
-Message-ID: <95f78e64-77b0-4d27-b43a-268d1791233e@suse.com>
-Date: Thu, 12 Jun 2025 15:02:48 +0200
+        bh=Cm+TVXQBkZ0iVl3W+nqNHlYed0rm5BC+82GjMjw6EOc=;
+        b=KG28/t+HRXwx0NZ2SysMaKTrBbK44SV/zkQejIHKuF4M9ZjpE9/6S4UfANdT//2ti5
+         1cW05M/sUM0qpHboINhEOChcVUqnlKc2sx4ZTCst0M8/rQMYX/TvdAMnHUNGxPoVSZ2Z
+         E3ryyqR6eaLL4VJwK12h1UTxbLbV1LcRYLGx2mPqQC+ILM9waibnicuedYfgohokNXll
+         qqFPc/acLWxlTk1AE0YCqIHDcJWBwIigkl9Djn75ICpeDIooIC+SSEwvgWVU5ZLW5k5G
+         HbqMMQ+F3YQ+uZlRyaSJzyw8JHxWJglVKr1g6N/M7uuEGERGh6HfeiDmHorNoI9IxFp6
+         2ICA==
+X-Forwarded-Encrypted: i=1; AJvYcCUbxNkpgPZWYp7Kj9SaNlPtHsuQ5FMwULIPuE2oTrossOr6gTCweZd3qIUHidUn8bEL9NJgAqugVus=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwYnWF8l06juOcsw38W41jDJmjvdXA0+HsdjQLjGJ0J3FQfNonY
+	0NS/WtbYOQ6eN0tyOmACHDWgS2ixEiR22TzmGVtGGyN3wrZZ0FWw1A9/eUuoNzG9nA==
+X-Gm-Gg: ASbGnctx4q0+UtKNUqa6yHBKpadQ8osY/NxqeMdw7QPXNMKHNwVkUuLOOVFXtjnPs7p
+	VXi4QggKykEpVuH4aoDHDwbz0X5KYrBHyIYZSYyHukNVMYltCJY7rVYvf/ZYCbR71C9Z9xs7780
+	/EI6vkvKNy4K9Ji/MdlBJ1IW7BRJB39SxwDMBKudvam5YbwLziIaMaZ+N00XXVAYz3+dXMeaVZb
+	kV++Nj73Xr7Ul+DEZ8B2uzoKbwePsU7HaPTxrCYR0ylrwYS6z4pNh+jz+7U919tDPSpKlVKgfL4
+	9po1aJujxfMZrtp5Dpo+jY47w/wKeD9iK8J+TeSYfTxdDVbLB41sS9xCf526Y7mKfHaJrVLBBfE
+	5tgSt29BLjpo8LzMg8UoPoHYqZVlgzvtvHukQqINK0rzkWMSqIT9lLMBWxg==
+X-Google-Smtp-Source: AGHT+IGXcCLac/OMZatQjiWsfWcrB7qGPSq9g3iP5bYqB5+Iii+kvRXvuDxnh6EpqV2E5MNjkxg87Q==
+X-Received: by 2002:a05:6000:2309:b0:3a4:e2f4:a86b with SMTP id ffacd0b85a97d-3a5586dc41emr5217458f8f.37.1749733685369;
+        Thu, 12 Jun 2025 06:08:05 -0700 (PDT)
+Message-ID: <711ac855-78e9-41bf-b057-4ed809b89c9c@suse.com>
+Date: Thu, 12 Jun 2025 15:07:57 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 07/18] xen/cpufreq: disable px statistic info in
- amd-cppc mode
+Subject: Re: [PATCH v5 08/18] xen/cpu: Expand core frequency calculation for
+ AMD Family 1Ah CPUs
 To: Penny Zheng <Penny.Zheng@amd.com>
-Cc: ray.huang@amd.com, xen-devel@lists.xenproject.org
+Cc: ray.huang@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
 References: <20250527084833.338427-1-Penny.Zheng@amd.com>
- <20250527084833.338427-8-Penny.Zheng@amd.com>
+ <20250527084833.338427-9-Penny.Zheng@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -118,34 +120,61 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250527084833.338427-8-Penny.Zheng@amd.com>
+In-Reply-To: <20250527084833.338427-9-Penny.Zheng@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 27.05.2025 10:48, Penny Zheng wrote:
-> We want to bypass construction of px statistic info, while not bypassing
-> cpufreq_statistic_lock initialization for a good reason, in
-> cpufreq_statistic_init() for amd-cppc mode, as P-states is not necessary there.
-> 
-> Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
-> Acked-by: Jan Beulich <jbeulich@suse.com>
-
-I was considering to put this in together with patch 02 (if and when you confirmed
-that it can go in with the one hunk dropped), but then noticed that ...
-
-> --- a/xen/drivers/cpufreq/utility.c
-> +++ b/xen/drivers/cpufreq/utility.c
-> @@ -98,6 +98,9 @@ int cpufreq_statistic_init(unsigned int cpu)
->      if ( !pmpt )
->          return -EINVAL;
+> --- a/xen/arch/x86/cpu/amd.c
+> +++ b/xen/arch/x86/cpu/amd.c
+> @@ -583,12 +583,40 @@ static void amd_get_topology(struct cpuinfo_x86 *c)
+>                                                            : c->cpu_core_id);
+>  }
 >  
-> +    if ( !(pmpt->init & XEN_PX_INIT) )
-> +        return 0;
+> +static unsigned int attr_const amd_parse_freq(unsigned int family,
+> +					      unsigned int value)
+> +{
+> +	unsigned int freq = 0;
+> +
+> +	switch (family) {
+> +	case 0x10 ... 0x16:
+> +		freq = (((value & 0x3f) + 0x10) * 100) >> ((value >> 6) & 7);
+> +		break;
+> +
+> +	case 0x17 ... 0x19:
+> +		freq = ((value & 0xff) * 25 * 8) / ((value >> 8) & 0x3f);
+> +		break;
+> +
+> +	case 0x1A:
+> +		freq = (value & 0xfff) * 5;
+> +		break;
+> +
+> +	default:
+> +		printk(XENLOG_ERR
+> +		       "Unsupported cpu family 0x%x on cpufreq parsing",
+> +		       family);
 
-... this check is pointless with how things are right now (the same check living at
-the top of the sole caller). Hence I think this change should be folded into patch
-04. Perhaps to be accompanied by a sentence why cpufreq_statistic_exit() doesn't
-need a similar guard.
+I think I requested before (elsewhere) to prefer %#x over 0x%x.
+
+However, why the log message? With ...
+
+> +		break;
+> +	}
+> +
+> +	return freq;
+> +}
+> +
+>  void amd_log_freq(const struct cpuinfo_x86 *c)
+>  {
+>  	unsigned int idx = 0, h;
+>  	uint64_t hi, lo, val;
+>  
+> -	if (c->x86 < 0x10 || c->x86 > 0x19 ||
+> +	if (c->x86 < 0x10 || c->x86 > 0x1A ||
+
+... this condition, there simply could be ASSERT_UNREACHABLE() there? Happy to
+adjust while committing, so long as you agree. With the adjustment:
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
 Jan
 
