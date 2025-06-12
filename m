@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A6DC1AD6983
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Jun 2025 09:51:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1012473.1390928 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D6FAAD6999
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Jun 2025 09:53:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1012479.1390938 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uPci4-0000zC-N2; Thu, 12 Jun 2025 07:50:52 +0000
+	id 1uPcju-0001Tr-0l; Thu, 12 Jun 2025 07:52:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1012473.1390928; Thu, 12 Jun 2025 07:50:52 +0000
+Received: by outflank-mailman (output) from mailman id 1012479.1390938; Thu, 12 Jun 2025 07:52:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uPci4-0000wd-K3; Thu, 12 Jun 2025 07:50:52 +0000
-Received: by outflank-mailman (input) for mailman id 1012473;
- Thu, 12 Jun 2025 07:50:50 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=bliM=Y3=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1uPci2-0000u3-8E
- for xen-devel@lists.xenproject.org; Thu, 12 Jun 2025 07:50:50 +0000
-Received: from fout-b3-smtp.messagingengine.com
- (fout-b3-smtp.messagingengine.com [202.12.124.146])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f3565c97-4761-11f0-a309-13f23c93f187;
- Thu, 12 Jun 2025 09:50:48 +0200 (CEST)
-Received: from phl-compute-01.internal (phl-compute-01.phl.internal
- [10.202.2.41])
- by mailfout.stl.internal (Postfix) with ESMTP id ED6D111401FF;
- Thu, 12 Jun 2025 03:50:45 -0400 (EDT)
-Received: from phl-mailfrontend-01 ([10.202.2.162])
- by phl-compute-01.internal (MEProxy); Thu, 12 Jun 2025 03:50:46 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 12 Jun 2025 03:50:41 -0400 (EDT)
+	id 1uPcjt-0001SC-Ty; Thu, 12 Jun 2025 07:52:45 +0000
+Received: by outflank-mailman (input) for mailman id 1012479;
+ Thu, 12 Jun 2025 07:52:45 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=TRIX=Y3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uPcjt-0001S6-2R
+ for xen-devel@lists.xenproject.org; Thu, 12 Jun 2025 07:52:45 +0000
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [2a00:1450:4864:20::434])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 379b7706-4762-11f0-b894-0df219b8e170;
+ Thu, 12 Jun 2025 09:52:41 +0200 (CEST)
+Received: by mail-wr1-x434.google.com with SMTP id
+ ffacd0b85a97d-3a4f379662cso561396f8f.0
+ for <xen-devel@lists.xenproject.org>; Thu, 12 Jun 2025 00:52:41 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-313c1b5efa2sm829233a91.41.2025.06.12.00.52.37
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 12 Jun 2025 00:52:39 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,412 +45,248 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f3565c97-4761-11f0-a309-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1749714645;
-	 x=1749801045; bh=3lxvYPHUDqNyMMaaO4nBx8a2VCjVkFHriDdvmhxDgQs=; b=
-	QqgoUSidtbgX4DPDrnommgwH6jTfgHbNT6guBbQitbEhN9IlnnVXkf+KDWA63U66
-	sZIgvLCGQfwGqXuGstgel9vldV0TGlaQRQnynpL7Thhh/KLMRKmmxQq0WKsPfpLv
-	y7MH0GBCkk/o7PiX13ISpr8DoSUylV39p2W8P5XDtI2rmNuCoX+9G1a2h7sF/QiK
-	RqXPNIJZAO7EVpaeEuUGgfzexnRqUH+6/7IjUy+DG6/Zys+CZ6At9Lb+lwKUsBNY
-	MzrXzbyXYAewVyEBtyw8lEoe6SbZ7B0E5COSoRnJ+pW0GAi3LVDnw2IIYleQHDlX
-	9kB8YrhuEfdTzhtzLYez+w==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1749714645; x=1749801045; bh=3lxvYPHUDqNyMMaaO4nBx8a2VCjVkFHriDd
-	vmhxDgQs=; b=glLnqqCLnSF8AhYpnMCSmVQJK2ij0idHRVIgx8TnpMWZjQTjjpw
-	FW0SugIJLcms+KeG5CO5lcT2xb/uYuZR2PbMbnBYIjlsJQFUTX9z9humlUGrNny+
-	ffWfUliG8O5TM8E6NnW8lHgkphQOitvmP4lMbHAMuMFCFUIw6Bz4mkjtVPT80Ci/
-	jjQQfkaof9YbmMZCqNfoB2Sstfbh6+rG+krvA26xVceNBRyPf3l5MmD96SEJzAFu
-	YeatmnsRokr1fAU5JXblE+6FwpC31LEeeUKminvJagiE/HZHzyEK4Yqm014wwzAd
-	tVoaGQGP/27xxjFN0b4tkDFvhv28GGrf+4g==
-X-ME-Sender: <xms:1YZKaDf1-ryGHUboB1uoJEbThOjhRuycacuEoQSmifQ10bINaEtHeA>
-    <xme:1YZKaJPu0_dlpMgdCpmWXFg5iyr1_ytp6s2QxFz2A5Ulhkzbz9VE2rJnuNuy5mJoj
-    p6POBA8UOPJsA>
-X-ME-Received: <xmr:1YZKaMj-eE6ZCljZCHaTxPota1ll8YA-pZQXBQUC98-s-EllitaoVotA>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtddugddugeehudcutefuodetggdotefrod
-    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpggftfghnshhusghstghrihgsvgdp
-    uffrtefokffrpgfnqfghnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivg
-    hnthhsucdlqddutddtmdenucfjughrpeffhffvvefukfhfgggtuggjsehgtderredttdej
-    necuhfhrohhmpeforghrvghkucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoe
-    hmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucgg
-    tffrrghtthgvrhhnpeekgeeiteefgeevjeeiuddulefgvdevgfdvgfejkeejffffgfejle
-    fffedvvefhkeenucffohhmrghinheprhgvrgguthhhvgguohgtshdrihhopdhgihhthhhu
-    sgdrtghomhdpshgsrghtrdhmugenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmh
-    epmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhl
-    rggsrdgtohhmpdhnsggprhgtphhtthhopeduhedpmhhouggvpehsmhhtphhouhhtpdhrtg
-    hpthhtoheprghnughrvgifrdgtohhophgvrhefsegtihhtrhhigidrtghomhdprhgtphht
-    thhopeigvghnqdguvghvvghlsehlihhsthhsrdigvghnphhrohhjvggtthdrohhrghdprh
-    gtphhtthhopegrnhhthhhonhihrdhpvghrrghrugesvhgrthgvshdrthgvtghhpdhrtghp
-    thhtohepmhhitghhrghlrdhorhiivghlsegrmhgurdgtohhmpdhrtghpthhtohepjhgsvg
-    hulhhitghhsehsuhhsvgdrtghomhdprhgtphhtthhopehjuhhlihgvnhesgigvnhdrohhr
-    ghdprhgtphhtthhopehrohhgvghrrdhprghusegtihhtrhhigidrtghomhdprhgtphhtth
-    hopehsshhtrggsvghllhhinhhisehkvghrnhgvlhdrohhrghdprhgtphhtthhopehsvggt
-    uhhrihhthiesgigvnhdrohhrgh
-X-ME-Proxy: <xmx:1YZKaE-Xr7PtPxOa9YwdO0IC8toc1yhbuJdapvxYPsohEhnV5yPvEg>
-    <xmx:1YZKaPsqzH5SC0CKNNVtyDz5MM8ZK71cUHgrrXEnal6BjbXl4s5hoA>
-    <xmx:1YZKaDFr1jVnoogOe0vVWaJ73BQUZ_ucoIIBFnSv7-25O-PJ-EN53A>
-    <xmx:1YZKaGM7Y1KKhGyz7f5wFAfE77TU6Jo3-Ov0SC3Qh2PHlcPEzhM7fg>
-    <xmx:1YZKaBY6kiHIE2GOP1hcLvuEZfEkgip7p78_cD9BsV1u7dYOdLPYni4a>
-Feedback-ID: i1568416f:Fastmail
-Date: Thu, 12 Jun 2025 09:50:38 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>, security@xen.org,
-	Juergen Gross <jgross@suse.com>, Trammell Hudson <hudson@trmm.net>,
-	Ross Lagerwall <ross.lagerwall@cloud.com>,
-	Frediano Ziglio <frediano.ziglio@cloud.com>,
-	Gerald Elder-Vass <gerald.elder-vass@cloud.com>,
-	Kevin Lampis <kevin.lampis@cloud.com>
-Subject: Re: [PATCH] docs: UEFI Secure Boot security policy
-Message-ID: <aEqGzm1zdccj-drZ@mail-itl>
-References: <20250611235851.167385-1-andrew.cooper3@citrix.com>
+X-Inumbo-ID: 379b7706-4762-11f0-b894-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1749714761; x=1750319561; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=9NCPsqwJKJYtAS51CI1sh85u3p3RB5+6ZXXom88mXuA=;
+        b=Ra0QR/uhQ39JJ2VzjokEMV0yGCMqk9PigKno03EJhKP6/35jDxS74PWmNv0YqNHH98
+         aNuQ4QUKM02ILTHi3xTGYTKaod0A0t/8ZZCAupVKxd9pDXqFpwYkdRaUNgSNnQzKXvzt
+         l5eTQutcFaWsLkQBwpbU0bMgW0KIFmF1/Bs8zgyVnZyXTio0Gnc07mo6ySh5+ii9IiN7
+         MmNUVyfo4Ew6f5A8fLywBrn60uMwNNV0MzYf/NYjRVPNLhQfLVpI+jDE13/oXhoiqxK0
+         t9ZoRFglTKZoY8owIceZWH5ZurgawvofyxwtmTsfgdSqD6QpbfsShGmcdKe0Yji5WbOK
+         4PEw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1749714761; x=1750319561;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=9NCPsqwJKJYtAS51CI1sh85u3p3RB5+6ZXXom88mXuA=;
+        b=fZ8uWNbTz2qkqFNdtH69KlJj5JJWjQ0XwAMslIG2vm+DgyXi+l9sloqUNY2mbQKVK5
+         ORMQuJ4K4DaZwtDxJEro0kzCo3q6FlNUrVhPq4Fai7MBnc0TuvdBoQl5DdYoz6Z2sEIn
+         FaO6qiGC3N/lt609XgSCR5DBbPtjX+cQUh8NdbEhGoQiNiqWGmeRvrl7IYSU/+n45RqI
+         B61vy266Js/HFuV6ryL/FKjYyM6eSaLos0OuI0CIMroaACEyt1IrgrfyOWZtAwQ4EBlz
+         Bi4Pcw8yEugRImLUT2xEe63Y7nfivMXUUy3K9dxOddpcyqI97N0t496ZhIE0eigvqRw2
+         EP9Q==
+X-Forwarded-Encrypted: i=1; AJvYcCXqS2YT/jcFR4kcd7HiE3wkEngOX3jCWaH2Apyy+0NRsYYPFt+ibkQjKtHR3dUMl13afN4dYsUJQ9s=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzIjcV8PNnikDGdJxhP0Vql6ZzwtLV9ERjUJNI4By0BmqjWqp+y
+	iZsoSQxy3jnec67PZX6/0XgTM5slm1NKCxRtNTvv+djE+HjKSx97f2HAyaGbYfa1Mg==
+X-Gm-Gg: ASbGncvg5HlAWzHMxOT2pRgxBN+0h+iyWRqg/LrqVcxDG3rhWSZtOw72q2iiwmZlKHz
+	FQ8h+4E/c5tfbv01bz2CaheFdLTNkSzr+7iOavkYVyOy7nwT46HFXbMEaeiync4Ze20gZBWKCp3
+	POjExl8H3wz9kX+29yAztx0huT0UO7Ytsvhf6DRDzQpU/yXrGwfSF0xLMg0TOUEsrbHDuv6Byoe
+	S2mvgWugoLMX5yJuHgtLpRFDFgeRUddonV3TbQH6DMeEPAdB4GjT7ErqfgNG4NSmJahJh0kJ0u7
+	9AmT8MhBYPd3SezVq8ANpEKqNQmls0WPUbtDtYo2EfXUAvdb3KnsMT0hUc6YWwFc5k3QG7Qarmv
+	HVe7lZ1WbCWzlvmcTbq5NvUdvvdCXIQ0EoCu/7y+kSGK5H2I=
+X-Google-Smtp-Source: AGHT+IFIv9SxT9/QQGvFoYRUwswy5n0Y7fat8/JkNB8D4Bi3XYAiIjjJPJd02wBVWgZ4BR51dEbz5Q==
+X-Received: by 2002:a05:6000:40df:b0:3a4:dd8e:e16d with SMTP id ffacd0b85a97d-3a56133d9afmr1516515f8f.15.1749714760812;
+        Thu, 12 Jun 2025 00:52:40 -0700 (PDT)
+Message-ID: <805abeee-0cad-4cc9-88ae-77e4c1e23fac@suse.com>
+Date: Thu, 12 Jun 2025 09:52:33 +0200
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="xqmz7RRHR2+q0XuL"
-Content-Disposition: inline
-In-Reply-To: <20250611235851.167385-1-andrew.cooper3@citrix.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/4] xsm/silo: Support hwdom/control domains
+To: Jason Andryuk <jason.andryuk@amd.com>
+Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ xen-devel@lists.xenproject.org
+References: <20250610225737.469690-1-jason.andryuk@amd.com>
+ <20250610225737.469690-3-jason.andryuk@amd.com>
+ <0f47268e-0674-46e7-bfd4-8a395ee1ddf6@suse.com>
+ <6cc69b45-7347-4250-ab32-a1e2857b7d23@amd.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <6cc69b45-7347-4250-ab32-a1e2857b7d23@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
+On 11.06.2025 06:20, Jason Andryuk wrote:
+> On 2025-06-11 09:17, Jan Beulich wrote:
+>> On 11.06.2025 00:57, Jason Andryuk wrote:
+>>> In a disaggregated environment, dom0 is split into Control, Hardware,
+>>> and Xenstore domains, along with domUs.  The is_control_domain() check
+>>> is not sufficient to handle all these cases.  Add is_priv_domain() to
+>>> support allowing for the various domains.
+>>>
+>>> The purpose of SILO mode is to prevent domUs from interacting with each
+>>> other.  But dom0 was allowed to communicate with domUs to provide
+>>> services.  As the disaggregation of dom0, Control, Hardware and Xenstore
+>>> are all service domains that need to communicate with other domains.
+>>>
+>>> To provide xenstore connections, the Xenstore domain must be allowed to
+>>> connect via grants and event channels.  Xenstore domain must also be
+>>> allowed to connect to Control and Hardware to provide xenstore to them.
+>>
+>> Are you suggesting that SILO at present is incompatible with a Xenstore
+>> domain? silo_mode_dom_check() in its original form has no special
+>> precautions, after all.
+> 
+> Yes, it is incompatible with the current silo_mode_dom_check().  Only 
+> Control domain is allowed to use grants and event channels with a domU. 
+> A Xenstore domain would be denied.
+> 
+> Xenstore stubdom only exists for x86 today.  My limited attempts to run 
+> xenstored in an dedicated Xenstore ARM Linux domain have failed.
 
---xqmz7RRHR2+q0XuL
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 12 Jun 2025 09:50:38 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>, security@xen.org,
-	Juergen Gross <jgross@suse.com>, Trammell Hudson <hudson@trmm.net>,
-	Ross Lagerwall <ross.lagerwall@cloud.com>,
-	Frediano Ziglio <frediano.ziglio@cloud.com>,
-	Gerald Elder-Vass <gerald.elder-vass@cloud.com>,
-	Kevin Lampis <kevin.lampis@cloud.com>
-Subject: Re: [PATCH] docs: UEFI Secure Boot security policy
+This may want sorting independently first. Once sorted, the requirements
+here may become more clear.
 
-On Thu, Jun 12, 2025 at 12:58:51AM +0100, Andrew Cooper wrote:
-> Written to be solution and deployment neutral in order to focus on the
-> technology itself.  This policy is intended to work as well for UKI as fo=
-r the
-> "classic server setup" approach.
->=20
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> ---
-> CC: Anthony PERARD <anthony.perard@vates.tech>
-> CC: Michal Orzel <michal.orzel@amd.com>
-> CC: Jan Beulich <jbeulich@suse.com>
-> CC: Julien Grall <julien@xen.org>
-> CC: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
-> CC: Stefano Stabellini <sstabellini@kernel.org>
-> CC: security@xen.org
-> CC: Juergen Gross <jgross@suse.com>
-> CC: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.com>
-> CC: Trammell Hudson <hudson@trmm.net>
-> CC: Ross Lagerwall <ross.lagerwall@cloud.com>
-> CC: Frediano Ziglio <frediano.ziglio@cloud.com>
-> CC: Gerald Elder-Vass <gerald.elder-vass@cloud.com>
-> CC: Kevin Lampis <kevin.lampis@cloud.com>
->=20
-> A rendered version is available at:
->   https://andrewcoop-xen.readthedocs.io/en/docs-secureboot/admin-guide/ue=
-fi-secure-boot.html
->=20
-> Obviously RFC at this point.  It's worth saying that XenServer is intendi=
-ng to
-> use Shim and get a signature from Microsoft, retaining all exiting featur=
-es
-> such as Livepatching and Kexec crash reporting.
->=20
-> This trails off into more TODOs towards the end.  Individual tasks should
-> expand on the start made and resulting conversation from this thread.  As=
- a
-> reminder, the target audience for this doc is an administrator running a =
-Xen
-> deployment, but who is not necesserily a developer.
->=20
-> Several things are hard to express and want further discussion.  Suggesti=
-ons
-> welcome:
->=20
-> 1) Content of CONFIG_CMDLINE and the various CONFIG_*_DEFAULT options.  X=
-en is
-> not going to be issuing XSAs for "downstream chose an unsafe configuratio=
-n,
-> then signed and deployed the result", yet Xen probably should be on the h=
-ook
-> for bad "default ..." settings in Kconfig.
+>>> Hardware domain will provide PV devices to domains, so it must be
+>>> allowed to connect to domains.
+>>
+>> As a built-in policy, isn't this already going too far? There could
+>> conceivably be configurations with only pass-through devices in use, in
+>> which case neither grants nor the event channels operations intercepted
+>> by SILO would be required.
+> 
+> Such a domain wouldn't have any PV devices configured?
 
-Should there be some guidelines what values are/aren't safe for UEFI SB?
-I don't think there can be a simple list, for example some things may
-depend on other settings and/or whether UKI is involved. But some
-comment about relation to UEFI SB (in Kconfig help?) would be useful.
-As for CONFIG_CMDLINE, IIUC the current implementation does cover it too
-(as in, lockdown mode will filter built-in cmdline too).
+Indeed, that's my point: Why would Hardware then have a need to be
+allowed to connect to domains.
 
-> 2) Pre-boot DMA Protection.  Microsoft consider this a platform feature
-> requiring OEM enablement, and do not consider its absence to be a Secure =
-Boot
-> vulnerability.  But, it is less clear what the policy ought to be for Xen
-> booting on a capable system and failing to do a correct live-handover of =
-the
-> IOMMU across ExitBootServices().
+>  I don't think this changes anything compared to today.
 
-That's a very good question. Do you know if disabling pre-boot DMA
-protection is allowed if UEFI SB is enabled? If so, I'd assume it
-doesn't need to be covered.
+I don't think I see what you mean to tell me with this. What we're
+discussing here is the effect of the separation you're suggesting,
+which necessarily is different from what we have today.
 
-> 3) The AMD microcode signature vulnerability.  While it's not Xen's bug p=
-er
-> say, it's clearly a Secure Boot bypass because we do offer microcode load=
-ing
-> capabilties to userspace, and malicious userspace can load an unauthorised
-> microcode which allows them to read/write physical memory and bypass furt=
-her
-> signature checks.
->=20
-> 4) Userspace Hypercalls.  To anyone who isn't already aware, /dev/xen/pri=
-vcmd
-> in the various Unicies is a giant priv-esc hole, as root userspace can
-> e.g. issue direct memory hypercalls behind the back of an (intentionally)
-> oblivious kernel, and cannot be handwaved away as "it's fine because it's
-> root" under Secure Boot.  It's not a Xen vuln (Xen *does* audit pointers =
-in
-> guest hypercalls), but it is a guest kernel vuln because of failing to
-> correctly audit hypercall parameters.  However, it does require substanti=
-al
-> changes in Xen in order to allow guest kernels to do something half-way s=
-afe.
-> ---
->  docs/admin-guide/index.rst            |   1 +
->  docs/admin-guide/uefi-secure-boot.rst | 134 ++++++++++++++++++++++++++
->  2 files changed, 135 insertions(+)
->  create mode 100644 docs/admin-guide/uefi-secure-boot.rst
->=20
-> diff --git a/docs/admin-guide/index.rst b/docs/admin-guide/index.rst
-> index 54e6f65de347..e7895ee95001 100644
-> --- a/docs/admin-guide/index.rst
-> +++ b/docs/admin-guide/index.rst
-> @@ -5,4 +5,5 @@ Admin Guide
-> =20
->  .. toctree::
->     introduction
-> +   uefi-secure-boot
->     microcode-loading
-> diff --git a/docs/admin-guide/uefi-secure-boot.rst b/docs/admin-guide/uef=
-i-secure-boot.rst
-> new file mode 100644
-> index 000000000000..0e0f50143892
-> --- /dev/null
-> +++ b/docs/admin-guide/uefi-secure-boot.rst
-> @@ -0,0 +1,134 @@
-> +.. SPDX-License-Identifier: CC-BY-4.0
-> +
-> +UEFI Secure Boot
-> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> +
-> +UEFI Secure Boot is a verification mechanism, intended to ensure that on=
-ly
-> +code trusted by the platform can run.  This is to prevent malicious code=
- from
-> +hijacking the system.  Secure Boot requires that all privileged code be
-> +signed, and that there is a trust relationship with the platform; i.e. c=
-ode
-> +which is not signed by a key enrolled in platform must not run privilege=
-d.
-> +
-> +Within the Xen architecture, Xen, the :term:`control domain` and
-> +:term:`hardware domain` share responsibility for running and administeri=
-ng the
-> +platform.  This makes their kernels privileged as far as Secure Boot is
-> +concerned.
-> +
-> +When Secure Boot is active in the platform, privileged code is required =
-to not
-> +run any untrusted code (i.e. not run any code for which there is not a g=
-ood
-> +signature), and is required not to allow this restriction to be bypassed
-> +(e.g. by command line request).
-> +
-> +
-> +Support in Xen
-> +--------------
-> +
-> +There are multiple ways to achieve this security goal, with differing
-> +tradeoffs for the eventual system.
-> +
-> +On one end of the spectrum is the Unified Kernel Image.  e.g. Xen is bun=
-dled
-> +with the dom0 kernel and init-ramdisk, with an embedded command line, an=
-d with
-> +livepatching and kexec compiled out, and suitably signed.  The signature=
- is
-> +checked by the bootloader and, as this covers all the privileged code, X=
-en
-> +doesn't need to perform further checks itself.
-> +
-> +On the other end of the spectrum is maintaining the features of existing
-> +deployments.  e.g. Xen needs signature checking capabilities for the dom0
-> +kernel, livepatches and kexec kernels, and needs to allow the use of safe
-> +command line options while disallowing unsafe ones.
-> +
-> +It is important to remember that Xen is one piece of the larger platform,
-> +where every piece depends on the correct functioning of all earlier piec=
-es.  A
-> +product supporting Secure Boot requires a holistic approach involving all
-> +components in the system.  It is not sufficient to consider Xen in isola=
-tion.
+> Both sides need to be configured and opt-in.  Hardware is a system 
+> domain, so it should be possible to allow grants and event channels. 
+> But they won't be used unless configured.
 
-This paragraph is a bit vague. Maybe include (repeat) that it includes
-any privileged domain's kernel, but also bootloader(s)? Or simply remove
-it as it doesn't add much give the introduction section explaining this
-already.
+"Won't be used" isn't enough, imo. Isn't disaggregation about proper
+isolation, i.e. to guarantee that unwanted interactions can't occur?
 
-> +
-> +.. TODO: Move "In Progress" tasks here as they become ready
-> +
-> +Security Scope
-> +--------------
-> +
-> +Vulnerabilities impacting Secure Boot require a fixed component to be pr=
-oduced
-> +and distributed, the vulnerable component to be revoked, and the revocat=
-ion
-> +distributed to platforms.
-> +
-> +The following principles and guidelines indicate where Secure Boot diffe=
-rs
-> +from more traditional security models, and the situations in which extra
-> +remediation may be necessary.
-> +
-> +Principles
-> +^^^^^^^^^^
-> +
-> + * Privileged code shall include Xen and the kernel(s) of the control and
-> +   hardware domain (both, if they're split).  While there is a privilege=
- split
-> +   here in Xen's regular security model, they are equal from Secure Boot=
-'s
-> +   point of view.
-> +
-> + * Root or ADMIN in userspace is unprivileged from Secure Boot's point of
-> +   view, and must not be able to alter the enforcement policy or load un=
-signed
-> +   code even by e.g. editing a configuration file and rebooting.
-> +
-> +Within Scope
-> +^^^^^^^^^^^^
-> +
-> +The following types of issue require remediation and revocation of vulne=
-rable
-> +binaries.
-> +
-> + * Any failure to apply enforcements even against traditionally-privileg=
-ed
-> +   userspace, including failure to authenticate new code to run and fail=
-ure to
-> +   handle revocations properly.
-> +
-> + * Any Out-of-Bounds write capable of altering the enforcement policy, or
-> +   capable of bypassing enforcement, e.g. by corrupting the running code.
-> +
-> +Out of Scope
-> +^^^^^^^^^^^^
-> +
-> +While typically a security issue in their own rights, these issues do not
-> +constitute a Secure Boot vulnerability, and do not require special
-> +remediation.
-> +
-> + * Denial of Service vulnerabilities.
-> +
-> + * Out-of-Bounds reads.
+>>> That leaves Control.  Xenstore and Hardware would already allow access
+>>> to Control, so it can obtain services that way.  Control should be
+>>> "privileged", which would mean it can make the connections.  But with
+>>> Xenstore and Hardware providing their services to domUs, there may not
+>>> be a reason to allow Control to use grants or event channels with domUs.
+>>> Still, Control is privileged, so it should be allowed to do something if
+>>> it chooses.  Establishing a grant, or event channel requires action on
+>>> both sides, so allow for the possibility.  This does open up an argo
+>>> wildcard ring from domUs, FWIW.
+>>
+>> Along the lines of my reply to patch 1, I think Hardware and Control
+>> need to have a pretty strong boundary between them. It's hard to see,
+>> for example, whether grant map/copy/transfer would indeed make sense
+>> between the two.
+> 
+> The Hardware domain might provide a PV device to Control?
+> 
+> I've tested removing control:
+> static bool is_priv_domain(const struct domain *d)
+> {
+>      return is_xenstore_domain(d) || is_hardware_domain(d);
+> }
+> 
+> And that works in my limited ARM dom0less testing.  The toolstack isn't 
+> really exercised in that case.  It seems strange that the privileged 
+> control domain is *not* allowed though.
 
-Maybe more generic "Information disclosure" or "Information leak"?
+With the intended separation, there's (imo) not going to be any
+all-mighty domain anymore. Neither Hardware nor Control.
 
-> +
-> +The Xen Security Team will endeavour to produce XSAs for all violations =
-of
-> +this security policy, including identifying them specifically as requiri=
-ng
-> +further remediation by downstreams.
-> +
-> +
-> +In Progress
-> +-----------
-> +
-> +.. warning::
-> +
-> +   The following work is still in progress.  It is provisional, and not
-> +   security supported yet.
-> +
-> +
-> +Secure Boot Advanced Targeting
-> +^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-> +
-> +SBAT is a recovation scheme for Secure Boot enabled components, using a
-> +generation based scheme.  See `Shim SBAT.md
-> +<https://github.com/rhboot/shim/blob/main/SBAT.md>`_ for full details.
-> +
-> +Upstream Xen provides the infrastructure to embed SBAT metadata in
-> +``xen.efi``, but does not maintain a generation number itself.  Downstre=
-ams
-> +are expected to maintain their own generation numbers.
-> +
-> +
-> +Lockdown Mode
-> +^^^^^^^^^^^^^
-> +
-> +A mode which causes the enforcement of the properties necessary to confo=
-rm to
-> +the Secure Boot specification.  Lockdown Mode is forced active when Secu=
-re
-> +Boot is active in the platform, but may be activated independently too f=
-or
-> +development purposes with the ``lockdown`` command line option.
-> +
-> +TODO
-> +^^^^
-> +
-> + * Command Line
-> + * Livepatching
-> + * Kexec
-> + * Userspace hypercalls
-> --=20
-> 2.39.5
->=20
+>> Similarly I'm not convinced a strong boundary isn't also needed
+>> between Xenstore and Hardware.
+> 
+> If hardware is providing PV devices to domains, it will need access to 
+> Xenstore.  I don't see how you can get around it.
+> 
+> I tried to explain this in the first paragraph.  SILO's purpose was to 
+> isolate domUs from each other, but allow it to access dom0.  dom0 
+> embodies the control, hardware, and xenstore capabilities.  So as a 
+> first approximation, each of Control, Hardware, and Xenstore should be 
+> allowed to communicate with domUs.
 
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
+Yes. Yet what to permit between the three special entities is far less
+clear. Hence why I'm unconvinced this can be expressed by SILO, and
+would rather require Flask.
 
---xqmz7RRHR2+q0XuL
-Content-Type: application/pgp-signature; name=signature.asc
+> domUs needs to communicate with Xenstore and Hardware for PV devices.
+> 
+> Xenstore provides Xenstore access to Hardware.
+> 
+> Control would want Xenstore access.
+> 
+> I don't know if this helps, but here's a table:
+> 
+>      | CTL | HW  | XS  | domU
+> ----------------------------
+> CTL |     |  ?  |  y  |  ?
+> HW  |  ?  |     |  y  |  y
+> XS  |  y  |  y  |     |  y
+> domU|  ?  |  y  |  y  |  x
+> 
+> Control and Hardware would be y if we allow PV devices
+> 
+> Control and domUs - I don't have an immediate rational for them.  Except 
+> that Control is privileged.  I've been running xenconsoled in Hardware. 
+> If xenconsoled is in Control, then access would be required.
 
------BEGIN PGP SIGNATURE-----
+Perhaps some clarification is first need about what Control really is
+(and is not). It is sole the domain to create other domains. But beyond
+that things become unclear. E.g. xenconsoled may not belong into either
+Hardware or Control.
 
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmhKhs4ACgkQ24/THMrX
-1ywxDwf9HAYoVwQ+eCCjrIv575CkCXg5kYq9FiJHNc7Fe3nQZLvX1dl6TbjQPcb4
-JF00j1Ldh2hNZnQBxfu4dnJ+ItyKSCAXlVq7JhI04l23XB0Kn8pUhoVvz43jOI0D
-wUnnhx6LEryp57FYd0uvnN8ypunWz9A3h+HaCBbRxuGJSpqS6hduYOYmGTfGs0kN
-l4xhGHCrNpEqUW8iTU2XFnJr4TVhmWDso0yBKkk0wNpJpqRlNXoFgAxmtLoVsXjq
-0SiCTtkhghcw2xDAQCB2yAfBFpovVuRhFfgiDL5FBVEg2RgDxRuCHqRBDJ9svT2+
-BrWLpV7Ig6XKp5kZZpyITtRGRh3pww==
-=LQgl
------END PGP SIGNATURE-----
+>>> --- a/xen/xsm/silo.c
+>>> +++ b/xen/xsm/silo.c
+>>> @@ -20,6 +20,12 @@
+>>>   #define XSM_NO_WRAPPERS
+>>>   #include <xsm/dummy.h>
+>>>   
+>>> +static bool is_priv_domain(const struct domain *d)
+>>> +{
+>>> +    return is_xenstore_domain(d) || is_hardware_domain(d) ||
+>>> +           is_control_domain(d);
+>>> +}
+>>
+>> This construct expands to two evaluate_nospec(), which likely isn't
+>> wanted. Some open-coding may be pretty much unavoidable here.
+> 
+> Thanks, yes, good point.
+> 
+>> (I'm
+>> surprised it's not three, i.e. I find it odd that is_xenstore_domain()
+>> doesn't also use that guard.)
+> 
+> It looks okay to me.  There were only 2 uses until I added a 3rd in the 
+> dom0less code.  The XSM check has evaluate_nospec() and the other 2 uses 
+> aren't security critical - Setting a domain info flag, and __init code 
+> for dom0less.  Maybe moving the evaluate_nospec() would be safer in case 
+> use grows in the future, but it looks okay to me today.
 
---xqmz7RRHR2+q0XuL--
+When some of the hardening was first introduced, actual use sites were
+indeed taken into account. That wasn't quite right though, I think. Any
+such construct ought to be safe to use anywhere. For uses with clearly
+no concerns towards speculative abuse, a 2nd lightweight form of such
+constructs should then exist, imo. As to your use of "security critical":
+I'm not convinced you what mean is covering the potential of speculative
+abuse of involved code paths.
+
+Jan
 
