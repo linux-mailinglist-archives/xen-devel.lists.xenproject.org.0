@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 37391AD6DF9
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Jun 2025 12:38:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1012792.1391296 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AFAFAAD6E0D
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Jun 2025 12:42:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1012798.1391307 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uPfJl-00022s-Ln; Thu, 12 Jun 2025 10:37:57 +0000
+	id 1uPfOH-000414-5X; Thu, 12 Jun 2025 10:42:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1012792.1391296; Thu, 12 Jun 2025 10:37:57 +0000
+Received: by outflank-mailman (output) from mailman id 1012798.1391307; Thu, 12 Jun 2025 10:42:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uPfJl-00020a-IW; Thu, 12 Jun 2025 10:37:57 +0000
-Received: by outflank-mailman (input) for mailman id 1012792;
- Thu, 12 Jun 2025 10:37:57 +0000
+	id 1uPfOH-0003zI-2j; Thu, 12 Jun 2025 10:42:37 +0000
+Received: by outflank-mailman (input) for mailman id 1012798;
+ Thu, 12 Jun 2025 10:42:36 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=eaA8=Y3=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
- id 1uPfJk-00020U-PW
- for xen-devel@lists.xenproject.org; Thu, 12 Jun 2025 10:37:56 +0000
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on20629.outbound.protection.outlook.com
- [2a01:111:f403:2009::629])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=TRIX=Y3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uPfOF-0003zC-Qy
+ for xen-devel@lists.xenproject.org; Thu, 12 Jun 2025 10:42:35 +0000
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [2a00:1450:4864:20::32b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4bab28b9-4779-11f0-a309-13f23c93f187;
- Thu, 12 Jun 2025 12:37:54 +0200 (CEST)
-Received: from PH8PR12MB7326.namprd12.prod.outlook.com (2603:10b6:510:216::7)
- by BY5PR12MB4306.namprd12.prod.outlook.com (2603:10b6:a03:206::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8835.19; Thu, 12 Jun
- 2025 10:37:50 +0000
-Received: from PH8PR12MB7326.namprd12.prod.outlook.com
- ([fe80::6d76:9c33:d230:8264]) by PH8PR12MB7326.namprd12.prod.outlook.com
- ([fe80::6d76:9c33:d230:8264%2]) with mapi id 15.20.8835.018; Thu, 12 Jun 2025
- 10:37:50 +0000
+ id f30807d1-4779-11f0-a309-13f23c93f187;
+ Thu, 12 Jun 2025 12:42:34 +0200 (CEST)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-450d668c2a1so13791955e9.0
+ for <xen-devel@lists.xenproject.org>; Thu, 12 Jun 2025 03:42:34 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-74880896268sm1122372b3a.44.2025.06.12.03.42.27
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 12 Jun 2025 03:42:32 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,231 +45,338 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4bab28b9-4779-11f0-a309-13f23c93f187
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xk9qSUh9utTIlMZ4a0NE95gf4ma2eZkfuyVzWSKhfQ1zPCzN/fGO3Cheg9IVA01XDDl0OrUxp+JBOYXjAn4Tlv4EDmY2oiOjhP6KkV8pEc3S9szDwuUdBE4fiJ/qi8oHVDlGg02itedZYSJwY0K9H3ee57IL+xFkKEDY0QKhxAZWzD4gbmdXOEn4ag3PwQL5EUevF4wvHOtz9ZIPPkpAZNtPsPO0p1JSRTQxXp17CHwzyfkqmdXf5Y5LBa2ijE/oQ05zEBpxq5iMe8XPmT+ISGMGm4VAaL2aoS49pmyVbH1lSOBzFfbwXmy++olKEPJ4I50GmxoAUimSFEmn4mimew==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rfgt0faCwlqfNukCYZw3rOVHqafZfoASff2CONnzUiw=;
- b=viziyE1cea1yiKdsUB821jaNK8wJMtGMjfj/xM3B29WLEgnidA31daNjkpuHlzxIc2MuaKvQL7mehhiKKWDTzMo+hzFIXeRIDFo9JGlb66MUBc0FJomOHKMZ0tRmrqLJGJq2TKYQa+hOsYtLh9H6Z5wiYpqmJINOymqfywlxH0eDxsZkIToS+n1NSmxUzpS3awWZnsS1wRLOc65iZqt2rKcPdyr3Ok7EHYnbTnGbqhoDCBXSx8cFe5vJht8GdKRLQExKEarOF9HZ0CucOhRlWDKszjW7i3+ujos7YdPl03rFk8BDAZLTMvAgYO10xPxqhIG5BD6+ma3e1pmTgdwpKg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rfgt0faCwlqfNukCYZw3rOVHqafZfoASff2CONnzUiw=;
- b=nQiqHiAhIriUDItk2eHuI3LK2y2yJ2M6Gwsz0ECqGvFvgQjIiVztzre/fMsSqfEOzO3kgobYVpJHa229/yc8Ozu8N3IzFAUDkVsQC9tZ6lnyLDcGWpx3SMp8PXypBbVpEsk9taznMiSM/tIsFjTnO/U7jtFbou4OIA5HIncNNtU=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Message-ID: <9105e7c1-da96-4bf9-9de8-d397712b68f2@amd.com>
-Date: Thu, 12 Jun 2025 11:37:45 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 6/6] arm/mpu: Enable read/write to protection regions
- for arm32
-Content-Language: en-GB
-To: Luca Fancellu <Luca.Fancellu@arm.com>,
- Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20250611143544.3453532-1-ayan.kumar.halder@amd.com>
- <20250611143544.3453532-7-ayan.kumar.halder@amd.com>
- <43768317-3409-46EA-B545-C78937EF42DC@arm.com>
-From: Ayan Kumar Halder <ayankuma@amd.com>
-In-Reply-To: <43768317-3409-46EA-B545-C78937EF42DC@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: LO4P265CA0205.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:318::19) To PH8PR12MB7326.namprd12.prod.outlook.com
- (2603:10b6:510:216::7)
+X-Inumbo-ID: f30807d1-4779-11f0-a309-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1749724954; x=1750329754; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=RuAhpSmRJLYAMPFosLKtVzELzW8u013hIskDY5yVKfI=;
+        b=AYg8dDkThDj6De3Gi5VkqFp9OHi0kuwSWW2nEYKIkTbeIfhGQNW5QrocLUNt9+sRyl
+         Kfo0GwNUkWrt4PZsMhGD6T59swqJHec7Luv4G9f++N6URjF6xL5AYLCc0yDegIrNCnh/
+         4sET17BgZirUrmAm93rWmMF+ATB1osZMAu69FRw5AOcMnLb/1eulLe8WoIKpI59nmfXy
+         NyuUy79kDd+YO6p+bo1XVoAsiXxYWgpa+oqA080nU9lllarCPPxlIyetQzAi55bE2/dz
+         8pMHyl0OuSdDnAsB51tRt7gBksWEVCZCiIH3R/dyT4M0XxvJF/bMqZWa9d+uG6LoXWHe
+         eVlw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1749724954; x=1750329754;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=RuAhpSmRJLYAMPFosLKtVzELzW8u013hIskDY5yVKfI=;
+        b=MAEKmBy+pVLM/dcQjQlm2pyczPu/QaC1hcwcdgcoCScFmy8Ze6mInAf/+PTOZzXMZ9
+         0Cwh2pHN2IyWUaH3fq/FTwMowZIyBiY2QSKJATFOIhjkqk7JT3YUDDgqjGP4xmMXZMT+
+         o5hPSJmmPKuRumWTwzjpDvphfu7qqnhgD2MhpujmAtos/RCQDVX+EbDdagZkWJC7PSxY
+         vDvw4PpsU5m+5h4J3RlnVEH2LItEn1GWGhIJv1Jzb1NS0PFiXA0Lmu2LW93h9FaCNZFs
+         aA4fNTQBPZH616ZYkUr9K+n5K0eM12RkQgQMynUZed/tc7IZxxmtGG1ovQVsVpG+JlVw
+         648A==
+X-Forwarded-Encrypted: i=1; AJvYcCU7QwuYRCJkDgtkeEpEtb2wfF+qM79tU898JfWBAtwimp06+hOVgCV66FCbjkZJCfHo/Mt6f9aOJuk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxagIUUJ0uGTOP83HGH/0QD/OcG2RvocFF1q4ma5wslVBWMeL0n
+	EY+cWYcR+a9RV/o4DvSLimh32etKiQAG7jIFAvHFlT0hsqkxIq56kkFtSnRJPLTjKw==
+X-Gm-Gg: ASbGncvQHgnTq3mTq3/YEpSDqCIwJ1PIWSmyXiyH2BRywpLbYa7iReVA+B9+dTQt1Gm
+	GM0WwNzKiDpNBC0QHN2N8BnB+DjjYIQyZ8xa9ZreqZRK1XdMi8QfHKi/C4Jn0QcyH4XEY3kL6cK
+	H+B/9A8gm2osQnkJftw8ocDVDPM9MeEuPZGmQ/ti92OH67D1KIaVpBdSrLIELpbCyFNBPzzlKXI
+	z3UA1phP2AzV7sGa99ZID6hmvVBhxoqwPKsqTymuqpH5uPHQDCFxYLy2ZkbaR/ea0e1tPnzkSAp
+	dO4xW+LmPEAnrxzbhfjpCN90gbYQh47jXXrOnh1rklOwczE8dnahFzFRq0qosTMGLXga9ZbFgI+
+	FYVqJX/9m0ANbXX8l7sVNMBdLCikpZ4exQBwLsJ0fIV1pQ0g=
+X-Google-Smtp-Source: AGHT+IEz9ctytOLQjBLYvZ1MCImrzf3LXJMbBUzA47qo9HV5oCOfar0qzj1JnkDlFZIEaEyKY83EnQ==
+X-Received: by 2002:a05:6000:40cf:b0:3a4:e1f5:41f4 with SMTP id ffacd0b85a97d-3a5607faa09mr2196242f8f.17.1749724953102;
+        Thu, 12 Jun 2025 03:42:33 -0700 (PDT)
+Message-ID: <3edeeff2-5728-46cc-9436-01e5e3cf2bd3@suse.com>
+Date: Thu, 12 Jun 2025 12:42:23 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR12MB7326:EE_|BY5PR12MB4306:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9484b461-9ad7-4315-cef8-08dda99d2dac
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?N0JpcjhPVlZmQk93dkNBbE9DdlhkY0NBV2lCNVBHK2kzaVdIRzlrV1RaVkl0?=
- =?utf-8?B?MTgva1JDQ0NFcUptQU83TjJOd3dCS1krVDQ2bGlTWjVLN2d2ZUgrUk9DcXhn?=
- =?utf-8?B?Zm55TXpOa1dvVStlR01oeHBoYTBPNjFkRXp5TURsTnptQU1ONzJPalYyOGUw?=
- =?utf-8?B?Q2t2RWN4bm1jb21raGhNL3FJYmxLSUZTZFp3WVZSRWFNSHBxVTN4L1lBSEl1?=
- =?utf-8?B?b09DbUdQSmNLRTlOcXJSVjZlTXZtYW4vVEVPY2o5RkJmTnRCN2ZuVVUrRVlN?=
- =?utf-8?B?dFg0QkxERHdzTjdMZXkycEZwOFZRZTJ0aTRLVXFwYlpxR0kxSVZJZlJucTlB?=
- =?utf-8?B?WnNFYkZodDV3cHZjNEdpZUkvcTVPc1plbFBtVzNWek4xMDV3ZDV4d1NERm52?=
- =?utf-8?B?bE1yTHRSSXRRSzE0czkwNGZWa0tvWlBsVDI3cVBaUEtmN0g1VFFGdTN1YU1B?=
- =?utf-8?B?VFNuTy81aVJnUWllcUw0QmErTUxlelFneC8xUS91UEFvcG5IVU1KeGN3V0lQ?=
- =?utf-8?B?cXFkUGxNbWpGeHVKSXhNaXRxUm11Rm9wN0V3SmFucHpXWEpwcUVNZFQ4ZXVs?=
- =?utf-8?B?NGlUSlFxRXUwV2Q3RjVJcHFLeFFBZnJpemErS0IrTDZ2QlM3SWVvWk5FcElB?=
- =?utf-8?B?elVLbTFTV0pmT1JVQ3BtOE96cmxSMlJuTFV5eVdGQzNUcDlpb1ByUkdGbE1M?=
- =?utf-8?B?ZHo1dmNpb0dLRFhzc251L21EaTd6bU9GdVdVVDFMVWFkNWJmNFIwM0Q3N1Nv?=
- =?utf-8?B?aVQ2b2Z1RW9PUklqS3ZjSlUrZVc4MVBNSjlvR05FUnMxQ09DcVhsTGFKbzBX?=
- =?utf-8?B?b0pZREs0SHE3ajNncW5WYzVFN2s5K2NkRnllZ1ZiUXhNMUdJV0xDY2xqcnBM?=
- =?utf-8?B?cHNYWUlsMW5LS2RYTHBjRnNtYjZiM3RRWG9KNXpjbklXT1dyTGQ4RUVENTdE?=
- =?utf-8?B?aFBFYVg0M1N4QWRqOWNweG1jei8ycTN0MXhsc2txU09FRXF1d2kzNGVVWEty?=
- =?utf-8?B?SVRiVjgyeE1CZWNkeTVCeThXaG4xMFQxYmdaNThqWmFYMFRvelRUSm1DNWE0?=
- =?utf-8?B?L2RWZDRuOTRqUkczU3FSL21DZmhUUm00QUNtTEpTanY2RWNURnd0TS8zajdB?=
- =?utf-8?B?em0zd1QrTExQcUl3ZlBLZjhJUElGVnpvTG5yR2U0VzVucUFXQUtMcFNHMGM4?=
- =?utf-8?B?anlyTmo4L2FKdVJWeVZHWVZveDVVUDUyZFhUWDgzdC9UZXJGRk9Cdjk2TUo2?=
- =?utf-8?B?bzBwazcrRFNvQWV0VXNlWk40ck1ZTVlpeWkxcVkxeURzRkpmTU01VHQrK1NQ?=
- =?utf-8?B?ZiswYmVuK3NWQmdIRlcraHR1NEMyOEo3bGo0a0x6bGdEZ0p3TVp3NVdyTzc1?=
- =?utf-8?B?ayt4ODF6UEdtRVBEQ3NhbStkVFVXTTh5dFlFaEhLa21yanBNMlJYRTFXbWY0?=
- =?utf-8?B?TGZEZndtVG9oaXk0OUlKOUp2czFUa1ZQQ1RrTE1seWY3L0IrVmVRc3hLMkNC?=
- =?utf-8?B?eHFVSCs3ZkdKTXZvVnZiYlFGL2Q2OTZTcW53Z3QxNStsbjFtam5rQVZKSEVx?=
- =?utf-8?B?ZCtCbGtEOHgzcVl1MU1JalBkc2FUVG9NbGsyaXM5Z3FSbmhoNjJvRXIzYS8y?=
- =?utf-8?B?YjlhalVTWS9qSVZFUHBiajhvdXArUTA3STZtMEU4dHk0Z2k2T2x2QWp3Q1JC?=
- =?utf-8?B?QUVUOHNHdExxendsUGY5YUJ5YlFzaFhEK20ySWY3dEZQRVo4YkNNSE04eFo0?=
- =?utf-8?B?NW4vajJtTzBmbkFFVDVRS0ZWYitFYnlJb1J4ejlJR1VRUnhMdFQ0c2xGUU56?=
- =?utf-8?B?dlgwUFZGR21FbGxxcFRobVpabnZkSkZVSEFkdmNiMFd0Y29HTVQ4WG9CRkRj?=
- =?utf-8?B?aUR2ZFM0aCs0YitSTHM2SlhtRFZkd3pPendIMVB4Z0tuSUowaVgwRW9HeWRL?=
- =?utf-8?Q?j8Pv5xh4OfU=3D?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR12MB7326.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?YURRem1TQ3gyWkdtRFN1QStWK2NOeUhZV3dKT3ZQU3NZYnh3SGI1N1dPdzMx?=
- =?utf-8?B?eGlrSDhBYlZhc3g0OVVISFl1cUVYTFFvVVE1b0ZDRUlVSHh0QURSbkpkb2dw?=
- =?utf-8?B?TG1VR2FKazJxalExd25SbUg0OU1tOElBNEpiMTVFYmdjZEd4dk00VzBBS1BG?=
- =?utf-8?B?M0l1Y0k0VElaSnRrRHRuYXVVSW8wUm9SOE1LMjBuWXFzanRTY1JKM2ZlQ2FL?=
- =?utf-8?B?VnhxS29LQUZFbmRiOFBjT3J4Ty9ISCtnV2lBL2ZjTVg2OEVkemI1RDRzVWxX?=
- =?utf-8?B?ZEtBYk9JdW9UYlJPOTRrdHpoOFg1OStNVjJKVG91VjYwbTJlR0hyVmtmY1dJ?=
- =?utf-8?B?aFFFWkhwOWZ3QUIrR2VUMW1aSjBmUUxyaXV4dlJQNWpZOGd0dmZydTZncnV6?=
- =?utf-8?B?R0xyK2kwR3JLRFVsc0lDbnI4YVh1MURwNU9xTUJSSGJocHIwdGo4K2dmaEs3?=
- =?utf-8?B?ZFJJa0xPckNrdDhvWThGTitZMnZ3emdST1RqZUhNa2loV0ZlZUdsRWNwVnlk?=
- =?utf-8?B?bEtnTXdlT042aUd6aWp1Y2lXQ3pPR0pMQlVnS3UvVElSbGdoUGwzSlZYTktx?=
- =?utf-8?B?YjRJczlpdEYxVVkxTk5FcnAwWE13Q3hLVEhUbWtNMjh2MURCL2JrSjJaVTFX?=
- =?utf-8?B?NWRybnVudDY0bzlxeTQwekxyYVY0WitBcUNBcWhJaG9iV08vdFZDWEp4RDNV?=
- =?utf-8?B?TXlMMDdwdWhraFFSZ3VqRVduM003VEpkd1hleldUUnlTdXkyb3phVkJvWGNI?=
- =?utf-8?B?MUNVZjk0STdMSlZLWG8zNWk3YjVIaE5hb0FHdkVSV1hNRmtLYlcycXJ1Z3dk?=
- =?utf-8?B?a2RueXc4RWZzbHhNcklTVGZsbXhYSFlTZHhMdWlXRjY2WVUxUHFCV3YyLzI5?=
- =?utf-8?B?NmIvQ2RROVBUcVM2K2N1NEdwMTdGcW9uMEdxcllwaTBZcElYbXhBcmJLYWtT?=
- =?utf-8?B?VkRZb3VQOXJ1ZUVsclg1UWcrUkplMmJpUWFSSWdBTFhnOXBSd3oxcnR6Z0VH?=
- =?utf-8?B?RU90MTRDelpOY0laSnhvNkRMVkhCQzlHcmYwYmRrcVQ3QTc1L2k1ejJxclVo?=
- =?utf-8?B?VUNxYlFMYkN0ekFWNU5tNk9SZE1tS29JYVpLRFV5VGtQSmVMNys3ODQ0MklZ?=
- =?utf-8?B?cjFzL1llYU5RMDc0czdudEVQQSsvUytTd0dBL1JPcFdEbmxzR0lJc2dwZEhU?=
- =?utf-8?B?MFBzWU11TkUzOXRvZzRiNnNhaDcrbnhxSkFINVRqeE5LQUo2WE8yM3creVhR?=
- =?utf-8?B?U0R3RUJSZlJyOEh6K0V0Y0gyRmovOTl4TGREYkZEc1VRS0dyc2RjWVdRSzRY?=
- =?utf-8?B?SnhSelVFQWhpVlBjYlJFd0VOYUxGc3VXeGxUZy95ODBKN1ptRFk3U08rS2Fs?=
- =?utf-8?B?SG55dFNQdEYrR1BUQU1Oc0hBQkZHTW8wbmhIeDZOZDNRczhSNS8ySFBRMnYv?=
- =?utf-8?B?alhzMm50NmZVejF4aG9UOVR3SUlNR3M2UllqU1NKcjNEcS9aMWhCK1FmL0Jw?=
- =?utf-8?B?OFdkVFN6YkNDOStTZjRrL2J2eGx0dkZURHNlVHFUVzVVY1BPemVUV3c2eG12?=
- =?utf-8?B?Z3pJVExRNkx2c1M2TmhieHd6ekdQWXJ0VDB0NHN2Mkx2U3dKajNWeTlmaGFs?=
- =?utf-8?B?VWxOMkN5b1c4T2ZCamlJbWxpREswTTAydStMYUdXVXkxTElQV280K25wM3Zs?=
- =?utf-8?B?MHM3ODl2WUFtL2FzVGdzNDJWa05YVUdXTVJUOWtTZVlHMlRYY05VNXNSRThE?=
- =?utf-8?B?Uy9QUk1MMVBhWnlUeDArbGhwUm1jU0dDUUtHUFMzOExIeitQUWFNaW00V3kx?=
- =?utf-8?B?TDFrc1BMY1ZKbmtpY3pDOEU4Rkh1NlJpY2J0ajY0RlhudnJPbmF0TE0yVURq?=
- =?utf-8?B?Z2xmUXRxTVVwT091bUozd24yZ2VZRnpDazdmeC9peGlreHk1aWFndW9rZmd0?=
- =?utf-8?B?M1FqOHF5MmMyWlREdFZnak0rck1vc2VBLzY5TW14SFZYeCtqajFnb1hxeU54?=
- =?utf-8?B?a3lTNXRWa0tLYk5hNjUxLys4cGoraGtscnlFdXBUa3E2NHFjS1NZV1NNcmlP?=
- =?utf-8?B?UnJlZEtaaGhYendvOXZOa2dLeVdGWlRHR1BFcEZWMFhaZUJhTWhMbDc2VE9N?=
- =?utf-8?Q?4Dl6wDb08fvy7tyBP1u2v0lvT?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9484b461-9ad7-4315-cef8-08dda99d2dac
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB7326.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jun 2025 10:37:50.0958
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 2NCFxF13U18j/2uTtEFdWdf5Q0fMTRH+FSxqhlKXKL0ZJ+hspDXRyJj+1O8qH7N0PMRmfx+XvH0CUY8gvpxmFA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4306
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 06/18] xen/x86: introduce "cpufreq=amd-cppc" xen
+ cmdline
+To: Penny Zheng <Penny.Zheng@amd.com>
+Cc: ray.huang@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20250527084833.338427-1-Penny.Zheng@amd.com>
+ <20250527084833.338427-7-Penny.Zheng@amd.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20250527084833.338427-7-Penny.Zheng@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
+On 27.05.2025 10:48, Penny Zheng wrote:
+> Users need to set "cpufreq=amd-cppc" in xen cmdline to enable
+> amd-cppc driver, which selects ACPI Collaborative Performance
+> and Power Control (CPPC) on supported AMD hardware to provide a
+> finer grained frequency control mechanism.
+> `verbose` option can also be included to support verbose print.
+> 
+> When users setting "cpufreq=amd-cppc", a new amd-cppc driver
+> shall be registered and used. All hooks for amd-cppc driver are transiently
+> missing and will be implemented in the ongoing commits.
+> 
+> New xen-pm internal flag XEN_PROCESSOR_PM_CPPC is introduced, to be
+> differentiated with legacy XEN_PROCESSOR_PM_PX. We define
+> XEN_PROCESSOR_PM_CPPC 0x100, as it is the next value to use after 8-bits wide
+> public xen-pm options. All xen-pm flag checking involving XEN_PROCESSOR_PM_PX
+> shall also be updated to consider XEN_PROCESSOR_PM_CPPC now.
+> 
+> Xen is not expected to support both or mixed mode (CPPC & legacy PSS, _PCT,
+> _PPC) operations, so only one cpufreq driver gets registerd, either amd-cppc
+> or legacy P-states driver, which is reflected and asserted by the incompatible
+> flags XEN_PROCESSOR_PM_PX and XEN_PROCESSOR_PM_CPPC.
+> 
+> Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
+> ---
+> v1 -> v2:
+> - Obey to alphabetic sorting and also strict it with CONFIG_AMD
+> - Remove unnecessary empty comment line
+> - Use __initconst_cf_clobber for pre-filled structure cpufreq_driver
+> - Make new switch-case code apply to Hygon CPUs too
+> - Change ENOSYS with EOPNOTSUPP
+> - Blanks around binary operator
+> - Change all amd_/-pstate defined values to amd_/-cppc
+> ---
+> v2 -> v3
+> - refactor too long lines
+> - Make sure XEN_PROCESSOR_PM_PX and XEN_PROCESSOR_PM_CPPC incompatible flags
+> after cpufreq register registrantion
+> ---
+> v3 -> v4:
+> - introduce XEN_PROCESSOR_PM_CPPC in xen internal header
+> - complement "Hygon" in log message
+> - remove unnecessary if()
+> - grow cpufreq_xen_opts[] array
+> ---
+> v4 -> v5:
+> - remove XEN_PROCESSOR_PM_xxx flag sanitization from individual driver
+> - prefer ! over "== 0" in purely boolean contexts
+> - Blank line between non-fall-through case blocks
+> - add build-time checking between internal and public XEN_PROCESSOR_PM_*
+> values
+> - define XEN_PROCESSOR_PM_CPPC with 0x100, as it is the next value to use
+> after public interface, and public mask SIF_PM_MASK is 8 bits wide.
+> - as Dom0 will send the CPPC/Px data whenever it could, the return value shall
+> be 0 instead of -ENOSYS/EOPNOTSUP when platform doesn't require these data.
+> ---
+>  docs/misc/xen-command-line.pandoc         |  7 ++-
+>  xen/arch/x86/acpi/cpufreq/Makefile        |  1 +
+>  xen/arch/x86/acpi/cpufreq/amd-cppc.c      | 68 +++++++++++++++++++++++
+>  xen/arch/x86/acpi/cpufreq/cpufreq.c       | 63 ++++++++++++++++++++-
+>  xen/arch/x86/platform_hypercall.c         | 13 ++++-
+>  xen/drivers/acpi/pmstat.c                 |  3 +-
+>  xen/drivers/cpufreq/cpufreq.c             | 18 +++++-
+>  xen/include/acpi/cpufreq/cpufreq.h        |  6 +-
+>  xen/include/acpi/cpufreq/processor_perf.h |  3 +
+>  xen/include/public/sysctl.h               |  1 +
+>  10 files changed, 175 insertions(+), 8 deletions(-)
+>  create mode 100644 xen/arch/x86/acpi/cpufreq/amd-cppc.c
 
-On 12/06/2025 10:35, Luca Fancellu wrote:
-> Hi Ayan,
-Hi Luca,
->
->> On 11 Jun 2025, at 15:35, Ayan Kumar Halder <ayan.kumar.halder@amd.com> wrote:
->>
->> Define prepare_selector(), read_protection_region() and
->> write_protection_region() for arm32. Also, define
->> GENERATE_{READ/WRITE}_PR_REG_OTHERS to access MPU regions from 32 to 255.
->>
->> Enable pr_{get/set}_{base/limit}(), region_is_valid() for arm32.
->> Enable pr_of_addr() for arm32.
->>
->> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
->> ---
-> Based on your v2 (https://patchwork.kernel.org/project/xen-devel/patch/20250606164854.1551148-4-ayan.kumar.halder@amd.com/) I was imaging something like this:
->
-> diff --git a/xen/arch/arm/mpu/mm.c b/xen/arch/arm/mpu/mm.c
-> index 74e96ca57137..5d324b2d4ca5 100644
-> --- a/xen/arch/arm/mpu/mm.c
-> +++ b/xen/arch/arm/mpu/mm.c
-> @@ -87,20 +87,28 @@ static void __init __maybe_unused build_assertions(void)
->    */
->   static void prepare_selector(uint8_t *sel)
->   {
-> -#ifdef CONFIG_ARM_64
->       uint8_t cur_sel = *sel;
->   
-> +#ifdef CONFIG_ARM_64
->       /*
-> -     * {read,write}_protection_region works using the direct access to the 0..15
-> -     * regions, so in order to save the isb() overhead, change the PRSELR_EL2
-> -     * only when needed, so when the upper 4 bits of the selector will change.
-> +     * {read,write}_protection_region works using the Arm64 direct access to the
-> +     * 0..15 regions, so in order to save the isb() overhead, change the
-> +     * PRSELR_EL2 only when needed, so when the upper 4 bits of the selector
-> +     * will change.
->        */
->       cur_sel &= 0xF0U;
-> +#else
-> +    /* Arm32 MPU can use direct access for 0-31 */
-> +    if ( cur_sel > 31 )
-> +        cur_sel = 0;
-> +#endif
->       if ( READ_SYSREG(PRSELR_EL2) != cur_sel )
->       {
->           WRITE_SYSREG(cur_sel, PRSELR_EL2);
->           isb();
->       }
+This patch does quite a bit more than what the subject suggests it means to
+do; please consider adjusting.
+
+> +int __init amd_cppc_register_driver(void)
+> +{
+> +    if ( !cpu_has_cppc )
+> +    {
+> +        xen_processor_pmbits &= ~XEN_PROCESSOR_PM_CPPC;
+> +        return -ENODEV;
+> +    }
 > +
-> +#ifdef CONFIG_ARM_64
->       *sel = *sel & 0xFU;
->   #endif
->   }
-> @@ -144,6 +152,12 @@ void read_protection_region(pr_t *pr_read, uint8_t sel)
->           GENERATE_READ_PR_REG_CASE(29, pr_read);
->           GENERATE_READ_PR_REG_CASE(30, pr_read);
->           GENERATE_READ_PR_REG_CASE(31, pr_read);
-> +        case 32 ... 255:
+> +    return cpufreq_register_driver(&amd_cppc_cpufreq_driver);
+
+Isn't this premature? I fear in particular that some of the hooks, which
+are still all NULL, might have a way of getting invoked.
+
+> @@ -157,7 +162,63 @@ static int __init cf_check cpufreq_driver_init(void)
+>  
+>          case X86_VENDOR_AMD:
+>          case X86_VENDOR_HYGON:
+> -            ret = IS_ENABLED(CONFIG_AMD) ? powernow_register_driver() : -ENODEV;
+> +            unsigned int i;
+> +
+> +            if ( !IS_ENABLED(CONFIG_AMD) )
+> +            {
+> +                ret = -ENODEV;
+> +                break;
+> +            }
+> +            ret = -ENOENT;
+> +
+> +            for ( i = 0; i < cpufreq_xen_cnt; i++ )
+> +            {
+> +                switch ( cpufreq_xen_opts[i] )
+> +                {
+> +                case CPUFREQ_xen:
+> +                    ret = powernow_register_driver();
+> +                    break;
+> +
+> +                case CPUFREQ_amd_cppc:
+> +                    ret = amd_cppc_register_driver();
+> +                    break;
+> +
+> +                case CPUFREQ_none:
+> +                    ret = 0;
+> +                    break;
+> +
+> +                default:
+> +                    printk(XENLOG_WARNING
+> +                           "Unsupported cpufreq driver for vendor AMD or Hygon\n");
+> +                    break;
+> +                }
+> +
+> +                if ( ret != -ENODEV )
+> +                    break;
+
+This, I think, needs some commenting. It's not quite clear why we shouldn't
+try the next option if registration failed with other than -ENODEV.
+
+> +            }
+> +
+> +            /*
+> +             * After cpufreq driver registeration, XEN_PROCESSOR_PM_CPPC
+> +             * and XEN_PROCESSOR_PM_PX shall become exclusive flags.
+> +             */
+> +            if ( !ret && i < cpufreq_xen_cnt )
+> +            {
+> +                switch ( cpufreq_xen_opts[i] )
+> +                {
+> +                case CPUFREQ_amd_cppc:
+> +                    xen_processor_pmbits &= ~XEN_PROCESSOR_PM_PX;
+> +                    break;
+> +
+> +                case CPUFREQ_xen:
+> +                    xen_processor_pmbits &= ~XEN_PROCESSOR_PM_CPPC;
+> +                    break;
+> +
+> +                case CPUFREQ_none:
+> +                default:
+
+What's the point of the separate "case" label here?
+
+> +                    break;
+> +                }
+> +            }
+
+Why does this pruning of xen_processor_pmbits sit in the AMD-only code path?
+Iirc earlier on you had it in the *_register_driver() themselves, and my
+request was to put it in a central, generic place. It's central now, but not
+generic (and this way it could as well have remained in *_register_driver()).
+
+> --- a/xen/arch/x86/platform_hypercall.c
+> +++ b/xen/arch/x86/platform_hypercall.c
+> @@ -539,9 +539,12 @@ ret_t do_platform_op(
+>          case XEN_PM_PX:
+>              if ( !(xen_processor_pmbits & XEN_PROCESSOR_PM_PX) )
+>              {
+> -                ret = -ENOSYS;
+> +                ret = 0;
+>                  break;
+>              }
+> +            /* Xen doesn't support mixed mode */
+> +            ASSERT(!(xen_processor_pmbits & XEN_PROCESSOR_PM_CPPC));
+> +
+>              ret = set_px_pminfo(op->u.set_pminfo.id, &op->u.set_pminfo.u.perf);
+>              break;
+
+I don't see how this change relates to the purpose of the patch. From the
+description (and in the absence of a code comment) it also doesn't become
+clear at all why that change of return value would be needed (and would be
+correct to do). From comments I gave on earlier versions of this series, I
+think I can guess what this is about, but such shouldn't be slipped in
+silently.
+
+> @@ -573,6 +576,14 @@ ret_t do_platform_op(
+>          }
+>  
+>          case XEN_PM_CPPC:
+> +            if ( !(xen_processor_pmbits & XEN_PROCESSOR_PM_CPPC) )
+> +            {
+> +                ret = 0;
+> +                break;
+> +            }
+
+As per above, this yielding success needs justifying.
+
+> @@ -94,6 +95,8 @@ static int __init handle_cpufreq_cmdline(enum cpufreq_xen_opt option)
+>  {
+>      int ret = 0;
+>  
+> +    /* Do not occupy bits reserved for public xen-pm */
+> +    BUILD_BUG_ON(MASK_INSR(XEN_PROCESSOR_PM_CPPC, SIF_PM_MASK));
+
+This looks like an abuse of MASK_INSR(). Why not simply
+
+    BUILD_BUG_ON(XEN_PROCESSOR_PM_CPPC & SIF_PM_MASK);
+
+?
+
+Also please separate this by a blank line from what follows, or perhaps
+even better ...
+
+> @@ -105,6 +108,10 @@ static int __init handle_cpufreq_cmdline(enum cpufreq_xen_opt option)
+>      cpufreq_xen_opts[cpufreq_xen_cnt++] = option;
+>      switch ( option )
+>      {
+> +    case CPUFREQ_amd_cppc:
+> +        xen_processor_pmbits |= XEN_PROCESSOR_PM_CPPC;
+> +        break;
+
+... move it here.
+
+> @@ -172,6 +179,13 @@ static int __init cf_check setup_cpufreq_option(const char *str)
+>              if ( arg[0] && arg[1] )
+>                  ret = hwp_cmdline_parse(arg + 1, end);
+>          }
+> +        else if ( IS_ENABLED(CONFIG_AMD) && choice < 0 &&
+> +                  !cmdline_strcmp(str, "amd-cppc") )
 > +        {
-> +            pr->prbar.bits = READ_SYSREG(PRBAR_EL2);
-> +            pr->prlar.bits = READ_SYSREG(PRLAR_EL2);
-> +            break;
+> +            ret = handle_cpufreq_cmdline(CPUFREQ_amd_cppc);
+> +            if ( arg[0] && arg[1] )
+> +                ret = amd_cppc_cmdline_parse(arg + 1, end);
 > +        }
->   #endif
->       default:
->           BUG(); /* Can't happen */
-> @@ -190,6 +204,12 @@ void write_protection_region(const pr_t *pr_write, uint8_t sel)
->           GENERATE_WRITE_PR_REG_CASE(29, pr_write);
->           GENERATE_WRITE_PR_REG_CASE(30, pr_write);
->           GENERATE_WRITE_PR_REG_CASE(31, pr_write);
-> +        case 32 ... 255:
-> +        {
-> +            WRITE_SYSREG(pr->prbar.bits & ~MPU_REGION_RES0, PRBAR_EL2);
-> +            WRITE_SYSREG(pr->prlar.bits & ~MPU_REGION_RES0, PRLAR_EL2);
-> +            break;
-> +        }
->   #endif
->       default:
->           BUG(); /* Can't happen */
->
->
-> Is it using too ifdefs in your opinion that would benefit the split you do in v3?
 
-Yes. However, I understand that this is subjective. I need your and 
-Michal/Julien to have an opinion here whether to go with the split 
-(which means some amount of code duplication) or introduce if-defs. I 
-will be happy to proceed as per your opinions.
+See Jason's comment on the earlier patch.
 
-- Ayan
+> --- a/xen/include/acpi/cpufreq/processor_perf.h
+> +++ b/xen/include/acpi/cpufreq/processor_perf.h
+> @@ -5,6 +5,9 @@
+>  #include <public/sysctl.h>
+>  #include <xen/acpi.h>
+>  
+> +/* Internal ability bits */
+> +#define XEN_PROCESSOR_PM_CPPC   0x100
 
->
->
+The comment wants extending, to have a reference to the other XEN_PROCESSOR_PM_*
+bits and perhaps also to SIF_PM_MASK. In fact the BUILD_BUG_ON() that I commented
+on above could be replaced by
+
+#if XEN_PROCESSOR_PM_CPPC & SIF_PM_MASK
+# error "..."
+#endif
+
+right here.
+
+Jan
 
