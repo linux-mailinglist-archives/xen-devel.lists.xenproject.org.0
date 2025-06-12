@@ -2,36 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 72EB2AD7567
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Jun 2025 17:12:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1013219.1391728 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E1EB1AD7590
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Jun 2025 17:18:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1013232.1391739 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uPjb8-0001OS-AJ; Thu, 12 Jun 2025 15:12:10 +0000
+	id 1uPjhC-0001zu-VR; Thu, 12 Jun 2025 15:18:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1013219.1391728; Thu, 12 Jun 2025 15:12:10 +0000
+Received: by outflank-mailman (output) from mailman id 1013232.1391739; Thu, 12 Jun 2025 15:18:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uPjb8-0001Mg-7j; Thu, 12 Jun 2025 15:12:10 +0000
-Received: by outflank-mailman (input) for mailman id 1013219;
- Thu, 12 Jun 2025 15:12:09 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uPjhC-0001xW-Ro; Thu, 12 Jun 2025 15:18:26 +0000
+Received: by outflank-mailman (input) for mailman id 1013232;
+ Thu, 12 Jun 2025 15:18:25 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=BvDY=Y3=bounce.vates.tech=bounce-md_30504962.684aee43.v1-3dc01c07460f42b1af093b4f015f6dbe@srs-se1.protection.inumbo.net>)
- id 1uPjb7-0001MH-2m
- for xen-devel@lists.xenproject.org; Thu, 12 Jun 2025 15:12:09 +0000
-Received: from mail145-24.atl61.mandrillapp.com
- (mail145-24.atl61.mandrillapp.com [198.2.145.24])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 994268d9-479f-11f0-b894-0df219b8e170;
- Thu, 12 Jun 2025 17:12:05 +0200 (CEST)
-Received: from pmta06.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
- by mail145-24.atl61.mandrillapp.com (Mailchimp) with ESMTP id
- 4bJ5bl4kHdzGlspPt
- for <xen-devel@lists.xenproject.org>; Thu, 12 Jun 2025 15:12:03 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- 3dc01c07460f42b1af093b4f015f6dbe; Thu, 12 Jun 2025 15:12:03 +0000
+ <SRS0=FA4y=Y3=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
+ id 1uPjhB-0001xQ-JT
+ for xen-devel@lists.xenproject.org; Thu, 12 Jun 2025 15:18:25 +0000
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2060f.outbound.protection.outlook.com
+ [2a01:111:f403:2415::60f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 7ab9b42d-47a0-11f0-a309-13f23c93f187;
+ Thu, 12 Jun 2025 17:18:24 +0200 (CEST)
+Received: from MW4PR03CA0093.namprd03.prod.outlook.com (2603:10b6:303:b7::8)
+ by MW6PR12MB8959.namprd12.prod.outlook.com (2603:10b6:303:23c::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8835.18; Thu, 12 Jun
+ 2025 15:18:20 +0000
+Received: from SJ1PEPF000023CB.namprd02.prod.outlook.com
+ (2603:10b6:303:b7:cafe::45) by MW4PR03CA0093.outlook.office365.com
+ (2603:10b6:303:b7::8) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8835.23 via Frontend Transport; Thu,
+ 12 Jun 2025 15:18:20 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ SJ1PEPF000023CB.mail.protection.outlook.com (10.167.244.5) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8835.15 via Frontend Transport; Thu, 12 Jun 2025 15:18:19 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 12 Jun
+ 2025 10:18:09 -0500
+Received: from [172.26.5.4] (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Thu, 12 Jun 2025 10:18:08 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,254 +59,180 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 994268d9-479f-11f0-b894-0df219b8e170
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1749741123; x=1750011123;
-	bh=coH9VYj8t+cm8lyP6/1kT4a2yF9O9ZN1zz2YvmgHxes=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=b7+cKclpRzdo678MH7N7S2huMmM1PFmKjwQH9+19yW0HDuzgTUJ732HtnfGuhR3Ln
-	 Vl1DxrP2QfubTbLCyI6ZrXVZXXo2Vp0H7v+mQ34B1JvHHHhIkQYE8scADrstF4gujq
-	 gVHtq9yZ3WxvyP1lwU3UvFBOkVEtTrOuHKOBw7eQSKzIZG70UsVtwcZQW0eKoQHCPK
-	 Z98bbLxZenaj2TCqGNgfK5g/TySxXg11/nKc+JNpjowpV5Gzd03SEl+wxAVYVdg578
-	 6H5wp00/8M9v0Yq3ShPpSaDC2bhde5rE+3eFQdCQx/1PBzsgN8nq8i5XYJxvRG9qM+
-	 RAsaNZqY5tfnQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1749741123; x=1750001623; i=ngoc-tu.dinh@vates.tech;
-	bh=coH9VYj8t+cm8lyP6/1kT4a2yF9O9ZN1zz2YvmgHxes=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=F6x0uYkpMKM6+ZpK9N7hPJN1rKSWY/PFIX3LAW3dBxb6hxypKdQSlwXKoon2XsmVy
-	 J53a/L4rPEbYjRRk+KN1hZiYAxvft9x/19fEBHb01jLHjY7yd7dC6FtE5Abya6/F/Y
-	 FHXgJAlmcFsJrEw+tZJQoO7LaRE41h01zJPzQgKC0wrQ4iuFG/hAM95X/A5G4n0AYs
-	 rcRv6OL/j9yFszbHzvZ/p1dthuC7OLYe/j35P61k5FE6N3W5S2Wu8dCve02LMwQDWG
-	 nNS0WWTqsvze5UADfxa/ZacaP+l0J/W0/wG+ezggiGYjzNsLWdFtIhO4odmkc/4UN4
-	 8/X2CHYCaI9ZQ==
-From: "Tu Dinh" <ngoc-tu.dinh@vates.tech>
-Subject: =?utf-8?Q?Re:=20[PATCH=20v4]=20x86/hvmloader:=20select=20xenpci=20MMIO=20BAR=20UC=20or=20WB=20MTRR=20cache=20attribute?=
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1749741122123
-Message-Id: <60a346b7-82f5-46ba-84f7-82c449bc0506@vates.tech>
-To: "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>, "Anthony PERARD" <anthony@xenproject.org>
-Cc: xen-devel@lists.xenproject.org, "Oleksii Kurochko" <oleksii.kurochko@gmail.com>, "Community Manager" <community.manager@xenproject.org>, "Andrew Cooper" <andrew.cooper3@citrix.com>, "Michal Orzel" <michal.orzel@amd.com>, "Jan Beulich" <jbeulich@suse.com>, "Julien Grall" <julien@xen.org>, "Stefano Stabellini" <sstabellini@kernel.org>, "Juergen Gross" <jgross@suse.com>, "Anthoine Bourgeois" <anthoine.bourgeois@vates.tech>
-References: <20250610162930.89055-1-roger.pau@citrix.com> <aEm8LuDrNBqjgaWF@l14> <aErqkcLYqTkykpp5@macbook.local>
-In-Reply-To: <aErqkcLYqTkykpp5@macbook.local>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.3dc01c07460f42b1af093b4f015f6dbe?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20250612:md
-Date: Thu, 12 Jun 2025 15:12:03 +0000
+X-Inumbo-ID: 7ab9b42d-47a0-11f0-a309-13f23c93f187
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Nx2yWgqeEZX7HyFQbtvxhcNDeqfhPyVPu56EQGkSBr50zxW6/0cyaoz64TD4ENA0MrVFu6CllLaiVymkNr+I87dB61D17CoaOtTGYMkcHctczA03t4WtUCj5I843flvTVg+0sT0MHFkonqYQaKsg5n+DuVJ0QzXfUEf/w+gQPwVBX3TsccEKuaJK6xDyxEeAPuTfqc797pNaZ62ei0bIQIT4K+6fxVVzxAEFXgk1vhxUmpt2EpaxbrKOIieEdP4BHp8YD9dAHG4RdzLoa2DaQw2Hx6VCEhuOCDAt3oXSga6ppYnSpV+NH7Tmq0dz4BcKSVn5GBCTjwlxkeRm913uVg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=PpmyO498KurqBMzpZ40/Dzk/cJ1/+tNzBSoGHX+GDcg=;
+ b=y09Z1/v5PXySqBQcjL/48kpKW6Za4d5M1eaK/gUxnoCcNd4noHVhLGz37cNHQiQZJkGF6zkUCUZWKCKEF6z4fSBU6Z0LgXppIeX2Uh7J+nNQnADdBVGaPUoy9bugRG1ZMWoRw8zWeQcFLP2H/WQO1XBfxGctveusIJG1PBJ9RJrY3yUQpCDiZyhI/HtGTa02fX95E4m1Ib+zCi8OheU/v5Z4tNbGbPNPS9wPowhixS0WGucpFdHzTeZw637T4OmwIaLe3DaaFze25/NfeCD56cHuHeiFkwvEUBaQcWcNPIc/JImd44azd2S2u0mDxjCpRn6gc0ZwUUNnHNKvW4heAA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=PpmyO498KurqBMzpZ40/Dzk/cJ1/+tNzBSoGHX+GDcg=;
+ b=BUYI5j3ksetgdBqYPscBk3clNp5YZblq7FIChuR34L9EzVSlSIPLxpTnLzJjr2ovfC1nVN8BCtsecjuLsJ4SOQ2sWVRfNKw8RYrJSUTiVlIVYttN0AaMH3t9s9luA19X8zeEX88VuNvdgpek06/jD/UKss6a9E4HnU9ILKF4oJ4=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <2150be73-e23a-4caa-91a7-8f7c139e4e87@amd.com>
+Date: Thu, 12 Jun 2025 11:18:07 -0400
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7] xen/arm: pci: introduce PCI_PASSTHROUGH Kconfig option
+To: Jan Beulich <jbeulich@suse.com>
+CC: Rahul Singh <rahul.singh@arm.com>, Stefano Stabellini
+	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
+	<bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, "Volodymyr
+ Babchuk" <Volodymyr_Babchuk@epam.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+	<roger.pau@citrix.com>, Andrew Cooper <andrew.cooper3@citrix.com>, "Stefano
+ Stabellini" <stefano.stabellini@amd.com>, <xen-devel@lists.xenproject.org>
+References: <20250610174635.203439-1-stewart.hildebrand@amd.com>
+ <6ac8ffbc-5bd3-4bea-9ade-f31710747291@suse.com>
+ <3a203b96-94e3-47c3-92b6-b68141ea3794@amd.com>
+ <fb7ce573-f827-49d8-9cb4-31439db46564@suse.com>
+Content-Language: en-US
+From: Stewart Hildebrand <stewart.hildebrand@amd.com>
+In-Reply-To: <fb7ce573-f827-49d8-9cb4-31439db46564@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+Received-SPF: None (SATLEXMB03.amd.com: stewart.hildebrand@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000023CB:EE_|MW6PR12MB8959:EE_
+X-MS-Office365-Filtering-Correlation-Id: af897f24-6c34-4a33-5b85-08dda9c45d3c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700013|376014|82310400026|1800799024;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?RGFZMlZkV3FTcC9vUi9saU9xWVRsWVZCeUZvdmJvaHhWbFQ4bnptSFJDNkhP?=
+ =?utf-8?B?dHcybENmSUZjaFdSMmI4Nit3Tnp5bjE5VFBQbzhuQWsxMjMyWlNtYTVJTWp1?=
+ =?utf-8?B?SG84eTRGd1QxblcycVJab2toZ2NuUm9BTjVXY2xhZ0VnbzZmbzVhN3JBKzdP?=
+ =?utf-8?B?SFJ4V1lBSkUwV21jalEvY2hBSEI4OElqY0FLdDcxRHljTE43T2greE1jM29n?=
+ =?utf-8?B?WGFDd0NRT3FNdktYcFRFNHErZnJ2aW5wN1k1L2ZaQkhjWlpuVHpqdkpWVUsx?=
+ =?utf-8?B?WERNbjBaZ1dPcXg2WVo4bjdiWUZaSWNOVU91cVpqbTI3ZXVjQlpYeW1NN3U0?=
+ =?utf-8?B?KzdBZnBHSTJ2d3BTaGV1WWVQanZSbGJmbGFrY2wrOGxic3RYU0J2OTZYODNy?=
+ =?utf-8?B?bllrL2NmK29BeDlKeXJTYm9Id3J0YkwyMDR0K0U2ajFGd0pEREFET0RyOGV5?=
+ =?utf-8?B?RGQ0MUFhdUJhQnZabldpN1FnVHdCNkp3SXVBUmhKa3ZvY0hjNWV5NGQza0lq?=
+ =?utf-8?B?Z3grd2l2NEJKQURMNnlIT0lkd1ptcXU5N3NEQzY0NVVHTmRpNXFwUnVVemJI?=
+ =?utf-8?B?N1pqL0FiSy9TRURYL25OdmtXZ09ZbDA0Y2JPVDQyVzZwVDcxVWFWV2k3aG9V?=
+ =?utf-8?B?Y09DVDBBZE1SVlBwK1dXWm8ySHgyYVRMYjJjelYwUXorRnB0UGpLM09EOTgy?=
+ =?utf-8?B?UEhVb3R3M08yZC9xTzdSSWJqUEFKTk1ScW1hY1Ixems5TXJvSzNKNHN2d3U2?=
+ =?utf-8?B?Tml0RlYxd0VyN0tXVXB2VEsxdEErK1RvWmlNMng5cGhGRSs3Tytyd2drbkZI?=
+ =?utf-8?B?QnRpV2paLzBzOHpCTWxSdXFMd2U2OFFQeWs0YTd1bVFxd2xMbU1iaDFSL2tz?=
+ =?utf-8?B?R1N0R3VrQUp0NE9zVXRSVlpOdnYvN2ZMYWwwRjlsOGwxZEVHSU1lRUhkOHJk?=
+ =?utf-8?B?a1NHNkRVNDhacW1kNHovN3p2UjBBUEZIK0tpT3d3UmdPd3pZZ1c1WDhSalhm?=
+ =?utf-8?B?Ym5zMFBxN09wTjVaUkNJbVRvbnFHdGtFTTNVVGlvMnJ1Zlg1a2lmbTJORHlW?=
+ =?utf-8?B?dENYcEpRdUJ4ZXErTGQ1SFNMWmFGbXhsbWhoUERjZ0RpZkxNUWNRbDZXRmt5?=
+ =?utf-8?B?TnRmRjkrVmpLYjdrRUJOUzlzbXNxNmNYejVFY09zTG0xbjcvY1dTQUUzNXlu?=
+ =?utf-8?B?cTd4OHZLUi91QkphZWhPTnZDZXlVL1U0MFl3OHl2eHlUZWZXblhKRHc2c1Nx?=
+ =?utf-8?B?dEgxWkFXSFREalVyTWNnK1htUEdENXVqZkdNSkthQ1k5U1VudGk0OUY1SEZs?=
+ =?utf-8?B?Vlh0ZFhGNkUxNmxEcjExbnlob3VXekV4Ums3RlYvNDFncFppOCtCc3RYemxa?=
+ =?utf-8?B?eXZhY2ZORHM0MGIzcENzcWxiVUhpV01qaFJzOXZiWjlscFlqL3ByRDdDVjNN?=
+ =?utf-8?B?ODhaWmNTNnl3VVdsdmt4ZlZwRGV4eEFHOU1RZDN6Y1NJSkNtWjNOd3ZZNExi?=
+ =?utf-8?B?T0Q0RDdiMnFXVjQvclVjRXdKRXFyTXY3M241UERjT3RUcHllaUhqZWtxRGhX?=
+ =?utf-8?B?NDYrSlg4NzZXVTEwdjdyRnNxczRPejRpY0YwbGpFN3FLQjZsL2p3c1QyZnJj?=
+ =?utf-8?B?T2ZDcWhoMU4vekcwTlBzbWtSRk9DcVRNOSttRmFFYXpQTldUY3BXYmU1SFdw?=
+ =?utf-8?B?bmNRVVRLWDlNQmFuQW5meVJDSnpRTnhlQ0htaDFIL0dNSHdETmJ0bkVMYTVx?=
+ =?utf-8?B?RnFabzhKMUgyNitPYkxMNlVLWS92RllVT3U1MVM4MkxWZXliRGVoT2pPN0la?=
+ =?utf-8?B?NVBYaXByVmtxaC9IT1dlQ3g0OVpsbCs3NUFreVR3TXFqRkhxWnRjNklmbXUy?=
+ =?utf-8?B?cllwOG9DUWtONktOWWF4bVJtaEdnc2lNVzEvQkVlSWJyZlhpRFVRQXdTeFhK?=
+ =?utf-8?B?YUF2SkE4Yi9GWi9lT0oxSTZZL1hLcWx3MHZJRm8wR0hPZlZHYTg0YTdvalNX?=
+ =?utf-8?B?eWNTWHdqVnpHcWRoQTN1V0NYUllnRFNDRitsWFhpbUtwVHl5TjhDdFNNc0Ux?=
+ =?utf-8?Q?+SmTv4?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(376014)(82310400026)(1800799024);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jun 2025 15:18:19.8132
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: af897f24-6c34-4a33-5b85-08dda9c45d3c
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ1PEPF000023CB.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8959
 
-On 12/06/2025 16:57, Roger Pau Monn=C3=A9 wrote:
-> On Wed, Jun 11, 2025 at 07:26:06PM +0200, Anthony PERARD wrote:
->> On Tue, Jun 10, 2025 at 06:29:30PM +0200, Roger Pau Monne wrote:
->>> diff --git a/docs/man/xl.cfg.5.pod.in b/docs/man/xl.cfg.5.pod.in
->>> index c388899306c2..ddbff6fffc16 100644
->>> --- a/docs/man/xl.cfg.5.pod.in
->>> +++ b/docs/man/xl.cfg.5.pod.in
->>> @@ -2351,6 +2351,14 @@ Windows L<https://xenproject.org/windows-pv-driv=
-ers/>.
->>>   Setting B<xen_platform_pci=3D0> with the default device_model "qemu-x=
-en"
->>>   requires at least QEMU 1.6.
->>>   
->>> +
->>> +=3Ditem B<xenpci_bar_uc=3DBOOLEAN>
->>> +
->>> +B<x86 only:> Select whether the memory BAR of the Xen PCI device shoul=
-d have
->>> +uncacheable (UC) cache attribute set in MTRR.
+On 6/12/25 10:58, Jan Beulich wrote:
+> On 12.06.2025 15:39, Stewart Hildebrand wrote:
+>> On 6/11/25 01:23, Jan Beulich wrote:
+>>> On 10.06.2025 19:46, Stewart Hildebrand wrote:
+>>>> --- a/xen/arch/arm/Kconfig
+>>>> +++ b/xen/arch/arm/Kconfig
+>>>> @@ -258,6 +258,16 @@ config PARTIAL_EMULATION
+>>>>  
+>>>>  source "arch/arm/firmware/Kconfig"
+>>>>  
+>>>> +config PCI_PASSTHROUGH
+>>>> +	bool "PCI passthrough" if EXPERT
+>>>> +	depends on ARM_64
+>>>> +	select HAS_PCI
+>>>> +	select HAS_VPCI
+>>>> +	select HAS_VPCI_GUEST_SUPPORT
+>>>
+>>> What about HAS_PASSTHROUGH? Seeing that being selected by MMU, what about
+>>> that connection here?
 >>
->> For information, here are different name used for this pci device:
+>> Hm, yes. I'm not sure if depends or select would be better?
 >>
->> - man xl.cfg:
->>      xen_platform_pci=3D<bool>
->>          Xen platform PCI device
->> - QEMU:
->>      -device xen-platform
->>      in comments: XEN platform pci device
->>      with pci device-id PCI_DEVICE_ID_XEN_PLATFORM
->> - EDK2 / OVMF:
->>      XenIoPci
->>          described virtual Xen PCI device
->>          But XenIo is a generic protocol in EDK2
->>      Before XenIo, the pci device would be linked to XenBus, and
->>      loaded with PCI_DEVICE_ID_XEN_PLATFORM
->> - Linux:
->>      Seems to be called "xen-platform-pci"
+>> 	depends on ARM_64 && HAS_PASSTHROUGH
 >>
->> Overall, this PCI device is mostly referenced as the Xen Platform PCI
->> device. So "xenpci" or "Xen PCI device" is surprising to me, and I'm not
->> quite sure what it is.
+>> or
+>>
+>> 	select HAS_PASSTHROUGH
 > 
-> I can do xen_platform_pci_bar_uc, but it seems a bit long.
-> 
->>
->>> +
->>> +Default is B<true>.
->>> +
->>>   =3Ditem B<viridian=3D[ "GROUP", "GROUP", ...]> or B<viridian=3DBOOLEA=
-N>
->>>   
->>>   The groups of Microsoft Hyper-V (AKA viridian) compatible enlightenme=
-nts
->>> diff --git a/tools/firmware/hvmloader/pci.c b/tools/firmware/hvmloader/=
-pci.c
->>> index cc67b18c0361..cfd39cc37cdc 100644
->>> --- a/tools/firmware/hvmloader/pci.c
->>> +++ b/tools/firmware/hvmloader/pci.c
->>> @@ -116,6 +116,8 @@ void pci_setup(void)
->>>        * experience the memory relocation bug described below.
->>>        */
->>>       bool allow_memory_relocate =3D 1;
->>> +    /* Select the MTRR cache attribute of the xenpci device BAR. */
->>> +    bool xenpci_bar_uc =3D false;
->>
->> This default value for `xenpci_bar_uc` mean that hvmloader changes
->> behavior compared to previous version, right? Shouldn't we instead have
->> hvmloader keep the same behavior unless the toolstack want to use the
->> new behavior? (Like it's done for `allow_memory_relocate`,
->> "platform/mmio_hole_size")
->>
->> It would just mean that toolstack other than `xl` won't be surprised by
->> a change of behavior.
-> 
-> My plan was that we didn't need changes to XAPI to implement this new
-> mode, but given the comment I will change to keep the previous
-> behavior in absence of a xenstore node.
-> 
->>
->>>       BUILD_BUG_ON((typeof(*pci_devfn_decode_type))PCI_COMMAND_IO !=3D
->>>                    PCI_COMMAND_IO);
->>> @@ -130,6 +132,12 @@ void pci_setup(void)
->>>       printf("Relocating guest memory for lowmem MMIO space %s\n",
->>>              allow_memory_relocate?"enabled":"disabled");
->>>   
->>> +    s =3D xenstore_read(HVM_XS_XENPCI_BAR_UC, NULL);
->>> +    if ( s )
->>> +        xenpci_bar_uc =3D strtoll(s, NULL, 0);
->>> +    printf("XenPCI device BAR MTRR cache attribute set to %s\n",
->>> +           xenpci_bar_uc ? "UC" : "WB");
->>> +
->>>       s =3D xenstore_read("platform/mmio_hole_size", NULL);
->>>       if ( s )
->>>           mmio_hole_size =3D strtoll(s, NULL, 0);
->>> @@ -271,6 +279,44 @@ void pci_setup(void)
->>>               if ( bar_sz =3D=3D 0 )
->>>                   continue;
->>>   
->>> +            if ( !xenpci_bar_uc &&
->>> +                 ((bar_data & PCI_BASE_ADDRESS_SPACE) =3D=3D
->>> +                   PCI_BASE_ADDRESS_SPACE_MEMORY) &&
->>> +                 vendor_id =3D=3D 0x5853 &&
->>> +                 (device_id =3D=3D 0x0001 || device_id =3D=3D 0x0002) =
-)
->>
->> We don't have defines for 0x5853 in the tree (and those device_id)?
->> Maybe introduce at least one for the vendor_id:
->>
->> These two names are use by QEMU, OVMF, Linux, for example.
->>
->> #define PCI_VENDOR_ID_XEN           0x5853
->> #define PCI_DEVICE_ID_XEN_PLATFORM  0x0001
->>
->> There's even PCI_DEVICE_ID_XEN_PLATFORM_XS61 in Linux
-> 
-> You mean in the public headers?
-> 
-> For Device IDs we have ranges allocated to downstream vendors, I'm not
-> sure we want to keep track of whatever IDs they use for their devices.
-> OTOH, not tracking those IDs here means OSes are likely to miss
-> additions of new Xen platform PCI devices?
-> 
+> Actually, thinking of it: HAS_* shouldn't be selected based on user choices,
+> imo. Perhaps unless the HAS_* is a sub-feature of the dependent (as in e.g.
+> "select HAS_VPCI if HVM" as we have it for x86). In which case all the
+> select-s here might be wrong to use.
 
-The devices starting from ID c000 are supposed to be xen_pvdevice, which 
-are separate device types that work differently from Xen platform PCI 
-devices. So I think you only need to check for 
-PCI_DEVICE_ID_XEN_PLATFORM{,_XS61} unless another platform PCI ID gets 
-defined some day.
+How about something like this:
 
-> I could introduce public/pci.h to contain those IDs, but I would like
-> consensus on what should be there, otherwise this patch will get
-> stuck.
-> 
->>
->>> diff --git a/tools/firmware/hvmloader/util.c b/tools/firmware/hvmloader=
-/util.c
->>> index 79c0e6bd4ad2..31b4411db7b4 100644
->>> --- a/tools/firmware/hvmloader/util.c
->>> +++ b/tools/firmware/hvmloader/util.c
->>> @@ -867,7 +867,7 @@ void hvmloader_acpi_build_tables(struct acpi_config=
- *config,
->>>           config->table_flags |=3D ACPI_HAS_HPET;
->>>   
->>>       config->pci_start =3D pci_mem_start;
->>> -    config->pci_len =3D pci_mem_end - pci_mem_start;
->>> +    config->pci_len =3D RESERVED_MEMBASE - pci_mem_start;
->>>       if ( pci_hi_mem_end > pci_hi_mem_start )
->>>       {
->>>           config->pci_hi_start =3D pci_hi_mem_start;
->>> diff --git a/tools/libs/light/libxl_create.c b/tools/libs/light/libxl_c=
-reate.c
->>> index 8bc768b5156c..962fa820faec 100644
->>> --- a/tools/libs/light/libxl_create.c
->>> +++ b/tools/libs/light/libxl_create.c
->>> @@ -313,6 +313,7 @@ int libxl__domain_build_info_setdefault(libxl__gc *=
-gc,
->>>           libxl_defbool_setdefault(&b_info->u.hvm.usb,                f=
-alse);
->>>           libxl_defbool_setdefault(&b_info->u.hvm.vkb_device,         t=
-rue);
->>>           libxl_defbool_setdefault(&b_info->u.hvm.xen_platform_pci,   t=
-rue);
->>> +        libxl_defbool_setdefault(&b_info->u.hvm.xenpci_bar_uc,      tr=
-ue);
->>>           libxl_defbool_setdefault(&b_info->u.hvm.pirq,               f=
-alse);
->>>   
->>>           libxl_defbool_setdefault(&b_info->u.hvm.spice.enable, false);
->>> diff --git a/tools/libs/light/libxl_dom.c b/tools/libs/light/libxl_dom.=
-c
->>> index 4d67b0d28294..60ec0354d19a 100644
->>> --- a/tools/libs/light/libxl_dom.c
->>> +++ b/tools/libs/light/libxl_dom.c
->>> @@ -819,6 +819,15 @@ static int hvm_build_set_xs_values(libxl__gc *gc,
->>>               goto err;
->>>       }
->>>   
->>> +    if (info->type =3D=3D LIBXL_DOMAIN_TYPE_HVM &&
->>> +        libxl_defbool_val(info->u.hvm.xenpci_bar_uc)) {
->>
->> I think this condition is wrong. You should always write the value of
->> xenpci_bar_uc into xenstore, or only write it if a value have been
->> selected. But I guess we already lost the information here about whether
->> the value is the default or not, and it's probably not important, so I
->> think you should always write the value.
-> 
-> Indeed, whether the value is the default or the user-selected one is
-> lost by the time we get here.
-> 
-> I would adjust according to the above comments, but I would suggest we
-> leave out the addition of the Xen platform PCI device IDs to a
-> separate patch, as I fear it will block the patch otherwise.
-> 
-> Thanks, Roger.
-> 
-
-Best regards,
-
-
-Ngoc Tu Dinh | Vates XCP-ng Developer
-
-XCP-ng & Xen Orchestra - Vates solutions
-
-web: https://vates.tech
-
-
+diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
+index 3f25da3ca5fd..95a2cd3d006d 100644
+--- a/xen/arch/arm/Kconfig
++++ b/xen/arch/arm/Kconfig
+@@ -8,6 +8,8 @@ config ARM_64
+ 	depends on !ARM_32
+ 	select 64BIT
+ 	select HAS_FAST_MULTIPLY
++	select HAS_VPCI_GUEST_SUPPORT if PCI_PASSTHROUGH
++	select HAS_PASSTHROUGH if PCI_PASSTHROUGH
+ 
+ config ARM
+ 	def_bool y
+@@ -258,6 +260,12 @@ config PARTIAL_EMULATION
+ 
+ source "arch/arm/firmware/Kconfig"
+ 
++config PCI_PASSTHROUGH
++	bool "PCI passthrough" if EXPERT
++	depends on ARM_64
++	help
++	  This option enables PCI device passthrough
++
+ endmenu
+ 
+ menu "ARM errata workaround via the alternative framework"
+diff --git a/xen/drivers/Kconfig b/xen/drivers/Kconfig
+index 20050e9bb8b3..0c376704ddc9 100644
+--- a/xen/drivers/Kconfig
++++ b/xen/drivers/Kconfig
+@@ -13,6 +13,7 @@ source "drivers/pci/Kconfig"
+ source "drivers/video/Kconfig"
+ 
+ config HAS_VPCI
++	select HAS_PCI
+ 	bool
+ 
+ config HAS_VPCI_GUEST_SUPPORT
 
