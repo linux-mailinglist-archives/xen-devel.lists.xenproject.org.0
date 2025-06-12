@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A327CAD6E29
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Jun 2025 12:46:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1012804.1391317 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 902F2AD6E34
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Jun 2025 12:48:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1012823.1391326 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uPfSE-0004lM-Ke; Thu, 12 Jun 2025 10:46:42 +0000
+	id 1uPfTv-0005L0-0F; Thu, 12 Jun 2025 10:48:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1012804.1391317; Thu, 12 Jun 2025 10:46:42 +0000
+Received: by outflank-mailman (output) from mailman id 1012823.1391326; Thu, 12 Jun 2025 10:48:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uPfSE-0004id-Gt; Thu, 12 Jun 2025 10:46:42 +0000
-Received: by outflank-mailman (input) for mailman id 1012804;
- Thu, 12 Jun 2025 10:46:41 +0000
+	id 1uPfTu-0005J9-Tl; Thu, 12 Jun 2025 10:48:26 +0000
+Received: by outflank-mailman (input) for mailman id 1012823;
+ Thu, 12 Jun 2025 10:48:24 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=xDy9=Y3=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1uPfSD-0004iX-H1
- for xen-devel@lists.xenproject.org; Thu, 12 Jun 2025 10:46:41 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
+ id 1uPfTs-0005Iy-Qp
+ for xen-devel@lists.xenproject.org; Thu, 12 Jun 2025 10:48:24 +0000
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [2a00:1450:4864:20::42b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 850b54c1-477a-11f0-b894-0df219b8e170;
- Thu, 12 Jun 2025 12:46:39 +0200 (CEST)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-450cea01b9cso3735285e9.0
- for <xen-devel@lists.xenproject.org>; Thu, 12 Jun 2025 03:46:39 -0700 (PDT)
+ id c2eba838-477a-11f0-b894-0df219b8e170;
+ Thu, 12 Jun 2025 12:48:23 +0200 (CEST)
+Received: by mail-wr1-x42b.google.com with SMTP id
+ ffacd0b85a97d-3a4f379662cso710998f8f.0
+ for <xen-devel@lists.xenproject.org>; Thu, 12 Jun 2025 03:48:23 -0700 (PDT)
 Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
  by smtp.gmail.com with UTF8SMTPSA id
- 5b1f17b1804b1-4532e241b70sm16394115e9.18.2025.06.12.03.46.38
+ ffacd0b85a97d-3a561b65cbfsm1608565f8f.97.2025.06.12.03.48.21
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 12 Jun 2025 03:46:38 -0700 (PDT)
+ Thu, 12 Jun 2025 03:48:21 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,120 +45,85 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 850b54c1-477a-11f0-b894-0df219b8e170
+X-Inumbo-ID: c2eba838-477a-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1749725199; x=1750329999; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=sy0YOumkYq3+7URylCUGUpdoND9CFrD93Btzp8FuStE=;
-        b=cedCOZmknPIY9EpPhLpB4zJnKSpPPVxZ6EK03yO9l++gbiPkdYyjapA2tYALTriwSQ
-         rYBp0lyDKZOWVPkc+nAaOHK/pF57VEyEaodCmmRxtWcstvphDT1t2MYDDcgeV6gplPh/
-         PoKd4RcvVYhbHIJoMyamekX4M/b41veWd4ce8=
+        d=citrix.com; s=google; t=1749725302; x=1750330102; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=Hpv4aUJj4Q2E90rTp3mzKxtHiHmPWX/m8DncdVkjZo4=;
+        b=cuRIsS8YtqZE2tEXOOz3fBGGmGDjOGYt6q+LYar+2c4ieYm7qPKPQ2aOXkD1q6maWq
+         +WQznVx6/GVaRtFaJZ9DaNaeU1MpCRQsv1bhH7bdn4nhAokGaZWR89340enuNPRqwMsb
+         1OJDr82jgu5vdlkuLGatWrly+Ci5C1HA8foEM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749725199; x=1750329999;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=sy0YOumkYq3+7URylCUGUpdoND9CFrD93Btzp8FuStE=;
-        b=VYhcf5udWxCLlgqKrzGEjxTdAPkOd3BKLc6rrEFWpi50OT/umWT6W8is6vUTIetzuL
-         3N4nD9QgW+28VK/3+/uyZbpJuTIJ/h0FzP4yVU91Lu6onK9xcC8pjjHmRmgFjKXVzrKL
-         wGZXt2uaGCJ9W3Qgx4ElgJu4gmquuPxp0nn4hwkEA4aNH8PxCFq7SjSGdWN6gsJzuPMW
-         Un2vA/pyw85FhB116GClkzfS7PKbHLAiA4ocDt2h9zCEwe6hsdGWu9uL/Imt7vQ1myXP
-         omK+NdyxVrQamhxUIjimT81J6utJLdHlMTd/CB5i//aJvQpw823Fykf9W8fOY1OZoLTt
-         YaKw==
-X-Forwarded-Encrypted: i=1; AJvYcCV19wbJ5lkyxxR5RslYZaX3kA/PCssyi5gWMXNBYlACifu4vAUdYH58kfZx8wnI+Sxc3x8gVpZRBiI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyAjIycf5ppuH8CdFvF3W61Pcrv+LDS8LLpOWq31KkuXwlufM9l
-	SIMOXLBJcCk3lXmYdztYhpGJdesls2TKuVFnhle1YFU6XXh5EJoXZOS/CtI1MtAbUQA=
-X-Gm-Gg: ASbGncvJ3npc4I/EIEt56ZdWB6xLhE1aJ/WI4AZKNGBoiu1D1rmpr0tVqWxnPxtwkyu
-	AY1Y3ysm6ayE1vG8ZGvwCMNAeDR/T19h5Y2V0PSYlQdqXi9oz7xdoDckYLGK/HcupvgMpkkCrQq
-	b+WztzCY9Yw3c2O+UUR5l0U1padDvPch+WV4fUp1MY+h9DZInPFZeARkpu7yCkXctG2O3YgN1ri
-	t1JT4coDXhK55uMnAiDcRAHc+htmNdb2mZ5BYcV/Xhkyd5LUQLgi65Pku5WbbAVmYBV2iK0FEg4
-	p+euWIFWAg4zwQRsD1uKXMUkHKfsDG33nzHfF2HmNROfScbA/jrZu7qVFzA6GWoGq4Bh56f5jsV
-	Mp+FUpG3mAMvse48nsIkXN0Nh36Z41Q==
-X-Google-Smtp-Source: AGHT+IEfPIBSnzzhzGh6QQjw7WzC1343Pnn7hF1G2RxoncUJcV6wDw0KsDtDbPLjLXBmh4wcDSHFAA==
-X-Received: by 2002:a05:600c:3487:b0:442:cd03:3e2 with SMTP id 5b1f17b1804b1-4532b8c566fmr32105185e9.2.1749725198674;
-        Thu, 12 Jun 2025 03:46:38 -0700 (PDT)
-Date: Thu, 12 Jun 2025 12:46:37 +0200
+        d=1e100.net; s=20230601; t=1749725302; x=1750330102;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=Hpv4aUJj4Q2E90rTp3mzKxtHiHmPWX/m8DncdVkjZo4=;
+        b=pHYGJa9RlNybhqaQruaiqiACbewlo3ApAk8RuPnE2HgKbgjkkAEEuTow7yhaMD1WdY
+         ddBwWSOnPvjmYfuEDJ1pift1uqX/8OEQGyV0g17NG13MEtssMGyHqHcwOzN2i753LauY
+         7f+zGooGi/9K/qJ5Pq+0VSPJPJYD0HLKXlon6F52W/OCJ3EE8Fwz4RPjZNsOWonQ06Or
+         s7gELouBrDuw+e0JbClK9v7CDiA2TZcY62fs2EjVGN6dEP3ORuyPBL8b11byyKVCLMtj
+         fPBooubv1bY3pAM8nttNphLyk6XKrmPQH9RNDPGO6fx6J7bMbUaVH4VQFfiSM8L+SWu0
+         0H9A==
+X-Forwarded-Encrypted: i=1; AJvYcCXV0pFnOBcuhiitUUOj0gtvOAD9SOVU/mVoHuoSqfGuxhQJzNO9YzaJudt2rjXzKiXRfkk9+061PiM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyRcVgyjHPQvvdjyuKSVmPSN5BdfcHFaTMX93kmLZF7U2UtEqGh
+	6OlfeTL7Mx+rb61OYBwguSSHPHSEY3x0t5S3uXOdoSTap6usmz8p7yfd09jc2SoC5C8=
+X-Gm-Gg: ASbGncv8B1HtsdMGUibvTIDJ1qHO+jN/h2InYwaKS3LeW0UmUvfpOgmreN6V2WwWf1d
+	R3jqK/6xbTJx82VuwrGltrMD+809BHNvYl1tjgss1L3twxx/pSGl3AZBkkFkyUt1pLfqLK8ik2l
+	gdba++USIMYENLgQ3m2JMG6PIhyjJmoABTyWQCT1Zikd/uqzFeVK/YnG4hswwiMBRzsfsK8NiYS
+	8YSiTarYCiaLWkHXEmsvp8vI84nSHxvFb/v5L1f0PO6DeaIZs+/0ejbTf60j6T7f/W6F1hamjBa
+	Eo8mDPfpNCaOQLybwZLv29S6SdnPRw6QwIstEKheC15XctnorZKHurYzli97AHTmeLsAT/x8uyz
+	wUem6FSS1Tcy7NFlC016n/hTx7DNegg==
+X-Google-Smtp-Source: AGHT+IE9aJisEAyERP6M5GBY8SaASbcQDPSGYQnG/ch9mTGl6LCaeSva/uj//Cofzw4hJAQhgQxokQ==
+X-Received: by 2002:a05:6000:25c3:b0:3a4:f2ed:217e with SMTP id ffacd0b85a97d-3a5614c2053mr2060199f8f.42.1749725302494;
+        Thu, 12 Jun 2025 03:48:22 -0700 (PDT)
+Date: Thu, 12 Jun 2025 12:48:20 +0200
 From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
 To: Jan Beulich <jbeulich@suse.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
 	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH 1/8] x86/pdx: simplify calculation of domain struct
- allocation boundary
-Message-ID: <aEqwDZc8u8FFW2Al@macbook.local>
+Subject: Re: [PATCH 2/8] pdx: introduce function to calculate max PFN based
+ on PDX compression
+Message-ID: <aEqwdKXaugedfAm4@macbook.local>
 References: <20250611171636.5674-1-roger.pau@citrix.com>
- <20250611171636.5674-2-roger.pau@citrix.com>
- <6abadf32-836f-45fb-bb3a-3afdf97e157b@suse.com>
+ <20250611171636.5674-3-roger.pau@citrix.com>
+ <9e7925c4-3695-4320-8552-4ee0e39350e4@suse.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <6abadf32-836f-45fb-bb3a-3afdf97e157b@suse.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <9e7925c4-3695-4320-8552-4ee0e39350e4@suse.com>
 
-On Thu, Jun 12, 2025 at 11:03:21AM +0200, Jan Beulich wrote:
+On Thu, Jun 12, 2025 at 11:11:14AM +0200, Jan Beulich wrote:
 > On 11.06.2025 19:16, Roger Pau Monne wrote:
-> > @@ -498,14 +474,15 @@ struct domain *alloc_domain_struct(void)
-> >       * On systems with CONFIG_BIGMEM there's no packing, and so there's no
-> >       * such restriction.
-> >       */
-> > -#if defined(CONFIG_BIGMEM) || !defined(CONFIG_PDX_COMPRESSION)
-> > -    const unsigned int bits = IS_ENABLED(CONFIG_BIGMEM) ? 0 :
-> > -                                                          32 + PAGE_SHIFT;
-> > +#if defined(CONFIG_BIGMEM)
-> > +    const unsigned int bits = 0;
-> >  #else
-> > -    static unsigned int __read_mostly bits;
-> > +    static unsigned int __ro_after_init bits;
-> >  
-> >      if ( unlikely(!bits) )
-> > -         bits = _domain_struct_bits();
-> > +         bits = flsl(pfn_to_paddr(pdx_to_pfn(
-> > +             1UL << (sizeof(((struct page_info *)NULL)->v.inuse._domain) * 8))))
-> > +             - 1;
+> > This is the code already present and used by x86 in setup_max_pdx(), which
+> > takes into account the current PDX compression, plus the limitation of the
+> > virtual memory layout to return the maximum usable PFN in the system,
+> > possibly truncating the input PFN provided by the caller.
+> > 
+> > This helper will be used by upcoming PDX related changes that introduce a
+> > new compression algorithm.
+> > 
+> > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> > ---
+> >  xen/arch/x86/setup.c  | 19 ++-----------------
+> >  xen/common/pdx.c      | 25 +++++++++++++++++++++++++
+> >  xen/include/xen/pdx.h |  8 ++++++++
+> >  3 files changed, 35 insertions(+), 17 deletions(-)
 > 
-> While Andrew did point you at sizeof_field(), we can have this even less verbose
-> by utilizing that frame_table is of the right type and (almost) globally in scope.
-> 
-> Further, why use pfn_to_paddr()?
-> 
->          bits = flsl(pdx_to_pfn(1UL << 
->                                 (sizeof(frame_table->v.inuse._domain) * 8))) +
->                 PAGE_SHIFT - 1;
+> This is all fine for x86, but on Arm you introduce unreachable code, which
+> Misra dislikes. Yet then it feels like it's wrong anyway that the function
+> isn't used there.
 
-I've introduced and used pdx_to_paddr(), which I think it's more
-natural.  We already had a paddr_to_pdx() which was missing it's
-bidirectional equivalent.  It's now:
-
-         bits = flsl(pdx_to_paddr(1UL << (sizeof_field(struct page_info,
-                                                       v.inuse._domain) * 8)))
-                - 1;
-
-> However, it further feels like this was off by one; we had similar issues over
-> time in several places. There potentially being a gap between one less than
-> the PDX used here and that very PDX, don't we need to calculate based on the
-> "one less" value here? Hmm, there being a gap means no allocation would
-> succeed for the precise value of "bits" (in the mask-compression scheme), so
-> functionally all would be fine. Yet just to avoid setting a bad precedent I
-> think we'd still be better off using
-> 
->          bits = flsl(pdx_to_pfn((1UL << 
->                                  (sizeof(frame_table->v.inuse._domain) * 8)) -
->                                 1)) + PAGE_SHIFT;
-> 
-> If one would log the value of bits, the result would then also be less
-> confusing in (at least) the mask-compression scheme.
-
-
-Is the above correct tough?
-
-Take for example the hypothetical case where pdx_to_pfn() returns
-0x10.  Then flsl() will return 5 (let's leave the PAGE_SHIFT
-adjustment out for the example here).  The allocation bit width would
-be off-by-one, because allocating using a bit width of 5 would also
-allow 0x11 to be allocated, and that won't be correct.
-
-I think we need to get the bit width of the next pdx (so the
-non-inclusive end of the range), and then subtract 1 from it,
-otherwise the allocation bit width is possibly off-by-one.
+I was also concerned regarding why ARM doesn't have an equivalent
+function.  Is the frametable there supposed to cover up to the maximum
+physical address?  In which case there's likely no need for any PDX
+compression in the first place?
 
 Thanks, Roger.
 
