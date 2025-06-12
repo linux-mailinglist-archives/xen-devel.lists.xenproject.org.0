@@ -2,49 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED667AD6A5A
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Jun 2025 10:21:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1012508.1390979 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A627AD6AA4
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Jun 2025 10:27:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1012518.1390989 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uPdBS-0008K4-UH; Thu, 12 Jun 2025 08:21:14 +0000
+	id 1uPdHI-0000Yn-LL; Thu, 12 Jun 2025 08:27:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1012508.1390979; Thu, 12 Jun 2025 08:21:14 +0000
+Received: by outflank-mailman (output) from mailman id 1012518.1390989; Thu, 12 Jun 2025 08:27:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uPdBS-0008Hd-Qm; Thu, 12 Jun 2025 08:21:14 +0000
-Received: by outflank-mailman (input) for mailman id 1012508;
- Thu, 12 Jun 2025 08:21:13 +0000
+	id 1uPdHI-0000Wm-Ig; Thu, 12 Jun 2025 08:27:16 +0000
+Received: by outflank-mailman (input) for mailman id 1012518;
+ Thu, 12 Jun 2025 08:27:15 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=NPvq=Y3=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
- id 1uPdBR-0008GK-DY
- for xen-devel@lists.xenproject.org; Thu, 12 Jun 2025 08:21:13 +0000
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2060e.outbound.protection.outlook.com
- [2a01:111:f403:2416::60e])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=TRIX=Y3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uPdHH-0000Wg-Nr
+ for xen-devel@lists.xenproject.org; Thu, 12 Jun 2025 08:27:15 +0000
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [2a00:1450:4864:20::433])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2c79d626-4766-11f0-a309-13f23c93f187;
- Thu, 12 Jun 2025 10:21:02 +0200 (CEST)
-Received: from BN9PR03CA0488.namprd03.prod.outlook.com (2603:10b6:408:130::13)
- by MN6PR12MB8591.namprd12.prod.outlook.com (2603:10b6:208:471::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8835.19; Thu, 12 Jun
- 2025 08:20:56 +0000
-Received: from MN1PEPF0000F0E3.namprd04.prod.outlook.com
- (2603:10b6:408:130:cafe::2d) by BN9PR03CA0488.outlook.office365.com
- (2603:10b6:408:130::13) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8792.35 via Frontend Transport; Thu,
- 12 Jun 2025 08:20:55 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- MN1PEPF0000F0E3.mail.protection.outlook.com (10.167.242.41) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8835.15 via Frontend Transport; Thu, 12 Jun 2025 08:20:55 +0000
-Received: from localhost (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 12 Jun
- 2025 03:20:53 -0500
+ id 0b0a89a8-4767-11f0-a309-13f23c93f187;
+ Thu, 12 Jun 2025 10:27:14 +0200 (CEST)
+Received: by mail-wr1-x433.google.com with SMTP id
+ ffacd0b85a97d-3a4fd1ba177so415011f8f.0
+ for <xen-devel@lists.xenproject.org>; Thu, 12 Jun 2025 01:27:14 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 41be03b00d2f7-b2fd6388307sm820027a12.65.2025.06.12.01.27.07
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 12 Jun 2025 01:27:13 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,194 +45,141 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2c79d626-4766-11f0-a309-13f23c93f187
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JG9kry2B2NJCcuz1n+CeetTfRr26abpoK80IscCi/b8ehPGCvWCzx+GlDN+/jkSVmbIhSuggb/jGVv+3j3PpGn4dv8PjB+6xbDVj5+lbG0o/Q7VDcvZxXiZOWuLFmG3YM3+Jd4W6gb5gAXAGtY/H2C4nRv5FOBdBd9y7Fda5qIy7FrljSXNaM7M0MaPOf8TAU22w4v7GZTGVa+NijS7rZe77E3yq/O04wmGMla1o8+AXM+hbHWqfwOiwqrq3wOweDN+hIahEoTgJQzuTFk9O8YmMyB9sKEOMvsq+/XemSUUA80okwgMOmTgCPQM3ulFvmbNDw9258AEFt53cyhYXig==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jewQKCz7Z4tAbpLWHCuGD1C9deOuDBXm7aNlPx1tB8U=;
- b=yQNpF2B3ir/WkiY5al1fzxU4HwB6Q8HWYlDIK+i6cMHEUasmO58mLWTSpnROgbhZU96OCni7XkANGRmrS5AuXA2RVtnhNQD3m8MuAtQ4QeHvw3m7JzoNuSgRNEelz8HIKZ+LGK2SAoSi9pMyv7OhX+eaOsqwxXBw0bMbV+kIl0FFeFtbqcoCZH1/Ru3C+DuuzfCAYb5SnIqAQowkMMIY1n0TB4i3e6DppLVVkrBUpyaoVcpAaQg3GEjHLVEXbIkThhYt57S+XQPcmn/qYAXoRH3yfEZoWm2GosregItlI5fkd0dAk7WXoFcbKe4/4ibGB4LYQJxF26JvL3dMIIFFSA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jewQKCz7Z4tAbpLWHCuGD1C9deOuDBXm7aNlPx1tB8U=;
- b=nQIEQkoj9uCWA3AAFcM0C4bNnRB5sXzr/isEqqwyfndHKIAr9s7eSfV+vUNXIJC4IND71LK2v3Bl+VxjjPf43WLNtleJ9sDuDanPJNkzDtiE2ZYq67KvUVGtC9D4eYNjdxrYEJ2jXwhsodWX3QuBZSIejWtfPd7gWmjCRn6GDzU=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+X-Inumbo-ID: 0b0a89a8-4767-11f0-a309-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1749716834; x=1750321634; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=Wh542Foqzy9CXMj7KWhI4Fot+RPodj2Dclo5YjnMjdM=;
+        b=ZGWs9TattTDt28IT4yVDKYtiI6Hsl2BwYLHEQPKI+ZqYX4pT4eHOWBekqwmfJkRSQo
+         sqLG4kS2im+fKPlfpHrh1aDeeNa/bx5MyW2CbtlYQvoi2ZrVakqMAbsIJ7jgCO2D3zAW
+         tJHRWgUHyJt2Jd3UW7UAysxxYQADARHs+1a5xY+XzVs26xtqFFxbvEXDvG+ldG23QUhk
+         DwqGW/vccJnIkKWRJlofw4Ok7y5M+ENFVwfFDwXCc3Qbcp+9mSV4YGHCZ9bvPDpRoaqA
+         mFHPhKH/a7HNTYC7h+paYa86ecyqR0rHi++pQRpwDA+RISMKh1sihSqhrlHLduXCvU6L
+         xcaQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1749716834; x=1750321634;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Wh542Foqzy9CXMj7KWhI4Fot+RPodj2Dclo5YjnMjdM=;
+        b=F/o6TQXeV2n5/clsK52bxn7QZ+Fzm3kEJG4HSa/pAr6UXPPIsZRg1c4bzm//4PzrBi
+         FHDXg/1IhWQYD9T2FO6cKTLkXA7BBlEPvLOKnHr3vx4MC+65klVR5xxU3N/nBwyQYj9C
+         2h0dz9c0NVlqSzQhAy/zKn65h3QIRUbJDCXp8s68O++O4QeH24zvxCnY+nuqKVBodLVC
+         0BOxX2k+Vkpg2NC7MGY4o6xJknfa126bn7/agurl8Jti3XEGvgmktA8+5sP4sR8JZ9KL
+         toNpSwzgh/EpBM81Ak6VC4CNTFbpJb7w4f058rYqZKXbfYNFdq8brQYTdgDkCE22otQg
+         4PKg==
+X-Forwarded-Encrypted: i=1; AJvYcCX/P7AJt4NBIRfb1s9X157m6iA52MJVoujOgSnkuwmaF2NYu/z/VP0ItGMRcYPKofLCWfesxxsLKH0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwHhFl5k+YfxqmapAy8utQQRjqnZdHehA7dlJ0gpxiDP1BaekwT
+	mBFPFPeZda7glCIFc01+Ogycez5h0wmPM4XffWI0sNevJkxQmfKuIzcPkM1P9LtpMw==
+X-Gm-Gg: ASbGncumhwZnjU2M66fNbfEgT4jpwCfpztNyVWl31eCqWp18Fd1XWTbNwr1YXAeFo1P
+	ad+Nqj212zCY7xfiUjNk/PJpM6WIUKQAfMCyDPGe8Nk/nNEzEnNenXTQsU0DGkFwIEXvNmnMXGg
+	TKhV3eo/2VOAv6xFmtlRPS8YNLyQD38/qUKtXumboA4MRhG/sugdCQI7o+ryuTAVymwEsYwOwfZ
+	X/fcW+I7ZOXRtqkdHbfCCuotnqjMvHORZcZwual3qkQQugUHXJbbXnwanJunewP9rEMypKnwe4N
+	q7G8BPX/ZJSzwF/W6nW1SI46fILeRMoYKVXR2jp+oGwUNbN205+RW/u7yxRAwHwd5dbY5bynjLp
+	m+PuAIZQZ4hREqfjzYHqkQK8GkFsKoN3zYtm/CRC3uST7p3I=
+X-Google-Smtp-Source: AGHT+IEXqjhujpgMlu2VeVGD8ZFYVxDMMrLLcL+5iz0zT/11Ws/WiROR6ZQqKhPx6U3Ikqi7M0chPA==
+X-Received: by 2002:a05:6000:4283:b0:3a5:24cc:6d5e with SMTP id ffacd0b85a97d-3a560763290mr1894171f8f.3.1749716833649;
+        Thu, 12 Jun 2025 01:27:13 -0700 (PDT)
+Message-ID: <f7c9bb4a-4006-4be6-955a-cc3b2c4934a1@suse.com>
+Date: Thu, 12 Jun 2025 10:27:03 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="UTF-8"
-Date: Thu, 12 Jun 2025 10:20:51 +0200
-Message-ID: <DAKEPTAU5XB4.3NA0LU38UFH6L@amd.com>
-CC: "Daniel P. Smith" <dpsmith@apertussolutions.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, =?utf-8?q?Roger_Pau_Monn=C3=A9?=
-	<roger.pau@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>, "Michal
- Orzel" <michal.orzel@amd.com>, Julien Grall <julien@xen.org>, "Stefano
- Stabellini" <sstabellini@kernel.org>, Bertrand Marquis
-	<bertrand.marquis@arm.com>, Denis Mukhin <dmukhin@ford.com>,
-	<xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH v6 06/12] x86/hyperlaunch: obtain cmdline from device
- tree
-From: Alejandro Vallejo <agarciav@amd.com>
-To: Jan Beulich <jbeulich@suse.com>, Jason Andryuk <jason.andryuk@amd.com>
-X-Mailer: aerc 0.20.1
-References: <20250429123629.20839-1-agarciav@amd.com>
- <20250429123629.20839-7-agarciav@amd.com>
- <59f37fcc-9226-46c5-8dc8-7bd2100d8f59@amd.com>
- <02ffa9cf-b5cd-431a-834a-a11bbf310196@suse.com>
- <03be429c-063d-4467-91e7-7ef2e148a2fb@amd.com>
- <ef46b3ec-af0e-480f-b206-5191c79e62f9@suse.com>
-In-Reply-To: <ef46b3ec-af0e-480f-b206-5191c79e62f9@suse.com>
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000F0E3:EE_|MN6PR12MB8591:EE_
-X-MS-Office365-Filtering-Correlation-Id: 64193f2f-c25d-4ffa-8dfd-08dda98a0ddf
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|7416014|376014|82310400026|36860700013;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?aVJFcjIxbWZXNmUwWm80T3Z2bCtqN2Jnb29JTktkaVVWSE1mYnQzUWlKK1Ni?=
- =?utf-8?B?MDRDK1FSaWcrNGVOTDJ0ZEZsZFhudnE4MjBtMkZjSWRWOUZtYU4raVZrNGxI?=
- =?utf-8?B?QkpTY0Y3ejQreG1pd0ppWTdiYktCU2xGbUNzZEViNFdvMHIrZ2pWTE9NcEdF?=
- =?utf-8?B?ekt3Vk1sM2wxYXd5QmdyemUyUHhsY0ZsUVgxcC9OZnJiQXVoSVd2WDFzVU5T?=
- =?utf-8?B?bkF5RGhCN1ZFV3FzZW0wcUQxQXc3YjdaRFBRNUtVMUlRNUVnWk9jYWowRFBO?=
- =?utf-8?B?VWtnb2Qydys1bHVTeWhyN2Vjd0s1cWViRkNteDNuZjkzb2JrOTFOUW9TQ0Ux?=
- =?utf-8?B?emVna2Z3b1hHODdqZWsrWkVjVkVSdWY5TGUwK1ZVNDdjSFFBOTRaeGtiZ3lk?=
- =?utf-8?B?SHhNT3J0UGZjd04wQk9ta0dKQk5jN1B2WFdEd2pFM2JJbmdPRmxxTXVGOTA4?=
- =?utf-8?B?WmU2d1VROEVlalBxTGxFQ3pPeTJ2c1lVV2craWxrMllvdUtnWklkVlNvSDJ6?=
- =?utf-8?B?aVBXRnZYRFVBUWQxdXZCMTE5N29sK1M2aHZjRktMb0NGbG9IenNHbVoxRWFX?=
- =?utf-8?B?ZWpFWk1lbVJRQ095eVkyL000dW55ZlFjVnlMczZiYTR2cmJ4TngwTzBPM05E?=
- =?utf-8?B?Vjc4OTVHQlhHNk0zcEYxRVlWSE1nTE5heXVCb1RVOTRGUjdMY1E1SHh5VWR5?=
- =?utf-8?B?bXhTcVVzcEVQOWRDM1hOY3ZRRlZ5U1B1ZHVSRi9rK3pYU2FzVmhYTWdPU3RX?=
- =?utf-8?B?SUxmVDVYUTlVenVjaTl0WDN1bHllSVphQ0dINTdqTGI3bmpjTUpRTkxNbmpU?=
- =?utf-8?B?TVJoV05OSzFHTlBnSzQwL2Q0M0JMVnhDV253eW1WalE5emxibWNUU04zUVdN?=
- =?utf-8?B?Z2JNYk01NnpMN29FMDJ5UUQ4ekltak5ZOXk3Ny9waTdTb3A5ZVpwZkF3RTY1?=
- =?utf-8?B?UXBsUXhidTN1dkE2R05HVXFmWHRzOVVKNnpnL2cyc0piTFJDWWt4MjV5SGFY?=
- =?utf-8?B?MVFFUk9tZjkyZUFJS3FSWithNStmWXNSY041d0tyS09Yb0M1MExrWExqQTVs?=
- =?utf-8?B?U3VqWXlHaCtoTUx0UmQyYXh2Slc3VHg5bnhBM0sweFgrNW9pQ2I0NFBCQkFY?=
- =?utf-8?B?UFRhdkRzWXJHRnRlZDNRdWh3a2IvWDd6ZjJ1NkZJbkRHSzFwdVNXeHR3TitN?=
- =?utf-8?B?R1dqamtTSHN0UFNWVUhEYVMvQkFzOEFkUHdXZlBQZGhkc25RbG92TU5nYTEy?=
- =?utf-8?B?ajBWWURHYTROenhFRHFrcmJsQmVpOVA2VDZxR2kzZk9rL0dxeW82MVFUWjd2?=
- =?utf-8?B?clhQaVRsZldLSDJTZHRvWjl4YjNlV2xkSWRMNklQTmF1bjZSemc5VS9lQ2lC?=
- =?utf-8?B?ODVZRUFvU2ZOTkliVkxqMXQ5UnhZNTV4YlF3eDdzS2hSNWhncEdwMW82SmtG?=
- =?utf-8?B?Vko1ZXgyaW53Q3VQUmw1QXhjSlgvTHk4a25XZldHZnVrMllUUXNrNVF4bVUz?=
- =?utf-8?B?MGtWbSs4ZEtEMnk3WTliTDdQUS8rNjFwSm5lTzZoVTZwOEZjR1ExSTIraGYv?=
- =?utf-8?B?eW9ORDdhZjZsaHZNU1FYQ0hsNlcxem5xa0lvVGNZY0pVT040YUFwdGFnWmY0?=
- =?utf-8?B?RTAwVGJqSHh5UnBTekJjeUJXaks1NWxoOXJibzBQd0VyczdhdjY5alloeVVC?=
- =?utf-8?B?YXZTL1gzYlF0R3pTalM5L3gwa1NHWG9zQmlPSGhwcHpVNTU1SExiY1hSUTh4?=
- =?utf-8?B?UGoyY2FJYVg3OXo5VS9WN2hnRVo1SWVmd3A5T0VwSzhwaUIrQTJWNndZMTdi?=
- =?utf-8?B?S0V2bzlydC9qNTU2dDdRQU9tT1BobGJ3cFBqT1ExNVJpVTFYN0RoaGVHODVy?=
- =?utf-8?B?WkIzKzU5dXdKSGVOZmMxUnUvVm9SR0pnOWIxTzFEOUttaW9laHlRZGFsY1JZ?=
- =?utf-8?B?WE1uRUtVUjRtMjhjd2tBN1c5cU1WTzBIS0RzNW9LZmJ0UUxtQ0JlMTBkOEJu?=
- =?utf-8?B?eDFCM2VxT2EyR2JHTXU4SkMyT3N0dldTV2M0SDloa1hDUld6ZElnTzJMZVdl?=
- =?utf-8?Q?I4fAg6?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(82310400026)(36860700013);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jun 2025 08:20:55.9379
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 64193f2f-c25d-4ffa-8dfd-08dda98a0ddf
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MN1PEPF0000F0E3.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN6PR12MB8591
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6/8] pdx: introduce a new compression algorithm based on
+ offsets between regions
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ xen-devel@lists.xenproject.org
+References: <20250611171636.5674-1-roger.pau@citrix.com>
+ <20250611171636.5674-7-roger.pau@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20250611171636.5674-7-roger.pau@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed Jun 11, 2025 at 7:35 AM CEST, Jan Beulich wrote:
-> On 10.06.2025 19:39, Jason Andryuk wrote:
->>=20
->>=20
->> On 2025-06-10 02:56, Jan Beulich wrote:
->>> On 09.06.2025 19:07, Jason Andryuk wrote:
->>>> On 2025-04-29 08:36, Alejandro Vallejo wrote:
->>>>> From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
->>>>>
->>>>> Add support to read the command line from the hyperlaunch device tree=
-.
->>>>> The device tree command line is located in the "bootargs" property of=
- the
->>>>> "multiboot,kernel" node.
->>>>>
->>>>> A boot loader command line, e.g. a grub module string field, takes
->>>>> precendence over the device tree one since it is easier to modify.
->>>>>
->>>>> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
->>>>> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
->>>>> Signed-off-by: Alejandro Vallejo <agarciav@amd.com>
->>>>> Reviewed-by: Denis Mukhin <dmukhin@ford.com>
->>>>> ---
->>>>
->>>>> diff --git a/xen/common/domain-builder/fdt.c b/xen/common/domain-buil=
-der/fdt.c
->>>>> index cbb0ed30a2..dabe201b04 100644
->>>>> --- a/xen/common/domain-builder/fdt.c
->>>>> +++ b/xen/common/domain-builder/fdt.c
->>>>> @@ -219,6 +219,12 @@ static int __init fdt_process_domain_node(
->>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 printk(XENLOG_INFO "=C2=A0 kernel: multiboot-index=3D%d\n",=
- idx);
->>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 bi->mods[idx].type =3D BOOTMOD_KERNEL;
->>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 bd->kernel =3D &bi->mods[idx];
->>>>> +
->>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /=
-* If bootloader didn't set cmdline, see if FDT provides one. */
->>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 i=
-f ( bd->kernel->cmdline_pa &&
->>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 !((char *)__va(bd->kernel->cmdline_pa))[0] )
->>>>
->>>> The logic is incorrect - it should be:
->>>>
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 if ( !bd->kernel->cmdline_pa ||
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 !((char *)__va(bd->kernel->cmdline_pa))[0=
-] )
->>>>
->>>> If there is no cmdline_pa (which happens with the "reg" property) or t=
-he if there is a 0-length string, then check the DT for bootargs.
->>>
->>> Even that sounds bogus to me: There's a difference between "no command =
-line"
->>> and "empty command line".
->>=20
->> Yes, you have a point.=C2=A0 The difficulty is grub always provides a NU=
-L terminated string, so Xen can't differentiate the two.
->
-> Which may call for either special-casing GrUB, or at least calling out th=
-at
-> behavior in the comment. (Ideally we'd still have a way to distinguish
-> between both cases, but likely we'll need to resort to documenting that s=
-ome
-> dummy option will need adding to tell "none" from [intended to be] empty.=
-)
->
-> Jan
+On 11.06.2025 19:16, Roger Pau Monne wrote:
+> With the appearance of Intel Sierra Forest and Granite Rapids it's not
+> possible to get a production x86 host wit the following memory map:
+> 
+> SRAT: Node 0 PXM 0 [0000000000000000, 000000007fffffff]
+> SRAT: Node 0 PXM 0 [0000000100000000, 000000407fffffff]
+> SRAT: Node 1 PXM 1 [0000061e80000000, 0000065e7fffffff]
+> SRAT: Node 2 PXM 2 [00000c3e80000000, 00000c7e7fffffff]
+> SRAT: Node 3 PXM 3 [0000125e80000000, 0000129e7fffffff]
+> 
+> This is from a four socket system, with each node having 256GB of memory.
+> The total amount of RAM on the system is 1TB, but without enabling
+> CONFIG_BIGMEM the last range is not accessible, as it's above the 16TB
+> boundary covered by the frame table.
+> 
+> Note that while the memory map is very sparse, it won't be compressible
+> using the current algorithm that relies on all ranges having a shared
+> zeroed region of bits that can be removed.
+> 
+> The memory map presented above has the property of all regions being
+> similarly spaced between each other, and all having also a similar size.
+> This allows to compress them using the following formula:
+> 
+>  pdx = (pfn % offset) + ((pfn / offset) * size)
+> 
+> Where offset and size are two static coefficients calculated at
+> initialization.
 
-We can add suitable comments where required, sure.
+What I would find useful here in addition would be offset and size values
+resulting from the example memory map above. In particular, without looking
+at the code in detail, it doesn't become quite clear how the two ranges on
+node 0 are being dealt with. For what follows I'll assume they'd be folded
+into a single range covering all of node 0.
 
-About the dummy option, note that even if we have an option for Xen, that d=
-oes
-nothing for the kernel cmdlines. If there's such dummy option there I don't=
- know
-of it.
+Along the lines of Andrew's concern regarding the division (and modulo)
+involved, I wonder whether there might be an alternative with a lookup
+array, holding bias values (e.g.) for each node. Main question there would
+be how to quickly determine the array index to use, both from an incoming
+MFN and an incoming PDX. If such an array wouldn't have too many entries,
+such a lookup may end up being faster (on average) than a division.
 
-Cheers,
-Alejandro
+Taking the example above, such an array could be:
+
+[0x00] = 0,
+[0x06] = 0x061e80000 - 1 * 0x5000000,
+[0x0c] = 0x0c3e80000 - 2 * 0x5000000,
+[0x12] = 0x125e80000 - 3 * 0x5000000,
+
+indexed by the top-so-many bits of the MFN. For the reverse array some
+gap would need to be left between ranges (i.e. the 0x5000000 above would
+perhaps need doubling; maybe a little less than that would suffice), such
+that the array slot to use could be determined easily there as well.
+
+Jan
 
