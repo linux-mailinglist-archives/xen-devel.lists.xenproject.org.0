@@ -2,38 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E842FAD9759
-	for <lists+xen-devel@lfdr.de>; Fri, 13 Jun 2025 23:29:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1014942.1392947 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 03263AD975D
+	for <lists+xen-devel@lfdr.de>; Fri, 13 Jun 2025 23:31:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1014949.1392958 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uQBxG-0000h7-C1; Fri, 13 Jun 2025 21:28:54 +0000
+	id 1uQBzZ-0002DX-Oa; Fri, 13 Jun 2025 21:31:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1014942.1392947; Fri, 13 Jun 2025 21:28:54 +0000
+Received: by outflank-mailman (output) from mailman id 1014949.1392958; Fri, 13 Jun 2025 21:31:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uQBxG-0000eg-9N; Fri, 13 Jun 2025 21:28:54 +0000
-Received: by outflank-mailman (input) for mailman id 1014942;
- Fri, 13 Jun 2025 21:28:53 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uQBzZ-0002C6-Kp; Fri, 13 Jun 2025 21:31:17 +0000
+Received: by outflank-mailman (input) for mailman id 1014949;
+ Fri, 13 Jun 2025 21:31:16 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=R50U=Y4=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1uQBxF-0000ea-C7
- for xen-devel@lists.xenproject.org; Fri, 13 Jun 2025 21:28:53 +0000
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [2a00:1450:4864:20::329])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 66b57bb3-489d-11f0-a309-13f23c93f187;
- Fri, 13 Jun 2025 23:28:52 +0200 (CEST)
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-45310223677so21721515e9.0
- for <xen-devel@lists.xenproject.org>; Fri, 13 Jun 2025 14:28:51 -0700 (PDT)
-Received: from [192.168.86.29] ([90.250.112.104])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4532e268de2sm63353035e9.40.2025.06.13.14.28.50
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 13 Jun 2025 14:28:50 -0700 (PDT)
+ <SRS0=NROC=Y4=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1uQBzY-0002C0-Gh
+ for xen-devel@lists.xenproject.org; Fri, 13 Jun 2025 21:31:16 +0000
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b621f1ba-489d-11f0-b894-0df219b8e170;
+ Fri, 13 Jun 2025 23:31:06 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 6D7A043A5F;
+ Fri, 13 Jun 2025 21:31:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F651C4CEE3;
+ Fri, 13 Jun 2025 21:31:03 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,185 +41,71 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 66b57bb3-489d-11f0-a309-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1749850131; x=1750454931; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=cQOKjkQulsizKiLm5UcaiTbCzLcGc8rQoJUelijvatQ=;
-        b=C8mQpD6B6kt+I5SBk8ZbRE2kQehed7hwIlzCfaPhEfIrtDx36T0cbMKXeZoNwMT/Pw
-         YbjG5RC9hVHX9d33AV1CupM5qvdY1GlRXAnoMq7XFnV9EQCvUe1xd7qAZtJ4chQKZ6mo
-         f92fBLmI32wGXBYVPjNaIHz1iNYm/VEYijiBc=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749850131; x=1750454931;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=cQOKjkQulsizKiLm5UcaiTbCzLcGc8rQoJUelijvatQ=;
-        b=emlp0bTQXRz8VkSoKlygCF+1MvAVnHa31YCH4NEAJySvgaqISclgOAMmJNqqvG5cWp
-         B+kJd2oJr7BlblWHDlEeM6immZaMeAs+kMnxZ/g2TnIjXZmFiIvdOsPCWkOfteWT1eTS
-         MTP+SpjANXzWxZReU8sJ6/bP6uskl5TgKhqQMk+zSmHhoGMcPlFyEoIpr4SHECrv1/lV
-         bTfRQgOYg3IRxixhLZdjk9f9Zf3zQRC1uvoGU4J+wti+4YuaTc8Z2RMQ02qiuZ4zyW13
-         2dhjHqA0cBJNes8CJJD7dfyODVW5Nx9CUdgZZSXNidT0fyjR6nv05GL9RY1UHcfAzZnx
-         oNJg==
-X-Forwarded-Encrypted: i=1; AJvYcCVXIJFLlO053uFv75DMe8cNYX3bdtxiAV4a6XxW8SExgYf9OsyOgNwrcapRHWulX4K8vW0mUUUPpaM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yyu94u8x5THo1r2VfL2v347UfBBpRE7WgxCxqPY0vljkUsG7Thf
-	Jv8Wh25XUotMy/GOgt0cq4s97HW3q08g6ItvihaeKwbyxxNbofyKsMIOHvPFwsplicw=
-X-Gm-Gg: ASbGnctG2ikDZCLRjK4+NiIJzpWGsje/sOgkZcQtjn5V1dnClmbKyuXlmuE4eLfWEjO
-	fYqIuZiul7gcLu5Paws/SpGK2pAvDlrKJMxr/WX7oJ2ez8sKkkhJ6CAxqB078xwV8+juZ1KFxzq
-	DytYzaS+0HEpZ41RhaozPFeH0pSoQ9+/q9I0evqgDPwQ8DRXxDKVVzqgl5Rz+tmJCaTKV1dCevw
-	Cv2i2iPisvrlK5rbNENam4hninEOcw23Zh0faMl6U3K4RbWz5fyYuNEr3PE1gYWCiJmLOFv1puC
-	XZrOqR1/KhT5V9j4Cl4n7jXH674KIcBZGlp41KKCRbuGQImbEpA29KJ3VtcPJNMI6EGFRf8Z6Bk
-	=
-X-Google-Smtp-Source: AGHT+IEGEgciZZYICSnuUD/+VQ46lh9Xp0U/h7JzgyzUX6oywN5jQPRXYnrk1qPrKLI/2bTns0nbOw==
-X-Received: by 2002:a05:600c:1c90:b0:443:48:66d2 with SMTP id 5b1f17b1804b1-4533caf5cc0mr11920355e9.16.1749850131263;
-        Fri, 13 Jun 2025 14:28:51 -0700 (PDT)
-Message-ID: <f2092e8a-2f13-40c5-b961-8a15d8298387@citrix.com>
-Date: Fri, 13 Jun 2025 22:28:50 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] x86/EFI: Fix detection of buildid
+X-Inumbo-ID: b621f1ba-489d-11f0-b894-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1749850264;
+	bh=TCTvJZPfNya2wmawUjIhBjizU6uMiRdystFvzNwHQxg=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=fjkF5Ch11BoMQz8usTpv5JcnStEWSXHgxE9GggQDtDVmT3344fAYwvY5tNjmKDX2r
+	 2QDO3fr5549bgyUjxZLRVkJmv6bDouxgQXB+wDGk8Q1vV5FvZP7XlMYlY23/y67/Yw
+	 OVqkJ3Da81j2nIzWm+V8Nj8turlQg03AUh7H0fnYMn8rpVj+HH42E0bwpw8rbH3DIZ
+	 Dx8kN6xGdyiGbXJ3H+8TBKI2Lavnm/mWSGpQY7InIA5orceVmKMHtMO5hjlfFFKT9P
+	 QUjFkeeX6qQ4dyRrHBY2k9JRjByx+inG8O1Gkwnqn4qPElEtwFpJDFaSt8QpGtWuPz
+	 TdphKy5Kukfsg==
+Date: Fri, 13 Jun 2025 14:31:02 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Jan Beulich <jbeulich@suse.com>
-Cc: Ross Lagerwall <ross.lagerwall@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>,
- "Daniel P . Smith" <dpsmith@apertussolutions.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250605111638.2869914-1-andrew.cooper3@citrix.com>
- <20250605111638.2869914-2-andrew.cooper3@citrix.com>
- <0a314400-126a-4c2a-b36c-dda61bb0b751@suse.com>
- <a477369d-77d0-48fa-8ac4-120d49e32d11@citrix.com>
- <4d1f1b70-e309-453b-bae6-e066d49a417a@suse.com>
- <9200277c-aa8e-4fd9-ab6a-f9e106114f54@citrix.com>
- <6eaf2b27-969a-4326-9726-8b6e0994e006@suse.com>
- <3f9c5a18-2ea1-4e2d-80a0-773abc3598ae@citrix.com>
- <ab3ad5c1-fd4c-4fa4-abfd-89641173a862@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <ab3ad5c1-fd4c-4fa4-abfd-89641173a862@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+cc: Andrew Cooper <andrew.cooper3@citrix.com>, 
+    Ross Lagerwall <ross.lagerwall@citrix.com>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>, 
+    "Daniel P . Smith" <dpsmith@apertussolutions.com>, 
+    Xen-devel <xen-devel@lists.xenproject.org>, sstabellini@kernel.org
+Subject: Re: [PATCH 1/3] x86/EFI: Fix detection of buildid
+In-Reply-To: <6eaf2b27-969a-4326-9726-8b6e0994e006@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2506131424480.8480@ubuntu-linux-20-04-desktop>
+References: <20250605111638.2869914-1-andrew.cooper3@citrix.com> <20250605111638.2869914-2-andrew.cooper3@citrix.com> <0a314400-126a-4c2a-b36c-dda61bb0b751@suse.com> <a477369d-77d0-48fa-8ac4-120d49e32d11@citrix.com> <4d1f1b70-e309-453b-bae6-e066d49a417a@suse.com>
+ <9200277c-aa8e-4fd9-ab6a-f9e106114f54@citrix.com> <6eaf2b27-969a-4326-9726-8b6e0994e006@suse.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+MIME-Version: 1.0
+Content-Type: multipart/mixed; BOUNDARY="8323329-1885957098-1749850095=:8480"
+Content-ID: <alpine.DEB.2.22.394.2506131429260.8480@ubuntu-linux-20-04-desktop>
 
-On 10/06/2025 9:01 am, Jan Beulich wrote:
-> On 06.06.2025 17:01, Andrew Cooper wrote:
->> On 06/06/2025 8:22 am, Jan Beulich wrote:
->>> On 05.06.2025 19:01, Andrew Cooper wrote:
->>>> On 05/06/2025 2:24 pm, Jan Beulich wrote:
->>>>> On 05.06.2025 14:14, Andrew Cooper wrote:
->>>>>> On 05/06/2025 1:02 pm, Jan Beulich wrote:
->>>>>>> On 05.06.2025 13:16, Andrew Cooper wrote:
->>>>>> This really is a property of being a PE32+ binary, and nothing to do
->>>>>> with EFI.
->>>>> Which still can be checked for without having this code path being taken
->>>>> for xen.gz, too: You could e.g. check for &efi > &_end. That's firmly an
->>>>> image property (yet I expect you're going to sigh about yet another hack).
->>>> It's all hacks, but no.
->>>>
->>>> I'm amazed MISRA hasn't spotted that we've got a global `struct efi
->>>> efi;` and a label named efi, creating an alias for the object with it
->>>> out of bounds in the compiled image.  But even then, it's based on
->>>> XEN_BUILD_EFI not XEN_BUILD_PE and does not distinguish the property
->>>> that matters.
->>> The use of XEN_BUILD_EFI in the linker script should have been switched
->>> to XEN_BUILD_PE when the split was introduced.
->> That doesn't build.  As I already explained, the stubs aren't split in a
->> way that allows that.
-> Which then is a pretty clear indication that the split was wrong to do in
-> the first place, don't you agree?
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-I think my feelings on how xen.efi was done are quite well known, but so
-what?
+--8323329-1885957098-1749850095=:8480
+Content-Type: text/plain; CHARSET=UTF-8
+Content-Transfer-Encoding: 8BIT
+Content-ID: <alpine.DEB.2.22.394.2506131429261.8480@ubuntu-linux-20-04-desktop>
 
-I've spent longer than I can afford trying to untangle this, and its an
-impenetrable mess.
+On Fri, 6 Jun 2025, Jan Beulich wrote:
+> > But the argument I'm going to make this this:  Why do you want a check,
+> > even if you can find a correct one (and as said before, I cannot)?
+> > 
+> > This function is run exactly once.  We've excluded "nothing given by the
+> > toolchain", and excluded "what the toolchain gave us was not the
+> > expected ELF note".  The only thing left (modulo toolchain bugs) is the
+> > CodeView region, and if it's not a valid CodeView region then we've
+> > wasted a handful of cycles.
+> 
+> Two reasons: Having code which cannot possibly do anything useful isn't
+> good. Misra calls the latest the body of the inner if() "unreachable code"
+> and objects to the presence of such in a build. (I'm pretty sure Eclair
+> wouldn't spot it, but that doesn't eliminate this being a violation of
+> the respective rule.)
 
->>>> But the argument I'm going to make this this:  Why do you want a check,
->>>> even if you can find a correct one (and as said before, I cannot)?
->>>>
->>>> This function is run exactly once.  We've excluded "nothing given by the
->>>> toolchain", and excluded "what the toolchain gave us was not the
->>>> expected ELF note".  The only thing left (modulo toolchain bugs) is the
->>>> CodeView region, and if it's not a valid CodeView region then we've
->>>> wasted a handful of cycles.
->>> Two reasons: Having code which cannot possibly do anything useful isn't
->>> good. Misra calls the latest the body of the inner if() "unreachable code"
->>> and objects to the presence of such in a build.
->> It's not unreachable code, not even theoretically.
-> How is it not? If we build without this CodeView record, it very much is
-> unreachable.
+As far as I can tell this code can be reachable simply by having an
+appropriate test with Xen booted via a non-EFI method and a CodeView
+record being present. No code changes to Xen needed.
 
-Compiling without a CodeView record doesn't magically cause the prior
-logic to guarantee to succeed.
 
-The compiler is forced to emit real conditional logic, and there's
-almost 2^96 bit-pattens the toolchain could put into memory which will
-very literally reach the CodeView check.
+> And then, based on your reasoning above, why don't you also drop the
+> #ifdef CONFIG_X86?
 
-"The toolchain shouldn't cause this path to be executed" is not the same
-as genuinely unreachable.
-
-What safety certification is liable to complain about is the inability
-to construct a test that demonstrates coverage, but I'm not changing
-that property with this patch.
->>> And then, based on your reasoning above, why don't you also drop the
->>> #ifdef CONFIG_X86?
->> Because that's the one non-buggy way of excluding an impossible case.
->>
->> x86 is the only architecture possibly linking with pep emulation, and
->> therefore the only architecture to possibly have a CodeView record.
-> And how's the, say, Arm case different from the x86 case with no such
-> record built in? 
-
-Because its currently impossible for ARM to have a codeview record.
-
-Remember that ARM writes a MZ/PE header by hand in a flat binary.  It
-does not use a PEP linker.
-
-~Andrew
+Because while theoretically possible, today there is not a single test
+that would allow us to trigger this code on ARM. We would need to change
+Xen to do it first.
+--8323329-1885957098-1749850095=:8480--
 
