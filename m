@@ -2,45 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD70EAD867B
-	for <lists+xen-devel@lfdr.de>; Fri, 13 Jun 2025 11:05:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1013959.1392248 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C436AD8744
+	for <lists+xen-devel@lfdr.de>; Fri, 13 Jun 2025 11:10:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1013991.1392258 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uQ0LN-0006Ly-Tc; Fri, 13 Jun 2025 09:05:01 +0000
+	id 1uQ0Qp-0001Q5-DT; Fri, 13 Jun 2025 09:10:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1013959.1392248; Fri, 13 Jun 2025 09:05:01 +0000
+Received: by outflank-mailman (output) from mailman id 1013991.1392258; Fri, 13 Jun 2025 09:10:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uQ0LN-0006GZ-O0; Fri, 13 Jun 2025 09:05:01 +0000
-Received: by outflank-mailman (input) for mailman id 1013959;
- Fri, 13 Jun 2025 09:05:00 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uQ0Qp-0001No-9w; Fri, 13 Jun 2025 09:10:39 +0000
+Received: by outflank-mailman (input) for mailman id 1013991;
+ Fri, 13 Jun 2025 09:10:37 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Iqaj=Y4=suse.de=tzimmermann@srs-se1.protection.inumbo.net>)
- id 1uQ0LM-0002e2-1f
- for xen-devel@lists.xenproject.org; Fri, 13 Jun 2025 09:05:00 +0000
+ id 1uQ0LU-0002BZ-G3
+ for xen-devel@lists.xenproject.org; Fri, 13 Jun 2025 09:05:08 +0000
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 746b4825-4835-11f0-b894-0df219b8e170;
- Fri, 13 Jun 2025 11:04:47 +0200 (CEST)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 7db4a5dd-4835-11f0-a309-13f23c93f187;
+ Fri, 13 Jun 2025 11:05:02 +0200 (CEST)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id D93101F891;
- Fri, 13 Jun 2025 09:04:42 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 9D1041F88C;
+ Fri, 13 Jun 2025 09:04:43 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 11BCF137FE;
- Fri, 13 Jun 2025 09:04:42 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0F8CD137FE;
+ Fri, 13 Jun 2025 09:04:43 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id mOb7AqrpS2inNAAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Fri, 13 Jun 2025 09:04:42 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id MI1tAqvpS2inNAAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Fri, 13 Jun 2025 09:04:43 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,7 +52,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 746b4825-4835-11f0-b894-0df219b8e170
+X-Inumbo-ID: 7db4a5dd-4835-11f0-a309-13f23c93f187
 Authentication-Results: smtp-out2.suse.de;
 	none
 From: Thomas Zimmermann <tzimmermann@suse.de>
@@ -77,14 +77,10 @@ Cc: dri-devel@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org,
 	xen-devel@lists.xenproject.org,
 	Thomas Zimmermann <tzimmermann@suse.de>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Shawn Guo <shawnguo@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>
-Subject: [PATCH v5 10/25] drm/imx/ipuv3: Compute dumb-buffer sizes with drm_mode_size_dumb()
-Date: Fri, 13 Jun 2025 11:00:29 +0200
-Message-ID: <20250613090431.127087-11-tzimmermann@suse.de>
+	Sui Jingfeng <sui.jingfeng@linux.dev>
+Subject: [PATCH v5 11/25] drm/loongson: Compute dumb-buffer sizes with drm_mode_size_dumb()
+Date: Fri, 13 Jun 2025 11:00:30 +0200
+Message-ID: <20250613090431.127087-12-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <20250613090431.127087-1-tzimmermann@suse.de>
 References: <20250613090431.127087-1-tzimmermann@suse.de>
@@ -93,93 +89,93 @@ Content-Transfer-Encoding: 8bit
 X-Rspamd-Pre-Result: action=no action;
 	module=replies;
 	Message is reply to one we originated
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Spam-Level: 
 X-Spamd-Result: default: False [-4.00 / 50.00];
 	REPLY(-4.00)[]
-X-Spam-Flag: NO
-X-Rspamd-Queue-Id: D93101F891
+X-Rspamd-Queue-Id: 9D1041F88C
 X-Rspamd-Pre-Result: action=no action;
 	module=replies;
 	Message is reply to one we originated
 X-Rspamd-Action: no action
+X-Spam-Level: 
+X-Spam-Flag: NO
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 X-Spam-Score: -4.00
 
 Call drm_mode_size_dumb() to compute dumb-buffer scanline pitch and
-buffer size. The hardware requires the framebuffer width to be a
-multiple of 8. The scanline pitch has to be large enough to support
-this. Therefore compute the byte size of 8 pixels in the given color
-mode and align the pitch accordingly.
-
-v5:
-- fix typo in commit description
+buffer size. Align the pitch according to hardware requirements.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Reviewed-by: Philipp Zabel <p.zabel@pengutronix.de>
-Cc: Philipp Zabel <p.zabel@pengutronix.de>
-Cc: Shawn Guo <shawnguo@kernel.org>
-Cc: Sascha Hauer <s.hauer@pengutronix.de>
-Cc: Pengutronix Kernel Team <kernel@pengutronix.de>
-Cc: Fabio Estevam <festevam@gmail.com>
+Reviewed-by: Sui Jingfeng <sui.jingfeng@linux.dev>
+Cc: Sui Jingfeng <sui.jingfeng@linux.dev>
 ---
- drivers/gpu/drm/imx/ipuv3/imx-drm-core.c | 31 ++++++++++++++++++------
- 1 file changed, 23 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/loongson/lsdc_gem.c | 29 ++++++++---------------------
+ 1 file changed, 8 insertions(+), 21 deletions(-)
 
-diff --git a/drivers/gpu/drm/imx/ipuv3/imx-drm-core.c b/drivers/gpu/drm/imx/ipuv3/imx-drm-core.c
-index af4a30311e18..465b5a6ad5bb 100644
---- a/drivers/gpu/drm/imx/ipuv3/imx-drm-core.c
-+++ b/drivers/gpu/drm/imx/ipuv3/imx-drm-core.c
-@@ -17,7 +17,9 @@
- #include <drm/drm_atomic.h>
- #include <drm/drm_atomic_helper.h>
- #include <drm/drm_drv.h>
+diff --git a/drivers/gpu/drm/loongson/lsdc_gem.c b/drivers/gpu/drm/loongson/lsdc_gem.c
+index a720d8f53209..9f982b85301f 100644
+--- a/drivers/gpu/drm/loongson/lsdc_gem.c
++++ b/drivers/gpu/drm/loongson/lsdc_gem.c
+@@ -6,6 +6,7 @@
+ #include <linux/dma-buf.h>
+ 
+ #include <drm/drm_debugfs.h>
 +#include <drm/drm_dumb_buffers.h>
- #include <drm/drm_fbdev_dma.h>
-+#include <drm/drm_fourcc.h>
- #include <drm/drm_gem_dma_helper.h>
- #include <drm/drm_gem_framebuffer_helper.h>
- #include <drm/drm_managed.h>
-@@ -141,19 +143,32 @@ static int imx_drm_dumb_create(struct drm_file *file_priv,
- 			       struct drm_device *drm,
- 			       struct drm_mode_create_dumb *args)
- {
--	u32 width = args->width;
-+	u32 fourcc;
-+	const struct drm_format_info *info;
-+	u64 pitch_align;
+ #include <drm/drm_file.h>
+ #include <drm/drm_gem.h>
+ #include <drm/drm_prime.h>
+@@ -204,45 +205,31 @@ int lsdc_dumb_create(struct drm_file *file, struct drm_device *ddev,
+ 	const struct lsdc_desc *descp = ldev->descp;
+ 	u32 domain = LSDC_GEM_DOMAIN_VRAM;
+ 	struct drm_gem_object *gobj;
+-	size_t size;
+-	u32 pitch;
+-	u32 handle;
  	int ret;
  
--	args->width = ALIGN(width, 8);
--	args->pitch = DIV_ROUND_UP(args->width * args->bpp, 8);
--	args->size = args->pitch * args->height;
+-	if (!args->width || !args->height)
+-		return -EINVAL;
 -
--	ret = drm_gem_dma_dumb_create_internal(file_priv, drm, args);
-+	/*
-+	 * Hardware requires the framebuffer width to be aligned to
-+	 * multiples of 8. The mode-setting code handles this, but
-+	 * the buffer pitch has to be aligned as well. Set the pitch
-+	 * alignment accordingly, so that the each scanline fits into
-+	 * the allocated buffer.
-+	 */
-+	fourcc = drm_driver_color_mode_format(drm, args->bpp);
-+	if (fourcc == DRM_FORMAT_INVALID)
-+		return -EINVAL;
-+	info = drm_format_info(fourcc);
-+	if (!info)
-+		return -EINVAL;
-+	pitch_align = drm_format_info_min_pitch(info, 0, SZ_8);
-+	if (!pitch_align || pitch_align > U32_MAX)
-+		return -EINVAL;
-+	ret = drm_mode_size_dumb(drm, args, pitch_align, 0);
+-	if (args->bpp != 32 && args->bpp != 16)
+-		return -EINVAL;
+-
+-	pitch = args->width * args->bpp / 8;
+-	pitch = ALIGN(pitch, descp->pitch_align);
+-	size = pitch * args->height;
+-	size = ALIGN(size, PAGE_SIZE);
++	ret = drm_mode_size_dumb(ddev, args, descp->pitch_align, 0);
++	if (ret)
++		return ret;
+ 
+ 	/* Maximum single bo size allowed is the half vram size available */
+-	if (size > ldev->vram_size / 2) {
+-		drm_err(ddev, "Requesting(%zuMiB) failed\n", size >> 20);
++	if (args->size > ldev->vram_size / 2) {
++		drm_err(ddev, "Requesting(%zuMiB) failed\n", (size_t)(args->size >> PAGE_SHIFT));
+ 		return -ENOMEM;
+ 	}
+ 
+-	gobj = lsdc_gem_object_create(ddev, domain, size, false, NULL, NULL);
++	gobj = lsdc_gem_object_create(ddev, domain, args->size, false, NULL, NULL);
+ 	if (IS_ERR(gobj)) {
+ 		drm_err(ddev, "Failed to create gem object\n");
+ 		return PTR_ERR(gobj);
+ 	}
+ 
+-	ret = drm_gem_handle_create(file, gobj, &handle);
++	ret = drm_gem_handle_create(file, gobj, &args->handle);
+ 
+ 	/* drop reference from allocate, handle holds it now */
+ 	drm_gem_object_put(gobj);
  	if (ret)
  		return ret;
  
--	args->width = width;
--	return ret;
-+	return drm_gem_dma_dumb_create(file_priv, drm, args);
+-	args->pitch = pitch;
+-	args->size = size;
+-	args->handle = handle;
+-
+ 	return 0;
  }
  
- static const struct drm_driver imx_drm_driver = {
 -- 
 2.49.0
 
