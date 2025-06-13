@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BAE7DAD90F3
+	by mail.lfdr.de (Postfix) with ESMTPS id D84CBAD90F4
 	for <lists+xen-devel@lfdr.de>; Fri, 13 Jun 2025 17:16:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1014458.1392580 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1014459.1392590 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uQ69A-0001SF-15; Fri, 13 Jun 2025 15:16:48 +0000
+	id 1uQ69C-0001lK-FB; Fri, 13 Jun 2025 15:16:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1014458.1392580; Fri, 13 Jun 2025 15:16:47 +0000
+Received: by outflank-mailman (output) from mailman id 1014459.1392590; Fri, 13 Jun 2025 15:16:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uQ699-0001PE-TP; Fri, 13 Jun 2025 15:16:47 +0000
-Received: by outflank-mailman (input) for mailman id 1014458;
- Fri, 13 Jun 2025 15:16:46 +0000
+	id 1uQ69C-0001iJ-Br; Fri, 13 Jun 2025 15:16:50 +0000
+Received: by outflank-mailman (input) for mailman id 1014459;
+ Fri, 13 Jun 2025 15:16:48 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=rwl9=Y4=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
- id 1uQ698-0001Mm-89
- for xen-devel@lists.xenproject.org; Fri, 13 Jun 2025 15:16:46 +0000
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2061c.outbound.protection.outlook.com
- [2a01:111:f403:2416::61c])
+ id 1uQ69A-0001Mm-1F
+ for xen-devel@lists.xenproject.org; Fri, 13 Jun 2025 15:16:48 +0000
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2061b.outbound.protection.outlook.com
+ [2a01:111:f403:2414::61b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 68e860fb-4869-11f0-b894-0df219b8e170;
- Fri, 13 Jun 2025 17:16:43 +0200 (CEST)
-Received: from DM6PR08CA0031.namprd08.prod.outlook.com (2603:10b6:5:80::44) by
- BY5PR12MB4162.namprd12.prod.outlook.com (2603:10b6:a03:201::11) with
+ id 6ac437a3-4869-11f0-b894-0df219b8e170;
+ Fri, 13 Jun 2025 17:16:45 +0200 (CEST)
+Received: from DS7PR03CA0097.namprd03.prod.outlook.com (2603:10b6:5:3b7::12)
+ by CYYPR12MB8853.namprd12.prod.outlook.com (2603:10b6:930:cb::7) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8835.25; Fri, 13 Jun
- 2025 15:16:39 +0000
-Received: from DS1PEPF0001709B.namprd05.prod.outlook.com
- (2603:10b6:5:80:cafe::b5) by DM6PR08CA0031.outlook.office365.com
- (2603:10b6:5:80::44) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8835.22 via Frontend Transport; Fri,
- 13 Jun 2025 15:16:38 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8835.18; Fri, 13 Jun
+ 2025 15:16:42 +0000
+Received: from DS1PEPF0001709C.namprd05.prod.outlook.com
+ (2603:10b6:5:3b7:cafe::ec) by DS7PR03CA0097.outlook.office365.com
+ (2603:10b6:5:3b7::12) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8769.21 via Frontend Transport; Fri,
+ 13 Jun 2025 15:16:41 +0000
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS1PEPF0001709B.mail.protection.outlook.com (10.167.18.105) with Microsoft
+ DS1PEPF0001709C.mail.protection.outlook.com (10.167.18.106) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8835.15 via Frontend Transport; Fri, 13 Jun 2025 15:16:38 +0000
+ 15.20.8835.15 via Frontend Transport; Fri, 13 Jun 2025 15:16:41 +0000
 Received: from xcbagarciav01.xilinx.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 13 Jun
- 2025 10:16:35 -0500
+ 2025 10:16:38 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,22 +56,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 68e860fb-4869-11f0-b894-0df219b8e170
+X-Inumbo-ID: 6ac437a3-4869-11f0-b894-0df219b8e170
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=eIaGggADv+g05F0/qIkRzvOLCE1t+yaKqRYWC0y6PUzT9mJgbTbKAxojPW8oU575iJ5Oi7jQJ8Y1n7x7++6q10r57/EzymV162Su3o8fM64adkKpCEmI75RGdl9hKFC/2ih8Gjd6f+tNpI9Qmu9NQBEKsUpuBC3cgO+Hp56vUVRsQdRBQVyEJHU6KBI5/5UiV3Q0RintV9DDOd6+FZ6HO3NWcPXsd2pj//12ALUY+xQGi3y2ftHKczRtxqpBhgOhJYS//O1EHU+BQQJv2hUdlAtsAZEWtWU84kPG7n0+jmaMuAEW92vzuf3pvmSUtH43vaMvaTLIfkQTdIViFJpBxQ==
+ b=U8tK9fc0So+dEv8cfZXlxoH3hlOTePXyTK0u+L0eHEazJTjPtjDKW5miwI0qWnnrZsnbiPehAR7iAAkaWL6wmJ9iVmZXWc6BsDkdkEdpuurdCZ+EEVhBaqP755sHAmZgurWseAnInviJFViHUSeNUf7vDJJg2bixRoU6h7Rj7n+VOV9kakypzNtVgSFklWxFGQzUggOZ7xe1uqDvmgK4e30kBT5KOs2uKh54dwr/F4HUv1V9jUanm1JhUyc91dlCfJI5VIIhwVJnu1blUa9cMyc8yKPszb0LafTTecBlcIUl3wTUwceWko0uvvAmrxaGbaztzeCzGI5V+maxHCErkQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zJfJ8Dj29Mew3Bg03ew0zBBwme1Opwmqo96cBga08KU=;
- b=YHYE1Nnd8jsi2bLogTaWULt8SREjZpIevbV8Gy65mRpsLg5t7x2cKX3R+/PKiHH2xlWQ0bqmtl9nAsLblNu5d+nwSrpmTv5fTwxCUxQbDnNuyJxaCJjjbitG5vHtUkFOW3V/+zWQtiY5IYp/OaxpYwyesWBwH5q0DmBWy2Ye/CkEgmmHsXh5xrixgEvA5ZfEJ7DX1X4dY7dg2xXW7iBGFubj9k0rCEl1cLqZy80C+Ynd1irA0lPwupi2/4Kz4H+pKU87txatm3TcG1XA2ORr2bpkXAJO87LtMktf2ZgSj1esBAXOO/mUIQg651DMzAImlgz9Jg8aw+/rIaq13f9miQ==
+ bh=fuTUHPpW7/oLmgZ6zERNxr4Yy0wut8zcZxqimMu6Uqs=;
+ b=KTwOGt8woWN4O+UKXeLLg+4/Ip8xOgF80pX4J4t03CxsWMo0mi1X2jMOc09eQgL97ftmsejvtTjmxNZVK9QAs1s5sNHolhg3RH472QcVeNhSTomcpF8/J5YFOf78gF37jBFqXQV6KhnAzvk4LFehU18m+5rRBhYMifIY5+kgqGQtoR5vRvkYeu/sICMchiLEbqUBpFyltudD+8kR8n4chcchb6g02JyHbSJXPAKQACC59Phckkf67VC5J/8ufm6jxHKEYTBx/qenkHj9Ah6yjIdPuyieXFI5y3MMewyvn958PZ4S26o/2aq/P97i+f02v24bzjngPCj445ftf5Zy5g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zJfJ8Dj29Mew3Bg03ew0zBBwme1Opwmqo96cBga08KU=;
- b=MfxxyIrjNtikKpMM3qlznh38+CejDRJ9si3Gd4HUboLu1ZLn1njCP6AvUW4Kivnu6BNIjsMjshhy0E79DqBA7VCHcQGhnd8gUlJ5Si7/iK/ePJclY7kmG6X4EabxwkmxYA1WYEPhteNqAaWsouoAE6Uj9bCTJ5RJ5LG+v0OXnRc=
+ bh=fuTUHPpW7/oLmgZ6zERNxr4Yy0wut8zcZxqimMu6Uqs=;
+ b=qZewcFjUBKNFha867ykXWS8s0dzRQXOqc7yz0u/33Nmy2oEajHTjlR+ZiT+FpK0+x8dSLzNyi1mxnKo8i2n+9Ji3p+vfoPGx+JInSb7EvM1GfDQLiXGwLEqDuIefv6TW42IxsjqX1PYj3VT6XkTbT/qtkwAjaShd0rMKReq+SEk=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -80,16 +80,15 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 From: Alejandro Vallejo <agarciav@amd.com>
 To: <xen-devel@lists.xenproject.org>
-CC: Alejandro Vallejo <agarciav@amd.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
-	<bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, "Volodymyr
- Babchuk" <Volodymyr_Babchuk@epam.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>, "Jan
- Beulich" <jbeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
-	<roger.pau@citrix.com>, "Daniel P. Smith" <dpsmith@apertussolutions.com>
-Subject: [PATCH v3 04/14] xen: Rename bootmodule{,s} to boot_module{,s}
-Date: Fri, 13 Jun 2025 17:13:13 +0200
-Message-ID: <20250613151612.754222-5-agarciav@amd.com>
+CC: Alejandro Vallejo <agarciav@amd.com>, Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, "Stefano
+ Stabellini" <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+	"Bertrand Marquis" <bertrand.marquis@arm.com>, Michal Orzel
+	<michal.orzel@amd.com>, "Daniel P. Smith" <dpsmith@apertussolutions.com>
+Subject: [PATCH v3 05/14] x86: Replace arch-specific boot_module with common one
+Date: Fri, 13 Jun 2025 17:13:14 +0200
+Message-ID: <20250613151612.754222-6-agarciav@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20250613151612.754222-1-agarciav@amd.com>
 References: <20250613151612.754222-1-agarciav@amd.com>
@@ -101,693 +100,497 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS1PEPF0001709B:EE_|BY5PR12MB4162:EE_
-X-MS-Office365-Filtering-Correlation-Id: 367f0235-8ea3-4a17-4637-08ddaa8d4b6d
+X-MS-TrafficTypeDiagnostic: DS1PEPF0001709C:EE_|CYYPR12MB8853:EE_
+X-MS-Office365-Filtering-Correlation-Id: adf927b5-630b-461d-3f4e-08ddaa8d4d0a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700013|376014|7416014|82310400026|1800799024;
+	BCL:0;ARA:13230040|36860700013|1800799024|82310400026|376014;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?76pQZLmgNHLTTBVnjUmVlm6JIY2joOCGdd2KgUz0E4EPi32mcYKRPqOVwsuS?=
- =?us-ascii?Q?xxfUI24XV9P/rw41ng73FBIo8pQE92iYa+J/gdj9+XJg2LH0sj8j/ZSPgNbk?=
- =?us-ascii?Q?jb9jeAna3NuACQKcG7prFtkTazvcKH4LDlyKtnNFLOetrKW/POkN943BVLwD?=
- =?us-ascii?Q?6R2ILy/rbKutiC/K91WBEDLV7L5BmW128Y2M7bL6KTmSoluhKxZt8K70bDhK?=
- =?us-ascii?Q?qnPkdg7IzAdiyxPZmpvlWAxqHabjstNscxCD8h8zusNefKTuBo/AdnJZa4+l?=
- =?us-ascii?Q?H+jLI275Oq/QB53zpxDrgq9tpmBJkTAlYZY1W/kqQIy0sw1Z5A4q5SyB+6Eq?=
- =?us-ascii?Q?R+yVWWh8CHxXMg28t5zxjdcG+MSHMH1tw71sJJZW/iQV6kd0i+hNb2A93/Dj?=
- =?us-ascii?Q?+3zGXaCPSaXCZChcLR1YkXXerOI9L/Xo4ZuLqBG0N6MR9GDutmoERR1+OeR8?=
- =?us-ascii?Q?o8JBinS8ivl2oi+JExOH26LTE1VxdtbvgOTCsEGm4dX15RH33Ve9WO9tWuzl?=
- =?us-ascii?Q?ARxmw1b6wIq16K3U+oJvIjq83HX+utT+iak+wUc2HrAqNUfjHvfOfbBFuojf?=
- =?us-ascii?Q?UQf/Rgxy1wIDlpPNe0y9UWZWwJkCTPCSU6S9hbFGjYOfy0s0v/tDLfuGh9VX?=
- =?us-ascii?Q?J1HyetoetC5QMNAjE+M79S0iaNb8fKvVj2sNGHOei8QYsZgdBtq8PYp+bUlC?=
- =?us-ascii?Q?MSejROZSpxlTlIE6uh3kGpkahtiB+ULAy5FjpcP5q5dbWUcu4Ck35RRIFTM8?=
- =?us-ascii?Q?Sk134H/xMX6XH5QKXg0hzwE56GGU8sVMz+nqv3WjO39OqN/CgLRbWa16tnpP?=
- =?us-ascii?Q?xm5vJTD9fZ0P4V1eKyqONAwcCFuopd0QGbcMJpFq9gmg50ZKBQGHBoX/6ofW?=
- =?us-ascii?Q?JCthiXaHJTE5/mI7oEPZlt4tf5oqvPAJhoL8KaVsoMkG1vco0Olgc5ociGc6?=
- =?us-ascii?Q?+ur/DzlIcFmjA8humZa4FoB2JIHKmPOSeoWNCf1zuYzU068UCFZugCohHWMD?=
- =?us-ascii?Q?09isn8w0u29TclmNjfOn8RLfP6El6G7XWtp0vuZmT1khhtdPU0Dn3W7pR8lF?=
- =?us-ascii?Q?T9SjE89oTERrSKkhD7wvwPmWUEJ6UXon182ao+zDlQ1tzFQs+okOWMmZ3eWb?=
- =?us-ascii?Q?Pp1SoJErGYq/r7BckYhSqCyh69V5DbhQvWBEuZLxNd0S9mlmz6sP7b3tovTM?=
- =?us-ascii?Q?UwTeMzsXrGTpS0zsf21cqoxVwRpXgnP5FlywSf1ofxUg6hPS5r8TF8Tngrdb?=
- =?us-ascii?Q?jZMZ+3LFxUcQ9+j5IGLX2j3MWBOxQDH6F9Cy3o9oD7sKC04u8mNDZTL7uO1M?=
- =?us-ascii?Q?5CqmMjLWiaVQe0GueoK2l4qT+yauQyhJC1ymQt9YHrKaJ4XNlRLsedP6TFmp?=
- =?us-ascii?Q?skhcY/EcU8x7cww4h85J9TAe9xBUXsk/6SXOf7ubQT4wJfIRDZoOUGhtDxnN?=
- =?us-ascii?Q?5/Ef+6EDqehDM6gLYgZ13Nhy4Q4+exELjGY7uL5cJ/gDBHtwHkjuNfp+PRNd?=
- =?us-ascii?Q?ejUY2sr0HTfBsdP7J80whgLrrWVbCIQboGDv?=
+	=?us-ascii?Q?o6k741P9hkGIh6ZFCVCX6g4YtyxKfH1MRqOOJCMIEcJ7KMrzF133SA6WAx2a?=
+ =?us-ascii?Q?s1zGrqQScEgpYLb4NI1gpv6sLsc6kzPXKQuzSoE55Yn5eu++OzQlMVOZLw70?=
+ =?us-ascii?Q?KXAhwEFP4P/Nkdt/Y4kscVwVwizN4DWQJfUKKYyEVSCAUdKnoUBntradHxto?=
+ =?us-ascii?Q?QNb8SpIqSoYL3siulTDFCRxm44WzghBn0q1LAKy78r1rcCLslNPMj57k6ZDk?=
+ =?us-ascii?Q?2bKWoq3HsvVdADUo73yaYZFlrj2XQjyepW/2qC5Whc5UhVISzhhPBPJbvg99?=
+ =?us-ascii?Q?9c99qC3FnHvEkqPm9DmmdpUmaSwF3a8l/0oxOUwWw+XrntJMDaEHSmZmtrdk?=
+ =?us-ascii?Q?WzxYWsBrw+uLdhIDxMFUTa95htxW8fPI4BhyHIuYsWUpp5SMNLWteq0ylB74?=
+ =?us-ascii?Q?dNTBA5NUKl2rssVnFZTBmro1v6FLk7oPYy+7QRieKQQbgH51tWALpemU183c?=
+ =?us-ascii?Q?SI0T5BWUmDoZWLWO55uPltR26ODafNOS6uXHkohhs8mHpT4wmsJJYb+sgRsz?=
+ =?us-ascii?Q?CgnmDvNiNdkekvk2/+JAuRRqoJhpKCss6svwue4aarMsl+THpQSj94fFZMyI?=
+ =?us-ascii?Q?zlOjwRCH8Wwyl7bT0FoS9krgoooAl9L2t6JfBnkcFnaIZvYnL9VSuhXnz6cP?=
+ =?us-ascii?Q?sZ3u1InEEgaNKp3H49rUhksUgM5Jj80bjweck+FzuTuYX+CmpAbZMfwxEPE5?=
+ =?us-ascii?Q?vGWHVaFrWPjtqV0xePvqfg3BrnPyye9Oclr9wZCtVNvDkjt6JgoFzHXahCFy?=
+ =?us-ascii?Q?YLH0wxmmwAh/K18Mvk+4j/KoKe6ilEsVp8JZlPrAngVK40PYKCovmCpgn2Vt?=
+ =?us-ascii?Q?aQRL84izKrV9QnlTdytDVXMyOaesKuU0mW8C35Vaa3o103BUwNS9krxH4cvG?=
+ =?us-ascii?Q?/YhVVB8B1H3Uf1Km+xdJTrYJVfSydmYVfwZnmtLcujy8aIOimX5YChsP9ROa?=
+ =?us-ascii?Q?KDbVb5PoXvivYy3y2/4MiAdsrmw4l7Yi1CeKxEQLGQd8geFRjG4G186WyVbK?=
+ =?us-ascii?Q?sCNpZZLl7sBPKX0SCDormB4stfEOu61lA0atQ3e63UaM4ebO/x6PZCLkqPeH?=
+ =?us-ascii?Q?HgZg7MwQhniWhoA/qZAhhPrPN0aDjKMbam2vhrsEX4MvUr6NSRjbwqdEsUFf?=
+ =?us-ascii?Q?eI/H6CLm7huIMo5dq+so6elriMFW8zSJ6vDy5fnueLat8ofdV2hVDJZ+FQJi?=
+ =?us-ascii?Q?rNmP97zaXlLqHdoi/UxAFZunYn/jshGImM7RFHpER9npFcuHIU6AeIsr2xRo?=
+ =?us-ascii?Q?y6bRamPrt+jY0O8L+uS1JqBItt9DM32YxEaKWwLJNLC9ggFeS7c1jBwd8X/3?=
+ =?us-ascii?Q?A7PKU/tsXhZnIAoEQ6UnBhGVQFQoCXdR6o5SYZbyoeD9JUfQWXne56eTY9kO?=
+ =?us-ascii?Q?95yZIqJKLyH7cYxNtSI0L9FfL2psG/tLbzyoU/HWqBRv5bHSFE1Kba7zQYot?=
+ =?us-ascii?Q?/9fCwAxcJBA5yeCm+l5l60jdIhPzyYyS5SfbKSSYyfDz1O5NwmBi67qqoqVU?=
+ =?us-ascii?Q?rHl2uX1+0Dua5GDaxYFBiV36V82Xe4sAXIPI?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(376014)(7416014)(82310400026)(1800799024);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(1800799024)(82310400026)(376014);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jun 2025 15:16:38.8236
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jun 2025 15:16:41.5293
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 367f0235-8ea3-4a17-4637-08ddaa8d4b6d
+X-MS-Exchange-CrossTenant-Network-Message-Id: adf927b5-630b-461d-3f4e-08ddaa8d4d0a
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	DS1PEPF0001709B.namprd05.prod.outlook.com
+	DS1PEPF0001709C.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4162
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8853
 
-... in alignment with the new coding style on word splitting for type
+These types resemble each other very closely in layout and intent,
+and with "struct boot_module" already in common code it makes perfect
+sense to merge them. In order to do so, add an arch-specific area for
+x86-specific tidbits, and rename identical fields with conflicting
 names.
 
-This aligns its name with the largely duplicate boot_module struct
-in x86. While there's no equivalent to "struct bootmodules" in x86,
-changing one and not the other is just confusing. Same with various
-comments and function names.
-
-Rather than making a long subfield name even longer, remove the
-_bootmodule suffix in the kernel, initrd and dtb subfields.
-
-Not a functional change.
+No functional change intended.
 
 Signed-off-by: Alejandro Vallejo <agarciav@amd.com>
 ---
- xen/arch/arm/domain_build.c             |  4 +-
- xen/arch/arm/efi/efi-boot.h             |  6 +--
- xen/arch/arm/kernel.c                   |  4 +-
- xen/arch/arm/llc-coloring.c             |  8 ++--
- xen/arch/arm/mmu/setup.c                | 10 ++---
- xen/arch/arm/setup.c                    | 10 ++---
- xen/common/device-tree/bootfdt.c        |  4 +-
- xen/common/device-tree/bootinfo.c       | 52 ++++++++++++-------------
- xen/common/device-tree/dom0less-build.c | 25 ++++++------
- xen/common/device-tree/domain-build.c   |  2 +-
- xen/common/device-tree/kernel.c         | 22 +++++------
- xen/include/xen/bootfdt.h               | 26 ++++++-------
- xen/include/xen/fdt-kernel.h            |  7 ++--
- xen/xsm/xsm_policy.c                    |  2 +-
- 14 files changed, 90 insertions(+), 92 deletions(-)
+ xen/arch/x86/cpu/microcode/core.c   |  7 ++--
+ xen/arch/x86/hvm/dom0_build.c       |  8 ++---
+ xen/arch/x86/include/asm/bootfdt.h  | 50 ++++++++++++++++++++++++++
+ xen/arch/x86/include/asm/bootinfo.h | 56 +++--------------------------
+ xen/arch/x86/pv/dom0_build.c        |  6 ++--
+ xen/arch/x86/setup.c                | 42 +++++++++++-----------
+ xen/include/xen/bootfdt.h           |  8 +++++
+ xen/xsm/xsm_policy.c                |  2 +-
+ 8 files changed, 95 insertions(+), 84 deletions(-)
+ create mode 100644 xen/arch/x86/include/asm/bootfdt.h
 
-diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-index 590f38e520..7096e176ed 100644
---- a/xen/arch/arm/domain_build.c
-+++ b/xen/arch/arm/domain_build.c
-@@ -579,7 +579,7 @@ static int __init write_properties(struct domain *d, struct kernel_info *kinfo,
+diff --git a/xen/arch/x86/cpu/microcode/core.c b/xen/arch/x86/cpu/microcode/core.c
+index 34a94cd25b..816e9bfe40 100644
+--- a/xen/arch/x86/cpu/microcode/core.c
++++ b/xen/arch/x86/cpu/microcode/core.c
+@@ -764,8 +764,7 @@ static int __init early_microcode_load(struct boot_info *bi)
+             struct cpio_data cd;
  
-     if ( dt_node_path_is_equal(node, "/chosen") )
-     {
--        const struct bootmodule *initrd = kinfo->initrd_bootmodule;
-+        const struct boot_module *initrd = kinfo->initrd;
+             /* Search anything unclaimed or likely to be a CPIO archive. */
+-            if ( bm->type != BOOTMOD_UNKNOWN &&
+-                 bm->type != BOOTMOD_RAMDISK )
++            if ( bm->kind != BOOTMOD_UNKNOWN && bm->kind != BOOTMOD_RAMDISK )
+                 continue;
  
-         if ( bootargs )
+             size = bm->size;
+@@ -815,12 +814,12 @@ static int __init early_microcode_load(struct boot_info *bi)
+             return -ENODEV;
+         }
+ 
+-        if ( bi->mods[idx].type != BOOTMOD_UNKNOWN )
++        if ( bi->mods[idx].kind != BOOTMOD_UNKNOWN )
          {
-@@ -1447,7 +1447,7 @@ int __init make_chosen_node(const struct kernel_info *kinfo)
+             printk(XENLOG_WARNING "Microcode: Chosen module %d already used\n", idx);
+             return -ENODEV;
+         }
+-        bi->mods[idx].type = BOOTMOD_MICROCODE;
++        bi->mods[idx].kind = BOOTMOD_MICROCODE;
+ 
+         size = bi->mods[idx].size;
+         data = bootstrap_map_bm(&bi->mods[idx]);
+diff --git a/xen/arch/x86/hvm/dom0_build.c b/xen/arch/x86/hvm/dom0_build.c
+index a038e58c11..8d2734f2b5 100644
+--- a/xen/arch/x86/hvm/dom0_build.c
++++ b/xen/arch/x86/hvm/dom0_build.c
+@@ -648,9 +648,9 @@ static int __init pvh_load_kernel(
  {
-     int res;
-     const char *bootargs = NULL;
--    const struct bootmodule *initrd = kinfo->initrd_bootmodule;
-+    const struct boot_module *initrd = kinfo->initrd;
-     void *fdt = kinfo->fdt;
+     struct domain *d = bd->d;
+     struct boot_module *image = bd->kernel;
+-    struct boot_module *initrd = bd->module;
++    struct boot_module *initrd = bd->initrd;
+     void *image_base = bootstrap_map_bm(image);
+-    void *image_start = image_base + image->headroom;
++    void *image_start = image_base + image->arch.headroom;
+     unsigned long image_len = image->size;
+     unsigned long initrd_len = initrd ? initrd->size : 0;
+     size_t cmdline_len = bd->cmdline ? strlen(bd->cmdline) + 1 : 0;
+@@ -721,9 +721,9 @@ static int __init pvh_load_kernel(
+     {
+         size_t initrd_space = elf_round_up(&elf, initrd_len);
  
-     dt_dprintk("Create chosen node\n");
-diff --git a/xen/arch/arm/efi/efi-boot.h b/xen/arch/arm/efi/efi-boot.h
-index d2a09ad3a1..2af8e8ea05 100644
---- a/xen/arch/arm/efi/efi-boot.h
-+++ b/xen/arch/arm/efi/efi-boot.h
-@@ -20,7 +20,7 @@ typedef struct {
- } module_info;
+-        if ( initrd->cmdline_pa )
++        if ( initrd->arch.cmdline_pa )
+         {
+-            initrd_cmdline = __va(initrd->cmdline_pa);
++            initrd_cmdline = __va(initrd->arch.cmdline_pa);
+             if ( !*initrd_cmdline )
+                 initrd_cmdline = NULL;
+         }
+diff --git a/xen/arch/x86/include/asm/bootfdt.h b/xen/arch/x86/include/asm/bootfdt.h
+new file mode 100644
+index 0000000000..a4c4bf30b9
+--- /dev/null
++++ b/xen/arch/x86/include/asm/bootfdt.h
+@@ -0,0 +1,50 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++#ifndef X86_BOOTFDT_H
++#define X86_BOOTFDT_H
++
++#include <xen/types.h>
++
++struct arch_boot_module
++{
++    /*
++     * Module State Flags:
++     *   relocated:   indicates module has been relocated in memory.
++     *   released:    indicates module's pages have been freed.
++     */
++    bool relocated:1;
++    bool released:1;
++
++    /*
++     * A boot module may need decompressing by Xen.  Headroom is an estimate of
++     * the additional space required to decompress the module.
++     *
++     * Headroom is accounted for at the start of the module.  Decompressing is
++     * done in-place with input=start, output=start-headroom, expecting the
++     * pointers to become equal (give or take some rounding) when decompression
++     * is complete.
++     *
++     * Memory layout at boot:
++     *
++     *               start ----+
++     *                         v
++     *   |<-----headroom------>|<------size------->|
++     *                         +-------------------+
++     *                         | Compressed Module |
++     *   +---------------------+-------------------+
++     *   |           Decompressed Module           |
++     *   +-----------------------------------------+
++     */
++    unsigned long headroom;
++    paddr_t cmdline_pa;
++};
++
++#endif /* X86_BOOTFDT_H */
++
++/*
++ * Local variables:
++ * mode: C
++ * c-file-style: "BSD"
++ * c-basic-offset: 4
++ * indent-tabs-mode: nil
++ * End:
++ */
+diff --git a/xen/arch/x86/include/asm/bootinfo.h b/xen/arch/x86/include/asm/bootinfo.h
+index 3afc214c17..d33b100e04 100644
+--- a/xen/arch/x86/include/asm/bootinfo.h
++++ b/xen/arch/x86/include/asm/bootinfo.h
+@@ -8,6 +8,7 @@
+ #ifndef X86_BOOTINFO_H
+ #define X86_BOOTINFO_H
  
++#include <xen/bootfdt.h>
+ #include <xen/init.h>
+ #include <xen/multiboot.h>
+ #include <xen/types.h>
+@@ -19,55 +20,6 @@
+ /* Max number of boot domains that Xen can construct */
+ #define MAX_NR_BOOTDOMS 1
+ 
+-/* Boot module binary type / purpose */
+-enum bootmod_type {
+-    BOOTMOD_UNKNOWN,
+-    BOOTMOD_XEN,
+-    BOOTMOD_KERNEL,
+-    BOOTMOD_RAMDISK,
+-    BOOTMOD_MICROCODE,
+-    BOOTMOD_XSM_POLICY,
+-};
+-
+-struct boot_module {
+-    enum bootmod_type type;
+-
+-    /*
+-     * Module State Flags:
+-     *   relocated: indicates module has been relocated in memory.
+-     *   released:  indicates module's pages have been freed.
+-     */
+-    bool relocated:1;
+-    bool released:1;
+-
+-    /*
+-     * A boot module may need decompressing by Xen.  Headroom is an estimate of
+-     * the additional space required to decompress the module.
+-     *
+-     * Headroom is accounted for at the start of the module.  Decompressing is
+-     * done in-place with input=start, output=start-headroom, expecting the
+-     * pointers to become equal (give or take some rounding) when decompression
+-     * is complete.
+-     *
+-     * Memory layout at boot:
+-     *
+-     *               start ----+
+-     *                         v
+-     *   |<-----headroom------>|<------size------->|
+-     *                         +-------------------+
+-     *                         | Compressed Module |
+-     *   +---------------------+-------------------+
+-     *   |           Decompressed Module           |
+-     *   +-----------------------------------------+
+-     */
+-    unsigned long headroom;
+-
+-    paddr_t cmdline_pa;
+-
+-    paddr_t start;
+-    size_t size;
+-};
+-
  /*
-- * Binaries will be translated into bootmodules, the maximum number for them is
-+ * Binaries will be translated into boot_modules, the maximum number for them is
-  * MAX_MODULES where we should remove a unit for Xen and one for Xen DTB
+  * Xen internal representation of information provided by the
+  * bootloader/environment, or derived from the information.
+@@ -94,16 +46,16 @@ struct boot_info {
+  *      Failure - a value greater than MAX_NR_BOOTMODS
   */
- #define MAX_UEFI_MODULES (MAX_MODULES - 2)
-@@ -602,9 +602,9 @@ static void __init efi_arch_handle_module(const struct file *file,
- 
-     /*
-      * modules_available is decremented here because for each dom0 file added
--     * from the configuration file, there will be an additional bootmodule,
-+     * from the configuration file, there will be an additional boot_module,
-      * so the number of available slots will be decremented because there is a
--     * maximum amount of bootmodules that can be loaded.
-+     * maximum amount of boot_modules that can be loaded.
-      */
-     modules_available--;
- }
-diff --git a/xen/arch/arm/kernel.c b/xen/arch/arm/kernel.c
-index cb1efb19e7..e734ec5c1e 100644
---- a/xen/arch/arm/kernel.c
-+++ b/xen/arch/arm/kernel.c
-@@ -46,7 +46,7 @@ static void __init place_modules(struct kernel_info *info,
-                                  paddr_t kernbase, paddr_t kernend)
+ static inline unsigned int __init next_boot_module_index(
+-    const struct boot_info *bi, enum bootmod_type t, unsigned int start)
++    const struct boot_info *bi, boot_module_kind k, unsigned int start)
  {
-     /* Align DTB and initrd size to 2Mb. Linux only requires 4 byte alignment */
--    const struct bootmodule *mod = info->initrd_bootmodule;
-+    const struct boot_module *mod = info->initrd;
-     const struct membanks *mem = kernel_info_get_mem(info);
-     const paddr_t initrd_len = ROUNDUP(mod ? mod->size : 0, MB(2));
-     const paddr_t dtb_len = ROUNDUP(fdt_totalsize(info->fdt), MB(2));
-@@ -175,7 +175,7 @@ static void __init kernel_zimage_load(struct kernel_info *info)
-  * Check if the image is a uImage and setup kernel_info
-  */
- int __init kernel_uimage_probe(struct kernel_info *info,
--                               struct bootmodule *mod)
-+                               struct boot_module *mod)
- {
-     struct {
-         __be32 magic;   /* Image Header Magic Number */
-diff --git a/xen/arch/arm/llc-coloring.c b/xen/arch/arm/llc-coloring.c
-index 99ac10b610..6f78817c57 100644
---- a/xen/arch/arm/llc-coloring.c
-+++ b/xen/arch/arm/llc-coloring.c
-@@ -123,12 +123,12 @@ static paddr_t __init xen_colored_map_size(void)
+     unsigned int i;
  
- void __init arch_llc_coloring_init(void)
- {
--    struct bootmodule *xen_bootmodule = boot_module_find_by_kind(BOOTMOD_XEN);
-+    struct boot_module *xen_boot_module = boot_module_find_by_kind(BOOTMOD_XEN);
+-    if ( t == BOOTMOD_XEN )
++    if ( k == BOOTMOD_XEN )
+         return bi->nr_modules;
  
--    BUG_ON(!xen_bootmodule);
-+    BUG_ON(!xen_boot_module);
- 
--    xen_bootmodule->size = xen_colored_map_size();
--    xen_bootmodule->start = get_xen_paddr(xen_bootmodule->size);
-+    xen_boot_module->size = xen_colored_map_size();
-+    xen_boot_module->start = get_xen_paddr(xen_boot_module->size);
- }
- 
- /*
-diff --git a/xen/arch/arm/mmu/setup.c b/xen/arch/arm/mmu/setup.c
-index 30afe97781..eb8ed19ca1 100644
---- a/xen/arch/arm/mmu/setup.c
-+++ b/xen/arch/arm/mmu/setup.c
-@@ -246,7 +246,7 @@ paddr_t __init consider_modules(paddr_t s, paddr_t e,
- #ifdef CONFIG_STATIC_SHM
-     const struct membanks *shmem = bootinfo_get_shmem();
- #endif
--    const struct bootmodules *mi = &bootinfo.modules;
-+    const struct boot_modules *mi = &bootinfo.modules;
-     int i;
-     int nr;
- 
-@@ -273,8 +273,8 @@ paddr_t __init consider_modules(paddr_t s, paddr_t e,
+     for ( i = start; i < bi->nr_modules; i++ )
+     {
+-        if ( bi->mods[i].type == t )
++        if ( bi->mods[i].kind == k )
+             return i;
      }
  
-     /*
--     * i is the current bootmodule we are evaluating, across all
--     * possible kinds of bootmodules.
-+     * i is the current boot_module we are evaluating, across all
-+     * possible kinds of boot_modules.
+diff --git a/xen/arch/x86/pv/dom0_build.c b/xen/arch/x86/pv/dom0_build.c
+index e1b78d47c2..c37bea9454 100644
+--- a/xen/arch/x86/pv/dom0_build.c
++++ b/xen/arch/x86/pv/dom0_build.c
+@@ -375,7 +375,7 @@ static int __init dom0_construct(const struct boot_domain *bd)
+     struct vcpu *v = d->vcpu[0];
+ 
+     struct boot_module *image = bd->kernel;
+-    struct boot_module *initrd = bd->module;
++    struct boot_module *initrd = bd->initrd;
+     void *image_base;
+     unsigned long image_len;
+     void *image_start;
+@@ -422,7 +422,7 @@ static int __init dom0_construct(const struct boot_domain *bd)
+ 
+     image_base = bootstrap_map_bm(image);
+     image_len = image->size;
+-    image_start = image_base + image->headroom;
++    image_start = image_base + image->arch.headroom;
+ 
+     d->max_pages = ~0U;
+ 
+@@ -659,7 +659,7 @@ static int __init dom0_construct(const struct boot_domain *bd)
+              * pages. Tell the boot_module handling that we've freed it, so the
+              * memory is left alone.
+              */
+-            initrd->released = true;
++            initrd->arch.released = true;
+         }
+ 
+         iommu_memory_setup(d, "initrd", mfn_to_page(_mfn(initrd_mfn)),
+diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
+index 7d3b30e1db..c00b22205a 100644
+--- a/xen/arch/x86/setup.c
++++ b/xen/arch/x86/setup.c
+@@ -303,7 +303,7 @@ struct boot_info __initdata xen_boot_info = {
       *
-      * When retrieving the corresponding reserved-memory addresses, we
-      * need to index the reserved_mem bank starting from 0, and only counting
-@@ -328,8 +328,8 @@ static void __init create_llc_coloring_mappings(void)
- {
-     lpae_t pte;
-     unsigned int i;
--    struct bootmodule *xen_bootmodule = boot_module_find_by_kind(BOOTMOD_XEN);
--    mfn_t start_mfn = maddr_to_mfn(xen_bootmodule->start), mfn;
-+    struct boot_module *xen_boot_module = boot_module_find_by_kind(BOOTMOD_XEN);
-+    mfn_t start_mfn = maddr_to_mfn(xen_boot_module->start), mfn;
- 
-     for_each_xen_colored_mfn ( start_mfn, mfn, i )
-     {
-diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
-index 734e23da44..8b2e65a1a5 100644
---- a/xen/arch/arm/setup.c
-+++ b/xen/arch/arm/setup.c
-@@ -206,11 +206,11 @@ static void __init processor_id(void)
- 
- void __init discard_initial_modules(void)
- {
--    struct bootmodules *mi = &bootinfo.modules;
-+    struct boot_modules *mi = &bootinfo.modules;
-     int i;
- 
-     /*
--     * When using static heap feature, don't give bootmodules memory back to
-+     * When using static heap feature, don't give boot_modules memory back to
-      * the heap allocator
+      * The extra entry exists to be able to add the Xen image as a module.
       */
-     if ( using_static_heap )
-@@ -303,7 +303,7 @@ void asmlinkage __init start_xen(unsigned long fdt_paddr)
- {
-     size_t fdt_size;
-     const char *cmdline;
--    struct bootmodule *xen_bootmodule;
-+    struct boot_module *xen_boot_module;
-     struct domain *d;
-     int rc, i;
+-    .mods = { [0 ... MAX_NR_BOOTMODS] = { .type = BOOTMOD_UNKNOWN } },
++    .mods = { [0 ... MAX_NR_BOOTMODS] = { .kind = BOOTMOD_UNKNOWN } },
+ };
  
-@@ -327,10 +327,10 @@ void asmlinkage __init start_xen(unsigned long fdt_paddr)
-               fdt_paddr);
- 
-     /* Register Xen's load address as a boot module. */
--    xen_bootmodule = add_boot_module(BOOTMOD_XEN,
-+    xen_boot_module = add_boot_module(BOOTMOD_XEN,
-                              virt_to_maddr(_start),
-                              (paddr_t)(uintptr_t)(_end - _start), false);
--    BUG_ON(!xen_bootmodule);
-+    BUG_ON(!xen_boot_module);
- 
-     fdt_size = boot_fdt_info(device_tree_flattened, fdt_paddr);
- 
-diff --git a/xen/common/device-tree/bootfdt.c b/xen/common/device-tree/bootfdt.c
-index 9daea06e57..39334d6205 100644
---- a/xen/common/device-tree/bootfdt.c
-+++ b/xen/common/device-tree/bootfdt.c
-@@ -314,7 +314,7 @@ static void __init process_multiboot_node(const void *fdt, int node,
-     static int __initdata kind_guess = 0;
-     const struct fdt_property *prop;
-     const __be32 *cell;
--    bootmodule_kind kind;
-+    boot_module_kind kind;
-     paddr_t start, size;
-     int len;
-     /* sizeof("/chosen/") + DT_MAX_NAME + '/' + DT_MAX_NAME + '/0' => 92 */
-@@ -518,7 +518,7 @@ static void __init early_print_info(void)
- {
-     const struct membanks *mi = bootinfo_get_mem();
-     const struct membanks *mem_resv = bootinfo_get_reserved_mem();
--    struct bootmodules *mods = &bootinfo.modules;
-+    struct boot_modules *mods = &bootinfo.modules;
-     struct bootcmdlines *cmds = &bootinfo.cmdlines;
-     unsigned int i;
- 
-diff --git a/xen/common/device-tree/bootinfo.c b/xen/common/device-tree/bootinfo.c
-index 717cfa0962..2a27d1318b 100644
---- a/xen/common/device-tree/bootinfo.c
-+++ b/xen/common/device-tree/bootinfo.c
-@@ -21,7 +21,7 @@
- 
- struct bootinfo __initdata bootinfo = BOOTINFO_INIT;
- 
--const char * __init boot_module_kind_as_string(bootmodule_kind kind)
-+const char * __init boot_module_kind_as_string(boot_module_kind kind)
- {
-     switch ( kind )
-     {
-@@ -49,7 +49,7 @@ static void __init dt_unreserved_regions(paddr_t s, paddr_t e,
-     unsigned int i;
- 
-     /*
--     * i is the current bootmodule we are evaluating across all possible
-+     * i is the current boot_module we are evaluating across all possible
-      * kinds.
+ static struct boot_info *__init multiboot_fill_boot_info(
+@@ -338,7 +338,7 @@ static struct boot_info *__init multiboot_fill_boot_info(
       */
-     for ( i = first; i < reserved_mem->nr_banks; i++ )
-@@ -143,18 +143,18 @@ static bool __init meminfo_overlap_check(const struct membanks *mem,
-  * TODO: '*_end' could be 0 if the module/region is at the end of the physical
-  * address space. This is for now not handled as it requires more rework.
-  */
--static bool __init bootmodules_overlap_check(struct bootmodules *bootmodules,
--                                             paddr_t region_start,
--                                             paddr_t region_size)
-+static bool __init boot_modules_overlap_check(struct boot_modules *boot_modules,
-+                                              paddr_t region_start,
-+                                              paddr_t region_size)
- {
-     paddr_t mod_start = INVALID_PADDR, mod_end = 0;
-     paddr_t region_end = region_start + region_size;
--    unsigned int i, mod_num = bootmodules->nr_mods;
-+    unsigned int i, mod_num = boot_modules->nr_mods;
- 
-     for ( i = 0; i < mod_num; i++ )
+     for ( i = 0; i < MAX_NR_BOOTMODS && i < bi->nr_modules; i++ )
      {
--        mod_start = bootmodules->module[i].start;
--        mod_end = mod_start + bootmodules->module[i].size;
-+        mod_start = boot_modules->module[i].start;
-+        mod_end = mod_start + boot_modules->module[i].size;
+-        bi->mods[i].cmdline_pa = mods[i].string;
++        bi->mods[i].arch.cmdline_pa = mods[i].string;
  
-         if ( region_end <= mod_start || region_start >= mod_end )
+         if ( efi_enabled(EFI_LOADER) )
+         {
+@@ -361,7 +361,7 @@ static struct boot_info *__init multiboot_fill_boot_info(
+     }
+ 
+     /* Variable 'i' should be one entry past the last module. */
+-    bi->mods[i].type = BOOTMOD_XEN;
++    bi->mods[i].kind = BOOTMOD_XEN;
+ 
+     return bi;
+ }
+@@ -388,11 +388,11 @@ unsigned long __init initial_images_nrpages(nodeid_t node)
+ 
+ void __init release_boot_module(struct boot_module *bm)
+ {
+-    ASSERT(!bm->released);
++    ASSERT(!bm->arch.released);
+ 
+     init_domheap_pages(bm->start, bm->start + PAGE_ALIGN(bm->size));
+ 
+-    bm->released = true;
++    bm->arch.released = true;
+ }
+ 
+ void __init free_boot_modules(void)
+@@ -402,7 +402,7 @@ void __init free_boot_modules(void)
+ 
+     for ( i = 0; i < bi->nr_modules; ++i )
+     {
+-        if ( bi->mods[i].released )
++        if ( bi->mods[i].arch.released )
              continue;
-@@ -210,20 +210,20 @@ bool __init check_reserved_regions_overlap(paddr_t region_start,
-                                    allow_memreserve_overlap) )
-             return true;
  
--    /* Check if input region is overlapping with bootmodules */
--    if ( bootmodules_overlap_check(&bootinfo.modules,
--                                   region_start, region_size) )
-+    /* Check if input region is overlapping with boot_modules */
-+    if ( boot_modules_overlap_check(&bootinfo.modules,
-+                                    region_start, region_size) )
-         return true;
- 
-     return false;
- }
- 
--struct bootmodule __init *add_boot_module(bootmodule_kind kind,
--                                          paddr_t start, paddr_t size,
--                                          bool domU)
-+struct boot_module __init *add_boot_module(boot_module_kind kind,
-+                                           paddr_t start, paddr_t size,
-+                                           bool domU)
+         release_boot_module(&bi->mods[i]);
+@@ -990,8 +990,9 @@ static size_t __init domain_cmdline_size(const struct boot_info *bi,
+                                          const struct boot_domain *bd)
  {
--    struct bootmodules *mods = &bootinfo.modules;
--    struct bootmodule *mod;
-+    struct boot_modules *mods = &bootinfo.modules;
-+    struct boot_module *mod;
-     unsigned int i;
+     size_t s = bi->kextra ? strlen(bi->kextra) : 0;
++    const struct arch_boot_module *abm = &bd->kernel->arch;
  
-     if ( mods->nr_mods == MAX_MODULES )
-@@ -266,10 +266,10 @@ struct bootmodule __init *add_boot_module(bootmodule_kind kind,
-  * XSM, DTB) or Dom0 modules. This is not suitable for looking up guest
-  * modules.
-  */
--struct bootmodule * __init boot_module_find_by_kind(bootmodule_kind kind)
-+struct boot_module * __init boot_module_find_by_kind(boot_module_kind kind)
- {
--    struct bootmodules *mods = &bootinfo.modules;
--    struct bootmodule *mod;
-+    struct boot_modules *mods = &bootinfo.modules;
-+    struct boot_module *mod;
-     int i;
-     for (i = 0 ; i < mods->nr_mods ; i++ )
-     {
-@@ -281,7 +281,7 @@ struct bootmodule * __init boot_module_find_by_kind(bootmodule_kind kind)
- }
+-    s += bd->kernel->cmdline_pa ? strlen(__va(bd->kernel->cmdline_pa)) : 0;
++    s += abm->cmdline_pa ? strlen(__va(abm->cmdline_pa)) : 0;
  
- void __init add_boot_cmdline(const char *name, const char *cmdline,
--                             bootmodule_kind kind, paddr_t start, bool domU)
-+                             boot_module_kind kind, paddr_t start, bool domU)
- {
-     struct bootcmdlines *cmds = &bootinfo.cmdlines;
-     struct bootcmdline *cmd;
-@@ -310,7 +310,7 @@ void __init add_boot_cmdline(const char *name, const char *cmdline,
-  * XSM, DTB) or Dom0 modules. This is not suitable for looking up guest
-  * modules.
-  */
--struct bootcmdline * __init boot_cmdline_find_by_kind(bootmodule_kind kind)
-+struct bootcmdline * __init boot_cmdline_find_by_kind(boot_module_kind kind)
- {
-     struct bootcmdlines *cmds = &bootinfo.cmdlines;
-     struct bootcmdline *cmd;
-@@ -340,11 +340,11 @@ struct bootcmdline * __init boot_cmdline_find_by_name(const char *name)
-     return NULL;
- }
+     if ( s == 0 )
+         return s;
+@@ -1055,9 +1056,10 @@ static struct domain *__init create_dom0(struct boot_info *bi)
+         if ( !(cmdline = xzalloc_array(char, cmdline_size)) )
+             panic("Error allocating cmdline buffer for %pd\n", d);
  
--struct bootmodule * __init boot_module_find_by_addr_and_kind(bootmodule_kind kind,
--                                                             paddr_t start)
-+struct boot_module * __init boot_module_find_by_addr_and_kind(
-+    boot_module_kind kind, paddr_t start)
- {
--    struct bootmodules *mods = &bootinfo.modules;
--    struct bootmodule *mod;
-+    struct boot_modules *mods = &bootinfo.modules;
-+    struct boot_module *mod;
-     unsigned int i;
+-        if ( bd->kernel->cmdline_pa )
++        if ( bd->kernel->arch.cmdline_pa )
+             strlcpy(cmdline,
+-                    cmdline_cook(__va(bd->kernel->cmdline_pa), bi->loader),
++                    cmdline_cook(__va(bd->kernel->arch.cmdline_pa),
++                                 bi->loader),
+                     cmdline_size);
  
-     for (i = 0 ; i < mods->nr_mods ; i++ )
-@@ -366,7 +366,7 @@ struct bootmodule * __init boot_module_find_by_addr_and_kind(bootmodule_kind kin
-  */
- static paddr_t __init next_module(paddr_t s, paddr_t *end)
- {
--    struct bootmodules *mi = &bootinfo.modules;
-+    struct boot_modules *mi = &bootinfo.modules;
-     paddr_t lowest = ~(paddr_t)0;
-     int i;
- 
-diff --git a/xen/common/device-tree/dom0less-build.c b/xen/common/device-tree/dom0less-build.c
-index 3d503c6973..221b875a2f 100644
---- a/xen/common/device-tree/dom0less-build.c
-+++ b/xen/common/device-tree/dom0less-build.c
-@@ -44,13 +44,13 @@ void __init set_xs_domain(struct domain *d)
- 
- bool __init is_dom0less_mode(void)
- {
--    struct bootmodules *mods = &bootinfo.modules;
--    struct bootmodule *mod;
-+    struct boot_modules *mods = &bootinfo.modules;
-+    struct boot_module *mod;
-     unsigned int i;
-     bool dom0found = false;
-     bool domUfound = false;
- 
--    /* Look into the bootmodules */
-+    /* Look into the boot_modules */
-     for ( i = 0 ; i < mods->nr_mods ; i++ )
-     {
-         mod = &mods->module[i];
-@@ -374,18 +374,17 @@ static int __init check_partial_fdt(void *pfdt, size_t size)
-     return 0;
- }
- 
--static int __init domain_handle_dtb_bootmodule(struct domain *d,
--                                               struct kernel_info *kinfo)
-+static int __init domain_handle_dtb_boot_module(struct domain *d,
-+                                                struct kernel_info *kinfo)
- {
-     void *pfdt;
-     int res, node_next;
- 
--    pfdt = ioremap_cache(kinfo->dtb_bootmodule->start,
--                         kinfo->dtb_bootmodule->size);
-+    pfdt = ioremap_cache(kinfo->dtb->start, kinfo->dtb->size);
-     if ( pfdt == NULL )
-         return -EFAULT;
- 
--    res = check_partial_fdt(pfdt, kinfo->dtb_bootmodule->size);
-+    res = check_partial_fdt(pfdt, kinfo->dtb->size);
-     if ( res < 0 )
-         goto out;
- 
-@@ -459,8 +458,8 @@ static int __init prepare_dtb_domU(struct domain *d, struct kernel_info *kinfo)
-     sizecells = GUEST_ROOT_SIZE_CELLS;
- 
-     /* Account for domU passthrough DT size */
--    if ( kinfo->dtb_bootmodule )
--        fdt_size += kinfo->dtb_bootmodule->size;
-+    if ( kinfo->dtb )
-+        fdt_size += kinfo->dtb->size;
- 
-     /* Cap to max DT size if needed */
-     fdt_size = min(fdt_size, SZ_2M);
-@@ -507,13 +506,13 @@ static int __init prepare_dtb_domU(struct domain *d, struct kernel_info *kinfo)
-         goto err;
- 
-     /*
--     * domain_handle_dtb_bootmodule has to be called before the rest of
-+     * domain_handle_dtb_boot_module has to be called before the rest of
-      * the device tree is generated because it depends on the value of
-      * the field phandle_intc.
-      */
--    if ( kinfo->dtb_bootmodule )
-+    if ( kinfo->dtb )
-     {
--        ret = domain_handle_dtb_bootmodule(d, kinfo);
-+        ret = domain_handle_dtb_boot_module(d, kinfo);
-         if ( ret )
-             goto err;
+         if ( bi->kextra )
+@@ -1079,7 +1081,7 @@ static struct domain *__init create_dom0(struct boot_info *bi)
+             strlcat(cmdline, " acpi=", cmdline_size);
+             strlcat(cmdline, acpi_param, cmdline_size);
+         }
+-        bd->kernel->cmdline_pa = 0;
++        bd->kernel->arch.cmdline_pa = 0;
+         bd->cmdline = cmdline;
      }
-diff --git a/xen/common/device-tree/domain-build.c b/xen/common/device-tree/domain-build.c
-index 6b8b8d7cac..fa4f700597 100644
---- a/xen/common/device-tree/domain-build.c
-+++ b/xen/common/device-tree/domain-build.c
-@@ -347,7 +347,7 @@ void __init dtb_load(struct kernel_info *kinfo,
- void __init initrd_load(struct kernel_info *kinfo,
-                         copy_to_guest_phys_cb copy_to_guest)
- {
--    const struct bootmodule *mod = kinfo->initrd_bootmodule;
-+    const struct boot_module *mod = kinfo->initrd;
-     paddr_t load_addr = kinfo->initrd_paddr;
-     paddr_t paddr, len;
-     int node;
-diff --git a/xen/common/device-tree/kernel.c b/xen/common/device-tree/kernel.c
-index cb04cd9d50..e1b22dc1c7 100644
---- a/xen/common/device-tree/kernel.c
-+++ b/xen/common/device-tree/kernel.c
-@@ -21,7 +21,7 @@ static uint32_t __init output_length(char *image, unsigned long image_len)
-     return *(uint32_t *)&image[image_len - 4];
- }
  
--int __init kernel_decompress(struct bootmodule *mod, uint32_t offset)
-+int __init kernel_decompress(struct boot_module *mod, uint32_t offset)
- {
-     char *output, *input;
-     char magic[2];
-@@ -92,7 +92,7 @@ int __init kernel_decompress(struct bootmodule *mod, uint32_t offset)
-         free_domheap_page(pages + i);
+@@ -1292,7 +1294,7 @@ void asmlinkage __init noreturn __start_xen(void)
+     }
  
-     /*
--     * When using static heap feature, don't give bootmodules memory back to
-+     * When using static heap feature, don't give boot_modules memory back to
-      * the heap allocator
-      */
-     if ( using_static_heap )
-@@ -118,7 +118,7 @@ int __init kernel_decompress(struct bootmodule *mod, uint32_t offset)
- int __init kernel_probe(struct kernel_info *info,
-                         const struct dt_device_node *domain)
- {
--    struct bootmodule *mod = NULL;
-+    struct boot_module *mod = NULL;
-     struct bootcmdline *cmd = NULL;
-     struct dt_device_node *node;
-     u64 kernel_addr, initrd_addr, dtb_addr, size;
-@@ -140,8 +140,8 @@ int __init kernel_probe(struct kernel_info *info,
+     /* Dom0 kernel is always first */
+-    bi->mods[0].type = BOOTMOD_KERNEL;
++    bi->mods[0].kind = BOOTMOD_KERNEL;
+     bi->domains[0].kernel = &bi->mods[0];
  
-         mod = boot_module_find_by_kind(BOOTMOD_KERNEL);
+     if ( pvh_boot )
+@@ -1476,7 +1478,7 @@ void asmlinkage __init noreturn __start_xen(void)
+         xen->size  = __2M_rwdata_end - _stext;
+     }
  
--        info->kernel_bootmodule = mod;
--        info->initrd_bootmodule = boot_module_find_by_kind(BOOTMOD_RAMDISK);
-+        info->kernel = mod;
-+        info->initrd = boot_module_find_by_kind(BOOTMOD_RAMDISK);
+-    bi->mods[0].headroom =
++    bi->mods[0].arch.headroom =
+         bzimage_headroom(bootstrap_map_bm(&bi->mods[0]), bi->mods[0].size);
+     bootstrap_unmap();
  
-         cmd = boot_cmdline_find_by_kind(BOOTMOD_KERNEL);
-         if ( cmd )
-@@ -162,7 +162,7 @@ int __init kernel_probe(struct kernel_info *info,
-                 dt_get_range(&val, node, &kernel_addr, &size);
-                 mod = boot_module_find_by_addr_and_kind(
-                         BOOTMOD_KERNEL, kernel_addr);
--                info->kernel_bootmodule = mod;
-+                info->kernel = mod;
-             }
-             else if ( dt_device_is_compatible(node, "multiboot,ramdisk") )
+@@ -1558,9 +1560,9 @@ void asmlinkage __init noreturn __start_xen(void)
+         for ( j = bi->nr_modules - 1; j >= 0; j-- )
+         {
+             struct boot_module *bm = &bi->mods[j];
+-            unsigned long size = PAGE_ALIGN(bm->headroom + bm->size);
++            unsigned long size = PAGE_ALIGN(bm->arch.headroom + bm->size);
+ 
+-            if ( bm->relocated )
++            if ( bm->arch.relocated )
+                 continue;
+ 
+             /* Don't overlap with other modules (or Xen itself). */
+@@ -1570,12 +1572,12 @@ void asmlinkage __init noreturn __start_xen(void)
+             if ( highmem_start && end > highmem_start )
+                 continue;
+ 
+-            if ( s < end && (bm->headroom || (end - size) > bm->start) )
++            if ( s < end && (bm->arch.headroom || (end - size) > bm->start) )
              {
-@@ -171,7 +171,7 @@ int __init kernel_probe(struct kernel_info *info,
+-                move_memory(end - size + bm->headroom, bm->start, bm->size);
++                move_memory(end - size + bm->arch.headroom, bm->start, bm->size);
+                 bm->start = (end - size);
+-                bm->size += bm->headroom;
+-                bm->relocated = true;
++                bm->size += bm->arch.headroom;
++                bm->arch.relocated = true;
+             }
+         }
  
-                 val = dt_get_property(node, "reg", &len);
-                 dt_get_range(&val, node, &initrd_addr, &size);
--                info->initrd_bootmodule = boot_module_find_by_addr_and_kind(
-+                info->initrd = boot_module_find_by_addr_and_kind(
-                         BOOTMOD_RAMDISK, initrd_addr);
-             }
-             else if ( dt_device_is_compatible(node, "multiboot,device-tree") )
-@@ -183,7 +183,7 @@ int __init kernel_probe(struct kernel_info *info,
-                 if ( val == NULL )
-                     continue;
-                 dt_get_range(&val, node, &dtb_addr, &size);
--                info->dtb_bootmodule = boot_module_find_by_addr_and_kind(
-+                info->dtb = boot_module_find_by_addr_and_kind(
-                         BOOTMOD_GUEST_DTB, dtb_addr);
-             }
-             else
-@@ -201,10 +201,10 @@ int __init kernel_probe(struct kernel_info *info,
+@@ -1601,7 +1603,7 @@ void asmlinkage __init noreturn __start_xen(void)
+ #endif
      }
  
-     printk("Loading %pd kernel from boot module @ %"PRIpaddr"\n",
--           info->d, info->kernel_bootmodule->start);
--    if ( info->initrd_bootmodule )
-+           info->d, info->kernel->start);
-+    if ( info->initrd )
-         printk("Loading ramdisk from boot module @ %"PRIpaddr"\n",
--               info->initrd_bootmodule->start);
-+               info->initrd->start);
- 
-     /*
-      * uImage isn't really used nowadays thereby leave kernel_uimage_probe()
+-    if ( bi->mods[0].headroom && !bi->mods[0].relocated )
++    if ( bi->mods[0].arch.headroom && !bi->mods[0].arch.relocated )
+         panic("Not enough memory to relocate the dom0 kernel image\n");
+     for ( i = 0; i < bi->nr_modules; ++i )
+     {
+@@ -2159,7 +2161,7 @@ void asmlinkage __init noreturn __start_xen(void)
+     initrdidx = first_boot_module_index(bi, BOOTMOD_UNKNOWN);
+     if ( initrdidx < MAX_NR_BOOTMODS )
+     {
+-        bi->mods[initrdidx].type = BOOTMOD_RAMDISK;
++        bi->mods[initrdidx].kind = BOOTMOD_RAMDISK;
+         bi->domains[0].module = &bi->mods[initrdidx];
+         if ( first_boot_module_index(bi, BOOTMOD_UNKNOWN) < MAX_NR_BOOTMODS )
+             printk(XENLOG_WARNING
 diff --git a/xen/include/xen/bootfdt.h b/xen/include/xen/bootfdt.h
-index ff40f3078e..236b456dd2 100644
+index 236b456dd2..854e7f1ed9 100644
 --- a/xen/include/xen/bootfdt.h
 +++ b/xen/include/xen/bootfdt.h
-@@ -23,7 +23,7 @@ typedef enum {
-     BOOTMOD_GUEST_DTB,
-     BOOTMOD_MICROCODE,
-     BOOTMOD_UNKNOWN
--}  bootmodule_kind;
-+}  boot_module_kind;
+@@ -7,6 +7,10 @@
+ #include <xen/macros.h>
+ #include <xen/xmalloc.h>
  
- enum membank_type {
-     /*
-@@ -103,8 +103,8 @@ struct shared_meminfo {
-  * initrd to be compatible with all versions of the multiboot spec.
-  */
- #define BOOTMOD_MAX_CMDLINE 1024
--struct bootmodule {
--    bootmodule_kind kind;
-+struct boot_module {
-+    boot_module_kind kind;
++#if __has_include(<asm/bootfdt.h>)
++#include <asm/bootfdt.h>
++#endif
++
+ #define MIN_FDT_ALIGN 8
+ 
+ #define NR_MEM_BANKS 256
+@@ -108,6 +112,10 @@ struct boot_module {
      bool domU;
      paddr_t start;
      paddr_t size;
-@@ -113,16 +113,16 @@ struct bootmodule {
++
++#if __has_include(<asm/bootfdt.h>)
++    struct arch_boot_module arch;
++#endif
+ };
+ 
  /* DT_MAX_NAME is the node name max length according the DT spec */
- #define DT_MAX_NAME 41
- struct bootcmdline {
--    bootmodule_kind kind;
-+    boot_module_kind kind;
-     bool domU;
-     paddr_t start;
-     char dt_name[DT_MAX_NAME];
-     char cmdline[BOOTMOD_MAX_CMDLINE];
- };
- 
--struct bootmodules {
-+struct boot_modules {
-     int nr_mods;
--    struct bootmodule module[MAX_MODULES];
-+    struct boot_module module[MAX_MODULES];
- };
- 
- struct bootcmdlines {
-@@ -134,7 +134,7 @@ struct bootinfo {
-     struct meminfo mem;
-     /* The reserved regions are only used when booting using Device-Tree */
-     struct meminfo reserved_mem;
--    struct bootmodules modules;
-+    struct boot_modules modules;
-     struct bootcmdlines cmdlines;
- #ifdef CONFIG_ACPI
-     struct meminfo acpi;
-@@ -176,16 +176,16 @@ bool check_reserved_regions_overlap(paddr_t region_start,
-                                     paddr_t region_size,
-                                     bool allow_memreserve_overlap);
- 
--struct bootmodule *add_boot_module(bootmodule_kind kind,
-+struct boot_module *add_boot_module(boot_module_kind kind,
-                                    paddr_t start, paddr_t size, bool domU);
--struct bootmodule *boot_module_find_by_kind(bootmodule_kind kind);
--struct bootmodule * boot_module_find_by_addr_and_kind(bootmodule_kind kind,
-+struct boot_module *boot_module_find_by_kind(boot_module_kind kind);
-+struct boot_module * boot_module_find_by_addr_and_kind(boot_module_kind kind,
-                                                              paddr_t start);
- void add_boot_cmdline(const char *name, const char *cmdline,
--                      bootmodule_kind kind, paddr_t start, bool domU);
--struct bootcmdline *boot_cmdline_find_by_kind(bootmodule_kind kind);
-+                      boot_module_kind kind, paddr_t start, bool domU);
-+struct bootcmdline *boot_cmdline_find_by_kind(boot_module_kind kind);
- struct bootcmdline * boot_cmdline_find_by_name(const char *name);
--const char *boot_module_kind_as_string(bootmodule_kind kind);
-+const char *boot_module_kind_as_string(boot_module_kind kind);
- 
- void populate_boot_allocator(void);
- 
-diff --git a/xen/include/xen/fdt-kernel.h b/xen/include/xen/fdt-kernel.h
-index 1939c3ebf7..12a0b42d17 100644
---- a/xen/include/xen/fdt-kernel.h
-+++ b/xen/include/xen/fdt-kernel.h
-@@ -34,7 +34,7 @@ struct kernel_info {
-     paddr_t gnttab_size;
- 
-     /* boot blob load addresses */
--    const struct bootmodule *kernel_bootmodule, *initrd_bootmodule, *dtb_bootmodule;
-+    const struct boot_module *kernel, *initrd, *dtb;
-     const char* cmdline;
-     paddr_t dtb_paddr;
-     paddr_t initrd_paddr;
-@@ -121,7 +121,7 @@ int kernel_probe(struct kernel_info *info, const struct dt_device_node *domain);
-  */
- void kernel_load(struct kernel_info *info);
- 
--int kernel_decompress(struct bootmodule *mod, uint32_t offset);
-+int kernel_decompress(struct boot_module *mod, uint32_t offset);
- 
- int kernel_zimage_probe(struct kernel_info *info, paddr_t addr, paddr_t size);
- 
-@@ -130,8 +130,7 @@ int kernel_zimage_probe(struct kernel_info *info, paddr_t addr, paddr_t size);
-  * call here just for compatability with Arm code.
-  */
- #ifdef CONFIG_ARM
--struct bootmodule;
--int kernel_uimage_probe(struct kernel_info *info, struct bootmodule *mod);
-+int kernel_uimage_probe(struct kernel_info *info, struct boot_module *mod);
- #endif
- 
- #endif /* __XEN_FDT_KERNEL_H__ */
 diff --git a/xen/xsm/xsm_policy.c b/xen/xsm/xsm_policy.c
-index 7f70d860bd..1f88b4fc5a 100644
+index 1f88b4fc5a..1b4030edb4 100644
 --- a/xen/xsm/xsm_policy.c
 +++ b/xen/xsm/xsm_policy.c
-@@ -68,7 +68,7 @@ int __init xsm_multiboot_policy_init(
- #ifdef CONFIG_HAS_DEVICE_TREE
- int __init xsm_dt_policy_init(void **policy_buffer, size_t *policy_size)
- {
--    struct bootmodule *mod = boot_module_find_by_kind(BOOTMOD_XSM);
-+    struct boot_module *mod = boot_module_find_by_kind(BOOTMOD_XSM);
-     paddr_t paddr, len;
+@@ -53,7 +53,7 @@ int __init xsm_multiboot_policy_init(
+             printk("Policy len %#lx, start at %p.\n",
+                    _policy_len,_policy_start);
  
-     if ( !mod || !mod->size )
+-            bm->type = BOOTMOD_XSM_POLICY;
++            bm->kind = BOOTMOD_XSM;
+             break;
+ 
+         }
 -- 
 2.43.0
 
