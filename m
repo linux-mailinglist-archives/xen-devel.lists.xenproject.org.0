@@ -2,40 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D0DDAD861F
-	for <lists+xen-devel@lfdr.de>; Fri, 13 Jun 2025 10:57:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1013931.1392118 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D030AD8641
+	for <lists+xen-devel@lfdr.de>; Fri, 13 Jun 2025 11:04:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1013940.1392128 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uQ0Dt-0000SZ-NA; Fri, 13 Jun 2025 08:57:17 +0000
+	id 1uQ0L1-0002E5-H3; Fri, 13 Jun 2025 09:04:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1013931.1392118; Fri, 13 Jun 2025 08:57:17 +0000
+Received: by outflank-mailman (output) from mailman id 1013940.1392128; Fri, 13 Jun 2025 09:04:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uQ0Dt-0000QJ-Jv; Fri, 13 Jun 2025 08:57:17 +0000
-Received: by outflank-mailman (input) for mailman id 1013931;
- Fri, 13 Jun 2025 08:57:16 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uQ0L1-0002Bk-EN; Fri, 13 Jun 2025 09:04:39 +0000
+Received: by outflank-mailman (input) for mailman id 1013940;
+ Fri, 13 Jun 2025 09:04:38 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=8fEO=Y4=amd.com=penny.zheng@srs-se1.protection.inumbo.net>)
- id 1uQ0Ds-0000QD-8v
- for xen-devel@lists.xenproject.org; Fri, 13 Jun 2025 08:57:16 +0000
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2060e.outbound.protection.outlook.com
- [2a01:111:f403:200a::60e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5eb3e8ca-4834-11f0-b894-0df219b8e170;
- Fri, 13 Jun 2025 10:57:02 +0200 (CEST)
-Received: from DM4PR12MB8451.namprd12.prod.outlook.com (2603:10b6:8:182::7) by
- SJ2PR12MB8977.namprd12.prod.outlook.com (2603:10b6:a03:539::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8835.19; Fri, 13 Jun
- 2025 08:57:09 +0000
-Received: from DM4PR12MB8451.namprd12.prod.outlook.com
- ([fe80::b04e:2da5:7189:4c4d]) by DM4PR12MB8451.namprd12.prod.outlook.com
- ([fe80::b04e:2da5:7189:4c4d%5]) with mapi id 15.20.8835.018; Fri, 13 Jun 2025
- 08:57:09 +0000
+ <SRS0=Iqaj=Y4=suse.de=tzimmermann@srs-se1.protection.inumbo.net>)
+ id 1uQ0Kz-0002BZ-S7
+ for xen-devel@lists.xenproject.org; Fri, 13 Jun 2025 09:04:38 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [2a07:de40:b251:101:10:150:64:2])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 6e3d653c-4835-11f0-a309-13f23c93f187;
+ Fri, 13 Jun 2025 11:04:37 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 701A11F7ED;
+ Fri, 13 Jun 2025 09:04:36 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D952B137FE;
+ Fri, 13 Jun 2025 09:04:35 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id wChmM6PpS2inNAAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Fri, 13 Jun 2025 09:04:35 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,175 +52,195 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5eb3e8ca-4834-11f0-b894-0df219b8e170
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rdHkdiM3JQvLiy4rEkUjrzQS/LtkuFyVApMcw1tvAZYuDzAIF5LLj11iVREPqxin0YNg31t9k6sn47O/anvUKLQGp03rLOq0YRzPRCFqp9qg6CGqt0x5RSxYuZ4EOn+SZNPorzkGm4awkLuzewr4ClXG3fjih2lEsK16JAi/FOOClvw8nAett+qkGWRiymWzNQ3QAXn9wfCiNreMd74cR505oeumpA5RWQzV8vX3JSUtIihwalnf+3VMakjraJBtgk/W71cjPCfGpP470AmYPdm0fgf+UD8JWfLE5+1hG5Wi9100se2XozKz5X+CMAp8hdtlnPav/DYqfhnSL6dalA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nlSauoV2LjRS8KayhtQ7JOGxzqrkeuD5EDozn8s/AVw=;
- b=UGsJa62apOKQRkIMgih8jwl3BKhmSkjJteZ3DmP70LX24Y9Kg6okFXgYl3E0GcwkETjSDsrR7ih/m46YjKr6MEthDJ4v9gKuFBX2iOTNbcjuETzCmf44nETnPmLsOUvm8QycR/LHe/2AaU3PQIe04soyH47PvbmyVOfKZEnxKWM+qOCO8VYkCa3S5IeOoyWR2+uEb3mt6hqVYJjHkwo5ujiDMmTy2mB9PB+h/TMFpXBvE2ODNgu2WjrFaZZBM1oa2HMA1EF13Im+t0f1iWiMsyygVHNu8+FKsqW6k4rbmwArM9EhONmvDMhANgIi5WOWCHOEAo4dGONiRguwEnV+ow==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nlSauoV2LjRS8KayhtQ7JOGxzqrkeuD5EDozn8s/AVw=;
- b=FVlFWBpSWc1WAi7HKIlGMmhmKqegWaecouQCM+kqijwbcmuk7CrufbFAqDCSCl53oMp9XG4p8eWsMxDL1T4KJasldVnPtUZoukxGRJgNb2SeZ1CgGsVXeKtbbOr+s1ucUwTEmIyWx8L9dscFlEifLc8z4HOIxPwV6h+GlWdFTL4=
-From: "Penny, Zheng" <penny.zheng@amd.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: "Huang, Ray" <Ray.Huang@amd.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?utf-8?B?Um9nZXIgUGF1IE1vbm7DqQ==?= <roger.pau@citrix.com>, Anthony PERARD
-	<anthony.perard@vates.tech>, "Orzel, Michal" <Michal.Orzel@amd.com>, Julien
- Grall <julien@xen.org>, "Stabellini, Stefano" <stefano.stabellini@amd.com>,
-	Sergiy Kibrik <Sergiy_Kibrik@epam.com>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>
-Subject: RE: [PATCH v4 20/20] xen/sysctl: wrap around sysctl hypercall
-Thread-Topic: [PATCH v4 20/20] xen/sysctl: wrap around sysctl hypercall
-Thread-Index: AQHbz7GB7JuzUuWzwkuFXAiKCBRn07P8fpKAgARiCjA=
-Date: Fri, 13 Jun 2025 08:57:09 +0000
-Message-ID:
- <DM4PR12MB8451FA91DB0D570352C796D0E177A@DM4PR12MB8451.namprd12.prod.outlook.com>
-References: <20250528091708.390767-1-Penny.Zheng@amd.com>
- <20250528091708.390767-21-Penny.Zheng@amd.com>
- <a3e3945d-66c6-454d-a334-72f8154cab76@suse.com>
-In-Reply-To: <a3e3945d-66c6-454d-a334-72f8154cab76@suse.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=True;MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2025-06-13T08:57:02.0000000Z;MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open
- Source;MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=3;MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM4PR12MB8451:EE_|SJ2PR12MB8977:EE_
-x-ms-office365-filtering-correlation-id: 0429b226-5cb9-42ca-dfaf-08ddaa5847bb
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|376014|366016|1800799024|38070700018;
-x-microsoft-antispam-message-info:
- =?utf-8?B?WktJMGNNQ0hGVjdOMnkyMm44bEM0b3BPYkt6WlBlMnd5ZGZKRWVwSEF0czFq?=
- =?utf-8?B?YU1ka014OFlyNlZTMFBKK05QSkJFVzRmd0Y1bmZXVStOU0JqQ3J5Ykt0MlJB?=
- =?utf-8?B?VVBxOVNXaHJOVUF3ampwNWgrcVNOd1FWb05zazYrWThpWHJqc0xUcURmNlox?=
- =?utf-8?B?aVl0bEFUeTR2OTBTcTY0bTZqbjVITEl3UHpSblQ1QW1qblNINVlqejQ3NHk2?=
- =?utf-8?B?THVBdVUzUFdhd1dHaEhSanU3WWJoWUhHOSt2K2pBMk94ckJIVG40RXh6amVq?=
- =?utf-8?B?OTBsaGc0WlBVanJEWXArY21tcnJObmh1aXNZN0Nhd3ZQWG1CWnI4bFJGdTR6?=
- =?utf-8?B?YkhRNk9qUUZ0bERrRXg0UFBUeFdTY252TXQwbUhOamRudFhtaEZ2NG1zbi8v?=
- =?utf-8?B?NFNsMUpQV2VGanNtVC9iTStlYXdCai9OZXc1L09USXgrb2Rpd2xBdHJ5Q1Bx?=
- =?utf-8?B?N2lFL3huMSszQlBhNDZvZCsrSmt5WFRtbEt4MXI3Q1V4TW5JcmF1QXdiblU4?=
- =?utf-8?B?RDRmOHhjdWo2ajM1cGp4SzlrNWhCR2orV0JuYjM2b0t4UGRPUWVMREpuTXps?=
- =?utf-8?B?R3ZHZWE2TUYxMmNHTTVKSU14RXNCcW1TUzN6YlRJandPWUhUdjNrZUdEMlpH?=
- =?utf-8?B?ajY3N0U1RlozQmpqc1VHQ2RuTjNyclZ3eDVQVU5obUd0dVVrellFbFZFLzVT?=
- =?utf-8?B?Zm14VHBWME5BTlZqaDdaVWo3R0hMeTZHUEwyVVhrNnliaW5TaDhnT1J4ODhw?=
- =?utf-8?B?NUsrV2lxRDFPayswODZVRUVDTFhFcFdDTVlvYXV6S1R5VVdyZEdjR1Y1b0Rv?=
- =?utf-8?B?SmkrVEY1dTZsZENUVnMxdS9jQWs0OUJicUhuS2xxVUJYSnlZT0IrdDdTWTE1?=
- =?utf-8?B?STFoUnJLeFMveXVkbFhiZGFzRWh5bUhqQUlqWmtFTmFTVCtDTWJaamh4REVH?=
- =?utf-8?B?RVZjbStsSzdZKzBoQWpncWhvbGVDNVI1YW10RXVGOEpSSkF3eU9DeHpsT1Nq?=
- =?utf-8?B?ZllEaXZweURHckF1WTdVRHhSdXd6YUtia09zVTlUSkgzcXBTMDdHU0VCYWJG?=
- =?utf-8?B?dHJvZDYzRmdJQ3c2ZzRaS28zOHdIM2NLWHNlQlgvSEY1QXlpTnpqcWJxSy9t?=
- =?utf-8?B?N0N6SUNFWkh4akpUZGVVNFFnUUgrcTVvNWNzby9ra3hDVmN3TnhZcVJDZ0Vl?=
- =?utf-8?B?TjVBOW9pQUNvQ0Q5aHVKaGZFRGljMnUzUDZRQ0tYVzIzdmpLMUQ2UlFlMmpD?=
- =?utf-8?B?ci8wcjhkWVV5RFYwRjMvMEJaZUNHa3E4V2xPdUlRTFNQY2JITVBNSVZrc3Zv?=
- =?utf-8?B?dWh3azczSWExN1RscU1Wejdud3JjcVJTR3FvWHlleEc0dDV4TGpWS0JNVUYy?=
- =?utf-8?B?VUV0ZEFwdGVMaXpmUUJLTUtzYlk5cW9EYUFyM0NEc0VUZEdETmxza2VDQms1?=
- =?utf-8?B?b2pUVmRPYXRjUEdWaHM4ZE51MU1nZ2hBaThteDlVUU5HaGFRWG4zbWpMU0V5?=
- =?utf-8?B?b3E2b0FWb00yTjVFYlBrV29PbmxpYi96dm5XbGcxdnhwMGovOXluZTgzdVR1?=
- =?utf-8?B?eUFBODJvL0VyTTljUUxFdklHc09HWlIxYWNzK2ZWZ05QRVRpcnNQZ1ZzVzhP?=
- =?utf-8?B?QitvVVRDWW12ek1MVjBNMHptRnh3SktDMTl5SGVjckV3YUZsVno4SVZqcW14?=
- =?utf-8?B?aFo4Mld5NTgzMDFOTWI5MXFQaTA0NFVmVUhBdXAwcnZZTFUrVGtodUl2WXZx?=
- =?utf-8?B?YlhycTRMQlJSNkpLemI0ZEpZZjBSQ1hEa1RlcnpVNDV4Yy9DRFNLTDEwZmdr?=
- =?utf-8?B?cXhEY1ZMcjVWMzhaeUdmUGl2ZTFCMGNoSUdxRWxIbk4zMUdmbVJCZ29GRFlB?=
- =?utf-8?B?WndIcVJnMFhrem5Od09QazNsRTloQ0R2bkZ2MFhZZUlsOWJybHh3enRJaExP?=
- =?utf-8?B?TXl3elhPUU55SVpCcmdyOHB0TUR4YkVGL01lRzNkYXlPUmQrYVJjQ3BUTEpO?=
- =?utf-8?Q?Twgcf3e1YhlIxbMoPYrN3uNKoWDT0w=3D?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB8451.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(38070700018);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?NVFtaEFhblQrQnZaSWJWSG9Jei9UVUtQMkl0a3h0c041R0pYUDZ5d3l2dWZr?=
- =?utf-8?B?Y05IT1BDQlhBazZrb1E5czB0TXBNY0xOY0RuandlWVVYamxGTkdIRDFnMG1H?=
- =?utf-8?B?Sm1ZZnFnS1dCVUV2eENyd3FzaXl5dkoxaEV6R0FLMHlZZk9oTy9VM2pBWXBP?=
- =?utf-8?B?UXRqVnp0U0ZkUkhCMUZmdFRYbjNpRjd0aUp1bTVzSWtKa0o5UXZCWkpDbGly?=
- =?utf-8?B?cVhPWU9acVNsZ0V0aXIwa0dTb2dBRnkvTG1JM2JtQUxwY09JSXVrRXJkNzlK?=
- =?utf-8?B?R2ozNVA0SkpjRU9VNWxJQnY5bEo0bXJYYlRjRlhuOW5SS2U0OUd1R3FXSUsz?=
- =?utf-8?B?eWlLdHltTVliRkIycm11TGFmSmZIaHBGdHhHZlJCemVXNHdWeDlBenlYdnR3?=
- =?utf-8?B?WDdoZ3dUQXVCaUM2THF5eTZiWG0wd0ZUN29tSmo0WnFpSklUeUU0anJaR2Vp?=
- =?utf-8?B?V25rdWRvcW5TZmRUVnFrcEJ1WkplM2lZTHNGUTRqSHBReGJtZjVmcTN5WUEz?=
- =?utf-8?B?N1ZSVnVjbVh6NjVEL1VLZkR4bm1tZFVjMnk4eUF4YjNzSlJjRTFVMWZVb2pU?=
- =?utf-8?B?dER4RTJxbEJtL25WMGtldlc0emFOMjM3ZmZsaG12UE00R1huV0R0TU9zUWEy?=
- =?utf-8?B?WkNsSC9kMWRJZHh6WFhyYTVTNzM3QmtSWFl1UTd4U2RBaEc5cDJhZFAvNDU2?=
- =?utf-8?B?cE5BZXpNTGlLTGlCbnczd2o1UGRhaXBzdWYyS0k1N1pRSTErc0NmZFJiU0JU?=
- =?utf-8?B?WE85T3VxRHpUWkZ2V3M2TEFReUJvZmtmTHJNSlc0d3F1b0ZWVkt3VWdvUWFY?=
- =?utf-8?B?eGg2cjQxVXBoRGplTXJva0dtMlN6R2M3VmdJVnBrbWVjQWVwRG5WRkhmRWtx?=
- =?utf-8?B?MGF6M21kSXVpckd3cjJ5L25uc00ybkE2N3VWVDEzOGRoRVFJekI5akxhc0V5?=
- =?utf-8?B?TlN0RWZ3VjZ2TS9SUnpzOEo1RjI3TzVOTzU0cFc4eEhxZGpLWEVFUUZ4c3lv?=
- =?utf-8?B?OVluSlowRjVJZjF4TU43SDV6NHNpN3AvMkJyeEhDTkg5R2hiQ0RnWnlnb1dO?=
- =?utf-8?B?S1Y5a1gveWtPWGNvYXlRTlk4bnllQy9acE5kREF4UjZIOGh6ZWYxTzR1UE5n?=
- =?utf-8?B?WE43VFdsa0JKMVRSaVZRbGZJQ3ZKVHNQYUlmeEVDcWVlQ2FialBtL0xZeHZU?=
- =?utf-8?B?cDVQWmF0d3lIdjVJUkdkaDE1NUUwem1rVzBVZG9mcitMeDg1ZjlKNjdmWExJ?=
- =?utf-8?B?RVl3aUpkRnp3Q3ErQncwcENFKzRrL29pN3lsQXpITm51TW9lQ0pULzB2SDZL?=
- =?utf-8?B?cllIVnF3YTJEWUxhL1l3RDRCcnd1UFRPRjlWVTNVZHJONGR5WEtZTGJ4NDl4?=
- =?utf-8?B?UnNaRjFndmxMVUNNVTBpMGwxRFdmVlYwRC91dml5bi9BeUc3UHUvY2VUUHdL?=
- =?utf-8?B?Wk50aEkrejFJNElTTjFoNGJmTGFxU0ptQld5aHlKSzkyb0ZmUzZtUjE0YkY1?=
- =?utf-8?B?SmhCbnZaZGhQZnRpUytzdDRJN2VDd0lubDZlcG9jcWozUWpaZ0hRUDI0UTJs?=
- =?utf-8?B?SzRsMG1wcWFieFFOSGZkenlVU2tKYlg3Mm1CUnJrellPN0RBbmRXNEM3MjhC?=
- =?utf-8?B?M2NtWTJTNjNVT1RQRnF4WTlKQUdsaFlXZ3Fsd1FHWTJMRTBJYnpHMHhkV1ZJ?=
- =?utf-8?B?WmlmdTVxeEZkbzk2SUlqUER3N1BlS1ByNm9YZGhiNm5mVWVFNGZteGdNMXE2?=
- =?utf-8?B?bnJqVDNwTktiYnBLcXV2TS8vSFZab3JPbFBFZkJhZ2k3VHFyUWEyWEpySUMy?=
- =?utf-8?B?cFhvNFZPcHl4YXBmVElvRlp1MmFleGlZMG5FU3Q4RzRRYTBBVklFR1h6SzA0?=
- =?utf-8?B?bjFSV1VuUUZNdno5QWJKUEN0WHBaZ2lRRG0vaFZUQlNtY2pqVkpCMjlGdld4?=
- =?utf-8?B?K21GU05WNDZ3K05sa1JVVldtSksreGRwemY5SUh0ZHFVeTdwS2h6WkRBSlFT?=
- =?utf-8?B?dUdERjFsQjlaQ0h4am5MTDZuSjFtY0ZLYnJHZmh6SDFUdC8ybThhRjh4MzlO?=
- =?utf-8?B?SWl2RmovRHZreFBZaUJCdERSUlU3eCtFTjlyZ3htdmplNmRCVFVRT0E4WS9P?=
- =?utf-8?Q?OAug=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+X-Inumbo-ID: 6e3d653c-4835-11f0-a309-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1749805476; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=Cognuam3Nnn8rKlVmxnaH2SIEYJ0L+O3m38UIjpzf1M=;
+	b=JhYaXkf9do51n73K/iLjwm7nHC8S7e0nVK1s9v8I2ZPmxjZn721KsstV88tf9wJmTOsXbb
+	2KSW12/Rn//21FJ+NeV88eAvBKYN+ToELXufuiXJKkobpFBeFpV8GH66wBEUyaHD/7WS8X
+	cf1jjBzCCWoTtf3FZv+F3DeeSh9sTx0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1749805476;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=Cognuam3Nnn8rKlVmxnaH2SIEYJ0L+O3m38UIjpzf1M=;
+	b=EijQ9W4UcJFKx0GFiMCASsmN7Bv/B+ijlMOYEwmeXGmGWmaJAc8vhRIQ+b3eQnupw9Sp9L
+	6+hx9rNfI1eQjNDg==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1749805476; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=Cognuam3Nnn8rKlVmxnaH2SIEYJ0L+O3m38UIjpzf1M=;
+	b=JhYaXkf9do51n73K/iLjwm7nHC8S7e0nVK1s9v8I2ZPmxjZn721KsstV88tf9wJmTOsXbb
+	2KSW12/Rn//21FJ+NeV88eAvBKYN+ToELXufuiXJKkobpFBeFpV8GH66wBEUyaHD/7WS8X
+	cf1jjBzCCWoTtf3FZv+F3DeeSh9sTx0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1749805476;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=Cognuam3Nnn8rKlVmxnaH2SIEYJ0L+O3m38UIjpzf1M=;
+	b=EijQ9W4UcJFKx0GFiMCASsmN7Bv/B+ijlMOYEwmeXGmGWmaJAc8vhRIQ+b3eQnupw9Sp9L
+	6+hx9rNfI1eQjNDg==
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: simona@ffwll.ch,
+	airlied@gmail.com,
+	mripard@kernel.org,
+	maarten.lankhorst@linux.intel.com,
+	geert@linux-m68k.org,
+	tomi.valkeinen@ideasonboard.com
+Cc: dri-devel@lists.freedesktop.org,
+	linux-mediatek@lists.infradead.org,
+	freedreno@lists.freedesktop.org,
+	linux-arm-msm@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-samsung-soc@vger.kernel.org,
+	nouveau@lists.freedesktop.org,
+	virtualization@lists.linux.dev,
+	spice-devel@lists.freedesktop.org,
+	linux-renesas-soc@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-tegra@vger.kernel.org,
+	intel-xe@lists.freedesktop.org,
+	xen-devel@lists.xenproject.org,
+	Thomas Zimmermann <tzimmermann@suse.de>
+Subject: [PATCH v5 00/25] drm/dumb-buffers: Fix and improve buffer-size calculation
+Date: Fri, 13 Jun 2025 11:00:19 +0200
+Message-ID: <20250613090431.127087-1-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.49.0
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8451.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0429b226-5cb9-42ca-dfaf-08ddaa5847bb
-X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Jun 2025 08:57:09.3349
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: +dUKpezUfg8MXdDBwsBlhttPxJ+3asq06YSrBlXx3SJGOIbIRv14JE63+Bx/udreTwE2oJ5by0F2qVO8AxQdzQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8977
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-1.80 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	ARC_NA(0.00)[];
+	FREEMAIL_TO(0.00)[ffwll.ch,gmail.com,kernel.org,linux.intel.com,linux-m68k.org,ideasonboard.com];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_TWELVE(0.00)[21];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FUZZY_BLOCKED(0.00)[rspamd.com];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	URIBL_BLOCKED(0.00)[suse.de:mid];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid]
+X-Spam-Level: 
+X-Spam-Flag: NO
+X-Spam-Score: -1.80
 
-W1B1YmxpY10NCg0KPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBKYW4gQmV1
-bGljaCA8amJldWxpY2hAc3VzZS5jb20+DQo+IFNlbnQ6IFR1ZXNkYXksIEp1bmUgMTAsIDIwMjUg
-OTo1MyBQTQ0KPiBUbzogUGVubnksIFpoZW5nIDxwZW5ueS56aGVuZ0BhbWQuY29tPg0KPiBDYzog
-SHVhbmcsIFJheSA8UmF5Lkh1YW5nQGFtZC5jb20+OyBTdGVmYW5vIFN0YWJlbGxpbmkNCj4gPHNz
-dGFiZWxsaW5pQGtlcm5lbC5vcmc+OyBBbmRyZXcgQ29vcGVyIDxhbmRyZXcuY29vcGVyM0BjaXRy
-aXguY29tPjsgUm9nZXINCj4gUGF1IE1vbm7DqSA8cm9nZXIucGF1QGNpdHJpeC5jb20+OyBBbnRo
-b255IFBFUkFSRA0KPiA8YW50aG9ueS5wZXJhcmRAdmF0ZXMudGVjaD47IE9yemVsLCBNaWNoYWwg
-PE1pY2hhbC5PcnplbEBhbWQuY29tPjsgSnVsaWVuDQo+IEdyYWxsIDxqdWxpZW5AeGVuLm9yZz47
-IFN0YWJlbGxpbmksIFN0ZWZhbm8gPHN0ZWZhbm8uc3RhYmVsbGluaUBhbWQuY29tPjsgU2VyZ2l5
-DQo+IEtpYnJpayA8U2VyZ2l5X0tpYnJpa0BlcGFtLmNvbT47IHhlbi1kZXZlbEBsaXN0cy54ZW5w
-cm9qZWN0Lm9yZw0KPiBTdWJqZWN0OiBSZTogW1BBVENIIHY0IDIwLzIwXSB4ZW4vc3lzY3RsOiB3
-cmFwIGFyb3VuZCBzeXNjdGwgaHlwZXJjYWxsDQo+DQo+IE9uIDI4LjA1LjIwMjUgMTE6MTcsIFBl
-bm55IFpoZW5nIHdyb3RlOg0KPiA+IEZyb206IFN0ZWZhbm8gU3RhYmVsbGluaSA8c3N0YWJlbGxp
-bmlAa2VybmVsLm9yZz4NCj4gPg0KPiA+IFdyYXAgc3lzY3RsIGh5cGVyY2FsbCBkZWYgYW5kIHN5
-c2N0bC5vIHdpdGggQ09ORklHX1NZU0NUTCwgYW5kIHNpbmNlDQo+ID4gUFZfU0hJTV9FWENMVVNJ
-VkUgbmVlZHMgc29ydGluZyBpbiB0aGUgZnV0dXJlLCB3ZSBtb3ZlIHRoZW0gb3V0IG9mDQo+ID4g
-UFZfU0hJTV9FWENMVVNJVkUgY29uZGl0aW9uIGF0IHRoZSBzYW1lIHRpbWUuDQo+ID4NCj4gPiBX
-ZSBuZWVkIHRvIG1ha2UgU1lTQ1RMIHdpdGggcHJvbXB0IGJhY2sgYW5kIHN0YXRlIHVuc2V0dGlu
-ZyBTWVNDVEwgaW4NCj4gPiBwdnNoaW1fZGVmY29uZmlnIHRvIGV4cGxpY2l0bHkgbWFrZSBpdCB1
-bmF2YWlsYWJsZSBmb3IgUFYgc2hpbS4NCj4NCj4gSSdtIHN0cnVnZ2xpbmcgd2l0aCB0aGlzIHNl
-bnRlbmNlLiBidXQgbmV2ZXJ0aGVsZXNzIGl0IHNlZW1zIHByZXR0eSBjbGVhciB0aGF0IHdoYXQN
-Cj4gdGhlIGxhdHRlciBoYWxmIG9mIHRoZSBzZW50ZW5jZSBzYXlzIGlzIG5vdCB0aGUgZWZmZWN0
-IG9mIC4uLg0KDQpIb3cgYWJvdXQg4oCcDQpXZSBzaGFsbCBhZGQgIiNDT05GSUdfU1lTQ1RMIGlz
-IG5vdCBzZXQiIGluIHB2c2hpbV9kZWZjb25maWcgdG8gYXQgbGVhc3QgcHJvdmlkZQ0KY29ycmVj
-dCBwcmVzZXQgZm9yIFBWIHNoaW0NCiINCg0KPg0KPiA+IC0tLSBhL3hlbi9hcmNoL3g4Ni9jb25m
-aWdzL3B2c2hpbV9kZWZjb25maWcNCj4gPiArKysgYi94ZW4vYXJjaC94ODYvY29uZmlncy9wdnNo
-aW1fZGVmY29uZmlnDQo+ID4gQEAgLTMxLDMgKzMxLDQgQEAgQ09ORklHX0VYUEVSVD15DQo+ID4g
-ICMgSFlQRVJWX0hZUEVSVl9HVUVTVCBpcyBub3Qgc2V0DQo+ID4gICMgQ09ORklHX0hWTSBpcyBu
-b3Qgc2V0DQo+ID4gICMgQ09ORklHX1ZHQSBpcyBub3Qgc2V0DQo+ID4gKyMgQ09ORklHX1NZU0NU
-TCBpcyBub3Qgc2V0DQo+DQo+IC4uLiB0aGlzIGNoYW5nZS4gVGhlIG9wdGlvbiBpcyBzdGlsbCBn
-b2luZyB0byBiZSBhdmFpbGFibGU7IGl0J3MganVzdCB0aGF0IHRoZSBwcmVzZXQgaXMgIm9mZiIN
-Cj4gbm93Lg0KPg0KPiBKYW4NCg==
+Dumb-buffer pitch and size is specified by width, height, bits-per-pixel
+plus various hardware-specific alignments. The calculation of these
+values is inconsistent and duplicated among drivers. The results for
+formats with bpp < 8 are sometimes incorrect.
+
+This series fixes this for most drivers. Default scanline pitch and
+buffer size are now calculated with the existing 4CC helpers. There is
+a new helper drm_mode_size_dumb() that calculates scanline pitch and
+buffer size according to driver requirements.
+
+The series fixes the common GEM implementations for DMA, SHMEM and
+VRAM. It further changes most implementations of dumb_create to use
+the new helper. A small number of drivers has more complicated
+calculations and will be updated by a later patches.
+
+v5:
+- use check_mul_overflow() for overflow test (Tomi)
+- imx: fix intermediate code (Tomi)
+- rz-du: include dumb-buffers header
+v4:
+- improve UAPI documentation
+- document bpp special cases
+- use drm_warn_once()
+- add TODO lists
+- armada: fix pitch alignment
+v3:
+- document UAPI semantics
+- fall back to bpp-based allocation for unknown color modes
+- cleanups
+v2:
+- rewrite series
+- convert many individual drivers besides the shared GEM helpers
+
+Thomas Zimmermann (25):
+  drm/dumb-buffers: Sanitize output on errors
+  drm/dumb-buffers: Provide helper to set pitch and size
+  drm/gem-dma: Compute dumb-buffer sizes with drm_mode_size_dumb()
+  drm/gem-shmem: Compute dumb-buffer sizes with drm_mode_size_dumb()
+  drm/gem-vram: Compute dumb-buffer sizes with drm_mode_size_dumb()
+  drm/armada: Compute dumb-buffer sizes with drm_mode_size_dumb()
+  drm/exynos: Compute dumb-buffer sizes with drm_mode_size_dumb()
+  drm/gma500: Compute dumb-buffer sizes with drm_mode_size_dumb()
+  drm/hibmc: Compute dumb-buffer sizes with drm_mode_size_dumb()
+  drm/imx/ipuv3: Compute dumb-buffer sizes with drm_mode_size_dumb()
+  drm/loongson: Compute dumb-buffer sizes with drm_mode_size_dumb()
+  drm/mediatek: Compute dumb-buffer sizes with drm_mode_size_dumb()
+  drm/msm: Compute dumb-buffer sizes with drm_mode_size_dumb()
+  drm/nouveau: Compute dumb-buffer sizes with drm_mode_size_dumb()
+  drm/omapdrm: Compute dumb-buffer sizes with drm_mode_size_dumb()
+  drm/qxl: Compute dumb-buffer sizes with drm_mode_size_dumb()
+  drm/renesas/rcar-du: Compute dumb-buffer sizes with
+    drm_mode_size_dumb()
+  drm/renesas/rz-du: Compute dumb-buffer sizes with drm_mode_size_dumb()
+  drm/rockchip: Compute dumb-buffer sizes with drm_mode_size_dumb()
+  drm/tegra: Compute dumb-buffer sizes with drm_mode_size_dumb()
+  drm/virtio: Compute dumb-buffer sizes with drm_mode_size_dumb()
+  drm/vmwgfx: Compute dumb-buffer sizes with drm_mode_size_dumb()
+  drm/xe: Compute dumb-buffer sizes with drm_mode_size_dumb()
+  drm/xen: Compute dumb-buffer sizes with drm_mode_size_dumb()
+  drm/xlnx: Compute dumb-buffer sizes with drm_mode_size_dumb()
+
+ Documentation/gpu/todo.rst                    |  27 +++
+ drivers/gpu/drm/armada/armada_gem.c           |  16 +-
+ drivers/gpu/drm/drm_dumb_buffers.c            | 170 ++++++++++++++++--
+ drivers/gpu/drm/drm_gem_dma_helper.c          |   7 +-
+ drivers/gpu/drm/drm_gem_shmem_helper.c        |  16 +-
+ drivers/gpu/drm/drm_gem_vram_helper.c         |  89 +++------
+ drivers/gpu/drm/exynos/exynos_drm_gem.c       |   8 +-
+ drivers/gpu/drm/gma500/gem.c                  |  21 +--
+ .../gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c   |  25 ++-
+ drivers/gpu/drm/imx/ipuv3/imx-drm-core.c      |  29 ++-
+ drivers/gpu/drm/loongson/lsdc_gem.c           |  29 +--
+ drivers/gpu/drm/mediatek/mtk_gem.c            |  13 +-
+ drivers/gpu/drm/msm/msm_gem.c                 |  27 ++-
+ drivers/gpu/drm/nouveau/nouveau_display.c     |   7 +-
+ drivers/gpu/drm/omapdrm/omap_gem.c            |  15 +-
+ drivers/gpu/drm/qxl/qxl_dumb.c                |  17 +-
+ drivers/gpu/drm/renesas/rcar-du/rcar_du_kms.c |   7 +-
+ drivers/gpu/drm/renesas/rz-du/rzg2l_du_kms.c  |   8 +-
+ drivers/gpu/drm/rockchip/rockchip_drm_gem.c   |  12 +-
+ drivers/gpu/drm/tegra/gem.c                   |   8 +-
+ drivers/gpu/drm/virtio/virtgpu_gem.c          |  11 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_surface.c       |  21 +--
+ drivers/gpu/drm/xe/xe_bo.c                    |   8 +-
+ drivers/gpu/drm/xen/xen_drm_front.c           |   7 +-
+ drivers/gpu/drm/xlnx/zynqmp_kms.c             |   7 +-
+ include/drm/drm_dumb_buffers.h                |  14 ++
+ include/drm/drm_gem_vram_helper.h             |   6 -
+ include/uapi/drm/drm_mode.h                   |  50 +++++-
+ 28 files changed, 447 insertions(+), 228 deletions(-)
+ create mode 100644 include/drm/drm_dumb_buffers.h
+
+
+base-commit: 75238c32deae15ee4120b42a5be556ec36807a84
+prerequisite-patch-id: c67e5d886a47b7d0266d81100837557fda34cb24
+prerequisite-patch-id: a5a973e527c88a5b47053d7a72aefe0b550197cb
+prerequisite-patch-id: 719d09751d38f5da743beed6266585ee063e1e29
+-- 
+2.49.0
+
 
