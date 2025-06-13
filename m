@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F423AD898A
-	for <lists+xen-devel@lfdr.de>; Fri, 13 Jun 2025 12:32:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1014196.1392432 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6711AAD8991
+	for <lists+xen-devel@lfdr.de>; Fri, 13 Jun 2025 12:33:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1014206.1392442 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uQ1hy-0007GJ-BQ; Fri, 13 Jun 2025 10:32:26 +0000
+	id 1uQ1jH-0008DA-OT; Fri, 13 Jun 2025 10:33:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1014196.1392432; Fri, 13 Jun 2025 10:32:26 +0000
+Received: by outflank-mailman (output) from mailman id 1014206.1392442; Fri, 13 Jun 2025 10:33:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uQ1hy-0007De-8d; Fri, 13 Jun 2025 10:32:26 +0000
-Received: by outflank-mailman (input) for mailman id 1014196;
- Fri, 13 Jun 2025 10:32:25 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uQ1jH-0008AY-Kv; Fri, 13 Jun 2025 10:33:47 +0000
+Received: by outflank-mailman (input) for mailman id 1014206;
+ Fri, 13 Jun 2025 10:33:46 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=49AQ=Y4=gmail.com=urezki@srs-se1.protection.inumbo.net>)
- id 1uQ1hx-0007DY-4b
- for xen-devel@lists.xenproject.org; Fri, 13 Jun 2025 10:32:25 +0000
-Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
- [2a00:1450:4864:20::234])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b127cf52-4841-11f0-b894-0df219b8e170;
- Fri, 13 Jun 2025 12:32:23 +0200 (CEST)
-Received: by mail-lj1-x234.google.com with SMTP id
- 38308e7fff4ca-32a6f5cb6f9so9110101fa.2
- for <xen-devel@lists.xenproject.org>; Fri, 13 Jun 2025 03:32:23 -0700 (PDT)
-Received: from pc636 (host-95-203-1-180.mobileonline.telia.com. [95.203.1.180])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-553ac1dc3absm402194e87.197.2025.06.13.03.32.08
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Jun 2025 03:32:09 -0700 (PDT)
+ (envelope-from <SRS0=M3pU=Y4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uQ1jG-00089X-FH
+ for xen-devel@lists.xenproject.org; Fri, 13 Jun 2025 10:33:46 +0000
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [2a00:1450:4864:20::42c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e23d13d1-4841-11f0-a309-13f23c93f187;
+ Fri, 13 Jun 2025 12:33:45 +0200 (CEST)
+Received: by mail-wr1-x42c.google.com with SMTP id
+ ffacd0b85a97d-3a54700a463so1310405f8f.1
+ for <xen-devel@lists.xenproject.org>; Fri, 13 Jun 2025 03:33:45 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2365d8a1fafsm11422905ad.70.2025.06.13.03.33.39
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 13 Jun 2025 03:33:44 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,172 +45,92 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b127cf52-4841-11f0-b894-0df219b8e170
+X-Inumbo-ID: e23d13d1-4841-11f0-a309-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1749810742; x=1750415542; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:date:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=Wu4qJvn4Llwk0tWZQ65fBk0n6CvVyWDwwMQQPjhEpAs=;
-        b=E/V0Bl0Wo80aX2aQH0b2+MdRWyyLNS+5IcJmgJAcP/0CniDYtO0BAT+mWgTBPHfRNU
-         rvEv7SJXQehxRzAp+4jrle+VKXxwARLdXK8m0GQ5Pjp13OlSI7a75WNdoFJYLoODmxGE
-         Lv6w5ZvCFokfRLQTf4IxGff/LawYVBWJSox9VSrznVjjslnRXVPmvfPTQn1eaSa7H50M
-         8YGaRX5XBf6cik/3x63MXksfxdc6pIEj5kYZqeys+SdZGfWkWErTrkDj8EIluEAzAFQf
-         JWGx9cn2ZQTZWBVk2KuiTeFBJyDNnrqWaRIjgNSM3it1WHanqdOh8LtoMkA9LmphIX8S
-         L8dQ==
+        d=suse.com; s=google; t=1749810825; x=1750415625; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=wNC66ikY/A4PiKfewBZdiNiqRm0SiC9C4Yi9KpR2H6o=;
+        b=FQxeIIw4DQajsX7mfillwMblextLdnpesbg/ZTDpIT08Gb1u0BfIU5AImQ+gtaldxR
+         u6ZPaV2X4FFIlzEhSmIo6hiJWiRu84lui1xtSC4Ikyl4H6h4vH0B5NEzDqWrjL33ZgRK
+         ftRF4vv1xrAb1qxVtqgAbIX26d+eF8S4l+3dmXjX+mUWvP3QolugXQpABgH6JBJC7wFp
+         XCVY1ka8rbj/+NgkREKirPsiowHWGxwelSZLHPI8OEqJ0OzSLaw7xVipM0FE3br02aVm
+         d3DJVmgEX/LpBk5FdQ2waLnhblWMTnEfT9/CuZoqutZeS+hHumVyKiRGLdVAklnTxVts
+         kl8A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749810742; x=1750415542;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:date:from:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20230601; t=1749810825; x=1750415625;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Wu4qJvn4Llwk0tWZQ65fBk0n6CvVyWDwwMQQPjhEpAs=;
-        b=c0nf42coP1UmWC0w64CwAvXrH7FPp1e3n1rorRlDYUMVYdrHWmUel1EHNnSrqB82F9
-         jq5++tU1yDlPqjtLPHcoeeIA38I9UlJR40xaSyCvclzCZUsIDtUImYBdBv5rE6x/9ksl
-         68Jsa2RWyw4yB9GO/fwMGK43/KH3XI4MjsiprK4V9M74ldbS75YFmfo/MP4TTROhc8nZ
-         2pO0VmIAVLXOiVItWAAZ7EqKdbJKesA36+wC7HEv/aMIsMUcfsOvtZ7GDZ6/x93eXhbw
-         UYlP4deh4Pn1lreJmx4+7Mgl6Bchj3iPdazgiNUoKs98F+iG78wrE1m26VejQLzjPFX8
-         XXtQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUcnexuKqNg5fWYyiKh+buvlkWVOe3gl/e60MqjCS53IC7evFF3Qf0ez4jqSAg+KdU2nvcd7RqJBe4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyVLK9ykPpul+44PEwEVgbmnlITLbgreIvUH7GWpBSYiuVoN0fD
-	lxvMk4Py646IEaP04MpxGkUkRJs8dQqkx+Rvh2DM0b3lehbSJt1PHrg7lTgjLfda
-X-Gm-Gg: ASbGncvfWKGccGyApCYUqayDvpFxlIJ0EV+rV/P4+FEOdcMdwGQvgjdbSa0hkKCs4xK
-	phSMXq8RHL+8OLxqHrlAiKF1joFY/spHCjFprwcmQ0sw/ncZXWtC/Q+z6Xt9ifFNw+t1L4AQnKb
-	CW1wDtkLUSkjWBRyIHHZ0y19vMSr0IDalcixXA2ZrGmJnnxRaItbyUNEh57ef0KT7bjfDdNNDqb
-	r0gzK2K3UXxwVj3slf2OCsLhVLWdFLU9copQP5R/ZPTroRYTT5s1Ax8cRz49C59e1SGNqUpfizq
-	06SFEb/KZW2lvhOgFRqfBYeGzHG5U4vn8Gain6iZ2KzCloxs1xgaDcxw2t0EvfTv0EFs690KEuw
-	6U4S7wWIj9PQ=
-X-Google-Smtp-Source: AGHT+IH9UJ7uFj1fdsdkfO2A9iWrTLeLn4U5mol1YXw4WzFM5kRsgurhm6wsyckaQjO11Dn5eJdcbA==
-X-Received: by 2002:a05:6512:3b06:b0:553:a3e7:812e with SMTP id 2adb3069b0e04-553af90817dmr681078e87.20.1749810730193;
-        Fri, 13 Jun 2025 03:32:10 -0700 (PDT)
-From: Uladzislau Rezki <urezki@gmail.com>
-X-Google-Original-From: Uladzislau Rezki <urezki@pc636>
-Date: Fri, 13 Jun 2025 12:32:06 +0200
-To: Alexander Gordeev <agordeev@linux.ibm.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org, sparclinux@vger.kernel.org,
-	xen-devel@lists.xenproject.org, linuxppc-dev@lists.ozlabs.org,
-	linux-s390@vger.kernel.org, Hugh Dickins <hughd@google.com>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Guenter Roeck <linux@roeck-us.net>, Juergen Gross <jgross@suse.com>,
-	Jeremy Fitzhardinge <jeremy@goop.org>,
-	Ryan Roberts <ryan.roberts@arm.com>
-Subject: Re: [PATCH 2/6] mm: Lock kernel page tables before entering lazy MMU
- mode
-Message-ID: <aEv-JjY4lUPNqyjZ@pc636>
-References: <cover.1749747752.git.agordeev@linux.ibm.com>
- <7bd3a45dbc375dc2c15cebae09cb2bb972d6039f.1749747752.git.agordeev@linux.ibm.com>
+        bh=wNC66ikY/A4PiKfewBZdiNiqRm0SiC9C4Yi9KpR2H6o=;
+        b=m937og29GGG2EYi1S4KZJ4PfLC5m12HOQO6Iuk4T31pOclIQtiPTDm+bFkyefnEnkP
+         qa6cvPQolJ5ArhmWSbTL4wL/E0+g2r2nVQXE+aeB8sQoOr6E282GLxsUZ7X1GoDaGpfG
+         qLWo+PO+1Ej6xQ/1KMoQYOoHZxLaESr1pkmkA/krSAo/+zT83PKVjqV1UAGCA/wrx7hP
+         9exPHuxByO1BY+85CHj1jBqnvHH40nfzeTZBMqO1efJ1rFJ7HusEIwJYdtSO0Mbwxnx0
+         Yr90vztkb61IRmjN9/bccnNFshqZytp4q0E2OUJxWEr/gegbQYki1w6fyHpPyoVwcNc1
+         Vw3g==
+X-Forwarded-Encrypted: i=1; AJvYcCV6Pkjjxv6ZrmwHpwdMdJ+fJgKPFJ42e2u8a/XAroWj4TLR0N11DS6zcjSSlL3t4o2AUV619pTZl08=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Ywkv23KbE9C4X3Ofug1D1DFjuzosRRNMgeoOuW+1Charn3b+47M
+	48fooplJWnr6Ei+Kg2r7QxbH2XiByb+yd+dpKxY+9fl1Wqna64XAKwc26bH7AR/PcQ==
+X-Gm-Gg: ASbGncsI9zaLSabqL42ANaCqioYTv0vSlxS5FgUr3gQN78M+AnHWwy8yaHTx1gV0jAr
+	suavF5W8m5BP8wlkSa5vZ8dCEIxWvSVs0B6aQTaRO37rX28GzwLKAzttG7U0isGtf8c/otC3Z4c
+	JCgnldSvOHiVd6lzo0T06QlgxS+/1gLhoWnfPuNs6ql5h/8bxsWERS3gb35a6M7AtXFZCnhvL/m
+	Vgy0E5z+teUjC2D+yFeC+4RHt5ngk2aBXE5KwhEysr8I34gR1rHwpm8bRLgjMnn5jWBWoFtbJgr
+	6rsgGgcU4COF7OK5xqolMmKEudMYLWn2EaMQWIHkVUeuoU0qTVJEN4azDaqxqTS1Rclte3KAUG1
+	QXqJ43cvoSv2sve39Se3lx/c0oT95YML3OrqZcg2bXKIJosA=
+X-Google-Smtp-Source: AGHT+IEbbu90whiZYKluiN+LarlEwG6wvwpE9dj/a1LRqHOGadj1HeiZX24WGqSS9+Ey6HNIdyxcWg==
+X-Received: by 2002:a05:6000:40d9:b0:3a4:e238:6496 with SMTP id ffacd0b85a97d-3a56d827f55mr191596f8f.18.1749810824958;
+        Fri, 13 Jun 2025 03:33:44 -0700 (PDT)
+Message-ID: <9ea9049f-1d29-4830-9d99-3f1e86356e17@suse.com>
+Date: Fri, 13 Jun 2025 12:33:35 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <7bd3a45dbc375dc2c15cebae09cb2bb972d6039f.1749747752.git.agordeev@linux.ibm.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drivers/pci: Add minor comment for maximum capability
+ constant
+To: Frediano Ziglio <frediano.ziglio@cloud.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20250613101334.164310-1-frediano.ziglio@cloud.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20250613101334.164310-1-frediano.ziglio@cloud.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Jun 12, 2025 at 07:36:09PM +0200, Alexander Gordeev wrote:
-> As a follow-up to commit 691ee97e1a9d ("mm: fix lazy mmu docs and
-> usage") take a step forward and protect with a lock not only user,
-> but also kernel mappings before entering the lazy MMU mode. With
-> that the semantics of arch_enter|leave_lazy_mmu_mode() callbacks
-> is consolidated, which allows further simplifications.
+On 13.06.2025 12:13, Frediano Ziglio wrote:
+> The comment is similar to extended capabilities in the function
+> below.
 > 
-> The effect of this consolidation is not fully preemptible (Real-Time)
-> kernels can not enter the context switch while the lazy MMU mode is
-> active - which is easier to comprehend.
-> 
-> Signed-off-by: Alexander Gordeev <agordeev@linux.ibm.com>
-> ---
->  include/linux/pgtable.h | 12 ++++++------
->  mm/kasan/shadow.c       |  5 -----
->  mm/memory.c             |  5 ++++-
->  mm/vmalloc.c            |  6 ++++++
->  4 files changed, 16 insertions(+), 12 deletions(-)
-> 
-> diff --git a/include/linux/pgtable.h b/include/linux/pgtable.h
-> index 0b6e1f781d86..33bf2b13c219 100644
-> --- a/include/linux/pgtable.h
-> +++ b/include/linux/pgtable.h
-> @@ -224,12 +224,12 @@ static inline int pmd_dirty(pmd_t pmd)
->   * a raw PTE pointer after it has been modified are not guaranteed to be
->   * up to date.
->   *
-> - * In the general case, no lock is guaranteed to be held between entry and exit
-> - * of the lazy mode. So the implementation must assume preemption may be enabled
-> - * and cpu migration is possible; it must take steps to be robust against this.
-> - * (In practice, for user PTE updates, the appropriate page table lock(s) are
-> - * held, but for kernel PTE updates, no lock is held). Nesting is not permitted
-> - * and the mode cannot be used in interrupt context.
-> + * For PREEMPT_RT kernels implementation must assume that preemption may
-> + * be enabled and cpu migration is possible between entry and exit of the
-> + * lazy MMU mode; it must take steps to be robust against this. There is
-> + * no such assumption for non-PREEMPT_RT kernels, since both kernel and
-> + * user page tables are protected with a spinlock while in lazy MMU mode.
-> + * Nesting is not permitted and the mode cannot be used in interrupt context.
->   */
->  #ifndef __HAVE_ARCH_ENTER_LAZY_MMU_MODE
->  #define arch_enter_lazy_mmu_mode()	do {} while (0)
-> diff --git a/mm/kasan/shadow.c b/mm/kasan/shadow.c
-> index d2c70cd2afb1..45115bd770a9 100644
-> --- a/mm/kasan/shadow.c
-> +++ b/mm/kasan/shadow.c
-> @@ -313,12 +313,10 @@ static int kasan_populate_vmalloc_pte(pte_t *ptep, unsigned long addr,
->  	__memset(page_to_virt(page), KASAN_VMALLOC_INVALID, PAGE_SIZE);
->  	pte = pfn_pte(page_to_pfn(page), PAGE_KERNEL);
->  
-> -	spin_lock(&init_mm.page_table_lock);
->  	if (likely(pte_none(ptep_get(ptep)))) {
->  		set_pte_at(&init_mm, addr, ptep, pte);
->  		data->pages[index] = NULL;
->  	}
-> -	spin_unlock(&init_mm.page_table_lock);
->  
->  	return 0;
->  }
-> @@ -465,13 +463,10 @@ static int kasan_depopulate_vmalloc_pte(pte_t *ptep, unsigned long addr,
->  
->  	page = (unsigned long)__va(pte_pfn(ptep_get(ptep)) << PAGE_SHIFT);
->  
-> -	spin_lock(&init_mm.page_table_lock);
-> -
->  	if (likely(!pte_none(ptep_get(ptep)))) {
->  		pte_clear(&init_mm, addr, ptep);
->  		free_page(page);
->  	}
-> -	spin_unlock(&init_mm.page_table_lock);
->  
->  	return 0;
->  }
-> diff --git a/mm/memory.c b/mm/memory.c
-> index 71b3d3f98999..1ddc532b1f13 100644
-> --- a/mm/memory.c
-> +++ b/mm/memory.c
-> @@ -3017,6 +3017,7 @@ static int apply_to_pte_range(struct mm_struct *mm, pmd_t *pmd,
->  			pte = pte_offset_kernel(pmd, addr);
->  		if (!pte)
->  			return err;
-> +		spin_lock(&init_mm.page_table_lock);
->  	} else {
->  		if (create)
->  			pte = pte_alloc_map_lock(mm, pmd, addr, &ptl);
-> @@ -3042,7 +3043,9 @@ static int apply_to_pte_range(struct mm_struct *mm, pmd_t *pmd,
->  
->  	arch_leave_lazy_mmu_mode();
->  
-> -	if (mm != &init_mm)
-> +	if (mm == &init_mm)
-> +		spin_unlock(&init_mm.page_table_lock);
-> +	else
->  		pte_unmap_unlock(mapped_pte, ptl);
->  
->  	*mask |= PGTBL_PTE_MODIFIED;
-> diff --git a/mm/vmalloc.c b/mm/vmalloc.c
-> index ab986dd09b6a..57b11000ae36 100644
-> --- a/mm/vmalloc.c
-> +++ b/mm/vmalloc.c
-> @@ -105,6 +105,7 @@ static int vmap_pte_range(pmd_t *pmd, unsigned long addr, unsigned long end,
->  	if (!pte)
->  		return -ENOMEM;
->  
-> +	spin_lock(&init_mm.page_table_lock);
->
-This is not good. We introduce another bottle-neck.
+> Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
 
---
-Uladzislau Rezki
+Acked-by: Jan Beulich <jbeulich@suse.com>
+
 
