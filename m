@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 57A08AD93DF
-	for <lists+xen-devel@lfdr.de>; Fri, 13 Jun 2025 19:41:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1014788.1392893 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 71C46AD9462
+	for <lists+xen-devel@lfdr.de>; Fri, 13 Jun 2025 20:27:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1014819.1392904 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uQ8O6-0006kQ-SK; Fri, 13 Jun 2025 17:40:22 +0000
+	id 1uQ96n-0003UH-2g; Fri, 13 Jun 2025 18:26:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1014788.1392893; Fri, 13 Jun 2025 17:40:22 +0000
+Received: by outflank-mailman (output) from mailman id 1014819.1392904; Fri, 13 Jun 2025 18:26:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uQ8O6-0006ht-Pe; Fri, 13 Jun 2025 17:40:22 +0000
-Received: by outflank-mailman (input) for mailman id 1014788;
- Fri, 13 Jun 2025 17:40:21 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uQ96m-0003Sn-W9; Fri, 13 Jun 2025 18:26:32 +0000
+Received: by outflank-mailman (input) for mailman id 1014819;
+ Fri, 13 Jun 2025 18:26:31 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=5wsr=Y4=gmail.com=xakep.amatop@srs-se1.protection.inumbo.net>)
- id 1uQ8O5-0006hV-4f
- for xen-devel@lists.xenproject.org; Fri, 13 Jun 2025 17:40:21 +0000
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [2a00:1450:4864:20::132])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7a15a836-487d-11f0-a309-13f23c93f187;
- Fri, 13 Jun 2025 19:40:20 +0200 (CEST)
-Received: by mail-lf1-x132.google.com with SMTP id
- 2adb3069b0e04-553b3316160so707746e87.2
- for <xen-devel@lists.xenproject.org>; Fri, 13 Jun 2025 10:40:20 -0700 (PDT)
+ id 1uQ96l-0003Sh-DJ
+ for xen-devel@lists.xenproject.org; Fri, 13 Jun 2025 18:26:31 +0000
+Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
+ [2a00:1450:4864:20::136])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ec64a662-4883-11f0-b894-0df219b8e170;
+ Fri, 13 Jun 2025 20:26:29 +0200 (CEST)
+Received: by mail-lf1-x136.google.com with SMTP id
+ 2adb3069b0e04-553241d30b3so2065017e87.3
+ for <xen-devel@lists.xenproject.org>; Fri, 13 Jun 2025 11:26:29 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,227 +40,201 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7a15a836-487d-11f0-a309-13f23c93f187
+X-Inumbo-ID: ec64a662-4883-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1749836420; x=1750441220; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1749839189; x=1750443989; darn=lists.xenproject.org;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=sLOpd5cfiZVf0bMJOMKGHCiUQkKcGg4iz1OWyEC2yps=;
-        b=XT0yHTRAsKpvNoIwTf0hiWJP5o1ZCE/xGOxgSfDwo2jcBFegBUstY8RaDtpBGMMBlR
-         qT88/8pUwiXanLdaNA55u2m0fPm0XB433OhWDS3xYwsemtnupSCM7Tqn/n11hgd7CW7p
-         MDYos3DSlGS4nCzvQWJesZH1uZpacDx+ERUQgYIg1v4JHVGsHjxy6jmMF8NrDfv8GtQB
-         n9CWnmDFf555mXmIlg2/iaXy12/vUvZLn0k7ETg5mmRmbJ464VQ8YuhykkR9RAoP9RN/
-         UeC9RiK3syxeWCiP1wNt57mHheMRX3LQFNCBMA7XuG7zGb2L62GixQ53VoPtwUqVwwEp
-         eOaQ==
+        bh=744Q4BaZEA37rjJV9mLugsQfyO+L5XOIK9X7Q5KQDbc=;
+        b=erGdm9TZ+/h7yTXQD6sD3wIiERYoKFXCx8+2vtwMVE2WwYbIC9cXVnOEdi6dmZ31Nx
+         SfFv/aZzPavAVyg50uElCguYBvZs4ho9pR6iu6mrqWOxKDY6+gFwS1eI7oduLVOqlru4
+         HnlkOPHicURwP6Cnm6bQBVt2lj7y7i5Srqg49ZjSBoKncmCPgRZSUhP6zw/4SowkVRth
+         4cBPT82CkDKLW7UHY+NIJOxTqTisISghD1/uFKQTuTBTSo3egZ6d/NqAG8ZxjodxqdC+
+         dWatRU/RKazLuMB5ILehG+CUdTF4ncW4MEvNA+IfioeeuZsxUMCMbZxRZchvoeTeNGSV
+         1+zg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749836420; x=1750441220;
+        d=1e100.net; s=20230601; t=1749839189; x=1750443989;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=sLOpd5cfiZVf0bMJOMKGHCiUQkKcGg4iz1OWyEC2yps=;
-        b=cj8JUwLINHSzSJOp6Q0Eff6p8wv+REYJKJexTkpeQAqHZ8GC3dEgEcAaGrofmL/jx1
-         h0/H48lxHM5apWdubgZfTEp3ns4kfexKEY2PUiWTGyNchGl453O72TdnGp1lbsL8j/ar
-         pZZe526+Uv9BFltjb/3QWs6r4UmUJiV1V0MYtEK8B2/qFZgfU0annw99b0TgcGiBYAL/
-         sgxc5v6TFtJNGTzyIGOoKTo+MU9iQalUS876agMZBy80AHPlHaZInyYzVo7rDT7QvJGi
-         sZb+9LNUsEd/lZ2FooI1/85nukXpn37TJ3WBNuDLMvrY7Hu/2KnI3lDdblWeHP7HGr6M
-         FmxQ==
-X-Gm-Message-State: AOJu0YwHpc2eInPMjvFHxT58IoQg85/YJiJQrJNZJqbChB9cCwkOXL9Q
-	IsIa8Lv64/1N/DPwhPvpjcYO0YQUc8JkteVCx0VZ9Xptz1HnObFbo9+0qmFycdf9T8ukZG98dU+
-	emjGqGuNwrzEcequh1+1NeUbhOXhcnYM=
-X-Gm-Gg: ASbGncuU36b3jpn/Uo6rrdke9KlQAVJf1OzSKxqRYzosjfY2EHVfjhzaqJ5BUKM3Eek
-	f75qe4q4R+ZMFc5WYBcWCOTQBBIMAUXbd9htX0RS2nJFM7S+hzjF8P8sgei3YQFmlgrU3Hu4Ld6
-	r7sXvuj3I29w6nlupoAUwCbQoWRfLentvEpwRNVhQNoQ==
-X-Google-Smtp-Source: AGHT+IFYPsNfR8jj4o17Vd1AgYxI94ChEeiBHTzZ0wrwCeVlNn8vifoP0lfIiyB+jQcVCV/+O/EPJUUYJdFzVyxwm/c=
-X-Received: by 2002:a05:6512:12ca:b0:553:2ed2:15b4 with SMTP id
- 2adb3069b0e04-553b6f4d916mr27611e87.57.1749836419420; Fri, 13 Jun 2025
- 10:40:19 -0700 (PDT)
+        bh=744Q4BaZEA37rjJV9mLugsQfyO+L5XOIK9X7Q5KQDbc=;
+        b=s3H34VVywsGnkLo5jevePW+aaLMzMl6Aw6+rrIUzFsX7vRdk0pjn5jqzUxKjRRUorc
+         8j1qgYQt0KSCExmJLY8poaHLvsxdgBMXibF2yflH5mFutG14FrawdS9xZMv1qFUQ5bEu
+         4UL/dj0ZtfSHaIF1Y5sDzgC8qOTIYHiW61SihEsbewYgLxDtPPmGCpCjrTafhNKyxNtO
+         sEB9bxxOGOintl94F9nYl1LXsH1byuL9LOti8HDPiniG6Lgo0YMn6egkpmH1U16yXaQQ
+         Tyz0EGJRpagOXKT1Fpxs20oX+pOWtGGUrHRlKB6Bb5PrfTBqDg4iZYQihQk/Te9nV5gV
+         FFZw==
+X-Gm-Message-State: AOJu0YybPa6awJPAC1BZPoGts3YuVFB3Mo94GEUIinLQhjzzwu0fqMow
+	OG8pHOZqvnJlMkVILMmR8+p99HDKXLYAR5VCp3To6cDPYVzRJKQ0F/3YpmH0OLzPxL7SDyuHT3o
+	oUGhjAg4hOmG6ptb9GcTYspPeI4D0wQA=
+X-Gm-Gg: ASbGncuqfnFiY7n083ty2/1WfAMVjN81HKm47N2D5kubiNRBbARQUH/r77yn99wOhSv
+	i4EDQYZcwxb4hXDEIpzht4IEMT3kogxpcC2WvUSc1l9N4RlHIu99c86wRD2m/R/koJSGrqoqWns
+	4x4jIIrKXRhH7XEOMYtNyy5XPEn3e/20Ev4lQ2F3brCA==
+X-Google-Smtp-Source: AGHT+IEmMNVKSWJ6ZcdzB6hiq0iiWMoOGop98C+43yBO+IDYHL9fpfPXTTJ654SWhYnS9MYPDIpnuRxuGO6da3JCqZw=
+X-Received: by 2002:a05:6512:68a:b0:553:663d:736c with SMTP id
+ 2adb3069b0e04-553b6e84d23mr100310e87.15.1749839188485; Fri, 13 Jun 2025
+ 11:26:28 -0700 (PDT)
 MIME-Version: 1.0
-References: <cover.1748848482.git.mykola_kvach@epam.com> <d57cba4cfc0944c5483e68440a5675db735805be.1748848482.git.mykola_kvach@epam.com>
- <d489b84d-bf92-4f13-80d6-d6f325eada62@amd.com>
-In-Reply-To: <d489b84d-bf92-4f13-80d6-d6f325eada62@amd.com>
+References: <cover.1749204282.git.mykola_kvach@epam.com> <3be3369910ec5159eab3cb26155da645dd1df83b.1749204282.git.mykola_kvach@epam.com>
+ <4403d50b-3380-4f94-8c14-f0eb2884b50d@amd.com>
+In-Reply-To: <4403d50b-3380-4f94-8c14-f0eb2884b50d@amd.com>
 From: Mykola Kvach <xakep.amatop@gmail.com>
-Date: Fri, 13 Jun 2025 20:40:08 +0300
-X-Gm-Features: AX0GCFvAfeLlu-0TTtcGflxTgYcfAKarDEpNqWhOfIVTRILlz72jMq_EEf0xzJQ
-Message-ID: <CAGeoDV9_py04VYs782-ZzB4af1H0ObK-QTZ0=6Hn4umXw8xyuA@mail.gmail.com>
-Subject: Re: [PATCH v4][PART 2 02/10] xen/arm: Add suspend and resume timer helpers
+Date: Fri, 13 Jun 2025 21:26:16 +0300
+X-Gm-Features: AX0GCFsh2EuSdYXKiv9tWNwCaeneeehXf_c1JaYNHsH5VfCHhZrq2I1e-i0rZmQ
+Message-ID: <CAGeoDV-shygCux0BumGNPxZHFbhPGy6guJg83Pih5quBp820cQ@mail.gmail.com>
+Subject: Re: [PATCH v3 2/2] xen/char: implement suspend/resume calls for SCIF driver
 To: Ayan Kumar Halder <ayankuma@amd.com>
 Cc: xen-devel@lists.xenproject.org, 
-	Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-	Bertrand Marquis <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, 
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+	Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Stefano Stabellini <sstabellini@kernel.org>, 
+	Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, 
+	Michal Orzel <michal.orzel@amd.com>, 
+	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>, Mykola Kvach <mykola_kvach@epam.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 Hi Ayan
 
-On Fri, Jun 13, 2025 at 5:44=E2=80=AFPM Ayan Kumar Halder <ayankuma@amd.com=
+On Fri, Jun 13, 2025 at 5:36=E2=80=AFPM Ayan Kumar Halder <ayankuma@amd.com=
 > wrote:
 >
 > Hi Mykola,
 >
-> On 02/06/2025 10:04, Mykola Kvach wrote:
+> On 06/06/2025 11:11, Mykola Kvach wrote:
 > > CAUTION: This message has originated from an External Source. Please us=
 e proper judgment and caution when opening attachments, clicking links, or =
 responding to this email.
 > >
 > >
-> > From: Mirela Simonovic <mirela.simonovic@aggios.com>
+> > From: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
 > >
-> > Timer interrupts must be disabled while the system is suspended to prev=
-ent
-> > spurious wake-ups. Suspending the timers involves disabling both the EL=
-1
-> > physical timer and the EL2 hypervisor timer. Resuming consists of raisi=
-ng
-> > the TIMER_SOFTIRQ, which prompts the generic timer code to reprogram th=
-e
-> > EL2 timer as needed. Re-enabling of the EL1 timer is left to the entity
-> > that uses it.
+> > The changes have been tested only on the Renesas R-Car H3 Starter Kit b=
+oard.
+>
+> The commit message need to explain what the change is and why it is neede=
+d.
+
+Thanks for the feedback. I thought the information from the commit
+message title would be enough.
+
+I will add a few more words to clarify what the change is and why it's
+needed to the commit message body.
+
+>
+> Also ...
+>
 > >
-> > Introduce a new helper, disable_physical_timers, to encapsulate disabli=
-ng
-> > of the physical timers.
-> >
-> > Signed-off-by: Mirela Simonovic <mirela.simonovic@aggios.com>
-> > Signed-off-by: Saeed Nowshadi <saeed.nowshadi@xilinx.com>
+> > Signed-off-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
+> > Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.co=
+m>
 > > Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
 > > ---
-> > Changes in V4:
-> >    - Rephrased comment and commit message for better clarity
-> >    - Created separate function for disabling physical timers
-> >
-> > Changes in V3:
-> >    - time_suspend and time_resume are now conditionally compiled
-> >      under CONFIG_SYSTEM_SUSPEND
+> > In patch v2, I just added a CONFIG_SYSTEM_SUSPEND check around
+> > the suspend/resume functions in the SCIF driver.
 > > ---
-> >   xen/arch/arm/include/asm/time.h |  5 +++++
-> >   xen/arch/arm/time.c             | 38 +++++++++++++++++++++++++++-----=
+> >   xen/drivers/char/scif-uart.c | 40 ++++++++++++++++++++++++++++++++++-=
 -
-> >   2 files changed, 37 insertions(+), 6 deletions(-)
+> >   1 file changed, 38 insertions(+), 2 deletions(-)
 > >
-> > diff --git a/xen/arch/arm/include/asm/time.h b/xen/arch/arm/include/asm=
-/time.h
-> > index 49ad8c1a6d..f4fd0c6af5 100644
-> > --- a/xen/arch/arm/include/asm/time.h
-> > +++ b/xen/arch/arm/include/asm/time.h
-> > @@ -108,6 +108,11 @@ void preinit_xen_time(void);
-> >
-> >   void force_update_vcpu_system_time(struct vcpu *v);
-> >
-> > +#ifdef CONFIG_SYSTEM_SUSPEND
-> > +void time_suspend(void);
-> > +void time_resume(void);
-> > +#endif /* CONFIG_SYSTEM_SUSPEND */
-> > +
-> >   #endif /* __ARM_TIME_H__ */
-> >   /*
-> >    * Local variables:
-> > diff --git a/xen/arch/arm/time.c b/xen/arch/arm/time.c
-> > index e74d30d258..ad984fdfdd 100644
-> > --- a/xen/arch/arm/time.c
-> > +++ b/xen/arch/arm/time.c
-> > @@ -303,6 +303,14 @@ static void check_timer_irq_cfg(unsigned int irq, =
-const char *which)
-> >              "WARNING: %s-timer IRQ%u is not level triggered.\n", which=
-, irq);
+> > diff --git a/xen/drivers/char/scif-uart.c b/xen/drivers/char/scif-uart.=
+c
+> > index 757793ca45..888821a3b8 100644
+> > --- a/xen/drivers/char/scif-uart.c
+> > +++ b/xen/drivers/char/scif-uart.c
+> > @@ -139,9 +139,8 @@ static void scif_uart_interrupt(int irq, void *data=
+)
+> >       }
 > >   }
 > >
-> > +/* Disable physical timers for EL1 and EL2 on the current CPU */
-> > +static inline void disable_physical_timers(void)
-> > +{
-> > +    WRITE_SYSREG(0, CNTP_CTL_EL0);    /* Physical timer disabled */
-> > +    WRITE_SYSREG(0, CNTHP_CTL_EL2);   /* Hypervisor's timer disabled *=
-/
-> > +    isb();
+> > -static void __init scif_uart_init_preirq(struct serial_port *port)
+> > +static void scif_uart_disable(struct scif_uart *uart)
+> >   {
+> > -    struct scif_uart *uart =3D port->uart;
+> >       const struct port_params *params =3D uart->params;
+> >
+> >       /*
+> > @@ -155,6 +154,14 @@ static void __init scif_uart_init_preirq(struct se=
+rial_port *port)
+> >
+> >       /* Reset TX/RX FIFOs */
+> >       scif_writew(uart, SCIF_SCFCR, SCFCR_RFRST | SCFCR_TFRST);
 > > +}
 > > +
-> >   /* Set up the timer interrupt on this CPU */
-> >   void init_timer_interrupt(void)
-> >   {
-> > @@ -310,9 +318,7 @@ void init_timer_interrupt(void)
-> >       WRITE_SYSREG64(0, CNTVOFF_EL2);     /* No VM-specific offset */
-> >       /* Do not let the VMs program the physical timer, only read the p=
-hysical counter */
-> >       WRITE_SYSREG(CNTHCTL_EL2_EL1PCTEN, CNTHCTL_EL2);
-> > -    WRITE_SYSREG(0, CNTP_CTL_EL0);    /* Physical timer disabled */
-> > -    WRITE_SYSREG(0, CNTHP_CTL_EL2);   /* Hypervisor's timer disabled *=
-/
-> > -    isb();
-> > +    disable_physical_timers();
+> > +static void scif_uart_init_preirq(struct serial_port *port)
+> > +{
+> > +    struct scif_uart *uart =3D port->uart;
+> > +    const struct port_params *params =3D uart->params;
+> > +
+> > +    scif_uart_disable(uart);
 > >
-> >       request_irq(timer_irq[TIMER_HYP_PPI], 0, htimer_interrupt,
-> >                   "hyptimer", NULL);
-> > @@ -330,9 +336,7 @@ void init_timer_interrupt(void)
-> >    */
-> >   static void deinit_timer_interrupt(void)
-> >   {
-> > -    WRITE_SYSREG(0, CNTP_CTL_EL0);    /* Disable physical timer */
-> > -    WRITE_SYSREG(0, CNTHP_CTL_EL2);   /* Disable hypervisor's timer */
-> > -    isb();
-> > +    disable_physical_timers();
-> >
-> >       release_irq(timer_irq[TIMER_HYP_PPI], NULL);
-> >       release_irq(timer_irq[TIMER_VIRT_PPI], NULL);
-> > @@ -372,6 +376,28 @@ void domain_set_time_offset(struct domain *d, int6=
-4_t time_offset_seconds)
-> >       /* XXX update guest visible wallclock time */
+> >       /* Clear all errors and flags */
+> >       scif_readw(uart, params->status_reg);
+> > @@ -271,6 +278,31 @@ static void scif_uart_stop_tx(struct serial_port *=
+port)
+> >       scif_writew(uart, SCIF_SCSCR, scif_readw(uart, SCIF_SCSCR) & ~SCS=
+CR_TIE);
 > >   }
 > >
 > > +#ifdef CONFIG_SYSTEM_SUSPEND
 > > +
-> > +void time_suspend(void)
+> > +static void scif_uart_suspend(struct serial_port *port)
 > > +{
-> > +    disable_physical_timers();
+> > +    struct scif_uart *uart =3D port->uart;
+> > +
+> > +    scif_uart_stop_tx(port);
+> > +    scif_uart_disable(uart);
 > > +}
 > > +
-> > +void time_resume(void)
+> > +static void scif_uart_resume(struct serial_port *port)
 > > +{
-> > +    /*
-> > +     * Raising the timer softirq triggers generic code to call reprogr=
-am_timer
-> > +     * with the correct timeout (not known here).
-> > +     *
-> > +     * No further action is needed to restore timekeeping after power =
-down,
-> > +     * since the system counter is unaffected. See ARM DDI 0487 L.a, D=
-12.1.2
-> > +     * "The system counter must be implemented in an always-on power d=
-omain."
-> > +     */
-> > +    raise_softirq(TIMER_SOFTIRQ);
+> > +    struct scif_uart *uart =3D port->uart;
+> > +    const struct port_params *params =3D uart->params;
+> > +    uint16_t ctrl;
+> > +
+> > +    scif_uart_init_preirq(port);
+> > +
+> > +    /* Enable TX/RX and Error Interrupts  */
+> > +    ctrl =3D scif_readw(uart, SCIF_SCSCR);
+> > +    scif_writew(uart, SCIF_SCSCR, ctrl | params->irq_flags);
+>
+> If you can give reference to a public doc which describe these
+> registers, it will be great.
+
+I don't think I can share documentation for the board I used for testing
+this commit.
+
+However, I searched for Linux boards that use the same driver and SCIF
+register set with available documentation, and I found a few boards with
+open documentation, for example, RZ/G1H or RZ/G1M:
+
+https://www.renesas.com/en/products/microcontrollers-microprocessors/rz-mpu=
+s/rzg1m-ultra-high-performance-microprocessors-15ghz-dual-core-arm-cortex-a=
+15-cpus-3d-graphics-and-video
+
+>
+> Otherwise, the changes look ok to me.
+>
 > > +}
 > > +
 > > +#endif /* CONFIG_SYSTEM_SUSPEND */
 > > +
-> >   static int cpu_time_callback(struct notifier_block *nfb,
-> >                                unsigned long action,
-> >                                void *hcpu)
-> A question. Do you see CPU_DYING gets invoked during platform suspend ?
-
-Yes, it is invoked through the following code flow:
-system_suspend (introduced in this patch series)
-    -> disable_nonboot_cpus
-        -> cpu_down
-            -> take_cpu_down
-                -> _take_cpu_down
-
-
-> I wonder how this code path is invoked with
->
-> time_suspend()
-
-time_suspend is called directly from system_suspend,
-which was introduced in one of the latest commits in this patch series.
-
-In one of the previous patch series, there was a request to separate
-implementations and usage of functions.
-This was done to reduce the amount of code in each commit and to
-simplify the review process.
-
->
+> >   static struct uart_driver __read_mostly scif_uart_driver =3D {
+> >       .init_preirq  =3D scif_uart_init_preirq,
+> >       .init_postirq =3D scif_uart_init_postirq,
+> > @@ -281,6 +313,10 @@ static struct uart_driver __read_mostly scif_uart_=
+driver =3D {
+> >       .start_tx     =3D scif_uart_start_tx,
+> >       .stop_tx      =3D scif_uart_stop_tx,
+> >       .vuart_info   =3D scif_vuart_info,
+> > +#ifdef CONFIG_SYSTEM_SUSPEND
+> > +    .suspend      =3D scif_uart_suspend,
+> > +    .resume       =3D scif_uart_resume,
+> > +#endif
+> >   };
+> >
+> >   static const struct dt_device_match scif_uart_dt_match[] __initconst =
+=3D
 > - Ayan
->
 > > --
 > > 2.48.1
 > >
