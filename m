@@ -2,45 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 68E4FAD83E8
-	for <lists+xen-devel@lfdr.de>; Fri, 13 Jun 2025 09:15:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1013856.1392057 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DF17EAD840F
+	for <lists+xen-devel@lfdr.de>; Fri, 13 Jun 2025 09:33:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1013870.1392069 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uPydd-0001Dr-M5; Fri, 13 Jun 2025 07:15:45 +0000
+	id 1uPytj-0004H0-1E; Fri, 13 Jun 2025 07:32:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1013856.1392057; Fri, 13 Jun 2025 07:15:45 +0000
+Received: by outflank-mailman (output) from mailman id 1013870.1392069; Fri, 13 Jun 2025 07:32:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uPydd-0001CC-JK; Fri, 13 Jun 2025 07:15:45 +0000
-Received: by outflank-mailman (input) for mailman id 1013856;
- Fri, 13 Jun 2025 07:15:44 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Iqaj=Y4=suse.de=tzimmermann@srs-se1.protection.inumbo.net>)
- id 1uPydc-0001C6-3q
- for xen-devel@lists.xenproject.org; Fri, 13 Jun 2025 07:15:44 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [2a07:de40:b251:101:10:150:64:1])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3079c5a0-4826-11f0-b894-0df219b8e170;
- Fri, 13 Jun 2025 09:15:31 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 4F20B2115E;
- Fri, 13 Jun 2025 07:15:41 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id CB0A513782;
- Fri, 13 Jun 2025 07:15:40 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id TbJIMBzQS2iFFgAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Fri, 13 Jun 2025 07:15:40 +0000
+	id 1uPyti-0004E6-Tn; Fri, 13 Jun 2025 07:32:22 +0000
+Received: by outflank-mailman (input) for mailman id 1013870;
+ Fri, 13 Jun 2025 07:32:21 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=FSrS=Y4=zytor.com=xin@srs-se1.protection.inumbo.net>)
+ id 1uPytg-0004E0-UL
+ for xen-devel@lists.xenproject.org; Fri, 13 Jun 2025 07:32:21 +0000
+Received: from mail.zytor.com (terminus.zytor.com [2607:7c80:54:3::136])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 889ff70f-4828-11f0-a309-13f23c93f187;
+ Fri, 13 Jun 2025 09:32:19 +0200 (CEST)
+Received: from [192.168.7.202] ([71.202.166.45]) (authenticated bits=0)
+ by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 55D7VjwM3704239
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
+ Fri, 13 Jun 2025 00:31:46 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,204 +40,119 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3079c5a0-4826-11f0-b894-0df219b8e170
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1749798941; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=AFKIeJdzd7Bm1UfGUYdUXTMZwzn7kuZf09ynXcNd27k=;
-	b=wpnxcqgjRop7dkbkBQ/X1iuElaw96F5zP50QsPn5I4PbCQYjlf8kTIsBu6JxfU6RPDJuDp
-	RxQ4MhnWMcmky2ZNo4wk7bRNFuuNxkOpgFB9eXHAcKu2tTzWDaCYQ4M/VUWfplABYgNbFh
-	sVh+N4mU2AnW9XJXV/M4hBmN1ndOy/w=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1749798941;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=AFKIeJdzd7Bm1UfGUYdUXTMZwzn7kuZf09ynXcNd27k=;
-	b=kPjofHKQaFEdsoc79AwOm7JvdSfaz141myzJctvWsea6Z/9xOjZvLdd1Jo7NEsyl0iHep4
-	TeHnsN5rMrD7G5Aw==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1749798941; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=AFKIeJdzd7Bm1UfGUYdUXTMZwzn7kuZf09ynXcNd27k=;
-	b=wpnxcqgjRop7dkbkBQ/X1iuElaw96F5zP50QsPn5I4PbCQYjlf8kTIsBu6JxfU6RPDJuDp
-	RxQ4MhnWMcmky2ZNo4wk7bRNFuuNxkOpgFB9eXHAcKu2tTzWDaCYQ4M/VUWfplABYgNbFh
-	sVh+N4mU2AnW9XJXV/M4hBmN1ndOy/w=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1749798941;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=AFKIeJdzd7Bm1UfGUYdUXTMZwzn7kuZf09ynXcNd27k=;
-	b=kPjofHKQaFEdsoc79AwOm7JvdSfaz141myzJctvWsea6Z/9xOjZvLdd1Jo7NEsyl0iHep4
-	TeHnsN5rMrD7G5Aw==
-Message-ID: <e2478a92-4e37-407c-8f2a-017d8f0e77ba@suse.de>
-Date: Fri, 13 Jun 2025 09:15:40 +0200
+X-Inumbo-ID: 889ff70f-4828-11f0-a309-13f23c93f187
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 55D7VjwM3704239
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
+	s=2025052101; t=1749799910;
+	bh=krbuP/fm6w7WAkYJYWFwpvmZlC0fDISskA1NKizA7xQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=ssHkh09EYcaM0Ax6sdq6MtHrSSxYTaTdcsnzbRZgcdG+Isq/WnrBYczUvXTg5CwxN
+	 pcVjrm3xKQn0yhcf7jb4dEx6sAKdEgZR2whPfrJi89pD9zuGgdch3sodHzB0WrMC7R
+	 znHrQnL1Zvv+QUqFkfvmElRpjUN5lFqBkpRJm4PrSkrsX90V3GU0gMSIA7JFCrIutu
+	 PwNP6YQlhIiu/pootMO99LR+3o2402BhzCDOvvFgc9nC53bLkUx4x+coky0NVxfIxv
+	 7y4XiCFqoDT400d95pn8JvIEA/eXVRCbaX7CtNG3q80d78+ryMmj16UFMuEHvO2ytx
+	 T+ZJnfwKScM6Q==
+Message-ID: <0c2dab1d-9b5c-4d34-af0e-8a14907d7335@zytor.com>
+Date: Fri, 13 Jun 2025 00:31:44 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 03/25] drm/gem-dma: Compute dumb-buffer sizes with
- drm_mode_size_dumb()
-To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Cc: dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
- freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- imx@lists.linux.dev, linux-samsung-soc@vger.kernel.org,
- nouveau@lists.freedesktop.org, virtualization@lists.linux.dev,
- spice-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
- linux-rockchip@lists.infradead.org, linux-tegra@vger.kernel.org,
- intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org,
- simona@ffwll.ch, airlied@gmail.com, mripard@kernel.org,
- maarten.lankhorst@linux.intel.com, geert@linux-m68k.org
-References: <20250311155120.442633-1-tzimmermann@suse.de>
- <20250311155120.442633-4-tzimmermann@suse.de>
- <d7e016fd-3d0e-4822-a404-a53ba11e5dc4@ideasonboard.com>
+Subject: Re: [PATCH 5/6] x86/paravirt: Switch MSR access pv_ops functions to
+ instruction interfaces
+To: Juergen Gross <jgross@suse.com>, linux-kernel@vger.kernel.org,
+        x86@kernel.org, virtualization@lists.linux.dev
+Cc: Ajay Kaher <ajay.kaher@broadcom.com>,
+        Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>,
+        Thomas Gleixner
+ <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+        Borislav Petkov <bp@alien8.de>,
+        Dave Hansen <dave.hansen@linux.intel.com>,
+        "H. Peter Anvin" <hpa@zytor.com>,
+        Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+        xen-devel@lists.xenproject.org,
+        Andrew Cooper <andrew.cooper3@citrix.com>
+References: <20250506092015.1849-1-jgross@suse.com>
+ <20250506092015.1849-6-jgross@suse.com>
+ <722f5b30-20e9-4540-98e4-d211d7c44cbe@zytor.com>
+ <9f4e33d5-9cb3-4079-b764-87a15265fd52@suse.com>
+ <2365af70-d36f-4663-b819-59d886936ef5@zytor.com>
+ <8a82946a-6c3e-41d1-b3bd-be164dc6eeba@suse.com>
 Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <d7e016fd-3d0e-4822-a404-a53ba11e5dc4@ideasonboard.com>
+From: Xin Li <xin@zytor.com>
+Autocrypt: addr=xin@zytor.com; keydata=
+ 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
+ l75w1xInsg==
+In-Reply-To: <8a82946a-6c3e-41d1-b3bd-be164dc6eeba@suse.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Spamd-Result: default: False [-2.80 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_TLS_ALL(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[20];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[lists.freedesktop.org,lists.infradead.org,vger.kernel.org,lists.linux.dev,lists.xenproject.org,ffwll.ch,gmail.com,kernel.org,linux.intel.com,linux-m68k.org];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FUZZY_BLOCKED(0.00)[rspamd.com];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:mid]
-X-Spam-Level: 
-X-Spam-Flag: NO
-X-Spam-Score: -2.80
+Content-Transfer-Encoding: 8bit
 
-Hi
+On 6/11/2025 5:58 AM, Juergen Gross wrote:
+>> Here is a patch I cooked.  I added an ALTERNATIVE() hack because the 
+>> new instructions can't be more than 6 bytes long.  But with the patch you
+>> just sent, it shouldn't be needed.
+> 
+> I have meanwhile dropped the patch copying the original indirect call.
+> 
+> Reason is that I'm seeing a potential risk with current alternative
+> patching when using ALTERNATIVE_[23](): depending on the tested features
+> it might happen that an instruction sequence not suitable for the current
+> runtime environment is patched in as an intermediate step. In case there
+> is an interrupt happening just then AND the handling of the interrupt is
+> using the patch site, this could result in crashes or undefined behavior.
 
-Am 12.06.25 um 10:43 schrieb Tomi Valkeinen:
-> Hi,
->
-> On 11/03/2025 17:47, Thomas Zimmermann wrote:
->> Call drm_mode_size_dumb() to compute dumb-buffer scanline pitch and
->> buffer size. Align the pitch to a multiple of 8.
->>
->> Push the current calculation into the only direct caller imx. Imx's
->> hardware requires the framebuffer width to be aligned to 8. The
->> driver's current approach is actually incorrect, as it only guarantees
->> this implicitly and requires bpp to be a multiple of 8 already. A
->> later commit will fix this problem by aligning the scanline pitch
->> such that an aligned width still fits into each scanline's memory.
->>
->> A number of other drivers are build on top of gem-dma helpers and
->> implement their own dumb-buffer allocation. These drivers invoke
->> drm_gem_dma_dumb_create_internal(), which is not affected by this
->> commit.
->>
->> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
->> ---
->>   drivers/gpu/drm/drm_gem_dma_helper.c     | 7 +++++--
->>   drivers/gpu/drm/imx/ipuv3/imx-drm-core.c | 2 ++
->>   2 files changed, 7 insertions(+), 2 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/drm_gem_dma_helper.c b/drivers/gpu/drm/drm_gem_dma_helper.c
->> index b7f033d4352a..49be9b033610 100644
->> --- a/drivers/gpu/drm/drm_gem_dma_helper.c
->> +++ b/drivers/gpu/drm/drm_gem_dma_helper.c
->> @@ -20,6 +20,7 @@
->>   #include <drm/drm.h>
->>   #include <drm/drm_device.h>
->>   #include <drm/drm_drv.h>
->> +#include <drm/drm_dumb_buffers.h>
->>   #include <drm/drm_gem_dma_helper.h>
->>   #include <drm/drm_vma_manager.h>
->>   
->> @@ -304,9 +305,11 @@ int drm_gem_dma_dumb_create(struct drm_file *file_priv,
->>   			    struct drm_mode_create_dumb *args)
->>   {
->>   	struct drm_gem_dma_object *dma_obj;
->> +	int ret;
->>   
->> -	args->pitch = DIV_ROUND_UP(args->width * args->bpp, 8);
->> -	args->size = args->pitch * args->height;
->> +	ret = drm_mode_size_dumb(drm, args, SZ_8, 0);
->> +	if (ret)
->> +		return ret;
->>   
->>   	dma_obj = drm_gem_dma_create_with_handle(file_priv, drm, args->size,
->>   						 &args->handle);
->> diff --git a/drivers/gpu/drm/imx/ipuv3/imx-drm-core.c b/drivers/gpu/drm/imx/ipuv3/imx-drm-core.c
->> index ec5fd9a01f1e..e7025df7b978 100644
->> --- a/drivers/gpu/drm/imx/ipuv3/imx-drm-core.c
->> +++ b/drivers/gpu/drm/imx/ipuv3/imx-drm-core.c
->> @@ -145,6 +145,8 @@ static int imx_drm_dumb_create(struct drm_file *file_priv,
->>   	int ret;
->>   
->>   	args->width = ALIGN(width, 8);
->> +	args->pitch = DIV_ROUND_UP(args->width * args->bpp, 8);
->> +	args->size = args->pitch * args->height;
->>   
->>   	ret = drm_gem_dma_dumb_create(file_priv, drm, args);
->>   	if (ret)
-> Won't the pitch and size just be overwritten by the
-> drm_gem_dma_dumb_create() call?
+Oh, I had assumed that Linux disables interrupts during the patching
+process. Just out of curiosity, why are interrupts allowed in this case?
 
-Right, looks like it. Thanks for looking over this. The call to 
-drm_gem_dma_dumb_create() needs to be changed 
-drm_gem_dma_dumb_create_internal(). The latter doesn't modify the 
-arguments besides some sanity checks. BTW patch 10 cleans up imx 
-entirely. Best regards Thomas
->
->   Tomi
->
+> 
+> I have meanwhile a set of 3 patches fixing that problem by merging all
+> alternative patching of a patch site in the local buffer and only then
+> patching the code at the target site with the final result.
+> 
+> The same problem arises with your code below, but this time it isn't
+> fixed by my patches: the two ALTERNATIVE() instances in the asm() construct
+> would need to be patched in a single atomic operation to be consistent.
+> Otherwise you could end up e.g. on bare metal with paravirt_read_msr()
+> having replaced the indirect call with "rdmsr", but not yet having added
+> the code to merge %rdx into %rax.
+> 
+> I'm just doing a V2 of my series, but this time including the additional
+> support of the non-serializing and immediate forms. Lets see how this will
+> look like. I will drop using the EAX_EDX_* macros, but due to the reason
+> mentioned above I won't switch to your variant completely.
 
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstrasse 146, 90461 Nuernberg, Germany
-GF: Ivo Totev, Andrew Myers, Andrew McDonald, Boudien Moerman
-HRB 36809 (AG Nuernberg)
+Great!
 
+Thanks!
+     Xin
 
