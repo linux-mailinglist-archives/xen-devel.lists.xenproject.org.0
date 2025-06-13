@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 98D77AD91DF
-	for <lists+xen-devel@lfdr.de>; Fri, 13 Jun 2025 17:49:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1014638.1392818 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F2A7AAD9216
+	for <lists+xen-devel@lfdr.de>; Fri, 13 Jun 2025 17:56:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1014702.1392829 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uQ6eX-0000sc-8X; Fri, 13 Jun 2025 15:49:13 +0000
+	id 1uQ6ln-0005pM-Lf; Fri, 13 Jun 2025 15:56:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1014638.1392818; Fri, 13 Jun 2025 15:49:13 +0000
+Received: by outflank-mailman (output) from mailman id 1014702.1392829; Fri, 13 Jun 2025 15:56:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uQ6eW-0000op-SN; Fri, 13 Jun 2025 15:49:12 +0000
-Received: by outflank-mailman (input) for mailman id 1014638;
- Fri, 13 Jun 2025 15:49:10 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uQ6ln-0005on-Iq; Fri, 13 Jun 2025 15:56:43 +0000
+Received: by outflank-mailman (input) for mailman id 1014702;
+ Fri, 13 Jun 2025 15:56:42 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=44KY=Y4=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1uQ6eU-0006cn-Mu
- for xen-devel@lists.xenproject.org; Fri, 13 Jun 2025 15:49:10 +0000
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [2a00:1450:4864:20::62a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f16b4efe-486d-11f0-b894-0df219b8e170;
- Fri, 13 Jun 2025 17:49:08 +0200 (CEST)
-Received: by mail-ej1-x62a.google.com with SMTP id
- a640c23a62f3a-ad56cbc7b07so333047666b.0
- for <xen-devel@lists.xenproject.org>; Fri, 13 Jun 2025 08:49:08 -0700 (PDT)
+ id 1uQ6lm-0005oc-Lz
+ for xen-devel@lists.xenproject.org; Fri, 13 Jun 2025 15:56:42 +0000
+Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
+ [2a00:1450:4864:20::531])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id fef99832-486e-11f0-a309-13f23c93f187;
+ Fri, 13 Jun 2025 17:56:41 +0200 (CEST)
+Received: by mail-ed1-x531.google.com with SMTP id
+ 4fb4d7f45d1cf-606b6dbe316so4672433a12.3
+ for <xen-devel@lists.xenproject.org>; Fri, 13 Jun 2025 08:56:41 -0700 (PDT)
 Received: from fedora.. (user-109-243-64-38.play-internet.pl. [109.243.64.38])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-adec8979563sm144821766b.158.2025.06.13.08.49.06
+ 4fb4d7f45d1cf-608b4a93b03sm1357883a12.54.2025.06.13.08.56.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Jun 2025 08:49:07 -0700 (PDT)
+ Fri, 13 Jun 2025 08:56:39 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,42 +45,41 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f16b4efe-486d-11f0-b894-0df219b8e170
+X-Inumbo-ID: fef99832-486e-11f0-a309-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1749829748; x=1750434548; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=c5Lkbfnvd1QCDHpROG9OH/otgdh2NEdBGe+vvJ9B82I=;
-        b=RH39gf91ScptKdVXhMs/cSuMdSwsZjaeuaUhGzFbiVftV7BgncT20yBp3BQNsLTV5T
-         oRB5FaGf5RM+PstmdZu4X4umrReWdL68TlrkwBb4XdiTu9HibJ/Y+qZdixOu5/CbKmDu
-         HGmkBIYugV4OcivTzKZbYMGrikwEKzsO3doKIdgU3g2p1vMRMcWeTIKZRR7Y7j6QQtAj
-         rw95i13NQjps+HFV0TFMEgbfhI/FgFzJrPeU+0yFZ/llqixf9zVr4pyig+oMq/w2w1Kn
-         Hb4+j/3Efh2D6ITjHNPaFrCq0bGCJhmz+MzYuefs7jURxVL6gFZnwreILaLw+sVZaS9J
-         q/eQ==
+        d=gmail.com; s=20230601; t=1749830200; x=1750435000; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=YyES95+A2ACc3qewE69Vib3M9QUPkJE2MYtSgOXVrNA=;
+        b=RnCUAbA9ofoFdYQ/aqpP8NsBhTtFKRz4Vg/fxoY9y/WLoK8XkvfOEBIm10NH6UKSdU
+         SLG4yotYE2RYcpMa0sYSlhz3+Fm7kuP+gw0FAtctcAqhMM8pf7a7J8sESuU2aruDn9RQ
+         6q9i2U4L1ndcfUDjexGfv8pE96Btr+9Dy+/eitVYHBKRV6/YfsAxSJEcVIpISh/bQ9xA
+         i/PeY3ayzt1mtThKaEQbgclvCMuKd9tVbjoL/ahZow2WJ6uh6qoU4smbuC58z/Mnsbp2
+         Ev89kcBLa8/QNS0bmv6zZu5tuGYdtHjSPcDHC+FbbVdgGoUTtT9YBhMK7FKunUpFPnhC
+         42cg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749829748; x=1750434548;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=c5Lkbfnvd1QCDHpROG9OH/otgdh2NEdBGe+vvJ9B82I=;
-        b=H5oFYSMCN9jAyJd+0aefTEOW+YxjbJ7zid6/NoWusHNQm7odcDwJsw2/RQikCnMjA3
-         z38RGXKsA3Cy/QHJM9HKXULApT/KXmUeJ5Xs/4LGtorBIsEvdI89OmZV+ad3m5lhFuyV
-         K79p9cFa+Q32tX3W+0TdNfuCO1p2MYcY4SoA3oXrmqba5nKb7PQ514eeAS51/a10gVV2
-         NSM3xbNrSq31dZYNGuIh/kwOdcJ0PCLjALL5yUy5PLjDvk8xna/8uKCmc4jiBVYfbJlN
-         qxpqikfz2qosOGRp5Lu0JTm4VqoXcItLhIwNLYgJeh+ZxkknHeLutswcPaXy/K+Zyr06
-         i5lg==
-X-Gm-Message-State: AOJu0Yx12Z+FCJIV8H95UXIyliU5o5OEbqYhjdEC2hJTfE23KFYDm/ZU
-	Kj0XIg0jcWhOSm01mour1ktjrJyAQOkXrCYLGVb69o56bX7kFj4ARIfSaMkvMg==
-X-Gm-Gg: ASbGncs26o/xLEv1pbCE+oBNpOljwMCF5YoLoZtsL87+0Lz38ciqKWimlwkNs+E130k
-	hidDJ5jOEjpaJMFrHjZiUCWs5p9pCnNb03v2jbkhiRVbLFadM3W9Kg1Lfba5qvGf6kBA37Q2xPb
-	YWCsPRmOxUFaxMChhJ7ZFQg+iY1SOmqvDVMFuuklZVjhNn8NJ4u+5s6zc8uIbHCbwqLosRAbN2O
-	pMF4JhXXvatVBm5eizfGXYh613ebsp1A6UohQ2ywNgZogHmV/xDjtnfWQLZNw0Ybflm4Oe+9r1j
-	Ga/lNqdZVmQYkbBKVQgtaARhTMli1w56UN5OAOR1+G21IjB+1bHxsRBeuzBruY1e/jXIwW4KvaI
-	QoBHCIxeyo6jV3qNELyZLUs/qMnhZ
-X-Google-Smtp-Source: AGHT+IF4HdQ4K6/e1c/Kjg77Lf3UA4pI1sMICe8tX4U+SECyg2QF9kkXnhTQ5AC2l5A/KM2+pPXYzg==
-X-Received: by 2002:a17:906:c106:b0:add:ee2c:7313 with SMTP id a640c23a62f3a-adec55a7a66mr346620266b.22.1749829747753;
-        Fri, 13 Jun 2025 08:49:07 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1749830200; x=1750435000;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=YyES95+A2ACc3qewE69Vib3M9QUPkJE2MYtSgOXVrNA=;
+        b=BjTmkc/6NgBkpwNtfX7JkuRCivib3LUeKNg5Fbqrnuo3CsjvRUTY/IjQROlDGP9+10
+         dEqI4JDIx5ESML4zj/3XAH1TTi455D6BUlW6o1+BJaHuPZNHsxUhXGx99jCXGNEbn0KJ
+         0PvmoibkkVb2Kg8PBynCWcFPv09EsIVcVZJ2ISRhO0Z6BuIlRUIK4QeddH9YE8QJBfyy
+         Ce156VRWmFWFxZ5klASVI7ffbIbxBdXMlFP2kZzBGBt0tlSUx7nhAtB04Xrc3y8ydOnt
+         kRcB23f28xHkGAPaowQdcL1bHnyHw+6gNc1NDi0M+V0pSUm3+m6OhS/IN2dBmMsio32P
+         nU/Q==
+X-Gm-Message-State: AOJu0Yz8+xBmvQQad1JUtHb6GU94ZboUAgl5hI6vP6v1U2Yrd5YhIyAt
+	MQx/51EvBKOHAin06pofwfLPpeZqlJxu+3Tx8KyK67C/UXeK08LtC3p+U1Jzvg==
+X-Gm-Gg: ASbGncsyaWGQh9ufOmJLY7zkGGgEfQB+uIkBltRn1/IttK841zMB8kYboZy+fYhL4fD
+	kj1tginzrqYrzurzx2af2L5NcXiyd80sFiTYo+ic4Ls6Q7tPL+nALVWoBASDZSfrBCgo8GAW1AP
+	tnc2rMATOJXNBslSq+h7xuEKqZHf0UFirOz64jKjLES4AjeOFw1n23Qn+LpwsP2nzcpL4QCXGBH
+	JTo40X0I6s1bvmUPxGc3vXWgTGaAZ9TC7xweqlq4jwQNq8JgY0DuuFDqJJfuRuPaAjEeiBJ2FUa
+	fJ8JZEjVRKuiUcN6HrpWK9Nkppu/9Iv5gRVn9JzaJjJpLo0z1wkZWBKp7FH+Is5WrNGZ3oRakbX
+	JQNsCO0+iX7WIBB/7k9G/9SEGplMYjNufj/SSs9s=
+X-Google-Smtp-Source: AGHT+IEeV7ubfWODFOomRDVTltfDUbrjxPK/Rf+OVXFMo/Jx7FNTISHgk5rugXobGlpvgFlbMs06JA==
+X-Received: by 2002:a05:6402:50cd:b0:607:5987:5ba1 with SMTP id 4fb4d7f45d1cf-608b498986bmr3265084a12.20.1749830200125;
+        Fri, 13 Jun 2025 08:56:40 -0700 (PDT)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
@@ -93,119 +92,53 @@ Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Julien Grall <julien@xen.org>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v5 9/9] xen/riscv: add basic UART support
-Date: Fri, 13 Jun 2025 17:48:48 +0200
-Message-ID: <f35759006bbf1d72bd3c889b50cd064891c83a3f.1749825782.git.oleksii.kurochko@gmail.com>
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Shawn Anastasio <sanastasio@raptorengineering.com>
+Subject: [PATCH v1 0/2] Move alloc_domain_struct() to common code
+Date: Fri, 13 Jun 2025 17:56:34 +0200
+Message-ID: <cover.1749829230.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.49.0
-In-Reply-To: <cover.1749825782.git.oleksii.kurochko@gmail.com>
-References: <cover.1749825782.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Update Kconfig to select GENERIC_UART_INIT for basic UART init ( find a dt node
-and call device specific device_init() ).
+x86 has specific requirements about the allocation of the domain structure,
+but that's not the case for ARM or likely other architectures.
 
-Drop `default n if RISCV` statement for config HAS_NS16550 as now ns16550 is
-ready to be compiled and used by RISC-V. Also, make the config user selectable
-for everyone except X86.
+Introduce a generic weak function that can be overwritten with an
+architecture specific implementation if required.
 
-Initialize a minimal amount of stuff to have UART and Xen console:
- - Initialize uart by calling uart_init().
- - Initialize Xen console by calling console_init_{pre,post}irq().
- - Initialize timer and its internal lists which are used by
-   init_timer() which is called by ns16550_init_postirq(); otherwise
-   "Unhandled exception: Store/AMO Page Fault" occurs.
- - Enable local interrupt to recieve an input from UART
+RISC-V has a compilation issue [1] after an introduction of [2] becuase of
+different way inclusion of asm/page.h and asm/mm.h (for more details please
+check the patch [3]).
+So rework asm/mm.h and asm/page.h includes to match other architectures.
 
-Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Acked-by: Jan Beulich <jbeulich@suse.com>
----
-Changes in V4-V5:
- - Nothing changed. Only rebase.
----
-Changes in v3:
- - Drop inclusion of <xen/percpu.h> as nothing in setup.c requires it.
- - Add Acked-by: Jan Beulich <jbeulich@suse.com>.
----
-Changes in v2:
- - Drop #include <xen/keyhandler.h> in setup.c, isn't needed anymore.
- - Drop call of percpu_init_areas() as it was needed when I used polling
-   mode for UART,  for this case percpu is used to receive serial port info:
-     struct serial_port *port = this_cpu(poll_port);
-   So percpu isn't really needed at the current development state.
- - Make HAS_NS16550 user selectable for everyone, except X86.
- - Update the commit message.
----
- xen/arch/riscv/Kconfig   |  1 +
- xen/arch/riscv/setup.c   | 12 ++++++++++++
- xen/drivers/char/Kconfig |  3 +--
- 3 files changed, 14 insertions(+), 2 deletions(-)
+[1] https://gitlab.com/xen-project/people/royger/xen/-/jobs/10328429719#L553
+[2] xen/domain: introduce generic weak function for domain struct allocation
+[3] xen/riscv: rework asm/mm.h and asm/page.h includes to match other architectures
 
-diff --git a/xen/arch/riscv/Kconfig b/xen/arch/riscv/Kconfig
-index 62c5b7ba34..96bef90751 100644
---- a/xen/arch/riscv/Kconfig
-+++ b/xen/arch/riscv/Kconfig
-@@ -2,6 +2,7 @@ config RISCV
- 	def_bool y
- 	select FUNCTION_ALIGNMENT_16B
- 	select GENERIC_BUG_FRAME
-+	select GENERIC_UART_INIT
- 	select HAS_DEVICE_TREE
- 	select HAS_PMAP
- 	select HAS_UBSAN
-diff --git a/xen/arch/riscv/setup.c b/xen/arch/riscv/setup.c
-index 0e7398159c..a17096bf02 100644
---- a/xen/arch/riscv/setup.c
-+++ b/xen/arch/riscv/setup.c
-@@ -4,12 +4,15 @@
- #include <xen/bug.h>
- #include <xen/bootfdt.h>
- #include <xen/compile.h>
-+#include <xen/console.h>
- #include <xen/device_tree.h>
- #include <xen/init.h>
- #include <xen/irq.h>
- #include <xen/mm.h>
-+#include <xen/serial.h>
- #include <xen/shutdown.h>
- #include <xen/smp.h>
-+#include <xen/timer.h>
- #include <xen/vmap.h>
- #include <xen/xvmalloc.h>
- 
-@@ -134,8 +137,17 @@ void __init noreturn start_xen(unsigned long bootcpu_id,
- 
-     intc_preinit();
- 
-+    uart_init();
-+    console_init_preirq();
-+
-     intc_init();
- 
-+    timer_init();
-+
-+    local_irq_enable();
-+
-+    console_init_postirq();
-+
-     printk("All set up\n");
- 
-     machine_halt();
-diff --git a/xen/drivers/char/Kconfig b/xen/drivers/char/Kconfig
-index e6e12bb413..8e49a52c73 100644
---- a/xen/drivers/char/Kconfig
-+++ b/xen/drivers/char/Kconfig
-@@ -2,8 +2,7 @@ config GENERIC_UART_INIT
- 	bool
- 
- config HAS_NS16550
--	bool "NS16550 UART driver" if ARM
--	default n if RISCV
-+	bool "NS16550 UART driver" if !X86
- 	default y
- 	help
- 	  This selects the 16550-series UART support. For most systems, say Y.
+CI tests:
+  https://gitlab.com/xen-project/people/olkur/xen/-/pipelines/1868877289
+
+Oleksii Kurochko (1):
+  xen/riscv: rework asm/mm.h and asm/page.h includes to match other
+    architectures
+
+Roger Pau Monne (1):
+  xen/domain: introduce generic weak function for domain struct
+    allocation
+
+ xen/arch/arm/domain.c             | 12 -----------
+ xen/arch/ppc/stubs.c              |  5 -----
+ xen/arch/riscv/include/asm/mm.h   | 24 ++++++++++++++++++---
+ xen/arch/riscv/include/asm/page.h | 35 +------------------------------
+ xen/arch/riscv/mm.c               | 14 +++++++++++++
+ xen/arch/riscv/stubs.c            |  5 -----
+ xen/common/domain.c               | 14 +++++++++++++
+ 7 files changed, 50 insertions(+), 59 deletions(-)
+
 -- 
 2.49.0
 
