@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AEBDBAD8CAD
-	for <lists+xen-devel@lfdr.de>; Fri, 13 Jun 2025 15:02:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1014350.1392489 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 21A1EAD8CEB
+	for <lists+xen-devel@lfdr.de>; Fri, 13 Jun 2025 15:13:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1014358.1392501 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uQ42F-0005Z8-NQ; Fri, 13 Jun 2025 13:01:31 +0000
+	id 1uQ4D8-0007dt-Ne; Fri, 13 Jun 2025 13:12:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1014350.1392489; Fri, 13 Jun 2025 13:01:31 +0000
+Received: by outflank-mailman (output) from mailman id 1014358.1392501; Fri, 13 Jun 2025 13:12:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uQ42F-0005Xk-Ki; Fri, 13 Jun 2025 13:01:31 +0000
-Received: by outflank-mailman (input) for mailman id 1014350;
- Fri, 13 Jun 2025 13:01:30 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <anthony@xenproject.org>) id 1uQ42E-0005Xe-CJ
- for xen-devel@lists.xenproject.org; Fri, 13 Jun 2025 13:01:30 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <anthony@xenproject.org>) id 1uQ42C-00H7Y4-30;
- Fri, 13 Jun 2025 13:01:28 +0000
-Received: from [2a01:e0a:1da:8420:b77:bd5:6e45:7633] (helo=l14)
- by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <anthony@xenproject.org>) id 1uQ42C-004QEa-1N;
- Fri, 13 Jun 2025 13:01:28 +0000
+	id 1uQ4D8-0007al-Km; Fri, 13 Jun 2025 13:12:46 +0000
+Received: by outflank-mailman (input) for mailman id 1014358;
+ Fri, 13 Jun 2025 13:12:45 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=uXbF=Y4=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1uQ4D7-0007af-FP
+ for xen-devel@lists.xenproject.org; Fri, 13 Jun 2025 13:12:45 +0000
+Received: from fhigh-b4-smtp.messagingengine.com
+ (fhigh-b4-smtp.messagingengine.com [202.12.124.155])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 166b2a86-4858-11f0-b894-0df219b8e170;
+ Fri, 13 Jun 2025 15:12:43 +0200 (CEST)
+Received: from phl-compute-10.internal (phl-compute-10.phl.internal
+ [10.202.2.50])
+ by mailfhigh.stl.internal (Postfix) with ESMTP id 15808254012F;
+ Fri, 13 Jun 2025 09:12:41 -0400 (EDT)
+Received: from phl-mailfrontend-01 ([10.202.2.162])
+ by phl-compute-10.internal (MEProxy); Fri, 13 Jun 2025 09:12:41 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 13 Jun 2025 09:12:36 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,99 +45,166 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=In-Reply-To:Content-Transfer-Encoding:
-	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date;
-	bh=TLxfTk0M/zl8+aqDSMrB64PaN0fMFCrbvtx3rVjxWOg=; b=sHcc4XCqjBFkfc3B0YPaK6s5DK
-	lfdf4TOsy+Tp5vFq+8V/EsH0yyXDQ+eOMlVyLUrfX8asJR3nNL6813DR4k2xFDv8UteC6HjbG2Eoi
-	5yQZMMPaFLjJHJpCKhKt9IV2xEYdj9dbyrXu4/LJby0kMod0P1YsC+axM5G/wNsT34Jc=;
-Date: Fri, 13 Jun 2025 15:01:26 +0200
-From: Anthony PERARD <anthony@xenproject.org>
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org,
-	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Community Manager <community.manager@xenproject.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Juergen Gross <jgross@suse.com>,
-	Anthoine Bourgeois <anthoine.bourgeois@vates.tech>
-Subject: Re: [PATCH v5] x86/hvmloader: select xen platform pci MMIO BAR UC or
- WB MTRR cache attribute
-Message-ID: <aEwhJkcTBL7u_52r@l14>
-References: <20250613110009.31245-1-roger.pau@citrix.com>
+X-Inumbo-ID: 166b2a86-4858-11f0-b894-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1749820360;
+	 x=1749906760; bh=nic4krrDQvZMHzuHBfuhHul7sbLqjo8sqiELgpkyWwQ=; b=
+	S/4TdprqVZEItFqsnfTKR32/snSDHdi4ZQgY4USZuK6lZ2kW6Rv0ch2t8Z/eAi4K
+	P61Ks2JHQax3edyNJR24ENBkjShcqJbwhFBNldbzIrT1DyvFHoxXqX3PrfEo77Fx
+	M55aFiuJeu42uGHxQedr378IM9Pi8QOh4MpnE+dt41vMduoqV5XkvDH432eNE60z
+	rW4CBnQVjBHxhOebby17xELnWiCcyhj6Vpf6Id3+YPyMpJhGR74OtULwozjrDK7d
+	a+FMxQed62Jlg6d0xOIVHQXR6BxEmbyvAkB7lmpZ9p4yZsXiSElIa8V2HjKg5ZQG
+	yv21PMWwsx7VP36jU9KeBg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1749820360; x=1749906760; bh=nic4krrDQvZMHzuHBfuhHul7sbLqjo8sqiE
+	LgpkyWwQ=; b=Lv92+xNRcAFrIQP772pfzygmhR5arCHa6mgCzL6XzHrhOUxTYqy
+	lxzHtNNdCugYJxlNhAufT0AzGeKmxVlAzu+SIemcgB6qVlQWOV+g0Wbz+Tj9liMA
+	aGCuuc62PNT0/SdZyQPc9ynwgSvraiOjy/S7rjp6xExle8WskXUFU6v3k+6ALcYb
+	uqtnSdYE+9qznsNy55AQy01J1hrkn774+SwoxWR+wB8I2+nD0SJEnMzinT1zIQ0k
+	l0CYe7SKL4zNHoaVO+km35+ZBjvm3QT0K6SH+cdBvMVmFKG0RG35Q895jC8sUPXn
+	E/aP4Y9nC5NXC0JoC0LmodkqlsArDJ+p7gQ==
+X-ME-Sender: <xms:xyNMaHvVfr8M3uj6dagYyLyKA4_hyyPJvrHwEO5XIKCKcAqroi79kQ>
+    <xme:xyNMaIeDJzxa-bCQf0iJuMCsBb5iY7G4LkK16aaE6eP2gLBzXE5kpir5UZNe8zH8r
+    H6-ceshbz0f8w>
+X-ME-Received: <xmr:xyNMaKyi0mbxPsVYL7DOk91BVMXJIhn0WOXZmXdu4KsMO3uOVQfQFqk>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtddugddukedtgecutefuodetggdotefrod
+    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpggftfghnshhusghstghrihgsvgdp
+    uffrtefokffrpgfnqfghnecuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivg
+    hnthhsucdlqddutddtmdenucfjughrpeffhffvvefukfhfgggtuggjsehgtderredttdej
+    necuhfhrohhmpeforghrvghkucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoe
+    hmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucgg
+    tffrrghtthgvrhhnpefgudelteefvefhfeehieetleeihfejhfeludevteetkeevtedtvd
+    egueetfeejudenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhr
+    ohhmpehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmpd
+    hnsggprhgtphhtthhopedugedpmhhouggvpehsmhhtphhouhhtpdhrtghpthhtohepjhgs
+    vghulhhitghhsehsuhhsvgdrtghomhdprhgtphhtthhopehsshhtrggsvghllhhinhhise
+    hkvghrnhgvlhdrohhrghdprhgtphhtthhopeigvghnqdguvghvvghlsehlihhsthhsrdig
+    vghnphhrohhjvggtthdrohhrghdprhgtphhtthhopegrnhhthhhonhihrdhpvghrrghrug
+    esvhgrthgvshdrthgvtghhpdhrtghpthhtohepmhhitghhrghlrdhorhiivghlsegrmhgu
+    rdgtohhmpdhrtghpthhtohepjhhulhhivghnseigvghnrdhorhhgpdhrtghpthhtoheprh
+    hoghgvrhdrphgruhestghithhrihigrdgtohhmpdhrtghpthhtohepjhhgrhhoshhssehs
+    uhhsvgdrtghomhdprhgtphhtthhopehhuhgushhonhesthhrmhhmrdhnvght
+X-ME-Proxy: <xmx:xyNMaGM3SWk1batE1NuUj88BiRNI1sbLmNzIDdl7NXNCHnL3lAK-eQ>
+    <xmx:xyNMaH9Ld8GSGgOqBFtKBiSjcORb_ypCNT7m_aY2UafoQYrOXH7ktg>
+    <xmx:xyNMaGXbmclPQWElRNVlx6MyM5XhTNHwpZRZETHP3cL3VwBsBP0v6Q>
+    <xmx:xyNMaIe5WFupc_KPCEy_grXc2lFNtxKI9zgYpkTKunKcHKBHXWEt5A>
+    <xmx:yCNMaAPF3bV2B2GOlXQoiEwIRlt5XNQ0rTluA3ebbHUWdklTvIEeY4wY>
+Feedback-ID: i1568416f:Fastmail
+Date: Fri, 13 Jun 2025 15:12:34 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+	Xen-devel <xen-devel@lists.xenproject.org>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	Juergen Gross <jgross@suse.com>, Trammell Hudson <hudson@trmm.net>,
+	Ross Lagerwall <ross.lagerwall@cloud.com>,
+	Frediano Ziglio <frediano.ziglio@cloud.com>,
+	Gerald Elder-Vass <gerald.elder-vass@cloud.com>,
+	Kevin Lampis <kevin.lampis@cloud.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: [PATCH] docs: UEFI Secure Boot security policy
+Message-ID: <aEwjwqlmOvdp9G2H@mail-itl>
+References: <20250611235851.167385-1-andrew.cooper3@citrix.com>
+ <alpine.DEB.2.22.394.2506121426520.8480@ubuntu-linux-20-04-desktop>
+ <608cf9c5-f057-4d3b-8833-8ef040064fec@suse.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="YamY06O8Z+wvFSTe"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20250613110009.31245-1-roger.pau@citrix.com>
+In-Reply-To: <608cf9c5-f057-4d3b-8833-8ef040064fec@suse.com>
 
-On Fri, Jun 13, 2025 at 01:00:09PM +0200, Roger Pau Monne wrote:
-> The Xen platform PCI device (vendor ID 0x5853) exposed to x86 HVM guests
-> doesn't have the functionality of a traditional PCI device.  The exposed
-> MMIO BAR is used by some guests (including Linux) as a safe place to map
-> foreign memory, including the grant table itself.
-> 
-> Traditionally BARs from devices have the uncacheable (UC) cache attribute
-> from the MTRR, to ensure correct functionality of such devices.  hvmloader
-> mimics this behavior and sets the MTRR attributes of both the low and high
-> PCI MMIO windows (where BARs of PCI devices reside) as UC in MTRR.
-> 
-> This however causes performance issues for users of the Xen platform PCI
-> device BAR, as for the purposes of mapping remote memory there's no need to
-> use the UC attribute.  On Intel systems this is worked around by using
-> iPAT, that allows the hypervisor to force the effective cache attribute of
-> a p2m entry regardless of the guest PAT value.  AMD however doesn't have an
-> equivalent of iPAT, and guest PAT values are always considered.
-> 
-> Linux commit:
-> 
-> 41925b105e34 xen: replace xen_remap() with memremap()
-> 
-> Attempted to mitigate this by forcing mappings of the grant-table to use
-> the write-back (WB) cache attribute.  However Linux memremap() takes MTRRs
-> into account to calculate which PAT type to use, and seeing the MTRR cache
-> attribute for the region being UC the PAT also ends up as UC, regardless of
-> the caller having requested WB.
-> 
-> As a workaround to allow current Linux to map the grant-table as WB using
-> memremap() introduce an xl.cfg option (xen_platform_pci_bar_uc=0) that can
-> be used to select whether the Xen platform PCI device BAR will have the UC
-> attribute in MTRR.  Such workaround in hvmloader should also be paired with
-> a fix for Linux so it attempts to change the MTRR of the Xen platform PCI
-> device BAR to WB by itself.
-> 
-> Overall, the long term solution would be to provide the guest with a safe
-> range in the guest physical address space where mappings to foreign pages
-> can be created.
-> 
-> Some vif throughput performance figures provided by Anthoine from a 8
-> vCPUs, 4GB of RAM HVM guest(s) running on AMD hardware:
-> 
-> Without this patch:
-> vm -> dom0: 1.1Gb/s
-> vm -> vm:   5.0Gb/s
-> 
-> With the patch:
-> vm -> dom0: 4.5Gb/s
-> vm -> vm:   7.0Gb/s
-> 
-> Reported-by: Anthoine Bourgeois <anthoine.bourgeois@vates.tech>
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> Reviewed-by: Oleksii Kurochko<oleksii.kurochko@gmail.com>
-> Acked-by: Jan Beulich <jbeulich@suse.com> # hvmloader
-> ---
-> Changes since v4:
->  - Rename to Xen platform PCI to avoid confusion.
->  - Set hvmloader BAR default to UC.
->  - Unconditionally write XS node in libxl.
->  - Introduce define for Xen PCI vendor ID.
 
-Reviewed-by: Anthony PERARD <anthony.perard@vates.tech>
+--YamY06O8Z+wvFSTe
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 13 Jun 2025 15:12:34 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+	Xen-devel <xen-devel@lists.xenproject.org>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	Juergen Gross <jgross@suse.com>, Trammell Hudson <hudson@trmm.net>,
+	Ross Lagerwall <ross.lagerwall@cloud.com>,
+	Frediano Ziglio <frediano.ziglio@cloud.com>,
+	Gerald Elder-Vass <gerald.elder-vass@cloud.com>,
+	Kevin Lampis <kevin.lampis@cloud.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: [PATCH] docs: UEFI Secure Boot security policy
 
-Thanks,
+On Fri, Jun 13, 2025 at 08:35:26AM +0200, Jan Beulich wrote:
+> On 12.06.2025 23:32, Stefano Stabellini wrote:
+> > On Thu, 12 Jun 2025, Andrew Cooper wrote:
+> >> +Support in Xen
+> >> +--------------
+> >> +
+> >> +There are multiple ways to achieve this security goal, with differing
+> >> +tradeoffs for the eventual system.
+> >> +
+> >> +On one end of the spectrum is the Unified Kernel Image.  e.g. Xen is =
+bundled
+> >> +with the dom0 kernel and init-ramdisk, with an embedded command line,=
+ and with
+> >> +livepatching and kexec compiled out, and suitably signed.  The signat=
+ure is
+> >> +checked by the bootloader and, as this covers all the privileged code=
+, Xen
+> >> +doesn't need to perform further checks itself.
+> >> +
+> >> +On the other end of the spectrum is maintaining the features of exist=
+ing
+> >> +deployments.  e.g. Xen needs signature checking capabilities for the =
+dom0
+> >> +kernel, livepatches and kexec kernels, and needs to allow the use of =
+safe
+> >> +command line options while disallowing unsafe ones.
+> >=20
+> > I just wanted to mention that there is one more option which I used in
+> > the past: the firmware/bootloader loads Xen, the Dom0 kernel, and other
+> > binaries, check their signatures, then boot Xen.
+> >=20
+> > This is similar to the "Unified Kernel Image" approach in the sense that
+> > Xen doesn't need to do any signature checking for the dom0 kernel, but
+> > it doesn't require all the binaries to be glued together.
+> >=20
+> > Assuming that the firmware/bootloader is capable of loading multiple
+> > binaries and checking the signature of multiple binaries before booting
+> > the next element, it works fine.
+>=20
+> How would an initrd, a ucode blob, or an XSM policy blob be signed?
 
--- 
-Anthony PERARD
+At least grub supports gpg detached signatures, and can be configured to
+require them.
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--YamY06O8Z+wvFSTe
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmhMI8IACgkQ24/THMrX
+1yzNUgf/UtRiHQdPBgWLUK/YlLpFwtsxPmtrYwRNu4/ucSVQmJr+dW+1KO/fnNo4
+b0jk3qY2UJl7yrUdqwq+/sHxU6p7TO1URrRjLLmoiUbqK3ERV5y/XGdq9Qt2COOw
+7OqjyTgqn6j2ukdc2iFCMxvFeekOkNV3TODpe4mFczE5RVG7RNw9sJY9DfmdfgPS
+uEBVZJJoieQZ8VZ74EoVKqyGbA7+NqCIErtWqXnkhMeXeSx5dHJ9tq2AVPRdE58G
+/E1Whw7l91QACp66b2NtdUQsiEID6/zje0UR5NWxtou64CHCJ65xuEW/NFtqFapw
+xRgrrvMxbJTB+gQKVw2RmAQs3cS4dg==
+=rkTk
+-----END PGP SIGNATURE-----
+
+--YamY06O8Z+wvFSTe--
 
