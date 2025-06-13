@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 74BC7AD91D5
-	for <lists+xen-devel@lfdr.de>; Fri, 13 Jun 2025 17:49:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1014624.1392720 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 23893AD91DA
+	for <lists+xen-devel@lfdr.de>; Fri, 13 Jun 2025 17:49:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1014625.1392726 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uQ6eJ-0006f9-OL; Fri, 13 Jun 2025 15:48:59 +0000
+	id 1uQ6eJ-0006jU-VN; Fri, 13 Jun 2025 15:48:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1014624.1392720; Fri, 13 Jun 2025 15:48:59 +0000
+Received: by outflank-mailman (output) from mailman id 1014625.1392726; Fri, 13 Jun 2025 15:48:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uQ6eJ-0006d3-J1; Fri, 13 Jun 2025 15:48:59 +0000
-Received: by outflank-mailman (input) for mailman id 1014624;
- Fri, 13 Jun 2025 15:48:57 +0000
+	id 1uQ6eJ-0006fB-S2; Fri, 13 Jun 2025 15:48:59 +0000
+Received: by outflank-mailman (input) for mailman id 1014625;
+ Fri, 13 Jun 2025 15:48:58 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=44KY=Y4=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1uQ6eH-0006cn-SK
- for xen-devel@lists.xenproject.org; Fri, 13 Jun 2025 15:48:57 +0000
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [2a00:1450:4864:20::62b])
+ id 1uQ6eI-0006cn-HP
+ for xen-devel@lists.xenproject.org; Fri, 13 Jun 2025 15:48:58 +0000
+Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
+ [2a00:1450:4864:20::532])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e9aa130b-486d-11f0-b894-0df219b8e170;
- Fri, 13 Jun 2025 17:48:55 +0200 (CEST)
-Received: by mail-ej1-x62b.google.com with SMTP id
- a640c23a62f3a-ad8826c05f2so421707866b.3
- for <xen-devel@lists.xenproject.org>; Fri, 13 Jun 2025 08:48:55 -0700 (PDT)
+ id ea11d7e5-486d-11f0-b894-0df219b8e170;
+ Fri, 13 Jun 2025 17:48:56 +0200 (CEST)
+Received: by mail-ed1-x532.google.com with SMTP id
+ 4fb4d7f45d1cf-606ddbda275so4520020a12.1
+ for <xen-devel@lists.xenproject.org>; Fri, 13 Jun 2025 08:48:56 -0700 (PDT)
 Received: from fedora.. (user-109-243-64-38.play-internet.pl. [109.243.64.38])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-adec8979563sm144821766b.158.2025.06.13.08.48.53
+ a640c23a62f3a-adec8979563sm144821766b.158.2025.06.13.08.48.54
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Jun 2025 08:48:54 -0700 (PDT)
+ Fri, 13 Jun 2025 08:48:55 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,41 +45,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e9aa130b-486d-11f0-b894-0df219b8e170
+X-Inumbo-ID: ea11d7e5-486d-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1749829735; x=1750434535; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=U18FNGQaQ2WOAoPIbpjFmVvamBgLJPNEgZzb8J9otcc=;
-        b=H3Bgt2OhVepj2it+rTZTcsPGU75F7RJRiBVH1vuC3wX11byN+rfhz0JbpIoZr1wjV5
-         iRY/1MwUmkKOz68tL7ybcJZrlh6rNanA4hHrMkqo6LVm7abfxfJcK2z2iv1D6IsGOvTN
-         U94vBkeDtwTw+vZmrhqbQM0S2VJuva/xoPnwDaa21Ko+kV2Yz7YzTzAZhNQyY2WpkQsN
-         DzBtTanEf4+pvQCuqIqRWjahrVLjcDKzxaQjtWiRDuK93z6uwN5e4c5HD/K0wuZ6lji0
-         2w9/+GkaHTRB+xQYoDU/xtNvqiWvqqPcj0OgLYtZX1hDPLus9DDFYK2win7ikDCE4e8q
-         FjtQ==
+        d=gmail.com; s=20230601; t=1749829736; x=1750434536; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=o0jov675Ch52OlGerP1rZFs8+ZLJQY6S/aZdq380T/c=;
+        b=Vcs2sGd1mUH/mGtkiCh2/Vx96CoP/TPelPcxkf6BUToVbUMdm8zm4l3gM3S+wH2XI0
+         0wH1yMZa5550GYrszuBtOJfjxGkrFkNNUZGfdE+BRCzwJ2yu0yp34+Uz9Ttg44kS1qjW
+         uIdpZylFLtl2+zsdlM94yiac/3l0nO6tYt9abTZXnCcu3a8knRybh51lIZnbhPlvnDo2
+         p4qZkpv8QV/vVBPn39NlD2DYecP60HIl6z6nZ6ixh2QSIRnopZJL24lmQTUFUAZ2EwNk
+         Rqk4ExbmesYHSEKJ/CFH/w/zMItS934L8IXRgnm+Pc52evBInxp7LN+JycIpa+TUSsXC
+         rsZQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749829735; x=1750434535;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=U18FNGQaQ2WOAoPIbpjFmVvamBgLJPNEgZzb8J9otcc=;
-        b=dKUe6CgG+Tpb5y2yjRjg9hQw4w6tKxXJJerjE6sN4/NrcjIfpCQIs7iEpjolTNV4mD
-         t5rLW7gwHIO27luT5K8EBolxKm/SZgdCkuPaf9O+3lJmKHcV3E4rK76yl2I2bZpm6fXA
-         NB+AjHXlVi448O58sbOhG9acjVBNKRmn0ErKP1+jfSEpIiVhVOlDqDftHbPYrsDA8QCW
-         AtEHrhqzLIOvbbjPaTIppCjppgDxMY5Iv5lX8+q0vE+PsBf4mIEYUevk5ZE/7VGOFGuo
-         WeFa7VbaDwumuqvr7JuCP1qP3cpHJnc0evv/uZ5A4cdZPO+jHQAuzWX5xFejhvazzlha
-         7kkw==
-X-Gm-Message-State: AOJu0YxRHKw1IBSsMOFeA7mzPzM3wrPGciIrdBpORZ3XhWxhjTg/4xLZ
-	fhD7jGw+W+jzOVvIcXOOGow9BtUIGsyJIVvO3Zn+yytJetwCuFJjr6y7eSaw4A==
-X-Gm-Gg: ASbGncs3XDuiHwYhXCetk+wQCRBT25KhxV//Q618Z0K7XwwC9n3+/vSUiYCUidRjpSp
-	dTfeLPQ3WouIthAIs+1vYwmqNh8AiGtQ+0XcKaNTGRqeo1wFFTR4EUt4SH+3E9CWE2uSz2D6DF3
-	mC3YI9I25l7nZxlRqcKevFhtLcaUJkxh4NSn6B4JQuCeJB5jBiQrlmZrVS6KdXnSEF9XsUpzBmN
-	1TKTpkkR1cKjAA5VjTNzcUxPMLV8NCfwboTic6+dKsDCyBURWmOxl/UBDxdDSOTXtTi5BPiLDjp
-	VwORV7g1gsqJDykxHcHNBg7t+am9uF49JARTEvxmKkSRb04T7hq2v3+LOriyUl3NXsnuHBEwnMN
-	K1URDzM/dlvnLr9/X1A7c9UMV3owY
-X-Google-Smtp-Source: AGHT+IGxz5wVTWFnAXzb/dl28GnEFScdeg3yQpCty9yM2B5NLJAZJpX/D93FqldXfK2v/H/epVLvSQ==
-X-Received: by 2002:a17:907:706:b0:ad4:d00f:b4ca with SMTP id a640c23a62f3a-adec5d28463mr364608166b.50.1749829734640;
-        Fri, 13 Jun 2025 08:48:54 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1749829736; x=1750434536;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=o0jov675Ch52OlGerP1rZFs8+ZLJQY6S/aZdq380T/c=;
+        b=Q4I5EIHO25n2XKjcPUrslnwjmbu27Qf/7nA6/ws/EskgvNLLlv01IDvN5xFOgnMCvi
+         u6GG6AwQUDwih8Nfaob1s4eg1/lLMotG8s0CCj6lqiUcBCUCemBabCGqwB3QFyDQs5Wl
+         g+HxxiMwiUGvXH2rCmzTqWoD8xxDwZFkvrVSWJzm1SvjZciTo5N+F2IRZE+R7f6E44B9
+         /yTq+Ar520B5nDk/qz5PbpGKbof0V5b7x2VSHgv1aKASpxoV9OeTqkjl4i+LONm1or9N
+         M59dZWFQG4pn9AY/ghnaS7n/OsxAciOSOWH5Tclsi2rrY/361sA0fx8fPk5H5ibpHLli
+         RIRQ==
+X-Gm-Message-State: AOJu0Yw2GZyNfYOKjKbJKTp0KwjdkE1Xg0ALzqcZ7EF+dniVcEAjGCSm
+	5bC/q5AAyEc2gSvqIf1w4zP3KpS+sGtMRHCigA4Six3r6PoK9Kfd8T1NABZNcQ==
+X-Gm-Gg: ASbGncsxd4/6n9yBZHLVNB05x5RrT56Scpfj7c930PNwZa0Na/W8tA2WinRNHK8IFmG
+	+x70ZuBV5FK16GunijGS2sdUs+IS3YXQOJkAhE4rF8TGZCHJLkjkcgJkugLWf1XxpDyPB9xzKD5
+	2N9oTGPwetqCMVupoBFeoz17L16/NeZpW1J8wX9Qv4OLD6fnVMcSHNg3UBt7LKwDOHHIYqbVOG1
+	RsCSDkvTmibw6Qse8OWbx4POa568CzQ9jvBGiUbM82Y+qCrHmaiZY0w+C49/y/KBWDVE6vkyEoy
+	s3LZXJKCbkYV9xkqzqijAyiJg6iVHWIWSDPXw7zz9MAdaDvfy/PAQr4VZjf94TUR5R/CSt8eDpR
+	SPxcZOTo8zLJdWXWRmQO5q+05MT29
+X-Google-Smtp-Source: AGHT+IHNp2n+N2zSNwO1LYUnzX+dMDQhBgZi6TUsUHFgaKGAmAn5lMRdwaXrTiO0SGtTXsd8a+l96g==
+X-Received: by 2002:a17:907:7241:b0:ad8:9428:6a27 with SMTP id a640c23a62f3a-adec5c7721dmr382814866b.50.1749829735525;
+        Fri, 13 Jun 2025 08:48:55 -0700 (PDT)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
@@ -93,84 +94,168 @@ Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
 	Julien Grall <julien@xen.org>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v5 0/9] riscv: introduce basic UART support and interrupts for hypervisor mode
-Date: Fri, 13 Jun 2025 17:48:39 +0200
-Message-ID: <cover.1749825782.git.oleksii.kurochko@gmail.com>
+Subject: [PATCH v5 1/9] xen/riscv: dt_processor_hartid() implementation
+Date: Fri, 13 Jun 2025 17:48:40 +0200
+Message-ID: <c76d79ed590988850fd3db0c79fc7a2ec1f7f078.1749825782.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.49.0
+In-Reply-To: <cover.1749825782.git.oleksii.kurochko@gmail.com>
+References: <cover.1749825782.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The patch series introduces basic UART support (in interrupt mode) and support of
-interrupts for hypervisor mode.
+Implements dt_processor_hartid() to get the hart ID of the given
+device tree node and do some checks if CPU is available and given device
+tree node has proper riscv,isa property.
 
-To implement this the following has been added:
-- APLIC and IMISC initialization.
-- Introduce of intc_hw_operations abstraction.
-- Introduce some APLIC and IMSIC operations.
-- Introduce init_IRQ(), platform_get_irq() and setup_irq() functions.
-- Update do_trap() handler to handle IRQ_S_EXT.
-- Introduce some other functions such as: get_s_time(), smp_clear_cpu_maps(),
-  ioremap().
-- Enable UART. 
+As a helper function dt_get_hartid() is introduced to deal specifically
+with reg propery of a CPU device node.
 
-CI tests: https://gitlab.com/xen-project/people/olkur/xen/-/pipelines/1868775206
+Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 ---
 Changes in V5:
- - Update CI tests link.
- - Mostly changes are patch-specific. Please check each patch separately.
+ - Rework ac overflow check in dt_get_hartid().
+ - Update if check with (ac > 2) before dt_read_number() as it return uin64_t, so
+   with ac > 2 it will return incorrect results. In case (ac > 2) return ~0UL,
+   so this hartid will be skipped.
 ---
 Changes in V4:
- - Merged to staging:
-    - xen/riscv: initialize bitmap to zero in riscv_fill_hwcap_from_isa_string()
-    - xen/asm-generic: introduce asm-generic/irq-dt.h
-    - xen/riscv: introduce smp_prepare_boot_cpu()
-    - xen/riscv: introduce support of Svpbmt extension
-    - add ioremap_*() variants using ioremap_attr()
-    - xen/riscv: introduce init_IRQ()
-    - xen/riscv: introduce platform_get_irq()
- - All other changes are patch-specific. Please check each patch separately.
+ - Sort properly inculsion of xen/types.h in riscv/smpboot.c.
+ - Add overflow check of got address cell value in dt_get_hartid().
+ - Use "%#lx" for loging recieved hartid from DTB.
+ - s/-EINVAL/-ENODEV for recieved isa string from DTB.
+---
+Changes in V3:
+ - s/dt_processor_cpuid/dt_processor_hartid.
+ - s/dt_get_cpuid/dt_get_hartid.
+ - use ~0UL in dt_get_cpuid() and in the comment above it.
+ - change type for local variable ac in dt_get_cpuid() to unsigned int.
+ - Update the return errors for dt_processor_cpuid().
+ - Update the commit message + subject: s/cpuid/hartid.
 ---
 Changes in V2:
- - Merged to staging:
-    xen/riscv: initialize bitmap to zero in riscv_fill_hwcap_from_isa_string()
-    xen/asm-generic: introduce asm-generic/irq-dt.h
- - All other changes are patch-specific. Please check each patch separately.
+ - s/of_get_cpu_hwid()/dt_get_cpu_id().
+ - Update prototype of dt_get_cpu_hwid(), use pointer-to-const for cpun arg.
+ - Add empty line before last return in dt_get_cpu_hwid().
+ - s/riscv_of_processor_hartid/dt_processor_cpuid().
+ - Use pointer-to_const for node argument of dt_processor_cpuid().
+ - Use for hart_id unsigned long type as according to the spec for RV128
+   mhartid register will be 128 bit long.
+ - Update commit message and subject.
+ - use 'CPU' instead of 'HART'.
+ - Drop thread argument of dt_get_cpu_id() (of_get_cpu_hwid) as it is
+   expected to be always 0 according to RISC-V's DTS binding.
 ---
+ xen/arch/riscv/include/asm/smp.h |  4 ++
+ xen/arch/riscv/smpboot.c         | 77 ++++++++++++++++++++++++++++++++
+ 2 files changed, 81 insertions(+)
 
-Oleksii Kurochko (9):
-  xen/riscv: dt_processor_hartid() implementation
-  xen/riscv: introduce register_intc_ops() and intc_hw_ops.
-  xen/riscv: imsic_init() implementation
-  xen/riscv: aplic_init() implementation
-  xen/riscv: introduce intc_init() and helpers
-  xen/riscv: implementation of aplic and imsic operations
-  xen/riscv: add external interrupt handling for hypervisor mode
-  xen/riscv: implement setup_irq()
-  xen/riscv: add basic UART support
-
- xen/arch/riscv/Kconfig             |   1 +
- xen/arch/riscv/Makefile            |   1 +
- xen/arch/riscv/aplic-priv.h        |  38 +++
- xen/arch/riscv/aplic.c             | 295 +++++++++++++++++
- xen/arch/riscv/imsic.c             | 489 +++++++++++++++++++++++++++++
- xen/arch/riscv/include/asm/aplic.h |  73 +++++
- xen/arch/riscv/include/asm/imsic.h |  74 +++++
- xen/arch/riscv/include/asm/intc.h  |  32 ++
- xen/arch/riscv/include/asm/irq.h   |   8 +-
- xen/arch/riscv/include/asm/smp.h   |  17 +
- xen/arch/riscv/intc.c              |  55 ++++
- xen/arch/riscv/irq.c               | 131 ++++++++
- xen/arch/riscv/setup.c             |  14 +
- xen/arch/riscv/smpboot.c           |  77 +++++
- xen/arch/riscv/traps.c             |  19 ++
- xen/drivers/char/Kconfig           |   3 +-
- 16 files changed, 1324 insertions(+), 3 deletions(-)
- create mode 100644 xen/arch/riscv/aplic-priv.h
- create mode 100644 xen/arch/riscv/imsic.c
- create mode 100644 xen/arch/riscv/include/asm/aplic.h
- create mode 100644 xen/arch/riscv/include/asm/imsic.h
-
+diff --git a/xen/arch/riscv/include/asm/smp.h b/xen/arch/riscv/include/asm/smp.h
+index 5e170b57b3..eb58b6576b 100644
+--- a/xen/arch/riscv/include/asm/smp.h
++++ b/xen/arch/riscv/include/asm/smp.h
+@@ -26,6 +26,10 @@ static inline void set_cpuid_to_hartid(unsigned long cpuid,
+ 
+ void setup_tp(unsigned int cpuid);
+ 
++struct dt_device_node;
++int dt_processor_hartid(const struct dt_device_node *node,
++                        unsigned long *hartid);
++
+ #endif
+ 
+ /*
+diff --git a/xen/arch/riscv/smpboot.c b/xen/arch/riscv/smpboot.c
+index 0f9c2cc54a..470f6d1311 100644
+--- a/xen/arch/riscv/smpboot.c
++++ b/xen/arch/riscv/smpboot.c
+@@ -1,6 +1,9 @@
+ #include <xen/cpumask.h>
++#include <xen/device_tree.h>
++#include <xen/errno.h>
+ #include <xen/init.h>
+ #include <xen/sections.h>
++#include <xen/types.h>
+ 
+ #include <asm/current.h>
+ 
+@@ -14,3 +17,77 @@ void __init smp_prepare_boot_cpu(void)
+     cpumask_set_cpu(0, &cpu_possible_map);
+     cpumask_set_cpu(0, &cpu_online_map);
+ }
++
++/**
++ * dt_get_hartid - Get the hartid from a CPU device node
++ *
++ * @cpun: CPU number(logical index) for which device node is required
++ *
++ * Return: The hartid for the CPU node or ~0UL if not found.
++ */
++static unsigned long dt_get_hartid(const struct dt_device_node *cpun)
++{
++    const __be32 *cell;
++    unsigned int ac;
++    uint32_t len;
++
++    ac = dt_n_addr_cells(cpun);
++    cell = dt_get_property(cpun, "reg", &len);
++
++    /*
++     * If ac > 2, the result may be truncated or meaningless unless
++     * dt_read_number() supports wider integers.
++     *
++     * TODO: drop (ac > 2) when dt_read_number() will support wider
++     *       integers.
++     */
++    if ( !cell || !ac || (ac > 2) || (ac > len / sizeof(*cell)) )
++        return ~0UL;
++
++    return dt_read_number(cell, ac);
++}
++
++/*
++ * Returns the hartid of the given device tree node, or -ENODEV if the node
++ * isn't an enabled and valid RISC-V hart node.
++ */
++int dt_processor_hartid(const struct dt_device_node *node,
++                        unsigned long *hartid)
++{
++    const char *isa;
++    int ret;
++
++    if ( !dt_device_is_compatible(node, "riscv") )
++    {
++        printk("Found incompatible CPU\n");
++        return -ENODEV;
++    }
++
++    *hartid = dt_get_hartid(node);
++    if ( *hartid == ~0UL )
++    {
++        printk("Found CPU without CPU ID\n");
++        return -ENODATA;
++    }
++
++    if ( !dt_device_is_available(node))
++    {
++        printk("CPU with hartid=%#lx is not available\n", *hartid);
++        return -ENODEV;
++    }
++
++    if ( (ret = dt_property_read_string(node, "riscv,isa", &isa)) )
++    {
++        printk("CPU with hartid=%#lx has no \"riscv,isa\" property\n", *hartid);
++        return ret;
++    }
++
++    if ( isa[0] != 'r' || isa[1] != 'v' )
++    {
++        printk("CPU with hartid=%#lx has an invalid ISA of \"%s\"\n", *hartid,
++               isa);
++        return -ENODEV;
++    }
++
++    return 0;
++}
 -- 
 2.49.0
 
