@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 14080AD832B
-	for <lists+xen-devel@lfdr.de>; Fri, 13 Jun 2025 08:22:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1013794.1392007 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8FFFCAD8345
+	for <lists+xen-devel@lfdr.de>; Fri, 13 Jun 2025 08:35:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1013802.1392017 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uPxme-0008OK-K9; Fri, 13 Jun 2025 06:21:00 +0000
+	id 1uPy0r-0001fR-RA; Fri, 13 Jun 2025 06:35:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1013794.1392007; Fri, 13 Jun 2025 06:21:00 +0000
+Received: by outflank-mailman (output) from mailman id 1013802.1392017; Fri, 13 Jun 2025 06:35:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uPxme-0008Mw-H5; Fri, 13 Jun 2025 06:21:00 +0000
-Received: by outflank-mailman (input) for mailman id 1013794;
- Fri, 13 Jun 2025 06:20:58 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uPy0r-0001dg-OV; Fri, 13 Jun 2025 06:35:41 +0000
+Received: by outflank-mailman (input) for mailman id 1013802;
+ Fri, 13 Jun 2025 06:35:40 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=M3pU=Y4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uPxmc-0008Mp-Od
- for xen-devel@lists.xenproject.org; Fri, 13 Jun 2025 06:20:58 +0000
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [2a00:1450:4864:20::435])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 90207c10-481e-11f0-b894-0df219b8e170;
- Fri, 13 Jun 2025 08:20:55 +0200 (CEST)
-Received: by mail-wr1-x435.google.com with SMTP id
- ffacd0b85a97d-3a54700a46eso1357763f8f.1
- for <xen-devel@lists.xenproject.org>; Thu, 12 Jun 2025 23:20:55 -0700 (PDT)
+ id 1uPy0q-0001d7-BL
+ for xen-devel@lists.xenproject.org; Fri, 13 Jun 2025 06:35:40 +0000
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [2a00:1450:4864:20::430])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 9eec0830-4820-11f0-a309-13f23c93f187;
+ Fri, 13 Jun 2025 08:35:39 +0200 (CEST)
+Received: by mail-wr1-x430.google.com with SMTP id
+ ffacd0b85a97d-3a53ee6fcd5so1077326f8f.1
+ for <xen-devel@lists.xenproject.org>; Thu, 12 Jun 2025 23:35:39 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2365de78169sm7145115ad.123.2025.06.12.23.20.51
+ 41be03b00d2f7-b2fe1639eb8sm765934a12.10.2025.06.12.23.35.30
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 12 Jun 2025 23:20:54 -0700 (PDT)
+ Thu, 12 Jun 2025 23:35:38 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,63 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 90207c10-481e-11f0-b894-0df219b8e170
+X-Inumbo-ID: 9eec0830-4820-11f0-a309-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1749795655; x=1750400455; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1749796539; x=1750401339; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=GuhmqzkGgYKtcPNMkVVUgIyrlCfhaxVJeTKzU0mfgaM=;
-        b=bhibq4UeMIWN4DZ3YGvrAvBVN3f6fdL4sjm42/OSjj74F3T9xz+GvG8TP1VJ2yzzVx
-         EQJ2fAWDnSdVWCGfbzj1HvWKYRWNtVKofojxLKITje/8KsCoM2SlYJPseVExbPtTYKBn
-         XKJlH3HnXXm9+hBar6FnQm/VWsC3aqTaRlwaFg96upplscQZZXVM49aRYhJuX2E76cYt
-         sksxfsHJUacwD6IZABrih1/zMQ4XNzle0O4c7DQTLnxc0lLFcuWjVkAOI4Gmylk4ZHYh
-         GivN7KEnPsoeVmRy46EyRMbE1mMUN5kG6o1krsT+OzIa2oMDSCek6bOi4Ej8KU3IVyTY
-         99nA==
+        bh=dPaGl0o6GFxHjlt3ivrAUOcIHgHk3c4C9Wvx1GOpAac=;
+        b=fIy4VE9bUEugQQp97Sm1idZgyiwqLjspjIdaWCT3p0Hp+HNioiejeo7b2u1uTsCyj/
+         MAnlRUsj+UCwDCZs/z8h3OabiC6hOGzGleoZeUA1zzaTuOM0NC0wJOCApp1B8z6V2MV5
+         u1eqqd/ebU8IZvELbyS5YYvfG+b1rYDOM04WXN5t7CUPr5EbnFKhH7fOrURa2alINCKr
+         YhdlNLmbPglPrG2Zwli07bhuWBTvobw8OdN1oA+Nzvp3yr0sv29e05MULbvhmA5pgybr
+         FtQbBJ8mLc23gnc7eDyFHzOw92Sk2AKkjAeq7QfL1A3AI+Hrs/Aj3n8FdGr60jGMGNJ6
+         o+iw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749795655; x=1750400455;
+        d=1e100.net; s=20230601; t=1749796539; x=1750401339;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=GuhmqzkGgYKtcPNMkVVUgIyrlCfhaxVJeTKzU0mfgaM=;
-        b=ArvTHD28U2Qj9UEFi3/+TEa9VfvV0LpQa8jje0riwM3u9dFO8truQ+ZILDgfLB3fU1
-         q+w63nYvbAtHJpRSvOn7s6w2cW60joevsbe8xOG1dX02RBUGisGM5GG2kmKUR9XPSwq+
-         pOE9qhXgetWvjyVyYhzBGLHrvpaMya5sswvik68qh6GI4CeKD9jdprCYIc2z3GRIp3St
-         2BBmmQ2CzRRRC9h7KiETiv2rASg7xRDk/B+7Q8dMasoXj9OMc+k0vKP1mu4W7aeF9fIO
-         jy+tedwcdWR8QWVKieMpcjdtsxxTVva/xGxCnpsiInnWbMQAjeLDnCPaJlnxTNdDbv2h
-         MWCA==
-X-Forwarded-Encrypted: i=1; AJvYcCUGy6ct8UowgzRskt6/66R2uZ2zXAREO5hA7cpF/wLMDcOPebqHDLG75um7RAaA4Z4+x0EtLAleuQE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwRGksb9AG1PsU3nHY8gswDDgpmiCqO3WULTKLbmBWNrzghrjn7
-	pRSFfDKZCIDLGJsqA60Gh7EtS4NCk1eIUtlGiHIGSZRtqHzPIFFsedVpfYnkpGsgbw==
-X-Gm-Gg: ASbGncspL0wbUHLVTENnZvMwXPa1N/5kzZxMBtNG8/85HctBXUhatNeRdkVscMkIoV1
-	ngHiNb4YfVDZI/5s3gPAhIbTiocJcxTAHlZyZ0zokmaGpgX1KpAjzYL31DPX+bP3Ji1BON7lBo2
-	W4hUh2wEHrrltdbWlUEoRKxwntQ9p6/qQA+etZ633o47s/ZmuXsBq/RFX/nLOW3kKFUhlL4Y7nL
-	og3Cv8syb1naevDKW2u5Yo/8v8xisXb0oKD1b4/Jxw9n96StcMhg5l6M0p4DaX0nRIVKM7o7vyx
-	FsZziUiKH8myC08lkMgLGfEM3OLsmErTpfKGMY6vGa1ObFMsBg4e4u8jl2paj1NuTGUxedGgoiq
-	p8LzTgZp+tIE0A+JYtnQ1eab65GwNasEdWLKNamM/RIiUUOc=
-X-Google-Smtp-Source: AGHT+IHvgWd++SMkJ8DbupvE+BAw7rTlgJued/UIvKksWby3Obp6hSRg3JvhbW1KRCA/HFiOQnQTbQ==
-X-Received: by 2002:a5d:64c2:0:b0:3a4:fc52:f5d4 with SMTP id ffacd0b85a97d-3a5687176d4mr1190627f8f.47.1749795654819;
-        Thu, 12 Jun 2025 23:20:54 -0700 (PDT)
-Message-ID: <c7df3ed4-9c29-45b2-8be7-9f5d08560d1f@suse.com>
-Date: Fri, 13 Jun 2025 08:20:47 +0200
+        bh=dPaGl0o6GFxHjlt3ivrAUOcIHgHk3c4C9Wvx1GOpAac=;
+        b=mOUzxQ8knie9o6cZe5La4aIXAhf+9lIPEfhLc2Mwd5IjpVPTuBbLaGpWyVYlDa01cr
+         0lr/ANeA2WeUiwOCFY602Pig2UpRNsGkNN+oWxlwMF33UbviJlFm2rUKUAUS1bMQvpf5
+         O+RDLC2RBKC2c2po7CXWvRmNiHY0y7pgFD/auWxNyKHam3tuj42R7Txv7BGy2Yv4H2Iv
+         +0j7K8TYXdajx0OCrrXwmPjKP3wqrMPH6jP0DhN8+o6IE8SP5jiolaSnb7Cr76UqqXNR
+         2Ge5ZF4h90K7Pyz/Oo9QtSB2d88IO4tntI2AbwTAqvg6uwnqCfw9k28qtVLA5FT849j3
+         lCRw==
+X-Gm-Message-State: AOJu0YzZCDVaCpQZVkbRwXUwSAjsljOlBzkYc6fq9BjT+hFy0M87ewMD
+	Ha5L+nf9AzUm8s2HH6cUUP/9++nZFeFvyElHAbDbY3/UxByEaFqXl5zEH/ENwDwDqA==
+X-Gm-Gg: ASbGnctW5Ttsuxb5DjZIsr1xygMMaahQ5wrq6P+huDn93sd2agBsMLYKRwkgTA1UrqI
+	sLhlZ28ZBd335wV4B7ijOQD9CAJkVjVZlnF15TkeLXhJWv5JsJFR6FeSdlD00cZXSi8l0P8aWHf
+	qFwIx+hp/OVdW3AikaUiO9+DJslewhqPZ18ZfeUQ518aYrgZ+t3JPHSMmCJEBf/+sJErWVkx2Re
+	yzR7Cy5F2SZAlXDx/U2rOW/OlaZXKJzc7H1B8XI/CTSKW1PTsxjLUVCznANE3Jumkuy9iJuJZe1
+	wXB2svePIhmL8TaXHcATEzIWpR1gqU1nAa7dIvulw4yD9Y07pZGdkl9ZYo5d2xEODzkhjBt17BL
+	EXR6RvTeJCLZlnzeTOPtuchdeU0ttXjLZ3W0WBZC8AUtvsyA=
+X-Google-Smtp-Source: AGHT+IFyAXzz5ZatrtlxoApbJHHSnRXU9LxEowrLSY75TbXu9vg/y8NWQJPwPLEW74FHNmEcs4O4rw==
+X-Received: by 2002:a05:6000:4021:b0:3a5:2d42:aa17 with SMTP id ffacd0b85a97d-3a5686f1438mr1640661f8f.31.1749796539023;
+        Thu, 12 Jun 2025 23:35:39 -0700 (PDT)
+Message-ID: <608cf9c5-f057-4d3b-8833-8ef040064fec@suse.com>
+Date: Fri, 13 Jun 2025 08:35:26 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/4] xsm/silo: Support hwdom/control domains
-To: Jason Andryuk <jason.andryuk@amd.com>
-Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- xen-devel@lists.xenproject.org
-References: <20250610225737.469690-1-jason.andryuk@amd.com>
- <20250610225737.469690-3-jason.andryuk@amd.com>
- <0f47268e-0674-46e7-bfd4-8a395ee1ddf6@suse.com>
- <6cc69b45-7347-4250-ab32-a1e2857b7d23@amd.com>
- <805abeee-0cad-4cc9-88ae-77e4c1e23fac@suse.com>
- <fc719213-3ac4-4f3a-ab20-47b2170b2a1f@amd.com>
+Subject: Re: [PATCH] docs: UEFI Secure Boot security policy
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Juergen Gross <jgross@suse.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, Trammell Hudson <hudson@trmm.net>,
+ Ross Lagerwall <ross.lagerwall@cloud.com>,
+ Frediano Ziglio <frediano.ziglio@cloud.com>,
+ Gerald Elder-Vass <gerald.elder-vass@cloud.com>,
+ Kevin Lampis <kevin.lampis@cloud.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
+References: <20250611235851.167385-1-andrew.cooper3@citrix.com>
+ <alpine.DEB.2.22.394.2506121426520.8480@ubuntu-linux-20-04-desktop>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -122,98 +127,42 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <fc719213-3ac4-4f3a-ab20-47b2170b2a1f@amd.com>
+In-Reply-To: <alpine.DEB.2.22.394.2506121426520.8480@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 12.06.2025 18:56, Jason Andryuk wrote:
-> On 2025-06-12 03:52, Jan Beulich wrote:
->> On 11.06.2025 06:20, Jason Andryuk wrote:
->>> On 2025-06-11 09:17, Jan Beulich wrote:
->>>> On 11.06.2025 00:57, Jason Andryuk wrote:
->>>>> --- a/xen/xsm/silo.c
->>>>> +++ b/xen/xsm/silo.c
->>>>> @@ -20,6 +20,12 @@
->>>>>    #define XSM_NO_WRAPPERS
->>>>>    #include <xsm/dummy.h>
->>>>>    
->>>>> +static bool is_priv_domain(const struct domain *d)
->>>>> +{
->>>>> +    return is_xenstore_domain(d) || is_hardware_domain(d) ||
->>>>> +           is_control_domain(d);
->>>>> +}
->>>>
->>>> This construct expands to two evaluate_nospec(), which likely isn't
->>>> wanted. Some open-coding may be pretty much unavoidable here.
->>>
->>> Thanks, yes, good point.
->>>
->>>> (I'm
->>>> surprised it's not three, i.e. I find it odd that is_xenstore_domain()
->>>> doesn't also use that guard.)
->>>
->>> It looks okay to me.  There were only 2 uses until I added a 3rd in the
->>> dom0less code.  The XSM check has evaluate_nospec() and the other 2 uses
->>> aren't security critical - Setting a domain info flag, and __init code
->>> for dom0less.  Maybe moving the evaluate_nospec() would be safer in case
->>> use grows in the future, but it looks okay to me today.
->>
->> When some of the hardening was first introduced, actual use sites were
->> indeed taken into account. That wasn't quite right though, I think. Any
->> such construct ought to be safe to use anywhere. For uses with clearly
->> no concerns towards speculative abuse, a 2nd lightweight form of such
->> constructs should then exist, imo. As to your use of "security critical":
->> I'm not convinced you what mean is covering the potential of speculative
->> abuse of involved code paths.
+On 12.06.2025 23:32, Stefano Stabellini wrote:
+> On Thu, 12 Jun 2025, Andrew Cooper wrote:
+>> +Support in Xen
+>> +--------------
+>> +
+>> +There are multiple ways to achieve this security goal, with differing
+>> +tradeoffs for the eventual system.
+>> +
+>> +On one end of the spectrum is the Unified Kernel Image.  e.g. Xen is bundled
+>> +with the dom0 kernel and init-ramdisk, with an embedded command line, and with
+>> +livepatching and kexec compiled out, and suitably signed.  The signature is
+>> +checked by the bootloader and, as this covers all the privileged code, Xen
+>> +doesn't need to perform further checks itself.
+>> +
+>> +On the other end of the spectrum is maintaining the features of existing
+>> +deployments.  e.g. Xen needs signature checking capabilities for the dom0
+>> +kernel, livepatches and kexec kernels, and needs to allow the use of safe
+>> +command line options while disallowing unsafe ones.
 > 
-> I can't parse this last sentence, and I think it's your main point.
-
-Oh, sorry - the "you" and "what" ought to have swapped places.
-
-> XSM -> don't speculate around permission checks.  That's what I meant by 
-> "security critical".
+> I just wanted to mention that there is one more option which I used in
+> the past: the firmware/bootloader loads Xen, the Dom0 kernel, and other
+> binaries, check their signatures, then boot Xen.
 > 
-> The __init code is inaccessible to users, so it doesn't matter.
+> This is similar to the "Unified Kernel Image" approach in the sense that
+> Xen doesn't need to do any signature checking for the dom0 kernel, but
+> it doesn't require all the binaries to be glued together.
 > 
->          if ( is_xenstore_domain(d) )
->              continue;
-> 
-> getdomaininfo sets a flag, so I don't see this making a security 
-> difference.  It's not controlling loads or code paths.
+> Assuming that the firmware/bootloader is capable of loading multiple
+> binaries and checking the signature of multiple binaries before booting
+> the next element, it works fine.
 
-Right, but this is what I said should imo not have been done: Make a
-predicate speculation-safe (or not) based on its present uses. It's
-imo more likely than not that a new use being added won't result in
-the predicate being looked at, re-considering its safety for the new
-use.
-
-And indeed there's a 3rd use, in xsm_default_action():
-
-    case XSM_XS_PRIV:
-        if ( action == XSM_XS_PRIV &&
-             evaluate_nospec(is_xenstore_domain(src)) )
-            return 0;
-        fallthrough;
-
-It should not have been necessary to open-code the speculation safety
-here, just like such isn't required a few lines later:
-
-    case XSM_PRIV:
-        if ( is_control_domain(src) )
-            return 0;
-        return -EPERM;
-
-I am, btw, also not convinced the uses of evaluate_nospec() are fully
-correct here, in that they apply to only part of the if() conditions.
-For "action == XSM_XS_PRIV" it's okay as long as
-- the function is indeed inlined, and
-- the function argument is compile-time constant.
-For "target" the same applies, but there is more room there for the
-latter of the constraints to not be met. The argument in favor of
-the present arrangements likely was that our main concern here is
-with the "success" paths. Yet such argumentation would again be
-dependent upon all call sites fitting the assumption that on the
-"failure" paths there would be nothing critical that follows.
+How would an initrd, a ucode blob, or an XSM policy blob be signed?
 
 Jan
 
