@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80B04AD9E57
-	for <lists+xen-devel@lfdr.de>; Sat, 14 Jun 2025 18:41:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1015625.1393186 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F3D2AD9E59
+	for <lists+xen-devel@lfdr.de>; Sat, 14 Jun 2025 18:41:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1015648.1393200 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uQTwD-0001Wl-PN; Sat, 14 Jun 2025 16:41:01 +0000
+	id 1uQTwl-0002HH-2i; Sat, 14 Jun 2025 16:41:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1015625.1393186; Sat, 14 Jun 2025 16:41:01 +0000
+Received: by outflank-mailman (output) from mailman id 1015648.1393200; Sat, 14 Jun 2025 16:41:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uQTwD-0001UX-Ly; Sat, 14 Jun 2025 16:41:01 +0000
-Received: by outflank-mailman (input) for mailman id 1015625;
- Sat, 14 Jun 2025 16:40:59 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uQTwk-0002FT-Uw; Sat, 14 Jun 2025 16:41:34 +0000
+Received: by outflank-mailman (input) for mailman id 1015648;
+ Sat, 14 Jun 2025 16:41:33 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=duY6=Y5=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
- id 1uQTwB-0001Aq-R3
- for xen-devel@lists.xenproject.org; Sat, 14 Jun 2025 16:40:59 +0000
-Received: from mail-yw1-x112a.google.com (mail-yw1-x112a.google.com
- [2607:f8b0:4864:20::112a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 58de0f23-493e-11f0-a309-13f23c93f187;
- Sat, 14 Jun 2025 18:40:58 +0200 (CEST)
-Received: by mail-yw1-x112a.google.com with SMTP id
- 00721157ae682-70e1d8c2dc2so27363927b3.3; 
- Sat, 14 Jun 2025 09:40:58 -0700 (PDT)
+ id 1uQTwj-00022V-HK
+ for xen-devel@lists.xenproject.org; Sat, 14 Jun 2025 16:41:33 +0000
+Received: from mail-yw1-x1134.google.com (mail-yw1-x1134.google.com
+ [2607:f8b0:4864:20::1134])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 6b6bae7c-493e-11f0-b894-0df219b8e170;
+ Sat, 14 Jun 2025 18:41:29 +0200 (CEST)
+Received: by mail-yw1-x1134.google.com with SMTP id
+ 00721157ae682-70e2b601a6bso31702817b3.0; 
+ Sat, 14 Jun 2025 09:41:29 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,50 +40,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 58de0f23-493e-11f0-a309-13f23c93f187
+X-Inumbo-ID: 6b6bae7c-493e-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1749919257; x=1750524057; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1749919288; x=1750524088; darn=lists.xenproject.org;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=42HLB7vPizxYysP77djk2L92Us5rCaaCpZzTdci5z24=;
-        b=VWBFS513kb+RXIUJ8nKATywnf8hARg3JOPWBOGUNnJLyoq4ouwjaRhkS0FevoegrSN
-         5/USROQh/lnqTlxXWSK8EE4IEEkSUMu+JTwdP370O+K4JB8wrYgvVGXT83imZzOeJPZv
-         GV7BPSA1vSOI+nZE2vr5EjNIOwlXY3lPlbJoqVpUNkYxW56tdZo6i2MVD483s63T0CN0
-         XEY4/wzsqfKauzc2634ceJc3okYMiE3Kbhi+Z2jAOagUzA+cGHsHbzm5TDidZiqJkEt6
-         vba7GQHDHkFOpHzp2R0MqOQtlpeDcTk5Lse4GV1WdJDLtxUbnR+JluMU2Wuuno2MdFxD
-         hPgw==
+        bh=qJO3DPmTnpimcmFIlDN1TKqKbZ/I+JX6jYAuRKKryfQ=;
+        b=HIeRLtXwS6fGCCSQvHYeSjk0S+Pw5SDGdW/k1qzqHr9eMyuwWm4Wq+g+O8mCqmlWBa
+         91JTY34nnUo5vzIP3OkcGuf+4pJYiv+rdO8s1+ntu3adQsVuZJXXChDOKXTV11YbhTY8
+         qt8/llesltUgA+hJ6lNGYsAov4wjB2HtZABPhevGXZ7vqrpw47SwCCEUMNl/hBXhRuxp
+         fov0nf5UPNi5Mtdl0ed4RT8UZv/Bvf1yj0TD7+fYUczmDLreCcVQO2Ur4gYBgbGRMdMH
+         GUYgJlKjgPxW3hZhaYxhF7arE6pjXXcuuMHO8/O+V0iCE05kj/kUSRtzD0/qyUrbnBhS
+         MTlA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1749919257; x=1750524057;
+        d=1e100.net; s=20230601; t=1749919288; x=1750524088;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=42HLB7vPizxYysP77djk2L92Us5rCaaCpZzTdci5z24=;
-        b=deVwUzAEm5szzxY+C8p2NHsZO7pbVdSIn/AjrrFsGySZdqTlosu0948ux64L7Ded8G
-         3ngDb+Zyk5zkgRG6Ax2/1JQt95qPNfy7T6Sm0M7BMU+YY3924u1Ptx4bX77h8M/VOubB
-         7a9CnOjTCxb74Y5AWOpu+QmYi9jFn98pqEGSkOI3SvceGhPGCqSQ2I0JdExjkG/tQ9TU
-         urGF26L+NXklR6MRk32QogtTgpQMDO2PLTZXyGP2skg/OgJpTcsrSCGuM9GXxVvOJa1B
-         2OuXPqELiLoY6CMYkI0cNjBcPMS1H14MDTLLM3QCU7GYbFQH2u5nW0GrFXF/bf/S7Cwi
-         RUsQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXq+8jOAAfRE2MebBVemc/yqqOTCrZ+EI8JofBQ8izD6ZgMFvfYxCC+Dp5DH/nX3vCL9yPrbDYK5Uo=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzPaamEBnODfuSX3I1h2NqEhQMXtgQiBw2XXjJNfVvQnfN3oLwx
-	lJYvVSCEMdB+KxpchCJ5c9pdL+Q6yJlVGUNGtpnwNrCunWpp1Hne8+cpq7PhmXlWOpcyDDpbgyt
-	xU81b0DEmyM6Mosx8poAl7uzry0JK+nA=
-X-Gm-Gg: ASbGncu2Cx72u4zqbDXAe1ThL58BxpBvEwQJTSIqi4ba9aha4BonF0e1V2yNrzVMS7K
-	M/6xEV56r5u6Eu7TOf+sk4FZQGrOUt1J9riyqRsA2GO++2XZlx+2FU6gtvnw1nwF3/Odp3PjSz2
-	XNtQODP4xBXPxPMWWzoRwp4JzT7GX3Wxrct555IDCp
-X-Google-Smtp-Source: AGHT+IGuuuPtD15+NIRs6pZG7pwSHOZbi5aqJoqJZZcGKqtWPCnsTvgV8mnXjUxGwLV7BMyrLSyX2ybHgpVzB0Jwedc=
-X-Received: by 2002:a05:690c:4c08:b0:70f:8883:eb1a with SMTP id
- 00721157ae682-7117537b9b5mr54186967b3.6.1749919257058; Sat, 14 Jun 2025
- 09:40:57 -0700 (PDT)
+        bh=qJO3DPmTnpimcmFIlDN1TKqKbZ/I+JX6jYAuRKKryfQ=;
+        b=AB7e1lDQUTX6CkS/pBrJ4OQhbk0fMrO1bN50PDDZRJoGdaP/rkSuKc70ZYVvP0uJv4
+         3zXs2giV8mfRlE53T7wfpvb13gD+zsUoCwdiD0sjj2ltx+e/N4ZfIqnpo238Isg1dBGZ
+         0FcKYIZ/EGGnoLvwx9k9rz50gBt4cKOgMsNpMLAgcmgjej0obEo/8qIqYPF2ZRwLlanS
+         +TRow+p3OM+XfxZHVxh/bEHvsTwgPTyN8VmDA0MI5gKitq6+ILr0Qxh+MFRtHgOYCcxy
+         LaS7WQv3TeAcqNqkBFculit+ff1msup5NfBxMetJaND+m1ZGxnaebpjj12kFxSFqTIhl
+         R9RQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXrMXHQjd8nwJtSa+m+fTrOXb2dMkgMRtRaoezpNMhBW9VMoQKS9C99ctXDKzqU0Rn1hT/cjGBIqCM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx9bReDz7QbqNp0ahgb3p+5OV7suB39rFFanOm8rzIV/iYJcFnl
+	XMg8ODcLl8OfXfrxVOphTsFYCwLckG8OgqtJ2mhLcgD4d5EhJofDaI3AjArLe+Y4DxMnpL5Vj2J
+	GajOhV/2TJ5Ris0ff3CrTscToDl+LrbWvRWQ2
+X-Gm-Gg: ASbGnctxuX6TBM25kJokiXZPGJV4i1JAN/vbA8RglsyS/uxLACNix4i4oI10qP89UHS
+	OcybOedmTxhaAFiFGogPcrqyCVTVoum7e0bMBARrr5QMD1DeI+rl9nuCTtVZabfOSvZtE3AIEaH
+	YyLubvFurJDL6lmM5KfBbCIrewJcZV1t2TobImjllZ
+X-Google-Smtp-Source: AGHT+IEAnAkQsLrLIFAiit2cbF9bQ5JMTM52mtEtI7vNK64Wm4m1DlZAuPMBQ/M4LIXcrt50+ZUHOh/osjgqg6qRb00=
+X-Received: by 2002:a05:690c:7248:b0:70e:86a:ae1e with SMTP id
+ 00721157ae682-71175448c6fmr49156787b3.22.1749919288240; Sat, 14 Jun 2025
+ 09:41:28 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250321092451.17309-1-jgross@suse.com> <20250321092451.17309-3-jgross@suse.com>
-In-Reply-To: <20250321092451.17309-3-jgross@suse.com>
+References: <20250321092451.17309-1-jgross@suse.com> <20250321092451.17309-5-jgross@suse.com>
+In-Reply-To: <20250321092451.17309-5-jgross@suse.com>
 From: Jason Andryuk <jandryuk@gmail.com>
-Date: Sat, 14 Jun 2025 12:40:46 -0400
-X-Gm-Features: AX0GCFsY6c5o-q74wdQQKXJzn2F1w802AGfeuuQ3aB3gDR_WQuh4t3gmQe3EW3k
-Message-ID: <CAKf6xpv+KQx7ESdeXRvMfCj0KfY60yMgc8YU9bXZ2-K4Vv8OZg@mail.gmail.com>
-Subject: Re: [MINI-OS PATCH 02/12] kexec: add final kexec stage
+Date: Sat, 14 Jun 2025 12:41:17 -0400
+X-Gm-Features: AX0GCFudxaAqybZz7opAuHCp3FhTMZE4WZiJAJp3RcPX6BCBtwpT63tnr4klkHA
+Message-ID: <CAKf6xpuz6K+0OXjZBCvKHiOAzep8TW2YPt2ztkc3wHcBiNC2Ow@mail.gmail.com>
+Subject: Re: [MINI-OS PATCH 04/12] kexec: analyze new kernel for kexec
 To: Juergen Gross <jgross@suse.com>
 Cc: minios-devel@lists.xenproject.org, xen-devel@lists.xenproject.org, 
 	samuel.thibault@ens-lyon.org
@@ -93,83 +93,38 @@ Content-Transfer-Encoding: quoted-printable
 On Fri, Mar 21, 2025 at 5:25=E2=80=AFAM Juergen Gross <jgross@suse.com> wro=
 te:
 >
-> Add the code and data definitions of the final kexec stage.
+> Analyze the properties of the new kernel to be loaded by kexec. The
+> data needed is:
 >
-> Put the code and related data into a dedicated section in order to be
-> able to copy it to another location. For this reason there must be no
-> absolute relocations being used in the code or data.
->
-> Being functionally related, add a function for adding a final kexec
-> action.
+> - upper boundary in final location
+> - copy and memory clear operations
+> - entry point and entry parameter
 >
 > Signed-off-by: Juergen Gross <jgross@suse.com>
 
-> --- /dev/null
-> +++ b/arch/x86/kexec.c
-> @@ -0,0 +1,109 @@
-
 > +
-> +/*
-> + * Final stage of kexec. Copies all data to the final destinations, zero=
-es
-> + * .bss and activates new kernel.
-> + * Must be called with interrupts off. Stack, code and data must be
-> + * accessible via identity mapped virtual addresses (virt =3D=3D phys). =
-Copying
-> + * and zeroing is done using virtual addresses.
-> + * No relocations inside the function are allowed, as it is copied to an
-> + * allocated page before being executed.
+> +static void check_notes_entry(elf_ehdr *ehdr, void *start, unsigned int =
+len)
 
-"page" is stated here.  Do we need an ASSERT later?
+I think you should rename this to include read_ since it is necessary
+to set kernel_entry.  read_phys32_entry_note() or
+read_note_kernel_entry() or some variation.  To me, check_ implies a
+boolean return without a side effect.
 
-> + */
+> @@ -54,9 +57,122 @@
+>   * - The new kernel is activated.
+>   */
+>
+> -int kexec(void *kernel, unsigned long kernel_size,
+> -          const char *cmdline)
 
-> +void do_kexec(void *kexec_page)
-> +{
-> +    unsigned long actions;
-> +    unsigned long stack;
-> +    unsigned long final;
-> +    unsigned long phys;
-> +
-> +    actions =3D get_kexec_addr(kexec_page, kexec_actions);
-> +    stack =3D get_kexec_addr(kexec_page, kexec_stack + KEXEC_STACK_LONGS=
-);
-> +    final =3D get_kexec_addr(kexec_page, kexec_final);
-> +    phys =3D get_kexec_addr(kexec_page, kexec_phys);
-> +
-> +    memcpy(kexec_page, _kexec_start, KEXEC_SECSIZE);
-> +    asm("cli\n\t"
-> +        "mov %0, %%"ASM_SP"\n\t"
-> +        "mov %1, %%"ASM_ARG1"\n\t"
-> +        "mov %2, %%"ASM_ARG2"\n\t"
-> +        "jmp *%3"
-> +        :"=3Dm" (stack), "=3Dm" (actions), "=3Dm" (phys)
+> +int kexec(void *kernel, unsigned long kernel_size, const char *cmdline)
 
-Aren't these inputs and not outputs?
+NIT: introduce kexec() with the single line form to avoid changing it
 
-> +        :"m" (final));
-> +}
-> +
-> +#endif /* CONFIG_KEXEC */
+Everything else looks good, so preferably with the renaming:
 
-
-> diff --git a/include/kexec.h b/include/kexec.h
-> index 6fd96774..722be456 100644
-> --- a/include/kexec.h
-> +++ b/include/kexec.h
-> @@ -1,7 +1,34 @@
-
-> +
-> +int kexec_add_action(int action, void *dest, void *src, unsigned int len=
-);
-> +
-> +#define KEXEC_SECSIZE ((unsigned long)_kexec_end - (unsigned long)_kexec=
-_start)
-
-Add a build assertion here?  Or maybe the correct amount is allocated
-and it doesn't matter.
-
-Generally looks good.
+Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
 
 Regards,
 Jason
