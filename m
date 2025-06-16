@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 590C5ADB0C6
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Jun 2025 14:59:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1017199.1394161 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 51BFDADB0CB
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Jun 2025 14:59:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1017205.1394171 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uR9Q3-0003JY-KH; Mon, 16 Jun 2025 12:58:35 +0000
+	id 1uR9R6-0003s3-TG; Mon, 16 Jun 2025 12:59:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1017199.1394161; Mon, 16 Jun 2025 12:58:35 +0000
+Received: by outflank-mailman (output) from mailman id 1017205.1394171; Mon, 16 Jun 2025 12:59:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uR9Q3-0003IT-HN; Mon, 16 Jun 2025 12:58:35 +0000
-Received: by outflank-mailman (input) for mailman id 1017199;
- Mon, 16 Jun 2025 12:58:34 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uR9R6-0003pq-Qa; Mon, 16 Jun 2025 12:59:40 +0000
+Received: by outflank-mailman (input) for mailman id 1017205;
+ Mon, 16 Jun 2025 12:59:39 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=jh7D=Y7=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uR9Q2-0003IK-Pe
- for xen-devel@lists.xenproject.org; Mon, 16 Jun 2025 12:58:34 +0000
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [2a00:1450:4864:20::433])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9bb1574c-4ab1-11f0-a309-13f23c93f187;
- Mon, 16 Jun 2025 14:58:33 +0200 (CEST)
-Received: by mail-wr1-x433.google.com with SMTP id
- ffacd0b85a97d-3a50956e5d3so3576410f8f.1
- for <xen-devel@lists.xenproject.org>; Mon, 16 Jun 2025 05:58:33 -0700 (PDT)
+ id 1uR9R5-0003pW-FL
+ for xen-devel@lists.xenproject.org; Mon, 16 Jun 2025 12:59:39 +0000
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
+ [2a00:1450:4864:20::432])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c1f4b323-4ab1-11f0-b894-0df219b8e170;
+ Mon, 16 Jun 2025 14:59:37 +0200 (CEST)
+Received: by mail-wr1-x432.google.com with SMTP id
+ ffacd0b85a97d-3a57ae5cb17so873011f8f.0
+ for <xen-devel@lists.xenproject.org>; Mon, 16 Jun 2025 05:59:37 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-748900062cesm6896839b3a.57.2025.06.16.05.58.27
+ d2e1a72fcca58-748900062dasm6979838b3a.66.2025.06.16.05.59.33
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 16 Jun 2025 05:58:29 -0700 (PDT)
+ Mon, 16 Jun 2025 05:59:36 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9bb1574c-4ab1-11f0-a309-13f23c93f187
+X-Inumbo-ID: c1f4b323-4ab1-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1750078712; x=1750683512; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
-         :from:user-agent:mime-version:date:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=PbE554ZyoJxCF4Kt4rDM08ARYTbW+vpP1lliBK1TCig=;
-        b=Avgi3OMlYILhNjGzEdjUeelmveHqoixMIlBkZVq9iScpaEM/HcTFlDnRVv4xp72yxa
-         j+0FClaNox7tu+/94D/ibpXqmHZ757tWHOGirPcUuEd2DCghZkVkVrQahedx51rZc2Bw
-         IFuLnHbZJp6F9txOdxEfgnKHh+Tvr3kRcLy7uwz3xdcRBoCUOCWAdQ+OuqsSBxjM4qbT
-         HpV4PSZmJMW0jeJzbJUWHSiaAS3YWyp8tpRdrdLbK98jFX4dpuRyaKU5w0ZM8lKtbEP6
-         2YBifxOkpxPvblLmWpYD60RW59sfdSY13otNJz3RkpRg+A3TUW6iXgu04jkWt6t/fI90
-         noCg==
+        d=suse.com; s=google; t=1750078777; x=1750683577; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=CCGJJ+18Hx71qZ1BImD3aJBlrhNSiedNN3y6oo5smPU=;
+        b=d41sfRt1bRz3vh2iqAmbc2CMDYQUXhz3k1jIRkYdwBJ7+RG4JkFuIuTfXWAOxSOHo+
+         rBhI45W+IY+sNefO1Goh0Qvt3MJlWfSXmNaZOSiV52B4B1inw9Hk2RVCcfC2yi+Rof4P
+         GYki66At2+oM18rBiBxImN2LqoZUFe8zy4JW5945MvGhRJIuA/jMFA8QvAhNGz3C3H0X
+         LZD/pt1EmwfYVfybV3LmU5UrDbua5v+YzL+ExLkguHTYsNrQE+FuZbga8wmCii4QEY/E
+         I4jwPSDxWcdTeAfCSZjdDwYZBqf74rPWyGsb+V8UgLb7VLd2rM6SciqjfsH5S5IdA8Js
+         9JZg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750078712; x=1750683512;
-        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
-         :from:user-agent:mime-version:date:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=PbE554ZyoJxCF4Kt4rDM08ARYTbW+vpP1lliBK1TCig=;
-        b=Q1FkNzbV25XVbZztOdaSTrzcqKuXHJc1dnfDqUVIoJyNfIscs3AE3FN0k+HjfkHxYa
-         QOXasD6VhdOUloTPgM0OgehvsogAXIoDHpj441t+k/ozTuMznqKMBDSXrd1EBAnBTLDe
-         MQGMrldLA+q5tTNxJN+rCq2esuKkYAUAad9MWIc8zJORWw7zuSFBLIfOaFhEXCDD+5jF
-         kZDzKk5QVoCa82ZgyWbMgWHgleuDkTPQ5qHkIRHcJY+wYehizic1UwDVpxghwpTD0SLV
-         Bj8d1t8+9u7Ff8A74vtodNokLxF2XYKrVEzDmhOoLjW18f76csX1k0eZ94nuJuZAJncK
-         kAUQ==
-X-Gm-Message-State: AOJu0YyQh6N37ko1PuaYAtieRoZkHEeh5tlK2Ph0WpNBe2tUZ/FLsZHC
-	YKyHK1DAVic5zHIMcahmoeQ47orPvmTrnKrfNotH1U314aTSfRUfgOO+5/zbKU+KEssNlFGY+rY
-	7xU4=
-X-Gm-Gg: ASbGncuiTtPd4DAjw4aMmK4c74m4B2FgEgQ1wEZ8i9MCPZzqyyK4dMKw70ArK243e+r
-	mE+1TwlUu4bItkr9jPnhkE/s+uORPDKkAtxr7Lcqzo7pEih2frSQSLnBHv2g0rRD91Cx3cgpzOD
-	RkcgJKejO5DAf/cjhzpzkjt7fw2Sdy+JIZHdNAVOAw+kbOdmr17pZFLkTyKg8nglxi3U13SJ6sG
-	7+dVizwU/sB+srUAvhVfGf51Dm8CwF4dgpZ+C8Wjc95GzTGQAuYZnr44DrqNgZdcSfBXlpAHRCQ
-	R8FTuk4eZuLjGNBabTORuOB2arEHBEHat7NCG+GkabUi63YVBs+RRkM+GIgBnrk/gtaXDnJvg7a
-	28q1IpM7u5lgV/U3rdZwOlAdzgwF4esaxFLZrVAv0cOlm+2c=
-X-Google-Smtp-Source: AGHT+IGxhOv4vac1qrCymhWvYvdcmQ5ZB1uZxPE7STEXABuL7tMNVTYtG64u2wdKbZ1n4ZLByiQUfg==
-X-Received: by 2002:a05:6000:2893:b0:3a4:ee51:8144 with SMTP id ffacd0b85a97d-3a5723a3ac8mr7591992f8f.13.1750078710517;
-        Mon, 16 Jun 2025 05:58:30 -0700 (PDT)
-Message-ID: <c5e1e7e0-a295-4028-b003-152b861ee14f@suse.com>
-Date: Mon, 16 Jun 2025 14:58:23 +0200
+        d=1e100.net; s=20230601; t=1750078777; x=1750683577;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=CCGJJ+18Hx71qZ1BImD3aJBlrhNSiedNN3y6oo5smPU=;
+        b=BPaQ86XtkU1gbFytnhOaVja8Nakxtcv3wJtrso2FUtUU3E8+WEhnD982g5fyD0mAnr
+         MItkb3oGpTsNDx+VIlvgAMV1Cc3I55O+qjbfxjY64iSdjLSiPlG+5mrZAbJeQhIKER3C
+         ZmxZXuggzupSImtFzE7hWOP9QFf2t3GL2ZUDgNt2bDADYPXMPk2gY7zQ+PqdOlImMGHr
+         tmZCbMB3V69AMkesa0R1vU5TcBpDYibnY2LELzBT+t7f5HFWaf8UQ0HPam2yP7p67+al
+         84FKE2flh1TQgb3pjfEq11ZdfyouR5hQvdxo6WolMv+6HMJ6x0m8OrYb2H0JxCRRPiKu
+         SEXw==
+X-Gm-Message-State: AOJu0YxqbdFVboxGy7uzWpWbyyw2unUrZ5Yqzzf3+ELeDIjXWijIyQyI
+	KQtWlFB3kwsXXN2U2sEIl2Ba6sJ6IwPeEiN7o09ULIv2NkMlaADtROndnJu/dbj3JsI4TSypYNr
+	S26w=
+X-Gm-Gg: ASbGncv/J2IQOW2ip+xQO2g5GEVFk0OKslV/ED72nIgiCG5KY+BszzSArPYFd65SrNu
+	woqjaHP0h7QbUWGvDB0n0Whw3hNbDVyN07HyeyLBtQxNdleepSBhZG+pQs27NhtPFRl/8/5mGbd
+	2rWh9QbS5jwSMYRWR3yhvZQEe7pKSHlhHgOdFkoEe2EAEM8uKGxVHniwr9zrENZEqAvg5VTdqpZ
+	nqIFqBelv5cDFbGNCsEOqwRGttxTnARHbrI6sS1dQqiiXWpk/DF2Q2G8jNyAO56CpHaO6y/CrAZ
+	EqdHbQ/xeDQ/DqybqZx0Isqg/M3vEoxJ3DlF38WLPAY8aR25eBQtk7GkfVALTDsXWOk8FhNi/KJ
+	blmWqdv6RMwrgAzSdyKXQacYPB7Sbn8zIlgzWPafFait6cMk=
+X-Google-Smtp-Source: AGHT+IGQhIvVILD/mLsyDr/e8gz5x5RpAZerphy1lrk8w1UAU+KzQbiDkF+IA9zWhP++hZpQROFQYg==
+X-Received: by 2002:a05:6000:2313:b0:3a5:2d42:aa17 with SMTP id ffacd0b85a97d-3a572e79c14mr8398070f8f.31.1750078776746;
+        Mon, 16 Jun 2025 05:59:36 -0700 (PDT)
+Message-ID: <fe4920a2-4add-4e07-80f3-50eb37de0754@suse.com>
+Date: Mon, 16 Jun 2025 14:59:30 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
+Subject: [PATCH v6 1/7] x86: suppress ERMS for internal use when
+ MISC_ENABLE.FAST_STRING is clear
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH v6 0/7] x86: memcpy() / memset() (non-)ERMS flavors plus
- fallout
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <c5e1e7e0-a295-4028-b003-152b861ee14f@suse.com>
 Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -116,24 +118,91 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <c5e1e7e0-a295-4028-b003-152b861ee14f@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-While the performance varies quite a bit on older (pre-ERMS) and newer
-(ERMS) hardware, so far we've been going with just a single flavor of
-these two functions, and oddly enough with ones not consistent with one
-another. Using plain memcpy() / memset() on MMIO (video frame buffer)
-is generally okay, but the ERMS variant of memcpy() turned out to
-regress (boot) performance in a way easily visible to the human eye
-(meanwhile addressed by using ioremap_wc() there).
+Before we start actually adjusting behavior when ERMS is available,
+follow Linux commit 161ec53c702c ("x86, mem, intel: Initialize Enhanced
+REP MOVSB/STOSB") and zap the CPUID-derived feature flag when the MSR
+bit is clear. Don't extend the artificial clearing to guest view,
+though: Guests can take their own decision in this regard, as they can
+read (most of) MISC_ENABLE.
 
-1: x86: suppress ERMS for internal use when MISC_ENABLE.FAST_STRING is clear
-2: x86/alternatives: serialize after (self-)modifying code
-3: x86: re-work memset()
-4: x86: re-work memcpy()
-5: x86: control memset() and memcpy() inlining
-6: x86: introduce "hot" and "cold" page clearing functions
-7: mm: allow page scrubbing routine(s) to be arch controlled
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+TBD: Would be nice if "cpuid=no-erms" propagated to guest view (for
+     "cpuid=" generally meaning to affect guests as well as Xen), but
+     since both disabling paths use setup_clear_cpu_cap() they're
+     indistinguishable in guest_common_feature_adjustments(). A separate
+     boolean could take care of this, but would look clumsy to me.
+---
+v5: Correct guest_common_max_feature_adjustments() addition.
+v4: Also adjust guest_common_max_feature_adjustments().
+v3: New.
 
-Jan
+--- a/xen/arch/x86/cpu/intel.c
++++ b/xen/arch/x86/cpu/intel.c
+@@ -366,8 +366,18 @@ static void cf_check early_init_intel(st
+ 		paddr_bits = 36;
+ 
+ 	if (c == &boot_cpu_data) {
++		uint64_t misc_enable;
++
+ 		check_memory_type_self_snoop_errata();
+ 
++		/*
++		 * If fast string is not enabled in IA32_MISC_ENABLE for any reason,
++		 * clear the enhanced fast string CPU capability.
++		 */
++		rdmsrl(MSR_IA32_MISC_ENABLE, misc_enable);
++		if (!(misc_enable & MSR_IA32_MISC_ENABLE_FAST_STRING))
++			setup_clear_cpu_cap(X86_FEATURE_ERMS);
++
+ 		intel_init_levelling();
+ 	}
+ 
+--- a/xen/arch/x86/cpu-policy.c
++++ b/xen/arch/x86/cpu-policy.c
+@@ -487,6 +487,12 @@ static void __init guest_common_max_feat
+      */
+     if ( test_bit(X86_FEATURE_RTM, fs) )
+         __set_bit(X86_FEATURE_RTM_ALWAYS_ABORT, fs);
++
++    /*
++     * We expose MISC_ENABLE to guests, so our internal clearing of ERMS when
++     * FAST_STRING is not set should not affect the view of migrating-in guests.
++     */
++    __set_bit(X86_FEATURE_ERMS, fs);
+ }
+ 
+ static void __init guest_common_default_feature_adjustments(uint32_t *fs)
+@@ -567,6 +573,16 @@ static void __init guest_common_default_
+         __clear_bit(X86_FEATURE_RTM, fs);
+         __set_bit(X86_FEATURE_RTM_ALWAYS_ABORT, fs);
+     }
++
++    /*
++     * We expose MISC_ENABLE to guests, so our internal clearing of ERMS when
++     * FAST_STRING is not set should not propagate to guest view.  Guests can
++     * judge on their own whether to ignore the CPUID bit when the MSR bit is
++     * clear.  The bit being uniformly set in the max policies, we only need
++     * to clear it here (if hardware doesn't have it).
++     */
++    if ( !raw_cpu_policy.feat.erms )
++        __clear_bit(X86_FEATURE_ERMS, fs);
+ }
+ 
+ static void __init guest_common_feature_adjustments(uint32_t *fs)
+--- a/xen/arch/x86/include/asm/msr-index.h
++++ b/xen/arch/x86/include/asm/msr-index.h
+@@ -493,6 +493,7 @@
+ #define MSR_IA32_THERM_INTERRUPT	0x0000019b
+ #define MSR_IA32_THERM_STATUS		0x0000019c
+ #define MSR_IA32_MISC_ENABLE		0x000001a0
++#define MSR_IA32_MISC_ENABLE_FAST_STRING  (1<<0)
+ #define MSR_IA32_MISC_ENABLE_PERF_AVAIL   (1<<7)
+ #define MSR_IA32_MISC_ENABLE_BTS_UNAVAIL  (1<<11)
+ #define MSR_IA32_MISC_ENABLE_PEBS_UNAVAIL (1<<12)
+
 
