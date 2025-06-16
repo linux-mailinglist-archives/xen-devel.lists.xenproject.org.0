@@ -2,38 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F52BADB7B8
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Jun 2025 19:24:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1017526.1394521 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F6DDADBDC6
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Jun 2025 01:40:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1017560.1394530 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uRDYI-00075q-Jl; Mon, 16 Jun 2025 17:23:22 +0000
+	id 1uRJQT-0006M3-FZ; Mon, 16 Jun 2025 23:39:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1017526.1394521; Mon, 16 Jun 2025 17:23:22 +0000
+Received: by outflank-mailman (output) from mailman id 1017560.1394530; Mon, 16 Jun 2025 23:39:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uRDYI-00072j-H8; Mon, 16 Jun 2025 17:23:22 +0000
-Received: by outflank-mailman (input) for mailman id 1017526;
- Mon, 16 Jun 2025 17:23:21 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uRJQT-0006KK-Bs; Mon, 16 Jun 2025 23:39:41 +0000
+Received: by outflank-mailman (input) for mailman id 1017560;
+ Mon, 16 Jun 2025 23:39:39 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ppVY=Y7=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1uRDYG-00072d-Vd
- for xen-devel@lists.xenproject.org; Mon, 16 Jun 2025 17:23:21 +0000
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [2a00:1450:4864:20::436])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 97b6a797-4ad6-11f0-a309-13f23c93f187;
- Mon, 16 Jun 2025 19:23:17 +0200 (CEST)
-Received: by mail-wr1-x436.google.com with SMTP id
- ffacd0b85a97d-3a375e72473so2727228f8f.0
- for <xen-devel@lists.xenproject.org>; Mon, 16 Jun 2025 10:23:17 -0700 (PDT)
-Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
- by smtp.gmail.com with UTF8SMTPSA id
- ffacd0b85a97d-3a568b089d8sm11796159f8f.57.2025.06.16.10.23.16
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 16 Jun 2025 10:23:16 -0700 (PDT)
+ <SRS0=w0jr=Y7=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1uRJQR-0006KE-Ol
+ for xen-devel@lists.xenproject.org; Mon, 16 Jun 2025 23:39:39 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 290ee1ff-4b0b-11f0-b894-0df219b8e170;
+ Tue, 17 Jun 2025 01:39:36 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 31EEE5C561D;
+ Mon, 16 Jun 2025 23:37:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02BB2C4CEEA;
+ Mon, 16 Jun 2025 23:39:32 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,94 +41,101 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 97b6a797-4ad6-11f0-a309-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1750094597; x=1750699397; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=1tTYRtnAqp4wvvQwALHvpwDN0tZv49JWHfk+Pwsv8rE=;
-        b=aU9sZO888S9P60VHoDPt7VQWRi1Ll7U8ZQPtv2yhWhQIR3qg8lilrgkozacfmScLAz
-         Oo2j1VSEe7B/yd9TXwU7VI2LeLRvssubdjGlZH9Re91iRUY1+YIYi2rJeGqx+8NbzI9s
-         LKGcGlF6MkJ7oFP2ku+Jw+xithnTwhBF9sjUY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750094597; x=1750699397;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=1tTYRtnAqp4wvvQwALHvpwDN0tZv49JWHfk+Pwsv8rE=;
-        b=ANsr87nHOrGgZBbAsdRm43aar+njxPHvVlQFUKl9Q1IfwyNVOTOHOPquM9VE2sulGR
-         fNrdjvUdbYu/blj9sx6wb+cmWebRea3NsIOBGFqLceWrLY5ZPS0xHp7117eUPjJZZ5fE
-         MoYa8QNbFcufOw1IHXNp9sVutrNIINzovsqf8H+i1Rq/h92u5HeOYQosJhSXhSKepNkO
-         1caoPTYgYzuxGQCBzZnxVRXVJiqwU0mdggdZ0oq8WmwxiPozyHdECAjf3WLGBR75tTQ4
-         W96VRCj6oh5/EfKJGnSEzvTpdMZzSw6sheZfgUGAJdIvBDOyMc1OjL/aYwJhv/CtBVuG
-         u3Uw==
-X-Gm-Message-State: AOJu0YxVYJrvJWVXjsadSpLu2koOUaH3vAqmFLuLyAMjYrYzt4jXiaGx
-	1LR6PetQkBKXk9MbrCPuDV0PPuabHUiX2eZkrGVn3EU4Nl8pm/cjyt7s2vB2dLdzHck=
-X-Gm-Gg: ASbGncuqYl923gm0NE5qJWmjdKby94A5Bgq7h48i9/i/Z3enOOcYJ7tB0NCQcqxk+2a
-	t8FBZ2TBvYjoYjF6oni3jqk/NzmFqR32Hy6DjYQ5Oh4P1wzsydTFb5A/SUcTEQDsJ9SLaVUROAZ
-	jrWL+1SAiz95W2R2LENxwM/pB+COWZGrBrYUY61RwhRT62L8VpSo3gVyLzHMFZJWuyEh1WAPQNG
-	PmgjUtBgcmQyU5siHQWBrv8Rzz3PKQbS7Q18KtbbXmaSrUksj3rfBVolQ4shMb1wxrOVm++HCZp
-	YZ4IINAv8EOMnCp5qzTc9a1eeadg1PS7MhJrrM7IYMbaRaymarMYB22VMlhPdvLO8qj+OSfQmqt
-	ysWgAdclEliJ5Zga/EabGFDAdw6qxug==
-X-Google-Smtp-Source: AGHT+IFsVvsCBUebKHfHNpC0O96NEaolrNVy3e1bogKCd9jsSASq9I+jj1dtbJVf2PLT/4axNU4www==
-X-Received: by 2002:a5d:5f48:0:b0:3a4:d8b6:ca3f with SMTP id ffacd0b85a97d-3a5723a291dmr7525543f8f.30.1750094597225;
-        Mon, 16 Jun 2025 10:23:17 -0700 (PDT)
-Date: Mon, 16 Jun 2025 19:23:15 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>
-Subject: Re: [PATCH] memory: arrange to conserve on DMA reservation
-Message-ID: <aFBTA3wklAejAUPT@macbook.local>
-References: <6565e881-ec59-4db4-834a-f694bf1b9427@suse.com>
- <aFAbqhfmM_GBxjVC@macbook.local>
- <9b036f26-f275-48d0-9a33-7cef38b29f48@suse.com>
- <aFAuRXSryHKj3jVa@macbook.local>
- <2969b5d8-5879-4674-8332-046898e17257@suse.com>
- <aFA7OiV8AX-ua-W_@macbook.local>
- <a56574c0-6744-4249-9410-60858f49d04c@suse.com>
+X-Inumbo-ID: 290ee1ff-4b0b-11f0-b894-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1750117174;
+	bh=qoNjzUrsbbLZ2YwToDWf9In6EJADVRiGdufE9CU/CmY=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=d/luVqJfvJnkDSKxdua4RlMmp2iTUW6SCGDIo/VuBQxj/nmpLv0IrkwhYdpYyNEjb
+	 VhvnI3w+/vDIuX7SdoEqkykQCbZp9qaWkzC7ygb/to2YMMOG87O5/qQ95TizfdhlBU
+	 wWiY+3g2gc7oXEbVE1togH7c7GAhU4abEUsIDUEOudXyMJQF7SPv5/Yl31SxUUB3yU
+	 hY4bYGrt/H8A4Ufw9wENjQZOzabHNWEmcHefBGA0zuQXrYwCKUbLZPIN34YcCaYcfU
+	 2XTiHymrGAxIOx90mJxyi4ML0iTCmuuXA9c5xeQpjWV4wB3Px0FyQ7Ifo8/A+idkHk
+	 ipderh2NHC+nQ==
+Date: Mon, 16 Jun 2025 16:39:28 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Alejandro Vallejo <agarciav@amd.com>
+cc: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org, 
+    Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    Anthony PERARD <anthony.perard@vates.tech>, 
+    Michal Orzel <michal.orzel@amd.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    "Daniel P. Smith" <dpsmith@apertussolutions.com>
+Subject: Re: [PATCH v3 14/14] kconfig: Allow x86 to pick
+ CONFIG_DOM0LESS_BOOT
+In-Reply-To: <DAO1A9SJ9I2G.2L00II6AC0JDZ@amd.com>
+Message-ID: <alpine.DEB.2.22.394.2506161639240.1384757@ubuntu-linux-20-04-desktop>
+References: <20250613151612.754222-1-agarciav@amd.com> <20250613151612.754222-15-agarciav@amd.com> <2a54e49b-c1ad-4654-9291-4373e92580ff@xen.org> <DAO1A9SJ9I2G.2L00II6AC0JDZ@amd.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <a56574c0-6744-4249-9410-60858f49d04c@suse.com>
+Content-Type: text/plain; charset=US-ASCII
 
-On Mon, Jun 16, 2025 at 06:02:07PM +0200, Jan Beulich wrote:
-> On 16.06.2025 17:41, Roger Pau Monné wrote:
-> > On Mon, Jun 16, 2025 at 05:20:45PM +0200, Jan Beulich wrote:
-> >> On 16.06.2025 16:46, Roger Pau Monné wrote:
-> >>> One question I have though, on systems with a low amount of memory
-> >>> (let's say 8GB), does this lead to an increase in domain construction
-> >>> time due to having to fallback to order 0 allocations when running out
-> >>> of non-DMA memory?
-> >>
-> >> It'll likely be slower, yes, but I can't guesstimate by how much.
-> > 
-> > Should there be some way to control this behavior then?  I'm mostly
-> > thinking about client systems like Qubes where memory is likely
-> > limited, and the extra slowness to create VMs could become
-> > noticeable?
+On Mon, 16 Jun 2025, Alejandro Vallejo wrote:
+> On Mon Jun 16, 2025 at 10:00 AM CEST, Julien Grall wrote:
+> > Hi,
+> >
+> > On 13/06/2025 16:13, Alejandro Vallejo wrote:
+> >> Without picking CONFIG_HAS_DEVICE_TREE.
+> >> 
+> >> In order to do that. Allow CONFIG_DOM0LESS_BOOT to enable a subset
+> >> of the common/device-tree/ directory. 
+> >  > x86 doesn't want dom0less-build.c,> as that's tightly integrated 
+> > still to the ARM way of building domains.
+> >
+> > I don't understand this argument. dom0less-build.c was moved to common 
+> > and it will soon be used by RISC-V. This raises the question what's so 
+> > special with x86?
 > 
-> What kind of control would you be thinking of here? Yet another command
-> line option?
+> That's 2 separate matters:
+> 
+>   1. dom0less-build.c not being compiled in.
+>   2. CONFIG_DOM0LESS_BOOT enabling use of DT code without CONFIG_HAS_DEVICE_TREE.
+> 
+> (1) is a matter of not wanting to boil the ocean upfront. The way x86 and
+> everyone else build domains is just different and duplicated in non-trivially
+> consolidable ways. The goal here is to enable the domain builders in any arch
+> to use the same backbone. I don't want to go the extra mile just yet to unify
+> domain construction (though in time I will want to).
+> 
+> (2) has to do with compiling OUT things I really cannot have around. Anything
+> involving devices described in a DT must not exist on x86, because it has no
+> concept of a "struct device".
+> 
+> My intent is/was to repurpose CONFIG_HAS_DEVICE_TREE to mean "this hypervisor
+> goes on a platform that gives a platform-describing DT". On x86 that's given by
+> DSDT/SSDTs with ACPI.
 
-I guess that would be enough.  I think we need a way to resort to the
-previous behavior if required, and likely a CHANGELOG entry to notice
-the change.
+Alejandro is suggesting two levels of Device Tree support:
 
-Overall, would it be possible to only include the flag if we know
-there's non-DMA memory available to allocate?  Otherwise we are
-crippling allocation performance when there's only DMA memory left.
+- full DT support, including device discovery via DT
+- minimal DT support, for the dom0less/hyperlaunch configuration
 
-That also raises the question whether it's an acceptable trade-off to
-possibly shatter p2m super pages (that could be used if allocating
-from the DMA pool) at the expense of not allocating from the DMA pool
-until there's non-DMA memory left.
+Reading this series, it looks reasonable to me, at least as a stepping
+stone. I think it is expected that the kind of DT support needed by an
+architecture like ARM or RISC-V is different from the one needed by an
+architecture like x86. Of course we might be able to align things even
+more in the future but as of today I think it is reasonable to
+distinguish between the two.
 
-Thanks, Roger.
+That said, we might want to consider renaming or changing the kconfig
+options. For instance:
+
+- CONFIG_HAS_DEVICE_TREE -> enable minimal DT support
+- CONFIG_DT_DEVICE_DISCOVERY -> device discovery via DT
+
+In this model, all architectures would have CONFIG_HAS_DEVICE_TREE, but
+only ARM and RISC-V would have CONFIG_DT_DEVICE_DISCOVERY.
+
+
+> > Note I don't particularly care if you don't want to use it on x86. 
+> > However, the argument provided is lacking some details... This will be 
+> > useful in the future if someone thinks about consolidating the two.
+> 
+> I very definitely will want it all unified, but I'm working one elephant at
+> a time.
+
++1
 
