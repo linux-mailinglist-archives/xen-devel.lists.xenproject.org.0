@@ -2,46 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1BF67ADAB0B
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Jun 2025 10:46:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1016887.1393882 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B5AEADAB09
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Jun 2025 10:46:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1016892.1393902 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uR5UI-0008Nu-KM; Mon, 16 Jun 2025 08:46:42 +0000
+	id 1uR5UM-0000Wx-8X; Mon, 16 Jun 2025 08:46:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1016887.1393882; Mon, 16 Jun 2025 08:46:42 +0000
+Received: by outflank-mailman (output) from mailman id 1016892.1393902; Mon, 16 Jun 2025 08:46:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uR5UI-0008M3-GV; Mon, 16 Jun 2025 08:46:42 +0000
-Received: by outflank-mailman (input) for mailman id 1016887;
- Mon, 16 Jun 2025 08:46:41 +0000
+	id 1uR5UM-0000TX-5E; Mon, 16 Jun 2025 08:46:46 +0000
+Received: by outflank-mailman (input) for mailman id 1016892;
+ Mon, 16 Jun 2025 08:46:44 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=GKzt=Y7=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1uR5UH-0007jR-KB
- for xen-devel@lists.xenproject.org; Mon, 16 Jun 2025 08:46:41 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [2a07:de40:b251:101:10:150:64:2])
+ id 1uR5UK-0007jR-Rb
+ for xen-devel@lists.xenproject.org; Mon, 16 Jun 2025 08:46:44 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6ad61262-4a8e-11f0-a309-13f23c93f187;
- Mon, 16 Jun 2025 10:46:38 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+ id 6e1ca925-4a8e-11f0-a309-13f23c93f187;
+ Mon, 16 Jun 2025 10:46:44 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 5B3F01F38F;
- Mon, 16 Jun 2025 08:46:38 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id F08491F387;
+ Mon, 16 Jun 2025 08:46:43 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 29430139E2;
- Mon, 16 Jun 2025 08:46:38 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id BED63139E2;
+ Mon, 16 Jun 2025 08:46:43 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id czqkCO7ZT2j+PwAAD6G6ig
- (envelope-from <jgross@suse.com>); Mon, 16 Jun 2025 08:46:38 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id oTULLfPZT2gFQAAAD6G6ig
+ (envelope-from <jgross@suse.com>); Mon, 16 Jun 2025 08:46:43 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,398 +51,364 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6ad61262-4a8e-11f0-a309-13f23c93f187
+X-Inumbo-ID: 6e1ca925-4a8e-11f0-a309-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1750063598; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1750063604; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=EYprPgKlu2rqJCyxTaoQnR7Oz+a9tTVs4vX0zP9GR4Y=;
-	b=oUHhG+ibSeYEf6fZOIQnq/6IUeGc81v46tTZNBQfSvXGJzLhVWckDEYukjyNmYPomyijUa
-	pS6uHk1GEsum385eSw10TpkHECdNhatrGstiPgfXusxNsn17gp3N6igrKoZ6+ZxOmzYxOG
-	LZO3dypVFQovAW5dB7E24Hd3A9uXpWw=
+	bh=ErW9+9DRpMiP5o75sVek1KZHEMoGAiJ0VRopG8PxS3M=;
+	b=SWoQN4zlxWLi8ZKq2jWhfuB4yjsy5mSYgvK3YyZ+h+/nexswTQbjMgSPbXt4/KWLwkDezK
+	jvqstgion871pR+Jm9cej3VnHV9VRBGVNo0DSteKAOKFcYurLAVWL8B15KLL5oAq/0IIYD
+	LM+qRQ2xjl51xB4xBIoReu/zkvmuNYw=
 Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.com header.s=susede1 header.b=oUHhG+ib
+	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1750063598; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1750063603; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=EYprPgKlu2rqJCyxTaoQnR7Oz+a9tTVs4vX0zP9GR4Y=;
-	b=oUHhG+ibSeYEf6fZOIQnq/6IUeGc81v46tTZNBQfSvXGJzLhVWckDEYukjyNmYPomyijUa
-	pS6uHk1GEsum385eSw10TpkHECdNhatrGstiPgfXusxNsn17gp3N6igrKoZ6+ZxOmzYxOG
-	LZO3dypVFQovAW5dB7E24Hd3A9uXpWw=
+	bh=ErW9+9DRpMiP5o75sVek1KZHEMoGAiJ0VRopG8PxS3M=;
+	b=L/kjDblt1jRnE052nkLszKRxliRvJ4gQPpfqz0FQLZXZfJhtE40x+6oOtiAm+V6YsybFOp
+	A+ls5LBf9wwwhM/33nz6IIfMONohLY5zY4/O6UPK1/+ti9+n+DQWaSPTcXb/Pz+kaYYLUZ
+	fbCK8t/iepaP61IcUCpvwV3LV+aTuv8=
 From: Juergen Gross <jgross@suse.com>
 To: minios-devel@lists.xenproject.org,
 	xen-devel@lists.xenproject.org
 Cc: samuel.thibault@ens-lyon.org,
 	Juergen Gross <jgross@suse.com>,
-	Jan Beulich <jbeulich@suse.com>
-Subject: [MINI-OS PATCH v2 03/12] mini-os: add elf.h
-Date: Mon, 16 Jun 2025 10:46:10 +0200
-Message-ID: <20250616084619.11112-4-jgross@suse.com>
+	Jason Andryuk <jason.andryuk@amd.com>
+Subject: [MINI-OS PATCH v2 04/12] mini-os: analyze new kernel for kexec
+Date: Mon, 16 Jun 2025 10:46:11 +0200
+Message-ID: <20250616084619.11112-5-jgross@suse.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20250616084619.11112-1-jgross@suse.com>
 References: <20250616084619.11112-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-3.01 / 50.00];
+X-Spamd-Result: default: False [-2.80 / 50.00];
 	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
 	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
 	R_MISSING_CHARSET(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-0.999];
 	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
 	ARC_NA(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
 	MIME_TRACE(0.00)[0:+];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCVD_COUNT_TWO(0.00)[2];
 	TO_DN_SOME(0.00)[];
-	FUZZY_BLOCKED(0.00)[rspamd.com];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	FROM_HAS_DN(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.com:dkim,suse.com:mid,suse.com:email];
-	RCVD_TLS_ALL(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[5];
 	DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	DKIM_TRACE(0.00)[suse.com:+]
+	FUZZY_BLOCKED(0.00)[rspamd.com];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.com:mid,imap1.dmz-prg2.suse.org:helo,amd.com:email]
 X-Spam-Level: 
 X-Spam-Flag: NO
-X-Rspamd-Queue-Id: 5B3F01F38F
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spam-Score: -3.01
+X-Spam-Score: -2.80
 
-Add some definitions for accessing an ELF file. Only the file header
-and the program header are needed.
+Analyze the properties of the new kernel to be loaded by kexec. The
+data needed is:
 
-The main source for those are elfstructs.h and libelf.h from the Xen
-tree. The license boiler plate of those files is being kept in the
-resulting header file.
+- upper boundary in final location
+- copy and memory clear operations
+- entry point and entry parameter
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
 ---
 V2:
-- remove some unneeded defines (Jan Beulich)
-- remove not needed cast (Jan Beulich)
+- rename check_notes_entry() (Jason Andryuk)
+- rename kernel_entry to kernel_phys_entry (Jason Andryuk)
 ---
- include/elf.h | 300 ++++++++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 300 insertions(+)
- create mode 100644 include/elf.h
+ arch/x86/kexec.c |  92 +++++++++++++++++++++++++++++++++++++
+ include/kexec.h  |  11 +++++
+ kexec.c          | 117 +++++++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 220 insertions(+)
 
-diff --git a/include/elf.h b/include/elf.h
-new file mode 100644
-index 00000000..fb3cae08
---- /dev/null
-+++ b/include/elf.h
-@@ -0,0 +1,300 @@
-+#ifndef __ELF_H__
-+#define __ELF_H__
-+/*
-+ * Copyright (c) 1995, 1996 Erik Theisen.  All rights reserved.
-+ *
-+ * Redistribution and use in source and binary forms, with or without
-+ * modification, are permitted provided that the following conditions
-+ * are met:
-+ * 1. Redistributions of source code must retain the above copyright
-+ *    notice, this list of conditions and the following disclaimer.
-+ * 2. Redistributions in binary form must reproduce the above copyright
-+ *    notice, this list of conditions and the following disclaimer in the
-+ *    documentation and/or other materials provided with the distribution.
-+ * 3. The name of the author may not be used to endorse or promote products
-+ *    derived from this software without specific prior written permission
-+ *
-+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
-+ * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
-+ * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
-+ * IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT,
-+ * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
-+ * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-+ * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
-+ * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-+ */
+diff --git a/arch/x86/kexec.c b/arch/x86/kexec.c
+index a8a2fa97..736ca1bf 100644
+--- a/arch/x86/kexec.c
++++ b/arch/x86/kexec.c
+@@ -28,8 +28,15 @@
+ 
+ #include <mini-os/os.h>
+ #include <mini-os/lib.h>
++#include <mini-os/e820.h>
++#include <mini-os/err.h>
+ #include <mini-os/kexec.h>
+ 
++#include <xen/elfnote.h>
++#include <xen/arch-x86/hvm/start_info.h>
 +
-+#include <stdbool.h>
-+#include <mini-os/types.h>
++static unsigned long kernel_phys_entry = ~0UL;
 +
-+typedef uint32_t    Elf32_Addr;  /* Unsigned program address */
-+typedef uint32_t    Elf32_Off;   /* Unsigned file offset */
-+typedef uint16_t    Elf32_Half;  /* Unsigned medium integer */
-+typedef uint32_t    Elf32_Word;  /* Unsigned large integer */
-+
-+typedef uint64_t    Elf64_Addr;
-+typedef uint64_t    Elf64_Off;
-+typedef uint16_t    Elf64_Half;
-+typedef uint32_t    Elf64_Word;
-+typedef uint64_t    Elf64_Xword;
-+
-+/* Unique build id string format when using --build-id. */
-+#define NT_GNU_BUILD_ID 3
-+
-+/*
-+ * e_ident[] identification indexes
-+ * See http://www.caldera.com/developers/gabi/2000-07-17/ch4.eheader.html
-+ */
-+#define EI_MAG0        0         /* file ID */
-+#define EI_MAG1        1         /* file ID */
-+#define EI_MAG2        2         /* file ID */
-+#define EI_MAG3        3         /* file ID */
-+#define EI_CLASS       4         /* file class */
-+#define EI_DATA        5         /* data encoding */
-+#define EI_VERSION     6         /* ELF header version */
-+#define EI_OSABI       7         /* OS/ABI ID */
-+#define EI_ABIVERSION  8         /* ABI version */
-+#define EI_PAD         9         /* start of pad bytes */
-+#define EI_NIDENT     16         /* Size of e_ident[] */
-+
-+/* e_ident[] magic number */
-+#define ELFMAG0        0x7f      /* e_ident[EI_MAG0] */
-+#define ELFMAG1        'E'       /* e_ident[EI_MAG1] */
-+#define ELFMAG2        'L'       /* e_ident[EI_MAG2] */
-+#define ELFMAG3        'F'       /* e_ident[EI_MAG3] */
-+#define ELFMAG         "\177ELF" /* magic */
-+#define SELFMAG        4         /* size of magic */
-+
-+/* e_ident[] file class */
-+#define ELFCLASSNONE   0         /* invalid */
-+#define ELFCLASS32     1         /* 32-bit objs */
-+#define ELFCLASS64     2         /* 64-bit objs */
-+#define ELFCLASSNUM    3         /* number of classes */
-+
-+/* e_ident[] data encoding */
-+#define ELFDATANONE    0         /* invalid */
-+#define ELFDATA2LSB    1         /* Little-Endian */
-+#define ELFDATA2MSB    2         /* Big-Endian */
-+#define ELFDATANUM     3         /* number of data encode defines */
-+
-+/* e_ident */
-+#define IS_ELF(ehdr) ((ehdr).e_ident[EI_MAG0] == ELFMAG0 && \
-+                      (ehdr).e_ident[EI_MAG1] == ELFMAG1 && \
-+                      (ehdr).e_ident[EI_MAG2] == ELFMAG2 && \
-+                      (ehdr).e_ident[EI_MAG3] == ELFMAG3)
-+
-+/* e_flags */
-+#define EF_ARM_EABI_MASK    0xff000000
-+#define EF_ARM_EABI_UNKNOWN 0x00000000
-+#define EF_ARM_EABI_VER1    0x01000000
-+#define EF_ARM_EABI_VER2    0x02000000
-+#define EF_ARM_EABI_VER3    0x03000000
-+#define EF_ARM_EABI_VER4    0x04000000
-+#define EF_ARM_EABI_VER5    0x05000000
-+
-+/* ELF Header */
-+typedef struct {
-+    unsigned char e_ident[EI_NIDENT]; /* ELF Identification */
-+    Elf32_Half    e_type;        /* object file type */
-+    Elf32_Half    e_machine;     /* machine */
-+    Elf32_Word    e_version;     /* object file version */
-+    Elf32_Addr    e_entry;       /* virtual entry point */
-+    Elf32_Off     e_phoff;       /* program header table offset */
-+    Elf32_Off     e_shoff;       /* section header table offset */
-+    Elf32_Word    e_flags;       /* processor-specific flags */
-+    Elf32_Half    e_ehsize;      /* ELF header size */
-+    Elf32_Half    e_phentsize;   /* program header entry size */
-+    Elf32_Half    e_phnum;       /* number of program header entries */
-+    Elf32_Half    e_shentsize;   /* section header entry size */
-+    Elf32_Half    e_shnum;       /* number of section header entries */
-+    Elf32_Half    e_shstrndx;    /* section header table's "section
-+                                    header string table" entry offset */
-+} Elf32_Ehdr;
-+
-+typedef struct {
-+    unsigned char e_ident[EI_NIDENT]; /* Id bytes */
-+    Elf64_Half    e_type;        /* file type */
-+    Elf64_Half    e_machine;     /* machine type */
-+    Elf64_Word    e_version;     /* version number */
-+    Elf64_Addr    e_entry;       /* entry point */
-+    Elf64_Off     e_phoff;       /* Program hdr offset */
-+    Elf64_Off     e_shoff;       /* Section hdr offset */
-+    Elf64_Word    e_flags;       /* Processor flags */
-+    Elf64_Half    e_ehsize;      /* sizeof ehdr */
-+    Elf64_Half    e_phentsize;   /* Program header entry size */
-+    Elf64_Half    e_phnum;       /* Number of program headers */
-+    Elf64_Half    e_shentsize;   /* Section header entry size */
-+    Elf64_Half    e_shnum;       /* Number of section headers */
-+    Elf64_Half    e_shstrndx;    /* String table index */
-+} Elf64_Ehdr;
-+
-+/* e_type */
-+#define ET_NONE      0           /* No file type */
-+#define ET_REL       1           /* relocatable file */
-+#define ET_EXEC      2           /* executable file */
-+#define ET_DYN       3           /* shared object file */
-+#define ET_CORE      4           /* core file */
-+#define ET_NUM       5           /* number of types */
-+#define ET_LOPROC    0xff00      /* reserved range for processor */
-+#define ET_HIPROC    0xffff      /*   specific e_type */
-+
-+/* e_machine */
-+#define EM_NONE         0        /* No Machine */
-+#define EM_386          3        /* Intel 80386 */
-+#define EM_PPC64       21        /* PowerPC 64-bit */
-+#define EM_ARM         40        /* Advanced RISC Machines ARM */
-+#define EM_X86_64      62        /* AMD x86-64 architecture */
-+#define EM_AARCH64    183        /* ARM 64-bit */
-+
-+/* Version */
-+#define EV_NONE      0           /* Invalid */
-+#define EV_CURRENT   1           /* Current */
-+#define EV_NUM       2           /* number of versions */
-+
-+/* Program Header */
-+typedef struct {
-+    Elf32_Word    p_type;        /* segment type */
-+    Elf32_Off     p_offset;      /* segment offset */
-+    Elf32_Addr    p_vaddr;       /* virtual address of segment */
-+    Elf32_Addr    p_paddr;       /* physical address - ignored? */
-+    Elf32_Word    p_filesz;      /* number of bytes in file for seg. */
-+    Elf32_Word    p_memsz;       /* number of bytes in mem. for seg. */
-+    Elf32_Word    p_flags;       /* flags */
-+    Elf32_Word    p_align;       /* memory alignment */
-+} Elf32_Phdr;
-+
-+typedef struct {
-+    Elf64_Word    p_type;        /* entry type */
-+    Elf64_Word    p_flags;       /* flags */
-+    Elf64_Off     p_offset;      /* offset */
-+    Elf64_Addr    p_vaddr;       /* virtual address */
-+    Elf64_Addr    p_paddr;       /* physical address */
-+    Elf64_Xword   p_filesz;      /* file size */
-+    Elf64_Xword   p_memsz;       /* memory size */
-+    Elf64_Xword   p_align;       /* memory & file alignment */
-+} Elf64_Phdr;
-+
-+/* Segment types - p_type */
-+#define PT_NULL      0           /* unused */
-+#define PT_LOAD      1           /* loadable segment */
-+#define PT_DYNAMIC   2           /* dynamic linking section */
-+#define PT_INTERP    3           /* the RTLD */
-+#define PT_NOTE      4           /* auxiliary information */
-+#define PT_SHLIB     5           /* reserved - purpose undefined */
-+#define PT_PHDR      6           /* program header */
-+#define PT_NUM       7           /* Number of segment types */
-+#define PT_LOPROC    0x70000000  /* reserved range for processor */
-+#define PT_HIPROC    0x7fffffff  /*  specific segment types */
-+
-+/* Segment flags - p_flags */
-+#define PF_X         0x1        /* Executable */
-+#define PF_W         0x2        /* Writable */
-+#define PF_R         0x4        /* Readable */
-+#define PF_MASKPROC  0xf0000000 /* reserved bits for processor */
-+                                /*  specific segment flags */
-+
-+/* Section Header */
-+typedef struct {
-+    Elf32_Word    sh_name;      /* name - index into section header
-+                                   string table section */
-+    Elf32_Word    sh_type;      /* type */
-+    Elf32_Word    sh_flags;     /* flags */
-+    Elf32_Addr    sh_addr;      /* address */
-+    Elf32_Off     sh_offset;    /* file offset */
-+    Elf32_Word    sh_size;      /* section size */
-+    Elf32_Word    sh_link;      /* section header table index link */
-+    Elf32_Word    sh_info;      /* extra information */
-+    Elf32_Word    sh_addralign; /* address alignment */
-+    Elf32_Word    sh_entsize;   /* section entry size */
-+} Elf32_Shdr;
-+
-+typedef struct {
-+    Elf64_Word    sh_name;      /* section name */
-+    Elf64_Word    sh_type;      /* section type */
-+    Elf64_Xword   sh_flags;     /* section flags */
-+    Elf64_Addr    sh_addr;      /* virtual address */
-+    Elf64_Off     sh_offset;    /* file offset */
-+    Elf64_Xword   sh_size;      /* section size */
-+    Elf64_Word    sh_link;      /* link to another */
-+    Elf64_Word    sh_info;      /* misc info */
-+    Elf64_Xword   sh_addralign; /* memory alignment */
-+    Elf64_Xword   sh_entsize;   /* table entry size */
-+} Elf64_Shdr;
-+
-+/* sh_type */
-+#define SHT_NULL        0       /* inactive */
-+#define SHT_PROGBITS    1       /* program defined information */
-+#define SHT_SYMTAB      2       /* symbol table section */
-+#define SHT_STRTAB      3       /* string table section */
-+#define SHT_RELA        4       /* relocation section with addends*/
-+#define SHT_HASH        5       /* symbol hash table section */
-+#define SHT_DYNAMIC     6       /* dynamic section */
-+#define SHT_NOTE        7       /* note section */
-+#define SHT_NOBITS      8       /* no space section */
-+#define SHT_REL         9       /* relation section without addends */
-+#define SHT_SHLIB      10       /* reserved - purpose unknown */
-+#define SHT_DYNSYM     11       /* dynamic symbol table section */
-+#define SHT_NUM        12       /* number of section types */
-+
-+/* Note definitions */
-+typedef struct {
-+    Elf32_Word namesz;
-+    Elf32_Word descsz;
-+    Elf32_Word type;
-+    char data[];
-+} Elf32_Note;
-+
-+typedef struct {
-+    Elf64_Word namesz;
-+    Elf64_Word descsz;
-+    Elf64_Word type;
-+    char data[];
-+} Elf64_Note;
-+
-+/* Abstraction layer for handling 32- and 64-bit ELF files. */
-+
-+typedef union {
-+    Elf32_Ehdr e32;
-+    Elf64_Ehdr e64;
-+} elf_ehdr;
-+
-+static inline bool elf_is_32bit(elf_ehdr *ehdr)
+ /*
+  * Final stage of kexec. Copies all data to the final destinations, zeroes
+  * .bss and activates new kernel.
+@@ -104,4 +111,89 @@ void do_kexec(void *kexec_page)
+         : :"m" (stack), "m" (actions), "m" (phys), "m" (final));
+ }
+ 
++bool kexec_chk_arch(elf_ehdr *ehdr)
 +{
-+    return ehdr->e32.e_ident[EI_CLASS] == ELFCLASS32;
++    return ehdr->e32.e_machine == EM_386 || ehdr->e32.e_machine == EM_X86_64;
 +}
 +
-+static inline bool elf_is_64bit(elf_ehdr *ehdr)
++static unsigned int note_data_sz(unsigned int sz)
 +{
-+    return ehdr->e32.e_ident[EI_CLASS] == ELFCLASS64;
++    return (sz + 3) & ~3;
 +}
 +
-+#define ehdr_val(ehdr, elem) (elf_is_32bit(ehdr) ? (ehdr)->e32.elem : (ehdr)->e64.elem)
-+
-+typedef union {
-+    Elf32_Phdr e32;
-+    Elf64_Phdr e64;
-+} elf_phdr;
-+
-+#define phdr_val(ehdr, phdr, elem) (elf_is_32bit(ehdr) ? (phdr)->e32.elem : (phdr)->e64.elem)
-+
-+typedef union {
-+    Elf32_Shdr e32;
-+    Elf64_Shdr e64;
-+} elf_shdr;
-+
-+#define shdr_val(ehdr, shdr, elem) (elf_is_32bit(ehdr) ? (shdr)->e32.elem : (shdr)->e64.elem)
-+
-+typedef union {
-+    Elf32_Note e32;
-+    Elf64_Note e64;
-+} elf_note;
-+
-+#define note_val(ehdr, note, elem) (elf_is_32bit(ehdr) ? (note)->e32.elem : (note)->e64.elem)
-+
-+static inline void *elf_ptr_add(void *ptr, unsigned long add)
++static void read_note_entry(elf_ehdr *ehdr, void *start, unsigned int len)
 +{
-+    return ptr + add;
++    elf_note *note = start;
++    unsigned int off, note_len, namesz, descsz;
++    char *val;
++
++    for ( off = 0; off < len; off += note_len )
++    {
++        namesz = note_data_sz(note_val(ehdr, note, namesz));
++        descsz = note_data_sz(note_val(ehdr, note, descsz));
++        val = note_val(ehdr, note, data);
++        note_len = val - (char *)note + namesz + descsz;
++
++        if ( !strncmp(val, "Xen", namesz) &&
++             note_val(ehdr, note, type) == XEN_ELFNOTE_PHYS32_ENTRY )
++        {
++            val += namesz;
++            switch ( note_val(ehdr, note, descsz) )
++            {
++            case 1:
++                kernel_phys_entry = *(uint8_t *)val;
++                return;
++            case 2:
++                kernel_phys_entry = *(uint16_t *)val;
++                return;
++            case 4:
++                kernel_phys_entry = *(uint32_t *)val;
++                return;
++            case 8:
++                kernel_phys_entry = *(uint64_t *)val;
++                return;
++            default:
++                break;
++            }
++        }
++
++        note = elf_ptr_add(note, note_len);
++    }
 +}
-+#endif /* __ELF_H__ */
++
++int kexec_arch_analyze_phdr(elf_ehdr *ehdr, elf_phdr *phdr)
++{
++    void *notes_start;
++    unsigned int notes_len;
++
++    if ( phdr_val(ehdr, phdr, p_type) != PT_NOTE || kernel_phys_entry != ~0UL )
++        return 0;
++
++    notes_start = elf_ptr_add(ehdr, phdr_val(ehdr, phdr, p_offset));
++    notes_len = phdr_val(ehdr, phdr, p_filesz);
++    read_note_entry(ehdr, notes_start, notes_len);
++
++    return 0;
++}
++
++int kexec_arch_analyze_shdr(elf_ehdr *ehdr, elf_shdr *shdr)
++{
++    void *notes_start;
++    unsigned int notes_len;
++
++    if ( shdr_val(ehdr, shdr, sh_type) != SHT_NOTE ||
++         kernel_phys_entry != ~0UL )
++        return 0;
++
++    notes_start = elf_ptr_add(ehdr, shdr_val(ehdr, shdr, sh_offset));
++    notes_len = shdr_val(ehdr, shdr, sh_size);
++    read_note_entry(ehdr, notes_start, notes_len);
++
++    return 0;
++}
++
++bool kexec_arch_need_analyze_shdrs(void)
++{
++    return kernel_phys_entry == ~0UL;
++}
+ #endif /* CONFIG_KEXEC */
+diff --git a/include/kexec.h b/include/kexec.h
+index 722be456..f54cbb90 100644
+--- a/include/kexec.h
++++ b/include/kexec.h
+@@ -1,5 +1,6 @@
+ #ifndef _KEXEC_H
+ #define _KEXEC_H
++#include <mini-os/elf.h>
+ 
+ /* One element of kexec actions (last element must have action KEXEC_CALL): */
+ struct kexec_action {
+@@ -18,6 +19,8 @@ struct kexec_action {
+ extern char _kexec_start[], _kexec_end[];
+ extern struct kexec_action kexec_actions[KEXEC_MAX_ACTIONS];
+ 
++extern unsigned long kexec_last_addr;
++
+ int kexec_add_action(int action, void *dest, void *src, unsigned int len);
+ 
+ #define KEXEC_SECSIZE ((unsigned long)_kexec_end - (unsigned long)_kexec_start)
+@@ -31,4 +34,12 @@ void do_kexec(void *kexec_page);
+ /* Assembler code for switching off paging and passing execution to new OS. */
+ void kexec_phys(void);
+ 
++/* Check kernel to match current architecture. */
++bool kexec_chk_arch(elf_ehdr *ehdr);
++
++/* Architecture specific ELF handling functions. */
++int kexec_arch_analyze_phdr(elf_ehdr *ehdr, elf_phdr *phdr);
++int kexec_arch_analyze_shdr(elf_ehdr *ehdr, elf_shdr *shdr);
++bool kexec_arch_need_analyze_shdrs(void);
++
+ #endif /* _KEXEC_H */
+diff --git a/kexec.c b/kexec.c
+index b69e145b..7c0e6377 100644
+--- a/kexec.c
++++ b/kexec.c
+@@ -31,6 +31,9 @@
+ #include <errno.h>
+ #include <mini-os/os.h>
+ #include <mini-os/lib.h>
++#include <mini-os/console.h>
++#include <mini-os/elf.h>
++#include <mini-os/err.h>
+ #include <mini-os/kexec.h>
+ 
+ /*
+@@ -53,8 +56,122 @@
+  * - The new kernel is activated.
+  */
+ 
++unsigned long kexec_last_addr;
++
++static int analyze_phdrs(elf_ehdr *ehdr)
++{
++    elf_phdr *phdr;
++    unsigned int n_hdr, i;
++    unsigned long paddr, offset, filesz, memsz;
++    int ret;
++
++    phdr = elf_ptr_add(ehdr, ehdr_val(ehdr, e_phoff));
++    n_hdr = ehdr_val(ehdr, e_phnum);
++    for ( i = 0; i < n_hdr; i++ )
++    {
++        ret = kexec_arch_analyze_phdr(ehdr, phdr);
++        if ( ret )
++            return ret;
++
++        if ( phdr_val(ehdr, phdr, p_type) == PT_LOAD &&
++             (phdr_val(ehdr, phdr, p_flags) & (PF_X | PF_W | PF_R)) )
++        {
++            paddr = phdr_val(ehdr, phdr, p_paddr);
++            offset = phdr_val(ehdr, phdr, p_offset);
++            filesz = phdr_val(ehdr, phdr, p_filesz);
++            memsz = phdr_val(ehdr, phdr, p_memsz);
++            if ( filesz > 0 )
++            {
++                ret = kexec_add_action(KEXEC_COPY, to_virt(paddr),
++                                       (char *)ehdr + offset, filesz);
++                if ( ret )
++                    return ret;
++            }
++            if ( memsz > filesz )
++            {
++                ret = kexec_add_action(KEXEC_ZERO, to_virt(paddr + filesz),
++                                       NULL, memsz - filesz);
++                if ( ret )
++                    return ret;
++            }
++            if ( paddr + memsz > kexec_last_addr )
++                kexec_last_addr = paddr + memsz;
++        }
++
++        phdr = elf_ptr_add(phdr, ehdr_val(ehdr, e_phentsize));
++    }
++
++    return 0;
++}
++
++static int analyze_shdrs(elf_ehdr *ehdr)
++{
++    elf_shdr *shdr;
++    unsigned int n_hdr, i;
++    int ret;
++
++    if ( !kexec_arch_need_analyze_shdrs() )
++        return 0;
++
++    shdr = elf_ptr_add(ehdr, ehdr_val(ehdr, e_shoff));
++    n_hdr = ehdr_val(ehdr, e_shnum);
++    for ( i = 0; i < n_hdr; i++ )
++    {
++        ret = kexec_arch_analyze_shdr(ehdr, shdr);
++        if ( ret )
++            return ret;
++
++        shdr = elf_ptr_add(shdr, ehdr_val(ehdr, e_shentsize));
++    }
++
++    return 0;
++}
++
++static int analyze_kernel(void *kernel, unsigned long size)
++{
++    elf_ehdr *ehdr = kernel;
++    int ret;
++
++    if ( !IS_ELF(ehdr->e32) )
++    {
++        printk("kexec: new kernel not an ELF file\n");
++        return ENOEXEC;
++    }
++    if ( ehdr->e32.e_ident[EI_DATA] != ELFDATA2LSB )
++    {
++        printk("kexec: ELF file of new kernel is big endian\n");
++        return ENOEXEC;
++    }
++    if ( !elf_is_32bit(ehdr) && !elf_is_64bit(ehdr) )
++    {
++        printk("kexec: ELF file of new kernel is neither 32 nor 64 bit\n");
++        return ENOEXEC;
++    }
++    if ( !kexec_chk_arch(ehdr) )
++    {
++        printk("kexec: ELF file of new kernel is not compatible with arch\n");
++        return ENOEXEC;
++    }
++
++    ret = analyze_phdrs(ehdr);
++    if ( ret )
++        return ret;
++
++    ret = analyze_shdrs(ehdr);
++    if ( ret )
++        return ret;
++
++    return 0;
++}
++
+ int kexec(void *kernel, unsigned long kernel_size, const char *cmdline)
+ {
++    int ret;
++
++    ret = analyze_kernel(kernel, kernel_size);
++    if ( ret )
++        return ret;
++
+     return ENOSYS;
+ }
+ EXPORT_SYMBOL(kexec);
 -- 
 2.43.0
 
