@@ -2,38 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 42FB4ADA856
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Jun 2025 08:37:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1016502.1393385 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA0ABADA870
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Jun 2025 08:42:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1016509.1393397 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uR3Sc-0006QZ-3Z; Mon, 16 Jun 2025 06:36:50 +0000
+	id 1uR3Xh-0008Dg-MH; Mon, 16 Jun 2025 06:42:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1016502.1393385; Mon, 16 Jun 2025 06:36:50 +0000
+Received: by outflank-mailman (output) from mailman id 1016509.1393397; Mon, 16 Jun 2025 06:42:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uR3Sc-0006Oe-0i; Mon, 16 Jun 2025 06:36:50 +0000
-Received: by outflank-mailman (input) for mailman id 1016502;
- Mon, 16 Jun 2025 06:36:48 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=jh7D=Y7=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uR3Sa-0006OY-ML
- for xen-devel@lists.xenproject.org; Mon, 16 Jun 2025 06:36:48 +0000
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [2a00:1450:4864:20::62f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 46614b1d-4a7c-11f0-b894-0df219b8e170;
- Mon, 16 Jun 2025 08:36:46 +0200 (CEST)
-Received: by mail-ej1-x62f.google.com with SMTP id
- a640c23a62f3a-ad8826c05f2so797813666b.3
- for <xen-devel@lists.xenproject.org>; Sun, 15 Jun 2025 23:36:46 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-adfeaed2d10sm25248166b.105.2025.06.15.23.36.45
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 15 Jun 2025 23:36:45 -0700 (PDT)
+	id 1uR3Xh-0008AZ-JK; Mon, 16 Jun 2025 06:42:05 +0000
+Received: by outflank-mailman (input) for mailman id 1016509;
+ Mon, 16 Jun 2025 06:42:04 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Hn5w=Y7=amd.com=penny.zheng@srs-se1.protection.inumbo.net>)
+ id 1uR3Xg-0008AT-Nw
+ for xen-devel@lists.xenproject.org; Mon, 16 Jun 2025 06:42:04 +0000
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on20618.outbound.protection.outlook.com
+ [2a01:111:f403:2413::618])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 023dfabb-4a7d-11f0-a309-13f23c93f187;
+ Mon, 16 Jun 2025 08:42:03 +0200 (CEST)
+Received: from PH0PR07CA0051.namprd07.prod.outlook.com (2603:10b6:510:e::26)
+ by PH8PR12MB6674.namprd12.prod.outlook.com (2603:10b6:510:1c1::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8835.28; Mon, 16 Jun
+ 2025 06:41:56 +0000
+Received: from CY4PEPF0000EE39.namprd03.prod.outlook.com
+ (2603:10b6:510:e:cafe::2) by PH0PR07CA0051.outlook.office365.com
+ (2603:10b6:510:e::26) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8835.23 via Frontend Transport; Mon,
+ 16 Jun 2025 06:41:56 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CY4PEPF0000EE39.mail.protection.outlook.com (10.167.242.11) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8835.15 via Frontend Transport; Mon, 16 Jun 2025 06:41:55 +0000
+Received: from penny-System-Product-Name.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.39; Mon, 16 Jun 2025 01:41:50 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,132 +56,187 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 46614b1d-4a7c-11f0-b894-0df219b8e170
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1750055806; x=1750660606; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=pFQeijgzx5FakN/hAjl4IqtirWujbmrpF9iZqvEVeP4=;
-        b=Vm3S4GK9pVtpqvk61XwSBQDRlI4E66WZGrRD3MMVMVgPIyqSnZkqA5/AFnH2n5zdB0
-         Rv27wp0DOlziBsUnoXwsyCLs1pGM/4i0P8/ORshI/h3X3EwYlx7avOQV2GQ0ttApbTzF
-         wLIFZ1OA7aC4Z+IO30yKkJOrsIMEPzKzFq8WrwFxFzeQMKBEw+2DJuwQnCK38uZY+txs
-         gIzIA+od6ZMVXovFMb7WaHf6pcch6bytRZ53YdSSjXpQ0N0OIpq9W9jpNtss3aV8aCBd
-         csEyG6Ff1U/cp4wBGu2Td6utOzwNc0Ser0zxouIz2q0gU772VhGi4AcrtSZZ3O78QRCt
-         bKHA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750055806; x=1750660606;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=pFQeijgzx5FakN/hAjl4IqtirWujbmrpF9iZqvEVeP4=;
-        b=C+aMSL3w0vTgDSP365quFa+8M3Qnbb6C2BN0+ahldGBDq6demBOqa1oQvh6hEgN9hF
-         iUR9UfP9suk6qWJJc41LIkV4pPr49slbmfAkwl2ElS6aK8cRg9EVD+IJsMUGDEbyIaBV
-         aG53685zgv16+9ptGP63ILoqTIyx3oKuyOTc4Sypronnn2NqvhrRpKMunA0iVVJUsAHy
-         LksMuD34nyuJlSKfEjp2Km9fIIDQliReoaR4x7B1eh7iUh9dss/WxmXA1QUZL9xmVfiT
-         N4uTtY25NE3hC/mP+ycUBn/iWRA+p+xv5cxtsrO9YK74R68TiOQRSHBSy9XvQBosgaRd
-         loXw==
-X-Forwarded-Encrypted: i=1; AJvYcCX1Z7kOgEZgkAoHD+OU7NNBQRSB9g7LTjoeal6Gg9+4rPBG/ktmG5mY5iTLe4hV2T5AwhLdiQBjl54=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yx2Cr3FIxW4Zjyj1lUqsXxE7LBysq1ksJa08RbEMRxm2REny1Ds
-	rlvYb7glVapNSZW9R0P3RS8MFdtp+LUz6u5cOzDkZPep+uc2ThAuipmZsFO2YNmKTw==
-X-Gm-Gg: ASbGncvXsOXOmD/vO91s2DX7zYNzWvfAgUaS0VFfINBLnlieYzU66b5eMRw/WxjzGrS
-	YMB32MiNOJND3vP0P58e/u417JYFD5jb63Hy2ZtMyh7GXmt4ylcBsjDmHzGPE9B80ACqkMfpWSp
-	60sbpQ0JxzJDVDxscD99+WXn/G4dom+LPTscLt+m9R4E+yWyzGKX8/e1GeL4sUIE3S9lV2xX+BH
-	2bpl6LWoKh2ACDUJMj534vVBcNsOTaXb1lQH5LVABLpl3pOalPvdedJ6kaTVE7RvIQScUeKOoI8
-	Xynslb0Q+FexwrWG2UXRK2wB4ymVumvrp9/HhLp1u+cMQFDHEYH0XVv2qIc1JDuLkAiNBC3zz+D
-	t2qzyHuOubvVJGRtTbpJ7MWISnvHMJl4lOtrLz3sK5lSQVa8=
-X-Google-Smtp-Source: AGHT+IG47KLzpWhyrpGOiBAR0XfZMApSuMe8JIE4bSttiX2eX9eWC1SLRUVKnjyqX1woQ3x8nIxKXA==
-X-Received: by 2002:a17:907:7216:b0:ade:4295:a814 with SMTP id a640c23a62f3a-adfad53f2e2mr766245166b.53.1750055806061;
-        Sun, 15 Jun 2025 23:36:46 -0700 (PDT)
-Message-ID: <bf6fd680-c608-4d64-ad8f-38eac102991e@suse.com>
-Date: Mon, 16 Jun 2025 08:36:47 +0200
+X-Inumbo-ID: 023dfabb-4a7d-11f0-a309-13f23c93f187
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=S7wblkaGtkOFGe7SLfcD8doc14+CjrCihwezYhOLIBqKkXymNjjZQXcGJO8migm2u1I49zIeZa4Yp4heGXsuuPO5NnkUQ6G6//nSzM/SydrW7C56XI1jNGTd5tcJRZODqiwfm02VGJy/fucuU/h/Hi0U/RpFFOpNMba3ZKtl3uCnmF2FqNMezyJEpejDFrWdBGO/iVFdh1XHIzywkop1LFiQ7sivZ4wSVUXNYHR8GYX8XOLC2YYyWQCWBc9Mqv0cnQuBwZbzCs+3rBvQEi0PFVH/bOmryaenrGm1Hmo6kHmwjJi1PEyChWp96Z3nCQy0Co6r9l1pgdHS8BRlIzcZ9w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ItL/mFS8c4oPecd9mD13j1wnQZRdCrGzOnxc+ZiEBKI=;
+ b=VLcmDGFmDmm4mgrg6QZmVInfAsbPBk+BvwH7qJLU42YiFF3g1Jf/j24EVwNKoW/tBHlZk0nNmttNXOQW7w58lv5Ikixt3RB6dJuRDO0Jpjrj6B9NZdxcZg4q1ClYEzy8jkK9j0FLj0Qbz92X+QN4hxB+Wk/uce6qAoloKXevjAAfDMhioymed/buEKMLl3NIEmUAjSczn0W9qfKGD6AUC0l+VnvTUOulurFJqzhLpPYkwoXooBRA4AZx25SVqz+Btv/BpMEc+rFCLc15B8zEqNShkz/8csTFsiQ20gkjqwUBO9LqDUOtuAOPy3K/rd3xcANuJQ70+V1lSeVi3Bk+PA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ItL/mFS8c4oPecd9mD13j1wnQZRdCrGzOnxc+ZiEBKI=;
+ b=f/pYrXoR75C5eObT4PYZ3i603Q+06VhmMV1/HFZ6NJSPUEmKqT6+dHLRdhr49i+E9o2V6CDy6ZcEvTPvfMny6qD5ctpM57UT6fJrKM9t4icqKlarq2DOSDETP5yU3kntfkLf5c34KfdopT0ivBquHXLlay7ZwrIjA4viS6nsKQA=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+From: Penny Zheng <Penny.Zheng@amd.com>
+To: <xen-devel@lists.xenproject.org>, <xen-devel@dornerworks.com>
+CC: <ray.huang@amd.com>, Penny Zheng <Penny.Zheng@amd.com>, Jan Beulich
+	<jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Anthony PERARD
+	<anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, "Julien
+ Grall" <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, "Daniel
+ P. Smith" <dpsmith@apertussolutions.com>, Dario Faggioli
+	<dfaggioli@suse.com>, Juergen Gross <jgross@suse.com>, George Dunlap
+	<gwd@xenproject.org>, Nathan Studer <nathan.studer@dornerworks.com>, "Stewart
+ Hildebrand" <stewart@stew.dk>, Bertrand Marquis <bertrand.marquis@arm.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Alistair Francis
+	<alistair.francis@wdc.com>, Bob Eshleman <bobbyeshleman@gmail.com>, "Connor
+ Davis" <connojdavis@gmail.com>, Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Subject: [PATCH v5 00/18] xen: introduce CONFIG_SYSCTL
+Date: Mon, 16 Jun 2025 14:41:10 +0800
+Message-ID: <20250616064128.581164-1-Penny.Zheng@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/4] xsm/dummy: Allow hwdom SYSCTL_readconsole/physinfo
-To: Stefano Stabellini <sstabellini@kernel.org>,
- Jason Andryuk <jason.andryuk@amd.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- xen-devel@lists.xenproject.org
-References: <20250610225737.469690-1-jason.andryuk@amd.com>
- <20250610225737.469690-5-jason.andryuk@amd.com>
- <5f6d43da-2600-4c1c-9bcb-f13e8fce921e@suse.com>
- <bf6924f8-26c6-4f89-8441-155735384a8a@amd.com>
- <alpine.DEB.2.22.394.2506131547320.8480@ubuntu-linux-20-04-desktop>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2506131547320.8480@ubuntu-linux-20-04-desktop>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE39:EE_|PH8PR12MB6674:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1421b45f-825b-4f79-7f2d-08ddaca0e2fc
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|82310400026|1800799024|36860700013|13003099007;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?LWD4048LrXXiet76Aca/9WpGmxPRG3v3ZrLPIl80iFkCTn25uuLSBoWVjrb3?=
+ =?us-ascii?Q?5OToOJPhSUhl4B9fsIWWHunPjvgzhqJNmpqV8DZU4ynRKpm8mzYOjs8slVmx?=
+ =?us-ascii?Q?w5lo04PZCcs8HCtpWggGgZkiL+frH9DxrhVPs6kYEAycA+Blxwq7bHtENVEj?=
+ =?us-ascii?Q?uU1LlgDD2fdz7PtqvgeVP9f9ENP32MHlLVZ4RSAJh9WScTIwnVrnSHlQs1aq?=
+ =?us-ascii?Q?SROh/dtVP1Bg3h/ifhEn32WkVlx49tyig6P/wEhUWLvjzITNdm0Qc76p+mgv?=
+ =?us-ascii?Q?PReEPylIdHpUhxvSrJdKWnAJwu8NK+X4f63rFra7qp+toErubpaFFy+Lb87X?=
+ =?us-ascii?Q?PSQNj229alFFYgXFd2oEKgRauPQjOxLUqQ2W0ye/PrcrKINGZ0pQtD/9/8wu?=
+ =?us-ascii?Q?EsZRQfkFt9WPio2vRS1nRtosWuqNNmWckR9Ihg27/qHlCmAbxgIOd+5qPmC/?=
+ =?us-ascii?Q?ylDYYvqhzbAg5iA9gIphvRtjxKvKMYsAIo/QY+0funDvkIe8E/Lo9Z080HD4?=
+ =?us-ascii?Q?+dO3WyLKrgMEw6JpFQKapjfsqxANAGKyzuSvjXdTYNRBbjO45jhEGHz02Lmf?=
+ =?us-ascii?Q?IMOlOq+ggTRQ4q59NcfKoj72XSO6/DxMaa8TbcjzG4ShxRjm3tfgDKSBcil/?=
+ =?us-ascii?Q?r+3l4zMFvVcOKVEF0e7+f+JMOOhs9cmCVyaGpjz8jKNOMtooXRNSh24df16y?=
+ =?us-ascii?Q?3vqwU5zV7/Xdr+VzmbTDfWlA7vnUTuGxNEMoj7yJzIC8iGtZJmwAomRFSMKE?=
+ =?us-ascii?Q?BVltgi+kZCWHCwtBUd7nffsH3vtmToMzcbPhRrK9iLItwtZbgigtjNu5dzMY?=
+ =?us-ascii?Q?mmZjRGEVUGd1dn7hJdnmVjLJKOOW5inc4a6LMzeTCmonyqv/6MmytaUAi2cL?=
+ =?us-ascii?Q?AvkzDWvvMkJJY3yGqQXxCiCU7sRFihY0W+mAUn3RhK7qDRwLZli0TLANk0rU?=
+ =?us-ascii?Q?pV6ypgqMrnjTrEourwtAtkUeasIdEqsyioo7ohoXmVoARO2C1DFhncG1gHVn?=
+ =?us-ascii?Q?ZRXW4PNOBMbcTZewJsX2ri8x6D/58ETRPMkL2B0TNgUedwavvOi4KPcwNXqq?=
+ =?us-ascii?Q?bVetm1/0WklB1dEM0Ub7ab/yP8s/y7jaENskDpEZAJkbBOXYlWkWEX589j/Z?=
+ =?us-ascii?Q?YXzlEFAi8zatVkamNyFfxbPXJ5r4YvxRg/BQVq98WdeZmpBqk0HWNDxL0OMX?=
+ =?us-ascii?Q?wlBXF/Bcw2nB0jzL0AMwLTde6uXWlaLKh0/stwoc0Uk0CsNma/uDU9nDqPJ+?=
+ =?us-ascii?Q?uC8OOC/nrg+rsEB0ODkJWP626j4CVix+k8p/IkPCq242F0tEgYnOlKg1A04+?=
+ =?us-ascii?Q?txefi6vPB+qrgo/zito2pd+W7lc2dpNzvhBddekBCRKHqBpmRNSEELIsrvHK?=
+ =?us-ascii?Q?Kh0vtQD0I+xk7AjIAAYYsr0/LdE95Qhr3fssvjo18TUUY3Cn+o8XpIfg8hoi?=
+ =?us-ascii?Q?DZ69k4aGv/GwC7poH+9qrBAJV8g5JVFO1cRtOtQHHIgZQ3r6g40j2nan2gva?=
+ =?us-ascii?Q?gN1NWAft1ReAFWCV/SD70xyOlnaXlQqx6r9c?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(7416014)(82310400026)(1800799024)(36860700013)(13003099007);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jun 2025 06:41:55.8412
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1421b45f-825b-4f79-7f2d-08ddaca0e2fc
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CY4PEPF0000EE39.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6674
 
-On 14.06.2025 00:51, Stefano Stabellini wrote:
-> On Wed, 11 Jun 2025, Jason Andryuk wrote:
->> On 2025-06-11 09:27, Jan Beulich wrote:
->>> On 11.06.2025 00:57, Jason Andryuk wrote:
->>>> Allow the hwdom to access the console, and to access physical
->>>> information about the system.
->>>>
->>>> xenconsoled can read Xen's dmesg.  If it's in hwdom, then that
->>>> permission would be required.
->>>
->>> Why would xenconsoled run in the hardware domain? It's purely a software
->>> construct, isn't it? As a daemon, putting it in the control domain may
->>> make sense. Otherwise it probably ought to go in a service domain.
->>
->> My approach has been to transform dom0 into the hardware domain and add a new
->> control domain.  xenconsoled was left running in the hardware domain.
-> 
-> I think we should keep xenconsoled in the hardware domain because the
-> control domain should be just optional. (However, one could say that with
-> Denis' recent changes xenconsoled is also optional because one can use
-> console hypercalls or emulators (PL011, NS16550) for all DomUs.)
-> 
-> 
-> 
->> I suppose it could move.  Maybe that would be fine?  I haven't tried. The
->> Hyperlaunch code populates the console grants to point at the hardware domain,
->> and I just followed that.
->>
->> One aspect of why I left most things running in the Hardware domain was to not
->> run things in the Control domain.  If Control is the highest privileged
->> entity, we'd rather run software in lower privileged places. Especially
->> something like xenconsoled which is receiving data from the domUs.
-> 
-> Yes, I agree with Jason. It is a bad idea to run xenconsoled in the
-> Control Domain because the Control Domain is meant to be safe from
-> interference. We want to keep the number of potential vehicles for
-> interference down to a minimum and shared memory between Control Domain
-> and DomUs is certainly a vehicle for interference.
+It can be beneficial for some dom0less systems to further reduce Xen footprint
+via disabling some hypercalls handling code, which may not to be used &
+required in such systems. Each hypercall has a separate option to keep
+configuration flexible.
 
-As much as it is when xenconsoled runs in the hardware domain? Especially
-if the hardware domain is also running e.g. PV backends or qemu instances?
+Options to disable hypercalls:
+- sysctl
+- domctl
+- hvm
+- physdev
+- platform
 
-Jan
+This patch serie is only focusing on introducing CONFIG_SYSCTL. Different
+options will be covered in different patch serie.
+
+Features, like LIVEPATCH, Overlay DTB, which fully rely on sysctl op, will
+be wrapped with CONFIG_SYSCTL, to reduce Xen footprint as much as possible.
+
+It is derived from Stefano Stabellini's commit "xen: introduce kconfig options to
+disable hypercalls"(
+https://lore.kernel.org/xen-devel/20241219092917.3006174-1-Sergiy_Kibrik@epam.com)
+
+Penny Zheng (16):
+  xen/x86: remove "depends on !PV_SHIM_EXCLUSIVE"
+  xen/xsm: wrap around xsm_sysctl with CONFIG_SYSCTL
+  xen/sysctl: wrap around XEN_SYSCTL_readconsole
+  xen/sysctl: make CONFIG_TRACEBUFFER depend on CONFIG_SYSCTL
+  xen/sysctl: wrap around XEN_SYSCTL_sched_id
+  xen/sysctl: wrap around XEN_SYSCTL_perfc_op
+  xen/sysctl: wrap around XEN_SYSCTL_lockprof_op
+  xen/pmstat: introduce CONFIG_PM_OP
+  xen/sysctl: introduce CONFIG_PM_STATS
+  xen/sysctl: wrap around XEN_SYSCTL_page_offline_op
+  xen/sysctl: wrap around XEN_SYSCTL_cpupool_op
+  xen/sysctl: wrap around XEN_SYSCTL_scheduler_op
+  xen/sysctl: wrap around XEN_SYSCTL_physinfo
+  xen/sysctl: make CONFIG_COVERAGE depend on CONFIG_SYSCTL
+  xen/sysctl: make CONFIG_LIVEPATCH depend on CONFIG_SYSCTL
+  xen/sysctl: wrap around arch-specific arch_do_sysctl
+
+Stefano Stabellini (2):
+  xen: introduce CONFIG_SYSCTL
+  xen/sysctl: wrap around sysctl hypercall
+
+ xen/Kconfig.debug                            |   2 +-
+ xen/arch/arm/Kconfig                         |   1 +
+ xen/arch/arm/Makefile                        |   2 +-
+ xen/arch/riscv/stubs.c                       |   2 +
+ xen/arch/x86/Kconfig                         |   4 -
+ xen/arch/x86/Makefile                        |   2 +-
+ xen/arch/x86/acpi/cpu_idle.c                 |   2 +
+ xen/arch/x86/acpi/cpufreq/hwp.c              |   6 +
+ xen/arch/x86/acpi/cpufreq/powernow.c         |   4 +
+ xen/arch/x86/configs/pvshim_defconfig        |   1 +
+ xen/arch/x86/hvm/Kconfig                     |   1 -
+ xen/arch/x86/psr.c                           |  18 +
+ xen/common/Kconfig                           |  31 +-
+ xen/common/Makefile                          |   2 +-
+ xen/common/page_alloc.c                      |   4 +
+ xen/common/perfc.c                           |   2 +
+ xen/common/sched/arinc653.c                  |   6 +
+ xen/common/sched/core.c                      |   4 +
+ xen/common/sched/cpupool.c                   |   8 +
+ xen/common/sched/credit.c                    |   4 +
+ xen/common/sched/credit2.c                   |   4 +
+ xen/common/sched/private.h                   |   4 +
+ xen/common/spinlock.c                        |   2 +
+ xen/common/sysctl.c                          |   4 +-
+ xen/drivers/acpi/Makefile                    |   3 +-
+ xen/drivers/acpi/pm-op.c                     | 397 +++++++++++++++++++
+ xen/drivers/acpi/pmstat.c                    | 357 -----------------
+ xen/drivers/char/console.c                   |   2 +
+ xen/drivers/cpufreq/cpufreq_misc_governors.c |   2 +
+ xen/drivers/cpufreq/cpufreq_ondemand.c       |   2 +
+ xen/drivers/cpufreq/utility.c                |  41 --
+ xen/drivers/video/Kconfig                    |   2 +-
+ xen/include/acpi/cpufreq/cpufreq.h           |   3 -
+ xen/include/acpi/cpufreq/processor_perf.h    |  10 +
+ xen/include/hypercall-defs.c                 |   8 +-
+ xen/include/xsm/xsm.h                        |  18 +
+ xen/xsm/dummy.c                              |   6 +
+ xen/xsm/flask/hooks.c                        |  14 +
+ 38 files changed, 569 insertions(+), 416 deletions(-)
+ create mode 100644 xen/drivers/acpi/pm-op.c
+
+-- 
+2.34.1
+
 
