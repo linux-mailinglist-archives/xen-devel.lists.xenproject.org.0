@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E08DADBDCC
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Jun 2025 01:45:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1017575.1394549 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF996ADBDE2
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Jun 2025 01:57:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1017584.1394560 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uRJWH-0008VC-7U; Mon, 16 Jun 2025 23:45:41 +0000
+	id 1uRJh4-0001rz-3n; Mon, 16 Jun 2025 23:56:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1017575.1394549; Mon, 16 Jun 2025 23:45:41 +0000
+Received: by outflank-mailman (output) from mailman id 1017584.1394560; Mon, 16 Jun 2025 23:56:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uRJWH-0008T0-4p; Mon, 16 Jun 2025 23:45:41 +0000
-Received: by outflank-mailman (input) for mailman id 1017575;
- Mon, 16 Jun 2025 23:45:39 +0000
+	id 1uRJh4-0001pz-11; Mon, 16 Jun 2025 23:56:50 +0000
+Received: by outflank-mailman (input) for mailman id 1017584;
+ Mon, 16 Jun 2025 23:56:47 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=w0jr=Y7=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1uRJWF-0008Si-21
- for xen-devel@lists.xenproject.org; Mon, 16 Jun 2025 23:45:39 +0000
+ id 1uRJh1-0001pt-PS
+ for xen-devel@lists.xenproject.org; Mon, 16 Jun 2025 23:56:47 +0000
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 009febd6-4b0c-11f0-a309-13f23c93f187;
- Tue, 17 Jun 2025 01:45:38 +0200 (CEST)
+ id 8efbd319-4b0d-11f0-a309-13f23c93f187;
+ Tue, 17 Jun 2025 01:56:46 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 1D9405C59CE;
- Mon, 16 Jun 2025 23:43:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B91BAC4CEEA;
- Mon, 16 Jun 2025 23:45:34 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 33DD35C5B13;
+ Mon, 16 Jun 2025 23:54:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B856FC4CEEA;
+ Mon, 16 Jun 2025 23:56:42 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,92 +41,94 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 009febd6-4b0c-11f0-a309-13f23c93f187
+X-Inumbo-ID: 8efbd319-4b0d-11f0-a309-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1750117536;
-	bh=nvHZW6lSsrrSxdMrAt8qSEvrG6flsT2JbPu7qbHA84E=;
+	s=k20201202; t=1750118204;
+	bh=WNc/y16cQBeEyfR17QwFLGF9C5XEiwh1M9yAt5oivAg=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=kLiVQlJ3j1n/apla7CA52s03MEWVXNq67ZzUsgTBXt5NgD7bMDPJM5CJFR8z9GoNt
-	 xTzOigUnmHwlhQFf0oMTFzUqQ1csnm3N9dQCKkLvw8y+eyYnk2Hbpk5HTtJB4qdDO/
-	 /dwE6HPuCqdn7BG/5uqV43mie8oU1JPRpwVIP/BPQc2kohCoYBW/+6y+f7+kvcJuqo
-	 rGthT9A7reyVonX1gGfgWUJXoA5I4uXJ1Tr8K3vVF3Jcu3AxG41AnbTnyuKmm3fNzg
-	 M2P0zRWYlNW+aXKInB9EM6Nlnq2f850aFvcp2f3Cs+fOUioP9Bfwg2Euw+2/4KjPYx
-	 JVnjLEdcbhH1Q==
-Date: Mon, 16 Jun 2025 16:45:33 -0700 (PDT)
+	b=Uo6MZ/w9Nc8YpiS6NxGElMnUHKcOy476U6R3qpJZNJcjD9ALG6xDnQW5tTyBZqjbh
+	 5zbkoKz24yiM+wgVBAExYX1VIpq282lTl46QMFR9dWIHI48sVLL/QbKhUjzb78eqRJ
+	 DVGikApUyhzj78zccs9GOt+tJicZCUfszVe2Z9+WwoIdVCLugy7ZaySBNGbPj38xsN
+	 5RoBvOQ8oHlO8/AqMNc7KhLWZLqUetDLIsGD3Tts38laSuIsV1DuqRSSQDilwoiBBr
+	 chquD7hPWf9FK3emsdUaG/KplDHyPeI2QxJJrp9B+MGfD1CMvQGeVgRfu+U8txkdTw
+	 IIp9UTQGeqHqg==
+Date: Mon, 16 Jun 2025 16:56:41 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: rosbrookn@gmail.com
-cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org, julien@xen.org, 
-    bertrand.marquis@arm.com, michal.orzel@amd.com, Volodymyr_Babchuk@epam.com, 
-    andrew.cooper3@citrix.com, anthony.perard@vates.tech, rosbrookn@gmail.com, 
-    gwd@xenproject.org, edgar.iglesias@amd.com, edgar.iglesias@gmail.com
-Subject: Golang review, was: [PATCH v5 5/5] tools/golang: Regenerate bindings
- for trap_unmapped_accesses
-In-Reply-To: <20250616155306.405257-3-edgar.iglesias@gmail.com>
-Message-ID: <alpine.DEB.2.22.394.2506161643080.1384757@ubuntu-linux-20-04-desktop>
-References: <20250616153826.404927-1-edgar.iglesias@gmail.com> <20250616155306.405257-3-edgar.iglesias@gmail.com>
+To: Jan Beulich <jbeulich@suse.com>
+cc: Stewart Hildebrand <stewart.hildebrand@amd.com>, 
+    Rahul Singh <rahul.singh@arm.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Michal Orzel <michal.orzel@amd.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    Anthony PERARD <anthony.perard@vates.tech>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    Stefano Stabellini <stefano.stabellini@amd.com>, 
+    xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v8] xen/arm: pci: introduce PCI_PASSTHROUGH Kconfig
+ option
+In-Reply-To: <bf161fea-5b89-40a5-b3da-b5096ea3e09b@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2506161650370.1384757@ubuntu-linux-20-04-desktop>
+References: <20250613154847.317979-1-stewart.hildebrand@amd.com> <3ecf10e5-5df7-4348-85a1-b8eecb940bf8@suse.com> <2e0627fa-35b8-4d3d-a3bc-338f9f7ed61b@amd.com> <bf161fea-5b89-40a5-b3da-b5096ea3e09b@suse.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-Hi Nick,
-
-It would be good for you to review this patch.
-
-If you are unable to do so, please let us know if you have any
-objections to us committing this patch without your ack.
-
-Cheers,
-
-Stefano
-
-
-On Mon, 16 Jun 2025, Edgar E. Iglesias wrote:
-> From: "Edgar E. Iglesias" <edgar.iglesias@amd.com>
+On Mon, 16 Jun 2025, Jan Beulich wrote:
+> On 16.06.2025 12:37, Stewart Hildebrand wrote:
+> > On 6/16/25 02:42, Jan Beulich wrote:
+> >> On 13.06.2025 17:17, Stewart Hildebrand wrote:
+> >>> --- a/xen/arch/arm/Kconfig
+> >>> +++ b/xen/arch/arm/Kconfig
+> >>> @@ -8,6 +8,8 @@ config ARM_64
+> >>>  	depends on !ARM_32
+> >>>  	select 64BIT
+> >>>  	select HAS_FAST_MULTIPLY
+> >>> +	select HAS_VPCI_GUEST_SUPPORT if PCI_PASSTHROUGH
+> >>> +	select HAS_PASSTHROUGH if PCI_PASSTHROUGH
+> >>
+> >> Seeing this, I like this as little as I liked ...
+> >>
+> >>> @@ -258,6 +260,12 @@ config PARTIAL_EMULATION
+> >>>  
+> >>>  source "arch/arm/firmware/Kconfig"
+> >>>  
+> >>> +config PCI_PASSTHROUGH
+> >>> +	bool "PCI passthrough" if EXPERT
+> >>> +	depends on ARM_64
+> >>
+> >> ... the form with the select-s put here. I'll (obviously) leave it to the
+> >> Arm maintainers to judge, but my recommendation would be to simply drop
+> >> this patch. As per the description it's merely "make it easier ...",
+> >> which imo doesn't warrant such an abuse of HAS_*.
+> > 
+> > "easier" was a poor choice of word. "possible" is more accurate. This
+> > patch addresses a real issue: currently the PCI and vPCI bits can't be
+> > built for Arm, allowing build issues to go unnoticed. E.g. see
+> > 4ce671963eb1 ("xen/arm: fix build with HAS_PCI").
 > 
-> Signed-off-by: Edgar E. Iglesias <edgar.iglesias@amd.com>
-> ---
->  tools/golang/xenlight/helpers.gen.go | 6 ++++++
->  tools/golang/xenlight/types.gen.go   | 1 +
->  2 files changed, 7 insertions(+)
-> 
-> diff --git a/tools/golang/xenlight/helpers.gen.go b/tools/golang/xenlight/helpers.gen.go
-> index 90846ea8e8..191be87297 100644
-> --- a/tools/golang/xenlight/helpers.gen.go
-> +++ b/tools/golang/xenlight/helpers.gen.go
-> @@ -1170,6 +1170,9 @@ x.Altp2M = Altp2MMode(xc.altp2m)
->  x.VmtraceBufKb = int(xc.vmtrace_buf_kb)
->  if err := x.Vpmu.fromC(&xc.vpmu);err != nil {
->  return fmt.Errorf("converting field Vpmu: %v", err)
-> +}
-> +if err := x.TrapUnmappedAccesses.fromC(&xc.trap_unmapped_accesses);err != nil {
-> +return fmt.Errorf("converting field TrapUnmappedAccesses: %v", err)
->  }
->  
->   return nil}
-> @@ -1695,6 +1698,9 @@ xc.altp2m = C.libxl_altp2m_mode(x.Altp2M)
->  xc.vmtrace_buf_kb = C.int(x.VmtraceBufKb)
->  if err := x.Vpmu.toC(&xc.vpmu); err != nil {
->  return fmt.Errorf("converting field Vpmu: %v", err)
-> +}
-> +if err := x.TrapUnmappedAccesses.toC(&xc.trap_unmapped_accesses); err != nil {
-> +return fmt.Errorf("converting field TrapUnmappedAccesses: %v", err)
->  }
->  
->   return nil
-> diff --git a/tools/golang/xenlight/types.gen.go b/tools/golang/xenlight/types.gen.go
-> index e7667f1ce3..656933c6c9 100644
-> --- a/tools/golang/xenlight/types.gen.go
-> +++ b/tools/golang/xenlight/types.gen.go
-> @@ -606,6 +606,7 @@ MsrRelaxed Defbool
->  Altp2M Altp2MMode
->  VmtraceBufKb int
->  Vpmu Defbool
-> +TrapUnmappedAccesses Defbool
->  }
->  
->  type DomainBuildInfoTypeUnion interface {
-> -- 
-> 2.43.0
-> 
+> Which gets us back to the question of whether to use "depends on
+> HAS_PASSTHROUGH" (I think yes then) and where to put the remaining select
+> (might then better move back to the new option).
+
+In my opinion, HAS_ options should not be user-configurable but rather
+properties of the architecture. Therefore, I would add HAS_PASSTHROUGH
+to ARM_64 unconditionally. Then I would make PASSTHROUGH
+user-configurable, but dependent on HAS_PASSTHROUGH.
+
+In the rest of the code, we would update the checks to be based on
+PASSTHROUGH instead of HAS_PASSTHROUGH.
+
+That said, this patch is simpler while my suggestion is more invasive.
+Also this patch is at v8 and we shouldn't keep increasing the scope of
+the work for contributors. Finally, I am not certain all maintainers
+would agree with my view I just outlined.
+
+So based on the above, and based on the fact that we certainly need this
+patch or something like it:
+
+Acked-by: Stefano Stabellini <sstabellini@kernel.org>
+
 
