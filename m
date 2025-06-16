@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D7C60ADA8BC
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Jun 2025 09:01:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1016718.1393674 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 12534ADA8EF
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Jun 2025 09:06:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1016750.1393684 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uR3qK-0000BL-4J; Mon, 16 Jun 2025 07:01:20 +0000
+	id 1uR3vN-0001oO-Kx; Mon, 16 Jun 2025 07:06:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1016718.1393674; Mon, 16 Jun 2025 07:01:20 +0000
+Received: by outflank-mailman (output) from mailman id 1016750.1393684; Mon, 16 Jun 2025 07:06:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uR3qK-00008s-0d; Mon, 16 Jun 2025 07:01:20 +0000
-Received: by outflank-mailman (input) for mailman id 1016718;
- Mon, 16 Jun 2025 07:01:19 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uR3vN-0001mh-Hq; Mon, 16 Jun 2025 07:06:33 +0000
+Received: by outflank-mailman (input) for mailman id 1016750;
+ Mon, 16 Jun 2025 07:06:32 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=jh7D=Y7=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uR3qJ-0006Hu-51
- for xen-devel@lists.xenproject.org; Mon, 16 Jun 2025 07:01:19 +0000
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [2a00:1450:4864:20::62c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b3d8d6b7-4a7f-11f0-a309-13f23c93f187;
- Mon, 16 Jun 2025 09:01:18 +0200 (CEST)
-Received: by mail-ej1-x62c.google.com with SMTP id
- a640c23a62f3a-ad93ff9f714so728460966b.2
- for <xen-devel@lists.xenproject.org>; Mon, 16 Jun 2025 00:01:18 -0700 (PDT)
+ id 1uR3vM-0001mb-9n
+ for xen-devel@lists.xenproject.org; Mon, 16 Jun 2025 07:06:32 +0000
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [2a00:1450:4864:20::631])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 6d6cb53b-4a80-11f0-b894-0df219b8e170;
+ Mon, 16 Jun 2025 09:06:30 +0200 (CEST)
+Received: by mail-ej1-x631.google.com with SMTP id
+ a640c23a62f3a-ade5a0442dfso782513266b.1
+ for <xen-devel@lists.xenproject.org>; Mon, 16 Jun 2025 00:06:30 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-608b4a93b03sm5531809a12.54.2025.06.16.00.01.16
+ a640c23a62f3a-adec8158d8esm600862666b.5.2025.06.16.00.06.28
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 16 Jun 2025 00:01:17 -0700 (PDT)
+ Mon, 16 Jun 2025 00:06:29 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,65 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b3d8d6b7-4a7f-11f0-a309-13f23c93f187
+X-Inumbo-ID: 6d6cb53b-4a80-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1750057278; x=1750662078; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1750057590; x=1750662390; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=dY8BGe9e9TqrPHAlEJu9QoJiufRE4AOYbMuv7tR3bJ0=;
-        b=EwN5uR2I7hY3dD9bFmlslx+ZKgP+M5W/G58Wbwkf4yOmx1nWSO7YN9Epim1/Q0OFmS
-         ibntom3zvBH66V4Kfvh9vf509od087I+JbcOoe9La852Dv68WGVUwzKktzeoK36yZqDQ
-         DTaykunUT7MjnFBzOAESqJAtXEmSDt34LpFChZAKLIQqrXruUUAQJ15elHBb+GFyI0wf
-         3m/fg7r2DPch/pzahfkzqlQ8uBkDrBWxwcwW6lWhdEuolpOvRp5XL1uF3C/afiPXXTbA
-         g9wa1Si/mcwIRad3EAgisFyxf6kM10vwMVC3VSxsmMqDOYzdoPMWSR4iPcp7n2WwMWgw
-         NFOg==
+        bh=zefKGPnzL8rTRF0GxQFp+q3vEpr37GbVeWltEABQmLQ=;
+        b=HZuibUktJId0BffufN4EeUUs+3STwxk2iK5e3HzfKxREriwpmZPdj2z/6jDPPhBXT1
+         FXh07Au/InCC9DWSied82G7DLYBHXRqP87u432yF8gEuajXiNIDuEvM2deT3ItjkbmKO
+         KiAtv2MpjGvzyt6tftDHaeVik4zNjifYfTgG1N5ei68fiqFBemcqdvl2KhusDDkbU5SB
+         M2LovpwNIHJM/OQWhKSYq+pbJRvSVegrFOEVY+UAUZ3DdhtFAl9CAc/jNEnzU9isRSS3
+         GK4aJXGAL5IuOxk18pEvNL2UBkegRlnQeVDr03WfctM9yHGVVKoN30STHXctd+oFr00T
+         h5PA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750057278; x=1750662078;
+        d=1e100.net; s=20230601; t=1750057590; x=1750662390;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=dY8BGe9e9TqrPHAlEJu9QoJiufRE4AOYbMuv7tR3bJ0=;
-        b=YRgc6r5hdj+H9gPoch18NXoOdAhShI9dJ5R4bXua9ibVcQCeiE1rP0noys3Ip/SCse
-         pfmlLZKzBhjF3ZhJTaJDl+7CHwN8tIeFB5+vclud4OZm7jIiu5gDEKRLOcuGIBRrFRpK
-         HkcakmMKa8LpdzDLCDymoKDreuLN6TkkrC5tDeFIMrPb3eUNhvqfRLVOZXtpilzPw6lj
-         ZtM+/9+pFv0YM4gf5LRR/1WeBw0VicoelRIMZBWAeHs0ROCecPp0WEzMJgGilHymxCZh
-         NnXVUdbtBsZIga02HHLuT8e0GZfbqRdbvFWgO+UzoKOlPQNKFObUmG3OLmLOYA4ww8u3
-         2ixg==
-X-Forwarded-Encrypted: i=1; AJvYcCV6W3PfH/ymD3v3HY+5Qjd5w9dqj5ejmnxS92hWqNitpkSheI24rHUkDcPvuR4MvTEWZS4wDYO3v4E=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxN76mKXo1rVXDgUXbBYKh81pyS4rQlnoYPK9GJ+2TvQK+dnKKI
-	qc8Q9FX7MLoFVEmsW7qjfJjYBj5+PbjnOKvFI4S97eXv59P1Ow9GkHYYrz7KaLzNYQ==
-X-Gm-Gg: ASbGncsKuZsFV5Vz9OQb+3nUx882nplGMo5J+jtKQloVUTEYgFMskfrjzy3sqhJ64NZ
-	wcXae8eTgiedo+OcIM24U2jj60mj2/862Zee9a2bWijS7NUD3Xqvy/jVtrH05JrFZJ3VcY77qaD
-	MzYYPKhvNYEGwu/8GC3I2+vrIDiobXubovPZulMxm4ziISkHWDTSYc30RtFcVyBql/LFyBGWRdf
-	3UJS6oHkGe+eY3jfjPq46NVLQYL5DFmdOUcMCUi+jZn7SclyU4+onCP3zqkvql5sFP2bWPJ3Mft
-	v1fap187JfyUAKV5bYCz2pvtm57eooabJoap8m+HcP5sPaKVyCMRdS9Jwq0/KWux2DqED8JpgwM
-	kRZ7HMOY2dm8Vb11QoHSIVTLPoux2hRqQCSb2NMiFkjtvSuQ=
-X-Google-Smtp-Source: AGHT+IFlKxIdHabl/a6Ds14tOCN/yATQW9hGL4chjm1Vrggn5+gHzMEhtQbTDNAuiSCZrcQCBAyGiw==
-X-Received: by 2002:a17:907:96a8:b0:ad8:9466:3344 with SMTP id a640c23a62f3a-adfad4f38bfmr887367266b.43.1750057277650;
-        Mon, 16 Jun 2025 00:01:17 -0700 (PDT)
-Message-ID: <07d0b403-1fc0-4d19-beee-b6960b29c819@suse.com>
-Date: Mon, 16 Jun 2025 09:01:18 +0200
+        bh=zefKGPnzL8rTRF0GxQFp+q3vEpr37GbVeWltEABQmLQ=;
+        b=tBBxtpaSbvPuvGZB6Qk4jcGptwku56/ZMonou9Z5dIxF0DqMz6CsXFbTiTYaPVzXEB
+         x4RHkDQXjW0AC/r3FzJ5jKL0jFHcJbcIp/bhQpyXGrCMyP5vsqkGDg2gUBTwH+co7ncB
+         LoU9AqeStsOQs2Fd79kGH5+x6LnEScDy2s00Y+7EVY4hP3AtvNvfXHtFJ9+FJXhtyViI
+         8kc9T+mJEM9Sud1p4JLp09a41q67nO7oq+5QyNLIdxQxTaBLyaw+h834uNKIRuL1sFCa
+         22w/auHCXBB57sKmutkb77L/PtyryRtb+6zoMJYN6sEIkqnNRGuK1h5dichmwucwU9LA
+         1BIQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWEr8OsS4CnVgEQG+17mftngZ+mUgWobwFPwnnPnzIyrJHRD0e6tc2pWZj6V9JAdEgsefQxvTTO2CU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyD3i43d52SnLzhQ1FEchM+Q0yoHn1xrmidoJgBV9cIN9ouZjGS
+	6KXJTev5At3gLDUdfj9KXAKk4zTGhtDn+g1Hyb008uW0xloa6quiNAhUOCgK36FeZw==
+X-Gm-Gg: ASbGnctjMigpS606mUxdWan+7qSCVshOV5eApdySYvtv8mNF/Lr9P2zW1flCEyjFID3
+	tttYTi1Hocs3TsBf0qOdSHRpuzsJRHierEGpsPCFajYDhd92VBwBGek+/PEftQF9GE2k4e2KLW7
+	uxVYc5FIVyfj+BmdaafMmhTQj+qyk12SR/cgdzeCGvK+IbJbHnd/cMnmB/LPgC8zWPP8PFLO5TS
+	pmnYiuJYy/c3srbirtu2FCVwFkBpK6D0QqHnzjmz3emlylpKiFgOn2ZULubU17eZRctnooLywWP
+	QomzK55dpuo6OesSRBEl47sDhaJMzFddDz7sgLM05JUIt5QByKIOTeZDhUjJTdiPuRtbWE5qBS0
+	q+iOCs5Lm6baD0ws72zT+g7tS0UdK67UI1nyvRRa+3cl1tjc=
+X-Google-Smtp-Source: AGHT+IGULn5tYmf25n4NDNY/oBM6WTjdmB21Omzn7g7B9GwreVjKO5N8hckVlY07JBMfWzwVHgkHWA==
+X-Received: by 2002:a17:906:f583:b0:ad8:9c97:c2f7 with SMTP id a640c23a62f3a-adfad363e5amr807330166b.2.1750057589559;
+        Mon, 16 Jun 2025 00:06:29 -0700 (PDT)
+Message-ID: <a703e065-29cd-4db4-a9c9-3f0f209acbb0@suse.com>
+Date: Mon, 16 Jun 2025 09:06:30 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 12/14] xen/dt: ifdef out DEV_DT-related bits from
- device_tree.{c,h}
-To: Alejandro Vallejo <agarciav@amd.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+Subject: Re: [PATCH v1 2/2] xen/domain: introduce generic weak function for
+ domain struct allocation
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Roger Pau Monne <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
  Michal Orzel <michal.orzel@amd.com>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- xen-devel@lists.xenproject.org
-References: <20250613151612.754222-1-agarciav@amd.com>
- <20250613151612.754222-13-agarciav@amd.com>
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Shawn Anastasio <sanastasio@raptorengineering.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, xen-devel@lists.xenproject.org
+References: <cover.1749829230.git.oleksii.kurochko@gmail.com>
+ <c08595dd7940b44a1392e16d4a2035b95b5c580b.1749829230.git.oleksii.kurochko@gmail.com>
+ <7ef86c5b-80ad-4bcf-8028-ef98616a8924@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -122,16 +129,54 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250613151612.754222-13-agarciav@amd.com>
+In-Reply-To: <7ef86c5b-80ad-4bcf-8028-ef98616a8924@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 13.06.2025 17:13, Alejandro Vallejo wrote:
-> ... which means, device-tree.c stops requiring strictly CONFIG_HAS_DEVICE_TREE
-> and may function without it.
+On 13.06.2025 20:53, Andrew Cooper wrote:
+> On 13/06/2025 4:56 pm, Oleksii Kurochko wrote:
+>> diff --git a/xen/common/domain.c b/xen/common/domain.c
+>> index e566a18747..c134868e95 100644
+>> --- a/xen/common/domain.c
+>> +++ b/xen/common/domain.c
+>> @@ -785,6 +785,20 @@ static int sanitise_domain_config(struct xen_domctl_createdomain *config)
+>>      return arch_sanitise_domain_config(config);
+>>  }
+>>  
+>> +struct domain *__weak alloc_domain_struct(void)
+>> +{
+>> +    struct domain *d = alloc_xenheap_pages(0, 0);
+> 
+> I know you're just moving what ARM has, but this is spelt
+> alloc_xenheap_page();
+> 
+>> +
+>> +    BUILD_BUG_ON(sizeof(*d) > PAGE_SIZE);
+>> +
+>> +    if ( !d )
+>> +        return NULL;
+>> +
+>> +    clear_page(d);
+>> +
+>> +    return d;
+>> +}
+>> +
+> 
+> This looks fine, but you must do the same with free_domain_struct() at
+> the same time to keep the pair symmetric.  That in turn gets you an even
+> bigger negative diffstat, and x86 doesn't even need to override the
+> common version.
+> 
+> vCPU really wants doing at the same time, although you're going to run
+> into problems on ARM there with the BUILD_BUG_ON().
+> 
+> However, I suspect we want to be building with -ffunction-sections
+> generally active, or IIRC we'll still have the weak copy present in the
+> final image.
 
-See my reply to patch 14. I consider it outright wrong (as being overly
-misleading) to build device tree code without HAS_DEVICE_TREE=y.
+Instead of introducing a weak function in common code, why don't we move
+the function there altogether, adding merely an arch hook to control the
+flags to be passed into alloc_xenheap_pages()?
 
 Jan
 
