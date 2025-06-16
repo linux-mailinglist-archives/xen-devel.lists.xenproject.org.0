@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CFF3AADA835
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Jun 2025 08:28:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1016481.1393372 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 42FB4ADA856
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Jun 2025 08:37:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1016502.1393385 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uR3Jv-0004Xh-3l; Mon, 16 Jun 2025 06:27:51 +0000
+	id 1uR3Sc-0006QZ-3Z; Mon, 16 Jun 2025 06:36:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1016481.1393372; Mon, 16 Jun 2025 06:27:51 +0000
+Received: by outflank-mailman (output) from mailman id 1016502.1393385; Mon, 16 Jun 2025 06:36:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uR3Jv-0004Ue-16; Mon, 16 Jun 2025 06:27:51 +0000
-Received: by outflank-mailman (input) for mailman id 1016481;
- Mon, 16 Jun 2025 06:27:49 +0000
+	id 1uR3Sc-0006Oe-0i; Mon, 16 Jun 2025 06:36:50 +0000
+Received: by outflank-mailman (input) for mailman id 1016502;
+ Mon, 16 Jun 2025 06:36:48 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=jh7D=Y7=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uR3Jt-0004UY-3j
- for xen-devel@lists.xenproject.org; Mon, 16 Jun 2025 06:27:49 +0000
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [2a00:1450:4864:20::632])
+ id 1uR3Sa-0006OY-ML
+ for xen-devel@lists.xenproject.org; Mon, 16 Jun 2025 06:36:48 +0000
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [2a00:1450:4864:20::62f])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 04540091-4a7b-11f0-b894-0df219b8e170;
- Mon, 16 Jun 2025 08:27:46 +0200 (CEST)
-Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-ad89c32a7b5so626664766b.2
- for <xen-devel@lists.xenproject.org>; Sun, 15 Jun 2025 23:27:46 -0700 (PDT)
+ id 46614b1d-4a7c-11f0-b894-0df219b8e170;
+ Mon, 16 Jun 2025 08:36:46 +0200 (CEST)
+Received: by mail-ej1-x62f.google.com with SMTP id
+ a640c23a62f3a-ad8826c05f2so797813666b.3
+ for <xen-devel@lists.xenproject.org>; Sun, 15 Jun 2025 23:36:46 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-adec88ff1a1sm589809066b.89.2025.06.15.23.27.45
+ a640c23a62f3a-adfeaed2d10sm25248166b.105.2025.06.15.23.36.45
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 15 Jun 2025 23:27:45 -0700 (PDT)
+ Sun, 15 Jun 2025 23:36:45 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,66 +45,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 04540091-4a7b-11f0-b894-0df219b8e170
+X-Inumbo-ID: 46614b1d-4a7c-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1750055266; x=1750660066; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1750055806; x=1750660606; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=JfU75DuIdo9Kgu/QrbsMWKdVFXqewUQLfKGYI3wuzEI=;
-        b=b0qIac6CBA0wWrMQQkHzWDmO43hbjUg3vr9IMPUKQdU0w5OJjEvzlUM5/YVBtFaq5t
-         b0XAQTAMRQD0IFGQWwZ8aiND2H/c1jh9ChzKMPQ63KqDcCZoT+/z3xJe/JJbySM1KRXx
-         xnlJcLJYIF5QZiZ5dMxRheB2AcJeiziz/Z3ZmtxCKyJdXSjj2ss4Sdatn70wWFO3z556
-         S14qo23jLo0Cjl+gwfazbqBLexFmsSiNe5UoAAGb9+/VQ3Ha5Qx2EaI50HHJo98gC5h+
-         mzs9jLwugJjsWSFMBUDpmGSJmEvs4FdThe3VIxq8OTd7kEYdRunh3rMruN8Ve2m9ASTG
-         U55A==
+        bh=pFQeijgzx5FakN/hAjl4IqtirWujbmrpF9iZqvEVeP4=;
+        b=Vm3S4GK9pVtpqvk61XwSBQDRlI4E66WZGrRD3MMVMVgPIyqSnZkqA5/AFnH2n5zdB0
+         Rv27wp0DOlziBsUnoXwsyCLs1pGM/4i0P8/ORshI/h3X3EwYlx7avOQV2GQ0ttApbTzF
+         wLIFZ1OA7aC4Z+IO30yKkJOrsIMEPzKzFq8WrwFxFzeQMKBEw+2DJuwQnCK38uZY+txs
+         gIzIA+od6ZMVXovFMb7WaHf6pcch6bytRZ53YdSSjXpQ0N0OIpq9W9jpNtss3aV8aCBd
+         csEyG6Ff1U/cp4wBGu2Td6utOzwNc0Ser0zxouIz2q0gU772VhGi4AcrtSZZ3O78QRCt
+         bKHA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750055266; x=1750660066;
+        d=1e100.net; s=20230601; t=1750055806; x=1750660606;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=JfU75DuIdo9Kgu/QrbsMWKdVFXqewUQLfKGYI3wuzEI=;
-        b=c/6VyF0E+ct0frdFp/LwZNc2FFa3AzAnGNXN90YJ/wWbFHcPVbQV0T/wN6CtV4rO3t
-         MP5ILIx7eDf0Okujx13S/G48RYVLLTlaWSO9XkU9wtEYFMZFy2u+s5m8lgLfFIsg5YEd
-         W5s+dwLx81KRfN67Vh4fMtCUt961XlnpsEIMGaeENIv5dADRqfTz4pz/AkIfz3RigJrT
-         bFtp69+SA9aSbZ6QBRSXYDwV6MvIvG6eZFlROI05fCurheAVrgjvtJ94qNn4JEumC3dP
-         FnxdKX61Qb/ahB3W+M7RGyQ7Up30B2RkoZuzb4VE6LwJrxsXJdDVMYUkWJe8yjJRULin
-         JY3Q==
-X-Forwarded-Encrypted: i=1; AJvYcCU47djK6Piz7uKyClXm9ODbCkEgb04VuaZKg8paok6uE0bxgXcXTidTlOmIFOBOZ7p1sF8W/+IY8qw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YybuDn3H8rLKsrru1VO3+pkZrAVhB7sei9bZJqtVY81PMoCPFLW
-	wbfhi7z8jlRHMUaUHqRUjQhNr9Y47Nncqxrt8xC4cbEpoY+9PmW829hMvezvt0AFRg==
-X-Gm-Gg: ASbGnct3c6ksWsukbZh1UemuWCmE79rjdVHmZppFzl66WXaWU7WfLwz6tjaCCn09plY
-	E0OUkXaF9Sk2wAwVGBDmutEsRn3zaq5cd5o8m87mNaP+XJocHaZad3WJ2wK7Yv1NZpn9kz4d7sm
-	ebe6cNym0mtcxoSxmsHQiBwQBnXBGhlfgdWxx0XuUdRcmg/aachft4E0IS2QAklgSTN3QnaOXET
-	gr7SUybm5lWXqMagMyKhjpycyHJwM7XRFy4mIx/T7UCpPMsYUDKBD1WpgkbJTU/lTNd5b9UDbbA
-	B6FhThvBDv0pjI4RyUInluaOI1fUfcj8VFM8aSaKqlwqXv9gMl4nUfEsODufafId8HAejoPeAJ/
-	BXBefI3xIHHhYlBihFNtmSEUUghe75uvjGfBsxH/rbuKSxXU=
-X-Google-Smtp-Source: AGHT+IFcX9G7lZBDk4EkJwcPsdTXIeengT650LQjZa1uTOlhLf3lu9uhwgshX3Yml7+Tj3sh/RIehQ==
-X-Received: by 2002:a17:907:3ccb:b0:ad8:8364:d4ac with SMTP id a640c23a62f3a-adfad4feca7mr743711166b.55.1750055265729;
-        Sun, 15 Jun 2025 23:27:45 -0700 (PDT)
-Message-ID: <134c69c8-ccff-475c-8bf7-241ec4805754@suse.com>
-Date: Mon, 16 Jun 2025 08:27:46 +0200
+        bh=pFQeijgzx5FakN/hAjl4IqtirWujbmrpF9iZqvEVeP4=;
+        b=C+aMSL3w0vTgDSP365quFa+8M3Qnbb6C2BN0+ahldGBDq6demBOqa1oQvh6hEgN9hF
+         iUR9UfP9suk6qWJJc41LIkV4pPr49slbmfAkwl2ElS6aK8cRg9EVD+IJsMUGDEbyIaBV
+         aG53685zgv16+9ptGP63ILoqTIyx3oKuyOTc4Sypronnn2NqvhrRpKMunA0iVVJUsAHy
+         LksMuD34nyuJlSKfEjp2Km9fIIDQliReoaR4x7B1eh7iUh9dss/WxmXA1QUZL9xmVfiT
+         N4uTtY25NE3hC/mP+ycUBn/iWRA+p+xv5cxtsrO9YK74R68TiOQRSHBSy9XvQBosgaRd
+         loXw==
+X-Forwarded-Encrypted: i=1; AJvYcCX1Z7kOgEZgkAoHD+OU7NNBQRSB9g7LTjoeal6Gg9+4rPBG/ktmG5mY5iTLe4hV2T5AwhLdiQBjl54=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx2Cr3FIxW4Zjyj1lUqsXxE7LBysq1ksJa08RbEMRxm2REny1Ds
+	rlvYb7glVapNSZW9R0P3RS8MFdtp+LUz6u5cOzDkZPep+uc2ThAuipmZsFO2YNmKTw==
+X-Gm-Gg: ASbGncvXsOXOmD/vO91s2DX7zYNzWvfAgUaS0VFfINBLnlieYzU66b5eMRw/WxjzGrS
+	YMB32MiNOJND3vP0P58e/u417JYFD5jb63Hy2ZtMyh7GXmt4ylcBsjDmHzGPE9B80ACqkMfpWSp
+	60sbpQ0JxzJDVDxscD99+WXn/G4dom+LPTscLt+m9R4E+yWyzGKX8/e1GeL4sUIE3S9lV2xX+BH
+	2bpl6LWoKh2ACDUJMj534vVBcNsOTaXb1lQH5LVABLpl3pOalPvdedJ6kaTVE7RvIQScUeKOoI8
+	Xynslb0Q+FexwrWG2UXRK2wB4ymVumvrp9/HhLp1u+cMQFDHEYH0XVv2qIc1JDuLkAiNBC3zz+D
+	t2qzyHuOubvVJGRtTbpJ7MWISnvHMJl4lOtrLz3sK5lSQVa8=
+X-Google-Smtp-Source: AGHT+IG47KLzpWhyrpGOiBAR0XfZMApSuMe8JIE4bSttiX2eX9eWC1SLRUVKnjyqX1woQ3x8nIxKXA==
+X-Received: by 2002:a17:907:7216:b0:ade:4295:a814 with SMTP id a640c23a62f3a-adfad53f2e2mr766245166b.53.1750055806061;
+        Sun, 15 Jun 2025 23:36:46 -0700 (PDT)
+Message-ID: <bf6fd680-c608-4d64-ad8f-38eac102991e@suse.com>
+Date: Mon, 16 Jun 2025 08:36:47 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] x86/EFI: Fix detection of buildid
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Ross Lagerwall <ross.lagerwall@citrix.com>,
+Subject: Re: [PATCH 4/4] xsm/dummy: Allow hwdom SYSCTL_readconsole/physinfo
+To: Stefano Stabellini <sstabellini@kernel.org>,
+ Jason Andryuk <jason.andryuk@amd.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>,
- "Daniel P . Smith" <dpsmith@apertussolutions.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250605111638.2869914-1-andrew.cooper3@citrix.com>
- <20250605111638.2869914-2-andrew.cooper3@citrix.com>
- <0a314400-126a-4c2a-b36c-dda61bb0b751@suse.com>
- <a477369d-77d0-48fa-8ac4-120d49e32d11@citrix.com>
- <4d1f1b70-e309-453b-bae6-e066d49a417a@suse.com>
- <9200277c-aa8e-4fd9-ab6a-f9e106114f54@citrix.com>
- <6eaf2b27-969a-4326-9726-8b6e0994e006@suse.com>
- <3f9c5a18-2ea1-4e2d-80a0-773abc3598ae@citrix.com>
- <ab3ad5c1-fd4c-4fa4-abfd-89641173a862@suse.com>
- <f2092e8a-2f13-40c5-b961-8a15d8298387@citrix.com>
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ xen-devel@lists.xenproject.org
+References: <20250610225737.469690-1-jason.andryuk@amd.com>
+ <20250610225737.469690-5-jason.andryuk@amd.com>
+ <5f6d43da-2600-4c1c-9bcb-f13e8fce921e@suse.com>
+ <bf6924f8-26c6-4f89-8441-155735384a8a@amd.com>
+ <alpine.DEB.2.22.394.2506131547320.8480@ubuntu-linux-20-04-desktop>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -130,72 +126,51 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <f2092e8a-2f13-40c5-b961-8a15d8298387@citrix.com>
+In-Reply-To: <alpine.DEB.2.22.394.2506131547320.8480@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 13.06.2025 23:28, Andrew Cooper wrote:
-> On 10/06/2025 9:01 am, Jan Beulich wrote:
->> On 06.06.2025 17:01, Andrew Cooper wrote:
->>> On 06/06/2025 8:22 am, Jan Beulich wrote:
->>>> And then, based on your reasoning above, why don't you also drop the
->>>> #ifdef CONFIG_X86?
->>> Because that's the one non-buggy way of excluding an impossible case.
+On 14.06.2025 00:51, Stefano Stabellini wrote:
+> On Wed, 11 Jun 2025, Jason Andryuk wrote:
+>> On 2025-06-11 09:27, Jan Beulich wrote:
+>>> On 11.06.2025 00:57, Jason Andryuk wrote:
+>>>> Allow the hwdom to access the console, and to access physical
+>>>> information about the system.
+>>>>
+>>>> xenconsoled can read Xen's dmesg.  If it's in hwdom, then that
+>>>> permission would be required.
 >>>
->>> x86 is the only architecture possibly linking with pep emulation, and
->>> therefore the only architecture to possibly have a CodeView record.
->> And how's the, say, Arm case different from the x86 case with no such
->> record built in? 
+>>> Why would xenconsoled run in the hardware domain? It's purely a software
+>>> construct, isn't it? As a daemon, putting it in the control domain may
+>>> make sense. Otherwise it probably ought to go in a service domain.
+>>
+>> My approach has been to transform dom0 into the hardware domain and add a new
+>> control domain.  xenconsoled was left running in the hardware domain.
 > 
-> Because its currently impossible for ARM to have a codeview record.
+> I think we should keep xenconsoled in the hardware domain because the
+> control domain should be just optional. (However, one could say that with
+> Denis' recent changes xenconsoled is also optional because one can use
+> console hypercalls or emulators (PL011, NS16550) for all DomUs.)
+> 
+> 
+> 
+>> I suppose it could move.  Maybe that would be fine?  I haven't tried. The
+>> Hyperlaunch code populates the console grants to point at the hardware domain,
+>> and I just followed that.
+>>
+>> One aspect of why I left most things running in the Hardware domain was to not
+>> run things in the Control domain.  If Control is the highest privileged
+>> entity, we'd rather run software in lower privileged places. Especially
+>> something like xenconsoled which is receiving data from the domUs.
+> 
+> Yes, I agree with Jason. It is a bad idea to run xenconsoled in the
+> Control Domain because the Control Domain is meant to be safe from
+> interference. We want to keep the number of potential vehicles for
+> interference down to a minimum and shared memory between Control Domain
+> and DomUs is certainly a vehicle for interference.
 
-There must be some pretty fundamental misunderstanding then: I can only
-ask again - how's this different from xen.gz? There's not going to be
-CodeView record there, yet still you enable the logic there. Hence the
-body of the conditional is unreachable in that case.
-
-To expand on my earlier suggestion (ab)using the "efi" global: With
-the linker script having this
-
-#ifdef EFI
-  .reloc ALIGN(4) : {
-    __base_relocs_start = .;
-    *(.reloc)
-    __base_relocs_end = .;
-  }
-#elif defined(XEN_BUILD_EFI)
-  /*
-   * Due to the way EFI support is currently implemented, these two symbols
-   * need to be defined.  Their precise values shouldn't matter (the consuming
-   * function doesn't get called), but to be on the safe side both values would
-   * better match.  Of course the need to be reachable by the relocations
-   * referencing them.
-   */
-  PROVIDE(__base_relocs_start = .);
-  PROVIDE(__base_relocs_end = .);
-#else
-  efi = .;
-#endif
-
-where only the #if applies to xen.efi, can't we (ab)use the combination of the
-other two symbols here to decide between xen.efi vs xen.gz?
-__base_relocs_{start,efi} won't possibly be equal for xen.efi, except in an
-extremely theoretical situation (and we could cover for that case by an ASSERT
-in the linker script). Pseudo code:
-
-#ifdef XEN_BUILD_EFI
-    if ( __base_relocs_start != __base_relocs_end )
-    {
-        ...
-    }
-#endif
-
-IOW that #if could simply replace the CONFIG_X86 one that's there right now.
-
-> Remember that ARM writes a MZ/PE header by hand in a flat binary.  It
-> does not use a PEP linker.
-
-Of course. Much like for xen.gz there's no PEP linking involved.
+As much as it is when xenconsoled runs in the hardware domain? Especially
+if the hardware domain is also running e.g. PV backends or qemu instances?
 
 Jan
 
