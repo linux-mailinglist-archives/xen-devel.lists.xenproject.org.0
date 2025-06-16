@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1175AADB50C
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Jun 2025 17:14:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1017366.1394352 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C1C4ADB525
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Jun 2025 17:21:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1017375.1394361 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uRBXF-0005q6-2l; Mon, 16 Jun 2025 15:14:09 +0000
+	id 1uRBdo-0007eV-Ms; Mon, 16 Jun 2025 15:20:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1017366.1394352; Mon, 16 Jun 2025 15:14:09 +0000
+Received: by outflank-mailman (output) from mailman id 1017375.1394361; Mon, 16 Jun 2025 15:20:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uRBXE-0005oL-Vc; Mon, 16 Jun 2025 15:14:08 +0000
-Received: by outflank-mailman (input) for mailman id 1017366;
- Mon, 16 Jun 2025 15:14:07 +0000
+	id 1uRBdo-0007ci-KG; Mon, 16 Jun 2025 15:20:56 +0000
+Received: by outflank-mailman (input) for mailman id 1017375;
+ Mon, 16 Jun 2025 15:20:55 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=KNT4=Y7=ideasonboard.com=laurent.pinchart@srs-se1.protection.inumbo.net>)
- id 1uRBXD-0005jp-6c
- for xen-devel@lists.xenproject.org; Mon, 16 Jun 2025 15:14:07 +0000
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8b661730-4ac4-11f0-a309-13f23c93f187;
- Mon, 16 Jun 2025 17:14:06 +0200 (CEST)
-Received: from pendragon.ideasonboard.com (81-175-209-231.bb.dnainternet.fi
- [81.175.209.231])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 55562346;
- Mon, 16 Jun 2025 17:13:54 +0200 (CEST)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=jh7D=Y7=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uRBdn-0007cc-JQ
+ for xen-devel@lists.xenproject.org; Mon, 16 Jun 2025 15:20:55 +0000
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [2a00:1450:4864:20::42f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 7e9a727e-4ac5-11f0-a309-13f23c93f187;
+ Mon, 16 Jun 2025 17:20:54 +0200 (CEST)
+Received: by mail-wr1-x42f.google.com with SMTP id
+ ffacd0b85a97d-3a361b8a664so4715099f8f.3
+ for <xen-devel@lists.xenproject.org>; Mon, 16 Jun 2025 08:20:54 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-748a0666b1asm4827962b3a.144.2025.06.16.08.20.48
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 16 Jun 2025 08:20:53 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,92 +45,94 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8b661730-4ac4-11f0-a309-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1750086834;
-	bh=aNDbKOOjHpsSVm/u+QK5zaGokrrj0d/sOrb/9/P49gE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=QM67Xzx99jtSxFtbVWkxi9ny3lkeshszCYykwUWs4y08YnSKdKJ/O207ngwOCheOQ
-	 TcS9TWQkg/ZF3B5IT/PRnJdD6ZeF54pordOC63Upxph3fPlOeSwafp7l71BiZ0xPAD
-	 TAv/k4j+OiUsCXXAJRp6zom83aLOsyaQGJY4FajI=
-Date: Mon, 16 Jun 2025 18:13:50 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: simona@ffwll.ch, airlied@gmail.com, mripard@kernel.org,
-	maarten.lankhorst@linux.intel.com, geert@linux-m68k.org,
-	tomi.valkeinen@ideasonboard.com, dri-devel@lists.freedesktop.org,
-	linux-mediatek@lists.infradead.org, freedreno@lists.freedesktop.org,
-	linux-arm-msm@vger.kernel.org, imx@lists.linux.dev,
-	linux-samsung-soc@vger.kernel.org, nouveau@lists.freedesktop.org,
-	virtualization@lists.linux.dev, spice-devel@lists.freedesktop.org,
-	linux-renesas-soc@vger.kernel.org,
-	linux-rockchip@lists.infradead.org, linux-tegra@vger.kernel.org,
-	intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org,
-	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
-Subject: Re: [PATCH v5 17/25] drm/renesas/rcar-du: Compute dumb-buffer sizes
- with drm_mode_size_dumb()
-Message-ID: <20250616151350.GG10542@pendragon.ideasonboard.com>
-References: <20250613090431.127087-1-tzimmermann@suse.de>
- <20250613090431.127087-18-tzimmermann@suse.de>
+X-Inumbo-ID: 7e9a727e-4ac5-11f0-a309-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1750087254; x=1750692054; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=TT5s+oHcVGNzryxf6YZ1fu7yLxh41sfErOzsIMk8gCs=;
+        b=BHif7o8BOr4dCM6p4PUCZH0Gy0gmaqFxrXvQFx1ajtmiADjkHc1vXjLHN9ouCNe6yV
+         xTvjz0KT4AvwfcUUe226HgYqTU30noVlOzATYklZckqQ9sWZFbekvEzL2IgzsBzHH1GY
+         NzJQAic00QbYGfuOtegrey5wP1ubT9MIARCMCGeOjlfvQs0ST22bqCP2IxH96fB+J6c5
+         fU/egXcE5GaGkMhlDFW++iy/vWhNB/S15LnhhvASy+miIyAai1pRgLC7OgPa2THIJFQO
+         Sq4MW7qJkJ7k5Z4QaQT0/HWkKbw9SZPfzlmqDfdsZrq4DBPdXyqDPS5qVgXjy9ZEPaSA
+         vxnw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1750087254; x=1750692054;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=TT5s+oHcVGNzryxf6YZ1fu7yLxh41sfErOzsIMk8gCs=;
+        b=iSuRCQWP//7/kBs/jjTirg23YsGiab0fud21iZk3+dDVMlIZwioDGIRvxL/WQ3la6u
+         cTmkekUi1SReUhv8aAF5Zps9estd9z/Y/I60fp/mJqlOStsdFAtaXB7X8xAomya+9nXL
+         e1CsUhOt8p7WVoqQKbCXseUIfDavc3F7dvIhNYboV8mrEMmywUgJK/BtPsRxxBM6gKCI
+         uqed/K/J+uTlbFpuiKfYp7pgfGTWezXJMXu1uJXvBtXG6ssd1c0m/baSdpAs01VGnW0R
+         t0hEZE8L4VNRHy1mPh0MSy7H3Ez3XmkuWyksbq4xDjjN3eGWl4zitiJ0YQxj5AKZaQg5
+         stPQ==
+X-Gm-Message-State: AOJu0YzMnA+EYY5UHGv13A+JZ3Nsh28GHY11zf3WnXg1EEJfL2OcOEj1
+	O++KhZdjCN83TLCZ07uGhZ24gHCP1cwXARGwaZlztyBfe2NHhf6+fBcM3SqYPaqaBg==
+X-Gm-Gg: ASbGncvDOnD8TAimtOmUnjOoNmZ5c9FtbEaXSjvic/DSYG3dDzc70XnV6cBJWE74rJu
+	iTX2ebcBKc0lYOK4l9R3Ytn+7E/mx2g/1O8mpG6YxZKIxk94p8E/ONgabJQUtyvDaPW9VmTMYI7
+	51NDTTGwPPAOmps13mqvqbWiOvI+Ytg9RTnAS4uNRU43buKCoWsd9GVAoyKh3Pf5geAIl8GPsNp
+	kM4T3dxI/fxSIyhA9N3nJ2ULQIiqHfSTMVjqSRRnM6zfjPnR5WF82JPhv11OdFn4ECw5fTaNQ3B
+	q+qw6TWiBmj94Ejk0Er01i+VyVIS3nODqFMRl7IwAZuX5fPuWveYQUUacvyytrXrCbunoCr4rmN
+	TDneXcc98rIPpzT0tHAoxcprKIVKe5uJXefxNutI5iPO7T9U=
+X-Google-Smtp-Source: AGHT+IEohTIro7OLRx0dRZJXCQqrUawQA4y0yGYEom+Y0W2oF5WpH+gPufMdjJH1TyByEoha/7mq9w==
+X-Received: by 2002:a05:6000:288d:b0:3a4:e4ee:4c7b with SMTP id ffacd0b85a97d-3a5723a3ad5mr8307496f8f.15.1750087253647;
+        Mon, 16 Jun 2025 08:20:53 -0700 (PDT)
+Message-ID: <2969b5d8-5879-4674-8332-046898e17257@suse.com>
+Date: Mon, 16 Jun 2025 17:20:45 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20250613090431.127087-18-tzimmermann@suse.de>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] memory: arrange to conserve on DMA reservation
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>
+References: <6565e881-ec59-4db4-834a-f694bf1b9427@suse.com>
+ <aFAbqhfmM_GBxjVC@macbook.local>
+ <9b036f26-f275-48d0-9a33-7cef38b29f48@suse.com>
+ <aFAuRXSryHKj3jVa@macbook.local>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <aFAuRXSryHKj3jVa@macbook.local>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Thomas,
+On 16.06.2025 16:46, Roger Pau Monné wrote:
+> One question I have though, on systems with a low amount of memory
+> (let's say 8GB), does this lead to an increase in domain construction
+> time due to having to fallback to order 0 allocations when running out
+> of non-DMA memory?
 
-Thank you for the patch.
+It'll likely be slower, yes, but I can't guesstimate by how much.
 
-On Fri, Jun 13, 2025 at 11:00:36AM +0200, Thomas Zimmermann wrote:
-> Call drm_mode_size_dumb() to compute dumb-buffer scanline pitch and
-> buffer size. Align the pitch according to hardware requirements.
-> 
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-> Cc: Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
-
-Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-
-> ---
->  drivers/gpu/drm/renesas/rcar-du/rcar_du_kms.c | 7 +++++--
->  1 file changed, 5 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_du_kms.c b/drivers/gpu/drm/renesas/rcar-du/rcar_du_kms.c
-> index 4c8fe83dd610..dd353fb858ef 100644
-> --- a/drivers/gpu/drm/renesas/rcar-du/rcar_du_kms.c
-> +++ b/drivers/gpu/drm/renesas/rcar-du/rcar_du_kms.c
-> @@ -11,6 +11,7 @@
->  #include <drm/drm_atomic_helper.h>
->  #include <drm/drm_crtc.h>
->  #include <drm/drm_device.h>
-> +#include <drm/drm_dumb_buffers.h>
->  #include <drm/drm_framebuffer.h>
->  #include <drm/drm_gem_dma_helper.h>
->  #include <drm/drm_gem_framebuffer_helper.h>
-> @@ -407,8 +408,8 @@ int rcar_du_dumb_create(struct drm_file *file, struct drm_device *dev,
->  			struct drm_mode_create_dumb *args)
->  {
->  	struct rcar_du_device *rcdu = to_rcar_du_device(dev);
-> -	unsigned int min_pitch = DIV_ROUND_UP(args->width * args->bpp, 8);
->  	unsigned int align;
-> +	int ret;
->  
->  	/*
->  	 * The R8A7779 DU requires a 16 pixels pitch alignment as documented,
-> @@ -419,7 +420,9 @@ int rcar_du_dumb_create(struct drm_file *file, struct drm_device *dev,
->  	else
->  		align = 16 * args->bpp / 8;
->  
-> -	args->pitch = roundup(min_pitch, align);
-> +	ret = drm_mode_size_dumb(dev, args, align, 0);
-> +	if (ret)
-> +		return ret;
->  
->  	return drm_gem_dma_dumb_create_internal(file, dev, args);
->  }
-
--- 
-Regards,
-
-Laurent Pinchart
+Jan
 
