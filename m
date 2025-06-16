@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 47124ADB601
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Jun 2025 18:00:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1017457.1394446 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 951EEADB60B
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Jun 2025 18:02:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1017464.1394455 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uRCFd-0007mi-DL; Mon, 16 Jun 2025 16:00:01 +0000
+	id 1uRCHr-0001d8-O9; Mon, 16 Jun 2025 16:02:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1017457.1394446; Mon, 16 Jun 2025 16:00:01 +0000
+Received: by outflank-mailman (output) from mailman id 1017464.1394455; Mon, 16 Jun 2025 16:02:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uRCFd-0007if-A7; Mon, 16 Jun 2025 16:00:01 +0000
-Received: by outflank-mailman (input) for mailman id 1017457;
- Mon, 16 Jun 2025 15:59:59 +0000
+	id 1uRCHr-0001az-LV; Mon, 16 Jun 2025 16:02:19 +0000
+Received: by outflank-mailman (input) for mailman id 1017464;
+ Mon, 16 Jun 2025 16:02:18 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=jh7D=Y7=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uRCFb-0007iZ-JD
- for xen-devel@lists.xenproject.org; Mon, 16 Jun 2025 15:59:59 +0000
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [2a00:1450:4864:20::42d])
+ id 1uRCHq-0001at-TO
+ for xen-devel@lists.xenproject.org; Mon, 16 Jun 2025 16:02:18 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id edda78db-4aca-11f0-b894-0df219b8e170;
- Mon, 16 Jun 2025 17:59:48 +0200 (CEST)
-Received: by mail-wr1-x42d.google.com with SMTP id
- ffacd0b85a97d-3a51481a598so2775014f8f.3
- for <xen-devel@lists.xenproject.org>; Mon, 16 Jun 2025 08:59:57 -0700 (PDT)
+ id 413499a5-4acb-11f0-b894-0df219b8e170;
+ Mon, 16 Jun 2025 18:02:08 +0200 (CEST)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-451d41e1ad1so40794165e9.1
+ for <xen-devel@lists.xenproject.org>; Mon, 16 Jun 2025 09:02:17 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-313c1b59ed4sm8823740a91.39.2025.06.16.08.59.52
+ d2e1a72fcca58-748900d2e25sm7240959b3a.171.2025.06.16.09.02.10
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 16 Jun 2025 08:59:55 -0700 (PDT)
+ Mon, 16 Jun 2025 09:02:15 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: edda78db-4aca-11f0-b894-0df219b8e170
+X-Inumbo-ID: 413499a5-4acb-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1750089596; x=1750694396; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1750089736; x=1750694536; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=yL2JYLXKQZOHEL1A8htYWxPDv755EESrk+pltR12oX8=;
-        b=UX6nVkmyz08HobnuLHFEgzsezdG/UP1JV773dVtSqG3Qk95QhDduvHBnFvpwSF5/BI
-         7OJLRWxZBulo9VdUyBwrtrh5zv3dOGG/lxbywJB6zfIzYWYk+x7hHrXzZ557H76O9pGy
-         Di2yROwr9DeeDUHrT+Suc13tZMQcZluVIXL7UaCiIsIlgctGQoRl7f9HAJawvwFhV9xd
-         3RxZTzhVKzSGamDlX9G5rk82Kb/BYDVcYLgia3s+ruTiP9BYEJeV+9A6fZjDrHhPZiBL
-         WuDIJ/1ImUJ2jVWeR7YYDPapXFjFsCc6oIBz1rk1THA3O9EK3KuWCo2xVaPrcy0ibBYC
-         JFGA==
+        bh=1mLcw5w2P2QBxctahPP8wowYUSjN7hMNQywLrCe2FYE=;
+        b=OMQubVDNxNYcJGqJBfMKd3oW7EQrjddPb383f/ec6HwEtNbRTvSZoWWvYYutoGMg8z
+         AOyh9e7YNkaZ30VDesquCHeyNsSGf2v+kOcq6ver+7GsqA79XqzffKznU/X9MXo0GgkN
+         9nNx3A3RnhARfThhi+HaW0b9mwYpbLnrh/sh+/A49amuRzE6Zw2+TQRo61e/ZjEpF3vj
+         OMpNHgnIJBYJr63wvmdPR2XQRKYkWbL1jNYV4ttNOkCG+UJtYcEXmP3/bvDrSE3XoKK6
+         kNfgR+VW8t+uKSZwa91dSVj1xjncbO0o884ohqRQQ7WNr3Io0pL8yWbvODaRSxWWQQ0e
+         o+WQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750089596; x=1750694396;
+        d=1e100.net; s=20230601; t=1750089736; x=1750694536;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=yL2JYLXKQZOHEL1A8htYWxPDv755EESrk+pltR12oX8=;
-        b=jwzxLlRsxL7dGRJaoWvL+jxkke1azlBuWwOGdHTytW4Gmq89QQMHv1KpQyxl6lI+Zs
-         A1T72VNRiAOTt2FD1fL/ujcZCntfutcuNlJyRlT9gThQypRtypLPqIK/ExlxAkUHrnJh
-         QpGC9zgv6+MwrFS5YQQm9gkg5Fb3QsE9vdFAR7YXN3mzYOxie1CwdemDBBu8W4p9P8r8
-         Ds4WWzt7T1pBEHm/7/03tas1peQkGUJp7tfQoTtIG5wDOHn7QasjSjmoLHXHInVdGfTX
-         6WtxYkDgtQccj4XrxjzNHB42uEPo25GxnO4fCt40YyzCOJGIlj8Ev3ij31My/MAp+oyD
-         4E7Q==
-X-Forwarded-Encrypted: i=1; AJvYcCVffhqLU8JxBpAoQ/qxLMVGUlwN5aDBpYB9mEW5LfkQHkP5Ircvqp5aTUFMVCi9MSZuTufU2KP1EY4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz+l/1Ou96Sr80uvfCEzHBi+gi55oFfoGBSIW+DFL5KrUiHhYqS
-	C9gW06m53FxYHc+pybEKJD2ggejs71pyZJdKf4bWIn0k5FmioIiXFEK9RvKo390Z6w==
-X-Gm-Gg: ASbGnctk56MwBHX6nmoGwrTxr2XsuIkGUQuDuT+t/ItMvp3ZZz0JG1Mssmh1xCDESL3
-	XFlUJHy4dl5nGLzbsv3vFdTYdtDEjp9MfJ/jZFNEV4Fr5qM9NfD5tLOJkG0Klsmjw5KVNla91Bn
-	Wtm9Bv3GZWFMnZ+qEp9oZqDT+qdiAK2KyfFXMhN3/O0iwLyiX7kQCu0xD2ZBV0OIDVZflzyL0kw
-	BZZd7+xRAvytHcxCWWQJqhnu7OfWhTcIama8S0yQkcJSOvL/AZRAUWfqJx8JW68PCpcOVddRI9v
-	4i3eJUUgqrXudoomOB7SBdtTg9wcH30R6JXE4QSuxWM4YJhqRk9EylT+Ca2AU3AfentthTxZFBB
-	ro4jbyjn6fXswlFhlZuefrLZql8F4u0W/F/jLlzya/65Zuyu0JksCnKWS7Q==
-X-Google-Smtp-Source: AGHT+IEP1UvTxZQNe7Dej0O6YFWgrJJV/EwBMPT2+yMDYd7L18+92RCil+8MRjeLz9HWdIRWsIFn0w==
-X-Received: by 2002:a05:6000:288a:b0:3a5:3a3b:6a3a with SMTP id ffacd0b85a97d-3a572e5856amr8289514f8f.54.1750089596456;
-        Mon, 16 Jun 2025 08:59:56 -0700 (PDT)
-Message-ID: <964dcd5e-6a7d-41f2-94b4-c07672ffdc89@suse.com>
-Date: Mon, 16 Jun 2025 17:59:48 +0200
+        bh=1mLcw5w2P2QBxctahPP8wowYUSjN7hMNQywLrCe2FYE=;
+        b=qqGal0rjnb5g7ubmM9O+4ZaM6lnnDxvp455LgerxLLT4w8E+1Lcfu/5RJUTbn6GefD
+         TYMndrPOzvrBRUa7aPzTE9T9eDYYpTEnXSeKrGI/JBlcf6LyC6bbXs7gpGwTnU7RMRs8
+         nIhkcwGJoXFH7KqGEo53ssgmzbT2con9gLjR6Q6QsvwmCsidI8AnRHA4WaClwt9PuSCd
+         8GrqQu4SL23DlLSxmYL3vb/Sj99h9knSjX11nXnuNu3UOxKvml2ch2XYvG5tibah+thL
+         DZuaL/2jf3UyxL67tU+bf/dqPt2CBn8Tz4iBBcq84s8wH01qHfDrtJ9sTlCeGsZQjSVK
+         N5Pw==
+X-Gm-Message-State: AOJu0YwiORjtqJE58uB0t8O8NZvZHfTFhuYrS3QJJFx+61eVSnMPSgHq
+	5CXAvXgG46xjIeNl4aYczD5shprL14gidIL8TNiDtpS5BZ+lZ5YesCMFs5GxdMS1pQ==
+X-Gm-Gg: ASbGncvYzlzHFcqpFOvCL/bCA2GeUe2Ve06ob+CALIif3MhAEhl/zcR1D+Ycn6BpEUa
+	3jixiHsI5RYedMMS04G+UoA9Wifvp9bRNvySdhv4FvMzkucTZc2ZB+LIamgCZOoLFcyn/8zBoKU
+	gHoE07v0oS5WptIFcz7doxh5NmzJ7yx3zrTJMUH0xAr++eBIrzIjPWHQKxVrj3Dtm3xrxIkzQ5M
+	awzo9xqn6MbyLWFwjZpLIqWMhPGRaWWzeXxHo718E83YaiYUPaZSXUNO/scYgdzcssR5+kvjnrw
+	ZrEXrZ1HFlaXaFxSxkI8lDVEPu77Uad7I5mVWeHdVdmb5WZjgdBBayopBOqqGWNhMXR2vRUzEmf
+	p/YWxo3Nf6RlVQBTOcCDSf6ANH3gM53b3ZLCkPaxSDBZvVCg=
+X-Google-Smtp-Source: AGHT+IHyUw5sjRrR+IVm7BHEjz0Vvi0WBl82oFGl3BRjdsAgSCMNooOhcsF2U8Mr3fhWQDP3LQx7Pw==
+X-Received: by 2002:a05:6000:40df:b0:3a4:cbc6:9db0 with SMTP id ffacd0b85a97d-3a572e563a8mr6702740f8f.51.1750089735760;
+        Mon, 16 Jun 2025 09:02:15 -0700 (PDT)
+Message-ID: <a56574c0-6744-4249-9410-60858f49d04c@suse.com>
+Date: Mon, 16 Jun 2025 18:02:07 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 10/18] xen/cpufreq: introduce a new amd cppc driver for
- cpufreq scaling
-To: Penny Zheng <Penny.Zheng@amd.com>
-Cc: ray.huang@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <20250527084833.338427-1-Penny.Zheng@amd.com>
- <20250527084833.338427-11-Penny.Zheng@amd.com>
+Subject: Re: [PATCH] memory: arrange to conserve on DMA reservation
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>
+References: <6565e881-ec59-4db4-834a-f694bf1b9427@suse.com>
+ <aFAbqhfmM_GBxjVC@macbook.local>
+ <9b036f26-f275-48d0-9a33-7cef38b29f48@suse.com>
+ <aFAuRXSryHKj3jVa@macbook.local>
+ <2969b5d8-5879-4674-8332-046898e17257@suse.com>
+ <aFA7OiV8AX-ua-W_@macbook.local>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,137 +124,27 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250527084833.338427-11-Penny.Zheng@amd.com>
+In-Reply-To: <aFA7OiV8AX-ua-W_@macbook.local>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 27.05.2025 10:48, Penny Zheng wrote:
-> --- a/xen/arch/x86/acpi/cpufreq/amd-cppc.c
-> +++ b/xen/arch/x86/acpi/cpufreq/amd-cppc.c
-> @@ -14,7 +14,56 @@
->  #include <xen/domain.h>
->  #include <xen/init.h>
->  #include <xen/param.h>
-> +#include <xen/percpu.h>
-> +#include <xen/xvmalloc.h>
->  #include <acpi/cpufreq/cpufreq.h>
-> +#include <asm/amd.h>
-> +#include <asm/msr-index.h>
-> +
-> +#define amd_cppc_err(cpu, fmt, args...)                             \
-> +    printk(XENLOG_ERR "AMD_CPPC: CPU%u error: " fmt, cpu, ## args)
-> +#define amd_cppc_warn(cpu, fmt, args...)                            \
-> +    printk(XENLOG_WARNING "AMD_CPPC: CPU%u warning: " fmt, cpu, ## args)
-> +#define amd_cppc_verbose(cpu, fmt, args...)                         \
-> +({                                                                  \
-> +    if ( cpufreq_verbose )                                          \
-> +        printk(XENLOG_DEBUG "AMD_CPPC: CPU%u " fmt, cpu, ## args);  \
-> +})
+On 16.06.2025 17:41, Roger Pau Monné wrote:
+> On Mon, Jun 16, 2025 at 05:20:45PM +0200, Jan Beulich wrote:
+>> On 16.06.2025 16:46, Roger Pau Monné wrote:
+>>> One question I have though, on systems with a low amount of memory
+>>> (let's say 8GB), does this lead to an increase in domain construction
+>>> time due to having to fallback to order 0 allocations when running out
+>>> of non-DMA memory?
+>>
+>> It'll likely be slower, yes, but I can't guesstimate by how much.
+> 
+> Should there be some way to control this behavior then?  I'm mostly
+> thinking about client systems like Qubes where memory is likely
+> limited, and the extra slowness to create VMs could become
+> noticeable?
 
-Nit: Much like in the file name, would you mind using AMD-CPPC in favor of
-AMD_CPPC here, too?
-
-> @@ -50,10 +99,323 @@ int __init amd_cppc_cmdline_parse(const char *s, const char *e)
->      return 0;
->  }
->  
-> +/*
-> + * If CPPC lowest_freq and nominal_freq registers are exposed then we can
-> + * use them to convert perf to freq and vice versa. The conversion is
-> + * extrapolated as an linear function passing by the 2 points:
-> + *  - (Low perf, Low freq)
-> + *  - (Nominal perf, Nominal freq)
-> + * Parameter freq is always in kHz.
-> + */
-> +static int amd_cppc_khz_to_perf(const struct amd_cppc_drv_data *data,
-> +                                unsigned int freq, uint8_t *perf)
-> +{
-> +    const struct xen_processor_cppc *cppc_data = data->cppc_data;
-> +    unsigned int mul, div;
-> +    int offset = 0, res;
-> +
-> +    if ( cppc_data->cpc.lowest_mhz && cppc_data->cpc.nominal_mhz )
-> +    {
-> +        mul = data->caps.nominal_perf - data->caps.lowest_perf;
-> +        div = cppc_data->cpc.nominal_mhz - cppc_data->cpc.lowest_mhz;
-
-What guarantees both of these values to be non-zero?
-
-> +        /*
-> +         * We don't need to convert to kHz for computing offset and can
-> +         * directly use nominal_mhz and lowest_mhz as the division
-> +         * will remove the frequency unit.
-> +         */
-> +        offset = data->caps.nominal_perf -
-> +                 (mul * cppc_data->cpc.nominal_mhz) / div;
-> +    }
-> +    else
-> +    {
-> +        /* Read Processor Max Speed(MHz) as anchor point */
-> +        mul = data->caps.highest_perf;
-> +        div = this_cpu(pxfreq_mhz);
-> +        if ( !div )
-> +            return -EINVAL;
-
-What's wrong about the function arguments in this case? (Same question again
-on further uses of EINVAL below.)
-
-> +static int cf_check amd_cppc_cpufreq_target(struct cpufreq_policy *policy,
-> +                                            unsigned int target_freq,
-> +                                            unsigned int relation)
-> +{
-> +    unsigned int cpu = policy->cpu;
-> +    const struct amd_cppc_drv_data *data = per_cpu(amd_cppc_drv_data, cpu);
-> +    uint8_t des_perf;
-> +    int res;
-> +
-> +    if ( unlikely(!target_freq) )
-> +        return 0;
-> +
-> +    res = amd_cppc_khz_to_perf(data, target_freq, &des_perf);
-> +    if ( res )
-> +        return res;
-> +
-> +    /*
-> +     * Setting with "lowest_nonlinear_perf" to ensure governoring
-> +     * performance in P-state range.
-> +     */
-> +    amd_cppc_write_request(policy->cpu, data->caps.lowest_nonlinear_perf,
-> +                           des_perf, data->caps.highest_perf);
-
-I fear I don't understand the comment, and hence it remains unclear to me
-why lowest_nonlinear_perf is being used here.
-
-> +static int cf_check amd_cppc_cpufreq_cpu_init(struct cpufreq_policy *policy)
-> +{
-> +    unsigned int cpu = policy->cpu;
-> +    struct amd_cppc_drv_data *data;
-> +
-> +    data = xvzalloc(struct amd_cppc_drv_data);
-> +    if ( !data )
-> +        return -ENOMEM;
-> +
-> +    data->cppc_data = &processor_pminfo[cpu]->cppc_data;
-> +
-> +    per_cpu(amd_cppc_drv_data, cpu) = data;
-> +
-> +    on_selected_cpus(cpumask_of(cpu), amd_cppc_init_msrs, policy, 1);
-> +
-> +    /*
-> +     * The enable bit is sticky, as we need to enable it at the very first
-> +     * begining, before CPPC capability values sanity check.
-> +     * If error path takes effective, not only amd-cppc cpufreq core fails
-
-Nit: "takes effect" or "is taken".
-
-> +     * to initialize, but also we could not fall back to legacy P-states
-> +     * driver, irrespective of the command line specifying a fallback option.
-> +     */
-> +    if ( data->err )
-> +    {
-> +        amd_cppc_err(cpu, "Could not initialize cpufreq cores in CPPC mode\n");
-
-Why "cores" (plural)?
+What kind of control would you be thinking of here? Yet another command
+line option?
 
 Jan
 
