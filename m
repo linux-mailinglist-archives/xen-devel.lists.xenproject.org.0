@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6CCF3ADA87B
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Jun 2025 08:46:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1016560.1393486 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 88043ADA883
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Jun 2025 08:48:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1016569.1393496 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uR3ba-0004Vo-Rr; Mon, 16 Jun 2025 06:46:06 +0000
+	id 1uR3dx-00052I-77; Mon, 16 Jun 2025 06:48:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1016560.1393486; Mon, 16 Jun 2025 06:46:06 +0000
+Received: by outflank-mailman (output) from mailman id 1016569.1393496; Mon, 16 Jun 2025 06:48:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uR3ba-0004TY-P2; Mon, 16 Jun 2025 06:46:06 +0000
-Received: by outflank-mailman (input) for mailman id 1016560;
- Mon, 16 Jun 2025 06:46:04 +0000
+	id 1uR3dx-0004zz-4R; Mon, 16 Jun 2025 06:48:33 +0000
+Received: by outflank-mailman (input) for mailman id 1016569;
+ Mon, 16 Jun 2025 06:48:31 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=jh7D=Y7=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uR3bY-0004TB-UJ
- for xen-devel@lists.xenproject.org; Mon, 16 Jun 2025 06:46:04 +0000
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [2a00:1450:4864:20::632])
+ id 1uR3dv-0004zt-9N
+ for xen-devel@lists.xenproject.org; Mon, 16 Jun 2025 06:48:31 +0000
+Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
+ [2a00:1450:4864:20::535])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 92b31696-4a7d-11f0-a309-13f23c93f187;
- Mon, 16 Jun 2025 08:46:04 +0200 (CEST)
-Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-ade5a0442dfso779151166b.1
- for <xen-devel@lists.xenproject.org>; Sun, 15 Jun 2025 23:46:04 -0700 (PDT)
+ id e9ce6659-4a7d-11f0-a309-13f23c93f187;
+ Mon, 16 Jun 2025 08:48:30 +0200 (CEST)
+Received: by mail-ed1-x535.google.com with SMTP id
+ 4fb4d7f45d1cf-604f5691bceso8546927a12.0
+ for <xen-devel@lists.xenproject.org>; Sun, 15 Jun 2025 23:48:30 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-adec81bb9e4sm593157266b.45.2025.06.15.23.46.02
+ 4fb4d7f45d1cf-608b4a5b6fdsm5648284a12.43.2025.06.15.23.48.29
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 15 Jun 2025 23:46:03 -0700 (PDT)
+ Sun, 15 Jun 2025 23:48:29 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 92b31696-4a7d-11f0-a309-13f23c93f187
+X-Inumbo-ID: e9ce6659-4a7d-11f0-a309-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1750056363; x=1750661163; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1750056510; x=1750661310; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=z4li5pnrfw+bj5h1kspRnPPFQ3tdxGne1EH5hCbEDn0=;
-        b=QljBywIEyaItxF0QDvdJ/Klz/vvBvHHjHEJz589/sKxCqCvFrjgBVUlA3J4jPVayqh
-         rVK7NV/WMOqz4KTF3sh0msmLPczpRuGqIKe5c0adefHLC/CvzZrE4+UrO1rW0gHaB1em
-         /YobSViKBrqQDAj2cHNIcEwQr57Vg5JPALJJeQi2TFeWw+glE0gXENg1X8I2kYdgtrRD
-         5BNJgdq5MmZNd3i5b0+1HDKL6l01SzX2wj9jw5vNrk0bjJTbax6zrn2TBhLVy9CFiTBf
-         fpuPFrf5pC4SiJXBLQBBMnFgF9dGk/ReMJ3sxCC5awhWwnl9Oqy4s9ev7WPvNuA4LqkV
-         nNFg==
+        bh=3Eqz34ir83h+BPyKXu5kxE5u5V/uMIpX5Jbo0LuRxs8=;
+        b=Y/6nwRQB9J/2viXU73sWJL/xcKf8OJqqYvwJ95EhoWRRgluNw6J0cT2Ndm4yuC5Y8L
+         t1q2VRCf47aNmMmZVRNPLvPf4SuiqKgUbDQoF3miy92/jfKwHw/yTie3VI4YlkeZcrX0
+         BE9JH0Uh7Swc2s1ExVUn9WE938pCr2sXm2i+FcOvOlgaq44x8lkCCzg95QMrNNYqw+mF
+         9QvJ8FGUcW9KP6vku2/aBa+TcBMPTsTRlnvXfqmbEWOHKLoJokft8X785RyBHTrXEaBo
+         EU3aSHMQlDzjuBcjThKDf5Dh3W81nOtbFAK4++3Usc5u7bPjU14KsaGT7Cf8ilfNwPcX
+         B5Zw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750056363; x=1750661163;
+        d=1e100.net; s=20230601; t=1750056510; x=1750661310;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=z4li5pnrfw+bj5h1kspRnPPFQ3tdxGne1EH5hCbEDn0=;
-        b=QSKpo/EiHZVibiLF+5EAI3ylfuRazp+UF4eS0qfdvql9wIk8uLnrsRLSo2fQ8ao+q2
-         2EgMa/yy/0S3f8k8u+mWzHqeMk2TBXpud74SKtPg+4L8pszWQP5oNIGdOIuW4WB+puYg
-         MDdSXPB29lJ2XqOFWcoo2HAaJHoKp1Zt55tabIvi/0rXVg1jiOdU6/HHZFb76cSWSrdB
-         IKFfVmt30zRyX8jLMKJRqDa9lDFQjtlKoJxHK2Zrj7cr7eSIsGIiZKFHosnxj2Igx/Rk
-         ySzBs7IiLaOUzXXCWWNXwKwNMI7E7NdpJmOT2YnbgP0HMh2llYQXfllmZQZWxsetBwLx
-         2uzA==
-X-Forwarded-Encrypted: i=1; AJvYcCUdVawIDZG1htzVvLcCRndwYDxn7ITz5kKBDTWRtFs+otZE06PV5v0ff5E4ih4+EvGeR35VGc6bVUA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxJHXdLPBiYDjjt/gHG+QRTFnQCB5Tn9m4S1NXTOs1SwdFLvQo8
-	M63CzpZeoY4tGYeC4JrLfqW7qs3A8KnUBXAy6cXxzagBBR2LoKuI5euAf5r0oYSjrg==
-X-Gm-Gg: ASbGncurgAhQPaYMOjED51xX2K/wh/4WGOgw2DWo21f6ssthZSpdcMMSIZEz/pBp/K+
-	rMWB5qiwEFAtyVQJAxNNL1KcgmiCIlmIgfDmvxN5Fw92nclO0oAC3dgrFAWX5Mau1DBIP0H07YY
-	GpQROgPH/NRZXOZokU9l/j+haMtjs7L+8kbT+F9QwsqkYyLb8JXMBwnLeRZY4rN+4p9ZExHmCD5
-	rPxnzCm0VH5BroD6fSQ1wQEALP45UnEiUeC6uhjIfk7fm7Z7PQUfLj5/5voYjWO0ywdmMl8z4lf
-	x3QUvGZoQspsO0+cakPKliz14oW68hfVCCM5kunIP6wi8jshTmtMCx2vUfnK5LFlF+KLBR3WBNU
-	ezF0Dz1yvnjKj9GM4dYEm3HrT0IOE3l+3zB9vtl4D4y7yRsc=
-X-Google-Smtp-Source: AGHT+IGR5CjJEjIfiHWPTsDjdlyKeR9urcILrqUUW7YVtm5qG/pUoBwD1JhS+hiWXrDteqbtnykuyw==
-X-Received: by 2002:a17:907:1b18:b0:ad2:2fe3:7074 with SMTP id a640c23a62f3a-adfad39c00amr702113966b.14.1750056363482;
-        Sun, 15 Jun 2025 23:46:03 -0700 (PDT)
-Message-ID: <938c0c34-5d98-4454-8e60-719b8eecc027@suse.com>
-Date: Mon, 16 Jun 2025 08:46:04 +0200
+        bh=3Eqz34ir83h+BPyKXu5kxE5u5V/uMIpX5Jbo0LuRxs8=;
+        b=dwISCaBZ0serWzQjcuOdk5OijcZ1xr8QWd0RAwSXkCVNKEpSzeaCT3yixgZX/LMSw6
+         58FUGCTuk3nDvGZZ65vy/BNC5IpxGu/L8R4DbLSwcgpYvtjk8YLlVSQbYozduMOorDCK
+         rEfQNAW0Ik/q2+CC8ma+qjtKnUkJPpv1phv+9Gk4hcu3diQlqtiWsx+ZsAiLsQrZFKOE
+         qDjyttoduUNjOoZn4V+nf7EEWR0r9f5GLE3r8g9dtbVfpygFxiYwWDnLQucGLzjOqwtV
+         uda14CuXUozzsW1uI0ok8OYBj34YYjzvj9DK8V2Y3sjd6rTq7qrbaXrrKvmgYLPFYTdL
+         wa4w==
+X-Forwarded-Encrypted: i=1; AJvYcCW9QI3gCcBoK6+LjPKb7M71ay8pocg/cWGaa3ESK9T03z/gB/lQK2b9sDpEoIpJmxnoSEVZTVeByi4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx+7+oxhqBvS2eY2iUArO86wlLviBNwJhRbT2t1E2tX6zLH80um
+	5GISQAjqHoVmJFOn1E60UUW+t0togAy2kneVUdOm24m1IVhz1zMn6ksS+7IprXcUyw==
+X-Gm-Gg: ASbGncuelT2J29vUPPkQloKdEgydwO8HWYpSLsnqxwZ8JTqBRbA93JuPkFvLmT/+4on
+	jtXzxPa/4D08adTWhTRk+yr51FTtJSV9PT8DC5+UnKxsAKhNUd/IJ3jX68EU2oJ0kJHKTPnG3Hw
+	0rx9qkusMOCS+0UCPLo4ovK85cA/N7aZ7VGmJVxvJoPQg33aFL/AI4xlN43UJD0tm1tc+8lmkIp
+	YiKNbPrSccilXtxPhgdA4rJylE78/vl1ZFjioK1QLgsJEUHr3GEJZi4CVDnuY7G8k13D8mtxWnY
+	hN3LKqd6UGgSDdTLe2KgF2RaJNp5374V0vflpLwklWxrUBLwv2RHwVQSqSEO8fVcax3gmfsAm6R
+	TdygGIdWz4NtEqPXuB2obIyXyeWBCwL9mqt+iSKbTAh+2wrE=
+X-Google-Smtp-Source: AGHT+IEgwZzxWAg+/xOcZxXgMaOMBfQjS/yCouKzxlecEf0qfKaS2DhinQpLv4n4rbE0lKgli3H2zg==
+X-Received: by 2002:a05:6402:210b:b0:602:4405:777b with SMTP id 4fb4d7f45d1cf-608d09bb6fdmr7135068a12.24.1750056509665;
+        Sun, 15 Jun 2025 23:48:29 -0700 (PDT)
+Message-ID: <c0ba289c-e0cc-4ca3-84b1-4c8a263ffbe1@suse.com>
+Date: Mon, 16 Jun 2025 08:48:30 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 02/14] x86: Preinitialise all modules to be of kind
- BOOTMOD_UNKNOWN
+Subject: Re: [PATCH v3 03/14] CODING_STYLE: Custom type names must be
+ snake-cased by word.
 To: Alejandro Vallejo <agarciav@amd.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
  "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+ xen-devel@lists.xenproject.org
 References: <20250613151612.754222-1-agarciav@amd.com>
- <20250613151612.754222-3-agarciav@amd.com>
+ <20250613151612.754222-4-agarciav@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,20 +124,33 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250613151612.754222-3-agarciav@amd.com>
+In-Reply-To: <20250613151612.754222-4-agarciav@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 13.06.2025 17:13, Alejandro Vallejo wrote:
-> A later patch removes boot_module and replaces its uses with bootmodule.
-> The equivalent field for "type" doesn't have BOOTMOD_UNKNOWN as a zero
-> value, so it must be explicitly set in the static xen_boot_info.
-> 
-> Not a functional change.
+> There's the unwritten convention in x86 of splitting type names using
+> underscores. Add such convention to the CODINNG_STYLE to make it
+> common and less unwritten.
 > 
 > Signed-off-by: Alejandro Vallejo <agarciav@amd.com>
-> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+> ---
+>  CODING_STYLE | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
+> diff --git a/CODING_STYLE b/CODING_STYLE
+> index 5644f1697f..e91ef7b3ca 100644
+> --- a/CODING_STYLE
+> +++ b/CODING_STYLE
+> @@ -126,6 +126,9 @@ register).
+>  Especially with pointer types, whenever the pointed to object is not
+>  (supposed to be) modified, qualify the pointed to type with "const".
+>  
+> +When defining types, split its words using underscores (e.g: prefer my_foo to
+> +myfoo).
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
+Why's this being put in the Types section? This is about identifiers, and
+ought to not be limited to the names of types.
 
+Jan
 
