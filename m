@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2AA0DADAF8E
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Jun 2025 14:01:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1017183.1394151 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 590C5ADB0C6
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Jun 2025 14:59:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1017199.1394161 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uR8W5-0004wo-Rr; Mon, 16 Jun 2025 12:00:45 +0000
+	id 1uR9Q3-0003JY-KH; Mon, 16 Jun 2025 12:58:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1017183.1394151; Mon, 16 Jun 2025 12:00:45 +0000
+Received: by outflank-mailman (output) from mailman id 1017199.1394161; Mon, 16 Jun 2025 12:58:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uR8W5-0004vJ-PF; Mon, 16 Jun 2025 12:00:45 +0000
-Received: by outflank-mailman (input) for mailman id 1017183;
- Mon, 16 Jun 2025 12:00:45 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uR9Q3-0003IT-HN; Mon, 16 Jun 2025 12:58:35 +0000
+Received: by outflank-mailman (input) for mailman id 1017199;
+ Mon, 16 Jun 2025 12:58:34 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=jh7D=Y7=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uR8W5-0004rC-3i
- for xen-devel@lists.xenproject.org; Mon, 16 Jun 2025 12:00:45 +0000
-Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
- [2a00:1450:4864:20::52b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 878b5a4b-4aa9-11f0-b894-0df219b8e170;
- Mon, 16 Jun 2025 14:00:43 +0200 (CEST)
-Received: by mail-ed1-x52b.google.com with SMTP id
- 4fb4d7f45d1cf-6084dfb4cd5so10400281a12.0
- for <xen-devel@lists.xenproject.org>; Mon, 16 Jun 2025 05:00:43 -0700 (PDT)
+ id 1uR9Q2-0003IK-Pe
+ for xen-devel@lists.xenproject.org; Mon, 16 Jun 2025 12:58:34 +0000
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [2a00:1450:4864:20::433])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 9bb1574c-4ab1-11f0-a309-13f23c93f187;
+ Mon, 16 Jun 2025 14:58:33 +0200 (CEST)
+Received: by mail-wr1-x433.google.com with SMTP id
+ ffacd0b85a97d-3a50956e5d3so3576410f8f.1
+ for <xen-devel@lists.xenproject.org>; Mon, 16 Jun 2025 05:58:33 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-adec88fd993sm660714066b.94.2025.06.16.05.00.41
+ d2e1a72fcca58-748900062cesm6896839b3a.57.2025.06.16.05.58.27
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 16 Jun 2025 05:00:42 -0700 (PDT)
+ Mon, 16 Jun 2025 05:58:29 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 878b5a4b-4aa9-11f0-b894-0df219b8e170
+X-Inumbo-ID: 9bb1574c-4ab1-11f0-a309-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1750075243; x=1750680043; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=gbEFUj4xOp4GCpLAe55r5DawhD49OKXqVJPjz0gLjKQ=;
-        b=I2T7UWKDaxk3WbI43Eg2G8+lsn7gGHwzcI00mfEztIs3zECJdRG3e36lISMV04a3gP
-         cpfzP9bZIFs1tDg9NhQoDmU+2AwQYx+JfLUK14Hjh3M7LiQkTy+brKt79FhVTWlVQIVV
-         8E/NwNiXzHmf1Nid3a/Q5+V5DyOC6/oZr1MU71hCq94tzmEo27kN1sxoo4i8ZgFFSRCG
-         BOi1ZzzdaeePVRL52eDFVYABI1bAUGLmFFYNWscUE5m0anbqcfLTXjySIgy0qAburIyo
-         dMEPEXl3gDI9yyGmgt+1oUqe2+yT2dlYcMqLoBG7QRGcPdsBwrjIIsfxMmp0oaHJE2LX
-         U+WA==
+        d=suse.com; s=google; t=1750078712; x=1750683512; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
+         :from:user-agent:mime-version:date:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=PbE554ZyoJxCF4Kt4rDM08ARYTbW+vpP1lliBK1TCig=;
+        b=Avgi3OMlYILhNjGzEdjUeelmveHqoixMIlBkZVq9iScpaEM/HcTFlDnRVv4xp72yxa
+         j+0FClaNox7tu+/94D/ibpXqmHZ757tWHOGirPcUuEd2DCghZkVkVrQahedx51rZc2Bw
+         IFuLnHbZJp6F9txOdxEfgnKHh+Tvr3kRcLy7uwz3xdcRBoCUOCWAdQ+OuqsSBxjM4qbT
+         HpV4PSZmJMW0jeJzbJUWHSiaAS3YWyp8tpRdrdLbK98jFX4dpuRyaKU5w0ZM8lKtbEP6
+         2YBifxOkpxPvblLmWpYD60RW59sfdSY13otNJz3RkpRg+A3TUW6iXgu04jkWt6t/fI90
+         noCg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750075243; x=1750680043;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=gbEFUj4xOp4GCpLAe55r5DawhD49OKXqVJPjz0gLjKQ=;
-        b=ZmmYZUmgk0v2wef+7feIW7jpWytpZMzP+Lp8Pgna5G1BTU8cpVdRccW1s5iCfUqAda
-         H7Tclk2y660v9Y1DUSxgQvzZy3qzvBnAKttzvaFV6RQzRXp1JhOsx12EOBij9rEVvkAV
-         jsizCHD+J2AQmzYJ9qqRsU03Q3hq6BHiRbk1fGjkUo7kOjkoig0DL8cLewWhGsG17Ecz
-         7wBOUC1P0VHe8lmsPxIp2ONkbUlW9trPiiwcjZDJ8SeAy1Ei2vVF/RtOMdHV06fuSZMQ
-         PNXwehBvDknqqfxiJ3XGHwkM/MzfiYuCbil2HDMXk6jWuh1p5ZOhNyap/mpcm6Dq22RZ
-         T2QA==
-X-Gm-Message-State: AOJu0YyyQ7jQaoTnaGzrUcT2Xe1SAsaFlh3MPwdAxa27eRjdKX1T7ysD
-	rSQrWvBS9cBKDv5eIVuphUT+nwCHhokOJJVQkF4IzArWtsIz1pBRvwcxJwADE91mY1/r5hQrNyT
-	i5l4=
-X-Gm-Gg: ASbGnctkiUU4C7tyqKFulDBAwJAEsCJ9NXFpH6XlVLHEQeYpiJ8rgeNvUmV4lcWXVzp
-	DI4EQ/R+SatbgKyZNWPIrolL1Ay+UVZC8QPBxm9AoYbjFlYfCQ3fcKSpIugPU/iW37RG8OVj1dc
-	E1IzNkbf5lgaRBbdDaJm2g5QfU0JfXcwlGd5IQUnF5JhazLkq75I0aErq2rTxq7d3/pkmTAZHVR
-	0yrsi+1zPlWxpQSz/9wAhZ1LLMoNWsuEJnKrKdFrVE6laFFqmuuOx/9pKSkbniJ6bhv67vnxWXy
-	k85BFrQby96R7dJsIV1uZmu2s5pJ2RXy+jjbYpv9tGMHP6fe/8qRu7FOe3z09/JR2wrg4xmSDaM
-	MNApqo1PGUR4fT1vp4R4P6RsvfIHHzRHtQjXXjwR76yti1cc=
-X-Google-Smtp-Source: AGHT+IFW6aGoQCp06pvgDpHVbIoriuJ9QGabn7q5z3ZAAPUJUSi37VS67E8/pcXhuvrvyF8NxD1c7g==
-X-Received: by 2002:a17:907:3d45:b0:ad8:89c2:423f with SMTP id a640c23a62f3a-adf4c73201amr1034122466b.7.1750075242451;
-        Mon, 16 Jun 2025 05:00:42 -0700 (PDT)
-Message-ID: <fd857526-cf52-4e24-bf97-16ff0d3f2607@suse.com>
-Date: Mon, 16 Jun 2025 14:00:41 +0200
+        d=1e100.net; s=20230601; t=1750078712; x=1750683512;
+        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
+         :from:user-agent:mime-version:date:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=PbE554ZyoJxCF4Kt4rDM08ARYTbW+vpP1lliBK1TCig=;
+        b=Q1FkNzbV25XVbZztOdaSTrzcqKuXHJc1dnfDqUVIoJyNfIscs3AE3FN0k+HjfkHxYa
+         QOXasD6VhdOUloTPgM0OgehvsogAXIoDHpj441t+k/ozTuMznqKMBDSXrd1EBAnBTLDe
+         MQGMrldLA+q5tTNxJN+rCq2esuKkYAUAad9MWIc8zJORWw7zuSFBLIfOaFhEXCDD+5jF
+         kZDzKk5QVoCa82ZgyWbMgWHgleuDkTPQ5qHkIRHcJY+wYehizic1UwDVpxghwpTD0SLV
+         Bj8d1t8+9u7Ff8A74vtodNokLxF2XYKrVEzDmhOoLjW18f76csX1k0eZ94nuJuZAJncK
+         kAUQ==
+X-Gm-Message-State: AOJu0YyQh6N37ko1PuaYAtieRoZkHEeh5tlK2Ph0WpNBe2tUZ/FLsZHC
+	YKyHK1DAVic5zHIMcahmoeQ47orPvmTrnKrfNotH1U314aTSfRUfgOO+5/zbKU+KEssNlFGY+rY
+	7xU4=
+X-Gm-Gg: ASbGncuiTtPd4DAjw4aMmK4c74m4B2FgEgQ1wEZ8i9MCPZzqyyK4dMKw70ArK243e+r
+	mE+1TwlUu4bItkr9jPnhkE/s+uORPDKkAtxr7Lcqzo7pEih2frSQSLnBHv2g0rRD91Cx3cgpzOD
+	RkcgJKejO5DAf/cjhzpzkjt7fw2Sdy+JIZHdNAVOAw+kbOdmr17pZFLkTyKg8nglxi3U13SJ6sG
+	7+dVizwU/sB+srUAvhVfGf51Dm8CwF4dgpZ+C8Wjc95GzTGQAuYZnr44DrqNgZdcSfBXlpAHRCQ
+	R8FTuk4eZuLjGNBabTORuOB2arEHBEHat7NCG+GkabUi63YVBs+RRkM+GIgBnrk/gtaXDnJvg7a
+	28q1IpM7u5lgV/U3rdZwOlAdzgwF4esaxFLZrVAv0cOlm+2c=
+X-Google-Smtp-Source: AGHT+IGxhOv4vac1qrCymhWvYvdcmQ5ZB1uZxPE7STEXABuL7tMNVTYtG64u2wdKbZ1n4ZLByiQUfg==
+X-Received: by 2002:a05:6000:2893:b0:3a4:ee51:8144 with SMTP id ffacd0b85a97d-3a5723a3ac8mr7591992f8f.13.1750078710517;
+        Mon, 16 Jun 2025 05:58:30 -0700 (PDT)
+Message-ID: <c5e1e7e0-a295-4028-b003-152b861ee14f@suse.com>
+Date: Mon, 16 Jun 2025 14:58:23 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH v6 0/7] x86: memcpy() / memset() (non-)ERMS flavors plus
+ fallout
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Ross Lagerwall <ross.lagerwall@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] x86/pmstat: correct PMSTAT_get_pxstat buffer size checking
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -119,38 +119,21 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-min(pmpt->perf.state_count, op->u.getpx.total) == op->u.getpx.total can
-be expressed differently as pmpt->perf.state_count >= op->u.getpx.total.
-Copying when the two are equal is fine; (partial) copying when the state
-count is larger than the number of array elements that a buffer was
-allocated to hold is what - as per the comment - we mean to avoid. Drop
-the use of min() again, but retain its effect for the subsequent copying
-from pxpt->u.pt.
+While the performance varies quite a bit on older (pre-ERMS) and newer
+(ERMS) hardware, so far we've been going with just a single flavor of
+these two functions, and oddly enough with ones not consistent with one
+another. Using plain memcpy() / memset() on MMIO (video frame buffer)
+is generally okay, but the ERMS variant of memcpy() turned out to
+regress (boot) performance in a way easily visible to the human eye
+(meanwhile addressed by using ioremap_wc() there).
 
-Fixes: aa70996a6896 ("x86/pmstat: Check size of PMSTAT_get_pxstat buffers")
-Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
+1: x86: suppress ERMS for internal use when MISC_ENABLE.FAST_STRING is clear
+2: x86/alternatives: serialize after (self-)modifying code
+3: x86: re-work memset()
+4: x86: re-work memcpy()
+5: x86: control memset() and memcpy() inlining
+6: x86: introduce "hot" and "cold" page clearing functions
+7: mm: allow page scrubbing routine(s) to be arch controlled
 
---- a/xen/drivers/acpi/pmstat.c
-+++ b/xen/drivers/acpi/pmstat.c
-@@ -272,11 +272,14 @@ int do_get_pm_info(struct xen_sysctl_get
- 
-         cpufreq_residency_update(op->cpuid, pxpt->u.cur);
- 
--        ct = min(pmpt->perf.state_count, op->u.getpx.total + 0U);
--
--        /* Avoid partial copying of 2-D array */
--        if ( ct == op->u.getpx.total &&
--             copy_to_guest(op->u.getpx.trans_pt, pxpt->u.trans_pt, ct * ct) )
-+        /*
-+         * Avoid partial copying of 2-D array, whereas partial copying of a
-+         * simple vector (further down) is deemed okay.
-+         */
-+        ct = pmpt->perf.state_count;
-+        if ( ct > op->u.getpx.total )
-+            ct = op->u.getpx.total;
-+        else if ( copy_to_guest(op->u.getpx.trans_pt, pxpt->u.trans_pt, ct * ct) )
-         {
-             spin_unlock(cpufreq_statistic_lock);
-             ret = -EFAULT;
+Jan
 
