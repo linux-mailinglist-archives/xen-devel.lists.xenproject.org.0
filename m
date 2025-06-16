@@ -2,49 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DEAA6ADB2B4
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Jun 2025 15:58:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1017283.1394263 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7ABA3ADB2EB
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Jun 2025 16:04:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1017294.1394272 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uRALA-000852-2Q; Mon, 16 Jun 2025 13:57:36 +0000
+	id 1uRAQj-0001Pi-Of; Mon, 16 Jun 2025 14:03:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1017283.1394263; Mon, 16 Jun 2025 13:57:36 +0000
+Received: by outflank-mailman (output) from mailman id 1017294.1394272; Mon, 16 Jun 2025 14:03:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uRAL9-00081t-UZ; Mon, 16 Jun 2025 13:57:35 +0000
-Received: by outflank-mailman (input) for mailman id 1017283;
- Mon, 16 Jun 2025 13:57:35 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uRAQj-0001Mu-Lf; Mon, 16 Jun 2025 14:03:21 +0000
+Received: by outflank-mailman (input) for mailman id 1017294;
+ Mon, 16 Jun 2025 14:03:20 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=KWUM=Y7=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
- id 1uRAL9-00081n-5m
- for xen-devel@lists.xenproject.org; Mon, 16 Jun 2025 13:57:35 +0000
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on20605.outbound.protection.outlook.com
- [2a01:111:f403:2418::605])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d6b3cb92-4ab9-11f0-b894-0df219b8e170;
- Mon, 16 Jun 2025 15:57:29 +0200 (CEST)
-Received: from BYAPR02CA0042.namprd02.prod.outlook.com (2603:10b6:a03:54::19)
- by SJ5PPF4C62B9E70.namprd12.prod.outlook.com
- (2603:10b6:a0f:fc02::991) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8792.40; Mon, 16 Jun
- 2025 13:57:24 +0000
-Received: from SJ5PEPF00000206.namprd05.prod.outlook.com
- (2603:10b6:a03:54:cafe::f5) by BYAPR02CA0042.outlook.office365.com
- (2603:10b6:a03:54::19) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8835.23 via Frontend Transport; Mon,
- 16 Jun 2025 13:57:24 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SJ5PEPF00000206.mail.protection.outlook.com (10.167.244.39) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8835.15 via Frontend Transport; Mon, 16 Jun 2025 13:57:24 +0000
-Received: from localhost (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 16 Jun
- 2025 08:57:22 -0500
+ <SRS0=ppVY=Y7=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1uRAQi-0001Mo-IW
+ for xen-devel@lists.xenproject.org; Mon, 16 Jun 2025 14:03:20 +0000
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [2a00:1450:4864:20::32e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a8261af6-4aba-11f0-a309-13f23c93f187;
+ Mon, 16 Jun 2025 16:03:19 +0200 (CEST)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-45347d6cba3so3060205e9.0
+ for <xen-devel@lists.xenproject.org>; Mon, 16 Jun 2025 07:03:19 -0700 (PDT)
+Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
+ by smtp.gmail.com with UTF8SMTPSA id
+ ffacd0b85a97d-3a568b2a6a5sm11098350f8f.74.2025.06.16.07.03.17
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 16 Jun 2025 07:03:17 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,236 +45,184 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d6b3cb92-4ab9-11f0-b894-0df219b8e170
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Yj/qZXysleKQ/YBOydKCjlx4bpL+BWAp2IZCKclYdcmV8YPvefGv21TeMN5Mwm2nayOTvxHzNpJbnECulVOHjm+9owQ+C/YdT3ENxErB0VfJ9Kl8gxjPAhAS9Mhe9lIDFxKHUO1jkwIsWLi3SmWv/mN9a+xLbuTTn/ywg16jAAqxtY+uGNNAy0+KKKifCpgFltOoY4HJxh94uPD4ip82mgPLWOk0Pu28oVKC9IwDa+9PBrwtLU6vF/kXN+hykVfohsowPQKLeLxPTg1Mg8XgWZyGLEYFVGbu+p2LzkeBmJIzRdpgPPOurU8dBLStcaFj0pPy2XIZzKBGEl2bJ24PAg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Yn5DtUjkdh7OjnMeZqeqJNCf8lcLQwrc/eIHXuMhi28=;
- b=NAbo1UHz66ZLUX1VFaZuw+uJMWxlN0rELvjEuIzEZ/fMSj/GfwfK9HWRpICyledkyx+SwhPTop+jTJMBldwvwX9R/f0L3Kn15D/DEdm/Hj3o3h/vTsegYA4nktPXVbfQjEIhBQtHzZiCs5AEPyNoNn59Grproe2n3Mcy3CPL5JlC559+KlZVjlWFvYFRhzQ8TyihAfaUBgOa5hdxpXPyoOsASTAmpt+n9YPperadBRE5iTi+xhksqpB91egur2Z0JkHv1Jxu8ZfNNyLO7zzSHjw6xh2C20lF37yebNLt/XZotUvZ76+wx+ZKC+HHT5ScLg5IIcdNUO5q/NHOsWdu3A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Yn5DtUjkdh7OjnMeZqeqJNCf8lcLQwrc/eIHXuMhi28=;
- b=3WTIIMle0MK0RyKnwdT9/XUkUvNOxk+GiVfrbIRFR7dnL43TtTIaOJ89tPjlldj6g2A4sErvq9/1G9gP8up+cHkgiNMmW37yJPDj83IBUKfJg4ufoaP1tI6alTpB18HaujzgypmtmZiTWmvT7E3ScF3dhW4Y0ah/8KQzWtfTxOM=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+X-Inumbo-ID: a8261af6-4aba-11f0-a309-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1750082599; x=1750687399; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=pEtEOo3dPtG5Q3CZ9+L4F/cR8dKjHzu15YAAfWeblos=;
+        b=BjIwQJpEfBl7KkhIwKBGmYP3p4nRUT92xG6AFBLJCXsnjfVRcXzLPzICKkmKxGgAao
+         84lfJvKzwaq+3uXUD/N59/fJE4d2PLnqeg0Ji1Z55R20BfVpuQ7XUb99Vp7y9bNP/rip
+         brYbXe2r28w0IjMKGgVXnATaqMchXUEg3hk60=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1750082599; x=1750687399;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=pEtEOo3dPtG5Q3CZ9+L4F/cR8dKjHzu15YAAfWeblos=;
+        b=km9XR8TnfrC1fxH/ruY5FKOAec5/f1ez+0/Db2x87q4b1oB3+XcjIrAebLG6DBMURs
+         Yz297/NSZZMPftUaHStyHrgjk+NNVjmqcv2wUDV3NwCIeUN8ufhLA0UpCi8XT+iOzkeV
+         alo05Wek6pn6iw+80mis36SFQuhjwyUclp2HgyMeCx8yjhEwkQ/WmptMuarkMqV5it+o
+         pBd/EUv4EwdVlyMK8WnbzTWv7Rnyz8oz2N+/K+x0Jwi+Ipu419PxilpMENYBNzNdAo+g
+         /0a5PwF7W2DkU63PjP9QVz6pncXejqoN/WYViDqDooyJxHUN+w2dJXgzKyMdbmSyuths
+         okxA==
+X-Gm-Message-State: AOJu0YzV+BjacQmCOXrSp3y7jEHbft4MNDcg0D7yjkxcE8NpHERpzeaf
+	q85mVCDTC09RW+Ctfbiihz3qzguRgjfktnYcdp6hs0bJ9NeWoj7DXyP1pDCnoM15gfY=
+X-Gm-Gg: ASbGnctbcBu7INCd2l9CMZZDt0FlfshQ3EFLoMWHx2InpraBC4kAuAIjRhDD0dGyQPv
+	gbfJiWvzUC4F5EYcsmSVZN9vHixqvxmToz/j6MWueTqcyBzxrK01I90pIKRQucv87I9BldJY9S5
+	hUAGKoHprKj1iyX5+vVML+V8QYAZbcj2bLLuY9Yow8GpQiZTT+TEwDiq4eOCIG20qh1sjMNs0zB
+	3GVGOL1JkfYonjToYkDS6PkHG45rznKSX0HqVYKDdrlGrdsLberoBaNsT6KGJ/tT6DXrkWSTufi
+	NqDdg8pnaBGodL9IWSAQUyBehPsu/RJ0CGqkTWUu7SkBUJL7gBMD718a3Z5fCwU+qua+bLPynPU
+	4o4PHM0bWvd9YKIcwPB7xAxWYLQDx026ftD5XzONTC8F2wQ==
+X-Google-Smtp-Source: AGHT+IGVcdSRHWnzf31oIyEOK0xRshXxIdb08Yr/8B8YUWUXjaGkBU7v+Tx3mw0wLPWxWsxTxR6Omg==
+X-Received: by 2002:a05:600c:8b2a:b0:440:61eb:2ce5 with SMTP id 5b1f17b1804b1-4533cb488b5mr88651025e9.17.1750082597818;
+        Mon, 16 Jun 2025 07:03:17 -0700 (PDT)
+Date: Mon, 16 Jun 2025 16:03:14 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: dmkhn@proton.me
+Cc: xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com,
+	anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org,
+	michal.orzel@amd.com, sstabellini@kernel.org,
+	teddy.astie@vates.tech, dmukhin@ford.com
+Subject: Re: [PATCH v7] xen/domain: rewrite emulation_flags_ok()
+Message-ID: <aFAkIqMPyMLAIBh0@macbook.local>
+References: <20250610144500.3176661-1-dmukhin@ford.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="UTF-8"
-Date: Mon, 16 Jun 2025 15:57:21 +0200
-Message-ID: <DAO0DMLBGSY7.25MPPJVB6G2KZ@amd.com>
-To: Stefano Stabellini <sstabellini@kernel.org>
-CC: <xen-devel@lists.xenproject.org>, Julien Grall <julien@xen.org>, "Bertrand
- Marquis" <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>,
-	"Daniel P. Smith" <dpsmith@apertussolutions.com>
-Subject: Re: [PATCH v3 08/14] xen/dt: Move bootfdt functions to
- xen/bootfdt.h
-From: Alejandro Vallejo <agarciav@amd.com>
-X-Mailer: aerc 0.20.1
-References: <20250613151612.754222-1-agarciav@amd.com>
- <20250613151612.754222-9-agarciav@amd.com>
- <alpine.DEB.2.22.394.2506131815200.8480@ubuntu-linux-20-04-desktop>
-In-Reply-To: <alpine.DEB.2.22.394.2506131815200.8480@ubuntu-linux-20-04-desktop>
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF00000206:EE_|SJ5PPF4C62B9E70:EE_
-X-MS-Office365-Filtering-Correlation-Id: e47df39e-90f8-4739-236e-08ddacddb906
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|82310400026|36860700013|376014;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?ZnhpUXZ0NXVPa0lRQjNtcHppQUR5UVhodUUzVm0zeEFWR25nb0o4K3Jqdk1U?=
- =?utf-8?B?Mjd2U2RzOVFUMFl1Q2hTbVY3d0ZSTGpsK0ord3hZcVBKazVDQkJjNDk4OXVp?=
- =?utf-8?B?Q2hqS2hzYTZJcVZGNU1OUVVtUXZqbk4xdC9rK1hpSmVuMld5YkxwMVE5dmVj?=
- =?utf-8?B?blB1WHRGb3VUWXgvNU9BRVJOK24vNWRwb3IzamFmNUZYeDZCZU9lTk1VL3o4?=
- =?utf-8?B?a3ltbTN4RldSY1dMaG5ZcnJRdXAwOTJTNlVZa1NUeDhIaDJNWXJ6WjRIeHZ3?=
- =?utf-8?B?Y3doN3FQbUJvb0wza2Fzc2VKanBVQWI2Ly9yR2V3VUNpWlNpeS9vVDgrRGpX?=
- =?utf-8?B?NzRSQkdtVVgrald6bXlGQmRZR0RiNURBOXZXbWwzbTBsT1ZjTVlEanUwN1ZM?=
- =?utf-8?B?RTFWQUtBZ1Y2Tmk5NFZxbXpOMm9VSG9kWXI5VzR1YXdoRzk1WG9iRGFsTmtJ?=
- =?utf-8?B?VytjcmY3bERUbW14MFIxYjZrUzNoOU4wTXo5YXZiYzBGdHlrMWRLaERSUkNt?=
- =?utf-8?B?TDZZWU9JVjBRbnRtN3NEQk9weDI5YWRTbWc3Vi92U2xMRFg1ZlVQMUlYcDdy?=
- =?utf-8?B?QktwK2hoUEEvV1lGV0VvR1ZGR2ZDUVRPci9vUkxIQ1ZXWjZPRVRwZS92cTBr?=
- =?utf-8?B?T0pETk9aZDNYeER3RUhWazFoU1A5ZnpTNmF5NlQ0bitkbFhwRGxnSlZlZnpE?=
- =?utf-8?B?TTkwa0tSb1JzcDdIeERhY3k1Q2JpL05xRWRQRTJIZU1FL1RBNEdXSUdYSGs3?=
- =?utf-8?B?cGxDT1BtQjBuamxmQ3MyVVcrcmhKWEg1dktrZHVNYWFnR0crbmFIYkV6ZHlV?=
- =?utf-8?B?QkJRSk11YjhFeVJMUGVDUURKNHpUNkxUMVdmVk5WM042M0QvcmlMTVZSL2w5?=
- =?utf-8?B?cXR5VGRQMEl0WWVZbElEMkUzeEwrWStuSEhTQjJQN3l5ZFYvaWt5NkRHU2Jt?=
- =?utf-8?B?RGk3dS9SeVBQVHFyV0t0MVN0YytzQzNWM2plU1FsTG1xQXZmd25NcDVQZTl5?=
- =?utf-8?B?TzJiVDRmR3V5V1hJdE92azhYT1MvWGJzTnkyTW1JU1lEVWhaMG8rY2c0NXgw?=
- =?utf-8?B?MXV4aWJ2Z1hQek5jdkhtSllidEgxaERUeUJpaVlZcEV2S3I2STVNZkx2aVZM?=
- =?utf-8?B?TmlsR1p6azZsWEYxUjRNcFhzZlpSVnZwV256YjFvWjlqTEtyazZDdy93M2NS?=
- =?utf-8?B?QU1HTXdjK1dxa0xzQVRBNzNVcW5xVFRuN3NFNmxscm5XbllQYTJ1eU9ieWhp?=
- =?utf-8?B?bUxad1puRUtpcnp6MUVoM2VVZ3lVbDNMSEtTbkdaQXUxemZycU1QUXRmK3JN?=
- =?utf-8?B?azFEaXRVaFNCTi9IS3Qrc3VoVXU4MWp1SWFBd3AxSWwycWhHTWJ0aXAwNzFW?=
- =?utf-8?B?N3FiSzNLNXY2YVNxaE8rTEJXU1k0Wm1hdTBnQW9XSDlTNEpVWFRvVVVkT1Vh?=
- =?utf-8?B?TmMwM3lTL1F0SXA5RDYvdTVjL0srUjkxdmlOZGp0TnNuSWJuMlVqcnhCSDh0?=
- =?utf-8?B?bVVIdEdEN0RyTkZHcmpTYS95U0lvbFFIM0drZy9ldGRMNFN3L0JtYUJyUWpJ?=
- =?utf-8?B?QXMrWnlxRmFvRUlUWVIwQmJpSWdjVmZaSXNRQ1BtVE1WTXUwdWFHNW15aUFW?=
- =?utf-8?B?cmpROGliQ3FRL2ZvRko2OThPc292d0YwbTh1RnljVmdLdTJld2dUYXhMWkp5?=
- =?utf-8?B?b0trRHVneC95YTFaQ0YyQ1dkYlZ6OEl5SExFRHRYMlRheUZodDliZnFwd2Nk?=
- =?utf-8?B?UXc5U0J5K0NuMlB0VFl4ajFxRUhpT3oraFpyaWx4WmRGWXlZYURNTk1Ucyto?=
- =?utf-8?B?OGt2WXdBTktSMXVDUUhRejBSeERkZDhqeFBpMXdQZ2w5Y3R4aTRkQk1MeFNN?=
- =?utf-8?B?Wml4SzFvcFBuTzNiaWdYRWFSUzdFMUI3WTN0Sm9LeEdiUjRYaWFyeHVQeFdE?=
- =?utf-8?B?b1E0UW5QYlZOYmhkSmNrUFl0YkZIUndwTlgyMmZDWjlxczJxZ2JncnI5VjNU?=
- =?utf-8?B?d1lNTGtTeitJTHZVWVJKYjhTZ2VkWnBzL1gwNHI3ZVR4QXoxVU1WdmxzT1FL?=
- =?utf-8?Q?zB3SNu?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(36860700013)(376014);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jun 2025 13:57:24.7147
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e47df39e-90f8-4739-236e-08ddacddb906
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ5PEPF00000206.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPF4C62B9E70
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20250610144500.3176661-1-dmukhin@ford.com>
 
-On Sat Jun 14, 2025 at 3:16 AM CEST, Stefano Stabellini wrote:
-> On Fri, 13 Jun 2025, Alejandro Vallejo wrote:
->> Part of an unpicking process to extract bootfdt contents independent of =
-bootinfo
->> to a separate file for x86 to take.
->>=20
->> Move functions required for early FDT parsing from device_tree.h and arm=
-'s
->> setup.h onto bootfdt.h
->>=20
->> Declaration motion only. Not a functional change.
->>=20
->> Signed-off-by: Alejandro Vallejo <agarciav@amd.com>
->> ---
->> v3:
->>   * Avoid mutations during code motion
->> ---
->>  xen/include/xen/bootfdt.h     | 62 +++++++++++++++++++++++++++++++++++
->>  xen/include/xen/device_tree.h | 40 +---------------------
->>  2 files changed, 63 insertions(+), 39 deletions(-)
->>=20
->> diff --git a/xen/include/xen/bootfdt.h b/xen/include/xen/bootfdt.h
->> index 8ea52290b7..b6ae7d6aa6 100644
->> --- a/xen/include/xen/bootfdt.h
->> +++ b/xen/include/xen/bootfdt.h
->> @@ -2,6 +2,7 @@
->>  #ifndef XEN_BOOTFDT_H
->>  #define XEN_BOOTFDT_H
->> =20
->> +#include <xen/byteorder.h>
->>  #include <xen/types.h>
->>  #include <xen/kernel.h>
->>  #include <xen/macros.h>
->> @@ -16,8 +17,53 @@
->>  #define NR_MEM_BANKS 256
->>  #define NR_SHMEM_BANKS 32
->> =20
->> +/* Default #address and #size cells */
->> +#define DT_ROOT_NODE_ADDR_CELLS_DEFAULT 2
->> +#define DT_ROOT_NODE_SIZE_CELLS_DEFAULT 1
->> +
->>  #define MAX_MODULES 32 /* Current maximum useful modules */
->> =20
->> +#define DEVICE_TREE_MAX_DEPTH 16
->> +
->> +/* Helper to read a big number; size is in cells (not bytes) */
->> +static inline u64 dt_read_number(const __be32 *cell, int size)
->> +{
->> +    u64 r =3D 0;
->> +
->> +    while ( size-- )
->> +        r =3D (r << 32) | be32_to_cpu(*(cell++));
->> +    return r;
->> +}
->> +
->> +static inline u64 dt_next_cell(int s, const __be32 **cellp)
->> +{
->> +    const __be32 *p =3D *cellp;
->> +
->> +    *cellp =3D p + s;
->> +    return dt_read_number(p, s);
->> +}
->> +
->> +typedef int (*device_tree_node_func)(const void *fdt,
->> +                                     int node, const char *name, int de=
-pth,
->> +                                     u32 address_cells, u32 size_cells,
->> +                                     void *data);
->> +
->> +/**
->> + * device_tree_for_each_node - iterate over all device tree sub-nodes
->> + * @fdt: flat device tree.
->> + * @node: parent node to start the search from
->> + * @func: function to call for each sub-node.
->> + * @data: data to pass to @func.
->> + *
->> + * Any nodes nested at DEVICE_TREE_MAX_DEPTH or deeper are ignored.
->> + *
->> + * Returns 0 if all nodes were iterated over successfully.  If @func
->> + * returns a value different from 0, that value is returned immediately=
-.
->> + */
->> +int device_tree_for_each_node(const void *fdt, int node,
->> +                              device_tree_node_func func,
->> +                              void *data);
->> +
->>  typedef enum {
->>      BOOTMOD_XEN,
->>      BOOTMOD_FDT,
->> @@ -260,4 +306,20 @@ static inline struct membanks *membanks_xzalloc(uns=
-igned int nr,
->>      return banks;
->>  }
->> =20
->> +/*
->> + * Interpret the property `prop_name` of `node` as a u32.
->> + *
->> + * Returns the property value on success; otherwise returns `dflt`.
->> + */
->> +u32 device_tree_get_u32(const void *fdt, int node,
->> +                        const char *prop_name, u32 dflt);
->> +
->> +/*
->> + * Interpret the property `prop_name` of `node` as a "reg".
->> + *
->> + * Returns outputs in `start` and `size`.
->> + */
->> +void device_tree_get_reg(const __be32 **cell, uint32_t address_cells,
->> +                         uint32_t size_cells, paddr_t *start, paddr_t *=
-size);
->> +
->>  #endif /* XEN_BOOTFDT_H */
->> diff --git a/xen/include/xen/device_tree.h b/xen/include/xen/device_tree=
-.h
->> index 75017e4266..0a22b1ba1d 100644
->> --- a/xen/include/xen/device_tree.h
->> +++ b/xen/include/xen/device_tree.h
->> @@ -10,6 +10,7 @@
->>  #ifndef __XEN_DEVICE_TREE_H__
->>  #define __XEN_DEVICE_TREE_H__
->> =20
->> +#include <xen/bootfdt.h>
->>  #include <xen/byteorder.h>
->
-> This should not be needed?
+On Tue, Jun 10, 2025 at 02:45:12PM +0000, dmkhn@proton.me wrote:
+> From: Denis Mukhin <dmukhin@ford.com>
+> 
+> Rewrite emulation_flags_ok() to simplify future modifications.
+> 
+> No functional change intended.
+> 
+> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
+> ---
+> Changes since v6:
+> - simplified checks for PV further
+> 
+> Link to v6: https://lore.kernel.org/xen-devel/20250610004216.3012253-1-dmukhin@ford.com/
+> Link to CI: https://gitlab.com/xen-project/people/dmukhin/xen/-/pipelines/1862559089
+> ---
+>  xen/arch/x86/domain.c | 78 +++++++++++++++++++++++++++++++++----------
+>  1 file changed, 60 insertions(+), 18 deletions(-)
+> 
+> diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
+> index 7536b6c871..fdbd064ebf 100644
+> --- a/xen/arch/x86/domain.c
+> +++ b/xen/arch/x86/domain.c
+> @@ -743,32 +743,74 @@ int arch_sanitise_domain_config(struct xen_domctl_createdomain *config)
+>      return 0;
+>  }
+>  
+> +/*
+> + * Verify that the domain's emulation flags resolve to a supported configuration.
+> + *
+> + * This ensures we only allow a known, safe subset of emulation combinations
+> + * (for both functionality and security). Arbitrary mixes are likely to cause
+> + * errors (e.g. null pointer dereferences).
+> + *
+> + * NB: use the internal X86_EMU_XXX symbols, not the public XEN_X86_EMU_XXX
+> + * symbols.
 
-I wanted to avoid having to touch include sites. Let me check how many affe=
-cted
-places there are and fix up accordingly if any needs adjusting.
+Not sure if it's worth expanding the sentence a bit to add the reason
+why X86_EMU_XXX should be used (so that we take build-time config
+options into account for short-circuited emulations).
 
-Cheers,
-Alejandro
+> + */
+>  static bool emulation_flags_ok(const struct domain *d, uint32_t emflags)
+>  {
+> +    enum {
+> +        CAP_PV          = BIT(0, U),
+> +        CAP_HVM         = BIT(1, U),
+> +        CAP_HWDOM       = BIT(2, U),
+> +        CAP_DOMU        = BIT(3, U),
+> +    };
+
+You probably want to name this type.
+
+> +    static const struct {
+> +        unsigned int caps;
+
+So it can be used here
+
+> +        uint32_t min;
+> +        uint32_t opt;
+> +    } configs[] = {
+> +#ifdef CONFIG_PV
+> +        /* PV dom0 and domU */
+> +        {
+> +            .caps   = CAP_PV | CAP_HWDOM | CAP_DOMU,
+> +            .opt    = X86_EMU_PIT,
+> +        },
+> +#endif /* #ifdef CONFIG_PV */
+> +
+> +#ifdef CONFIG_HVM
+> +        /* PVH dom0 */
+> +        {
+> +            .caps   = CAP_HVM | CAP_HWDOM,
+> +            .min    = X86_EMU_LAPIC | X86_EMU_IOAPIC | X86_EMU_VPCI,
+> +        },
+> +
+> +        /* PVH domU */
+> +        {
+> +            .caps   = CAP_HVM | CAP_DOMU,
+> +            .min    = X86_EMU_LAPIC,
+> +        },
+> +
+> +        /* HVM domU */
+> +        {
+> +            .caps   = CAP_HVM | CAP_DOMU,
+> +            .min    = X86_EMU_ALL & ~(X86_EMU_VPCI | X86_EMU_USE_PIRQ),
+> +            /* HVM PIRQ feature is user-selectable. */
+> +            .opt    = X86_EMU_USE_PIRQ,
+> +        },
+> +#endif /* #ifdef CONFIG_HVM */
+> +    };
+> +    unsigned int i;
+> +    unsigned int caps = (is_pv_domain(d) ? CAP_PV : CAP_HVM) |
+> +                        (is_hardware_domain(d) ? CAP_HWDOM : CAP_DOMU);
+
+And here instead of using unsigned int?
+
+> +
+>  #ifdef CONFIG_HVM
+>      /* This doesn't catch !CONFIG_HVM case but it is better than nothing */
+>      BUILD_BUG_ON(X86_EMU_ALL != XEN_X86_EMU_ALL);
+>  #endif
+>  
+> -    if ( is_hvm_domain(d) )
+> -    {
+> -        if ( is_hardware_domain(d) &&
+> -             emflags != (X86_EMU_VPCI | X86_EMU_LAPIC | X86_EMU_IOAPIC) )
+> -            return false;
+> -        if ( !is_hardware_domain(d) &&
+> -             /* HVM PIRQ feature is user-selectable. */
+> -             (emflags & ~X86_EMU_USE_PIRQ) !=
+> -             (X86_EMU_ALL & ~(X86_EMU_VPCI | X86_EMU_USE_PIRQ)) &&
+> -             emflags != X86_EMU_LAPIC )
+> -            return false;
+> -    }
+> -    else if ( emflags != 0 && emflags != X86_EMU_PIT )
+> -    {
+> -        /* PV or classic PVH. */
+> -        return false;
+> -    }
+> +    for ( i = 0; i < ARRAY_SIZE(configs); i++ )
+> +        if ( (caps & configs[i].caps) == caps &&
+> +             (emflags & ~configs[i].opt) == configs[i].min )
+> +            return true;
+>  
+> -    return true;
+> +    return false;
+>  }
+>  
+>  void __init arch_init_idle_domain(struct domain *d)
+> -- 
+> 2.34.1
+> 
+> 
 
