@@ -2,45 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 36467ADAB08
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Jun 2025 10:46:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1016880.1393854 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 52C35ADAB0D
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Jun 2025 10:46:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1016883.1393868 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uR5UB-0007oT-0a; Mon, 16 Jun 2025 08:46:35 +0000
+	id 1uR5UG-00087i-AW; Mon, 16 Jun 2025 08:46:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1016880.1393854; Mon, 16 Jun 2025 08:46:34 +0000
+Received: by outflank-mailman (output) from mailman id 1016883.1393868; Mon, 16 Jun 2025 08:46:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uR5UA-0007m5-TZ; Mon, 16 Jun 2025 08:46:34 +0000
-Received: by outflank-mailman (input) for mailman id 1016880;
- Mon, 16 Jun 2025 08:46:33 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uR5UG-00084L-6u; Mon, 16 Jun 2025 08:46:40 +0000
+Received: by outflank-mailman (input) for mailman id 1016883;
+ Mon, 16 Jun 2025 08:46:38 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=GKzt=Y7=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1uR5U9-0007jR-Jy
- for xen-devel@lists.xenproject.org; Mon, 16 Jun 2025 08:46:33 +0000
+ id 1uR5UD-0007hV-Vy
+ for xen-devel@lists.xenproject.org; Mon, 16 Jun 2025 08:46:37 +0000
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 61f6e740-4a8e-11f0-a309-13f23c93f187;
- Mon, 16 Jun 2025 10:46:24 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 695bf66e-4a8e-11f0-b894-0df219b8e170;
+ Mon, 16 Jun 2025 10:46:36 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 95DB82117F;
- Mon, 16 Jun 2025 08:46:21 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 2F11E21181;
+ Mon, 16 Jun 2025 08:46:27 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 69736139E2;
- Mon, 16 Jun 2025 08:46:21 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id F3F4A139E2;
+ Mon, 16 Jun 2025 08:46:26 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 3vgHGN3ZT2jUPwAAD6G6ig
- (envelope-from <jgross@suse.com>); Mon, 16 Jun 2025 08:46:21 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id b8obOuLZT2jgPwAAD6G6ig
+ (envelope-from <jgross@suse.com>); Mon, 16 Jun 2025 08:46:26 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,119 +51,220 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 61f6e740-4a8e-11f0-a309-13f23c93f187
+X-Inumbo-ID: 695bf66e-4a8e-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1750063582; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=T4caMaW8bugDRSGPfSz/ynH/nu5eTDf2OXty7FDoRQY=;
-	b=JAQq61Cpb3tVLl1TFx2NqWBYwNpGZUJqgo//fULC+siz5DGwF3yLMFnIWBbxTMumWVtu+S
-	2SQLeV5o73fye1Ei0umtxHHfalcBANRZhDS1W0mHTXrfVAn2WgT3SXZ3HdaIV4eIPDyPJX
-	o7gopzFyv5GweCwCDKlytGxQQJSpRI0=
+	t=1750063587; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=eIbkCenoZvqJqr3MP5CvMO1uqc+kjXWDfidavHJfSOg=;
+	b=E4B/oENMbf4MVYNW+Xi+9rgx/R78CrdQ/RHbovg0TUQ9U/kZqBKiOQftJ/bJnKg/BGnGdG
+	ZJn/UqW3DfyzvC4yEJLjrBTJKcJRjBUbp9qc0F6nJGRRhli9N20MoDbbEEU75ow3HJ34px
+	BTKmSsmkCr++8XAiw79XqPCM3ydFqjk=
 Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.com header.s=susede1 header.b=gH0t1Ce5
+	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1750063581; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=T4caMaW8bugDRSGPfSz/ynH/nu5eTDf2OXty7FDoRQY=;
-	b=gH0t1Ce5jC8inaTPV+MV2kZyg6G2BCFmwbuXNDJIcAqNHPtQaU4yVBirL4eRDiIQiqQ+6B
-	cMJEVjY4gtYdgUp9og16JwT31ssHWMUFYYZMaFun0szb18/FcKQQ+r2WjZtJodyYvNecdb
-	w2CgnrvPccxQIM42qalMrCkOGasG5Ug=
+	t=1750063587; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=eIbkCenoZvqJqr3MP5CvMO1uqc+kjXWDfidavHJfSOg=;
+	b=E4B/oENMbf4MVYNW+Xi+9rgx/R78CrdQ/RHbovg0TUQ9U/kZqBKiOQftJ/bJnKg/BGnGdG
+	ZJn/UqW3DfyzvC4yEJLjrBTJKcJRjBUbp9qc0F6nJGRRhli9N20MoDbbEEU75ow3HJ34px
+	BTKmSsmkCr++8XAiw79XqPCM3ydFqjk=
 From: Juergen Gross <jgross@suse.com>
 To: minios-devel@lists.xenproject.org,
 	xen-devel@lists.xenproject.org
 Cc: samuel.thibault@ens-lyon.org,
-	Juergen Gross <jgross@suse.com>
-Subject: [MINI-OS PATCH v2 00/12] kexec: add kexec support to Mini-OS
-Date: Mon, 16 Jun 2025 10:46:07 +0200
-Message-ID: <20250616084619.11112-1-jgross@suse.com>
+	Juergen Gross <jgross@suse.com>,
+	Jason Andryuk <jason.andryuk@amd.com>
+Subject: [MINI-OS PATCH v2 01/12] add kexec framework
+Date: Mon, 16 Jun 2025 10:46:08 +0200
+Message-ID: <20250616084619.11112-2-jgross@suse.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20250616084619.11112-1-jgross@suse.com>
+References: <20250616084619.11112-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-3.01 / 50.00];
+X-Spamd-Result: default: False [-2.80 / 50.00];
 	BAYES_HAM(-3.00)[100.00%];
 	NEURAL_HAM_LONG(-1.00)[-1.000];
 	MID_CONTAINS_FROM(1.00)[];
 	R_MISSING_CHARSET(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-0.999];
 	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
+	MIME_TRACE(0.00)[0:+];
+	TO_DN_SOME(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	ARC_NA(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	MIME_TRACE(0.00)[0:+];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	TO_DN_SOME(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	FUZZY_BLOCKED(0.00)[rspamd.com];
-	FROM_HAS_DN(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
-	RCVD_TLS_ALL(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCPT_COUNT_THREE(0.00)[4];
 	DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	DKIM_TRACE(0.00)[suse.com:+]
+	FUZZY_BLOCKED(0.00)[rspamd.com];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:email,suse.com:mid,amd.com:email];
+	RCVD_TLS_ALL(0.00)[]
 X-Spam-Level: 
 X-Spam-Flag: NO
-X-Rspamd-Queue-Id: 95DB82117F
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spam-Score: -3.01
+X-Spam-Score: -2.80
 
-Add basic kexec support to Mini-OS for running in x86 PVH mode.
+Add a new config option CONFIG_KEXEC for support of kexec-ing into a
+new mini-os kernel. Add a related kexec.c source and a kexec.h header.
 
-With this series applied it is possible to activate another kernel
-from within Mini-OS.
+For now allow CONFIG_KEXEC to be set only for PVH variant of mini-os.
 
-Right now no Xen related teardown is done (so no reset of grant table,
-event channels, PV devices). These should be added via kexec callbacks
-which are added as a framework.
-
-This is a major building block for support of Xenstore-stubdom live
-update (in fact I've tested the kexec path to work using the PVH
-variant of Xenstore-stubdom).
-
-Changes in V2:
-- addressed comments
-
-Juergen Gross (12):
-  add kexec framework
-  Mini-OS: add final kexec stage
-  mini-os: add elf.h
-  mini-os: analyze new kernel for kexec
-  mini-os: kexec: finalize parameter location and size
-  mini-os: reserve memory below boundary
-  mini-os: kexec: build parameters for new kernel
-  mini-os: kexec: move used pages away for new kernel
-  Mini-OS: mm: change set_readonly() to change_readonly()
-  Mini-OS: kexec: switch read-only area to be writable again
-  mini-os: kexec: add kexec callback functionality
-  mini-os: kexec: do the final kexec step
-
- Config.mk                  |   1 +
- Makefile                   |   1 +
- arch/x86/kexec.c           | 272 +++++++++++++++++++++++++++++++++
- arch/x86/minios-x86.lds.S  |  17 +++
- arch/x86/mm.c              | 238 ++++++++++++++++++++++-------
- arch/x86/testbuild/all-no  |   1 +
- arch/x86/testbuild/all-yes |   2 +
- arch/x86/testbuild/kexec   |   4 +
- arch/x86/x86_hvm.S         |  46 ++++++
- include/elf.h              | 300 +++++++++++++++++++++++++++++++++++++
- include/kexec.h            |  63 ++++++++
- include/mm.h               |   8 +
- include/x86/os.h           |   5 +
- kexec.c                    | 252 +++++++++++++++++++++++++++++++
- mm.c                       |  89 ++++++++++-
- 15 files changed, 1248 insertions(+), 51 deletions(-)
- create mode 100644 arch/x86/kexec.c
+Signed-off-by: Juergen Gross <jgross@suse.com>
+Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
+---
+V2:
+- reword some comments (Jason Andryuk)
+---
+ Config.mk                  |  1 +
+ Makefile                   |  1 +
+ arch/x86/testbuild/all-no  |  1 +
+ arch/x86/testbuild/all-yes |  2 ++
+ arch/x86/testbuild/kexec   |  4 +++
+ include/kexec.h            |  7 +++++
+ kexec.c                    | 60 ++++++++++++++++++++++++++++++++++++++
+ 7 files changed, 76 insertions(+)
  create mode 100644 arch/x86/testbuild/kexec
- create mode 100644 include/elf.h
  create mode 100644 include/kexec.h
  create mode 100644 kexec.c
 
+diff --git a/Config.mk b/Config.mk
+index e493533a..e2afb1b4 100644
+--- a/Config.mk
++++ b/Config.mk
+@@ -204,6 +204,7 @@ CONFIG-n += CONFIG_LIBXENGUEST
+ CONFIG-n += CONFIG_LIBXENTOOLCORE
+ CONFIG-n += CONFIG_LIBXENTOOLLOG
+ CONFIG-n += CONFIG_LIBXENMANAGE
++CONFIG-n += CONFIG_KEXEC
+ # Setting CONFIG_USE_XEN_CONSOLE copies all print output to the Xen emergency
+ # console apart of standard dom0 handled console.
+ CONFIG-n += CONFIG_USE_XEN_CONSOLE
+diff --git a/Makefile b/Makefile
+index d094858a..a64913ad 100644
+--- a/Makefile
++++ b/Makefile
+@@ -51,6 +51,7 @@ src-y += gntmap.c
+ src-y += gnttab.c
+ src-y += hypervisor.c
+ src-y += kernel.c
++src-$(CONFIG_KEXEC) += kexec.c
+ src-y += lock.c
+ src-y += main.c
+ src-y += mm.c
+diff --git a/arch/x86/testbuild/all-no b/arch/x86/testbuild/all-no
+index 5b3e99ed..b2ee5ce8 100644
+--- a/arch/x86/testbuild/all-no
++++ b/arch/x86/testbuild/all-no
+@@ -18,3 +18,4 @@ CONFIG_LIBXS = n
+ CONFIG_LWIP = n
+ CONFIG_BALLOON = n
+ CONFIG_USE_XEN_CONSOLE = n
++CONFIG_KEXEC = n
+diff --git a/arch/x86/testbuild/all-yes b/arch/x86/testbuild/all-yes
+index 8ae489a4..c9a990f9 100644
+--- a/arch/x86/testbuild/all-yes
++++ b/arch/x86/testbuild/all-yes
+@@ -19,3 +19,5 @@ CONFIG_BALLOON = y
+ CONFIG_USE_XEN_CONSOLE = y
+ # The following are special: they need support from outside
+ CONFIG_LWIP = n
++# KEXEC not implemented for PARAVIRT
++CONFIG_KEXEC = n
+diff --git a/arch/x86/testbuild/kexec b/arch/x86/testbuild/kexec
+new file mode 100644
+index 00000000..ea17b4d9
+--- /dev/null
++++ b/arch/x86/testbuild/kexec
+@@ -0,0 +1,4 @@
++CONFIG_PARAVIRT = n
++CONFIG_BALLOON = y
++CONFIG_USE_XEN_CONSOLE = y
++CONFIG_KEXEC = y
+diff --git a/include/kexec.h b/include/kexec.h
+new file mode 100644
+index 00000000..6fd96774
+--- /dev/null
++++ b/include/kexec.h
+@@ -0,0 +1,7 @@
++#ifndef _KEXEC_H
++#define _KEXEC_H
++
++int kexec(void *kernel, unsigned long kernel_size,
++          const char *cmdline);
++
++#endif /* _KEXEC_H */
+diff --git a/kexec.c b/kexec.c
+new file mode 100644
+index 00000000..7fcc5c6b
+--- /dev/null
++++ b/kexec.c
+@@ -0,0 +1,60 @@
++/******************************************************************************
++ * kexec.c
++ *
++ * Support of kexec (reboot locally into new mini-os kernel).
++ *
++ * Copyright (c) 2024, Juergen Gross, SUSE Linux GmbH
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a copy
++ * of this software and associated documentation files (the "Software"), to
++ * deal in the Software without restriction, including without limitation the
++ * rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
++ * sell copies of the Software, and to permit persons to whom the Software is
++ * furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
++ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
++ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
++ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
++ * DEALINGS IN THE SOFTWARE.
++ */
++
++#ifdef CONFIG_PARAVIRT
++#error "kexec support not implemented in PV variant"
++#endif
++
++#include <errno.h>
++#include <mini-os/os.h>
++#include <mini-os/lib.h>
++#include <mini-os/kexec.h>
++
++/*
++ * General approach for kexec support (PVH only) is as follows:
++ *
++ * - New kernel needs to be in memory in form of a ELF binary in a virtual
++ *   memory region.
++ * - A new start_info structure is constructed in memory with the final
++ *   memory locations included.
++ * - Page tables and memory pages of the new kernel binary conflicting with the
++ *   final memory layout are moved to non-conflicting locations.
++ * - All memory areas needed for kexec execution are being finalized.
++ * - The final kexec execution stage is copied to a memory area below 4G which
++ *   doesn't conflict with the target areas of kernel etc.
++ * - From here on a graceful failure is no longer possible.
++ * - Grants and event channels are torn down.
++ * - Execution continues in the final execution stage.
++ * - All data is copied to its final addresses.
++ * - CPU is switched to 32-bit mode with paging disabled.
++ * - The new kernel is activated.
++ */
++
++int kexec(void *kernel, unsigned long kernel_size, const char *cmdline)
++{
++    return ENOSYS;
++}
++EXPORT_SYMBOL(kexec);
 -- 
 2.43.0
 
