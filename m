@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1EAAFADB6A1
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Jun 2025 18:23:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1017491.1394480 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B307ADB6AC
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Jun 2025 18:24:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1017501.1394490 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uRCbW-0005en-JE; Mon, 16 Jun 2025 16:22:38 +0000
+	id 1uRCd7-0006Di-Vw; Mon, 16 Jun 2025 16:24:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1017491.1394480; Mon, 16 Jun 2025 16:22:38 +0000
+Received: by outflank-mailman (output) from mailman id 1017501.1394490; Mon, 16 Jun 2025 16:24:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uRCbW-0005dE-FG; Mon, 16 Jun 2025 16:22:38 +0000
-Received: by outflank-mailman (input) for mailman id 1017491;
- Mon, 16 Jun 2025 16:22:37 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uRCd7-0006CJ-Sr; Mon, 16 Jun 2025 16:24:17 +0000
+Received: by outflank-mailman (input) for mailman id 1017501;
+ Mon, 16 Jun 2025 16:24:15 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=jh7D=Y7=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uRCbV-0005d8-BD
- for xen-devel@lists.xenproject.org; Mon, 16 Jun 2025 16:22:37 +0000
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [2a00:1450:4864:20::42d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1d415d60-4ace-11f0-a309-13f23c93f187;
- Mon, 16 Jun 2025 18:22:36 +0200 (CEST)
-Received: by mail-wr1-x42d.google.com with SMTP id
- ffacd0b85a97d-3a50fc819f2so4005409f8f.2
- for <xen-devel@lists.xenproject.org>; Mon, 16 Jun 2025 09:22:36 -0700 (PDT)
+ id 1uRCd5-0006CB-TF
+ for xen-devel@lists.xenproject.org; Mon, 16 Jun 2025 16:24:15 +0000
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [2a00:1450:4864:20::434])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 52233d1c-4ace-11f0-b894-0df219b8e170;
+ Mon, 16 Jun 2025 18:24:05 +0200 (CEST)
+Received: by mail-wr1-x434.google.com with SMTP id
+ ffacd0b85a97d-3a35c894313so5378689f8f.2
+ for <xen-devel@lists.xenproject.org>; Mon, 16 Jun 2025 09:24:13 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-7488ffecd29sm7033077b3a.31.2025.06.16.09.22.32
+ d2e1a72fcca58-748a6b1d620sm4133340b3a.116.2025.06.16.09.24.10
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 16 Jun 2025 09:22:35 -0700 (PDT)
+ Mon, 16 Jun 2025 09:24:12 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1d415d60-4ace-11f0-a309-13f23c93f187
+X-Inumbo-ID: 52233d1c-4ace-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1750090956; x=1750695756; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1750091053; x=1750695853; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=iJ22bVt6JnasgRgf0jzNkO9g0kG/12p0K1GXs13R5kU=;
-        b=G2+b3ljizD4kFORYWTe+Aeiz09l3ozhXi9Hl6mWoNwMU6JOacqKmlh49D5ClG44wA5
-         8LIX9GJYg2WmCMZrBNZ5R5fQSySVMbuXDmbxGXVAbO1ufWanrItCYpIG3c6s+nreN3Sj
-         3v/3AwAffB3PR1MUKTN4k5tSEaFqQSq37tDeV+rd22O1qYaLDbAhwteykmAqingdTRQP
-         QbcZhLsbuek923tcRwcrg+JY9bF9KA6iTmJOwgeTk2k8dprQyN7E09fwNrj0t9VR0yDb
-         X4gsmMvp38VS7Tg+DTnuAdIdY0KZQF9+4bN8PZuH3YkLVS/t5DZuuyYLkkZNMQlZhzzp
-         xNkg==
+        bh=eSCJ7/mkL3BvXuKI7zkoRMrFgPTCvPYO/2N1D8SOp9I=;
+        b=ZLBPwPpy6LyaWNClZPBbHfp0aPYWfhnV1OVGdm8mwGpgCoRdqiziTkSJ3wiXkJrHlA
+         W1S/r87PXUep6KYzQpTtT8rxuU5DZDlqG8dYuuDqzgYUhghLJVhFaPTpbh7XyXtvYEG0
+         c2jfG9h7c1V4Y7ijE5M+s42apn17h+v/+lH+FEvwCnA+Z32yHJbIk6hoPWIxu2Rb9zPC
+         /S6NZ0abImj2dHrjooOPfblkJUviqMluTCwOKnB7o2fdA2ehVpVmwdbYGg2Fqj4kNU34
+         9wooI4bWnfsxbEjD7NIMioDneCxIkMa3cFY2PZtU5Ae4v4Zb2axHJhEX1jC+SSFunuct
+         ItFQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750090956; x=1750695756;
+        d=1e100.net; s=20230601; t=1750091053; x=1750695853;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=iJ22bVt6JnasgRgf0jzNkO9g0kG/12p0K1GXs13R5kU=;
-        b=xLDA/Oo4mUTjLxK1REp27CnP5m3r+7R5bY7BFg7wXTaBqoG4PENTW1NVD/X0D7RxVj
-         GuoKh7d86wqv7W/ik5dkiF/4ikbiIUUAMjp8iC7a6JXCIPBrYn7i/XPpL6TiJrzZmwlX
-         hyU3r4eFnGFWU0/w2tih7Cx+Z8vsJ4a5yOOwcdgVSJYs1Ex1mua5fLd/VzPt0fHuT3jN
-         BM/jiITtK889yKf9RsQ5R4XwZn9+vLXolh7drgBYikgq5LKPOOGOL68ZlcCy6PSZSFhQ
-         L0b1hQD7vAhTxVjHnTB9Ss9lUsqZ2gidostyEHmhgmAwdzWXbLg1pTh2NMbDfQ9k9TMq
-         GW+Q==
-X-Forwarded-Encrypted: i=1; AJvYcCUPgrWryO0WY5ojnM1blyUQIhZ9jWzUWCc1QiWkUYV0DLCyabFEc2J0trQ4o2ilhDduG0w5W13K6Xo=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyhLzSybk/KemTlKk7oQmaTNc5ZJ5Fn5ZJFf81y+qW3Z/Rx379k
-	XVYsv+k0iEo4dGLVNVCMZZLyi4iCHFrwIk9gB/6umwI+j78WPMhBmEJeUCYwVzfdJw==
-X-Gm-Gg: ASbGncvqH4MNt92+y0IwMlUsh7I3HP2d0cJnCE1Yh34qk/1oUhrmmnQjk1KtiZJzxAx
-	YwsBE/+XsQDVEb1t8TRXygZW3ty3+5q47sRxcL13Th+GJD/54sVysRPH25+s/bXJlIkpCsEnz0U
-	X/IUeQ0UwMfhNHjqCTxW0tMHke7Zce8owx0wDCgRnjJgtYBfvva6MHsFUeO9E0b3Vahrv7cZ3Im
-	Hk+4gDlQkUO72wQBQaVY0lPQ5Inb0g07MlWcg8GrhCkPdK0B9mWcOT+KxLHGSPt9PvpDOP02QSh
-	t9MwZdXkxsQAqXjkv+8xBK0Qq8GTZayp+rYchV0jhvO8WPr6NWeNYyLObNYbrycc+1F/cTj6xCQ
-	w/1WL3eNGMY6pd4hIYTg2H+1964eaevx/pTrmMtxFbMAG8H4=
-X-Google-Smtp-Source: AGHT+IHdvxuxQ5SG5jNnjzIdMVwiUNfIURrrc/a3Xr2Rx6VoNt0acRIWE+vqYfw0/jsSEa9bfkIMNw==
-X-Received: by 2002:a05:6000:1888:b0:3a5:2949:6c38 with SMTP id ffacd0b85a97d-3a572e99690mr8949618f8f.52.1750090955720;
-        Mon, 16 Jun 2025 09:22:35 -0700 (PDT)
-Message-ID: <0a5c9445-904a-4321-8406-8618fd82313b@suse.com>
-Date: Mon, 16 Jun 2025 18:22:29 +0200
+        bh=eSCJ7/mkL3BvXuKI7zkoRMrFgPTCvPYO/2N1D8SOp9I=;
+        b=mjcgpBQF4OrLR/ays8ifrt76XVn63dv16hkKGY6kdzZWDDAAIHwCGdB5Bix8SefAyp
+         MPTPayIAam7/wowJglW/9WV6CHYbyoewaOncdOASdgrUuSinb/wVnf/1wsghVMkzav3u
+         ptRPfsy0QfvETsyr5LojX0g75AQrqUsjzjKbiMdJDlR4XOMiFpj3FRRoqYqIZr0c6ttw
+         wdbxNDPKzrC0MdDsybumfkwPOhLVcLFf9ttly2poyixiLMVn8DBHcMAHluHTiqQ85/Cy
+         2jDh3A8dZeiZ3rVnPM6/UDKgRKHjwq4LXTA5UmAhOfCKknq6XpZsC7Akc4AgykL+xBrv
+         jQaA==
+X-Forwarded-Encrypted: i=1; AJvYcCXZixBKxS06T+iWxuLjd3BhEp7xf3DNdL0xNURLQDZ9EUDXtMWd72PUVPLbzeul4K83qg62NL4ccxo=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzTmgIT/+aB/ixowpLMwPlaOdKbmcvr4btYcpU5qnrLbv+OwsSH
+	AEtKBlTjo3ED7u+lE5K7djq88ajXD1CK1Ic3r7S0BJCk0GET6fAPY+BHc/dzu13aww==
+X-Gm-Gg: ASbGnctEpp8KajFo/GRVwYxgVQGNPIcGqde374qVrqZnDIGOpSQj0RxIKjQ89BcPBxz
+	sGUa/Ssp3maeMHW8r4/fQma5sta1MvV/uCOY7rs0e44O/dlYa6w5x+P59WGmI6zJ9hbp8DIYmrK
+	Zd5pdCNo9sUnblJ8ipH6S2tibeZY399y6pURrIOe6vH5puvxBGnlgAaezgefmNmGEN+pxjUCfxG
+	ivPXEXaS9cMIv7x8l2wItoL6yhIME8a1Uicuqm5pUm7vh4m5Q84NsfUthXH6Fk06oeG4sI6H0z/
+	uxIAW5UOsyOpKcM36b8BuFA6u49nsetvVV7szB2/liWzf65vi9uJBt5u+iNLwOh1BCinw1GOn9H
+	4JjAj8f/yC5pkigwp3F/RxnZDwhPxpbzzQ8Iht4zm1qJe0hrrQeWTF55o0w==
+X-Google-Smtp-Source: AGHT+IH16MFIwKXm9NacQxcfC73Pa0ChKE7VbvK5ZZon+cljZ0ZTU1wUIHfm3XjFZVlZFHNTH6G98A==
+X-Received: by 2002:a05:6000:230e:b0:3a4:e740:cd72 with SMTP id ffacd0b85a97d-3a572396df6mr8229313f8f.13.1750091053379;
+        Mon, 16 Jun 2025 09:24:13 -0700 (PDT)
+Message-ID: <d1d9ce07-a74f-4a4f-af56-b5bc07b24737@suse.com>
+Date: Mon, 16 Jun 2025 18:24:06 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 12/18] xen/cpufreq: get performance policy from
- governor set via xenpm
+Subject: Re: [PATCH v5 13/18] xen/cpufreq: normalize hwp driver check with
+ hwp_active()
 To: Penny Zheng <Penny.Zheng@amd.com>
 Cc: ray.huang@amd.com, xen-devel@lists.xenproject.org
 References: <20250527084833.338427-1-Penny.Zheng@amd.com>
- <20250527084833.338427-13-Penny.Zheng@amd.com>
+ <20250527084833.338427-14-Penny.Zheng@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -118,25 +118,21 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250527084833.338427-13-Penny.Zheng@amd.com>
+In-Reply-To: <20250527084833.338427-14-Penny.Zheng@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 27.05.2025 10:48, Penny Zheng wrote:
-> --- a/xen/drivers/acpi/pmstat.c
-> +++ b/xen/drivers/acpi/pmstat.c
-> @@ -319,6 +319,14 @@ static int set_cpufreq_gov(struct xen_sysctl_pm_op *op)
->      if (new_policy.governor == NULL)
->          return -EINVAL;
->  
-> +    new_policy.policy = cpufreq_policy_from_governor(new_policy.governor);
-> +    if ( new_policy.policy == CPUFREQ_POLICY_UNKNOWN )
-> +    {
-> +        printk("Failed to get performance policy from %s, and users shall write epp values to deliver preference towards performance over efficiency",
+> Instead of using hypercall passing parameter to identify hwp driver,
+> we shall use hwp_active(). Also, we've already used hwp_active() in
+> do_get_pm_info() in the same file to do hwp driver check, it's
+> better syncing with same way.
+> 
+> Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
 
-This message is excessively long and is lacking a newline (i.e. effectively two:
-one in the middle and one at the end; yet better would be to find less verbose
-wording). What's worse, how would a "user" go about "writing epp values"?
+Acked-by: Jan Beulich <jbeulich@suse.com>
+
+Is this okay to apply ahead of most/all of the earlier patches?
 
 Jan
 
