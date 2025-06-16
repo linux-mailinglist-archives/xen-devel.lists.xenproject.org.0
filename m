@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C551EADB142
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Jun 2025 15:11:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1017255.1394233 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BBF43ADB0F3
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Jun 2025 15:02:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1017235.1394212 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uR9c8-0000yV-A3; Mon, 16 Jun 2025 13:11:04 +0000
+	id 1uR9TL-00076F-28; Mon, 16 Jun 2025 13:01:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1017255.1394233; Mon, 16 Jun 2025 13:11:04 +0000
+Received: by outflank-mailman (output) from mailman id 1017235.1394212; Mon, 16 Jun 2025 13:01:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uR9c8-0000x3-4p; Mon, 16 Jun 2025 13:11:04 +0000
-Received: by outflank-mailman (input) for mailman id 1017255;
- Mon, 16 Jun 2025 13:11:02 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uR9TK-00073B-VP; Mon, 16 Jun 2025 13:01:58 +0000
+Received: by outflank-mailman (input) for mailman id 1017235;
+ Mon, 16 Jun 2025 13:01:58 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=jh7D=Y7=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uR9Sv-0003pW-TN
- for xen-devel@lists.xenproject.org; Mon, 16 Jun 2025 13:01:33 +0000
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [2a00:1450:4864:20::42d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 067907d3-4ab2-11f0-b894-0df219b8e170;
- Mon, 16 Jun 2025 15:01:32 +0200 (CEST)
-Received: by mail-wr1-x42d.google.com with SMTP id
- ffacd0b85a97d-3a4f72cba73so3799122f8f.1
- for <xen-devel@lists.xenproject.org>; Mon, 16 Jun 2025 06:01:32 -0700 (PDT)
+ id 1uR9TK-00072w-9k
+ for xen-devel@lists.xenproject.org; Mon, 16 Jun 2025 13:01:58 +0000
+Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
+ [2a00:1450:4864:20::130])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 1578a124-4ab2-11f0-a309-13f23c93f187;
+ Mon, 16 Jun 2025 15:01:57 +0200 (CEST)
+Received: by mail-lf1-x130.google.com with SMTP id
+ 2adb3069b0e04-553be4d2fbfso1375852e87.0
+ for <xen-devel@lists.xenproject.org>; Mon, 16 Jun 2025 06:01:57 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2365dea8fd6sm60146695ad.145.2025.06.16.06.01.27
+ d2e1a72fcca58-748900b0d07sm6718883b3a.114.2025.06.16.06.01.51
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 16 Jun 2025 06:01:30 -0700 (PDT)
+ Mon, 16 Jun 2025 06:01:53 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 067907d3-4ab2-11f0-b894-0df219b8e170
+X-Inumbo-ID: 1578a124-4ab2-11f0-a309-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1750078892; x=1750683692; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1750078917; x=1750683717; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=/Qgc++fc93ux80i5RmqliRbRkUUe9ZSRv/76bEt+jaE=;
-        b=Fvd92rhX/gAPMsa0EmEbLm/snAK+YAuvMOcGc+F4C9qGFP9a48R8me16HREG6w2x4q
-         uG6m0f0MywfucW1CmdpWS8M7/hRxRaDXgslMwk3xYzQevpts6EoqYRpN6sblifzs4qWd
-         NiatMNclheC+3J4dhJg3cSVjs/FcF4WR+q38b+HNwkKXY8XB1s/ltOl7iaP2EWHjHvM0
-         2GXoEZysUpnmNV7P8F9q8rnO7wzW4IludakIz/aGJPmI21zxHtxsL6nufT13CSqNQ4fa
-         M80DZbkqPOQ0YrFbyLIMfau92FaHwnlO5JQKS8pgRQFF59+Ajq+juOkLvmDR4VjVIkIN
-         DnLw==
+        bh=uAx+h4vdQMnFmuPeDTCptQ0FqB53/bxqCnS75yppj5g=;
+        b=WZ0SPab/uQmIKxX5ZZRbfrI/v6cqQ1TP2w15L+7hmDvYdhSGCy+XTmOaAWH/hQ2ue7
+         w+Iftj5wgLNCZQgnr8LJhA14RW7fNWLUvC56RTOtNayx3gEbDxhu8rOHw4TAqpNWUVvS
+         lJL5CmcyE08DczrxF4VOcqmSZBEwMXww1PLFqOw5kOpqpTSmSqOTPw6vKByra4ym8p+z
+         qkhxb2L3NJmqbOGPP3zKW/RnvEzFppeBYvFfoqRxYj5Vn9pV0R+V1D6+g29XJU1CuBTS
+         dNfxUON7tpl+Bw/+MCzyEXuYpOdT3YXlDjwvMrWu4IXZQq8T5Q4tsAmEuY1jdzieX84S
+         KcRQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750078892; x=1750683692;
+        d=1e100.net; s=20230601; t=1750078917; x=1750683717;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=/Qgc++fc93ux80i5RmqliRbRkUUe9ZSRv/76bEt+jaE=;
-        b=P5GeYDflz5zQyQZ+eSYMzc+vpxZN9TTBHwOBYxMgy2Vu5az9m/yj6PSZo/NXtoi6Eg
-         c9OTQcw7wdN4MdEUeh/lErNCcGz4ya/iX3mEIMhlscbjA37cBICuKOXu94EIpuz+lKOZ
-         myiFjmolrT8ETBTDR8UnPWis8Leg+AABqRscgo7Wkolpibt3WynZ/f2VQZihCQStsZTP
-         /8IJdDVx54JBM4ZhzIyK4Lg1IdhBDAdFm4FdK+n2hAL9oPlq+Y77uARy2LEuED+tEUA/
-         xuYKrgPRN3A/bPVcYRCepFtPUekVizj+ypG+krk1VmBtpT5ZdRXtMcp5ZqapU7sChk8k
-         d1GA==
-X-Gm-Message-State: AOJu0YyJ8EvXAPlMf7NoIpCLcvgtOkZcStwCCq4yIoxgNuvsAKbBLiL2
-	1UCp/aloHSlCEFo31cA1RaMzdAeC8g34OnlUlE/+8jlucqO62Nps/IK70PdqyDgWD23zgfHTrh5
-	rCDs=
-X-Gm-Gg: ASbGncsW5qZAzWKzGWBAf1uv3EsJnOMfk9mve5KJY9itoSGLF6e6F9bCxoC0B3IVWgk
-	g9289I/XBQnvpAKUB1Gg6XitRYOjk7gK64Exp8QHFNvwwH8X7vrF3X1TnTPI30NVghZS/TD5yya
-	Gs2JS2rWW5Pez5uoZaOaoES6qB6ujw8DEn+XMIs9uH4Rf/CuLcOrXQckLd4UuAvT5WPkoROzjZX
-	fZNQzCdiwGWiPMN6HeBYA1oGY5nLM/OXO7MwQcFHQ10S6RrL2Sn4MdCqt0pBLa4jolrMfadU2Rt
-	HsKej17trJZ7LOpSF36EXDvfAcLoVfbZfVFkdyh98KHwSn2F51njqSGs5L2NHfPSjzvFIP9SJqC
-	xwOvgae7j7DG2Sr/CDd+wnFAP1EO17zFTc9GPslypb7CAnsk=
-X-Google-Smtp-Source: AGHT+IF1/BiEdagP71nQb6AOqDYr1F9/K/R9nw/EWajmZrQN1TpdqMHOI4v1akSjxyuOoUWijBDTNg==
-X-Received: by 2002:a05:6000:2f88:b0:3a5:1360:6b34 with SMTP id ffacd0b85a97d-3a56d7bacfdmr8843603f8f.2.1750078890953;
-        Mon, 16 Jun 2025 06:01:30 -0700 (PDT)
-Message-ID: <c926a369-598f-4b3b-87ac-cc5ab94f8dfc@suse.com>
-Date: Mon, 16 Jun 2025 15:01:24 +0200
+        bh=uAx+h4vdQMnFmuPeDTCptQ0FqB53/bxqCnS75yppj5g=;
+        b=C8yyh7NXQQ7AyapY7r4pHMapzWIjD8zas0VL+lbBwvOuvh0Vt38p6uvMDU5cIaajNf
+         +v+lEt7rvDS4sTeLy6BRp8FhsGV0f5cxVBmC8MtIOiq03icTnZCjN+ewOSyP/n3/Auge
+         POnV57ByLrI6sndkZ2SBuky+Bh2cs0UZt8WCdL+O3+yE0GTLqIITzgrI5PJapFaU+nWP
+         B8VIH/Q6+Sz81U/JksFS1Wg1XTeaNbtASE9yu8yhlPBMzA4+ZdRRgti9Uz+fFvef24k2
+         ILIgdiL9QaTTMYhPnw4kqUOM1V9Mh0ec5e+VT9x8yNaDjrWZ6C/1f+YI3uSPz9VsU4/1
+         ShmA==
+X-Gm-Message-State: AOJu0Yzto8meqCdu/EUiXrOIHEwGrbVA7PgmnHzUpHXUZG4/wVyxeW71
+	ZeP/VDJlAMgOWuSZMWup4ZbNevhKEAKTjIUPVLNJlnh8yDrU4S0BWwJggRSLVG91Fqd5TtbXZQO
+	lAQI=
+X-Gm-Gg: ASbGnctVF8CVO3oImWFrfybn9HS3uHI04NqmGnoXjiRSTORcyuHPtWYHgWOjUbjyJk7
+	6XjihcFjic96kuWrSYK+uXuxhz7ostqqSHUUqAPlc1PBLFTpXGnX9TDpfSr0o3pMeRDWc3tsO8v
+	XZZRmcu5B3x/joj2cXUTk88uMy8D1+nRrIEL5yGv7DhwsK17IFvawnOyC+G5wq94La7I2uYZJJ7
+	jgSfkgyKUbhgE1Mle9Ei/9PDnG90R8Ud/iwh3NhHfB8zfnCbjGxWYzRSfSkKV/ebU21+SbNd1YZ
+	0yhHUnDcTBOH6+cp8QOJfbif78UF9ON/SyNnx4hYSdOqe9T2GC3lRDyrxgeS1xvNuUHoHcj0v7C
+	1kTnh6TT82Iii6t459Hv8wJe0HlZMi6+OdKMZiSowupZ5WctwB21F7fA12w==
+X-Google-Smtp-Source: AGHT+IH/LQefGMLIyKc9oY2HjcKqXbVrCil1vf/R5BUo8lps01W8HAeW7Hf3ZcEI6+G7CvfD74aofA==
+X-Received: by 2002:a05:6512:308b:b0:553:2438:8d02 with SMTP id 2adb3069b0e04-553b6f32e7emr2019776e87.47.1750078914340;
+        Mon, 16 Jun 2025 06:01:54 -0700 (PDT)
+Message-ID: <da50f208-74a4-41dc-ad6a-978c42e6b28b@suse.com>
+Date: Mon, 16 Jun 2025 15:01:47 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v6 5/7] x86: control memset() and memcpy() inlining
+Subject: [PATCH v6 6/7] x86: introduce "hot" and "cold" page clearing
+ functions
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -121,49 +122,178 @@ In-Reply-To: <c5e1e7e0-a295-4028-b003-152b861ee14f@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Stop the compiler from inlining non-trivial memset() and memcpy() (for
-memset() see e.g. map_vcpu_info() or kimage_load_segments() for
-examples). This way we even keep the compiler from using REP STOSQ /
-REP MOVSQ when we'd prefer REP STOSB / REP MOVSB (when ERMS is
-available).
+The present clear_page_sse2() is useful in case a page isn't going to
+get touched again soon, or if we want to limit churn on the caches.
+Amend it by alternatively using CLZERO, which has been found to be quite
+a bit faster on Zen2 hardware at least. Note that to use CLZERO, we need
+to know the cache line size, and hence a feature dependency on CLFLUSH
+gets introduced.
 
-With gcc10 this yields a modest .text size reduction (release build) of
-around 2k.
+For cases where latency is the most important aspect, or when it is
+expected that sufficiently large parts of a page will get accessed again
+soon after the clearing, introduce a "hot" alternative. Again use
+alternatives patching to select between a "legacy" and an ERMS variant.
 
-Unfortunately these options aren't understood by the clang versions I
-have readily available for testing with; I'm unaware of equivalents.
+Don't switch any callers just yet - this will be the subject of
+subsequent changes.
 
-Note also that using cc-option-add is not an option here, or at least I
-couldn't make things work with it (in case the option was not supported
-by the compiler): The embedded comma in the option looks to be getting
-in the way.
-
-Requested-by: Andrew Cooper <andrew.cooper3@citrix.com>
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
+v5: Re-base.
 v3: Re-base.
 v2: New.
 ---
-The boundary values are of course up for discussion - I wasn't really
-certain whether to use 16 or 32; I'd be less certain about using yet
-larger values. A respective Linux patch [1] uses 256 ...
+Note: Ankur indicates that for ~L3-size or larger regions MOVNT/CLZERO
+      is better even latency-wise.
 
-Similarly whether to permit the compiler to emit REP STOSQ / REP MOVSQ
-for known size, properly aligned blocks is up for discussion.
-
-[1] https://lore.kernel.org/lkml/20250605164733.737543-1-mjguzik@gmail.com/T/#u
-
---- a/xen/arch/x86/arch.mk
-+++ b/xen/arch/x86/arch.mk
-@@ -58,6 +58,9 @@ endif
- $(call cc-option-add,CFLAGS_stack_boundary,CC,-mpreferred-stack-boundary=3)
- export CFLAGS_stack_boundary
+--- a/xen/arch/x86/clear_page.S
++++ b/xen/arch/x86/clear_page.S
+@@ -5,7 +5,7 @@
+ #include <asm/asm_defns.h>
+ #include <asm/page.h>
  
-+CFLAGS += $(call cc-option,$(CC),-mmemcpy-strategy=unrolled_loop:16:noalign$(comma)libcall:-1:noalign)
-+CFLAGS += $(call cc-option,$(CC),-mmemset-strategy=unrolled_loop:16:noalign$(comma)libcall:-1:noalign)
+-FUNC(clear_page_sse2)
++        .macro clear_page_sse2
+         mov     $PAGE_SIZE/32, %ecx
+         xor     %eax,%eax
+ 
+@@ -19,4 +19,42 @@ FUNC(clear_page_sse2)
+ 
+         sfence
+         RET
+-END(clear_page_sse2)
++        .endm
 +
- ifeq ($(CONFIG_UBSAN),y)
- # Don't enable alignment sanitisation.  x86 has efficient unaligned accesses,
- # and various things (ACPI tables, hypercall pages, stubs, etc) are wont-fix.
++        .macro clear_page_clzero
++        mov     %rdi, %rax
++        mov     $PAGE_SIZE/64, %ecx
++        .globl clear_page_clzero_post_count
++clear_page_clzero_post_count:
++
++0:      clzero
++        sub     $-64, %rax
++        .globl clear_page_clzero_post_neg_size
++clear_page_clzero_post_neg_size:
++        sub     $1, %ecx
++        jnz     0b
++
++        sfence
++        RET
++        .endm
++
++FUNC(clear_page_cold)
++        ALTERNATIVE clear_page_sse2, clear_page_clzero, X86_FEATURE_CLZERO
++END(clear_page_cold)
++
++        .macro clear_page_stosb
++        mov     $PAGE_SIZE, %ecx
++        xor     %eax,%eax
++        rep stosb
++        .endm
++
++        .macro clear_page_stosq
++        mov     $PAGE_SIZE/8, %ecx
++        xor     %eax, %eax
++        rep stosq
++        .endm
++
++FUNC(clear_page_hot)
++        ALTERNATIVE clear_page_stosq, clear_page_stosb, X86_FEATURE_ERMS
++        RET
++END(clear_page_hot)
+--- a/xen/arch/x86/cpu/common.c
++++ b/xen/arch/x86/cpu/common.c
+@@ -60,6 +60,9 @@ DEFINE_PER_CPU(bool, full_gdt_loaded);
+ 
+ DEFINE_PER_CPU(uint32_t, pkrs);
+ 
++extern uint32_t clear_page_clzero_post_count[];
++extern int8_t clear_page_clzero_post_neg_size[];
++
+ void __init setup_clear_cpu_cap(unsigned int cap)
+ {
+ 	const uint32_t *dfs;
+@@ -357,8 +360,38 @@ void __init early_cpu_init(bool verbose)
+ 
+ 	edx &= ~cleared_caps[FEATURESET_1d];
+ 	ecx &= ~cleared_caps[FEATURESET_1c];
+-	if (edx & cpufeat_mask(X86_FEATURE_CLFLUSH))
+-		c->x86_cache_alignment = ((ebx >> 8) & 0xff) * 8;
++	if (edx & cpufeat_mask(X86_FEATURE_CLFLUSH)) {
++		unsigned int size = ((ebx >> 8) & 0xff) * 8;
++
++		c->x86_cache_alignment = size;
++
++		/*
++		 * Patch in parameters of clear_page_cold()'s CLZERO
++		 * alternative. Note that for now we cap this at 128 bytes.
++		 * Larger cache line sizes would still be dealt with
++		 * correctly, but would cause redundant work done.
++		 */
++		if (size > 128)
++			size = 128;
++		if (size && !(size & (size - 1))) {
++			/*
++			 * Need to play some games to keep the compiler from
++			 * recognizing the negative array index as being out
++			 * of bounds. The labels in assembler code really are
++			 * _after_ the locations to be patched, so the
++			 * negative index is intentional.
++			 */
++			uint32_t *pcount = clear_page_clzero_post_count;
++			int8_t *neg_size = clear_page_clzero_post_neg_size;
++
++			OPTIMIZER_HIDE_VAR(pcount);
++			OPTIMIZER_HIDE_VAR(neg_size);
++			pcount[-1] = PAGE_SIZE / size;
++			neg_size[-1] = -size;
++		}
++		else
++			setup_clear_cpu_cap(X86_FEATURE_CLZERO);
++	}
+ 	/* Leaf 0x1 capabilities filled in early for Xen. */
+ 	c->x86_capability[FEATURESET_1d] = edx;
+ 	c->x86_capability[FEATURESET_1c] = ecx;
+--- a/xen/arch/x86/include/asm/asm-defns.h
++++ b/xen/arch/x86/include/asm/asm-defns.h
+@@ -1,5 +1,9 @@
+ #include <asm/page-bits.h>
+ 
++.macro clzero
++    .byte 0x0f, 0x01, 0xfc
++.endm
++
+ /*
+  * Call a noreturn function.  This could be JMP, but CALL results in a more
+  * helpful backtrace.  BUG is to catch functions which do decide to return...
+--- a/xen/arch/x86/include/asm/page.h
++++ b/xen/arch/x86/include/asm/page.h
+@@ -219,10 +219,11 @@ typedef struct { u64 pfn; } pagetable_t;
+ #define pagetable_from_paddr(p) pagetable_from_pfn((p)>>PAGE_SHIFT)
+ #define pagetable_null()        pagetable_from_pfn(0)
+ 
+-void clear_page_sse2(void *pg);
++void clear_page_hot(void *pg);
++void clear_page_cold(void *pg);
+ void copy_page_sse2(void *to, const void *from);
+ 
+-#define clear_page(_p)      clear_page_sse2(_p)
++#define clear_page(_p)      clear_page_cold(_p)
+ #define copy_page(_t, _f)   copy_page_sse2(_t, _f)
+ 
+ /* Convert between Xen-heap virtual addresses and machine addresses. */
+--- a/xen/tools/gen-cpuid.py
++++ b/xen/tools/gen-cpuid.py
+@@ -212,6 +212,10 @@ def crunch_numbers(state):
+         # the first place.
+         APIC: [X2APIC, TSC_DEADLINE, EXTAPIC],
+ 
++        # The CLZERO insn requires a means to determine the cache line size,
++        # which is tied to the CLFLUSH insn.
++        CLFLUSH: [CLZERO],
++
+         # AMD built MMXExtentions and 3DNow as extentions to MMX.
+         MMX: [MMXEXT, _3DNOW],
+ 
 
 
