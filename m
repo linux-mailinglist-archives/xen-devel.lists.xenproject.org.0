@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F1243ADC798
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Jun 2025 12:08:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1018062.1394977 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 51993ADC7EA
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Jun 2025 12:20:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1018069.1394988 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uRTFC-00027K-1Z; Tue, 17 Jun 2025 10:08:42 +0000
+	id 1uRTQ8-0003xK-0Z; Tue, 17 Jun 2025 10:20:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1018062.1394977; Tue, 17 Jun 2025 10:08:42 +0000
+Received: by outflank-mailman (output) from mailman id 1018069.1394988; Tue, 17 Jun 2025 10:19:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uRTFB-00024l-V5; Tue, 17 Jun 2025 10:08:41 +0000
-Received: by outflank-mailman (input) for mailman id 1018062;
- Tue, 17 Jun 2025 10:08:40 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uRTQ7-0003vt-U1; Tue, 17 Jun 2025 10:19:59 +0000
+Received: by outflank-mailman (input) for mailman id 1018069;
+ Tue, 17 Jun 2025 10:19:59 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=PKBE=ZA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uRTFA-00024f-UC
- for xen-devel@lists.xenproject.org; Tue, 17 Jun 2025 10:08:40 +0000
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [2a00:1450:4864:20::434])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 09b3bef6-4b63-11f0-b894-0df219b8e170;
- Tue, 17 Jun 2025 12:08:38 +0200 (CEST)
-Received: by mail-wr1-x434.google.com with SMTP id
- ffacd0b85a97d-3a510432236so3993063f8f.0
- for <xen-devel@lists.xenproject.org>; Tue, 17 Jun 2025 03:08:38 -0700 (PDT)
+ id 1uRTQ7-0003vn-69
+ for xen-devel@lists.xenproject.org; Tue, 17 Jun 2025 10:19:59 +0000
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
+ [2a00:1450:4864:20::436])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 9eb4b530-4b64-11f0-a309-13f23c93f187;
+ Tue, 17 Jun 2025 12:19:58 +0200 (CEST)
+Received: by mail-wr1-x436.google.com with SMTP id
+ ffacd0b85a97d-3a52874d593so5350683f8f.0
+ for <xen-devel@lists.xenproject.org>; Tue, 17 Jun 2025 03:19:58 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2365deb0f55sm75870345ad.188.2025.06.17.03.08.31
+ d9443c01a7336-2365deb23e9sm76102845ad.187.2025.06.17.03.19.53
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 17 Jun 2025 03:08:37 -0700 (PDT)
+ Tue, 17 Jun 2025 03:19:56 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 09b3bef6-4b63-11f0-b894-0df219b8e170
+X-Inumbo-ID: 9eb4b530-4b64-11f0-a309-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1750154918; x=1750759718; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1750155597; x=1750760397; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=/G0xM7PKUijSaxYeTVZlljJZhsxjs9kjAz8E8g8k3sA=;
-        b=JDF+rz6eC8mTvPXtCGvNdRw+2irAZ/htvmR43glKm5qeYncc4sAzPF0DkiaedE5nG/
-         q7pOLIbQpqWFUTzEQFmGs0ZFl53Rp5LVK4zw3mMofyeUyO+FraF6cceCkomc8mQ7Su/1
-         K4Aftiq63zoSmMCjmfeGII248fbNCbiN9grRzw52SCIophxvvzrb1qLUHJfqR/iTuKeI
-         cMa6KvFqaV/9eUTn23hbKHhRbmkVeSZG/hA+cH/tHc4jl8vINoDzrRjFFijMlNmw8mS9
-         JZ6PUt1wTNm5aqydYruol378hG2m+z4bvgEw+TdzQ3m7g4O/XjxigUesnGoWNuY3d4fk
-         ZsXQ==
+        bh=S4yCxuBD3RxG17f6d6WlqGN28gipJrYWH+YwyKTSXdg=;
+        b=YrFp4B6oE92t5ZKmz22i4C7jL8HAnxpmyJGnK80UwWG7JBlWT8F1CA3vD1orkNKDMQ
+         2eoksdcV+HJQaLlrqWZTFdvyTB4kGStxoGbYXZIi9CYHWG8hwiSl1zj2QKAp10Hplo9w
+         5em35gB3PjxQhN7S40Gx0B5fDWoa1bAKbMTD4ylXmwD03bNQ2zHbvk4RlTcEhDaqZD1B
+         SxnLUZ14X90SKXyhjDqSCvynJ0hhts5zNgXJTb42iCXIlb01+oPajiSzWzgGAMQQbriF
+         xRXzstFQyVRiVM1iYO12s55BHShRCknJxQC18UCBRBcEqk6WzvqyrAr+sV4gKAnrA8wb
+         +11w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750154918; x=1750759718;
+        d=1e100.net; s=20230601; t=1750155597; x=1750760397;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=/G0xM7PKUijSaxYeTVZlljJZhsxjs9kjAz8E8g8k3sA=;
-        b=jlnWQHSBeq/rrObjSSE01s5ZEuxHX2RngJ2YWkEGLKjM0hRqC8uaPfGfD5Yl0CPqRj
-         +ssji3EnAvg5UEhVDjd6rCR8Q3dMzDapBwY6SXKNcwh1VbYvUxG1tj8/qISChJzAGhOK
-         0lmeYhig7dcvXFgM1FYwQx7gvLEQwmuVdTDBDbkjOZwbG96Fddi6XYhUKtU0EA9uvl9Q
-         QAVa75+g6f540xjyA1aB0b2t0wr1SXgadml6wuKF+itD3XALVnIIWkfv4kNW/Br5LAZv
-         hAGBAwgMddX9gF+ffRSr53n04lINaLByCihVp8nij6uRYSmhBQ9LqHz5cQ0m8B26io8v
-         OQSg==
-X-Forwarded-Encrypted: i=1; AJvYcCXjz9G9Re1EPEEnOhNHESKQYn6JtzTzTVedF4ihIX/2DU/ChuXn6SoStTTtMb3ClDov598Gv31Fse8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw3Usak9+Q4czyrw2EfgKY9ENETGZBk1pzwAlIA9XFPbUHTfWJL
-	hbWqm3BVjhTc3N9j3/q4ou8BpGlePdY1cgUsu/VVu9vdzQWrHW1JA8BuEnzKSoXPgA==
-X-Gm-Gg: ASbGncsih/Pfp3wKekOsr9+YXOFeQLi8PMGOcutVFsedAdwVnlRF5FV3Zfmd+UpkIDi
-	dw83DCKPJu2ikHi4PePOL/PFwZqZSbmlJTe4uiRwBN9ty3EGJy1oXIG/c/qShqVXAmf4XkBEX0B
-	ysOWXV2hx/DmH1aDlysfisf/SSKQGfoeq50CpjjGLBXyidEjjQ/drEgV7yjp+xvJTCypo/zXDnk
-	hgNNTgVyc0kQMMEzu1eGT1FM1yE9BtSrDELgfuBWmDuVw7NIa9D5RuxP6EO39busnzl5qhm0nul
-	82BM26CdDIW5TUDOZ11wsonDKUGTob07UN16INjg4w2unRTSVOFHtZhEa7WtCPbswfH+QyVb8w2
-	kDnfkgNBpN/FPWjj0NWaA4EqzjDMpebMJ54yQgmCQcJGF3BU=
-X-Google-Smtp-Source: AGHT+IFZ7tdos8JEFArZnLuChDHHRx1qYbKLToTiu2R/wOKrsdnvK8OsMMYu4/qb9okmZyHZBXe0Kw==
-X-Received: by 2002:a05:6000:26cd:b0:3a3:6595:921f with SMTP id ffacd0b85a97d-3a572e79674mr8119315f8f.41.1750154918001;
-        Tue, 17 Jun 2025 03:08:38 -0700 (PDT)
-Message-ID: <1e3fa4e5-9409-46ec-abba-1bbd14602d79@suse.com>
-Date: Tue, 17 Jun 2025 12:08:27 +0200
+        bh=S4yCxuBD3RxG17f6d6WlqGN28gipJrYWH+YwyKTSXdg=;
+        b=XyC1yaRjIpGVnJgRVzbqO2ICynvLnSwVLYfd0PkFjPmjbNqa/Tri0MQOUnkKWwKcUl
+         RCAEWH1j31cwMJi3QDOVf8AIkggXzHGX21Hg8RVrU6BIbRQ82EtfrBdgIRouwJ2daP6g
+         QuZFiUz1dB0+FVK4Sd8SJbyRtrDmLUJ4XzabrhHJaY5N83LH68+bof72Q77NwS3vOt7R
+         xluuXswRqMxhqQzKktYSGY3dE4QsYAUKcygT4Lim4gHyHKdJNrB+Y5TQThJQMTfsGLvw
+         p0Xe1PCfOK1UmgXSMgVrRxAMRP3CqH/7KoYiOjO+7GRWeG/k7Tyx70MBu8+dWjzlqIZ8
+         5h/A==
+X-Forwarded-Encrypted: i=1; AJvYcCV45ycniBR1U7KaJiD5zrnCEN68X+Zi2LoIxxiMclNbPvDHCCPdbEQ4QvlsRS5qnkOqRQzX3BsZ0gQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx+xRom217YA2rIwBfYdvvyb20yJMNRYU0HSTcmGHR35JfQ+BKs
+	9fIG3ofLkN7MD4HZrBEeUn8f8QiaqVANQe1YV8aYYJYqt7CaP7gdV9bANyFBMM/VXA==
+X-Gm-Gg: ASbGncuaczncP9C/pDmiiUgLbrTAFOoByy6FHHGwqsVDgBJMhNLrgTlCCb2ncwg+cDz
+	04FBawaWdWBxsl1nXM8dkY2BoHZhZ2MgaEYcl0CniF1FdiiufTQmYfWNvAFZhfZWBP/GY4kgkNJ
+	oSPg+V8zPfd6N7MVzC3XqJpbaRTySTInNqkKFgrfFoOl1D0MYb3owURThP2PI6ddATpEkUCh8YT
+	8XOdMPX/K7io1r4IzI5oNbdV9N6A4E5h1C6cXeE0EIydPUwjbsWJUWPtggJ2TLsG2f1W6N7axSf
+	YqmUB9sPexvO4nyoNqtGgTWZNTZSOsojc63f91CwNxfiYuGq8U7hhXRXBdTZ5tN3yt0COyqLQzr
+	DXcwzbvzS2mpsb02Pk99rH0ZbFnhap/Hu9dLtSkarA7zjljI=
+X-Google-Smtp-Source: AGHT+IFQVKF57mxSgD1K19/rbXGej4+5ZqdW/keihxrMZ0Zth8kxWqY84u/yFny1bzHojvJ1VqOE1Q==
+X-Received: by 2002:a05:6000:2913:b0:3a3:71cb:f0bd with SMTP id ffacd0b85a97d-3a57237de18mr10384947f8f.23.1750155597430;
+        Tue, 17 Jun 2025 03:19:57 -0700 (PDT)
+Message-ID: <30bee151-2cb4-4072-a299-d3725be8fe7d@suse.com>
+Date: Tue, 17 Jun 2025 12:19:50 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 14/18] xen/cpufreq: introduce GET_CPUFREQ_CPPC sub-cmd
+Subject: Re: [PATCH v5 15/18] xen/cpufreq: bypass governor-related para for
+ amd-cppc-epp
 To: Penny Zheng <Penny.Zheng@amd.com>
 Cc: ray.huang@amd.com, Anthony PERARD <anthony.perard@vates.tech>,
- Juergen Gross <jgross@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+ xen-devel@lists.xenproject.org
 References: <20250527084833.338427-1-Penny.Zheng@amd.com>
- <20250527084833.338427-15-Penny.Zheng@amd.com>
+ <20250527084833.338427-16-Penny.Zheng@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,89 +119,40 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250527084833.338427-15-Penny.Zheng@amd.com>
+In-Reply-To: <20250527084833.338427-16-Penny.Zheng@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 27.05.2025 10:48, Penny Zheng wrote:
-> --- a/tools/misc/xenpm.c
-> +++ b/tools/misc/xenpm.c
-> @@ -69,6 +69,7 @@ void show_help(void)
->              " set-max-cstate        <num>|'unlimited' [<num2>|'unlimited']\n"
->              "                                     set the C-State limitation (<num> >= 0) and\n"
->              "                                     optionally the C-sub-state limitation (<num2> >= 0)\n"
-> +            " get-cpufreq-cppc      [cpuid]       list cpu cppc parameter of CPU <cpuid> or all\n"
->              " set-cpufreq-cppc      [cpuid] [balance|performance|powersave] <param:val>*\n"
->              "                                     set Hardware P-State (HWP) parameters\n"
->              "                                     on CPU <cpuid> or all if omitted.\n"
-> @@ -812,33 +813,7 @@ static void print_cpufreq_para(int cpuid, struct xc_get_cpufreq_para *p_cpufreq)
+> --- a/xen/drivers/acpi/pmstat.c
+> +++ b/xen/drivers/acpi/pmstat.c
+> @@ -253,7 +253,8 @@ static int get_cpufreq_para(struct xen_sysctl_pm_op *op)
+>      else
+>          strlcpy(op->u.get_para.scaling_driver, "Unknown", CPUFREQ_NAME_LEN);
 >  
->      printf("scaling_driver       : %s\n", p_cpufreq->scaling_driver);
->  
-> -    if ( hwp )
-> -    {
-> -        const xc_cppc_para_t *cppc = &p_cpufreq->u.cppc_para;
-> -
-> -        printf("cppc variables       :\n");
-> -        printf("  hardware limits    : lowest [%"PRIu32"] lowest nonlinear [%"PRIu32"]\n",
-> -               cppc->lowest, cppc->lowest_nonlinear);
-> -        printf("                     : nominal [%"PRIu32"] highest [%"PRIu32"]\n",
-> -               cppc->nominal, cppc->highest);
-> -        printf("  configured limits  : min [%"PRIu32"] max [%"PRIu32"] energy perf [%"PRIu32"]\n",
-> -               cppc->minimum, cppc->maximum, cppc->energy_perf);
-> -
-> -        if ( cppc->features & XEN_SYSCTL_CPPC_FEAT_ACT_WINDOW )
-> -        {
-> -            unsigned int activity_window;
-> -            const char *units;
-> -
-> -            activity_window = calculate_activity_window(cppc, &units);
-> -            printf("                     : activity_window [%"PRIu32" %s]\n",
-> -                   activity_window, units);
-> -        }
-> -
-> -        printf("                     : desired [%"PRIu32"%s]\n",
-> -               cppc->desired,
-> -               cppc->desired ? "" : " hw autonomous");
-> -    }
-> -    else
-> +    if ( !hwp )
->      {
->          if ( p_cpufreq->gov_num )
->              printf("scaling_avail_gov    : %s\n",
+> -    if ( !hwp_active() )
+> +    /* bypass hwp and amd-cppc-epp driver */
 
-I'm not sure it is a good idea to alter what is being output for
-get-cpufreq-para. People may simply miss that output then, without having
-any indication where it went.
+Nit (comment style): Want to start with a capital letter. See ./CODING_STYLE.
 
-> --- a/xen/include/public/sysctl.h
-> +++ b/xen/include/public/sysctl.h
-> @@ -462,7 +462,6 @@ struct xen_get_cpufreq_para {
->                  struct  xen_ondemand ondemand;
->              } u;
->          } s;
-> -        struct xen_cppc_para cppc_para;
->      } u;
->  
->      int32_t turbo_enabled;
-> @@ -493,6 +492,7 @@ struct xen_sysctl_pm_op {
->      #define SET_CPUFREQ_PARA           (CPUFREQ_PARA | 0x03)
->      #define GET_CPUFREQ_AVGFREQ        (CPUFREQ_PARA | 0x04)
->      #define SET_CPUFREQ_CPPC           (CPUFREQ_PARA | 0x05)
-> +    #define GET_CPUFREQ_CPPC           (CPUFREQ_PARA | 0x06)
->  
->      /* set/reset scheduler power saving option */
->      #define XEN_SYSCTL_pm_op_set_sched_opt_smt    0x21
-> @@ -517,6 +517,7 @@ struct xen_sysctl_pm_op {
->      uint32_t cpuid;
->      union {
->          struct xen_get_cpufreq_para get_para;
-> +        struct xen_cppc_para        cppc_para;
->          struct xen_set_cpufreq_gov  set_gov;
->          struct xen_set_cpufreq_para set_para;
->          struct xen_set_cppc_para    set_cppc;
+> +    if ( !hwp_active() && cpufreq_driver.setpolicy == NULL )
 
-This (tools-only) public interface change, otoh, may be okay to do.
+We generally prefer the shorter "!cpufreq_driver.setpolicy".
+
+And then - is using the presence of that hook really a good criteria to use
+here (and below)?
+
+> @@ -346,7 +347,8 @@ static int set_cpufreq_para(struct xen_sysctl_pm_op *op)
+>      if ( !policy || !policy->governor )
+>          return -EINVAL;
+>  
+> -    if ( hwp_active() )
+> +    /* bypass hwp and amd-cppc-epp driver */
+> +    if ( hwp_active() || cpufreq_driver.setpolicy == NULL )
+>          return -EOPNOTSUPP;
+
+Isn't this the wrong way round? I.e. don't you mean "!= NULL" (or the equivalent
+thereof) here?
 
 Jan
 
