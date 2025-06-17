@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 25871ADC884
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Jun 2025 12:38:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1018090.1395008 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BFE39ADC88B
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Jun 2025 12:40:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1018097.1395017 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uRTi9-0007Z5-PX; Tue, 17 Jun 2025 10:38:37 +0000
+	id 1uRTjN-00086k-2C; Tue, 17 Jun 2025 10:39:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1018090.1395008; Tue, 17 Jun 2025 10:38:37 +0000
+Received: by outflank-mailman (output) from mailman id 1018097.1395017; Tue, 17 Jun 2025 10:39:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uRTi9-0007Xh-Ld; Tue, 17 Jun 2025 10:38:37 +0000
-Received: by outflank-mailman (input) for mailman id 1018090;
- Tue, 17 Jun 2025 10:38:36 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uRTjM-00085J-VR; Tue, 17 Jun 2025 10:39:52 +0000
+Received: by outflank-mailman (input) for mailman id 1018097;
+ Tue, 17 Jun 2025 10:39:51 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=PKBE=ZA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uRTi8-0007Xb-De
- for xen-devel@lists.xenproject.org; Tue, 17 Jun 2025 10:38:36 +0000
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [2a00:1450:4864:20::42c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 37e3dd26-4b67-11f0-b894-0df219b8e170;
- Tue, 17 Jun 2025 12:38:34 +0200 (CEST)
-Received: by mail-wr1-x42c.google.com with SMTP id
- ffacd0b85a97d-3a35c894313so6254285f8f.2
- for <xen-devel@lists.xenproject.org>; Tue, 17 Jun 2025 03:38:34 -0700 (PDT)
+ id 1uRTjL-000859-NG
+ for xen-devel@lists.xenproject.org; Tue, 17 Jun 2025 10:39:51 +0000
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [2a00:1450:4864:20::430])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 65abccca-4b67-11f0-a309-13f23c93f187;
+ Tue, 17 Jun 2025 12:39:51 +0200 (CEST)
+Received: by mail-wr1-x430.google.com with SMTP id
+ ffacd0b85a97d-3a507e88b0aso5373908f8f.1
+ for <xen-devel@lists.xenproject.org>; Tue, 17 Jun 2025 03:39:50 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2365d8a1ac4sm76418965ad.74.2025.06.17.03.38.27
+ 98e67ed59e1d1-31421af1575sm2302169a91.39.2025.06.17.03.39.44
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 17 Jun 2025 03:38:33 -0700 (PDT)
+ Tue, 17 Jun 2025 03:39:49 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,46 +45,46 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 37e3dd26-4b67-11f0-b894-0df219b8e170
+X-Inumbo-ID: 65abccca-4b67-11f0-a309-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1750156713; x=1750761513; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1750156790; x=1750761590; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=i2BolxaOx19/UhTG2jY2iLKgkGHeDnex5eKgAFybgdc=;
-        b=XP6kIBKxHpZ+4a4cxyjfD8d/ql2bUGBGDmW5URR11KvT+jU1I07HP9SaxkUa7yQ8CD
-         nNyZgdVTbB7hSr94Ob2qen2q/JK9vmrwxpcU/Iwa4PyRNI14miAyL+E0XDukqjO1rz8N
-         nNHnIZb610MKgnBd+N+3ZNNIgc5KyByDpqr+JPRcI/HB1xuDqzp6oGbVe7m4NNbiONyP
-         M0SeQJQw2ioC0Uiyuawh3rEbdM3D67oKhE4hHgQz809JCFBxGCcRz0Xc3zRrjErWpRbQ
-         g3/qfhqEOU6AX97Pc375rxQKA5WqSbX31bKYSckglAy9v7dqJ6M8KCWSlRszdkP2xaJQ
-         7YWw==
+        bh=PyQnQYz5V1+8Q8y/82lgC6LaO5G1+AGy3gkP0xeWvS0=;
+        b=Yd6zZDLPTz49nLCBT7PQD1qExNTB/fxrApnJW+Ct+h0GYqyULaxKKpKSEQZ8UZ6zrN
+         +K1XLEWO2HCxZct78vS9NkYc/Hf+S3jcdxxmhKXZqQhNNaHEgzITcSomPZ6ryiK1kh/Z
+         NTqOxi0EhqNmsLXe5cD+y8tGYEca+CqRe0ItnJCp2NtRt+EBgDjppoWPrmk4Uy6ddtjX
+         IUFTEsMT7Gt/9vZJ3ci7Bz1zAb1z9oQtIiesrLZ/+nmR26fhkBLxcgcPyXQ30bWAM5br
+         2F7Lgcz4zR7kCJdGwVJlKl88xkFqxmqTDoTkdJvWsQBg+FqfGmXKG1oG1TS1SnhbLudK
+         gvvw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750156713; x=1750761513;
+        d=1e100.net; s=20230601; t=1750156790; x=1750761590;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=i2BolxaOx19/UhTG2jY2iLKgkGHeDnex5eKgAFybgdc=;
-        b=S1UZlQyRBIJ+P+CGruPKh4YJzkCNBvJdFV+8Uch6+Z//xxciKKoIgBnywSa2GwxvW+
-         ljVswaT7uwNvFrg4TduE7dvdmf/RD5Sp5n3+xKlwaUgx5sX95i5v+927NbcH2g5yn7Jf
-         hz6Gu8nH57Z65bCuBPlqmBchpjoxNAOApeGpK931aWkyhDzkv2drx2TygQV6PNaRtH1N
-         GpqipGXppG3YpTb5DA6NBjZlGMU5AfhBLV4HqDGBDqr8IVpX0AqPta80PmucmLIYLf36
-         7Rk9Gr6r/8ZsXZjCrhJBgaJs7wHixxfHwm60EazQIfOvdOfEj91k6UhAE1nal+sQ/UTK
-         p2yQ==
-X-Forwarded-Encrypted: i=1; AJvYcCU6TtMSt+RvHUxVJnOuWrjOMG4b0dVVHJMvpGWA01q40kt2bwF8KU0+t9BRwcZG3YD6rK4ufE69vLA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwGGyznHIafbyqeWm/Zlrq0xNKg86qpWP+6fy6d/QwpMC4j2Jq/
-	h4oKAzl/pqTLqZtEleNEOWSRprIp+MgM89rGUhnejHjdqwk6EihTZJSQpYaHqU58MA==
-X-Gm-Gg: ASbGnctMKHGuKdJlONC4nPDR9Fy2nTr2FRBbfbv0sXQV0dFVgyCQYSjS6G0cg/IkFX/
-	MB8PwOspwEYHPflGNBT0iTn0L0prw5DncSENt/xKJB04d0YrJPjf9an3D+Bpwp8W/UIm+4bJuDr
-	WuXX3+kcX7he91Pb89hrQ2XgeMlRCg2zAY/ClAPcXRSuPKOOGjL963kOTONz5hBZOyswTX+K5Tc
-	EPaI12//h9RKdlRaW9gCWWmLZV9hMbRisO4iVhTFi0RmE/FpzQZB3HFUG6bGf1BEkxN4gcp9X5c
-	1muoZopFy/hwYKNafggjMmIxQ29Hym3Ifl8S8VhlnVb3N1E3ou4Mj5oQi6+o4xMl3CFRoBoDYmS
-	P9GWdClgPmFX5LM3feaSATQkaB70NiR7XfaUsvjisCSjNeiM=
-X-Google-Smtp-Source: AGHT+IEqSOJprLmdLkEgsRZqFspvNpiGEiVRmG0buSiS4/iIMqsaPP3lHl3cWYXl/sxsP1KwI1Ql+A==
-X-Received: by 2002:a5d:5f96:0:b0:3a5:2fb2:35ac with SMTP id ffacd0b85a97d-3a5723a182cmr10355893f8f.24.1750156713498;
-        Tue, 17 Jun 2025 03:38:33 -0700 (PDT)
-Message-ID: <a1bf3003-d0e3-4769-948d-872bc17b5f91@suse.com>
-Date: Tue, 17 Jun 2025 12:38:23 +0200
+        bh=PyQnQYz5V1+8Q8y/82lgC6LaO5G1+AGy3gkP0xeWvS0=;
+        b=Cl3vYgdKTBGouuT6miWoJ+xKHddLpgtgFvZIV6Dk7uyemzpC7kb4GNSQH/00MYg+II
+         buntY1wVh+71cDg/8jrmugH2JZYxp0erEU5R+KBZkmPTmwNv0QMZjaPeAFtbDMxrBpuh
+         m8oIJvWlMt7mkrNl/9Tv3JV+prl+jQAY1G/G/2J0ACHJdKcj6H7COqjC8HvFgT/coHRR
+         q+7N8BwEuRkgVYHSe7SHhnPQeLfulGMDbBsYhBznZbDgA//vDybvrCrzNh/0Hadm5AU5
+         hnEF5A86DJleuNMnoqE2oawWNNY2QyJrSQPUjFQmqVtXTUSdNlsADr4CYAgEAs/MGckY
+         FCAw==
+X-Forwarded-Encrypted: i=1; AJvYcCUwn2VkPhXSWkOGNJExTQ9CL2fIGuseNzQqct7K/xMOv359ZVG8sENYQJKaqBXFRezDxbg9M5mCoT4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz+NPrDKXlG98I1bZaOXy6c27juf6A9l9TBq5gvz4nOcgyK78hr
+	3fpBkAIvDzVxnftFQrjl/5gzQXF7yljYX3tGVB7ywZ8gp7jFCl2twfM+HdDnb7BaRg==
+X-Gm-Gg: ASbGncu3q8YB02gxc1SWgaAI+0PxBsfGsTDyPDoQaBHEUg+sK04fJHZrSLA3DI3iqNF
+	qsLMJBoMamdJXeTA+OPeRoKgrxe4W/mqTuUFnS7JoJr2ONnhcXhWCUhG+CSoIlLtocmU1bRMjg8
+	QyVvOoWKOFnI2MLepu5oe8jrZd6cllknjGah458KjQgwX8GaVCVvbVATravwFa2fS4VmoHEGON0
+	tIuNpdN/LtnFwLWRdCchgBj6/+fwEEjtKdDV7M6RozAhl41b56j3CNd7zSEQE+dR1TVwvr2IG9X
+	VlEF3Mv1McpHuX4QNmnOwK95aIPOJbfv85eW4Y13oxlzSJJ9kyMupQjz57H9q7sYLXUT7+92CO9
+	gprcaqERSQtDaX6puhbJSVIq9JYgQmbOYP5OhqcJgC6W3+24=
+X-Google-Smtp-Source: AGHT+IFtEERDLhNIDdLOqPOqdiIEs9M9cQZqK+kxkeUyBlK7Tip+o5YfPkrhl1bxJpQDAx+ftsTGVg==
+X-Received: by 2002:a05:6000:2dc3:b0:3a5:1240:6802 with SMTP id ffacd0b85a97d-3a572e58463mr10583089f8f.57.1750156790031;
+        Tue, 17 Jun 2025 03:39:50 -0700 (PDT)
+Message-ID: <73d66cbf-9b0c-475a-9e5e-0e5cd456c09e@suse.com>
+Date: Tue, 17 Jun 2025 12:39:40 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v5 18/18] xen/cpufreq: Adapt SET/GET_CPUFREQ_CPPC
@@ -127,64 +127,6 @@ Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 27.05.2025 10:48, Penny Zheng wrote:
-> --- a/tools/misc/xenpm.c
-> +++ b/tools/misc/xenpm.c
-> @@ -38,6 +38,13 @@
->  static xc_interface *xc_handle;
->  static unsigned int max_cpu_nr;
->  
-> +static const char cpufreq_policy_str[][12] = {
-> +    [XEN_CPUFREQ_POLICY_UNKNOWN] = "none",
-
-Why not "unknown"?
-
-> +    [XEN_CPUFREQ_POLICY_POWERSAVE] = "powersave",
-> +    [XEN_CPUFREQ_POLICY_PERFORMANCE] = "performance",
-> +    [XEN_CPUFREQ_POLICY_BALANCE] = "balance",
-> +};
-> +
->  /* help message */
->  void show_help(void)
->  {
-> @@ -984,6 +991,9 @@ static void print_cppc_para(unsigned int cpuid,
->      printf("                     : desired [%"PRIu32"%s]\n",
->             cppc->desired,
->             cppc->desired ? "" : " hw autonomous");
-> +
-> +    printf("  performance policy : %s\n",
-> +           cpufreq_policy_str[cppc->policy]);
-
-What if for whatever reason the value you get is 4? Please avoid array overruns
-also in user space tools.
-
-> --- a/xen/arch/x86/acpi/cpufreq/amd-cppc.c
-> +++ b/xen/arch/x86/acpi/cpufreq/amd-cppc.c
-> @@ -506,6 +506,135 @@ static int cf_check amd_cppc_epp_set_policy(struct cpufreq_policy *policy)
->      return 0;
->  }
->  
-> +int get_amd_cppc_para(const struct cpufreq_policy *policy,
-> +                      struct xen_cppc_para *cppc_para)
-> +{
-> +    const struct amd_cppc_drv_data *data = per_cpu(amd_cppc_drv_data,
-> +                                                   policy->cpu);
-> +
-> +    if ( data == NULL )
-> +        return -ENODATA;
-> +
-> +    cppc_para->policy           = policy->policy;
-> +    cppc_para->lowest           = data->caps.lowest_perf;
-> +    cppc_para->lowest_nonlinear = data->caps.lowest_nonlinear_perf;
-> +    cppc_para->nominal          = data->caps.nominal_perf;
-> +    cppc_para->highest          = data->caps.highest_perf;
-> +    cppc_para->minimum          = data->req.min_perf;
-> +    cppc_para->maximum          = data->req.max_perf;
-> +    cppc_para->desired          = data->req.des_perf;
-> +    cppc_para->energy_perf      = data->req.epp;
-> +
-> +    return 0;
-> +}
-> +
 > +int set_amd_cppc_para(struct cpufreq_policy *policy,
 > +                      const struct xen_set_cppc_para *set_cppc)
 > +{
@@ -210,10 +152,7 @@ also in user space tools.
 > +         (!(set_cppc->set_params & XEN_SYSCTL_CPPC_SET_ENERGY_PERF) &&
 > +          set_cppc->energy_perf) )
 > +        return -EINVAL;
-
-If the respective flag is set, is the field being zero legitimate? In patch
-10 you reject finding zero perf values.
-
+> +
 > +    /* Activity window not supported in MSR */
 > +    if ( set_cppc->set_params & XEN_SYSCTL_CPPC_SET_ACT_WINDOW )
 > +        return -EOPNOTSUPP;
@@ -262,60 +201,18 @@ If the respective flag is set, is the field being zero legitimate? In patch
 > +        max_perf = data->caps.highest_perf;
 > +        epp = CPPC_ENERGY_PERF_BALANCE;
 > +        break;
-
-Isn't this more line "ondemand"? To me, "balance" would mean tying perf to at
-least close around the middle of lowest and highest.
-
+> +
 > +    case XEN_SYSCTL_CPPC_SET_PRESET_NONE:
 > +        /*
 > +         * In paasive mode, Xen governor is responsible for perfomance tuning.
-
-Nit: passive
-
 > +         * we shall set lowest_perf with "lowest_nonlinear_perf" to ensure
 > +         * governoring performance in P-states range.
 > +         */
 > +        min_perf = data->caps.lowest_nonlinear_perf;
 > +        max_perf = data->caps.highest_perf;
+> +        break;
 
-As in the earlier patch - I fear I don't understand the comment, and hence why
-to use lowest-nonlinear here remains unclear to me.
-
-> --- a/xen/drivers/acpi/pmstat.c
-> +++ b/xen/drivers/acpi/pmstat.c
-> @@ -334,6 +334,10 @@ static int get_cpufreq_cppc(struct xen_sysctl_pm_op *op)
->      if ( hwp_active() )
->          ret = get_hwp_para(op->cpuid, &op->u.cppc_para);
->  
-> +    if ( processor_pminfo[op->cpuid]->init & XEN_CPPC_INIT )
-> +        ret = get_amd_cppc_para(per_cpu(cpufreq_cpu_policy, op->cpuid),
-> +                                &op->u.cppc_para);
-
-This is a case where I think you would better use "else if". Otherwise it
-looks as if both paths could be taken (and "ret" as well as op->u.cppc_para
-be overwritten BY this second call).
-
-> --- a/xen/include/acpi/cpufreq/cpufreq.h
-> +++ b/xen/include/acpi/cpufreq/cpufreq.h
-> @@ -134,14 +134,16 @@ extern int cpufreq_register_governor(struct cpufreq_governor *governor);
->  extern struct cpufreq_governor *__find_governor(const char *governor);
->  #define CPUFREQ_DEFAULT_GOVERNOR &cpufreq_gov_dbs
->  
-> -#define CPUFREQ_POLICY_UNKNOWN      0
-> +#define CPUFREQ_POLICY_UNKNOWN      XEN_CPUFREQ_POLICY_UNKNOWN
->  /*
->   * If cpufreq_driver->target() exists, the ->governor decides what frequency
->   * within the limits is used. If cpufreq_driver->setpolicy() exists, these
->   * two generic policies are available:
->   */
-> -#define CPUFREQ_POLICY_POWERSAVE    1
-> -#define CPUFREQ_POLICY_PERFORMANCE  2
-> +#define CPUFREQ_POLICY_POWERSAVE    XEN_CPUFREQ_POLICY_POWERSAVE
-> +#define CPUFREQ_POLICY_PERFORMANCE  XEN_CPUFREQ_POLICY_PERFORMANCE
-> +/* Achieved only via xenpm XEN_SYSCTL_CPPC_SET_PRESET_BALANCE preset */
-> +#define CPUFREQ_POLICY_BALANCE      XEN_CPUFREQ_POLICY_BALANCE
-
-We don't need both sets of manifest constants, do we?
+Oh, also - can you really leave policy->policy unaltered here?
 
 Jan
 
