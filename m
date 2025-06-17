@@ -2,29 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B0D08ADDAFB
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Jun 2025 19:57:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1018428.1395329 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 984F0ADDAFE
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Jun 2025 19:58:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1018437.1395339 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uRaYQ-0001C1-9L; Tue, 17 Jun 2025 17:57:02 +0000
+	id 1uRaZf-0001gf-I8; Tue, 17 Jun 2025 17:58:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1018428.1395329; Tue, 17 Jun 2025 17:57:02 +0000
+Received: by outflank-mailman (output) from mailman id 1018437.1395339; Tue, 17 Jun 2025 17:58:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uRaYQ-00019c-6a; Tue, 17 Jun 2025 17:57:02 +0000
-Received: by outflank-mailman (input) for mailman id 1018428;
- Tue, 17 Jun 2025 17:57:01 +0000
+	id 1uRaZf-0001eq-FX; Tue, 17 Jun 2025 17:58:19 +0000
+Received: by outflank-mailman (input) for mailman id 1018437;
+ Tue, 17 Jun 2025 17:58:18 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=2Ip9=ZA=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
- id 1uRaYO-00019S-0J
- for xen-devel@lists.xenproject.org; Tue, 17 Jun 2025 17:57:01 +0000
-Received: from mail-24416.protonmail.ch (mail-24416.protonmail.ch
- [109.224.244.16]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 761093de-4ba4-11f0-b894-0df219b8e170;
- Tue, 17 Jun 2025 19:56:57 +0200 (CEST)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=hcls=ZA=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1uRaZe-0001eQ-Nw
+ for xen-devel@lists.xenproject.org; Tue, 17 Jun 2025 17:58:18 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [2604:1380:4641:c500::1])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a487654b-4ba4-11f0-b894-0df219b8e170;
+ Tue, 17 Jun 2025 19:58:16 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 4C65E5C67E1;
+ Tue, 17 Jun 2025 17:55:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88B00C4CEE3;
+ Tue, 17 Jun 2025 17:58:13 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,161 +42,117 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 761093de-4ba4-11f0-b894-0df219b8e170
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1750183016; x=1750442216;
-	bh=9u6hJ4xWUQc5IKDjPmlWG7cEI/62Ja7mW08rzqxwFno=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector:
-	 List-Unsubscribe:List-Unsubscribe-Post;
-	b=KhVeysJjxw62OqNRp1gpzqMJINLKsQcTlvdwXpMf9+H7Vb4kdAzuIev62+3yC4PNV
-	 TDRDXvs85zUCm7QC0QNRYbUZr3pnFdT5XCI8WAvaFq0oOszyGxJcDz47h0EG0OPd1W
-	 aelxLi1U30oGWUDPsBIW6GiN6CuarM1DaOt4zwir9qHM/180z2M0m2KDk+t4lTpDo8
-	 S1JkigOWZitAKXhJEhrpEldwAbBj3pmnfvjjh+DzXgmbtrU6bK3tRiwwwix58el53A
-	 roDACmDbPHCOc/aLNS0g8tc6jXKtpKdKFBpYESjVI5x7ZrXDn6kyHYgyqqJIR+54qh
-	 z3dwJwy4ev00Q==
-Date: Tue, 17 Jun 2025 17:56:51 +0000
-To: xen-devel@lists.xenproject.org
-From: dmkhn@proton.me
-Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, teddy.astie@vates.tech, dmukhin@ford.com
-Subject: [PATCH v9] xen/domain: rewrite emulation_flags_ok()
-Message-ID: <20250617175639.134786-1-dmukhin@ford.com>
-Feedback-ID: 123220910:user:proton
-X-Pm-Message-ID: 0aea16868e521a603b68685eb6a296c7bf275c4f
+X-Inumbo-ID: a487654b-4ba4-11f0-b894-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1750183094;
+	bh=2DmOSNKBo5Sbby04E2nvUQ2EOWwkSnyxYx/uVcxEfKo=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=D06oi1zG7+mz+MV4Vlql8zgSpu346pUeQwUja7MBVIEnk06lxUO0jQ2GLY4eqxgw/
+	 jBHx7it+/uhjX066wtTAUGve6pNQmMVrKaskARWyxQ9ReGZp53nuzqwCJ+heYdlEqn
+	 xWR2yCWBoibnC5NoSjUeB7LYHNsZNYXKvsBV2aOMz5oq1Vcmoi2q7tSjJY1G7lnIOl
+	 SEp7nsyZXWhVd4lmxvFY3U/afADTAqRcBcTKwyzoqIu4WotJQcu3Zucb69+rt/6+0i
+	 wSJ2hrgKBmMTxX/dTC7VMkN29CbdWYXTKIK6BlTnQD6heMQzvafcAf+V500p1kqVCa
+	 T+ne2AUJE35Eg==
+Date: Tue, 17 Jun 2025 10:58:12 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Michal Orzel <michal.orzel@amd.com>
+cc: xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>, 
+    Anthony PERARD <anthony.perard@vates.tech>, 
+    Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH] console: Do not duplicate early printk messages on
+ conring flush
+In-Reply-To: <20250617071940.10445-1-michal.orzel@amd.com>
+Message-ID: <alpine.DEB.2.22.394.2506171058030.1384757@ubuntu-linux-20-04-desktop>
+References: <20250617071940.10445-1-michal.orzel@amd.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
 
-From: Denis Mukhin <dmukhin@ford.com>
+On Tue, 17 Jun 2025, Michal Orzel wrote:
+> Commit f6d1bfa16052 introduced flushing conring in console_init_preirq().
+> However, when CONFIG_EARLY_PRINTK is enabled, the early boot messages
+> had already been sent to serial before main console initialization. This
+> results in all the early boot messages being duplicated.
+> 
+> Change conring_flush() to accept argument listing devices to which to
+> flush conring. We don't want to send to serial at console initialization
+> when using early printk, but we want these messages to be send at conring
+> dump triggered by keyhandler.
+> 
+> Fixes: f6d1bfa16052 ("xen/console: introduce conring_flush()")
+> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
 
-Rewrite emulation_flags_ok() to simplify future modifications.
-
-No functional change intended.
-
-Signed-off-by: Denis Mukhin <dmukhin@ford.com>
-Reviewed-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
----
-Changes since v8:
-- Added Roger's R-b as per
-  https://lore.kernel.org/xen-devel/aFEXL5kbhaIXi-Xc@macbook.local/
-- Dropped named type for domain capabilities
-
-Link to v8: https://lore.kernel.org/xen-devel/20250617011519.55386-1-dmukhi=
-n@ford.com/
-Link to CI: https://gitlab.com/xen-project/people/dmukhin/xen/-/pipelines/1=
-874984813
----
- xen/arch/x86/domain.c | 79 +++++++++++++++++++++++++++++++++----------
- 1 file changed, 61 insertions(+), 18 deletions(-)
-
-diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
-index 7536b6c8717e..0a649566a7cd 100644
---- a/xen/arch/x86/domain.c
-+++ b/xen/arch/x86/domain.c
-@@ -743,32 +743,75 @@ int arch_sanitise_domain_config(struct xen_domctl_cre=
-atedomain *config)
-     return 0;
- }
-=20
-+/*
-+ * Verify that the domain's emulation flags resolve to a supported configu=
-ration.
-+ *
-+ * This ensures we only allow a known, safe subset of emulation combinatio=
-ns
-+ * (for both functionality and security). Arbitrary mixes are likely to ca=
-use
-+ * errors (e.g. null pointer dereferences).
-+ *
-+ * NB: use the internal X86_EMU_XXX symbols, not the public XEN_X86_EMU_XX=
-X
-+ * symbols, to take build-time config options (e.g. CONFIG_HVM) into accou=
-nt
-+ * for short-circuited emulations.
-+ */
- static bool emulation_flags_ok(const struct domain *d, uint32_t emflags)
- {
-+    enum {
-+        CAP_PV          =3D BIT(0, U),
-+        CAP_HVM         =3D BIT(1, U),
-+        CAP_HWDOM       =3D BIT(2, U),
-+        CAP_DOMU        =3D BIT(3, U),
-+    };
-+    static const struct {
-+        unsigned int caps;
-+        uint32_t min;
-+        uint32_t opt;
-+    } configs[] =3D {
-+#ifdef CONFIG_PV
-+        /* PV dom0 and domU */
-+        {
-+            .caps   =3D CAP_PV | CAP_HWDOM | CAP_DOMU,
-+            .opt    =3D X86_EMU_PIT,
-+        },
-+#endif /* #ifdef CONFIG_PV */
-+
-+#ifdef CONFIG_HVM
-+        /* PVH dom0 */
-+        {
-+            .caps   =3D CAP_HVM | CAP_HWDOM,
-+            .min    =3D X86_EMU_LAPIC | X86_EMU_IOAPIC | X86_EMU_VPCI,
-+        },
-+
-+        /* PVH domU */
-+        {
-+            .caps   =3D CAP_HVM | CAP_DOMU,
-+            .min    =3D X86_EMU_LAPIC,
-+        },
-+
-+        /* HVM domU */
-+        {
-+            .caps   =3D CAP_HVM | CAP_DOMU,
-+            .min    =3D X86_EMU_ALL & ~(X86_EMU_VPCI | X86_EMU_USE_PIRQ),
-+            /* HVM PIRQ feature is user-selectable. */
-+            .opt    =3D X86_EMU_USE_PIRQ,
-+        },
-+#endif /* #ifdef CONFIG_HVM */
-+    };
-+    unsigned int i;
-+    unsigned int caps =3D (is_pv_domain(d) ? CAP_PV : CAP_HVM) |
-+                        (is_hardware_domain(d) ? CAP_HWDOM : CAP_DOMU);
-+
- #ifdef CONFIG_HVM
-     /* This doesn't catch !CONFIG_HVM case but it is better than nothing *=
-/
-     BUILD_BUG_ON(X86_EMU_ALL !=3D XEN_X86_EMU_ALL);
- #endif
-=20
--    if ( is_hvm_domain(d) )
--    {
--        if ( is_hardware_domain(d) &&
--             emflags !=3D (X86_EMU_VPCI | X86_EMU_LAPIC | X86_EMU_IOAPIC) =
-)
--            return false;
--        if ( !is_hardware_domain(d) &&
--             /* HVM PIRQ feature is user-selectable. */
--             (emflags & ~X86_EMU_USE_PIRQ) !=3D
--             (X86_EMU_ALL & ~(X86_EMU_VPCI | X86_EMU_USE_PIRQ)) &&
--             emflags !=3D X86_EMU_LAPIC )
--            return false;
--    }
--    else if ( emflags !=3D 0 && emflags !=3D X86_EMU_PIT )
--    {
--        /* PV or classic PVH. */
--        return false;
--    }
-+    for ( i =3D 0; i < ARRAY_SIZE(configs); i++ )
-+        if ( (caps & configs[i].caps) =3D=3D caps &&
-+             (emflags & ~configs[i].opt) =3D=3D configs[i].min )
-+            return true;
-=20
--    return true;
-+    return false;
- }
-=20
- void __init arch_init_idle_domain(struct domain *d)
---=20
-2.34.1
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
 
+> ---
+>  xen/drivers/char/console.c | 20 ++++++++++++++------
+>  1 file changed, 14 insertions(+), 6 deletions(-)
+> 
+> diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
+> index 9a9836ba91e7..5879e31786ba 100644
+> --- a/xen/drivers/char/console.c
+> +++ b/xen/drivers/char/console.c
+> @@ -453,9 +453,9 @@ void console_serial_puts(const char *s, size_t nr)
+>  }
+>  
+>  /*
+> - * Flush contents of the conring to the physical console devices.
+> + * Flush contents of the conring to the selected console devices.
+>   */
+> -static int conring_flush(void)
+> +static int conring_flush(unsigned int flags)
+>  {
+>      uint32_t idx, len, sofar, c;
+>      unsigned int order;
+> @@ -479,7 +479,7 @@ static int conring_flush(void)
+>          c += len;
+>      }
+>  
+> -    console_send(buf, sofar, CONSOLE_SERIAL | CONSOLE_VIDEO | CONSOLE_PV);
+> +    console_send(buf, sofar, flags);
+>  
+>      free_xenheap_pages(buf, order);
+>  
+> @@ -491,7 +491,7 @@ static void cf_check conring_dump_keyhandler(unsigned char key)
+>      int rc;
+>  
+>      printk("'%c' pressed -> dumping console ring buffer (dmesg)\n", key);
+> -    rc = conring_flush();
+> +    rc = conring_flush(CONSOLE_SERIAL | CONSOLE_VIDEO | CONSOLE_PV);
+>      if ( rc )
+>          printk("failed to dump console ring buffer: %d\n", rc);
+>  }
+> @@ -1042,6 +1042,7 @@ void __init console_init_preirq(void)
+>  {
+>      char *p;
+>      int sh;
+> +    unsigned int flags = CONSOLE_SERIAL | CONSOLE_VIDEO | CONSOLE_PV;
+>  
+>      serial_init_preirq();
+>  
+> @@ -1084,8 +1085,15 @@ void __init console_init_preirq(void)
+>      serial_set_rx_handler(sercon_handle, serial_rx);
+>      pv_console_set_rx_handler(serial_rx);
+>  
+> -    /* NB: send conring contents to all enabled physical consoles, if any */
+> -    conring_flush();
+> +    /*
+> +     * NB: send conring contents to all enabled physical consoles, if any.
+> +     * Skip serial if CONFIG_EARLY_PRINTK is enabled, which means the early
+> +     * messages have already been sent to serial.
+> +     */
+> +    if ( IS_ENABLED(CONFIG_EARLY_PRINTK) )
+> +        flags &= ~CONSOLE_SERIAL;
+> +
+> +    conring_flush(flags);
+>  
+>      /* HELLO WORLD --- start-of-day banner text. */
+>      nrspin_lock(&console_lock);
+> -- 
+> 2.25.1
+> 
 
