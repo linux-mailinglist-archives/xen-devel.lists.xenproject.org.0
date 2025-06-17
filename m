@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83625ADC29B
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Jun 2025 08:54:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1017745.1394740 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7798EADC2DE
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Jun 2025 09:09:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1017765.1394753 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uRQCh-0001tA-FE; Tue, 17 Jun 2025 06:53:55 +0000
+	id 1uRQRh-0003p5-Ns; Tue, 17 Jun 2025 07:09:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1017745.1394740; Tue, 17 Jun 2025 06:53:55 +0000
+Received: by outflank-mailman (output) from mailman id 1017765.1394753; Tue, 17 Jun 2025 07:09:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uRQCh-0001qz-CX; Tue, 17 Jun 2025 06:53:55 +0000
-Received: by outflank-mailman (input) for mailman id 1017745;
- Tue, 17 Jun 2025 06:53:54 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uRQRh-0003nE-LC; Tue, 17 Jun 2025 07:09:25 +0000
+Received: by outflank-mailman (input) for mailman id 1017765;
+ Tue, 17 Jun 2025 07:09:24 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=OCXm=ZA=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1uRQCg-0001qt-4n
- for xen-devel@lists.xenproject.org; Tue, 17 Jun 2025 06:53:54 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d45c299e-4b47-11f0-a309-13f23c93f187;
- Tue, 17 Jun 2025 08:53:52 +0200 (CEST)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- (Authenticated sender: nicola)
- by support.bugseng.com (Postfix) with ESMTPA id C8A064EE7C1C;
- Tue, 17 Jun 2025 08:53:51 +0200 (CEST)
+ <SRS0=Qu13=ZA=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1uRQRf-0003mM-UH
+ for xen-devel@lists.xenproject.org; Tue, 17 Jun 2025 07:09:24 +0000
+Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
+ [2a00:1450:4864:20::531])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id fe03ae6b-4b49-11f0-b894-0df219b8e170;
+ Tue, 17 Jun 2025 09:09:21 +0200 (CEST)
+Received: by mail-ed1-x531.google.com with SMTP id
+ 4fb4d7f45d1cf-6097b404f58so2031422a12.3
+ for <xen-devel@lists.xenproject.org>; Tue, 17 Jun 2025 00:09:21 -0700 (PDT)
+Received: from [192.168.1.5] (user-109-243-64-38.play-internet.pl.
+ [109.243.64.38]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-608b4adea28sm7349891a12.69.2025.06.17.00.09.19
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 17 Jun 2025 00:09:20 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,119 +45,374 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d45c299e-4b47-11f0-a309-13f23c93f187
-Authentication-Results: bugseng.com; arc=none smtp.remote-ip=162.55.131.47
-ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1750143231;
-	b=gZfktH5TiOXRPiSsNnIcawv9QwZjwTdA9ZSRmmzunsqe52jOGk33n/lE/I7+F6UnMdSh
-	 wT/WemMC3qJORpmc1B5+9VVIjnAjvSejytAruHgkpVB98OltAbS+fOfGFmVzAH3IzFJLD
-	 iXfiFKTzACD4KZMbC1LmKiMTegMFNH1mWpYfC5XmOyRIluPiXrpOpBd+Ynprae/V+tlHB
-	 3KhjXwolbFF9LRqIxlZLAQiG2o2OgmquVNyz9Ug6KKMMy6axA0i3Q1aoWLlV7iI8ZYOjJ
-	 RzFixUasbrWyaKhm1fP2Vn5Zqj2lXGPS7fY335bOTrDXugIEib68hfFdbwturb2JjMNAW
-	 UI6HZcSudyUWbHcUkXt+EZmh1L+US08TwGPtAnzMNj5pkneDCEpoAurau15IW9scpRXYr
-	 R4tgZf+sosQQaZcvNA/8UTaZU7RPgfJpu2Ym/47p/dz45WFi4toWaKuNRMHS98BDOdGty
-	 pxXLHa6yHQtu583x72kfLqSdVFJjS6SZJM4HhO4i9DvgRM50eanCMcA8m2OnMXxwmxDc/
-	 ZDRkKgEKhHyHZgzaMQv3O+PBsEFthbE3PF7MCch8zVFT7FO/dUy5CjT/eqSuW5YJU8FrX
-	 UxChwkpP/LlzUjEfhQDem2NDKQeN0gFqU7Iaw+H8VjRe8sIZ7zDZFsCNDtw+294=
-ARC-Message-Signature: i=1; d=bugseng.com; s=openarc; a=rsa-sha256;
-	c=relaxed/relaxed; t=1750143231;
-	h=DKIM-Signature:MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:
-	 References:Message-ID:X-Sender:Organization:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=S03k3Fmg7265fhYKh78nbXNwDP7Tiwoipxv7pXiHa1Q=;
-	b=WwFcghydvrwBu46H5sBI7e8W1jezRKS7i6rPEVk1bafM9hOIOBf/b2pioeOFKD+lEoL+
-	 znE1jdYBzWZHO4F9r3Ix9G9PGFMbZhJj//njk2VN7dAh5QI1ewVRkyp59H9IZiq/gsuq7
-	 EPwl1rLObOXLj0/F59uJEdxdRxu6O9LFuGgaBDgEp3VSSa0K6f1YDr9IadAX9piuDb6wg
-	 61tZoTKzOU+EcoJUzxA+zIxwE5x4jlrrpPzyptRKcST8s8Mgqu201s2/rK3QTihvKrNTx
-	 YjOfQ4o1qVGKIEWTYOFtJwfgZsGgaljWqQeiBnknAclGcPsO5fViN+RCEmIwKuov1yIAJ
-	 x1w5euFNNDFQmlLUGpMTtL2mITfVAN8W3cDr7QUTzLdiOPouTCGE1XDtYJrV9B0FWQVNM
-	 Ld34M+a9uaSoQdkca4R1qpWSTLyPbcIdSQRXWu4v7S9+hHcdZ9Ksgak6HM/MelF0/sk1V
-	 9VfVWMOUCVZFp9jbCLOzGFT+Kv4z9cRmCwdA5Aj2z0NsZLF8/9bgbKxHXtMwTOysH3e1u
-	 7nUxpj7o4AaZ0ROgQjDmEUIV27ZehRNd6Rs9nzlFzSXFKlZlxr7KdIhJ8e1K8qC6fc8Zk
-	 BcrHYxCMVFarZ9/wcTn6cYAghJI+3QXR9zfgfr5rGq148hl/BESGG3a4A2tLRtg=
-ARC-Authentication-Results: i=1; bugseng.com; arc=none smtp.remote-ip=162.55.131.47
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
-	t=1750143231; bh=/nJ/eYz09zkR/gCLYXtdlWHqP/b6YHgk+W4MIan9/lM=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=opWKoyFY8Qavl0RdwcfzCoUnjVqDBMO+QVnDmRSPkz6u7J8Jvu5KekA85n97vMV5l
-	 Fq0nkoaRBgSNFIuGTiyXCQUeeSh3mfz0SWqwoUa9IQcOe+mosOKIfiweXihJckilxz
-	 iwblcu0gfSKcOQQf0XPbALqHlsByjnTgTIEggczjQKkr1xMb0wUqfLpk4FGi5uO8m9
-	 aaw1I/3ud5de3DoCMZyksudiwA78Sz6BiGOLp5lErr41tCi6TxRSsN8wn4d54hTzEP
-	 MJi1/YEHNhV9IVebMlFzJM4QmF1NogiHVE7VPICUjQfqVkxc/imxja8BgmXOGfnmtq
-	 q/wPaRgF2m/Vg==
+X-Inumbo-ID: fe03ae6b-4b49-11f0-b894-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1750144161; x=1750748961; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=bEeP4aV8ba20MLCuov8VPQ/W6UufLD63nz1kwE8kDM8=;
+        b=UrdYiyNN8x6PJfw6pWtVTEAanH14tEC+oYRJv31aOZY5plXikbY1BakTKx6z00xlYg
+         JaTc1PGHT6zhLNrOeHx7jx5pYhs5CWGPK4cCKjjPtGpj2KgtcgnFv8YXrnRrREU2rR5s
+         tRanvR2myXDd/BWmBiYeL4HBWkNeb7Ymr9mdKen2K20cBlyBfJG/8xnZggITlNPzvuj1
+         BGZFkDkyEz7JshaGgSXCZM9lnMHJalweAPczZP6qg2JUdKb4JkA0zVf2UptbwC4MZPAK
+         7mNZWYk3TnQyP74FSzKho3I7XN4IikShU98lg9Y4k8sR0ddZoiWPYY0rPn6vIDoZsVQQ
+         RyDg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1750144161; x=1750748961;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=bEeP4aV8ba20MLCuov8VPQ/W6UufLD63nz1kwE8kDM8=;
+        b=P9uXj+uM0hQgUqn2wYffNYrO90Hdzn5ZNOHW9ECCGzpslmup1y/1mg4ffhnblxUh1u
+         oDKxBEdzD++KmRtjJMdq2QQTGyVs4jxq7fieBUbPXFu4w/HLEDk7L8mGuCP+fL2Zfy1c
+         6H/6DmBHKp1xww0Onm1KuYO1MDQvqj2FErqP41lMYYjihEWU2p+VktfvVNrrqMFvPg65
+         smEY/HIb2Oddc5oDGTk5Sn903RBVj2sdqdY7zQCD0AAuIjKZtH0YddDsy78dqzLYkkT9
+         6I+DxPIwHLspHhZb1Sqm1/37c+8YW6CAr8cCP6H1r4KkcwKSNpQf4kzXiXwwBFssOpZd
+         ADHg==
+X-Forwarded-Encrypted: i=1; AJvYcCVTcdDOdRb04RNI7bpI8bsQLhZ1yRLyKScxKbbhQ8jr3YU0wojLxWwtYinAB+KgTosox2qJ/uSjA+c=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YySFJPHAPhZzVL6ykeXhw0E+HA9G/yVyp7/CCxOD8zantS/iYzr
+	7jP5NVdrL9N6OR4OhgeKFHaYUcMdiJrPmT5ebcXw6y8bDxsPOjwWuJtG
+X-Gm-Gg: ASbGncvHCCFtg175ClSdmoKiCdeLpx76wSXqvmhSj8L/opC9PKPGXopwlcj6MNfKuCA
+	DVOBVLNpGeIBysdKC1DVk7y7GOJPT546aV7iHbAPsawWspvFbjdU6RhsuDw6D0kARyVAre7HsGO
+	T40j6x1H05iCQstwJ1d0/6l4lqCxn7rEM6aVsjnQktECpKQY3n0cMKIASitWNUQOINpX+9owJSO
+	2wOmBCPmA1K6VVTKJI54lRmskWzHp+bjwVlKODFBwI9mX/9eh4blEuJc9Cw5Y+AYtdSKJBNbbpU
+	nUuNaqedozNkGkhiRuJQom8+orFzFVKv3BIaHZMI3uk6JeWzo2icIfxQIiwY4MLt/BtzXcbpzAh
+	T/28BaTMntj9wVARFp2OdAtRLf1Yod6g9SBPq1cF1agceHg==
+X-Google-Smtp-Source: AGHT+IFf9Lk4JFAOLQ9bBRkot0eXijwQ7ZtO0Uo9kGqH6jEbcELVSX8PwjSuaL3Ew85HiYtbHDtRvA==
+X-Received: by 2002:a05:6402:26c7:b0:608:47ee:dc4 with SMTP id 4fb4d7f45d1cf-608d09cf155mr9933526a12.23.1750144160711;
+        Tue, 17 Jun 2025 00:09:20 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------B0Qy7QKMeOBJiRuzXBIFI7sN"
+Message-ID: <313996d5-8801-4aed-92f8-e96d57dd9429@gmail.com>
+Date: Tue, 17 Jun 2025 09:09:19 +0200
 MIME-Version: 1.0
-Date: Tue, 17 Jun 2025 08:53:51 +0200
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: dmkhn@proton.me, roger.pau@citrix.com, andrew.cooper3@citrix.com,
- anthony.perard@vates.tech, julien@xen.org, michal.orzel@amd.com,
- sstabellini@kernel.org, teddy.astie@vates.tech, dmukhin@ford.com,
- xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v8] xen/domain: rewrite emulation_flags_ok()
-In-Reply-To: <a8471943-ebf3-4b45-80bd-51bff5498ed2@suse.com>
-References: <20250617011519.55386-1-dmukhin@ford.com>
- <a8471943-ebf3-4b45-80bd-51bff5498ed2@suse.com>
-Message-ID: <dff6968c29274374d32c01baed7ca806@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 8/8] pdx: introduce a command line option for offset
+ compression
+To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Community Manager <community.manager@xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
+References: <20250611171636.5674-1-roger.pau@citrix.com>
+ <20250611171636.5674-9-roger.pau@citrix.com>
+Content-Language: en-US
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <20250611171636.5674-9-roger.pau@citrix.com>
 
-On 2025-06-17 08:19, Jan Beulich wrote:
-> On 17.06.2025 03:15, dmkhn@proton.me wrote:
->> --- a/xen/arch/x86/domain.c
->> +++ b/xen/arch/x86/domain.c
->> @@ -743,32 +743,75 @@ int arch_sanitise_domain_config(struct 
->> xen_domctl_createdomain *config)
->>      return 0;
->>  }
->> 
->> +/*
->> + * Verify that the domain's emulation flags resolve to a supported 
->> configuration.
->> + *
->> + * This ensures we only allow a known, safe subset of emulation 
->> combinations
->> + * (for both functionality and security). Arbitrary mixes are likely 
->> to cause
->> + * errors (e.g. null pointer dereferences).
->> + *
->> + * NB: use the internal X86_EMU_XXX symbols, not the public 
->> XEN_X86_EMU_XXX
->> + * symbols, to take build-time config options (e.g. CONFIG_HVM) into 
->> account
->> + * for short-circuited emulations.
->> + */
->>  static bool emulation_flags_ok(const struct domain *d, uint32_t 
->> emflags)
->>  {
->> +    enum domain_capability {
->> +        CAP_PV          = BIT(0, U),
->> +        CAP_HVM         = BIT(1, U),
->> +        CAP_HWDOM       = BIT(2, U),
->> +        CAP_DOMU        = BIT(3, U),
->> +    };
->> +    static const struct {
->> +        enum domain_capability caps;
->> +        uint32_t min;
->> +        uint32_t opt;
->> +    } configs[] = {
->> +#ifdef CONFIG_PV
->> +        /* PV dom0 and domU */
->> +        {
->> +            .caps   = CAP_PV | CAP_HWDOM | CAP_DOMU,
-> 
-> Just to double check - are we sure Misra / Eclair will like this 
-> (ab)use
-> of an enum?
-> 
-> Jan
+This is a multi-part message in MIME format.
+--------------B0Qy7QKMeOBJiRuzXBIFI7sN
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Likely not, but x86_64 is build with CONFIG_PV=n
 
--- 
-Nicola Vetrini, B.Sc.
-Software Engineer
-BUGSENG (https://bugseng.com)
-LinkedIn: https://www.linkedin.com/in/nicola-vetrini-a42471253
+On 6/11/25 7:16 PM, Roger Pau Monne wrote:
+> Allow controlling whether to attempt PDX compression, and which algorithm
+> to use to calculate the coefficients.  Document the option and also add a
+> CHANGELOG entry for the newly added feature.
+>
+> Note the work has been originally done to cope with the new Intel
+> Sapphire/Granite Rapids, however the compression is not explicitly tied to
+> Intel or x86, and hence could be helpful on other architectures.
+>
+> Signed-off-by: Roger Pau Monné<roger.pau@citrix.com>
+> ---
+>   CHANGELOG.md                      |  3 +++
+>   docs/misc/xen-command-line.pandoc | 22 ++++++++++++++++++
+>   xen/common/pdx.c                  | 38 +++++++++++++++++++++++++++----
+>   3 files changed, 59 insertions(+), 4 deletions(-)
+
+LGTM: Reviewed-by: Oleksii Kurochko<oleksii.kurochko@gmail.com>
+
+Thanks.
+
+~ Oleksii
+
+>
+> diff --git a/CHANGELOG.md b/CHANGELOG.md
+> index 23215a8cc1e6..48327f03078f 100644
+> --- a/CHANGELOG.md
+> +++ b/CHANGELOG.md
+> @@ -20,6 +20,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
+>        table or foreign memory.
+>   
+>   ### Added
+> + - Introduce new PDX compression algorithm to cope with Intel Sapphire and
+> +   Granite Rapids having sparse memory maps.
+> +
+>    - On x86:
+>      - Option to attempt to fixup p2m page-faults on PVH dom0.
+>      - Resizable BARs is supported for PVH dom0.
+> diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
+> index b0eadd2c5d58..06819576a06b 100644
+> --- a/docs/misc/xen-command-line.pandoc
+> +++ b/docs/misc/xen-command-line.pandoc
+> @@ -2072,6 +2072,28 @@ for all of them (`true`), only for those subject to XPTI (`xpti`) or for
+>   those not subject to XPTI (`no-xpti`). The feature is used only in case
+>   INVPCID is supported and not disabled via `invpcid=false`.
+>   
+> +### pdx-compress
+> +> `= <boolean> | auto | fast | slow`
+> +
+> +> Default: `auto`
+> +
+> +Only relevant when hypervisor is build with PFN PDX offset compression
+> +`CONFIG_PDX_OFFSET_COMPRESSION`.
+> +
+> +Controls whether Xen will engage in PFN compression, and which algorithm will
+> +be used to calculate the compression coefficients:
+> +
+> +* `auto`: default choice, attempt fast calculation of compression
+> +  coefficients, if that's not successful fallback to slow calculation.
+> +
+> +* `fast`: only attempt fast calculation of coefficients, if it fails PFN PDX
+> +  compression will be disabled.
+> +
+> +* `slow`: only attempt slow calculation of coefficients, if it fails PFN PDX
+> +  compression will be disabled.
+> +
+> +Note `pdx-compress=true` is equivalent to `pdx-compress=auto`.
+> +
+>   ### ple_gap
+>   > `= <integer>`
+>   
+> diff --git a/xen/common/pdx.c b/xen/common/pdx.c
+> index feabdcded804..5fd01305a7be 100644
+> --- a/xen/common/pdx.c
+> +++ b/xen/common/pdx.c
+> @@ -19,6 +19,7 @@
+>   #include <xen/mm.h>
+>   #include <xen/bitops.h>
+>   #include <xen/nospec.h>
+> +#include <xen/param.h>
+>   #include <xen/pfn.h>
+>   #include <xen/sections.h>
+>   #include <xen/sort.h>
+> @@ -468,11 +469,40 @@ STATIC void __init pfn_offset_sanitize_ranges(void)
+>   }
+>   
+>   #ifdef __XEN__
+> +static enum {
+> +    PDX_AUTO, /* Fast first, fallback to slow if fast is not successful. */
+> +    PDX_NO,   /* Do not attempt compression. */
+> +    PDX_FAST, /* Only attempt fast calculation of compression parameters. */
+> +    PDX_SLOW, /* Only attempt slow calculation of compression parameters. */
+> +} compress_mode __initdata;
+> +
+> +static int __init cf_check parse_pdx_param(const char *arg)
+> +{
+> +    int val;
+> +
+> +    if ( !arg )
+> +        return -EINVAL;
+> +
+> +    if ( (val = parse_bool(arg, NULL)) != -1 )
+> +        compress_mode = val ? PDX_AUTO : PDX_NO;
+> +    else if ( !strcmp(arg, "auto") )
+> +        compress_mode = PDX_AUTO;
+> +    else if ( !strcmp(arg, "fast") )
+> +        compress_mode = PDX_FAST;
+> +    else if ( !strcmp(arg, "slow") )
+> +        compress_mode = PDX_SLOW;
+> +    else
+> +        return -EINVAL;
+> +
+> +    return 0;
+> +}
+> +custom_param("pdx-compress", parse_pdx_param);
+> +
+>   bool __init pfn_pdx_compression_setup(paddr_t base)
+>   {
+> -    bool use_slow = false;
+> +    bool use_slow = compress_mode == PDX_SLOW;
+>   
+> -    if ( nr <= 1 )
+> +    if ( nr <= 1 || compress_mode == PDX_NO )
+>           return false;
+>   
+>       if ( nr > ARRAY_SIZE(ranges) )
+> @@ -507,11 +537,11 @@ bool __init pfn_pdx_compression_setup(paddr_t base)
+>               dprintk(XENLOG_DEBUG,
+>                       "Find PFN compression coefficients using %s algorithm failed\n",
+>                       use_slow ? "slow" : "fast");
+> -            if ( use_slow )
+> +            if ( compress_mode == PDX_FAST || use_slow )
+>                   return false;
+>           }
+>   
+> -        if ( use_slow )
+> +        if ( compress_mode == PDX_FAST || use_slow )
+>               break;
+>       }
+>   
+--------------B0Qy7QKMeOBJiRuzXBIFI7sN
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 6/11/25 7:16 PM, Roger Pau Monne
+      wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:20250611171636.5674-9-roger.pau@citrix.com">
+      <pre wrap="" class="moz-quote-pre">Allow controlling whether to attempt PDX compression, and which algorithm
+to use to calculate the coefficients.  Document the option and also add a
+CHANGELOG entry for the newly added feature.
+
+Note the work has been originally done to cope with the new Intel
+Sapphire/Granite Rapids, however the compression is not explicitly tied to
+Intel or x86, and hence could be helpful on other architectures.
+
+Signed-off-by: Roger Pau Monné <a class="moz-txt-link-rfc2396E" href="mailto:roger.pau@citrix.com">&lt;roger.pau@citrix.com&gt;</a></pre>
+    </blockquote>
+    <blockquote type="cite"
+      cite="mid:20250611171636.5674-9-roger.pau@citrix.com">
+      <pre wrap="" class="moz-quote-pre">
+---
+ CHANGELOG.md                      |  3 +++
+ docs/misc/xen-command-line.pandoc | 22 ++++++++++++++++++
+ xen/common/pdx.c                  | 38 +++++++++++++++++++++++++++----
+ 3 files changed, 59 insertions(+), 4 deletions(-)</pre>
+    </blockquote>
+    <pre>LGTM: Reviewed-by: Oleksii Kurochko <a class="moz-txt-link-rfc2396E" href="mailto:oleksii.kurochko@gmail.com">&lt;oleksii.kurochko@gmail.com&gt;</a>
+
+Thanks.
+
+~ Oleksii
+</pre>
+    <blockquote type="cite"
+      cite="mid:20250611171636.5674-9-roger.pau@citrix.com">
+      <pre wrap="" class="moz-quote-pre">
+
+diff --git a/CHANGELOG.md b/CHANGELOG.md
+index 23215a8cc1e6..48327f03078f 100644
+--- a/CHANGELOG.md
++++ b/CHANGELOG.md
+@@ -20,6 +20,9 @@ The format is based on [Keep a Changelog](<a class="moz-txt-link-freetext" href="https://keepachangelog.com/en/1.0.0/">https://keepachangelog.com/en/1.0.0/</a>)
+      table or foreign memory.
+ 
+ ### Added
++ - Introduce new PDX compression algorithm to cope with Intel Sapphire and
++   Granite Rapids having sparse memory maps.
++
+  - On x86:
+    - Option to attempt to fixup p2m page-faults on PVH dom0.
+    - Resizable BARs is supported for PVH dom0.
+diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
+index b0eadd2c5d58..06819576a06b 100644
+--- a/docs/misc/xen-command-line.pandoc
++++ b/docs/misc/xen-command-line.pandoc
+@@ -2072,6 +2072,28 @@ for all of them (`true`), only for those subject to XPTI (`xpti`) or for
+ those not subject to XPTI (`no-xpti`). The feature is used only in case
+ INVPCID is supported and not disabled via `invpcid=false`.
+ 
++### pdx-compress
++&gt; `= &lt;boolean&gt; | auto | fast | slow`
++
++&gt; Default: `auto`
++
++Only relevant when hypervisor is build with PFN PDX offset compression
++`CONFIG_PDX_OFFSET_COMPRESSION`.
++
++Controls whether Xen will engage in PFN compression, and which algorithm will
++be used to calculate the compression coefficients:
++
++* `auto`: default choice, attempt fast calculation of compression
++  coefficients, if that's not successful fallback to slow calculation.
++
++* `fast`: only attempt fast calculation of coefficients, if it fails PFN PDX
++  compression will be disabled.
++
++* `slow`: only attempt slow calculation of coefficients, if it fails PFN PDX
++  compression will be disabled.
++
++Note `pdx-compress=true` is equivalent to `pdx-compress=auto`.
++
+ ### ple_gap
+ &gt; `= &lt;integer&gt;`
+ 
+diff --git a/xen/common/pdx.c b/xen/common/pdx.c
+index feabdcded804..5fd01305a7be 100644
+--- a/xen/common/pdx.c
++++ b/xen/common/pdx.c
+@@ -19,6 +19,7 @@
+ #include &lt;xen/mm.h&gt;
+ #include &lt;xen/bitops.h&gt;
+ #include &lt;xen/nospec.h&gt;
++#include &lt;xen/param.h&gt;
+ #include &lt;xen/pfn.h&gt;
+ #include &lt;xen/sections.h&gt;
+ #include &lt;xen/sort.h&gt;
+@@ -468,11 +469,40 @@ STATIC void __init pfn_offset_sanitize_ranges(void)
+ }
+ 
+ #ifdef __XEN__
++static enum {
++    PDX_AUTO, /* Fast first, fallback to slow if fast is not successful. */
++    PDX_NO,   /* Do not attempt compression. */
++    PDX_FAST, /* Only attempt fast calculation of compression parameters. */
++    PDX_SLOW, /* Only attempt slow calculation of compression parameters. */
++} compress_mode __initdata;
++
++static int __init cf_check parse_pdx_param(const char *arg)
++{
++    int val;
++
++    if ( !arg )
++        return -EINVAL;
++
++    if ( (val = parse_bool(arg, NULL)) != -1 )
++        compress_mode = val ? PDX_AUTO : PDX_NO;
++    else if ( !strcmp(arg, "auto") )
++        compress_mode = PDX_AUTO;
++    else if ( !strcmp(arg, "fast") )
++        compress_mode = PDX_FAST;
++    else if ( !strcmp(arg, "slow") )
++        compress_mode = PDX_SLOW;
++    else
++        return -EINVAL;
++
++    return 0;
++}
++custom_param("pdx-compress", parse_pdx_param);
++
+ bool __init pfn_pdx_compression_setup(paddr_t base)
+ {
+-    bool use_slow = false;
++    bool use_slow = compress_mode == PDX_SLOW;
+ 
+-    if ( nr &lt;= 1 )
++    if ( nr &lt;= 1 || compress_mode == PDX_NO )
+         return false;
+ 
+     if ( nr &gt; ARRAY_SIZE(ranges) )
+@@ -507,11 +537,11 @@ bool __init pfn_pdx_compression_setup(paddr_t base)
+             dprintk(XENLOG_DEBUG,
+                     "Find PFN compression coefficients using %s algorithm failed\n",
+                     use_slow ? "slow" : "fast");
+-            if ( use_slow )
++            if ( compress_mode == PDX_FAST || use_slow )
+                 return false;
+         }
+ 
+-        if ( use_slow )
++        if ( compress_mode == PDX_FAST || use_slow )
+             break;
+     }
+ 
+</pre>
+    </blockquote>
+  </body>
+</html>
+
+--------------B0Qy7QKMeOBJiRuzXBIFI7sN--
 
