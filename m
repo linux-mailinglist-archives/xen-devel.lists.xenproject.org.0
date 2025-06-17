@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E5CCADC1CA
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Jun 2025 07:34:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1017696.1394690 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B5D6ADC1DC
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Jun 2025 07:39:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1017703.1394699 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uROxX-0006Og-9G; Tue, 17 Jun 2025 05:34:11 +0000
+	id 1uRP2C-0006yh-Py; Tue, 17 Jun 2025 05:39:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1017696.1394690; Tue, 17 Jun 2025 05:34:11 +0000
+Received: by outflank-mailman (output) from mailman id 1017703.1394699; Tue, 17 Jun 2025 05:39:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uROxX-0006NE-5h; Tue, 17 Jun 2025 05:34:11 +0000
-Received: by outflank-mailman (input) for mailman id 1017696;
- Tue, 17 Jun 2025 05:34:10 +0000
+	id 1uRP2C-0006wM-My; Tue, 17 Jun 2025 05:39:00 +0000
+Received: by outflank-mailman (input) for mailman id 1017703;
+ Tue, 17 Jun 2025 05:38:59 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=PKBE=ZA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uROxW-0006N8-LS
- for xen-devel@lists.xenproject.org; Tue, 17 Jun 2025 05:34:10 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
+ id 1uRP2B-0006wG-B9
+ for xen-devel@lists.xenproject.org; Tue, 17 Jun 2025 05:38:59 +0000
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [2a00:1450:4864:20::42c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b068a427-4b3c-11f0-b894-0df219b8e170;
- Tue, 17 Jun 2025 07:34:08 +0200 (CEST)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-43ea40a6e98so65200345e9.1
- for <xen-devel@lists.xenproject.org>; Mon, 16 Jun 2025 22:34:08 -0700 (PDT)
+ id 5ce48ef3-4b3d-11f0-b894-0df219b8e170;
+ Tue, 17 Jun 2025 07:38:57 +0200 (CEST)
+Received: by mail-wr1-x42c.google.com with SMTP id
+ ffacd0b85a97d-3a54836cb7fso3580739f8f.2
+ for <xen-devel@lists.xenproject.org>; Mon, 16 Jun 2025 22:38:57 -0700 (PDT)
 Received: from ?IPV6:2003:ca:b711:f21a:fe:66b6:9dc3:86d6?
  (p200300cab711f21a00fe66b69dc386d6.dip0.t-ipconnect.de.
  [2003:ca:b711:f21a:fe:66b6:9dc3:86d6])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3a568b2a6a5sm12788299f8f.74.2025.06.16.22.34.06
+ ffacd0b85a97d-3a568b28876sm12839951f8f.73.2025.06.16.22.38.56
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 16 Jun 2025 22:34:07 -0700 (PDT)
+ Mon, 16 Jun 2025 22:38:56 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,61 +47,64 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b068a427-4b3c-11f0-b894-0df219b8e170
+X-Inumbo-ID: 5ce48ef3-4b3d-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1750138447; x=1750743247; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1750138737; x=1750743537; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=D2f1itmEVIrle8OrIGrYJlEgsdZL5eJAQfLXLlsxXN8=;
-        b=VT/1QZ8PaYWgt8rQzxmX1mSvONjyBdYiijCSAi6dt0xK83dOxXYzq93KQsWNOPlnz4
-         eZBrku0R/U66Yu0aJNCs7P4kxFr5M0NlYqo3PbEdaVVAsoq14nClMsDdiJonrOh4OX+Y
-         yhgZgXt03DVQ99oD0cpIKd2dH6dtfnCjyzm1EWpDgvwfFfC2awrgrYPJ0xvKcovOqaP0
-         UOPEcoaHRlXe6ju/tMIuJH0lTTjDeITlAf7o5lM7R/WD2w0dLvE1W4u009Z6xZXYZvTs
-         G98+g5ufKxLF6p86LZYD+/0DAP2/kocIj6msaaQt1OL5wBJoPguSbY38CHmL9d1OUwXU
-         FzVg==
+        bh=+onuvzNiq176yQ8p8naS05aA5DxQlKVbmWiA5rgjdFc=;
+        b=U0OJcccdzihOT5odUDvMw24DmxwpjJ8kCf69CRErepr0Zd+8YetZQbtD4Q9UknOZId
+         aTIxup7rQ8+zOk5nFKV36XPgpPJ4NsIV9ESbsfb4H2ZIDZ72pfocV0bz1aE3QdAae5zt
+         RC0M7tdiWxeLSNPUMlMe6ox37YmmOSCG11QZv8FASM2x5j38vsEmZj+k0ecyVH4xmnxx
+         TJLIRXyPiT4o0KaLed8/XWs+cBMr/zNKs3ttGRHoKF4ldASFShkqvpnTjx7x/Jkw9r4x
+         vyCPSnswo/SVQ/XMdgjTG87uBhT1RAq74QhI5zuKOuDWpij1pUPhauoVl1gA/uwQ++HD
+         iofw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750138447; x=1750743247;
+        d=1e100.net; s=20230601; t=1750138737; x=1750743537;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=D2f1itmEVIrle8OrIGrYJlEgsdZL5eJAQfLXLlsxXN8=;
-        b=T5a2W4YeMuHttqaevb8mTQUOh/8sm1j0WEuhazvnaOPN63mthIh46QJwFBcUtpm00x
-         94rKmJhs7H1yvd+htf91WNLyYRkanFs+ABVsbzRC44IYup1OIpldLNk1LvLRUwdN+xGA
-         J6P/kkAFABi0XLMmyNf8PkilXsfd4MhYor23LHCcWZ5QdTcLsamMiO/euwEvm/n2T1r8
-         vSNEzjFTR1kbnFQWmU6PStlhjV/fEssl4KSAtklHJ/CpAtOxDW/oWmG742gpuXPomvyK
-         JFC1RbgvEWB1aKs63hQ4tBd8BNKv6i5TYgqSSGiHNcFZkpgqIT2TYyA/uNRWrYpwzy+H
-         4QDA==
-X-Forwarded-Encrypted: i=1; AJvYcCXS7j9KrRXsCD9YB0F734s0uocbmxKP1T2nlIU/AoSGMrktGE9UlwYPA+WpSOVg7AZt9yDrPWEiHpM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxQ4ErhaLUZLOffa4EulwiD1kJa9xsi192rE8xpFFiOz/mnHwro
-	nr9Keq6bruOCknTiuUbWgNKjSPg6AxVq/ZQ/yo44iBVFmeJ01ucdEZpTX8abj7wnrM0xQ/ESbwQ
-	41KY=
-X-Gm-Gg: ASbGncuGDPOY8setTi2KP+HbLefJRez6nlHRAb6KYY47C2v2bgDndBnDg1QiNtLDF4t
-	4iXbkqENgRYK0AX46s+PPfPyAl67RTrfOoyiYDcTdoX6qd12FyWhjzh54Mwj/C8tpRzGvtvF3Nt
-	OJnx8E7N2PgguUuVOePSdziEOSvyrhprkO5W4ea03JikXDnCBwUZtHBZ49+7tC6vto4cKl1JW8O
-	lfrNveFShir+1DV7xYeUF7LF05FjdW5FGmJPu4neo1aIF+LsrAkJQBSViX0tZ//hf+PnZx9mbTJ
-	UwUy2J3rU0uaMkUZGSJdKJCL5+Zp1Gqtm4rVJOxzWAZrRRYrvKcu6ge20ZuYU34W5v+MDTj0bxZ
-	uH0ixTG+Sb0jQ+8xUbVi6Ufy+41fZualX5mgb1ekJMBoPbzXkAczwBT49hUMFmCbZjL00GsvgNB
-	vhRrSaf1JGLF9fiSU=
-X-Google-Smtp-Source: AGHT+IGAkjSaRKXrdtrIHyxnxGkzD+xV2iNG4SuSIKDjbR2suVjLeXEOD/d00zjmd5DYt4owfwrWCw==
-X-Received: by 2002:a05:6000:2286:b0:3a4:d83a:eb4c with SMTP id ffacd0b85a97d-3a572e9a4bamr8891130f8f.57.1750138447345;
-        Mon, 16 Jun 2025 22:34:07 -0700 (PDT)
-Message-ID: <de2cc8ce-55e0-433d-9cd7-a1ec15ad64c2@suse.com>
-Date: Tue, 17 Jun 2025 07:34:04 +0200
+        bh=+onuvzNiq176yQ8p8naS05aA5DxQlKVbmWiA5rgjdFc=;
+        b=d+zwkc7tUXN6mtMWMWjYkTgHJw/hBzMkGPp0vEBYJQmWd8Og7mMN4PR7MIHpu8GRnx
+         grFbKeWdS5TVA27Juv+O3oqlWTnf1jXZaq5d2B023qVD75N3hD2oUJronGE2iwhIPwyu
+         uWnJQWfOKqDr0jdymFBeHC+mRAmDRI2MCm4h61XkZZnHzw0NPFeg95NJZhdqSYwWjJUO
+         GVGRRnZK+/G7GeFTd9k2ZhF9n82wLSuNYsg/mnwhzr8juCp1YFoy2bvJzdC5v5c60gxJ
+         urWrl0je0YDxoXL1IlwzCsGq9h6gAu54B46nQwdcQHax+kPsIWPodKnRdmr0zBARz2Ag
+         IB1g==
+X-Forwarded-Encrypted: i=1; AJvYcCXKkIF2M/Y+Hx4A8l0WotezzrlA1HJeMz1ep7gexuOacTJ4FVfZW4ubdYy4S5KHZ7eSskDDpTco5YI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy14C/yYN8sENFcQRb86CE+CR+vMgdwTBCvtJz/Mwl0pMEf7dvP
+	Ok8pqCkUibdqutYzoijx2EeHxbZmv4r8vtwcPHOEX2uFG1Zx3fge5BdnzeumSsX7+vWWrBlz3Wc
+	hw3M=
+X-Gm-Gg: ASbGncuesbwFx3oFnuYyHQ3Dj1onStYvjUIVeVwy37JgOKC7W69Kw4Fzkx/6NbSfzHm
+	cH3yP5+HcJR9xoXMN18GkeCSbTmMC+xf5zOoPYa9Neu+MX3iBDnV1SErKDnMcELpr9Kg5WLRlir
+	hmdVBkwD2KRArjVaOZTMun5HDzWVsMKwaCVhLZ1X3QN/Zr98nC0YG/sKmM2brN3NIyW9BsOvnhx
+	qhGmAilQXdbFVuRrPytn7PpP+aP3r5+aJ/c3DE6zbd4KZJl5TfDMUWQOHrKx6X18pFlNjAmUpmA
+	EDvDfCxH6SZIvgFcE7fSykdJ0Hv7PNwniFL4vRb2DmY31/mWoqSlhNKgYuNiPYZ7KeJ0iocs9ey
+	WOQELO1Ph9tSnA2CXW6CIZqiO0yAvRya5VVGA9o1Nng40v2HoTdat2Yxivkdu270MPWsP/A7SQn
+	ZW9ds7G7R3S0WOTEs=
+X-Google-Smtp-Source: AGHT+IG/AZdb7p5o+ncvrqmpEMlCFOEwAOWO8E2d6qQkjJN6queWDIlnEyfdtgpYtRxOSnapQFFE7g==
+X-Received: by 2002:a5d:5f87:0:b0:3a4:dd00:9af3 with SMTP id ffacd0b85a97d-3a572e588d7mr8747779f8f.56.1750138736735;
+        Mon, 16 Jun 2025 22:38:56 -0700 (PDT)
+Message-ID: <f46e847a-3f3c-41b8-837b-f904c37a5e5a@suse.com>
+Date: Tue, 17 Jun 2025 07:38:54 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 03/18] xen/cpufreq: extract _PSD info from "struct
- xen_processor_performance"
+Subject: Re: [PATCH v5 04/18] xen/cpufreq: introduce new sub-hypercall to
+ propagate CPPC data
 To: "Penny, Zheng" <penny.zheng@amd.com>
 Cc: "Huang, Ray" <Ray.Huang@amd.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ "Orzel, Michal" <Michal.Orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 References: <20250527084833.338427-1-Penny.Zheng@amd.com>
- <20250527084833.338427-4-Penny.Zheng@amd.com>
- <005a0e3a-dc8f-480f-8bb9-fd8eb164eb02@suse.com>
- <DM4PR12MB84516E8BD6E4C48D48273C93E170A@DM4PR12MB8451.namprd12.prod.outlook.com>
- <824a8aa5-c603-47e8-8688-a324152329a9@suse.com>
- <DM4PR12MB8451236776D6F83C5B38A527E173A@DM4PR12MB8451.namprd12.prod.outlook.com>
+ <20250527084833.338427-5-Penny.Zheng@amd.com>
+ <0de0ea5c-64c9-4ac8-8e76-750cb3036419@suse.com>
+ <DM4PR12MB84518F0C8E04A57FFD71341BE173A@DM4PR12MB8451.namprd12.prod.outlook.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -127,92 +130,73 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <DM4PR12MB8451236776D6F83C5B38A527E173A@DM4PR12MB8451.namprd12.prod.outlook.com>
+In-Reply-To: <DM4PR12MB84518F0C8E04A57FFD71341BE173A@DM4PR12MB8451.namprd12.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 17.06.2025 06:12, Penny, Zheng wrote:
+On 17.06.2025 06:18, Penny, Zheng wrote:
 > [Public]
 > 
 >> -----Original Message-----
 >> From: Jan Beulich <jbeulich@suse.com>
->> Sent: Monday, June 16, 2025 5:51 PM
+>> Sent: Thursday, June 12, 2025 12:10 AM
 >> To: Penny, Zheng <penny.zheng@amd.com>
->> Cc: Huang, Ray <Ray.Huang@amd.com>; xen-devel@lists.xenproject.org
->> Subject: Re: [PATCH v5 03/18] xen/cpufreq: extract _PSD info from "struct
->> xen_processor_performance"
+>> Cc: Huang, Ray <Ray.Huang@amd.com>; Andrew Cooper
+>> <andrew.cooper3@citrix.com>; Roger Pau Monné <roger.pau@citrix.com>;
+>> Anthony PERARD <anthony.perard@vates.tech>; Orzel, Michal
+>> <Michal.Orzel@amd.com>; Julien Grall <julien@xen.org>; Stefano Stabellini
+>> <sstabellini@kernel.org>; xen-devel@lists.xenproject.org
+>> Subject: Re: [PATCH v5 04/18] xen/cpufreq: introduce new sub-hypercall to
+>> propagate CPPC data
 >>
->> On 16.06.2025 11:43, Penny, Zheng wrote:
->>> [Public]
+>> On 27.05.2025 10:48, Penny Zheng wrote:
+>>> @@ -635,6 +641,124 @@ out:
+>>>      return ret;
+>>>  }
 >>>
->>>> -----Original Message-----
->>>> From: Jan Beulich <jbeulich@suse.com>
->>>> Sent: Wednesday, June 11, 2025 11:34 PM
->>>> To: Penny, Zheng <penny.zheng@amd.com>
->>>> Cc: Huang, Ray <Ray.Huang@amd.com>; xen-devel@lists.xenproject.org
->>>> Subject: Re: [PATCH v5 03/18] xen/cpufreq: extract _PSD info from
->>>> "struct xen_processor_performance"
->>>>
->>>> On 27.05.2025 10:48, Penny Zheng wrote:
->>>>> @@ -545,14 +597,9 @@ int set_px_pminfo(uint32_t acpi_id, struct
->>>>> xen_processor_performance *perf)
->>>>>
->>>>>      if ( perf->flags & XEN_PX_PSD )
->>>>>      {
->>>>> -        /* check domain coordination */
->>>>> -        if ( perf->shared_type != CPUFREQ_SHARED_TYPE_ALL &&
->>>>> -             perf->shared_type != CPUFREQ_SHARED_TYPE_ANY &&
->>>>> -             perf->shared_type != CPUFREQ_SHARED_TYPE_HW )
->>>>> -        {
->>>>> -            ret = -EINVAL;
->>>>> +        ret = check_psd_pminfo(perf->shared_type);
->>>>> +        if ( ret )
->>>>>              goto out;
->>>>> -        }
->>>>>
->>>>>          pxpt->shared_type = perf->shared_type;
->>>>>          memcpy(&pxpt->domain_info, &perf->domain_info,
->>>>
->>>> ... the need for this change. And even if there is a need, a
->>>> follow-on question would be how this relates to the subject of this patch.
->>>
->>> I extracted this snippet out for sharing the same checking logic both
->>> in Px and later CPPC. They both need _PSD info
+>>> +static void print_CPPC(const struct xen_processor_cppc *cppc_data) {
+>>> +    printk("\t_CPC: highest_perf=%u, lowest_perf=%u, "
+>>> +           "nominal_perf=%u, lowest_nonlinear_perf=%u, "
+>>> +           "nominal_mhz=%uMHz, lowest_mhz=%uMHz\n",
+>>> +           cppc_data->cpc.highest_perf, cppc_data->cpc.lowest_perf,
+>>> +           cppc_data->cpc.nominal_perf, cppc_data->cpc.lowest_nonlinear_perf,
+>>> +           cppc_data->cpc.nominal_mhz, cppc_data->cpc.lowest_mhz); }
+>>> +
+>>> +int set_cppc_pminfo(unsigned int acpi_id,
+>>> +                    const struct xen_processor_cppc *cppc_data) {
+>>> +    int ret = 0, cpuid;
+>>> +    struct processor_pminfo *pm_info;
+>>> +
+>>> +    cpuid = get_cpu_id(acpi_id);
+>>> +    if ( cpuid < 0 || !cppc_data )
 >>
->> Right, and that (iirc) becomes visible later in the series. But it needs saying here. As
->> it stands the description talks of only get_psd_info() right now. And the change
->> above is also unrelated to the "extract" mentioned in the title.
->>
->>> I could change title to "xen/cpufreq: make _PSD info common" and also
->>> add description in commit message for introducing check_psd_pminfo()
->>
->> The title was probably fine; it's the description which was lacking. In fact I'd deem
->> "make ... common" misleading when there's no 2nd user (yet).
->>
+>> The !cppc_data part isn't really needed, is it?
 > 
-> How about:
-> "
-> Title: xen/cpufreq: export _PSD info and checking
+> I added it because set_cppc_pminfo() is an external function, and maybe we shall validate each
+> input for any external functions? Or maybe not. I'm not sure if it is a MUST?
 
-As said, the original title was probably fine. In the new title (and also in
-the text suggested below), I wonder what "export" means.
+It's not. If look through code globally, it is rare that we have such checks.
+Many of them are imo pointless (and thus giving bad examples). In certain
+cases they're meaningful to have.
 
-> _PSD info, consisted of "shared_type" and "struct xen_psd_package", will not
-> only be provided from px-specific "struct xen_processor_performance", but also
-> in CPPC data.
+>>> +        pm_info->init = XEN_CPPC_INIT;
+>>> +        ret = cpufreq_cpu_init(cpuid); #ifndef NDEBUG
+>>> +        if ( ret )
+>>> +            dprintk(XENLOG_WARNING,
+>>> +                    "CPU %u failed to be initialized with amd-cppc mode, and users
+>> could only reboot and re-define cmdline with \"cpufreq=xen\"",
+>>> +                    cpuid);
+>>> +#endif
+>>
+>> What use if the #ifdef here? The more that NDEBUG controls behavior of
+>> ASSERT(), not that of (debug) logging.
 > 
-> In cpufreq_add/del_cpu(), a new helper get_psd_info() is introduced to
-> export _PSD info. While in set_px_pminfo(), check_psd_pminfo() is also introduced to
-> export _PSD value checking.
+> Understood. Maybe I shall use one-time printk_once()
 
-How about "Two new helper functions are introduced to deal with _PSD. They
-will later be re-used for handling the same data for CPPC."
+Perhaps, also considering that the action to take is relevant also in
+release builds. However, "users could only" is once again odd wording for
+a log message. How about "CPU%u failed amd-cppc mode init; use \"cpufreq=xen\"
+instead"?
 
 Jan
-
-> in the meantime, the following style corrections get applied at the same time: ........
-> ```
-> 
->> Jan
-
 
