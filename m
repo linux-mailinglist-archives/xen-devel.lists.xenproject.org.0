@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9270CADC18D
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Jun 2025 07:24:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1017685.1394680 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E5CCADC1CA
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Jun 2025 07:34:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1017696.1394690 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uROng-0004dy-7I; Tue, 17 Jun 2025 05:24:00 +0000
+	id 1uROxX-0006Og-9G; Tue, 17 Jun 2025 05:34:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1017685.1394680; Tue, 17 Jun 2025 05:24:00 +0000
+Received: by outflank-mailman (output) from mailman id 1017696.1394690; Tue, 17 Jun 2025 05:34:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uROng-0004bz-4H; Tue, 17 Jun 2025 05:24:00 +0000
-Received: by outflank-mailman (input) for mailman id 1017685;
- Tue, 17 Jun 2025 05:23:58 +0000
+	id 1uROxX-0006NE-5h; Tue, 17 Jun 2025 05:34:11 +0000
+Received: by outflank-mailman (input) for mailman id 1017696;
+ Tue, 17 Jun 2025 05:34:10 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=PKBE=ZA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uROne-0004bt-Qz
- for xen-devel@lists.xenproject.org; Tue, 17 Jun 2025 05:23:58 +0000
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [2a00:1450:4864:20::335])
+ id 1uROxW-0006N8-LS
+ for xen-devel@lists.xenproject.org; Tue, 17 Jun 2025 05:34:10 +0000
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [2a00:1450:4864:20::332])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3e6d2bbd-4b3b-11f0-b894-0df219b8e170;
- Tue, 17 Jun 2025 07:23:47 +0200 (CEST)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-4531e146a24so32167925e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 16 Jun 2025 22:23:47 -0700 (PDT)
+ id b068a427-4b3c-11f0-b894-0df219b8e170;
+ Tue, 17 Jun 2025 07:34:08 +0200 (CEST)
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-43ea40a6e98so65200345e9.1
+ for <xen-devel@lists.xenproject.org>; Mon, 16 Jun 2025 22:34:08 -0700 (PDT)
 Received: from ?IPV6:2003:ca:b711:f21a:fe:66b6:9dc3:86d6?
  (p200300cab711f21a00fe66b69dc386d6.dip0.t-ipconnect.de.
  [2003:ca:b711:f21a:fe:66b6:9dc3:86d6])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4532e243e59sm161778605e9.19.2025.06.16.22.23.45
+ ffacd0b85a97d-3a568b2a6a5sm12788299f8f.74.2025.06.16.22.34.06
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 16 Jun 2025 22:23:46 -0700 (PDT)
+ Mon, 16 Jun 2025 22:34:07 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,65 +47,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3e6d2bbd-4b3b-11f0-b894-0df219b8e170
+X-Inumbo-ID: b068a427-4b3c-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1750137827; x=1750742627; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1750138447; x=1750743247; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=5MR8GbeSgTR/iq6fE8LX+vUJKse8ToE0O9/sKPOHwyw=;
-        b=R91j+64ozeUoDYscA+/YRq5slQ5Ogo4h9tlPXi5IKKVcIRQjLGdvb0o7jVhlKsoxVY
-         nqJzhR7DnXtlFwNCKPpcK+lBhLwDHi0VUcEAAu9+UYAWAosOyzaEC+NGJby749vT9wnT
-         kbEFoBJGXe4/gEzH2eL9Z7dkoVVpgMjjhCKnIES9UFojYqyB+P+MYdl+7SCxlGV75gYY
-         Tfp8RvvNO2bc79/xB7M2bRci30TM0x3u5UIJJqIM+nlvgCu+Z946DbMu2XRED9Yz9Tih
-         gXy6fKnTzYm9zppu/qKpD5VPJL2ADgBQBH7EFUMzDR+mnzD7d6VgI11ym9WBaY+Nt86Q
-         N0bw==
+        bh=D2f1itmEVIrle8OrIGrYJlEgsdZL5eJAQfLXLlsxXN8=;
+        b=VT/1QZ8PaYWgt8rQzxmX1mSvONjyBdYiijCSAi6dt0xK83dOxXYzq93KQsWNOPlnz4
+         eZBrku0R/U66Yu0aJNCs7P4kxFr5M0NlYqo3PbEdaVVAsoq14nClMsDdiJonrOh4OX+Y
+         yhgZgXt03DVQ99oD0cpIKd2dH6dtfnCjyzm1EWpDgvwfFfC2awrgrYPJ0xvKcovOqaP0
+         UOPEcoaHRlXe6ju/tMIuJH0lTTjDeITlAf7o5lM7R/WD2w0dLvE1W4u009Z6xZXYZvTs
+         G98+g5ufKxLF6p86LZYD+/0DAP2/kocIj6msaaQt1OL5wBJoPguSbY38CHmL9d1OUwXU
+         FzVg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750137827; x=1750742627;
+        d=1e100.net; s=20230601; t=1750138447; x=1750743247;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=5MR8GbeSgTR/iq6fE8LX+vUJKse8ToE0O9/sKPOHwyw=;
-        b=f/d+9H87dmRPcIjBR9WSMpvAPy7CxevRDGRW6/1qa63od/qxa025Ki/bnhivCVdGv1
-         /RvZpqEpJ7g94k6kBK05vBsSn2kktPecggP62cAfgi0GL+vJ6XsbsOGcHpPe8gRUoH3D
-         +ema0EL6+PzbhFWMHdXlrd2P/t5xvgpqKKQlmmpxq3I0LzsxaQWutKJ1c0UN8L2UHkB8
-         3xcNSvJugvP2EcvuM0/U4GjwjrXEYLBo8QEsjduoREB87p92+kKBbklF7Km9FjdCm6AW
-         cJsFjocHucTlVuZawWWmy97goFVOYQp8lD8wl6rW5lHgAGC8ryjrhm4cKV3YFjDG0DAx
-         ah3g==
-X-Forwarded-Encrypted: i=1; AJvYcCVp35J/v+Fatkp+4/A4YO6mfgXqRhjDIlCQk9uP3asaKM6e7zK5sLfkG1am1CfZov9+9icVujKmXGc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwW08HiBJ57DiJsntU+VJSoRVVGIzgi1klerOrZ/XRMvtX7BISu
-	nuKVLvF53q9W+ow5QiMi7Vz8zwla3S+wZUznFoJKzCQ+jK7KEZ4rokQa6Z8NeVlvMA==
-X-Gm-Gg: ASbGnctXCtxbEnnlaPaDBlF408ppVN2XvuB9jiLMr9BX6avI9mdbkwPNB0mWnLZ2C8S
-	BqYOM+Cw6cUiTZYF4DgOq46M3Sti05ueGHrfYr0g5dip9RBE1Mw9antMLm369EsgEgGUbDHqiDG
-	bcCLmkCQKwPrIrFDVVtchmN4MtzPlixaxNLhzyk6S+4dVJ5EQrzvAh/q/KB+dbvjGgPBfZ0zauJ
-	Lk5E7rksR6kiyHQl6xVSwxeHDRAtfhYbSR4eTtOihVSkOHZTuAGh70p8tckCfcJfMj5+k+QHr1I
-	QF6KztOHKrJfUt63w0SmsDjOCTrpApnHUnDBKvC/uePsz+85eb+MjuXJgyUEQnllKm3DzI5j5gB
-	ywqnYu83xxGD0BTD+Bupu4HRoPvpvSieeFwKy8d7Pqk2Ocfzx5mjOX0wEohkXrmCd/wiTMv0Xws
-	qcBsFdi3R1q/KYnn2SPl5Y1W859Q==
-X-Google-Smtp-Source: AGHT+IEyC6SDQFvjNXMqoRIyXX2T6kdz29iwAANorohWJlk7paeNKUgxqgCQ8X/enVKEQhWzLaD2VA==
-X-Received: by 2002:a05:600c:1d01:b0:442:ccf9:e6f2 with SMTP id 5b1f17b1804b1-4533caa6bb6mr108711325e9.16.1750137826620;
-        Mon, 16 Jun 2025 22:23:46 -0700 (PDT)
-Message-ID: <5645e4dc-7598-414d-a2b5-39066401e9b3@suse.com>
-Date: Tue, 17 Jun 2025 07:23:43 +0200
+        bh=D2f1itmEVIrle8OrIGrYJlEgsdZL5eJAQfLXLlsxXN8=;
+        b=T5a2W4YeMuHttqaevb8mTQUOh/8sm1j0WEuhazvnaOPN63mthIh46QJwFBcUtpm00x
+         94rKmJhs7H1yvd+htf91WNLyYRkanFs+ABVsbzRC44IYup1OIpldLNk1LvLRUwdN+xGA
+         J6P/kkAFABi0XLMmyNf8PkilXsfd4MhYor23LHCcWZ5QdTcLsamMiO/euwEvm/n2T1r8
+         vSNEzjFTR1kbnFQWmU6PStlhjV/fEssl4KSAtklHJ/CpAtOxDW/oWmG742gpuXPomvyK
+         JFC1RbgvEWB1aKs63hQ4tBd8BNKv6i5TYgqSSGiHNcFZkpgqIT2TYyA/uNRWrYpwzy+H
+         4QDA==
+X-Forwarded-Encrypted: i=1; AJvYcCXS7j9KrRXsCD9YB0F734s0uocbmxKP1T2nlIU/AoSGMrktGE9UlwYPA+WpSOVg7AZt9yDrPWEiHpM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxQ4ErhaLUZLOffa4EulwiD1kJa9xsi192rE8xpFFiOz/mnHwro
+	nr9Keq6bruOCknTiuUbWgNKjSPg6AxVq/ZQ/yo44iBVFmeJ01ucdEZpTX8abj7wnrM0xQ/ESbwQ
+	41KY=
+X-Gm-Gg: ASbGncuGDPOY8setTi2KP+HbLefJRez6nlHRAb6KYY47C2v2bgDndBnDg1QiNtLDF4t
+	4iXbkqENgRYK0AX46s+PPfPyAl67RTrfOoyiYDcTdoX6qd12FyWhjzh54Mwj/C8tpRzGvtvF3Nt
+	OJnx8E7N2PgguUuVOePSdziEOSvyrhprkO5W4ea03JikXDnCBwUZtHBZ49+7tC6vto4cKl1JW8O
+	lfrNveFShir+1DV7xYeUF7LF05FjdW5FGmJPu4neo1aIF+LsrAkJQBSViX0tZ//hf+PnZx9mbTJ
+	UwUy2J3rU0uaMkUZGSJdKJCL5+Zp1Gqtm4rVJOxzWAZrRRYrvKcu6ge20ZuYU34W5v+MDTj0bxZ
+	uH0ixTG+Sb0jQ+8xUbVi6Ufy+41fZualX5mgb1ekJMBoPbzXkAczwBT49hUMFmCbZjL00GsvgNB
+	vhRrSaf1JGLF9fiSU=
+X-Google-Smtp-Source: AGHT+IGAkjSaRKXrdtrIHyxnxGkzD+xV2iNG4SuSIKDjbR2suVjLeXEOD/d00zjmd5DYt4owfwrWCw==
+X-Received: by 2002:a05:6000:2286:b0:3a4:d83a:eb4c with SMTP id ffacd0b85a97d-3a572e9a4bamr8891130f8f.57.1750138447345;
+        Mon, 16 Jun 2025 22:34:07 -0700 (PDT)
+Message-ID: <de2cc8ce-55e0-433d-9cd7-a1ec15ad64c2@suse.com>
+Date: Tue, 17 Jun 2025 07:34:04 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/4] xsm/dummy: Allow hwdom SYSCTL_readconsole/physinfo
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Jason Andryuk <jason.andryuk@amd.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- xen-devel@lists.xenproject.org
-References: <20250610225737.469690-1-jason.andryuk@amd.com>
- <20250610225737.469690-5-jason.andryuk@amd.com>
- <5f6d43da-2600-4c1c-9bcb-f13e8fce921e@suse.com>
- <bf6924f8-26c6-4f89-8441-155735384a8a@amd.com>
- <alpine.DEB.2.22.394.2506131547320.8480@ubuntu-linux-20-04-desktop>
- <bf6fd680-c608-4d64-ad8f-38eac102991e@suse.com>
- <alpine.DEB.2.22.394.2506161705370.1384757@ubuntu-linux-20-04-desktop>
+Subject: Re: [PATCH v5 03/18] xen/cpufreq: extract _PSD info from "struct
+ xen_processor_performance"
+To: "Penny, Zheng" <penny.zheng@amd.com>
+Cc: "Huang, Ray" <Ray.Huang@amd.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <20250527084833.338427-1-Penny.Zheng@amd.com>
+ <20250527084833.338427-4-Penny.Zheng@amd.com>
+ <005a0e3a-dc8f-480f-8bb9-fd8eb164eb02@suse.com>
+ <DM4PR12MB84516E8BD6E4C48D48273C93E170A@DM4PR12MB8451.namprd12.prod.outlook.com>
+ <824a8aa5-c603-47e8-8688-a324152329a9@suse.com>
+ <DM4PR12MB8451236776D6F83C5B38A527E173A@DM4PR12MB8451.namprd12.prod.outlook.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -131,72 +127,92 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2506161705370.1384757@ubuntu-linux-20-04-desktop>
+In-Reply-To: <DM4PR12MB8451236776D6F83C5B38A527E173A@DM4PR12MB8451.namprd12.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 17.06.2025 02:10, Stefano Stabellini wrote:
-> On Mon, 16 Jun 2025, Jan Beulich wrote:
->> On 14.06.2025 00:51, Stefano Stabellini wrote:
->>> On Wed, 11 Jun 2025, Jason Andryuk wrote:
->>>> On 2025-06-11 09:27, Jan Beulich wrote:
->>>>> On 11.06.2025 00:57, Jason Andryuk wrote:
->>>>>> Allow the hwdom to access the console, and to access physical
->>>>>> information about the system.
->>>>>>
->>>>>> xenconsoled can read Xen's dmesg.  If it's in hwdom, then that
->>>>>> permission would be required.
->>>>>
->>>>> Why would xenconsoled run in the hardware domain? It's purely a software
->>>>> construct, isn't it? As a daemon, putting it in the control domain may
->>>>> make sense. Otherwise it probably ought to go in a service domain.
->>>>
->>>> My approach has been to transform dom0 into the hardware domain and add a new
->>>> control domain.  xenconsoled was left running in the hardware domain.
->>>
->>> I think we should keep xenconsoled in the hardware domain because the
->>> control domain should be just optional. (However, one could say that with
->>> Denis' recent changes xenconsoled is also optional because one can use
->>> console hypercalls or emulators (PL011, NS16550) for all DomUs.)
->>>
->>>
->>>
->>>> I suppose it could move.  Maybe that would be fine?  I haven't tried. The
->>>> Hyperlaunch code populates the console grants to point at the hardware domain,
->>>> and I just followed that.
->>>>
->>>> One aspect of why I left most things running in the Hardware domain was to not
->>>> run things in the Control domain.  If Control is the highest privileged
->>>> entity, we'd rather run software in lower privileged places. Especially
->>>> something like xenconsoled which is receiving data from the domUs.
->>>
->>> Yes, I agree with Jason. It is a bad idea to run xenconsoled in the
->>> Control Domain because the Control Domain is meant to be safe from
->>> interference. We want to keep the number of potential vehicles for
->>> interference down to a minimum and shared memory between Control Domain
->>> and DomUs is certainly a vehicle for interference.
+On 17.06.2025 06:12, Penny, Zheng wrote:
+> [Public]
+> 
+>> -----Original Message-----
+>> From: Jan Beulich <jbeulich@suse.com>
+>> Sent: Monday, June 16, 2025 5:51 PM
+>> To: Penny, Zheng <penny.zheng@amd.com>
+>> Cc: Huang, Ray <Ray.Huang@amd.com>; xen-devel@lists.xenproject.org
+>> Subject: Re: [PATCH v5 03/18] xen/cpufreq: extract _PSD info from "struct
+>> xen_processor_performance"
 >>
->> As much as it is when xenconsoled runs in the hardware domain? Especially
->> if the hardware domain is also running e.g. PV backends or qemu instances?
+>> On 16.06.2025 11:43, Penny, Zheng wrote:
+>>> [Public]
+>>>
+>>>> -----Original Message-----
+>>>> From: Jan Beulich <jbeulich@suse.com>
+>>>> Sent: Wednesday, June 11, 2025 11:34 PM
+>>>> To: Penny, Zheng <penny.zheng@amd.com>
+>>>> Cc: Huang, Ray <Ray.Huang@amd.com>; xen-devel@lists.xenproject.org
+>>>> Subject: Re: [PATCH v5 03/18] xen/cpufreq: extract _PSD info from
+>>>> "struct xen_processor_performance"
+>>>>
+>>>> On 27.05.2025 10:48, Penny Zheng wrote:
+>>>>> @@ -545,14 +597,9 @@ int set_px_pminfo(uint32_t acpi_id, struct
+>>>>> xen_processor_performance *perf)
+>>>>>
+>>>>>      if ( perf->flags & XEN_PX_PSD )
+>>>>>      {
+>>>>> -        /* check domain coordination */
+>>>>> -        if ( perf->shared_type != CPUFREQ_SHARED_TYPE_ALL &&
+>>>>> -             perf->shared_type != CPUFREQ_SHARED_TYPE_ANY &&
+>>>>> -             perf->shared_type != CPUFREQ_SHARED_TYPE_HW )
+>>>>> -        {
+>>>>> -            ret = -EINVAL;
+>>>>> +        ret = check_psd_pminfo(perf->shared_type);
+>>>>> +        if ( ret )
+>>>>>              goto out;
+>>>>> -        }
+>>>>>
+>>>>>          pxpt->shared_type = perf->shared_type;
+>>>>>          memcpy(&pxpt->domain_info, &perf->domain_info,
+>>>>
+>>>> ... the need for this change. And even if there is a need, a
+>>>> follow-on question would be how this relates to the subject of this patch.
+>>>
+>>> I extracted this snippet out for sharing the same checking logic both
+>>> in Px and later CPPC. They both need _PSD info
+>>
+>> Right, and that (iirc) becomes visible later in the series. But it needs saying here. As
+>> it stands the description talks of only get_psd_info() right now. And the change
+>> above is also unrelated to the "extract" mentioned in the title.
+>>
+>>> I could change title to "xen/cpufreq: make _PSD info common" and also
+>>> add description in commit message for introducing check_psd_pminfo()
+>>
+>> The title was probably fine; it's the description which was lacking. In fact I'd deem
+>> "make ... common" misleading when there's no 2nd user (yet).
+>>
 > 
-> It looks like you are thinking of the possible
-> interference from the Hardware Domain to the Control Domain via
-> xenconsoled, correct?
+> How about:
+> "
+> Title: xen/cpufreq: export _PSD info and checking
 
-More like interference with the system as a whole, which simply includes
-Control.
+As said, the original title was probably fine. In the new title (and also in
+the text suggested below), I wonder what "export" means.
 
-> If that is the case, good thinking. I can see that you have really
-> understood the essence of the problem we are trying to solve.
+> _PSD info, consisted of "shared_type" and "struct xen_psd_package", will not
+> only be provided from px-specific "struct xen_processor_performance", but also
+> in CPPC data.
 > 
-> That is not an issue because the Control Domain shouldn't use PV
-> console. Instead, it should use the console hypercall, or the
-> PL011/NS16550 emulators in Xen.
+> In cpufreq_add/del_cpu(), a new helper get_psd_info() is introduced to
+> export _PSD info. While in set_px_pminfo(), check_psd_pminfo() is also introduced to
+> export _PSD value checking.
 
-Well. I think the underlying concept of Control Domain being highly
-privileged needs more general discussion. As indicated elsewhere, I
-didn't think disaggregation (whichever way done) would leave any
-domain with effectively full privilege. I wonder what others think.
+How about "Two new helper functions are introduced to deal with _PSD. They
+will later be re-used for handling the same data for CPPC."
 
 Jan
+
+> in the meantime, the following style corrections get applied at the same time: ........
+> ```
+> 
+>> Jan
+
 
