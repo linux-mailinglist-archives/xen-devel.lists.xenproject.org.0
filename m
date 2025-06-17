@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 60442ADC6F4
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Jun 2025 11:49:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1018033.1394938 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D834ADC721
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Jun 2025 11:53:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1018040.1394948 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uRSvY-0005wt-OG; Tue, 17 Jun 2025 09:48:24 +0000
+	id 1uRT06-0007Z0-9H; Tue, 17 Jun 2025 09:53:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1018033.1394938; Tue, 17 Jun 2025 09:48:24 +0000
+Received: by outflank-mailman (output) from mailman id 1018040.1394948; Tue, 17 Jun 2025 09:53:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uRSvY-0005vS-LK; Tue, 17 Jun 2025 09:48:24 +0000
-Received: by outflank-mailman (input) for mailman id 1018033;
- Tue, 17 Jun 2025 09:48:23 +0000
+	id 1uRT06-0007XZ-5w; Tue, 17 Jun 2025 09:53:06 +0000
+Received: by outflank-mailman (input) for mailman id 1018040;
+ Tue, 17 Jun 2025 09:53:04 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=PKBE=ZA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uRSvX-0005v6-QT
- for xen-devel@lists.xenproject.org; Tue, 17 Jun 2025 09:48:23 +0000
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [2a00:1450:4864:20::435])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=fQMZ=ZA=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1uRT04-0007XT-Bz
+ for xen-devel@lists.xenproject.org; Tue, 17 Jun 2025 09:53:04 +0000
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on20631.outbound.protection.outlook.com
+ [2a01:111:f403:2413::631])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 344acc4d-4b60-11f0-b894-0df219b8e170;
- Tue, 17 Jun 2025 11:48:21 +0200 (CEST)
-Received: by mail-wr1-x435.google.com with SMTP id
- ffacd0b85a97d-3a54690d369so5593868f8f.3
- for <xen-devel@lists.xenproject.org>; Tue, 17 Jun 2025 02:48:21 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-748900b0683sm8651549b3a.130.2025.06.17.02.48.14
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 17 Jun 2025 02:48:20 -0700 (PDT)
+ id daab473e-4b60-11f0-b894-0df219b8e170;
+ Tue, 17 Jun 2025 11:53:01 +0200 (CEST)
+Received: from BN9PR12MB5273.namprd12.prod.outlook.com (2603:10b6:408:11e::22)
+ by SN7PR12MB6669.namprd12.prod.outlook.com (2603:10b6:806:26f::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8835.29; Tue, 17 Jun
+ 2025 09:52:58 +0000
+Received: from BN9PR12MB5273.namprd12.prod.outlook.com
+ ([fe80::cf66:58ab:47be:4b13]) by BN9PR12MB5273.namprd12.prod.outlook.com
+ ([fe80::cf66:58ab:47be:4b13%5]) with mapi id 15.20.8835.027; Tue, 17 Jun 2025
+ 09:52:58 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,245 +47,159 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 344acc4d-4b60-11f0-b894-0df219b8e170
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1750153701; x=1750758501; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ikxvVEdP9tQdIuc4q/UjfxjrPXG9GPPrznF6OIrLP/E=;
-        b=eQ+M4dsXEw3HSnNpFsuWM4gxprZvCH1ViLswYKjkimWWpG+s42ONBa70tcJQGygWU7
-         gSTEo62tdy/z/au4Ka3QZa6Zoffs/iWJLPj/9VffodTRQH5yiai0bFYDsj3ajTmCUkqL
-         yVYysoJ9AyPzdl1hpibGIyQsLtHdyOaQO6CpcVjq9rwUbZwLY5ZqDoIM9MHbnFRBlstx
-         QKliAZobG9tRt0uwsXuGrBC9vpvp12YDYcR3bvl1rrlXKhkwPjK1nmBv5BUP+VMDq2/y
-         BBhe0iRBoCGwo1UCFartdP9uqrxznTFhMqEBJCv71LSVYJTTnF0ALkn7CYEaarXjeDUT
-         n8yQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750153701; x=1750758501;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ikxvVEdP9tQdIuc4q/UjfxjrPXG9GPPrznF6OIrLP/E=;
-        b=lgaY3ie2m39kB3qiFE+m+8zlnmBBRmNEkYSda4xsmFA/NmM9oiOfDoLcNIoVjBh5p8
-         RMBf8zoNpxZMcPoq8sxcZN7SCpOA2BIv+W7724nNk2Nnxj2ZubXNNXQsByryu3VupXpd
-         xHzkaB8EZH5k4XOS/kSoioWCjTA5h+tO92aZkD5Ey3M69KKDSvhASo4tHbbwmm/6+th/
-         7/ZlX2Uk5WdHSzrdGK7mvpKJDIeeAqFMm9Q1Kceyq8O+pwx+awn4mNzuRgRYCrukq+yr
-         9V0cBdA9U2quPSXJJrygLg+T0o+DebwNpliqUS9qvFrdnM+EZDE+GzXKjZNPcrQVfdan
-         vseg==
-X-Forwarded-Encrypted: i=1; AJvYcCU+H5NP4Hw2a5P5ke6aryR/fXO30EOji1ifKSTYIJpzL0uBvA4ZlkupsA5FK/fJk1NmKWcQQqHyhcM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxWyZPZ9WzYTCeGxxYdmgpQG3w0a4uURiVgKNxZRdGw2uVIjD+X
-	WBcwalHe8ozqdVjq0Nk1pVBXarcOn8HCUKgZAe6HJj4FyfMpydZgTojrH4Aknq0M9A==
-X-Gm-Gg: ASbGncuFhjLz8c2EzA3iWOq0Ynm2crxhV6iu5vBqCsYX7MDk/KAeqkkiXmmGYMj4Xm4
-	LOMG8TLPXIkEecJc7NxNig1RtxTUmrCoIjucOEGkqRxaSndH1K0ZPIIbqH3qis12B0UZ8uIjqvi
-	w2BtzXUOsTTdclQ1dLcTofMIc2TcRkAghPiTRUFOiW0IRWh6mO/zxvPtH+aYMBOKe+Aaw1yU1Ec
-	gQod999YK8uMvLOdCg3oywhdTPfTGpXgoR/4e2syRk8rSc0bJJEFB3ypS3YKroDDHr78T7+ZYB4
-	LBXmqqclwcPjSqOb+lZ4W4oMfqn+NHIp9L53QKBgu3zAHnPHVnDZRCrVL7f2MIEUktLEMDV47PI
-	kN5qlHtUaLnZFSaNVitGQiXOAtpOVu+cof2GDnU1V1GVRigk=
-X-Google-Smtp-Source: AGHT+IHBaiZ7pnGrNmDhm4DHvqZaWV3zskMW5sJ9LSmLPX/DH9KNPNKoUus2TPmUySqpGc3NIRH0xA==
-X-Received: by 2002:a05:6000:2c13:b0:3a4:ef36:1f4d with SMTP id ffacd0b85a97d-3a5723a4c09mr10845553f8f.38.1750153700916;
-        Tue, 17 Jun 2025 02:48:20 -0700 (PDT)
-Message-ID: <1ac74dd3-e0c5-43e5-9eed-c1a2cc17d068@suse.com>
-Date: Tue, 17 Jun 2025 11:48:10 +0200
-MIME-Version: 1.0
+X-Inumbo-ID: daab473e-4b60-11f0-b894-0df219b8e170
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=K5CgG31FhWVc7l1L4AkbeCtxKdZe/23mqyTtOLjH5yMGKqsrJOdjAbkVZI/8z7ovVCiq6iHplk9WroVDLcqGAeVoBxpnw6WhJPpHaJtcGbE42aLH0Goo+sUMTlgkSgaLu5hzCXXOu2WPNaAS4nvz5sBe4avn1EfC2+9HX2FXZqhutxxKOveYHVSeTVNItXzWnTogT/xVTq8cmE+FfeLnc1NRkttLkD2cZO2mZfxjHxjWwHKgEKNV+U50oggTiydTBqTGYHo3DkZyb1rzF3vq/oFDjcUcGSL+xXcZ1/chT0w3fEoBCKpk3j9CmTe4OYACcl28loInqRdAPFoK3j+SKw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=wX+USrUT6qkhyvuW01KYiizlOIB5ks+AR8MFu+veyhY=;
+ b=SVSC4GOsRkq7PBn7b8LcNqOrFDLDgaSqbAYalODbxtdjDSYr7TpHuBgR8mm6qM/U2VUmN/W9Vucip1c33kH82yoa+QuflM5HqF/gIIxdXeV+ZLCcGHmi2ObBQHxDKaNxM+id6CE/gVl5KSfTdUTblRFawQI85Z+4EW4FCOC2balz9ahJxrOONzR5l6rUNdcT/TVc+BelWdzrkfT8XINgpZq7lDw1Ih1n672CCP/hMDC4hmVcRT4RF/9Qz2czLcuPnlM0CiCZuJ0HHM+hHdz08xcQ8C2EmKVKQZWPlsVEWFftfmSY3bzcTVai4u83vms2WLUx4PtFmnntYhgHKXNnUQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wX+USrUT6qkhyvuW01KYiizlOIB5ks+AR8MFu+veyhY=;
+ b=G6iUHyHe0DgpkKm2WFnaZWQCx1mCG0JMP/geMDdG8l0RCMCIjBg1i5mDzJx9jpoFQ8sVPHg8UhkZUiXz3r5/XZSIY9LmfL3yItdz5s/yx7fUbRwPic4hOlBDY5IYNEc2kV8QHNcPi/cuF1Li6r52XFsKe0udDylLBJ3wP7WZ3rs=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Message-ID: <903dbadc-e0e7-480c-9144-3446f7079d63@amd.com>
+Date: Tue, 17 Jun 2025 11:52:47 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] xen/console: introduce domain_console struct
-To: dmkhn@proton.me
-Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org,
- michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org,
- teddy.astie@vates.tech, dmukhin@ford.com, xen-devel@lists.xenproject.org
-References: <20250617012713.57074-1-dmukhin@ford.com>
+Subject: Re: [PATCH] console: Do not duplicate early printk messages on
+ conring flush
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20250617071940.10445-1-michal.orzel@amd.com>
+ <d435e26f-74c3-4cec-a2a8-b128f299ec4c@suse.com>
+From: "Orzel, Michal" <michal.orzel@amd.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250617012713.57074-1-dmukhin@ford.com>
+In-Reply-To: <d435e26f-74c3-4cec-a2a8-b128f299ec4c@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: JNAP275CA0033.ZAFP275.PROD.OUTLOOK.COM (2603:1086:0:4d::14)
+ To BN9PR12MB5273.namprd12.prod.outlook.com (2603:10b6:408:11e::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5273:EE_|SN7PR12MB6669:EE_
+X-MS-Office365-Filtering-Correlation-Id: 385d7282-3aa7-4a03-9e09-08ddad84bd20
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?bkNVYXh1MDc4MzhzV1ZYT1o0ZFl5MHdJSkFSQklTbm9abTA2elNpV0JLdnpu?=
+ =?utf-8?B?dENIOE1zZFZhUFRaOHU0cnZDVUFVVlVXaVRodlRRRldxNG5SUjB3ZktaalR6?=
+ =?utf-8?B?TjVmS3ErN0dETWV2VENKdXVPQ1BjUG1GZjJ4M1ZSaHY5dDdoV29EK3VTaGNy?=
+ =?utf-8?B?Nis0RmNtdm1ldTdMZTBsTU1xWjFZbms3M01yTE1mL01LMWVTbFIvRkRBeVNW?=
+ =?utf-8?B?TDR5M0xTOTkzbDJpMldqYS9HTEJSVHBpNk9aYUZIb0wyMWZIcGQ3cGtpSldR?=
+ =?utf-8?B?Z0x3NytsVFV2QkFpeVIwNGtmVmNPVjZzZCtxTmlTSUZzamFrdTRXV2VRektC?=
+ =?utf-8?B?VU85KzRyekpPRlo3TmV5Y0lXYmpoK2xxM3pTb2lDbThwWXl4cmowTlNQMGNj?=
+ =?utf-8?B?bkl0VTF0ekEzWG9Sd1Z3cSthQ1V4L2xDcHNEbHNvdUpvVVkrRzluVzFsOFk0?=
+ =?utf-8?B?RmU2ZFZHQlgwZkpvRW92Z0hQeTYrRFNidDVxU25OVitLVFlVMGdWZGF6MS9I?=
+ =?utf-8?B?dm91bjM2dHQrOG1vT1lmeUordTNZNmpUMFI1ZCt1Q2ozd3R6UVBMNVB0RElV?=
+ =?utf-8?B?M2w4ZFJiVFNVMHRYN0pDWUYyeTNwdC85cmwvK1RxR21WZkZaYi9YVEsrYll0?=
+ =?utf-8?B?TjJrSGlxRVR5SkJxNjh6R291TndNbTd2K2lSSHdyWnM3b1dSSUkrY2hqdlJY?=
+ =?utf-8?B?OC9HSmRjSHVZek8rcWlSU1hNY2dacDQvVkZRYkNIMkdmU2RCbXo0NkVZeUE4?=
+ =?utf-8?B?ZXB0VHN4N2JrUlFGYXF4cUpnZFVIRzZvc0N4V1VQZzRkV01nWWcvZ25iWkpL?=
+ =?utf-8?B?TDZ2UE9COW4xaWxQeWQrdHBONU95a0J5Y1U2U2VkUkdUdDZqeU4wd1hkRWVr?=
+ =?utf-8?B?ZGNiMytHRXAwd3dEZjRYVGtVWHhodUpoVVhDbWJIUm1paDhpYUZIYkQ3NlI5?=
+ =?utf-8?B?RGxoUW56M0oxK1Nob3UzMTNrU1hOVXkzYWdZZ3hFa2dhU3RTQ3ZmMDRzbVI5?=
+ =?utf-8?B?YUU1N3Vzb2NhbUwyNXJYNFJSbnRKU0FBV1NCUUVobmlQTm56K21jdHlXZW0z?=
+ =?utf-8?B?R2pTT29hTkV6eE5kdSs3SGQ4aW1qcDhFLzBnTk80UEpIbTVWZTZzKzNrd01r?=
+ =?utf-8?B?UzRSTXZZMjRzbUx3L29iOHEvUEFLV3MrN0lHWGpqR2FxNkFOZTVZemNNdkp6?=
+ =?utf-8?B?TlczVmZpTVk3RkdFYUxmRXVZbS9CY1ZGaEN4aCt2NGFucllRMkJPY2VOd3NE?=
+ =?utf-8?B?SjVkTVA0cWgrL2c5KzN6WW1zVzh6SkR4RXp4emw1cXQvYm1MR05QM1lWcmlV?=
+ =?utf-8?B?Nmx5OXkvY2gxNjk3VWNFd0ZEWmxlTmtUQ29Wa0M0ODczcGVuajRmUHQwWE4w?=
+ =?utf-8?B?OXhESW9LVno1YzBMNmJZSjB0c1lwd3p0UjZzWWxxVjVObjBzL09kS0ZnU3RI?=
+ =?utf-8?B?MVVQM3U1RldHZnNzTWh3aEh6Zk9HOUd1NENxRHFxSDlpdmxKaFpPTHYwT0FF?=
+ =?utf-8?B?NFVRaW1teTQxaHg0M1EweTI2Wjd4TW43WFNuQ20vTDdTbkFPT0dHT0wxUkF4?=
+ =?utf-8?B?YkJLRUNOY0NHdTBOVDVPRjZOV1B1bnBOUngyOGxFZlNrV0txRHBlSTlFZENn?=
+ =?utf-8?B?bVdnbjJqOFhjNERSMVhEOThPYnd3SUIrTHJ2YVRVTUdhVzBYOFk3d2JjNU9M?=
+ =?utf-8?B?eDFSMUdPV3BoSEFMZzJwUnNhM2REbnEwMUFpSWtQN055dU5FZ3NYLzZRb3Bm?=
+ =?utf-8?B?ZHpnMHB2V3lhY0NLTHlWREEvNnNCYWgxbk8yOGRBZFZvVUUzcTlldGhET25J?=
+ =?utf-8?B?dVV5MVlXZkVheUxTVC8rdHhLdnQxckV2d1NZWmM0OS9ONmc1Z1l6aittbmJ5?=
+ =?utf-8?B?SGxqTjljUG1rUHJHdW55MG9WNUFsYWFwUWlkZzRJaDBYdU03b3NraS82MHF5?=
+ =?utf-8?Q?Hbag0bsFkH8=3D?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN9PR12MB5273.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?UTlRWVRWdTkvQURURDhwR1hSTkhZMEx1R3ZYVFJRRnJpY0pBeSt5TVExbVRF?=
+ =?utf-8?B?cForRVphV0t3REJxTXpaemNoS09pTTdmTXpvUnUwRUExaHlBdlNxWVhGRC9V?=
+ =?utf-8?B?MkJTN0V5dHNSYUFCeVkxSG9hM0tITWRKVEV4RkRiQ2w4Wk1rR1FJQ285SkNu?=
+ =?utf-8?B?RjJZQ1Yvd3QxemFjQmV4YlFsNXVJZmp1anpNd2FTSEJ1UWZKYkNwUW1NajJT?=
+ =?utf-8?B?Q042bnpBdW8wd3dlZWhNWUFjUWRSYXdJdkltVjdER1ZZM2tVOWw1dVRsZEo4?=
+ =?utf-8?B?VU9xbUZaM1dEMlcvSXpDZEhMeGJYaUtRTExlaVJBQVA4QWxJbG5DaGFKWjQr?=
+ =?utf-8?B?aG8wdiswSnRLK3QzdUFRaVdXTkR3UkFEREdONFBYb0JGZEpHYmJCREFodlpl?=
+ =?utf-8?B?Ry9wVjlrcG5zN1ZLRUh3R1NGcGd1M2RJaGFmYWhETkd3RFFYaUtEZnVVemo1?=
+ =?utf-8?B?ODh2c3N2WmU1WUl2ajcySXplb2ZYUi9BVzBXNEZiUWxRNVBwMlRpUjVUaVVZ?=
+ =?utf-8?B?eGNybmVrS2l4QnpKUlJRYURvUDBZSTNVM3psaU1qUU9FUmxYVjI4QWs1K1d5?=
+ =?utf-8?B?TmVRTnYxTzFmbENLNzFIandseTNnWXJSbWVaNmpFaG8xSFpBTkZtblZEb1pj?=
+ =?utf-8?B?OGozT1drRVlodTd0emk3amI4SDNoYU93Zk5Ram5Va1NpUkp2K3pLWE9TWVRk?=
+ =?utf-8?B?ZThLOElOelhWS1kyRGpjeWZGcDhwMkhMOEQ5YmJJZ2RKdHlSenBWcnhieHdP?=
+ =?utf-8?B?dlZ1NVVsQUVaQVp4d3owM2F2UWdZR3FDQi8rMVBiTGRaUHRtYlFTdm44RHdX?=
+ =?utf-8?B?N3JjczVYbVhEZkR0d2g2SmZkZEU4cXM4UCt0Qk9pYUo4enlXWGF4SEw1Umhl?=
+ =?utf-8?B?L29nSFI2UkxIV0dYTEJyL2gvZEZDY0hJTFdNMnMweEZubEtZNEdCaityc1dX?=
+ =?utf-8?B?VE03YVR3c2psL21USXNWbkp4a1g3aGFrOE1TMWVuR3FqemV6RUgzVEx6dnZS?=
+ =?utf-8?B?WVZJdzdzOGEvcnNjTTJHSDYyQ0tiYUtkRXNEaWl1WGp0MWhRbzAxMjN6ejZP?=
+ =?utf-8?B?TmFmU2plZ0xKVmQ2Lzh3ZDNaakpTTU5CREhtam0wUTdKaHgzdnAvM1JxREZK?=
+ =?utf-8?B?akJHWE5GM2dBMEJoYld2VXNTeXlZN1RPOHNTZ0RVd2pLMEsvMFZKNjVGKzhE?=
+ =?utf-8?B?ODVEc0FiYnV1bXo3M01CVzVYc05lWDRzMDcxaS95eGYxUCsyWmFlYzcydExt?=
+ =?utf-8?B?S01GOFVid3JBck5tbnk2aDJDT1dCZ3JhbXRNeHEyQ21jYzlRc2hNNFJFczRH?=
+ =?utf-8?B?cjlRLzVpbkJmeXU1cTQxS29keTNMWmlLaFIwZmcxTXhQRjBuZUdwSUpEUkY2?=
+ =?utf-8?B?aVlOYjkxNWFLTGdORzI0dnkwWkE5SzdoeGlMRmlFQm41SVRsb2RpMHRxL0pV?=
+ =?utf-8?B?Y1FDM0ttTXZmRXUvQjZxeWNCTzNlaDhGOCtNL082QUwyVUMzLytxVW1TVnc4?=
+ =?utf-8?B?NmRlVG1QR1FyaTVlNG1IUUN4OXFwS21KVXZZWHZMU0NIZ2VVRXdOd0tFNzg0?=
+ =?utf-8?B?TFhoYzNFTjR5Nng4MFhrVGJjWXFqWW9jSElsSXJDY0gvQ3Y4Rm85RnNnWUgx?=
+ =?utf-8?B?ZTh4blZ0ZlBKSXFYd0MxVDRDZ1Z4T1U4Ny8vSjhLUkQzdHdFTlAwaXVLbDRm?=
+ =?utf-8?B?ZWNSQ0ZrdUd4NURoeURVVXczNThpam1YYzRFWFJVVklqdGw4YnVuSkg3bkx3?=
+ =?utf-8?B?Q0VhUzBNbnE2M3J3RGl3emgrZmxBZ3VkdzNMR09sZ2g4N05SVTE0UEZyNUJG?=
+ =?utf-8?B?cGt1ck15c2trdzl4U1dGTTQwajdXTEZtL1B6QlVrU3plR3JhMUlZSTVqa3pV?=
+ =?utf-8?B?Sy9jNEFIN3RPYS9zSTBqOWNUemRjelFQWVhXd3FvT3o3R3MzTE4wWGJuZ0J0?=
+ =?utf-8?B?OXhjVWNHQUU1RzdldzhjTXMyeS9Edm1jRSs1YTVVV0FqZ05wbHpnYmZJbDE1?=
+ =?utf-8?B?bU5HRlJzM29UUTlJWEhXMld2Umhab3JhT3p3N3ZUMG8rSkVJZWE4UHVHWXBx?=
+ =?utf-8?B?amJmSjZIdzgwTTM1TFlqZXE4YVBVUlViVTNYRi9GVGF4WFdUazhUdFlFODd0?=
+ =?utf-8?Q?At+An9SDsnvJ/YaLq+qCnPaJY?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 385d7282-3aa7-4a03-9e09-08ddad84bd20
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5273.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jun 2025 09:52:58.0498
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: lpusQpOOt5d8LgcyJ9nZzCQyb4JrEQ+1siChz3bAmLe559qfZi0f24HAiRFhNo7H
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6669
 
-On 17.06.2025 03:27, dmkhn@proton.me wrote:
-> From: Denis Mukhin <dmukhin@ford.com>
+
+
+On 17/06/2025 11:26, Jan Beulich wrote:
+> On 17.06.2025 09:19, Michal Orzel wrote:
+>> @@ -1084,8 +1085,15 @@ void __init console_init_preirq(void)
+>>      serial_set_rx_handler(sercon_handle, serial_rx);
+>>      pv_console_set_rx_handler(serial_rx);
+>>  
+>> -    /* NB: send conring contents to all enabled physical consoles, if any */
+>> -    conring_flush();
+>> +    /*
+>> +     * NB: send conring contents to all enabled physical consoles, if any.
+>> +     * Skip serial if CONFIG_EARLY_PRINTK is enabled, which means the early
+>> +     * messages have already been sent to serial.
+>> +     */
+>> +    if ( IS_ENABLED(CONFIG_EARLY_PRINTK) )
+>> +        flags &= ~CONSOLE_SERIAL;
 > 
-> Introduce domain_console for grouping data structures used for integrating
-> domain's diagnostic console with Xen's console driver.
-> 
-> Group all pbuf-related data structures under domain_console. Rename the moved
-> fields to plain .buf, .idx and .lock names, since all uses of the fields are
-> touched.
-> 
-> Bump the domain console buffer size to the closest power of 2 (256) and
-> rename the symbol to DOMAIN_CONSOLE_BUF_SIZE.
-> 
-> Move d->console->buf management under CONFIG_VERBOSE_DEBUG when the
-> HYPERCALL_console_io handler is enabled.
+> Does EARLY_PRINTK=y alone guarantee everything was output? That is, is there
+> no chance that early-console init may have failed? (Sorry, I don't know much
+> about early-console in Xen, as that's Arm-only.)
+There is no init function for the early printk and no function related to early
+printk returns something.
 
-This, if at all, needs to be a separate change (with its own justification).
-I for one don't think VERBOSE_DEBUG is intended to control any kind of guest
-output.
+~Michal
 
-> --- a/xen/arch/x86/hvm/hvm.c
-> +++ b/xen/arch/x86/hvm/hvm.c
-> @@ -559,7 +559,6 @@ void hvm_do_resume(struct vcpu *v)
->  static int cf_check hvm_print_line(
->      int dir, unsigned int port, unsigned int bytes, uint32_t *val)
->  {
-> -    struct domain *cd = current->domain;
->      char c = *val;
->  
->      ASSERT(bytes == 1 && port == XEN_HVM_DEBUGCONS_IOPORT);
-> @@ -570,17 +569,24 @@ static int cf_check hvm_print_line(
->  
->      if ( !is_console_printable(c) )
->          return X86EMUL_OKAY;
-
-After this "return" ...
-
-> -
-> -    spin_lock(&cd->pbuf_lock);
-> -    if ( c != '\n' )
-> -        cd->pbuf[cd->pbuf_idx++] = c;
-> -    if ( (cd->pbuf_idx == (DOMAIN_PBUF_SIZE - 1)) || (c == '\n') )
-> +#ifdef CONFIG_VERBOSE_DEBUG
-> +    else
-
-... there's no point to have "else" here.
-
->      {
-> -        cd->pbuf[cd->pbuf_idx] = '\0';
-> -        guest_printk(cd, XENLOG_G_DEBUG "%s\n", cd->pbuf);
-> -        cd->pbuf_idx = 0;
-> +        struct domain *cd = current->domain;
-
-We normally name such a variable d. It also looks as if this could be pointer-
-to-const.
-
-> +        struct domain_console *cons = cd->console;
-> +
-> +        spin_lock(&cons->lock);
-> +        if ( c != '\n' )
-> +            cons->buf[cons->idx++] = c;
-> +        if ( (cons->idx == (DOMAIN_CONSOLE_BUF_SIZE - 1)) || (c == '\n') )
-> +        {
-> +            cons->buf[cons->idx] = '\0';
-> +            guest_printk(cd, XENLOG_G_DEBUG "%s\n", cons->buf);
-> +            cons->idx = 0;
-> +        }
-> +        spin_unlock(&cons->lock);
->      }
-> -    spin_unlock(&cd->pbuf_lock);
-> +#endif
-
-None of the re-indentation is really warranted here (and will likely go away
-anyway once the #ifdef is dropped).
-
-> --- a/xen/common/domain.c
-> +++ b/xen/common/domain.c
-> @@ -669,7 +669,7 @@ static void _domain_destroy(struct domain *d)
->      BUG_ON(!d->is_dying);
->      BUG_ON(atomic_read(&d->refcnt) != DOMAIN_DESTROYED);
->  
-> -    xfree(d->pbuf);
-> +    xfree(d->console);
->  
->      argo_destroy(d);
->  
-> @@ -800,6 +800,11 @@ struct domain *domain_create(domid_t domid,
->      if ( (d = alloc_domain_struct()) == NULL )
->          return ERR_PTR(-ENOMEM);
->  
-> +    err = -ENOMEM;
-> +    d->console = xvzalloc(typeof(*d->console));
-> +    if ( !d->console )
-> +        goto fail;
-
-This definitely need to move down some, at least ...
-
->      /* Sort out our idea of is_system_domain(). */
->      d->domain_id = domid;
->      d->unique_id = get_unique_id();
-
-... past here. There absolutely must not be struct domain instances be
-passed around (see e.g. the call to sched_destroy_domain()) without the
-domain ID set. It's hard to see ...
-
-> @@ -862,7 +867,9 @@ struct domain *domain_create(domid_t domid,
->      spin_lock_init(&d->shutdown_lock);
->      d->shutdown_code = SHUTDOWN_CODE_INVALID;
->  
-> -    spin_lock_init(&d->pbuf_lock);
-> +#ifdef CONFIG_VERBOSE_DEBUG
-> +    spin_lock_init(&d->console->lock);
-> +#endif
-
-.. why here or ...
-
-> @@ -955,11 +962,6 @@ struct domain *domain_create(domid_t domid,
->      if ( (err = argo_init(d)) != 0 )
->          goto fail;
->  
-> -    err = -ENOMEM;
-> -    d->pbuf = xzalloc_array(char, DOMAIN_PBUF_SIZE);
-> -    if ( !d->pbuf )
-> -        goto fail;
-
-... even here wouldn't be early enough anyway.
-
-And btw - where did this buffer allocation move? I don't see anywhere
-that d->console->buf would now be initialized. (However, see below.)
-
-> --- a/xen/include/xen/sched.h
-> +++ b/xen/include/xen/sched.h
-> @@ -371,6 +371,22 @@ struct evtchn_port_ops;
->  
->  #define MAX_NR_IOREQ_SERVERS 8
->  
-> +/* Arbitrary value; must be a multiple of the cacheline size. */
-> +#define DOMAIN_CONSOLE_BUF_SIZE 256
-
-Where does the relationship with cache line size come from? What if
-Xen was to run on hardware (whichever arch) with 512-byte cache lines?
-
-> +/* Domain console settings. */
-> +struct domain_console {
-> +#ifdef CONFIG_VERBOSE_DEBUG
-> +    /* hvm_print_line() and guest_console_write() logging. */
-> +    char *buf;
-
-To avoid the need to do yet another separate allocation, how about ...
-
-> +    unsigned int idx;
-> +    spinlock_t lock;
-> +#endif /* CONFIG_VERBOSE_DEBUG */
-> +
-> +    /* Permission to take ownership of the physical console input. */
-> +    bool input_allowed;
-
-    char buf[DOMAIN_CONSOLE_BUF_SIZE];
-
-Ultimately this would allow the buffer size to be e.g. command line
-controlled (if so desired), by then simply converting to a flexible
-array member.
-
-Jan
 
