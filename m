@@ -2,33 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33386ADCF74
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Jun 2025 16:21:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1018259.1395158 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 63A71ADD0CD
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Jun 2025 17:01:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1018272.1395167 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uRXBQ-0001Mu-GK; Tue, 17 Jun 2025 14:21:04 +0000
+	id 1uRXnJ-0006LT-9A; Tue, 17 Jun 2025 15:00:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1018259.1395158; Tue, 17 Jun 2025 14:21:04 +0000
+Received: by outflank-mailman (output) from mailman id 1018272.1395167; Tue, 17 Jun 2025 15:00:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uRXBQ-0001LJ-DP; Tue, 17 Jun 2025 14:21:04 +0000
-Received: by outflank-mailman (input) for mailman id 1018259;
- Tue, 17 Jun 2025 14:21:03 +0000
+	id 1uRXnJ-0006J6-6d; Tue, 17 Jun 2025 15:00:13 +0000
+Received: by outflank-mailman (input) for mailman id 1018272;
+ Tue, 17 Jun 2025 15:00:12 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Un2b=ZA=gmail.com=rosbrookn@srs-se1.protection.inumbo.net>)
- id 1uRXBP-0001LD-Dz
- for xen-devel@lists.xenproject.org; Tue, 17 Jun 2025 14:21:03 +0000
-Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
- [2a00:1450:4864:20::12c])
+ id 1uRXnI-0006J0-3X
+ for xen-devel@lists.xenproject.org; Tue, 17 Jun 2025 15:00:12 +0000
+Received: from mail-qk1-x72b.google.com (mail-qk1-x72b.google.com
+ [2607:f8b0:4864:20::72b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4bcd73f4-4b86-11f0-a309-13f23c93f187;
- Tue, 17 Jun 2025 16:21:01 +0200 (CEST)
-Received: by mail-lf1-x12c.google.com with SMTP id
- 2adb3069b0e04-54b09cb06b0so6503451e87.1
- for <xen-devel@lists.xenproject.org>; Tue, 17 Jun 2025 07:21:01 -0700 (PDT)
+ id c3a8e2f8-4b8b-11f0-a309-13f23c93f187;
+ Tue, 17 Jun 2025 17:00:11 +0200 (CEST)
+Received: by mail-qk1-x72b.google.com with SMTP id
+ af79cd13be357-7cadc92771dso628152985a.1
+ for <xen-devel@lists.xenproject.org>; Tue, 17 Jun 2025 08:00:10 -0700 (PDT)
+Received: from six.. ([69.53.121.20]) by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-7d3b8dc9e15sm665761485a.9.2025.06.17.08.00.08
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 17 Jun 2025 08:00:08 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,67 +44,78 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4bcd73f4-4b86-11f0-a309-13f23c93f187
+X-Inumbo-ID: c3a8e2f8-4b8b-11f0-a309-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1750170061; x=1750774861; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=gb1p60QKBhAo5gm48IbBprTChd0rb8NUwjl2AKG+uAU=;
-        b=ZFWzctj0Hg8bFbFFZdCNX84eKHkyowcRCfUraFMzECdFEjDrY2cXOpweobIeW1gzbV
-         PvwlbrYYLn11SvUSowIwXVxorQpMeCcilkiCqtJWkNSbps1Ll+3VT/qDI/DF/VZ0mEMT
-         8qMn66XB4QL6z4DpNkt+q8Nzb+tn+pPsRdUtPDKljnnXz+ywuJ1aZTt5Kzep4FljMe5h
-         6Ff7hyM8b3M3tl9RQrsenX2JoDFApNv8U0F3eEC5ZQ3BFTRo8zCV6URksRSL1vtQi0uG
-         aCXJgwMVHAvEtUonkiE7E1bPM9UMGd455UEIsZbLLndbzqTRwSOg4nLU5O2vMhjiixqq
-         XlPw==
+        d=gmail.com; s=20230601; t=1750172409; x=1750777209; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=JZArjs3/+CYFN5nJYtjt1e9TA00uz0flf6Zhhx8TEXc=;
+        b=CIGuKpBIFIrGeDFmnSU+hk3twGI+6/p+AeC2+hSCmm3K2FD0VHTS+O2BuNe9tqBubQ
+         4lXm6fwwbMgqfIa4vIv9OtM9EbhJQqrgBMabiE/4aRH8VMa/3Gz4wWsaOOORo+SPLOmN
+         +WAtiJNCD2A/EBxXUIRGSBfPuxBGYP6rPVhY8z5m0xHA2KtoO2QmRgcsXV3wE8mLb8UY
+         qiXjV9tIrhpT3kjxRxA4AYWljvXsmNO0z1cujj0N+WvQOuraMWOH3tjSpB4wdk8ES9+T
+         2OFqkBjVbitFyAJWySuWC+6srL0DV8wtu/JbJdzsGDo+1O3a70keDnL3O+qH3xVNUpGc
+         KWhA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750170061; x=1750774861;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=gb1p60QKBhAo5gm48IbBprTChd0rb8NUwjl2AKG+uAU=;
-        b=T7/Ts0Q4KZmI0BoYs1kpSVTTFlqeWWoc4yn6GY8ArKJVz0bu8PtNwbyW5bKsDeV1v5
-         mr3pt7SzBQiXNdIKHGwB7Dg8T3KIYO7/t+Ut6zLpqZWEWlDAMsMc148Q5g5fg5wAGYjU
-         VreR3Yjloy58Nmsk8o8UgAVAgX2LeUCEwBeZEIIU+ENA2qlkzOPbID452O1L3flvxnxw
-         BbmV0d30G8hlThBJmW4H5F6U9TzkBS4xmdnuxt4z40gA+4O1A2CboZIm43ko5DPusoZv
-         99yWK6KnfOTHSPeoIYkkdVc6I+AIQh9BPKayWWpqNbS1G8pJzl5aAcRucRegWpAvCj9U
-         V4vg==
-X-Gm-Message-State: AOJu0YxtgjeaJgxfz7SZXRzUCYgDP3IMv6WDRj0Art0av0+iJQlJbHCY
-	9MLe5zAHTCKF+fZbmcVNmtCu8moLEPzhzxj5104rVDB2gsqzBI6bumpiFcVaaObPFpKDy5ec9rS
-	DNtT+9cSmI1dUS/4C+nrKBsc+ndOXgng=
-X-Gm-Gg: ASbGncvVFVVjmh/O1YKOVVXdDQaXVphGWTCSNh5cRqAfNQWH32BdGzbU8pR6ZazgZWz
-	6UKAPyXVFTfYZTLJAc/EqQtYpuoAMucgqa8FKZ86BXpxN11n3u9icqZ+zyBUm2ZrLjPk0BwL3NK
-	MVPfqUvNh3jeuHmVI5nlPfiCFAjmpCdoI60qfGH3fXww==
-X-Google-Smtp-Source: AGHT+IGpDLlB2hDY8gGqmKWsHL6uzavqzlynacH+3UmZ6F5ABRmviyigN5EacpqL+Rtbi5602dvff4p0hsFbTijEx/0=
-X-Received: by 2002:a05:6512:6ca:b0:54a:cc04:ea24 with SMTP id
- 2adb3069b0e04-553b6f43b4cmr3467607e87.46.1750170060891; Tue, 17 Jun 2025
- 07:21:00 -0700 (PDT)
-MIME-Version: 1.0
-References: <20250616153826.404927-1-edgar.iglesias@gmail.com> <20250616155306.405257-3-edgar.iglesias@gmail.com>
-In-Reply-To: <20250616155306.405257-3-edgar.iglesias@gmail.com>
+        d=1e100.net; s=20230601; t=1750172409; x=1750777209;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=JZArjs3/+CYFN5nJYtjt1e9TA00uz0flf6Zhhx8TEXc=;
+        b=p3GluUaIEmi9qDAcbNWcH+AOMVgKEGc4ICyPPwBoeLMOQdzVLenEh096QS3bPFamSJ
+         L/j1nLMcSRW56um8PtqL+HBVW07WBSy4r3JTgoJHwdRQc17LVleKV57HCqOUatT//YpR
+         klxhq5h4Yb8wGUboj/t/fd/zcUeQJXPvg3FAgIUpAVI5CB5GIdViVHrb6w1ekQ37i4xO
+         4+1fkWIWr7f1FhQy0YlOI0LpTcrMBkkM0w6qVm15Ke5Joxy5NPVu5sBsHHcO7ejvng9Q
+         pqe/X+vJ0F/QZrti4KllhqyXsusuEbO022yt4XTCe7bOBm6SXj0FkM+0l2qKXPTN/iTo
+         EI/w==
+X-Gm-Message-State: AOJu0YzqDUdyYzoZHcLaxAViv160sOLauaPkdGUlfFl3dDf+o07Nvvy0
+	T2TgQEPOdw7AT7taMqlYXhd6Qpee2WuDnHA+wqZcRzYKAGkSdvLP0Ozw2TEZnxRN
+X-Gm-Gg: ASbGncsKlCkAHJCuJaBsFYR4VOswWLbMzepL0IIk07zyaVd+LxUSo8LG5JbmksrQOGb
+	Jrv5Onef/EBWgpRKTUScapHb2QXusDNt/G+2qp2dXw9GE/cHLLjX7Ssw9aMuX9qaAan8tlaYqqQ
+	5eRih3wxtqkCnxlPsZedyXBGbzwJWCwZI0jun3iwFrxvpMU8OgdjHzVEvR6xk5WijR+p11wG0TN
+	/e5h7P4r6jU5CWnhiwKxF2+RY5BFn3FlNUEeRHCr0qPNbmPzfF96wukAyM8y5sACquBgnVJ0Wwy
+	r1P0WmT7IOCg/vK5g8qXxOsxROyUfbEbACaoCMiORS6uaGT81II=
+X-Google-Smtp-Source: AGHT+IEJfRnIEDPWFQs1ZZ2EtpF0pkHEYAk8w5jqrQ2FmlqKdmACsKxO/myeIuGn4aLn6f/ZiOj1NA==
+X-Received: by 2002:a05:620a:a10a:b0:7d3:a6c7:4eb2 with SMTP id af79cd13be357-7d3c6cd4e97mr1672780785a.31.1750172409022;
+        Tue, 17 Jun 2025 08:00:09 -0700 (PDT)
 From: Nick Rosbrook <rosbrookn@gmail.com>
-Date: Tue, 17 Jun 2025 10:20:48 -0400
-X-Gm-Features: AX0GCFu-1vtvMVC7dIRnYOZGf23BFMdfvzA3WdOumLzAWNbjfNXpK22jyUACsZI
-Message-ID: <CAEBZRSdGv_2Wsh1Q7qQbVmfCzQ-ssbGXc1Hbu6gboms+2zpKkw@mail.gmail.com>
-Subject: Re: [PATCH v5 5/5] tools/golang: Regenerate bindings for trap_unmapped_accesses
-To: "Edgar E. Iglesias" <edgar.iglesias@gmail.com>
-Cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org, julien@xen.org, 
-	bertrand.marquis@arm.com, michal.orzel@amd.com, Volodymyr_Babchuk@epam.com, 
-	andrew.cooper3@citrix.com, anthony.perard@vates.tech, gwd@xenproject.org, 
-	edgar.iglesias@amd.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+To: xen-devel@lists.xenproject.org
+Cc: Nick Rosbrook <rosbrookn@gmail.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH] MAINTAINERS: update my email address
+Date: Tue, 17 Jun 2025 11:00:02 -0400
+Message-ID: <55a35aed605bafd38b6ccfd0bb6e401a5fdf9794.1750172048.git.rosbrookn@gmail.com>
+X-Mailer: git-send-email 2.48.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Mon, Jun 16, 2025 at 11:53=E2=80=AFAM Edgar E. Iglesias
-<edgar.iglesias@gmail.com> wrote:
->
-> From: "Edgar E. Iglesias" <edgar.iglesias@amd.com>
->
-> Signed-off-by: Edgar E. Iglesias <edgar.iglesias@amd.com>
+Change rosbrookn@gmail.com -> enr0n@ubuntu.com
 
-Acked-by: Nick Rosbrook <rosbrookn@gmail.com>
+Signed-off-by: Nick Rosbrook <rosbrookn@gmail.com>
+---
+ MAINTAINERS | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Sorry for the delay.
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 13f31b0c1b..9aa7dd2f57 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -330,7 +330,7 @@ F:	xen/arch/x86/debug.c
+ F:	tools/debugger/gdbsx/
+ 
+ GOLANG BINDINGS
+-M:	Nick Rosbrook <rosbrookn@gmail.com>
++M:	Nick Rosbrook <enr0n@ubuntu.com>
+ R:	George Dunlap <gwd@xenproject.org>
+ S:	Maintained
+ F:	tools/golang
+-- 
+2.48.1
 
--Nick
 
