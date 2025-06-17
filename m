@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D6157ADC1F6
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Jun 2025 08:00:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1017711.1394710 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 48962ADC240
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Jun 2025 08:17:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1017724.1394720 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uRPMT-0001VX-Ap; Tue, 17 Jun 2025 05:59:57 +0000
+	id 1uRPdX-0004c5-Oe; Tue, 17 Jun 2025 06:17:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1017711.1394710; Tue, 17 Jun 2025 05:59:57 +0000
+Received: by outflank-mailman (output) from mailman id 1017724.1394720; Tue, 17 Jun 2025 06:17:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uRPMT-0001Tc-6w; Tue, 17 Jun 2025 05:59:57 +0000
-Received: by outflank-mailman (input) for mailman id 1017711;
- Tue, 17 Jun 2025 05:59:56 +0000
+	id 1uRPdX-0004Zp-Lv; Tue, 17 Jun 2025 06:17:35 +0000
+Received: by outflank-mailman (input) for mailman id 1017724;
+ Tue, 17 Jun 2025 06:17:34 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Zxid=ZA=amd.com=penny.zheng@srs-se1.protection.inumbo.net>)
- id 1uRPMR-0001TQ-TT
- for xen-devel@lists.xenproject.org; Tue, 17 Jun 2025 05:59:56 +0000
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on20623.outbound.protection.outlook.com
- [2a01:111:f403:2418::623])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=PKBE=ZA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uRPdW-0004Zj-JT
+ for xen-devel@lists.xenproject.org; Tue, 17 Jun 2025 06:17:34 +0000
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [2a00:1450:4864:20::333])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 48837778-4b40-11f0-b894-0df219b8e170;
- Tue, 17 Jun 2025 07:59:52 +0200 (CEST)
-Received: from DM4PR12MB8451.namprd12.prod.outlook.com (2603:10b6:8:182::7) by
- PH7PR12MB7871.namprd12.prod.outlook.com (2603:10b6:510:27d::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8835.28; Tue, 17 Jun
- 2025 05:59:47 +0000
-Received: from DM4PR12MB8451.namprd12.prod.outlook.com
- ([fe80::b04e:2da5:7189:4c4d]) by DM4PR12MB8451.namprd12.prod.outlook.com
- ([fe80::b04e:2da5:7189:4c4d%5]) with mapi id 15.20.8835.027; Tue, 17 Jun 2025
- 05:59:46 +0000
+ id c0ce8a74-4b42-11f0-b894-0df219b8e170;
+ Tue, 17 Jun 2025 08:17:32 +0200 (CEST)
+Received: by mail-wm1-x333.google.com with SMTP id
+ 5b1f17b1804b1-453066fad06so39425575e9.2
+ for <xen-devel@lists.xenproject.org>; Mon, 16 Jun 2025 23:17:32 -0700 (PDT)
+Received: from ?IPV6:2003:ca:b711:f21a:fe:66b6:9dc3:86d6?
+ (p200300cab711f21a00fe66b69dc386d6.dip0.t-ipconnect.de.
+ [2003:ca:b711:f21a:fe:66b6:9dc3:86d6])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4532e243e59sm162872685e9.19.2025.06.16.23.17.30
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 16 Jun 2025 23:17:31 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,174 +47,153 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 48837778-4b40-11f0-b894-0df219b8e170
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=zJAxeopSda1idqTrexJh5nPU0M8AQbDOrV6nc1P9ZKa0NM23JxqWER4CN8Omf6evmuuqWo6ZtOCCgP7pJ9uz2UPIO8+f3lNgjiwoVG0dlS6sLBzO6649FudUUk/Wx/USjT+on8tXOjlNzAb5iFPp5btVBRPu1/j+rjRYKqT8V1AWKsWx07RxwO1WwWsSsLmZUnpX3WZdJ6u+MxvTR6zkRQP2O4/rkzDfGal2HFc0ZJvnBV26Fnrbe3afnD1lvjsnorgJC3d3xsSVzNH2ot2mmMBdvdBL/FEAim6XR3TmgABlF3TTTA11KdsB3NoQJXsPRH7rjBDRNt8zsSrzpeH3PQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WeCtjvwUQlw0E6jxPQjg5dAnYKyJUVJjSp8ObjgbPTU=;
- b=BXOTbptXRS0HmpHnXxgJzC67c5fL1QWbFgVpqIBjwj5CsY5S556W3NUxRkqCR/5gtpU8oSS+mdULAodZ/eUvgzEQdr3DBz0m0QUKob+AqLJROy1o00O1F5CY0ZKRumk14Q4NiyXbNATeTJeXxhIa0BS4Y5aA+js4zOy3SJxOx1+czYd4z1BfLU2k2FOGA1mWHn2UvRjQ5621904m6numnn/8V9Z7h44komGTI6TvuNCQtXR18UZvv63820bdo0rHFe487HkTTi/HkD9ekSAMoportiE3jGH8EbEnbQ0BcwgNefwOqpQlaLyLA/53CbfbB+abBINc8Wz75Tr3T0i8+w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WeCtjvwUQlw0E6jxPQjg5dAnYKyJUVJjSp8ObjgbPTU=;
- b=tFxiZBou8HhG/e/LK0QPelmGQU9uth6JWBw7fSVK1LQct7mm1g1gBASRx0iIm+2elc5eB/SXjCQSIWdh3IH9ar8bUW7NsdKd0PDMkvHFCSlqnmNGmNec866p7ASvHwk82C323bK1tia6bdAsSzFi2AX87U9SVafiMqbO68YONXo=
-From: "Penny, Zheng" <penny.zheng@amd.com>
-To: "Andryuk, Jason" <Jason.Andryuk@amd.com>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>
-CC: "Huang, Ray" <Ray.Huang@amd.com>, Jan Beulich <jbeulich@suse.com>
-Subject: RE: [PATCH v5 05/18] xen/cpufreq: refactor cmdline "cpufreq=xxx"
-Thread-Topic: [PATCH v5 05/18] xen/cpufreq: refactor cmdline "cpufreq=xxx"
-Thread-Index: AQHbzuQ9uCUmVxaE7E6nhT8/lomgsbP9sLQAgAlLVmA=
-Date: Tue, 17 Jun 2025 05:59:46 +0000
-Message-ID:
- <DM4PR12MB84511B90BB13054D078DA784E173A@DM4PR12MB8451.namprd12.prod.outlook.com>
-References: <20250527084833.338427-1-Penny.Zheng@amd.com>
- <20250527084833.338427-6-Penny.Zheng@amd.com>
- <4d6a72fc-5e7d-4817-8b52-b6b24fca9d25@amd.com>
-In-Reply-To: <4d6a72fc-5e7d-4817-8b52-b6b24fca9d25@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=True;MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2025-06-17T05:59:32.0000000Z;MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open
- Source;MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=3;MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM4PR12MB8451:EE_|PH7PR12MB7871:EE_
-x-ms-office365-filtering-correlation-id: a2cbfeee-e690-4320-3183-08ddad6429b6
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|1800799024|376014|38070700018|7053199007;
-x-microsoft-antispam-message-info:
- =?utf-8?B?c2xCRTlwaTZtV0EvK2sza21UcjFSVDhRZzV4cTZ2Yzl1dzFEY3JBSGlDYlFk?=
- =?utf-8?B?VU5jT0l6YytUeFJPY0F2NFBKSzk0bjNFNFIrUEZheDRvLzg4TWludXFTWXBL?=
- =?utf-8?B?OXUyb29XeFJNZUk2SlZBaFVPSkM3VUszRGY0TStpSXowUWoraXQvblNDSGQ5?=
- =?utf-8?B?OFlaaHZBcFhJWHBmK3R5T2UzczQ3Y0FOSnFpSlQwMEdOS28vazF0Nko0dm0z?=
- =?utf-8?B?d0lGRlE3R2hFSDhuTW90aXc0V3FYcE9uakxCeEJQdW9EODRBMjNxSHd3U2pu?=
- =?utf-8?B?WlNlVTdtdkVVS2NrSmV5czlIMjdmekdiR1hYV2FCRGRRbHdlbTlyazdlLzQ4?=
- =?utf-8?B?cXk2T1ByTG40amo1WlgxUEJiM3FhNEFEK2JGQ0JxLzFKQ3VQUmhOanJxZ0Nt?=
- =?utf-8?B?aXNFUmIyTG05U2RxSkU4WUJKS0hNNGFjTFY5Z3U4bUpqekpZb3ZvL0E1WTdk?=
- =?utf-8?B?c1FjMkw4VUF5YXBtRWFScHVRQWxZMnlhcEFEV0F6c0w5Tm82eGROVWdGV2FT?=
- =?utf-8?B?b04vSkRjYmlqUjVoWmNKMXVXY2JNTW1oVGYxVjc1SmdFRlhVNEZHQ2E0dGlq?=
- =?utf-8?B?dnRjUmd5a0xlY0p3TnlqOXlod1E1WExXVEFjbG9kT0RGM0VrVU1jbDNSQnZB?=
- =?utf-8?B?aEF2YXBqNDloMU9xNXB1M1BmM1ArQ0dUd2RkblAzZCtuL295ai9NSTlGYWpR?=
- =?utf-8?B?YUdtdk9taWdOMllsU0JaemtENGVYdjhKSktSbTZBVnJxcTljSlRwd3cyRzZ0?=
- =?utf-8?B?cldtMWZqSjRRUlg2TW11SHdqYVpWUUs2bFBvdXdzQzhFb1BiN2txZUg4STJk?=
- =?utf-8?B?QWUzUlJSVzdva3RPZm5idWdscEF0WCtHb3Q0MEptV1RBY0YvWU1VZGNSOE12?=
- =?utf-8?B?d05xVnZZNU1kdkZydW11Ris0TDBCWlNDY0svMFdTdGZaL0pVb3NENkRFT2pk?=
- =?utf-8?B?SXVGQkVNd0FPdlN5Rlo4bWRJNUVFcDRMd3h0aDQ1OHdLZW9vNVVOSFFNRnpR?=
- =?utf-8?B?UlFDbFhpQXA2RE1XYTJjc3V2czQ1akwzMnNsSW50b2RqSzRBZEZXMTNXLzNR?=
- =?utf-8?B?OG85VmhWc1JKNjRnVFdPODVGaGY5eFFmV0tXcmNTbjMrY3NZbDdEVHRrMTVv?=
- =?utf-8?B?SVdTd2V4MUpUNm1UOUw4VXdtZHFDdUZwVFlLR2NoTEtpeklOT2I3QTBUOFlw?=
- =?utf-8?B?MXRoSHBqS1pFc2tvRmhiZjkzUFdWT1VERUlzNjl1eDNtdEhyQWRhdmV0eExr?=
- =?utf-8?B?MGJqZ3BPZ0VrWGtGeGZRNzg4NXpIU2dKR2hQazM4STdzU0lRSkcrbkRrdDdw?=
- =?utf-8?B?N1JxbmM4TWd0aVEyd0FoS1E3OVAzUGlHeWM3VG1EMVNsZk1ERU5qcDZzOWp5?=
- =?utf-8?B?WnpZQ3hmNmtjOUJySXNMY0RKaDZGWDBsYjFBZEM5SDNhNnJKSjdwenZsc2N4?=
- =?utf-8?B?Ymx4NlFZWGl6V21lbGRUTkNnM2liUjQ3NXI5VnVRejlnaGhKQW9jalk3QlZ6?=
- =?utf-8?B?MUJPWTdaa1RtQ2psWDFzeVptYURoN045YklxeWFzUEIvSVVocnNHMXA3M3NU?=
- =?utf-8?B?V1ZXSUtKQ1J2SWltblB3c1ZWc2NOdnNpQW8rSURHZE1sV3VzQURCVllHYW1F?=
- =?utf-8?B?dGlOVlhhT2crMEpCb214UFZqQVc1MUp0NUswNTRneFo5TEd4REYwbDFwRGoy?=
- =?utf-8?B?MGRKYlYzVzFXWVVTN0o2VmJEMDBsT2pHTUEyWTFJbUkvQ2ZnUjl4K2licEE3?=
- =?utf-8?B?d3N2aXdMYzMzNUluMUEycW56L1B1M1dqWUJMUGtrYklmQ3BGbzVUbVJNMDJI?=
- =?utf-8?B?WkU2M05DMDVmc2RFNlYvMFRYUGVmQlRiOVBtU2dNZGN6THNSZWN1NXE0Lzdr?=
- =?utf-8?B?ZzgvOXg2a2tudVVZUytkV2YrVDFyeG01VXVRa1NnSU94dTZlUVJRM3Jnc05Q?=
- =?utf-8?B?eTA2Ukc1dnYxSUxQNXRKcXlOelVuWjRpZ1dkcXRLWFNxdnZKRm5xcHdIb3B4?=
- =?utf-8?Q?IsSeskIEr/EvIjoqIxX3kSSS0R6Ca0=3D?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB8451.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(38070700018)(7053199007);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?eU9Oc0p0c0NndGZia1IvekE3UUMvRGkxOVlLeVE0VkpCSjlmRXZaSU1xQ0NY?=
- =?utf-8?B?SXRlYmJKVXdnRW45L2pxTllteHdJbFViRlRhSVNCSDZkTXR3YnZwdGw5WU5p?=
- =?utf-8?B?ZVd0ME1BaFRtMm04cFZTQkZVT2YyWWE0aDM2bHJVb253L0xIVHdGeEEybDAw?=
- =?utf-8?B?NTlLNXV1WHlOK2JnaTlYNzZsZWNmZ1pOUXI4UmJ5T0hRVXFOOEo5U0Z3d3oz?=
- =?utf-8?B?SW9yd1FiMk5YaGpRSUplQUNBK3Q0eWsxb3pTaFZsMElNZnk3Q1VoVFF3NWtm?=
- =?utf-8?B?cUNoNmxieS9yeE50elZSc1ZZR245SVFnQjJjM0Rxd1g5amxSaGFQRElvakZs?=
- =?utf-8?B?cUt4ZThVZXlHUlhWdXAycmZKTE0wU0VGc20veFQ4ZkVZR1oyUkJLL0FqaUpm?=
- =?utf-8?B?ME9VZmNqYjFlRXdTVzUwbTk3ZVBXcGRteitOb0hKZ2lFU3RUY3JobkxFbzVt?=
- =?utf-8?B?REpjWEx3SXkwWEFDUU5xTGJBSmRmU0xScU9kK3NZdnZpZlN3L3VnOUVVV2xY?=
- =?utf-8?B?QUhVZlp6Ny9CVmg4S0tHVjlqVG5JS3I4akZQTEpWWDNZbEFKQkRpQ2N3WVVs?=
- =?utf-8?B?MVpvek1mR1RURk9yY1NMdUR1THh4NmtpWHdKVzMrNTZrWmVDTXNoUVFQR1By?=
- =?utf-8?B?alhZaGJQMDZ3S1gzU3FMMkIwdWpnNWpjYXoyT0lNYU1aZUtvaFBhL3p5czNa?=
- =?utf-8?B?QW9tYTRqcGIwbmRVdUsyeTZzdWs5QXNpSEV5UENSVytLbGlhMElYZmtTU0NR?=
- =?utf-8?B?WExMdHVMVWV6Q1cwVUg0R1RpOVBwcVNQS01RQUJ4WWR2NVVnS3FzQktOcCsx?=
- =?utf-8?B?dDMrN2VuM2d3TDJCWDY0VzIyQTdCSElLd1RxY0pkeXdTTDM3akRvRUcrYWh2?=
- =?utf-8?B?b2RyS0RGd1pSSDBpS21SdG1CYjRkb1pPQ0p2REtyODBwNG1vZzZZMWdsN1BW?=
- =?utf-8?B?cDB5U0hyK0gyRG5sU1VwMmwyby9uV0dmcDlDWlJkZUdzMWtFZkFwb1FMUHhk?=
- =?utf-8?B?d0FuaDBLMVVHQ3l2Ti90cXdMalBFQ3RNV2JvR2l2OEMraGp4ekNrWk1SaDJv?=
- =?utf-8?B?VVpIcU42Qi9NYkFTYktRS252cER2MHkzN3lrZlFLQlRIcXRzbHg1K0w4aWJ5?=
- =?utf-8?B?VTdFbTZMcU8ycjVwcXkxbjZrdG44aFpuaHM2TTl5OElPbmZaM1duWld6a3BH?=
- =?utf-8?B?K0ZkbVZOOVA4V29UdnF6bEYzUFhGc2RJMllvc0JzQlNTaXhQMlhTOEVDVjh5?=
- =?utf-8?B?bVFpUW9yRDg2M050d0VXNk5YalpQaExTQU9HWHhuRWVUUnRQOWJ0bkJhWFhL?=
- =?utf-8?B?akZubHFSZ0wvS3ZlSkFlaUh5K0RTZ2NDSmFyS3E4My83TnJHRzFwei9LUFZS?=
- =?utf-8?B?WnU5cnY4N3FQd1Evb0lFdzh5NjRPTkpCVHkrZkhTbXpXbk9Pc3NHQ1JGK3cz?=
- =?utf-8?B?Y2c4b3h0SHhyWTdUODIwOTdaYmZhK2pTdmRSemprMUFrZERSSWgrdHR1S0hP?=
- =?utf-8?B?amFBNU9ON3lySUdVbFN5bHBxUmVmQmZuZi85dFNoMUtaQW9IUjloOGhwVTl4?=
- =?utf-8?B?bFBGT1dyZ05BOWpJTVhKWmlOVEFlKzV1ZWdwZzU1cmRMYmlRRjZEb2M4S0dG?=
- =?utf-8?B?UUErbmdubm9vZXUrVmNjWWZpZU5SeURhVTQzY0NwcFN1cjJKWFpqLzNjS1do?=
- =?utf-8?B?SXlmTmFyN0tab0lFYm1xNzl6SUpEcmViL3JVTVp5KzA1VzJyWjNubUdzWGo4?=
- =?utf-8?B?UG9ueGRMUkZ5VUt1bitQb3ZvYnE3OGZQVUFyWElsN01RWk1XWTdySnA0cTNO?=
- =?utf-8?B?aFQyRzl1VEtya1o5enNNdHYyZTh4VEE5TElURUpra1oyb1FKekI0MG1xMlNr?=
- =?utf-8?B?c1l1bi9DQWxCOFVLNVlqTFh3dW1uYUxlalRZSjEyS3hEeXhpeERWSHhBUnRV?=
- =?utf-8?B?cERhSTdBWkY2V1VzVStkZHdZS0ZFM1BWWFpVYWtkSkxnSkxVOGFxK2puTGFo?=
- =?utf-8?B?bVovQ3lsaitKbnZlNWxQQ25INWZrNklKN243a2Fub3d2c3hsUnU4UWwycWxR?=
- =?utf-8?B?M0tKY2MyclRhd2cvZzc4ZXAxTUo5WU5hMWxjMFpETXBncWtCTGdVQm5EdGx5?=
- =?utf-8?Q?dq2A=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+X-Inumbo-ID: c0ce8a74-4b42-11f0-b894-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1750141052; x=1750745852; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=j+cvENjQSVy6AR3VFR9VvG6CKctBWzuWV9105hi+jVU=;
+        b=MoDSUvkovtR7p3U80ocUy6cPrIg/K4NdOwbCsQsDLSi/tA1UTSQA7vKmWPUSqTEUwF
+         zRgSqQzk6iY3m5RaZrwJs1ZbcsZwj7dF99qC6Q2UMoS11N5wYMEJxqd0gm4wyMnFmJzP
+         5DRFDjPB0gknSDdhuuNp8Ey7x038ikka2R08tiacPLNi2UFFvoTTMLLslO3mg8E7qMVr
+         EhO2JEJ3INmyYZMtNwrcmdSa7+BoprBZCvtSUfsaQKCHTXA468+xtlGX15CfUFz/E6nv
+         M1MW2RBEKmutm6+dAgyw3OxEzqwLJM9g22y+n8rllyau8xR2JiaVY4ClY9JlrVU9nc5Y
+         3vug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1750141052; x=1750745852;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=j+cvENjQSVy6AR3VFR9VvG6CKctBWzuWV9105hi+jVU=;
+        b=X2Nj6eR72K/bcO1yDQ3Aa3+g2+JO590MGm3nEXktJ6bMG3ar+Nb5xugQtL6qYyC5Q8
+         8rYlictpe4+hpPPe6JtEVvlLozQIXa5Kej/fH+iR+ENnUrCUlB/1q7AIgO8nMiIcGh06
+         QMXrj9WFRRGLpwW9l18Hv7/VLEHFcEUjWIXRG9OxYsv5a6hTt6hYo2uVwUD98C74rZME
+         ohqPRNO8QnlgkVvgIm7I1Uvw83+KIfBoAktinstcuy8cgvERzoHR61hk5HWWVrN/Sj5w
+         fO4frkm5YNXo53LUahLRDcGS1AyFALy0wJtHhayjOyBb+S7qvjb2ph7zCJjFBtyxpNf/
+         vaFw==
+X-Forwarded-Encrypted: i=1; AJvYcCXJMSAS1pwkYdJy2hKvzeTMA67Rx5jFigznqiGVQp5ZsxpRhOR774Qv5qqGXDgM5CNoY/d3MaYD/qY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw/Up27pVL5AcR8woEvFXXM2mK/9NheCTDQA3v/4EF+X6cXshal
+	JS+4yPSTXFHtwOJRd5FlhY/aiezrT81w+q8It5wVW6Tumh5/lX6vyg+1ZtpKDP0g6g==
+X-Gm-Gg: ASbGnctid5BOsSlLfGhCFBZibwIV2/KLTrPUHE+mrGyh1awe7pQza46BIoxjns0Hxhx
+	VIfME+eLARFEYxaP/UkNNH5lsFCigcBTnBpqyWz5RgGI+tdRSj5lMw2NbZuFyFGAdFYufa58F2c
+	tAjmd8d+ewrni0OlR3nLAD0xVRrhRQzsD7QCfDnaNG2TjOd2UdMGa9uLARIBpP4zM6mqRerpCOu
+	WLTYUC4OtRc7EYlfkkwX4Tyi2z3969dD72SOlA4wFrD2LfIrEGxqdc9GdldMsp8WKBvd9veu7Ym
+	MBUDV+7ThgciGJMgcas55f9n7/T0SYjp2MzTebdN7JO1tQKr2sBkUCwTSllYA+XMx35PWHQmP8z
+	gWyigFUTDsJehmqfIpVRmQvMVIyHMhddQVm+yHch9lei385UfpKdVT7NWt8tFm5QN/QWcNxwBWM
+	W8Ofn5INDP2zIKwzA=
+X-Google-Smtp-Source: AGHT+IFlBHcJwxNmB5dE8FBMuuD+3OJX7kazG0LZHXwJnfUv1JOT/WsWHXsqYU/6/415jw52oN3x8w==
+X-Received: by 2002:a05:600c:8b26:b0:43c:fe5e:f040 with SMTP id 5b1f17b1804b1-4533cab1613mr89633665e9.23.1750141051824;
+        Mon, 16 Jun 2025 23:17:31 -0700 (PDT)
+Message-ID: <beb54673-2de5-4bec-a963-7afb0e67540e@suse.com>
+Date: Tue, 17 Jun 2025 08:17:30 +0200
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8451.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a2cbfeee-e690-4320-3183-08ddad6429b6
-X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Jun 2025 05:59:46.3984
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: i2muESd8YHog9/3xlJU0SO2YABRV59MeHtrGl8xsUOdWflxQ38EogBFf3XzjkZPTj8PmSF3jBIzW3ziK8mWUGQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7871
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 14/14] kconfig: Allow x86 to pick CONFIG_DOM0LESS_BOOT
+To: Stefano Stabellini <sstabellini@kernel.org>,
+ Alejandro Vallejo <agarciav@amd.com>
+Cc: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>
+References: <20250613151612.754222-1-agarciav@amd.com>
+ <20250613151612.754222-15-agarciav@amd.com>
+ <2a54e49b-c1ad-4654-9291-4373e92580ff@xen.org>
+ <DAO1A9SJ9I2G.2L00II6AC0JDZ@amd.com>
+ <alpine.DEB.2.22.394.2506161639240.1384757@ubuntu-linux-20-04-desktop>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <alpine.DEB.2.22.394.2506161639240.1384757@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-W1B1YmxpY10NCg0KPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBKYXNvbiBB
-bmRyeXVrIDxqYXNvbi5hbmRyeXVrQGFtZC5jb20+DQo+IFNlbnQ6IFdlZG5lc2RheSwgSnVuZSAx
-MSwgMjAyNSA0OjAzIFBNDQo+IFRvOiBQZW5ueSwgWmhlbmcgPHBlbm55LnpoZW5nQGFtZC5jb20+
-OyB4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcNCj4gQ2M6IEh1YW5nLCBSYXkgPFJheS5I
-dWFuZ0BhbWQuY29tPjsgSmFuIEJldWxpY2ggPGpiZXVsaWNoQHN1c2UuY29tPg0KPiBTdWJqZWN0
-OiBSZTogW1BBVENIIHY1IDA1LzE4XSB4ZW4vY3B1ZnJlcTogcmVmYWN0b3IgY21kbGluZSAiY3B1
-ZnJlcT14eHgiDQo+DQo+IEhpIFBlbm55LA0KPg0KPiBPbiAyMDI1LTA1LTI3IDA0OjQ4LCBQZW5u
-eSBaaGVuZyB3cm90ZToNCj4gPiBBIGhlbHBlciBmdW5jdGlvbiBoYW5kbGVfY3B1ZnJlcV9jbWRs
-aW5lKCkgaXMgaW50cm9kdWNlZCB0byB0aWR5DQo+ID4gZGlmZmVyZW50IGhhbmRsaW5nIHBhdGhl
-cy4NCj4gPiBXZSBhbHNvIGFkZCBhIG5ldyBoZWxwZXIgY3B1ZnJlcV9vcHRzX2NvbnRhaW4oKSB0
-byBpZ25vcmUgYW5kIHdhcm4NCj4gPiB1c2VyIHJlZHVuZGFudCBzZXR0aW5nLCBsaWtlICJjcHVm
-cmVxPWh3cDtod3A7eGVuIg0KPiA+DQo+ID4gU2lnbmVkLW9mZi1ieTogUGVubnkgWmhlbmcgPFBl
-bm55LlpoZW5nQGFtZC5jb20+DQo+DQo+ID4gQEAgLTExNCwyMCArMTYxLDE0IEBAIHN0YXRpYyBp
-bnQgX19pbml0IGNmX2NoZWNrDQo+ID4gc2V0dXBfY3B1ZnJlcV9vcHRpb24oY29uc3QgY2hhciAq
-c3RyKQ0KPiA+DQo+ID4gICAgICAgICAgIGlmICggY2hvaWNlID4gMCB8fCAhY21kbGluZV9zdHJj
-bXAoc3RyLCAieGVuIikgKQ0KPiA+ICAgICAgICAgICB7DQo+ID4gLSAgICAgICAgICAgIHhlbl9w
-cm9jZXNzb3JfcG1iaXRzIHw9IFhFTl9QUk9DRVNTT1JfUE1fUFg7DQo+ID4gLSAgICAgICAgICAg
-IGNwdWZyZXFfY29udHJvbGxlciA9IEZSRVFDVExfeGVuOw0KPiA+IC0gICAgICAgICAgICBjcHVm
-cmVxX3hlbl9vcHRzW2NwdWZyZXFfeGVuX2NudCsrXSA9IENQVUZSRVFfeGVuOw0KPiA+IC0gICAg
-ICAgICAgICByZXQgPSAwOw0KPiA+ICsgICAgICAgICAgICByZXQgPSBoYW5kbGVfY3B1ZnJlcV9j
-bWRsaW5lKENQVUZSRVFfeGVuKTsNCj4NCj4gRG8gd2UgbmVlZCB0byBjaGVjayByZXQgYW5kIGVy
-cm9yIG91dD8gIChhbmQgYmVsb3cpDQo+DQoNClJpZ2h0LCB3ZSBuZWVkLCB0aGFua3MsIHdpbGwg
-Zml4DQoNCj4gVGhhbmtzLA0KPiBKYXNvbg0KPg0KPiA+ICAgICAgICAgICAgICAgaWYgKCBhcmdb
-MF0gJiYgYXJnWzFdICkNCj4gPiAgICAgICAgICAgICAgICAgICByZXQgPSBjcHVmcmVxX2NtZGxp
-bmVfcGFyc2UoYXJnICsgMSwgZW5kKTsNCj4gPiAgICAgICAgICAgfQ0KPiA+ICAgICAgICAgICBl
-bHNlIGlmICggSVNfRU5BQkxFRChDT05GSUdfSU5URUwpICYmIGNob2ljZSA8IDAgJiYNCj4gPiAg
-ICAgICAgICAgICAgICAgICAgICFjbWRsaW5lX3N0cmNtcChzdHIsICJod3AiKSApDQo+ID4gICAg
-ICAgICAgIHsNCj4gPiAtICAgICAgICAgICAgeGVuX3Byb2Nlc3Nvcl9wbWJpdHMgfD0gWEVOX1BS
-T0NFU1NPUl9QTV9QWDsNCj4gPiAtICAgICAgICAgICAgY3B1ZnJlcV9jb250cm9sbGVyID0gRlJF
-UUNUTF94ZW47DQo+ID4gLSAgICAgICAgICAgIGNwdWZyZXFfeGVuX29wdHNbY3B1ZnJlcV94ZW5f
-Y250KytdID0gQ1BVRlJFUV9od3A7DQo+ID4gLSAgICAgICAgICAgIHJldCA9IDA7DQo+ID4gKyAg
-ICAgICAgICAgIHJldCA9IGhhbmRsZV9jcHVmcmVxX2NtZGxpbmUoQ1BVRlJFUV9od3ApOw0KPiA+
-ICAgICAgICAgICAgICAgaWYgKCBhcmdbMF0gJiYgYXJnWzFdICkNCj4gPiAgICAgICAgICAgICAg
-ICAgICByZXQgPSBod3BfY21kbGluZV9wYXJzZShhcmcgKyAxLCBlbmQpOw0KPiA+ICAgICAgICAg
-ICB9DQoNCg==
+On 17.06.2025 01:39, Stefano Stabellini wrote:
+> On Mon, 16 Jun 2025, Alejandro Vallejo wrote:
+>> On Mon Jun 16, 2025 at 10:00 AM CEST, Julien Grall wrote:
+>>> Hi,
+>>>
+>>> On 13/06/2025 16:13, Alejandro Vallejo wrote:
+>>>> Without picking CONFIG_HAS_DEVICE_TREE.
+>>>>
+>>>> In order to do that. Allow CONFIG_DOM0LESS_BOOT to enable a subset
+>>>> of the common/device-tree/ directory. 
+>>>  > x86 doesn't want dom0less-build.c,> as that's tightly integrated 
+>>> still to the ARM way of building domains.
+>>>
+>>> I don't understand this argument. dom0less-build.c was moved to common 
+>>> and it will soon be used by RISC-V. This raises the question what's so 
+>>> special with x86?
+>>
+>> That's 2 separate matters:
+>>
+>>   1. dom0less-build.c not being compiled in.
+>>   2. CONFIG_DOM0LESS_BOOT enabling use of DT code without CONFIG_HAS_DEVICE_TREE.
+>>
+>> (1) is a matter of not wanting to boil the ocean upfront. The way x86 and
+>> everyone else build domains is just different and duplicated in non-trivially
+>> consolidable ways. The goal here is to enable the domain builders in any arch
+>> to use the same backbone. I don't want to go the extra mile just yet to unify
+>> domain construction (though in time I will want to).
+>>
+>> (2) has to do with compiling OUT things I really cannot have around. Anything
+>> involving devices described in a DT must not exist on x86, because it has no
+>> concept of a "struct device".
+>>
+>> My intent is/was to repurpose CONFIG_HAS_DEVICE_TREE to mean "this hypervisor
+>> goes on a platform that gives a platform-describing DT". On x86 that's given by
+>> DSDT/SSDTs with ACPI.
+> 
+> Alejandro is suggesting two levels of Device Tree support:
+> 
+> - full DT support, including device discovery via DT
+> - minimal DT support, for the dom0less/hyperlaunch configuration
+> 
+> Reading this series, it looks reasonable to me, at least as a stepping
+> stone. I think it is expected that the kind of DT support needed by an
+> architecture like ARM or RISC-V is different from the one needed by an
+> architecture like x86. Of course we might be able to align things even
+> more in the future but as of today I think it is reasonable to
+> distinguish between the two.
+> 
+> That said, we might want to consider renaming or changing the kconfig
+> options. For instance:
+> 
+> - CONFIG_HAS_DEVICE_TREE -> enable minimal DT support
+> - CONFIG_DT_DEVICE_DISCOVERY -> device discovery via DT
+> 
+> In this model, all architectures would have CONFIG_HAS_DEVICE_TREE,
+
+In which case - do we still need HAS_DEVICE_TREE?
+
+Jan
+
+> but
+> only ARM and RISC-V would have CONFIG_DT_DEVICE_DISCOVERY.
 
