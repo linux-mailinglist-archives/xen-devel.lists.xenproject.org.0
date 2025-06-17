@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB45EADD3B6
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Jun 2025 18:01:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1018320.1395219 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8030BADD3B7
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Jun 2025 18:01:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1018323.1395229 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uRYkH-0007R5-1m; Tue, 17 Jun 2025 16:01:09 +0000
+	id 1uRYkh-0007pz-8Z; Tue, 17 Jun 2025 16:01:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1018320.1395219; Tue, 17 Jun 2025 16:01:09 +0000
+Received: by outflank-mailman (output) from mailman id 1018323.1395229; Tue, 17 Jun 2025 16:01:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uRYkG-0007OW-V6; Tue, 17 Jun 2025 16:01:08 +0000
-Received: by outflank-mailman (input) for mailman id 1018320;
- Tue, 17 Jun 2025 16:01:07 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uRYkh-0007oP-5x; Tue, 17 Jun 2025 16:01:35 +0000
+Received: by outflank-mailman (input) for mailman id 1018323;
+ Tue, 17 Jun 2025 16:01:33 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=PKBE=ZA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uRYkF-0007ON-NM
- for xen-devel@lists.xenproject.org; Tue, 17 Jun 2025 16:01:07 +0000
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [2a00:1450:4864:20::433])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4683e42b-4b94-11f0-a309-13f23c93f187;
- Tue, 17 Jun 2025 18:01:06 +0200 (CEST)
-Received: by mail-wr1-x433.google.com with SMTP id
- ffacd0b85a97d-3a4ef2c2ef3so4881352f8f.2
- for <xen-devel@lists.xenproject.org>; Tue, 17 Jun 2025 09:01:06 -0700 (PDT)
+ id 1uRYkf-0007f6-TX
+ for xen-devel@lists.xenproject.org; Tue, 17 Jun 2025 16:01:33 +0000
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [2a00:1450:4864:20::42a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 55b111d6-4b94-11f0-b894-0df219b8e170;
+ Tue, 17 Jun 2025 18:01:31 +0200 (CEST)
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-3a54836cb7fso4139209f8f.2
+ for <xen-devel@lists.xenproject.org>; Tue, 17 Jun 2025 09:01:31 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-b31c1b48c69sm887321a12.31.2025.06.17.09.01.02
+ 41be03b00d2f7-b2fe168a0c2sm7592910a12.60.2025.06.17.09.01.27
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 17 Jun 2025 09:01:04 -0700 (PDT)
+ Tue, 17 Jun 2025 09:01:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4683e42b-4b94-11f0-a309-13f23c93f187
+X-Inumbo-ID: 55b111d6-4b94-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1750176065; x=1750780865; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1750176091; x=1750780891; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ulK3xIt+h78Zthsg3MeayiU/GOWMs3yPXN88/YiK/8M=;
-        b=dX+60u4LpyCgl/JljXPSdAFq3KawB5eFiH0qRGVKHXc69KQcQBiRVpyjmPVAXVtdmI
-         BSbF79J/8EVDm4fNwPolXqBwsRGhBJKOooLc9aHyVGydyPfTCN+u38SJSwHb5KJQOFQB
-         aaPt92Qwfv9HHkVuo75F2f8Y+F+mU2VAC0woHLylnzYCfeJvqiF191aIGnmfqEW8JAKy
-         BN3hUq3ADb0bNEUpBRnFlOGKN+Re1OWUWhwxtoq3jl8XQGCPrkDgLBCN6VM83liyCZuK
-         owriRjuWm1LSKXT6sKwbPc53pygW+Te9dKVFn38naAffNIH/99AKUFXwB7CrWeTsqQt9
-         25Yw==
+        bh=1gWmQLQxYAEESQC8axErZtnimL9IBwDep0Ap1Gsnze4=;
+        b=OI5i2BN2KJr4N9JVzxlJA9fCZt46qUHTvyo+AQHJqrsYGzIcv0/WZu0dNiiDUSA5TN
+         NS4cncvOBGbQKk5IhLWzxZJ+AJY3fDVinYEPL1wTKkS5kfnbL2QQPMrsNZp1kasPGG6S
+         TCANY5RJEj4lSNwKzzwhTKzCHeIRtdmJugpCl2Myx7Da4TO2gyGFQ9kwmlnwylN/e2Iy
+         eFm5I+t5sfraSvpEBBlt6fjUlQ/y6vORYkhGMEfLV4wcPrwnf61NpRoTh83SacQWvw5p
+         bJfv9024LNkUT06eXcBAQnK5v6LbU0nusfwwiQGEU8X/U380pVnxDqMSHMYFaI6ScNuJ
+         UDQA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750176065; x=1750780865;
+        d=1e100.net; s=20230601; t=1750176091; x=1750780891;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=ulK3xIt+h78Zthsg3MeayiU/GOWMs3yPXN88/YiK/8M=;
-        b=dnfixQVqRxugQqYJf7/7UVg4OjcjJZBSSub4U/2jFZgSVZ258oGNnnUbu2iayVSxnt
-         AWdU9OzpW1NdKhy+8RS91O2OpQRb2M9FxmgBGPiLRzNrhG+cHPUDtGIzqN6LXSR8irPm
-         rhHw8Q30OrAE4iOS8BVc7tL28B3auhG5mews1EeJxKj78bkBDLXrdGjqEKw1/lVzFzv/
-         M8Lx4XZgup7Ys4ZlflwJ9DdC+n3jLXxJYZE93jgA/ahlqw/16nnm7SNCoOyX8pJGKFLs
-         3ToyVc9BODnXyLACEFZYhVzgG0icLdjaFOgJGxatvxVB76P4fqlZXKn05e8lmvavTYNI
-         MRog==
-X-Gm-Message-State: AOJu0Yxl/mNSNXHdDKVghKFPR39bP9Ym2v+x1SFvhzDcyYesXLN/roYN
-	AxqtF6jlW+YVWX18/uPvkBXDl2Nou30xSbS/GyrY8iUglIaalhbnylF22T0nk0UrJgAFQftUW5I
-	8I9w=
-X-Gm-Gg: ASbGncsHmWaaLP8dJMNFicnyu5icfUhcd/xwAVTkO4qXuEJVZGUXS+j2ATU9kPhnzLQ
-	FMYJIDlIvQujLhs3V2QzNTILLZEQmJ0bwcR1SfpyAlLhSl+tpCTtI88hIXwRa0Un/ul9oXkGFxG
-	+8BYulpllv1fT4vNw7sssGXfp9DgD190H5gYgiIHrnumVNIFGPPCQ7pcnT4C+R6AZrrazetuGu1
-	fJmoM4EMCMT0jnDdfiy530MrPdB+q2d5fYa8m5pi+csonuIAaZO7kBjLYXDrjpGOZEus/sYNL0/
-	OJ2QOjVjZoQnE9L8DhPsG1BFQhHGpFAmMSte+6IR+drwp+iBAw7tgGMrqr/HYXNvAOvyvTeRmGd
-	SUQpSdfj+Gk3RDf7a9YPIxMzFrrdoDfD/xvmNaty68poOwLqEs0XLTB3Jsw==
-X-Google-Smtp-Source: AGHT+IFjZmYHii4t2L2R0ugtCzUKVlmB42TBcZ5xy1BcP9d5aOoVv0yvcaJKBbeg5694XWmPTYP8tw==
-X-Received: by 2002:a05:6000:22c2:b0:3a4:fea6:d49f with SMTP id ffacd0b85a97d-3a572e568b4mr10994770f8f.49.1750176065283;
-        Tue, 17 Jun 2025 09:01:05 -0700 (PDT)
-Message-ID: <6702a867-da38-46e1-88d3-614776f55e5e@suse.com>
-Date: Tue, 17 Jun 2025 18:00:58 +0200
+        bh=1gWmQLQxYAEESQC8axErZtnimL9IBwDep0Ap1Gsnze4=;
+        b=E7t4cZc12Ts4nOxqptA1aNU77U6u02QLD8ObYImibhnFMGhxYbuIbM+cRQW7mvEgy+
+         uHGGqSGH42/0U2uZksy1gZP7EPUaO+ItvGFKgG4rbErWN5mtV2F1Z2mGrazYoiIbR0HZ
+         +yjprDCXRZAS4Yi3Rg0Pz7xBbDH+Sc6M474U1qDU+6vK8qFEz3f+6je5YZ4OAauN8dE2
+         IkFvjHKnm5offU9wfRzq+bZ2RP2nc3pUsuk7/VwCuWZlD8Vt3gXPRRwiEbav1ztgAhdz
+         X51EtU6BJECIbEk7lB3UxQTC7n3MMp+wVYpCIVflWyJN9xhQYVd5lOFX152HH4AcpckP
+         YABg==
+X-Gm-Message-State: AOJu0YxqXypWYnulRBjYFS1d+XR8+7qNGoMCRljU9zy4aHUs+827zGAs
+	JtiGmRzm2+ZS6m6DPXCBWrMslmThyCWh0iX2FZofguPShcaqkyljKe9qCcepMdtAKMMNzjG1o79
+	MKdI=
+X-Gm-Gg: ASbGncur02BNCIaRpROaZMQ+bV3Y5e3QCCSp3BXVxSa639u0xoy/L1/V/zk5N8FuPEy
+	MXeQ3P+/oRwor7AL7mFuwKFhnMDxZF5hT0xsseiAx0j6NTP5kgVj8yx6xJ55dyV2FzQ5ZGWuNvV
+	5LygggI8woUCO28wTC4qPixoSWX1o2ZpYuttMvLsSKqmPtNkEb+6nGD7JvrD/pkmfgXNEfXqwk6
+	hZoq7KQ9qnN8zsMOSQESzGKgS+gHj9eX2mPTtRFiNrMpV9XUphNe7XrhCqr/2DRFK7vmJbGdKqP
+	ZmjzShrrBptuHiMNgQZz84j+jiqrcTSphI74lLwlf/3v7GgLHr5PLXxNIb3mmmfdiTvhF6a0Ay6
+	8Vo2melumMEHSH6SkjZpm8zdRMYg4Hag2CyDkeQZHjMgs9pM=
+X-Google-Smtp-Source: AGHT+IEijHlGceymDYKDl6o4LnhCwxti4p6phzM8aOgYlCUv9bYiElLA/eBJVIACtiNFVUBe0QtYIw==
+X-Received: by 2002:a5d:64e3:0:b0:3a4:df80:7284 with SMTP id ffacd0b85a97d-3a572367931mr11854548f8f.1.1750176090784;
+        Tue, 17 Jun 2025 09:01:30 -0700 (PDT)
+Message-ID: <808044df-5892-43e8-9a35-10f1d9a971c9@suse.com>
+Date: Tue, 17 Jun 2025 18:01:23 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v2 1/5] vVMX: adjust reg_read() for 32-bit guests
+Subject: [PATCH v2 2/5] vVMX: adjust reg_write() for 32-bit guests
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -121,42 +121,37 @@ In-Reply-To: <080f33dc-6381-4b85-8fd5-78e93e265b13@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Using the full 64-bit register values is wrong in this case; especially
-soon after a mode switch from long mode to 32-bit one upper halves of
-registers may continue to be non-zero.
+Using the full 64-bit register values is slightly wrong in this case;
+32-bit writes of registers would normally zero-extend the value to 64
+bits. The difference may be observable after switching (back) to 64-bit
+mode (even if as per the spec upper halves of registers are undefined
+after a mode switch, in reality they retain their values).
 
-Fixes: 09fce8016596 ("Nested VMX: Emulation of guest VMXON/OFF instruction")
+Fixes: 33a7028fec44 ("Nexted VMX: Emulation of guest VMREAD")
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
-Note that the affected VMX insns are invalid to use from compatibility
-mode, and hence the more expensive vmx_guest_x86_mode() doesn't need
-using here. (VMCALL and VMFUNC, which are permitted in compatibility
-mode, aren't taking this path. In fact both aren't dealt with at all
-[explicitly] in vvmx.c.)
+Note that the sole affected VMX insn (VMREAD) is invalid to use from
+compatibility mode, and hence the more expensive vmx_guest_x86_mode()
+doesn't need using here.
 ---
 v2: Add code comment.
 
 --- a/xen/arch/x86/hvm/vmx/vvmx.c
 +++ b/xen/arch/x86/hvm/vmx/vvmx.c
-@@ -360,7 +360,18 @@ enum vmx_insn_errno set_vvmcs_real_safe(
- static unsigned long reg_read(struct cpu_user_regs *regs,
-                               unsigned int index)
+@@ -378,6 +378,14 @@ static void reg_write(struct cpu_user_re
+                       unsigned int index,
+                       unsigned long value)
  {
--    return *decode_gpr(regs, index);
-+    unsigned long val = *decode_gpr(regs, index);
-+
 +    /*
-+     * Outside of 64-bit mode, zero-extend the result from 32 bits, like
-+     * hardware would.
++     * Outside of 64-bit mode, make sure we don't store non-zero upper halves
++     * in GPRs.
 +     * NB: A long-mode check is sufficient here, as insns this logic is used
 +     * for will #UD in compatibility mode (and hence not make it here).
 +     */
 +    if ( !hvm_long_mode_active(current) )
-+        val = (uint32_t)val;
-+
-+    return val;
++        value = (uint32_t)value;
+     *decode_gpr(regs, index) = value;
  }
  
- static void reg_write(struct cpu_user_regs *regs,
 
 
