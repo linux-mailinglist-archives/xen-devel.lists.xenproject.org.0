@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 78B65ADDBE3
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Jun 2025 21:00:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1018468.1395359 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 712CEADDBFA
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Jun 2025 21:03:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1018475.1395371 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uRbXG-0001hP-39; Tue, 17 Jun 2025 18:59:54 +0000
+	id 1uRbaM-0003I9-Ih; Tue, 17 Jun 2025 19:03:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1018468.1395359; Tue, 17 Jun 2025 18:59:54 +0000
+Received: by outflank-mailman (output) from mailman id 1018475.1395371; Tue, 17 Jun 2025 19:03:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uRbXG-0001g0-01; Tue, 17 Jun 2025 18:59:54 +0000
-Received: by outflank-mailman (input) for mailman id 1018468;
- Tue, 17 Jun 2025 18:59:52 +0000
+	id 1uRbaM-0003F2-EJ; Tue, 17 Jun 2025 19:03:06 +0000
+Received: by outflank-mailman (input) for mailman id 1018475;
+ Tue, 17 Jun 2025 19:03:04 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=2Ip9=ZA=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
- id 1uRbXC-0001fu-9G
- for xen-devel@lists.xenproject.org; Tue, 17 Jun 2025 18:59:52 +0000
-Received: from mail-10630.protonmail.ch (mail-10630.protonmail.ch
- [79.135.106.30]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3c89369b-4bad-11f0-a309-13f23c93f187;
- Tue, 17 Jun 2025 20:59:46 +0200 (CEST)
+ id 1uRbaK-0003Ew-LR
+ for xen-devel@lists.xenproject.org; Tue, 17 Jun 2025 19:03:04 +0000
+Received: from mail-10628.protonmail.ch (mail-10628.protonmail.ch
+ [79.135.106.28]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b196e198-4bad-11f0-a309-13f23c93f187;
+ Tue, 17 Jun 2025 21:03:03 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,122 +36,210 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3c89369b-4bad-11f0-a309-13f23c93f187
+X-Inumbo-ID: b196e198-4bad-11f0-a309-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1750186785; x=1750445985;
-	bh=YebZoXWCGUK9x54d9Bs/zn4kf8VJfonuAGPBWlMfrgE=;
+	s=protonmail; t=1750186982; x=1750446182;
+	bh=GXg+ZWBOoLacSfrxkIxkToMvDVjoH881aIfuu/mn5iU=;
 	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
 	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
 	 Message-ID:BIMI-Selector:List-Unsubscribe:List-Unsubscribe-Post;
-	b=I4UqD5U6bmYvOb9j34Tm8P5MVflSLEoKZMa0dZwQX0bpp1oVgbsiiAaaz1Y56HHTG
-	 bSn+TGs+itxqf8eBaTiImqLfzOgxaLrX3xx46PtKFjdkXBktiQJ/RhU5GwvdQuSWyE
-	 tPOXaf7IXu5LBbjTjq2J6HvKGaUeLewwWyM//R9vC9o8zjglzYhUyOd6KCLajWjWTB
-	 5BiguvVnc7YknfAacofGfd9CjDRdGYsbASXasQk6YQiMUNtQv1LFeNNHa/F3TZ8jJH
-	 APbiWfY+C5E118KVXafJQAEv5JzbAiCx1He2zGmVM4pmBzLZPma4gGzeMUwc8EstBi
-	 k+8gibnrWELMQ==
-Date: Tue, 17 Jun 2025 18:59:41 +0000
-To: Michal Orzel <michal.orzel@amd.com>
+	b=h0R/OZLjSa70W3wtrgrr1+c0EEAMUlkobTQOowGNVJxMw7OPSvmRZx5Cogt3P7CQZ
+	 uL6nB7ZNkpW8NB44EG+Dg5qTxCQK78n15iFiWprLFiHmPitTQnkV5eVGDSEH44VUtS
+	 Fp2G24aXNEc9Or+99KnA+AI4LFtTeYfq9YJ+LCimaFrVH/vEfNOaNQzJ65EmxO5gKS
+	 s7oFiaFDftI6XXFXvkNRBm7mx7IuQ5fON8JwxEWjHMBQR78WRMrp7PC6H3ZflYthlE
+	 N3xbppXuJ35zY5IdUIA9YqOdPZneDR92+XycsDdgxQpGVXLHMxEHEZdZO1veIp31Om
+	 H9Y0XXxtjA/qA==
+Date: Tue, 17 Jun 2025 19:02:57 +0000
+To: Jan Beulich <jbeulich@suse.com>
 From: dmkhn@proton.me
-Cc: xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>, Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, =?utf-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH] console: Do not duplicate early printk messages on conring flush
-Message-ID: <aFG7F6vWiQdOJGpO@kraken>
-In-Reply-To: <20250617071940.10445-1-michal.orzel@amd.com>
-References: <20250617071940.10445-1-michal.orzel@amd.com>
+Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, teddy.astie@vates.tech, dmukhin@ford.com, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v2] xen/console: introduce domain_console struct
+Message-ID: <aFG73IuCxpFKChMx@kraken>
+In-Reply-To: <1ac74dd3-e0c5-43e5-9eed-c1a2cc17d068@suse.com>
+References: <20250617012713.57074-1-dmukhin@ford.com> <1ac74dd3-e0c5-43e5-9eed-c1a2cc17d068@suse.com>
 Feedback-ID: 123220910:user:proton
-X-Pm-Message-ID: 419bcdb39540859e55922c88db2fc7af8e49d16b
+X-Pm-Message-ID: cf302f9b224c3a6337c5b5cedef78fe10828da11
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Jun 17, 2025 at 09:19:40AM +0200, Michal Orzel wrote:
-> Commit f6d1bfa16052 introduced flushing conring in console_init_preirq().
-> However, when CONFIG_EARLY_PRINTK is enabled, the early boot messages
-> had already been sent to serial before main console initialization. This
-> results in all the early boot messages being duplicated.
+On Tue, Jun 17, 2025 at 11:48:10AM +0200, Jan Beulich wrote:
+> On 17.06.2025 03:27, dmkhn@proton.me wrote:
+> > From: Denis Mukhin <dmukhin@ford.com>
+> >
+> > Introduce domain_console for grouping data structures used for integrat=
+ing
+> > domain's diagnostic console with Xen's console driver.
+> >
+> > Group all pbuf-related data structures under domain_console. Rename the=
+ moved
+> > fields to plain .buf, .idx and .lock names, since all uses of the field=
+s are
+> > touched.
+> >
+> > Bump the domain console buffer size to the closest power of 2 (256) and
+> > rename the symbol to DOMAIN_CONSOLE_BUF_SIZE.
+> >
+> > Move d->console->buf management under CONFIG_VERBOSE_DEBUG when the
+> > HYPERCALL_console_io handler is enabled.
 >=20
-> Change conring_flush() to accept argument listing devices to which to
-> flush conring. We don't want to send to serial at console initialization
-> when using early printk, but we want these messages to be send at conring
-> dump triggered by keyhandler.
+> This, if at all, needs to be a separate change (with its own justificatio=
+n).
+> I for one don't think VERBOSE_DEBUG is intended to control any kind of gu=
+est
+> output.
 >=20
-> Fixes: f6d1bfa16052 ("xen/console: introduce conring_flush()")
-> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+> > --- a/xen/arch/x86/hvm/hvm.c
+> > +++ b/xen/arch/x86/hvm/hvm.c
+> > @@ -559,7 +559,6 @@ void hvm_do_resume(struct vcpu *v)
+> >  static int cf_check hvm_print_line(
+> >      int dir, unsigned int port, unsigned int bytes, uint32_t *val)
+> >  {
+> > -    struct domain *cd =3D current->domain;
+> >      char c =3D *val;
+> >
+> >      ASSERT(bytes =3D=3D 1 && port =3D=3D XEN_HVM_DEBUGCONS_IOPORT);
+> > @@ -570,17 +569,24 @@ static int cf_check hvm_print_line(
+> >
+> >      if ( !is_console_printable(c) )
+> >          return X86EMUL_OKAY;
+>=20
+> After this "return" ...
+>=20
+> > -
+> > -    spin_lock(&cd->pbuf_lock);
+> > -    if ( c !=3D '\n' )
+> > -        cd->pbuf[cd->pbuf_idx++] =3D c;
+> > -    if ( (cd->pbuf_idx =3D=3D (DOMAIN_PBUF_SIZE - 1)) || (c =3D=3D '\n=
+') )
+> > +#ifdef CONFIG_VERBOSE_DEBUG
+> > +    else
+>=20
+> ... there's no point to have "else" here.
+>=20
+> >      {
+> > -        cd->pbuf[cd->pbuf_idx] =3D '\0';
+> > -        guest_printk(cd, XENLOG_G_DEBUG "%s\n", cd->pbuf);
+> > -        cd->pbuf_idx =3D 0;
+> > +        struct domain *cd =3D current->domain;
+>=20
+> We normally name such a variable d. It also looks as if this could be poi=
+nter-
+> to-const.
+>=20
+> > +        struct domain_console *cons =3D cd->console;
+> > +
+> > +        spin_lock(&cons->lock);
+> > +        if ( c !=3D '\n' )
+> > +            cons->buf[cons->idx++] =3D c;
+> > +        if ( (cons->idx =3D=3D (DOMAIN_CONSOLE_BUF_SIZE - 1)) || (c =
+=3D=3D '\n') )
+> > +        {
+> > +            cons->buf[cons->idx] =3D '\0';
+> > +            guest_printk(cd, XENLOG_G_DEBUG "%s\n", cons->buf);
+> > +            cons->idx =3D 0;
+> > +        }
+> > +        spin_unlock(&cons->lock);
+> >      }
+> > -    spin_unlock(&cd->pbuf_lock);
+> > +#endif
+>=20
+> None of the re-indentation is really warranted here (and will likely go a=
+way
+> anyway once the #ifdef is dropped).
+>=20
+> > --- a/xen/common/domain.c
+> > +++ b/xen/common/domain.c
+> > @@ -669,7 +669,7 @@ static void _domain_destroy(struct domain *d)
+> >      BUG_ON(!d->is_dying);
+> >      BUG_ON(atomic_read(&d->refcnt) !=3D DOMAIN_DESTROYED);
+> >
+> > -    xfree(d->pbuf);
+> > +    xfree(d->console);
+> >
+> >      argo_destroy(d);
+> >
+> > @@ -800,6 +800,11 @@ struct domain *domain_create(domid_t domid,
+> >      if ( (d =3D alloc_domain_struct()) =3D=3D NULL )
+> >          return ERR_PTR(-ENOMEM);
+> >
+> > +    err =3D -ENOMEM;
+> > +    d->console =3D xvzalloc(typeof(*d->console));
+> > +    if ( !d->console )
+> > +        goto fail;
+>=20
+> This definitely need to move down some, at least ...
+>=20
+> >      /* Sort out our idea of is_system_domain(). */
+> >      d->domain_id =3D domid;
+> >      d->unique_id =3D get_unique_id();
+>=20
+> ... past here. There absolutely must not be struct domain instances be
+> passed around (see e.g. the call to sched_destroy_domain()) without the
+> domain ID set. It's hard to see ...
+>=20
+> > @@ -862,7 +867,9 @@ struct domain *domain_create(domid_t domid,
+> >      spin_lock_init(&d->shutdown_lock);
+> >      d->shutdown_code =3D SHUTDOWN_CODE_INVALID;
+> >
+> > -    spin_lock_init(&d->pbuf_lock);
+> > +#ifdef CONFIG_VERBOSE_DEBUG
+> > +    spin_lock_init(&d->console->lock);
+> > +#endif
+>=20
+> .. why here or ...
+>=20
+> > @@ -955,11 +962,6 @@ struct domain *domain_create(domid_t domid,
+> >      if ( (err =3D argo_init(d)) !=3D 0 )
+> >          goto fail;
+> >
+> > -    err =3D -ENOMEM;
+> > -    d->pbuf =3D xzalloc_array(char, DOMAIN_PBUF_SIZE);
+> > -    if ( !d->pbuf )
+> > -        goto fail;
+>=20
+> ... even here wouldn't be early enough anyway.
+>=20
+> And btw - where did this buffer allocation move? I don't see anywhere
+> that d->console->buf would now be initialized. (However, see below.)
+>=20
+> > --- a/xen/include/xen/sched.h
+> > +++ b/xen/include/xen/sched.h
+> > @@ -371,6 +371,22 @@ struct evtchn_port_ops;
+> >
+> >  #define MAX_NR_IOREQ_SERVERS 8
+> >
+> > +/* Arbitrary value; must be a multiple of the cacheline size. */
+> > +#define DOMAIN_CONSOLE_BUF_SIZE 256
+>=20
+> Where does the relationship with cache line size come from? What if
+> Xen was to run on hardware (whichever arch) with 512-byte cache lines?
+>=20
+> > +/* Domain console settings. */
+> > +struct domain_console {
+> > +#ifdef CONFIG_VERBOSE_DEBUG
+> > +    /* hvm_print_line() and guest_console_write() logging. */
+> > +    char *buf;
+>=20
+> To avoid the need to do yet another separate allocation, how about ...
+>=20
+> > +    unsigned int idx;
+> > +    spinlock_t lock;
+> > +#endif /* CONFIG_VERBOSE_DEBUG */
+> > +
+> > +    /* Permission to take ownership of the physical console input. */
+> > +    bool input_allowed;
+>=20
+>     char buf[DOMAIN_CONSOLE_BUF_SIZE];
+>=20
+> Ultimately this would allow the buffer size to be e.g. command line
+> controlled (if so desired), by then simply converting to a flexible
+> array member.
 
-Reviewed-by: Denis Mukhin <dmukhin@ford.com>
+Whoops, apologies for the bogus change.
+Looks like I posted from the wrong branch.
 
-> ---
->  xen/drivers/char/console.c | 20 ++++++++++++++------
->  1 file changed, 14 insertions(+), 6 deletions(-)
 >=20
-> diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
-> index 9a9836ba91e7..5879e31786ba 100644
-> --- a/xen/drivers/char/console.c
-> +++ b/xen/drivers/char/console.c
-> @@ -453,9 +453,9 @@ void console_serial_puts(const char *s, size_t nr)
->  }
->=20
->  /*
-> - * Flush contents of the conring to the physical console devices.
-> + * Flush contents of the conring to the selected console devices.
->   */
-> -static int conring_flush(void)
-> +static int conring_flush(unsigned int flags)
->  {
->      uint32_t idx, len, sofar, c;
->      unsigned int order;
-> @@ -479,7 +479,7 @@ static int conring_flush(void)
->          c +=3D len;
->      }
->=20
-> -    console_send(buf, sofar, CONSOLE_SERIAL | CONSOLE_VIDEO | CONSOLE_PV=
-);
-> +    console_send(buf, sofar, flags);
->=20
->      free_xenheap_pages(buf, order);
->=20
-> @@ -491,7 +491,7 @@ static void cf_check conring_dump_keyhandler(unsigned=
- char key)
->      int rc;
->=20
->      printk("'%c' pressed -> dumping console ring buffer (dmesg)\n", key)=
-;
-> -    rc =3D conring_flush();
-> +    rc =3D conring_flush(CONSOLE_SERIAL | CONSOLE_VIDEO | CONSOLE_PV);
->      if ( rc )
->          printk("failed to dump console ring buffer: %d\n", rc);
->  }
-> @@ -1042,6 +1042,7 @@ void __init console_init_preirq(void)
->  {
->      char *p;
->      int sh;
-> +    unsigned int flags =3D CONSOLE_SERIAL | CONSOLE_VIDEO | CONSOLE_PV;
->=20
->      serial_init_preirq();
->=20
-> @@ -1084,8 +1085,15 @@ void __init console_init_preirq(void)
->      serial_set_rx_handler(sercon_handle, serial_rx);
->      pv_console_set_rx_handler(serial_rx);
->=20
-> -    /* NB: send conring contents to all enabled physical consoles, if an=
-y */
-> -    conring_flush();
-> +    /*
-> +     * NB: send conring contents to all enabled physical consoles, if an=
-y.
-> +     * Skip serial if CONFIG_EARLY_PRINTK is enabled, which means the ea=
-rly
-> +     * messages have already been sent to serial.
-> +     */
-> +    if ( IS_ENABLED(CONFIG_EARLY_PRINTK) )
-> +        flags &=3D ~CONSOLE_SERIAL;
-> +
-> +    conring_flush(flags);
->=20
->      /* HELLO WORLD --- start-of-day banner text. */
->      nrspin_lock(&console_lock);
-> --
-> 2.25.1
->=20
->=20
+> Jan
 
 
