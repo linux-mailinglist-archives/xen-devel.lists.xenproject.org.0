@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF996ADBDE2
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Jun 2025 01:57:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1017584.1394560 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 10C0DADBDEF
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Jun 2025 02:11:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1017591.1394570 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uRJh4-0001rz-3n; Mon, 16 Jun 2025 23:56:50 +0000
+	id 1uRJv2-0005Qq-Lm; Tue, 17 Jun 2025 00:11:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1017584.1394560; Mon, 16 Jun 2025 23:56:50 +0000
+Received: by outflank-mailman (output) from mailman id 1017591.1394570; Tue, 17 Jun 2025 00:11:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uRJh4-0001pz-11; Mon, 16 Jun 2025 23:56:50 +0000
-Received: by outflank-mailman (input) for mailman id 1017584;
- Mon, 16 Jun 2025 23:56:47 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uRJv2-0005Of-J0; Tue, 17 Jun 2025 00:11:16 +0000
+Received: by outflank-mailman (input) for mailman id 1017591;
+ Tue, 17 Jun 2025 00:11:14 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=w0jr=Y7=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1uRJh1-0001pt-PS
- for xen-devel@lists.xenproject.org; Mon, 16 Jun 2025 23:56:47 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8efbd319-4b0d-11f0-a309-13f23c93f187;
- Tue, 17 Jun 2025 01:56:46 +0200 (CEST)
+ <SRS0=hcls=ZA=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1uRJv0-0005OX-Oy
+ for xen-devel@lists.xenproject.org; Tue, 17 Jun 2025 00:11:14 +0000
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 8e4a9f29-4b0f-11f0-b894-0df219b8e170;
+ Tue, 17 Jun 2025 02:11:04 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 33DD35C5B13;
- Mon, 16 Jun 2025 23:54:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B856FC4CEEA;
- Mon, 16 Jun 2025 23:56:42 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 89583449B8;
+ Tue, 17 Jun 2025 00:11:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1DFCCC4CEF5;
+ Tue, 17 Jun 2025 00:11:00 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,94 +41,89 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8efbd319-4b0d-11f0-a309-13f23c93f187
+X-Inumbo-ID: 8e4a9f29-4b0f-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1750118204;
-	bh=WNc/y16cQBeEyfR17QwFLGF9C5XEiwh1M9yAt5oivAg=;
+	s=k20201202; t=1750119062;
+	bh=3u74A8COiJSaIMpap2C2Bqi8TnCI7uNJXIIzENszSyE=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=Uo6MZ/w9Nc8YpiS6NxGElMnUHKcOy476U6R3qpJZNJcjD9ALG6xDnQW5tTyBZqjbh
-	 5zbkoKz24yiM+wgVBAExYX1VIpq282lTl46QMFR9dWIHI48sVLL/QbKhUjzb78eqRJ
-	 DVGikApUyhzj78zccs9GOt+tJicZCUfszVe2Z9+WwoIdVCLugy7ZaySBNGbPj38xsN
-	 5RoBvOQ8oHlO8/AqMNc7KhLWZLqUetDLIsGD3Tts38laSuIsV1DuqRSSQDilwoiBBr
-	 chquD7hPWf9FK3emsdUaG/KplDHyPeI2QxJJrp9B+MGfD1CMvQGeVgRfu+U8txkdTw
-	 IIp9UTQGeqHqg==
-Date: Mon, 16 Jun 2025 16:56:41 -0700 (PDT)
+	b=Wf7FJXu4dSz+pNFuYjgUnU4EQY72h3G86S/1nypz5+nbkJqzyPiQDJv/lj18kwm87
+	 kflGVIa6+kUrd4RKHhGz/6O1ZaWx35T6LGyISnWan0ZuHWEv26s+wSrj0LIOBeIWLt
+	 UIWdwnsFhn0N8329vLscYR9C2zngFc9Wpfp2Q+HrwT5pI+NAgG3QTczPod/Q6WrHT4
+	 kT4M7gxMGk+dGo+XlJxi6tsixiLCyj3zBZKdHXu2BCgXgt27qU4NVd/jzGheMhtI9A
+	 bq0WqQ95pOkFopoJWXTx33pM7yyxB/wEdovKP1fr9XeAMemujMCSukdsZTkbsm4CW7
+	 hvQDHFePXLm+Q==
+Date: Mon, 16 Jun 2025 17:10:59 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Jan Beulich <jbeulich@suse.com>
-cc: Stewart Hildebrand <stewart.hildebrand@amd.com>, 
-    Rahul Singh <rahul.singh@arm.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>, 
-    Michal Orzel <michal.orzel@amd.com>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    Jason Andryuk <jason.andryuk@amd.com>, 
     Andrew Cooper <andrew.cooper3@citrix.com>, 
     Anthony PERARD <anthony.perard@vates.tech>, 
+    Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>, 
     =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    Stefano Stabellini <stefano.stabellini@amd.com>, 
+    "Daniel P. Smith" <dpsmith@apertussolutions.com>, 
     xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v8] xen/arm: pci: introduce PCI_PASSTHROUGH Kconfig
- option
-In-Reply-To: <bf161fea-5b89-40a5-b3da-b5096ea3e09b@suse.com>
-Message-ID: <alpine.DEB.2.22.394.2506161650370.1384757@ubuntu-linux-20-04-desktop>
-References: <20250613154847.317979-1-stewart.hildebrand@amd.com> <3ecf10e5-5df7-4348-85a1-b8eecb940bf8@suse.com> <2e0627fa-35b8-4d3d-a3bc-338f9f7ed61b@amd.com> <bf161fea-5b89-40a5-b3da-b5096ea3e09b@suse.com>
+Subject: Re: [PATCH 4/4] xsm/dummy: Allow hwdom SYSCTL_readconsole/physinfo
+In-Reply-To: <bf6fd680-c608-4d64-ad8f-38eac102991e@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2506161705370.1384757@ubuntu-linux-20-04-desktop>
+References: <20250610225737.469690-1-jason.andryuk@amd.com> <20250610225737.469690-5-jason.andryuk@amd.com> <5f6d43da-2600-4c1c-9bcb-f13e8fce921e@suse.com> <bf6924f8-26c6-4f89-8441-155735384a8a@amd.com> <alpine.DEB.2.22.394.2506131547320.8480@ubuntu-linux-20-04-desktop>
+ <bf6fd680-c608-4d64-ad8f-38eac102991e@suse.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
 On Mon, 16 Jun 2025, Jan Beulich wrote:
-> On 16.06.2025 12:37, Stewart Hildebrand wrote:
-> > On 6/16/25 02:42, Jan Beulich wrote:
-> >> On 13.06.2025 17:17, Stewart Hildebrand wrote:
-> >>> --- a/xen/arch/arm/Kconfig
-> >>> +++ b/xen/arch/arm/Kconfig
-> >>> @@ -8,6 +8,8 @@ config ARM_64
-> >>>  	depends on !ARM_32
-> >>>  	select 64BIT
-> >>>  	select HAS_FAST_MULTIPLY
-> >>> +	select HAS_VPCI_GUEST_SUPPORT if PCI_PASSTHROUGH
-> >>> +	select HAS_PASSTHROUGH if PCI_PASSTHROUGH
+> On 14.06.2025 00:51, Stefano Stabellini wrote:
+> > On Wed, 11 Jun 2025, Jason Andryuk wrote:
+> >> On 2025-06-11 09:27, Jan Beulich wrote:
+> >>> On 11.06.2025 00:57, Jason Andryuk wrote:
+> >>>> Allow the hwdom to access the console, and to access physical
+> >>>> information about the system.
+> >>>>
+> >>>> xenconsoled can read Xen's dmesg.  If it's in hwdom, then that
+> >>>> permission would be required.
+> >>>
+> >>> Why would xenconsoled run in the hardware domain? It's purely a software
+> >>> construct, isn't it? As a daemon, putting it in the control domain may
+> >>> make sense. Otherwise it probably ought to go in a service domain.
 > >>
-> >> Seeing this, I like this as little as I liked ...
-> >>
-> >>> @@ -258,6 +260,12 @@ config PARTIAL_EMULATION
-> >>>  
-> >>>  source "arch/arm/firmware/Kconfig"
-> >>>  
-> >>> +config PCI_PASSTHROUGH
-> >>> +	bool "PCI passthrough" if EXPERT
-> >>> +	depends on ARM_64
-> >>
-> >> ... the form with the select-s put here. I'll (obviously) leave it to the
-> >> Arm maintainers to judge, but my recommendation would be to simply drop
-> >> this patch. As per the description it's merely "make it easier ...",
-> >> which imo doesn't warrant such an abuse of HAS_*.
+> >> My approach has been to transform dom0 into the hardware domain and add a new
+> >> control domain.  xenconsoled was left running in the hardware domain.
 > > 
-> > "easier" was a poor choice of word. "possible" is more accurate. This
-> > patch addresses a real issue: currently the PCI and vPCI bits can't be
-> > built for Arm, allowing build issues to go unnoticed. E.g. see
-> > 4ce671963eb1 ("xen/arm: fix build with HAS_PCI").
+> > I think we should keep xenconsoled in the hardware domain because the
+> > control domain should be just optional. (However, one could say that with
+> > Denis' recent changes xenconsoled is also optional because one can use
+> > console hypercalls or emulators (PL011, NS16550) for all DomUs.)
+> > 
+> > 
+> > 
+> >> I suppose it could move.  Maybe that would be fine?  I haven't tried. The
+> >> Hyperlaunch code populates the console grants to point at the hardware domain,
+> >> and I just followed that.
+> >>
+> >> One aspect of why I left most things running in the Hardware domain was to not
+> >> run things in the Control domain.  If Control is the highest privileged
+> >> entity, we'd rather run software in lower privileged places. Especially
+> >> something like xenconsoled which is receiving data from the domUs.
+> > 
+> > Yes, I agree with Jason. It is a bad idea to run xenconsoled in the
+> > Control Domain because the Control Domain is meant to be safe from
+> > interference. We want to keep the number of potential vehicles for
+> > interference down to a minimum and shared memory between Control Domain
+> > and DomUs is certainly a vehicle for interference.
 > 
-> Which gets us back to the question of whether to use "depends on
-> HAS_PASSTHROUGH" (I think yes then) and where to put the remaining select
-> (might then better move back to the new option).
+> As much as it is when xenconsoled runs in the hardware domain? Especially
+> if the hardware domain is also running e.g. PV backends or qemu instances?
 
-In my opinion, HAS_ options should not be user-configurable but rather
-properties of the architecture. Therefore, I would add HAS_PASSTHROUGH
-to ARM_64 unconditionally. Then I would make PASSTHROUGH
-user-configurable, but dependent on HAS_PASSTHROUGH.
+It looks like you are thinking of the possible
+interference from the Hardware Domain to the Control Domain via
+xenconsoled, correct?
 
-In the rest of the code, we would update the checks to be based on
-PASSTHROUGH instead of HAS_PASSTHROUGH.
+If that is the case, good thinking. I can see that you have really
+understood the essence of the problem we are trying to solve.
 
-That said, this patch is simpler while my suggestion is more invasive.
-Also this patch is at v8 and we shouldn't keep increasing the scope of
-the work for contributors. Finally, I am not certain all maintainers
-would agree with my view I just outlined.
-
-So based on the above, and based on the fact that we certainly need this
-patch or something like it:
-
-Acked-by: Stefano Stabellini <sstabellini@kernel.org>
-
+That is not an issue because the Control Domain shouldn't use PV
+console. Instead, it should use the console hypercall, or the
+PL011/NS16550 emulators in Xen.
 
