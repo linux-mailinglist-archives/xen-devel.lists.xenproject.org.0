@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 51993ADC7EA
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Jun 2025 12:20:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1018069.1394988 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A94EADC878
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Jun 2025 12:36:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1018083.1394998 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uRTQ8-0003xK-0Z; Tue, 17 Jun 2025 10:20:00 +0000
+	id 1uRTfG-00073b-D0; Tue, 17 Jun 2025 10:35:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1018069.1394988; Tue, 17 Jun 2025 10:19:59 +0000
+Received: by outflank-mailman (output) from mailman id 1018083.1394998; Tue, 17 Jun 2025 10:35:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uRTQ7-0003vt-U1; Tue, 17 Jun 2025 10:19:59 +0000
-Received: by outflank-mailman (input) for mailman id 1018069;
- Tue, 17 Jun 2025 10:19:59 +0000
+	id 1uRTfG-000723-93; Tue, 17 Jun 2025 10:35:38 +0000
+Received: by outflank-mailman (input) for mailman id 1018083;
+ Tue, 17 Jun 2025 10:35:36 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=PKBE=ZA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uRTQ7-0003vn-69
- for xen-devel@lists.xenproject.org; Tue, 17 Jun 2025 10:19:59 +0000
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [2a00:1450:4864:20::436])
+ id 1uRTfE-00071x-K0
+ for xen-devel@lists.xenproject.org; Tue, 17 Jun 2025 10:35:36 +0000
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [2a00:1450:4864:20::434])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9eb4b530-4b64-11f0-a309-13f23c93f187;
- Tue, 17 Jun 2025 12:19:58 +0200 (CEST)
-Received: by mail-wr1-x436.google.com with SMTP id
- ffacd0b85a97d-3a52874d593so5350683f8f.0
- for <xen-devel@lists.xenproject.org>; Tue, 17 Jun 2025 03:19:58 -0700 (PDT)
+ id cd8d3bb9-4b66-11f0-a309-13f23c93f187;
+ Tue, 17 Jun 2025 12:35:35 +0200 (CEST)
+Received: by mail-wr1-x434.google.com with SMTP id
+ ffacd0b85a97d-3a510432236so4016107f8f.0
+ for <xen-devel@lists.xenproject.org>; Tue, 17 Jun 2025 03:35:35 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2365deb23e9sm76102845ad.187.2025.06.17.03.19.53
+ 98e67ed59e1d1-313c1b499c0sm10193516a91.29.2025.06.17.03.35.28
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 17 Jun 2025 03:19:56 -0700 (PDT)
+ Tue, 17 Jun 2025 03:35:34 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9eb4b530-4b64-11f0-a309-13f23c93f187
+X-Inumbo-ID: cd8d3bb9-4b66-11f0-a309-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1750155597; x=1750760397; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1750156535; x=1750761335; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=S4yCxuBD3RxG17f6d6WlqGN28gipJrYWH+YwyKTSXdg=;
-        b=YrFp4B6oE92t5ZKmz22i4C7jL8HAnxpmyJGnK80UwWG7JBlWT8F1CA3vD1orkNKDMQ
-         2eoksdcV+HJQaLlrqWZTFdvyTB4kGStxoGbYXZIi9CYHWG8hwiSl1zj2QKAp10Hplo9w
-         5em35gB3PjxQhN7S40Gx0B5fDWoa1bAKbMTD4ylXmwD03bNQ2zHbvk4RlTcEhDaqZD1B
-         SxnLUZ14X90SKXyhjDqSCvynJ0hhts5zNgXJTb42iCXIlb01+oPajiSzWzgGAMQQbriF
-         xRXzstFQyVRiVM1iYO12s55BHShRCknJxQC18UCBRBcEqk6WzvqyrAr+sV4gKAnrA8wb
-         +11w==
+        bh=XQQTrRfNHm7CV2lqUXXSjbBc03p0TU3sjU6o7uzbLf0=;
+        b=NU9Wa9u3wIEVOpXXPUQNKi9nDou1s34AMrwEu8puyNuTHYRp3b1sO6AFliDVURLUHs
+         IlzEdm+zn4TaUnq7jp9ZYJdFmcKXb6eqabDUXxQW09XEpWWdaBVoefNhB7IrojiJrO8y
+         JY2g31n8ZeE7BtFV67Fz/fdOQEI6MOqx5/hts2RSQk/IyYawqgyW/E5R9DCfrOyRf818
+         5uOe+Sms9QYhoyZo4yTsKXGsekjHMpTNcH9g9m4GOxYBv4aZOqqGPx0koT8tMDhTpAiv
+         zWRQRYFO0JNBMRvmISbJePeeaYMF5BIP4NyHeDVG/Jeg9QnPQFLbeL5dG7btmUhsriqD
+         syzw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750155597; x=1750760397;
+        d=1e100.net; s=20230601; t=1750156535; x=1750761335;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=S4yCxuBD3RxG17f6d6WlqGN28gipJrYWH+YwyKTSXdg=;
-        b=XyC1yaRjIpGVnJgRVzbqO2ICynvLnSwVLYfd0PkFjPmjbNqa/Tri0MQOUnkKWwKcUl
-         RCAEWH1j31cwMJi3QDOVf8AIkggXzHGX21Hg8RVrU6BIbRQ82EtfrBdgIRouwJ2daP6g
-         QuZFiUz1dB0+FVK4Sd8SJbyRtrDmLUJ4XzabrhHJaY5N83LH68+bof72Q77NwS3vOt7R
-         xluuXswRqMxhqQzKktYSGY3dE4QsYAUKcygT4Lim4gHyHKdJNrB+Y5TQThJQMTfsGLvw
-         p0Xe1PCfOK1UmgXSMgVrRxAMRP3CqH/7KoYiOjO+7GRWeG/k7Tyx70MBu8+dWjzlqIZ8
-         5h/A==
-X-Forwarded-Encrypted: i=1; AJvYcCV45ycniBR1U7KaJiD5zrnCEN68X+Zi2LoIxxiMclNbPvDHCCPdbEQ4QvlsRS5qnkOqRQzX3BsZ0gQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yx+xRom217YA2rIwBfYdvvyb20yJMNRYU0HSTcmGHR35JfQ+BKs
-	9fIG3ofLkN7MD4HZrBEeUn8f8QiaqVANQe1YV8aYYJYqt7CaP7gdV9bANyFBMM/VXA==
-X-Gm-Gg: ASbGncuaczncP9C/pDmiiUgLbrTAFOoByy6FHHGwqsVDgBJMhNLrgTlCCb2ncwg+cDz
-	04FBawaWdWBxsl1nXM8dkY2BoHZhZ2MgaEYcl0CniF1FdiiufTQmYfWNvAFZhfZWBP/GY4kgkNJ
-	oSPg+V8zPfd6N7MVzC3XqJpbaRTySTInNqkKFgrfFoOl1D0MYb3owURThP2PI6ddATpEkUCh8YT
-	8XOdMPX/K7io1r4IzI5oNbdV9N6A4E5h1C6cXeE0EIydPUwjbsWJUWPtggJ2TLsG2f1W6N7axSf
-	YqmUB9sPexvO4nyoNqtGgTWZNTZSOsojc63f91CwNxfiYuGq8U7hhXRXBdTZ5tN3yt0COyqLQzr
-	DXcwzbvzS2mpsb02Pk99rH0ZbFnhap/Hu9dLtSkarA7zjljI=
-X-Google-Smtp-Source: AGHT+IFQVKF57mxSgD1K19/rbXGej4+5ZqdW/keihxrMZ0Zth8kxWqY84u/yFny1bzHojvJ1VqOE1Q==
-X-Received: by 2002:a05:6000:2913:b0:3a3:71cb:f0bd with SMTP id ffacd0b85a97d-3a57237de18mr10384947f8f.23.1750155597430;
-        Tue, 17 Jun 2025 03:19:57 -0700 (PDT)
-Message-ID: <30bee151-2cb4-4072-a299-d3725be8fe7d@suse.com>
-Date: Tue, 17 Jun 2025 12:19:50 +0200
+        bh=XQQTrRfNHm7CV2lqUXXSjbBc03p0TU3sjU6o7uzbLf0=;
+        b=OZJNb+jIZCWpi2neOxTR6sjDkedg/eUF/w0supcFGXdLjJTHS5bP8MA8+6dHZSD4Ym
+         oKh4FWykO5zw0EyZn+bsURY65Y+SP74Fb+5xjN0Pw85tW4S9dpZR+Jin1xO1iKXVK/8B
+         us08b+49zViczHBB3VoGXCPWpVkkRufon4m7ECNyD2406Xfnypa3nFrCgnfa0kvrhhgC
+         30EUTPSEvcAwcdA9lJiScVn3P+Oz68scA86m7yCwudHk/V6W3+AhxYYvquUHlo5dWcik
+         8MlpkjWRrGTAnLRFz1+iHVAG2xem+b96BfyHpcpw80h9zF0RE7aifAM48QZtvy89HIfm
+         cWsA==
+X-Forwarded-Encrypted: i=1; AJvYcCW0fL3cLrB1ANvZiwmXnfAK700FkhPmvznssZZF2ZPq7yDmEgF1A7RdnO5yJIljsfwbEggN4HuYYkA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzEeWhcX8Y7cDhLAYNxMAuuN76a6xtjDNtPktk7Kqhm3SKLPoet
+	udnAXXyW2FwYCbLIs3c3qeCkHqUyD5pYqe5KI3UN+eWAzHgZl2ydxXZbUes3VdsCBQ==
+X-Gm-Gg: ASbGnctEsBKhb1/4lH6cpjCUiJ94z+D5pjkBIs8ab0o/jUymnsbTjSQ2CFghZzHbPsk
+	l7QZ+GPnEm7IoVA4LHwwpoj6Eg99LVrOUJUP9zB8PRiQCOdOjshq8Q+DNQTWLx9HcW8slZZx5f6
+	SqxKb0h8kCMy4s9eMQwrp0mnQa6X8dhPDRvOAEMFQpUTQnts7fCkRFFMv+hJeWcDMeWscFDb5K8
+	zRUG0kvJ26zykX9XOetbkxMmXh+t0wTxssq8wIlV2hlPMQ6PNFl4azp9ZUVSW4UwTpiwIV+s9ZY
+	5KQyI4rNt9R1IL2a0QqSqA8Tu2OH6rqlVAl1dZhUBrhE3+VWvp38U73pQzGMaydGdqt9aMK6fkJ
+	eKfNz+k/HQK76AniWNunwyVs7XyNWyrPAYFR1hV6UN5K6Bi8=
+X-Google-Smtp-Source: AGHT+IErWHAQwd1+eTfJ4ks1U/1/HXuh1ZJkT9hgyE1ZzOedz1B01JaOLTrNfJEVRDDaTiuGMMmKng==
+X-Received: by 2002:a05:6000:188b:b0:3a4:f379:65bc with SMTP id ffacd0b85a97d-3a572e79551mr10001142f8f.40.1750156534873;
+        Tue, 17 Jun 2025 03:35:34 -0700 (PDT)
+Message-ID: <c536fce6-f776-44c9-babf-aa48de82988a@suse.com>
+Date: Tue, 17 Jun 2025 12:35:24 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 15/18] xen/cpufreq: bypass governor-related para for
- amd-cppc-epp
+Subject: Re: [PATCH v5 14/18] xen/cpufreq: introduce GET_CPUFREQ_CPPC sub-cmd
 To: Penny Zheng <Penny.Zheng@amd.com>
 Cc: ray.huang@amd.com, Anthony PERARD <anthony.perard@vates.tech>,
- xen-devel@lists.xenproject.org
+ Juergen Gross <jgross@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <20250527084833.338427-1-Penny.Zheng@amd.com>
- <20250527084833.338427-16-Penny.Zheng@amd.com>
+ <20250527084833.338427-15-Penny.Zheng@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -119,40 +121,39 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250527084833.338427-16-Penny.Zheng@amd.com>
+In-Reply-To: <20250527084833.338427-15-Penny.Zheng@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 27.05.2025 10:48, Penny Zheng wrote:
-> --- a/xen/drivers/acpi/pmstat.c
-> +++ b/xen/drivers/acpi/pmstat.c
-> @@ -253,7 +253,8 @@ static int get_cpufreq_para(struct xen_sysctl_pm_op *op)
->      else
->          strlcpy(op->u.get_para.scaling_driver, "Unknown", CPUFREQ_NAME_LEN);
+> --- a/xen/include/public/sysctl.h
+> +++ b/xen/include/public/sysctl.h
+> @@ -462,7 +462,6 @@ struct xen_get_cpufreq_para {
+>                  struct  xen_ondemand ondemand;
+>              } u;
+>          } s;
+> -        struct xen_cppc_para cppc_para;
+>      } u;
 >  
-> -    if ( !hwp_active() )
-> +    /* bypass hwp and amd-cppc-epp driver */
-
-Nit (comment style): Want to start with a capital letter. See ./CODING_STYLE.
-
-> +    if ( !hwp_active() && cpufreq_driver.setpolicy == NULL )
-
-We generally prefer the shorter "!cpufreq_driver.setpolicy".
-
-And then - is using the presence of that hook really a good criteria to use
-here (and below)?
-
-> @@ -346,7 +347,8 @@ static int set_cpufreq_para(struct xen_sysctl_pm_op *op)
->      if ( !policy || !policy->governor )
->          return -EINVAL;
+>      int32_t turbo_enabled;
+> @@ -493,6 +492,7 @@ struct xen_sysctl_pm_op {
+>      #define SET_CPUFREQ_PARA           (CPUFREQ_PARA | 0x03)
+>      #define GET_CPUFREQ_AVGFREQ        (CPUFREQ_PARA | 0x04)
+>      #define SET_CPUFREQ_CPPC           (CPUFREQ_PARA | 0x05)
+> +    #define GET_CPUFREQ_CPPC           (CPUFREQ_PARA | 0x06)
 >  
-> -    if ( hwp_active() )
-> +    /* bypass hwp and amd-cppc-epp driver */
-> +    if ( hwp_active() || cpufreq_driver.setpolicy == NULL )
->          return -EOPNOTSUPP;
+>      /* set/reset scheduler power saving option */
+>      #define XEN_SYSCTL_pm_op_set_sched_opt_smt    0x21
+> @@ -517,6 +517,7 @@ struct xen_sysctl_pm_op {
+>      uint32_t cpuid;
+>      union {
+>          struct xen_get_cpufreq_para get_para;
+> +        struct xen_cppc_para        cppc_para;
+>          struct xen_set_cpufreq_gov  set_gov;
+>          struct xen_set_cpufreq_para set_para;
+>          struct xen_set_cppc_para    set_cppc;
 
-Isn't this the wrong way round? I.e. don't you mean "!= NULL" (or the equivalent
-thereof) here?
+Imo with the move and new use, the struct wants to become xen_get_cppc_para.
 
 Jan
 
