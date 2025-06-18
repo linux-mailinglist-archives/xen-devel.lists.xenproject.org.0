@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C088ADF3DD
-	for <lists+xen-devel@lfdr.de>; Wed, 18 Jun 2025 19:32:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1019368.1396162 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 677F8ADF634
+	for <lists+xen-devel@lfdr.de>; Wed, 18 Jun 2025 20:47:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1019414.1396172 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uRweJ-0004tB-Dl; Wed, 18 Jun 2025 17:32:35 +0000
+	id 1uRxo4-0005W3-I0; Wed, 18 Jun 2025 18:46:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1019368.1396162; Wed, 18 Jun 2025 17:32:35 +0000
+Received: by outflank-mailman (output) from mailman id 1019414.1396172; Wed, 18 Jun 2025 18:46:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uRweJ-0004rG-Am; Wed, 18 Jun 2025 17:32:35 +0000
-Received: by outflank-mailman (input) for mailman id 1019368;
- Wed, 18 Jun 2025 17:32:34 +0000
+	id 1uRxo4-0005Td-ES; Wed, 18 Jun 2025 18:46:44 +0000
+Received: by outflank-mailman (input) for mailman id 1019414;
+ Wed, 18 Jun 2025 18:46:42 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=I41v=ZB=linaro.org=dan.carpenter@srs-se1.protection.inumbo.net>)
- id 1uRweI-0004rA-30
- for xen-devel@lists.xenproject.org; Wed, 18 Jun 2025 17:32:34 +0000
-Received: from mail-oi1-x22d.google.com (mail-oi1-x22d.google.com
- [2607:f8b0:4864:20::22d])
+ <SRS0=E1LN=ZB=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
+ id 1uRxo2-0005TX-Bw
+ for xen-devel@lists.xenproject.org; Wed, 18 Jun 2025 18:46:42 +0000
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [2a00:1450:4864:20::32e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 36e03354-4c6a-11f0-a30b-13f23c93f187;
- Wed, 18 Jun 2025 19:32:32 +0200 (CEST)
-Received: by mail-oi1-x22d.google.com with SMTP id
- 5614622812f47-4067ac8f6cdso5082943b6e.2
- for <xen-devel@lists.xenproject.org>; Wed, 18 Jun 2025 10:32:32 -0700 (PDT)
-Received: from localhost ([2603:8080:b800:f700:1b3b:c162:aefa:da1b])
- by smtp.gmail.com with ESMTPSA id
- 5614622812f47-40a740c2484sm2410989b6e.13.2025.06.18.10.32.29
+ id 92b4bba5-4c74-11f0-a30b-13f23c93f187;
+ Wed, 18 Jun 2025 20:46:41 +0200 (CEST)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-451d3f72391so80843765e9.3
+ for <xen-devel@lists.xenproject.org>; Wed, 18 Jun 2025 11:46:41 -0700 (PDT)
+Received: from localhost.localdomain (253.226.6.51.dyn.plus.net.
+ [51.6.226.253]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4535e97a908sm5006575e9.4.2025.06.18.11.46.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 18 Jun 2025 10:32:30 -0700 (PDT)
+ Wed, 18 Jun 2025 11:46:39 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,127 +45,101 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 36e03354-4c6a-11f0-a30b-13f23c93f187
+X-Inumbo-ID: 92b4bba5-4c74-11f0-a30b-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1750267951; x=1750872751; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:message-id:subject:cc
-         :to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=JPaDHCf4QQfYtlFAEXP1n0ACjJsy8xyFFkSONW+4dVI=;
-        b=fcoyYa5/vgLStJBGnfJQzsf080XXodxKAVM49xiYCaZnK6LO5HI0ogtMpnn5VlNFMd
-         +5kaBmNTDnkXlkD++wvqsQ2Q2oqREOQg6CCPXpdCfp1vqcceF0OZqlPBU6l28Aa63dC+
-         Ir3LhxB3RqXglRFa0jku34hcOYX5RWSs/c4IaE5XMjXo5Tj3AvktjybOXjBP1yphFQCq
-         zRjm/IcYTTjFbq1vTW8pTtNWRPeDlNjE5pv+1smuESRCQaXkEtodZSNNxRgulLDHLpoK
-         vRxJHDnldSN7BF3ZywXniOiHIvzP7mLpNNwaERd5RJcTjHuPA+G4qO/a+zQVZLhW99wF
-         4udg==
+        d=cloud.com; s=cloud; t=1750272400; x=1750877200; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=gcqH3k8zjSFrQGMmoyr07/3rVkK+y+EfDXKcgz6xL+Q=;
+        b=bT25kaTqfo8heRjloKlrz2HJC+p+x69HRQSQh+vs+Vb1xYVJCUm58NmP/jtlTZs0Wz
+         cosAqxMLGj4Z1LfaJOYUowU1CjmY8vHMsxERLPwwiRXoqe4Q+zaFFKoazxwgd5rgtneB
+         dB/U69av2arKuPCcaqGPGF/MBmRpEUceIyKKA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750267951; x=1750872751;
-        h=in-reply-to:content-disposition:mime-version:message-id:subject:cc
-         :to:from:date:x-gm-message-state:from:to:cc:subject:date:message-id
+        d=1e100.net; s=20230601; t=1750272400; x=1750877200;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=JPaDHCf4QQfYtlFAEXP1n0ACjJsy8xyFFkSONW+4dVI=;
-        b=LMyCeWCk6Rkxd9SMuQQUx5H2cM3Mf36AY0zmg+HsZJJEsRz12e//+e+Apx3rXWp27B
-         SxEwgR7TT7ZzmHaVSgI7642TFks4v8eLbMmgLB3106HaHawEQoNGSiUZq3XXJesebLmj
-         I3C4yhb7MZ3f+YI/9/1LLkGe7kgye5MNa2sV2qYi60HVvLrsICfmAV5doWNu0ewjXkSf
-         RNwsgEpfqXUBoCHRd7EDGH2Ba92N5WDB6EljtC88dWIDQrn4tdgn3uPx3SNuE6kYmBDu
-         o826KqsZWoIsA8iXkWOUpjar3SKgw6VbdVLBKunQvyaIy3T6+xQ1kZSBnqrYArjMIhwR
-         JdvA==
-X-Forwarded-Encrypted: i=1; AJvYcCWzHospFtjRMANgUGDPnluQlQeNhwQDL1tWv3AQogoKR0nidmdC6Lu7NogxhJsRDwtNa8XTmkHzdLw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YykAk6QUbd4M1+ut1UKf3mcL57/ln8Hf5g7/5dROSoCgzz766MO
-	waoml8qeJTEBrsy0DA/2UVb/xBco2btnBONnOo4M3ph5DGjubztqcyJjlhGcqJC4rME=
-X-Gm-Gg: ASbGnctpUR0L0AxNSni8im15r6cVtenryV1gCQmkLqBfJwobvmA/6K8XU5kX34Gm3KR
-	8CSPzF7IQ9HYHw/DCZ22kkFwTOP0htCw/+AIpMO06+hPWhIMu75g6gjxunOulvlMfCc2kVCpygz
-	rLmEkcnXiWo10jS1GHVvzG3bSfO0uTUJQQgRs2ZSZR/ior6GId1KuSDcxdral41e3pqlQDH2HH1
-	S+X1uAJz20AEXbzhSi1Psko9DvuqFzZQVAvtDkaGh2CKVwGNyUfa/zhPfF83dOBxLmdBqdJTJYc
-	J3nT9e7z9pRwufrtY/0OcIutUFeTop8hwqLcVFAMxT6+ZQYvxmrE9zaRLtUuwxQYISHEcw==
-X-Google-Smtp-Source: AGHT+IEhmsXj/9aFuinmgp9fFM5zxL8AzdLs118MWezycsaLkbKoWiwnYgYHLgU6A9s7/1JQmPa7zA==
-X-Received: by 2002:a05:6808:1523:b0:403:5150:c348 with SMTP id 5614622812f47-40a7c11902fmr11343414b6e.4.1750267951380;
-        Wed, 18 Jun 2025 10:32:31 -0700 (PDT)
-Date: Wed, 18 Jun 2025 20:32:28 +0300
-From: Dan Carpenter <dan.carpenter@linaro.org>
-To: oe-kbuild@lists.linux.dev, Alexander Gordeev <agordeev@linux.ibm.com>,
-	Andrew Morton <akpm@linux-foundation.org>
-Cc: lkp@intel.com, oe-kbuild-all@lists.linux.dev,
-	Linux Memory Management List <linux-mm@kvack.org>,
-	linux-kernel@vger.kernel.org, sparclinux@vger.kernel.org,
-	xen-devel@lists.xenproject.org, linuxppc-dev@lists.ozlabs.org,
-	linux-s390@vger.kernel.org, Hugh Dickins <hughd@google.com>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Guenter Roeck <linux@roeck-us.net>, Juergen Gross <jgross@suse.com>,
-	Jeremy Fitzhardinge <jeremy@goop.org>,
-	Ryan Roberts <ryan.roberts@arm.com>
-Subject: Re: [PATCH 2/6] mm: Lock kernel page tables before entering lazy MMU
- mode
-Message-ID: <0be7d42e-5898-4b94-829b-59c661c2f07b@suswa.mountain>
+        bh=gcqH3k8zjSFrQGMmoyr07/3rVkK+y+EfDXKcgz6xL+Q=;
+        b=X1mqymSginC4EcI5Iaz2LoxJjDIKw9ESQflzQMz62KO4ZwRDReZGuM3xfGxyL6MsUv
+         Hm/Z8EhqbMpG6QEKcYFivuSaPQj6YiEqgSqeX653cxUjE8nc5jzXbyH+8U7At2kCY1Zd
+         ohd29Zv0HZ0kBdr1PE432/MrgR2HAwSGx6hB4sOtiDCS80SQR1QFIIYuMT/gTaPBIYaZ
+         h+fD5nK+4VQ/zoy8JmJtdlRK43lyFlUo2twvFnoJQwRXnB5OPkB+oOrz2BYtlyrLpwLh
+         Dvm2wkgD4WYpF3JTx88FjBU0hwiykw8uegKdSbc//JgeBmRLDmY2X0l0+KIn8AacwpoA
+         uDqQ==
+X-Gm-Message-State: AOJu0Yyubpsw8zMvW6SjhZsKeIfzwyiFKQ898Ad0OnfDjHlOe05jHZmN
+	b4U7dTA5lGQXgbbOAeWpVFD4oDEYxNLozuetPus9iHO902+zPnA7rklGpyBQv63DYEFOH7sC8se
+	1NyCY/aNKYg==
+X-Gm-Gg: ASbGncsBjvlqmuq/xw9WppM4fvqx1N+pBWrNP/WCUb5iPo0I0gZ05VWBfMZuGVV0VkS
+	e9We2MOc8gFOYw2bsfTxRPVeaDOtzfOfNPbyZ5cH93eOFUtGWpbMCf35jzsmUE1Lgm6DBz1yQyO
+	CyVUo+C7mqgoQBhPmC/V27ZHb99hd71ibeZIk8o3kCvKqviiJEsL/FMiQq1jMnxEUKACZE6L50Y
+	UA4+IvcXyR7JI8QxeBdiU+FodZV0GTQkpvXWBtfET8+rGsOIwyntvA0qQ+qAkrCdwROSP+SYL80
+	SyBNVO8/CgRUANvzvDpmGLVROw1hi/1+RE0z2ND6KqCZB3sfjWhMP/BRejKuixZ015xDkiZtLuo
+	27yAWyxZGyDahAyJpTjaOgmvEKe5rlw==
+X-Google-Smtp-Source: AGHT+IEc/jZxYa+Aek0eFvpZ+XrPQ7Hx6SKGW7SUdJoiaO8ulO/MqOd3iQjmyJJJPIOMpURg0t2aXg==
+X-Received: by 2002:a05:600c:5490:b0:453:8a6:d8de with SMTP id 5b1f17b1804b1-4533ca5e5a3mr153635145e9.1.1750272400286;
+        Wed, 18 Jun 2025 11:46:40 -0700 (PDT)
+From: Frediano Ziglio <frediano.ziglio@cloud.com>
+To: xen-devel@lists.xenproject.org
+Cc: Frediano Ziglio <frediano.ziglio@cloud.com>,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] xen/efi: Do not check kernel signature if it was embedded
+Date: Wed, 18 Jun 2025 19:46:28 +0100
+Message-ID: <20250618184631.15489-1-frediano.ziglio@cloud.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <7bd3a45dbc375dc2c15cebae09cb2bb972d6039f.1749747752.git.agordeev@linux.ibm.com>
+Content-Transfer-Encoding: 8bit
 
-Hi Alexander,
+Using UKI it's possible to embed Linux kernel into xen.efi file.
+In this case the signature for Secure Boot is applied to the
+whole xen.efi, including the kernel.
+So checking for specific signature for the kernel is not
+needed.
+In case Secure Boot is not enabled there's no reason to check
+kernel signature.
 
-kernel test robot noticed the following build warnings:
+Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
+---
+ xen/common/efi/boot.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Alexander-Gordeev/mm-Cleanup-apply_to_pte_range-routine/20250613-013835
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm.git mm-everything
-patch link:    https://lore.kernel.org/r/7bd3a45dbc375dc2c15cebae09cb2bb972d6039f.1749747752.git.agordeev%40linux.ibm.com
-patch subject: [PATCH 2/6] mm: Lock kernel page tables before entering lazy MMU mode
-config: x86_64-randconfig-161-20250613 (https://download.01.org/0day-ci/archive/20250613/202506132017.T1l1l6ME-lkp@intel.com/config)
-compiler: gcc-12 (Debian 12.2.0-14) 12.2.0
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Reported-by: Dan Carpenter <dan.carpenter@linaro.org>
-| Closes: https://lore.kernel.org/r/202506132017.T1l1l6ME-lkp@intel.com/
-
-smatch warnings:
-mm/vmalloc.c:552 vmap_pages_pte_range() warn: inconsistent returns 'global &init_mm.page_table_lock'.
-
-vim +552 mm/vmalloc.c
-
-0a264884046f1ab Nicholas Piggin   2021-04-29  517  static int vmap_pages_pte_range(pmd_t *pmd, unsigned long addr,
-2ba3e6947aed9bb Joerg Roedel      2020-06-01  518  		unsigned long end, pgprot_t prot, struct page **pages, int *nr,
-2ba3e6947aed9bb Joerg Roedel      2020-06-01  519  		pgtbl_mod_mask *mask)
-^1da177e4c3f415 Linus Torvalds    2005-04-16  520  {
-^1da177e4c3f415 Linus Torvalds    2005-04-16  521  	pte_t *pte;
-^1da177e4c3f415 Linus Torvalds    2005-04-16  522  
-db64fe02258f150 Nicholas Piggin   2008-10-18  523  	/*
-db64fe02258f150 Nicholas Piggin   2008-10-18  524  	 * nr is a running index into the array which helps higher level
-db64fe02258f150 Nicholas Piggin   2008-10-18  525  	 * callers keep track of where we're up to.
-db64fe02258f150 Nicholas Piggin   2008-10-18  526  	 */
-db64fe02258f150 Nicholas Piggin   2008-10-18  527  
-2ba3e6947aed9bb Joerg Roedel      2020-06-01  528  	pte = pte_alloc_kernel_track(pmd, addr, mask);
-^1da177e4c3f415 Linus Torvalds    2005-04-16  529  	if (!pte)
-^1da177e4c3f415 Linus Torvalds    2005-04-16  530  		return -ENOMEM;
-44562c71e2cfc9e Ryan Roberts      2025-04-22  531  
-dac0cc793368851 Alexander Gordeev 2025-06-12  532  	spin_lock(&init_mm.page_table_lock);
-44562c71e2cfc9e Ryan Roberts      2025-04-22  533  	arch_enter_lazy_mmu_mode();
-44562c71e2cfc9e Ryan Roberts      2025-04-22  534  
-^1da177e4c3f415 Linus Torvalds    2005-04-16  535  	do {
-db64fe02258f150 Nicholas Piggin   2008-10-18  536  		struct page *page = pages[*nr];
-db64fe02258f150 Nicholas Piggin   2008-10-18  537  
-c33c794828f2121 Ryan Roberts      2023-06-12  538  		if (WARN_ON(!pte_none(ptep_get(pte))))
-db64fe02258f150 Nicholas Piggin   2008-10-18  539  			return -EBUSY;
-db64fe02258f150 Nicholas Piggin   2008-10-18  540  		if (WARN_ON(!page))
-^1da177e4c3f415 Linus Torvalds    2005-04-16  541  			return -ENOMEM;
-4fcdcc12915c707 Yury Norov        2022-04-28  542  		if (WARN_ON(!pfn_valid(page_to_pfn(page))))
-4fcdcc12915c707 Yury Norov        2022-04-28  543  			return -EINVAL;
-
-These error paths don't unlock &init_mm.page_table_lock?
-
-4fcdcc12915c707 Yury Norov        2022-04-28  544  
-^1da177e4c3f415 Linus Torvalds    2005-04-16  545  		set_pte_at(&init_mm, addr, pte, mk_pte(page, prot));
-db64fe02258f150 Nicholas Piggin   2008-10-18  546  		(*nr)++;
-^1da177e4c3f415 Linus Torvalds    2005-04-16  547  	} while (pte++, addr += PAGE_SIZE, addr != end);
-44562c71e2cfc9e Ryan Roberts      2025-04-22  548  
-44562c71e2cfc9e Ryan Roberts      2025-04-22  549  	arch_leave_lazy_mmu_mode();
-dac0cc793368851 Alexander Gordeev 2025-06-12  550  	spin_unlock(&init_mm.page_table_lock);
-2ba3e6947aed9bb Joerg Roedel      2020-06-01  551  	*mask |= PGTBL_PTE_MODIFIED;
-^1da177e4c3f415 Linus Torvalds    2005-04-16 @552  	return 0;
-^1da177e4c3f415 Linus Torvalds    2005-04-16  553  }
-
+diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
+index e39fbc3529..7077af3f5d 100644
+--- a/xen/common/efi/boot.c
++++ b/xen/common/efi/boot.c
+@@ -1291,6 +1291,7 @@ void EFIAPI __init noreturn efi_start(EFI_HANDLE ImageHandle,
+     bool base_video = false;
+     const char *option_str;
+     bool use_cfg_file;
++    bool kernel_was_verified = false;
+     int dt_modules_found;
+ 
+     __set_bit(EFI_BOOT, &efi_flags);
+@@ -1461,6 +1462,14 @@ void EFIAPI __init noreturn efi_start(EFI_HANDLE ImageHandle,
+             read_file(dir_handle, s2w(&name), &kernel, option_str);
+             efi_bs->FreePool(name.w);
+         }
++        else
++        {
++            /*
++             * As kernel was embedded it was either verified for Secure Boot
++             * or Secure Boot is not enabled.
++             */
++            kernel_was_verified = true;
++        }
+ 
+         if ( !read_section(loaded_image, L"ramdisk", &ramdisk, NULL) )
+         {
+@@ -1534,6 +1543,7 @@ void EFIAPI __init noreturn efi_start(EFI_HANDLE ImageHandle,
+      * verify it.
+      */
+     if ( kernel.ptr &&
++         !kernel_was_verified &&
+          !EFI_ERROR(efi_bs->LocateProtocol(&shim_lock_guid, NULL,
+                                            (void **)&shim_lock)) &&
+          (status = shim_lock->Verify(kernel.ptr, kernel.size)) != EFI_SUCCESS )
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+2.43.0
 
 
