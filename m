@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33844ADE853
-	for <lists+xen-devel@lfdr.de>; Wed, 18 Jun 2025 12:18:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1019028.1395888 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E595EADE8E0
+	for <lists+xen-devel@lfdr.de>; Wed, 18 Jun 2025 12:28:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1019039.1395897 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uRprm-0003Yv-HS; Wed, 18 Jun 2025 10:18:02 +0000
+	id 1uRq1d-0005P2-H2; Wed, 18 Jun 2025 10:28:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1019028.1395888; Wed, 18 Jun 2025 10:18:02 +0000
+Received: by outflank-mailman (output) from mailman id 1019039.1395897; Wed, 18 Jun 2025 10:28:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uRprm-0003WT-El; Wed, 18 Jun 2025 10:18:02 +0000
-Received: by outflank-mailman (input) for mailman id 1019028;
- Wed, 18 Jun 2025 10:18:00 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uRq1d-0005Mr-Dh; Wed, 18 Jun 2025 10:28:13 +0000
+Received: by outflank-mailman (input) for mailman id 1019039;
+ Wed, 18 Jun 2025 10:28:11 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=FBi2=ZB=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uRprk-0003WN-Qf
- for xen-devel@lists.xenproject.org; Wed, 18 Jun 2025 10:18:00 +0000
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [2a00:1450:4864:20::42a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 81e95848-4c2d-11f0-a30a-13f23c93f187;
- Wed, 18 Jun 2025 12:17:58 +0200 (CEST)
-Received: by mail-wr1-x42a.google.com with SMTP id
- ffacd0b85a97d-3a57c8e247cso3213940f8f.1
- for <xen-devel@lists.xenproject.org>; Wed, 18 Jun 2025 03:17:58 -0700 (PDT)
+ id 1uRq1b-0005Ml-KZ
+ for xen-devel@lists.xenproject.org; Wed, 18 Jun 2025 10:28:11 +0000
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [2a00:1450:4864:20::435])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ede9c377-4c2e-11f0-b894-0df219b8e170;
+ Wed, 18 Jun 2025 12:28:09 +0200 (CEST)
+Received: by mail-wr1-x435.google.com with SMTP id
+ ffacd0b85a97d-3a4fea34e07so3825996f8f.1
+ for <xen-devel@lists.xenproject.org>; Wed, 18 Jun 2025 03:28:09 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-313c1c6a80bsm12349266a91.44.2025.06.18.03.17.53
+ d9443c01a7336-2365e0cffe6sm95788225ad.245.2025.06.18.03.28.05
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 18 Jun 2025 03:17:57 -0700 (PDT)
+ Wed, 18 Jun 2025 03:28:08 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 81e95848-4c2d-11f0-a30a-13f23c93f187
+X-Inumbo-ID: ede9c377-4c2e-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1750241878; x=1750846678; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=lTcj4F18ielqy3N30HxOMFo1QHYtCfKFunvb6xsSaz8=;
-        b=f5/zzFb/klmpT8RUZJuHiPJKV/N39T5ph6gLBh4H4gBxRm5WglGvuy25hDTYS6d8pX
-         1XBgChNd8MdYzDpo8jN8tZBWs64A/s7s+FFqJ6gprdyzh0QytSBKB2O4Qi+ngoxr6TsJ
-         PhQMEKk++NRYF8VZHEYv7hpeOSL0t3QcY3U5I1ywn3KMBSCNQzhAG5Wk44uyuchx4oN2
-         X/5e4eKvMWg3+Q0kzh3Wl2jWMTbP6PINZ/YzrPQwqgskTL+sqSvhJzgTz11RrHuTrlhd
-         DgKwyGf0SYHLj1ZOmSr5aHkNM0c57Ic979YgVn8jL6byHlI14JdY8hc0KviR9rfrDR2k
-         VidA==
+        d=suse.com; s=google; t=1750242489; x=1750847289; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=fGeFrsVfOPDpETi8ACldN3VXeYoeBYMm5S1M4SvLJ+w=;
+        b=TEGrefr+krZvKFgRXCHD+g3p6FfPn4VYpKEYMf+WadnqsVn/x6pSZsXzBTq9+r/+pE
+         WuqGjnAW2s5rasyci+dqC8LE+rgwuPI6jcWmRWk9ulQsaTlgHMYkXpgtqgRjNCF6O4Ui
+         lq/iu+VGspIIFDcE5m6Gy/j54GKuXHKrK90xX0Ga5u8hTR4d/oAurlRWJt4UztVO21SK
+         xTbHHJFgAkViBOIhdpMR9+yTG92wwRwDjzjBAe8ogAk58NUfUlKcyUmu9SJzq0dKb+bN
+         bRuCUPyRdG+rsWRujuwpEp5Uy01rIXzRomqUOS8p61sbmWwkMj9smJBfeOhKcZ9HaGu2
+         8AeQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750241878; x=1750846678;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=lTcj4F18ielqy3N30HxOMFo1QHYtCfKFunvb6xsSaz8=;
-        b=MZG+O0F08sNR3t+UFlrFDwWKEtlAdd/MHVqsLuPB3sLuRTOM8gE8Do98Tn9sHUphN/
-         e7pSDCUkiX9LAhvwg3XCmPPjKjcTUt89xwMJjgSzCURL4zN3gkn5ygY6/eUz+lzqKL+O
-         i6aXQahPhyH3wyogCgVDoNKhivYG7uhvt6QanRWiHEPP+WCml5VY8UCbFLP6lmgMSdOn
-         3CXomusSHX4g+gMwtyasSSjHWmCOiSblYJlXWMd6T0Qjcri9StBr3cckrxxnWzEfGMq/
-         yJ8cMpYWsS6DcwKNyPX1P+JEPsjIzdoGzRs1Idj5o2IozJP4okpVgXIrXVfPWNZN+T6k
-         cbKQ==
-X-Gm-Message-State: AOJu0Yzv0EpVoyjtlSHirOT5f3B9ksQOzZyiPA+Kqv/EWYnE1mUPzqa3
-	5/eIFLDTVFdrNgM9t9TXCHIch1oTrfK8Uf67mYxNk5PS5INzkZJDVXYhNCVcbyPsAv3YH49B6SY
-	VYZE=
-X-Gm-Gg: ASbGncv+eJx02PsKWP8eVPnB2lhvunJvRVQlqLnr+qZk+OR1R8NKmN6V0lW7Ox6FGhW
-	BGvqP/pkjAAeUUYmO45aqLBwIwpnGCM/v56/s9IKn5G3UGOJS+8lVEcR/ejzVfFVzYqbv8gdLfZ
-	yFCGyLlqasVjDTg35M50F/UYFezpcywhzH31UtqUO9qGEpcwmt/A1mP4yjmlCHwUxhXZqz8w8Fy
-	OqkyQx4sjmEHB6wpRnJ7aYYm+lnvDg5//j/dHbdMMJlgd+SQFIOn5vQ7cJwvKcBQsXRk2V166in
-	+z0mWwCY71tx3lSmfLPi95OUIoaCVI7HniZUpEIbrfHZgTXgcaL3gIDyoBDehYu8KUBbd8UdIuv
-	186b3Wov6A97PSmHNz/rZ6sqKrlFG9ZMkwZdm12LLwYFYYk4=
-X-Google-Smtp-Source: AGHT+IFhpdbRQbB2G+DgsX8ubk6qlIxzd0fwMkTgMBrOdi1huey823h/9o1k8OaXDfEpVJixAdQz/A==
-X-Received: by 2002:a05:6000:3112:b0:3a4:e480:b5df with SMTP id ffacd0b85a97d-3a572e79749mr14751450f8f.44.1750241878068;
-        Wed, 18 Jun 2025 03:17:58 -0700 (PDT)
-Message-ID: <57107b15-affc-43a6-b6f3-6196b40bbc8b@suse.com>
-Date: Wed, 18 Jun 2025 12:17:48 +0200
+        d=1e100.net; s=20230601; t=1750242489; x=1750847289;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=fGeFrsVfOPDpETi8ACldN3VXeYoeBYMm5S1M4SvLJ+w=;
+        b=T27a7wPnkS9ayJWN/3/p3CTAxtiTOnYKJsCLhiJ6PrUL7fbkGWqqV9wXavvFuqP0TN
+         5D17/YOt1RApIQ7EdbUzbHgkWBlHIH4nWMTuNVLdh5jKKfsRecABHpulO4fNNuTg5g7E
+         aQ1dODtx7W5Yqvf218JMfoaMBjKTy9QrHxltYv4COtcCMvGsJ1nPINdlFN4ISl8Ng6Xf
+         u2OL90Fb+byhyWfANVMxnAXPfXwjgiHNZIVywKXkwwYPOTzgxKssS1Q66Alm02fAiSCg
+         +1CennzoS9IlorLItKU75rkcgaleDBKvif1szBLtdrPJ7fQWRh0bBtg42/MWVL4jeEvu
+         pzdw==
+X-Forwarded-Encrypted: i=1; AJvYcCW5vc11+thnneyo+eFOLjOf5ZVIJk2eDF5Z4HayOPQLb/bAv8V416FWzLKIfeN6C8RWjm+ap2nDPps=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxoRsdgG3WcMeV+jJBor1zhgtv98zYwEBUFWX6FFy6zuPu14HPS
+	LmIuLf5R5FE7YWndSo+0BXr/1Rz/t+6d+OE1Rx+X6WRtla2/c5QditBoiR3PEt6oCQ==
+X-Gm-Gg: ASbGncsp/i+Bls9XU1omZB0xQObulzpSxuL2rc0zO7ef0WuX2Mq3BbdS6B6qAGOFyB0
+	2EftmaygFD32q4pjEPFxOmWHePWWiouNtzfKwuoWqNK4uAGrJUzXkNiv3pRB1WmnFDTKlya9NXP
+	QnF1gWrvuUeJ3i5zEsMgtnQoRVwVYWZnuxC6GanGNjYCz73rsbUftJPZ9Idg6TQ7AXNZLhplHXD
+	tRWixi5aC2SNoTHcNg1mymh+ky7i8r1oQxoZySe2LG4YGKRyfHQ313R8wcJ1kfW19W7JjX0aNUs
+	ll9PEZ6mVXk5XPaXm/OsPpKt4Iuf5jKP/KE88Ntw4Wg1iIopP0oMdXQzQkv+q5oaMv2xuV0o+qf
+	LAOGwaYbHJseQz6c7LEOSk19LbCgyWNVNYup/ZlT3u4F/QebWrUuITtQDEQ==
+X-Google-Smtp-Source: AGHT+IHcFqHKstTzlqOf8MRwCPVNqzb2i9CCIMgWnpLUPEbBBCt9uXIHtpwwdqe1pENOjjQHvnjQeg==
+X-Received: by 2002:a05:6000:4602:b0:3a5:2182:bd11 with SMTP id ffacd0b85a97d-3a572373c13mr15065840f8f.20.1750242488744;
+        Wed, 18 Jun 2025 03:28:08 -0700 (PDT)
+Message-ID: <e516e18a-b529-4389-8973-a15ef356fcdc@suse.com>
+Date: Wed, 18 Jun 2025 12:28:01 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 01/20] xen/pmstat: consolidate code into pmstat.c
+To: Penny Zheng <Penny.Zheng@amd.com>
+Cc: ray.huang@amd.com, Stefano Stabellini <sstabellini@kernel.org>,
+ xen-devel@lists.xenproject.org
+References: <20250528091708.390767-1-Penny.Zheng@amd.com>
+ <20250528091708.390767-2-Penny.Zheng@amd.com>
 Content-Language: en-US
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] xvmalloc: extend to cover multi-dimensional arrays
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -118,172 +118,113 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20250528091708.390767-2-Penny.Zheng@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Take care of the multiplication(s) involved in determining overall size
-in the macros themselves, saturating to ULONG_MAX. This way on 64-bit
-systems the subsequent check against UINT_MAX will fail, while on 32-
-bit systems allocations of this size simply cannot be fulfilled anyway
-(such an allocation would consume the entire address space).
+On 28.05.2025 11:16, Penny Zheng wrote:
+> We move the following functions into drivers/acpi/pmstat.c, as they
+> are all designed for performance statistic:
+> - cpufreq_residency_update()
+> - cpufreq_statistic_reset()
+> - cpufreq_statistic_update()
+> - cpufreq_statistic_init()
+> - cpufreq_statistic_exit()
 
-The only place where we truly consume guest input (but constrained to
-hwdom) is cpufreq_statistic_init(). Play safe however and convert the
-other three instances where a multiplication is involved as well.
+You say move, but ...
 
-While touching those sites also switch to xv*alloc_array(), following
-what was settled upon when those were introduced. Don't bother extending
-x*alloc_array() the same way.
+> +int cpufreq_statistic_init(unsigned int cpu)
+> +{
+> +    unsigned int i, count;
+> +    struct pm_px *pxpt;
+> +    const struct processor_pminfo *pmpt = processor_pminfo[cpu];
+> +    spinlock_t *cpufreq_statistic_lock = &per_cpu(cpufreq_statistic_lock, cpu);
+> +
+> +    spin_lock_init(cpufreq_statistic_lock);
+> +
+> +    if ( !pmpt )
+> +        return -EINVAL;
+> +
+> +    spin_lock(cpufreq_statistic_lock);
+> +
+> +    pxpt = per_cpu(cpufreq_statistic_data, cpu);
+> +    if ( pxpt )
+> +    {
+> +        spin_unlock(cpufreq_statistic_lock);
+> +        return 0;
+> +    }
+> +
+> +    count = pmpt->perf.state_count;
+> +
+> +    pxpt = xzalloc(struct pm_px);
+> +    if ( !pxpt )
+> +    {
+> +        spin_unlock(cpufreq_statistic_lock);
+> +        return -ENOMEM;
+> +    }
+> +    per_cpu(cpufreq_statistic_data, cpu) = pxpt;
 
-Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-To my surprise code gen even improves a tiny bit for do_memory_op(), in
-surrounding code (with gcc14).
+... how come this moved up (back) here, when it was ...
 
---- a/xen/arch/x86/cpu/mcheck/mctelem.c
-+++ b/xen/arch/x86/cpu/mcheck/mctelem.c
-@@ -20,6 +20,7 @@
- #include <xen/sched.h>
- #include <xen/cpumask.h>
- #include <xen/event.h>
-+#include <xen/xvmalloc.h>
- 
- #include <asm/processor.h>
- #include <asm/system.h>
-@@ -340,7 +341,7 @@ void __init mctelem_init(unsigned int da
- 
- 	if ((mctctl.mctc_elems = xmalloc_array(struct mctelem_ent,
- 	    MC_NENT)) == NULL ||
--	    (datarr = xmalloc_bytes(MC_NENT * datasz)) == NULL) {
-+	    (datarr = xvmalloc_array(char, MC_NENT, datasz)) == NULL) {
- 		xfree(mctctl.mctc_elems);
- 		printk("Allocations for MCA telemetry failed\n");
- 		return;
---- a/xen/common/domctl.c
-+++ b/xen/common/domctl.c
-@@ -26,6 +26,8 @@
- #include <xen/hypercall.h>
- #include <xen/vm_event.h>
- #include <xen/monitor.h>
-+#include <xen/xvmalloc.h>
-+
- #include <asm/current.h>
- #include <asm/irq.h>
- #include <asm/page.h>
-@@ -160,7 +162,7 @@ void vnuma_destroy(struct vnuma_info *vn
-     {
-         xfree(vnuma->vmemrange);
-         xfree(vnuma->vcpu_to_vnode);
--        xfree(vnuma->vdistance);
-+        xvfree(vnuma->vdistance);
-         xfree(vnuma->vnode_to_pnode);
-         xfree(vnuma);
-     }
-@@ -197,7 +199,7 @@ static struct vnuma_info *vnuma_alloc(un
-     if ( !vnuma )
-         return ERR_PTR(-ENOMEM);
- 
--    vnuma->vdistance = xmalloc_array(unsigned int, nr_vnodes * nr_vnodes);
-+    vnuma->vdistance = xvmalloc_array(unsigned int, nr_vnodes, nr_vnodes);
-     vnuma->vcpu_to_vnode = xmalloc_array(unsigned int, nr_vcpus);
-     vnuma->vnode_to_pnode = xmalloc_array(nodeid_t, nr_vnodes);
-     vnuma->vmemrange = xmalloc_array(xen_vmemrange_t, nr_ranges);
---- a/xen/common/memory.c
-+++ b/xen/common/memory.c
-@@ -26,6 +26,8 @@
- #include <xen/sections.h>
- #include <xen/trace.h>
- #include <xen/types.h>
-+#include <xen/xvmalloc.h>
-+
- #include <asm/current.h>
- #include <asm/hardirq.h>
- #include <asm/p2m.h>
-@@ -1750,7 +1752,7 @@ long do_memory_op(unsigned long cmd, XEN
- 
-         read_unlock(&d->vnuma_rwlock);
- 
--        tmp.vdistance = xmalloc_array(unsigned int, dom_vnodes * dom_vnodes);
-+        tmp.vdistance = xvmalloc_array(unsigned int, dom_vnodes, dom_vnodes);
-         tmp.vmemrange = xmalloc_array(xen_vmemrange_t, dom_vranges);
-         tmp.vcpu_to_vnode = xmalloc_array(unsigned int, dom_vcpus);
- 
-@@ -1813,7 +1815,7 @@ long do_memory_op(unsigned long cmd, XEN
-  vnumainfo_out:
-         rcu_unlock_domain(d);
- 
--        xfree(tmp.vdistance);
-+        xvfree(tmp.vdistance);
-         xfree(tmp.vmemrange);
-         xfree(tmp.vcpu_to_vnode);
-         break;
---- a/xen/drivers/acpi/pmstat.c
-+++ b/xen/drivers/acpi/pmstat.c
-@@ -36,6 +36,7 @@
- #include <xen/percpu.h>
- #include <xen/domain.h>
- #include <xen/acpi.h>
-+#include <xen/xvmalloc.h>
- 
- #include <public/sysctl.h>
- #include <acpi/cpufreq/cpufreq.h>
-@@ -126,7 +127,7 @@ int cpufreq_statistic_init(unsigned int
-     }
-     per_cpu(cpufreq_statistic_data, cpu) = pxpt;
- 
--    pxpt->u.trans_pt = xzalloc_array(uint64_t, count * count);
-+    pxpt->u.trans_pt = xvzalloc_array(uint64_t, count, count);
-     if ( !pxpt->u.trans_pt )
-     {
-         xfree(pxpt);
-@@ -137,7 +138,7 @@ int cpufreq_statistic_init(unsigned int
-     pxpt->u.pt = xzalloc_array(struct pm_px_val, count);
-     if ( !pxpt->u.pt )
-     {
--        xfree(pxpt->u.trans_pt);
-+        xvfree(pxpt->u.trans_pt);
-         xfree(pxpt);
-         spin_unlock(cpufreq_statistic_lock);
-         return -ENOMEM;
-@@ -171,7 +172,7 @@ void cpufreq_statistic_exit(unsigned int
-         return;
-     }
- 
--    xfree(pxpt->u.trans_pt);
-+    xvfree(pxpt->u.trans_pt);
-     xfree(pxpt->u.pt);
-     xfree(pxpt);
-     per_cpu(cpufreq_statistic_data, cpu) = NULL;
---- a/xen/include/xen/xvmalloc.h
-+++ b/xen/include/xen/xvmalloc.h
-@@ -22,11 +22,24 @@
-     (typeof(*(ptr)) *)p_;                                      \
- })
- 
-+#define DIM_MUL1(n) (n)
-+#define DIM_MUL2(n1, n2) ({                                     \
-+    unsigned long res_;                                         \
-+    __builtin_umull_overflow(n1, n2, &res_) ? ULONG_MAX : res_; \
-+})
-+#define DIM_MUL3(n1, n2, n3) DIM_MUL2(DIM_MUL2(n1, n2), n3)
-+#define DIM_MUL4(n1, n2, n3, n4) DIM_MUL2(DIM_MUL2(n1, n2), \
-+                                          DIM_MUL2(n3, n4))
-+#define DIM_MUL_(n, nums...) DIM_MUL##n(nums)
-+#define DIM_MUL(n, nums...) DIM_MUL_(n, ## nums)
-+
- /* Allocate space for array of typed objects. */
--#define xvmalloc_array(_type, _num) \
--    ((_type *)_xvmalloc_array(sizeof(_type), __alignof__(_type), _num))
--#define xvzalloc_array(_type, _num) \
--    ((_type *)_xvzalloc_array(sizeof(_type), __alignof__(_type), _num))
-+#define xvmalloc_array(type, num, nums...) \
-+    ((type *)_xvmalloc_array(sizeof(type), __alignof__(type), \
-+                             DIM_MUL(count_args(num, ## nums), num, ## nums)))
-+#define xvzalloc_array(type, num, nums...) \
-+    ((type *)_xvzalloc_array(sizeof(type), __alignof__(type), \
-+                             DIM_MUL(count_args(num, ## nums), num, ## nums)))
- 
- /* Allocate space for a structure with a flexible array of typed objects. */
- #define xvzalloc_flex_struct(type, field, nr) \
+> -int cpufreq_statistic_init(unsigned int cpu)
+> -{
+> -    uint32_t i, count;
+> -    struct pm_px *pxpt;
+> -    const struct processor_pminfo *pmpt = processor_pminfo[cpu];
+> -    spinlock_t *cpufreq_statistic_lock = &per_cpu(cpufreq_statistic_lock, cpu);
+> -
+> -    spin_lock_init(cpufreq_statistic_lock);
+> -
+> -    if ( !pmpt )
+> -        return -EINVAL;
+> -
+> -    spin_lock(cpufreq_statistic_lock);
+> -
+> -    pxpt = per_cpu(cpufreq_statistic_data, cpu);
+> -    if ( pxpt ) {
+> -        spin_unlock(cpufreq_statistic_lock);
+> -        return 0;
+> -    }
+> -
+> -    count = pmpt->perf.state_count;
+> -
+> -    pxpt = xzalloc(struct pm_px);
+> -    if ( !pxpt ) {
+> -        spin_unlock(cpufreq_statistic_lock);
+> -        return -ENOMEM;
+> -    }
+> -
+> -    pxpt->u.trans_pt = xzalloc_array(uint64_t, count * count);
+> -    if (!pxpt->u.trans_pt) {
+> -        xfree(pxpt);
+> -        spin_unlock(cpufreq_statistic_lock);
+> -        return -ENOMEM;
+> -    }
+> -
+> -    pxpt->u.pt = xzalloc_array(struct pm_px_val, count);
+> -    if (!pxpt->u.pt) {
+> -        xfree(pxpt->u.trans_pt);
+> -        xfree(pxpt);
+> -        spin_unlock(cpufreq_statistic_lock);
+> -        return -ENOMEM;
+> -    }
+> -
+> -    pxpt->u.total = count;
+> -    pxpt->u.usable = count - pmpt->perf.platform_limit;
+> -
+> -    for ( i = 0; i < count; i++ )
+> -        pxpt->u.pt[i].freq = pmpt->perf.states[i].core_frequency;
+> -
+> -    pxpt->prev_state_wall = NOW();
+> -    pxpt->prev_idle_wall = get_cpu_idle_time(cpu);
+> -
+> -    per_cpu(cpufreq_statistic_data, cpu) = pxpt;
+
+... moved down here just a few weeks ago? See a1ce987411f61 ("cpufreq: don't
+leave stale statistics pointer"). I'll make yet another patch, but you want
+to be more careful when re-basing. The other recent change, c6e0a55396233
+("cpufreq: use existing local var in cpufreq_statistic_init()"), was also
+lost.
+
+Jan
 
