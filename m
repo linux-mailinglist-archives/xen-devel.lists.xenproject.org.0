@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D7599ADEF4A
-	for <lists+xen-devel@lfdr.de>; Wed, 18 Jun 2025 16:27:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1019224.1396032 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F809ADEF91
+	for <lists+xen-devel@lfdr.de>; Wed, 18 Jun 2025 16:34:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1019232.1396042 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uRtlH-0007hM-8m; Wed, 18 Jun 2025 14:27:35 +0000
+	id 1uRtrf-00013e-SC; Wed, 18 Jun 2025 14:34:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1019224.1396032; Wed, 18 Jun 2025 14:27:35 +0000
+Received: by outflank-mailman (output) from mailman id 1019232.1396042; Wed, 18 Jun 2025 14:34:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uRtlH-0007eL-5R; Wed, 18 Jun 2025 14:27:35 +0000
-Received: by outflank-mailman (input) for mailman id 1019224;
- Wed, 18 Jun 2025 14:27:34 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uRtrf-00012C-PR; Wed, 18 Jun 2025 14:34:11 +0000
+Received: by outflank-mailman (input) for mailman id 1019232;
+ Wed, 18 Jun 2025 14:34:10 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=FBi2=ZB=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uRtlG-0007eF-A8
- for xen-devel@lists.xenproject.org; Wed, 18 Jun 2025 14:27:34 +0000
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [2a00:1450:4864:20::42e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5f6a5ccd-4c50-11f0-a30a-13f23c93f187;
- Wed, 18 Jun 2025 16:27:33 +0200 (CEST)
-Received: by mail-wr1-x42e.google.com with SMTP id
- ffacd0b85a97d-3a365a6804eso5268711f8f.3
- for <xen-devel@lists.xenproject.org>; Wed, 18 Jun 2025 07:27:33 -0700 (PDT)
+ id 1uRtre-000125-76
+ for xen-devel@lists.xenproject.org; Wed, 18 Jun 2025 14:34:10 +0000
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [2a00:1450:4864:20::42b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4ae04aaf-4c51-11f0-b894-0df219b8e170;
+ Wed, 18 Jun 2025 16:34:08 +0200 (CEST)
+Received: by mail-wr1-x42b.google.com with SMTP id
+ ffacd0b85a97d-3a57c8e247cso3433952f8f.1
+ for <xen-devel@lists.xenproject.org>; Wed, 18 Jun 2025 07:34:08 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2365dea903dsm100077235ad.158.2025.06.18.07.27.26
+ d2e1a72fcca58-748900d0d90sm10991326b3a.155.2025.06.18.07.34.01
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 18 Jun 2025 07:27:32 -0700 (PDT)
+ Wed, 18 Jun 2025 07:34:07 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5f6a5ccd-4c50-11f0-a30a-13f23c93f187
+X-Inumbo-ID: 4ae04aaf-4c51-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1750256852; x=1750861652; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1750257247; x=1750862047; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=7gmVlrDR9sCAOkkXX3JtiVAQSKXhcXH/u9HopJyXKRc=;
-        b=LwsKOTrjcfvS8ngLtsMMuKHiT+vqJKpcBjujYKxDbVv2bNQP9a8tP2Kh+0z7qfzVm9
-         KCVDb/5+iDa4czy89ppYzf0Wi+0tGvgJWhZ2ZbxUVSeHpfY5Zij6nunCn2KUxu9X5104
-         AITf6226g1ikdt5tHQxpyM31QacW06Xux97dYkozv72Krp3F3TScZpAIwuIyVj+se2W4
-         EOQVnDn/j36Jw3p0Gq/Rah7xYplbWXLskStorlnVUqhbtQ124cKAJM3Hc5rPIgVdrhx3
-         44Nw/wwb/3D7ZHhSNsCZCFWtAFnPgERfVOj7sxYpEcnYNElZnKPxM/tgirY6zlELcW7v
-         I7GA==
+        bh=c4ZDLYITV5axQdWqyesy+FnFzK6kGDsDGv7/1FtT6i8=;
+        b=eB1KW7ym1bp0kwVMViUC9YerKYFCuD6giUqKszZcZp925Zu+UhCr36VipykOI4MssY
+         XEuGPr5tLAS4BHbMqNjGzED3oaK5P/qxTw+7OhMX2epwuabLkhPfN5cYgptlp+e82DcF
+         gLegNAByoe56Nz+Si8m9xRBdL8JSwDcpnT4PNRB6cXJrEjMFGzcMSbfEohxE1bBEWAYi
+         /SjZZrazne37mDgeaMaW+65NTRPMVcwPonQZOjnoY3LUA8UcuOnynT87ewGzONC7lMkb
+         D8ON+H6uHk9Hl2kG2g7FE7fMsnZ9/iJC8VTj5U0Hih6qThRGKpFT653OgFYgquIcI3hL
+         U6SQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750256852; x=1750861652;
+        d=1e100.net; s=20230601; t=1750257247; x=1750862047;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=7gmVlrDR9sCAOkkXX3JtiVAQSKXhcXH/u9HopJyXKRc=;
-        b=FF3yxwRNBZFxu+h8uIqHAyJ3qDdeZ44FczO3adWe6D4PZk8QygOYDCzdDNJUp0wbSj
-         FEAvmyirX819Em33B7cWeade9uPrFri86GKqLG/P5Ez0ANs92byOJR2O96jcXrzKPkmI
-         LFMBu+nGLHn5dyD1+WSI9PdPikjD78DKMaY0GJolkbivqQ9q9Ev1A8okg30WcxuRdvlM
-         eHwFUFdWQllBM4BHYNu/sYOG6Ho9aMvJ3nWlWacwH9O10KBDBCxdGTnutfrN5sU/1wW+
-         4ZCAeqpkH4YT+3ovyOr+dU7uFjVXEEb+kbEP4ToB7eATI98lWdhYAo0vYsjYzIjbbzLK
-         xcNQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWByW+OzmmzPaaGMm6JZwCtXCPcnKRLgnQmDdzk4KWEzIdRBszPBY6EjXIsF2Pzzftcqb0j2D1su/g=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxddIxEhL+hX/sR6aSiRWHQHA3T5axi4bHkh/B9QEp/FvQRSMVZ
-	RXANWax1R5uuxGg2Qv84/bphj9sMiv8x3Vwqh3tTx0H+xHejrdxu5lX71dEAU7kDsA==
-X-Gm-Gg: ASbGncu0TQod73I+cmkIzFEwLEPerQdLLpNtgqC8w/b7VbCKOEs3Im4mr+9mXi08P3n
-	XWWiQvwaXImL+b3YVe4s7XM93HUFJbKRhDVpCdcYq+7WMB9N4VRv/F40PHdfnCnYgaYQf7zjflw
-	tzWwZOxRzceuY924L2hWvCs6NeSkQr9+Qp5TaxPA7Nj579Cn9/P4VkLqS0tFnpbkR3taIpPFok5
-	QZfQQRPdjJGR8r3l5Hh9GGnwRKQXTs/9oReCYmWKXU35E3s+2aSsmQbUD/DSm6gvLLwUqMncZQ6
-	GnqCKKqy9TtVsJPvHW8b0A0WMRZnU/oyiaRvsecJneghcb7IoIk0putA7XIObYoPEo/D7X71LlY
-	rAtnJA3d7SXInRNK8/Ywm3h/sM/mUV+88Epc/6++STwLgTak=
-X-Google-Smtp-Source: AGHT+IGK0lI+zgB5Hcf+XR/zSLcglOJg6WfYsASlKFv0meGWnaCYIWeI50uTtYX/4HltGzSnAG5C6Q==
-X-Received: by 2002:a5d:5f8d:0:b0:3a5:5270:a52c with SMTP id ffacd0b85a97d-3a57189727dmr15300531f8f.0.1750256852498;
-        Wed, 18 Jun 2025 07:27:32 -0700 (PDT)
-Message-ID: <816dd3fc-e6fc-40f6-b7c9-29d2411b52e5@suse.com>
-Date: Wed, 18 Jun 2025 16:27:22 +0200
+        bh=c4ZDLYITV5axQdWqyesy+FnFzK6kGDsDGv7/1FtT6i8=;
+        b=t/3Fi13rTzp2nDC+JvOqD4bftGDE4HJGxG8wXIkuHATP9yaqx76aFcnQT3cOlzVPdl
+         Du7oo4CdV2Ly6zWkA7Qn/Sfu54fRO2XVo1mIvNyMMeRfgYLO8Zrqjbx6TS3x1TjWo1Vt
+         L6tSLnJTvwO0QmsGp6q3NwbthFs1dJPrUOj5Fq6AO2LzMfeXXaOZ3jGcys0YL4+gGeG8
+         tVvoQux/kVZXdGbyStq8d+uKENCF7CmN7gF0FAHJRTs7gMYQHo4k+NftleQybCH5PcA0
+         F1jqwJLCtSDLPOERb7kVZCEdi0SEpbMWmZ58caWAhuPhYdj3dnAoTHgWrdJnvPrHPOqO
+         RApw==
+X-Forwarded-Encrypted: i=1; AJvYcCUqYrSRJX7bbNwO+c0y0HXlW4FZX+lgQo5QPFOzfjA+EdwJEq/LbTm95LOftYK/rssCbgQ5A6pTQfo=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yxd0NZTcGY3UIymXj5rRNZfS2kjoJrrV4cOdta5325arjh+m5Ro
+	Z98/D7s/R4q0y9N6iU2UJIyOhvLXZkQNlpG8qSn9E0sBSMJ9jsyeA9Yjolsjl+4edw==
+X-Gm-Gg: ASbGncuS3bcM0pplA4WIGBf6ixb0L/066icqonuOTcuFssP2p2qTL5pNqXrUBKBVFTs
+	Ch348uQMaYK1NZbyjV4RGzheCk/YLm9uIS7kVw3yLTMOnPCAsB5i23YrPAydVHmqupZl9hX+ChW
+	HL8iASyc0ypIxFljprdgdQ5MoETmJU0KfHGrc8qG1D3JxW8ZYrrpNpZ0vQF9ZLI+9Wi3m39y5Us
+	aDqHIaKDD2MGTPmbRXngTCabMrww5LRaEpln2r3n5ed7xSVXM/1+0sd2kjeB5KvZHte9qTNgUy4
+	2vqxeBQSgDkDXKnOT93d3+qlAHjKs69zk4Al3NeQmqd+x32ox4c08KRA/S3DcjwnH0zYizbKyu/
+	dLMyWI9hjGJNJajbm9CzQLP+5APZA8xVwk0R11l508nMH248=
+X-Google-Smtp-Source: AGHT+IEmNlz4AiIPomR73q2O3fRFL52LbQLoV8CC5BH22cSwv+7v/BeMmE8uzC3tK3D1NuziqiAJuA==
+X-Received: by 2002:a05:6000:1881:b0:3a4:e5fa:73f0 with SMTP id ffacd0b85a97d-3a572397846mr15649067f8f.20.1750257247535;
+        Wed, 18 Jun 2025 07:34:07 -0700 (PDT)
+Message-ID: <1634c18d-e54e-4105-8b30-6f3085bace22@suse.com>
+Date: Wed, 18 Jun 2025 16:33:57 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 4/8] vpci: Hide extended capability when it fails to
- initialize
+Subject: Re: [PATCH v6 2/8] vpci: Refactor REGISTER_VPCI_INIT
 To: Jiqian Chen <Jiqian.Chen@amd.com>
 Cc: Huang Rui <ray.huang@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
  <roger.pau@citrix.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -96,7 +95,7 @@ Cc: Huang Rui <ray.huang@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <20250612092942.1450344-1-Jiqian.Chen@amd.com>
- <20250612092942.1450344-5-Jiqian.Chen@amd.com>
+ <20250612092942.1450344-3-Jiqian.Chen@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -122,47 +121,46 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250612092942.1450344-5-Jiqian.Chen@amd.com>
+In-Reply-To: <20250612092942.1450344-3-Jiqian.Chen@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 12.06.2025 11:29, Jiqian Chen wrote:
-> +static int vpci_ext_capability_hide(struct pci_dev *pdev, unsigned int cap)
-> +{
-> +    const unsigned int offset = pci_find_ext_capability(pdev->sbdf, cap);
-> +    struct vpci_register *r, *prev_r;
-> +    struct vpci *vpci = pdev->vpci;
-> +    uint32_t header, pre_header;
-> +
-> +    if ( offset < PCI_CFG_SPACE_SIZE )
-> +    {
-> +        ASSERT_UNREACHABLE();
-> +        return 0;
-> +    }
-> +
-> +    spin_lock(&vpci->lock);
-> +    r = vpci_get_register(vpci, offset, 4);
-> +    if ( !r )
-> +    {
-> +        spin_unlock(&vpci->lock);
-> +        return -ENODEV;
-> +    }
-> +
-> +    header = (uint32_t)(uintptr_t)r->private;
-> +    if ( offset == PCI_CFG_SPACE_SIZE )
-> +    {
-> +        if ( PCI_EXT_CAP_NEXT(header) <= PCI_CFG_SPACE_SIZE )
-> +            r->private = (void *)(uintptr_t)0;
-> +        else
-> +            /*
-> +             * The first extended capability (0x100) can not be removed from
-> +             * the linked list, so instead mask its capability ID to return 0
-> +             * and force OSes to skip it.
-> +             */
-> +            r->private = (void *)(uintptr_t)(header & ~PCI_EXT_CAP_ID(header));
+> --- a/xen/include/xen/vpci.h
+> +++ b/xen/include/xen/vpci.h
+> @@ -13,11 +13,12 @@ typedef uint32_t vpci_read_t(const struct pci_dev *pdev, unsigned int reg,
+>  typedef void vpci_write_t(const struct pci_dev *pdev, unsigned int reg,
+>                            uint32_t val, void *data);
+>  
+> -typedef int vpci_register_init_t(struct pci_dev *dev);
+> -
+> -#define VPCI_PRIORITY_HIGH      "1"
+> -#define VPCI_PRIORITY_MIDDLE    "5"
+> -#define VPCI_PRIORITY_LOW       "9"
+> +typedef struct {
+> +    unsigned int id;
+> +    bool is_ext;
+> +    int (*init)(struct pci_dev *pdev);
+> +    int (*cleanup)(struct pci_dev *pdev);
 
-Can we rely on OSes recognizing ID 0 as "just skip"? Since the size isn't encoded
-in the header, there might be issues lurking here.
+Is const really not possible to add to at least one of these two?
+
+> +} vpci_capability_t;
+
+As you have it here, ...
+
+> @@ -29,9 +30,22 @@ typedef int vpci_register_init_t(struct pci_dev *dev);
+>   */
+>  #define VPCI_MAX_VIRT_DEV       (PCI_SLOT(~0) + 1)
+>  
+> -#define REGISTER_VPCI_INIT(x, p)                \
+> -  static vpci_register_init_t *const x##_entry  \
+> -               __used_section(".data.vpci." p) = (x)
+> +#define REGISTER_VPCI_CAPABILITY(cap, finit, fclean, ext) \
+> +    static const vpci_capability_t finit##_t = { \
+
+... _t suffixes generally designate types. I don't think we should abuse
+that suffix for an identifier of a variable.
 
 Jan
 
