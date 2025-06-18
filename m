@@ -2,38 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16D5CADE444
-	for <lists+xen-devel@lfdr.de>; Wed, 18 Jun 2025 09:08:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1018869.1395749 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 711DFADE478
+	for <lists+xen-devel@lfdr.de>; Wed, 18 Jun 2025 09:23:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1018893.1395770 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uRmuG-0007kV-8b; Wed, 18 Jun 2025 07:08:24 +0000
+	id 1uRn8R-0002x1-M1; Wed, 18 Jun 2025 07:23:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1018869.1395749; Wed, 18 Jun 2025 07:08:24 +0000
+Received: by outflank-mailman (output) from mailman id 1018893.1395770; Wed, 18 Jun 2025 07:23:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uRmuG-0007j4-5m; Wed, 18 Jun 2025 07:08:24 +0000
-Received: by outflank-mailman (input) for mailman id 1018869;
- Wed, 18 Jun 2025 07:08:22 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uRn8R-0002uN-Io; Wed, 18 Jun 2025 07:23:03 +0000
+Received: by outflank-mailman (input) for mailman id 1018893;
+ Wed, 18 Jun 2025 07:23:02 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=FBi2=ZB=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uRmuE-00077n-ER
- for xen-devel@lists.xenproject.org; Wed, 18 Jun 2025 07:08:22 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 04c14f44-4c13-11f0-a30a-13f23c93f187;
- Wed, 18 Jun 2025 09:08:22 +0200 (CEST)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-3a4fea34e07so3702806f8f.1
- for <xen-devel@lists.xenproject.org>; Wed, 18 Jun 2025 00:08:21 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-313c19b79acsm12003041a91.5.2025.06.18.00.08.18
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 18 Jun 2025 00:08:20 -0700 (PDT)
+ (envelope-from <julien@xen.org>) id 1uRn8Q-0002sv-9E
+ for xen-devel@lists.xenproject.org; Wed, 18 Jun 2025 07:23:02 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.96)
+ (envelope-from <julien@xen.org>) id 1uRn8N-007mqs-1C;
+ Wed, 18 Jun 2025 07:22:59 +0000
+Received: from [2a02:8012:3a1:0:64b5:81ad:1f26:5fcb]
+ by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
+ (envelope-from <julien@xen.org>) id 1uRn8M-009Mon-3C;
+ Wed, 18 Jun 2025 07:22:59 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,210 +39,107 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 04c14f44-4c13-11f0-a30a-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1750230501; x=1750835301; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=FHMinJJYzb3weGrutdOpi8qoKyoOq7iYKxbEejfM2Xw=;
-        b=Zeef/invsxbgBZt3At+lyM5O2MCrhSWwwfhHi7v78pV28moQuTd91Tz6Dk/8BW4zGi
-         7XT2cL3Gs7JjxCAJYf12UFnqF0b86+KaWBBAOnTIz3XzU9sS6JH2k2pPuMi6w1HDOn9v
-         XgDNf16h1OFO2TXU1+QyxNeoo4C86D5oiPq5QfOJ9kxG2C9MrVHOWBTuZvAckZ+oYIwR
-         p85sEHWeFzCu/q/mnPeR0e44pUQbqQYtcfQZ4CyBVsTXru2x/FAT2YYMFtHKIhs5JAry
-         c91zj6VUGN6ZS1XhCzRNZY4r4D/kl1RHoFD3fTZjzGzNSIQr+FzysS/f89IZUSvuqsSN
-         a19A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750230501; x=1750835301;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=FHMinJJYzb3weGrutdOpi8qoKyoOq7iYKxbEejfM2Xw=;
-        b=M4GKoDTFzwUpES87cN0vZBk9AUbac6mxq8Jqiap+8lEZ6xHVi0n7Qmlmb0vlu4gKSL
-         i4wAW+KFyZ6OfpDrc7vBQxPc2Zq4jJptW9BBPpMfRSr0UIpSY4pZc3djekcfMWDgFpOZ
-         gnvWz1PV9Xa+wEDFwHUObuXhCS8dH8RMg/iYeNGv/58RzN1wYvO59oGGVMvPGs7b/pwi
-         yzwRmdbh030uDwA6v4XGldBVmPmqE6Z2Gc5vznKl2IiwnQ94Sdt8NGCmkMnHeR2Ly3m7
-         4hq/eNsj5lLiuOrHwTW3COEsqiMY3kBKhPK49D7tqlXWRLodxqlRPk7jnATrBAYpguoY
-         4XgA==
-X-Gm-Message-State: AOJu0YxZS2A4ndHIrQSHm9y3pDOslcUNGR1+dyoVhPa3zRa8uArLVICX
-	DelAz8+EWaPm3AqjGMC3yNfbvVQltsyOnOHlmPf61LETDayWjMxP/kZ/xwJ6G3HQJyytxGDy/E7
-	k6m0=
-X-Gm-Gg: ASbGnctW8lXhznMR03p02dFkf971fLKajSXE4MAyllMzz26xmfTztyryzSytFuSCvY4
-	08njF8JcOPoHNx/PVv6q7ty6Jl0E0rj3yIKhwiiEKll4Z/oOkbX7c+RLEcRmY7V+y3IlO830oNI
-	xS6hM26XhiefUionKWPpzv0y9Kh341N7eDOtOENnxzIpINzC9s4BogJJO1Jybfp59MvGXmXQzvs
-	pc+MAGQ8satIOc0jEzkWT32pNG462nrjPKVzMfRtp5mAPuGwvFva2WcrlPRByG37hDdQ7sjLlHs
-	Wr4jA0MgnuOX478DqnCr80NjWS5x2vW5ObMvjF6o6LZT+QtGscd/1+yxmDslgkBxc5D3JTaQhiO
-	+1A9INgBw0tLkjVCYQCfokh6lULCr1mds1do8sWH81eAqK7g=
-X-Google-Smtp-Source: AGHT+IHMMbuHbacSpKwuipsSSNt+OiLU3ta9UHLCzzV8EL74oF7jmOExmlGC6iRRVdmKMY7lCAKOXw==
-X-Received: by 2002:a05:6000:40df:b0:3a4:cbc6:9db0 with SMTP id ffacd0b85a97d-3a572e563a8mr11088437f8f.51.1750230501089;
-        Wed, 18 Jun 2025 00:08:21 -0700 (PDT)
-Message-ID: <8e5acc40-ffdd-408e-af4c-c98fe94fb798@suse.com>
-Date: Wed, 18 Jun 2025 09:08:14 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=8aFOdicdhZSYQpw8utsqP6kBFkP/wqBVhk2/BY88tMI=; b=OPCOmKJNTV92h5stRF2dQSJ9/8
+	SuCs0Iglw+CoI3lfJVu7vv9APX/Nmt1cjPeSRM3qrjQlJPTXjhm1TX7F+CWPgcO2FNwqhKi1W+t8A
+	i98MspLXqQ+vGtKVxvxzh8B0PLccasD+q0U71LfVMNaYTk0GWO4GZfdw82oN/bNvVA84=;
+Message-ID: <538e4b45-74e7-4992-a9e2-7678756f7612@xen.org>
+Date: Wed, 18 Jun 2025 08:22:55 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v8 7/7] x86emul: support non-SIMD MOVRS
-From: Jan Beulich <jbeulich@suse.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <585f1b0b-6768-4f9c-8f9f-bcf6e20fbfb7@suse.com>
-Content-Language: en-US
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <585f1b0b-6768-4f9c-8f9f-bcf6e20fbfb7@suse.com>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [RFC PATCH v4 6/8] xen/arm: scmi: introduce SCI SCMI SMC
+ multi-agent driver
+Content-Language: en-GB
+To: Stefano Stabellini <sstabellini@kernel.org>,
+ Grygorii Strashko <grygorii_strashko@epam.com>
+Cc: Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>, Jan Beulich <jbeulich@suse.com>,
+ Juergen Gross <jgross@suse.com>, Michal Orzel <michal.orzel@amd.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <cover.1747669845.git.oleksii_moisieiev@epam.com>
+ <318044ae12f13b6b297b3f5fda577a1a6cd143da.1747669845.git.oleksii_moisieiev@epam.com>
+ <alpine.DEB.2.22.394.2505231114050.147219@ubuntu-linux-20-04-desktop>
+ <04B1F737-5E6B-47C0-B2B9-74288C68E68A@arm.com>
+ <50ff5d2b-bd17-4833-b497-0dda6f75964a@epam.com>
+ <alpine.DEB.2.22.394.2506171625110.1780597@ubuntu-linux-20-04-desktop>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <alpine.DEB.2.22.394.2506171625110.1780597@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-As we ignore cachability aspects of insns, they're treated like simple
-MOVs.
+Hi,
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-SDE: -dmr
----
-v7: New.
+On 18/06/2025 00:38, Stefano Stabellini wrote:
+> On Thu, 12 Jun 2025, Grygorii Strashko wrote:
+>> On 02.06.25 10:17, Bertrand Marquis wrote:
+>>>> On the other hand, if we also want to handle the case where the SCMI
+>>>> server could be on a separate co-processor, then what this code is doing
+>>>> is not sufficient because we also need a dcache flush, in addition to
+>>>> the DSB.
+>>>>
+>>>> Bertrand, can you double-check?
+>>>
+>>> If we want to handle a case where the memory is accessible to a coprocessor
+>>> but there is no cache coherency, we need to flush the dcache definitely.
+>>>
+>>> Seeing the amount of data here, I do agree with Stefano that it would be a
+>>> good
+>>> idea to make the provision to flush the data cache in all cases. Even if the
+>>> data
+>>> is accessed by a secure partition or the firmware coherently, flushing in
+>>> all cases
+>>> would have very limited performance impact here.
+>>>
+>>> There is the other solution to have some kind of parameter to say if the
+>>> accessor
+>>> has coherent cache access but I do not think the performance impact here
+>>> would
+>>> justify such a complexity.
+>>>
+>> The SCMI shmem expected to be mapped as MT_NON_CACHEABLE in all cases.
 
---- a/tools/tests/x86_emulator/predicates.c
-+++ b/tools/tests/x86_emulator/predicates.c
-@@ -843,6 +843,9 @@ static const struct {
-     { { 0x80 }, { 2, 2 }, T, R, pfx_66 }, /* invept */
-     { { 0x81 }, { 2, 2 }, T, R, pfx_66 }, /* invvpid */
-     { { 0x82 }, { 2, 2 }, T, R, pfx_66 }, /* invpcid */
-+    { { 0x8a }, { 2, 2 }, T, R, pfx_no }, /* movrsb */
-+    { { 0x8b }, { 2, 2 }, T, R, pfx_no }, /* movrs{d,q} */
-+    { { 0x8b }, { 2, 2 }, T, R, pfx_66 }, /* movrsw */
-     { { 0xc8 }, { 2, 2 }, T, R, pfx_no }, /* sha1nexte */
-     { { 0xc9 }, { 2, 2 }, T, R, pfx_no }, /* sha1msg1 */
-     { { 0xca }, { 2, 2 }, T, R, pfx_no }, /* sha1msg2 */
---- a/tools/tests/x86_emulator/test_x86_emulator.c
-+++ b/tools/tests/x86_emulator/test_x86_emulator.c
-@@ -1869,6 +1869,29 @@ int main(int argc, char **argv)
-     }
-     else
-         printf("skipped\n");
-+
-+    {
-+        /* For the non-SIMD forms the emulator doesn't itself use MOVRS. */
-+        bool movrs = cpu_policy.feat.movrs;
-+
-+        cpu_policy.feat.movrs = true;
-+
-+        printf("%-40s", "Testing movrs 6(%rdi),%si...");
-+        instr[0] = 0x66; instr[1] = 0x0f; instr[2] = 0x38;
-+        instr[3] = 0x8b; instr[4] = 0x77; instr[5] = 0x06;
-+        regs.rip = (unsigned long)&instr[0];
-+        regs.rsi = 0x8888777766665555UL;
-+        regs.rdi = (unsigned long)res;
-+        res[1]   = 0x88777788U;
-+        rc = x86_emulate(&ctxt, &emulops);
-+        if ( (rc != X86EMUL_OKAY) ||
-+             (regs.rip != (unsigned long)&instr[6]) ||
-+             (regs.rsi != 0x8888777766668877UL) )
-+            goto fail;
-+        printf("okay\n");
-+
-+        cpu_policy.feat.movrs = movrs;
-+    }
- #endif /* x86-64 */
- 
-     printf("%-40s", "Testing shld $1,%ecx,(%edx)...");
---- a/xen/arch/x86/x86_emulate/decode.c
-+++ b/xen/arch/x86/x86_emulate/decode.c
-@@ -901,7 +901,8 @@ decode_0f38(struct x86_emulate_state *s,
- {
-     switch ( ctxt->opcode & X86EMUL_OPC_MASK )
-     {
--    case 0x00 ... 0xef:
-+    case 0x00 ... 0x89:
-+    case 0x8c ... 0xef:
-     case 0xf2 ... 0xf5:
-     case 0xf7:
-     case 0xfa ... 0xff:
-@@ -912,6 +913,13 @@ decode_0f38(struct x86_emulate_state *s,
-         ctxt->opcode |= MASK_INSR(s->vex.pfx, X86EMUL_OPC_PFX_MASK);
-         break;
- 
-+    case 0x8a ... 0x8b: /* movrs */
-+        s->desc = DstReg | SrcMem | Mov;
-+        if ( !(ctxt->opcode & 1) )
-+            s->desc |= ByteOp;
-+        s->simd_size = simd_none;
-+        break;
-+
-     case X86EMUL_OPC_VEX_66(0, 0x2d): /* vmaskmovpd */
-         s->simd_size = simd_packed_fp;
-         break;
---- a/xen/arch/x86/x86_emulate/private.h
-+++ b/xen/arch/x86/x86_emulate/private.h
-@@ -613,6 +613,7 @@ amd_like(const struct x86_emulate_ctxt *
- #define vcpu_has_wrmsrns()     (ctxt->cpuid->feat.wrmsrns)
- #define vcpu_has_avx_ifma()    (ctxt->cpuid->feat.avx_ifma)
- #define vcpu_has_msrlist()     (ctxt->cpuid->feat.msrlist)
-+#define vcpu_has_movrs()       (ctxt->cpuid->feat.movrs)
- #define vcpu_has_msr_imm()     (ctxt->cpuid->feat.msr_imm)
- #define vcpu_has_avx_vnni_int8() (ctxt->cpuid->feat.avx_vnni_int8)
- #define vcpu_has_avx_ne_convert() (ctxt->cpuid->feat.avx_ne_convert)
---- a/xen/arch/x86/x86_emulate/x86_emulate.c
-+++ b/xen/arch/x86/x86_emulate/x86_emulate.c
-@@ -6374,6 +6374,16 @@ x86_emulate(
-         fault_suppression = false;
-         goto avx512f_no_sae;
- 
-+#endif /* !X86EMUL_NO_SIMD */
-+
-+    case X86EMUL_OPC(0x0f38, 0x8a)
-+     ... X86EMUL_OPC(0x0f38, 0x8b): /* movrs */
-+        vcpu_must_have(movrs);
-+        dst.val = src.val;
-+        break;
-+
-+#ifndef X86EMUL_NO_SIMD
-+
-     case X86EMUL_OPC_VEX_66(0x0f38, 0x8c): /* vpmaskmov{d,q} mem,{x,y}mm,{x,y}mm */
-     case X86EMUL_OPC_VEX_66(0x0f38, 0x8e): /* vpmaskmov{d,q} {x,y}mm,{x,y}mm,mem */
-         generate_exception_if(ea.type != OP_MEM, X86_EXC_UD);
---- a/xen/include/public/arch-x86/cpufeatureset.h
-+++ b/xen/include/public/arch-x86/cpufeatureset.h
-@@ -319,6 +319,7 @@ XEN_CPUFEATURE(AVX_IFMA,     10*32+23) /
- XEN_CPUFEATURE(LAM,          10*32+26) /*   Linear Address Masking */
- XEN_CPUFEATURE(MSRLIST,      10*32+27) /*   {RD,WR}MSRLIST instructions */
- XEN_CPUFEATURE(NO_INVD,      10*32+30) /*   INVD instruction unusable */
-+XEN_CPUFEATURE(MOVRS,        10*32+31) /*a  MOV-read-shared instructions */
- 
- /* AMD-defined CPU features, CPUID level 0x80000021.eax, word 11 */
- XEN_CPUFEATURE(NO_NEST_BP,         11*32+ 0) /*A  No Nested Data Breakpoints */
---- a/xen/tools/gen-cpuid.py
-+++ b/xen/tools/gen-cpuid.py
-@@ -275,7 +275,7 @@ def crunch_numbers(state):
-         # NO_LMSL indicates the absense of Long Mode Segment Limits, which
-         # have been dropped in hardware.
-         LM: [CX16, PCID, LAHF_LM, PAGE1GB, PKU, NO_LMSL, AMX_TILE, CMPCCXADD,
--             LKGS, MSRLIST, USER_MSR, MSR_IMM],
-+             LKGS, MSRLIST, USER_MSR, MSR_IMM, MOVRS],
- 
-         # AMD K6-2+ and K6-III processors shipped with 3DNow+, beyond the
-         # standard 3DNow in the earlier K6 processors.
+I can't find MT_NON_CACHEABLE anywhere in Xen or Linux. My 
+interpretation is that the memory attribute would be normal memory non 
+cacheable. However, this doesn't add up with ...
+
+>> The Linux does devm_ioremap() -> ioremap() ->
+>> (ARM64)  __ioremap((addr), (size), __pgprot(PROT_DEVICE_nGnRE))
+
+... this line. This is device nGnRE which is a lot more restrictive (for 
+instance it doesn't allow unaligned access).
+
+>>
+>> There is also note in docs:
+>> "+- shmem: shared memory for messages transfer, **Xen page aligned** with
+>> mapping``p2m_mmio_direct_nc``."
+>>
+>> In the case of SCP - the SCMI shmem can be actually be in SRAM.
+>>
+>> So, are you sure cache manipulations are required here?
+> 
+> No, if the memory is mapped as uncacheable everywhere then the cache
+> manipulations are not needed. However, we probably still need a dsb.
+> 
+> I understand now why they decided to use __memcpy_fromio in Linux: it is
+> not MMIO but they needed a memcpy followed by DSB, so they decided to
+> reuse the existing MMIO functions although the buffer is not MMIO.
+
+ From my understanding, memcpy_fromio() is not just a mempcy() + dsb. It 
+also guarantees the access will be aligned (this is not guarantee by our 
+memcpy()).
+
+Now the question is why does Linux map the region Device nGnRE but we 
+are mapping non-cacheable?
+
+Cheers,
+
+-- 
+Julien Grall
 
 
