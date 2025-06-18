@@ -2,49 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 517E2ADE9EB
-	for <lists+xen-devel@lfdr.de>; Wed, 18 Jun 2025 13:27:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1019071.1395928 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3FB64ADEB45
+	for <lists+xen-devel@lfdr.de>; Wed, 18 Jun 2025 14:05:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1019097.1395937 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uRqx3-0005mW-1K; Wed, 18 Jun 2025 11:27:33 +0000
+	id 1uRrWj-0002zP-Pi; Wed, 18 Jun 2025 12:04:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1019071.1395928; Wed, 18 Jun 2025 11:27:33 +0000
+Received: by outflank-mailman (output) from mailman id 1019097.1395937; Wed, 18 Jun 2025 12:04:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uRqx2-0005l5-Tz; Wed, 18 Jun 2025 11:27:32 +0000
-Received: by outflank-mailman (input) for mailman id 1019071;
- Wed, 18 Jun 2025 11:27:31 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=yQRF=ZB=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
- id 1uRqx1-0005kz-54
- for xen-devel@lists.xenproject.org; Wed, 18 Jun 2025 11:27:31 +0000
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on20613.outbound.protection.outlook.com
- [2a01:111:f403:2413::613])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2eb95f51-4c37-11f0-b894-0df219b8e170;
- Wed, 18 Jun 2025 13:27:15 +0200 (CEST)
-Received: from DM6PR03CA0092.namprd03.prod.outlook.com (2603:10b6:5:333::25)
- by CH3PR12MB8728.namprd12.prod.outlook.com (2603:10b6:610:171::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8835.29; Wed, 18 Jun
- 2025 11:27:11 +0000
-Received: from DS1PEPF00017096.namprd05.prod.outlook.com
- (2603:10b6:5:333:cafe::61) by DM6PR03CA0092.outlook.office365.com
- (2603:10b6:5:333::25) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8835.30 via Frontend Transport; Wed,
- 18 Jun 2025 11:27:11 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS1PEPF00017096.mail.protection.outlook.com (10.167.18.100) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8857.21 via Frontend Transport; Wed, 18 Jun 2025 11:27:10 +0000
-Received: from localhost (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 18 Jun
- 2025 06:27:08 -0500
+	id 1uRrWj-0002x0-N9; Wed, 18 Jun 2025 12:04:25 +0000
+Received: by outflank-mailman (input) for mailman id 1019097;
+ Wed, 18 Jun 2025 12:04:23 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=FBi2=ZB=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uRrWh-0002w6-TZ
+ for xen-devel@lists.xenproject.org; Wed, 18 Jun 2025 12:04:23 +0000
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [2a00:1450:4864:20::429])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5f28b320-4c3c-11f0-a30a-13f23c93f187;
+ Wed, 18 Jun 2025 14:04:22 +0200 (CEST)
+Received: by mail-wr1-x429.google.com with SMTP id
+ ffacd0b85a97d-3a35c894313so7661505f8f.2
+ for <xen-devel@lists.xenproject.org>; Wed, 18 Jun 2025 05:04:22 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 41be03b00d2f7-b2fe16806casm9085827a12.50.2025.06.18.05.04.16
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 18 Jun 2025 05:04:21 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,162 +45,141 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2eb95f51-4c37-11f0-b894-0df219b8e170
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=u5bVQbkm7PkhixT3QmX7bPFGazmuCDfhRw/P/PaNCb8Bnwkbpohcq7P2XFDJk/bkXsZYBw8RMKtKkDU1iGYQ+8Wvp0x4dS3oLtNFcXXoct5R09cQtNGZgAXe/NPYk4dWOi0N4lX6vzoNJrr5nidlyv8mAVH7Jf61AS/AcpRxKzS5Ao9YGPBgGrxT/Mho0cgPAdbNkhqRuI8aB0YZWhvyra8LYbi0NL4rP89LLbrzDpurco9u3PFzD8lYzQDxmprlkjO6coYztucml4N0nxItmT25/Bo0iDo8n0QwGHMvQNg1PqY8dm84n/mFLkA5Gg0bdweh8ljZfRii1GiyhRp4UA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mWPZS55WWSHLHUZtdI+rkuAR3JOR9CRD/RZ+ZiQf0yw=;
- b=ugsu8xV/hT0QdBmmx4x5JQrUv4CdCpZzy5nM4JS35xWUQ/h6Zgckl9MyXQT8f+TzJAU+YQtrrWrdw9NWb4+dqb4C0uQwPF/ZgAbBafeOKuuugeqh/M7KMmRkD6t59qrYK5doLiue7RMh1OC04/XrhXi7/eP+bZhoFaFH2laq2SyYVY2bm0NpptGaHeF0dpZYpCobzwEpY0ZMZF8XW4hignDTDdtGSUCmhS+zLwoqZk9nzl+p9EQbjbQ5VYz94upX3G30QyHxH/C4SgCCW3hNx7dncuRdIEX3WZklxqYI+CYPOGl+chwT0ozL8eS1Q16HhKzIT5GU6J+AdZGd+tQwRw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mWPZS55WWSHLHUZtdI+rkuAR3JOR9CRD/RZ+ZiQf0yw=;
- b=BZjOhxVhI2y6XyK6kpkzfmhxNedylARpzIQ+CY7uml0vZF70hY0i9FGOO4L4dnmcQzPDHQYhmJLSO6EdMOh/K70s4vhKGAqsG0PclLA+e+pfIYX06vge9ICjitAPgR+r2hsocwkEBSxgeOjGWDECUUanqTWJwSQ4PmHuuKuxfgU=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+X-Inumbo-ID: 5f28b320-4c3c-11f0-a30a-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1750248262; x=1750853062; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=WAYPCJixiV7zgK7cyTRMK8RBH+JSfm3R5cByYNdSMT0=;
+        b=fXiSdSx+8w/OwgHZx7/kh3PyXsAu8VnmNOiouqukhU+g8fxsNP9qqYmMqcuto74nXb
+         nMbx8fEeZ4RHxfK4q5D3ntc0yt6plIIOH4XuaCzUDOXvcSdjTMvBGLbI3A8ZA7/pU1Em
+         jc6eoqtZztj5YTTTb7lW35EUzEWKQe9OQJSlaI6Ui/hTXSNH0IrpHVXSO2QQt3m7swSd
+         TWG03+YK2qk/GqzfgGNnqv58VU6MOeq8OOij7W7GypGNAJMLhXBXn6tCdQYiO8Wzc9EB
+         a8KCNqMSV8OXhVBbZYG9KanGca9Qdt+RYdQQgGa3jCHR8EtA8DjZ1v6aRUijpa+oS2wG
+         reSw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1750248262; x=1750853062;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=WAYPCJixiV7zgK7cyTRMK8RBH+JSfm3R5cByYNdSMT0=;
+        b=GR6mlSoyFwl9YJBFZGvnb2SCPw06JGwS0UZjmRS+nFV+niNM4BdaGRPwXECwYpUti7
+         JbzA7HGh4Ooq8ANWoVl0165+unhafTbBcgm3E3EmLajt5V8rn2IYTopNkh7V0oBkIYhl
+         ANFja9z3g7kWcVWwRATUAd80y57hT66mE5NpIOTIbyN+KtpylCFLkaZmb9C7vaw60DkD
+         D+7l6tp7BzkyoQKRJiiszExG6hP/lolz3lN1MhIAonrCxo+2KypMt/I5p8ZTTrdTPnqE
+         eOsial1dXV8gMYlL5NnlbTa50NkLkTFgiND2B2gAWfSqtCOll8nLpNVzjzexm7dNxe61
+         DhWA==
+X-Gm-Message-State: AOJu0YxePMhQYArMDc3ZezU489UCErpQh5MTCEg/t1WhsdQIMT4oTxkl
+	Gnsp4IymZw0Jo+rg4MGyCWuywL1YCpZfIeswHT0Of5TRUfTBih4Kr+8fQiduhUcULg==
+X-Gm-Gg: ASbGncvT3Y7v7wXk4gWS9P/x861pxq17l0RmbQ6m+6cUpsgTCLJ/HBJPTKThXRGlB8/
+	RH67x9ufsXn3fg3eC/6GWUDlwlDKYkQm8gj3dkU5PjCryZOECJmXNBdfNcTWwRp8ad2ruS9zUSL
+	YQVmGm3hydvkS7OzD3QWwv6qFGqJaHk+0wH+Nn/9IcQJhi69GqtB1PXz2SYx/Ip/fSkIEapIF7x
+	NCg+Duo4Khm5v2JJzEgVQOkOYBQx1EMoybHxa/kCmRE0KthsrYAA/RnZ5cYuM7Vwxy5nxn9AQKL
+	73+poauB0B1VySVhj2InlD75Qw4WJgmMYeBNWDz2ulEtCoKyOcdwhRLC7FgjH4KJKrQdLZ87D+C
+	0il3beTXJrlAsCCH75hdpNZyk7Xk8EcBc3nx5fTK9Gf1lLbB9gKv5tD8ymA==
+X-Google-Smtp-Source: AGHT+IGZlPYGbMox5qe2KykBkj7lQJoPaUBiX7q+45+t3Ng0r5pmnq6Q6iLeEEUC0bfcAhLduHb3pw==
+X-Received: by 2002:a05:6000:178b:b0:3a4:d8f2:d9d with SMTP id ffacd0b85a97d-3a572e6f2b3mr13840139f8f.38.1750248262065;
+        Wed, 18 Jun 2025 05:04:22 -0700 (PDT)
+Message-ID: <8f3f8815-a60d-4c8b-af2b-fc8ed5f9ba32@suse.com>
+Date: Wed, 18 Jun 2025 14:04:12 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="UTF-8"
-Date: Wed, 18 Jun 2025 13:27:07 +0200
-Message-ID: <DAPMFOV5M5KX.17TFBM7DK6PL0@amd.com>
-To: "Orzel, Michal" <michal.orzel@amd.com>, <xen-devel@lists.xenproject.org>
-CC: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
-	<julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>
-Subject: Re: [PATCH v2] xen/dt: Remove loop in dt_read_number()
-From: Alejandro Vallejo <agarciav@amd.com>
-X-Mailer: aerc 0.20.1
-References: <20250617171358.670642-1-agarciav@amd.com>
- <a1b59e2d-0b18-406f-86e9-1b2a737a58e9@amd.com>
-In-Reply-To: <a1b59e2d-0b18-406f-86e9-1b2a737a58e9@amd.com>
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS1PEPF00017096:EE_|CH3PR12MB8728:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9fff05df-19e4-453e-77a7-08ddae5b10e6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700013|376014|82310400026|1800799024;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?U3NERVNwSW9lelhhQjBIajBoMVpyczVDWGk1dmU2NlR3SVRENTRsSmM2QmVF?=
- =?utf-8?B?RzI0U1lkZWIybGtvMUVIUHNXRk1DL3ZodUxsOWRWRENrT3Z0ME1JNXI0Z21G?=
- =?utf-8?B?MEFsdnc2R09iNWZ3RWpyZjJybHo5WFhLaXNLMi9LN2xlL3I1aW1RTWZRTjN2?=
- =?utf-8?B?N0FhR3k3cWE4KzBReXpWaHpINlFtVjlKR1p5MC9BZmQrempUb3dYcXdYbDZu?=
- =?utf-8?B?emxPQk5zd1Z6YkxoZGJ6UVdDaVJEdWtnUFRhcnRoVGN2Sk5XeFdJVUtRMHFO?=
- =?utf-8?B?N3F6YklTRlNpbWpWN1JxaVRNaDdCSFBoUlE4eGlpaXd5ckNuaXM4SmdteHkr?=
- =?utf-8?B?K3hMSFo0V3dZZmx2WWdZNnV1bDhBN3VaOFNLQmJDRlNEajRKQWxZK2xuV08w?=
- =?utf-8?B?Um1kMUNMRTNIOXF2aktCM3JiaWhPQU1TL1ZuOU9RR3hXSVVBa24zdDROVzJr?=
- =?utf-8?B?eDA2Y1NmNGlGMFpqTVlBeCt4ZlArUTMzNk1nTHA5RmwvKzFSVC9aZWtrc01H?=
- =?utf-8?B?MVVUcWVtckhYV3FGMDFDditMandxV200U1A1QXo1amRjV1dyWWZKcS9kaGVC?=
- =?utf-8?B?bURqL29aOUJjZU9CMkdVUGdSbnlYMGVkTWVSeXhnUmhpTS83c0NYdlk2QktW?=
- =?utf-8?B?MlQ5eFpVM3VwWFllcWJvUjhycTZucmZ2UU10OEE1NzZoMGdjcTVwd3ViUWxS?=
- =?utf-8?B?a3VtbEZWV2h1VmJiYi9YTTNRY2lLd3BoNy9LdkpROFEvaFV1am1JUVhYR091?=
- =?utf-8?B?eTJWVFJKblUvNzk3TGxhS3VPQXdNZmJOeCt4V3ExRUlPc1FDU1llQnR0eXQz?=
- =?utf-8?B?RW9SUzZiMlY2bU15cXpVR09XZWgrQWkxeDV4bHBweUJMNXdadCtqQ2tFZnNR?=
- =?utf-8?B?eFNLVGgxV0hRRDdJcWd6OERJSXlPOU1sbUtQSTMyRTRjNjVyQ3Vac0hRYUxE?=
- =?utf-8?B?QUt6TU5uQnJHUGpscDFaaGRTaHVra0RwcHFHaC9uVDlSUXZQUll0NnJkQ25q?=
- =?utf-8?B?eFB6NkRtY0xaZ1FRT2NmNWk0anNaSVdoV3BuZ1E5Slozb29yRStEdUVZbFo5?=
- =?utf-8?B?R01ybGdjQTYva3pSNkhuUEhrMnd2N1VwUjN3bGI0Z0l3Sk0zY1BPcldCVldS?=
- =?utf-8?B?QTRHYWVFVDNjdU4vVjUzY0tRc1Yxd0JCWU5RREpJRjNPak0yR2RJVGRJeVpL?=
- =?utf-8?B?VHR3SnAvcTNCRGRpRVF2Syt3SFlNNHdtK2ZRd1B6TVU5OVBKM0ZzSUN1T3hz?=
- =?utf-8?B?UEVycmFCdThqZVJ4TGVya1ZXdmJBMVVndDFoM2dwOXdNK3lBVzlMdnluYk5l?=
- =?utf-8?B?NUlvakFSaG9pN2ZNdERpSCt0TnZSeityMVlxZk43UHROSEZoZlZpYUNDQnlC?=
- =?utf-8?B?NXhaMDBkekJGZHE4d3FuUDVvZ2U4bnhsUVp3QXpQR0NvSmYzWC9FdXZkWmVI?=
- =?utf-8?B?VlRSQ3NYMlhucDBHY0JjRUhhbXUxOHhpdnBYcnR1NmxuUXBsWlltWXRwTlBu?=
- =?utf-8?B?YUJhSXpGRk16R1pWM2EyckJFR3g2MWQ4WEdDWjlTNWk4MjEvQmRHUlJxeDRL?=
- =?utf-8?B?bXNKNno0UHNqK0VNUmxHZUJzbXRqV1REUzUxZHU2SHRNT3crbVVwb2JOeFE2?=
- =?utf-8?B?d000elZwZ3cyN09JVmRacENpd2Q5bzlYMlpndkx5a0NacUJnT21mazJIV0k3?=
- =?utf-8?B?eHRTNm5hRVlXazVtTFRuQmNxYVVhR2RUbHZJdTBUWTNSNmVzbGZGUlhlUEl4?=
- =?utf-8?B?QmJ2S3BhSEZXQkdYRFl5cnJ5blVuN0NsTDMyWlNBOHRxQjR1WU9uSFlNOTZB?=
- =?utf-8?B?SFdtckdCcEZRenNQVnVmbFhDT1ZvbzBMME1qVmh3S2JWVVJLOUpZQXdueUdJ?=
- =?utf-8?B?VUM4R29WTnpHK1RFK0JTenVPdU9jaS90ckJXeEJXRDdzRk9RTG42OUE1Vnhm?=
- =?utf-8?B?ZjlQUmVMK2tXazZ1QUNQOGxUYXpnTDZtZ3FESW9OMGdhMjlVNkJYeW9IalRr?=
- =?utf-8?B?NmZEbGlKQVFYLy9wL3h2RVlLdG5BeldIUDFpRkZkNSthVlJhOVZ5Q0o5aTdx?=
- =?utf-8?Q?t1EUSV?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(376014)(82310400026)(1800799024);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jun 2025 11:27:10.4513
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9fff05df-19e4-453e-77a7-08ddae5b10e6
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DS1PEPF00017096.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8728
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] memory: arrange to conserve on DMA reservation
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>
+References: <6565e881-ec59-4db4-834a-f694bf1b9427@suse.com>
+ <aFAbqhfmM_GBxjVC@macbook.local>
+ <9b036f26-f275-48d0-9a33-7cef38b29f48@suse.com>
+ <aFAuRXSryHKj3jVa@macbook.local>
+ <2969b5d8-5879-4674-8332-046898e17257@suse.com>
+ <aFA7OiV8AX-ua-W_@macbook.local>
+ <a56574c0-6744-4249-9410-60858f49d04c@suse.com>
+ <aFBTA3wklAejAUPT@macbook.local>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <aFBTA3wklAejAUPT@macbook.local>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed Jun 18, 2025 at 9:06 AM CEST, Michal Orzel wrote:
->
->
-> On 17/06/2025 19:13, Alejandro Vallejo wrote:
->> The DT spec declares only two number types for a property: u32 and u64,
->> as per Table 2.3 in Section 2.2.4. Remove unbounded loop and replace
->> with a switch statement. Default to a size of 1 cell in the nonsensical
->> size case, with a warning printed on the Xen console.
->>=20
->> Suggested-by: Daniel P. Smith" <dpsmith@apertussolutions.com>
->> Signed-off-by: Alejandro Vallejo <agarciav@amd.com>
->> ---
->> v2:
->>   * Added missing `break` on the `case 2:` branch and added ASSERT_UNREA=
-CHABLE() to the deafult path
->> ---
->>  xen/include/xen/device_tree.h | 17 ++++++++++++++---
->>  1 file changed, 14 insertions(+), 3 deletions(-)
->>=20
->> diff --git a/xen/include/xen/device_tree.h b/xen/include/xen/device_tree=
-.h
->> index 75017e4266..2ec668b94a 100644
->> --- a/xen/include/xen/device_tree.h
->> +++ b/xen/include/xen/device_tree.h
->> @@ -261,10 +261,21 @@ void intc_dt_preinit(void);
->>  /* Helper to read a big number; size is in cells (not bytes) */
->>  static inline u64 dt_read_number(const __be32 *cell, int size)
->>  {
->> -    u64 r =3D 0;
->> +    u64 r =3D be32_to_cpu(*cell);
->> +
->> +    switch ( size )
->> +    {
->> +    case 1:
->> +        break;
->> +    case 2:
->> +        r =3D (r << 32) | be32_to_cpu(cell[1]);
->> +        break;
->> +    default:
->> +        // Nonsensical size. default to 1.
-> I wonder why there are so many examples of device trees in Linux with
-> #address-cells =3D <3>? Also, libfdt defines FDT_MAX_NCELLS as 4 with com=
-ment:
-> "maximum value for #address-cells and #size-cells" but I guess it follows=
- the
-> IEE1275 standard and DT spec "is loosely related" to it.
->
-> ~Michal
+On 16.06.2025 19:23, Roger Pau Monné wrote:
+> On Mon, Jun 16, 2025 at 06:02:07PM +0200, Jan Beulich wrote:
+>> On 16.06.2025 17:41, Roger Pau Monné wrote:
+>>> On Mon, Jun 16, 2025 at 05:20:45PM +0200, Jan Beulich wrote:
+>>>> On 16.06.2025 16:46, Roger Pau Monné wrote:
+>>>>> One question I have though, on systems with a low amount of memory
+>>>>> (let's say 8GB), does this lead to an increase in domain construction
+>>>>> time due to having to fallback to order 0 allocations when running out
+>>>>> of non-DMA memory?
+>>>>
+>>>> It'll likely be slower, yes, but I can't guesstimate by how much.
+>>>
+>>> Should there be some way to control this behavior then?  I'm mostly
+>>> thinking about client systems like Qubes where memory is likely
+>>> limited, and the extra slowness to create VMs could become
+>>> noticeable?
+>>
+>> What kind of control would you be thinking of here? Yet another command
+>> line option?
+> 
+> I guess that would be enough.  I think we need a way to resort to the
+> previous behavior if required,
 
-I could imagine DT's encoding CHERI 64bit capabilities as addresses, which =
-could
-require 4 cells. Needless to say, this function wouldn't even be in the top=
- 10
-biggest problems in making Xen happy running on a CHERI-capable processor.
+Thinking about it, there already is "dma_bits=". Simply setting this low
+enough would have largely the same effect as yet another new command line
+option. Thoughts?
 
-As for #address-cells =3D <3>, I really can't think of a reason except test=
-ing
-theoretical corner cases. =20
+> and likely a CHANGELOG entry to notice the change.
 
-Cheers,
-Alejandro
+Hmm, not sure here. This is too small imo, and really an implementation
+detail.
+
+> Overall, would it be possible to only include the flag if we know
+> there's non-DMA memory available to allocate?  Otherwise we are
+> crippling allocation performance when there's only DMA memory left.
+
+Imo trying to determine this would only make sense if the result can
+then be relied upon. To determine we'd need to obtain the heap lock,
+and we'd need to not drop it until after the allocation(s) were done.
+I think that's far away from being a realistic option.
+
+> That also raises the question whether it's an acceptable trade-off to
+> possibly shatter p2m super pages (that could be used if allocating
+> from the DMA pool) at the expense of not allocating from the DMA pool
+> until there's non-DMA memory left.
+
+This being an acceptable tradeoff is imo an implicit pre-condition of
+adding such a heuristic. For the system as a whole, exhausting special
+purpose memory is likely worse than some loss of performance. Plus as
+said above, people valuing performance more can reduce the "DMA pool".
+
+Jan
 
