@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0EE53ADF3AC
-	for <lists+xen-devel@lfdr.de>; Wed, 18 Jun 2025 19:27:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1019361.1396152 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C088ADF3DD
+	for <lists+xen-devel@lfdr.de>; Wed, 18 Jun 2025 19:32:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1019368.1396162 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uRwXz-0003Ij-R3; Wed, 18 Jun 2025 17:26:03 +0000
+	id 1uRweJ-0004tB-Dl; Wed, 18 Jun 2025 17:32:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1019361.1396152; Wed, 18 Jun 2025 17:26:03 +0000
+Received: by outflank-mailman (output) from mailman id 1019368.1396162; Wed, 18 Jun 2025 17:32:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uRwXz-0003Go-N4; Wed, 18 Jun 2025 17:26:03 +0000
-Received: by outflank-mailman (input) for mailman id 1019361;
- Wed, 18 Jun 2025 17:26:02 +0000
+	id 1uRweJ-0004rG-Am; Wed, 18 Jun 2025 17:32:35 +0000
+Received: by outflank-mailman (input) for mailman id 1019368;
+ Wed, 18 Jun 2025 17:32:34 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=OKfJ=ZB=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1uRwXy-0003Gi-25
- for xen-devel@lists.xenproject.org; Wed, 18 Jun 2025 17:26:02 +0000
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [2a00:1450:4864:20::42d])
+ <SRS0=I41v=ZB=linaro.org=dan.carpenter@srs-se1.protection.inumbo.net>)
+ id 1uRweI-0004rA-30
+ for xen-devel@lists.xenproject.org; Wed, 18 Jun 2025 17:32:34 +0000
+Received: from mail-oi1-x22d.google.com (mail-oi1-x22d.google.com
+ [2607:f8b0:4864:20::22d])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4cab4700-4c69-11f0-a30b-13f23c93f187;
- Wed, 18 Jun 2025 19:25:59 +0200 (CEST)
-Received: by mail-wr1-x42d.google.com with SMTP id
- ffacd0b85a97d-3a54836cb7fso5149062f8f.2
- for <xen-devel@lists.xenproject.org>; Wed, 18 Jun 2025 10:25:59 -0700 (PDT)
-Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
- by smtp.gmail.com with UTF8SMTPSA id
- 5b1f17b1804b1-4535ebd02basm3056645e9.39.2025.06.18.10.25.57
+ id 36e03354-4c6a-11f0-a30b-13f23c93f187;
+ Wed, 18 Jun 2025 19:32:32 +0200 (CEST)
+Received: by mail-oi1-x22d.google.com with SMTP id
+ 5614622812f47-4067ac8f6cdso5082943b6e.2
+ for <xen-devel@lists.xenproject.org>; Wed, 18 Jun 2025 10:32:32 -0700 (PDT)
+Received: from localhost ([2603:8080:b800:f700:1b3b:c162:aefa:da1b])
+ by smtp.gmail.com with ESMTPSA id
+ 5614622812f47-40a740c2484sm2410989b6e.13.2025.06.18.10.32.29
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 18 Jun 2025 10:25:58 -0700 (PDT)
+ Wed, 18 Jun 2025 10:32:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,201 +45,127 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4cab4700-4c69-11f0-a30b-13f23c93f187
+X-Inumbo-ID: 36e03354-4c6a-11f0-a30b-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1750267558; x=1750872358; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=DDgkxMYDVJTHvv5S/2KrkrBS+SQ+ZpLwE3G2lAfMf9A=;
-        b=Bzp3sfhR6vZWeBtAJIQ84WfUj+HoAloWNq5Q2vybaCHEKoJAI74yo8bL90UuszxPBm
-         XO+Kk5MFrSSTQ8qeXl53Ib9t+JP686rR+HnZ73BEpk3Je1QDvrQmxDj2Aruivz3XpEvA
-         texQZnhJef0yRaQdGCcAej7jwJ0OllouIekqk=
+        d=linaro.org; s=google; t=1750267951; x=1750872751; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:message-id:subject:cc
+         :to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=JPaDHCf4QQfYtlFAEXP1n0ACjJsy8xyFFkSONW+4dVI=;
+        b=fcoyYa5/vgLStJBGnfJQzsf080XXodxKAVM49xiYCaZnK6LO5HI0ogtMpnn5VlNFMd
+         +5kaBmNTDnkXlkD++wvqsQ2Q2oqREOQg6CCPXpdCfp1vqcceF0OZqlPBU6l28Aa63dC+
+         Ir3LhxB3RqXglRFa0jku34hcOYX5RWSs/c4IaE5XMjXo5Tj3AvktjybOXjBP1yphFQCq
+         zRjm/IcYTTjFbq1vTW8pTtNWRPeDlNjE5pv+1smuESRCQaXkEtodZSNNxRgulLDHLpoK
+         vRxJHDnldSN7BF3ZywXniOiHIvzP7mLpNNwaERd5RJcTjHuPA+G4qO/a+zQVZLhW99wF
+         4udg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750267558; x=1750872358;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=DDgkxMYDVJTHvv5S/2KrkrBS+SQ+ZpLwE3G2lAfMf9A=;
-        b=qZDIuVCIKK/f2Sj3TLnpmN1RCQTggz1mhbZD03KC4XbUdCG/fsFKQ3UKwN9pZbgBr5
-         EGRFz/YCVcMxhvU9qIXmmqWZ7ddHAazea8XtazYihiUf9TNSX1Xiicc8/ry2rGKNtjOk
-         7Qz/J42DKRTzWwiSWPEX0Uio6E5Lq5EaWy5KPASW3R8ljPZ+4yFlH21m0vQ+SB+01eZu
-         D4y38Q9vsQjnzJWPDfqAZDkr8ylkYYNjjIX/2KhtHU4w7T5Tw1BLo0Af8pb30PdyPHIU
-         N52xrIcb0KXE1P8nCWTALEX6GHKwYxkWl1uC+UE/G+TcmuWeYH/4xDXdLTihhyDu4gv6
-         LbNw==
-X-Forwarded-Encrypted: i=1; AJvYcCXgg5lKoWTry9TpMPYW9vb5R/l943GrkklssZAJNchv30Hv5G8R33Zc90w1+vfWw0V7C1hX0k6OG68=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxhOavvrlHZysLz+sVaUxvumcn2Ct5RnsjuhxvpPNec0FumyGqF
-	Zil3/blUUu4TspZBJMpFNwkuACkmj29zzIkLnFXlA0YxRtN8X4U7tyvpOjtbexlqOfk=
-X-Gm-Gg: ASbGncvMYvTl4a+VrdLcS1NimNPY5jFwV441RynjcHl2V9rAs7dZfu6jaLd3qTHR3Mz
-	enxmIIKI3xZLSm7/jkDXW4RJOPLoPwVQXOLQIxBQ23zrCHEyiEVOfZNLxkzLZMaFGb0jw7gu55t
-	Ad7tte4Au0NKBRUGf0WhX/ULt7ovmE8d6HHzxMxDksN9GZZYqaikkF9S9mLfQjz5lRJopQ0b9RU
-	UBpYqt22IfY1VpheJ2dlqi4VotegerBvBOwR0afANEr/odW7I1NBs+rALBo5hWvwpuGal/gM0Yb
-	CmQC+GHB4cOwKhMicrP8vgKQdH4MAKxZLfv2R570PtEWa4JSLibV1qm7IEUFPMtlNBSsWf4QQCR
-	qezk7psWcO5ekc6TxmRvbF8K9sX7zJg+l5Qc=
-X-Google-Smtp-Source: AGHT+IGJ2YL/u884wzR9OEfA/yUI8w1O0IM1F/GdgDMFeLDeq0CD8pqh/OfIkjCGIkvew/ukZO0kOg==
-X-Received: by 2002:a05:6000:4006:b0:3a0:7d27:f076 with SMTP id ffacd0b85a97d-3a572367967mr17101692f8f.2.1750267558472;
-        Wed, 18 Jun 2025 10:25:58 -0700 (PDT)
-Date: Wed, 18 Jun 2025 19:25:57 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>
-Cc: victorm.lira@amd.com, xen-devel@lists.xenproject.org,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Federico Serafini <federico.serafini@bugseng.com>,
-	Bertrand Marquis <bertrand.marquis@arm.com>
-Subject: Re: [PATCH v2 3/3] xen/x86: add missing noreturn attributes
-Message-ID: <aFL2pVgOryqhnnYh@macbook.local>
-References: <20250606212712.1901838-1-victorm.lira@amd.com>
- <20250606212712.1901838-2-victorm.lira@amd.com>
- <20250606212712.1901838-3-victorm.lira@amd.com>
- <aFLYtSgt5b4lQwgv@macbook.local>
- <220ccb5869914c44cc2b1f7a152ee933@bugseng.com>
+        d=1e100.net; s=20230601; t=1750267951; x=1750872751;
+        h=in-reply-to:content-disposition:mime-version:message-id:subject:cc
+         :to:from:date:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=JPaDHCf4QQfYtlFAEXP1n0ACjJsy8xyFFkSONW+4dVI=;
+        b=LMyCeWCk6Rkxd9SMuQQUx5H2cM3Mf36AY0zmg+HsZJJEsRz12e//+e+Apx3rXWp27B
+         SxEwgR7TT7ZzmHaVSgI7642TFks4v8eLbMmgLB3106HaHawEQoNGSiUZq3XXJesebLmj
+         I3C4yhb7MZ3f+YI/9/1LLkGe7kgye5MNa2sV2qYi60HVvLrsICfmAV5doWNu0ewjXkSf
+         RNwsgEpfqXUBoCHRd7EDGH2Ba92N5WDB6EljtC88dWIDQrn4tdgn3uPx3SNuE6kYmBDu
+         o826KqsZWoIsA8iXkWOUpjar3SKgw6VbdVLBKunQvyaIy3T6+xQ1kZSBnqrYArjMIhwR
+         JdvA==
+X-Forwarded-Encrypted: i=1; AJvYcCWzHospFtjRMANgUGDPnluQlQeNhwQDL1tWv3AQogoKR0nidmdC6Lu7NogxhJsRDwtNa8XTmkHzdLw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YykAk6QUbd4M1+ut1UKf3mcL57/ln8Hf5g7/5dROSoCgzz766MO
+	waoml8qeJTEBrsy0DA/2UVb/xBco2btnBONnOo4M3ph5DGjubztqcyJjlhGcqJC4rME=
+X-Gm-Gg: ASbGnctpUR0L0AxNSni8im15r6cVtenryV1gCQmkLqBfJwobvmA/6K8XU5kX34Gm3KR
+	8CSPzF7IQ9HYHw/DCZ22kkFwTOP0htCw/+AIpMO06+hPWhIMu75g6gjxunOulvlMfCc2kVCpygz
+	rLmEkcnXiWo10jS1GHVvzG3bSfO0uTUJQQgRs2ZSZR/ior6GId1KuSDcxdral41e3pqlQDH2HH1
+	S+X1uAJz20AEXbzhSi1Psko9DvuqFzZQVAvtDkaGh2CKVwGNyUfa/zhPfF83dOBxLmdBqdJTJYc
+	J3nT9e7z9pRwufrtY/0OcIutUFeTop8hwqLcVFAMxT6+ZQYvxmrE9zaRLtUuwxQYISHEcw==
+X-Google-Smtp-Source: AGHT+IEhmsXj/9aFuinmgp9fFM5zxL8AzdLs118MWezycsaLkbKoWiwnYgYHLgU6A9s7/1JQmPa7zA==
+X-Received: by 2002:a05:6808:1523:b0:403:5150:c348 with SMTP id 5614622812f47-40a7c11902fmr11343414b6e.4.1750267951380;
+        Wed, 18 Jun 2025 10:32:31 -0700 (PDT)
+Date: Wed, 18 Jun 2025 20:32:28 +0300
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: oe-kbuild@lists.linux.dev, Alexander Gordeev <agordeev@linux.ibm.com>,
+	Andrew Morton <akpm@linux-foundation.org>
+Cc: lkp@intel.com, oe-kbuild-all@lists.linux.dev,
+	Linux Memory Management List <linux-mm@kvack.org>,
+	linux-kernel@vger.kernel.org, sparclinux@vger.kernel.org,
+	xen-devel@lists.xenproject.org, linuxppc-dev@lists.ozlabs.org,
+	linux-s390@vger.kernel.org, Hugh Dickins <hughd@google.com>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Guenter Roeck <linux@roeck-us.net>, Juergen Gross <jgross@suse.com>,
+	Jeremy Fitzhardinge <jeremy@goop.org>,
+	Ryan Roberts <ryan.roberts@arm.com>
+Subject: Re: [PATCH 2/6] mm: Lock kernel page tables before entering lazy MMU
+ mode
+Message-ID: <0be7d42e-5898-4b94-829b-59c661c2f07b@suswa.mountain>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <220ccb5869914c44cc2b1f7a152ee933@bugseng.com>
+In-Reply-To: <7bd3a45dbc375dc2c15cebae09cb2bb972d6039f.1749747752.git.agordeev@linux.ibm.com>
 
-On Wed, Jun 18, 2025 at 06:16:30PM +0200, Nicola Vetrini wrote:
-> On 2025-06-18 17:18, Roger Pau Monné wrote:
-> > On Fri, Jun 06, 2025 at 02:27:09PM -0700, victorm.lira@amd.com wrote:
-> > > From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-> > > 
-> > > The marked functions never return to their caller, but lack the
-> > > `noreturn' attribute.
-> > > 
-> > > Functions that never return should be declared with a `noreturn'
-> > > attribute.
-> > > 
-> > > The lack of `noreturn' causes a violation of MISRA C Rule 17.11 (not
-> > > currently accepted in Xen), and also Rule 2.1: "A project shall not
-> > > contain unreachable code". Depending on the compiler used and the
-> > > compiler optimization used, the lack of `noreturn' might lead to the
-> > > presence of unreachable code.
-> > > 
-> > > No functional change.
-> > > 
-> > > Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
-> > > Signed-off-by: Victor Lira <victorm.lira@amd.com>
-> > 
-> > Acked-by: Roger Pau Monné <roger.pau@citrix.com>
-> > 
-> > One question below.
-> > 
-> > > ---
-> > > Changes in v2:
-> > > - improved commit message
-> > > ---
-> > > Cc: Andrew Cooper <andrew.cooper3@citrix.com>
-> > > Cc: Anthony PERARD <anthony.perard@vates.tech>
-> > > Cc: Michal Orzel <michal.orzel@amd.com>
-> > > Cc: Jan Beulich <jbeulich@suse.com>
-> > > Cc: Julien Grall <julien@xen.org>
-> > > Cc: Roger Pau MonnÃ© <roger.pau@citrix.com>
-> > > Cc: Stefano Stabellini <sstabellini@kernel.org>
-> > > Cc: Nicola Vetrini <nicola.vetrini@bugseng.com>
-> > > Cc: Federico Serafini <federico.serafini@bugseng.com>
-> > > Cc: Bertrand Marquis <bertrand.marquis@arm.com>
-> > > ---
-> > >  xen/arch/x86/cpu/mcheck/mce.c | 3 ++-
-> > >  xen/arch/x86/efi/efi-boot.h   | 2 +-
-> > >  xen/arch/x86/smp.c            | 2 +-
-> > >  xen/arch/x86/traps.c          | 2 +-
-> > >  xen/arch/x86/x86_64/traps.c   | 2 +-
-> > >  5 files changed, 6 insertions(+), 5 deletions(-)
-> > > 
-> > > diff --git a/xen/arch/x86/cpu/mcheck/mce.c
-> > > b/xen/arch/x86/cpu/mcheck/mce.c
-> > > index 1c348e557d..79214ce56b 100644
-> > > --- a/xen/arch/x86/cpu/mcheck/mce.c
-> > > +++ b/xen/arch/x86/cpu/mcheck/mce.c
-> > > @@ -79,7 +79,8 @@ static int __init cf_check mce_set_verbosity(const
-> > > char *str)
-> > >  custom_param("mce_verbosity", mce_set_verbosity);
-> > > 
-> > >  /* Handle unconfigured int18 (should never happen) */
-> > > -static void cf_check unexpected_machine_check(const struct
-> > > cpu_user_regs *regs)
-> > > +static void noreturn cf_check
-> > > +unexpected_machine_check(const struct cpu_user_regs *regs)
-> > >  {
-> > >      console_force_unlock();
-> > >      printk("Unexpected Machine Check Exception\n");
-> > > diff --git a/xen/arch/x86/efi/efi-boot.h b/xen/arch/x86/efi/efi-boot.h
-> > > index 0ecf4ca53f..0194720003 100644
-> > > --- a/xen/arch/x86/efi/efi-boot.h
-> > > +++ b/xen/arch/x86/efi/efi-boot.h
-> > > @@ -769,7 +769,7 @@ static void __init efi_arch_blexit(void)
-> > >          efi_bs->FreePages(ucode.addr, PFN_UP(ucode.size));
-> > >  }
-> > > 
-> > > -static void __init efi_arch_halt(void)
-> > > +static void noreturn __init efi_arch_halt(void)
-> > >  {
-> > >      local_irq_disable();
-> > >      for ( ; ; )
-> > > diff --git a/xen/arch/x86/smp.c b/xen/arch/x86/smp.c
-> > > index 516dab5528..7936294f5f 100644
-> > > --- a/xen/arch/x86/smp.c
-> > > +++ b/xen/arch/x86/smp.c
-> > > @@ -343,7 +343,7 @@ void __stop_this_cpu(void)
-> > >      cpumask_clear_cpu(smp_processor_id(), &cpu_online_map);
-> > >  }
-> > > 
-> > > -static void cf_check stop_this_cpu(void *dummy)
-> > > +static void noreturn cf_check stop_this_cpu(void *dummy)
-> > >  {
-> > >      const bool *stop_aps = dummy;
-> > > 
-> > > diff --git a/xen/arch/x86/traps.c b/xen/arch/x86/traps.c
-> > > index 092c7e4197..34dc077cad 100644
-> > > --- a/xen/arch/x86/traps.c
-> > > +++ b/xen/arch/x86/traps.c
-> > > @@ -805,7 +805,7 @@ void fatal_trap(const struct cpu_user_regs
-> > > *regs, bool show_remote)
-> > >            (regs->eflags & X86_EFLAGS_IF) ? "" : " IN INTERRUPT
-> > > CONTEXT");
-> > >  }
-> > > 
-> > > -void asmlinkage do_unhandled_trap(struct cpu_user_regs *regs)
-> > > +void asmlinkage noreturn do_unhandled_trap(struct cpu_user_regs
-> > > *regs)
-> > >  {
-> > >      fatal_trap(regs, false);
-> > >  }
-> > > diff --git a/xen/arch/x86/x86_64/traps.c b/xen/arch/x86/x86_64/traps.c
-> > > index c77f304bb0..8460a4a1ae 100644
-> > > --- a/xen/arch/x86/x86_64/traps.c
-> > > +++ b/xen/arch/x86/x86_64/traps.c
-> > > @@ -293,7 +293,7 @@ void show_page_walk(unsigned long addr)
-> > >             l1_table_offset(addr), l1e_get_intpte(l1e), pfn);
-> > >  }
-> > > 
-> > > -void asmlinkage do_double_fault(struct cpu_user_regs *regs)
-> > > +void asmlinkage noreturn do_double_fault(struct cpu_user_regs *regs)
-> > 
-> > Does noreturn matter for functions called from assembly (asmlinkage
-> > ones)?  In that case the hint is not useful for code generation, since
-> > it's hand written assembly already?  (it's arguably useful for the
-> > developer writing the code)
-> > 
-> > Might be worth mentioning in the commit message if the above is
-> > accurate.  For example by adding to the commit message: "noreturn is
-> > not relevant for functions called from assembly, but can be used as a
-> > hint for the developers writing the code".
-> > 
-> 
-> Yes, it is relevant because the rule considers only the single function, not
-> the context where it is called (that is orders of magnitude more difficult
-> to check automatically). For my part, I'm ok with your suggestion.
+Hi Alexander,
 
-Thanks, so if my understanding is correct the usage of the noreturn
-attribute together with asmlinkage is only for the benefit of the
-analysis tools, as from a code generation perspective it makes no
-difference.
+kernel test robot noticed the following build warnings:
 
-Roger.
+url:    https://github.com/intel-lab-lkp/linux/commits/Alexander-Gordeev/mm-Cleanup-apply_to_pte_range-routine/20250613-013835
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm.git mm-everything
+patch link:    https://lore.kernel.org/r/7bd3a45dbc375dc2c15cebae09cb2bb972d6039f.1749747752.git.agordeev%40linux.ibm.com
+patch subject: [PATCH 2/6] mm: Lock kernel page tables before entering lazy MMU mode
+config: x86_64-randconfig-161-20250613 (https://download.01.org/0day-ci/archive/20250613/202506132017.T1l1l6ME-lkp@intel.com/config)
+compiler: gcc-12 (Debian 12.2.0-14) 12.2.0
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Reported-by: Dan Carpenter <dan.carpenter@linaro.org>
+| Closes: https://lore.kernel.org/r/202506132017.T1l1l6ME-lkp@intel.com/
+
+smatch warnings:
+mm/vmalloc.c:552 vmap_pages_pte_range() warn: inconsistent returns 'global &init_mm.page_table_lock'.
+
+vim +552 mm/vmalloc.c
+
+0a264884046f1ab Nicholas Piggin   2021-04-29  517  static int vmap_pages_pte_range(pmd_t *pmd, unsigned long addr,
+2ba3e6947aed9bb Joerg Roedel      2020-06-01  518  		unsigned long end, pgprot_t prot, struct page **pages, int *nr,
+2ba3e6947aed9bb Joerg Roedel      2020-06-01  519  		pgtbl_mod_mask *mask)
+^1da177e4c3f415 Linus Torvalds    2005-04-16  520  {
+^1da177e4c3f415 Linus Torvalds    2005-04-16  521  	pte_t *pte;
+^1da177e4c3f415 Linus Torvalds    2005-04-16  522  
+db64fe02258f150 Nicholas Piggin   2008-10-18  523  	/*
+db64fe02258f150 Nicholas Piggin   2008-10-18  524  	 * nr is a running index into the array which helps higher level
+db64fe02258f150 Nicholas Piggin   2008-10-18  525  	 * callers keep track of where we're up to.
+db64fe02258f150 Nicholas Piggin   2008-10-18  526  	 */
+db64fe02258f150 Nicholas Piggin   2008-10-18  527  
+2ba3e6947aed9bb Joerg Roedel      2020-06-01  528  	pte = pte_alloc_kernel_track(pmd, addr, mask);
+^1da177e4c3f415 Linus Torvalds    2005-04-16  529  	if (!pte)
+^1da177e4c3f415 Linus Torvalds    2005-04-16  530  		return -ENOMEM;
+44562c71e2cfc9e Ryan Roberts      2025-04-22  531  
+dac0cc793368851 Alexander Gordeev 2025-06-12  532  	spin_lock(&init_mm.page_table_lock);
+44562c71e2cfc9e Ryan Roberts      2025-04-22  533  	arch_enter_lazy_mmu_mode();
+44562c71e2cfc9e Ryan Roberts      2025-04-22  534  
+^1da177e4c3f415 Linus Torvalds    2005-04-16  535  	do {
+db64fe02258f150 Nicholas Piggin   2008-10-18  536  		struct page *page = pages[*nr];
+db64fe02258f150 Nicholas Piggin   2008-10-18  537  
+c33c794828f2121 Ryan Roberts      2023-06-12  538  		if (WARN_ON(!pte_none(ptep_get(pte))))
+db64fe02258f150 Nicholas Piggin   2008-10-18  539  			return -EBUSY;
+db64fe02258f150 Nicholas Piggin   2008-10-18  540  		if (WARN_ON(!page))
+^1da177e4c3f415 Linus Torvalds    2005-04-16  541  			return -ENOMEM;
+4fcdcc12915c707 Yury Norov        2022-04-28  542  		if (WARN_ON(!pfn_valid(page_to_pfn(page))))
+4fcdcc12915c707 Yury Norov        2022-04-28  543  			return -EINVAL;
+
+These error paths don't unlock &init_mm.page_table_lock?
+
+4fcdcc12915c707 Yury Norov        2022-04-28  544  
+^1da177e4c3f415 Linus Torvalds    2005-04-16  545  		set_pte_at(&init_mm, addr, pte, mk_pte(page, prot));
+db64fe02258f150 Nicholas Piggin   2008-10-18  546  		(*nr)++;
+^1da177e4c3f415 Linus Torvalds    2005-04-16  547  	} while (pte++, addr += PAGE_SIZE, addr != end);
+44562c71e2cfc9e Ryan Roberts      2025-04-22  548  
+44562c71e2cfc9e Ryan Roberts      2025-04-22  549  	arch_leave_lazy_mmu_mode();
+dac0cc793368851 Alexander Gordeev 2025-06-12  550  	spin_unlock(&init_mm.page_table_lock);
+2ba3e6947aed9bb Joerg Roedel      2020-06-01  551  	*mask |= PGTBL_PTE_MODIFIED;
+^1da177e4c3f415 Linus Torvalds    2005-04-16 @552  	return 0;
+^1da177e4c3f415 Linus Torvalds    2005-04-16  553  }
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
+
 
