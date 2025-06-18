@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 06E0CADE43A
-	for <lists+xen-devel@lfdr.de>; Wed, 18 Jun 2025 09:06:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1018852.1395729 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9EBDDADE45C
+	for <lists+xen-devel@lfdr.de>; Wed, 18 Jun 2025 09:11:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1018882.1395760 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uRmsV-0006Pt-L1; Wed, 18 Jun 2025 07:06:35 +0000
+	id 1uRmwk-0001FQ-LF; Wed, 18 Jun 2025 07:10:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1018852.1395729; Wed, 18 Jun 2025 07:06:35 +0000
+Received: by outflank-mailman (output) from mailman id 1018882.1395760; Wed, 18 Jun 2025 07:10:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uRmsV-0006Ox-Hq; Wed, 18 Jun 2025 07:06:35 +0000
-Received: by outflank-mailman (input) for mailman id 1018852;
- Wed, 18 Jun 2025 07:06:33 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=KBI4=ZB=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1uRmsT-0004wT-OW
- for xen-devel@lists.xenproject.org; Wed, 18 Jun 2025 07:06:33 +0000
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam04on20606.outbound.protection.outlook.com
- [2a01:111:f403:2408::606])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c32f36da-4c12-11f0-a30a-13f23c93f187;
- Wed, 18 Jun 2025 09:06:32 +0200 (CEST)
-Received: from BN9PR12MB5273.namprd12.prod.outlook.com (2603:10b6:408:11e::22)
- by SN7PR12MB6839.namprd12.prod.outlook.com (2603:10b6:806:265::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8857.20; Wed, 18 Jun
- 2025 07:06:27 +0000
-Received: from BN9PR12MB5273.namprd12.prod.outlook.com
- ([fe80::cf66:58ab:47be:4b13]) by BN9PR12MB5273.namprd12.prod.outlook.com
- ([fe80::cf66:58ab:47be:4b13%5]) with mapi id 15.20.8835.027; Wed, 18 Jun 2025
- 07:06:27 +0000
+	id 1uRmwk-0001Cc-Hv; Wed, 18 Jun 2025 07:10:58 +0000
+Received: by outflank-mailman (input) for mailman id 1018882;
+ Wed, 18 Jun 2025 07:10:57 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=FBi2=ZB=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uRmsj-0004U2-JB
+ for xen-devel@lists.xenproject.org; Wed, 18 Jun 2025 07:06:49 +0000
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [2a00:1450:4864:20::32e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ccadedfc-4c12-11f0-b894-0df219b8e170;
+ Wed, 18 Jun 2025 09:06:47 +0200 (CEST)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-453398e90e9so36368465e9.1
+ for <xen-devel@lists.xenproject.org>; Wed, 18 Jun 2025 00:06:47 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-748900b04e4sm10190513b3a.121.2025.06.18.00.06.43
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 18 Jun 2025 00:06:46 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,174 +45,371 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c32f36da-4c12-11f0-a30a-13f23c93f187
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GYirddU3zYB2S8rVr0eEm1t8NR/DrQjiRzWx9xFhnqW7AkyG7D4Jeyfeo7TQV1jOemLV7CTYkQcUpLfvVTfdeMzQhvIyHtq3rthgo2mtYzRxPA35z4vvvhCREcKsEGa68h+Z0Pq9l4hXhIlxhJjd7oZ9l0R6UJCB6W+aoWSJbiRO1lLsKQ5BAe9VA18a9COVrwblIos8daSJLre+gotkHva6bJrgc0bK8HaVXzNnNFyYyA5JzdzT2y5n+Tos+k2++Fa0ZiMlIFqsIVwiEES7m/6zrIqnwMQigPordxC9dC9Q+peViwpVPiHEfGaSCnzsRAbKwfu4oV+l1agptlbBFQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ml9P/qbE0KF6UxVD6+jSSpsdZqlyn0DrI+ve2Nni0zI=;
- b=j4Twjztr2dd9BNDe/zXvFkqkLHLDdTzNwsNtodyEUlDJGGfOi3ctFmgtMSGdKrxtr0b7H/xDnmm90Ab9kYQIv/i6inWeeoyvNTK15lB45c9sLzp8L20zmebdJHUD7l7/AjMEgjuCHr8L5MeLvD8uj8Lh7l2exZVyKopKP+bkXomk8UslWgl2olJgR7BLxs7qkHumEnVn0edO6/99JcqV4PqhIoCjSXwUEnfq0/+VjwWShUGoLZAmVvQGjas2fuu+xANFtI4H92wVi/m1O3QKiOH9t2zFkrvmbA1zGOoEj2n/Gipq/XeyRmjNSByGIw5W4P+V66Z9hRzKIj0eBiJADA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ml9P/qbE0KF6UxVD6+jSSpsdZqlyn0DrI+ve2Nni0zI=;
- b=sPj0j7d4JprIhm0HBhjgyquRrpvRSgNPlFEZnC5zTrAoSdiTZvLWC4072uh57thrxn2MpU/gYtNELdDK8nzEuekR7VLzoRx6ubbCQcDW3UNE+zQZ/KY62lnYq+04ZE/We96JSXDKX8mllrZVs+nmtDdOjBKQEMnFLZ9JVK7REnA=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Message-ID: <a1b59e2d-0b18-406f-86e9-1b2a737a58e9@amd.com>
-Date: Wed, 18 Jun 2025 09:06:23 +0200
+X-Inumbo-ID: ccadedfc-4c12-11f0-b894-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1750230407; x=1750835207; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=1+Q+rknhKt/qTaPwfO0xWIDCympY5+1iNAgBNhqS5wA=;
+        b=EgLVEw+UBcpPaC0XuoD4aIvWUT2Ebk3TYkCWNUAqzRF6rrmMvjnxPbZgQHeQtqoxDT
+         igsBADVQYzxar9aHKn4TKZi0ZR4yZWz6STUnE30P+Sngysmx+CGCtSYovf6JaPCMyWLp
+         /e0R9DtihYhbhP4Ep3dv6JJ3fo2szoJxf8lnnVcTydynWAFRApxcrteAU4/FHLPji3tL
+         MKY10ev6tUQoJI9Af9mIelvQzRs2a7v5n/xjvFQhRz8vazuqi/NYUYixhRFC3FL0hy8+
+         eim2E9ibUdg+rizvOR1yRsrVWOdHlPMciWBPIKo2lXHB4bEGQEBbGbUAk3M+hv0N4a4t
+         Mjhg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1750230407; x=1750835207;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=1+Q+rknhKt/qTaPwfO0xWIDCympY5+1iNAgBNhqS5wA=;
+        b=Yh8xwfIxHS1PfWJIumG2UEg+bv7nqWF4fZdZYcSjQa4MS4M8JOv/nBCGr+jdEDRSdY
+         uqXCYPSIFDGHu9fEGNYkoczIB8bQKM5UUOup+j9lDJ67VhL9stfLVT27A6mgl9mZTmtE
+         Jh26fj3C+gQVoQY5eXI8Hi7d0kLu7xME5cI30ENpOqe7Yy64DHHK/kpsKPD0bvCDY/0K
+         a6vJKNxCby8pPi6m7U8De/AzDrwe6TdmB0sjTj2LFObvYhSZUHuZHWkLjCZ1FhZQeDnB
+         W3+ylWp/w1XnWMSTzJtN/2hkzJaBYNGZoEAz5IrM43HgBAtGjRCXYgHm1kJlE2Rv3VFT
+         VDBg==
+X-Gm-Message-State: AOJu0YzlGrq1JXNVYuwrqTYspQvdRT6z9+vCfJTMQT7u1eXC2i7MFTQF
+	Bg2U5B/Pg0b4b8K8m0Yfd+JvZAMpxKH+cfgFxI+raDl3sgK4dx5JQdMHqXNmzFWosMaFdCz5NQp
+	sc0c=
+X-Gm-Gg: ASbGncuC/l5hR90tiAQS1MLNuG5m7P4lDiFvlXlRzoobEPBQBeels3tc+kCoykQkIzb
+	fU7DaAu7lFpl82pW3XvA1rp8WvQH0iPfq1DgtLtJyVfh3dF749DZUAeyWaei5Z1sn1KVRTTWGnD
+	Dh0llijQdagkmySZgeBl8AhrbQf3jRW/QuH9ViDG4gMZah6qCRCbOs9pXwRKvIHQj074S6hw5oS
+	njekoeHAiTPhoH4y5DmVVk0wBdsTY2kjMdfxpX0UTfBqFb4iVzQqWVEmlmi3wqXO15T7MvzAGf1
+	PCrhrlmqPdKufGGszu8+M2z4so39DTTxRlJ9TSDT3cQr2ek428YaeAIAnYugwPih3ufWAaRWROD
+	67h6M6+86qQBZXyaCxDSYNgbCQPn1HHOP8rAXr8oZHX7O7kg=
+X-Google-Smtp-Source: AGHT+IEBN2BJ+TAWvyGINJEN+nc1df7+YK49H46qOh2T0bDaAI2wGF4uxJVml01lbg233xK9NZ4EZA==
+X-Received: by 2002:a05:6000:26ca:b0:3a5:2f23:3780 with SMTP id ffacd0b85a97d-3a5723a2dbamr13140820f8f.18.1750230407036;
+        Wed, 18 Jun 2025 00:06:47 -0700 (PDT)
+Message-ID: <0557b0e8-cd02-4812-9b58-62784afafe8e@suse.com>
+Date: Wed, 18 Jun 2025 09:06:39 +0200
+MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] xen/dt: Remove loop in dt_read_number()
-To: Alejandro Vallejo <agarciav@amd.com>, xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>
-References: <20250617171358.670642-1-agarciav@amd.com>
-From: "Orzel, Michal" <michal.orzel@amd.com>
+Subject: [PATCH v8 5/7] VMX: support USER_MSR
+From: Jan Beulich <jbeulich@suse.com>
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <585f1b0b-6768-4f9c-8f9f-bcf6e20fbfb7@suse.com>
 Content-Language: en-US
-In-Reply-To: <20250617171358.670642-1-agarciav@amd.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <585f1b0b-6768-4f9c-8f9f-bcf6e20fbfb7@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PA7P264CA0196.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:102:36d::9) To BN9PR12MB5273.namprd12.prod.outlook.com
- (2603:10b6:408:11e::22)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5273:EE_|SN7PR12MB6839:EE_
-X-MS-Office365-Filtering-Correlation-Id: a05efdd3-c5d4-4b1f-65e1-08ddae36a4ab
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?WXBkYzd0cm1KcDBJNGZueFJwL3doTnFuZ01sQ2RaMkl0MXBnRHZaUmtXcGtk?=
- =?utf-8?B?RHQ4d3NkcXFQYW01Z1luTGE4aDVEQk9QZnNnS3dNV0xkQ1M5RlI5R2lhcUxm?=
- =?utf-8?B?MG50Sm0vNGdWQUZCK2VNSmhSRnNjZHRIMU9MZnNhamxtUWxKV2Y4NUlvUDRI?=
- =?utf-8?B?MGg0L0NJVGthRWE2YlBmYXhSQWR3OUk5UU5uSStXbTQ1U3JSZ3pwSC9pMXF0?=
- =?utf-8?B?YUFHVU5KNXU0NHlpODV5dGt6dkp5TEd4MlpjVnBtV3o4bGl1RlZ0QnhUQ2dp?=
- =?utf-8?B?TCtFZ3FKQmR4YmExMU56YTBIM2VmTE1ya09Bd05UanhNRmw4NFZMMXBIZlF3?=
- =?utf-8?B?WnBiRzNGMHNET1gzSTlGeDBFUWM1T2hDa1p0TFJoODJuTU5JcjZobmNpa3pn?=
- =?utf-8?B?azVnOHlTKzFoZFAyYno4dWx2OXlCenhOVXRJT3J0eExBeTdFUEZqVElGT05m?=
- =?utf-8?B?SDNXb0Uxd3JEa2h6NzVuMHdweThWMjNIT05PN1ZTeXlWSTh4MVNXdHJZUllq?=
- =?utf-8?B?cFdrQ1IvU2FYOTdhZEJxL3RybnpkckpSdHFiVDZXM3V2T3FEUllDd3hQZVBY?=
- =?utf-8?B?MHhBdDgxdjZibHhtMXQ3YkxCMDZsZXZTUE9JUUxoQjFEaUk4QXRPOUxwZHhR?=
- =?utf-8?B?Z0lTOWQzejhvdUhaZ3hkUFZ2RjRKOVYrRmFhVVN6RlFUWVlLejRQRFlaTVBQ?=
- =?utf-8?B?czFQc2ZSVExPOEQ0TS9zdDJIRi9MeVRubENJRE9SLzhxazV3QjNybkZCVGF5?=
- =?utf-8?B?VVYzQSt3dWJkazNnekVGZU1sbzlmcmJvSnc5YlczZUx3Szd5aGlMQWc5ejE2?=
- =?utf-8?B?NFRENDNoVjBtNHo2cVRmS1JjOTZ5RVJ4YzlJZVNpYi8yTlJhV0lCYkljeE42?=
- =?utf-8?B?bHdHS25tNVdYV3FMODlTTW5lbnpUWXdWbVRGRmJnWThyWDBpRks0SGNIZHBW?=
- =?utf-8?B?dXpJZXpxK3pncitrRmlzVkdtd3FnaHkwUkp3aTVlRlVhMGtXQlFEd2kxRzNk?=
- =?utf-8?B?ZE9UQzlkaUVCLzMzdjFWK1JFL0cvQXJ6eWlJcERES08wSHkwUXJBQzMyUHV2?=
- =?utf-8?B?SGlGS0REYzVTWnFTMlJXS1lGV2x0aWNkeCtZanIycitKK1g2RWlwL2s0alJq?=
- =?utf-8?B?YW44by9aQU55eTdJK3ZYTEhRcEZsQkhsYWtsUFhjaWpxWks2Sm1keGhBN3M2?=
- =?utf-8?B?b1ppTndyZVM5Q3RKUTI2S25ja0JzS2R2bHJsZncvdEJjejZtTHcxbHJmcnBE?=
- =?utf-8?B?a1BRZHJuY2VuMS9WVFZNWlFkc0xkREdFWlpNbDlSdTdqenpHZXcvK1p0SS9x?=
- =?utf-8?B?ODRSVUEvWUxtbjhMZnNEZEFSQzROYkkwNFJ4cTBWVFpnbmRlTU1OeTE4Q0xD?=
- =?utf-8?B?NXlONGsyS2hDMVgyNjNUQmxCckJ3d3pJdEE5eUN5NE1zbUF2aFJiWjA0RDEv?=
- =?utf-8?B?T1lHbXVXWHNkcTdubTdxOEdRUStITDNBcWxrREFoNmxpTlAwTVVYOHliV3dE?=
- =?utf-8?B?Qnd3UXRidHMrMVNSREZnNGVhaEkwQ2FySCszVnJ5TFAyUTJTdVhPb2ZKMlo3?=
- =?utf-8?B?Zi8ra0s1RUlDdk0xbHdVY09RYXVSVXNhYUk1cEVmRjNUK2JNQWtkMjRYOVhp?=
- =?utf-8?B?VVNMU3FMbEc4RUNmekJKYnB4Qk9YRnBxcGU1Y3VlK01ua3YwOUQ3bTB1dW5B?=
- =?utf-8?B?MEQ2bzl4ZTRBcCthOEc1elJFOFRCemQxK2JOYW9qUzY3SDBGV3hpVXpVaFVJ?=
- =?utf-8?B?ZUlwQUNwTTJyUU9QellLenFzbmNVSDFvSEtVS041Z3lzNUJ5bVlzWWcyU0da?=
- =?utf-8?B?WVhzQjFJc2wrbVV3RmxIVGV4K2dMVVE5N2VzODdyaUxuRS9yYnB3dXE2NmxP?=
- =?utf-8?B?YXlBNUN4R1hVMzFQRDRDRjZrUmo4Y0pObWpndUEzOTFzcUJlWDA4YzYvdjZU?=
- =?utf-8?Q?htYpMYSCMtA=3D?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN9PR12MB5273.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?SlJON0xNMjZRK2RrNG9Rbnc5RDdacmlzZ0JBbjVtY28veFlIemsxMi9PTUhL?=
- =?utf-8?B?N2FoQW4ralBCazZjd3J6eVNaaUFpRmZSSXc2ZEtXT3RDcmxnaC9GR25yTEVs?=
- =?utf-8?B?QXRubFhNMFAxQ1o3Q3Z0Tmtpd3JJQUtGZWsycDZiQ3ZWVkROZTJvS0x1eU1K?=
- =?utf-8?B?Q09KYTlaVHVuR2h1a1IxazhPS3VMbUhQRjZMNjVadVk3cERnakpmdXBhR2Ji?=
- =?utf-8?B?NFlzWHg5MXNaZkUxb1U0SWJMUG1uVmUwZWNHWE9rN1dFOGd6dkVJTzZBWjFV?=
- =?utf-8?B?blA2cWNndlh6NkNUTlh1c2tyM2M5MWw1Z1NrUE5qVmdKL0dhYmVHN1d0anY4?=
- =?utf-8?B?K1dhcmNXaHVrdEVQODhyNnNnTjNITC9pVTdLRGQzdkhUdXRXYnFJRmQwYTVn?=
- =?utf-8?B?QzFJb2R4cFBUaFM3aUp2M1lRVEdyWW9nemk5dGZHTm5wTlVhc0ZWWW4zTEZB?=
- =?utf-8?B?bW10VTZlS0hzSnpaczJOOWZMVXYvNDh4TXB1bFlINjNQWDVONkpZMEhQZFF2?=
- =?utf-8?B?VEdKMlNLM3hxVk91MW54MHFxMDhJTy9zblFDTWdYa0tTMGhVNWdZM053M0Ny?=
- =?utf-8?B?TXJ0YWJFbTlXZlJwVkthYmdLSWtmSnkvb21oUnNnbGhUOGdwK3pmaWRQbkl4?=
- =?utf-8?B?ejlHaGFINGRaaXhXY3poMFAwQkdIWW15RU56OU5QY3QwRW5qcUFyU0lBQWx4?=
- =?utf-8?B?dk5Va3QrQStOTVZVbkZmaTZyejNLNzJCWmd2ZkgyZG5zMDBWdnRObXNPclNU?=
- =?utf-8?B?d0RnOHVva1VCVnpEMWpNN2VkQTl2VjdHQkJCeEY2bjI5MHB1TGM2SWZlc0RX?=
- =?utf-8?B?OGJaN25KY2p5R2NvM1F2cmIwNUN1cEh3NUtsOGIrYWlBcFQ3c0FkUDVlZ1lk?=
- =?utf-8?B?SWxyVk9zcWlGTWxHbEg4VVZJaXJBRXFzbHorOS9OcGZKT0lleE1oY1hIbkhT?=
- =?utf-8?B?ZXZyTDB6YU4rRW5Kay92Wjk3ZEkyTWFKU3BYbzAvaHBzTXprb2dmWEUzYXUv?=
- =?utf-8?B?ZTdSM0kzMW0yNm1DU3VHSEwrMzJwSFN4eUVzU2NNWFgxZk1GYzV1akVia2g1?=
- =?utf-8?B?Y0JMNmdhdzdpaE52elFSckh2KzR4MGpjSVF1TG80VExaNjcrbXJUaXZkK3hi?=
- =?utf-8?B?ZDVTVCtpWmdXZzd5bXIvVU9FMkl4ODJncExjVDV2a0NBVEZsWCtEK1RneDd1?=
- =?utf-8?B?d1NPQWFGT2o2cWFHcE4xWllBSnJRWHFYTFJjVnY2bm41d2hPamdpY2VOU3lO?=
- =?utf-8?B?dFNiZjA2eG02VkpTODN3Qyt3aVdQQVRGa3g0cUUybWNEamIvQ24zYmloQzhj?=
- =?utf-8?B?U2FZVXhJMjd3S2lVdjRLUEdLQjR5MHNGYnMvWE5BL3dTcGpvYlpVdUNjL1dM?=
- =?utf-8?B?RUVKeE9PdktFTVdNYS9ZQXp5VGNRRE81K0NyTFliR3dZSTNNcHAyU2lvNCtn?=
- =?utf-8?B?L3RiSm01cEtwVlh6UVpvTGZqWmxWSTlzcUZxN1ZHMTY0ZkZUTDV6MThFb3Qz?=
- =?utf-8?B?aGlCdXR6N2RydlZFZ09vOG5TR2RITjRlbWVsejlic1gzaUxtNEt3LzhyaTRs?=
- =?utf-8?B?WVN0UDRsU2Voc3hIRVI4c0JxQnJKaWNoaXluRnhSb2RLUkRwWDJnbWVHa25Y?=
- =?utf-8?B?UitTN3lIbjFjcWtTSFJveSt2QXNMSENKaStRQmowZ0FmcTFQTjFjZ1d0KzlJ?=
- =?utf-8?B?dHNhVHRVREd6WEI4K09YQ1JTOUJLNmZYMS9hQU1Xb0NZVTMzOTJGbjJycm1j?=
- =?utf-8?B?cmVBR2VNcXJQSjJwWGllVmJlMEp6L3JZTzF0MlVUTG5XVHpQNHFEUi9XU3lG?=
- =?utf-8?B?RXM3ZTMvQ0o0bEVva1lmUFZXRUU2NGIvOXVzOS9GRFRWUTY4UkpjbHAwcFJX?=
- =?utf-8?B?cnE1NVM2eExtRFhBYnBTTWE5L2l2U3NVeC9NU01PbzhkYmpoNi9KUUlCQUFD?=
- =?utf-8?B?VnpxWHlMZ3lWeU1ubEJseTN5dWhWV1JBaGo5MmsrSDhJM0xNRVVTQlJWOFBN?=
- =?utf-8?B?THhyNlBuUy9WV3VKcmNSMUU3aSt1VmZkQ2ozM2xVem9acnZPUkhBemZtTkdx?=
- =?utf-8?B?aVRES0drRWNCL1NOUjNMZmRLVUZvYzRLWCtLS0ZkaUcxYTZWVmtnVGFIYUIx?=
- =?utf-8?Q?F7QU=3D?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a05efdd3-c5d4-4b1f-65e1-08ddae36a4ab
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5273.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jun 2025 07:06:27.2378
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: KCm00JynhUirwizwXeddPIGnVS/6M1VbiIvvZHX3+YYGUUzobIsn0beawrL1qckx
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6839
 
+Hook up the new VM exit codes and handle guest accesses, context switch,
+and save/restore. At least for now don't allow the guest direct access
+to the control MSR; this may need changing if guests were to frequently
+access it (e.g. on their own context switch path).
 
+While there also correct a one-off in union ldt_or_tr_instr_info's
+comment.
 
-On 17/06/2025 19:13, Alejandro Vallejo wrote:
-> The DT spec declares only two number types for a property: u32 and u64,
-> as per Table 2.3 in Section 2.2.4. Remove unbounded loop and replace
-> with a switch statement. Default to a size of 1 cell in the nonsensical
-> size case, with a warning printed on the Xen console.
-> 
-> Suggested-by: Daniel P. Smith" <dpsmith@apertussolutions.com>
-> Signed-off-by: Alejandro Vallejo <agarciav@amd.com>
-> ---
-> v2:
->   * Added missing `break` on the `case 2:` branch and added ASSERT_UNREACHABLE() to the deafult path
-> ---
->  xen/include/xen/device_tree.h | 17 ++++++++++++++---
->  1 file changed, 14 insertions(+), 3 deletions(-)
-> 
-> diff --git a/xen/include/xen/device_tree.h b/xen/include/xen/device_tree.h
-> index 75017e4266..2ec668b94a 100644
-> --- a/xen/include/xen/device_tree.h
-> +++ b/xen/include/xen/device_tree.h
-> @@ -261,10 +261,21 @@ void intc_dt_preinit(void);
->  /* Helper to read a big number; size is in cells (not bytes) */
->  static inline u64 dt_read_number(const __be32 *cell, int size)
->  {
-> -    u64 r = 0;
-> +    u64 r = be32_to_cpu(*cell);
-> +
-> +    switch ( size )
-> +    {
-> +    case 1:
-> +        break;
-> +    case 2:
-> +        r = (r << 32) | be32_to_cpu(cell[1]);
-> +        break;
-> +    default:
-> +        // Nonsensical size. default to 1.
-I wonder why there are so many examples of device trees in Linux with
-#address-cells = <3>? Also, libfdt defines FDT_MAX_NCELLS as 4 with comment:
-"maximum value for #address-cells and #size-cells" but I guess it follows the
-IEE1275 standard and DT spec "is loosely related" to it.
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+Needing to change two places in hvm.c continues to be unhelpful; I
+recall I already did forget to also adjust hvm_load_cpu_msrs() for XFD.
+Considering that MSRs typically arrive in the order the table has it,
+couldn't we incrementally look up the incoming MSR index there, falling
+back to a full lookup only when the incremental lookup failed (and thus
+not normally re-iterating through the initial part of the array)?
 
-~Michal
+Said comment in union ldt_or_tr_instr_info is further odd (same for
+union gdt_or_idt_instr_info's) in that Instruction Information is only a
+32-bit field. Hence bits 32-63 aren't undefined, but simply don't exist.
+
+RFC: The wee attempt to "deal" with nested is likely wrong, but I'm
+     afraid I simply don't know where such enforcement would be done
+     properly. Returning an error there is also commented out, for
+     domain_cpu_policy_changed() returning void without "x86/xstate:
+     re-size save area when CPUID policy changes" in place.
+---
+v8: Re-base.
+v5: Introduce user_msr_gpr().
+v4: New.
+
+--- a/xen/arch/x86/cpu-policy.c
++++ b/xen/arch/x86/cpu-policy.c
+@@ -786,6 +786,12 @@ static void __init calculate_hvm_max_pol
+          * situations until someone has cross-checked the behaviour for safety.
+          */
+         __clear_bit(X86_FEATURE_PKS, fs);
++
++        /*
++         * Don't expose USER_MSR until it is known how (if at all) it is
++         * virtualized on SVM.
++         */
++        __clear_bit(X86_FEATURE_USER_MSR, fs);
+     }
+ 
+     if ( !cpu_has_vmx_msrlist )
+--- a/xen/arch/x86/domain.c
++++ b/xen/arch/x86/domain.c
+@@ -450,6 +450,10 @@ void domain_cpu_policy_changed(struct do
+         }
+     }
+ 
++    /* Nested doesn't have the necessary processing, yet. */
++    if ( nestedhvm_enabled(d) && p->feat.user_msr )
++        return /* -EINVAL */;
++
+     for_each_vcpu ( d, v )
+     {
+         cpu_policy_updated(v);
+--- a/xen/arch/x86/hvm/hvm.c
++++ b/xen/arch/x86/hvm/hvm.c
+@@ -1383,6 +1383,7 @@ static int cf_check hvm_load_cpu_xsave_s
+ 
+ #define HVM_CPU_MSR_SIZE(cnt) offsetof(struct hvm_msr, msr[cnt])
+ static const uint32_t msrs_to_send[] = {
++    MSR_USER_MSR_CTL,
+     MSR_SPEC_CTRL,
+     MSR_INTEL_MISC_FEATURES_ENABLES,
+     MSR_PKRS,
+@@ -1537,6 +1538,7 @@ static int cf_check hvm_load_cpu_msrs(st
+         {
+             int rc;
+ 
++        case MSR_USER_MSR_CTL:
+         case MSR_SPEC_CTRL:
+         case MSR_INTEL_MISC_FEATURES_ENABLES:
+         case MSR_PKRS:
+--- a/xen/arch/x86/hvm/vmx/vmx.c
++++ b/xen/arch/x86/hvm/vmx/vmx.c
+@@ -689,13 +689,18 @@ static void cf_check vmx_vcpu_destroy(st
+ }
+ 
+ /*
+- * To avoid MSR save/restore at every VM exit/entry time, we restore
+- * the x86_64 specific MSRs at domain switch time. Since these MSRs
+- * are not modified once set for para domains, we don't save them,
+- * but simply reset them to values set in percpu_traps_init().
++ * To avoid MSR save/restore at every VM exit/entry time, we restore the
++ * x86_64 specific MSRs at vcpu switch time. Since these MSRs are not
++ * modified once set for para domains, we don't save them, but simply clear
++ * them or reset them to values set in percpu_traps_init().
+  */
+-static void vmx_restore_host_msrs(void)
++static void vmx_restore_host_msrs(const struct vcpu *v)
+ {
++    const struct vcpu_msrs *msrs = v->arch.msrs;
++
++    if ( msrs->user_msr_ctl.enable )
++        wrmsrl(MSR_USER_MSR_CTL, 0);
++
+     /* No PV guests?  No need to restore host SYSCALL infrastructure. */
+     if ( !IS_ENABLED(CONFIG_PV) )
+         return;
+@@ -749,6 +754,9 @@ static void vmx_restore_guest_msrs(struc
+ 
+     if ( cp->feat.pks )
+         wrpkrs(msrs->pkrs);
++
++    if ( msrs->user_msr_ctl.enable )
++        wrmsrl(MSR_USER_MSR_CTL, msrs->user_msr_ctl.raw);
+ }
+ 
+ void vmx_update_cpu_exec_control(struct vcpu *v)
+@@ -1192,7 +1200,7 @@ static void cf_check vmx_ctxt_switch_fro
+     if ( !v->arch.fully_eager_fpu )
+         vmx_fpu_leave(v);
+     vmx_save_guest_msrs(v);
+-    vmx_restore_host_msrs();
++    vmx_restore_host_msrs(v);
+     vmx_save_dr(v);
+ 
+     if ( v->domain->arch.hvm.pi_ops.flags & PI_CSW_FROM )
+@@ -4172,6 +4180,14 @@ static int vmx_handle_apic_write(void)
+     return vlapic_apicv_write(current, exit_qualification & 0xfff);
+ }
+ 
++static unsigned int user_msr_gpr(void)
++{
++    user_msr_instr_info_t info;
++
++    __vmread(VMX_INSTRUCTION_INFO, &info.raw);
++    return info.gpr;
++}
++
+ static void undo_nmis_unblocked_by_iret(void)
+ {
+     unsigned long guest_info;
+@@ -4672,6 +4688,41 @@ void asmlinkage vmx_vmexit_handler(struc
+             hvm_inject_hw_exception(X86_EXC_GP, 0);
+         break;
+ 
++    case EXIT_REASON_URDMSR:
++    {
++        uint64_t msr_content = 0;
++
++        __vmread(EXIT_QUALIFICATION, &exit_qualification);
++        switch ( hvm_msr_read_intercept(exit_qualification, &msr_content) )
++        {
++        case X86EMUL_OKAY:
++            *decode_gpr(regs, user_msr_gpr()) = msr_content;
++            update_guest_eip(); /* Safe: URDMSR */
++            break;
++
++        case X86EMUL_EXCEPTION:
++            hvm_inject_hw_exception(X86_EXC_GP, 0);
++            break;
++        }
++        break;
++    }
++
++    case EXIT_REASON_UWRMSR:
++        __vmread(EXIT_QUALIFICATION, &exit_qualification);
++        switch ( hvm_msr_write_intercept(exit_qualification,
++                                         *decode_gpr(regs, user_msr_gpr()),
++                                         true) )
++        {
++        case X86EMUL_OKAY:
++            update_guest_eip(); /* Safe: UWRMSR */
++            break;
++
++        case X86EMUL_EXCEPTION:
++            hvm_inject_hw_exception(X86_EXC_GP, 0);
++            break;
++        }
++        break;
++
+     case EXIT_REASON_VMXOFF:
+     case EXIT_REASON_VMXON:
+     case EXIT_REASON_VMCLEAR:
+--- a/xen/arch/x86/include/asm/hvm/vmx/vmx.h
++++ b/xen/arch/x86/include/asm/hvm/vmx/vmx.h
+@@ -203,6 +203,8 @@ static inline void pi_clear_sn(struct pi
+ #define EXIT_REASON_NOTIFY              75
+ #define EXIT_REASON_RDMSRLIST           78
+ #define EXIT_REASON_WRMSRLIST           79
++#define EXIT_REASON_URDMSR              80
++#define EXIT_REASON_UWRMSR              81
+ /* Remember to also update VMX_PERF_EXIT_REASON_SIZE! */
+ 
+ /*
+@@ -577,8 +579,18 @@ typedef union ldt_or_tr_instr_info {
+         base_reg_invalid        :1,  /* bit 27 - Base register invalid */
+         instr_identity          :1,  /* bit 28 - 0:LDT, 1:TR */
+         instr_write             :1,  /* bit 29 - 0:store, 1:load */
+-                                :34; /* bits 31:63 - Undefined */
++                                :34; /* bits 30:63 - Undefined */
+     };
+ } ldt_or_tr_instr_info_t;
+ 
++/* VM-Exit instruction info for URDMSR and UWRMSR */
++typedef union user_msr_instr_info {
++    unsigned long raw;
++    struct {
++        unsigned int            :3,  /* Bits 0:2 - Undefined */
++        gpr                     :4,  /* Bits 3:6 - Source/Destination register */
++                                :25; /* bits 7:31 - Undefined */
++    };
++} user_msr_instr_info_t;
++
+ #endif /* __ASM_X86_HVM_VMX_VMX_H__ */
+--- a/xen/arch/x86/include/asm/msr.h
++++ b/xen/arch/x86/include/asm/msr.h
+@@ -277,6 +277,20 @@ uint64_t msr_spec_ctrl_valid_bits(const
+ struct vcpu_msrs
+ {
+     /*
++     * 0x0000001c - MSR_USER_MSR_CTL
++     *
++     * Value is guest chosen, and always loaded in vcpu context.
++     */
++    union {
++        uint64_t raw;
++        struct {
++            bool enable:1;
++            unsigned int :11;
++            unsigned long bitmap:52;
++        };
++    } user_msr_ctl;
++
++    /*
+      * 0x00000048 - MSR_SPEC_CTRL
+      * 0xc001011f - MSR_VIRT_SPEC_CTRL (if X86_FEATURE_AMD_SSBD)
+      *
+--- a/xen/arch/x86/include/asm/perfc_defn.h
++++ b/xen/arch/x86/include/asm/perfc_defn.h
+@@ -6,7 +6,7 @@ PERFCOUNTER_ARRAY(exceptions,
+ 
+ #ifdef CONFIG_HVM
+ 
+-#define VMX_PERF_EXIT_REASON_SIZE 80
++#define VMX_PERF_EXIT_REASON_SIZE 82
+ #define VMEXIT_NPF_PERFC 143
+ #define SVM_PERF_EXIT_REASON_SIZE (VMEXIT_NPF_PERFC + 1)
+ PERFCOUNTER_ARRAY(vmexits,              "vmexits",
+--- a/xen/arch/x86/msr.c
++++ b/xen/arch/x86/msr.c
+@@ -279,6 +279,12 @@ int guest_rdmsr(struct vcpu *v, uint32_t
+         *val = msrs->xss.raw;
+         break;
+ 
++    case MSR_USER_MSR_CTL:
++        if ( !cp->feat.user_msr )
++            goto gp_fault;
++        *val = msrs->user_msr_ctl.raw;
++        break;
++
+     case 0x40000000 ... 0x400001ff:
+         if ( is_viridian_domain(d) )
+         {
+@@ -617,6 +623,19 @@ int guest_wrmsr(struct vcpu *v, uint32_t
+         msrs->xss.raw = val;
+         break;
+ 
++    case MSR_USER_MSR_CTL:
++        if ( !cp->feat.user_msr )
++            goto gp_fault;
++
++        if ( (val & ~(USER_MSR_ENABLE | USER_MSR_ADDR_MASK)) ||
++             !is_canonical_address(val) )
++            goto gp_fault;
++
++        msrs->user_msr_ctl.raw = val;
++        if ( v == curr )
++            wrmsrl(MSR_USER_MSR_CTL, val);
++        break;
++
+     case 0x40000000 ... 0x400001ff:
+         if ( is_viridian_domain(d) )
+         {
+--- a/xen/include/public/arch-x86/cpufeatureset.h
++++ b/xen/include/public/arch-x86/cpufeatureset.h
+@@ -359,7 +359,7 @@ XEN_CPUFEATURE(AMX_COMPLEX,        15*32
+ XEN_CPUFEATURE(AVX_VNNI_INT16,     15*32+10) /*A  AVX-VNNI-INT16 Instructions */
+ XEN_CPUFEATURE(UTMR,               15*32+13) /*   User Timer */
+ XEN_CPUFEATURE(PREFETCHI,          15*32+14) /*A  PREFETCHIT{0,1} Instructions */
+-XEN_CPUFEATURE(USER_MSR,           15*32+15) /*   U{RD,WR}MSR Instructions */
++XEN_CPUFEATURE(USER_MSR,           15*32+15) /*s  U{RD,WR}MSR Instructions */
+ XEN_CPUFEATURE(UIRET_UIF,          15*32+17) /*   UIRET updates UIF */
+ XEN_CPUFEATURE(CET_SSS,            15*32+18) /*   CET Supervisor Shadow Stacks safe to use */
+ XEN_CPUFEATURE(SLSM,               15*32+24) /*   Static Lockstep Mode */
 
 
