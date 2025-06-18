@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9577DADF0F5
-	for <lists+xen-devel@lfdr.de>; Wed, 18 Jun 2025 17:18:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1019271.1396092 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB4E9ADF10E
+	for <lists+xen-devel@lfdr.de>; Wed, 18 Jun 2025 17:20:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1019282.1396102 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uRuYL-0000Vz-Vv; Wed, 18 Jun 2025 15:18:17 +0000
+	id 1uRuao-0002Hc-G4; Wed, 18 Jun 2025 15:20:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1019271.1396092; Wed, 18 Jun 2025 15:18:17 +0000
+Received: by outflank-mailman (output) from mailman id 1019282.1396102; Wed, 18 Jun 2025 15:20:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uRuYL-0000Tq-SL; Wed, 18 Jun 2025 15:18:17 +0000
-Received: by outflank-mailman (input) for mailman id 1019271;
- Wed, 18 Jun 2025 15:18:16 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=OKfJ=ZB=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1uRuYK-0000Tk-JO
- for xen-devel@lists.xenproject.org; Wed, 18 Jun 2025 15:18:16 +0000
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [2a00:1450:4864:20::32e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 74db6b4b-4c57-11f0-a30a-13f23c93f187;
- Wed, 18 Jun 2025 17:18:15 +0200 (CEST)
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-450ccda1a6eso63331405e9.2
- for <xen-devel@lists.xenproject.org>; Wed, 18 Jun 2025 08:18:15 -0700 (PDT)
-Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
- by smtp.gmail.com with UTF8SMTPSA id
- ffacd0b85a97d-3a568b2ca65sm17308414f8f.77.2025.06.18.08.18.14
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 18 Jun 2025 08:18:14 -0700 (PDT)
+	id 1uRuao-0002Em-CP; Wed, 18 Jun 2025 15:20:50 +0000
+Received: by outflank-mailman (input) for mailman id 1019282;
+ Wed, 18 Jun 2025 15:20:48 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=FBi2=ZB=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uRuam-0002Ec-R5
+ for xen-devel@lists.xenproject.org; Wed, 18 Jun 2025 15:20:48 +0000
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [2a00:1450:4864:20::333])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id cef8921c-4c57-11f0-b894-0df219b8e170;
+ Wed, 18 Jun 2025 17:20:46 +0200 (CEST)
+Received: by mail-wm1-x333.google.com with SMTP id
+ 5b1f17b1804b1-4531e146a24so43827105e9.0
+ for <xen-devel@lists.xenproject.org>; Wed, 18 Jun 2025 08:20:46 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2365d8a1924sm101425425ad.68.2025.06.18.08.20.39
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 18 Jun 2025 08:20:45 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,181 +45,116 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 74db6b4b-4c57-11f0-a30a-13f23c93f187
+X-Inumbo-ID: cef8921c-4c57-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1750259895; x=1750864695; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=7ntpbTrBDZCWO2gQg50I5OlZunvrht3kL0PIQzhroW8=;
-        b=WUHU8Et4HwzeIhOybzPqdd6hm407hzg28yw3I9Lh1U675zyVVMPWOFaRcQfSoLK0v7
-         hueHWwpATzYGoXLuy/9b6byOrhkkDhpbf96Yz7g0E6OfvNc3LnbevHLYIh7kiIeil5xU
-         8wm0CiPaxHsYDlLkxHxquNMFFpXKkIQwkd6Wk=
+        d=suse.com; s=google; t=1750260046; x=1750864846; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=U9aQHwv7GQGiYyFRiLwD6wo2qIajZjWB85X+deMNlDE=;
+        b=TVhp61Jg+Vv2XN82sld7StmSM7BlbNVKpt92Bqgn0m8lPSiynYKlUD8NKpbkmi1XfM
+         hPYxCzI8SNV3Z8AL4+3oassZwxwlcLVoTe//1GoMAHy520YM7w9L0sQd8ljyQKJQ1APH
+         Vc/1ZnBVA6JaCPVgLZE5JLjca7a9IylXxkXCpf7mG34iJcwcPGMe/keId4s29ax/2HAW
+         aoZFmZF70+JsGw2gR4c5B0BAoOJx/v6nmgUItP1sUk6XWJRKEnJyCs3mKJEbvWlq7/kT
+         YHHT+1flyoEonGwcm2pw27Nt3IdJVaRlBU7Nr4SJxQ8mYRdbZQN0E72r++lHNt6G75Z4
+         uxcg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750259895; x=1750864695;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=7ntpbTrBDZCWO2gQg50I5OlZunvrht3kL0PIQzhroW8=;
-        b=GIQ+tEEjlteKgtEQubNAVlC4FjF6wVO+lbO/WVat+HVeBeNJCPlNwQqVSeoSUfiKWg
-         tFds7uYZjEYMVY5mr3R/CapPfRgl++nkuU2oaqlCwzz8vJxkLABCNjCak62AdjsbkE5G
-         1iismTWDXQideXkrFvCS9QhdGnn/Tcu7CwjFA8ixp2UhfgrMSj25TNkZkHWFvFBPLmGw
-         1fDVIXQaGubAL2z5G7p0QxGqR35R9Qe83dfa9lNPRlann731j6y4ZlW2CiYKNP5xZJ7P
-         ruE/czyodr2MlmxUKJrEnm6rajkwm0JQW3o4gnfemEEiQbTzUGFfr5W+dbNiCom1PnyJ
-         oK4A==
-X-Gm-Message-State: AOJu0YzQ9SDTL+0XoagPedbu/HczlZ4YGojLo76YiG3fkXGRG47+st3U
-	OxhLe35QTB/WakTxl+9nEs7M/OnSShVUi90b29wLczliaFeN0+rWbshsQCYzaTlQIjA=
-X-Gm-Gg: ASbGncvUSubMJYSplmHzBugxGBrpMuyckStwQpMuD5tenBPOh59d1Z16eKzaL0+WkPx
-	6XNOHsSPQQQRNIP0Cjbt3xKMznit+4J9eJ907iitqyd79JU1jVXzjPA7snTRt+5w/KjYfG1dgpB
-	LLGtPU0AwV46Zv2oir49+WP7xaNzpA1DXstlyfqfQvCKwlrVDzKW2aIq5x/rCq7sdXDysAkOIMd
-	ZlunVTQKAehyqwL1foMajLXkw6wNaCpmqMjgMXM25UQo/CdSf9y+nJ6YXoflUpRmxlHTGpZc6i+
-	j68cJsYIpWIIgEQrFtR6C2s2AiDyqApPeGJBsV3v5CuH1M10t0nI3GwzR/TAWn4kMpkKPku3bAu
-	BtumGvucHp4ULS4scy307yZzL4c1VyA==
-X-Google-Smtp-Source: AGHT+IFu0LH4H9NtGHbcaIxfIU6bi7ybFxlWoWXVd8aIDKvrsRBJ0qjgdPEin96X2O3I6MhhiSwJhA==
-X-Received: by 2002:a05:6000:2913:b0:3a3:71cb:f0bd with SMTP id ffacd0b85a97d-3a57237de18mr14871336f8f.23.1750259894884;
-        Wed, 18 Jun 2025 08:18:14 -0700 (PDT)
-Date: Wed, 18 Jun 2025 17:18:13 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: victorm.lira@amd.com
-Cc: xen-devel@lists.xenproject.org,
-	Nicola Vetrini <nicola.vetrini@bugseng.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Federico Serafini <federico.serafini@bugseng.com>,
-	Bertrand Marquis <bertrand.marquis@arm.com>
-Subject: Re: [PATCH v2 3/3] xen/x86: add missing noreturn attributes
-Message-ID: <aFLYtSgt5b4lQwgv@macbook.local>
-References: <20250606212712.1901838-1-victorm.lira@amd.com>
- <20250606212712.1901838-2-victorm.lira@amd.com>
- <20250606212712.1901838-3-victorm.lira@amd.com>
+        d=1e100.net; s=20230601; t=1750260046; x=1750864846;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=U9aQHwv7GQGiYyFRiLwD6wo2qIajZjWB85X+deMNlDE=;
+        b=jb4+sJz7tvLd1hP9T3za77erreGdcxWvO+ZqCbbTLQALQSk7q5m2sG+H5XPhVYTM/1
+         VpMnu946J5DAl+E4/FzGpBcy33jTjhLNiiMpqpttI9yYXmG2b6VBofWXfWjqbRjxs3lo
+         kcIz34OJ/4rzeK1Pwwz4QRFH1SER2vPkOebt5U8AuL728j28AiUINNDPnzxmUZsK6mr0
+         FHYnHKS/Bb2gkkzwLNs+glKof0vyu/r9/Ot6NrZGcket4Xns17ypHosy0O27wejtEBYh
+         FwmdfPFWKXv39YWl2JSMZ/Fccwl+otBGB1Urh8g5svojdYlWvAdk2QRuIT30SgXWAZGs
+         /vBA==
+X-Forwarded-Encrypted: i=1; AJvYcCWye60kIBXULV9DFGd4fxu5+7OiJ41NpevgwlPZVC3SbWysT5NE5hnQJH+H5/UskxsVoPSqlh+n0P0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YykkVCCNaAl2vhATLvcTu9PX2hN26eUQBbC4KQ7ZK70tpsCQ47g
+	d22CXZBgiZAcQ+a+gRJDXndC2LhDH4VykFvRvwt5Qq9P9lY7zlZ6SAhnmcqvXeROsg==
+X-Gm-Gg: ASbGncvKyxx+jmfRfVOHFfIY+3mMngV4k96KHoc5fBtThkfnnp8ZARMWogCu6q9heuR
+	1c+WOuLIO4vjrTTDSXMuEEsMf0h2XIaqfHtDkuQjEc9gzA2pO6wHCcA2wUB5z3PQLnzg6fyL6p8
+	7hZb5wRBB3nYSnTm7otdAOpOY1QNgxMHn6YTVDLOgmxaCp3pBGjpdB0iBWoxEMI4XYAm6phwDuP
+	ZGtDncdRSZFw2v6TI4ie14T26UUNOrS/0Ge8xEiHsPOdaZSTiesDO+ebeHaTf77hPQCHp97Ty/q
+	XqX0atBB6yVN4OXimiwBLQ7tNlcbfGLgCYpww6WP34f/e5ISWW2KZmLx+XCaOFX75M+jZBFwAJA
+	rDTTBcIFJALa0jGNpX9dGsQvXfAG6pQadkD7fuX0G8Qe5SkI=
+X-Google-Smtp-Source: AGHT+IHhU75T7QHJ8zenbPXyxhwTzQZeO8sLkuhI8xA2YO5bM4f8xzf50Aq1rdM3PHENaQVacMCkHQ==
+X-Received: by 2002:a05:6000:178a:b0:3a5:2cb5:63fa with SMTP id ffacd0b85a97d-3a57236654amr16217050f8f.2.1750260046167;
+        Wed, 18 Jun 2025 08:20:46 -0700 (PDT)
+Message-ID: <542a4f54-705d-4f4e-b155-13375561baac@suse.com>
+Date: Wed, 18 Jun 2025 17:20:35 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20250606212712.1901838-3-victorm.lira@amd.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 02/17] xen/riscv: introduce
+ sbi_remote_hfence_gvma_vmid()
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1749555949.git.oleksii.kurochko@gmail.com>
+ <5c614593a1710c737f5509ebb165efd8f857df30.1749555949.git.oleksii.kurochko@gmail.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <5c614593a1710c737f5509ebb165efd8f857df30.1749555949.git.oleksii.kurochko@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri, Jun 06, 2025 at 02:27:09PM -0700, victorm.lira@amd.com wrote:
-> From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+On 10.06.2025 15:05, Oleksii Kurochko wrote:
+> It instructs the remote harts to execute one or more HFENCE.GVMA instructions
+> by making an SBI call, covering the range of guest physical addresses between
+> start_addr and start_addr + size only for the given VMID.
 > 
-> The marked functions never return to their caller, but lack the
-> `noreturn' attribute.
-> 
-> Functions that never return should be declared with a `noreturn'
-> attribute.
-> 
-> The lack of `noreturn' causes a violation of MISRA C Rule 17.11 (not
-> currently accepted in Xen), and also Rule 2.1: "A project shall not
-> contain unreachable code". Depending on the compiler used and the
-> compiler optimization used, the lack of `noreturn' might lead to the
-> presence of unreachable code.
-> 
-> No functional change.
-> 
-> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
-> Signed-off-by: Victor Lira <victorm.lira@amd.com>
+> This function call is only valid for harts implementing hypervisor extension.
 
-Acked-by: Roger Pau Monné <roger.pau@citrix.com>
+We require H now, don't we? It's also odd to have this here, but not in patch 1.
 
-One question below.
-
-> ---
-> Changes in v2:
-> - improved commit message
-> ---
-> Cc: Andrew Cooper <andrew.cooper3@citrix.com>
-> Cc: Anthony PERARD <anthony.perard@vates.tech>
-> Cc: Michal Orzel <michal.orzel@amd.com>
-> Cc: Jan Beulich <jbeulich@suse.com>
-> Cc: Julien Grall <julien@xen.org>
-> Cc: Roger Pau MonnÃ© <roger.pau@citrix.com>
-> Cc: Stefano Stabellini <sstabellini@kernel.org>
-> Cc: Nicola Vetrini <nicola.vetrini@bugseng.com>
-> Cc: Federico Serafini <federico.serafini@bugseng.com>
-> Cc: Bertrand Marquis <bertrand.marquis@arm.com>
-> ---
->  xen/arch/x86/cpu/mcheck/mce.c | 3 ++-
->  xen/arch/x86/efi/efi-boot.h   | 2 +-
->  xen/arch/x86/smp.c            | 2 +-
->  xen/arch/x86/traps.c          | 2 +-
->  xen/arch/x86/x86_64/traps.c   | 2 +-
->  5 files changed, 6 insertions(+), 5 deletions(-)
-> 
-> diff --git a/xen/arch/x86/cpu/mcheck/mce.c b/xen/arch/x86/cpu/mcheck/mce.c
-> index 1c348e557d..79214ce56b 100644
-> --- a/xen/arch/x86/cpu/mcheck/mce.c
-> +++ b/xen/arch/x86/cpu/mcheck/mce.c
-> @@ -79,7 +79,8 @@ static int __init cf_check mce_set_verbosity(const char *str)
->  custom_param("mce_verbosity", mce_set_verbosity);
-> 
->  /* Handle unconfigured int18 (should never happen) */
-> -static void cf_check unexpected_machine_check(const struct cpu_user_regs *regs)
-> +static void noreturn cf_check
-> +unexpected_machine_check(const struct cpu_user_regs *regs)
->  {
->      console_force_unlock();
->      printk("Unexpected Machine Check Exception\n");
-> diff --git a/xen/arch/x86/efi/efi-boot.h b/xen/arch/x86/efi/efi-boot.h
-> index 0ecf4ca53f..0194720003 100644
-> --- a/xen/arch/x86/efi/efi-boot.h
-> +++ b/xen/arch/x86/efi/efi-boot.h
-> @@ -769,7 +769,7 @@ static void __init efi_arch_blexit(void)
->          efi_bs->FreePages(ucode.addr, PFN_UP(ucode.size));
+> --- a/xen/arch/riscv/sbi.c
+> +++ b/xen/arch/riscv/sbi.c
+> @@ -267,6 +267,15 @@ int sbi_remote_hfence_gvma(const cpumask_t *cpu_mask, vaddr_t start,
+>                        cpu_mask, start, size, 0, 0);
 >  }
-> 
-> -static void __init efi_arch_halt(void)
-> +static void noreturn __init efi_arch_halt(void)
->  {
->      local_irq_disable();
->      for ( ; ; )
-> diff --git a/xen/arch/x86/smp.c b/xen/arch/x86/smp.c
-> index 516dab5528..7936294f5f 100644
-> --- a/xen/arch/x86/smp.c
-> +++ b/xen/arch/x86/smp.c
-> @@ -343,7 +343,7 @@ void __stop_this_cpu(void)
->      cpumask_clear_cpu(smp_processor_id(), &cpu_online_map);
->  }
-> 
-> -static void cf_check stop_this_cpu(void *dummy)
-> +static void noreturn cf_check stop_this_cpu(void *dummy)
->  {
->      const bool *stop_aps = dummy;
-> 
-> diff --git a/xen/arch/x86/traps.c b/xen/arch/x86/traps.c
-> index 092c7e4197..34dc077cad 100644
-> --- a/xen/arch/x86/traps.c
-> +++ b/xen/arch/x86/traps.c
-> @@ -805,7 +805,7 @@ void fatal_trap(const struct cpu_user_regs *regs, bool show_remote)
->            (regs->eflags & X86_EFLAGS_IF) ? "" : " IN INTERRUPT CONTEXT");
->  }
-> 
-> -void asmlinkage do_unhandled_trap(struct cpu_user_regs *regs)
-> +void asmlinkage noreturn do_unhandled_trap(struct cpu_user_regs *regs)
->  {
->      fatal_trap(regs, false);
->  }
-> diff --git a/xen/arch/x86/x86_64/traps.c b/xen/arch/x86/x86_64/traps.c
-> index c77f304bb0..8460a4a1ae 100644
-> --- a/xen/arch/x86/x86_64/traps.c
-> +++ b/xen/arch/x86/x86_64/traps.c
-> @@ -293,7 +293,7 @@ void show_page_walk(unsigned long addr)
->             l1_table_offset(addr), l1e_get_intpte(l1e), pfn);
->  }
-> 
-> -void asmlinkage do_double_fault(struct cpu_user_regs *regs)
-> +void asmlinkage noreturn do_double_fault(struct cpu_user_regs *regs)
+>  
+> +int sbi_remote_hfence_gvma_vmid(const cpumask_t *cpu_mask, vaddr_t start,
+> +                           size_t size, unsigned long vmid)
+> +{
+> +    ASSERT(sbi_rfence);
+> +
+> +    return sbi_rfence(SBI_EXT_RFENCE_REMOTE_HFENCE_GVMA,
+> +                      cpu_mask, start, size, vmid, 0);
+> +}
 
-Does noreturn matter for functions called from assembly (asmlinkage
-ones)?  In that case the hint is not useful for code generation, since
-it's hand written assembly already?  (it's arguably useful for the
-developer writing the code)
+sbi_remote_hfence_gvma() may want implementing in terms of this new function,
+requiring the patches to be swapped. Provided (see comment there) that helper
+is actually needed.
 
-Might be worth mentioning in the commit message if the above is
-accurate.  For example by adding to the commit message: "noreturn is
-not relevant for functions called from assembly, but can be used as a
-hint for the developers writing the code".
-
-Thanks, Roger.
+Jan
 
