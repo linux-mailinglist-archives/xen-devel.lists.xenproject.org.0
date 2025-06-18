@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E8000ADF08C
-	for <lists+xen-devel@lfdr.de>; Wed, 18 Jun 2025 16:59:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1019258.1396072 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6372DADF0EF
+	for <lists+xen-devel@lfdr.de>; Wed, 18 Jun 2025 17:16:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1019265.1396081 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uRuG9-0005Qc-8m; Wed, 18 Jun 2025 14:59:29 +0000
+	id 1uRuWK-0008Rh-JT; Wed, 18 Jun 2025 15:16:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1019258.1396072; Wed, 18 Jun 2025 14:59:29 +0000
+Received: by outflank-mailman (output) from mailman id 1019265.1396081; Wed, 18 Jun 2025 15:16:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uRuG9-0005Nw-5l; Wed, 18 Jun 2025 14:59:29 +0000
-Received: by outflank-mailman (input) for mailman id 1019258;
- Wed, 18 Jun 2025 14:59:27 +0000
+	id 1uRuWK-0008QE-Gj; Wed, 18 Jun 2025 15:16:12 +0000
+Received: by outflank-mailman (input) for mailman id 1019265;
+ Wed, 18 Jun 2025 15:16:11 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=OKfJ=ZB=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1uRuG7-0005Nq-SM
- for xen-devel@lists.xenproject.org; Wed, 18 Jun 2025 14:59:27 +0000
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [2a00:1450:4864:20::336])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=FBi2=ZB=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uRuWJ-0008Q8-0K
+ for xen-devel@lists.xenproject.org; Wed, 18 Jun 2025 15:16:11 +0000
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [2a00:1450:4864:20::42c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d3af2549-4c54-11f0-a30a-13f23c93f187;
- Wed, 18 Jun 2025 16:59:26 +0200 (CEST)
-Received: by mail-wm1-x336.google.com with SMTP id
- 5b1f17b1804b1-453066fad06so53074845e9.2
- for <xen-devel@lists.xenproject.org>; Wed, 18 Jun 2025 07:59:26 -0700 (PDT)
-Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
- by smtp.gmail.com with UTF8SMTPSA id
- ffacd0b85a97d-3a568b5bfefsm16769594f8f.88.2025.06.18.07.59.24
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 18 Jun 2025 07:59:25 -0700 (PDT)
+ id 28cc8cb7-4c57-11f0-a30a-13f23c93f187;
+ Wed, 18 Jun 2025 17:16:08 +0200 (CEST)
+Received: by mail-wr1-x42c.google.com with SMTP id
+ ffacd0b85a97d-3a57c8e247cso3471260f8f.1
+ for <xen-devel@lists.xenproject.org>; Wed, 18 Jun 2025 08:16:08 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-748900b1d95sm11067857b3a.120.2025.06.18.08.16.00
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 18 Jun 2025 08:16:06 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,143 +45,115 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d3af2549-4c54-11f0-a30a-13f23c93f187
+X-Inumbo-ID: 28cc8cb7-4c57-11f0-a30a-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1750258765; x=1750863565; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=vUUuLeD/LYD1sOTdKCCCdJ/rDAMK4SysP+rz+njoEgo=;
-        b=uLwgQ/oKjIkJ4g+7b7M1Ug1BKmSagVymHztZR1WgG+6S6WjUsNaHyW7PMnMTZj+12f
-         Xux5GvhlaIGfFRve9w1P8FBSTbAWHDjr2yRFZMKbrngTO8cQ1OO1HBseWYxslMd+RtPm
-         u7LS0F54TwIMs0AZhju4VgzsX6vkjrAIx+d8M=
+        d=suse.com; s=google; t=1750259767; x=1750864567; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=FHmsySBBC46aeM4dE5bYOQxQJPC9oS9TIj1GtE606vM=;
+        b=X3lErd4JhjuJQ7vMZYlKghmPEhrQSzk7PWUcLWZ4G9AC7FtFtzKt/8JMmle1116vYH
+         xbb9K59ePVSJE7OYB/IQIK4X6S3TgpCjBkjA7/nRdrCHP767NZLyGcw4pNQFKcUflSBq
+         SFylTiWoQJYIXLRelANkRWZ5FNA2jMMyKB/cvv7CSjENDV1TfjRzzbYpzoIq9FrV7mEr
+         FrvKiauz1tafGiVaXbMlbitzovXY34OXkbYcZvZpXR/htmI44Z8TB9mltNdpgrCpInM8
+         YzDKqCy3mB4RNW0fBpchJ8ikvzb/d3XPekZGxLqAOf2LaC9yUjR6gptaEn3JGZxXfbDi
+         krsw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750258765; x=1750863565;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=vUUuLeD/LYD1sOTdKCCCdJ/rDAMK4SysP+rz+njoEgo=;
-        b=hejgsvzsEQBly0SET3FPpjwbpIZX3cSgjTWaYobZgCGIhjvcLubkGQbJqOJ2LUGBDC
-         MHlqthgh6FKtuLiZ8+37qsHn+s8mHt3GTtLQE/HSYZpkoefEOYgK7bmqv0BOvTRynU4D
-         9yz/UwSDdypTbWpRl/CE9hORa5KuWUO+5xHjawUFf0epVYWLeYvKfXFefy7aq8s7yMO5
-         utu6JoA4DZg4vCQfSF4qhQWLHUazsd6PtsmDySryYlVMOcB02FxlWN7gQyAUoAFGPj2L
-         mbZrn/8sC38wGLuDRP6CB+bYELq1/vj3OtKfOjB5p0WquFFs9ct9Dv8uearDvmp5KSMj
-         LRcg==
-X-Gm-Message-State: AOJu0YxdIQVrkvX1LddkKQIFRRKCafCgJfYMQgYM9AFzC2Fnjj66ycVq
-	GxBPh78+Hwq2t0ZgVyEHPOfFcTnUwXec8yz2KkT13F5DfvecYvmnmMBtlti/XSRG7M8=
-X-Gm-Gg: ASbGncvvP6TyuQkbJp8cn7Jd1g5ncDDmnLHHQ5v/SfFYiwV60NqZAdHTbiCVVrdSz1g
-	kqCiuEg/VZE0ttuCQgkuMJY8UUT2KnC18gnhxZm4MJukAIGL5prQREWcEXguNPjxVmoyl/mcDcR
-	RC9eCGTA+tS0E7BSnki9tHlDe3J2b2++C3vVyLqxiCLp+I3bLE1LiUM02fSye4RIGmQNVeBrRmH
-	HRg3Cxp7t4/81Wr6Vi0rbU2faER85ZjcMVgMO7BqDKhTvl8Ja5MSf9Tk7TZ8w3weUmySrIzYgM2
-	rV/e4QSk6iFJEHlHcCQ79/Pw1AlSnaS3BFvvdn425Rh4V+PeQ/UZ2yUH6l5RofAybgBDdLb4cdc
-	jpV2noQUezx7EBY4rH3WGsJJO9K6+V3IIU3I=
-X-Google-Smtp-Source: AGHT+IHwDHgs/oxf0e8JR2hDlOXlXPSseXbZfiCiPJ07bxW4sz7ZF0cAlyLSBFD32UR0LJWOXJYTqA==
-X-Received: by 2002:a05:6000:480b:b0:3a4:e6bb:2d32 with SMTP id ffacd0b85a97d-3a57237e13bmr14574174f8f.22.1750258765541;
-        Wed, 18 Jun 2025 07:59:25 -0700 (PDT)
-Date: Wed, 18 Jun 2025 16:59:24 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>
-Subject: Re: [PATCH] memory: arrange to conserve on DMA reservation
-Message-ID: <aFLUTPNt1_DbPNTD@macbook.local>
-References: <6565e881-ec59-4db4-834a-f694bf1b9427@suse.com>
- <aFAbqhfmM_GBxjVC@macbook.local>
- <9b036f26-f275-48d0-9a33-7cef38b29f48@suse.com>
- <aFAuRXSryHKj3jVa@macbook.local>
- <2969b5d8-5879-4674-8332-046898e17257@suse.com>
- <aFA7OiV8AX-ua-W_@macbook.local>
- <a56574c0-6744-4249-9410-60858f49d04c@suse.com>
- <aFBTA3wklAejAUPT@macbook.local>
- <8f3f8815-a60d-4c8b-af2b-fc8ed5f9ba32@suse.com>
+        d=1e100.net; s=20230601; t=1750259767; x=1750864567;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=FHmsySBBC46aeM4dE5bYOQxQJPC9oS9TIj1GtE606vM=;
+        b=UQ4e91T9mmGNbu6tYypQ5G8hujy/iN6yNlNYmkGTaeGwrnNhXRLQA3qnf+vwJopqht
+         mB5VGXzuCNYWUoXrtCcHD2R7kCprW85u0hyzTWGS+P/XHBw2bKWF0xgVS/KuFNxA/asw
+         QjwmVio6EpSpzR1RLrshdcCwiwGWavshYVOxbxst1t2zzn/zyo572HxD8bIjIr1fWHvK
+         iNCGXL5B62kXwnr+loEr1gZkZeks+bElMQKqvVdq4BDeP8M/mt7EiXhmA/pNKsH//N5x
+         yWYYkLO4+3KcvrPs69hc5oxxl8czzood8vYwtULsGbXEnwcfn80ew6SKSAVk6ub15k12
+         wMDg==
+X-Forwarded-Encrypted: i=1; AJvYcCU9KsnD8JSlaSf60tD33fnY0Y15UrXc6xLgTXRzsYDfTj9HXB9OP8kVu+pg/0Cja09FXmwWb15YoKQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwYE/qrfRgrF1qLYf6+064dnzD9XSIxdvwMGkmltA4cx6x7V+BB
+	QYLsmCYA7owO9j8ITnI+uRmQ0mG3+VWei5Aq0L+Nd7dTJmZYuK+7ZiBj/dfg7cT4hsbzs4PyzpR
+	ObRs=
+X-Gm-Gg: ASbGncuG9LcGUC8sqZb84HMKJhAAR2UyGvPMWuXzpkaYJ6IbV061D+No26pj8aTL1Fw
+	273FrjQf8+2aBzyNsxe1cV4BE1zvRnghccIyVS5lvut9m0GR25yhBXgjG0amb6m9SCQChflzhe0
+	mFsP8HYinSRJM1GbINlIzijfz4oURrMxWgV6bzej7biIFyL18A4M+mZO3yTin852NMmQ7mZDf13
+	iWlTGVx0IpOLUWF70ZYZ52Lc2qBpT4zYcbCBEz76GlQb9wwwTrk3dHz52UwYl3Z/izoSkyFd/yB
+	QEZiqgo3tBtsY5BSCx8V6jYuB76nsOpaJb6+YkSyDyH9upet/mQp92QR0y4+wKN04dNLP84KYDr
+	nyEpusiao9DYnisc3wgSTEDTi9waejXSJfgsvzCWlKtaL0q/IBICdBmwDXw==
+X-Google-Smtp-Source: AGHT+IEvzpGLTBCUzoiVYM6ZZTyeYWpJBXZYt6fYRrbNd/Ul/0arbZGgazDUQkPexLrypiyHSjGs3g==
+X-Received: by 2002:a05:6000:2002:b0:3a5:25e4:264f with SMTP id ffacd0b85a97d-3a572e6ba0amr14537488f8f.31.1750259767356;
+        Wed, 18 Jun 2025 08:16:07 -0700 (PDT)
+Message-ID: <728ee92b-0e4f-4ccb-8c6e-54687bd75c62@suse.com>
+Date: Wed, 18 Jun 2025 17:15:56 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <8f3f8815-a60d-4c8b-af2b-fc8ed5f9ba32@suse.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 01/17] xen/riscv: implement sbi_remote_hfence_gvma()
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1749555949.git.oleksii.kurochko@gmail.com>
+ <ea7a15c0ecfd2bae95c11a92e4c0cb71b155140f.1749555949.git.oleksii.kurochko@gmail.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <ea7a15c0ecfd2bae95c11a92e4c0cb71b155140f.1749555949.git.oleksii.kurochko@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Jun 18, 2025 at 02:04:12PM +0200, Jan Beulich wrote:
-> On 16.06.2025 19:23, Roger Pau Monné wrote:
-> > On Mon, Jun 16, 2025 at 06:02:07PM +0200, Jan Beulich wrote:
-> >> On 16.06.2025 17:41, Roger Pau Monné wrote:
-> >>> On Mon, Jun 16, 2025 at 05:20:45PM +0200, Jan Beulich wrote:
-> >>>> On 16.06.2025 16:46, Roger Pau Monné wrote:
-> >>>>> One question I have though, on systems with a low amount of memory
-> >>>>> (let's say 8GB), does this lead to an increase in domain construction
-> >>>>> time due to having to fallback to order 0 allocations when running out
-> >>>>> of non-DMA memory?
-> >>>>
-> >>>> It'll likely be slower, yes, but I can't guesstimate by how much.
-> >>>
-> >>> Should there be some way to control this behavior then?  I'm mostly
-> >>> thinking about client systems like Qubes where memory is likely
-> >>> limited, and the extra slowness to create VMs could become
-> >>> noticeable?
-> >>
-> >> What kind of control would you be thinking of here? Yet another command
-> >> line option?
-> > 
-> > I guess that would be enough.  I think we need a way to resort to the
-> > previous behavior if required,
-> 
-> Thinking about it, there already is "dma_bits=". Simply setting this low
-> enough would have largely the same effect as yet another new command line
-> option. Thoughts?
-> 
-> > and likely a CHANGELOG entry to notice the change.
-> 
-> Hmm, not sure here. This is too small imo, and really an implementation
-> detail.
+On 10.06.2025 15:05, Oleksii Kurochko wrote:
+> Instruct the remote harts to execute one or more HFENCE.GVMA instructions,
+> covering the range of guest physical addresses between start_addr and
+> start_addr + size for all the guests.
 
-I think it's possible to have a noticeable effect for some use-cases,
-so it should be listed on CHANGELOG in case users see divergence from
-previous Xen versions.  That can given them a hint at what needs
-adjusting.
+Here and in the code comment: Why "for all the guests"? Under what conditions
+would you require such a broad (guest) TLB flush?
 
-It's not only the possible domain creation overhead: if the guest
-being created is HVM with p2m, the resulting p2m will also be
-shattered leading to worse guest performance.
+> --- a/xen/arch/riscv/sbi.c
+> +++ b/xen/arch/riscv/sbi.c
+> @@ -258,6 +258,15 @@ int sbi_remote_sfence_vma(const cpumask_t *cpu_mask, vaddr_t start,
+>                        cpu_mask, start, size, 0, 0);
+>  }
+>  
+> +int sbi_remote_hfence_gvma(const cpumask_t *cpu_mask, vaddr_t start,
+> +                           size_t size)
+> +{
+> +    ASSERT(sbi_rfence);
 
-> > Overall, would it be possible to only include the flag if we know
-> > there's non-DMA memory available to allocate?  Otherwise we are
-> > crippling allocation performance when there's only DMA memory left.
-> 
-> Imo trying to determine this would only make sense if the result can
-> then be relied upon. To determine we'd need to obtain the heap lock,
-> and we'd need to not drop it until after the allocation(s) were done.
-> I think that's far away from being a realistic option.
+As previously indicated, I question the usefulness of such assertions. If the
+pointer is still NULL, ...
 
-Couldn't Xen do best effort?
+> +    return sbi_rfence(SBI_EXT_RFENCE_REMOTE_HFENCE_GVMA,
+> +                      cpu_mask, start, size, 0, 0);
 
-A mismatch won't be fatal anyway.  Error cases: you set MEMF_no_dma and
-there's no non-DMA memory to allocate from, in which case it's the
-same that's unconditionally done.  Other possible failure is you don't
-set non-DMA and there's still non-DMA memory that's not consumed,
-which is the current behavior.  IMO it would be safer in terms of
-behavior change to do:
+... you'll crash here anyway (much like you will in a release build).
 
-if ( a->extent_order && <non-DMA memory available> )
-   a->memflags |= MEMF_no_dma;
-
-I think that's likely to be less intrusive and won't lead to system
-malfunctions, even if strictly it's (kind of?) a TOCTOU race.
-
-> > That also raises the question whether it's an acceptable trade-off to
-> > possibly shatter p2m super pages (that could be used if allocating
-> > from the DMA pool) at the expense of not allocating from the DMA pool
-> > until there's non-DMA memory left.
-> 
-> This being an acceptable tradeoff is imo an implicit pre-condition of
-> adding such a heuristic. For the system as a whole, exhausting special
-> purpose memory is likely worse than some loss of performance. Plus as
-> said above, people valuing performance more can reduce the "DMA pool".
-
-That's an acceptable workaround, but it might be helpful to note this
-in the commit message, as otherwise it will get lost in xen-devel.
-
-Thanks, Roger.
+Jan
 
