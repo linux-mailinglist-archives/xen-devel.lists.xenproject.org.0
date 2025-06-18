@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BDBA7ADEDFB
-	for <lists+xen-devel@lfdr.de>; Wed, 18 Jun 2025 15:38:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1019146.1395962 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 650C2ADEE78
+	for <lists+xen-devel@lfdr.de>; Wed, 18 Jun 2025 15:53:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1019163.1395972 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uRsyW-0006GE-7q; Wed, 18 Jun 2025 13:37:12 +0000
+	id 1uRtDo-0000cl-Fm; Wed, 18 Jun 2025 13:53:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1019146.1395962; Wed, 18 Jun 2025 13:37:12 +0000
+Received: by outflank-mailman (output) from mailman id 1019163.1395972; Wed, 18 Jun 2025 13:53:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uRsyW-0006E8-4R; Wed, 18 Jun 2025 13:37:12 +0000
-Received: by outflank-mailman (input) for mailman id 1019146;
- Wed, 18 Jun 2025 13:37:10 +0000
+	id 1uRtDo-0000b7-CU; Wed, 18 Jun 2025 13:53:00 +0000
+Received: by outflank-mailman (input) for mailman id 1019163;
+ Wed, 18 Jun 2025 13:52:58 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=FBi2=ZB=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uRsyU-0006E2-DW
- for xen-devel@lists.xenproject.org; Wed, 18 Jun 2025 13:37:10 +0000
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [2a00:1450:4864:20::436])
+ id 1uRtDm-0000Yo-4H
+ for xen-devel@lists.xenproject.org; Wed, 18 Jun 2025 13:52:58 +0000
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [2a00:1450:4864:20::32a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 548789f3-4c49-11f0-b894-0df219b8e170;
- Wed, 18 Jun 2025 15:37:08 +0200 (CEST)
-Received: by mail-wr1-x436.google.com with SMTP id
- ffacd0b85a97d-3a52874d593so6652951f8f.0
- for <xen-devel@lists.xenproject.org>; Wed, 18 Jun 2025 06:37:08 -0700 (PDT)
+ id 895896d8-4c4b-11f0-b894-0df219b8e170;
+ Wed, 18 Jun 2025 15:52:56 +0200 (CEST)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-4530921461aso60294375e9.0
+ for <xen-devel@lists.xenproject.org>; Wed, 18 Jun 2025 06:52:56 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2365dea8ccbsm99555215ad.167.2025.06.18.06.37.01
+ 41be03b00d2f7-b2fe1643e9esm10980563a12.25.2025.06.18.06.52.51
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 18 Jun 2025 06:37:07 -0700 (PDT)
+ Wed, 18 Jun 2025 06:52:54 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 548789f3-4c49-11f0-b894-0df219b8e170
+X-Inumbo-ID: 895896d8-4c4b-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1750253828; x=1750858628; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1750254775; x=1750859575; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=yJL88hOBVpsqrYLl/1QUiovMp1GO6402vxPEz45dK1g=;
-        b=RPOfr7g+qRQs39NRxdZaHcxjHIgDktAwplWOPtZpkNqWs6sV4W+kHe+5mIZb7Pp9+9
-         sD7GkUYmgYVxHlc7qbvMyKlhD8FkAbflFheUHsdXRt1kCuukd/UJbNiQ9Dbi0JDJ53R+
-         lBBGoKQJEOnRb4NbC/g1c+n05BhtTJhhS/6TdJhcIBFrE+3cYYxeP1Yj0t7Uz9Ux8ZBc
-         IfrglqQIufY+KK0pTx5luysaqcsMr2tdMmsZnkPnw/4jbgAtmqoiN3yQUa/fLpnaBHyA
-         Mx9gWHT0JVqcYGAyEaI8wNxC9OXAwRlu5E4CIueCjvFbib/z3WSZOb0KceD7G/X2ZY/p
-         rGPA==
+        bh=uc5JZqp0KcBw5BZMhGtpho3x8L9wD59HzL+T1EuClLU=;
+        b=D7HMieMwdwV1hHEE59kGLNbUCPraC0s0mF9LXtbf31/2fYYo6NQn3vTzOFOuVdIOHz
+         2kTKtPfZliBNkmOmgtNjLmbEJ4IfEdTptPLYbnnSERn9s2YX05XO1VzIJ8EGFkZde0fC
+         kbxfMM7kJaPxurX97966fD/Z7y+2psWS3NB1UFzashVgmSpsG5xTMTDgDAIlyucIo8zu
+         ciIMWy2Pb4p3xja5IZl0NieXlvJkbSKxPm6ENxAfLYKD7wqmsE5nUQVFKFUsq/F4nNyN
+         dF9JKvn3UFBmjhWWSCoE4RRBjjqBTgmXPmsFwjRH96G5e82hc+GbV+JkCLR05qVbXCHQ
+         ID9g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750253828; x=1750858628;
+        d=1e100.net; s=20230601; t=1750254775; x=1750859575;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=yJL88hOBVpsqrYLl/1QUiovMp1GO6402vxPEz45dK1g=;
-        b=bH85xweZ0U74lHaPvuRZEmxWbCMBtaSpBR8QFBUIf6tBkpg6OnD94hfakwNe1SpzNe
-         hDbJpR42msZgX20rX+G924KHZedMroEM6/SB44lsdfEQcdc6MKsMntvoCM+ym+CJhbED
-         ynUKpnmhEKAAy+fbSxsQeEAHIFLExwghpBuOztYid1Z1y6CnfAHOA6eii7kPNhLm9c6l
-         CmuYpmy+puzNClI/MW8tPTMMFUkPEOLl75MQ2oj7isDuNb+CnePcEG/orz8El9xt6vqD
-         LwL1bA6e5yySvryfnaQm4dk9awe4cDKrNm8yeEnV1scOte7cpFl7FATeZKr1etBJdxcE
-         5rlg==
-X-Forwarded-Encrypted: i=1; AJvYcCXsUqx7rAuWJ9thnOZN+TtYkgYFruL9XxjBD5ZPhpUZPvTMODb3pvhslgOypzxQt4AodrhsH4MtQsQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz+HtFAL7VQ84Mis9k2H77QoPtawcEEa31ulfk3ch00gXkmsGpp
-	W4B6Lb/1CRU5UfqytmNB5jR3pVe+DBVspLcvF8jc/3mjMfulwp9Vik78AI+1u9pDVw==
-X-Gm-Gg: ASbGncvTDOB4QGCwEOdluzQfuO1ONowv3ITl+VTdQDJSBum4TRbMkOG5KtFlpTlHhEe
-	jY90OjOBFDDApIcIBClxg5Dl2qW7isYVH6/ZJP8lv44DQXbPwfOCf1w3hEIKfOmz4ZoVV3qKO5d
-	kZb1tKKZ7gpyVLaO9FmA5AAH2YAxwFJU2tF/ynp4Devksv3ckXFKGg2wnLrt3/cRfLJLkM8lWW1
-	IBloiOIj5pmGjoDNE5+Rh7InGHy85/ztVIQmD4Cnb+hrDOCxuEULgiDbzQ19ix4iPXPKwBeYIn3
-	7CP/iJ6VjI4RBhtP+67bDgQ0A+Vvt01o4AKGirRFwezamenPTt+kiDjeuSs/LtfjtxZ4xjJIpwl
-	cEItLHZl991AalvHKzkLdLW1KNPx6rnwXUz6JXDbEKyu0GfM=
-X-Google-Smtp-Source: AGHT+IGtnXsHNrQLVBD0bzaC27DHO/yUYI+KAwunWfaAD8JTmdRkAy1X1GOjG5L5jm3KfBhRdamuxg==
-X-Received: by 2002:a5d:6f01:0:b0:3a4:d8f8:fba7 with SMTP id ffacd0b85a97d-3a572367c78mr16514388f8f.2.1750253827823;
-        Wed, 18 Jun 2025 06:37:07 -0700 (PDT)
-Message-ID: <2d8f85aa-af34-4f4c-b3ce-52640cb207f5@suse.com>
-Date: Wed, 18 Jun 2025 15:36:57 +0200
+        bh=uc5JZqp0KcBw5BZMhGtpho3x8L9wD59HzL+T1EuClLU=;
+        b=lXz49UOxz9P/45b1C90LrGvak0Npiq4aypAGHBFDyn3XyMatB7aIkYn/RXaLEt+COU
+         +PT2ZIlbbdvAm/+hpC3cPdScY59Y7tvpDsgcGo0Ik/3wZP1apeQ6WCEVGh5fsq81UFfd
+         m96jz/qlPz8yCrhSPn0D77YqwiWrkKJ4zsL9P/Vy2hXntXKc4FYgrUbOQaRtbvvIp1Bk
+         BirVXUWmdMM4nTaaf/9nF02PYWsQsdUbZJxpFGcy+1uq/GOaT4DkPAHlvgNpDaE8CBMu
+         i3Ac77oGGb7IsafIGMBPKw1oX4ZYJhzXrkrBn1tAlDxklKa4xSbYuUWlcaAQZckHUmpe
+         IKXQ==
+X-Forwarded-Encrypted: i=1; AJvYcCX5XU7rCdv3SCieGAm7NzF8BjV3asl4X4v4efItSb1EFFTTvBK0QVDrKlDBGpNQSlRFOl3Nq1c21Ko=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Ywul+q6epa8vjial5QovRDIAevceQEfbeGRQmFR4UccAwZiDHth
+	qS7TqZ//Y8CKp+UnNMgU7y+Qsx/F1WIKLxieXlvRe99vUT2yaM9nLIH6ColJqUY01Q==
+X-Gm-Gg: ASbGncsb3Tms7nnKExO0hYQg5o8Ts7iTXMG+f0Vz/mdQt93gyFvM3/f2s466BJ/8eoG
+	1Jx9vRk4hprut2YEa4EDyMIoiiTp8cS3kIdFUHPtYOg/CkmyJ4YwBLCrqJZJISJv7YWuIgLIrmx
+	UHafBQAlbAaWYafHcJN19c/7cwdXyYIOrObTjsNX0XN1bhq+RVK5bQdIbSd1aG617P3VeseAgyl
+	FEbhwwZ3MSurppKk0tXH9axIj2WKVgjqc1Hs9w75X9LkDhukuyMrrdPSTIGvJpOKm2lEjGtGiZr
+	NwTiliBZPSm/MTzUq1YGjuudGhmgK92Y5Nz4pUAlfwc1arwvo4eIf1rOpTrBs7HUj//oh+0JtZ6
+	tE0QaD7Xo5uixsYWuYm3CfiIEK3+IR79tEpHDUBqMUbiyn/EUbD3NuXrZKg==
+X-Google-Smtp-Source: AGHT+IGRYtbnGOvhggfbKkeWFzYfUjp9wqSSFxhrMYvveqq79veznrPNtMTGZGIFjxip74NZIrQ8Pw==
+X-Received: by 2002:a05:6000:1887:b0:3a4:e393:11e2 with SMTP id ffacd0b85a97d-3a5723a22d6mr15087661f8f.34.1750254775356;
+        Wed, 18 Jun 2025 06:52:55 -0700 (PDT)
+Message-ID: <669877f5-ef34-4552-9cfc-e097d40d444a@suse.com>
+Date: Wed, 18 Jun 2025 15:52:47 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 8/8] pdx: introduce a command line option for offset
- compression
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Community Manager <community.manager@xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20250611171636.5674-1-roger.pau@citrix.com>
- <20250611171636.5674-9-roger.pau@citrix.com>
+Subject: Re: [PATCH v6 1/8] vpci/header: Emulate extended capability list for
+ dom0
+To: Jiqian Chen <Jiqian.Chen@amd.com>
+Cc: Huang Rui <ray.huang@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
+References: <20250612092942.1450344-1-Jiqian.Chen@amd.com>
+ <20250612092942.1450344-2-Jiqian.Chen@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -123,28 +119,77 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250611171636.5674-9-roger.pau@citrix.com>
+In-Reply-To: <20250612092942.1450344-2-Jiqian.Chen@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 11.06.2025 19:16, Roger Pau Monne wrote:
-> --- a/docs/misc/xen-command-line.pandoc
-> +++ b/docs/misc/xen-command-line.pandoc
-> @@ -2072,6 +2072,28 @@ for all of them (`true`), only for those subject to XPTI (`xpti`) or for
->  those not subject to XPTI (`no-xpti`). The feature is used only in case
->  INVPCID is supported and not disabled via `invpcid=false`.
+On 12.06.2025 11:29, Jiqian Chen wrote:
+> --- a/xen/drivers/vpci/header.c
+> +++ b/xen/drivers/vpci/header.c
+> @@ -836,6 +836,42 @@ static int vpci_init_capability_list(struct pci_dev *pdev)
+>                                    PCI_STATUS_RSVDZ_MASK);
+>  }
 >  
-> +### pdx-compress
-> +> `= <boolean> | auto | fast | slow`
+> +static int vpci_init_ext_capability_list(struct pci_dev *pdev)
+> +{
+> +    unsigned int pos = PCI_CFG_SPACE_SIZE;
 > +
-> +> Default: `auto`
-> +
-> +Only relevant when hypervisor is build with PFN PDX offset compression
-> +`CONFIG_PDX_OFFSET_COMPRESSION`.
+> +    if ( !is_hardware_domain(pdev->domain) )
+> +        /* Extended capabilities read as zero, write ignore for guest */
 
-Which, however, the name of the command line option doesn't reflect at all.
-Question is what your thoughts were towards what if another compression
-method also wanted a command line control.
+s/guest/DomU/ ?
+
+> +        return vpci_add_register(pdev->vpci, vpci_read_val, NULL,
+> +                                 pos, 4, (void *)0);
+> +
+> +    while ( pos >= PCI_CFG_SPACE_SIZE )
+> +    {
+> +        uint32_t header = pci_conf_read32(pdev->sbdf, pos);
+> +        int rc;
+> +
+> +        if ( !header )
+> +            return 0;
+
+Is this a valid check to make for anything other than the first read? And even
+if valid for the first one, shouldn't that also go through ...
+
+> +        rc = vpci_add_register(pdev->vpci, vpci_read_val, vpci_hw_write32,
+> +                               pos, 4, (void *)(uintptr_t)header);
+
+... here?
+
+> +        if ( rc == -EEXIST )
+> +        {
+> +            printk(XENLOG_WARNING
+> +                   "%pd %pp: overlap in extended cap list, offset %#x\n",
+> +                   pdev->domain, &pdev->sbdf, pos);
+> +            return 0;
+> +        }
+> +
+> +        if ( rc )
+> +            return rc;
+> +
+> +        pos = PCI_EXT_CAP_NEXT(header);
+> +    }
+
+As a more general remark - this is imo the kind of situation where using
+do ... while() would be better.
+
+> --- a/xen/drivers/vpci/vpci.c
+> +++ b/xen/drivers/vpci/vpci.c
+> @@ -267,6 +267,12 @@ void cf_check vpci_hw_write16(
+>      pci_conf_write16(pdev->sbdf, reg, val);
+>  }
+>  
+> +void cf_check vpci_hw_write32(
+> +    const struct pci_dev *pdev, unsigned int reg, uint32_t val, void *data)
+> +{
+> +    pci_conf_write32(pdev->sbdf, reg, val);
+> +}
+
+Iirc we've been there before, yet I continue to wonder whether we're doing
+ourselves any good in allowing writes to something that certainly better
+wouldn't change. Even if we limit this to Dom0.
 
 Jan
 
