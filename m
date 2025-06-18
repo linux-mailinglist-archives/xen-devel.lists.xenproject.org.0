@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 095FEADDFE0
-	for <lists+xen-devel@lfdr.de>; Wed, 18 Jun 2025 02:05:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1018623.1395495 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2999FADE00F
+	for <lists+xen-devel@lfdr.de>; Wed, 18 Jun 2025 02:35:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1018637.1395531 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uRgIN-00012L-2Q; Wed, 18 Jun 2025 00:04:51 +0000
+	id 1uRgln-0005HO-KX; Wed, 18 Jun 2025 00:35:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1018623.1395495; Wed, 18 Jun 2025 00:04:51 +0000
+Received: by outflank-mailman (output) from mailman id 1018637.1395531; Wed, 18 Jun 2025 00:35:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uRgIM-00010u-W1; Wed, 18 Jun 2025 00:04:50 +0000
-Received: by outflank-mailman (input) for mailman id 1018623;
- Wed, 18 Jun 2025 00:04:48 +0000
+	id 1uRgln-0005EG-Gx; Wed, 18 Jun 2025 00:35:15 +0000
+Received: by outflank-mailman (input) for mailman id 1018637;
+ Wed, 18 Jun 2025 00:35:13 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=8JDB=ZB=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1uRgIK-00010o-PD
- for xen-devel@lists.xenproject.org; Wed, 18 Jun 2025 00:04:48 +0000
-Received: from tor.source.kernel.org (tor.source.kernel.org
- [2600:3c04:e001:324:0:1991:8:25])
+ id 1uRgll-0005EA-Kb
+ for xen-devel@lists.xenproject.org; Wed, 18 Jun 2025 00:35:13 +0000
+Received: from sea.source.kernel.org (sea.source.kernel.org
+ [2600:3c0a:e001:78e:0:1991:8:25])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d80b5d08-4bd7-11f0-a30a-13f23c93f187;
- Wed, 18 Jun 2025 02:04:47 +0200 (CEST)
+ id 172ca89d-4bdc-11f0-a30a-13f23c93f187;
+ Wed, 18 Jun 2025 02:35:11 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id C438A629C5;
- Wed, 18 Jun 2025 00:04:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5AEEC4CEE3;
- Wed, 18 Jun 2025 00:04:43 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 9DC874A2C2;
+ Wed, 18 Jun 2025 00:35:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D70BDC4CEED;
+ Wed, 18 Jun 2025 00:35:07 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,18 +42,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d80b5d08-4bd7-11f0-a30a-13f23c93f187
+X-Inumbo-ID: 172ca89d-4bdc-11f0-a30a-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1750205085;
-	bh=S6LmIBSMSPvwWa/NclMirxSjiCctzIioVBLdBfRn+KY=;
+	s=k20201202; t=1750206909;
+	bh=UOuwfDQz2R22Dh9kKXcyrh9jxqtyQwXC010GfL5BkhY=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=LTsV6rghZVpjqMlZATeWN7t9JDCwKUtA5u0ho7PUcD3k7Ey+qHF32WFFA9E8NV4iY
-	 8pYTtJrP09jDLyWxFmnHdzHCvSHtXRBeJv2eHpWDYgyy8z/8fjAx8tu+rRTAXy3SO/
-	 YdikwLn7QXdw+jV9g4FdxAIKu8x5+g2K4wybf+lVhEULWt/3R6NXz53rcLrrcrzbZr
-	 djOxH52MqVYrX+w2x4FFympxPfr2pRRy886sZyrST63cRzE9VJ0bfb08ApYfiphXbS
-	 gnV/2+LWslYqhH++CJiQ7Q38rfIud7Ag5ikXrodZSfZIg3bivWLRDKP++ZzbC0XDHu
-	 b9q6Za8MYkHsA==
-Date: Tue, 17 Jun 2025 17:04:42 -0700 (PDT)
+	b=ePYdm9QHKmdYJzRTmawYWt5PIXWtgLAR7IbjfEYJTH3qWCtVbPXRd/f91AT7xfjXS
+	 rVlQs2Tcx+ha8172oAkcWrqDBq273x9PNv3s0c+ErojO7VlkPR6jtiNpczgat60IPR
+	 ECNLOmBYZ2oLeJGGPsz3Yi6QAKMohaOmDSA42uKdCS211Tsqk6UrRmT+KdRkPl12eO
+	 lexsMsLkOrJNhGfvfaMxuVtgI16WsXqY6iZTjx/BOwYmI/0cVm3c8Kn/pGrS7HvMBT
+	 KHIbDavz3J1BZ4RYlRfYtmBSOtctBS7ZoiByapxxX6PV7Yu4hr31tO8ZLZqHpAsjf7
+	 4OlZ7Shfqti7A==
+Date: Tue, 17 Jun 2025 17:35:06 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
@@ -67,298 +67,421 @@ cc: Stefano Stabellini <sstabellini@kernel.org>,
     =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
     Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
     Grygorii Strashko <grygorii_strashko@epam.com>
-Subject: Re: [RFC PATCH v4 5/8] xen/domctl: extend XEN_DOMCTL_assign_device
- to handle not only iommu
-In-Reply-To: <f7a82cbe-2967-487f-9947-b56d1dea3e84@epam.com>
-Message-ID: <alpine.DEB.2.22.394.2506171701190.1780597@ubuntu-linux-20-04-desktop>
-References: <cover.1747669845.git.oleksii_moisieiev@epam.com> <4f58bf9c47c40413ee9250c4cd21458382aac857.1747669845.git.oleksii_moisieiev@epam.com> <alpine.DEB.2.22.394.2505211715210.147219@ubuntu-linux-20-04-desktop>
- <f7a82cbe-2967-487f-9947-b56d1dea3e84@epam.com>
+Subject: Re: [RFC PATCH v4 8/8] docs: arm: proposal to add separate SCMI node
+ for Xen agent
+In-Reply-To: <e5e8b7b3-a9c3-4e1a-9241-6776990b6e11@epam.com>
+Message-ID: <alpine.DEB.2.22.394.2506171720390.1780597@ubuntu-linux-20-04-desktop>
+References: <cover.1747669845.git.oleksii_moisieiev@epam.com> <3f7e1e99f5d1018064f3c4825aff16bd487cf558.1747669845.git.oleksii_moisieiev@epam.com> <alpine.DEB.2.22.394.2505231309090.147219@ubuntu-linux-20-04-desktop>
+ <e5e8b7b3-a9c3-4e1a-9241-6776990b6e11@epam.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-1675787614-1750205085=:1780597"
+Content-Type: multipart/mixed; BOUNDARY="8323329-2077371509-1750206562=:1780597"
+Content-ID: <alpine.DEB.2.22.394.2506171729360.1780597@ubuntu-linux-20-04-desktop>
 
   This message is in MIME format.  The first part should be readable text,
   while the remaining parts are likely unreadable without MIME-aware tools.
 
---8323329-1675787614-1750205085=:1780597
-Content-Type: text/plain; charset=UTF-8
+--8323329-2077371509-1750206562=:1780597
+Content-Type: text/plain; CHARSET=UTF-8
 Content-Transfer-Encoding: 8BIT
+Content-ID: <alpine.DEB.2.22.394.2506171729361.1780597@ubuntu-linux-20-04-desktop>
 
 On Thu, 12 Jun 2025, Oleksii Moisieiev wrote:
-> Hi Stefano,
-> 
-> I'm very sorry for a long silence. Please see my answers below:
-> 
-> On 22/05/2025 03:25, Stefano Stabellini wrote:
+> On 23/05/2025 23:19, Stefano Stabellini wrote:
 > > On Mon, 19 May 2025, Oleksii Moisieiev wrote:
 > >> From: Grygorii Strashko<grygorii_strashko@epam.com>
 > >>
-> >> Add chained handling of assigned DT devices to support access-controller
-> >> functionality through SCI framework, so DT device assign request can be
-> >> passed to FW for processing and enabling VM access to requested device
-> >> (for example, device power management through FW interface like SCMI).
+> >> Proposal description to add separate SCMI DT node for Xen management agent
+> >> under "chosen" or xen-config node, like Hyperlaunch "xen,config".
+> > I think it is OK to place a larger "xen,config" node under /chosen with
+> > more information for Xen to setup SCMI more easily.
+> >
+> >
+> >> This proposal introduces a new approach to the Xen multi-domain
+> >> configuration, where all Xen-specific configuration has been moved
+> >> under the "/chosen" node. This requires less Dom0 device tree
+> >> manipulation and isolates Xen configuration from domain configuration.
 > >>
-> >> The SCI access-controller DT device processing is chained after IOMMU
-> >> processing and expected to be executed for any DT device regardless of its
-> >> protection by IOMMU (or if IOMMU is disabled).
+> >> This approach provides the following device tree (DT) parameters:
 > >>
-> >> This allows to pass not only IOMMU protected DT device through
-> >> xl.cfg:"dtdev" property for processing:
-> >>
-> >> dtdev = [
-> >>      "/soc/video@e6ef0000", <- IOMMU protected device
-> >>      "/soc/i2c@e6508000", <- not IOMMU protected device
-> >> ]
-> >>
-> >> The change is done in two parts:
-> >> 1) update iommu_do_dt_domctl() to check for dt_device_is_protected() and
-> >> not fail if DT device is not protected by IOMMU
-> >> 2) add chained call to sci_do_domctl() in do_domctl()
-> >>
+> >> - "xen,scmi-secondary-agents": A Xen-specific parameter under the
+> >> "/chosen" node, which describes the SCMI agent configuration for
+> >> the domains.
+> >> - the SCMI configuration for Xen (privileged agent) and the shared
+> >> memory configuration for all agents are provided under the "/chosen"
+> >> node and are used strictly by Xen for its initial configuration.
+> >> - the scmi_shm and SCMI configuration for Dom0 are placed in the
+> >> "/firmware/scmi" node so that they can be moved to Dom0 without
+> >> any changes.
+> > Isn't the SCMI configuration present in /firmware/scmi referring to the
+> > privileged agent=0 meant to be used by Xen?
+> >
+> > I certainly see benefits in simplifying the configuration and especially
+> > reducing the amount of changes a user might have to make on the
+> > underlying device tree, but if the user needs to change /firmware/scmi
+> > with the Dom0 information, it seems more dangerous and error prone than
+> > the previous approach.
+> >
+> The idea is to move the privileged agent=0 configuration to the /chosen 
+> node and
+> 
+> assign agent=1 to the Dom0 node under /firmware/scmi.
+> 
+> Benefits of This Approach:
+> - No Modification of the Xen DT Node Required
+> 
+>      This eliminates the need to modify the Xen Device Tree (DT) node 
+> before creating Dom0 in
+> 
+>      order to set the correct shared memory (shmem).
+> 
+> -Consistent SCMI Configuration Format
+> 
+>    The Dom0 DT will have the same SCMI configuration format as other 
+> domains, simplifying the
+> 
+>    overall configuration process.
+> 
+> - Unified SCMI Configuration Method
+> 
+>     There will no longer be a need to use a different approach for SCMI 
+> configuration in Dom0
+> 
+>    compared to other domains.
+> 
+> - Separation Between Dom0 and Privileged Node
+> 
+>        This provides a clear separation between the Dom0 node and the 
+> privileged node.
+> 
+>        For example:
+>              If Dom0 only requires the clock protocol, but the Xen SCMI 
+> configuration requires additional protocols,
+> 
+>              this approach allows Dom0 to receive only the necessary 
+> protocol configuration.
+
+I don't think this is a good idea because we end up confusing the data
+for Xen and the data for the DomUs/Dom0 in the host device tree.
+
+I think we should follow these very simple guidelines:
+
+- The host DTB (the DTB given to Xen at boot) should be the same for Xen
+  and for Linux baremetal (no KVM), with the exception of the data under
+  the /chosen node
+
+- We can place Xen specific configurations under the /chosen node in the
+  host DTB, both Xen hypervisor configuration and also Dom0/DomU
+  configurations
+
+This way, the host information remains generic and the configuration for
+Xen the domUs/Dom0 is kept clearly separate from the rest. I don't
+think we can break these two assumptions but we have more freedom with
+the rest.
+
+If we start with these two simple assumptions, here are the
+consequences:
+
+- data under /firmware/scmi should be the same for Xen and baremetal
+  Linux, ideally it would describe Xen's agent0 channel in both cases
+
+- We can add as many nodes as we like under /chosen, including a
+  xen,config node and also additional nodes for the domains config
+
+- We can define the new nodes under /chosen to be as simple as possible
+  for the user to configure them, while also trying to minimize
+  complexity in Xen in terms of DT manipulations
+
+
+
+If the Xen SCMI configuration data cannot be the same as the Linux
+baremetal SCMI configuration (i.e. /firmware/scmi has to be different in
+the two cases) I would still suggest to avoid modifying /firmware/scmi
+for Xen and instead provide the Xen configuration under /chosen. It is
+important to keep everything in the host DTB (except /chosen) the same
+between Linux baremetal and Xen.
+
+However, we can add a new node similar to /firmware/scmi under /chosen
+specifically for Xen, such as /chosen/xen-config/scmi
+
+The Dom0 configuration cannot be expected to be under /firmware/scmi.
+However, it could also be defined under /chosen.
+
+Keep in mind that the more we add to /chosen the more difficult it will
+be for the user to configure the system. I think we should plan ahead to
+have ImageBuilder be able to generate the DT nodes under /chosen for Xen
+starting from the simplest possible configuration format provided by the
+user. The more complex and rich are the device tree nodes under /chosen,
+the more important is the documentation and ImageBuilder support for it.
+
+
+
+
+> >> This configuration allows the use of Xen-specific nodes to provide
+> >> information strictly needed by Xen while using the default SCMI
+> >> configuration for Dom0 and other domains. As a result, no additional
+> >> bindings need to be introduced to the device tree.
+> > This is not actually implemented by this patch series, right?
+> It is not. Just posted this document as a proposal.
 > >> Signed-off-by: Grygorii Strashko<grygorii_strashko@epam.com>
 > >> Signed-off-by: Oleksii Moisieiev<oleksii_moisieiev@epam.com>
 > >> ---
 > >>
 > >>
 > >>
-> >>   xen/arch/arm/firmware/sci.c             | 37 +++++++++++++++++++++++++
-> >>   xen/arch/arm/include/asm/firmware/sci.h | 14 ++++++++++
-> >>   xen/common/domctl.c                     | 19 +++++++++++++
-> >>   xen/drivers/passthrough/device_tree.c   |  6 ++++
-> >>   4 files changed, 76 insertions(+)
+> >>   .../arm/firmware/arm-scmi-proposal.rst        | 224 ++++++++++++++++++
+> >>   1 file changed, 224 insertions(+)
+> >>   create mode 100644 docs/hypervisor-guide/arm/firmware/arm-scmi-proposal.rst
 > >>
-> >> diff --git a/xen/arch/arm/firmware/sci.c b/xen/arch/arm/firmware/sci.c
-> >> index e1522e10e2..8efd541c4f 100644
-> >> --- a/xen/arch/arm/firmware/sci.c
-> >> +++ b/xen/arch/arm/firmware/sci.c
-> >> @@ -126,6 +126,43 @@ int sci_assign_dt_device(struct domain *d, struct dt_device_node *dev)
-> >>       return 0;
-> >>   }
-> >>   
-> >> +int sci_do_domctl(struct xen_domctl *domctl, struct domain *d,
-> >> +                  XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
-> >> +{
-> >> +    struct dt_device_node *dev;
-> >> +    int ret = 0;
+> >> diff --git a/docs/hypervisor-guide/arm/firmware/arm-scmi-proposal.rst b/docs/hypervisor-guide/arm/firmware/arm-scmi-proposal.rst
+> >> new file mode 100644
+> >> index 0000000000..fcc2ed2b65
+> >> --- /dev/null
+> >> +++ b/docs/hypervisor-guide/arm/firmware/arm-scmi-proposal.rst
+> >> @@ -0,0 +1,224 @@
 > >> +
-> >> +    switch ( domctl->cmd )
-> >> +    {
-> >> +    case XEN_DOMCTL_assign_device:
-> >> +        ret = -EOPNOTSUPP;
-> > Are you sure -EOPNOTSUPP is the right error code for the 3 checks below?
-> 
-> The -EOPNOTSUPP code is used because this is part of a chained call after
-> iommu_do_domctl, as stated in xen/common/domctl.c:859. The 
-> XEN_DOMCTL_assign_device
-> call is expected to handle any DT device, regardless of whether the DT 
-> device is
-> protected by an IOMMU or if the IOMMU is disabled.
-> The following cases are considered:
-> 
-> 1. IOMMU Protected Device (Success)
-> 
-> If the device is protected by the IOMMU and iommu_do_domctl returns 0, 
-> we continue
-> processing the DT device by calling sci_do_domctl.
-> 
-> 2. IOMMU Disabled (-EOPNOTSUPP from iommu_do_domctl)
-> 
-> If iommu_do_domctl returns -EOPNOTSUPP, indicating that the IOMMU is 
-> disabled,
-> we still proceed to call sci_do_domctl.
-
-OK this makes sense.  I think it is OK to have a special error code to
-say "the IOMMU is disabled" but I don't know if it is a good idea to try
-to use -EOPNOTSUPP for that. -EOPNOTSUPP could mean a hypervisor
-configuration with domctl disabled, for instance.
-
-It might be wiser to use a different error code. Maybe ENOENT?
-
-
-> 3. Error from iommu_do_domctl (Fail State)
-> 
-> If iommu_do_domctl returns any error, the system enters a fail state, and
-> sci_do_domctl is not called.
-> 
-> 4. -EOPNOTSUPP from sci_do_domctl
-> 
-> If sci_do_domctl returns -EOPNOTSUPP, this indicates one of the following:
-> - The provided device is not a DT device.
-> - There is no cur_mediator available (indicating that the SCI subsystem 
-> is enabled
-> in the configuration, but no mediator was provided).
-> - The current mediator does not support assign_dt_device (this is 
-> expected to be changed;
-> see below for details).
-> In this case, -EOPNOTSUPP is returned but will be ignored, and the 
-> original return value from iommu_do_domctl will be used as the final result.
-
-Same comment as before. We need to be careful not confuse this case you
-described with other cases where sci_do_domctl is simply not
-implemented.
-
-
-> 5. Return Code from sci_do_domctl
-> 
-> If sci_do_domctl returns 0 (success) or an error code (failure),
-> the return value from iommu_do_domctl is overridden, and the result from 
-> sci_do_domctl is returned.
-> Note: -EOPNOTSUPP from iommu_do_domctl will also be overridden since
-> step 2 was successfully completed (or failed).
-> >> +        if ( domctl->u.assign_device.dev != XEN_DOMCTL_DEV_DT )
-> >> +            break;
-> > this one
-> >
-> >> +        if ( !cur_mediator )
-> >> +            break;
-> > this one
-> >
-> >> +        if ( !cur_mediator->assign_dt_device )
-> >> +            break;
-> > and also this one? It seems more like an -EINVAL as the caller used a
-> > wrong parameter?
-> 
-> I think you are right that this case should return -EINVAL because we 
-> should fail if mediator
-> 
-> without implemented mandatory features was provided. Will be fixed.
-> 
-> >> +        ret = dt_find_node_by_gpath(domctl->u.assign_device.u.dt.path,
-> >> +                                    domctl->u.assign_device.u.dt.size, &dev);
-> >> +        if ( ret )
-> >> +            return ret;
+> >> +Proposal for SCMI multi-agent driver bindings
+> >> +=============================================
 > >> +
-> >> +        ret = sci_assign_dt_device(d, dev);
-> >> +        if ( ret )
-> >> +            break;
+> >> +Now the Xen configuration for SCMI multi-agent support is done in a bit complicated way, especially
+> >> +from SCMI multi-agent driver initialization and Dom0 DT manipulation point of view.
+> >> +Also it does not take into account future requirements to support SCP SCMI FW.
 > >> +
-> >> +        break;
-> >> +    default:
-> >> +        /* do not fail here as call is chained with iommu handling */
-> > It looks like this should be an error
-> >
-> >
-> >> +        break;
+> >> +To enable SCMI multi-agent user need:
+> >> +
+> >> +* take host DT with basic SCMI enabled
+> >> +* add SCMI shared-memory nodes for all agents
+> >> +* update SCMI node to point on SCMI Xen management channel (``[smc-id, shmem]``)
+> >> +* add "xen,scmi-secondary-agents" property to the "\chosen" node
+> >> +
+> >> +.. code::
+> >> +
+> >> +   chosen {
+> >> +      xen,scmi-secondary-agents = <
+> >> +                    1 0x82000003 &scmi_shm_1
+> >> +                    2 0x82000004 &scmi_shm_2
+> >> +                    3 0x82000005 &scmi_shm_3
+> >> +                    4 0x82000006 &scmi_shm_4>;
 > >> +    }
 > >> +
-> >> +    return ret;
-> >> +}
+> >> +    /{
+> >> +            // SCMI shared-memory nodes for all agents
+> >> +            scmi_shm_0 : sram@47ff0000 {
+> >> +                compatible = "arm,scmi-shmem";
+> >> +                reg = <0x0 0x47ff0000 0x0 0x1000>;
+> >> +            };
+> >> +            scmi_shm_1: sram@47ff1000 {
+> >> +                    compatible = "arm,scmi-shmem";
+> >> +                    reg = <0x0 0x47ff1000 0x0 0x1000>;
+> >> +            };
+> >> +            scmi_shm_2: sram@47ff2000 {
+> >> +                    compatible = "arm,scmi-shmem";
+> >> +                    reg = <0x0 0x47ff2000 0x0 0x1000>;
+> >> +            };
+> >> +            scmi_shm_3: sram@47ff3000 {
+> >> +                    compatible = "arm,scmi-shmem";
+> >> +                    reg = <0x0 0x47ff3000 0x0 0x1000>;
+> >> +            };
+> >> +            scmi_shm_4: sram@47ff4000 {
+> >> +                    compatible = "arm,scmi-shmem";
+> >> +                    reg = <0x0 0x47ff4000 0x0 0x1000>;
+> >> +            };
 > >> +
-> >>   static int __init sci_init(void)
-> >>   {
-> >>       struct dt_device_node *np;
-> >> diff --git a/xen/arch/arm/include/asm/firmware/sci.h b/xen/arch/arm/include/asm/firmware/sci.h
-> >> index 71fb54852e..b8d1bc8a62 100644
-> >> --- a/xen/arch/arm/include/asm/firmware/sci.h
-> >> +++ b/xen/arch/arm/include/asm/firmware/sci.h
-> >> @@ -146,6 +146,14 @@ int sci_dt_finalize(struct domain *d, void *fdt);
-> >>    * control" functionality.
-> >>    */
-> >>   int sci_assign_dt_device(struct domain *d, struct dt_device_node *dev);
+> >> +            firmware {
+> >> +                scmi: scmi {
+> >> +                    compatible = "arm,scmi-smc";
+> >> +                    arm, smc - id = <0x82000002>; <--- Xen management agent channel "smc-id"
+> >> +                    #address-cells = < 1>;
+> >> +                    #size-cells = < 0>;
+> >> +                    #access-controller-cells = < 1>;
+> >> +                    shmem = <&scmi_shm_0>; <--- Xen management agent channel "shmem"
 > >> +
-> >> +/*
-> >> + * SCI domctl handler
-> >> + *
-> >> + * Only XEN_DOMCTL_assign_device is handled for now.
-> >> + */
-> >> +int sci_do_domctl(struct xen_domctl *domctl, struct domain *d,
-> >> +                  XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl);
-> >>   #else
-> >>   
-> >>   static inline bool sci_domain_is_enabled(struct domain *d)
-> >> @@ -195,6 +203,12 @@ static inline int sci_assign_dt_device(struct domain *d,
-> >>       return 0;
-> >>   }
-> >>   
-> >> +static inline int sci_do_domctl(struct xen_domctl *domctl, struct domain *d,
-> >> +                                XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
-> >> +{
-> >> +    return 0;
-> >> +}
+> >> +                    protocol@X{
+> >> +                    };
+> >> +                };
+> >> +            };
+> >> +    }
 > >> +
-> >>   #endif /* CONFIG_ARM_SCI */
-> >>   
-> >>   #endif /* __ASM_ARM_SCI_H */
-> >> diff --git a/xen/common/domctl.c b/xen/common/domctl.c
-> >> index 05abb581a0..a74ee92067 100644
-> >> --- a/xen/common/domctl.c
-> >> +++ b/xen/common/domctl.c
-> >> @@ -27,6 +27,7 @@
-> >>   #include <xen/vm_event.h>
-> >>   #include <xen/monitor.h>
-> >>   #include <asm/current.h>
-> >> +#include <asm/firmware/sci.h>
-> >>   #include <asm/irq.h>
-> >>   #include <asm/page.h>
-> >>   #include <asm/p2m.h>
-> >> @@ -851,6 +852,24 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
-> >>       case XEN_DOMCTL_deassign_device:
-> >>       case XEN_DOMCTL_get_device_group:
-> >>           ret = iommu_do_domctl(op, d, u_domctl);
+> >> +Important thing to note is that all information about multi-channel support is strictly Xen specific.
 > >> +
-> >> +        if ( !ret || ret == -EOPNOTSUPP )
-> > It is better to invert the check:
+> >> +During initialization the SCMI multi-agent driver uses Host DT SCMI node and
+> >> +"xen,scmi-secondary-agents" property to init itself and then, during Dom0 creation, manipulates
+> >> +Dom0 DT to remove Xen specific SCMI info and update dom0 SCMI nodes with Dom0 SCMI agent specific
+> >> +information.
+> >> +
+> >> +There are two negative points:
+> >> +
+> >> +1) Double DT modification - one is user to set up SCMI Xen support in Host DT, second -
+> >> +   Dom0 DT manipulation.
+> >> +2) In case of future support of mailbox shared-memory transport there could be up to 4 mailboxes and
+> >> +   up to 2 shared-memories per SCMI agent channel.
+> >> +
+> >> +Hence SCMI multi-agent support is Xen specific knowledge there is a proposal to add it as Xen
+> >> +specific DT definitions and so minimize Host and Dom0 DT manipulations.
+> >> +Those definitions can be added in "/chosen" or, ideally, in "xen,config" node (like in Hyperlaunch design).
+> >> +
+> >> +The SCMI binding stays generic, just two SCMI nodes defined - one for Xen management channel and
+> >> +one for Host Dom0 OSPM.
+> >> +
+> >> +Example of using "chosen" for configuration:
+> >> +
+> >> +.. code::
+> >> +
+> >> +    /{
+> >> +
+> >> +        chosen {
+> >> +            ...
+> >> +
+> >> +            // Xen SCMI management channel
+> >> +            scmi_shm_0 : sram@47ff0000 {
+> >> +                compatible = "arm,scmi-shmem";
+> >> +                reg = <0x0 0x47ff0000 0x0 0x1000>;
+> >> +            };
+> >> +            scmi_xen: scmi {
+> >> +                compatible = "arm,scmi-smc";
+> >> +                arm,smc-id = <0x82000002>; <--- Xen manegement agent smc-id
+> >> +                #address-cells = < 1>;
+> >> +                #size-cells = < 0>;
+> >> +                #access-controller-cells = < 1>;
+> >> +                shmem = <&scmi_shm_0>; <--- Xen manegement agent shmem
+> >> +            };
+> >> +
+> >> +            // SCMI multi-agent configuration
+> >> +            scmi_shm_2: sram@47ff2000 {
+> >> +                    compatible = "arm,scmi-shmem";
+> >> +                    reg = <0x0 0x47ff2000 0x0 0x1000>;
+> >> +            };
+> >> +            scmi_shm_3: sram@47ff3000 {
+> >> +                    compatible = "arm,scmi-shmem";
+> >> +                    reg = <0x0 0x47ff3000 0x0 0x1000>;
+> >> +            };
+> >> +            scmi_shm_4: sram@47ff4000 {
+> >> +                    compatible = "arm,scmi-shmem";
+> >> +                    reg = <0x0 0x47ff4000 0x0 0x1000>;
+> >> +            };
+> >> +            xen,scmi-secondary-agents = <
+> >> +                        1 0x82000003 &scmi_shm
+> >> +                        2 0x82000004 &scmi_shm_2
+> >> +                        3 0x82000005 &scmi_shm_3
+> >> +                        4 0x82000006 &scmi_shm_4>;
+> >> +        };
+> >> +
+> >> +        // Host SCMI OSPM channel - provided to the Dom0 as is if SCMI enabled for it
+> >> +        scmi_shm: sram@47ff1000 {
+> >> +                compatible = "arm,scmi-shmem";
+> >> +                reg = <0x0 0x47ff1000 0x0 0x1000>;
+> >> +        };
+> >> +
+> >> +        firmware {
+> >> +            scmi: scmi {
+> >> +                compatible = "arm,scmi-smc";
+> >> +                arm,smc-id = <0x82000003>; <--- Host OSPM agent smc-id
+> >> +                #address-cells = < 1>;
+> >> +                #size-cells = < 0>;
+> >> +                shmem = <&scmi_shm>; <--- Host OSPM agent shmem
+> > By OSPM you mean Dom0 and not Xen? So this is a change compared to a
+> > device tree for baremetal Linux without Xen?
 > >
-> > if ( ret < 0 && ret != -EOPNOTSUPP )
-> >      return ret;
-> +
-> >> +        {
-> >> +            int ret1;
-> >> +            /*
-> >> +             * Add chained handling of assigned DT devices to support
-> >> +             * access-controller functionality through SCI framework, so
-> >> +             * DT device assign request can be passed to FW for processing and
-> >> +             * enabling VM access to requested device.
-> >> +             * The access-controller DT device processing is chained after IOMMU
-> >> +             * processing and expected to be executed for any DT device
-> >> +             * regardless if DT device is protected by IOMMU or not (or IOMMU
-> >> +             * is disabled).
-> >> +             */
-> >> +            ret1 = sci_do_domctl(op, d, u_domctl);
-> >> +            if ( ret1 != -EOPNOTSUPP )
-> >> +                ret = ret1;
-> >> +        }
-> >>           break;
-> >>   
-> >>       case XEN_DOMCTL_get_paging_mempool_size:
-> >> diff --git a/xen/drivers/passthrough/device_tree.c b/xen/drivers/passthrough/device_tree.c
-> >> index 075fb25a37..2624767e51 100644
-> >> --- a/xen/drivers/passthrough/device_tree.c
-> >> +++ b/xen/drivers/passthrough/device_tree.c
-> >> @@ -318,6 +318,12 @@ int iommu_do_dt_domctl(struct xen_domctl *domctl, struct domain *d,
-> >>               break;
-> >>           }
-> >>   
-> >> +        if ( !dt_device_is_protected(dev) )
-> >> +        {
-> >> +            ret = 0;
-> >> +            break;
-> >> +        }
-> > I am concerned about this: previously we would call
-> > iommu_assign_dt_device and the same check at the beginning of
-> > iommu_assign_dt_device would return -EINVAL. Now it is a success.
-> >
-> > I am not sure this is appropriate. I wonder if instead we should:
-> >
-> > - remove this chunk from the patch
-> > - change the return error for !dt_device_is_protected at the top of
-> >    iommu_assign_dt_device from -EINVAL to -EOPNOTSUPP
-> > - this would fall into the same ret != -EOPNOTSUPP check after
-> >    iommu_do_domctl
+> > Let me ask the same question differently. In the case of barematal Linux
+> > without Xen (no KVM), what would Linux see under /firmware/scmi as
+> > smc-id and shmem? The same as the one that Xen would use for itself? Or
+> > the same as the ones that Dom0 would use when Xen is present?
 > 
-> That's a good point. I think we should do the same for
+> If this DT is used with the baremetal Linux - then the Linux Kernel will
 > 
->  > if ( !is_iommu_enabled(d) )
+> see Dom0 "smc-id" and "shmen" under /firmware/scmi.
 > 
->  >  return -EINVAL;
+> >> +                protocol@X{
+> >> +                };
+> >> +            };
+> >> +        };
+> >> +    }
+> >> +
+> >> +
+> >> +In the above case:
+> >> +
+> >> +1) Xen SCMI multi-agent can be probed with DT configuration from "chosen" (or special "xen,config")
+> >> +   node and all Xen related nodes can be easily dropped from Dom0 DT.
+> >> +2) Host SCMI OSPM channel DT nodes can be copied to Dom0 DT without changes if SCMI enabled for it.
+> >> +3) Future support for mailbox shared-memory transport (SCP SCMI FW) can be simplified as no more
+> >> +   manipulation required with Dom0 SCMI "arm,smc-id" and "shmem" DT properties.
+> > Yes, I can see the benefit if we can arrange it so that the underlying
+> > host device tree is the same that Linux would use baremetal. And all the
+> > extra configuration is placed under /chosen in "xen,config" node or
+> > similar. I would probably call it "xen,scmi".
 > 
-> because in this case we should process sci as well. I will do the change
+> Personally, I would keep "xen,config" as it leaves room to add additional
 > 
-> >>           ret = iommu_assign_dt_device(d, dev);
-> >>   
-> >>           if ( ret )
+> configuration nodes in the future.
+> 
+> >> +Example of using "xen,config" for configuration:
+> >> +
+> >> +.. code::
+> >> +
+> >> +    hypervisor {
+> >> +        compatible = “hypervisor,xen”
+> >> +
+> >> +        // Configuration container
+> >> +        config {
+> >> +            compatible = "xen,config";
+> >> +            ...
+> >> +
+> >> +            // Xen SCMI management channel
+> >> +            scmi_shm_0 : sram@47ff0000 {
+> >> +                compatible = "arm,scmi-shmem";
+> >> +                reg = <0x0 0x47ff0000 0x0 0x1000>;
+> >> +            };
+> >> +            scmi_xen: scmi {
+> >> +                compatible = "arm,scmi-smc";
+> >> +                arm,smc-id = <0x82000002>; <--- Xen manegement agent smc-id
+> >> +                #address-cells = < 1>;
+> >> +                #size-cells = < 0>;
+> >> +                #access-controller-cells = < 1>;
+> >> +                shmem = <&scmi_shm_0>; <--- Xen manegement agent shmem
+> >> +            };
+> >> +
+> >> +            // SCMI multi-agent configuration
+> >> +            scmi_shm_2: sram@47ff2000 {
+> >> +                    compatible = "arm,scmi-shmem";
+> >> +                    reg = <0x0 0x47ff2000 0x0 0x1000>;
+> >> +            };
+> >> +            scmi_shm_3: sram@47ff3000 {
+> >> +                    compatible = "arm,scmi-shmem";
+> >> +                    reg = <0x0 0x47ff3000 0x0 0x1000>;
+> >> +            };
+> >> +            scmi_shm_4: sram@47ff4000 {
+> >> +                    compatible = "arm,scmi-shmem";
+> >> +                    reg = <0x0 0x47ff4000 0x0 0x1000>;
+> >> +            };
+> >> +            xen,scmi-secondary-agents = <
+> >> +                        1 0x82000003 &scmi_shm
+> >> +                        2 0x82000004 &scmi_shm_2
+> >> +                        3 0x82000005 &scmi_shm_3
+> >> +                        4 0x82000006 &scmi_shm_4>;
+> >> +        };
+> >> +    };
+> >> +
+> >> +    /{
+> >> +        // Host SCMI OSPM channel - provided to the Dom0 as is if SCMI enabled for it
+> >> +        scmi_shm: sram@47ff1000 {
+> >> +                compatible = "arm,scmi-shmem";
+> >> +                reg = <0x0 0x47ff1000 0x0 0x1000>;
+> >> +        };
+> >> +
+> >> +        firmware {
+> >> +            scmi: scmi {
+> >> +                compatible = "arm,scmi-smc";
+> >> +                arm,smc-id = <0x82000003>; <--- Host OSPM agent smc-id
+> >> +                #address-cells = < 1>;
+> >> +                #size-cells = < 0>;
+> >> +                shmem = <&scmi_shm>; <--- Host OSPM agent shmem
+> >> +
+> >> +                protocol@X{
+> >> +                };
+> >> +            };
+> >> +        };
+> >> +    }
 > >> -- 
 > >> 2.34.1
-> >>
---8323329-1675787614-1750205085=:1780597--
+--8323329-2077371509-1750206562=:1780597--
 
