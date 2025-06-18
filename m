@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F809ADEF91
-	for <lists+xen-devel@lfdr.de>; Wed, 18 Jun 2025 16:34:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1019232.1396042 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C3D86ADEFCF
+	for <lists+xen-devel@lfdr.de>; Wed, 18 Jun 2025 16:38:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1019239.1396053 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uRtrf-00013e-SC; Wed, 18 Jun 2025 14:34:11 +0000
+	id 1uRtvT-0001e9-Bm; Wed, 18 Jun 2025 14:38:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1019232.1396042; Wed, 18 Jun 2025 14:34:11 +0000
+Received: by outflank-mailman (output) from mailman id 1019239.1396053; Wed, 18 Jun 2025 14:38:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uRtrf-00012C-PR; Wed, 18 Jun 2025 14:34:11 +0000
-Received: by outflank-mailman (input) for mailman id 1019232;
- Wed, 18 Jun 2025 14:34:10 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uRtvT-0001bP-7A; Wed, 18 Jun 2025 14:38:07 +0000
+Received: by outflank-mailman (input) for mailman id 1019239;
+ Wed, 18 Jun 2025 14:38:05 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=FBi2=ZB=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uRtre-000125-76
- for xen-devel@lists.xenproject.org; Wed, 18 Jun 2025 14:34:10 +0000
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [2a00:1450:4864:20::42b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4ae04aaf-4c51-11f0-b894-0df219b8e170;
- Wed, 18 Jun 2025 16:34:08 +0200 (CEST)
-Received: by mail-wr1-x42b.google.com with SMTP id
- ffacd0b85a97d-3a57c8e247cso3433952f8f.1
- for <xen-devel@lists.xenproject.org>; Wed, 18 Jun 2025 07:34:08 -0700 (PDT)
+ id 1uRtvR-0001bJ-EJ
+ for xen-devel@lists.xenproject.org; Wed, 18 Jun 2025 14:38:05 +0000
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [2a00:1450:4864:20::433])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d7a3723c-4c51-11f0-a30a-13f23c93f187;
+ Wed, 18 Jun 2025 16:38:04 +0200 (CEST)
+Received: by mail-wr1-x433.google.com with SMTP id
+ ffacd0b85a97d-3a5123c1533so3993643f8f.2
+ for <xen-devel@lists.xenproject.org>; Wed, 18 Jun 2025 07:38:04 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-748900d0d90sm10991326b3a.155.2025.06.18.07.34.01
+ d2e1a72fcca58-74890083034sm11487602b3a.98.2025.06.18.07.38.00
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 18 Jun 2025 07:34:07 -0700 (PDT)
+ Wed, 18 Jun 2025 07:38:03 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4ae04aaf-4c51-11f0-b894-0df219b8e170
+X-Inumbo-ID: d7a3723c-4c51-11f0-a30a-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1750257247; x=1750862047; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1750257484; x=1750862284; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=c4ZDLYITV5axQdWqyesy+FnFzK6kGDsDGv7/1FtT6i8=;
-        b=eB1KW7ym1bp0kwVMViUC9YerKYFCuD6giUqKszZcZp925Zu+UhCr36VipykOI4MssY
-         XEuGPr5tLAS4BHbMqNjGzED3oaK5P/qxTw+7OhMX2epwuabLkhPfN5cYgptlp+e82DcF
-         gLegNAByoe56Nz+Si8m9xRBdL8JSwDcpnT4PNRB6cXJrEjMFGzcMSbfEohxE1bBEWAYi
-         /SjZZrazne37mDgeaMaW+65NTRPMVcwPonQZOjnoY3LUA8UcuOnynT87ewGzONC7lMkb
-         D8ON+H6uHk9Hl2kG2g7FE7fMsnZ9/iJC8VTj5U0Hih6qThRGKpFT653OgFYgquIcI3hL
-         U6SQ==
+        bh=nsNMYcv6w1MRQWT7aYneGzTuj1sM9ZBc2xY2fiJ8e2s=;
+        b=Nv1BJbzKXVE9iwiZI1E0JJ3srpIccd4EZ2DZUACDq04Nz6zCpnC96uOQl1kH8Waqyd
+         JjR0pTx+IKfN0w465VatEZj4SSM+FDkfyrW/DlsUOVfDKfaQSGNW8rn5/4ahGCvtBLgW
+         ycuFKn6o5Q/u2pt2ZrodTNRIqKE/D/Kz8xEvGSikE6a0/bgRYZKW2EJ+P8ooFZ01KlqU
+         qr8I6dZPnkp/KY9u3XWBHEYSfzUuBV5THF3REjgQpQsgZZ/FVdNfBasLzRsUoanrveSw
+         YDofeqFVMAlBjuVxHNyX+6VqIzMMOllOv6hGVl/jgi3y1E0wmvvKQNoLKh4WbqUyddGA
+         Y62g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750257247; x=1750862047;
+        d=1e100.net; s=20230601; t=1750257484; x=1750862284;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=c4ZDLYITV5axQdWqyesy+FnFzK6kGDsDGv7/1FtT6i8=;
-        b=t/3Fi13rTzp2nDC+JvOqD4bftGDE4HJGxG8wXIkuHATP9yaqx76aFcnQT3cOlzVPdl
-         Du7oo4CdV2Ly6zWkA7Qn/Sfu54fRO2XVo1mIvNyMMeRfgYLO8Zrqjbx6TS3x1TjWo1Vt
-         L6tSLnJTvwO0QmsGp6q3NwbthFs1dJPrUOj5Fq6AO2LzMfeXXaOZ3jGcys0YL4+gGeG8
-         tVvoQux/kVZXdGbyStq8d+uKENCF7CmN7gF0FAHJRTs7gMYQHo4k+NftleQybCH5PcA0
-         F1jqwJLCtSDLPOERb7kVZCEdi0SEpbMWmZ58caWAhuPhYdj3dnAoTHgWrdJnvPrHPOqO
-         RApw==
-X-Forwarded-Encrypted: i=1; AJvYcCUqYrSRJX7bbNwO+c0y0HXlW4FZX+lgQo5QPFOzfjA+EdwJEq/LbTm95LOftYK/rssCbgQ5A6pTQfo=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yxd0NZTcGY3UIymXj5rRNZfS2kjoJrrV4cOdta5325arjh+m5Ro
-	Z98/D7s/R4q0y9N6iU2UJIyOhvLXZkQNlpG8qSn9E0sBSMJ9jsyeA9Yjolsjl+4edw==
-X-Gm-Gg: ASbGncuS3bcM0pplA4WIGBf6ixb0L/066icqonuOTcuFssP2p2qTL5pNqXrUBKBVFTs
-	Ch348uQMaYK1NZbyjV4RGzheCk/YLm9uIS7kVw3yLTMOnPCAsB5i23YrPAydVHmqupZl9hX+ChW
-	HL8iASyc0ypIxFljprdgdQ5MoETmJU0KfHGrc8qG1D3JxW8ZYrrpNpZ0vQF9ZLI+9Wi3m39y5Us
-	aDqHIaKDD2MGTPmbRXngTCabMrww5LRaEpln2r3n5ed7xSVXM/1+0sd2kjeB5KvZHte9qTNgUy4
-	2vqxeBQSgDkDXKnOT93d3+qlAHjKs69zk4Al3NeQmqd+x32ox4c08KRA/S3DcjwnH0zYizbKyu/
-	dLMyWI9hjGJNJajbm9CzQLP+5APZA8xVwk0R11l508nMH248=
-X-Google-Smtp-Source: AGHT+IEmNlz4AiIPomR73q2O3fRFL52LbQLoV8CC5BH22cSwv+7v/BeMmE8uzC3tK3D1NuziqiAJuA==
-X-Received: by 2002:a05:6000:1881:b0:3a4:e5fa:73f0 with SMTP id ffacd0b85a97d-3a572397846mr15649067f8f.20.1750257247535;
-        Wed, 18 Jun 2025 07:34:07 -0700 (PDT)
-Message-ID: <1634c18d-e54e-4105-8b30-6f3085bace22@suse.com>
-Date: Wed, 18 Jun 2025 16:33:57 +0200
+        bh=nsNMYcv6w1MRQWT7aYneGzTuj1sM9ZBc2xY2fiJ8e2s=;
+        b=EzxLhqwJZlnhHqjMrlwf2S6SS0saj1z8iE+ewr6Wmy5+hn6WlSoSSSSrTa0kr4h1o5
+         JmcCJuSkSvshMCGNjbU2oeR3KOv4s98lYt/IwxqYuFcFYYLPxo/XterpZ9xo08rDDhD3
+         llQI5FJe8S/6Jg57JBeP7fVzZ0glwBjPFVr4pzddXzBbIBeGYYeIUfNh7/Td/mRLF39F
+         LPQ7tikU2btvG+l8RjX7UhsP5dYFOS0HA33FmARsrbU7zblLGyllZLZWAXTK5TB2V4fk
+         yyPdRb8dv95/dcdOVlYfRsJtUHRGVs94Y3F+hnm4SXzzDvFbGZvkdwpDCSXwWjrvdErs
+         DT6w==
+X-Forwarded-Encrypted: i=1; AJvYcCX/IeIh/m20EnuIRwlmvxsp+4g+93EJl3tsB1UixZ8QvaCjrFLI0fPxw1ssGMEwgbWaYODv+moz6h4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yzj5FS8mC+KWMe5J9vzWpbxArod01rBhrCC+9IKT7XRYLJuImLN
+	AZUZcQ6e+SgfCkT86bk+wvaVVwuqr8rdNnYPSKIGT+AHxnYvnmhRRL/JDypXbLANSA==
+X-Gm-Gg: ASbGncvALWcgvkGY0q17CvWYtbWyUEjf1NmrXhbAm7jGCUQkJT+bq+WEIyeE45V0V29
+	etWN28bxqKkk48AF+GDcw3hyWNCbKgawqyuYmIidipjbrZBtVRcX2Nab0ScYcSSq4rIGpPXzRFF
+	8LjeudP7ExeMKQMKliCj12KgvP3idSjHhk2ZrxrPl9iTM+6F/jJhUhjzQTxXGLHsJ4/tyVtC4ng
+	bJtmWBEgZG3/Qpu7sApIP5J0duBxBzt80BIyYhvNat5YWbMyeBwi8sdfYnyJIsnmXC6MXozNp4N
+	m8HenGos77SGAfrCQzS3pmD6zj/gc8J7XM+sp1iiw5JhJJvm63bu5pQYeJddlnJZAczJrfwwW8W
+	eEzrmCMv8voGfzZm781N0v/0A3x5fmPj1K0Z4J3+aNiOxJas=
+X-Google-Smtp-Source: AGHT+IEhgZnmzcHZyRJ8kPmTw80neTVDcVDtf4qpqL5EEF0uCk6ybUZIleBz7lfauX1erIMG5UZglQ==
+X-Received: by 2002:a05:6000:2705:b0:3a5:8a09:70b7 with SMTP id ffacd0b85a97d-3a58a18b882mr4164753f8f.38.1750257483722;
+        Wed, 18 Jun 2025 07:38:03 -0700 (PDT)
+Message-ID: <2d5a5abc-9fc6-4412-9a70-7b12ba46d80f@suse.com>
+Date: Wed, 18 Jun 2025 16:37:56 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 2/8] vpci: Refactor REGISTER_VPCI_INIT
+Subject: Re: [PATCH v6 7/8] vpci/msi: Free MSI resources when init_msi() fails
 To: Jiqian Chen <Jiqian.Chen@amd.com>
 Cc: Huang Rui <ray.huang@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+ <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
 References: <20250612092942.1450344-1-Jiqian.Chen@amd.com>
- <20250612092942.1450344-3-Jiqian.Chen@amd.com>
+ <20250612092942.1450344-8-Jiqian.Chen@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,46 +118,46 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250612092942.1450344-3-Jiqian.Chen@amd.com>
+In-Reply-To: <20250612092942.1450344-8-Jiqian.Chen@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 12.06.2025 11:29, Jiqian Chen wrote:
-> --- a/xen/include/xen/vpci.h
-> +++ b/xen/include/xen/vpci.h
-> @@ -13,11 +13,12 @@ typedef uint32_t vpci_read_t(const struct pci_dev *pdev, unsigned int reg,
->  typedef void vpci_write_t(const struct pci_dev *pdev, unsigned int reg,
->                            uint32_t val, void *data);
+> --- a/xen/drivers/vpci/msi.c
+> +++ b/xen/drivers/vpci/msi.c
+> @@ -193,6 +193,33 @@ static void cf_check mask_write(
+>      msi->mask = val;
+>  }
 >  
-> -typedef int vpci_register_init_t(struct pci_dev *dev);
-> -
-> -#define VPCI_PRIORITY_HIGH      "1"
-> -#define VPCI_PRIORITY_MIDDLE    "5"
-> -#define VPCI_PRIORITY_LOW       "9"
-> +typedef struct {
-> +    unsigned int id;
-> +    bool is_ext;
-> +    int (*init)(struct pci_dev *pdev);
-> +    int (*cleanup)(struct pci_dev *pdev);
+> +static int cf_check cleanup_msi(struct pci_dev *pdev)
+> +{
+> +    int rc;
+> +    unsigned int end, size;
+> +    struct vpci *vpci = pdev->vpci;
+> +    const unsigned int msi_pos = pdev->msi_pos;
+> +    const unsigned int ctrl = msi_control_reg(msi_pos);
+> +
+> +    if ( !msi_pos || !vpci->msi )
+> +        return 0;
+> +
+> +    if ( vpci->msi->masking )
+> +        end = msi_pending_bits_reg(msi_pos, vpci->msi->address64);
+> +    else
+> +        end = msi_mask_bits_reg(msi_pos, vpci->msi->address64) - 2;
+> +
+> +    size = end - ctrl;
+> +
+> +    rc = vpci_remove_registers(vpci, ctrl, size);
+> +    if ( rc )
+> +        return rc;
+> +
+> +    XFREE(vpci->msi);
+> +
+> +    return vpci_add_register(pdev->vpci, vpci_hw_read16, NULL, ctrl, 2, NULL);
 
-Is const really not possible to add to at least one of these two?
+Why not use the local variable "vpci" here?
 
-> +} vpci_capability_t;
-
-As you have it here, ...
-
-> @@ -29,9 +30,22 @@ typedef int vpci_register_init_t(struct pci_dev *dev);
->   */
->  #define VPCI_MAX_VIRT_DEV       (PCI_SLOT(~0) + 1)
->  
-> -#define REGISTER_VPCI_INIT(x, p)                \
-> -  static vpci_register_init_t *const x##_entry  \
-> -               __used_section(".data.vpci." p) = (x)
-> +#define REGISTER_VPCI_CAPABILITY(cap, finit, fclean, ext) \
-> +    static const vpci_capability_t finit##_t = { \
-
-... _t suffixes generally designate types. I don't think we should abuse
-that suffix for an identifier of a variable.
+I also think this (re)adding warrants a comment, as to why we do this.
 
 Jan
 
