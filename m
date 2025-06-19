@@ -2,56 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0AB5EAE0391
-	for <lists+xen-devel@lfdr.de>; Thu, 19 Jun 2025 13:32:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1019931.1396366 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A2160AE0396
+	for <lists+xen-devel@lfdr.de>; Thu, 19 Jun 2025 13:32:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1019938.1396376 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uSDVE-0008PC-JJ; Thu, 19 Jun 2025 11:32:20 +0000
+	id 1uSDVU-0000Tk-Ra; Thu, 19 Jun 2025 11:32:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1019931.1396366; Thu, 19 Jun 2025 11:32:20 +0000
+Received: by outflank-mailman (output) from mailman id 1019938.1396376; Thu, 19 Jun 2025 11:32:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uSDVE-0008Mr-GB; Thu, 19 Jun 2025 11:32:20 +0000
-Received: by outflank-mailman (input) for mailman id 1019931;
- Thu, 19 Jun 2025 11:32:18 +0000
+	id 1uSDVU-0000Qg-Nw; Thu, 19 Jun 2025 11:32:36 +0000
+Received: by outflank-mailman (input) for mailman id 1019938;
+ Thu, 19 Jun 2025 11:32:35 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=SlwS=ZC=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
- id 1uSDVC-0008L0-R1
- for xen-devel@lists.xenproject.org; Thu, 19 Jun 2025 11:32:18 +0000
+ id 1uSDVT-0008L0-Er
+ for xen-devel@lists.xenproject.org; Thu, 19 Jun 2025 11:32:35 +0000
 Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on20600.outbound.protection.outlook.com
- [2a01:111:f403:2412::600])
+ (mail-mw2nam10on20605.outbound.protection.outlook.com
+ [2a01:111:f403:2412::605])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0c988dd9-4d01-11f0-b894-0df219b8e170;
- Thu, 19 Jun 2025 13:32:16 +0200 (CEST)
-Received: from SJ0PR03CA0343.namprd03.prod.outlook.com (2603:10b6:a03:39c::18)
- by CH3PR12MB8260.namprd12.prod.outlook.com (2603:10b6:610:12a::7)
+ id 16e9a66b-4d01-11f0-b894-0df219b8e170;
+ Thu, 19 Jun 2025 13:32:33 +0200 (CEST)
+Received: from SJ0PR05CA0092.namprd05.prod.outlook.com (2603:10b6:a03:334::7)
+ by LV2PR12MB5774.namprd12.prod.outlook.com (2603:10b6:408:17a::14)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8835.29; Thu, 19 Jun
- 2025 11:32:10 +0000
-Received: from SJ5PEPF000001F6.namprd05.prod.outlook.com
- (2603:10b6:a03:39c:cafe::66) by SJ0PR03CA0343.outlook.office365.com
- (2603:10b6:a03:39c::18) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8835.23 via Frontend Transport; Thu,
- 19 Jun 2025 11:32:10 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8857.25; Thu, 19 Jun
+ 2025 11:32:24 +0000
+Received: from SJ5PEPF000001F2.namprd05.prod.outlook.com
+ (2603:10b6:a03:334:cafe::cc) by SJ0PR05CA0092.outlook.office365.com
+ (2603:10b6:a03:334::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8880.12 via Frontend Transport; Thu,
+ 19 Jun 2025 11:32:24 +0000
 Received: from SATLEXMB03.amd.com (165.204.84.17) by
- SJ5PEPF000001F6.mail.protection.outlook.com (10.167.242.74) with Microsoft
+ SJ5PEPF000001F2.mail.protection.outlook.com (10.167.242.70) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8857.21 via Frontend Transport; Thu, 19 Jun 2025 11:32:09 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
+ 15.20.8857.21 via Frontend Transport; Thu, 19 Jun 2025 11:32:23 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 19 Jun
- 2025 06:32:09 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 19 Jun
- 2025 06:32:08 -0500
+ 2025 06:32:22 -0500
 Received: from xcbayankuma40.xilinx.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via
- Frontend Transport; Thu, 19 Jun 2025 06:32:07 -0500
+ Frontend Transport; Thu, 19 Jun 2025 06:32:21 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,22 +59,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0c988dd9-4d01-11f0-b894-0df219b8e170
+X-Inumbo-ID: 16e9a66b-4d01-11f0-b894-0df219b8e170
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=LVpejLTpk9Pk3OI7SKChB54XbXn5saqZfe72wsdJG1hVxGb2iME6gfI9VEG1fPslqvI23a317DdmVH3pOCaJzPawnA9IS9WiTuYbeZBtQ3nOil9BHKZyjzWObpmPP0okwh27YcxTUN7inih33x50zvDp7b/YJsvcd3EfThHnBd7ELSz6Apjb3OfHTDvmUPxObOkx/GmgCsBZg+8zAwMhkzXvwBt2NxMZ1D8TfwLithByQDcsJjDVIzigYpOU3uu038oRSjg2SUKG4scWSZBOtT5tIhEDIVWwniwgDgrLCV4EmzTqsPE714NCrbq0jjTbac84Jq+FKUgU9mVlXPPssQ==
+ b=uHElf0clA2NTnbFKlbZPrXoh949TSIzFTVKk6Lh2teFotA4oIpweyJDbSfQeXh5n+A+IIcDjdYBH9X/fRh9Hu45c8qkBp4RV8R8n2E2lrrIzlsmycAfQ4fsnpHEGl5F99AzJV9d9xBUaOZ+qjdQy2plXkavIfY6EI0Sps//fJa9LRo17+RfXC5wHJM9Bb7dDhcJLX+Xhx1utoaN5NlTqEPAzaGfPz+dJEy2kKGawsplCcwUW7+ElQ0DxQDU6Bn3SFdLD9gVYSn8sFBzPshZHHLm/ckGWCyway0dl7JzDles3bk5IuU/9gjGOEuAJiQrwgSKGalDodz9HqVER1yNoFw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5s4GGT52wwqQbVT7LJgFLwX9PKdeY1TSAVFmN+Or72k=;
- b=ZqRR5Iu4VLAJw8lKzioD98GKYZzHbn4imzkVRlWV9L0wAXw3MsI6lyB6V1GwhHRwasvDL6w1YCbFQ/95QxLfsxs4m0baphQjMxRVYwoSmvaDXxwC9qCQ/egV/NWpawNHH5DRYzqIRZgj10Jb7ieTLGLPElQc9JQDYAXvS9uQtbjgv6p6W0MJgP7qEWqitihHDS5138CIOxv9kbE/BskmkvUC98o8XOGsA8S9ULwo+pdTqzaCIfl3/5tLp7TTklG/+0AZBXEJndJ9SAQIt1ds4YSaCGqAT73GJRlWMF4nV7t2c1sHq6w3PocroVCI1tJjsLm3yo3KC0vT3tjV/CwFoA==
+ bh=E9GnvlPa7/ykuvq75UkRq8ccJA05rYoUW1y1TKX2t0s=;
+ b=NxWsFz0OVCr5DLG+t70RVR2jQrWnz/MrV2Z24B3VgvMx8hqoCQ09DbD1njs3ognDCpgglmLWK7gRws2MjVWx9Ci4KrDrQ8WNYXb9df0Lc4y/GoavjglSBewXf+MoFuPWy2pr9znQhoHrIvtwITZNNOrFH/qqOgo3SVj9c0TJo0aPhLUAImRnmNlNuRzRWYTSvuvccmNRYU+DoXsL4nRQcdiZG2hkiRFu5FP6A33e2ehrBpI5k9Q2YG6OrAW8CAlwIVg0noZ/MEZGR+023IRRprzGjvLtsG3lnzpNZL5EIsOG0RYCgg/ZifCfxvYba+n88nTBu5Ef7qRkZXxG0egSmQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5s4GGT52wwqQbVT7LJgFLwX9PKdeY1TSAVFmN+Or72k=;
- b=LPdSqxLxrmXSAt2bQzJUqFuTApXMfan1jDOgwMfzI5k31bnFmO+5E5NKlsMW012AAi2yKDdoSUjNgKEB9om08W28e1yTPp614t5hbOmgX03CeIlEmisjjpu99EOaC6GmK9djzzL1JHQDttl2khEBTgo3d1fDA056pG5eByJcHHA=
+ bh=E9GnvlPa7/ykuvq75UkRq8ccJA05rYoUW1y1TKX2t0s=;
+ b=Bh+fQWaSyNLZu8kjGuwc9wLucH7oOF5XgdKVJDbmiZ7vWhU6KXEogeHoycdceYnBLxUTUlPsHsLj+ydmnIIPStWAgyIvte7TfqB4egWdld53/x6e19aGr4stbM7lc+aPDK+Jp4PsDmOUMUlUs+UMEpgwlc3ohBbAKVRSY1PHoPc=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -90,382 +86,166 @@ To: <xen-devel@lists.xenproject.org>
 CC: Ayan Kumar Halder <ayan.kumar.halder@amd.com>, Stefano Stabellini
 	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
 	<bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, "Volodymyr
- Babchuk" <Volodymyr_Babchuk@epam.com>, Luca Fancellu <luca.fancellu@arm.com>
-Subject: [PATCH v5 1/3] arm/mpu: Move the functions to arm64 specific files
-Date: Thu, 19 Jun 2025 12:31:50 +0100
-Message-ID: <20250619113152.2723066-2-ayan.kumar.halder@amd.com>
+ Babchuk" <Volodymyr_Babchuk@epam.com>, Hari Limaye <hari.limaye@arm.com>
+Subject: [PATCH v5 2/3] arm/mpu: Define arm32 system registers
+Date: Thu, 19 Jun 2025 12:31:51 +0100
+Message-ID: <20250619113152.2723066-3-ayan.kumar.halder@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20250619113152.2723066-1-ayan.kumar.halder@amd.com>
 References: <20250619113152.2723066-1-ayan.kumar.halder@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-Received-SPF: None (SATLEXMB05.amd.com: ayan.kumar.halder@amd.com does not
+Received-SPF: None (SATLEXMB03.amd.com: ayan.kumar.halder@amd.com does not
  designate permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001F6:EE_|CH3PR12MB8260:EE_
-X-MS-Office365-Filtering-Correlation-Id: f23a6ed7-7bb7-4356-b3ef-08ddaf24ed9f
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001F2:EE_|LV2PR12MB5774:EE_
+X-MS-Office365-Filtering-Correlation-Id: f9a9b498-acf0-499d-9b47-08ddaf24f608
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|1800799024|36860700013|376014;
+	BCL:0;ARA:13230040|376014|36860700013|82310400026|1800799024;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?5+IcqpWyURX2Tcye4Nos3A0IIQthw4saCVoPGQhJLYZHDixabITIGisE+nUD?=
- =?us-ascii?Q?JudPtK9kCn27LWhf5qd6UrA4WYmvhqFxDaxzKQQ4TPRX6kNlxMVaTuP9od/P?=
- =?us-ascii?Q?uOUUONHxXbJP4Ux+CiqAiibvoFlm4tXxbLKGo40mZD/tuZcvXf5F9F29RQsA?=
- =?us-ascii?Q?UHavO4gRBdSwjRIw/Ca5kt5Ax9b+ShmLMxMi252LYsmqXQuBEuHE7ycWklUP?=
- =?us-ascii?Q?oSMG1zU63y+xWgO/8vdESz9rPqHVg3Qb2PIkAiZz5oID05P2H1puDOrSaLud?=
- =?us-ascii?Q?YljPkKyGL/L3bZAgLzmxJJsvHm13SYrQY87NxQwo1vGuA+3W2xvcW46EFcXD?=
- =?us-ascii?Q?vUIl3wkVqNCBudnOv4TnzJaRxev161SEE03F1QjT9U764jk9HsqrvtJElNAM?=
- =?us-ascii?Q?SqfmFvzGAiGH3VxVz0uOuJ+EMCUsAykRMPAUE4bdZ1cQQ2X3f4ZYdAVv5eaX?=
- =?us-ascii?Q?O5Ys7DFz+kIbUXQ/KzW6vRrKi6ouWD9JD2infO/s9ZvJKpnKtV3YvIbyO7/W?=
- =?us-ascii?Q?B0jmcxFnhRKPyvfE0Qi/fAcZk+G0PLk3LkAnO8HBpYNeng6TqRox7SlHLVcW?=
- =?us-ascii?Q?fG8fYlwLlN9NkoHqta+MG7l+2+W77nizwQRNH/WATivgdyJhEpHrOxuHVrsj?=
- =?us-ascii?Q?9dDFHn9JEeVmsAq1coGwB8mubhmSgo2j3BYKYrQtAvefbGwxg3MM8G6Vq8PI?=
- =?us-ascii?Q?BK1k1OPLEq7rkK5LZ94gsWHo69AYLRwrD+0442NQ3vIP4AV3uxtDZsvIWJxO?=
- =?us-ascii?Q?ZwtWU1G7zzZ7Fl+V2MHUWMTJb86cYWWmptrQrfmjSMLUF172aS35qjMjKHqT?=
- =?us-ascii?Q?MCZK/Exa7ldbXoxOamzATdxKQqldvUdsTR/i62qHVt7UF+p2D7A0dd4/RXEf?=
- =?us-ascii?Q?yw2+Wsgm2cj7x/9ULegaUuReQb9WAcCsRXRwBNEENRGoGVROek7Mxjf1ePwM?=
- =?us-ascii?Q?MyGUMOoksO1+2MuE869vED2Ial1sB568jPNOPFY6+OOUBtVZgix7luTIPoJE?=
- =?us-ascii?Q?9R8RHg7aJu41m5RfeI+aHWyMmqte2fduo18gRK/eOos/+6hyLYHhJQ31+l2k?=
- =?us-ascii?Q?IDFYb2kHwDDKE9t9RDNzwtO4S/BYm3UDTj/v36bna8r40Z5bCeYadcfRpI9Y?=
- =?us-ascii?Q?fogPssCX5BwT3mEyPI4HwcfEQFCJmo+C0qAahchio3NPFzGzGhJuBPDQk4JO?=
- =?us-ascii?Q?WoF/LFuM1ORLcvdc/zS8Qvr0TPEsyI/p3OBdm888OHImuc8/PvYCDn1jt3rC?=
- =?us-ascii?Q?6IgMRF5xCuTJaOG8i0J8ytnlhWXfEoNxMFHwPFPAfqDfx/tabCJP+7PQ4Osm?=
- =?us-ascii?Q?c0r/lW4U0EUYx3FTkts/tbC8Ma/NoymlqHeWzTf4F5mv+N3Fal3MFXpedrqX?=
- =?us-ascii?Q?O4EwBFvXjj70fhF+jXHygQds1q+0PU7+4bkbkcQvLwTrRf0Q5zMgykdLT/Xs?=
- =?us-ascii?Q?j1llGywOzKWTZVpwtN9rGrOpDVNBLarCCNRPfWGt1mjeEw1c4MOY5TZpGFqA?=
- =?us-ascii?Q?APF47JyBIBofwoaMN0kKXXdi+gtSzxxu3glQ?=
+	=?us-ascii?Q?/qjRLZ8hzn1xHYeJlydLiPQYhbymBOFU1HqIu+ae950g8VUKpHHhS40PvCHr?=
+ =?us-ascii?Q?jGHJeIn3F3+mOnczA/Ddp7zCc4H09C1UfUpunPTNq9N66lsNpuks6fFBAl22?=
+ =?us-ascii?Q?AHH82q2vomlxjLg1V4kPAdpScm0/Fiq9kH4tXkw3cBRzfoMelgpG4NcDDEvV?=
+ =?us-ascii?Q?7tSwHqrla7KkvxCt7wUyG2CtEDL76sQQ+PWgYnhtX5RnIo02u7lC16J41SfZ?=
+ =?us-ascii?Q?uckMh/F608p1tNKktyvTCTBhItPXlPlwwR5xHuZr+dirXslONmbHfGE2hJ4F?=
+ =?us-ascii?Q?YsfNJfGDZ8ifcyEm/sq2sWiOFh0x6UXtlzplHhfBU8R5XrS+dk2xu6yWBVNt?=
+ =?us-ascii?Q?aeddksd7/q37pjSEvh6Q2pBy49dfgleHf8lF8xhUz9ul8DCfKL7ptphTmyTy?=
+ =?us-ascii?Q?IrhUcRPSzFUxIircCkXDO1Jr+5YLE6bcEMjOKelLXgQ8XdWhlmTgWHfreAtB?=
+ =?us-ascii?Q?8999F9f01hSdgvJlDpGLcSrFish9S7mNGYrSTR7GxsrTkj5Rw1oUxd77zZhP?=
+ =?us-ascii?Q?DV//GldpuARzvzZiOOSRL/QjhNpJDFqwsfi7tmj99qj/LDMiYN+zU5VfE+k+?=
+ =?us-ascii?Q?3e9HEh6EB7lzP+3gE33gwQ/6i6WbPrN9b7EV8WEhawiJZCE1zUdN8ZagLfox?=
+ =?us-ascii?Q?Yur7r9U73qWtEqoouoZDRS4snPZl5G/aaIefK7/gpGCH06dtS02Vawkh3M3K?=
+ =?us-ascii?Q?us1U24cLNLJncMCbwq6zCKsI4UW/h8Es1uSCuGq6OFwAOKL4lDeiXtnw1rr7?=
+ =?us-ascii?Q?Ni7jl/J0wJ61hTqKq3yRGI/yaVNhMVHG07Jp+lEWfEXW5J1pg7jPK2IN2gmQ?=
+ =?us-ascii?Q?oFCRtHbJuEwALvRNdslfusGpqeoXzLweSf7MraWNZlMHeZ9bFaiEKDoY4p1j?=
+ =?us-ascii?Q?j0prQxMqRaPGV3Iobq6zCj87hY5yvotMkxeAjdDzwMM081AUtXFo58hdoG2b?=
+ =?us-ascii?Q?IxSWJrRa8KsbbkycNBzOlQYFrQu1evuFACDG55/MzjsNO3DKFs+dbZSTSsB0?=
+ =?us-ascii?Q?ddfKoH/uYXl21QnqKiA0ifdh7VROrSh826djGu3ZgjCZJmdJmBq792o32+rz?=
+ =?us-ascii?Q?QRGRUrKvqr4hyz/ht1WJOhqENX94vxhu56HThKkZfMjutgC2cvtW54L+aqny?=
+ =?us-ascii?Q?dxcsgBZxiNmXehFoI5B1yWG4nVKaAMP+mz8F3QfonYQ0xf7AVbPAepSLJ9FB?=
+ =?us-ascii?Q?aEArMrjX15Eot8nxmN8z0oTEVI1IHjzOhScsrGtF7MTWTvXrC6puXGYib+78?=
+ =?us-ascii?Q?L6IVf+8dRXhzhw35JcuEAM/91J1AVw7CQ8XxgZEe1bnVBJN+UNFNTwu6Y+Me?=
+ =?us-ascii?Q?ARatk0CSfrZMfKsrpPw0VHkxCx50wl5g3Bn81HIhZeU/wTz98eYHFqTXO/vR?=
+ =?us-ascii?Q?6i+ledz2DW/ZVLAGj32mgSv5Ki59hK7KWRzgf5DmhWdTuOjikp4j8myfRrBK?=
+ =?us-ascii?Q?qwdvSjpA9RR2SubteqJXA72S+6YDZDxjBAJL3fG2XNF9AHspglqO2hkYfl8B?=
+ =?us-ascii?Q?gy1dEtkl/sHgOLHj6gIYLgKC+I+gsJMQm7na?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(36860700013)(376014);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(36860700013)(82310400026)(1800799024);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jun 2025 11:32:09.5475
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jun 2025 11:32:23.6569
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f23a6ed7-7bb7-4356-b3ef-08ddaf24ed9f
+X-MS-Exchange-CrossTenant-Network-Message-Id: f9a9b498-acf0-499d-9b47-08ddaf24f608
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	SJ5PEPF000001F6.namprd05.prod.outlook.com
+	SJ5PEPF000001F2.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8260
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5774
 
-prepare_selector(), read_protection_region() and write_protection_region()
-differ significantly between arm32 and arm64. Thus, move these functions
-to their sub-arch specific folder.
-
-Also the macro GENERATE_{WRITE/READ}_PR_REG_CASE are moved, in order to
-keep them in the same file of their usage and improve readability.
+Fix the definition for HPRLAR.
+Define the base/limit address registers to access the first 32 protection
+regions.
 
 Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-Reviewed-by: Luca Fancellu <luca.fancellu@arm.com>
+Reviewed-by: Hari Limaye <hari.limaye@arm.com>
 Acked-by: Michal Orzel <michal.orzel@amd.com>
 ---
-Changes from -
+Changes from :-
 
-v2 - New patch introduced in v3.
+v2 - New patch introduced in v3 (Extracted from 
+"arm/mpu: Provide access to the MPU region from the C code").
 
-v3 - 1. Add Luca's R-b.
+v3 - Add Hari's R-b.
 
-v4 - 1. Reorder entries in mpu/Makefile alphabetically.
-2. Add Michal's A-b.
+v4 - Add Michal's A-b.
 
- xen/arch/arm/mpu/Makefile       |   1 +
- xen/arch/arm/mpu/arm64/Makefile |   1 +
- xen/arch/arm/mpu/arm64/mm.c     | 130 ++++++++++++++++++++++++++++++++
- xen/arch/arm/mpu/mm.c           | 117 ----------------------------
- 4 files changed, 132 insertions(+), 117 deletions(-)
- create mode 100644 xen/arch/arm/mpu/arm64/Makefile
- create mode 100644 xen/arch/arm/mpu/arm64/mm.c
+ xen/arch/arm/include/asm/mpu/cpregs.h | 68 ++++++++++++++++++++++++++-
+ 1 file changed, 67 insertions(+), 1 deletion(-)
 
-diff --git a/xen/arch/arm/mpu/Makefile b/xen/arch/arm/mpu/Makefile
-index 808e3e2cb3..09326a5248 100644
---- a/xen/arch/arm/mpu/Makefile
-+++ b/xen/arch/arm/mpu/Makefile
-@@ -1,3 +1,4 @@
-+obj-$(CONFIG_ARM_64) += arm64/
- obj-$(CONFIG_ARM_32) += domain-page.o
- obj-y += mm.o
- obj-y += p2m.o
-diff --git a/xen/arch/arm/mpu/arm64/Makefile b/xen/arch/arm/mpu/arm64/Makefile
-new file mode 100644
-index 0000000000..b18cec4836
---- /dev/null
-+++ b/xen/arch/arm/mpu/arm64/Makefile
-@@ -0,0 +1 @@
-+obj-y += mm.o
-diff --git a/xen/arch/arm/mpu/arm64/mm.c b/xen/arch/arm/mpu/arm64/mm.c
-new file mode 100644
-index 0000000000..ed643cad40
---- /dev/null
-+++ b/xen/arch/arm/mpu/arm64/mm.c
-@@ -0,0 +1,130 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
+diff --git a/xen/arch/arm/include/asm/mpu/cpregs.h b/xen/arch/arm/include/asm/mpu/cpregs.h
+index d5cd0e04d5..bb15e02df6 100644
+--- a/xen/arch/arm/include/asm/mpu/cpregs.h
++++ b/xen/arch/arm/include/asm/mpu/cpregs.h
+@@ -9,7 +9,73 @@
+ /* CP15 CR6: MPU Protection Region Base/Limit/Select Address Register */
+ #define HPRSELR         p15,4,c6,c2,1
+ #define HPRBAR          p15,4,c6,c3,0
+-#define HPRLAR          p15,4,c6,c8,1
++#define HPRLAR          p15,4,c6,c3,1
 +
-+#include <xen/bug.h>
-+#include <xen/types.h>
-+#include <asm/mpu.h>
-+#include <asm/sysregs.h>
-+#include <asm/system.h>
-+
-+/*
-+ * The following are needed for the cases: GENERATE_WRITE_PR_REG_CASE
-+ * and GENERATE_READ_PR_REG_CASE with num==0
-+ */
-+#define PRBAR0_EL2 PRBAR_EL2
-+#define PRLAR0_EL2 PRLAR_EL2
-+
-+#define PRBAR_EL2_(n)   PRBAR##n##_EL2
-+#define PRLAR_EL2_(n)   PRLAR##n##_EL2
-+
-+#define GENERATE_WRITE_PR_REG_CASE(num, pr)                                 \
-+    case num:                                                               \
-+    {                                                                       \
-+        WRITE_SYSREG(pr->prbar.bits & ~MPU_REGION_RES0, PRBAR_EL2_(num));   \
-+        WRITE_SYSREG(pr->prlar.bits & ~MPU_REGION_RES0, PRLAR_EL2_(num));   \
-+        break;                                                              \
-+    }
-+
-+#define GENERATE_READ_PR_REG_CASE(num, pr)                      \
-+    case num:                                                   \
-+    {                                                           \
-+        pr->prbar.bits = READ_SYSREG(PRBAR_EL2_(num));          \
-+        pr->prlar.bits = READ_SYSREG(PRLAR_EL2_(num));          \
-+        break;                                                  \
-+    }
-+
-+/*
-+ * Armv8-R supports direct access and indirect access to the MPU regions through
-+ * registers:
-+ *  - indirect access involves changing the MPU region selector, issuing an isb
-+ *    barrier and accessing the selected region through specific registers
-+ *  - direct access involves accessing specific registers that point to
-+ *    specific MPU regions, without changing the selector, avoiding the use of
-+ *    a barrier.
-+ * For Arm64 the PR{B,L}AR_ELx (for n=0) and PR{B,L}AR<n>_ELx (for n=1..15) are
-+ * used for the direct access to the regions selected by
-+ * PRSELR_EL2.REGION<7:4>:n, so 16 regions can be directly accessed when the
-+ * selector is a multiple of 16, giving access to all the supported memory
-+ * regions.
-+ */
-+static void prepare_selector(uint8_t *sel)
-+{
-+    uint8_t cur_sel = *sel;
-+
-+    /*
-+     * {read,write}_protection_region works using the direct access to the 0..15
-+     * regions, so in order to save the isb() overhead, change the PRSELR_EL2
-+     * only when needed, so when the upper 4 bits of the selector will change.
-+     */
-+    cur_sel &= 0xF0U;
-+    if ( READ_SYSREG(PRSELR_EL2) != cur_sel )
-+    {
-+        WRITE_SYSREG(cur_sel, PRSELR_EL2);
-+        isb();
-+    }
-+    *sel &= 0xFU;
-+}
-+
-+void read_protection_region(pr_t *pr_read, uint8_t sel)
-+{
-+    prepare_selector(&sel);
-+
-+    switch ( sel )
-+    {
-+        GENERATE_READ_PR_REG_CASE(0, pr_read);
-+        GENERATE_READ_PR_REG_CASE(1, pr_read);
-+        GENERATE_READ_PR_REG_CASE(2, pr_read);
-+        GENERATE_READ_PR_REG_CASE(3, pr_read);
-+        GENERATE_READ_PR_REG_CASE(4, pr_read);
-+        GENERATE_READ_PR_REG_CASE(5, pr_read);
-+        GENERATE_READ_PR_REG_CASE(6, pr_read);
-+        GENERATE_READ_PR_REG_CASE(7, pr_read);
-+        GENERATE_READ_PR_REG_CASE(8, pr_read);
-+        GENERATE_READ_PR_REG_CASE(9, pr_read);
-+        GENERATE_READ_PR_REG_CASE(10, pr_read);
-+        GENERATE_READ_PR_REG_CASE(11, pr_read);
-+        GENERATE_READ_PR_REG_CASE(12, pr_read);
-+        GENERATE_READ_PR_REG_CASE(13, pr_read);
-+        GENERATE_READ_PR_REG_CASE(14, pr_read);
-+        GENERATE_READ_PR_REG_CASE(15, pr_read);
-+    default:
-+        BUG(); /* Can't happen */
-+        break;
-+    }
-+}
-+
-+void write_protection_region(const pr_t *pr_write, uint8_t sel)
-+{
-+    prepare_selector(&sel);
-+
-+    switch ( sel )
-+    {
-+        GENERATE_WRITE_PR_REG_CASE(0, pr_write);
-+        GENERATE_WRITE_PR_REG_CASE(1, pr_write);
-+        GENERATE_WRITE_PR_REG_CASE(2, pr_write);
-+        GENERATE_WRITE_PR_REG_CASE(3, pr_write);
-+        GENERATE_WRITE_PR_REG_CASE(4, pr_write);
-+        GENERATE_WRITE_PR_REG_CASE(5, pr_write);
-+        GENERATE_WRITE_PR_REG_CASE(6, pr_write);
-+        GENERATE_WRITE_PR_REG_CASE(7, pr_write);
-+        GENERATE_WRITE_PR_REG_CASE(8, pr_write);
-+        GENERATE_WRITE_PR_REG_CASE(9, pr_write);
-+        GENERATE_WRITE_PR_REG_CASE(10, pr_write);
-+        GENERATE_WRITE_PR_REG_CASE(11, pr_write);
-+        GENERATE_WRITE_PR_REG_CASE(12, pr_write);
-+        GENERATE_WRITE_PR_REG_CASE(13, pr_write);
-+        GENERATE_WRITE_PR_REG_CASE(14, pr_write);
-+        GENERATE_WRITE_PR_REG_CASE(15, pr_write);
-+    default:
-+        BUG(); /* Can't happen */
-+        break;
-+    }
-+}
-+
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
-diff --git a/xen/arch/arm/mpu/mm.c b/xen/arch/arm/mpu/mm.c
-index 3d37beab57..7ab68fc8c7 100644
---- a/xen/arch/arm/mpu/mm.c
-+++ b/xen/arch/arm/mpu/mm.c
-@@ -29,35 +29,6 @@ DECLARE_BITMAP(xen_mpumap_mask, MAX_MPU_REGION_NR) \
- /* EL2 Xen MPU memory region mapping table. */
- pr_t __cacheline_aligned __section(".data") xen_mpumap[MAX_MPU_REGION_NR];
++/* CP15 CR6: MPU Protection Region Base/Limit Address Register */
++#define HPRBAR0         p15,4,c6,c8,0
++#define HPRLAR0         p15,4,c6,c8,1
++#define HPRBAR1         p15,4,c6,c8,4
++#define HPRLAR1         p15,4,c6,c8,5
++#define HPRBAR2         p15,4,c6,c9,0
++#define HPRLAR2         p15,4,c6,c9,1
++#define HPRBAR3         p15,4,c6,c9,4
++#define HPRLAR3         p15,4,c6,c9,5
++#define HPRBAR4         p15,4,c6,c10,0
++#define HPRLAR4         p15,4,c6,c10,1
++#define HPRBAR5         p15,4,c6,c10,4
++#define HPRLAR5         p15,4,c6,c10,5
++#define HPRBAR6         p15,4,c6,c11,0
++#define HPRLAR6         p15,4,c6,c11,1
++#define HPRBAR7         p15,4,c6,c11,4
++#define HPRLAR7         p15,4,c6,c11,5
++#define HPRBAR8         p15,4,c6,c12,0
++#define HPRLAR8         p15,4,c6,c12,1
++#define HPRBAR9         p15,4,c6,c12,4
++#define HPRLAR9         p15,4,c6,c12,5
++#define HPRBAR10        p15,4,c6,c13,0
++#define HPRLAR10        p15,4,c6,c13,1
++#define HPRBAR11        p15,4,c6,c13,4
++#define HPRLAR11        p15,4,c6,c13,5
++#define HPRBAR12        p15,4,c6,c14,0
++#define HPRLAR12        p15,4,c6,c14,1
++#define HPRBAR13        p15,4,c6,c14,4
++#define HPRLAR13        p15,4,c6,c14,5
++#define HPRBAR14        p15,4,c6,c15,0
++#define HPRLAR14        p15,4,c6,c15,1
++#define HPRBAR15        p15,4,c6,c15,4
++#define HPRLAR15        p15,4,c6,c15,5
++#define HPRBAR16        p15,5,c6,c8,0
++#define HPRLAR16        p15,5,c6,c8,1
++#define HPRBAR17        p15,5,c6,c8,4
++#define HPRLAR17        p15,5,c6,c8,5
++#define HPRBAR18        p15,5,c6,c9,0
++#define HPRLAR18        p15,5,c6,c9,1
++#define HPRBAR19        p15,5,c6,c9,4
++#define HPRLAR19        p15,5,c6,c9,5
++#define HPRBAR20        p15,5,c6,c10,0
++#define HPRLAR20        p15,5,c6,c10,1
++#define HPRBAR21        p15,5,c6,c10,4
++#define HPRLAR21        p15,5,c6,c10,5
++#define HPRBAR22        p15,5,c6,c11,0
++#define HPRLAR22        p15,5,c6,c11,1
++#define HPRBAR23        p15,5,c6,c11,4
++#define HPRLAR23        p15,5,c6,c11,5
++#define HPRBAR24        p15,5,c6,c12,0
++#define HPRLAR24        p15,5,c6,c12,1
++#define HPRBAR25        p15,5,c6,c12,4
++#define HPRLAR25        p15,5,c6,c12,5
++#define HPRBAR26        p15,5,c6,c13,0
++#define HPRLAR26        p15,5,c6,c13,1
++#define HPRBAR27        p15,5,c6,c13,4
++#define HPRLAR27        p15,5,c6,c13,5
++#define HPRBAR28        p15,5,c6,c14,0
++#define HPRLAR28        p15,5,c6,c14,1
++#define HPRBAR29        p15,5,c6,c14,4
++#define HPRLAR29        p15,5,c6,c14,5
++#define HPRBAR30        p15,5,c6,c15,0
++#define HPRLAR30        p15,5,c6,c15,1
++#define HPRBAR31        p15,5,c6,c15,4
++#define HPRLAR31        p15,5,c6,c15,5
  
--#ifdef CONFIG_ARM_64
--/*
-- * The following are needed for the cases: GENERATE_WRITE_PR_REG_CASE
-- * and GENERATE_READ_PR_REG_CASE with num==0
-- */
--#define PRBAR0_EL2 PRBAR_EL2
--#define PRLAR0_EL2 PRLAR_EL2
--
--#define PRBAR_EL2_(n)   PRBAR##n##_EL2
--#define PRLAR_EL2_(n)   PRLAR##n##_EL2
--
--#endif /* CONFIG_ARM_64 */
--
--#define GENERATE_WRITE_PR_REG_CASE(num, pr)                                 \
--    case num:                                                               \
--    {                                                                       \
--        WRITE_SYSREG(pr->prbar.bits & ~MPU_REGION_RES0, PRBAR_EL2_(num));   \
--        WRITE_SYSREG(pr->prlar.bits & ~MPU_REGION_RES0, PRLAR_EL2_(num));   \
--        break;                                                              \
--    }
--
--#define GENERATE_READ_PR_REG_CASE(num, pr)                      \
--    case num:                                                   \
--    {                                                           \
--        pr->prbar.bits = READ_SYSREG(PRBAR_EL2_(num));          \
--        pr->prlar.bits = READ_SYSREG(PRLAR_EL2_(num));          \
--        break;                                                  \
--    }
--
- static void __init __maybe_unused build_assertions(void)
- {
-     /*
-@@ -69,94 +40,6 @@ static void __init __maybe_unused build_assertions(void)
- }
- 
- #ifdef CONFIG_ARM_64
--/*
-- * Armv8-R supports direct access and indirect access to the MPU regions through
-- * registers:
-- *  - indirect access involves changing the MPU region selector, issuing an isb
-- *    barrier and accessing the selected region through specific registers
-- *  - direct access involves accessing specific registers that point to
-- *    specific MPU regions, without changing the selector, avoiding the use of
-- *    a barrier.
-- * For Arm64 the PR{B,L}AR_ELx (for n=0) and PR{B,L}AR<n>_ELx (for n=1..15) are
-- * used for the direct access to the regions selected by
-- * PRSELR_EL2.REGION<7:4>:n, so 16 regions can be directly accessed when the
-- * selector is a multiple of 16, giving access to all the supported memory
-- * regions.
-- */
--static void prepare_selector(uint8_t *sel)
--{
--    uint8_t cur_sel = *sel;
--
--    /*
--     * {read,write}_protection_region works using the direct access to the 0..15
--     * regions, so in order to save the isb() overhead, change the PRSELR_EL2
--     * only when needed, so when the upper 4 bits of the selector will change.
--     */
--    cur_sel &= 0xF0U;
--    if ( READ_SYSREG(PRSELR_EL2) != cur_sel )
--    {
--        WRITE_SYSREG(cur_sel, PRSELR_EL2);
--        isb();
--    }
--    *sel &= 0xFU;
--}
--
--void read_protection_region(pr_t *pr_read, uint8_t sel)
--{
--    prepare_selector(&sel);
--
--    switch ( sel )
--    {
--        GENERATE_READ_PR_REG_CASE(0, pr_read);
--        GENERATE_READ_PR_REG_CASE(1, pr_read);
--        GENERATE_READ_PR_REG_CASE(2, pr_read);
--        GENERATE_READ_PR_REG_CASE(3, pr_read);
--        GENERATE_READ_PR_REG_CASE(4, pr_read);
--        GENERATE_READ_PR_REG_CASE(5, pr_read);
--        GENERATE_READ_PR_REG_CASE(6, pr_read);
--        GENERATE_READ_PR_REG_CASE(7, pr_read);
--        GENERATE_READ_PR_REG_CASE(8, pr_read);
--        GENERATE_READ_PR_REG_CASE(9, pr_read);
--        GENERATE_READ_PR_REG_CASE(10, pr_read);
--        GENERATE_READ_PR_REG_CASE(11, pr_read);
--        GENERATE_READ_PR_REG_CASE(12, pr_read);
--        GENERATE_READ_PR_REG_CASE(13, pr_read);
--        GENERATE_READ_PR_REG_CASE(14, pr_read);
--        GENERATE_READ_PR_REG_CASE(15, pr_read);
--    default:
--        BUG(); /* Can't happen */
--        break;
--    }
--}
--
--void write_protection_region(const pr_t *pr_write, uint8_t sel)
--{
--    prepare_selector(&sel);
--
--    switch ( sel )
--    {
--        GENERATE_WRITE_PR_REG_CASE(0, pr_write);
--        GENERATE_WRITE_PR_REG_CASE(1, pr_write);
--        GENERATE_WRITE_PR_REG_CASE(2, pr_write);
--        GENERATE_WRITE_PR_REG_CASE(3, pr_write);
--        GENERATE_WRITE_PR_REG_CASE(4, pr_write);
--        GENERATE_WRITE_PR_REG_CASE(5, pr_write);
--        GENERATE_WRITE_PR_REG_CASE(6, pr_write);
--        GENERATE_WRITE_PR_REG_CASE(7, pr_write);
--        GENERATE_WRITE_PR_REG_CASE(8, pr_write);
--        GENERATE_WRITE_PR_REG_CASE(9, pr_write);
--        GENERATE_WRITE_PR_REG_CASE(10, pr_write);
--        GENERATE_WRITE_PR_REG_CASE(11, pr_write);
--        GENERATE_WRITE_PR_REG_CASE(12, pr_write);
--        GENERATE_WRITE_PR_REG_CASE(13, pr_write);
--        GENERATE_WRITE_PR_REG_CASE(14, pr_write);
--        GENERATE_WRITE_PR_REG_CASE(15, pr_write);
--    default:
--        BUG(); /* Can't happen */
--        break;
--    }
--}
--
- pr_t pr_of_addr(paddr_t base, paddr_t limit, unsigned int flags)
- {
-     unsigned int attr_idx = PAGE_AI_MASK(flags);
+ /* Aliases of AArch64 names for use in common code */
+ #ifdef CONFIG_ARM_32
 -- 
 2.25.1
 
