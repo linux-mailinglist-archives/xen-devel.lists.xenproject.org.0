@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 158E1AE002B
-	for <lists+xen-devel@lfdr.de>; Thu, 19 Jun 2025 10:45:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1019809.1396306 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D5885AE021F
+	for <lists+xen-devel@lfdr.de>; Thu, 19 Jun 2025 11:54:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1019854.1396315 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uSAsU-0001YE-4Q; Thu, 19 Jun 2025 08:44:10 +0000
+	id 1uSBxp-0001lB-Vm; Thu, 19 Jun 2025 09:53:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1019809.1396306; Thu, 19 Jun 2025 08:44:10 +0000
+Received: by outflank-mailman (output) from mailman id 1019854.1396315; Thu, 19 Jun 2025 09:53:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uSAsU-0001VV-0p; Thu, 19 Jun 2025 08:44:10 +0000
-Received: by outflank-mailman (input) for mailman id 1019809;
- Thu, 19 Jun 2025 08:44:08 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=/xoG=ZC=amd.com=penny.zheng@srs-se1.protection.inumbo.net>)
- id 1uSAsS-0001VP-MA
- for xen-devel@lists.xenproject.org; Thu, 19 Jun 2025 08:44:08 +0000
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on20604.outbound.protection.outlook.com
- [2a01:111:f403:2415::604])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8db93ab4-4ce9-11f0-a30c-13f23c93f187;
- Thu, 19 Jun 2025 10:44:06 +0200 (CEST)
-Received: from DM4PR12MB8451.namprd12.prod.outlook.com (2603:10b6:8:182::7) by
- MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8769.41; Thu, 19 Jun
- 2025 08:43:59 +0000
-Received: from DM4PR12MB8451.namprd12.prod.outlook.com
- ([fe80::b04e:2da5:7189:4c4d]) by DM4PR12MB8451.namprd12.prod.outlook.com
- ([fe80::b04e:2da5:7189:4c4d%5]) with mapi id 15.20.8835.027; Thu, 19 Jun 2025
- 08:43:59 +0000
+	id 1uSBxp-0001ip-Sd; Thu, 19 Jun 2025 09:53:45 +0000
+Received: by outflank-mailman (input) for mailman id 1019854;
+ Thu, 19 Jun 2025 09:53:44 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=UhHE=ZC=gmail.com=urezki@srs-se1.protection.inumbo.net>)
+ id 1uSBxo-0001ij-Mi
+ for xen-devel@lists.xenproject.org; Thu, 19 Jun 2025 09:53:44 +0000
+Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
+ [2a00:1450:4864:20::129])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 48701300-4cf3-11f0-b894-0df219b8e170;
+ Thu, 19 Jun 2025 11:53:42 +0200 (CEST)
+Received: by mail-lf1-x129.google.com with SMTP id
+ 2adb3069b0e04-54e7967cf67so543275e87.0
+ for <xen-devel@lists.xenproject.org>; Thu, 19 Jun 2025 02:53:42 -0700 (PDT)
+Received: from pc636 (host-95-203-1-180.mobileonline.telia.com. [95.203.1.180])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-553ac1367e9sm2541889e87.79.2025.06.19.02.53.39
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 19 Jun 2025 02:53:41 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,169 +45,188 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8db93ab4-4ce9-11f0-a30c-13f23c93f187
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DuPL8cptkIyT2Y7VewB2MyWdwqwrffsLjFxGRb6img+V3FJH5pDCxKviMGnJ7TJENoL8OOtz2BCetacEO0Ms2s+vw76L/hjzlbggxHnZJhe0edyLZXB0otnCH3fAIxPExBhEPotM+bTfwxZrK2N1ZAdK6H3bqemeuOmiYxB5daQTNhNYaaa6zuk3dSFF2kznt20gAY2PbUFoZE9o+tIOIkxPO3uDvfM7BO2U2GCvvX48z+MhijmumsRX0y5mhoMW6N/Wq4LdaLm/CfR/l3T9pDI4+7jwJ5CgseoHDuWqeHTy7RuvPfXMhSoBxnVz3v7QuCzWhQJIlUw7cfYzcO0jTA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DmK0jtN2SMcGMOlx7rLXibuUM6JCMQ8+QE0LkmBlqls=;
- b=EzXumRBteWT+y+jWYCzIaSWe+hHS802fxt8c9NunbAZrk3opsu+erZPaP1Rhl3SA0ZsE52Y6y63KC84w+9sql16TSiwn+U9FKNNghyzjlVYnw6LKbkAVHPS2eULX9WmHMae9sctRkVnukfbcwKRVEJiWfXa2tM0oSr+AylOVmKRt0kBT3AJiA7e4Bswz8QqrZBtdLZ0kWZBF56wQtccsIjZkl8VdsuFsLEIDQRjucoJpCrs310da4Ipwgqdrim73/z/FVrHJ6S5gx53Sr8EUskPPE+3og6eMvSjITqPNd1XNMr2IZSAF/IR6fuA+QaAPo4xktlz0YZONzBF7vdCz3Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DmK0jtN2SMcGMOlx7rLXibuUM6JCMQ8+QE0LkmBlqls=;
- b=nDUudoJ4IVtb1dNbV24XWZ2RVhLwJo290o9cuZHFaC4b/ecxkg9OHT9wsSx2Xs9OnR7S2zAZEYVh8D7ZsyCoCA1jvbTuHlDQ0GELyaFqxxG/weyRbiCLYlppoQiDMeKxY+iIfxMSbS25viPEmWpBqslrJK5u0v7n7VF5IuVOFUk=
-From: "Penny, Zheng" <penny.zheng@amd.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: "Huang, Ray" <Ray.Huang@amd.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
-	"Orzel, Michal" <Michal.Orzel@amd.com>, Julien Grall <julien@xen.org>,
-	=?utf-8?B?Um9nZXIgUGF1IE1vbm7DqQ==?= <roger.pau@citrix.com>, Stefano
- Stabellini <sstabellini@kernel.org>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>
-Subject: RE: [PATCH v5 06/18] xen/x86: introduce "cpufreq=amd-cppc" xen
- cmdline
-Thread-Topic: [PATCH v5 06/18] xen/x86: introduce "cpufreq=amd-cppc" xen
- cmdline
-Thread-Index: AQHbzuRARq8PSmkmBEm8nuMU3PtyjLP/b5OAgArbRUA=
-Date: Thu, 19 Jun 2025 08:43:59 +0000
-Message-ID:
- <DM4PR12MB8451AD27C6E39F0781749156E17DA@DM4PR12MB8451.namprd12.prod.outlook.com>
-References: <20250527084833.338427-1-Penny.Zheng@amd.com>
- <20250527084833.338427-7-Penny.Zheng@amd.com>
- <3edeeff2-5728-46cc-9436-01e5e3cf2bd3@suse.com>
-In-Reply-To: <3edeeff2-5728-46cc-9436-01e5e3cf2bd3@suse.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=True;MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2025-06-19T08:43:18.0000000Z;MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open
- Source;MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=3;MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM4PR12MB8451:EE_|MW4PR12MB6873:EE_
-x-ms-office365-filtering-correlation-id: e5f8d3f8-2914-4450-ac86-08ddaf0d6f97
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|1800799024|376014|366016|38070700018;
-x-microsoft-antispam-message-info:
- =?utf-8?B?SFdOeTIwMTlxUWJCY0p0aGk2ampqUXZPS3NxeEpsaDY3WkF6UklZMHBVMkdk?=
- =?utf-8?B?djFsQU1pNWxVbWpwVDNKbVliQitYS0V2L0F2NmdTMVpiWHo1WGw0YVNhbzFF?=
- =?utf-8?B?MWNETFFLbEZ3U2RJVFl6UUxDekZrUy9zNzJMLy9RMTVkamdrc0dHcHN6dm5S?=
- =?utf-8?B?WUgyd2xMZHE0VkY1UWpJZlRlbXZBb3VlcG5BVkpsN0l1bGxtUEtlaHhkamZL?=
- =?utf-8?B?cnhwR044WXpwUzNybzA2Zmw1bSt0dDAyb0RSMDA0RlVuTzFSWHlSR0QvdXJh?=
- =?utf-8?B?TnJmV1VqWXU2OUxzYjVGTDZIalRCM0cwRXQvVTZBaG1NOHovYm92M3JOc2gy?=
- =?utf-8?B?bml3MlgrNXhoVVlhN2IyNzQ0QWs0cEphcHphWlA0YXZ4SDJyZy96N0FZNXdu?=
- =?utf-8?B?bGY4U0Voci9zZmE3ajRramJVOUZIQk1UYXJiNk81ZVBTMDBZZG41OHpDakNN?=
- =?utf-8?B?bXlRWEtPM2tGcDhBeEpSMmJNMHNoMmF2bVJvczJCU2JTOUs2Z04xZzlMTURi?=
- =?utf-8?B?eWlEUnRyZWVuZ0wrRzQ2b3N0QkRHRTlIRFQyTytPdGoraEpPK2p1MzJRZHNV?=
- =?utf-8?B?OERIdUdxOFgwTmYxbUFKNFZnQ2tPMGZwNVloTUlpRGFPREMzU2ZiSkc3VFQx?=
- =?utf-8?B?bEdLVVhyL3JuY3FrM0xjK1pTNjRzV3FkOGFFbHJIbHFmRzRHdnpsc0xCVmRt?=
- =?utf-8?B?a0NMYVA2aUxVWUI3NHNDWDlSMEFDM05rOVRXOE4zSXdNTnBUTkFvd0VGSHRE?=
- =?utf-8?B?Ynh3OTJEais4M3lYUmt3djh6Y1RGSjhwNmNqWDB1NHd4TWVzRkVKcGIvdkJE?=
- =?utf-8?B?Y3B6TG9KVENrd1hTVWhmU0xxUFVqN0JLVzloV3F0bmI4bHFsZWpkaTErVDJS?=
- =?utf-8?B?V1FONnU3NFlUNHA4YnNnWWg5Ym1zY1RWWnpndCtLRXNHWWpCdVozZWRmd09P?=
- =?utf-8?B?bEczOWVJWmNRMkY3RkJtMGdwZE9SOGhVeXgvcm5oSnpJbTJ3VlU2MjJKTEQ4?=
- =?utf-8?B?Y3RlWVVUWVY3ODBiNUZsSHNjNE5ERmc1N3F4MXF2dnNPT1prcXpCbkpSekxC?=
- =?utf-8?B?VUpYTm1FSlp6Y2diS09uMjFtZ1MyMEFnZ2hxeitSeEtjMVFEU2FId0V5V3dV?=
- =?utf-8?B?dmEzQ0VMMkNRNThVSC9LZXJ0Y2k3Z0pRMUlrbFQrL2lqUmZJY2NocjJUaVJk?=
- =?utf-8?B?R1o2bDkyQ2RKTXp1QjZSSjZYaDM4SFEvOUsxWFFGM0hhbzJYUEJ4VFF3Wmkx?=
- =?utf-8?B?d0xoS29rTHA3TjhsaXZjQXhlSXhTazkvNlpJQjFEeTV2TG5KbzNFZU1SVS9l?=
- =?utf-8?B?eEl1TGhNUlhKZlorSU0vTkNUaStBODJtY3U1RkJ6MGoxRExCUG02QWtoeUR0?=
- =?utf-8?B?eE5wZzA2YitXRjBWaVhVSkQrNUxTSDh0eC9WSGdMc2szQzRtaURMaU5nRWpo?=
- =?utf-8?B?c1FtenQ5cjRwZ0FEaVA5ajNXclcyUmlpV1BmcE1MUmF2RTg3Vm9KY2diZlRL?=
- =?utf-8?B?cFFVUHhYcHZuekFTdWJzUkhPMmErQlVvQ1RVTFE1SG1vVTZhR3g1bVgwSVJ1?=
- =?utf-8?B?ditRcjJTNm9FakQ3aERFM0dPUENtTE4rZm9kVmYwTVN6aTROSnF4TTB1RTk4?=
- =?utf-8?B?QUg5QmpJa2NMTWNicGp3VkpIUmJOZHpvd2RERWJOb250enFUKzdQMVBHZVVk?=
- =?utf-8?B?R3ltTTVNZ3d2czdLT0htaVF3d3JCMWhkalRwWEUxQzZ0NWsydVdJKzMvQjlm?=
- =?utf-8?B?S0VSZmIrT1c5Z0I0ZUtnQmxuTE9SQ2hhdytUV3VBK1kxcDlxa2cwSmpGVVp1?=
- =?utf-8?B?RUZGdUhyeWdyNFU0WFV6MVRwRWdsSVJ4TTl2ZEFCS3ArRFhRNGlheHdYZ3kr?=
- =?utf-8?B?d2N5SjZDSGFnUGJVamtKd2xUTzNTWXVjSml1ZHQ0TFNUQUVvalljUEhuSzJU?=
- =?utf-8?B?WjRDQXg2UmtwWk43NXV0TUpTRHlzNjhuU3RqYklBL0xaVEs0Kys4Y0dFR3Ex?=
- =?utf-8?Q?ybEgMQFJnFwoPmgmSa31Eymf7MhLWA=3D?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB8451.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(38070700018);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?S1JLZlZGZmVXSFlIZVY4OThEYW1nMzBVS2Q4eU5DRjZHY2Q4a3JVVFBqZDUx?=
- =?utf-8?B?S0hmWFVGYUFqVVRsdjNYZExSNjZnS1d0cHVXSkllNFZkZ1J6aVZ2NWs1Zk4v?=
- =?utf-8?B?OUVzOFBRRnpqdC85TXBqUm8rTVhvZjZOTVMxOEFCZ3RMR1p3NkZaZ1pNSlJB?=
- =?utf-8?B?dm5xZlFMSFE4cG42M0NtYXYyZWMxd2xXcjdHTk1xNmcya3VhTy9jOVBBN09T?=
- =?utf-8?B?ZlVCaHdaS0JsS0VTd3BSOVpKOXB0WjBhYk9LMjlVdWFGaTQrME1lQThLMzBi?=
- =?utf-8?B?cnk2VDQzeHhSdndRR29lT21QY2gyNktiQUg4T2hBRERSQVZtbFNoZThRTTN4?=
- =?utf-8?B?WGx2Ym9HbXR0TS9nZkN1eWxSZjRzalBZK1M5U0psUkhRejA1UzVmeFhlRGlH?=
- =?utf-8?B?VGo1aEduZEtRbEtwTmRuQ2VPb1dCdURQNTkzUE1jOWxEUnIwUm56Qmx4ZUNE?=
- =?utf-8?B?djJvcE5qYTA5QnAvNzB5QXI5ei9SYlpQYklrZml5elk2WGJaQXJsaGg2cWFN?=
- =?utf-8?B?QmF4R3lhak03ZXp6OTByUTBobUc1NEF4aVJnRXdTYllpUEZ0VTRaWG5PUUJr?=
- =?utf-8?B?YnJmMXVKSmtubVRHL3VLaXI1SGtPQ0VEMDhGU2pvbDNiM3BBWnpzNExCb0tZ?=
- =?utf-8?B?My9TRHRyK3JIOVZPc0xpNEhacTNNQk42YXBZY2crTGZqbTV1aDNaTFF1ZTF6?=
- =?utf-8?B?QlBYUnhWbW1SSjY5bzdoSk1halkxaEFCdHo5SUNjc3lzcEJJQWxjc0pJS2tR?=
- =?utf-8?B?Y1pFSFNjQjVFSkdQa0JMZmN2TGxtQ3ovajl4cjFWOEhWbUEyNmhxcjBsa0tn?=
- =?utf-8?B?WVoyN2NqZFNsQnRtd2wxbVJFT1E1d1ZCWXF4VVpkTzh0WDJjTlhJRTBYalgz?=
- =?utf-8?B?RkszQ2VHZ0lyRFhoU1B2UGhhb0drT3A1WHlJcDNwZnJKaGZyRWREM1YrbXJy?=
- =?utf-8?B?blJ2MGUwTDFqS2xmay82ZWNCNWF1TjZyRlVLMVdwTVRqWUt0WFNXQmM1VmNL?=
- =?utf-8?B?QWVSVWtRM3dYdUxmcUUwSi9TWFAxQUszUmt6dS9nMVQ4U3ZXSG9BSzdCMnU2?=
- =?utf-8?B?QWZhZ3RlTFBTeVdhYWlnUGtIVlF4cE9WZDZRbTRvbUZiMkR2dkFHbVNyUXVw?=
- =?utf-8?B?a2tLd052SW1ZcVcyd20xaHJTQ2h0TlJsODhjRkNtK2RpNHI3QVR1aFNBdFc1?=
- =?utf-8?B?eGE1VWVSSFZTb1c0bVZBcHF4bnh0eWxZUkZmcTgzbERmSTJLSzYwZjlUUlor?=
- =?utf-8?B?eDhMRUZ5c1d5amxOQmtiSlprYm1Ob3U1ZjRncG11ZFBxMzhPdk9IYWY1UUho?=
- =?utf-8?B?eTkzUDN5SHNuS1BFUXM4WXZaeGluajM0MlpuVllJbURZWTR2QXozMXJyaWxm?=
- =?utf-8?B?SjRncTZjR0R4QzBOZVlrbWJGcmFQWkhXUkFYam5FbHZVaVZpUFZ5aEp0MlhV?=
- =?utf-8?B?cTF6MDYwK1NTemxvTUxrenl3QlZLZHhwN29Oemp1WVBjN2h5eTVTZnZvaUtm?=
- =?utf-8?B?SXVJdXlySEFPd3k4UU1TVHczVm1hQkswK2VwQUpBZWxHdDh5WWxCOWlJbXAv?=
- =?utf-8?B?S2R6VDlLd1ZYZTBLaGp2V1FiYUtHQ1IrR1BjN00ycmppWWR4a2ErYkFReTFs?=
- =?utf-8?B?QUhuVUxmbC90elcrUHFkWWdjRHYxSzRZZTNoNkI4Tno5UUpzSlJxcVVyZTFN?=
- =?utf-8?B?akZYYmtvajhBZTRnaFNFZTArUXZBREROZkJmdkV6RVUwK0QwVkhqYUwybVA4?=
- =?utf-8?B?UUhaUlFZV29SUkRXeGRWdTBCWjlwZVZSS1dMSXhCRU04SWJuZ1crcHMwTHZL?=
- =?utf-8?B?ek9vNUtHR2tRYTZzUVFva2tGendpVkt6aElVaWN1M29ObGFIODNWNDVTWTJ3?=
- =?utf-8?B?MHIwSWZwMnk3MlR3Y29UY2pzVmFyZDdoeEZiK1I4a3p2eUJTOEQ2ZjgzMXF4?=
- =?utf-8?B?aHo2dk8rSHQ4UUgvU2tHMC9QNE1ucmVpdFhLTndqVEFmSjZpVGY2YnlMZEU0?=
- =?utf-8?B?M0x6RVBiQkxqMW5nVkg5cElmS0xoS3VDa2ZlR2RFSDI5ckc1SUE3NXlFVnJV?=
- =?utf-8?B?TkNPdU5RcGVXVHVEYnhndFA1WVEyUEhOVmJFeDM1aS9qRnFWZXlyYm1CQmJy?=
- =?utf-8?Q?+Jw0=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+X-Inumbo-ID: 48701300-4cf3-11f0-b894-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1750326822; x=1750931622; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:date:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=8lxye2GX1z6QI+SRVMkfZEngbWK9B27pd3eBJcWGrlg=;
+        b=AlJUrCvmcpeVtVNVJRWm5zS/8kr43qptmYm647x/9kwjMzKvHe7bvVh036C3cWdAWF
+         c+LbyEEWIndCWcZ6wYEfNJJx1WrcgSO4HBb9wQOnxHZ4+7uUTRamQ1SFSH+cf0JmjyDg
+         MBhAkAmGETDZ8xiW752HHB3KyloULxGhPvUCF8aLQwWIsAEAMU5br0jIZux9C6eEO1bo
+         YZvmGIrxbkuvoSLzFVWiCfvXN83sW9AVwpXzyOZP2N11UJBBXg5htnzY1xc2APTvU4LA
+         Y3ii8IZWgMYD5YTnHqc1zwHtAuhJ+iMA0l9zaewuMs6yHkBrkGsRYmQKb+bj6MHaw4+0
+         3UdQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1750326822; x=1750931622;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:date:from:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=8lxye2GX1z6QI+SRVMkfZEngbWK9B27pd3eBJcWGrlg=;
+        b=iw4lvt04ewSdmXTy1kYCZsC7wojW/5EUQO7TUOCqi7xDjyDilrvtPgWjHk3S5Fqr0i
+         x20FcvoJRbsFucfzaZ56gymr87Hd8RlqRVkdICKVbeNwxTvb3npxhLbncKAylA8xPFNe
+         c0CbSiP4vbY8cmbrqEthQ0UZ2af4X8wpNga+u4qs/QxNz7IVK5pw+Ksf06iYJuD1+n6C
+         RV8nQog3A5hYUF1TKU50E+0P2Rbt7Naf/PNrhfQZ0wPmRrI/HgvB5Ijx14uBcnKGSns/
+         OyZ33obOWqCqXDnIVnBKwPufUlABgvDILSaCW8Pd82sdv+/n3I6mkumbr3wW4LPP0Wlq
+         ZpeA==
+X-Forwarded-Encrypted: i=1; AJvYcCVhlkePdfWWYw3Fs9YrMFM+fwmzn1Qyr0DYoS5sZqYlDJnoPIpfLynoydSvwVEj8IPtFQ85SQtARDc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YypT/Oxv7cvkdy833tRv78TaUw0+ZeI1gfGH4t5UfFGjShSls3S
+	oOWWXI6aeBImuDpVbRNbaBIKJmvUTc0IM/fG9Czx0fMqwZRyWhy8vjA4
+X-Gm-Gg: ASbGnctSrvKjdHggprv1G7OqsvIt80eMK/a7r3zSApAH/Ct208qeJfV/EYycCwK0qjp
+	+H7qTqk9hrRm4ZTO4H92MUjqGsO/eMc7JmnmG3U85t+arz9nNW3AzwJNMpBNcTVEu2FUQFbeZbe
+	2uZLluxY31iE9EmAURfc1Jtmqqwlm26RQOHhz/P5l/5TYXiAHlQuB3GgtTJR8z4iyS5fa0eiVyB
+	zWqp9Koj9bWLwtzrATm4QDYfJ42eIEVjkiGe7BtCLJUxKI7wqJBeWRtfJ6N+qGZ9ZNiNu5umgfU
+	bLiIGPiihYaYRAr2wo95JhHYTujfpXcjZpVgFSTXvEFD3bfpnqrX/8jYh04xHdRAKYxy9fQanS2
+	oO7ASVwV2hkY=
+X-Google-Smtp-Source: AGHT+IEJV7RqZa9E1nD948cD6oSgemriE8btKJowGkw8tp48NbrB1jrcDoGclBvee7YrwcLZgS368g==
+X-Received: by 2002:a05:6512:1049:b0:553:1f90:cca4 with SMTP id 2adb3069b0e04-553b6e74ae6mr5656846e87.13.1750326821436;
+        Thu, 19 Jun 2025 02:53:41 -0700 (PDT)
+From: Uladzislau Rezki <urezki@gmail.com>
+X-Google-Original-From: Uladzislau Rezki <urezki@pc636>
+Date: Thu, 19 Jun 2025 11:53:38 +0200
+To: Dan Carpenter <dan.carpenter@linaro.org>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Andrew Morton <akpm@linux-foundation.org>
+Cc: oe-kbuild@lists.linux.dev, Alexander Gordeev <agordeev@linux.ibm.com>,
+	Andrew Morton <akpm@linux-foundation.org>, lkp@intel.com,
+	oe-kbuild-all@lists.linux.dev,
+	Linux Memory Management List <linux-mm@kvack.org>,
+	linux-kernel@vger.kernel.org, sparclinux@vger.kernel.org,
+	xen-devel@lists.xenproject.org, linuxppc-dev@lists.ozlabs.org,
+	linux-s390@vger.kernel.org, Hugh Dickins <hughd@google.com>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Guenter Roeck <linux@roeck-us.net>, Juergen Gross <jgross@suse.com>,
+	Jeremy Fitzhardinge <jeremy@goop.org>,
+	Ryan Roberts <ryan.roberts@arm.com>
+Subject: Re: [PATCH 2/6] mm: Lock kernel page tables before entering lazy MMU
+ mode
+Message-ID: <aFPeIisE3ufUGEUq@pc636>
+References: <7bd3a45dbc375dc2c15cebae09cb2bb972d6039f.1749747752.git.agordeev@linux.ibm.com>
+ <0be7d42e-5898-4b94-829b-59c661c2f07b@suswa.mountain>
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8451.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e5f8d3f8-2914-4450-ac86-08ddaf0d6f97
-X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Jun 2025 08:43:59.8032
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: vISSWZ4u6DrcTGuYeyM8L3xF6SG88hiSDlG++bLIpx3toR66twATq1OQYu6+cf/OO5AnGbS1Gs6zOaRObzHmxg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6873
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <0be7d42e-5898-4b94-829b-59c661c2f07b@suswa.mountain>
 
-W1B1YmxpY10NCg0KPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBKYW4gQmV1
-bGljaCA8amJldWxpY2hAc3VzZS5jb20+DQo+IFNlbnQ6IFRodXJzZGF5LCBKdW5lIDEyLCAyMDI1
-IDY6NDIgUE0NCj4gVG86IFBlbm55LCBaaGVuZyA8cGVubnkuemhlbmdAYW1kLmNvbT4NCj4gQ2M6
-IEh1YW5nLCBSYXkgPFJheS5IdWFuZ0BhbWQuY29tPjsgQW5kcmV3IENvb3Blcg0KPiA8YW5kcmV3
-LmNvb3BlcjNAY2l0cml4LmNvbT47IEFudGhvbnkgUEVSQVJEIDxhbnRob255LnBlcmFyZEB2YXRl
-cy50ZWNoPjsNCj4gT3J6ZWwsIE1pY2hhbCA8TWljaGFsLk9yemVsQGFtZC5jb20+OyBKdWxpZW4g
-R3JhbGwgPGp1bGllbkB4ZW4ub3JnPjsgUm9nZXIgUGF1DQo+IE1vbm7DqSA8cm9nZXIucGF1QGNp
-dHJpeC5jb20+OyBTdGVmYW5vIFN0YWJlbGxpbmkgPHNzdGFiZWxsaW5pQGtlcm5lbC5vcmc+OyB4
-ZW4tDQo+IGRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnDQo+IFN1YmplY3Q6IFJlOiBbUEFUQ0gg
-djUgMDYvMThdIHhlbi94ODY6IGludHJvZHVjZSAiY3B1ZnJlcT1hbWQtY3BwYyIgeGVuDQo+IGNt
-ZGxpbmUNCj4NCj4gT24gMjcuMDUuMjAyNSAxMDo0OCwgUGVubnkgWmhlbmcgd3JvdGU6DQo+ID4g
-LS0tIGEveGVuL2FyY2gveDg2L3BsYXRmb3JtX2h5cGVyY2FsbC5jDQo+ID4gKysrIGIveGVuL2Fy
-Y2gveDg2L3BsYXRmb3JtX2h5cGVyY2FsbC5jDQo+ID4gQEAgLTk0LDYgKzk1LDggQEAgc3RhdGlj
-IGludCBfX2luaXQgaGFuZGxlX2NwdWZyZXFfY21kbGluZShlbnVtDQo+ID4gY3B1ZnJlcV94ZW5f
-b3B0IG9wdGlvbikgIHsNCj4gPiAgICAgIGludCByZXQgPSAwOw0KPiA+DQo+ID4gKyAgICAvKiBE
-byBub3Qgb2NjdXB5IGJpdHMgcmVzZXJ2ZWQgZm9yIHB1YmxpYyB4ZW4tcG0gKi8NCj4gPiArICAg
-IEJVSUxEX0JVR19PTihNQVNLX0lOU1IoWEVOX1BST0NFU1NPUl9QTV9DUFBDLA0KPiBTSUZfUE1f
-TUFTSykpOw0KPg0KPiBUaGlzIGxvb2tzIGxpa2UgYW4gYWJ1c2Ugb2YgTUFTS19JTlNSKCkuIFdo
-eSBub3Qgc2ltcGx5DQo+DQo+ICAgICBCVUlMRF9CVUdfT04oWEVOX1BST0NFU1NPUl9QTV9DUFBD
-ICYgU0lGX1BNX01BU0spOw0KPg0KPiA/DQoNCkJlY2F1c2UgaW4gU0lGX1BNX01BU0ssIGl0J3Mg
-Yml0IDggdG8gMTUgcmVzZXJ2ZWQgZm9yIHhlbi1wbSBvcHRpb25zLA0KU2VlICINCiNkZWZpbmUg
-U0lGX1BNX01BU0sgICAgICAgKDB4RkY8PDgpIC8qIHJlc2VydmUgMSBieXRlIGZvciB4ZW4tcG0g
-b3B0aW9ucyAqLw0KIg0KU28gSSdtIHRyeWluZyB0byB1c2UgTUFTS19JTlNSKCkgdG8gZG8gdGhl
-IG5lY2Vzc2FyeSByaWdodCBzaGlmdCAob3RoZXIgdGhhbiB1c2luZyA4IGRpcmVjdGx5LCBpbiBj
-YXNlIFNJRl9QTV9NQVNLIGNoYW5nZXMgaW4gdGhlIGZ1dHVyZS4uLikNCg0KPg0KPiBKYW4NCg==
+On Wed, Jun 18, 2025 at 08:32:28PM +0300, Dan Carpenter wrote:
+> Hi Alexander,
+> 
+> kernel test robot noticed the following build warnings:
+> 
+> url:    https://github.com/intel-lab-lkp/linux/commits/Alexander-Gordeev/mm-Cleanup-apply_to_pte_range-routine/20250613-013835
+> base:   https://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm.git mm-everything
+> patch link:    https://lore.kernel.org/r/7bd3a45dbc375dc2c15cebae09cb2bb972d6039f.1749747752.git.agordeev%40linux.ibm.com
+> patch subject: [PATCH 2/6] mm: Lock kernel page tables before entering lazy MMU mode
+> config: x86_64-randconfig-161-20250613 (https://download.01.org/0day-ci/archive/20250613/202506132017.T1l1l6ME-lkp@intel.com/config)
+> compiler: gcc-12 (Debian 12.2.0-14) 12.2.0
+> 
+> If you fix the issue in a separate patch/commit (i.e. not just a new version of
+> the same patch/commit), kindly add following tags
+> | Reported-by: kernel test robot <lkp@intel.com>
+> | Reported-by: Dan Carpenter <dan.carpenter@linaro.org>
+> | Closes: https://lore.kernel.org/r/202506132017.T1l1l6ME-lkp@intel.com/
+> 
+> smatch warnings:
+> mm/vmalloc.c:552 vmap_pages_pte_range() warn: inconsistent returns 'global &init_mm.page_table_lock'.
+> 
+> vim +552 mm/vmalloc.c
+> 
+> 0a264884046f1ab Nicholas Piggin   2021-04-29  517  static int vmap_pages_pte_range(pmd_t *pmd, unsigned long addr,
+> 2ba3e6947aed9bb Joerg Roedel      2020-06-01  518  		unsigned long end, pgprot_t prot, struct page **pages, int *nr,
+> 2ba3e6947aed9bb Joerg Roedel      2020-06-01  519  		pgtbl_mod_mask *mask)
+> ^1da177e4c3f415 Linus Torvalds    2005-04-16  520  {
+> ^1da177e4c3f415 Linus Torvalds    2005-04-16  521  	pte_t *pte;
+> ^1da177e4c3f415 Linus Torvalds    2005-04-16  522  
+> db64fe02258f150 Nicholas Piggin   2008-10-18  523  	/*
+> db64fe02258f150 Nicholas Piggin   2008-10-18  524  	 * nr is a running index into the array which helps higher level
+> db64fe02258f150 Nicholas Piggin   2008-10-18  525  	 * callers keep track of where we're up to.
+> db64fe02258f150 Nicholas Piggin   2008-10-18  526  	 */
+> db64fe02258f150 Nicholas Piggin   2008-10-18  527  
+> 2ba3e6947aed9bb Joerg Roedel      2020-06-01  528  	pte = pte_alloc_kernel_track(pmd, addr, mask);
+> ^1da177e4c3f415 Linus Torvalds    2005-04-16  529  	if (!pte)
+> ^1da177e4c3f415 Linus Torvalds    2005-04-16  530  		return -ENOMEM;
+> 44562c71e2cfc9e Ryan Roberts      2025-04-22  531  
+> dac0cc793368851 Alexander Gordeev 2025-06-12  532  	spin_lock(&init_mm.page_table_lock);
+> 44562c71e2cfc9e Ryan Roberts      2025-04-22  533  	arch_enter_lazy_mmu_mode();
+> 44562c71e2cfc9e Ryan Roberts      2025-04-22  534  
+> ^1da177e4c3f415 Linus Torvalds    2005-04-16  535  	do {
+> db64fe02258f150 Nicholas Piggin   2008-10-18  536  		struct page *page = pages[*nr];
+> db64fe02258f150 Nicholas Piggin   2008-10-18  537  
+> c33c794828f2121 Ryan Roberts      2023-06-12  538  		if (WARN_ON(!pte_none(ptep_get(pte))))
+> db64fe02258f150 Nicholas Piggin   2008-10-18  539  			return -EBUSY;
+> db64fe02258f150 Nicholas Piggin   2008-10-18  540  		if (WARN_ON(!page))
+> ^1da177e4c3f415 Linus Torvalds    2005-04-16  541  			return -ENOMEM;
+> 4fcdcc12915c707 Yury Norov        2022-04-28  542  		if (WARN_ON(!pfn_valid(page_to_pfn(page))))
+> 4fcdcc12915c707 Yury Norov        2022-04-28  543  			return -EINVAL;
+> 
+> These error paths don't unlock &init_mm.page_table_lock?
+> 
+> 4fcdcc12915c707 Yury Norov        2022-04-28  544  
+> ^1da177e4c3f415 Linus Torvalds    2005-04-16  545  		set_pte_at(&init_mm, addr, pte, mk_pte(page, prot));
+> db64fe02258f150 Nicholas Piggin   2008-10-18  546  		(*nr)++;
+> ^1da177e4c3f415 Linus Torvalds    2005-04-16  547  	} while (pte++, addr += PAGE_SIZE, addr != end);
+> 44562c71e2cfc9e Ryan Roberts      2025-04-22  548  
+> 44562c71e2cfc9e Ryan Roberts      2025-04-22  549  	arch_leave_lazy_mmu_mode();
+> dac0cc793368851 Alexander Gordeev 2025-06-12  550  	spin_unlock(&init_mm.page_table_lock);
+> 2ba3e6947aed9bb Joerg Roedel      2020-06-01  551  	*mask |= PGTBL_PTE_MODIFIED;
+> ^1da177e4c3f415 Linus Torvalds    2005-04-16 @552  	return 0;
+> ^1da177e4c3f415 Linus Torvalds    2005-04-16  553  }
+> 
+> -- 
+> 0-DAY CI Kernel Test Service
+> https://github.com/intel/lkp-tests/wiki
+> 
+> 
+This patch introduce a huge performance degrade when testing this by
+the test_vmalloc.sh performance tool. We return back to a single, not
+serialized global spilock where we spend 90% of cycles:
+
+<snip>
++   91.01%     1.67%  [kernel]          [k] _raw_spin_lock
+-   89.29%    89.25%  [kernel]          [k] native_queued_spin_lock_slowpath
+     69.82% ret_from_fork_asm
+      - ret_from_fork
+         - 69.81% kthread
+            - 69.66% test_func
+               - 26.31% full_fit_alloc_test
+                  - 19.11% __vmalloc_node_noprof
+                     - __vmalloc_node_range_noprof
+                        - 13.73% vmap_small_pages_range_noflush
+                             _raw_spin_lock
+                             native_queued_spin_lock_slowpath
+                        - 5.38% __get_vm_area_node
+                             alloc_vmap_area
+                             _raw_spin_lock
+                             native_queued_spin_lock_slowpath
+                  - 13.32% vfree.part.0
+                     - 13.31% remove_vm_area
+                        - 13.27% __vunmap_range_noflush
+                             _raw_spin_lock
+                             native_queued_spin_lock_slowpath
+               - 25.57% fix_size_alloc_test
+                  - 22.59% __vmalloc_node_noprof
+                     - __vmalloc_node_range_noprof
+                        - 17.34% vmap_small_pages_range_noflush
+                             _raw_spin_lock
+                             native_queued_spin_lock_slowpath
+                        - 5.25% __get_vm_area_node
+                             alloc_vmap_area
+                             _raw_spin_lock
+                             native_queued_spin_lock_slowpath
+                  - 11.59% vfree.part.0
+                     - remove_vm_area
+                        - 11.55% __vunmap_range_noflush
+                             _raw_spin_lock
+                             native_queued_spin_lock_slowpath
+               - 17.78% long_busy_list_alloc_test
+                  - 13.90% __vmalloc_node_noprof
+                     - __vmalloc_node_range_noprof
+                        - 9.95% vmap_small_pages_range_noflush
+                             _raw_spin_lock
+<snip>
+
+No, we can not take this patch.
+
+--
+Uladzislau Rezki
 
