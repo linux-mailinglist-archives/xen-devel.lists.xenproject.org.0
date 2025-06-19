@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 02BACAE02F6
-	for <lists+xen-devel@lfdr.de>; Thu, 19 Jun 2025 12:53:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1019872.1396325 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C6BCAE036E
+	for <lists+xen-devel@lfdr.de>; Thu, 19 Jun 2025 13:25:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1019900.1396336 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uSCtW-0001Jm-Vv; Thu, 19 Jun 2025 10:53:22 +0000
+	id 1uSDNW-0005mc-BY; Thu, 19 Jun 2025 11:24:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1019872.1396325; Thu, 19 Jun 2025 10:53:22 +0000
+Received: by outflank-mailman (output) from mailman id 1019900.1396336; Thu, 19 Jun 2025 11:24:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uSCtW-0001IL-T0; Thu, 19 Jun 2025 10:53:22 +0000
-Received: by outflank-mailman (input) for mailman id 1019872;
- Thu, 19 Jun 2025 10:53:21 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1uSCtV-0001IF-Ar
- for xen-devel@lists.xenproject.org; Thu, 19 Jun 2025 10:53:21 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1uSCtU-009XKb-1u;
- Thu, 19 Jun 2025 10:53:20 +0000
-Received: from [2a02:8012:3a1:0:3dca:1b8d:78be:b4fc]
- by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1uSCtU-00Admh-0k;
- Thu, 19 Jun 2025 10:53:20 +0000
+	id 1uSDNW-0005kh-8Q; Thu, 19 Jun 2025 11:24:22 +0000
+Received: by outflank-mailman (input) for mailman id 1019900;
+ Thu, 19 Jun 2025 11:24:20 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=NVDA=ZC=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1uSDNU-0005kb-Bw
+ for xen-devel@lists.xenproject.org; Thu, 19 Jun 2025 11:24:20 +0000
+Received: from fout-a7-smtp.messagingengine.com
+ (fout-a7-smtp.messagingengine.com [103.168.172.150])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ef755d65-4cff-11f0-b894-0df219b8e170;
+ Thu, 19 Jun 2025 13:24:17 +0200 (CEST)
+Received: from phl-compute-01.internal (phl-compute-01.phl.internal
+ [10.202.2.41])
+ by mailfout.phl.internal (Postfix) with ESMTP id 0254C1380645;
+ Thu, 19 Jun 2025 07:24:16 -0400 (EDT)
+Received: from phl-mailfrontend-02 ([10.202.2.163])
+ by phl-compute-01.internal (MEProxy); Thu, 19 Jun 2025 07:24:16 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 19 Jun 2025 07:24:14 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,304 +45,229 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=AzZT0l5Je7VzzDNfzVeDAbQ20fPO4ZcYYmO2GMPNJ2k=; b=R1s70RVIGg/cPCH47mOmrez8+Z
-	WiJtlV+Vl7OGDrF9i/UBGr5Q3N+EUx6/Yf3wP1FGLZrYIhlfA02ZXy4VybjhQfPuqWfaND4qrv6rl
-	K2oUFrMs2DGNSaHLuzw2HYqijCnWL2Wj/Ua1BxksnzSe8pCEHnbskKxLYp2ypzPf0FEo=;
-Message-ID: <374ccb5b-8d43-4ac8-bef9-5fd3a4d5ca76@xen.org>
-Date: Thu, 19 Jun 2025 11:53:18 +0100
+X-Inumbo-ID: ef755d65-4cff-11f0-b894-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:message-id:mime-version:reply-to
+	:subject:subject:to:to; s=fm1; t=1750332255; x=1750418655; bh=6Z
+	9/mjif2iMkkUhK1vyWLAD+QEZ+bviX4PNajj4c42s=; b=Dgpab3/GOuMyX9/jSg
+	F3FmaXxamBjqLIYewtOB6WABjs4BGVvVkaOZWL+4mfo5626KBmc8DOtFdvRt/ABB
+	nR9TE1ZFGkSOhTeXwuZEZWH8AMPfzol/NH0OII3RoqT6QcjKxILINKMOS9WANaMJ
+	gJcN2bGS1i5WDT4JoRfJS8sQ1N4M9oqQg4pAMyFEtGJ+sygKnxxh0zqrFf4M0O0m
+	xFNWjdA30hzkZzLTTp/9IfalY8dz9NM/98+bNlqUEi7+BMFy6nuZ+HmdUMNvIc4T
+	lSIs32B4BTga3DASCiw0au1OrrCuGyarr2umSg3NzRGfSYKeKE0t9YN9akYmkW1N
+	2oUA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:message-id
+	:mime-version:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1750332255; x=
+	1750418655; bh=6Z9/mjif2iMkkUhK1vyWLAD+QEZ+bviX4PNajj4c42s=; b=O
+	GV6uCShgtArJmrkRkGok5MwtYYtMo1JAbP7jyLFIAHtpM8yS82+CBctGjw9IUowF
+	jj/oNQ27/Dt1s9rnps9nGjP8gCZHJOBEIgD8NBHQJGNQD8PMqiVl9WBOepxA01EO
+	oEMXE8IOWGKjP9ZKIrP7zkGTFklu1NbYetarcX9rGhZfY07kVGthii9C8qVhnMba
+	fB07vVj4OcQWnnonxRspksN+4XBthEHUJeEA1V2kOSoPvVx7yeYaMOnR1r7M3Qg3
+	jVOi0MmHM7Wv01GuGMwoAhI1RLJ18BYxWLUbzD/CVuVDAV9RIJIS7uj6j0dFynWq
+	0BHtDSAkdOl+MargT794g==
+X-ME-Sender: <xms:X_NTaBaPjNONpkSmIZkqi1IiS438LhkxsrpgXeCqDT2Fgr114Sq8sQ>
+    <xme:X_NTaIbMpJ8aE_eoaK2bSj1bfwvJAKhI1n9dQ9_vbKiRVevXKKpyKOsTb-sipKLTI
+    L8oY135ZBfNAw>
+X-ME-Received: <xmr:X_NTaD_R079ZGrQNRwfekWdG3r4Qp8GmvbwEyDXqFrg0dBpk9wiMHTbESixc22McbLVY_FNtxSDtJAPcWJZoGO8J6tKHChV3gSo>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtddvgdehfeelucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceurghi
+    lhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurh
+    epfffhvfevuffkgggtugesghdtreertddtjeenucfhrhhomhepofgrrhgvkhcuofgrrhgt
+    iiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinhhvihhsihgslh
+    gvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepjeehgfdvfffhffdv
+    ffdvfeefueevgefgiedukeegveffteffhffggeehueejuedunecuffhomhgrihhnpehqvg
+    hmuhdrohhrghdpghhithhhuhgsrdgtohhmpdhquhgsvghsqdhoshdrohhrghenucevlhhu
+    shhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkh
+    esihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmpdhnsggprhgtphhtthhopeeh
+    pdhmohguvgepshhmthhpohhuthdprhgtphhtthhopegurghvvgdrhhgrnhhsvghnsehlih
+    hnuhigrdhinhhtvghlrdgtohhmpdhrtghpthhtoheplhhuthhosehkvghrnhgvlhdrohhr
+    ghdprhgtphhtthhopehpvghtvghriiesihhnfhhrrgguvggrugdrohhrghdprhgtphhtth
+    hopeigvghnqdguvghvvghlsehlihhsthhsrdigvghnphhrohhjvggtthdrohhrghdprhgt
+    phhtthhopehlihhnuhigqdhkvghrnhgvlhesvhhgvghrrdhkvghrnhgvlhdrohhrgh
+X-ME-Proxy: <xmx:X_NTaPodJsirzMx_MgoWinfB7dE8MWdOUpc9uL6N_5RwlfYY4xggHw>
+    <xmx:X_NTaMoj5SFrCkDBWXtK-fY6xRFAXtNbdEvMRYi_XUs1ZJosCCRT6w>
+    <xmx:X_NTaFRV1veNxV-QeZ-dsIvpzAzsoyijPZzNb0wcftXj0QpueBmCQw>
+    <xmx:X_NTaEpe-Qqz5qdkTkAEz5Xfr9e_L3TSh6dHy7gQoR0AtLmZO-9lAA>
+    <xmx:X_NTaOEcIGCXYcu7L_-ewz-G5SBed97VhGuWZdP5GMIj5W_95uyh2RHx>
+Feedback-ID: i1568416f:Fastmail
+Date: Thu, 19 Jun 2025 13:24:13 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Dave Hansen <dave.hansen@linux.intel.com>,
+	Andy Lutomirski <luto@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>
+Cc: xen-devel <xen-devel@lists.xenproject.org>,
+	linux-kernel@vger.kernel.org
+Subject: Xen PV dom0 "tried to execute NX-protected page" when running nested
+ in KVM - 6.15 regression
+Message-ID: <aFPzXVl1pn1LtwoJ@mail-itl>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 3/3] arm/mpu: Enable read/write to protection regions
- for arm32
-Content-Language: en-GB
-To: Ayan Kumar Halder <ayan.kumar.halder@amd.com>,
- xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Luca Fancellu <luca.fancellu@arm.com>, Hari Limaye <hari.limaye@arm.com>
-References: <20250617111251.1711553-1-ayan.kumar.halder@amd.com>
- <20250617111251.1711553-4-ayan.kumar.halder@amd.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <20250617111251.1711553-4-ayan.kumar.halder@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="C//JR/PbyCGvU4J9"
+Content-Disposition: inline
 
-Hi Ayan,
 
-On 17/06/2025 12:12, Ayan Kumar Halder wrote:
-> Define prepare_selector(), read_protection_region() and
-> write_protection_region() for arm32. Also, define
-> GENERATE_{READ/WRITE}_PR_REG_OTHERS to access MPU regions from 32 to 254.
-> 
-> Enable pr_{get/set}_{base/limit}(), region_is_valid() for arm32.
-> Enable pr_of_addr() for arm32.
-> 
-> The maximum number of regions supported is 255 (which corresponds to the
-> maximum value in HMPUIR).
-> 
-> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+--C//JR/PbyCGvU4J9
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 19 Jun 2025 13:24:13 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Dave Hansen <dave.hansen@linux.intel.com>,
+	Andy Lutomirski <luto@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>
+Cc: xen-devel <xen-devel@lists.xenproject.org>,
+	linux-kernel@vger.kernel.org
+Subject: Xen PV dom0 "tried to execute NX-protected page" when running nested
+ in KVM - 6.15 regression
 
-Acked-by: Julien Grall <jgrall@amazon.com>
+Hi,
 
-Cheers,
+With Linux 6.15.2 I got a crash like below. It worked fine with Linux
+6.14.11. Furthermore, the failure seems to be hardware-dependent. It
+happens when running on Intel Core i9-13900H, but does not happen when
+running on Intel Xeon E5-2620v4 (in both cases QEMU uses -cpu host).
 
-> ---
-> Changes from :-
-> 
-> v1 - 1. Enable write_protection_region() for aarch32.
-> 
-> v2 - 1. Enable access to protection regions from 0 - 255.
-> 
-> v3 - 1. The maximum number of regions is 255. Thus, regions numbered 0 - 254
-> are supported.
-> 
-> 2. prepare_selector() is modified to ensure HPRSELR is written when accessing
-> any region beyond 31 and the current value differs from the region number to
-> be accessed.
-> 
->   xen/arch/arm/include/asm/mpu.h  |   2 -
->   xen/arch/arm/mpu/Makefile       |   1 +
->   xen/arch/arm/mpu/arm32/Makefile |   1 +
->   xen/arch/arm/mpu/arm32/mm.c     | 164 ++++++++++++++++++++++++++++++++
->   xen/arch/arm/mpu/mm.c           |   2 -
->   5 files changed, 166 insertions(+), 4 deletions(-)
->   create mode 100644 xen/arch/arm/mpu/arm32/Makefile
->   create mode 100644 xen/arch/arm/mpu/arm32/mm.c
-> 
-> diff --git a/xen/arch/arm/include/asm/mpu.h b/xen/arch/arm/include/asm/mpu.h
-> index 8f06ddac0f..63560c613b 100644
-> --- a/xen/arch/arm/include/asm/mpu.h
-> +++ b/xen/arch/arm/include/asm/mpu.h
-> @@ -25,7 +25,6 @@
->   
->   #ifndef __ASSEMBLY__
->   
-> -#ifdef CONFIG_ARM_64
->   /*
->    * Set base address of MPU protection region.
->    *
-> @@ -85,7 +84,6 @@ static inline bool region_is_valid(const pr_t *pr)
->   {
->       return pr->prlar.reg.en;
->   }
-> -#endif /* CONFIG_ARM_64 */
->   
->   #endif /* __ASSEMBLY__ */
->   
-> diff --git a/xen/arch/arm/mpu/Makefile b/xen/arch/arm/mpu/Makefile
-> index 5ad15e93be..58c9b5b4e8 100644
-> --- a/xen/arch/arm/mpu/Makefile
-> +++ b/xen/arch/arm/mpu/Makefile
-> @@ -1,4 +1,5 @@
->   obj-$(CONFIG_ARM_32) += domain-page.o
-> +obj-$(CONFIG_ARM_32) += arm32/
->   obj-$(CONFIG_ARM_64) += arm64/
->   obj-y += mm.o
->   obj-y += p2m.o
-> diff --git a/xen/arch/arm/mpu/arm32/Makefile b/xen/arch/arm/mpu/arm32/Makefile
-> new file mode 100644
-> index 0000000000..b18cec4836
-> --- /dev/null
-> +++ b/xen/arch/arm/mpu/arm32/Makefile
-> @@ -0,0 +1 @@
-> +obj-y += mm.o
-> diff --git a/xen/arch/arm/mpu/arm32/mm.c b/xen/arch/arm/mpu/arm32/mm.c
-> new file mode 100644
-> index 0000000000..c0317a4ada
-> --- /dev/null
-> +++ b/xen/arch/arm/mpu/arm32/mm.c
-> @@ -0,0 +1,164 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +
-> +#include <xen/bug.h>
-> +#include <xen/types.h>
-> +#include <asm/mpu.h>
-> +#include <asm/sysregs.h>
-> +#include <asm/system.h>
-> +
-> +#define GENERATE_WRITE_PR_REG_CASE(num, pr)               \
-> +    case num:                                             \
-> +    {                                                     \
-> +        WRITE_SYSREG(pr->prbar.bits, HPRBAR##num);        \
-> +        WRITE_SYSREG(pr->prlar.bits, HPRLAR##num);        \
-> +        break;                                            \
-> +    }
-> +
-> +#define GENERATE_WRITE_PR_REG_OTHERS(num, pr)             \
-> +    case num:                                             \
-> +    {                                                     \
-> +        WRITE_SYSREG(pr->prbar.bits, HPRBAR);             \
-> +        WRITE_SYSREG(pr->prlar.bits, HPRLAR);             \
-> +        break;                                            \
-> +    }
-> +
-> +#define GENERATE_READ_PR_REG_CASE(num, pr)                \
-> +    case num:                                             \
-> +    {                                                     \
-> +        pr->prbar.bits = READ_SYSREG(HPRBAR##num);        \
-> +        pr->prlar.bits = READ_SYSREG(HPRLAR##num);        \
-> +        break;                                            \
-> +    }
-> +
-> +#define GENERATE_READ_PR_REG_OTHERS(num, pr)              \
-> +    case num:                                             \
-> +    {                                                     \
-> +        pr->prbar.bits = READ_SYSREG(HPRBAR);             \
-> +        pr->prlar.bits = READ_SYSREG(HPRLAR);             \
-> +        break;                                            \
-> +    }
-> +
-> +/*
-> + * Armv8-R supports direct access and indirect access to the MPU regions through
-> + * registers:
-> + *  - indirect access involves changing the MPU region selector, issuing an isb
-> + *    barrier and accessing the selected region through specific registers
-> + *  - direct access involves accessing specific registers that point to
-> + *    specific MPU regions, without changing the selector, avoiding the use of
-> + *    a barrier.
-> + * For Arm32 the HPR{B,L}AR<n> (for n=0..31) are used for direct access to the
-> + * first 32 MPU regions.
-> + * For MPU region numbered 32..254, one need to set the region number in HPRSELR,
-> + * followed by configuring HPR{B,L}AR.
-> + */
-> +static void prepare_selector(uint8_t *sel)
-> +{
-> +    uint8_t cur_sel = *sel;
-> +    /* The top 24 bits of HPRSELR are RES0. */
-> +    uint8_t val = READ_SYSREG(HPRSELR) & 0xff;
-> +
-> +    if ( (cur_sel > 31) && (cur_sel != val) )
-> +    {
-> +        WRITE_SYSREG(cur_sel, HPRSELR);
-> +        isb();
-> +    }
-> +}
-> +
-> +void read_protection_region(pr_t *pr_read, uint8_t sel)
-> +{
-> +    prepare_selector(&sel);
-> +
-> +    switch ( sel )
-> +    {
-> +        GENERATE_READ_PR_REG_CASE(0, pr_read);
-> +        GENERATE_READ_PR_REG_CASE(1, pr_read);
-> +        GENERATE_READ_PR_REG_CASE(2, pr_read);
-> +        GENERATE_READ_PR_REG_CASE(3, pr_read);
-> +        GENERATE_READ_PR_REG_CASE(4, pr_read);
-> +        GENERATE_READ_PR_REG_CASE(5, pr_read);
-> +        GENERATE_READ_PR_REG_CASE(6, pr_read);
-> +        GENERATE_READ_PR_REG_CASE(7, pr_read);
-> +        GENERATE_READ_PR_REG_CASE(8, pr_read);
-> +        GENERATE_READ_PR_REG_CASE(9, pr_read);
-> +        GENERATE_READ_PR_REG_CASE(10, pr_read);
-> +        GENERATE_READ_PR_REG_CASE(11, pr_read);
-> +        GENERATE_READ_PR_REG_CASE(12, pr_read);
-> +        GENERATE_READ_PR_REG_CASE(13, pr_read);
-> +        GENERATE_READ_PR_REG_CASE(14, pr_read);
-> +        GENERATE_READ_PR_REG_CASE(15, pr_read);
-> +        GENERATE_READ_PR_REG_CASE(16, pr_read);
-> +        GENERATE_READ_PR_REG_CASE(17, pr_read);
-> +        GENERATE_READ_PR_REG_CASE(18, pr_read);
-> +        GENERATE_READ_PR_REG_CASE(19, pr_read);
-> +        GENERATE_READ_PR_REG_CASE(20, pr_read);
-> +        GENERATE_READ_PR_REG_CASE(21, pr_read);
-> +        GENERATE_READ_PR_REG_CASE(22, pr_read);
-> +        GENERATE_READ_PR_REG_CASE(23, pr_read);
-> +        GENERATE_READ_PR_REG_CASE(24, pr_read);
-> +        GENERATE_READ_PR_REG_CASE(25, pr_read);
-> +        GENERATE_READ_PR_REG_CASE(26, pr_read);
-> +        GENERATE_READ_PR_REG_CASE(27, pr_read);
-> +        GENERATE_READ_PR_REG_CASE(28, pr_read);
-> +        GENERATE_READ_PR_REG_CASE(29, pr_read);
-> +        GENERATE_READ_PR_REG_CASE(30, pr_read);
-> +        GENERATE_READ_PR_REG_CASE(31, pr_read);
-> +        GENERATE_READ_PR_REG_OTHERS(32 ... 254, pr_read);
-> +    default:
-> +        BUG(); /* Can't happen */
-> +        break;
-> +    }
-> +}
-> +
-> +void write_protection_region(const pr_t *pr_write, uint8_t sel)
-> +{
-> +    prepare_selector(&sel);
-> +
-> +    switch ( sel )
-> +    {
-> +        GENERATE_WRITE_PR_REG_CASE(0, pr_write);
-> +        GENERATE_WRITE_PR_REG_CASE(1, pr_write);
-> +        GENERATE_WRITE_PR_REG_CASE(2, pr_write);
-> +        GENERATE_WRITE_PR_REG_CASE(3, pr_write);
-> +        GENERATE_WRITE_PR_REG_CASE(4, pr_write);
-> +        GENERATE_WRITE_PR_REG_CASE(5, pr_write);
-> +        GENERATE_WRITE_PR_REG_CASE(6, pr_write);
-> +        GENERATE_WRITE_PR_REG_CASE(7, pr_write);
-> +        GENERATE_WRITE_PR_REG_CASE(8, pr_write);
-> +        GENERATE_WRITE_PR_REG_CASE(9, pr_write);
-> +        GENERATE_WRITE_PR_REG_CASE(10, pr_write);
-> +        GENERATE_WRITE_PR_REG_CASE(11, pr_write);
-> +        GENERATE_WRITE_PR_REG_CASE(12, pr_write);
-> +        GENERATE_WRITE_PR_REG_CASE(13, pr_write);
-> +        GENERATE_WRITE_PR_REG_CASE(14, pr_write);
-> +        GENERATE_WRITE_PR_REG_CASE(15, pr_write);
-> +        GENERATE_WRITE_PR_REG_CASE(16, pr_write);
-> +        GENERATE_WRITE_PR_REG_CASE(17, pr_write);
-> +        GENERATE_WRITE_PR_REG_CASE(18, pr_write);
-> +        GENERATE_WRITE_PR_REG_CASE(19, pr_write);
-> +        GENERATE_WRITE_PR_REG_CASE(20, pr_write);
-> +        GENERATE_WRITE_PR_REG_CASE(21, pr_write);
-> +        GENERATE_WRITE_PR_REG_CASE(22, pr_write);
-> +        GENERATE_WRITE_PR_REG_CASE(23, pr_write);
-> +        GENERATE_WRITE_PR_REG_CASE(24, pr_write);
-> +        GENERATE_WRITE_PR_REG_CASE(25, pr_write);
-> +        GENERATE_WRITE_PR_REG_CASE(26, pr_write);
-> +        GENERATE_WRITE_PR_REG_CASE(27, pr_write);
-> +        GENERATE_WRITE_PR_REG_CASE(28, pr_write);
-> +        GENERATE_WRITE_PR_REG_CASE(29, pr_write);
-> +        GENERATE_WRITE_PR_REG_CASE(30, pr_write);
-> +        GENERATE_WRITE_PR_REG_CASE(31, pr_write);
-> +        GENERATE_WRITE_PR_REG_OTHERS(32 ... 254, pr_write);
-> +    default:
-> +        BUG(); /* Can't happen */
-> +        break;
-> +    }
-> +}
-> +
-> +/*
-> + * Local variables:
-> + * mode: C
-> + * c-file-style: "BSD"
-> + * c-basic-offset: 4
-> + * indent-tabs-mode: nil
-> + * End:
-> + */
-> diff --git a/xen/arch/arm/mpu/mm.c b/xen/arch/arm/mpu/mm.c
-> index 7ab68fc8c7..ccfb37a67b 100644
-> --- a/xen/arch/arm/mpu/mm.c
-> +++ b/xen/arch/arm/mpu/mm.c
-> @@ -39,7 +39,6 @@ static void __init __maybe_unused build_assertions(void)
->       BUILD_BUG_ON(PAGE_SIZE != SZ_4K);
->   }
->   
-> -#ifdef CONFIG_ARM_64
->   pr_t pr_of_addr(paddr_t base, paddr_t limit, unsigned int flags)
->   {
->       unsigned int attr_idx = PAGE_AI_MASK(flags);
-> @@ -110,7 +109,6 @@ pr_t pr_of_addr(paddr_t base, paddr_t limit, unsigned int flags)
->   
->       return region;
->   }
-> -#endif /* CONFIG_ARM_64 */
->   
->   void __init setup_mm(void)
->   {
+The crash:
+[    1.121608] ITS: Mitigation: Aligned branch/return thunks
+[    1.122604] x86/fpu: Supporting XSAVE feature 0x001: 'x87 floating point=
+ registers'
+[    1.123656] x86/fpu: Supporting XSAVE feature 0x002: 'SSE registers'
+[    1.124603] x86/fpu: Supporting XSAVE feature 0x004: 'AVX registers'
+[    1.125603] x86/fpu: xstate_offset[2]:  576, xstate_sizes[2]:  256
+[    1.126599] x86/fpu: Enabled xstate features 0x7, context size is 832 by=
+tes, using 'compacted' format.
+[    1.128391] kernel tried to execute NX-protected page - exploit attempt?=
+ (uid: 0)
+[    1.128391] kernel tried to execute NX-protected page - exploit attempt?=
+ (uid: 0)
+[    1.128391] BUG: unable to handle page fault for address: ffffffffc00007=
+60
+[    1.128391] #PF: supervisor instruction fetch in kernel mode
+[    1.128391] #PF: error_code(0x0011) - permissions violation
+[    1.128391] PGD 2433067 P4D 2433067 PUD 2435067 PMD 1002b7067 PTE 801000=
+01002b6067
+[    1.128391] Oops: Oops: 0011 [#1] SMP NOPTI
+[    1.128391] CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Not tainted 6.15.2-1.qu=
+bes.fc41.x86_64 #1 PREEMPT(full)=20
+[    1.128391] Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS rel=
+-1.16.3-2-gc13ff2cd-prebuilt.qemu.org 04/01/2014
+[    1.128391] RIP: e030:0xffffffffc0000760
+[    1.128391] Code: e0 cc ff e0 cc ff e0 cc cc cc cc cc cc cc cc cc cc cc =
+cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc <ff=
+> e0 cc ff e0 cc ff e0 cc ff e0 cc ff e0 cc ff e0 cc ff e0 cc ff
+[    1.128391] RSP: e02b:ffffc90040003b60 EFLAGS: 00010002
+[    1.128391] RAX: ffffffff80f02190 RBX: ffffffff834da1b5 RCX: 00000000fff=
+fffff
+[    1.128391] RDX: ffffc90040003b78 RSI: 0000000000000001 RDI: ffff8881002=
+9f400
+[    1.128391] RBP: ffffc90040003b78 R08: 0000000000000000 R09: 205d3139333=
+83231
+[    1.128391] R10: 0000000000000029 R11: 000000006e72656b R12: 00000000000=
+0000a
+[    1.128391] R13: ffffffff834da1b5 R14: 0000000000000000 R15: ffff8881002=
+9f400
+[    1.128391] FS:  0000000000000000(0000) GS:ffff8881fc9c8000(0000) knlGS:=
+0000000000000000
+[    1.128391] CS:  e030 DS: 0000 ES: 0000 CR0: 0000000080050033
+[    1.128391] CR2: ffffffffc0000760 CR3: 000000000242e000 CR4: 00000000000=
+50660
+[    1.128391] Call Trace:
+[    1.128391]  <IRQ>
+[    1.128391]  ? vt_console_print+0x2e6/0x500
+[    1.128391]  ? console_emit_next_record+0x110/0x1b0
+[    1.128391]  ? console_flush_all+0x1d5/0x2a0
+[    1.128391]  ? console_unlock+0x7c/0x140
+[    1.128391]  ? vprintk_emit+0x278/0x2d0
+[    1.128391]  ? _printk+0x6b/0x90
+[    1.128391]  ? show_fault_oops+0x17c/0x1b0
+[    1.128391]  ? page_fault_oops+0x11b/0x160
+[    1.128391]  ? exc_page_fault+0x189/0x1a0
+[    1.128391]  ? asm_exc_page_fault+0x26/0x30
+[    1.128391]  ? __pfx_evtchn_fifo_clear_pending+0x10/0x10
+[    1.128391]  ? handle_percpu_irq+0x30/0x60
+[    1.128391]  ? generic_handle_irq+0x3c/0x60
+[    1.128391]  ? __evtchn_fifo_handle_events+0x1df/0x2c0
+[    1.128391]  ? xen_evtchn_do_upcall+0x6d/0xc0
+[    1.128391]  ? __xen_pv_evtchn_do_upcall+0x26/0x40
+[    1.128391]  ? xen_pv_evtchn_do_upcall+0x84/0xa0
+[    1.128391]  </IRQ>
+[    1.128391]  <TASK>
+[    1.128391]  ? exc_xen_hypervisor_callback+0x8/0x20
+[    1.128391]  ? print_bpf_insn+0x322/0xb70
+[    1.128391]  ? xen_save_fl_direct+0xf/0x20
+[    1.128391]  ? text_poke_early+0x35/0xa0
+[    1.128391]  ? print_bpf_insn+0x322/0xb70
+[    1.128391]  ? apply_retpolines+0x1ad/0x1d0
+[    1.128391]  ? print_bpf_insn+0x322/0xb70
+[    1.128391]  ? print_bpf_insn+0x331/0xb70
+[    1.128391]  ? print_bpf_insn+0x328/0xb70
+[    1.128391]  ? alternative_instructions+0x56/0x200
+[    1.128391]  ? arch_cpu_finalize_init+0x80/0x120
+[    1.128391]  ? start_kernel+0x3f5/0x490
+[    1.128391]  ? x86_64_start_reservations+0x24/0x30
+[    1.128391]  ? xen_start_kernel+0x6d7/0x6f0
+[    1.128391]  ? startup_xen+0x1b/0x20
+[    1.128391]  </TASK>
+[    1.128391] Modules linked in:
+[    1.128391] CR2: ffffffffc0000760
+[    1.128391] ---[ end trace 0000000000000000 ]---
+[    1.128391] RIP: e030:0xffffffffc0000760
+[    1.128391] Code: e0 cc ff e0 cc ff e0 cc cc cc cc cc cc cc cc cc cc cc =
+cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc <ff=
+> e0 cc ff e0 cc ff e0 cc ff e0 cc ff e0 cc ff e0 cc ff e0 cc ff
+[    1.128391] RSP: e02b:ffffc90040003b60 EFLAGS: 00010002
+[    1.128391] RAX: ffffffff80f02190 RBX: ffffffff834da1b5 RCX: 00000000fff=
+fffff
+[    1.128391] RDX: ffffc90040003b78 RSI: 0000000000000001 RDI: ffff8881002=
+9f400
+[    1.128391] RBP: ffffc90040003b78 R08: 0000000000000000 R09: 205d3139333=
+83231
+[    1.128391] R10: 0000000000000029 R11: 000000006e72656b R12: 00000000000=
+0000a
+[    1.128391] R13: ffffffff834da1b5 R14: 0000000000000000 R15: ffff8881002=
+9f400
+[    1.128391] FS:  0000000000000000(0000) GS:ffff8881fc9c8000(0000) knlGS:=
+0000000000000000
+[    1.128391] CS:  e030 DS: 0000 ES: 0000 CR0: 0000000080050033
+[    1.128391] CR2: ffffffffc0000760 CR3: 000000000242e000 CR4: 00000000000=
+50660
+[    1.128391] Kernel panic - not syncing: Fatal exception in interrupt
 
--- 
-Julien Grall
+Full console log: https://gist.github.com/marmarek/7a4ad628c7bf76339aed79ff=
+4478f8ea
 
+Full QEMU command (if relevant) can be seen at https://openqa.qubes-os.org/=
+tests/143860/logfile?filename=3Dautoinst-log.txt
+
+At this point, I'm not even sure who to report it to... In an earlier
+attempt I've got stack trace full of ext4 functions, which is unlikely
+relevant (see revisions of the gist linked above). I'll try to bisect
+this, but due to hardware-dependent nature it will take some time as I
+have a bit limited access to that hardware.
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--C//JR/PbyCGvU4J9
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmhT810ACgkQ24/THMrX
+1yzzUgf6Av5gJw8K4okkye7Visd73CpLE89qp7hDSv68SJVgW2jsr16One3mWe6P
+2jdd130SzYRE6MbdvM6Yoh0ciJdp+S2j0AT0Tkr5pFmNv/qGwd1hm1NFtq/fxnhS
+JgYW7SVMu4dJPBm8PAqxgaktcJ/DjHsXGI2YqpBXd2xENxyPzjMc4ZdNPQrf9H+I
+OOSIVYYGNNvPH2T3CSdAJ7whq8Ns8kN64NkjqsTjpKWXojKAkPLfsvneZcT8vT3s
+hIcrrvRMYJdKXUNxN56CJPVOeI/eajqY6eo7QRf3vUq20QGShrdOMGhRSpva1qHH
+4VSIfLhg/cMBJixR4xOjv4hYTXbn0w==
+=cP1H
+-----END PGP SIGNATURE-----
+
+--C//JR/PbyCGvU4J9--
 
