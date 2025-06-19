@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C6BCAE036E
-	for <lists+xen-devel@lfdr.de>; Thu, 19 Jun 2025 13:25:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1019900.1396336 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D0F47AE0386
+	for <lists+xen-devel@lfdr.de>; Thu, 19 Jun 2025 13:31:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1019918.1396346 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uSDNW-0005mc-BY; Thu, 19 Jun 2025 11:24:22 +0000
+	id 1uSDUP-0007Yc-0l; Thu, 19 Jun 2025 11:31:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1019900.1396336; Thu, 19 Jun 2025 11:24:22 +0000
+Received: by outflank-mailman (output) from mailman id 1019918.1396346; Thu, 19 Jun 2025 11:31:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uSDNW-0005kh-8Q; Thu, 19 Jun 2025 11:24:22 +0000
-Received: by outflank-mailman (input) for mailman id 1019900;
- Thu, 19 Jun 2025 11:24:20 +0000
+	id 1uSDUO-0007XA-Ty; Thu, 19 Jun 2025 11:31:28 +0000
+Received: by outflank-mailman (input) for mailman id 1019918;
+ Thu, 19 Jun 2025 11:31:26 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=NVDA=ZC=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1uSDNU-0005kb-Bw
- for xen-devel@lists.xenproject.org; Thu, 19 Jun 2025 11:24:20 +0000
-Received: from fout-a7-smtp.messagingengine.com
- (fout-a7-smtp.messagingengine.com [103.168.172.150])
+ <SRS0=TTPR=ZC=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1uSDUM-0007Wn-Tl
+ for xen-devel@lists.xenproject.org; Thu, 19 Jun 2025 11:31:26 +0000
+Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
+ [2a00:1450:4864:20::441])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ef755d65-4cff-11f0-b894-0df219b8e170;
- Thu, 19 Jun 2025 13:24:17 +0200 (CEST)
-Received: from phl-compute-01.internal (phl-compute-01.phl.internal
- [10.202.2.41])
- by mailfout.phl.internal (Postfix) with ESMTP id 0254C1380645;
- Thu, 19 Jun 2025 07:24:16 -0400 (EDT)
-Received: from phl-mailfrontend-02 ([10.202.2.163])
- by phl-compute-01.internal (MEProxy); Thu, 19 Jun 2025 07:24:16 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 19 Jun 2025 07:24:14 -0400 (EDT)
+ id ee0a10da-4d00-11f0-b894-0df219b8e170;
+ Thu, 19 Jun 2025 13:31:23 +0200 (CEST)
+Received: by mail-wr1-x441.google.com with SMTP id
+ ffacd0b85a97d-3a50fc819f2so599513f8f.2
+ for <xen-devel@lists.xenproject.org>; Thu, 19 Jun 2025 04:31:23 -0700 (PDT)
+Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3a568b74313sm19471221f8f.96.2025.06.19.04.31.22
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 19 Jun 2025 04:31:22 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,229 +45,114 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ef755d65-4cff-11f0-b894-0df219b8e170
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:message-id:mime-version:reply-to
-	:subject:subject:to:to; s=fm1; t=1750332255; x=1750418655; bh=6Z
-	9/mjif2iMkkUhK1vyWLAD+QEZ+bviX4PNajj4c42s=; b=Dgpab3/GOuMyX9/jSg
-	F3FmaXxamBjqLIYewtOB6WABjs4BGVvVkaOZWL+4mfo5626KBmc8DOtFdvRt/ABB
-	nR9TE1ZFGkSOhTeXwuZEZWH8AMPfzol/NH0OII3RoqT6QcjKxILINKMOS9WANaMJ
-	gJcN2bGS1i5WDT4JoRfJS8sQ1N4M9oqQg4pAMyFEtGJ+sygKnxxh0zqrFf4M0O0m
-	xFNWjdA30hzkZzLTTp/9IfalY8dz9NM/98+bNlqUEi7+BMFy6nuZ+HmdUMNvIc4T
-	lSIs32B4BTga3DASCiw0au1OrrCuGyarr2umSg3NzRGfSYKeKE0t9YN9akYmkW1N
-	2oUA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:message-id
-	:mime-version:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1750332255; x=
-	1750418655; bh=6Z9/mjif2iMkkUhK1vyWLAD+QEZ+bviX4PNajj4c42s=; b=O
-	GV6uCShgtArJmrkRkGok5MwtYYtMo1JAbP7jyLFIAHtpM8yS82+CBctGjw9IUowF
-	jj/oNQ27/Dt1s9rnps9nGjP8gCZHJOBEIgD8NBHQJGNQD8PMqiVl9WBOepxA01EO
-	oEMXE8IOWGKjP9ZKIrP7zkGTFklu1NbYetarcX9rGhZfY07kVGthii9C8qVhnMba
-	fB07vVj4OcQWnnonxRspksN+4XBthEHUJeEA1V2kOSoPvVx7yeYaMOnR1r7M3Qg3
-	jVOi0MmHM7Wv01GuGMwoAhI1RLJ18BYxWLUbzD/CVuVDAV9RIJIS7uj6j0dFynWq
-	0BHtDSAkdOl+MargT794g==
-X-ME-Sender: <xms:X_NTaBaPjNONpkSmIZkqi1IiS438LhkxsrpgXeCqDT2Fgr114Sq8sQ>
-    <xme:X_NTaIbMpJ8aE_eoaK2bSj1bfwvJAKhI1n9dQ9_vbKiRVevXKKpyKOsTb-sipKLTI
-    L8oY135ZBfNAw>
-X-ME-Received: <xmr:X_NTaD_R079ZGrQNRwfekWdG3r4Qp8GmvbwEyDXqFrg0dBpk9wiMHTbESixc22McbLVY_FNtxSDtJAPcWJZoGO8J6tKHChV3gSo>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtddvgdehfeelucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceurghi
-    lhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurh
-    epfffhvfevuffkgggtugesghdtreertddtjeenucfhrhhomhepofgrrhgvkhcuofgrrhgt
-    iiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinhhvihhsihgslh
-    gvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepjeehgfdvfffhffdv
-    ffdvfeefueevgefgiedukeegveffteffhffggeehueejuedunecuffhomhgrihhnpehqvg
-    hmuhdrohhrghdpghhithhhuhgsrdgtohhmpdhquhgsvghsqdhoshdrohhrghenucevlhhu
-    shhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkh
-    esihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmpdhnsggprhgtphhtthhopeeh
-    pdhmohguvgepshhmthhpohhuthdprhgtphhtthhopegurghvvgdrhhgrnhhsvghnsehlih
-    hnuhigrdhinhhtvghlrdgtohhmpdhrtghpthhtoheplhhuthhosehkvghrnhgvlhdrohhr
-    ghdprhgtphhtthhopehpvghtvghriiesihhnfhhrrgguvggrugdrohhrghdprhgtphhtth
-    hopeigvghnqdguvghvvghlsehlihhsthhsrdigvghnphhrohhjvggtthdrohhrghdprhgt
-    phhtthhopehlihhnuhigqdhkvghrnhgvlhesvhhgvghrrdhkvghrnhgvlhdrohhrgh
-X-ME-Proxy: <xmx:X_NTaPodJsirzMx_MgoWinfB7dE8MWdOUpc9uL6N_5RwlfYY4xggHw>
-    <xmx:X_NTaMoj5SFrCkDBWXtK-fY6xRFAXtNbdEvMRYi_XUs1ZJosCCRT6w>
-    <xmx:X_NTaFRV1veNxV-QeZ-dsIvpzAzsoyijPZzNb0wcftXj0QpueBmCQw>
-    <xmx:X_NTaEpe-Qqz5qdkTkAEz5Xfr9e_L3TSh6dHy7gQoR0AtLmZO-9lAA>
-    <xmx:X_NTaOEcIGCXYcu7L_-ewz-G5SBed97VhGuWZdP5GMIj5W_95uyh2RHx>
-Feedback-ID: i1568416f:Fastmail
-Date: Thu, 19 Jun 2025 13:24:13 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Dave Hansen <dave.hansen@linux.intel.com>,
-	Andy Lutomirski <luto@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>
-Cc: xen-devel <xen-devel@lists.xenproject.org>,
-	linux-kernel@vger.kernel.org
-Subject: Xen PV dom0 "tried to execute NX-protected page" when running nested
- in KVM - 6.15 regression
-Message-ID: <aFPzXVl1pn1LtwoJ@mail-itl>
+X-Inumbo-ID: ee0a10da-4d00-11f0-b894-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1750332683; x=1750937483; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=5ehJkgAbyggEQYCYMmY956XgyfrGZO0hGxlzMuYgDhw=;
+        b=ZhqGlx4PBduRJVpb8w1S73FGcy3FOAfoqy+udDKe/sx/eJlRFYc/KeIiE/l8q0349p
+         kXFvnaK9bqASHbBzr0tqBayKMkxZmSfAqcLjWKHXG1W7HRgX6pcYDpCxD6D/fcm8w/oA
+         I/vOZ+QrkpXwrHUPi56kq4HZY//irK7ldGXnw=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1750332683; x=1750937483;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=5ehJkgAbyggEQYCYMmY956XgyfrGZO0hGxlzMuYgDhw=;
+        b=u9lm8TA13Pqs16FB/prAzGzIvm5XOdON6VQrZKISTqaDwTFK9PyrTR7hbvzqo1fdQ8
+         7RDnhB7ZNuMytoU6OLPz5AlsgdJVwm3wVsstBN6ZLOUBoFJUQXMd9LgmE48FP+7g/6ht
+         8oiI54HatQSiJyeBiju9Bf7s9JaTvqUvo/4CO267D5R/VO6EQsA7fJbNcCCdG2fI/LnR
+         M+DnfGBnR669aY/2f9aOdU9Ghfq2ZCRYkJ/QF0ANjp+aQX8EgF+R40j77b8wDFzR481I
+         CnvJhJ2ypkBxq0MeVShan24XV+SyIlgjSedo3YqG88l4BCngAQMb8UkOIHK9ptsesNGu
+         eI2A==
+X-Gm-Message-State: AOJu0YynXNfc4Sa9pUZRDHlcj74Ru3ctJ94I221m9du1TD9wYOR7w8ho
+	HZBqhvusGRkUeHfcordOudR/WRa90Mujw76tjXszHe7POBM2mIRi2bOwB1j14xABBmY=
+X-Gm-Gg: ASbGnct0L4SxBtLcp05M5296/M6bKaYLpp3ezNv7kqAgvdSsw+dHevnGJEPcJZ2qfTO
+	wZEtrHdiWtkSw7aO68I+DoCM5IYy8GUlllj5GpcXnvILsKpG/hRpDyCVz6jgyI3abyOkCeGVPlQ
+	EQpQpPlrlc4gOn4mUNeoIyejS3NNG+eEEjSEu4rRmZeBP+gH1sh587/tpInDMVWWct5BizjEito
+	K9z7eXeg6OxCpnYxY7LtJWOT4AwLBt1TKjC5BQJ1gN7I1mpJHqVNFqZAfq9sucnJaNAtAgxcXvz
+	840HKv2xg6cAn1IhGfche/Oy+cJmeP1C0tGsfvjc6H3WtGfHvg4IBFpZwWBmhkx3LA0zGUTXW85
+	Kj2fp/BbDhHFgD0PVGn1BqHb3i3RZTgvmdpL+vA==
+X-Google-Smtp-Source: AGHT+IGxkwun+ifyV59KufsXNv7Ckg+d7lxDOQOaYgTNfK2qaTapjjfUwlMwJunAE7mrRblG2Psqvg==
+X-Received: by 2002:a05:6000:144d:b0:3a1:fe77:9e1d with SMTP id ffacd0b85a97d-3a5723a3aebmr18322608f8f.16.1750332683232;
+        Thu, 19 Jun 2025 04:31:23 -0700 (PDT)
+Message-ID: <2c24aca9-5e67-4c0f-b890-92a0ad8e1975@citrix.com>
+Date: Thu, 19 Jun 2025 12:31:22 +0100
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="C//JR/PbyCGvU4J9"
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: Xen PV dom0 "tried to execute NX-protected page" when running
+ nested in KVM - 6.15 regression
+To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, Dave Hansen
+ <dave.hansen@linux.intel.com>, Andy Lutomirski <luto@kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>
+Cc: xen-devel <xen-devel@lists.xenproject.org>, linux-kernel@vger.kernel.org
+References: <aFPzXVl1pn1LtwoJ@mail-itl>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <aFPzXVl1pn1LtwoJ@mail-itl>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+On 19/06/2025 12:24 pm, Marek Marczykowski-Górecki wrote:
+> Hi,
+>
+> With Linux 6.15.2 I got a crash like below. It worked fine with Linux
+> 6.14.11. Furthermore, the failure seems to be hardware-dependent. It
+> happens when running on Intel Core i9-13900H, but does not happen when
+> running on Intel Xeon E5-2620v4 (in both cases QEMU uses -cpu host).
 
---C//JR/PbyCGvU4J9
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 19 Jun 2025 13:24:13 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Dave Hansen <dave.hansen@linux.intel.com>,
-	Andy Lutomirski <luto@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>
-Cc: xen-devel <xen-devel@lists.xenproject.org>,
-	linux-kernel@vger.kernel.org
-Subject: Xen PV dom0 "tried to execute NX-protected page" when running nested
- in KVM - 6.15 regression
+Yes, it's a known regression in Linux's ITS / CVE-2024-28956 patches.
 
-Hi,
+https://lore.kernel.org/lkml/20250603111446.2609381-1-rppt@kernel.org/
 
-With Linux 6.15.2 I got a crash like below. It worked fine with Linux
-6.14.11. Furthermore, the failure seems to be hardware-dependent. It
-happens when running on Intel Core i9-13900H, but does not happen when
-running on Intel Xeon E5-2620v4 (in both cases QEMU uses -cpu host).
+It's hardware-dependent because so is Indirect Target Selection.
 
-The crash:
-[    1.121608] ITS: Mitigation: Aligned branch/return thunks
-[    1.122604] x86/fpu: Supporting XSAVE feature 0x001: 'x87 floating point=
- registers'
-[    1.123656] x86/fpu: Supporting XSAVE feature 0x002: 'SSE registers'
-[    1.124603] x86/fpu: Supporting XSAVE feature 0x004: 'AVX registers'
-[    1.125603] x86/fpu: xstate_offset[2]:  576, xstate_sizes[2]:  256
-[    1.126599] x86/fpu: Enabled xstate features 0x7, context size is 832 by=
-tes, using 'compacted' format.
-[    1.128391] kernel tried to execute NX-protected page - exploit attempt?=
- (uid: 0)
-[    1.128391] kernel tried to execute NX-protected page - exploit attempt?=
- (uid: 0)
-[    1.128391] BUG: unable to handle page fault for address: ffffffffc00007=
-60
-[    1.128391] #PF: supervisor instruction fetch in kernel mode
-[    1.128391] #PF: error_code(0x0011) - permissions violation
-[    1.128391] PGD 2433067 P4D 2433067 PUD 2435067 PMD 1002b7067 PTE 801000=
-01002b6067
-[    1.128391] Oops: Oops: 0011 [#1] SMP NOPTI
-[    1.128391] CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Not tainted 6.15.2-1.qu=
-bes.fc41.x86_64 #1 PREEMPT(full)=20
-[    1.128391] Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS rel=
--1.16.3-2-gc13ff2cd-prebuilt.qemu.org 04/01/2014
-[    1.128391] RIP: e030:0xffffffffc0000760
-[    1.128391] Code: e0 cc ff e0 cc ff e0 cc cc cc cc cc cc cc cc cc cc cc =
-cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc <ff=
-> e0 cc ff e0 cc ff e0 cc ff e0 cc ff e0 cc ff e0 cc ff e0 cc ff
-[    1.128391] RSP: e02b:ffffc90040003b60 EFLAGS: 00010002
-[    1.128391] RAX: ffffffff80f02190 RBX: ffffffff834da1b5 RCX: 00000000fff=
-fffff
-[    1.128391] RDX: ffffc90040003b78 RSI: 0000000000000001 RDI: ffff8881002=
-9f400
-[    1.128391] RBP: ffffc90040003b78 R08: 0000000000000000 R09: 205d3139333=
-83231
-[    1.128391] R10: 0000000000000029 R11: 000000006e72656b R12: 00000000000=
-0000a
-[    1.128391] R13: ffffffff834da1b5 R14: 0000000000000000 R15: ffff8881002=
-9f400
-[    1.128391] FS:  0000000000000000(0000) GS:ffff8881fc9c8000(0000) knlGS:=
-0000000000000000
-[    1.128391] CS:  e030 DS: 0000 ES: 0000 CR0: 0000000080050033
-[    1.128391] CR2: ffffffffc0000760 CR3: 000000000242e000 CR4: 00000000000=
-50660
-[    1.128391] Call Trace:
-[    1.128391]  <IRQ>
-[    1.128391]  ? vt_console_print+0x2e6/0x500
-[    1.128391]  ? console_emit_next_record+0x110/0x1b0
-[    1.128391]  ? console_flush_all+0x1d5/0x2a0
-[    1.128391]  ? console_unlock+0x7c/0x140
-[    1.128391]  ? vprintk_emit+0x278/0x2d0
-[    1.128391]  ? _printk+0x6b/0x90
-[    1.128391]  ? show_fault_oops+0x17c/0x1b0
-[    1.128391]  ? page_fault_oops+0x11b/0x160
-[    1.128391]  ? exc_page_fault+0x189/0x1a0
-[    1.128391]  ? asm_exc_page_fault+0x26/0x30
-[    1.128391]  ? __pfx_evtchn_fifo_clear_pending+0x10/0x10
-[    1.128391]  ? handle_percpu_irq+0x30/0x60
-[    1.128391]  ? generic_handle_irq+0x3c/0x60
-[    1.128391]  ? __evtchn_fifo_handle_events+0x1df/0x2c0
-[    1.128391]  ? xen_evtchn_do_upcall+0x6d/0xc0
-[    1.128391]  ? __xen_pv_evtchn_do_upcall+0x26/0x40
-[    1.128391]  ? xen_pv_evtchn_do_upcall+0x84/0xa0
-[    1.128391]  </IRQ>
-[    1.128391]  <TASK>
-[    1.128391]  ? exc_xen_hypervisor_callback+0x8/0x20
-[    1.128391]  ? print_bpf_insn+0x322/0xb70
-[    1.128391]  ? xen_save_fl_direct+0xf/0x20
-[    1.128391]  ? text_poke_early+0x35/0xa0
-[    1.128391]  ? print_bpf_insn+0x322/0xb70
-[    1.128391]  ? apply_retpolines+0x1ad/0x1d0
-[    1.128391]  ? print_bpf_insn+0x322/0xb70
-[    1.128391]  ? print_bpf_insn+0x331/0xb70
-[    1.128391]  ? print_bpf_insn+0x328/0xb70
-[    1.128391]  ? alternative_instructions+0x56/0x200
-[    1.128391]  ? arch_cpu_finalize_init+0x80/0x120
-[    1.128391]  ? start_kernel+0x3f5/0x490
-[    1.128391]  ? x86_64_start_reservations+0x24/0x30
-[    1.128391]  ? xen_start_kernel+0x6d7/0x6f0
-[    1.128391]  ? startup_xen+0x1b/0x20
-[    1.128391]  </TASK>
-[    1.128391] Modules linked in:
-[    1.128391] CR2: ffffffffc0000760
-[    1.128391] ---[ end trace 0000000000000000 ]---
-[    1.128391] RIP: e030:0xffffffffc0000760
-[    1.128391] Code: e0 cc ff e0 cc ff e0 cc cc cc cc cc cc cc cc cc cc cc =
-cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc <ff=
-> e0 cc ff e0 cc ff e0 cc ff e0 cc ff e0 cc ff e0 cc ff e0 cc ff
-[    1.128391] RSP: e02b:ffffc90040003b60 EFLAGS: 00010002
-[    1.128391] RAX: ffffffff80f02190 RBX: ffffffff834da1b5 RCX: 00000000fff=
-fffff
-[    1.128391] RDX: ffffc90040003b78 RSI: 0000000000000001 RDI: ffff8881002=
-9f400
-[    1.128391] RBP: ffffc90040003b78 R08: 0000000000000000 R09: 205d3139333=
-83231
-[    1.128391] R10: 0000000000000029 R11: 000000006e72656b R12: 00000000000=
-0000a
-[    1.128391] R13: ffffffff834da1b5 R14: 0000000000000000 R15: ffff8881002=
-9f400
-[    1.128391] FS:  0000000000000000(0000) GS:ffff8881fc9c8000(0000) knlGS:=
-0000000000000000
-[    1.128391] CS:  e030 DS: 0000 ES: 0000 CR0: 0000000080050033
-[    1.128391] CR2: ffffffffc0000760 CR3: 000000000242e000 CR4: 00000000000=
-50660
-[    1.128391] Kernel panic - not syncing: Fatal exception in interrupt
-
-Full console log: https://gist.github.com/marmarek/7a4ad628c7bf76339aed79ff=
-4478f8ea
-
-Full QEMU command (if relevant) can be seen at https://openqa.qubes-os.org/=
-tests/143860/logfile?filename=3Dautoinst-log.txt
-
-At this point, I'm not even sure who to report it to... In an earlier
-attempt I've got stack trace full of ext4 functions, which is unlikely
-relevant (see revisions of the gist linked above). I'll try to bisect
-this, but due to hardware-dependent nature it will take some time as I
-have a bit limited access to that hardware.
-
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---C//JR/PbyCGvU4J9
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmhT810ACgkQ24/THMrX
-1yzzUgf6Av5gJw8K4okkye7Visd73CpLE89qp7hDSv68SJVgW2jsr16One3mWe6P
-2jdd130SzYRE6MbdvM6Yoh0ciJdp+S2j0AT0Tkr5pFmNv/qGwd1hm1NFtq/fxnhS
-JgYW7SVMu4dJPBm8PAqxgaktcJ/DjHsXGI2YqpBXd2xENxyPzjMc4ZdNPQrf9H+I
-OOSIVYYGNNvPH2T3CSdAJ7whq8Ns8kN64NkjqsTjpKWXojKAkPLfsvneZcT8vT3s
-hIcrrvRMYJdKXUNxN56CJPVOeI/eajqY6eo7QRf3vUq20QGShrdOMGhRSpva1qHH
-4VSIfLhg/cMBJixR4xOjv4hYTXbn0w==
-=cP1H
------END PGP SIGNATURE-----
-
---C//JR/PbyCGvU4J9--
+~Andrew
 
