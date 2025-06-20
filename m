@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6551EAE17DB
-	for <lists+xen-devel@lfdr.de>; Fri, 20 Jun 2025 11:40:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1020694.1396818 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A3465AE17EA
+	for <lists+xen-devel@lfdr.de>; Fri, 20 Jun 2025 11:43:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1020705.1396828 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uSYEH-0003VY-16; Fri, 20 Jun 2025 09:40:13 +0000
+	id 1uSYH0-0004At-Gr; Fri, 20 Jun 2025 09:43:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1020694.1396818; Fri, 20 Jun 2025 09:40:12 +0000
+Received: by outflank-mailman (output) from mailman id 1020705.1396828; Fri, 20 Jun 2025 09:43:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uSYEG-0003TH-TV; Fri, 20 Jun 2025 09:40:12 +0000
-Received: by outflank-mailman (input) for mailman id 1020694;
- Fri, 20 Jun 2025 09:40:11 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uSYH0-00048T-DW; Fri, 20 Jun 2025 09:43:02 +0000
+Received: by outflank-mailman (input) for mailman id 1020705;
+ Fri, 20 Jun 2025 09:43:00 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=vQmk=ZD=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1uSYEF-0003TB-Gh
- for xen-devel@lists.xenproject.org; Fri, 20 Jun 2025 09:40:11 +0000
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [2a00:1450:4864:20::32d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 871eaa94-4dba-11f0-b894-0df219b8e170;
- Fri, 20 Jun 2025 11:39:57 +0200 (CEST)
-Received: by mail-wm1-x32d.google.com with SMTP id
- 5b1f17b1804b1-451d54214adso12155665e9.3
- for <xen-devel@lists.xenproject.org>; Fri, 20 Jun 2025 02:39:57 -0700 (PDT)
+ id 1uSYGy-00048G-Fo
+ for xen-devel@lists.xenproject.org; Fri, 20 Jun 2025 09:43:00 +0000
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [2a00:1450:4864:20::32f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f2de7b12-4dba-11f0-a30e-13f23c93f187;
+ Fri, 20 Jun 2025 11:42:59 +0200 (CEST)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-441ab63a415so17913055e9.3
+ for <xen-devel@lists.xenproject.org>; Fri, 20 Jun 2025 02:42:58 -0700 (PDT)
 Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
  by smtp.gmail.com with UTF8SMTPSA id
- ffacd0b85a97d-3a6d0f1d868sm1548901f8f.44.2025.06.20.02.39.56
+ ffacd0b85a97d-3a6d0f187a5sm1605871f8f.34.2025.06.20.02.42.57
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 20 Jun 2025 02:39:56 -0700 (PDT)
+ Fri, 20 Jun 2025 02:42:57 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,127 +45,91 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 871eaa94-4dba-11f0-b894-0df219b8e170
+X-Inumbo-ID: f2de7b12-4dba-11f0-a30e-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1750412397; x=1751017197; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1750412578; x=1751017378; darn=lists.xenproject.org;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=mxDIJUE+HPxU05Xg/Wr+29VEXI+BUKdLDuT6Res18Jo=;
-        b=qAd9cdVR6otGPAxCptLuldMiTJEHXpf5S4cMm2YQ/EyWgCxZPUG1SKcaqmh/VwbTtm
-         RvXD7MmIB2amqXQhymda6SMKxRANg4qBsGXZ6IAh4m005CyktjctZ7Bs1bbWw2CDmbBE
-         /zWzSJODjedUsAyVn1nv8JyA0gq/ScFkakYrA=
+        bh=ubgPFVvM/Tg7diMc2XsBHckJiKaFKiS5Yk0XvSz32Bk=;
+        b=su8vHC8syx4Dn4LgMscycgAw0tNAdn8qbgBYd1A4eCgBjnfvg9pPvxopE/Q24So6Au
+         YIfOT+KQbgRTRd4G1y7NsWnZUEhbPUGyxu51oop/JFsqZ3yRkgde5WbjjP2bEaIC9sQ5
+         0fJ9Y1Nk19PmyuKHaD05u40Grb2QMI4ci2zYk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750412397; x=1751017197;
+        d=1e100.net; s=20230601; t=1750412578; x=1751017378;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=mxDIJUE+HPxU05Xg/Wr+29VEXI+BUKdLDuT6Res18Jo=;
-        b=QxM9OoLlRrIzscz3R3YBWifAIemw4A0m+/aTjvZo7g0h71hg+mJVZ2YF3pg2p+adFA
-         M9mx+iBb24GtHN6W3nDT9i9bQxxj8qdsQqPU06zJ8BVOJ3cNebue467Zt5NA9Jli3w6x
-         kQOymoJSx4NVGLNIrpw0y7exfDA3Kh+M/cjugxx3ehtPKq8fnuABaEUyi/C561NpnJpa
-         Bi1x3s8NFDlQNePCRWO/d6HX8sQ5GpsPcX+e+4FSByYClj3s3ghULjbR/2aP3gwxxF3z
-         2N768Bt87+btuTWiVAhHFVr+OND7TBQO6js4gK0ykLEDfqeGm9mYZf6FKmCXhOM0oqCB
-         32OQ==
-X-Gm-Message-State: AOJu0Yy5Hdwu6cAVLObniO5IiKS4JaSiiZTiu2x1oysL0FMOKy5u9EFO
-	8g9XVm9adAGc3ouea0DOgedOscbegcybxql5dKUNYEEtpRliGKeSbWbUV7ArmsTb0Y0=
-X-Gm-Gg: ASbGncsm1OT9i1tnAl/toFvi7cBah1zYTMPM/VnJ0SeBFwHaD/2oqHQ6rcbSxBLQxGG
-	m74vOHR6tzNZYzkZwPkof85hhZfeal+ogAkMy5dTV6F/idoVQmoFHAuyz2KEsmFnpG5JvV8CqkE
-	Jv74XV+IUA3lUUiP6wkgpq5AldYOzTtnZNCmFJYtrPL7Sf7MScVD7M2x0Zt0x3GsIwBM9Bh+aFu
-	KB7ZxAGapEkSISmQard4rBhaxXVzgSYluz1PS4tlhYvFkuQU3s78d0eY0x9j4fERcQ6CUbW2nfO
-	pC2/Dm8TF0sICYwk+StmPLPYweupPdk8+hMsgWqHHIfOXLVUuQWyXWuWrd+Jr2eplPe5ukVur0G
-	8kQzMlOzXYQk8hhDjzxCz7DUuwHylB7podlc=
-X-Google-Smtp-Source: AGHT+IFNQjCMGC+87ag7PggR5a5KN6bdjVRcXDLEo4UUQo2z0AkyH6XXKVmMTU3XkSVRnw6bWG5vmA==
-X-Received: by 2002:a05:6000:2486:b0:3a5:2beb:7493 with SMTP id ffacd0b85a97d-3a6d12fb300mr1664987f8f.9.1750412396924;
-        Fri, 20 Jun 2025 02:39:56 -0700 (PDT)
-Date: Fri, 20 Jun 2025 11:39:55 +0200
+        bh=ubgPFVvM/Tg7diMc2XsBHckJiKaFKiS5Yk0XvSz32Bk=;
+        b=OJUkqA6xoFz1IhEYjNMuC9jlLVRb2A9HD/1Z7DzX0bAZ8ixar/CURuHRDp9FaHItzu
+         Edd/ctMkJJdckANx6qKzXAy9lDagSX2MjPWR7GE/TRsGU0jramRowu7ZR7CBUFR+W5t4
+         RcrxXG6FbyzY4ex4IUgK6+/TWL0yLs964thtmYgN2Vx6VTh8uDZHQoIDNWEiRJJOcYaE
+         f17abbBdMhG7Si+5ZfbIGp+P09QYCZkQ/yQYZdYSVKIuGi56MGp/Maj7+5lJDQ9nS6uU
+         ssTZTESScLvXhyJslcXywGmHbsUmZBk+fnlnVe44OiTc4TVFmAirU/CSyq2hfxptLl/S
+         smWg==
+X-Forwarded-Encrypted: i=1; AJvYcCWXYpujjf+szppF0RTg2yt2YW68DSvr+lTfEwZN6P6zRuh1FUGw7N5ju22DRRNAzgdqWGLD4ajrxXQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzzjzSVnxS/R03GpU1nkQkIG/QduIN5HCdP/uSfYCx8VjCcd4vZ
+	xFhjrf9JCK61nMVuw21tcQ0a3hxWStQG3/d81taPFj11jCCP6uPM7unRcqt70t20QZk=
+X-Gm-Gg: ASbGncvlqtpcwblnSKw6lClE1ztCSPAdPoiPXEBQViFCDMFRpHE2nkw61Wuv35uNmb4
+	5yg4KtigZeJXAVseNOdQAGJQjaqNnY19535tayHzbLDFL5jxfUHkmJid5zQPVbfXqKLOyA1VLwJ
+	07QssTsQniXbcXu/izYghi2vtdLVUTH+iwMWCtmI3XsqqJ6jpgnFgj8MUU4D/Z/rVEfl74u5vXs
+	YdZKQOZrFiFM76UXhOGjd1WloqFenjneG50KiLbTuxF1FP5euBzx52hXdxpNrHbqwK7eF1tFeIF
+	IxisvOTjjva8Za9o02akemIKWvnfAt5yIhCFoFlci0ZKlLvRgrpXO4AQDuzNC21Rvxwb6lPgKPX
+	j9UL+8VQXU/XHn4PJVqXdn5oKBZ5kOsEVHVU=
+X-Google-Smtp-Source: AGHT+IHxGiSQTF4nGFpmZXcydeDzicyLo2kanFzs2Bk/ZKVVUEunGk0iI/pWKxvMEv6XusvK1dZ/HQ==
+X-Received: by 2002:a05:600c:5026:b0:450:b240:aaab with SMTP id 5b1f17b1804b1-453654cb3d9mr18736515e9.8.1750412577741;
+        Fri, 20 Jun 2025 02:42:57 -0700 (PDT)
+Date: Fri, 20 Jun 2025 11:42:56 +0200
 From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Ross Lagerwall <ross.lagerwall@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Kevin Lampis <kevin.lampis@cloud.com>,
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Ross Lagerwall <ross.lagerwall@citrix.com>,
+	Kevin Lampis <kevin.lampis@cloud.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>
+	Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	xen-devel@lists.xenproject.org
 Subject: Re: [PATCH v3 2/5] livepatch: Embed public key in Xen
-Message-ID: <aFUsaySlHs4ymmtB@macbook.local>
+Message-ID: <aFUtIA5agsSOit3j@macbook.local>
 References: <20250602133639.2871212-1-ross.lagerwall@citrix.com>
  <20250602133639.2871212-3-ross.lagerwall@citrix.com>
+ <c7fb63cf-b05e-49ff-9ffe-446231146ba4@suse.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20250602133639.2871212-3-ross.lagerwall@citrix.com>
+In-Reply-To: <c7fb63cf-b05e-49ff-9ffe-446231146ba4@suse.com>
 
-On Mon, Jun 02, 2025 at 02:36:34PM +0100, Ross Lagerwall wrote:
-> From: Kevin Lampis <kevin.lampis@cloud.com>
+On Thu, Jun 05, 2025 at 01:19:00PM +0200, Jan Beulich wrote:
+> On 02.06.2025 15:36, Ross Lagerwall wrote:
+> > From: Kevin Lampis <kevin.lampis@cloud.com>
+> > 
+> > Make it possible to embed a public key in Xen to be used when verifying
+> > live patch payloads. Inclusion of the public key is optional.
+> > 
+> > To avoid needing to include a DER / X.509 parser in the hypervisor, the
+> > public key is unpacked at build time and included in a form that is
+> > convenient for the hypervisor to consume. This is different approach
+> > from that used by Linux which embeds the entire X.509 certificate and
+> > builds in a parser for it.
+> > 
+> > A suitable key can be created using openssl:
+> > 
+> > openssl req -x509 -newkey rsa:2048 -keyout priv.pem -out pub.pem \
+> >     -sha256 -days 3650 -nodes \
+> >     -subj "/C=XX/ST=StateName/L=CityName/O=CompanyName/OU=CompanySectionName/CN=CommonNameOrHostname"
+> > openssl x509 -inform PEM -in pub.pem -outform PEM -pubkey -nocert -out verify_key.pem
+> > 
+> > Signed-off-by: Kevin Lampis <kevin.lampis@cloud.com>
+> > Signed-off-by: Ross Lagerwall <ross.lagerwall@citrix.com>
 > 
-> Make it possible to embed a public key in Xen to be used when verifying
-> live patch payloads. Inclusion of the public key is optional.
-> 
-> To avoid needing to include a DER / X.509 parser in the hypervisor, the
-> public key is unpacked at build time and included in a form that is
-> convenient for the hypervisor to consume. This is different approach
-> from that used by Linux which embeds the entire X.509 certificate and
-> builds in a parser for it.
-> 
-> A suitable key can be created using openssl:
-> 
-> openssl req -x509 -newkey rsa:2048 -keyout priv.pem -out pub.pem \
->     -sha256 -days 3650 -nodes \
->     -subj "/C=XX/ST=StateName/L=CityName/O=CompanyName/OU=CompanySectionName/CN=CommonNameOrHostname"
-> openssl x509 -inform PEM -in pub.pem -outform PEM -pubkey -nocert -out verify_key.pem
-> 
-> Signed-off-by: Kevin Lampis <kevin.lampis@cloud.com>
-> Signed-off-by: Ross Lagerwall <ross.lagerwall@citrix.com>
-> ---
-> 
-> In v3:
-> 
-> * Drop unnecessary condition in Makefile
-> * Use dashes instead of underscores
-> * Drop section placement annotation on declaration
-> * Clarify endianness of embedded key
-> 
->  xen/common/Kconfig          | 18 +++++++++++++++++
->  xen/crypto/Makefile         | 11 ++++++++++
->  xen/include/xen/livepatch.h |  5 +++++
->  xen/tools/extract-key.py    | 40 +++++++++++++++++++++++++++++++++++++
->  4 files changed, 74 insertions(+)
->  create mode 100755 xen/tools/extract-key.py
-> 
-> diff --git a/xen/common/Kconfig b/xen/common/Kconfig
-> index 0951d4c2f286..74673078202a 100644
-> --- a/xen/common/Kconfig
-> +++ b/xen/common/Kconfig
-> @@ -472,6 +472,24 @@ config LIVEPATCH
->  
->  	  If unsure, say Y.
->  
-> +config PAYLOAD_VERIFY
-> +	bool "Verify signed LivePatch payloads"
-> +	depends on LIVEPATCH
-> +	select CRYPTO
-> +	help
-> +	  Verify signed LivePatch payloads using an RSA public key built
-> +	  into the Xen hypervisor. Selecting this option requires a
-> +	  public key in PEM format to be available for embedding during
-> +	  the build.
-> +
-> +config PAYLOAD_VERIFY_KEY
-> +	string "File name of public key used to verify payloads"
-> +	default "verify_key.pem"
-> +	depends on PAYLOAD_VERIFY
-> +	help
-> +	  The file name of an RSA public key in PEM format to be used for
-> +	  verifying signed LivePatch payloads.
+> While reviewing patch 4 it occurred to me: Why embed the key? Can't this
+> be specified as (another) boot module?
 
-I think this is likely to break the randconfig testing that we do in
-Gitlab CI, as randconfig could select PAYLOAD_VERIFY, but there will
-be no key included, and hence the build will fail?
-
-Ideally Gitlab CI would need to be adjusted to provide such key so the
-build doesn't fail.  I think it could be provided unconditionally to
-simplify the logic, if the option is not selected the file will simply
-be ignored.
+Then the key itself will need to be signed, and it's extra churn that
+we would need to verify at boot.  I'm not opposed to being able to
+load the key as a module, but it seems reasonable to also bundle one
+in Xen.  If there's interest in passing one as a module it could
+always be implemented as a separate feature.  IMO: I don't see both
+approaches as being incompatible with each other.
 
 Thanks, Roger.
 
