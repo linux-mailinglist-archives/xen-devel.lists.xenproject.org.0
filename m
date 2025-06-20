@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C09EAE237E
-	for <lists+xen-devel@lfdr.de>; Fri, 20 Jun 2025 22:23:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1021227.1397245 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 07910AE2397
+	for <lists+xen-devel@lfdr.de>; Fri, 20 Jun 2025 22:34:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1021240.1397255 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uSiFd-0002Om-6c; Fri, 20 Jun 2025 20:22:17 +0000
+	id 1uSiRL-00042I-80; Fri, 20 Jun 2025 20:34:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1021227.1397245; Fri, 20 Jun 2025 20:22:17 +0000
+Received: by outflank-mailman (output) from mailman id 1021240.1397255; Fri, 20 Jun 2025 20:34:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uSiFd-0002M4-3w; Fri, 20 Jun 2025 20:22:17 +0000
-Received: by outflank-mailman (input) for mailman id 1021227;
- Fri, 20 Jun 2025 20:22:15 +0000
+	id 1uSiRL-00040H-5J; Fri, 20 Jun 2025 20:34:23 +0000
+Received: by outflank-mailman (input) for mailman id 1021240;
+ Fri, 20 Jun 2025 20:34:22 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=jY+Z=ZD=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1uSiFb-0002Ly-Jr
- for xen-devel@lists.xenproject.org; Fri, 20 Jun 2025 20:22:15 +0000
-Received: from fout-b1-smtp.messagingengine.com
- (fout-b1-smtp.messagingengine.com [202.12.124.144])
+ <SRS0=Gm1g=ZD=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1uSiRJ-00040B-V3
+ for xen-devel@lists.xenproject.org; Fri, 20 Jun 2025 20:34:21 +0000
+Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
+ [2a00:1450:4864:20::442])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3fd161e1-4e14-11f0-a30e-13f23c93f187;
- Fri, 20 Jun 2025 22:22:13 +0200 (CEST)
-Received: from phl-compute-03.internal (phl-compute-03.phl.internal
- [10.202.2.43])
- by mailfout.stl.internal (Postfix) with ESMTP id C5B65114016B;
- Fri, 20 Jun 2025 16:22:11 -0400 (EDT)
-Received: from phl-mailfrontend-02 ([10.202.2.163])
- by phl-compute-03.internal (MEProxy); Fri, 20 Jun 2025 16:22:11 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 20 Jun 2025 16:22:10 -0400 (EDT)
+ id f1f05186-4e15-11f0-a30e-13f23c93f187;
+ Fri, 20 Jun 2025 22:34:21 +0200 (CEST)
+Received: by mail-wr1-x442.google.com with SMTP id
+ ffacd0b85a97d-3a375e72473so1073704f8f.0
+ for <xen-devel@lists.xenproject.org>; Fri, 20 Jun 2025 13:34:21 -0700 (PDT)
+Received: from localhost.localdomain (host-92-26-98-202.as13285.net.
+ [92.26.98.202]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4535eac8e19sm68534725e9.21.2025.06.20.13.34.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 20 Jun 2025 13:34:19 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,163 +45,106 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3fd161e1-4e14-11f0-a30e-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1750450931;
-	 x=1750537331; bh=O+zynp0pdZUX2uRkaZCP/6YKtinfqYmyWggqGO1iuis=; b=
-	DHfYHHKeMfe/J4u1Tnn6FP2PSe4ytCD86gBQb7iWY1nWG3Zr/gs6K++GMQDsTVUQ
-	WnX+Kq39oO5mKA7Gbcl/hrxpCOFJG8AKWl9SrV+7WsIqK4SkLpxRJUWofHK2yKHw
-	o1TC2nWDPgWgEbqunnCnWlYZL4dWP28sf8HFvdzPbD7hRxg2B4Stf2iJI+cBkMvx
-	EyIK48CkE3iCIMPlqAMbxNE5CFJcq+E4qEoNOH7qmaVNxNb79N3EX1lrzDCQBY0Q
-	YZTHvtbzL6h2tACpfdbdB5pwzDvyvo8KLqN/P6TE/afHKAZzXe5cNfhyhj+4oKGF
-	v3HBcJw3e99woVlbd4e7Og==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1750450931; x=1750537331; bh=O+zynp0pdZUX2uRkaZCP/6YKtinfqYmyWgg
-	qGO1iuis=; b=UcrnEppZefpoZxROW/1N+pkCItAE9tZS/dw8rnheMLS9NygD/Zn
-	xljlMXrOdqb0VouYpxtoPrwlT3Ub3NPdXqAkhu7Ofp60B1Yh0um+pCl6b64jHdyJ
-	m46PWM0zoLg6XgVENGw8aqpEXTDKuO/0J994nED0jR2kJeT5yS+Uj69mY1OQpJb5
-	9Qo6IwvqrY5zECSR8XQK1ZKZqNSTytpkDEySMe39ggQbv6004LUv5rrmy35S90jP
-	rBJK0bvLnLtC1oyaFx2Dd5//Q6/4qf1Bn92LrArIOkTqJF2Kc2Y48Bqft+SAWN4G
-	JSC5/w1ucW84iBSzLpWVIbDp3j+oWb56aJg==
-X-ME-Sender: <xms:8sJVaOnHGi8Sib7hkYmfRrMWga4NmSGGXLfqE3qrkwxpJSQP6MlqmQ>
-    <xme:8sJVaF2QxL4302M-EuRq0VT_u45_xc1M-XsZQx376mwxEqrBX8mmkOaXdVOZL0sK3
-    6o_iZls5FDHqg>
-X-ME-Received: <xmr:8sJVaMpdgYZiF9UrLtMCbLuxS6QRSymsig-_CR3ZRAwu4TAiGE7JzbNfqObvTVgRXetQpbTl0YK4JajST4p9nSttZ9E-o3uC8ts>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtddvgdelfeegucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceurghi
-    lhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurh
-    epfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgvkhcuofgr
-    rhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinhhvihhsih
-    gslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepgfduleetfeev
-    hfefheeiteeliefhjefhleduveetteekveettddvgeeuteefjedunecuvehluhhsthgvrh
-    fuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghksehinhhv
-    ihhsihgslhgvthhhihhnghhslhgrsgdrtghomhdpnhgspghrtghpthhtohepgedpmhhoug
-    gvpehsmhhtphhouhhtpdhrtghpthhtohepfhhrvgguihgrnhhordiiihhglhhiohestghl
-    ohhuugdrtghomhdprhgtphhtthhopeigvghnqdguvghvvghlsehlihhsthhsrdigvghnph
-    hrohhjvggtthdrohhrghdprhgtphhtthhopeguphhsmhhithhhsegrphgvrhhtuhhsshho
-    lhhuthhiohhnshdrtghomhdprhgtphhtthhopehjsggvuhhlihgthhesshhushgvrdgtoh
-    hm
-X-ME-Proxy: <xmx:8sJVaCnXc2bGF8rF-dvEHvUMwn2jPtvdDuJo_TWAGjFvEcnDj-R4bQ>
-    <xmx:8sJVaM02sdaRw9k2QBIYcuuJJTq8oqXk_xgFyMYGndxSMY44bshZWg>
-    <xmx:8sJVaJsfk2wdKaSeN9TBD37HHJ4mz4d4avqs_Y7zHPpKXDuSfvdsiQ>
-    <xmx:8sJVaIVIi2jlE37ej_g1cbJ578B6H0mjWRH7qJj41Hyx0Dpk4KU4NA>
-    <xmx:88JVaPBVn56PopJsAtYSKDhTmrlU6DYOdai5rXFOP5loqAV1e0ZZ-Sv0>
-Feedback-ID: i1568416f:Fastmail
-Date: Fri, 20 Jun 2025 22:22:08 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Frediano Ziglio <frediano.ziglio@cloud.com>
-Cc: xen-devel@lists.xenproject.org,
-	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
-	Jan Beulich <jbeulich@suse.com>
-Subject: Re: [PATCH v2] xen/efi: Do not check kernel signature if it was
- embedded
-Message-ID: <aFXC8MO-N8P27RcD@mail-itl>
-References: <20250620082607.46568-1-frediano.ziglio@cloud.com>
+X-Inumbo-ID: f1f05186-4e15-11f0-a30e-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1750451660; x=1751056460; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=O8OwyQKlXUOhtdxWYAXgewhFCfX/X/eqeQc/qXnB0Xo=;
+        b=cBkKHAumkfxmNTCoPnY6vcibP3jPBR1NtZl+JYFchDWbpvsg0CdJeA1JByIjXbJIf9
+         cgHEyVNnKihHIDxUVu6y4kr6jsS02rdvd+ob9bjuAwWPvp1vnE4YYfDeMOFoMp7z1uVu
+         zU/7RXGqBV9WIypIglqCngaSbyEeRVBctmSQk=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1750451660; x=1751056460;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=O8OwyQKlXUOhtdxWYAXgewhFCfX/X/eqeQc/qXnB0Xo=;
+        b=RPJwXZRAZbv+qOljUS7my+0PRx/oee4D/2YijSVBbBj7OhrMInutgrZcoIlC5FqMxb
+         c5DSeTi+3+y1rcWY5m7sqEvpmMnjDp2TjOZEl4BCoQ8aVx2Fn/HUzzYe6fwVN2cuU70j
+         SZtVVpZGO1+Xn6pGr9iE2AX3uVN1tA3aPf/hT9LqfVA9JJMqU4kIpYEXbmHRSGxuEKwM
+         pUwiMNHasbInUq/M1R6cg174zOBhfxGAh38aIyDb4cNgASe3YTMI9dZlzWVen/NN2r8d
+         kJZrUrbvqe9IQXIOZ6PmJ95f5AGcYO0XhZE7TgbjVbAwcc8RYsmNcY/N4JehuyRurwah
+         YJGw==
+X-Gm-Message-State: AOJu0YwD/hZj5/2cTkomnN7c5ykwCGdgBWIDG4yaAzjviBU8LSBjG+Vr
+	C0SxL2qI4xhXnZShsKWPigx0Ym+56DUo+/cFj1Ifar684uPtcp7w5dKvsF8BC6Tk5qBJ2pJIwvS
+	MHfGamwewDQ==
+X-Gm-Gg: ASbGnctrkkGS1R7JQsetDV/oh/+PLgwC5LjiYdgEQV7U7g4iiq0YsJ+sPQF5xmCtjno
+	YFNgscG/JKbEtMTdYqd5tfqGQlZUbpoddw/JY5jQtNOKv4pmgko3Uj94WyM/xXazLq4d4lju64B
+	0Vjs9zSOBQsIra2tnFxrByge2AD0jGuOeoRGB6Cz8sZ5hOllaXPBNBvwTzhZfGAAqXjq4sOFmI9
+	ZFThIK/z76MPBgCgogudyXMUikXfkrxIR2l+urtZG1wRKLgovhrDdqqmtVR/Vk1FV4o6EST96od
+	ijLl/Jy1dlUauYHitt/ZB50gdolSPdKYaHLVDDUOr3eR2iJNQv8TWU4Yzba2nu+lptjYsCVW4rK
+	H58AISkMr5hUhthxoU+xxcdKR3fid3eIdiNU=
+X-Google-Smtp-Source: AGHT+IHmtFEy00wmjm4f0JoWOXd805D5FeimdEflY1MZdxYnsOKesAC4ZA9CSuejLCf7Ycra814D5w==
+X-Received: by 2002:a05:6000:1a85:b0:3a4:dc80:b932 with SMTP id ffacd0b85a97d-3a6d1193dfbmr3216021f8f.8.1750451660185;
+        Fri, 20 Jun 2025 13:34:20 -0700 (PDT)
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH] docs: Introduce a default .readthedocs.yaml
+Date: Fri, 20 Jun 2025 21:34:18 +0100
+Message-Id: <20250620203418.42526-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.39.5
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="bUNgetm3bXjgP54g"
-Content-Disposition: inline
-In-Reply-To: <20250620082607.46568-1-frediano.ziglio@cloud.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+Read The Docs now requires a configuration file, which is awkward when using
+RTD to render proposed changes on the list.
 
---bUNgetm3bXjgP54g
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 20 Jun 2025 22:22:08 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Frediano Ziglio <frediano.ziglio@cloud.com>
-Cc: xen-devel@lists.xenproject.org,
-	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
-	Jan Beulich <jbeulich@suse.com>
-Subject: Re: [PATCH v2] xen/efi: Do not check kernel signature if it was
- embedded
+Provide the minimal configuration file possible, sacrificing all
+reproducibility in order to hopefully not need to touch it moving forwards.
 
-On Fri, Jun 20, 2025 at 09:26:05AM +0100, Frediano Ziglio wrote:
-> Using UKI it's possible to embed Linux kernel into xen.efi file.
-> In this case the signature for Secure Boot is applied to the
-> whole xen.efi, including the kernel.
-> So checking for specific signature for the kernel is not
-> needed.
->=20
-> Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Anthony PERARD <anthony.perard@vates.tech>
+CC: Michal Orzel <michal.orzel@amd.com>
+CC: Jan Beulich <jbeulich@suse.com>
+CC: Julien Grall <julien@xen.org>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Stefano Stabellini <sstabellini@kernel.org>
 
-Reviewed-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.c=
-om>
+Notably, I've figured out how to get back to using rtd-theme:
 
-> ---
-> Changes since v1:
-> - updated commit message and code comment;
-> - renamed kernel_was_verified to kernel_verified.
-> ---
->  xen/common/efi/boot.c | 7 +++++++
->  1 file changed, 7 insertions(+)
->=20
-> diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
-> index e39fbc3529..fb3b120982 100644
-> --- a/xen/common/efi/boot.c
-> +++ b/xen/common/efi/boot.c
-> @@ -1291,6 +1291,7 @@ void EFIAPI __init noreturn efi_start(EFI_HANDLE Im=
-ageHandle,
->      bool base_video =3D false;
->      const char *option_str;
->      bool use_cfg_file;
-> +    bool kernel_verified =3D false;
->      int dt_modules_found;
-> =20
->      __set_bit(EFI_BOOT, &efi_flags);
-> @@ -1461,6 +1462,11 @@ void EFIAPI __init noreturn efi_start(EFI_HANDLE I=
-mageHandle,
->              read_file(dir_handle, s2w(&name), &kernel, option_str);
->              efi_bs->FreePool(name.w);
->          }
-> +        else
-> +        {
-> +            /* Kernel was embedded so Xen signature includes it. */
-> +            kernel_verified =3D true;
-> +        }
-> =20
->          if ( !read_section(loaded_image, L"ramdisk", &ramdisk, NULL) )
->          {
-> @@ -1534,6 +1540,7 @@ void EFIAPI __init noreturn efi_start(EFI_HANDLE Im=
-ageHandle,
->       * verify it.
->       */
->      if ( kernel.ptr &&
-> +         !kernel_verified &&
->           !EFI_ERROR(efi_bs->LocateProtocol(&shim_lock_guid, NULL,
->                                             (void **)&shim_lock)) &&
->           (status =3D shim_lock->Verify(kernel.ptr, kernel.size)) !=3D EF=
-I_SUCCESS )
-> --=20
-> 2.43.0
->=20
+  https://andrewcoop-xen.readthedocs.io/en/docs-secureboot/admin-guide/uefi-secure-boot.html
 
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
+and without needing a separate docs/requirements.txt file in the tree too.
+---
+ .readthedocs.yaml | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
+ create mode 100644 .readthedocs.yaml
 
---bUNgetm3bXjgP54g
-Content-Type: application/pgp-signature; name=signature.asc
+diff --git a/.readthedocs.yaml b/.readthedocs.yaml
+new file mode 100644
+index 000000000000..d3aff7662ebf
+--- /dev/null
++++ b/.readthedocs.yaml
+@@ -0,0 +1,18 @@
++# Read the Docs configuration file for Sphinx projects
++# See https://docs.readthedocs.io/en/stable/config-file/v2.html for details
++
++version: 2
++
++build:
++  os: ubuntu-lts-latest
++
++  tools:
++    python: "latest"
++
++  jobs:
++    post_install:
++      # Instead of needing a separate requirements.txt
++      - python -m pip install --upgrade --no-cache-dir sphinx-rtd-theme
++
++sphinx:
++  configuration: docs/conf.py
+-- 
+2.39.5
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmhVwvAACgkQ24/THMrX
-1yz7Zgf/Va3Xk12l+3h+nMERVgB4qCa+oTuIHSqOZUYz3oBrQf7ObEtM54Y1JnQL
-EutXpWZb5VXrL5x1/BOuavnIE10gqMbH2YXcYUabXRVR5kfwP0Y3Cx75jGZ8D5GL
-9EVHT+CV78QZsE0+gFQnZFo/Gq4+Kot8uBhQIH2FFR3RHwm0FfYS81ix9jyNhiYX
-flXljPLOyErAKDOhp4uw0/LzCDkj4pc9jgyHtP8MA9ewb9467owy17V+PDqgjg4C
-/XAMYdUBfl/Y/0oEBHnQFFvcCghTeLNb68fUhUCKTn7uxArsmDO/xCwV362xOonN
-PvA9YX3PgdjbyOsbCu9H7yjs1Ekkbw==
-=YZF8
------END PGP SIGNATURE-----
-
---bUNgetm3bXjgP54g--
 
