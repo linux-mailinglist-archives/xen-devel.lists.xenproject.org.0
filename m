@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4DFA2AE2061
-	for <lists+xen-devel@lfdr.de>; Fri, 20 Jun 2025 18:50:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1021049.1397096 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3DA9DAE207C
+	for <lists+xen-devel@lfdr.de>; Fri, 20 Jun 2025 19:00:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1021060.1397105 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uSewW-0001Xp-Dd; Fri, 20 Jun 2025 16:50:20 +0000
+	id 1uSf6T-0003Ii-Bf; Fri, 20 Jun 2025 17:00:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1021049.1397096; Fri, 20 Jun 2025 16:50:20 +0000
+Received: by outflank-mailman (output) from mailman id 1021060.1397105; Fri, 20 Jun 2025 17:00:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uSewW-0001Ve-Ar; Fri, 20 Jun 2025 16:50:20 +0000
-Received: by outflank-mailman (input) for mailman id 1021049;
- Fri, 20 Jun 2025 16:50:18 +0000
+	id 1uSf6T-0003Gb-93; Fri, 20 Jun 2025 17:00:37 +0000
+Received: by outflank-mailman (input) for mailman id 1021060;
+ Fri, 20 Jun 2025 17:00:36 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Sh1O=ZD=cloud.com=ross.lagerwall@srs-se1.protection.inumbo.net>)
- id 1uSewU-0001VY-Qe
- for xen-devel@lists.xenproject.org; Fri, 20 Jun 2025 16:50:18 +0000
-Received: from mail-ot1-x32c.google.com (mail-ot1-x32c.google.com
- [2607:f8b0:4864:20::32c])
+ id 1uSf6S-0003GV-65
+ for xen-devel@lists.xenproject.org; Fri, 20 Jun 2025 17:00:36 +0000
+Received: from mail-oo1-xc36.google.com (mail-oo1-xc36.google.com
+ [2607:f8b0:4864:20::c36])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a4ac5cca-4df6-11f0-a30e-13f23c93f187;
- Fri, 20 Jun 2025 18:50:17 +0200 (CEST)
-Received: by mail-ot1-x32c.google.com with SMTP id
- 46e09a7af769-735a9e65471so1352018a34.1
- for <xen-devel@lists.xenproject.org>; Fri, 20 Jun 2025 09:50:17 -0700 (PDT)
+ id 147fd478-4df8-11f0-a30e-13f23c93f187;
+ Fri, 20 Jun 2025 19:00:34 +0200 (CEST)
+Received: by mail-oo1-xc36.google.com with SMTP id
+ 006d021491bc7-6113f0cafb2so1101460eaf.1
+ for <xen-devel@lists.xenproject.org>; Fri, 20 Jun 2025 10:00:34 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,247 +40,99 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a4ac5cca-4df6-11f0-a30e-13f23c93f187
+X-Inumbo-ID: 147fd478-4df8-11f0-a30e-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1750438216; x=1751043016; darn=lists.xenproject.org;
+        d=cloud.com; s=cloud; t=1750438833; x=1751043633; darn=lists.xenproject.org;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=5HEQFGKNlvnV0WWWe+o2xBNWZHoaIv+2Wj2ukolubR4=;
-        b=BT5wDAqO/uuxuRd7/4AwEE24YhevFg2J9kbfjRAFWNkoIaQAFNgB8jvaoNcyanzGqA
-         aUZqA/PBtJoo91eJ2oMKeWB5c0C64K0rxfHHgcI8+BwFtOBRvXZ0YWvacceGKZhYfhgI
-         cGFjrWNDn0rczB6muJmxlR2RvOk4WlIuFZdUQ=
+        bh=vmA8q2HSTt0O1pZWJDOkj+lG0+NdHR/1w4qwRJYIHUQ=;
+        b=Uc+P+YC38E1ZY1wuRxxaswHJh1TiYHpO7dSYg2Pb9vMMbpBDZZv/D71SBbvy8nV3yv
+         U3eBebjRICB5QPPtvGeiI2mq6j2kHwKhuQG4QvTButSJH5lbGfTHyD7vEQ1drbVaI0pO
+         k7apRcFkU5TIB96jfgnikHHvTVtsRCa8vihRc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750438216; x=1751043016;
+        d=1e100.net; s=20230601; t=1750438833; x=1751043633;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=5HEQFGKNlvnV0WWWe+o2xBNWZHoaIv+2Wj2ukolubR4=;
-        b=dCkvZ77BjAqalGeQ04W96uX0Xeim5x0VyhZqqf/Enz3OR1VcWXVoPhlVyR8g2oB+q2
-         yYiKWPnMtwFfBzQae8yZ1DC+rLHHLElIHhfS0oC/X9hS99D+ndTXn/meCd/w7Qqd1b9K
-         12Q9svYRx3HHU1a8JhT52X+kY82DdP0NE2YTjSFbu6MXStUDQSpvSp5F4d551hNvy261
-         pCI8pNfgp6vaQk+QjeYDgVJOxGG5IrYLNPsFz2g8RgeRHE+Ahe6ZJnztRYocqWSdEaBF
-         twFHWdo56b5nf6jfUfLuQoVcQgT/RR9uu99ub5Dxi1D3e/elB4RnDfYWfA75Eiif5PZ4
-         Uq5Q==
-X-Gm-Message-State: AOJu0YzbVBtPFuaPdvCJV/ek0hNqmaUlE0s8TZpFtABSUxgk8WNLAxv2
-	ANW9KeB/MY5J/aThy/wcImMJHDuTnyz/QKo+YwUlSCbNneUU9wbw/u/s0da++cRmrhwdzUbTcgN
-	aoAi9aCcp06O1xfOnO47xpP3GDj6GE19AKsgwvpZN
-X-Gm-Gg: ASbGncu2TDknQ+yC0ZCM7UBEwXuzkW6USn1WVBA0YZZUGXqs5L9wYoQW4joUBuD9TeI
-	PaN3TN3y8rFYx8r8T8JmyJ35NILTdsgR77Wt/yEV1DNZHbhv5VWl0mhgH3TVbRBxXp2AO04ad21
-	2iWt/EIwuIvQ5LPxX+uIQDgxyOoYx956oj2thqWxAiwQ==
-X-Google-Smtp-Source: AGHT+IErRfGjIiVPjVRJ4pLvOCxkMsfFKO8Qu1Gz1bCsphQVU47jSbcqm04sk7ACue/CLY7vpT9SPZu+l0MKlJSsPJI=
-X-Received: by 2002:a05:6871:2109:b0:2bc:6933:4a9f with SMTP id
- 586e51a60fabf-2eeee4dab69mr2416712fac.25.1750438216132; Fri, 20 Jun 2025
- 09:50:16 -0700 (PDT)
+        bh=vmA8q2HSTt0O1pZWJDOkj+lG0+NdHR/1w4qwRJYIHUQ=;
+        b=eC1g1FFmrU2rpHg/FMUcRcNUiASJ2szX7A31UequXQbxdpdd4m/nl9R8vc6l8D/7Ic
+         aRRIqdobC11SKxfopvoM6gh6iy6eBqOJvCBwB37weT1AEz3YCNZWvFvmREdKuLFTTNFz
+         6J5Djd1uLLkgx10aiYGQk4nbyMLl0Mk2+iSBvpKwaYHBcYxfARoFMPxCR0hjQukcVEAZ
+         qa3K7Mt0zHvXQ0cg85suEb5CuimSzTN738kSi8eMeT/nR7sWNb4/Ksq1voAct3dNzis/
+         p4sNZVvV1VawqiaZnzMP85SUYsTk35iauKRe/QIiyuF2lVSzEwZcIAdcxoWSLXRdsQ3r
+         ew1g==
+X-Forwarded-Encrypted: i=1; AJvYcCWYH8HzGZAQBowTxjgc4vCjh9Ij14BLxImeCO0V1QZwH6svreNCB08ANuXew2KsFlZWAwYtnNcDIb0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw3e93KKU0nt3qzipAY+BeFkWMg0uJxczpVye7gqKA66/lIxwdA
+	GLeCDy/pa22y80YA/SE9On/LrA7IrkFxi89WPVrLLyZMdztKVf5Y1mLBY8OsW+eZSfvj6WUpSH6
+	i7AJzgLyNUo0XxoTazJEls7q7CCrqp/mW8WHy9LJe
+X-Gm-Gg: ASbGnctdkx4CVjbAAgNwrBl92GTqGy22isJ4lVcZDl/riZRGBhQZYTFSJq8WJpbITNZ
+	d0CI6eyW16cKiT/pkIw6jT8fSTiPrZmWJHOpjLb14xE7cmKw8oI4+hcZ0KWuaKveTjprNjHHjFd
+	NomudH3bUEbB6yfpGADAo01dxp4dfOXD4MtpNoZopmjQ==
+X-Google-Smtp-Source: AGHT+IEUtPl9HKw8cqKp9NBPRb+KHV77FeuCB3lS+kWOTzRbJxvrragzeaMkakBpfTdQgKnLGHF7K/NZwiWY1t0dc+k=
+X-Received: by 2002:a05:6820:308a:b0:610:ee96:eca9 with SMTP id
+ 006d021491bc7-6115ba821c9mr2188417eaf.8.1750438833374; Fri, 20 Jun 2025
+ 10:00:33 -0700 (PDT)
 MIME-Version: 1.0
-References: <20250602133639.2871212-1-ross.lagerwall@citrix.com>
- <20250602133639.2871212-6-ross.lagerwall@citrix.com> <aFU4csM2UFNeCykO@macbook.local>
-In-Reply-To: <aFU4csM2UFNeCykO@macbook.local>
-From: Ross Lagerwall <ross.lagerwall@citrix.com>
-Date: Fri, 20 Jun 2025 17:50:03 +0100
-X-Gm-Features: Ac12FXzoMzHZeEJY_80h4ToJuAOXkENN-PTXRc7FOsZs2OIWW-M-QnGPuhnOqDQ
-Message-ID: <CAG7k0Eo=vUtP0G3qh8TAcpah3REneMdZhgsXzKSx-RVOMZKPeA@mail.gmail.com>
-Subject: Re: [PATCH v3 5/5] livepatch: Verify livepatch signatures
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org
+References: <20250611235851.167385-1-andrew.cooper3@citrix.com>
+ <CAG7k0Eo3yzpUJjO-371j_h6NGrHFky9a6Sr4NWfMHfarTzpR=A@mail.gmail.com>
+ <aFQgd1uSWlAcgFrr@mail-itl> <alpine.DEB.2.22.394.2506191254240.1780597@ubuntu-linux-20-04-desktop>
+ <aFSJ0MS6k9QxyUVT@mail-itl>
+In-Reply-To: <aFSJ0MS6k9QxyUVT@mail-itl>
+From: Ross Lagerwall <ross.lagerwall@cloud.com>
+Date: Fri, 20 Jun 2025 18:00:21 +0100
+X-Gm-Features: Ac12FXy4r9uMRa5jx6SQcWkIJwgDTm6ay4jALFTLfx_wKwLlWtCaddOICDUUvs8
+Message-ID: <CAG7k0EreK7MVPhkOG=4eVg7uK2S+N9PqqhyGkm56zBowesenUg@mail.gmail.com>
+Subject: Re: [PATCH] docs: UEFI Secure Boot security policy
+To: =?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Andrew Cooper <andrew.cooper3@citrix.com>, 
+	Xen-devel <xen-devel@lists.xenproject.org>, Anthony PERARD <anthony.perard@vates.tech>, 
+	Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, 
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, security@xen.org, 
+	Juergen Gross <jgross@suse.com>, Trammell Hudson <hudson@trmm.net>, 
+	Frediano Ziglio <frediano.ziglio@cloud.com>, Gerald Elder-Vass <gerald.elder-vass@cloud.com>, 
+	Kevin Lampis <kevin.lampis@cloud.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Jun 20, 2025 at 11:31=E2=80=AFAM Roger Pau Monn=C3=A9 <roger.pau@ci=
-trix.com> wrote:
+On Thu, Jun 19, 2025 at 11:06=E2=80=AFPM Marek Marczykowski-G=C3=B3recki
+<marmarek@invisiblethingslab.com> wrote:
 >
-> On Mon, Jun 02, 2025 at 02:36:37PM +0100, Ross Lagerwall wrote:
-> > From: Jennifer Herbert <jennifer.herbert@cloud.com>
+> On Thu, Jun 19, 2025 at 12:56:12PM -0700, Stefano Stabellini wrote:
+> > On Thu, 19 Jun 2025, Marek Marczykowski-G=C3=B3recki wrote:
+> > > On Thu, Jun 19, 2025 at 03:16:51PM +0100, Ross Lagerwall wrote:
+> > > > I think a section on PCI passthrough is also warranted. i.e. preven=
+ting misuse
+> > > > of a device to exploit Secure Boot.
+> > >
+> > > While I agree it makes sense, I wonder if it's in scope for UEFI
+> > > Secure Boot as defined by Microsoft? It may have implication for exam=
+ple
+> > > on PCI passthrough to a PV domains.
 > >
-> > Verify livepatch signatures against the embedded public key in Xen.
-> > Failing to verify does not prevent the livepatch from being loaded.
-> > In future, this will be changed for certain cases (e.g. when Secure Boo=
-t
-> > is enabled).
-> >
-> > Signed-off-by: Jennifer Herbert <jennifer.herbert@cloud.com>
-> > Signed-off-by: Ross Lagerwall <ross.lagerwall@citrix.com>
-> > ---
-> >
-> > In v3:
-> >
-> > * Minor style fixes
-> >
-> >  xen/common/livepatch.c          | 103 ++++++++++++++++++++++++++++++++
-> >  xen/common/livepatch_elf.c      |  55 +++++++++++++++++
-> >  xen/include/xen/livepatch.h     |  10 ++++
-> >  xen/include/xen/livepatch_elf.h |  18 ++++++
-> >  4 files changed, 186 insertions(+)
-> >
-> > diff --git a/xen/common/livepatch.c b/xen/common/livepatch.c
-> > index 92d1d342d872..56a3d125483f 100644
-> > --- a/xen/common/livepatch.c
-> > +++ b/xen/common/livepatch.c
-> > @@ -14,6 +14,7 @@
-> >  #include <xen/mpi.h>
-> >  #include <xen/rsa.h>
-> >  #include <xen/sched.h>
-> > +#include <xen/sha2.h>
-> >  #include <xen/smp.h>
-> >  #include <xen/softirq.h>
-> >  #include <xen/spinlock.h>
-> > @@ -525,6 +526,106 @@ static int check_xen_buildid(const struct livepat=
-ch_elf *elf)
-> >      return 0;
-> >  }
-> >
-> > +#ifdef CONFIG_PAYLOAD_VERIFY
-> > +static int check_rsa_sha256_signature(void *data, size_t datalen,
-> > +                                      void *sig, uint32_t siglen)
+> > If we bring DomUs into the discussion, then I think we need to make a
+> > distinction between predefined DomUs, which could have signatures
+> > verified by Secure Boot (such as Dom0 and hyperlaunch/dom0less guests),
+> > and other dynamically created DomUs which could be fetched from the
+> > network and potentially started without signature verification or prior
+> > knowledge.
 >
-> I think both data and sig could be const here?
+> I think it's mostly not about what's running inside domU, but what such
+> domU has access to. The obvious part is enforcing IOMMU configuration so
+> that domU cannot use a PCI device as a proxy to modify hypervisor (or
+> dom0) code. But there may be more subtleties like access to specific
+> devices (HECI? SPI?).
+> Anyway, lets figure out first _if_ we need to do something about this
+> topic, and only then worry how.
 >
-> > +{
-> > +    struct sha2_256_state hash;
-> > +    MPI s;
-> > +    int rc;
-> > +
-> > +    s =3D mpi_read_raw_data(sig, siglen);
-> > +    if ( !s )
-> > +    {
-> > +        printk(XENLOG_ERR LIVEPATCH "Failed to mpi_read_raw_data\n");
-> > +        return -ENOMEM;
-> > +    }
-> > +
-> > +    sha2_256_init(&hash);
-> > +    sha2_256_update(&hash, data, datalen);
-> > +
-> > +    rc =3D rsa_sha256_verify(&builtin_payload_key, &hash, s);
-> > +    if ( rc )
-> > +        printk(XENLOG_ERR LIVEPATCH "rsa_sha256_verify failed: %d\n", =
-rc);
-> > +
-> > +    mpi_free(s);
-> > +
-> > +    return rc;
-> > +}
-> > +#endif
-> > +
-> > +static int check_signature(const struct livepatch_elf *elf, void *raw,
-> > +                           size_t size)
-> > +{
-> > +#ifdef CONFIG_PAYLOAD_VERIFY
-> > +#define MAX_SIG_NOTE_SIZE 1024
-> > +    static const char notename[] =3D "Xen";
-> > +    void *sig;
-> > +    livepatch_elf_note note;
-> > +    int rc;
-> > +
-> > +    rc =3D livepatch_elf_note_by_names(elf, ELF_XEN_SIGNATURE, notenam=
-e, -1,
-> > +                                     &note);
-> > +    if ( rc )
-> > +    {
-> > +        dprintk(XENLOG_DEBUG, LIVEPATCH "%s: Signature not present\n",
-> > +                elf->name);
-> > +        return rc;
-> > +    }
-> > +
-> > +    /* We expect only one signature, find a second is an error! */
-> > +    rc =3D livepatch_elf_next_note_by_name(notename, -1, &note);
-> > +    if ( rc !=3D -ENOENT )
-> > +    {
-> > +        if ( rc )
-> > +        {
-> > +            printk(XENLOG_ERR LIVEPATCH
-> > +                   "Error while checking for notes! err =3D %d\n", rc)=
-;
-> > +            return rc;
-> > +        }
-> > +        else
-> > +        {
-> > +            printk(XENLOG_ERR LIVEPATCH
-> > +                   "Error, found second signature note! There can be o=
-nly one!\n");
->
-> FWIW, it's a nit, but I think there are too many exclamation marks in
-> the error message above:
->
-> "Error, multiple signatures found\n"
->
-> Would be better.
->
-> I'm also wondering, would it make sense to allow multiple signatures
-> to be present?  I guess not because livepatches are built for specific
-> Xen binaries, and then we know exactly which key is embedded there.  A
-> livepatch would never apply to two different builds with different
-> keys.
 
-I agree that while it could be possible, I don't really see a valid use
-for it.  This restriction could be relaxed in future if it is deemed
-useful.
-
->
-> > +            return -EINVAL;
-> > +        }
-> > +    }
-> > +
-> > +    if ( SIGNATURE_VERSION(note.type) !=3D LIVEPATCH_SIGNATURE_VERSION=
- ||
-> > +         SIGNATURE_ALGORITHM(note.type) !=3D SIGNATURE_ALGORITHM_RSA |=
-|
-> > +         SIGNATURE_HASH(note.type) !=3D SIGNATURE_HASH_SHA256 )
-> > +    {
-> > +        printk(XENLOG_ERR LIVEPATCH
-> > +               "Unsupported signature type: v:%u, a:%u, h:%u\n",
-> > +               SIGNATURE_VERSION(note.type), SIGNATURE_ALGORITHM(note.=
-type),
-> > +               SIGNATURE_HASH(note.type));
-> > +        return -EINVAL;
-> > +    }
-> > +
-> > +    if ( note.size =3D=3D 0 || note.size >=3D MAX_SIG_NOTE_SIZE )
-> > +    {
-> > +        printk(XENLOG_ERR LIVEPATCH "Invalid signature note size: %u\n=
-",
-> > +               note.size);
-> > +        return -EINVAL;
-> > +    }
-> > +
-> > +    sig =3D xmalloc_bytes(note.size);
-> > +    if ( !sig )
-> > +        return -ENOMEM;
-> > +
-> > +    memcpy(sig, note.data, note.size);
-> > +
-> > +    /* Remove signature from data, as can't be verified with it. */
-> > +    memset((void *)note.data, 0, note.size);
-> > +    rc =3D check_rsa_sha256_signature(raw, size, sig, note.size);
-> > +
-> > +    xfree(sig);
-> > +    return rc;
-> > +#else
-> > +    return -EINVAL;
->
-> EOPNOTSUPP would be more accurate here.
->
-> > +#endif
-> > +}
-> > +
-> >  static int check_special_sections(const struct livepatch_elf *elf)
-> >  {
-> >      unsigned int i;
-> > @@ -1162,6 +1263,8 @@ static int load_payload_data(struct payload *payl=
-oad, void *raw, size_t len)
-> >      if ( rc )
-> >         goto out;
-> >
-> > +    check_signature(&elf, raw, len);
->
-> Wouldn't it make more sense to unconditionally fail here if
-> CONFIG_PAYLOAD_VERIFY is enabled and signature verification fails?
->
-> IOW: if you built an hypervisor with PAYLOAD_VERIFY enabled signature
-> verification needs to be enforced.
-
-As per the commit message, this doesn't actually enforce anything yet.
-The intention is to tie signature enforcement to lockdown mode once
-those patches have been merged.
+As far as I know, Microsoft haven't specified requirements to this level
+of detail. However, if userspace can break the Secure Boot principles
+laid out above using a (spec compliant) PCI device to write memory, then
+I don't see why it would be any different to a Secure Boot compromise
+using the CPU to write memory. Linux prevents direct access to PCI
+devices when lockdown mode is enabled, presumably to prevent these kinds
+of attacks.
 
 Ross
 
