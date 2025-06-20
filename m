@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F5AAAE13BE
-	for <lists+xen-devel@lfdr.de>; Fri, 20 Jun 2025 08:23:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1020607.1396743 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 63A04AE13D0
+	for <lists+xen-devel@lfdr.de>; Fri, 20 Jun 2025 08:29:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1020619.1396753 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uSV9P-0002F1-9A; Fri, 20 Jun 2025 06:22:59 +0000
+	id 1uSVFq-0002rX-V4; Fri, 20 Jun 2025 06:29:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1020607.1396743; Fri, 20 Jun 2025 06:22:59 +0000
+Received: by outflank-mailman (output) from mailman id 1020619.1396753; Fri, 20 Jun 2025 06:29:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uSV9P-0002DB-6a; Fri, 20 Jun 2025 06:22:59 +0000
-Received: by outflank-mailman (input) for mailman id 1020607;
- Fri, 20 Jun 2025 06:22:57 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uSVFq-0002ov-SC; Fri, 20 Jun 2025 06:29:38 +0000
+Received: by outflank-mailman (input) for mailman id 1020619;
+ Fri, 20 Jun 2025 06:29:36 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=SdMF=ZD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uSV9N-0002D5-M6
- for xen-devel@lists.xenproject.org; Fri, 20 Jun 2025 06:22:57 +0000
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [2a00:1450:4864:20::42c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0145306a-4d9f-11f0-a30e-13f23c93f187;
- Fri, 20 Jun 2025 08:22:56 +0200 (CEST)
-Received: by mail-wr1-x42c.google.com with SMTP id
- ffacd0b85a97d-3a548a73ff2so1405425f8f.0
- for <xen-devel@lists.xenproject.org>; Thu, 19 Jun 2025 23:22:56 -0700 (PDT)
+ id 1uSVFo-0002op-UZ
+ for xen-devel@lists.xenproject.org; Fri, 20 Jun 2025 06:29:36 +0000
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [2a00:1450:4864:20::330])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ee959c23-4d9f-11f0-b894-0df219b8e170;
+ Fri, 20 Jun 2025 08:29:35 +0200 (CEST)
+Received: by mail-wm1-x330.google.com with SMTP id
+ 5b1f17b1804b1-43edecbfb46so10015045e9.0
+ for <xen-devel@lists.xenproject.org>; Thu, 19 Jun 2025 23:29:35 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-b31f119b988sm744239a12.21.2025.06.19.23.22.52
+ d9443c01a7336-237d839354esm10255805ad.16.2025.06.19.23.29.30
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 19 Jun 2025 23:22:55 -0700 (PDT)
+ Thu, 19 Jun 2025 23:29:33 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0145306a-4d9f-11f0-a30e-13f23c93f187
+X-Inumbo-ID: ee959c23-4d9f-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1750400576; x=1751005376; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1750400974; x=1751005774; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=5vAMJHh3DqteArOUjowHhR/kL9HILOdSFZS1lUXWRy8=;
-        b=hCeDtX6hLw21YFuosdKXBqrPX0dCV/5cHmRq7/Nv7OdNTST88CsfCkHPSRyriOMgPJ
-         XCRXXA77ZY3Whi0JBicr4xxT4C1hs7e6Q8S74jlMf58Yn5fFtoLFNzOjjOUyFMJkDmlE
-         blobQY5yweO1KS+VNzTn+WfVhWGPjfXSioKBvYAh25701yNhOfoDE+iQk9VZ75WUlIEI
-         CBziwKEzfJARXflxL6rTQ0w+WP9reRnT8E6QHReXLtF1/Y7b3LVA46HyUUhCmBefHpt1
-         YuCD8p3iscKCKLggmpvDFaIQNv7uxUxx8TLsULcDzlfBIVPdYrXI9gxsTAJoePdZTwr5
-         jtVg==
+        bh=DgadeZNAxD0955FkP7AFMe33exEJcRa7Txep6KPv6M4=;
+        b=NvbCqR/G8Q8VVeeHeLx4tg26rgzf6NzJqyQZci5RE1vqJp2UkcTjIlQUyQ5RBcdyul
+         uL+r6A4d3N9R0yQruXQIhZGbvPqkgJEtgPeGL+xt4jPSlANqnw71tPnUhpq9E+SYhSa7
+         Q91KvAnsmgGCapPeOsPKag7px4euro2+eJlu+pXI/c3PjbV2TUJ799xaGydk4uKtnIwm
+         MWd7QbIO3SJfJTxhue02n0glHbWiKNu0UpEyQD4l6qRic5zx9xKIIdu/PO3U1Q3GJy/X
+         Tl9rgLVYUWr3SHEp3+mZbrg/xNRlSiKOvvOXgLVH069NM7sn1k3TbgsjtvPKjWDwHtkH
+         0x1Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750400576; x=1751005376;
+        d=1e100.net; s=20230601; t=1750400974; x=1751005774;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=5vAMJHh3DqteArOUjowHhR/kL9HILOdSFZS1lUXWRy8=;
-        b=tYJU0AIzxreUc8nJtq+uhSl6TZpduXWNoIhtdAr0OmJTtkJM38h/H7OskefFYrs7s0
-         FGjHiuhqW0GuA9buSEODfUMhOzFlq5Otqr9WbOmB2tb5ZtrK/Xgo4UbiUftEy6/DeQzW
-         ec5w9LRToqxkoUdNpivMdVic3k/9/IeKC79Ni3ic6o/fd1OEBl7yz2iZAbuEHqJu6aP7
-         k9uKupyW4JKQKAnP715IWnUmM/xNZSwPqAEwEOnRQIhmaelygu7cJwhECD7CiCmnO0Yb
-         xfh9uQA3sNpn1ix3Nq2yBIUwmpE0rXGARWyhHukuML5wU39LHv6byXS5XNJ8OcpR2juS
-         luDg==
-X-Forwarded-Encrypted: i=1; AJvYcCWPGwfr/2WD8Kr62o76V6EmHDfyNr21+D0rrnkPEVOm6R62oXGaKZ1n50SsMrB8LOO4mh/kxXmLrds=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yx/9SDg3TaVhcWuVC1awnk+RKejcOA6xK8bRrRu8ztfMpaulk6t
-	6vIuNohHf/rQPxaOyRBlsYheFRedHwzq46IY/r0Dy1C50A7hNVmssGvDN1bCEyZSnQ==
-X-Gm-Gg: ASbGnctsxm1u+vILqheMxCdallzeosHS4fFgC1vQGnuxMMhtmJ/i1IsSC+IuRvGcucF
-	u+fV8Wtq0qbnJFBlfhxlw+EJKjtttWafWVBLGnPpnWg9+rNme7Ao/kdF88ieU5FsxTJrQVV6kQO
-	/p7eimMQmPQRBHLqFxn54GaRfzDsnovEN0aGmK2ppviAQSNdc06JXRw1/L/F5a9PjneM5lxefIR
-	bi3VTzBvgNJMuzsc9+xSC/GO8pEqv4n9PYEwePw6rrQL87vRjtjn8vC2ZBKp67YGvcPn129RGKW
-	TDW2syLX+nvSwJkV5M47R4bnrvVZHgkqrf/UjCPvIEmbvFBYDVSedMshWSzVlULO40BAFRiRQpc
-	QEAAQU0rUAollkGpUMzXsXp244Rqh2FAcR+GzgZEKfmqN7/Q=
-X-Google-Smtp-Source: AGHT+IFWV5HC8kn8yafrqxyqyjHN6p21MH4b9dpu4eLTKaXujtIwoaZBH1KKPBvyogE58DudbwOkwA==
-X-Received: by 2002:a05:6000:4011:b0:3a4:ebc2:d6ec with SMTP id ffacd0b85a97d-3a6d12c1651mr1320446f8f.14.1750400575783;
-        Thu, 19 Jun 2025 23:22:55 -0700 (PDT)
-Message-ID: <618e1896-2f1d-4727-83d7-76b60b011c81@suse.com>
-Date: Fri, 20 Jun 2025 08:22:47 +0200
+        bh=DgadeZNAxD0955FkP7AFMe33exEJcRa7Txep6KPv6M4=;
+        b=qZdtg6t8kzoPmQq2yf7Vi/fE5xC5edcQB/mKlfTtkdwI+gZE0A4mrq/FQEyXXvdhuu
+         sQdcTSch5LKr43nYcw6wLe7TyYWIeXlWgeLT4aDxtBdkGDTSQGvCNHz3HLdqvrRWI7Rg
+         iAhFtaTQjFD2d71qV6sWXb4q7bkCU1mYLLxvvQTh3pqacbmFjI2LlcJ01c7lRXqKMtgV
+         D4fytQi+qx4xoLhzDMOwBKCllpUhr3EQB/3TeTjqP/0SP8oPXGQ5B55Q17jn1ZOHMesU
+         efTBIaLpk5fDnToOZpnx41OBL79AF6aysy6Nzgpyd1ZzjhLpO/LIzNJhG26IKWa96zvM
+         ehXg==
+X-Forwarded-Encrypted: i=1; AJvYcCW7EVl2MKxscURELVV2z0Wvosrm8y0hVyUX4QJ6TaT+VJHnup8W+PCODcNxkT9SrHwsZ39bN+Lh2rQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzFOUryZAtcvKfZfP8IQefU22hv6C0u9xov0PZJGAzNSY3Fgywt
+	U2ou0GS8/EeQ/xdA3UihRg4RMVUSulukGcJxFfg3IG2SOdAhOtwdoy4qUHfEecDsSg==
+X-Gm-Gg: ASbGncvSJiJb93vZKiXfV6JaY4Bw/zlR1JchB0+wqP+7bI/kuWmC5YrVNe+H/dIt53n
+	JaV7/mCdgfCuULiX4kuk0qLEmOlFSYXrW6gb4KyNbh9puaPio3WwPbhCqr2yOmkaCfU6pvq8pj0
+	lNMUZ6oBIzQSvavgo0xGr6TtLyF60AgqN7xTHzEN3UDk/D601KuV7ZWXsQnuyutpemxMfv1EXDw
+	tDD3H1X3ZoCYIUUKOy4p4w72d7kNEMn03Bw12viN2YX0isRWn1LZCuruy3TO+gjKR6RcZ9ag5eX
+	bq4YOXkQUsK+nxP+dgE7NZtfyBlZ4el7nwGBDU1dmnbr70eSE3KLzdun1Ku8WRSAk8ZK3LlrxMO
+	U3XxoCPTEs52++ltEu1AkugIBG5G80fGggkIICIOYOobCOb4=
+X-Google-Smtp-Source: AGHT+IEhngcvAsDe/hd+YVUI9NQX1BqWiBl5gTE8KcFqgFQZpDFOPQHaxZp7YxVNexuse3oGOHwvTw==
+X-Received: by 2002:a5d:5f52:0:b0:3a4:eac6:e320 with SMTP id ffacd0b85a97d-3a6d1191018mr1185678f8f.3.1750400974043;
+        Thu, 19 Jun 2025 23:29:34 -0700 (PDT)
+Message-ID: <d8095395-fd6b-49a4-86c8-0a3d6c5a1a71@suse.com>
+Date: Fri, 20 Jun 2025 08:29:26 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/efi: Do not check kernel signature if it was embedded
-To: Frediano Ziglio <frediano.ziglio@cloud.com>
-Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org
-References: <20250618184631.15489-1-frediano.ziglio@cloud.com>
+Subject: Re: [PATCH v6 1/8] vpci/header: Emulate extended capability list for
+ dom0
+To: "Chen, Jiqian" <Jiqian.Chen@amd.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: "Huang, Ray" <Ray.Huang@amd.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <20250612092942.1450344-1-Jiqian.Chen@amd.com>
+ <20250612092942.1450344-2-Jiqian.Chen@amd.com>
+ <669877f5-ef34-4552-9cfc-e097d40d444a@suse.com>
+ <BL1PR12MB58492A07F1E9491B1F8D8E00E77DA@BL1PR12MB5849.namprd12.prod.outlook.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -118,21 +122,76 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250618184631.15489-1-frediano.ziglio@cloud.com>
+In-Reply-To: <BL1PR12MB58492A07F1E9491B1F8D8E00E77DA@BL1PR12MB5849.namprd12.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 18.06.2025 20:46, Frediano Ziglio wrote:
-> --- a/xen/common/efi/boot.c
-> +++ b/xen/common/efi/boot.c
-> @@ -1291,6 +1291,7 @@ void EFIAPI __init noreturn efi_start(EFI_HANDLE ImageHandle,
->      bool base_video = false;
->      const char *option_str;
->      bool use_cfg_file;
-> +    bool kernel_was_verified = false;
+On 19.06.2025 04:29, Chen, Jiqian wrote:
+> On 2025/6/18 21:52, Jan Beulich wrote:
+>> On 12.06.2025 11:29, Jiqian Chen wrote:
+>>> --- a/xen/drivers/vpci/header.c
+>>> +++ b/xen/drivers/vpci/header.c
+>>> @@ -836,6 +836,42 @@ static int vpci_init_capability_list(struct pci_dev *pdev)
+>>>                                    PCI_STATUS_RSVDZ_MASK);
+>>>  }
+>>>  
+>>> +static int vpci_init_ext_capability_list(struct pci_dev *pdev)
+>>> +{
+>>> +    unsigned int pos = PCI_CFG_SPACE_SIZE;
+>>> +
+>>> +    if ( !is_hardware_domain(pdev->domain) )
+>>> +        /* Extended capabilities read as zero, write ignore for guest */
+>>
+>> s/guest/DomU/ ?
+> Will do.
+> 
+>>
+>>> +        return vpci_add_register(pdev->vpci, vpci_read_val, NULL,
+>>> +                                 pos, 4, (void *)0);
+>>> +
+>>> +    while ( pos >= PCI_CFG_SPACE_SIZE )
+>>> +    {
+>>> +        uint32_t header = pci_conf_read32(pdev->sbdf, pos);
+>>> +        int rc;
+>>> +
+>>> +        if ( !header )
+>>> +            return 0;
+>>
+>> Is this a valid check to make for anything other than the first read? And even
+>> if valid for the first one, shouldn't that also go through ...
+>>
+>>> +        rc = vpci_add_register(pdev->vpci, vpci_read_val, vpci_hw_write32,
+>>> +                               pos, 4, (void *)(uintptr_t)header);
+>>
+>> ... here?
+> If header of first is zero. There is no need to add a register I think, since the dom0 can read/write directly.
 
-May I suggest to drop the "was" infix from the variable name? The name is imo
-as clear without it.
+Well, my remark of course did go along with that further down. Plus I wonder
+why the entire field being zero is special, but the field holding, say,
+0x00010000 isn't. Yes, the spec calls out zeroes in all fields specially,
+yet at the same time it does say nothing about certain other special values.
 
 Jan
+
+>>> --- a/xen/drivers/vpci/vpci.c
+>>> +++ b/xen/drivers/vpci/vpci.c
+>>> @@ -267,6 +267,12 @@ void cf_check vpci_hw_write16(
+>>>      pci_conf_write16(pdev->sbdf, reg, val);
+>>>  }
+>>>  
+>>> +void cf_check vpci_hw_write32(
+>>> +    const struct pci_dev *pdev, unsigned int reg, uint32_t val, void *data)
+>>> +{
+>>> +    pci_conf_write32(pdev->sbdf, reg, val);
+>>> +}
+>>
+>> Iirc we've been there before, yet I continue to wonder whether we're doing
+>> ourselves any good in allowing writes to something that certainly better
+>> wouldn't change. Even if we limit this to Dom0.
+> I remember this was suggested by Roger in V2, since the Dom0 has no limitations to write the extended register.
+> 
+>>
+>> Jan
+> 
+
 
