@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D0FA1AE13A8
-	for <lists+xen-devel@lfdr.de>; Fri, 20 Jun 2025 08:17:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1020600.1396734 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F5AAAE13BE
+	for <lists+xen-devel@lfdr.de>; Fri, 20 Jun 2025 08:23:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1020607.1396743 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uSV3q-0000Ye-NN; Fri, 20 Jun 2025 06:17:14 +0000
+	id 1uSV9P-0002F1-9A; Fri, 20 Jun 2025 06:22:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1020600.1396734; Fri, 20 Jun 2025 06:17:14 +0000
+Received: by outflank-mailman (output) from mailman id 1020607.1396743; Fri, 20 Jun 2025 06:22:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uSV3q-0000Vs-KQ; Fri, 20 Jun 2025 06:17:14 +0000
-Received: by outflank-mailman (input) for mailman id 1020600;
- Fri, 20 Jun 2025 06:17:13 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uSV9P-0002DB-6a; Fri, 20 Jun 2025 06:22:59 +0000
+Received: by outflank-mailman (input) for mailman id 1020607;
+ Fri, 20 Jun 2025 06:22:57 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=SdMF=ZD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uSV3p-0000Vm-8T
- for xen-devel@lists.xenproject.org; Fri, 20 Jun 2025 06:17:13 +0000
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [2a00:1450:4864:20::42e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 336ea476-4d9e-11f0-b894-0df219b8e170;
- Fri, 20 Jun 2025 08:17:11 +0200 (CEST)
-Received: by mail-wr1-x42e.google.com with SMTP id
- ffacd0b85a97d-3a4f379662cso1315509f8f.0
- for <xen-devel@lists.xenproject.org>; Thu, 19 Jun 2025 23:17:11 -0700 (PDT)
+ id 1uSV9N-0002D5-M6
+ for xen-devel@lists.xenproject.org; Fri, 20 Jun 2025 06:22:57 +0000
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [2a00:1450:4864:20::42c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0145306a-4d9f-11f0-a30e-13f23c93f187;
+ Fri, 20 Jun 2025 08:22:56 +0200 (CEST)
+Received: by mail-wr1-x42c.google.com with SMTP id
+ ffacd0b85a97d-3a548a73ff2so1405425f8f.0
+ for <xen-devel@lists.xenproject.org>; Thu, 19 Jun 2025 23:22:56 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3158a226fe4sm3395639a91.2.2025.06.19.23.17.03
+ 41be03b00d2f7-b31f119b988sm744239a12.21.2025.06.19.23.22.52
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 19 Jun 2025 23:17:10 -0700 (PDT)
+ Thu, 19 Jun 2025 23:22:55 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,63 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 336ea476-4d9e-11f0-b894-0df219b8e170
+X-Inumbo-ID: 0145306a-4d9f-11f0-a30e-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1750400231; x=1751005031; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1750400576; x=1751005376; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=E+IpF9D+V6/NZPnUseyfSOmXd8So1XbMkvzT9T24fh0=;
-        b=MSdeSqFPz+HsYqvB7zeDEp+5q8XDEB6Zb8e5Eq2/X4Tmwkvr8Jwo4CMD1jq6X6JZhq
-         jLjrsXbAIQ4Flb/7+Aqa85fsBIBJQB3dqbEdjCEGsDmS2TihGn6nBSB98Vh41NtfG/7i
-         nuByoHrZOqLpkUo6XS3gFicAtNtqhq4RAGCe0vI8QNA4wklpnTqGbHqQvKOFolsM0g+q
-         NFTlT2yYBjWrpj9LKW7+3Fnjfbl8rSne6f2j+aLndlf15kRbSHW69xE2qAweTvTF5sGn
-         lICCWUnnwTngErhTfgaF/QLd2ua6C18RkoBrBzj4WK53fpUFOOct6xZgl74xcgs++ty6
-         pxYQ==
+        bh=5vAMJHh3DqteArOUjowHhR/kL9HILOdSFZS1lUXWRy8=;
+        b=hCeDtX6hLw21YFuosdKXBqrPX0dCV/5cHmRq7/Nv7OdNTST88CsfCkHPSRyriOMgPJ
+         XCRXXA77ZY3Whi0JBicr4xxT4C1hs7e6Q8S74jlMf58Yn5fFtoLFNzOjjOUyFMJkDmlE
+         blobQY5yweO1KS+VNzTn+WfVhWGPjfXSioKBvYAh25701yNhOfoDE+iQk9VZ75WUlIEI
+         CBziwKEzfJARXflxL6rTQ0w+WP9reRnT8E6QHReXLtF1/Y7b3LVA46HyUUhCmBefHpt1
+         YuCD8p3iscKCKLggmpvDFaIQNv7uxUxx8TLsULcDzlfBIVPdYrXI9gxsTAJoePdZTwr5
+         jtVg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750400231; x=1751005031;
+        d=1e100.net; s=20230601; t=1750400576; x=1751005376;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=E+IpF9D+V6/NZPnUseyfSOmXd8So1XbMkvzT9T24fh0=;
-        b=Ud6RotS/c9srcuTzWIFTJj04+Ro8ZLV0hPT8+Kd7d9K9vW/OQD8GORxDEQcsdjUAYq
-         2uauvFpA8uedMHRRp7rgVQPF+dLxehwTmwviTDUOTwKD3S1F37gssKKr5sgULk2U0/WB
-         70Twji+hK3rnfT1orBYSwGH6IPlDU+a8rUjOk5EerX0PafXHdAisNW5cmTrQNe41GB4O
-         1slxnOio7S8qaNKsLQGeXvFbUEywR32AtS3Z9rdpreTlEtQxfBTTP+bkCtgORQ0DRgcQ
-         VxkQUur7nDPy7G9jnQ2tuYQ8stoiwXDd8VIPj26JLxAIdGbXh7wbac8KOk2TYmRL0Ljd
-         ucDw==
-X-Forwarded-Encrypted: i=1; AJvYcCUrRsnzdjLcL9da6EFsgtV/b6ONRo+xdtoKmN2GjZlCG6uIwmJH2JNbbpc/YMI01lC6eVbD/wwgZic=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzQfWAOZNSj7rBRUi2UMjAxfxjCbTCcXUBSv8PqzbdPSmCEyOTV
-	Y/V2WOp7r9nCxsUyDscMToKGsPLVd8qIDk9Vlud/q4gpvvmf5m/UY//aMx/YKMUPqw==
-X-Gm-Gg: ASbGncvIlIY+Om66QwMaSxFpK0mGXOd9U6ZrOKppu8ftk8xUpLF5zOOpkopKjSwrnuq
-	FoGjR21vSNoJB1BnvP1CCYPYNCJimSFA83PwFzExL5cGWJcaEZnj4Rje/8pfCjuUueX+6uchLao
-	Ngf0xl1e3rZtUZ3K8A6H/icmwjCyaii3O4PIugMsOFitABftYX8wOUAREyCnmRv8/NcFbSc3wRL
-	Z5yrtpskyDY5bHnujlLGRzT/1qFEqm6F1ihZqz2mUBGEbq0D11qQ6VlJpncGd1dFxkXAyJs/Ixy
-	e3Y+zRfbdCDNW10mI7wIRu/Byv5cbXVOOxtMlClqNN/zqDW1dk7kRidtQEcOiflvdb41PKLhyN+
-	8TAX6bf6WZGiMcO50yvGqXU8XTiGpUBTfKRtwW5rd5mSsQIc=
-X-Google-Smtp-Source: AGHT+IFanpRNy+HD3R36kIiiHYC0C5zePnvN7u+bgA4Yc7+wQNXWjh+wHq8h55G6LRmLUIqv5T4xSg==
-X-Received: by 2002:a05:6000:2002:b0:3a5:783f:528a with SMTP id ffacd0b85a97d-3a6d12fc180mr1229789f8f.59.1750400230608;
-        Thu, 19 Jun 2025 23:17:10 -0700 (PDT)
-Message-ID: <1d0fc483-d008-4745-8e27-0a2f6fab6b0d@suse.com>
-Date: Fri, 20 Jun 2025 08:16:59 +0200
+        bh=5vAMJHh3DqteArOUjowHhR/kL9HILOdSFZS1lUXWRy8=;
+        b=tYJU0AIzxreUc8nJtq+uhSl6TZpduXWNoIhtdAr0OmJTtkJM38h/H7OskefFYrs7s0
+         FGjHiuhqW0GuA9buSEODfUMhOzFlq5Otqr9WbOmB2tb5ZtrK/Xgo4UbiUftEy6/DeQzW
+         ec5w9LRToqxkoUdNpivMdVic3k/9/IeKC79Ni3ic6o/fd1OEBl7yz2iZAbuEHqJu6aP7
+         k9uKupyW4JKQKAnP715IWnUmM/xNZSwPqAEwEOnRQIhmaelygu7cJwhECD7CiCmnO0Yb
+         xfh9uQA3sNpn1ix3Nq2yBIUwmpE0rXGARWyhHukuML5wU39LHv6byXS5XNJ8OcpR2juS
+         luDg==
+X-Forwarded-Encrypted: i=1; AJvYcCWPGwfr/2WD8Kr62o76V6EmHDfyNr21+D0rrnkPEVOm6R62oXGaKZ1n50SsMrB8LOO4mh/kxXmLrds=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx/9SDg3TaVhcWuVC1awnk+RKejcOA6xK8bRrRu8ztfMpaulk6t
+	6vIuNohHf/rQPxaOyRBlsYheFRedHwzq46IY/r0Dy1C50A7hNVmssGvDN1bCEyZSnQ==
+X-Gm-Gg: ASbGnctsxm1u+vILqheMxCdallzeosHS4fFgC1vQGnuxMMhtmJ/i1IsSC+IuRvGcucF
+	u+fV8Wtq0qbnJFBlfhxlw+EJKjtttWafWVBLGnPpnWg9+rNme7Ao/kdF88ieU5FsxTJrQVV6kQO
+	/p7eimMQmPQRBHLqFxn54GaRfzDsnovEN0aGmK2ppviAQSNdc06JXRw1/L/F5a9PjneM5lxefIR
+	bi3VTzBvgNJMuzsc9+xSC/GO8pEqv4n9PYEwePw6rrQL87vRjtjn8vC2ZBKp67YGvcPn129RGKW
+	TDW2syLX+nvSwJkV5M47R4bnrvVZHgkqrf/UjCPvIEmbvFBYDVSedMshWSzVlULO40BAFRiRQpc
+	QEAAQU0rUAollkGpUMzXsXp244Rqh2FAcR+GzgZEKfmqN7/Q=
+X-Google-Smtp-Source: AGHT+IFWV5HC8kn8yafrqxyqyjHN6p21MH4b9dpu4eLTKaXujtIwoaZBH1KKPBvyogE58DudbwOkwA==
+X-Received: by 2002:a05:6000:4011:b0:3a4:ebc2:d6ec with SMTP id ffacd0b85a97d-3a6d12c1651mr1320446f8f.14.1750400575783;
+        Thu, 19 Jun 2025 23:22:55 -0700 (PDT)
+Message-ID: <618e1896-2f1d-4727-83d7-76b60b011c81@suse.com>
+Date: Fri, 20 Jun 2025 08:22:47 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/3] xen/x86: add missing noreturn attributes
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: victorm.lira@amd.com, xen-devel@lists.xenproject.org,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Federico Serafini <federico.serafini@bugseng.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>
-References: <20250606212712.1901838-1-victorm.lira@amd.com>
- <20250606212712.1901838-2-victorm.lira@amd.com>
- <20250606212712.1901838-3-victorm.lira@amd.com>
- <aFLYtSgt5b4lQwgv@macbook.local>
- <220ccb5869914c44cc2b1f7a152ee933@bugseng.com>
+Subject: Re: [PATCH] xen/efi: Do not check kernel signature if it was embedded
+To: Frediano Ziglio <frediano.ziglio@cloud.com>
+Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org
+References: <20250618184631.15489-1-frediano.ziglio@cloud.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -127,57 +118,21 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <220ccb5869914c44cc2b1f7a152ee933@bugseng.com>
+In-Reply-To: <20250618184631.15489-1-frediano.ziglio@cloud.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 18.06.2025 18:16, Nicola Vetrini wrote:
-> On 2025-06-18 17:18, Roger Pau Monné wrote:
->> On Fri, Jun 06, 2025 at 02:27:09PM -0700, victorm.lira@amd.com wrote:
->>> --- a/xen/arch/x86/traps.c
->>> +++ b/xen/arch/x86/traps.c
->>> @@ -805,7 +805,7 @@ void fatal_trap(const struct cpu_user_regs *regs, 
->>> bool show_remote)
->>>            (regs->eflags & X86_EFLAGS_IF) ? "" : " IN INTERRUPT 
->>> CONTEXT");
->>>  }
->>>
->>> -void asmlinkage do_unhandled_trap(struct cpu_user_regs *regs)
->>> +void asmlinkage noreturn do_unhandled_trap(struct cpu_user_regs 
->>> *regs)
->>>  {
->>>      fatal_trap(regs, false);
->>>  }
->>> diff --git a/xen/arch/x86/x86_64/traps.c b/xen/arch/x86/x86_64/traps.c
->>> index c77f304bb0..8460a4a1ae 100644
->>> --- a/xen/arch/x86/x86_64/traps.c
->>> +++ b/xen/arch/x86/x86_64/traps.c
->>> @@ -293,7 +293,7 @@ void show_page_walk(unsigned long addr)
->>>             l1_table_offset(addr), l1e_get_intpte(l1e), pfn);
->>>  }
->>>
->>> -void asmlinkage do_double_fault(struct cpu_user_regs *regs)
->>> +void asmlinkage noreturn do_double_fault(struct cpu_user_regs *regs)
->>
->> Does noreturn matter for functions called from assembly (asmlinkage
->> ones)?  In that case the hint is not useful for code generation, since
->> it's hand written assembly already?  (it's arguably useful for the
->> developer writing the code)
->>
->> Might be worth mentioning in the commit message if the above is
->> accurate.  For example by adding to the commit message: "noreturn is
->> not relevant for functions called from assembly, but can be used as a
->> hint for the developers writing the code".
-> 
-> Yes, it is relevant because the rule considers only the single function, 
-> not the context where it is called (that is orders of magnitude more 
-> difficult to check automatically). For my part, I'm ok with your 
-> suggestion.
+On 18.06.2025 20:46, Frediano Ziglio wrote:
+> --- a/xen/common/efi/boot.c
+> +++ b/xen/common/efi/boot.c
+> @@ -1291,6 +1291,7 @@ void EFIAPI __init noreturn efi_start(EFI_HANDLE ImageHandle,
+>      bool base_video = false;
+>      const char *option_str;
+>      bool use_cfg_file;
+> +    bool kernel_was_verified = false;
 
-Right. In fact for non-static functions the attribute normally would go
-on the declaration. The need to have it on the definition in the two
-cases above is an aspect that may also want to go into the amended
-description.
+May I suggest to drop the "was" infix from the variable name? The name is imo
+as clear without it.
 
 Jan
 
