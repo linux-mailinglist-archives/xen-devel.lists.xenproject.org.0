@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A710AAE138C
-	for <lists+xen-devel@lfdr.de>; Fri, 20 Jun 2025 08:01:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1020554.1396703 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A91EAE1394
+	for <lists+xen-devel@lfdr.de>; Fri, 20 Jun 2025 08:05:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1020563.1396715 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uSUom-000636-VV; Fri, 20 Jun 2025 06:01:40 +0000
+	id 1uSUsa-0006cT-GC; Fri, 20 Jun 2025 06:05:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1020554.1396703; Fri, 20 Jun 2025 06:01:40 +0000
+Received: by outflank-mailman (output) from mailman id 1020563.1396715; Fri, 20 Jun 2025 06:05:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uSUom-00060Q-Sn; Fri, 20 Jun 2025 06:01:40 +0000
-Received: by outflank-mailman (input) for mailman id 1020554;
- Fri, 20 Jun 2025 06:01:39 +0000
+	id 1uSUsa-0006a1-BJ; Fri, 20 Jun 2025 06:05:36 +0000
+Received: by outflank-mailman (input) for mailman id 1020563;
+ Fri, 20 Jun 2025 06:05:34 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=SdMF=ZD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uSUol-00060K-Kl
- for xen-devel@lists.xenproject.org; Fri, 20 Jun 2025 06:01:39 +0000
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [2a00:1450:4864:20::42d])
+ id 1uSUsY-0006Zk-3i
+ for xen-devel@lists.xenproject.org; Fri, 20 Jun 2025 06:05:34 +0000
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [2a00:1450:4864:20::430])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0637daa1-4d9c-11f0-b894-0df219b8e170;
- Fri, 20 Jun 2025 08:01:36 +0200 (CEST)
-Received: by mail-wr1-x42d.google.com with SMTP id
- ffacd0b85a97d-3a50956e5d3so1197342f8f.1
- for <xen-devel@lists.xenproject.org>; Thu, 19 Jun 2025 23:01:37 -0700 (PDT)
+ id 92ed04a3-4d9c-11f0-b894-0df219b8e170;
+ Fri, 20 Jun 2025 08:05:32 +0200 (CEST)
+Received: by mail-wr1-x430.google.com with SMTP id
+ ffacd0b85a97d-3a4f71831abso1230233f8f.3
+ for <xen-devel@lists.xenproject.org>; Thu, 19 Jun 2025 23:05:32 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-7490a46b071sm1206158b3a.33.2025.06.19.23.01.30
+ 98e67ed59e1d1-3159df71ec2sm973411a91.6.2025.06.19.23.05.26
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 19 Jun 2025 23:01:35 -0700 (PDT)
+ Thu, 19 Jun 2025 23:05:31 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,62 +45,66 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0637daa1-4d9c-11f0-b894-0df219b8e170
+X-Inumbo-ID: 92ed04a3-4d9c-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1750399296; x=1751004096; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1750399532; x=1751004332; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=4XxbcB49y/2OkJdJbJfvewYz5lPjPV7Fj2tZ9BgYDYs=;
-        b=CMWb8Jm0leR97Kw4Da+B0B3K5+WJfoTVS9rK75DAIJE9W4B66c19fu/TzMEwCp1Fnc
-         WG3CEXIuPdIpgUdX+41xip2FNcQktpx5r/Qjr5FCy5jKzTQPg1bEsSNJGM5cXoTinp/r
-         pNPdMAx41+Asc3I+erruHpFenApI/1ykhmaFxxOC2fVKdx98N22iZbw7YUz09TAdHrhQ
-         lfMVvSSO1sE0tOyoqk7E3hDvWzK2XajkAnMkw0t3qW4U8fdHtKwzuRSh88semdltbB5/
-         ZZvbK886FYve8RCR91Dvx8cscTLfLVxN168wfSj6PPeXvgyH9x+imXTqPfZe1phK/BPT
-         uZyQ==
+        bh=Gkd41WsjguVOu2NBDtKwFOEZdFlvEA2btEl/Afg5iyw=;
+        b=e0GTSXgb+q4QUuAEkKTmjQd68oVe8B0QEi39SIpmXVAnWQAE9Y9hSYD6Eo5YsKTOgo
+         bY56NHcUESun6qQZlknvfwS8SFmyr7l9RMl/tQ1hBIzf+jBkOHzwJwYvF5SUtsbXj1ji
+         cIu4231Rds/nirJZvM8lisLCttJKRThzFe6nfUcZhjH1bzZr07UqMMShkmC8cTYjxc7b
+         b5OvSxab287V4NzkifIHZADwTUo7Kf1UbfS6ueUUhdjpDuJK3KE4Bb8U3APkgaQROGI5
+         Bpv/lzjrpzofWrmZKxID2GLSRUVenrWinqCPb4CWMqFu6OacOMng1Wzw5hRO/DbLcHIL
+         xODA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750399296; x=1751004096;
+        d=1e100.net; s=20230601; t=1750399532; x=1751004332;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=4XxbcB49y/2OkJdJbJfvewYz5lPjPV7Fj2tZ9BgYDYs=;
-        b=CvoJuasvaKEesIxT2IbdECriKUUULvT6350y3OhURjZaMEvZabF+ghJhsEkw23054+
-         eXm/q/Vw+U/bzriUX/8UtEUdgGkHGnR/HG69osyPbRgJtm541lU7+Z43dqP0KGnl3faL
-         ICPrddudVDVhQvik8IBj4w273UihXOJSSf/6SYxjPAURvM08EWIyoC+gGRDm1E9F4sLI
-         Dq8gkYX4nie/lXSv2Ks4zge62iiPK6YPJ8lbNWd4svQf34o9TSq5/iEYAZi+G+CdfrjX
-         wvnvDL+wd3rXaNifFrEwxfC5XkzpStoyq+5xwAqQiR30HZILwH5BQMZd/CozVUU7acbm
-         uccw==
-X-Forwarded-Encrypted: i=1; AJvYcCVhziMaQptUqQ7zFRvw9X4Q7a+e/47dFsbScjPo/foA1SAedxLq1mFfB6j8NrqvLIn7lnuE982UP6I=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw+7cB9AgTcn9mj+PhBUCaOYcEJDP6J6hRbasfIiwJ8jvI7+i5V
-	uXDXRcVOjbXJ+s1DRjIG03LNKYruM+HlEt8BMNVEh6r5LEV3VXOguuG6CniI/RVQUg==
-X-Gm-Gg: ASbGncvL31BnVwTWJSQS0TaCSiPQRABUsImb6Yg+Qzdw666SIDVFLf4jQm/2jonP2BC
-	bknIQKJ9DZk0gIf6o5HWaZoSP70GgDa/mpinQyWAjETSA27Np5W080astVZGw6L9fuTSB93RNO4
-	VZ3igILiimwfMA2zRdVMdg6odygF6bdwrZK8VuglosK5/ZrFynmGtnSH7kUDiL/kwrpmYiKM9ab
-	4zCJOMrDNM+A6hP20xlo+OwVrGtej1St5uFWue1Gayl3co62ldaJfpMhSvQg9hHBfoqZNtYj6cA
-	UKlYU3fm7pAeuMcwaQonWJNheq02AWiGFJbuu/TWZW0lv4SYKrClz3WHBhMUzh6CjtF80rbHm4V
-	ycTVT8BiI83bJwwhT5K69Hnfw4KCgHn3cadzIl+Ahmqa/96I=
-X-Google-Smtp-Source: AGHT+IHrUed61YY+nAbuKwCu3tWSiHvtsgLBZ1N73VasCzFqopCeuSMx8vFnbY+bIHRdRvXzjv8KZg==
-X-Received: by 2002:adf:9c8c:0:b0:3a4:f7af:db9c with SMTP id ffacd0b85a97d-3a6d1318226mr994551f8f.59.1750399296119;
-        Thu, 19 Jun 2025 23:01:36 -0700 (PDT)
-Message-ID: <ca98ed6d-a6a7-4624-9b0f-b87b7986fea2@suse.com>
-Date: Fri, 20 Jun 2025 08:01:25 +0200
+        bh=Gkd41WsjguVOu2NBDtKwFOEZdFlvEA2btEl/Afg5iyw=;
+        b=vqYqwetEevaTDtDF+e7bOYFjLXmKVN0gyLynJ/gabKTrLVq126Fmqq1KTveGs60/xq
+         wQFgMKB1wmrCMQWwzW3ZlMJ6SV8WwC9PteqqvjHQ0SObIZu6rP39whM23Rc0i0cZjVqN
+         AD9HskjelljNphYIJETO9aSC0x8Qq7W945B0zGs/V4vV2Jm5iTasSsGeD8cYFWRlc+c8
+         uze5EN9x+4E41OgRoV9JU+VkgLgPDlwZIv+MbDGBpsPU7ZVv6VqmeiJTZasxzGq5lb8d
+         rIJSVlu6zXHY0P54PrSDBx521AL0MNifihgEVcI1/eIALWc3X+B5AmB5qM0LUCqU3IXH
+         uC2A==
+X-Forwarded-Encrypted: i=1; AJvYcCVKKvoY0ISZf5e1lkyUksSYnie0nirUQwB2ID50usPqyzmXYaHpxgn+DJElFQt5DGbwnA/5+VEv2gA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzdrgT68yG3cdYPkcUkvJ8qlB17LkNiirnZZJ8mpi+Ol70mWumU
+	+SdxbPNxqUydE9YiLYMfWMVWhxOhuaOe059Wv9p+fvEeDLmsHZaU6+hGZxNT72cI8w==
+X-Gm-Gg: ASbGncuL1fsWEoRJS+ijPkYKI3su5fGuJ9w1+bBDXmLnHDacXVg8br9RdX6bIY4bT+J
+	kvSnbA98908fygV4IRNAQbTeYFrO0GbLP2SszK+4jolExuBD/7ey3sL955QkR5navMHel+5A6VB
+	wof5C1xTUKghtUS66VQ0kb5ZBVIYb7L7nq1gVm8poHw9skwt54rb1w63z9DNW0RztQl9mUtfXSy
+	w7Qm5T3hf8l3zKiX2ZK2pMMcQDsdLfI0woLb6DGd/Xc/AqtFJ0rDsH2Ss94w3wTgoPfgWOw6rmn
+	cXuqx/ExxeTiIu6nHr5Mk0wvXy/XsYQgKpFUnQc4DDKM0qXVQrULuqWhsaGU59gPRxOXcqY5Q0D
+	KvXedXoVW1VzgQQYNNMlAQT16XCwrXvLvv2Mj950qF16S8zs=
+X-Google-Smtp-Source: AGHT+IHalWilCAQ8KI+kC57rKAF8fU8rIBDI3WLdoZh2xD1PCb6NaIWRHG9wUL1G72Rd+QxXM+sr2A==
+X-Received: by 2002:a05:6000:41d2:b0:3a4:d994:be4b with SMTP id ffacd0b85a97d-3a6d12c4551mr1076200f8f.1.1750399531847;
+        Thu, 19 Jun 2025 23:05:31 -0700 (PDT)
+Message-ID: <88bb4934-014b-4710-9e81-5697255cc626@suse.com>
+Date: Fri, 20 Jun 2025 08:05:21 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 06/18] xen/x86: introduce "cpufreq=amd-cppc" xen
- cmdline
-To: "Penny, Zheng" <penny.zheng@amd.com>
-Cc: "Huang, Ray" <Ray.Huang@amd.com>,
+Subject: Re: [PATCH 4/4] xsm/dummy: Allow hwdom SYSCTL_readconsole/physinfo
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Jason Andryuk <jason.andryuk@amd.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
- "Orzel, Michal" <Michal.Orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <20250527084833.338427-1-Penny.Zheng@amd.com>
- <20250527084833.338427-7-Penny.Zheng@amd.com>
- <3edeeff2-5728-46cc-9436-01e5e3cf2bd3@suse.com>
- <DM4PR12MB8451AD27C6E39F0781749156E17DA@DM4PR12MB8451.namprd12.prod.outlook.com>
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ xen-devel@lists.xenproject.org
+References: <20250610225737.469690-1-jason.andryuk@amd.com>
+ <20250610225737.469690-5-jason.andryuk@amd.com>
+ <5f6d43da-2600-4c1c-9bcb-f13e8fce921e@suse.com>
+ <bf6924f8-26c6-4f89-8441-155735384a8a@amd.com>
+ <alpine.DEB.2.22.394.2506131547320.8480@ubuntu-linux-20-04-desktop>
+ <bf6fd680-c608-4d64-ad8f-38eac102991e@suse.com>
+ <alpine.DEB.2.22.394.2506161705370.1384757@ubuntu-linux-20-04-desktop>
+ <5645e4dc-7598-414d-a2b5-39066401e9b3@suse.com>
+ <alpine.DEB.2.22.394.2506181736280.1780597@ubuntu-linux-20-04-desktop>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -126,55 +130,98 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <DM4PR12MB8451AD27C6E39F0781749156E17DA@DM4PR12MB8451.namprd12.prod.outlook.com>
+In-Reply-To: <alpine.DEB.2.22.394.2506181736280.1780597@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 19.06.2025 10:43, Penny, Zheng wrote:
-> [Public]
-> 
->> -----Original Message-----
->> From: Jan Beulich <jbeulich@suse.com>
->> Sent: Thursday, June 12, 2025 6:42 PM
->> To: Penny, Zheng <penny.zheng@amd.com>
->> Cc: Huang, Ray <Ray.Huang@amd.com>; Andrew Cooper
->> <andrew.cooper3@citrix.com>; Anthony PERARD <anthony.perard@vates.tech>;
->> Orzel, Michal <Michal.Orzel@amd.com>; Julien Grall <julien@xen.org>; Roger Pau
->> Monné <roger.pau@citrix.com>; Stefano Stabellini <sstabellini@kernel.org>; xen-
->> devel@lists.xenproject.org
->> Subject: Re: [PATCH v5 06/18] xen/x86: introduce "cpufreq=amd-cppc" xen
->> cmdline
->>
->> On 27.05.2025 10:48, Penny Zheng wrote:
->>> --- a/xen/arch/x86/platform_hypercall.c
->>> +++ b/xen/arch/x86/platform_hypercall.c
->>> @@ -94,6 +95,8 @@ static int __init handle_cpufreq_cmdline(enum
->>> cpufreq_xen_opt option)  {
->>>      int ret = 0;
+On 19.06.2025 02:36, Stefano Stabellini wrote:
+> On Tue, 17 Jun 2025, Jan Beulich wrote:
+>> On 17.06.2025 02:10, Stefano Stabellini wrote:
+>>> On Mon, 16 Jun 2025, Jan Beulich wrote:
+>>>> On 14.06.2025 00:51, Stefano Stabellini wrote:
+>>>>> On Wed, 11 Jun 2025, Jason Andryuk wrote:
+>>>>>> On 2025-06-11 09:27, Jan Beulich wrote:
+>>>>>>> On 11.06.2025 00:57, Jason Andryuk wrote:
+>>>>>>>> Allow the hwdom to access the console, and to access physical
+>>>>>>>> information about the system.
+>>>>>>>>
+>>>>>>>> xenconsoled can read Xen's dmesg.  If it's in hwdom, then that
+>>>>>>>> permission would be required.
+>>>>>>>
+>>>>>>> Why would xenconsoled run in the hardware domain? It's purely a software
+>>>>>>> construct, isn't it? As a daemon, putting it in the control domain may
+>>>>>>> make sense. Otherwise it probably ought to go in a service domain.
+>>>>>>
+>>>>>> My approach has been to transform dom0 into the hardware domain and add a new
+>>>>>> control domain.  xenconsoled was left running in the hardware domain.
+>>>>>
+>>>>> I think we should keep xenconsoled in the hardware domain because the
+>>>>> control domain should be just optional. (However, one could say that with
+>>>>> Denis' recent changes xenconsoled is also optional because one can use
+>>>>> console hypercalls or emulators (PL011, NS16550) for all DomUs.)
+>>>>>
+>>>>>
+>>>>>
+>>>>>> I suppose it could move.  Maybe that would be fine?  I haven't tried. The
+>>>>>> Hyperlaunch code populates the console grants to point at the hardware domain,
+>>>>>> and I just followed that.
+>>>>>>
+>>>>>> One aspect of why I left most things running in the Hardware domain was to not
+>>>>>> run things in the Control domain.  If Control is the highest privileged
+>>>>>> entity, we'd rather run software in lower privileged places. Especially
+>>>>>> something like xenconsoled which is receiving data from the domUs.
+>>>>>
+>>>>> Yes, I agree with Jason. It is a bad idea to run xenconsoled in the
+>>>>> Control Domain because the Control Domain is meant to be safe from
+>>>>> interference. We want to keep the number of potential vehicles for
+>>>>> interference down to a minimum and shared memory between Control Domain
+>>>>> and DomUs is certainly a vehicle for interference.
+>>>>
+>>>> As much as it is when xenconsoled runs in the hardware domain? Especially
+>>>> if the hardware domain is also running e.g. PV backends or qemu instances?
 >>>
->>> +    /* Do not occupy bits reserved for public xen-pm */
->>> +    BUILD_BUG_ON(MASK_INSR(XEN_PROCESSOR_PM_CPPC,
->> SIF_PM_MASK));
+>>> It looks like you are thinking of the possible
+>>> interference from the Hardware Domain to the Control Domain via
+>>> xenconsoled, correct?
 >>
->> This looks like an abuse of MASK_INSR(). Why not simply
+>> More like interference with the system as a whole, which simply includes
+>> Control.
 >>
->>     BUILD_BUG_ON(XEN_PROCESSOR_PM_CPPC & SIF_PM_MASK);
+>>> If that is the case, good thinking. I can see that you have really
+>>> understood the essence of the problem we are trying to solve.
+>>>
+>>> That is not an issue because the Control Domain shouldn't use PV
+>>> console. Instead, it should use the console hypercall, or the
+>>> PL011/NS16550 emulators in Xen.
 >>
->> ?
+>> Well. I think the underlying concept of Control Domain being highly
+>> privileged needs more general discussion. As indicated elsewhere, I
+>> didn't think disaggregation (whichever way done) would leave any
+>> domain with effectively full privilege. I wonder what others think.
 > 
-> Because in SIF_PM_MASK, it's bit 8 to 15 reserved for xen-pm options,
-> See "
-> #define SIF_PM_MASK       (0xFF<<8) /* reserve 1 byte for xen-pm options */
-> "
-> So I'm trying to use MASK_INSR() to do the necessary right shift (other than using 8 directly, in case SIF_PM_MASK changes in the future...)
+> Keep in mind that the threat model here is different from the
+> datacenter. 
+> 
+> But the Control Domain is optional. If the user doesn't want it, the
+> user can avoid it.
+> 
+> Even on a fully static system (no VM creation), it is convenient to have
+> a domain that can monitor the others and trigger domain reset (we are
+> reimplementing domain reboot to be more like a soft reset so that the VM
+> doesn't need to be destroyed and recreated).
 
-Oh, right, so my replacement suggestion was wrong. But XEN_PROCESSOR_PM_CPPC
-isn't contained within the 8 bits. MASK_INSR() could conceivably have a
-(debug) check that the passed value actually fits the mask.
+Suggesting that in such an environment Control should have no permission
+to create domains. This would avoid various threats, including e.g.
+massive amounts of dynamic memory allocation.
 
-     BUILD_BUG_ON(XEN_PROCESSOR_PM_CPPC & MASK_EXTR(~0, SIF_PM_MASK));
+> As an example, the Control
+> Domain could be used to monitor a non-safe domain such as Android,
+> detect an Android crash, and trigger an Android reboot.
 
-?
+Yet at the same time it would have to be prevented from interfering with
+any of the critical domains.
+
+Altogether this doesn't sound like "highest privilege" to me then.
 
 Jan
 
