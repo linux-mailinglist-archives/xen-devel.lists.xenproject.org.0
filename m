@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF1F1AE1873
-	for <lists+xen-devel@lfdr.de>; Fri, 20 Jun 2025 12:02:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1020772.1396917 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7AC76AE1848
+	for <lists+xen-devel@lfdr.de>; Fri, 20 Jun 2025 11:51:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1020742.1396887 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uSYZ0-0002v7-Sw; Fri, 20 Jun 2025 10:01:38 +0000
+	id 1uSYOt-00088F-DQ; Fri, 20 Jun 2025 09:51:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1020772.1396917; Fri, 20 Jun 2025 10:01:38 +0000
+Received: by outflank-mailman (output) from mailman id 1020742.1396887; Fri, 20 Jun 2025 09:51:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uSYZ0-0002sE-Pn; Fri, 20 Jun 2025 10:01:38 +0000
-Received: by outflank-mailman (input) for mailman id 1020772;
- Fri, 20 Jun 2025 10:01:37 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uSYOt-00086c-Ah; Fri, 20 Jun 2025 09:51:11 +0000
+Received: by outflank-mailman (input) for mailman id 1020742;
+ Fri, 20 Jun 2025 09:51:10 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=FxVL=ZD=arm.com=hari.limaye@srs-se1.protection.inumbo.net>)
- id 1uSYOn-0004kQ-GN
- for xen-devel@lists.xenproject.org; Fri, 20 Jun 2025 09:51:05 +0000
+ id 1uSYOs-00082H-CC
+ for xen-devel@lists.xenproject.org; Fri, 20 Jun 2025 09:51:10 +0000
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id 1414d8ae-4dbc-11f0-b894-0df219b8e170;
- Fri, 20 Jun 2025 11:51:03 +0200 (CEST)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTP
+ id 165ed3ea-4dbc-11f0-a30e-13f23c93f187;
+ Fri, 20 Jun 2025 11:51:07 +0200 (CEST)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 81B11176A;
- Fri, 20 Jun 2025 02:50:43 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4EC0E176A;
+ Fri, 20 Jun 2025 02:50:47 -0700 (PDT)
 Received: from PWQ0QT7DJ1.arm.com (unknown [10.57.67.38])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8FD223F673;
- Fri, 20 Jun 2025 02:51:01 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id BFE243F673;
+ Fri, 20 Jun 2025 02:51:05 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,192 +42,136 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1414d8ae-4dbc-11f0-b894-0df219b8e170
+X-Inumbo-ID: 165ed3ea-4dbc-11f0-a30e-13f23c93f187
 From: Hari Limaye <hari.limaye@arm.com>
 To: xen-devel@lists.xenproject.org
 Cc: luca.fancellu@arm.com,
-	Penny Zheng <Penny.Zheng@arm.com>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Julien Grall <julien@xen.org>,
 	Bertrand Marquis <bertrand.marquis@arm.com>,
 	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Penny Zheng <penny.zheng@arm.com>,
-	Wei Chen <wei.chen@arm.com>
-Subject: [PATCH 4/6] arm/mpu: Destroy an existing entry in Xen MPU memory mapping table
-Date: Fri, 20 Jun 2025 10:49:22 +0100
-Message-ID: <95cc28af74339ea617081f3935123e38a53cc657.1750411205.git.hari.limaye@arm.com>
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [PATCH 5/6] arm/mpu: Implement early_fdt_map support in MPU systems
+Date: Fri, 20 Jun 2025 10:49:23 +0100
+Message-ID: <deccb1566ced5fa64f6de5c988ab968b76dc945a.1750411205.git.hari.limaye@arm.com>
 X-Mailer: git-send-email 2.42.1
 In-Reply-To: <cover.1750411205.git.hari.limaye@arm.com>
 References: <cover.1750411205.git.hari.limaye@arm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Penny Zheng <Penny.Zheng@arm.com>
+From: Luca Fancellu <luca.fancellu@arm.com>
 
-This commit expands xen_mpumap_update/xen_mpumap_update_entry to include
-destroying an existing entry.
+Implement the function early_fdt_map(), which is responsible for mapping
+the Device Tree Blob in the early stages of the boot process, for MPU
+systems.
 
-We define a new helper "disable_mpu_region_from_index" to disable the MPU
-region based on index. If region is within [0, 31], we could quickly
-disable the MPU region through PRENR_EL2 which provides direct access to the
-PRLAR_EL2.EN bits of EL2 MPU regions.
+We make use of the map_pages_to_xen() and destroy_xen_mappings() APIs.
+In particular the latter function is necessary in the case that the
+initial mapping of the fdt_header is insufficient to cover the entire
+DTB, as we must destroy and then remap the region due to the APIs no
+providing support for extending the size of an existing region.
 
-Rignt now, we only support destroying a *WHOLE* MPU memory region,
-part-region removing is not supported, as in worst case, it will
-leave two fragments behind.
-
-Signed-off-by: Penny Zheng <penny.zheng@arm.com>
-Signed-off-by: Wei Chen <wei.chen@arm.com>
 Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
 Signed-off-by: Hari Limaye <hari.limaye@arm.com>
 ---
- xen/arch/arm/include/asm/mpu.h        |  2 +
- xen/arch/arm/include/asm/mpu/cpregs.h |  4 ++
- xen/arch/arm/mpu/mm.c                 | 71 ++++++++++++++++++++++++++-
- 3 files changed, 75 insertions(+), 2 deletions(-)
+ xen/arch/arm/mpu/setup.c | 74 ++++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 72 insertions(+), 2 deletions(-)
 
-diff --git a/xen/arch/arm/include/asm/mpu.h b/xen/arch/arm/include/asm/mpu.h
-index 63560c613b..5053edaf63 100644
---- a/xen/arch/arm/include/asm/mpu.h
-+++ b/xen/arch/arm/include/asm/mpu.h
-@@ -23,6 +23,8 @@
- #define NUM_MPU_REGIONS_MASK    (NUM_MPU_REGIONS - 1)
- #define MAX_MPU_REGION_NR       NUM_MPU_REGIONS_MASK
+diff --git a/xen/arch/arm/mpu/setup.c b/xen/arch/arm/mpu/setup.c
+index b4da77003f..ab00cb944b 100644
+--- a/xen/arch/arm/mpu/setup.c
++++ b/xen/arch/arm/mpu/setup.c
+@@ -1,17 +1,87 @@
+ /* SPDX-License-Identifier: GPL-2.0-only */
  
-+#define PRENR_MASK  GENMASK(31, 0)
-+
- #ifndef __ASSEMBLY__
++#include <xen/bootfdt.h>
+ #include <xen/bug.h>
+ #include <xen/init.h>
++#include <xen/libfdt/libfdt.h>
+ #include <xen/mm.h>
++#include <xen/pfn.h>
+ #include <xen/types.h>
+ #include <asm/setup.h>
  
- /*
-diff --git a/xen/arch/arm/include/asm/mpu/cpregs.h b/xen/arch/arm/include/asm/mpu/cpregs.h
-index bb15e02df6..9f3b32acd7 100644
---- a/xen/arch/arm/include/asm/mpu/cpregs.h
-+++ b/xen/arch/arm/include/asm/mpu/cpregs.h
-@@ -6,6 +6,9 @@
- /* CP15 CR0: MPU Type Register */
- #define HMPUIR          p15,4,c0,c0,4
++static paddr_t __initdata mapped_fdt_paddr = INVALID_PADDR;
++static paddr_t __initdata mapped_fdt_limit = INVALID_PADDR;
++
+ void __init setup_pagetables(void) {}
  
-+/* CP15 CR6: Protection Region Enable Register */
-+#define HPRENR          p15,4,c6,c1,1
-+
- /* CP15 CR6: MPU Protection Region Base/Limit/Select Address Register */
- #define HPRSELR         p15,4,c6,c2,1
- #define HPRBAR          p15,4,c6,c3,0
-@@ -82,6 +85,7 @@
- /* Alphabetically... */
- #define MPUIR_EL2       HMPUIR
- #define PRBAR_EL2       HPRBAR
-+#define PRENR_EL2       HPRENR
- #define PRLAR_EL2       HPRLAR
- #define PRSELR_EL2      HPRSELR
- #endif /* CONFIG_ARM_32 */
-diff --git a/xen/arch/arm/mpu/mm.c b/xen/arch/arm/mpu/mm.c
-index 1de28d2120..23230936f7 100644
---- a/xen/arch/arm/mpu/mm.c
-+++ b/xen/arch/arm/mpu/mm.c
-@@ -199,6 +199,42 @@ static int xen_mpumap_alloc_entry(uint8_t *idx)
-     return 0;
- }
- 
-+/*
-+ * Disable and remove an MPU region from the data structure and MPU registers.
-+ *
-+ * @param index Index of the MPU region to be disabled.
-+ */
-+static void disable_mpu_region_from_index(uint8_t index)
-+{
-+    ASSERT(spin_is_locked(&xen_mpumap_lock));
-+    ASSERT(index != INVALID_REGION_IDX);
-+
-+    if ( !region_is_valid(&xen_mpumap[index]) )
-+    {
-+        printk(XENLOG_WARNING
-+               "mpu: MPU memory region[%u] is already disabled\n", index);
-+        return;
-+    }
-+
-+    /* Zeroing the region will also zero the region enable */
-+    memset(&xen_mpumap[index], 0, sizeof(pr_t));
-+    clear_bit(index, xen_mpumap_mask);
+ void * __init early_fdt_map(paddr_t fdt_paddr)
+ {
+-    BUG_ON("unimplemented");
+-    return NULL;
++    /* Map at least a page containing the DTB address, exclusive range */
++    paddr_t base = round_pgdown(fdt_paddr);
++    paddr_t limit = round_pgup(fdt_paddr + sizeof(struct fdt_header));
++    unsigned int flags = PAGE_HYPERVISOR_RO;
++    void *fdt_virt = (void *)fdt_paddr; /* virt == paddr for MPU */
++    int rc;
++    unsigned long nr_mfns;
 +
 +    /*
-+     * Both Armv8-R AArch64 and AArch32 have direct access to the enable bit for
-+     * MPU regions numbered from 0 to 31.
++     * Check whether the physical FDT address is set and meets the minimum
++     * alignment requirement. Since we are relying on MIN_FDT_ALIGN to be at
++     * least 8 bytes so that we always access the magic and size fields
++     * of the FDT header after mapping the first chunk, double check if
++     * that is indeed the case.
 +     */
-+    if ( (index & PRENR_MASK) != 0 )
++    BUILD_BUG_ON(MIN_FDT_ALIGN < 8);
++    if ( !fdt_paddr || fdt_paddr % MIN_FDT_ALIGN )
++        return NULL;
++
++    /* DTB starting at this address has already been mapped. */
++    if ( mapped_fdt_paddr == fdt_paddr )
++        return fdt_virt;
++
++    /*
++     * DTB starting at a different address has been mapped, so destroy this
++     * before continuing.
++     */
++    if ( mapped_fdt_paddr != INVALID_PADDR )
 +    {
-+        /* Clear respective bit */
-+        uint64_t val = READ_SYSREG(PRENR_EL2) & (~(1UL << index));
-+
-+        WRITE_SYSREG(val, PRENR_EL2);
++        rc = destroy_xen_mappings(round_pgdown(mapped_fdt_paddr),
++                                  mapped_fdt_limit);
++        if ( rc )
++            panic("Unable to unmap existing device-tree.\n");
 +    }
-+    else
-+        write_protection_region(&xen_mpumap[index], index);
-+}
 +
++    nr_mfns = (limit - base) >> PAGE_SHIFT;
++
++    rc = map_pages_to_xen(base, maddr_to_mfn(base), nr_mfns, flags);
++    if ( rc )
++        panic("Unable to map the device-tree.\n");
++
++    mapped_fdt_paddr = fdt_paddr;
++    mapped_fdt_limit = limit;
++
++    if ( fdt_magic(fdt_virt) != FDT_MAGIC )
++        return NULL;
++
++    limit = round_pgup(fdt_paddr + fdt_totalsize(fdt_virt));
++
++    /* If the mapped range is not enough, map the rest of the DTB. */
++    if ( limit > mapped_fdt_limit )
++    {
++        rc = destroy_xen_mappings(base, mapped_fdt_limit);
++        if ( rc )
++            panic("Unable to unmap the device-tree header.\n");
++
++        nr_mfns = (limit - base) >> PAGE_SHIFT;
++
++        rc = map_pages_to_xen(base, maddr_to_mfn(base), nr_mfns, flags);
++        if ( rc )
++            panic("Unable to map the device-tree.\n");
++
++        mapped_fdt_limit = limit;
++    }
++
++    return fdt_virt;
+ }
+ 
  /*
-  * Update the entry in the MPU memory region mapping table (xen_mpumap) for the
-  * given memory range and flags, creating one if none exists.
-@@ -217,11 +253,11 @@ static int xen_mpumap_update_entry(paddr_t base, paddr_t limit,
-     ASSERT(spin_is_locked(&xen_mpumap_lock));
- 
-     rc = mpumap_contain_region(xen_mpumap, max_mpu_regions, base, limit, &idx);
--    if ( (rc < 0) || (rc > MPUMAP_REGION_NOTFOUND) )
-+    if ( rc < 0 )
-         return -EINVAL;
- 
-     /* We are inserting a mapping => Create new region. */
--    if ( flags & _PAGE_PRESENT )
-+    if ( (flags & _PAGE_PRESENT) && (MPUMAP_REGION_NOTFOUND == rc) )
-     {
-         rc = xen_mpumap_alloc_entry(&idx);
-         if ( rc )
-@@ -232,6 +268,22 @@ static int xen_mpumap_update_entry(paddr_t base, paddr_t limit,
-         write_protection_region(&xen_mpumap[idx], idx);
-     }
- 
-+    if ( !(flags & _PAGE_PRESENT) && (rc >= MPUMAP_REGION_FOUND) )
-+    {
-+        /*
-+         * Currently, we only support destroying a *WHOLE* MPU memory region,
-+         * part-region removing is not supported, as in worst case, it will
-+         * leave two fragments behind.
-+         */
-+        if ( MPUMAP_REGION_INCLUSIVE == rc )
-+        {
-+            region_printk("mpu: part-region removing is not supported\n");
-+            return -EINVAL;
-+        }
-+
-+        disable_mpu_region_from_index(idx);
-+    }
-+
-     return 0;
- }
- 
-@@ -261,6 +313,21 @@ int xen_mpumap_update(paddr_t base, paddr_t limit, unsigned int flags)
-     return rc;
- }
- 
-+int destroy_xen_mappings(unsigned long s, unsigned long e)
-+{
-+    int rc;
-+
-+    ASSERT(IS_ALIGNED(s, PAGE_SIZE));
-+    ASSERT(IS_ALIGNED(e, PAGE_SIZE));
-+    ASSERT(s <= e);
-+
-+    rc = xen_mpumap_update(virt_to_maddr(s), virt_to_maddr(e), 0);
-+    if ( !rc )
-+        context_sync_mpu();
-+
-+    return rc;
-+}
-+
- int map_pages_to_xen(unsigned long virt, mfn_t mfn, unsigned long nr_mfns,
-                      unsigned int flags)
- {
 -- 
 2.34.1
 
