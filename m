@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A91EAE1394
-	for <lists+xen-devel@lfdr.de>; Fri, 20 Jun 2025 08:05:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1020563.1396715 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2DB96AE1398
+	for <lists+xen-devel@lfdr.de>; Fri, 20 Jun 2025 08:07:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1020577.1396724 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uSUsa-0006cT-GC; Fri, 20 Jun 2025 06:05:36 +0000
+	id 1uSUuN-0007C0-RM; Fri, 20 Jun 2025 06:07:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1020563.1396715; Fri, 20 Jun 2025 06:05:36 +0000
+Received: by outflank-mailman (output) from mailman id 1020577.1396724; Fri, 20 Jun 2025 06:07:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uSUsa-0006a1-BJ; Fri, 20 Jun 2025 06:05:36 +0000
-Received: by outflank-mailman (input) for mailman id 1020563;
- Fri, 20 Jun 2025 06:05:34 +0000
+	id 1uSUuN-0007AH-Oe; Fri, 20 Jun 2025 06:07:27 +0000
+Received: by outflank-mailman (input) for mailman id 1020577;
+ Fri, 20 Jun 2025 06:07:27 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=SdMF=ZD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uSUsY-0006Zk-3i
- for xen-devel@lists.xenproject.org; Fri, 20 Jun 2025 06:05:34 +0000
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [2a00:1450:4864:20::430])
+ id 1uSUuN-0007AB-3q
+ for xen-devel@lists.xenproject.org; Fri, 20 Jun 2025 06:07:27 +0000
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [2a00:1450:4864:20::42a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 92ed04a3-4d9c-11f0-b894-0df219b8e170;
- Fri, 20 Jun 2025 08:05:32 +0200 (CEST)
-Received: by mail-wr1-x430.google.com with SMTP id
- ffacd0b85a97d-3a4f71831abso1230233f8f.3
- for <xen-devel@lists.xenproject.org>; Thu, 19 Jun 2025 23:05:32 -0700 (PDT)
+ id d60bf187-4d9c-11f0-b894-0df219b8e170;
+ Fri, 20 Jun 2025 08:07:25 +0200 (CEST)
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-3a57c8e247cso1278612f8f.1
+ for <xen-devel@lists.xenproject.org>; Thu, 19 Jun 2025 23:07:25 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3159df71ec2sm973411a91.6.2025.06.19.23.05.26
+ d9443c01a7336-237d86518b2sm9481185ad.152.2025.06.19.23.07.18
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 19 Jun 2025 23:05:31 -0700 (PDT)
+ Thu, 19 Jun 2025 23:07:23 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,66 +45,63 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 92ed04a3-4d9c-11f0-b894-0df219b8e170
+X-Inumbo-ID: d60bf187-4d9c-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1750399532; x=1751004332; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1750399644; x=1751004444; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Gkd41WsjguVOu2NBDtKwFOEZdFlvEA2btEl/Afg5iyw=;
-        b=e0GTSXgb+q4QUuAEkKTmjQd68oVe8B0QEi39SIpmXVAnWQAE9Y9hSYD6Eo5YsKTOgo
-         bY56NHcUESun6qQZlknvfwS8SFmyr7l9RMl/tQ1hBIzf+jBkOHzwJwYvF5SUtsbXj1ji
-         cIu4231Rds/nirJZvM8lisLCttJKRThzFe6nfUcZhjH1bzZr07UqMMShkmC8cTYjxc7b
-         b5OvSxab287V4NzkifIHZADwTUo7Kf1UbfS6ueUUhdjpDuJK3KE4Bb8U3APkgaQROGI5
-         Bpv/lzjrpzofWrmZKxID2GLSRUVenrWinqCPb4CWMqFu6OacOMng1Wzw5hRO/DbLcHIL
-         xODA==
+        bh=SA1FPn6AKM8E0dtTkAunz+/79tKrkDFOEgS2rFJshjo=;
+        b=GZxo+J0fTeD+Mc+6X4oNOsBAjKG7RyFouNauhO6Jy+Xg511a0WPeVUn1hEaS2iErv3
+         tMJTdJJzYPd0tg0sM6fZHYG3lrYqHDCkQMhym/eGojLWSjkZV8o7rEaCSqAW2wtVLXpX
+         5bzV76oIDnEnUyxmPsLa/Sq1so0i3J4F+8n4ZQ6zIHJonSxyc7tQvWdv8/IJsdv0J7rE
+         Otx6uZ7RepoRRWyNCQxs9tucnzgB7TwDCg0sc5R7ZkigyNNhOk7QUUNa8NGhUEdi8Tm9
+         s6ylnNIFcrBjsFuf/Zl319OS0Fxd2vJ6GXTusTKbTzVROaomMOFg/XsNkvema9SYr+FG
+         vEnQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750399532; x=1751004332;
+        d=1e100.net; s=20230601; t=1750399644; x=1751004444;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Gkd41WsjguVOu2NBDtKwFOEZdFlvEA2btEl/Afg5iyw=;
-        b=vqYqwetEevaTDtDF+e7bOYFjLXmKVN0gyLynJ/gabKTrLVq126Fmqq1KTveGs60/xq
-         wQFgMKB1wmrCMQWwzW3ZlMJ6SV8WwC9PteqqvjHQ0SObIZu6rP39whM23Rc0i0cZjVqN
-         AD9HskjelljNphYIJETO9aSC0x8Qq7W945B0zGs/V4vV2Jm5iTasSsGeD8cYFWRlc+c8
-         uze5EN9x+4E41OgRoV9JU+VkgLgPDlwZIv+MbDGBpsPU7ZVv6VqmeiJTZasxzGq5lb8d
-         rIJSVlu6zXHY0P54PrSDBx521AL0MNifihgEVcI1/eIALWc3X+B5AmB5qM0LUCqU3IXH
-         uC2A==
-X-Forwarded-Encrypted: i=1; AJvYcCVKKvoY0ISZf5e1lkyUksSYnie0nirUQwB2ID50usPqyzmXYaHpxgn+DJElFQt5DGbwnA/5+VEv2gA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzdrgT68yG3cdYPkcUkvJ8qlB17LkNiirnZZJ8mpi+Ol70mWumU
-	+SdxbPNxqUydE9YiLYMfWMVWhxOhuaOe059Wv9p+fvEeDLmsHZaU6+hGZxNT72cI8w==
-X-Gm-Gg: ASbGncuL1fsWEoRJS+ijPkYKI3su5fGuJ9w1+bBDXmLnHDacXVg8br9RdX6bIY4bT+J
-	kvSnbA98908fygV4IRNAQbTeYFrO0GbLP2SszK+4jolExuBD/7ey3sL955QkR5navMHel+5A6VB
-	wof5C1xTUKghtUS66VQ0kb5ZBVIYb7L7nq1gVm8poHw9skwt54rb1w63z9DNW0RztQl9mUtfXSy
-	w7Qm5T3hf8l3zKiX2ZK2pMMcQDsdLfI0woLb6DGd/Xc/AqtFJ0rDsH2Ss94w3wTgoPfgWOw6rmn
-	cXuqx/ExxeTiIu6nHr5Mk0wvXy/XsYQgKpFUnQc4DDKM0qXVQrULuqWhsaGU59gPRxOXcqY5Q0D
-	KvXedXoVW1VzgQQYNNMlAQT16XCwrXvLvv2Mj950qF16S8zs=
-X-Google-Smtp-Source: AGHT+IHalWilCAQ8KI+kC57rKAF8fU8rIBDI3WLdoZh2xD1PCb6NaIWRHG9wUL1G72Rd+QxXM+sr2A==
-X-Received: by 2002:a05:6000:41d2:b0:3a4:d994:be4b with SMTP id ffacd0b85a97d-3a6d12c4551mr1076200f8f.1.1750399531847;
-        Thu, 19 Jun 2025 23:05:31 -0700 (PDT)
-Message-ID: <88bb4934-014b-4710-9e81-5697255cc626@suse.com>
-Date: Fri, 20 Jun 2025 08:05:21 +0200
+        bh=SA1FPn6AKM8E0dtTkAunz+/79tKrkDFOEgS2rFJshjo=;
+        b=s182HMhaAxpswEzfDNyuHtJXbxYgIibOctbev5HeYFYePHaDXpP5yje8Ds7m8Il62A
+         3fu1SMFzm67uOyNZAt+H2I0lsEQ5ni8VaMM4JR5Bq2JRQBOgtDeDPiEo6tYtGEvDe5iw
+         4nfvefPWz3XNS6WEHjjAAODIJ6Dt5mkbtjFaPsYG0QBUKQh4zvAHjyKKvuBc9vygejB1
+         JIq1V1GTa+KzLXLmD+HwbhgyJoePiRoT9/o0IqnQg1OZDmfjcUsdDuKzoeLskprq8DL6
+         WdWhFpi/6sd0CwI9pFoiZNKLdZKABtJxW2YJ3PDhmfsN9j7esx2v7zjz8epUedlSkHD1
+         SxnQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVXxYoNiKFTyWLDdBL6iJnzPXUCmV6pbviFpOgmW0Ud+Y56LjID6qY0bd8FZzFQ0oLsXyzW9zhNNQA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy3e+2/G+K8jZXrFBm0m8FWYVjMco4sTXFTTEEfYVAA09J7d3jo
+	MTN4gBYOGiJGa4yDUysa32NGhwK8808hkecANil80VId6f1B6hPQ6AI+k3Ayo+nF4w==
+X-Gm-Gg: ASbGncshA23m0Am9uEnXa4FYQkZ2ts8NT82Vt0IJ+XR4x2GjLcQbsTJWFx6xfftzx/6
+	Q4/ywGjN05O21iyHBpxS7Cisuds1x80/kcQfunEC0JOsxzO0rBjZNWE0ZPga/x/aamclyTr3GMx
+	6fqmn/LBXSRcVXRIq47piy6xCJprvwytL7U7ZLZYef21wN5yaaDiXxBo5uiYHzxNv3GvfheELmD
+	AAT6SjXso6WaUUkP/LonWmqte0clPHflyK02zEQcy8sUGpCwssNwG9uuyx5V13d+4Ek7hVvQD0g
+	wHS5AaHc6LU6QGVbC6kycyM4dkCASnKjNwljrcDp+IF2bG1Ea5GgxhEVqHSfDNjUdgKLNlRGnFO
+	XcjtoDzvhyM6NUlRmDaazXj7caG6P5GRe4GjnXTSFEDDUZKk=
+X-Google-Smtp-Source: AGHT+IHSx8XGwumblfyI4FHK6xe9nojpydZbH66fLatZ2pTtVaSux5TljF7AuyH+q7fipfIj64gU/w==
+X-Received: by 2002:a05:6000:290d:b0:3a5:2848:2445 with SMTP id ffacd0b85a97d-3a6d12e3666mr1054832f8f.16.1750399644313;
+        Thu, 19 Jun 2025 23:07:24 -0700 (PDT)
+Message-ID: <15db8155-3d3d-41e9-92be-957067a34e5f@suse.com>
+Date: Fri, 20 Jun 2025 08:07:13 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/4] xsm/dummy: Allow hwdom SYSCTL_readconsole/physinfo
+Subject: Re: [PATCH v3 2/2] xen/console: unify printout behavior for UART
+ emulators
 To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Jason Andryuk <jason.andryuk@amd.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- xen-devel@lists.xenproject.org
-References: <20250610225737.469690-1-jason.andryuk@amd.com>
- <20250610225737.469690-5-jason.andryuk@amd.com>
- <5f6d43da-2600-4c1c-9bcb-f13e8fce921e@suse.com>
- <bf6924f8-26c6-4f89-8441-155735384a8a@amd.com>
- <alpine.DEB.2.22.394.2506131547320.8480@ubuntu-linux-20-04-desktop>
- <bf6fd680-c608-4d64-ad8f-38eac102991e@suse.com>
- <alpine.DEB.2.22.394.2506161705370.1384757@ubuntu-linux-20-04-desktop>
- <5645e4dc-7598-414d-a2b5-39066401e9b3@suse.com>
- <alpine.DEB.2.22.394.2506181736280.1780597@ubuntu-linux-20-04-desktop>
+Cc: dmkhn@proton.me, andrew.cooper3@citrix.com, anthony.perard@vates.tech,
+ julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com,
+ dmukhin@ford.com, xen-devel@lists.xenproject.org
+References: <20250606201102.2414022-1-dmukhin@ford.com>
+ <20250606201102.2414022-3-dmukhin@ford.com>
+ <bcb3d553-b8aa-42ab-a9c8-7abf6f5d02c3@suse.com> <aEjInVF3zaa+VVd2@kraken>
+ <b27f7652-424f-479c-a4bc-ed2ecd46ccc8@suse.com>
+ <alpine.DEB.2.22.394.2506111155400.542113@ubuntu-linux-20-04-desktop>
+ <b9c263e0-3d8d-4966-8f54-611e58572118@suse.com>
+ <alpine.DEB.2.22.394.2506171735440.1780597@ubuntu-linux-20-04-desktop>
+ <2f726960-4bdc-4996-b204-722c0253e2ab@suse.com>
+ <alpine.DEB.2.22.394.2506181742281.1780597@ubuntu-linux-20-04-desktop>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -130,98 +127,121 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2506181736280.1780597@ubuntu-linux-20-04-desktop>
+In-Reply-To: <alpine.DEB.2.22.394.2506181742281.1780597@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 19.06.2025 02:36, Stefano Stabellini wrote:
-> On Tue, 17 Jun 2025, Jan Beulich wrote:
->> On 17.06.2025 02:10, Stefano Stabellini wrote:
->>> On Mon, 16 Jun 2025, Jan Beulich wrote:
->>>> On 14.06.2025 00:51, Stefano Stabellini wrote:
->>>>> On Wed, 11 Jun 2025, Jason Andryuk wrote:
->>>>>> On 2025-06-11 09:27, Jan Beulich wrote:
->>>>>>> On 11.06.2025 00:57, Jason Andryuk wrote:
->>>>>>>> Allow the hwdom to access the console, and to access physical
->>>>>>>> information about the system.
+On 19.06.2025 02:45, Stefano Stabellini wrote:
+> On Wed, 18 Jun 2025, Jan Beulich wrote:
+>> On 18.06.2025 02:39, Stefano Stabellini wrote:
+>>> On Thu, 12 Jun 2025, Jan Beulich wrote:
+>>>> On 11.06.2025 21:07, Stefano Stabellini wrote:
+>>>>> On Wed, 11 Jun 2025, Jan Beulich wrote:
+>>>>>> On 11.06.2025 02:07, dmkhn@proton.me wrote:
+>>>>>>> On Tue, Jun 10, 2025 at 10:21:40AM +0200, Jan Beulich wrote:
+>>>>>>>> On 06.06.2025 22:11, dmkhn@proton.me wrote:
+>>>>>>>>> From: Denis Mukhin <dmukhin@ford.com>
+>>>>>>>>>
+>>>>>>>>> If virtual UART from domain X prints on the physical console, the behavior is
+>>>>>>>>> updated to (see [1]):
+>>>>>>>>> - console focus in domain X: do not prefix messages;
+>>>>>>>>> - no console focus in domain X: prefix all messages with "(dX)".
 >>>>>>>>
->>>>>>>> xenconsoled can read Xen's dmesg.  If it's in hwdom, then that
->>>>>>>> permission would be required.
+>>>>>>>> While, as indicated (much) earlier, I can see why omitting the prefix
+>>>>>>>> may make sense for the domain having input focus, ...
+>>>>>>>>
+>>>>>>>>> --- a/xen/drivers/char/console.c
+>>>>>>>>> +++ b/xen/drivers/char/console.c
+>>>>>>>>> @@ -740,7 +740,17 @@ static long guest_console_write(XEN_GUEST_HANDLE_PARAM(char) buffer,
+>>>>>>>>>          if ( is_hardware_domain(cd) )
+>>>>>>>>>          {
+>>>>>>>>>              /* Use direct console output as it could be interactive */
+>>>>>>>>> +            char prefix[16] = "";
+>>>>>>>>> +            struct domain *consd;
+>>>>>>>>> +
+>>>>>>>>> +            consd = console_get_domain();
+>>>>>>>>> +            if ( consd != cd )
+>>>>>>>>> +                snprintf(prefix, sizeof(prefix), "(d%d) ", cd->domain_id);
+>>>>>>>>> +            console_put_domain(consd);
+>>>>>>>>> +
+>>>>>>>>>              nrspin_lock_irq(&console_lock);
+>>>>>>>>> +            if ( prefix[0] != '\0' )
+>>>>>>>>> +                console_send(prefix, strlen(prefix), flags);
+>>>>>>>>>              console_send(kbuf, kcount, flags);
+>>>>>>>>>              nrspin_unlock_irq(&console_lock);
+>>>>>>>>>          }
+>>>>>>>>
+>>>>>>>> ... this, aiui, is a behavioral change for the non-dom0less case, where
+>>>>>>>> Dom0 output will suddenly also gain the prefix. Which I don't think is
+>>>>>>>> wanted: Switching focus between Xen and Dom0 should remain unaffected
+>>>>>>>> in this regard.
 >>>>>>>
->>>>>>> Why would xenconsoled run in the hardware domain? It's purely a software
->>>>>>> construct, isn't it? As a daemon, putting it in the control domain may
->>>>>>> make sense. Otherwise it probably ought to go in a service domain.
+>>>>>>> This change ensures that dom0 traces aren't mixed with domU traces when domU
+>>>>>>> has input focus, or with Xen traces when the administrator is in the diagnostic
+>>>>>>> console.
 >>>>>>
->>>>>> My approach has been to transform dom0 into the hardware domain and add a new
->>>>>> control domain.  xenconsoled was left running in the hardware domain.
+>>>>>> That's what the description also tries to describe, yet I still regard it as
+>>>>>> a behavioral regression in (at least) the described scenario. The hardware
+>>>>>> domain presently not having (d0) prefixed to its output is deliberate imo,
+>>>>>> not accidental.
 >>>>>
->>>>> I think we should keep xenconsoled in the hardware domain because the
->>>>> control domain should be just optional. (However, one could say that with
->>>>> Denis' recent changes xenconsoled is also optional because one can use
->>>>> console hypercalls or emulators (PL011, NS16550) for all DomUs.)
+>>>>> If we only consider the classic dom0 and dom0less usage models, then
+>>>>> what you wrote makes perfect sense. In the classic dom0 case, it is best
+>>>>> for dom0 to have no prefix, which is the current behavior.
 >>>>>
+>>>>> However, things become more complex with dom0less. As we have discussed
+>>>>> previously, it has already become desirable on both ARM and x86 to align
+>>>>> on the same behavior. During our last discussion, the preference was to
+>>>>> add a '(d0)' prefix to clearly differentiate output from dom0 and other
+>>>>> domains.
 >>>>>
->>>>>
->>>>>> I suppose it could move.  Maybe that would be fine?  I haven't tried. The
->>>>>> Hyperlaunch code populates the console grants to point at the hardware domain,
->>>>>> and I just followed that.
->>>>>>
->>>>>> One aspect of why I left most things running in the Hardware domain was to not
->>>>>> run things in the Control domain.  If Control is the highest privileged
->>>>>> entity, we'd rather run software in lower privileged places. Especially
->>>>>> something like xenconsoled which is receiving data from the domUs.
->>>>>
->>>>> Yes, I agree with Jason. It is a bad idea to run xenconsoled in the
->>>>> Control Domain because the Control Domain is meant to be safe from
->>>>> interference. We want to keep the number of potential vehicles for
->>>>> interference down to a minimum and shared memory between Control Domain
->>>>> and DomUs is certainly a vehicle for interference.
+>>>>> Up to now, we could easily detect the two different cases depending on
+>>>>> the boot configuration. The problem arises with Denis' patches, which
+>>>>> add the ability for dynamically created guests via `xl` to access an
+>>>>> emulated NS16550 UART that prints to the console. Because these guests
+>>>>> are created dynamically, it is not clear how we are going to handle
+>>>>> this case.
 >>>>
->>>> As much as it is when xenconsoled runs in the hardware domain? Especially
->>>> if the hardware domain is also running e.g. PV backends or qemu instances?
+>>>> Why would this be not clear? We already prefix their output with "(d<N>)"
+>>>> when going the traditional way. The same would then apply to output
+>>>> coming through the emulated UART.
+>>>>
+>>>>> If we follow the dom0less preference, then we would need a '(d0)' prefix
+>>>>> for dom0. If we follow the classic dom0 model, then dom0 would remain
+>>>>> without a prefix, and the new domUs would have a prefix. This would
+>>>>> cause an inconsistency. However, this is what we have today on ARM with
+>>>>> dom0less.
+>>>>>
+>>>>> If Jan feels strongly that we should retain no prefix for the classic
+>>>>> dom0 case, which is understandable, then I believe the best course of
+>>>>> action would be to change our stance on dom0less on both ARM and x86 and
+>>>>> also use no prefix for dom0 in the dom0less case (which is the current
+>>>>> state on ARM).
+>>>>
+>>>> Leaving aside that "dom0 in the dom0less" ought to really be not-a-thing,
+>>>> I disagree. Present behavior of not prefixing the domain's output which
+>>>> has input focus continues to make sense. That requires Dom0 to have a
+>>>> prefix whenever it doesn't have input focus.
 >>>
->>> It looks like you are thinking of the possible
->>> interference from the Hardware Domain to the Control Domain via
->>> xenconsoled, correct?
->>
->> More like interference with the system as a whole, which simply includes
->> Control.
->>
->>> If that is the case, good thinking. I can see that you have really
->>> understood the essence of the problem we are trying to solve.
+>>> If I understood correctly I like your proposal. Let me rephrase it to
+>>> make sure we are aligned. You are suggesting that:
 >>>
->>> That is not an issue because the Control Domain shouldn't use PV
->>> console. Instead, it should use the console hypercall, or the
->>> PL011/NS16550 emulators in Xen.
+>>> - domains without input focus will print with a (d<N>) prefix
+>>> - the domain with input focus will print without a (d<N>) prefix
+>>> - this applies to both DomUs and Dom0
 >>
->> Well. I think the underlying concept of Control Domain being highly
->> privileged needs more general discussion. As indicated elsewhere, I
->> didn't think disaggregation (whichever way done) would leave any
->> domain with effectively full privilege. I wonder what others think.
+>> Except in the non-dom0less case, at least up and until there's at least
+>> one other domain. I.e. I'd like to keep Dom0 boot output as it is today,
+>> regardless of the presence of e.g. "conswitch=".
 > 
-> Keep in mind that the threat model here is different from the
-> datacenter. 
-> 
-> But the Control Domain is optional. If the user doesn't want it, the
-> user can avoid it.
-> 
-> Even on a fully static system (no VM creation), it is convenient to have
-> a domain that can monitor the others and trigger domain reset (we are
-> reimplementing domain reboot to be more like a soft reset so that the VM
-> doesn't need to be destroyed and recreated).
+> In the non-dom0less case, since dom0 has focus, it would naturally be
+> without (d<N>) prefix. Unless the user passes "conswitch=". Honestly, I
+> wouldn't special-case conswitch= that way and would prefer keep things
+> simple and consistent without corner cases. I don't think conswitch= is
+> so widely used that it is worth the complexity to special-case it.
 
-Suggesting that in such an environment Control should have no permission
-to create domains. This would avoid various threats, including e.g.
-massive amounts of dynamic memory allocation.
-
-> As an example, the Control
-> Domain could be used to monitor a non-safe domain such as Android,
-> detect an Android crash, and trigger an Android reboot.
-
-Yet at the same time it would have to be prevented from interfering with
-any of the critical domains.
-
-Altogether this doesn't sound like "highest privilege" to me then.
+Widely used or not - _I_ use it all the time in debug configs where serial
+is available.
 
 Jan
 
