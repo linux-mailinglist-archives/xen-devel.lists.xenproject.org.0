@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7AC76AE1848
-	for <lists+xen-devel@lfdr.de>; Fri, 20 Jun 2025 11:51:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1020742.1396887 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B90DEAE1849
+	for <lists+xen-devel@lfdr.de>; Fri, 20 Jun 2025 11:51:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1020743.1396897 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uSYOt-00088F-DQ; Fri, 20 Jun 2025 09:51:11 +0000
+	id 1uSYOv-0008Q1-Lf; Fri, 20 Jun 2025 09:51:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1020742.1396887; Fri, 20 Jun 2025 09:51:11 +0000
+Received: by outflank-mailman (output) from mailman id 1020743.1396897; Fri, 20 Jun 2025 09:51:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uSYOt-00086c-Ah; Fri, 20 Jun 2025 09:51:11 +0000
-Received: by outflank-mailman (input) for mailman id 1020742;
- Fri, 20 Jun 2025 09:51:10 +0000
+	id 1uSYOv-0008NJ-Im; Fri, 20 Jun 2025 09:51:13 +0000
+Received: by outflank-mailman (input) for mailman id 1020743;
+ Fri, 20 Jun 2025 09:51:13 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=FxVL=ZD=arm.com=hari.limaye@srs-se1.protection.inumbo.net>)
- id 1uSYOs-00082H-CC
- for xen-devel@lists.xenproject.org; Fri, 20 Jun 2025 09:51:10 +0000
+ id 1uSYOu-00082H-Ur
+ for xen-devel@lists.xenproject.org; Fri, 20 Jun 2025 09:51:12 +0000
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id 165ed3ea-4dbc-11f0-a30e-13f23c93f187;
- Fri, 20 Jun 2025 11:51:07 +0200 (CEST)
+ id 193fb1e8-4dbc-11f0-a30e-13f23c93f187;
+ Fri, 20 Jun 2025 11:51:12 +0200 (CEST)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4EC0E176A;
- Fri, 20 Jun 2025 02:50:47 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2D589176A;
+ Fri, 20 Jun 2025 02:50:52 -0700 (PDT)
 Received: from PWQ0QT7DJ1.arm.com (unknown [10.57.67.38])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id BFE243F673;
- Fri, 20 Jun 2025 02:51:05 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 9D68D3F673;
+ Fri, 20 Jun 2025 02:51:10 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,7 +42,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 165ed3ea-4dbc-11f0-a30e-13f23c93f187
+X-Inumbo-ID: 193fb1e8-4dbc-11f0-a30e-13f23c93f187
 From: Hari Limaye <hari.limaye@arm.com>
 To: xen-devel@lists.xenproject.org
 Cc: luca.fancellu@arm.com,
@@ -51,9 +51,9 @@ Cc: luca.fancellu@arm.com,
 	Bertrand Marquis <bertrand.marquis@arm.com>,
 	Michal Orzel <michal.orzel@amd.com>,
 	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH 5/6] arm/mpu: Implement early_fdt_map support in MPU systems
-Date: Fri, 20 Jun 2025 10:49:23 +0100
-Message-ID: <deccb1566ced5fa64f6de5c988ab968b76dc945a.1750411205.git.hari.limaye@arm.com>
+Subject: [PATCH 6/6] arm/mpu: Implement remove_early_mappings for MPU systems
+Date: Fri, 20 Jun 2025 10:49:24 +0100
+Message-ID: <9a8b831cc6ff25b03c7ffab6a5c79e653496aa4f.1750411205.git.hari.limaye@arm.com>
 X-Mailer: git-send-email 2.42.1
 In-Reply-To: <cover.1750411205.git.hari.limaye@arm.com>
 References: <cover.1750411205.git.hari.limaye@arm.com>
@@ -62,113 +62,31 @@ Content-Transfer-Encoding: 8bit
 
 From: Luca Fancellu <luca.fancellu@arm.com>
 
-Implement the function early_fdt_map(), which is responsible for mapping
-the Device Tree Blob in the early stages of the boot process, for MPU
-systems.
-
-We make use of the map_pages_to_xen() and destroy_xen_mappings() APIs.
-In particular the latter function is necessary in the case that the
-initial mapping of the fdt_header is insufficient to cover the entire
-DTB, as we must destroy and then remap the region due to the APIs no
-providing support for extending the size of an existing region.
+Implement remove_early_mappings for MPU systems.
 
 Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
 Signed-off-by: Hari Limaye <hari.limaye@arm.com>
 ---
- xen/arch/arm/mpu/setup.c | 74 ++++++++++++++++++++++++++++++++++++++--
- 1 file changed, 72 insertions(+), 2 deletions(-)
+ xen/arch/arm/mpu/setup.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
 diff --git a/xen/arch/arm/mpu/setup.c b/xen/arch/arm/mpu/setup.c
-index b4da77003f..ab00cb944b 100644
+index ab00cb944b..5928b534d5 100644
 --- a/xen/arch/arm/mpu/setup.c
 +++ b/xen/arch/arm/mpu/setup.c
-@@ -1,17 +1,87 @@
- /* SPDX-License-Identifier: GPL-2.0-only */
+@@ -97,7 +97,14 @@ void __init copy_from_paddr(void *dst, paddr_t paddr, unsigned long len)
  
-+#include <xen/bootfdt.h>
- #include <xen/bug.h>
- #include <xen/init.h>
-+#include <xen/libfdt/libfdt.h>
- #include <xen/mm.h>
-+#include <xen/pfn.h>
- #include <xen/types.h>
- #include <asm/setup.h>
- 
-+static paddr_t __initdata mapped_fdt_paddr = INVALID_PADDR;
-+static paddr_t __initdata mapped_fdt_limit = INVALID_PADDR;
-+
- void __init setup_pagetables(void) {}
- 
- void * __init early_fdt_map(paddr_t fdt_paddr)
+ void __init remove_early_mappings(void)
  {
 -    BUG_ON("unimplemented");
--    return NULL;
-+    /* Map at least a page containing the DTB address, exclusive range */
-+    paddr_t base = round_pgdown(fdt_paddr);
-+    paddr_t limit = round_pgup(fdt_paddr + sizeof(struct fdt_header));
-+    unsigned int flags = PAGE_HYPERVISOR_RO;
-+    void *fdt_virt = (void *)fdt_paddr; /* virt == paddr for MPU */
 +    int rc;
-+    unsigned long nr_mfns;
 +
-+    /*
-+     * Check whether the physical FDT address is set and meets the minimum
-+     * alignment requirement. Since we are relying on MIN_FDT_ALIGN to be at
-+     * least 8 bytes so that we always access the magic and size fields
-+     * of the FDT header after mapping the first chunk, double check if
-+     * that is indeed the case.
-+     */
-+    BUILD_BUG_ON(MIN_FDT_ALIGN < 8);
-+    if ( !fdt_paddr || fdt_paddr % MIN_FDT_ALIGN )
-+        return NULL;
++    if ( mapped_fdt_paddr == INVALID_PADDR )
++        return;
 +
-+    /* DTB starting at this address has already been mapped. */
-+    if ( mapped_fdt_paddr == fdt_paddr )
-+        return fdt_virt;
-+
-+    /*
-+     * DTB starting at a different address has been mapped, so destroy this
-+     * before continuing.
-+     */
-+    if ( mapped_fdt_paddr != INVALID_PADDR )
-+    {
-+        rc = destroy_xen_mappings(round_pgdown(mapped_fdt_paddr),
-+                                  mapped_fdt_limit);
-+        if ( rc )
-+            panic("Unable to unmap existing device-tree.\n");
-+    }
-+
-+    nr_mfns = (limit - base) >> PAGE_SHIFT;
-+
-+    rc = map_pages_to_xen(base, maddr_to_mfn(base), nr_mfns, flags);
++    rc = destroy_xen_mappings(round_pgdown(mapped_fdt_paddr), mapped_fdt_limit);
 +    if ( rc )
-+        panic("Unable to map the device-tree.\n");
-+
-+    mapped_fdt_paddr = fdt_paddr;
-+    mapped_fdt_limit = limit;
-+
-+    if ( fdt_magic(fdt_virt) != FDT_MAGIC )
-+        return NULL;
-+
-+    limit = round_pgup(fdt_paddr + fdt_totalsize(fdt_virt));
-+
-+    /* If the mapped range is not enough, map the rest of the DTB. */
-+    if ( limit > mapped_fdt_limit )
-+    {
-+        rc = destroy_xen_mappings(base, mapped_fdt_limit);
-+        if ( rc )
-+            panic("Unable to unmap the device-tree header.\n");
-+
-+        nr_mfns = (limit - base) >> PAGE_SHIFT;
-+
-+        rc = map_pages_to_xen(base, maddr_to_mfn(base), nr_mfns, flags);
-+        if ( rc )
-+            panic("Unable to map the device-tree.\n");
-+
-+        mapped_fdt_limit = limit;
-+    }
-+
-+    return fdt_virt;
++        panic("Unable to unmap the device-tree.\n");
  }
  
  /*
