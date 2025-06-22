@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A30DDAE3258
-	for <lists+xen-devel@lfdr.de>; Sun, 22 Jun 2025 23:31:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1021900.1397623 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5BD7FAE3284
+	for <lists+xen-devel@lfdr.de>; Sun, 22 Jun 2025 23:51:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1021907.1397634 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uTSHA-0000il-0X; Sun, 22 Jun 2025 21:30:56 +0000
+	id 1uTSaM-0003UO-HN; Sun, 22 Jun 2025 21:50:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1021900.1397623; Sun, 22 Jun 2025 21:30:55 +0000
+Received: by outflank-mailman (output) from mailman id 1021907.1397634; Sun, 22 Jun 2025 21:50:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uTSH9-0000gl-UG; Sun, 22 Jun 2025 21:30:55 +0000
-Received: by outflank-mailman (input) for mailman id 1021900;
- Sun, 22 Jun 2025 21:30:54 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uTSaM-0003SR-EL; Sun, 22 Jun 2025 21:50:46 +0000
+Received: by outflank-mailman (input) for mailman id 1021907;
+ Sun, 22 Jun 2025 21:50:45 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=WoFT=ZF=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1uTSH8-0000gf-M5
- for xen-devel@lists.xenproject.org; Sun, 22 Jun 2025 21:30:54 +0000
-Received: from tor.source.kernel.org (tor.source.kernel.org
- [2600:3c04:e001:324:0:1991:8:25])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2b60e598-4fb0-11f0-a30f-13f23c93f187;
- Sun, 22 Jun 2025 23:30:51 +0200 (CEST)
+ id 1uTSaL-0003SL-2V
+ for xen-devel@lists.xenproject.org; Sun, 22 Jun 2025 21:50:45 +0000
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f0d00838-4fb2-11f0-b894-0df219b8e170;
+ Sun, 22 Jun 2025 23:50:42 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 0FAA660052;
- Sun, 22 Jun 2025 21:30:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7683C4CEE3;
- Sun, 22 Jun 2025 21:30:47 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 8CA3660EDF;
+ Sun, 22 Jun 2025 21:50:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E358C4CEE3;
+ Sun, 22 Jun 2025 21:50:38 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,140 +41,159 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2b60e598-4fb0-11f0-a30f-13f23c93f187
+X-Inumbo-ID: f0d00838-4fb2-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1750627849;
-	bh=1WHOrDmxX+S1gNKbRkBpiy7iIDp48xtuOEDupSqobM4=;
+	s=k20201202; t=1750629040;
+	bh=w2eqZtNz3Hb/uDhj7Xf+kXbPo60Zn2SLlh+4f3k3GEc=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=iRIik7bKG8mJzo+hrcx5IoM2c7eVDVEKHC5+SQzD1TKcYx9MoHqxAPPWcjQz9RLtN
-	 VvO0oYydDVJQlybAShjw/MT+pduBYIXtTUoXCDeqePktxG1uR6gQkwp0FMkuveWpyb
-	 o/CGbpHluranEg1JlaIO1kCBDPAZwJYaJuM0J7DMtkSvvuc5tHIiPakKfL8p0uvtOT
-	 04vZJ9GhxaiX0ddhVEQ+/Ro2P6xpk96jX0mvK6TXjqKjSeTFVvhpcsu9tm5TxqH5PT
-	 ail4EpJqCWbm2apJloWeM0aB5K3JBE9bspqDjbREhHblxkbK2pGTbF/OBgz7hM9Wsx
-	 zaaNThSFvH1/A==
-Date: Sun, 22 Jun 2025 14:30:46 -0700 (PDT)
+	b=NxcEixXyXz5dNH2YUXuOyLc76sVKAyNzU750MO7RQR9xkvfOd2TjVLe1yKu8LT3uN
+	 5lu83niOGKFBBmLwzfdecn3wgioWSFB5jPWn2fyhr30HhIRvLKsZVLbFipXlUJTeWo
+	 vx2lYsm3vKEY8PIfWAW4WMz6PDUqqDomRWw4CCFK0MlloUddSwXAIMo7WN7FrP79iu
+	 x8GoWiZzAhxZygIJA3Tyhtq6P4lMw9dQaGYhOx54OnyEvB7mgxZZqiu1XYoGMnwRfE
+	 x5tncbuKLnJ9oactmfMKtmWt90samr4rZZwQ07/KO5qDvaqaG3NyngvONWa22S9RJJ
+	 0r1FW7Qnlrc8A==
+Date: Sun, 22 Jun 2025 14:50:37 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>, jbeulich@suse.com, 
-    roger.pau@citrix.com
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
+To: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
+cc: Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, 
+    Grygorii Strashko <grygorii_strashko@epam.com>, 
+    Bertrand Marquis <Bertrand.Marquis@arm.com>, 
     "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
     Andrew Cooper <andrew.cooper3@citrix.com>, 
     Anthony PERARD <anthony.perard@vates.tech>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>, 
-    Juergen Gross <jgross@suse.com>, Julien Grall <julien@xen.org>, 
+    Jan Beulich <jbeulich@suse.com>, Juergen Gross <jgross@suse.com>, 
     Michal Orzel <michal.orzel@amd.com>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-    Grygorii Strashko <grygorii_strashko@epam.com>
-Subject: Re: [RFC PATCH v4 5/8] xen/domctl: extend XEN_DOMCTL_assign_device
- to handle not only iommu
-In-Reply-To: <1780646c-cb6f-4508-86c8-a573fbc09f6a@epam.com>
-Message-ID: <alpine.DEB.2.22.394.2506221428420.8066@ubuntu-linux-20-04-desktop>
-References: <cover.1747669845.git.oleksii_moisieiev@epam.com> <4f58bf9c47c40413ee9250c4cd21458382aac857.1747669845.git.oleksii_moisieiev@epam.com> <alpine.DEB.2.22.394.2505211715210.147219@ubuntu-linux-20-04-desktop> <f7a82cbe-2967-487f-9947-b56d1dea3e84@epam.com>
- <alpine.DEB.2.22.394.2506171701190.1780597@ubuntu-linux-20-04-desktop> <1780646c-cb6f-4508-86c8-a573fbc09f6a@epam.com>
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [RFC PATCH v4 6/8] xen/arm: scmi: introduce SCI SCMI SMC
+ multi-agent driver
+In-Reply-To: <90d57a47-56e6-4ddb-83fd-c5b5ee612d21@epam.com>
+Message-ID: <alpine.DEB.2.22.394.2506221438250.8066@ubuntu-linux-20-04-desktop>
+References: <cover.1747669845.git.oleksii_moisieiev@epam.com> <318044ae12f13b6b297b3f5fda577a1a6cd143da.1747669845.git.oleksii_moisieiev@epam.com> <alpine.DEB.2.22.394.2505231114050.147219@ubuntu-linux-20-04-desktop> <04B1F737-5E6B-47C0-B2B9-74288C68E68A@arm.com>
+ <50ff5d2b-bd17-4833-b497-0dda6f75964a@epam.com> <alpine.DEB.2.22.394.2506171625110.1780597@ubuntu-linux-20-04-desktop> <538e4b45-74e7-4992-a9e2-7678756f7612@xen.org> <90d57a47-56e6-4ddb-83fd-c5b5ee612d21@epam.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: multipart/mixed; BOUNDARY="8323329-1219214540-1750628947=:8066"
+Content-ID: <alpine.DEB.2.22.394.2506221449100.8066@ubuntu-linux-20-04-desktop>
+
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
+
+--8323329-1219214540-1750628947=:8066
+Content-Type: text/plain; CHARSET=UTF-8
+Content-Transfer-Encoding: 8BIT
+Content-ID: <alpine.DEB.2.22.394.2506221449101.8066@ubuntu-linux-20-04-desktop>
 
 On Thu, 19 Jun 2025, Oleksii Moisieiev wrote:
-> On 18/06/2025 03:04, Stefano Stabellini wrote:
-> > On Thu, 12 Jun 2025, Oleksii Moisieiev wrote:
-> >> Hi Stefano,
-> >>
-> >> I'm very sorry for a long silence. Please see my answers below:
-> >>
-> >> On 22/05/2025 03:25, Stefano Stabellini wrote:
-> >>> On Mon, 19 May 2025, Oleksii Moisieiev wrote:
-> >>>> From: Grygorii Strashko<grygorii_strashko@epam.com>
-> >>>>
-> >>>> Add chained handling of assigned DT devices to support access-controller
-> >>>> functionality through SCI framework, so DT device assign request can be
-> >>>> passed to FW for processing and enabling VM access to requested device
-> >>>> (for example, device power management through FW interface like SCMI).
-> >>>>
-> >>>> The SCI access-controller DT device processing is chained after IOMMU
-> >>>> processing and expected to be executed for any DT device regardless of its
-> >>>> protection by IOMMU (or if IOMMU is disabled).
-> >>>>
-> >>>> This allows to pass not only IOMMU protected DT device through
-> >>>> xl.cfg:"dtdev" property for processing:
-> >>>>
-> >>>> dtdev = [
-> >>>>       "/soc/video@e6ef0000", <- IOMMU protected device
-> >>>>       "/soc/i2c@e6508000", <- not IOMMU protected device
-> >>>> ]
-> >>>>
-> >>>> The change is done in two parts:
-> >>>> 1) update iommu_do_dt_domctl() to check for dt_device_is_protected() and
-> >>>> not fail if DT device is not protected by IOMMU
-> >>>> 2) add chained call to sci_do_domctl() in do_domctl()
-> >>>>
-> >>>> Signed-off-by: Grygorii Strashko<grygorii_strashko@epam.com>
-> >>>> Signed-off-by: Oleksii Moisieiev<oleksii_moisieiev@epam.com>
-> >>>> ---
-> >>>>
-> >>>>
-> >>>>
-> >>>>    xen/arch/arm/firmware/sci.c             | 37 +++++++++++++++++++++++++
-> >>>>    xen/arch/arm/include/asm/firmware/sci.h | 14 ++++++++++
-> >>>>    xen/common/domctl.c                     | 19 +++++++++++++
-> >>>>    xen/drivers/passthrough/device_tree.c   |  6 ++++
-> >>>>    4 files changed, 76 insertions(+)
-> >>>>
-> >>>> diff --git a/xen/arch/arm/firmware/sci.c b/xen/arch/arm/firmware/sci.c
-> >>>> index e1522e10e2..8efd541c4f 100644
-> >>>> --- a/xen/arch/arm/firmware/sci.c
-> >>>> +++ b/xen/arch/arm/firmware/sci.c
-> >>>> @@ -126,6 +126,43 @@ int sci_assign_dt_device(struct domain *d, struct dt_device_node *dev)
-> >>>>        return 0;
-> >>>>    }
-> >>>>    
-> >>>> +int sci_do_domctl(struct xen_domctl *domctl, struct domain *d,
-> >>>> +                  XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
-> >>>> +{
-> >>>> +    struct dt_device_node *dev;
-> >>>> +    int ret = 0;
-> >>>> +
-> >>>> +    switch ( domctl->cmd )
-> >>>> +    {
-> >>>> +    case XEN_DOMCTL_assign_device:
-> >>>> +        ret = -EOPNOTSUPP;
-> >>> Are you sure -EOPNOTSUPP is the right error code for the 3 checks below?
-> >> The -EOPNOTSUPP code is used because this is part of a chained call after
-> >> iommu_do_domctl, as stated in xen/common/domctl.c:859. The
-> >> XEN_DOMCTL_assign_device
-> >> call is expected to handle any DT device, regardless of whether the DT
-> >> device is
-> >> protected by an IOMMU or if the IOMMU is disabled.
-> >> The following cases are considered:
-> >>
-> >> 1. IOMMU Protected Device (Success)
-> >>
-> >> If the device is protected by the IOMMU and iommu_do_domctl returns 0,
-> >> we continue
-> >> processing the DT device by calling sci_do_domctl.
-> >>
-> >> 2. IOMMU Disabled (-EOPNOTSUPP from iommu_do_domctl)
-> >>
-> >> If iommu_do_domctl returns -EOPNOTSUPP, indicating that the IOMMU is
-> >> disabled,
-> >> we still proceed to call sci_do_domctl.
-> > OK this makes sense.  I think it is OK to have a special error code to
-> > say "the IOMMU is disabled" but I don't know if it is a good idea to try
-> > to use -EOPNOTSUPP for that. -EOPNOTSUPP could mean a hypervisor
-> > configuration with domctl disabled, for instance.
+> On 18/06/2025 10:22, Julien Grall wrote:
+> > Hi,
 > >
-> > It might be wiser to use a different error code. Maybe ENOENT?
+> > On 18/06/2025 00:38, Stefano Stabellini wrote:
+> >> On Thu, 12 Jun 2025, Grygorii Strashko wrote:
+> >>> On 02.06.25 10:17, Bertrand Marquis wrote:
+> >>>>> On the other hand, if we also want to handle the case where the SCMI
+> >>>>> server could be on a separate co-processor, then what this code is 
+> >>>>> doing
+> >>>>> is not sufficient because we also need a dcache flush, in addition to
+> >>>>> the DSB.
+> >>>>>
+> >>>>> Bertrand, can you double-check?
+> >>>>
+> >>>> If we want to handle a case where the memory is accessible to a 
+> >>>> coprocessor
+> >>>> but there is no cache coherency, we need to flush the dcache 
+> >>>> definitely.
+> >>>>
+> >>>> Seeing the amount of data here, I do agree with Stefano that it 
+> >>>> would be a
+> >>>> good
+> >>>> idea to make the provision to flush the data cache in all cases. 
+> >>>> Even if the
+> >>>> data
+> >>>> is accessed by a secure partition or the firmware coherently, 
+> >>>> flushing in
+> >>>> all cases
+> >>>> would have very limited performance impact here.
+> >>>>
+> >>>> There is the other solution to have some kind of parameter to say 
+> >>>> if the
+> >>>> accessor
+> >>>> has coherent cache access but I do not think the performance impact 
+> >>>> here
+> >>>> would
+> >>>> justify such a complexity.
+> >>>>
+> >>> The SCMI shmem expected to be mapped as MT_NON_CACHEABLE in all cases.
 > >
-> I see that in the following commit:
+> > I can't find MT_NON_CACHEABLE anywhere in Xen or Linux. My 
+> > interpretation is that the memory attribute would be normal memory non 
+> > cacheable. However, this doesn't add up with ...
+> >
+> Sorry for the confusion. This define was taken from TF-A and it is the 
+> same as Xen MT_NORMAL_NC.
 > 
-> 71e617a6b8 (use is_iommu_enabled() where appropriate..., 2019-09-17)
+> The main idea was to mention that memory is non_cachable.
 > 
-> -ENOSYS return code was changed to -EOPNOTSUPP in iommu_do_domctl.
+> >>> The Linux does devm_ioremap() -> ioremap() ->
+> >>> (ARM64)  __ioremap((addr), (size), __pgprot(PROT_DEVICE_nGnRE))
+> >
+> > ... this line. This is device nGnRE which is a lot more restrictive 
+> > (for instance it doesn't allow unaligned access).
+> >
+> In Xen scmi memory is mapped using ioremap_nocache which is mapped as 
+> MT_DEVICE_nGnRE (same as linux).
 > 
-> It's not clear to me why this was done from the commit description.
+> In TF-A SCMI shared memory is mapped as MT_DEVICE (which is 
+> nGnRE: MAIR_DEV_nGnRE).
 > 
-> Maybe we should add commit author?
+> Again, sorry for the confusion.
+> 
+> >>>
+> >>> There is also note in docs:
+> >>> "+- shmem: shared memory for messages transfer, **Xen page aligned** 
+> >>> with
+> >>> mapping``p2m_mmio_direct_nc``."
+> >>>
+> >>> In the case of SCP - the SCMI shmem can be actually be in SRAM.
+> >>>
+> >>> So, are you sure cache manipulations are required here?
+> >>
+> >> No, if the memory is mapped as uncacheable everywhere then the cache
+> >> manipulations are not needed. However, we probably still need a dsb.
+> >>
+> >> I understand now why they decided to use __memcpy_fromio in Linux: it is
+> >> not MMIO but they needed a memcpy followed by DSB, so they decided to
+> >> reuse the existing MMIO functions although the buffer is not MMIO.
+> >
+> > From my understanding, memcpy_fromio() is not just a mempcy() + dsb. 
+> > It also guarantees the access will be aligned (this is not guarantee 
+> > by our memcpy()).
+> >
+>  From my understanding Linux using memcpy_fromio() because memcpy 
+> function is highly
+> 
+> optimized in linux and will produce exception,and looking into the 
+> memcpy implementation
+> 
+> in Xen (xen/arch/arm/arm64/lib/memcpy.S) I'm not sure if it can be used 
+> instead of memcpy_fromio. Could you please advise how to proceed?
 
-Roger and Jan might know
+If we map the memory in Xen as normal memory non-cacheable, then for
+sure we should be able to use the regular memcpy plus a DSB at the end.
+That's because unaligned accesses are allowed.
+
+On the other hand, if we map the memory in Xen as device memory, then we
+need to be careful about alignment.
+
+Looking at xen/arch/arm/arm64/lib/memcpy.S, it seems to me that:
+- it uses aligned accesses for size >= 16 bytes
+- for size < 16 bytes, accesses might be unaligned depending on the
+  alignment of the start address
+- the start address, assuming it is the shared memory start address, is
+  4K aligned, so we should be fine?
+
+So it seems to me that we should be OK with using the regular memcpy
+(plus a DSB at the end). It would be good for someone else to confirm.
+--8323329-1219214540-1750628947=:8066--
 
