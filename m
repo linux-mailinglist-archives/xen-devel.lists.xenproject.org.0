@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5BD7FAE3284
-	for <lists+xen-devel@lfdr.de>; Sun, 22 Jun 2025 23:51:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1021907.1397634 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F0A90AE329B
+	for <lists+xen-devel@lfdr.de>; Sun, 22 Jun 2025 23:58:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1021914.1397644 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uTSaM-0003UO-HN; Sun, 22 Jun 2025 21:50:46 +0000
+	id 1uTShS-00046F-7b; Sun, 22 Jun 2025 21:58:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1021907.1397634; Sun, 22 Jun 2025 21:50:46 +0000
+Received: by outflank-mailman (output) from mailman id 1021914.1397644; Sun, 22 Jun 2025 21:58:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uTSaM-0003SR-EL; Sun, 22 Jun 2025 21:50:46 +0000
-Received: by outflank-mailman (input) for mailman id 1021907;
- Sun, 22 Jun 2025 21:50:45 +0000
+	id 1uTShS-00044W-4R; Sun, 22 Jun 2025 21:58:06 +0000
+Received: by outflank-mailman (input) for mailman id 1021914;
+ Sun, 22 Jun 2025 21:58:04 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=WoFT=ZF=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1uTSaL-0003SL-2V
- for xen-devel@lists.xenproject.org; Sun, 22 Jun 2025 21:50:45 +0000
+ id 1uTShQ-00044Q-Kt
+ for xen-devel@lists.xenproject.org; Sun, 22 Jun 2025 21:58:04 +0000
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f0d00838-4fb2-11f0-b894-0df219b8e170;
- Sun, 22 Jun 2025 23:50:42 +0200 (CEST)
+ id f75c381a-4fb3-11f0-b894-0df219b8e170;
+ Sun, 22 Jun 2025 23:58:02 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 8CA3660EDF;
- Sun, 22 Jun 2025 21:50:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E358C4CEE3;
- Sun, 22 Jun 2025 21:50:38 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id D524760052;
+ Sun, 22 Jun 2025 21:58:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC1B4C4CEE3;
+ Sun, 22 Jun 2025 21:57:58 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,159 +41,572 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f0d00838-4fb2-11f0-b894-0df219b8e170
+X-Inumbo-ID: f75c381a-4fb3-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1750629040;
-	bh=w2eqZtNz3Hb/uDhj7Xf+kXbPo60Zn2SLlh+4f3k3GEc=;
+	s=k20201202; t=1750629480;
+	bh=nx9S8aKRlmqpd0gqbwBjwEtzKb50thPuQXZaHCOn0o0=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=NxcEixXyXz5dNH2YUXuOyLc76sVKAyNzU750MO7RQR9xkvfOd2TjVLe1yKu8LT3uN
-	 5lu83niOGKFBBmLwzfdecn3wgioWSFB5jPWn2fyhr30HhIRvLKsZVLbFipXlUJTeWo
-	 vx2lYsm3vKEY8PIfWAW4WMz6PDUqqDomRWw4CCFK0MlloUddSwXAIMo7WN7FrP79iu
-	 x8GoWiZzAhxZygIJA3Tyhtq6P4lMw9dQaGYhOx54OnyEvB7mgxZZqiu1XYoGMnwRfE
-	 x5tncbuKLnJ9oactmfMKtmWt90samr4rZZwQ07/KO5qDvaqaG3NyngvONWa22S9RJJ
-	 0r1FW7Qnlrc8A==
-Date: Sun, 22 Jun 2025 14:50:37 -0700 (PDT)
+	b=WXubS/Bk7RKBEV6FqDG3FNf02tYNnHaDyIFg2XnXc/LhsXkZ+gDOcjSHhrTgenRPz
+	 MQPZfQrX2/QaXMx4DGgIjnMv/7X4nngY5LX0FT8ecRdUC+wFlgCMrHOq1tVeG7DKWe
+	 z92sl/GwSArHW6YF6Z7L2EQ8b6VKmi8+mwI38V+USugRFYVkiZdEkZgggpS4iZnfDv
+	 Pjpw5/xTvprgvXjM8cSOie2Odw+mbtZcG/A4Ey3X52ilN/eniQkxF82IVSBEhzUKXb
+	 TE/9M9DALBzJb+JUXl/foxiO09+PrhCGwEJZuJPfxgOovyr9uf5p8odldofghJFTCb
+	 NWru7BX8h1qYQ==
+Date: Sun, 22 Jun 2025 14:57:57 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
-cc: Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, 
-    Grygorii Strashko <grygorii_strashko@epam.com>, 
-    Bertrand Marquis <Bertrand.Marquis@arm.com>, 
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
     "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
     Andrew Cooper <andrew.cooper3@citrix.com>, 
     Anthony PERARD <anthony.perard@vates.tech>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
     Jan Beulich <jbeulich@suse.com>, Juergen Gross <jgross@suse.com>, 
-    Michal Orzel <michal.orzel@amd.com>, 
+    Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>, 
     =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [RFC PATCH v4 6/8] xen/arm: scmi: introduce SCI SCMI SMC
- multi-agent driver
-In-Reply-To: <90d57a47-56e6-4ddb-83fd-c5b5ee612d21@epam.com>
-Message-ID: <alpine.DEB.2.22.394.2506221438250.8066@ubuntu-linux-20-04-desktop>
-References: <cover.1747669845.git.oleksii_moisieiev@epam.com> <318044ae12f13b6b297b3f5fda577a1a6cd143da.1747669845.git.oleksii_moisieiev@epam.com> <alpine.DEB.2.22.394.2505231114050.147219@ubuntu-linux-20-04-desktop> <04B1F737-5E6B-47C0-B2B9-74288C68E68A@arm.com>
- <50ff5d2b-bd17-4833-b497-0dda6f75964a@epam.com> <alpine.DEB.2.22.394.2506171625110.1780597@ubuntu-linux-20-04-desktop> <538e4b45-74e7-4992-a9e2-7678756f7612@xen.org> <90d57a47-56e6-4ddb-83fd-c5b5ee612d21@epam.com>
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    Grygorii Strashko <grygorii_strashko@epam.com>
+Subject: Re: [RFC PATCH v4 8/8] docs: armproposa: l to add separate SCMI node
+ for Xen agent
+In-Reply-To: <e4bf11e1-5bf5-4428-bd73-4fd2cb2029fb@epam.com>
+Message-ID: <alpine.DEB.2.22.394.2506221451440.8066@ubuntu-linux-20-04-desktop>
+References: <cover.1747669845.git.oleksii_moisieiev@epam.com> <3f7e1e99f5d1018064f3c4825aff16bd487cf558.1747669845.git.oleksii_moisieiev@epam.com> <alpine.DEB.2.22.394.2505231309090.147219@ubuntu-linux-20-04-desktop> <e5e8b7b3-a9c3-4e1a-9241-6776990b6e11@epam.com>
+ <alpine.DEB.2.22.394.2506171720390.1780597@ubuntu-linux-20-04-desktop> <e4bf11e1-5bf5-4428-bd73-4fd2cb2029fb@epam.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323329-1219214540-1750628947=:8066"
-Content-ID: <alpine.DEB.2.22.394.2506221449100.8066@ubuntu-linux-20-04-desktop>
+Content-Type: multipart/mixed; BOUNDARY="8323329-1007122159-1750629204=:8066"
+Content-ID: <alpine.DEB.2.22.394.2506221453400.8066@ubuntu-linux-20-04-desktop>
 
   This message is in MIME format.  The first part should be readable text,
   while the remaining parts are likely unreadable without MIME-aware tools.
 
---8323329-1219214540-1750628947=:8066
+--8323329-1007122159-1750629204=:8066
 Content-Type: text/plain; CHARSET=UTF-8
 Content-Transfer-Encoding: 8BIT
-Content-ID: <alpine.DEB.2.22.394.2506221449101.8066@ubuntu-linux-20-04-desktop>
+Content-ID: <alpine.DEB.2.22.394.2506221453401.8066@ubuntu-linux-20-04-desktop>
 
 On Thu, 19 Jun 2025, Oleksii Moisieiev wrote:
-> On 18/06/2025 10:22, Julien Grall wrote:
-> > Hi,
-> >
-> > On 18/06/2025 00:38, Stefano Stabellini wrote:
-> >> On Thu, 12 Jun 2025, Grygorii Strashko wrote:
-> >>> On 02.06.25 10:17, Bertrand Marquis wrote:
-> >>>>> On the other hand, if we also want to handle the case where the SCMI
-> >>>>> server could be on a separate co-processor, then what this code is 
-> >>>>> doing
-> >>>>> is not sufficient because we also need a dcache flush, in addition to
-> >>>>> the DSB.
-> >>>>>
-> >>>>> Bertrand, can you double-check?
+> On 18/06/2025 03:35, Stefano Stabellini wrote:
+> > On Thu, 12 Jun 2025, Oleksii Moisieiev wrote:
+> >> On 23/05/2025 23:19, Stefano Stabellini wrote:
+> >>> On Mon, 19 May 2025, Oleksii Moisieiev wrote:
+> >>>> From: Grygorii Strashko<grygorii_strashko@epam.com>
 > >>>>
-> >>>> If we want to handle a case where the memory is accessible to a 
-> >>>> coprocessor
-> >>>> but there is no cache coherency, we need to flush the dcache 
-> >>>> definitely.
-> >>>>
-> >>>> Seeing the amount of data here, I do agree with Stefano that it 
-> >>>> would be a
-> >>>> good
-> >>>> idea to make the provision to flush the data cache in all cases. 
-> >>>> Even if the
-> >>>> data
-> >>>> is accessed by a secure partition or the firmware coherently, 
-> >>>> flushing in
-> >>>> all cases
-> >>>> would have very limited performance impact here.
-> >>>>
-> >>>> There is the other solution to have some kind of parameter to say 
-> >>>> if the
-> >>>> accessor
-> >>>> has coherent cache access but I do not think the performance impact 
-> >>>> here
-> >>>> would
-> >>>> justify such a complexity.
-> >>>>
-> >>> The SCMI shmem expected to be mapped as MT_NON_CACHEABLE in all cases.
-> >
-> > I can't find MT_NON_CACHEABLE anywhere in Xen or Linux. My 
-> > interpretation is that the memory attribute would be normal memory non 
-> > cacheable. However, this doesn't add up with ...
-> >
-> Sorry for the confusion. This define was taken from TF-A and it is the 
-> same as Xen MT_NORMAL_NC.
-> 
-> The main idea was to mention that memory is non_cachable.
-> 
-> >>> The Linux does devm_ioremap() -> ioremap() ->
-> >>> (ARM64)  __ioremap((addr), (size), __pgprot(PROT_DEVICE_nGnRE))
-> >
-> > ... this line. This is device nGnRE which is a lot more restrictive 
-> > (for instance it doesn't allow unaligned access).
-> >
-> In Xen scmi memory is mapped using ioremap_nocache which is mapped as 
-> MT_DEVICE_nGnRE (same as linux).
-> 
-> In TF-A SCMI shared memory is mapped as MT_DEVICE (which is 
-> nGnRE: MAIR_DEV_nGnRE).
-> 
-> Again, sorry for the confusion.
-> 
+> >>>> Proposal description to add separate SCMI DT node for Xen management agent
+> >>>> under "chosen" or xen-config node, like Hyperlaunch "xen,config".
+> >>> I think it is OK to place a larger "xen,config" node under /chosen with
+> >>> more information for Xen to setup SCMI more easily.
 > >>>
-> >>> There is also note in docs:
-> >>> "+- shmem: shared memory for messages transfer, **Xen page aligned** 
-> >>> with
-> >>> mapping``p2m_mmio_direct_nc``."
 > >>>
-> >>> In the case of SCP - the SCMI shmem can be actually be in SRAM.
+> >>>> This proposal introduces a new approach to the Xen multi-domain
+> >>>> configuration, where all Xen-specific configuration has been moved
+> >>>> under the "/chosen" node. This requires less Dom0 device tree
+> >>>> manipulation and isolates Xen configuration from domain configuration.
+> >>>>
+> >>>> This approach provides the following device tree (DT) parameters:
+> >>>>
+> >>>> - "xen,scmi-secondary-agents": A Xen-specific parameter under the
+> >>>> "/chosen" node, which describes the SCMI agent configuration for
+> >>>> the domains.
+> >>>> - the SCMI configuration for Xen (privileged agent) and the shared
+> >>>> memory configuration for all agents are provided under the "/chosen"
+> >>>> node and are used strictly by Xen for its initial configuration.
+> >>>> - the scmi_shm and SCMI configuration for Dom0 are placed in the
+> >>>> "/firmware/scmi" node so that they can be moved to Dom0 without
+> >>>> any changes.
+> >>> Isn't the SCMI configuration present in /firmware/scmi referring to the
+> >>> privileged agent=0 meant to be used by Xen?
 > >>>
-> >>> So, are you sure cache manipulations are required here?
+> >>> I certainly see benefits in simplifying the configuration and especially
+> >>> reducing the amount of changes a user might have to make on the
+> >>> underlying device tree, but if the user needs to change /firmware/scmi
+> >>> with the Dom0 information, it seems more dangerous and error prone than
+> >>> the previous approach.
+> >>>
+> >> The idea is to move the privileged agent=0 configuration to the /chosen
+> >> node and
 > >>
-> >> No, if the memory is mapped as uncacheable everywhere then the cache
-> >> manipulations are not needed. However, we probably still need a dsb.
+> >> assign agent=1 to the Dom0 node under /firmware/scmi.
 > >>
-> >> I understand now why they decided to use __memcpy_fromio in Linux: it is
-> >> not MMIO but they needed a memcpy followed by DSB, so they decided to
-> >> reuse the existing MMIO functions although the buffer is not MMIO.
+> >> Benefits of This Approach:
+> >> - No Modification of the Xen DT Node Required
+> >>
+> >>       This eliminates the need to modify the Xen Device Tree (DT) node
+> >> before creating Dom0 in
+> >>
+> >>       order to set the correct shared memory (shmem).
+> >>
+> >> -Consistent SCMI Configuration Format
+> >>
+> >>     The Dom0 DT will have the same SCMI configuration format as other
+> >> domains, simplifying the
+> >>
+> >>     overall configuration process.
+> >>
+> >> - Unified SCMI Configuration Method
+> >>
+> >>      There will no longer be a need to use a different approach for SCMI
+> >> configuration in Dom0
+> >>
+> >>     compared to other domains.
+> >>
+> >> - Separation Between Dom0 and Privileged Node
+> >>
+> >>         This provides a clear separation between the Dom0 node and the
+> >> privileged node.
+> >>
+> >>         For example:
+> >>               If Dom0 only requires the clock protocol, but the Xen SCMI
+> >> configuration requires additional protocols,
+> >>
+> >>               this approach allows Dom0 to receive only the necessary
+> >> protocol configuration.
+> > I don't think this is a good idea because we end up confusing the data
+> > for Xen and the data for the DomUs/Dom0 in the host device tree.
 > >
-> > From my understanding, memcpy_fromio() is not just a mempcy() + dsb. 
-> > It also guarantees the access will be aligned (this is not guarantee 
-> > by our memcpy()).
+> > I think we should follow these very simple guidelines:
 > >
->  From my understanding Linux using memcpy_fromio() because memcpy 
-> function is highly
+> > - The host DTB (the DTB given to Xen at boot) should be the same for Xen
+> >    and for Linux baremetal (no KVM), with the exception of the data under
+> >    the /chosen node
+> >
+> > - We can place Xen specific configurations under the /chosen node in the
+> >    host DTB, both Xen hypervisor configuration and also Dom0/DomU
+> >    configurations
+> >
+> > This way, the host information remains generic and the configuration for
+> > Xen the domUs/Dom0 is kept clearly separate from the rest. I don't
+> > think we can break these two assumptions but we have more freedom with
+> > the rest.
+> >
+> > If we start with these two simple assumptions, here are the
+> > consequences:
+> >
+> > - data under /firmware/scmi should be the same for Xen and baremetal
+> >    Linux, ideally it would describe Xen's agent0 channel in both cases
 > 
-> optimized in linux and will produce exception,and looking into the 
-> memcpy implementation
+> According to the proposal:
+> The data under the Host DT /firmware/scmi node will always point to the 
+> default OSPM agent, which will remain
 > 
-> in Xen (xen/arch/arm/arm64/lib/memcpy.S) I'm not sure if it can be used 
-> instead of memcpy_fromio. Could you please advise how to proceed?
+> the same (smc-id and shmem) for both the BSP case (no Xen) and the Xen 
+> case (Dom0 domain).
+> 
+> Meanwhile, the Xen management agent's SCMI node and configuration are 
+> expected to be placed under /chosen.
+> 
+> This approach ensures that the Host DT remains as unchanged as possible.
 
-If we map the memory in Xen as normal memory non-cacheable, then for
-sure we should be able to use the regular memcpy plus a DSB at the end.
-That's because unaligned accesses are allowed.
+Yes, my main point is that all the device tree information, except for
+what is under /chosen, should be left unchanged between the BSP case (no
+Xen) and the Xen case.
 
-On the other hand, if we map the memory in Xen as device memory, then we
-need to be careful about alignment.
+We have freedom to decide:
+- the information we put under /chosen and how to interpret it
+- how to use the information under /firmware/scmi when Xen is present
 
-Looking at xen/arch/arm/arm64/lib/memcpy.S, it seems to me that:
-- it uses aligned accesses for size >= 16 bytes
-- for size < 16 bytes, accesses might be unaligned depending on the
-  alignment of the start address
-- the start address, assuming it is the shared memory start address, is
-  4K aligned, so we should be fine?
 
-So it seems to me that we should be OK with using the regular memcpy
-(plus a DSB at the end). It would be good for someone else to confirm.
---8323329-1219214540-1750628947=:8066--
+> Currently:
+> 
+> The Host DT /firmware/scmi node requires modification to point to the 
+> Xen management agent by changing
+> 
+> the smc-id and shmem values.
+
+I don't think we should require changes to /firmware/scmi in the host DT
+when Xen is present.
+
+Often, people don't know when or if Xen is present at the time the
+Device Tree is generated. So it is best to avoid modification (outside
+of /chosen).
+
+
+> At boot time, during Dom0 creation, the SCMI multi-agent driver reverts 
+> these changes.
+>
+>
+> > - We can add as many nodes as we like under /chosen, including a
+> >    xen,config node and also additional nodes for the domains config
+> >
+> > - We can define the new nodes under /chosen to be as simple as possible
+> >    for the user to configure them, while also trying to minimize
+> >    complexity in Xen in terms of DT manipulations
+> >
+> >
+> >
+> > If the Xen SCMI configuration data cannot be the same as the Linux
+> > baremetal SCMI configuration (i.e. /firmware/scmi has to be different in
+> > the two cases) I would still suggest to avoid modifying /firmware/scmi
+> > for Xen and instead provide the Xen configuration under /chosen. It is
+> > important to keep everything in the host DTB (except /chosen) the same
+> > between Linux baremetal and Xen.
+> >
+> > However, we can add a new node similar to /firmware/scmi under /chosen
+> > specifically for Xen, such as /chosen/xen-config/scmi
+> >
+> > The Dom0 configuration cannot be expected to be under /firmware/scmi.
+> > However, it could also be defined under /chosen.
+> 
+> No. The idea is to keep it and provide unchanged, but with possibility 
+> to "disable SCMI for Dom0"
+> - now with Xen bootarg parameter.
+> > Keep in mind that the more we add to /chosen the more difficult it will
+> > be for the user to configure the system. I think we should plan ahead to
+> > have ImageBuilder be able to generate the DT nodes under /chosen for Xen
+> > starting from the simplest possible configuration format provided by the
+> > user. The more complex and rich are the device tree nodes under /chosen,
+> > the more important is the documentation and ImageBuilder support for it.
+> >
+> >
+> Regarding all the other points you’ve mentioned – this is exactly what 
+> we are trying to achieve
+> 
+> with this proposal.
+
+OK good
+
+
+> We are proposing the following changes to the approach so that all 
+> requirements are met, and the
+> 
+> Xen device tree (DT) will remain the same as the Host Platform DT (BSP 
+> Linux), except for the /chosen node:
+> 
+> ```
+> 
+>      /{
+> 
+>          chosen {
+>              ...
+> 
+>              // Xen SCMI management channel
+>              scmi_shm_xen : sram@47ff1000 {
+>                  compatible = "arm,scmi-shmem";
+>                  reg = <0x0 0x47ff1000 0x0 0x1000>;
+>              };
+> 
+>              scmi_xen: scmi {
+>                  compatible = "arm,scmi-smc";
+>                  arm,smc-id = <0x82000003>; <--- Xen manegement agent smc-id
+>                  #address-cells = < 1>;
+>                  #size-cells = < 0>;
+>                  #access-controller-cells = < 1>;
+>                  shmem = <&scmi_shm_xen>; <--- Xen manegement agent shmem
+>              };
+> 
+>              // SCMI multi-agent configuration
+>              scmi_shm_2: sram@47ff2000 {
+>                      compatible = "arm,scmi-shmem";
+>                      reg = <0x0 0x47ff2000 0x0 0x1000>;
+>              };
+>              scmi_shm_3: sram@47ff3000 {
+>                      compatible = "arm,scmi-shmem";
+>                      reg = <0x0 0x47ff3000 0x0 0x1000>;
+>              };
+>              scmi_shm_4: sram@47ff4000 {
+>                      compatible = "arm,scmi-shmem";
+>                      reg = <0x0 0x47ff4000 0x0 0x1000>;
+>              };
+> 
+>              xen,scmi-secondary-agents = <
+>                          0x82000002 &scmi_shm   1
+>                          0x82000004 &scmi_shm_2 2
+>                          0x82000005 &scmi_shm_3 3
+>                          0x82000006 &scmi_shm_4 4>;
+>          };
+> 
+>          // Host SCMI OSPM channel - provided to the Dom0 as is if SCMI 
+> enabled for it (same address as Host Platform DT)
+>          scmi_shm: sram@47ff0000 {
+>                  compatible = "arm,scmi-shmem";
+>                  reg = <0x0 0x47ff0000 0x0 0x1000>;
+>          };
+> 
+>          firmware { <-- the below configuration is the same as Host 
+> Platform DT and will be passed to Dom0
+>              scmi: scmi {
+>                  compatible = "arm,scmi-smc";
+>                  arm,smc-id = <0x82000002>; <--- Host OSPM agent smc-id 
+> which is the same as in Host Platform DT
+>                  #address-cells = < 1>;
+>                  #size-cells = < 0>;
+>                  shmem = <&scmi_shm>; <--- Host OSPM agent shmem (same 
+> address as Host Platform DT)
+> 
+>                  protocol@X{
+>                  };
+>              };
+>          };
+>      }
+> 
+> ```
+
+I think this is OK, thank you!
+
+
+> >>>> This configuration allows the use of Xen-specific nodes to provide
+> >>>> information strictly needed by Xen while using the default SCMI
+> >>>> configuration for Dom0 and other domains. As a result, no additional
+> >>>> bindings need to be introduced to the device tree.
+> >>> This is not actually implemented by this patch series, right?
+> >> It is not. Just posted this document as a proposal.
+> >>>> Signed-off-by: Grygorii Strashko<grygorii_strashko@epam.com>
+> >>>> Signed-off-by: Oleksii Moisieiev<oleksii_moisieiev@epam.com>
+> >>>> ---
+> >>>>
+> >>>>
+> >>>>
+> >>>>    .../arm/firmware/arm-scmi-proposal.rst        | 224 ++++++++++++++++++
+> >>>>    1 file changed, 224 insertions(+)
+> >>>>    create mode 100644 docs/hypervisor-guide/arm/firmware/arm-scmi-proposal.rst
+> >>>>
+> >>>> diff --git a/docs/hypervisor-guide/arm/firmware/arm-scmi-proposal.rst b/docs/hypervisor-guide/arm/firmware/arm-scmi-proposal.rst
+> >>>> new file mode 100644
+> >>>> index 0000000000..fcc2ed2b65
+> >>>> --- /dev/null
+> >>>> +++ b/docs/hypervisor-guide/arm/firmware/arm-scmi-proposal.rst
+> >>>> @@ -0,0 +1,224 @@
+> >>>> +
+> >>>> +Proposal for SCMI multi-agent driver bindings
+> >>>> +=============================================
+> >>>> +
+> >>>> +Now the Xen configuration for SCMI multi-agent support is done in a bit complicated way, especially
+> >>>> +from SCMI multi-agent driver initialization and Dom0 DT manipulation point of view.
+> >>>> +Also it does not take into account future requirements to support SCP SCMI FW.
+> >>>> +
+> >>>> +To enable SCMI multi-agent user need:
+> >>>> +
+> >>>> +* take host DT with basic SCMI enabled
+> >>>> +* add SCMI shared-memory nodes for all agents
+> >>>> +* update SCMI node to point on SCMI Xen management channel (``[smc-id, shmem]``)
+> >>>> +* add "xen,scmi-secondary-agents" property to the "\chosen" node
+> >>>> +
+> >>>> +.. code::
+> >>>> +
+> >>>> +   chosen {
+> >>>> +      xen,scmi-secondary-agents = <
+> >>>> +                    1 0x82000003 &scmi_shm_1
+> >>>> +                    2 0x82000004 &scmi_shm_2
+> >>>> +                    3 0x82000005 &scmi_shm_3
+> >>>> +                    4 0x82000006 &scmi_shm_4>;
+> >>>> +    }
+> >>>> +
+> >>>> +    /{
+> >>>> +            // SCMI shared-memory nodes for all agents
+> >>>> +            scmi_shm_0 : sram@47ff0000 {
+> >>>> +                compatible = "arm,scmi-shmem";
+> >>>> +                reg = <0x0 0x47ff0000 0x0 0x1000>;
+> >>>> +            };
+> >>>> +            scmi_shm_1: sram@47ff1000 {
+> >>>> +                    compatible = "arm,scmi-shmem";
+> >>>> +                    reg = <0x0 0x47ff1000 0x0 0x1000>;
+> >>>> +            };
+> >>>> +            scmi_shm_2: sram@47ff2000 {
+> >>>> +                    compatible = "arm,scmi-shmem";
+> >>>> +                    reg = <0x0 0x47ff2000 0x0 0x1000>;
+> >>>> +            };
+> >>>> +            scmi_shm_3: sram@47ff3000 {
+> >>>> +                    compatible = "arm,scmi-shmem";
+> >>>> +                    reg = <0x0 0x47ff3000 0x0 0x1000>;
+> >>>> +            };
+> >>>> +            scmi_shm_4: sram@47ff4000 {
+> >>>> +                    compatible = "arm,scmi-shmem";
+> >>>> +                    reg = <0x0 0x47ff4000 0x0 0x1000>;
+> >>>> +            };
+> >>>> +
+> >>>> +            firmware {
+> >>>> +                scmi: scmi {
+> >>>> +                    compatible = "arm,scmi-smc";
+> >>>> +                    arm, smc - id = <0x82000002>; <--- Xen management agent channel "smc-id"
+> >>>> +                    #address-cells = < 1>;
+> >>>> +                    #size-cells = < 0>;
+> >>>> +                    #access-controller-cells = < 1>;
+> >>>> +                    shmem = <&scmi_shm_0>; <--- Xen management agent channel "shmem"
+> >>>> +
+> >>>> +                    protocol@X{
+> >>>> +                    };
+> >>>> +                };
+> >>>> +            };
+> >>>> +    }
+> >>>> +
+> >>>> +Important thing to note is that all information about multi-channel support is strictly Xen specific.
+> >>>> +
+> >>>> +During initialization the SCMI multi-agent driver uses Host DT SCMI node and
+> >>>> +"xen,scmi-secondary-agents" property to init itself and then, during Dom0 creation, manipulates
+> >>>> +Dom0 DT to remove Xen specific SCMI info and update dom0 SCMI nodes with Dom0 SCMI agent specific
+> >>>> +information.
+> >>>> +
+> >>>> +There are two negative points:
+> >>>> +
+> >>>> +1) Double DT modification - one is user to set up SCMI Xen support in Host DT, second -
+> >>>> +   Dom0 DT manipulation.
+> >>>> +2) In case of future support of mailbox shared-memory transport there could be up to 4 mailboxes and
+> >>>> +   up to 2 shared-memories per SCMI agent channel.
+> >>>> +
+> >>>> +Hence SCMI multi-agent support is Xen specific knowledge there is a proposal to add it as Xen
+> >>>> +specific DT definitions and so minimize Host and Dom0 DT manipulations.
+> >>>> +Those definitions can be added in "/chosen" or, ideally, in "xen,config" node (like in Hyperlaunch design).
+> >>>> +
+> >>>> +The SCMI binding stays generic, just two SCMI nodes defined - one for Xen management channel and
+> >>>> +one for Host Dom0 OSPM.
+> >>>> +
+> >>>> +Example of using "chosen" for configuration:
+> >>>> +
+> >>>> +.. code::
+> >>>> +
+> >>>> +    /{
+> >>>> +
+> >>>> +        chosen {
+> >>>> +            ...
+> >>>> +
+> >>>> +            // Xen SCMI management channel
+> >>>> +            scmi_shm_0 : sram@47ff0000 {
+> >>>> +                compatible = "arm,scmi-shmem";
+> >>>> +                reg = <0x0 0x47ff0000 0x0 0x1000>;
+> >>>> +            };
+> >>>> +            scmi_xen: scmi {
+> >>>> +                compatible = "arm,scmi-smc";
+> >>>> +                arm,smc-id = <0x82000002>; <--- Xen manegement agent smc-id
+> >>>> +                #address-cells = < 1>;
+> >>>> +                #size-cells = < 0>;
+> >>>> +                #access-controller-cells = < 1>;
+> >>>> +                shmem = <&scmi_shm_0>; <--- Xen manegement agent shmem
+> >>>> +            };
+> >>>> +
+> >>>> +            // SCMI multi-agent configuration
+> >>>> +            scmi_shm_2: sram@47ff2000 {
+> >>>> +                    compatible = "arm,scmi-shmem";
+> >>>> +                    reg = <0x0 0x47ff2000 0x0 0x1000>;
+> >>>> +            };
+> >>>> +            scmi_shm_3: sram@47ff3000 {
+> >>>> +                    compatible = "arm,scmi-shmem";
+> >>>> +                    reg = <0x0 0x47ff3000 0x0 0x1000>;
+> >>>> +            };
+> >>>> +            scmi_shm_4: sram@47ff4000 {
+> >>>> +                    compatible = "arm,scmi-shmem";
+> >>>> +                    reg = <0x0 0x47ff4000 0x0 0x1000>;
+> >>>> +            };
+> >>>> +            xen,scmi-secondary-agents = <
+> >>>> +                        1 0x82000003 &scmi_shm
+> >>>> +                        2 0x82000004 &scmi_shm_2
+> >>>> +                        3 0x82000005 &scmi_shm_3
+> >>>> +                        4 0x82000006 &scmi_shm_4>;
+> >>>> +        };
+> >>>> +
+> >>>> +        // Host SCMI OSPM channel - provided to the Dom0 as is if SCMI enabled for it
+> >>>> +        scmi_shm: sram@47ff1000 {
+> >>>> +                compatible = "arm,scmi-shmem";
+> >>>> +                reg = <0x0 0x47ff1000 0x0 0x1000>;
+> >>>> +        };
+> >>>> +
+> >>>> +        firmware {
+> >>>> +            scmi: scmi {
+> >>>> +                compatible = "arm,scmi-smc";
+> >>>> +                arm,smc-id = <0x82000003>; <--- Host OSPM agent smc-id
+> >>>> +                #address-cells = < 1>;
+> >>>> +                #size-cells = < 0>;
+> >>>> +                shmem = <&scmi_shm>; <--- Host OSPM agent shmem
+> >>> By OSPM you mean Dom0 and not Xen? So this is a change compared to a
+> >>> device tree for baremetal Linux without Xen?
+> OSPM is OS in general, for example Linux.
+> >>> Let me ask the same question differently. In the case of barematal Linux
+> >>> without Xen (no KVM), what would Linux see under /firmware/scmi as
+> >>> smc-id and shmem? The same as the one that Xen would use for itself? Or
+> >>> the same as the ones that Dom0 would use when Xen is present?
+> >> If this DT is used with the baremetal Linux - then the Linux Kernel will
+> >>
+> >> see Dom0 "smc-id" and "shmen" under /firmware/scmi.
+> >>
+> >>>> +                protocol@X{
+> >>>> +                };
+> >>>> +            };
+> >>>> +        };
+> >>>> +    }
+> >>>> +
+> >>>> +
+> >>>> +In the above case:
+> >>>> +
+> >>>> +1) Xen SCMI multi-agent can be probed with DT configuration from "chosen" (or special "xen,config")
+> >>>> +   node and all Xen related nodes can be easily dropped from Dom0 DT.
+> >>>> +2) Host SCMI OSPM channel DT nodes can be copied to Dom0 DT without changes if SCMI enabled for it.
+> >>>> +3) Future support for mailbox shared-memory transport (SCP SCMI FW) can be simplified as no more
+> >>>> +   manipulation required with Dom0 SCMI "arm,smc-id" and "shmem" DT properties.
+> >>> Yes, I can see the benefit if we can arrange it so that the underlying
+> >>> host device tree is the same that Linux would use baremetal. And all the
+> >>> extra configuration is placed under /chosen in "xen,config" node or
+> >>> similar. I would probably call it "xen,scmi".
+> >> Personally, I would keep "xen,config" as it leaves room to add additional
+> >>
+> >> configuration nodes in the future.
+> >>
+> >>>> +Example of using "xen,config" for configuration:
+> >>>> +
+> >>>> +.. code::
+> >>>> +
+> >>>> +    hypervisor {
+> >>>> +        compatible = “hypervisor,xen”
+> >>>> +
+> >>>> +        // Configuration container
+> >>>> +        config {
+> >>>> +            compatible = "xen,config";
+> >>>> +            ...
+> >>>> +
+> >>>> +            // Xen SCMI management channel
+> >>>> +            scmi_shm_0 : sram@47ff0000 {
+> >>>> +                compatible = "arm,scmi-shmem";
+> >>>> +                reg = <0x0 0x47ff0000 0x0 0x1000>;
+> >>>> +            };
+> >>>> +            scmi_xen: scmi {
+> >>>> +                compatible = "arm,scmi-smc";
+> >>>> +                arm,smc-id = <0x82000002>; <--- Xen manegement agent smc-id
+> >>>> +                #address-cells = < 1>;
+> >>>> +                #size-cells = < 0>;
+> >>>> +                #access-controller-cells = < 1>;
+> >>>> +                shmem = <&scmi_shm_0>; <--- Xen manegement agent shmem
+> >>>> +            };
+> >>>> +
+> >>>> +            // SCMI multi-agent configuration
+> >>>> +            scmi_shm_2: sram@47ff2000 {
+> >>>> +                    compatible = "arm,scmi-shmem";
+> >>>> +                    reg = <0x0 0x47ff2000 0x0 0x1000>;
+> >>>> +            };
+> >>>> +            scmi_shm_3: sram@47ff3000 {
+> >>>> +                    compatible = "arm,scmi-shmem";
+> >>>> +                    reg = <0x0 0x47ff3000 0x0 0x1000>;
+> >>>> +            };
+> >>>> +            scmi_shm_4: sram@47ff4000 {
+> >>>> +                    compatible = "arm,scmi-shmem";
+> >>>> +                    reg = <0x0 0x47ff4000 0x0 0x1000>;
+> >>>> +            };
+> >>>> +            xen,scmi-secondary-agents = <
+> >>>> +                        1 0x82000003 &scmi_shm
+> >>>> +                        2 0x82000004 &scmi_shm_2
+> >>>> +                        3 0x82000005 &scmi_shm_3
+> >>>> +                        4 0x82000006 &scmi_shm_4>;
+> >>>> +        };
+> >>>> +    };
+> >>>> +
+> >>>> +    /{
+> >>>> +        // Host SCMI OSPM channel - provided to the Dom0 as is if SCMI enabled for it
+> >>>> +        scmi_shm: sram@47ff1000 {
+> >>>> +                compatible = "arm,scmi-shmem";
+> >>>> +                reg = <0x0 0x47ff1000 0x0 0x1000>;
+> >>>> +        };
+> >>>> +
+> >>>> +        firmware {
+> >>>> +            scmi: scmi {
+> >>>> +                compatible = "arm,scmi-smc";
+> >>>> +                arm,smc-id = <0x82000003>; <--- Host OSPM agent smc-id
+> >>>> +                #address-cells = < 1>;
+> >>>> +                #size-cells = < 0>;
+> >>>> +                shmem = <&scmi_shm>; <--- Host OSPM agent shmem
+> >>>> +
+> >>>> +                protocol@X{
+> >>>> +                };
+> >>>> +            };
+> >>>> +        };
+> >>>> +    }
+> >>>> -- 
+> >>>> 2.34.1
+--8323329-1007122159-1750629204=:8066--
 
