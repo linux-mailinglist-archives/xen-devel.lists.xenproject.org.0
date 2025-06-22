@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A174AE3224
-	for <lists+xen-devel@lfdr.de>; Sun, 22 Jun 2025 22:59:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1021885.1397613 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A30DDAE3258
+	for <lists+xen-devel@lfdr.de>; Sun, 22 Jun 2025 23:31:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1021900.1397623 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uTRmD-0004Ci-SX; Sun, 22 Jun 2025 20:58:57 +0000
+	id 1uTSHA-0000il-0X; Sun, 22 Jun 2025 21:30:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1021885.1397613; Sun, 22 Jun 2025 20:58:57 +0000
+Received: by outflank-mailman (output) from mailman id 1021900.1397623; Sun, 22 Jun 2025 21:30:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uTRmD-0004BK-Ml; Sun, 22 Jun 2025 20:58:57 +0000
-Received: by outflank-mailman (input) for mailman id 1021885;
- Sun, 22 Jun 2025 20:58:56 +0000
+	id 1uTSH9-0000gl-UG; Sun, 22 Jun 2025 21:30:55 +0000
+Received: by outflank-mailman (input) for mailman id 1021900;
+ Sun, 22 Jun 2025 21:30:54 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=WoFT=ZF=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1uTRmC-0004BE-0k
- for xen-devel@lists.xenproject.org; Sun, 22 Jun 2025 20:58:56 +0000
-Received: from sea.source.kernel.org (sea.source.kernel.org
- [2600:3c0a:e001:78e:0:1991:8:25])
+ id 1uTSH8-0000gf-M5
+ for xen-devel@lists.xenproject.org; Sun, 22 Jun 2025 21:30:54 +0000
+Received: from tor.source.kernel.org (tor.source.kernel.org
+ [2600:3c04:e001:324:0:1991:8:25])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ad52ffad-4fab-11f0-a30f-13f23c93f187;
- Sun, 22 Jun 2025 22:58:42 +0200 (CEST)
+ id 2b60e598-4fb0-11f0-a30f-13f23c93f187;
+ Sun, 22 Jun 2025 23:30:51 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id D3F6F4A5D2;
- Sun, 22 Jun 2025 20:58:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 627F9C4CEED;
- Sun, 22 Jun 2025 20:58:39 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 0FAA660052;
+ Sun, 22 Jun 2025 21:30:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7683C4CEE3;
+ Sun, 22 Jun 2025 21:30:47 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,173 +42,140 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ad52ffad-4fab-11f0-a30f-13f23c93f187
+X-Inumbo-ID: 2b60e598-4fb0-11f0-a30f-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1750625920;
-	bh=N0tAVaVD4hZ8TVCPJmV8ViCmyPnYB5quhS1kLeigx6M=;
+	s=k20201202; t=1750627849;
+	bh=1WHOrDmxX+S1gNKbRkBpiy7iIDp48xtuOEDupSqobM4=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=HUfbamC0JtLsdkUTi6DKZ/X7Qrbh+Xch/aLD5D5QOcZo0myziScVHUMEwSq84eAmR
-	 ahK71OfCvjJrEU31jFeBbNOHDgM8zZHFZAFtS9XtOE4RhzhKmFnBSGzHCJuVDhR5DO
-	 BGE2xkxfsbKTtQZJHojxwI1xR8teZUFzE/DlrG3+vrF6qFrnN4eeXeiSC+692Tjjq5
-	 bFawLRAhEJrwgo/WcIemXsQ4pVO8QnJSSBaKF7E2h1ERo4Ix0fVSUBa0kH29gHSAIR
-	 KPDSUo2PFNv0c8DBK0AmWYLDQSkTVDZ/ZksrF8/XBjZlNDSnAF+FrSkqo9aErBT6Ev
-	 Ds4b4xqYIekGw==
-Date: Sun, 22 Jun 2025 13:58:35 -0700 (PDT)
+	b=iRIik7bKG8mJzo+hrcx5IoM2c7eVDVEKHC5+SQzD1TKcYx9MoHqxAPPWcjQz9RLtN
+	 VvO0oYydDVJQlybAShjw/MT+pduBYIXtTUoXCDeqePktxG1uR6gQkwp0FMkuveWpyb
+	 o/CGbpHluranEg1JlaIO1kCBDPAZwJYaJuM0J7DMtkSvvuc5tHIiPakKfL8p0uvtOT
+	 04vZJ9GhxaiX0ddhVEQ+/Ro2P6xpk96jX0mvK6TXjqKjSeTFVvhpcsu9tm5TxqH5PT
+	 ail4EpJqCWbm2apJloWeM0aB5K3JBE9bspqDjbREhHblxkbK2pGTbF/OBgz7hM9Wsx
+	 zaaNThSFvH1/A==
+Date: Sun, 22 Jun 2025 14:30:46 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>
+To: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>, jbeulich@suse.com, 
+    roger.pau@citrix.com
 cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>, 
-    Stefano Stabellini <stefano.stabellini@amd.com>, michal.orzel@amd.com, 
-    jbeulich@suse.com, julien@xen.org, roger.pau@citrix.com, 
-    bertrand.marquis@arm.com, federico.serafini@bugseng.com
-Subject: Re: [PATCH v5] automation/eclair: update configuration of D4.10
-In-Reply-To: <bb73b812ea04857c29bdf64c570eaafa@bugseng.com>
-Message-ID: <alpine.DEB.2.22.394.2506221355580.8066@ubuntu-linux-20-04-desktop>
-References: <alpine.DEB.2.22.394.2506201918100.2978375@ubuntu-linux-20-04-desktop> <bb73b812ea04857c29bdf64c570eaafa@bugseng.com>
+    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    Anthony PERARD <anthony.perard@vates.tech>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Juergen Gross <jgross@suse.com>, Julien Grall <julien@xen.org>, 
+    Michal Orzel <michal.orzel@amd.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    Grygorii Strashko <grygorii_strashko@epam.com>
+Subject: Re: [RFC PATCH v4 5/8] xen/domctl: extend XEN_DOMCTL_assign_device
+ to handle not only iommu
+In-Reply-To: <1780646c-cb6f-4508-86c8-a573fbc09f6a@epam.com>
+Message-ID: <alpine.DEB.2.22.394.2506221428420.8066@ubuntu-linux-20-04-desktop>
+References: <cover.1747669845.git.oleksii_moisieiev@epam.com> <4f58bf9c47c40413ee9250c4cd21458382aac857.1747669845.git.oleksii_moisieiev@epam.com> <alpine.DEB.2.22.394.2505211715210.147219@ubuntu-linux-20-04-desktop> <f7a82cbe-2967-487f-9947-b56d1dea3e84@epam.com>
+ <alpine.DEB.2.22.394.2506171701190.1780597@ubuntu-linux-20-04-desktop> <1780646c-cb6f-4508-86c8-a573fbc09f6a@epam.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Sun, 22 Jun 2025, Nicola Vetrini wrote:
-> On 2025-06-21 04:19, Stefano Stabellini wrote:
-> > MISRA C Directive 4.10 states that "Precautions shall be taken in order
-> > to prevent the contents of a header file being included more than
-> > once".
-> > 
-> > Add a SAF tag to the existing comment on top of cpufeatures.h.
+On Thu, 19 Jun 2025, Oleksii Moisieiev wrote:
+> On 18/06/2025 03:04, Stefano Stabellini wrote:
+> > On Thu, 12 Jun 2025, Oleksii Moisieiev wrote:
+> >> Hi Stefano,
+> >>
+> >> I'm very sorry for a long silence. Please see my answers below:
+> >>
+> >> On 22/05/2025 03:25, Stefano Stabellini wrote:
+> >>> On Mon, 19 May 2025, Oleksii Moisieiev wrote:
+> >>>> From: Grygorii Strashko<grygorii_strashko@epam.com>
+> >>>>
+> >>>> Add chained handling of assigned DT devices to support access-controller
+> >>>> functionality through SCI framework, so DT device assign request can be
+> >>>> passed to FW for processing and enabling VM access to requested device
+> >>>> (for example, device power management through FW interface like SCMI).
+> >>>>
+> >>>> The SCI access-controller DT device processing is chained after IOMMU
+> >>>> processing and expected to be executed for any DT device regardless of its
+> >>>> protection by IOMMU (or if IOMMU is disabled).
+> >>>>
+> >>>> This allows to pass not only IOMMU protected DT device through
+> >>>> xl.cfg:"dtdev" property for processing:
+> >>>>
+> >>>> dtdev = [
+> >>>>       "/soc/video@e6ef0000", <- IOMMU protected device
+> >>>>       "/soc/i2c@e6508000", <- not IOMMU protected device
+> >>>> ]
+> >>>>
+> >>>> The change is done in two parts:
+> >>>> 1) update iommu_do_dt_domctl() to check for dt_device_is_protected() and
+> >>>> not fail if DT device is not protected by IOMMU
+> >>>> 2) add chained call to sci_do_domctl() in do_domctl()
+> >>>>
+> >>>> Signed-off-by: Grygorii Strashko<grygorii_strashko@epam.com>
+> >>>> Signed-off-by: Oleksii Moisieiev<oleksii_moisieiev@epam.com>
+> >>>> ---
+> >>>>
+> >>>>
+> >>>>
+> >>>>    xen/arch/arm/firmware/sci.c             | 37 +++++++++++++++++++++++++
+> >>>>    xen/arch/arm/include/asm/firmware/sci.h | 14 ++++++++++
+> >>>>    xen/common/domctl.c                     | 19 +++++++++++++
+> >>>>    xen/drivers/passthrough/device_tree.c   |  6 ++++
+> >>>>    4 files changed, 76 insertions(+)
+> >>>>
+> >>>> diff --git a/xen/arch/arm/firmware/sci.c b/xen/arch/arm/firmware/sci.c
+> >>>> index e1522e10e2..8efd541c4f 100644
+> >>>> --- a/xen/arch/arm/firmware/sci.c
+> >>>> +++ b/xen/arch/arm/firmware/sci.c
+> >>>> @@ -126,6 +126,43 @@ int sci_assign_dt_device(struct domain *d, struct dt_device_node *dev)
+> >>>>        return 0;
+> >>>>    }
+> >>>>    
+> >>>> +int sci_do_domctl(struct xen_domctl *domctl, struct domain *d,
+> >>>> +                  XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
+> >>>> +{
+> >>>> +    struct dt_device_node *dev;
+> >>>> +    int ret = 0;
+> >>>> +
+> >>>> +    switch ( domctl->cmd )
+> >>>> +    {
+> >>>> +    case XEN_DOMCTL_assign_device:
+> >>>> +        ret = -EOPNOTSUPP;
+> >>> Are you sure -EOPNOTSUPP is the right error code for the 3 checks below?
+> >> The -EOPNOTSUPP code is used because this is part of a chained call after
+> >> iommu_do_domctl, as stated in xen/common/domctl.c:859. The
+> >> XEN_DOMCTL_assign_device
+> >> call is expected to handle any DT device, regardless of whether the DT
+> >> device is
+> >> protected by an IOMMU or if the IOMMU is disabled.
+> >> The following cases are considered:
+> >>
+> >> 1. IOMMU Protected Device (Success)
+> >>
+> >> If the device is protected by the IOMMU and iommu_do_domctl returns 0,
+> >> we continue
+> >> processing the DT device by calling sci_do_domctl.
+> >>
+> >> 2. IOMMU Disabled (-EOPNOTSUPP from iommu_do_domctl)
+> >>
+> >> If iommu_do_domctl returns -EOPNOTSUPP, indicating that the IOMMU is
+> >> disabled,
+> >> we still proceed to call sci_do_domctl.
+> > OK this makes sense.  I think it is OK to have a special error code to
+> > say "the IOMMU is disabled" but I don't know if it is a good idea to try
+> > to use -EOPNOTSUPP for that. -EOPNOTSUPP could mean a hypervisor
+> > configuration with domctl disabled, for instance.
+> >
+> > It might be wiser to use a different error code. Maybe ENOENT?
+> >
+> I see that in the following commit:
 > 
-> You say this, but technically the comment is not a SAF comment, just a regular
-> one that is interpreted to tailor the guideline.
-
-No, that is a mistake in the commit message. It should be changed.
-
-
-> > Add a header inclusion guard to compile.h.
-> > 
-> > Update ECLAIR configuration to:
-> > - extend existing deviation to other comments explicitly saying a file
-> >   is intended for multiple inclusion;
-> > - extend existing deviation to other autogenerated files;
-> > - tag the guidelines as clean.
-> > 
-> > Update deviations.rst accordingly.
-> > 
-> > Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
-> > Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
-> > ---
-> > Changes in v5:
-> > - add missing spaces in in-code comment
-> > ---
-> >  automation/eclair_analysis/ECLAIR/deviations.ecl | 11 +++++++----
-> >  automation/eclair_analysis/ECLAIR/tagging.ecl    |  1 +
-> >  docs/misra/deviations.rst                        | 12 ++++++++++++
-> >  xen/arch/x86/include/asm/cpufeatures.h           |  8 +++++---
-> >  xen/include/xen/compile.h.in                     |  3 +++
-> >  xen/tools/process-banner.sed                     |  5 +++++
-> >  6 files changed, 33 insertions(+), 7 deletions(-)
-> > 
-> > diff --git a/automation/eclair_analysis/ECLAIR/deviations.ecl
-> > b/automation/eclair_analysis/ECLAIR/deviations.ecl
-> > index 9c67358d46..3b5bc87e1d 100644
-> > --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
-> > +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
-> > @@ -72,11 +72,14 @@ they are not instances of commented-out code."
-> >  -config=MC3A2.D4.3,reports+={deliberate,
-> > "any_area(any_loc(file(arm64_bitops))&&context(name(int_clear_mask16)))"}
-> >  -doc_end
-> > 
-> > --doc_begin="Files that are intended to be included more than once do not
-> > need to
-> > -conform to the directive."
-> > +-doc_begin="Files that are intended to be included more than once (and have
-> > +a comment that says this explicitly) do not need to conform to the
-> > directive."
-> >  -config=MC3A2.D4.10,reports+={safe, "first_area(text(^/\\* This file is
-> > intended to be included multiple times\\. \\*/$, begin-4))"}
+> 71e617a6b8 (use is_iommu_enabled() where appropriate..., 2019-09-17)
 > 
-> [1] Here
+> -ENOSYS return code was changed to -EOPNOTSUPP in iommu_do_domctl.
 > 
-> > --config=MC3A2.D4.10,reports+={safe, "first_area(text(^/\\* Generated file,
-> > do not edit! \\*/$, begin-3))"}
-> > --config=MC3A2.D4.10,reports+={safe,
-> > "all_area(all_loc(file(^xen/include/generated/autoconf.h$)))"}
-> > +-config=MC3A2.D4.10,reports+={safe, "first_area(text(^/\\* Generated file,
-> > do not edit! \\*/$, begin-3...begin-2))"}
-> > +-doc_end
-> > +
-> > +-doc_begin="Autogenerated files that do not need to conform to the
-> > directive."
-> > +-config=MC3A2.D4.10,reports+={safe,
-> > "all_area(all_loc(file(^xen/include/generated/autoconf\\.h$)))"}
-> >  -doc_end
-> > 
-> >  -doc_begin="Including multiple times a .c file is safe because every
-> > function or data item
-> > diff --git a/automation/eclair_analysis/ECLAIR/tagging.ecl
-> > b/automation/eclair_analysis/ECLAIR/tagging.ecl
-> > index f9da5d5f4d..b95f07feb0 100644
-> > --- a/automation/eclair_analysis/ECLAIR/tagging.ecl
-> > +++ b/automation/eclair_analysis/ECLAIR/tagging.ecl
-> > @@ -23,6 +23,7 @@
-> >  "MC3A2.D1.1||
-> >  MC3A2.D2.1||
-> >  MC3A2.D4.1||
-> > +MC3A2.D4.10||
-> >  MC3A2.D4.11||
-> >  MC3A2.D4.14||
-> >  MC3A2.R1.1||
-> > diff --git a/docs/misra/deviations.rst b/docs/misra/deviations.rst
-> > index fe0b1e10a2..63caa8f4a2 100644
-> > --- a/docs/misra/deviations.rst
-> > +++ b/docs/misra/deviations.rst
-> > @@ -30,6 +30,18 @@ Deviations related to MISRA C:2012 Directives:
-> >         not to add an additional encapsulation layer.
-> >       - Tagged as `deliberate` for ECLAIR.
-> > 
-> > +   * - D4.10
-> > +     - Files that are intended to be included more than once (and have
-> > +       a comment that says this explicitly) do not need to conform to the
-> > +       directive.
-> > +     - Tagged as `safe` for ECLAIR.
-> > +
-> > +   * - D4.10
-> > +     - There are autogenerated files that do not need to comply to the
-> > +       directive.
-> > +     - Tagged as `safe` for ECLAIR. Such files are:
-> > +        - xen/include/generated/autoconf.h
-> > +
-> >     * - D4.10
-> >       - Including multiple times a .c file is safe because every function or
-> > data item
-> >         it defines would in (the common case) be already defined.
-> > diff --git a/xen/arch/x86/include/asm/cpufeatures.h
-> > b/xen/arch/x86/include/asm/cpufeatures.h
-> > index 9e3ed21c02..69041219cb 100644
-> > --- a/xen/arch/x86/include/asm/cpufeatures.h
-> > +++ b/xen/arch/x86/include/asm/cpufeatures.h
-> > @@ -1,6 +1,6 @@
-> > -/*
-> > - * Explicitly intended for multiple inclusion.
-> > - */
-> > +/* This file is intended to be included multiple times. */
-> > +/* #ifndef X86_CPUFEATURES_H */
-> > +/* #define X86_CPUFEATURES_H */
-> > 
+> It's not clear to me why this was done from the commit description.
 > 
-> Are these two lines really needed? I may be mistaken, but I think the
-> violation's first location would be the #include below with a comment a couple
-> of lines above captured by the config at the top [1]. @Federico thoughts?
+> Maybe we should add commit author?
 
-Without these 2 lines, ECLAIR complains about the following:
-
-#include <xen/lib/x86/cpuid-autogen.h>
-       ^
- MC3A2.D4.10non-compliant start of header file
-
-
-https://gitlab.com/xen-project/people/sstabellini/xen/-/jobs/10420715821
-
-https://saas.eclairit.com:3787/fs/var/local/eclair/xen-project.ecdf/xen-project/people/sstabellini/xen/ECLAIR_normal/ppp3/X86_64/10420715821/PROJECT.ecd;/sources/xen/arch/x86/include/asm/cpufeatures.h.html#R1_1{%22select%22:true,%22selection%22:{%22hiddenAreaKinds%22:[],%22hiddenSubareaKinds%22:[],%22show%22:false,%22selector%22:{%22enabled%22:true,%22negated%22:true,%22kind%22:0,%22domain%22:%22kind%22,%22inputs%22:[{%22enabled%22:true,%22text%22:%22violation%22}]}}}
-
+Roger and Jan might know
 
