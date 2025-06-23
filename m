@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5DC4BAE38AD
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Jun 2025 10:42:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1022173.1397904 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C3308AE38CC
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Jun 2025 10:45:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1022193.1397946 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uTckT-0001WM-I1; Mon, 23 Jun 2025 08:41:53 +0000
+	id 1uTcnj-0002UD-Gv; Mon, 23 Jun 2025 08:45:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1022173.1397904; Mon, 23 Jun 2025 08:41:53 +0000
+Received: by outflank-mailman (output) from mailman id 1022193.1397946; Mon, 23 Jun 2025 08:45:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uTckT-0001U3-Eg; Mon, 23 Jun 2025 08:41:53 +0000
-Received: by outflank-mailman (input) for mailman id 1022173;
- Mon, 23 Jun 2025 08:41:52 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1uTcnj-0002RT-CY; Mon, 23 Jun 2025 08:45:15 +0000
+Received: by outflank-mailman (input) for mailman id 1022193;
+ Mon, 23 Jun 2025 08:45:14 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1uTckS-0001Tx-8c
- for xen-devel@lists.xenproject.org; Mon, 23 Jun 2025 08:41:52 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1uTckR-00GA45-16;
- Mon, 23 Jun 2025 08:41:51 +0000
-Received: from [2a02:8012:3a1:0:bd17:6d03:6e6c:1c7e]
- by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1uTckQ-00ER50-24;
- Mon, 23 Jun 2025 08:41:50 +0000
+ (envelope-from <SRS0=H8L6=ZG=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uTcni-0002Pm-16
+ for xen-devel@lists.xenproject.org; Mon, 23 Jun 2025 08:45:14 +0000
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [2a00:1450:4864:20::42c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 6090c9d3-500e-11f0-a30f-13f23c93f187;
+ Mon, 23 Jun 2025 10:45:13 +0200 (CEST)
+Received: by mail-wr1-x42c.google.com with SMTP id
+ ffacd0b85a97d-3a52874d593so3862068f8f.0
+ for <xen-devel@lists.xenproject.org>; Mon, 23 Jun 2025 01:45:13 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-237d8393741sm76769495ad.15.2025.06.23.01.45.08
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 23 Jun 2025 01:45:11 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,262 +45,107 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=Lce3v2lnLDSzHOgj5m5InyIrlRGAMBDn6RG4aQB3Ogs=; b=aUr/H5QDjZ7e1nKsZWMIsiP/PO
-	J5/KFdmTOKaEbzTKVAkUwEdAhT1L4lqZYe8i7gMzvPVA786HS57VBlKZ20qoLieuJNkfufINZMIm0
-	TvcnGOEUqQxcpns3/TcBdn1awWeJ/fzoU/Sl6LUhVoS0hb/ANABNXOfwwro7dYrkaB6o=;
-Message-ID: <21cbc79b-2209-42ef-8085-81c41e8e697b@xen.org>
-Date: Mon, 23 Jun 2025 09:41:47 +0100
+X-Inumbo-ID: 6090c9d3-500e-11f0-a30f-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1750668312; x=1751273112; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=SQl2C1NqFLO06v8hScJ65RQV3iDSd7aA7Kk8jBlIKDY=;
+        b=buUegGkb0d2X0AxuYQYLATwX09fxsuoWpX/NsSmuj40VQDAtKUJifwCSNMEjq0LnhA
+         hfdL3/8JZuqJMpyEHAa/iOnVYDiCvhE6k33OvDemvJgML1iHiJBh00s+YjT8m8lDj/rI
+         WBUrKg8QzD7a76fn+gyZ/RlPQAn+ZzyV9Df98piyF/mzTts/N/ML6OBnYNus66VQRgiu
+         VrF7Q+lDkShLDBtXA766dQ5IAgTkTu8AuqumcF75ysNtqcgyzVpBRf+Ci48zKsKs/rxy
+         Juej03jyLkSJ9hbf9ZsWlZ+xaGWutTryL1Kc5RSVzj52vl1YGElZo4NPX+6afoX3nQGF
+         BaFQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1750668312; x=1751273112;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=SQl2C1NqFLO06v8hScJ65RQV3iDSd7aA7Kk8jBlIKDY=;
+        b=qy+PBFhSE/sJayJWIx3v5CLcaLP1jlc02bBljtYphE5KjzaKw0y9VYHA2NDyMDG4TY
+         p/cM5BzxgxqTHETOoAjF9nr2WEvjpisor8Jj3rOSzYdsJvwWmMulP7PRN+J+4f7cwJyI
+         blNAcNYQ0FLSIa3knSC+G4o3OkEPOr0qiqka+AIHXNgoB13aFEUGfg/Yo2F4kP7+OOzD
+         nSYhXQoqbTYOjXDgqopWCB0NqgehF7CBRKhYEgV5Rgvvdv4gq5w2fYsSfS86BVg9Vi/9
+         Voe+/Cv5V+/rTGPmA+96fi/e7anp/Cw1V8NwEgui44Ka6ioIcIlTt+Owxdh/p+Hv5tMq
+         o0Tg==
+X-Forwarded-Encrypted: i=1; AJvYcCXu7wCShq8l1bs5mA+S3sIBJpirUkRHOcgkr1lY0F6uUGXvBXPhj29F9fiJxWEn/5IAUD+/s4jL1/M=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx8A3nArmdWQKVXGoipkntjAyIxF68FOtS3SkRyaxPuVWaXZQiC
+	luWNSX3ACt1FKJaOdxpjH3fE7RKPmzUC7VPQGOZt9hWEQhdMum9a3TF+WCDC0m7qNA==
+X-Gm-Gg: ASbGncs6CDMGAvzs6+X/YxJh63+tPb6WO0zRaAbFCByeraIJptk93UU332NGToACN5q
+	StBzYqdPaIUE62XO4uqjIpUCiE17OtCEdAeZywpOLySspntF94yP1q958lSx+rtZm6JUgXp9auJ
+	4hfhhL+ptQ83o76r8gH4AQ1TXkm6yNUJh4wdhzPGxf4L3VxHKTkn70NXNekuypp7X8Q2f6GsG4O
+	xCv4qSDDReoZzCGWOdVcls8HHKOseqN4/XLxn+YIAYJ+X5FoBzWS2HdwXJDmA+PU0zYIDymhiT7
+	KKWMAfz97r5nDaHWNlV4ALYd1Cp1jmq+ivASdoqOum4e1058I+IbP/zj32tu2yAyYVxuXJDcb+/
+	r9ZGqS1KuNbH1mTg7O6Yh8jkibQZRu6pTFi2gH95sWW+gUo8=
+X-Google-Smtp-Source: AGHT+IGWWzEaCzUeuOCScwd87LR0sonjqern3BliBl2w+EXIXh9ahDMEn378NA47WiLD1TF3kVKDkQ==
+X-Received: by 2002:a05:6000:26d2:b0:3a5:2cf3:d6ab with SMTP id ffacd0b85a97d-3a6d130ef38mr9138024f8f.39.1750668312335;
+        Mon, 23 Jun 2025 01:45:12 -0700 (PDT)
+Message-ID: <00495ca3-55f1-422b-9839-aa54ec42a129@suse.com>
+Date: Mon, 23 Jun 2025 10:45:05 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 4/4] xen/arm: Implement standard PV time interface as
- per ARM DEN 0057A
-Content-Language: en-GB
-To: Koichiro Den <den@valinux.co.jp>, xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>, Jan Beulich <jbeulich@suse.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <20250621151201.896719-1-den@valinux.co.jp>
- <20250621151201.896719-5-den@valinux.co.jp>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <20250621151201.896719-5-den@valinux.co.jp>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [MINI-OS PATCH 0/6] hide struct start_info from PVH code
+To: Juergen Gross <jgross@suse.com>
+Cc: samuel.thibault@ens-lyon.org, minios-devel@lists.xenproject.org,
+ xen-devel@lists.xenproject.org
+References: <20250619113804.32694-1-jgross@suse.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20250619113804.32694-1-jgross@suse.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Hi Koichiro,
-
-I haven't checked all the details. I will mainly comment on the Xen 
-internals.
-
-On 21/06/2025 16:12, Koichiro Den wrote:
-> The VCPUOP_register_runstate_memory_area hypercall is still actively
-> used, e.g., in the Linux arm64 codebase. When KPTI is enabled, the area
-> was not registered from the beginning due to the VA not always being
-> valid. In such cases, Linux falls back to using the standard PV time
-> interface (ARM DEN 0057A), but this interface has not been implemented
-> in Xen for ARM64 (until this commit).
+On 19.06.2025 13:37, Juergen Gross wrote:
+> While working on xenstore-stubdom live update support I came across
+> some really unpleasant code using struct start_info even when running
+> in PVH mode.
 > 
-> The VCPUOP_register_runstate_phys_area was introduced, though it's
-> unclear whether this would be used in Linux arm64 and when it will be
-> prevalent amongst every possible downstream domain Linux variant. And of
-> course Linux is not an only option for the Xen arm64 domains.
+> Especially suspend/resume was doing some crazy stuff, including
+> overwriting the initial struct hvm_start_info partially.
 > 
-> Therefore, implementing the standard way of sharing PV time is
-> generically beneficial, avoiding reliance on specially crafted
-> hypercalls, the usage of which by guest VMs is not always guaranteed.
-> Note that the PV_TIME_ST interface communicates with IPA (GPA), not GVA.
+> This series is hiding struct start_info from PVH code. This didn't
+> result in any runtime error, but in future I'll need to access struct
+> hvm_start_info some time after boot, so I need to get that fixed.
 > 
-> Add the PV time interface according to ARM DEN 0057A.
+> Tested especially with xl suspend/resume and xl save/restore in PV and
+> in PVH mode.
 > 
-> Signed-off-by: Koichiro Den <den@valinux.co.jp>
-> ---
->   xen/arch/arm/domain.c                   | 30 +++++++++
->   xen/arch/arm/domain_build.c             | 87 ++++++++++++++++++++++++-
->   xen/arch/arm/include/asm/domain.h       | 17 +++++
->   xen/arch/arm/include/asm/smccc.h        | 12 ++++
->   xen/arch/arm/vsmc.c                     | 38 +++++++++++
->   xen/common/device-tree/dom0less-build.c |  2 +-
->   xen/include/xen/fdt-domain-build.h      |  2 +-
->   7 files changed, 183 insertions(+), 5 deletions(-)
-> 
-> diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
-> index be58a23dd725..e895e4111f1b 100644
-> --- a/xen/arch/arm/domain.c
-> +++ b/xen/arch/arm/domain.c
-> @@ -277,6 +277,18 @@ static void ctxt_switch_to(struct vcpu *n)
->       WRITE_SYSREG(n->arch.mdcr_el2, MDCR_EL2);
->   }
->   
-> +static void update_stolen_time(struct vcpu *n)
-> +{
-> +    uint64_t tot_stolen;
-> +
-> +    if ( is_idle_vcpu(current) )
-> +        return;
-> +
-> +    tot_stolen = n->runstate.time[RUNSTATE_runnable] +
-> +                 n->runstate.time[RUNSTATE_offline];
-> +    write_atomic(&n->arch.pv_time_region->stolen_time, tot_stolen);
-> +}
-> +
->   static void schedule_tail(struct vcpu *prev)
->   {
->       ASSERT(prev != current);
-> @@ -291,6 +303,8 @@ static void schedule_tail(struct vcpu *prev)
->   
->       update_runstate_area(current);
->   
-> +    update_stolen_time(current);
-> +
->       /* Ensure that the vcpu has an up-to-date time base. */
->       update_vcpu_system_time(current);
->   }
-> @@ -586,6 +600,8 @@ int arch_vcpu_create(struct vcpu *v)
->       if ( get_ssbd_state() == ARM_SSBD_RUNTIME )
->           v->arch.cpu_info->flags |= CPUINFO_WORKAROUND_2_FLAG;
->   
-> +    v->arch.pv_time_region = &v->domain->arch.pv_time_regions[v->vcpu_id];
-> +
->       return rc;
->   
->   fail:
-> @@ -707,6 +723,7 @@ int arch_domain_create(struct domain *d,
->                          unsigned int flags)
->   {
->       unsigned int count = 0;
-> +    int order;
->       int rc;
->   
->       BUILD_BUG_ON(GUEST_MAX_VCPUS < MAX_VIRT_CPUS);
-> @@ -791,6 +808,19 @@ int arch_domain_create(struct domain *d,
->       d->arch.sve_vl = config->arch.sve_vl;
->   #endif
->   
-> +    /*
-> +     * Preallocate the stolen time shared memory regions for all the
-> +     * possible vCPUs.
-> +     */
-> +    order = get_order_from_bytes(d->max_vcpus * sizeof(struct pv_time_region));
+> Juergen Gross (6):
+>   suspend: drop crazy pfn handling for PVH
+>   setup: drop parameter from map_shared_info()
+>   x86/pv: remove global start_info
+>   console: drop parameter from get_console()
+>   xenbus: drop parameter from get_xenbus()
+>   x86/pv: make start_info_ptr PV-only
 
-As this is an order, we could end up to waste memory fairly quickly. So 
-we should try to free the unused pages from the order. That said, the 
-maximum number of virtual CPUs we currently support is 128. If I am not 
-mistaken, this could fit in 2 4KB pages. So I would also be ok with a 
-BUILD_BUG_ON(MAX_VIRT_CPUS <= 128) and we defer this work.
+Before I even try: Does this series interfere in any way with the kexec one,
+and hence may need re-basing on top of that (which I've pushed a minute ago)?
 
-> +    d->arch.pv_time_regions_gfn = INVALID_GFN;
-
-Does this mean PV time is optional? If so, shouldn't we allocate the 
-memory conditionally?
-
-Also, looking at the code below, you seem to cater domains created via 
-dom0less but not from the toolstack. I think both should be supported 
-for the PV time.
-
-Lastly, you probably only want to allocate the memory for 64-bit domain 
-as this is unusable for 32-bit domains.
-
-> +    d->arch.pv_time_regions = alloc_xenheap_pages(order, 0);
- > +    if ( !d->arch.pv_time_regions ) {> +        rc = -ENOMEM;
-> +        goto fail;
-> +    }
-> +    memset(d->arch.pv_time_regions, 0, PAGE_SIZE << order);
- > +>       return 0;
->   
->   fail:
-> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-> index 85b6909e2b0e..1c51b53d9c6b 100644
-> --- a/xen/arch/arm/domain_build.c
-> +++ b/xen/arch/arm/domain_build.c
-> @@ -1561,8 +1561,80 @@ int __init make_chosen_node(const struct kernel_info *kinfo)
->       return res;
->   }
->   
-> -int __init make_resv_memory_node(const struct kernel_info *kinfo, int addrcells,
-> -                                 int sizecells)
-> +int __init make_pv_time_resv_memory_node(struct domain *d,
-> +                                         const struct kernel_info *kinfo,
-> +                                         int addrcells, int sizecells)
-> +{
-> +    __be32 reg[GUEST_ROOT_ADDRESS_CELLS + GUEST_ROOT_SIZE_CELLS];
-> +    unsigned int len = (addrcells + sizecells) * sizeof(__be32);
-> +    struct p2m_domain *p2m = p2m_get_hostp2m(d);
-> +    struct membanks *unused_banks = NULL;
-> +    void *fdt = kinfo->fdt;
-> +    unsigned regions_len;
-> +    gfn_t pv_time_gfn;
-> +    mfn_t pv_time_mfn;
-> +    paddr_t aligned;
-> +    paddr_t avail;
-> +    __be32 *cells;
-> +    int res;
-> +    int i;
-> +
-> +    /* Find unused regions */
-> +    regions_len = PAGE_ALIGN(d->max_vcpus * 64);
-
-I would be best to avoid hardcoding the size of the region and use the 
-size of struct pv_time_region.
-
-> +    unused_banks = membanks_xzalloc(NR_MEM_BANKS, MEMORY);
-> +    if ( !unused_banks )
-> +        return -ENOMEM;
-> +
-> +    res = find_unused_regions(d, kinfo, unused_banks);
-> +    if ( res ) {
-> +        printk(XENLOG_WARNING "%pd: failed to find unused regions\n", d);
-> +        goto fail;
-> +    }
-> +    for ( i = 0; i < unused_banks->nr_banks; i++ ) {
-> +        const struct membank *bank = &unused_banks->bank[i];
-> +        aligned = PAGE_ALIGN(bank->start);
-> +        avail = bank->size - (aligned - bank->start);
-> +        if ( avail >= regions_len )
-> +            break;
-> +    }
-> +    if ( i == unused_banks->nr_banks ) {
-> +        res = -ENOSPC;
-> +        goto fail;
-> +    }
-> +
-> +    /* Insert P2M entry */
-> +    pv_time_mfn = virt_to_mfn(d->arch.pv_time_regions);
-> +    pv_time_gfn = gaddr_to_gfn(aligned);
-> +    p2m_write_lock(p2m);
-> +    res = p2m_set_entry(p2m, pv_time_gfn, regions_len / PAGE_SIZE,
-> +                        pv_time_mfn, p2m_ram_rw, p2m_access_r);
-
-p2m_access_* are used for restricting temporarily permission by 
-memaccess. So on a data abort, we will call p2m_mem_access_check() which 
-will then forward the fault to the memaccess agent.
-
-If you want to restrict permission forever, then you need to use a 
-different p2m_type_t. In this case, I am guessing you want p2m_ram_ro.
-
-[...]
-
-> diff --git a/xen/arch/arm/include/asm/domain.h b/xen/arch/arm/include/asm/domain.h
-> index a3487ca71303..c231c45fe40f 100644
-> --- a/xen/arch/arm/include/asm/domain.h
-> +++ b/xen/arch/arm/include/asm/domain.h
-> @@ -59,6 +59,18 @@ struct paging_domain {
->       unsigned long p2m_total_pages;
->   };
->   
-> +/* Stolen time shared memory region (ARM DEN 0057A.b) */
-> +struct pv_time_region {
-> +    /* This field must be 0 as per ARM DEN 0057A.b */
-> +    uint32_t revision;
-> +
-> +    /* This field must be 0 as per ARM DEN 0057A.b */
-> +    uint32_t attribute;
-> +
-> +    /* Total stolen time in nanoseconds */
-> +    uint64_t stolen_time;
-> +} __aligned(64);
-> +
->   struct arch_domain
->   {
->   #ifdef CONFIG_ARM_64
-> @@ -121,6 +133,9 @@ struct arch_domain
->       void *tee;
->   #endif
->   
-> +    struct pv_time_region *pv_time_regions;
-> +    gfn_t pv_time_regions_gfn;
-
-Given the feature is 32-bit specific, shouldn't the field be protected 
-with #define CONFIG_ARM_32?
-
-Cheers,
-
--- 
-Julien Grall
-
+Jan
 
