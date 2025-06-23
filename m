@@ -2,49 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 733E7AE466E
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Jun 2025 16:20:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1022507.1398347 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DB9DCAE46AF
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Jun 2025 16:27:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1022519.1398357 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uTi1n-0003oR-AL; Mon, 23 Jun 2025 14:20:07 +0000
+	id 1uTi8e-0005T1-33; Mon, 23 Jun 2025 14:27:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1022507.1398347; Mon, 23 Jun 2025 14:20:07 +0000
+Received: by outflank-mailman (output) from mailman id 1022519.1398357; Mon, 23 Jun 2025 14:27:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uTi1n-0003me-6F; Mon, 23 Jun 2025 14:20:07 +0000
-Received: by outflank-mailman (input) for mailman id 1022507;
- Mon, 23 Jun 2025 14:20:05 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=yjIQ=ZG=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
- id 1uTi1l-0003c9-BE
- for xen-devel@lists.xenproject.org; Mon, 23 Jun 2025 14:20:05 +0000
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on20629.outbound.protection.outlook.com
- [2a01:111:f403:2414::629])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 26f2d795-503d-11f0-a30f-13f23c93f187;
- Mon, 23 Jun 2025 16:20:03 +0200 (CEST)
-Received: from MN2PR22CA0015.namprd22.prod.outlook.com (2603:10b6:208:238::20)
- by BL3PR12MB6596.namprd12.prod.outlook.com (2603:10b6:208:38f::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8857.20; Mon, 23 Jun
- 2025 14:19:58 +0000
-Received: from BL6PEPF0001AB4E.namprd04.prod.outlook.com
- (2603:10b6:208:238:cafe::e6) by MN2PR22CA0015.outlook.office365.com
- (2603:10b6:208:238::20) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8857.29 via Frontend Transport; Mon,
- 23 Jun 2025 14:19:58 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL6PEPF0001AB4E.mail.protection.outlook.com (10.167.242.72) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8880.14 via Frontend Transport; Mon, 23 Jun 2025 14:19:57 +0000
-Received: from localhost (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 23 Jun
- 2025 09:19:54 -0500
+	id 1uTi8e-0005Pt-00; Mon, 23 Jun 2025 14:27:12 +0000
+Received: by outflank-mailman (input) for mailman id 1022519;
+ Mon, 23 Jun 2025 14:27:10 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=H8L6=ZG=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uTi8c-0005Pn-2K
+ for xen-devel@lists.xenproject.org; Mon, 23 Jun 2025 14:27:10 +0000
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [2a00:1450:4864:20::42b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 246c111a-503e-11f0-b894-0df219b8e170;
+ Mon, 23 Jun 2025 16:27:07 +0200 (CEST)
+Received: by mail-wr1-x42b.google.com with SMTP id
+ ffacd0b85a97d-3a57ae5cb17so2371081f8f.0
+ for <xen-devel@lists.xenproject.org>; Mon, 23 Jun 2025 07:27:07 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-7490a68b082sm8806349b3a.149.2025.06.23.07.26.55
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 23 Jun 2025 07:27:06 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,270 +45,163 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 26f2d795-503d-11f0-a30f-13f23c93f187
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jSpugDQufXYTmpaB3am3478tbLy5usbKjOYAMwm2MTFthJLegRBF4LpI7bnLWm401mtXq1NTRBtAHEeD7URDQCCHeFQ06PocnsQ8sWgDSeEljJZ38eHKQIE4rNmG9LSdi7+YQfl6ZKXnzn8LhDe1zof9c6mr6TOLqtQITMT3n9Wh4hHxZbXbXVOsr+qFyt7vq7uruJHmm7Ex+koXkBLP91+1bEcg+7E5ltG0xsBMxUvMBjFqJJEYITf2VlEeA8eeCT28PzI83TsoWPoyiEaTAM1QWd5bzQaKTWV8DxAGLdlPUdJUZUv59vOgTMR38ZehS9kIssVpPF08RxN5K/tkYA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IH/a4bxTGQA/TIIFCANhDHmItca1Aj/QEbIkhNz4sf8=;
- b=JO4DubX3WH45zmYqo743JC9Pd+zdDDyi+oLw8KSSJ8scBwYYQ6hlnPmtBQ4z6cKIQOvLQNjrgNc6bQOt92NTPM93gFfVTRp41gY6D/t2F4UIfjnctL2HhHLyQFz/AS1grtV6KhI7zvfDRhxNzDxIoWEWwwijn5mvzp02OHNbWlKCsxzSPrV0voYme/8oJElbvXMVtuZz/rcTkifbtVEoKNTDMBRAGl1O5IVykpaxjQavIS4e7XDh6o4LwMe61vNTSCdBh/kQI/uxcXppu0dtCfHxGBdBqssOWKDmxHxbgH5HScwzcp9kHcPAJUDkelutqJxeVyBeGn14UIzKppsK+w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IH/a4bxTGQA/TIIFCANhDHmItca1Aj/QEbIkhNz4sf8=;
- b=gRV1Zvml748zSZb1hV3yn9UeoJ3Wc5Jhq2f9lk4nAHZWwlY+3BJ0W83YCxa9+7sKTTJx6hE6W5s7rjgR/PvXW0vlEDOktIQdBfTi9uxMB1Y2ola9d3uq4XYanFVFseililX0YtzgRtDhuyMwl/Gay8rd8uge/XbfcjJp6rAe8Ow=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+X-Inumbo-ID: 246c111a-503e-11f0-b894-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1750688827; x=1751293627; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=sasGtQsEsftue0w/QTUuMq1R1x2QMQPh3s4lYZtHf8A=;
+        b=VaPxZtYG8PHoZXQ2HTLIPi0ReDWa8WeWB4cBvouCJQ+YAYYzY/8m7S/ByeeNYv5CMY
+         baDNNRxbe8mMSfYh6J5+05cS/WIH7wS+mYgWMQgVBL9hh1OnPyLYFKqAJ6colUSDH1jN
+         pvDhLTjR02ZDMreDMAu6flNUVhi9ySoTRvP3nviN3/Tkw+7FOOrhXongrKbVqjbSn20/
+         YuqXfs6+IOX7wSs3pQdHL3vDe/eo99d9GefkF18C9fjAMbBbepFQsUWDzU5ySrr9usPY
+         I52fu3UL3qod+xnK1kv64eDh5LAzP4/ejewW77HAL2FBog5CBK89+Mh+boO5xwRFYn56
+         17pg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1750688827; x=1751293627;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=sasGtQsEsftue0w/QTUuMq1R1x2QMQPh3s4lYZtHf8A=;
+        b=roRSf9HMPkMG9On9BbaFqrfl+FSnze5UQ04skfLO1kmc7lJ16M8+j3du7c4rmXZuCW
+         KZnhzPxmJN4AjvhVDiukl6Bjaw6fF7xx5FY7wp1RJgq3FeT23ByojjUVIxum9bLOZfcz
+         xWO9Ax/Yhh/7LR6gxsB6mHS+Qpd++Tw3PfyMIHH7cUuU3cX2qu/u9DXPMkdQmwVUWKfl
+         LVJPD2zrJlWbHhm5VhulOf7IAVj6uhC3FvkVh0Vuq2MsmJTWE8IWMdnBIoleBrmRMdWt
+         yd7awGSfKmRbcm6II+IWBcfwgj6tEry1ugwItT5mZWszrQrh1TWDwxnLQU/BZLTjy+h6
+         9epA==
+X-Forwarded-Encrypted: i=1; AJvYcCUzMMWG87IvfYm5C+txZrMdZ5cMTmu23OXeqGCUSsyILPSHJ+NsByncg8OqXA4BOW4ysG471lnuDUE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyWdCUkqz1LWbfCgWKoLqgNjiWRM9J2ipE0Ir9U38dYyJrJPZr8
+	cDSCctdrSmpgPw4NFBynRo9dnEx1bJMcrAChu2JOpUxDQGdJauZexGJOmvyz3SpeAA==
+X-Gm-Gg: ASbGncsESYZQp/LdEscd2eq0CB6b0zzdkaysCv6KHVccd6y5YTwpTC66jPGEwmzIlOi
+	6e/MF2LVPaJuIonwIn+4kBmqJCouXR0CmiGjVAL8bnvAZIxuEnnn4WT0g/M6qeJ87GsEJ3dKJZ4
+	j8riDedd8oJgqpqbP/ENzOt3jqWtbXoTAaeA2gsHtxB/ko63Af9S16Q+D05di5D07ozGNXoSjqL
+	Vk3pGjQzL2gd2xULjbhlUnzBXEZ4Vs7mcMhaOD6ksW4FcDHdblgCjyWNGopj+27cN2ZMA+JMaPV
+	dETZJP0eM2GhDhBy3y6k7/eLgbNbYDE7ogBdlOYDFs8NsIQ0jNZhObz9zuYf3dXzyMoluFWfUpS
+	KpELm/FVos0j3v400TyB5jZuHRQuwN87awfuUHIoKMnfYqhc=
+X-Google-Smtp-Source: AGHT+IFvQw6f59hCuSlteSqwAQw3tKzbu14WChjSYyghVcMoK/U0vaetPa9QPrMpDH+rwLHHDPKs3Q==
+X-Received: by 2002:a05:6000:2889:b0:3a4:f00b:69b6 with SMTP id ffacd0b85a97d-3a6d12e6912mr10768972f8f.54.1750688827146;
+        Mon, 23 Jun 2025 07:27:07 -0700 (PDT)
+Message-ID: <a751010b-070f-4d03-a5e2-ea58adf05214@suse.com>
+Date: Mon, 23 Jun 2025 16:26:52 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="UTF-8"
-Date: Mon, 23 Jun 2025 16:19:53 +0200
-Message-ID: <DATZ8OYEKPTI.3OUBFHLNANFIW@amd.com>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Anthony PERARD
-	<anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, "Julien
- Grall" <julien@xen.org>, =?utf-8?q?Roger_Pau_Monn=C3=A9?=
-	<roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
-	"Bertrand Marquis" <bertrand.marquis@arm.com>, Volodymyr Babchuk
-	<Volodymyr_Babchuk@epam.com>, Shawn Anastasio
-	<sanastasio@raptorengineering.com>, Alistair Francis
-	<alistair.francis@wdc.com>, Bob Eshleman <bobbyeshleman@gmail.com>, "Connor
- Davis" <connojdavis@gmail.com>, Oleksii Kurochko
-	<oleksii.kurochko@gmail.com>, "Daniel P. Smith"
-	<dpsmith@apertussolutions.com>, =?utf-8?q?Marek_Marczykowski-G=C3=B3recki?=
-	<marmarek@invisiblethingslab.com>, Dario Faggioli <dfaggioli@suse.com>,
-	Juergen Gross <jgross@suse.com>, George Dunlap <gwd@xenproject.org>,
-	<xen-devel@lists.xenproject.org>
+User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v4 10/12] xen: Rename CONFIG_HAS_DEVICE_TREE to
  CONFIG_HAS_DEVICE_TREE_DISCOVERY
-From: Alejandro Vallejo <agarciav@amd.com>
-To: Jan Beulich <jbeulich@suse.com>
-X-Mailer: aerc 0.20.1
+To: Alejandro Vallejo <agarciav@amd.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Shawn Anastasio <sanastasio@raptorengineering.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, Dario Faggioli <dfaggioli@suse.com>,
+ Juergen Gross <jgross@suse.com>, George Dunlap <gwd@xenproject.org>,
+ xen-devel@lists.xenproject.org
 References: <20250620182859.23378-1-agarciav@amd.com>
  <20250620182859.23378-11-agarciav@amd.com>
  <490ee7bf-cb10-43e3-9416-9a68e7529b96@suse.com>
  <DATXSLGR4W0C.I4IQ77V0K6FH@amd.com>
  <1fc40753-727e-408c-940e-07f3efe1ef48@suse.com>
-In-Reply-To: <1fc40753-727e-408c-940e-07f3efe1ef48@suse.com>
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB4E:EE_|BL3PR12MB6596:EE_
-X-MS-Office365-Filtering-Correlation-Id: c92b77ce-e379-42d0-793a-08ddb261087b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700013|82310400026|7416014|376014|1800799024;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?V3oyUEtPZ0VjclFVbG9qcXl1YzFtWnltbFN2R011V0RyaW1qa2ZURzJqQkpk?=
- =?utf-8?B?UnVXNmZzQmJ1VTVkV3NHNUxFUGRIeTFjUHBwUjUvSGxWVFQ2NkhRZ1FpWTho?=
- =?utf-8?B?MGpHSTY3Mll2Y0tNVER3amJuRlI4N1BBa21BZUVXbi80MkQyQ0NEcllTQlJo?=
- =?utf-8?B?aDRscXdCSG9aaGxjZ3NtNEpMUms0OThSQmhyVWx0MHpBVTlrZ2NaZ09reTVD?=
- =?utf-8?B?MUxoNkR6L3BqN0VsYzhqeGN1bEdaMVB5eW1XK2gxc1FrclVqN2xuS21KUVF5?=
- =?utf-8?B?WVpxMCs2dEpld2NIZ3VjZUpCRWRLaWd0cjI3R3NSUnR5WHcvakFLOWlBNi9p?=
- =?utf-8?B?TjZKUEh5eFJkT3E2V1NWK3ZzVVVHcUxQdTh5dTVjVVBQdnVROCtEa1hZb2do?=
- =?utf-8?B?d2QvQkduVjNEbU5rb0VCZzhyQTNUcFJMQ1QxcWw0ZGxiTUNwR0VWTmJTWnUr?=
- =?utf-8?B?b254OG5vYTBTbTd5YW1sWFh1YjF1RDRXK0JMQTZZWDVKNjFEYzlGYXBRYUxP?=
- =?utf-8?B?OFlWNzBoYWRsaEk0Ry9Ndno0WnB3a3djbzZMM3kyN3ZLNGlndHV4MCtGYyt4?=
- =?utf-8?B?eWZ5cE84dTVTemFGci94RVhzY25hUldVOWwxNHBleWpPdk96V1c4VXZNV01G?=
- =?utf-8?B?bEN2dDBsTzc5V3IwSEpzYmtzQjhoUFVsRG1BRjg3eXp0KzdoNFE0UFpCL0lu?=
- =?utf-8?B?VWRxMXJDSkhKY0lRVHNUanluVmtianFkbTBndlozcnlOYnZDc3FTdkNTb2ZL?=
- =?utf-8?B?WHN6ajdSRjBrREJMbU9CazZKY3h2YkFSVlFJMG9rRXhyd2plZU55YXJybE9Q?=
- =?utf-8?B?NlZwZHNmV2hUOWhQSFVCckZZT3pESS90emFiMDhVcXdGM2hEMWNDZEx0d1VG?=
- =?utf-8?B?QUIvcFZGTllWZld0eWxBaXNra1hZNmRxam14cTU3d0dDRWxUSGJGTjlRRzJL?=
- =?utf-8?B?anc3c0poajJ1ZTlFcHhidVJxS2VDYmIybSt5azRSQ09TQzU1VlR6QzNxM0x5?=
- =?utf-8?B?OFRDYktkblgwcUVubHNOWDVNcE1tQUJpamMrenNJZzRoKzAxWG9CV0lBVjA1?=
- =?utf-8?B?c0lUQXk0b1dzSXJXendwa3pzRjdoZ0U5aXIwSDdVMERqdlJwR3diaUFDVzQx?=
- =?utf-8?B?ZjFtam1VS080VU5Cai9XUlZLd3ZXRjAxbTQ4VEpMRDA3eXBxek9za1Q5TDF4?=
- =?utf-8?B?TVh4OHdtdVk4VEZiVlFKRUM5UXJaYjF1TWdjTGNjZXBlbGlTM08vWTZibmJ2?=
- =?utf-8?B?TFdTbENVUVNQTDN0dnBKSkEzOTRzejhjek5JVUpJUlZuWVdJTy9vQ1ZIMGx1?=
- =?utf-8?B?bGVsOHBZS2FNd2pGWndINzNsQ1RGTmI5UW9JM2RiczJMNUhOd0tlNndxd0NU?=
- =?utf-8?B?bGhrckNrMTZJL2tZemNwL2tYdzNpRkxzc2o4VFJ6ajVaRUtjMVpZMXhoWk44?=
- =?utf-8?B?bG5pZlU3Zm9zbTNhRjNoVnVPUklDN3JoWTRFeFk0WGwvT1IvT0FHU2E4bEJD?=
- =?utf-8?B?VnFvbVNZTWc0WmtkT3V5emtmQ2wySFpZNXh3cnJTT1ZEK2dyK3o2Y0REaWll?=
- =?utf-8?B?bEU3N2tiR3A2TWV5dVVOSzJiVk1rUG1WU2I5T0dqM2NSRU8zZzZ1cnJ3ckZO?=
- =?utf-8?B?Qm81MlUrVm5vb1dBZVRtY3dCM1BwOUdqY2RZdkxxK3oyRUxRTjd2V25NNDgr?=
- =?utf-8?B?eDdxRERLQjdFMmdKYlY0T2dESnFaZ1VxTkpTZFlFcEloQlk1bzNXZzc5eDJ2?=
- =?utf-8?B?S3FnaFM4UnV0TW00b0JNNnNwUEZaVkNpRlN3WGpKRW8wbFZWMmxKYmVxZ1FT?=
- =?utf-8?B?UEhZZndDS21SUEFoOVZXRVBiQjJOdmhKVU1Jem5oUUZoR2ZVUUxqREZDNXZB?=
- =?utf-8?B?eGJaNFlWQXdLVExTd2lVSEpDVjh1ZE5YZkVPV2VsNXYreFRsT1ltbDdIckp4?=
- =?utf-8?B?ZGsrSEgzNlpXeDFKS3NGUURIUVZBendkMFgrbkxwQzNrUHNVNERaMmlkNG5N?=
- =?utf-8?B?a3RhaUJpZm1kZ2NQcU8zY1pKeTBhY1V0ZjNhUHBkR1p2QUF2bHV3WXVSRzZX?=
- =?utf-8?Q?EQGZOU?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(82310400026)(7416014)(376014)(1800799024);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jun 2025 14:19:57.9934
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c92b77ce-e379-42d0-793a-08ddb261087b
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BL6PEPF0001AB4E.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6596
+ <DATZ8OYEKPTI.3OUBFHLNANFIW@amd.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <DATZ8OYEKPTI.3OUBFHLNANFIW@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon Jun 23, 2025 at 3:44 PM CEST, Jan Beulich wrote:
-> On 23.06.2025 15:11, Alejandro Vallejo wrote:
->> On Mon Jun 23, 2025 at 9:39 AM CEST, Jan Beulich wrote:
->>> On 20.06.2025 20:28, Alejandro Vallejo wrote:
->>>> Moving forward the idea is for there to be:
->>>>   1. Basic DT support: used by dom0less/hyperlaunch.
->>>>   2. Full DT support: used for device discovery and HW setup.
+On 23.06.2025 16:19, Alejandro Vallejo wrote:
+> On Mon Jun 23, 2025 at 3:44 PM CEST, Jan Beulich wrote:
+>> On 23.06.2025 15:11, Alejandro Vallejo wrote:
+>>> On Mon Jun 23, 2025 at 9:39 AM CEST, Jan Beulich wrote:
+>>>> On 20.06.2025 20:28, Alejandro Vallejo wrote:
+>>>>> Moving forward the idea is for there to be:
+>>>>>   1. Basic DT support: used by dom0less/hyperlaunch.
+>>>>>   2. Full DT support: used for device discovery and HW setup.
+>>>>>
+>>>>> Rename HAS_DEVICE_TREE to HAS_DEVICE_TREE_DISCOVERY to describe (2), while
+>>>>> DOM0LESS_BOOT is left to describe (1).
 >>>>
->>>> Rename HAS_DEVICE_TREE to HAS_DEVICE_TREE_DISCOVERY to describe (2), w=
-hile
->>>> DOM0LESS_BOOT is left to describe (1).
+>>>> Considering hyperlaunch this feels wrong to me. Did you consider splitting
+>>>> HAS_DEVICE_TREE into HAS_DEVICE_TREE_PARSE and HAS_DEVICE_TREE_DISCOVERY,
+>>>> as I suggested on the committers call? You weren't there, but Stefano said
+>>>> he was taking notes.
 >>>
->>> Considering hyperlaunch this feels wrong to me. Did you consider splitt=
-ing
->>> HAS_DEVICE_TREE into HAS_DEVICE_TREE_PARSE and HAS_DEVICE_TREE_DISCOVER=
-Y,
->>> as I suggested on the committers call? You weren't there, but Stefano s=
-aid
->>> he was taking notes.
->>=20
->> Some might've been lost is transit, I admit. I don't remember hearing ab=
-out
->> a HAS_DEVICE_TREE_PARSE, but it might've very well been me being spotty =
-when
->> syncing with Stefano.
->>=20
->> Having a special HAS_DEVICE_TREE_PARSE doesn't seem very helpful, as eve=
-ry
->> arch would have it set.
->
-> Hmm, yes, we don't want or need that. But then what's option 1 about? Tha=
-t
-> shouldn't be "described" by DOM0LESS_BOOT.
-
-It's about x86 using device_tree/ for hyperlaunch. x86 is the single user t=
-hat
-doesn't need (2) at all. In the x86 case the same selector that picks =20
-
->
->> I'd definitely like for the "enable support to boot
->> several predefined domains from DTB descriptions" to be a single option =
-for both
->> dom0less and hyperlaunch. And be selectable rather than unconditionally =
-selected
->> And ideally move towards a future in which both dom0less and hyperlaunch=
- are one
->> and the same.
->>=20
->> I can do an early rename s/HAS_DOM0LESS/HAS_PREDEFINED_DOMAINS and s/
->> DOM0LESS_BOOT/BOOT_PREDEFINED_DOMAINS/ if that helps. I was waiting to d=
-o so
->> until x86 gains the ability to boot off a DTB to avoid having help messa=
-ges
->> describing things not yet on the tree.
->
-> I have to admit that it's not clear to me if that would help. As you say,=
- on
-> x86 that's not a thing just yet. What I think we need to aim for is to no=
-t
-> leave the tree in a state that's more confusing than anything else. Even =
-if
-> later (which may be much later) things would get tidied again.
-
-Ok, how about turning it on its head? Seems like we're in agreement with
-HAS_DEVICE_TREE_DISCOVERY for Full DT support. There could be a DEVICE_TREE=
-_PARSE
-(no HAS_) that's selected by HAS_DEVICE_TREE_DISCOVERY and DOM0LESS_BOOT. T=
-his
-allows x86 to deselect it by not picking DOM0LESS_BOOT.
-
-Note that x86 cannot select DOM0LESS_BOOT yet, but that's how it'd compile-=
-in
-hyperlaunch. In the meantime, the tree depends on DEVICE_TREE_PARSE instead=
- and
-device_tree/ is gated by DEVICE_TREE_PARSE only.
-
-Sounds better?
-
->
->>>> --- a/xen/common/Kconfig
->>>> +++ b/xen/common/Kconfig
->>>> @@ -14,7 +14,7 @@ config CORE_PARKING
->>>> =20
->>>>  config DOM0LESS_BOOT
->>>>  	bool "Dom0less boot support" if EXPERT
->>>> -	depends on HAS_DOM0LESS && HAS_DEVICE_TREE && DOMAIN_BUILD_HELPERS
->>>> +	depends on HAS_DOM0LESS && HAS_DEVICE_TREE_DISCOVERY && DOMAIN_BUILD=
-_HELPERS
->>>>  	default y
->>>>  	help
->>>>  	  Dom0less boot support enables Xen to create and start domU guests =
-during
->>>> @@ -85,7 +85,7 @@ config HAS_ALTERNATIVE
->>>>  config HAS_COMPAT
->>>>  	bool
->>>> =20
->>>> -config HAS_DEVICE_TREE
->>>> +config HAS_DEVICE_TREE_DISCOVERY
->>>>  	bool
->>>>  	select LIBFDT
+>>> Some might've been lost is transit, I admit. I don't remember hearing about
+>>> a HAS_DEVICE_TREE_PARSE, but it might've very well been me being spotty when
+>>> syncing with Stefano.
 >>>
->>> This select imo ought to move to HAS_DEVICE_TREE_PARSE, unless I misund=
-erstand
->>> what LIBFDT covers.
->>=20
->> Doing so would preclude compiling it out on x86 when hyperlaunch is not =
-there.
->> LIBFDT is very much essential on arm/riscv/ppc, but not so on x86.
->
-> Okay, but _something_ has to select that on x86 as well, once hyperlaunch=
- is
-> going to need it.
-
-DOM0LESS_BOOT would do so once required. In the proposal above that'd be se=
-lected
-by DEVICE_TREE_PARSE, which would be selected by DOM0LESS_BOOT.
-
->
->>>> --- a/xen/common/sched/Kconfig
->>>> +++ b/xen/common/sched/Kconfig
->>>> @@ -67,7 +67,7 @@ endmenu
->>>> =20
->>>>  config BOOT_TIME_CPUPOOLS
->>>>  	bool "Create cpupools at boot time"
->>>> -	depends on HAS_DEVICE_TREE
->>>> +	depends on HAS_DEVICE_TREE_DISCOVERY
->>>>  	help
->>>>  	  Creates cpupools during boot time and assigns cpus to them. Cpupoo=
-ls
->>>>  	  options can be specified in the device tree.
+>>> Having a special HAS_DEVICE_TREE_PARSE doesn't seem very helpful, as every
+>>> arch would have it set.
+>>
+>> Hmm, yes, we don't want or need that. But then what's option 1 about? That
+>> shouldn't be "described" by DOM0LESS_BOOT.
+> 
+> It's about x86 using device_tree/ for hyperlaunch. x86 is the single user that
+> doesn't need (2) at all. In the x86 case the same selector that picks  
+> 
+>>
+>>> I'd definitely like for the "enable support to boot
+>>> several predefined domains from DTB descriptions" to be a single option for both
+>>> dom0less and hyperlaunch. And be selectable rather than unconditionally selected
+>>> And ideally move towards a future in which both dom0less and hyperlaunch are one
+>>> and the same.
 >>>
->>> This similarly looks wrong to me. Whether to create CPU pools is purely=
- a
->>> Xen-internal software thing, isn't it?
->>=20
->> In principle, it should be HAS_DOM0LESS and likely will be later when I =
-hook it
->> for x86. I was waiting for x86 needing such a change to use the binding.=
- Would
->> you rather have the change done now?
->
-> See above - my main concern isn't with what is introduced early or later,=
- but
-> what the overall (intermediate and final) state of the tree is going to b=
-e.
->
-> Jan
+>>> I can do an early rename s/HAS_DOM0LESS/HAS_PREDEFINED_DOMAINS and s/
+>>> DOM0LESS_BOOT/BOOT_PREDEFINED_DOMAINS/ if that helps. I was waiting to do so
+>>> until x86 gains the ability to boot off a DTB to avoid having help messages
+>>> describing things not yet on the tree.
+>>
+>> I have to admit that it's not clear to me if that would help. As you say, on
+>> x86 that's not a thing just yet. What I think we need to aim for is to not
+>> leave the tree in a state that's more confusing than anything else. Even if
+>> later (which may be much later) things would get tidied again.
+> 
+> Ok, how about turning it on its head? Seems like we're in agreement with
+> HAS_DEVICE_TREE_DISCOVERY for Full DT support. There could be a DEVICE_TREE_PARSE
+> (no HAS_) that's selected by HAS_DEVICE_TREE_DISCOVERY and DOM0LESS_BOOT. This
+> allows x86 to deselect it by not picking DOM0LESS_BOOT.
+> 
+> Note that x86 cannot select DOM0LESS_BOOT yet, but that's how it'd compile-in
+> hyperlaunch. In the meantime, the tree depends on DEVICE_TREE_PARSE instead and
+> device_tree/ is gated by DEVICE_TREE_PARSE only.
+> 
+> Sounds better?
 
-I think this latest proposal addresses the concern. Let me know what you th=
-ink.
+Yes. Except that in the last sentence of the previous paragraph: What's "the
+tree"? And in device_tree/ wouldn't we end up with unreachable code on x86
+this way (the parts that are needed only by DEVICE_TREE_DISCOVERY)?
 
-Cheers,
-Alejandro
+Jan
 
