@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26833AE3722
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Jun 2025 09:40:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1022080.1397794 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 59CA0AE3728
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Jun 2025 09:42:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1022087.1397804 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uTbmm-0003qo-TK; Mon, 23 Jun 2025 07:40:12 +0000
+	id 1uTboP-0004b5-7S; Mon, 23 Jun 2025 07:41:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1022080.1397794; Mon, 23 Jun 2025 07:40:12 +0000
+Received: by outflank-mailman (output) from mailman id 1022087.1397804; Mon, 23 Jun 2025 07:41:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uTbmm-0003ol-QC; Mon, 23 Jun 2025 07:40:12 +0000
-Received: by outflank-mailman (input) for mailman id 1022080;
- Mon, 23 Jun 2025 07:40:11 +0000
+	id 1uTboP-0004Zd-3Q; Mon, 23 Jun 2025 07:41:53 +0000
+Received: by outflank-mailman (input) for mailman id 1022087;
+ Mon, 23 Jun 2025 07:41:51 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=H8L6=ZG=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uTbml-0003of-D0
- for xen-devel@lists.xenproject.org; Mon, 23 Jun 2025 07:40:11 +0000
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [2a00:1450:4864:20::331])
+ id 1uTboN-0004ZV-Ku
+ for xen-devel@lists.xenproject.org; Mon, 23 Jun 2025 07:41:51 +0000
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [2a00:1450:4864:20::435])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 47f864a1-5005-11f0-b894-0df219b8e170;
- Mon, 23 Jun 2025 09:40:06 +0200 (CEST)
-Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-450cfb790f7so27618735e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 23 Jun 2025 00:40:06 -0700 (PDT)
+ id 85961fc6-5005-11f0-b894-0df219b8e170;
+ Mon, 23 Jun 2025 09:41:49 +0200 (CEST)
+Received: by mail-wr1-x435.google.com with SMTP id
+ ffacd0b85a97d-3a51481a598so1959365f8f.3
+ for <xen-devel@lists.xenproject.org>; Mon, 23 Jun 2025 00:41:49 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-237d8640c61sm78285515ad.141.2025.06.23.00.39.54
+ d9443c01a7336-237d83ce31asm75397495ad.63.2025.06.23.00.41.38
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 23 Jun 2025 00:40:05 -0700 (PDT)
+ Mon, 23 Jun 2025 00:41:48 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 47f864a1-5005-11f0-b894-0df219b8e170
+X-Inumbo-ID: 85961fc6-5005-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1750664406; x=1751269206; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=iYDGgVU5TbBCRp/ft5iGMCvr6kD9RNtfXSBetMQZjK4=;
-        b=V4GCPa1flyDcAi46Z7Q3DyfUkS2qCh3gyfFM8QTgoCZBaoIrmM4BapCnlztHJCys1O
-         98qBcX4DMTNyvazILHYIzni/zMqC9NZoDgf3df48v2jhnGE7RDfcKjtxS4NNZGeQN6Y9
-         /wJ37EPyiC/9v59KVICty93ZW/Divfmxo+YFlg9vQoJzsjB+MHivmCTIsY2sOJbXXwFw
-         BbACVLp5GbUfmb5/sZQ2F+h0rNA8WuXPn4eG7E9k83m9peNq333o3Mh69q3OWSWRlYx/
-         qGIEM8GrfGRYMagggoAgRts0PDtOlN6TMCc9uN1g6eRPd5VI27OKq53J0k6uvPxfWwFG
-         +Leg==
+        d=suse.com; s=google; t=1750664509; x=1751269309; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=XMdWL9Tv7PcuHNqz3JjNNm8rkUET8PY00BOKBsqoT8k=;
+        b=fVCstzFEemoCwyF79byaUTsr5pBcgxc1ugtSLrovrFC65Tq2bWFaYLPiMG3rhB+jaH
+         07O4C5mC8PxmELVSfkkMxaZ7TlId5ifkltTiP0T8NHCLBlhnBUud3Y19teViDSAuH143
+         qTgwwoMsaWZ/R3NCjMQ7HQztiwaTEuQddsgj9fIl8obtbEdAYaoJH3cIyhCTjFnshvJx
+         Cp422t8CaYOb2IZAGRq9qLuvf/BM1TLZbljx0D1XxRcRevjxA3xw1NjvsRqs/YFr7yj2
+         Yq56hfSL/U3IQ2Q9F86X2QA0ZATeER9KRWhggeDUR/jLJoS/piXz8IIFmgFTgehGrhcs
+         f2Rw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750664406; x=1751269206;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=iYDGgVU5TbBCRp/ft5iGMCvr6kD9RNtfXSBetMQZjK4=;
-        b=LvH2AC7J8VKb9aFKg4kzER6alVpmxJMMvJETVh6sA7sVtqwlSO2s2oNDPwq+80p5Of
-         GxW8C53K0UlzxYCSMZxO0T/apg6XfgkqTEWZxDAMMBA5mxWW28rORnnhYsMSHTiGCfIv
-         4kqPz8eexygoYCp+Dc9zX3ebGTEY+LcvMzfsBGhtwIz06M2r/HXESz5OUbIkuNO1tBDV
-         lcDFhbR6DJcEAaGfY1n/ZB1UhIDnmtPb0fsgNLeEsdFWEvzZq0owOfjBdTqUn4lUnCN1
-         dVlfHNzHTEf1x67/AkDnXKXiQ9pKkwszhTUX+7/8zmxDRe03cMaKCFpKNAJWXuudFvl5
-         6g6g==
-X-Forwarded-Encrypted: i=1; AJvYcCXvChbnTog88CgVaMM1y8LeTET35ZeuqRMb9azZ7gz8vqr0qA1FBSLhHLbTPkWgh9ryZKJp7sE7oPU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyiGzWNir7Gg3b3w1dGiR6CDPI7AmS4BDeEhdJGkqosQbWl55yv
-	VYzjRoVm0/Fm+brxDJaep5PY0rkF2RFpm5YOaZmszozmJBaQrtQjjIkiel69eU1tVA==
-X-Gm-Gg: ASbGncuOnslyX5SRHH/RjgWq3xZYtCt7TYwlSPIbw1qQ9dyKaITuwPkPw+pNYG2yq7C
-	OBq81uDUZVuuqQsjEL8dIfQiRIEZY9nkz718Va4F50RZ3aYiVNaYHs7HLn5Vq4cISJlkmbimUyz
-	j3Hh8wXCrcHDQY1XEixe5S6TG8JsgwaQ2z3b3sAWoLQl+PSxZhuhCMEBjfWoUSE+j4+vnqoLdGk
-	gRcSDiaVhlAxf9qvsGBOo88egFKwyoS8Ioz3CJFZIOoS6d4FkgaClJP8OS7G+kj8B3v7bSODy1f
-	+CluMnRfsD08QKiW/bB+xkf4913xv//VdEeIPVPcYyBThpGrDuuKO5XEqFKfTUupk+5s1hazKVz
-	4bLxka3ffoUDleIXK64Le8iJ87cdU2L/+zXWrWuNptui7lv8=
-X-Google-Smtp-Source: AGHT+IEFHB7ALrnPs1u381bLELz6gKDA5/XQ1iZfQ6vXAUoAWpkElxowF6ubDRjaepSRZlEr5tj5sQ==
-X-Received: by 2002:a05:6000:2504:b0:3a4:f9e7:2796 with SMTP id ffacd0b85a97d-3a6d12fb64emr10832193f8f.35.1750664405563;
-        Mon, 23 Jun 2025 00:40:05 -0700 (PDT)
-Message-ID: <490ee7bf-cb10-43e3-9416-9a68e7529b96@suse.com>
-Date: Mon, 23 Jun 2025 09:39:52 +0200
+        d=1e100.net; s=20230601; t=1750664509; x=1751269309;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=XMdWL9Tv7PcuHNqz3JjNNm8rkUET8PY00BOKBsqoT8k=;
+        b=OJ86rjwvJLsm7UD2Js4dOt8z8Q5C8A1Kh7vjhW/23TN1z1jGX9nLqI/nw+ChNzuYsI
+         3K8NeVEqX2mb1O4yEmOquhjNgTlj2K0Y+VM3AA0geDTiSeoJRHKpK9RIFm8QO8jdWetR
+         tUDiEgBrihjGhdugCHv4vkmX+GbvjqCBEmfL0E7zulCjxxVedm7F9gKs3ppfi8YuZM/w
+         uTPdlxpT5EUEId13GC3HO/ytOpUtakl7FzYv9kQX0L8BIuDLiypbbEArbgC8C5WnBpga
+         wPMvU3XGa9jPTVlP5oicPnIyPDWB/nCR2mJYHyLVixA25Pe+AIn0QRc5uPwC9CBW+7Cb
+         suEw==
+X-Forwarded-Encrypted: i=1; AJvYcCUaFq5qVSn1nDLKmPWVFR35oBNZpoMg4qP8jXAKPH3SM/OKQcEKIoR6eDTCGFL0WNY5rhmE3t4AJME=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx1SEI9Egl6bOe+8LghGGcRReXSOa4nkOLbraqBXwhp04GLVBly
+	Y2fudBrp6zvjFUnc3QwsbLnJJ00s+MOsUZlM4/+x5uP0x9xgRmb6NSBmzhudi9oB7Q==
+X-Gm-Gg: ASbGncu0ufU4DQlfOa1h2K8AtUhLW4Wpx8ShXJqsD7M/GYqT4409c3sMt/09B5/DUSV
+	FH4rPN5ACJILSZ/SsYy6aSTtoVckbUJD9oQtTbP+Kqr8h1XOqxtwt82DrUC5WC2gisjpnF8ueSq
+	nxJPxb9BzLMwP8cmakJK0yaL0099aEKzq6+tKeekF4NUPLFEmy860X+rj1LygjjVmSfzAE7j6Pu
+	qiZUTY+5CSSVnHh4rmb3qTDkRBbtt+a8rjknzm6LKIvGbBzSwu7bvfMiloo6SLsoSk5dOCbhxvq
+	Db7T0DRLKZ1JgpGieEoVpPlfzL8zzivgfzHi45udmPeW1cXLABEI1uxdH2vAh3AyetnguY1OBkJ
+	RQN/AcaaXwkyclTp5YKf94Jv9C0xOO78agB92BfxhE9uPPDA=
+X-Google-Smtp-Source: AGHT+IHKDFHSBai0nQOILkTNK0wT8hZPlceFu4La8gFOdigynT63tBXGi3leavrt1tZMikW6RjBHPg==
+X-Received: by 2002:a05:6000:2890:b0:3a4:d4e5:498a with SMTP id ffacd0b85a97d-3a6d130d49cmr9387770f8f.42.1750664509017;
+        Mon, 23 Jun 2025 00:41:49 -0700 (PDT)
+Message-ID: <9c3803ff-0ae4-40fd-8bc5-aa4bab4d5264@suse.com>
+Date: Mon, 23 Jun 2025 09:41:35 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v4 10/12] xen: Rename CONFIG_HAS_DEVICE_TREE to
  CONFIG_HAS_DEVICE_TREE_DISCOVERY
+From: Jan Beulich <jbeulich@suse.com>
 To: Alejandro Vallejo <agarciav@amd.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
@@ -108,8 +109,8 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  xen-devel@lists.xenproject.org
 References: <20250620182859.23378-1-agarciav@amd.com>
  <20250620182859.23378-11-agarciav@amd.com>
+ <490ee7bf-cb10-43e3-9416-9a68e7529b96@suse.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -133,74 +134,27 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250620182859.23378-11-agarciav@amd.com>
+In-Reply-To: <490ee7bf-cb10-43e3-9416-9a68e7529b96@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 20.06.2025 20:28, Alejandro Vallejo wrote:
-> Moving forward the idea is for there to be:
->   1. Basic DT support: used by dom0less/hyperlaunch.
->   2. Full DT support: used for device discovery and HW setup.
+On 23.06.2025 09:39, Jan Beulich wrote:
+> On 20.06.2025 20:28, Alejandro Vallejo wrote:
+>> Moving forward the idea is for there to be:
+>>   1. Basic DT support: used by dom0less/hyperlaunch.
+>>   2. Full DT support: used for device discovery and HW setup.
+>>
+>> Rename HAS_DEVICE_TREE to HAS_DEVICE_TREE_DISCOVERY to describe (2), while
+>> DOM0LESS_BOOT is left to describe (1).
 > 
-> Rename HAS_DEVICE_TREE to HAS_DEVICE_TREE_DISCOVERY to describe (2), while
-> DOM0LESS_BOOT is left to describe (1).
+> Considering hyperlaunch this feels wrong to me. Did you consider splitting
+> HAS_DEVICE_TREE into HAS_DEVICE_TREE_PARSE and HAS_DEVICE_TREE_DISCOVERY,
+> as I suggested on the committers call? You weren't there, but Stefano said
+> he was taking notes.
 
-Considering hyperlaunch this feels wrong to me. Did you consider splitting
-HAS_DEVICE_TREE into HAS_DEVICE_TREE_PARSE and HAS_DEVICE_TREE_DISCOVERY,
-as I suggested on the committers call? You weren't there, but Stefano said
-he was taking notes.
-
-> --- a/xen/common/Kconfig
-> +++ b/xen/common/Kconfig
-> @@ -14,7 +14,7 @@ config CORE_PARKING
->  
->  config DOM0LESS_BOOT
->  	bool "Dom0less boot support" if EXPERT
-> -	depends on HAS_DOM0LESS && HAS_DEVICE_TREE && DOMAIN_BUILD_HELPERS
-> +	depends on HAS_DOM0LESS && HAS_DEVICE_TREE_DISCOVERY && DOMAIN_BUILD_HELPERS
->  	default y
->  	help
->  	  Dom0less boot support enables Xen to create and start domU guests during
-> @@ -85,7 +85,7 @@ config HAS_ALTERNATIVE
->  config HAS_COMPAT
->  	bool
->  
-> -config HAS_DEVICE_TREE
-> +config HAS_DEVICE_TREE_DISCOVERY
->  	bool
->  	select LIBFDT
-
-This select imo ought to move to HAS_DEVICE_TREE_PARSE, unless I misunderstand
-what LIBFDT covers.
-
-> --- a/xen/common/Makefile
-> +++ b/xen/common/Makefile
-> @@ -6,9 +6,9 @@ obj-$(CONFIG_HYPFS_CONFIG) += config_data.o
->  obj-$(CONFIG_CORE_PARKING) += core_parking.o
->  obj-y += cpu.o
->  obj-$(CONFIG_DEBUG_TRACE) += debugtrace.o
-> -obj-$(CONFIG_HAS_DEVICE_TREE) += device.o
-> +obj-$(CONFIG_HAS_DEVICE_TREE_DISCOVERY) += device.o
->  obj-$(filter-out $(CONFIG_X86),$(CONFIG_ACPI)) += device.o
-> -obj-$(CONFIG_HAS_DEVICE_TREE) += device-tree/
-> +obj-$(CONFIG_HAS_DEVICE_TREE_DISCOVERY) += device-tree/
-
-Here I'm less certain - is everything in that subdir truly "discovery" related?
-
-> --- a/xen/common/sched/Kconfig
-> +++ b/xen/common/sched/Kconfig
-> @@ -67,7 +67,7 @@ endmenu
->  
->  config BOOT_TIME_CPUPOOLS
->  	bool "Create cpupools at boot time"
-> -	depends on HAS_DEVICE_TREE
-> +	depends on HAS_DEVICE_TREE_DISCOVERY
->  	help
->  	  Creates cpupools during boot time and assigns cpus to them. Cpupools
->  	  options can be specified in the device tree.
-
-This similarly looks wrong to me. Whether to create CPU pools is purely a
-Xen-internal software thing, isn't it?
+Oh, ftaod: I wouldn't insist on the _PARSING suffix. Having HAS_DEVICE_TREE
+and HAS_DEVICE_TREE_DISCOVERY (with the latter selecting the former) would
+be equally fine with me.
 
 Jan
 
