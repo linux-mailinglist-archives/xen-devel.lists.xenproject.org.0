@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 17DF6AE372E
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Jun 2025 09:45:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1022098.1397814 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D9F5AE3765
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Jun 2025 09:51:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1022106.1397824 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uTbrJ-0005FD-Oe; Mon, 23 Jun 2025 07:44:53 +0000
+	id 1uTbxR-0006wh-CM; Mon, 23 Jun 2025 07:51:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1022098.1397814; Mon, 23 Jun 2025 07:44:53 +0000
+Received: by outflank-mailman (output) from mailman id 1022106.1397824; Mon, 23 Jun 2025 07:51:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uTbrJ-0005CF-LF; Mon, 23 Jun 2025 07:44:53 +0000
-Received: by outflank-mailman (input) for mailman id 1022098;
- Mon, 23 Jun 2025 07:44:52 +0000
+	id 1uTbxR-0006uE-94; Mon, 23 Jun 2025 07:51:13 +0000
+Received: by outflank-mailman (input) for mailman id 1022106;
+ Mon, 23 Jun 2025 07:51:12 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=H8L6=ZG=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uTbrI-0005C9-UM
- for xen-devel@lists.xenproject.org; Mon, 23 Jun 2025 07:44:52 +0000
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [2a00:1450:4864:20::42c])
+ id 1uTbxP-0006u8-Vg
+ for xen-devel@lists.xenproject.org; Mon, 23 Jun 2025 07:51:11 +0000
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [2a00:1450:4864:20::42a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ed82e2e4-5005-11f0-a30f-13f23c93f187;
- Mon, 23 Jun 2025 09:44:44 +0200 (CEST)
-Received: by mail-wr1-x42c.google.com with SMTP id
- ffacd0b85a97d-3a365a6804eso2040844f8f.3
- for <xen-devel@lists.xenproject.org>; Mon, 23 Jun 2025 00:44:43 -0700 (PDT)
+ id d4274aa4-5006-11f0-a30f-13f23c93f187;
+ Mon, 23 Jun 2025 09:51:10 +0200 (CEST)
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-3a525eee2e3so2294023f8f.2
+ for <xen-devel@lists.xenproject.org>; Mon, 23 Jun 2025 00:51:10 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-237d8673d1asm77030375ad.172.2025.06.23.00.44.39
+ 41be03b00d2f7-b31f12427b7sm6135694a12.40.2025.06.23.00.51.03
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 23 Jun 2025 00:44:42 -0700 (PDT)
+ Mon, 23 Jun 2025 00:51:09 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ed82e2e4-5005-11f0-a30f-13f23c93f187
+X-Inumbo-ID: d4274aa4-5006-11f0-a30f-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1750664683; x=1751269483; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1750665070; x=1751269870; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=1Pc10lhOrmmJANx4DJ1lM5+pLLzbiArb9KyfJUHnyJI=;
-        b=Y1jV+oVTlH5iNaA8jXFpSHAPNDeK14KEH86xe1DtkbLYsZ51SZ9uvzdAjMEItXwBIH
-         dAnbkvGrBDyOSWqNn2eS3aHEyJXs05og+a1h0i8elw6bjhIChV8H1pufoeZYLD/9Sslx
-         wddTQ2AC8us740Ouqlwt6obD4jL6O5rHnKU83txE/yGtSAeh0/3HFMscMTJYuhYfuse3
-         oq/IpEbLBc/w0khdoVbG6MnjyjYwJqNZoZZPkTYk/ac3+WaGdUoNVyXVifN1WkLPzDGg
-         q8w8e6/MCRjTkZBWraKVf9tK6ufNdfJIJA1CRm98y2loXD00U/Ss1Rva27ptVT50wvaI
-         tHLQ==
+        bh=XZHgxBpXcEMvVWNTABkZuLYDSb3cu+uGVt7hzEMxwUs=;
+        b=Vll0KrIKknplmvDCY7Fn2FVV1cYMdOkDZJxy2vySHgrCc5DUDy550GOe1p0aN3quYr
+         rnYeXISy6TE6kb+7xTGVQi2aR/GEMKQ25g4NJemfwnHecjq/Im/1HtMrN8hMjw4t0ajc
+         16avx5SVGNiOaWrTEO+jAdfcNgkd8OVbomcoemaIjn7Ntvhlc2iwEeRCAI4osd9sUE6g
+         gzSq0YQ+ZB1ZtcQVw4D2K10FFwZjBxPuIgQwhEFeVmUycaIauKVzj8qUcoqp+X66vc23
+         0Sr6iJehUSkBCOmY8VhhdtAvoOAAxmknk/oDDtGciMrLoT+CEmVKsp3Y/wnHuMHPFZyP
+         L4zA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750664683; x=1751269483;
+        d=1e100.net; s=20230601; t=1750665070; x=1751269870;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=1Pc10lhOrmmJANx4DJ1lM5+pLLzbiArb9KyfJUHnyJI=;
-        b=mJ5yZsbX/BShxAVSWKLp2x8M8zL9V9tt+9WUd+LXPVqj0rK9IWEYfD1eQpW86vU3KO
-         MM7YHGMQn3X1JA2wvxG1aFGJVEP3znIlJhHjpK5CX8N3SoaIJoB1GkJXUb7G9MX8cXZT
-         O/zYt2N6KPzN5lRAvPGufik9/vHYHYBYa2nByllpWetJHyhFqSRzX/GgYXFIggZOmdmd
-         nVQm32uqE0CfEx9z7mCyRES9BIIsq5zPhChClC6Nb5D5LuP0COqxONVtxlnkxw7Hr7fC
-         EjtNr8vW1NuelaXNptVcOV2Y3fvLrXJA/6s072g2maJ5wyrkzi/bciAFKADF9i9EWTnA
-         YPlg==
-X-Forwarded-Encrypted: i=1; AJvYcCXHtFk2QegPuG1msHPe4h8R2e/buUocx7n5GolG0YmpdTv/CA0FgXj2QlimkuZRXnnFsfutbgzfMMI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwUuKh8Mxow0dPFVmvgCqaaXewy005buVVDMOuwBRokc/bRUTmq
-	yWELbLZ5+Qy7JpBO7ZOSWVLn50ITJ4seHIorqo7+fBzoSler3Akh3A1Zja5K/AQbpQ==
-X-Gm-Gg: ASbGncsLAQWMrERMv64jiJxu4uT3/WC7VxOY/GnFDXwReQnwhmxXl8zRhnJVpV0h2ki
-	23k1S1KiWW/FeIN1EmLAwXLtu5Na1T7RHbW8aeKzVoWt1YF5SJKkTpMnhZaaycts41nXRDOkGXy
-	k+eXrf8JCcqpxiESteBdl/cr0XpP3L+FBev0WCZmhvsQumpvHO0962cH77NKiIYx/ejPh205pX1
-	+fk3Q4IXwQzhCXk3uNh0AFzr2qcI5kLINwzXpVEXqwFTLLWNF1OiFXsKzp3z4Qi2mugQ2xcvLbA
-	L/fJ+wtfvUfriAtLZ3CG8l/OyEOxoAHhqeqKDwtq1Y+eXiwdfVlB6B3ljqWJq0za7706qC+QNoY
-	V0fDrK3rUiO2qXXRBTiFyYYJltm/G+x+h9g5+kwm713IaTig=
-X-Google-Smtp-Source: AGHT+IGRMvaZ7IQgV0B9zgCHnTqCKyFse5ZmlU7i2T/yx8vqY31nI9oGd034icazSRu3QSh27cYr6A==
-X-Received: by 2002:a05:6000:645:b0:3a5:2cf3:d6af with SMTP id ffacd0b85a97d-3a6d1329be4mr8799083f8f.45.1750664683441;
-        Mon, 23 Jun 2025 00:44:43 -0700 (PDT)
-Message-ID: <faf255a2-a0d1-4c6b-ad94-0395d8af1e58@suse.com>
-Date: Mon, 23 Jun 2025 09:44:36 +0200
+        bh=XZHgxBpXcEMvVWNTABkZuLYDSb3cu+uGVt7hzEMxwUs=;
+        b=Blet5nmCdDjDHztt4PnGuucZvyD8KUCac5mk0FqEAr9xVbm6Mt2zgCXqtHCM+ULzzO
+         1J/hHJFmnJ0/59dJkoay0U5RQ3PSVa+9afDyhheUBUjS/BNgTwGsd7wSBr5eNws3YmjZ
+         /ZwatkruEcNc//kFEYvbeT0FGc3M/g8a72m8oVWsDD/s38gRJB5s7M0Z9+Eb5eyez4u2
+         T/zOHDl19pS3OEQGBcws+yP/z7gPIWhbE2Yro9/jy3skjs1HK+akzr+UXX0v3m0a9Pqt
+         Kgnaa/S18bL3zItjFY8+4Aw8aGNyh2guCGjCx7sGDR+H9yl0VIt0aQEig2g6AewO9XZN
+         F1Dg==
+X-Forwarded-Encrypted: i=1; AJvYcCUXQFt8lE6YGxCGnSJ9UvlMY8DosIe36zZ5qvSmK2q8ng884j+yiI3NMKNSQlt4gJkxQLCBY+9h2/c=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzXTN+UnYFQYxF/JvKTADaVa8KbNZs0oWB/5x+1nUGWD8/j2G+o
+	eNIT++CYjhYvee5yHxjC4SQmUqJGL7n93yB2z1IiXiI6renOA+c6UWYVKTckrjFrrw==
+X-Gm-Gg: ASbGncvaMMNmS9YB7RkpqLWYAopp3NMRhu57lDCX9MeoAA2kLPXsy93fpuLsN7f1wpa
+	/ccDd/81rm3cq9AByTc/BwMlcfQ2Hg7EdYH2TboHAUzimWmUTS1zECpwcJt8Pnyk9L2K0EKUGEX
+	0/0u1RPstOqTR8CXKlBOrTGeZDf9QiuePlRI1gG6nsp8kWwv0u0wayxwP3WLWWOepPxvhgbi1Gs
+	QSwSAHS2s4ZwDg1Vo3HcQ5CjTvdjvcoUuaDgHBa1XR3ITNsW7juDZrQzjEG2//elL+UcbzcYLej
+	+7LN2cgBF6qesS3oO9CUgw2UL0Ho9CnLl5iAyd14tcJGazf1Lyf1m7FsznlLiuD5l5UtSxTBAf5
+	ZS89Jtdu7BNdtWj2t0umjj1pnXFEpq8kl7TDPHAWKjHtJsnk=
+X-Google-Smtp-Source: AGHT+IGUoTC5etA49PQl/efxrUmJsHjWn6kFCyERT1AKGQldkEL3aQH+SSXWKrQ02NvuEjwijtc+7w==
+X-Received: by 2002:a05:6000:387:b0:3a5:2848:2e78 with SMTP id ffacd0b85a97d-3a6d12d90cbmr10202286f8f.28.1750665070285;
+        Mon, 23 Jun 2025 00:51:10 -0700 (PDT)
+Message-ID: <45b33975-be79-40eb-a860-ca3eb71443b0@suse.com>
+Date: Mon, 23 Jun 2025 09:51:01 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 11/12] xen/dt: ifdef out DEV_DT-related bits from
- device_tree.{c,h}
-To: Alejandro Vallejo <agarciav@amd.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>, xen-devel@lists.xenproject.org
-References: <20250620182859.23378-1-agarciav@amd.com>
- <20250620182859.23378-12-agarciav@amd.com>
+Subject: Re: [XEN PATCH] xen: fix header guard generation for asm-generic
+ headers
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>
+Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
+ ayan.kumar.halder@amd.com, consulting@bugseng.com,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <f07133fa226df11624883fafa1cb455a4e7670ba.1750499076.git.nicola.vetrini@bugseng.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,49 +122,39 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250620182859.23378-12-agarciav@amd.com>
+In-Reply-To: <f07133fa226df11624883fafa1cb455a4e7670ba.1750499076.git.nicola.vetrini@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 20.06.2025 20:28, Alejandro Vallejo wrote:
-> device-tree.c stops requiring CONFIG_HAS_DEVICE_TREE_DISCOVERY and may
-> function with DOM0LESS_BOOT.
+On 21.06.2025 11:58, Nicola Vetrini wrote:
+> Dashes were wrongly not translated into underscores, thus generating
+> an unexpected guard identifier.
 > 
-> Without this, there's a clash with x86's definition of device_t. Because
-> x86 doesn't discover devices in the DT it can simply skip the code
-> to do so during the unflattening phase.
-> 
-> Not a functional change on architectures that currently use these files,
-> as they already select CONFIG_HAS_DEVICE_TREE_DISCOVERY.
-> 
-> Signed-off-by: Alejandro Vallejo <agarciav@amd.com>
+> Fixes: ee79f378311b ("xen: add header guards to generated asm generic headers")
+> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
 > ---
->  xen/common/device-tree/device-tree.c | 2 ++
->  xen/include/xen/device_tree.h        | 4 ++++
->  2 files changed, 6 insertions(+)
+>  xen/scripts/Makefile.asm-generic | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/xen/common/device-tree/device-tree.c b/xen/common/device-tree/device-tree.c
-> index 725ff71646..741e2ce585 100644
-> --- a/xen/common/device-tree/device-tree.c
-> +++ b/xen/common/device-tree/device-tree.c
-> @@ -2029,9 +2029,11 @@ static unsigned long unflatten_dt_node(const void *fdt,
->              ((char *)pp->value)[sz - 1] = 0;
->              dt_dprintk("fixed up name for %s -> %s\n", pathp,
->                         (char *)pp->value);
-> +#ifdef CONFIG_HAS_DEVICE_TREE_DISCOVERY
->              /* Generic device initialization */
->              np->dev.type = DEV_DT;
->              np->dev.of_node = np;
-> +#endif /* CONFIG_HAS_DEVICE_TREE_DISCOVERY */
->          }
->      }
+> diff --git a/xen/scripts/Makefile.asm-generic b/xen/scripts/Makefile.asm-generic
+> index b0828018080d..f6850758c54b 100644
+> --- a/xen/scripts/Makefile.asm-generic
+> +++ b/xen/scripts/Makefile.asm-generic
+> @@ -34,7 +34,7 @@ unwanted    := $(filter-out $(generic-y) $(generated-y),$(old-headers))
+>  quiet_cmd_wrap = WRAP    $@
+>        cmd_wrap = \
+>  	arch=$$(echo $@ | sed -n 's:.*arch/\([^/]*\)/.*:\1:p' | tr a-z A-Z); \
+> -	upper=$$(echo $*.h | tr a-z A-Z | tr '/.' '__'); \
+> +	upper=$$(echo $*.h | tr a-z A-Z | tr '/.-' '__'); \
 
-Without something said to that effect in the description, this contradicts
+Aiui the other argument also needs to change, to '___'. While some tr implementations
+may cope, the spec is quite clear:
 
-obj-$(CONFIG_HAS_DEVICE_TREE_DISCOVERY) += device-tree/
+"When the -d option is not specified:
 
-that the previous patch put in place, and that only the subsequent patch
-will further change.
+    Each input character found in the array specified by string1 shall be replaced by the character in the same relative position in the array specified by string2. When the array specified by string2 is shorter that the one specified by string1, the results are unspecified."
+
+Easy enough to adjust while committing, I suppose.
 
 Jan
 
