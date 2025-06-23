@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22263AE46C0
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Jun 2025 16:31:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1022526.1398366 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B75DAAE4705
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Jun 2025 16:38:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1022533.1398376 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uTiCW-0006yN-IH; Mon, 23 Jun 2025 14:31:12 +0000
+	id 1uTiJb-0008O9-8p; Mon, 23 Jun 2025 14:38:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1022526.1398366; Mon, 23 Jun 2025 14:31:12 +0000
+Received: by outflank-mailman (output) from mailman id 1022533.1398376; Mon, 23 Jun 2025 14:38:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uTiCW-0006wl-Fi; Mon, 23 Jun 2025 14:31:12 +0000
-Received: by outflank-mailman (input) for mailman id 1022526;
- Mon, 23 Jun 2025 14:31:11 +0000
+	id 1uTiJb-0008LI-6A; Mon, 23 Jun 2025 14:38:31 +0000
+Received: by outflank-mailman (input) for mailman id 1022533;
+ Mon, 23 Jun 2025 14:38:30 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=a94z=ZG=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1uTiCV-0006wf-EM
- for xen-devel@lists.xenproject.org; Mon, 23 Jun 2025 14:31:11 +0000
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [2a00:1450:4864:20::62f])
+ id 1uTiJa-0008LC-4V
+ for xen-devel@lists.xenproject.org; Mon, 23 Jun 2025 14:38:30 +0000
+Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
+ [2a00:1450:4864:20::52d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b472b13b-503e-11f0-b894-0df219b8e170;
- Mon, 23 Jun 2025 16:31:09 +0200 (CEST)
-Received: by mail-ej1-x62f.google.com with SMTP id
- a640c23a62f3a-ade5b8aab41so890550466b.0
- for <xen-devel@lists.xenproject.org>; Mon, 23 Jun 2025 07:31:09 -0700 (PDT)
+ id b9b99d70-503f-11f0-b894-0df219b8e170;
+ Mon, 23 Jun 2025 16:38:27 +0200 (CEST)
+Received: by mail-ed1-x52d.google.com with SMTP id
+ 4fb4d7f45d1cf-60c01b983b6so285573a12.0
+ for <xen-devel@lists.xenproject.org>; Mon, 23 Jun 2025 07:38:27 -0700 (PDT)
 Received: from [192.168.1.5] (user-109-243-64-38.play-internet.pl.
  [109.243.64.38]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ae054083c87sm712594066b.89.2025.06.23.07.31.07
+ 4fb4d7f45d1cf-60a185449d5sm6150815a12.28.2025.06.23.07.38.26
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 23 Jun 2025 07:31:08 -0700 (PDT)
+ Mon, 23 Jun 2025 07:38:26 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b472b13b-503e-11f0-b894-0df219b8e170
+X-Inumbo-ID: b9b99d70-503f-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1750689069; x=1751293869; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1750689507; x=1751294307; darn=lists.xenproject.org;
         h=in-reply-to:from:content-language:references:cc:to:subject
          :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=bXMOrPWTU/o+DCEqk62seDI9irkUb2xOGAhRsca1Lz8=;
-        b=ZXsbOFZNyQAxf/WCVQRIkUzeKUQeQDsJQ0WUAhUNPxCsRscFzACiKy9i4quNguolYO
-         oINdTDK94+kobC+aAbrv22GO9DCjWjfyfP/bVJJBecf6bSE83gP178+EdZPW3bjkm0fa
-         9L3D6yX6mjJJf4J9UuzWfpk1oUkrvkEhHhACSkjQhbSkYrN0xNta36/gr2hcCPQByY9W
-         iWhLTiQh8mtG8V0m1ZiIdNWkSCNYFHYIefUfKjBX+dE8kHWN4wUt/wkKHenNcenV1CjQ
-         hR6WCt88259oJYgPwEO8fD8uFyVdB7NcNDUvuwLn2yoBSOiyqoe5Pw+ZF7boXeqhamvi
-         737A==
+        bh=ikbqEetpJuXeRpYBkQaHYywfRLiTbOC9Is/q48ZU/Q8=;
+        b=UgxomK4EcgsbIyJ611ccKEpOXDlefAvTOCbtapoKC0hcpZLS35RbVnrIjKCTPt+RB3
+         Ran1ZFOTklobbwvQbdC13nYCpxTHoEHGgrs7+CZ8IsSerLqlj2ldYkGV4XTlQwm4Rel0
+         u66RUECHBJQaaPla5DcdrZ2As6DNMYOoO74uEyAJ+nkgANWRDNP7S95bXRUQ5J5hdRIO
+         gKOpTKOTHFRD96treQtm7x/RiwgbPUdVEXzIem7TsXbon0XwisDPupqxinLIDo0Nupcx
+         1+252dUrjXgt9xlE27BOONZF3/95Jkma0enkXWrXVwOp6IzqwhYajUtwfmMJ7phs9Pn2
+         slOg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750689069; x=1751293869;
+        d=1e100.net; s=20230601; t=1750689507; x=1751294307;
         h=in-reply-to:from:content-language:references:cc:to:subject
          :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=bXMOrPWTU/o+DCEqk62seDI9irkUb2xOGAhRsca1Lz8=;
-        b=jWMIdUKYGGJhgabSpO9zJvEQBPl9hdH2KcCV6FJAagO7VylVCmS3y+FUyuj/Fe3Cuq
-         flpk20NGpULkEAPb+9Uv4fNrLEyPHkMpzJIyejUFOvoegCMH2MuCM4QYtl7in03U1lug
-         AsbJArE4CILD4o7c4lvlAxe40F7nbLqVMctwKdLDvrYFfr9PXsxaSQLBIKvtKft9r8OZ
-         0h0UIia2lrYLvUnjjSc5rTw7GokyQudO2bWhsoMiDMGsLEhJEBBE8Zwh/vFKJ77CFcZ2
-         stRUnY7r3iMrKVVIEL9cjnfyLwE6Pn86VY9DhGCy6l2hixSUS5wRkv7QZE8F99Zd/fPY
-         Te9Q==
-X-Forwarded-Encrypted: i=1; AJvYcCVgYAam2mNgmISEhs9vP4sBNzqoumzwvb9NsGCa2i8MbNXbp4NgNaC0Eycf/JZgQMD7IF9ruDZJwE8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyC/knkgtpjOl/t9TsCJx2PmTPn88snKt461CAcJZ8xRSNO8S64
-	bwSmovlzgKbAn66l8WKlsx0Uywai/3OZMtULcOIwz++kIfzqEs3rd+99
-X-Gm-Gg: ASbGnct3hVFH29WoTHG9Kb5A6wA324ldsO8zQ/V2Mi1vAjhDOLI7sbCRDa7Qp2b4/mQ
-	AYbY9Ww634ZP7WhJ9k8/ITn6+VdeTPMNHySpAcD3TWOkX/ojdkIXLA2tl6l3B1bL5rSH1FSqSgB
-	xKid3mWk1hOyM1DRKBZ1/1kENP8tNBN2MmTRJUsJjM+U82NtoQHpA8nbBsP/Px66ITdwZOf+egy
-	HLR9VYB2nF2MivI5WdIfw0q7kluk2nPkfXuXNF+Pb4hqlPNCI/yVDFmRfFZoNXB4ZsJYYlaa1wp
-	6lq7QEQz8OvYM2M76eaDbQGgGgXikIEzHvTYG9jtFmO0fFVuwXLTAuzY5di3V1o0vh3JLbvP1ZK
-	QmsfUCCu17k475Fsa5OPsAYOIwFDKTTSSnmvtVoereqXqcQ==
-X-Google-Smtp-Source: AGHT+IGVaAPXwRJJGNRjIX6xLs6j6gEwx6uuugUZBalDARDYJtZI8KiLk3p+VTjeZTB19xV4WYpIpA==
-X-Received: by 2002:a17:906:c10f:b0:ae0:a353:223a with SMTP id a640c23a62f3a-ae0a3534ca5mr53469566b.7.1750689068447;
-        Mon, 23 Jun 2025 07:31:08 -0700 (PDT)
+        bh=ikbqEetpJuXeRpYBkQaHYywfRLiTbOC9Is/q48ZU/Q8=;
+        b=Gk4feT527O7+u87sbgzHQGtUDH4n+HWffnp1vvub8wV0mPn/hkMBlLGOlly0C5CiOS
+         PhTL2RFajVPQuOn5xU06wet2xaboUv7m/zBXz1OzW/AZPCkaTGDEPjzsP6ky8jlplHop
+         sjjuOcwDYytq5TVJ+0+02zpxmGkCE3ArwegDL+DdFBK5YgEKeThVTnfCN3JNkjHQWoie
+         ztPyBufgFRZyiMrQw/eS1cbo28XeQQVcCFvuAizlWa3GfKZNyopyGJZoxEKIs7CYhR8u
+         yW2vmWhHsYKSGQ8i1W91JpyQ3b1lHJTw77IKVJijjC68fDFS18BbgyBBevc57W6h3ocx
+         cUuQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUSlbYeHX7Q/Aolb04vcv555j09671pggti0HFQ0ctlZAs+sfbBQ2X0gPJM60CGH1EvNtW1/l6Fr6c=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx3ozJlnLhGL8/FzHpPOlFI3un7b5P928MAR+QhbDAzeidQaokh
+	tDVM/gVcVdRvCQ3CbEI1Lr4tANCGxZa/LgG3VA8S+iKJ0BLYWQF2NqVG2bCInQ==
+X-Gm-Gg: ASbGnctlW4jMRRMdMb7RK8A6YdYPv2b3kziLANUE2ZvedcWDQpPPvw9mmpbTyB+je88
+	Vd29TiQOlThKJ/R+aM8SZI/eagUc6fhKDWRMU3bUkJIQTXLiNmV3VXKkxJB9bPnOccHVvsb9kIz
+	rLbXGYwN+SQFSuClfgVrFtsAYLi8O0Uw8j96+f2IospAq3noKDl+w4Vb7S/+WreepbD+c4QYGE/
+	HxcY62MntgMXyA5+qutygOyOtIVkmgapsQcBczYOkCl0GkVMALIT8GW0Ws1auGza4poAN/gzFeA
+	+SThHif0S5LbF9Twwea35UY1VswN8Q0cQPJ3+wLzZXK9LjbAkTKc4oP54AEXJKDdTBri/qrOLgw
+	furtiHdGt3eiytEqDTIFz5Oz5QNZsxP6Or3M=
+X-Google-Smtp-Source: AGHT+IFMjXfSG/5K2lLeZfcSQHldZMt3wa0gfgMKdM9D8WWg2UFwcexbQ7l2XVhcaIhkQNTuInn4yA==
+X-Received: by 2002:a05:6402:27cc:b0:608:477d:2b65 with SMTP id 4fb4d7f45d1cf-60a2409480bmr10985517a12.15.1750689507105;
+        Mon, 23 Jun 2025 07:38:27 -0700 (PDT)
 Content-Type: multipart/alternative;
- boundary="------------UnS0Rv1O8TFjlHLv3WAIGagw"
-Message-ID: <80460b90-ffb9-44e9-83ba-0f81b3b05e92@gmail.com>
-Date: Mon, 23 Jun 2025 16:31:07 +0200
+ boundary="------------DZEaixMA40TFnmdeEXmlCTAk"
+Message-ID: <5bc59f3e-d41c-48cc-9be6-c2918c9dc465@gmail.com>
+Date: Mon, 23 Jun 2025 16:38:26 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 01/17] xen/riscv: implement sbi_remote_hfence_gvma()
+Subject: Re: [PATCH v2 02/17] xen/riscv: introduce
+ sbi_remote_hfence_gvma_vmid()
 To: Jan Beulich <jbeulich@suse.com>
 Cc: Alistair Francis <alistair.francis@wdc.com>,
  Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
@@ -98,71 +99,55 @@ Cc: Alistair Francis <alistair.francis@wdc.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <cover.1749555949.git.oleksii.kurochko@gmail.com>
- <ea7a15c0ecfd2bae95c11a92e4c0cb71b155140f.1749555949.git.oleksii.kurochko@gmail.com>
- <728ee92b-0e4f-4ccb-8c6e-54687bd75c62@suse.com>
+ <5c614593a1710c737f5509ebb165efd8f857df30.1749555949.git.oleksii.kurochko@gmail.com>
+ <542a4f54-705d-4f4e-b155-13375561baac@suse.com>
 Content-Language: en-US
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <728ee92b-0e4f-4ccb-8c6e-54687bd75c62@suse.com>
+In-Reply-To: <542a4f54-705d-4f4e-b155-13375561baac@suse.com>
 
 This is a multi-part message in MIME format.
---------------UnS0Rv1O8TFjlHLv3WAIGagw
+--------------DZEaixMA40TFnmdeEXmlCTAk
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 
-On 6/18/25 5:15 PM, Jan Beulich wrote:
+On 6/18/25 5:20 PM, Jan Beulich wrote:
 > On 10.06.2025 15:05, Oleksii Kurochko wrote:
->> Instruct the remote harts to execute one or more HFENCE.GVMA instructions,
->> covering the range of guest physical addresses between start_addr and
->> start_addr + size for all the guests.
-> Here and in the code comment: Why "for all the guests"? Under what conditions
-> would you require such a broad (guest) TLB flush?
+>> It instructs the remote harts to execute one or more HFENCE.GVMA instructions
+>> by making an SBI call, covering the range of guest physical addresses between
+>> start_addr and start_addr + size only for the given VMID.
+>>
+>> This function call is only valid for harts implementing hypervisor extension.
+> We require H now, don't we? It's also odd to have this here, but not in patch 1.
 
-Originally, it came from Andrew reply:
-```
-TLB flushing needs to happen for each pCPU which potentially has cached
-a mapping.
-
-In other arches, this is tracked by d->dirty_cpumask which is the bitmap
-of pCPUs where this domain is scheduled.
-
-CPUs need to flush their TLBs before removing themselves from
-d->dirty_cpumask, which is typically done during context switch, but it
-means that to flush the P2M, you only need to IPI a subset of CPUs.
-```
-
-But specifically this function was introduced to work in case no VMID support
-as we can't distinguish which TLB entries belong to which domain. As a result,
-we have no choice but to flush the entire TLB to avoid incorrect translations.
-
-However, this patch may no longer be necessary, as VMID support has been
-introduced and|sbi_remote_hfence_gvma_vmid()| will be used instead.
+Yes, we required it. I will drop this part from the commit message and the comment
+above declaration of sbi_remote_hfence_gvma_vmid().
 
 >
 >> --- a/xen/arch/riscv/sbi.c
 >> +++ b/xen/arch/riscv/sbi.c
->> @@ -258,6 +258,15 @@ int sbi_remote_sfence_vma(const cpumask_t *cpu_mask, vaddr_t start,
+>> @@ -267,6 +267,15 @@ int sbi_remote_hfence_gvma(const cpumask_t *cpu_mask, vaddr_t start,
 >>                         cpu_mask, start, size, 0, 0);
 >>   }
 >>   
->> +int sbi_remote_hfence_gvma(const cpumask_t *cpu_mask, vaddr_t start,
->> +                           size_t size)
+>> +int sbi_remote_hfence_gvma_vmid(const cpumask_t *cpu_mask, vaddr_t start,
+>> +                           size_t size, unsigned long vmid)
 >> +{
 >> +    ASSERT(sbi_rfence);
-> As previously indicated, I question the usefulness of such assertions. If the
-> pointer is still NULL, ...
->
+>> +
 >> +    return sbi_rfence(SBI_EXT_RFENCE_REMOTE_HFENCE_GVMA,
->> +                      cpu_mask, start, size, 0, 0);
-> ... you'll crash here anyway (much like you will in a release build).
+>> +                      cpu_mask, start, size, vmid, 0);
+>> +}
+> sbi_remote_hfence_gvma() may want implementing in terms of this new function,
+> requiring the patches to be swapped. Provided (see comment there) that helper
+> is actually needed.
 
-I will drop ASSERT() for rfence functions.
-
-Thanks.
+It makes sense.
+But it seems like there is no need for sbi_remote_hfence_gvma() as we have VMID introduced.
 
 ~ Oleksii
 
---------------UnS0Rv1O8TFjlHLv3WAIGagw
+--------------DZEaixMA40TFnmdeEXmlCTAk
 Content-Type: text/html; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
@@ -174,80 +159,61 @@ Content-Transfer-Encoding: 7bit
   <body>
     <p><br>
     </p>
-    <div class="moz-cite-prefix">On 6/18/25 5:15 PM, Jan Beulich wrote:<br>
+    <div class="moz-cite-prefix">On 6/18/25 5:20 PM, Jan Beulich wrote:<br>
     </div>
     <blockquote type="cite"
-      cite="mid:728ee92b-0e4f-4ccb-8c6e-54687bd75c62@suse.com">
+      cite="mid:542a4f54-705d-4f4e-b155-13375561baac@suse.com">
       <pre wrap="" class="moz-quote-pre">On 10.06.2025 15:05, Oleksii Kurochko wrote:
 </pre>
       <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">Instruct the remote harts to execute one or more HFENCE.GVMA instructions,
-covering the range of guest physical addresses between start_addr and
-start_addr + size for all the guests.
+        <pre wrap="" class="moz-quote-pre">It instructs the remote harts to execute one or more HFENCE.GVMA instructions
+by making an SBI call, covering the range of guest physical addresses between
+start_addr and start_addr + size only for the given VMID.
+
+This function call is only valid for harts implementing hypervisor extension.
 </pre>
       </blockquote>
       <pre wrap="" class="moz-quote-pre">
-Here and in the code comment: Why "for all the guests"? Under what conditions
-would you require such a broad (guest) TLB flush?</pre>
+We require H now, don't we? It's also odd to have this here, but not in patch 1.</pre>
     </blockquote>
-    <pre data-start="66" data-end="277">Originally, it came from Andrew reply:
-```
-TLB flushing needs to happen for each pCPU which potentially has cached
-a mapping.
+    <pre>Yes, we required it. I will drop this part from the commit message and the comment
+above declaration of sbi_remote_hfence_gvma_vmid().
 
-In other arches, this is tracked by d-&gt;dirty_cpumask which is the bitmap
-of pCPUs where this domain is scheduled.
-
-CPUs need to flush their TLBs before removing themselves from
-d-&gt;dirty_cpumask, which is typically done during context switch, but it
-means that to flush the P2M, you only need to IPI a subset of CPUs.
-```
-
-But specifically this function was introduced to work in case no VMID support
-as we can't distinguish which TLB entries belong to which domain. As a result,
-we have no choice but to flush the entire TLB to avoid incorrect translations.</pre>
-    <pre data-start="279" data-end="420">However, this patch may no longer be necessary, as VMID support has been
-introduced and <code data-start="367" data-end="398">sbi_remote_hfence_gvma_vmid()</code> will be used instead.</pre>
-    <pre>
 </pre>
     <blockquote type="cite"
-      cite="mid:728ee92b-0e4f-4ccb-8c6e-54687bd75c62@suse.com">
+      cite="mid:542a4f54-705d-4f4e-b155-13375561baac@suse.com">
       <pre wrap="" class="moz-quote-pre">
 
 </pre>
       <blockquote type="cite">
         <pre wrap="" class="moz-quote-pre">--- a/xen/arch/riscv/sbi.c
 +++ b/xen/arch/riscv/sbi.c
-@@ -258,6 +258,15 @@ int sbi_remote_sfence_vma(const cpumask_t *cpu_mask, vaddr_t start,
+@@ -267,6 +267,15 @@ int sbi_remote_hfence_gvma(const cpumask_t *cpu_mask, vaddr_t start,
                        cpu_mask, start, size, 0, 0);
  }
  
-+int sbi_remote_hfence_gvma(const cpumask_t *cpu_mask, vaddr_t start,
-+                           size_t size)
++int sbi_remote_hfence_gvma_vmid(const cpumask_t *cpu_mask, vaddr_t start,
++                           size_t size, unsigned long vmid)
 +{
 +    ASSERT(sbi_rfence);
++
++    return sbi_rfence(SBI_EXT_RFENCE_REMOTE_HFENCE_GVMA,
++                      cpu_mask, start, size, vmid, 0);
++}
 </pre>
       </blockquote>
       <pre wrap="" class="moz-quote-pre">
-As previously indicated, I question the usefulness of such assertions. If the
-pointer is still NULL, ...
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">+    return sbi_rfence(SBI_EXT_RFENCE_REMOTE_HFENCE_GVMA,
-+                      cpu_mask, start, size, 0, 0);
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-... you'll crash here anyway (much like you will in a release build).</pre>
+sbi_remote_hfence_gvma() may want implementing in terms of this new function,
+requiring the patches to be swapped. Provided (see comment there) that helper
+is actually needed.</pre>
     </blockquote>
-    <pre>I will drop ASSERT() for rfence functions.
-
-Thanks.
-
-~ Oleksii</pre>
+    <pre>It makes sense.
+But it seems like there is no need for sbi_remote_hfence_gvma() as we have VMID introduced.
+</pre>
+    <pre>~ Oleksii
+</pre>
   </body>
 </html>
 
---------------UnS0Rv1O8TFjlHLv3WAIGagw--
+--------------DZEaixMA40TFnmdeEXmlCTAk--
 
