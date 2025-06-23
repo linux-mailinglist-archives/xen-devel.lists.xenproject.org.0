@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1485AAE4E5D
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Jun 2025 22:51:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1022746.1398587 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 51E24AE4E61
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Jun 2025 22:54:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1022752.1398596 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uTo86-0006zM-OL; Mon, 23 Jun 2025 20:51:02 +0000
+	id 1uToBX-0007hX-5z; Mon, 23 Jun 2025 20:54:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1022746.1398587; Mon, 23 Jun 2025 20:51:02 +0000
+Received: by outflank-mailman (output) from mailman id 1022752.1398596; Mon, 23 Jun 2025 20:54:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uTo86-0006xv-L5; Mon, 23 Jun 2025 20:51:02 +0000
-Received: by outflank-mailman (input) for mailman id 1022746;
- Mon, 23 Jun 2025 20:51:01 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uToBX-0007fW-2r; Mon, 23 Jun 2025 20:54:35 +0000
+Received: by outflank-mailman (input) for mailman id 1022752;
+ Mon, 23 Jun 2025 20:54:34 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=o1Rx=ZG=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1uTo85-0006xp-9Z
- for xen-devel@lists.xenproject.org; Mon, 23 Jun 2025 20:51:01 +0000
-Received: from sea.source.kernel.org (sea.source.kernel.org
- [2600:3c0a:e001:78e:0:1991:8:25])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c36943ba-5073-11f0-b894-0df219b8e170;
- Mon, 23 Jun 2025 22:50:58 +0200 (CEST)
+ id 1uToBW-0007fQ-F5
+ for xen-devel@lists.xenproject.org; Mon, 23 Jun 2025 20:54:34 +0000
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 43684e37-5074-11f0-a30f-13f23c93f187;
+ Mon, 23 Jun 2025 22:54:33 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 1996E43562;
- Mon, 23 Jun 2025 20:50:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43EC8C4CEEA;
- Mon, 23 Jun 2025 20:50:56 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id CA2BE61427;
+ Mon, 23 Jun 2025 20:54:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA099C4CEEA;
+ Mon, 23 Jun 2025 20:54:30 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,64 +41,67 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c36943ba-5073-11f0-b894-0df219b8e170
+X-Inumbo-ID: 43684e37-5074-11f0-a30f-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1750711856;
-	bh=2r0TtgD3LFnzLpbwy4L6qEk26dWvgzXcRvPBhGu0Rlk=;
+	s=k20201202; t=1750712071;
+	bh=FmQEeAO8+7XrfV2q4N6Vt/AhnT49JbtKC2oq733aN/s=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=FhkXc397HA7d1D4OiXnWRUYD4qwEoFq28yIdKv0bQL+IesvMzkdjSibsUUMIzX4CF
-	 QwO5U6nhvN9CWXwHoSckPJPQ/IEpkzCnwP+gLQjnk29oNVHGxJ6L7+Cv3cAIqkQZFQ
-	 nQsqe9oPq649P/JawlB7KVlnd7pM9p3Qwb+ZWwtgQts6BnfN5562J0ACPrc4nuSN65
-	 azRqtlRtEV2Ji4SBmuc2pLupZ+tv6Csbm4uY+doJwsxXDwZerwqIm1QK9u0jN3KdGf
-	 lMaMiKO/S/DiHbIvnf1LsBeVjaQhXg9GCL4glqaeZRHarodzHRniR0gL3+KfarKTdO
-	 tQvOmRxvuVmDw==
-Date: Mon, 23 Jun 2025 13:50:54 -0700 (PDT)
+	b=HhJti348302/vncd8V0MmKTuw9f08dDUXenRengvLzWMW3+jG9F3OAb7KxhI9PrWl
+	 tiJMzhVx3WukDgvebiIYB/zicUgv3/dPkw6XrwAfDbZfe/T35mq1ofcKpLF7BJLc24
+	 MkFQRPMiZKzwYo9oHHjCZ0o6opnYDN+Dpef847XaoRGIYEHNR+tCn9akOdwqgRfjWs
+	 iXWqfscIAgUHh9gD9FtTNoajJ37Yq30gGnUq/5DbfG7lGYw9RH1NRFaQLlX+yZ1Y0b
+	 alMYHINe4Sv2SEp0cOjkEeMFJgaoOZofhK8Iyqx9uS9GrHNZNJe3XvBIU8MtaUC+8j
+	 2pp8Bt5AZFa+Q==
+Date: Mon, 23 Jun 2025 13:54:29 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: Re: [PATCH test-artifacts v1 5/5] Setup ssh access to test systems
-In-Reply-To: <aFlhlKc8Pl76SgTW@mail-itl>
-Message-ID: <alpine.DEB.2.22.394.2506231350430.8066@ubuntu-linux-20-04-desktop>
-References: <cover.7129d44a341f3fb3a85f808a998c28ebe8a77ee8.1750684376.git-series.marmarek@invisiblethingslab.com> <d9e1dc62d2bcf647e0a1d26d90d2d33778d954a1.1750684376.git-series.marmarek@invisiblethingslab.com> <fe0adc4b-8bbf-41d6-b33d-54f5f9f18156@citrix.com>
- <aFlhlKc8Pl76SgTW@mail-itl>
+cc: xen-devel@lists.xenproject.org, Doug Goldstein <cardoe@cardoe.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH v1 1/6] CI: Switch x86 tests to 6.12.34 kernel
+In-Reply-To: <56c63be504a72b689591b1888970fc5d340d0649.1750686195.git-series.marmarek@invisiblethingslab.com>
+Message-ID: <alpine.DEB.2.22.394.2506231354230.8066@ubuntu-linux-20-04-desktop>
+References: <cover.16ccd290bf95e314a4f23777f5564b3aa2417e57.1750686195.git-series.marmarek@invisiblethingslab.com> <56c63be504a72b689591b1888970fc5d340d0649.1750686195.git-series.marmarek@invisiblethingslab.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-1643038626-1750711856=:8066"
+Content-Type: multipart/mixed; boundary="8323329-1647492510-1750712071=:8066"
 
   This message is in MIME format.  The first part should be readable text,
   while the remaining parts are likely unreadable without MIME-aware tools.
 
---8323329-1643038626-1750711856=:8066
+--8323329-1647492510-1750712071=:8066
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8BIT
 
 On Mon, 23 Jun 2025, Marek Marczykowski-Górecki wrote:
-> On Mon, Jun 23, 2025 at 02:56:00PM +0100, Andrew Cooper wrote:
-> > On 23/06/2025 2:46 pm, Marek Marczykowski-Górecki wrote:
-> > > For this add also bridge package, so xenbr0 can be configured with
-> > > /etc/network/interfaces.
-> > > This allows extracting more logs out of the test system.
-> > >
-> > > Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-> > > ---
-> > > This enables passwordless root login. It's okay for qubes runners, as
-> > > they are isolated (even from each other). Is that okay in other places
-> > > too?
-> > 
-> > It's potentially a problem on a corporate network.
-> > 
-> > Can't we have each job generate a random password an insert it via the
-> > dom0-rootfs overlay?
-> > 
-> > Or alternatively have the runner drop a public key in
-> > /root/.ssh/authorised_keys ?
+> This is necessary for the upcoming Zen4 runner.
 > 
-> That can work, yes. And is preferred to a password, as easier to do
-> non-interactively.
+> Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
 
-+1
---8323329-1643038626-1750711856=:8066--
+Acked-by: Stefano Stabellini <sstabellini@kernel.org>
+
+
+> ---
+> Previous version posted in https://lore.kernel.org/xen-devel/cover.7da1777882774486a13e6f39ff4a2096f6b7901e.1744028549.git-series.marmarek@invisiblethingslab.com/T/#u (but actual patch didn't make it into the ML, as it contained dockerfile change...)
+> ---
+>  automation/gitlab-ci/test.yaml | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
+> index 842cecf71382..1b88ee5c3be7 100644
+> --- a/automation/gitlab-ci/test.yaml
+> +++ b/automation/gitlab-ci/test.yaml
+> @@ -21,7 +21,7 @@
+>  
+>  .x86-64-test-needs: &x86-64-test-needs
+>    - project: xen-project/hardware/test-artifacts
+> -    job: linux-6.6.56-x86_64
+> +    job: linux-6.12.34-x86_64
+>      ref: master
+>    - project: xen-project/hardware/test-artifacts
+>      job: alpine-3.18-x86_64-rootfs
+> -- 
+> git-series 0.9.1
+> 
+--8323329-1647492510-1750712071=:8066--
 
