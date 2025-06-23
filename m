@@ -2,50 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 25E70AE3DB1
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Jun 2025 13:10:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1022264.1398047 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D8987AE3DCF
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Jun 2025 13:23:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1022271.1398056 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uTf4K-0005re-MN; Mon, 23 Jun 2025 11:10:32 +0000
+	id 1uTfGZ-0007fE-OY; Mon, 23 Jun 2025 11:23:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1022264.1398047; Mon, 23 Jun 2025 11:10:32 +0000
+Received: by outflank-mailman (output) from mailman id 1022271.1398056; Mon, 23 Jun 2025 11:23:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uTf4K-0005pZ-JJ; Mon, 23 Jun 2025 11:10:32 +0000
-Received: by outflank-mailman (input) for mailman id 1022264;
- Mon, 23 Jun 2025 11:10:30 +0000
+	id 1uTfGZ-0007dA-Lg; Mon, 23 Jun 2025 11:23:11 +0000
+Received: by outflank-mailman (input) for mailman id 1022271;
+ Mon, 23 Jun 2025 11:23:09 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=mqBe=ZG=antarean.org=joost@srs-se1.protection.inumbo.net>)
- id 1uTf4H-0005pT-Ae
- for xen-devel@lists.xenproject.org; Mon, 23 Jun 2025 11:10:30 +0000
-Received: from gw4.antarean.org (gw4.antarean.org [136.144.238.64])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id aa737a05-5022-11f0-b894-0df219b8e170;
- Mon, 23 Jun 2025 13:10:26 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by gw4.antarean.org (Postfix) with ESMTP id 4bQljt4BXWzNn9l;
- Mon, 23 Jun 2025 13:10:26 +0200 (CEST)
-Received: from gw4.antarean.org ([127.0.0.1])
- by localhost (gw4.antarean.org [127.0.0.1]) (amavis, port 10024) with ESMTP
- id IzGkHA0Hwnur; Mon, 23 Jun 2025 13:10:26 +0200 (CEST)
-Received: from mailstore1.adm.antarean.org (localhost [127.0.0.1])
- by gw4.antarean.org (Postfix) with ESMTP id 4bQljt1FHdzNkdZ;
- Mon, 23 Jun 2025 13:10:26 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by mailstore1.adm.antarean.org (Postfix) with ESMTP id 4bQljt0DFQz1G;
- Mon, 23 Jun 2025 11:10:26 +0000 (UTC)
-Received: from mailstore1.adm.antarean.org ([127.0.0.1])
- by localhost (mailstore1.adm.antarean.org [127.0.0.1]) (amavis, port 10024)
- with ESMTP id oWbBwcdQgtxp; Mon, 23 Jun 2025 11:10:25 +0000 (UTC)
-Received: from persephone.localnet (persephone.adm.antarean.org [10.55.16.48])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mailstore1.adm.antarean.org (Postfix) with ESMTPS id 4bQljs2HxNz17;
- Mon, 23 Jun 2025 11:10:25 +0000 (UTC)
+ <SRS0=yjIQ=ZG=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
+ id 1uTfGX-0007d4-ED
+ for xen-devel@lists.xenproject.org; Mon, 23 Jun 2025 11:23:09 +0000
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2061e.outbound.protection.outlook.com
+ [2a01:111:f403:2415::61e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 6ea58bd1-5024-11f0-b894-0df219b8e170;
+ Mon, 23 Jun 2025 13:23:06 +0200 (CEST)
+Received: from BN9PR03CA0638.namprd03.prod.outlook.com (2603:10b6:408:13b::13)
+ by SJ2PR12MB7963.namprd12.prod.outlook.com (2603:10b6:a03:4c1::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8857.26; Mon, 23 Jun
+ 2025 11:23:02 +0000
+Received: from BL02EPF0001A0F9.namprd03.prod.outlook.com
+ (2603:10b6:408:13b:cafe::34) by BN9PR03CA0638.outlook.office365.com
+ (2603:10b6:408:13b::13) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8857.29 via Frontend Transport; Mon,
+ 23 Jun 2025 11:23:02 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BL02EPF0001A0F9.mail.protection.outlook.com (10.167.242.100) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8880.14 via Frontend Transport; Mon, 23 Jun 2025 11:23:02 +0000
+Received: from localhost (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 23 Jun
+ 2025 06:22:59 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -57,143 +56,137 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: aa737a05-5022-11f0-b894-0df219b8e170
-X-Virus-Scanned: amavis at antarean.org
-X-Virus-Scanned: amavis at antarean.org
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=antarean.org;
-	s=default; t=1750677025;
-	bh=Vkzz8YAkBcCkAawxdb2sUw9O6vSH29rA/svc/XGMyh0=;
-	h=From:To:Subject:Date:In-Reply-To:References;
-	b=Gc57AdjIvF7XF+vXKE3PvzN6/LD7XuxmpLhJPpkgX7tyV6Zasr86Ow+Mqn4H6gMNZ
-	 PYSHsNDy16e6VoaO33ho82YHY9DnwBICGzx8J/ZHhTQ3RHPx18gcChlqDK0Se80pMh
-	 Pq2aWS12oEoiZqqR4UEb5sFuDyKbmBdGGBEOZTyA=
-From: "J. Roeleveld" <joost@antarean.org>
-To: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>
-Subject:
- Re: xen_pciback: error enabling MSI-X / MSI for guest -- WAS: Re: Kernel
- panic when passing through 2 identical PCI devices
-Date: Mon, 23 Jun 2025 13:10:25 +0200
-Message-ID: <13792333.uLZWGnKmhe@persephone>
-In-Reply-To: <0d1cdd47-8fc2-4aa4-8c78-32f2ef2cc524@suse.com>
-References:
- <2226691.irdbgypaU6@persephone> <4683544.LvFx2qVVIh@persephone>
- <0d1cdd47-8fc2-4aa4-8c78-32f2ef2cc524@suse.com>
+X-Inumbo-ID: 6ea58bd1-5024-11f0-b894-0df219b8e170
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=nliAKXjxOJN5tz3OiPyj0odVCeiIZD4g4MiCGCAz6PFZ+e/YUqZE63QRtqc/B1dnaij51AnHmoqmSbrhUDuDxJnLahXtwpfZuwzL3uW1G7MkgX7GznHTEvTOWJnsEGpQ4gPw1qlM7WvGh75rYj24z2Icam5Ao7iZ8JF1ivwLo4IFXbjNy8mOhuQM8NZ2viWZ+H8+QI1RYHwwMxMiKtE3HpufZVJ6Rcx4VxPB6ctJgbsSZAiRjE51dgWYZSEjxSLqZ+LMJdDI/i9yid/L5M5qPf4ZhlFj6ZoK0ozLadr9T+QRPUiZJGWYWHcXsNn6AvDr1j3Udu8oQ8UGvNa3nhoJPg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Ut4r8p5VsxymoBUaFizgbO9ZOLJYX33QqtnhIfB7hqI=;
+ b=kzsXgtlQciE0J6ZLwiDfwj0SzhLRHbqTzlGqLqnrm6vFCtQvVqM+sTzKO9UKxV14OhBMF/yNsJ8tpLwHRJ2Fihs+nMXEY2qJ90wWggD9jqkpA3KYD99DiVPKnvHa59QBfT1+oazvQugH25MOzAUpxh5Dxq5zg4Y4PASxH9Vggh47cmIka+gwsdiH5HQOz8cMD62MB+biBRf7x2EtLxxpjzH9Arg43tiuiPu8yfWWrNOG1oT0cfxHoj72frHkHJBlbjbjHNSaaTF9m6y+440unLAENLbhKCVcnPa1xjCaWRbBh04JoKXiw9nderuKXH6juyBK79gwosVrOVbLg6A0/g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Ut4r8p5VsxymoBUaFizgbO9ZOLJYX33QqtnhIfB7hqI=;
+ b=MqPw49FkjuCUXErK2pwheVhnS8CvKk/PkT7yYUrQ8Ml4mtB2gjt+i4/ocdOWNaZd+QDmL2JQyYCkflBxe6eJVwSpSycewa0q9tIELKlHg6LHzg7iXtOleCickrh1paCEm3zup0kvgxL0n8hoCUz5P2160oAqjiy/zBkTMSmNQBs=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="UTF-8"
+Date: Mon, 23 Jun 2025 13:22:59 +0200
+Message-ID: <DATVH97BCJV2.1LSZEP4HUG997@amd.com>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Anthony PERARD
+	<anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, "Julien
+ Grall" <julien@xen.org>, =?utf-8?q?Roger_Pau_Monn=C3=A9?=
+	<roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
+	<xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH v4 01/12] CODING_STYLE: Custom type names must be
+ snake-cased by word.
+From: Alejandro Vallejo <agarciav@amd.com>
+To: Jan Beulich <jbeulich@suse.com>
+X-Mailer: aerc 0.20.1
+References: <20250620182859.23378-1-agarciav@amd.com>
+ <20250620182859.23378-2-agarciav@amd.com>
+ <a91755cb-0c98-488f-a551-adc0827c9628@suse.com>
+In-Reply-To: <a91755cb-0c98-488f-a551-adc0827c9628@suse.com>
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL02EPF0001A0F9:EE_|SJ2PR12MB7963:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5992f3ff-b6a2-435b-7448-08ddb24850dd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|82310400026|36860700013|1800799024;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?ODBydXhrU3o1YS9iZG8wUlJCcXNtSXZheHFnMnZwMDdJOXhGOTBJeW5KVlR4?=
+ =?utf-8?B?Si9MSXBwOEJjSXJ4WEdxUHM4cTBvSU5mZnhSQWpMVDJKMzdWSzJSRDBLSDdZ?=
+ =?utf-8?B?eExCRlBseGljdWtVVUc2bkgyTm9peFNwKzkxdzlhanZyb0g0UEw1Z3VRcXh5?=
+ =?utf-8?B?UWJZdCtwTlR0Sy9DZ1A5RVdpd2lKeVA1UUhST0dLZFd2YmlLakMybUV0cjVP?=
+ =?utf-8?B?bVh2UCs1UEhmV1kzcmZaNXg2bXArOGVGZTJoOEFBTG9WVGdONnU5dk1DZVV5?=
+ =?utf-8?B?TTJqY0N5L2lWOEl0NGVGY01UcUpsV1JJUVprVW9ZbmV1UmswckV5ZmFQVWVC?=
+ =?utf-8?B?WjJFWTJpRVUrNkNCK1pSbmFqdG9tOCtoOUlnQ3lKd0xPZ01ydGFVN1MxcTJZ?=
+ =?utf-8?B?VnBSazQrNmZ0dHdWQ0l1Tmx6alBwbWlMcDZjYnJrZ3NieC9qTjRLa3ZTV1Mv?=
+ =?utf-8?B?dmFCTDdJMUZqYk1Vcm9ndEpiVnVIRCtjUmxRR0M5c0IxVmQ3RWJhUWRLd1dO?=
+ =?utf-8?B?dDZ0VUJpdU9ISXB3eWNseEQwVEowa3RzaklGa1ZVTHFkVzEyYkR4dXgrVXRK?=
+ =?utf-8?B?QWJrZzloaHB1bitMckNVR3c4ZmZlQUtmZjd3RnhVTnZXWWk1VzdSVHZ3TE1O?=
+ =?utf-8?B?WklBQUdpVktadFQ2SDF0ZTBZZnlHcUZXcEtYRHIvU1dYUHA3RlZCWDNNbDR2?=
+ =?utf-8?B?VmFuRjAyWVdZalJjVFE2OFRibHozclVDVkFkemRZQWpXdGJUN0V1LzNZVSs1?=
+ =?utf-8?B?bnp4eSs0cmozaTJaYnhhOU5FdVBCcVF5a01FaVlLSzRLeW45b1N6WVdRc3Qz?=
+ =?utf-8?B?Z2VMZEJROWM3N3NvaldYWHNWWW1hWlBCSUY4TmtkbVdMT1REMDlXNXE0bS9y?=
+ =?utf-8?B?bVROVG8wUWJIWEVSUExkbFNvZXRxanlDTVFVcjloS01nNW1Ea1NjZEFLajFs?=
+ =?utf-8?B?N1RYZTRKRGgyM2tVamJmTkI1eEQ0dFVaUmZBNDRsSFZvQmdrUVc1OENMZTNE?=
+ =?utf-8?B?SHBjWmIxcGZCSEFWcDNLdmpsS3NJQWYwYXVvdkYyd1pTZEtWanlBdDRZYjhR?=
+ =?utf-8?B?TkYvb2pUcTN4L3VqZWpzdmM3U2pSeUZhRGppN2MwYVNJZGtmSVdvMnhXbk1t?=
+ =?utf-8?B?L3dlZ3U2SEE4cDRGV1lnZGlTa2xiVXkwK2dIL0x4MjRwUHZkSytUbk5tV3lS?=
+ =?utf-8?B?cXVUa2VCemxxNEhhK24vNlJaMFFWOXpsRG9mK3ZzeXNrWk9TeUw3K01pTTRY?=
+ =?utf-8?B?N0JKQWtuSnE4NktzcU1RQWM1TWZ6RjNSYkhoQ1I2NGdXMDBOYktja01YWXlx?=
+ =?utf-8?B?SWg5TlRJdXlESWEwUWprR0x1eXNvaHVqK05la1dmL1Y0N0pGU0h1ajhmOVdI?=
+ =?utf-8?B?Y2Jmam5hc1NBRXN0R1hoUFV3R1BHZXU3bGkxOUMrZkI2ZUFsMmJLL0tKeXNm?=
+ =?utf-8?B?emVIWkFLNFoxN3ZMa2NUT1NPdS8rS1JmYkJoN1lrWlhRL0tTVVVRYTJMTlln?=
+ =?utf-8?B?UnUwelJOWWZVRWVNMEJVUm9MTHZ5RlhwbmtHaXArOVJTN25WZzYxemZuajZE?=
+ =?utf-8?B?UzVXTDZUUnF3UUdoc2g1MGNKTHd5eGxoa1BXajBjN2NmNG4vS1pSaUtnd0xP?=
+ =?utf-8?B?TjZ1VFdaUVZNSzQyc3lmVlJYa2xxTURocWlhS1lVdlpGVzRTVEFqOEV6ZkEy?=
+ =?utf-8?B?ZmZvUTdCRlJSbmRqQkM1V05uMzZIeGNuV2FXem1qM1Q0TlRsM1dyck5qUkx2?=
+ =?utf-8?B?NDhPdEFOUmZOdzBXTUVyRTYvcXRTQUpaK2NQMERvdHFFZDBmaEVNMGlBYUNL?=
+ =?utf-8?B?UmQ4c2tmL0hTWlc3bjE3TisvU3R0RDZlQkFTdHpiZ3Naam5JdTZUS2duODhx?=
+ =?utf-8?B?QzU1Skx2WmsyT25BbGljYVIzMlRoc1hDdlEwMks1UG1uSm1Uakc4V1MzS2Ey?=
+ =?utf-8?B?MTIvWjljZ094T3hZN3laVG5BRmJTcjRwWDFuVVAxYkJNdW11akNpUlh6NVBi?=
+ =?utf-8?B?Unk1dnpjRkFQODVHZzRuVmk1V210WXBMYjl6V3l1OU4wSjU5dXBMTGZvTHdI?=
+ =?utf-8?Q?ZH1ypa?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(36860700013)(1800799024);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jun 2025 11:23:02.0129
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5992f3ff-b6a2-435b-7448-08ddb24850dd
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BL02EPF0001A0F9.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB7963
 
-On Monday, 23 June 2025 09:55:46 CEST Jan Beulich wrote:
-> On 21.06.2025 16:39, J. Roeleveld wrote:
-> > I managed to get past the kernel panic (sort of) by doing the following:
-> > 
-> > 1) Ensure system is fully OFF before booting. A reset/reboot will cause
-> > these errors.
-> > 
-> > 2) Fix the BIOS config to ensure the PCI-ports are split correctly. If
-> > anyone has a Supermicro board and gets errors about PCI-slots not getting
-> > full speed let me know.
-> > 
-> > Not entirely convinced the 2nd was part of the cause, but that's ok.
-> > 
-> > I now, however, get a new error message in the Domain0 dmesg:
-> > pciback <pci-address>: xen_map irq failed -28 for <domid> domain
-> > pciback <pci-address>: error enabling MSI-X for guest <domid>: err -28!
-> > 
-> > For the NVMe devices, I get these twice, with the 2nd time complaining
-> > about MSI (without the -X)
-> > 
-> > I feel there is something missing in my kernel-config and/or domain
-> > config.
-> > If anyone can point me at what needs to be enabled/disabled or suggestions
-> > on what I can try?
-> 
-> The default number of extra IRQs the guest may (have) set up may be too
-> small. You may need to make use of Xen's extra_guest_irqs= command line
-> option.
+On Mon Jun 23, 2025 at 9:31 AM CEST, Jan Beulich wrote:
+> On 20.06.2025 20:28, Alejandro Vallejo wrote:
+>> There's the unwritten convention in x86 of splitting type names using
+>> underscores. Add such convention to the CODINNG_STYLE to make it
+>> common and less unwritten.
+>
+> Just curious: How does x86 come into play here? Xen inherited this un-
+> written rule from Linux, afaict.
+>
+> Jan
 
-I spent the entire weekend searching for possible causes/hints/things to try.
-That setting was one I had found some time ago (I think for MSI/MSI-X issues) 
-and it's currently set to:
-extra_guest_irqs=768,1024
+x86 follows the rule far more strictly than other Xen ports. Even in Linux =
+it's
+not uncommon to see some words stashed together because they represent a si=
+ngle
+concept. e.g: "bootmode", "bootram", "bootmod", "bootaddr", etc. Some of th=
+em
+inherited by Xen itself, like "softirq".
 
-Not sure if it makes sense to increase this further?
+But I digress. I mentioned x86 because it's the most traceable use of the r=
+ule
+as written in CODING_STYLE in this patch.  When or why you decided to do so=
+ is
+another matter entirely which I very definitely do not know.
 
-# For completeness, the Xen commandline is:
-dom0_mem=24576M,max:24576M dom0_max_vcpus=4 dom0_vcpus_pin 
-gnttab_max_frames=512 sched=credit console=vga extra_guest_irqs=768,1024 
-iommu=verbose
+If you feel the commit message should be something else, I'm happy for it t=
+o be
+such something else.
 
-# The kernel commandline is:
-kernel=gentoo-6.12.21.efi dozfs root=ZFS=zhost/host/root by=id elevator=noop 
-logo.nologo triggers=zfs quiet refresh softlevel=prexen nomodeset 
-nfs.callback_tcpport=32764 lockd.nlm_udpport=32768 lockd.nlm_tcpport=32768 
-xen-pciback.hide=(83:00.0)(84:00.0)(85:00.0)(86:00.0) xen-
-pciback.passthrough=1
-
-If there is anything I am missing or should be doing differently, please let me 
-know.
-
-As said, I spent the entire weekend search with google and duckduckgo (ddg 
-seems to return more relevant results, but also has few results with similar 
-error message that are more recent then 6+ years). Here are what I found out 
-so far:
-
-== 1) NVMe errors in dmesg:
-
-I noticed that, even when working, the NVMe drivers show issues with "MSI-X" )
-(only showing 1 of the 2, the other has the same messages):
-[    7.742006] nvme nvme0: pci function 0000:84:00.0
-[    7.742158] nvme 0000:84:00.0: Xen PCI mapped GSI56 to IRQ59
-[    7.752907] nvme nvme0: D3 entry latency set to 8 seconds
-[    8.003806] nvme nvme0: allocated 64 MiB host memory buffer.
-[    8.038746] nvme 0000:84:00.0: enable msix get err ffffff8e
-[    8.038756] nvme 0000:84:00.0: Xen PCI frontend error: -114!
-[    8.048849] nvme nvme0: 1/0/0 default/read/poll queues
-[    8.106017]  nvme0n1: p1 p2 p3 p4
-
-I have been unable to find what " enable msix get err ffffff8e " and " Xen PCI 
-frontend error: -114! " actually mean.
-
-These messages show up on a "working" environment. This is with kernel 6.12.21 
-and Xen 4.18.4_pre1
-
-== 2) A BIOS setting where default differs from general recommendation by 
-Supermicro:
-- Setting " MMIO High Size " is set to 256GB. Recommendation I see is to set 
-this to 1024GB.
-Note: The server has 368 GB ram, so does make sense. I will be changing this 
-setting during my next chance to do further testing.
-
-== 3) IOMMU seems enabled, apart from 2 items:
-(XEN) Intel VT-d iommu 0 supported page sizes: 4kB, 2MB, 1GB
-(XEN) Intel VT-d iommu 1 supported page sizes: 4kB, 2MB, 1GB
-(XEN) Intel VT-d Snoop Control enabled.
-(XEN) Intel VT-d Dom0 DMA Passthrough not enabled. <---
-(XEN) Intel VT-d Queued Invalidation enabled.
-(XEN) Intel VT-d Interrupt Remapping enabled.
-(XEN) Intel VT-d Posted Interrupt not enabled.  <---
-(XEN) Intel VT-d Shared EPT tables enabled.
-(XEN) I/O virtualisation enabled
-(XEN)  - Dom0 mode: Relaxed
-(XEN) Interrupt remapping enabled
-
-The 2 marked lines say "not enabled", if I understand all the different 
-documentation correctly, this is not an issue. Please let me know if I am 
-mistaken.
-
-== 4) "nr_irqs" (and this is making me wonder if the "extra_guest_irqs" is 
-actually used
-
-In the Dmesg on the host I see:
-[    2.328651] NR_IRQS: 8448, nr_irqs: 1024, preallocated irqs: 16
-
-On the VM/Domain I see:
-[    3.673555] NR_IRQS: 4352, nr_irqs: 80, preallocated irqs: 0
-
-The number on the host matches.
-The number in the Domain does not.
-
-The specific domain is always the 2nd that is started.
-
-
+Cheers,
+Alejandro
 
