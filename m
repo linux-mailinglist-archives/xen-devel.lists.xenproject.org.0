@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C921EAE458D
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Jun 2025 15:56:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1022467.1398297 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C7A50AE4593
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Jun 2025 15:56:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1022473.1398307 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uTheW-0004Zy-K3; Mon, 23 Jun 2025 13:56:04 +0000
+	id 1uThfF-00054Q-Rz; Mon, 23 Jun 2025 13:56:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1022467.1398297; Mon, 23 Jun 2025 13:56:04 +0000
+Received: by outflank-mailman (output) from mailman id 1022473.1398307; Mon, 23 Jun 2025 13:56:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uTheW-0004Z6-HE; Mon, 23 Jun 2025 13:56:04 +0000
-Received: by outflank-mailman (input) for mailman id 1022467;
- Mon, 23 Jun 2025 13:56:03 +0000
+	id 1uThfF-00052K-P5; Mon, 23 Jun 2025 13:56:49 +0000
+Received: by outflank-mailman (input) for mailman id 1022473;
+ Mon, 23 Jun 2025 13:56:48 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=KmUX=ZG=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1uTheV-0004Z0-4C
- for xen-devel@lists.xenproject.org; Mon, 23 Jun 2025 13:56:03 +0000
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [2a00:1450:4864:20::42d])
+ id 1uThfE-0004Z0-9J
+ for xen-devel@lists.xenproject.org; Mon, 23 Jun 2025 13:56:48 +0000
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [2a00:1450:4864:20::32b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id cc44cc2a-5039-11f0-a30f-13f23c93f187;
- Mon, 23 Jun 2025 15:56:02 +0200 (CEST)
-Received: by mail-wr1-x42d.google.com with SMTP id
- ffacd0b85a97d-3a4e742dc97so3116671f8f.0
- for <xen-devel@lists.xenproject.org>; Mon, 23 Jun 2025 06:56:02 -0700 (PDT)
+ id e791368a-5039-11f0-a30f-13f23c93f187;
+ Mon, 23 Jun 2025 15:56:47 +0200 (CEST)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-451d54214adso28035445e9.3
+ for <xen-devel@lists.xenproject.org>; Mon, 23 Jun 2025 06:56:47 -0700 (PDT)
 Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4535e741b43sm147930355e9.0.2025.06.23.06.56.00
+ 5b1f17b1804b1-4536fefd2b4sm54221675e9.36.2025.06.23.06.56.46
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 23 Jun 2025 06:56:01 -0700 (PDT)
+ Mon, 23 Jun 2025 06:56:46 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cc44cc2a-5039-11f0-a30f-13f23c93f187
+X-Inumbo-ID: e791368a-5039-11f0-a30f-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1750686961; x=1751291761; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1750687007; x=1751291807; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=XqUSitsWp2pgteXZh00gKZ4QeO/aJjEcSFPz25bEpNA=;
-        b=fEWmEv6vrU9t4VlawfEk53TfEr8/bGMQyWzTLoP9UIcaWvViBj8V6tSfDrshuNRp3L
-         vJ3t4+kS7UF8YkNhGwZ9ASHxsW4+qvg0PEm7uVBjSuz1a/VTwNPKhVlDH9xurlAQGZ2F
-         eIK1FVL6nlDltzLUWab8zTVLGX2nsar6qVC7g=
+        bh=MYS/cFtMb+2a377AesoCZUHocGnwD5rZIpXKOgRdkQo=;
+        b=OVRKAWa/cGV/6woHHsaILWAttCD2L+ctyn3wm+THJ95vFpswhh+ANzVKPRHMWsRY9J
+         w+w0hE5dB9ypMZuo9zIH6PYJ1sx/FG9rgKqoC/EJ2/TCCBIWhT8zqdnC4S4/NX25w0KO
+         KNAiaWePcfk94UKP07NiVtw3sJvwnYyr7mfd4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750686961; x=1751291761;
+        d=1e100.net; s=20230601; t=1750687007; x=1751291807;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=XqUSitsWp2pgteXZh00gKZ4QeO/aJjEcSFPz25bEpNA=;
-        b=hoywiwcvGp0NaQz5xo8VqN+3TxAatnUdCH4EpHdRoUt4EHP0nKJPokVSQDD36ogQi3
-         1ccA3K9sJm8dDZLM4i/Rphrhn+j4fkQG3cR4NigpcPx+hoakqc9G9Ar/Zt864THIrqZh
-         aw4wpCNES0MhrExSnh7SmyhtCrTvaasx1BC5PFh9fVQOweK6swfwuOm4a2HP2jNZ9pV7
-         xv261iEg9GiU5cMk35hNqM48KEz/r3PdZ2j0f53GX1mXA3woicO3qNztf4DcOBcehWGf
-         ac3DA6cVt/CTuk3cQpWAUsT5wybdqcdzfVZuCloLNwRksX1yq71S/RYVrW5GHlxW+GLb
-         KoMw==
-X-Forwarded-Encrypted: i=1; AJvYcCWtg2oZAoLAj+kIV+/qdDBmS1iZQx1K52cYyZrPZsweK6IR4iM0VliBcG55uPlYt99GGKIj+l8ClnM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzqMgG/KgURi+UcbBfBo3+vuuH01B7KaNQJKAhAxNNYlOhZZk34
-	CKn3PqdFzeaOS6sdImav07T2yxfhfr2iWc/kbE6FYTngJbypnvr3NAPTb5iTjgL8xQeWtdhQa0k
-	89/AtfDzY6A==
-X-Gm-Gg: ASbGncutCLeY+TqAuna38tmQkiBMfw9VfH/R+J7ZfN23iY0CSVEhcfUmlyOKt5An1Z7
-	aGO64CSyp5nmyZjxQJC6XnQ0H5rLpolR/ZOprgoEdLy23D1RrY7KSTSLx2hn7JnlbAwwXbd7DYa
-	w3rZ0nKV6AkFA8TYgs47ATmz5+/V4TGWvp7ajX1MyNaxlxH+lHa+QfmVOYDpDT4vM7NhnoRLJLE
-	tr82Zb1ryer1EOyDGGXto7ed1gzIKT/fBEf3ZYBVw1IveIV8JwbvvDJzuUnRu1vZpRlWhHC4e/C
-	L3ptL0N/cUME5h0dXHq3BTWECKRsfl8WYH8XHj44DRrjh2w3yrFWOxCo57gMV7ThwuAUeC5v8zT
-	c/KFNq39HG8OoUGlj4CeBZN9mqEQqbuqGhMd1kA==
-X-Google-Smtp-Source: AGHT+IES/BbpeOXvlZ4HaHFPdFSD6d09ypUhq1RpZp7cppTo2Iyh9/Iym6WFaPLQR99v84OJxRVJUQ==
-X-Received: by 2002:a05:6000:d82:b0:3a5:271e:c684 with SMTP id ffacd0b85a97d-3a6d27ef37cmr8355325f8f.24.1750686961408;
-        Mon, 23 Jun 2025 06:56:01 -0700 (PDT)
-Message-ID: <fe0adc4b-8bbf-41d6-b33d-54f5f9f18156@citrix.com>
-Date: Mon, 23 Jun 2025 14:56:00 +0100
+        bh=MYS/cFtMb+2a377AesoCZUHocGnwD5rZIpXKOgRdkQo=;
+        b=m0isi92LcGffg0G5j5ZYypI1MBLfXwz4+OjbnKbTmSfsguAKzR6v0UPNgXCCXdPoMS
+         d4G0eiNg7yhmI3C5me0czrHbE9nNo5OlKytwRzJvgGIBIGxEbKqu3lWkTvN3FSJl8+8e
+         dtc2ujl5pMP5p+hnxvdhFdhcMXwlK7RB5v3ngtHELO+OSpy4PkK5Q6U6UOpC/VJYaali
+         S/AJoGDwqHFvHh8WpaDpr0hBKQElxG75sxvKmpaEbZE03eSJBmthHUbVVe/JHEbPIWNi
+         4uVeggVdA1fqdBlric77mBlrfgmaeYjIQP0J90ayG0V0SIXLlwh0SG78PN4Py+l+2Yf3
+         qH4g==
+X-Forwarded-Encrypted: i=1; AJvYcCXPRQvVgv5L+I+UCajK9jlxyQY6H1ToIYzYUUHy/lGEdRpK1M0vAbdLU2UBRUSt4xk0ON+gPfgoRdo=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzAMVE+RugQEOUgSU6R1vwUYVUBpgiQS2E/HVSGXDEVtATZ9tUz
+	ES2mZ7cJ+0/ljKH08HQ1u7hYjoSwPD0VYJ13vUUk+cPGN2bdPDkhgSMxV2bGM1MJMhs=
+X-Gm-Gg: ASbGncugD5oyLYQlTYmcwU2g7e9GSE6FRdv+qFqVA2U0435cL3JWz8IXlC+j5Zyn7cV
+	+f1zAYIc+O7QRuMByZrYeUpjQopUWRFeMjfuIJyHRdcPgJ46EVQvYMiizcVJRxFY4A7VB1nROr+
+	ZNmkhgHUio+28+XAyPaMrJqT5Hwz5CCtGr3lKWhjCcCJiqTwVjC+2UtbLpuyRV60bNg/433jbpL
+	rNWFKhyCTINBzGvRQtD+hWNmyf+WmXB7QAAfxXHQm4/rnelRBrqWuV/E0tvgBLkFLNKipOuzUmB
+	VgRAIc6Yg/hMlBWB/DK1/nJG4uzggLr4Jcz7VQ2EE52+esAj2c+7CvavOur9fTuBC6kWZtIIFXW
+	cUN186mA9r++AY3eGQ/O8lhczDIU=
+X-Google-Smtp-Source: AGHT+IHA/PoK6iWBQ/zI0QzbvhAnp+0CLEm7O/CWQlY3O5m1fx+1TvuA6h2d62f9uxHn1T84vsFC3A==
+X-Received: by 2002:a05:600c:c48e:b0:442:c993:6f94 with SMTP id 5b1f17b1804b1-453659c58d6mr119371305e9.12.1750687007181;
+        Mon, 23 Jun 2025 06:56:47 -0700 (PDT)
+Message-ID: <cf4b8af8-1855-43d8-8416-90db9ec4a634@citrix.com>
+Date: Mon, 23 Jun 2025 14:56:46 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH test-artifacts v1 5/5] Setup ssh access to test systems
+Subject: Re: [PATCH test-artifacts v1 1/5] Add linux-6.12.34-x86_64
 To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
  <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org
 Cc: Stefano Stabellini <sstabellini@kernel.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 References: <cover.7129d44a341f3fb3a85f808a998c28ebe8a77ee8.1750684376.git-series.marmarek@invisiblethingslab.com>
- <d9e1dc62d2bcf647e0a1d26d90d2d33778d954a1.1750684376.git-series.marmarek@invisiblethingslab.com>
+ <0a3e893e5fe133dc710d11a31006ba4f2c1b0cbe.1750684376.git-series.marmarek@invisiblethingslab.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -137,28 +136,16 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <d9e1dc62d2bcf647e0a1d26d90d2d33778d954a1.1750684376.git-series.marmarek@invisiblethingslab.com>
+In-Reply-To: <0a3e893e5fe133dc710d11a31006ba4f2c1b0cbe.1750684376.git-series.marmarek@invisiblethingslab.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 On 23/06/2025 2:46 pm, Marek Marczykowski-Górecki wrote:
-> For this add also bridge package, so xenbr0 can be configured with
-> /etc/network/interfaces.
-> This allows extracting more logs out of the test system.
+> This is necessary for new Zen4 runner.
+> Do not include Argo module in this build, as it isn't compatible with
+> 6.12 yet.
 >
 > Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-> ---
-> This enables passwordless root login. It's okay for qubes runners, as
-> they are isolated (even from each other). Is that okay in other places
-> too?
 
-It's potentially a problem on a corporate network.
-
-Can't we have each job generate a random password an insert it via the
-dom0-rootfs overlay?
-
-Or alternatively have the runner drop a public key in
-/root/.ssh/authorised_keys ?
-
-~Andrew
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
