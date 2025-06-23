@@ -2,38 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B9AAAE378C
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Jun 2025 09:56:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1022114.1397834 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 006B3AE37B3
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Jun 2025 10:03:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1022121.1397843 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uTc1x-0007d5-TX; Mon, 23 Jun 2025 07:55:53 +0000
+	id 1uTc8r-0001Xo-K7; Mon, 23 Jun 2025 08:03:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1022114.1397834; Mon, 23 Jun 2025 07:55:53 +0000
+Received: by outflank-mailman (output) from mailman id 1022121.1397843; Mon, 23 Jun 2025 08:03:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uTc1x-0007a8-QP; Mon, 23 Jun 2025 07:55:53 +0000
-Received: by outflank-mailman (input) for mailman id 1022114;
- Mon, 23 Jun 2025 07:55:52 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uTc8r-0001Vd-HO; Mon, 23 Jun 2025 08:03:01 +0000
+Received: by outflank-mailman (input) for mailman id 1022121;
+ Mon, 23 Jun 2025 08:02:59 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=H8L6=ZG=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uTc1w-0007a2-H3
- for xen-devel@lists.xenproject.org; Mon, 23 Jun 2025 07:55:52 +0000
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [2a00:1450:4864:20::42d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7b7ae3c6-5007-11f0-a30f-13f23c93f187;
- Mon, 23 Jun 2025 09:55:51 +0200 (CEST)
-Received: by mail-wr1-x42d.google.com with SMTP id
- ffacd0b85a97d-3a6cd1a6fecso3318164f8f.3
- for <xen-devel@lists.xenproject.org>; Mon, 23 Jun 2025 00:55:51 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-b31f126c50asm6172381a12.78.2025.06.23.00.55.48
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 23 Jun 2025 00:55:50 -0700 (PDT)
+ (envelope-from <julien@xen.org>) id 1uTc8p-0001VX-Mg
+ for xen-devel@lists.xenproject.org; Mon, 23 Jun 2025 08:02:59 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.96)
+ (envelope-from <julien@xen.org>) id 1uTc8o-00G9Iz-2N;
+ Mon, 23 Jun 2025 08:02:58 +0000
+Received: from [2a02:8012:3a1:0:bd17:6d03:6e6c:1c7e]
+ by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
+ (envelope-from <julien@xen.org>) id 1uTc8o-00EPUt-1a;
+ Mon, 23 Jun 2025 08:02:58 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,107 +39,94 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7b7ae3c6-5007-11f0-a30f-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1750665351; x=1751270151; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=shnXoTgJcSWO/SHvv//18LlP9kpBfxHM1Pisu9ULKK4=;
-        b=Qjl/hqktL/MAUBdYeMC9cDqb6Kx28GgeFxZHk748642eJO8fLwbJBjxNGByTTmYWme
-         E0dG4Y/4H/bB6eivDhXKznZEzFPRHUK3yra8VJWpEDgmeIyZ5JprL8dG+hfGOB31kzMn
-         k6j3+K8jEkPZb7D7ag5sHdGG/nqm68kw0GnSP+FIIWAowUFvcArRko8XbU5ebgJO5bll
-         Ac/MBmco8KE2lppG3FF4v6vtoqt/mTAo2UgAm4FUOlZfa2HOSYMCQ9IYMI/qjNbA9g9r
-         2R7Mo5rGMeGdG8UjMCpLF5BPHQrcUxCyEBhtkVP1OtkuoSSPSgryvNN6bRa+cw0zF65N
-         kVpQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750665351; x=1751270151;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=shnXoTgJcSWO/SHvv//18LlP9kpBfxHM1Pisu9ULKK4=;
-        b=vIRjB9WDr0vIOXYakjv5ZvBgZUvZW3uxMgjn/Ui6/3ON539stv347ydAdShwrSVDfM
-         p9VPEUmqFQSnKbRmWBtat/o1oE58GTiHODTBXTOABM7Csjo5M1E6U/WhuowDfWY8Q//L
-         a8/P2uMldqgdGjdbXY45pYCZ0Z4+yvl6wJRxx1XY8TdDw5oZEILwP5HiRjsuaT1lYWU/
-         eUdFFXx67fWFVl2Nz7NYaMnvzZ32AER16PZ4ynPVRwDp3UxN4odFPzeYPOpV4Ya+HSTi
-         niVlmSAIFiTCXXvi/HcKjOLsrCZA0dQLx8/jXDzLJRgLlAZUp9cXW0mUJl33BMJVbqCu
-         aNEw==
-X-Gm-Message-State: AOJu0YwnRSodizH70vDJpRWDufcP198Sd6Wb/wXDQkVEuQ7UgbLPoHTy
-	O0GpChvKPQnhfQQZuoU43HV05jBlN2QSA9SkSO0w1H0ge9hJm9+6jfRB10v5m6Ya7F8c4mQT//q
-	LMXE=
-X-Gm-Gg: ASbGncuofqZ4JmYaIW9mORKBheTALckn6+ADW5s8bJn4YXxMyCTwomXPNotuNl2fNZY
-	aS+SQ4/S7Fk9Mw7NeJ036cENvs054SnD8b5O/k42nYn3uF1o9sRvqz3BD4Ov+sDl7oV9v6mAPyp
-	1QFFxcRuoTYAUN1nimj0JRPTJKgxdWNK7fqJzT+/edScPG618gnultnb8eHnISQ/CbWuDF2D6+O
-	Ez7h/iYyyRYpNitkVbstA8X5ljghhusZerRiniS7oqGIEFmvrW/Lueoue0i4awR4Lpfe5cmmT4I
-	4WmN3aR1mmMVzBW7IYEp2B7H3+i66QEzBUHrlFFsLPjvHTAzwb9bDDMW4nr63Yyiv05WcK3T0sg
-	5frwt0VCg4WIxE0MEefHLsXDHQ52QyrsgyHT6IJV5t9YEsK4=
-X-Google-Smtp-Source: AGHT+IFeahiijg1SzPOtbaEhjPkLimTBa579c/GDJ5SGg5kZrdWNo/8bFtRev5ockOPI5l4FTbWRLQ==
-X-Received: by 2002:adf:e182:0:b0:3a4:f50a:bd5f with SMTP id ffacd0b85a97d-3a6d12fc18bmr9275637f8f.31.1750665351024;
-        Mon, 23 Jun 2025 00:55:51 -0700 (PDT)
-Message-ID: <0d1cdd47-8fc2-4aa4-8c78-32f2ef2cc524@suse.com>
-Date: Mon, 23 Jun 2025 09:55:46 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=P07+I6otFC4SHhPg8wKtFmmoRpUD0ra2oZ4NPG/04C4=; b=sxD9u3FQPG5Yrby0ufy7T7FmGY
+	zmsaG0XpAZC12blNSoQJPGaF5cGNsgj7d6xM8us3wIGH3J39LJz3An5VTmTcjzXB4rv/3WVu7oqCI
+	vxqc3NxC+BJnUCRMSjaBAE2swSdmnaf7a3s3m4N4OpkWr8Cgrig/ymgZ35ziEFZ8Zr0o=;
+Message-ID: <3468bb57-3178-460b-8fb2-3ce106475319@xen.org>
+Date: Mon, 23 Jun 2025 09:02:56 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: xen_pciback: error enabling MSI-X / MSI for guest -- WAS: Re:
- Kernel panic when passing through 2 identical PCI devices
-To: "J. Roeleveld" <joost@antarean.org>
-References: <2226691.irdbgypaU6@persephone> <4683544.LvFx2qVVIh@persephone>
-Content-Language: en-US
-Cc: xen-devel@lists.xenproject.org
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <4683544.LvFx2qVVIh@persephone>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Subject: Re: [RFC PATCH v4 8/8] docs: armproposa: l to add separate SCMI node
+ for Xen agent
+Content-Language: en-GB
+To: Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Bertrand Marquis <bertrand.marquis@arm.com>, Jan Beulich
+ <jbeulich@suse.com>, Juergen Gross <jgross@suse.com>,
+ Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Grygorii Strashko <grygorii_strashko@epam.com>
+References: <cover.1747669845.git.oleksii_moisieiev@epam.com>
+ <3f7e1e99f5d1018064f3c4825aff16bd487cf558.1747669845.git.oleksii_moisieiev@epam.com>
+ <alpine.DEB.2.22.394.2505231309090.147219@ubuntu-linux-20-04-desktop>
+ <e5e8b7b3-a9c3-4e1a-9241-6776990b6e11@epam.com>
+ <alpine.DEB.2.22.394.2506171720390.1780597@ubuntu-linux-20-04-desktop>
+ <e4bf11e1-5bf5-4428-bd73-4fd2cb2029fb@epam.com>
+ <alpine.DEB.2.22.394.2506221451440.8066@ubuntu-linux-20-04-desktop>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <alpine.DEB.2.22.394.2506221451440.8066@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 21.06.2025 16:39, J. Roeleveld wrote:
-> I managed to get past the kernel panic (sort of) by doing the following:
-> 
-> 1) Ensure system is fully OFF before booting. A reset/reboot will cause these 
-> errors.
-> 
-> 2) Fix the BIOS config to ensure the PCI-ports are split correctly. If anyone 
-> has a Supermicro board and gets errors about PCI-slots not getting full speed 
-> let me know.
-> 
-> Not entirely convinced the 2nd was part of the cause, but that's ok.
-> 
-> I now, however, get a new error message in the Domain0 dmesg:
-> pciback <pci-address>: xen_map irq failed -28 for <domid> domain
-> pciback <pci-address>: error enabling MSI-X for guest <domid>: err -28!
-> 
-> For the NVMe devices, I get these twice, with the 2nd time complaining about 
-> MSI (without the -X)
-> 
-> I feel there is something missing in my kernel-config and/or domain config.
-> If anyone can point me at what needs to be enabled/disabled or suggestions on 
-> what I can try?
+Hi Stefano and Oleksii,
 
-The default number of extra IRQs the guest may (have) set up may be too small.
-You may need to make use of Xen's extra_guest_irqs= command line option.
+Let me start with a bit of process. This is discussion is getting fairly 
+difficult to follow.... Can you please trim unrelevant bits when replying?
 
-Jan
+On 22/06/2025 22:57, Stefano Stabellini wrote:
+> On Thu, 19 Jun 2025, Oleksii Moisieiev wrote:
+>> On 18/06/2025 03:35, Stefano Stabellini wrote:
+>>> On Thu, 12 Jun 2025, Oleksii Moisieiev wrote:
+>>>> On 23/05/2025 23:19, Stefano Stabellini wrote:
+>>>>> On Mon, 19 May 2025, Oleksii Moisieiev wrote:
+>>>>>> From: Grygorii Strashko<grygorii_strashko@epam.com>
+>> the same (smc-id and shmem) for both the BSP case (no Xen) and the Xen
+>> case (Dom0 domain).
+>>
+>> Meanwhile, the Xen management agent's SCMI node and configuration are
+>> expected to be placed under /chosen.
+>>
+>> This approach ensures that the Host DT remains as unchanged as possible.
+> 
+> Yes, my main point is that all the device tree information, except for
+> what is under /chosen, should be left unchanged between the BSP case (no
+> Xen) and the Xen case.
+> 
+> We have freedom to decide:
+> - the information we put under /chosen and how to interpret it
+> - how to use the information under /firmware/scmi when Xen is present
+> 
+> 
+>> Currently:
+>>
+>> The Host DT /firmware/scmi node requires modification to point to the
+>> Xen management agent by changing
+>>
+>> the smc-id and shmem values.
+> 
+> I don't think we should require changes to /firmware/scmi in the host DT
+> when Xen is present.
+> 
+> Often, people don't know when or if Xen is present at the time the
+> Device Tree is generated. So it is best to avoid modification (outside
+> of /chosen).
+
+I am probably missing something. But it looks like TF-A requires to 
+suport multi-agent so Xen can use it. Am I correct?
+
+Furthermore, I can't tell why the multi-agent support is Xen specific. 
+Surely, you may want something similar with other hypervisors? If not, 
+then my next question is why does Xen needs to do things differently?
+
+Cheers,
+
+-- 
+Julien Grall
+
 
