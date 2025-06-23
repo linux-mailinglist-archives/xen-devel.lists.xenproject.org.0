@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B65F4AE357A
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Jun 2025 08:13:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1022018.1397713 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 75157AE3588
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Jun 2025 08:15:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1022025.1397724 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uTaQG-0006Bm-Aw; Mon, 23 Jun 2025 06:12:52 +0000
+	id 1uTaSp-0006jn-NX; Mon, 23 Jun 2025 06:15:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1022018.1397713; Mon, 23 Jun 2025 06:12:52 +0000
+Received: by outflank-mailman (output) from mailman id 1022025.1397724; Mon, 23 Jun 2025 06:15:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uTaQG-0006AO-8C; Mon, 23 Jun 2025 06:12:52 +0000
-Received: by outflank-mailman (input) for mailman id 1022018;
- Mon, 23 Jun 2025 06:12:51 +0000
+	id 1uTaSp-0006hI-K8; Mon, 23 Jun 2025 06:15:31 +0000
+Received: by outflank-mailman (input) for mailman id 1022025;
+ Mon, 23 Jun 2025 06:15:30 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=H8L6=ZG=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uTaQF-0006AI-4D
- for xen-devel@lists.xenproject.org; Mon, 23 Jun 2025 06:12:51 +0000
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [2a00:1450:4864:20::430])
+ id 1uTaSo-0006hC-FL
+ for xen-devel@lists.xenproject.org; Mon, 23 Jun 2025 06:15:30 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 16ea9c2e-4ff9-11f0-a30f-13f23c93f187;
- Mon, 23 Jun 2025 08:12:50 +0200 (CEST)
-Received: by mail-wr1-x430.google.com with SMTP id
- ffacd0b85a97d-3a6e2d85705so168677f8f.0
- for <xen-devel@lists.xenproject.org>; Sun, 22 Jun 2025 23:12:50 -0700 (PDT)
+ id 75faa03a-4ff9-11f0-a30f-13f23c93f187;
+ Mon, 23 Jun 2025 08:15:29 +0200 (CEST)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-453426170b6so28017705e9.1
+ for <xen-devel@lists.xenproject.org>; Sun, 22 Jun 2025 23:15:29 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-7490a46b4b8sm7439971b3a.35.2025.06.22.23.12.43
+ d9443c01a7336-237d860a36dsm74164405ad.126.2025.06.22.23.15.22
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 22 Jun 2025 23:12:48 -0700 (PDT)
+ Sun, 22 Jun 2025 23:15:28 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 16ea9c2e-4ff9-11f0-a30f-13f23c93f187
+X-Inumbo-ID: 75faa03a-4ff9-11f0-a30f-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1750659169; x=1751263969; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1750659329; x=1751264129; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=W+e7PbS0xL0ZkoMd+hTJob2mF7PjjnL2U3ZAld/qhOk=;
-        b=YJza+IipvuA8CLvc9A50m9PhjjHn35BY5ckwjRnqz0ZB3VqNEtNIkInCwFu9HDovtB
-         oiFTwjI984l+9cstBLAnrYoNIiT7OWpJ8WaOfSdbp3PyfEaIszdNTnnT5Aog7z55zoo4
-         zFkcj5BSdIRI+B56J/3ewYWI+UJzDl6mY6fG9EPy0wcP0RYZYoB+Z7ouklCG5ISY0Xbh
-         AVk+qnQMSfhG5wNHSwWCvXfb45mf2hzViXDo8XN9frKumTIdhqKpqjiLW0ym5130wBUv
-         ezId3r2p5D9jv1X3dbY5eD0ipXgC22qsldHgqzg230RSYBWxMhMykC0+mmQQUk+D4rVq
-         aVGw==
+        bh=i/66+BbyWZjipRIbTVLUqDpjpWtyUCNphjAJTGprYlo=;
+        b=RIOCe5DRoQnGlq0mX3H4FfPHl5aVhMfDiMwus2qhwUK9G2i6uVKzq7bVX/oyg9Szh2
+         7rVON//+3eyF9FGqvSo4WVLoU0ijM5G1M7+Al0/rG1NOeS4y2ZtKbYFeXyaAuCgG3hTn
+         jifemAu9p7XbwmDMO8f1HfMfJh9Z32Ztg+yvJx1xET8l0DTqXRPaY+FPDeRFaE7U2TcO
+         8IwjWBwkDOG0z12SL5v+TT5RDiFg+vLZ8Fchx7c2hoCY++9z+KzwgQ0F5sCb5UIcK/bC
+         kDC9nDcAMuCn0GAxDNeSxXFTpZeMXyTSzyv4vJdHlyg/pi3RDXu01Rx5LrpnkeRGGX+a
+         +yvA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750659169; x=1751263969;
+        d=1e100.net; s=20230601; t=1750659329; x=1751264129;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=W+e7PbS0xL0ZkoMd+hTJob2mF7PjjnL2U3ZAld/qhOk=;
-        b=OKje670ssBhtRPS1FTlD6oj6MI5y2uaxKJ21ZRKOMXnfJqkbfSMoCDpz+Pa6+M1X0u
-         HkyJaDF97ilsBc5gmVs6LcEXbxoJFsZe/GtX/NUDnHPPWZuZ2TmlhFbTrv5a82jmjwFa
-         Sw4KkO+gWxLl6Y4/BXHUMmRqCyfrMxDYU3vIhMjAMtBnOCdAkqHenz+U+kLLITo1Eepb
-         AeBIbWr8oH+d+J7YsnI5MkQJM1Hb9EvA3OFZ3V1JHU3zhCA7Sv2Ct+jNbUwqZvAzzqA+
-         0Se6oksnBa3Lr0MI/87FIJzKW54uHuWNdDMiGEXq1nrx6zn8FW5D9n3Hb6rY5mR6bzRK
-         NPTg==
-X-Forwarded-Encrypted: i=1; AJvYcCUblxTBcRRMguSz7/F2zAe8l0GWuGJVILP+UlTlBghJ/EyHhIqEr43b2nKRaULlaif3JsGU2uzMC6I=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxyWDvWBZugv91VFY9m2qvP/tEpexFP15wbCLFiQHrbGq6Ry285
-	SY6WxYYX4oY7kI2/gDc2gyODwDR5sajzO1Sf6ByGfiw7/IwaNlutYXMrnrg/d5TSDw==
-X-Gm-Gg: ASbGnctcQyI5MUclh67U9gWy61JI6JYR2N8UWpbY4I4IXvuuKMeeGIdIALELBVJX+k1
-	qq7gfZcHTmSwwegadZIyhgZKA77mdplrDj9RNNxzy44IapNiiEDG5ZpgEWbCMN3wpCpG0fWpjG5
-	yGICdCOXn45I6ZcdPJy/1AAMKpJP3bOI3iYh2ODTVirkGQoIsxJxtzVFlCaevLAjKAxL0SJU/BH
-	5s2anAacOHvUm2XAS05oq0p9hrfAWEkbGBBoSI7QgfMy5NBHaHo11PDd1gsXxztzRO9qm4pZW+Y
-	6GMRHRldOunappR2SxbHwIKhL8XIh0UamKq9sOEbmmwRjrqxo88sImTYwGnIB8K+IHOJ75gqapC
-	Vh0xC+z38v4Lu5rVzeggmLw/D7UfB6kGqIkZvrf6ZbAVxN7c=
-X-Google-Smtp-Source: AGHT+IEfzzlKrEThxIDoeqQJTSjexInT8XU+p5eecG1+jrsJFPE0yo88kjVmh/EkyZaQ6oY7CPoLUA==
-X-Received: by 2002:a05:6000:144d:b0:3a5:26fd:d46f with SMTP id ffacd0b85a97d-3a6d12da03fmr8087747f8f.32.1750659169364;
-        Sun, 22 Jun 2025 23:12:49 -0700 (PDT)
-Message-ID: <c997177e-46b5-4f15-aeec-4a4b8d2dae2f@suse.com>
-Date: Mon, 23 Jun 2025 08:12:40 +0200
+        bh=i/66+BbyWZjipRIbTVLUqDpjpWtyUCNphjAJTGprYlo=;
+        b=OJHpSO2hRwm4z9edbbZnw1zn6ZziEsQLPchEsxJeXB6UNIfKazEkMOUc3f3Twg/eH3
+         s+ClmcUe07Qmgy6Z9ZT5q1TL61TeIgYyseaqoJiE5qAdR+D0bzoafwjpZ4H056HLRAX2
+         Do081ht5Ql7CqPrNIFYwU+9WHuKpX4nzlprcQjpTnVrfRsoEsY6dxHB06dzOSSbbJnIC
+         yRnF3X+tB9RBLZNG8dg+eWemOoG/PQI3dszRRXJKPflwtIgovlyVshTBHLqsN2CCzYzq
+         FWY8Y616k5jz8TQaZcLaJ5TevVNeOf9KhFQw/Eio+vSLBjH2/AdGRmsvkzznQywMaC9v
+         Djwg==
+X-Gm-Message-State: AOJu0YyqGWfEJ2hqB86JhFJE2wTSPl0tuANX40RyCuRsCSK98AvL2kTQ
+	qDs/g0dOHI1UMBMpmps1Z3rxLtIJ9pnU5zHT21JOUmEIGQGngXv1v9tykeqoSozVYA==
+X-Gm-Gg: ASbGncsG67CP6E/UB1cXnGglRtSupWJqrPWTmRBcINBdNFBYPHva9J7L7tQjh8dty84
+	73Z+g1gVcUix/oprwDDCGQyuWMG53cvehWz5x1W1DKDOvM6qf4kSTlVn/RZ4Y0/cGO4Lk5zlrDH
+	Il95/SgZJ+7KaN5R4Q35q6axujapRgHQSLHoeJTPPI3O9UlvhWDpBPjoL9MMBbkV+1qLb1HNdea
+	2vxVClW8tl4hTfRUATImqF0ZTNXVjNzmwpFG3dZZyFYONOAi/6xW6rVl9Vzuxy3Tr2Uvvmo/7M9
+	VHcUKnpcb5EewujHHHU/BCesMwTzxofuzmZ+vJyuFP2N2yxQwQG9Vd/CHdp620ZaI/aQNCM8apZ
+	48qiZQXFYaSWE+kGFnGtP7nT6LMYdQbpKh/tTDHJmmOkDV3c=
+X-Google-Smtp-Source: AGHT+IEaRdMTfOBX+25bv97ZJPuzThBsvceXHBR6L+/Vj1YKHrsvfl6X0ocxqJhQwF0AZyLWE9en7g==
+X-Received: by 2002:a05:6000:1ac9:b0:3a6:daff:9e5 with SMTP id ffacd0b85a97d-3a6daff0b13mr3157062f8f.7.1750659328838;
+        Sun, 22 Jun 2025 23:15:28 -0700 (PDT)
+Message-ID: <a81739f7-4f86-4af4-97b1-0da1dd59f835@suse.com>
+Date: Mon, 23 Jun 2025 08:15:20 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] automation/eclair: update configuration of D4.10
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Stefano Stabellini <stefano.stabellini@amd.com>, michal.orzel@amd.com,
- julien@xen.org, roger.pau@citrix.com, bertrand.marquis@arm.com,
- federico.serafini@bugseng.com, Nicola Vetrini <nicola.vetrini@bugseng.com>,
- xen-devel@lists.xenproject.org
-References: <alpine.DEB.2.22.394.2506061403280.2495561@ubuntu-linux-20-04-desktop>
- <fbcd83f4-8638-4da3-8555-36294a42c7d8@suse.com>
- <alpine.DEB.2.22.394.2506201859290.2978375@ubuntu-linux-20-04-desktop>
+Subject: Re: [PATCH v5] automation/eclair: update configuration of D4.10
+To: Stefano Stabellini <sstabellini@kernel.org>,
+ Nicola Vetrini <nicola.vetrini@bugseng.com>
+Cc: xen-devel@lists.xenproject.org, Andrew Cooper
+ <andrew.cooper3@citrix.com>, Stefano Stabellini
+ <stefano.stabellini@amd.com>, michal.orzel@amd.com, julien@xen.org,
+ roger.pau@citrix.com, bertrand.marquis@arm.com, federico.serafini@bugseng.com
+References: <alpine.DEB.2.22.394.2506201918100.2978375@ubuntu-linux-20-04-desktop>
+ <bb73b812ea04857c29bdf64c570eaafa@bugseng.com>
+ <alpine.DEB.2.22.394.2506221355580.8066@ubuntu-linux-20-04-desktop>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -122,13 +121,13 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2506201859290.2978375@ubuntu-linux-20-04-desktop>
+In-Reply-To: <alpine.DEB.2.22.394.2506221355580.8066@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 21.06.2025 04:19, Stefano Stabellini wrote:
-> On Tue, 10 Jun 2025, Jan Beulich wrote:
->> On 06.06.2025 23:04, Stefano Stabellini wrote:
+On 22.06.2025 22:58, Stefano Stabellini wrote:
+> On Sun, 22 Jun 2025, Nicola Vetrini wrote:
+>> On 2025-06-21 04:19, Stefano Stabellini wrote:
 >>> --- a/xen/arch/x86/include/asm/cpufeatures.h
 >>> +++ b/xen/arch/x86/include/asm/cpufeatures.h
 >>> @@ -1,6 +1,6 @@
@@ -136,33 +135,21 @@ On 21.06.2025 04:19, Stefano Stabellini wrote:
 >>> - * Explicitly intended for multiple inclusion.
 >>> - */
 >>> +/* This file is intended to be included multiple times. */
+>>> +/* #ifndef X86_CPUFEATURES_H */
+>>> +/* #define X86_CPUFEATURES_H */
+>>>
 >>
->> While I can see that this may indeed be needed, ...
->>
->>> +/*#ifndef X86_CPUFEATURES_H */
->>> +/*#define X86_CPUFEATURES_H */
->>
->> ... I wonder what this is about. Sorry, I didn't spot this as a change
->> in v3. If it's needed, these comments want to be well formed (have a
->> space between * and #).
+>> Are these two lines really needed? I may be mistaken, but I think the
+>> violation's first location would be the #include below with a comment a couple
+>> of lines above captured by the config at the top [1]. @Federico thoughts?
 > 
-> Without it, ECLAIR throws other violations. But I can fix the lack of a
-> space.
-
-So the original comment that was there didn't serve its purpose?
-
->> Beyond this - why is this header ending up different from e.g.
->> public/errno.h, where a SAF-8 comment is used?
+> Without these 2 lines, ECLAIR complains about the following:
 > 
-> Because SAF-8 is meant to be used on top of an #ifndef and there is no
-> #ifndef here
+> #include <xen/lib/x86/cpuid-autogen.h>
+>        ^
+>  MC3A2.D4.10non-compliant start of header file
 
-How can that be? SAF-8 is specifically to cover for the lack of a guard,
-i.e. typically the lack of any (respective) #ifndef. SAF-8's description
-also says nothing along these lines. And then it looks to be possible to
-add some #ifndef here, e.g. checking NCAPINTS. Just that the #endif would
-need to come early, and another #ifndef would then be wanted at about 2/3
-of the file.
+And that's where hence a SAF-8 comment cold be placed, I would think.
 
 Jan
 
