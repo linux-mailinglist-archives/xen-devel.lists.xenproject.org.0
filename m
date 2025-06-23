@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 71127AE4E41
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Jun 2025 22:43:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1022721.1398547 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 84A4EAE4E50
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Jun 2025 22:45:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1022728.1398557 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uTo0S-0003nx-Df; Mon, 23 Jun 2025 20:43:08 +0000
+	id 1uTo2U-0004LF-Nt; Mon, 23 Jun 2025 20:45:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1022721.1398547; Mon, 23 Jun 2025 20:43:08 +0000
+Received: by outflank-mailman (output) from mailman id 1022728.1398557; Mon, 23 Jun 2025 20:45:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uTo0S-0003lU-AS; Mon, 23 Jun 2025 20:43:08 +0000
-Received: by outflank-mailman (input) for mailman id 1022721;
- Mon, 23 Jun 2025 20:43:07 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uTo2U-0004JO-Ky; Mon, 23 Jun 2025 20:45:14 +0000
+Received: by outflank-mailman (input) for mailman id 1022728;
+ Mon, 23 Jun 2025 20:45:13 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=o1Rx=ZG=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1uTo0R-0003lO-7E
- for xen-devel@lists.xenproject.org; Mon, 23 Jun 2025 20:43:07 +0000
+ id 1uTo2T-0004JI-J5
+ for xen-devel@lists.xenproject.org; Mon, 23 Jun 2025 20:45:13 +0000
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a8dfb845-5072-11f0-b894-0df219b8e170;
- Mon, 23 Jun 2025 22:43:04 +0200 (CEST)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f50d6e3c-5072-11f0-a30f-13f23c93f187;
+ Mon, 23 Jun 2025 22:45:12 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 235FA4A2F7;
- Mon, 23 Jun 2025 20:43:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 497DBC4CEEA;
- Mon, 23 Jun 2025 20:43:01 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 5B1CC4A5D9;
+ Mon, 23 Jun 2025 20:45:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 812CEC4CEED;
+ Mon, 23 Jun 2025 20:45:10 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,127 +41,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a8dfb845-5072-11f0-b894-0df219b8e170
+X-Inumbo-ID: f50d6e3c-5072-11f0-a30f-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1750711383;
-	bh=28b3mtpisUy5LBEkImrgQd0QeK6aEbksBe5GD74T3tg=;
+	s=k20201202; t=1750711511;
+	bh=RDPZHFICfod1F+Yjy8WvWC56PpTydfZoTb2k1h3xG0w=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=tXrjveR7uMgB+8WBiwOHh2WWGJj7RIzEhZ5O1m9rpiBx4BzM15CNgcNQjNkQMSg4r
-	 IrJkUpet0LJa15O58XD8O4tdqvGOqhGoaekLfxq7jHJpkgLv0cyra5+E0deTNIWgdI
-	 T6BSCSOHJb9RrORPvC+UJp/QAgH+m2OoTLHwtMTYOuolxYMRITlwAczg1twF7+ZNkg
-	 n3d7UVjmjfokQjpTFXnlQNx32AbsGIafm18skl6SlnAt6EDYECUpqmXqGsxdlDXtyG
-	 rpiNP03+Fn6PWl8lnEi7tULDlWPjrfCxVplSEklSt0Im4SLiuHMDWf4vlNdjv5C3nF
-	 4VlaeuEmvoSLA==
-Date: Mon, 23 Jun 2025 13:42:59 -0700 (PDT)
+	b=t9hjHXf1jnYL6B6gFtPuyzY8v9TnwUgiOucuvTh3ci3sHQRp0VVAuQ3+ERQbx8HC/
+	 9qCjAj5a5ILsOO7FL+WSFf8xZeWL3a9140dOX5xBMV75erKt0z0k1HTCgZpslQ2ZmH
+	 NVdsqE2GQ/d4rqEip/lmb0/WyvAXIsbGo4DlkG16mggEyGBDfRCbvtUW0lDc2w6Dhm
+	 CQjcEQ+EJvQtp/0O3cBTmtYibXyWOB1Rm31FAIWAVZSJjbUvSJ9p5gD6XUy7iIOLEK
+	 ie4yIWJn15+caWeBLc9yIHHZ0eVp1xJUFWwrMsuQH38WXJqVkSpZwJk9UDC8Z0zRgd
+	 nLI9ygJve2CQw==
+Date: Mon, 23 Jun 2025 13:45:09 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Julien Grall <julien@xen.org>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>, 
-    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
-    Anthony PERARD <anthony.perard@vates.tech>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>, 
-    Jan Beulich <jbeulich@suse.com>, Juergen Gross <jgross@suse.com>, 
-    Michal Orzel <michal.orzel@amd.com>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-    Grygorii Strashko <grygorii_strashko@epam.com>
-Subject: Re: [RFC PATCH v4 6/8] xen/arm: scmi: introduce SCI SCMI SMC
- multi-agent driver
-In-Reply-To: <562748f1-13f5-4e84-a761-f251c6e0296a@xen.org>
-Message-ID: <alpine.DEB.2.22.394.2506231341480.8066@ubuntu-linux-20-04-desktop>
-References: <cover.1747669845.git.oleksii_moisieiev@epam.com> <318044ae12f13b6b297b3f5fda577a1a6cd143da.1747669845.git.oleksii_moisieiev@epam.com> <alpine.DEB.2.22.394.2505231114050.147219@ubuntu-linux-20-04-desktop> <6080ff71-2634-4269-8a63-fdafdf03f01b@epam.com>
- <alpine.DEB.2.22.394.2506171556520.1780597@ubuntu-linux-20-04-desktop> <769aad0a-8bee-45c6-8c5c-35f9d47ed8ae@epam.com> <alpine.DEB.2.22.394.2506221432421.8066@ubuntu-linux-20-04-desktop> <bd09db53-2a99-420a-8a78-8bd9dee8c6b2@xen.org>
- <alpine.DEB.2.22.394.2506231225050.8066@ubuntu-linux-20-04-desktop> <562748f1-13f5-4e84-a761-f251c6e0296a@xen.org>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+cc: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>, 
+    xen-devel@lists.xenproject.org, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: Re: [PATCH test-artifacts v1 1/5] Add linux-6.12.34-x86_64
+In-Reply-To: <cf4b8af8-1855-43d8-8416-90db9ec4a634@citrix.com>
+Message-ID: <alpine.DEB.2.22.394.2506231345030.8066@ubuntu-linux-20-04-desktop>
+References: <cover.7129d44a341f3fb3a85f808a998c28ebe8a77ee8.1750684376.git-series.marmarek@invisiblethingslab.com> <0a3e893e5fe133dc710d11a31006ba4f2c1b0cbe.1750684376.git-series.marmarek@invisiblethingslab.com>
+ <cf4b8af8-1855-43d8-8416-90db9ec4a634@citrix.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: multipart/mixed; boundary="8323329-935472679-1750711511=:8066"
 
-On Mon, 23 Jun 2025, Julien Grall wrote:
-> Hi Stefano,
-> 
-> On 23/06/2025 20:27, Stefano Stabellini wrote:
-> > On Mon, 23 Jun 2025, Julien Grall wrote:
-> > > Hi Stefano,
-> > > 
-> > > On 22/06/2025 23:15, Stefano Stabellini wrote:
-> > > > On Thu, 19 Jun 2025, Oleksii Moisieiev wrote:
-> > > > > On 18/06/2025 02:22, Stefano Stabellini wrote:
-> > > > > > On Thu, 12 Jun 2025, Oleksii Moisieiev wrote:
-> > > > > > > [1]:https://git.iliana.fyi/linux/patch/?id=d5141f37c42e0b833863f157ac4cee203b2ba3d2
-> > > > > > Keep in mind that [0] refers specifically to access to MMIO regions.
-> > > > > > I
-> > > > > > assume that the SCMI shared buffers are on normal memory? Regarding
-> > > > > > [1],
-> > > > > > it makes sense if Linux is trying to support shared memory over
-> > > > > > MMIO.
-> > > > > > 
-> > > > > > Looking at one of your replies below, I am guessing the memory
-> > > > > > buffers
-> > > > > > are actually in normal memory but the issue is that TF-A is mapping
-> > > > > > them
-> > > > > > as uncacheable. Is that correct?
-> > > > > > 
-> > > > > > In that case, I still don't understand why a simple memcpy would not
-> > > > > > be
-> > > > > > sufficient. Can you check?
-> > > > > > 
-> > > > > > If yes, then for now I would just simplify it down to memcpy. When
-> > > > > > someone adds support for an SCMI server elsewhere we could look into
-> > > > > > adding a more sophisticated memcpy and we can look at the details at
-> > > > > > that point in time. Specifically, I am not convinced that
-> > > > > > memcpy_toio
-> > > > > > and memcpy_fromio would work if the SCMI server is on a separate
-> > > > > > non-coherent microcontroller.
-> > > > > > 
-> > > > > According to the TF-A implementation  SCMI memory
-> > > > > 
-> > > > > is mapped with the  flags: MT_DEVICE (like for  stm32mp1) or
-> > > > > MT_NON_CACHEABLE (for rpi3)
-> > > > > 
-> > > > > So probably you're right. I will check with simple memcpy.
-> > > > 
-> > > > There is a difference between MT_DEVICE and MT_NON_CACHEABLE: as far as
-> > > > I know MT_DEVICE requires aligned accesses while MT_NON_CACHEABLE does
-> > > > not.
-> > > > 
-> > > > However, as I wrote in the other email, if I am not mistaken the current
-> > > > implementation of memcpy might work well for us anyway. (To be
-> > > > confirmed.)
-> > > 
-> > > I am not entirely sure what exactly you want to confirm. I have already
-> > > mentioned several time that our memcpy() on arm64 is using unaligned
-> > > access.
-> > > So it can't be used for copying data to/from device memory area.
-> > 
-> > I wrote it more clearly here:
-> > https://lore.kernel.org/xen-devel/alpine.DEB.2.22.394.2506221438250.8066@ubuntu-linux-20-04-desktop/
-> 
-> Ah I missed that e-mail!
-> 
-> > 
-> > Assuming that the address passed to memcpy is 4K aligned, then it seems
-> > to me that our memcpy implementation is using only aligned accesses.
-> 
-> I didn't look at the mempcy() in details. But even if what you say is true, it
-> seems to be me this will be very fragile because we would assume:
->  * the addresses passed are always 4KB (I could not easily confirm it)
->  * the mempcy implementation will not change (I see Linux has updated theirs
-> in 2020 but we never did it...).
-> 
-> I can't think of a compiel time check that would help to confirm any
-> assumptions above will always hold true.
-> 
-> I also don't see what we would gain with implementing memcpy_toio() with
-> mempcy(). Maybe you can remind what's your concern with that?
-> 
-> So right now, I feel Oleksii approach is the best.
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-OK fair enough :-)
+--8323329-935472679-1750711511=:8066
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
 
-I was trying to avoid introducing two functions that seemed unnecessary.
-If we go with Oleksii's approach, where do you think memcpy_toio()
-should be added? Oleksii added them to the scmi file, maybe we want to
-add them in a more generic location?
+On Mon, 23 Jun 2025, Andrew Cooper wrote:
+> On 23/06/2025 2:46 pm, Marek Marczykowski-Górecki wrote:
+> > This is necessary for new Zen4 runner.
+> > Do not include Argo module in this build, as it isn't compatible with
+> > 6.12 yet.
+> >
+> > Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+> 
+> Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+Acked-by: Stefano Stabellini <sstabellini@kernel.org>
+--8323329-935472679-1750711511=:8066--
 
