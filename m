@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B787BAE40B7
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Jun 2025 14:42:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1022306.1398088 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 01FC5AE41B2
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Jun 2025 15:10:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1022317.1398097 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uTgUv-0001kh-05; Mon, 23 Jun 2025 12:42:05 +0000
+	id 1uTgve-0004gj-2F; Mon, 23 Jun 2025 13:09:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1022306.1398088; Mon, 23 Jun 2025 12:42:04 +0000
+Received: by outflank-mailman (output) from mailman id 1022317.1398097; Mon, 23 Jun 2025 13:09:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uTgUu-0001he-S3; Mon, 23 Jun 2025 12:42:04 +0000
-Received: by outflank-mailman (input) for mailman id 1022306;
- Mon, 23 Jun 2025 12:42:03 +0000
+	id 1uTgvd-0004fH-Vo; Mon, 23 Jun 2025 13:09:41 +0000
+Received: by outflank-mailman (input) for mailman id 1022317;
+ Mon, 23 Jun 2025 13:09:41 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=H8L6=ZG=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uTgUt-0001gy-EB
- for xen-devel@lists.xenproject.org; Mon, 23 Jun 2025 12:42:03 +0000
+ id 1uTgvd-0004f8-I5
+ for xen-devel@lists.xenproject.org; Mon, 23 Jun 2025 13:09:41 +0000
 Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
  [2a00:1450:4864:20::429])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 75d7241f-502f-11f0-a30f-13f23c93f187;
- Mon, 23 Jun 2025 14:42:02 +0200 (CEST)
+ id 526b5ee2-5033-11f0-a30f-13f23c93f187;
+ Mon, 23 Jun 2025 15:09:40 +0200 (CEST)
 Received: by mail-wr1-x429.google.com with SMTP id
- ffacd0b85a97d-3a54690d369so3436012f8f.3
- for <xen-devel@lists.xenproject.org>; Mon, 23 Jun 2025 05:42:02 -0700 (PDT)
+ ffacd0b85a97d-3a5123c1533so2082811f8f.2
+ for <xen-devel@lists.xenproject.org>; Mon, 23 Jun 2025 06:09:40 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-237d8607c96sm82320775ad.138.2025.06.23.05.41.58
+ d2e1a72fcca58-7490a46b772sm8338306b3a.32.2025.06.23.06.09.37
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 23 Jun 2025 05:42:00 -0700 (PDT)
+ Mon, 23 Jun 2025 06:09:39 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 75d7241f-502f-11f0-a30f-13f23c93f187
+X-Inumbo-ID: 526b5ee2-5033-11f0-a30f-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1750682521; x=1751287321; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=BQMklvxnDFYP/W2MAanmrFjxA79m9bWrYTbcIqMyaNA=;
-        b=I3I6Rkn5mTHddrTzwRuI19xn+uIT2j1hKkDOGWzOLTJcpkRAtfS95mHAypucROXUPL
-         FXY8x8Kf82NbH/zxKd1Yr7WzhPILNUFKTliIps1vT3d+K2jujF/Jy1I1ek0rf+4D5n/k
-         w9y5f8H+SdR00JGk18cFCsU47YO5YjARlsgEZSeIQI3xZn6zvBI1e8vrhrIL2o7v/eD2
-         HsBqJ76Cx0IzhfRBG2tCUEXmsz3dBJ2Juzd2KZsd97x8jRe31do1BI7stNAiUpmXBH5X
-         GYE7Ae3uohmjKRHC3avqZHZ5/1tYi/H+YJMgmq1PBIZ0+KJuOVZgDrBfTdJDqlaxishR
-         RuSg==
+        d=suse.com; s=google; t=1750684180; x=1751288980; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=YBxeT3GbhLxQPHz0x8af+1sCrRfYL0uwQy7qx+Qh/RM=;
+        b=IEdQGS11g5MkJwNhOC59//th6eWUUp9uzZB4DeydBdFC/xZY9ByI+YoL6KZNMM1ug9
+         +cgv/zlhL6zIPlm+ixM6Du7vDmh4cBcCRrgVy4HX5N9YtAXzJkDZQ5daYWFRI8vS0Al6
+         2ZHw9+EpDjC0558iyU0mAmeTm6tXkh5yx74yn/7pWnwF3qBI0USR82aHbJHZMsOy/joJ
+         CidbJZEhqv5HJ1jkj/4Ko2YTD4wlLCg5Db9k7G6yme+AkEzczDAPqpkqYLwAXpRneDBC
+         qt3xO5q5gVw97Bjrs+nPjybjE3UrmYVGLszbURiNWzjjbcF/8mbQL+47LOKk7GfqItBH
+         uVTg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750682521; x=1751287321;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=BQMklvxnDFYP/W2MAanmrFjxA79m9bWrYTbcIqMyaNA=;
-        b=ZP1kF1DMBr2RlfQWFIdAu4dnr8cLJcaYDtcs/A0V7e19XqyFhmZ94ByXcZ7/M3x+cA
-         P06auYczpjnRSp/7roOaV6CMd5SR0UKN47/GfVbyVSucQ5Tum3ujgTeru4lhe2BddKiq
-         vP7PX+mV0wzfqddSNAeheTvXhsDE10uMDRrDzFr6weDQNAE5QuTqBUvlXt7n6eNTqno3
-         ad5fPiu/7juP9a8DOp/zHKy4hhdDQ7NTiRMesApndQ/YhbQ28+TQDAIjvOvhE4SR7ii0
-         TIufaIRba1sLBRf9A8msTrfaZJACQlKhr+KFgXsg2ZsySG+HuBEQ3atB5nCRNrBbH1vn
-         Waiw==
-X-Forwarded-Encrypted: i=1; AJvYcCX2LP2N10LU833H90/0kPD8Cjb9JF++h1qMHtHXCkBoLcrf9QBpHuJyZ9jQK0AqPV02HkXbFUw7OB0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yx3Rkusi2FuqPQ2VXnU8Ye0H8wfwn7D0LQ/nkFxkHBYRsA0jVQ+
-	1pot8UMq+WuLD5nHNzxis7y5JlRyXoopAEJ3c6nqer5ej1K5zdmRZgCol3wNCezNsg==
-X-Gm-Gg: ASbGnctImKWKfF7nUT4iOHqe14OXRnQw4zZNwt9t7v1FnEVTPGQVAXWPCzp7sQRHCkN
-	kJRAA5Ujjcx/eRO+v+a+xcz7aRzL5xEZA0mTl6lItanQ7DJxVK7tss4q3UaRQvYv4HyvlIn5m6A
-	WXJt3IO6kSttP/hafhJgk18tklZsbnSe3thcfa5Z40PIvkRDgFjRZT7zaJKXiR8+AEhwmgAWe7O
-	2lHo/LPGN9hhE3LpcOPnMPtQfG4Uxf82u9oWKvPi2+VJHj8+c951Y2fLnvWgzENfAllyLLwjUbG
-	rChKryvjv0lpWnNnSJMs00eBB7iIhi6AwxCSsY227zk+cDugWhSQvjjiBSnUk+PXZOHMS+S1mTa
-	6EHPAA7Tajaj6yH1oJiYZu2R6SRMdVAmmeJRGz0W/hQAL6Gw=
-X-Google-Smtp-Source: AGHT+IG52pRJ6sXRzr8uSwIUvFrRs+VDqNa5ufeX6YmscjpVBOYnAh4xJy2ehLbZBdNvSftA1G2/Vg==
-X-Received: by 2002:a05:6000:2507:b0:3a4:f038:af74 with SMTP id ffacd0b85a97d-3a6d12ebae4mr9047563f8f.51.1750682521315;
-        Mon, 23 Jun 2025 05:42:01 -0700 (PDT)
-Message-ID: <59cff82d-bb29-4938-a786-6272a3d828a0@suse.com>
-Date: Mon, 23 Jun 2025 14:41:54 +0200
+        d=1e100.net; s=20230601; t=1750684180; x=1751288980;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=YBxeT3GbhLxQPHz0x8af+1sCrRfYL0uwQy7qx+Qh/RM=;
+        b=EMtjT6dJUllr7dvtDhwLs118bhIbDAXxF6B5UW2/QNlPgmhFSOJnd/FLgOSW+MSwfN
+         cNn6h/Jn2q+1OoR+bTJ1exTLlxoAQ7nxh/7h623Xa0G1igtX2psvwpuvJ2dU+DvDb860
+         dVZlLm7jmIZ7C4C3SUkmC9XiBN9oiTm8vrhJ1J0dAEl2lmsluoXqq17JGrN4AyPePC7o
+         JfhAm4ZYIFtQxYI2SH8pTec5HkCEYmQ4BC5sQwy8W5pHQ/EvwP//c0TAbFpoA9YSP3I9
+         BD65tIash7JTc5nzw/r6lwJ8Tb14DMZfIEFmKy/wJcmr0JoI1Avzsx2V/fn8G8ssDMEb
+         5FGw==
+X-Gm-Message-State: AOJu0YxjoYQOdK++hZTp6WNpy/qt3IkkYsjE7sefeK3qLIAvLHqNQm81
+	H400K77aMIkuV/8mjBMB5+LzAlDUDgwuw8Up0n+xLhp5nRv4wiF+6SfR4083lP/rfqbcEgCkGC6
+	9gXE=
+X-Gm-Gg: ASbGncsBaQuFOQ+lUnNOqnxOXYFkNtzI0mMdeyE51vafKS6nEQKChwBQvbdEC++s7FH
+	djx4xHE1qxitWLZJI2VZs1l8dimZrfO62jMSQulwDqbAhGh5cuoYJsxUzvfbTUtR2s1RiHMbn/q
+	xE2gRw91iKI4TL7dDDOrhSOWUXsD6EzbHBOeoiYe0XcvY3QWMLtRLgmZlhhR6CJ+i8FXGnY3bmc
+	155mtweAxAmuAJOmV+PhpYvt47VZWMPwTd20wOXBUmUQp15uJTBPcTM7pMlel/OntU6obq57D0t
+	1+ZDUZW8dzBsBZrSwKCvkvKdGMcwijWrZGSsT32pgMkIlKAuBkKgpstsMQtunTaSru9TzBHVnT5
+	7WGG2l5ge0sZtRJHndpeUexmioxRx/XpfyHA1Vp83I/wec7o=
+X-Google-Smtp-Source: AGHT+IHRiXe3CO8RAI+EmBkwi/4uAuhE2IhnKlcOxjGLSJ0E/67jo30qwNJKrjNEQ0qq5vVIOT8a2w==
+X-Received: by 2002:a5d:5850:0:b0:3a5:14e1:d9ec with SMTP id ffacd0b85a97d-3a6d12e6386mr9861355f8f.51.1750684179863;
+        Mon, 23 Jun 2025 06:09:39 -0700 (PDT)
+Message-ID: <039413d6-9204-4d45-b953-e786b30a1695@suse.com>
+Date: Mon, 23 Jun 2025 15:09:33 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/svm: Revert 1->true conversion in
- svm_asid_handle_vmrun()
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250623105148.90321-1-andrew.cooper3@citrix.com>
+Subject: Re: xen_pciback: error enabling MSI-X / MSI for guest -- WAS: Re:
+ Kernel panic when passing through 2 identical PCI devices
+To: "J. Roeleveld" <joost@antarean.org>
+References: <2226691.irdbgypaU6@persephone> <4683544.LvFx2qVVIh@persephone>
+ <0d1cdd47-8fc2-4aa4-8c78-32f2ef2cc524@suse.com>
+ <13792333.uLZWGnKmhe@persephone>
 Content-Language: en-US
+Cc: xen-devel@lists.xenproject.org
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -118,16 +119,48 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250623105148.90321-1-andrew.cooper3@citrix.com>
+In-Reply-To: <13792333.uLZWGnKmhe@persephone>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 23.06.2025 12:51, Andrew Cooper wrote:
-> This is literally ASID 1, not a boolean configuration.
+On 23.06.2025 13:10, J. Roeleveld wrote:
+> On Monday, 23 June 2025 09:55:46 CEST Jan Beulich wrote:
+>> On 21.06.2025 16:39, J. Roeleveld wrote:
+>>> I managed to get past the kernel panic (sort of) by doing the following:
+>>>
+>>> 1) Ensure system is fully OFF before booting. A reset/reboot will cause
+>>> these errors.
+>>>
+>>> 2) Fix the BIOS config to ensure the PCI-ports are split correctly. If
+>>> anyone has a Supermicro board and gets errors about PCI-slots not getting
+>>> full speed let me know.
+>>>
+>>> Not entirely convinced the 2nd was part of the cause, but that's ok.
+>>>
+>>> I now, however, get a new error message in the Domain0 dmesg:
+>>> pciback <pci-address>: xen_map irq failed -28 for <domid> domain
+>>> pciback <pci-address>: error enabling MSI-X for guest <domid>: err -28!
+>>>
+>>> For the NVMe devices, I get these twice, with the 2nd time complaining
+>>> about MSI (without the -X)
+>>>
+>>> I feel there is something missing in my kernel-config and/or domain
+>>> config.
+>>> If anyone can point me at what needs to be enabled/disabled or suggestions
+>>> on what I can try?
+>>
+>> The default number of extra IRQs the guest may (have) set up may be too
+>> small. You may need to make use of Xen's extra_guest_irqs= command line
+>> option.
 > 
-> Fixes: 2f09f797ba43 ("x86/svm: Drop the suffix _guest from vmcb bit")
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> I spent the entire weekend searching for possible causes/hints/things to try.
+> That setting was one I had found some time ago (I think for MSI/MSI-X issues) 
+> and it's currently set to:
+> extra_guest_irqs=768,1024
+> 
+> Not sure if it makes sense to increase this further?
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Seems unlikely, but you know how many interrupts the device(s) may have.
 
+Jan
 
