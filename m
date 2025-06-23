@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B77FAE4CD5
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Jun 2025 20:29:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1022652.1398477 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 88B16AE4CDB
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Jun 2025 20:30:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1022658.1398486 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uTlun-0008B5-VU; Mon, 23 Jun 2025 18:29:09 +0000
+	id 1uTlvw-0001IH-8T; Mon, 23 Jun 2025 18:30:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1022652.1398477; Mon, 23 Jun 2025 18:29:09 +0000
+Received: by outflank-mailman (output) from mailman id 1022658.1398486; Mon, 23 Jun 2025 18:30:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uTlun-00088V-SR; Mon, 23 Jun 2025 18:29:09 +0000
-Received: by outflank-mailman (input) for mailman id 1022652;
- Mon, 23 Jun 2025 18:29:08 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uTlvw-0001Fv-5h; Mon, 23 Jun 2025 18:30:20 +0000
+Received: by outflank-mailman (input) for mailman id 1022658;
+ Mon, 23 Jun 2025 18:30:18 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=XgjS=ZG=gmail.com=demiobenour@srs-se1.protection.inumbo.net>)
- id 1uTlum-00074l-Dc
- for xen-devel@lists.xenproject.org; Mon, 23 Jun 2025 18:29:08 +0000
-Received: from mail-qt1-x830.google.com (mail-qt1-x830.google.com
- [2607:f8b0:4864:20::830])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f211d5e6-505f-11f0-b894-0df219b8e170;
- Mon, 23 Jun 2025 20:29:06 +0200 (CEST)
-Received: by mail-qt1-x830.google.com with SMTP id
- d75a77b69052e-4a56cc0def0so77158081cf.3
- for <xen-devel@lists.xenproject.org>; Mon, 23 Jun 2025 11:29:06 -0700 (PDT)
-Received: from [10.138.10.6] ([89.187.178.201])
- by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-4a779d6a110sm41342241cf.23.2025.06.23.11.29.04
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 23 Jun 2025 11:29:04 -0700 (PDT)
+ <SRS0=TVau=ZG=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1uTlvu-0001Fe-Bj
+ for xen-devel@lists.xenproject.org; Mon, 23 Jun 2025 18:30:18 +0000
+Received: from fhigh-a7-smtp.messagingengine.com
+ (fhigh-a7-smtp.messagingengine.com [103.168.172.158])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 1b2ea087-5060-11f0-a30f-13f23c93f187;
+ Mon, 23 Jun 2025 20:30:16 +0200 (CEST)
+Received: from phl-compute-04.internal (phl-compute-04.phl.internal
+ [10.202.2.44])
+ by mailfhigh.phl.internal (Postfix) with ESMTP id A999011400AE;
+ Mon, 23 Jun 2025 14:30:14 -0400 (EDT)
+Received: from phl-mailfrontend-02 ([10.202.2.163])
+ by phl-compute-04.internal (MEProxy); Mon, 23 Jun 2025 14:30:14 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 23 Jun 2025 14:30:12 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,321 +45,129 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f211d5e6-505f-11f0-b894-0df219b8e170
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1750703346; x=1751308146; darn=lists.xenproject.org;
-        h=in-reply-to:autocrypt:from:content-language:references:cc:to
-         :subject:user-agent:mime-version:date:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=dv76SpzBQ0HkAszC6EPjpWhikjh4DRTPWMdPYRzhil8=;
-        b=Mk0cBOA1InpRjaZ8M/CfJPlP6c/EB6AdnDUdw1IcteIUAqu7UUtgUZ1aQIqZW1rQcu
-         tl2XLjs+lf0/hKYxRgvSg8+t9tlp4sYDtCvWRrlWdSFI22oSZtVtSrwJxYXAQuKuLNsi
-         LyxnsU51VZ69pu4wstJuw6BAOwVVhVjzP/o6ruAB/9RiUP5J3WblwJzvXJe7BZHVNJN3
-         AfU9IfsWX7Kds/Sazri80OUlozzU/LsEqEw/i1/HC/25f86Jk3nWzFiq+llv9xiPJK8I
-         b9RlIl4qbW/Bisiq75r7/4PNHWY0uhJSYF+B+ileLAaVxHJr0UMR8irThN4KFgfIMgNb
-         Zm5g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750703346; x=1751308146;
-        h=in-reply-to:autocrypt:from:content-language:references:cc:to
-         :subject:user-agent:mime-version:date:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=dv76SpzBQ0HkAszC6EPjpWhikjh4DRTPWMdPYRzhil8=;
-        b=HSisUXlbyuVMlyo13mRCchlHw7MTv4wSTZIgUbOTtX5hvo/ejWSj4C0lP113q9O9/l
-         4Za+pZY0vrtvRd7xLKW0vLXaEoRIDbnrtFf8chz5ZO7Sn+5SWYnQfAaNszSKSt0Unnqx
-         2S8ArO0N2sfpUZfU+FWqPPX7OEoTATZZhfsjqRpDlRAUiNvinttW8/+uXjvq90FW48ni
-         ETKzvq/rLeO9283g54julRnx8O61s8TRcGw5xjbUVHQgh0/RoBysrOmvtEPYKAd9a7au
-         9OAB3MuLi/LMHwOOuRqENc7CCQWiiC1aDdfX3elXHiH+6InZoz2TCasLMNgNOTbeNi8m
-         Y8wg==
-X-Forwarded-Encrypted: i=1; AJvYcCX2mJ1oT6h6GZkRWF9RKmzhaFEP1VI2nx0ofZtsz2TY2MT8NqAMjwKwSezHSt8SJamyvck1/bA/7xQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw1xVqM5YUyalulbDtBIlKk44vys//lQucWBDA2VkphT7+PsBfI
-	mTd2qfja4fQLTat2S3ptskxuPL0fc20SnEoWVLoOe4tF7GVB1xi9JPqp
-X-Gm-Gg: ASbGncvrHt9JkYTq1fxDVhOeplWgR7SdgDaG36mPfHq99JfrYKpXTsecWauNa69I50h
-	hg7BXSLYyJyusCDZRjUXpIwUzGT1vlXMlFijo+j0tHoLjcAgtuBGFj3/63NMjGaSywXNjF0Dwgo
-	7vjirNqO+EVbmNL0X3ELKqPf+sN27439jCO0T9DX4RQKgHuobbIXXXuO1PzOntxbR6i2JzGd9SC
-	fQpPwnbF5zt218KiOy9jCn2clf31KCafCq20MHrzDF0pwsc1KiJAL1kedrwsJBaT2dJ/7OXwDy3
-	BCEQ20iriQhjYqqaV3nVRdBJ8b8GmwwrSmQcSbmDACQDJrPNiIYerGNS6fPbgXqU5qw=
-X-Google-Smtp-Source: AGHT+IFDxJjWk1sOdZj2ww4Pn9fI9RS74vJkJqHGfkaqJWVaLK3tLgywuFYgoCuY722zB6yfdpAsJw==
-X-Received: by 2002:a05:622a:5597:b0:4a4:4bdc:8b1 with SMTP id d75a77b69052e-4a77a20c018mr231352691cf.19.1750703345510;
-        Mon, 23 Jun 2025 11:29:05 -0700 (PDT)
-Message-ID: <c97105b9-9b9d-49a3-8529-4cdd5f85bf4d@gmail.com>
-Date: Mon, 23 Jun 2025 14:28:47 -0400
+X-Inumbo-ID: 1b2ea087-5060-11f0-a30f-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1750703414;
+	 x=1750789814; bh=E3bRoNuZGOJy/HI43AZj5Rp3HQXU2s9gtOa4Vv+hssQ=; b=
+	AKq6cFI1KwafdGStPjLxqePu9cCWqUeHdmK8YTAnMsQXdMnGsDWgp2xaiXEWUBIT
+	AnNBWH42mcgzeexIQ72edFZ4b5j838FXL/DoirJVyJncM1tSAYTYhRK0a3um/551
+	YtobB+bNUrMJ+nxVh6v0/z5tPIa5GiDs8pDBgxjg1qbXBiwdj/QUTSFfd+9sohwb
+	NWWqJtlFHgrpEDfSGLZqgTI0mhoaHZwfGMNuMzFkeFpg+TLeSx57XLMb0931kArq
+	iY0dMCeuYkGCMIeBWfSQqvQpp56RTWB+QUpBYzEVYUyHVe3Khpzn5iBobDnBssGA
+	eajlDee2ylRZL+Mj3CNq0Q==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1750703414; x=1750789814; bh=E3bRoNuZGOJy/HI43AZj5Rp3HQXU2s9gtOa
+	4Vv+hssQ=; b=PHR2Y8IG60NR95txhZSXAawBgVE5v2lDT10G28WMcrJ/szsk6Z5
+	7IRXhOeyhcgZWNf2qHqKsrRyAJIhPkmdGNnfQvVgnl3FB1r01K1P4/JemypG7PA/
+	ruD6ZWT0JLmzUmHJx7nq7NccHs8aXMZJuPSC9rGQrPE8NZwTlF2hxEUXflIz2x/Y
+	+y+urYrCgfOnJ0yl0zMnSMg112fiuolssi1goQo3iS6rnOZAFycSoSkxifWEEmXZ
+	wTQNsLPEEB9nAugidwT6L9flqWJoqe0MlNpGnFtGyPUuAWAYudDndSGruuJAba7/
+	2GnSDwpIcJiLPWdV3N/SLqk6x5jtv6p8VeQ==
+X-ME-Sender: <xms:NZ1ZaI39uEdPwzrf8Vqh_NgOcjHMGKe_XvLSKDt0QFSTgFQHmcdnaQ>
+    <xme:NZ1ZaDG_gglYG9-PBXjM_x2VVP-d9Zmn74aK71j2_FuA6cEtsTJgaw0S3adc6_uYG
+    xJpi81HepeqMQ>
+X-ME-Received: <xmr:NZ1ZaA7G_Tr_ZONuIjWzw4_j7mUiEWyh3hKhzttLBDTKc3pLLcXiVxKUH-8SATr-0zIEwscv0Zv9LQeCiywhPhR2Kv37O8XaWXs>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtddvgddujeejhecutefuodetggdotefrod
+    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpuffrtefokffrpgfnqfghnecuuegr
+    ihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjug
+    hrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghkucfo
+    rghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvhhish
+    hisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpefgudelteef
+    vefhfeehieetleeihfejhfeludevteetkeevtedtvdegueetfeejudenucevlhhushhtvg
+    hrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhn
+    vhhishhisghlvghthhhinhhgshhlrggsrdgtohhmpdhnsggprhgtphhtthhopeegpdhmoh
+    guvgepshhmthhpohhuthdprhgtphhtthhopeguvghmihhosggvnhhouhhrsehgmhgrihhl
+    rdgtohhmpdhrtghpthhtohepgigvnhdquggvvhgvlheslhhishhtshdrgigvnhhprhhojh
+    gvtghtrdhorhhgpdhrtghpthhtoheptggrrhguohgvsegtrghrughovgdrtghomhdprhgt
+    phhtthhopehsshhtrggsvghllhhinhhisehkvghrnhgvlhdrohhrgh
+X-ME-Proxy: <xmx:NZ1ZaB1UyRtLRoK_I98iiV0ISHk33mWph4SVqP1cdizILlZkJ-zMlQ>
+    <xmx:NZ1ZaLGiSqPOaH6RRgHwMp4ZVO_lobr5DA9_iAyRfhRjvDK9Ogs0qg>
+    <xmx:NZ1ZaK_nBI97LQBJ2sl-suAyIlzXqJQX9FZxU7P-4m8jb56fAuacdg>
+    <xmx:NZ1ZaAlxLxfc3rskctGqFs9ad2i_coj8znJjfVae01VQ3es8Y4fJOQ>
+    <xmx:Np1ZaPi3kLYAOrD3EPc2ZQfUMRfaOTY-qMq-xt0BCm5JOJPemDi1tszh>
+Feedback-ID: i1568416f:Fastmail
+Date: Mon, 23 Jun 2025 20:30:10 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Demi Marie Obenour <demiobenour@gmail.com>
+Cc: xen-devel@lists.xenproject.org, Doug Goldstein <cardoe@cardoe.com>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH v1 6/6] [DO NOT MERGE] CI: example how to use ssh to
+ extract logs
+Message-ID: <aFmdMtJQ9pBfMM18@mail-itl>
+References: <cover.16ccd290bf95e314a4f23777f5564b3aa2417e57.1750686195.git-series.marmarek@invisiblethingslab.com>
+ <9e10434c1e5ff6edb53b9efc65485247ad450f0c.1750686195.git-series.marmarek@invisiblethingslab.com>
+ <c97105b9-9b9d-49a3-8529-4cdd5f85bf4d@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 6/6] [DO NOT MERGE] CI: example how to use ssh to
- extract logs
-To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org
-Cc: Doug Goldstein <cardoe@cardoe.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <cover.16ccd290bf95e314a4f23777f5564b3aa2417e57.1750686195.git-series.marmarek@invisiblethingslab.com>
- <9e10434c1e5ff6edb53b9efc65485247ad450f0c.1750686195.git-series.marmarek@invisiblethingslab.com>
-Content-Language: en-US
-From: Demi Marie Obenour <demiobenour@gmail.com>
-Autocrypt: addr=demiobenour@gmail.com; keydata=
- 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
- +MYSfkEjBz0E8CLOcAw7JIwAaeBT
-In-Reply-To: <9e10434c1e5ff6edb53b9efc65485247ad450f0c.1750686195.git-series.marmarek@invisiblethingslab.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------WeV2ZwFqccgT6tPxvoI3t0V8"
+	protocol="application/pgp-signature"; boundary="MDfU9KBrhBB5OY8I"
+Content-Disposition: inline
+In-Reply-To: <c97105b9-9b9d-49a3-8529-4cdd5f85bf4d@gmail.com>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------WeV2ZwFqccgT6tPxvoI3t0V8
-Content-Type: multipart/mixed; boundary="------------TEV0uS6ZTjX2hMLUFbFVNXXI";
- protected-headers="v1"
-From: Demi Marie Obenour <demiobenour@gmail.com>
-To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org
-Cc: Doug Goldstein <cardoe@cardoe.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-Message-ID: <c97105b9-9b9d-49a3-8529-4cdd5f85bf4d@gmail.com>
+
+--MDfU9KBrhBB5OY8I
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 23 Jun 2025 20:30:10 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Demi Marie Obenour <demiobenour@gmail.com>
+Cc: xen-devel@lists.xenproject.org, Doug Goldstein <cardoe@cardoe.com>,
+	Stefano Stabellini <sstabellini@kernel.org>
 Subject: Re: [PATCH v1 6/6] [DO NOT MERGE] CI: example how to use ssh to
  extract logs
-References: <cover.16ccd290bf95e314a4f23777f5564b3aa2417e57.1750686195.git-series.marmarek@invisiblethingslab.com>
- <9e10434c1e5ff6edb53b9efc65485247ad450f0c.1750686195.git-series.marmarek@invisiblethingslab.com>
-In-Reply-To: <9e10434c1e5ff6edb53b9efc65485247ad450f0c.1750686195.git-series.marmarek@invisiblethingslab.com>
-Autocrypt-Gossip: addr=marmarek@invisiblethingslab.com; keydata=
- xsBNBE5j9EwBCACbYHjxDrxFAY3n1x9KBFvjzkG1qFSTVBnH4vpD/5Na4sZq4uDDMUCjivrm
- MzbWYaivYj96BygdOiw7PWxYrhuW0b2WYOeGudZyApgFz42g458s78EciuhgfuWBlxr8dOEN
- /9ueVFHcvtZmDbHhMVPcQ0O7gwh0JmwkOsf7P7WAfYXsQlhO/EBRrNXR0Je+GEpYADhRktxX
- h1d3Iz+oKYuwHioLX8ovoAT4+peOuecWUSpUWebpDbTR5i7NRP3PIblB4KzWJa2kh/f3mx4v
- SRGnHn+BfX42xSe0X7Ktl4Xf+KNq9Wkcjk2CZP57hV2v4pO0ZUOXD7IhlZtnfNj67WjdABEB
- AAHNPU1hcmVrIE1hcmN6eWtvd3NraS1Hw7NyZWNraSA8bWFybWFyZWtAaW52aXNpYmxldGhp
- bmdzbGFiLmNvbT7CwHoEEwEIACQCGwMFCwkIBwMFFQoJCAsFFgIDAQACHgECF4AFAll+l7cC
- GQEACgkQ24/THMrX1yw6kAgAiKiUhzAPXZj5ndqiQDl8u8PUK34SupLzYNMJOCBw5Wh+CPHe
- XYlQUwfULWxmzjiWCzzWDx2X/ONsYdRGKDKMqG5srOSWe1IYXv00MEutGsK+m/hmC5mqi/97
- DVNZ1VtKj5WW79IsI0/7ueHsQYNNrXyOfZvKsRE8VIUJ0tNfLFDFlNpq9jONuF+GviMWxrA5
- FoVaGmjh63xC0fOQYqhP2v8dbYS4B6bO5NZKI2cTHb9Li2iY0e7wIoNgvqgtR3Iv2U2Ry0yL
- D3mNQhwyxcWChexlymjfqLEZwKqaIOo57HOpt7OA+bMg6MvkdUTjNWf2GE6fqCcALjcToJ3L
- NDc1KM7ATQROY/RMAQgAtRWgUZ5mOy+c/qzmiVnxqDkiOJjmnIh3Pn+OqCtjcrTyPI9eVc06
- uH30Jkco0soLiG/UgwVw4XwBlm95j9n6TSUms4mPBh1YiR1hBjsjYwn8zp/Ue9xWk1N6E14H
- aj55GxmS2H3YIlOXfQLr0X3RHsmKixTOKyisrYlJu71FmettDFV7CgMXy1Bc1LbAE08asvAS
- ShHFdRiRRtkuVHvY/Ebq9L54kOxtlI6ahrflMcT0YCMON5oe4GgQRh3p2uy+d/LS2bgRcQST
- IebErj8x0lM271f97GvxV/ypHo7XVIDI5FX1u31Agzx3HQr035GHt4HV4/GVCz+V4xt4BonB
- tQARAQABwsBfBBgBAgAJBQJOY/RMAhsMAAoJENuP0xzK19cs5MgH/jWLXil2Ud4TdtWnBxc+
- 2/QZZk2JCssc1PgWNzvH5wH7U+8lGSlUK8ZMOqrrF8C5rX0+xEn7deSrsZChIOnUFo8rhCZK
- y/mBV+FhkMj24FZZ0n8w3eF4KF2t68Pt+AvMjxQHwxAMdf3QftgQhD0qYkt/28eedUQ+jwz6
- kipc4qUQmqTEViQRPa3WAnKgNDQUDUwNruzthfGvHUjllf7zbPI8gkbARM0KlTkLikc9u+Ni
- VMbJTiGPB7YHyw2MIPq1n+mhSPAyXE6CVBnYkonQ7P3SLZssxC3PIarV+DTU68umQB3pfrfF
- 7hMcAY5csWrK9/x/Zz4RUfgN6Q3HLrSp9UQ=
 
---------------TEV0uS6ZTjX2hMLUFbFVNXXI
-Content-Type: multipart/mixed; boundary="------------8rbXiEl40Om1Jovt0eXEYfVB"
-
---------------8rbXiEl40Om1Jovt0eXEYfVB
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-On 6/23/25 09:47, Marek Marczykowski-G=C3=B3recki wrote:
-> ---
->  automation/scripts/qubes-x86-64.sh | 2 ++
->  1 file changed, 2 insertions(+)
->=20
-> diff --git a/automation/scripts/qubes-x86-64.sh b/automation/scripts/qu=
+On Mon, Jun 23, 2025 at 02:28:47PM -0400, Demi Marie Obenour wrote:
+> On 6/23/25 09:47, Marek Marczykowski-G=C3=B3recki wrote:
+> > ---
+> >  automation/scripts/qubes-x86-64.sh | 2 ++
+> >  1 file changed, 2 insertions(+)
+> >=20
+> > diff --git a/automation/scripts/qubes-x86-64.sh b/automation/scripts/qu=
 bes-x86-64.sh
-> index cf040a29856b..944d0c6d383f 100755
-> --- a/automation/scripts/qubes-x86-64.sh
-> +++ b/automation/scripts/qubes-x86-64.sh
-> @@ -292,6 +292,8 @@ export TEST_LOG=3D"smoke.serial"
->  export TEST_TIMEOUT=3D"$timeout"
->  ./automation/scripts/console.exp | sed 's/\r\+$//'
->  TEST_RESULT=3D$?
-> +ssh -o StrictHostKeyChecking=3Dno root@$SUT_ADDR xl dmesg || :
-> +ssh -o StrictHostKeyChecking=3Dno root@$SUT_ADDR dmesg || :
-> =20
->  if [ -n "$retrieve_xml" ]; then
->      nc -w 10 "$SUT_ADDR" 8080 > tests-junit.xml </dev/null
+> > index cf040a29856b..944d0c6d383f 100755
+> > --- a/automation/scripts/qubes-x86-64.sh
+> > +++ b/automation/scripts/qubes-x86-64.sh
+> > @@ -292,6 +292,8 @@ export TEST_LOG=3D"smoke.serial"
+> >  export TEST_TIMEOUT=3D"$timeout"
+> >  ./automation/scripts/console.exp | sed 's/\r\+$//'
+> >  TEST_RESULT=3D$?
+> > +ssh -o StrictHostKeyChecking=3Dno root@$SUT_ADDR xl dmesg || :
+> > +ssh -o StrictHostKeyChecking=3Dno root@$SUT_ADDR dmesg || :
+> > =20
+> >  if [ -n "$retrieve_xml" ]; then
+> >      nc -w 10 "$SUT_ADDR" 8080 > tests-junit.xml </dev/null
+>=20
+> StrictHostKeyChecking=3Dno is generally a bad idea.
+> Is there a better option?
 
-StrictHostKeyChecking=3Dno is generally a bad idea.
-Is there a better option?
+It doesn't matter here. It's simply more convenient than a netcat that
+is used few lines below.
+
 --=20
-Sincerely,
-Demi Marie Obenour (she/her/hers)
---------------8rbXiEl40Om1Jovt0eXEYfVB
-Content-Type: application/pgp-keys; name="OpenPGP_0xB288B55FFF9C22C1.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB288B55FFF9C22C1.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
 
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-xsFNBFp+A0oBEADffj6anl9/BHhUSxGTICeVl2tob7hPDdhHNgPR4C8xlYt5q49y
-B+l2nipdaq+4Gk6FZfqC825TKl7eRpUjMriwle4r3R0ydSIGcy4M6eb0IcxmuPYf
-bWpr/si88QKgyGSVZ7GeNW1UnzTdhYHuFlk8dBSmB1fzhEYEk0RcJqg4AKoq6/3/
-UorR+FaSuVwT7rqzGrTlscnTDlPWgRzrQ3jssesI7sZLm82E3pJSgaUoCdCOlL7M
-MPCJwI8JpPlBedRpe9tfVyfu3euTPLPxwcV3L/cfWPGSL4PofBtB8NUU6QwYiQ9H
-zx4xOyn67zW73/G0Q2vPPRst8LBDqlxLjbtx/WLR6h3nBc3eyuZ+q62HS1pJ5EvU
-T1vjyJ1ySrqtUXWQ4XlZyoEFUfpJxJoN0A9HCxmHGVckzTRl5FMWo8TCniHynNXs
-BtDQbabt7aNEOaAJdE7to0AH3T/Bvwzcp0ZJtBk0EM6YeMLtotUut7h2Bkg1b//r
-6bTBswMBXVJ5H44Qf0+eKeUg7whSC9qpYOzzrm7+0r9F5u3qF8ZTx55TJc2g656C
-9a1P1MYVysLvkLvS4H+crmxA/i08Tc1h+x9RRvqba4lSzZ6/Tmt60DPM5Sc4R0nS
-m9BBff0Nm0bSNRS8InXdO1Aq3362QKX2NOwcL5YaStwODNyZUqF7izjK4QARAQAB
-zTxEZW1pIE9iZW5vdXIgKElUTCBFbWFpbCBLZXkpIDxhdGhlbmFAaW52aXNpYmxl
-dGhpbmdzbGFiLmNvbT7CwY4EEwEIADgWIQR2h02fEza6IlkHHHGyiLVf/5wiwQUC
-X6YJvQIbAwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgAAKCRCyiLVf/5wiwWRhD/0Y
-R+YYC5Kduv/2LBgQJIygMsFiRHbR4+tWXuTFqgrxxFSlMktZ6gQrQCWe38WnOXkB
-oY6n/5lSJdfnuGd2UagZ/9dkaGMUkqt+5WshLFly4BnP7pSsWReKgMP7etRTwn3S
-zk1OwFx2lzY1EnnconPLfPBc6rWG2moA6l0WX+3WNR1B1ndqpl2hPSjT2jUCBWDV
-rGOUSX7r5f1WgtBeNYnEXPBCUUM51pFGESmfHIXQrqFDA7nBNiIVFDJTmQzuEqIy
-Jl67pKNgooij5mKzRhFKHfjLRAH4mmWZlB9UjDStAfFBAoDFHwd1HL5VQCNQdqEc
-/9lZDApqWuCPadZN+pGouqLysesIYsNxUhJ7dtWOWHl0vs7/3qkWmWun/2uOJMQh
-ra2u8nA9g91FbOobWqjrDd6x3ZJoGQf4zLqjmn/P514gb697788e573WN/MpQ5XI
-Fl7aM2d6/GJiq6LC9T2gSUW4rbPBiqOCeiUx7Kd/sVm41p9TOA7fEG4bYddCfDsN
-xaQJH6VRK3NOuBUGeL+iQEVF5Xs6Yp+U+jwvv2M5Lel3EqAYo5xXTx4ls0xaxDCu
-fudcAh8CMMqx3fguSb7Mi31WlnZpk0fDuWQVNKyDP7lYpwc4nCCGNKCj622ZSocH
-AcQmX28L8pJdLYacv9pU3jPy4fHcQYvmTavTqowGnM08RGVtaSBNYXJpZSBPYmVu
-b3VyIChsb3ZlciBvZiBjb2RpbmcpIDxkZW1pb2Jlbm91ckBnbWFpbC5jb20+wsF4
-BBMBAgAiBQJafgNKAhsDBgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRCyiLVf
-/5wiwYa/EACv8a2+MMou9cSCNoZBQaU+fTmyzft9hUE+0d5W2UY1RY3OsjFIzm9R
-/4SVccfsqOYLEo+S0vQMIIIqFEq3FCpXXwPzyimotps05VA8U3Bd7yseojFygOgK
-sAMOAee2RCaDDOnoJue01dfZMzzHPO/TVdp3OvnpWipfv5G1Xg96rwbhMLE3tg6N
-xwAHa31Bv4/Xq8CJOoIWvx6fcmZQpz01/lSvsYn0KrfEbTKkuUf0vM9JrCTCP2oz
-VNN5BYzqaq2M4r+jmSyeXLim922VOWqGkUEQ85BSEemqrRS06IU6NtEMsF8EWt/b
-hWjk/9GDKTcnpdJHTrMxTspExBiNrvpI2t+YPU5B/dJJAUxvmhFrbSIbdB8umBZs
-I3AMYrEmpAbh5x7jEjoskUC7uN3o9vpg1oCLS2ePDLtAtyBtbHnkA4xGD7ar8mem
-xpH9lY/i+sC6CyyIUWcUDnnagKyJP0m9ks0GLsTeOCA0bft2XA6rD6aaCnMUsndT
-ctrab42CV5XypjmC4U1rPJ8JQJUh1/3P48/8sMH+3krxpJ06KNWNFaUbaMTGiltZ
-7x9DngklSYrX0T+2G4kVXNmjaljwkoLahwLla2gUWwBSyofXdqyhQdwZsp01KXNQ
-UCyT/Pg+aDcm/E7OMV3d4lf7g/CSxiX2GSEe6BlhSz+Lmd7ZJ3g32M1ARGVtaSBN
-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
-EtJuZYM5blWncBOJCoWMnBEcTEo/viU3GgcVRw=3D=3D
-=3Dx94R
------END PGP PUBLIC KEY BLOCK-----
-
---------------8rbXiEl40Om1Jovt0eXEYfVB--
-
---------------TEV0uS6ZTjX2hMLUFbFVNXXI--
-
---------------WeV2ZwFqccgT6tPxvoI3t0V8
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+--MDfU9KBrhBB5OY8I
+Content-Type: application/pgp-signature; name=signature.asc
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEopQtqVJW1aeuo9/sszaHOrMp8lMFAmhZnOoACgkQszaHOrMp
-8lOQ2Q//d4r0bwUr7o6vx8xXQI2Pfmi+7fM6Iw7iWJT/+1X4EbbqSz7dd02Jfh+p
-HWyxrFh5Iv093GDcPBUAaftT8w2DlrYaTgwELKGiOuTkIAQbt71P5dz/Jh3pb7Vp
-H/JRw/fONXvfQxw0tGnCrjvJtPzoLFU+MrbtOwTBq+fmKGhvCecIDT7wvpNGwWUN
-6Us8adsREMJaW5R2+exeXtWTu0KCk+H2pxVqEXGN9mBqa4WTHl0qBwwubbvQaHU6
-cbTxGE0cm9Xgx7JpXzrbsbKhtznoN2NL+ti7EHyA4hw8URgJXb3nbFJ3+0g6ZMxn
-609VE4k5L50MRZIWO1bC9um/37BAUZsuNcQ4BKx4F0n4D48W2pxdxg9XP+VqLZZe
-ROaFnmdTYzFIPNgp334C75od0RCiku3CtssJB/RQXHJ+Z7oTryTvxMGvoxU5xcTY
-4M0YO0H5QLXYxvzcR9Zl3AaKjLww3Ai8uiQ6rJmNEVTefGGkWbiNv1YgXYrExq25
-e0AiIe5fTnrF4JSWgJI9zvn4AFXpxvMngU0/jTv4MKMJk+Ttnet06UywtrD+sFvz
-MVOwUIvEutdDqLpUBy/illF2BzGpVENkwlGN2D6eGuVzm+X0rjsA6BVDtggscw/e
-jLwj40gPjEf3PDgu3dC+UxjZJ61X+jl/jRDhCbJepaAy10OQvPc=
-=U8cp
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmhZnTIACgkQ24/THMrX
+1yzFlQf/dDb641HgVU4oV3nHSDITRM+OfFvC/Up5L3QgaHyQAJkdkvIafcWjRFB/
+i1ABKkgvNcJJRntVYNrxVZlm7mMqA2HvvuYmZfzhfVemWlRpskIuIzWQrtR1NiYz
+onfTeol10CvCOa/1HaxTT5w/iJcyJKVO9SsupvS0dijF02Vr7IssVXOe/Dtd5dXB
+sXghqYVeJkoFUuieKXxIdBYyDZutGl4jngWGXJ/mQTPTbjdgEwgkmB4wFA1xBn4V
+PS0WuQrz09UmECDFtCGmaMiARfEeYEX3e4v2wMLwcss2Vv4tb7GWsU2+SLs5Cxv8
+YOt07COGcMbYKrkT9tK2zYQh11rrfQ==
+=YGTk
 -----END PGP SIGNATURE-----
 
---------------WeV2ZwFqccgT6tPxvoI3t0V8--
+--MDfU9KBrhBB5OY8I--
 
