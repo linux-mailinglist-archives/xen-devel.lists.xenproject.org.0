@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A4C8CAE5FC1
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Jun 2025 10:45:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1023418.1399407 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F928AE5FD7
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Jun 2025 10:47:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1023425.1399416 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uTzHD-0000cq-RV; Tue, 24 Jun 2025 08:45:11 +0000
+	id 1uTzJU-00019I-6e; Tue, 24 Jun 2025 08:47:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1023418.1399407; Tue, 24 Jun 2025 08:45:11 +0000
+Received: by outflank-mailman (output) from mailman id 1023425.1399416; Tue, 24 Jun 2025 08:47:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uTzHD-0000Zx-OA; Tue, 24 Jun 2025 08:45:11 +0000
-Received: by outflank-mailman (input) for mailman id 1023418;
- Tue, 24 Jun 2025 08:45:10 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uTzJU-00016q-3N; Tue, 24 Jun 2025 08:47:32 +0000
+Received: by outflank-mailman (input) for mailman id 1023425;
+ Tue, 24 Jun 2025 08:47:30 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=j9+j=ZH=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uTzHC-0000Zp-Bl
- for xen-devel@lists.xenproject.org; Tue, 24 Jun 2025 08:45:10 +0000
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [2a00:1450:4864:20::433])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 88b4328a-50d7-11f0-a30f-13f23c93f187;
- Tue, 24 Jun 2025 10:45:09 +0200 (CEST)
-Received: by mail-wr1-x433.google.com with SMTP id
- ffacd0b85a97d-3a50fc7ac4dso101248f8f.0
- for <xen-devel@lists.xenproject.org>; Tue, 24 Jun 2025 01:45:09 -0700 (PDT)
+ id 1uTzJS-00016k-DP
+ for xen-devel@lists.xenproject.org; Tue, 24 Jun 2025 08:47:30 +0000
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [2a00:1450:4864:20::32a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d9e17690-50d7-11f0-b894-0df219b8e170;
+ Tue, 24 Jun 2025 10:47:25 +0200 (CEST)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-4530921461aso1392685e9.0
+ for <xen-devel@lists.xenproject.org>; Tue, 24 Jun 2025 01:47:25 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-237d8608d4asm101232745ad.128.2025.06.24.01.45.02
+ d9443c01a7336-237d83936e1sm104979875ad.5.2025.06.24.01.47.17
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 24 Jun 2025 01:45:08 -0700 (PDT)
+ Tue, 24 Jun 2025 01:47:24 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,66 +45,69 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 88b4328a-50d7-11f0-a30f-13f23c93f187
+X-Inumbo-ID: d9e17690-50d7-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1750754708; x=1751359508; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1750754845; x=1751359645; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=8miDBLok/lM907sVFvUEWVZBUvkM2zC54U64JikRjmo=;
-        b=K7xWzFmK1q2Ky3vhimc+aRaC823KGg5128pbaw59H/qDp54J0j77wZZBM13FS6oWz5
-         tKn/jg3VEisytTBXxUOTK3f8b2xUO8EgLKBKpAg7bdKT50VD4agQsQoHm/aniImqtskp
-         ysq6XQ2iVVJl24vbJK2lgN80z2lvNrpucmuwPf0nPSJJ2h15u+yrLLZZB7xKUjtTkc1f
-         GdS/BlujxlC2g+mqogFAbp8YUohFqqAKimbQnRy+jY/HPfFKOlNXKQN0xwfvqSJ11yAX
-         JjUyh8YFZG6Au78S8amAjthiETy4vSTUbTKh5wWKLX4mcqp5V2jpZLQjkZWRHysMyyzL
-         Titw==
+        bh=wvi133P+98o1WSxQXhxYZo9lX8ql32xnPy5zZe/nLlU=;
+        b=KN7L1OGukGrf7lZL/yWwWkEjTMdZBkxFTCPpRjn+tJWbWmzstsTO7HH/PK86SRgtAC
+         oJoOHBsTAU3KfQ2zZvo2rWi0pa12IIDMyo0ZGOFcHzonf4P3zwiA65Tsr3dUhMic+fB8
+         +O2ujenYbL2E15UK/WHZuJ4LIiOkA8ZNLwrIVlykI0aZSSKnnKJJYDD9V0yArJcmgpB2
+         UoKp7p6fQIfp23Qhp+QcYoAd1k/zFKl7srrQ9BuCLYOCy4q+6sxFeprhcZzXSwVtkqYN
+         P0PClEyxR59ojRO/vzEMRsfXUpSnPGc8kkhGfzQ79bx9v5llVi1+C57MXXYhY0BnOZXJ
+         IjFQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750754708; x=1751359508;
+        d=1e100.net; s=20230601; t=1750754845; x=1751359645;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=8miDBLok/lM907sVFvUEWVZBUvkM2zC54U64JikRjmo=;
-        b=hnQjJggCInfknCrnE3t6QcWbJy5wuYIIxIOsow423iLbogen3x0nO3QDEBg34/vZZD
-         6r+w2VCpZevs+y7axS07pO5MChV56CvBJggIoRDaCXgPUP0yGzDci6TdgTfIQmYD+GJr
-         TMciEuVXeb1imAVDKaKhGHUy4wwTzBLVFNtbeQ2K8HSY29xuMPQnz5DzR82yCO00OWk2
-         uK0R51cax0YDa5fgfaqI04V/Op0Uk+G8C5B9evbXeBnBheej0qimjH4MeRqojzopXLc1
-         iIU0/g6voJc+767UMGqzUEZsAYyApBhIgw3lE+9rL+S87uL1ZDOv1ht0B40df6Oyim5b
-         oK2Q==
-X-Forwarded-Encrypted: i=1; AJvYcCW3Gu0/S1avaJ/DK4MXyT5kf/Fda/1Od6ESkq5NerEQL0Rx9T/lMO9mF59fSA5f4a72cdj8K/Bxvbs=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxHcGeqn9FN4n4JKpOivzzBh8UGttonH4hR2B9Oup1W1UhdITvI
-	piUdBmko8Od94mggnBRarVsSJRWvkK/bu/tj9q63jeLOeA1owVPTVfAkBzWgGgSsig==
-X-Gm-Gg: ASbGnctn0VxiInS1dEDhsSjbmseZx0fn/elTO5e8AynvRKbOhGDvEo3YHTTJSkPFfaw
-	f10QIprsVwyNSyhBQQZOwN3iJFgfI4F9UV2oH/7viUhqH3gPnHhPr3HUHblq0FOUeYhZbIZw6Oc
-	ZcPDR9K00+qxZCD555kRwRrXbtFcV8wjSpBnP/fZcm+rhzOF5HEmRoXJ/f2JluWVB4xXQnoZvrR
-	3oq2T2Kdm94oJG5sNnt7vE2dBYdy+npuDOxcyv1O3prHvWDiNNOt/ipdnnzg2+0gqvsWi9pSr0s
-	nz9RfgdH15xmmfX6WzfDRWXQPv37+6tXFKwlyOFsYuZcMKu+rEyyhCSqLMSXJtqDksBgTvfByvJ
-	b/+7hhsDwgWGxA9POA88HAfwWyPbWMcEYQbf2liXYG39jT1E=
-X-Google-Smtp-Source: AGHT+IEamTWLjidQw/vJ1Lq7cC+W/3IirPny9cjAL1lXqqhRufSTPbXH48ErDzeV2hrskdNork0SfA==
-X-Received: by 2002:a05:6000:2b09:b0:3a4:dd02:f724 with SMTP id ffacd0b85a97d-3a6d1329a75mr8348679f8f.43.1750754708544;
-        Tue, 24 Jun 2025 01:45:08 -0700 (PDT)
-Message-ID: <1ea09a95-5f13-4af4-bad1-e7081bf065fc@suse.com>
-Date: Tue, 24 Jun 2025 10:44:58 +0200
+        bh=wvi133P+98o1WSxQXhxYZo9lX8ql32xnPy5zZe/nLlU=;
+        b=BABAy2fJO0LxdNgvguVfKPfI3wQ6EnLYwck+cac5vvT7RusgqS3vTCmLpS7txDg5Op
+         tXXAjWCFzW3Jpa57KXxtzAbQGhviim/DVqzIusr4p5pWx8YU/5I9P1XxltPwg6qHCRHt
+         evEBPIVJZhQQc/cES5JLYmMD+AAjHJ6AtGVwPdMrTafSvECEx0+VW9haKHJzLuAYMUv7
+         i8oMecov8mUI6ck4vkMJvjjte3AQTM54a05/3R8qLWupZiyiDPhQ5j2AhRhy+EIqOuu7
+         dy1fsiJm+G0Ucf9C5LeFYmRw11+aJMximtuJKZUPRUY2EQRsIWEGUxAKV9Af3B+lAwx5
+         bmfg==
+X-Gm-Message-State: AOJu0YzdhHxqz5JCBq4TvJMHlQpojLVnxNOU/1pV5Zgl/1SMqGQRZtuR
+	Ny7x1fLRjy1Ohwv7aZfwY4CSKItbM31qRrXjwXOKqL+Fk9XElBF0C19sC1EmcADPGfL7/JWWr/b
+	f/t4=
+X-Gm-Gg: ASbGncs4nXsZr0qlAYa+sgMNDXgAnffH+9sVxyMQeULWs7aosbsYdrmDCkysM+ZVjs0
+	dM90ryFvYlp+4cmQmLEUPXxUoJ7ihQ31uqy+onbyL+bHhUUBafG47/thncYVTtfiKthjbmnDtx5
+	yN/MKqUdjaBeZHL1dDliXJaLrFkKDc1KxCkPzAIYG/5lGj3CQOamBflvvvHxjOkCdj1l+1ariE0
+	LNnv5mVihS+MWHhQj1sOHFZBtmoHQKMNu4KvQkyzKr+Bt4P0KUBfAXXOqaEUEjvkYnqqSCAkBe2
+	Gn9cmS1XYt5e+feG0pEfoXxv0f9Fg1/3rLHMKrgRrUEXxWdJXX//JbL/zzaJNmLDgutLJ99h0Zf
+	DFKe2w7K0UWcWUDziWrJbvLcKC2o+F3PEHQtsJrEdGv+vyE8=
+X-Google-Smtp-Source: AGHT+IHO3QGaSJenn+WN49EqBW90i51B+aH+PfXu3w/34ZKiC9OyXrzXE/c4pA/6HjCLd2FKcRXusw==
+X-Received: by 2002:a05:6000:2108:b0:3a5:3af1:e21b with SMTP id ffacd0b85a97d-3a6d12e6d88mr9393404f8f.47.1750754844577;
+        Tue, 24 Jun 2025 01:47:24 -0700 (PDT)
+Message-ID: <033988d2-5b4f-4182-b26e-f860e740cb4a@suse.com>
+Date: Tue, 24 Jun 2025 10:47:13 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 2/8] vpci: Refactor REGISTER_VPCI_INIT
-To: "Chen, Jiqian" <Jiqian.Chen@amd.com>
-Cc: "Huang, Ray" <Ray.Huang@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [RFC PATCH v4 5/8] xen/domctl: extend XEN_DOMCTL_assign_device to
+ handle not only iommu
+To: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
- "Orzel, Michal" <Michal.Orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>, Juergen Gross
+ <jgross@suse.com>, Julien Grall <julien@xen.org>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Grygorii Strashko <grygorii_strashko@epam.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <20250612092942.1450344-1-Jiqian.Chen@amd.com>
- <20250612092942.1450344-3-Jiqian.Chen@amd.com>
- <1634c18d-e54e-4105-8b30-6f3085bace22@suse.com>
- <BL1PR12MB5849F7A08629FA6E2555B05FE77DA@BL1PR12MB5849.namprd12.prod.outlook.com>
- <23293ec5-7466-400c-87a4-1482577b91fa@suse.com>
- <BL1PR12MB5849CE947DEEBB7B7F6C70D3E778A@BL1PR12MB5849.namprd12.prod.outlook.com>
- <0cf4679d-ee86-4666-adae-63a3f9b9b8f7@suse.com>
- <BL1PR12MB5849672813202821C57EAD5CE778A@BL1PR12MB5849.namprd12.prod.outlook.com>
- <3eaaa6c8-d696-4eca-913e-6e6fd9e618d3@suse.com>
- <BL1PR12MB58497F436C3E127CB9014BFDE778A@BL1PR12MB5849.namprd12.prod.outlook.com>
+ "roger.pau@citrix.com" <roger.pau@citrix.com>
+References: <cover.1747669845.git.oleksii_moisieiev@epam.com>
+ <4f58bf9c47c40413ee9250c4cd21458382aac857.1747669845.git.oleksii_moisieiev@epam.com>
+ <alpine.DEB.2.22.394.2505211715210.147219@ubuntu-linux-20-04-desktop>
+ <f7a82cbe-2967-487f-9947-b56d1dea3e84@epam.com>
+ <alpine.DEB.2.22.394.2506171701190.1780597@ubuntu-linux-20-04-desktop>
+ <1780646c-cb6f-4508-86c8-a573fbc09f6a@epam.com>
+ <alpine.DEB.2.22.394.2506221428420.8066@ubuntu-linux-20-04-desktop>
+ <4b69568b-3b21-4426-b78a-222ca11632e4@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -130,74 +133,119 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <BL1PR12MB58497F436C3E127CB9014BFDE778A@BL1PR12MB5849.namprd12.prod.outlook.com>
+In-Reply-To: <4b69568b-3b21-4426-b78a-222ca11632e4@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 24.06.2025 10:32, Chen, Jiqian wrote:
-> On 2025/6/24 16:28, Jan Beulich wrote:
->> On 24.06.2025 10:26, Chen, Jiqian wrote:
->>> On 2025/6/24 16:17, Jan Beulich wrote:
->>>> On 24.06.2025 10:12, Chen, Jiqian wrote:
->>>>> On 2025/6/20 14:34, Jan Beulich wrote:
->>>>>> On 19.06.2025 08:14, Chen, Jiqian wrote:
->>>>>>> On 2025/6/18 22:33, Jan Beulich wrote:
->>>>>>>> On 12.06.2025 11:29, Jiqian Chen wrote:
->>>>>>>>> +} vpci_capability_t;
->>>>>>>>
->>>>>>>> As you have it here, ...
->>>>>>>>
->>>>>>>>> @@ -29,9 +30,22 @@ typedef int vpci_register_init_t(struct pci_dev *dev);
->>>>>>>>>   */
->>>>>>>>>  #define VPCI_MAX_VIRT_DEV       (PCI_SLOT(~0) + 1)
->>>>>>>>>  
->>>>>>>>> -#define REGISTER_VPCI_INIT(x, p)                \
->>>>>>>>> -  static vpci_register_init_t *const x##_entry  \
->>>>>>>>> -               __used_section(".data.vpci." p) = (x)
->>>>>>>>> +#define REGISTER_VPCI_CAPABILITY(cap, finit, fclean, ext) \
->>>>>>>>> +    static const vpci_capability_t finit##_t = { \
->>>>>>>>
->>>>>>>> ... _t suffixes generally designate types. I don't think we should abuse
->>>>>>>> that suffix for an identifier of a variable.
->>>>>>> What do you think I should change to?
->>>>>>
->>>>>> Well, if you take my other advice, this question won't need answering, as
->>>>>> then you only need the ..._entry one.
->>>>>>
->>>>>> Btw, noticing only now - why is it finit that's used to derive the identifier?
->>>>>> With that, it could as well be fclean (leaving aside the fact that that's
->>>>>> optional). Imo the name would better be derived from cap, and it would better
->>>>>> also reflect the purpose of the variable.
->>>>> I considered this.
->>>>> I think it is easier to use finit, and finit contains the cap type, and the main purpose of this struct is to initialize the cap.
->>>>
->>>> Yet identifier names should make sense for the object they name.
->>> OK. What's your suggestion about naming the entry?
->>
->> cap##_init or _##cap##_init for example.
-> If so, I need to extend the parameter of REGISTER_VPCI_CAPABILITY since current cap is number, not string.
-> Maybe:
-> REGISTER_VPCI_CAPABILITY (cap, cap_id, finit, fclean, ext)
+On 24.06.2025 10:42, Oleksii Moisieiev wrote:
+> Adding Roger and Jan to the conversation.
+> 
+> Please see below.
 
-Well, yes, in the helper macro you may need to take precautions. However, I was
-wondering anyway why
-
-REGISTER_VPCI_CAP(PCI_CAP_ID_MSI, init_msi, NULL);
-
-would be necessary, when
-
-REGISTER_VPCI_CAP(MSI, init_msi, NULL);
-
-could do, using e.g.
-
-#define REGISTER_VPCI_CAP(cap, finit, fclean) \
-    REGISTER_VPCI_CAPABILITY(PCI_CAP_ID_##cap, finit, fclean, false)
-#define REGISTER_VPCI_EXTCAP(cap, finit, fclean) \
-    REGISTER_VPCI_CAPABILITY(PCI_EXT_CAP_ID_##cap, finit, fclean, true)
-
-(other variations are possible, of course). Then you could easily derive the
-identifier wanted (requiring another parameter to REGISTER_VPCI_CAPABILITY(),
-yes).
+Why is this? I did answer that question at the bottom already.
 
 Jan
+
+> On 23/06/2025 00:30, Stefano Stabellini wrote:
+>> On Thu, 19 Jun 2025, Oleksii Moisieiev wrote:
+>>> On 18/06/2025 03:04, Stefano Stabellini wrote:
+>>>> On Thu, 12 Jun 2025, Oleksii Moisieiev wrote:
+>>>>> Hi Stefano,
+>>>>>
+>>>>> I'm very sorry for a long silence. Please see my answers below:
+>>>>>
+>>>>> On 22/05/2025 03:25, Stefano Stabellini wrote:
+>>>>>> On Mon, 19 May 2025, Oleksii Moisieiev wrote:
+>>>>>>> From: Grygorii Strashko<grygorii_strashko@epam.com>
+>>>>>>>
+>>>>>>> Add chained handling of assigned DT devices to support access-controller
+>>>>>>> functionality through SCI framework, so DT device assign request can be
+>>>>>>> passed to FW for processing and enabling VM access to requested device
+>>>>>>> (for example, device power management through FW interface like SCMI).
+>>>>>>>
+>>>>>>> The SCI access-controller DT device processing is chained after IOMMU
+>>>>>>> processing and expected to be executed for any DT device regardless of its
+>>>>>>> protection by IOMMU (or if IOMMU is disabled).
+>>>>>>>
+>>>>>>> This allows to pass not only IOMMU protected DT device through
+>>>>>>> xl.cfg:"dtdev" property for processing:
+>>>>>>>
+>>>>>>> dtdev = [
+>>>>>>>        "/soc/video@e6ef0000", <- IOMMU protected device
+>>>>>>>        "/soc/i2c@e6508000", <- not IOMMU protected device
+>>>>>>> ]
+>>>>>>>
+>>>>>>> The change is done in two parts:
+>>>>>>> 1) update iommu_do_dt_domctl() to check for dt_device_is_protected() and
+>>>>>>> not fail if DT device is not protected by IOMMU
+>>>>>>> 2) add chained call to sci_do_domctl() in do_domctl()
+>>>>>>>
+>>>>>>> Signed-off-by: Grygorii Strashko<grygorii_strashko@epam.com>
+>>>>>>> Signed-off-by: Oleksii Moisieiev<oleksii_moisieiev@epam.com>
+>>>>>>> ---
+>>>>>>>
+>>>>>>>
+>>>>>>>
+>>>>>>>     xen/arch/arm/firmware/sci.c             | 37 +++++++++++++++++++++++++
+>>>>>>>     xen/arch/arm/include/asm/firmware/sci.h | 14 ++++++++++
+>>>>>>>     xen/common/domctl.c                     | 19 +++++++++++++
+>>>>>>>     xen/drivers/passthrough/device_tree.c   |  6 ++++
+>>>>>>>     4 files changed, 76 insertions(+)
+>>>>>>>
+>>>>>>> diff --git a/xen/arch/arm/firmware/sci.c b/xen/arch/arm/firmware/sci.c
+>>>>>>> index e1522e10e2..8efd541c4f 100644
+>>>>>>> --- a/xen/arch/arm/firmware/sci.c
+>>>>>>> +++ b/xen/arch/arm/firmware/sci.c
+>>>>>>> @@ -126,6 +126,43 @@ int sci_assign_dt_device(struct domain *d, struct dt_device_node *dev)
+>>>>>>>         return 0;
+>>>>>>>     }
+>>>>>>>     
+>>>>>>> +int sci_do_domctl(struct xen_domctl *domctl, struct domain *d,
+>>>>>>> +                  XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
+>>>>>>> +{
+>>>>>>> +    struct dt_device_node *dev;
+>>>>>>> +    int ret = 0;
+>>>>>>> +
+>>>>>>> +    switch ( domctl->cmd )
+>>>>>>> +    {
+>>>>>>> +    case XEN_DOMCTL_assign_device:
+>>>>>>> +        ret = -EOPNOTSUPP;
+>>>>>> Are you sure -EOPNOTSUPP is the right error code for the 3 checks below?
+>>>>> The -EOPNOTSUPP code is used because this is part of a chained call after
+>>>>> iommu_do_domctl, as stated in xen/common/domctl.c:859. The
+>>>>> XEN_DOMCTL_assign_device
+>>>>> call is expected to handle any DT device, regardless of whether the DT
+>>>>> device is
+>>>>> protected by an IOMMU or if the IOMMU is disabled.
+>>>>> The following cases are considered:
+>>>>>
+>>>>> 1. IOMMU Protected Device (Success)
+>>>>>
+>>>>> If the device is protected by the IOMMU and iommu_do_domctl returns 0,
+>>>>> we continue
+>>>>> processing the DT device by calling sci_do_domctl.
+>>>>>
+>>>>> 2. IOMMU Disabled (-EOPNOTSUPP from iommu_do_domctl)
+>>>>>
+>>>>> If iommu_do_domctl returns -EOPNOTSUPP, indicating that the IOMMU is
+>>>>> disabled,
+>>>>> we still proceed to call sci_do_domctl.
+>>>> OK this makes sense.  I think it is OK to have a special error code to
+>>>> say "the IOMMU is disabled" but I don't know if it is a good idea to try
+>>>> to use -EOPNOTSUPP for that. -EOPNOTSUPP could mean a hypervisor
+>>>> configuration with domctl disabled, for instance.
+>>>>
+>>>> It might be wiser to use a different error code. Maybe ENOENT?
+>>>>
+>>> I see that in the following commit:
+>>>
+>>> 71e617a6b8 (use is_iommu_enabled() where appropriate..., 2019-09-17)
+>>>
+>>> -ENOSYS return code was changed to -EOPNOTSUPP in iommu_do_domctl.
+>>>
+>>> It's not clear to me why this was done from the commit description.
+>>>
+>>> Maybe we should add commit author?
+>> Roger and Jan might know
+
 
