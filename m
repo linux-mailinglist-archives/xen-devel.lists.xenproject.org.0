@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D42DAE63BA
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Jun 2025 13:40:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1023604.1399596 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2997FAE63C8
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Jun 2025 13:45:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1023613.1399607 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uU20L-0000zf-6Q; Tue, 24 Jun 2025 11:39:57 +0000
+	id 1uU25q-0002i6-PJ; Tue, 24 Jun 2025 11:45:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1023604.1399596; Tue, 24 Jun 2025 11:39:57 +0000
+Received: by outflank-mailman (output) from mailman id 1023613.1399607; Tue, 24 Jun 2025 11:45:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uU20L-0000xb-3X; Tue, 24 Jun 2025 11:39:57 +0000
-Received: by outflank-mailman (input) for mailman id 1023604;
- Tue, 24 Jun 2025 11:39:55 +0000
+	id 1uU25q-0002fE-M0; Tue, 24 Jun 2025 11:45:38 +0000
+Received: by outflank-mailman (input) for mailman id 1023613;
+ Tue, 24 Jun 2025 11:45:37 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Fpib=ZH=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1uU20J-0000xP-80
- for xen-devel@lists.xenproject.org; Tue, 24 Jun 2025 11:39:55 +0000
-Received: from fout-a8-smtp.messagingengine.com
- (fout-a8-smtp.messagingengine.com [103.168.172.151])
+ <SRS0=aTSQ=ZH=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
+ id 1uU25p-0002f8-Ep
+ for xen-devel@lists.xenproject.org; Tue, 24 Jun 2025 11:45:37 +0000
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
+ [2a00:1450:4864:20::431])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f2123191-50ef-11f0-a30f-13f23c93f187;
- Tue, 24 Jun 2025 13:39:54 +0200 (CEST)
-Received: from phl-compute-01.internal (phl-compute-01.phl.internal
- [10.202.2.41])
- by mailfout.phl.internal (Postfix) with ESMTP id 8AFA41380CCE;
- Tue, 24 Jun 2025 07:39:53 -0400 (EDT)
-Received: from phl-mailfrontend-02 ([10.202.2.163])
- by phl-compute-01.internal (MEProxy); Tue, 24 Jun 2025 07:39:53 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 24 Jun 2025 07:39:52 -0400 (EDT)
+ id be2bf8d6-50f0-11f0-a30f-13f23c93f187;
+ Tue, 24 Jun 2025 13:45:36 +0200 (CEST)
+Received: by mail-wr1-x431.google.com with SMTP id
+ ffacd0b85a97d-3a50fc7ac4dso221121f8f.0
+ for <xen-devel@lists.xenproject.org>; Tue, 24 Jun 2025 04:45:36 -0700 (PDT)
+Received: from localhost.localdomain (253.226.6.51.dyn.plus.net.
+ [51.6.226.253]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3a6e81105f0sm1781157f8f.90.2025.06.24.04.45.34
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 24 Jun 2025 04:45:35 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,135 +45,79 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f2123191-50ef-11f0-a30f-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1750765193;
-	 x=1750851593; bh=NtCDtcotcSzRjElW0HpZk3b852V3YOCBDiESB2CuzXU=; b=
-	XAdrWiGTmr8mEN0cGsaXR7YfX80QLDGh6Ki/GRMiXFCoulBJ2wIbnUX4LI3SFdDB
-	30LrVqPlq88xh1LLScKmLQzjXPDSUDn5a6L1ynx7wMNeLSImxJi6VuhN5lMZ+2h8
-	Dc3BkhhnszcdFsAuPj61cBd09dq4EY42wIjGwfWGuSfOfyRVPohQFAPtSZAlAftp
-	uJJ26YDJXs5h5MNloXboc8M+Ek4HZpTmrq2jAX5dKwO1CCBrP89Fxu8HTS4JdM/V
-	Wz/U9ORf1yKfhLLyahGd+ljQGZ8lnQdv39GKbl/+uYo6w3NdQgrmQRRpanHUXSSi
-	X82IyZ05XzghRLwz0smiWA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1750765193; x=1750851593; bh=NtCDtcotcSzRjElW0HpZk3b852V3YOCBDiE
-	SB2CuzXU=; b=hG9QTGHFGduG/jP2c6kKim0a25CMOyh6f7utgYDAvYUEUShjaR6
-	BJq14PP/3QFQVcVtkKsgsdI9r3qzSI1K8LvViON1peAjUzwxTH1d+/yifF3o780d
-	wo5byQag+YodgpFrwcJ7MpOgoDjhRKURWiW4+ecEoq8xlHtCEFNp6Z9iP6MycHLK
-	vIunxqwSjIKtwdDP0kIky6WJxR33tSzsZkluXjUnVWGZqu1JptgxR6PDZhhIbHUm
-	7c8W8zlxLUiLHw0eFF+oBLTPLHKBG2+XK6tQBL5T/KPpRF0GL1ja8PqOYp5Zgexa
-	KIifi9rWD4m4Hk6YnKFxG/Dm7D+jPLM8C2g==
-X-ME-Sender: <xms:iY5aaP68O2hAt_yrB-kTBBT1bqjslkDRXxUeAgO88c2oV22pWppokg>
-    <xme:iY5aaE7IWdMbSyCmuo-NAAtPpDuLcyMwWpM3Jb4pzrLbPfI2q7eWN21qXC70VLFnO
-    ao_Pye4Nlk-Fw>
-X-ME-Received: <xmr:iY5aaGe1eOqmLREVkCGgVL293_v32oB43TokwcoxpQcZzob0pH23eSlbZlimwR3LgB67jgTBXvUqSARrwd2wuC4bmG3hwryOgCI>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtddvgdduleejlecutefuodetggdotefrod
-    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpuffrtefokffrpgfnqfghnecuuegr
-    ihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjug
-    hrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghkucfo
-    rghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvhhish
-    hisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpefgudelteef
-    vefhfeehieetleeihfejhfeludevteetkeevtedtvdegueetfeejudenucevlhhushhtvg
-    hrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhn
-    vhhishhisghlvghthhhinhhgshhlrggsrdgtohhmpdhnsggprhgtphhtthhopeegpdhmoh
-    guvgepshhmthhpohhuthdprhgtphhtthhopehfrhgvughirghnohdriihighhlihhosegt
-    lhhouhgurdgtohhmpdhrtghpthhtohepgigvnhdquggvvhgvlheslhhishhtshdrgigvnh
-    hprhhojhgvtghtrdhorhhgpdhrtghpthhtohepughpshhmihhthhesrghpvghrthhushhs
-    ohhluhhtihhonhhsrdgtohhmpdhrtghpthhtohepjhgsvghulhhitghhsehsuhhsvgdrtg
-    homh
-X-ME-Proxy: <xmx:iY5aaAIzNxocWkH8sOAtfUUVgZHw-j-ROAz_5azp3oaaAYO5bcKgmg>
-    <xmx:iY5aaDJIcL9YcXv7FtBbr48KdTbKvrsda8ba1JgeRgbfiXOxwGaqdw>
-    <xmx:iY5aaJxFqs5OK2FIBUHONn6idzoVzAz_-e2sq9gTvC0Om8esipRgeA>
-    <xmx:iY5aaPJcd9-RTel4xV5aeHoAX7pNNPod3tsWLt6W7Uxdkpm6pUZong>
-    <xmx:iY5aaA2lP4WA7Enc_qr0DyeWTD6GbURLRHXIFPFNAPtUYMxvR3CGeQXA>
-Feedback-ID: i1568416f:Fastmail
-Date: Tue, 24 Jun 2025 13:39:50 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Frediano Ziglio <frediano.ziglio@cloud.com>
-Cc: xen-devel@lists.xenproject.org,
+X-Inumbo-ID: be2bf8d6-50f0-11f0-a30f-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1750765535; x=1751370335; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=lVyqVpj2wY8y5hqZjGDjJCe56r4pMVR0ASveM16L3g0=;
+        b=SqMc1WPMuLmBOJWmCW1kROUeIBKgXFge9WlYQwU1djK8XB+FjtmOocn2c6AAIKm0KY
+         MBtOy7mOcKNsuDlhClOuOWZi7gxq/6RyyuM+b/epj0M1whtP/EMsEAeyeqNjz8gh99td
+         OnW6GxphxwzKwAWJrVS+RYyakbY1bzZh8GdOk=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1750765535; x=1751370335;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=lVyqVpj2wY8y5hqZjGDjJCe56r4pMVR0ASveM16L3g0=;
+        b=KrnoTa+rmH1cXr5A6ghgXh20A0qmepdrh/s6clunza17aEpTQiRPrXCfeLviBQZUWW
+         Q/pT3o4kmUqgU0XNBTEOPsAOcJk66/8mRpSP55sQiDK3a7uPmJEdNcIMNqCgWbCBctxo
+         8EZnNlinEh5pJ/EHfpZOctvmdA3naDGARNd8tTtuitO6gNtXZREFrer8NbyXWmczgUMO
+         t05OV5CPVdTfx8UK+PaCQkgH90ut0+4V5mQzf17C176C55E02FKf5QN0j19WZX+LFbGq
+         QLjVTmFfOoWvba3/IlAPGQ31YWPRUJyNt7ouWnY79FNeHqt3bdP9toiLy7zqnlpjzdZ2
+         hYxA==
+X-Gm-Message-State: AOJu0YwfUYBZdS8l6pAT7V6Su9hcSP+SxhDVD2mO6PLI9b+ZAywLZIFU
+	EhD9lqGhkAFuRn1T+/QoRFdoEpepwWL/Xb1cAYHXEFmtX+/WEEDRowR6fsoYFPTCQgZPt8i36kU
+	5H2Gp2pOiVA==
+X-Gm-Gg: ASbGncsyIc0xavkd0Zjq+Ais0fch9eJ/OcodjXACqgJQH6oayXmkBevV6rHUu4Hh3jR
+	w62jBkk2ODjWxvQ7l1vjk8qOjstFQ0No31f6vxc9PT+olWyygl8T1pMafyFZe1TpfzJ4fd8LF0r
+	Mox2PHqA3k8MdDE2PIC6UkGPBxie0RjFYfLf/LQfyxdS7GJ1zd24D0MrPkc7tGLZk97Jig33IZ6
+	owDBfYbEaKkfyHzasMdcdcTojxgEfENBb7syUIBFl+cHM+oRrojDLxk/hRYoP00vLzx9+RimAwv
+	owCmuzkOfK9LSdWRPUPlvuDwZlJw9ynveA3/y9GFS+0T+xkBfdvtj9j2fsFGL5x/vjx8bFzeDMY
+	uB4i+OLtHpu376YJILixzp9byPpWmZA==
+X-Google-Smtp-Source: AGHT+IGjo5UPM8nJJTYnA7I630aKGqBdSDjlyvu7EJU0isHFK2HqZkJnsu/yiGeT6a0v0SnTYP2X9A==
+X-Received: by 2002:adf:9c8d:0:b0:3a5:2ec5:35ba with SMTP id ffacd0b85a97d-3a6d1322917mr10060924f8f.30.1750765535477;
+        Tue, 24 Jun 2025 04:45:35 -0700 (PDT)
+From: Frediano Ziglio <frediano.ziglio@cloud.com>
+To: xen-devel@lists.xenproject.org
+Cc: Frediano Ziglio <frediano.ziglio@cloud.com>,
 	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
 	Jan Beulich <jbeulich@suse.com>
-Subject: Re: [PATCH] xen/efi: Show error message for EFI_INVALID_PARAMETER
- error
-Message-ID: <aFqOhvUeGsWs042i@mail-itl>
-References: <20250624063541.236691-1-frediano.ziglio@cloud.com>
+Subject: [PATCH v2] xen/efi: Do not undefine not defined macro
+Date: Tue, 24 Jun 2025 12:45:26 +0100
+Message-ID: <20250624114529.34743-1-frediano.ziglio@cloud.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="swWOuFDa8Otvr5Rq"
-Content-Disposition: inline
-In-Reply-To: <20250624063541.236691-1-frediano.ziglio@cloud.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+The "buffer" macro is not defined.
 
---swWOuFDa8Otvr5Rq
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 24 Jun 2025 13:39:50 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Frediano Ziglio <frediano.ziglio@cloud.com>
-Cc: xen-devel@lists.xenproject.org,
-	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
-	Jan Beulich <jbeulich@suse.com>
-Subject: Re: [PATCH] xen/efi: Show error message for EFI_INVALID_PARAMETER
- error
+Fixes: 59e087bf6a9c ("xen/keyhandler: Drop keyhandler_scratch")
+Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
+Acked-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+---
+Changes since v1:
+- fixed commit message;
+- added Acked-by.
+---
+ xen/common/efi/boot.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-On Tue, Jun 24, 2025 at 07:35:39AM +0100, Frediano Ziglio wrote:
-> Show string message instead of code.
-> This happened trying some different ways to boot Xen, specifically
-> trying loading xen.efi using GRUB2 "linux" command.
->=20
-> Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
+diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
+index 1a181ba933..c5625ccecf 100644
+--- a/xen/common/efi/boot.c
++++ b/xen/common/efi/boot.c
+@@ -556,7 +556,6 @@ static EFI_FILE_HANDLE __init get_parent_handle(const EFI_LOADED_IMAGE *loaded_i
+     else
+         *leaf = buffer;
+ #undef BUFFERSIZE
+-#undef buffer
+ 
+     return dir_handle;
+ }
+-- 
+2.43.0
 
-Acked-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.com>
-
-> ---
->  xen/common/efi/boot.c | 3 +++
->  1 file changed, 3 insertions(+)
->=20
-> diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
-> index fb3b120982..ded7cc129d 100644
-> --- a/xen/common/efi/boot.c
-> +++ b/xen/common/efi/boot.c
-> @@ -329,6 +329,9 @@ static void __init PrintErrMesg(const CHAR16 *mesg, E=
-FI_STATUS ErrCode)
->      case EFI_BUFFER_TOO_SMALL:
->          mesg =3D L"Buffer too small";
->          break;
-> +    case EFI_INVALID_PARAMETER:
-> +        mesg =3D L"Invalid parameter";
-> +        break;
->      default:
->          PrintErr(L"ErrCode: ");
->          DisplayUint(ErrCode, 0);
-> --=20
-> 2.43.0
->=20
-
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---swWOuFDa8Otvr5Rq
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmhajoYACgkQ24/THMrX
-1ywRSwf/bickcyO95ZolVxli1cu5IDly0kAfRdXXVlNW7UfrXDNNcjs6ipcBlfe4
-qsnvUqtXyRrmN11eJShIVT40vmmKogjGZ7fuH7quFxHC8ifF5KIxefMCAkDWfI8i
-h+4OQhoZuLBUgPK7runb+jIj+NIGrsglC+6jjsan82vRlgYBvsNkxddFj6SiEMJP
-r23Iep+H7yqWDhR7MOpLoLZa+SmFzwXetNezjZXdMlDczCcAHQPxevxFDru5F0VC
-cSFIGSbFhyc6aqpX4s9s7VZOiWr6Ad9+ElOh5UCZ0ZVEa0VwvvavH9yRFV3IiEMd
-HB6s+7JpQGIf7Z7jez3BVMuF8HvAyA==
-=l9Ut
------END PGP SIGNATURE-----
-
---swWOuFDa8Otvr5Rq--
 
