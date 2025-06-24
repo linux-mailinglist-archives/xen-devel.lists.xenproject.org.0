@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC9BCAE5F36
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Jun 2025 10:29:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1023350.1399317 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D2AFAE5F60
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Jun 2025 10:32:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1023357.1399337 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uTz27-0000Ca-M4; Tue, 24 Jun 2025 08:29:35 +0000
+	id 1uTz4g-00023B-B7; Tue, 24 Jun 2025 08:32:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1023350.1399317; Tue, 24 Jun 2025 08:29:35 +0000
+Received: by outflank-mailman (output) from mailman id 1023357.1399337; Tue, 24 Jun 2025 08:32:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uTz27-0000B4-JC; Tue, 24 Jun 2025 08:29:35 +0000
-Received: by outflank-mailman (input) for mailman id 1023350;
- Tue, 24 Jun 2025 08:29:33 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uTz4g-000208-7o; Tue, 24 Jun 2025 08:32:14 +0000
+Received: by outflank-mailman (input) for mailman id 1023357;
+ Tue, 24 Jun 2025 08:32:12 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=LEHU=ZH=gmail.com=xakep.amatop@srs-se1.protection.inumbo.net>)
- id 1uTz25-0000Ax-SB
- for xen-devel@lists.xenproject.org; Tue, 24 Jun 2025 08:29:33 +0000
-Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
- [2a00:1450:4864:20::12a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5a1a599b-50d5-11f0-b894-0df219b8e170;
- Tue, 24 Jun 2025 10:29:32 +0200 (CEST)
-Received: by mail-lf1-x12a.google.com with SMTP id
- 2adb3069b0e04-54e98f73850so4405519e87.1
- for <xen-devel@lists.xenproject.org>; Tue, 24 Jun 2025 01:29:31 -0700 (PDT)
+ <SRS0=aTSQ=ZH=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
+ id 1uTz4e-0001zK-OQ
+ for xen-devel@lists.xenproject.org; Tue, 24 Jun 2025 08:32:12 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b96903b0-50d5-11f0-a30f-13f23c93f187;
+ Tue, 24 Jun 2025 10:32:11 +0200 (CEST)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-45348bff79fso55640205e9.2
+ for <xen-devel@lists.xenproject.org>; Tue, 24 Jun 2025 01:32:11 -0700 (PDT)
+Received: from localhost.localdomain (253.226.6.51.dyn.plus.net.
+ [51.6.226.253]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3a6e8050f53sm1322365f8f.3.2025.06.24.01.32.10
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 24 Jun 2025 01:32:10 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,89 +45,70 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5a1a599b-50d5-11f0-b894-0df219b8e170
+X-Inumbo-ID: b96903b0-50d5-11f0-a30f-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1750753771; x=1751358571; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=EINKtiFQ12x+G2hBiaJd1jBjzmgneJmem09Rc4JkTN0=;
-        b=gAY5LSZDwyym7poa/7TnUUFbhcogJOMEicsuUgPqaJYyfFOuIFgBk8KNRB+Ljf91ax
-         DU5DhzQiIbn89tqBbyVgUmnkhh0fDjz96sEekV/5fLSkQHddYuXFloPJSqGX2BVXpcQy
-         ziTb7flwI9mtuSXnG9w++HkCOTMpcxI/yjlLsV62hGAQSapiURZtCmFPCLU0DwZz1+fX
-         zMuyUszBID4SFmuRXaoWH4yye/VsfS4Y9DTwFm2yiKpkj0aKus+Pzc/L6tH6o+hHYRsH
-         ZBDrfMPx3JT0HeeHpuG+t5TdelUAmLk7/Q9mjJPjqDqONfPbd5Nn3w3Xczqv/mLoUHBK
-         blmQ==
+        d=cloud.com; s=cloud; t=1750753931; x=1751358731; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=yEKcMdqGBUYMaK8hVsdH0Ud6UR9wmE3/cnH1SRqJ8e8=;
+        b=QhQNvW6m0gWK6gbbJgxESSmULWPcVfQOR1PiRwJNAIcvqKKE5PldzNtc6qZ6BmhHVU
+         JSHfcAsZVI3p1h7l/CpO7HQgj4uXYlLI/KZvtNev/4BbKI6T6pLGlbdgoJTHkqZTKiDV
+         7LrF+IHCcseGtoH59gipncBtLpG7yyQXwwbuw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750753771; x=1751358571;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=EINKtiFQ12x+G2hBiaJd1jBjzmgneJmem09Rc4JkTN0=;
-        b=LHdPbHHLHQumr+YhxZnKO0eDzFRw7Pgi2mog+Z68N5UKDQ8y52w8au4xuo2uXhKP3i
-         gzrKiTNk4f/GTw8Y/YG12lqZI879w6pFEd7vZKyD2MfzR+NOIO+Ej0ucQ/2XtlqHaUKG
-         kZ5W+YXja5bGokGaer1eC0wkfOw4NMwbMQ4idXGjQmNdjTtYUPr8puUFYkbaTQhoA+ZO
-         Unmpg4twexTqkSHbXW6O77k0T54NAedcYnGFFlpPIPSdwrQKund60k7B5R5L5m90XmFK
-         So7G35x0oRadelZEMYzfDPHRneRUH3FoxRHEpGC5qxBGKCD4RVO97MfkNaQYmWCiMJMq
-         q/9Q==
-X-Forwarded-Encrypted: i=1; AJvYcCV2KKx89rSRdgNk41gH9pvsZkNfoKsfiG5UOQ6SuOyj/oADiEZhkUhfZS/F2sYcK9qR+6kuKQqBpE8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyWC4WOJf2vVaJ9qM2FMngZHbGTiyIb98dC+bRxkDxevo4XV2pW
-	xQxjGtjKQ7JfdYpms7vbe6/rwMhAQganRxR5Dqj6mlsjEhBWEWJuvBl+h5f27RncP5cHRTZzqVR
-	EHu6sOcv9m6yiq5hfcsdvQGO6DWu7HyI=
-X-Gm-Gg: ASbGncuBSyhQfCbu66Wg/V81fCHDiGhmvR0Ek+Wau8fUdWK5FhBAuuB8+umt8jZPK79
-	JO1ftScfYgVTFSHFvoIafYKZ+sU2nu0l697cX1G1KwBXxFY1mziojtRwwJB1Gqit79ci+8qbEJA
-	MZX1kABSkoHT5vCBwb4m4SvZlh12+DpBGeK336CPFWPg==
-X-Google-Smtp-Source: AGHT+IF1Z5fc+8q7VvYuPoBC9GNvSUrGip+h7Ag1qwI50ylEwDgEVsC4bssJWV7ulR3nLDiZzpf+sj9plIipEO021NE=
-X-Received: by 2002:a05:6512:318e:b0:553:3770:c907 with SMTP id
- 2adb3069b0e04-553e3b9adf2mr4634176e87.10.1750753771243; Tue, 24 Jun 2025
- 01:29:31 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1750753931; x=1751358731;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=yEKcMdqGBUYMaK8hVsdH0Ud6UR9wmE3/cnH1SRqJ8e8=;
+        b=GLV3TWZiMgzkm5G8+bwZzMMy+Qpvr+Ppuzjf3E2cG2X5lTg5cGz/skNOaon31hIu3X
+         Qzv3Sxsn/M4K8cAUIL86IferoFXCfHZBGhauBguhEpwSINLs3dcuniAfIDfkuV8OeZZh
+         wF81B4Be3VHVxV0l2MCSR3uf33kJOdSQPQj5Y6QlFHFwRdwMS8V+ZldfXWQaC98t5lWS
+         qJk8zJmH7Qg4QCVbszQH2dHDOOFT+DDKbYKm745kbfr9yz4+AwTIEayE2QU72ifM/Lne
+         UcJQgeyobmgEuep4haO8LjcAHrnKkEDD+eUasG7xtJ9ypGTU6yGUdO6U3W3cxcTdvB6a
+         bOdA==
+X-Gm-Message-State: AOJu0YwMLf6DQWiK4Sn4zyna5MG4oQWge64JFT0sT+GbX+S6d8Q8gGb3
+	mJ8BLrRWEQMemCHn9/sLTX7QsEkZ5QPRnzi7Dzq0+38pfAM3RMri2PFAcX9BBaJe3EeiS9okEn6
+	+44MM7q4GSw==
+X-Gm-Gg: ASbGnctgp+WHVvuQDlsB4zGJe3R7JWy8CVsY4DuvbVENL20B+sxexY6dEH9RRteL5U2
+	Rk2qeH3ho1mvWV0RFIvNcJpivcL3klDo/JB+kqdi6Qf2JI/93ENlrBk1FKY9xLNxsO69SSs9cpc
+	cMyeVvRiPL50JOOhv+Y9ejEThOtSpIG3SuNDRyW0Szd5RC8yqVlinIS+mLwAUsKoSgF3XTimjQd
+	ET6dAbMRykcctfbgjNjVkchKPIkOFQKNeJc/RdvS5eTtcGPx1dbslOhx0d+BYVdV/qMRkZFh1M1
+	xjnLnnhx2PE2p92Kh17HDKHTtYy4o8ZtgIDD0cLQlNrq3vQ6x8maQLcUBIk5NHOM939HWU130a/
+	AJworVzKmBCLJzeP7XGwLcnAAkpQwYg==
+X-Google-Smtp-Source: AGHT+IGAtjt0m5rF6HsoH8uL19IHgC1D08/2KiW3QwwtBYuh93HJxdezCPFwKw86fsqnQHAqKtBWpQ==
+X-Received: by 2002:a05:6000:4282:b0:3a5:783f:5296 with SMTP id ffacd0b85a97d-3a6d13339f6mr13449619f8f.56.1750753930894;
+        Tue, 24 Jun 2025 01:32:10 -0700 (PDT)
+From: Frediano Ziglio <frediano.ziglio@cloud.com>
+To: xen-devel@lists.xenproject.org
+Cc: Frediano Ziglio <frediano.ziglio@cloud.com>,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH 0/2] xen/efi: Make boot more flexible, especially with GRUB2
+Date: Tue, 24 Jun 2025 09:31:53 +0100
+Message-ID: <20250624083157.9334-1-frediano.ziglio@cloud.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-References: <5449d6fc4a6e47af173d9e2b285f1e3398de98a3.1750749332.git.mykola_kvach@epam.com>
- <2b345a72-5ab7-443f-bff4-2b4ee9952825@suse.com>
-In-Reply-To: <2b345a72-5ab7-443f-bff4-2b4ee9952825@suse.com>
-From: Mykola Kvach <xakep.amatop@gmail.com>
-Date: Tue, 24 Jun 2025 11:29:19 +0300
-X-Gm-Features: AX0GCFu7bWTDJvjIOhddrRP2JQTFOZKqpLEv-cfb0XMOYyfyeofZe8_rsyb9woc
-Message-ID: <CAGeoDV98LJup77GQ4YrbeqSBeoojaNe+46NX37dHoiFDDHUGtw@mail.gmail.com>
-Subject: Re: [PATCH v4] xen/char: implement suspend/resume calls for SCIF driver
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Stefano Stabellini <sstabellini@kernel.org>, 
-	Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, 
-	Michal Orzel <michal.orzel@amd.com>, 
-	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>, Mykola Kvach <mykola_kvach@epam.com>, 
-	xen-devel@lists.xenproject.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi Jan,
+The combination of GRUB2, EFI and UKI allows potentially more flexibility.
+For instance is possible to load xen.efi from a no ESP partition leaving
+a boot loader like GRUB2 taking care of the file loading.
+This however requires some changes in Xen to be less restrictive.
+Specifically for GRUB2 these changes allows the usage of "chainloader"
+command with UKI and reading xen.efi from no ESP (so no DeviceHandle
+set) and usage of "linux" and "initrd" commands to load separately
+the kernel (embedding using UKI) and initrd (using LoadFile2 protocol).
 
-On Tue, Jun 24, 2025 at 10:53=E2=80=AFAM Jan Beulich <jbeulich@suse.com> wr=
-ote:
->
-> On 24.06.2025 09:18, Mykola Kvach wrote:
-> > @@ -281,6 +313,10 @@ static struct uart_driver __read_mostly scif_uart_=
-driver =3D {
-> >      .start_tx     =3D scif_uart_start_tx,
-> >      .stop_tx      =3D scif_uart_stop_tx,
-> >      .vuart_info   =3D scif_vuart_info,
-> > +#ifdef CONFIG_SYSTEM_SUSPEND
-> > +    .suspend      =3D scif_uart_suspend,
-> > +    .resume       =3D scif_uart_resume,
-> > +#endif
-> >  };
->
-> As this being put inside #ifdef was to be expected, imo a prereq change i=
-s to
-> also make the struct fields conditional in xen/console.h. I think I did e=
-ven
-> comment to this effect back at the time.
+Frediano Ziglio (2):
+  xen/efi: Handle cases where file didn't come from ESP
+  xen/efi: Support loading initrd using GRUB2 LoadFile2 protocol
 
-Would you prefer that I include this change in the current patch
-series, or is it acceptable to address it in a separate patch?
+ xen/common/efi/boot.c     | 98 +++++++++++++++++++++++++++++++++++++--
+ xen/include/efi/efidevp.h | 21 +++++++++
+ 2 files changed, 116 insertions(+), 3 deletions(-)
 
->
-> Jan
+-- 
+2.43.0
 
-Best Regards,
-Mykola
 
