@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4FF23AE6206
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Jun 2025 12:17:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1023543.1399537 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8873EAE628B
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Jun 2025 12:34:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1023550.1399548 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uU0iZ-0004yr-8w; Tue, 24 Jun 2025 10:17:31 +0000
+	id 1uU0yX-000805-LI; Tue, 24 Jun 2025 10:34:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1023543.1399537; Tue, 24 Jun 2025 10:17:31 +0000
+Received: by outflank-mailman (output) from mailman id 1023550.1399548; Tue, 24 Jun 2025 10:34:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uU0iZ-0004xQ-5g; Tue, 24 Jun 2025 10:17:31 +0000
-Received: by outflank-mailman (input) for mailman id 1023543;
- Tue, 24 Jun 2025 10:17:30 +0000
+	id 1uU0yX-0007xB-HK; Tue, 24 Jun 2025 10:34:01 +0000
+Received: by outflank-mailman (input) for mailman id 1023550;
+ Tue, 24 Jun 2025 10:33:59 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=j9+j=ZH=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uU0iX-0004xK-VH
- for xen-devel@lists.xenproject.org; Tue, 24 Jun 2025 10:17:29 +0000
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [2a00:1450:4864:20::42a])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=ctQ0=ZH=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1uU0yV-0007x5-Fi
+ for xen-devel@lists.xenproject.org; Tue, 24 Jun 2025 10:33:59 +0000
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [2a00:1450:4864:20::630])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6e1b5e34-50e4-11f0-b894-0df219b8e170;
- Tue, 24 Jun 2025 12:17:28 +0200 (CEST)
-Received: by mail-wr1-x42a.google.com with SMTP id
- ffacd0b85a97d-3a6e2d85705so159201f8f.0
- for <xen-devel@lists.xenproject.org>; Tue, 24 Jun 2025 03:17:28 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3158a31d40bsm13929592a91.37.2025.06.24.03.17.23
+ id bbc756cc-50e6-11f0-b894-0df219b8e170;
+ Tue, 24 Jun 2025 12:33:57 +0200 (CEST)
+Received: by mail-ej1-x630.google.com with SMTP id
+ a640c23a62f3a-ade4679fba7so46545566b.2
+ for <xen-devel@lists.xenproject.org>; Tue, 24 Jun 2025 03:33:57 -0700 (PDT)
+Received: from [192.168.1.5] (user-109-243-64-38.play-internet.pl.
+ [109.243.64.38]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ae0b618251bsm17148066b.55.2025.06.24.03.33.55
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 24 Jun 2025 03:17:26 -0700 (PDT)
+ Tue, 24 Jun 2025 03:33:55 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,166 +45,186 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6e1b5e34-50e4-11f0-b894-0df219b8e170
+X-Inumbo-ID: bbc756cc-50e6-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1750760247; x=1751365047; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=GpZiy302dBRQR7dYoAmoyN3ZKSyToQYFGFWF3abZdjc=;
-        b=YXpQckjTk7b+6Rr8tgxxvFYnJ02saKzWpHI9diW/v3opy/EVykpGYoaNF+qgngck38
-         XrZ0ifkXUS/8FVo58QfUA++DGb5b+YfkZJGAQqjv7E6/1N+b5HiuDgJ25wYJ6Z2hOU0X
-         yC2msEuDXDItynLbldQD7zPQfXS/4zmqsXXQdh+emfHpooOk0piaTy7gz84VqOuFqh3K
-         GHh2qk6ieoyEDzC77wuzeAU3n2H9TdQKu7qze+XSekspdBSJ2WNW5BTm4MGGdw1O683C
-         MbSW5wJ+VcUoLetERC6La1W83dBw9/IXkNMntNs4gsxRzCAFDrlZDnfmbg9Po5rEQ9FJ
-         KzKw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750760247; x=1751365047;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20230601; t=1750761237; x=1751366037; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=GpZiy302dBRQR7dYoAmoyN3ZKSyToQYFGFWF3abZdjc=;
-        b=IMRmYtoCGxZikgsk5F53SoYVqn/Q49p4ryLd5RsvY7Kz9qHWwwSUuYAKW4N7vWb26t
-         /KoBnH1QGchnw+7o39WZFj9WW/SI1WoHujXQBfRhTdEzz2zlbtkFV6O0cF3iPi5P18rt
-         w8ocXvIzOZhzoWCK/qAnkXzUvVlZ3DFnDAZtW8wyv5MKNG7qMrGKGTkeKPK/vMUoLufg
-         SKmROVTDXawraPiJxrR5gh4ASVAXqb1MUQyM5M7vMzKnXAyqKhacchpqMkMnxsVekQZd
-         /gvdgKu/1C0bn13sH4dwm/OxH12CwCIE2Q8vs3LqQNeY/2vKXzLqy3ZaYLZBwYVPbo/E
-         nLig==
-X-Forwarded-Encrypted: i=1; AJvYcCXGYTnaZmUxPppMlc/0ckm+LPtzWdLjxzDS1RrdVRWmCGXEu6D7AIu/dD9xDGTT+q9AwucJXl/1Keg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzwsKxlypTsFAGIA2ASyKkUhNKCAxYQCp0sVNa2zRBJax0LzasS
-	DXcr740Jyv9L5+LrsRkEkl3Gw5hs2FBPyfE/VzZ43MKOPOeDIenqzEfxig2igCOitw==
-X-Gm-Gg: ASbGncuUjGLbFlhsH3fatbr+USRqJoyNxvhcWhXktr3w1U/XX95ZMQenp9CcRVOjmgl
-	8PMxfKPTuulxssBhhUwc5s3ipASoi40pPKF9Hb3mWiMXlVKvI6vlqu/O/U//jPl8b/RPUcdwGe5
-	G4gDfhuEAsikFkNrfvWpUhxLD0RHWk+uORSn/TDqzmQBQZpawdYp+ZUVo2rkBF8z4Y2QmtkXKmB
-	FpTSr8iB3a2qzOKwhRQa+8bANbXXqeYcYYCML+axdAe3xo/zlXnAIadum1oiu32df/jGan+hoPf
-	v2epHC3zPH0LelOQMjSbbfeNA+D1E2BeUT4TvntTrqrCczoKcIlir962ET6Jlq10Lo95mlExP8N
-	pibyUzNkAA9oIJOqfCYbPXApbNY6AFOMDHYDZyKYk3Ea1KXA=
-X-Google-Smtp-Source: AGHT+IFFaxjIpzIDICNGs4QkiVvB+6NJkJfJfXSgWqetYZThzcOdV5EkeUj++n9QHM+IDnTA7QJ7Zg==
-X-Received: by 2002:a05:6000:144d:b0:3a5:26fd:d46f with SMTP id ffacd0b85a97d-3a6d12da03fmr12198944f8f.32.1750760247367;
-        Tue, 24 Jun 2025 03:17:27 -0700 (PDT)
-Message-ID: <c9cdbb69-4b68-4b77-bcca-feacc800e3d6@suse.com>
-Date: Tue, 24 Jun 2025 12:17:20 +0200
+        bh=PpYl/+rgNV5Exgpr6I3d3Pp7PRlvJtiIjdFGqf/ENjA=;
+        b=jtZKXlEFkfzqnbPOiwrqkCZWI4FCDxwl4/jN8rkpLUk4hHtSMYmgEWyNxdq6C7sZ4t
+         Ji72reTEB4I5keJ9wNsrzrx2q9T2YmMxB7698NnhIZ2Xdxf6uu6KaYXkOfOJbhRUWvPg
+         ZGPughYQv1mAINLLx1MIXEo0UnbmBiSfxfxEzHq7jPuAupytmNHc+wF0FwS581AgsvM/
+         CG98aPNTw04daJJmXcqL40aW5FuI5nT6JqSxwXczQMmQLHOfMPeowxluR5eqTEvA1Gze
+         z8GoFwAqrroB44abPcpOOkgxIunjoCuFXxCboztQHj7at63xyFxEIig4jelLYk8XZ7s5
+         5QKQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1750761237; x=1751366037;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=PpYl/+rgNV5Exgpr6I3d3Pp7PRlvJtiIjdFGqf/ENjA=;
+        b=q3vivzQKgdjmJfpsL7C4t4ydW2d9YRYim1yh+8uCew648qCoR1EobQ4LOgDXkmr/Q3
+         BNLKiAk6A2YtW/fD7w6KSu3uDpsgjJmAY5AQcb3Q2Pi4VDCYxaZtv7QseWWU5g370fQz
+         weqZMPgjpFaERhScjJ6Xjv1ogB6sQLSwnFvLIFC1KBu+AGcCkVT3wEEx21byEQFm7r9I
+         bwQDf3IEsd5TgPc+17MEo9jrx9kAKuzXIqP++g8+IKCkES8VJ9tCJGDrmwjmeOZ3dqgN
+         ZdtrqKywwyDXJuYBqgrvZi/yMFg+Ow7go1pRrnCV6UhBvSuG+pUBUwETSeTphgVo6Sui
+         87Zw==
+X-Forwarded-Encrypted: i=1; AJvYcCWT0A8/xdafQb6ArE4slSB2iMH3bLuAUuY+2kKAlpjHSSG1IlsQe6zAr/zukRoqL6gAi40Z6ynntns=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyxnVhs8j32YgSDxrUTwOpVFKJvFnSOhx2Gwn78ntqYMW6IjoJp
+	X18AMQ7ripZlseY1ZG78g1VcPBHBz6bgUEJ5uHed/pJkY6hpctvZOGCV
+X-Gm-Gg: ASbGncvslxxzs8kyeCW5YPJThQg2KR08DgBqW2z8w2XV1z6OeHn5c2sgloO0SWnbXQZ
+	f2SOPLMXqlaTVPgJObBtEoWnYfizay0vASdJVNXqAH3QX1oH2nlADxTfSKfLeG/iCnAusYO6IEp
+	AUxf11Nyu7Pbxo2b0hZuOAkRMoiOWtEqyEQc64srMv//KhG/FluOYfqd4eriW6XzAa6LipXQV/z
+	U61hHh0rDE5E3VrZE9NVmZPFm5u6PVNRDeN0eTX4SALeD8uSJZqldD3D2gktt5C0H1x6tc8RneJ
+	Qqk8z9koTOLXz8q+h/6ZHQwQECQ3BjJENsil+obSCT4xp2b3Dj6H0mB4hXqDLdj5l55OOrqtL5x
+	cYwUa/t4J5m/LbedBR7XTb6DEpfsHMg0KcaI=
+X-Google-Smtp-Source: AGHT+IFmT4rxMzjg3fpBe+bkSRV7Pdt5X68i1wzOIhUhrDBQJo2pGsd8IRcTtSPMgjd4fj9db/l1Rg==
+X-Received: by 2002:a17:907:3e95:b0:ad5:34cf:d23f with SMTP id a640c23a62f3a-ae0579246eamr1359036266b.21.1750761236307;
+        Tue, 24 Jun 2025 03:33:56 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------RAhJxSzatQHsZlWOo1iK9zJz"
+Message-ID: <7b8d5688-bfc3-4341-8fd5-8e9feefdfa82@gmail.com>
+Date: Tue, 24 Jun 2025 12:33:55 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 7/8] vpci/msi: Free MSI resources when init_msi() fails
-To: "Chen, Jiqian" <Jiqian.Chen@amd.com>
-Cc: "Huang, Ray" <Ray.Huang@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <20250612092942.1450344-1-Jiqian.Chen@amd.com>
- <20250612092942.1450344-8-Jiqian.Chen@amd.com>
- <773c448a-d814-458f-ad83-e9740e724408@suse.com>
- <BL1PR12MB584989B1F9DF290C15CD2F9EE778A@BL1PR12MB5849.namprd12.prod.outlook.com>
+Subject: Re: [PATCH v2 01/17] xen/riscv: implement sbi_remote_hfence_gvma()
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1749555949.git.oleksii.kurochko@gmail.com>
+ <ea7a15c0ecfd2bae95c11a92e4c0cb71b155140f.1749555949.git.oleksii.kurochko@gmail.com>
+ <728ee92b-0e4f-4ccb-8c6e-54687bd75c62@suse.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <BL1PR12MB584989B1F9DF290C15CD2F9EE778A@BL1PR12MB5849.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <728ee92b-0e4f-4ccb-8c6e-54687bd75c62@suse.com>
 
-On 24.06.2025 11:49, Chen, Jiqian wrote:
-> On 2025/6/18 22:45, Jan Beulich wrote:
->> On 12.06.2025 11:29, Jiqian Chen wrote:
->>> --- a/xen/drivers/vpci/msi.c
->>> +++ b/xen/drivers/vpci/msi.c
->>> @@ -193,6 +193,33 @@ static void cf_check mask_write(
->>>      msi->mask = val;
->>>  }
->>>  
->>> +static int cf_check cleanup_msi(struct pci_dev *pdev)
->>> +{
->>> +    int rc;
->>> +    unsigned int end, size;
->>> +    struct vpci *vpci = pdev->vpci;
->>> +    const unsigned int msi_pos = pdev->msi_pos;
->>> +    const unsigned int ctrl = msi_control_reg(msi_pos);
->>> +
->>> +    if ( !msi_pos || !vpci->msi )
->>> +        return 0;
->>> +
->>> +    if ( vpci->msi->masking )
->>> +        end = msi_pending_bits_reg(msi_pos, vpci->msi->address64);
->>> +    else
->>> +        end = msi_mask_bits_reg(msi_pos, vpci->msi->address64) - 2;
->>> +
->>> +    size = end - ctrl;
->>> +
->>> +    rc = vpci_remove_registers(vpci, ctrl, size);
->>> +    if ( rc )
->>> +        return rc;
->>
->> This is a difficult one: It's not a good idea to simply return here, yet
->> at the same time the handling of the register we're unable to remove may
->> still require e.g. ...
->>
->>> +    XFREE(vpci->msi);
->>
->> ... this. There may therefore be more work required, such that in the
->> end we're able to ...
->>
->>> +    return vpci_add_register(pdev->vpci, vpci_hw_read16, NULL, ctrl, 2, NULL);
->>
->> ... try this at least on a best effort basis.
->>
->> More generally: I don't think failure here (or in other .cleanup hook
->> functions) may go entirely silently.
-> Does below meet your modification expectations?
+This is a multi-part message in MIME format.
+--------------RAhJxSzatQHsZlWOo1iK9zJz
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Not sure, sorry. By "more" I really meant "more" (which may just be code
-auditing, results of which would need writing down, but which may also
-involve further code changes; see below).
 
->     rc = vpci_remove_registers(vpci, ctrl, size);
->     if ( rc )
->         printk(XENLOG_ERR "%pd %pp: remove msi handlers fail rc=%d\n",
->                pdev->domain, &pdev->sbdf, rc);
-> 
->     XFREE(vpci->msi);
+On 6/18/25 5:15 PM, Jan Beulich wrote:
+> On 10.06.2025 15:05, Oleksii Kurochko wrote:
+>> Instruct the remote harts to execute one or more HFENCE.GVMA instructions,
+>> covering the range of guest physical addresses between start_addr and
+>> start_addr + size for all the guests.
+> Here and in the code comment: Why "for all the guests"? Under what conditions
+> would you require such a broad (guest) TLB flush?
 
-As I tried to indicate in my earlier reply, the freeing of this struct is
-safe only if the failure above would not leave any register handlers in
-place which still (without appropriate checking) use this struct.
+Hmm, it seems like KVM always do such a broad (guest) TLB flush during detection
+of VMIDLEN:
+	void __init kvm_riscv_gstage_vmid_detect(void)
+	{
+		unsigned long old;
+	
+		/* Figure-out number of VMID bits in HW */
+		old = csr_read(CSR_HGATP);
+		csr_write(CSR_HGATP, old | HGATP_VMID);
+		vmid_bits = csr_read(CSR_HGATP);
+		vmid_bits = (vmid_bits & HGATP_VMID) >> HGATP_VMID_SHIFT;
+		vmid_bits = fls_long(vmid_bits);
+		csr_write(CSR_HGATP, old);
+	
+		/* We polluted local TLB so flush all guest TLB */
+		kvm_riscv_local_hfence_gvma_all();
+	
+		/* We don't use VMID bits if they are not sufficient */
+		if ((1UL << vmid_bits) < num_possible_cpus())
+			vmid_bits = 0;
+	}
 
->     /*
->      * The driver may not traverse the capability list and think device
->      * supports MSI by default. So here let the control register of MSI
->      * be Read-Only is to ensure MSI disabled.
->      */
->     rc = vpci_add_register(vpci, vpci_hw_read16, NULL, ctrl, 2, NULL);
+It is not clear actually why so broad and why not hfence_gvma_vmid(vmid_bits).
 
-You're losing the earlier error here, if there was one. If this one
-succeeds, ...
+And I am not really 100% sure that any hfence_gvma() is needed here as I don't see
+what could pollutes local guest TLB between csr_write() calls.
 
->     if ( rc )
->         printk(XENLOG_ERR "%pd %pp: add dummy msi ctrl handler fail rc=%d\n",
->                pdev->domain, &pdev->sbdf, rc);
-> 
->     return rc;
+RISC-V spec. says that:
+	Note that writing hgatp does not imply any ordering constraints between page-table updates and
+	subsequent G-stage address translations. If the new virtual machine’s guest physical page tables have
+	been modified, or if a VMID is reused, it may be necessary to execute an HFENCE.GVMA instruction
+	(see Section 18.3.2) before or after writing hgatp.
 
-... the caller would (wrongly) get success back.
+But we don't modify VM's guest physical page table. We could potentially reuse VMID between csr_write()
+calls, but it is returning back and we don't switch to a guest with this "new" VMID, so it isn't really used.
 
-Jan
+Do you have any thoughts about that?
+
+~ Oleksii
+
+--------------RAhJxSzatQHsZlWOo1iK9zJz
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 6/18/25 5:15 PM, Jan Beulich wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:728ee92b-0e4f-4ccb-8c6e-54687bd75c62@suse.com">
+      <pre class="moz-quote-pre" wrap=""><pre wrap=""
+      class="moz-quote-pre">On 10.06.2025 15:05, Oleksii Kurochko wrote:
+</pre><blockquote type="cite" style="color: #007cff;"><pre wrap=""
+      class="moz-quote-pre">Instruct the remote harts to execute one or more HFENCE.GVMA instructions,
+covering the range of guest physical addresses between start_addr and
+start_addr + size for all the guests.
+</pre></blockquote><pre wrap="" class="moz-quote-pre">Here and in the code comment: Why "for all the guests"? Under what conditions
+would you require such a broad (guest) TLB flush?</pre></pre>
+    </blockquote>
+    <pre>Hmm, it seems like KVM always do such a broad (guest) TLB flush during detection
+of VMIDLEN:
+	void __init kvm_riscv_gstage_vmid_detect(void)
+	{
+		unsigned long old;
+	
+		/* Figure-out number of VMID bits in HW */
+		old = csr_read(CSR_HGATP);
+		csr_write(CSR_HGATP, old | HGATP_VMID);
+		vmid_bits = csr_read(CSR_HGATP);
+		vmid_bits = (vmid_bits &amp; HGATP_VMID) &gt;&gt; HGATP_VMID_SHIFT;
+		vmid_bits = fls_long(vmid_bits);
+		csr_write(CSR_HGATP, old);
+	
+		/* We polluted local TLB so flush all guest TLB */
+		kvm_riscv_local_hfence_gvma_all();
+	
+		/* We don't use VMID bits if they are not sufficient */
+		if ((1UL &lt;&lt; vmid_bits) &lt; num_possible_cpus())
+			vmid_bits = 0;
+	}
+
+It is not clear actually why so broad and why not hfence_gvma_vmid(vmid_bits).
+
+And I am not really 100% sure that any hfence_gvma() is needed here as I don't see
+what could pollutes local guest TLB between csr_write() calls.
+
+RISC-V spec. says that:
+	Note that writing hgatp does not imply any ordering constraints between page-table updates and
+	subsequent G-stage address translations. If the new virtual machine’s guest physical page tables have
+	been modified, or if a VMID is reused, it may be necessary to execute an HFENCE.GVMA instruction
+	(see Section 18.3.2) before or after writing hgatp.
+
+But we don't modify VM's guest physical page table. We could potentially reuse VMID between csr_write()
+calls, but it is returning back and we don't switch to a guest with this "new" VMID, so it isn't really used.
+
+Do you have any thoughts about that?
+
+~ Oleksii
+</pre>
+  </body>
+</html>
+
+--------------RAhJxSzatQHsZlWOo1iK9zJz--
 
