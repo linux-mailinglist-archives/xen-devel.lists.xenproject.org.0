@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BFFF7AE65ED
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Jun 2025 15:13:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1023679.1399720 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D86B2AE6691
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Jun 2025 15:33:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1023693.1399730 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uU3T1-0001CU-OD; Tue, 24 Jun 2025 13:13:39 +0000
+	id 1uU3lQ-00041h-7t; Tue, 24 Jun 2025 13:32:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1023679.1399720; Tue, 24 Jun 2025 13:13:39 +0000
+Received: by outflank-mailman (output) from mailman id 1023693.1399730; Tue, 24 Jun 2025 13:32:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uU3T1-0001AC-LX; Tue, 24 Jun 2025 13:13:39 +0000
-Received: by outflank-mailman (input) for mailman id 1023679;
- Tue, 24 Jun 2025 13:13:37 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uU3lQ-000402-51; Tue, 24 Jun 2025 13:32:40 +0000
+Received: by outflank-mailman (input) for mailman id 1023693;
+ Tue, 24 Jun 2025 13:32:39 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=j9+j=ZH=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uU3Sz-0001A5-Q3
- for xen-devel@lists.xenproject.org; Tue, 24 Jun 2025 13:13:37 +0000
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [2a00:1450:4864:20::434])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0994087b-50fd-11f0-a30f-13f23c93f187;
- Tue, 24 Jun 2025 15:13:36 +0200 (CEST)
-Received: by mail-wr1-x434.google.com with SMTP id
- ffacd0b85a97d-3a575a988f9so292735f8f.0
- for <xen-devel@lists.xenproject.org>; Tue, 24 Jun 2025 06:13:36 -0700 (PDT)
+ id 1uU3lO-0003z2-UV
+ for xen-devel@lists.xenproject.org; Tue, 24 Jun 2025 13:32:39 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id af7f25f8-50ff-11f0-b894-0df219b8e170;
+ Tue, 24 Jun 2025 15:32:34 +0200 (CEST)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-451d6ade159so39941215e9.1
+ for <xen-devel@lists.xenproject.org>; Tue, 24 Jun 2025 06:32:34 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-749c882cd07sm1925774b3a.91.2025.06.24.06.13.31
+ 98e67ed59e1d1-3159df8354bsm11561933a91.18.2025.06.24.06.32.27
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 24 Jun 2025 06:13:35 -0700 (PDT)
+ Tue, 24 Jun 2025 06:32:32 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0994087b-50fd-11f0-a30f-13f23c93f187
+X-Inumbo-ID: af7f25f8-50ff-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1750770816; x=1751375616; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1750771953; x=1751376753; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=KI6wTPA9FrUcD9wPw3OdqkghzxDhy0OsQuP83Sb1dwo=;
-        b=N9lluWg1svRd/r4ETPZoqkohPztrY06YUId4yLRZATeZGjsSpAaE07Ng5eqhdSIQBK
-         Wf8bP3M/BhLDMR6ZS8gBxwTnDmF/9d1ofOAdaEVHUdFoIgs8v1flXBwcl+QEHhUpLTgF
-         8Cz0hcIB01M+4kCsg0/vCBDWfEVr5jX+Ys2FNyuQwW9Zn/HbHSMzufOEYXULdgKW+Ftb
-         T8Q0anU/BFOyeq9PwhROQKeV9EORKrY3RT+K+jVuTyov6mNhTs0RvxOhUq94zZWaQl8N
-         CszQhqakMKlIbY/f8NkpAKHDLq/+bcoeQXBoHDNwKgdogpfmrcVJkPARzc9AvdFbMmBU
-         f5Yg==
+        bh=blhfPWIypShvcGCB6Ww5PN1dp+qPVMDSX21SiT0WU6c=;
+        b=PXn0AunYU8M5JWc7vIEmsFAFsq9Wy8d299SXXamYQ/1PTEmIkA5nqjM8ov7evBIgBB
+         s7pnY21nWX6jFgeVDaDqKW0dzjWKGkGETjBmLIo0iJf6/z61hBqVyr6ikUwnM+PvZ3l+
+         j8ktLHA1zob6JeShVRde/jp6f99bXgHru+vfHmUqehPEeu5F9PwDxwlZlbbxyevZHkEo
+         A8A/+5+B6uOZKSh9wVGGkteByFkaHBjDWSdFl416HUzV3hdIhmkAduL9+O1EKjF4AVeV
+         1GYHR6S5QhF8CSvTECetW0bc4rJMID42yXFrTssX/ntcXX+gBvbQqhAAC9R/+/OCoscQ
+         O+3w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750770816; x=1751375616;
+        d=1e100.net; s=20230601; t=1750771953; x=1751376753;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=KI6wTPA9FrUcD9wPw3OdqkghzxDhy0OsQuP83Sb1dwo=;
-        b=h58YnzEQameWF9jjG51LeCcKZmSSNJie+7PU3zcZrU/uXt1FU4I304eU3+gNFo2tNR
-         zpvyJvlVHJ/rAisGBo4rsZwVVlPyGMsmnNNfIL3/zvYTvcWx+Egn28OKTNdbN7UfzjUK
-         g0BTCej2pFIPbdcsZQUUPOpq9xDBLH1MCdqmjwgil5Tyiyak20RfXSv9GcHUiW3Xn8PQ
-         MLpU6TAzYQEcW2p2ZRSikwWDXKzUuplCiQlbxL73r8ziA8uBUZovQiqpqYcXCCD5WA7o
-         Ld6EURiiignA7dqjLYtHxFu6swQk+7cPpJ0316GJIKKq75kF9b7TETT9XnOV4jwdLuok
-         qYSQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVobrqPN7ebSi1YMHfVAOiLlRf3nbIdSJuM4BK0LJ0J0KIcQSMjqx0tU+YcsiIAkZDai2E257QREyA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwNix/gpqwrblmcqPFXQ/xu6EDz9l0AwZ/8IfD7dkJsSmoYDYC3
-	CqmfwgFyput4F+2kdZSg4KTC6ceGVg2jiI0JDyNlCyzeGvAXHjUEFDs17/nmfGkM9A==
-X-Gm-Gg: ASbGncstHoHnO1a5+xPDdEvrb2Zi33+eKFKyOzRPPDmOhDvJ504domEAOSlflgwcNx2
-	nMeSgG0ZFS9EjL7A1siuwtCCTF8YIIgKOpLvyWQxf5l0MYt/Y9VRlcmjs/FwMHA7Ukpd5cL72Ta
-	geDKiVwKhj3mtHt63BPIQ4VelCDBdlhKULabgE5eMqDC929/3jjckz4e3FnKVJl+3XSLihzEkKY
-	X8Y08IY+2C14NLQmeV+0P81ARV9V7Np9J7sGOWk2U/TrxWQ9ltOLoyzrcIjnRtMACZWg7FrMXD/
-	BbUOXS/jbUgI9lMya061pEUjUWtGQCuugOp9K5x2lx3NMkYkDidBcByUaS0aHhDoFT5INxmhBrh
-	QCcuiRIPRhyFk8YstEgK4gf+4vnSxms10uzsxxxPv+3Mw0sw=
-X-Google-Smtp-Source: AGHT+IEkkKUT/mSazdN0INAwMCREK8oDfYmFU9fmUey7ACSfRphlCTCqK0d05Hu2pD0PouDQc2IBgQ==
-X-Received: by 2002:a05:6000:491d:b0:3a1:f564:cd9d with SMTP id ffacd0b85a97d-3a6d12d92e1mr13156650f8f.36.1750770816076;
-        Tue, 24 Jun 2025 06:13:36 -0700 (PDT)
-Message-ID: <bd844f21-ce43-41a2-baf0-db92ccef7c2c@suse.com>
-Date: Tue, 24 Jun 2025 15:13:27 +0200
+        bh=blhfPWIypShvcGCB6Ww5PN1dp+qPVMDSX21SiT0WU6c=;
+        b=bz+eL5woPTaEmv2M7GQQNKl9BmydqlpQvuutWKQxS6Nn/YeDzSzHtOdSmDWDYevfwx
+         tq7wOR2hgt2zUgP75g8/kSG1KDGP+Eg4NWfepz0KrnDWLoa+HT6ddXZ+OKiUyv8SIyiX
+         5Gg6n847SMWrabgJSKt1nezPCk61rSl2dEryHlMtGYh1B/HjYKnqlH/REOfQaOR7NE7M
+         3Qkp1z4m8i3VOpmnrhlrZOoQzmQlGO4wK4/OfKyLf5ZLD5ZzXiUFDJYfrcl0f3JVpdCS
+         soSfrEnAZxlQ+tCKYGU3IWE8VRINDCwzyiHOaqCu2PWzQ7W+jnUe3ZRjtPjgO8danaAZ
+         NRuw==
+X-Forwarded-Encrypted: i=1; AJvYcCW2k8KG08Cksu9K/glCs2NPaF2HEvFiCvv7YSrKw+gC1SXBFtHOAVXRnJ/homR7O7zsVMS8eGN8wcs=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yyjeyc8mX700y+Is4MWZrv/GcTT3dGbOUzxFAfL8Wfb8RviI/rp
+	yq/Qat70pCPD1uHdi0EQaD4SfPDhxNQL6CyEqqdhMp0sRN7x2Clr1Id9fekgLNM8Lw==
+X-Gm-Gg: ASbGncsIvkjv44+ezC77zvZnfqIjx94RcWQmUdONkBhUXhY+fyV5O2Rk9xXeZQ7V8W/
+	oxH8f0+LBvpJ9UO5kGBms72cvd+jdjXXlQv225zfkNFA95nEcYZy9Hvy0B3JOBl9RBUljE90Sn1
+	OJ+F+j0LZlwqrJ92cf3hzeuR3tlPJr6HS8i/toVCM54lehe0YaNiuvxkaR0wqm+4QNt7CBrvgBl
+	ffP5JF+T6OLvRWrJRGVslCFTqUA0pBm+B//8r7+kTqeN3aFluVik6RHvcS/D2zv22uqdKp3XCE1
+	oHfNyf0ojf3zlFTE4lwwlDlNYdoKVANURoEW6Gc0Rj0Aua2+H/UYzwqpxUVemGn/aTAN8a351JS
+	AyOAW4bP5wture8Afy0ibnmgH/Iyhn45esEJhS8gGbUCQy4yHHia2lEkZpQ==
+X-Google-Smtp-Source: AGHT+IEF8dGR52fbnkmu/7jg+UOfALVhkpxhpmJQGQEVyU12ojT5HyexjzdTqSke27xXKzkZOwcFnA==
+X-Received: by 2002:a05:6000:26cc:b0:3a6:d255:7eda with SMTP id ffacd0b85a97d-3a6d25584ddmr12905011f8f.28.1750771953347;
+        Tue, 24 Jun 2025 06:32:33 -0700 (PDT)
+Message-ID: <1298a33e-b602-4887-86a7-cb69cdaa6311@suse.com>
+Date: Tue, 24 Jun 2025 15:32:23 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/8] kconfig: turn PDX compression into a choice
+Subject: Re: [PATCH v2 3/8] pdx: provide a unified set of unit functions
 To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>, xen-devel@lists.xenproject.org
 References: <20250620111130.29057-1-roger.pau@citrix.com>
- <20250620111130.29057-3-roger.pau@citrix.com>
+ <20250620111130.29057-4-roger.pau@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,54 +122,153 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250620111130.29057-3-roger.pau@citrix.com>
+In-Reply-To: <20250620111130.29057-4-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 20.06.2025 13:11, Roger Pau Monne wrote:
-> Rename the current CONFIG_PDX_COMPRESSION to CONFIG_PDX_MASK_COMPRESSION,
-> and make it part of the PDX compression choice block, in preparation for
-> adding further PDX compression algorithms.
-> 
-> No functional change intended as the PDX compression defaults should still
-> be the same for all architectures, however the choice block cannot be
-> protected under EXPERT and still have a default choice being
-> unconditionally selected.  As a result, the new "PDX (Page inDeX)
-> compression" item will be unconditionally visible in Kconfig.
-
-Just to mention it: Afaict there is a functional change, but one I actually
-appreciate, at least in part. So far ...
-
-> --- a/xen/common/Kconfig
-> +++ b/xen/common/Kconfig
-> @@ -52,9 +52,10 @@ config EVTCHN_FIFO
+> --- a/xen/arch/arm/setup.c
+> +++ b/xen/arch/arm/setup.c
+> @@ -255,6 +255,10 @@ void __init init_pdx(void)
+>  {
+>      const struct membanks *mem = bootinfo_get_mem();
+>      paddr_t bank_start, bank_size, bank_end;
+> +    unsigned int bank;
+> +
+> +    for ( bank = 0 ; bank < mem->nr_banks; bank++ )
+> +        pfn_pdx_add_region(mem->bank[bank].start, mem->bank[bank].size);
 >  
->  	  If unsure, say Y.
+>      /*
+>       * Arm does not have any restrictions on the bits to compress. Pass 0 to
+> @@ -263,28 +267,24 @@ void __init init_pdx(void)
+>       * If the logic changes in pfn_pdx_hole_setup we might have to
+>       * update this function too.
+>       */
+> -    uint64_t mask = pdx_init_mask(0x0);
+> -    int bank;
+> +    pfn_pdx_compression_setup(0);
 >  
-> -config PDX_COMPRESSION
-> -	bool "PDX (Page inDeX) compression" if EXPERT && !X86 && !RISCV
-> -	default ARM || PPC
+>      for ( bank = 0 ; bank < mem->nr_banks; bank++ )
+>      {
+> -        bank_start = mem->bank[bank].start;
+> -        bank_size = mem->bank[bank].size;
+> -
+> -        mask |= bank_start | pdx_region_mask(bank_start, bank_size);
+> -    }
+> -
+> -    for ( bank = 0 ; bank < mem->nr_banks; bank++ )
+> -    {
+> -        bank_start = mem->bank[bank].start;
+> -        bank_size = mem->bank[bank].size;
+> -
+> -        if (~mask & pdx_region_mask(bank_start, bank_size))
+> -            mask = 0;
+> +        if ( !pdx_is_region_compressible(mem->bank[bank].start,
+> +                 PFN_UP(mem->bank[bank].start + mem->bank[bank].size) -
+> +                 PFN_DOWN(mem->bank[bank].start)) )
 
-... for x86 (and RISC-V) this option couldn't be selected. Whereas ...
+Nit: This, according to my understanding, is an "impossible" style. It wants
+to either be
 
-> @@ -67,6 +68,17 @@ config PDX_COMPRESSION
->  	  If your platform does not have sparse RAM banks, do not enable PDX
->  	  compression.
+        if ( !pdx_is_region_compressible(
+                  mem->bank[bank].start,
+                  PFN_UP(mem->bank[bank].start + mem->bank[bank].size) -
+                  PFN_DOWN(mem->bank[bank].start)) )
+
+or ...
+
+> +        {
+> +            pfn_pdx_compression_reset();
+> +            printk(XENLOG_WARNING
+> +                   "PFN compression disabled, RAM region [%#" PRIpaddr ", %#"
+> +                   PRIpaddr "] not covered\n",
+> +                   mem->bank[bank].start,
+> +                   mem->bank[bank].start + mem->bank[bank].size - 1);
+
+... like this. But it's not written down anywhere, so I guess I shouldn't
+insist.
+
+And then - isn't the use of PFN_UP() and PFN_DOWN() the wrong way round?
+Partial pages aren't usable anyway, so the smaller range is what matters
+for every individual bank. However, for two contiguous banks (no idea
+whether Arm would fold such into a single one, like we do with same-type
+E820 regions on x86) this gets more complicated then.
+
+> @@ -299,19 +295,29 @@ void __init srat_parse_regions(paddr_t addr)
 >  
-> +config PDX_MASK_COMPRESSION
-> +	bool "Mask compression"
-> +	help
-> +	  Compression relying on all RAM addresses sharing a zeroed bit region.
+>  	/* Set "PXM" as early as feasible. */
+>  	numa_fw_nid_name = "PXM";
+> -	srat_region_mask = pdx_init_mask(addr);
+>  	acpi_table_parse_srat(ACPI_SRAT_TYPE_MEMORY_AFFINITY,
+>  			      srat_parse_region, 0);
+>  
+> -	for (mask = srat_region_mask, i = 0; mask && i < e820.nr_map; i++) {
+> +	pfn_pdx_compression_setup(addr);
+> +
+> +	/* Ensure all RAM ranges in the e820 are covered. */
+> +	for (i = 0; i < e820.nr_map; i++) {
+>  		if (e820.map[i].type != E820_RAM)
+>  			continue;
+>  
+> -		if (~mask & pdx_region_mask(e820.map[i].addr, e820.map[i].size))
+> -			mask = 0;
+> +		if (!pdx_is_region_compressible(e820.map[i].addr,
+> +		    PFN_UP(e820.map[i].addr + e820.map[i].size) -
+> +		    PFN_DOWN(e820.map[i].addr)))
 
-... this option is now available, as the prior !X86 && !RISCV doesn't
-re-appear here. (As the description mentions it, that dependency clearly
-can't appear on the enclosing choice itself.) Since x86 actually still
-should have mask compression implemented properly, that's fine (from my
-pov; iirc I even asked that it would have remained available when the
-earlier change was done), whereas I think for RISC-V it's not quite right
-to offer the option. It also did escape me why the option was made
-available for PPC, which I'm pretty sure also lacks the logic to determine
-a suitable mask.
+Indentation is off here in any event, i.e. irrespective of my earlier
+remark.
+
+> --- a/xen/common/pdx.c
+> +++ b/xen/common/pdx.c
+> @@ -19,6 +19,7 @@
+>  #include <xen/mm.h>
+>  #include <xen/bitops.h>
+>  #include <xen/nospec.h>
+> +#include <xen/pfn.h>
+>  #include <xen/sections.h>
+>  
+>  /**
+> @@ -55,6 +56,44 @@ void set_pdx_range(unsigned long smfn, unsigned long emfn)
+>          __set_bit(idx, pdx_group_valid);
+>  }
+>  
+> +#ifndef CONFIG_PDX_NONE
+> +
+> +#ifdef CONFIG_X86
+> +# include <asm/e820.h>
+> +# define MAX_PFN_RANGES E820MAX
+> +#elif defined(CONFIG_HAS_DEVICE_TREE)
+> +# include <xen/bootfdt.h>
+> +# define MAX_PFN_RANGES NR_MEM_BANKS
+> +#endif
+> +
+> +#ifndef MAX_PFN_RANGES
+> +# error "Missing architecture maximum number of RAM ranges"
+> +#endif
+> +
+> +/* Generic PFN compression helpers. */
+> +static struct pfn_range {
+> +    unsigned long base, size;
+> +} ranges[MAX_PFN_RANGES] __initdata;
+> +static unsigned int __initdata nr_ranges;
+> +
+> +void __init pfn_pdx_add_region(paddr_t base, paddr_t size)
+> +{
+> +    if ( !size )
+> +        return;
+> +
+> +    if ( nr_ranges >= ARRAY_SIZE(ranges) )
+> +    {
+> +        ASSERT((nr_ranges + 1) > nr_ranges);
+
+This looks overly pessimistic to me. (I won't outright insist on its removal,
+though.)
+
+> +        nr_ranges++;
+
+This requires pretty careful use of the variable as an upper bound of loops.
+It's fine in pfn_pdx_compression_setup(), but it feels a little risky.
 
 Jan
 
