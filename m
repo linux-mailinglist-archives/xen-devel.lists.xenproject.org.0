@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA818AE5DD0
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Jun 2025 09:33:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1023209.1399147 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 05DE2AE5DF8
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Jun 2025 09:37:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1023220.1399156 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uTy9d-0005hy-Qd; Tue, 24 Jun 2025 07:33:17 +0000
+	id 1uTyCv-0006VV-BZ; Tue, 24 Jun 2025 07:36:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1023209.1399147; Tue, 24 Jun 2025 07:33:17 +0000
+Received: by outflank-mailman (output) from mailman id 1023220.1399156; Tue, 24 Jun 2025 07:36:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uTy9d-0005fl-NQ; Tue, 24 Jun 2025 07:33:17 +0000
-Received: by outflank-mailman (input) for mailman id 1023209;
- Tue, 24 Jun 2025 07:33:16 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uTyCv-0006TL-8N; Tue, 24 Jun 2025 07:36:41 +0000
+Received: by outflank-mailman (input) for mailman id 1023220;
+ Tue, 24 Jun 2025 07:36:39 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=j9+j=ZH=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uTy9c-0004u1-Ey
- for xen-devel@lists.xenproject.org; Tue, 24 Jun 2025 07:33:16 +0000
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [2a00:1450:4864:20::435])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7d1eb873-50cd-11f0-b894-0df219b8e170;
- Tue, 24 Jun 2025 09:33:14 +0200 (CEST)
-Received: by mail-wr1-x435.google.com with SMTP id
- ffacd0b85a97d-3a57c8e247cso3989704f8f.1
- for <xen-devel@lists.xenproject.org>; Tue, 24 Jun 2025 00:33:14 -0700 (PDT)
+ id 1uTyCt-0006TF-Dz
+ for xen-devel@lists.xenproject.org; Tue, 24 Jun 2025 07:36:39 +0000
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [2a00:1450:4864:20::434])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f637fd7d-50cd-11f0-a30f-13f23c93f187;
+ Tue, 24 Jun 2025 09:36:38 +0200 (CEST)
+Received: by mail-wr1-x434.google.com with SMTP id
+ ffacd0b85a97d-3a54700a463so2767560f8f.1
+ for <xen-devel@lists.xenproject.org>; Tue, 24 Jun 2025 00:36:37 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-237d86e8fddsm100210615ad.210.2025.06.24.00.33.07
+ d9443c01a7336-237d8393893sm101103145ad.25.2025.06.24.00.36.33
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 24 Jun 2025 00:33:13 -0700 (PDT)
+ Tue, 24 Jun 2025 00:36:36 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7d1eb873-50cd-11f0-b894-0df219b8e170
+X-Inumbo-ID: f637fd7d-50cd-11f0-a30f-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1750750394; x=1751355194; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1750750597; x=1751355397; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=K0TGZ6rbmQMWuCm67eAqErb6H0rHOvPUz009tcPefSY=;
-        b=dFUWQSyOj0m6E4+S5hWjBm14JQGaPWSAPCB6SEyM0XuKF0C5CKuT0zPk0G7UTIZ5b4
-         exogsa4iygODHnUKTZBNY5yb48yjD6ToCb1Rn9oT2u2QqDtzzsE/25Ouh2oUkbejPZBA
-         d1g8W4kvqo2vzNqZJVPz0hV4+ySt2zOu92v3X+3YouSEBGU2QDFC9q4jRCucfGUm4O2x
-         4nq6M6eKR00j/g36bfC0kiSdcaQYp76daEXpvdiTrxeh6dt15wRbE5YAJfFSAX9cyA7k
-         QR5/PlGOOmo/zjHD2BhV/7hNHQZJWbEimWec+kA5OH+n7NRU4mte+Vk8Jjz2OwOeD7lK
-         FGDg==
+        bh=+oLrS76N/rLzGBRT5rjucNrPKVoSPDGVorHHeCAe2c8=;
+        b=JKTTngQeYXqik/G5PvyvNnupRm2piePfsM9lgT12uBlKxDhHCPkqiQqHV2ya0LrLCq
+         y80m8M5JcpMvkAJArWjvtCeri3K2dyqw+QESksTiTvfaTEiZQB8JG5f5smpOY+v0q6Ow
+         Fb9mva/Bgv5wrcLtP67Q+jk8q5iIjwpT94ZLgzQ5EKRwg08y7Eusp0iPbR+j4nZiimgM
+         TevGv1UfLeHi9EBo7ye/Y+S1zY94dSfRjW2+FOyBF2VeiSU/iS7FMACjoA75Lwo3dyOY
+         tb3A+o7LPECv7NxcK1rQ5IGvEnN+vxJCCKw5kc/RPk2rmd6QsS4Vj0Zmgq6AmcFOsUIg
+         IOug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750750394; x=1751355194;
+        d=1e100.net; s=20230601; t=1750750597; x=1751355397;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=K0TGZ6rbmQMWuCm67eAqErb6H0rHOvPUz009tcPefSY=;
-        b=B8x/UyMc3+SdV3bpMyE7SBqLF1CHdkru0x4k+99ka1o1dUc5y0fUUP79hyzaR9tA0B
-         m7eKgC1KUSyIksGN5FkFeKVFWBapljPE5D5MOoFl0jbyQQQ/7EzzIrf2RQ8siAxGceyy
-         LFShWhLCUxmfR69oVtqQLSM0ZGVoZFRC+NFW7gcdt0+FeWN8q7fNu4m4HAOvQO+9PcxT
-         l0LENs9Lf0FNbCjCnA1ClTv0HfideUB56gFaYWiXi/PiuwYozUIL/JGqQJq2wUK9o8Op
-         7pzU3U3sqLPTcODWd/pVI8u8D91oPWBmf5LJaDR+FmzGAtwRseyKNNDHthO+hq/yYEz5
-         iuKA==
-X-Forwarded-Encrypted: i=1; AJvYcCWQZVyI89JK7NmpWiC39moq9nI4m+qrWNYkKit7jM0LDI65fz6r9CLV4EpE7HHDOqaWaMFAd4NsZuY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwY7N6Y4ZXC0cgn2yzu5q4HchvdREZcVqbOTQ476GJa1XJFNCkv
-	NKcYbHjY4DZFyyXfKCh/RRZQtRDn2Rp2v9aZlBicy0qTJ9GXid6ZkUGlrNMDzOz2sQ==
-X-Gm-Gg: ASbGncs/a3mCgfvYsCeIeeHmS3LKTzHaYl6mwMh+It9Jwfqmmw94u88ekq+91AcR6Fv
-	vU17gbL59E8Xc4wAhs+StxQPS6JZBexJb2XVjji7P0jCPDD/Zk/cZrn5+TYSMOQUu8zMFNxx+KQ
-	7IY8HhhDuvesvu1YyoZzoyFTf3D4Hqg2ln8Jfd9VUfauVoO3A76TU3BHzdslXt4A35NgwL5g/0Y
-	D7z4a/qhhWY5CGKsFUJxfIBWrgEUJfBqwuf5TjMZrUfU5783nXyQec+z/t4gpEC+n2y7rkKWHY9
-	naLvl0NdMkIbuIsKKVSis9g8rCCMyqJSrjw7xjSkNfbTYB6cVx3MTo3Hku3Ili0KyLnoRyIvGfH
-	3JUocN9v0eJqX8l5B2T0GKxL7JD0ESQ2xGtvSy2bMehhXqsQ=
-X-Google-Smtp-Source: AGHT+IGe9ZnhqBEM/BgvR7Hz+Dof3t/CKhKOaBsoD1TVykpNTVuMuWW7bhSuoSBGa65+dYngPFBRRQ==
-X-Received: by 2002:a05:6000:178f:b0:3a4:f038:af76 with SMTP id ffacd0b85a97d-3a6d1331ef9mr13547349f8f.53.1750750394130;
-        Tue, 24 Jun 2025 00:33:14 -0700 (PDT)
-Message-ID: <3da8604c-797c-4ad2-b059-4bf9c5bfb86a@suse.com>
-Date: Tue, 24 Jun 2025 09:33:04 +0200
+        bh=+oLrS76N/rLzGBRT5rjucNrPKVoSPDGVorHHeCAe2c8=;
+        b=e7RRG93VTOJuFTbaEguvv7RByn2aLbHX3xgceuizeHZ4w1F8OE4bXhE1qTNChRi6eP
+         yFk44luhYtyZY0Xy4CeKY1a/thv4RcNtRPgIO2K4yDClpVFZlugGgX/L2/G8gCTZx71E
+         pBjERFyAkgkg4RDGTgYgJNrGZYFrnv1C/53hM6ROQp+3Fnx3Zto7FltlenXL5mFy+7vh
+         bvKMteti2VOp0v8UfN9ee+solpZIEuOje0w2PaCYVtm70Pj/AX4nMN72xIF+RjMZjGhx
+         Al2C788hb0eddMm8UzxyiJw4LR+Znmu+/xpiWhDXyw57WOzTAiTA+JA8W6wUGFrl7H5G
+         xDwg==
+X-Forwarded-Encrypted: i=1; AJvYcCU9vWK2VrLgyW3xNtuePATqigo9sjyQjGhoGOn5Y1N5dY0Sme/Ap3Seax5sEhkPPuen77l0QL/kscI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw+smrcnTACuKD5ywXcdMUfHsrA04BxQL7azu7KzEpRsGyH5NsG
+	lW5yGUkcdjKlgYh1RSJFnckk2ifzB/5tjM3UrPX/16v9NxeAVwQgpFmez3/NjuGfvg==
+X-Gm-Gg: ASbGncsb3qH9Bn561jzzbMWT6l5VX5tTvaZQKKBK2cCkXIqp9Kg0/lp1lC3MGwRXgOJ
+	Kbk/RX3wvltiDR2NBOot4T5l+neFzE5EnXj/WpHbEE33OlqByh3jcIxIrbZTdEwB8VNyxK5tHr6
+	9O4viXuc70pVn7u8poVu7RKh9KkpnCT4ERo7TAL1Mj4mrSXCyigc7ZrkL6vFz5JRiCwU0Z3FtRv
+	PIAc0UfZbhW7AilH4YX8mo9mI/szMpgPmZNzbsmp7tRr2TyTpjYywtBy5/28+zTagOOHudp8vsJ
+	BnTpnTJJELBp4nUES9kodTk/ffCwTdgSWacDKtUTQ+TYInUz+dt113qoR0pdsCLdoB/Cism5PNe
+	YjOKXxmHqFsILgUpbRO6uGU9BVwqaBZ8lTGgz8D1FKU4hlSk=
+X-Google-Smtp-Source: AGHT+IH1lxQsxdWbBaFevM5FC72LxMjZoNZ1AZLIuurP2atKUQsA8Uus3IxxXv36Xf2xbujmVp8Tng==
+X-Received: by 2002:a05:6000:18a5:b0:3a5:1360:6b34 with SMTP id ffacd0b85a97d-3a6e71b8a59mr1752959f8f.2.1750750597354;
+        Tue, 24 Jun 2025 00:36:37 -0700 (PDT)
+Message-ID: <a58d47c8-4763-4448-a97b-0021c5c95917@suse.com>
+Date: Tue, 24 Jun 2025 09:36:29 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 13/16] drivers/vuart: move PL011 emulator code
-To: dmkhn@proton.me
-Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org,
- michal.orzel@amd.com, oleksii.kurochko@gmail.com, roger.pau@citrix.com,
- sstabellini@kernel.org, dmukhin@ford.com, xen-devel@lists.xenproject.org
-References: <20250624035443.344099-1-dmukhin@ford.com>
- <20250624035443.344099-14-dmukhin@ford.com>
- <6b2938a2-aa42-421f-b948-44e74f463b21@suse.com> <aFpUNB8BP6+COTRp@kraken>
+Subject: Re: [PATCH v6 1/8] vpci/header: Emulate extended capability list for
+ dom0
+To: "Chen, Jiqian" <Jiqian.Chen@amd.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: "Huang, Ray" <Ray.Huang@amd.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <20250612092942.1450344-1-Jiqian.Chen@amd.com>
+ <20250612092942.1450344-2-Jiqian.Chen@amd.com>
+ <669877f5-ef34-4552-9cfc-e097d40d444a@suse.com>
+ <BL1PR12MB58492A07F1E9491B1F8D8E00E77DA@BL1PR12MB5849.namprd12.prod.outlook.com>
+ <d8095395-fd6b-49a4-86c8-0a3d6c5a1a71@suse.com>
+ <BL1PR12MB5849022F40DDD22BABBC27A5E778A@BL1PR12MB5849.namprd12.prod.outlook.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,42 +124,60 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aFpUNB8BP6+COTRp@kraken>
+In-Reply-To: <BL1PR12MB5849022F40DDD22BABBC27A5E778A@BL1PR12MB5849.namprd12.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 24.06.2025 09:31, dmkhn@proton.me wrote:
-> On Tue, Jun 24, 2025 at 07:50:33AM +0200, Jan Beulich wrote:
->> On 24.06.2025 05:56, dmkhn@proton.me wrote:
->>> From: Denis Mukhin <dmukhin@ford.com>
+On 24.06.2025 09:01, Chen, Jiqian wrote:
+> On 2025/6/20 14:29, Jan Beulich wrote:
+>> On 19.06.2025 04:29, Chen, Jiqian wrote:
+>>> On 2025/6/18 21:52, Jan Beulich wrote:
+>>>> On 12.06.2025 11:29, Jiqian Chen wrote:
+>>>>> --- a/xen/drivers/vpci/header.c
+>>>>> +++ b/xen/drivers/vpci/header.c
+>>>>> @@ -836,6 +836,42 @@ static int vpci_init_capability_list(struct pci_dev *pdev)
+>>>>>                                    PCI_STATUS_RSVDZ_MASK);
+>>>>>  }
+>>>>>  
+>>>>> +static int vpci_init_ext_capability_list(struct pci_dev *pdev)
+>>>>> +{
+>>>>> +    unsigned int pos = PCI_CFG_SPACE_SIZE;
+>>>>> +
+>>>>> +    if ( !is_hardware_domain(pdev->domain) )
+>>>>> +        /* Extended capabilities read as zero, write ignore for guest */
+>>>>
+>>>> s/guest/DomU/ ?
+>>> Will do.
 >>>
->>> Move PL011 emulator to the new location for UART emulators.
->>>
->>> No functional change intended.
->>>
->>> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
->>> ---
->>>  xen/arch/arm/Kconfig                               |  7 -------
->>>  xen/arch/arm/Makefile                              |  1 -
->>>  xen/drivers/Kconfig                                |  2 ++
->>>  xen/drivers/Makefile                               |  1 +
->>>  xen/drivers/vuart/Kconfig                          | 14 ++++++++++++++
->>>  xen/drivers/vuart/Makefile                         |  1 +
->>>  .../arm/vpl011.c => drivers/vuart/vuart-pl011.c}   |  0
->>>  7 files changed, 18 insertions(+), 8 deletions(-)
->>>  create mode 100644 xen/drivers/vuart/Kconfig
->>>  create mode 100644 xen/drivers/vuart/Makefile
->>>  rename xen/{arch/arm/vpl011.c => drivers/vuart/vuart-pl011.c} (100%)
+>>>>
+>>>>> +        return vpci_add_register(pdev->vpci, vpci_read_val, NULL,
+>>>>> +                                 pos, 4, (void *)0);
+>>>>> +
+>>>>> +    while ( pos >= PCI_CFG_SPACE_SIZE )
+>>>>> +    {
+>>>>> +        uint32_t header = pci_conf_read32(pdev->sbdf, pos);
+>>>>> +        int rc;
+>>>>> +
+>>>>> +        if ( !header )
+>>>>> +            return 0;
+>>>>
+>>>> Is this a valid check to make for anything other than the first read? And even
+>>>> if valid for the first one, shouldn't that also go through ...
+>>>>
+>>>>> +        rc = vpci_add_register(pdev->vpci, vpci_read_val, vpci_hw_write32,
+>>>>> +                               pos, 4, (void *)(uintptr_t)header);
+>>>>
+>>>> ... here?
+>>> If header of first is zero. There is no need to add a register I think, since the dom0 can read/write directly.
 >>
->> I question the placement under drivers/. To me, driver != emulator. I
->> wonder what others think. But yes, we already have drivers/vpci/. That
->> may want moving then ...
-> 
-> re: driver != emulator: I agree; but I followed drivers/vpci.
-> 
-> Do you think common/vuart would be a better location?
+>> Well, my remark of course did go along with that further down. Plus I wonder
+>> why the entire field being zero is special, but the field holding, say,
+>> 0x00010000 isn't. Yes, the spec calls out zeroes in all fields specially,
+>> yet at the same time it does say nothing about certain other special values.
+> If want to cover these special values.
+> Should I need to change the check from "!header" to "! PCI_EXT_CAP_ID(header)" ?
 
-Or maybe common/emul/... This wants discussing, I think.
+As indicated - my take is that the check may best be dropped. Roger?
 
 Jan
 
