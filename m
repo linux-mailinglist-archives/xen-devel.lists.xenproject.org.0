@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B0AAFAE62DA
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Jun 2025 12:48:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1023569.1399566 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 62D9BAE63A8
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Jun 2025 13:35:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1023586.1399577 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uU1CO-0001ro-2u; Tue, 24 Jun 2025 10:48:20 +0000
+	id 1uU1vf-0008IO-CR; Tue, 24 Jun 2025 11:35:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1023569.1399566; Tue, 24 Jun 2025 10:48:20 +0000
+Received: by outflank-mailman (output) from mailman id 1023586.1399577; Tue, 24 Jun 2025 11:35:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uU1CO-0001pf-0O; Tue, 24 Jun 2025 10:48:20 +0000
-Received: by outflank-mailman (input) for mailman id 1023569;
- Tue, 24 Jun 2025 10:48:18 +0000
+	id 1uU1vf-0008Fl-9P; Tue, 24 Jun 2025 11:35:07 +0000
+Received: by outflank-mailman (input) for mailman id 1023586;
+ Tue, 24 Jun 2025 11:35:06 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=j9+j=ZH=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uU1CM-0001pW-US
- for xen-devel@lists.xenproject.org; Tue, 24 Jun 2025 10:48:18 +0000
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [2a00:1450:4864:20::430])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Fpib=ZH=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1uU1vd-0008Ff-UB
+ for xen-devel@lists.xenproject.org; Tue, 24 Jun 2025 11:35:06 +0000
+Received: from fout-a8-smtp.messagingengine.com
+ (fout-a8-smtp.messagingengine.com [103.168.172.151])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bc749080-50e8-11f0-a30f-13f23c93f187;
- Tue, 24 Jun 2025 12:48:17 +0200 (CEST)
-Received: by mail-wr1-x430.google.com with SMTP id
- ffacd0b85a97d-3a4f72cba73so4054625f8f.1
- for <xen-devel@lists.xenproject.org>; Tue, 24 Jun 2025 03:48:17 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3158a334211sm12772091a91.48.2025.06.24.03.48.10
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 24 Jun 2025 03:48:16 -0700 (PDT)
+ id 44c4c1b6-50ef-11f0-a30f-13f23c93f187;
+ Tue, 24 Jun 2025 13:35:03 +0200 (CEST)
+Received: from phl-compute-06.internal (phl-compute-06.phl.internal
+ [10.202.2.46])
+ by mailfout.phl.internal (Postfix) with ESMTP id 7B3BA13803ED;
+ Tue, 24 Jun 2025 07:35:02 -0400 (EDT)
+Received: from phl-mailfrontend-02 ([10.202.2.163])
+ by phl-compute-06.internal (MEProxy); Tue, 24 Jun 2025 07:35:02 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 24 Jun 2025 07:35:00 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,137 +45,137 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bc749080-50e8-11f0-a30f-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1750762097; x=1751366897; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=9jWzjxr0cOhT/YcZtHzGMhL/Sb22rIktfPaUhxasPII=;
-        b=Ov4oADaelMihxAckWwlyCJ/TCngsANp1+gMic57feu2syf2fGWjaxmVAOYmGOdRBCp
-         fmeQYgUqEEilhlG7IxQiYPPA1twOgLGTF2oJQSaePumoRSLWNs2WPFzWy9FULsUC8i2o
-         kzQbAAyrxkyO4i+LpbasSsaWk1FIRkXsUuCR1WU4FzCfcV8V5KGHt7YkCnaTZlhe1EaG
-         maZJ4L/kXcmuMxyiJRsRELvcPkqD2BiBXlf3nl9my+OGsAuCNPon+h9E5mV25if0xcjW
-         +VI7uLZwL9cbbMh1ie6ktrV4rmdk25vS6YEVFpiiomHbYzGoCtNNyzTjKNCMy0oR5eh6
-         E4gw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750762097; x=1751366897;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=9jWzjxr0cOhT/YcZtHzGMhL/Sb22rIktfPaUhxasPII=;
-        b=nGjGytL3YViaSms6sekHN4S3DAM+C8NdFNe6KzrtHECWc0pJA1j/I2SLhYMUTYRgfx
-         8GmGOsUYHe+95yv0Hp2+PNdkksNd54b8y9CocT/gFjvMMLnxE9Scs4na+bV98Nty5SuK
-         kcLKA1tBQDHZ/tHxDJxfaPs3xQaTVq8rX/gusPTG/DhAfGJy5T8uOHRDel+xjGhCv68C
-         UTty/vwbHWjE3o+QDK32OPZkIzYz993XiFUo9ZMTvw9JiUG0vIHA+4USIh7+uy0GK/ro
-         bXCmn+Y/W4xbNKflmMSzVZ/hW+85EBJSaNQp5VkfrHfhmGGm6hZQxHO6fIa9AKqeISOt
-         +utw==
-X-Forwarded-Encrypted: i=1; AJvYcCVOhgemMxlF9psLdJAcwygpTKoJbODu8ulKfFEslJhSsnPQv3t926K7cfrRYVTvgaXXl7Gc4AM9iaI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxI+ufr6O0eNRjl3x+qwC5qD0SBEcLZXern4iSQdCeZcXmVF1pI
-	1K8zdzvPcZ5oxDHdqM/6roLj9e5zgpblBtL6AMZARBfvEMppDZ11cKicSo59MlQ9Jw==
-X-Gm-Gg: ASbGnctdC7gBzDmyDYdWSCteIvOWe5AFBJBCsbcmATni7cUpidMsd1FYbXkaFlwnMCR
-	JtuzwcIEfx3D3Y+VkDmhsh7H+vSQgmwrM/rtY5gJGu6Bc3GbTSMj/vnZptsBrcwqg/6mm3TRMvi
-	ORWrHyXNPMoegLs99Iw0eZK5eeLGTGAL0obJHGJcQIc0PTHxHnUGHQ0xgOXXC0ZFPNLmWwn7z+T
-	xUPWIHK85r+xzMk4JFVFA/ViUDUOpMYtiSmP5pKeQ2MkVm4sh04eUrYboss6/3wgSHVnGDZY8ct
-	4aEjKziqfFWRBBB1FFDif3LR5gZOSpWAMuJResRXp6pL19/66yUQDzNTSlWxQqxZWnQogu/Hh/+
-	6pEZslefkJ87oZXpva2RWS7V66WRrG+L/wx+ZyQXCh2++dxem4cjiaVuUGg==
-X-Google-Smtp-Source: AGHT+IEVT+sCPchI0oycodkT/Oe9BDp+XLqlUzaXN78CmqG4Tdw45POyjzlSKHnRPSqQbBxRUA9Ybw==
-X-Received: by 2002:a05:6000:2209:b0:3a5:270e:7d3 with SMTP id ffacd0b85a97d-3a6e71ff79amr2609444f8f.13.1750762096862;
-        Tue, 24 Jun 2025 03:48:16 -0700 (PDT)
-Message-ID: <9649aaa4-ae9e-40a1-88c2-119a4f995250@suse.com>
-Date: Tue, 24 Jun 2025 12:48:06 +0200
+X-Inumbo-ID: 44c4c1b6-50ef-11f0-a30f-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1750764902;
+	 x=1750851302; bh=Y41ICOQIbdV3I2df50YnhOp4bTYE53gQg1EGs7FbBjA=; b=
+	WBZmLfbsWGIlP8RNz0hj1RUX7HB4lnsDRE25Rn3PuEjBEJOQV1jLj9Wb+A+piB5g
+	XR+s/tbKoO2+HxtCi9uT028Q6MQkbITAnZ1ggOEh604tw24rnNj8Ez2xVEg3CEW3
+	f1YOpTFCQ87scVOHDPPkcY2GMSep8j26Be/OekNv7LMuQi1gw8/DpCDBbtFEYpja
+	VayfrQWgqizVCYEtQJ9TYghFrcFaeKHZIt3HsW897bPGZcxoYvJ1DHdN/DwgCzcT
+	Z72cLeZmaocNWBA+W8J4x8EtcrJglfk07PVeZzBC6pK9YFUlXdCWoPhnsB2vKNzg
+	BV9UMVSOU+Gx8JVlrY7HnA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1750764902; x=1750851302; bh=Y41ICOQIbdV3I2df50YnhOp4bTYE53gQg1E
+	Gs7FbBjA=; b=mpHfkaDq7SPlbva4lFtqIPss4wktKwHcnRuwWlWsXQnVNqwPvkf
+	3DmvYOB53TtbJm7ndjuZFNrFoyJn/gFVWjk8uGigJhqc+bUj6AlavE1PxDLZZ4Ip
+	O9y9XHYKGKXT9BmFvlrQlrWaNZCs/Yvh5pU71RpeKYX69zEKVNjWQsd2zzEQdytB
+	DTLIBNFqV/9mvqY63eqV2Fw/B013v5CGHiLFgdKwn2mDd/lWzGHH/dMR9Z9OxiwC
+	TaR/dy0wIDT53CyNoYxDTsgkUbTOP2OWnb0Ca8bVE1uGAKBr6a/QhZWqs0Pv3YKV
+	i5naM1CkIgCSLsvUc+lZ966mU7tHg7tq9eg==
+X-ME-Sender: <xms:ZY1aaDaHit2b8MF09gjRglSPDgdNGU698qcfFDzlyGcSxBZLVUjSIA>
+    <xme:ZY1aaCYyNIsOO_UVZ39P5UhxQb_bsr5Kw0HV9AF5DvEM36bdxC3pC6zPVzAyIauEj
+    4w2oblnlQeXKg>
+X-ME-Received: <xmr:ZY1aaF_Wr1B27_kY8JeS4w2vL6kKd-1M2H7-Xa0Kq_47PfkWT5Rmheqe7dzDUe2-cRJGEQH8Ywmx7bAhu92tYfu0q8t59cZsWQo>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtddvgdduleejlecutefuodetggdotefrod
+    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpuffrtefokffrpgfnqfghnecuuegr
+    ihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjug
+    hrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghkucfo
+    rghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvhhish
+    hisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpefgudelteef
+    vefhfeehieetleeihfejhfeludevteetkeevtedtvdegueetfeejudenucevlhhushhtvg
+    hrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhn
+    vhhishhisghlvghthhhinhhgshhlrggsrdgtohhmpdhnsggprhgtphhtthhopeegpdhmoh
+    guvgepshhmthhpohhuthdprhgtphhtthhopehfrhgvughirghnohdriihighhlihhosegt
+    lhhouhgurdgtohhmpdhrtghpthhtohepgigvnhdquggvvhgvlheslhhishhtshdrgigvnh
+    hprhhojhgvtghtrdhorhhgpdhrtghpthhtohepughpshhmihhthhesrghpvghrthhushhs
+    ohhluhhtihhonhhsrdgtohhmpdhrtghpthhtohepjhgsvghulhhitghhsehsuhhsvgdrtg
+    homh
+X-ME-Proxy: <xmx:ZY1aaJoM75tmzk_Ea3LShYbxq7XNRk3ZYCWhjF1xRnqCr_Qo-D8e7g>
+    <xmx:ZY1aaOp9VpCAEE9SfULIhtCh7dvubetT2o9oi4yTPiAh8TxHuLNvSw>
+    <xmx:ZY1aaPR0kqqfo2nGse2GUqBtIreL1Bi6B2yBSvKg9doMMKTKypZo0Q>
+    <xmx:ZY1aaGqV_BDbBkwRmACyLzgxgf5ei1vIZpK6YHWMPgZySZwl_5YTnA>
+    <xmx:Zo1aaFNCOqkDiiH2tUZExQnYnCiT4juGrzr-HgR12WrRzYseV_WXq6zz>
+Feedback-ID: i1568416f:Fastmail
+Date: Tue, 24 Jun 2025 13:34:59 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Frediano Ziglio <frediano.ziglio@cloud.com>
+Cc: xen-devel@lists.xenproject.org,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	Jan Beulich <jbeulich@suse.com>
+Subject: Re: [PATCH] xen/efi: Do not undefined not defined macro
+Message-ID: <aFqNYxzF7U-E_yH1@mail-itl>
+References: <20250624063611.236876-1-frediano.ziglio@cloud.com>
+ <CACHz=ZiP=vLAK1caJymLvazX3KZLUwU9HtymvqWVHzq2xLaBGg@mail.gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 01/17] xen/riscv: implement sbi_remote_hfence_gvma()
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1749555949.git.oleksii.kurochko@gmail.com>
- <ea7a15c0ecfd2bae95c11a92e4c0cb71b155140f.1749555949.git.oleksii.kurochko@gmail.com>
- <728ee92b-0e4f-4ccb-8c6e-54687bd75c62@suse.com>
- <7b8d5688-bfc3-4341-8fd5-8e9feefdfa82@gmail.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <7b8d5688-bfc3-4341-8fd5-8e9feefdfa82@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="pZ8kuzZKgQs56Dm4"
+Content-Disposition: inline
+In-Reply-To: <CACHz=ZiP=vLAK1caJymLvazX3KZLUwU9HtymvqWVHzq2xLaBGg@mail.gmail.com>
 
-On 24.06.2025 12:33, Oleksii Kurochko wrote:
-> On 6/18/25 5:15 PM, Jan Beulich wrote:
->> On 10.06.2025 15:05, Oleksii Kurochko wrote:
->>> Instruct the remote harts to execute one or more HFENCE.GVMA instructions,
->>> covering the range of guest physical addresses between start_addr and
->>> start_addr + size for all the guests.
->> Here and in the code comment: Why "for all the guests"? Under what conditions
->> would you require such a broad (guest) TLB flush?
-> 
-> Hmm, it seems like KVM always do such a broad (guest) TLB flush during detection
-> of VMIDLEN:
-> 	void __init kvm_riscv_gstage_vmid_detect(void)
-> 	{
-> 		unsigned long old;
-> 	
-> 		/* Figure-out number of VMID bits in HW */
-> 		old = csr_read(CSR_HGATP);
-> 		csr_write(CSR_HGATP, old | HGATP_VMID);
-> 		vmid_bits = csr_read(CSR_HGATP);
-> 		vmid_bits = (vmid_bits & HGATP_VMID) >> HGATP_VMID_SHIFT;
-> 		vmid_bits = fls_long(vmid_bits);
-> 		csr_write(CSR_HGATP, old);
-> 	
-> 		/* We polluted local TLB so flush all guest TLB */
-> 		kvm_riscv_local_hfence_gvma_all();
-> 	
-> 		/* We don't use VMID bits if they are not sufficient */
-> 		if ((1UL << vmid_bits) < num_possible_cpus())
-> 			vmid_bits = 0;
-> 	}
-> 
-> It is not clear actually why so broad and why not hfence_gvma_vmid(vmid_bits).
-> 
-> And I am not really 100% sure that any hfence_gvma() is needed here as I don't see
-> what could pollutes local guest TLB between csr_write() calls.
-> 
-> RISC-V spec. says that:
-> 	Note that writing hgatp does not imply any ordering constraints between page-table updates and
-> 	subsequent G-stage address translations. If the new virtual machine’s guest physical page tables have
-> 	been modified, or if a VMID is reused, it may be necessary to execute an HFENCE.GVMA instruction
-> 	(see Section 18.3.2) before or after writing hgatp.
-> 
-> But we don't modify VM's guest physical page table. We could potentially reuse VMID between csr_write()
-> calls, but it is returning back and we don't switch to a guest with this "new" VMID, so it isn't really used.
 
-That would be my expectation, too. Yet I don't know if RISC-V has any
-peculiarities there.
+--pZ8kuzZKgQs56Dm4
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 24 Jun 2025 13:34:59 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Frediano Ziglio <frediano.ziglio@cloud.com>
+Cc: xen-devel@lists.xenproject.org,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	Jan Beulich <jbeulich@suse.com>
+Subject: Re: [PATCH] xen/efi: Do not undefined not defined macro
 
-Jan
+On Tue, Jun 24, 2025 at 09:33:41AM +0100, Frediano Ziglio wrote:
+> On Tue, Jun 24, 2025 at 7:36=E2=80=AFAM Frediano Ziglio
+> <frediano.ziglio@cloud.com> wrote:
+> >
+>=20
+> Typo on title "Do not undefined not defined macro" -> "Do not undefine
+> not defined macro"
+
+With typo fixed:
+
+Acked-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.com>
+
+> > The "buffer" macro is not defined.
+> > It was defined till commit 59e087bf6a9c8ad805294c32dfd7c77068d81eff
+> > (cfr "xen/keyhandler: Drop keyhandler_scratch").
+> >
+> > Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
+> > ---
+> >  xen/common/efi/boot.c | 1 -
+> >  1 file changed, 1 deletion(-)
+> >
+> > diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
+> > index ded7cc129d..1a9b4e7dae 100644
+> > --- a/xen/common/efi/boot.c
+> > +++ b/xen/common/efi/boot.c
+> > @@ -513,7 +513,6 @@ static EFI_FILE_HANDLE __init get_parent_handle(con=
+st EFI_LOADED_IMAGE *loaded_i
+> >      else
+> >          *leaf =3D buffer;
+> >  #undef BUFFERSIZE
+> > -#undef buffer
+> >
+> >      return dir_handle;
+> >  }
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--pZ8kuzZKgQs56Dm4
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmhajWIACgkQ24/THMrX
+1yzYQAf/f41rFmmw499w70hIqNYNXxh0khW+Pf404KX3BA1H3MOTjhluQmHEiGUO
+miW8n9JXgI5HEAoo2a4u7LedY9bNJwS/429xnZsNUF4ShgoHRrismJtIuxYSkPhp
+r6GXm+tBIb2wjmzC8EOOIqdKW3FGC2FXFDETykgXDU7i5KEON1dyhVwrk9DyN7gQ
+aTo6rSwTiQkFFCPREqu4HtX8dp1bl17Moq63xfQw0iFBAWzm8VyeD8j1LS+8sLRs
+/3igN/0wBuk2FH8hq+4gLT94bf/un044wcLh1wDJIpJ3ksun0o4wbsITRaMU0+AT
+rTtEYzyBUymQ374BShX0jFrtTggE7g==
+=LFxj
+-----END PGP SIGNATURE-----
+
+--pZ8kuzZKgQs56Dm4--
 
