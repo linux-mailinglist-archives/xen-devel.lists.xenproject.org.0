@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 04CAAAE5C3E
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Jun 2025 07:58:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1023092.1398997 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A252AE5C92
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Jun 2025 08:08:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1023099.1399007 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uTwfs-0007Qm-6X; Tue, 24 Jun 2025 05:58:28 +0000
+	id 1uTwpA-0002Dp-1k; Tue, 24 Jun 2025 06:08:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1023092.1398997; Tue, 24 Jun 2025 05:58:28 +0000
+Received: by outflank-mailman (output) from mailman id 1023099.1399007; Tue, 24 Jun 2025 06:08:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uTwfs-0007O6-2r; Tue, 24 Jun 2025 05:58:28 +0000
-Received: by outflank-mailman (input) for mailman id 1023092;
- Tue, 24 Jun 2025 05:58:27 +0000
+	id 1uTwp9-0002CL-TA; Tue, 24 Jun 2025 06:08:03 +0000
+Received: by outflank-mailman (input) for mailman id 1023099;
+ Tue, 24 Jun 2025 06:08:02 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=j9+j=ZH=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uTwfr-0007O0-CZ
- for xen-devel@lists.xenproject.org; Tue, 24 Jun 2025 05:58:27 +0000
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [2a00:1450:4864:20::333])
+ id 1uTwp8-0002CF-ID
+ for xen-devel@lists.xenproject.org; Tue, 24 Jun 2025 06:08:02 +0000
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [2a00:1450:4864:20::32e])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3df94715-50c0-11f0-b894-0df219b8e170;
- Tue, 24 Jun 2025 07:58:25 +0200 (CEST)
-Received: by mail-wm1-x333.google.com with SMTP id
- 5b1f17b1804b1-45363645a8eso122345e9.1
- for <xen-devel@lists.xenproject.org>; Mon, 23 Jun 2025 22:58:25 -0700 (PDT)
+ id 930a26bb-50c1-11f0-b894-0df219b8e170;
+ Tue, 24 Jun 2025 08:07:57 +0200 (CEST)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-453066fad06so151935e9.2
+ for <xen-devel@lists.xenproject.org>; Mon, 23 Jun 2025 23:07:57 -0700 (PDT)
 Received: from ?IPV6:2003:ca:b711:f2f9:d2d:164b:59bd:2475?
  (p200300cab711f2f90d2d164b59bd2475.dip0.t-ipconnect.de.
  [2003:ca:b711:f2f9:d2d:164b:59bd:2475])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-453769da7f6sm49058255e9.40.2025.06.23.22.58.24
+ 5b1f17b1804b1-4535eac8e0asm164433285e9.23.2025.06.23.23.07.56
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 23 Jun 2025 22:58:24 -0700 (PDT)
+ Mon, 23 Jun 2025 23:07:56 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,56 +47,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3df94715-50c0-11f0-b894-0df219b8e170
+X-Inumbo-ID: 930a26bb-50c1-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1750744705; x=1751349505; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1750745277; x=1751350077; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=fA64XLLXaOWg/barh+VGMBQmAJDfhHcRQX2io5oVFKQ=;
-        b=E8IFGIwVFa4s5ovrNhJtmpRBkpq9mfdPAe4Y9QL9ZyAr6ypoLewLRYmlXIctHSRaZJ
-         nyHmYyaMfOSG2RdrUdbGE91nO6g5ktHFbj3IMXErFAbS56SMxO0nQmxsXNFsW1KXicwb
-         LOa5Qg14HBnVx5hnV4eFkxsJJwm5p3vPs6FcghwYXOqJqmtHdRMF8HBVDEuKJxauYcFw
-         0JGUUmV2RSchJbOvH6XmRH0Fsh0uhdICu1TlvUnWKkT7lJpC+p5OhQr+mNoLSk90Gx7B
-         5lZXF5MHGJqqjsUtHrniDTiFxrpyh8uBdVqSzuX1C4+7ZhkO5VZe9iALAFvFeDeHTcct
-         RCEA==
+        bh=msz8tMbNWaI6lpFLJaHTLWRxd9pAkhJLKqkuuQ5T81g=;
+        b=d3JqMrkmO9ak0z9WEA/jsa4lDpd7AV/rxCIlA1YWw3EHNy4H3F9+OWh8hWKVqVgrM+
+         iEsh1IK8Rm3TdPGVGXP+bAIboN8KgVGN7FL6fSrJ9hELHWQEgJ1qZG+aZoZ1Iy0fYrt0
+         iyILjQedx3WlLgNQGBH9Zht54CIPtf0gaNBQ4ijdm6RLhO9lraUwNSzX1JFObHYzCONC
+         FpNsbHw7egd2+7uDKvpvahpfYDtdgK1Vr3ScZbTRkAOp0HOQWjX4EqFgTKdQ/HAbxwXY
+         0/TjAHXlO0Cl4IxFGuVBNPDSMcmuUSESvNwQgGYjNf9nceSgNGkJZ6+sfTrEu4wdjMaJ
+         pm0A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750744705; x=1751349505;
+        d=1e100.net; s=20230601; t=1750745277; x=1751350077;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=fA64XLLXaOWg/barh+VGMBQmAJDfhHcRQX2io5oVFKQ=;
-        b=WSAleYch7LZMZQ3JgdFEkMPMtgCVMjkGDVQk5O6eTBKHEX2TflBcRyPmeKXIHQPeDk
-         qKtd6xX9SFRFBiwQN18rR4JKGWuOqRAFDDwnqqDO7Miiea1K1cOct5JJDcH5OkPj9MKi
-         Znv8jpj7T7pw9Pnyxqno1TE1CksMBZGAUvVEzzV2lvg9UFy00qoowvmMkxLpxuW3Uvoz
-         p/v2Iqqs+Ww5p8ydIYCsQ8ugPaIUCLSj4w3DM7Qy+uBb6Ku8i37H/VmTCCcfkODW/OX2
-         5uMUxKYn3uZTrfZUa4u37YSeRn6z17j7Kd/M15faffJik6GLGyUqViM4V1Db5TP50cK2
-         kWsA==
-X-Forwarded-Encrypted: i=1; AJvYcCU1zXdwLEaIUy3WAMS8FpUFjwVZHMAyWLql+MhxbQlY2iY7C3bOs4iq3M3l+9cep64T7m7dnZDVS9E=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwO/wihai2H/9G7GeUuU4b7+SBCVSkplwbnOVV55GRcFG4E2d3l
-	KMLXYBxW0pyHDZqiBhKfq+QFva/V2Np5dtq7mqkbpZ1+L5IdJnWYBC+pb2G2Ibvc7w==
-X-Gm-Gg: ASbGncuoHmMzzgI4P1deJWG7zjdtdDqDAcRtAoViUjm6mGGucFnIwo4ymacK72lBjfm
-	Ku4m8GCUvTmlheSlpy663GQeBeMpCUTkXDyxsYDU6EA+rsb1XVtc2Nlt5Cx91RF1Ovo+CcGg+hy
-	Pgd1fcGLC8BOQubh52Zit1pntcWsmy074OZqoKjNULqcpz3oqfQJNeigMZzlQceSkuV2tdpS0Eu
-	CdXPVQwY+EFSJu773NYm1AO3GsU8lsqb7aY84mwYQtwREY5GvJnkDLLKeUKJkU92iL/5dBWYYqy
-	Y2IBWPf+g/fwFaOTk3bmi8JRTosMRPjWpy9Jmv7HWYuX914yEzca0QFRK4DS2XrpYD7+v4ZNAgi
-	U6bv6qiYvliKc7BgK4UImVbirfqSlS28yLVHskxNTAonWE9lh3/dDbdQ2sQk1BuFdSIXCl/auRl
-	vvYPZZQrhZ4JIiRHbDSw==
-X-Google-Smtp-Source: AGHT+IGz1u0VS0S47EcvyuhHVrICLkRvQhA5/UfUCwgSXjPcak+OSlCJfS9SuH8qq5yFhzq0AVittQ==
-X-Received: by 2002:a05:600c:1f14:b0:453:5d8d:d1b8 with SMTP id 5b1f17b1804b1-453659c4169mr151058945e9.30.1750744704722;
-        Mon, 23 Jun 2025 22:58:24 -0700 (PDT)
-Message-ID: <5ddcd969-cdb8-4ec7-8272-d7d733865fab@suse.com>
-Date: Tue, 24 Jun 2025 07:58:23 +0200
+        bh=msz8tMbNWaI6lpFLJaHTLWRxd9pAkhJLKqkuuQ5T81g=;
+        b=h0oz4vEADFfZdnZnlvxsBKbfGfsrv3K0GWDhUryX2fsAl+jtBEJCm1ckETC/MSNRa+
+         NcSMtZwVMf9+ttJsBqwCn+qFAOj5n+JxDM6eel0aT/sXTxHQANlVx8IY+dO0wOHMldzS
+         5U0h3OuLVe5zkoKsuSJd2XmDbm/SkRBM7U3ODgKpFyM3ChNiXGanI/uKo1TBthDdOOKu
+         UbiUPThPAGGUV2P3H27d4W9JNFVOZ5GAhH6DhswTkMUoloXlIP2waKM9lG2ORlI5EyZb
+         kZTPtjlTiZHASLwTVeNEy6Ura2D4xW/Z1zkPnoFuD1Dbg1j/5tIpeAezZ1H9pZtQFBTO
+         pk4g==
+X-Forwarded-Encrypted: i=1; AJvYcCWk77zWE1Edz6F4CjQAprukKWP8e1R7THPGVg+uH0Ti4ZZiW1Dp4LiREemI3AExzMlnZoHDd8N513o=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yxq4c1NRhdMYd2iAiOdO4tnKHQzox+Ihpto0j0nN283JAM2sI2b
+	KKPn2L/Tcxc1faapFE2Ceu4SLMHtrBKBM25N762YJIQgz+MKHKkqaPPg9szOcFCZmw==
+X-Gm-Gg: ASbGncvV3QWZTADeVWnp5cuxJUvsSztdfiOaQ9P7oLK6EIyHLxq5J5qQnWH7kzRxZnx
+	D5S3611FgJ5G7FlDzV/Q+QpG1UzLTFc191uTn/TZn++sYbNq/RXDaLkT6HzQFC+gAtD77GxZG/k
+	Bu5hbkbJplF4WWAnNhi1225XLyJen2Sw/yaE2sdsTZQkDYLQlQEEFxezHga69XEDnRiEb2qp7bF
+	mIy/uOdIFLP9UU/3sR/1gjmuPSaKz65EMuVR6aYLIanU0dRQ7Kwuwym1hiPkm1vFBIgOqgLKUhO
+	PYnshl7RUdTpTM9pm9bwjMpaszHw3Q2y9yfXjyC4/s806h7rYfRkfb/YdHZNRwHEJwd6Pf4aVlh
+	4nmyVeuMk7yUsRCs0ko9ymsIFjs5rMfmOtUWCLSNdnS8SBJ/BsmABI1mNKfZPN+fLd4ZW1Q4tTC
+	ALGQpsm+jB25BK7HheiA==
+X-Google-Smtp-Source: AGHT+IEiPPVo52xKGNgs6VhbRDPtNhgjrTWfgmq+zcfDLx97hMmrNcoOXDIgnNHefMX8ma2W1yhNJA==
+X-Received: by 2002:a05:600c:a209:b0:450:d00d:cc with SMTP id 5b1f17b1804b1-45365392622mr82554835e9.2.1750745276980;
+        Mon, 23 Jun 2025 23:07:56 -0700 (PDT)
+Message-ID: <93080cb5-d00d-4c58-9efd-c377343eb165@suse.com>
+Date: Tue, 24 Jun 2025 08:07:55 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 1/3] xen/domain: unify domain ID allocation
+Subject: Re: [PATCH v10 3/3] xen/domain: use get_initial_domain_id() instead
+ of open-coded 0
 To: dmkhn@proton.me
 Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org,
  michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org,
  dmukhin@ford.com, xen-devel@lists.xenproject.org
 References: <20250623182721.194238-1-dmukhin@ford.com>
- <20250623182721.194238-2-dmukhin@ford.com>
+ <20250623182721.194238-4-dmukhin@ford.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -122,85 +123,45 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250623182721.194238-2-dmukhin@ford.com>
+In-Reply-To: <20250623182721.194238-4-dmukhin@ford.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 23.06.2025 20:28, dmkhn@proton.me wrote:
-> @@ -2433,6 +2443,71 @@ void thaw_domains(void)
->      rcu_read_unlock(&domlist_read_lock);
->  }
+> --- a/xen/common/domain.c
+> +++ b/xen/common/domain.c
+> @@ -492,7 +492,7 @@ static int late_hwdom_init(struct domain *d)
+>      struct domain *dom0;
+>      int rv;
 >  
-> +domid_t domid_alloc(domid_t domid)
-> +{
-> +    static domid_t domid_last;
-> +
-> +    spin_lock(&domid_lock);
-> +
-> +    /* Exact match. */
-> +    if ( domid < DOMID_FIRST_RESERVED )
-> +    {
-> +        if ( __test_and_set_bit(domid, domid_bitmap) )
-> +            domid = DOMID_INVALID;
-> +    }
-> +    /*
-> +     * Exhaustive search.
-> +     *
-> +     * Domain ID#0 is reserved for the first boot domain (e.g. control domain)
-> +     * and excluded from allocation.
-> +     *
-> +     * In dom0less build, domains are not dynamically destroyed, so there's no
-> +     * need to do a wraparound of the IDs.
-> +     */
-> +#ifdef CONFIG_DOM0LESS_BOOT
-> +    else if ( domid_last + 1 >= DOMID_FIRST_RESERVED )
-> +    {
-> +        domid = DOMID_INVALID;
-> +    }
-> +#endif
+> -    if ( d != hardware_domain || d->domain_id == 0 )
+> +    if ( d != hardware_domain || d->domain_id == get_initial_domain_id() )
+>          return 0;
+>  
+>      rv = xsm_init_hardware_domain(XSM_HOOK, d);
+> @@ -501,7 +501,7 @@ static int late_hwdom_init(struct domain *d)
+>  
+>      printk("Initialising hardware domain %d\n", hardware_domid);
+>  
+> -    dom0 = rcu_lock_domain_by_id(0);
+> +    dom0 = rcu_lock_domain_by_id(get_initial_domain_id());
+>      ASSERT(dom0 != NULL);
 
-With this, ...
+For both changes above you're introducing a subtle (largely theoretical)
+behavioral change: In shim mode, this assertion, if we somehow made it
+here, would suddenly not trigger anymore. Similarly for the earlier
+change the return path may wrongly be taken then.
 
-> +    else
-> +    {
-> +        domid = find_next_zero_bit(domid_bitmap,
-> +                                   DOMID_FIRST_RESERVED,
-> +                                   domid_last + 1);
-> +#ifdef CONFIG_DOM0LESS_BOOT
+> @@ -2479,7 +2479,7 @@ domid_t domid_alloc(domid_t domid)
+>          if ( domid == DOMID_FIRST_RESERVED )
+>              domid = find_next_zero_bit(domid_bitmap,
+>                                         DOMID_FIRST_RESERVED,
+> -                                       1);
+> +                                       get_initial_domain_id() + 1);
 
-... was this meant to be #ifndef?
-
-> +        if ( domid == DOMID_FIRST_RESERVED )
-
-This needs to be >=.
-
-> +            domid = find_next_zero_bit(domid_bitmap,
-> +                                       DOMID_FIRST_RESERVED,
-> +                                       1);
-> +#endif
-> +
-> +        if ( domid < DOMID_FIRST_RESERVED )
-> +        {
-> +            __set_bit(domid, domid_bitmap);
-> +            domid_last = domid;
-> +        }
-> +        else
-> +        {
-> +            domid = DOMID_INVALID;
-> +        }
-> +    }
-> +
-> +    spin_unlock(&domid_lock);
-> +
-> +    return domid;
-> +}
-> +
-> +void domid_free(domid_t domid)
-> +{
-> +    if ( domid < DOMID_FIRST_RESERVED )
-
-Is this legitimate to happen? IOW doesn't this want to be some kind of
-assertion?
+This imo is the worst of the changes. get_initial_domain_id() can return
+non-zero. In that case we still would (in principle) want to re-start
+from 1 here.
 
 Jan
 
