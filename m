@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ABC5CAE5D95
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Jun 2025 09:25:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1023189.1399117 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 72024AE5DC5
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Jun 2025 09:31:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1023196.1399126 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uTy1a-0002Qc-Kj; Tue, 24 Jun 2025 07:24:58 +0000
+	id 1uTy7h-00043D-82; Tue, 24 Jun 2025 07:31:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1023189.1399117; Tue, 24 Jun 2025 07:24:58 +0000
+Received: by outflank-mailman (output) from mailman id 1023196.1399126; Tue, 24 Jun 2025 07:31:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uTy1a-0002O5-HZ; Tue, 24 Jun 2025 07:24:58 +0000
-Received: by outflank-mailman (input) for mailman id 1023189;
- Tue, 24 Jun 2025 07:24:56 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uTy7h-00042N-5R; Tue, 24 Jun 2025 07:31:17 +0000
+Received: by outflank-mailman (input) for mailman id 1023196;
+ Tue, 24 Jun 2025 07:31:15 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=1A0Y=ZH=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
- id 1uTy1Y-0002Nz-Jh
- for xen-devel@lists.xenproject.org; Tue, 24 Jun 2025 07:24:56 +0000
-Received: from mail-4322.protonmail.ch (mail-4322.protonmail.ch [185.70.43.22])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 524e0878-50cc-11f0-a30f-13f23c93f187;
- Tue, 24 Jun 2025 09:24:53 +0200 (CEST)
+ id 1uTy7f-00040v-G4
+ for xen-devel@lists.xenproject.org; Tue, 24 Jun 2025 07:31:15 +0000
+Received: from mail-24416.protonmail.ch (mail-24416.protonmail.ch
+ [109.224.244.16]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 34ce7faa-50cd-11f0-b894-0df219b8e170;
+ Tue, 24 Jun 2025 09:31:13 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,62 +36,64 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 524e0878-50cc-11f0-a30f-13f23c93f187
+X-Inumbo-ID: 34ce7faa-50cd-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1750749892; x=1751009092;
-	bh=VVhCu6AXyGiFE/pEpXY9yPGFpgtwRZv27Ird8ALnhrM=;
+	s=protonmail; t=1750750272; x=1751009472;
+	bh=m4tkI/DAqBg5rxuU99pgQ/A8zGC86vUO0IgnqLYERYI=;
 	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
 	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
 	 Message-ID:BIMI-Selector;
-	b=Y5y+/Kd1pIAG5xQf96EyOXZxruLT8r7svg8RPAUDylNVRwu2kut5cv+YpMBx67Idc
-	 g4f1GsWNcYL9rmSzHQrYat5VyKwSuLcMOPHi3xTr0dGXNKmDDnVlDlwVz1nFo//oM6
-	 aaCVEps4u+YRbR2y0cAGqJHcr8p0j0MmW0f7F/RtdbZfE38E1kDeQyJ8FyrWurwTbU
-	 GFQ7tMjwtuH7l2zCZdRrGRzhKg+NUZ8z1R9e6CjHhtWoz78y6qzNh+vgc1GPStErYj
-	 LqMtaVZDrGo/sVKCm7uFdgUCt1nt5I45Votu5kczB8auanSn/YT2ReZ5rLsLqYXQ1S
-	 Gyzj4urxftYlw==
-Date: Tue, 24 Jun 2025 07:24:48 +0000
-To: "Orzel, Michal" <michal.orzel@amd.com>
+	b=RL7r2O94A7isnlu8LEcHToWsqAIyPTtnc7mliPjWelPitgg7Rn5cX8HqW5qYXYgqX
+	 0eP1hFwu3DsImXwwHQJAdn/gvKkt1N/0g060J9AhmjjmT8S5E1571O0W4z7olUd/7K
+	 qZYJRIfm7MBo2LVfbUi+HrDOejax2uBDxsQj7U7MmNZCq72DbJrjh42uc0oe1sj51v
+	 Lz+bWBbOSe70mtMFA5CDqygE8OJN8u2f5jQCYDUQwUx3GCGwj+gHgn0hWckSaraw5w
+	 LwdZatbOvbksJEgaY8LcU3JBsLC4MNxg6TBN1pkwaxPbLi1VKIjaMModzUufxsbe16
+	 ljhdkRgX1GYEA==
+Date: Tue, 24 Jun 2025 07:31:05 +0000
+To: Jan Beulich <jbeulich@suse.com>
 From: dmkhn@proton.me
-Cc: xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com, anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org, oleksii.kurochko@gmail.com, roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com
-Subject: Re: [PATCH v1 01/16] arm/vpl011: rename virtual PL011 Kconfig option
-Message-ID: <aFpSvMzxrNrgQEVB@kraken>
-In-Reply-To: <da16500d-f589-4396-8ad6-78cdb443da60@amd.com>
-References: <20250624035443.344099-1-dmukhin@ford.com> <20250624035443.344099-2-dmukhin@ford.com> <da16500d-f589-4396-8ad6-78cdb443da60@amd.com>
+Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org, michal.orzel@amd.com, oleksii.kurochko@gmail.com, roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v1 13/16] drivers/vuart: move PL011 emulator code
+Message-ID: <aFpUNB8BP6+COTRp@kraken>
+In-Reply-To: <6b2938a2-aa42-421f-b948-44e74f463b21@suse.com>
+References: <20250624035443.344099-1-dmukhin@ford.com> <20250624035443.344099-14-dmukhin@ford.com> <6b2938a2-aa42-421f-b948-44e74f463b21@suse.com>
 Feedback-ID: 123220910:user:proton
-X-Pm-Message-ID: 0491f51817f76b1e65b102aad53aa0d5dc29fad7
+X-Pm-Message-ID: d2e80d935fc37cdffd1531920a5f260b0e2d4858
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Jun 24, 2025 at 08:13:08AM +0200, Orzel, Michal wrote:
->=20
->=20
-> On 24/06/2025 05:55, dmkhn@proton.me wrote:
+On Tue, Jun 24, 2025 at 07:50:33AM +0200, Jan Beulich wrote:
+> On 24.06.2025 05:56, dmkhn@proton.me wrote:
 > > From: Denis Mukhin <dmukhin@ford.com>
 > >
-> > Rename CONFIG_SBSA_VUART_CONSOLE to CONFIG_HAS_VUART_PL011.
-> Why? We emulate SBSA UART and not PL011. Despite the similarities (the fo=
-rmer is
-> a subset of the latter) they are not the same. I find it confusing and dr=
-ivers
-> for PL011 might not work with SBSA UART. Also, in the future we may want =
-to
-> emulate full PL011 in which case it will be even more confusing.
+> > Move PL011 emulator to the new location for UART emulators.
+> >
+> > No functional change intended.
+> >
+> > Signed-off-by: Denis Mukhin <dmukhin@ford.com>
+> > ---
+> >  xen/arch/arm/Kconfig                               |  7 -------
+> >  xen/arch/arm/Makefile                              |  1 -
+> >  xen/drivers/Kconfig                                |  2 ++
+> >  xen/drivers/Makefile                               |  1 +
+> >  xen/drivers/vuart/Kconfig                          | 14 ++++++++++++++
+> >  xen/drivers/vuart/Makefile                         |  1 +
+> >  .../arm/vpl011.c =3D> drivers/vuart/vuart-pl011.c}   |  0
+> >  7 files changed, 18 insertions(+), 8 deletions(-)
+> >  create mode 100644 xen/drivers/vuart/Kconfig
+> >  create mode 100644 xen/drivers/vuart/Makefile
+> >  rename xen/{arch/arm/vpl011.c =3D> drivers/vuart/vuart-pl011.c} (100%)
+>=20
+> I question the placement under drivers/. To me, driver !=3D emulator. I
+> wonder what others think. But yes, we already have drivers/vpci/. That
+> may want moving then ...
 
-That's because the emulator is called vpl011, but yes, it is SBSA UART.
-I will adjust to SBSA, thanks!
+re: driver !=3D emulator: I agree; but I followed drivers/vpci.
+
+Do you think common/vuart would be a better location?
 
 >=20
-> Also, why HAS_?
-
-My understanding is that HAS_ is the desired naming convention throughout t=
-he
-code (not documented, though), e.g. all Arm UART drivers are gated by HAS_X=
-XX
-(e.g. arch/arm/platforms/Kconfig).
-
->=20
-> ~Michal
->=20
+> Jan
 
 
