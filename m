@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 13612AE5C0C
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Jun 2025 07:50:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1023079.1398976 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B70B3AE5C12
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Jun 2025 07:53:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1023086.1398987 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uTwYI-0004nm-7c; Tue, 24 Jun 2025 05:50:38 +0000
+	id 1uTwaj-0006qu-K8; Tue, 24 Jun 2025 05:53:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1023079.1398976; Tue, 24 Jun 2025 05:50:38 +0000
+Received: by outflank-mailman (output) from mailman id 1023086.1398987; Tue, 24 Jun 2025 05:53:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uTwYI-0004k5-4v; Tue, 24 Jun 2025 05:50:38 +0000
-Received: by outflank-mailman (input) for mailman id 1023079;
- Tue, 24 Jun 2025 05:50:36 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uTwaj-0006oK-H2; Tue, 24 Jun 2025 05:53:09 +0000
+Received: by outflank-mailman (input) for mailman id 1023086;
+ Tue, 24 Jun 2025 05:53:08 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=j9+j=ZH=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uTwYG-0004jz-Gc
- for xen-devel@lists.xenproject.org; Tue, 24 Jun 2025 05:50:36 +0000
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [2a00:1450:4864:20::42d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 25dcd7db-50bf-11f0-a30f-13f23c93f187;
- Tue, 24 Jun 2025 07:50:35 +0200 (CEST)
-Received: by mail-wr1-x42d.google.com with SMTP id
- ffacd0b85a97d-3a53359dea5so2383553f8f.0
- for <xen-devel@lists.xenproject.org>; Mon, 23 Jun 2025 22:50:35 -0700 (PDT)
+ id 1uTwai-0006oE-3y
+ for xen-devel@lists.xenproject.org; Tue, 24 Jun 2025 05:53:08 +0000
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [2a00:1450:4864:20::435])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7fa6683d-50bf-11f0-b894-0df219b8e170;
+ Tue, 24 Jun 2025 07:53:06 +0200 (CEST)
+Received: by mail-wr1-x435.google.com with SMTP id
+ ffacd0b85a97d-3a54700a46eso8914f8f.1
+ for <xen-devel@lists.xenproject.org>; Mon, 23 Jun 2025 22:53:06 -0700 (PDT)
 Received: from ?IPV6:2003:ca:b711:f2f9:d2d:164b:59bd:2475?
  (p200300cab711f2f90d2d164b59bd2475.dip0.t-ipconnect.de.
  [2003:ca:b711:f2f9:d2d:164b:59bd:2475])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4535eada7adsm166545225e9.35.2025.06.23.22.50.34
+ 5b1f17b1804b1-4535e9844a9sm165777755e9.12.2025.06.23.22.53.04
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 23 Jun 2025 22:50:34 -0700 (PDT)
+ Mon, 23 Jun 2025 22:53:05 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,56 +47,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 25dcd7db-50bf-11f0-a30f-13f23c93f187
+X-Inumbo-ID: 7fa6683d-50bf-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1750744235; x=1751349035; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1750744385; x=1751349185; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=HB7iLFXg4b/ij/EZdtrHNAjWItdhh4KH8xY/4DGCqrE=;
-        b=gBonfCFrsSs4S+gGPCU33N7vXP6s0SFx0WhtZi7tZU1Fr7moB1vKCCq6HknzlICczd
-         3AEC+6SyYhIIo+Vgam3TtKeY+ViCwe5ISHUhrS+sF31zxmX4uiCa84NpngiKy9yrp1r4
-         3aEp/yv431+ALYX58230FBlN/JEGe1BxXGINhOl3IQBU5rC/Voi56WMEmQxGH39CqLrs
-         +brmLNxWsQbMyCuk7E6np1DHTorGLebI1ILSJG0IPksOqPfNeUEcu6YMWe3sWDkQRP7c
-         XF31BSWiSD9TFEckfP10PyaG5waMMnZoxwuy0qOgw5nJke9K+IL6kKCRqGPvCopbjkfw
-         cnDQ==
+        bh=GByEpZ7h9aA9Uz+2nf0djki6A3F5D/O/zjRClaIujIE=;
+        b=ec85ok+fvucrUwae0TsqiZxlv1nscKAzLmtxbuaseMN3F5ye3xZ5Q38zOqFrZE5j9u
+         Q4tBFPzxYagmNny6RK063BYhz+Ypt8oNjyrwhYbEhDcH+yEv5gS5rEuRZZ1fThm8240X
+         +tGt7X/0ZemqmGkql+3DD5MrjnT8bB8U2Qj8mlkAOCNXQ/ixsCiVW7P/sO7/h62fOn6G
+         bCQR/u5ALoWZjNtUGnEJ7ucFMKZMAql2ULb1yQXa7dWhh54C7ct1IY7hl0GlmUkF5Sl4
+         n7GczkckBzkCgguvCenyUuzeO/P5d0rKeYd6OLQDRZz8JOA4O9NbjGYLW/DlkOaAnc8+
+         /5cA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750744235; x=1751349035;
+        d=1e100.net; s=20230601; t=1750744385; x=1751349185;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=HB7iLFXg4b/ij/EZdtrHNAjWItdhh4KH8xY/4DGCqrE=;
-        b=o6uv1j0zCSp3ySnLb5QzxWf+uItPeq9yov911SIb+JgrcyeD1JtwZzKgnAwS9hY0QJ
-         h4QG1eHTrA2L84L2tjzHyG6vnRxhJhcpvtkHvhpMBlj4ULR9Qb02CJnbPh/c9jufS6Ez
-         4vAeAGy9lYROpvQuS27g5hRrkwwTuIJPC01myj3V9OSYVenRaDQftdwAnkkv7Z3Gc/jl
-         kUrXpccYZAIUsbx7Nb3N65AoJ74Y06k1giivTEOJJD54Hlg6RU6LzxdhQoyPnKvazctG
-         TeTyiw30iWLOJQRylYKEE71czSODvv9zBJ62+2PbhRKCbAOxT6ZUUBSSf2A2tonN62xv
-         5thA==
-X-Forwarded-Encrypted: i=1; AJvYcCW57iKRnN5N4M8Ok37e8zAvmeJqjM15HKDaKjGhtoiaBHWA2X5iJ12psecvSpzYdUeQngPnqS2cmOk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyphRsLuxKz4+sgXeZAXSq5OoPZXwuPbrtzjO5uqcHAy769/kiw
-	2vBp7vThWPhjOZ2cSOSZNHhjyErJRgnP0rYbIYo9Bsk62aqn5pWv4FbIOg/PJ5QMBw==
-X-Gm-Gg: ASbGncsMCtqaTUMQPky89v5Ug6Ax8jXfjdRPnIqG/935L6NoF0G9mdAQA9rvWULVQTj
-	IdP9E8/1mn0aiMG/z9flNVWoYixgTnucW/oYzQFYe1ENt3QD22XfYM8I735VErpVHW175r+hL68
-	mF8mhTlwwTgrhaZP2Xfz1ZL4PltBvxHmRRtIDJDuZX5TMazeAImFcsmQMEPGFl+mc36+iBxF1Pt
-	7SQcKCmtSF9ntlcP9DXo7ISBIbUTxSOMWMa0X8pNCjJgQztyBivlF3yDJMo5H35iiaOv8n9wc7r
-	YfJeyfkno5ku2WhAhj4IRucyK4AChSvl90WDQdd35gQLGHpWBLK3+68bLiUXvrikPtkigo0E0lz
-	WNZ+4PLxIYDk3nC9/yO1rQtm8iUMLENYv63QFMGuiOQs5NaP4E6m1d7XKYWqaxC9XtHkXsWZTwk
-	OENBlsXmAR1UOSosWW4dN8gwH3bGXu
-X-Google-Smtp-Source: AGHT+IEJ4/J4xqEOAFBPIpQZL4lncdgODu9XZJzYHmFynzz8iBowRH3vnPAKrO/qMX2apIBtuK1Eag==
-X-Received: by 2002:a05:6000:2911:b0:3a3:7cbd:39b1 with SMTP id ffacd0b85a97d-3a6d12e2888mr13575355f8f.24.1750744234749;
-        Mon, 23 Jun 2025 22:50:34 -0700 (PDT)
-Message-ID: <6b2938a2-aa42-421f-b948-44e74f463b21@suse.com>
-Date: Tue, 24 Jun 2025 07:50:33 +0200
+        bh=GByEpZ7h9aA9Uz+2nf0djki6A3F5D/O/zjRClaIujIE=;
+        b=Bah5Fg3atlNrUHLsIlt+QLdRkVdfTjKEwOI2ueyh7+/MlT/9EbP/vzjdMoLfwkE3BW
+         qE2gj8wIEyNFuhTMfDPwDRZTBjz0WbCW5BBW9gvZTbAseHzH6rEX3tciCNbE6X8Zj12A
+         ZgB10XevVn8ErIN/mdBEMwVDv+tPebGxKvW4x6Vby8XFrIjJYLv/FwBy65hHCuQlP7mP
+         LnbNSwYIkBDH3QZmA4rOkcniId2wd5f67DqGfE36YBBooAojxvmKEA7BgfpEJcsDiU/J
+         3zOtY3iaXOzrlL6bTkfby6A+HsFDMa308WR5B/uZf7TBEVkHLMD+tjQJNM78AoIAh+X2
+         3VrA==
+X-Forwarded-Encrypted: i=1; AJvYcCXgWpiDK7qzRFd8cbukdtx1yBHFRmJJhb8jPt0XFqKxWHv5S24AwERZ0viMmj85CqL/bFJs+QHWZrU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yytxn2vwZE0EjnkfbhyKC/etP/7Nh0s4DqK6E1PCZnql+l/tpIo
+	eOcG/s1SAeZccXqyGruVW3GTMDMIM1OoD15STV0Z1IhanD6cdR2kuWC1dxoeDfee1Q==
+X-Gm-Gg: ASbGnctvMMSbPIRCfNd3D58fVBD8h8+2cZ23cKDkRcATWSbxUpEE/23zRmvl4+l6880
+	qjI51H6sk4ZQS5+TRZUiagxGLK2YIyO0Bf0+WZpbv2tMItIDiIYY+rAThHZx1Lgy6sQcWf+g7k4
+	HY3MhugaCeS7qFJS6rUL6ug0+DkX5ja607EDg2njBlFM5YEXxMW42xluRyOf5XgIYZABua2zxEQ
+	bXtDWvdFWOwQisDcm9wSCzFlfhB+cetSWQ8xU89OJpYfwwh0TEgXoAGLMhhLugK1yyy/0l/Kh0l
+	EBU3Am5zUO8LlTmY8GXF0Nv84kFxeBsv1gV8/5koDl77Blz3JP6cycppchMTOtmwy5P+GUAccGh
+	R1MtHw/pFwDbBDHeGx7/IO6jcmHZHZxmzoXO9STMopfuEJYSf9h2SwmIFITWERY2zORrAJ25ZZ9
+	WQOfLRNhQSphLIdAROuA==
+X-Google-Smtp-Source: AGHT+IHqLUP1YAhCSKk9yznJRi8SBcYoZiSeRnXJI6JTA/JSFqighhMNjXJnpc4TdPi0aSzr11LUTw==
+X-Received: by 2002:a05:6000:2307:b0:3a4:eef5:dece with SMTP id ffacd0b85a97d-3a6d1322b53mr14027852f8f.35.1750744385526;
+        Mon, 23 Jun 2025 22:53:05 -0700 (PDT)
+Message-ID: <6e6c8664-2ff6-484d-bd47-7ee12c449f9e@suse.com>
+Date: Tue, 24 Jun 2025 07:53:04 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 13/16] drivers/vuart: move PL011 emulator code
+Subject: Re: [PATCH v1 14/16] drivers/vuart: move simple MMIO-based UART
+ emulator
 To: dmkhn@proton.me
 Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org,
  michal.orzel@amd.com, oleksii.kurochko@gmail.com, roger.pau@citrix.com,
  sstabellini@kernel.org, dmukhin@ford.com, xen-devel@lists.xenproject.org
 References: <20250624035443.344099-1-dmukhin@ford.com>
- <20250624035443.344099-14-dmukhin@ford.com>
+ <20250624035443.344099-15-dmukhin@ford.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -122,34 +123,28 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250624035443.344099-14-dmukhin@ford.com>
+In-Reply-To: <20250624035443.344099-15-dmukhin@ford.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 24.06.2025 05:56, dmkhn@proton.me wrote:
-> From: Denis Mukhin <dmukhin@ford.com> 
-> 
-> Move PL011 emulator to the new location for UART emulators.
-> 
-> No functional change intended.
-> 
-> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
-> ---
->  xen/arch/arm/Kconfig                               |  7 -------
->  xen/arch/arm/Makefile                              |  1 -
->  xen/drivers/Kconfig                                |  2 ++
->  xen/drivers/Makefile                               |  1 +
->  xen/drivers/vuart/Kconfig                          | 14 ++++++++++++++
->  xen/drivers/vuart/Makefile                         |  1 +
->  .../arm/vpl011.c => drivers/vuart/vuart-pl011.c}   |  0
->  7 files changed, 18 insertions(+), 8 deletions(-)
->  create mode 100644 xen/drivers/vuart/Kconfig
->  create mode 100644 xen/drivers/vuart/Makefile
->  rename xen/{arch/arm/vpl011.c => drivers/vuart/vuart-pl011.c} (100%)
+On 24.06.2025 05:57, dmkhn@proton.me wrote:
+> --- a/xen/drivers/vuart/Kconfig
+> +++ b/xen/drivers/vuart/Kconfig
+> @@ -3,6 +3,15 @@ config HAS_VUART
+>  
+>  if (ARM_32 || ARM_64)
+>  
+> +config HAS_VUART_MMIO
+> +	bool "Simple MMIO-based emulated UART support"
 
-I question the placement under drivers/. To me, driver != emulator. I
-wonder what others think. But yes, we already have drivers/vpci/. That
-may want moving then ...
+Perhaps in a separate change this should be renamed. HAS_* should never
+have prompts.
+
+> +	default y
+> +	select HAS_VUART
+
+This is questionable too (for still being controlled by a prompt), but
+may need to remain as is.
 
 Jan
 
