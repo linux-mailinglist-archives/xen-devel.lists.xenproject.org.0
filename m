@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3261EAE6C9F
+	by mail.lfdr.de (Postfix) with ESMTPS id DC7A3AE6CA0
 	for <lists+xen-devel@lfdr.de>; Tue, 24 Jun 2025 18:40:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1023954.1400041 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1023955.1400050 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uU6gk-0000mT-Pr; Tue, 24 Jun 2025 16:40:02 +0000
+	id 1uU6gm-0001Ax-3S; Tue, 24 Jun 2025 16:40:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1023954.1400041; Tue, 24 Jun 2025 16:40:02 +0000
+Received: by outflank-mailman (output) from mailman id 1023955.1400050; Tue, 24 Jun 2025 16:40:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uU6gk-0000hQ-KL; Tue, 24 Jun 2025 16:40:02 +0000
-Received: by outflank-mailman (input) for mailman id 1023954;
- Tue, 24 Jun 2025 16:40:00 +0000
+	id 1uU6gm-00017o-04; Tue, 24 Jun 2025 16:40:04 +0000
+Received: by outflank-mailman (input) for mailman id 1023955;
+ Tue, 24 Jun 2025 16:40:01 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=X7et=ZH=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1uU6gi-00006A-Rw
- for xen-devel@lists.xenproject.org; Tue, 24 Jun 2025 16:40:00 +0000
-Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
- [2a00:1450:4864:20::443])
+ id 1uU6gj-00006A-S0
+ for xen-devel@lists.xenproject.org; Tue, 24 Jun 2025 16:40:01 +0000
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [2a00:1450:4864:20::434])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id deada2f6-5119-11f0-a30f-13f23c93f187;
+ id df0343e9-5119-11f0-a30f-13f23c93f187;
  Tue, 24 Jun 2025 18:40:00 +0200 (CEST)
-Received: by mail-wr1-x443.google.com with SMTP id
- ffacd0b85a97d-3a4f379662cso4592513f8f.0
+Received: by mail-wr1-x434.google.com with SMTP id
+ ffacd0b85a97d-3a4e742dc97so40926f8f.0
  for <xen-devel@lists.xenproject.org>; Tue, 24 Jun 2025 09:40:00 -0700 (PDT)
 Received: from localhost.localdomain (host-92-26-98-202.as13285.net.
  [92.26.98.202]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3a6e810caefsm2295472f8f.87.2025.06.24.09.39.58
+ ffacd0b85a97d-3a6e810caefsm2295472f8f.87.2025.06.24.09.39.59
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 24 Jun 2025 09:39:58 -0700 (PDT)
+ Tue, 24 Jun 2025 09:39:59 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: deada2f6-5119-11f0-a30f-13f23c93f187
+X-Inumbo-ID: df0343e9-5119-11f0-a30f-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1750783199; x=1751387999; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1750783200; x=1751388000; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=YY0iNm4JGds+kin8aZfprVF5SX7hTwH9tOxocIXXJ6g=;
-        b=onG1AVWLY+vhlyaFkWI9HV7F7lNEopuMzpCDsB4nhCvsDSCLi0XV5wDIxUUQGAGoH4
-         5oONiXXq8kDrNNq8W7RlDO1yrlGM6zlFxV+hrZuFujtXo+R1FYQof/wSnVyqE3b9tPTZ
-         XDU/rDMk5PJcaXpkVan2+EST2t/Tq9QHjF2b0=
+        bh=G/Exz2bivC2q38JdIgYrIA5jvOxR/miT030/PESaUcw=;
+        b=gm6FLfdU+BxicPVG9Gvx41u+JmUdVP0W4eEaDDIlLr2+uvQf37l4GL0gweL9kWkDP/
+         lXZKcyivk4CbMPOVmLS0Mmc3TEnhAqbScJHdtnTKONcmJpS9HsQBf9Emft0znJFDqelW
+         0j2s0Qcrq28iOoMeKSBjY/fCeQjSdtlE/Fzcw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750783199; x=1751387999;
+        d=1e100.net; s=20230601; t=1750783200; x=1751388000;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=YY0iNm4JGds+kin8aZfprVF5SX7hTwH9tOxocIXXJ6g=;
-        b=s5e9RCkZFnpomr7JmJyK8qqxNrPvYnM4zGjM0cbCIxvstxjniPtpWzduMCNHoPl1vd
-         Zm+OIpVIiBvKd7ijkRqvua8GNKjlQAFjPAzV22yZsZhCR/cKezi5YHcJI2nIqu24blYe
-         QS5Vtl4hi7vy1Y1tANFQ1K3K0jYpAi/wRacFsrqKFatJnZUrHMppdf3AiqwEX+CDRRFs
-         X+caGT+87+n5f9To85lX0pLr2zyytjzVR2W0sFOUj5igPBtMyx6c5IqG6DWgBuBpB/y3
-         mWEwTGKiISfCwpyBfLsENq3vP8MEvMTVKsv9kiNdp7enOFY56o6e06QP8R4NVGuTK9s4
-         SBuw==
-X-Gm-Message-State: AOJu0Yxy7JTT+m2IeCp5bG5IiXwpoTPwh00L4msMXDVVIV6NDdwgyxv+
-	7LyRSt3S+/OFuFvYtfRq0LzrwmSUaUnEKZeOKniKuA7nhHh2wKKG2xXGVm+bbvbNrU3zfcJsA3E
-	EmYhQ+s0S+tTH
-X-Gm-Gg: ASbGnctHIBL5GaecG0AEjmF8Zexv/MZvis4lOx4lNMz8nwpNYns+rsqt6UlICIeRIIo
-	eqaUyFQ9bN6MSa+2cQAGpJKCPTCt3Ld0ial+8jh75/ZY9tXEt5RO8ncRE6i7NoVO5WrAGRMVwkp
-	JtG3ZSf6PZqN00ye7+0UYrdwtC2BWDHH0D0PrK3ne+Q1GDixBO5RvhCduD2qF7Up7EiPnmS8HsH
-	q71fH3zybgEuGSqf78jkJK0hMX2oWbAoLhrEcQCwKEUDqrUJ4lzRIw15sKXqKd1pMWp8GuUkrTu
-	Awe04xr5Bkdbw9U24LSrbAWM7p9GvIHEYKmwmY2jiq8fU/EcYFbwMrHk1djBYKUn8R13EhYFOuq
-	gc8s4uCxE/w9Be8glfVdt48B+qUCkdrn95uyOVImCljsUIw==
-X-Google-Smtp-Source: AGHT+IHMBKXngsA9cu19BlMGLWeCIFT1NTU75mT8aDGPfmHjn9bd+SvP254RUlOgN4/hfW0Vr8ZBPQ==
-X-Received: by 2002:a05:6000:230b:b0:3a5:8a68:b823 with SMTP id ffacd0b85a97d-3a6d12af83bmr12768448f8f.23.1750783199289;
+        bh=G/Exz2bivC2q38JdIgYrIA5jvOxR/miT030/PESaUcw=;
+        b=uscgkfJKa1KtlupqYRykESt/JoNhsKkd2JJoLtgp+EuIL79azjEcwYk07tuF7ZHRMP
+         3l4HcvCi0hWY1hne+RhfgQioug/dZONgWiE8fwXJhYQJ4a69KHd4GB5ujLObvVxAex7E
+         ucKgl5t2wEdRGpejYzSpXf4Ion693HmEgRkRDg/67dQBb+UkrAANsUCdX4Cdr4Rmh5pd
+         0xtiLU6sl4zPngC45kPvxyeSjgbBo+3NBs3H2pQatleP8ZPlSIhMWA4VcL9m39ePn1qO
+         FNALLlQZQqojVWaGx88xZOJF2hP/PQCWVGOtGDWPZrhhLwgZswLqGqnOiJzbcVDhIjF9
+         vPuQ==
+X-Gm-Message-State: AOJu0Yy3lHpduld9qRWJREjHfpxpNNW+FZQW+XEn+3zO7+2Eq8CCDp3T
+	bom7UWGXNvPoD+nXOi7DR8Umep7AtZRQ5DeiAA0TUXrGU7JNU+Q/C996rFQ/50smVgYaRz52GRW
+	0O3GyaaDyCA==
+X-Gm-Gg: ASbGncsiwX2wibqH1GRtBaL0Zt+LUkvyXLgCVJ3S3Y24SgAj8BMFOMfEuYjROUIfcv/
+	yj77PCilvmU1qesJwfzIH+FapCILgi9V0K9lLISAX1t5Ftlt0nrG3hp3WMOLdgPhNDK7ZHkvmJx
+	4wnQ4bf+5X7ew128nbH40ST+9GSZYN5n/nGVMvAeuIQxfS97wCvM+umSpp+kH0mFb1mj9sFTuij
+	vbfwpx6asbqwK0cocUL8KEy4H3skWDHWnIoYHZHMRChPIRITtm9CJQRk7bOZzQKvhC8kE9OYLCr
+	jmz38pdiyzmWYQ/ngrfJXVWkEoT8YuC5xJ7gYPhA8vkwDL9TkBJHlFeknDqv4347s9rYrkT8UUW
+	ay78JLSoZmZw7mLAbyAKRr7s3cLJL0ncgfGQ=
+X-Google-Smtp-Source: AGHT+IEWwnwjZMnetPkRyNK2jxOgOVLQiDgmZsM7QZSOCXMVV5F2wHw2iIdEDAE/G/vmiSZefTPDpA==
+X-Received: by 2002:a05:6000:2882:b0:3a5:23c6:eeee with SMTP id ffacd0b85a97d-3a6e71ddb32mr4541424f8f.21.1750783199904;
         Tue, 24 Jun 2025 09:39:59 -0700 (PDT)
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
 	Jan Beulich <JBeulich@suse.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH 2/4] x86/idle: Remove MFENCEs for CLFLUSH_MONITOR
-Date: Tue, 24 Jun 2025 17:39:49 +0100
-Message-Id: <20250624163951.301743-3-andrew.cooper3@citrix.com>
+Subject: [PATCH 3/4] Revert part of "x86/mwait-idle: disable IBRS during long idle"
+Date: Tue, 24 Jun 2025 17:39:50 +0100
+Message-Id: <20250624163951.301743-4-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20250624163951.301743-1-andrew.cooper3@citrix.com>
 References: <20250624163951.301743-1-andrew.cooper3@citrix.com>
@@ -94,142 +94,76 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Commit 48d32458bcd4 ("x86, idle: add barriers to CLFLUSH workaround") was
-inherited from Linux and added MFENCEs around the AAI65 errata fix.
+Most of the patch (handling of CPUIDLE_FLAG_IBRS) is fine, but the
+adjustements to mwait_idle() are not.
 
-The SDM now states:
+spec_ctrl_{enter,exit}_idle() do more than just alter MSR_SPEC_CTRL.IBRS.  The
+VERW and RSB stuff are **unsafe** to omit.
 
-  Executions of the CLFLUSH instruction are ordered with respect to each
-  other and with respect to writes, locked read-modify-write instructions,
-  and fence instructions[1].
+The only reason this doesn't need an XSA is because no changes were made to
+the lower level mwait_idle_with_hints(), and thus it remained properly
+protected.
 
-with footnote 1 reading:
+I.e. This change only served to double the expensive operations in the case it
+was trying to optimise.
 
-  Earlier versions of this manual specified that executions of the CLFLUSH
-  instruction were ordered only by the MFENCE instruction.  All processors
-  implementing the CLFLUSH instruction also order it relative to the other
-  operations enumerated above.
+I have an idea of how to plumb this more nicely, but it requires larger
+changes to legacy IBRS handling to not make spec_ctrl_enter_idle() vulnerable
+in other ways.  In the short term, simply take out the perf hit.
 
-I.e. the MFENCEs came about because of an incorrect statement in the SDM.
-
-The Spec Update (no longer available on Intel's website) simply says "issue a
-CLFLUSH", with no mention of MFENCEs.
-
-As this erratum is specific to Intel, it's fine to remove the the MFENCEs; AMD
-CPUs of a similar vintage do port otherwise-unordered CLFLUSHs.
-
-Move the feature bit into the BUG range (rather than FEATURE), and move the
-workaround into monitor() itself.
-
-The erratum check itself must use setup_force_cpu_cap().  It needs activating
-if any CPU needs it, not if all of them need it.
-
-Fixes: 48d32458bcd4 ("x86, idle: add barriers to CLFLUSH workaround")
-Fixes: 96d1b237ae9b ("x86/Intel: work around Xeon 7400 series erratum AAI65")
-Link: https://web.archive.org/web/20090219054841/http://download.intel.com/design/xeon/specupdt/32033601.pdf
+Fixes: 08acdf9a2615 ("x86/mwait-idle: disable IBRS during long idle")
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
 CC: Jan Beulich <JBeulich@suse.com>
 CC: Roger Pau Monné <roger.pau@citrix.com>
-
-https://git.kernel.org/linus/1f13c60d84e880df6698441026e64f84c7110c49 is my
-equivalent patch to Linux.
 ---
- xen/arch/x86/acpi/cpu_idle.c           | 22 +++-------------------
- xen/arch/x86/cpu/intel.c               |  3 ++-
- xen/arch/x86/include/asm/cpufeatures.h |  3 ++-
- 3 files changed, 7 insertions(+), 21 deletions(-)
+ xen/arch/x86/cpu/mwait-idle.c | 12 ++----------
+ 1 file changed, 2 insertions(+), 10 deletions(-)
 
-diff --git a/xen/arch/x86/acpi/cpu_idle.c b/xen/arch/x86/acpi/cpu_idle.c
-index 40af42a18fb8..e9493f7f577f 100644
---- a/xen/arch/x86/acpi/cpu_idle.c
-+++ b/xen/arch/x86/acpi/cpu_idle.c
-@@ -63,6 +63,9 @@
- static always_inline void monitor(
-     const void *addr, unsigned int ecx, unsigned int edx)
+diff --git a/xen/arch/x86/cpu/mwait-idle.c b/xen/arch/x86/cpu/mwait-idle.c
+index 9c16cc166a14..5c16f5ad3a82 100644
+--- a/xen/arch/x86/cpu/mwait-idle.c
++++ b/xen/arch/x86/cpu/mwait-idle.c
+@@ -875,7 +875,6 @@ static const struct cpuidle_state snr_cstates[] = {
+ static void cf_check mwait_idle(void)
  {
-+    alternative_input("", "clflush (%[addr])", X86_BUG_CLFLUSH_MONITOR,
-+                      [addr] "a" (addr));
+ 	unsigned int cpu = smp_processor_id();
+-	struct cpu_info *info = get_cpu_info();
+ 	struct acpi_processor_power *power = processor_powers[cpu];
+ 	struct acpi_processor_cx *cx = NULL;
+ 	unsigned int next_state;
+@@ -902,6 +901,8 @@ static void cf_check mwait_idle(void)
+ 			pm_idle_save();
+ 		else
+ 		{
++			struct cpu_info *info = get_cpu_info();
 +
-     asm volatile ( "monitor"
-                    :: "a" (addr), "c" (ecx), "d" (edx) );
- }
-@@ -476,13 +479,6 @@ void mwait_idle_with_hints(unsigned int eax, unsigned int ecx)
-     s_time_t expires = per_cpu(timer_deadline, cpu);
-     const void *monitor_addr = &mwait_wakeup(cpu);
+ 			spec_ctrl_enter_idle(info);
+ 			safe_halt();
+ 			spec_ctrl_exit_idle(info);
+@@ -928,11 +929,6 @@ static void cf_check mwait_idle(void)
+ 	if ((cx->type >= 3) && errata_c6_workaround())
+ 		cx = power->safe_state;
  
--    if ( boot_cpu_has(X86_FEATURE_CLFLUSH_MONITOR) )
--    {
--        mb();
--        clflush(monitor_addr);
--        mb();
--    }
+-	if (cx->ibrs_disable) {
+-		ASSERT(!cx->irq_enable_early);
+-		spec_ctrl_enter_idle(info);
+-	}
 -
-     monitor(monitor_addr, 0, 0);
-     smp_mb();
+ #if 0 /* XXX Can we/do we need to do something similar on Xen? */
+ 	/*
+ 	 * leave_mm() to avoid costly and often unnecessary wakeups
+@@ -964,10 +960,6 @@ static void cf_check mwait_idle(void)
  
-@@ -917,19 +913,7 @@ void cf_check acpi_dead_idle(void)
+ 	/* Now back in C0. */
+ 	update_idle_stats(power, cx, before, after);
+-
+-	if (cx->ibrs_disable)
+-		spec_ctrl_exit_idle(info);
+-
+ 	local_irq_enable();
  
-         while ( 1 )
-         {
--            /*
--             * 1. The CLFLUSH is a workaround for erratum AAI65 for
--             * the Xeon 7400 series.  
--             * 2. The WBINVD is insufficient due to the spurious-wakeup
--             * case where we return around the loop.
--             * 3. Unlike wbinvd, clflush is a light weight but not serializing 
--             * instruction, hence memory fence is necessary to make sure all 
--             * load/store visible before flush cache line.
--             */
--            mb();
--            clflush(mwait_ptr);
-             monitor(mwait_ptr, 0, 0);
--            mb();
-             mwait(cx->address, 0);
-         }
-     }
-diff --git a/xen/arch/x86/cpu/intel.c b/xen/arch/x86/cpu/intel.c
-index ef9368167a0d..5215b5405c76 100644
---- a/xen/arch/x86/cpu/intel.c
-+++ b/xen/arch/x86/cpu/intel.c
-@@ -446,6 +446,7 @@ static void __init probe_mwait_errata(void)
-  *
-  * Xeon 7400 erratum AAI65 (and further newer Xeons)
-  * MONITOR/MWAIT may have excessive false wakeups
-+ * https://web.archive.org/web/20090219054841/http://download.intel.com/design/xeon/specupdt/32033601.pdf
-  */
- static void Intel_errata_workarounds(struct cpuinfo_x86 *c)
- {
-@@ -463,7 +464,7 @@ static void Intel_errata_workarounds(struct cpuinfo_x86 *c)
- 
- 	if (c->x86 == 6 && cpu_has_clflush &&
- 	    (c->x86_model == 29 || c->x86_model == 46 || c->x86_model == 47))
--		__set_bit(X86_FEATURE_CLFLUSH_MONITOR, c->x86_capability);
-+		setup_force_cpu_cap(X86_BUG_CLFLUSH_MONITOR);
- 
- 	probe_c3_errata(c);
- 	if (system_state < SYS_STATE_smp_boot)
-diff --git a/xen/arch/x86/include/asm/cpufeatures.h b/xen/arch/x86/include/asm/cpufeatures.h
-index 9e3ed21c026d..84c93292c80c 100644
---- a/xen/arch/x86/include/asm/cpufeatures.h
-+++ b/xen/arch/x86/include/asm/cpufeatures.h
-@@ -19,7 +19,7 @@ XEN_CPUFEATURE(ARCH_PERFMON,      X86_SYNTH( 3)) /* Intel Architectural PerfMon
- XEN_CPUFEATURE(TSC_RELIABLE,      X86_SYNTH( 4)) /* TSC is known to be reliable */
- XEN_CPUFEATURE(XTOPOLOGY,         X86_SYNTH( 5)) /* cpu topology enum extensions */
- XEN_CPUFEATURE(CPUID_FAULTING,    X86_SYNTH( 6)) /* cpuid faulting */
--XEN_CPUFEATURE(CLFLUSH_MONITOR,   X86_SYNTH( 7)) /* clflush reqd with monitor */
-+/* Bit 7 unused */
- XEN_CPUFEATURE(APERFMPERF,        X86_SYNTH( 8)) /* APERFMPERF */
- XEN_CPUFEATURE(MFENCE_RDTSC,      X86_SYNTH( 9)) /* MFENCE synchronizes RDTSC */
- XEN_CPUFEATURE(XEN_SMEP,          X86_SYNTH(10)) /* SMEP gets used by Xen itself */
-@@ -52,6 +52,7 @@ XEN_CPUFEATURE(USE_VMCALL,        X86_SYNTH(30)) /* Use VMCALL instead of VMMCAL
- #define X86_BUG_NULL_SEG          X86_BUG( 1) /* NULL-ing a selector preserves the base and limit. */
- #define X86_BUG_CLFLUSH_MFENCE    X86_BUG( 2) /* MFENCE needed to serialise CLFLUSH */
- #define X86_BUG_IBPB_NO_RET       X86_BUG( 3) /* IBPB doesn't flush the RSB/RAS */
-+#define X86_BUG_CLFLUSH_MONITOR   X86_BUG( 4) /* MONITOR requires CLFLUSH */
- 
- #define X86_SPEC_NO_LFENCE_ENTRY_PV X86_BUG(16) /* (No) safety LFENCE for SPEC_CTRL_ENTRY_PV. */
- #define X86_SPEC_NO_LFENCE_ENTRY_INTR X86_BUG(17) /* (No) safety LFENCE for SPEC_CTRL_ENTRY_INTR. */
+ 	TRACE_TIME(TRC_PM_IDLE_EXIT, cx->type, after,
 -- 
 2.39.5
 
