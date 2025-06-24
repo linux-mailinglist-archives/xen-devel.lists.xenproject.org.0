@@ -2,38 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 05DE2AE5DF8
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Jun 2025 09:37:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1023220.1399156 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 04838AE5DFA
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Jun 2025 09:37:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1023221.1399166 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uTyCv-0006VV-BZ; Tue, 24 Jun 2025 07:36:41 +0000
+	id 1uTyD9-0006mW-J7; Tue, 24 Jun 2025 07:36:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1023220.1399156; Tue, 24 Jun 2025 07:36:41 +0000
+Received: by outflank-mailman (output) from mailman id 1023221.1399166; Tue, 24 Jun 2025 07:36:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uTyCv-0006TL-8N; Tue, 24 Jun 2025 07:36:41 +0000
-Received: by outflank-mailman (input) for mailman id 1023220;
- Tue, 24 Jun 2025 07:36:39 +0000
+	id 1uTyD9-0006l1-Ee; Tue, 24 Jun 2025 07:36:55 +0000
+Received: by outflank-mailman (input) for mailman id 1023221;
+ Tue, 24 Jun 2025 07:36:54 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=j9+j=ZH=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uTyCt-0006TF-Dz
- for xen-devel@lists.xenproject.org; Tue, 24 Jun 2025 07:36:39 +0000
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [2a00:1450:4864:20::434])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f637fd7d-50cd-11f0-a30f-13f23c93f187;
- Tue, 24 Jun 2025 09:36:38 +0200 (CEST)
-Received: by mail-wr1-x434.google.com with SMTP id
- ffacd0b85a97d-3a54700a463so2767560f8f.1
- for <xen-devel@lists.xenproject.org>; Tue, 24 Jun 2025 00:36:37 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-237d8393893sm101103145ad.25.2025.06.24.00.36.33
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 24 Jun 2025 00:36:36 -0700 (PDT)
+ (envelope-from <SRS0=1A0Y=ZH=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
+ id 1uTyD7-0006TF-7F
+ for xen-devel@lists.xenproject.org; Tue, 24 Jun 2025 07:36:54 +0000
+Received: from mail-24418.protonmail.ch (mail-24418.protonmail.ch
+ [109.224.244.18]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id fe729d3c-50cd-11f0-a30f-13f23c93f187;
+ Tue, 24 Jun 2025 09:36:52 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,139 +36,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f637fd7d-50cd-11f0-a30f-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1750750597; x=1751355397; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=+oLrS76N/rLzGBRT5rjucNrPKVoSPDGVorHHeCAe2c8=;
-        b=JKTTngQeYXqik/G5PvyvNnupRm2piePfsM9lgT12uBlKxDhHCPkqiQqHV2ya0LrLCq
-         y80m8M5JcpMvkAJArWjvtCeri3K2dyqw+QESksTiTvfaTEiZQB8JG5f5smpOY+v0q6Ow
-         Fb9mva/Bgv5wrcLtP67Q+jk8q5iIjwpT94ZLgzQ5EKRwg08y7Eusp0iPbR+j4nZiimgM
-         TevGv1UfLeHi9EBo7ye/Y+S1zY94dSfRjW2+FOyBF2VeiSU/iS7FMACjoA75Lwo3dyOY
-         tb3A+o7LPECv7NxcK1rQ5IGvEnN+vxJCCKw5kc/RPk2rmd6QsS4Vj0Zmgq6AmcFOsUIg
-         IOug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750750597; x=1751355397;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=+oLrS76N/rLzGBRT5rjucNrPKVoSPDGVorHHeCAe2c8=;
-        b=e7RRG93VTOJuFTbaEguvv7RByn2aLbHX3xgceuizeHZ4w1F8OE4bXhE1qTNChRi6eP
-         yFk44luhYtyZY0Xy4CeKY1a/thv4RcNtRPgIO2K4yDClpVFZlugGgX/L2/G8gCTZx71E
-         pBjERFyAkgkg4RDGTgYgJNrGZYFrnv1C/53hM6ROQp+3Fnx3Zto7FltlenXL5mFy+7vh
-         bvKMteti2VOp0v8UfN9ee+solpZIEuOje0w2PaCYVtm70Pj/AX4nMN72xIF+RjMZjGhx
-         Al2C788hb0eddMm8UzxyiJw4LR+Znmu+/xpiWhDXyw57WOzTAiTA+JA8W6wUGFrl7H5G
-         xDwg==
-X-Forwarded-Encrypted: i=1; AJvYcCU9vWK2VrLgyW3xNtuePATqigo9sjyQjGhoGOn5Y1N5dY0Sme/Ap3Seax5sEhkPPuen77l0QL/kscI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw+smrcnTACuKD5ywXcdMUfHsrA04BxQL7azu7KzEpRsGyH5NsG
-	lW5yGUkcdjKlgYh1RSJFnckk2ifzB/5tjM3UrPX/16v9NxeAVwQgpFmez3/NjuGfvg==
-X-Gm-Gg: ASbGncsb3qH9Bn561jzzbMWT6l5VX5tTvaZQKKBK2cCkXIqp9Kg0/lp1lC3MGwRXgOJ
-	Kbk/RX3wvltiDR2NBOot4T5l+neFzE5EnXj/WpHbEE33OlqByh3jcIxIrbZTdEwB8VNyxK5tHr6
-	9O4viXuc70pVn7u8poVu7RKh9KkpnCT4ERo7TAL1Mj4mrSXCyigc7ZrkL6vFz5JRiCwU0Z3FtRv
-	PIAc0UfZbhW7AilH4YX8mo9mI/szMpgPmZNzbsmp7tRr2TyTpjYywtBy5/28+zTagOOHudp8vsJ
-	BnTpnTJJELBp4nUES9kodTk/ffCwTdgSWacDKtUTQ+TYInUz+dt113qoR0pdsCLdoB/Cism5PNe
-	YjOKXxmHqFsILgUpbRO6uGU9BVwqaBZ8lTGgz8D1FKU4hlSk=
-X-Google-Smtp-Source: AGHT+IH1lxQsxdWbBaFevM5FC72LxMjZoNZ1AZLIuurP2atKUQsA8Uus3IxxXv36Xf2xbujmVp8Tng==
-X-Received: by 2002:a05:6000:18a5:b0:3a5:1360:6b34 with SMTP id ffacd0b85a97d-3a6e71b8a59mr1752959f8f.2.1750750597354;
-        Tue, 24 Jun 2025 00:36:37 -0700 (PDT)
-Message-ID: <a58d47c8-4763-4448-a97b-0021c5c95917@suse.com>
-Date: Tue, 24 Jun 2025 09:36:29 +0200
+X-Inumbo-ID: fe729d3c-50cd-11f0-a30f-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail; t=1750750611; x=1751009811;
+	bh=42siax0kogyrned8KRupFi9IYG+ihop/uG0YVs9QMik=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=PbU7jM4k/BRHywwJLwDQz3VMvTaqDwZT512bmPi7fvx4zWwIFqy2YOeJ22ROnzmYF
+	 /pQsrXsY4CPpWeR7NmkYMAlH45NYm9CSDjZpg6aNHZ8RMM+z9I2cXSg8wzlDJU0Ekw
+	 D0xmRSKbWrY+5a6BoQojc7m45WJ3KkNmCZ3osWL3XGoKM1zP0iLRfUBe+efvhGPpmU
+	 gIm8fuqv3+oq8QfPnPJsRLD9e0UsnUhTy+l6jvUHt553o7erzveQI/rg3IEt4GaNX9
+	 66cXLV5efywR4354jEZM/Ko4tG6kIqusq6O0bCunmIw/WEf0La2sFalne6JD2ypQUG
+	 5hfKmcRQmBUNA==
+Date: Tue, 24 Jun 2025 07:36:47 +0000
+To: Jan Beulich <jbeulich@suse.com>
+From: dmkhn@proton.me
+Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org, michal.orzel@amd.com, oleksii.kurochko@gmail.com, roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v1 14/16] drivers/vuart: move simple MMIO-based UART emulator
+Message-ID: <aFpViicgGigZPFNv@kraken>
+In-Reply-To: <6e6c8664-2ff6-484d-bd47-7ee12c449f9e@suse.com>
+References: <20250624035443.344099-1-dmukhin@ford.com> <20250624035443.344099-15-dmukhin@ford.com> <6e6c8664-2ff6-484d-bd47-7ee12c449f9e@suse.com>
+Feedback-ID: 123220910:user:proton
+X-Pm-Message-ID: 6f04fe74cf678d739b6fe28d14061cfbb820540f
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 1/8] vpci/header: Emulate extended capability list for
- dom0
-To: "Chen, Jiqian" <Jiqian.Chen@amd.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: "Huang, Ray" <Ray.Huang@amd.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <20250612092942.1450344-1-Jiqian.Chen@amd.com>
- <20250612092942.1450344-2-Jiqian.Chen@amd.com>
- <669877f5-ef34-4552-9cfc-e097d40d444a@suse.com>
- <BL1PR12MB58492A07F1E9491B1F8D8E00E77DA@BL1PR12MB5849.namprd12.prod.outlook.com>
- <d8095395-fd6b-49a4-86c8-0a3d6c5a1a71@suse.com>
- <BL1PR12MB5849022F40DDD22BABBC27A5E778A@BL1PR12MB5849.namprd12.prod.outlook.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <BL1PR12MB5849022F40DDD22BABBC27A5E778A@BL1PR12MB5849.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On 24.06.2025 09:01, Chen, Jiqian wrote:
-> On 2025/6/20 14:29, Jan Beulich wrote:
->> On 19.06.2025 04:29, Chen, Jiqian wrote:
->>> On 2025/6/18 21:52, Jan Beulich wrote:
->>>> On 12.06.2025 11:29, Jiqian Chen wrote:
->>>>> --- a/xen/drivers/vpci/header.c
->>>>> +++ b/xen/drivers/vpci/header.c
->>>>> @@ -836,6 +836,42 @@ static int vpci_init_capability_list(struct pci_dev *pdev)
->>>>>                                    PCI_STATUS_RSVDZ_MASK);
->>>>>  }
->>>>>  
->>>>> +static int vpci_init_ext_capability_list(struct pci_dev *pdev)
->>>>> +{
->>>>> +    unsigned int pos = PCI_CFG_SPACE_SIZE;
->>>>> +
->>>>> +    if ( !is_hardware_domain(pdev->domain) )
->>>>> +        /* Extended capabilities read as zero, write ignore for guest */
->>>>
->>>> s/guest/DomU/ ?
->>> Will do.
->>>
->>>>
->>>>> +        return vpci_add_register(pdev->vpci, vpci_read_val, NULL,
->>>>> +                                 pos, 4, (void *)0);
->>>>> +
->>>>> +    while ( pos >= PCI_CFG_SPACE_SIZE )
->>>>> +    {
->>>>> +        uint32_t header = pci_conf_read32(pdev->sbdf, pos);
->>>>> +        int rc;
->>>>> +
->>>>> +        if ( !header )
->>>>> +            return 0;
->>>>
->>>> Is this a valid check to make for anything other than the first read? And even
->>>> if valid for the first one, shouldn't that also go through ...
->>>>
->>>>> +        rc = vpci_add_register(pdev->vpci, vpci_read_val, vpci_hw_write32,
->>>>> +                               pos, 4, (void *)(uintptr_t)header);
->>>>
->>>> ... here?
->>> If header of first is zero. There is no need to add a register I think, since the dom0 can read/write directly.
->>
->> Well, my remark of course did go along with that further down. Plus I wonder
->> why the entire field being zero is special, but the field holding, say,
->> 0x00010000 isn't. Yes, the spec calls out zeroes in all fields specially,
->> yet at the same time it does say nothing about certain other special values.
-> If want to cover these special values.
-> Should I need to change the check from "!header" to "! PCI_EXT_CAP_ID(header)" ?
+On Tue, Jun 24, 2025 at 07:53:04AM +0200, Jan Beulich wrote:
+> On 24.06.2025 05:57, dmkhn@proton.me wrote:
+> > --- a/xen/drivers/vuart/Kconfig
+> > +++ b/xen/drivers/vuart/Kconfig
+> > @@ -3,6 +3,15 @@ config HAS_VUART
+> >
+> >  if (ARM_32 || ARM_64)
+> >
+> > +config HAS_VUART_MMIO
+> > +=09bool "Simple MMIO-based emulated UART support"
+>=20
+> Perhaps in a separate change this should be renamed. HAS_* should never
+> have prompts.
 
-As indicated - my take is that the check may best be dropped. Roger?
+Oh, so HAS_ flags are non-interactive selectors by design?
+I did not find explanation in the docs :-/
 
-Jan
+Can you please explain?
+(and I will add a note to docs for that)
+
+>=20
+> > +=09default y
+> > +=09select HAS_VUART
+>=20
+> This is questionable too (for still being controlled by a prompt), but
+> may need to remain as is.
+>=20
+> Jan
+
 
