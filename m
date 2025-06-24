@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 09457AE5AA3
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Jun 2025 05:55:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1022908.1398766 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B075FAE5AA1
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Jun 2025 05:55:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1022909.1398776 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uTukU-00064m-Cx; Tue, 24 Jun 2025 03:55:06 +0000
+	id 1uTuke-0006Kg-J6; Tue, 24 Jun 2025 03:55:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1022908.1398766; Tue, 24 Jun 2025 03:55:06 +0000
+Received: by outflank-mailman (output) from mailman id 1022909.1398776; Tue, 24 Jun 2025 03:55:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uTukU-00063F-AJ; Tue, 24 Jun 2025 03:55:06 +0000
-Received: by outflank-mailman (input) for mailman id 1022908;
- Tue, 24 Jun 2025 03:55:05 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uTuke-0006JB-GT; Tue, 24 Jun 2025 03:55:16 +0000
+Received: by outflank-mailman (input) for mailman id 1022909;
+ Tue, 24 Jun 2025 03:55:14 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=1A0Y=ZH=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
- id 1uTukS-000639-7n
- for xen-devel@lists.xenproject.org; Tue, 24 Jun 2025 03:55:05 +0000
-Received: from mail-24416.protonmail.ch (mail-24416.protonmail.ch
- [109.224.244.16]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0062b6e7-50af-11f0-b894-0df219b8e170;
- Tue, 24 Jun 2025 05:55:00 +0200 (CEST)
+ id 1uTukc-0006IZ-NT
+ for xen-devel@lists.xenproject.org; Tue, 24 Jun 2025 03:55:14 +0000
+Received: from mail-4322.protonmail.ch (mail-4322.protonmail.ch [185.70.43.22])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 065924b8-50af-11f0-a30f-13f23c93f187;
+ Tue, 24 Jun 2025 05:55:11 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,123 +36,163 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0062b6e7-50af-11f0-b894-0df219b8e170
+X-Inumbo-ID: 065924b8-50af-11f0-a30f-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1750737299; x=1750996499;
-	bh=kgm/ahmSt27FsPZowTug9QzPxVkvQcKb8PSoXe1OzuQ=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=QxNEF7NarjQXhtoqwNIn/Gs4wjVTusx3nDB4GqHDHUkgJldgkd+J6/qrFWprlTjTp
-	 TXlfYyA4ekY/rrLaBh/+dhDLTmXf9ZeXdeIIcP8oT8WexyXmr3CbAwuUO7d3kiH2Sa
-	 okZbQ6ifganzPBOVix27XFwZbECOEsuvTaq+SiOe1jlqK/OWHbwjuLzgZVgzN2vEwj
-	 Y6U09KdP4sUgqDRKdiI3V1z/w8Fy/Sw9CFknxw58W0BmOAU7cLLgUcsoE296E4ZYYu
-	 eMUv36gPHrOlR0HE+nQI+fCDmd/onJKfqjCPr2EYVpKHMjTlDgd4RvUTC5LCUd4T5O
-	 P7zc0aBzxRspg==
-Date: Tue, 24 Jun 2025 03:54:54 +0000
+	s=protonmail; t=1750737309; x=1750996509;
+	bh=yCudMdFYgoXw08jE2y4zALqq0ZHl0jnLUlz0092mkm0=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=AENORXkaGdRBMqyIDZm2j2Lx0HCUTLgil2vFuaRYeGKBW/udVYVvpUPY0HMHskM1Z
+	 s5Y+IsudnMkiJJOppGB8eDrpfBrPNgCGCM910oiprpKZcEpTx7B9qfI6r4efMJaAlH
+	 cJfbBJwNlwj/0fn+WsGqHwncS1vnzRFTQiny3jl5RsB/k+YqQJU/wAPbBXqyB6ho+J
+	 oYugEYX1efulWDlpRM10GZSXVpMYIlNCQ9QALVBKCx0nnHjWYxYfAvV9QZu2YEXe3L
+	 wm/zBqhMBbwq90XBsp0BJF7eL9Q2Xmn65TUtyGO0TAaJRpGXguP/G2QunjQVQAQRZp
+	 4poMtcJYlb5ww==
+Date: Tue, 24 Jun 2025 03:55:04 +0000
 To: xen-devel@lists.xenproject.org
 From: dmkhn@proton.me
 Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org, michal.orzel@amd.com, oleksii.kurochko@gmail.com, roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com
-Subject: [PATCH v1 00/16] xen: framework for UART emulators
-Message-ID: <20250624035443.344099-1-dmukhin@ford.com>
+Subject: [PATCH v1 01/16] arm/vpl011: rename virtual PL011 Kconfig option
+Message-ID: <20250624035443.344099-2-dmukhin@ford.com>
+In-Reply-To: <20250624035443.344099-1-dmukhin@ford.com>
+References: <20250624035443.344099-1-dmukhin@ford.com>
 Feedback-ID: 123220910:user:proton
-X-Pm-Message-ID: 1f3322f86847b85be4792570abbb73b99c01e441
+X-Pm-Message-ID: e843f1976d3f637ab52c7c2c4788aa3930d7bf95
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-The series introduces a driver framework to abstract UART emulators in the
-hypervisor under drivers/vuart.
+From: Denis Mukhin <dmukhin@ford.com>=20
 
-That allows for architecture-independent handling of virtual UARTs in the
-console driver and simplifies enabling new UART emulators.
+Rename CONFIG_SBSA_VUART_CONSOLE to CONFIG_HAS_VUART_PL011.
 
-The framework is gated by CONFIG_HAS_VUART, which is automatically enabled
-once the user enables any UART emulator.
+No functional change.
 
-Current implementation supports maximum of one vUART of each kind per domai=
-n.
+Signed-off-by: Denis Mukhin <dmukhin@ford.com>
+---
+ xen/arch/arm/Kconfig                  | 2 +-
+ xen/arch/arm/Makefile                 | 2 +-
+ xen/arch/arm/configs/tiny64_defconfig | 2 +-
+ xen/arch/arm/dom0less-build.c         | 4 ++--
+ xen/arch/arm/include/asm/domain.h     | 2 +-
+ xen/arch/arm/include/asm/vpl011.h     | 2 +-
+ xen/drivers/char/console.c            | 4 ++--
+ 7 files changed, 9 insertions(+), 9 deletions(-)
 
-All current UART emulators (Arm) are switched to the new framework.
-
-This works origins from [1].
-
-Conceptually, there are 3 parts in the series:
-- PL011 emulator cleanup: patches 1-6
-- Simple MMIO-based UART emulator cleanup: patches 7-10, depends on the com=
-mon
-  header introduced in vpl011 cleanup
-- vUART driver framework: patches 11-16, depends on the cleanup part
-
-[1] https://lore.kernel.org/xen-devel/20250103-vuart-ns8250-v3-v1-0-c5d36b3=
-1d66c@ford.com/
-[2] CI: https://gitlab.com/xen-project/people/dmukhin/xen/-/pipelines/18856=
-41957
-
-Denis Mukhin (16):
-  arm/vpl011: rename virtual PL011 Kconfig option
-  arm/vpl011: move DT node parsing to PL011 emulator code
-  arm/vpl011: use vuart_ prefix in vpl011 public calls
-  arm/vpl011: use raw spin_lock_{irqrestore,irqsave}
-  arm/vpl011: use void pointer in domain struct
-  arm/vpl011: remove vpl011 header file
-  arm/vuart: rename 'virtual UART' Kconfig option
-  arm/vuart: move simple MMIO-based vUART declarations to common header
-  arm/vuart: use void pointer in domain struct
-  arm/vuart: merge vuart_print_char() with vuart_mmio_write()
-  xen/domain: introduce common emulation flags
-  xen/domain: introduce domain-emu.h
-  drivers/vuart: move PL011 emulator code
-  drivers/vuart: move simple MMIO-based UART emulator
-  drivers/vuart: introduce framework for UART emulators
-  drivers/vuart: hook simple MMIO-based UART to vUART framework
-
- xen/arch/arm/Kconfig                          |  15 -
- xen/arch/arm/Makefile                         |   2 -
- xen/arch/arm/configs/tiny64_defconfig         |   2 +-
- xen/arch/arm/dom0less-build.c                 |  76 +---
- xen/arch/arm/domain.c                         |  11 +-
- xen/arch/arm/domctl.c                         |  15 +-
- xen/arch/arm/include/asm/domain.h             |  20 +-
- xen/arch/arm/include/asm/kernel.h             |   3 -
- xen/arch/arm/include/asm/vpl011.h             |  91 -----
- xen/arch/arm/vuart.c                          | 139 -------
- xen/arch/arm/vuart.h                          |  54 ---
- xen/arch/arm/xen.lds.S                        |   1 +
- xen/arch/ppc/include/asm/domain.h             |   1 +
- xen/arch/ppc/xen.lds.S                        |   1 +
- xen/arch/riscv/include/asm/domain.h           |   1 +
- xen/arch/riscv/xen.lds.S                      |   1 +
- xen/arch/x86/domain.c                         |   2 +-
- xen/arch/x86/domctl.c                         |   2 +-
- xen/arch/x86/include/asm/domain.h             |  48 ++-
- xen/arch/x86/xen.lds.S                        |   1 +
- xen/common/domain.c                           |  13 +
- xen/common/keyhandler.c                       |   4 +
- xen/drivers/Kconfig                           |   2 +
- xen/drivers/Makefile                          |   1 +
- xen/drivers/char/console.c                    |  11 +-
- xen/drivers/vuart/Kconfig                     |  23 ++
- xen/drivers/vuart/Makefile                    |   3 +
- xen/drivers/vuart/vuart-mmio.c                | 189 ++++++++++
- .../vpl011.c =3D> drivers/vuart/vuart-pl011.c}  | 347 +++++++++++++-----
- xen/drivers/vuart/vuart.c                     |  95 +++++
- xen/include/xen/domain-emu.h                  |  33 ++
- xen/include/xen/domain.h                      |   2 +
- xen/include/xen/sched.h                       |   2 +
- xen/include/xen/vuart.h                       |  72 ++++
- xen/include/xen/xen.lds.h                     |  10 +
- 35 files changed, 771 insertions(+), 522 deletions(-)
- delete mode 100644 xen/arch/arm/include/asm/vpl011.h
- delete mode 100644 xen/arch/arm/vuart.c
- delete mode 100644 xen/arch/arm/vuart.h
- create mode 100644 xen/drivers/vuart/Kconfig
- create mode 100644 xen/drivers/vuart/Makefile
- create mode 100644 xen/drivers/vuart/vuart-mmio.c
- rename xen/{arch/arm/vpl011.c =3D> drivers/vuart/vuart-pl011.c} (71%)
- create mode 100644 xen/drivers/vuart/vuart.c
- create mode 100644 xen/include/xen/domain-emu.h
- create mode 100644 xen/include/xen/vuart.h
-
+diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
+index 3f25da3ca5fd..03888569f38c 100644
+--- a/xen/arch/arm/Kconfig
++++ b/xen/arch/arm/Kconfig
+@@ -170,7 +170,7 @@ config NEW_VGIC
+ =09problems with the standard emulation.
+ =09At the moment this implementation is not security supported.
+=20
+-config SBSA_VUART_CONSOLE
++config HAS_VUART_PL011
+ =09bool "Emulated SBSA UART console support"
+ =09default y
+ =09help
+diff --git a/xen/arch/arm/Makefile b/xen/arch/arm/Makefile
+index ab0a0c2be6d8..2d6787fb03bc 100644
+--- a/xen/arch/arm/Makefile
++++ b/xen/arch/arm/Makefile
+@@ -65,7 +65,7 @@ obj-$(CONFIG_HAS_ITS) +=3D vgic-v3-its.o
+ endif
+ obj-$(CONFIG_VM_EVENT) +=3D vm_event.o
+ obj-y +=3D vtimer.o
+-obj-$(CONFIG_SBSA_VUART_CONSOLE) +=3D vpl011.o
++obj-$(CONFIG_HAS_VUART_PL011) +=3D vpl011.o
+ obj-y +=3D vsmc.o
+ obj-y +=3D vpsci.o
+ obj-$(CONFIG_HWDOM_VUART) +=3D vuart.o
+diff --git a/xen/arch/arm/configs/tiny64_defconfig b/xen/arch/arm/configs/t=
+iny64_defconfig
+index 469a1eb9f99d..acc227262d81 100644
+--- a/xen/arch/arm/configs/tiny64_defconfig
++++ b/xen/arch/arm/configs/tiny64_defconfig
+@@ -6,7 +6,7 @@ CONFIG_ARM=3Dy
+ #
+ # CONFIG_GICV3 is not set
+ # CONFIG_VM_EVENT is not set
+-# CONFIG_SBSA_VUART_CONSOLE is not set
++# CONFIG_HAS_VUART_PL011 is not set
+=20
+ #
+ # Common Features
+diff --git a/xen/arch/arm/dom0less-build.c b/xen/arch/arm/dom0less-build.c
+index 4b285cff5ee2..2a5531a2b892 100644
+--- a/xen/arch/arm/dom0less-build.c
++++ b/xen/arch/arm/dom0less-build.c
+@@ -167,7 +167,7 @@ int __init make_intc_domU_node(struct kernel_info *kinf=
+o)
+     }
+ }
+=20
+-#ifdef CONFIG_SBSA_VUART_CONSOLE
++#ifdef CONFIG_HAS_VUART_PL011
+ static int __init make_vpl011_uart_node(struct kernel_info *kinfo)
+ {
+     void *fdt =3D kinfo->fdt;
+@@ -226,7 +226,7 @@ int __init make_arch_nodes(struct kernel_info *kinfo)
+=20
+     if ( kinfo->arch.vpl011 )
+     {
+-#ifdef CONFIG_SBSA_VUART_CONSOLE
++#ifdef CONFIG_HAS_VUART_PL011
+         ret =3D make_vpl011_uart_node(kinfo);
+ #endif
+         if ( ret )
+diff --git a/xen/arch/arm/include/asm/domain.h b/xen/arch/arm/include/asm/d=
+omain.h
+index a3487ca71303..746ea687d523 100644
+--- a/xen/arch/arm/include/asm/domain.h
++++ b/xen/arch/arm/include/asm/domain.h
+@@ -113,7 +113,7 @@ struct arch_domain
+         uint8_t privileged_call_enabled : 1;
+     } monitor;
+=20
+-#ifdef CONFIG_SBSA_VUART_CONSOLE
++#ifdef CONFIG_HAS_VUART_PL011
+     struct vpl011 vpl011;
+ #endif
+=20
+diff --git a/xen/arch/arm/include/asm/vpl011.h b/xen/arch/arm/include/asm/v=
+pl011.h
+index cc838682815c..be64883b8628 100644
+--- a/xen/arch/arm/include/asm/vpl011.h
++++ b/xen/arch/arm/include/asm/vpl011.h
+@@ -65,7 +65,7 @@ struct vpl011_init_info {
+     evtchn_port_t evtchn;
+ };
+=20
+-#ifdef CONFIG_SBSA_VUART_CONSOLE
++#ifdef CONFIG_HAS_VUART_PL011
+ int domain_vpl011_init(struct domain *d,
+                        struct vpl011_init_info *info);
+ void domain_vpl011_deinit(struct domain *d);
+diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
+index 5879e31786ba..0f37badc471e 100644
+--- a/xen/drivers/char/console.c
++++ b/xen/drivers/char/console.c
+@@ -37,7 +37,7 @@
+ #ifdef CONFIG_X86
+ #include <asm/guest.h>
+ #endif
+-#ifdef CONFIG_SBSA_VUART_CONSOLE
++#ifdef CONFIG_HAS_VUART_PL011
+ #include <asm/vpl011.h>
+ #endif
+=20
+@@ -606,7 +606,7 @@ static void __serial_rx(char c)
+          */
+         send_global_virq(VIRQ_CONSOLE);
+     }
+-#ifdef CONFIG_SBSA_VUART_CONSOLE
++#ifdef CONFIG_HAS_VUART_PL011
+     else
+         /* Deliver input to the emulated UART. */
+         rc =3D vpl011_rx_char_xen(d, c);
 --=20
 2.34.1
 
