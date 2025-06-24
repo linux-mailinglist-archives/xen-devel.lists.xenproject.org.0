@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E58EAE60F8
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Jun 2025 11:37:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1023494.1399476 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 53F23AE611A
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Jun 2025 11:47:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1023501.1399487 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uU05i-0004Vo-2V; Tue, 24 Jun 2025 09:37:22 +0000
+	id 1uU0EZ-0006N8-Uc; Tue, 24 Jun 2025 09:46:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1023494.1399476; Tue, 24 Jun 2025 09:37:22 +0000
+Received: by outflank-mailman (output) from mailman id 1023501.1399487; Tue, 24 Jun 2025 09:46:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uU05h-0004TN-W0; Tue, 24 Jun 2025 09:37:21 +0000
-Received: by outflank-mailman (input) for mailman id 1023494;
- Tue, 24 Jun 2025 09:37:21 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uU0EZ-0006LR-Pz; Tue, 24 Jun 2025 09:46:31 +0000
+Received: by outflank-mailman (input) for mailman id 1023501;
+ Tue, 24 Jun 2025 09:46:30 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Vj6t=ZH=amd.com=Jiqian.Chen@srs-se1.protection.inumbo.net>)
- id 1uU05h-0004TH-BC
- for xen-devel@lists.xenproject.org; Tue, 24 Jun 2025 09:37:21 +0000
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2061e.outbound.protection.outlook.com
- [2a01:111:f403:2009::61e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d0a1d2a9-50de-11f0-a30f-13f23c93f187;
- Tue, 24 Jun 2025 11:37:17 +0200 (CEST)
-Received: from BL1PR12MB5849.namprd12.prod.outlook.com (2603:10b6:208:384::18)
- by DS0PR12MB7704.namprd12.prod.outlook.com (2603:10b6:8:138::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8857.20; Tue, 24 Jun
- 2025 09:37:13 +0000
-Received: from BL1PR12MB5849.namprd12.prod.outlook.com
- ([fe80::b77f:9333:3a5a:d285]) by BL1PR12MB5849.namprd12.prod.outlook.com
- ([fe80::b77f:9333:3a5a:d285%4]) with mapi id 15.20.8835.027; Tue, 24 Jun 2025
- 09:37:13 +0000
+ <SRS0=ctQ0=ZH=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1uU0EY-0006LJ-Kn
+ for xen-devel@lists.xenproject.org; Tue, 24 Jun 2025 09:46:30 +0000
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
+ [2a00:1450:4864:20::634])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 141d5549-50e0-11f0-b894-0df219b8e170;
+ Tue, 24 Jun 2025 11:46:19 +0200 (CEST)
+Received: by mail-ej1-x634.google.com with SMTP id
+ a640c23a62f3a-addda47ebeaso47655666b.1
+ for <xen-devel@lists.xenproject.org>; Tue, 24 Jun 2025 02:46:19 -0700 (PDT)
+Received: from [192.168.1.5] (user-109-243-64-38.play-internet.pl.
+ [109.243.64.38]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ae054083c87sm841373066b.89.2025.06.24.02.46.16
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 24 Jun 2025 02:46:17 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,174 +45,631 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d0a1d2a9-50de-11f0-a30f-13f23c93f187
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JcE9haBs2am8ni3f7+9r1kBICDBXsC0FiaurQduXbvxcQMH37Rc752oZGPxvU7kBcYKp6hjH3tBL43d75I7MY/ylhT5KWAXcxyOGcl3yp3hf/H29kvXRVHEAY82Qbm30LRLO+NiZ/zkPOy0OPqUtFpiyyuhanUha9SiK6vWmaRksSQI5eKZatfE16lA7m99pw2i1xMnGn+sqdqD1LrH982B2OwxjMiXgDNfGQb65qRvNRxNmM9W1v8vEl0Szi5N0GyZz3S+dx3fsKZXpugjgUker1/aRSO5sS5/zmBeF7kEqwfDQ4OkqsR2PDGEnFO4AtnzUx0QrHqMAD/8Nbr55wg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fptTgdbhLrjlnkw5z6nGSycRPV02lARyQEKGVV1iGs8=;
- b=NpZZFk+Kmpwri3cjED5VAqTrWyHxwT0KuECUnCthSoaBCcOuqHZWR1CsN5pIwNYduD9Z6zTO0EqRY4yIbBJ5R9rl+7SrldaqVwMAlbAYyGQypiq3arwKBcmF1XxpioVf2aa2JItoQXCUBOKMZXeTyXtChm+Wpj2mcjdJrXLk5+OkQt2LvZoogzi+qR0B96JdkM7Pq9tLzjyiIF/+5Io0foh1SHxR8mLhbAE3E44F3jyaUhWQAN6s4OGavZ6PT3SeZECWfmOcSHkItfagfkpc6Zg3WHvyGXGNtDq/tWDCNPO9Onm/8QeRZyjp6eavSRTtAULyj+gbnrDvf5LDLT2Z3g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fptTgdbhLrjlnkw5z6nGSycRPV02lARyQEKGVV1iGs8=;
- b=qZDyNlr0vwAis9Gt8AY73tsXkUC5kjK+hUOEh96yZxJGud0KjEKo45FQuGWf8GkpzHqBNBW7YwsfqyuFNehQFVbSlTQS/Lr+8GL/FEkQbYVxZqQUTNmuaKmAdwhm80X1vMB1BVhu4kioe2zHyygDnrF3b8wBC/zrD8aCTEWF3o4=
-From: "Chen, Jiqian" <Jiqian.Chen@amd.com>
-To: Jan Beulich <jbeulich@suse.com>, =?utf-8?B?Um9nZXIgUGF1IE1vbm7DqQ==?=
-	<roger.pau@citrix.com>
-CC: "Huang, Ray" <Ray.Huang@amd.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
-	"Orzel, Michal" <Michal.Orzel@amd.com>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>, "Chen, Jiqian" <Jiqian.Chen@amd.com>
-Subject: Re: [PATCH v6 4/8] vpci: Hide extended capability when it fails to
- initialize
-Thread-Topic: [PATCH v6 4/8] vpci: Hide extended capability when it fails to
- initialize
-Thread-Index: AQHb23ycT0X2vA9tYE2cHa4M+crvOLQJAzsAgAmiH4A=
-Date: Tue, 24 Jun 2025 09:37:13 +0000
-Message-ID:
- <BL1PR12MB5849D6DEB4AA4343D57D72DCE778A@BL1PR12MB5849.namprd12.prod.outlook.com>
-References: <20250612092942.1450344-1-Jiqian.Chen@amd.com>
- <20250612092942.1450344-5-Jiqian.Chen@amd.com>
- <816dd3fc-e6fc-40f6-b7c9-29d2411b52e5@suse.com>
-In-Reply-To: <816dd3fc-e6fc-40f6-b7c9-29d2411b52e5@suse.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ms-exchange-imapappendstamp: BL1PR12MB5849.namprd12.prod.outlook.com
- (15.20.8835.025)
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BL1PR12MB5849:EE_|DS0PR12MB7704:EE_
-x-ms-office365-filtering-correlation-id: b960f6d1-0759-4fd6-f836-08ddb302b2fd
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|1800799024|376014|366016|38070700018;
-x-microsoft-antispam-message-info:
- =?utf-8?B?aStuTnlFTWN4dFg5OTkwOE9aSWNCZWVYTHkzQ0pMSnZLV3VHUkFmeXVPVXV0?=
- =?utf-8?B?ZG1VdktFc1hTeGxjZFFWYXBrNnVUaE1nM1NBUnRqS0w2allQTnkvMy9TOTF3?=
- =?utf-8?B?VDEyNEx4THE3ZlJIUitjakpvd2VRaDJHU0xtOFdlNXdqZjdGZDZETzlmYURl?=
- =?utf-8?B?QzNyWGUzOWtXZjFYd1JkUzJTeGM4VmpnWFhVWE9qeXI5WHJVSHg3STdLVTk1?=
- =?utf-8?B?ZUV4eHY5c1BMVHM5Q1hNOVQxVmx3YTZWNjFtVXpNMGh3cG15eWFxMGhUaTBj?=
- =?utf-8?B?MWdHZHk0YVlzMmZ6YzdoQlNLaFpRSXM3MWF1bW1aQUhXeVlzb21nUkNaeGhF?=
- =?utf-8?B?Tmg3amlFUjJPTE9FTHlVdDdZc2NkTUQvc3lScjNNTzFNSFlrT2JYMkVDMVJm?=
- =?utf-8?B?cVNGdVBjUmJYSmN2WnRLL3AveU84WTRxMm5yelVlUmYrQS9NUDFGQjVCOGZz?=
- =?utf-8?B?cExGR210azBjNzRwRHo5WUQzeXZZRk1sdzVLM0xSOHVXZTJ0SlQxQ2NEZGh2?=
- =?utf-8?B?Tk1xOVBCVVE5Zno5OHM5L0N5ZkhMYjRmQk1TZWtpRUhrcjljSU80dzZSeDRx?=
- =?utf-8?B?TG1jbXQ4SDRaaFczSTFHWUVxV2hlY3JBY2hwMDhpcVVNTnVrTThmVXBnTCth?=
- =?utf-8?B?eWdRK0JSNlVhYkk2RUgyRmRoS1NrLzlTTDQ2UGF6UWdtUzBIQUJ2Z3lnNGVD?=
- =?utf-8?B?Zmg3aVhZK21QYTlDNWdIVlFMZzNDUW40MWhRSVpJODQ5Y3g2QlNSSDFZc21W?=
- =?utf-8?B?OE93VU1jbEQxUFd6ZTFPU3ZtK21QbkFRekd6NVVvVFY0SUYxSHppZHNDUzUz?=
- =?utf-8?B?T0FiaXQwRTVQd25SOXhNZXB0NnJ3M2EyTDdxSGlTUEFSMTNyWXNjeEN6d0Vw?=
- =?utf-8?B?dDVsc25Yc0lNTzFGdTNuRElHcm5lbXE5akVESERucG5wbXJXOGprcjE3NUVu?=
- =?utf-8?B?SHNmNDVUajlCdDhQQkUrWXpua2s5V2QyZzFIWDlUVzJwZDBlMzNadURwZTRa?=
- =?utf-8?B?b1hjbitpRVorcTFDUm1vSUVTOWlOcE9NMktDVUNJNlNFS0hWYTFZTy9PQndO?=
- =?utf-8?B?QlpsdThjb3RZczFoQWpzdTk5azZ1ZlFRMUtncTNjVlNsOXRqYlFWNVIwR0Jl?=
- =?utf-8?B?QXFTQmZMaVZseSt1M3JTZFZKYnFiVzA1QTNiZmxqb3pKRmx0NksxMkt3c2RY?=
- =?utf-8?B?cGpQOHM5K0tKQ1JSVXp5N1hzbG5NN3BEdjNTMWJqcTREcldneDRYeE95akd6?=
- =?utf-8?B?QzA4MlNURENLdHA0RmtEWHBKbzJYRGpRVEkzMmFlTnBkd1poY2x0dzloYnBm?=
- =?utf-8?B?Vll1eDAvWnhjK21SbU95VEFXc216bVpxdGlUZ3c0elBlMzhmTm5iRUVnaGJL?=
- =?utf-8?B?dCtKWHVZeHlxMTAwTWk0L3VyRFpxait4U3pKR0U3bEl4Qit4ek13MVlyZ2Nx?=
- =?utf-8?B?ZGZ0cXEvVS85U0pSMlpkZDZKcTR2REVGQ3NDNjBQdnFoa2FtWnRBYWZTSUhJ?=
- =?utf-8?B?bjZnWEJLNmhidEdQSTNKN1ZuTXBQQmYyUFVZelZwZU9pRDcvOHIxb1oyV29x?=
- =?utf-8?B?cUpJbTJPWmg0TTJYRk16a1RPZGRtUERUL2JvZFBva0Frb1crbTdqZXZjYXoy?=
- =?utf-8?B?bkpDQzVueDBQSVpvR2M2YmRXQXVHcFpCYkdoRGtxcHB5ZTI2UVBYL2pvQXhp?=
- =?utf-8?B?R0xJdjhQeEFqUU04QXJJdXFpL2Rua2szQXNVSXFKaEVKVXB6K3ZjbEdtRTFI?=
- =?utf-8?B?NnNsUjVHbjBGVExKZ3pkOUZqZXJ2MXJ4QTlhdlJHcklIMXlWY2daSkdJdUhX?=
- =?utf-8?B?d1ptQ3pCT1AxdWk4M0FvREYwU242bEtPNEpvU1BLQU5lbWpBVGJwc0JabFRr?=
- =?utf-8?B?dnovQ3JvcFNyL240TGFieVZDbXlsdWVLenhKUy9BQWM4V0k5T1ovSmpHZFZC?=
- =?utf-8?B?bWMxR2xJRjVzejI0VUVIaitadmZOT0FCV3RBOXdvYjVJUHVUei9LUjUwOUVN?=
- =?utf-8?Q?2TX+tyyprv9h4YETitj/N/WpU+k+/8=3D?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR12MB5849.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(38070700018);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?SjczRFZESTFVdXVSMUhUWG1TT1BkcG8yT3dEVnRYUE55YWgzVzlqc0ljdUg5?=
- =?utf-8?B?UzJRYUpHUDdIQk5WalVhYWJ2b0FKenRFTFNFN3FpS25rbVllQXBIamhmUWxr?=
- =?utf-8?B?bXMxSlZZOEF3VXBJd1gyNHdtMTY4WDZuUXlYcTNQenA0Lzd3Rmh1MVJRTzh5?=
- =?utf-8?B?WnBKSHRNU1NDZDBsQW1tSWdUNnZ6K2pLTWZIeU9FYjN2QU1ibnNCbWRrdytl?=
- =?utf-8?B?WVdCeWQ4UEJ4VVB0WjNPUFgwUXMxQk1aL2k2NXZseGduUjRHQWVXbmtKL3hk?=
- =?utf-8?B?bHBXdkxwSVVRdUVkY09oejZXRUtXZGNFb2h1ZWpUQk9PVEphZ0dIL215SjQz?=
- =?utf-8?B?ZFU1OTJGeVUveklnWEk2T1FNbTAvRWs1UjgyY0c2N0gyL01TRlBzSFFHUzdG?=
- =?utf-8?B?OFZaSVNheFlmQnJQSXBXSGFZTDVmWEQ5QmlQOWpBWTRiS08xOFhHY0FlbnJl?=
- =?utf-8?B?dThrVERpWjB2b0FNcGNpQ2VDbXZqTENkNVk1elBRTFV4aXVrWHRuMHpTOUpj?=
- =?utf-8?B?MFJRWUpwK0pUOHRHb0w1ZFA5dDVYRXcxNzhXRXk1UW1XYUxXUVp0T3A2ODJW?=
- =?utf-8?B?Z3NhQUhkZXhMU2JhSk1jbEhZWVRqUTc3akc5b3lmOFhsM1RNb1I3WnprSG9F?=
- =?utf-8?B?eE0wQ21MclptSWVwcW1kZ2FGaktXaHp0eFJHY0kvbTh3azdtODd1a2MyZzVJ?=
- =?utf-8?B?VUo5Znh0R1NPWVIyMUljSVF2ektqaHF4UUEvYzgxTnVBOHl5S2NQWHNzbFVr?=
- =?utf-8?B?S1poNEE4alNmZ21yc01mK0hvVklzTTV5cGNOalN0V3Y2UTc4N3JybEJGZnBm?=
- =?utf-8?B?dUlCWlQza21nTnphUVFKZzJ4U1VmYmpnNWFVY1ZaT28rL3hFQXl3T0ZQT3NJ?=
- =?utf-8?B?UmwyZ2xMdzRBRDlWdU41cXNkU0lkSHpGdThkaEhYZ29lYzRhcXljREVJUmpD?=
- =?utf-8?B?QklNWTlEQmV1OVVteTQ3dFNBd2d5Y3I5T0crRjN2bEZVUm00OUJ0WFFOeGk4?=
- =?utf-8?B?Tk1KVm1pMGMxWU05cjcrUTBIZTZhdFplZFdTV1JQMkEyWG5PakIwUzVuWWZW?=
- =?utf-8?B?TGZZQ3BQMXNOMDNqcnNyUWUxRmxYNkozL0c0VWFBZzdkOFlFNWVEcDdTQ0c2?=
- =?utf-8?B?ZmtwTTZ4KzhuSHdQT1N2VGNPNjBlV3c5K0NYbVFLT1R4Um9xSit3eXczTG5D?=
- =?utf-8?B?RTJEclVVN1A5ZzZ3UUE3alNnRzJsdDBHdzZQRGJEa21EUS9GWVFrdVRablY2?=
- =?utf-8?B?K1hXendrNzk1WGlhMW5FQ2hmU0JZamRuVFdHeGlsejhmTjZGYXlUWklBRHJT?=
- =?utf-8?B?bEY5NS9WRERnUmVFN0FxcURFZmlLRVZNdnQ0N2tTMEpvYWZBMWNnQWN2MUEv?=
- =?utf-8?B?VnFTeEZRRlZndG0rYVVIMWZGWlhkR0UraS9Mc0pqOEpyOE13OVU1T0U4Q0FE?=
- =?utf-8?B?Ym1zSTdEdnJieXhSSjYrQk5Udk9Ra2tndkhhVllBUmpkaEFTOTBvMTc3WUpq?=
- =?utf-8?B?Q3AycHF4NERzdkVxUHZrd1BxYWRpUjgzTU56YUliMFg5RnZaVTlnMWhqQ0Vj?=
- =?utf-8?B?R2RIWlFuNXpTcElFZm00R0tJLzQ5dk1CaXJFbVRka2xrUmwydXVnZ1RkcGRG?=
- =?utf-8?B?MThZWE9mS2FYQmsxLzZFb1N4M29YZE9PVy9Tak5ZdXVFYWdWQ1YvNmltMGlr?=
- =?utf-8?B?aG9COVNJeDVTa21PT1VNT3QzRmgxS3F3SlUwZ0tsUjAzZ2FlazhkZG5qQTdl?=
- =?utf-8?B?a0Z3ZE5aTlhHK2FsNjBDS3BWMncwYVhvQmlIT1I0a3VIR1JjS0g1VmxlSTJG?=
- =?utf-8?B?ckdtSXY5em1LU1FPemFtRlRMRHJqMWlQRXdkUWhCeDZKSFlkR0V6em1DZkhE?=
- =?utf-8?B?aHM1UXJGTlBTS3hYQ3daTWk4a3ROTjJIMlpabmtJRTFQMFgwa0NpRnM0WTl3?=
- =?utf-8?B?cHp3bGN3cUZ6Y2xGR2lIWCtBM1FmbDhNRmxPUWordDR5WkhLeXlCcnQrZVU4?=
- =?utf-8?B?dndXZkMrMFV2THNWcUhhT2tEbWYzZklvclVrSnBkaC8xSFM1Q1NjSFIvY2hn?=
- =?utf-8?B?QjNoL1R5WW0zR0p0Z1loV2U2UEJING1UOE1qMlBxUlZ6WmIvSm44V0VYdHg4?=
- =?utf-8?Q?VC/A=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <4360FD69A6C5B64C8ADE9409D4BE0483@amdcloud.onmicrosoft.com>
-Content-Transfer-Encoding: base64
+X-Inumbo-ID: 141d5549-50e0-11f0-b894-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1750758378; x=1751363178; darn=lists.xenproject.org;
+        h=in-reply-to:content-language:references:cc:to:subject:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=1Q7zDaHi7VY/WUKV4VqHjUqLF+P4rmn96cO/MBcraAg=;
+        b=iN8DaMggKRIazQnTwB3x6GBKlFiAIWh4D4/Q1gwpXVOwsG9CS4dLgvKGt5gjt6Np/8
+         VpwpdE8x6AKOdk76G8G7BBTYqeOdjsAIRj81ioRF2hBofwVKROC5UMNb49XoQjUk54Tw
+         TEM55K4bjGEghbzo77ioyeQhwNfmrfsIYOzs5srG0NiHo31idUYZYW5epbJ60Qepu+Kb
+         gDMs6iMXCZDGCZeL6NE0Ox3H/w1Xtv60OCct4vh4k+OgBljco9D8uQ2QZylYaEuqXrWZ
+         lr66jgCVU0DCUo5muZYbKIuI6l2REzWO70KXjSYtVHvJbNq9fkhyCP0TdGmszFhsM6E2
+         I4Ug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1750758378; x=1751363178;
+        h=in-reply-to:content-language:references:cc:to:subject:from
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=1Q7zDaHi7VY/WUKV4VqHjUqLF+P4rmn96cO/MBcraAg=;
+        b=JmcySxZUAfMGlRZ9ScPUxXR9Querhz/AneqaXoHQLmVD5+N6xYBqNe/Vz1b944uhZe
+         D0sVKzJdsRPPHW/tvDTX5pRvGgTx2cWwywGHAki0uWGpAaaGRqOEQCaHx5K05+rE+yGh
+         dqjfN46xW3fktqYEkgnMqhOSqakFv8rjqToGrd1jFWD43KECZsSauBZZCH3zsuUPx0RM
+         2ypSVxfpDMtzewJs3GP2rlQbLezKtDyNjaLOMwqejlgvcYc6w+XnHfmTgniPA3zVj+uH
+         CoSjHsg7Pcwrkh/QVIs9drPEgcaZpx6bDxcZhxJYkI60JpE3gQ50Tqk259K0aFxknu9E
+         PO1w==
+X-Forwarded-Encrypted: i=1; AJvYcCWQkGFltJFNp7liDT5V6hTjKQnrxYwHYgkw4A4+VEMQyGtP5//C5Od+2PMfJjWMCOmznP2Pxgh1TjA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzF04Kk1uREThB2JzUsCMb79hzNzinIJS7rAVP9xgKqV7juo+cl
+	fS/7/YiUwe4u1HO+IwQqk77IRDixByEK6SaXiTwo3lqCChD6dntO44OK
+X-Gm-Gg: ASbGncuw+mYeeO7cyme4hpasFeEkXoIPWPrAUi2PVfazc5kWJ+lF+tIOpt9oyYqJxhc
+	q921cE5U9hlptST2u/u2hEobMr9G2ZGByi6HpOdN0FAPdqiuQI9mUHN48a8yTDms3TLkkwmHBrs
+	lnuQXT6ocfu0vzY2O+yifPPHp6jjhWa1I5OS2XtxbAn0uS28rVmgH7yco0VNgrXovcFGHIPmbpt
+	kXk21/7K0u05cW5hpOEybMH+t84sVhgVpMGK9ajpF6YK0bzotnmMsI0aeASuNbSORUMmllpxDOK
+	/pFeQiSJHD1knMHo2M9bzZXb9Tqe3K7LrKStin8NH7hD8rHZyekJOhBuk3j8ynEel9R07nMit7o
+	QjVdiKf1y1cMelGFsQmfhloTfI8gQ0ddUVhk=
+X-Google-Smtp-Source: AGHT+IHS9fMjQsyWzq24b1arCff0vE8jvrYpPJ+OyJbOOv1TcUfbFCQB7SQ3yjB3SzQWA6f3P2wNaQ==
+X-Received: by 2002:a17:907:3da3:b0:ad4:f517:ca3 with SMTP id a640c23a62f3a-ae05794251bmr1633320766b.20.1750758377877;
+        Tue, 24 Jun 2025 02:46:17 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------0njIQvGmM3eD3vN4bb8on5El"
+Message-ID: <145f71c2-643e-4839-a2ae-0bc1f049db74@gmail.com>
+Date: Tue, 24 Jun 2025 11:46:15 +0200
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5849.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b960f6d1-0759-4fd6-f836-08ddb302b2fd
-X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Jun 2025 09:37:13.0238
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: WnQ+UuTs5phEm1taPaEI0pklBUvcjs1lsy62aGsxCFt6ZztT19Q+86zaiPjNFlO7O9UTQFxRPdDAhDz+QvwYKw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7704
+User-Agent: Mozilla Thunderbird
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Subject: Re: [PATCH v2 03/17] xen/riscv: introduce guest domain's VMID
+ allocation and manegement
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1749555949.git.oleksii.kurochko@gmail.com>
+ <abbf1c30c485d4baae25d4c1fb26942f60015403.1749555949.git.oleksii.kurochko@gmail.com>
+ <d747fd23-9ac3-49d2-8a5e-699290cef3f4@suse.com>
+Content-Language: en-US
+In-Reply-To: <d747fd23-9ac3-49d2-8a5e-699290cef3f4@suse.com>
 
-T24gMjAyNS82LzE4IDIyOjI3LCBKYW4gQmV1bGljaCB3cm90ZToNCj4gT24gMTIuMDYuMjAyNSAx
-MToyOSwgSmlxaWFuIENoZW4gd3JvdGU6DQo+PiArc3RhdGljIGludCB2cGNpX2V4dF9jYXBhYmls
-aXR5X2hpZGUoc3RydWN0IHBjaV9kZXYgKnBkZXYsIHVuc2lnbmVkIGludCBjYXApDQo+PiArew0K
-Pj4gKyAgICBjb25zdCB1bnNpZ25lZCBpbnQgb2Zmc2V0ID0gcGNpX2ZpbmRfZXh0X2NhcGFiaWxp
-dHkocGRldi0+c2JkZiwgY2FwKTsNCj4+ICsgICAgc3RydWN0IHZwY2lfcmVnaXN0ZXIgKnIsICpw
-cmV2X3I7DQo+PiArICAgIHN0cnVjdCB2cGNpICp2cGNpID0gcGRldi0+dnBjaTsNCj4+ICsgICAg
-dWludDMyX3QgaGVhZGVyLCBwcmVfaGVhZGVyOw0KPj4gKw0KPj4gKyAgICBpZiAoIG9mZnNldCA8
-IFBDSV9DRkdfU1BBQ0VfU0laRSApDQo+PiArICAgIHsNCj4+ICsgICAgICAgIEFTU0VSVF9VTlJF
-QUNIQUJMRSgpOw0KPj4gKyAgICAgICAgcmV0dXJuIDA7DQo+PiArICAgIH0NCj4+ICsNCj4+ICsg
-ICAgc3Bpbl9sb2NrKCZ2cGNpLT5sb2NrKTsNCj4+ICsgICAgciA9IHZwY2lfZ2V0X3JlZ2lzdGVy
-KHZwY2ksIG9mZnNldCwgNCk7DQo+PiArICAgIGlmICggIXIgKQ0KPj4gKyAgICB7DQo+PiArICAg
-ICAgICBzcGluX3VubG9jaygmdnBjaS0+bG9jayk7DQo+PiArICAgICAgICByZXR1cm4gLUVOT0RF
-VjsNCj4+ICsgICAgfQ0KPj4gKw0KPj4gKyAgICBoZWFkZXIgPSAodWludDMyX3QpKHVpbnRwdHJf
-dClyLT5wcml2YXRlOw0KPj4gKyAgICBpZiAoIG9mZnNldCA9PSBQQ0lfQ0ZHX1NQQUNFX1NJWkUg
-KQ0KPj4gKyAgICB7DQo+PiArICAgICAgICBpZiAoIFBDSV9FWFRfQ0FQX05FWFQoaGVhZGVyKSA8
-PSBQQ0lfQ0ZHX1NQQUNFX1NJWkUgKQ0KPj4gKyAgICAgICAgICAgIHItPnByaXZhdGUgPSAodm9p
-ZCAqKSh1aW50cHRyX3QpMDsNCj4+ICsgICAgICAgIGVsc2UNCj4+ICsgICAgICAgICAgICAvKg0K
-Pj4gKyAgICAgICAgICAgICAqIFRoZSBmaXJzdCBleHRlbmRlZCBjYXBhYmlsaXR5ICgweDEwMCkg
-Y2FuIG5vdCBiZSByZW1vdmVkIGZyb20NCj4+ICsgICAgICAgICAgICAgKiB0aGUgbGlua2VkIGxp
-c3QsIHNvIGluc3RlYWQgbWFzayBpdHMgY2FwYWJpbGl0eSBJRCB0byByZXR1cm4gMA0KPj4gKyAg
-ICAgICAgICAgICAqIGFuZCBmb3JjZSBPU2VzIHRvIHNraXAgaXQuDQo+PiArICAgICAgICAgICAg
-ICovDQo+PiArICAgICAgICAgICAgci0+cHJpdmF0ZSA9ICh2b2lkICopKHVpbnRwdHJfdCkoaGVh
-ZGVyICYgflBDSV9FWFRfQ0FQX0lEKGhlYWRlcikpOw0KPiANCj4gQ2FuIHdlIHJlbHkgb24gT1Nl
-cyByZWNvZ25pemluZyBJRCAwIGFzICJqdXN0IHNraXAiPyBTaW5jZSB0aGUgc2l6ZSBpc24ndCBl
-bmNvZGVkDQo+IGluIHRoZSBoZWFkZXIsIHRoZXJlIG1pZ2h0IGJlIGlzc3VlcyBsdXJraW5nIGhl
-cmUuDQpJIHdhcyBub3QgdmVyeSBjb25maWRlbnQgYWJvdXQgaG93IHRvIGhhbmRsZSB0aGlzIHNp
-dHVhdGlvbi4NClRoaXMgdmVyc2lvbiB3YXMgbW9kaWZpZWQgYWNjb3JkaW5nIHRvIFJvZ2VyJ3Mg
-c3VnZ2VzdGlvbnMuDQpNYXliZSBSb2dlciBjYW4gZ2l2ZSB5b3UgbW9yZSBleHBsYW5hdGlvbi4N
-Cg0KPiANCj4gSmFuDQoNCi0tIA0KQmVzdCByZWdhcmRzLA0KSmlxaWFuIENoZW4uDQo=
+This is a multi-part message in MIME format.
+--------------0njIQvGmM3eD3vN4bb8on5El
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+
+
+On 6/18/25 5:46 PM, Jan Beulich wrote:
+> On 10.06.2025 15:05, Oleksii Kurochko wrote:
+>> Implementation is based on Arm code with some minor changes:
+>>   - Re-define INVALID_VMID.
+>>   - Re-define MAX_VMID.
+>>   - Add TLB flushing when VMID is re-used.
+>>
+>> Also, as a part of this path structure p2m_domain is introduced with
+>> vmid member inside it. It is necessary for VMID management functions.
+>>
+>> Add a bitmap-based allocator to manage VMID space, supporting up to 127
+>> VMIDs on RV32 and 16,383 on RV64 platforms, in accordance with the
+>> architecture's hgatp VMID field (RV32 - 7 bit long, others - 14 bit long).
+>>
+>> Reserve the highest VMID as INVALID_VMID to ensure it's not reused.
+> Why must that VMID not be (re)used? INVALID_VMID can be any value wider
+> than the hgatp.VMID field.
+
+Oh, agree it could be just any value wider tan hgatp.VMID filed. I forgot
+about that hgatp.VMID is only 14-bit long value. So we have two extra bits
+in uint16_t.
+
+>> --- /dev/null
+>> +++ b/xen/arch/riscv/p2m.c
+>> @@ -0,0 +1,115 @@
+>> +#include <xen/bitops.h>
+>> +#include <xen/lib.h>
+>> +#include <xen/sched.h>
+>> +#include <xen/spinlock.h>
+>> +#include <xen/xvmalloc.h>
+>> +
+>> +#include <asm/p2m.h>
+>> +#include <asm/sbi.h>
+>> +
+>> +static spinlock_t vmid_alloc_lock = SPIN_LOCK_UNLOCKED;
+>> +
+>> +/*
+>> + * hgatp's VMID field is 7 or 14 bits. RV64 may support 14-bit VMID.
+>> + * Using a bitmap here limits us to 127 (2^7 - 1) or 16383 (2^14 - 1)
+>> + * concurrent domains.
+> Which is pretty limiting especially in the RV32 case. Hence why we don't
+> assign a permanent ID to VMs on x86, but rather manage IDs per-CPU (note:
+> not per-vCPU).
+
+Good point.
+
+I don't believe anyone will use RV32.
+For RV64, the available ID space seems sufficiently large.
+
+However, if it turns out that the value isn't large enough even for RV64,
+I can rework it to manage IDs per physical CPU.
+Wouldn't that approach result in more TLB entries being flushed compared
+to per-vCPU allocation, potentially leading to slightly worse performance?
+
+What about then to allocate VMID per-domain?
+
+>> The bitmap space will be allocated dynamically
+>> + * based on whether 7 or 14 bit VMIDs are supported.
+>> + */
+>> +static unsigned long *vmid_mask;
+>> +static unsigned long *vmid_flushing_needed;
+>> +
+>> +/*
+>> + * -2 here because:
+>> + *    - -1 is needed to get the maximal possible VMID
+> I don't follow this part.
+
+Probably, I'm missing something.
+
+hgat.vmid is 7 bit long. BIT(7,U) = 1 << 7 = 128 which is bigger
+then 7 bit can cover (0b1000_0000 and 0x111_1111). Thereby the MAX_VMID is:
+  BIT(7, U) - 1 (in case of RV32).
+
+>> + */
+>> +#ifdef CONFIG_RISCV_32
+>> +#define MAX_VMID (BIT(7, U) - 2)
+>> +#else
+> Better "#elif defined(CONFIG_RISCV_64)"?
+
+First, I read the spec as for other bitness except 32 it will be 14 bit long, but I re-read it and
+it is true only for HSXLEN=64, so RV128 will/can have different amount of bit for VMID. I will
+update to "#elif defined(CONFIG_RISCV_64)" + #error "Define MAX_VMID" if bitness isn't 32 or 64.
+
+
+>> +{
+>> +    /*
+>> +     * Allocate space for vmid_mask and vmid_flushing_needed
+>> +     * based on INVALID_VMID as it is the max possible VMID which just
+>> +     * was reserved to be INVALID_VMID.
+>> +     */
+>> +    vmid_mask = xvzalloc_array(unsigned long, BITS_TO_LONGS(INVALID_VMID));
+>> +    vmid_flushing_needed =
+>> +        xvzalloc_array(unsigned long, BITS_TO_LONGS(INVALID_VMID));
+> These both want to use MAX_VMID + 1; there's no logical connection here to
+> INVALID_VMID.
+>
+> Furthermore don't you first need to determine how many bits hgatp.VMID actually
+> implements? The 7 and 14 bits respectively are maximum values only, after all.
+
+I missed that it depends on VMIDLEN:
+```
+The number of VMID bits is UNSPECIFIED and may be zero. The number of implemented VMID bits,
+termed VMIDLEN, may be determined by writing one to every bit position in the VMID field, then
+reading back the value in hgatp to see which bit positions in the VMID field hold a one. The least-
+significant bits of VMID are implemented first: that is, if VMIDLEN > 0, VMID[VMIDLEN-1:0] is
+writable. The maximal value of VMIDLEN, termed VMIDMAX, is 7 for Sv32x4 or 14 for Sv39x4,
+Sv48x4, and Sv57x4.
+```
+So yes, I have to determine first how many bits are supported by an implementation.
+
+> VMIDLEN being permitted to be 0, how would you run more than one VM (e.g. Dom0)
+> on such a system?
+
+Hmm, good question.
+
+Then it will be needed to flush TLB on each VM switch by using
+sbi_remote_hfence_gvma().
+
+>> +    if ( !vmid_mask || !vmid_flushing_needed )
+>> +        panic("Could not allocate VMID bitmap space or VMID flushing map\n");
+>> +
+>> +    set_bit(INVALID_VMID, vmid_mask);
+> If (see above) this is really needed, __set_bit() please.
+>
+>> +}
+>> +
+>> +int p2m_alloc_vmid(struct domain *d)
+> Looks like this can be static? (p2m_free_vmid() has no caller at all, so
+> it's not clear what use it is going to be.)
+
+It really can be static. And p2m_free_vmid() too, but as there is no caller
+of p2m_free_vmid() probably it makes sense to do in the following way:
+   /* Uncomment static when p2m_free_vmid() will be called. */
+   /* static */ void p2m_free_vmid(struct domain *d)
+Or just drop for the moment when it will be really needed.
+
+
+
+>> +        goto out;
+>> +    }
+>> +
+>> +    set_bit(nr, vmid_mask);
+> Since you do this under lock, even here __set_bit() ought to be sufficient.
+>
+>> +    if ( test_bit(p2m->vmid, vmid_flushing_needed) )
+>> +    {
+>> +        clear_bit(p2m->vmid, vmid_flushing_needed);
+> And __clear_bit() here, or yet better use __test_and_clear_bit() in the if().
+>
+>> +        sbi_remote_hfence_gvma_vmid(d->dirty_cpumask, 0, 0, p2m->vmid);
+> You're creating d; it cannot possibly have run on any CPU yet. IOW
+> d->dirty_cpumask will be reliably empty here. I think it would be hard to
+> avoid issuing the flush to all CPUs here in this scheme.
+
+I didn't double check, but I was sure that in case d->dirty_cpumask is empty then
+rfence for all CPUs will be send. But I was wrong about that.
+
+What about just update a code of sbi_rfence_v02()?
+
+At the moment, we have check if a pointer to cpu_mask isn't NULL and if NULL then
+do rfence for all CPUs:
+
+static int cf_check sbi_rfence_v02(unsigned long fid,
+                                    const cpumask_t *cpu_mask,
+                                    vaddr_t start, size_t size,
+                                    unsigned long arg4, unsigned long arg5)
+{
+    ...
+
+     /*
+      * hart_mask_base can be set to -1 to indicate that hart_mask can be
+      * ignored and all available harts must be considered.
+      */
+     if ( !cpu_mask )
+         return sbi_rfence_v02_real(fid, 0UL, -1UL, start, size, arg4);
+    ...
+
+What about  just to add here:
+     if ( !cpu_mask || cpumask_empty(cpu_mask) )
+
+Does it make sense?
+
+>> +    spin_unlock(&vmid_alloc_lock);
+>> +    return rc;
+>> +}
+>> +
+>> +void p2m_free_vmid(struct domain *d)
+>> +{
+>> +    struct p2m_domain *p2m = p2m_get_hostp2m(d);
+>> +
+>> +    spin_lock(&vmid_alloc_lock);
+>> +
+>> +    if ( p2m->vmid != INVALID_VMID )
+>> +    {
+>> +        clear_bit(p2m->vmid, vmid_mask);
+>> +        set_bit(p2m->vmid, vmid_flushing_needed);
+> Does this scheme really avoid any flushes (except near when the system is
+> about to go down)?
+>
+> As to choice of functions - see above.
+
+I think yes, so my idea was that if vmid isn't freed then we have enough free VMID
+and in this case flush isn't needed as each vcpu has unique not-used yet VMID,
+and if there is no free VMID then and error will return in p2m_alloc_vmid():
+     if ( nr == MAX_VMID )
+     {
+         rc = -EBUSY;
+         printk(XENLOG_ERR "p2m.c: dom%pd: VMID pool exhausted\n", d->domain_id);
+         goto out;
+     }
+
+On other hand, if VMID was freed and then re-used in p2m_alloc_vmid(), then it means
+that vmid_flushing_needed will have VMID bit set, what means that a TLB flush is needed.
+
+>
+>> +    }
+>> +
+>> +    spin_unlock(&vmid_alloc_lock);
+>> +}
+>> +
+>> +int p2m_init(struct domain *d)
+>> +{
+>> +    struct p2m_domain *p2m = p2m_get_hostp2m(d);
+>> +    int rc;
+>> +
+>> +    p2m->vmid = INVALID_VMID;
+> Given the absence of callers of p2m_free_vmid() it's also not clear what use
+> this is.
+
+Just mark that VMID for this domain wasn't yet allocated.
+
+Anyway, it will be called from arch_domain_create() by arch_domain_destroy() so if the some
+error happens during arch_domain_create() and p2m->vmid wasn't allocated yet (so is equal to
+INVALID_VMID), it means that there is no sense to update vmid_mask or vmid_flushing_needed.
+
+~ Oleksii
+
+
+--------------0njIQvGmM3eD3vN4bb8on5El
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 6/18/25 5:46 PM, Jan Beulich wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:d747fd23-9ac3-49d2-8a5e-699290cef3f4@suse.com">
+      <pre wrap="" class="moz-quote-pre">On 10.06.2025 15:05, Oleksii Kurochko wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">Implementation is based on Arm code with some minor changes:
+ - Re-define INVALID_VMID.
+ - Re-define MAX_VMID.
+ - Add TLB flushing when VMID is re-used.
+
+Also, as a part of this path structure p2m_domain is introduced with
+vmid member inside it. It is necessary for VMID management functions.
+
+Add a bitmap-based allocator to manage VMID space, supporting up to 127
+VMIDs on RV32 and 16,383 on RV64 platforms, in accordance with the
+architecture's hgatp VMID field (RV32 - 7 bit long, others - 14 bit long).
+
+Reserve the highest VMID as INVALID_VMID to ensure it's not reused.
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">Why must that VMID not be (re)used? INVALID_VMID can be any value wider
+than the hgatp.VMID field.</pre>
+    </blockquote>
+    <pre>Oh, agree it could be just any value wider tan hgatp.VMID filed. I forgot
+about that hgatp.VMID is only 14-bit long value. So we have two extra bits
+in uint16_t.
+</pre>
+    <blockquote type="cite"
+      cite="mid:d747fd23-9ac3-49d2-8a5e-699290cef3f4@suse.com">
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">--- /dev/null
++++ b/xen/arch/riscv/p2m.c
+@@ -0,0 +1,115 @@
++#include &lt;xen/bitops.h&gt;
++#include &lt;xen/lib.h&gt;
++#include &lt;xen/sched.h&gt;
++#include &lt;xen/spinlock.h&gt;
++#include &lt;xen/xvmalloc.h&gt;
++
++#include &lt;asm/p2m.h&gt;
++#include &lt;asm/sbi.h&gt;
++
++static spinlock_t vmid_alloc_lock = SPIN_LOCK_UNLOCKED;
++
++/*
++ * hgatp's VMID field is 7 or 14 bits. RV64 may support 14-bit VMID.
++ * Using a bitmap here limits us to 127 (2^7 - 1) or 16383 (2^14 - 1)
++ * concurrent domains.
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">Which is pretty limiting especially in the RV32 case. Hence why we don't
+assign a permanent ID to VMs on x86, but rather manage IDs per-CPU (note:
+not per-vCPU).</pre>
+    </blockquote>
+    <pre data-start="62" data-end="73">Good point.</pre>
+    <pre data-start="75" data-end="295">I don't believe anyone will use RV32.
+For RV64, the available ID space seems sufficiently large.
+
+However, if it turns out that the value isn't large enough even for RV64,
+I can rework it to manage IDs per physical CPU.
+Wouldn't that approach result in more TLB entries being flushed compared
+to per-vCPU allocation, potentially leading to slightly worse performance?
+
+What about then to allocate VMID per-domain?
+</pre>
+    <blockquote type="cite"
+      cite="mid:d747fd23-9ac3-49d2-8a5e-699290cef3f4@suse.com">
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">The bitmap space will be allocated dynamically
++ * based on whether 7 or 14 bit VMIDs are supported.
++ */
++static unsigned long *vmid_mask;
++static unsigned long *vmid_flushing_needed;
++
++/*
++ * -2 here because:
++ *    - -1 is needed to get the maximal possible VMID
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">I don't follow this part.
+</pre>
+    </blockquote>
+    <pre>Probably, I'm missing something.
+
+hgat.vmid is 7 bit long. BIT(7,U) = 1 &lt;&lt; 7 = 128 which is bigger
+then 7 bit can cover (0b1000_0000 and 0x111_1111). Thereby the MAX_VMID is:
+ BIT(7, U) - 1 (in case of RV32).
+
+</pre>
+    <blockquote type="cite"
+      cite="mid:d747fd23-9ac3-49d2-8a5e-699290cef3f4@suse.com">
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+ */
++#ifdef CONFIG_RISCV_32
++#define MAX_VMID (BIT(7, U) - 2)
++#else
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">Better "#elif defined(CONFIG_RISCV_64)"?</pre>
+    </blockquote>
+    <pre>First, I read the spec as for other bitness except 32 it will be 14 bit long, but I re-read it and
+it is true only for HSXLEN=64, so RV128 will/can have different amount of bit for VMID. I will
+update to "#elif defined(CONFIG_RISCV_64)" + #error "Define MAX_VMID" if bitness isn't 32 or 64.
+
+
+</pre>
+    <blockquote type="cite"
+      cite="mid:d747fd23-9ac3-49d2-8a5e-699290cef3f4@suse.com">
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+{
++    /*
++     * Allocate space for vmid_mask and vmid_flushing_needed
++     * based on INVALID_VMID as it is the max possible VMID which just
++     * was reserved to be INVALID_VMID.
++     */
++    vmid_mask = xvzalloc_array(unsigned long, BITS_TO_LONGS(INVALID_VMID));
++    vmid_flushing_needed =
++        xvzalloc_array(unsigned long, BITS_TO_LONGS(INVALID_VMID));
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">These both want to use MAX_VMID + 1; there's no logical connection here to
+INVALID_VMID.
+
+Furthermore don't you first need to determine how many bits hgatp.VMID actually
+implements? The 7 and 14 bits respectively are maximum values only, after all.</pre>
+    </blockquote>
+    <pre>I missed that it depends on VMIDLEN:
+```
+The number of VMID bits is UNSPECIFIED and may be zero. The number of implemented VMID bits,
+termed VMIDLEN, may be determined by writing one to every bit position in the VMID field, then
+reading back the value in hgatp to see which bit positions in the VMID field hold a one. The least-
+significant bits of VMID are implemented first: that is, if VMIDLEN &gt; 0, VMID[VMIDLEN-1:0] is
+writable. The maximal value of VMIDLEN, termed VMIDMAX, is 7 for Sv32x4 or 14 for Sv39x4,
+Sv48x4, and Sv57x4.
+```
+So yes, I have to determine first how many bits are supported by an implementation.
+
+</pre>
+    <blockquote type="cite"
+      cite="mid:d747fd23-9ac3-49d2-8a5e-699290cef3f4@suse.com">
+      <pre wrap="" class="moz-quote-pre">VMIDLEN being permitted to be 0, how would you run more than one VM (e.g. Dom0)
+on such a system?</pre>
+    </blockquote>
+    <pre>Hmm, good question.
+
+Then it will be needed to flush TLB on each VM switch by using
+sbi_remote_hfence_gvma().
+
+</pre>
+    <blockquote type="cite"
+      cite="mid:d747fd23-9ac3-49d2-8a5e-699290cef3f4@suse.com">
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+    if ( !vmid_mask || !vmid_flushing_needed )
++        panic("Could not allocate VMID bitmap space or VMID flushing map\n");
++
++    set_bit(INVALID_VMID, vmid_mask);
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">If (see above) this is really needed, __set_bit() please.
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+}
++
++int p2m_alloc_vmid(struct domain *d)
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">Looks like this can be static? (p2m_free_vmid() has no caller at all, so
+it's not clear what use it is going to be.)</pre>
+    </blockquote>
+    <pre>It really can be static. And p2m_free_vmid() too, but as there is no caller
+of p2m_free_vmid() probably it makes sense to do in the following way:
+  /* Uncomment static when p2m_free_vmid() will be called. */
+  /* static */ void p2m_free_vmid(struct domain *d)
+Or just drop for the moment when it will be really needed.
+
+
+
+</pre>
+    <blockquote type="cite"
+      cite="mid:d747fd23-9ac3-49d2-8a5e-699290cef3f4@suse.com">
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+        goto out;
++    }
++
++    set_bit(nr, vmid_mask);
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">Since you do this under lock, even here __set_bit() ought to be sufficient.
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+    if ( test_bit(p2m-&gt;vmid, vmid_flushing_needed) )
++    {
++        clear_bit(p2m-&gt;vmid, vmid_flushing_needed);
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">And __clear_bit() here, or yet better use __test_and_clear_bit() in the if().
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+        sbi_remote_hfence_gvma_vmid(d-&gt;dirty_cpumask, 0, 0, p2m-&gt;vmid);
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">You're creating d; it cannot possibly have run on any CPU yet. IOW
+d-&gt;dirty_cpumask will be reliably empty here. I think it would be hard to
+avoid issuing the flush to all CPUs here in this scheme.</pre>
+    </blockquote>
+    <pre>I didn't double check, but I was sure that in case d-&gt;dirty_cpumask is empty then
+rfence for all CPUs will be send. But I was wrong about that.
+
+What about just update a code of sbi_rfence_v02()?
+
+At the moment, we have check if a pointer to cpu_mask isn't NULL and if NULL then
+do rfence for all CPUs:
+
+static int cf_check sbi_rfence_v02(unsigned long fid,
+                                   const cpumask_t *cpu_mask,
+                                   vaddr_t start, size_t size,
+                                   unsigned long arg4, unsigned long arg5)
+{
+   ...
+
+    /*
+     * hart_mask_base can be set to -1 to indicate that hart_mask can be
+     * ignored and all available harts must be considered.
+     */
+    if ( !cpu_mask )
+        return sbi_rfence_v02_real(fid, 0UL, -1UL, start, size, arg4);
+   ...
+
+What about  just to add here:
+    if ( !cpu_mask || cpumask_empty(cpu_mask) )
+
+Does it make sense?
+
+</pre>
+    <blockquote type="cite"
+      cite="mid:d747fd23-9ac3-49d2-8a5e-699290cef3f4@suse.com">
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+    spin_unlock(&amp;vmid_alloc_lock);
++    return rc;
++}
++
++void p2m_free_vmid(struct domain *d)
++{
++    struct p2m_domain *p2m = p2m_get_hostp2m(d);
++
++    spin_lock(&amp;vmid_alloc_lock);
++
++    if ( p2m-&gt;vmid != INVALID_VMID )
++    {
++        clear_bit(p2m-&gt;vmid, vmid_mask);
++        set_bit(p2m-&gt;vmid, vmid_flushing_needed);
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">Does this scheme really avoid any flushes (except near when the system is
+about to go down)?
+
+As to choice of functions - see above.</pre>
+    </blockquote>
+    <pre>I think yes, so my idea was that if vmid isn't freed then we have enough free VMID
+and in this case flush isn't needed as each vcpu has unique not-used yet VMID,
+and if there is no free VMID then and error will return in p2m_alloc_vmid():
+    if ( nr == MAX_VMID )
+    {
+        rc = -EBUSY;
+        printk(XENLOG_ERR "p2m.c: dom%pd: VMID pool exhausted\n", d-&gt;domain_id);
+        goto out;
+    }
+
+On other hand, if VMID was freed and then re-used in p2m_alloc_vmid(), then it means
+that vmid_flushing_needed will have VMID bit set, what means that a TLB flush is needed.
+
+</pre>
+    <blockquote type="cite"
+      cite="mid:d747fd23-9ac3-49d2-8a5e-699290cef3f4@suse.com">
+      <pre wrap="" class="moz-quote-pre">
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+    }
++
++    spin_unlock(&amp;vmid_alloc_lock);
++}
++
++int p2m_init(struct domain *d)
++{
++    struct p2m_domain *p2m = p2m_get_hostp2m(d);
++    int rc;
++
++    p2m-&gt;vmid = INVALID_VMID;
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">Given the absence of callers of p2m_free_vmid() it's also not clear what use
+this is.</pre>
+    </blockquote>
+    <pre>Just mark that VMID for this domain wasn't yet allocated.
+
+Anyway, it will be called from arch_domain_create() by arch_domain_destroy() so if the some
+error happens during arch_domain_create() and p2m-&gt;vmid wasn't allocated yet (so is equal to
+INVALID_VMID), it means that there is no sense to update vmid_mask or vmid_flushing_needed.
+
+~ Oleksii</pre>
+    <br>
+  </body>
+</html>
+
+--------------0njIQvGmM3eD3vN4bb8on5El--
 
