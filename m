@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D1AFAE5DC8
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Jun 2025 09:32:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1023202.1399137 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA818AE5DD0
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Jun 2025 09:33:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1023209.1399147 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uTy92-0004wT-I5; Tue, 24 Jun 2025 07:32:40 +0000
+	id 1uTy9d-0005hy-Qd; Tue, 24 Jun 2025 07:33:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1023202.1399137; Tue, 24 Jun 2025 07:32:40 +0000
+Received: by outflank-mailman (output) from mailman id 1023209.1399147; Tue, 24 Jun 2025 07:33:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uTy92-0004u7-Ed; Tue, 24 Jun 2025 07:32:40 +0000
-Received: by outflank-mailman (input) for mailman id 1023202;
- Tue, 24 Jun 2025 07:32:39 +0000
+	id 1uTy9d-0005fl-NQ; Tue, 24 Jun 2025 07:33:17 +0000
+Received: by outflank-mailman (input) for mailman id 1023209;
+ Tue, 24 Jun 2025 07:33:16 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=LEHU=ZH=gmail.com=xakep.amatop@srs-se1.protection.inumbo.net>)
- id 1uTy91-0004u1-Ml
- for xen-devel@lists.xenproject.org; Tue, 24 Jun 2025 07:32:39 +0000
-Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
- [2a00:1450:4864:20::133])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=j9+j=ZH=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uTy9c-0004u1-Ey
+ for xen-devel@lists.xenproject.org; Tue, 24 Jun 2025 07:33:16 +0000
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [2a00:1450:4864:20::435])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 672bd0e2-50cd-11f0-b894-0df219b8e170;
- Tue, 24 Jun 2025 09:32:37 +0200 (CEST)
-Received: by mail-lf1-x133.google.com with SMTP id
- 2adb3069b0e04-553b82f3767so4445482e87.3
- for <xen-devel@lists.xenproject.org>; Tue, 24 Jun 2025 00:32:37 -0700 (PDT)
+ id 7d1eb873-50cd-11f0-b894-0df219b8e170;
+ Tue, 24 Jun 2025 09:33:14 +0200 (CEST)
+Received: by mail-wr1-x435.google.com with SMTP id
+ ffacd0b85a97d-3a57c8e247cso3989704f8f.1
+ for <xen-devel@lists.xenproject.org>; Tue, 24 Jun 2025 00:33:14 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-237d86e8fddsm100210615ad.210.2025.06.24.00.33.07
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 24 Jun 2025 00:33:13 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,195 +45,117 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 672bd0e2-50cd-11f0-b894-0df219b8e170
+X-Inumbo-ID: 7d1eb873-50cd-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1750750357; x=1751355157; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=idY0L7FAG5ombVL1pgVzwW+SP8Atsr2COoChxPRVi8s=;
-        b=dGZjNF2P2HOunqK7rSOV5u0iI9Yx9dW7y0ZbK+8AEEpj0Kyky7njbzVR60wBukL8fB
-         fLsEHR2sYTWizaMbofLoqqX3ZoJxm9gDfkdVTH9/+pCmAwzYmiTRFDd1BKxlrXWr18pc
-         GE68SDFf6E1raFYOXj9QLDnNIDP9+CSiiq0Etb3+ysfpVWr0NbLKU0F0oghp+V6xNjfO
-         6RR3BY+sbDQsMOfbD0JIgBP9Poj3bhOhCHh+zfuDMw2RJD1PDVyAOIK4vGTY8qDjsw+J
-         csso5SqGrIQqz8nozGcGYv6vFcc9x1C0bcAK3+WGGylSacd4jNw2XiM+ABqtLS6IpT/M
-         XNvw==
+        d=suse.com; s=google; t=1750750394; x=1751355194; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=K0TGZ6rbmQMWuCm67eAqErb6H0rHOvPUz009tcPefSY=;
+        b=dFUWQSyOj0m6E4+S5hWjBm14JQGaPWSAPCB6SEyM0XuKF0C5CKuT0zPk0G7UTIZ5b4
+         exogsa4iygODHnUKTZBNY5yb48yjD6ToCb1Rn9oT2u2QqDtzzsE/25Ouh2oUkbejPZBA
+         d1g8W4kvqo2vzNqZJVPz0hV4+ySt2zOu92v3X+3YouSEBGU2QDFC9q4jRCucfGUm4O2x
+         4nq6M6eKR00j/g36bfC0kiSdcaQYp76daEXpvdiTrxeh6dt15wRbE5YAJfFSAX9cyA7k
+         QR5/PlGOOmo/zjHD2BhV/7hNHQZJWbEimWec+kA5OH+n7NRU4mte+Vk8Jjz2OwOeD7lK
+         FGDg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750750357; x=1751355157;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=idY0L7FAG5ombVL1pgVzwW+SP8Atsr2COoChxPRVi8s=;
-        b=Q380OSaNFdicDOf0mNgq7pmNHBhVBbKLUyUPpcHAnfv9WxmIBGa2lKAiYCiIlOnEwh
-         uQA/uWX27tQ9U76kfs62NHdFs2cfSBeo4c0v/EDqv1CCewaGBVOLE1l3a+XAmRA7G68+
-         k5xUun45qERW4HO7U5ZUyIogvGxhfhbC4ul3TPGXzd1EjqU9/LfOdSlJ5x35q55DSvG6
-         dAeRKXW3Bxdsz6v8pjvG/tT3SsctOfvpUmpzgqJAb95YCnRmC8EBOf6YHctCT23wThOk
-         N0ZEYrhKCsJtrU55fDvK/dkpOFb+RuCXoeuIBcngDxngIVHpJdTgVGo+bwSJ+uBQ78Lo
-         5SFg==
-X-Forwarded-Encrypted: i=1; AJvYcCWe+jnqa1NwltUgADuryZBdzKPw3bGqqnuvp7SOhhZcK4gN7G+eyKyKqmeASOkouUPyvBSnXSdTtjQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyrEb71hB743qpJNJEJ/8VEpjVrj35Hk2Dw9Kt9U2r2mffpJMh6
-	+62tumlDoPthqt+5cTpslf/L86Gy492piY+a5sOgH3gk+YM1Aj83Ut8dZo3bFP7xC+24fWyxvqZ
-	tcGtBcJxV1oIUskqUE5I4KZFouhCRu7HqJolQLKdG8w==
-X-Gm-Gg: ASbGnctfcDpv4dT6FeWTLV/6FT1ntpYmbWkx7VjcTRABqDdfwoe2KFVT0eTMYFET3FX
-	v73pE5g0r18/Qtd5QseVxiEEH4j+XtXI+diDXM3jZb4B1NCbGrAdptElR1Ya2JuCczzQoYuplFC
-	sqL6ksAvnvz4kspoRCa71cE2RfWWesrRFVPqB3sCDr3ZPrr8P5Uk32
-X-Google-Smtp-Source: AGHT+IEL7SZMmDPhbWZETzSyYm+qp9+Rnpl2IsuPXqcLoDr/DqkeFdgNerkdqBq8z+LamlukndWrOXP1Og6tJsbiQwQ=
-X-Received: by 2002:a05:6512:1052:b0:553:3407:eee0 with SMTP id
- 2adb3069b0e04-553e3ba7f4amr5193639e87.4.1750750356867; Tue, 24 Jun 2025
- 00:32:36 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1750750394; x=1751355194;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=K0TGZ6rbmQMWuCm67eAqErb6H0rHOvPUz009tcPefSY=;
+        b=B8x/UyMc3+SdV3bpMyE7SBqLF1CHdkru0x4k+99ka1o1dUc5y0fUUP79hyzaR9tA0B
+         m7eKgC1KUSyIksGN5FkFeKVFWBapljPE5D5MOoFl0jbyQQQ/7EzzIrf2RQ8siAxGceyy
+         LFShWhLCUxmfR69oVtqQLSM0ZGVoZFRC+NFW7gcdt0+FeWN8q7fNu4m4HAOvQO+9PcxT
+         l0LENs9Lf0FNbCjCnA1ClTv0HfideUB56gFaYWiXi/PiuwYozUIL/JGqQJq2wUK9o8Op
+         7pzU3U3sqLPTcODWd/pVI8u8D91oPWBmf5LJaDR+FmzGAtwRseyKNNDHthO+hq/yYEz5
+         iuKA==
+X-Forwarded-Encrypted: i=1; AJvYcCWQZVyI89JK7NmpWiC39moq9nI4m+qrWNYkKit7jM0LDI65fz6r9CLV4EpE7HHDOqaWaMFAd4NsZuY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwY7N6Y4ZXC0cgn2yzu5q4HchvdREZcVqbOTQ476GJa1XJFNCkv
+	NKcYbHjY4DZFyyXfKCh/RRZQtRDn2Rp2v9aZlBicy0qTJ9GXid6ZkUGlrNMDzOz2sQ==
+X-Gm-Gg: ASbGncs/a3mCgfvYsCeIeeHmS3LKTzHaYl6mwMh+It9Jwfqmmw94u88ekq+91AcR6Fv
+	vU17gbL59E8Xc4wAhs+StxQPS6JZBexJb2XVjji7P0jCPDD/Zk/cZrn5+TYSMOQUu8zMFNxx+KQ
+	7IY8HhhDuvesvu1YyoZzoyFTf3D4Hqg2ln8Jfd9VUfauVoO3A76TU3BHzdslXt4A35NgwL5g/0Y
+	D7z4a/qhhWY5CGKsFUJxfIBWrgEUJfBqwuf5TjMZrUfU5783nXyQec+z/t4gpEC+n2y7rkKWHY9
+	naLvl0NdMkIbuIsKKVSis9g8rCCMyqJSrjw7xjSkNfbTYB6cVx3MTo3Hku3Ili0KyLnoRyIvGfH
+	3JUocN9v0eJqX8l5B2T0GKxL7JD0ESQ2xGtvSy2bMehhXqsQ=
+X-Google-Smtp-Source: AGHT+IGe9ZnhqBEM/BgvR7Hz+Dof3t/CKhKOaBsoD1TVykpNTVuMuWW7bhSuoSBGa65+dYngPFBRRQ==
+X-Received: by 2002:a05:6000:178f:b0:3a4:f038:af76 with SMTP id ffacd0b85a97d-3a6d1331ef9mr13547349f8f.53.1750750394130;
+        Tue, 24 Jun 2025 00:33:14 -0700 (PDT)
+Message-ID: <3da8604c-797c-4ad2-b059-4bf9c5bfb86a@suse.com>
+Date: Tue, 24 Jun 2025 09:33:04 +0200
 MIME-Version: 1.0
-References: <cover.1748337249.git.mykola_kvach@epam.com> <1a8313537603bee36636b0fcd2fdc2f76a2374fb.1748337249.git.mykola_kvach@epam.com>
- <abf5da3e-8e5b-4159-98d4-60bf90672c2c@xen.org> <CAGeoDV-gZQ5QzP-5gFmFpNy5B=vUhdaeAbkN1LPFtSXBdGwepg@mail.gmail.com>
- <8884a8e1-4816-4b08-9f27-58f1df0c1d30@amd.com>
-In-Reply-To: <8884a8e1-4816-4b08-9f27-58f1df0c1d30@amd.com>
-From: Mykola Kvach <xakep.amatop@gmail.com>
-Date: Tue, 24 Jun 2025 10:32:25 +0300
-X-Gm-Features: AX0GCFsZ7SMR_8aGlSm_llCyA2Cp8uEQFXLTPcdAo0Pcqa-p3ja_zWAuKIyORlA
-Message-ID: <CAGeoDV96YN=G_c9fXLR2xo6MRUBaNGCYfV-xE01mW7cngAoNQA@mail.gmail.com>
-Subject: Re: [PATCH v4][PART 1 2/4] xen/arm: Implement PSCI SYSTEM_SUSPEND
- call for guests
-To: "Orzel, Michal" <michal.orzel@amd.com>
-Cc: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org, 
-	Mykola Kvach <mykola_kvach@epam.com>, Stefano Stabellini <sstabellini@kernel.org>, 
-	Bertrand Marquis <bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 13/16] drivers/vuart: move PL011 emulator code
+To: dmkhn@proton.me
+Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org,
+ michal.orzel@amd.com, oleksii.kurochko@gmail.com, roger.pau@citrix.com,
+ sstabellini@kernel.org, dmukhin@ford.com, xen-devel@lists.xenproject.org
+References: <20250624035443.344099-1-dmukhin@ford.com>
+ <20250624035443.344099-14-dmukhin@ford.com>
+ <6b2938a2-aa42-421f-b948-44e74f463b21@suse.com> <aFpUNB8BP6+COTRp@kraken>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <aFpUNB8BP6+COTRp@kraken>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Michal,
+On 24.06.2025 09:31, dmkhn@proton.me wrote:
+> On Tue, Jun 24, 2025 at 07:50:33AM +0200, Jan Beulich wrote:
+>> On 24.06.2025 05:56, dmkhn@proton.me wrote:
+>>> From: Denis Mukhin <dmukhin@ford.com>
+>>>
+>>> Move PL011 emulator to the new location for UART emulators.
+>>>
+>>> No functional change intended.
+>>>
+>>> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
+>>> ---
+>>>  xen/arch/arm/Kconfig                               |  7 -------
+>>>  xen/arch/arm/Makefile                              |  1 -
+>>>  xen/drivers/Kconfig                                |  2 ++
+>>>  xen/drivers/Makefile                               |  1 +
+>>>  xen/drivers/vuart/Kconfig                          | 14 ++++++++++++++
+>>>  xen/drivers/vuart/Makefile                         |  1 +
+>>>  .../arm/vpl011.c => drivers/vuart/vuart-pl011.c}   |  0
+>>>  7 files changed, 18 insertions(+), 8 deletions(-)
+>>>  create mode 100644 xen/drivers/vuart/Kconfig
+>>>  create mode 100644 xen/drivers/vuart/Makefile
+>>>  rename xen/{arch/arm/vpl011.c => drivers/vuart/vuart-pl011.c} (100%)
+>>
+>> I question the placement under drivers/. To me, driver != emulator. I
+>> wonder what others think. But yes, we already have drivers/vpci/. That
+>> may want moving then ...
+> 
+> re: driver != emulator: I agree; but I followed drivers/vpci.
+> 
+> Do you think common/vuart would be a better location?
 
-On Fri, Jun 13, 2025 at 10:53=E2=80=AFAM Orzel, Michal <michal.orzel@amd.co=
-m> wrote:
->
->
->
-> On 06/06/2025 05:52, Mykola Kvach wrote:
-> > Hi, @Julien Grall
-> >
-> > On Wed, Jun 4, 2025 at 2:00=E2=80=AFAM Julien Grall <julien@xen.org> wr=
-ote:
-> >>
-> >> Hi Mykola,
-> >>
-> >> On 27/05/2025 10:18, Mykola Kvach wrote:
-> >>> From: Mykola Kvach <mykola_kvach@epam.com>
-> >>>
-> >>> This patch adds support for the PSCI SYSTEM_SUSPEND function in the v=
-PSCI
-> >>> (virtual PSCI) interface, allowing guests to request suspend via the =
-PSCI
-> >>> v1.0 SYSTEM_SUSPEND call (both 32-bit and 64-bit variants).
-> >>>
-> >>> The implementation:
-> >>> - Adds SYSTEM_SUSPEND function IDs to PSCI definitions
-> >>> - Implements trapping and handling of SYSTEM_SUSPEND in vPSCI
-> >>> - Allows only non-hardware domains to invoke SYSTEM_SUSPEND; for the
-> >>>    hardware domain, PSCI_NOT_SUPPORTED is returned to avoid halting t=
-he
-> >>>    system in hwdom_shutdown() called from domain_shutdown
-> >>> - Ensures all secondary VCPUs of the calling domain are offline befor=
-e
-> >>>    allowing suspend due to PSCI spec
-> >>> - Treats suspend as a "standby" operation: the domain is shut down wi=
-th
-> >>>    SHUTDOWN_suspend, and resumes execution at the instruction followi=
-ng
-> >>>    the call
-> >>
-> >> Looking at the specification, I am still not convinced you can impleme=
-nt
-> >> PSCI SUSPEND as a NOP. For instance, in the section "5.1.19
-> >> SYSTEM_SUSPEND", the wording implies the call cannot return when it is
-> >> successul.
-> >>
-> >> I understand that 5.20.2 ("Caller reponsabilities" for SYSTEM_SUSPEND)
-> >> suggests the caller should apply all the rules from 5.4 ("Caller
-> >> responsabilties" for CPU_SUSPEND), but it is also mentioned that
-> >> SYSTEM_SUSPEND behave as the deepest power down state.
-> >>
-> >> So I don't think standby is an option. I would like an opinion from th=
-e
-> >> other maintainers.
-> >
-> > Sure, let's discuss this with the others.
-> My understanding of the spec is that SYSTEM_SUSPEND is equivalent to CPU_=
-SUSPEND
-> *for the deepest possible powerdown* state. CPU_SUSPEND can be implemente=
-d as
-> standby or powerdown, but the SYSTEM_SUSPEND only mentions powerdown stat=
-e
-> (which is the true deepest state). Therefore I don't think standby could =
-apply
-> to SYSTEM_SUSPEND and we could simply ignore the entry point address pass=
-ed by OS.
+Or maybe common/emul/... This wants discussing, I think.
 
-Thank you for your feedback.
-
-I agree with your and Julien's suggestions.
-I will revert the behavior to the previous implementation, as proposed.
-
-Best regards,
-Mykola
-
->
-> ~Michal
->
-> >
-> >>
-> >>> +static int32_t do_psci_1_0_system_suspend(register_t epoint, registe=
-r_t cid)
-> >>  > +{> +    struct vcpu *v;
-> >>> +    struct domain *d =3D current->domain;
-> >>> +
-> >>> +    /* Drop this check once SYSTEM_SUSPEND is supported in hardware =
-domain */
-> >>> +    if ( is_hardware_domain(d) )
-> >>> +        return PSCI_NOT_SUPPORTED;
-> >>> +
-> >>> +    /* Ensure that all CPUs other than the calling one are offline *=
-/
-> >>> +    for_each_vcpu ( d, v )
-> >>> +    {
-> >>> +        if ( v !=3D current && is_vcpu_online(v) )
-> >>
-> >> I think this is racy because you can still turn on a vCPU afterwards
-> >> from a vCPU you haven't checked.
-> >>
-> >
-> > I'll think about how to protect against such cases.
-> > Thank you for pointing that out.
-> >
-> >> Did you add this check just to follow the specification, or is there a=
-ny
-> >> other problem in Xen?
-> >
-> > Yes, it's just to comply with the specification =E2=80=94 at least,
-> > I've never seen PSCI_DENIED triggered because of this check.
-> > It's a leftover from a previous patch series.
-> >
-> >>
-> >>> +            return PSCI_DENIED;
-> >>  > +    }> +
-> >>> +    /*
-> >>> +     * System suspend requests are treated as performing standby
-> >>> +     * as this simplifies Xen implementation.
-> >>> +     *
-> >>> +     * Arm Power State Coordination Interface (DEN0022F.b)
-> >>
-> >> This comment is a bit too verbose. There is no need to copy/paste the
-> >> specification. You can just write a couple of sentence with link to th=
-e
-> >> specification.
-> >
-> > Got it, I'll revise the comment accordingly.
-> >
-> >>
-> >> Cheers,
-> >>
-> >> --
-> >> Julien Grall
-> >>
-> >
-> > Best regards,
-> > Mykola
->
+Jan
 
