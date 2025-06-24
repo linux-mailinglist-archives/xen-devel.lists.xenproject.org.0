@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1DB64AE5AB7
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Jun 2025 06:01:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1022962.1398887 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 102F9AE5ABB
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Jun 2025 06:01:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1022988.1398922 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uTuqH-0003ld-B9; Tue, 24 Jun 2025 04:01:05 +0000
+	id 1uTuqV-0005ey-M0; Tue, 24 Jun 2025 04:01:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1022962.1398887; Tue, 24 Jun 2025 04:01:05 +0000
+Received: by outflank-mailman (output) from mailman id 1022988.1398922; Tue, 24 Jun 2025 04:01:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uTuqH-0003gr-5F; Tue, 24 Jun 2025 04:01:05 +0000
-Received: by outflank-mailman (input) for mailman id 1022962;
- Tue, 24 Jun 2025 04:01:03 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uTuqV-0005Y3-D6; Tue, 24 Jun 2025 04:01:19 +0000
+Received: by outflank-mailman (input) for mailman id 1022988;
+ Tue, 24 Jun 2025 04:01:18 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=1A0Y=ZH=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
- id 1uTum2-000639-16
- for xen-devel@lists.xenproject.org; Tue, 24 Jun 2025 03:56:42 +0000
-Received: from mail-24417.protonmail.ch (mail-24417.protonmail.ch
- [109.224.244.17]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3bdf5ff5-50af-11f0-b894-0df219b8e170;
- Tue, 24 Jun 2025 05:56:40 +0200 (CEST)
+ id 1uTum8-0006IZ-Oh
+ for xen-devel@lists.xenproject.org; Tue, 24 Jun 2025 03:56:48 +0000
+Received: from mail-4322.protonmail.ch (mail-4322.protonmail.ch [185.70.43.22])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 4084eed8-50af-11f0-a30f-13f23c93f187;
+ Tue, 24 Jun 2025 05:56:48 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,151 +36,133 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3bdf5ff5-50af-11f0-b894-0df219b8e170
+X-Inumbo-ID: 4084eed8-50af-11f0-a30f-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1750737399; x=1750996599;
-	bh=sQjr1X/MYLsD22+VDl+MPDWcSEB3K5kISaVn/vZXiZc=;
+	s=protonmail; t=1750737407; x=1750996607;
+	bh=5yXPb6SqgHIQ4PIoB8k8GBXcIv2K6UWy6GJUDsY9e8g=;
 	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
 	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
 	 Message-ID:BIMI-Selector;
-	b=b1UKBbzULeg7v54z7Ljx0Z2VGSOue5K5SfB0yMBtMo5kUuzLqPQzSRzovKOZHOO6M
-	 XEfZGXLk/gHD7qNu+UBG1200PuQCdUI4WpK9GpR80v0hSUj20CynlwI10o7Mx7pa+W
-	 Q/QvFBDaiysSBIY/ujsNxFa8WoTM5ZwFUNRHmZcsJgduvqBM2GKPAHwWNlEb+VMICa
-	 hhKIsfjknRIypUH8rmNnoA88OgLqmvyVNnGKPUknShYXblDowddLL6ugQm4OTe0Zze
-	 FHO4j1PECK3Hb8diDvzqrmdSMfq4FVtDm5VHMsb4VsIyWya3mnNvV0gYYEYMw4Px46
-	 8uHpEY7CfmYZQ==
-Date: Tue, 24 Jun 2025 03:56:34 +0000
+	b=SYKGEdQ5sWCwPY6yPcDMhM+HBEIdbuJpsGuY1gSC5qpUJMqIPkoUdzIRKnJX92uNP
+	 MtKjJZhD31QHJnIrXD3+gq0mUqzI+lntp6G9A7J+8LQoLloHKNR4y7nHbaF3gKskyH
+	 eDP/biNweisrUTzDLZiOuR8GTlCbzMJ45wL7RNwjbVI67aLTi0eQGRNbTIe6tAnIUY
+	 TUn/rRdBOC42Dlj6R7FwM6X4Ce4djcKH1za6o7mWN1Z4LtGpc8jF1BNmUzkFiJ6XOP
+	 N0rING2hWudN/qmy8gMJy/8U/pUYjJRLFySPmXhXYLpxr0eAG86XD/v/3CDftMAoCF
+	 PlFQw/m8y4cUQ==
+Date: Tue, 24 Jun 2025 03:56:43 +0000
 To: xen-devel@lists.xenproject.org
 From: dmkhn@proton.me
 Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org, michal.orzel@amd.com, oleksii.kurochko@gmail.com, roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com
-Subject: [PATCH v1 11/16] xen/domain: introduce common emulation flags
-Message-ID: <20250624035443.344099-12-dmukhin@ford.com>
+Subject: [PATCH v1 12/16] xen/domain: introduce domain-emu.h
+Message-ID: <20250624035443.344099-13-dmukhin@ford.com>
 In-Reply-To: <20250624035443.344099-1-dmukhin@ford.com>
 References: <20250624035443.344099-1-dmukhin@ford.com>
 Feedback-ID: 123220910:user:proton
-X-Pm-Message-ID: 46118646609cefd37d47d7fd8541f13c82208d7c
+X-Pm-Message-ID: b341b04a459a662589cb5e9b9a7be4c7a9828afd
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
 From: Denis Mukhin <dmukhin@ford.com>=20
 
-Add common emulation_flags for configuring domain emulation features.
-
-Print d->emulation_flags from 'q' keyhandler for better traceability while
-debugging.
+Define an architecture-independent location for describing domain emulation
+flags.
 
 Signed-off-by: Denis Mukhin <dmukhin@ford.com>
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 ---
-Original patch: https://lore.kernel.org/r/20250602191717.148361-2-dmukhin@f=
-ord.com
+Original code: https://lore.kernel.org/xen-devel/20250103-vuart-ns8250-v3-v=
+1-6-c5d36b31d66c@ford.com/
 ---
- xen/arch/x86/domain.c             |  2 +-
- xen/arch/x86/domctl.c             |  2 +-
- xen/arch/x86/include/asm/domain.h | 25 +++++++++++--------------
- xen/common/keyhandler.c           |  1 +
- xen/include/xen/sched.h           |  2 ++
- 5 files changed, 16 insertions(+), 16 deletions(-)
+ xen/arch/x86/include/asm/domain.h | 23 ++++++++++++-----------
+ xen/include/xen/domain-emu.h      | 30 ++++++++++++++++++++++++++++++
+ 2 files changed, 42 insertions(+), 11 deletions(-)
+ create mode 100644 xen/include/xen/domain-emu.h
 
-diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
-index d025befe3d8e..fc310b1164f4 100644
---- a/xen/arch/x86/domain.c
-+++ b/xen/arch/x86/domain.c
-@@ -881,7 +881,7 @@ int arch_domain_create(struct domain *d,
-                emflags);
-         return -EOPNOTSUPP;
-     }
--    d->arch.emulation_flags =3D emflags;
-+    d->emulation_flags =3D emflags;
-=20
- #ifdef CONFIG_PV32
-     HYPERVISOR_COMPAT_VIRT_START(d) =3D
-diff --git a/xen/arch/x86/domctl.c b/xen/arch/x86/domctl.c
-index 3044f706de1c..37d848f68339 100644
---- a/xen/arch/x86/domctl.c
-+++ b/xen/arch/x86/domctl.c
-@@ -144,7 +144,7 @@ void arch_get_domain_info(const struct domain *d,
-     if ( paging_mode_hap(d) )
-         info->flags |=3D XEN_DOMINF_hap;
-=20
--    info->arch_config.emulation_flags =3D d->arch.emulation_flags;
-+    info->arch_config.emulation_flags =3D d->emulation_flags;
-     info->gpaddr_bits =3D hap_paddr_bits;
- }
-=20
 diff --git a/xen/arch/x86/include/asm/domain.h b/xen/arch/x86/include/asm/d=
 omain.h
-index 8c0dea12a526..eafd5cfc903d 100644
+index eafd5cfc903d..c6bc83b4abe0 100644
 --- a/xen/arch/x86/include/asm/domain.h
 +++ b/xen/arch/x86/include/asm/domain.h
-@@ -455,9 +455,6 @@ struct arch_domain
+@@ -3,6 +3,7 @@
 =20
-     /* Don't unconditionally inject #GP for unhandled MSRs. */
-     bool msr_relaxed;
--
--    /* Emulated devices enabled bitmap. */
--    uint32_t emulation_flags;
+ #include <xen/mm.h>
+ #include <xen/radix-tree.h>
++#include <xen/domain-emu.h>
+ #include <asm/hvm/vcpu.h>
+ #include <asm/hvm/domain.h>
+ #include <asm/e820.h>
+@@ -458,16 +459,16 @@ struct arch_domain
  } __cacheline_aligned;
 =20
  #ifdef CONFIG_HVM
-@@ -494,17 +491,17 @@ struct arch_domain
-                                  X86_EMU_PIT | X86_EMU_USE_PIRQ |       \
-                                  X86_EMU_VPCI)
-=20
--#define has_vlapic(d)      (!!((d)->arch.emulation_flags & X86_EMU_LAPIC))
--#define has_vhpet(d)       (!!((d)->arch.emulation_flags & X86_EMU_HPET))
--#define has_vpm(d)         (!!((d)->arch.emulation_flags & X86_EMU_PM))
--#define has_vrtc(d)        (!!((d)->arch.emulation_flags & X86_EMU_RTC))
--#define has_vioapic(d)     (!!((d)->arch.emulation_flags & X86_EMU_IOAPIC)=
-)
--#define has_vpic(d)        (!!((d)->arch.emulation_flags & X86_EMU_PIC))
--#define has_vvga(d)        (!!((d)->arch.emulation_flags & X86_EMU_VGA))
--#define has_viommu(d)      (!!((d)->arch.emulation_flags & X86_EMU_IOMMU))
--#define has_vpit(d)        (!!((d)->arch.emulation_flags & X86_EMU_PIT))
--#define has_pirq(d)        (!!((d)->arch.emulation_flags & X86_EMU_USE_PIR=
-Q))
--#define has_vpci(d)        (!!((d)->arch.emulation_flags & X86_EMU_VPCI))
-+#define has_vlapic(d)      (!!((d)->emulation_flags & X86_EMU_LAPIC))
-+#define has_vhpet(d)       (!!((d)->emulation_flags & X86_EMU_HPET))
-+#define has_vpm(d)         (!!((d)->emulation_flags & X86_EMU_PM))
-+#define has_vrtc(d)        (!!((d)->emulation_flags & X86_EMU_RTC))
-+#define has_vioapic(d)     (!!((d)->emulation_flags & X86_EMU_IOAPIC))
-+#define has_vpic(d)        (!!((d)->emulation_flags & X86_EMU_PIC))
-+#define has_vvga(d)        (!!((d)->emulation_flags & X86_EMU_VGA))
-+#define has_viommu(d)      (!!((d)->emulation_flags & X86_EMU_IOMMU))
-+#define has_vpit(d)        (!!((d)->emulation_flags & X86_EMU_PIT))
-+#define has_pirq(d)        (!!((d)->emulation_flags & X86_EMU_USE_PIRQ))
-+#define has_vpci(d)        (!!((d)->emulation_flags & X86_EMU_VPCI))
-=20
- #define gdt_ldt_pt_idx(v) \
-       ((v)->vcpu_id >> (PAGETABLE_ORDER - GDT_LDT_VCPU_SHIFT))
-diff --git a/xen/common/keyhandler.c b/xen/common/keyhandler.c
-index b0a2051408d5..eccd97c565c6 100644
---- a/xen/common/keyhandler.c
-+++ b/xen/common/keyhandler.c
-@@ -306,6 +306,7 @@ static void cf_check dump_domains(unsigned char key)
-             if ( test_bit(i, &d->watchdog_inuse_map) )
-                 printk("    watchdog %d expires in %d seconds\n",
-                        i, (u32)((d->watchdog_timer[i].expires - NOW()) >> =
-30));
-+        printk("    emulation_flags %#x\n", d->emulation_flags);
-=20
-         arch_dump_domain_info(d);
-=20
-diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
-index fe53d4fab7ba..8b16efe6afd8 100644
---- a/xen/include/xen/sched.h
-+++ b/xen/include/xen/sched.h
-@@ -652,6 +652,8 @@ struct domain
-     const unsigned int *llc_colors;
+-#define X86_EMU_LAPIC    XEN_X86_EMU_LAPIC
+-#define X86_EMU_HPET     XEN_X86_EMU_HPET
+-#define X86_EMU_PM       XEN_X86_EMU_PM
+-#define X86_EMU_RTC      XEN_X86_EMU_RTC
+-#define X86_EMU_IOAPIC   XEN_X86_EMU_IOAPIC
+-#define X86_EMU_PIC      XEN_X86_EMU_PIC
+-#define X86_EMU_VGA      XEN_X86_EMU_VGA
+-#define X86_EMU_IOMMU    XEN_X86_EMU_IOMMU
+-#define X86_EMU_USE_PIRQ XEN_X86_EMU_USE_PIRQ
+-#define X86_EMU_VPCI     XEN_X86_EMU_VPCI
++#define X86_EMU_LAPIC    DOMAIN_EMU_LAPIC
++#define X86_EMU_HPET     DOMAIN_EMU_HPET
++#define X86_EMU_PM       DOMAIN_EMU_PM
++#define X86_EMU_RTC      DOMAIN_EMU_RTC
++#define X86_EMU_IOAPIC   DOMAIN_EMU_IOAPIC
++#define X86_EMU_PIC      DOMAIN_EMU_PIC
++#define X86_EMU_VGA      DOMAIN_EMU_VGA
++#define X86_EMU_IOMMU    DOMAIN_EMU_IOMMU
++#define X86_EMU_USE_PIRQ DOMAIN_EMU_PIRQ
++#define X86_EMU_VPCI     DOMAIN_EMU_PCI
+ #else
+ #define X86_EMU_LAPIC    0
+ #define X86_EMU_HPET     0
+@@ -481,7 +482,7 @@ struct arch_domain
+ #define X86_EMU_VPCI     0
  #endif
 =20
-+    uint32_t emulation_flags;
+-#define X86_EMU_PIT     XEN_X86_EMU_PIT
++#define X86_EMU_PIT     DOMAIN_EMU_PIT
+=20
+ /* This must match XEN_X86_EMU_ALL in xen.h */
+ #define X86_EMU_ALL             (X86_EMU_LAPIC | X86_EMU_HPET |         \
+diff --git a/xen/include/xen/domain-emu.h b/xen/include/xen/domain-emu.h
+new file mode 100644
+index 000000000000..410963ff480c
+--- /dev/null
++++ b/xen/include/xen/domain-emu.h
+@@ -0,0 +1,30 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++#ifndef XEN_DOMAIN_EMU_H
++#define XEN_DOMAIN_EMU_H
 +
-     /* Console settings. */
-     struct {
-         /* Permission to take ownership of the physical console input. */
++/*
++ * Domain emulation flags.
++ */
++#define DOMAIN_EMU_LAPIC            (1U << 0)
++#define DOMAIN_EMU_HPET             (1U << 1)
++#define DOMAIN_EMU_PM               (1U << 2)
++#define DOMAIN_EMU_RTC              (1U << 3)
++#define DOMAIN_EMU_IOAPIC           (1U << 4)
++#define DOMAIN_EMU_PIC              (1U << 5)
++#define DOMAIN_EMU_VGA              (1U << 6)
++#define DOMAIN_EMU_IOMMU            (1U << 7)
++#define DOMAIN_EMU_PIT              (1U << 8)
++#define DOMAIN_EMU_PIRQ             (1U << 9)
++#define DOMAIN_EMU_PCI              (1U << 10)
++
++#endif /* XEN_DOMAIN_EMU_H */
++
++/*
++ * Local variables:
++ * mode: C
++ * c-file-style: "BSD"
++ * c-basic-offset: 4
++ * tab-width: 4
++ * indent-tabs-mode: nil
++ * End:
++ */
 --=20
 2.34.1
 
