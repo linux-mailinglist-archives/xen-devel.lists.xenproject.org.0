@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA62EAE6A54
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Jun 2025 17:13:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1023834.1399911 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 938A2AE6AA9
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Jun 2025 17:22:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1023855.1399920 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uU5Ke-0000M7-Us; Tue, 24 Jun 2025 15:13:08 +0000
+	id 1uU5TG-0002AG-Nv; Tue, 24 Jun 2025 15:22:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1023834.1399911; Tue, 24 Jun 2025 15:13:08 +0000
+Received: by outflank-mailman (output) from mailman id 1023855.1399920; Tue, 24 Jun 2025 15:22:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uU5Ke-0000Ke-Qx; Tue, 24 Jun 2025 15:13:08 +0000
-Received: by outflank-mailman (input) for mailman id 1023834;
- Tue, 24 Jun 2025 15:13:07 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uU5TG-00027T-LO; Tue, 24 Jun 2025 15:22:02 +0000
+Received: by outflank-mailman (input) for mailman id 1023855;
+ Tue, 24 Jun 2025 15:22:01 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=aTSQ=ZH=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
- id 1uU5Kc-0000KY-Rk
- for xen-devel@lists.xenproject.org; Tue, 24 Jun 2025 15:13:06 +0000
-Received: from mail-oo1-xc2c.google.com (mail-oo1-xc2c.google.com
- [2607:f8b0:4864:20::c2c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ba11ab92-510d-11f0-a30f-13f23c93f187;
- Tue, 24 Jun 2025 17:13:05 +0200 (CEST)
-Received: by mail-oo1-xc2c.google.com with SMTP id
- 006d021491bc7-610db3f3f90so248769eaf.2
- for <xen-devel@lists.xenproject.org>; Tue, 24 Jun 2025 08:13:05 -0700 (PDT)
+ <SRS0=S2sc=ZH=cloud.com=christian.lindig@srs-se1.protection.inumbo.net>)
+ id 1uU5TF-00027N-93
+ for xen-devel@lists.xenproject.org; Tue, 24 Jun 2025 15:22:01 +0000
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [2a00:1450:4864:20::32a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f6d73ef3-510e-11f0-b894-0df219b8e170;
+ Tue, 24 Jun 2025 17:21:56 +0200 (CEST)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-450ce671a08so35953475e9.3
+ for <xen-devel@lists.xenproject.org>; Tue, 24 Jun 2025 08:21:56 -0700 (PDT)
+Received: from smtpclient.apple ([46.149.103.13])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-453632312a3sm155541085e9.1.2025.06.24.08.21.54
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Tue, 24 Jun 2025 08:21:55 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,73 +45,141 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ba11ab92-510d-11f0-a30f-13f23c93f187
+X-Inumbo-ID: f6d73ef3-510e-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1750777984; x=1751382784; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
+        d=cloud.com; s=cloud; t=1750778516; x=1751383316; darn=lists.xenproject.org;
+        h=to:references:message-id:content-transfer-encoding:cc:date
+         :in-reply-to:from:subject:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=XxSLs0Zy2EVf7+xTJftz9OoG0jRFzUdFRd/V1EooDck=;
-        b=Vo8rrF7ndqrMCJa8Ni7ifVn+qMYRQIGjBZaXeyk++SMYh6XQu8BBcFagSIUmGqvKjs
-         HE0P05DNjpivvV0Vlje/Pg7uJtjffh9VX91HOFoLa9fXcXxC0JxzHXh3TdhqKBfoAYLD
-         vLx1h3Eq1tBeNqNAKYWgGV/c5PyEnMZBBEbqM=
+        bh=Oua7XXUpqRR6QzmdHD2dGCTwDty4n6iwCzl/A0SPc1I=;
+        b=jwaUsKYO1J3bTAEuw/kzFJ21BT9zKoJ/07EyYcAUOgpGZIRcwHjl+CR02UF8wGfYs4
+         9InbFTwVL84Ywvj5pJsQjQFT/1/N0vCUCTWNRbJzduD8S1vsi601W4lgt7zxpK6cIdCH
+         xXPamNkzJfl44AjkNFwy8n64kkSFCs51CJl20=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750777984; x=1751382784;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+        d=1e100.net; s=20230601; t=1750778516; x=1751383316;
+        h=to:references:message-id:content-transfer-encoding:cc:date
+         :in-reply-to:from:subject:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=XxSLs0Zy2EVf7+xTJftz9OoG0jRFzUdFRd/V1EooDck=;
-        b=aLICluzIGq9WOiLVDlMO5ExwKqv81+fyKN2b7QzpFCr0yp3eKHKnYWQruN+JV0gTt2
-         Hqv+vNnOC2zS9cQ+wXQYRMzCI/U0C/823lWvkWZ4a6z0K1vxFULP9NkCRBd4+Lvm9bJ2
-         QrXOdorpcnu2gwi+XbQI3H5+29d95AJdSHD9LZgqlslsyA2Cfhs42uO+kqXzdORx5M5H
-         MxcVHqlxQj5D0LUAOB9NVZoaE4OXEb8iJPsiQkV+Lw98mzv6xODB/o+YyUnL1WxvB+OQ
-         vZr0blove8ugCJOfPY15f0IydyTDXaTU7/+wvwaf7zFp4EJVGl8xbCF71QDsyQmd1Jaz
-         BdAg==
-X-Gm-Message-State: AOJu0Yyrx6dSx04Ks80yFoPJRhYCXvoekDIi8TW78z8BfMFEeHJuUvan
-	s0tRF8ISC8vOBZRw4hTeolWkc66OJtfHSWUqhj+rXG5O+WfwV08RsePrhzOd6fFCMPcvVpEyz2S
-	U5fgjcQ0qbTIg8tSO7Szio2lmIdFFPWx9uMoQtjlMsg==
-X-Gm-Gg: ASbGncvk0bm0DSzrLBVxxjpaiEouu0zp7yv2O8vCXxqkOz9xjBF5LUKX4a9GczDq9SK
-	W7zXoAq7IW+j2dbb1ljtg8w+QKim/PY67jlodo3a7YRT/o5nWit2rUQgKDH15bEAxBy+6Xh7ojQ
-	zQndsiPlmxMg8b1z7HN+2XZRKX6kZYygvP65ISUM7O
-X-Google-Smtp-Source: AGHT+IGhG5YRXNh7ltEOHNr24yRx2e25hNQPik3tsdapkO8F67KZajZlYUraVtz/dLDZHi1oFdW3RrrFugNJ27UYE8k=
-X-Received: by 2002:a05:6870:e8a:b0:2e9:d485:5ad4 with SMTP id
- 586e51a60fabf-2efaf43e171mr165687fac.33.1750777984057; Tue, 24 Jun 2025
- 08:13:04 -0700 (PDT)
-MIME-Version: 1.0
-References: <20250624083157.9334-1-frediano.ziglio@cloud.com>
- <20250624083157.9334-2-frediano.ziglio@cloud.com> <aFqcQe5quyjhu24P@mail-itl>
- <CACHz=ZjcZRtjHnUPFRRYd4d-ESv4j2_ssjSTne=6NGCf0s2vBw@mail.gmail.com> <aFq3sYCAglRrMb8I@mail-itl>
-In-Reply-To: <aFq3sYCAglRrMb8I@mail-itl>
-From: Frediano Ziglio <frediano.ziglio@cloud.com>
-Date: Tue, 24 Jun 2025 16:12:46 +0100
-X-Gm-Features: AX0GCFv4y0XEz-NK9ew9bIA39XR6y5Ktd--rTrtlhFUZIKGigicUL4fJY8rY7EM
-Message-ID: <CACHz=ZjbVRWtRc8HHFYZo0CKv4wFq2bwS_emmuZJUawTyBERCw@mail.gmail.com>
-Subject: Re: [PATCH 1/2] xen/efi: Handle cases where file didn't come from ESP
-To: =?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Cc: xen-devel@lists.xenproject.org, 
-	"Daniel P. Smith" <dpsmith@apertussolutions.com>, Jan Beulich <jbeulich@suse.com>
-Content-Type: text/plain; charset="UTF-8"
+        bh=Oua7XXUpqRR6QzmdHD2dGCTwDty4n6iwCzl/A0SPc1I=;
+        b=U4KrhCCXYxNsj38xc72h1Aj46rUQl4P89pH6EJ2HDxv9bC4wsJqMlIVwPWHYFp7ppJ
+         YorkiupxNRjUaI6BcgwdBT9/7f1uZxmel93jrhdh98myo9oSwIpGaE8mOAeSDVlzC6hZ
+         +h/ruWIIFCsnFFPugvAJxJGbeAHNjfKutiY1pF0sCEcCXzhv+GFtUTEfi1VcSH0bELpe
+         dScVqOajGfWYSNh3PZWZcHeSvkMxJ0EPqgkPIoktYm+s4DcipAztz87+xYs5Mg73KrpR
+         vB9meqhIv8E6uVkB/2Qf8LN9qvVEIVmp3mHxvdrrw5KPWy/tAfDP0oUMimH1FdDTSd1+
+         /zZQ==
+X-Gm-Message-State: AOJu0Yy9dejNPbawTuyG5EfTj6O0N6CV8Nnt3+iJP0xDnN9Rn3IXmjiu
+	CwUCnGDv4C9JDIjXzunvPFZGg/R6HoT02JXDHFA4MzTuLsmy8sPVrUzWkNtrS2jXoJX04NtFI9r
+	911eb
+X-Gm-Gg: ASbGnctrUgtXbRPRZgmeFqNEHd27Nya54wGlsWtygFxX7xhYH929hh4MW4jELGLNAZh
+	bjbYntrMVS5LQvb7i19tRm0NX54ZOG3H5UI6cfZUi3P1pj+o05vjPsuNva/v6eSoMNINiPfKClQ
+	wNw2w0FAmKtMor9LduVQzj9VLu0uFxdWzKW2VrxrRIjQByx2OlKVRt+MtGfMmffyk+wqmuAR+NQ
+	iNeDU1Fi4qxqiDM1KUKMt2UBnr9b75T2d++fOV15HD3kITdEULzQ1Y9bJ+4Op+QV65rpccm/Foe
+	Li0zpH8OuQkyLhVM5UMbMsYwo9RBdpBKWhz/BLjMdDyuZ11yHCQlOK2Bv3ltoHjoaiYFBFlHWt+
+	Adn7StOpQPXQ=
+X-Google-Smtp-Source: AGHT+IEvrg/oc2S3NIiDKwdhjw8Yf7Fp/WGqAAZ/6KmET8LI14DO1I34/FZaY1Z2zk8gDXjY6gZnyg==
+X-Received: by 2002:a05:600d:114:b0:442:f482:c429 with SMTP id 5b1f17b1804b1-45365c15866mr98281035e9.8.1750778515523;
+        Tue, 24 Jun 2025 08:21:55 -0700 (PDT)
+Content-Type: text/plain;
+	charset=utf-8
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.500.181.1.5\))
+Subject: Re: xenstore - Suggestion of batching watch events
+From: Christian Lindig <christian.lindig@cloud.com>
+In-Reply-To: <47b7f870-e1d9-44c9-b8ea-5b9028843963@gmail.com>
+Date: Tue, 24 Jun 2025 16:21:44 +0100
+Cc: xen-devel@lists.xenproject.org,
+ =?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
+ =?utf-8?B?RWR3aW4gVMO2csO2aw==?= <edwin.torok@cloud.com>,
+ ngoc-tu.dinh@vates.tech,
+ Christian Lindig <christian.lindig@citrix.com>
 Content-Transfer-Encoding: quoted-printable
+Message-Id: <955F5D37-20D3-4B33-867E-78A0B83A4FB2@cloud.com>
+References: <47b7f870-e1d9-44c9-b8ea-5b9028843963@gmail.com>
+To: Andriy Sultanov <sultanovandriy@gmail.com>
+X-Mailer: Apple Mail (2.3826.500.181.1.5)
 
-On Tue, Jun 24, 2025 at 3:35=E2=80=AFPM Marek Marczykowski-G=C3=B3recki
-<marmarek@invisiblethingslab.com> wrote:
->
-> On Tue, Jun 24, 2025 at 03:05:25PM +0100, Frediano Ziglio wrote:
-> > OT: the flow of read_file (specifically "what" handling) looks
-> > weird... can I change it?
->
-> It tries to avoid duplication of PrintErr calls, while including what
-> failed in the error message. Looks like somebody really wanted to avoid
-> using goto here... Sure, if you want to clean it up go ahead.
->
+I believe what you observe is a major source of inefficiency for the =
+reason you describe: changes are acted upon too early because there is =
+no way to observe that they are part of a transaction. So now heuristics =
+come in like waiting for more changes before acting on the ones =
+observed. I wonder how the tree structure plays into this. Clients watch =
+different sub trees and we don=E2=80=99t exploit this knowledge. I do =
+agree that some protocol or syntax to batch updates would be useful.
 
-2 styles came into my mind
-gotos: https://gitlab.com/xen-project/people/fziglio/xen/-/blob/flow1/xen/c=
-ommon/efi/boot.c?ref_type=3Dheads#L765
-no errors: https://gitlab.com/xen-project/people/fziglio/xen/-/blob/flow2/x=
-en/common/efi/boot.c?ref_type=3Dheads#L765
+=E2=80=94 C
 
-What do you think?
 
-Frediano
+> On 24 Jun 2025, at 15:51, Andriy Sultanov <sultanovandriy@gmail.com> =
+wrote:
+>=20
+> Currently, as far as I am aware, the ability of xenstore clients to =
+properly
+> handle and detect batch updates is somewhat lacking. Transactions are =
+not
+> directly visible to the clients watching a particular directory - they =
+will
+> receive a lot of individual watch_event's once the transaction is =
+committed,
+> without any indication when such updates are going to end.
+>=20
+> Clients such as xenopsd from the xapi toolstack are reliant on =
+xenstore to
+> track their managed domains, and a flood of individual updates most =
+often
+> results in a flood of events raised from xenopsd to xapi (There are
+> consolidation mechanisms implemented there, with updates getting =
+merged
+> together, but if xapi picks up update events from the queue quickly =
+enough, it
+> will only get more update events later)
+>=20
+> The need for batching is fairly evident from the fact that XenServer's =
+Windows
+> PV drivers, for example, adopted an ad-hoc "batch" optimization (not =
+documented
+> anywhere, of course), where some sequence of writes is followed by a =
+write of
+> the value "1" to "data/updated". This used to be honoured by xapi, =
+which would
+> not consider the guest agent update done until it received notice of =
+such a
+> "batch ended" update, but it caused xapi to miss updates that were not =
+followed
+> by such a write, so xapi now ignores this ad-hoc batching. One could =
+imagine
+> many workarounds here (for example, some sort of a mechanism where =
+xenopsd
+> stalls an update for a second to see if any more related updates show =
+up and
+> only then notifies xapi of it, with obvious trade-offs), but IMO it =
+could be
+> worth considering making this easier on the xenstore side for =
+different
+> use-cases.
+>=20
+> Suggestion:
+> WATCH_EVENT's req_id and tx_id are currently 0. Could it be possible, =
+for
+> example, to modify this such that watch events coming as a result of a
+> transaction commit (a "batch") have tx_id of the corresponding =
+transaction
+> and req_id of, say, 2 if it's the last such watch event of a batch and =
+1
+> otherwise? Old clients would still ignore these values, but it would =
+allow
+> some others to detect if an update is part of a logical batch that =
+doesn't end
+> until its last event.
+>=20
+> Is this beyond the scope of what xenstored wants to do? =46rom a first =
+glance,
+> this does not seem to introduce obvious unwanted information leaks =
+either, but
+> I could be wrong. I would love to hear if this is something that could =
+be
+> interesting to others and if this could be considered at all.
+>=20
+> Thank you!
+>=20
+>=20
+
 
