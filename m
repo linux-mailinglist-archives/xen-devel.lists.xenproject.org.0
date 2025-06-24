@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B075FAE5AA1
+	by mail.lfdr.de (Postfix) with ESMTPS id 3818FAE5AA0
 	for <lists+xen-devel@lfdr.de>; Tue, 24 Jun 2025 05:55:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1022909.1398776 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1022910.1398788 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uTuke-0006Kg-J6; Tue, 24 Jun 2025 03:55:16 +0000
+	id 1uTukk-0006eB-Uq; Tue, 24 Jun 2025 03:55:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1022909.1398776; Tue, 24 Jun 2025 03:55:16 +0000
+Received: by outflank-mailman (output) from mailman id 1022910.1398788; Tue, 24 Jun 2025 03:55:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uTuke-0006JB-GT; Tue, 24 Jun 2025 03:55:16 +0000
-Received: by outflank-mailman (input) for mailman id 1022909;
- Tue, 24 Jun 2025 03:55:14 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uTukk-0006al-PP; Tue, 24 Jun 2025 03:55:22 +0000
+Received: by outflank-mailman (input) for mailman id 1022910;
+ Tue, 24 Jun 2025 03:55:21 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=1A0Y=ZH=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
- id 1uTukc-0006IZ-NT
- for xen-devel@lists.xenproject.org; Tue, 24 Jun 2025 03:55:14 +0000
-Received: from mail-4322.protonmail.ch (mail-4322.protonmail.ch [185.70.43.22])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 065924b8-50af-11f0-a30f-13f23c93f187;
- Tue, 24 Jun 2025 05:55:11 +0200 (CEST)
+ id 1uTukj-000639-9F
+ for xen-devel@lists.xenproject.org; Tue, 24 Jun 2025 03:55:21 +0000
+Received: from mail-10630.protonmail.ch (mail-10630.protonmail.ch
+ [79.135.106.30]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0bab80d8-50af-11f0-b894-0df219b8e170;
+ Tue, 24 Jun 2025 05:55:19 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,163 +36,239 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 065924b8-50af-11f0-a30f-13f23c93f187
+X-Inumbo-ID: 0bab80d8-50af-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1750737309; x=1750996509;
-	bh=yCudMdFYgoXw08jE2y4zALqq0ZHl0jnLUlz0092mkm0=;
+	s=protonmail; t=1750737317; x=1750996517;
+	bh=fU+A+CPMQ76T5nM/3fv4rEH7OqjnjtaOzr8CFYG64PM=;
 	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
 	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
 	 Message-ID:BIMI-Selector;
-	b=AENORXkaGdRBMqyIDZm2j2Lx0HCUTLgil2vFuaRYeGKBW/udVYVvpUPY0HMHskM1Z
-	 s5Y+IsudnMkiJJOppGB8eDrpfBrPNgCGCM910oiprpKZcEpTx7B9qfI6r4efMJaAlH
-	 cJfbBJwNlwj/0fn+WsGqHwncS1vnzRFTQiny3jl5RsB/k+YqQJU/wAPbBXqyB6ho+J
-	 oYugEYX1efulWDlpRM10GZSXVpMYIlNCQ9QALVBKCx0nnHjWYxYfAvV9QZu2YEXe3L
-	 wm/zBqhMBbwq90XBsp0BJF7eL9Q2Xmn65TUtyGO0TAaJRpGXguP/G2QunjQVQAQRZp
-	 4poMtcJYlb5ww==
-Date: Tue, 24 Jun 2025 03:55:04 +0000
+	b=a7w3v6wpxPr5LAgXe7c9kHpVKcAvzPEezqByuvtPqrQtTcVfV8JH/y+a3PmDOyKY2
+	 /IGKgkhq6C+hdTiTb6ti4n92Soa/iw7uzkT3rNQv2VZ9UEwBFbjnzAbpNqKQcNhvzJ
+	 GnWOgLpNrCeGWMPU50UbkUsePQYKCCJmwi/LDPWFwsN+AoLTDUOxo5/ziIQI3I2C0S
+	 fR86bYc7leg2w9/zIDhqE3oF/7IghHcCsak0zPWgzuX2vUXKms0t/Ut5xy1iou8dFB
+	 ap7OCeeUdLRI/JRRz0hd5qnz98v/waBJk3uSAwjhPUHAnmRqHz9+Nj/xfo/sN5RGG5
+	 G5pKkHlZSg8Pw==
+Date: Tue, 24 Jun 2025 03:55:12 +0000
 To: xen-devel@lists.xenproject.org
 From: dmkhn@proton.me
 Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org, michal.orzel@amd.com, oleksii.kurochko@gmail.com, roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com
-Subject: [PATCH v1 01/16] arm/vpl011: rename virtual PL011 Kconfig option
-Message-ID: <20250624035443.344099-2-dmukhin@ford.com>
+Subject: [PATCH v1 02/16] arm/vpl011: move DT node parsing to PL011 emulator code
+Message-ID: <20250624035443.344099-3-dmukhin@ford.com>
 In-Reply-To: <20250624035443.344099-1-dmukhin@ford.com>
 References: <20250624035443.344099-1-dmukhin@ford.com>
 Feedback-ID: 123220910:user:proton
-X-Pm-Message-ID: e843f1976d3f637ab52c7c2c4788aa3930d7bf95
+X-Pm-Message-ID: 0cd9e5aac8ded32fc4e555ba40515db5f5c24244
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
 From: Denis Mukhin <dmukhin@ford.com>=20
 
-Rename CONFIG_SBSA_VUART_CONSOLE to CONFIG_HAS_VUART_PL011.
+Move vpl011 DT node parsing from common Arm code to PL011 emulator code.
+
+While doing it pick the generic name vuart_add_fwnode() for DT parser funct=
+ion
+and place the declaration in the common header in include/xen/vuart.h.
 
 No functional change.
 
 Signed-off-by: Denis Mukhin <dmukhin@ford.com>
 ---
- xen/arch/arm/Kconfig                  | 2 +-
- xen/arch/arm/Makefile                 | 2 +-
- xen/arch/arm/configs/tiny64_defconfig | 2 +-
- xen/arch/arm/dom0less-build.c         | 4 ++--
- xen/arch/arm/include/asm/domain.h     | 2 +-
- xen/arch/arm/include/asm/vpl011.h     | 2 +-
- xen/drivers/char/console.c            | 4 ++--
- 7 files changed, 9 insertions(+), 9 deletions(-)
+ xen/arch/arm/dom0less-build.c | 52 ++---------------------------------
+ xen/arch/arm/vpl011.c         | 52 +++++++++++++++++++++++++++++++++++
+ xen/include/xen/vuart.h       | 23 ++++++++++++++++
+ 3 files changed, 77 insertions(+), 50 deletions(-)
+ create mode 100644 xen/include/xen/vuart.h
 
-diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
-index 3f25da3ca5fd..03888569f38c 100644
---- a/xen/arch/arm/Kconfig
-+++ b/xen/arch/arm/Kconfig
-@@ -170,7 +170,7 @@ config NEW_VGIC
- =09problems with the standard emulation.
- =09At the moment this implementation is not security supported.
-=20
--config SBSA_VUART_CONSOLE
-+config HAS_VUART_PL011
- =09bool "Emulated SBSA UART console support"
- =09default y
- =09help
-diff --git a/xen/arch/arm/Makefile b/xen/arch/arm/Makefile
-index ab0a0c2be6d8..2d6787fb03bc 100644
---- a/xen/arch/arm/Makefile
-+++ b/xen/arch/arm/Makefile
-@@ -65,7 +65,7 @@ obj-$(CONFIG_HAS_ITS) +=3D vgic-v3-its.o
- endif
- obj-$(CONFIG_VM_EVENT) +=3D vm_event.o
- obj-y +=3D vtimer.o
--obj-$(CONFIG_SBSA_VUART_CONSOLE) +=3D vpl011.o
-+obj-$(CONFIG_HAS_VUART_PL011) +=3D vpl011.o
- obj-y +=3D vsmc.o
- obj-y +=3D vpsci.o
- obj-$(CONFIG_HWDOM_VUART) +=3D vuart.o
-diff --git a/xen/arch/arm/configs/tiny64_defconfig b/xen/arch/arm/configs/t=
-iny64_defconfig
-index 469a1eb9f99d..acc227262d81 100644
---- a/xen/arch/arm/configs/tiny64_defconfig
-+++ b/xen/arch/arm/configs/tiny64_defconfig
-@@ -6,7 +6,7 @@ CONFIG_ARM=3Dy
- #
- # CONFIG_GICV3 is not set
- # CONFIG_VM_EVENT is not set
--# CONFIG_SBSA_VUART_CONSOLE is not set
-+# CONFIG_HAS_VUART_PL011 is not set
-=20
- #
- # Common Features
 diff --git a/xen/arch/arm/dom0less-build.c b/xen/arch/arm/dom0less-build.c
-index 4b285cff5ee2..2a5531a2b892 100644
+index 2a5531a2b892..7c1b59750fb5 100644
 --- a/xen/arch/arm/dom0less-build.c
 +++ b/xen/arch/arm/dom0less-build.c
-@@ -167,7 +167,7 @@ int __init make_intc_domU_node(struct kernel_info *kinf=
-o)
+@@ -15,6 +15,7 @@
+ #include <xen/static-memory.h>
+ #include <xen/static-shmem.h>
+ #include <xen/vmap.h>
++#include <xen/vuart.h>
+=20
+ #include <public/bootfdt.h>
+ #include <public/io/xs_wire.h>
+@@ -167,55 +168,6 @@ int __init make_intc_domU_node(struct kernel_info *kin=
+fo)
      }
  }
 =20
--#ifdef CONFIG_SBSA_VUART_CONSOLE
-+#ifdef CONFIG_HAS_VUART_PL011
- static int __init make_vpl011_uart_node(struct kernel_info *kinfo)
+-#ifdef CONFIG_HAS_VUART_PL011
+-static int __init make_vpl011_uart_node(struct kernel_info *kinfo)
+-{
+-    void *fdt =3D kinfo->fdt;
+-    int res;
+-    gic_interrupt_t intr;
+-    __be32 reg[GUEST_ROOT_ADDRESS_CELLS + GUEST_ROOT_SIZE_CELLS];
+-    __be32 *cells;
+-    struct domain *d =3D kinfo->d;
+-
+-    res =3D domain_fdt_begin_node(fdt, "sbsa-uart", d->arch.vpl011.base_ad=
+dr);
+-    if ( res )
+-        return res;
+-
+-    res =3D fdt_property_string(fdt, "compatible", "arm,sbsa-uart");
+-    if ( res )
+-        return res;
+-
+-    cells =3D &reg[0];
+-    dt_child_set_range(&cells, GUEST_ROOT_ADDRESS_CELLS,
+-                       GUEST_ROOT_SIZE_CELLS, d->arch.vpl011.base_addr,
+-                       GUEST_PL011_SIZE);
+-
+-    res =3D fdt_property(fdt, "reg", reg, sizeof(reg));
+-    if ( res )
+-        return res;
+-
+-    set_interrupt(intr, d->arch.vpl011.virq, 0xf, DT_IRQ_TYPE_LEVEL_HIGH);
+-
+-    res =3D fdt_property(fdt, "interrupts", intr, sizeof (intr));
+-    if ( res )
+-        return res;
+-
+-    res =3D fdt_property_cell(fdt, "interrupt-parent",
+-                            kinfo->phandle_intc);
+-    if ( res )
+-        return res;
+-
+-    /* Use a default baud rate of 115200. */
+-    fdt_property_u32(fdt, "current-speed", 115200);
+-
+-    res =3D fdt_end_node(fdt);
+-    if ( res )
+-        return res;
+-
+-    return 0;
+-}
+-#endif
+-
+ int __init make_arch_nodes(struct kernel_info *kinfo)
  {
-     void *fdt =3D kinfo->fdt;
-@@ -226,7 +226,7 @@ int __init make_arch_nodes(struct kernel_info *kinfo)
-=20
+     int ret;
+@@ -227,7 +179,7 @@ int __init make_arch_nodes(struct kernel_info *kinfo)
      if ( kinfo->arch.vpl011 )
      {
--#ifdef CONFIG_SBSA_VUART_CONSOLE
-+#ifdef CONFIG_HAS_VUART_PL011
-         ret =3D make_vpl011_uart_node(kinfo);
+ #ifdef CONFIG_HAS_VUART_PL011
+-        ret =3D make_vpl011_uart_node(kinfo);
++        ret =3D vuart_add_fwnode(kinfo->d, kinfo);
  #endif
          if ( ret )
-diff --git a/xen/arch/arm/include/asm/domain.h b/xen/arch/arm/include/asm/d=
-omain.h
-index a3487ca71303..746ea687d523 100644
---- a/xen/arch/arm/include/asm/domain.h
-+++ b/xen/arch/arm/include/asm/domain.h
-@@ -113,7 +113,7 @@ struct arch_domain
-         uint8_t privileged_call_enabled : 1;
-     } monitor;
+             return -EINVAL;
+diff --git a/xen/arch/arm/vpl011.c b/xen/arch/arm/vpl011.c
+index 480fc664fc62..cafc532cf028 100644
+--- a/xen/arch/arm/vpl011.c
++++ b/xen/arch/arm/vpl011.c
+@@ -12,15 +12,20 @@
 =20
--#ifdef CONFIG_SBSA_VUART_CONSOLE
-+#ifdef CONFIG_HAS_VUART_PL011
-     struct vpl011 vpl011;
- #endif
-=20
-diff --git a/xen/arch/arm/include/asm/vpl011.h b/xen/arch/arm/include/asm/v=
-pl011.h
-index cc838682815c..be64883b8628 100644
---- a/xen/arch/arm/include/asm/vpl011.h
-+++ b/xen/arch/arm/include/asm/vpl011.h
-@@ -65,7 +65,7 @@ struct vpl011_init_info {
-     evtchn_port_t evtchn;
- };
-=20
--#ifdef CONFIG_SBSA_VUART_CONSOLE
-+#ifdef CONFIG_HAS_VUART_PL011
- int domain_vpl011_init(struct domain *d,
-                        struct vpl011_init_info *info);
- void domain_vpl011_deinit(struct domain *d);
-diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
-index 5879e31786ba..0f37badc471e 100644
---- a/xen/drivers/char/console.c
-+++ b/xen/drivers/char/console.c
-@@ -37,7 +37,7 @@
- #ifdef CONFIG_X86
- #include <asm/guest.h>
- #endif
--#ifdef CONFIG_SBSA_VUART_CONSOLE
-+#ifdef CONFIG_HAS_VUART_PL011
+ #include <xen/errno.h>
+ #include <xen/event.h>
++#include <xen/device_tree.h>
+ #include <xen/guest_access.h>
+ #include <xen/init.h>
+ #include <xen/lib.h>
++#include <xen/libfdt/libfdt.h>
+ #include <xen/mm.h>
+ #include <xen/sched.h>
+ #include <xen/console.h>
+ #include <xen/serial.h>
++#include <xen/vuart.h>
+ #include <public/domctl.h>
+ #include <public/io/console.h>
++#include <asm/domain_build.h>
++#include <asm/kernel.h>
+ #include <asm/pl011-uart.h>
+ #include <asm/vgic-emul.h>
  #include <asm/vpl011.h>
- #endif
+@@ -784,6 +789,53 @@ void domain_vpl011_deinit(struct domain *d)
+         XFREE(vpl011->backend.xen);
+ }
 =20
-@@ -606,7 +606,7 @@ static void __serial_rx(char c)
-          */
-         send_global_virq(VIRQ_CONSOLE);
-     }
--#ifdef CONFIG_SBSA_VUART_CONSOLE
++int __init vuart_add_fwnode(struct domain *d, void *node)
++{
++    struct kernel_info *kinfo =3D node;
++    void *fdt =3D kinfo->fdt;
++    int res;
++    gic_interrupt_t intr;
++    __be32 reg[GUEST_ROOT_ADDRESS_CELLS + GUEST_ROOT_SIZE_CELLS];
++    __be32 *cells;
++
++    res =3D domain_fdt_begin_node(fdt, "sbsa-uart", d->arch.vpl011.base_ad=
+dr);
++    if ( res )
++        return res;
++
++    res =3D fdt_property_string(fdt, "compatible", "arm,sbsa-uart");
++    if ( res )
++        return res;
++
++    cells =3D &reg[0];
++    dt_child_set_range(&cells, GUEST_ROOT_ADDRESS_CELLS,
++                       GUEST_ROOT_SIZE_CELLS, d->arch.vpl011.base_addr,
++                       GUEST_PL011_SIZE);
++
++    res =3D fdt_property(fdt, "reg", reg, sizeof(reg));
++    if ( res )
++        return res;
++
++    set_interrupt(intr, d->arch.vpl011.virq, 0xf, DT_IRQ_TYPE_LEVEL_HIGH);
++
++    res =3D fdt_property(fdt, "interrupts", intr, sizeof (intr));
++    if ( res )
++        return res;
++
++    res =3D fdt_property_cell(fdt, "interrupt-parent",
++                            kinfo->phandle_intc);
++    if ( res )
++        return res;
++
++    /* Use a default baud rate of 115200. */
++    fdt_property_u32(fdt, "current-speed", 115200);
++
++    res =3D fdt_end_node(fdt);
++    if ( res )
++        return res;
++
++    return 0;
++}
++
+ /*
+  * Local variables:
+  * mode: C
+diff --git a/xen/include/xen/vuart.h b/xen/include/xen/vuart.h
+new file mode 100644
+index 000000000000..bb883823ea31
+--- /dev/null
++++ b/xen/include/xen/vuart.h
+@@ -0,0 +1,23 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++#ifndef XEN_VUART_H
++#define XEN_VUART_H
++
 +#ifdef CONFIG_HAS_VUART_PL011
-     else
-         /* Deliver input to the emulated UART. */
-         rc =3D vpl011_rx_char_xen(d, c);
++int __init vuart_add_fwnode(struct domain *d, void *node);
++#else
++static inline int __init vuart_add_fwnode(struct domain *d, void *node)
++{
++    return 0;
++}
++#endif
++
++#endif /* XEN_VUART_H */
++
++/*
++ * Local variables:
++ * mode: C
++ * c-file-style: "BSD"
++ * c-basic-offset: 4
++ * indent-tabs-mode: nil
++ * End:
++ */
 --=20
 2.34.1
 
