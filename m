@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C66DAE5BD8
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Jun 2025 07:26:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1023055.1398947 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD9FCAE5BE9
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Jun 2025 07:43:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1023063.1398957 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uTwA4-0005Sj-RG; Tue, 24 Jun 2025 05:25:36 +0000
+	id 1uTwQw-0001yF-5w; Tue, 24 Jun 2025 05:43:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1023055.1398947; Tue, 24 Jun 2025 05:25:36 +0000
+Received: by outflank-mailman (output) from mailman id 1023063.1398957; Tue, 24 Jun 2025 05:43:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uTwA4-0005Pf-ND; Tue, 24 Jun 2025 05:25:36 +0000
-Received: by outflank-mailman (input) for mailman id 1023055;
- Tue, 24 Jun 2025 05:25:35 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uTwQw-0001vV-2A; Tue, 24 Jun 2025 05:43:02 +0000
+Received: by outflank-mailman (input) for mailman id 1023063;
+ Tue, 24 Jun 2025 05:43:01 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=j9+j=ZH=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uTwA3-0005PZ-2T
- for xen-devel@lists.xenproject.org; Tue, 24 Jun 2025 05:25:35 +0000
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [2a00:1450:4864:20::436])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9e547465-50bb-11f0-b894-0df219b8e170;
- Tue, 24 Jun 2025 07:25:19 +0200 (CEST)
-Received: by mail-wr1-x436.google.com with SMTP id
- ffacd0b85a97d-3a548a73ff2so3616f8f.0
- for <xen-devel@lists.xenproject.org>; Mon, 23 Jun 2025 22:25:19 -0700 (PDT)
+ id 1uTwQv-0001vP-78
+ for xen-devel@lists.xenproject.org; Tue, 24 Jun 2025 05:43:01 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 164fda6b-50be-11f0-a30f-13f23c93f187;
+ Tue, 24 Jun 2025 07:42:59 +0200 (CEST)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-43edecbfb46so33825255e9.0
+ for <xen-devel@lists.xenproject.org>; Mon, 23 Jun 2025 22:42:59 -0700 (PDT)
 Received: from ?IPV6:2003:ca:b711:f2f9:d2d:164b:59bd:2475?
  (p200300cab711f2f90d2d164b59bd2475.dip0.t-ipconnect.de.
  [2003:ca:b711:f2f9:d2d:164b:59bd:2475])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4535eac92c6sm164145305e9.22.2025.06.23.22.25.18
+ 5b1f17b1804b1-4535ebcecb5sm165211135e9.37.2025.06.23.22.42.58
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 23 Jun 2025 22:25:18 -0700 (PDT)
+ Mon, 23 Jun 2025 22:42:58 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,62 +47,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9e547465-50bb-11f0-b894-0df219b8e170
+X-Inumbo-ID: 164fda6b-50be-11f0-a30f-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1750742719; x=1751347519; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1750743779; x=1751348579; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=JjJf1d0Da1yRQ7o0Lc9Soesx+IV28z3Sgzaq6Fkcm2Q=;
-        b=M20mF8QpDq+HjpdmaunUJ4F91V5vvnWyvb+RPM7rodsLP3BTYjy225CkSXlyWnsQx4
-         taXrNH+kKBeNIdnjOiUkrA55BQvrfLIUfmJ8+GNtiUVhEivhTLXb05oeZnmBeoLU0U7m
-         KxqxMIemeuc+Uz5jHN0whL1PerqxPjjcgcxMBKm8LdBGZYHjj0vFqZFZAE9Xi7/0sSbC
-         VBGSHwQxB4ornPgi5SjDr3mNSRbWhNVpcG68yn/8IHwbQJ80ZvnwT1OYZ/8+XPCVT01o
-         YVhji0ERHAQgHJ4TZxIoglcOJI+aFzccx705JmU06k/wkBrSqcbATGfcutVMtgyfPjTx
-         Xrsg==
+        bh=YII/pg33QDjWUEY7B65NUePtYiEVx/EClHtlZV0meDY=;
+        b=cjTS0CPEZtAIFEolRrZT7GN+Gi8ByZKTXUQqcpR+sdgHPh+GsOdfXWHgXgtIJOy/hJ
+         G1+cmL3HX5tl218lJ9iEGdiERnBMXFRkT/+eAYdb26AjnYgruylwOAJRIzELrfixYBdh
+         wi6u+5gecWPkxTFdAUjIOqjUi1Szxt1In7ivjdHhGf1PmZMDaRp45F6nIreL/POCTSUf
+         3bSSufYi+aKvRvt4A0nIgzaxAHOmJQFIvC9AKij3lQSs9sqKAt2PvsSQIWSXEAlD3cb4
+         cmYBFal91rqxQVDh73f9ZU4ljWI0fNVWfXUkF6EJb44nil7ojwXbxDL/fU5aRSCrSw23
+         3Frw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750742719; x=1751347519;
+        d=1e100.net; s=20230601; t=1750743779; x=1751348579;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=JjJf1d0Da1yRQ7o0Lc9Soesx+IV28z3Sgzaq6Fkcm2Q=;
-        b=s5qQAJIWukX2pMfIbg0ssOVAd+Bb7flrOrnYxsEKKChBkljHtVFJplHWIOSRmfrfvc
-         erv5PzN/irYXlD5LVeIyhSSypveYn/m2IV4js/zWgddmc9MJ9liv07pMmdftu4MdJVnO
-         U9ND3Vf5vvrJvd4MCKssp+sog/ciJGCX4UYDDnXswe6ZDq51oD6gqKGf4FF5Wimw+XWr
-         2STBcqFkTec1YJgrlyCy06bmzC0LdeTaPdQF0l8OMVJMDc3347xDJOZNSlC6RuhiFAnh
-         n/WaqAgzvkkMFE6XlvlK/6QAViD/fBEM4Mh3xJZ8qLwTSIzpjshPn0/StZwNFdgUl4Nv
-         GNSg==
-X-Forwarded-Encrypted: i=1; AJvYcCVxEDU+hme2aojY+WPAlCwJ/OuDPcnlZq5iZbndmkC47meQW5pFXxGJ4RXqvaY8iZfJvlux6njT9Kw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyIDRRFhQ6qMU3cdYY1BlL2dU7l65IpgqLLqYYKhdrzQBxkRkgP
-	X2vYTl0cJyOkXbn3KqESFw4u5d3FzrbJuzZRxE3gz3cdEsOLI4xnukDO/b/C9UfFhw==
-X-Gm-Gg: ASbGnctZtWoh1KdCCXLv+fT65svbdajAKDVwwleBNvN5ZBVwtl88Qe4ZvnPWT7ETGOZ
-	8wIG2svWJQnmSwXLWhzTmjwIen87VO6HuZBmPzBbPiq6nZb43F6fpZwLMdDGHjCK3fRJTSJLLOV
-	doXnODuUvkw4Mi6lRHzUgX9mBDcdvQqWiQJqPx4iDxcTa6pBjNP8eOopY9Ck8XCd/jRXw1toF8D
-	74hkRCv19QIDqx6bD/7uygcR2MCBPmFoawTT0WeEyVJWAlZxsKFjbmT+1f6/QS0TbS/AlYToA/l
-	llsDeRuNKnFM1CQOwMScV1S/Zee3l2faLfi+9PVr+vfhqKX00A0pwiCN6HsDchZgLhOGGq9Obwe
-	w1PfRKP1FJ6BfO99545gfKh0z3nbbuTmvmFuNMGRT1WeFl9qifv91mWfvGw7aMwnmB39O+fdxri
-	7SAM9772ShESvXxyJgkg==
-X-Google-Smtp-Source: AGHT+IFGTtl98d3mU4ACsFuXa5aFZObWzRC56aiPgkmpS2yxfTvfGZpZUIhZ0Cz+4N7r3Pds/662LA==
-X-Received: by 2002:a05:6000:4188:b0:3a4:dbac:2dc1 with SMTP id ffacd0b85a97d-3a6d1313c09mr8875477f8f.54.1750742718880;
-        Mon, 23 Jun 2025 22:25:18 -0700 (PDT)
-Message-ID: <381dba84-3108-42c8-a4e5-7bc74d5e1075@suse.com>
-Date: Tue, 24 Jun 2025 07:25:17 +0200
+        bh=YII/pg33QDjWUEY7B65NUePtYiEVx/EClHtlZV0meDY=;
+        b=Tg1n8BGWOJ8Rkc4+PjsHJ7sCiz7wW/F5UGw4YUH104J+DBIaoqAviF/np5ubAftvoO
+         zVTbKEnU53q2DryE/kZOy5SC7EPANdu5b3oH1HJf777rxuTbq+NhPXJezsQdK7ZGvOyl
+         /EMOnMYcF+8gli0MLm53LsCWsy+irnc5tT7jFPsy0s6SOV23mS0pg2TnUI1/4UDKPLmy
+         8Mk7nBaDh3NHNiGygoYH2nnoTYZUYC/gUGTlg62iSHmkoO774qtV4OUy8SNE+Ze0e+9k
+         s5PsFcEwOp+7bbkI4tFYep8QuS/4ZOt8lsW0+Hwdumiq29V08a0CAQtvQAmzscenjNJy
+         FtPw==
+X-Forwarded-Encrypted: i=1; AJvYcCUy1FHWn6ZV7lHOj2qr/U4HNVWFzs3CAzLVOT75NUTFryxKTF851+8jz5kdulMFAFJehkDJKXdRfV8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yxamo1pE6uOtiElijNR24o5lwJLC7XOV3kv9Wf4l3qvXxVyLXCY
+	zLRd8XGmkIN6ews0CkHbgbeTRjdZ3kWV4898VGIIQK3sGyaYGicuNPfDvPog4klqKA==
+X-Gm-Gg: ASbGnct7AC2OSMAs7TgLD6z37QVDCnH1Cdq2dDnHD4Y5IkY8s++Ds4XtaNKhs0HYmoY
+	VnvJXYDCnK6fJ+vO/60+ZxHKsapCFkTRLrXCqewZfqYmfg1HmLMFGtifN4UOr1VvjNpDI1G1Urn
+	RljI+lhJsG43bQ9n0jc4j8kZWl/ZKeHsquR/ZUIDUcgRa2MdvJiuj3/qtTgp6b4s4bDHVui2h2O
+	Q4SJ8c5RJSla5qv+RnIjEOB1zSLMxaGUNo4A+eayghYDig2gO18fVHXtzZO+RBmSLzOzFza4vdd
+	XG26ci/SbTXJEDnRdTATbN4tA0wQn/x/b3xMxjalpdr/Q1qzOoD+GwINUp+ofLjuSii9eqqOriU
+	GFOePVH8ZuynfMrRlNoy2GrwqdDlqUF7uFCRB66E6+amZPihZcJR8STSQGEI9PaMl1YbwBYAEFO
+	3hrOneDXtmEC4oh5LUBg==
+X-Google-Smtp-Source: AGHT+IG5+cap860JXD2/phP74gzUqDLovGSeEphWO1D5NzNq5T5iDnicpibE0V0RBR7FmPF80o+hfg==
+X-Received: by 2002:a05:600c:81c8:b0:441:d4e8:76cd with SMTP id 5b1f17b1804b1-453659f6a8cmr144683075e9.29.1750743779200;
+        Mon, 23 Jun 2025 22:42:59 -0700 (PDT)
+Message-ID: <b31da849-283e-4f84-854a-50da2d0878d7@suse.com>
+Date: Tue, 24 Jun 2025 07:42:58 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: hardware domain and control domain separation
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: jason.andryuk@amd.com, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [PATCH 2/2] xen/x86: address violations of Rule 11.3
+To: victorm.lira@amd.com, Nicola Vetrini <nicola.vetrini@bugseng.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, ayankuma@amd.com,
- xen-devel@lists.xenproject.org, demiobenour@gmail.com
-References: <alpine.DEB.2.22.394.2506181757282.1780597@ubuntu-linux-20-04-desktop>
- <942a6178-0fe7-468e-8e45-ea255fd20680@suse.com>
- <bc36d2c0-3b25-4735-92c7-6a37c47978aa@gmail.com>
- <alpine.DEB.2.22.394.2506231448430.862517@ubuntu-linux-20-04-desktop>
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?B?Um9nZXIgUGF1IE1vbm7Dg8Kp?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Federico Serafini <federico.serafini@bugseng.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>, xen-devel@lists.xenproject.org
+References: <20250624002018.4121819-1-victorm.lira@amd.com>
+ <20250624002018.4121819-2-victorm.lira@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -128,32 +126,70 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2506231448430.862517@ubuntu-linux-20-04-desktop>
+In-Reply-To: <20250624002018.4121819-2-victorm.lira@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 24.06.2025 00:51, Stefano Stabellini wrote:
-> On Mon, 23 Jun 2025, Demi Marie Obenour wrote:
->> On 6/23/25 11:44, Jan Beulich wrote:
->>> On 21.06.2025 02:41, Stefano Stabellini wrote:
->>> Also a more fundamental question I was wondering about: If Control had
->>> full privilege, nothing else in the system ought to be able to interfere
->>> with it. Yet then how does that domain communicate with the outside
->>> world? It can't have PV or Virtio drivers after all. And even if its
->>> sole communication channel was a UART, Hardware would likely be able to
->>> interfere.
+On 24.06.2025 02:20, victorm.lira@amd.com wrote:
+> From: Nicola Vetrini <nicola.vetrini@bugseng.com>
 > 
-> There are well-established methods for implementing domain-to-domain
-> communication that are free from interference, such as using carefully
-> defined rings on static shared memory. I believe one of these techniques
-> involves placing the indexes on separate pages and mapping them
-> read-only from one of the two domains.
+> Use {get,put}_unaligned_t to ensure that reads and writes are
+> safe to perform even on potentially misaligned pointers.
 
-How's that going to help with the backend refusing service, which I view
-as one "method" of interference? Or else, what exactly does "interference"
-mean in this context? (More generally, I think it is necessary to very
-clearly define terminology used. Without such, words can easily mean
-different things to different people.)
+Also applicable to the Arm patch: Please can such patches mention the
+main subject of the rule, not just the number?
+
+Overall I'm unconvinced we really want or need this on x86; I'm curious
+what Andrew and Roger think. Further, even beyond the respective remark
+below, I'd be pretty surprised if these were all of the places that
+would need fiddling with. Mind me asking how the places to touch were
+identified? (This may actually be a good thing to mention in the
+description.)
+
+> @@ -388,7 +392,7 @@ static int init_or_livepatch apply_alt_calls(
+>              return -EINVAL;
+>          }
+> 
+> -        disp = *(int32_t *)(orig + 2);
+> +        disp = get_unaligned_t(int32_t, orig + 2);
+>          dest = *(const void **)(orig + 6 + disp);
+
+Why is this latter line not also adjusted? The field is expected to be
+aligned, yes, but for the code here there's no guarantee. Imo if this
+was left alone along with applying the suggested change, a code comment
+would need adding.
+
+> --- a/xen/arch/x86/include/asm/hvm/vlapic.h
+> +++ b/xen/arch/x86/include/asm/hvm/vlapic.h
+> @@ -10,6 +10,7 @@
+>  #define __ASM_X86_HVM_VLAPIC_H__
+> 
+>  #include <xen/tasklet.h>
+> +#include <xen/unaligned.h>
+>  #include <asm/hvm/vpt.h>
+> 
+>  #define vcpu_vlapic(x)   (&(x)->arch.hvm.vlapic)
+> @@ -85,13 +86,13 @@ struct vlapic {
+>  static inline uint32_t vlapic_get_reg(const struct vlapic *vlapic,
+>                                        uint32_t reg)
+>  {
+> -    return *((uint32_t *)(&vlapic->regs->data[reg]));
+> +    return get_unaligned_t(uint32_t, &vlapic->regs->data[reg]);
+
+This, aiui (or should I say "I hope"), also addresses another violation
+(casting away of const). Such will want mentioning in the description,
+imo.
+
+> --- a/xen/arch/x86/setup.c
+> +++ b/xen/arch/x86/setup.c
+> @@ -1249,7 +1249,7 @@ void asmlinkage __init noreturn __start_xen(void)
+>                 (caps & 2) ? " V2" : "",
+>                 !(caps & 3) ? " none" : "");
+>          printk("EDID transfer time: %d seconds\n", caps >> 8);
+> -        if ( *(u32 *)bootsym(boot_edid_info) == 0x13131313 )
+> +        if ( get_unaligned_t(u32, bootsym(boot_edid_info)) == 0x13131313 )
+
+When touching such, please can you also convert to uint<N>_t?
 
 Jan
 
