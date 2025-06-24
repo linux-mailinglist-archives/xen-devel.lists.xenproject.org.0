@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5495DAE65D1
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Jun 2025 15:06:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1023672.1399711 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BFFF7AE65ED
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Jun 2025 15:13:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1023679.1399720 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uU3L3-0007xL-19; Tue, 24 Jun 2025 13:05:25 +0000
+	id 1uU3T1-0001CU-OD; Tue, 24 Jun 2025 13:13:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1023672.1399711; Tue, 24 Jun 2025 13:05:25 +0000
+Received: by outflank-mailman (output) from mailman id 1023679.1399720; Tue, 24 Jun 2025 13:13:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uU3L2-0007uJ-UN; Tue, 24 Jun 2025 13:05:24 +0000
-Received: by outflank-mailman (input) for mailman id 1023672;
- Tue, 24 Jun 2025 13:05:23 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uU3T1-0001AC-LX; Tue, 24 Jun 2025 13:13:39 +0000
+Received: by outflank-mailman (input) for mailman id 1023679;
+ Tue, 24 Jun 2025 13:13:37 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=j9+j=ZH=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uU3L1-0007uD-HO
- for xen-devel@lists.xenproject.org; Tue, 24 Jun 2025 13:05:23 +0000
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [2a00:1450:4864:20::42a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e1fc72d0-50fb-11f0-b894-0df219b8e170;
- Tue, 24 Jun 2025 15:05:20 +0200 (CEST)
-Received: by mail-wr1-x42a.google.com with SMTP id
- ffacd0b85a97d-3a4f379662cso4359716f8f.0
- for <xen-devel@lists.xenproject.org>; Tue, 24 Jun 2025 06:05:20 -0700 (PDT)
+ id 1uU3Sz-0001A5-Q3
+ for xen-devel@lists.xenproject.org; Tue, 24 Jun 2025 13:13:37 +0000
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [2a00:1450:4864:20::434])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0994087b-50fd-11f0-a30f-13f23c93f187;
+ Tue, 24 Jun 2025 15:13:36 +0200 (CEST)
+Received: by mail-wr1-x434.google.com with SMTP id
+ ffacd0b85a97d-3a575a988f9so292735f8f.0
+ for <xen-devel@lists.xenproject.org>; Tue, 24 Jun 2025 06:13:36 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-237d860fb63sm107607565ad.130.2025.06.24.06.05.14
+ d2e1a72fcca58-749c882cd07sm1925774b3a.91.2025.06.24.06.13.31
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 24 Jun 2025 06:05:19 -0700 (PDT)
+ Tue, 24 Jun 2025 06:13:35 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e1fc72d0-50fb-11f0-b894-0df219b8e170
+X-Inumbo-ID: 0994087b-50fd-11f0-a30f-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1750770320; x=1751375120; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1750770816; x=1751375616; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=e/GW8Eyf0J4TzNxNAzPAx6rpWSQoNir2DhD7+rjfBtA=;
-        b=I79eABBfUfBw1WgghotqPPxpr95oIRJgPii1UFANV2H3ydWpiaV0gSu0mCRum7yoSx
-         ZvECLlLHiUEM3XDRWuCARPlhl3mpkxWpbukrPneQNibQeLggQOX+NwtOrKKGWUh6fUzV
-         enQR1ILg/4jNraPX4IU/gswO15pdpOskzR8gYKi67GqxGbcM5jiSokCsTgluuqQoWh3M
-         +yC/9P/SI+rLuSGBg790tA2iNfyfb9pmhA33lVcaSSeHMORSQwpNrCZVbSfXr7pBtbqG
-         Jd4SzO2KfBgIWkSKqqLDPWpa0HrG6J3gzQ85FcAIlzP9y5yjoIWjsdd+WIx/3y7RB//d
-         9/Cg==
+        bh=KI6wTPA9FrUcD9wPw3OdqkghzxDhy0OsQuP83Sb1dwo=;
+        b=N9lluWg1svRd/r4ETPZoqkohPztrY06YUId4yLRZATeZGjsSpAaE07Ng5eqhdSIQBK
+         Wf8bP3M/BhLDMR6ZS8gBxwTnDmF/9d1ofOAdaEVHUdFoIgs8v1flXBwcl+QEHhUpLTgF
+         8Cz0hcIB01M+4kCsg0/vCBDWfEVr5jX+Ys2FNyuQwW9Zn/HbHSMzufOEYXULdgKW+Ftb
+         T8Q0anU/BFOyeq9PwhROQKeV9EORKrY3RT+K+jVuTyov6mNhTs0RvxOhUq94zZWaQl8N
+         CszQhqakMKlIbY/f8NkpAKHDLq/+bcoeQXBoHDNwKgdogpfmrcVJkPARzc9AvdFbMmBU
+         f5Yg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750770320; x=1751375120;
+        d=1e100.net; s=20230601; t=1750770816; x=1751375616;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=e/GW8Eyf0J4TzNxNAzPAx6rpWSQoNir2DhD7+rjfBtA=;
-        b=sypeS1Ce6zax2OhU3vlQEc5T10gPHrcZ1REJRKPJ22KjEnPSUV7R6g0OLLAMc8nts6
-         DZqk6MjVUGg8KyqZbLZD3g7tUrXNb43jGrESW9OVXDi4TZ2YIs9KNzCLkWgq1jpBHslZ
-         YXv2rMmO/bkVaaF0deX9rac3yaO8Tv7eTJAdOro9gGt7z16ApQOO//lh7aeRzpOyzbj2
-         7Fv2cuVZsxK25GGrfY7waIIe/yciFTrNIQfmJUuBJwm8t4lQnkLEtwMLcNuwdoob76e+
-         Dhn/9YrAmlRya+PK/14K/6q6KrEwzJzrGH5pW7THCMjpo7i8tmegq7Upyo2XUjTGAdAL
-         fYIw==
-X-Forwarded-Encrypted: i=1; AJvYcCUZLhWl4kVijBxqgehZkb4xaZHR0dSNyDGtvXeVrGCNqzeDxMyWfbisNEZw71QTmkDke/QC2+995lo=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz2I6fMJPXBvIdssSQ1VM1j5xaaE8hZFEiOxEgoI7GQ2balAyVn
-	1cbo2h+K/6sdkBZjjGD9lH5thp9+u0QB52TrKcwvhO7hpZeUWEs/byfk2VV6sCsEWRoxEbRDWqZ
-	n7UU=
-X-Gm-Gg: ASbGncuG92YHKzBgxm/6OWVjNvk0Sdh4U+j0TQXFVut43jP/dEHf3ggM6Fa8bAwmw3r
-	naBfUMDF26RStJTV80/TKEMQu7S/FG0TTQYlPjzLQTQYeN7p/0v24Y/L0qRwisj+7lFZ/TtXuoe
-	jDCMvD95GGaEpDbcmHk/R4XHCRIkM1nBJas+r7w4Aytv1+eO83bEicZmWV5lF3WCySAl6p23GLe
-	WMT/Lyw3y1z4QIeQhbuaBCWpqr2TvAsvNGgeb0fhAtUUO4G/Y9/r4wLWDQTRQ3ok4F5qBOH/IOa
-	A7pTaRZalvr+PBEPgieXio94UK/OLiSxfSM9aYFbDn/btnNJplz4aUXg1gdq7G9oARjcJXwa9Zm
-	cUEx4dsZybFf5SLsjqcoRC9hKx8t4u2+yrCOgr+JER6HqzpM=
-X-Google-Smtp-Source: AGHT+IH6UlcKafrLK8R2lfhg4xkf5ZFKVZbYAhMCffoiFvXbiVKFOyu+wK3GuQiGB13D5Qn9oKeINQ==
-X-Received: by 2002:a05:6000:2507:b0:3a4:f038:af74 with SMTP id ffacd0b85a97d-3a6d12ebae4mr12396794f8f.51.1750770319882;
-        Tue, 24 Jun 2025 06:05:19 -0700 (PDT)
-Message-ID: <e897b424-0bc2-4346-8c3b-3b22837e9481@suse.com>
-Date: Tue, 24 Jun 2025 15:05:11 +0200
+        bh=KI6wTPA9FrUcD9wPw3OdqkghzxDhy0OsQuP83Sb1dwo=;
+        b=h58YnzEQameWF9jjG51LeCcKZmSSNJie+7PU3zcZrU/uXt1FU4I304eU3+gNFo2tNR
+         zpvyJvlVHJ/rAisGBo4rsZwVVlPyGMsmnNNfIL3/zvYTvcWx+Egn28OKTNdbN7UfzjUK
+         g0BTCej2pFIPbdcsZQUUPOpq9xDBLH1MCdqmjwgil5Tyiyak20RfXSv9GcHUiW3Xn8PQ
+         MLpU6TAzYQEcW2p2ZRSikwWDXKzUuplCiQlbxL73r8ziA8uBUZovQiqpqYcXCCD5WA7o
+         Ld6EURiiignA7dqjLYtHxFu6swQk+7cPpJ0316GJIKKq75kF9b7TETT9XnOV4jwdLuok
+         qYSQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVobrqPN7ebSi1YMHfVAOiLlRf3nbIdSJuM4BK0LJ0J0KIcQSMjqx0tU+YcsiIAkZDai2E257QREyA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwNix/gpqwrblmcqPFXQ/xu6EDz9l0AwZ/8IfD7dkJsSmoYDYC3
+	CqmfwgFyput4F+2kdZSg4KTC6ceGVg2jiI0JDyNlCyzeGvAXHjUEFDs17/nmfGkM9A==
+X-Gm-Gg: ASbGncstHoHnO1a5+xPDdEvrb2Zi33+eKFKyOzRPPDmOhDvJ504domEAOSlflgwcNx2
+	nMeSgG0ZFS9EjL7A1siuwtCCTF8YIIgKOpLvyWQxf5l0MYt/Y9VRlcmjs/FwMHA7Ukpd5cL72Ta
+	geDKiVwKhj3mtHt63BPIQ4VelCDBdlhKULabgE5eMqDC929/3jjckz4e3FnKVJl+3XSLihzEkKY
+	X8Y08IY+2C14NLQmeV+0P81ARV9V7Np9J7sGOWk2U/TrxWQ9ltOLoyzrcIjnRtMACZWg7FrMXD/
+	BbUOXS/jbUgI9lMya061pEUjUWtGQCuugOp9K5x2lx3NMkYkDidBcByUaS0aHhDoFT5INxmhBrh
+	QCcuiRIPRhyFk8YstEgK4gf+4vnSxms10uzsxxxPv+3Mw0sw=
+X-Google-Smtp-Source: AGHT+IEkkKUT/mSazdN0INAwMCREK8oDfYmFU9fmUey7ACSfRphlCTCqK0d05Hu2pD0PouDQc2IBgQ==
+X-Received: by 2002:a05:6000:491d:b0:3a1:f564:cd9d with SMTP id ffacd0b85a97d-3a6d12d92e1mr13156650f8f.36.1750770816076;
+        Tue, 24 Jun 2025 06:13:36 -0700 (PDT)
+Message-ID: <bd844f21-ce43-41a2-baf0-db92ccef7c2c@suse.com>
+Date: Tue, 24 Jun 2025 15:13:27 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/8] x86/pdx: simplify calculation of domain struct
- allocation boundary
+Subject: Re: [PATCH v2 2/8] kconfig: turn PDX compression into a choice
 To: Roger Pau Monne <roger.pau@citrix.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <20250620111130.29057-1-roger.pau@citrix.com>
- <20250620111130.29057-2-roger.pau@citrix.com>
+ <20250620111130.29057-3-roger.pau@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -122,53 +120,54 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250620111130.29057-2-roger.pau@citrix.com>
+In-Reply-To: <20250620111130.29057-3-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
 On 20.06.2025 13:11, Roger Pau Monne wrote:
-> When not using CONFIG_BIGMEM there are some restrictions in the address
-> width for allocations of the domain structure, as it's PDX truncated to 32
-> bits it's stashed into page_info structure for domain allocated pages.
+> Rename the current CONFIG_PDX_COMPRESSION to CONFIG_PDX_MASK_COMPRESSION,
+> and make it part of the PDX compression choice block, in preparation for
+> adding further PDX compression algorithms.
 > 
-> The current logic to calculate this limit is based on the internals of the
-> PDX compression used, which is not strictly required.  Instead simplify the
-> logic to rely on the existing PDX to PFN conversion helpers used elsewhere.
-> 
-> This has the added benefit of allowing alternative PDX compression
-> algorithms to be implemented without requiring to change the calculation of
-> the domain structure allocation boundary.
-> 
-> As a side effect introduce pdx_to_paddr() conversion macro and use it.
-> 
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> No functional change intended as the PDX compression defaults should still
+> be the same for all architectures, however the choice block cannot be
+> protected under EXPERT and still have a default choice being
+> unconditionally selected.  As a result, the new "PDX (Page inDeX)
+> compression" item will be unconditionally visible in Kconfig.
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Just to mention it: Afaict there is a functional change, but one I actually
+appreciate, at least in part. So far ...
 
-> @@ -498,14 +474,20 @@ struct domain *alloc_domain_struct(void)
->       * On systems with CONFIG_BIGMEM there's no packing, and so there's no
->       * such restriction.
->       */
-> -#if defined(CONFIG_BIGMEM) || !defined(CONFIG_PDX_COMPRESSION)
-> -    const unsigned int bits = IS_ENABLED(CONFIG_BIGMEM) ? 0 :
-> -                                                          32 + PAGE_SHIFT;
-> +#if defined(CONFIG_BIGMEM)
-> +    const unsigned int bits = 0;
->  #else
-> -    static unsigned int __read_mostly bits;
-> +    static unsigned int __ro_after_init bits;
+> --- a/xen/common/Kconfig
+> +++ b/xen/common/Kconfig
+> @@ -52,9 +52,10 @@ config EVTCHN_FIFO
 >  
->      if ( unlikely(!bits) )
-> -         bits = _domain_struct_bits();
-> +         /*
-> +          * Get the width for the next pfn, and unconditionally subtract one
-> +          * from it to ensure the used width will not allocate past the PDX
-> +          * field limit.
-> +          */
-> +         bits = flsl(pdx_to_paddr(1UL << (sizeof_field(struct page_info,
-> +                                                       v.inuse._domain) * 8)))
+>  	  If unsure, say Y.
+>  
+> -config PDX_COMPRESSION
+> -	bool "PDX (Page inDeX) compression" if EXPERT && !X86 && !RISCV
+> -	default ARM || PPC
 
-You didn't like the slightly shorter sizeof(frame_table->v.inuse._domain) then?
+... for x86 (and RISC-V) this option couldn't be selected. Whereas ...
+
+> @@ -67,6 +68,17 @@ config PDX_COMPRESSION
+>  	  If your platform does not have sparse RAM banks, do not enable PDX
+>  	  compression.
+>  
+> +config PDX_MASK_COMPRESSION
+> +	bool "Mask compression"
+> +	help
+> +	  Compression relying on all RAM addresses sharing a zeroed bit region.
+
+... this option is now available, as the prior !X86 && !RISCV doesn't
+re-appear here. (As the description mentions it, that dependency clearly
+can't appear on the enclosing choice itself.) Since x86 actually still
+should have mask compression implemented properly, that's fine (from my
+pov; iirc I even asked that it would have remained available when the
+earlier change was done), whereas I think for RISC-V it's not quite right
+to offer the option. It also did escape me why the option was made
+available for PPC, which I'm pretty sure also lacks the logic to determine
+a suitable mask.
 
 Jan
 
