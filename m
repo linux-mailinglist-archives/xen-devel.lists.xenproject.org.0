@@ -2,38 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC9E9AE690B
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Jun 2025 16:39:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1023801.1399871 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 162F2AE698E
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Jun 2025 16:51:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1023814.1399882 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uU4nq-0001Um-PY; Tue, 24 Jun 2025 14:39:14 +0000
+	id 1uU4zT-0004YN-TT; Tue, 24 Jun 2025 14:51:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1023801.1399871; Tue, 24 Jun 2025 14:39:14 +0000
+Received: by outflank-mailman (output) from mailman id 1023814.1399882; Tue, 24 Jun 2025 14:51:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uU4nq-0001TK-LU; Tue, 24 Jun 2025 14:39:14 +0000
-Received: by outflank-mailman (input) for mailman id 1023801;
- Tue, 24 Jun 2025 14:39:12 +0000
+	id 1uU4zT-0004VF-QW; Tue, 24 Jun 2025 14:51:15 +0000
+Received: by outflank-mailman (input) for mailman id 1023814;
+ Tue, 24 Jun 2025 14:51:15 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Fpib=ZH=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1uU4no-0001TC-Lt
- for xen-devel@lists.xenproject.org; Tue, 24 Jun 2025 14:39:12 +0000
-Received: from fhigh-b6-smtp.messagingengine.com
- (fhigh-b6-smtp.messagingengine.com [202.12.124.157])
+ <SRS0=VtPk=ZH=gmail.com=sultanovandriy@srs-se1.protection.inumbo.net>)
+ id 1uU4zT-0004V9-2i
+ for xen-devel@lists.xenproject.org; Tue, 24 Jun 2025 14:51:15 +0000
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [2a00:1450:4864:20::332])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fde1818f-5108-11f0-a30f-13f23c93f187;
- Tue, 24 Jun 2025 16:39:11 +0200 (CEST)
-Received: from phl-compute-09.internal (phl-compute-09.phl.internal
- [10.202.2.49])
- by mailfhigh.stl.internal (Postfix) with ESMTP id 993527A01A0;
- Tue, 24 Jun 2025 10:39:10 -0400 (EDT)
-Received: from phl-mailfrontend-01 ([10.202.2.162])
- by phl-compute-09.internal (MEProxy); Tue, 24 Jun 2025 10:39:10 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 24 Jun 2025 10:39:08 -0400 (EDT)
+ id acb9005e-510a-11f0-a30f-13f23c93f187;
+ Tue, 24 Jun 2025 16:51:14 +0200 (CEST)
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-451d3f72391so49838685e9.3
+ for <xen-devel@lists.xenproject.org>; Tue, 24 Jun 2025 07:51:14 -0700 (PDT)
+Received: from [192.168.0.18]
+ (cpc92320-cmbg19-2-0-cust1786.5-4.cable.virginm.net. [82.13.70.251])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-453646dc66fsm142056145e9.18.2025.06.24.07.51.12
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 24 Jun 2025 07:51:12 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,206 +46,106 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fde1818f-5108-11f0-a30f-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1750775950;
-	 x=1750862350; bh=W52Wu+jkJr796AN2LGGOEbnR5/30FkLvN8/chEch3p4=; b=
-	JHjcofCwz6MEA1UNCeICT6PP9RAzzBixa5G5PtdQUhOlmiUcjYynZ/a5wxcg+fxc
-	xBI4DHZ+xYWb1eOiYFCK1fuHDY03vpDApNvWqeU+OksSdOn9mql0OOYwMG49HZHr
-	r78rqYM+Yaki+VLSl5VwHzUsZDXP8a6G717Zy7hAgNOuS/1okuBWtf9QyP2N6Tae
-	niHPbphXKVqi7mWJcJxIhX6NZLU6WjTWoayLWQ3lR4EEzzU0eBowVcUaD2USM9TR
-	OKmHuhcERGTc093nbr7lEPhA3WdUoE5kYGIGGRJbqYnC4sb1WNd8nJS2GuigUatE
-	09D/Qes0ZUMzRQWDDSRedQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1750775950; x=1750862350; bh=W52Wu+jkJr796AN2LGGOEbnR5/30FkLvN8/
-	chEch3p4=; b=Fk+ysJ8WOORw7Buaa3RTsqVstKUQaNjGyaTeMIhaRLeHDWhA9Yg
-	Xmts17pwiMQxk2CRxctKOYx/ONq7iER5hytoScKiO07gyZuCVGUYX1TKOD7se4uU
-	bV634deORriP42stHPW4YPID+YMTdGLhCkzzJKXvUXfANJuWeJc0YIonMDtVmNhV
-	gyk4iHCWpug6CTgoRqoTz0awP++FqvJed55iX4TDt6/u+4+MbY52Aa7f/e+bBRqd
-	9OA8Wmn7aOQdx7byyfH7F1rlVAq6CFQ+zvw/IEctDIWnV7vd76sQg4U0zpjqY75D
-	UWlJ9BJf9gtDnhTHVD006n6RFiR7h+PuQyQ==
-X-ME-Sender: <xms:jrhaaFLLQWA3MJ6pQemJ7HnQM3UypP7eGbUyRMVBMYpUWN1qL363tg>
-    <xme:jrhaaBJaPeyP7oxLX2BnxHahV3SREpCCCeO1l9n_MsKN9UKMCfuWFKQltB3vLSGfw
-    5eylaSw_2SLww>
-X-ME-Received: <xmr:jrhaaNvdA1FWAqJw3XSwlBAQZsdMv_PH5S-zLmtfuF7pBRs4MF6sllGPgs8xNlW7M5Ea4AV6uDeMFUsei_O2Xtng0_MWAANmbRU>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtddvgddvtdduhecutefuodetggdotefrod
-    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpuffrtefokffrpgfnqfghnecuuegr
-    ihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjug
-    hrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghkucfo
-    rghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvhhish
-    hisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpefgudelteef
-    vefhfeehieetleeihfejhfeludevteetkeevtedtvdegueetfeejudenucevlhhushhtvg
-    hrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhn
-    vhhishhisghlvghthhhinhhgshhlrggsrdgtohhmpdhnsggprhgtphhtthhopeegpdhmoh
-    guvgepshhmthhpohhuthdprhgtphhtthhopehfrhgvughirghnohdriihighhlihhosegt
-    lhhouhgurdgtohhmpdhrtghpthhtohepgigvnhdquggvvhgvlheslhhishhtshdrgigvnh
-    hprhhojhgvtghtrdhorhhgpdhrtghpthhtohepughpshhmihhthhesrghpvghrthhushhs
-    ohhluhhtihhonhhsrdgtohhmpdhrtghpthhtohepjhgsvghulhhitghhsehsuhhsvgdrtg
-    homh
-X-ME-Proxy: <xmx:jrhaaGakv6xGDBsij_gzJXTlMhk4gQOPXhKF-QOppN-1fGy66pnldA>
-    <xmx:jrhaaMZnmPnPy2u_RzaUziS8zSMndq7avba2BC3SF_L95au44wbMaw>
-    <xmx:jrhaaKCvjhIJ3ZgJTDNvWAq6a01ezs8JRZcmDTFavmESBzQ1MrFC_A>
-    <xmx:jrhaaKYYqDLVW4SNeCwwltAbuuwLdHDL9esQQuB0j7K6oUfe3avUfQ>
-    <xmx:jrhaaIGr9YsJIqzqOdssizi9TYnIttqAr2FSBp7Q68SIGGVbjzU8Aaee>
-Feedback-ID: i1568416f:Fastmail
-Date: Tue, 24 Jun 2025 16:39:07 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Frediano Ziglio <frediano.ziglio@cloud.com>
-Cc: xen-devel@lists.xenproject.org,
-	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
-	Jan Beulich <jbeulich@suse.com>
-Subject: Re: [PATCH v2 1/2] xen/efi: Handle cases where file didn't come from
- ESP
-Message-ID: <aFq4i_lfznUXZpWt@mail-itl>
-References: <20250624142711.54925-1-frediano.ziglio@cloud.com>
- <20250624142711.54925-2-frediano.ziglio@cloud.com>
+X-Inumbo-ID: acb9005e-510a-11f0-a30f-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1750776673; x=1751381473; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:subject:from:to:content-language
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=QgrYtW/tv35w17TFnrQWr/y8Cm7FKQy0c9kZ6+U/U+s=;
+        b=J+2oYapEdIPT6zTX9lxNlKWX5Ej5ypSC1S3ZK6dg2j0GG+PB0xVqUdM4oLnRd0CVdr
+         AeP2H/kasfPch8e3frO/O1pE4zCHJmeAD7Yq5zEE73k0H2o3IlGXKfJn74MYoAqz4yPA
+         19oGQO5p7ezqaazsfuI/t74Ty7RIV1s6pTG9jcrO+FwgdN/tPzaRYrJphwFHLFvelJhe
+         C3nv24Z5RXd23hVSTRjBJuerVYJOObwTkvSCEqYSQBvFFAHZCD7TAOM6MGvQxp3PjpD1
+         C86Q/vQPYS2UeuNSpWIxP58yXD7Qd/kKwC0i9IoDrmr3bfHdvyFKiMmsmnVwvP2TKGSa
+         jGqg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1750776673; x=1751381473;
+        h=content-transfer-encoding:cc:subject:from:to:content-language
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=QgrYtW/tv35w17TFnrQWr/y8Cm7FKQy0c9kZ6+U/U+s=;
+        b=eyzbwnToOJ+OqH2ZWJprnD5fa4lEV5J3jteQE/A/GxvCnCicZuei1Xy3pMppR85/fU
+         gQn/ZlRUI0P7dI29qRYr4uwRomN8Z4b8CwiwBN+AW4A/Vdz0wH6tVjEsjOiuWFC1Tkkn
+         t4dE7RFXSCZmM2gH6LcLTmjKz+7RDbZe2+CVbZsHa6XsjbGI/BD3rSK91nITV+v3xADM
+         kjqR2gtY08YICugViZlomj7lOq1dDWGS+a5OvEOOzHr38Sp/hP5w4PJeePvwGJnlwCYR
+         L9tHyxmFH0jI83vNMYtsZItXn0GrIUVaySk6xH7cc0pU3jZZ1BY7MJ1bp4ETJtn6JHf3
+         TWqA==
+X-Gm-Message-State: AOJu0YxLg86btdxzpa3CIXHeVF9iXpLVqxOQccVYoDIV8OmBfOpFCv1U
+	dihbfHHInszStgSCUD/IXyv83qzKFBUiXgM9ZGVlHWjyCeHhGOh0Ml89SOud+0O7
+X-Gm-Gg: ASbGncvWKTMQNrhED8q9/K9o7OWviSjp+0SFhJ4emwkuh7VEWaB6YWGsVypk6U0kba+
+	ce8Za5q+58Vc/cpFQh47e5fGnIHnurz6xqXqTZ7sJGXA85LfzhQWxHWuMe81bOAnQDwxZfmWvJE
+	gogNEJuArqVVGgD+oqfFJAxbpWXfXdsgG1l+ODA0dvuz39Ywjj0d/StuP+pN3o3ArLMXIUS9De3
+	WZTaS+Mx6+wwSs4F2AakR/zf+w3UG7/oRlo/OiWPYnd99Yjnc4fb9kEawJRanNX1yTjbir8isvH
+	pvpsj1s3tLPs+ykpLW5HRs8i6pgeoq8SAtwC8gCFX20f6fXbbIF/lQG8pJ7hRoFfpXfbjf5UgyT
+	QAzzy64h9MDOXHDWP739b/L7yb/eJHoDC9pE3Zv7VYIyT1Xuh/mESFk1Ai5S27rU=
+X-Google-Smtp-Source: AGHT+IFSCvw/fw3R7K3iRr+8t+Pvr1NIG4EpvtU0OP6x9SiFpy8ySl2l5/c7PhEW85sTOg+pPZI0MQ==
+X-Received: by 2002:a05:600c:3b8d:b0:44a:b7a3:b95f with SMTP id 5b1f17b1804b1-453659f82abmr143099565e9.25.1750776672834;
+        Tue, 24 Jun 2025 07:51:12 -0700 (PDT)
+Message-ID: <47b7f870-e1d9-44c9-b8ea-5b9028843963@gmail.com>
+Date: Tue, 24 Jun 2025 15:51:11 +0100
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="4qOJssDTK0c5RCyZ"
-Content-Disposition: inline
-In-Reply-To: <20250624142711.54925-2-frediano.ziglio@cloud.com>
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: xen-devel@lists.xenproject.org
+From: Andriy Sultanov <sultanovandriy@gmail.com>
+Subject: xenstore - Suggestion of batching watch events
+Cc: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
+ =?UTF-8?B?RWR3aW4gVMO2csO2aw==?= <edwin.torok@cloud.com>,
+ ngoc-tu.dinh@vates.tech, Christian Lindig <christian.lindig@citrix.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+
+Currently, as far as I am aware, the ability of xenstore clients to properly
+handle and detect batch updates is somewhat lacking. Transactions are not
+directly visible to the clients watching a particular directory - they will
+receive a lot of individual watch_event's once the transaction is committed,
+without any indication when such updates are going to end.
+
+Clients such as xenopsd from the xapi toolstack are reliant on xenstore to
+track their managed domains, and a flood of individual updates most often
+results in a flood of events raised from xenopsd to xapi (There are
+consolidation mechanisms implemented there, with updates getting merged
+together, but if xapi picks up update events from the queue quickly 
+enough, it
+will only get more update events later)
+
+The need for batching is fairly evident from the fact that XenServer's 
+Windows
+PV drivers, for example, adopted an ad-hoc "batch" optimization (not 
+documented
+anywhere, of course), where some sequence of writes is followed by a 
+write of
+the value "1" to "data/updated". This used to be honoured by xapi, which 
+would
+not consider the guest agent update done until it received notice of such a
+"batch ended" update, but it caused xapi to miss updates that were not 
+followed
+by such a write, so xapi now ignores this ad-hoc batching. One could 
+imagine
+many workarounds here (for example, some sort of a mechanism where xenopsd
+stalls an update for a second to see if any more related updates show up and
+only then notifies xapi of it, with obvious trade-offs), but IMO it could be
+worth considering making this easier on the xenstore side for different
+use-cases.
+
+Suggestion:
+WATCH_EVENT's req_id and tx_id are currently 0. Could it be possible, for
+example, to modify this such that watch events coming as a result of a
+transaction commit (a "batch") have tx_id of the corresponding transaction
+and req_id of, say, 2 if it's the last such watch event of a batch and 1
+otherwise? Old clients would still ignore these values, but it would allow
+some others to detect if an update is part of a logical batch that 
+doesn't end
+until its last event.
+
+Is this beyond the scope of what xenstored wants to do? From a first glance,
+this does not seem to introduce obvious unwanted information leaks 
+either, but
+I could be wrong. I would love to hear if this is something that could be
+interesting to others and if this could be considered at all.
+
+Thank you!
 
 
---4qOJssDTK0c5RCyZ
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 24 Jun 2025 16:39:07 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Frediano Ziglio <frediano.ziglio@cloud.com>
-Cc: xen-devel@lists.xenproject.org,
-	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
-	Jan Beulich <jbeulich@suse.com>
-Subject: Re: [PATCH v2 1/2] xen/efi: Handle cases where file didn't come from
- ESP
-
-On Tue, Jun 24, 2025 at 03:27:08PM +0100, Frediano Ziglio wrote:
-> A boot loader can load files from outside ESP.
-> In these cases device could be not provided or path could
-> be something not supported.
-> In these cases allows to boot anyway, all information
-> could be provided using UKI or using other boot loader
-> features.
->=20
-> Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
-
-Acked-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.com>
-
-> ---
-> Changes since v1:
-> - set "leaf" to NULL instead of a buffer with an empty string;
-> - keep read_file fatal if cannot load file (except configuration).
-> ---
->  xen/common/efi/boot.c | 34 +++++++++++++++++++++++++++++-----
->  1 file changed, 29 insertions(+), 5 deletions(-)
->=20
-> diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
-> index 1a9b4e7dae..b18af2f1f4 100644
-> --- a/xen/common/efi/boot.c
-> +++ b/xen/common/efi/boot.c
-> @@ -443,6 +443,18 @@ static EFI_FILE_HANDLE __init get_parent_handle(cons=
-t EFI_LOADED_IMAGE *loaded_i
->      CHAR16 *pathend, *ptr;
->      EFI_STATUS ret;
-> =20
-> +    /*
-> +     * In some cases the image could not come from a specific device.
-> +     * For instance this can happen if Xen was loaded using GRUB2 "linux"
-> +     * command.
-> +     */
-> +    *leaf =3D NULL;
-> +    if ( !loaded_image->DeviceHandle )
-> +    {
-> +        PrintStr(L"Xen image loaded without providing a device\r\n");
-> +        return NULL;
-> +    }
-> +
->      do {
->          EFI_FILE_IO_INTERFACE *fio;
-> =20
-> @@ -466,7 +478,15 @@ static EFI_FILE_HANDLE __init get_parent_handle(cons=
-t EFI_LOADED_IMAGE *loaded_i
-> =20
->          if ( DevicePathType(dp) !=3D MEDIA_DEVICE_PATH ||
->               DevicePathSubType(dp) !=3D MEDIA_FILEPATH_DP )
-> -            blexit(L"Unsupported device path component");
-> +        {
-> +            /*
-> +             * The image could come from an unsupported device.
-> +             * For instance this can happen if Xen was loaded using GRUB2
-> +             * "chainloader" command and the file was not from ESP.
-> +             */
-> +            PrintStr(L"Unsupported device path component\r\n");
-> +            return NULL;
-> +        }
-> =20
->          if ( *buffer )
->          {
-> @@ -772,8 +792,11 @@ static bool __init read_file(EFI_FILE_HANDLE dir_han=
-dle, CHAR16 *name,
-> =20
->      if ( !name )
->          PrintErrMesg(L"No filename", EFI_OUT_OF_RESOURCES);
-> -    ret =3D dir_handle->Open(dir_handle, &FileHandle, name,
-> -                           EFI_FILE_MODE_READ, 0);
-> +    if ( dir_handle )
-> +        ret =3D dir_handle->Open(dir_handle, &FileHandle, name,
-> +                               EFI_FILE_MODE_READ, 0);
-> +    else
-> +        ret =3D EFI_NOT_FOUND;
->      if ( file =3D=3D &cfg && ret =3D=3D EFI_NOT_FOUND )
->          return false;
->      if ( EFI_ERROR(ret) )
-> @@ -1404,7 +1427,7 @@ void EFIAPI __init noreturn efi_start(EFI_HANDLE Im=
-ageHandle,
->          /* Read and parse the config file. */
->          if ( read_section(loaded_image, L"config", &cfg, NULL) )
->              PrintStr(L"Using builtin config file\r\n");
-> -        else if ( !cfg_file_name )
-> +        else if ( !cfg_file_name && file_name)
->          {
->              CHAR16 *tail;
-> =20
-> @@ -1515,7 +1538,8 @@ void EFIAPI __init noreturn efi_start(EFI_HANDLE Im=
-ageHandle,
->          efi_bs->FreePages(cfg.addr, PFN_UP(cfg.size));
->          cfg.addr =3D 0;
-> =20
-> -        dir_handle->Close(dir_handle);
-> +        if ( dir_handle )
-> +            dir_handle->Close(dir_handle);
-> =20
->          if ( gop && !base_video )
->          {
-> --=20
-> 2.43.0
->=20
-
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---4qOJssDTK0c5RCyZ
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmhauIsACgkQ24/THMrX
-1yx6OQf+PH7GKtDpAMx6h3t2OCITY5qSCjnr74XiWl9Vj2WHQGfHD04Qo7XvaODL
-KxL3C3sWNS35BEbR8XJ/Mlaa77KKSjz+sMxnJtoC12F84XCkPlr016SHf6MX2bGn
-xPBv1V/hnzCo82a8guJfbMQQDwhQ2Ml2HjdcXqQg0uHF2xY8L/oTltjzk6GYxIq6
-qXIiHSyp5gabzt9PflegPW8CoL1M0hWOAhnWoXesI+pRfsCBsAqtmj3VVjy0hEpz
-p1n8pyJuZULobpxZ1O7DLNZhlvnCYeySBhGUUpFjWZvkZEDMD0b4a23MHUzbK+vJ
-nVLSj0bThnn2xiyuWdoEGX+bm+TLsQ==
-=NmM9
------END PGP SIGNATURE-----
-
---4qOJssDTK0c5RCyZ--
 
