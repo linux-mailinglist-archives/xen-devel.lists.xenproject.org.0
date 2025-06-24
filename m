@@ -2,47 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4502CAE6EC9
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Jun 2025 20:43:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1024032.1400090 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F415EAE6FE0
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Jun 2025 21:42:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1024049.1400101 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uU8c4-0002IQ-5L; Tue, 24 Jun 2025 18:43:20 +0000
+	id 1uU9WM-00013J-1u; Tue, 24 Jun 2025 19:41:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1024032.1400090; Tue, 24 Jun 2025 18:43:20 +0000
+Received: by outflank-mailman (output) from mailman id 1024049.1400101; Tue, 24 Jun 2025 19:41:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uU8c4-0002GK-24; Tue, 24 Jun 2025 18:43:20 +0000
-Received: by outflank-mailman (input) for mailman id 1024032;
- Tue, 24 Jun 2025 18:43:18 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=LRXt=ZH=ti.com=afd@srs-se1.protection.inumbo.net>)
- id 1uU8c2-0002Fs-MI
- for xen-devel@lists.xenproject.org; Tue, 24 Jun 2025 18:43:18 +0000
-Received: from lelvem-ot01.ext.ti.com (lelvem-ot01.ext.ti.com [198.47.23.234])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 14f5406f-512b-11f0-b894-0df219b8e170;
- Tue, 24 Jun 2025 20:43:14 +0200 (CEST)
-Received: from lelvem-sh01.itg.ti.com ([10.180.77.71])
- by lelvem-ot01.ext.ti.com (8.15.2/8.15.2) with ESMTP id 55OIglKf1238390;
- Tue, 24 Jun 2025 13:42:47 -0500
-Received: from DLEE114.ent.ti.com (dlee114.ent.ti.com [157.170.170.25])
- by lelvem-sh01.itg.ti.com (8.18.1/8.18.1) with ESMTPS id 55OIgluT1799620
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-SHA256 bits=128 verify=FAIL);
- Tue, 24 Jun 2025 13:42:47 -0500
-Received: from DLEE104.ent.ti.com (157.170.170.34) by DLEE114.ent.ti.com
- (157.170.170.25) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.55; Tue, 24
- Jun 2025 13:42:47 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE104.ent.ti.com
- (157.170.170.34) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2507.55 via
- Frontend Transport; Tue, 24 Jun 2025 13:42:46 -0500
-Received: from lelvem-mr05.itg.ti.com ([10.249.42.149])
- by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 55OIgkxh1989825;
- Tue, 24 Jun 2025 13:42:46 -0500
+	id 1uU9WL-00011n-Ub; Tue, 24 Jun 2025 19:41:29 +0000
+Received: by outflank-mailman (input) for mailman id 1024049;
+ Tue, 24 Jun 2025 19:41:28 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=iCq+=ZH=flex--seanjc.bounces.google.com=3Zf9aaAYKCRoI40D926EE6B4.2ECN4D-34L4BB8IJI.N4DFHE942J.EH6@srs-se1.protection.inumbo.net>)
+ id 1uU9WK-00011g-9o
+ for xen-devel@lists.xenproject.org; Tue, 24 Jun 2025 19:41:28 +0000
+Received: from mail-pf1-x44a.google.com (mail-pf1-x44a.google.com
+ [2607:f8b0:4864:20::44a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 3722823b-5133-11f0-a30f-13f23c93f187;
+ Tue, 24 Jun 2025 21:41:26 +0200 (CEST)
+Received: by mail-pf1-x44a.google.com with SMTP id
+ d2e1a72fcca58-748f3d4c7e7so4354377b3a.3
+ for <xen-devel@lists.xenproject.org>; Tue, 24 Jun 2025 12:41:27 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -54,138 +40,101 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 14f5406f-512b-11f0-b894-0df219b8e170
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
-	s=ti-com-17Q1; t=1750790567;
-	bh=d7RyoS9Xq2SqZl1k6ym5o4fjIiCYNNVYuTiU+w0N+C0=;
-	h=From:To:CC:Subject:Date;
-	b=nAAHio8ZNDbgN+CYEXlSX8ptbbLOIUV6HwBmawy1Tb5LqOjTZyTThqn9KBwzs0vJw
-	 5Xit6sT2Nz66hLxFPPfb+0zrNEE5Pwz9STdGo0+4IXBT+JxmV2UAcMsLP6d6/nR5F2
-	 7hCnBVlC1srj0C2ojrFRhd6buTHEga2/CVW9o7D4=
-From: Andrew Davis <afd@ti.com>
-To: Arnd Bergmann <arnd@arndb.de>, Andre Przywara <andre.przywara@arm.com>,
-        Russell King <linux@armlinux.org.uk>, Daniel Mack <daniel@zonque.org>,
-        Haojian Zhuang <haojian.zhuang@gmail.com>,
-        Robert Jarzmik
-	<robert.jarzmik@free.fr>,
-        Alexey Charkov <alchark@gmail.com>,
-        Krzysztof
- Kozlowski <krzk@kernel.org>,
-        Stefano Stabellini <sstabellini@kernel.org>
-CC: <soc@lists.linux.dev>, <linux-arm-kernel@lists.infradead.org>,
-        <xen-devel@lists.xenproject.org>, <linux-kernel@vger.kernel.org>,
-        Andrew
- Davis <afd@ti.com>
-Subject: [PATCH v6] ARM: Switch to new sys-off handler API
-Date: Tue, 24 Jun 2025 13:42:45 -0500
-Message-ID: <20250624184245.343657-1-afd@ti.com>
-X-Mailer: git-send-email 2.39.2
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+X-Inumbo-ID: 3722823b-5133-11f0-a30f-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20230601; t=1750794085; x=1751398885; darn=lists.xenproject.org;
+        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
+         :date:from:to:cc:subject:date:message-id:reply-to;
+        bh=FUFFiUTwDIQTjkS/XGuKJUupkz/Ptibx0+U0nupMqZk=;
+        b=3KEomNLlbp5ascgkiZTtrC7tjL6J3wSr67ezADtNkChrDPgALXnWf8U/YIBlTbTcAC
+         fRxmOOgcNf6Qyy1T9JkZVKZXy+eamhMSUCm4elizyw3rpX6G1WiL3igQbpbBQ/U+Pk/Q
+         N7xQEKOjnT1D7kgxdnXA77RhpDR50DtqVRc3JPYvupHOxWPvckSfZaG4KxF9ee2Xct4k
+         J8vALAchaMoyhQI6njZaylQt7OcfWxDR9dySdEX3Ej5QlpEFiCkINbdwvyb9IT+xLYbY
+         3hoP/7Ij3CnZw2dBbFTRVDU5Fsq5Piw86niamcaJqqVwAMs4kSqTiXLFnzgI6Wpwj0lx
+         38bQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1750794085; x=1751398885;
+        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
+         :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=FUFFiUTwDIQTjkS/XGuKJUupkz/Ptibx0+U0nupMqZk=;
+        b=qYWu7RN3W+uZj5KLXaA7OGiqYL6xrGA7Eo52Ii2QVOhIq8pwltS4s2dbDbUXrrVgyb
+         EIhiQCz8z05ulDo/sLPXOjiUvkPBmomMwSvoF+oh0c2D7Clsiwkd2v4EghkWD1uva1IR
+         wQs6+ekPC5XZptH4Nmy+wMdv7h2xe6lCQNoWg0PmMZ2StKZf70GghR2ejRRRZ4+qJTbH
+         c94pO61jXAnVCDsaO4VWQ8plg+pEFZLGxRwwxme6IdeG84rIZWF/RGPNe5cIpVCYqqGa
+         m8D07lCO1hHh+BitFfgwo2EK4EtXhVMcVqhM587KUs2S2l+bw33pW9aN/GArUafaIsqo
+         xdwg==
+X-Forwarded-Encrypted: i=1; AJvYcCXzpyTh886GDaS5zUIhWQsn7KpP8nKW2vO62CW8m+8q2Y4mcmLKXAGBu1LJDM/Vgj+1MdJn9p1bsx4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzwyWgv7Rm8pIOsTdem+NuvfkGHIlzJTmpxcScJidPz6IzGig/4
+	sofc/1A4b1zR8QXgbL0zM0UlxlKpGB1saljtaYTgbDePEaMYkwUDM5zNpNwPfL5ouNCMHRLYlYZ
+	OmIGUYA==
+X-Google-Smtp-Source: AGHT+IHYexPIgCTXbHegrNWRwV9PAsICfBY+CW50dlQj/EuWE5JzEYSKqjcY5P3xX5xOKDb9+UElHwxg8eM=
+X-Received: from pfrb8.prod.google.com ([2002:aa7:8ec8:0:b0:746:32ae:99d5])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:170d:b0:748:1bac:ad5f
+ with SMTP id d2e1a72fcca58-74ad455d619mr461113b3a.12.1750794085384; Tue, 24
+ Jun 2025 12:41:25 -0700 (PDT)
+Date: Tue, 24 Jun 2025 12:38:26 -0700
+In-Reply-To: <20250522235223.3178519-1-seanjc@google.com>
+Mime-Version: 1.0
+References: <20250522235223.3178519-1-seanjc@google.com>
+X-Mailer: git-send-email 2.50.0.714.g196bf9f422-goog
+Message-ID: <175079267460.517177.7949210108988821172.b4-ty@google.com>
+Subject: Re: [PATCH v3 00/13] KVM: Make irqfd registration globally unique
+From: Sean Christopherson <seanjc@google.com>
+To: Sean Christopherson <seanjc@google.com>, "K. Y. Srinivasan" <kys@microsoft.com>, 
+	Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, 
+	Dexuan Cui <decui@microsoft.com>, Juergen Gross <jgross@suse.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Paolo Bonzini <pbonzini@redhat.com>, 
+	Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
+	Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot <vincent.guittot@linaro.org>, 
+	Shuah Khan <shuah@kernel.org>, Marc Zyngier <maz@kernel.org>, Oliver Upton <oliver.upton@linux.dev>
+Cc: linux-kernel@vger.kernel.org, linux-hyperv@vger.kernel.org, 
+	xen-devel@lists.xenproject.org, kvm@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	kvmarm@lists.linux.dev, K Prateek Nayak <kprateek.nayak@amd.com>, 
+	David Matlack <dmatlack@google.com>
+Content-Type: text/plain; charset="utf-8"
 
-Kernel now supports chained power-off handlers. Use
-register_platform_power_off() that registers a platform level power-off
-handler. Legacy pm_power_off() will be removed once all drivers and archs
-are converted to the new sys-off API.
+On Thu, 22 May 2025 16:52:10 -0700, Sean Christopherson wrote:
+> Non-KVM folks,
+> 
+> I am hoping to route this through the KVM tree (6.17 or later), as the non-KVM
+> changes should be glorified nops.  Please holler if you object to that idea.
+> 
+> Hyper-V folks in particular, let me know if you want a stable topic branch/tag,
+> e.g. on the off chance you want to make similar changes to the Hyper-V code,
+> and I'll make sure that happens.
+> 
+> [...]
 
-Signed-off-by: Andrew Davis <afd@ti.com>
-Reviewed-by: Andre Przywara <andre.przywara@arm.com>
-Acked-by: Alexey Charkov <alchark@gmail.com>
----
+Applied to kvm-x86 irqs, thanks!
 
-Changes for v6:
- - Rebased on v6.16-rc3
- - Squashed series and sent to soc@lists.linux.dev as suggested by Arnd
+[01/13] KVM: Use a local struct to do the initial vfs_poll() on an irqfd
+        https://github.com/kvm-x86/linux/commit/283ed5001d68
+[02/13] KVM: Acquire SCRU lock outside of irqfds.lock during assignment
+        https://github.com/kvm-x86/linux/commit/140768a7bf03
+[03/13] KVM: Initialize irqfd waitqueue callback when adding to the queue
+        https://github.com/kvm-x86/linux/commit/b5c543518ae9
+[04/13] KVM: Add irqfd to KVM's list via the vfs_poll() callback
+        https://github.com/kvm-x86/linux/commit/5f8ca05ea991
+[05/13] KVM: Add irqfd to eventfd's waitqueue while holding irqfds.lock
+        https://github.com/kvm-x86/linux/commit/86e00cd162a7
+[06/13] sched/wait: Drop WQ_FLAG_EXCLUSIVE from add_wait_queue_priority()
+        https://github.com/kvm-x86/linux/commit/867347bb21e1
+[07/13] xen: privcmd: Don't mark eventfd waiter as EXCLUSIVE
+        https://github.com/kvm-x86/linux/commit/a52664134a24
+[08/13] sched/wait: Add a waitqueue helper for fully exclusive priority waiters
+        https://github.com/kvm-x86/linux/commit/0d09582b3a60
+[09/13] KVM: Disallow binding multiple irqfds to an eventfd with a priority waiter
+        https://github.com/kvm-x86/linux/commit/2cdd64cbf990
+[10/13] KVM: Drop sanity check that per-VM list of irqfds is unique
+        https://github.com/kvm-x86/linux/commit/b599d44a71f1
+[11/13] KVM: selftests: Assert that eventfd() succeeds in Xen shinfo test
+        https://github.com/kvm-x86/linux/commit/033b76bc7f06
+[12/13] KVM: selftests: Add utilities to create eventfds and do KVM_IRQFD
+        https://github.com/kvm-x86/linux/commit/74e5e3fb0dd7
+[13/13] KVM: selftests: Add a KVM_IRQFD test to verify uniqueness requirements
+        https://github.com/kvm-x86/linux/commit/7e9b231c402a
 
-Changes for v5:
- - Rebase on v6.15-rc1
-
-Changes for v4:
- - Drop already taken patches
- - Rebase on latest master
-
-Changes for v3:
- - Rebase on v6.12-rc1
-
-Changes for v2:
- - Collect Reviewed/Acked-bys
- - Rebase on v6.11-rc1
-
- arch/arm/mach-highbank/highbank.c | 2 +-
- arch/arm/mach-pxa/spitz.c         | 2 +-
- arch/arm/mach-sa1100/generic.c    | 2 +-
- arch/arm/mach-vt8500/vt8500.c     | 2 +-
- arch/arm/xen/enlighten.c          | 2 +-
- 5 files changed, 5 insertions(+), 5 deletions(-)
-
-diff --git a/arch/arm/mach-highbank/highbank.c b/arch/arm/mach-highbank/highbank.c
-index 5d4f977ac7d2a..47335c7dadf8d 100644
---- a/arch/arm/mach-highbank/highbank.c
-+++ b/arch/arm/mach-highbank/highbank.c
-@@ -143,7 +143,7 @@ static void __init highbank_init(void)
- 	sregs_base = of_iomap(np, 0);
- 	WARN_ON(!sregs_base);
- 
--	pm_power_off = highbank_power_off;
-+	register_platform_power_off(highbank_power_off);
- 	highbank_pm_init();
- 
- 	bus_register_notifier(&platform_bus_type, &highbank_platform_nb);
-diff --git a/arch/arm/mach-pxa/spitz.c b/arch/arm/mach-pxa/spitz.c
-index 33533e35720f8..c0b1f7e6be874 100644
---- a/arch/arm/mach-pxa/spitz.c
-+++ b/arch/arm/mach-pxa/spitz.c
-@@ -1096,7 +1096,7 @@ static void __init spitz_init(void)
- 		software_node_register(&spitz_scoop_2_gpiochip_node);
- 
- 	init_gpio_reset(SPITZ_GPIO_ON_RESET, 1, 0);
--	pm_power_off = spitz_poweroff;
-+	register_platform_power_off(spitz_poweroff);
- 
- 	PMCR = 0x00;
- 
-diff --git a/arch/arm/mach-sa1100/generic.c b/arch/arm/mach-sa1100/generic.c
-index 0c586047d130f..5383a26f51169 100644
---- a/arch/arm/mach-sa1100/generic.c
-+++ b/arch/arm/mach-sa1100/generic.c
-@@ -298,7 +298,7 @@ static struct platform_device *sa11x0_devices[] __initdata = {
- static int __init sa1100_init(void)
- {
- 	struct resource wdt_res = DEFINE_RES_MEM(0x90000000, 0x20);
--	pm_power_off = sa1100_power_off;
-+	register_platform_power_off(sa1100_power_off);
- 
- 	regulator_has_full_constraints();
- 
-diff --git a/arch/arm/mach-vt8500/vt8500.c b/arch/arm/mach-vt8500/vt8500.c
-index 0ab40087ae1cc..1d294255d7083 100644
---- a/arch/arm/mach-vt8500/vt8500.c
-+++ b/arch/arm/mach-vt8500/vt8500.c
-@@ -141,7 +141,7 @@ static void __init vt8500_init(void)
- 			pr_err("%s:ioremap(power_off) failed\n", __func__);
- 	}
- 	if (pmc_base)
--		pm_power_off = &vt8500_power_off;
-+		register_platform_power_off(vt8500_power_off);
- 	else
- 		pr_err("%s: PMC Hibernation register could not be remapped, not enabling power off!\n", __func__);
- }
-diff --git a/arch/arm/xen/enlighten.c b/arch/arm/xen/enlighten.c
-index a395b6c0aae2a..8655bc3d36347 100644
---- a/arch/arm/xen/enlighten.c
-+++ b/arch/arm/xen/enlighten.c
-@@ -541,7 +541,7 @@ static int __init xen_late_init(void)
- 	if (!xen_domain())
- 		return -ENODEV;
- 
--	pm_power_off = xen_power_off;
-+	register_platform_power_off(xen_power_off);
- 	register_restart_handler(&xen_restart_nb);
- 	if (!xen_initial_domain()) {
- 		struct timespec64 ts;
--- 
-2.39.2
-
+--
+https://github.com/kvm-x86/kvm-unit-tests/tree/next
 
