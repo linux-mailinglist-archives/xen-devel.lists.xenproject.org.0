@@ -2,38 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C9F79AE6C9C
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Jun 2025 18:40:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1023956.1400061 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C00D9AE6CBD
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Jun 2025 18:46:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1023990.1400071 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uU6gn-0001aI-CN; Tue, 24 Jun 2025 16:40:05 +0000
+	id 1uU6n6-00043I-0B; Tue, 24 Jun 2025 16:46:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1023956.1400061; Tue, 24 Jun 2025 16:40:05 +0000
+Received: by outflank-mailman (output) from mailman id 1023990.1400071; Tue, 24 Jun 2025 16:46:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uU6gn-0001WN-8Q; Tue, 24 Jun 2025 16:40:05 +0000
-Received: by outflank-mailman (input) for mailman id 1023956;
- Tue, 24 Jun 2025 16:40:02 +0000
+	id 1uU6n5-00040V-Tc; Tue, 24 Jun 2025 16:46:35 +0000
+Received: by outflank-mailman (input) for mailman id 1023990;
+ Tue, 24 Jun 2025 16:46:35 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=X7et=ZH=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1uU6gk-00006A-S2
- for xen-devel@lists.xenproject.org; Tue, 24 Jun 2025 16:40:02 +0000
-Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
- [2a00:1450:4864:20::344])
+ <SRS0=L371=ZH=bounce.vates.tech=bounce-md_30504962.685ad667.v1-0507621ca80f40ce8c63b7ec82219b8d@srs-se1.protection.inumbo.net>)
+ id 1uU6n5-00040P-8x
+ for xen-devel@lists.xenproject.org; Tue, 24 Jun 2025 16:46:35 +0000
+Received: from mail134-21.atl141.mandrillapp.com
+ (mail134-21.atl141.mandrillapp.com [198.2.134.21])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id df8f0790-5119-11f0-a30f-13f23c93f187;
- Tue, 24 Jun 2025 18:40:01 +0200 (CEST)
-Received: by mail-wm1-x344.google.com with SMTP id
- 5b1f17b1804b1-442fda876a6so50634125e9.0
- for <xen-devel@lists.xenproject.org>; Tue, 24 Jun 2025 09:40:01 -0700 (PDT)
-Received: from localhost.localdomain (host-92-26-98-202.as13285.net.
- [92.26.98.202]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3a6e810caefsm2295472f8f.87.2025.06.24.09.40.00
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 24 Jun 2025 09:40:00 -0700 (PDT)
+ id c8933281-511a-11f0-a30f-13f23c93f187;
+ Tue, 24 Jun 2025 18:46:33 +0200 (CEST)
+Received: from pmta10.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
+ by mail134-21.atl141.mandrillapp.com (Mailchimp) with ESMTP id
+ 4bRW7C4KDWz1XMfdq
+ for <xen-devel@lists.xenproject.org>; Tue, 24 Jun 2025 16:46:31 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ 0507621ca80f40ce8c63b7ec82219b8d; Tue, 24 Jun 2025 16:46:31 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,191 +43,148 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: df8f0790-5119-11f0-a30f-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1750783201; x=1751388001; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=L8zvOhZvXOvF3gCKvTIhnAyw9lxFL7/6V29vjtTjdtI=;
-        b=N/OXEHiZUzm8mnLPePAe2fItD/JrEMudJipQWS+SQsdXbgHLEstIrc9oKw513EtgHk
-         lZ09fYqPncpgaDRQDFoFTvg8qbbRrlvmB4a4+88uTLFlXMxl8zM8LJRCEUXcSYK6Eatv
-         nJHnuGJU9bFADOkZskNBVKiI4xC6PiGP3TdpQ=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750783201; x=1751388001;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=L8zvOhZvXOvF3gCKvTIhnAyw9lxFL7/6V29vjtTjdtI=;
-        b=ad2TqltpNfZPXF+lA9hFBoi5AEbFTeMr7oK7jeVyikXnkSrNRFhqgMkxSL45wUAtDq
-         JCHsoCQjXYAfmk4YIB47xBsfAhZFwLTyUM74rCO6KB3mmAKvw5IVyJmF/sKy7TNfEJij
-         bVQzBTON166gSOljyoFCbNYpVYXyVoGWg/RrEakJnbgwhcMbAJbIRo3i0WEp5/eRxdYB
-         VxYLA6ymqyfCNItWRZcAs91Q5C7CF/dnsKoxwjEjcTnEC0U7S+RyNlYQ8HKl5EHkb/a9
-         OkKcMwfvZGtsaenhXXX0pMikKaX7KwcCGjbofv4ZYFTP3Ut29nLhU3oe5fqPhYQvGa+C
-         eKNw==
-X-Gm-Message-State: AOJu0YxP2zSXULe+BfdPEujTzhTlAuSnfHjTc42ujUnB9T5JxiIb3UGn
-	k3q83w47yjDj1v/pgqm5D7cDpEzuncjcLfHN5l3qm6YHCurLGX9+jgH2baPYZTofAS8lSZPobwZ
-	Q5QJnWYpFIKwo
-X-Gm-Gg: ASbGnctdf53n/O+5vHFyNznEuZ15x77444QHYwK1IcR3tBx9L6FLPE0cgXHfixlIAQd
-	dH3zp2NpWOVuqckguQ8clil2pb1Wxf832bOeQr6QXdS/tyRfSQbWlghFYInqqjcugUDWeMlbCR+
-	crmfgqgQmQGOEmeI9RG45/SoYOxn1GCTNhgxWJtbN5ujlAUJSu463WmTLLRh4dLQJXMuI7B89nk
-	Rt7+ApMMqo76DGUFKYeVc/ZyEo5tyfCepdt1e8brdF0sUUawEcub2BbKP+G3hXHEpDsDEu7Ek7A
-	fXIz0bqSYZitqi0LV1OnJ/CZ6sfAv0dzk7+mV2P7Gr127c+8BeLORhyCMiSHFw1lhRcp1j0llZC
-	ej4Ku/vjj5F3/p7ZPpDyBsJlCa2DViS4aw04=
-X-Google-Smtp-Source: AGHT+IGEh75w0SXxePGB41NK4Hasuo5PBPHwu9ZhzWnvdRAaOu+/JFoOUgUI+oNuE7C60ofh3ArccA==
-X-Received: by 2002:a05:600c:3b84:b0:442:ccfa:1461 with SMTP id 5b1f17b1804b1-453657bf26bmr155776385e9.13.1750783200779;
-        Tue, 24 Jun 2025 09:40:00 -0700 (PDT)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <JBeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH 4/4] x86/idle: Misc cleanup
-Date: Tue, 24 Jun 2025 17:39:51 +0100
-Message-Id: <20250624163951.301743-5-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20250624163951.301743-1-andrew.cooper3@citrix.com>
-References: <20250624163951.301743-1-andrew.cooper3@citrix.com>
+X-Inumbo-ID: c8933281-511a-11f0-a30f-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1750783591; x=1751053591;
+	bh=utlhzJJl5garRAOCZabEjFWcBAsz0PPqqW4UKkCMth0=;
+	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=ZBOi1pfELwJ4xvdgVWseQlyN9OeAWO/XAECT6JzAK0XTcyMLL2fJ2V5HMi+gawCl7
+	 NPlG3M3i19zImSd2irlaIqNdrOZQRzlldb3wHpbGLkv7HF0H64GE9oHwm7A4Lidtgd
+	 E7kF3yCHTijtUVMfkCepP7Qs3nHtlwQzFYvkdyNsWqnf8hYynFlUrnJgZKxuDfI3mP
+	 uLEfJY1Ic/FQMj4JHgTGOEPZE2vJpT9v8VNMsOejI0lF6yDhJGTkhKkB/PQ+ee4RSs
+	 9Fo6a7BfaRc8C6vnicZNlX48DfyDkKtmP6u3NqLQNImv1TgPodcsr962PbCKcjyjnG
+	 YiNQ3va7GdV3Q==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1750783591; x=1751044091; i=teddy.astie@vates.tech;
+	bh=utlhzJJl5garRAOCZabEjFWcBAsz0PPqqW4UKkCMth0=;
+	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=G7kGrDctVfeI5afiYHBDXctzA1AZAQa9Awn8QClkMZo625USzY9fZzwBXQl6gACCJ
+	 /T8w6yXQivwNiWDfJP/fKiyhOzYZZ4lj24xMCwiERVBA88oluBs5dce8IavajRd7Tx
+	 oQDlGfvgduu54kUR7CImqJqNY0bDzCHDeX6KQGviay3/2c4ZDlvBtZ6/kNQwV5pPJr
+	 KoL/I7Mqi/HQQzDOGa0WDEJsRUXb9k7HzxaRRuhKaVdoOFX2G0U2vtVhcV7/VE8YV+
+	 bvZqbmhIyDaQepcIYW9+6TMFWjyu7PJ72Y/kxbe1Q6Ji/ioFXFlQBqTuwIjJ+rJNMK
+	 aY5qDSaB5BntA==
+From: "Teddy Astie" <teddy.astie@vates.tech>
+Subject: =?utf-8?Q?Re:=20xenstore=20-=20Suggestion=20of=20batching=20watch=20events?=
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1750783590303
+Message-Id: <6516c9bf-204d-45f6-9e24-e63150d3f354@vates.tech>
+To: "Andriy Sultanov" <sultanovandriy@gmail.com>, xen-devel@lists.xenproject.org
+Cc: "=?utf-8?Q?J=C3=BCrgen=20Gro=C3=9F?=" <jgross@suse.com>, "=?utf-8?Q?Edwin=20T=C3=B6r=C3=B6k?=" <edwin.torok@cloud.com>, ngoc-tu.dinh@vates.tech, "Christian Lindig" <christian.lindig@citrix.com>
+References: <47b7f870-e1d9-44c9-b8ea-5b9028843963@gmail.com>
+In-Reply-To: <47b7f870-e1d9-44c9-b8ea-5b9028843963@gmail.com>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.0507621ca80f40ce8c63b7ec82219b8d?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20250624:md
+Date: Tue, 24 Jun 2025 16:46:31 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Sort includes, and drop trailing whitespace.
+Hello,
 
-No functional change.
+Le 24/06/2025 =C3=A0 16:53, Andriy Sultanov a =C3=A9crit=C2=A0:
+> Currently, as far as I am aware, the ability of xenstore clients to 
+> properly
+> handle and detect batch updates is somewhat lacking. Transactions are not
+> directly visible to the clients watching a particular directory - they wi=
+ll
+> receive a lot of individual watch_event's once the transaction is 
+> committed,
+> without any indication when such updates are going to end.
+> 
+> Clients such as xenopsd from the xapi toolstack are reliant on xenstore t=
+o
+> track their managed domains, and a flood of individual updates most often
+> results in a flood of events raised from xenopsd to xapi (There are
+> consolidation mechanisms implemented there, with updates getting merged
+> together, but if xapi picks up update events from the queue quickly 
+> enough, it
+> will only get more update events later)
+> 
+> The need for batching is fairly evident from the fact that XenServer's 
+> Windows
+> PV drivers, for example, adopted an ad-hoc "batch" optimization (not 
+> documented
+> anywhere, of course), where some sequence of writes is followed by a 
+> write of
+> the value "1" to "data/updated". This used to be honoured by xapi, which 
+> would
+> not consider the guest agent update done until it received notice of such=
+ a
+> "batch ended" update, but it caused xapi to miss updates that were not 
+> followed
+> by such a write, so xapi now ignores this ad-hoc batching. One could 
+> imagine
+> many workarounds here (for example, some sort of a mechanism where xenops=
+d
+> stalls an update for a second to see if any more related updates show up 
+> and
+> only then notifies xapi of it, with obvious trade-offs), but IMO it 
+> could be
+> worth considering making this easier on the xenstore side for different
+> use-cases.
+> 
+> Suggestion:
+> WATCH_EVENT's req_id and tx_id are currently 0. Could it be possible, for
+> example, to modify this such that watch events coming as a result of a
+> transaction commit (a "batch") have tx_id of the corresponding transactio=
+n
+> and req_id of, say, 2 if it's the last such watch event of a batch and 1
+> otherwise? Old clients would still ignore these values, but it would allo=
+w
+> some others to detect if an update is part of a logical batch that 
+> doesn't end
+> until its last event.
+> 
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
----
- xen/arch/x86/acpi/cpu_idle.c | 51 ++++++++++++++++++------------------
- 1 file changed, 25 insertions(+), 26 deletions(-)
+I find this a bit problematic as it adds assumption on a well-behaving 
+xenstored. What happens if you receive WATCH_EVENTs with only 1 (and no 
+2) ? Should the xenstore client assume that a WATCH_EVENT with 2 may 
+come at some point (lingering some arbitrary time), or still process it 
+in a singular way (like currently) ?
 
-diff --git a/xen/arch/x86/acpi/cpu_idle.c b/xen/arch/x86/acpi/cpu_idle.c
-index e9493f7f577f..6c3a10e6fb4e 100644
---- a/xen/arch/x86/acpi/cpu_idle.c
-+++ b/xen/arch/x86/acpi/cpu_idle.c
-@@ -1,6 +1,6 @@
- /*
-- * cpu_idle - xen idle state module derived from Linux 
-- *            drivers/acpi/processor_idle.c & 
-+ * cpu_idle - xen idle state module derived from Linux
-+ *            drivers/acpi/processor_idle.c &
-  *            arch/x86/kernel/acpi/cstate.c
-  *
-  *  Copyright (C) 2001, 2002 Andy Grover <andrew.grover@intel.com>
-@@ -30,34 +30,34 @@
-  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  */
- 
--#include <xen/errno.h>
--#include <xen/lib.h>
--#include <xen/types.h>
- #include <xen/acpi.h>
--#include <xen/smp.h>
-+#include <xen/cpu.h>
-+#include <xen/errno.h>
- #include <xen/guest_access.h>
-+#include <xen/irq.h>
- #include <xen/keyhandler.h>
-+#include <xen/lib.h>
-+#include <xen/notifier.h>
- #include <xen/param.h>
--#include <xen/trace.h>
--#include <xen/irq.h>
--#include <xen/sections.h>
--
--#include <asm/io.h>
--#include <asm/iocap.h>
--#include <asm/hpet.h>
--#include <asm/processor.h>
- #include <xen/pmstat.h>
-+#include <xen/sections.h>
-+#include <xen/smp.h>
- #include <xen/softirq.h>
--#include <public/platform.h>
--#include <public/sysctl.h>
-+#include <xen/trace.h>
-+
- #include <acpi/cpufreq/cpufreq.h>
- #include <asm/apic.h>
- #include <asm/cpuidle.h>
-+#include <asm/hpet.h>
-+#include <asm/io.h>
-+#include <asm/iocap.h>
- #include <asm/mwait.h>
--#include <xen/notifier.h>
--#include <xen/cpu.h>
-+#include <asm/processor.h>
- #include <asm/spec_ctrl.h>
- 
-+#include <public/platform.h>
-+#include <public/sysctl.h>
-+
- /*#define DEBUG_PM_CX*/
- 
- static always_inline void monitor(
-@@ -791,7 +791,7 @@ static void cf_check acpi_processor_idle(void)
- 
-     case ACPI_STATE_C3:
-         /*
--         * Before invoking C3, be aware that TSC/APIC timer may be 
-+         * Before invoking C3, be aware that TSC/APIC timer may be
-          * stopped by H/W. Without carefully handling of TSC/APIC stop issues,
-          * deep C state can't work correctly.
-          */
-@@ -1082,7 +1082,7 @@ static int check_cx(struct acpi_processor_power *power, xen_processor_cx_t *cx)
-         break;
- 
-     case ACPI_ADR_SPACE_FIXED_HARDWARE:
--        if ( cx->reg.bit_width != VENDOR_INTEL || 
-+        if ( cx->reg.bit_width != VENDOR_INTEL ||
-              cx->reg.bit_offset != NATIVE_CSTATE_BEYOND_HALT )
-             return -EINVAL;
- 
-@@ -1269,14 +1269,14 @@ static void print_cx_pminfo(uint32_t cpu, struct xen_processor_power *power)
-            "\t       pwr_setup_done[%d], bm_rld_set[%d]\n",
-            power->flags.bm_control, power->flags.bm_check, power->flags.has_cst,
-            power->flags.power_setup_done, power->flags.bm_rld_set);
--    
-+
-     states = power->states;
--    
-+
-     for ( i = 0; i < power->count; i++ )
-     {
-         if ( unlikely(copy_from_guest_offset(&state, states, i, 1)) )
-             return;
--        
-+
-         printk("\tstates[%d]:\n", i);
-         printk("\t\treg.space_id = %#x\n", state.reg.space_id);
-         printk("\t\treg.bit_width = %#x\n", state.reg.bit_width);
-@@ -1289,7 +1289,7 @@ static void print_cx_pminfo(uint32_t cpu, struct xen_processor_power *power)
- 
-         csd = state.dp;
-         printk("\t\tdp(@0x%p)\n", csd.p);
--        
-+
-         if ( csd.p != NULL )
-         {
-             if ( unlikely(copy_from_guest(&dp, csd, 1)) )
-@@ -1388,7 +1388,7 @@ long set_cx_pminfo(uint32_t acpi_id, struct xen_processor_power *power)
- 
-         dead_idle = acpi_dead_idle;
-     }
-- 
-+
-     return 0;
- }
- 
-@@ -1676,4 +1676,3 @@ static int __init cf_check cpuidle_presmp_init(void)
-     return 0;
- }
- presmp_initcall(cpuidle_presmp_init);
--
--- 
-2.39.5
+Without changing the protocol itself, we can improve the situation at 
+the xenstored/client level.
+
+xenstore being architecturally a ring buffer (and a socket when 
+communicating directly with Dom0), we can batch multiples WATCH_EVENT in 
+a atomic way (up to ring size with ring buffer). In a way where the 
+client will be able to process multiple WATCH_EVENT without eventually 
+stalling.
+
+(with ring buffer : write multiples xs_wire messages and only then 
+update ring index and raise event channel)
+
+In userland, this could take the form as xenstored pushing multiples 
+messages through a single send(), so the client would be able to perform 
+all the recv() at once.
+
+> Is this beyond the scope of what xenstored wants to do? From a first 
+> glance,
+> this does not seem to introduce obvious unwanted information leaks 
+> either, but
+> I could be wrong. I would love to hear if this is something that could be
+> interesting to others and if this could be considered at all.
+> 
+> Thank you!
+> 
+> 
+> 
+
+
+
+Teddy Astie | Vates XCP-ng Developer
+
+XCP-ng & Xen Orchestra - Vates solutions
+
+web: https://vates.tech
+
 
 
