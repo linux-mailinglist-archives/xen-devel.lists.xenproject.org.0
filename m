@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30C23AE88E1
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Jun 2025 17:55:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1025286.1400915 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5FA58AE8904
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Jun 2025 18:01:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1025292.1400925 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uUSTE-0000IE-2Z; Wed, 25 Jun 2025 15:55:32 +0000
+	id 1uUSYZ-0002Q2-L9; Wed, 25 Jun 2025 16:01:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1025286.1400915; Wed, 25 Jun 2025 15:55:32 +0000
+Received: by outflank-mailman (output) from mailman id 1025292.1400925; Wed, 25 Jun 2025 16:01:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uUSTD-0000FD-Vs; Wed, 25 Jun 2025 15:55:31 +0000
-Received: by outflank-mailman (input) for mailman id 1025286;
- Wed, 25 Jun 2025 15:55:30 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=+7fe=ZI=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1uUSTC-0000F7-Sf
- for xen-devel@lists.xenproject.org; Wed, 25 Jun 2025 15:55:30 +0000
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [2a00:1450:4864:20::430])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d17f4105-51dc-11f0-a30f-13f23c93f187;
- Wed, 25 Jun 2025 17:55:30 +0200 (CEST)
-Received: by mail-wr1-x430.google.com with SMTP id
- ffacd0b85a97d-3a54700a46eso1196824f8f.1
- for <xen-devel@lists.xenproject.org>; Wed, 25 Jun 2025 08:55:30 -0700 (PDT)
-Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
- by smtp.gmail.com with UTF8SMTPSA id
- ffacd0b85a97d-3a6e8114697sm5044424f8f.98.2025.06.25.08.55.28
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 25 Jun 2025 08:55:28 -0700 (PDT)
+	id 1uUSYZ-0002ON-Hy; Wed, 25 Jun 2025 16:01:03 +0000
+Received: by outflank-mailman (input) for mailman id 1025292;
+ Wed, 25 Jun 2025 16:01:02 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=QoV+=ZI=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uUSYY-0002NC-DU
+ for xen-devel@lists.xenproject.org; Wed, 25 Jun 2025 16:01:02 +0000
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
+ [2a00:1450:4864:20::432])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 966fd072-51dd-11f0-b894-0df219b8e170;
+ Wed, 25 Jun 2025 18:01:00 +0200 (CEST)
+Received: by mail-wr1-x432.google.com with SMTP id
+ ffacd0b85a97d-3a503d9ef59so4614046f8f.3
+ for <xen-devel@lists.xenproject.org>; Wed, 25 Jun 2025 09:01:00 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-237d8608d4asm134216355ad.128.2025.06.25.09.00.52
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 25 Jun 2025 09:00:57 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,95 +45,113 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d17f4105-51dc-11f0-a30f-13f23c93f187
+X-Inumbo-ID: 966fd072-51dd-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1750866929; x=1751471729; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=7buStalg0deP2mOBjFco5ld6+7SBqWlQLcb6PvVK9Vw=;
-        b=fiknQgPdqntTHQBVXhjv9+zI91sLSPpas2+dVz/CDa3vzUXPvoqTGJKKsOk3QcOkQH
-         saGe4wUdys6ZVjmp/B5TYtz6hSavSM7ap6BHZjfff0lWGxeRblqGI3vJd69pEldggUTM
-         1LOCDYf3AsHuZIDK/kVtO8YBCXTTNYevluPjk=
+        d=suse.com; s=google; t=1750867260; x=1751472060; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=2YoKjuD0rlflwuG2CSjCcyB+nKRUBL1XxuyWu9Ue/1o=;
+        b=hGQIcWpJXDIJMhNYlFbXrrKEFO2z7GE04dO55ytJltRPpJRnjyXindPTpoWoL+kp50
+         RQSJOA8+Utp4lbk3t/rJz5cIrqT+nAl3qoWrHO5ZqN3RfsMYxWw8nZo2I1ITu05M0pEs
+         gVpfg6+Wq8rYfY7IAJu63szm6FcfIaIdlVaat0G7wM0D2hArKotM9Rg+vCSBphehLJW/
+         K1UuV+6jAG7ki35dmHHk4nteZvjN2hwXVHMVmPXtIk4zFaoyY5bNFfiAogeK0VYws9pT
+         1rIe+LkU253slpX8T75cSsJVVEkLuhohKfthO4VuS1P2gIxIMKPRKDyhOr+hLrMLZGq0
+         4Zbg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750866929; x=1751471729;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20230601; t=1750867260; x=1751472060;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=7buStalg0deP2mOBjFco5ld6+7SBqWlQLcb6PvVK9Vw=;
-        b=KjD6eC0ttQBPg8wL9iDCzu/0zo9pw/iREHB6CDVQxRa+Hw1ykPqKgqYFtwiDyi8rGu
-         MGXAhjkKkGmuGmJcXqFtZ8XgV6udW3P2CcpQXidK2B9jRaJqXhRsxWWTilK7lGfJe032
-         x9UpQpwM2LJLq6xEpVs4eU5XaVq9vy3zyOcjo6bn6y8iMCA6QntibZri4KGl7ki261u0
-         eK1Lprf6ZkBwYhu44y4nuNFcFO1+0MSxoZviSkPr/O8NfoH5Qrwjq+5L6YCOz5xz9go4
-         /QFxhSQmEu4J6r4Qjm1PjIYv0NnExYia88hDbtqdPtOTh75vLJBBuVYljEt8prIr76UF
-         WtpA==
-X-Gm-Message-State: AOJu0Yxf7bJH/nSJts1TmEcBO16oP9TnZ9PTDqz/BpFWPWPw2lE04hfl
-	hTlteGKbS9hGGT8VyqBd2hBl9kf8ifOl6Rm6ukpj+2tVn/FECFJKU9xUcxghxSfKkqI=
-X-Gm-Gg: ASbGncsWdHOj8Q7UrSYcHwsPE9rNcq/jEYNt3UokQMMtvp50Iu4tjdymYq0A+5iRBAl
-	6oUdHGNcBcmhTOY/8OWPXRXl87Y2KpMxeYdHBA4Ax32wtihY7NgKzMGMGd5PpIn4HSKEmsnJRmW
-	EHRnmIQHa0jNAeBoLg4409Pbm4iZTGk4QRvDrtTUf0GkjCxdsM0Xam/gUhYFUGIqSj3RVHr/VIV
-	Pg2byaYsUiBK1RKp3VJt9JXy4JaG4e/N/rAPUy1O4wi2HHzK9vpk2lKLShTsKl5AHHvANbmn5l5
-	mzAUzXwfPT5litfp1yThXGP/tqw4yfHP1OA/DpOwKsvI5G/Gq+8BUCLVdPpHSM6iqdEMsc05nOD
-	RRk+nEYmMDF/oaZDX/mvfbkKHzu9jqSK6GHsd1FCF
-X-Google-Smtp-Source: AGHT+IExt9KwI27fmbyPyE/KN2wDLDbVv0JX3TdiSnvsF3v/bvY8nLZ0j2tbCubOiBAKjupFUH8D6Q==
-X-Received: by 2002:a05:6000:2084:b0:3a5:42:b17b with SMTP id ffacd0b85a97d-3a6ed65e60fmr2699081f8f.29.1750866929324;
-        Wed, 25 Jun 2025 08:55:29 -0700 (PDT)
-Date: Wed, 25 Jun 2025 17:55:28 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Anthony PERARD <anthony@xenproject.org>
-Cc: xen-devel@lists.xenproject.org,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH v2 6/8] test/pdx: add PDX compression unit tests
-Message-ID: <aFwb8E_-2rCbyO-_@macbook.local>
-References: <20250620111130.29057-1-roger.pau@citrix.com>
- <20250620111130.29057-7-roger.pau@citrix.com>
- <aFqqHtRPmbndhcnK@l14>
+        bh=2YoKjuD0rlflwuG2CSjCcyB+nKRUBL1XxuyWu9Ue/1o=;
+        b=nu0ct3U6g1ScStPzFxsrQHvfKc/fsllNxXdKIF+AR+uYALFEj1PcLgTiDf2xfy3xTt
+         yz4uy3sfCsbmkn9wyhX5bBRDgVDZGxuHEqz55Q51Axtk7GVMr4zLit/zVYjHlDPxRhvE
+         VR1OdAhtaId0TGshn4ity9bgIsodErvpQzPbLjuLnxi7ZTWydYhHq49yZjUXpotiHm/h
+         6+Fp0/e+qt8hUrt26X/mmD9pWIwZlSqahqvEUzOcIB3kxscrQ7RCjuwNUoIfaA3XEFMD
+         xVIfckmDMdaRMY1IhC/70b3YtLzo86WNPZV6024j3l5zh746kn10WQPBnMzLgMp5e4aK
+         Fhag==
+X-Forwarded-Encrypted: i=1; AJvYcCW2BaNyReE+WUEMFQNJ64BiB7LLJojd8ByQuLt7O/do0GesfCb4+tL+rOj55/gQPDSU0oTHCD71Tss=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzzxpR+natIr1rhGcVYRVLTHeZAXH8ecUNuESiQ8FDcyyEg1laV
+	yBKSzWZv1LrFw9N3hEtNc3wSLxTa/90Q+zzx0MVGYReEBKuCXnPDFjXu8oJWwvQB6w==
+X-Gm-Gg: ASbGnctrhsGF6YMDWZenMrVNQeUGNCik+9eALaL6hPwjCfp8AZyUKpcxD8YlXxeKGST
+	TRs+vbIwhZ774IHAqyaT2V87PdMx1Z/VpWUZfWb/7Y1zWtdS+AYCoFFNSER07aQa8C2mT/OULVO
+	7oXS7WVtjItrOo1hO7B98b0TQYNneIilFxe1g7WsCsZbbTEgt0C8yfdjPBlheY0ig1Yb4djcg0A
+	X9gxkcXH8ULHdlODtJM86fFSiKHJrBKdK4/CYusRtwLkzXp9gChlf7WbangGO/1yzs6ayiwOZtn
+	BYM/8DFBGugHja13r1rOExBL1jV6Hupauy9mcpC0mdh5uGv+rSB0cqCxsW3hexQ48+cwcorLvMB
+	+26hCq+MrKEMZNRgm3hnhK2iUbZhhOIcXlyZUyPadTx9BwGk=
+X-Google-Smtp-Source: AGHT+IGAN80m9k6Oyy6oEXPrzAvQ9yy96RroQd9YnSikeRZ9hK7mZo9QObVzXl5ukovbf9U0SGioRw==
+X-Received: by 2002:a05:6000:2082:b0:3a4:e740:cd72 with SMTP id ffacd0b85a97d-3a6ed5f20e5mr3463691f8f.13.1750867258104;
+        Wed, 25 Jun 2025 09:00:58 -0700 (PDT)
+Message-ID: <23206592-6016-47cc-87a6-151c76f254d6@suse.com>
+Date: Wed, 25 Jun 2025 18:00:48 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <aFqqHtRPmbndhcnK@l14>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 4/8] pdx: introduce command line compression toggle
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@cloud.com>,
+ xen-devel@lists.xenproject.org
+References: <20250620111130.29057-1-roger.pau@citrix.com>
+ <20250620111130.29057-5-roger.pau@citrix.com>
+ <b7e9bca9-5fd6-479c-91eb-202f85efa44e@suse.com>
+ <aFwZ3dSo1MHMf-Em@macbook.local>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <aFwZ3dSo1MHMf-Em@macbook.local>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, Jun 24, 2025 at 03:37:34PM +0200, Anthony PERARD wrote:
-> On Fri, Jun 20, 2025 at 01:11:28PM +0200, Roger Pau Monne wrote:
-> > +.PHONY: run
-> > +run: $(TARGETS)
-> > +ifeq ($(CC),$(HOSTCC))
-> > +	for test in $? ; do \
-> > +		./$$test ;  \
-> > +	done
+On 25.06.2025 17:46, Roger Pau Monné wrote:
+> On Tue, Jun 24, 2025 at 03:40:16PM +0200, Jan Beulich wrote:
+>> On 20.06.2025 13:11, Roger Pau Monne wrote:
+>>> Introduce a command line option to allow disabling PDX compression.  The
+>>> disabling is done by turning pfn_pdx_add_region() into a no-op, so when
+>>> attempting to initialize the selected compression algorithm the array of
+>>> ranges to compress is empty.
+>>
+>> While neat, this also feels fragile. It's not obvious that for any
+>> algorithm pfn_pdx_compression_setup() would leave compression disabled
+>> when there are zero ranges. In principle, if it was written differently
+>> for mask compression, there being no ranges could result in compression
+>> simply squeezing out all of the address bits. Yet as long as we think
+>> we're going to keep this in mind ...
 > 
-> You need to add `set -e` or the exit value from the tested binary might
-> be ignored. This `run` target only failed if the last test binary return
-> a failure.
+> It seemed to me that nr_rages == 0 (so no ranges reported) should
+> result in no compression, for example on x86 this means there's no
+> SRAT.
 
-Oh, I did see it failing, but both tests at teh same time, that's why
-I didn't notice that only the first failing won't be reported.
+Just to mention it: While in the pfn_pdx_compression_setup() flavor in
+patch 3 there's no explicit check (hence the logic is assumed to be
+coping with that situation), the one introduced in the last patch does
+have such an explicit check. Apparently there the logic doesn't cleanly
+cover that case all by itself.
 
-> > +else
-> > +	$(warning HOSTCC != CC, will not run test)
-> > +endif
-> > +
-> > +.PHONY: clean
-> > +clean:
-> > +	$(RM) -- *.o $(TARGETS) $(DEPS_RM) pdx.c pdx.h
-> 
-> Is this "pdx.c" left over from version? It doesn't seems to be generated
-> by this makefile.
-
-Yeah, it's a leftover from the previous version where I was also
-making a local copy of pdx.c.
-
-> > +
-> > +pdx.h: $(XEN_ROOT)/xen/include/xen/pdx.h
-> > +	sed -E -e '/^#[[:space:]]?include/d' <$< >$@
-> 
-> Why allow only zero or one space characters between '#' and
-> "include"? Why not used '*' instead of '?' ?
-
-Because that's all we currently use in the header, but I can indeed
-switch to * just in case we gain includes with more spaces.
-
-Thanks, Roger.
+Jan
 
