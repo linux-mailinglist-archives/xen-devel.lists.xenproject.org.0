@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B3EDAE7B79
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Jun 2025 11:06:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1024501.1400350 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DB7AEAE7BF0
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Jun 2025 11:15:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1024508.1400360 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uUM4s-0004un-7Y; Wed, 25 Jun 2025 09:05:58 +0000
+	id 1uUMDx-0006cB-45; Wed, 25 Jun 2025 09:15:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1024501.1400350; Wed, 25 Jun 2025 09:05:58 +0000
+Received: by outflank-mailman (output) from mailman id 1024508.1400360; Wed, 25 Jun 2025 09:15:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uUM4s-0004st-4z; Wed, 25 Jun 2025 09:05:58 +0000
-Received: by outflank-mailman (input) for mailman id 1024501;
- Wed, 25 Jun 2025 09:05:56 +0000
+	id 1uUMDx-0006ac-11; Wed, 25 Jun 2025 09:15:21 +0000
+Received: by outflank-mailman (input) for mailman id 1024508;
+ Wed, 25 Jun 2025 09:15:19 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=QoV+=ZI=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uUM4q-0004sl-5Y
- for xen-devel@lists.xenproject.org; Wed, 25 Jun 2025 09:05:56 +0000
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [2a00:1450:4864:20::42c])
+ id 1uUMDv-0006aW-Bw
+ for xen-devel@lists.xenproject.org; Wed, 25 Jun 2025 09:15:19 +0000
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [2a00:1450:4864:20::42a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 99b532e8-51a3-11f0-a30f-13f23c93f187;
- Wed, 25 Jun 2025 11:05:55 +0200 (CEST)
-Received: by mail-wr1-x42c.google.com with SMTP id
- ffacd0b85a97d-3a365a6804eso848507f8f.3
- for <xen-devel@lists.xenproject.org>; Wed, 25 Jun 2025 02:05:55 -0700 (PDT)
+ id e92ff4dd-51a4-11f0-a30f-13f23c93f187;
+ Wed, 25 Jun 2025 11:15:17 +0200 (CEST)
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-3a4fb9c2436so959855f8f.1
+ for <xen-devel@lists.xenproject.org>; Wed, 25 Jun 2025 02:15:17 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-315f53d9098sm1235474a91.31.2025.06.25.02.05.51
+ d2e1a72fcca58-749c8851b90sm3952113b3a.127.2025.06.25.02.15.13
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 25 Jun 2025 02:05:53 -0700 (PDT)
+ Wed, 25 Jun 2025 02:15:16 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 99b532e8-51a3-11f0-a30f-13f23c93f187
+X-Inumbo-ID: e92ff4dd-51a4-11f0-a30f-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1750842354; x=1751447154; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=OuI9+lF7qlVECjIOb4TEfzkDj+6Kd7hWaKl7whIrRmk=;
-        b=FGmwWs3M07DPjdC3mrRu5CTNZWNsEyL4iC1B7irMeA5q6pcDliCLieoRhtZf5WfDWx
-         8YiyuzB9iTV+nZI2/Jz/t8I3xYIeyzpiiy1WsYKPJozm/CkBf4LGqLUSpexIRQ4glaul
-         khL5scjAqNP8uJcHXhRO5fv90ip/kk0hs/I58g0vjDJGimLCA/gU3XckspM2d5F+O8gw
-         4NFNOaoQMO7Kc/01Qb9wiWDJ0duW37H+jXuCRgg8/7AqwdRDT+2/9PrhqKo0tYQQsvQg
-         DsiiXsG/ucvI0ro7gcGXKZrnYnZgANtJVPVTc0cMcpdnWm3/ooNbrAp69V5m6yRt/t/r
-         rc9g==
+        d=suse.com; s=google; t=1750842917; x=1751447717; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=CmgWHc4X1qkNq2u665PqDQpHYrMcxnRRycuhOeFkBN8=;
+        b=NqSSddAuz7CVhCsi1izMVsVEBCD7neBvnfxLqmi3xHU7E8SPX2aHwGEMYVRudNh0+n
+         AByHF05l2x1zP4pSZJC47MoTPfZzrrBwxhmMgmXO0V9x1Q5Vkbnshl61QI+7KmvLvTzh
+         lZqirqrfh6sag6y2JdrpslRt11eQzTD5tUHkEohgp/Yc4pXptzlJsCIukh2eBboY//4p
+         ihP4WA5neQ31EClJ9hGlpGkInF9Tp4ZZuBBYNs/D8TX2GQ7IgMVvNmiYGESWJSaBRZvI
+         rfb0H+5OQ7yqFA31P/jRWRu+5WXH1YhEHaPwOeBlnPClxH+GXIqW52+2N6BhnRzG2lQL
+         /LaQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750842354; x=1751447154;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=OuI9+lF7qlVECjIOb4TEfzkDj+6Kd7hWaKl7whIrRmk=;
-        b=da/DKvOopQUvEDvPtMhFrJP/jKL6Ru17N4SBKQV94Zd5JSlEqU3m9qXWpSVLVPHNvh
-         5XQdOFn2G2jVeAgcrxrY0LjfU/sYS+bAG9TAZKObQ8TPj4P3Qdh69EDfvj2sbrwVMcgb
-         rSSeuhSceknrgNkVyeQIprJXVxi88PBMw/StyIuz33+s8c/G8rnsesikuxIxHTks/yJC
-         XMnErhVGCCSjN0Cd8Izc6Rper7e4K+5kuZZLsEGEifFguD3/KMeRTThltgGwQYod+aoQ
-         uCtlAiIIoD6pRuc0OWuDcF8NAK0rmiLLeQz3uDTdY/y6wb/GYYLvH7q5Lx8Qo/oyEBL/
-         nWVQ==
-X-Gm-Message-State: AOJu0Yypl1uBqtvyMwi32UyeSVEKKSwhfzQywL7uG47SxsJBqnfj+tuB
-	GcV6gNTSpc62+yGzp+L1q6myhkql2h+rpm/CIilVpWrpV/MscGl/GjNUWpo2OQMkPrgqzW4nhIZ
-	MEUE=
-X-Gm-Gg: ASbGncve64Ko+cVwvJ5ILUaE0LUUVLiMDndbrxIrLisSmziuY41QetOpCl7E71VwRmc
-	Ma78DrwqxZy2S5vEi+cyxi2btGi36DAq4UxWk3/KIk9H7Ds8HbFh6HHDTlgsLMHD3OYQMHMlGU0
-	fKZhs/e+DfqRFByvmc/zZ7TxqP0mAI7gdRO0DuGAIiHFU568fKCLkSHXIOyWOrSBioTgx2+LxK9
-	PfgM4r8ThsicadfpHABnAulybib66yGbf7DhEvQZWy04QH3DzlZ9RmeZCVL5CFMD6dd/nskssCt
-	OfADr3dGPTtzKhC0CLQA//cOjcgj3xlgF0R/kpoJVormxPTzyfSZQhzaxvhPBIUs2uqPyt4giK3
-	nbLktUnur7UPNHSNsoT2kNjbKJhj+FDR7pVbGFjSKf0uhTCY=
-X-Google-Smtp-Source: AGHT+IHc1brvycHUDqGfh4sWCwouMRG1kvc0R1WO0f2urWT8RnQGfVLk0rtFLAMOhpf4oYMoaVrxUA==
-X-Received: by 2002:a05:6000:40ca:b0:3a4:c2e4:11b with SMTP id ffacd0b85a97d-3a6ed66fabfmr1419464f8f.51.1750842354330;
-        Wed, 25 Jun 2025 02:05:54 -0700 (PDT)
-Message-ID: <f7c4f267-c491-4066-b13a-e1a1060c4962@suse.com>
-Date: Wed, 25 Jun 2025 11:05:47 +0200
+        d=1e100.net; s=20230601; t=1750842917; x=1751447717;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=CmgWHc4X1qkNq2u665PqDQpHYrMcxnRRycuhOeFkBN8=;
+        b=O2oPfsVB9Dq9y0D1HYQYr65MeVJ1odfqKzN4Y938iq7g3n0KVd/fAz1vFLNQD7KKkg
+         ea4grzitjbok6wOMH5udZ4idwTBtYmupzyvLm2G7Dw5zcQ0LL+J4EZ8h7xtJt70Y+nOE
+         KlvlUD10+vwcmRKvCZs6GOuhKshEJodYyTJyouaSd74j0i5EkpodUJmM7Qn0RG73rkfS
+         4yTdkASGOK1LYQR0kkAeFJBI7C4A0d5hXn37+Y7K9/i/IeHiVyGGNV0KeC5Cz+kmEa2g
+         aopeyDSouKC+Ykxe593yn8GnDjUzPD8XKOG4kbQ4R+aydOrZlrcPU/5mGS3mxbL8Sr1z
+         OVGQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXOvCJGDJ1xHSEv8VhXb+R9sq3pnFRfMq9BDuUSqo1n8rkYHgwz7mTAL0UvSB2tCfv1Kjm9iOvJPOY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyYb2VV6VBgUfW30he8kHix6bLKfsKRGxuNOPAxf3U40reGY9vB
+	LNNTmur6MY04pHHxlqaHq2eDT1+nncJZ47pAU+RfR38HKKU8G7pTjNrpkGXJm0jG5g==
+X-Gm-Gg: ASbGnct7NbanmGV03qH2FH1cHX9WYJ9W13J2z4SVYGfB9jhBGonMblZdiy55D5b0ZsW
+	y0wL3K78DOk7TEJ+WZhIXI/d8I686FbxiJ5MeuMqmw0UB3AVihyy4UzmNY6sjk+NQZcVV/9GsOv
+	fXsTJv1IWsc4Ux26ApxFsaW5EjvCVTJ9MZOyPYV8cPmz80xR5f2jjy4DwhXD1KPlcwjv4ObOtME
+	i8Shu1A3xWCaCIIlOrdvo4rFvZTsAikuqta62xfpqPXWhOJqTF4jEi0RI0ScmyxE1mCnfB7YwME
+	8nsobw7U/M+o1L+zrVB/W0IEvPYV83BvY2770Z+bzd3dNmqz9GG9QODiAWduZ9rXXtFTZYw1/60
+	WRPH1+FXJpJJl5Q2OvoXSvHbJjY/wQ1eygLi1GYHfntoh5egODlAoBkkJ4g==
+X-Google-Smtp-Source: AGHT+IHIZbxB0e9wYBJ7nCRbVT9mr3tDkvKLzh8J29co+wRc/u9j7vMaUWoD+PNP5J5/uMvdrrveGg==
+X-Received: by 2002:a05:6000:2810:b0:3a4:d939:62fc with SMTP id ffacd0b85a97d-3a6ed638772mr1005308f8f.22.1750842917127;
+        Wed, 25 Jun 2025 02:15:17 -0700 (PDT)
+Message-ID: <f03f33a9-4073-4a28-9c33-884baa098e29@suse.com>
+Date: Wed, 25 Jun 2025 11:15:09 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 7/8] vpci/msi: Free MSI resources when init_msi() fails
+To: "Chen, Jiqian" <Jiqian.Chen@amd.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "Huang, Ray" <Ray.Huang@amd.com>
+References: <20250612092942.1450344-1-Jiqian.Chen@amd.com>
+ <20250612092942.1450344-8-Jiqian.Chen@amd.com>
+ <773c448a-d814-458f-ad83-e9740e724408@suse.com>
+ <BL1PR12MB584989B1F9DF290C15CD2F9EE778A@BL1PR12MB5849.namprd12.prod.outlook.com>
+ <c9cdbb69-4b68-4b77-bcca-feacc800e3d6@suse.com>
+ <BL1PR12MB58499585BA47004587A34C93E77BA@BL1PR12MB5849.namprd12.prod.outlook.com>
 Content-Language: en-US
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] x86/boot: move l<N>_bootmap
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -115,41 +123,113 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <BL1PR12MB58499585BA47004587A34C93E77BA@BL1PR12MB5849.namprd12.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Having them in the general .init.data section is somewhat wasteful, due
-to involved padding. Move them into .init.data.page_aligned, and place
-that right after .init.bss.stack_aligned.
+On 25.06.2025 09:16, Chen, Jiqian wrote:
+> On 2025/6/24 18:17, Jan Beulich wrote:
+>> On 24.06.2025 11:49, Chen, Jiqian wrote:
+>>> On 2025/6/18 22:45, Jan Beulich wrote:
+>>>> On 12.06.2025 11:29, Jiqian Chen wrote:
+>>>>> --- a/xen/drivers/vpci/msi.c
+>>>>> +++ b/xen/drivers/vpci/msi.c
+>>>>> @@ -193,6 +193,33 @@ static void cf_check mask_write(
+>>>>>      msi->mask = val;
+>>>>>  }
+>>>>>  
+>>>>> +static int cf_check cleanup_msi(struct pci_dev *pdev)
+>>>>> +{
+>>>>> +    int rc;
+>>>>> +    unsigned int end, size;
+>>>>> +    struct vpci *vpci = pdev->vpci;
+>>>>> +    const unsigned int msi_pos = pdev->msi_pos;
+>>>>> +    const unsigned int ctrl = msi_control_reg(msi_pos);
+>>>>> +
+>>>>> +    if ( !msi_pos || !vpci->msi )
+>>>>> +        return 0;
+>>>>> +
+>>>>> +    if ( vpci->msi->masking )
+>>>>> +        end = msi_pending_bits_reg(msi_pos, vpci->msi->address64);
+>>>>> +    else
+>>>>> +        end = msi_mask_bits_reg(msi_pos, vpci->msi->address64) - 2;
+>>>>> +
+>>>>> +    size = end - ctrl;
+>>>>> +
+>>>>> +    rc = vpci_remove_registers(vpci, ctrl, size);
+>>>>> +    if ( rc )
+>>>>> +        return rc;
+>>>>
+>>>> This is a difficult one: It's not a good idea to simply return here, yet
+>>>> at the same time the handling of the register we're unable to remove may
+>>>> still require e.g. ...
+>>>>
+>>>>> +    XFREE(vpci->msi);
+>>>>
+>>>> ... this. There may therefore be more work required, such that in the
+>>>> end we're able to ...
+>>>>
+>>>>> +    return vpci_add_register(pdev->vpci, vpci_hw_read16, NULL, ctrl, 2, NULL);
+>>>>
+>>>> ... try this at least on a best effort basis.
+>>>>
+>>>> More generally: I don't think failure here (or in other .cleanup hook
+>>>> functions) may go entirely silently.
+>>> Does below meet your modification expectations?
+>>
+>> Not sure, sorry. By "more" I really meant "more" (which may just be code
+>> auditing, results of which would need writing down, but which may also
+>> involve further code changes; see below).
+>>
+>>>     rc = vpci_remove_registers(vpci, ctrl, size);
+>>>     if ( rc )
+>>>         printk(XENLOG_ERR "%pd %pp: remove msi handlers fail rc=%d\n",
+>>>                pdev->domain, &pdev->sbdf, rc);
+>>>
+>>>     XFREE(vpci->msi);
+>>
+>> As I tried to indicate in my earlier reply, the freeing of this struct is
+>> safe only if the failure above would not leave any register handlers in
+>> place which still (without appropriate checking) use this struct.
+> Hmm, but all handlers added in init_msi() use this struct.
+> So it doesn't exist the case that when above unable to remove all handlers and still require xfree this struct.
 
-Overall .init.data* shrinks by slightly over 2 pages in the build I'm
-looking at.
+Well, in the end you say in different words what I did say, if I understand
+correctly. There are several options how to deal with that. One might be to
+have those handlers recognize the lack of that pointer, and behave like ...
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-All three tables are merely zero-filled. They could hence even be put in
-.init.bss.page_aligned, yet then we perhaps better wouldn't use .fill
-but .skip there (i.e. a larger diff for little gain). Thoughts?
+>>>     /*
+>>>      * The driver may not traverse the capability list and think device
+>>>      * supports MSI by default. So here let the control register of MSI
+>>>      * be Read-Only is to ensure MSI disabled.
+>>>      */
+>>>     rc = vpci_add_register(vpci, vpci_hw_read16, NULL, ctrl, 2, NULL);
 
---- a/xen/arch/x86/boot/x86_64.S
-+++ b/xen/arch/x86/boot/x86_64.S
-@@ -193,7 +193,7 @@ END(idle_pg_table)
- GLOBAL(__page_tables_end)
- 
- /* Init pagetables. Enough page directories to map into 4GB. */
--        .section .init.data, "aw", @progbits
-+        .section .init.data.page_aligned, "aw", @progbits
- 
- DATA_LOCAL(l1_bootmap, PAGE_SIZE)
-         .fill L1_PAGETABLE_ENTRIES, 8, 0
---- a/xen/arch/x86/xen.lds.S
-+++ b/xen/arch/x86/xen.lds.S
-@@ -221,6 +221,7 @@ SECTIONS
-   DECL_SECTION(.init.data) {
- #endif
-        *(.init.bss.stack_aligned)
-+       *(.init.data.page_aligned)
- 
-        . = ALIGN(POINTER_ALIGN);
-        __initdata_cf_clobber_start = .;
+... what is tried to be put in place here (and like "no handler installed"
+for other registers).
+
+>> You're losing the earlier error here, if there was one. If this one
+>> succeeds, ...
+> But if return the earlier error to the caller, this device will be unusable, then still adding this handler when above failing to remove handlers is useless.
+
+True, yet that's the case also with your code if removing the ctrl handler
+failed, as then the attempt above to add another handler would also fail.
+
+I don't know what the best approach is (I did suggest one above, albeit
+that's not quite complete yet as to the behavior here); I merely observed
+that the behavior as you have it doesn't look quite right / consistent.
+
+Jan
+
+>>>     if ( rc )
+>>>         printk(XENLOG_ERR "%pd %pp: add dummy msi ctrl handler fail rc=%d\n",
+>>>                pdev->domain, &pdev->sbdf, rc);
+>>>
+>>>     return rc;
+>>
+>> ... the caller would (wrongly) get success back.
+>>
+>> Jan
+> 
+
 
