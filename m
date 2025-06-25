@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E4531AE766A
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Jun 2025 07:26:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1024307.1400211 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A99E1AE766E
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Jun 2025 07:32:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1024316.1400221 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uUIdd-0004yA-Ec; Wed, 25 Jun 2025 05:25:37 +0000
+	id 1uUIkF-0006WP-1L; Wed, 25 Jun 2025 05:32:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1024307.1400211; Wed, 25 Jun 2025 05:25:37 +0000
+Received: by outflank-mailman (output) from mailman id 1024316.1400221; Wed, 25 Jun 2025 05:32:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uUIdd-0004v6-8q; Wed, 25 Jun 2025 05:25:37 +0000
-Received: by outflank-mailman (input) for mailman id 1024307;
- Wed, 25 Jun 2025 05:25:35 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uUIkE-0006TB-Um; Wed, 25 Jun 2025 05:32:26 +0000
+Received: by outflank-mailman (input) for mailman id 1024316;
+ Wed, 25 Jun 2025 05:32:25 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=QoV+=ZI=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uUIdb-0004v0-Kh
- for xen-devel@lists.xenproject.org; Wed, 25 Jun 2025 05:25:35 +0000
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [2a00:1450:4864:20::333])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d0a30589-5184-11f0-b894-0df219b8e170;
- Wed, 25 Jun 2025 07:25:32 +0200 (CEST)
-Received: by mail-wm1-x333.google.com with SMTP id
- 5b1f17b1804b1-442fda876a6so55090675e9.0
- for <xen-devel@lists.xenproject.org>; Tue, 24 Jun 2025 22:25:32 -0700 (PDT)
+ id 1uUIkD-0006T0-TE
+ for xen-devel@lists.xenproject.org; Wed, 25 Jun 2025 05:32:25 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c64fa774-5185-11f0-a30f-13f23c93f187;
+ Wed, 25 Jun 2025 07:32:25 +0200 (CEST)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-450cb2ddd46so6520455e9.2
+ for <xen-devel@lists.xenproject.org>; Tue, 24 Jun 2025 22:32:25 -0700 (PDT)
 Received: from ?IPV6:2003:ca:b711:f22a:dc83:b72e:7a24:c0fa?
  (p200300cab711f22adc83b72e7a24c0fa.dip0.t-ipconnect.de.
  [2003:ca:b711:f22a:dc83:b72e:7a24:c0fa])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4538236694esm8574135e9.28.2025.06.24.22.25.31
+ ffacd0b85a97d-3a6e810010fsm3599457f8f.74.2025.06.24.22.32.23
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 24 Jun 2025 22:25:31 -0700 (PDT)
+ Tue, 24 Jun 2025 22:32:24 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,59 +47,64 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d0a30589-5184-11f0-b894-0df219b8e170
+X-Inumbo-ID: c64fa774-5185-11f0-a30f-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1750829132; x=1751433932; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1750829544; x=1751434344; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=P+bJU4PAZSKYKKXh3OEvEgCL/2i5HMkaPXf4oVzoT/Y=;
-        b=TweZsfiFeMMJ4VOzfmnqKvWVc1gi3hW0uK2VKL1xJDggI7lbR4gJ7H3bxVXkKRCCRr
-         6Hv3QyjC8F2E6pseM0CRoDXxL0U10KU6KRkbyr6aSpnZY0DkdY/Xx4YCsChm77/CV020
-         uHD+7vaxLSbMjtDg3tGt/PjARq0aeSOjCvu9Fr29q3jdktSDdGfGbP1DuBEE6LEFBYHP
-         CMtd+aDGiHR2surRvvXNxyjZCe2NCQQwXIq4X7/FHeRBHzpvAv9MKcU8x48+IyeNtWRZ
-         S/8dD1mhBOrwHiK0Y5W+yBX7m79vK9gn9rJeW9PzNcBIL69cVfwnBnhhB8Z+H/aemqtp
-         hxEA==
+        bh=0PBeaqPshxiz7kaMy08XNTLoyNAXF1MsQkoXvieZLy8=;
+        b=D3Et8j9vF2KZOklJl1eGKdqnnurUBnMJQoxVKSldlS8AGLZudwM02/NHIX5ZkoPa8B
+         tHFIN62Q0QPTaV/BP6Pph73bEEoRTNgGq1FxQQv+FcTUAjbqYunLmZHsHYJ6/nhDybxB
+         Ys/M8neFDGLrzpPFoMweMs2mfoIexlKmpdNMe4/Nvdbpol89cUwDmU1Qy78aCiuHrgm3
+         kNCbCFmNQidJmUX9aZj5LnscQFgB7ntgRMTiFY2ROT0loJqzlVks7ULh3x3b7Kf2QzSQ
+         qtGIDt4aQx/FCpyArz3LAHWxIdVlloS3q5ynZl8H/3Aj3OBx+/7l3bjhHv/O7SkKv7em
+         +E3w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750829132; x=1751433932;
+        d=1e100.net; s=20230601; t=1750829544; x=1751434344;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=P+bJU4PAZSKYKKXh3OEvEgCL/2i5HMkaPXf4oVzoT/Y=;
-        b=thpK2yBTeUuqvBIzqZlRLR67OpTq4BqT4nn8A9ViVxW7sdiH//VCM21iNupaZGPFp4
-         6VIVpMgQCzbKIpXFTuM8s+EevL/hvGmttofzepTHLfmhmneQp6MrTymQralXcIbAKCEQ
-         RNEf3ZcWhELZFqYVGHEYtEJzvWo806E0PCAHLRhNOMS+i09oHpBYiCFhYo98W1DBLsAY
-         QmCCATErzbWqCOAW7Ay0mm1Mm/20UWdEE3iSJUqX9GJNDSU+h2fz0DanqWX41tM0DV0m
-         bsFAaMurOtf0vRLihJPbiwTQUu/aO+zD/9X383MJYra3kvc/Aws/xvY8kCR2i6UVu9Ol
-         r3fA==
-X-Forwarded-Encrypted: i=1; AJvYcCWA8o2j8ZefbPnwxEIMgP6pQmjAWrHclCxzOkDqqdAcYQM/JQllSx+Rs86bs6Fu9kkCOipC/il67Pc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YytAJm1sGtMhNxCQ61P984KNAyVaO7C1Hw89NfNQvJxkfRBAVDE
-	ZWBbMFI+jbZ+Vwo5L4X6Z/+h+Dk0I0J2vtYbuFv4+BGUT62wGm/Csm1edM+lUADAhA==
-X-Gm-Gg: ASbGnctAZRIwKF+GBPksCmzqIzL2wcSFyZbS9QqbdJR09z4IBdKFaIx7ghM8E2KDwR/
-	ymcz/ZVPChsQPAaTNKwBWwJcu5wK1KDxvhEqap9TExIwVDh7VFr7Xlx6U2VbZYjpFzrl3lADSMK
-	9t5z+y7asw5n9iVVh6p2oKGpSqtlUTskzQmeKkn/MvOnqG96UifIAqbankon7ZqAE5LWwSSAnu8
-	K1V7vpVOI1z5RCQ3mc6RosxhlCQjhVeLukmr7n+tgWTNubRwVaNhgv7Cddxg/vP4GGC2ENHfylW
-	TNWjWK4zwIve8Szq3tMw3lIfSkn6o9AmEGZW8drhxm5RTbDShdBsLY9uVwBoRdfG34gHuyCNvpq
-	zOIWCeFKdhxiDVeYZmt9+ADb28xEGmhF2Nd8JY0K4oneUhxOPBGrryODpTOUNi4FbcGn5WT2Hy3
-	3ST8JyNBo5pjDYcYQk6cSlaRY1HGDr7us=
-X-Google-Smtp-Source: AGHT+IHKBdM//9HncCq6qLsA3PG01Qz9U9HhmPGH3kzv2eaQ4AKdkbndTv6YKs9aPGhYA6R8ihJjsA==
-X-Received: by 2002:a05:600c:5492:b0:453:6ca:16b1 with SMTP id 5b1f17b1804b1-45381af1eaemr10357805e9.26.1750829132180;
-        Tue, 24 Jun 2025 22:25:32 -0700 (PDT)
-Message-ID: <a63ac9d5-152e-47b0-8169-bf470611c059@suse.com>
-Date: Wed, 25 Jun 2025 07:25:29 +0200
+        bh=0PBeaqPshxiz7kaMy08XNTLoyNAXF1MsQkoXvieZLy8=;
+        b=UmgXmaxhB7pWskPJilX8D8dKtzrBWMts09QsTVvYVFPHIuvOAmTDrcE0hsGIM2A/dH
+         mvEJesGvSgpi4vUWFqnOPXmhP/JEpXTz9/pYkbjHA32BeuIgIHgLO+oQ7pl1FfA1/hYC
+         Y3VEHj80GganqBxOLK+PnE4JOEz4EzoDF++Y64D4C+hr63+X9zGdEzvGe7K96JautgyL
+         oV6Rz4g20LT9pSHcvuuHyKLoiyLxJJvOLjrFuG9eXxWlYDUHcHWwtxrywLxJs5iemgHi
+         u9jlYCU0jCEp5UUh2jjRYAcyyuHag33tG284e9RtevuPYd9HcEkxtkFSiZdH7hFKYBjo
+         y58w==
+X-Forwarded-Encrypted: i=1; AJvYcCWADSsVr+ftSpyMQ33TzvCcRacvramvboasPNmqwjtLkvNtmtTkKD5Gpru2LNV+2y+4m5jD4Ta076I=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz99gK6yz7dWK1eghxZNfUD+ltjj9n1PU2GCY5OGtBVoMucCpRa
+	Y3gEjPtTvzSi0pild1NU0VbETLenhNRoLh4EtcKeJVV8rXZ74eovX8inb73OZ2H8WA==
+X-Gm-Gg: ASbGnctpYYFGY76zSUXa7ZY/VuV9M5Ka0b3NN+p0K2mFx+Nun4Kh1cRzDxp0ztUKSc6
+	nc8vDfztR3dZS4t8xQNJcRebcfwoWfe36vI68WZJHFObZODX7yobLH1QAEzO5HubKmh25v4U3ln
+	YaD7e2iqjrOSIc34+upoACvqnWTYeCFoPMR6mQ8wjhvdsGlrAZGWBhJGJ/RmarJQvLp4BgaG3jm
+	hdwAcnRp1iPHAtaIyCW4/UtrZW1IBzdiCpzObTljzvk/+RgXBvE0sSCYowx4U5YFTt/3ihN0m8i
+	o7ds9rbWxvwrBp+avBsicXIQOOdEJeBmNwWu7nzxVa8TnxUeFEPCCoJe4AprJTnQ7h42UPVyOV4
+	YEwxpkSMEsq7VNl8g+wfOq3rBzDN/SP8+K141sUI2+uwnMziYUcQvCC+8GFa1zHbkETAX0Vz+qf
+	Wtzggs1okQpVt3QPd24TQvlfPzMwE9uMg=
+X-Google-Smtp-Source: AGHT+IE4GUMgzm5cjuU+Nl98c5+rJJc6D4oFhIG4jh1M3MjA1L8b2HMBMVhiO3K2IjCFiO2i4vfsRA==
+X-Received: by 2002:a05:600c:1e03:b0:453:c39:d0c2 with SMTP id 5b1f17b1804b1-453839047d5mr2680805e9.24.1750829544444;
+        Tue, 24 Jun 2025 22:32:24 -0700 (PDT)
+Message-ID: <48def2b5-44ad-45fa-b052-67520c0961f0@suse.com>
+Date: Wed, 25 Jun 2025 07:32:22 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 14/16] drivers/vuart: move simple MMIO-based UART
- emulator
-To: dmkhn@proton.me
-Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org,
- michal.orzel@amd.com, oleksii.kurochko@gmail.com, roger.pau@citrix.com,
- sstabellini@kernel.org, dmukhin@ford.com, xen-devel@lists.xenproject.org
-References: <20250624035443.344099-1-dmukhin@ford.com>
- <20250624035443.344099-15-dmukhin@ford.com>
- <6e6c8664-2ff6-484d-bd47-7ee12c449f9e@suse.com> <aFpViicgGigZPFNv@kraken>
- <6d33355c-477f-4ef3-8f17-b7f1dd1164ce@suse.com> <aFsssYQu1GcuvjPv@kraken>
+Subject: Re: hardware domain and control domain separation
+To: Jason Andryuk <jason.andryuk@amd.com>
+Cc: Julien Grall <julien@xen.org>, Bertrand Marquis
+ <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, ayankuma@amd.com,
+ xen-devel@lists.xenproject.org, demiobenour@gmail.com,
+ Stefano Stabellini <sstabellini@kernel.org>
+References: <alpine.DEB.2.22.394.2506181757282.1780597@ubuntu-linux-20-04-desktop>
+ <942a6178-0fe7-468e-8e45-ea255fd20680@suse.com>
+ <bc36d2c0-3b25-4735-92c7-6a37c47978aa@gmail.com>
+ <alpine.DEB.2.22.394.2506231448430.862517@ubuntu-linux-20-04-desktop>
+ <381dba84-3108-42c8-a4e5-7bc74d5e1075@suse.com>
+ <2e27e128-398a-4714-b019-eab04520cc97@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -125,41 +130,44 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aFsssYQu1GcuvjPv@kraken>
+In-Reply-To: <2e27e128-398a-4714-b019-eab04520cc97@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 25.06.2025 00:54, dmkhn@proton.me wrote:
-> On Tue, Jun 24, 2025 at 09:40:02AM +0200, Jan Beulich wrote:
->> On 24.06.2025 09:36, dmkhn@proton.me wrote:
->>> On Tue, Jun 24, 2025 at 07:53:04AM +0200, Jan Beulich wrote:
->>>> On 24.06.2025 05:57, dmkhn@proton.me wrote:
->>>>> --- a/xen/drivers/vuart/Kconfig
->>>>> +++ b/xen/drivers/vuart/Kconfig
->>>>> @@ -3,6 +3,15 @@ config HAS_VUART
->>>>>
->>>>>  if (ARM_32 || ARM_64)
->>>>>
->>>>> +config HAS_VUART_MMIO
->>>>> +	bool "Simple MMIO-based emulated UART support"
->>>>
->>>> Perhaps in a separate change this should be renamed. HAS_* should never
->>>> have prompts.
+On 24.06.2025 22:14, Jason Andryuk wrote:
+> On 2025-06-24 01:25, Jan Beulich wrote:
+>> On 24.06.2025 00:51, Stefano Stabellini wrote:
+>>> On Mon, 23 Jun 2025, Demi Marie Obenour wrote:
+>>>> On 6/23/25 11:44, Jan Beulich wrote:
+>>>>> On 21.06.2025 02:41, Stefano Stabellini wrote:
+>>>>> Also a more fundamental question I was wondering about: If Control had
+>>>>> full privilege, nothing else in the system ought to be able to interfere
+>>>>> with it. Yet then how does that domain communicate with the outside
+>>>>> world? It can't have PV or Virtio drivers after all. And even if its
+>>>>> sole communication channel was a UART, Hardware would likely be able to
+>>>>> interfere.
 >>>
->>> Oh, so HAS_ flags are non-interactive selectors by design?
+>>> There are well-established methods for implementing domain-to-domain
+>>> communication that are free from interference, such as using carefully
+>>> defined rings on static shared memory. I believe one of these techniques
+>>> involves placing the indexes on separate pages and mapping them
+>>> read-only from one of the two domains.
 >>
->> Well "has" simply by the word means "this is available". Any user-selectable item
->> deriving from the mere availability would then have a "depends on HAS_...", thus
->> hiding the option in situation where the functionality isn't available (be it per
->> arch or for other reasons).
+>> How's that going to help with the backend refusing service, which I view
+>> as one "method" of interference? Or else, what exactly does "interference"
+>> mean in this context? (More generally, I think it is necessary to very
+>> clearly define terminology used. Without such, words can easily mean
+>> different things to different people.)
 > 
-> I see there's a lot of drivers (UARTs) which are selectable by the user via
-> HAS_ symbols (drivers/char/Kconfig), e.g:
-> 
-> CONFIG_HAS_NS16550:
+> Yes, there are different kids of interference.  We are concerned about a domain blocking another domain.  The main example is an ioreq blocking a vCPU.  The blocked domain is unable to recover on its own.
 
-Iirc it was prompt-less up to some point. And when the prompt was added, the name
-wasn't changed / split. Other UARTs then followed suit (when they shouldn't have).
+On which insns an ioreq server may kick in can be well known. A kernel
+can therefore, in principle, come with recovery code, just like it can ...
+
+> A PV backend not servicing a request is interference, but it doesn't block the frontend domain or vcpu.  The primitives don't block, so drivers can be written to handle the lack of a response.  As you note, this can't be a critical service for the domain.
+
+... here. (Not responding at all is also only one way of refusing service,
+just to mention it.)
 
 Jan
 
