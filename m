@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94A12AE7E3A
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Jun 2025 11:58:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1024581.1400411 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 014F3AE7E69
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Jun 2025 12:03:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1024588.1400420 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uUMtS-0005tD-At; Wed, 25 Jun 2025 09:58:14 +0000
+	id 1uUMyY-0007e1-TQ; Wed, 25 Jun 2025 10:03:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1024581.1400411; Wed, 25 Jun 2025 09:58:14 +0000
+Received: by outflank-mailman (output) from mailman id 1024588.1400420; Wed, 25 Jun 2025 10:03:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uUMtS-0005qT-7x; Wed, 25 Jun 2025 09:58:14 +0000
-Received: by outflank-mailman (input) for mailman id 1024581;
- Wed, 25 Jun 2025 09:58:13 +0000
+	id 1uUMyY-0007cX-QK; Wed, 25 Jun 2025 10:03:30 +0000
+Received: by outflank-mailman (input) for mailman id 1024588;
+ Wed, 25 Jun 2025 10:03:29 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=QoV+=ZI=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uUMtR-0005qN-5t
- for xen-devel@lists.xenproject.org; Wed, 25 Jun 2025 09:58:13 +0000
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [2a00:1450:4864:20::42c])
+ id 1uUMyX-0007c8-Oa
+ for xen-devel@lists.xenproject.org; Wed, 25 Jun 2025 10:03:29 +0000
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [2a00:1450:4864:20::330])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e6c01763-51aa-11f0-b894-0df219b8e170;
- Wed, 25 Jun 2025 11:58:10 +0200 (CEST)
-Received: by mail-wr1-x42c.google.com with SMTP id
- ffacd0b85a97d-3a528243636so911475f8f.3
- for <xen-devel@lists.xenproject.org>; Wed, 25 Jun 2025 02:58:10 -0700 (PDT)
+ id a3b5e34d-51ab-11f0-b894-0df219b8e170;
+ Wed, 25 Jun 2025 12:03:27 +0200 (CEST)
+Received: by mail-wm1-x330.google.com with SMTP id
+ 5b1f17b1804b1-4537edf2c3cso15121985e9.3
+ for <xen-devel@lists.xenproject.org>; Wed, 25 Jun 2025 03:03:27 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-237d87305d3sm125830065ad.241.2025.06.25.02.58.06
+ d9443c01a7336-237d83989besm133596205ad.38.2025.06.25.03.03.20
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 25 Jun 2025 02:58:09 -0700 (PDT)
+ Wed, 25 Jun 2025 03:03:26 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,69 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e6c01763-51aa-11f0-b894-0df219b8e170
+X-Inumbo-ID: a3b5e34d-51ab-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1750845490; x=1751450290; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1750845807; x=1751450607; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=c9QNUAb7NIahs2+pIVDI5v13ldUKxcCQSaK0r6cL9qA=;
-        b=IvcE/Q37KQw3qoHYMQlvanZQpvW/D9zKQK15AJpUbJV5eM3rMTmLZEsoht2Gw0+8IU
-         WAJuG6D83+vcN+tiUA61/EjTbzSVWdQIEemUdEkRQPvxWe0F+cK5riZf7igrjyo+A4if
-         DI9QwPJzQCPVdecvWxwKC/LbFNt1/L0w6dc34+NEMLMoE2h1/9P/iQe85VaTWZEAOIQq
-         5qCmKsqeor/wOX45jU8MDH6YoWp8tNuHuOya0wS3ZWEyhY3ZXD3zxIeHjH6o5X0qgfcK
-         5cn8Zc0E+N9G8Y6SVlsNX3/pwEvp8wFJ3OU/voUVBdWmD40nxFUWI2qNHma7HR4JXr9E
-         Bydw==
+        bh=LRZisrk1CvchhghWLjgl9BWSNnuDsNqurJUooOP/gK0=;
+        b=HYxyuPGGF81Z2VDtrWm/qk3Lo503Atl9Lg/V5bHDwU1BK4fF8NvgXHL5z4OROirm//
+         etSUaco/2G282e+LzQu3t0S96gTyXuzyybtlqLUNju3+36MnXiDnPiqdBPzkWIPpAGd5
+         YzRPXDkG/DOHONrAVH3d4pkJCidK8IrYAwzWwpTiw5rgk+cYWQ2Fe/7/+WhomPA0dgEe
+         eEfPkpICP3I1Gl5yDk1SwrRWhrWbvACsxRLWaXcOfrxPdYFs5ZaMsgsAWq0+hpdnx6Cz
+         8G1Mk/Jp7O9qvOOLgiBqcmiqeOs0CYZvG4FnH9YgFAyawXHwwx7YIsMWBkyaaeakRuWS
+         cmOg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750845490; x=1751450290;
+        d=1e100.net; s=20230601; t=1750845807; x=1751450607;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=c9QNUAb7NIahs2+pIVDI5v13ldUKxcCQSaK0r6cL9qA=;
-        b=usTeM4sje4hTut4yxZT9j+TSV9YtgDs9+GzMDWhBTo8q+vA1CUvswzb9frQJF48vQM
-         qMLdokDnbBpFmOpqoP625N7H3xYz0lM3Wdd5WwkvIzEROMcAeTvvINXmSx/9GJ6qETMM
-         d0/LBJzri7oFn86AfJ4LozsxYw1xk9MaPcgrQbIygcARbEJjq0wk57f8aAz8089z0heD
-         eVKCo8iQihlLV4EVug76f9m2MgVqVMRwGAJmiBhmeSAJtjmJlTNdz9Ru70e+8Eyjn7cT
-         0D9/eG1i2nAdP7QZyiqr7harhhUoOAJYozKW9DwJfUCixR36ZfJDFtP8yIUyeSDk+eEF
-         qknw==
-X-Forwarded-Encrypted: i=1; AJvYcCUCGJgkTAsfU5t+RUgDZjcSLgIIMoWRV7Pep7pTcCLIq2CYKA6XXFGx5qbJ8UWC8t5qIGAIDDO9NBM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwGEzl7f2AbFpBELcJtt+P9pgo+TxDGn8iJngQ9oj1yJFJCGZPc
-	JyOqBYOzBqUWu3vS4ey9ZWhzW0F73apYdIerafTvew1tKrcQ6HiDdPL8y0tpi6XLNg==
-X-Gm-Gg: ASbGncvN0kWDq6e6L4vfa3/wfiK12ToxayXbntQpeWgDq+BABuQuQUpCJl2n6Z0o6WS
-	0ZI7b2Aco+3+4tmUwmJFxIcqdMmPTHYqLdlHqknAy4/LMGboSBQu85TsPpWrn/3HumEcScAU1CS
-	yq8oHZjVpTJj8VRrPlK1ujPLqoQbwrXnrh4wid1qK6Lb6YrY6kJ6zXvYHZ2XL6GZXnxg7oIC1M9
-	hcQ6u2EJ7DIVhbc4zKEUQrOemeIMeiuRPNlewR1tHrbbC4q2O6/YjRKjy5R+n7v/aNJsbjqtyP0
-	WRHrkJYyXmFO4n0jDk14tB2z9cBU3tfepAV0o0EQG6RJstmfGQUL5VeJCwB9/8hz4CvWkhdJAh4
-	3U2OTVY7r9f12oJbNA1clg08k2nG4pRkpBrxUsYBOArL26e92RHg1360ujA==
-X-Google-Smtp-Source: AGHT+IHiW0lttO1ElT6QXLEDXQOC8JGWMnX+2j0WCIhnP4Xyt1G/A9AYz6TLqy0xsIetQtMT3NZL+A==
-X-Received: by 2002:a05:6000:4028:b0:3a4:f90c:31e3 with SMTP id ffacd0b85a97d-3a6ed6644dbmr1710737f8f.31.1750845489979;
-        Wed, 25 Jun 2025 02:58:09 -0700 (PDT)
-Message-ID: <86841b35-119a-4265-8ff0-9b8549e8ca52@suse.com>
-Date: Wed, 25 Jun 2025 11:58:02 +0200
+        bh=LRZisrk1CvchhghWLjgl9BWSNnuDsNqurJUooOP/gK0=;
+        b=Wu5XvpX1ljK/CrFP+UwVsog3U9EjBuqWF8AnSsP2KuTkq8/7LQ5dAHkptjYoPyvwYg
+         UHMN7F5ZO5D3dGEW2462duARBsHtG3n50d9khy7J7d7dylP5EjU2bGD/McHxCtRdZj7a
+         VpWJJicJiFX0yrJRZ8M6AFQrLUzMGsLGvAOPQriLib2aH9lIcuSKdVqhunUknxs5zqQm
+         HJItXDbJBlY4g5YWyCFEJegpjukN4Ym8eTO/x5XXUgWJQxBERFdG/4+ODq4+WzxlzBpx
+         lVLQizUo06LYqI5O+Jfp6ZRT9AKbMZccb1DAsDCzsnlAHXvv3daEbY41dz4BF/v7PC3N
+         mPwQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWvk4P8/WvwAK+fhtk3+aGDM720axPckLZcn3PK5sfFm4Ih+uhOlvtkx5Qb70nwO6QafkcEtR3yiGg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwCGbsupIzqnqIdB/BrKqFPpUTD5zRQUxCjX7JohY+sHbZdUqkg
+	DKD/fGnoEBphsLy4H9dZ5/LY6T/YMuPW/1CUnCW6aOXieG4aUZSYxs95bnJk9IbmIA==
+X-Gm-Gg: ASbGncvbHJbXtHwg1gZ8QG3JyCAmCZMAH6jlIEY0Br4DFr/ORUt2o9TSyo5qmLOcYhC
+	7a7ncHFRytGK6VGMgQOUcPRIITs3fmHC87YYg9k60ZUYm94jREfC6RRn+QdC8mxzJFNfXjvB8ob
+	aSTHY7J0Knj8Gme4MF3teuKEeGiK0xkEWyacZucGG28M5n0IjYS2aC6Y1IcSaMlsEL66z5c/SKX
+	NO5zbjrSLodBFybII2EnCn1jaTLe4G2NoOrllGTmS7ny9Q7U53WOYNIUNZz1uVIBSSwjEtAJZYP
+	y4jtgNDLJgzZbyjCSg2ti9wkpaflXtPF/gxtNk0iG6hmjLN00YbdrfWev1SRUFbsXvnEyz64eIG
+	QQKBGmblZMQ6p9piNqvCUXkqplMX28RsIxe30BlOPXRyG0+w=
+X-Google-Smtp-Source: AGHT+IFeBAt5fN5CyHGHoXbqB0USI7Qq4EvKcCX3amxF/o4SwbCDSz6AK84giEdgxYTRKOEvBXgCbw==
+X-Received: by 2002:a05:6000:2406:b0:3a1:fe77:9e1d with SMTP id ffacd0b85a97d-3a6ed5da5bdmr1547320f8f.16.1750845806756;
+        Wed, 25 Jun 2025 03:03:26 -0700 (PDT)
+Message-ID: <771cd5b7-2b89-49b1-9aba-8cd79319d3ce@suse.com>
+Date: Wed, 25 Jun 2025 12:03:16 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/4] Revert part of "x86/mwait-idle: disable IBRS during
- long idle"
-To: Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: [PATCH v6 2/8] vpci: Refactor REGISTER_VPCI_INIT
+To: "Chen, Jiqian" <Jiqian.Chen@amd.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250624163951.301743-1-andrew.cooper3@citrix.com>
- <20250624163951.301743-4-andrew.cooper3@citrix.com>
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ "Orzel, Michal" <Michal.Orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "Huang, Ray" <Ray.Huang@amd.com>
+References: <20250612092942.1450344-1-Jiqian.Chen@amd.com>
+ <20250612092942.1450344-3-Jiqian.Chen@amd.com>
+ <516a3adc-320d-46ce-b235-8ef91469abcf@suse.com>
+ <BL1PR12MB5849F696814E17D20012BAC2E77DA@BL1PR12MB5849.namprd12.prod.outlook.com>
+ <227df6d3-a2c3-4576-bde9-d8057c378e7a@suse.com>
+ <BL1PR12MB5849C69BD1485B1B98F7D0FDE778A@BL1PR12MB5849.namprd12.prod.outlook.com>
+ <5c4b186e-686e-4fc8-bcf1-854bc1f5ec8b@suse.com>
+ <BL1PR12MB5849DE8416FE549834235780E778A@BL1PR12MB5849.namprd12.prod.outlook.com>
+ <9d5d0e44-66c3-4e3f-8704-2c862c5f5aff@suse.com>
+ <BL1PR12MB5849B3C334EF0C5BBCAFB7BAE77BA@BL1PR12MB5849.namprd12.prod.outlook.com>
+ <3638e73c-2a83-4164-9a84-839245245727@suse.com>
+ <BL1PR12MB584988E00D0F4A4330B9B968E77BA@BL1PR12MB5849.namprd12.prod.outlook.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -119,40 +133,154 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250624163951.301743-4-andrew.cooper3@citrix.com>
+In-Reply-To: <BL1PR12MB584988E00D0F4A4330B9B968E77BA@BL1PR12MB5849.namprd12.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 24.06.2025 18:39, Andrew Cooper wrote:
-> Most of the patch (handling of CPUIDLE_FLAG_IBRS) is fine, but the
-> adjustements to mwait_idle() are not.
+On 25.06.2025 11:27, Chen, Jiqian wrote:
+> On 2025/6/25 16:36, Jan Beulich wrote:
+>> On 25.06.2025 08:51, Chen, Jiqian wrote:
+>>> On 2025/6/24 18:08, Jan Beulich wrote:
+>>>> On 24.06.2025 11:29, Chen, Jiqian wrote:
+>>>>> On 2025/6/24 16:05, Jan Beulich wrote:
+>>>>>> On 24.06.2025 10:02, Chen, Jiqian wrote:
+>>>>>>> On 2025/6/20 14:38, Jan Beulich wrote:
+>>>>>>>> On 19.06.2025 08:39, Chen, Jiqian wrote:
+>>>>>>>>> On 2025/6/18 22:05, Jan Beulich wrote:
+>>>>>>>>>> On 12.06.2025 11:29, Jiqian Chen wrote:
+>>>>>>>>>>> @@ -29,9 +30,22 @@ typedef int vpci_register_init_t(struct pci_dev *dev);
+>>>>>>>>>>>   */
+>>>>>>>>>>>  #define VPCI_MAX_VIRT_DEV       (PCI_SLOT(~0) + 1)
+>>>>>>>>>>>  
+>>>>>>>>>>> -#define REGISTER_VPCI_INIT(x, p)                \
+>>>>>>>>>>> -  static vpci_register_init_t *const x##_entry  \
+>>>>>>>>>>> -               __used_section(".data.vpci." p) = (x)
+>>>>>>>>>>> +#define REGISTER_VPCI_CAPABILITY(cap, finit, fclean, ext) \
+>>>>>>>>>>> +    static const vpci_capability_t finit##_t = { \
+>>>>>>>>>>> +        .id = (cap), \
+>>>>>>>>>>> +        .init = (finit), \
+>>>>>>>>>>> +        .cleanup = (fclean), \
+>>>>>>>>>>> +        .is_ext = (ext), \
+>>>>>>>>>>> +    }; \
+>>>>>>>>>>> +    static const vpci_capability_t *const finit##_entry  \
+>>>>>>>>>>> +        __used_section(".data.rel.ro.vpci") = &finit##_t
+>>>>>>>>>>
+>>>>>>>>>> Could you remind me why the extra level of indirection is necessary here?
+>>>>>>>>>> That is, why can't .data.rel.ro.vpci be an array of vpci_capability_t?
+>>>>>>>>> You mean I should change to be:
+>>>>>>>>> #define REGISTER_VPCI_CAPABILITY(cap, finit, fclean, ext) \
+>>>>>>>>>     static const vpci_capability_t finit##_t \
+>>>>>>>>>         __used_section(".data.rel.ro.vpci") = { \
+>>>>>>>>>         .id = (cap), \
+>>>>>>>>>         .init = (finit), \
+>>>>>>>>>         .cleanup = (fclean), \
+>>>>>>>>>         .is_ext = (ext), \
+>>>>>>>>>     }
+>>>>>>>>>
+>>>>>>>>> Right?
+>>>>>>>>
+>>>>>>>> Yes, subject to the earlier comments on the identifier choice.
+>>>>>>> Got it.
+>>>>>>> One more question, if change to be that, then how should I modify the definition of VPCI_ARRAY?
+>>>>>>> Is POINTER_ALIGN still right?
+>>>>>>
+>>>>>> Yes. The struct doesn't require bigger alignment afaics. (In fact in principle
+>>>>>> no alignment should need specifying there, except that this would require
+>>>>>> keeping the section separate in the final image. Which I don't think we want.)
+>>>>>>
+>>>>>>> Since I encountered errors that the values of __start_vpci_array are not right when I use them in vpci_init_capabilities().
+>>>>>>
+>>>>>> Details please.
+>>>>> After changing __start_vpci_array to be vpci_capability_t array, codes will be (maybe I modified wrong somewhere):
+>>>>>
+>>>>> diff --git a/xen/drivers/vpci/vpci.c b/xen/drivers/vpci/vpci.c
+>>>>> index c51bbb8abb19..9f2f438b4fdd 100644
+>>>>> --- a/xen/drivers/vpci/vpci.c
+>>>>> +++ b/xen/drivers/vpci/vpci.c
+>>>>> @@ -36,8 +36,8 @@ struct vpci_register {
+>>>>>  };
+>>>>>
+>>>>>  #ifdef __XEN__
+>>>>> -extern const vpci_capability_t *const __start_vpci_array[];
+>>>>> -extern const vpci_capability_t *const __end_vpci_array[];
+>>>>> +extern vpci_capability_t __start_vpci_array[];
+>>>>> +extern vpci_capability_t __end_vpci_array[];
+>>>>
+>>>> Just fyi: You lost const here.
+>>>>
+>>>>> @@ -255,7 +255,7 @@ static int vpci_init_capabilities(struct pci_dev *pdev)
+>>>>>  {
+>>>>>      for ( unsigned int i = 0; i < NUM_VPCI_INIT; i++ )
+>>>>>      {
+>>>>> -        const vpci_capability_t *capability = __start_vpci_array[i];
+>>>>> +        const vpci_capability_t *capability = &__start_vpci_array[i];
+>>>>>          const unsigned int cap = capability->id;
+>>>>>          const bool is_ext = capability->is_ext;
+>>>>>          int rc;
+>>>>> diff --git a/xen/include/xen/vpci.h b/xen/include/xen/vpci.h
+>>>>> index f4ec1c25922d..77750dd4131a 100644
+>>>>> --- a/xen/include/xen/vpci.h
+>>>>> +++ b/xen/include/xen/vpci.h
+>>>>> @@ -31,14 +31,13 @@ typedef struct {
+>>>>>  #define VPCI_MAX_VIRT_DEV       (PCI_SLOT(~0) + 1)
+>>>>>
+>>>>>  #define REGISTER_VPCI_CAPABILITY(cap, finit, fclean, ext) \
+>>>>> -    static const vpci_capability_t finit##_t = { \
+>>>>> +    static vpci_capability_t finit##_entry \
+>>>>> +        __used_section(".data.rel.ro.vpci") = { \
+>>>>>          .id = (cap), \
+>>>>>          .init = (finit), \
+>>>>>          .cleanup = (fclean), \
+>>>>>          .is_ext = (ext), \
+>>>>> -    }; \
+>>>>> -    static const vpci_capability_t *const finit##_entry  \
+>>>>> -        __used_section(".data.rel.ro.vpci") = &finit##_t
+>>>>> +    }
+>>>>>
+>>>>>  #define REGISTER_VPCI_CAP(cap, finit, fclean) \
+>>>>>      REGISTER_VPCI_CAPABILITY(cap, finit, fclean, false)
+>>>>>
+>>>>> I print the value of NUM_VPCI_INIT, it is a strange number (6148914691236517209).
+>>>>
+>>>> What are the addresses of the two symbols __start_vpci_array and __end_vpci_array?
+>>> __end_vpci_array is 0xffff82d0404251b8
+>>> __start_vpci_array is 0xffff82d040425160
+>>> NUM_VPCI_INIT is 0x5555555555555559
+>>> sizeof(vpci_capability_t) is 0x18
+>>
+>> Oh, of course - there's a psABI peculiarity that you run into here: Aggregates
+>> larger than 8 bytes are required to have 16-byte alignment. Hence while
+>> sizeof() == 0x18 and __alignof() == 8, the section contributions still are
+>> accompanied by ".align 16", and thus respective padding is inserted by
+>> assembler and linker. IOW you end up with two 32-byte entries and a trailing
+>> 24-byte one. The easiest (and least problematic going forward) approach to
+>> deal with that is probably going to be to add __aligned(16) to the struct
+>> decl. (Whether to limit this to just x86 I'm not sure: While other psABI-s may
+>> be different in this regard, we may want to be on the safe side.)
+> Thanks for you detailed explanation.
+> If I understand correctly, I need to change the definition of vpci_capability_t to be:
 > 
-> spec_ctrl_{enter,exit}_idle() do more than just alter MSR_SPEC_CTRL.IBRS.  The
-> VERW and RSB stuff are **unsafe** to omit.
-> 
-> The only reason this doesn't need an XSA is because no changes were made to
-> the lower level mwait_idle_with_hints(), and thus it remained properly
-> protected.
-> 
-> I.e. This change only served to double the expensive operations in the case it
-> was trying to optimise.
-> 
-> I have an idea of how to plumb this more nicely, but it requires larger
-> changes to legacy IBRS handling to not make spec_ctrl_enter_idle() vulnerable
-> in other ways.
+> typedef struct {
+>     unsigned int id;
+>     bool is_ext;
+>     int (* init)(const struct pci_dev *pdev);
+>     int (* cleanup)(const struct pci_dev *pdev);
+> }
+> #ifdef CONFIG_X86
+> __aligned(16)
+> #endif
+> vpci_capability_t;
 
-What are the concerns here? As it looks skipping the MSR write would look
-to require checking some (per-CPU) conditional. Conditional branches can't
-really be of concern, or the "if (cx->ibrs_disable)" that you're now
-removing again would have been of concern, too. Hence simply a new SCF_
-flag would look to be sufficient, for mwait_idle() to convey the necessary
-info to spec_ctrl_enter_idle()?
+You'll need to check whether this has the intended effect. There are yet more
+peculiarities when it comes to attributes on structs, typedefs, and the
+combination of the two. I wonder though: Do we really need a typedef here?
+Going with just struct vcpi_capability would eliminate concerns over those
+peculiarities.
 
->  In the short term, simply take out the perf hit.
-> 
-> Fixes: 08acdf9a2615 ("x86/mwait-idle: disable IBRS during long idle")
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Also, as said - you will need to check whether other architectures are
+different from x86-64 in this regard. We better wouldn't leave a trap here,
+for them to fall into when they enable vPCI support. I.e. my recommendation
+would be that if in doubt, we put the __aligned() there unconditionally.
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
+Jan
 
