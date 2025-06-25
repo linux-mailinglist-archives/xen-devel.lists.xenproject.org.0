@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B596AE87AB
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Jun 2025 17:15:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1025215.1400855 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 374AAAE882B
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Jun 2025 17:32:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1025227.1400865 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uURpN-0008UR-Q9; Wed, 25 Jun 2025 15:14:21 +0000
+	id 1uUS66-000397-7a; Wed, 25 Jun 2025 15:31:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1025215.1400855; Wed, 25 Jun 2025 15:14:21 +0000
+Received: by outflank-mailman (output) from mailman id 1025227.1400865; Wed, 25 Jun 2025 15:31:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uURpN-0008Ra-Lb; Wed, 25 Jun 2025 15:14:21 +0000
-Received: by outflank-mailman (input) for mailman id 1025215;
- Wed, 25 Jun 2025 15:14:20 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uUS66-000371-4b; Wed, 25 Jun 2025 15:31:38 +0000
+Received: by outflank-mailman (input) for mailman id 1025227;
+ Wed, 25 Jun 2025 15:31:36 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=+7fe=ZI=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1uURpM-0008Q9-Fr
- for xen-devel@lists.xenproject.org; Wed, 25 Jun 2025 15:14:20 +0000
-Received: from mail-pf1-x42f.google.com (mail-pf1-x42f.google.com
- [2607:f8b0:4864:20::42f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1093de12-51d7-11f0-a30f-13f23c93f187;
- Wed, 25 Jun 2025 17:14:19 +0200 (CEST)
-Received: by mail-pf1-x42f.google.com with SMTP id
- d2e1a72fcca58-7426c44e014so34150b3a.3
- for <xen-devel@lists.xenproject.org>; Wed, 25 Jun 2025 08:14:19 -0700 (PDT)
-Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
- by smtp.gmail.com with UTF8SMTPSA id
- 41be03b00d2f7-b320ef71cf5sm8918135a12.77.2025.06.25.08.14.16
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 25 Jun 2025 08:14:17 -0700 (PDT)
+ <SRS0=ahiT=ZI=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1uUS64-00036v-Ob
+ for xen-devel@lists.xenproject.org; Wed, 25 Jun 2025 15:31:36 +0000
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [2a00:1450:4864:20::536])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7539d12f-51d9-11f0-b894-0df219b8e170;
+ Wed, 25 Jun 2025 17:31:26 +0200 (CEST)
+Received: by mail-ed1-x536.google.com with SMTP id
+ 4fb4d7f45d1cf-60780d74c85so2721594a12.2
+ for <xen-devel@lists.xenproject.org>; Wed, 25 Jun 2025 08:31:26 -0700 (PDT)
+Received: from [192.168.1.5] (user-109-243-64-38.play-internet.pl.
+ [109.243.64.38]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-60c2f4a497dsm2636326a12.69.2025.06.25.08.31.23
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 25 Jun 2025 08:31:24 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,110 +45,495 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1093de12-51d7-11f0-a30f-13f23c93f187
+X-Inumbo-ID: 7539d12f-51d9-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1750864458; x=1751469258; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=EhFoht+ZsIrNOntSfCCAOP4S5UhiAYMnhAPoQTjIBi8=;
-        b=Er1OQwyUdCizAza5Bg/j6K5+4AG0MZSQsAnOiXUSWF0kZ4+1ph/gyg3L6wJDJiwmAI
-         dDbWn45taqO+O9ofUlm++WDtit402XqUB5SRGscdQ7KSFlluwlAM4wWjkqa/UABXYWLL
-         zK5cxSV07J7lDWkFDMUcocz8+OoQBawQbuR5o=
+        d=gmail.com; s=20230601; t=1750865486; x=1751470286; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=IK1rwYVWatbwXx37+p9OST/WtX06FQelroGhU5xtCAc=;
+        b=PxxeKBRGLkcWKWc/Ld+EaBmVAcnVn1cNHPLpExNMFM8Cb+BIDBWsuooOX2vDDKn6S1
+         tEcqYXOHlPjElDGImWbnbBLUFs7iF6CERPy5rtOiBmuKWLlnzLoF/RTze672cm2khNPO
+         2qpYy8v13RmYehLD7OI4Iwx0Kw2TyQXla/kQTEONUAz+n9TqdQIMaisdj0sKTwG+x+sg
+         TW1d+H/iC3XIhTA1yGrU5767BD0oDTN7eUTZmA49rGs4SHRTUQEIBNj2SRN8nUirx86Y
+         8yFrcDFjQN3Iphu8Z8IY+p72L5l8UC1jT5umim7qxFAYoN6Laf5J6Ttc9wujazHatIZe
+         yA2w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750864458; x=1751469258;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=EhFoht+ZsIrNOntSfCCAOP4S5UhiAYMnhAPoQTjIBi8=;
-        b=tnUZ8fdlYgTsiVwJFtVPvpr5AwCBoO0XyWIriQQNiggCObIBUeOfZtXzUFwUPKF7m1
-         MVWVYzh33f8mlIYE1el5ipMcwqeXBPyIh3drU8l7mMtmpECnccM1IYTmGAh8K8z3TMLG
-         UzaazNpExeTIpuoVwwFaxIDbgMPAx60adaFu1d1iclmu1lMBiY2YI3unNWyICLjt+lik
-         PaMvmNZlL67en4AFXBoa0FZ15I3xE+js0RfY/s1c51y9XnLW5BFKwfrAkYrcIq8n/K9q
-         XarfSIWn+aeKhVJ0eL82nlTcQW6fPI0Cr4rgatAJfUTP4/hYQOqvIohA9BcT8bqgM69Y
-         fBvw==
-X-Forwarded-Encrypted: i=1; AJvYcCWsyQgdb28i8/OwurQNzpHuyEtgfOyvcIE0myFCh3hkOR20I3cklcnnsQSMcnqqM6voH9XqxugiPhM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YytuPX76X+Hd7TWXiKrDwtLY4YiLvMgQSed+hyUb+2lffEf+4zs
-	VhQtY5iKyFfxvlebiMD6YDDRuy5mFSuFj6TNZxbCAFhYvHxgyLgsfKGQTmhZq9uDQuY=
-X-Gm-Gg: ASbGnctLjIm/ytEM5D7WhPFhhYBm2VqSPbWixGr1nsva364GWkUw+HXZUqnIjC4KGBW
-	uhjThi4d7Hm3eGnQJ4/ThhOT6wkYTUpGIr1WcidPaajDh5bG6dHwMvvHxJxOvO7xVt6SH4npHYf
-	ugUhb9d7BQvRrQH8lXUd2k4iZ24cSGw2DF6mOQiNJ2EQ68SXLHLUItCO3HK2CGiDQpdnjfXGoVw
-	bAIp+tCpNF/1qmmjpw/YYhZ+sLqD/E0nptW9wmi1Eaj8LixmhS+LErUqpfKJjFp7P/xzcDPI8H4
-	ExX6FlvmLzFfkPaVLYbc+ySm3RT9BRP0STQ31iyBRpvT5D/2TVUWTcGmSjPoeqUekrgIoI2ISl0
-	qzNncLAnmMQpMxMhnl522/dBLikmstg==
-X-Google-Smtp-Source: AGHT+IF9BzxdrwxNcQZxU0a9LJzENuHzYiLNvleTDUqVxQhnmx00tQ8+e4hf26rreoE0jbaFe354eg==
-X-Received: by 2002:a05:6a20:e30b:b0:203:c461:dd36 with SMTP id adf61e73a8af0-2208c08a537mr371930637.6.1750864457947;
-        Wed, 25 Jun 2025 08:14:17 -0700 (PDT)
-Date: Wed, 25 Jun 2025 17:14:12 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v2 1/8] x86/pdx: simplify calculation of domain struct
- allocation boundary
-Message-ID: <aFwSRM_RaabXFj9q@macbook.local>
-References: <20250620111130.29057-1-roger.pau@citrix.com>
- <20250620111130.29057-2-roger.pau@citrix.com>
- <e897b424-0bc2-4346-8c3b-3b22837e9481@suse.com>
+        d=1e100.net; s=20230601; t=1750865486; x=1751470286;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=IK1rwYVWatbwXx37+p9OST/WtX06FQelroGhU5xtCAc=;
+        b=r/wsLlXXHlsthVnaK+0YCDiB77ykYVIZt+rzp0U7xwXFaT/KqSn2ShwBUw/Toy2wtn
+         /BQB3RAR2HdKWZin/cfqhUwRbzyqdJQYwO85XsBVGqjYmmFLhKG99aPCS/4rZTfAF7BE
+         mZrHJ2tmRFCpdxA8QFBcETT21EOQcU4oWBPndZY+UieoJEhaTZj1MPwLHc9zAgxWCcBh
+         u+JPS7mV2yxfshdWgM4FMPQV52ezmypZI3usDlslD1uXO6dGXtxFy9udARq5+VR4Cw6H
+         YrfE0JBzhNg0aM6X81vBuLBiPgmoMQKoF52CfyH9PW6E1KB7pqeymNhJhJVO6OCwscbm
+         wh5A==
+X-Forwarded-Encrypted: i=1; AJvYcCU7bYUDYJqmn/rBABcrs4MqDAg/y21/pSv2M/wSvJ9SbNWHku3XyeK8OdBAezz3Yft2vaMnZ2QbnbU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzMd2UI3UipxTyNYH8THABNrbBCVbViq/PYp+/sNkkfNhJMXj9/
+	oVszUVjmhWqmaT3v+KvqqJ1kpqTVMAk7KDTbEMfQREu3w1I0nIUSdwbg
+X-Gm-Gg: ASbGncuXUdxjFiTGUqwfrn9VKvymAJnjLvILefREjalNs9b9vzoPfeqwIJlATpgIExa
+	qXqrRkf/cmJu3xNPMmcmJPnMZ1FU0efFr9HWfnlImsziPVEh3p9Yv0BihTezjQscFjyNvK+GfAy
+	p3z98F0YTON9rG98As6htr+STkLHcIj0SzCs36PN7TXpImIvJqt6lSNlcSwFVV9Uqm8k63pDstr
+	QE243ZKL4JUXQAnMYhjUNjnV41nkNG/hkQpYSDe7Jo6htx0jkvPGekmeGB8SlBzIoEA31/9lLSY
+	1eYzmuIPVPHDhEIrw5EEeyNwDbq/8LA9rvHceaNR2988QRoWtHFnPOIWdaE6w2D4NkizI5YvCir
+	s3gqlYbPKPX5ci+ldTlrqqrSpaKVGyT7h8N+8JNn+peEOiQ==
+X-Google-Smtp-Source: AGHT+IFLEhctetxyRGrgZoJVxxzyFeD5ZTOI/ltJVfwGU0WEHrqKHEQ1qChuTtSvR4F+ByErmUH+rw==
+X-Received: by 2002:a05:6402:42d0:b0:60c:4bc0:453e with SMTP id 4fb4d7f45d1cf-60c4dc5250cmr2681685a12.2.1750865485711;
+        Wed, 25 Jun 2025 08:31:25 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------eaK6LrHcXj0tDtk9P2XbyRiC"
+Message-ID: <0b3c403b-0f24-4fc6-ba5b-fb4df62d7057@gmail.com>
+Date: Wed, 25 Jun 2025 17:31:23 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <e897b424-0bc2-4346-8c3b-3b22837e9481@suse.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 05/17] xen/riscv: introduce things necessary for p2m
+ initialization
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1749555949.git.oleksii.kurochko@gmail.com>
+ <443cb3566a60dcb5d5440c72410ff6d76a010a58.1749555949.git.oleksii.kurochko@gmail.com>
+ <5c61fd86-5c0e-481e-a5a9-6a53f2d78c36@suse.com>
+Content-Language: en-US
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <5c61fd86-5c0e-481e-a5a9-6a53f2d78c36@suse.com>
 
-On Tue, Jun 24, 2025 at 03:05:11PM +0200, Jan Beulich wrote:
-> On 20.06.2025 13:11, Roger Pau Monne wrote:
-> > When not using CONFIG_BIGMEM there are some restrictions in the address
-> > width for allocations of the domain structure, as it's PDX truncated to 32
-> > bits it's stashed into page_info structure for domain allocated pages.
-> > 
-> > The current logic to calculate this limit is based on the internals of the
-> > PDX compression used, which is not strictly required.  Instead simplify the
-> > logic to rely on the existing PDX to PFN conversion helpers used elsewhere.
-> > 
-> > This has the added benefit of allowing alternative PDX compression
-> > algorithms to be implemented without requiring to change the calculation of
-> > the domain structure allocation boundary.
-> > 
-> > As a side effect introduce pdx_to_paddr() conversion macro and use it.
-> > 
-> > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> 
-> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+This is a multi-part message in MIME format.
+--------------eaK6LrHcXj0tDtk9P2XbyRiC
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+
+
+On 6/18/25 6:08 PM, Jan Beulich wrote:
+> On 10.06.2025 15:05, Oleksii Kurochko wrote:
+>> Introduce the following things:
+>> - Update p2m_domain structure, which describe per p2m-table state, with:
+>>    - lock to protect updates to p2m.
+>>    - pool with pages used to construct p2m.
+>>    - clean_pte which indicate if it is requires to clean the cache when
+>>      writing an entry.
+>>    - radix tree to store p2m type as PTE doesn't have enough free bits to
+>>      store type.
+>>    - default_access to store p2m access type for each page in the domain.
+>>    - back pointer to domain structure.
+>> - p2m_init() to initalize members introduced in p2m_domain structure.
+>> - Introudce p2m_write_lock() and p2m_is_write_locked().
+> What about the reader variant? If you don't need that, why not use a simple
+> spin lock?
+
+It will be introduced later in "xen/riscv: add support of page lookup by GFN"
+of this patch series where it is really used.
+
+But I can move it here.
+
+>
+>> @@ -14,6 +18,29 @@
+>>   
+>>   /* Per-p2m-table state */
+>>   struct p2m_domain {
+>> +    /*
+>> +     * Lock that protects updates to the p2m.
+>> +     */
+>> +    rwlock_t lock;
+>> +
+>> +    /* Pages used to construct the p2m */
+>> +    struct page_list_head pages;
+>> +
+>> +    /* Indicate if it is required to clean the cache when writing an entry */
+>> +    bool clean_pte;
+>> +
+>> +    struct radix_tree_root p2m_type;
+> A field with a p2m_ prefix in a p2m struct?
+
+p2m_ prefix could be really dropped.
+
+>   And is this tree really about
+> just a single "type"?
+
+Yes, we don't have enough bits in PTE so we need some extra storage to store type.
+
+>
+>> +    /*
+>> +     * Default P2M access type for each page in the the domain: new pages,
+>> +     * swapped in pages, cleared pages, and pages that are ambiguously
+>> +     * retyped get this access type.  See definition of p2m_access_t.
+>> +     */
+>> +    p2m_access_t default_access;
+>> +
+>> +    /* Back pointer to domain */
+>> +    struct domain *domain;
+> This you may want to introduce earlier, to prefer passing around struct
+> p2m_domain * in / to P2M functions (which would benefit earlier patches
+> already, I think).
+
+But nothing uses it earlier.
+
+>
+>> --- a/xen/arch/riscv/p2m.c
+>> +++ b/xen/arch/riscv/p2m.c
+>> @@ -1,13 +1,46 @@
+>>   #include <xen/bitops.h>
+>> +#include <xen/domain_page.h>
+>>   #include <xen/event.h>
+>> +#include <xen/iommu.h>
+>>   #include <xen/lib.h>
+>> +#include <xen/mm.h>
+>> +#include <xen/pfn.h>
+>> +#include <xen/rwlock.h>
+>>   #include <xen/sched.h>
+>>   #include <xen/spinlock.h>
+>>   #include <xen/xvmalloc.h>
+>>   
+>> +#include <asm/page.h>
+>>   #include <asm/p2m.h>
+>>   #include <asm/sbi.h>
+>>   
+>> +/*
+>> + * Force a synchronous P2M TLB flush.
+>> + *
+>> + * Must be called with the p2m lock held.
+>> + */
+>> +static void p2m_force_tlb_flush_sync(struct p2m_domain *p2m)
+>> +{
+>> +    struct domain *d = p2m->domain;
+>> +
+>> +    ASSERT(p2m_is_write_locked(p2m));
+>> +
+>> +    sbi_remote_hfence_gvma_vmid(d->dirty_cpumask, 0, 0, p2m->vmid);
+>> +}
+>> +
+>> +/* Unlock the flush and do a P2M TLB flush if necessary */
+>> +void p2m_write_unlock(struct p2m_domain *p2m)
+>> +{
+>> +    /*
+>> +     * The final flush is done with the P2M write lock taken to avoid
+>> +     * someone else modifying the P2M wbefore the TLB invalidation has
+>> +     * completed.
+>> +     */
+>> +    p2m_force_tlb_flush_sync(p2m);
+> The comment ahead of the function says "if necessary". Yet there's no
+> conditional here. I also question the need for a global flush in all
+> cases.
+
+Stale comment.
+
+But if p2m page table was modified that it is needed to do a flush for CPUs
+in d->dirty_cpumask.
+
+>
+>> @@ -109,8 +142,33 @@ int p2m_init(struct domain *d)
+>>       spin_lock_init(&d->arch.paging.lock);
+>>       INIT_PAGE_LIST_HEAD(&d->arch.paging.p2m_freelist);
+>>   
+>> +    rwlock_init(&p2m->lock);
+>> +    INIT_PAGE_LIST_HEAD(&p2m->pages);
+>> +
+>>       p2m->vmid = INVALID_VMID;
+>>   
+>> +    p2m->default_access = p2m_access_rwx;
+>> +
+>> +    radix_tree_init(&p2m->p2m_type);
+>> +
+>> +#ifdef CONFIG_HAS_PASSTHROUGH
+> Do you expect this to be conditionally selected on RISC-V?
+
+No, once it will be implemented it will be just selected once by config RISC-V.
+And it was done so because iommu_has_feature() isn't implemented now as IOMMU
+isn't supported now and depends on CONFIG_HAS_PASSTHROUGH.
+
+>
+>> +    /*
+>> +     * Some IOMMUs don't support coherent PT walk. When the p2m is
+>> +     * shared with the CPU, Xen has to make sure that the PT changes have
+>> +     * reached the memory
+>> +     */
+>> +    p2m->clean_pte = is_iommu_enabled(d) &&
+>> +        !iommu_has_feature(d, IOMMU_FEAT_COHERENT_WALK);
+> The comment talks about shared page tables, yet you don't check whether
+> page table sharing is actually enabled for the domain.
+
+Do we have such function/macros? It is shared by implementation now.
+
+>
+>> +#else
+>> +    p2m->clean_pte = false;
+> I hope the struct starts out zero-filled, in which case you wouldn't need
+> this.
+>
+>> +#endif
+>> +
+>> +    /*
+>> +     * "Trivial" initialisation is now complete.  Set the backpointer so the
+>> +     * users of p2m could get an access to domain structure.
+>> +     */
+>> +    p2m->domain = d;
+> Better set this about the very first thing?
+
+It makes sense. I will move it up.
 
 Thanks.
 
-> > @@ -498,14 +474,20 @@ struct domain *alloc_domain_struct(void)
-> >       * On systems with CONFIG_BIGMEM there's no packing, and so there's no
-> >       * such restriction.
-> >       */
-> > -#if defined(CONFIG_BIGMEM) || !defined(CONFIG_PDX_COMPRESSION)
-> > -    const unsigned int bits = IS_ENABLED(CONFIG_BIGMEM) ? 0 :
-> > -                                                          32 + PAGE_SHIFT;
-> > +#if defined(CONFIG_BIGMEM)
-> > +    const unsigned int bits = 0;
-> >  #else
-> > -    static unsigned int __read_mostly bits;
-> > +    static unsigned int __ro_after_init bits;
-> >  
-> >      if ( unlikely(!bits) )
-> > -         bits = _domain_struct_bits();
-> > +         /*
-> > +          * Get the width for the next pfn, and unconditionally subtract one
-> > +          * from it to ensure the used width will not allocate past the PDX
-> > +          * field limit.
-> > +          */
-> > +         bits = flsl(pdx_to_paddr(1UL << (sizeof_field(struct page_info,
-> > +                                                       v.inuse._domain) * 8)))
-> 
-> You didn't like the slightly shorter sizeof(frame_table->v.inuse._domain) then?
+~ Oleksii
 
-No strong opinion really, I have the impression however that using the
-struct type itself would be less fragile, in case we ever change
-frame_table variable name (which is very unlikely).
 
-Roger.
+--------------eaK6LrHcXj0tDtk9P2XbyRiC
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 6/18/25 6:08 PM, Jan Beulich wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:5c61fd86-5c0e-481e-a5a9-6a53f2d78c36@suse.com">
+      <pre wrap="" class="moz-quote-pre">On 10.06.2025 15:05, Oleksii Kurochko wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">Introduce the following things:
+- Update p2m_domain structure, which describe per p2m-table state, with:
+  - lock to protect updates to p2m.
+  - pool with pages used to construct p2m.
+  - clean_pte which indicate if it is requires to clean the cache when
+    writing an entry.
+  - radix tree to store p2m type as PTE doesn't have enough free bits to
+    store type.
+  - default_access to store p2m access type for each page in the domain.
+  - back pointer to domain structure.
+- p2m_init() to initalize members introduced in p2m_domain structure.
+- Introudce p2m_write_lock() and p2m_is_write_locked().
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+What about the reader variant? If you don't need that, why not use a simple
+spin lock?</pre>
+    </blockquote>
+    <pre>It will be introduced later in "xen/riscv: add support of page lookup by GFN"
+of this patch series where it is really used.
+
+But I can move it here.
+
+</pre>
+    <blockquote type="cite"
+      cite="mid:5c61fd86-5c0e-481e-a5a9-6a53f2d78c36@suse.com">
+      <pre wrap="" class="moz-quote-pre">
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">@@ -14,6 +18,29 @@
+ 
+ /* Per-p2m-table state */
+ struct p2m_domain {
++    /*
++     * Lock that protects updates to the p2m.
++     */
++    rwlock_t lock;
++
++    /* Pages used to construct the p2m */
++    struct page_list_head pages;
++
++    /* Indicate if it is required to clean the cache when writing an entry */
++    bool clean_pte;
++
++    struct radix_tree_root p2m_type;
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+A field with a p2m_ prefix in a p2m struct?</pre>
+    </blockquote>
+    <pre>p2m_ prefix could be really dropped.</pre>
+    <blockquote type="cite"
+      cite="mid:5c61fd86-5c0e-481e-a5a9-6a53f2d78c36@suse.com">
+      <pre wrap="" class="moz-quote-pre"> And is this tree really about
+just a single "type"?</pre>
+    </blockquote>
+    <pre>Yes, we don't have enough bits in PTE so we need some extra storage to store type.
+
+</pre>
+    <blockquote type="cite"
+      cite="mid:5c61fd86-5c0e-481e-a5a9-6a53f2d78c36@suse.com">
+      <pre wrap="" class="moz-quote-pre">
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+    /*
++     * Default P2M access type for each page in the the domain: new pages,
++     * swapped in pages, cleared pages, and pages that are ambiguously
++     * retyped get this access type.  See definition of p2m_access_t.
++     */
++    p2m_access_t default_access;
++
++    /* Back pointer to domain */
++    struct domain *domain;
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+This you may want to introduce earlier, to prefer passing around struct
+p2m_domain * in / to P2M functions (which would benefit earlier patches
+already, I think).</pre>
+    </blockquote>
+    <pre>But nothing uses it earlier.
+
+</pre>
+    <blockquote type="cite"
+      cite="mid:5c61fd86-5c0e-481e-a5a9-6a53f2d78c36@suse.com">
+      <pre wrap="" class="moz-quote-pre">
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">--- a/xen/arch/riscv/p2m.c
++++ b/xen/arch/riscv/p2m.c
+@@ -1,13 +1,46 @@
+ #include &lt;xen/bitops.h&gt;
++#include &lt;xen/domain_page.h&gt;
+ #include &lt;xen/event.h&gt;
++#include &lt;xen/iommu.h&gt;
+ #include &lt;xen/lib.h&gt;
++#include &lt;xen/mm.h&gt;
++#include &lt;xen/pfn.h&gt;
++#include &lt;xen/rwlock.h&gt;
+ #include &lt;xen/sched.h&gt;
+ #include &lt;xen/spinlock.h&gt;
+ #include &lt;xen/xvmalloc.h&gt;
+ 
++#include &lt;asm/page.h&gt;
+ #include &lt;asm/p2m.h&gt;
+ #include &lt;asm/sbi.h&gt;
+ 
++/*
++ * Force a synchronous P2M TLB flush.
++ *
++ * Must be called with the p2m lock held.
++ */
++static void p2m_force_tlb_flush_sync(struct p2m_domain *p2m)
++{
++    struct domain *d = p2m-&gt;domain;
++
++    ASSERT(p2m_is_write_locked(p2m));
++
++    sbi_remote_hfence_gvma_vmid(d-&gt;dirty_cpumask, 0, 0, p2m-&gt;vmid);
++}
++
++/* Unlock the flush and do a P2M TLB flush if necessary */
++void p2m_write_unlock(struct p2m_domain *p2m)
++{
++    /*
++     * The final flush is done with the P2M write lock taken to avoid
++     * someone else modifying the P2M wbefore the TLB invalidation has
++     * completed.
++     */
++    p2m_force_tlb_flush_sync(p2m);
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+The comment ahead of the function says "if necessary". Yet there's no
+conditional here. I also question the need for a global flush in all
+cases.</pre>
+    </blockquote>
+    <pre>Stale comment.
+
+But if p2m page table was modified that it is needed to do a flush for CPUs
+in d-&gt;dirty_cpumask.
+
+</pre>
+    <blockquote type="cite"
+      cite="mid:5c61fd86-5c0e-481e-a5a9-6a53f2d78c36@suse.com">
+      <pre wrap="" class="moz-quote-pre">
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">@@ -109,8 +142,33 @@ int p2m_init(struct domain *d)
+     spin_lock_init(&amp;d-&gt;arch.paging.lock);
+     INIT_PAGE_LIST_HEAD(&amp;d-&gt;arch.paging.p2m_freelist);
+ 
++    rwlock_init(&amp;p2m-&gt;lock);
++    INIT_PAGE_LIST_HEAD(&amp;p2m-&gt;pages);
++
+     p2m-&gt;vmid = INVALID_VMID;
+ 
++    p2m-&gt;default_access = p2m_access_rwx;
++
++    radix_tree_init(&amp;p2m-&gt;p2m_type);
++
++#ifdef CONFIG_HAS_PASSTHROUGH
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Do you expect this to be conditionally selected on RISC-V?</pre>
+    </blockquote>
+    <pre>No, once it will be implemented it will be just selected once by config RISC-V.
+And it was done so because iommu_has_feature() isn't implemented now as IOMMU
+isn't supported now and depends on CONFIG_HAS_PASSTHROUGH.</pre>
+    <blockquote type="cite"
+      cite="mid:5c61fd86-5c0e-481e-a5a9-6a53f2d78c36@suse.com">
+      <pre wrap="" class="moz-quote-pre">
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+    /*
++     * Some IOMMUs don't support coherent PT walk. When the p2m is
++     * shared with the CPU, Xen has to make sure that the PT changes have
++     * reached the memory
++     */
++    p2m-&gt;clean_pte = is_iommu_enabled(d) &amp;&amp;
++        !iommu_has_feature(d, IOMMU_FEAT_COHERENT_WALK);
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+The comment talks about shared page tables, yet you don't check whether
+page table sharing is actually enabled for the domain.</pre>
+    </blockquote>
+    <pre>Do we have such function/macros? It is shared by implementation now.
+
+</pre>
+    <blockquote type="cite"
+      cite="mid:5c61fd86-5c0e-481e-a5a9-6a53f2d78c36@suse.com">
+      <pre wrap="" class="moz-quote-pre">
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+#else
++    p2m-&gt;clean_pte = false;
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+I hope the struct starts out zero-filled, in which case you wouldn't need
+this.
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+#endif
++
++    /*
++     * "Trivial" initialisation is now complete.  Set the backpointer so the
++     * users of p2m could get an access to domain structure.
++     */
++    p2m-&gt;domain = d;
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Better set this about the very first thing?</pre>
+    </blockquote>
+    <pre>It makes sense. I will move it up.
+
+Thanks.
+
+~ Oleksii</pre>
+    <br>
+  </body>
+</html>
+
+--------------eaK6LrHcXj0tDtk9P2XbyRiC--
 
