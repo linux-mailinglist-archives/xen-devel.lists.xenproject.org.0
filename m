@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D6258AE7A69
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Jun 2025 10:38:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1024474.1400331 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7810EAE7B66
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Jun 2025 11:04:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1024494.1400340 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uULd0-0000SI-Rs; Wed, 25 Jun 2025 08:37:10 +0000
+	id 1uUM3P-0004QC-TD; Wed, 25 Jun 2025 09:04:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1024474.1400331; Wed, 25 Jun 2025 08:37:10 +0000
+Received: by outflank-mailman (output) from mailman id 1024494.1400340; Wed, 25 Jun 2025 09:04:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uULd0-0000QX-Oi; Wed, 25 Jun 2025 08:37:10 +0000
-Received: by outflank-mailman (input) for mailman id 1024474;
- Wed, 25 Jun 2025 08:37:09 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uUM3P-0004NY-QV; Wed, 25 Jun 2025 09:04:27 +0000
+Received: by outflank-mailman (input) for mailman id 1024494;
+ Wed, 25 Jun 2025 09:04:26 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=QoV+=ZI=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uULcz-0000QR-Q2
- for xen-devel@lists.xenproject.org; Wed, 25 Jun 2025 08:37:09 +0000
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [2a00:1450:4864:20::32a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 948b4884-519f-11f0-a30f-13f23c93f187;
- Wed, 25 Jun 2025 10:37:08 +0200 (CEST)
-Received: by mail-wm1-x32a.google.com with SMTP id
- 5b1f17b1804b1-45310223677so46897795e9.0
- for <xen-devel@lists.xenproject.org>; Wed, 25 Jun 2025 01:37:08 -0700 (PDT)
+ id 1uUM3O-0004NS-D9
+ for xen-devel@lists.xenproject.org; Wed, 25 Jun 2025 09:04:26 +0000
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [2a00:1450:4864:20::433])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 628b4598-51a3-11f0-b894-0df219b8e170;
+ Wed, 25 Jun 2025 11:04:22 +0200 (CEST)
+Received: by mail-wr1-x433.google.com with SMTP id
+ ffacd0b85a97d-3a503d9ef59so4286268f8f.3
+ for <xen-devel@lists.xenproject.org>; Wed, 25 Jun 2025 02:04:22 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-749b5e08cf0sm4017191b3a.10.2025.06.25.01.37.01
+ d2e1a72fcca58-749c887586dsm3856893b3a.158.2025.06.25.02.04.18
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 25 Jun 2025 01:37:07 -0700 (PDT)
+ Wed, 25 Jun 2025 02:04:21 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,69 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 948b4884-519f-11f0-a30f-13f23c93f187
+X-Inumbo-ID: 628b4598-51a3-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1750840628; x=1751445428; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=xeX8n97CPUt5vrF9ItN+TfIeKQ/k9YGoD5U2k7iUU/M=;
-        b=bZzk1YBNEvygv5iE7CCI8Qjg/uIzxSUBF+G3SN/Vm3dTNA73VKO23s0/1EGpctnsSU
-         H+/YFPImjvYPPVp1xQ1VrtkZ78Bwq9XyO1kzxqpsclXiXIZc+KJaYgGNDo+yTYYY2lI4
-         wBzlcYBQf8soTMGXdWPg1wERzXcE3SJ/Jtse6NTjyUG4klrqfJOhZADa1f2lXaGhGfs8
-         gptHwY4g8Rr395121EdPl0WYdwoAmY+OV7dMExzpv9NngzV5lQXvm/CrEFdW8uxKE4q3
-         UIVA1HxZ5+V7iUwGhgAPp7F4+j3VJOxr3+oqUOnwjIfdrjUOoMBK6TTbd+fkWgIioNSc
-         8CVA==
+        d=suse.com; s=google; t=1750842262; x=1751447062; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=wAVbUXgy7vt1kY/50PVUiDr+/RKIFhkPfiwiNTsCpWA=;
+        b=gf5tvw1J4q3fP68anuv9xKIpPRkZ8CpmmRDSVjL6ZE2TdzRQ4An5j9MVq0OYtFM864
+         VKDoABIj2KjE0yl9R8ZwT8lbOBh0C1WATGRKf0f+JNzEYkUhUmfIL2SdHCEoJEiMOdAM
+         kZar6Hf//piY35v+damdgIIuUmz057fjmFJiBc0Hld5kS6VCUONxSPTEji2MmVOtnKJH
+         9/vPZgP+6FEunrDsX61Xff80dfKOVJH80Z61qGsIFhk1BEAqLBrKGOUM98ZBfPMSe5F+
+         B5Ng90x/wTbguGPNDiYax9UF75HnA7U6L04gVNU8CaKbp9BEsSRVhtsd4aBLxi1HrqlW
+         UJNA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750840628; x=1751445428;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=xeX8n97CPUt5vrF9ItN+TfIeKQ/k9YGoD5U2k7iUU/M=;
-        b=FSC6CbGj0Nwzw36llQnzq8WVIwIOULWG7ECJh7wcP/vgnfrQZipZpaW3NhgRRVeMBN
-         Z2p6dPWpevDlRE0Tj0n1WrTKDPE6AwlxjoBGf681ratU4UUa6WmU9jdj16rFiZrhXYcd
-         0HIg1IpbQlyDt6wRcf9lQce/vd+69mlHb9E0d9L38neCCglAQtvR+dlyJORDRikyEuqR
-         sHdJ9ro5VEsxci69itnVB0E6Cry//twF9gKWSZ18DfmS4xT5zlnaUdQcw6gDSXb3Uv5A
-         2T8kb8WwCLRcCijifSChCI/yY7U+qqEHBgH2fOAnlPmikfkPEqin4m3JCxAbZ4umG3AQ
-         3DCw==
-X-Forwarded-Encrypted: i=1; AJvYcCVRFN27y5097GfWytkCVHaKixSlkP5TYIgszJ2vb+yd/5BHTNBN7HJPP4oKW7sMhDJKRG97JFbilwg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Ywf98wQECXMx8hxE2BMyCX3jSGudSsaUg2t8OTlNYmEuH9I5RO0
-	MEpGL0lP4xJqY6AWowdFtHacMrh2GZbG+nLzZ0A0jBc8vduD2NCAewBh5jYAgOaFcA==
-X-Gm-Gg: ASbGncuIcZHKmOX8vj7LcI4NSjXWFW7XZK+H6BCgtEfrPNk3O34vVaF3gMPEHhQMheL
-	9E28YGM+nmnj2F58plYivMn75S4iyutJV1mDT8mmRwvL2QLsjv8ZTHjcVCuQHTHIt1LJlgpAc3K
-	idLo35OP5O740753AHvx67fvaMDvCeAf9X0RYC2ZsVmPf3jS1A0XK+0Agqk+l7i0evHDKE/k0s4
-	eKJKoHtSJblyYQvuIxC1rHbmvO+CiUwFtMcb3JoZKK3K5siAZ/fZbqDbdrBvuAkXT7vyCxa5baG
-	w1z0PlFcSx8N4sKvccArqQgBZxlbuHPmT40KlqxzOLXwEd49PW52owD+7K6brSGc/fgqyqqBeG/
-	VRrSUJ8CNrCDlHqZAsMGbV88KIjq4pRUiJuvqAcP92+r462w=
-X-Google-Smtp-Source: AGHT+IEXl5H/wnrk0C1dqbuus5cIxWhUlhi5CnTUgR1KB/5TyHmY7KAcgEjaoA+/aD1be8ELl4tfXQ==
-X-Received: by 2002:a05:6000:2410:b0:3a5:2ddf:c934 with SMTP id ffacd0b85a97d-3a6ed644198mr1281188f8f.30.1750840627584;
-        Wed, 25 Jun 2025 01:37:07 -0700 (PDT)
-Message-ID: <3638e73c-2a83-4164-9a84-839245245727@suse.com>
-Date: Wed, 25 Jun 2025 10:36:57 +0200
+        d=1e100.net; s=20230601; t=1750842262; x=1751447062;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=wAVbUXgy7vt1kY/50PVUiDr+/RKIFhkPfiwiNTsCpWA=;
+        b=lSIcMQrtPAhmaSJ+Wjg3LL4gjsUnanVntEim4tp9vwYQ+s5XMIs8lR6ghHaRrnjnMQ
+         8NH68C/ahWFemcIBCaQSLKY0wLWjBDKQYMlje5dFO/Uuy2PzgM/DX5/oTLXUPE43lyws
+         wRNp4xLISw/IPNwrS9RL97haTvyXmXZHv9+XJdrdSTsrgT+ZtgHI/tz9xvSUKmS5Ykrw
+         KWdh4JJX22lOx5H+9+kvnASRPL49ABUKztHrFe9dg6oh8o40dlPzZdqtQ/fLYR5dCZQO
+         X6iRuuu6SrfEyMc1Vwv6YV26aW+gRdOpZuff62WuWoQryfvlY5ZpI0jEEIF1kWqfjVC6
+         3ahQ==
+X-Gm-Message-State: AOJu0YwGxOKI9X33FkuFOy/K7SOEGITk0g9LASxUCNbhDt26yXYHaZdN
+	v2YfB+Rpd2doNy1oW7hZARDMMs8jUwTGrpO9//U4W9i6GJr2q+Q+Eao4yAm0GB+Phmgih4P4nXA
+	rVOA=
+X-Gm-Gg: ASbGncsGjVSsw0RaY7WK69nwH1v8MA4rU1o/eYqKB064COBAPDqeVYyV+mcjVJUz8ja
+	flW5b1WRCY2PQMHjiRt2v3qzAU0k7Naiyx15CrN2ILPA5lvT5O0OAmPYAE9pq4KbUFFAS7A/j1r
+	hMGlsWJ9xWrDcfnE//DuEJeP3XGAgO+QQiS9pGhsr7k+oE2z9kio4A2MCR7mZqOqrdCbCf6buCo
+	bYLdAxhxqdDCggeGABDmBQ9mdXnQILTnkzb83PTD5g6NUpi4wV8dtCRCKdswee75BYBQ2TLnYaT
+	aRi9+0Mtg5hXrrc59wNHLzDOOSLEJKP4x7p/iLq3vskBZOlGKe0J4zcg6ybHTtfI7fti2Gz304R
+	Ycf+wAOdCbcdqwxknCsQFNcTvsuspo3XyQuFEUYsmA/X1Cwo=
+X-Google-Smtp-Source: AGHT+IGRO4recyp9hehWWSeWwTskw7onPVlriAxn/9Z9hc0X8O49QnU6wSNuB1YILzsMk/DnynHJsQ==
+X-Received: by 2002:a5d:58cf:0:b0:3a4:f655:8c4d with SMTP id ffacd0b85a97d-3a6ed642557mr1253147f8f.27.1750842261789;
+        Wed, 25 Jun 2025 02:04:21 -0700 (PDT)
+Message-ID: <f68299c4-7aba-4bac-a50c-182f3cb5686e@suse.com>
+Date: Wed, 25 Jun 2025 11:04:14 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 2/8] vpci: Refactor REGISTER_VPCI_INIT
-To: "Chen, Jiqian" <Jiqian.Chen@amd.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- "Orzel, Michal" <Michal.Orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "Huang, Ray" <Ray.Huang@amd.com>
-References: <20250612092942.1450344-1-Jiqian.Chen@amd.com>
- <20250612092942.1450344-3-Jiqian.Chen@amd.com>
- <516a3adc-320d-46ce-b235-8ef91469abcf@suse.com>
- <BL1PR12MB5849F696814E17D20012BAC2E77DA@BL1PR12MB5849.namprd12.prod.outlook.com>
- <227df6d3-a2c3-4576-bde9-d8057c378e7a@suse.com>
- <BL1PR12MB5849C69BD1485B1B98F7D0FDE778A@BL1PR12MB5849.namprd12.prod.outlook.com>
- <5c4b186e-686e-4fc8-bcf1-854bc1f5ec8b@suse.com>
- <BL1PR12MB5849DE8416FE549834235780E778A@BL1PR12MB5849.namprd12.prod.outlook.com>
- <9d5d0e44-66c3-4e3f-8704-2c862c5f5aff@suse.com>
- <BL1PR12MB5849B3C334EF0C5BBCAFB7BAE77BA@BL1PR12MB5849.namprd12.prod.outlook.com>
 Content-Language: en-US
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Chen Jiqian <Jiqian.Chen@amd.com>
 From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] x86: don't have gcc over-align data
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -131,134 +116,40 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <BL1PR12MB5849B3C334EF0C5BBCAFB7BAE77BA@BL1PR12MB5849.namprd12.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 25.06.2025 08:51, Chen, Jiqian wrote:
-> On 2025/6/24 18:08, Jan Beulich wrote:
->> On 24.06.2025 11:29, Chen, Jiqian wrote:
->>> On 2025/6/24 16:05, Jan Beulich wrote:
->>>> On 24.06.2025 10:02, Chen, Jiqian wrote:
->>>>> On 2025/6/20 14:38, Jan Beulich wrote:
->>>>>> On 19.06.2025 08:39, Chen, Jiqian wrote:
->>>>>>> On 2025/6/18 22:05, Jan Beulich wrote:
->>>>>>>> On 12.06.2025 11:29, Jiqian Chen wrote:
->>>>>>>>> @@ -29,9 +30,22 @@ typedef int vpci_register_init_t(struct pci_dev *dev);
->>>>>>>>>   */
->>>>>>>>>  #define VPCI_MAX_VIRT_DEV       (PCI_SLOT(~0) + 1)
->>>>>>>>>  
->>>>>>>>> -#define REGISTER_VPCI_INIT(x, p)                \
->>>>>>>>> -  static vpci_register_init_t *const x##_entry  \
->>>>>>>>> -               __used_section(".data.vpci." p) = (x)
->>>>>>>>> +#define REGISTER_VPCI_CAPABILITY(cap, finit, fclean, ext) \
->>>>>>>>> +    static const vpci_capability_t finit##_t = { \
->>>>>>>>> +        .id = (cap), \
->>>>>>>>> +        .init = (finit), \
->>>>>>>>> +        .cleanup = (fclean), \
->>>>>>>>> +        .is_ext = (ext), \
->>>>>>>>> +    }; \
->>>>>>>>> +    static const vpci_capability_t *const finit##_entry  \
->>>>>>>>> +        __used_section(".data.rel.ro.vpci") = &finit##_t
->>>>>>>>
->>>>>>>> Could you remind me why the extra level of indirection is necessary here?
->>>>>>>> That is, why can't .data.rel.ro.vpci be an array of vpci_capability_t?
->>>>>>> You mean I should change to be:
->>>>>>> #define REGISTER_VPCI_CAPABILITY(cap, finit, fclean, ext) \
->>>>>>>     static const vpci_capability_t finit##_t \
->>>>>>>         __used_section(".data.rel.ro.vpci") = { \
->>>>>>>         .id = (cap), \
->>>>>>>         .init = (finit), \
->>>>>>>         .cleanup = (fclean), \
->>>>>>>         .is_ext = (ext), \
->>>>>>>     }
->>>>>>>
->>>>>>> Right?
->>>>>>
->>>>>> Yes, subject to the earlier comments on the identifier choice.
->>>>> Got it.
->>>>> One more question, if change to be that, then how should I modify the definition of VPCI_ARRAY?
->>>>> Is POINTER_ALIGN still right?
->>>>
->>>> Yes. The struct doesn't require bigger alignment afaics. (In fact in principle
->>>> no alignment should need specifying there, except that this would require
->>>> keeping the section separate in the final image. Which I don't think we want.)
->>>>
->>>>> Since I encountered errors that the values of __start_vpci_array are not right when I use them in vpci_init_capabilities().
->>>>
->>>> Details please.
->>> After changing __start_vpci_array to be vpci_capability_t array, codes will be (maybe I modified wrong somewhere):
->>>
->>> diff --git a/xen/drivers/vpci/vpci.c b/xen/drivers/vpci/vpci.c
->>> index c51bbb8abb19..9f2f438b4fdd 100644
->>> --- a/xen/drivers/vpci/vpci.c
->>> +++ b/xen/drivers/vpci/vpci.c
->>> @@ -36,8 +36,8 @@ struct vpci_register {
->>>  };
->>>
->>>  #ifdef __XEN__
->>> -extern const vpci_capability_t *const __start_vpci_array[];
->>> -extern const vpci_capability_t *const __end_vpci_array[];
->>> +extern vpci_capability_t __start_vpci_array[];
->>> +extern vpci_capability_t __end_vpci_array[];
->>
->> Just fyi: You lost const here.
->>
->>> @@ -255,7 +255,7 @@ static int vpci_init_capabilities(struct pci_dev *pdev)
->>>  {
->>>      for ( unsigned int i = 0; i < NUM_VPCI_INIT; i++ )
->>>      {
->>> -        const vpci_capability_t *capability = __start_vpci_array[i];
->>> +        const vpci_capability_t *capability = &__start_vpci_array[i];
->>>          const unsigned int cap = capability->id;
->>>          const bool is_ext = capability->is_ext;
->>>          int rc;
->>> diff --git a/xen/include/xen/vpci.h b/xen/include/xen/vpci.h
->>> index f4ec1c25922d..77750dd4131a 100644
->>> --- a/xen/include/xen/vpci.h
->>> +++ b/xen/include/xen/vpci.h
->>> @@ -31,14 +31,13 @@ typedef struct {
->>>  #define VPCI_MAX_VIRT_DEV       (PCI_SLOT(~0) + 1)
->>>
->>>  #define REGISTER_VPCI_CAPABILITY(cap, finit, fclean, ext) \
->>> -    static const vpci_capability_t finit##_t = { \
->>> +    static vpci_capability_t finit##_entry \
->>> +        __used_section(".data.rel.ro.vpci") = { \
->>>          .id = (cap), \
->>>          .init = (finit), \
->>>          .cleanup = (fclean), \
->>>          .is_ext = (ext), \
->>> -    }; \
->>> -    static const vpci_capability_t *const finit##_entry  \
->>> -        __used_section(".data.rel.ro.vpci") = &finit##_t
->>> +    }
->>>
->>>  #define REGISTER_VPCI_CAP(cap, finit, fclean) \
->>>      REGISTER_VPCI_CAPABILITY(cap, finit, fclean, false)
->>>
->>> I print the value of NUM_VPCI_INIT, it is a strange number (6148914691236517209).
->>
->> What are the addresses of the two symbols __start_vpci_array and __end_vpci_array?
-> __end_vpci_array is 0xffff82d0404251b8
-> __start_vpci_array is 0xffff82d040425160
-> NUM_VPCI_INIT is 0x5555555555555559
-> sizeof(vpci_capability_t) is 0x18
+For (aiui) backwards compatibility reasons, gcc defaults to a mode that
+was the exclusive one up to gcc4.8, establishing 32-byte alignment for
+aggregates larger than a certain size. We don't rely on such, and hence
+we can do with the psABI-compliant 16-byte alignment.
 
-Oh, of course - there's a psABI peculiarity that you run into here: Aggregates
-larger than 8 bytes are required to have 16-byte alignment. Hence while
-sizeof() == 0x18 and __alignof() == 8, the section contributions still are
-accompanied by ".align 16", and thus respective padding is inserted by
-assembler and linker. IOW you end up with two 32-byte entries and a trailing
-24-byte one. The easiest (and least problematic going forward) approach to
-deal with that is probably going to be to add __aligned(16) to the struct
-decl. (Whether to limit this to just x86 I'm not sure: While other psABI-s may
-be different in this regard, we may want to be on the safe side.)
+Savings in the build I'm looking at:
+- .data.ro_after_init		 344 bytes
+- .rodata + .data.rel.ro	1904 bytes
+- .init.*data.cf_clobber	 232 bytes
+- .init (overall)		 688 bytes
+- .data.read_mostly		 864 bytes
+- .data				 600 bytes
+- .bss				1472 bytes
 
-However, there looks to be another (gcc) anomaly: By default, half-way recent
-gcc aligns this kind of object even to 32-byte boundaries, due to defaulting
-to -malign-data=compat. We will want to consider to use -malign-data=abi
-instead (supported by gcc5 and newer). I'm in the process of preparing a patch
-to propose this more formally.
+Overall xen-syms' _end happens to move down there by 2 pages.
 
-Jan
+Clang doesn't support the option, presumably because they never over-
+aligned data.
+
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+
+--- a/xen/arch/x86/arch.mk
++++ b/xen/arch/x86/arch.mk
+@@ -8,6 +8,9 @@ CFLAGS += -DXEN_IMG_OFFSET=$(XEN_IMG_OFF
+ # Prevent floating-point variables from creeping into Xen.
+ CFLAGS += -msoft-float
+ 
++# Don't needlessly over-align larger aggregates.
++CFLAGS-$(CONFIG_CC_IS_GCC) += -malign-data=abi
++
+ $(call cc-options-add,CFLAGS,CC,$(EMBEDDED_EXTRA_CFLAGS))
+ $(call cc-option-add,CFLAGS,CC,-Wnested-externs)
+ $(call as-option-add,CFLAGS,CC,".equ \"x\"$(comma)1",-DHAVE_AS_QUOTED_SYM)
 
