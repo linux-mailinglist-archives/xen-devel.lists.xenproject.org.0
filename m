@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03159AE8923
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Jun 2025 18:05:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1025303.1400935 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 78303AE8932
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Jun 2025 18:08:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1025310.1400945 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uUScV-0003F4-8F; Wed, 25 Jun 2025 16:05:07 +0000
+	id 1uUSev-0003kI-Jr; Wed, 25 Jun 2025 16:07:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1025303.1400935; Wed, 25 Jun 2025 16:05:07 +0000
+Received: by outflank-mailman (output) from mailman id 1025310.1400945; Wed, 25 Jun 2025 16:07:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uUScV-0003CH-5H; Wed, 25 Jun 2025 16:05:07 +0000
-Received: by outflank-mailman (input) for mailman id 1025303;
- Wed, 25 Jun 2025 16:05:06 +0000
+	id 1uUSev-0003io-H8; Wed, 25 Jun 2025 16:07:37 +0000
+Received: by outflank-mailman (input) for mailman id 1025310;
+ Wed, 25 Jun 2025 16:07:36 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=QoV+=ZI=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uUScU-0003CB-57
- for xen-devel@lists.xenproject.org; Wed, 25 Jun 2025 16:05:06 +0000
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [2a00:1450:4864:20::12f])
+ id 1uUSeu-0003ih-GU
+ for xen-devel@lists.xenproject.org; Wed, 25 Jun 2025 16:07:36 +0000
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [2a00:1450:4864:20::32f])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 269307fe-51de-11f0-b894-0df219b8e170;
- Wed, 25 Jun 2025 18:05:02 +0200 (CEST)
-Received: by mail-lf1-x12f.google.com with SMTP id
- 2adb3069b0e04-553b6a349ccso29783e87.0
- for <xen-devel@lists.xenproject.org>; Wed, 25 Jun 2025 09:05:02 -0700 (PDT)
+ id 81774df3-51de-11f0-b894-0df219b8e170;
+ Wed, 25 Jun 2025 18:07:34 +0200 (CEST)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-451d6ade159so50861545e9.1
+ for <xen-devel@lists.xenproject.org>; Wed, 25 Jun 2025 09:07:34 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-237d83c7d45sm140986265ad.55.2025.06.25.09.04.52
+ d2e1a72fcca58-74ad3fed402sm2455200b3a.125.2025.06.25.09.07.30
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 25 Jun 2025 09:05:00 -0700 (PDT)
+ Wed, 25 Jun 2025 09:07:33 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,66 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 269307fe-51de-11f0-b894-0df219b8e170
+X-Inumbo-ID: 81774df3-51de-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1750867501; x=1751472301; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1750867654; x=1751472454; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=b5Ce150+excxZCDbiei0DwFbtK25gxeKUYuQd7UHRW0=;
-        b=bkFiH00+0G5ucAS/mNjyNivQ4pjaDw9KW3Sw0XpBLxGw12X5lR4Ozs+GUOMUUxTQ9+
-         /EBEmneTgH/HvZp5Z7F/QWAj0+vkrp0NbNEWfVJXfb7PT3iQ0eqEafmOV8yKKmtCkAEM
-         SXj6m978ejDzvp8WBTa5zvpL7aXlcM6wwOTUoBI7MTFIlZtlIrTO4rRJTWGwyPoXk0NB
-         pjhAlRwVBy0ogxUWsKXLvm3GMAWEAs/fMoHD4u/a7Ix7fJAWrezEOpnPQTpzVYNnTVEz
-         PEQ9LhpSRyeexGQS4D8ShxaJQMkvEJkJqkHDzEbwWygrYrOSBjuoPq4yI0YP6JILG0Yp
-         o7GA==
+        bh=JlWIg5AL+uwdSMf+icLYMi1uOb9L0IeOaxWTplwF3HU=;
+        b=dxwUCCChrqCwb8Ue8gnM+/kUIomKIRcnb5I5EPOACteJcIORGVrFtROgzUz+kAg0pJ
+         FuGSQxc5Chr03D6JXHyj+UsjMleIOLzC3rD1S9vyOKZyZPhoxSKzJIcO1Ct67a+URouo
+         P63inOBJBeKGc+J/PK+ZitJwutRmfzH0LEpzgEe2K+iGkdxAT/KGEWfrPiShsupxLZn3
+         SuoW+FUwHNCfas9K8ZauSHrLPkJu4nedZZYAlJ4JZRcEJlEdwxJY3DYvPjM59je0BZS6
+         xQE5kkCRtH0Sw9g2cj288ZnGQSgJ58ACK/fLjYw2vXQjMwjpkPWbAWRvX4y7Bq9Z/MP6
+         alLQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750867501; x=1751472301;
+        d=1e100.net; s=20230601; t=1750867654; x=1751472454;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=b5Ce150+excxZCDbiei0DwFbtK25gxeKUYuQd7UHRW0=;
-        b=aEpZluMNt/id1G/iryBjc7muBNF+lqE+B1Iw/by5rglJi75g/P6/tH6redTounzPGv
-         faPY1zHwhX9oc/pHpLex3lK1k0GnCtczTdQz3tg/Rz3e77O6llx/EHkG8PlcL0R6w7p5
-         ZHGXWegSxdYqxy48nIwGmv9KZ41lmr0pOz5tXDNv238/zhDEIfnxcQwK4BzLjZ4xDaRu
-         wd2SQOJ56krwdh8mlocT875uCnH2ufYRTo4LSGkUxr/VTEQyr98ytR0UiB9ciUc7Czft
-         SgQT/Id1mvvN181GioP4TkgFqWHT5fkvhGxu4X3psrIf2sEJoLhV1Y8VBxLYR7vW12D2
-         tMVA==
-X-Forwarded-Encrypted: i=1; AJvYcCUDcMkqQANbmMjn//XyghOZ/GXH0Mw4K0I++qr+GYhYC1nOLEup9XBn+773QfpjbXv4R1MZlZRG8/A=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyfABbtQq09yufv4hz+3OExuc+Wt3qqWU+rAgkWRKre/4hozpM+
-	nB9Uc/xiup53nVjoo4CgpdC+EunF+hGOF+cWfj1/y226N5IJKJukZcgv7yfONaCQpA==
-X-Gm-Gg: ASbGncuQgTP4F3ch7GkdR2Focg6iu1k7K5uXrPCrq3k0dmHloVsjAi8OCIInyzT2Ybh
-	9M/JXvY3G7G9hIyltF0V0uZ/SX+ooQu9ywE64i8iWMLM9WW3rSq/RM8S3iejDmvE0f8x3Lnt+r3
-	00xG7Hym9KmbGIw5/DhbrT1zKUo0jQJcegocaq4u0wUuCZA6eLjjqC2iWDN21+t3lQIlb/2SEy6
-	XPsqRdxk1NofPuoE19fkhpeGt/0SQE9lH7+r6uQyQ+QPw1tWIPZE/9lqDUc29hDBn3s8mfgBZ+8
-	mpxdMhLLwngZ668g+YnWESk5zIa6m75cLLhL/5nrouE8X+CKcyYFiipNSe1+SZcL/WaMFxoP3dE
-	q2Kn5Zw2sMwsVE83Bb/3qOSpELFaNb7kbAsQh1Oj9tAbhHXk=
-X-Google-Smtp-Source: AGHT+IEYX80sL4mH2Xh+f1pg0Sot5/VQ52+EM9rAXDMcmBCmazlT0o4hxF97HH+FOe1Sj5MRGScqXg==
-X-Received: by 2002:ac2:4e07:0:b0:550:e527:886f with SMTP id 2adb3069b0e04-554fdf650a8mr1313110e87.51.1750867500869;
-        Wed, 25 Jun 2025 09:05:00 -0700 (PDT)
-Message-ID: <bc971fe1-031c-465a-9d37-819739990c47@suse.com>
-Date: Wed, 25 Jun 2025 18:04:48 +0200
+        bh=JlWIg5AL+uwdSMf+icLYMi1uOb9L0IeOaxWTplwF3HU=;
+        b=mT887tsAiBvHaU61+AAdZVsf4FkBv0uowjZwvWT+8GEeY1aXlBj6ExzF1jEI05EI3k
+         EREf17JfnZTYV5Ps1wPGoELmZtGdRI6xPpqLXhU5u+PQz1rVES/wceY7/s7joRsk9wSh
+         YDpG+sKOURQq3uIHnkFa6zvR9ptDDj9f8w5Wmdjd1qvuZbvRCKom4Gi0eJ1Km27a/aoS
+         CKMZR54oSOFxGiK9MANYsWAoZOIiQfVzHph7POhCqr5uNmeB2BMzET3MlvzslPbGhTJA
+         BmEwx5WM8gmio9tNGfau2APB33E0/deBTP27CMTgjCuQQIcxknnn13XgmsB7CUQTJYJr
+         rWvg==
+X-Forwarded-Encrypted: i=1; AJvYcCV6Aj5ECcgPAGyMIy2H+AAXzJgW3c/jca6Jvq/FUfuo3YSTdrBRTB5R//xfaHfcQGxE2LkN372ddDE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yzl+YjBZLfijDUfdCBLFlGxA3g1pJCM8SWDdWf5xs5DMPYOJ0pW
+	7F8xiBxlhCSLiNE6PCTRZTPbAzO/fnr65Jn9lAykE4r+1y44taUvq7JKuQntDmqk6+jj9chz8bI
+	NpT8=
+X-Gm-Gg: ASbGncvKfoCRkjNA6LGRix8sDEkjPlxlR3L4pESkgzttjQYj4geQdN8/lMvvsAau4sZ
+	z5cNzjBhVsnFYIsBeNYt+9rS3rzMKv34vkqXyOiPb+/BU22p54eMknOc+hIds8/J/V+BAIqFnWc
+	dVJINUorofh5tsqdz6oz4nVy6622cxSJN2xbk1YXvdu61ZKWdhKpFHucu+Hjy21kjL9YrwNelQZ
+	/kpJk/UBs5EmpQf02exvnyO8uyHIUieoPAYp+eVpmHuCo+OHzz1/7mXSWyDWt03RdqTFEH0DN3n
+	VFLPO3LXL8rh1UPyb7PaMqfTNs5PfRj3YpJPYTLXZUByHRNjszIJwLSvRcPM+ydM5buWRLif/V7
+	e1aKou49H020t/KcEUOPAa/QoytCTbjBxh56R4pxYpYtxKio=
+X-Google-Smtp-Source: AGHT+IEyuvRvIlBmwu5AANJaJnhjtJJRojk01S4w8PQzVXi5dUXR9gMnAIVcPXpCp1mzGVvJRJTzIQ==
+X-Received: by 2002:a05:6000:2004:b0:3a6:d579:ec21 with SMTP id ffacd0b85a97d-3a6ed61a4admr2890668f8f.12.1750867653764;
+        Wed, 25 Jun 2025 09:07:33 -0700 (PDT)
+Message-ID: <21e532ca-2988-4136-978b-a12564e9a5f3@suse.com>
+Date: Wed, 25 Jun 2025 18:07:26 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 5/8] pdx: allow per-arch optimization of PDX conversion
- helpers
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Shawn Anastasio <sanastasio@raptorengineering.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- xen-devel@lists.xenproject.org
-References: <20250620111130.29057-1-roger.pau@citrix.com>
- <20250620111130.29057-6-roger.pau@citrix.com>
- <d179e5e5-605f-45a8-9b7d-01dd13359faf@suse.com>
- <aFwbEm-CYIVllliU@macbook.local>
+Subject: Re: [PATCH] x86/boot: Improve paging mode diagnostics in
+ create_dom0()
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20250625150105.402005-1-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -130,63 +119,39 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aFwbEm-CYIVllliU@macbook.local>
+In-Reply-To: <20250625150105.402005-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 25.06.2025 17:51, Roger Pau Monné wrote:
-> On Tue, Jun 24, 2025 at 03:51:09PM +0200, Jan Beulich wrote:
->> On 20.06.2025 13:11, Roger Pau Monne wrote:
->>> --- /dev/null
->>> +++ b/xen/arch/x86/include/asm/pdx.h
->>> @@ -0,0 +1,75 @@
->>> +/* SPDX-License-Identifier: GPL-2.0-only */
->>> +
->>> +#ifndef X86_PDX_H
->>> +#define X86_PDX_H
->>> +
->>> +#ifndef CONFIG_PDX_NONE
->>> +
->>> +#include <asm/alternative.h>
->>> +
->>> +/*
->>> + * Introduce a macro to avoid repeating the same asm goto block in each helper.
->>> + * Note the macro is strictly tied to the code in the helpers.
->>> + */
->>> +#define PDX_ASM_GOTO_SKIP                           \
->>> +    asm_inline goto (                               \
->>> +        ALTERNATIVE(                                \
->>> +            "",                                     \
->>> +            "jmp %l[skip]",                         \
->>> +            ALT_NOT(X86_FEATURE_PDX_COMPRESSION))   \
->>> +        : : : : skip )
->>
->> Did you consider passing the label name as argument to the macro? That way ...
->>
->>> +static inline unsigned long pfn_to_pdx(unsigned long pfn)
->>> +{
->>> +    PDX_ASM_GOTO_SKIP;
->>> +
->>> +    return pfn_to_pdx_xlate(pfn);
->>> +
->>> + skip:
->>> +    return pfn;
->>> +}
->>
->> ... the labels here and below then wouldn't look unused.
+On 25.06.2025 17:01, Andrew Cooper wrote:
+> I was presented with this:
 > 
-> Yes - that's why I've added the "Note the macro is strictly tied to
-> the code in the helpers" comment ahead of the macro, and named it as
-> "GOTO_SKIP" to explicitly reference the label name.  I could pass the
-> label name however if that's preferred, ie: PDX_ASM_GOTO(skip).  IMO
-> It seems a bit redundant since all callers will pass the same label
-> name.
+>   (XEN) NX (Execute Disable) protection active
+>   (XEN) d0 has maximum 416 PIRQs
+>   (XEN)
+>   (XEN) ****************************************
+>   (XEN) Panic on CPU 0:
+>   (XEN) Error creating d0: -95
+>   (XEN) ****************************************
+> 
+> which is less than helpful.  It turns out to be the -EOPNOTSUPP from
+> shadow_domain_init().
+> 
+> The real bug here is create_dom0() unconditionally assuming the presence of
+> SHADOW_PAGING.  Rework it to panic() rather than choosing a dom0_cfg which is
+> guaranteed to fail.  This results in:
+> 
+>   (XEN) NX (Execute Disable) protection active
+>   (XEN)
+>   (XEN) ****************************************
+>   (XEN) Panic on CPU 0:
+>   (XEN) Neither HAP nor Shadow available for PVH domain
+>   (XEN) ****************************************
+> 
+> which is rather more helpful.
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Well, that comment isn't necessarily "in sight" when looking at the
-functions using the macro. Personally I'd favor passing the label as
-an argument; indeed I think we would better try to do away with other
-such macros where inputs are implicit. Yes, there may be cases where
-that's hard or getting unwieldy. But the one here isn't one of them.
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-Jan
 
