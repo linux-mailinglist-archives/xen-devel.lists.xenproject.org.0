@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF7F4AE89B0
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Jun 2025 18:25:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1025325.1400954 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 944C5AE8AA1
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Jun 2025 18:50:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1025354.1400965 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uUSv9-0006wn-Uu; Wed, 25 Jun 2025 16:24:23 +0000
+	id 1uUTKF-0002kS-Uv; Wed, 25 Jun 2025 16:50:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1025325.1400954; Wed, 25 Jun 2025 16:24:23 +0000
+Received: by outflank-mailman (output) from mailman id 1025354.1400965; Wed, 25 Jun 2025 16:50:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uUSv9-0006v3-RJ; Wed, 25 Jun 2025 16:24:23 +0000
-Received: by outflank-mailman (input) for mailman id 1025325;
- Wed, 25 Jun 2025 16:24:23 +0000
+	id 1uUTKF-0002iI-SA; Wed, 25 Jun 2025 16:50:19 +0000
+Received: by outflank-mailman (input) for mailman id 1025354;
+ Wed, 25 Jun 2025 16:50:18 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=+7fe=ZI=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1uUSv8-0006uC-VS
- for xen-devel@lists.xenproject.org; Wed, 25 Jun 2025 16:24:23 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
+ <SRS0=+GTF=ZI=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
+ id 1uUTKE-0002iC-FP
+ for xen-devel@lists.xenproject.org; Wed, 25 Jun 2025 16:50:18 +0000
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on20617.outbound.protection.outlook.com
+ [2a01:111:f403:2417::617])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d90d514e-51e0-11f0-b894-0df219b8e170;
- Wed, 25 Jun 2025 18:24:20 +0200 (CEST)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-3a5123c1533so3602003f8f.2
- for <xen-devel@lists.xenproject.org>; Wed, 25 Jun 2025 09:24:20 -0700 (PDT)
-Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
- by smtp.gmail.com with UTF8SMTPSA id
- ffacd0b85a97d-3a6e8050e1fsm4960664f8f.8.2025.06.25.09.24.19
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 25 Jun 2025 09:24:19 -0700 (PDT)
+ id 75b67389-51e4-11f0-b894-0df219b8e170;
+ Wed, 25 Jun 2025 18:50:13 +0200 (CEST)
+Received: from PH8PR12MB7326.namprd12.prod.outlook.com (2603:10b6:510:216::7)
+ by PH8PR12MB8608.namprd12.prod.outlook.com (2603:10b6:510:1bc::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8835.38; Wed, 25 Jun
+ 2025 16:50:08 +0000
+Received: from PH8PR12MB7326.namprd12.prod.outlook.com
+ ([fe80::6d76:9c33:d230:8264]) by PH8PR12MB7326.namprd12.prod.outlook.com
+ ([fe80::6d76:9c33:d230:8264%4]) with mapi id 15.20.8857.022; Wed, 25 Jun 2025
+ 16:50:08 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,510 +47,331 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d90d514e-51e0-11f0-b894-0df219b8e170
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1750868660; x=1751473460; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=MKdRFtq/FsRfJyxZawMg/6AI/mJV7ZYU4ww0R/FiueA=;
-        b=HyZyjdXzsm3rcPPtOR4kvQX9RFT1ubZ+fmBp4HHOLcR4fDaNBSJSaTwxqsLN2GkED6
-         5CvTm/bGIEmqLWW/xGKGUMtcToTOrDD9nZpom/xP1BuIp1hA8aQanoEE4zQXz41J8pIw
-         RZyfhHXBw5cJIq7e03wI1bZqT9TS8oXEaOXCQ=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750868660; x=1751473460;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=MKdRFtq/FsRfJyxZawMg/6AI/mJV7ZYU4ww0R/FiueA=;
-        b=MePYYH9L8MP4ciVLs5XvCvYS9QhfDU50w83ObSgUP97JS6zVx5WXaGncTaoKknF6op
-         EwQzDY0lbue15JPnNYRpYbni902nGVozJvu6/c93JUfuknLLGGnMcB8qlWfqT31UOEDU
-         Y/nzyHKcz0kapUBKLK81UTiKFVSxwdbCWlsBEBASuTnoEeUHqvthhy8q0br0AGScBPe5
-         G5IgB7HaP0sNZooNCQZ+gcTaL7vfiGL+fwbZV1sqgwBKB0VDn0W28cOog+og4+r7VaR7
-         c9vaaaR665fVckIu0zOuoYHXE15+d7KGqPiLUdTPKNYjx77995PJ9zqFb1/64ifHSOQ1
-         J6MA==
-X-Forwarded-Encrypted: i=1; AJvYcCWj4bK9zF+13NE9+Bgklu33LT//AHrR78pHZnvmrIQyDUGYuYWwCPB7kcp7GiUDA7+FlqiD0+JpJp0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzplTm+du9zVnQHJ0TIg2oAIhIVH1bs4kbzWGNOvyIL23tvWQw8
-	Qy7AOHMWU/Yh649lcvRgmJui6CAuPAZZNnbMlApPrU54nMUlNJR9JAuWoAxEo9fSK+s=
-X-Gm-Gg: ASbGncsU6NnHw5Ano7MEpJa1kyYrg20R0GMqdnKZ15r9+11rC/IEPE9F26H6WrczQCD
-	ZChHOXSeKOVbr6iuKMmU4j78Ue5Gkgl9Cdo7QMrEYTKh8DWSj5LJ7x7uNyRftji5DAOIvsdg5To
-	N4ECwMACEBpBi9LAqJuMrNEC1/XbVUPvzKvRR+WNM/WcRMJFC7Qs8kICFM6uoXuEK280cduZjJl
-	KbTwjO9B+wTddwDMWME4JoPwLVKjjCv3qYgN91WkgKp1y8V+SF70mZ+oZ5RAfjSacZfRmVSwRaq
-	c+nSp9QFSd+mFGNQMRO2E2pQnNCxgiPV7y7afesgoGDy2UfCkrYCSh5mQFEvxk9SNIUQ79OddU0
-	11DPS9JWuLQPBEZLzL1uX+tCmwnvgCA==
-X-Google-Smtp-Source: AGHT+IFPrzhsvdjGKFbS4wqxgTxOLSEN4/jlrygpl08i1P5uC5WNi22OwgqCF3oWeEgy0LzFFrnsZw==
-X-Received: by 2002:a05:6000:2586:b0:3a4:f7df:7564 with SMTP id ffacd0b85a97d-3a6ed575241mr3179740f8f.0.1750868659672;
-        Wed, 25 Jun 2025 09:24:19 -0700 (PDT)
-Date: Wed, 25 Jun 2025 18:24:18 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Community Manager <community.manager@xenproject.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v2 8/8] pdx: introduce a new compression algorithm based
- on region offsets
-Message-ID: <aFwish8zET1W6-CC@macbook.local>
-References: <20250620111130.29057-1-roger.pau@citrix.com>
- <20250620111130.29057-9-roger.pau@citrix.com>
- <e0339b2b-86cd-45ad-9b6f-a5e8ddbc623c@suse.com>
+X-Inumbo-ID: 75b67389-51e4-11f0-b894-0df219b8e170
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=w15h2qnXBKAfxpFJQ3ywpyXUMDXdk3GKE/ocw70gj8XGoDTxYpAq3W1D19ur4fs5UEmLrRqw0W39f9jnnQ0q+5E7qXsxIRogUcnGz6hmSyCr2zBqiZPim7XD2q7m1s+ufC3IgveZ1jYE+LXWZ7YuanU92iM1x3HlGxJ+qfFt7FgHUu+Vf+8mo7GXcS0Wx6s2P1cwVt38IC/DkA8T9hYd3p0f+wdx9OZrYscTolFbSsDOaBYNPOVnX7LJYNukj1xGN+xjTxMfK3V6kqYe1RRUflExUspoW6cYaw2MYCfCzLV4QREBZ7bF1C0+vYrqeqaVszS0GgMUHoB5T/ZOxAKO8g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=O+YeSWqwHsVG8icKv48d0Goii6UbM+lf2kEgO4NeEt4=;
+ b=bJqRuibgvP9FIYwrVxGGvERbrkUlflUguEU69dmCabS0Kzrj0njIi+/QV5EupmW6fP8nwtzBk/Mrz+6OmOSrKUVrgxor1vdb6xieluuPPixD8V8bwcvJ9Zx6kaswz/DKLTJOdnDmM5RnpLvMz2rALhtBOeLzSOR5MJhnjz04SVOfldnOFHyIgVFBGohrfmVjY9Qsi3Rb0lCJWYHI9GmaY0ceQeS9cJww3WZIkunXrj+5On1sazeHNrfUQ9GZY7+okHFjJH7/IrOHjSZt7Twjl0/zSIaufIetMs7vXApXXzw7guHq4ZIhKbenVMfZ6+JNesH3g6r+xIeOCAiCta6Q+A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=O+YeSWqwHsVG8icKv48d0Goii6UbM+lf2kEgO4NeEt4=;
+ b=nQUfxvQCH2YghVpvKhSwx0dfnhw3Am5ipIsaTYmdzr7atq1pdn0xkSK6SujjPvqDc7Y5Uv9eBMBgs2aso5UWH9SQMhEuutYjEoAbXxfogW0UsAlIIM1emV31XCq35SsCClYMFdrsscWvD+ct3Q6DKsSdls9fyxg+6ZHHZ348cHQ=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Message-ID: <e3d28537-b531-4cc5-b875-4afa0437ece5@amd.com>
+Date: Wed, 25 Jun 2025 17:50:04 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/6] arm/mpu: Destroy an existing entry in Xen MPU memory
+ mapping table
+Content-Language: en-GB
+To: Hari Limaye <hari.limaye@arm.com>, xen-devel@lists.xenproject.org
+Cc: luca.fancellu@arm.com, Penny Zheng <Penny.Zheng@arm.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Wei Chen <wei.chen@arm.com>
+References: <cover.1750411205.git.hari.limaye@arm.com>
+ <95cc28af74339ea617081f3935123e38a53cc657.1750411205.git.hari.limaye@arm.com>
+From: Ayan Kumar Halder <ayankuma@amd.com>
+In-Reply-To: <95cc28af74339ea617081f3935123e38a53cc657.1750411205.git.hari.limaye@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: DU7PR01CA0027.eurprd01.prod.exchangelabs.com
+ (2603:10a6:10:50e::14) To PH8PR12MB7326.namprd12.prod.outlook.com
+ (2603:10b6:510:216::7)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <e0339b2b-86cd-45ad-9b6f-a5e8ddbc623c@suse.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH8PR12MB7326:EE_|PH8PR12MB8608:EE_
+X-MS-Office365-Filtering-Correlation-Id: 01644961-59e7-44ef-1c7e-08ddb40857d1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024|7053199007;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?TVhOR0RFYmdCWGtUci9sb1Q5ZG9VN3U3VFJKM21oMk9OY2xEc2VsdEdYY3k1?=
+ =?utf-8?B?QjBKdFJUekgwL3dtbUFjaCt6WjZkTEFDVmNKcnd6aW9ZUkxEMUNkQTdydHUr?=
+ =?utf-8?B?elFaTi9WenJ1NjdRdmtJZkNSWnZEdkxUY3RBN3NxZGZna0puYkpUWHB5Nll5?=
+ =?utf-8?B?WlFjcmhHU2w1aHNFeFpHKzhBZ1NJd2NtTDNOUnFkTDMwV1RyZjRwRzZlbDRJ?=
+ =?utf-8?B?cTFvUDJRTUJzVnNKdm1BdHJ4T3pJRDVLUitpT1R2S2p0VUEzak96c29pL0s5?=
+ =?utf-8?B?ZXhwb0I2dDB6TTdjN1dRMHRsSkpDSFVJMk4xRjMxOC9BRmZzY1MwdkJScjI0?=
+ =?utf-8?B?a1J0OE0raHNsS1hRSE5ERVM2MG1WS0JmTXMzSHYzMzZKdEFMRXhaVkVXMTMr?=
+ =?utf-8?B?cEIxSDVma0JkZk4xb1gvMVBEZXplUzB2MVhTekgyT3NmVUZnM1lyUHNTZ21Q?=
+ =?utf-8?B?VUkrMnk3Ui9KL0RGYlJ4VDVYd05raVpLeEpsUis1bDIvL244NWl2azRxWnFC?=
+ =?utf-8?B?VS9NRGlhOFpDdXhleXlzMkhmdVdEWWFZbzNKbUVxdjNOb0hLSmpmQUxKVk54?=
+ =?utf-8?B?ZkFvU1ExNXU2SUErK0FGdTJ2b2wxV0tGR0xCZDc3NDhkcVdMTlVOU0lLbDRp?=
+ =?utf-8?B?ZnkzU1RoRUYxWTZkQUdJWWJJVEthTmFmc1NrTU16SzZsK3hWNk5yQzd2UnZu?=
+ =?utf-8?B?WWJ3ejdjOFhjWDJwaGt3MkVKaTBFUXpwdXhZV2tQSnN5OWExZzJMTDE4OERt?=
+ =?utf-8?B?My9BNElsYUFWRzhlSS9odnNhUk5hVzJvdzJaQTE5QS94QzN6bUc0dDZYUkdV?=
+ =?utf-8?B?QkNlNlc3d2taL2tGTkNoMjZ2Q1R6dENkNHUrUzh2NzJ6aFpGYk54ei9Ob0tZ?=
+ =?utf-8?B?S3drcXplWklaek1WNGxGMy9vSzlMMjVOd1Q3eFdseEI3bGZIcUNObjYzSDU0?=
+ =?utf-8?B?RHFHcXg1Wk1XYzVOZWJDRXg3dklsbTlvSnFaUnpEdk5xb3ZvWmd1MDlGTUts?=
+ =?utf-8?B?eVhKRU9jaEJncTZ3OW5oRTIyMFJvM2k5T09vcXhvWUZaS3c2QlpKMi9oUWVB?=
+ =?utf-8?B?dmNCN0RDYkhLeDJINGxYSHpvaU9YVk51Z2xYM29TQS81WDMyV3lhSGdCN0dQ?=
+ =?utf-8?B?ekRQdnZpRWlYZ0t6SGp2VlhFRWlwMWpIc0VQanI1RURBMmVkZGxVbHFpN2p5?=
+ =?utf-8?B?Q0NKUm1wL3M2elpZUFZVUXpZRGZJcDNpMWpVRVZvVm5VR0dvdU43ZkwwdVor?=
+ =?utf-8?B?YmNDc0UwaWMxbjlxUzhXTHdPTlFKeDJCd2pSZktPejhLc29xZDdEeko5ZWZN?=
+ =?utf-8?B?QlcwRG41RlFwSXRXWEtjSU1oRndCODFpZERCMHRrSUMxQTgwZXBBY2lJbFNJ?=
+ =?utf-8?B?eWx4NFlRczNKQTJRL0N1NVVXMzUwWWNiRG9vWlBMVks0TjVOR2U0SkJhKzdT?=
+ =?utf-8?B?c2IrWk5vbGNSSVh6cFFZQnprRGt1NU9JbTFPNEJqa1hVanlzYVI4VmlLdEZi?=
+ =?utf-8?B?LzN2SGdncG0wVzJSRE53NXZNWWhVZnNUVklRek4rVDlBcjN3d3d0U2pwVWJD?=
+ =?utf-8?B?ZkFGYWZZTnJhVXhIQWpFczBzSkdqeTRTSkV1ajVQVjExVWFQSmhHYkJVQWZ5?=
+ =?utf-8?B?N2hrdmorYWd0bkZVSGJBMVR5YndQVDN5aFFQM2xEa25sZ1duZGlBK1lpUWZq?=
+ =?utf-8?B?SDdEL3JmZjhZMHI4Qjd3b1h5Y2ZsbWtHUGFzQ096aXlLdkNEUTRuaDJaN28x?=
+ =?utf-8?B?OVNxd3BHSWsyUDdUeXFDQjF1ZmZTZ3VOME5yUXl1aTdTbG0zazA1NVJ6ZDdE?=
+ =?utf-8?B?dFBlaG55anBnWmcyalBaOGQ2L2N6K2hIUnNnVUdMaHExbktSMUhSWFZyZkNp?=
+ =?utf-8?B?YjhlQW1WTEtrS2tMZnA1NU1Mak54MjRDb1hteHpJcGg2Z3RPOXhWR2hwZHBh?=
+ =?utf-8?Q?WLsRQo96pUE=3D?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR12MB7326.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(7053199007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?Mkh2bEFqZWt6a0czbFJ1YVBMZlYwSmZ1TVk3bGo3RnMreU1BRGJKUVdTRzVy?=
+ =?utf-8?B?MnBoSVJ4QVBzdUNCdTY2UU83SjFhQWNWMXNHM29QR05oVmozdFliWnZ6SDlx?=
+ =?utf-8?B?YTJWaGpyS1IzQkpjdGZGaFAyMElyWVB4bUIxUm10M2t5bW0rL0lubXhxUzUw?=
+ =?utf-8?B?YzhxQnd5RmJyTDN4QkFDZGY2NTNSTEh3aG8wQ3h4Wk1KaGtMWlJxUVBiblhL?=
+ =?utf-8?B?ZVpoWFV3SUtmeUw5Slg0M2JUWEp4UG1RZHpOaDlCRmc0QTYvL1k0OE9leHcr?=
+ =?utf-8?B?SWZaWVZZeVcza1U3c1kyM2Zqc0pPNWtwTlBxS2pyQnQxVFZRTG1TYTBjNWVh?=
+ =?utf-8?B?VnBhalBZNEE1TXpaY1k2T3l5eVVKRXBhMEF3L0h3d3Z4QUxsYzFkN2I4SzV6?=
+ =?utf-8?B?Qk5vdnFFQVEzNUFIL05DNlZyRDVTbmhBeEhFZHM2ZUp1a0E4RFZPY3RKZ0Jk?=
+ =?utf-8?B?eS83QzB6TEhkK0R0MSs4QkgwN2ZMQ0JDT21OZ25TYTFNZ1hVdUpuNUVCUzFx?=
+ =?utf-8?B?RnpTYWtBWG0ya0MwNVd5RVo1VEJGVzNGTlppY25YWXpEakZjMnVYNTAvS2Jy?=
+ =?utf-8?B?ZFoxb1hBZUFMQk01SEZoNTlOaG1LT09LOVVUWmdXeFZGa2U5WmFDaDB4cHNT?=
+ =?utf-8?B?bWZmYlhPNmEzZE9IZEVOYUwvcDVxV0x1cTV1cktJTUYxT2g5UlpPQVhhSHJn?=
+ =?utf-8?B?RDBIMDhOb3haZWJRSiswUTN2WVBRRDQ1TS9WWFV3VjRKTVZ3dUZwN1VOTks0?=
+ =?utf-8?B?L3BXajljTXpRa0VpR2VVVk9tSlNzOXRmbW5TUjZ0NzlidVo4RHZXbm5jblJO?=
+ =?utf-8?B?bW5xWkhxZjh5Tnk1dVU0dGx3WGg0YVh2ampkQnpSV1JRQ2JJeDlnQTZCWGE4?=
+ =?utf-8?B?SmVkL0JmL3hPdHBvc1ZOMHVyNDloTWZLWnhhYmZrTzBnMVZleUptdXB2SmtU?=
+ =?utf-8?B?S1VNSWh0MlpvSHNmc3FGcjhZTEpwcTdjV3p4MmdYNHUyZ2RSK1lYSGl6dFAx?=
+ =?utf-8?B?ay9SREV4TitGcE1LOEZPKzRDZUpyQzQ4akNnUjFRN3ErUmRvNUloZXRycWVo?=
+ =?utf-8?B?NFpscGdseDJ6MERYSWpRVDA5MkxoLzgrK1NtcDdlaE55NTdZVGdKTHgwN1V6?=
+ =?utf-8?B?OC8yMnlQZDhCYUk5MDBHRU10WFBQcVMwanpoVmhpL0l2czNlanhwRzVkcHB5?=
+ =?utf-8?B?ejJjZ0xRUXdkbXMvSlZxQ3oyWDgxdmV5Z2trMkhKMkdWT0s3a1dkVlBDRUtI?=
+ =?utf-8?B?RUV5dHZUc2l4QXJvWTdjVXhRMHIrNHc3K3VqMlNxTEZYdldHYlBYOGZoUndr?=
+ =?utf-8?B?UFg2dW0yZ0xQVG0wb0dQYXRJdUQvOTdPQWhIZlZWTURwYThpNVF1ZlltYWQ5?=
+ =?utf-8?B?TU02WXd0RUUxQnUvS3g5MmluclUwdG13MFZlTWN0ejBkZE1vQ3lubjJHdHdC?=
+ =?utf-8?B?bnhwZnZjUTBhdk5TekhKWVcxOU1QUEQ2a2d5ZG9zUDA2Y25DSHVRU0tPY2Ix?=
+ =?utf-8?B?MnRNenJ2MVNxMFlRK2pzWk15V0U2YVZQeFpiQ0tIUXAybHNaWGJOeW1yclFM?=
+ =?utf-8?B?b1VDMTBUY21sb0VQZFBhZ0g4VHc0Ni9hcDRvOWV4WUxnQjhpRUdyZDVvN0Zr?=
+ =?utf-8?B?dnIzbU5QbkF2dGZtNkYxL1czUzZHU2QraFpTMjZPQkdtNnhkSVJaSzllaHhq?=
+ =?utf-8?B?Tk5mejVnbng0L1ZvdTFFVnBnNmNSL1hyeC9LbDl3MEhJaDFZZEpHRnZNNVpk?=
+ =?utf-8?B?eXgzbjY2STdqNFRzQ01hTnhlVmhxbHVvTW91UFBCdmhWNzZTSGJpaXllNTVP?=
+ =?utf-8?B?SGRaYm5LbFJrb2g2WS9KMWZ3bmRwOUJmMzE3SDVaNGhGRUorOXJNYkJBZlRw?=
+ =?utf-8?B?OWdmVi9URUcrZVp4a1ppYWtDak9NYlNrOEtxbWZMMmVxdm50L0hOeXp4OFgy?=
+ =?utf-8?B?czdyOFRzMm1PVGV5MzBwcEtFN1dVUUVmRTh5RWw3eDdic29SUFJiQS9MVlo3?=
+ =?utf-8?B?eGxrei8walNmcGh2dm9Pd0sxUnBYN3YrWG5Gd2p6RlZvb2tZelNCYytNbklj?=
+ =?utf-8?B?b1Y2RWJXUTNGMlZKSVJCMzdWTFFOTmRYd0d4SkpkZFJmVnpxQTNxYWx6V2px?=
+ =?utf-8?Q?v0mFvgrURXTcVv+17eTZWQwlp?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 01644961-59e7-44ef-1c7e-08ddb40857d1
+X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB7326.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jun 2025 16:50:08.4327
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: HqkgNey2/9SJzxeF9P+cnRKiELLwE4NRaX6+uayvbs6QJnbiu3/e2/+BGG1Rc5k6kQg+h+r5y+ryi0hePkzBpQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB8608
 
-On Tue, Jun 24, 2025 at 06:16:15PM +0200, Jan Beulich wrote:
-> On 20.06.2025 13:11, Roger Pau Monne wrote:
-> > With the appearance of Intel Sierra Forest and Granite Rapids it's now
-> > possible to get a production x86 host with the following memory map:
-> > 
-> > SRAT: Node 0 PXM 0 [0000000000000000, 000000007fffffff]
-> > SRAT: Node 0 PXM 0 [0000000100000000, 000000807fffffff]
-> > SRAT: Node 1 PXM 1 [0000063e80000000, 000006be7fffffff]
-> > SRAT: Node 2 PXM 2 [00000c7e80000000, 00000cfe7fffffff]
-> > SRAT: Node 3 PXM 3 [000012be80000000, 0000133e7fffffff]
-> > 
-> > This is from a four socket Granite Rapids system, with each node having
-> > 512GB of memory.  The total amount of RAM on the system is 2TB, but without
-> > enabling CONFIG_BIGMEM the last range is not accessible, as it's above the
-> > 16TB boundary covered by the frame table. Sierra Forest and Granite Rapids
-> > are socket compatible, however Sierra Forest only supports 2 socket
-> > configurations, while Granite Rapids can go up to 8 sockets.
-> > 
-> > Note that while the memory map is very sparse, it couldn't be compressed
-> > using the current PDX_MASK compression algorithm, which relies on all
-> > ranges having a shared zeroed region of bits that can be removed.
-> > 
-> > The memory map presented above has the property of all regions being
-> > similarly spaced between each other, and all having also a similar size.
-> > Use a lookup table to store the offsets to translate from/to PFN and PDX
-> > spaces.  Such table is indexed based on the input PFN or PDX to translated.
-> > The example PFN layout about would get compressed using the following:
-> > 
-> > PFN compression using PFN lookup table shift 29 and PDX region size 0x10000000
-> >  range 0 [0000000000000, 0x0000807ffff] PFN IDX  0 : 0000000000000
-> >  range 1 [0x00063e80000, 0x0006be7ffff] PFN IDX  3 : 0x00053e80000
-> >  range 2 [0x000c7e80000, 0x000cfe7ffff] PFN IDX  6 : 0x000a7e80000
-> >  range 3 [0x0012be80000, 0x00133e7ffff] PFN IDX  9 : 0x000fbe80000
-> > 
-> > Note how the tow ranges belonging to node 0 get merged into a single PDX
-> > region by the compression algorithm.
-> > 
-> > The default size of lookup tables currently set in Kconfig is 64 entries,
-> > and the example memory map consumes 10 entries.  Such memory map is from a
-> > 4 socket Granite Rapids host, which in theory supports up to 8 sockets
-> > according to Intel documentation.  Assuming the layout of a 8 socket system
-> > is similar to the 4 socket one, it would require 21 lookup table entries to
-> > support it, way below the current default of 64 entries.
-> > 
-> > The valid range of lookup table size is currently restricted from 1 to 512
-> > elements in Kconfig.
-> > 
-> > Unused lookup table entries are set to all ones (~0UL), so that we can
-> > detect whether a pfn or pdx is valid just by checking whether its
-> > translation is bi-directional.  The saturated offsets will prevent the
-> > translation from being bidirectional if the lookup table entry is not
-> > valid.
-> 
-> Right, yet with the sad effect of still leaving almost half the space unused.
-> I guess that's pretty much unavoidable though in this scheme, as long as we
-> want the backwards translation to also be "simple" (and in particular not
-> involving a loop of any kind).
-> 
-> > --- a/CHANGELOG.md
-> > +++ b/CHANGELOG.md
-> > @@ -20,6 +20,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
-> >       grant table or foreign memory.
-> >  
-> >  ### Added
-> > + - Introduce new PDX compression algorithm to cope with Intel Sapphire and
-> > +   Granite Rapids having sparse memory maps.
-> 
-> In the description you updated to mention Sierra Forest instead, but here you
-> didn't.
+Hi Hari,
 
-Bah, my bad.  It's Sierra Forest and Granite Rapids, not Sapphire.
-I've got confused with the names.
+On 20/06/2025 10:49, Hari Limaye wrote:
+> CAUTION: This message has originated from an External Source. Please use proper judgment and caution when opening attachments, clicking links, or responding to this email.
+>
+>
+> From: Penny Zheng <Penny.Zheng@arm.com>
+>
+> This commit expands xen_mpumap_update/xen_mpumap_update_entry to include
+> destroying an existing entry.
+>
+> We define a new helper "disable_mpu_region_from_index" to disable the MPU
+> region based on index. If region is within [0, 31], we could quickly
+> disable the MPU region through PRENR_EL2 which provides direct access to the
+> PRLAR_EL2.EN bits of EL2 MPU regions.
+>
+> Rignt now, we only support destroying a *WHOLE* MPU memory region,
+> part-region removing is not supported, as in worst case, it will
+> leave two fragments behind.
+>
+> Signed-off-by: Penny Zheng <penny.zheng@arm.com>
+> Signed-off-by: Wei Chen <wei.chen@arm.com>
+> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+> Signed-off-by: Hari Limaye <hari.limaye@arm.com>
+> ---
+>   xen/arch/arm/include/asm/mpu.h        |  2 +
+>   xen/arch/arm/include/asm/mpu/cpregs.h |  4 ++
+>   xen/arch/arm/mpu/mm.c                 | 71 ++++++++++++++++++++++++++-
+>   3 files changed, 75 insertions(+), 2 deletions(-)
+>
+> diff --git a/xen/arch/arm/include/asm/mpu.h b/xen/arch/arm/include/asm/mpu.h
+> index 63560c613b..5053edaf63 100644
+> --- a/xen/arch/arm/include/asm/mpu.h
+> +++ b/xen/arch/arm/include/asm/mpu.h
+> @@ -23,6 +23,8 @@
+>   #define NUM_MPU_REGIONS_MASK    (NUM_MPU_REGIONS - 1)
+>   #define MAX_MPU_REGION_NR       NUM_MPU_REGIONS_MASK
+>
+> +#define PRENR_MASK  GENMASK(31, 0)
+> +
+>   #ifndef __ASSEMBLY__
+>
+>   /*
+> diff --git a/xen/arch/arm/include/asm/mpu/cpregs.h b/xen/arch/arm/include/asm/mpu/cpregs.h
+> index bb15e02df6..9f3b32acd7 100644
+> --- a/xen/arch/arm/include/asm/mpu/cpregs.h
+> +++ b/xen/arch/arm/include/asm/mpu/cpregs.h
+> @@ -6,6 +6,9 @@
+>   /* CP15 CR0: MPU Type Register */
+>   #define HMPUIR          p15,4,c0,c0,4
+>
+> +/* CP15 CR6: Protection Region Enable Register */
+> +#define HPRENR          p15,4,c6,c1,1
+> +
+>   /* CP15 CR6: MPU Protection Region Base/Limit/Select Address Register */
+>   #define HPRSELR         p15,4,c6,c2,1
+>   #define HPRBAR          p15,4,c6,c3,0
+> @@ -82,6 +85,7 @@
+>   /* Alphabetically... */
+>   #define MPUIR_EL2       HMPUIR
+>   #define PRBAR_EL2       HPRBAR
+> +#define PRENR_EL2       HPRENR
+>   #define PRLAR_EL2       HPRLAR
+>   #define PRSELR_EL2      HPRSELR
+>   #endif /* CONFIG_ARM_32 */
+> diff --git a/xen/arch/arm/mpu/mm.c b/xen/arch/arm/mpu/mm.c
+> index 1de28d2120..23230936f7 100644
+> --- a/xen/arch/arm/mpu/mm.c
+> +++ b/xen/arch/arm/mpu/mm.c
+> @@ -199,6 +199,42 @@ static int xen_mpumap_alloc_entry(uint8_t *idx)
+>       return 0;
+>   }
+>
+> +/*
+> + * Disable and remove an MPU region from the data structure and MPU registers.
+> + *
+> + * @param index Index of the MPU region to be disabled.
+> + */
+> +static void disable_mpu_region_from_index(uint8_t index)
+> +{
+> +    ASSERT(spin_is_locked(&xen_mpumap_lock));
+> +    ASSERT(index != INVALID_REGION_IDX);
+> +
+> +    if ( !region_is_valid(&xen_mpumap[index]) )
+> +    {
+> +        printk(XENLOG_WARNING
+> +               "mpu: MPU memory region[%u] is already disabled\n", index);
+> +        return;
+> +    }
+> +
+> +    /* Zeroing the region will also zero the region enable */
+> +    memset(&xen_mpumap[index], 0, sizeof(pr_t));
+> +    clear_bit(index, xen_mpumap_mask);
 
-> > --- a/tools/tests/pdx/harness.h
-> > +++ b/tools/tests/pdx/harness.h
-> > @@ -44,8 +44,10 @@
-> >  
-> >  #define MAX_RANGES 8
-> >  #define MAX_PFN_RANGES MAX_RANGES
-> > +#define CONFIG_PDX_OFFSET_TLB_ORDER 6
-> >  
-> >  #define ASSERT assert
-> > +#define ASSERT_UNREACHABLE() assert(0);
-> 
-> Nit: Stray semicolon.
-> 
-> > @@ -66,6 +68,8 @@ static inline unsigned int find_next(
-> >  #define find_next_zero_bit(a, s, o) find_next(a, s, o, false)
-> >  #define find_next_bit(a, s, o)      find_next(a, s, o, true)
-> >  
-> > +#define flsl(x) ((x) ? BITS_PER_LONG - __builtin_clzl(x) : 0)
-> 
-> While this is perhaps indeed good enough for a testing utility, ...
-> 
-> > @@ -75,6 +79,12 @@ static inline unsigned int find_next(
-> >  
-> >  typedef uint64_t paddr_t;
-> >  
-> > +#define sort(elem, nr, size, cmp, swp) {                                \
-> > +    /* Consume swp() so compiler doesn't complain it's unused. */       \
-> > +    (void)swp;                                                          \
-> > +    qsort(elem, nr, size, cmp);                                         \
-> > +}
-> 
-> ... this I think wants to use either do/while of ({ }).
+NIT.
 
-OK.  Given it's limited test only usage I've assume it was fine like
-this, but I certainly don't mind adjusting.
+These 2 lines we can move before the if { ..}. So that the region is 
+zeroed even if the region is disabled. This will add a small overhead, 
+but we will be sure that the region is zeroed whenever it is disabled.
 
-> > --- a/xen/common/Kconfig
-> > +++ b/xen/common/Kconfig
-> > @@ -54,7 +54,8 @@ config EVTCHN_FIFO
-> >  
-> >  choice
-> >  	prompt "PDX (Page inDeX) compression"
-> > -	default PDX_MASK_COMPRESSION if !X86 && !RISCV
-> > +	default PDX_OFFSET_COMPRESSION if X86
-> > +	default PDX_MASK_COMPRESSION if !RISCV
-> >  	default PDX_NONE
-> >  	help
-> >  	  PDX compression is a technique designed to reduce the memory
-> > @@ -73,12 +74,30 @@ config PDX_MASK_COMPRESSION
-> >  	help
-> >  	  Compression relying on all RAM addresses sharing a zeroed bit region.
-> >  
-> > +config PDX_OFFSET_COMPRESSION
-> > +	bool "Offset compression"
-> > +	help
-> > +	  Compression relying on size and distance between RAM regions being
-> > +	  compressible using an offset lookup table.
-> > +
-> >  config PDX_NONE
-> >  	bool "None"
-> >  	help
-> >  	  No compression
-> >  endchoice
-> >  
-> > +config PDX_OFFSET_TLB_ORDER
-> 
-> Please can we avoid the term "TLB" in the name? What we commonly call a TLB
+> +
+> +    /*
+> +     * Both Armv8-R AArch64 and AArch32 have direct access to the enable bit for
+> +     * MPU regions numbered from 0 to 31.
+> +     */
+> +    if ( (index & PRENR_MASK) != 0 )
+> +    {
+> +        /* Clear respective bit */
+> +        uint64_t val = READ_SYSREG(PRENR_EL2) & (~(1UL << index));
+> +
+> +        WRITE_SYSREG(val, PRENR_EL2);
+> +    }
+> +    else
+> +        write_protection_region(&xen_mpumap[index], index);
+> +}
+> +
+>   /*
+>    * Update the entry in the MPU memory region mapping table (xen_mpumap) for the
+>    * given memory range and flags, creating one if none exists.
+> @@ -217,11 +253,11 @@ static int xen_mpumap_update_entry(paddr_t base, paddr_t limit,
+>       ASSERT(spin_is_locked(&xen_mpumap_lock));
+>
+>       rc = mpumap_contain_region(xen_mpumap, max_mpu_regions, base, limit, &idx);
+> -    if ( (rc < 0) || (rc > MPUMAP_REGION_NOTFOUND) )
+> +    if ( rc < 0 )
+>           return -EINVAL;
+>
+>       /* We are inserting a mapping => Create new region. */
+> -    if ( flags & _PAGE_PRESENT )
+> +    if ( (flags & _PAGE_PRESENT) && (MPUMAP_REGION_NOTFOUND == rc) )
 
-It should have been TBL_ORDER, not TLB.  My finger memory is too use
-to type TLB I think.
+Same question in this patch , why do we need to check for _PAGE_PRESENT. 
+Can't we just rely on MPUMAP_REGION_XXX ?
 
-> is somewhat different. In fact is there anything wrong with just
-> PDX_OFFSET_ORDER?
+>       {
+>           rc = xen_mpumap_alloc_entry(&idx);
+>           if ( rc )
+> @@ -232,6 +268,22 @@ static int xen_mpumap_update_entry(paddr_t base, paddr_t limit,
+>           write_protection_region(&xen_mpumap[idx], idx);
+>       }
+>
+> +    if ( !(flags & _PAGE_PRESENT) && (rc >= MPUMAP_REGION_FOUND) )
+> +    {
+> +        /*
+> +         * Currently, we only support destroying a *WHOLE* MPU memory region,
+> +         * part-region removing is not supported, as in worst case, it will
+> +         * leave two fragments behind.
+> +         */
+> +        if ( MPUMAP_REGION_INCLUSIVE == rc )
+> +        {
+> +            region_printk("mpu: part-region removing is not supported\n");
+> +            return -EINVAL;
+> +        }
 
-I've assumed that would be seen as too short and not descriptive
-enough.  If that's fine I will switch it.
+NIT.
 
-> > +	int "PDX offset compression lookup table order" if EXPERT
-> > +	depends on PDX_OFFSET_COMPRESSION
-> > +	default 6
-> > +	range 0 9
-> 
-> Is 0 really a sensible lower bound? There's not going to be any compression
-> then, I suppose?
+Can we keep this ^^^ outside of the outer if condition ie "if ( !(flags 
+& _PAGE_PRESENT) && (rc >= MPUMAP_REGION_FOUND) )" ?
 
-No, you can still compress a single range if start if offset from 0.
-See the following example in the test file:
+> +
+> +        disable_mpu_region_from_index(idx);
+> +    }
+> +
+>       return 0;
+>   }
+>
+> @@ -261,6 +313,21 @@ int xen_mpumap_update(paddr_t base, paddr_t limit, unsigned int flags)
+>       return rc;
+>   }
+>
+> +int destroy_xen_mappings(unsigned long s, unsigned long e)
+> +{
+> +    int rc;
+> +
+> +    ASSERT(IS_ALIGNED(s, PAGE_SIZE));
+> +    ASSERT(IS_ALIGNED(e, PAGE_SIZE));
+> +    ASSERT(s <= e);
 
-/* Single range not starting at 0. */
-{
-    .ranges = {
-        { .start = (1 << MAX_ORDER) * 10,
-          .end   = (1 << MAX_ORDER) * 11 },
-    },
-    .compress = true,
-},
+Can we have these asserts in xen_mpumap_update() as well ?
 
-Which results in:
-
-PFN compression using PFN lookup table shift 63 and PDX region size 0x40000
- range 0 [0x00000280000, 0x000002bffff] PFN IDX   0 : 0x00000280000
-
-> > --- a/xen/common/pdx.c
-> > +++ b/xen/common/pdx.c
-> > @@ -24,6 +24,7 @@
-> >  #include <xen/param.h>
-> >  #include <xen/pfn.h>
-> >  #include <xen/sections.h>
-> > +#include <xen/sort.h>
-> >  
-> >  /**
-> >   * Maximum (non-inclusive) usable pdx. Must be
-> > @@ -40,6 +41,8 @@ bool __mfn_valid(unsigned long mfn)
-> >  
-> >  #ifdef CONFIG_PDX_MASK_COMPRESSION
-> >      invalid |= mfn & pfn_hole_mask;
-> > +#elif defined(CONFIG_PDX_OFFSET_COMPRESSION)
-> > +    invalid |= mfn ^ pdx_to_pfn(pfn_to_pdx(mfn));
-> 
-> Hmm, that's pretty expensive already. Involving two (presumably back-to-back)
-> JMPs when compression isn't enabled.
-
-There's a conditional with evaluate_nospec() below, so I think the
-JMPs are unlikely to make much difference?  Otherwise I would need to
-check the index in the lookup table, and possibly introduce a new
-variable to store the PDX region size to ensure it also fits in there.
-
-Overall I think it's more complex for possibly little benefit given
-the current code in mfn_valid() anyway.
-
-> > @@ -290,7 +300,200 @@ void __init pfn_pdx_compression_reset(void)
-> >      nr_ranges = 0;
-> >  }
-> >  
-> > -#endif /* CONFIG_PDX_COMPRESSION */
-> > +#elif defined(CONFIG_PDX_OFFSET_COMPRESSION) /* CONFIG_PDX_MASK_COMPRESSION */
-> > +
-> > +unsigned long __ro_after_init pfn_pdx_lookup[CONFIG_PDX_NR_LOOKUP];
-> > +unsigned int __ro_after_init pfn_index_shift;
-> > +
-> > +unsigned long __ro_after_init pdx_pfn_lookup[CONFIG_PDX_NR_LOOKUP];
-> > +unsigned int __ro_after_init pdx_index_shift;
-> 
-> For slightly better cache locality when only a few array indexes are in
-> use, may I suggest to put the indexes ahead of the arrays? Perhaps even
-> together, as they both take up a single unsigned long slot.
-
-Can do, yes.
-
-> > +bool pdx_is_region_compressible(paddr_t base, unsigned long npages)
-> > +{
-> > +    unsigned long pfn = PFN_DOWN(base);
-> > +
-> > +    return pdx_to_pfn(pfn_to_pdx(pfn) + npages - 1) == (pfn + npages - 1);
-> 
-> Aiui for this to be correct, there need to be gaps between the ranges
-> covered by individual lookup table slots. In the setup logic you have a
-> check commented "Avoid compression if there's no gain", but that doesn't
-> look to guarantee gaps everywhere (nor would pfn_offset_sanitize_ranges()
-> appear to)?
-
-But if there are no gaps, the full region is covered correctly, and
-hence it's compressible?
-
-Maybe I'm missing something, could you maybe provide an example that
-would exhibit this issue?
-
-> > +static void __init cf_check swp_node(void *a, void *b, size_t size)
-> > +{
-> > +    struct pfn_range *l = a;
-> > +    struct pfn_range *r = b;
-> > +    struct pfn_range tmp = *l;
-> > +
-> > +    *l = *r;
-> > +    *r = tmp;
-> > +}
-> 
-> Any reason you effectively open-code SWAP() here?
-
-Lack of knowledge :).
-
-> > +static bool __init pfn_offset_sanitize_ranges(void)
-> > +{
-> > +    unsigned int i = 0;
-> > +
-> > +    if ( nr_ranges == 1 )
-> > +    {
-> > +        ASSERT(PFN_TBL_IDX_VALID(ranges[0].base));
-> > +        ASSERT(PFN_TBL_IDX(ranges[0].base) ==
-> > +               PFN_TBL_IDX(ranges[0].base + ranges[0].size - 1));
-> > +        return true;
-> > +    }
-> > +
-> > +    /* Sort nodes by start address. */
-> > +    sort(ranges, nr_ranges, sizeof(struct pfn_range), cmp_node, swp_node);
-> 
-> Better sizeof(*ranges) or sizeof(ranges[0])?
-> 
-> > +bool __init pfn_pdx_compression_setup(paddr_t base)
-> > +{
-> > +    unsigned long size = 0, mask = PFN_DOWN(pdx_init_mask(base));
-> > +    unsigned int i;
-> > +
-> > +    if ( !nr_ranges )
-> > +        return false;
-> 
-> Also bail if there's just a single range?
-
-No, you can still compress (and thus reduce the PDX space) if there's
-a single range.
-
-> > +    if ( nr_ranges > ARRAY_SIZE(ranges) )
-> > +    {
-> > +        printk(XENLOG_WARNING
-> > +               "Too many PFN ranges (%u > %zu), not attempting PFN compression\n",
-> > +               nr_ranges, ARRAY_SIZE(ranges));
-> > +        return false;
-> > +    }
-> > +
-> > +    for ( i = 0; i < nr_ranges; i++ )
-> > +        mask |= pdx_region_mask(ranges[i].base, ranges[i].size);
-> > +
-> > +    pfn_index_shift = flsl(mask);
-> 
-> With this ...
-> 
-> > +    /*
-> > +     * Increase the shift as much as possible, removing bits that are equal in
-> > +     * all regions, as this allows the usage of smaller indexes, and in turn
-> > +     * smaller lookup tables.
-> > +     */
-> > +    for ( pfn_index_shift = flsl(mask); pfn_index_shift < sizeof(mask) * 8 - 1;
-> 
-> ... you don't need to do this here another time.
-
-Oh, good catch.  This was ordered differently, and I didn't realize
-the duplication after the code movement.
-
-> Also - why the subtraction of 1 in what the shift is compared against? Logic
-> below should in principle guarantee we never exit the loop because of the
-> conditional above, but if we made it that far it looks like we could as well
-> also look at the top bit.
-
-Because for a single range this would otherwise end up with
-pfn_index_shift == 64, and thus lead to undefined behavior.
-
-> > +          pfn_index_shift++ )
-> > +    {
-> > +        const unsigned long bit = ranges[0].base & (1UL << pfn_index_shift);
-> > +
-> > +        for ( i = 1; i < nr_ranges; i++ )
-> > +            if ( bit != (ranges[i].base & (1UL << pfn_index_shift)) )
-> > +                break;
-> > +        if ( i != nr_ranges )
-> > +            break;
-> > +    }
-> > +
-> > +    /* Sort and sanitize ranges. */
-> > +    if ( !pfn_offset_sanitize_ranges() )
-> > +        return false;
-> > +
-> > +    /* Calculate PDX region size. */
-> > +    for ( i = 0; i < nr_ranges; i++ )
-> > +        size = max(size, ranges[i].size);
-> > +
-> > +    mask = PFN_DOWN(pdx_init_mask(size << PAGE_SHIFT));
-> > +    pdx_index_shift = flsl(mask);
-> > +
-> > +    /* Avoid compression if there's no gain. */
-> > +    if ( (mask + 1) * (nr_ranges - 1) >= ranges[nr_ranges - 1].base )
-> > +        return false;
-> > +
-> > +    /* Poison all lookup table entries ahead of setting them. */
-> > +    memset(pfn_pdx_lookup, ~0, sizeof(pfn_pdx_lookup));
-> > +    memset(pdx_pfn_lookup, ~0, sizeof(pfn_pdx_lookup));
-> 
-> Have the arrays have initializers instead?
-
-No, because otherwise early use (before the initialization done here)
-of the translation functions would give bogus results.
-
-> > +    for ( i = 0; i < nr_ranges; i++ )
-> > +    {
-> > +        unsigned int idx = PFN_TBL_IDX(ranges[i].base);
-> > +
-> > +        pfn_pdx_lookup[idx] = ranges[i].base - (mask + 1) * i;
-> > +        pdx_pfn_lookup[i] = pfn_pdx_lookup[idx];
-> > +    }
-> > +
-> > +    printk(XENLOG_INFO
-> > +           "PFN compression using PFN lookup table shift %u and PDX region size %#lx\n",
-> 
-> I'd drop PFN and the latter PDX from this format string.
-
-Ack.
-
-> > +           pfn_index_shift, mask + 1);
-> > +
-> > +    for ( i = 0; i < nr_ranges; i++ )
-> > +        printk(XENLOG_DEBUG
-> > +               " range %u [%#013lx, %#013lx] PFN IDX %3lu : %#013lx\n",
-> > +               i, ranges[i].base, ranges[i].base + ranges[i].size - 1,
-> > +               PFN_TBL_IDX(ranges[i].base),
-> > +               pfn_pdx_lookup[PFN_TBL_IDX(ranges[i].base)]);
-> 
-> Do you really mean this to stay active also in release builds?
-
-I had it guarded with #ifdef CONFIG_DEBUG initially, but later decided
-it was worth giving the possibility to print it in release builds if
-debug log level is selected.
-
-> Also the outcome of the earlier loop isn't used by the intermediate printk().
-> Perhaps join both loops, thus allowing idx to be re-used here?
-
-Hm, yes.  I wanted to first print the message about enabling PFN
-compression, and later the compression specific information.  I can
-move the message about enabling PFN compression ahead of the loop.
-
-> > +    return true;
-> > +}
-> > +
-> > +void __init pfn_pdx_compression_reset(void)
-> > +{
-> > +    memset(pfn_pdx_lookup, 0, sizeof(pfn_pdx_lookup));
-> > +    memset(pdx_pfn_lookup, 0, sizeof(pfn_pdx_lookup));
-> 
-> Why not ~0?
-
-Because translation needs to work, if I poison all entries with ~0
-translation won't work.
-
-> > --- a/xen/include/xen/pdx.h
-> > +++ b/xen/include/xen/pdx.h
-> > @@ -65,6 +65,43 @@
-> >   * This scheme also holds for multiple regions, where HHHHHHH acts as
-> >   * the region identifier and LLLLLL fully contains the span of every
-> >   * region involved.
-> > + *
-> > + * ## PDX offset compression
-> > + *
-> > + * Alternative compression mechanism that relies on RAM ranges having a similar
-> > + * size and offset between them:
-> > + *
-> > + * PFN address space:
-> > + * ┌────────┬──────────┬────────┬──────────┐   ┌────────┬──────────┐
-> > + * │ RAM 0  │          │ RAM 1  │          │...│ RAM N  │          │
-> > + * ├────────┼──────────┼────────┴──────────┘   └────────┴──────────┘
-> > + * │<------>│          │
-> > + * │  size             │
-> > + * │<----------------->│
-> > + *         offset
-> > + *
-> > + * The compression reduces the holes between RAM regions:
-> > + *
-> > + * PDX address space:
-> > + * ┌────────┬───┬────────┬───┐   ┌─┬────────┐
-> > + * │ RAM 0  │   │ RAM 1  │   │...│ │ RAM N  │
-> > + * ├────────┴───┼────────┴───┘   └─┴────────┘
-> > + * │<---------->│
-> > + *   pdx region size
-> > + *
-> > + * The offsets to convert from PFN to PDX and from PDX to PFN are stored in a
-> > + * pair of lookup tables, and the index into those tables to find the offset
-> > + * for each PFN or PDX is obtained by shifting the to be translated address by
-> > + * a specific value calculated at boot:
-> > + *
-> > + * pdx = pfn - pfn_lookup_table[pfn >> pfn_shift]
-> > + * pfn = pdx + pdx_lookup_table[pdx >> pdx_shift]
-> 
-> I assume it's intentional (for simplicity) that you omit the index masking
-> here?
-
-Indeed.  I can add it, but I think the point here is to explain the
-algorithm used in a clear way, without implementation details.  I would
-consider the masking one of such implementation details.
-
-Thanks, Roger.
+> +
+> +    rc = xen_mpumap_update(virt_to_maddr(s), virt_to_maddr(e), 0);
+> +    if ( !rc )
+> +        context_sync_mpu();
+> +
+> +    return rc;
+> +}
+> +
+>   int map_pages_to_xen(unsigned long virt, mfn_t mfn, unsigned long nr_mfns,
+>                        unsigned int flags)
+>   {
+> --
+> 2.34.1
+- Ayan
+>
+>
 
