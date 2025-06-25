@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 44ABBAE7C45
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Jun 2025 11:19:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1024519.1400370 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA84BAE7CA2
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Jun 2025 11:26:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1024526.1400381 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uUMI9-0007FJ-Mj; Wed, 25 Jun 2025 09:19:41 +0000
+	id 1uUMOC-0000Ul-BE; Wed, 25 Jun 2025 09:25:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1024519.1400370; Wed, 25 Jun 2025 09:19:41 +0000
+Received: by outflank-mailman (output) from mailman id 1024526.1400381; Wed, 25 Jun 2025 09:25:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uUMI9-0007DJ-K8; Wed, 25 Jun 2025 09:19:41 +0000
-Received: by outflank-mailman (input) for mailman id 1024519;
- Wed, 25 Jun 2025 09:19:40 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uUMOC-0000TI-7S; Wed, 25 Jun 2025 09:25:56 +0000
+Received: by outflank-mailman (input) for mailman id 1024526;
+ Wed, 25 Jun 2025 09:25:55 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=QoV+=ZI=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uUMI8-0007DA-Ae
- for xen-devel@lists.xenproject.org; Wed, 25 Jun 2025 09:19:40 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 851ff450-51a5-11f0-a30f-13f23c93f187;
- Wed, 25 Jun 2025 11:19:39 +0200 (CEST)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-3a531fcaa05so2958874f8f.3
- for <xen-devel@lists.xenproject.org>; Wed, 25 Jun 2025 02:19:39 -0700 (PDT)
+ id 1uUMOB-0000TC-4q
+ for xen-devel@lists.xenproject.org; Wed, 25 Jun 2025 09:25:55 +0000
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [2a00:1450:4864:20::430])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 63a7c8b1-51a6-11f0-b894-0df219b8e170;
+ Wed, 25 Jun 2025 11:25:52 +0200 (CEST)
+Received: by mail-wr1-x430.google.com with SMTP id
+ ffacd0b85a97d-3a4fea34e07so703927f8f.1
+ for <xen-devel@lists.xenproject.org>; Wed, 25 Jun 2025 02:25:52 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-749c88532absm4208139b3a.131.2025.06.25.02.19.35
+ 41be03b00d2f7-b31f124249bsm10574265a12.38.2025.06.25.02.25.49
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 25 Jun 2025 02:19:38 -0700 (PDT)
+ Wed, 25 Jun 2025 02:25:51 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 851ff450-51a5-11f0-a30f-13f23c93f187
+X-Inumbo-ID: 63a7c8b1-51a6-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1750843179; x=1751447979; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1750843552; x=1751448352; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=sYn1x5oEmuiSA6FLdznXxNVrpOZ/8QkMXxM3/RevbEw=;
-        b=XbSAi/lIsoeSI6HKEBgsgWvcOTjfIMFPeA6TKBdFaMVUMJOCLyQaMhWxPM3FO39YfP
-         oG+fmfHUoSFqN9JMjtkdd6pws1Ux82216HWhOg9tUlKUPixS9EO3JH+w2KqejVsAt/zn
-         /t+YKZeAO5TtXWk0cbdqh6aLhDBitWK70x0nl3fVruqoiJKYrwvxkhO2T0OQ/jQUbDlx
-         d/JcZuu/rA/f3OTl4TjZr0QRp9LHURwYa1JQ9AIdwR1l2fhS95C9lryWdlq+9nX+1YpC
-         Blqy/tmnvMtHq+DkqtFItzNoKWyCQE20bDCDRV3UkS49exb+WPRXYA3O8Gn5PcKgH5dW
-         rT/A==
+        bh=VKKjVWZ2YRcVdvg2lHk6HnNZ4Bkgleult3V2FPmOFNc=;
+        b=dicUydZS7LgxiVPIVki/WJetFF8C+RfojKr223OvFq+cPfbVNiqaoACv9IIpya9J/n
+         hHQr1VoNdxZmW+LY8+8bbq3LinlUk/W79p6Zhs4N2nwIyzYOsr1AMixMstboyaufh2r1
+         +6R86yExY9gAlgQeGZj0AgWvhj7UXTrjXO5m97tq4Q5I3H38C0dMdIA3epPAdOagOtoz
+         sqANOQsxfdGVGzzLZKljQhChghhK2UO8bJyLGEj5Sph8u9Zo4NDYDTtCZhO14K8Llu1z
+         6AOsiLUJHsvk7sjUbyp4oyCRkh3a2hfn0wdlnrupyfSe0uIPCkjJCf/brWRSPJfrcX2Y
+         eVdA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750843179; x=1751447979;
+        d=1e100.net; s=20230601; t=1750843552; x=1751448352;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=sYn1x5oEmuiSA6FLdznXxNVrpOZ/8QkMXxM3/RevbEw=;
-        b=REihmVh9rxh0qHLJZatvIiyDeZitlW9tf3yfRwm2P9mmXYeuoxug108hYQkME3uzrM
-         s6n98nF1zzLNW501rVaeeapiWHEl3lGt8P5VXKxEjjp8Gvg/lmUUvq+eehxgKqkcqZI/
-         Act39uZ0Mp1RjIBgqUx81inrFTF237IqQ2SnYJFK+c6rL4+wKfEE+4bpJKaYcNnnBHQO
-         rAUEZ/tKcmh+N4fHS5D71FxFWZTLheOjWyak3Y01o+ijK9iZNDVpRTkPEpeSxrFobqBO
-         f3Dt5wy/YpWMiDi4SDajAtMNcPsZamB7czwGnXdahsdkvYamrL4ycBaFotNUX3pmh0CY
-         jF3Q==
-X-Forwarded-Encrypted: i=1; AJvYcCUfbFkXaGYMml/4Dx0o1b6XJMonbb6LYDP5xS6Zrs1auJZnGdkzPS7IN3WGFGS1CjeGxnzqu31mtsI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YydhFxMmqVa8J9NBtVbj901ddga97rITAUs8mXDB1kt92EGK+JP
-	6fr1j4eZYaRg5m24fZJ+2z7fP62M5h55onishighz8ld0jWMlfIjK9ynBvFiuivNQg==
-X-Gm-Gg: ASbGncsGM4AGxuiEgNIEzDsdCz2DFlYeWqzs7zIGy9MDntVedXJpF6TaFeiR1scDKHD
-	MUwAJUkK/ts2zjO7+yuIA/l42g+Kcd71Wu0+xmVgsc07K+4oaYjx6Guk8ZuBPo+R5MXA/rHf3js
-	Oi8t2J8Yc2VwDbjFAav4SY7ShIl0tFHMIs/17CvrokKd9jjoM/HipNPAyneQCq6KN63IKGnaneQ
-	3FlVVuNRj4Z/Y3VDbDh1xM17prMBx9ca1EXr8CPlB4agW2uE2gMlVw66pxYPgaGq0OADa0flau2
-	zX96n8SRJ1cXYOZlWFxE3/UJgjdjcNWtdoFwgk0Yy1o9TV3B3y1ZhDt7GZH+xdvoYz64c7n9JA2
-	B2wIxxQBGbCSWUNQhy7MzjkWqvKPW4E3WxqJVNJdvF1vmIMY=
-X-Google-Smtp-Source: AGHT+IG3qua4F0WkdiAGSQC5O7N4zIJl/M9LXQYs2Aw523TbATL/DsYvFbKrDk0v+gK3e+HCDuFs0A==
-X-Received: by 2002:a05:6000:18ad:b0:3a3:6b07:20a1 with SMTP id ffacd0b85a97d-3a6ed652850mr1717756f8f.40.1750843178838;
-        Wed, 25 Jun 2025 02:19:38 -0700 (PDT)
-Message-ID: <ae257f63-c8a6-4f02-a19c-5b3f3a63b620@suse.com>
-Date: Wed, 25 Jun 2025 11:19:31 +0200
+        bh=VKKjVWZ2YRcVdvg2lHk6HnNZ4Bkgleult3V2FPmOFNc=;
+        b=IzkTABPtWqjFRlS+LS3x2EVqPrQMYKvSV3V2+Eb15NqKxR7Ekx6Di7MXHAhRyfwke5
+         rbYk9yPwKRcTieP7gbrIL5arfu2kVrnKnP9HLXEYRx2p1umfimGiTU0xCFWqT2F0Skwe
+         Xe8PcH2+GI+MycLhaoEj14UF/xxrAsWMt+46TykkQvSHSfvjBroQYAVYlkXQKT/bOokv
+         1scZtqWrLgbKPFyvn9hZlUA3OFkz0Zv/VXZbyWYLdcp89zd0rml1GOlkkBaqfypmw8mQ
+         5vkt8/EdcH1CQYmL2t1BiSGr9Oi3ZFSsbNIwIPZhS8Ys7sRCwgClGNssWUtLV/5e+zbS
+         v+RQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXDaLawWT9e62EG8XGF7fBOilisZeSXYQgZAKOOR+oivLXF0Wp30lypbMLeFK0vkGkJ/vSVmeTeCsM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx7uQn+pFnv1sxKYUr62oUOuKtizbyXRco3X++c9pvGn0HwV+kG
+	2aKm4BpkSuRg5yycapxVpfF7T1lOvOhmfXtw2bg6S1nOQDFFf8qIiPyP/VkY2RGXtg==
+X-Gm-Gg: ASbGncsVmi2FzUFZH5QGDL2eUasWAPVZytqRKO1mUhJGUm1TBgyiBlnUgJjK2rMe4Sx
+	xGu9kz1XaZIHaNgpCh6T7VO3kkPu1zLPpjaNubY0wB7Sjei20L5H0VWD6LQmp9JyBggxLpmAgNK
+	BPtoo7SNF7UIqOTQtQbb5YqwWueLodKYMwQB98sJv6rO5veM81iHm9XhbnYPDCsKOLrrurCRx9A
+	EBLRZtXFQ1aantuF1OxBM2ieOx/ddKzmL3pWLDE9EwSTRqjDw83RrlwVnqDqCw9rp0FdAxr96qA
+	07bbKTob/WXQBgOF4qGYB9gFXOCjoOAjUidmUyJVtgQYwp7FursBb37otPZDQV8C/wR6f92CI+e
+	WoLujyQMNdqcY4WGCId2HuZsV9PM8TrLtIvf21Cnh1BXjYk4=
+X-Google-Smtp-Source: AGHT+IE92f1EdVifDWFUowityyhPSFM/8lOsOJo8SSxTTHLSwHHeyMMMbknkJpjUI7/8eumVxeYsrQ==
+X-Received: by 2002:a05:6000:2d84:b0:3a4:cfbf:51a0 with SMTP id ffacd0b85a97d-3a6ed6222e9mr1349718f8f.21.1750843552144;
+        Wed, 25 Jun 2025 02:25:52 -0700 (PDT)
+Message-ID: <f1cc4292-73b9-40f6-9974-3a2260c00d87@suse.com>
+Date: Wed, 25 Jun 2025 11:25:45 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/4] x86/idle: Move monitor()/mwait() wrappers into
- cpu-idle.c
+Subject: Re: [PATCH 2/4] x86/idle: Remove MFENCEs for CLFLUSH_MONITOR
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20250624163951.301743-1-andrew.cooper3@citrix.com>
- <20250624163951.301743-2-andrew.cooper3@citrix.com>
+ <20250624163951.301743-3-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -119,27 +118,51 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250624163951.301743-2-andrew.cooper3@citrix.com>
+In-Reply-To: <20250624163951.301743-3-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 24.06.2025 18:39, Andrew Cooper wrote:
-> They're not used by any other translation unit, so shouldn't live in
-> asm/processor.h, which is included almost everywhere.
+> Commit 48d32458bcd4 ("x86, idle: add barriers to CLFLUSH workaround") was
+> inherited from Linux and added MFENCEs around the AAI65 errata fix.
 > 
-> Our new toolchain baseline knows the MONITOR/MWAIT instructions, so use them
-> directly rather than using raw hex.
+> The SDM now states:
 > 
-> Change the hint/extention parameters from long to int.  They're specified to
-> remain 32bit operands even 64-bit mode.
+>   Executions of the CLFLUSH instruction are ordered with respect to each
+>   other and with respect to writes, locked read-modify-write instructions,
+>   and fence instructions[1].
 > 
+> with footnote 1 reading:
+> 
+>   Earlier versions of this manual specified that executions of the CLFLUSH
+>   instruction were ordered only by the MFENCE instruction.  All processors
+>   implementing the CLFLUSH instruction also order it relative to the other
+>   operations enumerated above.
+> 
+> I.e. the MFENCEs came about because of an incorrect statement in the SDM.
+
+And their exact placement even differed between the two sites.
+
+> The Spec Update (no longer available on Intel's website) simply says "issue a
+> CLFLUSH", with no mention of MFENCEs.
+> 
+> As this erratum is specific to Intel, it's fine to remove the the MFENCEs; AMD
+> CPUs of a similar vintage do port otherwise-unordered CLFLUSHs.
+
+Nit: DYM "sport"? I think the corresponding Linux commit that I once looked
+at has it that way.
+
+> Move the feature bit into the BUG range (rather than FEATURE), and move the
+> workaround into monitor() itself.
+> 
+> The erratum check itself must use setup_force_cpu_cap().  It needs activating
+> if any CPU needs it, not if all of them need it.
+> 
+> Fixes: 48d32458bcd4 ("x86, idle: add barriers to CLFLUSH workaround")
+> Fixes: 96d1b237ae9b ("x86/Intel: work around Xeon 7400 series erratum AAI65")
+> Link: https://web.archive.org/web/20090219054841/http://download.intel.com/design/xeon/specupdt/32033601.pdf
 > Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
 Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-We may need to undo this though if we ever meant to use mwait elsewhere, like
-for spinlocks. Many years ago that idea was entertained some, but it may well
-be that it was given up altogether by now.
-
-Jan
 
