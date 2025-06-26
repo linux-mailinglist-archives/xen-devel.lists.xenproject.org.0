@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D7197AE9E44
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Jun 2025 15:11:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1026352.1401542 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 18AAFAE9E45
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Jun 2025 15:11:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1026354.1401554 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uUmNY-0005yW-Ha; Thu, 26 Jun 2025 13:11:00 +0000
+	id 1uUmNg-0006H1-R3; Thu, 26 Jun 2025 13:11:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1026352.1401542; Thu, 26 Jun 2025 13:11:00 +0000
+Received: by outflank-mailman (output) from mailman id 1026354.1401554; Thu, 26 Jun 2025 13:11:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uUmNY-0005vP-EU; Thu, 26 Jun 2025 13:11:00 +0000
-Received: by outflank-mailman (input) for mailman id 1026352;
- Thu, 26 Jun 2025 13:10:59 +0000
+	id 1uUmNg-0006Eh-ND; Thu, 26 Jun 2025 13:11:08 +0000
+Received: by outflank-mailman (input) for mailman id 1026354;
+ Thu, 26 Jun 2025 13:11:07 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=kW9B=ZJ=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
- id 1uUmNX-0005vJ-Ka
- for xen-devel@lists.xenproject.org; Thu, 26 Jun 2025 13:10:59 +0000
-Received: from mail-ot1-x32e.google.com (mail-ot1-x32e.google.com
- [2607:f8b0:4864:20::32e])
+ id 1uUmNf-0005vJ-8B
+ for xen-devel@lists.xenproject.org; Thu, 26 Jun 2025 13:11:07 +0000
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [2a00:1450:4864:20::42e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ffe70581-528e-11f0-a30f-13f23c93f187;
- Thu, 26 Jun 2025 15:10:58 +0200 (CEST)
-Received: by mail-ot1-x32e.google.com with SMTP id
- 46e09a7af769-739f2508ffaso684747a34.2
- for <xen-devel@lists.xenproject.org>; Thu, 26 Jun 2025 06:10:58 -0700 (PDT)
+ id 05115511-528f-11f0-a30f-13f23c93f187;
+ Thu, 26 Jun 2025 15:11:06 +0200 (CEST)
+Received: by mail-wr1-x42e.google.com with SMTP id
+ ffacd0b85a97d-3a50fc7ac4dso498087f8f.0
+ for <xen-devel@lists.xenproject.org>; Thu, 26 Jun 2025 06:11:06 -0700 (PDT)
+Received: from localhost.localdomain (253.226.6.51.dyn.plus.net.
+ [51.6.226.253]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3a6e806916esm7351356f8f.43.2025.06.26.06.11.05
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 26 Jun 2025 06:11:05 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,112 +45,86 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ffe70581-528e-11f0-a30f-13f23c93f187
+X-Inumbo-ID: 05115511-528f-11f0-a30f-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1750943457; x=1751548257; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Rx5FUsSKfgP2TJrEREDe0yQWf3Zalpe0SRkPT5EUUFI=;
-        b=WSaBuJvdGcTictjU8xcyVs+x+hCcHHz/GTlqIaqcfWO+AQjL299ihjc4SCv61rxNC8
-         7IkvdxUx2yoPcz/aqaFa54L8QYkazl2QtHIGOaknhKWeJJnQ8WYVeD+Zbe+dkykZs48o
-         DeL/mr7Qyf5ebKGhVwZUpcps6kwG+QYUk3Sdg=
+        d=cloud.com; s=cloud; t=1750943466; x=1751548266; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=s6BJndVvhk0Ds/aN/1ClgpsDUl6Okek1m4XQxq4tbbw=;
+        b=IeQgBiiU8ztHIulSYcDyU2SUlF4UsIKba5NXk6S7pRXltnHO6Ami/Qppg6Mw1nEl/0
+         b8vXkwkDIXRjMkvbLIVLydFRy9RCU7XL7mFlSw+ruKWN7XV6xfDfVQGfNXugxIgomW8E
+         DzU03ZYx0KJbZxAt9EAzaJ3RXE1CZaYjxQbs8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750943457; x=1751548257;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=Rx5FUsSKfgP2TJrEREDe0yQWf3Zalpe0SRkPT5EUUFI=;
-        b=B6dymB1ECbH2EURupUQmAVxMsLWGVWJ5+7mNWDIlX/qQCyyJF6CmBbgNJkG4KQFEma
-         OFMu0gG0/OZOdLQaQn1hnRyejYDf1UqJfoBU7oWh/zg2NItXHXRUiIsbmw+5Tkn/5o1m
-         whkGUlNpTF5FFd7Nj5Vpyd9r5as207Q8JiEItGr6qteKNqDm5NYp/Bbb5+w3wZKKXG7l
-         rjwjwyh3zBycYmxLYutwIwNqpzLBP9ooJwUB6Pptq7d/LL/AQmF62CvtLrIYWuc3YlZn
-         qpAwfZx7j79APZcHZQ1/sUYl3nLTLGnceY3ow94np5o85pftVP3NlHQh3ufJi+G2SCAK
-         xe7Q==
-X-Forwarded-Encrypted: i=1; AJvYcCVh/vLDPq8pfhFck0iy67Nu1NCuLRgUsuNcTdZNr9Qin7G6FzpEutDLir6yVB5lKWW0Jcn79J1/e7w=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwW32/WUwVf732PE92SgV66Yn2Ivp4O5sryTs9lsKP/7Jyr4Zdx
-	Q/dUqCxWXlN/F0la1uxGqEi9ci8gRzCg03uTIfnmRaisEqlyCxzK6ti9NHmiwHxWS82uIkM1omU
-	AImxkpcWtfqDU/l8xYPL4MwI9f4hkhNlCHTkKLx9AuQ==
-X-Gm-Gg: ASbGnct4mtGapVoLyfKYAknX/MItE18P+WOkqr8vD07fNpO/hrUiNNaKGghlKROus/x
-	gmM41fFIlkw6WHxtvAls2Z5J5zcnbAaHqCfpM+S0ZNNpMnHpEjIMrQRYlGhg7qjw2VwTTOE/bSM
-	78SO7pRQWu7/5v9gMcbaeJC6FmCA/kadqGWXVYiF4J
-X-Google-Smtp-Source: AGHT+IEofwggQsHZnosStN/XNnzweBloEtubNd/yIfvbRhRFw27NlRSp59qIhoMxarRc2ydLIccux7f3dP7dYLxWy/o=
-X-Received: by 2002:a05:6871:70f:b0:2d5:4d2d:9525 with SMTP id
- 586e51a60fabf-2efb24ee421mr5193806fac.8.1750943457363; Thu, 26 Jun 2025
- 06:10:57 -0700 (PDT)
-MIME-Version: 1.0
-References: <20250625073408.7496-1-frediano.ziglio@cloud.com>
- <20250625073408.7496-2-frediano.ziglio@cloud.com> <e6687ac7-8ff1-4418-a32e-1fc610045c2a@suse.com>
-In-Reply-To: <e6687ac7-8ff1-4418-a32e-1fc610045c2a@suse.com>
+        d=1e100.net; s=20230601; t=1750943466; x=1751548266;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=s6BJndVvhk0Ds/aN/1ClgpsDUl6Okek1m4XQxq4tbbw=;
+        b=npt2skFT5JuKAJV8VoPT3M2xCLyKyKX9IvI+y1Z5kQXUPS2xZ7CIVXuyVOGCAxoTIz
+         LEMV8tdqyLDDbOjY1PyFJz3LHTy8Q7MvLV5laLxxl8/Fm8f/WqnOr/nX9tLngkwRcDLA
+         D/jFyWIpNqyBUSs2lfQNKaW/TjimrxOM/qYonf5CINcjXbogczCkhIkL18BBHJtMXQF/
+         RCE4nbrWujbcvTX9y9nxoSm/1qI3hIixff67nathCMD1OUATMxg9W1HLeNIXXA5oTW4P
+         p8T3emjMGI/MFIQ+KXpkGgZ7sBKGT7j6t/kjzeP5dMQmVkGHTPeWxC2khCWBScFfxIW9
+         iWuw==
+X-Gm-Message-State: AOJu0Yw+kc2pPUz3vDbOautbmH01EDPGOTqMFkwnwgprXls62d2c5DnV
+	u+Z0b2i+18rL3cGvYQeK4/Bv4iUh5VruWlF4Um9PM6Ql+v9BNIsKpHxR77GqkUFhZz4uwDCQJ7c
+	4HDDot3c=
+X-Gm-Gg: ASbGncvncieBVZqz0xEYwqMmWtELYSROW4SoHos9qyY49xC2LKrw7l56P0Mfgd311Uf
+	nU6AEH/j9bYgSYyFHQ4Hg+/q6KGMZIWwpbeZFsMCWXq1L8UVT3Rf+bemRWsVBfN6Nr4pcRXlQLt
+	SVACeDpF09wMj0wsEUvXwlVC4uRXTkW+y9IdiZ1O+8NJ8CxiS1DYqpDIMgVAo9/bsuRvTDiBJPY
+	23n+iwuK9moBhcTdLY8jdX1VfD7A+KBibz5BmOqNrPxkru+dpCCePJ0uzgAq/dOgezSguLoEfI1
+	Hq/MkjzMS7OZUXw0DVy8gnbtwhqCC3SBuyZz7O5cdBJIdLwnliKocfTULsORInMlqVBqyniOjt5
+	0kn41H3Wo+cjTJ8RSdOL8MAgOZuM73g==
+X-Google-Smtp-Source: AGHT+IFBB6Ws21E1/GkABDlKkF9TxdfI+48vAclDO2Kyd8hhNU8tB1webCV5hV3qXq6B8uR4cIb/6A==
+X-Received: by 2002:a05:6000:2c0d:b0:3a4:ea40:4d3f with SMTP id ffacd0b85a97d-3a6ed6717e2mr6058709f8f.53.1750943465951;
+        Thu, 26 Jun 2025 06:11:05 -0700 (PDT)
 From: Frediano Ziglio <frediano.ziglio@cloud.com>
-Date: Thu, 26 Jun 2025 14:10:46 +0100
-X-Gm-Features: Ac12FXxVjCMfQen9NpeMclxAomZj8RkryvC3ePbKWf-m-qiWpTT2YqUCcLkMESw
-Message-ID: <CACHz=Zj8Pw29dk7ks6joAFa-zJDHtRH1XfAzd=bpbxvthwFw5w@mail.gmail.com>
-Subject: Re: [PATCH v3 1/3] xen/efi: Handle cases where file didn't come from ESP
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>, 
-	=?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>, 
-	xen-devel@lists.xenproject.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+To: xen-devel@lists.xenproject.org
+Cc: Frediano Ziglio <frediano.ziglio@cloud.com>,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH v4 0/3] xen/efi: Make boot more flexible, especially with GRUB2
+Date: Thu, 26 Jun 2025 14:10:52 +0100
+Message-ID: <20250626131059.61894-1-frediano.ziglio@cloud.com>
+X-Mailer: git-send-email 2.43.0
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, Jun 26, 2025 at 1:53=E2=80=AFPM Jan Beulich <jbeulich@suse.com> wro=
-te:
->
-> On 25.06.2025 09:34, Frediano Ziglio wrote:
-> > A boot loader can load files from outside ESP.
->
-> I think it would have helped if you said somewhere what ESP is. People ma=
-y
-> think of this as UEFI System Partition (or some such), which doesn't coll=
-apse
-> to the acronym used.
->
+The combination of GRUB2, EFI and UKI allows potentially more flexibility.
+For instance is possible to load xen.efi from a no ESP partition leaving
+a boot loader like GRUB2 taking care of the file loading.
+This however requires some changes in Xen to be less restrictive.
+Specifically for GRUB2 these changes allows the usage of "chainloader"
+command with UKI and reading xen.efi from no ESP (so no DeviceHandle
+set) and usage of "linux" and "initrd" commands to load separately
+the kernel (embedding using UKI) and initrd (using LoadFile2 protocol).
 
-The acronym is EFI System Partition (ESP).
-Most files and prefixes use "efi" more than "uefi".
+Changes since v1:
+- keep read_file fatal when it was so;
+- attempt to use LoadFile2 after trying object section;
+- minor changes (see details on specific changes).
 
-> > --- a/xen/common/efi/boot.c
-> > +++ b/xen/common/efi/boot.c
-> > @@ -443,6 +443,18 @@ static EFI_FILE_HANDLE __init get_parent_handle(co=
-nst EFI_LOADED_IMAGE *loaded_i
-> >      CHAR16 *pathend, *ptr;
-> >      EFI_STATUS ret;
-> >
-> > +    /*
-> > +     * In some cases the image could not come from a specific device.
-> > +     * For instance this can happen if Xen was loaded using GRUB2 "lin=
-ux"
-> > +     * command.
-> > +     */
->
-> I consider this bogus: Why in the world would one use "linux" for loading=
- Xen?
->
+Changes since v2:
+- update read_file style;
+- added acked-by.
 
-The question could be why "linux" for efi is very different from
-no-efi "linux" not having much to do with Linux kernel.
-One answer is that EFI is dominated by PE format and so "linux"
-command just use PE standard entry, relocations and "LoadOptions" and
-use specific protocols (like LoadFile2 here) instead of Linux standard
-ways.
+Changes since v3:
+- style update;
+- coherency changes for LoadFile2.
 
-> Yet I'll commit this as-is anyway, as Marek has acked it, just with ...
->
-> > @@ -1404,7 +1427,7 @@ void EFIAPI __init noreturn efi_start(EFI_HANDLE =
-ImageHandle,
-> >          /* Read and parse the config file. */
-> >          if ( read_section(loaded_image, L"config", &cfg, NULL) )
-> >              PrintStr(L"Using builtin config file\r\n");
-> > -        else if ( !cfg_file_name )
-> > +        else if ( !cfg_file_name && file_name)
->
-> ... the style issue addressed here.
->
+Frediano Ziglio (3):
+  xen/efi: Handle cases where file didn't come from ESP
+  xen/efi: Support loading initrd using GRUB2 LoadFile2 protocol
+  xen/efi: Update error flow for read_file function
 
-Done, sending v4
+ xen/common/efi/boot.c     | 177 +++++++++++++++++++++++++++++---------
+ xen/include/efi/efidevp.h |   2 +
+ xen/include/efi/efiprot.h |  19 ++++
+ 3 files changed, 159 insertions(+), 39 deletions(-)
 
-> Jan
+-- 
+2.43.0
 
-Frediano
 
