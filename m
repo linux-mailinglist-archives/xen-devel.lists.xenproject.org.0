@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 18AAFAE9E45
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Jun 2025 15:11:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1026354.1401554 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7749DAE9E46
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Jun 2025 15:11:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1026355.1401565 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uUmNg-0006H1-R3; Thu, 26 Jun 2025 13:11:08 +0000
+	id 1uUmNi-0006Vq-1A; Thu, 26 Jun 2025 13:11:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1026354.1401554; Thu, 26 Jun 2025 13:11:08 +0000
+Received: by outflank-mailman (output) from mailman id 1026355.1401565; Thu, 26 Jun 2025 13:11:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uUmNg-0006Eh-ND; Thu, 26 Jun 2025 13:11:08 +0000
-Received: by outflank-mailman (input) for mailman id 1026354;
- Thu, 26 Jun 2025 13:11:07 +0000
+	id 1uUmNh-0006Tq-Tg; Thu, 26 Jun 2025 13:11:09 +0000
+Received: by outflank-mailman (input) for mailman id 1026355;
+ Thu, 26 Jun 2025 13:11:08 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=kW9B=ZJ=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
- id 1uUmNf-0005vJ-8B
- for xen-devel@lists.xenproject.org; Thu, 26 Jun 2025 13:11:07 +0000
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [2a00:1450:4864:20::42e])
+ id 1uUmNg-0005vJ-Bw
+ for xen-devel@lists.xenproject.org; Thu, 26 Jun 2025 13:11:08 +0000
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [2a00:1450:4864:20::32e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 05115511-528f-11f0-a30f-13f23c93f187;
- Thu, 26 Jun 2025 15:11:06 +0200 (CEST)
-Received: by mail-wr1-x42e.google.com with SMTP id
- ffacd0b85a97d-3a50fc7ac4dso498087f8f.0
- for <xen-devel@lists.xenproject.org>; Thu, 26 Jun 2025 06:11:06 -0700 (PDT)
+ id 05b626fc-528f-11f0-a30f-13f23c93f187;
+ Thu, 26 Jun 2025 15:11:08 +0200 (CEST)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-453634d8609so7285825e9.3
+ for <xen-devel@lists.xenproject.org>; Thu, 26 Jun 2025 06:11:07 -0700 (PDT)
 Received: from localhost.localdomain (253.226.6.51.dyn.plus.net.
  [51.6.226.253]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3a6e806916esm7351356f8f.43.2025.06.26.06.11.05
+ ffacd0b85a97d-3a6e806916esm7351356f8f.43.2025.06.26.06.11.06
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 26 Jun 2025 06:11:05 -0700 (PDT)
+ Thu, 26 Jun 2025 06:11:06 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,85 +45,152 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 05115511-528f-11f0-a30f-13f23c93f187
+X-Inumbo-ID: 05b626fc-528f-11f0-a30f-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1750943466; x=1751548266; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=s6BJndVvhk0Ds/aN/1ClgpsDUl6Okek1m4XQxq4tbbw=;
-        b=IeQgBiiU8ztHIulSYcDyU2SUlF4UsIKba5NXk6S7pRXltnHO6Ami/Qppg6Mw1nEl/0
-         b8vXkwkDIXRjMkvbLIVLydFRy9RCU7XL7mFlSw+ruKWN7XV6xfDfVQGfNXugxIgomW8E
-         DzU03ZYx0KJbZxAt9EAzaJ3RXE1CZaYjxQbs8=
+        d=cloud.com; s=cloud; t=1750943467; x=1751548267; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=19ROcQ+NE6uRH9cKCCikx8gAVzBifn0kY2OpATrBDp8=;
+        b=aCC5N2EkddFl4s3faYTpbsetQEtfhCRRkP4qy5/H2PMzINxkPi/s5cjPOEKlftO7V6
+         L/lSioXvfoZq95LXx1+bJnRue3o2BWCdQT0xzeTMOb2KLd1xLpesU1DBFNT1FVtO+D7G
+         sI4IegTydZ5YCzVEMxB2TRwt4OJoVoZnpQLjQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750943466; x=1751548266;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=s6BJndVvhk0Ds/aN/1ClgpsDUl6Okek1m4XQxq4tbbw=;
-        b=npt2skFT5JuKAJV8VoPT3M2xCLyKyKX9IvI+y1Z5kQXUPS2xZ7CIVXuyVOGCAxoTIz
-         LEMV8tdqyLDDbOjY1PyFJz3LHTy8Q7MvLV5laLxxl8/Fm8f/WqnOr/nX9tLngkwRcDLA
-         D/jFyWIpNqyBUSs2lfQNKaW/TjimrxOM/qYonf5CINcjXbogczCkhIkL18BBHJtMXQF/
-         RCE4nbrWujbcvTX9y9nxoSm/1qI3hIixff67nathCMD1OUATMxg9W1HLeNIXXA5oTW4P
-         p8T3emjMGI/MFIQ+KXpkGgZ7sBKGT7j6t/kjzeP5dMQmVkGHTPeWxC2khCWBScFfxIW9
-         iWuw==
-X-Gm-Message-State: AOJu0Yw+kc2pPUz3vDbOautbmH01EDPGOTqMFkwnwgprXls62d2c5DnV
-	u+Z0b2i+18rL3cGvYQeK4/Bv4iUh5VruWlF4Um9PM6Ql+v9BNIsKpHxR77GqkUFhZz4uwDCQJ7c
-	4HDDot3c=
-X-Gm-Gg: ASbGncvncieBVZqz0xEYwqMmWtELYSROW4SoHos9qyY49xC2LKrw7l56P0Mfgd311Uf
-	nU6AEH/j9bYgSYyFHQ4Hg+/q6KGMZIWwpbeZFsMCWXq1L8UVT3Rf+bemRWsVBfN6Nr4pcRXlQLt
-	SVACeDpF09wMj0wsEUvXwlVC4uRXTkW+y9IdiZ1O+8NJ8CxiS1DYqpDIMgVAo9/bsuRvTDiBJPY
-	23n+iwuK9moBhcTdLY8jdX1VfD7A+KBibz5BmOqNrPxkru+dpCCePJ0uzgAq/dOgezSguLoEfI1
-	Hq/MkjzMS7OZUXw0DVy8gnbtwhqCC3SBuyZz7O5cdBJIdLwnliKocfTULsORInMlqVBqyniOjt5
-	0kn41H3Wo+cjTJ8RSdOL8MAgOZuM73g==
-X-Google-Smtp-Source: AGHT+IFBB6Ws21E1/GkABDlKkF9TxdfI+48vAclDO2Kyd8hhNU8tB1webCV5hV3qXq6B8uR4cIb/6A==
-X-Received: by 2002:a05:6000:2c0d:b0:3a4:ea40:4d3f with SMTP id ffacd0b85a97d-3a6ed6717e2mr6058709f8f.53.1750943465951;
-        Thu, 26 Jun 2025 06:11:05 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1750943467; x=1751548267;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=19ROcQ+NE6uRH9cKCCikx8gAVzBifn0kY2OpATrBDp8=;
+        b=nmQYjGg5x81Bd2lCiPUUypLHoTuNWUDX2yonL+yj7vs3W8Yt3OqSqSWwhl/gCo4yRn
+         zJUwxuoolP8Yn37JKFb4KoNKKSUl2uFnriavDdHzLFJpVLlEt4AHIYXwI0LRY2xgPgiD
+         ckRsngm+Z4WpfdtwCXflNysYV74fabZ7Z1X6XFavDMYZ8QY9Fkb6g5uCj3VABuo54Nro
+         ubSp2w8KfOo+McjeAYUlb2m/fKjt47HcpVIttd3ewF4KL0p5Gr5RLbhTNjWBCBi4GSn6
+         nkpovR1yW7b5cZepF1xhe3vH8gMPQJHflYWSil6CPGvv77L9gByF9PqL6Iz2y5CqjzbH
+         yYfA==
+X-Gm-Message-State: AOJu0YzUlxhw/MX7mrKHuPaROxDWUlUikHTozaKtD+sD9Kk+z9JO1snG
+	me5HNKcjETKhuTQmMylDXeiRc6U/JUX8QQGTohIAx5TWTSN+l2GN7nJSLEG4Tlp/tYkZUATGF16
+	6p4UAV1s=
+X-Gm-Gg: ASbGncs+tG8iDLSOvtf+Rc1tCkJhoqjhDPLANxuLVEmMlNZQak1YKbETG1s80ROwQLM
+	zC6C3Sr/FjCrvPeUPN/I7nIe3pe0u0CQxsxczSp/vKdD+JPYXdRAUT3OPIgHqcNTu5KYoN1tVTA
+	w27tIA6q9o3igKxVOHIaTSF9dt0wPbopWptLjwwD6JF0pBgn3OuS+VqSpg4X1patUzP5hpZQdTS
+	dQrnGfcq26dLXc4Ml538Pqcdon11VDx1A+Ahwxk/2ZI4wt4dJvEHhKuvphVz+uM6q260l0lBZ7R
+	TsRY8kvDIXpb4xI9EDzPyY7lVlbmVvT6trbv6KGoK82vzijTsQ/OTN0cCgWBoYFmTiccHiDsYD7
+	oAdpgrw1TG4SD5LNfs3WG9XOjNnQjJA==
+X-Google-Smtp-Source: AGHT+IHftnWwmJMkPMW09W9VY9+YM1UmRdHPziBBZ1IbJg4TPTO5PkismHUyTMIoUu4WaMQ8CMkznQ==
+X-Received: by 2002:a05:600c:35c9:b0:450:d00d:cc with SMTP id 5b1f17b1804b1-453886d53d9mr41151945e9.2.1750943466805;
+        Thu, 26 Jun 2025 06:11:06 -0700 (PDT)
 From: Frediano Ziglio <frediano.ziglio@cloud.com>
 To: xen-devel@lists.xenproject.org
 Cc: Frediano Ziglio <frediano.ziglio@cloud.com>,
 	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
 	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
 	Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH v4 0/3] xen/efi: Make boot more flexible, especially with GRUB2
-Date: Thu, 26 Jun 2025 14:10:52 +0100
-Message-ID: <20250626131059.61894-1-frediano.ziglio@cloud.com>
+Subject: [PATCH v4 1/3] xen/efi: Handle cases where file didn't come from ESP
+Date: Thu, 26 Jun 2025 14:10:53 +0100
+Message-ID: <20250626131059.61894-2-frediano.ziglio@cloud.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20250626131059.61894-1-frediano.ziglio@cloud.com>
+References: <20250626131059.61894-1-frediano.ziglio@cloud.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The combination of GRUB2, EFI and UKI allows potentially more flexibility.
-For instance is possible to load xen.efi from a no ESP partition leaving
-a boot loader like GRUB2 taking care of the file loading.
-This however requires some changes in Xen to be less restrictive.
-Specifically for GRUB2 these changes allows the usage of "chainloader"
-command with UKI and reading xen.efi from no ESP (so no DeviceHandle
-set) and usage of "linux" and "initrd" commands to load separately
-the kernel (embedding using UKI) and initrd (using LoadFile2 protocol).
+A boot loader can load files from outside ESP.
+In these cases device could be not provided or path could
+be something not supported.
+In these cases allows to boot anyway, all information
+could be provided using UKI or using other boot loader
+features.
 
+Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
+Acked-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+---
 Changes since v1:
-- keep read_file fatal when it was so;
-- attempt to use LoadFile2 after trying object section;
-- minor changes (see details on specific changes).
+- set "leaf" to NULL instead of a buffer with an empty string;
+- keep read_file fatal if cannot load file (except configuration).
 
 Changes since v2:
-- update read_file style;
-- added acked-by.
+- Added acked-by.
 
 Changes since v3:
-- style update;
-- coherency changes for LoadFile2.
+- style fix.
+---
+ xen/common/efi/boot.c | 34 +++++++++++++++++++++++++++++-----
+ 1 file changed, 29 insertions(+), 5 deletions(-)
 
-Frediano Ziglio (3):
-  xen/efi: Handle cases where file didn't come from ESP
-  xen/efi: Support loading initrd using GRUB2 LoadFile2 protocol
-  xen/efi: Update error flow for read_file function
-
- xen/common/efi/boot.c     | 177 +++++++++++++++++++++++++++++---------
- xen/include/efi/efidevp.h |   2 +
- xen/include/efi/efiprot.h |  19 ++++
- 3 files changed, 159 insertions(+), 39 deletions(-)
-
+diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
+index 1a9b4e7dae..9306dc8953 100644
+--- a/xen/common/efi/boot.c
++++ b/xen/common/efi/boot.c
+@@ -443,6 +443,18 @@ static EFI_FILE_HANDLE __init get_parent_handle(const EFI_LOADED_IMAGE *loaded_i
+     CHAR16 *pathend, *ptr;
+     EFI_STATUS ret;
+ 
++    /*
++     * In some cases the image could not come from a specific device.
++     * For instance this can happen if Xen was loaded using GRUB2 "linux"
++     * command.
++     */
++    *leaf = NULL;
++    if ( !loaded_image->DeviceHandle )
++    {
++        PrintStr(L"Xen image loaded without providing a device\r\n");
++        return NULL;
++    }
++
+     do {
+         EFI_FILE_IO_INTERFACE *fio;
+ 
+@@ -466,7 +478,15 @@ static EFI_FILE_HANDLE __init get_parent_handle(const EFI_LOADED_IMAGE *loaded_i
+ 
+         if ( DevicePathType(dp) != MEDIA_DEVICE_PATH ||
+              DevicePathSubType(dp) != MEDIA_FILEPATH_DP )
+-            blexit(L"Unsupported device path component");
++        {
++            /*
++             * The image could come from an unsupported device.
++             * For instance this can happen if Xen was loaded using GRUB2
++             * "chainloader" command and the file was not from ESP.
++             */
++            PrintStr(L"Unsupported device path component\r\n");
++            return NULL;
++        }
+ 
+         if ( *buffer )
+         {
+@@ -772,8 +792,11 @@ static bool __init read_file(EFI_FILE_HANDLE dir_handle, CHAR16 *name,
+ 
+     if ( !name )
+         PrintErrMesg(L"No filename", EFI_OUT_OF_RESOURCES);
+-    ret = dir_handle->Open(dir_handle, &FileHandle, name,
+-                           EFI_FILE_MODE_READ, 0);
++    if ( dir_handle )
++        ret = dir_handle->Open(dir_handle, &FileHandle, name,
++                               EFI_FILE_MODE_READ, 0);
++    else
++        ret = EFI_NOT_FOUND;
+     if ( file == &cfg && ret == EFI_NOT_FOUND )
+         return false;
+     if ( EFI_ERROR(ret) )
+@@ -1404,7 +1427,7 @@ void EFIAPI __init noreturn efi_start(EFI_HANDLE ImageHandle,
+         /* Read and parse the config file. */
+         if ( read_section(loaded_image, L"config", &cfg, NULL) )
+             PrintStr(L"Using builtin config file\r\n");
+-        else if ( !cfg_file_name )
++        else if ( !cfg_file_name && file_name )
+         {
+             CHAR16 *tail;
+ 
+@@ -1515,7 +1538,8 @@ void EFIAPI __init noreturn efi_start(EFI_HANDLE ImageHandle,
+         efi_bs->FreePages(cfg.addr, PFN_UP(cfg.size));
+         cfg.addr = 0;
+ 
+-        dir_handle->Close(dir_handle);
++        if ( dir_handle )
++            dir_handle->Close(dir_handle);
+ 
+         if ( gop && !base_video )
+         {
 -- 
 2.43.0
 
