@@ -2,45 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE324AEA221
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Jun 2025 17:14:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1026655.1401865 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E526AEA26B
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Jun 2025 17:25:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1026683.1401874 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uUoIh-0004k0-7Z; Thu, 26 Jun 2025 15:14:07 +0000
+	id 1uUoTi-0007ld-7A; Thu, 26 Jun 2025 15:25:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1026655.1401865; Thu, 26 Jun 2025 15:14:07 +0000
+Received: by outflank-mailman (output) from mailman id 1026683.1401874; Thu, 26 Jun 2025 15:25:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uUoIh-0004hT-4E; Thu, 26 Jun 2025 15:14:07 +0000
-Received: by outflank-mailman (input) for mailman id 1026655;
- Thu, 26 Jun 2025 15:14:05 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uUoTi-0007jC-4Q; Thu, 26 Jun 2025 15:25:30 +0000
+Received: by outflank-mailman (input) for mailman id 1026683;
+ Thu, 26 Jun 2025 15:25:28 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=zZyX=ZJ=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1uUoIf-00046W-GI
- for xen-devel@lists.xenproject.org; Thu, 26 Jun 2025 15:14:05 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 328ed4bb-52a0-11f0-a30f-13f23c93f187;
- Thu, 26 Jun 2025 17:14:04 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 4B1B721160;
- Thu, 26 Jun 2025 15:14:04 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2092C13188;
- Thu, 26 Jun 2025 15:14:04 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id YfNXBrxjXWgAOwAAD6G6ig
- (envelope-from <jgross@suse.com>); Thu, 26 Jun 2025 15:14:04 +0000
+ (envelope-from <SRS0=o/Pp=ZJ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uUoTg-0007j6-3y
+ for xen-devel@lists.xenproject.org; Thu, 26 Jun 2025 15:25:28 +0000
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [2a00:1450:4864:20::42e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c8a7e827-52a1-11f0-b894-0df219b8e170;
+ Thu, 26 Jun 2025 17:25:26 +0200 (CEST)
+Received: by mail-wr1-x42e.google.com with SMTP id
+ ffacd0b85a97d-3a5123c1533so636857f8f.2
+ for <xen-devel@lists.xenproject.org>; Thu, 26 Jun 2025 08:25:25 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-23abe442a40sm589525ad.249.2025.06.26.08.25.19
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 26 Jun 2025 08:25:24 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,210 +45,91 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 328ed4bb-52a0-11f0-a30f-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1750950844; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5aD+bS4T0OmGOE8GUbzM6J/43FA2KaMdcwiETXcLbNs=;
-	b=Gh60U7kudqIgV5k0t2pBSXmrOQTQhVd0Nyfa78osydhR2c9FGpfyZImZAvxheY4jXNK3UW
-	hUsDVZ01RSkJetiY+ABDjGAdAB9k1Z0pZ8TXC9qYDAv4ztl/lJ7AWX7MVShbWGXrpAabHb
-	6ClmhVS+oJBFJavLn8Mg9cNpO2Qf0O8=
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.com header.s=susede1 header.b=Gh60U7ku
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1750950844; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5aD+bS4T0OmGOE8GUbzM6J/43FA2KaMdcwiETXcLbNs=;
-	b=Gh60U7kudqIgV5k0t2pBSXmrOQTQhVd0Nyfa78osydhR2c9FGpfyZImZAvxheY4jXNK3UW
-	hUsDVZ01RSkJetiY+ABDjGAdAB9k1Z0pZ8TXC9qYDAv4ztl/lJ7AWX7MVShbWGXrpAabHb
-	6ClmhVS+oJBFJavLn8Mg9cNpO2Qf0O8=
-From: Juergen Gross <jgross@suse.com>
-To: xen-devel@lists.xenproject.org
-Cc: Juergen Gross <jgross@suse.com>,
-	Samuel Thibault <samuel.thibault@ens-lyon.org>
-Subject: [PATCH v2 3/3] stubdom/grub: swap start_info usage with start_info_ptr
-Date: Thu, 26 Jun 2025 17:13:44 +0200
-Message-ID: <20250626151344.6971-4-jgross@suse.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20250626151344.6971-1-jgross@suse.com>
-References: <20250626151344.6971-1-jgross@suse.com>
+X-Inumbo-ID: c8a7e827-52a1-11f0-b894-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1750951525; x=1751556325; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=YKQ6Gh73dlwtNUwQq11DNaPFzHPmUBkXRAJ2x86egh8=;
+        b=U4HvG/R+oe+WSEJTO6eSsTedOz6jTf4R0vvMkzz8hDrjhRPqQw0YC2NliAFfMmld1p
+         ND7hMzC9LQ6CdYtqUOQlHy83JEs5cuEo/LkAt2jpGWzfjVgrznaXW+JT5qZ8/Y1BR1Mp
+         0hHUHvpP5LupelMNK5VaLPF7eitlCI2RmlIJbq4d+YU/dbfYkLaVJMZfaUqp7HFr7MOK
+         TLAK2/9n1gd9yONgE9i3FY40CWwBy+YcZKOtLXglpvqS3rXC5OPEP7hcqTpfbauGMw3Z
+         ulnpYPO7+AIAf4eY0rZ4QXowFF7jbHNi9or/x/lu/JWCnzuvqcigbZ7m2ylGrcSCPiM2
+         3Zwg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1750951525; x=1751556325;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=YKQ6Gh73dlwtNUwQq11DNaPFzHPmUBkXRAJ2x86egh8=;
+        b=MAfsOcZFyCFJoIP/tKj6urAVXol+BZ87hD9/3GXYxCWv9NZLXp/+Wg4fWcLhFzMjMw
+         137JYUj14xXapeO3yGEE1bk3JB5BJpJ+H6TTo9MfyYG3m1LvQ6xFDxudzu6s4StfSx21
+         aEniIr5ml3f+ZNRLcwdUlzz7YaQeOOKZLcxo8ub4lDqC2jicQL2ofnEP9G6/8i/bd+pg
+         J9wUpXcqwnks3P5Q9aJ4lxJC6Sn+pMiIDQWqW1bez6vJ2x+hHQXIb93wNv5pTuYz4UZI
+         45cxer+HD5hJ5jUFJjyrAiAOHmHKtQp0qVEi1lYiu/zaU5VjWBQ94b/heV5/bjQpdpSZ
+         u8Zw==
+X-Forwarded-Encrypted: i=1; AJvYcCVNkHW5fak3Ok1HobqDLStMd1ZKsm4vDEpvw7GP6IbLN1H0Gr8x213om/keXxw8QPMgkGw0GhKC3Pk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzF5kSzrIGF5TvX02KRVA9zuGv7EgjuPfosfcDuTlJzbUDlSvbN
+	LzlWAwHsVXK5j4tCZmdkYygODB42lHXa4uEYvMcMWldOVBxju8Z+QJzjCKzrPr3wGQ==
+X-Gm-Gg: ASbGncsJQJWO0KW2V3t4BHdJx7f2mL/bVHy7NqApq2ligqv313v+YoEHgNrQ5NXDV0a
+	ry/wdoTViqTogCWaNw3dZDJTcxpwU5WmrLy550saRIjd9x7c6/HeEegkEHTPeFjt8HHDLoihvKs
+	rxopGHa3CXQePUqsUBckezr9VyoX/iJrFK3bw8sucbFNruff4GT/YnlFKkwJ2o+rPL7z9oF19nk
+	YxyYFZdwWxcC9fECLtJJv/nI4SChjzkkii2ogpxg3x661lQYm0790mOYLkAj2PGtWI/AFKdG2rz
+	T5kfgiPWEJIoJ4ZJ+q5JpWm0cF20fm1whtu7nbznQAxkcxhqL5MGnXDPGLsiDeRnmxpiTIkQQRU
+	JYtZ9JFp66h6qxUr5KqxC5Fp3KKZ96rq8MSOdJj8XnQKCEhc=
+X-Google-Smtp-Source: AGHT+IE4ND3cyfwCJChr6Hn/EHoH7uuBTyxSHJur+XkAcZrgadTv3YoZ0NbX/1Rpqdow7+QL5py0Vg==
+X-Received: by 2002:a5d:5f55:0:b0:3a4:fbaf:749e with SMTP id ffacd0b85a97d-3a6ed65ce01mr5745113f8f.49.1750951525285;
+        Thu, 26 Jun 2025 08:25:25 -0700 (PDT)
+Message-ID: <99ccbf92-2673-4b09-a6fe-4cf5d2f7cbda@suse.com>
+Date: Thu, 26 Jun 2025 17:25:15 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 4B1B721160
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-3.01 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_MISSING_CHARSET(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:dkim,suse.com:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
-	FROM_HAS_DN(0.00)[];
-	ARC_NA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	TO_DN_SOME(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	FROM_EQ_ENVFROM(0.00)[];
-	DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	FUZZY_BLOCKED(0.00)[rspamd.com];
-	RCVD_COUNT_TWO(0.00)[2];
-	RCVD_TLS_ALL(0.00)[];
-	RCPT_COUNT_THREE(0.00)[3];
-	DKIM_TRACE(0.00)[suse.com:+]
-X-Spam-Score: -3.01
-X-Spam-Level: 
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/3] Config: update Mini-OS commit id
+To: Juergen Gross <jgross@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20250626151344.6971-1-jgross@suse.com>
+ <20250626151344.6971-3-jgross@suse.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20250626151344.6971-3-jgross@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Now that Mini-OS is exporting start_info_ptr, use that instead of the
-tedious start_info macro.
+On 26.06.2025 17:13, Juergen Gross wrote:
+> Use the newest Mini-OS.
+> 
+> Signed-off-by: Juergen Gross <jgross@suse.com>
 
-Note that the Mini-OS macro still needs to be undefined, but now it can
-be done right at the top of kexec.c.
-
-Undo the previous move of the "other" start_info into a dedicated
-function.
-
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
-V2:
-- new patch
----
- stubdom/grub/kexec.c | 37 +++++++++++++++----------------------
- 1 file changed, 15 insertions(+), 22 deletions(-)
-
-diff --git a/stubdom/grub/kexec.c b/stubdom/grub/kexec.c
-index b423e856a4..92646ad8cd 100644
---- a/stubdom/grub/kexec.c
-+++ b/stubdom/grub/kexec.c
-@@ -34,6 +34,8 @@
- 
- #include "mini-os.h"
- 
-+#undef start_info
-+
- #if 0
- #define DEBUG(fmt, ...) printk(fmt, ## __VA_ARGS__)
- #else
-@@ -86,10 +88,10 @@ static void do_exchange(struct xc_dom_image *dom, xen_pfn_t target_pfn, xen_pfn_
-     xen_pfn_t source_pfn;
-     xen_pfn_t target_mfn;
- 
--    for (source_pfn = 0; source_pfn < start_info.nr_pages; source_pfn++)
-+    for (source_pfn = 0; source_pfn < start_info_ptr->nr_pages; source_pfn++)
-         if (dom->pv_p2m[source_pfn] == source_mfn)
-             break;
--    ASSERT(source_pfn < start_info.nr_pages);
-+    ASSERT(source_pfn < start_info_ptr->nr_pages);
- 
-     target_mfn = dom->pv_p2m[target_pfn];
- 
-@@ -209,8 +211,6 @@ static void tpm_hash2pcr(struct xc_dom_image *dom, char *cmdline)
- 	shutdown_tpmfront(tpm);
- }
- 
--static void call_start_info_hook(struct xc_dom_image *dom);
--
- void kexec(void *kernel, long kernel_size, void *module, long module_size, char *cmdline, unsigned long flags)
- {
-     struct xc_dom_image *dom;
-@@ -242,8 +242,8 @@ void kexec(void *kernel, long kernel_size, void *module, long module_size, char
-     xc_dom_module_mem(dom, module, module_size, NULL);
- 
-     dom->flags = flags;
--    dom->console_evtchn = start_info.console.domU.evtchn;
--    dom->xenstore_evtchn = start_info.store_evtchn;
-+    dom->console_evtchn = start_info_ptr->console.domU.evtchn;
-+    dom->xenstore_evtchn = start_info_ptr->store_evtchn;
- 
-     tpm_hash2pcr(dom, cmdline);
- 
-@@ -279,7 +279,7 @@ void kexec(void *kernel, long kernel_size, void *module, long module_size, char
-         errnum = ERR_EXEC_FORMAT;
-         goto out;
-     }
--    dom->total_pages = start_info.nr_pages;
-+    dom->total_pages = start_info_ptr->nr_pages;
- 
-     /* equivalent of arch_setup_meminit */
-     dom->p2m_size = dom->total_pages;
-@@ -306,7 +306,7 @@ void kexec(void *kernel, long kernel_size, void *module, long module_size, char
-     }
- 
-     /* Equivalent of xc_dom_boot_image */
--    dom->shared_info_mfn = PHYS_PFN(start_info.shared_info);
-+    dom->shared_info_mfn = PHYS_PFN(start_info_ptr->shared_info);
- 
-     if (!xc_dom_compat_check(dom)) {
-         printk("xc_dom_compat_check failed\n");
-@@ -315,8 +315,8 @@ void kexec(void *kernel, long kernel_size, void *module, long module_size, char
-     }
- 
-     /* Move current console, xenstore and boot MFNs to the allocated place */
--    do_exchange(dom, dom->console_pfn, start_info.console.domU.mfn);
--    do_exchange(dom, dom->xenstore_pfn, start_info.store_mfn);
-+    do_exchange(dom, dom->console_pfn, start_info_ptr->console.domU.mfn);
-+    do_exchange(dom, dom->xenstore_pfn, start_info_ptr->store_mfn);
-     DEBUG("virt base at %llx\n", virt_base);
-     DEBUG("bootstack_pfn %lx\n", dom->bootstack_pfn);
-     _boot_target = virt_base + PFN_PHYS(dom->bootstack_pfn);
-@@ -332,7 +332,8 @@ void kexec(void *kernel, long kernel_size, void *module, long module_size, char
-         }
- 
-     /* start info page */
--    call_start_info_hook(dom);
-+    if ( dom->arch_hooks->start_info )
-+        dom->arch_hooks->start_info(dom);
- 
-     xc_dom_log_memory_footprint(dom);
- 
-@@ -371,7 +372,7 @@ void kexec(void *kernel, long kernel_size, void *module, long module_size, char
-     DEBUG("boot page mfn %lx\n", boot_page_mfn);
-     _boot_page_entry = PFN_PHYS(boot_page_mfn) | L1_PROT;
-     DEBUG("boot page entry %llx\n", _boot_page_entry);
--    _boot_oldpdmfn = virt_to_mfn(start_info.pt_base);
-+    _boot_oldpdmfn = virt_to_mfn(start_info_ptr->pt_base);
-     DEBUG("boot old pd mfn %lx\n", _boot_oldpdmfn);
-     DEBUG("boot pd virt %lx\n", dom->pgtables_seg.vstart);
-     _boot_pdmfn = dom->pv_p2m[PHYS_PFN(dom->pgtables_seg.vstart - virt_base)];
-@@ -384,12 +385,12 @@ void kexec(void *kernel, long kernel_size, void *module, long module_size, char
-     DEBUG("boot start %lx\n", _boot_start);
- 
-     /* Keep only useful entries */
--    for (nr_m2p_updates = pfn = 0; pfn < start_info.nr_pages; pfn++)
-+    for (nr_m2p_updates = pfn = 0; pfn < start_info_ptr->nr_pages; pfn++)
-         if (dom->pv_p2m[pfn] != pfn_to_mfn(pfn))
-             nr_m2p_updates++;
- 
-     m2p_updates = malloc(sizeof(*m2p_updates) * nr_m2p_updates);
--    for (i = pfn = 0; pfn < start_info.nr_pages; pfn++)
-+    for (i = pfn = 0; pfn < start_info_ptr->nr_pages; pfn++)
-         if (dom->pv_p2m[pfn] != pfn_to_mfn(pfn)) {
-             m2p_updates[i].ptr = PFN_PHYS(dom->pv_p2m[pfn]) | MMU_MACHPHYS_UPDATE;
-             m2p_updates[i].val = pfn;
-@@ -431,11 +432,3 @@ out:
-     allocated = 0;
-     xc_interface_close(xc_handle );
- }
--
--/* No references to start_info of Mini-OS after this function. */
--static void call_start_info_hook(struct xc_dom_image *dom)
--{
--#undef start_info
--    if ( dom->arch_hooks->start_info )
--        dom->arch_hooks->start_info(dom);
--}
--- 
-2.43.0
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
 
