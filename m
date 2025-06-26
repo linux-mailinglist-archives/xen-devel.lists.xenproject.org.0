@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D83CCAE9CEA
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Jun 2025 13:56:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1026206.1401427 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 23E8CAE9D2D
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Jun 2025 14:06:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1026235.1401437 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uUlCm-0006cB-Kl; Thu, 26 Jun 2025 11:55:48 +0000
+	id 1uUlMc-0008TQ-Mh; Thu, 26 Jun 2025 12:05:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1026206.1401427; Thu, 26 Jun 2025 11:55:48 +0000
+Received: by outflank-mailman (output) from mailman id 1026235.1401437; Thu, 26 Jun 2025 12:05:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uUlCm-0006ZP-HS; Thu, 26 Jun 2025 11:55:48 +0000
-Received: by outflank-mailman (input) for mailman id 1026206;
- Thu, 26 Jun 2025 11:55:47 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uUlMc-0008Rx-JE; Thu, 26 Jun 2025 12:05:58 +0000
+Received: by outflank-mailman (input) for mailman id 1026235;
+ Thu, 26 Jun 2025 12:05:56 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=/Scu=ZJ=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1uUlCk-0006Z0-Sa
- for xen-devel@lists.xenproject.org; Thu, 26 Jun 2025 11:55:46 +0000
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [2a00:1450:4864:20::62e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7e3e4233-5284-11f0-a30f-13f23c93f187;
- Thu, 26 Jun 2025 13:55:45 +0200 (CEST)
-Received: by mail-ej1-x62e.google.com with SMTP id
- a640c23a62f3a-ae0a0cd709bso400753366b.0
- for <xen-devel@lists.xenproject.org>; Thu, 26 Jun 2025 04:55:45 -0700 (PDT)
+ id 1uUlMa-0008Rr-MI
+ for xen-devel@lists.xenproject.org; Thu, 26 Jun 2025 12:05:56 +0000
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [2a00:1450:4864:20::62d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e91f9df0-5285-11f0-b894-0df219b8e170;
+ Thu, 26 Jun 2025 14:05:54 +0200 (CEST)
+Received: by mail-ej1-x62d.google.com with SMTP id
+ a640c23a62f3a-adfb562266cso177496366b.0
+ for <xen-devel@lists.xenproject.org>; Thu, 26 Jun 2025 05:05:54 -0700 (PDT)
 Received: from [192.168.1.5] (user-109-243-64-38.play-internet.pl.
  [109.243.64.38]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-60c2f1ae7basm3756934a12.25.2025.06.26.04.55.43
+ a640c23a62f3a-ae086a98f6dsm786885966b.32.2025.06.26.05.05.48
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 26 Jun 2025 04:55:44 -0700 (PDT)
+ Thu, 26 Jun 2025 05:05:49 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7e3e4233-5284-11f0-a30f-13f23c93f187
+X-Inumbo-ID: e91f9df0-5285-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1750938945; x=1751543745; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1750939554; x=1751544354; darn=lists.xenproject.org;
         h=in-reply-to:from:content-language:references:cc:to:subject
          :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=FBJ7rmajfjnZp6vc+/rsIwGpNupfVLjB2hWKyfaFwZU=;
-        b=XB1p+v1f5Iwvtuz4681VHBs3kVL6ojR9EQlNOa7nwe88htXtwEfdB04IVwKvnOzUSG
-         4aiW8pLfY7w7svo/bWM5O0uBmw3cCMKoiqzkeMWIxX4d6DJpdMknTp+8h9E3rhLObKpz
-         unpUbQVgekQ4tu0Ce7wUkmy+K7LAZ0cfY+M/TUBKYp48lLWVxRE6eAs2KszJtQYQpoxy
-         22nkcakh4Fh9pje+rpcaSteh9u1nKgNzcw3sf+JfJM5uxaNEF9tTa/++ZZSvd0CZOmFS
-         PaEsdU/eukjeTF+ziD8TgqUbEpXhok3hmqLKiZLLNkcqfjJR7p+BkYMWWPByZ/1kyksw
-         vj4Q==
+        bh=JvqOUCz6CM/70Tu4cQNcQFaup+NPkqjq/GUJGfkTCzk=;
+        b=EM2c4yh4Do0yA/3RAPZmRjagnQGWjESS865iX+SoRmYlS7GH6fjkPKvo9FXEaQELis
+         dZxwLrneM3qBF1sYUS9Cjyz1EH1sAUd8f1KdIpU5BakzAEokrvYsEYmwnANR1zdtxEBf
+         lGZnk8tqJhB1BM/ApTIHvpBX+A0GdFrnY7sLIndpiwKuMTiZoR/q5mA8BpnXe/FLU139
+         ueQ1fwNn5TdX55NqgRVAXY88bIC5t7NzQzbohIkqDSyyRu8DVHZN/un/1JnY7GgDTV12
+         9NA9Dm1wNcw2OmywasIGRTAkX3UiHPzNE4JZmc4VflrCMBbSVELEh4nMbzX0gBFiop6X
+         GAKQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750938945; x=1751543745;
+        d=1e100.net; s=20230601; t=1750939554; x=1751544354;
         h=in-reply-to:from:content-language:references:cc:to:subject
          :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=FBJ7rmajfjnZp6vc+/rsIwGpNupfVLjB2hWKyfaFwZU=;
-        b=c6d87ZsMh4UAU7G4NPSsX5IwPGO6KBPZJuC3RUWW52Az0+8aAAMsGEk3AfO55fHccB
-         RWD8KVv0GFQQ3EolHPlnNDs23DcLgpbBMXDQdl+2EAIp7a9t9c6icItE515pl3vQZqD2
-         mMwQNtxERDtjZRxYXBxS029F4DQ+oQjF3qRW+UvCTEHFh0Np7syaAFh3kdpFtk+4gNdW
-         pectELgdaoXTxxdz/WjgcPwn4aFTf1KcTb4WqIrJgF3nliQ/hrgXzcSSW6XVM7b2s/A+
-         Ezntt9rX3AzLW2407EdQLQScSEwWhVuzL5ay/02yuSb/Fwb3Ctgcq185s9gpPpHAObxj
-         a8Aw==
-X-Forwarded-Encrypted: i=1; AJvYcCV93RNPRUaKe0hryejSSJGSH1eiZHH6tsRuBP3+xImubhptJxPsHlUdqc899dSaAnaUS3dpd65jphI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwFJye81CTpCiBUPP92HSQ37MTXF8yz9Exw58VUOtXG7cEznLrF
-	S5x8XiSwafJaj5T1Kq6ytAhcB1R87MJPBAjbcnwBSOLRALduxbVnxy9n
-X-Gm-Gg: ASbGnctFBac5zx04DhJ/WXx6nscWzSswHYyzQtmS5lFXJYQOeRLxwmkn+5E9AKRMiFz
-	7n/0X6GzZ7TmXz7EGQYZq3j8/UKI3ikMzFFQxyqtKLR5tDnS0TLYnXe+kmCf+F16ndzen9HNErI
-	qAPDKcobM4JuVcBqxDJpxsz6rkTlakk46TG4VRAdBJ4LXoJyQYG4kD70y7IyTlnBIcWfM8m+tbc
-	CPFxYmGSL9ChdwPVc6o2zVj9njY3a1l3NOPMSOjZ0PTLr8XqhTD0UcZtYgo+fWsTixuOPMJ/R4x
-	7/pB5YwNCN+H8xf9J9rua2VZiGse9Y0a5IakZkr0d/o+se4+AJ9nfXaXNvc+uQyG/n1wM2pWQko
-	ERBN6XRzdtP6JEXcLvyPTlVjOcv8KwrAZPh8=
-X-Google-Smtp-Source: AGHT+IGWWtesavkwF3KKfw1lMHY2khY0fHRHnHtOTWHw0mu4oBONNtgf6/XtlWaKIV6tS2wO+kwE4w==
-X-Received: by 2002:a17:906:c148:b0:ae0:dc9e:2f8f with SMTP id a640c23a62f3a-ae0dc9e3079mr121264366b.23.1750938944684;
-        Thu, 26 Jun 2025 04:55:44 -0700 (PDT)
+        bh=JvqOUCz6CM/70Tu4cQNcQFaup+NPkqjq/GUJGfkTCzk=;
+        b=Dv1oA4LK3J3FpXgYvLdZ/iw5TzaWhuiEgnFe8SDzmovPccQavDxOGhyV5+xnHGgDTh
+         QV4Mw3H/SlIioOVYJaIN/XnKWD00lJIBFGc0uSjMsL/xxG1T+qE+LHGkz9wh7LnxWWCC
+         qv305EZz+6jS9fV9PpmAiUwziVLoO2uXA22Hn1jM429p/r5Od184VSfDAeVHC/hU0mhY
+         uZpcN3nlanIERxwUUnqLX3sNMXk1oRF2RGL2tux71CuMKCjdiW+P8+8bmLQJ3kjauSMq
+         rRiyVfih/4H/N6xcS0VGSUyM2PlM/57c5OG7Smmt3VbQNtJSCsa5E4NhkqNvIKEKS00F
+         +TfA==
+X-Forwarded-Encrypted: i=1; AJvYcCXxa5o8YW/r8W2ys/kCFMamdehlHM+xMcS/qJcGX8E7yYKoFonENm4WbDP/OVYzGTKbmjAgBZJdIfk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzqwH06tbh+5JxmVXctTj45q6wMwlzr7YQ6ouNfgW0lOlBr1Nuv
+	lF0NHoIYkVR/oE0fvJwToHlsDZ1MPzLLBqtaw60NcvDSHJ0dB/FWt6OT
+X-Gm-Gg: ASbGncsP2oACo3czFcKD7OgLlhy40/RrZPB9W33/+/hV9c7//QWkfFIDHKa9mUCxXmy
+	r1FTkoxoTNtaNAofPUSmBdLP/x0lVIHBxtA/ZVvd7aPT81Imq8434cK8vyVNU5yIWjY1SzsD6KH
+	glgvs9xY4CGsLabMOOS1IOVZfmFx4YVA9VOIm06R7vkaKFc3yukAxVqIOuTIiA4OnjRSaH/aBHp
+	eNiAzlsD7SHDMvnM+WdqRm2mvW95BWFhNicqAFS8W+Dy2ZfuWnAKoMr3pl0V7lmHlNhy+0NxBHN
+	rOvfVBL3Q3NHDAj+QczBFmhjwzWkmB5ypkxWQ54SBBPvNFM5+AIzMselE5D1S1PBKqX34M2QTd4
+	NVMwzzpptmMuCQycporDSQNC7V/7DlLA4Ozo=
+X-Google-Smtp-Source: AGHT+IFjCXcb0Cb3YkACgioKxbZYK9NGSnJYxawKvdBT4aUlDIWGJgMaH8jopo/yhCunOc9IZvVqzg==
+X-Received: by 2002:a17:907:7e82:b0:ad8:9b5d:2c16 with SMTP id a640c23a62f3a-ae0bebe9319mr683549066b.11.1750939551748;
+        Thu, 26 Jun 2025 05:05:51 -0700 (PDT)
 Content-Type: multipart/alternative;
- boundary="------------xFqQBfbcP2sKFIYGmL6NCh0X"
-Message-ID: <a265a1f9-07e5-437b-a608-d66aacc43672@gmail.com>
-Date: Thu, 26 Jun 2025 13:55:43 +0200
+ boundary="------------7TZvkuo8fanFMXJhoM8Z9Rxa"
+Message-ID: <817a318b-ec0d-4f1e-b29e-5f0b624a89f3@gmail.com>
+Date: Thu, 26 Jun 2025 14:05:47 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 05/17] xen/riscv: introduce things necessary for p2m
- initialization
-To: Jan Beulich <jbeulich@suse.com>
+Subject: Re: [PATCH v2 03/17] xen/riscv: introduce guest domain's VMID
+ allocation and manegement
+To: Juergen Gross <jgross@suse.com>, Jan Beulich <jbeulich@suse.com>
 Cc: Alistair Francis <alistair.francis@wdc.com>,
  Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
  <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -99,114 +99,215 @@ Cc: Alistair Francis <alistair.francis@wdc.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <cover.1749555949.git.oleksii.kurochko@gmail.com>
- <443cb3566a60dcb5d5440c72410ff6d76a010a58.1749555949.git.oleksii.kurochko@gmail.com>
- <5c61fd86-5c0e-481e-a5a9-6a53f2d78c36@suse.com>
- <0b3c403b-0f24-4fc6-ba5b-fb4df62d7057@gmail.com>
- <7cb7a46b-8d2e-4f9e-9613-f7a4199096ee@suse.com>
- <8741800f-b40b-4c42-b435-91e2f9375f6c@gmail.com>
- <1bb7c808-9383-4c51-880e-a12984d544c4@suse.com>
+ <abbf1c30c485d4baae25d4c1fb26942f60015403.1749555949.git.oleksii.kurochko@gmail.com>
+ <d747fd23-9ac3-49d2-8a5e-699290cef3f4@suse.com>
+ <145f71c2-643e-4839-a2ae-0bc1f049db74@gmail.com>
+ <80223fe3-7403-4026-9505-8826c318fabb@suse.com>
+ <a692d449-4101-498e-a460-33e4b2fb7176@gmail.com>
+ <f5c14ffa-6314-4534-a83e-4024b379755c@suse.com>
+ <1a570c32-e207-47f5-9702-a752246328a9@gmail.com>
+ <f4a20826-0949-4bf0-a8e8-eecd1428f739@suse.com>
+ <264db0b0-43bf-4829-a5cc-ca696601349c@gmail.com>
+ <7c5761b5-805c-4d56-ad8c-1746540423e4@suse.com>
 Content-Language: en-US
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <1bb7c808-9383-4c51-880e-a12984d544c4@suse.com>
+In-Reply-To: <7c5761b5-805c-4d56-ad8c-1746540423e4@suse.com>
 
 This is a multi-part message in MIME format.
---------------xFqQBfbcP2sKFIYGmL6NCh0X
+--------------7TZvkuo8fanFMXJhoM8Z9Rxa
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
 
-On 6/26/25 1:01 PM, Jan Beulich wrote:
-> On 26.06.2025 10:40, Oleksii Kurochko wrote:
->> On 6/25/25 5:53 PM, Jan Beulich wrote:
->>> On 25.06.2025 17:31, Oleksii Kurochko wrote:
->>>> On 6/18/25 6:08 PM, Jan Beulich wrote:
->>>>> On 10.06.2025 15:05, Oleksii Kurochko wrote:
->>>>>> @@ -14,6 +18,29 @@
->>>>>>     
->>>>>>     /* Per-p2m-table state */
->>>>>>     struct p2m_domain {
->>>>>> +    /*
->>>>>> +     * Lock that protects updates to the p2m.
->>>>>> +     */
->>>>>> +    rwlock_t lock;
->>>>>> +
->>>>>> +    /* Pages used to construct the p2m */
->>>>>> +    struct page_list_head pages;
->>>>>> +
->>>>>> +    /* Indicate if it is required to clean the cache when writing an entry */
->>>>>> +    bool clean_pte;
->>>>>> +
->>>>>> +    struct radix_tree_root p2m_type;
->>>>> A field with a p2m_ prefix in a p2m struct?
->>>> p2m_ prefix could be really dropped.
+On 6/26/25 1:43 PM, Juergen Gross wrote:
+> On 26.06.25 13:34, Oleksii Kurochko wrote:
+>>
+>> On 6/26/25 12:41 PM, Jan Beulich wrote:
+>>> On 26.06.2025 12:05, Oleksii Kurochko wrote:
+>>>> On 6/24/25 4:01 PM, Jan Beulich wrote:
+>>>>> On 24.06.2025 15:47, Oleksii Kurochko wrote:
+>>>>>> On 6/24/25 12:44 PM, Jan Beulich wrote:
+>>>>>>> On 24.06.2025 11:46, Oleksii Kurochko wrote:
+>>>>>>>> On 6/18/25 5:46 PM, Jan Beulich wrote:
+>>>>>>>>> On 10.06.2025 15:05, Oleksii Kurochko wrote:
+>>>>>>>>>> --- /dev/null
+>>>>>>>>>> +++ b/xen/arch/riscv/p2m.c
+>>>>>>>>>> @@ -0,0 +1,115 @@
+>>>>>>>>>> +#include <xen/bitops.h>
+>>>>>>>>>> +#include <xen/lib.h>
+>>>>>>>>>> +#include <xen/sched.h>
+>>>>>>>>>> +#include <xen/spinlock.h>
+>>>>>>>>>> +#include <xen/xvmalloc.h>
+>>>>>>>>>> +
+>>>>>>>>>> +#include <asm/p2m.h>
+>>>>>>>>>> +#include <asm/sbi.h>
+>>>>>>>>>> +
+>>>>>>>>>> +static spinlock_t vmid_alloc_lock = SPIN_LOCK_UNLOCKED;
+>>>>>>>>>> +
+>>>>>>>>>> +/*
+>>>>>>>>>> + * hgatp's VMID field is 7 or 14 bits. RV64 may support 
+>>>>>>>>>> 14-bit VMID.
+>>>>>>>>>> + * Using a bitmap here limits us to 127 (2^7 - 1) or 16383 
+>>>>>>>>>> (2^14 - 1)
+>>>>>>>>>> + * concurrent domains.
+>>>>>>>>> Which is pretty limiting especially in the RV32 case. Hence 
+>>>>>>>>> why we don't
+>>>>>>>>> assign a permanent ID to VMs on x86, but rather manage IDs 
+>>>>>>>>> per-CPU (note:
+>>>>>>>>> not per-vCPU).
+>>>>>>>> Good point.
+>>>>>>>>
+>>>>>>>> I don't believe anyone will use RV32.
+>>>>>>>> For RV64, the available ID space seems sufficiently large.
+>>>>>>>>
+>>>>>>>> However, if it turns out that the value isn't large enough even 
+>>>>>>>> for RV64,
+>>>>>>>> I can rework it to manage IDs per physical CPU.
+>>>>>>>> Wouldn't that approach result in more TLB entries being flushed 
+>>>>>>>> compared
+>>>>>>>> to per-vCPU allocation, potentially leading to slightly worse 
+>>>>>>>> performance?
+>>>>>>> Depends on the condition for when to flush. Of course 
+>>>>>>> performance is
+>>>>>>> unavoidably going to suffer if you have only very few VMIDs to use.
+>>>>>>> Nevertheless, as indicated before, the model used on x86 may be a
+>>>>>>> candidate to use here, too. See hvm_asid_handle_vmenter() for the
+>>>>>>> core (and vendor-independent) part of it.
+>>>>>> IIUC, so basically it is just a round-robin and when VMIDs are 
+>>>>>> ran out
+>>>>>> then just do full guest TLB flush and start to re-use VMIDs from 
+>>>>>> the start.
+>>>>>> It makes sense to me, I'll implement something similar. (as I'm 
+>>>>>> not really
+>>>>>> sure that we needdata->core_asid_generation, probably, I will 
+>>>>>> understand it better when
+>>>>>> start to implement it)
+>>>>> Well. The fewer VMID bits you have the more quickly you will need 
+>>>>> a new
+>>>>> generation. And keep track of the generation you're at you also 
+>>>>> need to
+>>>>> track the present number somewhere.
+>>>>>
+>>>>>>>> What about then to allocate VMID per-domain?
+>>>>>>> That's what you're doing right now, isn't it? And that gets 
+>>>>>>> problematic when
+>>>>>>> you have only very few bits in hgatp.VMID, as mentioned below.
+>>>>>> Right, I just phrased my question poorly—sorry about that.
+>>>>>>
+>>>>>> What I meant to ask is: does the approach described above 
+>>>>>> actually depend on whether
+>>>>>> VMIDs are allocated per-domain or per-pCPU? It seems that the 
+>>>>>> main advantage of
+>>>>>> allocating VMIDs per-pCPU is potentially reducing the number of 
+>>>>>> TLB flushes,
+>>>>>> since it's more likely that a platform will have more 
+>>>>>> than|VMID_MAX| domains than
+>>>>>> |VMID_MAX| physical CPUs—am I right?
+>>>>> Seeing that there can be systems with hundreds or even thousands 
+>>>>> of CPUs,
+>>>>> I don't think I can agree here. Plus per-pCPU allocation would 
+>>>>> similarly
+>>>>> get you in trouble when you have only very few VMID bits.
+>>>> But not so fast as in case of per-domain allocation, right?
 >>>>
->>>>>     And is this tree really about
->>>>> just a single "type"?
->>>> Yes, we don't have enough bits in PTE so we need some extra storage to store type.
->>> My question wasn't about that, though. My question was whether in the name
->>> "type" (singular) is appropriate. I didn't think you need a tree to store just
->>> a single type.
->> I need tree to store a pair of <gfn, p2m_type>, where gfn is an index. And it seems
->> to me a tree is a good structure for fast insert/search.
-> Hmm, I'm increasingly puzzled. I tried to emphasize that my question was towards
-> the singular "type" in the variable name. I can't see any relationship between
-> that and your reply. (And yes, using a tree here may be appropriate. There is a
-> concern towards memory consumption, but that's a separate topic.)
-
-Oh, I got your initial intention. For sure, it should be "types".
-
->
-> Having said that, aiui you don't use the two RSW bits in the PTE. Do you have
-> any plans there? If not, can't they be used to at least represent the most
-> commonly used types, such that the number of entries in that tree can be kept
-> (relatively) low?
-
-It could be really an option for optimization.
-
-In this case I have to p2m_type_t by adding a new type p2m_tree_type:
-typedef enum {
-     p2m_invalid = 0,    /* Nothing mapped here */
-     p2m_ram_rw,         /* Normal read/write domain RAM */
-     p2m_ram_ro,         /* Read-only */
-     
-     + p2m_tree_type,    /* The types below p2m_free_type will be stored outside PTE's bits */
-
-     p2m_mmio_direct_dev,/* Read/write mapping of genuine Device MMIO area */
-     p2m_grant_map_rw,   /* Read/write grant mapping */
-     p2m_grant_map_ro,   /* Read-only grant mapping */
-} p2m_type_t;
-
-Probably, it make sense to switch p2m_ram_ro and p2m_mmio_direct_dev. I think device mapping
-is more often operations.
-
->
->>>>>> +    /*
->>>>>> +     * Some IOMMUs don't support coherent PT walk. When the p2m is
->>>>>> +     * shared with the CPU, Xen has to make sure that the PT changes have
->>>>>> +     * reached the memory
->>>>>> +     */
->>>>>> +    p2m->clean_pte = is_iommu_enabled(d) &&
->>>>>> +        !iommu_has_feature(d, IOMMU_FEAT_COHERENT_WALK);
->>>>> The comment talks about shared page tables, yet you don't check whether
->>>>> page table sharing is actually enabled for the domain.
->>>> Do we have such function/macros?
->>> We have iommu_hap_pt_share, and we have the per-domain hap_pt_share flag.
+>>>> I mean that if we have only 4 bits, then in case of per-domain 
+>>>> allocation we will
+>>>> need to do TLB flush + VMID re-assigning when we have more then 16 
+>>>> domains.
+>>>>
+>>>> But in case of per-pCPU allocation we could run 16 domains on 1 
+>>>> pCPU and at the same
+>>>> time in multiprocessor systems we have more pCPUs, which will allow 
+>>>> us to run more
+>>>> domains and avoid TLB flushes.
+>>>> On other hand, it is needed to consider that it's unlikely that a 
+>>>> domain will have
+>>>> only one vCPU. And it is likely that amount of vCPUs will be bigger 
+>>>> then an amount
+>>>> of domains, so to have a round-robin approach (as x86) without 
+>>>> permanent ID allocation
+>>>> for each domain will work better then per-pCPU allocation.
+>>> Here you (appear to) say one thing, ...
 >>>
->>>> It is shared by implementation now.
->>> I don't understand. There's no IOMMU support yet for RISC-V. Hence it's in
->>> neither state - not shared, but also not not shared.
->> In downstream there is a support of IOMMU for RISC-V.
-> And there page tables are unconditionally shared? I'll be surprised if no
-> want/need for non-shared page tables would ever appear.
+>>>> In other words, I'm not 100% sure that I get a point why x86 chose 
+>>>> per-pCPU allocation
+>>>> instead of per-domain allocation with having the same VMID for all 
+>>>> vCPUs of domains.
+>>> ... and then here the opposite. Overall I'm in severe trouble 
+>>> understanding this
+>>> reply of yours as a whole, so I fear I can't really respond to it 
+>>> (or even just
+>>> parts thereof).
+>>
+>> IIUC, x86 allocates VMIDs per physical CPU (pCPU) "dynamically" — 
+>> these are just
+>> sequential numbers, and once VMIDs run out on a given pCPU, there's 
+>> no guarantee
+>> that a vCPU will receive the same VMID again.
+>>
+>> On the other hand, RISC-V currently allocates a single VMID per 
+>> domain, and that
+>> VMID is considered "permanent" until the domain is destroyed. This 
+>> means we are
+>> limited to at most VMID_MAX domains. To avoid this limitation, I plan 
+>> to implement
+>> a round-robin reuse approach: when no free VMIDs remain, we start a 
+>> new generation
+>> and begin reusing old VMIDs.
+>>
+>> The only remaining design question is whether we want RISC-V to 
+>> follow a global
+>> VMID allocation policy (i.e., one VMID per domain, shared across all 
+>> of its vCPUs),
+>> or adopt a policy similar to x86 with per-CPU VMID allocation (each 
+>> vCPU gets its
+>> own VMID, local to the CPU it's running on).
+>>
+>> Each policy has its own trade-offs. But in the case where the number 
+>> of available
+>> VMIDs is small (i.e., low VMIDLEN), a global allocation policy may be 
+>> more suitable,
+>> as it requires fewer VMIDs overall.
+>>
+>> So my main question was:
+>> What are the advantages of per-pCPU VMID allocation in scenarios with 
+>> limited VMID
+>> space, and why did x86 choose that design?
+>>
+>>> From what I can tell, the benefits of per-pCPU VMID allocation include:
+>> - Minimized inter-CPU TLB flushes — since VMIDs are local, TLB 
+>> entries don’t need
+>>    to be invalidated on other CPUs when reused.
+>> - Better scalability — this approach works better on systems with a 
+>> large number
+>>    of CPUs.
+>> - Frequent VM switches don’t require global TLB flushes — reducing 
+>> the overhead
+>>    of context switching.
+>> However, the downside is that this model consumes more VMIDs. For 
+>> example,
+>> if a single domain runs on 4 vCPUs across 4 CPUs, it will consume 4 
+>> VMIDs instead
+>> of just one.
+>
+> Consider you have 4 bits for VMIDs, resulting in 16 VMID values.
+>
+> If you have a system with 32 physical CPUs and 32 domains with 1 vcpu 
+> each
+> on that system, your scheme would NOT allow to keep each physical cpu 
+> busy
+> by running a domain on it, as only 16 domains could be active at the same
+> time.
 
-At the moment, yes, but it isn't strict limitation. So yes, it should be page
-tables should be conditionally shared.
+It makes sense to me.
+
+Thanks.
 
 ~ Oleksii
 
---------------xFqQBfbcP2sKFIYGmL6NCh0X
+--------------7TZvkuo8fanFMXJhoM8Z9Rxa
 Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
 <!DOCTYPE html>
 <html>
@@ -216,155 +317,342 @@ Content-Transfer-Encoding: 7bit
   <body>
     <p><br>
     </p>
-    <div class="moz-cite-prefix">On 6/26/25 1:01 PM, Jan Beulich wrote:<br>
+    <div class="moz-cite-prefix">On 6/26/25 1:43 PM, Juergen Gross
+      wrote:<br>
     </div>
     <blockquote type="cite"
-      cite="mid:1bb7c808-9383-4c51-880e-a12984d544c4@suse.com">
-      <pre wrap="" class="moz-quote-pre">On 26.06.2025 10:40, Oleksii Kurochko wrote:
-</pre>
+      cite="mid:7c5761b5-805c-4d56-ad8c-1746540423e4@suse.com">On
+      26.06.25 13:34, Oleksii Kurochko wrote:
+      <br>
       <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">On 6/25/25 5:53 PM, Jan Beulich wrote:
-</pre>
-        <blockquote type="cite">
-          <pre wrap="" class="moz-quote-pre">On 25.06.2025 17:31, Oleksii Kurochko wrote:
-</pre>
-          <blockquote type="cite">
-            <pre wrap="" class="moz-quote-pre">On 6/18/25 6:08 PM, Jan Beulich wrote:
-</pre>
-            <blockquote type="cite">
-              <pre wrap="" class="moz-quote-pre">On 10.06.2025 15:05, Oleksii Kurochko wrote:
-</pre>
-              <blockquote type="cite">
-                <pre wrap="" class="moz-quote-pre">@@ -14,6 +18,29 @@
-   
-   /* Per-p2m-table state */
-   struct p2m_domain {
-+    /*
-+     * Lock that protects updates to the p2m.
-+     */
-+    rwlock_t lock;
-+
-+    /* Pages used to construct the p2m */
-+    struct page_list_head pages;
-+
-+    /* Indicate if it is required to clean the cache when writing an entry */
-+    bool clean_pte;
-+
-+    struct radix_tree_root p2m_type;
-</pre>
+        <br>
+        On 6/26/25 12:41 PM, Jan Beulich wrote:
+        <br>
+        <blockquote type="cite">On 26.06.2025 12:05, Oleksii Kurochko
+          wrote:
+          <br>
+          <blockquote type="cite">On 6/24/25 4:01 PM, Jan Beulich wrote:
+            <br>
+            <blockquote type="cite">On 24.06.2025 15:47, Oleksii
+              Kurochko wrote:
+              <br>
+              <blockquote type="cite">On 6/24/25 12:44 PM, Jan Beulich
+                wrote:
+                <br>
+                <blockquote type="cite">On 24.06.2025 11:46, Oleksii
+                  Kurochko wrote:
+                  <br>
+                  <blockquote type="cite">On 6/18/25 5:46 PM, Jan
+                    Beulich wrote:
+                    <br>
+                    <blockquote type="cite">On 10.06.2025 15:05, Oleksii
+                      Kurochko wrote:
+                      <br>
+                      <blockquote type="cite">--- /dev/null
+                        <br>
+                        +++ b/xen/arch/riscv/p2m.c
+                        <br>
+                        @@ -0,0 +1,115 @@
+                        <br>
+                        +#include &lt;xen/bitops.h&gt;
+                        <br>
+                        +#include &lt;xen/lib.h&gt;
+                        <br>
+                        +#include &lt;xen/sched.h&gt;
+                        <br>
+                        +#include &lt;xen/spinlock.h&gt;
+                        <br>
+                        +#include &lt;xen/xvmalloc.h&gt;
+                        <br>
+                        +
+                        <br>
+                        +#include &lt;asm/p2m.h&gt;
+                        <br>
+                        +#include &lt;asm/sbi.h&gt;
+                        <br>
+                        +
+                        <br>
+                        +static spinlock_t vmid_alloc_lock =
+                        SPIN_LOCK_UNLOCKED;
+                        <br>
+                        +
+                        <br>
+                        +/*
+                        <br>
+                        + * hgatp's VMID field is 7 or 14 bits. RV64 may
+                        support 14-bit VMID.
+                        <br>
+                        + * Using a bitmap here limits us to 127 (2^7 -
+                        1) or 16383 (2^14 - 1)
+                        <br>
+                        + * concurrent domains.
+                        <br>
+                      </blockquote>
+                      Which is pretty limiting especially in the RV32
+                      case. Hence why we don't
+                      <br>
+                      assign a permanent ID to VMs on x86, but rather
+                      manage IDs per-CPU (note:
+                      <br>
+                      not per-vCPU).
+                      <br>
+                    </blockquote>
+                    Good point.
+                    <br>
+                    <br>
+                    I don't believe anyone will use RV32.
+                    <br>
+                    For RV64, the available ID space seems sufficiently
+                    large.
+                    <br>
+                    <br>
+                    However, if it turns out that the value isn't large
+                    enough even for RV64,
+                    <br>
+                    I can rework it to manage IDs per physical CPU.
+                    <br>
+                    Wouldn't that approach result in more TLB entries
+                    being flushed compared
+                    <br>
+                    to per-vCPU allocation, potentially leading to
+                    slightly worse performance?
+                    <br>
+                  </blockquote>
+                  Depends on the condition for when to flush. Of course
+                  performance is
+                  <br>
+                  unavoidably going to suffer if you have only very few
+                  VMIDs to use.
+                  <br>
+                  Nevertheless, as indicated before, the model used on
+                  x86 may be a
+                  <br>
+                  candidate to use here, too. See
+                  hvm_asid_handle_vmenter() for the
+                  <br>
+                  core (and vendor-independent) part of it.
+                  <br>
+                </blockquote>
+                IIUC, so basically it is just a round-robin and when
+                VMIDs are ran out
+                <br>
+                then just do full guest TLB flush and start to re-use
+                VMIDs from the start.
+                <br>
+                It makes sense to me, I'll implement something similar.
+                (as I'm not really
+                <br>
+                sure that we needdata-&gt;core_asid_generation,
+                probably, I will understand it better when
+                <br>
+                start to implement it)
+                <br>
               </blockquote>
-              <pre wrap="" class="moz-quote-pre">A field with a p2m_ prefix in a p2m struct?
-</pre>
-            </blockquote>
-            <pre wrap="" class="moz-quote-pre">p2m_ prefix could be really dropped.
-
-</pre>
-            <blockquote type="cite">
-              <pre wrap="" class="moz-quote-pre">   And is this tree really about
-just a single "type"?
-</pre>
-            </blockquote>
-            <pre wrap="" class="moz-quote-pre">Yes, we don't have enough bits in PTE so we need some extra storage to store type.
-</pre>
-          </blockquote>
-          <pre wrap="" class="moz-quote-pre">My question wasn't about that, though. My question was whether in the name
-"type" (singular) is appropriate. I didn't think you need a tree to store just
-a single type.
-</pre>
-        </blockquote>
-        <pre wrap="" class="moz-quote-pre">
-I need tree to store a pair of &lt;gfn, p2m_type&gt;, where gfn is an index. And it seems
-to me a tree is a good structure for fast insert/search.
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-Hmm, I'm increasingly puzzled. I tried to emphasize that my question was towards
-the singular "type" in the variable name. I can't see any relationship between
-that and your reply. (And yes, using a tree here may be appropriate. There is a
-concern towards memory consumption, but that's a separate topic.)</pre>
-    </blockquote>
-    <pre>Oh, I got your initial intention. For sure, it should be "types".
-
-</pre>
-    <blockquote type="cite"
-      cite="mid:1bb7c808-9383-4c51-880e-a12984d544c4@suse.com">
-      <pre wrap="" class="moz-quote-pre">
-
-Having said that, aiui you don't use the two RSW bits in the PTE. Do you have
-any plans there? If not, can't they be used to at least represent the most
-commonly used types, such that the number of entries in that tree can be kept
-(relatively) low?</pre>
-    </blockquote>
-    <pre>It could be really an option for optimization.
-
-In this case I have to p2m_type_t by adding a new type p2m_tree_type:
-typedef enum {
-    p2m_invalid = 0,    /* Nothing mapped here */
-    p2m_ram_rw,         /* Normal read/write domain RAM */
-    p2m_ram_ro,         /* Read-only */
-    
-    + p2m_tree_type,    /* The types below p2m_free_type will be stored outside PTE's bits */
-
-    p2m_mmio_direct_dev,/* Read/write mapping of genuine Device MMIO area */
-    p2m_grant_map_rw,   /* Read/write grant mapping */
-    p2m_grant_map_ro,   /* Read-only grant mapping */
-} p2m_type_t;
-
-Probably, it make sense to switch p2m_ram_ro and p2m_mmio_direct_dev. I think device mapping
-is more often operations.
-
-</pre>
-    <blockquote type="cite"
-      cite="mid:1bb7c808-9383-4c51-880e-a12984d544c4@suse.com">
-      <pre wrap="" class="moz-quote-pre">
-
-</pre>
-      <blockquote type="cite">
-        <blockquote type="cite">
-          <blockquote type="cite">
-            <blockquote type="cite">
+              Well. The fewer VMID bits you have the more quickly you
+              will need a new
+              <br>
+              generation. And keep track of the generation you're at you
+              also need to
+              <br>
+              track the present number somewhere.
+              <br>
+              <br>
               <blockquote type="cite">
-                <pre wrap="" class="moz-quote-pre">+    /*
-+     * Some IOMMUs don't support coherent PT walk. When the p2m is
-+     * shared with the CPU, Xen has to make sure that the PT changes have
-+     * reached the memory
-+     */
-+    p2m-&gt;clean_pte = is_iommu_enabled(d) &amp;&amp;
-+        !iommu_has_feature(d, IOMMU_FEAT_COHERENT_WALK);
-</pre>
+                <blockquote type="cite">
+                  <blockquote type="cite">What about then to allocate
+                    VMID per-domain?
+                    <br>
+                  </blockquote>
+                  That's what you're doing right now, isn't it? And that
+                  gets problematic when
+                  <br>
+                  you have only very few bits in hgatp.VMID, as
+                  mentioned below.
+                  <br>
+                </blockquote>
+                Right, I just phrased my question poorly—sorry about
+                that.
+                <br>
+                <br>
+                What I meant to ask is: does the approach described
+                above actually depend on whether
+                <br>
+                VMIDs are allocated per-domain or per-pCPU? It seems
+                that the main advantage of
+                <br>
+                allocating VMIDs per-pCPU is potentially reducing the
+                number of TLB flushes,
+                <br>
+                since it's more likely that a platform will have more
+                than|VMID_MAX| domains than
+                <br>
+                |VMID_MAX| physical CPUs—am I right?
+                <br>
               </blockquote>
-              <pre wrap="" class="moz-quote-pre">The comment talks about shared page tables, yet you don't check whether
-page table sharing is actually enabled for the domain.
-</pre>
+              Seeing that there can be systems with hundreds or even
+              thousands of CPUs,
+              <br>
+              I don't think I can agree here. Plus per-pCPU allocation
+              would similarly
+              <br>
+              get you in trouble when you have only very few VMID bits.
+              <br>
             </blockquote>
-            <pre wrap="" class="moz-quote-pre">Do we have such function/macros?
-</pre>
+            But not so fast as in case of per-domain allocation, right?
+            <br>
+            <br>
+            I mean that if we have only 4 bits, then in case of
+            per-domain allocation we will
+            <br>
+            need to do TLB flush + VMID re-assigning when we have more
+            then 16 domains.
+            <br>
+            <br>
+            But in case of per-pCPU allocation we could run 16 domains
+            on 1 pCPU and at the same
+            <br>
+            time in multiprocessor systems we have more pCPUs, which
+            will allow us to run more
+            <br>
+            domains and avoid TLB flushes.
+            <br>
+            On other hand, it is needed to consider that it's unlikely
+            that a domain will have
+            <br>
+            only one vCPU. And it is likely that amount of vCPUs will be
+            bigger then an amount
+            <br>
+            of domains, so to have a round-robin approach (as x86)
+            without permanent ID allocation
+            <br>
+            for each domain will work better then per-pCPU allocation.
+            <br>
           </blockquote>
-          <pre wrap="" class="moz-quote-pre">We have iommu_hap_pt_share, and we have the per-domain hap_pt_share flag.
-
-</pre>
-          <blockquote type="cite">
-            <pre wrap="" class="moz-quote-pre">It is shared by implementation now.
-</pre>
+          Here you (appear to) say one thing, ...
+          <br>
+          <br>
+          <blockquote type="cite">In other words, I'm not 100% sure that
+            I get a point why x86 chose per-pCPU allocation
+            <br>
+            instead of per-domain allocation with having the same VMID
+            for all vCPUs of domains.
+            <br>
           </blockquote>
-          <pre wrap="" class="moz-quote-pre">I don't understand. There's no IOMMU support yet for RISC-V. Hence it's in
-neither state - not shared, but also not not shared.
-</pre>
+          ... and then here the opposite. Overall I'm in severe trouble
+          understanding this
+          <br>
+          reply of yours as a whole, so I fear I can't really respond to
+          it (or even just
+          <br>
+          parts thereof).
+          <br>
         </blockquote>
-        <pre wrap="" class="moz-quote-pre">
-In downstream there is a support of IOMMU for RISC-V.
-</pre>
+        <br>
+        IIUC, x86 allocates VMIDs per physical CPU (pCPU) "dynamically"
+        — these are just
+        <br>
+        sequential numbers, and once VMIDs run out on a given pCPU,
+        there's no guarantee
+        <br>
+        that a vCPU will receive the same VMID again.
+        <br>
+        <br>
+        On the other hand, RISC-V currently allocates a single VMID per
+        domain, and that
+        <br>
+        VMID is considered "permanent" until the domain is destroyed.
+        This means we are
+        <br>
+        limited to at most VMID_MAX domains. To avoid this limitation, I
+        plan to implement
+        <br>
+        a round-robin reuse approach: when no free VMIDs remain, we
+        start a new generation
+        <br>
+        and begin reusing old VMIDs.
+        <br>
+        <br>
+        The only remaining design question is whether we want RISC-V to
+        follow a global
+        <br>
+        VMID allocation policy (i.e., one VMID per domain, shared across
+        all of its vCPUs),
+        <br>
+        or adopt a policy similar to x86 with per-CPU VMID allocation
+        (each vCPU gets its
+        <br>
+        own VMID, local to the CPU it's running on).
+        <br>
+        <br>
+        Each policy has its own trade-offs. But in the case where the
+        number of available
+        <br>
+        VMIDs is small (i.e., low VMIDLEN), a global allocation policy
+        may be more suitable,
+        <br>
+        as it requires fewer VMIDs overall.
+        <br>
+        <br>
+        So my main question was:
+        <br>
+        What are the advantages of per-pCPU VMID allocation in scenarios
+        with limited VMID
+        <br>
+        space, and why did x86 choose that design?
+        <br>
+        <br>
+        <blockquote type="cite">From what I can tell, the benefits of
+          per-pCPU VMID allocation include:
+          <br>
+        </blockquote>
+        - Minimized inter-CPU TLB flushes — since VMIDs are local, TLB
+        entries don’t need
+        <br>
+           to be invalidated on other CPUs when reused.
+        <br>
+        - Better scalability — this approach works better on systems
+        with a large number
+        <br>
+           of CPUs.
+        <br>
+        - Frequent VM switches don’t require global TLB flushes —
+        reducing the overhead
+        <br>
+           of context switching.
+        <br>
+        However, the downside is that this model consumes more VMIDs.
+        For example,
+        <br>
+        if a single domain runs on 4 vCPUs across 4 CPUs, it will
+        consume 4 VMIDs instead
+        <br>
+        of just one.
+        <br>
       </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-And there page tables are unconditionally shared? I'll be surprised if no
-want/need for non-shared page tables would ever appear.</pre>
+      <br>
+      Consider you have 4 bits for VMIDs, resulting in 16 VMID values.
+      <br>
+      <br>
+      If you have a system with 32 physical CPUs and 32 domains with 1
+      vcpu each
+      <br>
+      on that system, your scheme would NOT allow to keep each physical
+      cpu busy
+      <br>
+      by running a domain on it, as only 16 domains could be active at
+      the same
+      <br>
+      time.
+      <br>
     </blockquote>
-    <pre>At the moment, yes, but it isn't strict limitation. So yes, it should be page
-tables should be conditionally shared.
+    <pre>It makes sense to me.
 
-~ Oleksii</pre>
+Thanks.
+</pre>
+    <pre>~ Oleksii
+</pre>
   </body>
 </html>
 
---------------xFqQBfbcP2sKFIYGmL6NCh0X--
+--------------7TZvkuo8fanFMXJhoM8Z9Rxa--
 
