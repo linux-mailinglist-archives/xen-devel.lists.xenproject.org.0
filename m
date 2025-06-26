@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 330A9AE9DA7
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Jun 2025 14:38:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1026314.1401497 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F06D3AE9DC1
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Jun 2025 14:45:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1026321.1401507 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uUlrE-0007EX-99; Thu, 26 Jun 2025 12:37:36 +0000
+	id 1uUlyi-0000bu-WB; Thu, 26 Jun 2025 12:45:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1026314.1401497; Thu, 26 Jun 2025 12:37:36 +0000
+Received: by outflank-mailman (output) from mailman id 1026321.1401507; Thu, 26 Jun 2025 12:45:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uUlrE-0007CT-6G; Thu, 26 Jun 2025 12:37:36 +0000
-Received: by outflank-mailman (input) for mailman id 1026314;
- Thu, 26 Jun 2025 12:37:35 +0000
+	id 1uUlyi-0000aT-TP; Thu, 26 Jun 2025 12:45:20 +0000
+Received: by outflank-mailman (input) for mailman id 1026321;
+ Thu, 26 Jun 2025 12:45:19 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=o/Pp=ZJ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uUlrD-0007CN-1u
- for xen-devel@lists.xenproject.org; Thu, 26 Jun 2025 12:37:35 +0000
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [2a00:1450:4864:20::42c])
+ id 1uUlyh-0000aN-6k
+ for xen-devel@lists.xenproject.org; Thu, 26 Jun 2025 12:45:19 +0000
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
+ [2a00:1450:4864:20::431])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 55492ad9-528a-11f0-a30f-13f23c93f187;
- Thu, 26 Jun 2025 14:37:34 +0200 (CEST)
-Received: by mail-wr1-x42c.google.com with SMTP id
- ffacd0b85a97d-3a507e88b0aso716058f8f.1
- for <xen-devel@lists.xenproject.org>; Thu, 26 Jun 2025 05:37:33 -0700 (PDT)
+ id 69faae26-528b-11f0-a30f-13f23c93f187;
+ Thu, 26 Jun 2025 14:45:18 +0200 (CEST)
+Received: by mail-wr1-x431.google.com with SMTP id
+ ffacd0b85a97d-3a57c8e247cso788406f8f.1
+ for <xen-devel@lists.xenproject.org>; Thu, 26 Jun 2025 05:45:18 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-749c88722e7sm6896887b3a.166.2025.06.26.05.37.25
+ 41be03b00d2f7-b34c4473133sm1677962a12.59.2025.06.26.05.45.13
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 26 Jun 2025 05:37:32 -0700 (PDT)
+ Thu, 26 Jun 2025 05:45:16 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,74 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 55492ad9-528a-11f0-a30f-13f23c93f187
+X-Inumbo-ID: 69faae26-528b-11f0-a30f-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1750941453; x=1751546253; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=B/pdsmga+9WLKORcptWiaUY7QzAxD+mRE9Kq8aLAfIw=;
-        b=WXQzdjeQeQzefEd5twVwbXUEMkbk2Hc1ecLck5YoXHwxIldSjcbW/VF2eMRbPv3fqd
-         IfTtFbcDBaMGV2q/wo/Kzp0HcFX+V/cHQcw0KUIGhl83kdU9uGw/pB9LDVdKyVjAH0+d
-         caOjD6Q+xjyG44LbH7Ld6dFE5JjcmMIZ6JunP+f9+L/pmlbXryxcYXrp2/kdLWE6lqUt
-         kSJQgk+7u424BEddzzeSMt5uQYlLQ5FiCg3g5SSMIEW5n+qqkEr0KU9ZtER/E7GvyvXg
-         sQXHk4Ay0lAVeKIOPClFYtT40pnV3TkW1ylD5REpgunwwZVXCQtHqD55vqFy2VI+Dz0o
-         t20Q==
+        d=suse.com; s=google; t=1750941917; x=1751546717; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=EnD865kQZT3U9m0YypsVhDcIpSJ1IT0MoGncbtt139I=;
+        b=WwLhNOVNQPtoH8TFjBTgW++uCtq+w0/DP5ruVYziy/XkaaK43GewSxoiOSuLBHHX9h
+         xXCnhYd41JMIkp70m42u6xUhm4Z2VS4WFL9OldQf4G4vw81rW/nJQlNZtVTTopnqRfOX
+         rsLkJt0Bs6lcwzkeYOGsxgj6Tez0kCKH32WRsfpsaVFkeMwLg4ZCtuPfmk4raMhuSc6d
+         eHnyBsqENC/cn2CuTIlyVUhWwxaRzY32Ax8CRhUf6PuP+0KuggGvJlYMqU16k3AS/Atg
+         dV+2YHp6VahRhvrcr7CrJ1YpfDyE8falwiTiY9BRtunFupskL3Oxb0dRnTKYZkhvVvPv
+         SkzQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750941453; x=1751546253;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=B/pdsmga+9WLKORcptWiaUY7QzAxD+mRE9Kq8aLAfIw=;
-        b=qupMSVnmUK9hy7DhKnszEoxhSKngvl8oTQRm08T5BK47zRHOO8XcSk+v8k6faf6WNC
-         VCkdE8+YH8+6h41kNSekMEabcvwnO3otly7WtpyOPDjQz5JbhC45+IzWF/UEZDx18Ueq
-         IJ5sEW/zvv91WYzbBH4TOuw4reEO0UYyVyt7k9y09Yb02T+59M0SRIovCIEm4PRvU68Y
-         4JIu8OhBR+DJqqs1It1IDW+83hpYubnE8JgJv+0Ktedj//5UXAtZjNfmy3MM/ZCHO41e
-         rA1Q2XyxrFXu5GBt6435gS+kNZPbdTTSIOUGDAMhDfnslNz3EwlMweL+cEzuTb95OcXO
-         R/bQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWnK+hure0UqbYYTqCShhfNaP8fYmxIBH0y2qwrs5elNTCiMTVHs6jAczzln7ZYKuk4GVlgm69lQdE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwTjmP4L9eU/Xf/z1BAV5rULdi2qAdZ71UpUCVGIbn/GDKAZD8z
-	fRSmTKgP7IVnm4P/Exm+Bt6EIzkAPI03hMOtJgeFS+xCmbM9ptOPgiM77/dnKzZALg==
-X-Gm-Gg: ASbGnctTnCrWiV4XeOGF+1GRMs/NhkCG6Gdd02Xawse8rCOJHapht2eU7hZZM/unuHi
-	X32t0Q8lqARnyMoUGLAIyMdBCBLMnRk02Efsw2ag0tE413X7uoVVcpuJmEvpuAUILlUV8UV2da8
-	vSjB6RLuig/gfRKx4kBw5DApJGfthQp09Znf5mnMAkstC9Evxhnr8zV1lY1rslZJ9pihFirl7Zs
-	JqffSXkSQL+vf24VNQbOUZ82gHwpvE/fM9/ToCbinrCqhd4rFKxrGHsvaFh8msVDcz5WSI2YDp+
-	pvATLAXSIW5MMyCPgvgMblSbzmOsMWEnWEJPYPUtY9efzz66zCZziWdG9s95UZG9a+n7eJ2lRTp
-	TqWw2IIzqPXyiczRKrNaDzt3kzHaDIEY1Dk0hzvl7L7uNAmw=
-X-Google-Smtp-Source: AGHT+IESv1h3tnJEKeF6Ymq81qeBEhUM3V4jdP9Jh74MDjdmwb2GdgZk8fANh/5Hjk2dqEo9xLxE2Q==
-X-Received: by 2002:a05:6000:2184:b0:3a4:f519:ed3 with SMTP id ffacd0b85a97d-3a6ed648fedmr4449075f8f.44.1750941453377;
-        Thu, 26 Jun 2025 05:37:33 -0700 (PDT)
-Message-ID: <a54860a1-cf35-44c4-b95a-5c2b1c50cc2e@suse.com>
-Date: Thu, 26 Jun 2025 14:37:21 +0200
+        d=1e100.net; s=20230601; t=1750941917; x=1751546717;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=EnD865kQZT3U9m0YypsVhDcIpSJ1IT0MoGncbtt139I=;
+        b=pk2v81yr1AT/7J4gTRpCTlgfcfXRTdaK/0OFi3hxwsAxm6/8wylcmgB65XgN4/MsLo
+         rbNVE8rPX3rSMbamorA6KzB+BMl7ZENsx84a0un/v67fNF240DKlKKpvsp8E5ehqaSzA
+         iTUuHWQSKHEMapCmNpqzvkKdVHoJIMXke9F9qUZJKzKpaE5ObO7Qubk1dGV2h18JhK9w
+         XRBJCICmlXlXFmyYXVrk85RUKtVewU7pbAOqQkYKpj72XcUfkY53G3ZrSEJCQscjukjR
+         ikmxCL6VxOPMF/iolkHmTuEUTd25SB6lHKqxjNFtZpyPjgQCRYfWwnCe8sOt26kSW7nu
+         /fXA==
+X-Gm-Message-State: AOJu0Yxd+u+Fs7s+0EBniXYRh91wAsq28ILhWFCI554x8AjkaZgTT+0d
+	PnwOZH97FQlOpx8MxxbZH0b8p7rdXMV2Hdan3KHCnNfUZ3gQsDOZrMBeglZf1upXWLvpiGdJ/nT
+	L+Yw=
+X-Gm-Gg: ASbGncvbJId0vr+2pzLQloM3f4wCmUCqFIAWZBGMIMJWhR94RmYRuA+qBWZ/gWBRWh3
+	bM7ok2fjCgdo4RqzvGtawYILdhiyGU+o5e/6a/+Wy8LSPlbOPJlLJaXgx1S9C/iyJyoL4YZ4okn
+	UME/uhcbrEnssQk2n8ZCD67t4k0K+Vo3hTEWv8uEewLkXaQOmpIrvJ4Xvn+/lBcORBL/dCEWGAs
+	Uc3HWNJM2A8zK5Vebs10EPZ6FUKtZPhh79UNS87N09M/j+/HwHSI6n6A2Y1VScucBMEHckG6YUb
+	69akz5gvKFyEgE45ZBJsQpPY7DYworvy7lrDBahVwP0QzA4GopZcFu5BMEhs/j2EepAFSfFmRyR
+	bh80KUbtj7iLSYG4mneoc1I1pQpLOH5j578InyEAO4ODPWjo=
+X-Google-Smtp-Source: AGHT+IFgNX90Jkv79okhnr3X7yZYSluPgNCpiOV3F1rIVVA/MUCX5Xsfyjwq9Nqv4OaF11BYTKiWwA==
+X-Received: by 2002:a05:6000:1a50:b0:3a4:e6e6:a026 with SMTP id ffacd0b85a97d-3a6ed641e0bmr4827813f8f.28.1750941917307;
+        Thu, 26 Jun 2025 05:45:17 -0700 (PDT)
+Message-ID: <a4343e2b-7bbd-4dca-8bcd-d30caf7555cf@suse.com>
+Date: Thu, 26 Jun 2025 14:45:08 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 03/17] xen/riscv: introduce guest domain's VMID
- allocation and manegement
-To: Teddy Astie <teddy.astie@vates.tech>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org,
- Juergen Gross <jgross@suse.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>
-References: <cover.1749555949.git.oleksii.kurochko@gmail.com>
- <abbf1c30c485d4baae25d4c1fb26942f60015403.1749555949.git.oleksii.kurochko@gmail.com>
- <d747fd23-9ac3-49d2-8a5e-699290cef3f4@suse.com>
- <145f71c2-643e-4839-a2ae-0bc1f049db74@gmail.com>
- <80223fe3-7403-4026-9505-8826c318fabb@suse.com>
- <a692d449-4101-498e-a460-33e4b2fb7176@gmail.com>
- <f5c14ffa-6314-4534-a83e-4024b379755c@suse.com>
- <1a570c32-e207-47f5-9702-a752246328a9@gmail.com>
- <f4a20826-0949-4bf0-a8e8-eecd1428f739@suse.com>
- <264db0b0-43bf-4829-a5cc-ca696601349c@gmail.com>
- <7c5761b5-805c-4d56-ad8c-1746540423e4@suse.com>
- <096224cd-12f3-4e4f-8cd8-74c1ae292609@vates.tech>
 Content-Language: en-US
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Marek Marczykowski <marmarek@invisiblethingslab.com>,
+ Daniel Smith <dpsmith@apertussolutions.com>
 From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] x86/EFI: restrict use of --dynamicbase
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -136,51 +117,50 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <096224cd-12f3-4e4f-8cd8-74c1ae292609@vates.tech>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 26.06.2025 14:17, Teddy Astie wrote:
-> Le 26/06/2025 à 13:46, Juergen Gross a écrit :
->> On 26.06.25 13:34, Oleksii Kurochko wrote:
->>>
->>> On 6/26/25 12:41 PM, Jan Beulich wrote:
->>> - Minimized inter-CPU TLB flushes — since VMIDs are local, TLB entries 
->>> don’t need
->>>    to be invalidated on other CPUs when reused.
->>> - Better scalability — this approach works better on systems with a 
->>> large number
->>>    of CPUs.
->>> - Frequent VM switches don’t require global TLB flushes — reducing the 
->>> overhead
->>>    of context switching.
->>> However, the downside is that this model consumes more VMIDs. For 
->>> example,
->>> if a single domain runs on 4 vCPUs across 4 CPUs, it will consume 4 
->>> VMIDs instead
->>> of just one.
->>
->> Consider you have 4 bits for VMIDs, resulting in 16 VMID values.
->>
->> If you have a system with 32 physical CPUs and 32 domains with 1 vcpu each
->> on that system, your scheme would NOT allow to keep each physical cpu busy
->> by running a domain on it, as only 16 domains could be active at the same
->> time.
-> 
-> Why not instead consider dropping use of VMID in case there is no one 
-> remaining ?
-> (i.e systematically flush the guest TLB before entering the vcpu and 
-> using a "blank" VMID)
+At least GNU ld 2.35 takes this option to (also) mean what newer
+versions have controllable by --enable-reloc-section. From there being
+no relocations in check.efi (as we don't pass the option there) we infer
+that we need to involve mkreloc, we'd end up with two sets of
+relocations, which clearly isn't going to work. Furthermore the
+relocations ld emits in this case also aren't usable: For bsp_idt[] we
+end up with PE_BASE_RELOC_LOW ones, which efi_arch_relocate_image()
+(deliberately) doesn't know how to deal with. (Related to that is also
+why we check the number of relocations produced: The linker simply
+didn't get this right there, yet.)
 
-Why would one want to do that, when there's a better scheme available?
-And how would you decide which VMs to penalize?
+We also can't add the option to what we use when linking check.efi: That
+ld version then would produce relocations, but 4 of them (instead of the
+expected two). That would make us pass --disable-reloc-section, which
+however only ld 2.36 and newer understand.
 
-> I don't expect a lot of platforms to allow for 32 pCPU while not giving 
-> more than 16 VMID values. So it would just be less efficient in that 
-> case at worst.
+For such older binutils versions we therefore need to accept the slight
+inconsistency in DLL characteristics that the earlier commit meant to
+eliminate.
 
-How would you know? How many CPUs (cores) to have in a system is entirely
-independent of the capabilities of the individual CPUs.
+Fixes: f2148773b8ac ("x86/EFI: sanitize DLL characteristics in binary")
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Jan
+--- a/xen/arch/x86/arch.mk
++++ b/xen/arch/x86/arch.mk
+@@ -106,7 +106,7 @@ efi-nr-fixups := $(shell LC_ALL=C $(OBJD
+ 
+ ifeq ($(efi-nr-fixups),2)
+ MKRELOC := :
+-EFI_LDFLAGS += --disable-high-entropy-va
++EFI_LDFLAGS += --disable-high-entropy-va --dynamicbase
+ else
+ MKRELOC := arch/x86/efi/mkreloc
+ # If the linker produced fixups but not precisely two of them, we need to
+@@ -117,8 +117,6 @@ EFI_LDFLAGS += --disable-reloc-section
+ endif
+ endif
+ 
+-EFI_LDFLAGS += --dynamicbase
+-
+ endif # $(XEN_BUILD_PE)
+ 
+ export XEN_BUILD_EFI XEN_BUILD_PE
 
