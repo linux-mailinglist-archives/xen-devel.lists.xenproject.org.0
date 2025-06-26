@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C64ACAEA28D
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Jun 2025 17:31:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1026712.1401905 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 66FCCAEA2F0
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Jun 2025 17:46:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1026723.1401914 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uUoZb-00020W-9W; Thu, 26 Jun 2025 15:31:35 +0000
+	id 1uUonm-0004Z9-DA; Thu, 26 Jun 2025 15:46:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1026712.1401905; Thu, 26 Jun 2025 15:31:35 +0000
+Received: by outflank-mailman (output) from mailman id 1026723.1401914; Thu, 26 Jun 2025 15:46:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uUoZb-0001y7-5x; Thu, 26 Jun 2025 15:31:35 +0000
-Received: by outflank-mailman (input) for mailman id 1026712;
- Thu, 26 Jun 2025 15:31:34 +0000
+	id 1uUonm-0004Wr-Aa; Thu, 26 Jun 2025 15:46:14 +0000
+Received: by outflank-mailman (input) for mailman id 1026723;
+ Thu, 26 Jun 2025 15:46:13 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=IAb7=ZJ=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1uUoZa-0001wg-9W
- for xen-devel@lists.xenproject.org; Thu, 26 Jun 2025 15:31:34 +0000
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [2a00:1450:4864:20::32a])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=o/Pp=ZJ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uUonk-0004Wl-Ur
+ for xen-devel@lists.xenproject.org; Thu, 26 Jun 2025 15:46:12 +0000
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [2a00:1450:4864:20::433])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a3d422b7-52a2-11f0-a30f-13f23c93f187;
- Thu, 26 Jun 2025 17:31:33 +0200 (CEST)
-Received: by mail-wm1-x32a.google.com with SMTP id
- 5b1f17b1804b1-4530921461aso8342125e9.0
- for <xen-devel@lists.xenproject.org>; Thu, 26 Jun 2025 08:31:33 -0700 (PDT)
-Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4538a390d11sm23539015e9.7.2025.06.26.08.31.32
+ id aa264e72-52a4-11f0-a30f-13f23c93f187;
+ Thu, 26 Jun 2025 17:46:03 +0200 (CEST)
+Received: by mail-wr1-x433.google.com with SMTP id
+ ffacd0b85a97d-3a582e09144so719533f8f.1
+ for <xen-devel@lists.xenproject.org>; Thu, 26 Jun 2025 08:46:03 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-23abe3f535esm985025ad.142.2025.06.26.08.45.59
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 26 Jun 2025 08:31:32 -0700 (PDT)
+ Thu, 26 Jun 2025 08:46:02 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,165 +45,158 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a3d422b7-52a2-11f0-a30f-13f23c93f187
+X-Inumbo-ID: aa264e72-52a4-11f0-a30f-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1750951893; x=1751556693; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1750952763; x=1751557563; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ii0s8oFrsFKQMxXFB8UV/79cvMtrCFlANuWblYnEDag=;
-        b=iJWiqWAPNCE2ZB56npLUYIOl4x4UmW5b2ktSUhhJC7yt6yV/bvJFlEsjj2K3hNnpCl
-         /2Nh2+TZhBq56GrqLmhVQskOAziuwtF9WVMcz03fB5FOMY0qUSywrJt9VMWslamqRM+g
-         57KsMNHw9wLyTE+ITQuJh3q7lIN0MG2cPJnic=
+        bh=YsUWoyoctkemtOz6fwgwSl0pHJTLE5/67MsKJbMWSp4=;
+        b=MzZ4bz1ltb/OtGBBWwYn/ttMYy9TjLh+c2PgCfIES7wnvsIXrmMerANDTq0vu9GsXo
+         b7QCmItBRRn8xHJHkK6WzrSCTD2BN8gfeXmSUwPvKvYcpjrE+rdYmsid6cAYkLXRsyBq
+         h0hFwx4QcuJkHA+RNYFo3mvmX8siTDwqKlaCwtHWuuFL+nEfZSKqclnNetduy50HBSYe
+         Z29B0c3zIBM7h2NBZ3GgNWdjlAlepoghlb0X2PUk6jwSWgMr3yg9qlVdI+xyssTxv0uw
+         DUVmIorSpRgqI9PCuYi103acEbIh1Q0DJxCBDedGd3QzxXrLuj3U5vKcmtNwRLLNt8Ki
+         wR6w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750951893; x=1751556693;
+        d=1e100.net; s=20230601; t=1750952763; x=1751557563;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ii0s8oFrsFKQMxXFB8UV/79cvMtrCFlANuWblYnEDag=;
-        b=DGzcYhDnO+MlYbMhJz6wWMHNhsmJkvY7tGaIYHed1I+ngpbEN1XbUPbnSUCuCFDgPU
-         qOlFVrDKn222CURWKTFCMek1Sljrz9jyUonEFMF7neG99el9HBlN1A7Wqm8Y2lkCJeT1
-         y5Y2WmORq58yGOZJQIFCvBdjkgmjXHSGfCbypIKGIcFCSqi05ot26f+kgPP/FfAnzcrp
-         la0Lv4zBZoBfWQ6hS8gwl3fNmJW9uoPfE2uUjFcVZC9hBsAEmt4XTcDVZbRmNk6nYLK4
-         U5ghrN3gkiHVcXzSgpgyhNWcQ/t3Yh8sx7OgIRPdT80yZc3hDRAs+vWSMubT2qrxG1EP
-         GV4Q==
-X-Forwarded-Encrypted: i=1; AJvYcCWoPhgWIMUVtzzeNPV6zRV/VVwtIlWvuTLCDuIytr9r0wfqFACD/ePSGbQnqJvlQchELRi1XfmKpzY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzWHKAI+6r0Y9DfXC94KzSkeaGl+8PKDYO6B+db+EOv90ox+Cdl
-	JUTdMsU5FMkS3g2znpwT/n/a9902ju3RZDzX/NvwRDp1DTl4g+BbsD7rItg88KiPncI=
-X-Gm-Gg: ASbGncvyzFi2WfJ10bGVMyoTNcHgIUsQvlvJHQ9aTecmdtiZspQ6JwrZruG2bc9eE+n
-	Gp36HQdMEx1aYeEtXMSX7ZqPG2QBIBgaRxy7hi2neJZ0RdCQEW/r+7PuOJByivBEkKabEA4py83
-	wopaCNlbZ1/rPAeCegTAj9xvcuOasU5z2hXcGWahBGVJ0t0MW11kyVOeNWP66E2SXm6AEj67029
-	Z5m5Pf7AsN1hzBDHDqjVU+HshT6W18unSXpQkpsSadxbak//9nN8dYFeMUuHPHb30cWHFoQX1wR
-	G3XEvRM8zWf2K3u0VEa/mVq/Ks2TSWK6rLzhxPMDR+Gf7j4dKLKUB64pkl6JXFW/bWXyAXMs0Qp
-	spDizu5u83sxrZTSi1BzCtOsPUYk=
-X-Google-Smtp-Source: AGHT+IHGvdhPTmft1rx6rUXbrDNTVj+SQ18m4p5TGMyswCm0DPPB7l8jXgSs0cVAUbZV4/FC5Ivjpg==
-X-Received: by 2002:a05:600c:37c9:b0:453:7bd:2e30 with SMTP id 5b1f17b1804b1-4538dbd5effmr17066965e9.29.1750951892987;
-        Thu, 26 Jun 2025 08:31:32 -0700 (PDT)
-Message-ID: <c1d38fa9-a959-470f-96ce-462ea7e04041@citrix.com>
-Date: Thu, 26 Jun 2025 16:31:31 +0100
+        bh=YsUWoyoctkemtOz6fwgwSl0pHJTLE5/67MsKJbMWSp4=;
+        b=ZSP43R8A3KIA35indn5/LIkFKqHpY6ftzaGGtn+K3l31E2tg49h7bA4E2iae2ZlVai
+         wPAmXEtihNzCUR2bnQc96AXoSXtfHesALa6HTWWUyfIdbqvtOSAGd+4jU3PuknNJxIXs
+         d/RkbTevb0gToWkhOtzxe3+j8wvhJkyO8WWWMdCa2NcjnJd39AG6yEtb3ZeXF1yg2SE6
+         s4TwmHQ+rJWzsAIdZS38A2pSiXhdw1GC6IUDU/RA8lBDeCrQI6dh9ZaK8MnvJ61mc+2a
+         ciFlSvgvBkKLXhfbqozMWWG9HWAZC8gIW2swGFmzUO6sboudbHXQ0a7qgyZMPE/Dqjpq
+         i6GA==
+X-Forwarded-Encrypted: i=1; AJvYcCXYzgJT8W/L1Dv/x2KnfidfpjSBnRz15V5yhW5q/qM1JkZBqQpKnqiFeXydo/4/gHogdEO6/BdpfNs=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzQn72LK4pOCIi/IjMK4hjWZ8zdSkbOGy2b0BkcpYR/LnLzM1Zl
+	kOUMqZhfmTDcX3X0B+WlLbbLoaUwbRVFRwMwbLMovg5XaoYccW2gAUADx+xWCXoCoQ==
+X-Gm-Gg: ASbGncs0jVCUqnRjB2DoOIY2WSLzMr76W9UZD5aG1P0SNeKlhlInPZfhPyFrL993qWZ
+	uvNaJcIVl/UqXHkKDGbQzUVguJGMMCoHShF8MlhjkV/ZSeG2i7ixYKraone8BnQWfKeOH0uaa4C
+	unJeAFvRykswKKWWmb+7+D9L9fdZbyCyGxnBFfkH9b6bjoRYy06PVCX6H29HQ5zXjOSOtK9l9lt
+	qfCRWBiM0RJG8mK+Lh4hewTKpkp8CiNh0WUWG3SgKQuLRjRgjn2bXrzFq32io9aKbPzQ48TI3Wx
+	B5AV8Zx++cgN2qXgD3z7W0VY79NlIoCvAE5C1XkCK1b1ivjcBkOThh9+LMHU/BYIdYKCpEDBVEu
+	yXFvQ2AdKRJUQZT9R5KJTWjpDiFCa7gbfmbDafaQrQUb905/t7O7Em2Q99g==
+X-Google-Smtp-Source: AGHT+IEnL9s+illgmh4N43IAFMmYtwhbDT3XODUPLOB6JeVHsODKLzjrYpFD9sXBkLau5KRoCK9gHg==
+X-Received: by 2002:a05:6000:23c3:b0:3a5:25e0:ab53 with SMTP id ffacd0b85a97d-3a6ed66a535mr4374560f8f.32.1750952762705;
+        Thu, 26 Jun 2025 08:46:02 -0700 (PDT)
+Message-ID: <634154c0-ecd7-4c24-bc52-91aeefe367f0@suse.com>
+Date: Thu, 26 Jun 2025 17:45:55 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v6 1/7] x86: suppress ERMS for internal use when
  MISC_ENABLE.FAST_STRING is clear
-To: Jan Beulich <jbeulich@suse.com>,
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 References: <c5e1e7e0-a295-4028-b003-152b861ee14f@suse.com>
  <fe4920a2-4add-4e07-80f3-50eb37de0754@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <fe4920a2-4add-4e07-80f3-50eb37de0754@suse.com>
+ <c1d38fa9-a959-470f-96ce-462ea7e04041@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <c1d38fa9-a959-470f-96ce-462ea7e04041@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 16/06/2025 1:59 pm, Jan Beulich wrote:
-> --- a/xen/arch/x86/cpu-policy.c
-> +++ b/xen/arch/x86/cpu-policy.c
-> @@ -487,6 +487,12 @@ static void __init guest_common_max_feat
->       */
->      if ( test_bit(X86_FEATURE_RTM, fs) )
->          __set_bit(X86_FEATURE_RTM_ALWAYS_ABORT, fs);
-> +
-> +    /*
-> +     * We expose MISC_ENABLE to guests, so our internal clearing of ERMS when
-> +     * FAST_STRING is not set should not affect the view of migrating-in guests.
-> +     */
+On 26.06.2025 17:31, Andrew Cooper wrote:
+> On 16/06/2025 1:59 pm, Jan Beulich wrote:
+>> --- a/xen/arch/x86/cpu-policy.c
+>> +++ b/xen/arch/x86/cpu-policy.c
+>> @@ -487,6 +487,12 @@ static void __init guest_common_max_feat
+>>       */
+>>      if ( test_bit(X86_FEATURE_RTM, fs) )
+>>          __set_bit(X86_FEATURE_RTM_ALWAYS_ABORT, fs);
+>> +
+>> +    /*
+>> +     * We expose MISC_ENABLE to guests, so our internal clearing of ERMS when
+>> +     * FAST_STRING is not set should not affect the view of migrating-in guests.
+>> +     */
+> 
+> The logic is ok, but the justification wants to be different.
+> 
+> "ERMS is a performance hint.  A VM which previously saw ERMS will
+> function correctly when migrated here, even if ERMS isn't available."
+> 
+> What Xen chooses to do with the bit isn't relevant to why we
+> unconditionally set it in the max featureset.
 
-The logic is ok, but the justification wants to be different.
+It's different words for effectively the same thing, to me at least. I can
+certainly use your wording, ...
 
-"ERMS is a performance hint.  A VM which previously saw ERMS will
-function correctly when migrated here, even if ERMS isn't available."
+>> @@ -567,6 +573,16 @@ static void __init guest_common_default_
+>>          __clear_bit(X86_FEATURE_RTM, fs);
+>>          __set_bit(X86_FEATURE_RTM_ALWAYS_ABORT, fs);
+>>      }
+>> +
+>> +    /*
+>> +     * We expose MISC_ENABLE to guests, so our internal clearing of ERMS when
+>> +     * FAST_STRING is not set should not propagate to guest view.  Guests can
+>> +     * judge on their own whether to ignore the CPUID bit when the MSR bit is
+>> +     * clear.  The bit being uniformly set in the max policies, we only need
+>> +     * to clear it here (if hardware doesn't have it).
+>> +     */
+> 
+> "ERMS is a performance hint, so is set unconditionally in the max
+> policy.  However, the guest should default to the host setting."
 
-What Xen chooses to do with the bit isn't relevant to why we
-unconditionally set it in the max featureset.
+... also here.
 
-> +    __set_bit(X86_FEATURE_ERMS, fs);
->  }
->  
->  static void __init guest_common_default_feature_adjustments(uint32_t *fs)
-> @@ -567,6 +573,16 @@ static void __init guest_common_default_
->          __clear_bit(X86_FEATURE_RTM, fs);
->          __set_bit(X86_FEATURE_RTM_ALWAYS_ABORT, fs);
->      }
-> +
-> +    /*
-> +     * We expose MISC_ENABLE to guests, so our internal clearing of ERMS when
-> +     * FAST_STRING is not set should not propagate to guest view.  Guests can
-> +     * judge on their own whether to ignore the CPUID bit when the MSR bit is
-> +     * clear.  The bit being uniformly set in the max policies, we only need
-> +     * to clear it here (if hardware doesn't have it).
-> +     */
+>> +    if ( !raw_cpu_policy.feat.erms )
+> 
+> This wants to be the host policy, not the raw policy.  That's why
+> `cpuid=no-erms` isn't working in the way you'd expect.
+> 
+> cpuid=no-$foo means "Xen should behave as if $foo wasn't reported by
+> hardware", and that includes not giving it to guests by default.
 
-"ERMS is a performance hint, so is set unconditionally in the max
-policy.  However, the guest should default to the host setting."
+Hmm, interesting. That's definitely not the meaning I give this. To me it
+means merely Xen shouldn't use the feature (with an impact on guests only
+when the feature in hardware is required to surface it to guests). I
+don't think we have the precise meaning of this option written down
+anywhere?
 
-> +    if ( !raw_cpu_policy.feat.erms )
+>> +        __clear_bit(X86_FEATURE_ERMS, fs);
+>>  }
+>>  
+> 
+> It occurs to me that there are quite a few examples of clear/cond-set
+> which could be converted to cond-clear like this
+> 
+> I'll do a prep patch to make things consistent.  It shouldn't conflict
+> with this, but I'd prefer to keep the function logic consistent; it's
+> hard enough to follow already.
 
-This wants to be the host policy, not the raw policy.  That's why
-`cpuid=no-erms` isn't working in the way you'd expect.
+Right, I too noticed that there are others which could be swapped over.
+I actually had it the other way around in early versions of the series,
+and it was only in the course of some re-work where I noticed it might
+be a little tidier this way. But I first wanted to see whether perhaps I
+have some thinko there, so didn't want to convert anything pre-existing.
 
-cpuid=no-$foo means "Xen should behave as if $foo wasn't reported by
-hardware", and that includes not giving it to guests by default.
-
-> +        __clear_bit(X86_FEATURE_ERMS, fs);
->  }
->  
-
-It occurs to me that there are quite a few examples of clear/cond-set
-which could be converted to cond-clear like this
-
-I'll do a prep patch to make things consistent.  It shouldn't conflict
-with this, but I'd prefer to keep the function logic consistent; it's
-hard enough to follow already.
-
-~Andrew
-
-P.S. I don't have time right now, but this is yet another example that
-could be eliminated with an annotation meaning "set in max, host in
-default".  I'll try to find some time to make this happen, because
-there's clearly a pattern now.
+Jan
 
