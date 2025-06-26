@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 23E8CAE9D2D
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Jun 2025 14:06:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1026235.1401437 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 03F51AE9D35
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Jun 2025 14:07:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1026242.1401446 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uUlMc-0008TQ-Mh; Thu, 26 Jun 2025 12:05:58 +0000
+	id 1uUlNQ-0000WA-UK; Thu, 26 Jun 2025 12:06:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1026235.1401437; Thu, 26 Jun 2025 12:05:58 +0000
+Received: by outflank-mailman (output) from mailman id 1026242.1401446; Thu, 26 Jun 2025 12:06:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uUlMc-0008Rx-JE; Thu, 26 Jun 2025 12:05:58 +0000
-Received: by outflank-mailman (input) for mailman id 1026235;
- Thu, 26 Jun 2025 12:05:56 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=/Scu=ZJ=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1uUlMa-0008Rr-MI
- for xen-devel@lists.xenproject.org; Thu, 26 Jun 2025 12:05:56 +0000
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [2a00:1450:4864:20::62d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e91f9df0-5285-11f0-b894-0df219b8e170;
- Thu, 26 Jun 2025 14:05:54 +0200 (CEST)
-Received: by mail-ej1-x62d.google.com with SMTP id
- a640c23a62f3a-adfb562266cso177496366b.0
- for <xen-devel@lists.xenproject.org>; Thu, 26 Jun 2025 05:05:54 -0700 (PDT)
-Received: from [192.168.1.5] (user-109-243-64-38.play-internet.pl.
- [109.243.64.38]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ae086a98f6dsm786885966b.32.2025.06.26.05.05.48
+	id 1uUlNQ-0000U3-Ra; Thu, 26 Jun 2025 12:06:48 +0000
+Received: by outflank-mailman (input) for mailman id 1026242;
+ Thu, 26 Jun 2025 12:06:46 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=o/Pp=ZJ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uUlNO-0000P7-Tw
+ for xen-devel@lists.xenproject.org; Thu, 26 Jun 2025 12:06:46 +0000
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [2a00:1450:4864:20::42c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 07c3595a-5286-11f0-a30f-13f23c93f187;
+ Thu, 26 Jun 2025 14:06:46 +0200 (CEST)
+Received: by mail-wr1-x42c.google.com with SMTP id
+ ffacd0b85a97d-3a548a73ff2so859667f8f.0
+ for <xen-devel@lists.xenproject.org>; Thu, 26 Jun 2025 05:06:46 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-315f5386e67sm4324596a91.3.2025.06.26.05.06.39
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 26 Jun 2025 05:05:49 -0700 (PDT)
+ Thu, 26 Jun 2025 05:06:44 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,614 +45,161 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e91f9df0-5285-11f0-b894-0df219b8e170
+X-Inumbo-ID: 07c3595a-5286-11f0-a30f-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1750939554; x=1751544354; darn=lists.xenproject.org;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=JvqOUCz6CM/70Tu4cQNcQFaup+NPkqjq/GUJGfkTCzk=;
-        b=EM2c4yh4Do0yA/3RAPZmRjagnQGWjESS865iX+SoRmYlS7GH6fjkPKvo9FXEaQELis
-         dZxwLrneM3qBF1sYUS9Cjyz1EH1sAUd8f1KdIpU5BakzAEokrvYsEYmwnANR1zdtxEBf
-         lGZnk8tqJhB1BM/ApTIHvpBX+A0GdFrnY7sLIndpiwKuMTiZoR/q5mA8BpnXe/FLU139
-         ueQ1fwNn5TdX55NqgRVAXY88bIC5t7NzQzbohIkqDSyyRu8DVHZN/un/1JnY7GgDTV12
-         9NA9Dm1wNcw2OmywasIGRTAkX3UiHPzNE4JZmc4VflrCMBbSVELEh4nMbzX0gBFiop6X
-         GAKQ==
+        d=suse.com; s=google; t=1750939605; x=1751544405; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=dcdunHN2ZTZuC2Jvl8j4xdpkRodv1OL3Trto6r3lA4A=;
+        b=InztHen6+KkMCLduBQVr081U6w0nuFsMUT8mrumMylN6F/lhJg00Z6Tdty8kRkZ1Fu
+         0YFNuk2bKUdztbINfBaRTElVR1o7OSN8fK1O71isTuAEKD/nTQLnf47Ty604+2dO8AIb
+         YqRcHJTapDVj2M/nqukJrW+ASpGvzbkgSQgCNzBeq7vXs50sZcNyv5k8kyQaSZESgOvL
+         F06xAEwXx74enddzuPOgaoZ2OY/k2FpFiw37A25JJYRsb1C3fpoz+Lx4Y7iMREmBs2g1
+         /Xyd7Vi3OatEvH5PN45L1engIxNWRrijN85PKl+7KscjKz+DYGQabl0V7/aMgnRR/xV1
+         HuHQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750939554; x=1751544354;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=JvqOUCz6CM/70Tu4cQNcQFaup+NPkqjq/GUJGfkTCzk=;
-        b=Dv1oA4LK3J3FpXgYvLdZ/iw5TzaWhuiEgnFe8SDzmovPccQavDxOGhyV5+xnHGgDTh
-         QV4Mw3H/SlIioOVYJaIN/XnKWD00lJIBFGc0uSjMsL/xxG1T+qE+LHGkz9wh7LnxWWCC
-         qv305EZz+6jS9fV9PpmAiUwziVLoO2uXA22Hn1jM429p/r5Od184VSfDAeVHC/hU0mhY
-         uZpcN3nlanIERxwUUnqLX3sNMXk1oRF2RGL2tux71CuMKCjdiW+P8+8bmLQJ3kjauSMq
-         rRiyVfih/4H/N6xcS0VGSUyM2PlM/57c5OG7Smmt3VbQNtJSCsa5E4NhkqNvIKEKS00F
-         +TfA==
-X-Forwarded-Encrypted: i=1; AJvYcCXxa5o8YW/r8W2ys/kCFMamdehlHM+xMcS/qJcGX8E7yYKoFonENm4WbDP/OVYzGTKbmjAgBZJdIfk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzqwH06tbh+5JxmVXctTj45q6wMwlzr7YQ6ouNfgW0lOlBr1Nuv
-	lF0NHoIYkVR/oE0fvJwToHlsDZ1MPzLLBqtaw60NcvDSHJ0dB/FWt6OT
-X-Gm-Gg: ASbGncsP2oACo3czFcKD7OgLlhy40/RrZPB9W33/+/hV9c7//QWkfFIDHKa9mUCxXmy
-	r1FTkoxoTNtaNAofPUSmBdLP/x0lVIHBxtA/ZVvd7aPT81Imq8434cK8vyVNU5yIWjY1SzsD6KH
-	glgvs9xY4CGsLabMOOS1IOVZfmFx4YVA9VOIm06R7vkaKFc3yukAxVqIOuTIiA4OnjRSaH/aBHp
-	eNiAzlsD7SHDMvnM+WdqRm2mvW95BWFhNicqAFS8W+Dy2ZfuWnAKoMr3pl0V7lmHlNhy+0NxBHN
-	rOvfVBL3Q3NHDAj+QczBFmhjwzWkmB5ypkxWQ54SBBPvNFM5+AIzMselE5D1S1PBKqX34M2QTd4
-	NVMwzzpptmMuCQycporDSQNC7V/7DlLA4Ozo=
-X-Google-Smtp-Source: AGHT+IFjCXcb0Cb3YkACgioKxbZYK9NGSnJYxawKvdBT4aUlDIWGJgMaH8jopo/yhCunOc9IZvVqzg==
-X-Received: by 2002:a17:907:7e82:b0:ad8:9b5d:2c16 with SMTP id a640c23a62f3a-ae0bebe9319mr683549066b.11.1750939551748;
-        Thu, 26 Jun 2025 05:05:51 -0700 (PDT)
-Content-Type: multipart/alternative;
- boundary="------------7TZvkuo8fanFMXJhoM8Z9Rxa"
-Message-ID: <817a318b-ec0d-4f1e-b29e-5f0b624a89f3@gmail.com>
-Date: Thu, 26 Jun 2025 14:05:47 +0200
+        d=1e100.net; s=20230601; t=1750939605; x=1751544405;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=dcdunHN2ZTZuC2Jvl8j4xdpkRodv1OL3Trto6r3lA4A=;
+        b=OaMx01YcnXHVp7X/wVspFkFWv9iZf9dekimmVcIAKJKoBQWRr8nimheRKkkX/DofSu
+         gQQeu8NKdspl3ftEiLJ2YOfnUXiyeO0tkUMcNWD6tL58gjfe+W7qU+cHZJYkE3uf5nix
+         WpTSOeLaoy95CMynGEJCVqn2vy2lUTlohTpl8oDkXZExf98WxXDSVJvL1jZLAmplvvEJ
+         v+CqHdgZRvhzIYBGTP/q7UfDx7f2GlBDANyv7TStYlO8kMEyw6sjERpzC+5GwzA8Z7mt
+         GbSpM0pvo9dJG8VlRvof6uCJ8yqnB6w5pyIsJ36xk4t1TlIFQ62yFCSLsrzBbXkob39c
+         TYMQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXwGSaglt8uyDdnE2SgqSyo0U33vjpph+6zqSxtInXdQnc7bFMn8kmEJQAWYIaQbGv4ZHNfypkbZ50=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Ywh0plPkvQFw9IDDEGl6I4PYUY3uKu8lyjc0hPjfg+jzZDNlWGT
+	MsDTdpc2L+zbbJ0/umytgcYvKf2zvZDl0CktGoWwSR/dSR5K9yB1ZZzMkHcVdHyH6g==
+X-Gm-Gg: ASbGncuFy9EObLxc2+YHMKVVcJ372+VpKcRj7K5O03hNKrV2BjQ7lFiJsz+8SqnovO7
+	/iKKf79Z9h0V84+1ZKi3DgTw76qHlrWbwABU7UF5WMQXptDycQ8l/4puR1gvuS65/cVlnRisDpJ
+	H078902549eGxDIomr/II5S3Vjrgy952pRG2p0oPoqFXhoLcqtUlWdixrmwTuI8QZFuTdHAZzqi
+	3QDSyYI2ur2+LcTKBDMS9uLmATxLo20NaZUOjmWOnBV4/Xh3RjKsqxAh3A0uAa+a0V7fAbdlprW
+	UlDkKANjANWeTDqX4X19KWEdU1A+4PCDVTBITRMXeDzBnt7LpEztG9gRR2oxHJ3uXiv4bQtFweo
+	lOLjw5xVEt6Lr9AhC+tGgthNrSEiBnIyAtKezj2aBfXwYXdJXKZdFBLbtXw==
+X-Google-Smtp-Source: AGHT+IEB++qs8mTz710/kOIXzFLiiseR8vhzbMPicNBhE9z82aNEVjVlyP7FbWjs7H8Ama9ZBq/c4w==
+X-Received: by 2002:a05:6000:2dc6:b0:3a6:ec1b:5742 with SMTP id ffacd0b85a97d-3a6ed5dd5famr5724727f8f.22.1750939605145;
+        Thu, 26 Jun 2025 05:06:45 -0700 (PDT)
+Message-ID: <cf41d703-dae1-42fd-86a2-aec32184adcc@suse.com>
+Date: Thu, 26 Jun 2025 14:06:35 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 03/17] xen/riscv: introduce guest domain's VMID
- allocation and manegement
-To: Juergen Gross <jgross@suse.com>, Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [PATCH v6 2/8] vpci: Refactor REGISTER_VPCI_INIT
+To: "Chen, Jiqian" <Jiqian.Chen@amd.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1749555949.git.oleksii.kurochko@gmail.com>
- <abbf1c30c485d4baae25d4c1fb26942f60015403.1749555949.git.oleksii.kurochko@gmail.com>
- <d747fd23-9ac3-49d2-8a5e-699290cef3f4@suse.com>
- <145f71c2-643e-4839-a2ae-0bc1f049db74@gmail.com>
- <80223fe3-7403-4026-9505-8826c318fabb@suse.com>
- <a692d449-4101-498e-a460-33e4b2fb7176@gmail.com>
- <f5c14ffa-6314-4534-a83e-4024b379755c@suse.com>
- <1a570c32-e207-47f5-9702-a752246328a9@gmail.com>
- <f4a20826-0949-4bf0-a8e8-eecd1428f739@suse.com>
- <264db0b0-43bf-4829-a5cc-ca696601349c@gmail.com>
- <7c5761b5-805c-4d56-ad8c-1746540423e4@suse.com>
+ "Orzel, Michal" <Michal.Orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "Huang, Ray" <Ray.Huang@amd.com>
+References: <20250612092942.1450344-1-Jiqian.Chen@amd.com>
+ <516a3adc-320d-46ce-b235-8ef91469abcf@suse.com>
+ <BL1PR12MB5849F696814E17D20012BAC2E77DA@BL1PR12MB5849.namprd12.prod.outlook.com>
+ <227df6d3-a2c3-4576-bde9-d8057c378e7a@suse.com>
+ <BL1PR12MB5849C69BD1485B1B98F7D0FDE778A@BL1PR12MB5849.namprd12.prod.outlook.com>
+ <5c4b186e-686e-4fc8-bcf1-854bc1f5ec8b@suse.com>
+ <BL1PR12MB5849DE8416FE549834235780E778A@BL1PR12MB5849.namprd12.prod.outlook.com>
+ <9d5d0e44-66c3-4e3f-8704-2c862c5f5aff@suse.com>
+ <BL1PR12MB5849B3C334EF0C5BBCAFB7BAE77BA@BL1PR12MB5849.namprd12.prod.outlook.com>
+ <3638e73c-2a83-4164-9a84-839245245727@suse.com>
+ <BL1PR12MB584988E00D0F4A4330B9B968E77BA@BL1PR12MB5849.namprd12.prod.outlook.com>
+ <771cd5b7-2b89-49b1-9aba-8cd79319d3ce@suse.com>
+ <BL1PR12MB58492A16BFE80B49045AB936E77BA@BL1PR12MB5849.namprd12.prod.outlook.com>
+ <7753470a-efef-478a-bbe5-ae48d008cfdb@suse.com>
+ <BL1PR12MB584979FA987CE2D6E242648FE77AA@BL1PR12MB5849.namprd12.prod.outlook.com>
 Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <7c5761b5-805c-4d56-ad8c-1746540423e4@suse.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <BL1PR12MB584979FA987CE2D6E242648FE77AA@BL1PR12MB5849.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-This is a multi-part message in MIME format.
---------------7TZvkuo8fanFMXJhoM8Z9Rxa
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+On 26.06.2025 10:03, Chen, Jiqian wrote:
+> On 2025/6/25 22:07, Jan Beulich wrote:
+>> On 25.06.2025 12:16, Chen, Jiqian wrote:
+>>> On 2025/6/25 18:03, Jan Beulich wrote:
+>>>> Also, as said - you will need to check whether other architectures are
+>>>> different from x86-64 in this regard. We better wouldn't leave a trap here,
+>>>> for them to fall into when they enable vPCI support. I.e. my recommendation
+>>>> would be that if in doubt, we put the __aligned() there unconditionally.
 
+Note how I used __aligned() here. Why would you ...
 
-On 6/26/25 1:43 PM, Juergen Gross wrote:
-> On 26.06.25 13:34, Oleksii Kurochko wrote:
+>>> That's difficult for me to check on all different platforms since I don't have them all.
 >>
->> On 6/26/25 12:41 PM, Jan Beulich wrote:
->>> On 26.06.2025 12:05, Oleksii Kurochko wrote:
->>>> On 6/24/25 4:01 PM, Jan Beulich wrote:
->>>>> On 24.06.2025 15:47, Oleksii Kurochko wrote:
->>>>>> On 6/24/25 12:44 PM, Jan Beulich wrote:
->>>>>>> On 24.06.2025 11:46, Oleksii Kurochko wrote:
->>>>>>>> On 6/18/25 5:46 PM, Jan Beulich wrote:
->>>>>>>>> On 10.06.2025 15:05, Oleksii Kurochko wrote:
->>>>>>>>>> --- /dev/null
->>>>>>>>>> +++ b/xen/arch/riscv/p2m.c
->>>>>>>>>> @@ -0,0 +1,115 @@
->>>>>>>>>> +#include <xen/bitops.h>
->>>>>>>>>> +#include <xen/lib.h>
->>>>>>>>>> +#include <xen/sched.h>
->>>>>>>>>> +#include <xen/spinlock.h>
->>>>>>>>>> +#include <xen/xvmalloc.h>
->>>>>>>>>> +
->>>>>>>>>> +#include <asm/p2m.h>
->>>>>>>>>> +#include <asm/sbi.h>
->>>>>>>>>> +
->>>>>>>>>> +static spinlock_t vmid_alloc_lock = SPIN_LOCK_UNLOCKED;
->>>>>>>>>> +
->>>>>>>>>> +/*
->>>>>>>>>> + * hgatp's VMID field is 7 or 14 bits. RV64 may support 
->>>>>>>>>> 14-bit VMID.
->>>>>>>>>> + * Using a bitmap here limits us to 127 (2^7 - 1) or 16383 
->>>>>>>>>> (2^14 - 1)
->>>>>>>>>> + * concurrent domains.
->>>>>>>>> Which is pretty limiting especially in the RV32 case. Hence 
->>>>>>>>> why we don't
->>>>>>>>> assign a permanent ID to VMs on x86, but rather manage IDs 
->>>>>>>>> per-CPU (note:
->>>>>>>>> not per-vCPU).
->>>>>>>> Good point.
->>>>>>>>
->>>>>>>> I don't believe anyone will use RV32.
->>>>>>>> For RV64, the available ID space seems sufficiently large.
->>>>>>>>
->>>>>>>> However, if it turns out that the value isn't large enough even 
->>>>>>>> for RV64,
->>>>>>>> I can rework it to manage IDs per physical CPU.
->>>>>>>> Wouldn't that approach result in more TLB entries being flushed 
->>>>>>>> compared
->>>>>>>> to per-vCPU allocation, potentially leading to slightly worse 
->>>>>>>> performance?
->>>>>>> Depends on the condition for when to flush. Of course 
->>>>>>> performance is
->>>>>>> unavoidably going to suffer if you have only very few VMIDs to use.
->>>>>>> Nevertheless, as indicated before, the model used on x86 may be a
->>>>>>> candidate to use here, too. See hvm_asid_handle_vmenter() for the
->>>>>>> core (and vendor-independent) part of it.
->>>>>> IIUC, so basically it is just a round-robin and when VMIDs are 
->>>>>> ran out
->>>>>> then just do full guest TLB flush and start to re-use VMIDs from 
->>>>>> the start.
->>>>>> It makes sense to me, I'll implement something similar. (as I'm 
->>>>>> not really
->>>>>> sure that we needdata->core_asid_generation, probably, I will 
->>>>>> understand it better when
->>>>>> start to implement it)
->>>>> Well. The fewer VMID bits you have the more quickly you will need 
->>>>> a new
->>>>> generation. And keep track of the generation you're at you also 
->>>>> need to
->>>>> track the present number somewhere.
->>>>>
->>>>>>>> What about then to allocate VMID per-domain?
->>>>>>> That's what you're doing right now, isn't it? And that gets 
->>>>>>> problematic when
->>>>>>> you have only very few bits in hgatp.VMID, as mentioned below.
->>>>>> Right, I just phrased my question poorly—sorry about that.
->>>>>>
->>>>>> What I meant to ask is: does the approach described above 
->>>>>> actually depend on whether
->>>>>> VMIDs are allocated per-domain or per-pCPU? It seems that the 
->>>>>> main advantage of
->>>>>> allocating VMIDs per-pCPU is potentially reducing the number of 
->>>>>> TLB flushes,
->>>>>> since it's more likely that a platform will have more 
->>>>>> than|VMID_MAX| domains than
->>>>>> |VMID_MAX| physical CPUs—am I right?
->>>>> Seeing that there can be systems with hundreds or even thousands 
->>>>> of CPUs,
->>>>> I don't think I can agree here. Plus per-pCPU allocation would 
->>>>> similarly
->>>>> get you in trouble when you have only very few VMID bits.
->>>> But not so fast as in case of per-domain allocation, right?
->>>>
->>>> I mean that if we have only 4 bits, then in case of per-domain 
->>>> allocation we will
->>>> need to do TLB flush + VMID re-assigning when we have more then 16 
->>>> domains.
->>>>
->>>> But in case of per-pCPU allocation we could run 16 domains on 1 
->>>> pCPU and at the same
->>>> time in multiprocessor systems we have more pCPUs, which will allow 
->>>> us to run more
->>>> domains and avoid TLB flushes.
->>>> On other hand, it is needed to consider that it's unlikely that a 
->>>> domain will have
->>>> only one vCPU. And it is likely that amount of vCPUs will be bigger 
->>>> then an amount
->>>> of domains, so to have a round-robin approach (as x86) without 
->>>> permanent ID allocation
->>>> for each domain will work better then per-pCPU allocation.
->>> Here you (appear to) say one thing, ...
->>>
->>>> In other words, I'm not 100% sure that I get a point why x86 chose 
->>>> per-pCPU allocation
->>>> instead of per-domain allocation with having the same VMID for all 
->>>> vCPUs of domains.
->>> ... and then here the opposite. Overall I'm in severe trouble 
->>> understanding this
->>> reply of yours as a whole, so I fear I can't really respond to it 
->>> (or even just
->>> parts thereof).
+>> You don't need to have them. You'd need to carefully go through the respective
+>> section(s) of their psABI-s.
 >>
->> IIUC, x86 allocates VMIDs per physical CPU (pCPU) "dynamically" — 
->> these are just
->> sequential numbers, and once VMIDs run out on a given pCPU, there's 
->> no guarantee
->> that a vCPU will receive the same VMID again.
+>>> So you mean I should remove "#ifdef CONFIG_X86"? Just let __aligned(16) for all platforms?
 >>
->> On the other hand, RISC-V currently allocates a single VMID per 
->> domain, and that
->> VMID is considered "permanent" until the domain is destroyed. This 
->> means we are
->> limited to at most VMID_MAX domains. To avoid this limitation, I plan 
->> to implement
->> a round-robin reuse approach: when no free VMIDs remain, we start a 
->> new generation
->> and begin reusing old VMIDs.
->>
->> The only remaining design question is whether we want RISC-V to 
->> follow a global
->> VMID allocation policy (i.e., one VMID per domain, shared across all 
->> of its vCPUs),
->> or adopt a policy similar to x86 with per-CPU VMID allocation (each 
->> vCPU gets its
->> own VMID, local to the CPU it's running on).
->>
->> Each policy has its own trade-offs. But in the case where the number 
->> of available
->> VMIDs is small (i.e., low VMIDLEN), a global allocation policy may be 
->> more suitable,
->> as it requires fewer VMIDs overall.
->>
->> So my main question was:
->> What are the advantages of per-pCPU VMID allocation in scenarios with 
->> limited VMID
->> space, and why did x86 choose that design?
->>
->>> From what I can tell, the benefits of per-pCPU VMID allocation include:
->> - Minimized inter-CPU TLB flushes — since VMIDs are local, TLB 
->> entries don’t need
->>    to be invalidated on other CPUs when reused.
->> - Better scalability — this approach works better on systems with a 
->> large number
->>    of CPUs.
->> - Frequent VM switches don’t require global TLB flushes — reducing 
->> the overhead
->>    of context switching.
->> However, the downside is that this model consumes more VMIDs. For 
->> example,
->> if a single domain runs on 4 vCPUs across 4 CPUs, it will consume 4 
->> VMIDs instead
->> of just one.
->
-> Consider you have 4 bits for VMIDs, resulting in 16 VMID values.
->
-> If you have a system with 32 physical CPUs and 32 domains with 1 vcpu 
-> each
-> on that system, your scheme would NOT allow to keep each physical cpu 
-> busy
-> by running a domain on it, as only 16 domains could be active at the same
-> time.
+>> Yes. And, as also said, with a suitable comment please.
+> Ah, my comment definitely needs your change suggestion.
+> I wrote a draft as below:
+> 
+> /*
+>  * Size of vpci_capability is lager than 8 bytes. When it is used as the entry
+>  * of __start_vpci_array in section, it is 16-byte aligned by assembler, that
+>  * causes the array length (__end_vpci_array - __start_vpci_array) wrong, so
+>  * force its definition to use 16-byte aligned here.
+>  */
+> struct vpci_capability {
+>     unsigned int id;
+>     bool is_ext;
+>     int (* init)(const struct pci_dev *pdev);
+>     int (* cleanup)(const struct pci_dev *pdev);
+> } __attribute__((aligned(16)));
 
-It makes sense to me.
+... open-code that here?
 
-Thanks.
+As to the comment: First, it wants to be as close to what is being commented as
+possible. Hence
 
-~ Oleksii
+struct __aligned(16) vpci_capability {
 
---------------7TZvkuo8fanFMXJhoM8Z9Rxa
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+is likely the better placement. Second, there's nothing here the assembler does
+on its own. It's the compiler which does something (insert alignment directives),
+and only to follow certain rules. (See "x86: don't have gcc over-align data"
+that I Cc-ed you on for some of the relevant aspects.) That is, you don't want
+to "blame" any part of the tool chain, at least not where it's the underlying
+ABI that mandates certain behavior. There's also no strong need to talk about
+the specific effects that it would have if we didn't arrange things properly.
+That is, talking about the effect on arrays in general is fine and helpful.
+Talking about __{start,end}_vpci_array imo is not.
 
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 6/26/25 1:43 PM, Juergen Gross
-      wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:7c5761b5-805c-4d56-ad8c-1746540423e4@suse.com">On
-      26.06.25 13:34, Oleksii Kurochko wrote:
-      <br>
-      <blockquote type="cite">
-        <br>
-        On 6/26/25 12:41 PM, Jan Beulich wrote:
-        <br>
-        <blockquote type="cite">On 26.06.2025 12:05, Oleksii Kurochko
-          wrote:
-          <br>
-          <blockquote type="cite">On 6/24/25 4:01 PM, Jan Beulich wrote:
-            <br>
-            <blockquote type="cite">On 24.06.2025 15:47, Oleksii
-              Kurochko wrote:
-              <br>
-              <blockquote type="cite">On 6/24/25 12:44 PM, Jan Beulich
-                wrote:
-                <br>
-                <blockquote type="cite">On 24.06.2025 11:46, Oleksii
-                  Kurochko wrote:
-                  <br>
-                  <blockquote type="cite">On 6/18/25 5:46 PM, Jan
-                    Beulich wrote:
-                    <br>
-                    <blockquote type="cite">On 10.06.2025 15:05, Oleksii
-                      Kurochko wrote:
-                      <br>
-                      <blockquote type="cite">--- /dev/null
-                        <br>
-                        +++ b/xen/arch/riscv/p2m.c
-                        <br>
-                        @@ -0,0 +1,115 @@
-                        <br>
-                        +#include &lt;xen/bitops.h&gt;
-                        <br>
-                        +#include &lt;xen/lib.h&gt;
-                        <br>
-                        +#include &lt;xen/sched.h&gt;
-                        <br>
-                        +#include &lt;xen/spinlock.h&gt;
-                        <br>
-                        +#include &lt;xen/xvmalloc.h&gt;
-                        <br>
-                        +
-                        <br>
-                        +#include &lt;asm/p2m.h&gt;
-                        <br>
-                        +#include &lt;asm/sbi.h&gt;
-                        <br>
-                        +
-                        <br>
-                        +static spinlock_t vmid_alloc_lock =
-                        SPIN_LOCK_UNLOCKED;
-                        <br>
-                        +
-                        <br>
-                        +/*
-                        <br>
-                        + * hgatp's VMID field is 7 or 14 bits. RV64 may
-                        support 14-bit VMID.
-                        <br>
-                        + * Using a bitmap here limits us to 127 (2^7 -
-                        1) or 16383 (2^14 - 1)
-                        <br>
-                        + * concurrent domains.
-                        <br>
-                      </blockquote>
-                      Which is pretty limiting especially in the RV32
-                      case. Hence why we don't
-                      <br>
-                      assign a permanent ID to VMs on x86, but rather
-                      manage IDs per-CPU (note:
-                      <br>
-                      not per-vCPU).
-                      <br>
-                    </blockquote>
-                    Good point.
-                    <br>
-                    <br>
-                    I don't believe anyone will use RV32.
-                    <br>
-                    For RV64, the available ID space seems sufficiently
-                    large.
-                    <br>
-                    <br>
-                    However, if it turns out that the value isn't large
-                    enough even for RV64,
-                    <br>
-                    I can rework it to manage IDs per physical CPU.
-                    <br>
-                    Wouldn't that approach result in more TLB entries
-                    being flushed compared
-                    <br>
-                    to per-vCPU allocation, potentially leading to
-                    slightly worse performance?
-                    <br>
-                  </blockquote>
-                  Depends on the condition for when to flush. Of course
-                  performance is
-                  <br>
-                  unavoidably going to suffer if you have only very few
-                  VMIDs to use.
-                  <br>
-                  Nevertheless, as indicated before, the model used on
-                  x86 may be a
-                  <br>
-                  candidate to use here, too. See
-                  hvm_asid_handle_vmenter() for the
-                  <br>
-                  core (and vendor-independent) part of it.
-                  <br>
-                </blockquote>
-                IIUC, so basically it is just a round-robin and when
-                VMIDs are ran out
-                <br>
-                then just do full guest TLB flush and start to re-use
-                VMIDs from the start.
-                <br>
-                It makes sense to me, I'll implement something similar.
-                (as I'm not really
-                <br>
-                sure that we needdata-&gt;core_asid_generation,
-                probably, I will understand it better when
-                <br>
-                start to implement it)
-                <br>
-              </blockquote>
-              Well. The fewer VMID bits you have the more quickly you
-              will need a new
-              <br>
-              generation. And keep track of the generation you're at you
-              also need to
-              <br>
-              track the present number somewhere.
-              <br>
-              <br>
-              <blockquote type="cite">
-                <blockquote type="cite">
-                  <blockquote type="cite">What about then to allocate
-                    VMID per-domain?
-                    <br>
-                  </blockquote>
-                  That's what you're doing right now, isn't it? And that
-                  gets problematic when
-                  <br>
-                  you have only very few bits in hgatp.VMID, as
-                  mentioned below.
-                  <br>
-                </blockquote>
-                Right, I just phrased my question poorly—sorry about
-                that.
-                <br>
-                <br>
-                What I meant to ask is: does the approach described
-                above actually depend on whether
-                <br>
-                VMIDs are allocated per-domain or per-pCPU? It seems
-                that the main advantage of
-                <br>
-                allocating VMIDs per-pCPU is potentially reducing the
-                number of TLB flushes,
-                <br>
-                since it's more likely that a platform will have more
-                than|VMID_MAX| domains than
-                <br>
-                |VMID_MAX| physical CPUs—am I right?
-                <br>
-              </blockquote>
-              Seeing that there can be systems with hundreds or even
-              thousands of CPUs,
-              <br>
-              I don't think I can agree here. Plus per-pCPU allocation
-              would similarly
-              <br>
-              get you in trouble when you have only very few VMID bits.
-              <br>
-            </blockquote>
-            But not so fast as in case of per-domain allocation, right?
-            <br>
-            <br>
-            I mean that if we have only 4 bits, then in case of
-            per-domain allocation we will
-            <br>
-            need to do TLB flush + VMID re-assigning when we have more
-            then 16 domains.
-            <br>
-            <br>
-            But in case of per-pCPU allocation we could run 16 domains
-            on 1 pCPU and at the same
-            <br>
-            time in multiprocessor systems we have more pCPUs, which
-            will allow us to run more
-            <br>
-            domains and avoid TLB flushes.
-            <br>
-            On other hand, it is needed to consider that it's unlikely
-            that a domain will have
-            <br>
-            only one vCPU. And it is likely that amount of vCPUs will be
-            bigger then an amount
-            <br>
-            of domains, so to have a round-robin approach (as x86)
-            without permanent ID allocation
-            <br>
-            for each domain will work better then per-pCPU allocation.
-            <br>
-          </blockquote>
-          Here you (appear to) say one thing, ...
-          <br>
-          <br>
-          <blockquote type="cite">In other words, I'm not 100% sure that
-            I get a point why x86 chose per-pCPU allocation
-            <br>
-            instead of per-domain allocation with having the same VMID
-            for all vCPUs of domains.
-            <br>
-          </blockquote>
-          ... and then here the opposite. Overall I'm in severe trouble
-          understanding this
-          <br>
-          reply of yours as a whole, so I fear I can't really respond to
-          it (or even just
-          <br>
-          parts thereof).
-          <br>
-        </blockquote>
-        <br>
-        IIUC, x86 allocates VMIDs per physical CPU (pCPU) "dynamically"
-        — these are just
-        <br>
-        sequential numbers, and once VMIDs run out on a given pCPU,
-        there's no guarantee
-        <br>
-        that a vCPU will receive the same VMID again.
-        <br>
-        <br>
-        On the other hand, RISC-V currently allocates a single VMID per
-        domain, and that
-        <br>
-        VMID is considered "permanent" until the domain is destroyed.
-        This means we are
-        <br>
-        limited to at most VMID_MAX domains. To avoid this limitation, I
-        plan to implement
-        <br>
-        a round-robin reuse approach: when no free VMIDs remain, we
-        start a new generation
-        <br>
-        and begin reusing old VMIDs.
-        <br>
-        <br>
-        The only remaining design question is whether we want RISC-V to
-        follow a global
-        <br>
-        VMID allocation policy (i.e., one VMID per domain, shared across
-        all of its vCPUs),
-        <br>
-        or adopt a policy similar to x86 with per-CPU VMID allocation
-        (each vCPU gets its
-        <br>
-        own VMID, local to the CPU it's running on).
-        <br>
-        <br>
-        Each policy has its own trade-offs. But in the case where the
-        number of available
-        <br>
-        VMIDs is small (i.e., low VMIDLEN), a global allocation policy
-        may be more suitable,
-        <br>
-        as it requires fewer VMIDs overall.
-        <br>
-        <br>
-        So my main question was:
-        <br>
-        What are the advantages of per-pCPU VMID allocation in scenarios
-        with limited VMID
-        <br>
-        space, and why did x86 choose that design?
-        <br>
-        <br>
-        <blockquote type="cite">From what I can tell, the benefits of
-          per-pCPU VMID allocation include:
-          <br>
-        </blockquote>
-        - Minimized inter-CPU TLB flushes — since VMIDs are local, TLB
-        entries don’t need
-        <br>
-           to be invalidated on other CPUs when reused.
-        <br>
-        - Better scalability — this approach works better on systems
-        with a large number
-        <br>
-           of CPUs.
-        <br>
-        - Frequent VM switches don’t require global TLB flushes —
-        reducing the overhead
-        <br>
-           of context switching.
-        <br>
-        However, the downside is that this model consumes more VMIDs.
-        For example,
-        <br>
-        if a single domain runs on 4 vCPUs across 4 CPUs, it will
-        consume 4 VMIDs instead
-        <br>
-        of just one.
-        <br>
-      </blockquote>
-      <br>
-      Consider you have 4 bits for VMIDs, resulting in 16 VMID values.
-      <br>
-      <br>
-      If you have a system with 32 physical CPUs and 32 domains with 1
-      vcpu each
-      <br>
-      on that system, your scheme would NOT allow to keep each physical
-      cpu busy
-      <br>
-      by running a domain on it, as only 16 domains could be active at
-      the same
-      <br>
-      time.
-      <br>
-    </blockquote>
-    <pre>It makes sense to me.
+While further playing with the compiler, I noticed that adding __aligned(16)
+actually has a negative effect as long as that other patch isn't in use: The
+struct instances then are being aligned to even 32-byte boundaries (which means
+__start_vpci_array would then also need aligning as much). When that other
+patch is in use, the __aligned() becomes unnecessary. Therefore I'm no longer
+convinced using __aligned() is the best solution here. Instead I think you want
+to base your patch on top of mine. Which in turn would eliminate the need for
+any commentary here.
 
-Thanks.
-</pre>
-    <pre>~ Oleksii
-</pre>
-  </body>
-</html>
-
---------------7TZvkuo8fanFMXJhoM8Z9Rxa--
+Jan
 
