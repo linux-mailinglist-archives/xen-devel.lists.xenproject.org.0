@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5238AEA06A
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Jun 2025 16:25:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1026511.1401694 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F2597AEA0A5
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Jun 2025 16:33:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1026546.1401704 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uUnWm-0006KU-VD; Thu, 26 Jun 2025 14:24:36 +0000
+	id 1uUnf3-0008E6-OJ; Thu, 26 Jun 2025 14:33:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1026511.1401694; Thu, 26 Jun 2025 14:24:36 +0000
+Received: by outflank-mailman (output) from mailman id 1026546.1401704; Thu, 26 Jun 2025 14:33:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uUnWm-0006IV-SW; Thu, 26 Jun 2025 14:24:36 +0000
-Received: by outflank-mailman (input) for mailman id 1026511;
- Thu, 26 Jun 2025 14:24:36 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=kW9B=ZJ=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
- id 1uUnWl-0006IP-W3
- for xen-devel@lists.xenproject.org; Thu, 26 Jun 2025 14:24:36 +0000
-Received: from mail-oo1-xc2d.google.com (mail-oo1-xc2d.google.com
- [2607:f8b0:4864:20::c2d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 45b9422d-5299-11f0-b894-0df219b8e170;
- Thu, 26 Jun 2025 16:24:30 +0200 (CEST)
-Received: by mail-oo1-xc2d.google.com with SMTP id
- 006d021491bc7-60d63174f05so251243eaf.0
- for <xen-devel@lists.xenproject.org>; Thu, 26 Jun 2025 07:24:30 -0700 (PDT)
+	id 1uUnf3-0008BN-Li; Thu, 26 Jun 2025 14:33:09 +0000
+Received: by outflank-mailman (input) for mailman id 1026546;
+ Thu, 26 Jun 2025 14:33:08 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=o/Pp=ZJ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uUnf2-0008BH-AO
+ for xen-devel@lists.xenproject.org; Thu, 26 Jun 2025 14:33:08 +0000
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [2a00:1450:4864:20::42c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 79a1bfe4-529a-11f0-a30f-13f23c93f187;
+ Thu, 26 Jun 2025 16:33:06 +0200 (CEST)
+Received: by mail-wr1-x42c.google.com with SMTP id
+ ffacd0b85a97d-3a522224582so511420f8f.3
+ for <xen-devel@lists.xenproject.org>; Thu, 26 Jun 2025 07:33:06 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-237d86d1b2asm158553875ad.204.2025.06.26.07.33.01
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 26 Jun 2025 07:33:05 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,233 +45,106 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 45b9422d-5299-11f0-b894-0df219b8e170
+X-Inumbo-ID: 79a1bfe4-529a-11f0-a30f-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1750947869; x=1751552669; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=vQH72RUtOOhXFPvQiawnRTqKjOYJTKUJ1G1pl4DuuII=;
-        b=Rb72afwIxtxqaNIs4JrZlX66mXYgNQXAUXAsfIdZNu6Bxyg32sOy93MtZpN3woHAeh
-         bamBwS+i/hm9XDBf6MDlZWYstAMR+zg+Zh6NViPIkui23Lb55WJp2fX7+Rr2UvyiZmyX
-         3GbJna/0ALcoWUxlQepE5p4k4rO6uIxHPji/4=
+        d=suse.com; s=google; t=1750948386; x=1751553186; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=iFYV4k6nw6c52VgE2QZRx0IjCdqJ9JCqbzasiOOzfbI=;
+        b=VR3Z/3pR0tcFHIpcxJEWkZyV4STEURhNQxCxtrXb4+e7E7H14zovR1PH86vvJ6R85z
+         zuo+ttjColxBKkLzTEIVRjtdrytck/8U1croB+SL3V0pHFUqFZsRz97xMHotmzqisBf5
+         M7y+UuexwcHWRsrE01hnkXKziP69VLybLR7NIEi1Fy+71vckaotf6qoq2abC8o62xWc3
+         yQlmV+MYm6xE2P8NhhUWHJlOTtp28N1wGBIJ/0EGsf6Vdr1y/6zsK7hAcl+FjCLiKVD4
+         KSoX2mDkedzljZPKiXMzCPLYB1yPhjI9tVbdFda9JuHZyPmP08uRwbVi7EMBmVb39Zcn
+         sUGg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750947869; x=1751552669;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=vQH72RUtOOhXFPvQiawnRTqKjOYJTKUJ1G1pl4DuuII=;
-        b=DT3lK9+gbTLeFFUy2HLvbaRZ1xGQKhLeO7DR5GUpCIwftRUKL0d1jC6LbScn91QYzp
-         hb75LVw4kBpF0l6jjuH1gNhqnwtkMkTVR9i1zBqMxoLF0r4k2G+Nu7gVkEbKMvoLKxTg
-         tIB0g+KQUdlMohoWugkg2ap0sDbK+ZCfhg02JbWNr+z6jACJG8TsB1NVi7ucvpmkt/1x
-         hevxTbuZyhV9RslU6vujEQF4+k8fqXw8fQzwQNzPCngOzx9qL6dP80q2iNwoUm6yIdvq
-         nnhStaEtATmM/DENrWyUYQm7i6UZ4QOizrnsInURCrdydNTy/kgghdogC9PjOFGxUW7G
-         ZtHQ==
-X-Forwarded-Encrypted: i=1; AJvYcCV9QLWOGP6Gl0nF9/Kgzj0gq5X6B3aBckTH5y+5HZ22F2paX56S4/YaZ6+0yzLNKtgzinOjvbARbOk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyfnWtFJXMff4GdBpAiNrkElw2vO+yCIHOt7kyyzGisERD6+D2L
-	MH6/+b3Al9cuTqHqEo0rfi0lcjKR0HA3xT+OgNXTjdVSFO/Ep9nT8oyt2XB5YhOCataPhgUI0OB
-	aCPyYWGvojXRTIOHPuze+ApS7q01DkdrC+omzapLAmw==
-X-Gm-Gg: ASbGncvgrg+MiSO8PwMTuQGZuKEGbzAWkvrRpn6l3gRn2JE73ufVtXDXclZAyzAoWYO
-	Ng/3LPm3GPlL8DbFnoqAhCjh9Jbe+c4v7FJqLk8fLutuoZchLQmb8akFDTfIitr5FpcMsN4HXMI
-	kO9wlkQyEnQV6noAkiyq6QhrSaPKLecPRcQrX/6JNI
-X-Google-Smtp-Source: AGHT+IHPZBxGUyJeGShC9o2zvi7OikHtAIO2kA7RlChNOvlssMZ/uI2boKa0jSltydFTuRFhHpjwYEtqU7ensS314rU=
-X-Received: by 2002:a05:6871:6186:b0:2ea:70ad:4517 with SMTP id
- 586e51a60fabf-2efb26d256cmr4843673fac.15.1750947869383; Thu, 26 Jun 2025
- 07:24:29 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1750948386; x=1751553186;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=iFYV4k6nw6c52VgE2QZRx0IjCdqJ9JCqbzasiOOzfbI=;
+        b=ExjVQogx1/7Q0IvW5GNniVXqsF54EdQ1Jsf8TfDTlpInIaDfFCrNrlgcLmeVZ2CO7g
+         jsFor+Yg5OtNWYCiwJxOYyPhCga09iaqIkS1WtY3y86uiJIqBaCrAy0aXPZyMMZjHIgG
+         eae91GT0P7Jwgo/kOqmuAyUY6IfwFS3uj1pS5nN9oFoyyq+1p6vK8N7u8gaO4/rKvEhi
+         mmusvhOn1e3u96R6Efp7iyQxnKWMlBoPNBHezfwn9eJpVEqYMDynqw2uF8zg/tQX3Ksr
+         a2H0g1yJNkjct0g/8ISYOwRMldXPNtzUKcrVJX4iK7TomzKwGnTYC9IHI/EfWzItjcYm
+         GEbw==
+X-Forwarded-Encrypted: i=1; AJvYcCUYcBtT/kEFmB5CMQUaEDTj0sE+AXFhBD8hK3/unvnylBKvnLgGNFcEnsJW1KnNjOdw7fIn8wzjdh0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy+XKn7+Rd4z8ykv5VOdWXWpT2x/vOwuho6E5bd5M9gKYV0Kn+0
+	NjFphHef8+bEOxPZm7Tgtac0OLvy1G/5DF1sCGIp4MpDq3hRcWwabFK//bGPYNe2Qg==
+X-Gm-Gg: ASbGnctcdTV6RPZue5Wvi6QeWHWiZ0zEjpcm2pbtnGbY5vyrqYbYfboW+6ciPpSqGZq
+	hHh/q5cHZb1Obx8prF5g1fUpBHmilE534vCMJlfvENnqmgaGv9vEoBRG9xp2kfblBUXCGBGwmFi
+	YlRKKDcq0mGpR6k2tBKQX48emMJ5htQblzVs/CR4DC6t3c6/mIFjtffVo3M9yQur9Si9uHqBScB
+	zr4NeuOpii6ILZUSfU0ScGXj6ygMd4wPeE7CMcIQUnm/KBJmVJPE6/5foxx1AfM2VXcElzyQ+h5
+	95McLI2TfmcYTwcl2XlOU5CjKpaG3npJH1TiYZWu/UDRRK3D/ldJKEjtOrtQUtoyGHCFmQ3puuC
+	R1IOH6Essmsnsp6tzlI7XB9yL75uQ8KLWm+3I12zp4Q3YTYs=
+X-Google-Smtp-Source: AGHT+IFiG6Nyna/CFxeprhlHAapGVLUybMEDot+r2T3nA54J/AudALV7qYdfHKVM/C5Nhl6k0RZUjg==
+X-Received: by 2002:a05:6000:270b:b0:3a4:ee40:6c85 with SMTP id ffacd0b85a97d-3a6f30adb13mr2558294f8f.54.1750948386242;
+        Thu, 26 Jun 2025 07:33:06 -0700 (PDT)
+Message-ID: <ca29e68b-3619-49ef-bc81-d036133f1a3c@suse.com>
+Date: Thu, 26 Jun 2025 16:32:57 +0200
 MIME-Version: 1.0
-References: <20250625073408.7496-1-frediano.ziglio@cloud.com>
- <20250625073408.7496-3-frediano.ziglio@cloud.com> <df050f76-d82b-479a-8ba2-97eea02b74ee@suse.com>
-In-Reply-To: <df050f76-d82b-479a-8ba2-97eea02b74ee@suse.com>
-From: Frediano Ziglio <frediano.ziglio@cloud.com>
-Date: Thu, 26 Jun 2025 15:24:17 +0100
-X-Gm-Features: Ac12FXw7akKnmee6VdAe-D1aln_rIFIj6MnU4h0Q5RoQd80HYnxd8EXE08bIr44
-Message-ID: <CACHz=ZgoB5vg=nFcr6Q+fy-N7CfAetahhfiZ-8cFM-jgr9YtJA@mail.gmail.com>
-Subject: Re: [PATCH v3 2/3] xen/efi: Support loading initrd using GRUB2
- LoadFile2 protocol
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>, 
-	=?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>, 
-	xen-devel@lists.xenproject.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: preparations for 4.20.1
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Anthony PERARD <anthony.perard@vates.tech>,
+ "community.manager@xenproject.org" <community.manager@xenproject.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <24bc698d-4e60-4f34-9b8b-8b1f315655f1@suse.com>
+ <c65aa0e1-aeb3-4af4-accb-037880f23166@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <c65aa0e1-aeb3-4af4-accb-037880f23166@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, Jun 26, 2025 at 2:29=E2=80=AFPM Jan Beulich <jbeulich@suse.com> wro=
-te:
->
-> On 25.06.2025 09:34, Frediano Ziglio wrote:
-> > --- a/xen/common/efi/boot.c
-> > +++ b/xen/common/efi/boot.c
-> > @@ -850,6 +850,74 @@ static bool __init read_file(EFI_FILE_HANDLE dir_h=
-andle, CHAR16 *name,
-> >      return true;
-> >  }
-> >
-> > +#pragma pack(1)
-> > +typedef struct {
-> > +    VENDOR_DEVICE_PATH              VenMediaNode;
-> > +    EFI_DEVICE_PATH                 EndNode;
-> > +} SINGLE_NODE_VENDOR_MEDIA_DEVPATH;
-> > +#pragma pack()
->
-> Where is this coming from? And why is this declared locally here, but the=
- ...
->
+On 26.06.2025 16:09, Andrew Cooper wrote:
+> On 26/06/2025 7:41 am, Jan Beulich wrote:
+>> the release is due in about a week or two. Please point out backports you find
+>> missing from the respective staging branch, but which you consider relevant.
+> 
+> de6a05a8a0d5 and 1ff7f87e8f4f?  They're the tools side of the px/cx changes.
 
-The declaration comes from e2dk code and it's similar to code in Linux.
-It's not a generic declaration so it's not in a header.
+Hmm, I can pull them in, but not the least the lack of Fixes: tags made me
+not consider them for backport. (Plus I would really like to hand off tools
+side backports again.)
 
-> > +static bool __init initrd_load_file2(const CHAR16 *name, struct file *=
-file)
-> > +{
-> > +    static const SINGLE_NODE_VENDOR_MEDIA_DEVPATH __initconst initrd_d=
-ev_path =3D {
-> > +        {
-> > +            {
-> > +                MEDIA_DEVICE_PATH, MEDIA_VENDOR_DP, { sizeof (VENDOR_D=
-EVICE_PATH) }
-> > +            },
-> > +            LINUX_EFI_INITRD_MEDIA_GUID
-> > +        },
-> > +        {
-> > +            END_DEVICE_PATH_TYPE, END_ENTIRE_DEVICE_PATH_SUBTYPE,
-> > +            { sizeof (EFI_DEVICE_PATH) }
-> > +        }
-> > +    };
-> > +    static EFI_GUID __initdata lf2_proto_guid =3D EFI_LOAD_FILE2_PROTO=
-COL_GUID;
->
-> ... corresponding GUID is put in a (random?) header file?
->
+> 4c3ce492ede1 is another one although I guess you've excluded that one on
+> the grounds of being an ABI change (albeit minor)?
 
-The GUID is declared in the header for device paths, being a GUID for
-a device path.
+The interface version bump in particular is something I consider non-
+backportable in principle. If we really wanted to, we could apparently
+bump it again in staging, and backport the bump that's in the patch you
+point at. Since there was no bump between 4.17 and 4.21, that might
+even work for the 4.19 branch, but we'd be in uncertain territory then.
 
-> > +    EFI_DEVICE_PATH *dp;
-> > +    EFI_LOAD_FILE2_PROTOCOL *lf2;
-> > +    EFI_HANDLE handle;
-> > +    EFI_STATUS ret;
-> > +    UINTN size;
-> > +
-> > +    dp =3D (EFI_DEVICE_PATH *)&initrd_dev_path;
->
-> Instead of a (fragile) cast, why not
->
->     dp =3D &initrd_dev_path->VenMediaNode.Header;
->
+IOW - I'd prefer to leave that one out.
 
-It makes sense, although at the end it's just style. Code came from
-Linux in this case.
-
-> ? And then perhaps also as initializer of the variable?
->
-> > +    ret =3D efi_bs->LocateDevicePath(&lf2_proto_guid, &dp, &handle);
-> > +    if ( EFI_ERROR(ret) )
-> > +    {
-> > +        if ( ret =3D=3D EFI_NOT_FOUND)
-> > +            return false;
-> > +        PrintErrMesg(L"Error getting file with LoadFile2 interface", r=
-et);
-> > +    }
-> > +
-> > +    ret =3D efi_bs->HandleProtocol(handle, &lf2_proto_guid, (void **)&=
-lf2);
-> > +    if ( EFI_ERROR(ret) )
-> > +        PrintErrMesg(L"LoadFile2 file does not provide correct protoco=
-l", ret);
-> > +
-> > +    size =3D 0;
-> > +    ret =3D lf2->LoadFile(lf2, dp, false, &size, NULL);
-> > +    if ( ret !=3D EFI_BUFFER_TOO_SMALL )
-> > +        PrintErrMesg(L"Loading failed", ret);
->
-> Here it's particularly bad, but throughout: How would one know in what
-> context the failure was? Wouldn't you want to include "name" in the
-> output? read_file() does include this detail.
->
-
-It makes sense
-
-> > +    file->addr =3D min(1UL << (32 + PAGE_SHIFT),
-> > +                     HYPERVISOR_VIRT_END - DIRECTMAP_VIRT_START);
->
-> I understand you took this from read_file(), but the construct looks
-> outdated. For one, it should have been abstracted away when the Arm64
-> work was done (I don't think such a restriction exists there), and
-> then I'm also not sure the restriction would unconditionally apply on
-> x86 anymore.
->
-
-Do you have an updated/correct formula?
-
-> > +    ret =3D efi_bs->AllocatePages(AllocateMaxAddress, EfiLoaderData,
-> > +                                PFN_UP(size), &file->addr);
-> > +    if ( EFI_ERROR(ret) )
-> > +        PrintErrMesg(L"Allocation failed", ret);
-> > +
-> > +    file->need_to_free =3D true;
-> > +    file->size =3D size;
-> > +
-> > +    ret =3D lf2->LoadFile(lf2, dp, false, &size, file->str);
-> > +    if ( EFI_ERROR(ret) )
-> > +    {
-> > +        efi_bs->FreePages(file->addr, PFN_UP(size));
-> > +        PrintErrMesg(L"Loading failed", ret);
-> > +    }
-> > +
-> > +    efi_arch_handle_module(file, name, NULL);
->
-> Shouldn't it be handle_file_info() that you call, and a little earlier?
->
-
-Already changed in the last series.
-Earlier where? You want it after loading data, right ?
-
-> > --- a/xen/include/efi/efidevp.h
-> > +++ b/xen/include/efi/efidevp.h
-> > @@ -398,5 +398,26 @@ typedef union {
-> >
-> >  } EFI_DEV_PATH_PTR;
-> >
-> > +#define EFI_LOAD_FILE2_PROTOCOL_GUID \
-> > +    { 0x4006c0c1, 0xfcb3, 0x403e, {0x99, 0x6d, 0x4a, 0x6c, 0x87, 0x24,=
- 0xe0, 0x6d } }
-> > +
-> > +typedef struct EFI_LOAD_FILE2_PROTOCOL EFI_LOAD_FILE2_PROTOCOL;
-> > +
-> > +typedef
-> > +EFI_STATUS
-> > +(EFIAPI *EFI_LOAD_FILE2)(
-> > +    IN EFI_LOAD_FILE2_PROTOCOL      *This,
-> > +    IN EFI_DEVICE_PATH              *FilePath,
-> > +    IN BOOLEAN                      BootPolicy,
-> > +    IN OUT UINTN                    *BufferSize,
-> > +    IN VOID                         *Buffer OPTIONAL
-> > +    );
-> > +
-> > +struct EFI_LOAD_FILE2_PROTOCOL {
-> > +    EFI_LOAD_FILE2                  LoadFile;
-> > +};
-> > +
-> > +#define LINUX_EFI_INITRD_MEDIA_GUID \
-> > +    { 0x5568e427, 0x68fc, 0x4f3d, {0xac, 0x74, 0xca, 0x55, 0x52, 0x31,=
- 0xcc, 0x68} }
-> >
-> >  #endif
->
-> While I'm not maintainer of this code anymore, I hope the new maintainers=
- will
-> still respect the original idea of keeping these headers in sync with the=
-ir
-> origin. The way it's arranged, this change doesn't look like it would hav=
-e been
-> taken from the gnu-efi package (albeit I will admit I didn't go check).
->
-
-I'll have a look at gnu-efi headers.
-Note that the media GUID is GRUB/Linux specific so probably won't be in gnu=
--efi.
-
-> Jan
-
-Frediano
+Jan
 
