@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 66FCCAEA2F0
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Jun 2025 17:46:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1026723.1401914 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 45D44AEA2FC
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Jun 2025 17:51:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1026730.1401924 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uUonm-0004Z9-DA; Thu, 26 Jun 2025 15:46:14 +0000
+	id 1uUosy-0006L5-Vy; Thu, 26 Jun 2025 15:51:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1026723.1401914; Thu, 26 Jun 2025 15:46:14 +0000
+Received: by outflank-mailman (output) from mailman id 1026730.1401924; Thu, 26 Jun 2025 15:51:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uUonm-0004Wr-Aa; Thu, 26 Jun 2025 15:46:14 +0000
-Received: by outflank-mailman (input) for mailman id 1026723;
- Thu, 26 Jun 2025 15:46:13 +0000
+	id 1uUosy-0006IY-TA; Thu, 26 Jun 2025 15:51:36 +0000
+Received: by outflank-mailman (input) for mailman id 1026730;
+ Thu, 26 Jun 2025 15:51:35 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=o/Pp=ZJ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uUonk-0004Wl-Ur
- for xen-devel@lists.xenproject.org; Thu, 26 Jun 2025 15:46:12 +0000
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [2a00:1450:4864:20::433])
+ id 1uUosx-0006IS-JT
+ for xen-devel@lists.xenproject.org; Thu, 26 Jun 2025 15:51:35 +0000
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [2a00:1450:4864:20::42f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id aa264e72-52a4-11f0-a30f-13f23c93f187;
- Thu, 26 Jun 2025 17:46:03 +0200 (CEST)
-Received: by mail-wr1-x433.google.com with SMTP id
- ffacd0b85a97d-3a582e09144so719533f8f.1
- for <xen-devel@lists.xenproject.org>; Thu, 26 Jun 2025 08:46:03 -0700 (PDT)
+ id 6fae8573-52a5-11f0-a30f-13f23c93f187;
+ Thu, 26 Jun 2025 17:51:34 +0200 (CEST)
+Received: by mail-wr1-x42f.google.com with SMTP id
+ ffacd0b85a97d-3a548a73ff2so1103015f8f.0
+ for <xen-devel@lists.xenproject.org>; Thu, 26 Jun 2025 08:51:34 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-23abe3f535esm985025ad.142.2025.06.26.08.45.59
+ d9443c01a7336-23abe3f4001sm1126535ad.162.2025.06.26.08.51.22
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 26 Jun 2025 08:46:02 -0700 (PDT)
+ Thu, 26 Jun 2025 08:51:33 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,67 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: aa264e72-52a4-11f0-a30f-13f23c93f187
+X-Inumbo-ID: 6fae8573-52a5-11f0-a30f-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1750952763; x=1751557563; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1750953094; x=1751557894; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=YsUWoyoctkemtOz6fwgwSl0pHJTLE5/67MsKJbMWSp4=;
-        b=MzZ4bz1ltb/OtGBBWwYn/ttMYy9TjLh+c2PgCfIES7wnvsIXrmMerANDTq0vu9GsXo
-         b7QCmItBRRn8xHJHkK6WzrSCTD2BN8gfeXmSUwPvKvYcpjrE+rdYmsid6cAYkLXRsyBq
-         h0hFwx4QcuJkHA+RNYFo3mvmX8siTDwqKlaCwtHWuuFL+nEfZSKqclnNetduy50HBSYe
-         Z29B0c3zIBM7h2NBZ3GgNWdjlAlepoghlb0X2PUk6jwSWgMr3yg9qlVdI+xyssTxv0uw
-         DUVmIorSpRgqI9PCuYi103acEbIh1Q0DJxCBDedGd3QzxXrLuj3U5vKcmtNwRLLNt8Ki
-         wR6w==
+        bh=XMH7NJmQpgEZtIptyfWpGZKvZi25xkE+dUzrCuXHHlY=;
+        b=OxXqTP1t8CMJMPLESMeqztTFAHWPB/Su377qwrxwV8+0xeA9Sggao9Drlw1b9u6b+K
+         6lhTnEe5eD287KZQVzLhX0nYrDrkuw6la9jnodQfvFlJC2fkzGte1709zzyW4QegWwtB
+         GtoAl6J301DUZKKXnCx9Z4LsKEIdpw4N2Hsz9HlwnNOOln6fzTjB0+CEsjJo+HDbANEE
+         eyt33UkTlMdfh0p17zDJ5Rz+GAjlMi5qavfR4qZMn1Tzw3o3lhU4QOlG15Aq12977BQZ
+         6kFm7AcrRZxXHkpUljnqAKOr7K+6IC9ASpHKluTSVYWxqtG1hX6C5P0bvj4rZLE2gy9z
+         /JFg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750952763; x=1751557563;
+        d=1e100.net; s=20230601; t=1750953094; x=1751557894;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=YsUWoyoctkemtOz6fwgwSl0pHJTLE5/67MsKJbMWSp4=;
-        b=ZSP43R8A3KIA35indn5/LIkFKqHpY6ftzaGGtn+K3l31E2tg49h7bA4E2iae2ZlVai
-         wPAmXEtihNzCUR2bnQc96AXoSXtfHesALa6HTWWUyfIdbqvtOSAGd+4jU3PuknNJxIXs
-         d/RkbTevb0gToWkhOtzxe3+j8wvhJkyO8WWWMdCa2NcjnJd39AG6yEtb3ZeXF1yg2SE6
-         s4TwmHQ+rJWzsAIdZS38A2pSiXhdw1GC6IUDU/RA8lBDeCrQI6dh9ZaK8MnvJ61mc+2a
-         ciFlSvgvBkKLXhfbqozMWWG9HWAZC8gIW2swGFmzUO6sboudbHXQ0a7qgyZMPE/Dqjpq
-         i6GA==
-X-Forwarded-Encrypted: i=1; AJvYcCXYzgJT8W/L1Dv/x2KnfidfpjSBnRz15V5yhW5q/qM1JkZBqQpKnqiFeXydo/4/gHogdEO6/BdpfNs=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzQn72LK4pOCIi/IjMK4hjWZ8zdSkbOGy2b0BkcpYR/LnLzM1Zl
-	kOUMqZhfmTDcX3X0B+WlLbbLoaUwbRVFRwMwbLMovg5XaoYccW2gAUADx+xWCXoCoQ==
-X-Gm-Gg: ASbGncs0jVCUqnRjB2DoOIY2WSLzMr76W9UZD5aG1P0SNeKlhlInPZfhPyFrL993qWZ
-	uvNaJcIVl/UqXHkKDGbQzUVguJGMMCoHShF8MlhjkV/ZSeG2i7ixYKraone8BnQWfKeOH0uaa4C
-	unJeAFvRykswKKWWmb+7+D9L9fdZbyCyGxnBFfkH9b6bjoRYy06PVCX6H29HQ5zXjOSOtK9l9lt
-	qfCRWBiM0RJG8mK+Lh4hewTKpkp8CiNh0WUWG3SgKQuLRjRgjn2bXrzFq32io9aKbPzQ48TI3Wx
-	B5AV8Zx++cgN2qXgD3z7W0VY79NlIoCvAE5C1XkCK1b1ivjcBkOThh9+LMHU/BYIdYKCpEDBVEu
-	yXFvQ2AdKRJUQZT9R5KJTWjpDiFCa7gbfmbDafaQrQUb905/t7O7Em2Q99g==
-X-Google-Smtp-Source: AGHT+IEnL9s+illgmh4N43IAFMmYtwhbDT3XODUPLOB6JeVHsODKLzjrYpFD9sXBkLau5KRoCK9gHg==
-X-Received: by 2002:a05:6000:23c3:b0:3a5:25e0:ab53 with SMTP id ffacd0b85a97d-3a6ed66a535mr4374560f8f.32.1750952762705;
-        Thu, 26 Jun 2025 08:46:02 -0700 (PDT)
-Message-ID: <634154c0-ecd7-4c24-bc52-91aeefe367f0@suse.com>
-Date: Thu, 26 Jun 2025 17:45:55 +0200
+        bh=XMH7NJmQpgEZtIptyfWpGZKvZi25xkE+dUzrCuXHHlY=;
+        b=WFeUvNW26qPEmAAr25G3KfixMiFnJhjx4nHw7DJVF3ytno2wb6yl4JYN6vVbgU+GRZ
+         uzIwYC7m90K6gdOs9rVpchAXof2OORxxxf2Omo4E+lJk7s08qLWiTbBr7j8nJ3yHn0Ja
+         75ReYGqLgC+V81+3LjlhjPCortC4VcF3AyUBDJSGVySTk8GzCowFYw/gKUlece/k69ss
+         1/mdWUAFOc5S5JfRu0MAbRmDu9Lko5oYqbyodoMi7zvyz9JA1h3d5iPa++zfFwbzdVQa
+         TdboFi153jXFQybE/Mx1Na50yeS8SWG7JJFQ0jR6kYdsr925I2mIpYvv86ztb2pLCO3F
+         yRnw==
+X-Forwarded-Encrypted: i=1; AJvYcCXjUoeOozwpPupEou9JljwYTWcaa6WggQKUp+A/V9Kq9O50pNhwi0WMt/kW1ZDD9CuKVvxLAFIcnzM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz18g4MnJfglxAStcZRR7KtK4ZS0fGLBabQIavoA1S/yWNQW5Ro
+	wqYJjWu4X/h255hq2hZtvk7RWDpxfT89GCGCejpnHqykF/F3L6ATjpM1AKGQBR7EjA==
+X-Gm-Gg: ASbGnctre8HzdqV9HjS9LerplEt1jGinvTFaS2Ng97P5Wa7tuFKa6kGYJHHoOvaDbil
+	fJvKmmf7PhaOh6xSsigDZXZs6aShnaKUyBJWjTvfz6pFjx3h2h3akYNHgKkRLot4ZrdwXhfQNck
+	KVj4jolKIqFzxCydGYNGEjr8gKLrGEUubafnzTzKzxc7nAHmnyKCsKrmwisBuUit5AP6IpvCClp
+	KFttAgOSRSvZi3dTRSofGd+kMBDXR7sgoj171RppDRmTwJT0BiGJMur+18GIFgqDQuXHctT9UfN
+	lggthkqmD3rtY7s4zP4bH86wCY44GB9i8V+ZYMe0LuEjSS6EME6lKz3kahOS1/ijrfseVXYk51S
+	aGq3/AHhbmMcHCGXDZxRl3bAr7G3w8vTwDv6fNPEO0qiJqro=
+X-Google-Smtp-Source: AGHT+IHjsauj8msB2NXjd4GJqODEZwb2GxtPJmR3Uiw5/UijiBGjpbMETmDnCasg9rO4ehdoeHwrJw==
+X-Received: by 2002:a05:6000:2a88:b0:3a5:8905:2dda with SMTP id ffacd0b85a97d-3a8f4549d3amr37874f8f.43.1750953094002;
+        Thu, 26 Jun 2025 08:51:34 -0700 (PDT)
+Message-ID: <2e35ed6d-f9a5-48c7-8e81-6f5daa5c16d7@suse.com>
+Date: Thu, 26 Jun 2025 17:51:17 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 1/7] x86: suppress ERMS for internal use when
- MISC_ENABLE.FAST_STRING is clear
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <c5e1e7e0-a295-4028-b003-152b861ee14f@suse.com>
- <fe4920a2-4add-4e07-80f3-50eb37de0754@suse.com>
- <c1d38fa9-a959-470f-96ce-462ea7e04041@citrix.com>
+Subject: Re: [PATCH v5 00/18] xen: introduce CONFIG_SYSCTL
+To: Penny Zheng <Penny.Zheng@amd.com>
+Cc: ray.huang@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ Dario Faggioli <dfaggioli@suse.com>, Juergen Gross <jgross@suse.com>,
+ George Dunlap <gwd@xenproject.org>,
+ Nathan Studer <nathan.studer@dornerworks.com>,
+ Stewart Hildebrand <stewart@stew.dk>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ xen-devel@lists.xenproject.org, xen-devel@dornerworks.com
+References: <20250616064128.581164-1-Penny.Zheng@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,83 +131,57 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <c1d38fa9-a959-470f-96ce-462ea7e04041@citrix.com>
+In-Reply-To: <20250616064128.581164-1-Penny.Zheng@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 26.06.2025 17:31, Andrew Cooper wrote:
-> On 16/06/2025 1:59 pm, Jan Beulich wrote:
->> --- a/xen/arch/x86/cpu-policy.c
->> +++ b/xen/arch/x86/cpu-policy.c
->> @@ -487,6 +487,12 @@ static void __init guest_common_max_feat
->>       */
->>      if ( test_bit(X86_FEATURE_RTM, fs) )
->>          __set_bit(X86_FEATURE_RTM_ALWAYS_ABORT, fs);
->> +
->> +    /*
->> +     * We expose MISC_ENABLE to guests, so our internal clearing of ERMS when
->> +     * FAST_STRING is not set should not affect the view of migrating-in guests.
->> +     */
+On 16.06.2025 08:41, Penny Zheng wrote:
+> It can be beneficial for some dom0less systems to further reduce Xen footprint
+> via disabling some hypercalls handling code, which may not to be used &
+> required in such systems. Each hypercall has a separate option to keep
+> configuration flexible.
 > 
-> The logic is ok, but the justification wants to be different.
+> Options to disable hypercalls:
+> - sysctl
+> - domctl
+> - hvm
+> - physdev
+> - platform
 > 
-> "ERMS is a performance hint.  A VM which previously saw ERMS will
-> function correctly when migrated here, even if ERMS isn't available."
+> This patch serie is only focusing on introducing CONFIG_SYSCTL. Different
+> options will be covered in different patch serie.
 > 
-> What Xen chooses to do with the bit isn't relevant to why we
-> unconditionally set it in the max featureset.
+> Features, like LIVEPATCH, Overlay DTB, which fully rely on sysctl op, will
+> be wrapped with CONFIG_SYSCTL, to reduce Xen footprint as much as possible.
+> 
+> It is derived from Stefano Stabellini's commit "xen: introduce kconfig options to
+> disable hypercalls"(
+> https://lore.kernel.org/xen-devel/20241219092917.3006174-1-Sergiy_Kibrik@epam.com)
+> 
+> Penny Zheng (16):
+>   xen/x86: remove "depends on !PV_SHIM_EXCLUSIVE"
+>   xen/xsm: wrap around xsm_sysctl with CONFIG_SYSCTL
+>   xen/sysctl: wrap around XEN_SYSCTL_readconsole
+>   xen/sysctl: make CONFIG_TRACEBUFFER depend on CONFIG_SYSCTL
+>   xen/sysctl: wrap around XEN_SYSCTL_sched_id
+>   xen/sysctl: wrap around XEN_SYSCTL_perfc_op
+>   xen/sysctl: wrap around XEN_SYSCTL_lockprof_op
+>   xen/pmstat: introduce CONFIG_PM_OP
+>   xen/sysctl: introduce CONFIG_PM_STATS
+>   xen/sysctl: wrap around XEN_SYSCTL_page_offline_op
+>   xen/sysctl: wrap around XEN_SYSCTL_cpupool_op
+>   xen/sysctl: wrap around XEN_SYSCTL_scheduler_op
+>   xen/sysctl: wrap around XEN_SYSCTL_physinfo
+>   xen/sysctl: make CONFIG_COVERAGE depend on CONFIG_SYSCTL
+>   xen/sysctl: make CONFIG_LIVEPATCH depend on CONFIG_SYSCTL
+>   xen/sysctl: wrap around arch-specific arch_do_sysctl
 
-It's different words for effectively the same thing, to me at least. I can
-certainly use your wording, ...
-
->> @@ -567,6 +573,16 @@ static void __init guest_common_default_
->>          __clear_bit(X86_FEATURE_RTM, fs);
->>          __set_bit(X86_FEATURE_RTM_ALWAYS_ABORT, fs);
->>      }
->> +
->> +    /*
->> +     * We expose MISC_ENABLE to guests, so our internal clearing of ERMS when
->> +     * FAST_STRING is not set should not propagate to guest view.  Guests can
->> +     * judge on their own whether to ignore the CPUID bit when the MSR bit is
->> +     * clear.  The bit being uniformly set in the max policies, we only need
->> +     * to clear it here (if hardware doesn't have it).
->> +     */
-> 
-> "ERMS is a performance hint, so is set unconditionally in the max
-> policy.  However, the guest should default to the host setting."
-
-... also here.
-
->> +    if ( !raw_cpu_policy.feat.erms )
-> 
-> This wants to be the host policy, not the raw policy.  That's why
-> `cpuid=no-erms` isn't working in the way you'd expect.
-> 
-> cpuid=no-$foo means "Xen should behave as if $foo wasn't reported by
-> hardware", and that includes not giving it to guests by default.
-
-Hmm, interesting. That's definitely not the meaning I give this. To me it
-means merely Xen shouldn't use the feature (with an impact on guests only
-when the feature in hardware is required to surface it to guests). I
-don't think we have the precise meaning of this option written down
-anywhere?
-
->> +        __clear_bit(X86_FEATURE_ERMS, fs);
->>  }
->>  
-> 
-> It occurs to me that there are quite a few examples of clear/cond-set
-> which could be converted to cond-clear like this
-> 
-> I'll do a prep patch to make things consistent.  It shouldn't conflict
-> with this, but I'd prefer to keep the function logic consistent; it's
-> hard enough to follow already.
-
-Right, I too noticed that there are others which could be swapped over.
-I actually had it the other way around in early versions of the series,
-and it was only in the course of some re-work where I noticed it might
-be a little tidier this way. But I first wanted to see whether perhaps I
-have some thinko there, so didn't want to convert anything pre-existing.
+When thinking about whether to commit part of the series, it occurred to me that
+to avoid transiently regressing shim (in size), shouldn't the currently 1st patch
+be moved to be 2nd to last, and then be committed together with the last one? In
+any event the plan right now is to commit some patches from the beginning of this
+series, but specifically without patch 1. Please shout if you see any problem
+with this.
 
 Jan
 
