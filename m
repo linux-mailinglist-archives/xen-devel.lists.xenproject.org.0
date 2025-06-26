@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DEB1BAE97C7
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Jun 2025 10:13:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1026009.1401270 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C5366AE97C5
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Jun 2025 10:13:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1026004.1401262 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uUhjs-0001JX-Uv; Thu, 26 Jun 2025 08:13:44 +0000
+	id 1uUhjM-0000rS-N6; Thu, 26 Jun 2025 08:13:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1026009.1401270; Thu, 26 Jun 2025 08:13:44 +0000
+Received: by outflank-mailman (output) from mailman id 1026004.1401262; Thu, 26 Jun 2025 08:13:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uUhjs-0001Gt-S2; Thu, 26 Jun 2025 08:13:44 +0000
-Received: by outflank-mailman (input) for mailman id 1026009;
- Thu, 26 Jun 2025 08:13:43 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uUhjM-0000oa-Jt; Thu, 26 Jun 2025 08:13:12 +0000
+Received: by outflank-mailman (input) for mailman id 1026004;
+ Thu, 26 Jun 2025 08:13:11 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=7AC/=ZJ=gmail.com=xakep.amatop@srs-se1.protection.inumbo.net>)
- id 1uUhjr-00015u-Em
- for xen-devel@lists.xenproject.org; Thu, 26 Jun 2025 08:13:43 +0000
-Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
- [2a00:1450:4864:20::232])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7942863a-5265-11f0-a30f-13f23c93f187;
- Thu, 26 Jun 2025 10:13:42 +0200 (CEST)
-Received: by mail-lj1-x232.google.com with SMTP id
- 38308e7fff4ca-32b910593edso6083551fa.1
- for <xen-devel@lists.xenproject.org>; Thu, 26 Jun 2025 01:13:42 -0700 (PDT)
-Received: from yp-VivoBook-ASUSLaptop-M1503QA-M1503QA.. ([95.67.15.120])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-553e414c2aasm2474283e87.55.2025.06.26.01.13.40
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 26 Jun 2025 01:13:41 -0700 (PDT)
+ <SRS0=kW9B=ZJ=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
+ id 1uUhjL-0000oU-63
+ for xen-devel@lists.xenproject.org; Thu, 26 Jun 2025 08:13:11 +0000
+Received: from mail-oi1-x22c.google.com (mail-oi1-x22c.google.com
+ [2607:f8b0:4864:20::22c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 62c5eefa-5265-11f0-b894-0df219b8e170;
+ Thu, 26 Jun 2025 10:13:05 +0200 (CEST)
+Received: by mail-oi1-x22c.google.com with SMTP id
+ 5614622812f47-40b1c099511so482530b6e.0
+ for <xen-devel@lists.xenproject.org>; Thu, 26 Jun 2025 01:13:05 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,197 +40,159 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7942863a-5265-11f0-a30f-13f23c93f187
+X-Inumbo-ID: 62c5eefa-5265-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1750925622; x=1751530422; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=M9gQgFlI8smtr41SXezhqALTk3eHL+YQaCdxEISeBOk=;
-        b=BHZxmpNjU5mol0PCY9lYuSRZ9pbNSrC62m9p3XZqHp5ktrYCjNJkR2T37KtG9X7ahk
-         KbIv+HTmPcOjCmqXQk5NPPNVZ8q/Iyj0Dv1P2JBHaSzieeAMGJCkvVM+NRwirbkAeNR7
-         8aSTY7K8hd8cWyfKemZ1YFJzCQLuqB07oDIg/U8HW8OSEnWQfCJJCtNmTM8DK6D+MQ8w
-         iKpCH4tHaPMhNJl4sjNuwulNVZD4Rd8sB3Eyjg74WzQi4HZJXKwQEp0kMG8DxbFla9Pf
-         zDpDvpCETjqlFmR9xRVjDPAvvgkQhzpS4arBvRY8L+nowJJAoRAgIiXDOuncxVg7LV9u
-         G63A==
+        d=cloud.com; s=cloud; t=1750925584; x=1751530384; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=g9ZticWj5kAENHq8+uBatymybMIvM2nhg2Pt9//5kNE=;
+        b=fyQC3dguEVWOvd526voLmGLNOkxsZR6orgU1kOQEOxJBwAcsdqfzMAuIENmMFUR+tP
+         Fmk/jm8gxxlbQo6IResOq9bAz1aTh3pVzq/N0coiKY5KntQscdKsnGPQZ3pZ+Y0zj5iV
+         Zc2GDC085eIqfeTj3gYTYqNbK6irQNUg2CFvw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750925622; x=1751530422;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=M9gQgFlI8smtr41SXezhqALTk3eHL+YQaCdxEISeBOk=;
-        b=Wc6qUTuT9HGvRwSwO1y/alG6OOBNJFTNhGmmeF0IqFTCjLjKb3UgGClo21q0y0wiax
-         cpvTCfwicdycU6dl/dTBTZ+RIqacvgDfacyeCuu9ENVDW35IBUsPGe38LXodSTSrl9AQ
-         Dys4MtyeK4Xh2HdY76I2oGOnl5qvvZsvS62/RAoXn1XGJcEGSSZf5U5aic54HzcMQ4Ar
-         EKf8rVPwvUw8d1Ujol6MSzp0bmYjVYTtTY5YVOk3TIJ6S9GV7LfqEAeR7RKtoFntvpoX
-         fCtwqFJlIaxeo07SuYCMjmFiYvILWoaWsUpo4mAbLdZsV7tjihWoxMWoN8izxCK0aWOG
-         +mJQ==
-X-Gm-Message-State: AOJu0YzhVcZgIJWR89otkOpqd4tG5dj54s1ywMmID0R4fYYVkq2QvRsp
-	Lb/oL4DTwou+tgZX8NYmRSTje4CnOQ4QTZAj9JIfBy/iHfnAQvCluZnx+qbMKCcW
-X-Gm-Gg: ASbGncumrlq3nlA6rI3g/G8a+iEa4hQPIR+uE1bfxb2H9UXEeOl6lMnJ4GziflJyM7w
-	xyfBPC0dxSu/aQh1q7T5z/aURkvYR1Pj7JaB6BPIeRyx83WRE+Tgh44R3NSPmJt3+0lIEOn/5Jm
-	tFd4mz7JP+MjhSHReksaCnKHTM51ukd/OilNLohp/n0qTUXs1Bm+156wJ2+BZQf3WLzNEI2mfOR
-	ZEJQka3qKe9AKcV1c0KbPnnDYLjByZPFWQvrZBdH02pyGBO5TpCcSZSfdi85V4jnokhgmpgACmd
-	ihI4Qdop0r14dZJp7g2Qjb1BaUq4ViX3+/p8lbYxR8nYmilITk10+ekr0aS/0HKpuzbxeQ4i7Va
-	YBkh6TxBSMy0gQ4F9K0ewumH2Bg==
-X-Google-Smtp-Source: AGHT+IFZ4LE5QGB7kp29fS4SAvNa6WI+Y6fL0MATHiOu//mK7Kd/3Ls4ZEj5ryhfe9uPhpoPVpIKgg==
-X-Received: by 2002:a05:6512:3b0b:b0:553:25e9:7f3c with SMTP id 2adb3069b0e04-554fde595bcmr2099733e87.37.1750925621606;
-        Thu, 26 Jun 2025 01:13:41 -0700 (PDT)
-From: Mykola Kvach <xakep.amatop@gmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
-	Mykola Kvach <mykola_kvach@epam.com>
-Subject: [PATCH] systemd: Add hooks to stop/start xen-watchdog on suspend/resume
-Date: Thu, 26 Jun 2025 11:12:46 +0300
-Message-ID: <20250626081246.1923956-1-xakep.amatop@gmail.com>
-X-Mailer: git-send-email 2.48.1
+        d=1e100.net; s=20230601; t=1750925584; x=1751530384;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=g9ZticWj5kAENHq8+uBatymybMIvM2nhg2Pt9//5kNE=;
+        b=wXoW+EDJJVL7p0MHsKM8L6s9E6hI1C9h186bheRQqY6GdXtmG9NayiLUVzL86ceDGd
+         nNASLJnBViTAbXRkXj5sgZOB2FxB0jvnI3zYZGwOrQ+4/TQVT3SP/GDxtzJS//3CcskN
+         LqSxtdC3MzBR3rmogUDFiTiH8JWDv0q+ckEr9l9k+ER1WyY9xyGsEiBjQoGwuPHc82kr
+         3/RuvikJWPGs2CdRg1M0EJOpTV7h9lwMrgCsYsmlWUaMGpxUV5cBmhTB7L9vmXOBjrt8
+         Qd5RYmb6v0t95R1IMVzNGVZGxkrofgqH8w6r0iUUvpK09c3mStvdg/UCQqHhVUwefiN+
+         mVcQ==
+X-Gm-Message-State: AOJu0YyY76yg8w2JixPeGiVAmPUGYAUGg0msXk2V7IpzyWaLjDVa8fUa
+	AgUuVhsfqJmN2GaAWBPWgZsvdT79fGFY47Z0BlA+O69S6MQkUHSrodWppfTBO5dDaqaqRmNE5L8
+	nFIjA719GXUKxzz6u5qH55OeygP20YT2eh9y1FpLATEXDciNRBcdM02cP9Q==
+X-Gm-Gg: ASbGncuQwq6vhU1A44g5miS5/XhpMW8Wdo7KUZ5Hmg/GhCyhDJIKpFxQPruSGvs6YT9
+	9vnjhC1Ji8WVwnZB4zhQbRmarudcLcBlgoUGLOlNU476+u3gniMo03Bk9coPTSW2+mSfeE8Mryl
+	C4SlSHMFMssoHouSTKTPOvDOHw0KCHgpIWVa/kqfYR36wvkXYlzNQ=
+X-Google-Smtp-Source: AGHT+IFM8deR5ZSoma45hIBqa3JSfBKh9vQj7/leXkmKK0p9GKN/ib4GzVYcV6p3eEP8yVQ9HgLcj7PwPq4SYsOi0eQ=
+X-Received: by 2002:a05:6808:1207:b0:3f6:7091:d297 with SMTP id
+ 5614622812f47-40b1cd0dffamr1985623b6e.18.1750925584325; Thu, 26 Jun 2025
+ 01:13:04 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20250624083157.9334-1-frediano.ziglio@cloud.com>
+ <CACHz=Zj_YibxBOQytCQAmTAG=yyBXUx2s1Jr+fXqHgxHQmSDOQ@mail.gmail.com> <aFxbi6dnKjydzyNk@mail-itl>
+In-Reply-To: <aFxbi6dnKjydzyNk@mail-itl>
+From: Frediano Ziglio <frediano.ziglio@cloud.com>
+Date: Thu, 26 Jun 2025 09:12:53 +0100
+X-Gm-Features: Ac12FXw5LQPN7oWVRjKAXJTeZptYPZ9q3R-3BEQyJd9s371og-g9kmSRI14xO2c
+Message-ID: <CACHz=Zj=LsfbUVMkuKHx-xpy+NMQh13NUJ_-sPSq3OMwSurHPA@mail.gmail.com>
+Subject: Re: [PATCH 0/2] xen/efi: Make boot more flexible, especially with GRUB2
+To: =?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Cc: xen-devel@lists.xenproject.org, 
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>, Jan Beulich <jbeulich@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-This patch adds a systemd sleep hook script to stop the xen-watchdog
-service before system suspend and start it again after resume.
+On Wed, Jun 25, 2025 at 9:26=E2=80=AFPM Marek Marczykowski-G=C3=B3recki
+<marmarek@invisiblethingslab.com> wrote:
+>
+> On Tue, Jun 24, 2025 at 09:38:42AM +0100, Frediano Ziglio wrote:
+> > On Tue, Jun 24, 2025 at 9:32=E2=80=AFAM Frediano Ziglio
+> > <frediano.ziglio@cloud.com> wrote:
+> > >
+> > > The combination of GRUB2, EFI and UKI allows potentially more flexibi=
+lity.
+> > > For instance is possible to load xen.efi from a no ESP partition leav=
+ing
+> > > a boot loader like GRUB2 taking care of the file loading.
+> > > This however requires some changes in Xen to be less restrictive.
+> > > Specifically for GRUB2 these changes allows the usage of "chainloader=
+"
+> > > command with UKI and reading xen.efi from no ESP (so no DeviceHandle
+> > > set) and usage of "linux" and "initrd" commands to load separately
+> > > the kernel (embedding using UKI) and initrd (using LoadFile2 protocol=
+).
+> >
+> > I was forgetting. If somebody wants to test "linux" and "initrd"
+> > command with these changes be aware that GRUB currently has a problem
+> > passing arguments, I posted a patch, see
+> > https://lists.gnu.org/archive/html/grub-devel/2025-06/msg00156.html.
+> > I also have a workaround for this issue in xen but it would be better
+> > to have a fix in GRUB.
+>
+> Can you tell more how to test this, especially the second variant? When
+> trying to use GRUB linux or linuxefi commands on xen.efi, I get "invalid
+> magic number" error.
+>
 
-Stopping the watchdog before a system suspend operation may look unsafe.
-Let’s imagine the following situation: 'systemctl suspend' does not
-interact with the running service at all. In such a case, the Xen
-watchdog daemon freezes just before suspend. If this happens, for
-example, right before sending a ping, and Xen has not yet marked the
-domain as suspended (is_shutting_down), the Xen watchdog timer may
-trigger a false alert.
+That's weird.
 
-This is an almost impossible situation, because typically:
-    ping time = watchdog timeout / 2
+Be the way. As usual I have a super complicated script that does everything=
+.
 
-and the watchdog timeout is usually set to a relatively large value
-(dozens of seconds).
+But to simplify:
+- I compile xen (plain upstream plus my patches) with "make -C
+~/work/xen/xen -j O=3Dnormal MAP"
+- output xen.efi in "~/work/xen/xen/normal/xen.efi"
+- add configuration and kernel with "./add_sections xen.efi
+xen.unified.efi .config xen.cfg .kernel vmlinuz-xen"
+- boot using patched Grub (or patched Xen, to handle command line, if
+you don't care about command line you can use a stock one), the menu
+entry is
 
-Still, this is more likely with very short watchdog timeouts. It may
-happen in the following scenarios:
-    * Significant delays occur between freezing Linux tasks and
-      triggering the ACPI or PSCI sleep request or handler.
-    * Long delays happen inside Xen between the entrance to the sleep
-      trigger and the actual forwarding of the sleep request further.
+menuentry 'XenServer (Serial)' {
+        search --label --set root EFI-BOOT
+        linux /boot/xen.unified.efi -- com1=3D115200,8n1
+console=3Dcom1,vga dom0_mem=3D1232M,max:1232M watchdog dom0_max_vcpus=3D1-4
+crashkernel=3D256M,below=3D4G -- root=3DLABEL=3Droot-qjhppe ro nolvm
+hpet=3Ddisable console=3Dtty0 console=3Dhvc0
+        initrd /boot/initrd.img
+}
 
-A similar situation may occur on resume with short timeouts. During the
-resume operation, Xen restores timers and the domain context. The Xen
-watchdog timer also resumes. If it schedules the domain right before the
-watchdog timeout expires, and the daemon responsible for pinging is not
-yet running, a timeout might occur.
+xen.cfg file:
+----------
+[global]
+default=3Dxen
 
-Both scenarios are rare and typically require very small watchdog
-timeouts combined with significant delays in Xen or the Linux kernel
-during suspend/resume flows.
+[xen]
+----------
 
-Conceptually, however, if activating and pinging the Xen watchdog is the
-responsibility of the domain and its services, then the domain should
-also manage the watchdog service/daemon lifecycle. This is similar to
-what is already done by the Xen watchdog driver inside the Linux kernel.
+add_sections file:
+----------
+#!/usr/bin/env perl
+use strict;
 
-Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
----
- tools/hotplug/Linux/systemd/Makefile          | 12 ++++-
- .../Linux/systemd/xen-watchdog-sleep.sh       | 45 +++++++++++++++++++
- 2 files changed, 56 insertions(+), 1 deletion(-)
- create mode 100644 tools/hotplug/Linux/systemd/xen-watchdog-sleep.sh
+die if $#ARGV < 1;
+my $in =3D shift @ARGV;
+my $out =3D shift @ARGV;
 
-diff --git a/tools/hotplug/Linux/systemd/Makefile b/tools/hotplug/Linux/systemd/Makefile
-index e29889156d..98d325cc5d 100644
---- a/tools/hotplug/Linux/systemd/Makefile
-+++ b/tools/hotplug/Linux/systemd/Makefile
-@@ -5,6 +5,9 @@ XEN_SYSTEMD_MODULES := xen.conf
- 
- XEN_SYSTEMD_MOUNT := proc-xen.mount
- 
-+XEN_SYSTEMD_SLEEP_SCRIPTS := xen-watchdog-sleep.sh
-+XEN_SYSTEMD_SLEEP_DIR := $(XEN_SYSTEMD_DIR)/../system-sleep
-+
- XEN_SYSTEMD_SERVICE := xenstored.service
- XEN_SYSTEMD_SERVICE += xenconsoled.service
- XEN_SYSTEMD_SERVICE += xen-qemu-dom0-disk-backend.service
-@@ -15,7 +18,8 @@ XEN_SYSTEMD_SERVICE += xendriverdomain.service
- 
- ALL_XEN_SYSTEMD :=	$(XEN_SYSTEMD_MODULES)  \
- 			$(XEN_SYSTEMD_MOUNT)	\
--			$(XEN_SYSTEMD_SERVICE)
-+			$(XEN_SYSTEMD_SERVICE)	\
-+			$(XEN_SYSTEMD_SLEEP_SCRIPTS)
- 
- .PHONY: all
- all:	$(ALL_XEN_SYSTEMD)
-@@ -31,15 +35,21 @@ distclean: clean
- install: $(ALL_XEN_SYSTEMD)
- 	$(INSTALL_DIR) $(DESTDIR)$(XEN_SYSTEMD_DIR)
- 	$(INSTALL_DIR) $(DESTDIR)$(XEN_SYSTEMD_MODULES_LOAD)
-+	$(INSTALL_DIR) $(DESTDIR)$(XEN_SYSTEMD_SLEEP_DIR)
- 	$(INSTALL_DATA) *.service $(DESTDIR)$(XEN_SYSTEMD_DIR)
- 	$(INSTALL_DATA) *.mount $(DESTDIR)$(XEN_SYSTEMD_DIR)
- 	$(INSTALL_DATA) *.conf $(DESTDIR)$(XEN_SYSTEMD_MODULES_LOAD)
-+	set -e; for i in $(XEN_SYSTEMD_SLEEP_SCRIPTS); \
-+	    do \
-+	    $(INSTALL_PROG) $$i $(DESTDIR)$(XEN_SYSTEMD_SLEEP_DIR); \
-+	done
- 
- .PHONY: uninstall
- uninstall:
- 	rm -f $(DESTDIR)$(XEN_SYSTEMD_MODULES_LOAD)/*.conf
- 	rm -f $(DESTDIR)$(XEN_SYSTEMD_DIR)/*.mount
- 	rm -f $(DESTDIR)$(XEN_SYSTEMD_DIR)/*.service
-+	rm -f $(addprefix $(DESTDIR)$(XEN_SYSTEMD_SLEEP_DIR)/, $(XEN_SYSTEMD_SLEEP_SCRIPTS))
- 
- $(XEN_SYSTEMD_MODULES):
- 	rm -f $@.tmp
-diff --git a/tools/hotplug/Linux/systemd/xen-watchdog-sleep.sh b/tools/hotplug/Linux/systemd/xen-watchdog-sleep.sh
-new file mode 100644
-index 0000000000..2b2f0e16d8
---- /dev/null
-+++ b/tools/hotplug/Linux/systemd/xen-watchdog-sleep.sh
-@@ -0,0 +1,45 @@
-+#!/bin/sh
-+
-+# The first argument ($1) is:
-+#     "pre" or "post"
-+# The second argument ($2) is:
-+#     "suspend", "hibernate", "hybrid-sleep", or "suspend-then-hibernate"
-+
-+. /etc/xen/scripts/hotplugpath.sh
-+
-+SERVICE_NAME="xen-watchdog.service"
-+STATE_FILE="/run/xen-watchdog-sleep-marker"
-+XEN_WATCHDOG_SLEEP_LOG="${XEN_LOG_DIR}/xen-watchdog-sleep.log"
-+
-+log_watchdog() {
-+    echo "$1"
-+    echo "$(date): $1" >> "${XEN_WATCHDOG_SLEEP_LOG}"
-+}
-+
-+# Exit silently if Xen watchdog service is not present
-+if ! systemctl show "${SERVICE_NAME}" > /dev/null 2>&1; then
-+    exit 0
-+fi
-+
-+case "$1" in
-+pre)
-+    if systemctl is-active --quiet "${SERVICE_NAME}"; then
-+        touch "${STATE_FILE}"
-+        log_watchdog "Stopping ${SERVICE_NAME} before $2."
-+        systemctl stop "${SERVICE_NAME}"
-+    fi
-+    ;;
-+post)
-+    if [ -f "${STATE_FILE}" ]; then
-+        log_watchdog "Starting ${SERVICE_NAME} after $2."
-+        systemctl start "${SERVICE_NAME}"
-+        rm "${STATE_FILE}"
-+    fi
-+    ;;
-+*)
-+    log_watchdog "Script called with unknown action '$1'. Arguments: '$@'"
-+    exit 1
-+    ;;
-+esac
-+
-+exit 0
--- 
-2.48.1
+my $max =3D 0;
+open(IN, "objdump -h $in |") or die;
+while (<IN>) {
+        next if !/^\s*\d+\s+\S+\s+([0-9a-f]+)\s+([0-9a-f]+)\s+/;
+        my $val =3D hex($1) + hex($2);
+        $max =3D $val if $val > $max;
+}
+close(IN);
 
+sub up($) {
+        my $n =3D shift;
+        return ($n + 4095) & -4096;
+}
+
+my @args =3D ('objcopy');
+
+my $start =3D up($max);
+while ($#ARGV >=3D 1) {
+        my $name =3D shift;
+        my $fn =3D shift;
+        push @args, '--add-section', "$name=3D$fn";
+        push @args, '--change-section-vma', sprintf("%s=3D%#x", $name, $sta=
+rt);
+        $start +=3D -s $fn;
+        $start =3D up($start);
+}
+push @args, $in, $out;
+print "Executing @args\n";
+system(@args) =3D=3D 0 || die "Error!";
+----------
+
+My script creates the initrd, builds a full disk for Qemu and launches
+Qemu too with specific options.
+
+Frediano
 
