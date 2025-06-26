@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E7F8AEA1CF
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Jun 2025 17:03:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1026633.1401815 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4BDE0AEA1E9
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Jun 2025 17:07:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1026640.1401825 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uUo84-0001Bl-9Q; Thu, 26 Jun 2025 15:03:08 +0000
+	id 1uUoBx-0001mp-P4; Thu, 26 Jun 2025 15:07:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1026633.1401815; Thu, 26 Jun 2025 15:03:08 +0000
+Received: by outflank-mailman (output) from mailman id 1026640.1401825; Thu, 26 Jun 2025 15:07:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uUo84-0001AH-6V; Thu, 26 Jun 2025 15:03:08 +0000
-Received: by outflank-mailman (input) for mailman id 1026633;
- Thu, 26 Jun 2025 15:03:06 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=WBQK=ZJ=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1uUo82-0001A8-MJ
- for xen-devel@lists.xenproject.org; Thu, 26 Jun 2025 15:03:06 +0000
-Received: from fhigh-a8-smtp.messagingengine.com
- (fhigh-a8-smtp.messagingengine.com [103.168.172.159])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a6385bf5-529e-11f0-b894-0df219b8e170;
- Thu, 26 Jun 2025 17:03:00 +0200 (CEST)
-Received: from phl-compute-03.internal (phl-compute-03.phl.internal
- [10.202.2.43])
- by mailfhigh.phl.internal (Postfix) with ESMTP id E5F541400031;
- Thu, 26 Jun 2025 11:02:58 -0400 (EDT)
-Received: from phl-mailfrontend-02 ([10.202.2.163])
- by phl-compute-03.internal (MEProxy); Thu, 26 Jun 2025 11:02:58 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 26 Jun 2025 11:02:57 -0400 (EDT)
+	id 1uUoBx-0001ki-LV; Thu, 26 Jun 2025 15:07:09 +0000
+Received: by outflank-mailman (input) for mailman id 1026640;
+ Thu, 26 Jun 2025 15:07:08 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=o/Pp=ZJ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uUoBw-0001kc-1c
+ for xen-devel@lists.xenproject.org; Thu, 26 Jun 2025 15:07:08 +0000
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [2a00:1450:4864:20::434])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 39a490b0-529f-11f0-a30f-13f23c93f187;
+ Thu, 26 Jun 2025 17:07:07 +0200 (CEST)
+Received: by mail-wr1-x434.google.com with SMTP id
+ ffacd0b85a97d-3a510432236so885578f8f.0
+ for <xen-devel@lists.xenproject.org>; Thu, 26 Jun 2025 08:07:07 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-23abe3db391sm375525ad.139.2025.06.26.08.06.59
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 26 Jun 2025 08:07:05 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,236 +45,95 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a6385bf5-529e-11f0-b894-0df219b8e170
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1750950178;
-	 x=1751036578; bh=JNKituUeUdPKycoRaCS6tsxKpHjrP5kr9AX5sCJlG2o=; b=
-	AR3IGma44pqJ9YfFSPNR+ah4Qq7Vzt/H1JdIo8ulRc2MnMygLYjnokYzgXU5CmCC
-	S2Gi44bdyx18ZSRTAg3vTPXnCWYU21vmBOPrM/958EEmUgD4U4cHMLpdD/HskUwJ
-	CEO5FRIXWbuH2TLhbrUXuh6Ar0YkR8gMBiiwl4B/tcXyJCA1hjfKRpYgO8rGHVnI
-	3BEjf47KLj5lM8rq5f8Ox61HRuZ+kjooIolUd2ZkwKDVv4lHJcyICh1/oPILfLPl
-	/Tn1B/4bHRpc2Qm4FhMYhoiYRaSXNbLbRVxQX824QN8Gi2HyD/6sIDDYqh2MRLZL
-	RlEaCG4xvoAKhTj1DOAYPQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1750950178; x=1751036578; bh=JNKituUeUdPKycoRaCS6tsxKpHjrP5kr9AX
-	5sCJlG2o=; b=Rea3kE3/VpHeFV54ukdO8odFCAEvUjlzjMZ7L7rBfTkrqadrlgf
-	VaPd60MWtjv2fOh9ZDRlUHEzXE1gGn++fa+36WwUJK5MhPwFue1o3CZDUT1xdpzB
-	8YyR/GptLmfsoZX5n+eBv8jSReOYff/ov4CbM8lsLWJCXR3u9Yh4VrKCiZKFG3qZ
-	hUuzeGcS8dl1LgQXru52ocSmzCzVkpk0TuDn3z6UDmR5Ns5HgmjY8dJuA8clctS7
-	YDtC/jYiSyIFFnn0hRdoDaL+auX4BTQeSGMeJCpEAqhlKYPcNNr5oV4/4i9EwfSo
-	F+zLJJAMNIofR7mu3gtkoR7lxWQAeTu2RzA==
-X-ME-Sender: <xms:ImFdaNLss9SDJXjzJ6zimjc-ebcERmNHkeBvtcYuTZifoO-PCzef7Q>
-    <xme:ImFdaJKd7uy-Co1ATgJOo5NoZamIToCXnV6enVDbchPsIIwzDkS6joxppkv7UuU-f
-    7XNlkJBs--fow>
-X-ME-Received: <xmr:ImFdaFubIhnEN2ac3YYq5We-HE2S7TbeThSgqREHt8RaxMQVmKlBa6I_lWSDI1yRjLCLB_KYpttMFeV4pGEyKVpJQOcqddVgOqM>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtdefgdeglecutefuodetggdotefrodftvf
-    curfhrohhfihhlvgemucfhrghsthforghilhdpuffrtefokffrpgfnqfghnecuuegrihhl
-    ohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpe
-    ffhffvvefukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghkucforghr
-    tgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvhhishhisg
-    hlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpefgleegveffkeei
-    keejjefhudelhedtgeefieefueeitefgvdeiheeuledvffefvdenucffohhmrghinhepgh
-    hnuhdrohhrghdpghhithhlrggsrdgtohhmpdhqvghmuhdqshhmohhkvgdqgiekiedqieeg
-    qdgvfhhiqdhukhhirdhshhenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmh
-    grihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggs
-    rdgtohhmpdhnsggprhgtphhtthhopeegpdhmohguvgepshhmthhpohhuthdprhgtphhtth
-    hopehfrhgvughirghnohdriihighhlihhosegtlhhouhgurdgtohhmpdhrtghpthhtohep
-    gigvnhdquggvvhgvlheslhhishhtshdrgigvnhhprhhojhgvtghtrdhorhhgpdhrtghpth
-    htohepughpshhmihhthhesrghpvghrthhushhsohhluhhtihhonhhsrdgtohhmpdhrtghp
-    thhtohepjhgsvghulhhitghhsehsuhhsvgdrtghomh
-X-ME-Proxy: <xmx:ImFdaOZTFzKlja5jqbRRQkB7q9njaHCuEN3eW9EWGRzjA3kQurecWw>
-    <xmx:ImFdaEYhm1EZMY4KR8gk65ozNRD1oEl_AgLsMT1IlT1zAJ_hXZdD2A>
-    <xmx:ImFdaCCrYADaDdWfn276Y6i89vUdKrqVlQa3j6TfaI45bq3Bo1MZgA>
-    <xmx:ImFdaCYuBfetgP86WJZ6SDj85MmAbR2D97NzpwOvznU6hQ7iRV6-yA>
-    <xmx:ImFdaAGpOnXTOKmpArpptduZoAqkllSqaIoE7i09lgDyyirXPncwkVei>
-Feedback-ID: i1568416f:Fastmail
-Date: Thu, 26 Jun 2025 17:02:54 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Frediano Ziglio <frediano.ziglio@cloud.com>
-Cc: xen-devel@lists.xenproject.org,
-	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
-	Jan Beulich <jbeulich@suse.com>
-Subject: Re: [PATCH 0/2] xen/efi: Make boot more flexible, especially with
- GRUB2
-Message-ID: <aF1hIARPp6a0wWmi@mail-itl>
-References: <20250624083157.9334-1-frediano.ziglio@cloud.com>
- <CACHz=Zj_YibxBOQytCQAmTAG=yyBXUx2s1Jr+fXqHgxHQmSDOQ@mail.gmail.com>
- <aFxbi6dnKjydzyNk@mail-itl>
- <CACHz=Zj=LsfbUVMkuKHx-xpy+NMQh13NUJ_-sPSq3OMwSurHPA@mail.gmail.com>
+X-Inumbo-ID: 39a490b0-529f-11f0-a30f-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1750950426; x=1751555226; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=1oPywFUyYv/fTsXTDWp8CyF7m0n1Bg6cJujbKlNGHO0=;
+        b=IIMWI/5bAdYmQKohB0lfpN933LZ71uz/gPoV7oHaC8WrTeEwi0hLwy4Swb2DA8n33G
+         LcoYK36P+CLj3gsKDOevyb4CNGZbp3qwj7BzmH5Gv4h1iyG17jahdBUCi2GJXFIIZsum
+         p8XdrR3NVbnO7Ip5MLftQLzKEy+IPbyrhm93fQGt1Lz9mqb37gVmy2c1rQ2nX8KTwCbD
+         0T9ifvfe/kUogGYeCbDibOJzWCbLF2ArXbfggl9FjVTPngGqp5FlyPbvY2F5ixqcMnn0
+         KecIjCdneQ+MwIMqZc58xzyI8Y+WsnhqgYzhKixlU/nWvO38VhrNVNOcsf6e0WgKZOPI
+         LRPA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1750950426; x=1751555226;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=1oPywFUyYv/fTsXTDWp8CyF7m0n1Bg6cJujbKlNGHO0=;
+        b=Pcmhv1Fmbdi9vWaNSiH2IabeEIrbVBiQBXeh4nIFXh5p8nHV8OrVBwPxSb4mnYwB/W
+         Mil5ahjgRBghhm6ua6OLl03ng3mnoan4hpyfFFdglzGLDIgz0L6YRF0TdjJYF/3YIoyB
+         WmLiZy+ilSiDsBeTzUSx/GbL5er9fkilmGsgqIdZXXIaB1gaZJLvyYv+19lLVhBcD6uv
+         jUF81AmHn5r0wLnqU98vzAS7UGsL1yAIlhkB3CDPVo/AI+Du6sLge0HlzsvaXlsvcVFA
+         3qbt8vz1aFNNo2JeoPW7vBuppYb64X4oVA18veyBEaiGR/gb4JDRdSY+8iTa6y8b6fMu
+         ydNw==
+X-Forwarded-Encrypted: i=1; AJvYcCU3Rj2NqGFEDjdChucol5i5pj96us9BN+bOP+xeLghp1xPm8Bg4eLDLXHhu9CZJYGwE1Y1FyLybUS8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy6LuuLi3mTwBMOKE3I26dskp/E1rQBf2yX8XbkvXmCcLDxGqBD
+	BtpIjRNny5RoBd/x3pZNfK/TgjWzA73+YKPavo4zbUlMplAsUgNVeqCIyZjAA5E+3g==
+X-Gm-Gg: ASbGncusgjOT2QoEuRm2m2ldk/CgNHKdONe3rx87WgmiqTacHxg8y7CXbeHhhlecJI5
+	y+ZwFfrVGhMVxxh+ED4MNBx+NleCcz7p3zyfFHE72tFZR+PrCL8MlgGvPs0aBZY2LNe/jUUp1+Z
+	eNooimgfqkuJ6yAZsh/ZjIrs4YVoUe9Ac6WQBfSqYW2hV+845LBfCtwrSMfUJCHMscvu/G7bH/r
+	1AUVKLvKUW0llsN5lJhYWdXnHebPdn2cMljgda+rIRsk40eOswhhPzNhaLzFwtTLGgLpbBzJjM7
+	WobO5Y6g9AycEVOa4hMWuQXlQ8oPstM0x/C8sF5bf/tsBKtKi0Tw/mhIkPAkbeUEBxcZT8wbIRj
+	TdiCf1Wwx7dUAWtPgURyhlslKwLIkIlChZG2Kaq1dvoQCZzE=
+X-Google-Smtp-Source: AGHT+IFfpnQgKBgzIoesLSMa4iwugYZPf09Jey5rOcTdqytakJ5xS15YC8xF1favhNHGM7U+MpddNA==
+X-Received: by 2002:a05:6000:18ac:b0:3a4:ec32:e4f3 with SMTP id ffacd0b85a97d-3a6ed5fac72mr6102493f8f.17.1750950425919;
+        Thu, 26 Jun 2025 08:07:05 -0700 (PDT)
+Message-ID: <51f1103a-0efc-4dfb-8ea8-9bf8ebe9f6a9@suse.com>
+Date: Thu, 26 Jun 2025 17:06:54 +0200
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="f4hgJwe7T6D4GLZx"
-Content-Disposition: inline
-In-Reply-To: <CACHz=Zj=LsfbUVMkuKHx-xpy+NMQh13NUJ_-sPSq3OMwSurHPA@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN PATCH] xen: fix unspecified behavior in tr invocation
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>
+Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
+ ayan.kumar.halder@amd.com, consulting@bugseng.com,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <df5119a0e5f617ed1a2756dfca77368596e2c369.1750949938.git.nicola.vetrini@bugseng.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <df5119a0e5f617ed1a2756dfca77368596e2c369.1750949938.git.nicola.vetrini@bugseng.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
+On 26.06.2025 16:59, Nicola Vetrini wrote:
+> The result of the command is undefined according to the specification if
+> the "string2" argument in tr is shorter than "string1". GNU tr behaves
+> correctly by extending "string2" to repeat the last character.
+> 
+> Fixes: eb61a4fb14d2 ("xen: fix header guard generation for asm-generic headers")
+> Reported-by: Jan Beulich <jbeulich@suse.com>
+> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
 
---f4hgJwe7T6D4GLZx
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 26 Jun 2025 17:02:54 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Frediano Ziglio <frediano.ziglio@cloud.com>
-Cc: xen-devel@lists.xenproject.org,
-	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
-	Jan Beulich <jbeulich@suse.com>
-Subject: Re: [PATCH 0/2] xen/efi: Make boot more flexible, especially with
- GRUB2
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-On Thu, Jun 26, 2025 at 09:12:53AM +0100, Frediano Ziglio wrote:
-> On Wed, Jun 25, 2025 at 9:26=E2=80=AFPM Marek Marczykowski-G=C3=B3recki
-> <marmarek@invisiblethingslab.com> wrote:
-> >
-> > On Tue, Jun 24, 2025 at 09:38:42AM +0100, Frediano Ziglio wrote:
-> > > On Tue, Jun 24, 2025 at 9:32=E2=80=AFAM Frediano Ziglio
-> > > <frediano.ziglio@cloud.com> wrote:
-> > > >
-> > > > The combination of GRUB2, EFI and UKI allows potentially more flexi=
-bility.
-> > > > For instance is possible to load xen.efi from a no ESP partition le=
-aving
-> > > > a boot loader like GRUB2 taking care of the file loading.
-> > > > This however requires some changes in Xen to be less restrictive.
-> > > > Specifically for GRUB2 these changes allows the usage of "chainload=
-er"
-> > > > command with UKI and reading xen.efi from no ESP (so no DeviceHandle
-> > > > set) and usage of "linux" and "initrd" commands to load separately
-> > > > the kernel (embedding using UKI) and initrd (using LoadFile2 protoc=
-ol).
-> > >
-> > > I was forgetting. If somebody wants to test "linux" and "initrd"
-> > > command with these changes be aware that GRUB currently has a problem
-> > > passing arguments, I posted a patch, see
-> > > https://lists.gnu.org/archive/html/grub-devel/2025-06/msg00156.html.
-> > > I also have a workaround for this issue in xen but it would be better
-> > > to have a fix in GRUB.
-> >
-> > Can you tell more how to test this, especially the second variant? When
-> > trying to use GRUB linux or linuxefi commands on xen.efi, I get "invalid
-> > magic number" error.
-> >
->=20
-> That's weird.
->=20
-> Be the way. As usual I have a super complicated script that does everythi=
-ng.
->=20
-> But to simplify:
-> - I compile xen (plain upstream plus my patches) with "make -C
-> ~/work/xen/xen -j O=3Dnormal MAP"
-
-Is there any that would be related to the "invalid magic" error? IIUC
-without your patches options will be mangled, but I don't think I get
-this far.
-
-> - output xen.efi in "~/work/xen/xen/normal/xen.efi"
-> - add configuration and kernel with "./add_sections xen.efi
-> xen.unified.efi .config xen.cfg .kernel vmlinuz-xen"
-> - boot using patched Grub (or patched Xen, to handle command line, if
-> you don't care about command line you can use a stock one), the menu
-> entry is
->=20
-> menuentry 'XenServer (Serial)' {
->         search --label --set root EFI-BOOT
->         linux /boot/xen.unified.efi -- com1=3D115200,8n1
-> console=3Dcom1,vga dom0_mem=3D1232M,max:1232M watchdog dom0_max_vcpus=3D1=
--4
-> crashkernel=3D256M,below=3D4G -- root=3DLABEL=3Droot-qjhppe ro nolvm
-> hpet=3Ddisable console=3Dtty0 console=3Dhvc0
->         initrd /boot/initrd.img
-> }
-
-All looks quite similar. FWIW my setup is:
-https://gitlab.com/xen-project/people/marmarek/xen/-/blob/test-uki/automati=
-on/scripts/qemu-smoke-x86-64-efi-uki.sh?ref_type=3Dheads
-
-Booting such UKI from OVMF directly works, as well as with
-"chainloader" grub command:
-
-https://gitlab.com/xen-project/people/marmarek/xen/-/pipelines/1891308263
-
-CI uses Grub 2.06 from Debian, but I get the same result with 2.12 from
-Fedora too.
-
->=20
-> xen.cfg file:
-> ----------
-> [global]
-> default=3Dxen
->=20
-> [xen]
-> ----------
->=20
-> add_sections file:
-> ----------
-> #!/usr/bin/env perl
-> use strict;
->=20
-> die if $#ARGV < 1;
-> my $in =3D shift @ARGV;
-> my $out =3D shift @ARGV;
->=20
-> my $max =3D 0;
-> open(IN, "objdump -h $in |") or die;
-> while (<IN>) {
->         next if !/^\s*\d+\s+\S+\s+([0-9a-f]+)\s+([0-9a-f]+)\s+/;
->         my $val =3D hex($1) + hex($2);
->         $max =3D $val if $val > $max;
-> }
-> close(IN);
->=20
-> sub up($) {
->         my $n =3D shift;
->         return ($n + 4095) & -4096;
-> }
->=20
-> my @args =3D ('objcopy');
->=20
-> my $start =3D up($max);
-> while ($#ARGV >=3D 1) {
->         my $name =3D shift;
->         my $fn =3D shift;
->         push @args, '--add-section', "$name=3D$fn";
->         push @args, '--change-section-vma', sprintf("%s=3D%#x", $name, $s=
-tart);
->         $start +=3D -s $fn;
->         $start =3D up($start);
-> }
-> push @args, $in, $out;
-> print "Executing @args\n";
-> system(@args) =3D=3D 0 || die "Error!";
-> ----------
->=20
-> My script creates the initrd, builds a full disk for Qemu and launches
-> Qemu too with specific options.
->=20
-> Frediano
-
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---f4hgJwe7T6D4GLZx
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmhdYSAACgkQ24/THMrX
-1yz2/Af/bZ9rJzhMGKYOuWLllBLQQj1vZrLMSvyPU2ae7uwUupuMcEJ/nkfrguNm
-Gsq7RYM2AL7B0i3xizwWF/idND7Po5dwUnFvjS209DKeoABQ+bAhc33Y43CGbWAj
-/1AVMtLAXIMRvMc86aqekPh1lK6o1wgSXYY/PJ/r1ZU5CsQB+3W1maCbU8BwyOU0
-2S++KWWbAViGkjVo/hnRVPvjHHG6jEc+X9eP506pE7/0Y5Qmp84lFSP2tOLd0LT2
-sNB6RHWIJ7qGZHYEATyw8dqGx95xhITPYgtt/pokggi7kEtka42DtVs2jhQosU3Z
-yE0SbyKrRFZPyqiGAdoq+Ik4rxu/NQ==
-=ZmLQ
------END PGP SIGNATURE-----
-
---f4hgJwe7T6D4GLZx--
 
