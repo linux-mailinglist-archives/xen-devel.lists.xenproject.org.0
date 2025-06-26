@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 67446AE9E48
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Jun 2025 15:11:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1026358.1401588 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD79FAE9E47
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Jun 2025 15:11:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1026356.1401576 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uUmNm-00074l-N4; Thu, 26 Jun 2025 13:11:14 +0000
+	id 1uUmNl-0006o0-F7; Thu, 26 Jun 2025 13:11:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1026358.1401588; Thu, 26 Jun 2025 13:11:14 +0000
+Received: by outflank-mailman (output) from mailman id 1026356.1401576; Thu, 26 Jun 2025 13:11:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uUmNm-000712-Iv; Thu, 26 Jun 2025 13:11:14 +0000
-Received: by outflank-mailman (input) for mailman id 1026358;
- Thu, 26 Jun 2025 13:11:13 +0000
+	id 1uUmNl-0006lE-9p; Thu, 26 Jun 2025 13:11:13 +0000
+Received: by outflank-mailman (input) for mailman id 1026356;
+ Thu, 26 Jun 2025 13:11:11 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=kW9B=ZJ=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
- id 1uUmNl-0006jN-Cz
- for xen-devel@lists.xenproject.org; Thu, 26 Jun 2025 13:11:13 +0000
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [2a00:1450:4864:20::32e])
+ id 1uUmNj-0006jN-OE
+ for xen-devel@lists.xenproject.org; Thu, 26 Jun 2025 13:11:11 +0000
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
+ [2a00:1450:4864:20::432])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 062d611b-528f-11f0-b894-0df219b8e170;
- Thu, 26 Jun 2025 15:11:08 +0200 (CEST)
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-451d3f72391so9669825e9.3
- for <xen-devel@lists.xenproject.org>; Thu, 26 Jun 2025 06:11:08 -0700 (PDT)
+ id 068c1767-528f-11f0-b894-0df219b8e170;
+ Thu, 26 Jun 2025 15:11:09 +0200 (CEST)
+Received: by mail-wr1-x432.google.com with SMTP id
+ ffacd0b85a97d-3a528243636so585550f8f.3
+ for <xen-devel@lists.xenproject.org>; Thu, 26 Jun 2025 06:11:09 -0700 (PDT)
 Received: from localhost.localdomain (253.226.6.51.dyn.plus.net.
  [51.6.226.253]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3a6e806916esm7351356f8f.43.2025.06.26.06.11.06
+ ffacd0b85a97d-3a6e806916esm7351356f8f.43.2025.06.26.06.11.07
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 26 Jun 2025 06:11:07 -0700 (PDT)
+ Thu, 26 Jun 2025 06:11:08 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,210 +45,172 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 062d611b-528f-11f0-b894-0df219b8e170
+X-Inumbo-ID: 068c1767-528f-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=cloud.com; s=cloud; t=1750943468; x=1751548268; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=W+mo0WOKd3A0EKEylip0Ln3TwOuR0JvCpuUcmvIccPQ=;
-        b=Aum2uHGtUzzWZ7bUMAiSw5GqXv9cJK8OSTVtggrlBTWOe/WCiYGBebDINGcZdPITLk
-         m0XK2xYoVTIanZO+GtMP/7eBq9FUSk5pESqzeNawDtqnMssVft+v2rDmnKmTrwqwMEJt
-         Nvyv0SXnibkyPjsJ7IP68miJcTpFlDEEb4L24=
+        bh=Arkastc7FTqBBhA884vRzOj/VWCapeivXKRaS0y4Ts0=;
+        b=SyUxy1zTp61tg8DI6EjwgOBrWM7qt5xSJcHgBzAC71FNW/UEyJRTBtImyhx+OGiqtR
+         LosteY0D7H0iuV98incwrUi2Gtb6WEEcopdRcVYVkIBg+XF+ZF6vQXOmIQua5sIyzCld
+         3QT9glxC0t5dE8JDxyJOeMKEsBNppXz+L23nU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20230601; t=1750943468; x=1751548268;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=W+mo0WOKd3A0EKEylip0Ln3TwOuR0JvCpuUcmvIccPQ=;
-        b=mTv/bdbW+KkbDnG8b62vQqW1O8VCQzVlY2w8SFH/0iTuAQqm9PsJMduJE3McdMjeSQ
-         iT4Y79EKWPdVcdmq8TVNLNwaT77elV9tqIZTCylFydnOzk+Ah1EseuXzk5EkFrx2pguD
-         PjT6mVTU5tNvzFJzbIZubjn7O8+tcMcELlsVL5sdecgKvic7jVEX4jlh7zdIcInR6XrS
-         jW/YsP0kyez8x5oJ+ZdzZpZEa7WIOG+JU9htIRGE/nKDZduIiXoxXX/xVtG16ZewOAKV
-         qKcO4wRFDdQkv/B6HB6AIfIza8DGIprkyerOjtbNN5uLhkLAMNs19QTEZyq202DMPQGV
-         6YFg==
-X-Gm-Message-State: AOJu0Ywu7gOlrwfeiUNbURM7EfQd5CgwxeRAlJH22/eJkvfCTflZWSU0
-	KrkETVjk4iE3JUd2qcm3VeZ02P854GQYOW6F1J6Jh7sSWtPFw9TWl7jO5QrX0XtZ/oUwngiqRL/
-	fcOw0w7Y=
-X-Gm-Gg: ASbGnctNwZrqlNbtfbFcI1BjHnJpCzQiqBPXb2WRkOeCYaICrmXl4r5TT82wTKsBXWS
-	eJVROfGX/Ywf7xxi/eQSumPVAARs9IMi0KUv2xW8FSytuFlMKY8zFUT+TQ2hTf4JurWHAli6JMc
-	JDPdddtQVv2hd2MujJuidqlHAxSXiAkE8g+j4CtnjeL7fGiuDanN3/gdrmCjj/bglzSjZbivI69
-	Tvr262z3PQQUDHxyRv3/j4Motl7GphSHoSjReFh7UMrWgEg39ZLJ7vIFu88FKssxl8ZjOK/Hvy6
-	VjkXHckvIzej5Ia1rtgzxmECxhEEE2mAUFRxinFbB56/amztmjUMrUnLtq1j1ZXOpzcCYNvxNaR
-	bAfM83FLxXLjakfAN37Ckjj5NpUs4gg==
-X-Google-Smtp-Source: AGHT+IF2sIhI5qYgc8DsZ9N26609R1JHS5126HSQCIqc8YcGxsb7eDmgHQyWFIKF+4U/LrHrli+IUQ==
-X-Received: by 2002:a05:600c:b95:b0:43c:f8fe:dd82 with SMTP id 5b1f17b1804b1-45381ae2520mr74274265e9.18.1750943467661;
-        Thu, 26 Jun 2025 06:11:07 -0700 (PDT)
+        bh=Arkastc7FTqBBhA884vRzOj/VWCapeivXKRaS0y4Ts0=;
+        b=rmS1i4GBtqdsbSJkRHMbhro2rHlVt2aON+Dc6ZFsuIs7VHGE18VVMie+qs+JB1+q9b
+         nL8KQcs0SIqC8A7seTB3v1hEsgj/YmY9g4OZTNGXIgMESinVjHl2TRFGZwjEi0uiq7hG
+         NJJ3VQxfXx+RGHSO5vIfdzgGPdrirFSU5TBUt0csYbBLmGcD2ZAgXrqZQGJOJy9xDFPO
+         agnrTdNrqnziXJgxuPVz9YPMUpPmvyE127d6oOU4O0X64Ec1X53unR/FKQCHkWr4VxNi
+         +YMCu/foog0pmEj6PCYpXNuJrDQ0aD6uh0uz6DGaJ7dUFpoCNgfQlXBU92j1T1KR5ep0
+         tJ1w==
+X-Gm-Message-State: AOJu0YzzujFW/InqIKejjwocWVG0+8D4JNGsWjzX4C7HciF0wc/fyMVV
+	/3D4CEoopM0zhe96wJcfPBKctQHkuOJPbnSDqzkfhlcDfwWlZkFlKYP+6G8y982v+hOxBICvf5W
+	mn8+RXaw=
+X-Gm-Gg: ASbGncu/+nvJfqYslR73W9ruw57Cl5FRcdx8w+54W3V6sD2t9iJAN9T1DVol9gy0sox
+	vYwElYA/PXYrW6kh6ATf9qSkg1GbbyB4ZIGXtqR05Kod48FvUBfeYJVSCaT/NzcXtAegyluOyAt
+	v76f90OKsY3LREUilkcgARMkZKIOpsNMve/Hk1cE3MR/5sScCV8VoZSDsbxl0YDwoDFKHLKpciP
+	uoPlzKM1bPngEP0bJHCdzUamdGOa5MIirS+igOx4v7JVcZyrqjVSEorMswgXoda8tuvYi0QExne
+	Yl2YV3xXwefIRJLZhS6R6ZbGuM5mwhkYhRai7aLlrK7UF+kCMXNVMDlhoMxKBu+jcF4l6NsWUXq
+	4T3lZ/LsX6aGTfZMDnFEfBHKtGsICfukw+OeveL+p
+X-Google-Smtp-Source: AGHT+IEMoyWamH+/GJbtG6xlOTCstBg1G51VJ6ogmc3sMopKuNX7Rw4BQ3S55LTrqTQnV2qkJs8Y5g==
+X-Received: by 2002:a05:6000:2484:b0:3a6:d604:a017 with SMTP id ffacd0b85a97d-3a6ed63d398mr5842184f8f.24.1750943468404;
+        Thu, 26 Jun 2025 06:11:08 -0700 (PDT)
 From: Frediano Ziglio <frediano.ziglio@cloud.com>
 To: xen-devel@lists.xenproject.org
 Cc: Frediano Ziglio <frediano.ziglio@cloud.com>,
 	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
 	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
 	Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH v4 2/3] xen/efi: Support loading initrd using GRUB2 LoadFile2 protocol
-Date: Thu, 26 Jun 2025 14:10:54 +0100
-Message-ID: <20250626131059.61894-3-frediano.ziglio@cloud.com>
+Subject: [PATCH v4 3/3] xen/efi: Update error flow for read_file function
+Date: Thu, 26 Jun 2025 14:10:55 +0100
+Message-ID: <20250626131059.61894-4-frediano.ziglio@cloud.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20250626131059.61894-1-frediano.ziglio@cloud.com>
 References: <20250626131059.61894-1-frediano.ziglio@cloud.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Allows to load Xen using "linux" and "initrd" GRUB2 commands.
-This can be used with UKI to separate initrd in a different module
-instead of bundling all together.
-Bundling all together can be a problem with Secure Boot where
-we need to sign the bundle making harder to change it.
-As initrd content does not need to be signed for Secure Boot
-bundling it force it to be signed too.
+Use more explicit goto statements to handle common error code
+path instead of a lot of if/else.
 
 Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
 ---
-Changes since v1:
-- attempt to use LoadFile2 protocol after embedded section.
-
-Changes since v3 (mainly internal review):
-- use __packed instead of #pragma pack(), more consistent;
-- call handle_file_info instead of efi_arch_handle_module, more
-  consistent;
-- call efi_arch_flush_dcache_area like other functions;
-- move protocol definitions to efiprot.h file.
----
- xen/common/efi/boot.c     | 71 ++++++++++++++++++++++++++++++++++++++-
- xen/include/efi/efidevp.h |  2 ++
- xen/include/efi/efiprot.h | 19 +++++++++++
- 3 files changed, 91 insertions(+), 1 deletion(-)
+ xen/common/efi/boot.c | 80 +++++++++++++++++++++++--------------------
+ 1 file changed, 43 insertions(+), 37 deletions(-)
 
 diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
-index 9306dc8953..4cbf1aa894 100644
+index 4cbf1aa894..f6e8d4726d 100644
 --- a/xen/common/efi/boot.c
 +++ b/xen/common/efi/boot.c
-@@ -850,6 +850,74 @@ static bool __init read_file(EFI_FILE_HANDLE dir_handle, CHAR16 *name,
-     return true;
- }
+@@ -792,6 +792,8 @@ static bool __init read_file(EFI_FILE_HANDLE dir_handle, CHAR16 *name,
  
-+typedef struct __packed {
-+    VENDOR_DEVICE_PATH              VenMediaNode;
-+    EFI_DEVICE_PATH                 EndNode;
-+} SINGLE_NODE_VENDOR_MEDIA_DEVPATH;
+     if ( !name )
+         PrintErrMesg(L"No filename", EFI_OUT_OF_RESOURCES);
 +
-+static bool __init initrd_load_file2(const CHAR16 *name, struct file *file)
-+{
-+    static const SINGLE_NODE_VENDOR_MEDIA_DEVPATH __initconst initrd_dev_path = {
-+        {
-+            {
-+                MEDIA_DEVICE_PATH, MEDIA_VENDOR_DP, { sizeof (VENDOR_DEVICE_PATH) }
-+            },
-+            LINUX_EFI_INITRD_MEDIA_GUID
-+        },
-+        {
-+            END_DEVICE_PATH_TYPE, END_ENTIRE_DEVICE_PATH_SUBTYPE,
-+            { sizeof (EFI_DEVICE_PATH) }
-+        }
-+    };
-+    static EFI_GUID __initdata lf2_proto_guid = EFI_LOAD_FILE2_PROTOCOL_GUID;
-+    EFI_DEVICE_PATH *dp;
-+    EFI_LOAD_FILE2_PROTOCOL *lf2;
-+    EFI_HANDLE handle;
-+    EFI_STATUS ret;
-+    UINTN size;
++    what = L"Open";
+     if ( dir_handle )
+         ret = dir_handle->Open(dir_handle, &FileHandle, name,
+                                EFI_FILE_MODE_READ, 0);
+@@ -800,54 +802,58 @@ static bool __init read_file(EFI_FILE_HANDLE dir_handle, CHAR16 *name,
+     if ( file == &cfg && ret == EFI_NOT_FOUND )
+         return false;
+     if ( EFI_ERROR(ret) )
+-        what = L"Open";
+-    else
+-        ret = FileHandle->SetPosition(FileHandle, -1);
++        goto fail;
 +
-+    dp = (EFI_DEVICE_PATH *)&initrd_dev_path;
-+    ret = efi_bs->LocateDevicePath(&lf2_proto_guid, &dp, &handle);
-+    if ( EFI_ERROR(ret) )
-+    {
-+        if ( ret == EFI_NOT_FOUND)
-+            return false;
-+        PrintErrMesg(L"Error getting file with LoadFile2 interface", ret);
-+    }
++    what = L"Seek";
++    ret = FileHandle->SetPosition(FileHandle, -1);
+     if ( EFI_ERROR(ret) )
+-        what = what ?: L"Seek";
+-    else
+-        ret = FileHandle->GetPosition(FileHandle, &size);
++        goto fail;
 +
-+    ret = efi_bs->HandleProtocol(handle, &lf2_proto_guid, (void **)&lf2);
-+    if ( EFI_ERROR(ret) )
-+        PrintErrMesg(L"LoadFile2 file does not provide correct protocol", ret);
++    what = L"Get size";
++    ret = FileHandle->GetPosition(FileHandle, &size);
+     if ( EFI_ERROR(ret) )
+-        what = what ?: L"Get size";
+-    else
+-        ret = FileHandle->SetPosition(FileHandle, 0);
++        goto fail;
 +
-+    size = 0;
-+    ret = lf2->LoadFile(lf2, dp, false, &size, NULL);
-+    if ( ret != EFI_BUFFER_TOO_SMALL )
-+        PrintErrMesg(L"Loading failed", ret);
++    what = L"Seek";
++    ret = FileHandle->SetPosition(FileHandle, 0);
+     if ( EFI_ERROR(ret) )
+-        what = what ?: L"Seek";
+-    else
+-    {
+-        file->addr = min(1UL << (32 + PAGE_SHIFT),
+-                         HYPERVISOR_VIRT_END - DIRECTMAP_VIRT_START);
+-        ret = efi_bs->AllocatePages(AllocateMaxAddress, EfiLoaderData,
+-                                    PFN_UP(size), &file->addr);
+-    }
++        goto fail;
 +
++    what = L"Allocation";
 +    file->addr = min(1UL << (32 + PAGE_SHIFT),
 +                     HYPERVISOR_VIRT_END - DIRECTMAP_VIRT_START);
 +    ret = efi_bs->AllocatePages(AllocateMaxAddress, EfiLoaderData,
 +                                PFN_UP(size), &file->addr);
-+    if ( EFI_ERROR(ret) )
-+        PrintErrMesg(L"Allocation failed", ret);
-+
+     if ( EFI_ERROR(ret) )
+-        what = what ?: L"Allocation";
+-    else
+-    {
+-        file->need_to_free = true;
+-        file->size = size;
+-        handle_file_info(name, file, options);
++        goto fail;
+ 
+-        ret = FileHandle->Read(FileHandle, &file->size, file->str);
+-        if ( !EFI_ERROR(ret) && file->size != size )
+-            ret = EFI_ABORTED;
+-        if ( EFI_ERROR(ret) )
+-            what = L"Read";
+-    }
 +    file->need_to_free = true;
 +    file->size = size;
-+
-+    ret = lf2->LoadFile(lf2, dp, false, &size, file->str);
++    handle_file_info(name, file, options);
+ 
+-    if ( FileHandle )
+-        FileHandle->Close(FileHandle);
++    what = L"Read";
++    ret = FileHandle->Read(FileHandle, &file->size, file->str);
++    if ( !EFI_ERROR(ret) && file->size != size )
++        ret = EFI_ABORTED;
 +    if ( EFI_ERROR(ret) )
-+    {
-+        efi_bs->FreePages(file->addr, PFN_UP(size));
-+        PrintErrMesg(L"Loading failed", ret);
-+    }
-+
-+    handle_file_info(name, file, NULL);
-+
-+    efi_arch_flush_dcache_area(file->ptr, file->size);
-+
-+    return true;
-+}
-+
- static bool __init read_section(const EFI_LOADED_IMAGE *image,
-                                 const CHAR16 *name, struct file *file,
-                                 const char *options)
-@@ -1493,7 +1561,8 @@ void EFIAPI __init noreturn efi_start(EFI_HANDLE ImageHandle,
-             kernel_verified = true;
-         }
++        goto fail;
  
--        if ( !read_section(loaded_image, L"ramdisk", &ramdisk, NULL) )
-+        if ( !read_section(loaded_image, L"ramdisk", &ramdisk, NULL) &&
-+             !initrd_load_file2(L"ramdisk", &ramdisk) )
-         {
-             name.s = get_value(&cfg, section.s, "ramdisk");
-             if ( name.s )
-diff --git a/xen/include/efi/efidevp.h b/xen/include/efi/efidevp.h
-index beb5785a45..dc070007b8 100644
---- a/xen/include/efi/efidevp.h
-+++ b/xen/include/efi/efidevp.h
-@@ -398,5 +398,7 @@ typedef union {
+-    if ( what )
+-    {
+-        PrintErr(what);
+-        PrintErr(L" failed for ");
+-        PrintErrMesg(name, ret);
+-    }
++    FileHandle->Close(FileHandle);
  
- } EFI_DEV_PATH_PTR;
+     efi_arch_flush_dcache_area(file->ptr, file->size);
  
-+#define LINUX_EFI_INITRD_MEDIA_GUID \
-+    { 0x5568e427, 0x68fc, 0x4f3d, {0xac, 0x74, 0xca, 0x55, 0x52, 0x31, 0xcc, 0x68} }
- 
- #endif
-diff --git a/xen/include/efi/efiprot.h b/xen/include/efi/efiprot.h
-index 56d7636b2b..94c1faae0a 100644
---- a/xen/include/efi/efiprot.h
-+++ b/xen/include/efi/efiprot.h
-@@ -771,5 +771,24 @@ typedef struct _EFI_EDID_OVERRIDE_PROTOCOL {
-     EFI_EDID_OVERRIDE_PROTOCOL_GET_EDID  GetEdid;
- } EFI_EDID_OVERRIDE_PROTOCOL;
- 
-+#define EFI_LOAD_FILE2_PROTOCOL_GUID \
-+    { 0x4006c0c1, 0xfcb3, 0x403e, {0x99, 0x6d, 0x4a, 0x6c, 0x87, 0x24, 0xe0, 0x6d } }
+     return true;
 +
-+typedef struct EFI_LOAD_FILE2_PROTOCOL EFI_LOAD_FILE2_PROTOCOL;
++fail:
++    if ( FileHandle )
++        FileHandle->Close(FileHandle);
 +
-+typedef
-+EFI_STATUS
-+(EFIAPI *EFI_LOAD_FILE2)(
-+    IN EFI_LOAD_FILE2_PROTOCOL      *This,
-+    IN EFI_DEVICE_PATH              *FilePath,
-+    IN BOOLEAN                      BootPolicy,
-+    IN OUT UINTN                    *BufferSize,
-+    IN VOID                         *Buffer OPTIONAL
-+    );
++    PrintErr(what);
++    PrintErr(L" failed for ");
++    PrintErrMesg(name, ret);
 +
-+struct EFI_LOAD_FILE2_PROTOCOL {
-+    EFI_LOAD_FILE2                  LoadFile;
-+};
-+
- #endif
++    /* not reached */
++    return false;
+ }
  
+ typedef struct __packed {
 -- 
 2.43.0
 
