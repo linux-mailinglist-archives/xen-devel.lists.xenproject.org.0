@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75C5BAE9D90
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Jun 2025 14:34:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1026307.1401487 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 330A9AE9DA7
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Jun 2025 14:38:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1026314.1401497 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uUlnq-0006gN-Qn; Thu, 26 Jun 2025 12:34:06 +0000
+	id 1uUlrE-0007EX-99; Thu, 26 Jun 2025 12:37:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1026307.1401487; Thu, 26 Jun 2025 12:34:06 +0000
+Received: by outflank-mailman (output) from mailman id 1026314.1401497; Thu, 26 Jun 2025 12:37:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uUlnq-0006eH-O2; Thu, 26 Jun 2025 12:34:06 +0000
-Received: by outflank-mailman (input) for mailman id 1026307;
- Thu, 26 Jun 2025 12:34:04 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uUlrE-0007CT-6G; Thu, 26 Jun 2025 12:37:36 +0000
+Received: by outflank-mailman (input) for mailman id 1026314;
+ Thu, 26 Jun 2025 12:37:35 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=o/Pp=ZJ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uUlno-0006eB-KX
- for xen-devel@lists.xenproject.org; Thu, 26 Jun 2025 12:34:04 +0000
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [2a00:1450:4864:20::42b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d72cbbec-5289-11f0-b894-0df219b8e170;
- Thu, 26 Jun 2025 14:34:02 +0200 (CEST)
-Received: by mail-wr1-x42b.google.com with SMTP id
- ffacd0b85a97d-3a4f72cba73so1303454f8f.1
- for <xen-devel@lists.xenproject.org>; Thu, 26 Jun 2025 05:34:02 -0700 (PDT)
+ id 1uUlrD-0007CN-1u
+ for xen-devel@lists.xenproject.org; Thu, 26 Jun 2025 12:37:35 +0000
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [2a00:1450:4864:20::42c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 55492ad9-528a-11f0-a30f-13f23c93f187;
+ Thu, 26 Jun 2025 14:37:34 +0200 (CEST)
+Received: by mail-wr1-x42c.google.com with SMTP id
+ ffacd0b85a97d-3a507e88b0aso716058f8f.1
+ for <xen-devel@lists.xenproject.org>; Thu, 26 Jun 2025 05:37:33 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-749c88730d9sm6944422b3a.171.2025.06.26.05.33.56
+ d2e1a72fcca58-749c88722e7sm6896887b3a.166.2025.06.26.05.37.25
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 26 Jun 2025 05:34:01 -0700 (PDT)
+ Thu, 26 Jun 2025 05:37:32 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,72 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d72cbbec-5289-11f0-b894-0df219b8e170
+X-Inumbo-ID: 55492ad9-528a-11f0-a30f-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1750941242; x=1751546042; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1750941453; x=1751546253; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=yzwRf7vEaSbj+tQj+ivMabI+UWE0BBbNilWBtKbn4yo=;
-        b=WoPsjGWJj3UfsSshL9zclXWyg62sTYdADjg4YhyZpvba3BQEetQQdTbJ1K/A9QXGGI
-         te2ceDaqWEyO0WA/rVaJtS4OhyN+z1MRf4XYjaALtDB1gq9HDLmkUjHgzm3Iyq6iJAqT
-         ZxDy8x3NKBeiwDg598rxVbXFXx74aQNLPxAyCWYVlHukYD3kwFXq333nxZ83uxk5RZYP
-         c0XFqpxgc784npRpVSioidbwEa6S6Ihb+5+1jbna6IH1ewqcW2XJIWA7d6to6TTMXxKw
-         g+lz+lxanFiYqcVSTAWX84Qypmx6KBaHTfV8QVUzyEXe0H0atmrPoemLxLu8r9CO/IZQ
-         0Qcw==
+        bh=B/pdsmga+9WLKORcptWiaUY7QzAxD+mRE9Kq8aLAfIw=;
+        b=WXQzdjeQeQzefEd5twVwbXUEMkbk2Hc1ecLck5YoXHwxIldSjcbW/VF2eMRbPv3fqd
+         IfTtFbcDBaMGV2q/wo/Kzp0HcFX+V/cHQcw0KUIGhl83kdU9uGw/pB9LDVdKyVjAH0+d
+         caOjD6Q+xjyG44LbH7Ld6dFE5JjcmMIZ6JunP+f9+L/pmlbXryxcYXrp2/kdLWE6lqUt
+         kSJQgk+7u424BEddzzeSMt5uQYlLQ5FiCg3g5SSMIEW5n+qqkEr0KU9ZtER/E7GvyvXg
+         sQXHk4Ay0lAVeKIOPClFYtT40pnV3TkW1ylD5REpgunwwZVXCQtHqD55vqFy2VI+Dz0o
+         t20Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750941242; x=1751546042;
+        d=1e100.net; s=20230601; t=1750941453; x=1751546253;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=yzwRf7vEaSbj+tQj+ivMabI+UWE0BBbNilWBtKbn4yo=;
-        b=v2TG0sndGN0hJnA5/enMAf8mg2pOe762/aXy35HYuXCBzdtgM3H9IWjWdRxIUcp/q7
-         xhLfrmvR0T8+/Z8U1efEVWRjobnI23U8NfY2Ycz/Oe0RgS6CF0dbRBNajjOI4BLDT7nI
-         GBZtqlqAISe3fQu8FUd7eIwN3SQWtVZlKDyTo0S0kur8+Ea2+fS8CA17lf6/K6jcRwvu
-         KhNLecly8os/JMtamFSqawJpWEqiJrMFY08K+PUnqx5mGNUrWYPyf85Na21KQjTIHZ9+
-         J1G5n47FnuDb5wn7K6Ax81oRxuZCI5zp0zNX/FYw7qzufczH9CfX+j+ztuwjiueIczTs
-         z8Yw==
-X-Forwarded-Encrypted: i=1; AJvYcCUWuL0YeVCB/3mNvDSvzdyhUz7eI+I4VmCfQHxBBi57qQldc5MUynJpyPANA+9qPOcKUP6Z4ABt2MI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxBsCEw8GTyhopaTj2BjZ6rNhkaecvTBiF1i7ll5ZRRrn55n228
-	EMaNxXndDUp3lTMsVGmHJnXd63LfLcT1cd1SJrjx/XMvwE17UYpNcPdAsBJhxHPWMQ==
-X-Gm-Gg: ASbGnctPpU0CU/1/dRF8gUi6TL4XeP7xsPziGXjNypfTqmenWKQDS2e9TkdBtje8xS3
-	1Dul4IKYiRNK6+If3tP/GhF3hpw1BiNM1lEmcWCwMMF6iLmPxQEqU8UTmoL6V2Ju3SyI+vc8Wp/
-	n8ZBn7QahfpyaKX2yAtg2nVSHCymCSUb/fcqwafLSfZ3S8zxBzVMr1TnJ/IrQq9MM8SGbKkUqxO
-	wG1Tt5qsQjXiQfIp/xnllnbzuXOfDMLBxZNwBOqSk1vCbR0UtX57j9tavGFJ8kD8Kyp7DwxLHAE
-	NtkLkZkCH0REjZHBqREHo+fiu+yuLQ25MpiCRvZJqBha8joxokuLvhclRAHwY9KnsqeXFoE1ozY
-	20Yxci0Gy/50FINTC3QLudI3xWLAscEw2ZmhV695vGZjeio8=
-X-Google-Smtp-Source: AGHT+IErYitMQtuFaoyPd/Pe6I3EqDgAtHsBtlkDN3viBKQ2Dmp0biKCYCwM7w1aXWsKQbwNhEoSMQ==
-X-Received: by 2002:a5d:584b:0:b0:3a6:e2d5:f12d with SMTP id ffacd0b85a97d-3a6f3102cb4mr2923819f8f.11.1750941241696;
-        Thu, 26 Jun 2025 05:34:01 -0700 (PDT)
-Message-ID: <e4546406-ea82-4bb5-b222-4ea233e43ff6@suse.com>
-Date: Thu, 26 Jun 2025 14:33:52 +0200
+        bh=B/pdsmga+9WLKORcptWiaUY7QzAxD+mRE9Kq8aLAfIw=;
+        b=qupMSVnmUK9hy7DhKnszEoxhSKngvl8oTQRm08T5BK47zRHOO8XcSk+v8k6faf6WNC
+         VCkdE8+YH8+6h41kNSekMEabcvwnO3otly7WtpyOPDjQz5JbhC45+IzWF/UEZDx18Ueq
+         IJ5sEW/zvv91WYzbBH4TOuw4reEO0UYyVyt7k9y09Yb02T+59M0SRIovCIEm4PRvU68Y
+         4JIu8OhBR+DJqqs1It1IDW+83hpYubnE8JgJv+0Ktedj//5UXAtZjNfmy3MM/ZCHO41e
+         rA1Q2XyxrFXu5GBt6435gS+kNZPbdTTSIOUGDAMhDfnslNz3EwlMweL+cEzuTb95OcXO
+         R/bQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWnK+hure0UqbYYTqCShhfNaP8fYmxIBH0y2qwrs5elNTCiMTVHs6jAczzln7ZYKuk4GVlgm69lQdE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwTjmP4L9eU/Xf/z1BAV5rULdi2qAdZ71UpUCVGIbn/GDKAZD8z
+	fRSmTKgP7IVnm4P/Exm+Bt6EIzkAPI03hMOtJgeFS+xCmbM9ptOPgiM77/dnKzZALg==
+X-Gm-Gg: ASbGnctTnCrWiV4XeOGF+1GRMs/NhkCG6Gdd02Xawse8rCOJHapht2eU7hZZM/unuHi
+	X32t0Q8lqARnyMoUGLAIyMdBCBLMnRk02Efsw2ag0tE413X7uoVVcpuJmEvpuAUILlUV8UV2da8
+	vSjB6RLuig/gfRKx4kBw5DApJGfthQp09Znf5mnMAkstC9Evxhnr8zV1lY1rslZJ9pihFirl7Zs
+	JqffSXkSQL+vf24VNQbOUZ82gHwpvE/fM9/ToCbinrCqhd4rFKxrGHsvaFh8msVDcz5WSI2YDp+
+	pvATLAXSIW5MMyCPgvgMblSbzmOsMWEnWEJPYPUtY9efzz66zCZziWdG9s95UZG9a+n7eJ2lRTp
+	TqWw2IIzqPXyiczRKrNaDzt3kzHaDIEY1Dk0hzvl7L7uNAmw=
+X-Google-Smtp-Source: AGHT+IESv1h3tnJEKeF6Ymq81qeBEhUM3V4jdP9Jh74MDjdmwb2GdgZk8fANh/5Hjk2dqEo9xLxE2Q==
+X-Received: by 2002:a05:6000:2184:b0:3a4:f519:ed3 with SMTP id ffacd0b85a97d-3a6ed648fedmr4449075f8f.44.1750941453377;
+        Thu, 26 Jun 2025 05:37:33 -0700 (PDT)
+Message-ID: <a54860a1-cf35-44c4-b95a-5c2b1c50cc2e@suse.com>
+Date: Thu, 26 Jun 2025 14:37:21 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/8] kconfig: turn PDX compression into a choice
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [PATCH v2 03/17] xen/riscv: introduce guest domain's VMID
+ allocation and manegement
+To: Teddy Astie <teddy.astie@vates.tech>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20250620111130.29057-1-roger.pau@citrix.com>
- <20250620111130.29057-3-roger.pau@citrix.com>
- <bd844f21-ce43-41a2-baf0-db92ccef7c2c@suse.com>
- <aFz7gHfrXCta_r1W@macbook.local>
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org,
+ Juergen Gross <jgross@suse.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>
+References: <cover.1749555949.git.oleksii.kurochko@gmail.com>
+ <abbf1c30c485d4baae25d4c1fb26942f60015403.1749555949.git.oleksii.kurochko@gmail.com>
+ <d747fd23-9ac3-49d2-8a5e-699290cef3f4@suse.com>
+ <145f71c2-643e-4839-a2ae-0bc1f049db74@gmail.com>
+ <80223fe3-7403-4026-9505-8826c318fabb@suse.com>
+ <a692d449-4101-498e-a460-33e4b2fb7176@gmail.com>
+ <f5c14ffa-6314-4534-a83e-4024b379755c@suse.com>
+ <1a570c32-e207-47f5-9702-a752246328a9@gmail.com>
+ <f4a20826-0949-4bf0-a8e8-eecd1428f739@suse.com>
+ <264db0b0-43bf-4829-a5cc-ca696601349c@gmail.com>
+ <7c5761b5-805c-4d56-ad8c-1746540423e4@suse.com>
+ <096224cd-12f3-4e4f-8cd8-74c1ae292609@vates.tech>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -122,100 +136,51 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aFz7gHfrXCta_r1W@macbook.local>
+In-Reply-To: <096224cd-12f3-4e4f-8cd8-74c1ae292609@vates.tech>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 26.06.2025 09:49, Roger Pau Monné wrote:
-> On Tue, Jun 24, 2025 at 03:13:27PM +0200, Jan Beulich wrote:
->> On 20.06.2025 13:11, Roger Pau Monne wrote:
->>> Rename the current CONFIG_PDX_COMPRESSION to CONFIG_PDX_MASK_COMPRESSION,
->>> and make it part of the PDX compression choice block, in preparation for
->>> adding further PDX compression algorithms.
+On 26.06.2025 14:17, Teddy Astie wrote:
+> Le 26/06/2025 à 13:46, Juergen Gross a écrit :
+>> On 26.06.25 13:34, Oleksii Kurochko wrote:
 >>>
->>> No functional change intended as the PDX compression defaults should still
->>> be the same for all architectures, however the choice block cannot be
->>> protected under EXPERT and still have a default choice being
->>> unconditionally selected.  As a result, the new "PDX (Page inDeX)
->>> compression" item will be unconditionally visible in Kconfig.
+>>> On 6/26/25 12:41 PM, Jan Beulich wrote:
+>>> - Minimized inter-CPU TLB flushes — since VMIDs are local, TLB entries 
+>>> don’t need
+>>>    to be invalidated on other CPUs when reused.
+>>> - Better scalability — this approach works better on systems with a 
+>>> large number
+>>>    of CPUs.
+>>> - Frequent VM switches don’t require global TLB flushes — reducing the 
+>>> overhead
+>>>    of context switching.
+>>> However, the downside is that this model consumes more VMIDs. For 
+>>> example,
+>>> if a single domain runs on 4 vCPUs across 4 CPUs, it will consume 4 
+>>> VMIDs instead
+>>> of just one.
 >>
->> Just to mention it: Afaict there is a functional change, but one I actually
->> appreciate, at least in part. So far ...
+>> Consider you have 4 bits for VMIDs, resulting in 16 VMID values.
 >>
->>> --- a/xen/common/Kconfig
->>> +++ b/xen/common/Kconfig
->>> @@ -52,9 +52,10 @@ config EVTCHN_FIFO
->>>  
->>>  	  If unsure, say Y.
->>>  
->>> -config PDX_COMPRESSION
->>> -	bool "PDX (Page inDeX) compression" if EXPERT && !X86 && !RISCV
->>> -	default ARM || PPC
->>
->> ... for x86 (and RISC-V) this option couldn't be selected. Whereas ...
->>
->>> @@ -67,6 +68,17 @@ config PDX_COMPRESSION
->>>  	  If your platform does not have sparse RAM banks, do not enable PDX
->>>  	  compression.
->>>  
->>> +config PDX_MASK_COMPRESSION
->>> +	bool "Mask compression"
->>> +	help
->>> +	  Compression relying on all RAM addresses sharing a zeroed bit region.
->>
->> ... this option is now available, as the prior !X86 && !RISCV doesn't
->> re-appear here. (As the description mentions it, that dependency clearly
->> can't appear on the enclosing choice itself.) Since x86 actually still
->> should have mask compression implemented properly, that's fine (from my
->> pov; iirc I even asked that it would have remained available when the
->> earlier change was done), whereas I think for RISC-V it's not quite right
->> to offer the option. It also did escape me why the option was made
->> available for PPC, which I'm pretty sure also lacks the logic to determine
->> a suitable mask.
+>> If you have a system with 32 physical CPUs and 32 domains with 1 vcpu each
+>> on that system, your scheme would NOT allow to keep each physical cpu busy
+>> by running a domain on it, as only 16 domains could be active at the same
+>> time.
 > 
-> Yes, the only architectures that have functional PDX compression are
-> x86 and ARM, as neither RISC-V nor PowerPC call the initialization
-> functions.  AFAICT this is harmless apart from giving the wrong
-> impression to the user that PDX compression might be implemented.
-> 
-> Would you prefer for me to introduce a new HAS_PDX config option
-> that's selected by x86 and ARM, and is used to enable the choice PDX
-> config?
+> Why not instead consider dropping use of VMID in case there is no one 
+> remaining ?
+> (i.e systematically flush the guest TLB before entering the vcpu and 
+> using a "blank" VMID)
 
-Hmm, no, I don't think I want you to make any change to the code. I'm
-actually happy with the slight relaxation for x86 (and RISC-V), and
-aiui you don't alter behavior for PPC. The fact that behavior there
-(and for RISC-V) doesn't look quite right isn't an effect of your
-change.
+Why would one want to do that, when there's a better scheme available?
+And how would you decide which VMs to penalize?
 
-A change may be wanted to the description, to avoid giving the wrong
-(afaict) impression of this being "no functional change". Considering
-how things ended up the way they are prior to this series, this
-becoming explicit may cause _others_ to want you to make changes,
-though. Hence I simply wanted to raise that aspect, to give others a
-hint that they may need to chime in.
+> I don't expect a lot of platforms to allow for 32 pCPU while not giving 
+> more than 16 VMID values. So it would just be less efficient in that 
+> case at worst.
 
-For the record, below is what I think would represent original
-behavior ("help" parts omitted), albeit still leaving out the EXPERT
-aspect (as it's not clear to me what a condition on a prompt means in
-a choice element):
-
-choice
-	prompt "PDX (Page inDeX) compression"
-	default PDX_MASK_COMPRESSION if !X86 && !RISCV
-	default PDX_NONE
-
-config PDX_MASK_COMPRESSION
-	bool "Mask compression"
-	depends on !X86 && !RISCV
-
-config PDX_NONE
-	bool "None"
-endchoice
-
-But again, specifically for x86 I'd prefer if PDX_MASK_COMPRESSION
-became available (again), so the above is not a suggestion to change
-the code, unless others insisted on restoring prior behavior.
+How would you know? How many CPUs (cores) to have in a system is entirely
+independent of the capabilities of the individual CPUs.
 
 Jan
 
