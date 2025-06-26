@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33CCCAE9EC4
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Jun 2025 15:29:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1026407.1401603 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 79F05AE9ED0
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Jun 2025 15:32:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1026415.1401613 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uUmfJ-0001yn-5V; Thu, 26 Jun 2025 13:29:21 +0000
+	id 1uUmhr-0003Ys-Hq; Thu, 26 Jun 2025 13:31:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1026407.1401603; Thu, 26 Jun 2025 13:29:21 +0000
+Received: by outflank-mailman (output) from mailman id 1026415.1401613; Thu, 26 Jun 2025 13:31:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uUmfJ-0001vR-2r; Thu, 26 Jun 2025 13:29:21 +0000
-Received: by outflank-mailman (input) for mailman id 1026407;
- Thu, 26 Jun 2025 13:29:20 +0000
+	id 1uUmhr-0003Wy-EN; Thu, 26 Jun 2025 13:31:59 +0000
+Received: by outflank-mailman (input) for mailman id 1026415;
+ Thu, 26 Jun 2025 13:31:57 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=o/Pp=ZJ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uUmfI-0001vL-6C
- for xen-devel@lists.xenproject.org; Thu, 26 Jun 2025 13:29:20 +0000
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [2a00:1450:4864:20::433])
+ id 1uUmhp-0003Ws-Sw
+ for xen-devel@lists.xenproject.org; Thu, 26 Jun 2025 13:31:57 +0000
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [2a00:1450:4864:20::430])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8f796df8-5291-11f0-b894-0df219b8e170;
- Thu, 26 Jun 2025 15:29:18 +0200 (CEST)
-Received: by mail-wr1-x433.google.com with SMTP id
- ffacd0b85a97d-3a6e8b1fa37so986518f8f.2
- for <xen-devel@lists.xenproject.org>; Thu, 26 Jun 2025 06:29:18 -0700 (PDT)
+ id ed90a8c4-5291-11f0-b894-0df219b8e170;
+ Thu, 26 Jun 2025 15:31:56 +0200 (CEST)
+Received: by mail-wr1-x430.google.com with SMTP id
+ ffacd0b85a97d-3a548a73ff2so953866f8f.0
+ for <xen-devel@lists.xenproject.org>; Thu, 26 Jun 2025 06:31:56 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-b34c4320a15sm1738284a12.32.2025.06.26.06.29.13
+ d9443c01a7336-237d872ffd5sm166317075ad.240.2025.06.26.06.31.51
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 26 Jun 2025 06:29:16 -0700 (PDT)
+ Thu, 26 Jun 2025 06:31:54 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8f796df8-5291-11f0-b894-0df219b8e170
+X-Inumbo-ID: ed90a8c4-5291-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1750944557; x=1751549357; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1750944715; x=1751549515; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=n0YSGjtTnyxc0oIsd6TCtR4VeLrCFWR5/fPHWZKd58o=;
-        b=UdwiVvEbD3bh2GITiWvrXbQYoR7tAfiJSbbFc5aozkuYPnNTIiBp6cVGwvRpBzaZyh
-         FBgZrolAMq0WWDibBLmYlfLP6COeotfaRXCVUSgd8VmmhtQXIUAFmy0s9nvBWVSM68mU
-         0C5CIfMkfgrJ+ycova60UErnYiuq0t01n0Z4Lcd8bOCy+45dHjelemwj9JYuxrRg7d1R
-         xVpc9TMS6UE0LYBfseB3lhYCxHI4uT7ze+CkslaoV5EpFWE3uyrms6ZMVPBu5kTfg+CV
-         tfhXc7bl300+FMq4W9+bvq5n24dfoTsPfP5iCrxk0Dfg+Jp1qiPYkDowrqe+uhr5aA2n
-         b93g==
+        bh=g4LQsjev7sNqxQo+ymGPdBu+bLwbE2u9tg5PJftsgZo=;
+        b=VW8XolgTe/xCplFaEqlabnZ2r6/S29pZ3MRZhorwVhladkr1XVLRvKy98pSH8g8WTW
+         96L7lR6ckfeWqDA7bugguHEKimluh3o291MOUyED17A3aOBtLW2s9jtYcArYxMc34Y/+
+         SXZWK+s5oZnW91Stt1NL97LIwnf+oOu8fmN7qBfcD/UrERJANI12YMf6WbzUM1CdxpkE
+         nRXDcf8CHMNlQNrejoClHDThOAauiYfLEMHzs5nVhDl4aobaTVccHPvhF4wOvpFz1yU7
+         634eiDe1TtpJA8T0EApKkCmN/qSo82dCNW1QWqy0F2zGMnIz33wpsw2RjpNk47wnjsBh
+         lk2w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1750944557; x=1751549357;
+        d=1e100.net; s=20230601; t=1750944715; x=1751549515;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=n0YSGjtTnyxc0oIsd6TCtR4VeLrCFWR5/fPHWZKd58o=;
-        b=hQ5XEmhjXcSF/MVWQiPUhNlTPeb60HnYRdTikdnQ8vkiUQRZKMiIaDb5+vKyUPHIs9
-         ghJ0iMN1egGjzItgvSfVKxszm4TD9LkQDCPU+qsYZK34ekxMsQqt3AgaeURy3OOkT+PM
-         MtRtDRD+aNZeK5uAQdZa45rukUFLYw1IUzQue9W6f1/oQ2SDObpUJhHbb7ceBbi4mq6o
-         Ue3SfQqYQ3YNvAPIDIteJDtIZCf2WX1I2mbMnRqrvVuuEZE/Fdc6zxDkE9AjyfGfqroT
-         mkpSEApUg03L7nFx5zirvJlPsnDcO0ZIgElj6kKThr9WcjQdk9JykJwFLtS//TK8zjG6
-         1laQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXTk/cC8SSnTH8AoDLeXCoZ/Wh5kn9abnHvBazk/k9pbCBlpYvIhMEDFOgS8IO7f/14Mst/0DOr9+s=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YynGjUBZeMTzSGr1BJc9XwCgNlswarGrQS3nblzG1lnvLw2JIA+
-	fxiabBjZBTphor7cwyCBFdVEv/1cpfHNROykOXyz36QYcWeTem+vG0n3PTYJkVY8kWIubHQV5cE
-	qgUc=
-X-Gm-Gg: ASbGnctNqNOz6oTnX/f7R2Bd2t01sG4KQqpf0ZAAOiBUsDq8SwMXbZT8rzPMCBTFSBU
-	e4K56PP8D0ewt2dW7rpuPoqcaQOtDvi595NSFuEworemAkgROs8nnPDXQ7lr8gZpFoapURYSnqT
-	TrfwLsilXud1t/zD6gzXdjRKR8rjYyJT8HPr+h06Ae8P5RpacAnEeCW+djp6s1XEzUNuup8tUnv
-	0GSLummIudj+ZzHUFuoyU7iHah9z5f7i5qBYaS7MUUGPP1nmm9IOBeP3VgJb+09+ABvUj/IXg4q
-	/N00h7MXNGJbMY9C7SLbZMUrZSeGctAhcidBr8Gkymf090es/5YpNGgWJwcezSo09M8ZBC0qY2d
-	icUW1Oz5PP24DmMBKWX64HtCNC1mhFGG+WrHdEPVf1gJc5M+Hlfb1TGrTqw==
-X-Google-Smtp-Source: AGHT+IEjnshZCBjUzlUKNsgqGIxMbZnCFBDBRHjT8ENSCXmS0sLEuKLALIYs+Xh65nyVKb4vP6bQMg==
-X-Received: by 2002:a5d:5f91:0:b0:3a5:2465:c0a4 with SMTP id ffacd0b85a97d-3a6ed5db111mr5967480f8f.20.1750944557327;
-        Thu, 26 Jun 2025 06:29:17 -0700 (PDT)
-Message-ID: <df050f76-d82b-479a-8ba2-97eea02b74ee@suse.com>
-Date: Thu, 26 Jun 2025 15:29:09 +0200
+        bh=g4LQsjev7sNqxQo+ymGPdBu+bLwbE2u9tg5PJftsgZo=;
+        b=OtHGDEtdEdoYZofPgQDi4gv2iFfIrCdO+cVKbsw8feTXfZmVzsv1/8SKtwZ2YP29dz
+         qg3uL2PIS0UzkZ4NVeko0qROg5VO98GA6aGDmW17Jr9I05KYV5DosUqljtcfXgApQJ7L
+         GRocuX7GBLbQ54h6JVtNSyP1HxvrfvjMMqlEpJn5tjMlS3APGAodGph00CRoLtlPgwqY
+         aILKav2xCb6teYptoyHaIh/pOM/GeR/xgMy/pLth7sjDyyjq56AciRsspNDk17Frjfjy
+         TFEakQGpHNXyu6MiTCABJc31GlBhZNqvB8sROOEygFXNuUW9PXr9Bs7OTyLNtYo1ZEPB
+         Uu5Q==
+X-Forwarded-Encrypted: i=1; AJvYcCW8w1u09Rf4p1a/Pf7UP4Hs9qx3X9zksB1ZFM/U30SdBdczpX4k8oJqH8Eh4Uytyvqo7FAlDPJu+gk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz2LhbPmNUtbk/NZL3yOwzN8f6A5k68VYkMNxD4lmn6qnD29MgP
+	KPVCLAFT9Todo1mEkutECRSQT4m/RwrfQy8wIt4Pask+i0xaZBrdjthBetbCF70YIqMfO+drqlL
+	YN8Q=
+X-Gm-Gg: ASbGnctLMT9xn47JW5MZbuCral9eF5HsUqymiScpBeW26NVhVd35h3x8x6lwp/pKWem
+	mcLH2BXQXQtFdwxMJSEdlBFB+rYWT0n3O8TX1p+7ky8Hpe7z5dX54hVT0B4l7F6PtS17HpLzhD4
+	l3RAUjNn+qDHHPuJ1TpN5ckQYsoCzMDg4WAxnuRAHy1lDlF0QJOOQKZqJ8lppC+2zxhoFlJBxTN
+	9iri5kACjzVlgOUy5UoOH9amjtugYAFNkF7bVMKQOdkKMdNotU0WQyDyNjocBZRvKHePDWeUrm4
+	+UCBorocx6UDMeVaJFzkKdfMN8tz8O/JEODl3ikb7LEKq9CugZjsfUuHimJyD53gPAkflekRddP
+	jYD3qRj5TSq/e6lakL8uU+OfxeAVM1UtV+opsBxUjh/uxvq0=
+X-Google-Smtp-Source: AGHT+IEMJdO+y8FTF/ninkWfW6Ch0l6BgVjKyaXzSDvx+Y5h7cJ39YRaEYcYeJ62AI/0awScpkL7Ig==
+X-Received: by 2002:a05:6000:2b11:b0:3a4:fb33:85ce with SMTP id ffacd0b85a97d-3a6ed646bebmr4033870f8f.46.1750944715073;
+        Thu, 26 Jun 2025 06:31:55 -0700 (PDT)
+Message-ID: <9d64c239-d6cc-4eb5-b180-a5034bedcfdb@suse.com>
+Date: Thu, 26 Jun 2025 15:31:47 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/3] xen/efi: Support loading initrd using GRUB2
- LoadFile2 protocol
+Subject: Re: [PATCH v4 3/3] xen/efi: Update error flow for read_file function
 To: Frediano Ziglio <frediano.ziglio@cloud.com>
 Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
  =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
  <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org
-References: <20250625073408.7496-1-frediano.ziglio@cloud.com>
- <20250625073408.7496-3-frediano.ziglio@cloud.com>
+References: <20250626131059.61894-1-frediano.ziglio@cloud.com>
+ <20250626131059.61894-4-frediano.ziglio@cloud.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,141 +120,108 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250625073408.7496-3-frediano.ziglio@cloud.com>
+In-Reply-To: <20250626131059.61894-4-frediano.ziglio@cloud.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 25.06.2025 09:34, Frediano Ziglio wrote:
+On 26.06.2025 15:10, Frediano Ziglio wrote:
 > --- a/xen/common/efi/boot.c
 > +++ b/xen/common/efi/boot.c
-> @@ -850,6 +850,74 @@ static bool __init read_file(EFI_FILE_HANDLE dir_handle, CHAR16 *name,
->      return true;
->  }
+> @@ -792,6 +792,8 @@ static bool __init read_file(EFI_FILE_HANDLE dir_handle, CHAR16 *name,
 >  
-> +#pragma pack(1)
-> +typedef struct {
-> +    VENDOR_DEVICE_PATH              VenMediaNode;
-> +    EFI_DEVICE_PATH                 EndNode;
-> +} SINGLE_NODE_VENDOR_MEDIA_DEVPATH;
-> +#pragma pack()
-
-Where is this coming from? And why is this declared locally here, but the ...
-
-> +static bool __init initrd_load_file2(const CHAR16 *name, struct file *file)
-> +{
-> +    static const SINGLE_NODE_VENDOR_MEDIA_DEVPATH __initconst initrd_dev_path = {
-> +        {
-> +            {
-> +                MEDIA_DEVICE_PATH, MEDIA_VENDOR_DP, { sizeof (VENDOR_DEVICE_PATH) }
-> +            },
-> +            LINUX_EFI_INITRD_MEDIA_GUID
-> +        },
-> +        {
-> +            END_DEVICE_PATH_TYPE, END_ENTIRE_DEVICE_PATH_SUBTYPE,
-> +            { sizeof (EFI_DEVICE_PATH) }
-> +        }
-> +    };
-> +    static EFI_GUID __initdata lf2_proto_guid = EFI_LOAD_FILE2_PROTOCOL_GUID;
-
-... corresponding GUID is put in a (random?) header file?
-
-> +    EFI_DEVICE_PATH *dp;
-> +    EFI_LOAD_FILE2_PROTOCOL *lf2;
-> +    EFI_HANDLE handle;
-> +    EFI_STATUS ret;
-> +    UINTN size;
+>      if ( !name )
+>          PrintErrMesg(L"No filename", EFI_OUT_OF_RESOURCES);
 > +
-> +    dp = (EFI_DEVICE_PATH *)&initrd_dev_path;
-
-Instead of a (fragile) cast, why not
-
-    dp = &initrd_dev_path->VenMediaNode.Header;
-
-? And then perhaps also as initializer of the variable?
-
-> +    ret = efi_bs->LocateDevicePath(&lf2_proto_guid, &dp, &handle);
-> +    if ( EFI_ERROR(ret) )
-> +    {
-> +        if ( ret == EFI_NOT_FOUND)
-> +            return false;
-> +        PrintErrMesg(L"Error getting file with LoadFile2 interface", ret);
-> +    }
+> +    what = L"Open";
+>      if ( dir_handle )
+>          ret = dir_handle->Open(dir_handle, &FileHandle, name,
+>                                 EFI_FILE_MODE_READ, 0);
+> @@ -800,54 +802,58 @@ static bool __init read_file(EFI_FILE_HANDLE dir_handle, CHAR16 *name,
+>      if ( file == &cfg && ret == EFI_NOT_FOUND )
+>          return false;
+>      if ( EFI_ERROR(ret) )
+> -        what = L"Open";
+> -    else
+> -        ret = FileHandle->SetPosition(FileHandle, -1);
+> +        goto fail;
 > +
-> +    ret = efi_bs->HandleProtocol(handle, &lf2_proto_guid, (void **)&lf2);
-> +    if ( EFI_ERROR(ret) )
-> +        PrintErrMesg(L"LoadFile2 file does not provide correct protocol", ret);
+> +    what = L"Seek";
+> +    ret = FileHandle->SetPosition(FileHandle, -1);
+>      if ( EFI_ERROR(ret) )
+> -        what = what ?: L"Seek";
+> -    else
+> -        ret = FileHandle->GetPosition(FileHandle, &size);
+> +        goto fail;
 > +
-> +    size = 0;
-> +    ret = lf2->LoadFile(lf2, dp, false, &size, NULL);
-> +    if ( ret != EFI_BUFFER_TOO_SMALL )
-> +        PrintErrMesg(L"Loading failed", ret);
-
-Here it's particularly bad, but throughout: How would one know in what
-context the failure was? Wouldn't you want to include "name" in the
-output? read_file() does include this detail.
-
+> +    what = L"Get size";
+> +    ret = FileHandle->GetPosition(FileHandle, &size);
+>      if ( EFI_ERROR(ret) )
+> -        what = what ?: L"Get size";
+> -    else
+> -        ret = FileHandle->SetPosition(FileHandle, 0);
+> +        goto fail;
+> +
+> +    what = L"Seek";
+> +    ret = FileHandle->SetPosition(FileHandle, 0);
+>      if ( EFI_ERROR(ret) )
+> -        what = what ?: L"Seek";
+> -    else
+> -    {
+> -        file->addr = min(1UL << (32 + PAGE_SHIFT),
+> -                         HYPERVISOR_VIRT_END - DIRECTMAP_VIRT_START);
+> -        ret = efi_bs->AllocatePages(AllocateMaxAddress, EfiLoaderData,
+> -                                    PFN_UP(size), &file->addr);
+> -    }
+> +        goto fail;
+> +
+> +    what = L"Allocation";
 > +    file->addr = min(1UL << (32 + PAGE_SHIFT),
 > +                     HYPERVISOR_VIRT_END - DIRECTMAP_VIRT_START);
-
-I understand you took this from read_file(), but the construct looks
-outdated. For one, it should have been abstracted away when the Arm64
-work was done (I don't think such a restriction exists there), and
-then I'm also not sure the restriction would unconditionally apply on
-x86 anymore.
-
 > +    ret = efi_bs->AllocatePages(AllocateMaxAddress, EfiLoaderData,
 > +                                PFN_UP(size), &file->addr);
-> +    if ( EFI_ERROR(ret) )
-> +        PrintErrMesg(L"Allocation failed", ret);
-> +
+>      if ( EFI_ERROR(ret) )
+> -        what = what ?: L"Allocation";
+> -    else
+> -    {
+> -        file->need_to_free = true;
+> -        file->size = size;
+> -        handle_file_info(name, file, options);
+> +        goto fail;
+>  
+> -        ret = FileHandle->Read(FileHandle, &file->size, file->str);
+> -        if ( !EFI_ERROR(ret) && file->size != size )
+> -            ret = EFI_ABORTED;
+> -        if ( EFI_ERROR(ret) )
+> -            what = L"Read";
+> -    }
 > +    file->need_to_free = true;
 > +    file->size = size;
-> +
-> +    ret = lf2->LoadFile(lf2, dp, false, &size, file->str);
+> +    handle_file_info(name, file, options);
+>  
+> -    if ( FileHandle )
+> -        FileHandle->Close(FileHandle);
+> +    what = L"Read";
+> +    ret = FileHandle->Read(FileHandle, &file->size, file->str);
+> +    if ( !EFI_ERROR(ret) && file->size != size )
+> +        ret = EFI_ABORTED;
 > +    if ( EFI_ERROR(ret) )
-> +    {
-> +        efi_bs->FreePages(file->addr, PFN_UP(size));
-> +        PrintErrMesg(L"Loading failed", ret);
-> +    }
-> +
-> +    efi_arch_handle_module(file, name, NULL);
-
-Shouldn't it be handle_file_info() that you call, and a little earlier?
-
-> --- a/xen/include/efi/efidevp.h
-> +++ b/xen/include/efi/efidevp.h
-> @@ -398,5 +398,26 @@ typedef union {
+> +        goto fail;
 >  
->  } EFI_DEV_PATH_PTR;
+> -    if ( what )
+> -    {
+> -        PrintErr(what);
+> -        PrintErr(L" failed for ");
+> -        PrintErrMesg(name, ret);
+> -    }
+> +    FileHandle->Close(FileHandle);
 >  
-> +#define EFI_LOAD_FILE2_PROTOCOL_GUID \
-> +    { 0x4006c0c1, 0xfcb3, 0x403e, {0x99, 0x6d, 0x4a, 0x6c, 0x87, 0x24, 0xe0, 0x6d } }
-> +
-> +typedef struct EFI_LOAD_FILE2_PROTOCOL EFI_LOAD_FILE2_PROTOCOL;
-> +
-> +typedef
-> +EFI_STATUS
-> +(EFIAPI *EFI_LOAD_FILE2)(
-> +    IN EFI_LOAD_FILE2_PROTOCOL      *This,
-> +    IN EFI_DEVICE_PATH              *FilePath,
-> +    IN BOOLEAN                      BootPolicy,
-> +    IN OUT UINTN                    *BufferSize,
-> +    IN VOID                         *Buffer OPTIONAL
-> +    );
-> +
-> +struct EFI_LOAD_FILE2_PROTOCOL {
-> +    EFI_LOAD_FILE2                  LoadFile;
-> +};
-> +
-> +#define LINUX_EFI_INITRD_MEDIA_GUID \
-> +    { 0x5568e427, 0x68fc, 0x4f3d, {0xac, 0x74, 0xca, 0x55, 0x52, 0x31, 0xcc, 0x68} }
+>      efi_arch_flush_dcache_area(file->ptr, file->size);
 >  
->  #endif
+>      return true;
+> +
+> +fail:
 
-While I'm not maintainer of this code anymore, I hope the new maintainers will
-still respect the original idea of keeping these headers in sync with their
-origin. The way it's arranged, this change doesn't look like it would have been
-taken from the gnu-efi package (albeit I will admit I didn't go check).
+Nit: Style (see ./CODING_STYLE).
 
 Jan
 
