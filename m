@@ -2,32 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C54AEAEBB80
-	for <lists+xen-devel@lfdr.de>; Fri, 27 Jun 2025 17:18:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1027744.1402260 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 45DDEAEBCB8
+	for <lists+xen-devel@lfdr.de>; Fri, 27 Jun 2025 18:00:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1027795.1402271 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uVAqP-00060b-Ia; Fri, 27 Jun 2025 15:18:25 +0000
+	id 1uVBTe-0002fw-Is; Fri, 27 Jun 2025 15:58:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1027744.1402260; Fri, 27 Jun 2025 15:18:25 +0000
+Received: by outflank-mailman (output) from mailman id 1027795.1402271; Fri, 27 Jun 2025 15:58:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uVAqP-0005y5-G4; Fri, 27 Jun 2025 15:18:25 +0000
-Received: by outflank-mailman (input) for mailman id 1027744;
- Fri, 27 Jun 2025 15:18:24 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <anthony@xenproject.org>) id 1uVAqO-0005xx-2J
- for xen-devel@lists.xenproject.org; Fri, 27 Jun 2025 15:18:24 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <anthony@xenproject.org>) id 1uVAqN-005LM2-0x;
- Fri, 27 Jun 2025 15:18:23 +0000
-Received: from amontsouris-682-1-55-1.w90-87.abo.wanadoo.fr ([90.87.218.1]
- helo=l14) by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <anthony@xenproject.org>) id 1uVAqM-00DMPi-34;
- Fri, 27 Jun 2025 15:18:23 +0000
+	id 1uVBTe-0002dP-FQ; Fri, 27 Jun 2025 15:58:58 +0000
+Received: by outflank-mailman (input) for mailman id 1027795;
+ Fri, 27 Jun 2025 15:58:57 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Hlj0=ZK=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
+ id 1uVBTd-0002dJ-BX
+ for xen-devel@lists.xenproject.org; Fri, 27 Jun 2025 15:58:57 +0000
+Received: from mail-oa1-x2b.google.com (mail-oa1-x2b.google.com
+ [2001:4860:4864:20::2b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a0e35821-536f-11f0-a310-13f23c93f187;
+ Fri, 27 Jun 2025 17:58:56 +0200 (CEST)
+Received: by mail-oa1-x2b.google.com with SMTP id
+ 586e51a60fabf-2eacb421554so11274fac.1
+ for <xen-devel@lists.xenproject.org>; Fri, 27 Jun 2025 08:58:56 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,132 +40,178 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date;
-	bh=XAIVYsToANYHv+QClJmtZ2ptOEbCFh6lWZcNRa3kXP8=; b=VVrY5tjottgWDDwLj5w4dt/8wy
-	QZXSWrQgwntm3EayaJBgFXKwX/v7huB8J77y/rVgU3k/1K592xdThLl7Ip9IeUgCeF046GfgXBbrE
-	/aY/6odeeE0FW0XfwlgHtbOkW1r8o27wvKXBA+arv7+ohMBnLjEm9pjj4bFyMsfh2nSU=;
-Date: Fri, 27 Jun 2025 17:18:20 +0200
-From: Anthony PERARD <anthony@xenproject.org>
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>
-Cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org,
-	michal.orzel@amd.com, xenia.ragiadakou@amd.com,
-	ayan.kumar.halder@amd.com, consulting@bugseng.com,
-	Doug Goldstein <cardoe@cardoe.com>,
-	Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
-Subject: Re: [XEN PATCH] automation/eclair: Make report browsing URL
- configurable.
-Message-ID: <aF62POQJZViSYexn@l14>
-References: <2c0003504925e6f62b0bb1a13711c206e40f9393.1750919773.git.nicola.vetrini@bugseng.com>
- <aF0cGgut4-CZka3J@l14>
- <194c24271abdadf062cab1b0f80a6fdc@bugseng.com>
+X-Inumbo-ID: a0e35821-536f-11f0-a310-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1751039935; x=1751644735; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=bfhXgoSRbVGfllKxX873BxM5jQrG1yx9g1GhERgQaWc=;
+        b=UCaIOy2zfdJaNXIlP5PzlP//DLiZlGC/3oY7K3VT/J/Gao9KwWYyEeIKEO9dnYbXxE
+         f9OmpdIvrCYr9qrNqEnDvi/2JxjMD7OyzRSbC3F4X+9LrcoiI71YtIYJs4Cdu3k6nxFw
+         3vKk1YmUPdBTsHuX5KAuenPBPNuhW9DBJvXYA=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1751039935; x=1751644735;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=bfhXgoSRbVGfllKxX873BxM5jQrG1yx9g1GhERgQaWc=;
+        b=XhM0QCt21J5ozXuvOvvu6KXRdYw6qYYH1Fxn63z85bVhEQ6jS88Px9ydrny2zkP9Kd
+         Q0npRFVXcykKV1dPcJtsSlUg/VW3yJnRChcj5414ZerJvAEWaM5pJyP2v19q487qDS9x
+         G7Qf338xwZGrkrNw4QjNOI4W/4JEw/PVSHMfuIcH/pqS/Ru6NeV8HIVAoiaXklaceqdr
+         nrJKcSwINGWimNJyZ7YJaOcAt3c29WuZvpWU0aEj3lY/N69ekTkY2UPo7p6rSA7GHCQ7
+         PFONN8Kd7alGK+WxlQCkkoesLnSZoTf5r7q5cZ2U16kdZYPrL0smbz5LRwMy3zZm5n6l
+         4Ffg==
+X-Gm-Message-State: AOJu0YwPMNM6+VuXAFfBpJT7hajaGInHHpyYGlAzFTbOVIr5yyey1DCH
+	3DqgoB7V2wD2DdO/Bio8fzj8jaCiGrMtcKL+7BZCL8IOf8VQoev4KjKzJUdtldlhNfHDpRbM6ws
+	461b8sGl6fo8a5MqaLdx9y5Mjwk/TGGNLqsbbTjwLQA==
+X-Gm-Gg: ASbGncvsL+ejGFF+rmipZKRtXp7DuT8FJBkbAVYdZ0lFwaJa8In55mrivaFoX/pYS0f
+	BTzQPZ+o8BjpowVN+PTBig7NWOglScXYOXDyNi3ScPcJqGV2vHpH0RtiDSzvE28fNVFoYc1Ic2c
+	D/K8ThNYkrQgB6koN+4YI2VLypOXwl7QPMwaqrraP4
+X-Google-Smtp-Source: AGHT+IGgUjoXN+/3708UY+Ls768JIcOYLySGYaBbKEywbE4g2hWExn4laNX0/JHfqBXrgcTPhe0TCimZXNri84J21/w=
+X-Received: by 2002:a05:6870:b291:b0:2e9:1e11:3183 with SMTP id
+ 586e51a60fabf-2efed453abfmr2221668fac.8.1751039934787; Fri, 27 Jun 2025
+ 08:58:54 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <194c24271abdadf062cab1b0f80a6fdc@bugseng.com>
+References: <20250624083157.9334-1-frediano.ziglio@cloud.com>
+ <CACHz=Zj_YibxBOQytCQAmTAG=yyBXUx2s1Jr+fXqHgxHQmSDOQ@mail.gmail.com>
+ <aFxbi6dnKjydzyNk@mail-itl> <CACHz=Zj=LsfbUVMkuKHx-xpy+NMQh13NUJ_-sPSq3OMwSurHPA@mail.gmail.com>
+ <aF1hIARPp6a0wWmi@mail-itl> <CACHz=ZiVT-iSzEsG48NjJzJgdd=Ns-+dVTUTZKqVq78Py-kp2A@mail.gmail.com>
+ <aF6onqQMlms2svXT@mail-itl>
+In-Reply-To: <aF6onqQMlms2svXT@mail-itl>
+From: Frediano Ziglio <frediano.ziglio@cloud.com>
+Date: Fri, 27 Jun 2025 16:58:43 +0100
+X-Gm-Features: Ac12FXzak7oPGdewtWGyzrEKXVYaMKnYw6RoBdQr3Tg0wzl24EYksSfQvuxtDV0
+Message-ID: <CACHz=Zi3THWcucw6ioZhKaeeDxM+e+E1rb-NvczG=mkVjD5qzg@mail.gmail.com>
+Subject: Re: [PATCH 0/2] xen/efi: Make boot more flexible, especially with GRUB2
+To: =?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Cc: xen-devel@lists.xenproject.org, 
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>, Jan Beulich <jbeulich@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Jun 27, 2025 at 10:39:21AM +0200, Nicola Vetrini wrote:
-> On 2025-06-26 12:08, Anthony PERARD wrote:
-> > On Thu, Jun 26, 2025 at 08:38:18AM +0200, Nicola Vetrini wrote:
-> > > +eclairReportHost="${MACHINE_HOST:-saas.eclairit.com}"
-> > > +eclairReportPort="${MACHINE_PORT:-3787}"
-> > > +eclairReportUrlPrefix="https://${eclairReportHost}:${eclairReportPort}"
-> > 
-> > Please, don't make the port number mandatory. Can you merge both host
-> > and port in the same variable? This part seems to be called "authority":
-> > 
-> >     https://en.wikipedia.org/wiki/URL#Syntax
-> > 
-> > Also, don't use `MACHINE` as prefix/namespace for these new variables,
-> > in a pipeline context, "machine" could be many things. Maybe
-> > "ECLAIR_REPORT_HOST" for this one? With the default been:
-> > 
-> >     ECLAIR_REPORT_HOST=saas.eclairit.com:3787
-> > 
-> 
-> I can merge host and port and change the variable prefix, but I think there
-> is a misunderstanding. This address is used both as the base for report
-> browsing and pushing the results.
+On Fri, Jun 27, 2025 at 3:20=E2=80=AFPM Marek Marczykowski-G=C3=B3recki
+<marmarek@invisiblethingslab.com> wrote:
+>
+> On Fri, Jun 27, 2025 at 01:29:48PM +0100, Frediano Ziglio wrote:
+> > On Thu, Jun 26, 2025 at 4:03=E2=80=AFPM Marek Marczykowski-G=C3=B3recki
+> > <marmarek@invisiblethingslab.com> wrote:
+> > >
+> > > On Thu, Jun 26, 2025 at 09:12:53AM +0100, Frediano Ziglio wrote:
+> > > > On Wed, Jun 25, 2025 at 9:26=E2=80=AFPM Marek Marczykowski-G=C3=B3r=
+ecki
+> > > > <marmarek@invisiblethingslab.com> wrote:
+> > > > >
+> > > > > On Tue, Jun 24, 2025 at 09:38:42AM +0100, Frediano Ziglio wrote:
+> > > > > > On Tue, Jun 24, 2025 at 9:32=E2=80=AFAM Frediano Ziglio
+> > > > > > <frediano.ziglio@cloud.com> wrote:
+> > > > > > >
+> > > > > > > The combination of GRUB2, EFI and UKI allows potentially more=
+ flexibility.
+> > > > > > > For instance is possible to load xen.efi from a no ESP partit=
+ion leaving
+> > > > > > > a boot loader like GRUB2 taking care of the file loading.
+> > > > > > > This however requires some changes in Xen to be less restrict=
+ive.
+> > > > > > > Specifically for GRUB2 these changes allows the usage of "cha=
+inloader"
+> > > > > > > command with UKI and reading xen.efi from no ESP (so no Devic=
+eHandle
+> > > > > > > set) and usage of "linux" and "initrd" commands to load separ=
+ately
+> > > > > > > the kernel (embedding using UKI) and initrd (using LoadFile2 =
+protocol).
+> > > > > >
+> > > > > > I was forgetting. If somebody wants to test "linux" and "initrd=
+"
+> > > > > > command with these changes be aware that GRUB currently has a p=
+roblem
+> > > > > > passing arguments, I posted a patch, see
+> > > > > > https://lists.gnu.org/archive/html/grub-devel/2025-06/msg00156.=
+html.
+> > > > > > I also have a workaround for this issue in xen but it would be =
+better
+> > > > > > to have a fix in GRUB.
+> > > > >
+> > > > > Can you tell more how to test this, especially the second variant=
+? When
+> > > > > trying to use GRUB linux or linuxefi commands on xen.efi, I get "=
+invalid
+> > > > > magic number" error.
+> > > > >
+> > > >
+> > > > That's weird.
+> > > >
+> > > > Be the way. As usual I have a super complicated script that does ev=
+erything.
+> > > >
+> > > > But to simplify:
+> > > > - I compile xen (plain upstream plus my patches) with "make -C
+> > > > ~/work/xen/xen -j O=3Dnormal MAP"
+> > >
+> > > Is there any that would be related to the "invalid magic" error? IIUC
+> > > without your patches options will be mangled, but I don't think I get
+> > > this far.
+> > >
+> >
+> > I tried to do some changes and check the CI with your branch. Not hard
+> > to reproduce and the test looks correct.
+> > Looking at GRUB code I can see various "linux" command implementations
+> > and it looks like yours is picking up i386-pc target and not
+> > x86_64-efi one which is really odd to me.
+>
+> Indeed, very odd, I do pass -O x86_64-efi option explicitly...
+>
+> But also, when I do the test locally with grub 2.12 from Fedora, I get th=
+e filename
+> prefix:
+>
+>     error: ../../grub-core/loader/i386/efi/linux.c:387:invalid magic numb=
+er.
+>
+> which does look like the efi variant.
+>
+> This is even more interesting, as this path does not exist in the
+> upstream repository. It appears as it's _yet another_ linux loader added
+> by Fedora package:
+> https://src.fedoraproject.org/rpms/grub2/blob/rawhide/f/0213-Add-support-=
+for-Linux-EFI-stub-loading.patch
+> That code I think looks for some Linux-specific header with "EFI
+> handover" pointer?
+>
 
-Well, the patch is all about "report browsing URL" as stated in the
-subject.
+So, yet another "linux" loader :-(
+I found that a bit crazy... Why not have a single "linux"
+implementation calling different architecture specific functions? I
+mean, some parts like arguments parsing and handling are pretty
+common, the syntax should be the same. And is not the Linux booting
+format already complicated enough to add another entry point format?
 
-> While we should alter the latter (e.g.,
-> ECLAIR_REPORT_PROXY_HOST) to point to the proxy so that the proxy is shown
+> I don't see exactly this patch in Debian package, but there are also
+> some messing with the 'linux' command, so I guess it may be similar
+> issue.
+>
+> If I use upstream grub directly, then the "linux" command indeed doesn't
+> complain.
+>
+> So, it looks like major distributions use a patched grub version that
+> changes behavior of "linux" command. IIUC many of those patches are
+> about hardening SecureBoot, and shim-review kinda suggest using patched
+> version (many of the submissions explicitly mention the at least patch
+> grub for NX). So, I think this needs figuring out how to make your
+> approach working with grub flavor that is actually used by SB-enabled
+> distributions...
+>
 
-"proxy"? That's implementation detail, there's no need to know that the
-host used to browse the result is different than the host where the
-result are stored. (I mean having "proxy" in the name of the variable
-holding detail of how to access the reports, been a part of an url or
-just the host)
+We (xenserver) would like to provide booting using separate
+hypervisor, kernel and initrd.
+Using "linux" was an old discussed option which had a nice usage.
+The merged patches allow to have a fully UKI file bundling kernel and
+initrd loaded from no-ESP partition which is nice to have.
+For the final solution I was thinking about using "xen_hypervisor" and
+"xen_module" already present for ARM. From the user perspective is
+surely less confusing than using "linux" to pass something which is
+not Linux.
 
-> in the CI logs, the address where the results are pushed is fixed and set in
-> the docker runner env. This is not ideal, but I didn't find a better way
-> with GitLab CI to let the analysis push locally.
-
-Having the configuration for where to push the result in the runner env
-seems like the best option to me, if that report server is tied to the
-eclair runner.
-
-> > > diff --git a/automation/scripts/eclair b/automation/scripts/eclair
-> > > index 0a2353c20a92..7020eaa0982f 100755
-> > > --- a/automation/scripts/eclair
-> > > +++ b/automation/scripts/eclair
-> > > @@ -1,4 +1,15 @@
-> > > -#!/bin/sh -eu
-> > > +#!/bin/sh -eux
-> > > +
-> > > +# Runner-specific variables
-> > > +ex=0
-> > > +export "$(env | grep MACHINE_ARTIFACTS_ROOT)" || ex=$?
-> > > +[ "${ex}" = 0 ] || exit "${ex}"
-> > 
-> > That's a really complicated way to check a variable is set...
-> > Exporting a variable that's already in env isn't useful, and I think
-> > `ex` is only ever set to `0`. It seems that `dash` just exit if you do
-> > `export=""`.
-> > 
-> > You could simply do:
-> > 
-> >     : ${MACHINE_ARTIFACTS_ROOT:?Missing MACHINE_ARTIFACTS_ROOT variable}
-> >     : ${MACHINE_ECDF_DIR:?Missing MACHINE_ECDF_DIR variable}
-> > 
-> > To check that the variables are set. Or nothing, if you add `set -u` to
-> > the script (instead of the one -u in the sheband which might be ignored
-> > if one run `sh ./eclair` instead of just `./eclair`.) Also the variable
-> > should come from the env, as nothing sets it, so no need to for that.
-> > 
-> > ( The `:` at the begining of the line is necessary, and behave the same
-> > way as `true` does. We need it because ${parm:?msg} is expanded.)
-> > 
-> > Or you could use `if [ -z "${param}" ]` if ${param:?msg} is too obscure.
-> > We would just have "parameter not set" instead of a nicer message, due
-> > to `set -u`.
-> > 
-> 
-> I agree it is ugly and counterintuitive, but the core idea here is that the
-> variable is set but not exported for some reason, so just `export VAR` does
-> not behave in the same way as the incantation `export "$(env | grep
-> MACHINE_ARTIFACTS_ROOT)"` iirc. I'll double check if there's a better way to
-> achieve this (other than switching to bash in the shebang).
-
-Isn't that script `./eclair` the beginning of the script? I can't find
-anything that `source` this file so it must be. Which mean, if
-MACHINE_ARTIFACTS_ROOT is set, it is exported, because nothing sets it
-between the beginning of the script and this line. So there's no need to
-check that the variable is exported (if it is not exported, it is a bug
-in the shell).
-
-The only thing left to do is to check that it is set and non-zero
-length. But I still wonder why you do that here, since "action.settings"
-also check the variable and use a default value.
-
-There's no need to use bash for this. (They are plenty of reason to use
-bash instead of posix shell, but that is just not one of them.)
-
-Cheers,
-
--- 
-Anthony PERARD
+Frediano
 
