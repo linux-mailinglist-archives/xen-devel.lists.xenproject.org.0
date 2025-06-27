@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 45DDEAEBCB8
-	for <lists+xen-devel@lfdr.de>; Fri, 27 Jun 2025 18:00:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1027795.1402271 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 626B3AEBD00
+	for <lists+xen-devel@lfdr.de>; Fri, 27 Jun 2025 18:20:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1027814.1402281 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uVBTe-0002fw-Is; Fri, 27 Jun 2025 15:58:58 +0000
+	id 1uVBoJ-00075t-Bn; Fri, 27 Jun 2025 16:20:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1027795.1402271; Fri, 27 Jun 2025 15:58:58 +0000
+Received: by outflank-mailman (output) from mailman id 1027814.1402281; Fri, 27 Jun 2025 16:20:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uVBTe-0002dP-FQ; Fri, 27 Jun 2025 15:58:58 +0000
-Received: by outflank-mailman (input) for mailman id 1027795;
- Fri, 27 Jun 2025 15:58:57 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uVBoJ-00073a-87; Fri, 27 Jun 2025 16:20:19 +0000
+Received: by outflank-mailman (input) for mailman id 1027814;
+ Fri, 27 Jun 2025 16:20:17 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Hlj0=ZK=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
- id 1uVBTd-0002dJ-BX
- for xen-devel@lists.xenproject.org; Fri, 27 Jun 2025 15:58:57 +0000
-Received: from mail-oa1-x2b.google.com (mail-oa1-x2b.google.com
- [2001:4860:4864:20::2b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a0e35821-536f-11f0-a310-13f23c93f187;
- Fri, 27 Jun 2025 17:58:56 +0200 (CEST)
-Received: by mail-oa1-x2b.google.com with SMTP id
- 586e51a60fabf-2eacb421554so11274fac.1
- for <xen-devel@lists.xenproject.org>; Fri, 27 Jun 2025 08:58:56 -0700 (PDT)
+ <SRS0=9k5L=ZK=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1uVBoG-00073U-Sx
+ for xen-devel@lists.xenproject.org; Fri, 27 Jun 2025 16:20:17 +0000
+Received: from fout-a7-smtp.messagingengine.com
+ (fout-a7-smtp.messagingengine.com [103.168.172.150])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 985ac14c-5372-11f0-b894-0df219b8e170;
+ Fri, 27 Jun 2025 18:20:10 +0200 (CEST)
+Received: from phl-compute-06.internal (phl-compute-06.phl.internal
+ [10.202.2.46])
+ by mailfout.phl.internal (Postfix) with ESMTP id 2A634EC0237;
+ Fri, 27 Jun 2025 12:20:09 -0400 (EDT)
+Received: from phl-mailfrontend-02 ([10.202.2.163])
+ by phl-compute-06.internal (MEProxy); Fri, 27 Jun 2025 12:20:09 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 27 Jun 2025 12:20:02 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,178 +45,135 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a0e35821-536f-11f0-a310-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1751039935; x=1751644735; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=bfhXgoSRbVGfllKxX873BxM5jQrG1yx9g1GhERgQaWc=;
-        b=UCaIOy2zfdJaNXIlP5PzlP//DLiZlGC/3oY7K3VT/J/Gao9KwWYyEeIKEO9dnYbXxE
-         f9OmpdIvrCYr9qrNqEnDvi/2JxjMD7OyzRSbC3F4X+9LrcoiI71YtIYJs4Cdu3k6nxFw
-         3vKk1YmUPdBTsHuX5KAuenPBPNuhW9DBJvXYA=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1751039935; x=1751644735;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=bfhXgoSRbVGfllKxX873BxM5jQrG1yx9g1GhERgQaWc=;
-        b=XhM0QCt21J5ozXuvOvvu6KXRdYw6qYYH1Fxn63z85bVhEQ6jS88Px9ydrny2zkP9Kd
-         Q0npRFVXcykKV1dPcJtsSlUg/VW3yJnRChcj5414ZerJvAEWaM5pJyP2v19q487qDS9x
-         G7Qf338xwZGrkrNw4QjNOI4W/4JEw/PVSHMfuIcH/pqS/Ru6NeV8HIVAoiaXklaceqdr
-         nrJKcSwINGWimNJyZ7YJaOcAt3c29WuZvpWU0aEj3lY/N69ekTkY2UPo7p6rSA7GHCQ7
-         PFONN8Kd7alGK+WxlQCkkoesLnSZoTf5r7q5cZ2U16kdZYPrL0smbz5LRwMy3zZm5n6l
-         4Ffg==
-X-Gm-Message-State: AOJu0YwPMNM6+VuXAFfBpJT7hajaGInHHpyYGlAzFTbOVIr5yyey1DCH
-	3DqgoB7V2wD2DdO/Bio8fzj8jaCiGrMtcKL+7BZCL8IOf8VQoev4KjKzJUdtldlhNfHDpRbM6ws
-	461b8sGl6fo8a5MqaLdx9y5Mjwk/TGGNLqsbbTjwLQA==
-X-Gm-Gg: ASbGncvsL+ejGFF+rmipZKRtXp7DuT8FJBkbAVYdZ0lFwaJa8In55mrivaFoX/pYS0f
-	BTzQPZ+o8BjpowVN+PTBig7NWOglScXYOXDyNi3ScPcJqGV2vHpH0RtiDSzvE28fNVFoYc1Ic2c
-	D/K8ThNYkrQgB6koN+4YI2VLypOXwl7QPMwaqrraP4
-X-Google-Smtp-Source: AGHT+IGgUjoXN+/3708UY+Ls768JIcOYLySGYaBbKEywbE4g2hWExn4laNX0/JHfqBXrgcTPhe0TCimZXNri84J21/w=
-X-Received: by 2002:a05:6870:b291:b0:2e9:1e11:3183 with SMTP id
- 586e51a60fabf-2efed453abfmr2221668fac.8.1751039934787; Fri, 27 Jun 2025
- 08:58:54 -0700 (PDT)
-MIME-Version: 1.0
+X-Inumbo-ID: 985ac14c-5372-11f0-b894-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1751041209;
+	 x=1751127609; bh=ZZVBX7SqKAgFWWed/Qm/9P37J5UgF6jpOyUv6CjRlYU=; b=
+	ckDgxDeBzCrBc0QgJX+5kbj2jhS7JVdXYw+2UZqx5103dBhdPrht0xkG7zbFR+mD
+	OIP8LLq9S31F21qoUfccrL1uDCrpb4/noF1bQj+z7yY4Qfx52r8PSUXAl3iqpGXm
+	tCTLhbMx0LtxFaDBwTfTG5EKYDueodI97O3Jc7VTJxQ2MpJ+6dnQkRFFx3f0GFX3
+	VXDzenRpkiqpk3fJZjb7HKHyuJgra9+ivn0/7YC1cpx6E739PeZp1VWMk72LCuMu
+	iQG6lXpj6DK8g8a4R4D/TCJQ8Pq6ZlQwZlkJQjKzcnST5TTokDgYCUkJT4mUN6oj
+	v1k8kNVXPr+2AxUgLXWJlw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1751041209; x=1751127609; bh=ZZVBX7SqKAgFWWed/Qm/9P37J5UgF6jpOyU
+	v6CjRlYU=; b=oE4V5LF78diF3/s9ghvnPd+njq+D3ntdUpc+Et+1Cwm9nA4MCUo
+	mNqGaaP2gK1pePCAgBpp4S9ZZtYqmhuXrgcIpPhDQbMzkS+rFqPay77eHTEE9E36
+	Mc7OVT84cbi9om7Wf8ecQ6IUzcuWaz8oFQMpsUM7cmnmmdKHzSUnikd6vNnYQhra
+	ff3Mw+eYyNHB29RWoHuGuDHR9FFMr/RX1II/sDrOwsd/wnXvYBZee7V6OmxYC/QD
+	D2KkxWK1GLNJjQJxsXQp93FeRaS6xtGz1PVcenREZd270ZN5azoEkHmQy+ecT6pL
+	yTzGa5ie0oWCFj+iDlSJFCNWZfsgJfNy7Zw==
+X-ME-Sender: <xms:s8ReaA2fW1k-UHmdirDXAtJCWkR61c2Rb6HLRKqE5_dCrURLluJaIQ>
+    <xme:s8ReaLGC2ori8bfXtVjf9QUw-oyta92Kpvzb4VFQIOKhmDeglLYf04P-vEa1_JyNR
+    1Bl7D9j4dYrIA>
+X-ME-Received: <xmr:s8ReaI4DAWGhDn2Lvm7YN7-HPuLN6SJMTNcNqd8KEoLpl2dVF6ZYABJmBVZ3Wcn0WgOXDt3THpqHz36xQPjQMx6rQRwc2le1y6c>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtdefgdefheefucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceurghi
+    lhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurh
+    epfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgvkhcuofgr
+    rhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinhhvihhsih
+    gslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepgfduleetfeev
+    hfefheeiteeliefhjefhleduveetteekveettddvgeeuteefjedunecuvehluhhsthgvrh
+    fuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghksehinhhv
+    ihhsihgslhgvthhhihhnghhslhgrsgdrtghomhdpnhgspghrtghpthhtohepgedpmhhoug
+    gvpehsmhhtphhouhhtpdhrtghpthhtohepfhhrvgguihgrnhhordiiihhglhhiohestghl
+    ohhuugdrtghomhdprhgtphhtthhopeigvghnqdguvghvvghlsehlihhsthhsrdigvghnph
+    hrohhjvggtthdrohhrghdprhgtphhtthhopeguphhsmhhithhhsegrphgvrhhtuhhsshho
+    lhhuthhiohhnshdrtghomhdprhgtphhtthhopehjsggvuhhlihgthhesshhushgvrdgtoh
+    hm
+X-ME-Proxy: <xmx:s8ReaJ2Da-YCgNcuK-L9H7woYBDmHmE7A4zWt00vm9_I-RDhkW5vYg>
+    <xmx:s8ReaDHcBWu6ewpTlQaxC-ZAGl4Vz7_-NP1XHu_B-7DQF1fTWFO59g>
+    <xmx:s8ReaC9jZdGkTAoyaivcVQOxStdH5w4hoDRyAmprNT4MHyFkdDumtA>
+    <xmx:s8ReaIkGOeMTew2IDhVJ5KUsgBB9W1IL7UMWpA7RTaPHtjfKGXrP_w>
+    <xmx:ucReaLe11bEPCBAOTkK-pXtjHJf-Oq9olTZU5Hu55hIC9zdJAmZd2CTg>
+Feedback-ID: i1568416f:Fastmail
+Date: Fri, 27 Jun 2025 18:19:58 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Frediano Ziglio <frediano.ziglio@cloud.com>
+Cc: xen-devel@lists.xenproject.org,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	Jan Beulich <jbeulich@suse.com>
+Subject: Re: [PATCH 0/2] xen/efi: Make boot more flexible, especially with
+ GRUB2
+Message-ID: <aF7EsHeJ1GAwvrDz@mail-itl>
 References: <20250624083157.9334-1-frediano.ziglio@cloud.com>
  <CACHz=Zj_YibxBOQytCQAmTAG=yyBXUx2s1Jr+fXqHgxHQmSDOQ@mail.gmail.com>
- <aFxbi6dnKjydzyNk@mail-itl> <CACHz=Zj=LsfbUVMkuKHx-xpy+NMQh13NUJ_-sPSq3OMwSurHPA@mail.gmail.com>
- <aF1hIARPp6a0wWmi@mail-itl> <CACHz=ZiVT-iSzEsG48NjJzJgdd=Ns-+dVTUTZKqVq78Py-kp2A@mail.gmail.com>
+ <aFxbi6dnKjydzyNk@mail-itl>
+ <CACHz=Zj=LsfbUVMkuKHx-xpy+NMQh13NUJ_-sPSq3OMwSurHPA@mail.gmail.com>
+ <aF1hIARPp6a0wWmi@mail-itl>
+ <CACHz=ZiVT-iSzEsG48NjJzJgdd=Ns-+dVTUTZKqVq78Py-kp2A@mail.gmail.com>
  <aF6onqQMlms2svXT@mail-itl>
-In-Reply-To: <aF6onqQMlms2svXT@mail-itl>
-From: Frediano Ziglio <frediano.ziglio@cloud.com>
-Date: Fri, 27 Jun 2025 16:58:43 +0100
-X-Gm-Features: Ac12FXzak7oPGdewtWGyzrEKXVYaMKnYw6RoBdQr3Tg0wzl24EYksSfQvuxtDV0
-Message-ID: <CACHz=Zi3THWcucw6ioZhKaeeDxM+e+E1rb-NvczG=mkVjD5qzg@mail.gmail.com>
-Subject: Re: [PATCH 0/2] xen/efi: Make boot more flexible, especially with GRUB2
-To: =?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Cc: xen-devel@lists.xenproject.org, 
-	"Daniel P. Smith" <dpsmith@apertussolutions.com>, Jan Beulich <jbeulich@suse.com>
-Content-Type: text/plain; charset="UTF-8"
+ <CACHz=Zi3THWcucw6ioZhKaeeDxM+e+E1rb-NvczG=mkVjD5qzg@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="NQ0ctA3HwDKAsDNG"
+Content-Disposition: inline
+In-Reply-To: <CACHz=Zi3THWcucw6ioZhKaeeDxM+e+E1rb-NvczG=mkVjD5qzg@mail.gmail.com>
+
+
+--NQ0ctA3HwDKAsDNG
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+Date: Fri, 27 Jun 2025 18:19:58 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Frediano Ziglio <frediano.ziglio@cloud.com>
+Cc: xen-devel@lists.xenproject.org,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	Jan Beulich <jbeulich@suse.com>
+Subject: Re: [PATCH 0/2] xen/efi: Make boot more flexible, especially with
+ GRUB2
 
-On Fri, Jun 27, 2025 at 3:20=E2=80=AFPM Marek Marczykowski-G=C3=B3recki
-<marmarek@invisiblethingslab.com> wrote:
->
-> On Fri, Jun 27, 2025 at 01:29:48PM +0100, Frediano Ziglio wrote:
-> > On Thu, Jun 26, 2025 at 4:03=E2=80=AFPM Marek Marczykowski-G=C3=B3recki
-> > <marmarek@invisiblethingslab.com> wrote:
-> > >
-> > > On Thu, Jun 26, 2025 at 09:12:53AM +0100, Frediano Ziglio wrote:
-> > > > On Wed, Jun 25, 2025 at 9:26=E2=80=AFPM Marek Marczykowski-G=C3=B3r=
-ecki
-> > > > <marmarek@invisiblethingslab.com> wrote:
-> > > > >
-> > > > > On Tue, Jun 24, 2025 at 09:38:42AM +0100, Frediano Ziglio wrote:
-> > > > > > On Tue, Jun 24, 2025 at 9:32=E2=80=AFAM Frediano Ziglio
-> > > > > > <frediano.ziglio@cloud.com> wrote:
-> > > > > > >
-> > > > > > > The combination of GRUB2, EFI and UKI allows potentially more=
- flexibility.
-> > > > > > > For instance is possible to load xen.efi from a no ESP partit=
-ion leaving
-> > > > > > > a boot loader like GRUB2 taking care of the file loading.
-> > > > > > > This however requires some changes in Xen to be less restrict=
-ive.
-> > > > > > > Specifically for GRUB2 these changes allows the usage of "cha=
-inloader"
-> > > > > > > command with UKI and reading xen.efi from no ESP (so no Devic=
-eHandle
-> > > > > > > set) and usage of "linux" and "initrd" commands to load separ=
-ately
-> > > > > > > the kernel (embedding using UKI) and initrd (using LoadFile2 =
-protocol).
-> > > > > >
-> > > > > > I was forgetting. If somebody wants to test "linux" and "initrd=
-"
-> > > > > > command with these changes be aware that GRUB currently has a p=
-roblem
-> > > > > > passing arguments, I posted a patch, see
-> > > > > > https://lists.gnu.org/archive/html/grub-devel/2025-06/msg00156.=
-html.
-> > > > > > I also have a workaround for this issue in xen but it would be =
-better
-> > > > > > to have a fix in GRUB.
-> > > > >
-> > > > > Can you tell more how to test this, especially the second variant=
-? When
-> > > > > trying to use GRUB linux or linuxefi commands on xen.efi, I get "=
-invalid
-> > > > > magic number" error.
-> > > > >
-> > > >
-> > > > That's weird.
-> > > >
-> > > > Be the way. As usual I have a super complicated script that does ev=
-erything.
-> > > >
-> > > > But to simplify:
-> > > > - I compile xen (plain upstream plus my patches) with "make -C
-> > > > ~/work/xen/xen -j O=3Dnormal MAP"
-> > >
-> > > Is there any that would be related to the "invalid magic" error? IIUC
-> > > without your patches options will be mangled, but I don't think I get
-> > > this far.
-> > >
+On Fri, Jun 27, 2025 at 04:58:43PM +0100, Frediano Ziglio wrote:
+> On Fri, Jun 27, 2025 at 3:20=E2=80=AFPM Marek Marczykowski-G=C3=B3recki
+> <marmarek@invisiblethingslab.com> wrote:
+> > So, it looks like major distributions use a patched grub version that
+> > changes behavior of "linux" command. IIUC many of those patches are
+> > about hardening SecureBoot, and shim-review kinda suggest using patched
+> > version (many of the submissions explicitly mention the at least patch
+> > grub for NX). So, I think this needs figuring out how to make your
+> > approach working with grub flavor that is actually used by SB-enabled
+> > distributions...
 > >
-> > I tried to do some changes and check the CI with your branch. Not hard
-> > to reproduce and the test looks correct.
-> > Looking at GRUB code I can see various "linux" command implementations
-> > and it looks like yours is picking up i386-pc target and not
-> > x86_64-efi one which is really odd to me.
->
-> Indeed, very odd, I do pass -O x86_64-efi option explicitly...
->
-> But also, when I do the test locally with grub 2.12 from Fedora, I get th=
-e filename
-> prefix:
->
->     error: ../../grub-core/loader/i386/efi/linux.c:387:invalid magic numb=
-er.
->
-> which does look like the efi variant.
->
-> This is even more interesting, as this path does not exist in the
-> upstream repository. It appears as it's _yet another_ linux loader added
-> by Fedora package:
-> https://src.fedoraproject.org/rpms/grub2/blob/rawhide/f/0213-Add-support-=
-for-Linux-EFI-stub-loading.patch
-> That code I think looks for some Linux-specific header with "EFI
-> handover" pointer?
->
+>=20
+> We (xenserver) would like to provide booting using separate
+> hypervisor, kernel and initrd.
+> Using "linux" was an old discussed option which had a nice usage.
+> The merged patches allow to have a fully UKI file bundling kernel and
+> initrd loaded from no-ESP partition which is nice to have.
+> For the final solution I was thinking about using "xen_hypervisor" and
+> "xen_module" already present for ARM. From the user perspective is
+> surely less confusing than using "linux" to pass something which is
+> not Linux.
 
-So, yet another "linux" loader :-(
-I found that a bit crazy... Why not have a single "linux"
-implementation calling different architecture specific functions? I
-mean, some parts like arguments parsing and handling are pretty
-common, the syntax should be the same. And is not the Linux booting
-format already complicated enough to add another entry point format?
+In which case, loading initrd using Linux-specific grub part doesn't
+make sense, no? Or is that xen_module going to use similar mechanism?
 
-> I don't see exactly this patch in Debian package, but there are also
-> some messing with the 'linux' command, so I guess it may be similar
-> issue.
->
-> If I use upstream grub directly, then the "linux" command indeed doesn't
-> complain.
->
-> So, it looks like major distributions use a patched grub version that
-> changes behavior of "linux" command. IIUC many of those patches are
-> about hardening SecureBoot, and shim-review kinda suggest using patched
-> version (many of the submissions explicitly mention the at least patch
-> grub for NX). So, I think this needs figuring out how to make your
-> approach working with grub flavor that is actually used by SB-enabled
-> distributions...
->
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
 
-We (xenserver) would like to provide booting using separate
-hypervisor, kernel and initrd.
-Using "linux" was an old discussed option which had a nice usage.
-The merged patches allow to have a fully UKI file bundling kernel and
-initrd loaded from no-ESP partition which is nice to have.
-For the final solution I was thinking about using "xen_hypervisor" and
-"xen_module" already present for ARM. From the user perspective is
-surely less confusing than using "linux" to pass something which is
-not Linux.
+--NQ0ctA3HwDKAsDNG
+Content-Type: application/pgp-signature; name=signature.asc
 
-Frediano
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmhexLAACgkQ24/THMrX
+1ywMOggAk29E3mJcF3bkb7YZQjihG672c4QzHADy+2pVCcJllaq3kSQuJxJWB+0z
+yMkEPlaAfGaTRwVFSoIf7iIKBSO6Ay4PGnpUv5kM8sd9PTgT9EJqgUAMhBxpz2lZ
++FAIktmVogP3JzBxiAVB3/QPDmrsIMf6v3Dz/xf0mZ+G/KQKPmQEuQ6bvUMwZdpR
+Ztfg53nJL6tyhTzAEexUZJdmfgPlbCpxQ9/VW4nklrAqAq8f2kmt0E713eZFzCc4
+vBHc0qubmMRnSVvj9VaKF836K7IZ/Sw3maa2mcFmoWF69PQ0feptQSJObqxF+gV+
+FnH7V56YOy0WEWgDoq7HNuFfGo/SLg==
+=nrMT
+-----END PGP SIGNATURE-----
+
+--NQ0ctA3HwDKAsDNG--
 
