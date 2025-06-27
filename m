@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C7319AEB338
-	for <lists+xen-devel@lfdr.de>; Fri, 27 Jun 2025 11:46:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1027463.1402095 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C8D98AEB538
+	for <lists+xen-devel@lfdr.de>; Fri, 27 Jun 2025 12:43:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1027498.1402105 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uV5ec-0002Bl-Jq; Fri, 27 Jun 2025 09:45:54 +0000
+	id 1uV6XN-00017e-FX; Fri, 27 Jun 2025 10:42:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1027463.1402095; Fri, 27 Jun 2025 09:45:54 +0000
+Received: by outflank-mailman (output) from mailman id 1027498.1402105; Fri, 27 Jun 2025 10:42:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uV5ec-00029L-GK; Fri, 27 Jun 2025 09:45:54 +0000
-Received: by outflank-mailman (input) for mailman id 1027463;
- Fri, 27 Jun 2025 09:45:52 +0000
+	id 1uV6XN-00015k-CG; Fri, 27 Jun 2025 10:42:29 +0000
+Received: by outflank-mailman (input) for mailman id 1027498;
+ Fri, 27 Jun 2025 10:42:27 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=cXb5=ZK=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
- id 1uV5ea-00029F-JQ
- for xen-devel@lists.xenproject.org; Fri, 27 Jun 2025 09:45:52 +0000
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2062b.outbound.protection.outlook.com
- [2a01:111:f403:2414::62b])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=2ywg=ZK=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uV6XL-00015e-AJ
+ for xen-devel@lists.xenproject.org; Fri, 27 Jun 2025 10:42:27 +0000
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [2a00:1450:4864:20::42c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 81d1df37-533b-11f0-b894-0df219b8e170;
- Fri, 27 Jun 2025 11:45:50 +0200 (CEST)
-Received: from PH8PR12MB7326.namprd12.prod.outlook.com (2603:10b6:510:216::7)
- by SA5PPF7F0CA3746.namprd12.prod.outlook.com
- (2603:10b6:80f:fc04::8d1) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8835.19; Fri, 27 Jun
- 2025 09:45:47 +0000
-Received: from PH8PR12MB7326.namprd12.prod.outlook.com
- ([fe80::6d76:9c33:d230:8264]) by PH8PR12MB7326.namprd12.prod.outlook.com
- ([fe80::6d76:9c33:d230:8264%4]) with mapi id 15.20.8880.021; Fri, 27 Jun 2025
- 09:45:46 +0000
+ id 67af7993-5343-11f0-b894-0df219b8e170;
+ Fri, 27 Jun 2025 12:42:21 +0200 (CEST)
+Received: by mail-wr1-x42c.google.com with SMTP id
+ ffacd0b85a97d-3a57ae5cb17so1180964f8f.0
+ for <xen-devel@lists.xenproject.org>; Fri, 27 Jun 2025 03:42:21 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-315f5384140sm6918745a91.7.2025.06.27.03.42.15
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 27 Jun 2025 03:42:20 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,142 +45,221 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 81d1df37-533b-11f0-b894-0df219b8e170
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ZtBlBujmc8Qj0843bEWBJcLbUSl28NJfLBiMBCpICEK+MjlT9pRpGC9iRntKQUG8ATtnnLtMO8lLvMMr0eWQIEsI1+y/aWOPjOU3H1MdtMVOAtgcMKZ5gVbuNFxcewZhpiBErh31wHVssBkMbiByAuZ4dyX7FO4s84iR0fYwEyxtIwSoCH8PRchAfDI9Om8GGi4wg3wTwiIl1IxjvXZX59t0koCwMVZktQYi2Hlkl+7EbXdGkVOPdhAhd2pxhPDOQHjjtwKNU7WlhcWjlaXLoaNm/staypVj3N+J/ca0NbgI+GiH9Xa3RoKiOYMSDm6XPmjoUngvX6oduxnqYLijKg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Zp1T56vdfDLeGsSCs4+c5SbFfzuggScv3Ukf+R6U4+4=;
- b=xvZlgkvrlEqANMe6Yks2keNg1JWFDqUJZ49ZxocC3Vt/4cGnD4Hhdy2J3iJngqoYUe4x5sduD3XHRa7Oqs7UWcTuVeAudOBROax3HQB8UQKtSvK1kO0gi1PoqsW7xZjMV8ja25tsR1MAYdfrd9tjm8a3NSDPvJMNFQdMLCmCsoWsB1i9MHt+Wpn4YrXeI2uPTsKvYU8PsCHXMb5SEGcGe2ZD6HiEY8EFlGERzpHfXtXPHkzoKXmyEmzzxJUsg+7dTljWWMITcLcVGTX14jI3n93oP8geZYFQ/X9CqpuJpHPnM+aYsEi/FN7hD2TgZcpY1ggxee23HZjI9u9jNjEX6Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Zp1T56vdfDLeGsSCs4+c5SbFfzuggScv3Ukf+R6U4+4=;
- b=bl1se0+DBZfjA+QNGzejCXU2UdY/pWGSaq1k7d4gWcUH2ysYUp1I966YhcOBtA56tg66kuF8FhHfrB5G059hPKQ8AW9puDBw+WuGRtSgfbqUuRhxx07TEdbwCvXAuwMfmbIn45BPwiMIRNKKTW/y0SmiVqG6NOB2mo9bH59NrrU=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Message-ID: <d1717cae-f5a1-4af8-8962-f4fdad1baa55@amd.com>
-Date: Fri, 27 Jun 2025 10:45:43 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/arm: Drop frametable_virt_end
-To: Michal Orzel <michal.orzel@amd.com>, xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20250627084334.45172-1-michal.orzel@amd.com>
-Content-Language: en-GB
-From: Ayan Kumar Halder <ayankuma@amd.com>
-In-Reply-To: <20250627084334.45172-1-michal.orzel@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: DB8PR06CA0004.eurprd06.prod.outlook.com
- (2603:10a6:10:100::17) To PH8PR12MB7326.namprd12.prod.outlook.com
- (2603:10b6:510:216::7)
+X-Inumbo-ID: 67af7993-5343-11f0-b894-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1751020941; x=1751625741; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=RAUu45byWCYVeJgWLJnBZx5xF7D8AMI7j46sDoUddT0=;
+        b=GqunyKdgK0YAwDc/1bShdWcugAMh2SEmqoiPYad8RGI3mqNJS/KJgqU7ceSzoyXNpn
+         EONSnaTDgIaj6CWrlWSvdqeIKnm8NpIvHuCChf11kK/PoYSuMEXJJ937Uuw/0XjMHD5j
+         zAwPBLav81c/hYv53F88sG0IFWYoDr/0YIxhPia+wuAYSTW4rWedll7kLyGf/Z+YETvu
+         ixFZAKdm6rQA7xpMHTiCyamT9OgqLwBbTbFdw/87UyAmcJEBmew5BwrB4cfQ2JeqKwCF
+         nCeAvswdp9zQyhLzB7o6Jz68MvCmSqNr0TG8AogckldYG6Ao0Zz/PqXR3xA1tCWx+YzI
+         0zCA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1751020941; x=1751625741;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=RAUu45byWCYVeJgWLJnBZx5xF7D8AMI7j46sDoUddT0=;
+        b=AJ2MxHszeid/umYJIA3arPAdlShSAMLNxJq0UUOPGQdMbPKIvZe7N9L0VY8jaxC3l4
+         Ffn6mkt8AVI+TFlhGjR0Lyfa3J/39iDVDcRuLZb6B7C4Hh76unz/Fj8mBPC7SFjXhh5k
+         jN05yqX5/xdYhCrHsdmAr4uLSz2y8hzquVC2bqPiTAn7Mjnzt1DZeLMCa40WVSHctTKH
+         9zc2eceP7f1jtw3VtFn0FA+aVJsRUl55UxshEHoM96fzflR8mn+BcNQuJh91WRNbHYfE
+         eMUKWDQyDATOuNR80Y+YabfUTXQe2+/ziME3x18wo9sM50wnD0+97pAH/ZCly+IxbL2u
+         mTNQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVOaqNJPA/rIjBpdWTYfsedNrWUjyHpjACV8d8B9fxFJQa9G0hB96L1yDkEUD7ZQyBUTE9rHjpHTzs=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxnfRUK0v+xugVyZAIWGY+UZktHdIiKmMCRCI01NaPDkkcnRwoC
+	rLHNUVVfyUzRtIxBS3v3rHpXXQ98QFmDJFuWnFrB9u9113vzo+BupFH/gzCwtPz7nQ==
+X-Gm-Gg: ASbGncv9PhifZcMTqszakPNLFOmuTixVI6oAwKZd+lZ+O/6THchnCUBEk1dKv6PeYGX
+	i+drPFapRgZQ7+bPZVr0XfCFbnhxeBh8izya8k/sU39OscLa2NieZMCUDIwyvBF8WZ5elw7AtFw
+	nImkTXfpEYMYnkRIH8asWihss9aPadgC4gwSUXyIwSWYt4neDSF9xHsf8syr/fxxIbh0hJ0fn7f
+	AeuN+wtjYLumKstwzugsiV9inUSiIBII0I6HIs/ZJUBl/Es+i7VWhjTr1vCaE7Q7svQFNO+Fk9n
+	n9FGXtC6Cm/dd9hE5PBPlTHtQ2He6unBy+Qw2WAgMONDUfZVyvnNUvWNAbIOf+qnGFMnygLlu8G
+	hNgQq1yzRb53rVMwBNVPD3Mum5z+e4Wwn7mSdM4ajf+tTIZnozSn0ESGZxA==
+X-Google-Smtp-Source: AGHT+IHR+yv3mLG6i8nI1B0rD0RI5sUWDv80BQf0ZTLHMF8oMGVfPtBPSXLfMNt9Tp117nijRDoHtw==
+X-Received: by 2002:a05:6000:2110:b0:3a4:ef30:a4c8 with SMTP id ffacd0b85a97d-3a8f4548f90mr2179683f8f.10.1751020940992;
+        Fri, 27 Jun 2025 03:42:20 -0700 (PDT)
+Message-ID: <7ea6964b-71e3-4a86-a2f0-7124264bda80@suse.com>
+Date: Fri, 27 Jun 2025 12:42:10 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR12MB7326:EE_|SA5PPF7F0CA3746:EE_
-X-MS-Office365-Filtering-Correlation-Id: 45dae592-7957-44a4-2cd7-08ddb55f6432
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?ZnlPMTJMMWhiUDNTL0hnaC9uRGh1TlR6QlFRSEJpamJ3QTg3bXNWN09vUzJT?=
- =?utf-8?B?K29NUUp6WDAwY21HcCt6Q2pCRy96aTZpY3pjbXUza3kzQUVuVjRNRytTbkJn?=
- =?utf-8?B?Qnh3a09nemFBN3F6SHB2cm5yem5rWk9qVzJhMGVzdE1aVEZkNjZDbjhWZWFo?=
- =?utf-8?B?cUJWdXlQVFF1TGppYnVEVlhaV0tQcUk1S05XNlQ4SWZWQjA4RzV3SmRoeWlo?=
- =?utf-8?B?a0JmK1ArRVJwQ29FRVlnMUt5dUZ6eHQ3R21ZemNBZkxEU2UvQUlMZEhsV21o?=
- =?utf-8?B?d3lVa0ZqZmV2d0FTTVdmei84NHBLZFgyY0Z5M1pUZXFlNGRhNXdRcHRiV2gy?=
- =?utf-8?B?SWtKYXJhSWVWMG9EVDZVZmZWQXM3UUp6bFBiRld6Q1R3bFpTVnJENVI1RWZ2?=
- =?utf-8?B?T2RhMk0vaFU2Y2NwVDg3UXZvWHRhL1lFYzh3RWdDTDBzM3ZnNlh1alFuU2xj?=
- =?utf-8?B?dVlSNjZ6Z1BmVjlNK3U3SUMvaVNib09scFdFVEU1dHc0R3MrYkx2aGFSZ1VB?=
- =?utf-8?B?bGpKZGFXWGN1Y0s0azI4bnF6YzgvZ2JwMEtWM081SU9INnJ1ZnBXSlk1b0hv?=
- =?utf-8?B?R2RVT1EzODZtTlZ1dWd4Z3ltVFMza1pscm5HZTUvWG5qSHdrYWpGZUZjVFBo?=
- =?utf-8?B?aWF6YVY3dysyTnhnblNIVXpnYjY3eGZ6ZXJGeFRQNnpBQldIN3NMSlcyMmdE?=
- =?utf-8?B?MDJjVjNhY3o1alBGbXkzaklPYkZrS0VOMURYY3hVc0F0ckg0ZXlxdHpxK0tv?=
- =?utf-8?B?NCtpS3F2eVJnYjN1MFhVU28rblluSzUwQ0hRZy9YSFRSZkQyNUdqZnpSdUMr?=
- =?utf-8?B?RHB1bUVQSFBxalk4UXhQa3BjNEpTbEx3Z3AvdTkxd3RNcmpsNlRWK1dsbExZ?=
- =?utf-8?B?bXBIQ1k1NnBMenkrZ0psalNUd3hYbG50ekx5TnlkTDgwZy9mTDZEYUJ3OXR4?=
- =?utf-8?B?cWxESlBPd3JTOHQzMmZ4VHN4bFQxRm5ieEJObTkvc0ZHS3dNTFF6RDgrSmJJ?=
- =?utf-8?B?SnAvNVFsNnNEUjhSc3ZXcmx2QlhDb3N2NGFydVVZS0xIVHN1Tk9wcDdSbkRn?=
- =?utf-8?B?TzYrYkphNXpFNHdVeW01Tm55NG5oSWZ0czFJSFZPbi9rSklyVHd6RU8wbTl1?=
- =?utf-8?B?dnZQeHhoL0ozU3NuU0dyM2dTeGdWc1RPbXdOd0l1djdGOGJobHEyTEsyQ1VC?=
- =?utf-8?B?ejUyWnVHOWVpV285OGhLL21vVUtYSmtNTVpGZG85cGRTRk5HcWR3aWdVQ3hO?=
- =?utf-8?B?SGJFOXFWU3IrZ094bE5nMmZBQ3E4aDc4QUh0QmlxbWxCZ3EzTTBYemxNTjdF?=
- =?utf-8?B?OGhNeC9zVStBOVMvdGgzOHBTVkRXL2dUdDA0d3FML1FhZ0ZEZS9EaW8xRjlH?=
- =?utf-8?B?R2k2UEdMTUw0UXRmbGhzQm5vVllxaE1tbmlzUEpGYU84aEZ4VUNGeHFHQWN2?=
- =?utf-8?B?dGhETHFmRGxRNUN5L3gwTTZiWVJ1TmdoS3VnRnN1TzQ3UXNOeSt3cGlwYWlO?=
- =?utf-8?B?eGJnVHI0M0hSaXJJY0s2SmhuTmdPanBsdWlaVThPYnlMb3A1RVNzSGs2eU9U?=
- =?utf-8?B?N0VCL1VpTkNxdDRjOFZDdy9pN2lYNFZVUGI1LzJXMGE4SExwYkRjUkhmbWNL?=
- =?utf-8?B?SlhFcW5NRGk2aDNVL0MwMzhQMmx2Vy9kWEtqRFVKMFk3WXMrMGNnQ0pVVFpy?=
- =?utf-8?B?SUx3Z1dGemFUWjIzdU9BS3JlS0k2WEI4NjAyOGthdS9NeXdDZ1BKekxhZWZl?=
- =?utf-8?B?YUxUb3NPWjVJV0pwelVpOHNlVVJYVm5lbGpFOExuS1Y3ZFhRYkQ4N3dTeU4x?=
- =?utf-8?B?VEJoZ1VsVzdzVVJ1YUtvaFYwVG42SjBqYXQ5eFlrM0dhdHllajcrcStsTXBZ?=
- =?utf-8?B?c042NFl6SWs4a2VvUTcvRDhidWMwNWJMQzRmY3NNLzY5OFVkVUIvR1BlMTZ4?=
- =?utf-8?Q?MOUKzS6fcLI=3D?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR12MB7326.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?bkMvWkNubzl6SzhvT24vRDg3Z2Fkd1RUUHB2MWFrSXNteWd5ZHpYOU9tU1Iz?=
- =?utf-8?B?TU9EeXhqNm9Ud25xYXZZcVVyOTFUWnpCdzhUUnNQNzVVNndUR1E2N1I4L0du?=
- =?utf-8?B?emc4dlBEMVpTMkFUWFd3em9hN3BmT2M4SHNvQjBHaTIyTGhHNFVMcUg4Rll2?=
- =?utf-8?B?WEViMmtRQ0hJQXBPaDU4RHgrQUQxVldjQnJHZkdzQkJRbnRRMkxCcFFLN2Ns?=
- =?utf-8?B?UytlRXVxL3k1b0NKSVdBLy96MUQ5bVgwczdkU0cyOUpJZ2ovRGFHL3gyL2h5?=
- =?utf-8?B?OGRjbkx5b0FwbWtWNENRNWJacmNZWHZBL1hDbGQvVm5ibUc4cWhTVGMzUitX?=
- =?utf-8?B?UVNvWkwwa0JEOFVoRER2Nlk3VGxCM0xJbFRCZk5JUlRVVmJoUXZhK0I4SGE3?=
- =?utf-8?B?WHowNnM2MmJjU0FLOGE1UmRTSndSbm0rd3JPNVVBZ1NMZlp2cjZiYkZyeFhQ?=
- =?utf-8?B?Z0ZNa29nVEF0dkZvSGZodktXMFRmb3kvTXNYT1FSeHk1VVd6cHNHMWtRR3Uy?=
- =?utf-8?B?S1JVQjlLQXFkdnI1bi9HV3lOWW4ydjRMR2J3d2oyL0lLNTl3VDhMdHNzS0tI?=
- =?utf-8?B?dnVwUm10cVRVRHBKZGZoRmx6QXVONkx0R2NrNVhZcUdtbVRLdXRTazJRV3l3?=
- =?utf-8?B?blg3MlBuYzNxUFduUFVaOWFGSlc0WWNwa0xxY0dyWXJxcVZ2K0JGb0JFaTgw?=
- =?utf-8?B?UldmL1BUM0E1R3FFcW5kMXVJVm5ySmxTenZReTFqeXVjY3JidXplSERCZ0k2?=
- =?utf-8?B?b1dXMGxpVy81VElnOU8yZW9lSnhvY2NkY0diTVV5ZW9KSnpvWnphaWFHaXNZ?=
- =?utf-8?B?QWRSNSttYUQ2L3hGSlhQaEdYczJnTXo5cGI4YUY5ZnJybWlGaDIxdUEvUWJX?=
- =?utf-8?B?VXI0dmNkRndlZ09MS1ZlUEovQWw1RmZXdU0xcWNCOFpIYTRJdXJVaC96TWx5?=
- =?utf-8?B?ejJyNkhUcUE3TlRkQnQ0RktzclNSUnpvUnJvZndQbWxlSk9FM3VvbUtNK2JQ?=
- =?utf-8?B?VmNvNVRqVElhb05xdmswVEdMalU2TXB0SzhwdEZDTDZnNHRkNStBcnVESGlJ?=
- =?utf-8?B?Y0Z1SHdRZVlyeVZCOXF4bzdKaTVtUDV5NENrSkRyN1hWeDZuVE1BTFQ1ZXRM?=
- =?utf-8?B?bGRJTGxWREVxZmJsK1RyaFl5T2J6dGR4b2U0V2hLQTVOMjljcnAxVkRCTDQv?=
- =?utf-8?B?R2IyUW8wNDZkNUNTMGhLSFFXYVVWZFJEK0ZLc3NFSDZad0I4by8yRFZFY3d6?=
- =?utf-8?B?UnBsdnUxci83SktPM0JWOGlvMy9VWTNkZzdmRXc0b282RFBzNnVPNXh1N2hi?=
- =?utf-8?B?WThEelZLb2JrUzhSZTU4alcvM2xwc3JzUjdTWFBHSEtWWFBZZkNIRHVMeUZT?=
- =?utf-8?B?L005anpkUTZhUzFaeGJMdVd3VmJHWUxxR3lFWG15MGs4Q1VqZGREckxleEpM?=
- =?utf-8?B?NEJmblIrUVl2MlN2Ny9EYTh3eC90OHFQYjArS0ZQbUZTb3NXeUhyUkllUXNh?=
- =?utf-8?B?UjA0OEplRnZkTk5VNVlJakFkaUJvcTYvOE81NVF0eGZacit0OVJjcUJqc2k2?=
- =?utf-8?B?SFA0aCtFNG5pdmgrc01hUzVNdnFQV1l1RThsbVFhQU5mNjl3b2RmNTQrSk5m?=
- =?utf-8?B?MmRxVFNwWGpUNjEyN0JONXJRWEZJcmlaYk83cHlRWDJIRFZlUW5vZ1YzTm15?=
- =?utf-8?B?UzZuTCtBTlVDSEpYZDVTUTgxU2t2S2FEV3ZqZjJ2S29tVkZHSG5MZTByWmNu?=
- =?utf-8?B?N3RnaWs4RWU3VUtWbUJrTndsWm5PWkJiUjFUSVRacVphUFI5OUNjSXYrNFBQ?=
- =?utf-8?B?NWMyQkxNZjhEVFI4bXM1UTlVUFkrSE9rZVJKZmJQOUNLY3BJc3RlKzU0Slk1?=
- =?utf-8?B?amgyQkNkNjJqemNnYWJVVE1OQ1dhakF1SkNyR1dKVitkRnhYSnVRZ1FROERZ?=
- =?utf-8?B?b3U1eDdxbyttMUlobUpGNHZETElibWs4Mkh0aXArMk10djgvUFVoTFRLeE1r?=
- =?utf-8?B?aStsbTExY3FWZ1lKUzgxWFFPVEhRZzI5L3p0S1lrem9Oc1o3YUJKbEs0UlBM?=
- =?utf-8?B?eFRBd1lUa1gwclJZOG9EM3RHdzg5S0sxUnJxMkFsaG9zV0UzS3N3dnVqSS9R?=
- =?utf-8?Q?QUFMKM0//C7SwAcn6Bv6n5NLG?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 45dae592-7957-44a4-2cd7-08ddb55f6432
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB7326.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jun 2025 09:45:46.5651
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: PKQQ8eSGYN8hlmKWrGtqxFO43MKqPrW/eaaf4nRpzHszgf2YuWB+V4Alb7/nlN80nqeuKMS1Sq6n42BiTk5PGA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA5PPF7F0CA3746
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 2/8] vpci: Refactor REGISTER_VPCI_INIT
+To: "Chen, Jiqian" <Jiqian.Chen@amd.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ "Orzel, Michal" <Michal.Orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "Huang, Ray" <Ray.Huang@amd.com>
+References: <20250612092942.1450344-1-Jiqian.Chen@amd.com>
+ <5c4b186e-686e-4fc8-bcf1-854bc1f5ec8b@suse.com>
+ <BL1PR12MB5849DE8416FE549834235780E778A@BL1PR12MB5849.namprd12.prod.outlook.com>
+ <9d5d0e44-66c3-4e3f-8704-2c862c5f5aff@suse.com>
+ <BL1PR12MB5849B3C334EF0C5BBCAFB7BAE77BA@BL1PR12MB5849.namprd12.prod.outlook.com>
+ <3638e73c-2a83-4164-9a84-839245245727@suse.com>
+ <BL1PR12MB584988E00D0F4A4330B9B968E77BA@BL1PR12MB5849.namprd12.prod.outlook.com>
+ <771cd5b7-2b89-49b1-9aba-8cd79319d3ce@suse.com>
+ <BL1PR12MB58492A16BFE80B49045AB936E77BA@BL1PR12MB5849.namprd12.prod.outlook.com>
+ <7753470a-efef-478a-bbe5-ae48d008cfdb@suse.com>
+ <BL1PR12MB584979FA987CE2D6E242648FE77AA@BL1PR12MB5849.namprd12.prod.outlook.com>
+ <cf41d703-dae1-42fd-86a2-aec32184adcc@suse.com>
+ <BL1PR12MB5849302474B73599557CC1F2E745A@BL1PR12MB5849.namprd12.prod.outlook.com>
+ <f50a5c04-73f8-42b6-bcaa-fd9b30088f21@suse.com>
+ <BL1PR12MB58495B7B5DD5340037197B1BE745A@BL1PR12MB5849.namprd12.prod.outlook.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <BL1PR12MB58495B7B5DD5340037197B1BE745A@BL1PR12MB5849.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Michal,
+On 27.06.2025 11:00, Chen, Jiqian wrote:
+> On 2025/6/27 14:05, Jan Beulich wrote:
+>> On 27.06.2025 04:59, Chen, Jiqian wrote:
+>>> On 2025/6/26 20:06, Jan Beulich wrote:
+>>>> On 26.06.2025 10:03, Chen, Jiqian wrote:
+>>>>> On 2025/6/25 22:07, Jan Beulich wrote:
+>>>>>> On 25.06.2025 12:16, Chen, Jiqian wrote:
+>>>>>>> On 2025/6/25 18:03, Jan Beulich wrote:
+>>>>>>>> Also, as said - you will need to check whether other architectures are
+>>>>>>>> different from x86-64 in this regard. We better wouldn't leave a trap here,
+>>>>>>>> for them to fall into when they enable vPCI support. I.e. my recommendation
+>>>>>>>> would be that if in doubt, we put the __aligned() there unconditionally.
+>>>>
+>>>> Note how I used __aligned() here. Why would you ...
+>>>>
+>>>>>>> That's difficult for me to check on all different platforms since I don't have them all.
+>>>>>>
+>>>>>> You don't need to have them. You'd need to carefully go through the respective
+>>>>>> section(s) of their psABI-s.
+>>>>>>
+>>>>>>> So you mean I should remove "#ifdef CONFIG_X86"? Just let __aligned(16) for all platforms?
+>>>>>>
+>>>>>> Yes. And, as also said, with a suitable comment please.
+>>>>> Ah, my comment definitely needs your change suggestion.
+>>>>> I wrote a draft as below:
+>>>>>
+>>>>> /*
+>>>>>  * Size of vpci_capability is lager than 8 bytes. When it is used as the entry
+>>>>>  * of __start_vpci_array in section, it is 16-byte aligned by assembler, that
+>>>>>  * causes the array length (__end_vpci_array - __start_vpci_array) wrong, so
+>>>>>  * force its definition to use 16-byte aligned here.
+>>>>>  */
+>>>>> struct vpci_capability {
+>>>>>     unsigned int id;
+>>>>>     bool is_ext;
+>>>>>     int (* init)(const struct pci_dev *pdev);
+>>>>>     int (* cleanup)(const struct pci_dev *pdev);
+>>>>> } __attribute__((aligned(16)));
+>>>>
+>>>> ... open-code that here?
+>>> That because when using __aligned() without CONFIG_X86, I got compile error
+>>> vpci.h:18:13: error: expected declaration specifiers or ‘...’ before numeric constant
+>>>    18 | } __aligned(16);
+>>>       |             ^~
+>>> I tried some methods, only open-code can fix it.
+>>
+>> Well, that's odd. In e.g. xen/sched.h we have
+>>
+>> struct domain
+>> {
+>>     ...
+>> } __aligned(PAGE_SIZE);
+>>
+>> which clearly must be working fine. The error message from the compiler
+>> doesn't say very much alone. For informational diagnostics the compiler
+>> normally also emits may help, or else it would take looking at the
+>> pre-processed output to understand what's going on here.
+> 
+> I add some codes to print the macro __align, the codes are:
+> 
+> diff --git a/xen/include/xen/vpci.h b/xen/include/xen/vpci.h
+> index 51573baabc..8f6af1c822 100644
+> --- a/xen/include/xen/vpci.h
+> +++ b/xen/include/xen/vpci.h
+> @@ -13,12 +13,16 @@ typedef uint32_t vpci_read_t(const struct pci_dev *pdev, unsigned int reg,
+>  typedef void vpci_write_t(const struct pci_dev *pdev, unsigned int reg,
+>                            uint32_t val, void *data);
+> 
+> +#define STRINGIFY(x) #x
+> +#define TOSTRING(x) STRINGIFY(x)
+> +#pragma message("__aligned(16) expands to: " TOSTRING(__aligned(16)))
+> +
+>  struct vpci_capability {
+>      unsigned int id;
+>      bool is_ext;
+>      int (* init)(const struct pci_dev *pdev);
+>      int (* cleanup)(const struct pci_dev *pdev);
+> } __aligned(16);
+> 
+> The result are:
+> 
+> In file included from ./include/xen/sched.h:25,
+>                  from arch/x86/x86_64/asm-offsets.c:11:
+> ./include/xen/vpci.h:18:9: note: ‘#pragma message: __aligned(16) expands to: __attribute__((__aligned__(16)))’
+>    18 | #pragma message("__aligned(16) expands to: " TOSTRING(__aligned(16)))
+>       |         ^~~~~~~
+> In file included from ./include/xen/sched.h:25,
+>                  from drivers/vpci/vpci.c:20:
+> ./include/xen/vpci.h:18:9: note: ‘#pragma message: __aligned(16) expands to: __attribute__((__aligned__(16)))’
+>    18 | #pragma message("__aligned(16) expands to: " TOSTRING(__aligned(16)))
+>       |         ^~~~~~~
+> In file included from emul.h:88,
+>                  from vpci.c:18:
+> vpci.h:15:9: note: ‘#pragma message: __aligned(16) expands to: __aligned(16)’
+>    15 | #pragma message("__aligned(16) expands to: " TOSTRING(__aligned(16)))
+>       |         ^~~~~~~
+> vpci.h:22:13: error: expected declaration specifiers or ‘...’ before numeric constant
+>    22 | } __aligned(16);
+>       |             ^~
+> In file included from emul.h:88,
+>                  from main.c:19:
+> vpci.h:15:9: note: ‘#pragma message: __aligned(16) expands to: __aligned(16)’
+>    15 | #pragma message("__aligned(16) expands to: " TOSTRING(__aligned(16)))
+>       |         ^~~~~~~
+> vpci.h:22:13: error: expected declaration specifiers or ‘...’ before numeric constant
+>    22 | } __aligned(16);
+>       |             ^~
+> make[6]: *** [Makefile:18: test_vpci] Error 1
+> make[5]: *** [/home/cjq/code/upstream/xen/tools/tests/../../tools/Rules.mk:194: subdir-install-vpci] Error 2
+> make[4]: *** [/home/cjq/code/upstream/xen/tools/tests/../../tools/Rules.mk:189: subdirs-install] Error 2
+> make[3]: *** [/home/cjq/code/upstream/xen/tools/../tools/Rules.mk:194: subdir-install-tests] Error 2
+> make[2]: *** [/home/cjq/code/upstream/xen/tools/../tools/Rules.mk:189: subdirs-install] Error 2
+> make[1]: *** [Makefile:64: install] Error 2
+> make: *** [Makefile:147: install-tools] Error 2
+> make: *** Waiting for unfinished jobs....
 
-On 27/06/2025 09:43, Michal Orzel wrote:
-> It has never been used since the introduction and is technically a dead
-> code violating MISRA C.
->
-> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+Well, it would have helped a lot if you had said from the very beginning that it's
+the test harness where you observe the build issue. These test harnesses are always
+a little special, due to their intention to re-use the core source file(s). (And
+no, pulling in compiler.h likely wouldn't be the right workaround.)
 
-Reviewed-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-
-- Ayan
+Jan
 
