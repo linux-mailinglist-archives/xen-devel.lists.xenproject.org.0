@@ -2,38 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 968A8AEBA6F
-	for <lists+xen-devel@lfdr.de>; Fri, 27 Jun 2025 16:52:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1027709.1402235 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C54AEAEBB80
+	for <lists+xen-devel@lfdr.de>; Fri, 27 Jun 2025 17:18:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1027744.1402260 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uVAQl-0002v8-D3; Fri, 27 Jun 2025 14:51:55 +0000
+	id 1uVAqP-00060b-Ia; Fri, 27 Jun 2025 15:18:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1027709.1402235; Fri, 27 Jun 2025 14:51:55 +0000
+Received: by outflank-mailman (output) from mailman id 1027744.1402260; Fri, 27 Jun 2025 15:18:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uVAQl-0002sq-A9; Fri, 27 Jun 2025 14:51:55 +0000
-Received: by outflank-mailman (input) for mailman id 1027709;
- Fri, 27 Jun 2025 14:51:53 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=3f0b=ZK=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1uVAQj-0002sk-M7
- for xen-devel@lists.xenproject.org; Fri, 27 Jun 2025 14:51:53 +0000
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [2a00:1450:4864:20::32c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 40717f9e-5366-11f0-b894-0df219b8e170;
- Fri, 27 Jun 2025 16:51:48 +0200 (CEST)
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-4538bc1cffdso16408685e9.0
- for <xen-devel@lists.xenproject.org>; Fri, 27 Jun 2025 07:51:48 -0700 (PDT)
-Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
- by smtp.gmail.com with UTF8SMTPSA id
- 5b1f17b1804b1-4538234b1b9sm81590595e9.11.2025.06.27.07.51.47
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 27 Jun 2025 07:51:47 -0700 (PDT)
+	id 1uVAqP-0005y5-G4; Fri, 27 Jun 2025 15:18:25 +0000
+Received: by outflank-mailman (input) for mailman id 1027744;
+ Fri, 27 Jun 2025 15:18:24 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <anthony@xenproject.org>) id 1uVAqO-0005xx-2J
+ for xen-devel@lists.xenproject.org; Fri, 27 Jun 2025 15:18:24 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.96)
+ (envelope-from <anthony@xenproject.org>) id 1uVAqN-005LM2-0x;
+ Fri, 27 Jun 2025 15:18:23 +0000
+Received: from amontsouris-682-1-55-1.w90-87.abo.wanadoo.fr ([90.87.218.1]
+ helo=l14) by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
+ (envelope-from <anthony@xenproject.org>) id 1uVAqM-00DMPi-34;
+ Fri, 27 Jun 2025 15:18:23 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,105 +39,132 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 40717f9e-5366-11f0-b894-0df219b8e170
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1751035908; x=1751640708; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=b+HfHUW1r/ios0M40imSCWazaGCOjQBYU3uC2JYY7LY=;
-        b=VyC+gGciro+FgJBsKpKbGdOqfT76oPa9Z1VbBuRv3dFm1gcS+b9XOSkm50zZBUWKww
-         7ZzHKB8nZjiJh0DEAWAp0zyHy4ca4cmq9NYyAUcMYTWJj9a2up/IDsjF2GLOzIOKFFzb
-         SJNlg8Np4tzwiW2yZxXc3NzNQ05E2sER6IXqE=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1751035908; x=1751640708;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=b+HfHUW1r/ios0M40imSCWazaGCOjQBYU3uC2JYY7LY=;
-        b=KDy7Kv5ZUubdVh7W0QnjWwqgrMgaK+ZLDYnC7S0FF+z1PiSonHsAyaZxMpr7zEX33F
-         /5bYCBGpwAJxfdpxe0pYYWdjf6e5XJNspn9AWRca9E5oeo1nml+hocMfQ4eW+fK2J6e8
-         tBpZBO3fKiwzFMc9LYt14Jd59u+i1+ENb4eYj4u3L8QSIYVro6XqT2N83P35esLD6xcO
-         7WjfQ565M0I/n6DjF+7PH5kzZEDHtDJlUUeFIHD/wTzzEC5EuoAxC5Nl/xvM39s8KioM
-         00YOSr2RtEexSw1AjaAe5dM75wjoSUsvOTbx9PcEqwrR+AuReuQ8/IEuGdC7tqek6V4b
-         +S1Q==
-X-Forwarded-Encrypted: i=1; AJvYcCVf6n1nsLlzZGYUaKpIMTuT5Iu/YwceUds0RovEgn6nioVjxS0fMkIJF8bUYbMWNKbgJ0sCIlBqdDc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxYGjLJ67aNy5q89S2SFCMLQsu4ivR8yZZU0CxqTaKhCn5MvClX
-	x/9x+t0uCQC+jy/eG1apaoWLcs0TTitH2OpNzUMCnomJ2S/23yP+qwZLF9ZugevZXZg=
-X-Gm-Gg: ASbGncsl6evz6GYxZN3EhnO8OzW3YtN7Skn7stQn+8l6lkA+JOZGaZsjrWiMHGurx9t
-	cFIud8oaiovAR2PF6qHrjJr6Am6ZN06g/eulNYmQz9LxzRzwuFccazklq9HPt3VGAiJZm37uzLS
-	hYqrfSwlNIn8uI8nsp67Z9zDV/bZMhNZ3RpW9GhPp5rq6yzeFoJYJDBgKWcZrLoEHVKdTvnmuSP
-	XN/vAhSSptAuHerd9DrIyY9Lnh01SYMTqXeCJKuQqpQA29LqsBb8QPfW2UF6FBbBP+PBPN27uyk
-	y8S6+bFo+7S5tWE3vSHGe790POS4kjl+hM2BPzrG9K3AlfUCjDpQy18hDMPCeVrBOFz1ufUk42l
-	DGMJZO0dxW0mpwdU0q9hMILeMK4CDRfEO/a2pR7+I
-X-Google-Smtp-Source: AGHT+IFDzaFfjDNEL88bQEqhIsL906og3ODCt0CCldX4/wiuBbREDwSwFWegQtVn9HcPvSuB067veg==
-X-Received: by 2002:a05:600c:3e8e:b0:442:e9ec:4654 with SMTP id 5b1f17b1804b1-4538ee5ce0cmr38178955e9.8.1751035907632;
-        Fri, 27 Jun 2025 07:51:47 -0700 (PDT)
-Date: Fri, 27 Jun 2025 16:51:46 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Community Manager <community.manager@xenproject.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v2 8/8] pdx: introduce a new compression algorithm based
- on region offsets
-Message-ID: <aF6wAh2VaMc9mYV-@macbook.local>
-References: <20250620111130.29057-1-roger.pau@citrix.com>
- <20250620111130.29057-9-roger.pau@citrix.com>
- <e0339b2b-86cd-45ad-9b6f-a5e8ddbc623c@suse.com>
- <aFwish8zET1W6-CC@macbook.local>
- <475fb02b-0b00-4aab-b73c-9604fe050074@suse.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date;
+	bh=XAIVYsToANYHv+QClJmtZ2ptOEbCFh6lWZcNRa3kXP8=; b=VVrY5tjottgWDDwLj5w4dt/8wy
+	QZXSWrQgwntm3EayaJBgFXKwX/v7huB8J77y/rVgU3k/1K592xdThLl7Ip9IeUgCeF046GfgXBbrE
+	/aY/6odeeE0FW0XfwlgHtbOkW1r8o27wvKXBA+arv7+ohMBnLjEm9pjj4bFyMsfh2nSU=;
+Date: Fri, 27 Jun 2025 17:18:20 +0200
+From: Anthony PERARD <anthony@xenproject.org>
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>
+Cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org,
+	michal.orzel@amd.com, xenia.ragiadakou@amd.com,
+	ayan.kumar.halder@amd.com, consulting@bugseng.com,
+	Doug Goldstein <cardoe@cardoe.com>,
+	Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
+Subject: Re: [XEN PATCH] automation/eclair: Make report browsing URL
+ configurable.
+Message-ID: <aF62POQJZViSYexn@l14>
+References: <2c0003504925e6f62b0bb1a13711c206e40f9393.1750919773.git.nicola.vetrini@bugseng.com>
+ <aF0cGgut4-CZka3J@l14>
+ <194c24271abdadf062cab1b0f80a6fdc@bugseng.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <475fb02b-0b00-4aab-b73c-9604fe050074@suse.com>
+In-Reply-To: <194c24271abdadf062cab1b0f80a6fdc@bugseng.com>
 
-On Thu, Jun 26, 2025 at 09:35:04AM +0200, Jan Beulich wrote:
-> On 25.06.2025 18:24, Roger Pau Monné wrote:
-> > On Tue, Jun 24, 2025 at 06:16:15PM +0200, Jan Beulich wrote:
-> >> On 20.06.2025 13:11, Roger Pau Monne wrote:
-> >>> +bool pdx_is_region_compressible(paddr_t base, unsigned long npages)
-> >>> +{
-> >>> +    unsigned long pfn = PFN_DOWN(base);
-> >>> +
-> >>> +    return pdx_to_pfn(pfn_to_pdx(pfn) + npages - 1) == (pfn + npages - 1);
-> >>
-> >> Aiui for this to be correct, there need to be gaps between the ranges
-> >> covered by individual lookup table slots. In the setup logic you have a
-> >> check commented "Avoid compression if there's no gain", but that doesn't
-> >> look to guarantee gaps everywhere (nor would pfn_offset_sanitize_ranges()
-> >> appear to)?
+On Fri, Jun 27, 2025 at 10:39:21AM +0200, Nicola Vetrini wrote:
+> On 2025-06-26 12:08, Anthony PERARD wrote:
+> > On Thu, Jun 26, 2025 at 08:38:18AM +0200, Nicola Vetrini wrote:
+> > > +eclairReportHost="${MACHINE_HOST:-saas.eclairit.com}"
+> > > +eclairReportPort="${MACHINE_PORT:-3787}"
+> > > +eclairReportUrlPrefix="https://${eclairReportHost}:${eclairReportPort}"
 > > 
-> > But if there are no gaps, the full region is covered correctly, and
-> > hence it's compressible?
+> > Please, don't make the port number mandatory. Can you merge both host
+> > and port in the same variable? This part seems to be called "authority":
+> > 
+> >     https://en.wikipedia.org/wiki/URL#Syntax
+> > 
+> > Also, don't use `MACHINE` as prefix/namespace for these new variables,
+> > in a pipeline context, "machine" could be many things. Maybe
+> > "ECLAIR_REPORT_HOST" for this one? With the default been:
+> > 
+> >     ECLAIR_REPORT_HOST=saas.eclairit.com:3787
+> > 
 > 
-> If there's a guarantee that such ranges would be folded into a single one,
-> all would be fine.
+> I can merge host and port and change the variable prefix, but I think there
+> is a misunderstanding. This address is used both as the base for report
+> browsing and pushing the results.
+
+Well, the patch is all about "report browsing URL" as stated in the
+subject.
+
+> While we should alter the latter (e.g.,
+> ECLAIR_REPORT_PROXY_HOST) to point to the proxy so that the proxy is shown
+
+"proxy"? That's implementation detail, there's no need to know that the
+host used to browse the result is different than the host where the
+result are stored. (I mean having "proxy" in the name of the variable
+holding detail of how to access the reports, been a part of an url or
+just the host)
+
+> in the CI logs, the address where the results are pushed is fixed and set in
+> the docker runner env. This is not ideal, but I didn't find a better way
+> with GitLab CI to let the analysis push locally.
+
+Having the configuration for where to push the result in the runner env
+seems like the best option to me, if that report server is tied to the
+eclair runner.
+
+> > > diff --git a/automation/scripts/eclair b/automation/scripts/eclair
+> > > index 0a2353c20a92..7020eaa0982f 100755
+> > > --- a/automation/scripts/eclair
+> > > +++ b/automation/scripts/eclair
+> > > @@ -1,4 +1,15 @@
+> > > -#!/bin/sh -eu
+> > > +#!/bin/sh -eux
+> > > +
+> > > +# Runner-specific variables
+> > > +ex=0
+> > > +export "$(env | grep MACHINE_ARTIFACTS_ROOT)" || ex=$?
+> > > +[ "${ex}" = 0 ] || exit "${ex}"
+> > 
+> > That's a really complicated way to check a variable is set...
+> > Exporting a variable that's already in env isn't useful, and I think
+> > `ex` is only ever set to `0`. It seems that `dash` just exit if you do
+> > `export=""`.
+> > 
+> > You could simply do:
+> > 
+> >     : ${MACHINE_ARTIFACTS_ROOT:?Missing MACHINE_ARTIFACTS_ROOT variable}
+> >     : ${MACHINE_ECDF_DIR:?Missing MACHINE_ECDF_DIR variable}
+> > 
+> > To check that the variables are set. Or nothing, if you add `set -u` to
+> > the script (instead of the one -u in the sheband which might be ignored
+> > if one run `sh ./eclair` instead of just `./eclair`.) Also the variable
+> > should come from the env, as nothing sets it, so no need to for that.
+> > 
+> > ( The `:` at the begining of the line is necessary, and behave the same
+> > way as `true` does. We need it because ${parm:?msg} is expanded.)
+> > 
+> > Or you could use `if [ -z "${param}" ]` if ${param:?msg} is too obscure.
+> > We would just have "parameter not set" instead of a nicer message, due
+> > to `set -u`.
+> > 
 > 
-> > Maybe I'm missing something, could you maybe provide an example that
-> > would exhibit this issue?
-> 
-> My understanding is that when there's no gap between regions, and when
-> [base, base + npages) crosses as region boundary, then the expression
-> above will yield true when, because of crossing a region boundary, it
-> ought to be false. Or did I simply misunderstand the purpose of the
-> pdx_is_region_compressible() invocations?
+> I agree it is ugly and counterintuitive, but the core idea here is that the
+> variable is set but not exported for some reason, so just `export VAR` does
+> not behave in the same way as the incantation `export "$(env | grep
+> MACHINE_ARTIFACTS_ROOT)"` iirc. I'll double check if there's a better way to
+> achieve this (other than switching to bash in the shebang).
 
-If there's no gap between the regions it's IMO intended for
-pdx_is_region_compressible() to return true, as the whole region is
-continuous in both the PFN and PDX spaces, and hence compressible
-(even if it spans multiple regions).
+Isn't that script `./eclair` the beginning of the script? I can't find
+anything that `source` this file so it must be. Which mean, if
+MACHINE_ARTIFACTS_ROOT is set, it is exported, because nothing sets it
+between the beginning of the script and this line. So there's no need to
+check that the variable is exported (if it is not exported, it is a bug
+in the shell).
 
-But maybe I'm not understanding your point correctly, could you maybe
-provide an example if you disagree with my reply above?  Sorry if I'm
-being dull, with this compression stuff it's sometimes hard for me to
-visualize the case you are trying to make without a concrete
-example.
+The only thing left to do is to check that it is set and non-zero
+length. But I still wonder why you do that here, since "action.settings"
+also check the variable and use a default value.
 
-Thanks, Roger.
+There's no need to use bash for this. (They are plenty of reason to use
+bash instead of posix shell, but that is just not one of them.)
+
+Cheers,
+
+-- 
+Anthony PERARD
 
