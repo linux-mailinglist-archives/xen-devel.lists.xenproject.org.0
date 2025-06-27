@@ -2,32 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C53F4AEB7DB
-	for <lists+xen-devel@lfdr.de>; Fri, 27 Jun 2025 14:37:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1027619.1402195 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DDD36AEB880
+	for <lists+xen-devel@lfdr.de>; Fri, 27 Jun 2025 15:08:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1027626.1402204 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uV8Ky-00021r-Ec; Fri, 27 Jun 2025 12:37:48 +0000
+	id 1uV8oR-0005vJ-N9; Fri, 27 Jun 2025 13:08:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1027619.1402195; Fri, 27 Jun 2025 12:37:48 +0000
+Received: by outflank-mailman (output) from mailman id 1027626.1402204; Fri, 27 Jun 2025 13:08:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uV8Ky-0001zm-Bu; Fri, 27 Jun 2025 12:37:48 +0000
-Received: by outflank-mailman (input) for mailman id 1027619;
- Fri, 27 Jun 2025 12:37:46 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <anthony@xenproject.org>) id 1uV8Kw-0001zg-IT
- for xen-devel@lists.xenproject.org; Fri, 27 Jun 2025 12:37:46 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <anthony@xenproject.org>) id 1uV8Kw-005IEC-0v;
- Fri, 27 Jun 2025 12:37:46 +0000
-Received: from amontsouris-682-1-55-1.w90-87.abo.wanadoo.fr ([90.87.218.1]
- helo=l14) by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <anthony@xenproject.org>) id 1uV8Kv-00CYTE-2u;
- Fri, 27 Jun 2025 12:37:46 +0000
+	id 1uV8oR-0005tL-Jf; Fri, 27 Jun 2025 13:08:15 +0000
+Received: by outflank-mailman (input) for mailman id 1027626;
+ Fri, 27 Jun 2025 13:08:14 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Hlj0=ZK=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
+ id 1uV8oQ-0005tF-Lb
+ for xen-devel@lists.xenproject.org; Fri, 27 Jun 2025 13:08:14 +0000
+Received: from mail-oa1-x36.google.com (mail-oa1-x36.google.com
+ [2001:4860:4864:20::36])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c7e97717-5357-11f0-a30f-13f23c93f187;
+ Fri, 27 Jun 2025 15:08:14 +0200 (CEST)
+Received: by mail-oa1-x36.google.com with SMTP id
+ 586e51a60fabf-2ea35edc691so533261fac.2
+ for <xen-devel@lists.xenproject.org>; Fri, 27 Jun 2025 06:08:13 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,253 +40,115 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=In-Reply-To:Content-Transfer-Encoding:
-	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date;
-	bh=TASf9clBATY2H74jz8xYrKCe944e20UVSOkhfpa+7pA=; b=UNWI6OnNZk4QzsoAwxH3w4r7EK
-	yG1XXXwoBUKUAnOyv7LVQGJu/NP7IBwJHv/Bx5yRQ8sJmverPNWE8ml9UGCi7JBmaMezjI/5NB0O+
-	C59/XRjsHzPBDrXg1Mf47APdav8nVdD5PQtAbOfBDgMzLpXSOSS8Dd3aGSiJtgeJtyxA=;
-Date: Fri, 27 Jun 2025 14:37:44 +0200
-From: Anthony PERARD <anthony@xenproject.org>
-To: Mykola Kvach <xakep.amatop@gmail.com>
-Cc: xen-devel@lists.xenproject.org, Mykola Kvach <mykola_kvach@epam.com>
-Subject: Re: [PATCH] systemd: Add hooks to stop/start xen-watchdog on
- suspend/resume
-Message-ID: <aF6QmO7eepnpLWBD@l14>
-References: <20250626081246.1923956-1-xakep.amatop@gmail.com>
+X-Inumbo-ID: c7e97717-5357-11f0-a30f-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1751029692; x=1751634492; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=yeNb4NNp7U68SZvu2wdZ7aXGx7gqQBH0jROY08RE26Q=;
+        b=kXWvUeH0B3LGz6SO2KgxxkcRT18Cslhg9+x22N+wT7A1Fjqhn4oZVJ7/xa4+80xjWR
+         aV22Cj6rFk02qXoxexOSWBCOnCGLEZewg6p3pTGsTXRvqIc9vly0T0q1vbqC6XoCLaQa
+         vPtNStfo0085fSQYWC8DMnpwoc4d/X1SsdqGM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1751029692; x=1751634492;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=yeNb4NNp7U68SZvu2wdZ7aXGx7gqQBH0jROY08RE26Q=;
+        b=o1UISrYDP2JdJx+NmrEyQE5Wcbza+MPaMGRFuPynSMMMopeRXReVeyrNa9bJJ3pLzA
+         9qXJhgQuDj0VtYZ5MHKBrUAO04fo1he1sAaeWtLNwzsj0R6Bo3KxiFR8TuWuAWS0pH5e
+         xVeWqoJgg+k2vK0jHgctAUSCSlxGb/MX6KDQ8uazlyj+l+RGNRe0Z9HFDkCrQLCgJ3DE
+         IgfNhL9wsXCSzcTvuWj/bc4M8zn8e3yAJoMFKkDVwc4r7R8W5ZJcuE4D3buePwp6PqcW
+         Z1K/txro57fxbHQKBjiFPvSlMXKdurRltNzQvXtk6RSDwRh+72dniDJNWPKtnPKihrBy
+         1t4A==
+X-Gm-Message-State: AOJu0YxbDzKoQ6GHyK1FYSOf5A3euo1iQXRInuAkKOUSp6vtbUXAu194
+	9OYfhBstTm5dqS508f3+ByR4Gv7Ghcz7UG1qui7oEfdBp4aQxjFridWUA3IqD5DIVhLR1WVzXrW
+	DsLgIntEgldLBSZar+DMId4i9sSBUd4DVnFKEiosD8D3wJNWCuex0iXM=
+X-Gm-Gg: ASbGnct+gXe6SgRO3CoVkUNtCyJXV7hKD7/+ZnXeycnskZ7WK6GxGQ/ejvzw/5tJOdn
+	TrgoHbCXtur9ZvED0IOYCTEMITi7zjAPp3KFNDBhDDtLC05Xo1CP4xJdlNfXKn54tri4nZ4Y8tk
+	utsLRxSl1wwcoh2fEPnJiB5ISuAPqnzYJo2WdvkAei
+X-Google-Smtp-Source: AGHT+IFyfEbDVimxbMJ4IJxpSYDSHZM66k37L9yazfgAzU5ak0wZJ+ytUC6UcJq5NgcGqEGv9B1F+VL1sKWsfuzDigI=
+X-Received: by 2002:a05:6870:3118:b0:2d5:2955:aa6c with SMTP id
+ 586e51a60fabf-2efed72bbd1mr1822721fac.31.1751029692199; Fri, 27 Jun 2025
+ 06:08:12 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20250626081246.1923956-1-xakep.amatop@gmail.com>
+References: <20250605111638.2869914-1-andrew.cooper3@citrix.com> <20250605111638.2869914-2-andrew.cooper3@citrix.com>
+In-Reply-To: <20250605111638.2869914-2-andrew.cooper3@citrix.com>
+From: Frediano Ziglio <frediano.ziglio@cloud.com>
+Date: Fri, 27 Jun 2025 14:08:00 +0100
+X-Gm-Features: Ac12FXzr5y8X9sPKzzW7vKXQc_OdEvf8EB6BkHunW3nzLZG31PiC_Z6bBBQa2Uk
+Message-ID: <CACHz=Zhkt-a+vTPg+HJhSU=qvir94hiZOKjoBoZofeGpac+sGQ@mail.gmail.com>
+Subject: Re: [PATCH 1/3] x86/EFI: Fix detection of buildid
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, 
+	Ross Lagerwall <ross.lagerwall@citrix.com>, Jan Beulich <JBeulich@suse.com>, 
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	=?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>, 
+	"Daniel P . Smith" <dpsmith@apertussolutions.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Mykola,
-
-First, since you used a different email account to send you patch, the
-email should start with "From: Mykola ... <...@epam.com>" so that
-`git am` can set the correct author for the commit. Often
-`git send-email` managed to do that automatically, if it knows that the
-author of the email is going to be different than the author of the
-commit been sent.
-
-On Thu, Jun 26, 2025 at 11:12:46AM +0300, Mykola Kvach wrote:
-> This patch adds a systemd sleep hook script to stop the xen-watchdog
-> service before system suspend and start it again after resume.
-> 
-> Stopping the watchdog before a system suspend operation may look unsafe.
-> Let’s imagine the following situation: 'systemctl suspend' does not
-> interact with the running service at all. In such a case, the Xen
-> watchdog daemon freezes just before suspend. If this happens, for
-> example, right before sending a ping, and Xen has not yet marked the
-> domain as suspended (is_shutting_down), the Xen watchdog timer may
-> trigger a false alert.
-> 
-> This is an almost impossible situation, because typically:
->     ping time = watchdog timeout / 2
-> 
-> and the watchdog timeout is usually set to a relatively large value
-> (dozens of seconds).
-> 
-> Still, this is more likely with very short watchdog timeouts. It may
-> happen in the following scenarios:
->     * Significant delays occur between freezing Linux tasks and
->       triggering the ACPI or PSCI sleep request or handler.
->     * Long delays happen inside Xen between the entrance to the sleep
->       trigger and the actual forwarding of the sleep request further.
-> 
-> A similar situation may occur on resume with short timeouts. During the
-> resume operation, Xen restores timers and the domain context. The Xen
-> watchdog timer also resumes. If it schedules the domain right before the
-> watchdog timeout expires, and the daemon responsible for pinging is not
-> yet running, a timeout might occur.
-
-On resume from suspend, does Xen expect a ping from the guest? Or is the
-watchdog only rearmed on the first ping from the guest after been
-resumed?
-
-> Both scenarios are rare and typically require very small watchdog
-> timeouts combined with significant delays in Xen or the Linux kernel
-> during suspend/resume flows.
-> 
-> Conceptually, however, if activating and pinging the Xen watchdog is the
-> responsibility of the domain and its services, then the domain should
-> also manage the watchdog service/daemon lifecycle. This is similar to
-> what is already done by the Xen watchdog driver inside the Linux kernel.
-
-So there's already watchdog driver in Linux, why not activate it with
-systemd, since it knows how to do it? I almost want to to remove the
-service file and redirect users to use systemd's watchdog instead, in
-the documentation.
-
-> Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
+On Thu, Jun 5, 2025 at 12:17=E2=80=AFPM Andrew Cooper <andrew.cooper3@citri=
+x.com> wrote:
+>
+> The format of the buildid is a property of the binary, not a property of =
+how
+> it was loaded.  This fixes buildid recognition when starting xen.efi from=
+ it's
+> MB2 entrypoint.
+>
+> Suggested-by: Ross Lagerwall <ross.lagerwall@citrix.com>
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 > ---
->  tools/hotplug/Linux/systemd/Makefile          | 12 ++++-
->  .../Linux/systemd/xen-watchdog-sleep.sh       | 45 +++++++++++++++++++
->  2 files changed, 56 insertions(+), 1 deletion(-)
->  create mode 100644 tools/hotplug/Linux/systemd/xen-watchdog-sleep.sh
-> 
-> diff --git a/tools/hotplug/Linux/systemd/Makefile b/tools/hotplug/Linux/systemd/Makefile
-> index e29889156d..98d325cc5d 100644
-> --- a/tools/hotplug/Linux/systemd/Makefile
-> +++ b/tools/hotplug/Linux/systemd/Makefile
-> @@ -5,6 +5,9 @@ XEN_SYSTEMD_MODULES := xen.conf
->  
->  XEN_SYSTEMD_MOUNT := proc-xen.mount
->  
-> +XEN_SYSTEMD_SLEEP_SCRIPTS := xen-watchdog-sleep.sh
-> +XEN_SYSTEMD_SLEEP_DIR := $(XEN_SYSTEMD_DIR)/../system-sleep
+> CC: Jan Beulich <JBeulich@suse.com>
+> CC: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
+> CC: Ross Lagerwall <ross.lagerwall@citrix.com>
+> CC: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.com>
+> CC: Daniel P. Smith <dpsmith@apertussolutions.com>
+>
+> I don't like this patch and tried hard to do it in a better way, but the =
+EFI
+> aspects of the build system are too intractable.
+>
+> While on x86 I can in principle pull the same common-stubs.o trick, split=
+ on
+> XEN_BUILD_PE rather than XEN_BUILD_EFI, that doesn't work on ARM which
+> hand-codes it's PE-ness.  Also, it's really not EFI related, other than a=
+s a
+> consequence of that being the only reason we use PE32+ binaries.
+>
+> Binutils 2.25 is now the minimum, and the makefiles can be cleaned up
+> somewhat, but I need to backport this patch, internally at least.
+> ---
+>  xen/common/version.c | 7 +++++--
+>  1 file changed, 5 insertions(+), 2 deletions(-)
+>
+> diff --git a/xen/common/version.c b/xen/common/version.c
+> index 5474b8e385be..56b51c81d2fc 100644
+> --- a/xen/common/version.c
+> +++ b/xen/common/version.c
+> @@ -203,8 +203,11 @@ void __init xen_build_init(void)
+>      rc =3D xen_build_id_check(n, sz, &build_id_p, &build_id_len);
+>
+>  #ifdef CONFIG_X86
+> -    /* Alternatively we may have a CodeView record from an EFI build. */
+> -    if ( rc && efi_enabled(EFI_LOADER) )
+> +    /*
+> +     * xen.efi built with a new enough toolchain will have a CodeView re=
+cord,
+> +     * not an ELF note.
+> +     */
+> +    if ( rc )
+>      {
+>          const struct pe_external_debug_directory *dir =3D (const void *)=
+n;
+>
 
-This is the wrong directory, I have no idea what "$(XEN_SYSTEMD_DIR)/.."
-could be, even if it's likely to be systemd's directory.
-$(XEN_SYSTEMD_DIR) should only be used for system unit files, because
-that's how it is defined.
+Reviewed-by: Frediano Ziglio <frediano.ziglio@cloud.com>
 
-Another comment, from `man 8 systemd-suspend.service`:
+I cannot see a better proposal in the discussion, but I prefer this
+fixed than keep it broken.
 
-    Note that scripts or binaries dropped in /lib/systemd/system-sleep/ are
-    intended for local use only and should be considered hacks. If
-    applications want to react to system suspend/hibernation and resume,
-    they should rather use the Inhibitor interface[1].
-
-    [1] https://www.freedesktop.org/wiki/Software/systemd/inhibit
-
-So is a script in system-sleep the right way?
-We probably don't want to go the "inhibitor" way that the manual
-suggest, as this would add many dependencies to the daemon (and it's
-probably not needed).
-
-How about enhancing xen-watchdog.service to deal with suspend?
-It's possible to have "Conflicts=sleep.target" which mean stop this unit
-when doing suspend. But restarting the unit on resume seems to need a
-second service file which might be a bit more complicated to write,
-something like:
-    [Unit]
-    After=sleep.target
-    [Service]
-    ExecStart=systemctl restart xen-watchdogd
-    [Install]
-    WantedBy=suspend.target
-    WantedBy=hibernate.target
-    WantedBy=hybrid-sleep.target
-    WantedBy=suspend-then-hibernate.target
-    ...
-Actually, I'm not sure After=sleep.target is going to work... we should
-be able to use systemd's watchdog capability instead :-) (which seems to
-mean that a driver in Linux for xen's watchdog is needed); Never mind,
-I've re-read the patch description and commented there.
-
-Anyway, don't use XEN_SYSTEMD_DIR and introduce a new variable
-in "systemd.m4".
-
-> +
->  XEN_SYSTEMD_SERVICE := xenstored.service
->  XEN_SYSTEMD_SERVICE += xenconsoled.service
->  XEN_SYSTEMD_SERVICE += xen-qemu-dom0-disk-backend.service
-> @@ -15,7 +18,8 @@ XEN_SYSTEMD_SERVICE += xendriverdomain.service
->  
->  ALL_XEN_SYSTEMD :=	$(XEN_SYSTEMD_MODULES)  \
->  			$(XEN_SYSTEMD_MOUNT)	\
-> -			$(XEN_SYSTEMD_SERVICE)
-> +			$(XEN_SYSTEMD_SERVICE)	\
-> +			$(XEN_SYSTEMD_SLEEP_SCRIPTS)
->  
->  .PHONY: all
->  all:	$(ALL_XEN_SYSTEMD)
-> @@ -31,15 +35,21 @@ distclean: clean
->  install: $(ALL_XEN_SYSTEMD)
->  	$(INSTALL_DIR) $(DESTDIR)$(XEN_SYSTEMD_DIR)
->  	$(INSTALL_DIR) $(DESTDIR)$(XEN_SYSTEMD_MODULES_LOAD)
-> +	$(INSTALL_DIR) $(DESTDIR)$(XEN_SYSTEMD_SLEEP_DIR)
->  	$(INSTALL_DATA) *.service $(DESTDIR)$(XEN_SYSTEMD_DIR)
->  	$(INSTALL_DATA) *.mount $(DESTDIR)$(XEN_SYSTEMD_DIR)
->  	$(INSTALL_DATA) *.conf $(DESTDIR)$(XEN_SYSTEMD_MODULES_LOAD)
-> +	set -e; for i in $(XEN_SYSTEMD_SLEEP_SCRIPTS); \
-> +	    do \
-> +	    $(INSTALL_PROG) $$i $(DESTDIR)$(XEN_SYSTEMD_SLEEP_DIR); \
-
-I don't think you need a loop for that, `install` is perfectly capable
-of installing multiple sources.
-
-> +	done
->  
->  .PHONY: uninstall
->  uninstall:
->  	rm -f $(DESTDIR)$(XEN_SYSTEMD_MODULES_LOAD)/*.conf
->  	rm -f $(DESTDIR)$(XEN_SYSTEMD_DIR)/*.mount
->  	rm -f $(DESTDIR)$(XEN_SYSTEMD_DIR)/*.service
-> +	rm -f $(addprefix $(DESTDIR)$(XEN_SYSTEMD_SLEEP_DIR)/, $(XEN_SYSTEMD_SLEEP_SCRIPTS))
->  
->  $(XEN_SYSTEMD_MODULES):
->  	rm -f $@.tmp
-> diff --git a/tools/hotplug/Linux/systemd/xen-watchdog-sleep.sh b/tools/hotplug/Linux/systemd/xen-watchdog-sleep.sh
-> new file mode 100644
-> index 0000000000..2b2f0e16d8
-> --- /dev/null
-> +++ b/tools/hotplug/Linux/systemd/xen-watchdog-sleep.sh
-> @@ -0,0 +1,45 @@
-> +#!/bin/sh
-> +
-> +# The first argument ($1) is:
-> +#     "pre" or "post"
-> +# The second argument ($2) is:
-> +#     "suspend", "hibernate", "hybrid-sleep", or "suspend-then-hibernate"
-> +
-> +. /etc/xen/scripts/hotplugpath.sh
-> +
-> +SERVICE_NAME="xen-watchdog.service"
-> +STATE_FILE="/run/xen-watchdog-sleep-marker"
-
-This should use $XEN_RUN_DIR
-
-> +XEN_WATCHDOG_SLEEP_LOG="${XEN_LOG_DIR}/xen-watchdog-sleep.log"
-
-Is this necessary? Use only `logger`, if `echo log` doesn't log anything.
-
-> +log_watchdog() {
-> +    echo "$1"
-> +    echo "$(date): $1" >> "${XEN_WATCHDOG_SLEEP_LOG}"
-> +}
-> +
-> +# Exit silently if Xen watchdog service is not present
-> +if ! systemctl show "${SERVICE_NAME}" > /dev/null 2>&1; then
-
-Is this necessary? It seems `systemctl is-active` works fine when the
-unit doesn't exist.
-
-> +    exit 0
-> +fi
-> +
-> +case "$1" in
-> +pre)
-> +    if systemctl is-active --quiet "${SERVICE_NAME}"; then
-> +        touch "${STATE_FILE}"
-> +        log_watchdog "Stopping ${SERVICE_NAME} before $2."
-> +        systemctl stop "${SERVICE_NAME}"
-> +    fi
-> +    ;;
-> +post)
-> +    if [ -f "${STATE_FILE}" ]; then
-
-Would using `systemctl is-enabled` instead work? It seems to work for a
-service on my machine.
-
-> +        log_watchdog "Starting ${SERVICE_NAME} after $2."
-> +        systemctl start "${SERVICE_NAME}"
-> +        rm "${STATE_FILE}"
-> +    fi
-> +    ;;
-> +*)
-> +    log_watchdog "Script called with unknown action '$1'. Arguments: '$@'"
-> +    exit 1
-> +    ;;
-> +esac
-> +
-> +exit 0
-> -- 
-> 2.48.1
-
-Thanks,
-
--- 
-Anthony PERARD
+Frediano
 
