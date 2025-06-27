@@ -2,33 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE89FAEB175
-	for <lists+xen-devel@lfdr.de>; Fri, 27 Jun 2025 10:39:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1027401.1402055 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E0B60AEB186
+	for <lists+xen-devel@lfdr.de>; Fri, 27 Jun 2025 10:44:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1027411.1402065 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uV4cI-0000CV-2I; Fri, 27 Jun 2025 08:39:26 +0000
+	id 1uV4gX-0001qR-MP; Fri, 27 Jun 2025 08:43:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1027401.1402055; Fri, 27 Jun 2025 08:39:26 +0000
+Received: by outflank-mailman (output) from mailman id 1027411.1402065; Fri, 27 Jun 2025 08:43:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uV4cH-0000AS-Ud; Fri, 27 Jun 2025 08:39:25 +0000
-Received: by outflank-mailman (input) for mailman id 1027401;
- Fri, 27 Jun 2025 08:39:24 +0000
+	id 1uV4gX-0001p0-JO; Fri, 27 Jun 2025 08:43:49 +0000
+Received: by outflank-mailman (input) for mailman id 1027411;
+ Fri, 27 Jun 2025 08:43:48 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=tt0q=ZK=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1uV4cF-00009M-Op
- for xen-devel@lists.xenproject.org; Fri, 27 Jun 2025 08:39:24 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ <SRS0=tiom=ZK=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1uV4gW-0001ou-Co
+ for xen-devel@lists.xenproject.org; Fri, 27 Jun 2025 08:43:48 +0000
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2060f.outbound.protection.outlook.com
+ [2a01:111:f403:2009::60f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 38fadd11-5332-11f0-a30f-13f23c93f187;
- Fri, 27 Jun 2025 10:39:22 +0200 (CEST)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- (Authenticated sender: nicola)
- by support.bugseng.com (Postfix) with ESMTPA id 175704EE3C07;
- Fri, 27 Jun 2025 10:39:21 +0200 (CEST)
+ id d6e9f951-5332-11f0-a30f-13f23c93f187;
+ Fri, 27 Jun 2025 10:43:46 +0200 (CEST)
+Received: from SA0PR11CA0074.namprd11.prod.outlook.com (2603:10b6:806:d2::19)
+ by SN7PR12MB7131.namprd12.prod.outlook.com (2603:10b6:806:2a3::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8857.19; Fri, 27 Jun
+ 2025 08:43:40 +0000
+Received: from SA2PEPF00003AE9.namprd02.prod.outlook.com
+ (2603:10b6:806:d2:cafe::d1) by SA0PR11CA0074.outlook.office365.com
+ (2603:10b6:806:d2::19) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8880.21 via Frontend Transport; Fri,
+ 27 Jun 2025 08:43:40 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SA2PEPF00003AE9.mail.protection.outlook.com (10.167.248.9) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8880.14 via Frontend Transport; Fri, 27 Jun 2025 08:43:40 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 27 Jun
+ 2025 03:43:37 -0500
+Received: from XIR-MICHALO-L1.xilinx.com (10.180.168.240) by
+ SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39
+ via Frontend Transport; Fri, 27 Jun 2025 03:43:36 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,261 +59,139 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 38fadd11-5332-11f0-a30f-13f23c93f187
-Authentication-Results: bugseng.com; arc=none smtp.remote-ip=162.55.131.47
-ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1751013561;
-	b=TuTuTQiAKK2LL9sUUZoH9ZYakF7jB8jvyNtOIqYIYH03YfOq1uRwVmzsEnyGJWOofC07
-	 8mYhklFbj875pb7+wE9kEDL29RoaZB9Yay+h/I1d3cYBsOwP6F3IqA1QnsxYLD9iDY/cz
-	 48FP0v7bU6yFBDGEXOXC+nt1yvoKaKz2V2w8A7NqZfaTMNO8gvgYNeb0l4m0NhavDuENi
-	 ZkZQZ5YeUZ3OHKKjbGz8SCZ8UDzZb6GDFY6Y3jGb7JmmjYWps6e+hHY/IjO6NBaNMcjBl
-	 FCk25udUaJUcq/f+ZE9SLmlmSEqDQyMYydq3TML4aufw21u+zMRhyb8QVv7iuC42qu02L
-	 +zhUp1IgQ584dGbEDy1aOLutTMQpFg1nofX4d+kigMjoYrkmm2mpUoSRxRwTdYqpucEq2
-	 SEkM+OGUjrq9dSQOCY3zgCzlNK33LxRqaFfDV+nzzF53sLyB98fhVj5P8KJLlCxynICZ3
-	 VSPS1IZnpkI3rfZNLwIWw80BQJc9nWmGWDaP+MPMp+HeEat0m0wnABFgLVltCUT6lWDeD
-	 0jVdn3XUckRM+q0SWNKShVWerZqoFk8Shv2BFj51GaLWtCUCJgIhAgQs0Gh8MEGLo1els
-	 Oad/lq/HC+2y/1fwpceDP8LNtvWLtAqV+vh9nXngqkqrDU0sraQuScOBmXAfjbc=
-ARC-Message-Signature: i=1; d=bugseng.com; s=openarc; a=rsa-sha256;
-	c=relaxed/relaxed; t=1751013561;
-	h=DKIM-Signature:MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:
-	 References:Message-ID:X-Sender:Organization:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=wI/0k16mVXhg3mrG82T4Bp6Quxy12TNzePQpSccXxJY=;
-	b=HqbaE4yJ2yLzveKfNqgeHOPtOUsaFmuYnqwtFxnzFqTNwG6lfJ0QRs4K55+V2au6U/k7
-	 dTi9QaciVspxgeMBTpzTKINxwuvAdUxcVlKX1yN9u6S4DFGZc5euSBV1ai8IQYDN1jIyb
-	 xaZOZJBN6j+Yow2XTZeGIkKBi76VgRQkxRWnf2gOHWvgulwgPiCz8IGs08/xVbZQo0EUj
-	 bh6CEMkBA1DpaBs/Qz/lq9F/DP0+Cxz3KPtUMsuozd4GHPdgbVjv7aV0OqEeigyNbriqt
-	 9RQm1u+3wrJeAn2RrJ0Jm4kD3gCt2BMxsUTvOLHG64PetEf8gMhxsHIvk37hs84sbtYpU
-	 5e6uyZu2fKOTVbrzS6N6EXU0yq6RNxmVV+3umFNr5/NDpPMieEeiIEOq9DjuyFPYitejH
-	 vRf3H00eQibfMOa5yUBHRA0GDerU9V1frnbwPYjff5CaG/2PmbRXlabM+ojn/uBZTFxGL
-	 y4UVa4MGIVHO1xDbUuXll+pf79nY/vw0Bj0xwFtXw69uaVPpnbsqJrORYrduj9iM+0xCV
-	 D6+p4j1C+GaD/BYzWtmAsbhT2AlsP6sGr7u0k6Xy4xQ21phWwC8ngDsRmjayVR2V/W3xp
-	 m3zLmwQLcngL/yofzbc58/IxnUsj0IRPpTnbOz5kO41tuhPorSz4we4ihjnwVdw=
-ARC-Authentication-Results: i=1; bugseng.com; arc=none smtp.remote-ip=162.55.131.47
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
-	t=1751013561; bh=/+ZA6Es0JY2E3mj8mglZfQJ4zTTUDTFC0RoEe4l4Lrw=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=WiiC6Hb7zeo5MZrMQlWF5rAbUF5DzD1BaWQ/05s+G/JgwUoedj58P7ehMsg1oAFbB
-	 O/HpIpNwWZvKBmmQrsf9b5qnJ3bCeopaGck0KTuFvlRL0l0Rvee0E97L5s5dfBolyr
-	 2EQLHp/D/3BbrxX5FtAnyfA9KqpR0SdPnqiyP81z+EJ9Vv5wpF/GqKQhTZot5BEGBn
-	 WKJwTGhREOUAIFyyQzX7sniy8o/jnb3ALZ7J7heycZtd1at/PDvotbGVKHc1k6yK8k
-	 oFiSxZlKAs24pQZ9q3XUzaVq4j3/2MnmNQfAyDGyaYfDCDPYrJ/TS3JePQuKSy7Ft8
-	 DKRm7bCRD1ovw==
+X-Inumbo-ID: d6e9f951-5332-11f0-a30f-13f23c93f187
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=hU2b6NNXLcwKbaDHf/jdMFm/MjGzQ49yQNJ8oDILkIqee8ZwmXUUf4Fr0I5OqWX1Ma31lII8mIf7XnyLwyfIpJy5TBS+nkgl5nbFJ0yt8aKzmtBl6uiD1NHh/RPWBOsKVbje3icf8g0yBmMA9+iQXwbKrYnId4BOrvk1Yj0rbIw+C5Zjl+DmDMujQeMfN1vjWEom3tQVEvgmazWQqUB0cNCdl0eT4z1mXwtTdxuT/dd4leK1Jvazlc9hFlOB9FrfFbOuGazCsjWcVrbNuG81j2ZrZyngch+1MgnRmACtgeRthQ+FvYMxT7XrL7JcyOcnXZyHOeXDJhF4K/oRYHOaQA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=HvzwjcgI+OoKbZkotdZvDHqSs82Pxp1+1cTFe6ddl2E=;
+ b=D7SHMn6WF5bnZFlx4RzzFM7NV2ZOT7+vCIZvM723rqJ8UvVUuyd7rsqFuebWDdytO4FciSXgDrAvBiv+o4ocBHCzlbI72eXrASjm3h5P4ikqoIhZsc09B7daci9Zn5J6HiFX8eYlm2iWPBheACW6oSircYgyXfYUFIbOG2uW/hReJmY+7zSK970oSe81ojYZmmBoiU32fXGpGF8gzDoe9j96jQ6UobVVixGD2Zi5ZmgBm80XueQlqX2NKbUZFXnBAMpdCjjswdy0h5ERyF6I78zSzkxKwNAAYXKo4dwwtqevdi4tUExXRrYKpdedD6Oli4OVf+/HK79B1M/RPp15GQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=HvzwjcgI+OoKbZkotdZvDHqSs82Pxp1+1cTFe6ddl2E=;
+ b=ak+FnKhGNsJHE6Ik4yfnRXPecCAvFNG6lZf+dI+sSDpQYDoZeYneRguTgvEHuIl3WLlhTtZ+GvJHbHYfgQA/9UPX0MrpUAcLsjB39dAfw9m76n3qGgVWTR+jLY2oj7H6prG4qNdjsuVC+N+GmPKCe2Cq5qqrrqZHFefdl3Wbdp4=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+From: Michal Orzel <michal.orzel@amd.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Michal Orzel <michal.orzel@amd.com>, Stefano Stabellini
+	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
+	<bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [PATCH] xen/arm: Drop frametable_virt_end
+Date: Fri, 27 Jun 2025 10:43:34 +0200
+Message-ID: <20250627084334.45172-1-michal.orzel@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Date: Fri, 27 Jun 2025 10:39:21 +0200
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: Anthony PERARD <anthony@xenproject.org>
-Cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org,
- michal.orzel@amd.com, xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com,
- consulting@bugseng.com, Doug Goldstein <cardoe@cardoe.com>, Alessandro
- Zucchelli <alessandro.zucchelli@bugseng.com>
-Subject: Re: [XEN PATCH] automation/eclair: Make report browsing URL
- configurable.
-In-Reply-To: <aF0cGgut4-CZka3J@l14>
-References: <2c0003504925e6f62b0bb1a13711c206e40f9393.1750919773.git.nicola.vetrini@bugseng.com>
- <aF0cGgut4-CZka3J@l14>
-Message-ID: <194c24271abdadf062cab1b0f80a6fdc@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+Received-SPF: None (SATLEXMB04.amd.com: michal.orzel@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA2PEPF00003AE9:EE_|SN7PR12MB7131:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7dcd90b8-b454-4b54-d2f7-08ddb556b74c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|36860700013|82310400026;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?kO3wakRhwOojEnXAdMNdegWRAZmtIzjy2schbZrbkmXwqJfcEcIlKKTZb32y?=
+ =?us-ascii?Q?j94GwOycapLPIZDvZaybH3H0fxLN3p2ryFzNWZVYwBsabPYE/EzHuepmKkOu?=
+ =?us-ascii?Q?qWrbOUgRl6vWsp6FeQyZwArtM4MYZFu5pG+iGP6uWh4X6grWgd/WgFIYVZcF?=
+ =?us-ascii?Q?ME5r/sPh0G78B81kHRa3p4OfpDYZaaC/emGJKjoThlTl9dXF8akGfHN+qiX4?=
+ =?us-ascii?Q?I7qyu+Qb6krJrw8hA2ss/q9YBmroGoKD040tncuEaW8qEO/kBMPDI2zxsC3p?=
+ =?us-ascii?Q?9AiPuHP++HrEFgJganV5IqCRgOpzl/qAWL37BDFzPuAXxb9phzguxQDXz3yT?=
+ =?us-ascii?Q?+efaZbJoFSY9QSA9mHh3YCyQjLJfpgbBOdzjbAtL8dnzTxvflcr6z/fwf5Fe?=
+ =?us-ascii?Q?SS0/9olPQygJcG8W3BE6DaR3EG4DHQYCtqLOKgPeUac1v3M4B/nh0gWqKXup?=
+ =?us-ascii?Q?uwTael21ygD2cJsdbDpA4iGI0Uqg+3BdK7JYSYVJ+G8mnzzyeHJ5tmSo3z4d?=
+ =?us-ascii?Q?0wzcftQD4QlS5Jm8nfbcdlncyjSqS69puLFsYRbiRV4h5+10aKBQx+Qwpx52?=
+ =?us-ascii?Q?oSgN1vjucHOwXf/GiOTpVwftvWIf02YozDwcJBVy1Fr/856ygX5PrIHlH9oh?=
+ =?us-ascii?Q?wGWvA6U1lkA6px9H1+LsbxZlHzsLhCoa6b/xR6a5eTx0O+4gzXwEcWnfBpFM?=
+ =?us-ascii?Q?Dbnr9afMK6TFPNdO0c+hPjPWTARZMJY/pjqXNO6iEYewT7tAaeI9S5NAoFHy?=
+ =?us-ascii?Q?Br8c2Dn+n775Zd5iSQi7meDky0YP2YxOckIYmXOKMocwwNZmqBMTlwnrPVEL?=
+ =?us-ascii?Q?FUM1W1YUF0Kq0EStpy64G8JrMWhtncPVQU8JW9DHtaNJ8u2GGzboR+h6SHtn?=
+ =?us-ascii?Q?YELOarp5WrvzoCb7OOyyjLdgcSeyGWdJRKGpzFOmEmmbrJwTLi2KhX7EyKYy?=
+ =?us-ascii?Q?rUJPH1ddqouipUBvWA/5S7eUuSMOjqd474i358lSa6ks9lo3QwtyaKnHSj2+?=
+ =?us-ascii?Q?D02ANbASblmr3dgjZ6k9sMXEvnR2a6H/FI1QtK7JwoVRWFu0K0YgNsvgiAsb?=
+ =?us-ascii?Q?PB3YFzWwpIAidPCrrhYn7GNQxPAT/NQctzbVk8CAUHx6/gFsrlyXPesXXHL3?=
+ =?us-ascii?Q?/2lQRT+c8bInWY0tXPg94IAVXxnGhLC0fE3nPOCzzATue0VYwkVbbJxiZOZq?=
+ =?us-ascii?Q?25o+U0WZ4D68olIqUI2dkT5t3qUhpLVN9Swy+W7yv5pa81IVaoE9K3eerkN6?=
+ =?us-ascii?Q?kiN4zRul2vawaCp6qU0uf5ZZ9CEkr4iA+YcUWpb/DNA9DQ5hP5+xTyGcseAn?=
+ =?us-ascii?Q?e/Iro83T5xAQvJq4ewxb6XypFMJoU6MunbcVaIa72FfODvG8HXuFATkFxdUo?=
+ =?us-ascii?Q?CzL+Lj4QiqTNQY1biY1Kru1m+OfBj7KWcvnpm6DpZ9pm9hbVOuQ72R02Xa9H?=
+ =?us-ascii?Q?plxr8E5O+OyZPJ3CbRJSrN5u19jQbZnUD14SOBAYfRjwl12HCaQMwSwdSb6Q?=
+ =?us-ascii?Q?hszJTdmZttPl/xrAAkadhDw2ZGf04fTZ4p7P?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(36860700013)(82310400026);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jun 2025 08:43:40.2803
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7dcd90b8-b454-4b54-d2f7-08ddb556b74c
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SA2PEPF00003AE9.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7131
 
-On 2025-06-26 12:08, Anthony PERARD wrote:
-> On Thu, Jun 26, 2025 at 08:38:18AM +0200, Nicola Vetrini wrote:
->> diff --git a/automation/eclair_analysis/ECLAIR/action.settings 
->> b/automation/eclair_analysis/ECLAIR/action.settings
->> index 1577368b613b..f822f0ea66d7 100644
->> --- a/automation/eclair_analysis/ECLAIR/action.settings
->> +++ b/automation/eclair_analysis/ECLAIR/action.settings
->> @@ -14,9 +14,6 @@ autoPRRepository="${AUTO_PR_REPOSITORY:-}"
->>  # Customized
->>  autoPRBranch="${AUTO_PR_BRANCH:-}"
->> 
->> -# Customized
->> -artifactsRoot=/var/local/eclair
->> -
->>  case "${ci}" in
->>  github)
->>      # To be customized
->> @@ -166,12 +163,34 @@ esac
->> 
->>  ECLAIR_BIN_DIR=/opt/bugseng/eclair/bin/
->> 
->> -artifactsDir="${artifactsRoot}/xen-project.ecdf/${repository}/ECLAIR_${ANALYSIS_KIND}"
->> +# Artifacts URL served by the eclair_report server
->> +if [ -z "${MACHINE_ARTIFACTS_ROOT}" ];
-> 
-> You don't need a ';' if you have `then` on the next line ;-)
-> 
-Hi Anthony,
+It has never been used since the introduction and is technically a dead
+code violating MISRA C.
 
-yeah, missed that. Thanks
+Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+---
+ xen/arch/arm/include/asm/config.h | 4 ----
+ xen/arch/arm/mmu/mm.c             | 5 -----
+ 2 files changed, 9 deletions(-)
 
->> +then
->> +  echo "WARNING: No artifacts root supplied, using default"
->> +fi
->> +if [ -z "${MACHINE_ECDF_DIR}" ];
->> +then
->> +  echo "WARNING: No ecdf dir supplied, using default"
->> +fi
->> +artifactsRoot="${MACHINE_ARTIFACTS_ROOT:-/var/local/eclair}"
->> +artifactsEcdfDir="${MACHINE_ECDF_DIR:-xen-project.ecdf}"
-> 
-> Do we need to separate varables for these two? It might be a bit 
-> simpler
-> to have:
->     artifactsRoot=/var/local/eclair/xen-project.ecdf
-> unless there's other path than *.ecdf. But in any case, two separate
-> variables looks fine too.
-> 
-
-The main reason why I used two variables is that one may have 
-differently-named .ecdf directories on different machines, but there is 
-no strong reason have two variables
-
->> +artifactsDir="${artifactsRoot}/${artifactsEcdfDir}/${repository}/ECLAIR_${ANALYSIS_KIND}"
->>  subDir="${subDir}${variantSubDir}"
->>  jobHeadline="${jobHeadline}${variantHeadline}"
->> 
->> -# Customized
->> -eclairReportUrlPrefix=https://saas.eclairit.com:3787
->> +# Remote eclair_report hosting server
->> +if [ -z "${MACHINE_HOST}" ];
->> +then
->> +  echo "WARNING: No machine host supplied, using default"
->> +fi
->> +if [ -z "${MACHINE_PORT}" ];
->> +then
->> +  echo "WARNING: No machine port supplied, using default"
->> +fi
->> +
->> +eclairReportHost="${MACHINE_HOST:-saas.eclairit.com}"
->> +eclairReportPort="${MACHINE_PORT:-3787}"
->> +eclairReportUrlPrefix="https://${eclairReportHost}:${eclairReportPort}"
-> 
-> Please, don't make the port number mandatory. Can you merge both host
-> and port in the same variable? This part seems to be called 
-> "authority":
-> 
->     https://en.wikipedia.org/wiki/URL#Syntax
-> 
-> Also, don't use `MACHINE` as prefix/namespace for these new variables,
-> in a pipeline context, "machine" could be many things. Maybe
-> "ECLAIR_REPORT_HOST" for this one? With the default been:
-> 
->     ECLAIR_REPORT_HOST=saas.eclairit.com:3787
-> 
-
-I can merge host and port and change the variable prefix, but I think 
-there is a misunderstanding. This address is used both as the base for 
-report browsing and pushing the results. While we should alter the 
-latter (e.g., ECLAIR_REPORT_PROXY_HOST) to point to the proxy so that 
-the proxy is shown in the CI logs, the address where the results are 
-pushed is fixed and set in the docker runner env. This is not ideal, but 
-I didn't find a better way with GitLab CI to let the analysis push 
-locally.
-
-> I wonder if "https" should be configurable as well, but I guess there
-> shouldn't be any need for it as we probably don't want to serve reports
-> over http.
-> 
-
-Yeah, I don't think so
-
->> 
->>  jobDir="${artifactsDir}/${subDir}/${jobId}"
->>  updateLog="${analysisOutputDir}/update.log"
->> diff --git a/automation/eclair_analysis/ECLAIR/action_push.sh 
->> b/automation/eclair_analysis/ECLAIR/action_push.sh
->> index 45215fbf005b..5002b48522e2 100755
->> --- a/automation/eclair_analysis/ECLAIR/action_push.sh
->> +++ b/automation/eclair_analysis/ECLAIR/action_push.sh
->> @@ -1,6 +1,6 @@
->>  #!/bin/sh
->> 
->> -set -eu
->> +set -eux
-> 
-> Left over change from debugging?
-> 
-
-Yes
-
->> 
->>  usage() {
->>      echo "Usage: $0 WTOKEN ANALYSIS_OUTPUT_DIR" >&2
->> diff --git a/automation/gitlab-ci/analyze.yaml 
->> b/automation/gitlab-ci/analyze.yaml
->> index 5b00b9f25ca6..f027c6bc90b1 100644
->> --- a/automation/gitlab-ci/analyze.yaml
->> +++ b/automation/gitlab-ci/analyze.yaml
->> @@ -8,6 +8,8 @@
->>      ENABLE_ECLAIR_BOT: "n"
->>      AUTO_PR_BRANCH: "staging"
->>      AUTO_PR_REPOSITORY: "xen-project/xen"
->> +    MACHINE_ARTIFACTS_ROOT: "/space"
->> +    MACHINE_ECDF_DIR: "XEN.ecdf"
-> 
-> Is this the right place for these variables? Shouldn't they be set on
-> gitlab (at project or repo scope) or even set by the runner itself.
-> 
-
-Well, it was easier to set them there for debugging. The idea was to 
-potentially override them at the runner config level, if needed.
-
->>    script:
->>      - ./automation/scripts/eclair 2>&1 | tee "${LOGFILE}"
->>    artifacts:
->> diff --git a/automation/scripts/eclair b/automation/scripts/eclair
->> index 0a2353c20a92..7020eaa0982f 100755
->> --- a/automation/scripts/eclair
->> +++ b/automation/scripts/eclair
->> @@ -1,4 +1,15 @@
->> -#!/bin/sh -eu
->> +#!/bin/sh -eux
->> +
->> +# Runner-specific variables
->> +ex=0
->> +export "$(env | grep MACHINE_ARTIFACTS_ROOT)" || ex=$?
->> +[ "${ex}" = 0 ] || exit "${ex}"
-> 
-> That's a really complicated way to check a variable is set...
-> Exporting a variable that's already in env isn't useful, and I think
-> `ex` is only ever set to `0`. It seems that `dash` just exit if you do
-> `export=""`.
-> 
-> You could simply do:
-> 
->     : ${MACHINE_ARTIFACTS_ROOT:?Missing MACHINE_ARTIFACTS_ROOT 
-> variable}
->     : ${MACHINE_ECDF_DIR:?Missing MACHINE_ECDF_DIR variable}
-> 
-> To check that the variables are set. Or nothing, if you add `set -u` to
-> the script (instead of the one -u in the sheband which might be ignored
-> if one run `sh ./eclair` instead of just `./eclair`.) Also the variable
-> should come from the env, as nothing sets it, so no need to for that.
-> 
-> ( The `:` at the begining of the line is necessary, and behave the same
-> way as `true` does. We need it because ${parm:?msg} is expanded.)
-> 
-> Or you could use `if [ -z "${param}" ]` if ${param:?msg} is too 
-> obscure.
-> We would just have "parameter not set" instead of a nicer message, due
-> to `set -u`.
-> 
-
-I agree it is ugly and counterintuitive, but the core idea here is that 
-the variable is set but not exported for some reason, so just `export 
-VAR` does not behave in the same way as the incantation `export "$(env | 
-grep MACHINE_ARTIFACTS_ROOT)"` iirc. I'll double check if there's a 
-better way to achieve this (other than switching to bash in the 
-shebang).
-
-Thanks,
-
+diff --git a/xen/arch/arm/include/asm/config.h b/xen/arch/arm/include/asm/config.h
+index 272e4565e592..f18825bc2d50 100644
+--- a/xen/arch/arm/include/asm/config.h
++++ b/xen/arch/arm/include/asm/config.h
+@@ -66,10 +66,6 @@
+ #define STACK_ORDER 3
+ #define STACK_SIZE  (PAGE_SIZE << STACK_ORDER)
+ 
+-#ifndef __ASSEMBLY__
+-extern unsigned long frametable_virt_end;
+-#endif
+-
+ #define watchdog_disable() ((void)0)
+ #define watchdog_enable()  ((void)0)
+ 
+diff --git a/xen/arch/arm/mmu/mm.c b/xen/arch/arm/mmu/mm.c
+index 9c50479c6373..6604f3bf4e6a 100644
+--- a/xen/arch/arm/mmu/mm.c
++++ b/xen/arch/arm/mmu/mm.c
+@@ -8,8 +8,6 @@
+ #include <xen/pdx.h>
+ #include <xen/string.h>
+ 
+-unsigned long frametable_virt_end __read_mostly;
+-
+ /* Map a frame table to cover physical addresses ps through pe */
+ void __init setup_frametable_mappings(paddr_t ps, paddr_t pe)
+ {
+@@ -46,9 +44,6 @@ void __init setup_frametable_mappings(paddr_t ps, paddr_t pe)
+     memset(&frame_table[0], 0, nr_pdxs * sizeof(struct page_info));
+     memset(&frame_table[nr_pdxs], -1,
+            frametable_size - (nr_pdxs * sizeof(struct page_info)));
+-
+-    frametable_virt_end = FRAMETABLE_VIRT_START + (nr_pdxs *
+-                                                   sizeof(struct page_info));
+ }
+ 
+ /*
 -- 
-Nicola Vetrini, B.Sc.
-Software Engineer
-BUGSENG (https://bugseng.com)
-LinkedIn: https://www.linkedin.com/in/nicola-vetrini-a42471253
+2.25.1
+
 
