@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D790EAEC264
-	for <lists+xen-devel@lfdr.de>; Fri, 27 Jun 2025 23:59:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1027952.1402310 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4FE68AEC40D
+	for <lists+xen-devel@lfdr.de>; Sat, 28 Jun 2025 04:09:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1028059.1402321 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uVH5j-0003YU-Cl; Fri, 27 Jun 2025 21:58:39 +0000
+	id 1uVKze-0006s6-71; Sat, 28 Jun 2025 02:08:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1027952.1402310; Fri, 27 Jun 2025 21:58:39 +0000
+Received: by outflank-mailman (output) from mailman id 1028059.1402321; Sat, 28 Jun 2025 02:08:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uVH5j-0003Va-AD; Fri, 27 Jun 2025 21:58:39 +0000
-Received: by outflank-mailman (input) for mailman id 1027952;
- Fri, 27 Jun 2025 21:58:38 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uVKze-0006p1-0a; Sat, 28 Jun 2025 02:08:38 +0000
+Received: by outflank-mailman (input) for mailman id 1028059;
+ Sat, 28 Jun 2025 02:08:36 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=b9Or=ZK=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1uVH5i-0003VT-AD
- for xen-devel@lists.xenproject.org; Fri, 27 Jun 2025 21:58:38 +0000
+ <SRS0=5KOk=ZL=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1uVKzc-0006ov-Rr
+ for xen-devel@lists.xenproject.org; Sat, 28 Jun 2025 02:08:36 +0000
 Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id dab482c8-53a1-11f0-b894-0df219b8e170;
- Fri, 27 Jun 2025 23:58:27 +0200 (CEST)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id cafaa8f5-53c4-11f0-a310-13f23c93f187;
+ Sat, 28 Jun 2025 04:08:33 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by nyc.source.kernel.org (Postfix) with ESMTP id E2B8CA530E3;
- Fri, 27 Jun 2025 21:58:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A547C4CEE3;
- Fri, 27 Jun 2025 21:58:25 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id D3972A45F97;
+ Sat, 28 Jun 2025 02:08:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CBECC4CEE3;
+ Sat, 28 Jun 2025 02:08:30 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,86 +41,122 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dab482c8-53a1-11f0-b894-0df219b8e170
+X-Inumbo-ID: cafaa8f5-53c4-11f0-a310-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1751061506;
-	bh=LILuPFdiV4NJH/A/Wo2jt/16/PE+mo8yo9PRRfSAC24=;
+	s=k20201202; t=1751076512;
+	bh=mSpEq7rwbGmSwmxK6coN/ZhS7y7yVxYpe19dp62IYrk=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=Z51bqiW3PwyPUZ0q2MGYuVlf8cfkVXeQaCCUFHcsZkmlzZq7+eqyoH2nwIFG0dvoC
-	 Ca8JXJjeXdgaN/ozfBihEYDsBLMGthDd1tmlu5eqcHNxFGjhyudcDiM0jc4kR4+0Ta
-	 UJxmnBLdT+u7Ko6D6trPCRETKSNzGsLeuJ4z+LRxcKgTRf2tnS0kraXY1crgFkhbfr
-	 FayjfpSxRHvegl9rBjiuKJE+HVsUCkCx4OsQgKa6X5NIVNFHBUUHdF331ZlrwsHyfV
-	 TEO227kRKdqx4xT+BjavhAKNSidWOCxgGolt7cPJxbbkER0k8S3JI4uIV9pAmhMKGG
-	 ErW8CqPN5s4bw==
-Date: Fri, 27 Jun 2025 14:58:24 -0700 (PDT)
+	b=LMBZOLUeSxlzHd7BAne8ddPrfdGZ7LiFvl64II1Clt0kuKl3K/vQ9wqHW1guYoIPf
+	 s0KJeFsLKwNlMfhEeOQ43jB18lsPv4ntl/xTnMUttE3eWrRbgfqSZQytcIss2yxWwt
+	 tSn2lM9bnh7mdT5Wb/dRRoynaw+vDBSMza/pwbUueZ/BAaEm04HXm2evbFEdk+SLN6
+	 XbknH2F0g8tOsNwvuJ4uOO30lU4XcARNUNKz8CUh/O+IR1ZyV39FqAUSsh8/wR5iWF
+	 TquYX/y630c5Pxrg0v5pf2egTupRiqNtFtkRnwIiF468zDvkie6LqO5fhd0X0pyeUg
+	 e1WvwRkf2TesA==
+Date: Fri, 27 Jun 2025 19:08:29 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Julien Grall <julien@xen.org>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    Jan Beulich <jbeulich@suse.com>, dmkhn@proton.me, 
-    andrew.cooper3@citrix.com, anthony.perard@vates.tech, michal.orzel@amd.com, 
-    roger.pau@citrix.com, dmukhin@ford.com, xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v3 2/2] xen/console: unify printout behavior for UART
- emulators
-In-Reply-To: <c444b8ff-13ab-4c54-8ba9-5cee72f0f155@xen.org>
-Message-ID: <alpine.DEB.2.22.394.2506271454160.862517@ubuntu-linux-20-04-desktop>
-References: <20250606201102.2414022-1-dmukhin@ford.com> <20250606201102.2414022-3-dmukhin@ford.com> <bcb3d553-b8aa-42ab-a9c8-7abf6f5d02c3@suse.com> <aEjInVF3zaa+VVd2@kraken> <b27f7652-424f-479c-a4bc-ed2ecd46ccc8@suse.com>
- <alpine.DEB.2.22.394.2506111155400.542113@ubuntu-linux-20-04-desktop> <b9c263e0-3d8d-4966-8f54-611e58572118@suse.com> <alpine.DEB.2.22.394.2506171735440.1780597@ubuntu-linux-20-04-desktop> <2f726960-4bdc-4996-b204-722c0253e2ab@suse.com>
- <alpine.DEB.2.22.394.2506181742281.1780597@ubuntu-linux-20-04-desktop> <c444b8ff-13ab-4c54-8ba9-5cee72f0f155@xen.org>
+To: Roger Pau Monne <roger.pau@citrix.com>
+cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    Anthony PERARD <anthony.perard@vates.tech>, 
+    Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    Shawn Anastasio <sanastasio@raptorengineering.com>, 
+    Alistair Francis <alistair.francis@wdc.com>, 
+    Bob Eshleman <bobbyeshleman@gmail.com>, 
+    Connor Davis <connojdavis@gmail.com>, 
+    Oleksii Kurochko <oleksii.kurochko@gmail.com>, 
+    Community Manager <community.manager@xenproject.org>, 
+    sstabellini@kernel.org
+Subject: Re: [PATCH v2 0/8] pdx: introduce a new compression algorithm
+In-Reply-To: <20250620111130.29057-1-roger.pau@citrix.com>
+Message-ID: <alpine.DEB.2.22.394.2506271905350.862517@ubuntu-linux-20-04-desktop>
+References: <20250620111130.29057-1-roger.pau@citrix.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Fri, 27 Jun 2025, Julien Grall wrote:
-> Hi Stefano,
+Hi Roger,
+
+We have an ARM board with the following memory layout:
+
+0x0-0x80000000, 0, 2G
+0x800000000,0x880000000, 32GB, 2G
+0x50000000000-0x50080000000 5T, 2GB 
+0x60000000000-0x60080000000 6T, 2GB 
+0x70000000000-0x70080000000 7T, 2GB 
+
+It looks like your PDX series is exactly what we need.  However, I tried
+to use it and it doesn't seem to be hooked properly on ARM yet. I spent
+some time trying to fix it but I was unsuccessful.
+
+As far as I can tell the following functions need to be adjusted but I
+am not sure the list is comprehensive:
+
+xen/arch/arm/include/asm/mmu/mm.h:maddr_to_virt
+xen/arch/arm/mmu/mm.c:setup_frametable_mappings
+xen/arch/arm/setup.c:init_pdx
+
+Cheers,
+
+Stefano
+
+On Fri, 20 Jun 2025, Roger Pau Monne wrote:
+> Hello,
 > 
-> On 19/06/2025 01:45, Stefano Stabellini wrote:
-> > On Wed, 18 Jun 2025, Jan Beulich wrote:
-> > > On 18.06.2025 02:39, Stefano Stabellini wrote:
-> > > > On Thu, 12 Jun 2025, Jan Beulich wrote:
-> > > > > On 11.06.2025 21:07, Stefano Stabellini wrote:
-> > > > > > On Wed, 11 Jun 2025, Jan Beulich wrote:
-> > > > > > > On 11.06.2025 02:07, dmkhn@proton.me wrote:
-> > > > > > > > On Tue, Jun 10, 2025 at 10:21:40AM +0200, Jan Beulich wrote:
-> > > > > > > > > On 06.06.2025 22:11, dmkhn@proton.me wrote:
-> > > > > > > > > > From: Denis Mukhin <dmukhin@ford.com>
-> > > > If I understood correctly I like your proposal. Let me rephrase it to
-> > > > make sure we are aligned. You are suggesting that:
-> > > > 
-> > > > - domains without input focus will print with a (d<N>) prefix
-> > > > - the domain with input focus will print without a (d<N>) prefix
-> > > > - this applies to both DomUs and Dom0
-> > > 
-> > > Except in the non-dom0less case, at least up and until there's at least
-> > > one other domain. I.e. I'd like to keep Dom0 boot output as it is today,
-> > > regardless of the presence of e.g. "conswitch=".
-> > 
-> > In the non-dom0less case, since dom0 has focus, it would naturally be
-> > without (d<N>) prefix. Unless the user passes "conswitch=". Honestly, I
-> > wouldn't special-case conswitch= that way and would prefer keep things
-> > simple and consistent without corner cases. I don't think conswitch= is
-> > so widely used that it is worth the complexity to special-case it.
+> This series implements a new PDX compression algorithm to cope with the
+> spare memory maps found on the Intel Sapphire/Granite Rapids.
 > 
-> I am a bit confused with the wording. Before I can provide another opinion, I
-> want to understand a bit more the concern.
+> Patches 1 to 7 prepare the existing code to make it easier to introduce
+> a new PDX compression, including generalizing the initialization and
+> setup functions and adding a unit test for PDX compression.
 > 
-> From my understanding the command line option "conswitch" is to allow the
-> admin to change with key is used to switch between Dom0 and Xen. By default
-> this is 'a'. So are you referring to the fact a trailing "x" (to not switch to
-> dom0 console) can be added?
-
-Yes, conswitch can also be used to ask Xen to keep the input focus to
-itself, instead of giving it away to Dom0. I think this is the specific
-feature Jan was referring to when he said he is using conswitch and the
-proposal would change the way the output looks like for him, which is
-true.
-
-Today, dom0 would still print without any prefix.
-
-Tomorrow with this proposal, dom0 would print with a "(d0)" prefix
-because it doesn't have input focus.
-
-The question is, with the new policy in place, whether this is worth the
-trouble of having a special case to remove the "(d0)" prefix in the
-conswitch=x case. I think it is not worth it, Jan thinks it is.
+> Patch 8 introduce the new compression.  The new compression is only
+> enabled by default on x86, other architectures are left with their
+> previous defaults.
+> 
+> Thanks, Roger.
+> 
+> Roger Pau Monne (8):
+>   x86/pdx: simplify calculation of domain struct allocation boundary
+>   kconfig: turn PDX compression into a choice
+>   pdx: provide a unified set of unit functions
+>   pdx: introduce command line compression toggle
+>   pdx: allow per-arch optimization of PDX conversion helpers
+>   test/pdx: add PDX compression unit tests
+>   pdx: move some helpers in preparation for new compression
+>   pdx: introduce a new compression algorithm based on region offsets
+> 
+>  CHANGELOG.md                           |   3 +
+>  docs/misc/xen-command-line.pandoc      |   9 +
+>  tools/tests/Makefile                   |   1 +
+>  tools/tests/pdx/.gitignore             |   3 +
+>  tools/tests/pdx/Makefile               |  49 ++++
+>  tools/tests/pdx/harness.h              |  99 +++++++
+>  tools/tests/pdx/test-pdx.c             | 224 +++++++++++++++
+>  xen/arch/arm/include/asm/Makefile      |   1 +
+>  xen/arch/arm/setup.c                   |  34 +--
+>  xen/arch/ppc/include/asm/Makefile      |   1 +
+>  xen/arch/riscv/include/asm/Makefile    |   1 +
+>  xen/arch/x86/domain.c                  |  40 +--
+>  xen/arch/x86/include/asm/cpufeatures.h |   1 +
+>  xen/arch/x86/include/asm/pdx.h         |  75 +++++
+>  xen/arch/x86/srat.c                    |  30 +-
+>  xen/common/Kconfig                     |  37 ++-
+>  xen/common/pdx.c                       | 379 ++++++++++++++++++++++---
+>  xen/include/asm-generic/pdx.h          |  24 ++
+>  xen/include/xen/pdx.h                  | 201 +++++++++----
+>  19 files changed, 1056 insertions(+), 156 deletions(-)
+>  create mode 100644 tools/tests/pdx/.gitignore
+>  create mode 100644 tools/tests/pdx/Makefile
+>  create mode 100644 tools/tests/pdx/harness.h
+>  create mode 100644 tools/tests/pdx/test-pdx.c
+>  create mode 100644 xen/arch/x86/include/asm/pdx.h
+>  create mode 100644 xen/include/asm-generic/pdx.h
+> 
+> -- 
+> 2.49.0
+> 
 
