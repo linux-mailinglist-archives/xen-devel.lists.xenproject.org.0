@@ -2,40 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83B25AEC78B
-	for <lists+xen-devel@lfdr.de>; Sat, 28 Jun 2025 16:08:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1028334.1402370 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 618C7AEC95C
+	for <lists+xen-devel@lfdr.de>; Sat, 28 Jun 2025 19:27:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1028390.1402381 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uVWDd-00066m-Fl; Sat, 28 Jun 2025 14:07:49 +0000
+	id 1uVZJu-0004FH-Qh; Sat, 28 Jun 2025 17:26:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1028334.1402370; Sat, 28 Jun 2025 14:07:49 +0000
+Received: by outflank-mailman (output) from mailman id 1028390.1402381; Sat, 28 Jun 2025 17:26:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uVWDd-000655-Cg; Sat, 28 Jun 2025 14:07:49 +0000
-Received: by outflank-mailman (input) for mailman id 1028334;
- Sat, 28 Jun 2025 14:07:47 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uVZJu-0004DF-N7; Sat, 28 Jun 2025 17:26:30 +0000
+Received: by outflank-mailman (input) for mailman id 1028390;
+ Sat, 28 Jun 2025 17:26:29 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=XT7f=ZL=valinux.co.jp=den@srs-se1.protection.inumbo.net>)
- id 1uVWDb-00064m-4y
- for xen-devel@lists.xenproject.org; Sat, 28 Jun 2025 14:07:47 +0000
-Received: from TYVP286CU001.outbound.protection.outlook.com
- (mail-japaneastazlp170110002.outbound.protection.outlook.com
- [2a01:111:f403:c405::2])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4333a8cb-5429-11f0-a310-13f23c93f187;
- Sat, 28 Jun 2025 16:07:46 +0200 (CEST)
-Received: from OS3P286MB0979.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:10d::7)
- by OS3P286MB3243.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:211::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8880.21; Sat, 28 Jun
- 2025 14:07:42 +0000
-Received: from OS3P286MB0979.JPNP286.PROD.OUTLOOK.COM
- ([fe80::80f1:db56:4a11:3f7a]) by OS3P286MB0979.JPNP286.PROD.OUTLOOK.COM
- ([fe80::80f1:db56:4a11:3f7a%5]) with mapi id 15.20.8901.012; Sat, 28 Jun 2025
- 14:07:42 +0000
+ (envelope-from <julien@xen.org>) id 1uVZJt-0004D4-1k
+ for xen-devel@lists.xenproject.org; Sat, 28 Jun 2025 17:26:29 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.96)
+ (envelope-from <julien@xen.org>) id 1uVZJf-0072fM-2l;
+ Sat, 28 Jun 2025 17:26:15 +0000
+Received: from [2a02:8012:3a1:0:d050:4cf0:af44:4b0]
+ by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
+ (envelope-from <julien@xen.org>) id 1uVZJf-002tUr-1X;
+ Sat, 28 Jun 2025 17:26:15 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,162 +39,110 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4333a8cb-5429-11f0-a310-13f23c93f187
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=v+LTDw3qjznyyj5Cyg2Y3KT6Kvo93gY0qynawumS/EdRc479XlxCNxhSYTl8W6LGmD7jFInZx3hJA5HZub5fyaSKaz0JMyIRUQsiy0ns9YYDEmKJfbOeK2utN6ahZpHadk+LhXtdW+zTuuyb9M1iLbuNhe0TSIdZxaQjO61w4F0Hb2cxhho0S9/DElbdkHnUmSURN5Oq3cMYVGyWSejrr8tXgzQXBfn3GPAegIXjQI2hupcssjYOgNogJe1odUHXV2T/7iq4pBGuP7dOgPSRtHevepRN3tnBGV7crNz3oz+NvA5REjTxlWke7HUt0CokpDMapx282hVjTQokM/t7bw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zgl5PQvJZ4OV4myipiXt+4l9Si8lphWW4NdCwHuCHO0=;
- b=EeZifzyc7NWnkDDZCeYd/NlK0NnhuMI6ZPcqRr39myI1KNgbY8B2+Q8bWroZ5xX1RHprUb0oLRJF1ZaDHe4avIWN05VvcMjoVU5yxn0myYJ4OK6h38pji3jzXDAlxsan5aaPq/CKDLpLZBNo5wF7M63WsK9dF/CpPN/R+pX0Zd0oiI/Hr4MOCH5n9SuwZuJeoqkTxXBP2TxGX4jDa7FsAXahyF5RxbfbRKyClMM3re+0Ei5XwYoGASwboOQnPSCRqc8Xx9fWnZtos2vAXNqz3zQaQbWt74lzVO03jocCk9qtTFNXPkdDLH8RA7jscn91mRcarocYzU47kVcnQ5FFMA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
- header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zgl5PQvJZ4OV4myipiXt+4l9Si8lphWW4NdCwHuCHO0=;
- b=fV9vZ5BwmjwzTiUclU6wviZUP7W+G3DTvQHZR8NwXy0V75fJy2N3t+VZumgTWpXYD4C6/cooh4w0GUWeIVOzqCQF2CPlaM4W1VGQwTOETDUtr7qM7CjAxZzjY7rgqCjd/O/kK+VSctxnTLEikLGTYr+fPGKJ/x4lgderLT8rTD0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=valinux.co.jp;
-Date: Sat, 28 Jun 2025 23:07:41 +0900
-From: Koichiro Den <den@valinux.co.jp>
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org, Julien Grall <julien@xen.org>, 
-	Bertrand Marquis <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, 
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
-	Anthony PERARD <anthony.perard@vates.tech>, Jan Beulich <jbeulich@suse.com>, 
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-Subject: Re: [RFC PATCH 3/4] xen/arm: Move make_resv_memory_node()
-Message-ID: <ocakba7y7uee76bm4lejguechs5o7e46zd3cftukagxugk5bcp@ejuxlrcgkkoo>
-References: <20250621151201.896719-1-den@valinux.co.jp>
- <20250621151201.896719-4-den@valinux.co.jp>
- <alpine.DEB.2.22.394.2506221608030.8066@ubuntu-linux-20-04-desktop>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <alpine.DEB.2.22.394.2506221608030.8066@ubuntu-linux-20-04-desktop>
-X-ClientProxiedBy: TYWPR01CA0013.jpnprd01.prod.outlook.com
- (2603:1096:400:a9::18) To OS3P286MB0979.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:604:10d::7)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=ZzJJE6gQ3Zauq+OPNw6A0M1Le3qFdUevYHuIouIp+Ys=; b=o0uWu53NLieNso/eTpYwu7+3Ac
+	rlFarHLik6FKFvwA6AaAl/JlxULSpsGCRggtyC6UINfn+0E2UN1EZKgmUHY7YgXgdrih2Y+jDTQqh
+	FC1AF0elFg4zO4XVJ4HyuQTxW9xrlHfEdj/GxNn7Qm0bCtKW5bE0cMJGBy8A5vo2Lz/M=;
+Message-ID: <ab1d2b35-2760-436c-8e9d-57f094712012@xen.org>
+Date: Sat, 28 Jun 2025 18:26:12 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: OS3P286MB0979:EE_|OS3P286MB3243:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9952eb25-dc73-4bf5-9045-08ddb64d25e4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|10070799003|1800799024|7416014|376014|366016|27256017;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?MlQwOWpFK0orZk5vM2hMbFBDZ2Z3MXo1aDRnaHVBeG00bUFpUXA1a2Fwc1FM?=
- =?utf-8?B?LzhoUDMxNldkSlpvbjZ6VW9lTmxqU0FlQjY3WnZSRVZCd1hXamUzQ1ZJaXoy?=
- =?utf-8?B?eUxCdEtKUXdIdVlxNExjeDQrTlkwOGUxbnQrLzNNREdZSFNINXFXYTUybmVh?=
- =?utf-8?B?Q2ZtWU9kcXNYL0JCUkFVN21PVXZLYzFZZ0pWUHpsM3FUa3VsdGhZUThnQTlu?=
- =?utf-8?B?eVNVRjBCVWRKdSswanVQNGd1WmJzdUo4bHRQdXo2MFVRRzhWWnFyY29lM0wz?=
- =?utf-8?B?YW9KL1B0dEZFeDJYQ1hGQWl4ZHBZU0JNL1RsWXBKRFBibm1uWUxrdWsydGlh?=
- =?utf-8?B?aEhTRFdGMUcrai91UjRVVHpVZnd1RUpVbUVZQkVuQVRoSFRUMVZSTndVd1pz?=
- =?utf-8?B?UzBkWjFqTTk2bUw5VU1yYVkwTk9OS3hVSVZjc0o4M3NWK3VsdDlJck9tS2s0?=
- =?utf-8?B?VHByS2pIZzF3aWp0eWxjT3JPVkQ4S1U3QjRvd2NscjNyWDYxTHVDSno0VmN6?=
- =?utf-8?B?NzJNTFNZS2ZJcDhMRXEwSDI2MjNRTUZtSWdwYk9BN0Fsd0RGTjFoMitSbTRO?=
- =?utf-8?B?SlJRK2xpcGdZOU1Mc09scys3Y1ZVNTVsbHREZzlNSENXSVNiSmV6UGpjTkp4?=
- =?utf-8?B?Q28yNWFucmlXcHVWRlQ3bXJFZ1g3THlTK0VrZ3RLbEplOUMxa1FMbUtDYWV0?=
- =?utf-8?B?RTd1bS90YVJSQUFUVDNqcmJkQUwwZlBWcHRISzgyWEtPTjRPS0MrU0taay90?=
- =?utf-8?B?S1I1SXEwWVFaaFRPcGV0bFpsUzVPZUZuN2R1YlhYc2VWWEsvYmRzSXd2MXBn?=
- =?utf-8?B?ekU5UnQrajNwSUlIMHIzRmhSaTlaZm1mRWo4em9PdWlwcUlqcVNsRnBzUzdS?=
- =?utf-8?B?L1pLZE1QZnVnRnU3Z0dCNHMyREdWZUl2YXYycW84NEhJaDk3blhjWUhIVyti?=
- =?utf-8?B?MzUyTzZGM3UwNG80aGFVZ0o4aGNYSGJDT3pjdE1sTXBNMlJlRHM0TExOQUp6?=
- =?utf-8?B?ZlFhalV2RG4rSXlnQWkwbms5ZW05U2U3eGVyZ1dkSnZkOFN4ZGZHZmhzTWdm?=
- =?utf-8?B?bi9ZejNxVzQrekJvK2U3WWE3RXZnQ1ZrQ2pIYWthU3hZaGFvV1NXQjNRQ2dW?=
- =?utf-8?B?ZFpQQzJxM0VMbmpGMVZ4KzZjQ1ZlbGwzRVpacmE4TDdUSk5PWGc2emZOMVpW?=
- =?utf-8?B?ZUFtSTR5NWt2a295K2tDZUw3d29rV2FiTkdjamc0cFlJazV1WjBDdktOWVFC?=
- =?utf-8?B?RzRMdTBxajNJYThWWVRrcE9JVW4zNExBVStSMmxSNDlqaENhMmF2Qkc0QWhQ?=
- =?utf-8?B?ZWIrRC9JN3VUMERoOTVnWUkyMnIwSWJoclhpQ3NLYjFKVTA0eitEV09HbXh4?=
- =?utf-8?B?WWtZSjFrU0RNNFhFRDZzYU5kZUhXbU96dG42bUZFMGdxWVVlOWM4emhKcHdq?=
- =?utf-8?B?N2lPR0NCUnpVaFJjaUJqblRZdlU0Zk9UaXE1bEFHb1BzNjJ3UWI0ci9CaTNL?=
- =?utf-8?B?bmJoeXdveE93SVdQbDZVN3dOYzdkMHI1UHBsNXh4Wi9MZFhYNityRElWcVll?=
- =?utf-8?B?S1hQY1AzMDVnMDBhZFBGQ3pCaUU1ZDMyWGZSRU1nak5KczRNOXkvTEN3Tk4z?=
- =?utf-8?B?eG1ac2QweGZwR3AySVNydFNTV1FxVmRpZER4aisvZlF1UlEwdG94T0VXT0V4?=
- =?utf-8?B?VlNwNnpZS2ZJc29NV2NQZXQxa2U4VnNYeUxEWHZ4V2hKaGZidlVCQjR1Qkxt?=
- =?utf-8?B?MGRkUWJMcTZHMFU5UUlrT3FHZm81Q280azd2TSt3Y0JYMzU1d1B0c0U0em1j?=
- =?utf-8?B?TS9lZjBFUk5tcmx4aWtoUjZuYlkvZHNPc1VOYjNrVnQ4eTV6LzhEN3luYXln?=
- =?utf-8?B?QXVENGtDUXZQVzF2RkZEQmJGMWdtS1d2NGdPRlpOZ0NhMm5TcSsvb0swVHM4?=
- =?utf-8?B?ZzBkR3E1T2dFaDRVVE1rRGJMVHVXeEdTTWVqWExpVFN5Mng0VUxEZzIwZWxu?=
- =?utf-8?B?Y1lIK2JyVDhBPT0=?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OS3P286MB0979.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(1800799024)(7416014)(376014)(366016)(27256017);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?b1hZeW5HQkV3QlVTVHdwc0lMb0x5MlRaaDNnYnJtKzB4TlQxN2tQNElkUnVl?=
- =?utf-8?B?Rm5xN3pJZzR4VHNMWFFyRzNFRXAvWk0vVEhRT0VlZlhnaHBVdi9yOE5Ldk5V?=
- =?utf-8?B?SmE4b3V0K2VFd08vOGl4YmtMZVp4K1gxM0dMNTlVV1pzTDBsVnRHU1NmdEUy?=
- =?utf-8?B?QXd5Qkt2d1NRUnJDQnA2VVJ4algwaWQ5ZzdsanUzc3N0ZjdXaW5EV1BCL1dZ?=
- =?utf-8?B?OHRPSENPSWFudDFvZnFZa2RBQ20xSnc0VEJHWGFEL01iVHNyYnltaW1SclR0?=
- =?utf-8?B?MVRWTFUwU0FMWS9ZclFYcUtqYWprSkpFTXZqclRQV0hzMVQ3UFFsdE9VRm52?=
- =?utf-8?B?VDVWY3EvczlHWVovRW9oZ1JOSDVHMzdvcG1HVThFMElKdkU4Mmp5MjlmZlVm?=
- =?utf-8?B?Vkdnby9VZi9QaDBXMktDZnMwVFVLc1QwT2t0cmUxOHpIelZPZXQ5alhtdjdh?=
- =?utf-8?B?RnBGMC9wOWM2QThlTHBPMHRJR01CZUNvUXRIU3NTTCtyZElKRVNWQzJHQ0pV?=
- =?utf-8?B?UEZ4NXBFd3VETWlOSHBRT3E3ZmJhczZIVFZTTzdrVE95M1U3bjJsVHN2Qkxj?=
- =?utf-8?B?WFYxV3ZXWkFKM2NDUnVKOHFXUThWVzRiK0FsM0ZRVVRlVW5OOTV2RHk3bWdS?=
- =?utf-8?B?YTZpaDFzNFovWU9hR3pzdTl6eDdoZkxxU2FnMERkUzJ3WXFHY2UxUGVQUDBl?=
- =?utf-8?B?MmI4NkNUQ24zdS9VOVdHd3lxZFRZVTgxdVdjUDJqTlFqQ3hHNEc0OE1XSk44?=
- =?utf-8?B?anFXZUlDVXVVam9mOVpuUFB1UDh2UmM0SFVnbHNoZ0pHZnRyYlVuTVkrRzFw?=
- =?utf-8?B?aUxCRGlFUEtWN0pmU2xvbEFTekd5OU9lOHo1a3AxTjF6T3I4aFVPb0ZYUlVu?=
- =?utf-8?B?NHAxSjlxT1dsektCQytOaGZ0WWh2alczejQ3UUgwaUNOK21Xdk9TbVQzalQx?=
- =?utf-8?B?MWtQMThFSVNGSXBYRGFTanVESFFjV3NtOUU3TGRzMnZJL29qS1B5K2hld3ZY?=
- =?utf-8?B?K2JMTHNGbnptUGhrM3NXbnVtN3N1WXJMSkJxYjJULzJ1MmVYT1ViNUVvZ3lt?=
- =?utf-8?B?ZWdhM2duNnNzaU9jQVRJYWxMb0dQOHp3UW5kRWE3WlBITmUvbVpUa3ZQSHBF?=
- =?utf-8?B?a2tvRXV4Q3ZmSUNwRGlsRHg0U3RyVHBRdzAwVWk0SVVaSzJmMVVmSExkbkQ3?=
- =?utf-8?B?VlIwbUl1NmdCR2NsbmE0WGZ1UWtUSDEyUy8ybUl1Sm1FRDRIZngxS1IrYlNY?=
- =?utf-8?B?ZTNkekY3dTVjbjNmOVdTQVZOeHpTZW1Lc0pRb3o0V0ZWZzBoeTlpMVh5K1pr?=
- =?utf-8?B?V2diYUQ4cnhVMGpPUzhqalJmbkViWnRaZHpMUFpkRHA0VXd6dnpOSjg1ZG03?=
- =?utf-8?B?OGlwRVVOZWNGUnhOdUFUbm9NbWdFZy9WVmFWZUpLYWhOM1B6NDU5YzUwUGJh?=
- =?utf-8?B?U002dFJxcW5ESEVmNEJBTTY4OTJTUHRyYVNOcUxHaHZmQkg5cFRhRUo3T0tv?=
- =?utf-8?B?dXZ1Snk4SjB5TWFKVWpqWHVTMnBycFRxa082Sm5Wb0Y2T2YxUnJQSEozazJs?=
- =?utf-8?B?a0loV2Y0TXdpU2hwRURGUjkwU0tOUDJueFMzb01UYmFvWXo2WEhibFFXV0Yz?=
- =?utf-8?B?WWc4L3VuR0NvRDhoSDRYM2lBUUJmQzBiK29pQUtUSFJKSzRKTmtMZUhHMXpr?=
- =?utf-8?B?SkxaTVBBRS9NMVdKVmt5STF0TjJKLzRrVjcvRGF5S3ZwRmhjUW1uV1d0dVBW?=
- =?utf-8?B?Q0svejVkaGpST1ROTUp2Yi9HV01CL0wzYllQWTFRRzBhWldQM1Q0SVg0anlY?=
- =?utf-8?B?WEFXZUcrbjFtQ0pFVUdNNTl3QlhKVVFPZmR5Uk5QWXBlTjNoaXAzZVY0ODZ4?=
- =?utf-8?B?T0NsdDBYbld6SHRQRDdtd1k2TExQWXlIdjRPUEpWeENhTDFTbmVrcUErMlli?=
- =?utf-8?B?UVEwV0ZyZDkyWXRYNlFmdGlvT1Z2b3BJZEVyZkFwRlVNNHQ2aVVXZXQ3ZUVL?=
- =?utf-8?B?UHZZS0t1b2Q4SDFrbVA5cDlPZVdrTUNodFJMM1dOMTBQLzdhd2RPd0JvYk91?=
- =?utf-8?B?b2RmM1l1VU1mNUw3R2hHSlgwc0s4VTBPN0pYUXJKUndURHM4WDBTam5scUQz?=
- =?utf-8?B?Q081azNqR2VYUmM4YnM3MkxteGdiY1BDT0ZmcE1jbVp3V1lGNDB3eTZWWnlU?=
- =?utf-8?Q?9B5wlNRb7EIgqD3VC0ylMyE=3D?=
-X-OriginatorOrg: valinux.co.jp
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9952eb25-dc73-4bf5-9045-08ddb64d25e4
-X-MS-Exchange-CrossTenant-AuthSource: OS3P286MB0979.JPNP286.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jun 2025 14:07:42.1876
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: jYQ4euY2BLMzBcwKRlp1XU83TKzHHXgNJtILj6kczdGxp1ILAiC4kzsdlF7nJnbJFgN4rDefpD2gEKWAvkPOzQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS3P286MB3243
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/2] xen/console: unify printout behavior for UART
+ emulators
+Content-Language: en-GB
+To: Stefano Stabellini <sstabellini@kernel.org>,
+ Jan Beulich <jbeulich@suse.com>
+Cc: dmkhn@proton.me, andrew.cooper3@citrix.com, anthony.perard@vates.tech,
+ michal.orzel@amd.com, roger.pau@citrix.com, dmukhin@ford.com,
+ xen-devel@lists.xenproject.org
+References: <20250606201102.2414022-1-dmukhin@ford.com>
+ <20250606201102.2414022-3-dmukhin@ford.com>
+ <bcb3d553-b8aa-42ab-a9c8-7abf6f5d02c3@suse.com> <aEjInVF3zaa+VVd2@kraken>
+ <b27f7652-424f-479c-a4bc-ed2ecd46ccc8@suse.com>
+ <alpine.DEB.2.22.394.2506111155400.542113@ubuntu-linux-20-04-desktop>
+ <b9c263e0-3d8d-4966-8f54-611e58572118@suse.com>
+ <alpine.DEB.2.22.394.2506171735440.1780597@ubuntu-linux-20-04-desktop>
+ <2f726960-4bdc-4996-b204-722c0253e2ab@suse.com>
+ <alpine.DEB.2.22.394.2506181742281.1780597@ubuntu-linux-20-04-desktop>
+ <15db8155-3d3d-41e9-92be-957067a34e5f@suse.com>
+ <alpine.DEB.2.22.394.2506201747530.2978375@ubuntu-linux-20-04-desktop>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <alpine.DEB.2.22.394.2506201747530.2978375@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Sun, Jun 22, 2025 at 04:12:15PM -0700, Stefano Stabellini wrote:
-> On Sun, 22 Jun 2025, Koichiro Den wrote:
-> > The /reserved-memory node is inherently not specific to static-shmem. In
-> > the next commit, child nodes will be added under /reserved-memory for
-> > the stolen time shared memory regions.
-> > 
-> > No functional changes intended.
-> > 
-> > Signed-off-by: Koichiro Den <den@valinux.co.jp>
-> 
-> This causes a build failure when CONFIG_STATIC_SHM is missing.
-> 
-> arch/arm/domain_build.c: In function ‘make_resv_memory_node’:
-> arch/arm/domain_build.c:1567:34: error: implicit declaration of function ‘kernel_info_get_shm_mem_const’; did you mean ‘kernel_info_get_mem_const’? [-Werror=implicit-function-declaration]
->  1567 |     const struct membanks *mem = kernel_info_get_shm_mem_const(kinfo);
->       |                                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
->       |                                  kernel_info_get_mem_const
-> arch/arm/domain_build.c:1567:34: error: nested extern declaration of ‘kernel_info_get_shm_mem_const’ [-Werror=nested-externs]
-> arch/arm/domain_build.c:1567:34: error: initialization of ‘const struct membanks *’ from ‘int’ makes pointer from integer without a cast [-Werror=int-conversion]
+Hi Stefano,
 
-Thank you for pointing that out, I'll address this in v2.
+On 21/06/2025 01:52, Stefano Stabellini wrote:
+>> Widely used or not - _I_ use it all the time in debug configs where serial
+>> is available.
 > 
----(snip)---
+> Fair enough and your usage is really important for the project. At the
+> same time you know exactly what's going on so you wouldn't be confused
+> by the presence or absence of a (d0) prefix.
+> 
+> The main issue is when less familiar users try Xen, or less familiar
+> developers go through the Xen source code to learn from it.
+> 
+> I would optimize this choice to make it simpler for users and to make
+> the code simpler. Your use-case is really important as well, but I would
+> trust you to understand what's going on either way, with or without the
+> (d0) prefix.
+
+Thanks for the clarification. I gave a try with and without the series 
+to understand a bit more the difference. I think there are some 
+imbalance in that setup because when the focus is on Xen, the logs are 
+still prefixed with "(XEN)". So naturally the log with no prefix are the 
+one for Dom0. So I have to agree with Jan here.
+
+I haven't tried the behavior with dom0less. So I am not sure what would 
+happen if the focus switch to Xen.
+
+Also, when switching focus, I have noticed a very odd behavior with this 
+patch. "(d0)" is printed multiple time per line:
+
+"
+(d0) [    1.344020] v(d0) gaarb: loaded
+(d0) [    1.352808] c(d0) locksource: Swit(d0) ched to clocksou(d0) rce 
+arch_sys_cou(d0) nter
+(d0) [    1.367604] V(d0) FS: Disk quotas (d0) dquot_6.6.0
+(d0) [    1.369369] V(d0) FS: Dquot-cache (d0) hash table entri(d0) es: 
+512 (order 0(d0) , 4096 bytes)
+(d0) [    1.376766] p(d0) np: PnP ACPI: di(d0) sabled
+(d0) [    1.619730] N(d0) ET: Registered P(d0) F_INET protocol (d0) family
+(d0) [    1.623635] I(d0) P idents hash ta(d0) ble entries: 163(d0) 84 
+(order: 5, 13(d0) 1072 bytes, line(d0) ar)
+(d0) [    1.636915] t(d0) cp_listen_portad(d0) dr_hash hash tab(d0) le 
+entries: 512 (d0) (order: 3, 36864(d0)  bytes, linear)
+(d0) [    1.638331] T(d0) able-perturb has(d0) h table entries:(d0) 
+65536 (order: 6(d0) , 262144 bytes, (d0) linear)
+(d0) [    1.639267] T(d0) CP established h(d0) ash table entrie(d0) s: 
+8192 (order: (d0) 4, 65536 bytes, (d0) linear)
+(d0) [    1.643457] T(d0) CP bind hash tab(d0) le entries: 8192(d0) 
+(order: 8, 1179(d0) 648 bytes, linea(d0) r)
+(d0) [    1.652078] T(d0) CP: Hash tables (d0) configured (esta(d0) 
+blished 8192 bin(d0) d 8192)
+(d0) [    1.655824] U(d0) DP hash table en(d0) tries: 512 (orde(d0) r: 
+4, 81920 byte(d0) s, linear)
+(d0) [    1.657807] U(d0) DP-Lite hash tab(d0) le entries: 512 (d0) 
+(order: 4, 81920(d0)  bytes, linear)
+(d0) [    1.661993] N(d0) ET: Registered P(d0) F_UNIX/PF_LOCAL (d0) 
+protocol family
+(d0) [    1.674980] R(d0) PC: Registered n(d0) amed UNIX socket(d0) 
+transport modul(d0) e.
+(d0) [    1.676034] R(d0) PC: Registered u(d0) dp transport mod(d0) ule.
+(d0) [    1.677241] R(d0) PC: Registered t(d0) cp transport mod(d0) ule.
+(d0) [    1.677964] R(d0) PC: Registered t(d0) cp-with-tls tran(d0) 
+sport module.
+(d0) [    1.678615] R(d0) PC: Registered t(d0) cp NFSv4.1 backc(d0) 
+hannel transport(d0)  module.
+"
+
+Cheers,
+
+-- 
+Julien Grall
 
 
