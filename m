@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5CF2AECCF5
-	for <lists+xen-devel@lfdr.de>; Sun, 29 Jun 2025 15:48:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1028636.1402431 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C438AECCFB
+	for <lists+xen-devel@lfdr.de>; Sun, 29 Jun 2025 15:58:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1028643.1402440 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uVsNm-0007K1-Qp; Sun, 29 Jun 2025 13:47:46 +0000
+	id 1uVsXj-0000Um-KS; Sun, 29 Jun 2025 13:58:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1028636.1402431; Sun, 29 Jun 2025 13:47:46 +0000
+Received: by outflank-mailman (output) from mailman id 1028643.1402440; Sun, 29 Jun 2025 13:58:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uVsNm-0007Gx-Ku; Sun, 29 Jun 2025 13:47:46 +0000
-Received: by outflank-mailman (input) for mailman id 1028636;
- Sun, 29 Jun 2025 13:47:45 +0000
+	id 1uVsXj-0000Sg-HR; Sun, 29 Jun 2025 13:58:03 +0000
+Received: by outflank-mailman (input) for mailman id 1028643;
+ Sun, 29 Jun 2025 13:58:02 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Oy8C=ZM=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uVsNl-0007Gr-Mx
- for xen-devel@lists.xenproject.org; Sun, 29 Jun 2025 13:47:45 +0000
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [2a00:1450:4864:20::42a])
+ id 1uVsXi-0000Sa-Cq
+ for xen-devel@lists.xenproject.org; Sun, 29 Jun 2025 13:58:02 +0000
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [2a00:1450:4864:20::332])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a0e9399a-54ef-11f0-a311-13f23c93f187;
- Sun, 29 Jun 2025 15:47:42 +0200 (CEST)
-Received: by mail-wr1-x42a.google.com with SMTP id
- ffacd0b85a97d-3a575a988f9so2253538f8f.0
- for <xen-devel@lists.xenproject.org>; Sun, 29 Jun 2025 06:47:42 -0700 (PDT)
+ id 1192dcfd-54f1-11f0-a311-13f23c93f187;
+ Sun, 29 Jun 2025 15:58:01 +0200 (CEST)
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-4538bc1cffdso12824345e9.0
+ for <xen-devel@lists.xenproject.org>; Sun, 29 Jun 2025 06:58:01 -0700 (PDT)
 Received: from ?IPV6:2003:ca:b711:f2ee:1da9:2a84:806b:ad68?
  (p200300cab711f2ee1da92a84806bad68.dip0.t-ipconnect.de.
  [2003:ca:b711:f2ee:1da9:2a84:806b:ad68])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-45380705351sm114164475e9.0.2025.06.29.06.47.40
+ 5b1f17b1804b1-4538a390d11sm107564635e9.7.2025.06.29.06.57.59
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 29 Jun 2025 06:47:41 -0700 (PDT)
+ Sun, 29 Jun 2025 06:57:59 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,66 +47,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a0e9399a-54ef-11f0-a311-13f23c93f187
+X-Inumbo-ID: 1192dcfd-54f1-11f0-a311-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1751204862; x=1751809662; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1751205480; x=1751810280; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=s6Q61zuRf61D1alO3tt+0aoy+hlcumsezRb1wUXTQh8=;
-        b=flbD3RTjwBXCgWRxkOcnY8/2oMVe/cQCNPRqWXuV/DpMu+2Vp3Gp2VkVT3JKCynqyB
-         FQkLaYMaGNrESWFu2hEPq6SOIdigvVP90B+Q7xEf1rWNIeuvHozy6ow5n/72bfT6oXms
-         xGBtr2s18sp7owrVGSYEec+6R3hQs6/FKs2XWSSWKRb13bo9uqJBGSJHmBfwCKRIKPfT
-         Fgt6dNGKktONktNp00qe2H/XxYYx7xz6iKQ34kq6sU/3QLLfkfWWUwxBfEM6jLEjEocF
-         GFsSf5GFIv5P1Pt59OKEZE/7VrAc1Sev4DbfgXOs7ZVbdv95C19Y20co1wg7D1eaS9mb
-         0o1A==
+        bh=/OppVkuopOJMhjQLdxBUIEkfWKUc28pCbHwwQlPhVNg=;
+        b=HmPlMZZYrDPvRcuUkTCwJSfBqc+QJqYol7h7ZHIUzhAVk03u9YjWuit3qxsZrc1Q9C
+         5i+j98SwKVcGrky4kTKXzCzKHbzjsKvML20gDcqFKlxy3uE5QLTaheHxNLUeX+JZEoWi
+         5LXWtnddn2U3MnSAxV3FApGJqGel4GwL20N/VQLOWq611S2k09VJ1Js9k8qM81MzAg8g
+         hWL9J75yQSRqzy20kB8ACvN9VUSaibjnHkb/nckA8bzp31FVG/tmBABKQI57z70Hx7WN
+         TWKQvGYDBdBNuOa1b0BAYC2vZDipya9LaN6hBUZ8ofH4m+QlwQg4E/lIw7SKJrPuUZ3R
+         0Z+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1751204862; x=1751809662;
+        d=1e100.net; s=20230601; t=1751205480; x=1751810280;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=s6Q61zuRf61D1alO3tt+0aoy+hlcumsezRb1wUXTQh8=;
-        b=L5Sx9+Nj18KogN5UEV2eq7ieQ53L2JGGRLRu0c19VitPw/6axgwV7ubZpuuud0AwAN
-         h4+vWnaZgka1Cyu1at+ufwCB5/PEruA2I7Vo1B1mXKjSj3/zDnFs2ADQAfv2PW5M4tcD
-         5Je67yVG2Ejf67fhf5CZXAe5dHvKHVAmEb8cdrrFnQphyc+C7ShjxHL1FB3dxFAggeL0
-         eXLAC5aG1ebOqojfj+ZC5Goh3Y1/c0j6pP7tGEVTtSP0QwSoSpihZmscYWQFnsQg/l1v
-         k+YXa2vODlUQsT+wpLvxHtokMGN4Ck54eoRaC3X5ec1eXqUqFbIFslk51sa1dUMADZ9g
-         jpEg==
-X-Forwarded-Encrypted: i=1; AJvYcCXGC7MIvyEEdRCLqDj4/EtLYrSzFE70PO6uoFg440Km6dlOvmVtEhEsYXomo8jRCJU2DhS43+RjYvM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yzj2+TjSUyZq1sbIJrdW4p9wMdPrzwS/vvQGuAMpOYm875HpiNM
-	Ede4NXIlTb4EIhKf4afJw2mvU55SSQWloYePi4TqfPDWTWmdyBUB8kNBk/x4mSRdEQ==
-X-Gm-Gg: ASbGncsMmkQBSV46SpgcvMJVdJQW5ZqsSKtpAiRB10pFQUQBX1aUHuGTQnGcAJrL2LL
-	eXpYkH8I/37Chp/Z5ZWEZK9e0nTBiqiSauiUIBeaolLwe0vuijYwMpRNgYv2V0f4cDJ9EkBrlIp
-	q5wL3Qd3c7lA+XeLj9K3OLMU2u7/6I3GNtFEG8k6Fg3bs/IfRbSt2pAa5sBwA/J448Fx06a4t3E
-	gNtoQ8uv173JYJnBRqzC8QPrTDcj5ruCEM2S1frK4//9GDxX+GN2xWeyJAcTc7evWcLSVQgK3ow
-	pxBYsMksO3X0/Tpju302izCDQU+WYt2kbTI5GixALMGclchND14TYb2ElhuEwIUuaFf5tqBj8LJ
-	/xIb0TxhKrLPW2qZgStPRSEj/buqr7jJRJC020AxQPn0z5Br2YEBhtr/piNM0RwKOd4huy2xjSK
-	V9aHHpb5ft/Ls2owrLkhsK
-X-Google-Smtp-Source: AGHT+IEOysRN1qEpAD1FP5Xvh4nPaPTenJWpcCzPnRX6vKG9jb4BJqjq9jLCjeg19Hxj91n54G732Q==
-X-Received: by 2002:a05:6000:20c1:b0:3a6:d604:a017 with SMTP id ffacd0b85a97d-3a8fe891725mr6274267f8f.24.1751204861687;
-        Sun, 29 Jun 2025 06:47:41 -0700 (PDT)
-Message-ID: <ad15a6b0-59bf-48ab-89d1-e763923f6f4a@suse.com>
-Date: Sun, 29 Jun 2025 15:47:41 +0200
+        bh=/OppVkuopOJMhjQLdxBUIEkfWKUc28pCbHwwQlPhVNg=;
+        b=P+MuF7riuJLTqwqICZQ8S/JixEBL+rH2bAguaYiqiyNUFdPnvmfGTnXGGWjExOBSBY
+         6eRu7aIO11t2QUpDunpg0ehLKoOJqAyKbp4Nx1xjPlwZ8w5XueD/EDmk68KzTGJjaYjG
+         Y9J01AUQAPTZWA17zsegnvGOibEI6Zsoa/m2/madQWZESHY/vSod4tgH24ICqCB5bXl8
+         0rMAoXoFwU3cm9bxvhMgIL9uO7YQ9mmQvfXus3GCmAIUaJnyrSRfSRmS8owPS71yz2Ss
+         K/hmTxsXt9VxbHW4SmrK/6q3D3hNsPb5sWbFrfgfkpkwvRaaCjqvmYkymmBQ/YxKNfzR
+         r8Qw==
+X-Forwarded-Encrypted: i=1; AJvYcCW4qHj3KUw/aCHq5Q2ex9Zg3DhuZJRteLYeDcv0rY0QnIIQ0kicGgrKGzQIjTCksOKcHD2oPAr7kTY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxmQqMKxPGPz4lgbVpA9zqV385HZb9OFG1OMLZ4eQ/ogbTmJglX
+	zb0/XKVSNFvf1/h7qcrNWNK9nX/ulB39rQoHyEnE/Wk76IhrlOBGuSnX8maE1w1RsFTrKfi41NS
+	k3NM=
+X-Gm-Gg: ASbGncsIP+bOA21W5F5TsrfbSekXjqlnyByTwKEhCyLJPPRYXpN10D0c1mKeK+iaWmo
+	7aBs+zxUXnfs/KGf2Sox12UNPCu26g1Kc6PSMq20bZGY7lXaQFt4UtCI17E4jDI46UKC8lZcInj
+	KV+BgBz2t3OFntIEexe0TFDgZhz65MPIzHT/KmS2E4vA/gM+wauJCDT1z54BD8401CbtcShqVq5
+	HVID7NbaDd+IvuhtM1I0Ud9lBD8X876EwGcE2cxEdGe9NFUqg3pSDUaNI1uMn3RsdefcZG89np3
+	0ufFMWehQYo53tJvJPZRfNOaH1TYTS7P/e/35Fiz4zKSspYwWC3aCH22BuiPi4lekn8zH5SbGNo
+	dVCTSn0MMgTujt3WeVamwXh9cUwV0uRoAkMpzlVMz80G1ne2FljTK1jvI9t6KLawSp5KscV3hyQ
+	fprPQQhEzzFGlHqT2nc36a
+X-Google-Smtp-Source: AGHT+IH9xqoyaM/eypZYWH78msxTCuC3B7j6W2ZmQAEk/MKEHGkklfeo88gzpxlGT3GntjlpYkpTcg==
+X-Received: by 2002:a05:600c:a41:b0:43c:eeee:b713 with SMTP id 5b1f17b1804b1-4538ee83b1amr82134805e9.20.1751205480224;
+        Sun, 29 Jun 2025 06:58:00 -0700 (PDT)
+Message-ID: <cf0db061-5cc2-45e2-8461-082c57a15f5d@suse.com>
+Date: Sun, 29 Jun 2025 15:57:59 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] xen/console: unify printout behavior for UART
- emulators
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: dmkhn@proton.me, andrew.cooper3@citrix.com, anthony.perard@vates.tech,
- michal.orzel@amd.com, roger.pau@citrix.com, dmukhin@ford.com,
- xen-devel@lists.xenproject.org, Julien Grall <julien@xen.org>
-References: <20250606201102.2414022-1-dmukhin@ford.com>
- <20250606201102.2414022-3-dmukhin@ford.com>
- <bcb3d553-b8aa-42ab-a9c8-7abf6f5d02c3@suse.com> <aEjInVF3zaa+VVd2@kraken>
- <b27f7652-424f-479c-a4bc-ed2ecd46ccc8@suse.com>
- <alpine.DEB.2.22.394.2506111155400.542113@ubuntu-linux-20-04-desktop>
- <b9c263e0-3d8d-4966-8f54-611e58572118@suse.com>
- <alpine.DEB.2.22.394.2506171735440.1780597@ubuntu-linux-20-04-desktop>
- <2f726960-4bdc-4996-b204-722c0253e2ab@suse.com>
- <alpine.DEB.2.22.394.2506181742281.1780597@ubuntu-linux-20-04-desktop>
- <c444b8ff-13ab-4c54-8ba9-5cee72f0f155@xen.org>
- <alpine.DEB.2.22.394.2506271454160.862517@ubuntu-linux-20-04-desktop>
+Subject: Re: [PATCH] x86/cpu-policy: Simplify logic in
+ guest_common_default_feature_adjustments()
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20250627141907.525027-1-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -132,70 +122,19 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2506271454160.862517@ubuntu-linux-20-04-desktop>
+In-Reply-To: <20250627141907.525027-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 27.06.2025 23:58, Stefano Stabellini wrote:
-> On Fri, 27 Jun 2025, Julien Grall wrote:
->> Hi Stefano,
->>
->> On 19/06/2025 01:45, Stefano Stabellini wrote:
->>> On Wed, 18 Jun 2025, Jan Beulich wrote:
->>>> On 18.06.2025 02:39, Stefano Stabellini wrote:
->>>>> On Thu, 12 Jun 2025, Jan Beulich wrote:
->>>>>> On 11.06.2025 21:07, Stefano Stabellini wrote:
->>>>>>> On Wed, 11 Jun 2025, Jan Beulich wrote:
->>>>>>>> On 11.06.2025 02:07, dmkhn@proton.me wrote:
->>>>>>>>> On Tue, Jun 10, 2025 at 10:21:40AM +0200, Jan Beulich wrote:
->>>>>>>>>> On 06.06.2025 22:11, dmkhn@proton.me wrote:
->>>>>>>>>>> From: Denis Mukhin <dmukhin@ford.com>
->>>>> If I understood correctly I like your proposal. Let me rephrase it to
->>>>> make sure we are aligned. You are suggesting that:
->>>>>
->>>>> - domains without input focus will print with a (d<N>) prefix
->>>>> - the domain with input focus will print without a (d<N>) prefix
->>>>> - this applies to both DomUs and Dom0
->>>>
->>>> Except in the non-dom0less case, at least up and until there's at least
->>>> one other domain. I.e. I'd like to keep Dom0 boot output as it is today,
->>>> regardless of the presence of e.g. "conswitch=".
->>>
->>> In the non-dom0less case, since dom0 has focus, it would naturally be
->>> without (d<N>) prefix. Unless the user passes "conswitch=". Honestly, I
->>> wouldn't special-case conswitch= that way and would prefer keep things
->>> simple and consistent without corner cases. I don't think conswitch= is
->>> so widely used that it is worth the complexity to special-case it.
->>
->> I am a bit confused with the wording. Before I can provide another opinion, I
->> want to understand a bit more the concern.
->>
->> From my understanding the command line option "conswitch" is to allow the
->> admin to change with key is used to switch between Dom0 and Xen. By default
->> this is 'a'. So are you referring to the fact a trailing "x" (to not switch to
->> dom0 console) can be added?
+On 27.06.2025 16:19, Andrew Cooper wrote:
+> For features which are unconditionally set in the max policies, making the
+> default policy to match the host can be done with a conditional clear.
 > 
-> Yes, conswitch can also be used to ask Xen to keep the input focus to
-> itself, instead of giving it away to Dom0. I think this is the specific
-> feature Jan was referring to when he said he is using conswitch and the
-> proposal would change the way the output looks like for him, which is
-> true.
+> This is simpler than the unconditional clear, conditional set currently
+> performed.
 > 
-> Today, dom0 would still print without any prefix.
-> 
-> Tomorrow with this proposal, dom0 would print with a "(d0)" prefix
-> because it doesn't have input focus.
-> 
-> The question is, with the new policy in place, whether this is worth the
-> trouble of having a special case to remove the "(d0)" prefix in the
-> conswitch=x case. I think it is not worth it, Jan thinks it is.
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Just to clarify: Along with this mode being entered by conswitch=, I also
-expect the behavior to remain unaltered when booting (non-dom0less)
-without that option, and later flipping focus between Xen and Dom0 by
-using triple Ctrl-a. I'm saying this just to make sure that an eventual
-change to the patch wouldn't be keyed to the use of the command line
-option.
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-Jan
 
