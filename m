@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E459AECDFC
-	for <lists+xen-devel@lfdr.de>; Sun, 29 Jun 2025 16:37:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1028654.1402451 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 037C6AECE3C
+	for <lists+xen-devel@lfdr.de>; Sun, 29 Jun 2025 17:06:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1028684.1402460 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uVt92-0005Zh-C9; Sun, 29 Jun 2025 14:36:36 +0000
+	id 1uVtaz-00013s-FG; Sun, 29 Jun 2025 15:05:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1028654.1402451; Sun, 29 Jun 2025 14:36:36 +0000
+Received: by outflank-mailman (output) from mailman id 1028684.1402460; Sun, 29 Jun 2025 15:05:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uVt92-0005Wc-8z; Sun, 29 Jun 2025 14:36:36 +0000
-Received: by outflank-mailman (input) for mailman id 1028654;
- Sun, 29 Jun 2025 14:36:34 +0000
+	id 1uVtaz-00011j-Ch; Sun, 29 Jun 2025 15:05:29 +0000
+Received: by outflank-mailman (input) for mailman id 1028684;
+ Sun, 29 Jun 2025 15:05:28 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Oy8C=ZM=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uVt90-0005WD-BI
- for xen-devel@lists.xenproject.org; Sun, 29 Jun 2025 14:36:34 +0000
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [2a00:1450:4864:20::434])
+ id 1uVtay-00011d-EY
+ for xen-devel@lists.xenproject.org; Sun, 29 Jun 2025 15:05:28 +0000
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [2a00:1450:4864:20::32f])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 717e5a51-54f6-11f0-b894-0df219b8e170;
- Sun, 29 Jun 2025 16:36:29 +0200 (CEST)
-Received: by mail-wr1-x434.google.com with SMTP id
- ffacd0b85a97d-3a588da60dfso714703f8f.1
- for <xen-devel@lists.xenproject.org>; Sun, 29 Jun 2025 07:36:29 -0700 (PDT)
+ id 7cc36a36-54fa-11f0-b894-0df219b8e170;
+ Sun, 29 Jun 2025 17:05:26 +0200 (CEST)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-45310223677so8784185e9.0
+ for <xen-devel@lists.xenproject.org>; Sun, 29 Jun 2025 08:05:26 -0700 (PDT)
 Received: from ?IPV6:2003:ca:b711:f2ee:1da9:2a84:806b:ad68?
  (p200300cab711f2ee1da92a84806bad68.dip0.t-ipconnect.de.
  [2003:ca:b711:f2ee:1da9:2a84:806b:ad68])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3a88c80b50bsm7814157f8f.42.2025.06.29.07.36.24
+ ffacd0b85a97d-3a88c7fa884sm7795933f8f.29.2025.06.29.08.05.24
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 29 Jun 2025 07:36:28 -0700 (PDT)
+ Sun, 29 Jun 2025 08:05:24 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,66 +47,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 717e5a51-54f6-11f0-b894-0df219b8e170
+X-Inumbo-ID: 7cc36a36-54fa-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1751207789; x=1751812589; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=d8BoEmLpfZ4wfOaxjizQSf77tH7NDGGE11mVzf6Xqgg=;
-        b=PBQ7EHxUXcFc7AOZbwKJZwTBVZiQC3ig+AikzSLQYkt5N2F3+5Lr037Uho4auwbrQa
-         mOiwsXCPrBC434VNzqP3DlaIZrUMzLXeYO1NzAzdg7bPMXYYrA5oIoC2WYsyLA7UKNIM
-         vQM1Sq5PXC/4BGDs17W8k/WlNKcnNTmqIzgJ1DCJoSfScFkROsz7cEB7vr+Gm0zlpiIp
-         yeRSW6/RMMkL1HrD2cVsBjowCM9doclBpwijbs4W9u2f6sKGog9j7HOy+MMB1y0kRGGU
-         ZEFEY/o/Z6KzKP9xuDAR9j4s0ObAYs1raZ7vPX0yRk3Ip9v1+bjZ0AetQTuvKc0S1MM/
-         hdqA==
+        d=suse.com; s=google; t=1751209525; x=1751814325; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=7+R4jycDgKuEiqOjobbAQ6hJXswPwBD05fVgtTyeiPM=;
+        b=AJ7Bj8JNwKVsPsILJ5/MMj1+SJfo9yrmVpNpslQsdQAX24FDsNaay1McwX5cQHPHsq
+         pmjd6uLr6WgYT1fEOyIXCJeguIya1tL81RbR6+IGszarLSA6hfr/18kCevU0RHjFXEgh
+         szA9a3eVzTlX+D4KxIJuhYS/ESwkg5bjtBEygKt5S2xGOO+RD82qIom28Q+pW8H0G5gk
+         4ese7Jgk6IwsLGH1ip34tz4FNXjcHhF19RnF84vIxk5diY4Qhfyv2eVHB7lAR7zgtNbA
+         WPRaarWOSAzlHbS7B48zRsW/HvIsFh4wpfBMV3CGhhoQfZdqAQEY1rR9FSMPZ6GQR/Au
+         ezsQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1751207789; x=1751812589;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=d8BoEmLpfZ4wfOaxjizQSf77tH7NDGGE11mVzf6Xqgg=;
-        b=cgo1T6wjnvz8eucxbrVJwci7oWQKJkfR3tlUVQUwBQkzoiQhH+MBlfE2+tspRp4jep
-         OVcLGtjpOgCzd40uW/Tvhw0Pp5k8mH+HaTTdIgTkOLd1zp8E6yRTeIxaBMNu9hx8inbE
-         1BhfIhkKVjj2L3ciIA8vSqYfKH/SlFformLApleetgfbBzYBhFSbgI2OlrEKA5x7JxMO
-         +TutdEwLuIAVoPcNuBIYsQs6KuEyRnovTVSYZktREDB7p5M66M3JSBAVl6CydoP3B3PI
-         55fTwvisr+hhWMvIxJjEYbvmvxwxUe2wVO3CVBUHswUkrAkIq1/2xD/AIxGZziJei0BP
-         b8VA==
-X-Forwarded-Encrypted: i=1; AJvYcCUA+z7vnQHhVdvyUjaWLJVW6UcG1Rxkikt5R5DcteBfK9jhemxu0P0PdgnpsmNBoA1nJbi/lEsTkCE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwMQkbSO3uYymo5KrhnE5P/npHj4x4Cxp2k10N1qHQmM+IsvYPS
-	zTxWKIlbJdp02tGWjNXuw/Cv4MlnpQBNWSv01Gv+5OGAkdiUhFKgqJnGgFO7FdjygA==
-X-Gm-Gg: ASbGncvoQDueuQOMntNdXNs6WgGppuXOqg07vtMz82SGPfrObdQOXMlnsXNRXmvWnmT
-	peGyXEByHtfUGe+2N1wpH+27qnbKYklWswPiR8XuglaEbl+cd9HPr9hmDjY/DiwECCrTrk68LbA
-	MiewF+4cafINYDc5fb9quwIGPxpxc/WQMn2wYask5OMlUUrBcxOMLHjVVEUxBrtfHfPK6wJAdbI
-	3GmfQDduXrRyXs4YSp79DR03KO6ie6wXIu7uOUCLTM6zFOuTKuFMI14SxZxQ2Qo082AsX/eMUWN
-	lfd4cUcEpftPqNyg687fbknaaFctmhXKWp8vzphuXVTqUAU1onmW+vUVxb9qdpHt/MvjbbTAm6D
-	J7WyBUC3Jvz/m2RXeJeajE4KHH8QEfOOGIk0ih/pGYqueNwcWV3RBAu7s7PEKcgu7WQe4RkjCP5
-	TNtdIobE2ZTKyn9gfKiYca
-X-Google-Smtp-Source: AGHT+IGaY8hqgS3R48GHPOWH+BcG26/77v9n8PFNhbVXp5DeSG7J+FDh/7r5m3k1AT0FzhPrjY7dPA==
-X-Received: by 2002:adf:9c81:0:b0:3a8:6262:e78 with SMTP id ffacd0b85a97d-3a8fe5b1dd8mr5226464f8f.37.1751207788611;
-        Sun, 29 Jun 2025 07:36:28 -0700 (PDT)
-Message-ID: <48882150-ed23-4810-b773-74748b9b3cae@suse.com>
-Date: Sun, 29 Jun 2025 16:36:25 +0200
+        d=1e100.net; s=20230601; t=1751209525; x=1751814325;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=7+R4jycDgKuEiqOjobbAQ6hJXswPwBD05fVgtTyeiPM=;
+        b=ZJjivwULMqvpHoFrRi6RDKbLGUEwMMTvCxnPQ00dUSN0ZipRw4hMPy5E+F2n5PMuXA
+         uN4UgGDzGQFHS5f83ymUXNbAkzc3RCAcAb8x1UL+fDK/bdYkkX/LD/+O0iLAg7hPRzaS
+         iSGkIWG1f0xwUzmixuqHjUHYNbt1GXsq+SsJVTTZkv6uQmIRDz7DYEAlLenYSLSBCklu
+         qmsuH3shoikCk9tZxWcshJJy/mTKOzsYgEdpflOIitUG2Ug3qkx/GcCyRVTbthH7jSHM
+         q24Wtbsoz4joVZeNgamIuhf4KUX8XV0UQZc4n8hQfRiToWguFmwi5HDBnSCQss2SKyy9
+         7FfQ==
+X-Forwarded-Encrypted: i=1; AJvYcCW6IXrh3iVKhF6ACqvlOvkRMfLjvwkzUHDvgtGd/uwtN3yG/cEhJtZENYBnzegYG6jCAspCbmFdieM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yzhani0/XSerh885/cnfR7z6Srfty8t325sd4DRs3eBSfgsP8aI
+	E9+/khU8XFOx/j3j4QRmQKXWVkag/s1ywcc4TbdSu/jJL2JAVCiG4/0x0f3FXH6LYg==
+X-Gm-Gg: ASbGnctZC8IZahs2QP2OZoOZAyPm6XFjRlq2DFdcDsx7oouMYzzLqCMenLDkO9Z1zMX
+	v8J2V2libitIxFoHsXzobaf9WCD0hG6crPUF3iSUTF2HzgUUc4C8b9aQv0DBYJDFedlvMpaK3Xw
+	X+rLtt5QlIwFm2AJyO587Ucfrh62n7L9q+J+kLXQ892qf+Uqu+eeyULu9ueDUvITHlHBvHN36l1
+	2FVRGWcpOYim7kGMC9Y8KcFEAt/FstcaTmzlzGXS58y2Pm9kgXd3R6J1DFuIHp5FTczUHJ010p8
+	t/+r8pU6Ozs5hiMkeMdMXxvJn4p46p60EutFVCwCpGsH+2MW9vVgSqTcymKYzRoC6Yf9tFRUfR8
+	ENTsiTmkBkqC2q/9el1RH9hNzyZhkGmfTxyEA9ICBqqXhQss3wbh5SGYMt21wzevYxUQpnB4rp5
+	I/LUz84s8djfj2visBsVn9
+X-Google-Smtp-Source: AGHT+IGMJDSrhfdeSWpJwfKU2eCvJPl9P9Z514ENvRVVtv37yxqYqXbIg59HwXxhjfYcIO91mAMjKg==
+X-Received: by 2002:a05:6000:2a85:b0:3a5:2848:2445 with SMTP id ffacd0b85a97d-3a8f482bfebmr6658464f8f.16.1751209525456;
+        Sun, 29 Jun 2025 08:05:25 -0700 (PDT)
+Message-ID: <0e55fa4f-2460-4ea5-91bd-46c86d3136d5@suse.com>
+Date: Sun, 29 Jun 2025 17:05:24 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 8/8] pdx: introduce a new compression algorithm based
- on region offsets
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Community Manager <community.manager@xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20250620111130.29057-1-roger.pau@citrix.com>
- <20250620111130.29057-9-roger.pau@citrix.com>
- <e0339b2b-86cd-45ad-9b6f-a5e8ddbc623c@suse.com>
- <aFwish8zET1W6-CC@macbook.local>
- <475fb02b-0b00-4aab-b73c-9604fe050074@suse.com>
- <aF6wAh2VaMc9mYV-@macbook.local>
-Content-Language: en-US
+Subject: Re: [PATCH v6 1/7] x86: suppress ERMS for internal use when
+ MISC_ENABLE.FAST_STRING is clear
 From: Jan Beulich <jbeulich@suse.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <c5e1e7e0-a295-4028-b003-152b861ee14f@suse.com>
+ <fe4920a2-4add-4e07-80f3-50eb37de0754@suse.com>
+ <c1d38fa9-a959-470f-96ce-462ea7e04041@citrix.com>
+ <634154c0-ecd7-4c24-bc52-91aeefe367f0@suse.com>
+Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -130,64 +124,37 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aF6wAh2VaMc9mYV-@macbook.local>
+In-Reply-To: <634154c0-ecd7-4c24-bc52-91aeefe367f0@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 27.06.2025 16:51, Roger Pau Monné wrote:
-> On Thu, Jun 26, 2025 at 09:35:04AM +0200, Jan Beulich wrote:
->> On 25.06.2025 18:24, Roger Pau Monné wrote:
->>> On Tue, Jun 24, 2025 at 06:16:15PM +0200, Jan Beulich wrote:
->>>> On 20.06.2025 13:11, Roger Pau Monne wrote:
->>>>> +bool pdx_is_region_compressible(paddr_t base, unsigned long npages)
->>>>> +{
->>>>> +    unsigned long pfn = PFN_DOWN(base);
->>>>> +
->>>>> +    return pdx_to_pfn(pfn_to_pdx(pfn) + npages - 1) == (pfn + npages - 1);
->>>>
->>>> Aiui for this to be correct, there need to be gaps between the ranges
->>>> covered by individual lookup table slots. In the setup logic you have a
->>>> check commented "Avoid compression if there's no gain", but that doesn't
->>>> look to guarantee gaps everywhere (nor would pfn_offset_sanitize_ranges()
->>>> appear to)?
->>>
->>> But if there are no gaps, the full region is covered correctly, and
->>> hence it's compressible?
+On 26.06.2025 17:45, Jan Beulich wrote:
+> On 26.06.2025 17:31, Andrew Cooper wrote:
+>> On 16/06/2025 1:59 pm, Jan Beulich wrote:
+>>> +    if ( !raw_cpu_policy.feat.erms )
 >>
->> If there's a guarantee that such ranges would be folded into a single one,
->> all would be fine.
+>> This wants to be the host policy, not the raw policy.  That's why
+>> `cpuid=no-erms` isn't working in the way you'd expect.
 >>
->>> Maybe I'm missing something, could you maybe provide an example that
->>> would exhibit this issue?
->>
->> My understanding is that when there's no gap between regions, and when
->> [base, base + npages) crosses as region boundary, then the expression
->> above will yield true when, because of crossing a region boundary, it
->> ought to be false. Or did I simply misunderstand the purpose of the
->> pdx_is_region_compressible() invocations?
+>> cpuid=no-$foo means "Xen should behave as if $foo wasn't reported by
+>> hardware", and that includes not giving it to guests by default.
 > 
-> If there's no gap between the regions it's IMO intended for
-> pdx_is_region_compressible() to return true, as the whole region is
-> continuous in both the PFN and PDX spaces, and hence compressible
-> (even if it spans multiple regions).
+> Hmm, interesting. That's definitely not the meaning I give this. To me it
+> means merely Xen shouldn't use the feature (with an impact on guests only
+> when the feature in hardware is required to surface it to guests). I
+> don't think we have the precise meaning of this option written down
+> anywhere?
 
-My problem is that I can't make the connection between that function
-returning true and regions getting concatenated. When the function is
-invoked, concatenation (or not) has happened already, aiui.
+Then again I notice what you ask for is in line with uses of cpu_has_*
+(where available) elsewhere (e.g. in your "x86/cpu-policy: Simplify logic
+in guest_common_default_feature_adjustments()"), with
+calculate_host_policy() simply copying boot_cpu_data.x86_capability into
+the host policy. So yes, I guess I'll need to adjust.
 
-> But maybe I'm not understanding your point correctly, could you maybe
-> provide an example if you disagree with my reply above?  Sorry if I'm
-> being dull, with this compression stuff it's sometimes hard for me to
-> visualize the case you are trying to make without a concrete
-> example.
-
-What I think I didn't take into consideration is that from two pages
-being contiguous in MFN space, it ought to follow they're also
-contiguous in PDX space. Hence [base, base + npages) crossing a region
-boundary (if, contrary to what you say, this was possible in the first
-place) would still not be encountering a discontinuity. So overall not
-an issue, irrespective of what pdx_is_region_compressible() means
-towards (non-)contiguity.
+Ftaod, this still leaves open what exact meaning "cpuid=no-..." ought to
+have. While kind of an example in the opposite direction, consider e.g.
+"cpuid=no-lm": This cannot sensibly have any effect on Xen itself. It
+could plausibly mean to permit only 32-bit guests.
 
 Jan
 
