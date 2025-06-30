@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 46AB2AEDC74
-	for <lists+xen-devel@lfdr.de>; Mon, 30 Jun 2025 14:14:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1029113.1402857 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C447EAEDCA2
+	for <lists+xen-devel@lfdr.de>; Mon, 30 Jun 2025 14:22:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1029119.1402867 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uWDOl-0007dT-Kk; Mon, 30 Jun 2025 12:14:11 +0000
+	id 1uWDWD-0000vk-CP; Mon, 30 Jun 2025 12:21:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1029113.1402857; Mon, 30 Jun 2025 12:14:11 +0000
+Received: by outflank-mailman (output) from mailman id 1029119.1402867; Mon, 30 Jun 2025 12:21:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uWDOl-0007ak-He; Mon, 30 Jun 2025 12:14:11 +0000
-Received: by outflank-mailman (input) for mailman id 1029113;
- Mon, 30 Jun 2025 12:14:10 +0000
+	id 1uWDWD-0000tn-8W; Mon, 30 Jun 2025 12:21:53 +0000
+Received: by outflank-mailman (input) for mailman id 1029119;
+ Mon, 30 Jun 2025 12:21:51 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=3E/H=ZN=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1uWDOk-0007ae-0S
- for xen-devel@lists.xenproject.org; Mon, 30 Jun 2025 12:14:10 +0000
-Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
- [2a00:1450:4864:20::342])
+ id 1uWDWB-0000th-PG
+ for xen-devel@lists.xenproject.org; Mon, 30 Jun 2025 12:21:51 +0000
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [2a00:1450:4864:20::32b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b9628a59-55ab-11f0-a312-13f23c93f187;
- Mon, 30 Jun 2025 14:14:08 +0200 (CEST)
-Received: by mail-wm1-x342.google.com with SMTP id
- 5b1f17b1804b1-453634d8609so30236085e9.3
- for <xen-devel@lists.xenproject.org>; Mon, 30 Jun 2025 05:14:08 -0700 (PDT)
+ id cceace91-55ac-11f0-a312-13f23c93f187;
+ Mon, 30 Jun 2025 14:21:51 +0200 (CEST)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-453647147c6so47842895e9.2
+ for <xen-devel@lists.xenproject.org>; Mon, 30 Jun 2025 05:21:51 -0700 (PDT)
 Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3a87e947431sm10312089f8f.0.2025.06.30.05.14.07
+ 5b1f17b1804b1-4538233c4acsm161332475e9.1.2025.06.30.05.21.49
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 30 Jun 2025 05:14:07 -0700 (PDT)
+ Mon, 30 Jun 2025 05:21:50 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b9628a59-55ab-11f0-a312-13f23c93f187
+X-Inumbo-ID: cceace91-55ac-11f0-a312-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1751285648; x=1751890448; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1751286110; x=1751890910; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=5ihKzTcbo5RVMrh97KWV1e+2z1l30RUrT8RORTZOh/s=;
-        b=lC5J/4IM/IbISJAzlqq7A02AmYgUcnUpTu1Jpe1BCcu8vRffOAnyUVehFP/o52PBaV
-         ydNFb72KfenjUKApPcvAL6/UFymEeNlshCBSZ8wBtcubjkl01efZVIFAcby7/3kJgq+F
-         hplQZhmk+UWV9DPMVAdAuaWDVFOfroF+S3uo0=
+        bh=z8f+hd9kPFk/vvLhPYl067xUnHuLLUSWmVD76ZBQOXU=;
+        b=EYSNxViHyrCBHh7H+lEKYH+L1mH8NgpTXPaUhpmVxGD/ZcWizswrrZAPs1GbIPtNhL
+         cGgo98Q/1UUN4NhndIpODvD56KR4UPsd7U6wgCDMN6aQnBUKghKTjtD3pgbGvcGGxyum
+         NeJZBlD2d9BTtdpa+Ma6KnVMQT3UEaDoErdso=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1751285648; x=1751890448;
+        d=1e100.net; s=20230601; t=1751286110; x=1751890910;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=5ihKzTcbo5RVMrh97KWV1e+2z1l30RUrT8RORTZOh/s=;
-        b=P4Ff5sqWOKHWVIy+jT/VVmQX/rsyEPl5RXNowKnS4sclvN9ifTUxuTXkGyplOPq5RY
-         /SLvVXNOp8mxBI9+e733ZRm+OqhCKmAPYAQ2a30S5Txc+LzBxEl1/5HfZU64t8RYiIbT
-         68/TOyeiz40wIw+kRELE8UOh6uNQ4iSYyX+ZPW1fT1Rk1yEur+AT5swDOrWdhrcfGslA
-         rYpJGZstVPO+glZ7l7oYdKSq1U+SPaJHxE/IoDrURD11QvX/3+sRCw4Lo4HLfYGi7Qv2
-         lz2Ke8r2Wlr9/GfpurJRq/V/D/UFb1L8J+ZylSV/EUMEt8u+oySTTXhdqS8jczbAAOMT
-         a2yA==
-X-Forwarded-Encrypted: i=1; AJvYcCXJ2nuYMMmyjOterR6zVYb/OiGEPRiCYYJNYs784gOQ5vse2wc+BIWm7AT9FCcakgGOTNwCXPTnKVg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyRPa3DVh4NlSGGk1Svi3sPGTcQbblN0h2kQSZu7Ax1I+gnds1+
-	/PhWSWfJS2vNIaoGIuTXACDTI4K/Mvlulv5NiyHMttKkKvKy9CI5G6qnvjcHbSLBdGA=
-X-Gm-Gg: ASbGncuRPPwXUc0kPbhTbt4+u9uz8s9ge0LAmN4fLi6TsIcuZQbtMcly7Q1rAN6FNlD
-	+lwuHfZWfc5w2WO69Oy3bC2/u++MpA0eXPr0XHgtSdfDf0jNpVYlDygLY7oPvIGnVJ/xLvhTfbv
-	efoju3+2JztnyrRC7o+8J+gsW8ZcEJbZYtXu6YNah40oj3cpTxKMB5J9q+lMThUeEcQU9AanINU
-	VwY7aaIwHbL7RvaKUUbZEYCEcs/kWhE1sxmvWHFcbQ5z2zqhsiBQ7c749RtgmPEwXhiutB5YvOJ
-	DjM5v11iruzhun6VYTNrWOcTiiul9OG0p0dYm7iME+ecaoZ/f1otKAReMkuBMc5iy+ZoL9iKArC
-	C8q7Ohw9C88BZbktIApQMCr742GrqcNw7tclX8g==
-X-Google-Smtp-Source: AGHT+IGC9WaZOgy0e4CwB0JAWGOZM/CD8Hfg7YfH9Lscncd/2y05Bz5vHw5/meD8ChB4DU3dJYPzgw==
-X-Received: by 2002:a5d:5f49:0:b0:3a3:7ba5:9618 with SMTP id ffacd0b85a97d-3a8ffccac13mr11757313f8f.29.1751285647897;
-        Mon, 30 Jun 2025 05:14:07 -0700 (PDT)
-Message-ID: <2a2315c8-4903-4377-b879-c99b95404609@citrix.com>
-Date: Mon, 30 Jun 2025 13:14:06 +0100
+        bh=z8f+hd9kPFk/vvLhPYl067xUnHuLLUSWmVD76ZBQOXU=;
+        b=BW/38BwYuFt60fe4x1OioEXIFLZ8OUjKfcG/EEvUEkvExVMsPT7p5llYDO8InThdnT
+         7YVZwYOC9Op8Da0RwON+2VTEBNlYdIjrDvqhiBczZXJANJPxphKsaS8Hm+KcQyjndDlZ
+         W1KXTzXLhonsma+WFluNAZlnYKiGvCD5iQGF+YKsBKueMXceSp2jKV3qRNX9m1s+s60A
+         VfjID84Yxbyaz670KhxqPXDMxy4DKBifarvXup4EutACVPG3mwqnkp6qqiuIrtr79WIz
+         NmC2Xas8SM8WntLC68W9dQbG741j6uywkfo1RVPJ9VmmSes8CZACnOe7ZA9DhfBDK+BV
+         L3UQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVX7xMUR7ayrgpQlHPr/Y1+3KeMqU0TMbcT3TngmksOP2sqPhs/hD07zYq9bNXm/VH0+yldmvhPj7E=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwRZdATk6dbRXsEwLheXRwqhbb4ZylV6PNt/IhnRs5nnHQQ9DLx
+	dmA5TnKCHoKM5x+9aGiHZ2sOBT8PSr/jh9tLOY5RLN+4uHeqJznA9iG4wbultTSO1+Q5i1lnrOT
+	sBiSOUFPGhA==
+X-Gm-Gg: ASbGnctJtUi1Wsk3vQldNLOWwWs04M053EZ42IGlo5s+/wVEER00W3cXTgqT515WHpQ
+	0QnBH3lTIJ1fXctMTD1GBy1ItCQ+eK4VzgI9e+XDWjQ6K+Ohx41LAL3LydXi6SIilcQcCkHK2R4
+	LWtlIHSTdNc1XHhmVcHhgtCd4CpqNJanD3SYFI9vH8Ufp4wlpLsc8A6oiPgGroF68M5vMwXSqZN
+	hc6Dm8ghFxq2pVWuMZ9hYdVNBgGlVc0cg6R2c++4l7H4STYxFHzmXhUS5nZwwDYIPo1mEqoZCLC
+	l7sb2emKKKWC89X0nAhzPgMYsfxqzP7Xhuh3CiOW4W/fVTUfYxNuGLUoyvYkGBJohOHS74dQBNP
+	9ixL6cTswiPvo9YifkTjq25Rff7E=
+X-Google-Smtp-Source: AGHT+IF4dmJYoN/fFm85UW+ys+1C3BJsj5B6zGKnsjaP+Cq2R0GqJcVMPEdUtaMA56oPFxAwtVa7IA==
+X-Received: by 2002:a05:600c:4f13:b0:453:2433:1c5b with SMTP id 5b1f17b1804b1-4538ee15a9emr133309415e9.5.1751286110407;
+        Mon, 30 Jun 2025 05:21:50 -0700 (PDT)
+Message-ID: <bdc2a10a-db0f-4787-81fe-d152bb76b88e@citrix.com>
+Date: Mon, 30 Jun 2025 13:21:49 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/build: pass -fzero-init-padding-bits=all to gcc15
+Subject: Re: [PATCH] x86/EFI: restrict use of --dynamicbase
 To: Jan Beulich <jbeulich@suse.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Julien Grall <julien@xen.org>, Stefano Stabellini
- <sstabellini@kernel.org>, Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
-References: <a48edc0d-6a5a-4410-974b-a4342fee1387@suse.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Marek Marczykowski <marmarek@invisiblethingslab.com>,
+ Daniel Smith <dpsmith@apertussolutions.com>
+References: <a4343e2b-7bbd-4dca-8bcd-d30caf7555cf@suse.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -137,27 +137,32 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <a48edc0d-6a5a-4410-974b-a4342fee1387@suse.com>
+In-Reply-To: <a4343e2b-7bbd-4dca-8bcd-d30caf7555cf@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 18/06/2025 9:22 am, Jan Beulich wrote:
-> See the respective bullet point in the Caveats section of
-> https://gcc.gnu.org/gcc-15/changes.html.
+On 26/06/2025 1:45 pm, Jan Beulich wrote:
+> At least GNU ld 2.35 takes this option to (also) mean what newer
+> versions have controllable by --enable-reloc-section. From there being
+> no relocations in check.efi (as we don't pass the option there) we infer
+> that we need to involve mkreloc, we'd end up with two sets of
+> relocations, which clearly isn't going to work. Furthermore the
+> relocations ld emits in this case also aren't usable: For bsp_idt[] we
+> end up with PE_BASE_RELOC_LOW ones, which efi_arch_relocate_image()
+> (deliberately) doesn't know how to deal with. (Related to that is also
+> why we check the number of relocations produced: The linker simply
+> didn't get this right there, yet.)
 >
-> While I'm unaware of us currently relying on the pre-gcc15 behavior,
-> let's still play safe and retain what unknowingly we may have been
-> relying upon.
+> We also can't add the option to what we use when linking check.efi: That
+> ld version then would produce relocations, but 4 of them (instead of the
+> expected two). That would make us pass --disable-reloc-section, which
+> however only ld 2.36 and newer understand.
 >
-> According to my observations, on x86 generated code changes
-> - somewhere deep in modify_bars(), presumably from the struct map_data
->   initializer in apply_map() (a new MOVQ),
-> - in vpci_process_pending(), apparently again from the struct map_data
->   initializer (and again a new MOVQ),
-> - near the top of find_cpio_data(), presumably from the struct cpio_data
->   initializer (a MOVW changing to a MOVQ).
+> For such older binutils versions we therefore need to accept the slight
+> inconsistency in DLL characteristics that the earlier commit meant to
+> eliminate.
 >
-> Requested-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Fixes: f2148773b8ac ("x86/EFI: sanitize DLL characteristics in binary")
 > Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
 Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
