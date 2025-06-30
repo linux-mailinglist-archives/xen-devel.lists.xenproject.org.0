@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1630BAED6D5
-	for <lists+xen-devel@lfdr.de>; Mon, 30 Jun 2025 10:14:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1028912.1402620 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 52AF5AED6FA
+	for <lists+xen-devel@lfdr.de>; Mon, 30 Jun 2025 10:21:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1028921.1402630 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uW9em-0004Va-4T; Mon, 30 Jun 2025 08:14:28 +0000
+	id 1uW9kv-00063S-PM; Mon, 30 Jun 2025 08:20:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1028912.1402620; Mon, 30 Jun 2025 08:14:28 +0000
+Received: by outflank-mailman (output) from mailman id 1028921.1402630; Mon, 30 Jun 2025 08:20:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uW9em-0004T4-1j; Mon, 30 Jun 2025 08:14:28 +0000
-Received: by outflank-mailman (input) for mailman id 1028912;
- Mon, 30 Jun 2025 08:14:26 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1uW9kv-000618-Mj; Mon, 30 Jun 2025 08:20:49 +0000
+Received: by outflank-mailman (input) for mailman id 1028921;
+ Mon, 30 Jun 2025 08:20:48 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1uW9ek-0004Sy-BD
- for xen-devel@lists.xenproject.org; Mon, 30 Jun 2025 08:14:26 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1uW9ei-00AC6d-04;
- Mon, 30 Jun 2025 08:14:24 +0000
-Received: from [2a02:8012:3a1:0:a1f7:3d35:dea1:a2b4]
- by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1uW9eh-00BYOJ-2n;
- Mon, 30 Jun 2025 08:14:23 +0000
+ (envelope-from <SRS0=erj2=ZN=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uW9ku-000612-G9
+ for xen-devel@lists.xenproject.org; Mon, 30 Jun 2025 08:20:48 +0000
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [2a00:1450:4864:20::434])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 1fc6182a-558b-11f0-a312-13f23c93f187;
+ Mon, 30 Jun 2025 10:20:47 +0200 (CEST)
+Received: by mail-wr1-x434.google.com with SMTP id
+ ffacd0b85a97d-3a50fc819f2so3024403f8f.2
+ for <xen-devel@lists.xenproject.org>; Mon, 30 Jun 2025 01:20:47 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-74af57df2dcsm8557564b3a.124.2025.06.30.01.20.40
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 30 Jun 2025 01:20:45 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,86 +45,135 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=jjn/JAuSlZR29TpVPgH097NnNH+kq+EAI60VCaGaPTM=; b=DalWJiTjKv9Z6XVFfz+qk7Rmpz
-	+RQli6POk9XCcAyxHkkFZ60DODWjUqapUnT/CwlxAraP/cIG+CCrs1wJlJnP4UfS+Xk2KGVvmLy65
-	2BWvYPt2/ArBd5EXW3sOIYWFPwZ3Ry40Y4SEN7NLkTPONtrAfcPW3RabspeLvr8+mzy8=;
-Message-ID: <32bbe11b-a92b-484a-ad77-d0354f8e9339@xen.org>
-Date: Mon, 30 Jun 2025 09:14:22 +0100
+X-Inumbo-ID: 1fc6182a-558b-11f0-a312-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1751271646; x=1751876446; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=VViF0g5AkG0VPWOu0z60MTfuy012hLzV2MXAXc8Q7do=;
+        b=XNM0tN9oS1JxvnCfkfLTDBWlloF/mBqk/P0e6mNyUGXW0NGQ24xUrlg0BdYxGIx2G4
+         mUE60i5Qu0MNUNlBavMNArzF43j794lb1cvTuIO33b1VWt7W+imk/eeXMjBWqOE8ZZM0
+         TfT4YANwIHY+2VNzzORpLvQnbDRtcEJR10DYLOCJix+WuLL5VBVqOZFyZqq4JCg8DDkk
+         XJ+sx0+lfjaWugLdSylONAA8pxCTwhGxP6LgNkhGGKb3xpNjOn1c1fL9dlXojMY50UH0
+         1EelFKcMCLGuph8Ex/6seQbJthzuCXAu1s6PWaM9t+b2vQqI7R8sSLEV/AgTkSG044eC
+         dUow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1751271646; x=1751876446;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=VViF0g5AkG0VPWOu0z60MTfuy012hLzV2MXAXc8Q7do=;
+        b=uu58X53+1WCPBvHYosEMjO5c18MPCsqY1iLHHMkKoNxfNgGKg7Z4cgVx98W8ScXjbE
+         NVO5fQyUzPU5To+lJJdQcdWQO2KEveWP5UNp1lODyFm8RPSoTNTUaSclRUWWCok97OWT
+         Qsn0rQBW3naMxa+Y2LYIv41lx48a+kMyGkHm0wQ50r+zZCg6M5ZW3jMSse6YFPAsVMiJ
+         WBeFIs1aNp2U3DOBnsgDNsRuEIEC9Fpr29y10omy83CkfCh7C4VFUIdWYQSHJQHdFNzy
+         MYyR0iUhNHX3dsuWTbmYlsl0/UjI1LCWDfMY1qSRzydmg6cZyONn0LNYgpyC6R9Bnveu
+         Iq5w==
+X-Forwarded-Encrypted: i=1; AJvYcCVSupxDQwtqugmqwnmOVqZx+RPZJlqrWZZ2amIk0ZQngzosG0PDACcm7/CkTjwBucmRUVr2q9hztok=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwZwFD8AgDuXiTzqi0MqlUj5fkIP1yryvCnlGyY4hcMks5xuvt/
+	c5NqnhPWamwL6HBwFYZhECU6c34ydlsiJvWFNYslbPDi3pG5TVhqOrB6GpSRqG/tIQ==
+X-Gm-Gg: ASbGncsZMlZNr+Vmzi2fcTNXgNMsrKUXAMGHM9bdsA/b5H99K91I174G4eqLp2N4fYE
+	yXWYQi0T0bqyJV0aEOesxSeRUiLXjNozIj2V0qlQ/H7+6n6ggQ/Wue00rPkQusWL8Jg7qDHb7GW
+	LjcVGnQt6CrstfOBVkrPfsKJTeHthSNkyk7eIufRVzR/IBfClryLKB73TIenDiq1VSZ1HP7iz+d
+	pi6WB3IvwCalYAtdkosfVtXT6xQ+GqE9gqYhcb/9jtRRlHntO1vjIT2K55cilItczs/+kHT2Uyo
+	HBMMgOJYBOzBVewruzsUHS4Ojz1+SAgxcuudWWvVZ7TDGGB7A72lvmeDEtERQxEQWU5Ef4CmKwd
+	V2+a2V8DDJQ9e25tXSahM5E9wGKzjp8Rm9JVvlovssJletIw=
+X-Google-Smtp-Source: AGHT+IG31JsL1Bi5wTyquonzl8TZFavWYJ1Hh5fW6XP7kKPMtFH1LaJGb9fIpAEBX23WXWLKpY1p0g==
+X-Received: by 2002:adf:c084:0:b0:3a4:f9e7:2796 with SMTP id ffacd0b85a97d-3a9176038c6mr7939395f8f.35.1751271646334;
+        Mon, 30 Jun 2025 01:20:46 -0700 (PDT)
+Message-ID: <a4244940-8c03-4391-8078-7308d6a3fcca@suse.com>
+Date: Mon, 30 Jun 2025 10:20:36 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/arm: Enhance IPMMU-VMSA driver robustness and debug
- output
-To: Jahan Murudi <jahan.murudi.zg@renesas.com>,
- "Orzel, Michal" <michal.orzel@amd.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <volodymyr_babchuk@epam.com>
-References: <20250620103123.2174529-1-jahan.murudi.zg@renesas.com>
- <445c5594-a003-4cd8-aa46-8544c0543b1c@amd.com>
- <OSOPR01MB12408AB9E8CD52B45381E83FFAB7BA@OSOPR01MB12408.jpnprd01.prod.outlook.com>
- <52b27bae-b182-488f-afcb-bdbfbc1a495e@xen.org>
- <OSOPR01MB12408F2C96C1E82BA03F842ECAB46A@OSOPR01MB12408.jpnprd01.prod.outlook.com>
+Subject: Re: [PATCH v5 01/18] xen/x86: remove "depends on !PV_SHIM_EXCLUSIVE"
+To: Penny Zheng <Penny.Zheng@amd.com>
+Cc: ray.huang@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20250616064128.581164-1-Penny.Zheng@amd.com>
+ <20250616064128.581164-2-Penny.Zheng@amd.com>
 Content-Language: en-US
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <OSOPR01MB12408F2C96C1E82BA03F842ECAB46A@OSOPR01MB12408.jpnprd01.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20250616064128.581164-2-Penny.Zheng@amd.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-
-
-On 30/06/2025 07:37, Jahan Murudi wrote:
-> Hi Julien,
+On 16.06.2025 08:41, Penny Zheng wrote:
+> Remove all "depends on !PV_SHIM_EXCLUSIVE" (also the functionally
+> equivalent "if !...") in Kconfig file, since negative dependancy will badly
+> affect allyesconfig.
 > 
-> On 25/06/2025 16:53, Julien Grall wrote:
-> 
->> Hi Jahan,
-> 
->>>>> +    dsb(sy);
->>>> Any clue why Linux (mainline) does not do that?
-> 
->> One process remark, we typically comment inline rather than pasting a quote and replying at the top of the e-mail.
-> 
->   Thanks for the style note - I'll follow the inline commenting convention moving forward.
-> 
->>> The implementation writel() which contains an implicit dsb(st) which likely sufficient for Linux for its Stage-1 IOMMU usage where CPU and IOMMU interactions are coherent.
->>> However, Xen uses the IPMMU as a Stage-2 IOMMU for non-coherent DMA operations (such as PCIe passthrough), requiring the stronger dsb(sy) to ensure writes fully propagate to the IPMMU >>hardware before continuing.
-> 
->> I don't follow. Are you saying the IPMMU driver in Linux doesn't non-coherent DMA operations?
-> 
-> Let me clarify my understanding:  In native Linux, the IOMMU works at stage-1 (VA -> PA) and typically assumes coherency between CPU and IOMMU. The implicit dsb(st) in writel() is enough there. But in Xen, we use this as stage-2 (GPA -> HPA) for cases like PCI passthrough where devices might be non-coherent. 
+> Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
+> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+> ---
+> v2 -> v3:
+> - remove comment for PV_SHIM_EXCLUSIVE
+> ---
+> v3 -> v4:
+> - explicitly state "CONFIG_xxx is not set" in "pvshim_defconfig"
 
+Where did these changes go? Nothing is said about ...
 
-I understand for the PCI passthrough, Xen will be using stage-2, so in 
-theory the stage-1 could be used by the guest OS. But ultimately, this 
-is the same PCI device behind. So if it is not coherent, it should be 
-for both stages. Do you have any pointer to the documentation that would 
-state otherwise?
+> - Add "default y" for SHADOW_PAGING and TBOOT
+> - refactor commit message
+> ---
+> v4 -> v5:
+> - For not breaking allyesconfig, changes to defaults are actually not needed.
+> So remove them all
+> - Leave one blank lines
 
- > We might need stronger barrier dsb(sy) in xen because: 1) We can't 
-assume the TLB walker is coherent for stage -2
+... their (complete) dropping here. Aiui overrides for anything where you
+remove the dependency (and where the intended setting for the shim is different
+from the general default) would still be needed here.
 
-Why would the TLB walker coherent for stage-2 but not stage-1? Any 
-pointer to the documentation?
+And then there's still a non-"depends on" change left ...
 
-Note, I just noticed that IOMMU_FEAT_COHERENT_WALK is not set for the 
-IPMMU. So the "dsb sy" is coherent. However, I find doubful an IOMMU 
-would have a difference of coherency between two stages. So maybe we 
-should set the flag either unconditionally or based on a register.
+> --- a/xen/drivers/video/Kconfig
+> +++ b/xen/drivers/video/Kconfig
+> @@ -3,7 +3,7 @@ config VIDEO
+>  	bool
+>  
+>  config VGA
+> -	bool "VGA support" if !PV_SHIM_EXCLUSIVE
+> +	bool "VGA support"
+>  	select VIDEO
+>  	depends on X86
+>  	default y if !PV_SHIM_EXCLUSIVE
 
- > and we must also prevent(minimise) any DMA operations during TLB 
-invalidation( observed some IPMMU hardware limitations in the 
-documentation) .
+... here, which (as indicated before) imo doesn't belong here, but at the very
+least would need covering in the description.
 
-I don't understand what you wrote in parentheses. But isn't it what you 
-wrote all true for stage-1?
+Also, just to repeat what I said in reply to the cover letter: Imo this change
+needs to move 2nd to last in the series, and it then wants committing together
+with the last patch (which you will want to put in as a remark to the eventual
+committer).
 
-Cheers,
-
--- 
-Julien Grall
-
+Jan
 
