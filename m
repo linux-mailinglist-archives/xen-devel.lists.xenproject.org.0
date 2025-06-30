@@ -2,36 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F458AED9EF
-	for <lists+xen-devel@lfdr.de>; Mon, 30 Jun 2025 12:35:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1029004.1402761 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 03CA4AEDA43
+	for <lists+xen-devel@lfdr.de>; Mon, 30 Jun 2025 12:50:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1029025.1402774 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uWBqq-0000Fm-Oy; Mon, 30 Jun 2025 10:35:04 +0000
+	id 1uWC5W-0002yX-6r; Mon, 30 Jun 2025 10:50:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1029004.1402761; Mon, 30 Jun 2025 10:35:04 +0000
+Received: by outflank-mailman (output) from mailman id 1029025.1402774; Mon, 30 Jun 2025 10:50:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uWBqq-0000DK-LZ; Mon, 30 Jun 2025 10:35:04 +0000
-Received: by outflank-mailman (input) for mailman id 1029004;
- Mon, 30 Jun 2025 10:35:03 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uWC5W-0002wE-3Z; Mon, 30 Jun 2025 10:50:14 +0000
+Received: by outflank-mailman (input) for mailman id 1029025;
+ Mon, 30 Jun 2025 10:50:12 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=QzNl=ZN=bounce.vates.tech=bounce-md_30504962.68626854.v1-22c1748b0ecc401fbe2d41b116762df6@srs-se1.protection.inumbo.net>)
- id 1uWBqp-0000DE-9b
- for xen-devel@lists.xenproject.org; Mon, 30 Jun 2025 10:35:03 +0000
-Received: from mail187-29.suw11.mandrillapp.com
- (mail187-29.suw11.mandrillapp.com [198.2.187.29])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e0739d19-559d-11f0-a312-13f23c93f187;
- Mon, 30 Jun 2025 12:35:02 +0200 (CEST)
-Received: from pmta09.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
- by mail187-29.suw11.mandrillapp.com (Mailchimp) with ESMTP id
- 4bW2bm5NN7z7lmDFF
- for <xen-devel@lists.xenproject.org>; Mon, 30 Jun 2025 10:35:00 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- 22c1748b0ecc401fbe2d41b116762df6; Mon, 30 Jun 2025 10:35:00 +0000
+ <SRS0=gInu=ZN=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1uWC5U-0002w8-Jn
+ for xen-devel@lists.xenproject.org; Mon, 30 Jun 2025 10:50:12 +0000
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [2a00:1450:4864:20::42a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id fdf08616-559f-11f0-b894-0df219b8e170;
+ Mon, 30 Jun 2025 12:50:09 +0200 (CEST)
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-3a522224582so2193595f8f.3
+ for <xen-devel@lists.xenproject.org>; Mon, 30 Jun 2025 03:50:09 -0700 (PDT)
+Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
+ by smtp.gmail.com with UTF8SMTPSA id
+ ffacd0b85a97d-3a892e598d2sm10012305f8f.76.2025.06.30.03.50.08
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 30 Jun 2025 03:50:08 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,155 +45,92 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e0739d19-559d-11f0-a312-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1751279700; x=1751549700;
-	bh=3W5WXPPkdn52aUe9Wy9HcVhwmubgY5+gcpH4c7xElaU=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=tOEVEjgCJtlYZUjOgPiJb9tEkfGufchSqhTbIWCt84ZeXmVSu8Uo6hkm6txbUJQkT
-	 TVdDEBO8CXOwL09waoiTIJrTlsqzIlx/yzTvg6V00Xpunj03iVKmA0J0PJ42VGlO3V
-	 Ls0Ei57H/y2p45KDMTAUneOlLMablXAd4FZ/Uh77N0CZhYKwE3IOWGAkPzBZTZSZfF
-	 Kbxu+dEuGx2PlyspDcOqDf80p/af+kpJrkcKE6LK0o1YVGHphSmMMQzI6/pGoN6G46
-	 NA1PtiQDEne8iLt5P5P78N0pSs+8QVuUhoZJyX06rhfumFoEF4h/dSWO2sI9J8kOmx
-	 TR8egOtfF4HQg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1751279700; x=1751540200; i=ngoc-tu.dinh@vates.tech;
-	bh=3W5WXPPkdn52aUe9Wy9HcVhwmubgY5+gcpH4c7xElaU=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=wXGlQIOIhIbfW6kLf/ynzX85XjL0d232aZ48D+2wdo+9jZM0YQ2FOahZIrSzmxMld
-	 rhGTSHw//mQg+1luzlKOacrwRclk4XCMrGLzITGjlVwMpMje/cIcU5/uFdBPwYcpIL
-	 GUzAb231FOaNhMarxeaAG1JpASfFgJ9W2SMN+kJtMx8UPoj1uEYTwGU1pmbou358/q
-	 Hpvb5UtedRyx/sHxVBLV/c2k/RDlMqbMLi1WznzBEQWJHKectHCM5CVNUMrKEbQf43
-	 AebppOwChVJrkyKPvzLLKBCrQJSgVC+5738yVJzI00LJZnZIUMkOZ1FArnh27oWplc
-	 qIydqFk5pubkg==
-From: "Tu Dinh" <ngoc-tu.dinh@vates.tech>
-Subject: =?utf-8?Q?Re:=20[RFC=20PATCH]=20xen/gntdev:=20reduce=20stack=20usage=20by=20dynamically=20allocating=20gntdev=5Fcopy=5Fbatch?=
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1751279699533
-Message-Id: <5e67d651-830a-4d99-af37-26f2d0efd640@vates.tech>
-To: "Abinash Singh" <abinashlalotra@gmail.com>, jgross@suse.com, sstabellini@kernel.org
-Cc: oleksandr_tyshchenko@epam.com, xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org, "Abinash Singh" <abinashsinghlalotra@gmail.com>
-References: <20250629204215.1651573-1-abinashsinghlalotra@gmail.com>
-In-Reply-To: <20250629204215.1651573-1-abinashsinghlalotra@gmail.com>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.22c1748b0ecc401fbe2d41b116762df6?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20250630:md
-Date: Mon, 30 Jun 2025 10:35:00 +0000
+X-Inumbo-ID: fdf08616-559f-11f0-b894-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1751280609; x=1751885409; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=bkLwNmYLuKyQcclKDsE/w8VukAwLC8KPQfw31AtdgXc=;
+        b=ZEqU3YNjUJ0DLL3mQ1f52hvywu74K1BIrR1EIQH7XHrm5NaZOzuRboJru6uAJBUPjG
+         HRHAC8vGfkET+3412URXeu7XK2duvKqLhfMMOjDF3jr24MCh38m/nR9+wdfMaAMvHO0G
+         WxVJ5WwGrlPQC0q4uJdli42ZVOU+0mDDzqAXk=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1751280609; x=1751885409;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=bkLwNmYLuKyQcclKDsE/w8VukAwLC8KPQfw31AtdgXc=;
+        b=jTX1nHsELpMlE5vLpEh0/0fayYdKNqqeGoHQPZCEiJmvnIpfvh7xFHDb4MuFpIUVC8
+         8KsTntkdsBietgGTd0uvmvHcxJTSeWFRMvVpXjEnQEwndLes0UNK5yShWjMAesQvmTwO
+         7EauVtO2Iy8CXB6SEPGVDitE4ZPlitWm0ApbZoNaLUxIiqYPVm0yFC4MUpDoftmp7s5G
+         UXIYyZGQ0XCjH/yMIIJhwN7Rk7c0JWs6Cx+OCaegn6txZUdVysUoKlNHfwU46sP+O0IL
+         iaAu3Clh1LaoXpuEGglAfZFc3Z4m7Qq5qTdNV2zcIF5bzqk/19OA1fMY00XDzW94utBU
+         GJIA==
+X-Gm-Message-State: AOJu0YxTHahnnt/VlbJ4S2GLHBLoBv/1MRW85pXGZbBSp/Q1tbqNsDXr
+	3kRjAJgg7tJ/53c6fZzzzgYzmGOvRL+UZA9dzNEgUB+rwSEUW4bDAclhm/6Rex9Sims=
+X-Gm-Gg: ASbGnct/kYzf2bAtRfFud3tOO6uq0aTPRFYTkub0YcpS905bR9taPLeH0J0NxWZEwGK
+	bR9B0td1GTPA+mTaw+3wg59aaGw/+zGZlempJr5dqdJBphnf88dhXoBqvqVxAWVs7fUhaQ7WVYt
+	lxLdtXKw9WrNg0Uh95+DqE1qECst1ycgd+FlOBHKQBUn8eb3U0bhY0Na1h7s8LJ8x4hk/vDYwef
+	oNtQOW1cVYF3Jh3sYqU7G0EvAaZbpUORJJXdcXPj8+Efd1tP0gBHYUZHjjl5/Am9goeQ+/wM8Sv
+	6vq+1BeHl6t9rLicqsnrDhvcGSd5lG/u0G+Xbbjm1gq7Ikpa/2CF5dsn+88fzAlwVbztICMcBDN
+	n7qXzrbCqZtLFCNFqfhgqaY13yUKZvw==
+X-Google-Smtp-Source: AGHT+IEIY3Lr+Z/f+DlD7L6QGBJTAydGU9BalpBaz8gtwJIWtLVX2jHzIZ6Iux/cqCwC0tBHcjLOBw==
+X-Received: by 2002:a05:6000:4408:b0:3a4:eecf:b8cb with SMTP id ffacd0b85a97d-3a8ffccac65mr8908416f8f.28.1751280609142;
+        Mon, 30 Jun 2025 03:50:09 -0700 (PDT)
+Date: Mon, 30 Jun 2025 12:50:07 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+	Ross Lagerwall <ross.lagerwall@citrix.com>,
+	Jan Beulich <JBeulich@suse.com>,
+	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	"Daniel P . Smith" <dpsmith@apertussolutions.com>
+Subject: Re: [PATCH 1/3] x86/EFI: Fix detection of buildid
+Message-ID: <aGJr30sBRgJbqWSe@macbook.local>
+References: <20250605111638.2869914-1-andrew.cooper3@citrix.com>
+ <20250605111638.2869914-2-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20250605111638.2869914-2-andrew.cooper3@citrix.com>
 
-Hi,
+On Thu, Jun 05, 2025 at 12:16:36PM +0100, Andrew Cooper wrote:
+> The format of the buildid is a property of the binary, not a property of how
+> it was loaded.  This fixes buildid recognition when starting xen.efi from it's
+> MB2 entrypoint.
+> 
+> Suggested-by: Ross Lagerwall <ross.lagerwall@citrix.com>
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-On 30/06/2025 06:54, Abinash Singh wrote:
-> While building the kernel with LLVM, a warning was reported due to
-> excessive stack usage in `gntdev_ioctl`:
-> 
-> 	drivers/xen/gntdev.c:991: warning: stack frame size (1160) exceeds limit (1024) in function 'gntdev_ioctl'
-> 
-> Further analysis revealed that the large stack frame was caused by
-> `struct gntdev_copy_batch`, which was declared on the stack inside
-> `gntdev_ioctl_grant_copy()`. Since this function was inlined into
-> `gntdev_ioctl`, the stack usage was attributed to the latter.
-> 
-> This patch fixes the issue by dynamically allocating `gntdev_copy_batch`
-> using `kmalloc()`, which significantly reduces the stack footprint and
-> eliminates the warning.
-> 
-> This approach is consistent with similar fixes upstream, such as:
-> 
-> commit fa26198d30f3 ("iommu/io-pgtable-arm: dynamically allocate selftest device struct")
-> 
-> Fixes: a4cdb556cae0 ("xen/gntdev: add ioctl for grant copy")
-> Signed-off-by: Abinash Singh <abinashsinghlalotra@gmail.com>
+Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+
+Some possibly useless rants below.
+
 > ---
-> The stack usage was confirmed using the `-fstack-usage`  flag and mannual analysis, which showed:
+> CC: Jan Beulich <JBeulich@suse.com>
+> CC: Roger Pau Monné <roger.pau@citrix.com>
+> CC: Ross Lagerwall <ross.lagerwall@citrix.com>
+> CC: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+> CC: Daniel P. Smith <dpsmith@apertussolutions.com>
 > 
->    drivers/xen/gntdev.c:953: gntdev_ioctl_grant_copy.isra   1048 bytes
->    drivers/xen/gntdev.c:826: gntdev_copy                     56 bytes
+> I don't like this patch and tried hard to do it in a better way, but the EFI
+> aspects of the build system are too intractable.
 > 
-> Since `gntdev_ioctl` was calling the inlined `gntdev_ioctl_grant_copy`, the total
-> frame size exceeded 1024 bytes, triggering the warning.
-> 
-> This patch addresses the warning and keeps stack usage within acceptable limits.
-> Is this patch fine or kmalloc may affect performance ?
-> ---
+> While on x86 I can in principle pull the same common-stubs.o trick, split on
+> XEN_BUILD_PE rather than XEN_BUILD_EFI, that doesn't work on ARM which
+> hand-codes it's PE-ness.  Also, it's really not EFI related, other than as a
+> consequence of that being the only reason we use PE32+ binaries.
 
-Have you measured the performance impact? gntdev_ioctl_grant_copy is 
-called quite often especially by the backend. I'm afraid calling the 
-allocator here may cause even more slowdown than there already is, 
-especially when memory is tight.
+Since this is already gated on CONFIG_X86 you could pass XEN_BUILD_PE
+as a define in CFLAGS, and use it together with the CONFIG_X86 check?
 
->   drivers/xen/gntdev.c | 24 +++++++++++++++---------
->   1 file changed, 15 insertions(+), 9 deletions(-)
-> 
-> diff --git a/drivers/xen/gntdev.c b/drivers/xen/gntdev.c
-> index 61faea1f0663..9811f3d7c87c 100644
-> --- a/drivers/xen/gntdev.c
-> +++ b/drivers/xen/gntdev.c
-> @@ -953,15 +953,19 @@ static int gntdev_grant_copy_seg(struct gntdev_copy_batch *batch,
->   static long gntdev_ioctl_grant_copy(struct gntdev_priv *priv, void __user *u)
->   {
->   	struct ioctl_gntdev_grant_copy copy;
-> -	struct gntdev_copy_batch batch;
-> +	struct gntdev_copy_batch *batch;
->   	unsigned int i;
->   	int ret = 0;
->   
->   	if (copy_from_user(&copy, u, sizeof(copy)))
->   		return -EFAULT;
-> -
-> -	batch.nr_ops = 0;
-> -	batch.nr_pages = 0;
-> +
-> +	batch = kmalloc(sizeof(*batch), GFP_KERNEL);
-> +	if (!batch)
-> +		return -ENOMEM;
-> +
-> +	batch->nr_ops = 0;
-> +	batch->nr_pages = 0;
->   
->   	for (i = 0; i < copy.count; i++) {
->   		struct gntdev_grant_copy_segment seg;
-> @@ -971,18 +975,20 @@ static long gntdev_ioctl_grant_copy(struct gntdev_priv *priv, void __user *u)
->   			goto out;
->   		}
->   
-> -		ret = gntdev_grant_copy_seg(&batch, &seg, &copy.segments[i].status);
-> +		ret = gntdev_grant_copy_seg(batch, &seg, &copy.segments[i].status);
->   		if (ret < 0)
->   			goto out;
->   
->   		cond_resched();
->   	}
-> -	if (batch.nr_ops)
-> -		ret = gntdev_copy(&batch);
-> -	return ret;
-> +	if (batch->nr_ops)
-> +		ret = gntdev_copy(batch);
-> +	goto free_batch;
->   
->     out:
-> -	gntdev_put_pages(&batch);
-> +	gntdev_put_pages(batch);
-> +  free_batch:
-> +	kfree(batch);
->   	return ret;
->   }
->   
+That however would still put the code in the .gz binary, as the object
+file would be the same for both builds.  Otherwise we would need to
+compile this twice and use the different object files for the PE vs
+ELF images, which seems extremely cumbersome for a little benefit, as
+this is init-only code that would be gone once booted.
 
-
-
-Ngoc Tu Dinh | Vates XCP-ng Developer
-
-XCP-ng & Xen Orchestra - Vates solutions
-
-web: https://vates.tech
-
+Thanks, Roger.
 
