@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D78AFAEE32D
-	for <lists+xen-devel@lfdr.de>; Mon, 30 Jun 2025 17:59:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1029246.1403024 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 46C39AEE41A
+	for <lists+xen-devel@lfdr.de>; Mon, 30 Jun 2025 18:18:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1029258.1403034 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uWGut-0008Iy-3C; Mon, 30 Jun 2025 15:59:35 +0000
+	id 1uWHCu-0003X4-LJ; Mon, 30 Jun 2025 16:18:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1029246.1403024; Mon, 30 Jun 2025 15:59:35 +0000
+Received: by outflank-mailman (output) from mailman id 1029258.1403034; Mon, 30 Jun 2025 16:18:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uWGus-0008H6-Vg; Mon, 30 Jun 2025 15:59:34 +0000
-Received: by outflank-mailman (input) for mailman id 1029246;
- Mon, 30 Jun 2025 15:59:34 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=erj2=ZN=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uWGus-0008H0-7U
- for xen-devel@lists.xenproject.org; Mon, 30 Jun 2025 15:59:34 +0000
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [2a00:1450:4864:20::42a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 36851e82-55cb-11f0-a312-13f23c93f187;
- Mon, 30 Jun 2025 17:59:33 +0200 (CEST)
-Received: by mail-wr1-x42a.google.com with SMTP id
- ffacd0b85a97d-3a6f2c6715fso2534786f8f.1
- for <xen-devel@lists.xenproject.org>; Mon, 30 Jun 2025 08:59:33 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-74af557460fsm9980405b3a.93.2025.06.30.08.59.25
+	id 1uWHCu-0003Um-II; Mon, 30 Jun 2025 16:18:12 +0000
+Received: by outflank-mailman (input) for mailman id 1029258;
+ Mon, 30 Jun 2025 16:18:10 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Irzh=ZN=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1uWHCs-0003Ug-NZ
+ for xen-devel@lists.xenproject.org; Mon, 30 Jun 2025 16:18:10 +0000
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [2a00:1450:4864:20::636])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id cd6555e7-55cd-11f0-b894-0df219b8e170;
+ Mon, 30 Jun 2025 18:18:05 +0200 (CEST)
+Received: by mail-ej1-x636.google.com with SMTP id
+ a640c23a62f3a-ae35c447234so654164866b.1
+ for <xen-devel@lists.xenproject.org>; Mon, 30 Jun 2025 09:18:05 -0700 (PDT)
+Received: from [192.168.1.5] (user-109-243-64-38.play-internet.pl.
+ [109.243.64.38]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ae35363aecdsm705640166b.16.2025.06.30.09.18.03
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 30 Jun 2025 08:59:31 -0700 (PDT)
+ Mon, 30 Jun 2025 09:18:03 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 36851e82-55cb-11f0-a312-13f23c93f187
+X-Inumbo-ID: cd6555e7-55cd-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1751299172; x=1751903972; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=7ZffqJRME8x4UkcvSMYkkB4E+0MQZzh9SBrRhhrlkeM=;
-        b=D9c2w/RlzUzy3E+4DnbQK8Byx9a/TvxGdrOjjRTJO330tdlMtr5un4hFzCagHx81Ai
-         apw5D/FyLLxE0sMP/LjC1i8jAG/dEwZ5C2D4AKeJAtpLgGO6qibPA2CWLa/cz0E09hom
-         skujzWKvUMhdmozXsDOHb1levPl0qO0J4xDQMOU5//DYOwznaaztYZ8yuO5remJGugCP
-         Xdx8WMOCM1IdDvn1FxLmVNIWwsNEzlC3CuLCw/nMilOtuqY74GuI0n9FuDzXzgGpVxZh
-         mAW1DbGSCv+na8JYRMloHWA0j1QD2E1nRhGh9dXDrIy0CmOx37JuRPbyTcLqTSKoIQFL
-         qAIA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1751299172; x=1751903972;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20230601; t=1751300284; x=1751905084; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=7ZffqJRME8x4UkcvSMYkkB4E+0MQZzh9SBrRhhrlkeM=;
-        b=t3uy3NCFH3PuaRvj2HG5p98poF/HU23xG7Yb0xeqP8QEcjdBY17POj3eMTTBmWrDHV
-         uThK+VTLJWL9awGqTyDVIiuov5n0Ggh/qVmnG/LeS0O+7C1l1QHONa77Srq3lXgalicm
-         xIalkYiThy6/cULwIiHzek5KH4R3w53m7GD5TXxJs5FOMudSDqD5axKNYYvsX75l36vu
-         Tw+etNQe+UHqwe+ydfdRR/5XnSJIeR1E4Nof2fe+mydYf8HP1FKXp71uC8L/Y1Bugv87
-         YJoml6x3qJ9H6M0yE4AgooBNQ856qF61AYZeVJ53oDEZ2uhq7poAEeXbtdqUXe6F0vzw
-         lA5g==
-X-Forwarded-Encrypted: i=1; AJvYcCW1ZIV3wzum5CAgJ/x7x3+WLbG8+0GElrMFjlsrGiivsPG/M5UMlU64oBbQVZIUmLPtt7VnJiK7NfI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yx1Ub1bjqm+dJePFL+rJomCIaHZKtox+yh4i1hYJxIC996VAxVI
-	wvh6d2dU4Myf1Bf08UrPmFCHdliLWrbhFuL/6tX4MYwDl8SHTx+7pYSXD7vHkEp3BQ==
-X-Gm-Gg: ASbGncsCPQgXdo/117LRjH+nXlHf49s+lrsa7limPeHwQFI+JYzcKZODyszgRbe0htE
-	0tL65tJ5hjCUo+SKVZd8DQQuw3U80ky/8FUHwYGGImemiKygQtZlhXe5SqQ2yijC6pjeGb5dygR
-	HRNqsTQhIbEwCi2n0olMQOM+q2an5XGnpRXD8qx+p64kXkKHAxltHBJ3IRRlXCUa0a/IrIy/OjO
-	JdtT3CCDJICdLUbLc12uI2+Z7HizVlY8Ggk1ah0/naxv4l7yY7Khu6Rk9ngPn03WnEBPA/k/6i4
-	WpNnqqgw/b44RQbkN1pOVe6AgX/8cUxaie9b18auqYYnfaavhTwt6ig4LIFlf2KCo43DUXdlpQz
-	H2Bpog/UuH5xi6sDD5pIMmUJpAxAPZHV8XG8PkI+qVeQ+CTw=
-X-Google-Smtp-Source: AGHT+IG5ucJoKG1vBGA+waDwFYrmJxnAuc+PmtW9uHGIahqq9pYnUWtAtMeHQcURj4SUVuWbMv9Gsg==
-X-Received: by 2002:adf:9d91:0:b0:3a6:da76:38b0 with SMTP id ffacd0b85a97d-3a8f50cb692mr9963875f8f.25.1751299172491;
-        Mon, 30 Jun 2025 08:59:32 -0700 (PDT)
-Message-ID: <f1e26c40-c70d-4d86-96ec-7643a9d08e76@suse.com>
-Date: Mon, 30 Jun 2025 17:59:21 +0200
+        bh=CDm1mQqcyBUZokPVAMRm4victrDQ+kORMVXoQtNWF4Q=;
+        b=Hx29C7rD4YO3lO/x5kduqIK5K6/FxvcgrN7SgZAiadzacHk0lelRrIwzcqdCNg88bf
+         5EWqFC4vnze1ZWaeevrVdYLUA3SZVEzCFjR0XM4HBEbwIkvGZinB1H7Qi5v7qZZWTXNI
+         0HdI1npN5rIMgq43fVIeq2if+Q5D4LS9nfDb7VkolUvewGka4ZEIaEZLy8z/lyCRWueZ
+         ysUmPVynk7fCU4/jGKo/5DKdxoSHe6Rs9ZVPihxkar2H/6kEERmhZddHHsSCA2IBb/Na
+         kHFvfCPJstmSyxEutw/BwwQcrWXXuHHeF1WU1SOylIL0FcWiSKD7q9K5/GNxtn0z2/1w
+         Rkdg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1751300285; x=1751905085;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=CDm1mQqcyBUZokPVAMRm4victrDQ+kORMVXoQtNWF4Q=;
+        b=smC0+97V8aeDhFItmFmY2k4oxxWk/fYog3KJYRBinl4WCpimPaj9bf1oI50/rhzk1P
+         d5OPmdD3bus0DYmCRDzO6ukD+o9SDSKdQX/mJTCvGRNpjzWZPDZ3hzRLNbZXm6Bf/fvZ
+         6/+7Qc08VRA57tATgbJlQWFswDGiEV73ZgPfTDK41DiYAb0ueQ5EmX/FwrqIj875F/Il
+         A8HcSDQRC+WR83U9bRNXojhumqLBdtnb1EPKctcJqaQAVyQoIeqlVcPVQtAR+4XmQrnn
+         RgV/+bMcVRQ2JZnWklEnGjbl71sD3eh9OPnpr5s0+yQA0Lz9RWCOMwcXlcBekKM+/VNy
+         7Gsg==
+X-Forwarded-Encrypted: i=1; AJvYcCVjI1g6rh21QWVuOHXjwOqwV2jghYua0cNa1yBu13xQP+xGUbMHSUBET7asX16iGBmozgNwZpdvER4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxNEQIwc7ZFPO9Yr7TZq/JsWAvMmCs1Zj7QfQMDFRB1QBpBP9Bw
+	ZY6J16Jh+ggHsYYggdFaIz3cfN3MeXKhjcJ5SDysPxCrMG1XdP2lCAHx
+X-Gm-Gg: ASbGncvW8ZW2lo9LqAA8ogUfRSjeQ5KvzfzMe7AMMWtnPAT6DXZBdk6+OGlShwZ5sG1
+	Z1d65PgI2wWQv5E5Z2E+BspWq/Z1qsqZySOvIMBnUqV0FC0qPnAJiaU/HBgCBbP6B4JkSFVy6fm
+	H4a0PSVbewc+zE2WLobz0zzvwsKdsMcMdwIOQNrP4de8pS09J7zQ5krbvhiSb+mxdIrh285zEOF
+	e+33faj0VlXDo3L0qFhrQeR8TjPZ9Divt/Nub4RtODYH3l+GMRhDy+0MYh4zc5YkHe/P/98sGH+
+	UAaNr35WGDp30SfuK244oygaqdI6M0m+XXGGU9RJ0aPH4NmIIY8/nCpt0KkdAKuN98bA1DOI6Ff
+	Jv8eCk3pjuLPEduWunj8NQ1sZvk1HGpTSpzE=
+X-Google-Smtp-Source: AGHT+IHQj3JjTcUwTZ+LnUcHvB4bjjSs89yS9p85V8i579qXl5fQpwz/zPvMyvOVt0/hGSnc27hwxg==
+X-Received: by 2002:a17:907:c25:b0:ae3:6e5c:1c05 with SMTP id a640c23a62f3a-ae3aa365f57mr16828466b.30.1751300284110;
+        Mon, 30 Jun 2025 09:18:04 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------2FTHIQhiOa3ZrNfgfpkwc2a0"
+Message-ID: <c9924195-17e5-4f47-869a-c7930a65538c@gmail.com>
+Date: Mon, 30 Jun 2025 18:18:02 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 10/17] xen/riscv: implement guest_physmap_add_entry()
- for mapping GFNs to MFNs
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Subject: Re: [PATCH v2 06/17] xen/riscv: add root page table allocation
+To: Jan Beulich <jbeulich@suse.com>
 Cc: Alistair Francis <alistair.francis@wdc.com>,
  Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
  <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -98,95 +98,601 @@ Cc: Alistair Francis <alistair.francis@wdc.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <cover.1749555949.git.oleksii.kurochko@gmail.com>
- <0b1f7ead7eb1b7c8687d388cca50b46eefb8e408.1749555949.git.oleksii.kurochko@gmail.com>
+ <76675ddb7517e4cceb63472c94944046b255da01.1749555949.git.oleksii.kurochko@gmail.com>
+ <9c89ead3-7577-46f2-acc2-6dd8d793ab89@suse.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <0b1f7ead7eb1b7c8687d388cca50b46eefb8e408.1749555949.git.oleksii.kurochko@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <9c89ead3-7577-46f2-acc2-6dd8d793ab89@suse.com>
 
-On 10.06.2025 15:05, Oleksii Kurochko wrote:
-> --- a/xen/arch/riscv/p2m.c
-> +++ b/xen/arch/riscv/p2m.c
-> @@ -324,3 +324,44 @@ int p2m_set_allocation(struct domain *d, unsigned long pages, bool *preempted)
->  
->      return 0;
->  }
-> +
-> +static int p2m_set_entry(struct p2m_domain *p2m,
-> +                         gfn_t sgfn,
-> +                         unsigned long nr,
-> +                         mfn_t smfn,
-> +                         p2m_type_t t,
-> +                         p2m_access_t a)
-> +{
-> +    return -EOPNOTSUPP;
-> +}
-> +
-> +static int p2m_insert_mapping(struct domain *d, gfn_t start_gfn,
+This is a multi-part message in MIME format.
+--------------2FTHIQhiOa3ZrNfgfpkwc2a0
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-This likely again wants to be struct p2m_domain *.
 
-> +                              unsigned long nr, mfn_t mfn, p2m_type_t t)
-> +{
-> +    struct p2m_domain *p2m = p2m_get_hostp2m(d);
-> +    int rc;
-> +
-> +    p2m_write_lock(p2m);
-> +    rc = p2m_set_entry(p2m, start_gfn, nr, mfn, t, p2m->default_access);
-> +    p2m_write_unlock(p2m);
-> +
-> +    return rc;
-> +}
-> +
-> +int map_regions_p2mt(struct domain *d,
-> +                     gfn_t gfn,
-> +                     unsigned long nr,
-> +                     mfn_t mfn,
-> +                     p2m_type_t p2mt)
-> +{
-> +    return p2m_insert_mapping(d, gfn, nr, mfn, p2mt);
-> +}
+On 6/30/25 5:22 PM, Jan Beulich wrote:
+> On 10.06.2025 15:05, Oleksii Kurochko wrote:
+>> --- a/xen/arch/riscv/include/asm/p2m.h
+>> +++ b/xen/arch/riscv/include/asm/p2m.h
+>> @@ -26,6 +26,12 @@ struct p2m_domain {
+>>       /* Pages used to construct the p2m */
+>>       struct page_list_head pages;
+>>   
+>> +    /* The root of the p2m tree. May be concatenated */
+>> +    struct page_info *root;
+>> +
+>> +    /* Address Translation Table for the p2m */
+>> +    paddr_t hgatp;
+> Does this really need holding in a struct field? Can't is be re-created at
+> any time from "root" above?
 
-What is this function doing here? The description says "for generic mapping
-purposes", which really may mean anything. Plus, if and when you need it, it
-wants to come with a name that fits with e.g. ...
+Yes, with the current one implementation, I agree it would be enough only
+root. But as you noticed below...
 
-> +int guest_physmap_add_entry(struct domain *d,
-> +                            gfn_t gfn,
-> +                            mfn_t mfn,
-> +                            unsigned long page_order,
-> +                            p2m_type_t t)
+> And such re-creation is apparently infrequent,
+> if happening at all after initial allocation. (But of course I don't know
+> what future patches of yours will bring.) This is even more so if ...
+>
+>> --- a/xen/arch/riscv/include/asm/riscv_encoding.h
+>> +++ b/xen/arch/riscv/include/asm/riscv_encoding.h
+>> @@ -133,11 +133,13 @@
+>>   #define HGATP_MODE_SV48X4		_UL(9)
+>>   
+>>   #define HGATP32_MODE_SHIFT		31
+>> +#define HGATP32_MODE_MASK		_UL(0x80000000)
+>>   #define HGATP32_VMID_SHIFT		22
+>>   #define HGATP32_VMID_MASK		_UL(0x1FC00000)
+>>   #define HGATP32_PPN			_UL(0x003FFFFF)
+>>   
+>>   #define HGATP64_MODE_SHIFT		60
+>> +#define HGATP64_MODE_MASK		_ULL(0xF000000000000000)
+>>   #define HGATP64_VMID_SHIFT		44
+>>   #define HGATP64_VMID_MASK		_ULL(0x03FFF00000000000)
+> ... VMID management is going to change as previously discussed, at which
+> point the value to put in hgatp will need (partly) re-calculating at certain
+> points anyway.
 
-... this one, to understand their relationship / difference.
+... after VMID management will changed to per-CPU base then it will be needed
+to update re-calculate hgatp each time vCPU on pCPU is changed.
+In this case I prefer to have partially calculated 'hgatp'.
 
-> +{
-> +    return p2m_insert_mapping(d, gfn, (1 << page_order), mfn, t);
+>> --- a/xen/arch/riscv/p2m.c
+>> +++ b/xen/arch/riscv/p2m.c
+>> @@ -41,6 +41,91 @@ void p2m_write_unlock(struct p2m_domain *p2m)
+>>       write_unlock(&p2m->lock);
+>>   }
+>>   
+>> +static void clear_and_clean_page(struct page_info *page)
+>> +{
+>> +    clean_dcache_va_range(page, PAGE_SIZE);
+>> +    clear_domain_page(page_to_mfn(page));
+>> +}
+> A function of this name can, imo, only clear and then clean. Question is why
+> it's the other way around, and what the underlying requirement is for the
+> cleaning part to be there in the first place. Maybe that's obvious for a
+> RISC-V person, but it's entirely non-obvious to me (Arm being different in
+> this regard because of running with caches disabled at certain points in
+> time).
 
-1UL please, while at the same time the parentheses could be omitted.
+You're right, the current name|clear_and_clean_page()| implies that clearing
+should come before cleaning, which contradicts the current implementation.
+The intent here is to ensure that the page contents are consistent in RAM
+(not just in cache) before use by other entities (guests or devices).
 
-Jan
+The clean must follow the clear — so yes, the order needs to be reversed.
+
+>
+>> +static struct page_info *p2m_allocate_root(struct domain *d)
+>> +{
+>> +    struct page_info *page;
+>> +    unsigned int order = get_order_from_bytes(KB(16));
+> While better than a hard-coded order of 2, this still is lacking. Is there
+> a reason there can't be a suitable manifest constant in the header?
+
+No any specific reason, I just decided not to introduce new definition as
+it is going to be used only inside this function.
+
+I think it will make sense to have in p2m.c:
+  #define P2M_ROOT_PT_SIZE KB(16)
+If it isn't the best one option, then what about to move this defintion
+to config.h or asm/p2m.h.
+
+>
+>> +    unsigned int nr_pages = _AC(1,U) << order;
+> Nit (style): Missing blank after comma.
+
+I've changed that to BIT(order, U)
+
+>
+>> +    /* Return back nr_pages necessary for p2m root table. */
+>> +
+>> +    if ( ACCESS_ONCE(d->arch.paging.p2m_total_pages) < nr_pages )
+>> +        panic("Specify more xen,domain-p2m-mem-mb\n");
+> You shouldn't panic() in anything involved in domain creation. You want to
+> return NULL in this case.
+
+It makes sense in this case just to return NULL.
+
+>
+> Further, to me the use of "more" looks misleading here. Do you perhaps mean
+> "larger" or "bigger"?
+>
+> This also looks to be happening without any lock held. If that's intentional,
+> I think the "why" wants clarifying in a code comment.
+
+Agree, returning back pages necessary for p2m root table should be done under
+spin_lock(&d->arch.paging.lock).
+
+>
+>> +    for ( unsigned int i = 0; i < nr_pages; i++ )
+>> +    {
+>> +        /* Return memory to domheap. */
+>> +        page = page_list_remove_head(&d->arch.paging.p2m_freelist);
+>> +        if( page )
+>> +        {
+>> +            ACCESS_ONCE(d->arch.paging.p2m_total_pages)--;
+>> +            free_domheap_page(page);
+>> +        }
+>> +        else
+>> +        {
+>> +            printk(XENLOG_ERR
+>> +                   "Failed to free P2M pages, P2M freelist is empty.\n");
+>> +            return NULL;
+>> +        }
+>> +    }
+> The reason for doing this may also want to be put in a comment.
+
+I thought it would be enough the comment above: /* Return back nr_pages necessary for p2m root table. */
+
+>
+>> +    /* Allocate memory for p2m root table. */
+>> +
+>> +    /*
+>> +     * As mentioned in the Priviliged Architecture Spec (version 20240411)
+>> +     * As explained in Section 18.5.1, for the paged virtual-memory schemes
+> The first sentence didn't finish when the 2nd starts. Is there a piece missing?
+> Do the two sentences want to be joined together?
+
+Nothing is missed, just bad wording. I will update to:
+   As mentioned in the Priviliged Architecture Spec (version 20240411) in Section 18.5.1, ...
+
+>
+>> +static unsigned long hgatp_from_page(struct p2m_domain *p2m)
+> Function name and parameter type/name don't fit together.
+
+I'll update an argument to struct page_info *root.
+
+>
+>> +{
+>> +    struct page_info *p2m_root_page = p2m->root;
+> As always: pointer-to-const wherever possible, please. But: Is this local
+> variable really useful to have?
+
+No, it will be just passed as an argument.
+
+>
+>> +    unsigned long ppn;
+>> +    unsigned long hgatp_mode;
+>> +
+>> +    ppn = PFN_DOWN(page_to_maddr(p2m_root_page)) & HGATP_PPN;
+>> +
+>> +#if RV_STAGE1_MODE == SATP_MODE_SV39
+>> +    hgatp_mode = HGATP_MODE_SV39X4;
+>> +#elif RV_STAGE1_MODE == SATP_MODE_SV48
+>> +    hgatp_mode = HGATP_MODE_SV48X4;
+>> +#else
+>> +#   error "add HGATP_MODE"
+>> +#endif
+>> +
+>> +    return ppn | MASK_INSR(p2m->vmid, HGATP_VMID_MASK) |
+>> +           MASK_INSR(hgatp_mode, HGATP_MODE_MASK);
+>> +}
+>> +
+>> +static int p2m_alloc_root_table(struct domain *d)
+> As indicated earlier, in a wider context - this is a good candidate where
+> the caller rather wants to pass struct p2m_domain *. Once you get variations
+> on P2Ms (like x86'es altp2m or nestedp2m, the domain won't be meaningful
+> here to know which P2M to allocate the root for.
+
+Good point. I will re-work that.
+
+>
+>> +{
+>> +    struct p2m_domain *p2m = p2m_get_hostp2m(d);
+>> +
+>> +    p2m->root = p2m_allocate_root(d);
+>> +    if ( !p2m->root )
+>> +        return -ENOMEM;
+>> +
+>> +    p2m->hgatp = hgatp_from_page(p2m);
+>> +
+>> +    return 0;
+>> +}
+>> +
+>>   static spinlock_t vmid_alloc_lock = SPIN_LOCK_UNLOCKED;
+>>   
+>>   /*
+>> @@ -228,5 +313,14 @@ int p2m_set_allocation(struct domain *d, unsigned long pages, bool *preempted)
+>>           }
+>>       }
+>>   
+>> +    /*
+>> +    * First, wait for the p2m pool to be initialized. Then allocate the root
+> Why "wait"? There's waiting here.
+
+I am not really get your question.
+
+"wait" here is about the initialization of the pool which happens above this comment.
+
+>
+>> +    * table so that the necessary pages can be returned from the p2m pool,
+>> +    * since the root table must be allocated using alloc_domheap_pages(...)
+>> +    * to meet its specific requirements.
+>> +    */
+>> +    if ( !d->arch.p2m.root )
+> Aren't you open-coding p2m_get_hostp2m() here?
+
+Yes, p2m_get_hostp2m()  should be used here.
+
+~ Oleksii
+
+--------------2FTHIQhiOa3ZrNfgfpkwc2a0
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 6/30/25 5:22 PM, Jan Beulich wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:9c89ead3-7577-46f2-acc2-6dd8d793ab89@suse.com">
+      <pre wrap="" class="moz-quote-pre">On 10.06.2025 15:05, Oleksii Kurochko wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">--- a/xen/arch/riscv/include/asm/p2m.h
++++ b/xen/arch/riscv/include/asm/p2m.h
+@@ -26,6 +26,12 @@ struct p2m_domain {
+     /* Pages used to construct the p2m */
+     struct page_list_head pages;
+ 
++    /* The root of the p2m tree. May be concatenated */
++    struct page_info *root;
++
++    /* Address Translation Table for the p2m */
++    paddr_t hgatp;
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Does this really need holding in a struct field? Can't is be re-created at
+any time from "root" above? </pre>
+    </blockquote>
+    <pre>Yes, with the current one implementation, I agree it would be enough only
+root. But as you noticed below...
+</pre>
+    <blockquote type="cite"
+      cite="mid:9c89ead3-7577-46f2-acc2-6dd8d793ab89@suse.com">
+      <pre wrap="" class="moz-quote-pre">And such re-creation is apparently infrequent,
+if happening at all after initial allocation. (But of course I don't know
+what future patches of yours will bring.) This is even more so if ...
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">--- a/xen/arch/riscv/include/asm/riscv_encoding.h
++++ b/xen/arch/riscv/include/asm/riscv_encoding.h
+@@ -133,11 +133,13 @@
+ #define HGATP_MODE_SV48X4		_UL(9)
+ 
+ #define HGATP32_MODE_SHIFT		31
++#define HGATP32_MODE_MASK		_UL(0x80000000)
+ #define HGATP32_VMID_SHIFT		22
+ #define HGATP32_VMID_MASK		_UL(0x1FC00000)
+ #define HGATP32_PPN			_UL(0x003FFFFF)
+ 
+ #define HGATP64_MODE_SHIFT		60
++#define HGATP64_MODE_MASK		_ULL(0xF000000000000000)
+ #define HGATP64_VMID_SHIFT		44
+ #define HGATP64_VMID_MASK		_ULL(0x03FFF00000000000)
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+... VMID management is going to change as previously discussed, at which
+point the value to put in hgatp will need (partly) re-calculating at certain
+points anyway.
+</pre>
+    </blockquote>
+    <pre>... after VMID management will changed to per-CPU base then it will be needed
+to update re-calculate hgatp each time vCPU on pCPU is changed.
+In this case I prefer to have partially calculated 'hgatp'.
+
+</pre>
+    <blockquote type="cite"
+      cite="mid:9c89ead3-7577-46f2-acc2-6dd8d793ab89@suse.com">
+      <pre wrap="" class="moz-quote-pre">
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">--- a/xen/arch/riscv/p2m.c
++++ b/xen/arch/riscv/p2m.c
+@@ -41,6 +41,91 @@ void p2m_write_unlock(struct p2m_domain *p2m)
+     write_unlock(&amp;p2m-&gt;lock);
+ }
+ 
++static void clear_and_clean_page(struct page_info *page)
++{
++    clean_dcache_va_range(page, PAGE_SIZE);
++    clear_domain_page(page_to_mfn(page));
++}
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+A function of this name can, imo, only clear and then clean. Question is why
+it's the other way around, and what the underlying requirement is for the
+cleaning part to be there in the first place. Maybe that's obvious for a
+RISC-V person, but it's entirely non-obvious to me (Arm being different in
+this regard because of running with caches disabled at certain points in
+time).</pre>
+    </blockquote>
+    <pre data-start="1739" data-end="2190">You're right, the current name <code
+    data-start="1770" data-end="1794">clear_and_clean_page()</code> implies that clearing
+should come before cleaning, which contradicts the current implementation.
+The intent here is to ensure that the page contents are consistent in RAM
+(not just in cache) before use by other entities (guests or devices).
+</pre>
+    <pre data-start="2197" data-end="2343">The clean must follow the clear — so yes, the order needs to be reversed.
+
+</pre>
+    <blockquote type="cite"
+      cite="mid:9c89ead3-7577-46f2-acc2-6dd8d793ab89@suse.com">
+      <pre wrap="" class="moz-quote-pre">
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+static struct page_info *p2m_allocate_root(struct domain *d)
++{
++    struct page_info *page;
++    unsigned int order = get_order_from_bytes(KB(16));
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+While better than a hard-coded order of 2, this still is lacking. Is there
+a reason there can't be a suitable manifest constant in the header?</pre>
+    </blockquote>
+    <pre>No any specific reason, I just decided not to introduce new definition as
+it is going to be used only inside this function.
+
+I think it will make sense to have in p2m.c:
+ #define P2M_ROOT_PT_SIZE KB(16)
+If it isn't the best one option, then what about to move this defintion
+to config.h or asm/p2m.h.
+
+</pre>
+    <blockquote type="cite"
+      cite="mid:9c89ead3-7577-46f2-acc2-6dd8d793ab89@suse.com">
+      <pre wrap="" class="moz-quote-pre">
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+    unsigned int nr_pages = _AC(1,U) &lt;&lt; order;
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Nit (style): Missing blank after comma.</pre>
+    </blockquote>
+    <pre>I've changed that to BIT(order, U)
+</pre>
+    <blockquote type="cite"
+      cite="mid:9c89ead3-7577-46f2-acc2-6dd8d793ab89@suse.com">
+      <pre wrap="" class="moz-quote-pre">
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+    /* Return back nr_pages necessary for p2m root table. */
++
++    if ( ACCESS_ONCE(d-&gt;arch.paging.p2m_total_pages) &lt; nr_pages )
++        panic("Specify more xen,domain-p2m-mem-mb\n");
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+You shouldn't panic() in anything involved in domain creation. You want to
+return NULL in this case.</pre>
+    </blockquote>
+    <pre>It makes sense in this case just to return NULL.
+
+</pre>
+    <blockquote type="cite"
+      cite="mid:9c89ead3-7577-46f2-acc2-6dd8d793ab89@suse.com">
+      <pre wrap="" class="moz-quote-pre">
+
+Further, to me the use of "more" looks misleading here. Do you perhaps mean
+"larger" or "bigger"?
+
+This also looks to be happening without any lock held. If that's intentional,
+I think the "why" wants clarifying in a code comment.</pre>
+    </blockquote>
+    <pre>Agree, returning back pages necessary for p2m root table should be done under
+spin_lock(&amp;d-&gt;arch.paging.lock).
+</pre>
+    <pre>
+</pre>
+    <blockquote type="cite"
+      cite="mid:9c89ead3-7577-46f2-acc2-6dd8d793ab89@suse.com">
+      <pre wrap="" class="moz-quote-pre">
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+    for ( unsigned int i = 0; i &lt; nr_pages; i++ )
++    {
++        /* Return memory to domheap. */
++        page = page_list_remove_head(&amp;d-&gt;arch.paging.p2m_freelist);
++        if( page )
++        {
++            ACCESS_ONCE(d-&gt;arch.paging.p2m_total_pages)--;
++            free_domheap_page(page);
++        }
++        else
++        {
++            printk(XENLOG_ERR
++                   "Failed to free P2M pages, P2M freelist is empty.\n");
++            return NULL;
++        }
++    }
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+The reason for doing this may also want to be put in a comment.</pre>
+    </blockquote>
+    <pre>I thought it would be enough the comment above: /* Return back nr_pages necessary for p2m root table. */
+</pre>
+    <blockquote type="cite"
+      cite="mid:9c89ead3-7577-46f2-acc2-6dd8d793ab89@suse.com">
+      <pre wrap="" class="moz-quote-pre">
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+    /* Allocate memory for p2m root table. */
++
++    /*
++     * As mentioned in the Priviliged Architecture Spec (version 20240411)
++     * As explained in Section 18.5.1, for the paged virtual-memory schemes
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+The first sentence didn't finish when the 2nd starts. Is there a piece missing?
+Do the two sentences want to be joined together?</pre>
+    </blockquote>
+    <pre>Nothing is missed, just bad wording. I will update to:
+  As mentioned in the Priviliged Architecture Spec (version 20240411) in Section 18.5.1, ...
+
+</pre>
+    <blockquote type="cite"
+      cite="mid:9c89ead3-7577-46f2-acc2-6dd8d793ab89@suse.com">
+      <pre wrap="" class="moz-quote-pre">
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+static unsigned long hgatp_from_page(struct p2m_domain *p2m)
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Function name and parameter type/name don't fit together.</pre>
+    </blockquote>
+    <pre>I'll update an argument to struct page_info *root.
+
+</pre>
+    <blockquote type="cite"
+      cite="mid:9c89ead3-7577-46f2-acc2-6dd8d793ab89@suse.com">
+      <pre wrap="" class="moz-quote-pre">
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+{
++    struct page_info *p2m_root_page = p2m-&gt;root;
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+As always: pointer-to-const wherever possible, please. But: Is this local
+variable really useful to have?</pre>
+    </blockquote>
+    <pre>No, it will be just passed as an argument.
+
+</pre>
+    <blockquote type="cite"
+      cite="mid:9c89ead3-7577-46f2-acc2-6dd8d793ab89@suse.com">
+      <pre wrap="" class="moz-quote-pre">
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+    unsigned long ppn;
++    unsigned long hgatp_mode;
++
++    ppn = PFN_DOWN(page_to_maddr(p2m_root_page)) &amp; HGATP_PPN;
++
++#if RV_STAGE1_MODE == SATP_MODE_SV39
++    hgatp_mode = HGATP_MODE_SV39X4;
++#elif RV_STAGE1_MODE == SATP_MODE_SV48
++    hgatp_mode = HGATP_MODE_SV48X4;
++#else
++#   error "add HGATP_MODE"
++#endif
++
++    return ppn | MASK_INSR(p2m-&gt;vmid, HGATP_VMID_MASK) |
++           MASK_INSR(hgatp_mode, HGATP_MODE_MASK);
++}
++
++static int p2m_alloc_root_table(struct domain *d)
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+As indicated earlier, in a wider context - this is a good candidate where
+the caller rather wants to pass struct p2m_domain *. Once you get variations
+on P2Ms (like x86'es altp2m or nestedp2m, the domain won't be meaningful
+here to know which P2M to allocate the root for.</pre>
+    </blockquote>
+    <pre>Good point. I will re-work that.
+
+</pre>
+    <blockquote type="cite"
+      cite="mid:9c89ead3-7577-46f2-acc2-6dd8d793ab89@suse.com">
+      <pre wrap="" class="moz-quote-pre">
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+{
++    struct p2m_domain *p2m = p2m_get_hostp2m(d);
++
++    p2m-&gt;root = p2m_allocate_root(d);
++    if ( !p2m-&gt;root )
++        return -ENOMEM;
++
++    p2m-&gt;hgatp = hgatp_from_page(p2m);
++
++    return 0;
++}
++
+ static spinlock_t vmid_alloc_lock = SPIN_LOCK_UNLOCKED;
+ 
+ /*
+@@ -228,5 +313,14 @@ int p2m_set_allocation(struct domain *d, unsigned long pages, bool *preempted)
+         }
+     }
+ 
++    /*
++    * First, wait for the p2m pool to be initialized. Then allocate the root
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Why "wait"? There's waiting here.</pre>
+    </blockquote>
+    <pre>I am not really get your question.
+
+"wait" here is about the initialization of the pool which happens above this comment.
+</pre>
+    <blockquote type="cite"
+      cite="mid:9c89ead3-7577-46f2-acc2-6dd8d793ab89@suse.com">
+      <pre wrap="" class="moz-quote-pre">
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">+    * table so that the necessary pages can be returned from the p2m pool,
++    * since the root table must be allocated using alloc_domheap_pages(...)
++    * to meet its specific requirements.
++    */
++    if ( !d-&gt;arch.p2m.root )
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Aren't you open-coding p2m_get_hostp2m() here?</pre>
+    </blockquote>
+    <pre>Yes, p2m_get_hostp2m()  should be used here.
+
+~ Oleksii</pre>
+  </body>
+</html>
+
+--------------2FTHIQhiOa3ZrNfgfpkwc2a0--
 
