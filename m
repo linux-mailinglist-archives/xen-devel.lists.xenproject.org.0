@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D95E3AEE1C9
-	for <lists+xen-devel@lfdr.de>; Mon, 30 Jun 2025 17:02:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1029192.1402950 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A89A4AEE217
+	for <lists+xen-devel@lfdr.de>; Mon, 30 Jun 2025 17:14:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1029199.1402962 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uWG1p-0006X4-Ps; Mon, 30 Jun 2025 15:02:41 +0000
+	id 1uWGCn-0008LT-Pg; Mon, 30 Jun 2025 15:14:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1029192.1402950; Mon, 30 Jun 2025 15:02:41 +0000
+Received: by outflank-mailman (output) from mailman id 1029199.1402962; Mon, 30 Jun 2025 15:14:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uWG1p-0006Vf-NF; Mon, 30 Jun 2025 15:02:41 +0000
-Received: by outflank-mailman (input) for mailman id 1029192;
- Mon, 30 Jun 2025 15:02:41 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uWGCn-0008IY-MQ; Mon, 30 Jun 2025 15:14:01 +0000
+Received: by outflank-mailman (input) for mailman id 1029199;
+ Mon, 30 Jun 2025 15:14:00 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=gInu=ZN=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1uWG1p-0006VZ-4F
- for xen-devel@lists.xenproject.org; Mon, 30 Jun 2025 15:02:41 +0000
-Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
- [2a00:1450:4864:20::133])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4426c90e-55c3-11f0-a312-13f23c93f187;
- Mon, 30 Jun 2025 17:02:39 +0200 (CEST)
-Received: by mail-lf1-x133.google.com with SMTP id
- 2adb3069b0e04-553e5df44f8so1860368e87.3
- for <xen-devel@lists.xenproject.org>; Mon, 30 Jun 2025 08:02:39 -0700 (PDT)
-Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
- by smtp.gmail.com with UTF8SMTPSA id
- 5b1f17b1804b1-453823c3a96sm167963555e9.35.2025.06.30.08.02.37
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 30 Jun 2025 08:02:37 -0700 (PDT)
+ <SRS0=Irzh=ZN=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1uWGCm-0008IS-Cv
+ for xen-devel@lists.xenproject.org; Mon, 30 Jun 2025 15:14:00 +0000
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [2a00:1450:4864:20::536])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d31ba59a-55c4-11f0-b894-0df219b8e170;
+ Mon, 30 Jun 2025 17:13:49 +0200 (CEST)
+Received: by mail-ed1-x536.google.com with SMTP id
+ 4fb4d7f45d1cf-60c9d8a16e5so4939426a12.0
+ for <xen-devel@lists.xenproject.org>; Mon, 30 Jun 2025 08:13:49 -0700 (PDT)
+Received: from [192.168.1.5] (user-109-243-64-38.play-internet.pl.
+ [109.243.64.38]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-60c82908297sm5923452a12.26.2025.06.30.08.13.47
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 30 Jun 2025 08:13:47 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,111 +45,171 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4426c90e-55c3-11f0-a312-13f23c93f187
+X-Inumbo-ID: d31ba59a-55c4-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1751295759; x=1751900559; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=k7YoGUf03nNHc23pGqIpN0E8oGD/61oc/rFi2yceFM4=;
-        b=vWIETvTvB6WlWeuG+WNZ5AaReAoTQVY/zV/IcSHyzCCaVowj+mDO61sj9oqCccm3a2
-         Bljrpn5Nbzj2ZZ0Swr2JAdaM8X8oc8FrhLbbNYCEjsWMThE+TuRLE+9KtG1kVRrpzY8e
-         paMrT92TzmICO/z1FnB0SAH5DzEUqNALT+HSo=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1751295759; x=1751900559;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20230601; t=1751296429; x=1751901229; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=k7YoGUf03nNHc23pGqIpN0E8oGD/61oc/rFi2yceFM4=;
-        b=XjNGelE0yyn3jTMpkJsz97zevv7FNo5HldnVPe2+cgwF4YUTrM2Magt+K6IZIcZfLx
-         aXZDsuUWFVe90Jqmui0r69HU4tsyXbYU1jw5CvHhw3au2R/Zi+lLzvUCXWLF3Z5avqLH
-         59/jskirbe+Q9LUbfn5au+FnyvPJQBmkWQ+XFrPDrChuF+JEgORxxitVeaa40yySYq/N
-         nVYQ/5fdCIuEW4AoHm3IvtJOOACUsihVcP+AcT9RGflbvsIxyKCnrgE87p/XQNxBhq7D
-         05wEuCV6+fUZOuHzD2dVcsjC2uCL6ZeoNFAHRJZUJogFuMuYNwKTtorJAID8Vc644l56
-         xDow==
-X-Gm-Message-State: AOJu0YyU/wJh7nYyv6NJcUsJwg7Dm8By/VsE0qTROPEqw8qaZqt50ZDZ
-	9AWmzCCKWZtimqFgfL6QXm8DjqrOyl5kAZBpgBXalvEYG+arn0BLnF9yKOwjdw6+VZk=
-X-Gm-Gg: ASbGnctXq6ggyqZ1LdVs2ipU6MxHQf6NDgRl6ha20n3OGOwGiM9SymR4b1DP0RiUrh+
-	qBC44MuR7NqFZ5SWDLWsiHO0M3ilHYvKX91PxKgcYd8/VxwoyCuwmbERTYPLmQXP182ktQrLEhH
-	58d/W+i639541oa9tTNplnjJ+Z7j7CLUWMv1trWhhSG7cwnLLSnaFvPe2dJdfGY/g5pOYq2crhL
-	MEejkI6aWpeVtFIeohrDncQP7vtLCoIZEAO7W6GQMboFUnxG5mgFNPaa5E+222Ygg4G4WkLtsBZ
-	SiqAoWNe/KSkSHTxlaloSnbW2SeWv2QcABZJadIH4Ogbnfu6I3tamMgsY0lCBwSe5mGnWvxymkD
-	HeBa5GjT1Vs98tc+VXl/UDcAGwZceyA==
-X-Google-Smtp-Source: AGHT+IE6PyEu0Gpdyx7EYWpT7BLmEUCICztHujwP+jgLOIL2s9BPdMnpmd1HQR6jANUNchcOgiQ+EA==
-X-Received: by 2002:a05:6512:ba1:b0:553:3028:75bd with SMTP id 2adb3069b0e04-5550b8d01edmr4031983e87.49.1751295758256;
-        Mon, 30 Jun 2025 08:02:38 -0700 (PDT)
-Date: Mon, 30 Jun 2025 17:02:36 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Shawn Anastasio <sanastasio@raptorengineering.com>,
-	Alistair Francis <alistair.francis@wdc.com>,
-	Bob Eshleman <bobbyeshleman@gmail.com>,
-	Connor Davis <connojdavis@gmail.com>,
-	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Community Manager <community.manager@xenproject.org>
-Subject: Re: [PATCH v2 0/8] pdx: introduce a new compression algorithm
-Message-ID: <aGKnDHtRD5OLGaYj@macbook.local>
-References: <20250620111130.29057-1-roger.pau@citrix.com>
- <alpine.DEB.2.22.394.2506271905350.862517@ubuntu-linux-20-04-desktop>
+        bh=URZGSaU+VVA5WNhzpeNfLfLA+JWWZpuqgmWNLBiC51I=;
+        b=G3B1ZTheQHsG1LWovi/zwq686j5XZly274R37sFAwVOko2mH3qkdAHe5n5QrpyKaZ9
+         NC6PFTzNw2i5b/8+qeAZRHBYSx73kBs3wBgTV/LytXteewR8QRqqfS2tfLS9oR3zDLjN
+         6GggrkxRdj+7YjbPhq+dKAadpUMoNLNrieyFSJfV6yiok4QVmBJcP91RPfZxCpKuh0ee
+         RbE2QFHwt0TB5o3fG23k5Y6KifRhu6oxnQn8ZvVc7CT+jLq3GHXiI+E+kNOl6LwFepYy
+         KZaq3cq7txoMWY+BrFacg4Y1f9j2hCBMpsoi59AR5Y+b8PaAecVzgmiY8c5LrDqBpgyB
+         U9Xw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1751296429; x=1751901229;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=URZGSaU+VVA5WNhzpeNfLfLA+JWWZpuqgmWNLBiC51I=;
+        b=eLrvsi8gJgfCnL3rH+zQp9D0kYbkFe1YtWdEhClljz8eKwLP1G+0jsRPcY3kPA0sIh
+         7bPuARoyKWSaBkq1GRqde/fSWV64FAP2DD4tgSwHvLvYBX3EJkyYfQbc+zhqqcpZtKtE
+         lf3HTY0o+xmSDTHTBsLIXZUePJPDo+jLPfnwQVsbI5XANpNCL98cQJi8WQYwZLXucYMP
+         smc3kIr9JY4lOpA1ksjNWN9PXX05QgKYjHeV5P7PnPH6BPs9AzjHQYZ1ea61RaraJGb1
+         VBvC2+Fquo+iZWQOjcxNo2udR+iSNC/rBV8MmybL/hidtn5iVzDx6xNe1S50xzz9D1yx
+         51Bw==
+X-Forwarded-Encrypted: i=1; AJvYcCVk4F1OVcbapF4jEHNpYznHgw2mb5k445nlJliX4XU79dPyHJ0o+vksi92iwgHytjzfYVQNHuA/gy4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxFpWxBTNqjb4F79/cbI1p+x5YvXU/Hkhx6nyyX7d+ulGu7iC8d
+	u3kX3wjeljQ269QST/9YQ8djXbpgv8ME/pwYLI/tzyNLzy4riOoZe94G
+X-Gm-Gg: ASbGncsy2ULSep5mWuyMLhOnTEpHaHcB4/lOJF/vQclGzjeoKILvHAtgeOK6Mv+vsqf
+	YoOHvijcfWGQquMyIivu9frGZm+YekRhL35hxeuHVHHtp9HSOCQLXV7VknnHSsLneLi7v5AtOlC
+	5TCoUIMZSpOgDOTt4jsoNkVa1BbHUre2YdDXxsN6OhZ7LgZRoIHhELpWWLZM/iC4Te4k+DY9bkA
+	oAUQZnt/uMaOC/OHH2swzWQLP96XHiQ2bj8IhnboqnhTLFoDvY5u1zLYP8vKsNx8z5tgnWuONHi
+	MyRoTC/0dxiM56gknmVGpRjOhYRK/oqvs3CWR6BzTiojPD4W8XCeaaZzLjiL1iFSJUViQrbh7oE
+	2UZLSxZenhjwlyjPLtCxFkTlRHhuQHRXrmE0=
+X-Google-Smtp-Source: AGHT+IHMoZcQ/FeV4aJt3J88B1Iv5+49GOtX0BJm+1eKjCSYz8NPnNG39ywUdPpPKZ0TvwFpTDQapw==
+X-Received: by 2002:a05:6402:2801:b0:609:d685:e831 with SMTP id 4fb4d7f45d1cf-60c88b1fbacmr11762180a12.12.1751296428323;
+        Mon, 30 Jun 2025 08:13:48 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------wh6BblbLqUIZWDnFi0rf3BvZ"
+Message-ID: <4b5c2a81-947b-4e2f-bb89-a4e776548e52@gmail.com>
+Date: Mon, 30 Jun 2025 17:13:47 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <alpine.DEB.2.22.394.2506271905350.862517@ubuntu-linux-20-04-desktop>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 08/17] xen/riscv: add new p2m types and helper macros
+ for type classification
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1749555949.git.oleksii.kurochko@gmail.com>
+ <f943c6ce5371258af0f36c2633d542341fcf47b4.1749555949.git.oleksii.kurochko@gmail.com>
+ <8f45cffe-e2a2-46e3-8370-2b6b4c86dccf@suse.com>
+ <13b80e15-9db9-427d-aaa2-c0389e4c248a@gmail.com>
+ <2ebfaa8c-e0bb-4c5b-89e1-48d309ee4989@suse.com>
+Content-Language: en-US
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <2ebfaa8c-e0bb-4c5b-89e1-48d309ee4989@suse.com>
 
-On Fri, Jun 27, 2025 at 07:08:29PM -0700, Stefano Stabellini wrote:
-> Hi Roger,
-> 
-> We have an ARM board with the following memory layout:
-> 
-> 0x0-0x80000000, 0, 2G
-> 0x800000000,0x880000000, 32GB, 2G
-> 0x50000000000-0x50080000000 5T, 2GB 
-> 0x60000000000-0x60080000000 6T, 2GB 
-> 0x70000000000-0x70080000000 7T, 2GB 
+This is a multi-part message in MIME format.
+--------------wh6BblbLqUIZWDnFi0rf3BvZ
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-With the current PDX mask compression you could compress 4bits AFAICT.
 
-> It looks like your PDX series is exactly what we need.  However, I tried
-> to use it and it doesn't seem to be hooked properly on ARM yet. I spent
-> some time trying to fix it but I was unsuccessful.
+On 6/30/25 4:42 PM, Jan Beulich wrote:
+> On 30.06.2025 16:33, Oleksii Kurochko wrote:
+>> On 6/26/25 4:59 PM, Jan Beulich wrote:
+>>> On 10.06.2025 15:05, Oleksii Kurochko wrote:
+>>>> --- a/xen/arch/riscv/include/asm/p2m.h
+>>>> +++ b/xen/arch/riscv/include/asm/p2m.h
+>>>> @@ -61,8 +61,28 @@ struct p2m_domain {
+>>>>    typedef enum {
+>>>>        p2m_invalid = 0,    /* Nothing mapped here */
+>>>>        p2m_ram_rw,         /* Normal read/write domain RAM */
+>>>> +    p2m_ram_ro,         /* Read-only; writes are silently dropped */
+>>> As indicated before - this type should be added when the special handling that
+>>> it requires is also introduced.
+>> Perhaps, I missed that. I will drop this type for now.
+>>
+>>>> +    p2m_mmio_direct_dev,/* Read/write mapping of genuine Device MMIO area */
+>>> What's the _dev suffix indicating here?
+>> It indicates that it is device memory, probably, it isn't so necessary in case of RISC-V as
+>> spec doesn't use such terminology. In RISC-V there is only available IO, NC. And we are
+>> |using PTE_PBMT_IO for |p2m_mmio_direct_dev.
+>>
+>> Maybe it would be better just to rename s/p2m_mmio_direct_dev/p2m_mmio_direct_io.
+> And what would the _io suffix indicate, beyond what "mmio" already indicates?
 
-Hm, weird.  It shouldn't need any special hooking, unless assumptions
-about the existing PDX mask compression have leaked into ARM code.
+Just that PBMT_IO will be used for device memory and not PBMT_NC.
 
-> As far as I can tell the following functions need to be adjusted but I
-> am not sure the list is comprehensive:
-> 
-> xen/arch/arm/include/asm/mmu/mm.h:maddr_to_virt
+~ Oleksii
 
-At least for CONFIG_ARM_64 this seems to be implemented correctly, as
-it's using maddr_to_directmapoff() which should have the correct
-translation between paddr -> directmap virt.
+--------------wh6BblbLqUIZWDnFi0rf3BvZ
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Also given the memory map above the adjustments done in ARM to remove
-any initial memory map offset should be no-ops, since I expect
-base_mfn == 0 in setup_directmap_mappings() in that particular case,
-and then directmap_mfn_start = directmap_base_pdx = 0 and
-directmap_virt_start = DIRECTMAP_VIRT_START.  FWIW, if ARM uses offset
-compression the special casing about removing the initial gap can be
-removed, as the compression should already take care of that.
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 6/30/25 4:42 PM, Jan Beulich wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:2ebfaa8c-e0bb-4c5b-89e1-48d309ee4989@suse.com">
+      <pre wrap="" class="moz-quote-pre">On 30.06.2025 16:33, Oleksii Kurochko wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">On 6/26/25 4:59 PM, Jan Beulich wrote:
+</pre>
+        <blockquote type="cite">
+          <pre wrap="" class="moz-quote-pre">On 10.06.2025 15:05, Oleksii Kurochko wrote:
+</pre>
+          <blockquote type="cite">
+            <pre wrap="" class="moz-quote-pre">--- a/xen/arch/riscv/include/asm/p2m.h
++++ b/xen/arch/riscv/include/asm/p2m.h
+@@ -61,8 +61,28 @@ struct p2m_domain {
+  typedef enum {
+      p2m_invalid = 0,    /* Nothing mapped here */
+      p2m_ram_rw,         /* Normal read/write domain RAM */
++    p2m_ram_ro,         /* Read-only; writes are silently dropped */
+</pre>
+          </blockquote>
+          <pre wrap="" class="moz-quote-pre">As indicated before - this type should be added when the special handling that
+it requires is also introduced.
+</pre>
+        </blockquote>
+        <pre wrap="" class="moz-quote-pre">
+Perhaps, I missed that. I will drop this type for now.
 
-> xen/arch/arm/mmu/mm.c:setup_frametable_mappings
-> xen/arch/arm/setup.c:init_pdx
+</pre>
+        <blockquote type="cite">
+          <pre wrap="" class="moz-quote-pre">
+</pre>
+          <blockquote type="cite">
+            <pre wrap="" class="moz-quote-pre">+    p2m_mmio_direct_dev,/* Read/write mapping of genuine Device MMIO area */
+</pre>
+          </blockquote>
+          <pre wrap="" class="moz-quote-pre">What's the _dev suffix indicating here?
+</pre>
+        </blockquote>
+        <pre wrap="" class="moz-quote-pre">
+It indicates that it is device memory, probably, it isn't so necessary in case of RISC-V as
+spec doesn't use such terminology. In RISC-V there is only available IO, NC. And we are
+|using PTE_PBMT_IO for |p2m_mmio_direct_dev.
 
-I've attempted to adjust init_pdx() myself so it works with the new
-generic PDX compression setup, it seemed to work fine on the CI, but I
-don't have any real ARM machines to test myself.
+Maybe it would be better just to rename s/p2m_mmio_direct_dev/p2m_mmio_direct_io.
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+And what would the _io suffix indicate, beyond what "mmio" already indicates?</pre>
+    </blockquote>
+    <pre>Just that PBMT_IO will be used for device memory and not PBMT_NC.
 
-Is there a way I could reproduce the issue(s) you are seeing with
-QEMU?
+~ Oleksii
+</pre>
+  </body>
+</html>
 
-I'm already working on v3, as this version implementation of
-mfn_valid() is buggy.  Maybe that's what you are hitting?
-
-Regards, Roger.
+--------------wh6BblbLqUIZWDnFi0rf3BvZ--
 
