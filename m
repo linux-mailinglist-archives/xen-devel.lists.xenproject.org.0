@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E73BAED76A
-	for <lists+xen-devel@lfdr.de>; Mon, 30 Jun 2025 10:35:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1028941.1402660 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D806EAED7F0
+	for <lists+xen-devel@lfdr.de>; Mon, 30 Jun 2025 10:57:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1028954.1402671 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uW9yR-0000SC-CC; Mon, 30 Jun 2025 08:34:47 +0000
+	id 1uWAJG-0003UE-37; Mon, 30 Jun 2025 08:56:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1028941.1402660; Mon, 30 Jun 2025 08:34:47 +0000
+Received: by outflank-mailman (output) from mailman id 1028954.1402671; Mon, 30 Jun 2025 08:56:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uW9yR-0000Qb-8h; Mon, 30 Jun 2025 08:34:47 +0000
-Received: by outflank-mailman (input) for mailman id 1028941;
- Mon, 30 Jun 2025 08:34:45 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=erj2=ZN=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uW9yP-0000QV-R3
- for xen-devel@lists.xenproject.org; Mon, 30 Jun 2025 08:34:45 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 12c126dc-558d-11f0-a312-13f23c93f187;
- Mon, 30 Jun 2025 10:34:44 +0200 (CEST)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-3a53359dea5so963557f8f.0
- for <xen-devel@lists.xenproject.org>; Mon, 30 Jun 2025 01:34:44 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-315f54270a5sm13350180a91.25.2025.06.30.01.34.36
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 30 Jun 2025 01:34:43 -0700 (PDT)
+	id 1uWAJG-0003Ru-01; Mon, 30 Jun 2025 08:56:18 +0000
+Received: by outflank-mailman (input) for mailman id 1028954;
+ Mon, 30 Jun 2025 08:56:16 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=PxQ3=ZN=darkstar.site=sakib@srs-se1.protection.inumbo.net>)
+ id 1uWAJE-0003Ro-OP
+ for xen-devel@lists.xenproject.org; Mon, 30 Jun 2025 08:56:16 +0000
+Received: from fforwardh-b1-smtp.messagingengine.com
+ (fforwardh-b1-smtp.messagingengine.com [202.12.124.196])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0e79bdf3-5590-11f0-b894-0df219b8e170;
+ Mon, 30 Jun 2025 10:56:06 +0200 (CEST)
+Received: from phl-compute-09.internal (phl-compute-09.phl.internal
+ [10.202.2.49])
+ by mailfforwardh.stl.internal (Postfix) with ESMTP id 9B4DB8400E0;
+ Mon, 30 Jun 2025 04:56:04 -0400 (EDT)
+Received: from phl-frontend-02 ([10.202.2.161])
+ by phl-compute-09.internal (MEProxy); Mon, 30 Jun 2025 04:56:04 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 30 Jun 2025 04:56:02 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,101 +45,175 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 12c126dc-558d-11f0-a312-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1751272484; x=1751877284; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=HI94rqOfU2FBxtCCjds66wSfew/IaygCM0quHK7I2/c=;
-        b=gKseVWkNVvlZjejP3knEAicm7yy3zOTGsXPn11+6UEqLwVgI2ePL4xAuk0qtaMbaWX
-         HgGZX6vNG8pb2fAJ8dfHx8YJfRI7ZhIzOGPPJ3nQASfX5J2XiCWq6k2o5nCYYgyZtVom
-         Be84A3CO6eTrjA1xbqVo0eacG9U3AiA9JRnDvOpkwkZE4svJFCE4VInFy9omYJploGOp
-         cbr+Si13van09yI6DaKesU15EI3V0Gf8/29sYdstTqTSm6xtJ9mGbsfBxeqEh+UeDg3y
-         u8TqgHqPQfatUlKxgz0AImHBFden0Ud7HlYmFlxT9HzJI1ayUBbB8HhPUhl03hUWR0t/
-         1Z1Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1751272484; x=1751877284;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=HI94rqOfU2FBxtCCjds66wSfew/IaygCM0quHK7I2/c=;
-        b=u4kRIqsLgnJB25Yfw5dxeAb4+5xXyhGHWf33+UlvI8RTBQBOMBxqFcJIKGcbFZuUVp
-         Mum7XR5vFs1P2em1q8zC0R9J2Vi5Qs8k7ozH2RfWuWvzFCLw9JujYYdlY2soh96aTmLZ
-         HoxZhu9422/Zz6SGzC0f4trMbI2mePUQFHr8m2pVt+qtkj61XhZ8j+aOd+6i/S2DQ1Sa
-         wLX47KXVH0/XmxyO6WW3qglSa/wcXvZFUNBPTXArTSFOXLLZuipr6GP8EjaeuuuR/iYc
-         huw0+S2mfhhRCYB8w9G/4Cwen3Zuu4IoSEaksZwtnLXSfHNjRto+YayIuyonsZK4eK0F
-         OOeg==
-X-Gm-Message-State: AOJu0YwxLZKzy/G2f/fz+64WP43IzCJEtctQ6OAr9Ii2Xp/ic2skc5cV
-	LCbwyPKarQ4bsPZRV+YjhSX6eNvg2Jsh5uS8cct0KwocGc0Jxsvp7mSmnfq/7boF51vYnq/iyh5
-	n128=
-X-Gm-Gg: ASbGncv5RwLujfI8wyXVkqRSCOG1yCHevDvgKy8sYVNTCdSoaWrp7+iO9yIgvuwJDhN
-	q0XdolJcHpH6SA4SUjwhckbE3THobdqaPSztFKT314STCTawnNZWO/Id2IOxmPLy5g+cKrCNyos
-	96WMU6rQfQ1LRD3ad1RDeK/dNiJ+T1quvYg9u4Ly5nPIHsIrRPaKqNKKi6EgLG/3+lcOfiVaWRt
-	B98q6DhgK5E+e+o8foOGJReeRDQuqrZxruXWyn4/cEObQdpoT7wuLK8xiEP8ZNTYRIM2zA5/ohh
-	yR0D9r9x5kvH9XYpHSsMI6OsBefLQsJFjVp3MSrlym1WK4wuEXjU3cc8SexF0YACxWdRfDDtPXr
-	iTUql/D5MHzx1LDm3Eg799Fqh6vas2iCIbRuBdXDEfNdRRn8=
-X-Google-Smtp-Source: AGHT+IFmzFBienQcuGIyTVJTIE3Fpth/nQ3ma1P2ffLxHQatrk4j7mmlutETOgJp/QRXSDPCv4CH+g==
-X-Received: by 2002:a05:6000:440d:b0:3a4:f6ba:51da with SMTP id ffacd0b85a97d-3a8fdb29f41mr6746140f8f.15.1751272483694;
-        Mon, 30 Jun 2025 01:34:43 -0700 (PDT)
-Message-ID: <9a780375-81a5-4b53-ba08-d4d53aa4a58c@suse.com>
-Date: Mon, 30 Jun 2025 10:34:33 +0200
+X-Inumbo-ID: 0e79bdf3-5590-11f0-b894-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1751273764; x=1751360164; bh=/DHgYG9ZyvfdKqKdCRbmzkrxhWwhBHN6qVw
+	9SBZbsVg=; b=TeZgO9LIPmI6rG1ncsRZW7JBBArhk2kNRe0bQRI0f7L0AfaDtyX
+	rebk1QNT4acQUtMfUX5L7haJgAPM9z9g2SvCbQ67YM7sFrqFgwkhdbj02ly2scNk
+	JGRqS8sLctDEOAekLlGUS5SzaV37mHS4TEb8dlf63jGQmtm7EboyK7jErHgppW/t
+	N/vuflLXDwmOPRDloyHGCcL4umY1cQeitTZZqyfdDwCFIDsqX2tuqHXmre2+86SW
+	4sjotwXxbOueMSXp62bXgAjJhZhrfPqJ7+j6++lasLOcu09PnTMSoozJA/Pb11oL
+	i4nKafnsTFbJVgUbVvxznCpw3nD3wPODKSg==
+X-ME-Sender: <xms:I1FiaPaLmVjrr4T0iiuMcNaRjdSrO4Ly5Fm2n65ZRYga4dV2foEB1w>
+    <xme:I1FiaOa33U_4Cj0M26ATrXjY29A5UUf7Uhqf6FYR7gd25lG85gKwXb4gad69lm5KT
+    7OFtW-WDJuVYdNLY1I>
+X-ME-Received: <xmr:I1FiaB9JCCjJgx8wQ5FWtTP5ptTEz_XKZBviF5LBpIs4kHhjZPFtLfNpSH0>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtdefgdduuddvjecutefuodetggdotefrod
+    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpuffrtefokffrpgfnqfghnecuuegr
+    ihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjug
+    hrpefhvfevufffkffoggfgsedtkeertdertddtnecuhfhrohhmpefuvghrghhihicumfhi
+    sghrihhkuceoufgvrhhgihihpgfmihgsrhhikhesvghprghmrdgtohhmqeenucggtffrrg
+    htthgvrhhnpeffffdvieefieejhfehfeeuvdevtdehffejieevhefgteetvdegudejgfdu
+    jeegvdenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpe
+    hsrghkihgssegurghrkhhsthgrrhdrshhithgvpdhnsggprhgtphhtthhopedutddpmhho
+    uggvpehsmhhtphhouhhtpdhrtghpthhtohepgigvnhdquggvvhgvlheslhhishhtshdrgi
+    gvnhhprhhojhgvtghtrdhorhhgpdhrtghpthhtohepshgvrhhgihihpghkihgsrhhikhes
+    vghprghmrdgtohhmpdhrtghpthhtoheprghnughrvgifrdgtohhophgvrhefsegtihhtrh
+    higidrtghomhdprhgtphhtthhopegrnhhthhhonhihrdhpvghrrghrugesvhgrthgvshdr
+    thgvtghhpdhrtghpthhtohepmhhitghhrghlrdhorhiivghlsegrmhgurdgtohhmpdhrtg
+    hpthhtohepjhgsvghulhhitghhsehsuhhsvgdrtghomhdprhgtphhtthhopehjuhhlihgv
+    nhesgigvnhdrohhrghdprhgtphhtthhopehrohhgvghrrdhprghusegtihhtrhhigidrtg
+    homhdprhgtphhtthhopehsshhtrggsvghllhhinhhisehkvghrnhgvlhdrohhrgh
+X-ME-Proxy: <xmx:I1FiaFposAzXNvoEs1PJgS8ZV8TYaOIwJl4BNlD8C8B2euGEZp5HHw>
+    <xmx:I1FiaKoOGWBZ8paZkBK5GsQlHTjduUj46UoaezhBQQ2JXBssPKUJ3A>
+    <xmx:I1FiaLSWdt9mDshO8JDBgodntf1YDNBdLn7wXWkrgwQdx0bYmUsBww>
+    <xmx:I1FiaCp0cSndl8hijk7dEC4sDqt-1LmiwZDIjX8ZDt6_oFWzgiG87A>
+    <xmx:I1FiaL7-FB9rE9r4BrQV8QITpo2LkzytP_Z67dlQ6Eb92-kl-cfPBQ>
+    <xmx:JFFiaE9onpKESquXLhPRhA-G9Ro5u4A3uC2W_LD_GAV8OR9BfG7Lp0etauCI>
+Feedback-ID: if663d99b:Fastmail
+From: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+To: xen-devel@lists.xenproject.org
+Cc: Sergiy Kibrik <Sergiy_Kibrik@epam.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>
+Subject: [RFC PATCH] xen/flask: estimate max sidtable size
+Date: Mon, 30 Jun 2025 11:55:59 +0300
+Message-Id: <20250630085559.554334-1-Sergiy_Kibrik@epam.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 7/7] mm: allow page scrubbing routine(s) to be arch
- controlled
-From: Jan Beulich <jbeulich@suse.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Shawn Anastasio <sanastasio@raptorengineering.com>
-References: <c5e1e7e0-a295-4028-b003-152b861ee14f@suse.com>
- <0d2b44e3-bf6c-40ae-be4f-d0ad2845e925@suse.com>
-Content-Language: en-US
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <0d2b44e3-bf6c-40ae-be4f-d0ad2845e925@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 16.06.2025 15:02, Jan Beulich wrote:
-> --- a/xen/arch/x86/Makefile
-> +++ b/xen/arch/x86/Makefile
-> @@ -58,6 +58,7 @@ obj-y += pci.o
->  obj-y += physdev.o
->  obj-$(CONFIG_COMPAT) += x86_64/physdev.o
->  obj-$(CONFIG_X86_PSR) += psr.o
-> +obj-bin-$(CONFIG_DEBUG) += scrub_page.o
+Currently Xen lacks a defined largest number of security IDs it can potentially
+use. The number of SIDs are naturally limited by number of security contexts
+provided by a given security policy, i.e. how many combination of user, role
+and type there can be, and is dependant on the policy being used.
+Thus in Xen the number of allocated entries in sidtable is hard-limited by UINT_MAX.
+However in the embedded environment configured for safety it is desirable to
+avoid guest-triggered dynamic memory allocations at runtime, or at least limit
+them to some decent amounts. So we seek to estimate this limit.
 
-Spotted yet one more oversight: Wants to be scrub-page.o (obviously along with
-the source file's name also changed).
+This patch suggests one way to do it using Xen's flask policy.
+List of users, roles and types is read from binary policy using setools utils,
+then it is used to count the No. of combinations these values can give.
+This No. of combinations then can be used in code as a practical replacement
+of UINT_MAX limit. Also it can be used later to pre-allocate sidtable at boot
+and avoid runtime entries allocation altogether.
 
-Jan
+Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+---
+This RFC presents a concept of estimating a max possible sidtable size.
+Can we discuss how valid this concept is? Currently it yields 420 as max SID,
+is it a reasonable number? Or perhaps something not being taken into account?
+(it lacks MLS/MCS support, because it's currently disabled in Xen's policy
+and I'm not sure if it's usable)
+
+  -Sergiy
+---
+ .gitignore                      |  1 +
+ xen/xsm/flask/Makefile          |  5 ++++-
+ xen/xsm/flask/policy/mkselim.sh | 17 +++++++++++++++++
+ xen/xsm/flask/ss/sidtab.c       |  3 ++-
+ 4 files changed, 24 insertions(+), 2 deletions(-)
+ create mode 100755 xen/xsm/flask/policy/mkselim.sh
+
+diff --git a/.gitignore b/.gitignore
+index 53f5df0003..b03e63b7a0 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -241,6 +241,7 @@ xen/xsm/flask/include/av_permissions.h
+ xen/xsm/flask/include/class_to_string.h
+ xen/xsm/flask/include/flask.h
+ xen/xsm/flask/include/initial_sid_to_string.h
++xen/xsm/flask/include/se_limits.h
+ xen/xsm/flask/policy.*
+ xen/xsm/flask/xenpolicy-*
+ tools/flask/policy/policy.conf
+diff --git a/xen/xsm/flask/Makefile b/xen/xsm/flask/Makefile
+index 3fdcf7727e..8acc5efcf1 100644
+--- a/xen/xsm/flask/Makefile
++++ b/xen/xsm/flask/Makefile
+@@ -14,7 +14,7 @@ AV_H_DEPEND := $(srcdir)/policy/access_vectors
+ 
+ FLASK_H_FILES := flask.h class_to_string.h initial_sid_to_string.h
+ AV_H_FILES := av_perm_to_string.h av_permissions.h
+-ALL_H_FILES := $(addprefix include/,$(FLASK_H_FILES) $(AV_H_FILES))
++ALL_H_FILES := $(addprefix include/,$(FLASK_H_FILES) $(AV_H_FILES) se_limits.h)
+ 
+ # Adding prerequisite to descending into ss/ folder only when not running
+ # `make *clean`.
+@@ -54,4 +54,7 @@ $(obj)/policy.bin: FORCE
+ 	        FLASK_BUILD_DIR=$(FLASK_BUILD_DIR) POLICY_FILENAME=$(POLICY_SRC)
+ 	cmp -s $(POLICY_SRC) $@ || cp $(POLICY_SRC) $@
+ 
++$(obj)/%/se_limits.h: $(obj)/policy.bin
++	$(srcdir)/policy/mkselim.sh $^ $@
++
+ clean-files := policy.* $(POLICY_SRC)
+diff --git a/xen/xsm/flask/policy/mkselim.sh b/xen/xsm/flask/policy/mkselim.sh
+new file mode 100755
+index 0000000000..bda99727fa
+--- /dev/null
++++ b/xen/xsm/flask/policy/mkselim.sh
+@@ -0,0 +1,17 @@
++#!/bin/sh
++
++policy=$1
++output_file=$2
++ntypes=$(seinfo --flat $policy -t | wc -l)
++nroles=$(seinfo --flat $policy -r | wc -l)
++nusers=$(seinfo --flat $policy -u | wc -l)
++cat > $output_file << EOF
++/* This file is automatically generated.  Do not edit. */
++#ifndef _SELINUX_LIMITS_H__
++#define _SELINUX_LIMITS_H__
++#define __SEPOL_USERS_MAX $nusers
++#define __SEPOL_ROLES_MAX $nroles
++#define __SEPOL_TYPES_MAX $ntypes
++#define SEPOL_SID_LIMIT ( __SEPOL_USERS_MAX * __SEPOL_ROLES_MAX * __SEPOL_TYPES_MAX )
++#endif
++EOF
+diff --git a/xen/xsm/flask/ss/sidtab.c b/xen/xsm/flask/ss/sidtab.c
+index 69fc3389b3..0dbadc8cd7 100644
+--- a/xen/xsm/flask/ss/sidtab.c
++++ b/xen/xsm/flask/ss/sidtab.c
+@@ -13,6 +13,7 @@
+ #include "flask.h"
+ #include "security.h"
+ #include "sidtab.h"
++#include "se_limits.h"
+ 
+ #define SIDTAB_HASH(sid) ((sid) & SIDTAB_HASH_MASK)
+ 
+@@ -228,7 +229,7 @@ int sidtab_context_to_sid(struct sidtab *s, struct context *context,
+         if ( sid )
+             goto unlock_out;
+         /* No SID exists for the context.  Allocate a new one. */
+-        if ( s->next_sid == UINT_MAX || s->shutdown )
++        if ( s->next_sid == SEPOL_SID_LIMIT || s->shutdown )
+         {
+             ret = -ENOMEM;
+             goto unlock_out;
+-- 
+2.25.1
+
 
