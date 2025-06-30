@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA583AEE311
-	for <lists+xen-devel@lfdr.de>; Mon, 30 Jun 2025 17:51:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1029239.1403013 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D78AFAEE32D
+	for <lists+xen-devel@lfdr.de>; Mon, 30 Jun 2025 17:59:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1029246.1403024 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uWGmY-0007XY-9g; Mon, 30 Jun 2025 15:50:58 +0000
+	id 1uWGut-0008Iy-3C; Mon, 30 Jun 2025 15:59:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1029239.1403013; Mon, 30 Jun 2025 15:50:58 +0000
+Received: by outflank-mailman (output) from mailman id 1029246.1403024; Mon, 30 Jun 2025 15:59:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uWGmY-0007W6-6w; Mon, 30 Jun 2025 15:50:58 +0000
-Received: by outflank-mailman (input) for mailman id 1029239;
- Mon, 30 Jun 2025 15:50:57 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uWGus-0008H6-Vg; Mon, 30 Jun 2025 15:59:34 +0000
+Received: by outflank-mailman (input) for mailman id 1029246;
+ Mon, 30 Jun 2025 15:59:34 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=erj2=ZN=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uWGmX-0007Vy-IZ
- for xen-devel@lists.xenproject.org; Mon, 30 Jun 2025 15:50:57 +0000
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [2a00:1450:4864:20::32f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 01db0200-55ca-11f0-b894-0df219b8e170;
- Mon, 30 Jun 2025 17:50:55 +0200 (CEST)
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-453608ed113so23715785e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 30 Jun 2025 08:50:55 -0700 (PDT)
+ id 1uWGus-0008H0-7U
+ for xen-devel@lists.xenproject.org; Mon, 30 Jun 2025 15:59:34 +0000
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [2a00:1450:4864:20::42a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 36851e82-55cb-11f0-a312-13f23c93f187;
+ Mon, 30 Jun 2025 17:59:33 +0200 (CEST)
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-3a6f2c6715fso2534786f8f.1
+ for <xen-devel@lists.xenproject.org>; Mon, 30 Jun 2025 08:59:33 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-23acb2e2493sm88805155ad.48.2025.06.30.08.50.47
+ d2e1a72fcca58-74af557460fsm9980405b3a.93.2025.06.30.08.59.25
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 30 Jun 2025 08:50:53 -0700 (PDT)
+ Mon, 30 Jun 2025 08:59:31 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 01db0200-55ca-11f0-b894-0df219b8e170
+X-Inumbo-ID: 36851e82-55cb-11f0-a312-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1751298654; x=1751903454; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1751299172; x=1751903972; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=XHRqmBzRfJ5cd6lN8Yd5F/h8vJDkOBgYffL/BDrwugw=;
-        b=WFUGTQZj5vIqcD//txSgAXThqq06wu6yr2ArnkuCRmdnWFfn8CMkECl45K2Z/31NZu
-         TkbhMAWBFaFOqRWL2I7e4rhsUDPO2dgFPJqC5HzPyuJ05AJMrgofp1f2UsMzu9HjE73o
-         GW320kF3GqwQrr/x1a8Gx9lrGh+81/GqePyNOt/C2JvrCWnMJxDP6w5QC++41hsqLRic
-         I0rWqtUHNH1Kz9kLdVgZazgoI2z5AStp1gD0VB1GfMZYObUFNKcqjbtVNb2JszJxEgre
-         8/9pOmyZqPPQUo/LCwiQOxHdHJNqBmxNDQe1UJmEoIbymgSZ3++Wd1aVLPxXGoV2sGAA
-         VAuQ==
+        bh=7ZffqJRME8x4UkcvSMYkkB4E+0MQZzh9SBrRhhrlkeM=;
+        b=D9c2w/RlzUzy3E+4DnbQK8Byx9a/TvxGdrOjjRTJO330tdlMtr5un4hFzCagHx81Ai
+         apw5D/FyLLxE0sMP/LjC1i8jAG/dEwZ5C2D4AKeJAtpLgGO6qibPA2CWLa/cz0E09hom
+         skujzWKvUMhdmozXsDOHb1levPl0qO0J4xDQMOU5//DYOwznaaztYZ8yuO5remJGugCP
+         Xdx8WMOCM1IdDvn1FxLmVNIWwsNEzlC3CuLCw/nMilOtuqY74GuI0n9FuDzXzgGpVxZh
+         mAW1DbGSCv+na8JYRMloHWA0j1QD2E1nRhGh9dXDrIy0CmOx37JuRPbyTcLqTSKoIQFL
+         qAIA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1751298654; x=1751903454;
+        d=1e100.net; s=20230601; t=1751299172; x=1751903972;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=XHRqmBzRfJ5cd6lN8Yd5F/h8vJDkOBgYffL/BDrwugw=;
-        b=BQGmnMkUUPPgwHehR8F6y/0692p2sFiJx8YfmGYmA5NBKjDpqGZTeaYezQ/O1v40Z7
-         lcOPT18cR513AhIMX2h7sg1BY5uNhJ9ooGxVZqLg1nZd53WLJrm0xs3v3gqJdenJyZVh
-         0iYyPh4xXTFomF7EGidbIY7xEnVH7CKgkgfGPD43gMSQQDg/hTKdGU7z4h15OnxLpRai
-         i1ImNp4ESrXEb59K3pS/fXrlLXsf5O1xoBPEaOB4Drn/+iM+bApY6bhR4Lz79RJ3JFDi
-         A+Vy1Z637tcFZ1IFX4/bQlRpN/GeJ5sU5tzyRHxIMmh+VEBNB+meyoL9KOyuoshlhPhj
-         CIDw==
-X-Forwarded-Encrypted: i=1; AJvYcCWaNxUWmQb2pX0fgHFVBD3PbtjFdrsfgYXuYS0Kgb2pYJ+yc83+Oi92L/kuYbFkKLiHAovNKkUO6Ts=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyqS1CzDQmnjiTq3JJWTe3AO4GFvDeN8QTjLTzipRonA5zsRWdA
-	N3xvdkJU5i84pWO5UTTRm3YBcKeU63tEfj4OjFVjaORlSkJDnz4IUK9A+hna8Uenvg==
-X-Gm-Gg: ASbGnctBJ8BvDF6Q+0Pcm2QgfdvALbAHYo2RgsMPxaMW5qa3sbpb2vK17fXAeh1CysS
-	ODKJCNmPlrHoLwwP2vmlhcrK2NMnewsK26vB3nlNWVthjQIqYYa+ucyz1BugBH20TpLKz/k6Mnj
-	4G0XQFbCbKqAXJCO3NkgmaiA+pvo9TImQfMury9OZlVP81Hht/Ga/GLR6PTVS7vTWD4ldWtqTDp
-	AFRoILBXMYsYmlaXvXg6z3ew0OU3ZbMSr6XpptMiraDDnWwcH7d0xma4LGP2h79YrtVKiViGQCZ
-	EY1yXi9hqDRdIGavHn4yQTQoeRS5kf5umu5iFUgojZ45EJVHbqvFjLgdEqlqOmkBcklK80pmgHr
-	mMfuOF2cJN0n6iAKKikhKGgI0UVvqlMhBkcpCNu6o+PVieqw=
-X-Google-Smtp-Source: AGHT+IEdoq2wXVKqp8ST8Hi1/5chVZpBVUrimSxKz0ZRQHz+BGLJOSZtm3ZAS3/Eh/MgEjsiXTb6sg==
-X-Received: by 2002:adf:b19b:0:b0:3a3:6e85:a529 with SMTP id ffacd0b85a97d-3a8ffcc9ea5mr8819115f8f.51.1751298654427;
-        Mon, 30 Jun 2025 08:50:54 -0700 (PDT)
-Message-ID: <2a7515a4-0e86-428f-8239-ae97b976f3f2@suse.com>
-Date: Mon, 30 Jun 2025 17:50:43 +0200
+        bh=7ZffqJRME8x4UkcvSMYkkB4E+0MQZzh9SBrRhhrlkeM=;
+        b=t3uy3NCFH3PuaRvj2HG5p98poF/HU23xG7Yb0xeqP8QEcjdBY17POj3eMTTBmWrDHV
+         uThK+VTLJWL9awGqTyDVIiuov5n0Ggh/qVmnG/LeS0O+7C1l1QHONa77Srq3lXgalicm
+         xIalkYiThy6/cULwIiHzek5KH4R3w53m7GD5TXxJs5FOMudSDqD5axKNYYvsX75l36vu
+         Tw+etNQe+UHqwe+ydfdRR/5XnSJIeR1E4Nof2fe+mydYf8HP1FKXp71uC8L/Y1Bugv87
+         YJoml6x3qJ9H6M0yE4AgooBNQ856qF61AYZeVJ53oDEZ2uhq7poAEeXbtdqUXe6F0vzw
+         lA5g==
+X-Forwarded-Encrypted: i=1; AJvYcCW1ZIV3wzum5CAgJ/x7x3+WLbG8+0GElrMFjlsrGiivsPG/M5UMlU64oBbQVZIUmLPtt7VnJiK7NfI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx1Ub1bjqm+dJePFL+rJomCIaHZKtox+yh4i1hYJxIC996VAxVI
+	wvh6d2dU4Myf1Bf08UrPmFCHdliLWrbhFuL/6tX4MYwDl8SHTx+7pYSXD7vHkEp3BQ==
+X-Gm-Gg: ASbGncsCPQgXdo/117LRjH+nXlHf49s+lrsa7limPeHwQFI+JYzcKZODyszgRbe0htE
+	0tL65tJ5hjCUo+SKVZd8DQQuw3U80ky/8FUHwYGGImemiKygQtZlhXe5SqQ2yijC6pjeGb5dygR
+	HRNqsTQhIbEwCi2n0olMQOM+q2an5XGnpRXD8qx+p64kXkKHAxltHBJ3IRRlXCUa0a/IrIy/OjO
+	JdtT3CCDJICdLUbLc12uI2+Z7HizVlY8Ggk1ah0/naxv4l7yY7Khu6Rk9ngPn03WnEBPA/k/6i4
+	WpNnqqgw/b44RQbkN1pOVe6AgX/8cUxaie9b18auqYYnfaavhTwt6ig4LIFlf2KCo43DUXdlpQz
+	H2Bpog/UuH5xi6sDD5pIMmUJpAxAPZHV8XG8PkI+qVeQ+CTw=
+X-Google-Smtp-Source: AGHT+IG5ucJoKG1vBGA+waDwFYrmJxnAuc+PmtW9uHGIahqq9pYnUWtAtMeHQcURj4SUVuWbMv9Gsg==
+X-Received: by 2002:adf:9d91:0:b0:3a6:da76:38b0 with SMTP id ffacd0b85a97d-3a8f50cb692mr9963875f8f.25.1751299172491;
+        Mon, 30 Jun 2025 08:59:32 -0700 (PDT)
+Message-ID: <f1e26c40-c70d-4d86-96ec-7643a9d08e76@suse.com>
+Date: Mon, 30 Jun 2025 17:59:21 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 08/17] xen/riscv: add new p2m types and helper macros
- for type classification
+Subject: Re: [PATCH v2 10/17] xen/riscv: implement guest_physmap_add_entry()
+ for mapping GFNs to MFNs
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Cc: Alistair Francis <alistair.francis@wdc.com>,
  Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
@@ -98,12 +98,7 @@ Cc: Alistair Francis <alistair.francis@wdc.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <cover.1749555949.git.oleksii.kurochko@gmail.com>
- <f943c6ce5371258af0f36c2633d542341fcf47b4.1749555949.git.oleksii.kurochko@gmail.com>
- <8f45cffe-e2a2-46e3-8370-2b6b4c86dccf@suse.com>
- <13b80e15-9db9-427d-aaa2-c0389e4c248a@gmail.com>
- <6fafc0b4-cfea-4d67-bef6-4e40d1d3e743@gmail.com>
- <f373045d-4479-4c55-b6cd-3c955e456428@suse.com>
- <f5fc8d66-cb90-4064-a215-8a2ea3705272@gmail.com>
+ <0b1f7ead7eb1b7c8687d388cca50b46eefb8e408.1749555949.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -129,50 +124,69 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <f5fc8d66-cb90-4064-a215-8a2ea3705272@gmail.com>
+In-Reply-To: <0b1f7ead7eb1b7c8687d388cca50b46eefb8e408.1749555949.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 30.06.2025 17:27, Oleksii Kurochko wrote:
-> 
-> On 6/30/25 4:45 PM, Jan Beulich wrote:
->> On 30.06.2025 16:38, Oleksii Kurochko wrote:
->>> On 6/30/25 4:33 PM, Oleksii Kurochko wrote:
->>>> On 6/26/25 4:59 PM, Jan Beulich wrote:
->>>>> On 10.06.2025 15:05, Oleksii Kurochko wrote:
->>>>>> --- a/xen/arch/riscv/include/asm/p2m.h
->>>>>> +++ b/xen/arch/riscv/include/asm/p2m.h
->>>>>> @@ -61,8 +61,28 @@ struct p2m_domain {
->>>>>>    typedef enum {
->>>>>>        p2m_invalid = 0,    /* Nothing mapped here */
->>>>>>        p2m_ram_rw,         /* Normal read/write domain RAM */
->>>>>> +    p2m_ram_ro,         /* Read-only; writes are silently dropped */
->>>>> As indicated before - this type should be added when the special handling that
->>>>> it requires is also introduced.
->>>> Perhaps, I missed that. I will drop this type for now.
->>>>
->>>>>> +    p2m_mmio_direct_dev,/* Read/write mapping of genuine Device MMIO area */
->>>>> What's the _dev suffix indicating here?
->>>> It indicates that it is device memory, probably, it isn't so necessary in case of RISC-V as
->>>> spec doesn't use such terminology. In RISC-V there is only available IO, NC. And we are
->>>> |using PTE_PBMT_IO for |p2m_mmio_direct_dev.
->>>>
->>>> Maybe it would be better just to rename s/p2m_mmio_direct_dev/p2m_mmio_direct_io.
->>> I forgot that p2m_mmio_direct_dev is used by common code for dom0less code (handle_passthrough_prop())
->> That'll want abstracting out, I think. I don't view it as helpful to clutter
->> RISC-V (and later perhaps also PPC) with Arm-specific terminology.
-> 
-> Would it be better then just rename it to p2m_device? Then it won't clear for Arm which type of MMIO p2m's
-> types is used as Arm has there MMIO types: *_dev, *_nc, *_c.
+On 10.06.2025 15:05, Oleksii Kurochko wrote:
+> --- a/xen/arch/riscv/p2m.c
+> +++ b/xen/arch/riscv/p2m.c
+> @@ -324,3 +324,44 @@ int p2m_set_allocation(struct domain *d, unsigned long pages, bool *preempted)
+>  
+>      return 0;
+>  }
+> +
+> +static int p2m_set_entry(struct p2m_domain *p2m,
+> +                         gfn_t sgfn,
+> +                         unsigned long nr,
+> +                         mfn_t smfn,
+> +                         p2m_type_t t,
+> +                         p2m_access_t a)
+> +{
+> +    return -EOPNOTSUPP;
+> +}
+> +
+> +static int p2m_insert_mapping(struct domain *d, gfn_t start_gfn,
 
-I don't understand why Arm matters here. P2M types want naming in a way that makes
-sense for RISC-V.
+This likely again wants to be struct p2m_domain *.
 
-> As an option (which I don't really like) it could be "#define p2m_mmio_direct_dev ARCH_specific_name" in
-> asm/p2m.h to not touch common code.
+> +                              unsigned long nr, mfn_t mfn, p2m_type_t t)
+> +{
+> +    struct p2m_domain *p2m = p2m_get_hostp2m(d);
+> +    int rc;
+> +
+> +    p2m_write_lock(p2m);
+> +    rc = p2m_set_entry(p2m, start_gfn, nr, mfn, t, p2m->default_access);
+> +    p2m_write_unlock(p2m);
+> +
+> +    return rc;
+> +}
+> +
+> +int map_regions_p2mt(struct domain *d,
+> +                     gfn_t gfn,
+> +                     unsigned long nr,
+> +                     mfn_t mfn,
+> +                     p2m_type_t p2mt)
+> +{
+> +    return p2m_insert_mapping(d, gfn, nr, mfn, p2mt);
+> +}
 
-A #define may be needed, but not one to _still_ introduce Arm naming into non-Arm
-code.
+What is this function doing here? The description says "for generic mapping
+purposes", which really may mean anything. Plus, if and when you need it, it
+wants to come with a name that fits with e.g. ...
+
+> +int guest_physmap_add_entry(struct domain *d,
+> +                            gfn_t gfn,
+> +                            mfn_t mfn,
+> +                            unsigned long page_order,
+> +                            p2m_type_t t)
+
+... this one, to understand their relationship / difference.
+
+> +{
+> +    return p2m_insert_mapping(d, gfn, (1 << page_order), mfn, t);
+
+1UL please, while at the same time the parentheses could be omitted.
 
 Jan
 
