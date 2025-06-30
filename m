@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03CA4AEDA43
-	for <lists+xen-devel@lfdr.de>; Mon, 30 Jun 2025 12:50:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1029025.1402774 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C51BDAEDB77
+	for <lists+xen-devel@lfdr.de>; Mon, 30 Jun 2025 13:43:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1029061.1402793 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uWC5W-0002yX-6r; Mon, 30 Jun 2025 10:50:14 +0000
+	id 1uWCuJ-0000st-24; Mon, 30 Jun 2025 11:42:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1029025.1402774; Mon, 30 Jun 2025 10:50:14 +0000
+Received: by outflank-mailman (output) from mailman id 1029061.1402793; Mon, 30 Jun 2025 11:42:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uWC5W-0002wE-3Z; Mon, 30 Jun 2025 10:50:14 +0000
-Received: by outflank-mailman (input) for mailman id 1029025;
- Mon, 30 Jun 2025 10:50:12 +0000
+	id 1uWCuI-0000qV-V7; Mon, 30 Jun 2025 11:42:42 +0000
+Received: by outflank-mailman (input) for mailman id 1029061;
+ Mon, 30 Jun 2025 11:42:41 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=gInu=ZN=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1uWC5U-0002w8-Jn
- for xen-devel@lists.xenproject.org; Mon, 30 Jun 2025 10:50:12 +0000
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [2a00:1450:4864:20::42a])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=erj2=ZN=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uWCuH-0000qP-Ez
+ for xen-devel@lists.xenproject.org; Mon, 30 Jun 2025 11:42:41 +0000
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [2a00:1450:4864:20::42f])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id fdf08616-559f-11f0-b894-0df219b8e170;
- Mon, 30 Jun 2025 12:50:09 +0200 (CEST)
-Received: by mail-wr1-x42a.google.com with SMTP id
- ffacd0b85a97d-3a522224582so2193595f8f.3
- for <xen-devel@lists.xenproject.org>; Mon, 30 Jun 2025 03:50:09 -0700 (PDT)
-Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
- by smtp.gmail.com with UTF8SMTPSA id
- ffacd0b85a97d-3a892e598d2sm10012305f8f.76.2025.06.30.03.50.08
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 30 Jun 2025 03:50:08 -0700 (PDT)
+ id 531c11b8-55a7-11f0-b894-0df219b8e170;
+ Mon, 30 Jun 2025 13:42:39 +0200 (CEST)
+Received: by mail-wr1-x42f.google.com with SMTP id
+ ffacd0b85a97d-3a588da60dfso1216770f8f.1
+ for <xen-devel@lists.xenproject.org>; Mon, 30 Jun 2025 04:42:39 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-318c14e224csm9146641a91.32.2025.06.30.04.42.35
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 30 Jun 2025 04:42:38 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,92 +45,119 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fdf08616-559f-11f0-b894-0df219b8e170
+X-Inumbo-ID: 531c11b8-55a7-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1751280609; x=1751885409; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=bkLwNmYLuKyQcclKDsE/w8VukAwLC8KPQfw31AtdgXc=;
-        b=ZEqU3YNjUJ0DLL3mQ1f52hvywu74K1BIrR1EIQH7XHrm5NaZOzuRboJru6uAJBUPjG
-         HRHAC8vGfkET+3412URXeu7XK2duvKqLhfMMOjDF3jr24MCh38m/nR9+wdfMaAMvHO0G
-         WxVJ5WwGrlPQC0q4uJdli42ZVOU+0mDDzqAXk=
+        d=suse.com; s=google; t=1751283758; x=1751888558; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=/eVulYssM1kQlc6S6ZkCc8s3/n4KwIjd96GCkHhSpLc=;
+        b=cR0u/w+JYT9MAIHnQobcNIurfP42eJZGORm6I9N+m7iepJgQjLwag+zU63DSY52Chz
+         WFqjVsR/tTH/6fBUjKZK1k94jP4w9/T2nPzP6HT8p1K2CF5Y5P+X7XSshsWgOQMkGaAQ
+         W7VWXjtOvNfFUoU6z6RsKKRfDRsDU3AoKiAnuZBnuzokfu9KURhdE4ew6U9k2to/GZL1
+         7rgIgAJELYkCErqrO07erYcufqMR/8ZX34gkFnIylKi13KShGynkeiRIMnVX4H2oPPVz
+         QYJl/wtNHGITy+wfZHWjBsSO1ocMINaqHNh88OWfk72xEY/bzH53DJ/fiPYOlDvODLYT
+         R8GA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1751280609; x=1751885409;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
+        d=1e100.net; s=20230601; t=1751283759; x=1751888559;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=bkLwNmYLuKyQcclKDsE/w8VukAwLC8KPQfw31AtdgXc=;
-        b=jTX1nHsELpMlE5vLpEh0/0fayYdKNqqeGoHQPZCEiJmvnIpfvh7xFHDb4MuFpIUVC8
-         8KsTntkdsBietgGTd0uvmvHcxJTSeWFRMvVpXjEnQEwndLes0UNK5yShWjMAesQvmTwO
-         7EauVtO2Iy8CXB6SEPGVDitE4ZPlitWm0ApbZoNaLUxIiqYPVm0yFC4MUpDoftmp7s5G
-         UXIYyZGQ0XCjH/yMIIJhwN7Rk7c0JWs6Cx+OCaegn6txZUdVysUoKlNHfwU46sP+O0IL
-         iaAu3Clh1LaoXpuEGglAfZFc3Z4m7Qq5qTdNV2zcIF5bzqk/19OA1fMY00XDzW94utBU
-         GJIA==
-X-Gm-Message-State: AOJu0YxTHahnnt/VlbJ4S2GLHBLoBv/1MRW85pXGZbBSp/Q1tbqNsDXr
-	3kRjAJgg7tJ/53c6fZzzzgYzmGOvRL+UZA9dzNEgUB+rwSEUW4bDAclhm/6Rex9Sims=
-X-Gm-Gg: ASbGnct/kYzf2bAtRfFud3tOO6uq0aTPRFYTkub0YcpS905bR9taPLeH0J0NxWZEwGK
-	bR9B0td1GTPA+mTaw+3wg59aaGw/+zGZlempJr5dqdJBphnf88dhXoBqvqVxAWVs7fUhaQ7WVYt
-	lxLdtXKw9WrNg0Uh95+DqE1qECst1ycgd+FlOBHKQBUn8eb3U0bhY0Na1h7s8LJ8x4hk/vDYwef
-	oNtQOW1cVYF3Jh3sYqU7G0EvAaZbpUORJJXdcXPj8+Efd1tP0gBHYUZHjjl5/Am9goeQ+/wM8Sv
-	6vq+1BeHl6t9rLicqsnrDhvcGSd5lG/u0G+Xbbjm1gq7Ikpa/2CF5dsn+88fzAlwVbztICMcBDN
-	n7qXzrbCqZtLFCNFqfhgqaY13yUKZvw==
-X-Google-Smtp-Source: AGHT+IEIY3Lr+Z/f+DlD7L6QGBJTAydGU9BalpBaz8gtwJIWtLVX2jHzIZ6Iux/cqCwC0tBHcjLOBw==
-X-Received: by 2002:a05:6000:4408:b0:3a4:eecf:b8cb with SMTP id ffacd0b85a97d-3a8ffccac65mr8908416f8f.28.1751280609142;
-        Mon, 30 Jun 2025 03:50:09 -0700 (PDT)
-Date: Mon, 30 Jun 2025 12:50:07 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
-	Ross Lagerwall <ross.lagerwall@citrix.com>,
-	Jan Beulich <JBeulich@suse.com>,
-	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
-	"Daniel P . Smith" <dpsmith@apertussolutions.com>
-Subject: Re: [PATCH 1/3] x86/EFI: Fix detection of buildid
-Message-ID: <aGJr30sBRgJbqWSe@macbook.local>
-References: <20250605111638.2869914-1-andrew.cooper3@citrix.com>
- <20250605111638.2869914-2-andrew.cooper3@citrix.com>
+        bh=/eVulYssM1kQlc6S6ZkCc8s3/n4KwIjd96GCkHhSpLc=;
+        b=PjfHaTNZDCLEwtilgxm+mBepwo51dcgzetbycsXA8Akk29MvJw6glCgPn3pbBRxPBG
+         Gn2ubiRiiZSW9mGQ02honv1f3WPGIjXP4nA4fhwpkPrnN55LKroyRx0g/oSZEM0iHYdg
+         b5JHaxZwgEK6itnwpz3Fye0kZOFEiKVpeesJ66PetblevaJEWvg5AhNVWGaqNa5N6P2m
+         9eDKPDU8QYhQhlQnKRxZPykvcBWc8oduITZN25HTMOJSV/hJ6r/t9rpSdelbBWJgdiU7
+         G3dZ3r8Ah//VEAqFfSbkYRZ7IkN8D4PSJ1yl3pOKB9QqNzYlvEw6hURnX15B406vour+
+         eo3Q==
+X-Gm-Message-State: AOJu0YxHUCx85ocuuJGuqd56tSndyhoV/enghtIplAgY3tqt/LX7FpUR
+	yjnM1Uw3qrzEA4s04il/WjRrxkwHJ+ArwuoN66BfJf0GIRPBJY/t931BU30UtEBH9EkXyqkPXtX
+	zEPg=
+X-Gm-Gg: ASbGnctykxmTSKde8MEY4WiA8PQOJym24ZOqPR8k0JZ3BpaQEoLUOh/eO1pYoW1cnuq
+	7KwjXeTuNDSew//zRpcAhHxzvFsU1jSh5Orbwrs8tBtf1vC6/+Bh91fv6La0fi7PslWX5xkMYnu
+	Gp6YP54Z5XBzNN7a7DeNsd21VgTKiTcraOhhHQMvmsqmLla/Lbx5Kz591rTcA87fxXXac0a4QaP
+	0SSxGV9Im4AED7tRTdReEnPJrt0kRkjt7/ZA1IWtLFM4n1TpC6L/ep00lQPaLl8WHX8ibDWJhZe
+	kHhGAXePG7hk7vh6Wumv9gi8w7SXMEurVZij85tnoo2W/j7VUDDHNq0mPFAF3Mge4CVCe6/rtzi
+	DNkYYQRdxDb9tTzRrX5X8HnXpoJUUbM0llzPnoFpKjPwzHmM=
+X-Google-Smtp-Source: AGHT+IHIY/GdcoG34snCr+E2mCNV++T094l+hnLEk6ccN0U7ZVqt122MCCdAMMfs/zMDNRS1rpQ4Gg==
+X-Received: by 2002:a05:6000:710:b0:3aa:c9a8:a387 with SMTP id ffacd0b85a97d-3aac9a8a39cmr7320674f8f.0.1751283758561;
+        Mon, 30 Jun 2025 04:42:38 -0700 (PDT)
+Message-ID: <7fa05d3f-2f85-4a42-9549-b68a486e30ea@suse.com>
+Date: Mon, 30 Jun 2025 13:42:31 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20250605111638.2869914-2-andrew.cooper3@citrix.com>
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] x86/SMP: guard socket_cpumask[] access in cpu_smpboot_free()
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Jun 05, 2025 at 12:16:36PM +0100, Andrew Cooper wrote:
-> The format of the buildid is a property of the binary, not a property of how
-> it was loaded.  This fixes buildid recognition when starting xen.efi from it's
-> MB2 entrypoint.
-> 
-> Suggested-by: Ross Lagerwall <ross.lagerwall@citrix.com>
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Before CPU identification has run (and it may not have run at all e.g.
+when AP bringup failed altogether), cpu_data[].phys_proc_id (which is
+what cpu_to_socket() resolves to) can't really be used. The use of
+cpu_to_socket()'s result as an array index cpu_smpboot_free() therefore
+needs guarding, as the function will also be invoked upon AP bringup
+failure, in which case CPU identification may not have run.
 
-Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+Without "x86/CPU: re-work populating of cpu_data[]" [1] the issue is
+less pronounced: The field starts out as zero, then has the BSP value
+(likely again zero) copied into it, and it is properly invalidated only
+in cpu_smpboot_free(). Still it is clearly wrong to use the BSP's socket
+number here.
 
-Some possibly useless rants below.
+Making the guard work with and without the above patch applied turns out
+interesting: Prior to that patch, the sole invalidation done is that in
+cpu_smpboot_free(). Upon a later bringup attempt, the fields invalidated
+are overwritten by the BSP values again, though. Hence compare APIC IDs,
+as they cannot validly be the same once CPU identification has run.
 
-> ---
-> CC: Jan Beulich <JBeulich@suse.com>
-> CC: Roger Pau Monné <roger.pau@citrix.com>
-> CC: Ross Lagerwall <ross.lagerwall@citrix.com>
-> CC: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-> CC: Daniel P. Smith <dpsmith@apertussolutions.com>
-> 
-> I don't like this patch and tried hard to do it in a better way, but the EFI
-> aspects of the build system are too intractable.
-> 
-> While on x86 I can in principle pull the same common-stubs.o trick, split on
-> XEN_BUILD_PE rather than XEN_BUILD_EFI, that doesn't work on ARM which
-> hand-codes it's PE-ness.  Also, it's really not EFI related, other than as a
-> consequence of that being the only reason we use PE32+ binaries.
+[1] https://lists.xen.org/archives/html/xen-devel/2024-02/msg00727.html
 
-Since this is already gated on CONFIG_X86 you could pass XEN_BUILD_PE
-as a define in CFLAGS, and use it together with the CONFIG_X86 check?
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+Sadly there was no feedback at all yet for the referenced patch.
 
-That however would still put the code in the .gz binary, as the object
-file would be the same for both builds.  Otherwise we would need to
-compile this twice and use the different object files for the PE vs
-ELF images, which seems extremely cumbersome for a little benefit, as
-this is init-only code that would be gone once booted.
-
-Thanks, Roger.
+--- a/xen/arch/x86/smpboot.c
++++ b/xen/arch/x86/smpboot.c
+@@ -958,7 +958,13 @@ static void cpu_smpboot_free(unsigned in
+     unsigned int socket = cpu_to_socket(cpu);
+     struct cpuinfo_x86 *c = cpu_data;
+ 
+-    if ( cpumask_empty(socket_cpumask[socket]) )
++    /*
++     * We may come here without the CPU having run through CPU identification.
++     * In that case the socket number cannot be relied upon, but the respective
++     * socket_cpumask[] slot also wouldn't have been set.
++     */
++    if ( c[cpu].apicid != boot_cpu_data.apicid &&
++         cpumask_empty(socket_cpumask[socket]) )
+     {
+         xfree(socket_cpumask[socket]);
+         socket_cpumask[socket] = NULL;
 
