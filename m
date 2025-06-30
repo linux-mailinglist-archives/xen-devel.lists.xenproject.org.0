@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D76C6AEE241
-	for <lists+xen-devel@lfdr.de>; Mon, 30 Jun 2025 17:23:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1029205.1402972 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E65AAEE25F
+	for <lists+xen-devel@lfdr.de>; Mon, 30 Jun 2025 17:27:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1029211.1402980 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uWGLI-0001gl-KF; Mon, 30 Jun 2025 15:22:48 +0000
+	id 1uWGQ1-0002Ez-3C; Mon, 30 Jun 2025 15:27:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1029205.1402972; Mon, 30 Jun 2025 15:22:48 +0000
+Received: by outflank-mailman (output) from mailman id 1029211.1402980; Mon, 30 Jun 2025 15:27:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uWGLI-0001dl-Gv; Mon, 30 Jun 2025 15:22:48 +0000
-Received: by outflank-mailman (input) for mailman id 1029205;
- Mon, 30 Jun 2025 15:22:47 +0000
+	id 1uWGQ0-0002Ck-WE; Mon, 30 Jun 2025 15:27:41 +0000
+Received: by outflank-mailman (input) for mailman id 1029211;
+ Mon, 30 Jun 2025 15:27:39 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=erj2=ZN=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uWGLH-0001da-La
- for xen-devel@lists.xenproject.org; Mon, 30 Jun 2025 15:22:47 +0000
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [2a00:1450:4864:20::42f])
+ id 1uWGPz-0002Ce-UM
+ for xen-devel@lists.xenproject.org; Mon, 30 Jun 2025 15:27:39 +0000
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [2a00:1450:4864:20::434])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 123d95fa-55c6-11f0-b894-0df219b8e170;
- Mon, 30 Jun 2025 17:22:44 +0200 (CEST)
-Received: by mail-wr1-x42f.google.com with SMTP id
- ffacd0b85a97d-3a522224582so2385890f8f.3
- for <xen-devel@lists.xenproject.org>; Mon, 30 Jun 2025 08:22:44 -0700 (PDT)
+ id c0df0f64-55c6-11f0-b894-0df219b8e170;
+ Mon, 30 Jun 2025 17:27:37 +0200 (CEST)
+Received: by mail-wr1-x434.google.com with SMTP id
+ ffacd0b85a97d-3a536ecbf6fso2656930f8f.2
+ for <xen-devel@lists.xenproject.org>; Mon, 30 Jun 2025 08:27:37 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-b34e31bea22sm8333249a12.38.2025.06.30.08.22.37
+ d9443c01a7336-23acb3c5a8csm84911635ad.223.2025.06.30.08.27.30
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 30 Jun 2025 08:22:43 -0700 (PDT)
+ Mon, 30 Jun 2025 08:27:36 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 123d95fa-55c6-11f0-b894-0df219b8e170
+X-Inumbo-ID: c0df0f64-55c6-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1751296964; x=1751901764; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1751297257; x=1751902057; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=uaj4gs5EI0MgSknyxhjQiJCxQkzkS215TkkNr7OAfZs=;
-        b=WA3LR+2G4rw2sHCYVEAyt++ApXPHb24fCAclOpMyZ/dWklOi31HZZf4UibGazrGQUH
-         Fe5gRfmrM9d17tiJpa0egWzvPfEsVImZQduM+mVgk8qhgsLZJQAC5GQqJLnp7llSjaYi
-         U0FhL+DA8HRdzwM1KCbVpI/P6kda3InewhGLsBFC/47Sg0bzqeRzJPeTsQaxIzh01vOr
-         exJmv9uDfCYxsfkfjswFwleR6e37X2yBpnzLw2Pjo9HsycDs44qtBYFspuPOQ2mL3mT3
-         JP5vxewEN/JMHsX39FXC3EJFBGkK24YjgCWTMK2R6wTQ7hIMCkmbMOCNs3M9iTGsS2Wv
-         0zhw==
+        bh=gdgBz53yUVWzqac2JXg0IjomNn13uCYwlDTXx52QPGw=;
+        b=IWK1LhkZe1eAMil2n+5fRDb/p3ooBlgWNa+iHU9FpGPtlMQFZw9wreDexb/XQ0+Gki
+         UqUG2boXme4YiV/KunsVne8TBPAHKiNdgFlAx+2/LTWXUZnFEsUaziMjuPgfxvC5cTqu
+         XapmlHM9r5GVMwAxeTCaq8B+rsINrG8Pu3ixqm8n0ig34PLk5kytzc3vJt9gBbC+Z3Dc
+         OZvUiG2/nGP+njgBxYI6ScrZuLdqc2FvF1q4KVfAwU939H8NUkcflDixYKuwRw8iSOSf
+         M/O6mWvm4GozzyhXBijDP2iCFbFKrnHjCttLpI1BtPuCSTbyu7vgBQHv5xeX1AETEZOj
+         0QCg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1751296964; x=1751901764;
+        d=1e100.net; s=20230601; t=1751297257; x=1751902057;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=uaj4gs5EI0MgSknyxhjQiJCxQkzkS215TkkNr7OAfZs=;
-        b=Il2UHwT9h7mvuKXm6N7F9ea7VO2ZPKoVtx6bOLHenNv4MoIQY9eV4EPQCedqZgRRgQ
-         Nifr+uVKl/pEkzz2tdNudPUh9dS8I7tx0qf/SMO3VvfynmIsmbQxu4C1F0d6TFZtJVey
-         vRTSFt6kdoVtR2rGXjb3eUJVS/HWqksqo1npbITs1aGIzGtKs9L45ZZvTf60K9xi82GY
-         HUP59s8QLy/gRJsMyMbMb1f4P0qt1jhX1mq3QbShHxWbO1MrTwL9LpGWXoISxHjpb9+C
-         FyX/7a4p+8nJfoizvJiw9J8kJFW9NGKjVnbeBbCBsPuklv4TxBsiryNfKeIrMQPRgkRQ
-         mVVg==
-X-Forwarded-Encrypted: i=1; AJvYcCUSYJmVKu9eLp+yzsvjd/I8XEUjEmhjR8UDPcUSA4hnyJZsp1R/MxipK3jM9UGCUboL1bktWGWpQ9Y=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwFX/HxOargkTuUPlsQ7Ngh42UU5mDcpYPS64/0cddetcjEInzJ
-	tDrI7v+LdKM7MmQ6MEL7Uc25iRszarx4P+mFSeMFZHW/aepLMz+IFgNxum/r3LGKQg==
-X-Gm-Gg: ASbGncsgNKSYj6Wl2+UCFENZs7gCyu9ca01R7qDRtazsOXgmok9Z15+IfVioFCTT3pN
-	1gMQEVEk/WwYtoU5ng4+3+2by9N8IuoAVzoceIIcLnWpkLEd9PBEEcjW1IU4t7Zp8Pmmqhr0foP
-	JDkzgRoT0MH6LY7Jj86n9EzbOvhwH3IBz7vOzKM5twnTPjUcqolJtkyjomLyvlcKj+J1bzImzre
-	w+aQeNmOTlzOYl+UdO108dFxSs1y+zqR6ryTdL+3WuDa6EVyH2LyGr0lYgxx/ic2nijj4VOEDN3
-	L3l+mIYgcDnsy+Ifc+btiQoowfiXqddyrycJj4kpKMzVKexUFEYaBh6nWIjgHLRF5N2af2ONCIM
-	DZq/o/+frtnAh/7VgUE7T9Wb7c3IrIaubhiys1a5faTB/XwM=
-X-Google-Smtp-Source: AGHT+IHquY/zmuNVnI+mXBxHnpIHynLW/wDtxwghqFNPerrsyxIucaOq69ZKBEgSLmA0DYgKZYReCQ==
-X-Received: by 2002:adf:b649:0:b0:3a0:7d27:f076 with SMTP id ffacd0b85a97d-3a8fdb29f1emr11754843f8f.2.1751296963902;
-        Mon, 30 Jun 2025 08:22:43 -0700 (PDT)
-Message-ID: <9c89ead3-7577-46f2-acc2-6dd8d793ab89@suse.com>
-Date: Mon, 30 Jun 2025 17:22:32 +0200
+        bh=gdgBz53yUVWzqac2JXg0IjomNn13uCYwlDTXx52QPGw=;
+        b=su127IUWRiZGAfNj+ENsLanFkk8gkK8QUjnjkcQzNMqoJ3fyAVT/x2Rway2URIBaw3
+         Ef/N9+xWQVLbP8CbnPmh2dFnd7CGWjk+hn/Z0ARwCq7PHO6UZIdJ/Nszpa7kBrsQ8J6m
+         7MZ9anvyXktTxpjEY7ko4stVGsGcaE5vNWqKQYUSjBl1b3EQEMKct5DHSVJvpyEpG1n1
+         dXHquuiehaH3gIHkZMGZpSMFGNRhgLKqkXYM48h/cfXJchcFAH3nv5mrs7KnbJyRpV65
+         /y0yxrzQSOCGq4gDYFT/DNlJx7NJb7BsIUSRQSyIxbAbUfurr5qVRXjhJzzKG2GMIWhp
+         ry5w==
+X-Forwarded-Encrypted: i=1; AJvYcCXwtNWe1q88LAIRNcXccifHtiQe0Tgwabt1YssEzAcGD3WQ26LwHg935s319QYb9ISosa9F5Nt5h2M=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz9OFaLe/lAZ3gmQTO5wokRvYGtTrHtlztSuHjm27jj6HsJrQMV
+	LMkJompUQM0aU12BnxuQtR+GrtmI/mZIJoDwV4qnM/rsSTzUb5+oDCPD/FSrxT/6Lw==
+X-Gm-Gg: ASbGncvDuQYd1tov16VbijLRJzMENbLGKRvuT0WXw+r5rBp1w3F1oSTA3yuDOC+qGXk
+	bjqulm+wnYx7NUnzPANYvxhirdL+ENsGr/jYPhc6zmh/BxSirYNdhBY+gUcX9RmAxlDy8nBl0NT
+	90xP+PQjPlOMcbT4OgTIXe9S1sGhEoLxE5S495UPbUpOGdxQr1RHZif3w4sx2bHL5G55cB8xyza
+	A1SmeqscT7okWPQCy5cjc5sRchrvCOdX+vHrFe4+2tixKFf8bJORiU0jH8A/Oq1S8sY0cuIyjFT
+	AJOi0OfF5NxuQA2bYcberXIs/mAqhaYuCcyk0s5vt78RE20XbdyM2CAiKtVKfzLTGLhTlPoKPnR
+	Ct4Eou4RP3mk20mwmF4sKMPGJxft2SBcahdKFYW/ZTct/zh4=
+X-Google-Smtp-Source: AGHT+IFsAiP1LwtgkrP4RJr/BDuSUrK0BPvKy64Iaqj6Q4um07Si0S3P6coeWWORXSY/crKvIkLKZA==
+X-Received: by 2002:a05:6000:652:b0:3a5:85cb:e9f3 with SMTP id ffacd0b85a97d-3a8fdb2a73amr10286830f8f.12.1751297257046;
+        Mon, 30 Jun 2025 08:27:37 -0700 (PDT)
+Message-ID: <929e69d4-0377-4ecb-aaff-bff61f1a798b@suse.com>
+Date: Mon, 30 Jun 2025 17:27:26 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 06/17] xen/riscv: add root page table allocation
+Subject: Re: [PATCH v2 08/17] xen/riscv: add new p2m types and helper macros
+ for type classification
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Cc: Alistair Francis <alistair.francis@wdc.com>,
  Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
@@ -97,7 +98,11 @@ Cc: Alistair Francis <alistair.francis@wdc.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <cover.1749555949.git.oleksii.kurochko@gmail.com>
- <76675ddb7517e4cceb63472c94944046b255da01.1749555949.git.oleksii.kurochko@gmail.com>
+ <f943c6ce5371258af0f36c2633d542341fcf47b4.1749555949.git.oleksii.kurochko@gmail.com>
+ <8f45cffe-e2a2-46e3-8370-2b6b4c86dccf@suse.com>
+ <13b80e15-9db9-427d-aaa2-c0389e4c248a@gmail.com>
+ <2ebfaa8c-e0bb-4c5b-89e1-48d309ee4989@suse.com>
+ <4b5c2a81-947b-4e2f-bb89-a4e776548e52@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -123,192 +128,40 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <76675ddb7517e4cceb63472c94944046b255da01.1749555949.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <4b5c2a81-947b-4e2f-bb89-a4e776548e52@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 10.06.2025 15:05, Oleksii Kurochko wrote:
-> --- a/xen/arch/riscv/include/asm/p2m.h
-> +++ b/xen/arch/riscv/include/asm/p2m.h
-> @@ -26,6 +26,12 @@ struct p2m_domain {
->      /* Pages used to construct the p2m */
->      struct page_list_head pages;
->  
-> +    /* The root of the p2m tree. May be concatenated */
-> +    struct page_info *root;
-> +
-> +    /* Address Translation Table for the p2m */
-> +    paddr_t hgatp;
+On 30.06.2025 17:13, Oleksii Kurochko wrote:
+> 
+> On 6/30/25 4:42 PM, Jan Beulich wrote:
+>> On 30.06.2025 16:33, Oleksii Kurochko wrote:
+>>> On 6/26/25 4:59 PM, Jan Beulich wrote:
+>>>> On 10.06.2025 15:05, Oleksii Kurochko wrote:
+>>>>> --- a/xen/arch/riscv/include/asm/p2m.h
+>>>>> +++ b/xen/arch/riscv/include/asm/p2m.h
+>>>>> @@ -61,8 +61,28 @@ struct p2m_domain {
+>>>>>    typedef enum {
+>>>>>        p2m_invalid = 0,    /* Nothing mapped here */
+>>>>>        p2m_ram_rw,         /* Normal read/write domain RAM */
+>>>>> +    p2m_ram_ro,         /* Read-only; writes are silently dropped */
+>>>> As indicated before - this type should be added when the special handling that
+>>>> it requires is also introduced.
+>>> Perhaps, I missed that. I will drop this type for now.
+>>>
+>>>>> +    p2m_mmio_direct_dev,/* Read/write mapping of genuine Device MMIO area */
+>>>> What's the _dev suffix indicating here?
+>>> It indicates that it is device memory, probably, it isn't so necessary in case of RISC-V as
+>>> spec doesn't use such terminology. In RISC-V there is only available IO, NC. And we are
+>>> |using PTE_PBMT_IO for |p2m_mmio_direct_dev.
+>>>
+>>> Maybe it would be better just to rename s/p2m_mmio_direct_dev/p2m_mmio_direct_io.
+>> And what would the _io suffix indicate, beyond what "mmio" already indicates?
+> 
+> Just that PBMT_IO will be used for device memory and not PBMT_NC.
 
-Does this really need holding in a struct field? Can't is be re-created at
-any time from "root" above? And such re-creation is apparently infrequent,
-if happening at all after initial allocation. (But of course I don't know
-what future patches of yours will bring.) This is even more so if ...
-
-> --- a/xen/arch/riscv/include/asm/riscv_encoding.h
-> +++ b/xen/arch/riscv/include/asm/riscv_encoding.h
-> @@ -133,11 +133,13 @@
->  #define HGATP_MODE_SV48X4		_UL(9)
->  
->  #define HGATP32_MODE_SHIFT		31
-> +#define HGATP32_MODE_MASK		_UL(0x80000000)
->  #define HGATP32_VMID_SHIFT		22
->  #define HGATP32_VMID_MASK		_UL(0x1FC00000)
->  #define HGATP32_PPN			_UL(0x003FFFFF)
->  
->  #define HGATP64_MODE_SHIFT		60
-> +#define HGATP64_MODE_MASK		_ULL(0xF000000000000000)
->  #define HGATP64_VMID_SHIFT		44
->  #define HGATP64_VMID_MASK		_ULL(0x03FFF00000000000)
-
-... VMID management is going to change as previously discussed, at which
-point the value to put in hgatp will need (partly) re-calculating at certain
-points anyway.
-
-> --- a/xen/arch/riscv/p2m.c
-> +++ b/xen/arch/riscv/p2m.c
-> @@ -41,6 +41,91 @@ void p2m_write_unlock(struct p2m_domain *p2m)
->      write_unlock(&p2m->lock);
->  }
->  
-> +static void clear_and_clean_page(struct page_info *page)
-> +{
-> +    clean_dcache_va_range(page, PAGE_SIZE);
-> +    clear_domain_page(page_to_mfn(page));
-> +}
-
-A function of this name can, imo, only clear and then clean. Question is why
-it's the other way around, and what the underlying requirement is for the
-cleaning part to be there in the first place. Maybe that's obvious for a
-RISC-V person, but it's entirely non-obvious to me (Arm being different in
-this regard because of running with caches disabled at certain points in
-time).
-
-> +static struct page_info *p2m_allocate_root(struct domain *d)
-> +{
-> +    struct page_info *page;
-> +    unsigned int order = get_order_from_bytes(KB(16));
-
-While better than a hard-coded order of 2, this still is lacking. Is there
-a reason there can't be a suitable manifest constant in the header?
-
-> +    unsigned int nr_pages = _AC(1,U) << order;
-
-Nit (style): Missing blank after comma.
-
-> +    /* Return back nr_pages necessary for p2m root table. */
-> +
-> +    if ( ACCESS_ONCE(d->arch.paging.p2m_total_pages) < nr_pages )
-> +        panic("Specify more xen,domain-p2m-mem-mb\n");
-
-You shouldn't panic() in anything involved in domain creation. You want to
-return NULL in this case.
-
-Further, to me the use of "more" looks misleading here. Do you perhaps mean
-"larger" or "bigger"?
-
-This also looks to be happening without any lock held. If that's intentional,
-I think the "why" wants clarifying in a code comment.
-
-> +    for ( unsigned int i = 0; i < nr_pages; i++ )
-> +    {
-> +        /* Return memory to domheap. */
-> +        page = page_list_remove_head(&d->arch.paging.p2m_freelist);
-> +        if( page )
-> +        {
-> +            ACCESS_ONCE(d->arch.paging.p2m_total_pages)--;
-> +            free_domheap_page(page);
-> +        }
-> +        else
-> +        {
-> +            printk(XENLOG_ERR
-> +                   "Failed to free P2M pages, P2M freelist is empty.\n");
-> +            return NULL;
-> +        }
-> +    }
-
-The reason for doing this may also want to be put in a comment.
-
-> +    /* Allocate memory for p2m root table. */
-> +
-> +    /*
-> +     * As mentioned in the Priviliged Architecture Spec (version 20240411)
-> +     * As explained in Section 18.5.1, for the paged virtual-memory schemes
-
-The first sentence didn't finish when the 2nd starts. Is there a piece missing?
-Do the two sentences want to be joined together?
-
-> +static unsigned long hgatp_from_page(struct p2m_domain *p2m)
-
-Function name and parameter type/name don't fit together.
-
-> +{
-> +    struct page_info *p2m_root_page = p2m->root;
-
-As always: pointer-to-const wherever possible, please. But: Is this local
-variable really useful to have?
-
-> +    unsigned long ppn;
-> +    unsigned long hgatp_mode;
-> +
-> +    ppn = PFN_DOWN(page_to_maddr(p2m_root_page)) & HGATP_PPN;
-> +
-> +#if RV_STAGE1_MODE == SATP_MODE_SV39
-> +    hgatp_mode = HGATP_MODE_SV39X4;
-> +#elif RV_STAGE1_MODE == SATP_MODE_SV48
-> +    hgatp_mode = HGATP_MODE_SV48X4;
-> +#else
-> +#   error "add HGATP_MODE"
-> +#endif
-> +
-> +    return ppn | MASK_INSR(p2m->vmid, HGATP_VMID_MASK) |
-> +           MASK_INSR(hgatp_mode, HGATP_MODE_MASK);
-> +}
-> +
-> +static int p2m_alloc_root_table(struct domain *d)
-
-As indicated earlier, in a wider context - this is a good candidate where
-the caller rather wants to pass struct p2m_domain *. Once you get variations
-on P2Ms (like x86'es altp2m or nestedp2m, the domain won't be meaningful
-here to know which P2M to allocate the root for.
-
-> +{
-> +    struct p2m_domain *p2m = p2m_get_hostp2m(d);
-> +
-> +    p2m->root = p2m_allocate_root(d);
-> +    if ( !p2m->root )
-> +        return -ENOMEM;
-> +
-> +    p2m->hgatp = hgatp_from_page(p2m);
-> +
-> +    return 0;
-> +}
-> +
->  static spinlock_t vmid_alloc_lock = SPIN_LOCK_UNLOCKED;
->  
->  /*
-> @@ -228,5 +313,14 @@ int p2m_set_allocation(struct domain *d, unsigned long pages, bool *preempted)
->          }
->      }
->  
-> +    /*
-> +    * First, wait for the p2m pool to be initialized. Then allocate the root
-
-Why "wait"? There's waiting here.
-
-> +    * table so that the necessary pages can be returned from the p2m pool,
-> +    * since the root table must be allocated using alloc_domheap_pages(...)
-> +    * to meet its specific requirements.
-> +    */
-> +    if ( !d->arch.p2m.root )
-
-Aren't you open-coding p2m_get_hostp2m() here?
+And will there (later) also be a p2m_mmio_direct_nc type? If so, I can see the point
+of the suffix.
 
 Jan
-
-> +        p2m_alloc_root_table(d);
-> +
->      return 0;
->  }
-
 
