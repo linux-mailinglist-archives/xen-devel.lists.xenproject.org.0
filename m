@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 607AAAEFC1C
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Jul 2025 16:24:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1029772.1403510 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 01F82AEFC44
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Jul 2025 16:28:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1029782.1403521 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uWbtt-0004zt-W3; Tue, 01 Jul 2025 14:23:57 +0000
+	id 1uWbyJ-0005dd-KA; Tue, 01 Jul 2025 14:28:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1029772.1403510; Tue, 01 Jul 2025 14:23:57 +0000
+Received: by outflank-mailman (output) from mailman id 1029782.1403521; Tue, 01 Jul 2025 14:28:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uWbtt-0004xm-TS; Tue, 01 Jul 2025 14:23:57 +0000
-Received: by outflank-mailman (input) for mailman id 1029772;
- Tue, 01 Jul 2025 14:23:56 +0000
+	id 1uWbyJ-0005bv-H2; Tue, 01 Jul 2025 14:28:31 +0000
+Received: by outflank-mailman (input) for mailman id 1029782;
+ Tue, 01 Jul 2025 14:28:30 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=28IZ=ZO=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uWbts-0004xg-QB
- for xen-devel@lists.xenproject.org; Tue, 01 Jul 2025 14:23:56 +0000
+ id 1uWbyI-0005bo-0q
+ for xen-devel@lists.xenproject.org; Tue, 01 Jul 2025 14:28:30 +0000
 Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
  [2a00:1450:4864:20::429])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 05169097-5687-11f0-a313-13f23c93f187;
- Tue, 01 Jul 2025 16:23:55 +0200 (CEST)
+ id a8193c57-5687-11f0-a313-13f23c93f187;
+ Tue, 01 Jul 2025 16:28:29 +0200 (CEST)
 Received: by mail-wr1-x429.google.com with SMTP id
- ffacd0b85a97d-3a50fc7ac4dso2694256f8f.0
- for <xen-devel@lists.xenproject.org>; Tue, 01 Jul 2025 07:23:55 -0700 (PDT)
+ ffacd0b85a97d-3a6e8b1fa37so2913639f8f.2
+ for <xen-devel@lists.xenproject.org>; Tue, 01 Jul 2025 07:28:29 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-318c152331fsm11560472a91.44.2025.07.01.07.23.47
+ d9443c01a7336-23acb3d27dbsm105209075ad.256.2025.07.01.07.28.21
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 01 Jul 2025 07:23:54 -0700 (PDT)
+ Tue, 01 Jul 2025 07:28:27 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 05169097-5687-11f0-a313-13f23c93f187
+X-Inumbo-ID: a8193c57-5687-11f0-a313-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1751379835; x=1751984635; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1751380108; x=1751984908; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=J9ndAmyyBPY1UnmjaYUd3YTxRLE+KCRNa5NZIILtvxk=;
-        b=dcFjC3ME8CHEZMmYSrJOonH3RKc6vVR0cCQM8YSSf0LHFmRbzdwsE9deJhqlc4MXmu
-         uwe3CYqB0IiDU/4lCe8rynkjxWwG45JEWsZwE3xznAokTxLXiCQEzNRY6o0EGlKMkFWh
-         BPRo9CSKgO5z/Cw25SnBv1pKFo9FfsnHCmbB60rT3UN7OwGut5pdSBl1QyPqNl4HkS15
-         tAndCZGdOVgDlAVJ0ntVs58q9kWa7SKVTT4EeqXOzuIuoh9waBnlcNDEmHZBcVfPyNGm
-         7oua6z6NrV07RoLjbrE6ako6OkBqLbxQqmTH2hup0Du+S9+3r5SUyqldd+W1Is2YHBrM
-         KUQQ==
+        bh=0e4KoCr0/cojJAjT3qPaoLchvh1yamFGOKsgeDqwBB8=;
+        b=K6jE/shIc/9afqd9cR2Ue4Vg+7AZ3p9FTtJFveduACauhsrwqueHI0xstDTLQwFn1T
+         oyeuw6nj2wCQLrNmcPBPudqEYVm/WkwxNZ/cQTr4vjVhbjBmOKT9NuwasCArJfQqP8QY
+         +rGlMCA5G1RQde4Pxt3MQfwy0JUqwxokSTbHt+yzoblTL3ULqa/eqfhOvbO9kqP+QLKy
+         gdY6pn0MAMsMi+wJPf2CCJUIXbXdzu/FXx4hCRzu/yQ70WPsVAp6oNdA1ykZMJCpeA6T
+         dEDuvoK7/LFhSDOLHrLMhxHyBQpKK+KqaGp/9D3nb2iRifDbAVIwu5bctXyhRqgQ8XWS
+         RyLA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1751379835; x=1751984635;
+        d=1e100.net; s=20230601; t=1751380108; x=1751984908;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=J9ndAmyyBPY1UnmjaYUd3YTxRLE+KCRNa5NZIILtvxk=;
-        b=rfkNVkl/oRVdhb/QsNVUnTm7Xq8KGjJeAo/9Br7vgiizZvmIIWCaFXNv/RRy+UJJNs
-         /yb3EDynWLzMm5HIWL9b56IN68geQghnz8ocqra1t8q32dzuKYncMdN+KXAOFNd2vGsu
-         CuUj785tThMoAJh0mPIJi8/bz00i1A/boZG4/SH9cYy66BQi43c/yhKnOWnJkPZz3pxh
-         puc3YPng241jbT+ndgy0LRCbStyBq7duVzVegch78bHpe6M11TAM7j4nvBYR/y7d2Fc4
-         YB4Im5cQdq9u9lKdzLwVgYt9ipUqUO0yqjy7XkvFvAf6do54ns2RyHRKiH8hdUpmgvKU
-         2t9A==
-X-Forwarded-Encrypted: i=1; AJvYcCVv37juwHKXu4ZH8Ady8GkuvTvb59SZpu7ngsDkeMCOee6UOdtnQgmqfaCNCfsMT3Eb5ZlXuv0Y6Zc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwaGoB3ViZ/II/+801Mdywls7TafiRqb+qOPaZsNG0lCll6lft3
-	NdL9b7NXWZqBXIpr04W5dFSEt1HaJLqU4snZ1aGOpYYTgfGHIJAieofJuEqJzad9WQ==
-X-Gm-Gg: ASbGnctOnIteESfM9Yq9QG6nLYQJJyqJ96ygduKfnoTvIjSToZU9GZ5ArV/CDTst73W
-	jwUOW0UDAr2UOg7KD2halrwC97dVl3zYizxP9syIhIFGynooDoTm/T2lbgKvHPG6ncFZmsLMMLa
-	NSZcSXjmcVvSAWMmKRN56FI79ejavhpua9TzbNoxVj6gAHlKWs1cu+Uas0XYDH4cemlIIxS2VPw
-	7khIjO4fKCJnAIW1EJOUMXCmPPOYd2vhLr2lR/SaBOQQ+jjId4LoCuMK04BLTrtFf+tZ2QXdaM+
-	M9KVjj3zfZThnkaXbaF8edEzvAOZ+2F/JsqC2q2vdCU3d4w8hg6HTK8QY9PA7G8C5kDds+H9LQL
-	x99Lbb0z/+tJgXIDdAJZYTknJnjARP3zm34fJ/hzG7BOcqO4=
-X-Google-Smtp-Source: AGHT+IETzw9ctlOKsXvRiiMFQ3ArIsiEUwjb9OTZrj5XrZvZy+SgGb6/7jRYskR2T6JDaENQWS64TQ==
-X-Received: by 2002:a05:6000:2489:b0:3a3:63d3:369a with SMTP id ffacd0b85a97d-3a8fea7ad21mr16106374f8f.25.1751379834893;
-        Tue, 01 Jul 2025 07:23:54 -0700 (PDT)
-Message-ID: <ec05b4c8-c328-4dc3-9f35-207421990893@suse.com>
-Date: Tue, 1 Jul 2025 16:23:43 +0200
+        bh=0e4KoCr0/cojJAjT3qPaoLchvh1yamFGOKsgeDqwBB8=;
+        b=nQ9d3p9gn9R1jv9kFT1W44iZ7SfuTfmhLgldi3oFnsT0vBUY74j+BlKhpemYHSw9fq
+         KPOT7BlqnBxO/rOz4ep8Z4mNra0hNR23uvN3cb7jCeNs1yc1LyqEM4tQLqp3ZJ0iA9p6
+         5UhfWPfzpTkLXsuvIdEo8mnvXUZ441EeG4t3oSVr7UpvLN9MQveYrwpRqqhlI2+1QSqB
+         18SG/26IApHN0/3+GGofgv2BRknIDFDGLEklLNiZpVOrLLYhVVfc8Y/rRra4LzO1xGm3
+         01SMm/x+JfI3U7ziI/hhtAfngwyqlRdimTjrZXYxw1tKdpB4spPCBOf9uxLW62NS1y9V
+         D3Tg==
+X-Forwarded-Encrypted: i=1; AJvYcCWxsi7NcstlezeGD/8y0dBNZ1UwGxG+WQb5YvPLo1YG/uOBV4uj2c7tdxF+AcnQKbYUbCj0CXeY+QM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw15H13WrPO/rOwMZHOmDcNKNGyFrvXNL8jQAtm5KQ17GzE6bTs
+	BzldpN3W2w9/AST39pzzO7wJVm4/iAbB5eycCbSSzoK3f9YQ8edfdHg43jTOOw3IGg==
+X-Gm-Gg: ASbGncs/kpiJjKnGts6fT6OoJ0ElF7H2Y8hDIax0vhXfM9Mlqf5p6mmvCTV+ZM6nrcI
+	EtAtUcv8DlYeKe5QfYvOKR7qvBCVY0gOC1IhL30SekGm2BZXopEEIPMuUAeJNAQE1RI+UmpXF6Z
+	tHEzrTxCtOMOmah7E9cXj1pLSJ2jz/oy5nrFeMz2sszv6gEyaJOG8gOMrSspYMvdqjWCx2xfFvx
+	uuovnfZ0mszTcC71zvfa+NpnZg2N5etZbTcAZBhuN7FR72DQo8yPpYvijFO+VUrmu9bFQOkQerf
+	2hHmlfx27eOdY5cl46RrDY6YEyfJn5juePmWismDh7YKokWaZZ5NNgn6dtww7UF59tsymecdIg0
+	rv75XrxjjWhhCJOUoTZ0qsrmQVqM/mIjqz9XMGDdru2W1xbU1X87PMqkZ3A==
+X-Google-Smtp-Source: AGHT+IGYGgqvF0GnjfrPmstiaXAVaKKkcw1C/LyvKgcFIxYHDhupMhMpYPn2FnJwUrw6VJhfoewQOw==
+X-Received: by 2002:a05:6000:2112:b0:3a5:298a:3207 with SMTP id ffacd0b85a97d-3a8ffadfademr11854155f8f.48.1751380108364;
+        Tue, 01 Jul 2025 07:28:28 -0700 (PDT)
+Message-ID: <a4701b32-602f-4557-a8cb-1b5090c6b618@suse.com>
+Date: Tue, 1 Jul 2025 16:28:17 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 12/17] xen/riscv: Implement p2m_free_entry() and
- related helpers
+Subject: Re: [PATCH v2 06/17] xen/riscv: add root page table allocation
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Cc: Alistair Francis <alistair.francis@wdc.com>,
  Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
@@ -98,7 +97,13 @@ Cc: Alistair Francis <alistair.francis@wdc.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <cover.1749555949.git.oleksii.kurochko@gmail.com>
- <67148a7cceffdcbc5d8a51cd6af0a0c83e5b93bc.1749555949.git.oleksii.kurochko@gmail.com>
+ <76675ddb7517e4cceb63472c94944046b255da01.1749555949.git.oleksii.kurochko@gmail.com>
+ <9c89ead3-7577-46f2-acc2-6dd8d793ab89@suse.com>
+ <c9924195-17e5-4f47-869a-c7930a65538c@gmail.com>
+ <49de841e-d3dd-447f-98f2-77de8b2acf94@suse.com>
+ <55144da9-cf8e-4b73-8817-e72d8ff91019@gmail.com>
+ <b658471f-28f2-4ee7-b1c1-41837daa72c2@suse.com>
+ <a30141b2-1b02-482c-b6dd-a017d976fdc1@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -124,236 +129,93 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <67148a7cceffdcbc5d8a51cd6af0a0c83e5b93bc.1749555949.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <a30141b2-1b02-482c-b6dd-a017d976fdc1@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 10.06.2025 15:05, Oleksii Kurochko wrote:
-> This patch introduces a working implementation of p2m_free_entry() for RISC-V
-> based on ARM's implementation of p2m_free_entry(), enabling proper cleanup
-> of page table entries in the P2M (physical-to-machine) mapping.
+On 01.07.2025 16:02, Oleksii Kurochko wrote:
+> On 7/1/25 12:27 PM, Jan Beulich wrote:
+>> On 01.07.2025 11:44, Oleksii Kurochko wrote:
+>>> On 7/1/25 8:29 AM, Jan Beulich wrote:
+>>>> On 30.06.2025 18:18, Oleksii Kurochko wrote:
+>>>>> On 6/30/25 5:22 PM, Jan Beulich wrote:
+>>>>>> On 10.06.2025 15:05, Oleksii Kurochko wrote:
+>>>>>>> --- a/xen/arch/riscv/p2m.c
+>>>>>>> +++ b/xen/arch/riscv/p2m.c
+>>>>>>> @@ -41,6 +41,91 @@ void p2m_write_unlock(struct p2m_domain *p2m)
+>>>>>>>         write_unlock(&p2m->lock);
+>>>>>>>     }
+>>>>>>>     
+>>>>>>> +static void clear_and_clean_page(struct page_info *page)
+>>>>>>> +{
+>>>>>>> +    clean_dcache_va_range(page, PAGE_SIZE);
+>>>>>>> +    clear_domain_page(page_to_mfn(page));
+>>>>>>> +}
+>>>>>> A function of this name can, imo, only clear and then clean. Question is why
+>>>>>> it's the other way around, and what the underlying requirement is for the
+>>>>>> cleaning part to be there in the first place. Maybe that's obvious for a
+>>>>>> RISC-V person, but it's entirely non-obvious to me (Arm being different in
+>>>>>> this regard because of running with caches disabled at certain points in
+>>>>>> time).
+>>>>> You're right, the current name|clear_and_clean_page()| implies that clearing
+>>>>> should come before cleaning, which contradicts the current implementation.
+>>>>> The intent here is to ensure that the page contents are consistent in RAM
+>>>>> (not just in cache) before use by other entities (guests or devices).
+>>>>>
+>>>>> The clean must follow the clear — so yes, the order needs to be reversed.
+>>>> What you don't address though - why's the cleaning needed in the first place?
+>>> If we clean the data cache first, we flush the d-cache and then use the page to
+>>> perform the clear operation. As a result, the "cleared" value will be written into
+>>> the d-cache. To avoid polluting the d-cache with the "cleared" value, the correct
+>>> sequence is to clear the page first, then clean the data cache.
+>> If you want to avoid cache pollution, I think you'd need to use a form of stores
+>> which simply bypass the cache. Yet then - why would this matter here, but not
+>> elsewhere? Wouldn't you better leave such to the hardware, unless you can prove
+>> a (meaningful) performance gain?
 > 
-> Only few things are changed:
-> - Use p2m_force_flush_sync() instead of p2m_tlb_flush_sync() as latter
->   isn't implemented on RISC-V.
-> - Introduce and use p2m_type_radix_get() to get a type of p2m entry as
->   RISC-V's PTE doesn't have enough space to store all necessary types so
->   a type is stored in a radix tree.
+> I thought about a case when IOMMU doesn't support coherent walks and p2m tables are
+> shared between CPU and IOMMU. Then my understanding is:
+> - clear_page(p) just zero-ing a page in a CPU's cache.
+> - But IOMMU can see old data or uninitialized, if they still in cache.
+> - So, it is need to do clean_cache() to writeback data from cache to RAM, before a
+>    page will be used as a part of page table for IOMMU.
+
+Okay, so this is purely about something that doesn't matter at all for now
+(until IOMMU support is introduced). Fair enough then to play safe from the
+beginning.
+
+>>>>>>> +    unsigned int nr_pages = _AC(1,U) << order;
+>>>>>> Nit (style): Missing blank after comma.
+>>>>> I've changed that to BIT(order, U)
+>>>>>
+>>>>>>> +    /* Return back nr_pages necessary for p2m root table. */
+>>>>>>> +
+>>>>>>> +    if ( ACCESS_ONCE(d->arch.paging.p2m_total_pages) < nr_pages )
+>>>>>>> +        panic("Specify more xen,domain-p2m-mem-mb\n");
+>>>>>> You shouldn't panic() in anything involved in domain creation. You want to
+>>>>>> return NULL in this case.
+>>>>> It makes sense in this case just to return NULL.
+>>>>>
+>>>>>> Further, to me the use of "more" looks misleading here. Do you perhaps mean
+>>>>>> "larger" or "bigger"?
+>>>>>>
+>>>>>> This also looks to be happening without any lock held. If that's intentional,
+>>>>>> I think the "why" wants clarifying in a code comment.
+>>>>> Agree, returning back pages necessary for p2m root table should be done under
+>>>>> spin_lock(&d->arch.paging.lock).
+>>>> Which should be acquired at the paging_*() layer then, not at the p2m_*() layer.
+>>>> (As long as you mean to have that separation, that is. See the earlier discussion
+>>>> on that matter.)
+>>> Then partly p2m_set_allocation() should be moved to paging_*() too.
+>> Not exactly sure what you mean. On x86 at least the paging layer part of
+>> the function is pretty slim.
 > 
-> Key additions include:
-> - p2m_free_entry(): Recursively frees page table entries at all levels. It
->   handles both regular and superpage mappings and ensures that TLB entries
->   are flushed before freeing intermediate tables.
-> - p2m_put_page() and helpers:
->   - p2m_put_4k_page(): Clears GFN from xenheap pages if applicable.
->   - p2m_put_2m_superpage(): Releases foreign page references in a 2MB
->     superpage.
->   - p2m_type_radix_get(): Extracts the stored p2m_type from the radix tree
->     using the PTE.
-> - p2m_free_page(): Returns a page either to the domain's freelist or to
->   the domheap, depending on whether the domain is hardware-backed.
+> I meant that part of code which is spin_lock(&d->arch.paging.lock); ... spin_unlock(&d->arch.paging.lock)
+> in function p2m_set_allocation() should be moved somewhere to paging_*() layer for the same logic as you
+> suggested to move part of  p2m_allocate_root()'s code which is guarded by d->arch.paging.lock to
+> paging_*() layer.
 
-What is "hardware-backed"?
-
-> Defines XEN_PT_ENTRIES in asm/page.h to simplify loops over page table
-> entries.
-> 
-> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-> ---
-> Changes in V2:
->  - New patch. It was a part of a big patch "xen/riscv: implement p2m mapping
->    functionality" which was splitted to smaller.
->  - s/p2m_is_superpage/p2me_is_superpage.
-
-See my earlier comments regarding naming.
-
-> --- a/xen/arch/riscv/p2m.c
-> +++ b/xen/arch/riscv/p2m.c
-> @@ -345,11 +345,33 @@ static pte_t *p2m_get_root_pointer(struct p2m_domain *p2m, gfn_t gfn)
->      return __map_domain_page(p2m->root + root_table_indx);
->  }
->  
-> +static p2m_type_t p2m_type_radix_get(struct p2m_domain *p2m, pte_t pte)
-
-Does it matter to callers that ...
-
-> +{
-> +    void *ptr;
-> +    gfn_t gfn = mfn_to_gfn(p2m->domain, mfn_from_pte(pte));
-> +
-> +    ptr = radix_tree_lookup(&p2m->p2m_type, gfn_x(gfn));
-> +
-> +    if ( !ptr )
-> +        return p2m_invalid;
-> +
-> +    return radix_tree_ptr_to_int(ptr);
-> +}
-
-... this is a radix tree lookup? IOW does "radix" need to be part of the
-function name? Also "get" may want to move forward in the name, to better
-match the naming of other functions.
-
-> +/*
-> + * In the case of the P2M, the valid bit is used for other purpose. Use
-> + * the type to check whether an entry is valid.
-> + */
->  static inline bool p2me_is_valid(struct p2m_domain *p2m, pte_t pte)
->  {
-> -    panic("%s: isn't implemented for now\n", __func__);
-> +    return p2m_type_radix_get(p2m, pte) != p2m_invalid;
-> +}
-
-No checking of the valid bit?
-
-> -    return false;
-> +static inline bool p2me_is_superpage(struct p2m_domain *p2m, pte_t pte,
-> +                                    unsigned int level)
-> +{
-> +    return p2me_is_valid(p2m, pte) && (pte.pte & PTE_ACCESS_MASK) &&
-> +           (level > 0);
-
-In such combinations of conditions it's usually helpful to put the
-cheapest check(s) first. IOW what point is there in doing a radix
-tree lookup when the other two conditions aren't satisfied? (FTAOD
-applies elsewhere as well, even within this same patch.)
-
-> @@ -404,11 +426,127 @@ static int p2m_next_level(struct p2m_domain *p2m, bool alloc_tbl,
->      return GUEST_TABLE_MAP_NONE;
->  }
->  
-> +static void p2m_put_foreign_page(struct page_info *pg)
-> +{
-> +    /*
-> +     * It's safe to do the put_page here because page_alloc will
-> +     * flush the TLBs if the page is reallocated before the end of
-> +     * this loop.
-> +     */
-> +    put_page(pg);
-
-Is the comment really true? The page allocator will flush the normal
-TLBs, but not the stage-2 ones. Yet those are what you care about here,
-aiui.
-
-> +/* Put any references on the single 4K page referenced by mfn. */
-> +static void p2m_put_4k_page(mfn_t mfn, p2m_type_t type)
-> +{
-> +    /* TODO: Handle other p2m types */
-> +
-> +    /* Detect the xenheap page and mark the stored GFN as invalid. */
-> +    if ( p2m_is_ram(type) && is_xen_heap_mfn(mfn) )
-> +        page_set_xenheap_gfn(mfn_to_page(mfn), INVALID_GFN);
-
-Is this a valid thing to do? How do you make sure the respective uses
-(in gnttab's shared and status page arrays) are / were also removed?
-
-> +}
-> +
-> +/* Put any references on the superpage referenced by mfn. */
-> +static void p2m_put_2m_superpage(mfn_t mfn, p2m_type_t type)
-> +{
-> +    struct page_info *pg;
-> +    unsigned int i;
-> +
-> +    ASSERT(mfn_valid(mfn));
-> +
-> +    pg = mfn_to_page(mfn);
-> +
-> +    for ( i = 0; i < XEN_PT_ENTRIES; i++, pg++ )
-> +        p2m_put_foreign_page(pg);
-> +}
-> +
-> +/* Put any references on the page referenced by pte. */
-> +static void p2m_put_page(struct p2m_domain *p2m, const pte_t pte,
-> +                         unsigned int level)
-> +{
-> +    mfn_t mfn = pte_get_mfn(pte);
-> +    p2m_type_t p2m_type = p2m_type_radix_get(p2m, pte);
-
-This gives you the type of the 1st page. What guarantees that all other pages
-in a superpage are of the exact same type?
-
-> +    ASSERT(p2me_is_valid(p2m, pte));
-> +
-> +    /*
-> +     * TODO: Currently we don't handle level 2 super-page, Xen is not
-> +     * preemptible and therefore some work is needed to handle such
-> +     * superpages, for which at some point Xen might end up freeing memory
-> +     * and therefore for such a big mapping it could end up in a very long
-> +     * operation.
-> +     */
-
-This is pretty unsatisfactory. Imo, if you don't deal with that right away,
-you're setting yourself up for a significant re-write.
-
-> +    if ( level == 1 )
-> +        return p2m_put_2m_superpage(mfn, p2m_type);
-> +    else if ( level == 0 )
-> +        return p2m_put_4k_page(mfn, p2m_type);
-
-Use switch() right away?
-
-> +}
-> +
-> +static void p2m_free_page(struct domain *d, struct page_info *pg)
-> +{
-> +    if ( is_hardware_domain(d) )
-> +        free_domheap_page(pg);
-
-Why's the hardware domain different here? It should have a pool just like
-all other domains have.
-
-> +    else
-> +    {
-> +        spin_lock(&d->arch.paging.lock);
-> +        page_list_add_tail(pg, &d->arch.paging.p2m_freelist);
-> +        spin_unlock(&d->arch.paging.lock);
-> +    }
-> +}
-> +
->  /* Free pte sub-tree behind an entry */
->  static void p2m_free_entry(struct p2m_domain *p2m,
->                             pte_t entry, unsigned int level)
->  {
-> -    panic("%s: hasn't been implemented yet\n", __func__);
-> +    unsigned int i;
-> +    pte_t *table;
-> +    mfn_t mfn;
-> +    struct page_info *pg;
-> +
-> +    /* Nothing to do if the entry is invalid. */
-> +    if ( !p2me_is_valid(p2m, entry) )
-> +        return;
-
-Does this actually apply to intermediate page tables (which you handle
-later in the function), when that's (only) a P2M type check?
-
-> +    if ( p2me_is_superpage(p2m, entry, level) || (level == 0) )
-> +    {
-> +#ifdef CONFIG_IOREQ_SERVER
-> +        /*
-> +         * If this gets called then either the entry was replaced by an entry
-> +         * with a different base (valid case) or the shattering of a superpage
-> +         * has failed (error case).
-> +         * So, at worst, the spurious mapcache invalidation might be sent.
-> +         */
-> +        if ( p2m_is_ram( p2m_type_radix_get(p2m, entry)) &&
-
-Nit: Style.
-
-> +             domain_has_ioreq_server(p2m->domain) )
-> +            ioreq_request_mapcache_invalidate(p2m->domain);
-> +#endif
-> +
-> +        p2m_put_page(p2m, entry, level);
-> +
-> +        return;
-> +    }
-> +
-> +    table = map_domain_page(pte_get_mfn(entry));
-> +    for ( i = 0; i < XEN_PT_ENTRIES; i++ )
-> +        p2m_free_entry(p2m, *(table + i), level - 1);
-
-Better table[i]?
+Yes, of course.
 
 Jan
 
