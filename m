@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4916CAEF5BC
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Jul 2025 12:57:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1029517.1403268 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 18B3AAEF5BE
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Jul 2025 12:57:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1029520.1403298 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uWYg9-0002Vg-5Z; Tue, 01 Jul 2025 10:57:33 +0000
+	id 1uWYgG-0003FT-8i; Tue, 01 Jul 2025 10:57:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1029517.1403268; Tue, 01 Jul 2025 10:57:33 +0000
+Received: by outflank-mailman (output) from mailman id 1029520.1403298; Tue, 01 Jul 2025 10:57:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uWYg9-0002T8-2J; Tue, 01 Jul 2025 10:57:33 +0000
-Received: by outflank-mailman (input) for mailman id 1029517;
- Tue, 01 Jul 2025 10:57:31 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uWYgG-0003Do-2J; Tue, 01 Jul 2025 10:57:40 +0000
+Received: by outflank-mailman (input) for mailman id 1029520;
+ Tue, 01 Jul 2025 10:57:38 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=/Lih=ZO=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
- id 1uWYg7-0002T2-8r
- for xen-devel@lists.xenproject.org; Tue, 01 Jul 2025 10:57:31 +0000
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on20629.outbound.protection.outlook.com
- [2a01:111:f403:2413::629])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2d3c0924-566a-11f0-b894-0df219b8e170;
- Tue, 01 Jul 2025 12:57:28 +0200 (CEST)
-Received: from BN9PR03CA0300.namprd03.prod.outlook.com (2603:10b6:408:f5::35)
- by CY8PR12MB7121.namprd12.prod.outlook.com (2603:10b6:930:62::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8857.28; Tue, 1 Jul
- 2025 10:57:22 +0000
-Received: from BN2PEPF00004FBB.namprd04.prod.outlook.com
- (2603:10b6:408:f5:cafe::2c) by BN9PR03CA0300.outlook.office365.com
- (2603:10b6:408:f5::35) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8880.21 via Frontend Transport; Tue,
- 1 Jul 2025 10:57:22 +0000
+ id 1uWYgE-0002hE-Q4
+ for xen-devel@lists.xenproject.org; Tue, 01 Jul 2025 10:57:38 +0000
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on20615.outbound.protection.outlook.com
+ [2a01:111:f403:200a::615])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2dc17935-566a-11f0-a313-13f23c93f187;
+ Tue, 01 Jul 2025 12:57:29 +0200 (CEST)
+Received: from BN0PR04CA0004.namprd04.prod.outlook.com (2603:10b6:408:ee::9)
+ by BY5PR12MB4145.namprd12.prod.outlook.com (2603:10b6:a03:212::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8880.17; Tue, 1 Jul
+ 2025 10:57:25 +0000
+Received: from BN2PEPF00004FC1.namprd04.prod.outlook.com
+ (2603:10b6:408:ee:cafe::28) by BN0PR04CA0004.outlook.office365.com
+ (2603:10b6:408:ee::9) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8880.31 via Frontend Transport; Tue,
+ 1 Jul 2025 10:57:25 +0000
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN2PEPF00004FBB.mail.protection.outlook.com (10.167.243.181) with Microsoft
+ BN2PEPF00004FC1.mail.protection.outlook.com (10.167.243.187) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8901.15 via Frontend Transport; Tue, 1 Jul 2025 10:57:21 +0000
+ 15.20.8901.15 via Frontend Transport; Tue, 1 Jul 2025 10:57:24 +0000
 Received: from xcbagarciav01.xilinx.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 1 Jul
- 2025 05:57:16 -0500
+ 2025 05:57:20 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,22 +56,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2d3c0924-566a-11f0-b894-0df219b8e170
+X-Inumbo-ID: 2dc17935-566a-11f0-a313-13f23c93f187
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dUkdD8XvYenpiv7T5hwBW9TX6wzhYTg0wmX4rqmJHOwRglaYRgszKRkLcANWWx3732DZk/JDGLADL6/AC+jWFDTnkFm7anI/0ohlS0evxE2Nv6Oinmov8E0NhZmkgptSDxiZhqXYRn8bXE00TRT589CKDtzR6ds2CR6ktRNHvhK1ZbK3dYJ+JdXd/j8HaWlnWjYwQCVnZm1iH5QxvNpOrdnsmhyzDKyih0ANMb9moWpwkGA67oBVLNvenYcvyGOAhM7JpTSxVD3kDRgYPGSVXD7A7IR+sMaMNuOiwN8HR49MUAxSMCTLyaxbJEGUoln8A7hQU6tf9xj/Nz3Fdd0ohQ==
+ b=nguq9h1Za+oFs4DRodl77nP0iKneLXfluCAcNOrg5R+hLy3p/q30PVF1LYd57GywStcb14Zb3nEwyv0OUUCzAeNajYliR/a+1LXjaEseqgE89D8i67ukB6JqTx3yC36PGCFFx16tICRUiGAd/cN+H0MIQPIAvxKACM8kcXjWOQrguwSBmjg0f8OkBtJ7s/XZ+KpCxxfWQn0qBXSfLmdY/wymIEwDgyei5EHuZyZ43HghbnLJ0vc4B7sucZtL7Vp9sRCskG7Qjsd0sFksz4tjx733pKqgJVYCkicPmLJdDoIkkhUlsiO0SUFERoQK+liZFpaFfyBHYABQd5hi4ITYuA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NKIUkjTbMLCT3kXY31pNRIAUTLtFhGAiy/wjs5ccrhI=;
- b=yo5I8y4ZW5HkBa2CJDpzxk4DDnoXwBxr+VdZeV9pQuFsuVoCCcv2+VdoZstI1d+C4I4lTXcdmc18HkiULktfaTDlQSFV1qtPIFuVfjff+kghPS8Qf0XA5EaEeACfU3qo/UvofmRd+YtiQIFnda6XdIrjgDDt7AXtP2ovCjWACoeqFt/XxpN3fxEQXru5ClxFhJTZJwZZVzyHh3WBBjAdnb8KuXtFkuj/bPaPk1UmuJMm7xe8TnFVpWh4rxFZcINFoed5ri1eYXvN5+gCjHMQcUzuywO3rezOaMef/X34KE3WZWD3t8iqVYdaQj1j4EArExGi1oreV12WH329fLekZA==
+ bh=XEw/BQc9OhWtZdx4wzaPbYZYqlYnRfTqRtQ1Jr6B9Zs=;
+ b=J6xegk1HEwU5Q+hsjNsSxEaWWaElDPrZrvPRBzk5hJhe7LBRJVa5BmzmXapN9R42ZInvowSpOh0DtpPc85SshiAnQTF/Wem1buEYPIcbuT7GRgcUmUceu27jNBe6axq3XMC5+bUSHyPYDsjWSBWZJhnLO9AnJuC8C0ml5id6t44sGZq6QhA8hdC8MZ9bIsqcnj22h9Y260D0hL3GXQFDgdBywSb6T5rNnYqd8QS+eQRfiKB5Mh/kHL12o9ouUIVE2nIJYA8X/ej8aO+Hr2ueBJhnE8lypBRT66i0MDwl2nDQNAFo8OwuS1NYU5ZBp2Y/k92zOUG6lf3Wda1CwprCjw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NKIUkjTbMLCT3kXY31pNRIAUTLtFhGAiy/wjs5ccrhI=;
- b=NNi0IUH3gUvGDEGa7vhcJJnvqueicJD4dzr/EUP0bWlSjltA29EjX8cDfeCHRSGnamxbg5+eDrHO3XUuZFFCnA2OaNGUG7HqZoCOYw43ILy2cxPKqSbuDnMXzkGOn0okHyWeb1XXTVkNLTehiYHyybFn+hIVF7k0jo4DJMw+5Qg=
+ bh=XEw/BQc9OhWtZdx4wzaPbYZYqlYnRfTqRtQ1Jr6B9Zs=;
+ b=yBPKhMV1qGrDFkQU33wh9xbc4fj2ahqJaTOCydCkU3JqtI/cSgSFa3aXW30Aax2R+V8aKsg4Q+i50BiIb1kFMhpxSxVOJHLU4e8ZYmB9Ty+9SU2jb3VdLbB5Ewmjd7KLBVNmEh4YVmmrU15jo0X1H1AsW8lZNtDYXnobRTZBTwA=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -85,19 +85,13 @@ CC: Alejandro Vallejo <agarciav@amd.com>, Jan Beulich <jbeulich@suse.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, "Stefano
  Stabellini" <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
 	"Bertrand Marquis" <bertrand.marquis@arm.com>, Michal Orzel
-	<michal.orzel@amd.com>, "Daniel P. Smith" <dpsmith@apertussolutions.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Anthony PERARD
-	<anthony.perard@vates.tech>, Alistair Francis <alistair.francis@wdc.com>, Bob
- Eshleman <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>,
-	"Oleksii Kurochko" <oleksii.kurochko@gmail.com>, Dario Faggioli
-	<dfaggioli@suse.com>, Juergen Gross <jgross@suse.com>, George Dunlap
-	<gwd@xenproject.org>, "Shawn Anastasio" <sanastasio@raptorengineering.com>,
-	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?=
-	<marmarek@invisiblethingslab.com>
-Subject: [PATCH v5 00/10] Allow x86 to unflatten DTs
-Date: Tue, 1 Jul 2025 12:56:54 +0200
-Message-ID: <20250701105706.86133-1-agarciav@amd.com>
+	<michal.orzel@amd.com>, "Daniel P. Smith" <dpsmith@apertussolutions.com>
+Subject: [PATCH v5 01/10] x86: Replace arch-specific boot_module with common one
+Date: Tue, 1 Jul 2025 12:56:55 +0200
+Message-ID: <20250701105706.86133-2-agarciav@amd.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20250701105706.86133-1-agarciav@amd.com>
+References: <20250701105706.86133-1-agarciav@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -106,162 +100,486 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF00004FBB:EE_|CY8PR12MB7121:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2f19d245-f6a6-47c0-79cf-08ddb88e0e15
+X-MS-TrafficTypeDiagnostic: BN2PEPF00004FC1:EE_|BY5PR12MB4145:EE_
+X-MS-Office365-Filtering-Correlation-Id: 29e50b65-85e7-4ce0-cf56-08ddb88e0fcd
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|36860700013|82310400026|7416014|1800799024|13003099007;
+	BCL:0;ARA:13230040|376014|1800799024|82310400026|36860700013;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?RGkCekvbTWtyvDcbRUh4j7i4VtvZ+zT+p/V5U4a9FtdTto3bpy8DLkgowxj4?=
- =?us-ascii?Q?LpqZv4KYntGBa41/1cdINyhGh2BZ2F1HdYKGqsR+OUi0QhcdOzI3fLCFoS3L?=
- =?us-ascii?Q?XymLjShOL+i+ZIEpRykY4roVU78Re+V4gks5HMhOObjrp3dRO+S99z6N1x0T?=
- =?us-ascii?Q?fFdjo4ON208kJQmAbN5UiOLi/CBwOHZk6fCj49WMeSzS0aTCxU9vlEshNszP?=
- =?us-ascii?Q?x+QAvoDIhHSyS620OYt4x3OBVKA9aMJnldx7cnfO8A+mH8rjovNnyrJJ13zl?=
- =?us-ascii?Q?objG0oa+fpaVNds6PMYDriB9eblZB9GpI5eSco6fX5OK+tCCcGheInCQZrQZ?=
- =?us-ascii?Q?JCOzxFwKBFuoMvF2WzOBKaKxCBES//7yASoe0AiLsPnO/3IxEtyYNDX/rQjh?=
- =?us-ascii?Q?YSZuwG9MwDA5Bfd4DsEBsYRhVjh9hTtFla/bSFbAf9iJp06eX22MxyWZT3/g?=
- =?us-ascii?Q?u5qyQ5JREa4X38GlWEtAQQAtUd0JfoL9DP3kzb/U3jz1vkhLdg5hS5kAs1S5?=
- =?us-ascii?Q?Qg8Zq+c078uB5mqz7JnNvMNMjPu8hxpTBGcY66fOmoTw67sB5nZ9J4l5JJcV?=
- =?us-ascii?Q?f9uqukXdCa9zaecbnDU/mHfBwjxoPa8djHTsB6S6rZd7QrmFGixle2NRetEz?=
- =?us-ascii?Q?jXUPtK1YHYfneW3KxvrLQkZmuT0sWD097Fm7Wb+E6+uTRyNdcoeOUDSLDzCL?=
- =?us-ascii?Q?MlKdDU/ApihHnre9Bq3DOlvhiQBQ2RCMh3Gl2q5Kt9Hcrhz3Vw+VM+NQOAdN?=
- =?us-ascii?Q?xjzLdhU00KQGKrfin/RN5CLQrWeoBLUjJB6pHY87HHR+8MpntxC108O6Qnno?=
- =?us-ascii?Q?6zyTTGl8TOC4nS5/BIAes2jTCuJZPrG2okdIK1AYAktRzij29+mss30QkW/o?=
- =?us-ascii?Q?spZPAmVRULpIBnJj6dOQpJePDS+vr2gFKoyAywdyhkl3WLnZGBO2mPXxeaeO?=
- =?us-ascii?Q?Vc93Fa+u2Hz1ZRg5ii3lV9nidcSYnpKQ8Y4hdCNuK63ykdbAbd3TIYCcq3mA?=
- =?us-ascii?Q?0QPOHFJX15PQBOxK7814O1HJR2MNMpNvziNR6MwGApSY5kABM171gm8lwzNJ?=
- =?us-ascii?Q?a1uhckO9yGP4gZgibUFGLqjeaI9EAnDgL+0ZhIAz9f2D3CV9ZMdltIozdQSB?=
- =?us-ascii?Q?hRImRmA6mLm+g/pcBqGLhyt089edjTySJXtOFBvKld/QuSJblk1/BFchXY1V?=
- =?us-ascii?Q?wCB57W5pzZvFFpDjPNkFg6czwiZZmg2mWSsfZ6Tr+px/prCSZnaRAL1waEly?=
- =?us-ascii?Q?CLOWnIrkG1b+2NQMJiaF8dcUA+/rTKBms7gH2i9tDfCnRRQ3XSeb9zmySv0U?=
- =?us-ascii?Q?E0Bjh3OAGiOwrj5SOPm7LRTtWQeUSd6zWn5PwHxLwnUFY4QtmofG+hYQPtwX?=
- =?us-ascii?Q?pPW/eNwes/SQM5dIAOqgwfMVrFbOGRRY3eXuQq5Uiv03xxVDlE7eeALRA60G?=
- =?us-ascii?Q?F+NVpxErN9ENNJSA9pJ1MX2/5pOGQNC1TKD64S9Yi8qE6cLcDD4VUA=3D=3D?=
+	=?us-ascii?Q?7Cewx6J3TsSuet0tF97xTE8/fIXxgA6slNveFtpIYo5ABhaYmmpycgx76fhh?=
+ =?us-ascii?Q?acYQ5D3bM90sjG5QVWO80h72qZ4TrV+ayhtZ9NkEsDjZ/Gg9JBzyW0ENT9QZ?=
+ =?us-ascii?Q?DNURKrlVWNbHChvL6XOZeKK2Wgxqooyd6FWjrCYFvxspSeQuiy8DR6yATkQQ?=
+ =?us-ascii?Q?9mAf9s4AWhweOQL8dD2V/kroL7mj9+I9/g/ERFcSqNrqmky7T3O51CozdzR8?=
+ =?us-ascii?Q?bN7X0rA5wWLZvz6CyaFs1bKj4RjeBNYzwnoxNM9OSkwNHP+/kZMR23/ofU9h?=
+ =?us-ascii?Q?n6ZCCMzFkekvERPOQLTFI0Hp9J2mjeeQM3QarV5XUILw9TmSU5Tlx3Y3Ine6?=
+ =?us-ascii?Q?2v9AIthP4Lt7kcCB54j+7PajQd+4zgU/PDduDVS+nK1xTjkxFtE/75QKX+Jy?=
+ =?us-ascii?Q?r4crparMJbA3aOAgy0b5J4YNev4m8VgpajyZBITF6r/DBn63TbEq9EON0IeF?=
+ =?us-ascii?Q?id+8Ac45YMYh/uQ+pTC634eQcJXdMoWPwyUUuxzHB2coet0xMNS3QKkVXaZS?=
+ =?us-ascii?Q?aTLcEdWAH1t3hLefLGNpEtEX04vKM2HBN9y/1Ukx+wSXAL5SatDzGOI//0Xx?=
+ =?us-ascii?Q?WJQiinGSIbM+ygkZWvIAmK7PgW8mAGLMu8uORfN6DgtqDqOdN/vGsg5yPZfb?=
+ =?us-ascii?Q?dQSY2MjHku2aoF4fDeEqUXgxas9Wx1neyFaJULV5fd3Ut5fjDWHpeC178C57?=
+ =?us-ascii?Q?ta1bj9VwWPcd0k0vXeRLbkMYeZNCL8FctBE0OrOV1o8RbmjC4cBu1mrfgKGn?=
+ =?us-ascii?Q?R7wtrO75eu+ZIYyRxd2nkl/1wr5KVuV12CfXcEe9UhmPpDHE3/IVizEdu9mI?=
+ =?us-ascii?Q?nKfjHiwb3taqPxMDUnv1bIJisFBb82tqU6v2egxQjP2cz0EpdfVDuJFRwVGZ?=
+ =?us-ascii?Q?jRm6ku9KNL+ITbeOBP9lkwUAYKj3zBbZG8PZ5Fq+gwcmC+mHL0bVrV+7Z0Up?=
+ =?us-ascii?Q?WqsfKuPXvhmbsmwvup+tklutc2uri9qj2CK87KsvP1EGKnWNPfWr7tnXcK0V?=
+ =?us-ascii?Q?4NNdpK+eFzcy3jIKe/IAHotr3G2jzvwkWVCr1XH64MdUgAoeZ+U7MO4+CPC6?=
+ =?us-ascii?Q?uBJhJrgbkAN6dq5aO/5oH6Grlq2FclAR3Ft6Y4lIavxypd50Ak63hJCSE/LO?=
+ =?us-ascii?Q?c6KQzjnRaLVmRt2eVwL7jF4PWajzmZM/YSCP2XG3K/MNCHLHLPEl3kSFL1Op?=
+ =?us-ascii?Q?od7rQjixnYQjKRVCjYFDDHAAjwHe4qcq2lo7wXrcUsYf51yDw2l+YskLQEP1?=
+ =?us-ascii?Q?ZI0gFP8CgqX1bd6TZeOQ7hHj5SmM9WiyrQxFgULV18ahuAjsWu+oKaNXuY++?=
+ =?us-ascii?Q?0GZUV8cr1edBcfXdIaqUkvVOXxrq/PRu1RBPHrJSkqvavn7VM6PRmlqmNQns?=
+ =?us-ascii?Q?oBkUUmQlO5EogNkhzNbeea3xYLAvfUjax7LDRGIpttfvyN/AOZa7y6yx2Tnu?=
+ =?us-ascii?Q?9ZVeKRx6fF1qgO4o9yWbj13e92iVkUy092XvnFBMjNMQRpSq50qSgi09zWGj?=
+ =?us-ascii?Q?Nsmm/OzboLC79aOWjHSF5d/fEBve3FqHf0H2?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(36860700013)(82310400026)(7416014)(1800799024)(13003099007);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(82310400026)(36860700013);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jul 2025 10:57:21.7221
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jul 2025 10:57:24.6067
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2f19d245-f6a6-47c0-79cf-08ddb88e0e15
+X-MS-Exchange-CrossTenant-Network-Message-Id: 29e50b65-85e7-4ce0-cf56-08ddb88e0fcd
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF00004FBB.namprd04.prod.outlook.com
+	BN2PEPF00004FC1.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7121
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4145
 
-pipeline: https://gitlab.com/xen-project/people/agvallejo/xen/-/pipelines
+These types resemble each other very closely in layout and intent,
+and with "struct boot_module" already in common code it makes perfect
+sense to merge them. In order to do so, add an arch-specific area for
+x86-specific tidbits, and rename identical fields with conflicting
+names.
 
-Hi,
+No functional change intended.
 
-New revision. It reconfigures Kconfig as discussed in v4. Otherwise it's same
-old-same old.
-
-Contrary to the series name, x86 never really gains such an ability, but it's
-a trivial patch away.
-
-Previous versions
-=================
-
-v4: https://lore.kernel.org/xen-devel/20250620182859.23378-1-agarciav@amd.com/
-v3: https://lore.kernel.org/xen-devel/20250613151612.754222-1-agarciav@amd.com/
-v3: https://lore.kernel.org/xen-devel/20250613151612.754222-1-agarciav@amd.com/
-v2: https://lore.kernel.org/xen-devel/20250605194810.2782031-1-agarciav@amd.com/
-v1: https://lore.kernel.org/xen-devel/20250530120242.39398-1-agarciav@amd.com/
-
-Original cover letter
-=====================
-
-This is the aftermath of this discussion:
-
-  https://lore.kernel.org/xen-devel/DA1WWRUQLCAG.ZTVR1HXJ85V0@amd.com/https://lore.kernel.org/xen-devel/DA1WWRUQLCAG.ZTVR1HXJ85V0@amd.com/
-
-It's a first round of cleanup and preparation to have a much easier time
-later when integrating dom0less boot into hyperlaunch.
-
-The refactor on device-tree/ is _fine_ by I'm open to other suggestions
-to achieve the same thing. In particular, after this series x86 can
-unflatten the DT host device tree when it has CONFIG_DOM0LESS_BOOT set,
-which enables the builder to use factored-out functions from
-dom0less-build.c (not done here).
-
-The diffstat is deceptive because I renamed a large file and then
-created a new file with the same name. There aren't that many LoC
-changes.
-
-Alejandro Vallejo (10):
-  x86: Replace arch-specific boot_module with common one
-  xen: Refactor kernel_info to have a header like boot_domain
-  x86: Replace arch-specific boot_domain with the common one
-  xen/dt: Move bootfdt functions to xen/bootfdt.h
-  xen/dt: Move bootinfo functions to a new bootinfo.h
-  xen/dt: Rename bootfdt.c -> bootinfo-fdt.c
-  xen/dt: Extract helper to map nodes to module kinds
-  xen: Split HAS_DEVICE_TREE in two
-  xen/dt: ifdef out DEV_DT-related bits from device_tree.{c,h}
-  xen/dt: Allow CONFIG_DEVICE_TREE_PARSE to include device-tree/
-
- xen/Kconfig.debug                       |   2 +-
- xen/arch/arm/Kconfig                    |   2 +-
- xen/arch/arm/dom0less-build.c           |   8 +-
- xen/arch/arm/domain_build.c             |  21 +-
- xen/arch/arm/include/asm/setup.h        |   2 +-
- xen/arch/arm/kernel.c                   |   8 +-
- xen/arch/arm/setup.c                    |   1 +
- xen/arch/ppc/Kconfig                    |   2 +-
- xen/arch/riscv/Kconfig                  |   2 +-
- xen/arch/riscv/cpufeature.c             |   1 +
- xen/arch/riscv/mm.c                     |   2 +-
- xen/arch/riscv/setup.c                  |   2 +-
- xen/arch/riscv/smpboot.c                |   1 +
- xen/arch/x86/cpu/microcode/core.c       |   7 +-
- xen/arch/x86/hvm/dom0_build.c           |   8 +-
- xen/arch/x86/include/asm/boot-domain.h  |  33 --
- xen/arch/x86/include/asm/bootfdt.h      |  56 ++
- xen/arch/x86/include/asm/bootinfo.h     |  57 +--
- xen/arch/x86/pv/dom0_build.c            |   6 +-
- xen/arch/x86/setup.c                    |  55 +-
- xen/common/Kconfig                      |  13 +-
- xen/common/Makefile                     |   4 +-
- xen/common/device-tree/Makefile         |   5 +-
- xen/common/device-tree/bootfdt.c        | 654 ++----------------------
- xen/common/device-tree/bootinfo-fdt.c   | 583 +++++++++++++++++++++
- xen/common/device-tree/bootinfo.c       |   2 +-
- xen/common/device-tree/device-tree.c    |   3 +
- xen/common/device-tree/dom0less-build.c |  20 +-
- xen/common/device-tree/domain-build.c   |  22 +-
- xen/common/device-tree/kernel.c         |  22 +-
- xen/common/device-tree/static-evtchn.c  |   1 +
- xen/common/device.c                     |   4 +-
- xen/common/efi/boot.c                   |   2 +-
- xen/common/sched/Kconfig                |   2 +-
- xen/common/sched/boot-cpupool.c         |   1 +
- xen/drivers/char/ns16550.c              |   6 +-
- xen/drivers/passthrough/Makefile        |   2 +-
- xen/drivers/passthrough/iommu.c         |   2 +-
- xen/include/asm-generic/device.h        |  10 +-
- xen/include/xen/bootfdt.h               | 300 ++++-------
- xen/include/xen/bootinfo.h              | 213 ++++++++
- xen/include/xen/device_tree.h           |  82 +--
- xen/include/xen/fdt-domain-build.h      |   2 +-
- xen/include/xen/fdt-kernel.h            |   7 +-
- xen/include/xen/iommu.h                 |   8 +-
- xen/include/xsm/dummy.h                 |   4 +-
- xen/include/xsm/xsm.h                   |  12 +-
- xen/xsm/dummy.c                         |   2 +-
- xen/xsm/flask/hooks.c                   |   6 +-
- xen/xsm/xsm_core.c                      |   4 +-
- xen/xsm/xsm_policy.c                    |   6 +-
- 51 files changed, 1159 insertions(+), 1121 deletions(-)
- delete mode 100644 xen/arch/x86/include/asm/boot-domain.h
+Signed-off-by: Alejandro Vallejo <agarciav@amd.com>
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+---
+ xen/arch/x86/cpu/microcode/core.c   |  7 ++--
+ xen/arch/x86/hvm/dom0_build.c       |  6 ++--
+ xen/arch/x86/include/asm/bootfdt.h  | 50 ++++++++++++++++++++++++++
+ xen/arch/x86/include/asm/bootinfo.h | 56 +++--------------------------
+ xen/arch/x86/pv/dom0_build.c        |  4 +--
+ xen/arch/x86/setup.c                | 43 +++++++++++-----------
+ xen/include/xen/bootfdt.h           |  8 +++++
+ xen/xsm/xsm_policy.c                |  2 +-
+ 8 files changed, 93 insertions(+), 83 deletions(-)
  create mode 100644 xen/arch/x86/include/asm/bootfdt.h
- create mode 100644 xen/common/device-tree/bootinfo-fdt.c
- create mode 100644 xen/include/xen/bootinfo.h
 
-
-base-commit: 64be4fecd7d95058fbbb9057a6170fb4e0e9ad06
+diff --git a/xen/arch/x86/cpu/microcode/core.c b/xen/arch/x86/cpu/microcode/core.c
+index 34a94cd25b..816e9bfe40 100644
+--- a/xen/arch/x86/cpu/microcode/core.c
++++ b/xen/arch/x86/cpu/microcode/core.c
+@@ -764,8 +764,7 @@ static int __init early_microcode_load(struct boot_info *bi)
+             struct cpio_data cd;
+ 
+             /* Search anything unclaimed or likely to be a CPIO archive. */
+-            if ( bm->type != BOOTMOD_UNKNOWN &&
+-                 bm->type != BOOTMOD_RAMDISK )
++            if ( bm->kind != BOOTMOD_UNKNOWN && bm->kind != BOOTMOD_RAMDISK )
+                 continue;
+ 
+             size = bm->size;
+@@ -815,12 +814,12 @@ static int __init early_microcode_load(struct boot_info *bi)
+             return -ENODEV;
+         }
+ 
+-        if ( bi->mods[idx].type != BOOTMOD_UNKNOWN )
++        if ( bi->mods[idx].kind != BOOTMOD_UNKNOWN )
+         {
+             printk(XENLOG_WARNING "Microcode: Chosen module %d already used\n", idx);
+             return -ENODEV;
+         }
+-        bi->mods[idx].type = BOOTMOD_MICROCODE;
++        bi->mods[idx].kind = BOOTMOD_MICROCODE;
+ 
+         size = bi->mods[idx].size;
+         data = bootstrap_map_bm(&bi->mods[idx]);
+diff --git a/xen/arch/x86/hvm/dom0_build.c b/xen/arch/x86/hvm/dom0_build.c
+index a038e58c11..2bb8ef355c 100644
+--- a/xen/arch/x86/hvm/dom0_build.c
++++ b/xen/arch/x86/hvm/dom0_build.c
+@@ -650,7 +650,7 @@ static int __init pvh_load_kernel(
+     struct boot_module *image = bd->kernel;
+     struct boot_module *initrd = bd->module;
+     void *image_base = bootstrap_map_bm(image);
+-    void *image_start = image_base + image->headroom;
++    void *image_start = image_base + image->arch.headroom;
+     unsigned long image_len = image->size;
+     unsigned long initrd_len = initrd ? initrd->size : 0;
+     size_t cmdline_len = bd->cmdline ? strlen(bd->cmdline) + 1 : 0;
+@@ -721,9 +721,9 @@ static int __init pvh_load_kernel(
+     {
+         size_t initrd_space = elf_round_up(&elf, initrd_len);
+ 
+-        if ( initrd->cmdline_pa )
++        if ( initrd->arch.cmdline_pa )
+         {
+-            initrd_cmdline = __va(initrd->cmdline_pa);
++            initrd_cmdline = __va(initrd->arch.cmdline_pa);
+             if ( !*initrd_cmdline )
+                 initrd_cmdline = NULL;
+         }
+diff --git a/xen/arch/x86/include/asm/bootfdt.h b/xen/arch/x86/include/asm/bootfdt.h
+new file mode 100644
+index 0000000000..a4c4bf30b9
+--- /dev/null
++++ b/xen/arch/x86/include/asm/bootfdt.h
+@@ -0,0 +1,50 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++#ifndef X86_BOOTFDT_H
++#define X86_BOOTFDT_H
++
++#include <xen/types.h>
++
++struct arch_boot_module
++{
++    /*
++     * Module State Flags:
++     *   relocated:   indicates module has been relocated in memory.
++     *   released:    indicates module's pages have been freed.
++     */
++    bool relocated:1;
++    bool released:1;
++
++    /*
++     * A boot module may need decompressing by Xen.  Headroom is an estimate of
++     * the additional space required to decompress the module.
++     *
++     * Headroom is accounted for at the start of the module.  Decompressing is
++     * done in-place with input=start, output=start-headroom, expecting the
++     * pointers to become equal (give or take some rounding) when decompression
++     * is complete.
++     *
++     * Memory layout at boot:
++     *
++     *               start ----+
++     *                         v
++     *   |<-----headroom------>|<------size------->|
++     *                         +-------------------+
++     *                         | Compressed Module |
++     *   +---------------------+-------------------+
++     *   |           Decompressed Module           |
++     *   +-----------------------------------------+
++     */
++    unsigned long headroom;
++    paddr_t cmdline_pa;
++};
++
++#endif /* X86_BOOTFDT_H */
++
++/*
++ * Local variables:
++ * mode: C
++ * c-file-style: "BSD"
++ * c-basic-offset: 4
++ * indent-tabs-mode: nil
++ * End:
++ */
+diff --git a/xen/arch/x86/include/asm/bootinfo.h b/xen/arch/x86/include/asm/bootinfo.h
+index 3afc214c17..d33b100e04 100644
+--- a/xen/arch/x86/include/asm/bootinfo.h
++++ b/xen/arch/x86/include/asm/bootinfo.h
+@@ -8,6 +8,7 @@
+ #ifndef X86_BOOTINFO_H
+ #define X86_BOOTINFO_H
+ 
++#include <xen/bootfdt.h>
+ #include <xen/init.h>
+ #include <xen/multiboot.h>
+ #include <xen/types.h>
+@@ -19,55 +20,6 @@
+ /* Max number of boot domains that Xen can construct */
+ #define MAX_NR_BOOTDOMS 1
+ 
+-/* Boot module binary type / purpose */
+-enum bootmod_type {
+-    BOOTMOD_UNKNOWN,
+-    BOOTMOD_XEN,
+-    BOOTMOD_KERNEL,
+-    BOOTMOD_RAMDISK,
+-    BOOTMOD_MICROCODE,
+-    BOOTMOD_XSM_POLICY,
+-};
+-
+-struct boot_module {
+-    enum bootmod_type type;
+-
+-    /*
+-     * Module State Flags:
+-     *   relocated: indicates module has been relocated in memory.
+-     *   released:  indicates module's pages have been freed.
+-     */
+-    bool relocated:1;
+-    bool released:1;
+-
+-    /*
+-     * A boot module may need decompressing by Xen.  Headroom is an estimate of
+-     * the additional space required to decompress the module.
+-     *
+-     * Headroom is accounted for at the start of the module.  Decompressing is
+-     * done in-place with input=start, output=start-headroom, expecting the
+-     * pointers to become equal (give or take some rounding) when decompression
+-     * is complete.
+-     *
+-     * Memory layout at boot:
+-     *
+-     *               start ----+
+-     *                         v
+-     *   |<-----headroom------>|<------size------->|
+-     *                         +-------------------+
+-     *                         | Compressed Module |
+-     *   +---------------------+-------------------+
+-     *   |           Decompressed Module           |
+-     *   +-----------------------------------------+
+-     */
+-    unsigned long headroom;
+-
+-    paddr_t cmdline_pa;
+-
+-    paddr_t start;
+-    size_t size;
+-};
+-
+ /*
+  * Xen internal representation of information provided by the
+  * bootloader/environment, or derived from the information.
+@@ -94,16 +46,16 @@ struct boot_info {
+  *      Failure - a value greater than MAX_NR_BOOTMODS
+  */
+ static inline unsigned int __init next_boot_module_index(
+-    const struct boot_info *bi, enum bootmod_type t, unsigned int start)
++    const struct boot_info *bi, boot_module_kind k, unsigned int start)
+ {
+     unsigned int i;
+ 
+-    if ( t == BOOTMOD_XEN )
++    if ( k == BOOTMOD_XEN )
+         return bi->nr_modules;
+ 
+     for ( i = start; i < bi->nr_modules; i++ )
+     {
+-        if ( bi->mods[i].type == t )
++        if ( bi->mods[i].kind == k )
+             return i;
+     }
+ 
+diff --git a/xen/arch/x86/pv/dom0_build.c b/xen/arch/x86/pv/dom0_build.c
+index e1b78d47c2..a4b5362357 100644
+--- a/xen/arch/x86/pv/dom0_build.c
++++ b/xen/arch/x86/pv/dom0_build.c
+@@ -422,7 +422,7 @@ static int __init dom0_construct(const struct boot_domain *bd)
+ 
+     image_base = bootstrap_map_bm(image);
+     image_len = image->size;
+-    image_start = image_base + image->headroom;
++    image_start = image_base + image->arch.headroom;
+ 
+     d->max_pages = ~0U;
+ 
+@@ -659,7 +659,7 @@ static int __init dom0_construct(const struct boot_domain *bd)
+              * pages. Tell the boot_module handling that we've freed it, so the
+              * memory is left alone.
+              */
+-            initrd->released = true;
++            initrd->arch.released = true;
+         }
+ 
+         iommu_memory_setup(d, "initrd", mfn_to_page(_mfn(initrd_mfn)),
+diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
+index 24e4f5ac7f..7e70b46332 100644
+--- a/xen/arch/x86/setup.c
++++ b/xen/arch/x86/setup.c
+@@ -303,7 +303,7 @@ struct boot_info __initdata xen_boot_info = {
+      *
+      * The extra entry exists to be able to add the Xen image as a module.
+      */
+-    .mods = { [0 ... MAX_NR_BOOTMODS] = { .type = BOOTMOD_UNKNOWN } },
++    .mods = { [0 ... MAX_NR_BOOTMODS] = { .kind = BOOTMOD_UNKNOWN } },
+ };
+ 
+ static struct boot_info *__init multiboot_fill_boot_info(
+@@ -338,7 +338,7 @@ static struct boot_info *__init multiboot_fill_boot_info(
+      */
+     for ( i = 0; i < MAX_NR_BOOTMODS && i < bi->nr_modules; i++ )
+     {
+-        bi->mods[i].cmdline_pa = mods[i].string;
++        bi->mods[i].arch.cmdline_pa = mods[i].string;
+ 
+         if ( efi_enabled(EFI_LOADER) )
+         {
+@@ -361,7 +361,7 @@ static struct boot_info *__init multiboot_fill_boot_info(
+     }
+ 
+     /* Variable 'i' should be one entry past the last module. */
+-    bi->mods[i].type = BOOTMOD_XEN;
++    bi->mods[i].kind = BOOTMOD_XEN;
+ 
+     return bi;
+ }
+@@ -388,11 +388,11 @@ unsigned long __init initial_images_nrpages(nodeid_t node)
+ 
+ void __init release_boot_module(struct boot_module *bm)
+ {
+-    ASSERT(!bm->released);
++    ASSERT(!bm->arch.released);
+ 
+     init_domheap_pages(bm->start, bm->start + PAGE_ALIGN(bm->size));
+ 
+-    bm->released = true;
++    bm->arch.released = true;
+ }
+ 
+ void __init free_boot_modules(void)
+@@ -402,7 +402,7 @@ void __init free_boot_modules(void)
+ 
+     for ( i = 0; i < bi->nr_modules; ++i )
+     {
+-        if ( bi->mods[i].released )
++        if ( bi->mods[i].arch.released )
+             continue;
+ 
+         release_boot_module(&bi->mods[i]);
+@@ -997,8 +997,8 @@ static size_t __init domain_cmdline_size(const struct boot_info *bi,
+ {
+     size_t s = 0;
+ 
+-    if ( bd->kernel->cmdline_pa )
+-        s += strlen(__va(bd->kernel->cmdline_pa));
++    if ( bd->kernel->arch.cmdline_pa )
++        s += strlen(__va(bd->kernel->arch.cmdline_pa));
+ 
+     if ( bi->kextra )
+         s += strlen(bi->kextra);
+@@ -1065,9 +1065,10 @@ static struct domain *__init create_dom0(struct boot_info *bi)
+         if ( !(cmdline = xzalloc_array(char, cmdline_size)) )
+             panic("Error allocating cmdline buffer for %pd\n", d);
+ 
+-        if ( bd->kernel->cmdline_pa )
++        if ( bd->kernel->arch.cmdline_pa )
+             strlcpy(cmdline,
+-                    cmdline_cook(__va(bd->kernel->cmdline_pa), bi->loader),
++                    cmdline_cook(__va(bd->kernel->arch.cmdline_pa),
++                                 bi->loader),
+                     cmdline_size);
+ 
+         if ( bi->kextra )
+@@ -1089,7 +1090,7 @@ static struct domain *__init create_dom0(struct boot_info *bi)
+             strlcat(cmdline, " acpi=", cmdline_size);
+             strlcat(cmdline, acpi_param, cmdline_size);
+         }
+-        bd->kernel->cmdline_pa = 0;
++        bd->kernel->arch.cmdline_pa = 0;
+         bd->cmdline = cmdline;
+     }
+ 
+@@ -1302,7 +1303,7 @@ void asmlinkage __init noreturn __start_xen(void)
+     }
+ 
+     /* Dom0 kernel is always first */
+-    bi->mods[0].type = BOOTMOD_KERNEL;
++    bi->mods[0].kind = BOOTMOD_KERNEL;
+     bi->domains[0].kernel = &bi->mods[0];
+ 
+     if ( pvh_boot )
+@@ -1486,7 +1487,7 @@ void asmlinkage __init noreturn __start_xen(void)
+         xen->size  = __2M_rwdata_end - _stext;
+     }
+ 
+-    bi->mods[0].headroom =
++    bi->mods[0].arch.headroom =
+         bzimage_headroom(bootstrap_map_bm(&bi->mods[0]), bi->mods[0].size);
+     bootstrap_unmap();
+ 
+@@ -1568,9 +1569,9 @@ void asmlinkage __init noreturn __start_xen(void)
+         for ( j = bi->nr_modules - 1; j >= 0; j-- )
+         {
+             struct boot_module *bm = &bi->mods[j];
+-            unsigned long size = PAGE_ALIGN(bm->headroom + bm->size);
++            unsigned long size = PAGE_ALIGN(bm->arch.headroom + bm->size);
+ 
+-            if ( bm->relocated )
++            if ( bm->arch.relocated )
+                 continue;
+ 
+             /* Don't overlap with other modules (or Xen itself). */
+@@ -1580,12 +1581,12 @@ void asmlinkage __init noreturn __start_xen(void)
+             if ( highmem_start && end > highmem_start )
+                 continue;
+ 
+-            if ( s < end && (bm->headroom || (end - size) > bm->start) )
++            if ( s < end && (bm->arch.headroom || (end - size) > bm->start) )
+             {
+-                move_memory(end - size + bm->headroom, bm->start, bm->size);
++                move_memory(end - size + bm->arch.headroom, bm->start, bm->size);
+                 bm->start = (end - size);
+-                bm->size += bm->headroom;
+-                bm->relocated = true;
++                bm->size += bm->arch.headroom;
++                bm->arch.relocated = true;
+             }
+         }
+ 
+@@ -1611,7 +1612,7 @@ void asmlinkage __init noreturn __start_xen(void)
+ #endif
+     }
+ 
+-    if ( bi->mods[0].headroom && !bi->mods[0].relocated )
++    if ( bi->mods[0].arch.headroom && !bi->mods[0].arch.relocated )
+         panic("Not enough memory to relocate the dom0 kernel image\n");
+     for ( i = 0; i < bi->nr_modules; ++i )
+     {
+@@ -2169,7 +2170,7 @@ void asmlinkage __init noreturn __start_xen(void)
+     initrdidx = first_boot_module_index(bi, BOOTMOD_UNKNOWN);
+     if ( initrdidx < MAX_NR_BOOTMODS )
+     {
+-        bi->mods[initrdidx].type = BOOTMOD_RAMDISK;
++        bi->mods[initrdidx].kind = BOOTMOD_RAMDISK;
+         bi->domains[0].module = &bi->mods[initrdidx];
+         if ( first_boot_module_index(bi, BOOTMOD_UNKNOWN) < MAX_NR_BOOTMODS )
+             printk(XENLOG_WARNING
+diff --git a/xen/include/xen/bootfdt.h b/xen/include/xen/bootfdt.h
+index 236b456dd2..854e7f1ed9 100644
+--- a/xen/include/xen/bootfdt.h
++++ b/xen/include/xen/bootfdt.h
+@@ -7,6 +7,10 @@
+ #include <xen/macros.h>
+ #include <xen/xmalloc.h>
+ 
++#if __has_include(<asm/bootfdt.h>)
++#include <asm/bootfdt.h>
++#endif
++
+ #define MIN_FDT_ALIGN 8
+ 
+ #define NR_MEM_BANKS 256
+@@ -108,6 +112,10 @@ struct boot_module {
+     bool domU;
+     paddr_t start;
+     paddr_t size;
++
++#if __has_include(<asm/bootfdt.h>)
++    struct arch_boot_module arch;
++#endif
+ };
+ 
+ /* DT_MAX_NAME is the node name max length according the DT spec */
+diff --git a/xen/xsm/xsm_policy.c b/xen/xsm/xsm_policy.c
+index 1f88b4fc5a..1b4030edb4 100644
+--- a/xen/xsm/xsm_policy.c
++++ b/xen/xsm/xsm_policy.c
+@@ -53,7 +53,7 @@ int __init xsm_multiboot_policy_init(
+             printk("Policy len %#lx, start at %p.\n",
+                    _policy_len,_policy_start);
+ 
+-            bm->type = BOOTMOD_XSM_POLICY;
++            bm->kind = BOOTMOD_XSM;
+             break;
+ 
+         }
 -- 
 2.43.0
 
