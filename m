@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22A58AEF16C
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Jul 2025 10:40:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1029430.1403170 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 015DDAEF1C7
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Jul 2025 10:50:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1029442.1403181 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uWWXL-0000VZ-3c; Tue, 01 Jul 2025 08:40:19 +0000
+	id 1uWWgZ-0001EQ-39; Tue, 01 Jul 2025 08:49:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1029430.1403170; Tue, 01 Jul 2025 08:40:19 +0000
+Received: by outflank-mailman (output) from mailman id 1029442.1403181; Tue, 01 Jul 2025 08:49:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uWWXK-0000UV-VS; Tue, 01 Jul 2025 08:40:18 +0000
-Received: by outflank-mailman (input) for mailman id 1029430;
- Tue, 01 Jul 2025 08:40:17 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uWWgY-0001Bw-Uj; Tue, 01 Jul 2025 08:49:50 +0000
+Received: by outflank-mailman (input) for mailman id 1029442;
+ Tue, 01 Jul 2025 08:49:49 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=28IZ=ZO=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uWWXJ-0000UP-RS
- for xen-devel@lists.xenproject.org; Tue, 01 Jul 2025 08:40:17 +0000
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [2a00:1450:4864:20::32f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0337dcc2-5657-11f0-a313-13f23c93f187;
- Tue, 01 Jul 2025 10:40:16 +0200 (CEST)
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-451d41e1ad1so35159985e9.1
- for <xen-devel@lists.xenproject.org>; Tue, 01 Jul 2025 01:40:16 -0700 (PDT)
+ id 1uWWgX-0001Bq-Pv
+ for xen-devel@lists.xenproject.org; Tue, 01 Jul 2025 08:49:49 +0000
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [2a00:1450:4864:20::434])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 57adf9b5-5658-11f0-b894-0df219b8e170;
+ Tue, 01 Jul 2025 10:49:47 +0200 (CEST)
+Received: by mail-wr1-x434.google.com with SMTP id
+ ffacd0b85a97d-3a51481a598so1678638f8f.3
+ for <xen-devel@lists.xenproject.org>; Tue, 01 Jul 2025 01:49:47 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-23acb3c7041sm103060175ad.229.2025.07.01.01.40.11
+ 98e67ed59e1d1-315f542e494sm15001259a91.31.2025.07.01.01.49.39
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 01 Jul 2025 01:40:14 -0700 (PDT)
+ Tue, 01 Jul 2025 01:49:46 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,66 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0337dcc2-5657-11f0-a313-13f23c93f187
+X-Inumbo-ID: 57adf9b5-5658-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1751359216; x=1751964016; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1751359787; x=1751964587; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=V49egurfxGhUt+YFGObMrLrwUe+j8XFxfbtdpRj9Y/s=;
-        b=EjotngmuAUWSoQPlutwszunAKmr4jdgJ2ZzHPsuOs49c+wqFfRUYYxOYS4qf1YjVu/
-         G/nLNE1vQbXgx65zOHc6HsNyvAjunq0tGq5bWyj2lp/hCIhTzdO4h6bPdV0DE/v7Mcp+
-         vpbCpl+D6Jkfaw449itdVPDbds2OXud1gEDoGBTt+khp7cpl7+OE7Sjqlp0NFZfCN/O4
-         HnF0TYUI6dl+AtoNiQvuVAZ8epgm4UkR+PniwHAv4T4P6ArlVGO0RFZNuOS0gHWzUTBT
-         EZQ2boucaoxe+HgVWOCL0M1RaBzFe8CjRD726655V5Ltyp9D+z6pFfazBlUQ7g85EuYX
-         TGPw==
+        bh=SfXwyirN7XXgznRbq91A1uKr8U2XVhgESX0cgoajrdU=;
+        b=EUazcohN75KE+2g+JTLI9B69y+DufPcKfM9a+dnlx4Lm6YGT/14BcGBdzO61ELoXHC
+         bWEp8UPsPz2mAfKx3WvvNN9EhnofUmCOHYVywNrMLxFApxYh62sDzlXcWxzwufBNKEuf
+         Y2ok2JAm1HnFccRQcgORWEqsQM0HAFrHIbAffbHxTcpCfRnB00/o5ILnnOduOUyh9335
+         YBCWVEwILbL96S2s+QKQg20eEUe3i9Oklbr0fa0Ni8Y9qFJPrMFvIYCRVbbvjYhX54hj
+         lLETtVRepXg9JkZoXazZy66S3HhkRji/ftTMNeLkn1QDaw8v+J7wN/h8++4/kZ5R4hWo
+         +tLQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1751359216; x=1751964016;
+        d=1e100.net; s=20230601; t=1751359787; x=1751964587;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=V49egurfxGhUt+YFGObMrLrwUe+j8XFxfbtdpRj9Y/s=;
-        b=wqHay6yo1Z6p5G1jUC5UxPlFNH+bgVIf7iAy12EcY0+2uVAzzjs/mWmjV29jk8CkfK
-         ev8FEDht+QdOH6jRsu6LSqzz0j6jCRLimP2xlluTn6hNlfQDOWgkxMsL1h+NUjNSwrkr
-         VyxwU/V00MsItUfDpzoXyQU1N2zxOBQyXGKcxKAdXqBGaLhNBV/6b3lwp+YGJ8bD4kpf
-         5v9gNt7b2eyrDSECQsg4nzwDkZaMBL8frVCHU5oddv8R02YSaIjwVb6EcB1doC3kUDpN
-         nB1WdtZ+si01kqpWguVNo/P4PxKRbGnOsSiwhqNOgI9yxWu+3mPDGS+4bD2kxE/6BjxM
-         DS7g==
-X-Forwarded-Encrypted: i=1; AJvYcCXFMOJqqlbEuoSlxFepjGPecxQbgc5f3mHhX/KzWm/H5DTG6NihzIdgUy67n5XBBQCRrZ3V0KSFwhs=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yx7ZFBu2hAuRRDgDGKZ4/xXeq7cbFTxdwPEt+O0gx/sK+DH5wiy
-	RtbdkJkUfTISikLvA04JXizMsLKyQgWH+23U3KDRDYxeAXT/TmrsjbzdpwEWIUoOTiSGc6WkKC9
-	Ioew=
-X-Gm-Gg: ASbGncvOqVSVZBvwImpi7DFt9rES5+BmjH4rltgPWx0ZRjoJQtNETGu6IPYsJbsBjA/
-	T4D1KHJZNuAopIcrQuAW7il1JfEpNG73xAIB31XcypkM1sAGN91C+PjySG/dGQpN5MjZ3InARNw
-	9BrqfgDp/Jo3yK2/XNPY1kaUdLhF9k4WCEmZ+srP+lqanYpHnrP0l9a5EOkCd4DFveZkGA5MJHp
-	sGYo7B81MkoQGTJlIiY0LVsPjbE8XEgOjndSntULa1WAlM1i4Bq0TKzEmp8HCL885RcpM9o8AbO
-	yrTXmZVHnJobS3EsejU0nnkWC0HH6lsWkqQr6D5xu0d1U0hlFTnaqi49YucLQK+8LYL2mV87WzE
-	qLU7YCIOXuCW+uJCJ7HY5h7pXq0GpseS8agkn8C0GLZ9+wIY=
-X-Google-Smtp-Source: AGHT+IExdL6kZJ1fmMAGQN5N8bFMNBQFGzEowKUIELDO9FrzLWbH9mHjvkBUoypJkIkPQ3ju3W1uwQ==
-X-Received: by 2002:a05:6000:26c2:b0:3a5:2d42:aa25 with SMTP id ffacd0b85a97d-3a900854668mr13649315f8f.50.1751359215396;
-        Tue, 01 Jul 2025 01:40:15 -0700 (PDT)
-Message-ID: <3634a86d-5ad5-4144-b73a-b098770d6de5@suse.com>
-Date: Tue, 1 Jul 2025 10:40:07 +0200
+        bh=SfXwyirN7XXgznRbq91A1uKr8U2XVhgESX0cgoajrdU=;
+        b=Lkl3u9xTkESlnkNygVr0QxGSXbc4tdWGpDvSmwWfOjPSrhF74BG4fH1/sYC/DkIQGl
+         dOiNpzlwTdEH0H3bd7CAHUA5TwSg2bRrIc0tJ2vvnS77AnQLLT4MutOoSPMn7TS73epL
+         OiIA+PgvLa/fOdOLndmr6Ssh5eN1kTW0rY8wadh0k8S0EwZcl2iwmcOOU7GdM9ixsT7m
+         yWaCr+Pw4wqYK8dm/EVgomci6Jv6u/aUgeC76t6npUuoJwfLAsEjpYtby9havikGbjfS
+         7BN2t6PJg5/5P04S8Cu0YMbY8l8qhz2ZqRCkz//DlDwj+2p3XjB5lGNib5uBf/PJDAW9
+         2/rQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXheFSAq3BL90Y7ANSGoJ07MSCY+vVtIZBX7vqDe6rgyGw1MgScifHWQqWHf4K3eLFtXvApN3Zxyp0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwTn18YFuReNqwd6e4GcgwugX9TZqaJg0sX8IruCoOWLDUbDW1T
+	toxHy7eEuvTWvMb/dYfSlPlf+htPR81JZdTJw5eTUq4+ySrS2lNG1IK3WLWOcn79aQ==
+X-Gm-Gg: ASbGncvMil+CcvCGVweya4tznqfYG2QeVbo//fAE3RQozBJYGy0YutSyt3aLbKSQZch
+	RCGxxVuS1DBpWpRtnXURM8JTJrkoOAEYyHTj44pB/S0eNrr8Po++7+GZM501PA7oWqZkAEYhlCN
+	kGhiBFJdJ8I2pQwIMNRKTb5LFeeqWEzpi5rECz3duhttHONGTjYE8ujH0TUanSNMzd+7y6l9erI
+	GXO1HQC5sU4RMvykAKuUknbDWpaI9tyQTsaPQPaWNVNth5/hb4X/w2CPgv+DOmCqaO7NUddmfoK
+	LEV44YSx4EBc/IgcKk8aYuNq+5X1ryvY9wtMEMI6URAoEkGX15sOScH4axC1ZZnTXUL9wP4w0t1
+	jFM8M8LtzkiT7TFyalTETv+srWCg8sdytFf8Yz30v0Yr5rRE=
+X-Google-Smtp-Source: AGHT+IHyS8xeFQVoOy/R521ntKIzZ2/GIhmu4LzdvyMrZfvQXtYiNqceYsmrivaJ8dGYOa+23M17Mg==
+X-Received: by 2002:a05:6000:21c8:b0:3a4:eda1:6c39 with SMTP id ffacd0b85a97d-3a8fda35a01mr8922418f8f.13.1751359787010;
+        Tue, 01 Jul 2025 01:49:47 -0700 (PDT)
+Message-ID: <34b6cfb8-5161-4949-835f-1ddadfeb743b@suse.com>
+Date: Tue, 1 Jul 2025 10:49:36 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/cpu-policy: Simplify logic in
- guest_common_default_feature_adjustments()
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250627141907.525027-1-andrew.cooper3@citrix.com>
+Subject: Re: [PATCH v11 6/7] xen/arm: enable dom0 to use PCI devices with
+ pci-passthrough=no
+To: Mykyta Poturai <Mykyta_Poturai@epam.com>
+Cc: Stewart Hildebrand <stewart.hildebrand@amd.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <cover.1748422217.git.mykyta_poturai@epam.com>
+ <c0b080618909580e527d7c6cce6010edf5278d2c.1748422217.git.mykyta_poturai@epam.com>
+ <66cda989-efe9-4389-ae8d-cb9bc4dc5239@suse.com>
+ <c5ff547e-4e0e-4f31-a07d-55527a6d8457@epam.com>
+ <a73e2e41-6101-4a4e-a50e-f68d28a0637f@suse.com>
+ <7250049f-e8fd-4752-b749-596332de34a0@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -119,208 +130,64 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250627141907.525027-1-andrew.cooper3@citrix.com>
+In-Reply-To: <7250049f-e8fd-4752-b749-596332de34a0@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 27.06.2025 16:19, Andrew Cooper wrote:
-> For features which are unconditionally set in the max policies, making the
-> default policy to match the host can be done with a conditional clear.
+On 01.07.2025 10:29, Mykyta Poturai wrote:
+> On 04.06.25 08:52, Jan Beulich wrote:
+>> On 03.06.2025 15:31, Mykyta Poturai wrote:
+>>> On 02.06.25 11:11, Jan Beulich wrote:
+>>>> On 28.05.2025 11:12, Mykyta Poturai wrote:
+>>>>> From: Stewart Hildebrand <stewart.hildebrand@amd.com>
+>>>>>
+>>>>> Enable the use of IOMMU + PCI in dom0 without having to specify
+>>>>> "pci-passthrough=yes". Due to possible platform specific dependencies
+>>>>> of the PCI host, we rely on dom0 to initialize it and perform
+>>>>> a PHYSDEVOP_pci_device_add/remove call to add each device to SMMU.
+>>>>> PHYSDEVOP_pci_device_reset is left untouched as it does not have the
+>>>>> pci_passthrough_enabled check.
+>>>>
+>>>> Just to re-raise the question here: Is this actually correct?
+>>>
+>>> I'm afraid I don't quite understand your concerns here.
+>>>
+>>> The purpose of this patch is to relax the pci_passthrough_enabled checks
+>>> and make PCI physdev ops work with passthrough disabled.
+>>> The reset op worked independently of PCI passthrough being on or off and
+>>> will continue to do so after this patch.
+>>> If your concerns are about the correctness of allowing reset to always
+>>> work, you specifically requested this behavior in the patches
+>>> implementing it here[1].
+>>
+>> Right, yet even there I had already asked for possible differing opinions.
+>> Plus the case I had mentioned was specifically Dom0, which fits here.
 > 
-> This is simpler than the unconditional clear, conditional set currently
-> performed.
+> So I've done some testing to see the actual behavior with different 
+> combinations of pci-passthrough and iommu switches. With passthrough=off 
+> and iommu=on the reset works fine. But with both of them off, it fails 
+> because PHYSDEVOP_pci_device_add is not adding anything and therefore 
+> pci_get_pdev can't find the pdev.
 > 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> I am not sure which behavior would be the correct one here for 
+> passthrought=off and iommu=off.
+> 
+> 1. Leave it as is, reset returns -ENODEV and pciback probe fails
+> 2. Add the same check as in add/remove, reset will return -EOPNOTSUPP 
+> and pciback probe will also fail
+> 3. Add the same check as in add/remove but return 0 so pciback can probe 
+> the device.
+> 
+> Maybe you have some thoughts on this. I can't come up with an actual 
+> good reason for using pciback without pci-passthrough enabled, outside 
+> of maybe "not breaking some abstract scripts". And EOPNOTSUPP seems more 
+> descriptive than ENODEV so I strive towards option 2 if everyone okay 
+> with that.
 
-Btw, in the context of some other work I came to remember that I have some
-other, never submitted approach queued. I'll reproduce the raw patch (not
-yet re-based over your change, and not pruned of ERMS bits) below, and I'd
-be glad if you could tell me your opinion. I.e. in particular to possibly
-let me know that this is all wrong, and hence not worth submitting at all.
-It certainly has a nice negative diffstat (albeit that'll reduce some once
-re-based) ...
+I think I'd favor option 2, too. Without pass-through, PHYSDEVOP_pci_device_reset
+is pretty meaningless aiui. vPCI in particular builds on top of pass-through aiui,
+even if that isn't expressed like that right now (e.g. by having HAS_VPCI select
+HAS_PASSTHROUGH).
 
 Jan
-
-x86/cpu-policy: defer setting certain bits in max policies
-
-Instead of adding features to the max policies just to remove them again
-from the (derived) default ones, defer such additions until after the
-respective default policy was derived.
-
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-Of course this comes with the requirement that features forced on here
-aren't having dependencies in either direction, as sanitise_featureset()
-won't be run on the result. Would be nice to have this checked at build
-time, but right now I can't think of a nice way.
-
-Same thing for the possibility of OR-ing in INIT_SIMPLE_OR in the new
-function. That would apparently need to go through featuresets though,
-in which case it might even be an option to run sanitise_featureset()
-over the result. Which in turn may mean some more re-structuring to be
-desirable here. Using INIT_SIMPLE_OR would cover the three *_CLEAR bits
-dealt with explicitly here, except that we want to set them for Intel
-only; I wonder if HTT and CMP_LEGACY shouldn't also be marked '|'.
-
---- a/xen/arch/x86/cpu-policy.c
-+++ b/xen/arch/x86/cpu-policy.c
-@@ -475,7 +475,34 @@ static void __init guest_common_max_feat
-         __set_bit(X86_FEATURE_ARCH_CAPS, fs);
-         __set_bit(X86_FEATURE_RSBA, fs);
-         __set_bit(X86_FEATURE_RRSBA, fs);
-+    }
-+
-+    /*
-+     * To mitigate Native-BHI, one option is to use a TSX Abort on capable
-+     * systems.  This is safe even if RTM has been disabled for other reasons
-+     * via MSR_TSX_{CTRL,FORCE_ABORT}.  However, a guest kernel doesn't get to
-+     * know this type of information.
-+     *
-+     * Therefore the meaning of RTM_ALWAYS_ABORT has been adjusted, to instead
-+     * mean "XBEGIN won't fault".  This is enough for a guest kernel to make
-+     * an informed choice WRT mitigating Native-BHI.
-+     *
-+     * If RTM-capable, we can run a VM which has seen RTM_ALWAYS_ABORT.
-+     */
-+    if ( test_bit(X86_FEATURE_RTM, fs) )
-+        __set_bit(X86_FEATURE_RTM_ALWAYS_ABORT, fs);
- 
-+    /*
-+     * We expose MISC_ENABLE to guests, so our internal clearing of ERMS when
-+     * FAST_STRING is not set should not affect the view of migrating-in guests.
-+     */
-+    __set_bit(X86_FEATURE_ERMS, fs);
-+}
-+
-+static void __init guest_common_max_feature_enforcements(struct cpu_policy *p)
-+{
-+    if ( boot_cpu_data.x86_vendor == X86_VENDOR_INTEL )
-+    {
-         /*
-          * These bits indicate that the VERW instruction may have gained
-          * scrubbing side effects.  With pooling, they mean "you might migrate
-@@ -483,9 +510,9 @@ static void __init guest_common_max_feat
-          * unaffected hardware.  This is fine, because the VERW instruction
-          * has been around since the 286.
-          */
--        __set_bit(X86_FEATURE_MD_CLEAR, fs);
--        __set_bit(X86_FEATURE_FB_CLEAR, fs);
--        __set_bit(X86_FEATURE_RFDS_CLEAR, fs);
-+        p->feat.md_clear = true;
-+        p->arch_caps.fb_clear = true;
-+        p->arch_caps.rfds_clear = true;
- 
-         /*
-          * The Gather Data Sampling microcode mitigation (August 2023) has an
-@@ -497,7 +524,7 @@ static void __init guest_common_max_feat
-         if ( boot_cpu_data.x86 == 6 &&
-              boot_cpu_data.x86_model == INTEL_FAM6_SKYLAKE_X &&
-              raw_cpu_policy.feat.clwb )
--            __set_bit(X86_FEATURE_CLWB, fs);
-+            p->feat.clwb = true;
-     }
- 
-     /*
-@@ -507,29 +534,8 @@ static void __init guest_common_max_feat
-      * HTT identifies p->basic.lppp as valid
-      * CMP_LEGACY identifies p->extd.nc as valid
-      */
--    __set_bit(X86_FEATURE_HTT, fs);
--    __set_bit(X86_FEATURE_CMP_LEGACY, fs);
--
--    /*
--     * To mitigate Native-BHI, one option is to use a TSX Abort on capable
--     * systems.  This is safe even if RTM has been disabled for other reasons
--     * via MSR_TSX_{CTRL,FORCE_ABORT}.  However, a guest kernel doesn't get to
--     * know this type of information.
--     *
--     * Therefore the meaning of RTM_ALWAYS_ABORT has been adjusted, to instead
--     * mean "XBEGIN won't fault".  This is enough for a guest kernel to make
--     * an informed choice WRT mitigating Native-BHI.
--     *
--     * If RTM-capable, we can run a VM which has seen RTM_ALWAYS_ABORT.
--     */
--    if ( test_bit(X86_FEATURE_RTM, fs) )
--        __set_bit(X86_FEATURE_RTM_ALWAYS_ABORT, fs);
--
--    /*
--     * We expose MISC_ENABLE to guests, so our internal clearing of ERMS when
--     * FAST_STRING is not set should not affect the view of migrating-in guests.
--     */
--    __set_bit(X86_FEATURE_ERMS, fs);
-+    p->basic.htt = true;
-+    p->extd.cmp_legacy = true;
- }
- 
- static void __init guest_common_default_feature_adjustments(uint32_t *fs)
-@@ -551,52 +557,9 @@ static void __init guest_common_default_
-              boot_cpu_data.x86_model == INTEL_FAM6_IVYBRIDGE &&
-              cpu_has_rdrand && !is_forced_cpu_cap(X86_FEATURE_RDRAND) )
-             __clear_bit(X86_FEATURE_RDRAND, fs);
--
--        /*
--         * These bits indicate that the VERW instruction may have gained
--         * scrubbing side effects.  The max policy has them set for migration
--         * reasons, so reset the default policy back to the host values in
--         * case we're unaffected.
--         */
--        __clear_bit(X86_FEATURE_MD_CLEAR, fs);
--        if ( cpu_has_md_clear )
--            __set_bit(X86_FEATURE_MD_CLEAR, fs);
--
--        __clear_bit(X86_FEATURE_FB_CLEAR, fs);
--        if ( cpu_has_fb_clear )
--            __set_bit(X86_FEATURE_FB_CLEAR, fs);
--
--        __clear_bit(X86_FEATURE_RFDS_CLEAR, fs);
--        if ( cpu_has_rfds_clear )
--            __set_bit(X86_FEATURE_RFDS_CLEAR, fs);
--
--        /*
--         * The Gather Data Sampling microcode mitigation (August 2023) has an
--         * adverse performance impact on the CLWB instruction on SKX/CLX/CPX.
--         *
--         * We hid CLWB in the host policy to stop Xen using it, but re-added
--         * it to the max policy to let VMs migrate in.  Re-hide it in the
--         * default policy to disuade VMs from using it in the common case.
--         */
--        if ( boot_cpu_data.x86 == 6 &&
--             boot_cpu_data.x86_model == INTEL_FAM6_SKYLAKE_X &&
--             raw_cpu_policy.feat.clwb )
--            __clear_bit(X86_FEATURE_CLWB, fs);
-     }
- 
-     /*
--     * Topology information is at the toolstack's discretion so these are
--     * unconditionally set in max, but pick a default which matches the host.
--     */
--    __clear_bit(X86_FEATURE_HTT, fs);
--    if ( cpu_has_htt )
--        __set_bit(X86_FEATURE_HTT, fs);
--
--    __clear_bit(X86_FEATURE_CMP_LEGACY, fs);
--    if ( cpu_has_cmp_legacy )
--        __set_bit(X86_FEATURE_CMP_LEGACY, fs);
--
--    /*
-      * On certain hardware, speculative or errata workarounds can result in
-      * TSX being placed in "force-abort" mode, where it doesn't actually
-      * function as expected, but is technically compatible with the ISA.
-@@ -939,12 +902,14 @@ void __init init_guest_cpu_policies(void
-     {
-         calculate_pv_max_policy();
-         calculate_pv_def_policy();
-+        guest_common_max_feature_enforcements(&pv_max_cpu_policy);
-     }
- 
-     if ( hvm_enabled )
-     {
-         calculate_hvm_max_policy();
-         calculate_hvm_def_policy();
-+        guest_common_max_feature_enforcements(&hvm_max_cpu_policy);
-     }
- }
- 
-
 
