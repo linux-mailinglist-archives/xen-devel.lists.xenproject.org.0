@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90F7AAF042E
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Jul 2025 21:54:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1029942.1403644 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AB78FAF042A
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Jul 2025 21:54:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1029943.1403655 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uWh3v-0008TC-UX; Tue, 01 Jul 2025 19:54:39 +0000
+	id 1uWh3y-0000FB-56; Tue, 01 Jul 2025 19:54:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1029942.1403644; Tue, 01 Jul 2025 19:54:39 +0000
+Received: by outflank-mailman (output) from mailman id 1029943.1403655; Tue, 01 Jul 2025 19:54:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uWh3v-0008QX-RB; Tue, 01 Jul 2025 19:54:39 +0000
-Received: by outflank-mailman (input) for mailman id 1029942;
- Tue, 01 Jul 2025 19:54:39 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uWh3y-0000DV-1q; Tue, 01 Jul 2025 19:54:42 +0000
+Received: by outflank-mailman (input) for mailman id 1029943;
+ Tue, 01 Jul 2025 19:54:41 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=u5am=ZO=gmail.com=w1benny@srs-se1.protection.inumbo.net>)
- id 1uWh3v-0008QR-7U
- for xen-devel@lists.xenproject.org; Tue, 01 Jul 2025 19:54:39 +0000
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [2a00:1450:4864:20::431])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 38372193-56b5-11f0-a313-13f23c93f187;
- Tue, 01 Jul 2025 21:54:38 +0200 (CEST)
-Received: by mail-wr1-x431.google.com with SMTP id
- ffacd0b85a97d-3a4e749d7b2so1029499f8f.0
- for <xen-devel@lists.xenproject.org>; Tue, 01 Jul 2025 12:54:38 -0700 (PDT)
+ id 1uWh3x-0000D0-79
+ for xen-devel@lists.xenproject.org; Tue, 01 Jul 2025 19:54:41 +0000
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [2a00:1450:4864:20::333])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 38d8a3f5-56b5-11f0-b894-0df219b8e170;
+ Tue, 01 Jul 2025 21:54:39 +0200 (CEST)
+Received: by mail-wm1-x333.google.com with SMTP id
+ 5b1f17b1804b1-45362642f3bso8203555e9.2
+ for <xen-devel@lists.xenproject.org>; Tue, 01 Jul 2025 12:54:39 -0700 (PDT)
 Received: from lab.home
  (dynamic-2a00-1028-83a4-4bca-c0bb-96ff-feed-9d50.ipv6.o2.cz.
  [2a00:1028:83a4:4bca:c0bb:96ff:feed:9d50])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3a88c7e9d1csm14291644f8f.13.2025.07.01.12.54.35
+ ffacd0b85a97d-3a88c7e9d1csm14291644f8f.13.2025.07.01.12.54.37
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 01 Jul 2025 12:54:36 -0700 (PDT)
+ Tue, 01 Jul 2025 12:54:37 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,41 +47,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 38372193-56b5-11f0-a313-13f23c93f187
+X-Inumbo-ID: 38d8a3f5-56b5-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1751399677; x=1752004477; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=H+GkkYPn+ZUYEt1fAz26HqfyvmT7OOarY819nfs3ecw=;
-        b=APmeZH9kqYR1keOotFBVkcbwyNFLaAfgbuElXlBN399JrmuG09h3DA1nXPX4VDKriZ
-         uv3cOXOKdaUkyK/wqZ6SS4WQC4yzIlvTJ4crH65oHha9jVtH+Of0VH5X3dNU+YdpiopQ
-         GFKGaAcmIVoQvc4J4360AG+IHNv24M84qPu68tsJ1+sAKnuV5oO6kR547J31OzVrWUKU
-         D7Cx+VnC1CJexo0/rHQ4joe1v7rLoE5fvfSa3RCmbBXaRt80UzwJLKodHBkhc/6h/b2e
-         4gWSV4vd3xQ2bkSaC8f5CrA8woTbodMcOFOOXNrVKdF0q/gFq5KgjpuhGmBu2Ze0XVlF
-         oHgg==
+        d=gmail.com; s=20230601; t=1751399678; x=1752004478; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=h7PeFG4j0+6wg/8x4w0BGJXrwiGp05DFafVuw1va9HQ=;
+        b=ECeRJY62+x9nWP83c41llj4YFl4IM4+WFXr3X2Dd+8EdjSFM1Kqexascw13qJMWrV3
+         +I/dZdxUanmuRMvVNJ/K6spMiodOxRGGkildHNfk7FHjA5XKhq6N9GehyS9saz0XNKRD
+         zgMRZpo7yY2Gb8+/O6B/nhKaCpiOJcmx8xOSd10j2eKCbvCRCkDC9/L/41GlzFt068FQ
+         cV9nl0x5cB9FPRNVeoesO+EoSpD71vY5IqsGyQmCxfSstxUWlgVAj8J/a8zzMNPekk6J
+         QtZFyRsY9L2Ct8go0Qbx2zcQrcIECOaJ27F11c6s4qdnw+4UvYkAeORhXP4VsJETKk+0
+         Ub4w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1751399677; x=1752004477;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=H+GkkYPn+ZUYEt1fAz26HqfyvmT7OOarY819nfs3ecw=;
-        b=CujhGvpMXtU6z0mIKSuv/vPpIIeENBBwcnl5nrurjZl19w1ECFgtvfrpN8BbD7vHZg
-         dpq6mV0Zs5go4JS+n+kY9fkMEdqqzz/Ari+IPQIAaZoEHZmVKXu5YNdOReW9yWnfUzwk
-         Ok1umrn9dDTxE0+Czc+tfEuoDJ8QC7OFTjBNBjMrifVvJgwwk1uVHzVyLD944YQGKdY5
-         zceoOMoBLtuxFPhuF9ggT/zRQCADPFEWou92MlC26qanNN5BwZj+LW15J2oLm1jgDsRX
-         dS2ptCZY9WGfSV9/0Z0p+sr1c+a/9sTWfIxuL7opSMj0fjq/GHs3jv/Rd2bTnwu7iKaq
-         NacQ==
-X-Gm-Message-State: AOJu0YxQHXoD+xllOr+NA96usS/Lw6m61u6dDOqPnt7sM7ts0fCpTmVg
-	ZO0TFWXsoq78dLTwiE8gNOwVN3G2udO4bI4/rLmc/MNhGIspBq2d7gRdZ/gYAQ==
-X-Gm-Gg: ASbGncv+/TSqLM73uGvrCcrWq5YyurM7gFoO00a2I12EsCCayPwjWpwmioIWIC5HfL3
-	7T81OH7+qSbPRBR5L3XWt60h1+6mK3Cj0RVmLkQsc0vQ7lM95KepRHVHlQcX/39swIrzEiY8whE
-	HCoEFk741kPpuYEBu+9I/DZ4yGdKLkRZ20TYqCnB/kSBbIrZd4Nhm5TT/ydpkvzzvYo+55QnP0E
-	IFTMD6Ru2PJwgYap2Yg3CZX/e8eCe/0wiFr0+ODSuU07gaOQYu0cmgHPCqVMvSIH192tARIobMP
-	tc2gAmKEuWi1UdlVENHByut4uu3M5M4rkvN1K4bQGBycO47jz08zJsoVfQ7S/GmbmdDjVMVuZWY
-	59bY+PbZFqMy6NECDoLHONH8gyQSoQ/TT8l6D4ZI3FyFvJrZ7bnVaXSgkg8ifOw==
-X-Google-Smtp-Source: AGHT+IFNv1YIkjYRSRxjujIlRLgD5qQAlK9HYYAL/tvbQ0IA8BOYIbwb7YJ+TgQR+zSZltJXrRFmVw==
-X-Received: by 2002:a05:6000:288f:b0:3a4:f7ea:a638 with SMTP id ffacd0b85a97d-3af485b1f1dmr1303587f8f.3.1751399676877;
-        Tue, 01 Jul 2025 12:54:36 -0700 (PDT)
+        d=1e100.net; s=20230601; t=1751399678; x=1752004478;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=h7PeFG4j0+6wg/8x4w0BGJXrwiGp05DFafVuw1va9HQ=;
+        b=gwMfQQFjET/GtX2Cf1A1psx7Ie3fJE64KypQVAiF4w04GXHzlrzwhWn1tdJ+A8ahUt
+         uZjb5XFj4nV9B6+ZpFkBOkZ+o22KntInmHpaQnfwuWokaLY90z4mUYUkInHaw6wOOoHg
+         6W7+LTER9Ua9iHOZo5+hADxRXaTS4wz3iXeXf4/Zpu3vVLUl8hiRh3Brg3fFoT4E1ZIy
+         ccKk5b33FJ6d1Y2/7MJkKX513bSbZ8cTohI9pVu+CeJwFaqE2oN40O3WQmVF24U/LNqa
+         iNiLHrfkA+/eZrOfgSUZXHSLI9h2VEp+pE2cpfQYO70N7mdxaewMipf0cip+CSQcRV5m
+         H69g==
+X-Gm-Message-State: AOJu0YwHvkkizHHGLa8wabOKNlLnDMKxbLjQEC2odyPOE8t3fpABEVIP
+	+0k50R8P05Bxf98AZG+CcajwMwDpyBPHJ1CnUr18lF7pbay0C4/Pb/SZD6RG0A==
+X-Gm-Gg: ASbGnctyQXQhEuKEj39cM1lNWo3+4u4kw3ZrV94c+4O0ra0Oj893qU2dRHsbuEjdh8E
+	g60nn8iNEKaCJ1D+Ptx10XRo4a2wpp1MZQLdAIz30txuDGEzyHcvlBYSet7j/jSs40m+Ho+7/KY
+	rzEGNq53Tdqt7QfEMcHzd0pjZlwbK3vpmdJyVv+mVbQFrZiZ35folRfzv8Y+/aD7yPA41IK5F4Y
+	vm+i6o1WA/i624qqD3633ciiJNEWogjn6XI7uDrlT3PvgIGKmYu3GnI/tD9qT8gnV0y/ABboc/J
+	48qEyi0SSvVxj3I83onMyInfIoJqpFHKy8+7cAeOjFOsqxfp/LCttq3dt5N8IHK6n8l3zXsRq26
+	styWDYMTympeBrRCso2FWdQoRHQ93iEH8o8/sJTRSeNq3zk3cxhQC0rIjPb8jqQ==
+X-Google-Smtp-Source: AGHT+IFmZWVWUaqiRen1DgrZdhU0MlS1yST6+M+EjNqhMxIAw+nMfyfVsHuzAkH1f5VXRnCrd7HKrg==
+X-Received: by 2002:a05:6000:18a9:b0:3a5:3399:51b1 with SMTP id ffacd0b85a97d-3af24e18458mr1776818f8f.6.1751399678131;
+        Tue, 01 Jul 2025 12:54:38 -0700 (PDT)
 From: "=?UTF-8?q?Petr=20Bene=C5=A1?=" <w1benny@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Petr=20Bene=C5=A1?= <petr.benes@gendigital.com>
 To: xen-devel@lists.xenproject.org
@@ -98,133 +99,148 @@ Cc: =?UTF-8?q?Petr=20Bene=C5=A1?= <w1benny@gmail.com>,
 	David Scott <dave@recoil.org>,
 	Bertrand Marquis <bertrand.marquis@arm.com>,
 	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Nick Rosbrook <enr0n@ubuntu.com>,
-	George Dunlap <gwd@xenproject.org>,
-	Tamas K Lengyel <tamas@tklengyel.com>,
-	Alexandru Isaila <aisaila@bitdefender.com>,
-	Petre Pircalabu <ppircalabu@bitdefender.com>
-Subject: [PATCH v7 0/7] x86: Make MAX_ALTP2M configurable
-Date: Tue,  1 Jul 2025 19:54:22 +0000
-Message-Id: <cover.1751397919.git.w1benny@gmail.com>
+	Christian Lindig <christian.lindig@cloud.com>,
+	Julien Grall <jgrall@amazon.com>
+Subject: [PATCH v7 1/7] xen: Refactor altp2m options into a structured format
+Date: Tue,  1 Jul 2025 19:54:23 +0000
+Message-Id: <b15a2ae82d79e6cded837733725384b9ecd07a85.1751397919.git.w1benny@gmail.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <cover.1751397919.git.w1benny@gmail.com>
+References: <cover.1751397919.git.w1benny@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 From: Petr Beneš <w1benny@gmail.com>
 
-(This is continuation of the v6 series posted a year ago - apologies for the
-delay.)
+Encapsulate the altp2m options within a struct. This change is preparatory
+and sets the groundwork for introducing additional parameter in subsequent
+commit.
 
-This series introduces the ability to configure the maximum number of altp2m
-tables during domain creation. Previously, the limits were hardcoded to a
-maximum of 10. This change allows for greater flexibility in environments that
-require more or fewer altp2m views.
+Signed-off-by: Petr Beneš <w1benny@gmail.com>
+Acked-by: Christian Lindig <christian.lindig@cloud.com>
+Acked-by: Anthony PERARD <anthony.perard@vates.tech>
+Acked-by: Julien Grall <jgrall@amazon.com> # arm
+Reviewed-by: Jan Beulich <jbeulich@suse.com> # hypervisor
+---
+ tools/libs/light/libxl_create.c     | 6 +++---
+ tools/ocaml/libs/xc/xenctrl_stubs.c | 4 +++-
+ xen/arch/arm/domain.c               | 2 +-
+ xen/arch/x86/domain.c               | 4 ++--
+ xen/arch/x86/hvm/hvm.c              | 2 +-
+ xen/include/public/domctl.h         | 4 +++-
+ 6 files changed, 13 insertions(+), 9 deletions(-)
 
-This enhancement is particularly relevant for users leveraging Xen's features
-for virtual machine introspection.
-
-Changes since v6:
-- Rebased on top of staging
-- Added missing Acks/Reviewed-bys where appropriate.
-- No changes in patches since v6, with the exception of 0004: xen: Make the
-  maximum number of altp2m views configurable for x86... which was the only
-  patch that was left unacked/not reviewed
-  - In that patch, I made changes suggested by Jan - that is:
-    - Create altp2m_is_eptp_valid function and use it in places where
-      we don't control the index
-    - Fixed a nit: "Number of altp2ms to allocate." -> "... to permit."
-    - Cosmetic: moved altp2m_vcpu_idx() in altp2m.h up, so the order of
-      functions matches with the order in the #else block
-
-Changes since v5:
-- Reverted "Introduction of accessor functions for altp2m arrays and
-  refactoring the code to use them."
-  - Reason is minimizing the code changes, and save the code consistency.
-  - I've addressed (hopefully all) issues with long lines and mismatched
-    _nospec replacements mentioned in previous reviews.
-- Removed "struct domain *d" from altp2m_vcpu_initialise/destroy.
-
-Changes since v4:
-- Rebased on top of staging (applying Roger's changes).
-- Fix mixed tabs/spaces in xenctrl_stubs.c.
-- Add missing OCaml bindings for altp2m_opts.
-- Substitute altp2m_opts into an unnamed structure. (This is a preparation for
-  the next patch that will introduce the `nr` field.)
-- altp2m.opts is then shortened to uint16_t and a new field altp2m.nr is added -
-  also uint16_t. This value is then verified by libxl to not exceed the maximum
-  uint16_t value.
-
-  This puts a hard limit to number of altp2m to 65535, which is enough, at least
-  for the time being. Also, altp2m.opts currently uses only 2 bits. Therefore
-  I believe this change is justified.
-- Introduction of accessor functions for altp2m arrays and refactoring the code
-  to use them.
-- Added a check to arm/arch_sanitise_domain_config() to disallow creating
-  domains with altp2m.nr != 0.
-- Added dummy hvm_altp2m_supported() to avoid build errors when CONFIG_HVM is
-  disabled.
-- Finally, expose altp2m_count to OCaml bindings (and verify both altp2m_opts
-  and altp2m_count fit uint16_t).
-- I also removed Christian Lindig from the Acked-by, since I think this change
-  is significant enough to require a re-review.
-
-Changes since v3:
-- Rebased on top of staging (some functions were moved to altp2m.c).
-- Re-added the array_index_nospec() where it was removed.
-
-Changes since v2:
-- Changed max_altp2m to nr_altp2m.
-- Moved arch-dependent check from xen/common/domain.c to xen/arch/x86/domain.c.
-- Replaced min(d->nr_altp2m, MAX_EPTP) occurences for just d->nr_altp2m.
-- Replaced array_index_nospec(altp2m_idx, ...) for just altp2m_idx.
-- Shortened long lines.
-- Removed unnecessary comments in altp2m_vcpu_initialise/destroy.
-- Moved nr_altp2m field after max_ fields in xen_domctl_createdomain.
-- Removed the commit that adjusted the initial allocation of pages from 256
-  to 1024. This means that after these patches, technically, the nr_altp2m will
-  be capped to (256 - 1 - vcpus - MAX_NESTEDP2M) instead of MAX_EPTP (512).
-  Future work will be needed to fix this.
-
-Petr Beneš (7):
-  xen: Refactor altp2m options into a structured format
-  tools/xl: Add altp2m_count parameter
-  docs/man: Add altp2m_count parameter to the xl.cfg manual
-  xen: Make the maximum number of altp2m views configurable for x86
-  tools/libxl: Activate the altp2m_count feature
-  xen/x86: Disallow creating domains with altp2m enabled and altp2m.nr
-    == 0
-  tools/ocaml: Add altp2m_count parameter
-
- docs/man/xl.cfg.5.pod.in             | 14 ++++++
- tools/golang/xenlight/helpers.gen.go |  2 +
- tools/golang/xenlight/types.gen.go   |  1 +
- tools/include/libxl.h                |  7 +++
- tools/libs/light/libxl_create.c      | 19 +++++--
- tools/libs/light/libxl_internal.h    |  1 +
- tools/libs/light/libxl_types.idl     |  1 +
- tools/ocaml/libs/xc/xenctrl.ml       |  1 +
- tools/ocaml/libs/xc/xenctrl.mli      |  1 +
- tools/ocaml/libs/xc/xenctrl_stubs.c  | 21 ++++++--
- tools/xl/xl_parse.c                  |  9 ++++
- xen/arch/arm/domain.c                |  2 +-
- xen/arch/x86/domain.c                | 45 +++++++++++++----
- xen/arch/x86/hvm/hvm.c               | 10 +++-
- xen/arch/x86/hvm/vmx/vmx.c           |  2 +-
- xen/arch/x86/include/asm/altp2m.h    | 28 +++++++++--
- xen/arch/x86/include/asm/domain.h    |  9 ++--
- xen/arch/x86/include/asm/p2m.h       |  4 +-
- xen/arch/x86/mm/altp2m.c             | 74 +++++++++++++++-------------
- xen/arch/x86/mm/hap/hap.c            |  6 +--
- xen/arch/x86/mm/mem_access.c         | 20 +++-----
- xen/arch/x86/mm/mem_sharing.c        |  2 +-
- xen/arch/x86/mm/p2m-ept.c            |  7 +--
- xen/arch/x86/mm/p2m.c                |  8 +--
- xen/common/domain.c                  |  1 +
- xen/include/public/domctl.h          |  7 ++-
- xen/include/xen/sched.h              |  2 +
- 27 files changed, 216 insertions(+), 88 deletions(-)
-
+diff --git a/tools/libs/light/libxl_create.c b/tools/libs/light/libxl_create.c
+index 9525d22312..8a85fba1cf 100644
+--- a/tools/libs/light/libxl_create.c
++++ b/tools/libs/light/libxl_create.c
+@@ -622,17 +622,17 @@ int libxl__domain_make(libxl__gc *gc, libxl_domain_config *d_config,
+         LOG(DETAIL, "altp2m: %s", libxl_altp2m_mode_to_string(b_info->altp2m));
+         switch(b_info->altp2m) {
+         case LIBXL_ALTP2M_MODE_MIXED:
+-            create.altp2m_opts |=
++            create.altp2m.opts |=
+                 XEN_DOMCTL_ALTP2M_mode(XEN_DOMCTL_ALTP2M_mixed);
+             break;
+ 
+         case LIBXL_ALTP2M_MODE_EXTERNAL:
+-            create.altp2m_opts |=
++            create.altp2m.opts |=
+                 XEN_DOMCTL_ALTP2M_mode(XEN_DOMCTL_ALTP2M_external);
+             break;
+ 
+         case LIBXL_ALTP2M_MODE_LIMITED:
+-            create.altp2m_opts |=
++            create.altp2m.opts |=
+                 XEN_DOMCTL_ALTP2M_mode(XEN_DOMCTL_ALTP2M_limited);
+             break;
+ 
+diff --git a/tools/ocaml/libs/xc/xenctrl_stubs.c b/tools/ocaml/libs/xc/xenctrl_stubs.c
+index 863ab3c778..b51fd66788 100644
+--- a/tools/ocaml/libs/xc/xenctrl_stubs.c
++++ b/tools/ocaml/libs/xc/xenctrl_stubs.c
+@@ -225,7 +225,9 @@ CAMLprim value stub_xc_domain_create(value xch_val, value wanted_domid, value co
+ 		.max_maptrack_frames = Int_val(VAL_MAX_MAPTRACK_FRAMES),
+ 		.grant_opts =
+ 		    XEN_DOMCTL_GRANT_version(Int_val(VAL_MAX_GRANT_VERSION)),
+-		.altp2m_opts = Int32_val(VAL_ALTP2M_OPTS),
++		.altp2m = {
++			.opts = Int32_val(VAL_ALTP2M_OPTS),
++		},
+ 		.vmtrace_size = vmtrace_size,
+ 		.cpupool_id = Int32_val(VAL_CPUPOOL_ID),
+ 	};
+diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
+index be58a23dd7..79a144e61b 100644
+--- a/xen/arch/arm/domain.c
++++ b/xen/arch/arm/domain.c
+@@ -693,7 +693,7 @@ int arch_sanitise_domain_config(struct xen_domctl_createdomain *config)
+         return -EINVAL;
+     }
+ 
+-    if ( config->altp2m_opts )
++    if ( config->altp2m.opts )
+     {
+         dprintk(XENLOG_INFO, "Altp2m not supported\n");
+         return -EINVAL;
+diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
+index b67342797f..56c3816187 100644
+--- a/xen/arch/x86/domain.c
++++ b/xen/arch/x86/domain.c
+@@ -622,7 +622,7 @@ int arch_sanitise_domain_config(struct xen_domctl_createdomain *config)
+     bool hap = config->flags & XEN_DOMCTL_CDF_hap;
+     bool nested_virt = config->flags & XEN_DOMCTL_CDF_nested_virt;
+     unsigned int max_vcpus;
+-    unsigned int altp2m_mode = MASK_EXTR(config->altp2m_opts,
++    unsigned int altp2m_mode = MASK_EXTR(config->altp2m.opts,
+                                          XEN_DOMCTL_ALTP2M_mode_mask);
+ 
+     if ( hvm ? !hvm_enabled : !IS_ENABLED(CONFIG_PV) )
+@@ -709,7 +709,7 @@ int arch_sanitise_domain_config(struct xen_domctl_createdomain *config)
+         return -EINVAL;
+     }
+ 
+-    if ( config->altp2m_opts & ~XEN_DOMCTL_ALTP2M_mode_mask )
++    if ( config->altp2m.opts & ~XEN_DOMCTL_ALTP2M_mode_mask )
+     {
+         dprintk(XENLOG_INFO, "Invalid altp2m options selected: %#x\n",
+                 config->flags);
+diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
+index 056360d5fe..56c7de3977 100644
+--- a/xen/arch/x86/hvm/hvm.c
++++ b/xen/arch/x86/hvm/hvm.c
+@@ -665,7 +665,7 @@ int hvm_domain_initialise(struct domain *d,
+     d->arch.hvm.params[HVM_PARAM_TRIPLE_FAULT_REASON] = SHUTDOWN_reboot;
+ 
+     /* Set altp2m based on domctl flags. */
+-    switch ( MASK_EXTR(config->altp2m_opts, XEN_DOMCTL_ALTP2M_mode_mask) )
++    switch ( MASK_EXTR(config->altp2m.opts, XEN_DOMCTL_ALTP2M_mode_mask) )
+     {
+     case XEN_DOMCTL_ALTP2M_mixed:
+         d->arch.hvm.params[HVM_PARAM_ALTP2M] = XEN_ALTP2M_mixed;
+diff --git a/xen/include/public/domctl.h b/xen/include/public/domctl.h
+index be19ab5e26..a69dd96084 100644
+--- a/xen/include/public/domctl.h
++++ b/xen/include/public/domctl.h
+@@ -99,6 +99,7 @@ struct xen_domctl_createdomain {
+ 
+     uint32_t grant_opts;
+ 
++    struct {
+ /*
+  * Enable altp2m mixed mode.
+  *
+@@ -115,7 +116,8 @@ struct xen_domctl_createdomain {
+ /* Altp2m mode signaling uses bits [0, 1]. */
+ #define XEN_DOMCTL_ALTP2M_mode_mask  (0x3U)
+ #define XEN_DOMCTL_ALTP2M_mode(m)    ((m) & XEN_DOMCTL_ALTP2M_mode_mask)
+-    uint32_t altp2m_opts;
++        uint32_t opts;
++    } altp2m;
+ 
+     /* Per-vCPU buffer size in bytes.  0 to disable. */
+     uint32_t vmtrace_size;
 -- 
 2.34.1
 
