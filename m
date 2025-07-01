@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D4BDAEEE12
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Jul 2025 08:00:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1029362.1403099 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D8012AEEE1A
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Jul 2025 08:06:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1029369.1403110 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uWU1Z-0002h1-Lt; Tue, 01 Jul 2025 05:59:21 +0000
+	id 1uWU7p-0004Lq-4M; Tue, 01 Jul 2025 06:05:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1029362.1403099; Tue, 01 Jul 2025 05:59:21 +0000
+Received: by outflank-mailman (output) from mailman id 1029369.1403110; Tue, 01 Jul 2025 06:05:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uWU1Z-0002fJ-If; Tue, 01 Jul 2025 05:59:21 +0000
-Received: by outflank-mailman (input) for mailman id 1029362;
- Tue, 01 Jul 2025 05:59:20 +0000
+	id 1uWU7p-0004KF-1G; Tue, 01 Jul 2025 06:05:49 +0000
+Received: by outflank-mailman (input) for mailman id 1029369;
+ Tue, 01 Jul 2025 06:05:47 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Z0vH=ZO=amd.com=penny.zheng@srs-se1.protection.inumbo.net>)
- id 1uWU1Y-0002fD-Kp
- for xen-devel@lists.xenproject.org; Tue, 01 Jul 2025 05:59:20 +0000
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on20617.outbound.protection.outlook.com
- [2a01:111:f403:2417::617])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=28IZ=ZO=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uWU7n-0004K9-Nw
+ for xen-devel@lists.xenproject.org; Tue, 01 Jul 2025 06:05:47 +0000
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [2a00:1450:4864:20::429])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 85ee0c7a-5640-11f0-b894-0df219b8e170;
- Tue, 01 Jul 2025 07:59:18 +0200 (CEST)
-Received: from DM4PR12MB8451.namprd12.prod.outlook.com (2603:10b6:8:182::7) by
- PH7PR12MB6657.namprd12.prod.outlook.com (2603:10b6:510:1fe::7) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.8880.29; Tue, 1 Jul 2025 05:59:13 +0000
-Received: from DM4PR12MB8451.namprd12.prod.outlook.com
- ([fe80::b04e:2da5:7189:4c4d]) by DM4PR12MB8451.namprd12.prod.outlook.com
- ([fe80::b04e:2da5:7189:4c4d%5]) with mapi id 15.20.8880.030; Tue, 1 Jul 2025
- 05:59:13 +0000
+ id 6b3ae47b-5641-11f0-b894-0df219b8e170;
+ Tue, 01 Jul 2025 08:05:42 +0200 (CEST)
+Received: by mail-wr1-x429.google.com with SMTP id
+ ffacd0b85a97d-3a6d1369d4eso2815202f8f.2
+ for <xen-devel@lists.xenproject.org>; Mon, 30 Jun 2025 23:05:42 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-23acb2e4c60sm96885295ad.50.2025.06.30.23.05.32
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 30 Jun 2025 23:05:40 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,166 +45,276 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 85ee0c7a-5640-11f0-b894-0df219b8e170
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Czi9Vb35slEhJuBMo+RX0DU9T9qg0zriDjDcCuKXoGzOi9qZDjk+hL8j2NzdGLi0TI6DisPUmdi1hxnHKl/z03G7zoXGVBpbQQIAUnThZ+Tg+bxgP9HL0XKm1tZH/wpgOfwa2fvL4rRTuPTNY5PMhQKy6/4nrjKTv2o3qbZm0XRs2R5XlYzQyjWjYs+yAYkkwfA7NtOAnBp/shqkAU1SnUG75i8k8al/sBXzzn9fvp4Su6UmdOgX53H0vHG1VrBcBtMHBP7QN2SY0m9heAztY51VzJE9bQ7Bb7IASC2+lN6E5WPw0ClvlkU9OC3b6oaDcsmK+VDZkgB2aSb39oMSIQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PZ4ubSY85gCNuWxi4fUdqOTyyO4XIBiMVwX+tZr3NOo=;
- b=vsihPg48Vepk4FRkvb3shVS87wNMGpF3CukU+a1ZocueBwHJrzm16MnhQ6oc5UZ6yTAAF5K8bnaSevmOfmiM/wX868GAzRFaJ+zy840bkfDa9ux6DMC0RKhNNZ+oojlIPr24iHkQjoJySHmoIQ9nTjyOdAIexySgpG1rPNvedn6MoptZCh0jJf5B/kjv9aijhu5wgL9Tq524MvTMU/ImkLf6hkR19L+T2kxpASVxXaB/1lhdnhFs+klexqv42y3Scw5HWBmwQ3SQNLZ44P54AV9hCjxMGLLGo76+TZ/CHSBzAFxWWDHHTVd4RNkFTfnu+qgf7VuV+yqm/kUY1KnxXA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PZ4ubSY85gCNuWxi4fUdqOTyyO4XIBiMVwX+tZr3NOo=;
- b=FraJU2PL+7vATynIKUn09nq88PaCt3ICiHIDlqohOEHVHkuQEEnHS044z4fsW0P4KHlSmeQmKC6LWeBjBNyp9YGUPkomG+KmIe4lcU/4zklwnqlIml+bTXoisjYORXBBbXvuIjF3HuWyab8tSCy3ifVgCecIyt99Ll1pG2IzjKs=
-From: "Penny, Zheng" <penny.zheng@amd.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: "Huang, Ray" <Ray.Huang@amd.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, =?utf-8?B?Um9nZXIgUGF1IE1vbm7DqQ==?=
-	<roger.pau@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>, "Orzel,
- Michal" <Michal.Orzel@amd.com>, Julien Grall <julien@xen.org>, Stefano
- Stabellini <sstabellini@kernel.org>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>
-Subject: RE: [PATCH v5 09/18] xen/pmstat: introduce CONFIG_PM_OP
-Thread-Topic: [PATCH v5 09/18] xen/pmstat: introduce CONFIG_PM_OP
-Thread-Index: AQHb3onRSa8t50bDJ0W0tHgpfVXRMrQbc7yAgAAAc4CAAWjFsA==
-Date: Tue, 1 Jul 2025 05:59:13 +0000
-Message-ID:
- <DM4PR12MB845192541C9F23536FAC4243E141A@DM4PR12MB8451.namprd12.prod.outlook.com>
-References: <20250616064128.581164-1-Penny.Zheng@amd.com>
- <20250616064128.581164-10-Penny.Zheng@amd.com>
- <d24bf708-6a02-4ef0-99bb-fa642a8594a9@suse.com>
- <7e69e568-b426-49bf-958a-231e25936cbc@suse.com>
-In-Reply-To: <7e69e568-b426-49bf-958a-231e25936cbc@suse.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=True;MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2025-07-01T05:57:34.0000000Z;MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open
- Source;MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=3;MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM4PR12MB8451:EE_|PH7PR12MB6657:EE_
-x-ms-office365-filtering-correlation-id: bc8d24dd-e6fa-4b16-6ca3-08ddb864680a
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|376014|366016|1800799024|38070700018;
-x-microsoft-antispam-message-info:
- =?utf-8?B?TGJtT2VMUlA2RXRZZDlqU3N0a0taSnlXbDdEUi8xandvNU04Zm0yTklTM21B?=
- =?utf-8?B?WGo4eitDU0ZscVRLa3FRQ2h1cEVCRUdJQ2hSZkJFVGxVT1dibEtVZndJNks1?=
- =?utf-8?B?U2Q1bFJ5Z0g3NHk5VS8veTdzTkRtd2kzYytOanluVHdxRE9ORitPUVN1UC81?=
- =?utf-8?B?Ky9VVThzTXFKNWZud1pBQVFqZVNXTkZlTklaSnlzdVQvZk1HK1ZJcjR6aVFN?=
- =?utf-8?B?aGU1azNvb0FqWkZWK0dpTU1tSmpBckQ4ZXRUNjZjc0pxb1dUa0J3VFF6SGNz?=
- =?utf-8?B?dURMS0E1dldBSDAxbDJLQ1hIamN6TXk2dGx6Q3JOUnlONWdCMmJPOTBuYUR4?=
- =?utf-8?B?SndRQ0NFNFl5UUF0MklydkNYUlpKTTF1eVBBbTBCZTRhaGZObWl0bWJzazVM?=
- =?utf-8?B?bE1TS283TkF4T0J2T1JUNUdtMEtyQnZtQmtzMThjczN0L3c5QlltcW95bmFx?=
- =?utf-8?B?RVdIUnVFOEQzNWcwSUJ3Q1B3cHZmUW5vV2VOVVZ5UytqR3c5ZVczMzVnOTky?=
- =?utf-8?B?N2ZJdU1RRy9RMjNFcUNEUjY0R1lMNVFWUjR5akJEWVMwSmxIU1dNK3FEcmta?=
- =?utf-8?B?Ui9nMlFpOWFqejVGeEFNdHQ3TmZUYTFtWVI0TFJUYnd1aDB1NW85NEF3RVQx?=
- =?utf-8?B?cHhNNFBkVU9oZnBxMzIvU05GV01SY3g0c1lFZCszT0JwbU9NRFhHMUxDSC9r?=
- =?utf-8?B?WVFySURJc0Rtay9XcVdQeEY5N1F6K3JrYW1GRmRIeWNBMFVFUFpKVThOMm1G?=
- =?utf-8?B?Nk51NTJSN2pqMUNXREpablRUNFY3Z2l2U2ZsNUszZnJFVDdDMG9LaEJ5MUU5?=
- =?utf-8?B?WTZmY0EzTHplQzhBRi9BTUtiR1QvU1ZvcktobEZxYjcwU2MvRXc2QnQ3WmN3?=
- =?utf-8?B?SDY0VHFlTzBTRUdVaDFjT2d4bHJTMmc3UGRaaEhqVFdqNVRXbmdrMEJEL04z?=
- =?utf-8?B?bUZWYmtDRndJN0VhOU9URkNQTmszMjlFNXBRR1gwODIzMHRhek1UUXd0a3dP?=
- =?utf-8?B?THZyNVhrK2kvd0VEREltdXVQVlpjVVBTOHlWelVpNjhlV1VHME9pTGNYb1JN?=
- =?utf-8?B?cnpTb1ZqdFFDanRDWXNNWmgxd0VGUkh4TlMrVU4yWmdwcVIxRlpqZVd4SStH?=
- =?utf-8?B?c3JwSHRXRGtCdmh5VzRxd2g0cGhWT3ZYMTJRVTZkYzd3WHd0cWNiOWYyYmdM?=
- =?utf-8?B?cVJlT2t6ckRSS2Nza2RacGFWeVVJMlNkVHRoRGJFZVRER1d5SHRlRXJFekFQ?=
- =?utf-8?B?Rmt3b090SzRxL05hSmpENVZTQWZ2YnBEOGtCSFpkT0xXVkNmTDBvZjdzVks0?=
- =?utf-8?B?STBKUFRDZEVaZHE0MTlZTTRpNExrdGYrWFJNbUJCVzV2MUc5Wm1aaEJZdGZC?=
- =?utf-8?B?T3UyOENHUEpoSWd2V2xGNG85U2hIRXFLRHRmTE9GbGhsNi81WDI2bmZjc1Bw?=
- =?utf-8?B?Ny9MTWdXSEYyYkNmNjRNejVtWEhwOUUwVjgxY1FSNXN3am5hTnd6OFJoRFlp?=
- =?utf-8?B?cTYrcnJxT0w3ZEsxajRxeUdiU0ozMEhJZjJ6OURtSzdWTnUxR2pJTEFVSndP?=
- =?utf-8?B?eXJjNmhVNSs0bjJqU3l3Zlg2YzdsSjRGOG5rKzNHTzlHOGwwR3JubFVwOVJ1?=
- =?utf-8?B?T0NUSmtGdnV4ZERNZkVLY1RZK0gzNTNmK3lmVUtxZVZiL0cySVdyRm9zQkEv?=
- =?utf-8?B?dm5TcHZOZkczbkxMUjBsSFJSUjhtOUxzL0VWc2dqVXZzekI5MWdhbUd5UGtS?=
- =?utf-8?B?cUs1bDIxZkl2QnUxa0g1aHBNejhzZEtobmxRdmdEdXYvRy9ybWlJUXpkd1hj?=
- =?utf-8?B?Vk5OUWlsOFNZNWQxeHlxZ01NUW96ZXo2SDBrVXp1clNjOVZYQXFlZGt3U1Rt?=
- =?utf-8?B?Q3VpcTVwUHV3U0RxSkVQcEd3R25lZVBaR1JoR3h2YVFobXBCTFJpQTBBVVJz?=
- =?utf-8?B?ZXVGSUhWdnZiTDdkMVYvdWNRWEpLaktyY1JmaU0xcEhEZ2liVVcxOERVRUw5?=
- =?utf-8?Q?V3R/nVT8giSGHQ1o7b1tND2GHhK1wI=3D?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB8451.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(38070700018);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?elhoNWRXTlRmdEJOeFF4NWlTSWxLNkZWbGdnQUJvR3VBc09TdVFlQ1Z6engw?=
- =?utf-8?B?bTJTdUI1QTlHc0YwcnNaRWVyS3YxejdvN2JMcHpjTk0rVEI2YmExb3dxU0Y1?=
- =?utf-8?B?UmdXbmVLVW9MK01wTFpaL1NzRmVlY2pJMnl2cUpMRXhPelZEcnU3M2RkRU1Z?=
- =?utf-8?B?UE9HMXdTS2ppZzQ5VkYrMWFvbXNmL25RWXoydm04VFY4SGdZeUxYakxsTkEr?=
- =?utf-8?B?Y3c1aGVQdlNibEh6QjgxR2pKcDRuOXRHS1BXTEF5L0JjY0pGZi9wcUlYcU4x?=
- =?utf-8?B?SXpJVTdhOTFrQjFvNDF0MTYxUVl4L203QTNtTVhHdVFydmJjdjlERlhBdGtv?=
- =?utf-8?B?LzBxWnlsd05hUXA2M3BucVh4RDBjS0oxaEhzcFFNRFVGQ1ZHOFhDbnhPRmVO?=
- =?utf-8?B?ZE9HRGFzSGtOVVN0MHZ5SmhRbkVDLzVzcllSYS9CRXRSaVlUcmUxTFR5UkxO?=
- =?utf-8?B?RGptOHh5MlhBQ2crYjBoNCtiTmtTdXZLOHhkSWpRYXF3eWdoS1dVOXRHaHpp?=
- =?utf-8?B?UXJFeEhmaEZvU2hKN2FZeGtWYUlXVytUN2c0bjJTMmhVMTQxVjF4RExCZ2V4?=
- =?utf-8?B?elV1djNvOG55d1d2bjdwUkliV3JFbDk1TE5NSjVmVlUvNVlVZFNtRy9XVjgy?=
- =?utf-8?B?YThYMlVsekY0VktFWEpwVnkveldBNm1EdC9uc1dkaWlObDlHRHoyVXVYb0lo?=
- =?utf-8?B?K21YUnZocFhFYzk2UmhYRHRUekZhamw0ejF0K2F4ZmMrd2h2Lzk2SCt4Nllz?=
- =?utf-8?B?TkpYOGdGL3kzNU9xcGZ4RUNyVThSOVYveW9OK2lNSk5OcVpNVjY0SUVCRVYy?=
- =?utf-8?B?M0pkZ2N0RTg1bkNwckJsWk5mcjd0dFV6bFZaWWNldktzNXZZc1Zvb2NVc1k4?=
- =?utf-8?B?QzRjYjdkSTFYeHY3YXVFVmN3aHFmNHc4bG1IWXdsVy83TkVvNXZkV25rYWQw?=
- =?utf-8?B?dGNobFlycFFiLy9NZmh4dzFYaDJ2bVBKOUs5cHRWTHREMmJPZnIwWnp6bXc1?=
- =?utf-8?B?UXlVaGJ0NUw0dVFjSGM3RUgrbG0rMnR6YUM2cGZYRWk0bXlxRVlsUTUrOWl4?=
- =?utf-8?B?NEt1dVdGbWVwK3VQZkF5eCtBWHlvVFc4QjV6TEhuVVBkdFQvVGtzZnE0VWZQ?=
- =?utf-8?B?YW0rU3dQUkQyQ2IrTUVPdmgzcXBoeElBTnpaMS9vemd5TmFHSE1vQUV2TDcw?=
- =?utf-8?B?eWhZdVBxcmM2VkdvYy9QakZXZW1IWlA1bkg5MTNES0dZWDZOaDNxeFdIa1hs?=
- =?utf-8?B?UU5VSWwrckRtaERWbks3aGRxSkR3WHpuY3F5VUpQckxESnJUQ2xFYTZxMDZ0?=
- =?utf-8?B?TFB2bUxSVnR4dldjVk5oY0ZpRlpDU2oyM2xtWEpWVVptbW1jTFh5VFN3ZE5w?=
- =?utf-8?B?OHhTcGh6K0k5Zk9Sem5uYjNrUlR0WHBwUVNUYnlrSzY1U1pRd3piQXNwUjZT?=
- =?utf-8?B?MFU3dXhaUktVRXlIOGxtaitmMFNOTTFLV0VMYlc4V1JIcVpaWWtSOHQ1Tk00?=
- =?utf-8?B?YldyaFVMZm9qVDRqNE96M2tGYTFLNUI2Vm5ZUkRtbUtSbzFJQ3U0aFVRRnhN?=
- =?utf-8?B?YnhqcTZTSG95NW84R3FRVm1adHJBOWVEV05zanJ1SUUwUWtKT1JjdDVTSmRO?=
- =?utf-8?B?VTY5YzFVMWs4V0ZlbU9aajR6U2M2N3E1eHFhNTV2SlRlRWdoRjBnaWNpcWJp?=
- =?utf-8?B?enFBWTV2ZFhmbTg1S1pwMmxwQWNLcTFRSXpNR2FUMGF6YmdNaUh4NHNzL1Fr?=
- =?utf-8?B?b1kxWFJsUmMrTlJMQngyc2IwZVNKVWlneDFiL1NXN0VVekd0MXh4emg3cDVz?=
- =?utf-8?B?Nkhvb0Q0cWN1R2dGMjQwWERMMzVwdE5OZlhQVlJPS2NNajY4RFRjOHVWM3lX?=
- =?utf-8?B?c24vcHp6OWRnanV0bkMrVStQa3hYM0x2UG9CY3BpOG9VSnNrYitEL3RVTFJE?=
- =?utf-8?B?dFB1Y3pobWx2TTlDOGlkUVZCekh1ZmRwb2JPRGV2dkp6SEwyUXFScEZmd2lN?=
- =?utf-8?B?clloRmlDejJPQ0FnY09nTTZCYnM5cVJJMkd4eTdmZzlsb2VsdVpmdFFNTlpJ?=
- =?utf-8?B?NXdtRnhmMUh6U1FvOVlTQlJjSnVadlI0MHlOOHMvdXRQNUVMazRoU0RGamk4?=
- =?utf-8?Q?M79k=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+X-Inumbo-ID: 6b3ae47b-5641-11f0-b894-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1751349941; x=1751954741; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=S1AUvAV06A3zlK75p6RRMgMYWCqMpea3CXoPXxng76Y=;
+        b=dj7xqYftq2JCGKTYT7HxNyifzH8y4HmHQwdO/YsHlDxWsQi+Wmwg1kEcpj47POn8EY
+         2rHWGuYDx/NTx0FjSTPlkBQKYSF3+TtM09QcOWTZ3ZaNuvtpGcdvsoKMqpMPx9ea+qjx
+         8SKV94l99ns7AQIBMYj5W/TrTM+/iLMejkpk/8PgDLFbBSYK/9o+qi3xP5i7W0yC6BB8
+         IaAvLOZfSKqMHeZ4LqjUsCU2wI+L0SvzgEAszMVC4nnOo2Xj3shC76JxJR1WGCIfsF6a
+         k8E1rymGgyf2RPm+UPJeFSLs7XcFj/EHowzKFwiWevvrQn0PLnp6X2USTUPfzdDqpdtt
+         s4Gw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1751349941; x=1751954741;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=S1AUvAV06A3zlK75p6RRMgMYWCqMpea3CXoPXxng76Y=;
+        b=gjifLogHURdPncltR56bfeveBd3ROM4N/Y0+dQoCOau7TKP2KpkCWbHncGHsf4BXmb
+         lh8W6fSO9Clvd3NRgDVQQjkS65nX3TaxPWfBQE9FTyQ0c09UQG4RDs1GAPRpIvUrgNg0
+         upNtxtQP9knJEAZWBpVuxmelf8RhJF+R4cw3JC0q5BgwmFu2U50t4lEKLV0J4HQTAcHx
+         fHPvnLSQLIIdqd4Eccu/HqwITjHP9wl+K+3xQoBgNMXQUgiedCkLEBzAmb1JsJuO4HhG
+         5z9zbpzG+1zGF7g5wrwVXkBsj6vCkk2UA+6fz1kk84mwdubaRoqe/DvHrqUc1Irgb/uF
+         MkSQ==
+X-Gm-Message-State: AOJu0YwjMldc/hOcWwXOpCyDmF7BFzz5OAZNlAOAhwYm5zEa8zpxOEVd
+	x2yp6WEpu3L0DbHsbOZ7BXtTc0PzQgFm1My0g/DRCvTk67/5xDA6+UFC1bjZgKyx+g==
+X-Gm-Gg: ASbGnctCXPD4Px305GotwTa8Ql1/4wqSpe8Ch45hWxDXQ4SBv9QGqnxlGGXOkqGLt/e
+	I+LLNssyuatG3CXuMGSqM4JC18fmQ0wioTpkW/IF1CE5jAuc5cUqoIs5clcwq4WkokRZLxe0h+8
+	wo6DpoCZqK8Gnnfc79N0fHTPe7M12qj0ugJrHY6uA6PoSazFBY5MclLowkkZINkZGirGScTVvQq
+	7uM97pERgDIcjgyOBmdXJZoVWdHtVYKf4NCnckT/MpxCLP5KAkVktjenYSOQNJ3AoaY1JZiWJ8c
+	nNvkH2u3ciS8C/LHJD+xNG6H+rSQPNfizVTZT8PORhdCJsaMyIzvHHMZmKkYPWGDANk1b7gwUg0
+	pOi8LJKxxQrN9RnKncCdOOJ33QvngdLJtnA4CFDEmuBBhQuM=
+X-Google-Smtp-Source: AGHT+IH88/BZZAOcUHvNJx+14o4v6gxzvUb7WdPeE5yhfbTbFdJAjifR70nf8dlJmYCroKwfFpaz7g==
+X-Received: by 2002:a5d:5f49:0:b0:3a3:7ba5:9618 with SMTP id ffacd0b85a97d-3a8ffccac13mr14315099f8f.29.1751349941407;
+        Mon, 30 Jun 2025 23:05:41 -0700 (PDT)
+Message-ID: <1507b441-dd3c-4a24-beda-0d1d3143faf9@suse.com>
+Date: Tue, 1 Jul 2025 08:05:28 +0200
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8451.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bc8d24dd-e6fa-4b16-6ca3-08ddb864680a
-X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Jul 2025 05:59:13.7995
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: MVNBeAZ4h5fPWnZ/BX93feikD220xhZ1Fj+fXLXCDGxJ51f2AjR9KTIi785ncGTVXcYPi8Jg8bjZVon9nWOkAQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6657
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/8] pdx: introduce a new compression algorithm
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: xen-devel@lists.xenproject.org, Andrew Cooper
+ <andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Shawn Anastasio <sanastasio@raptorengineering.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Community Manager <community.manager@xenproject.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <20250620111130.29057-1-roger.pau@citrix.com>
+ <alpine.DEB.2.22.394.2506271905350.862517@ubuntu-linux-20-04-desktop>
+ <aGKnDHtRD5OLGaYj@macbook.local>
+ <alpine.DEB.2.22.394.2506301726500.862517@ubuntu-linux-20-04-desktop>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <alpine.DEB.2.22.394.2506301726500.862517@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-W1B1YmxpY10NCg0KSGksDQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTog
-SmFuIEJldWxpY2ggPGpiZXVsaWNoQHN1c2UuY29tPg0KPiBTZW50OiBNb25kYXksIEp1bmUgMzAs
-IDIwMjUgNDoyNiBQTQ0KPiBUbzogUGVubnksIFpoZW5nIDxwZW5ueS56aGVuZ0BhbWQuY29tPg0K
-PiBDYzogSHVhbmcsIFJheSA8UmF5Lkh1YW5nQGFtZC5jb20+OyBBbmRyZXcgQ29vcGVyDQo+IDxh
-bmRyZXcuY29vcGVyM0BjaXRyaXguY29tPjsgUm9nZXIgUGF1IE1vbm7DqSA8cm9nZXIucGF1QGNp
-dHJpeC5jb20+Ow0KPiBBbnRob255IFBFUkFSRCA8YW50aG9ueS5wZXJhcmRAdmF0ZXMudGVjaD47
-IE9yemVsLCBNaWNoYWwNCj4gPE1pY2hhbC5PcnplbEBhbWQuY29tPjsgSnVsaWVuIEdyYWxsIDxq
-dWxpZW5AeGVuLm9yZz47IFN0ZWZhbm8gU3RhYmVsbGluaQ0KPiA8c3N0YWJlbGxpbmlAa2VybmVs
-Lm9yZz47IHhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZw0KPiBTdWJqZWN0OiBSZTogW1BB
-VENIIHY1IDA5LzE4XSB4ZW4vcG1zdGF0OiBpbnRyb2R1Y2UgQ09ORklHX1BNX09QDQo+DQo+IE9u
-IDMwLjA2LjIwMjUgMTA6MjQsIEphbiBCZXVsaWNoIHdyb3RlOg0KPiA+IE9uIDE2LjA2LjIwMjUg
-MDg6NDEsIFBlbm55IFpoZW5nIHdyb3RlOg0KPiA+PiAtLS0gYS94ZW4vY29tbW9uL0tjb25maWcN
-Cj4gPj4gKysrIGIveGVuL2NvbW1vbi9LY29uZmlnDQo+ID4+IEBAIC02MjAsNCArNjIwLDEyIEBA
-IGNvbmZpZyBTWVNDVEwNCj4gPj4NCj4gPj4gIGVuZG1lbnUNCj4gPj4NCj4gPj4gK2NvbmZpZyBQ
-TV9PUA0KPiA+PiArICBib29sICJFbmFibGUgUGVyZm9ybWFuY2UgTWFuYWdlbWVudCBPcGVyYXRp
-b24iDQo+ID4+ICsgIGRlcGVuZHMgb24gQUNQSSAmJiBIQVNfQ1BVRlJFUSAmJiBTWVNDVEwNCj4g
-Pj4gKyAgZGVmYXVsdCB5DQo+ID4NCj4gPiBCdHcsIGRvZXNuJ3QgdGhpcyBhbHNvIHJlcXVpcmUg
-YWRkaW5nIGFuIG92ZXJyaWRlIHRvIHB2c2hpbV9kZWZjb25maWc/DQo+ID4gQW5kIHRoZSBzaW1p
-bGFybHkgZm9yIFBNX1NUQVRTIGluIHRoZSBuZXh0IHBhdGNoPw0KPg0KDQpZZXMNCg0KPiBOb3Qg
-c3VyZSB0aG91Z2ggd2hldGhlciB0aGF0IG5lZWRzIGRvaW5nIGhlcmUgb3IgaW4gdGhlICFQVl9T
-SElNX0VYQ0xVU0lWRSwNCj4gb25jZSB0aGF0IHdhcyBtb3ZlZCB0byBuZWFyIHRoZSBlbmQgb2Yg
-dGhlIHNlcmllcy4NCg0KTWF5YmUgaXRzIGJldHRlciBsaXZlIGluIGhlcmUgd2hlcmUgdGhlIG5l
-dyBLY29uZmlnIGdldHMgaW50cm9kdWNlZCwgd2lsbCBmaXgNCg0KPg0KPiBKYW4NCg==
+On 01.07.2025 03:50, Stefano Stabellini wrote:
+> On Mon, 30 Jun 2025, Roger Pau Monné wrote:
+>> On Fri, Jun 27, 2025 at 07:08:29PM -0700, Stefano Stabellini wrote:
+>>> Hi Roger,
+>>>
+>>> We have an ARM board with the following memory layout:
+>>>
+>>> 0x0-0x80000000, 0, 2G
+>>> 0x800000000,0x880000000, 32GB, 2G
+>>> 0x50000000000-0x50080000000 5T, 2GB 
+>>> 0x60000000000-0x60080000000 6T, 2GB 
+>>> 0x70000000000-0x70080000000 7T, 2GB 
+>>
+>> With the current PDX mask compression you could compress 4bits AFAICT.
+>>
+>>> It looks like your PDX series is exactly what we need.  However, I tried
+>>> to use it and it doesn't seem to be hooked properly on ARM yet. I spent
+>>> some time trying to fix it but I was unsuccessful.
+>>
+>> Hm, weird.  It shouldn't need any special hooking, unless assumptions
+>> about the existing PDX mask compression have leaked into ARM code.
+>>
+>>> As far as I can tell the following functions need to be adjusted but I
+>>> am not sure the list is comprehensive:
+>>>
+>>> xen/arch/arm/include/asm/mmu/mm.h:maddr_to_virt
+>>
+>> At least for CONFIG_ARM_64 this seems to be implemented correctly, as
+>> it's using maddr_to_directmapoff() which should have the correct
+>> translation between paddr -> directmap virt.
+>>
+>> Also given the memory map above the adjustments done in ARM to remove
+>> any initial memory map offset should be no-ops, since I expect
+>> base_mfn == 0 in setup_directmap_mappings() in that particular case,
+>> and then directmap_mfn_start = directmap_base_pdx = 0 and
+>> directmap_virt_start = DIRECTMAP_VIRT_START.  FWIW, if ARM uses offset
+>> compression the special casing about removing the initial gap can be
+>> removed, as the compression should already take care of that.
+>>
+>>> xen/arch/arm/mmu/mm.c:setup_frametable_mappings
+>>> xen/arch/arm/setup.c:init_pdx
+>>
+>> I've attempted to adjust init_pdx() myself so it works with the new
+>> generic PDX compression setup, it seemed to work fine on the CI, but I
+>> don't have any real ARM machines to test myself.
+>  
+>> Is there a way I could reproduce the issue(s) you are seeing with
+>> QEMU?
+> 
+> Maybe. You can see how we run QEMU from gitlab-ci, but I don't know on
+> top of my head how to force QEMU to emulate multiple RAM banks at
+> specific addresses.
+> 
+> 
+>> I'm already working on v3, as this version implementation of
+>> mfn_valid() is buggy.  Maybe that's what you are hitting?
+>>
+> 
+> This is the error:
+> 
+> (XEN) [0000000179e5f96b] Assertion '(mfn_to_pdx(maddr_to_mfn(ma)) - directmap_base_pdx) < (DIRECTMAP_SIZE >> PAGE_SHIFT)' failed at ./arch/arm/include/asm/mmu/mm.h:72
+> (XEN) [0000000179e90619] ----[ Xen-4.21-unstable  arm64  debug=y  Not tainted ]----
+> (XEN) [0000000179e9ee58] CPU:    0
+> (XEN) [0000000179eac907] PC:     00000a00002da5fc setup_mm+0x174/0x200
+> (XEN) [0000000179ed3ed0] LR:     00000a00002da580
+> (XEN) [0000000179edc486] SP:     00000a0000327e10
+> (XEN) [0000000179ee6b3a] CPSR:   00000000200003c9 MODE:64-bit EL2h (Hypervisor, handler)
+> (XEN) [0000000179ef5b4f]      X0: 0000050000000000  X1: 0000000050000000  X2: 0000000000080000
+> (XEN) [0000000179f05de3]      X3: 0000000000000017  X4: 0000000000000000  X5: 0000000050000000
+> (XEN) [0000000179f19396]      X6: 000000004fffffff  X7: 0000000000000000  X8: 0000000000020400
+> (XEN) [0000000179f2d797]      X9: 000000000001b808 X10: 0000000000000080 X11: 00000000000186de
+> (XEN) [0000000179f3d492]     X12: 000000000001a7df X13: 000000000001214f X14: 0000000000017275
+> (XEN) [0000000179f50f4c]     X15: 00000a00002b48bc X16: 00000a0000291478 X17: 0000000000000000
+> (XEN) [0000000179f60902]     X18: 000000007be9bbe0 X19: 0000000000000002 X20: 0000000000000000
+> (XEN) [0000000179f6fde5]     X21: 0000050080000000 X22: 00000a00002f8008 X23: 00000a00002b5c90
+> (XEN) [0000000179f7eeea]     X24: 0000000180000000 X25: 00000a00002b5e90 X26: 0000000000000000
+> (XEN) [0000000179f8ee55]     X27: 0000000000000000 X28: 000000007bff2f70  FP: 00000a0000327e10
+> (XEN) [0000000179fa6deb] 
+> (XEN) [0000000179fadf84]   VTCR_EL2: 0000000000000000
+> (XEN) [0000000179fb9994]  VTTBR_EL2: 0000000000000000
+> (XEN) [0000000179fc689d] 
+> (XEN) [0000000179fcc1a0]  SCTLR_EL2: 0000000030cd183d
+> (XEN) [0000000179fd95e3]    HCR_EL2: 0000000000000038
+> (XEN) [0000000179fe7082]  TTBR0_EL2: 0000000022148000
+> (XEN) [0000000179ff0d00] 
+> (XEN) [0000000179ff6d07]    ESR_EL2: 00000000f2000001
+> (XEN) [000000017a0003fe]  HPFAR_EL2: 0000000000000000
+> (XEN) [000000017a00c8f4]    FAR_EL2: 0000000000000000
+> (XEN) [000000017a018511] 
+> (XEN) [000000017a01fbe5] Xen stack trace from sp=00000a0000327e10:
+> (XEN) [000000017a02aa88]    00000a0000327e60 00000a00002e40c4 0000000022200000 000000000000f000
+> (XEN) [000000017a03e578]    00000a0000c0a5c0 00000a0000332000 00000a0000a00000 0000000000000000
+> (XEN) [000000017a04e676]    0000000000000000 0000000000000000 000000007be89ea0 00000a00002001a4
+> (XEN) [000000017a0636e1]    0000000022000000 fffff60021e00000 0000000022200000 0000000000001710
+> (XEN) [000000017a072ae0]    0000000000000000 0000000000000000 0000000000000000 0000000000000000
+> (XEN) [000000017a084bf8]    0000000000000000 0000000000000000 0000000000000000 0000000000000000
+> (XEN) [000000017a097ced]    0000000000000000 0000000000000000 0000000000000000 0000000000000000
+> (XEN) [000000017a0a6829]    0000000000000000 0000000000000000 0000000000000000 0000000000000000
+> (XEN) [000000017a0b8e71]    0000000000000000 0000000000000000 0000000000000000 0000000000000000
+> (XEN) [000000017a0cdb4b]    0000000000000000 0000000000000000 0000000000000000 0000000000000000
+> (XEN) [000000017a0e44b9]    0000000000000000 0000000000000000 0000000000000000 0000000000000000
+> (XEN) [000000017a0f6a2b]    0000000000000000 0000000000000000 0000000000000000 0000000000000000
+> (XEN) [000000017a1074a2]    0000000000000000 0000000000000000 0000000000000000 0000000000000000
+> (XEN) [000000017a1178b3]    0000000000000000 0000000000000000 0000000000000000 0000000000000000
+> (XEN) [000000017a128463]    0000000000000000 0000000000000000 0000000000000000 0000000000000000
+> (XEN) [000000017a13a015]    0000000000000000 0000000000000000
+> (XEN) [000000017a144d66] Xen call trace:
+> (XEN) [000000017a14bcee]    [<00000a00002da5fc>] setup_mm+0x174/0x200 (PC)
+> (XEN) [000000017a15db0a]    [<00000a00002da580>] setup_mm+0xf8/0x200 (LR)
+> (XEN) [000000017a167dbb]    [<00000a00002e40c4>] start_xen+0x118/0x9d0
+> (XEN) [000000017a171724]    [<00000a00002001a4>] arch/arm/arm64/head.o#primary_switched+0x4/0x24
+> (XEN) [000000017a18abb4] 
+> (XEN) [000000017a19a465] 
+> (XEN) [000000017a19ffed] ****************************************
+> (XEN) [000000017a1aad66] Panic on CPU 0:
+> (XEN) [000000017a1b2757] Assertion '(mfn_to_pdx(maddr_to_mfn(ma)) - directmap_base_pdx) < (DIRECTMAP_SIZE >> PAGE_SHIFT)' failed at ./arch/arm/include/asm/mmu/mm.h:72
+> (XEN) [000000017a1daedf] ****************************************
+> (XEN) [000000017a1eb0a9] 
+> (XEN) [000000017a1f2b27] Reboot in five seconds...
+> 
+> 
+> If I remove the ASSERT:
+> 
+> (XEN) [00000003bc65c616] parameter "debug" unknown!
+> (XEN) [00000003bc70915a] 
+> (XEN) [00000003bc70fd14] ****************************************
+> (XEN) [00000003bc71afec] Panic on CPU 0:
+> (XEN) [00000003bc724d03] The frametable cannot cover the physical region 0000000000000000 - 0x00070080000000
+> (XEN) [00000003bc73786c] ****************************************
+> (XEN) [00000003bc741a19] 
+> (XEN) [00000003bc747833] Reboot in five seconds...
+> 
+> 
+> I think the issue (or one issue) is the implementation of
+> setup_frametable_mappings on ARM which is ignoring the pdx_group_valid
+> bitmap. I am attaching a work-in-progress patch from Michal to add
+> support for it for your reference. Remove commit fe6a12a08 to apply the
+> patch without conflict.
+> 
+> With Michal's patch, I can boot *without* your patches on the
+> problematic board.
+> 
+> I still cannot boot with your patches, even with Michal's patch. I still
+> hit the same ASSERT. If I remove the ASSERT I go further and hit:
+> 
+> (XEN) [00000001bccbd3ab] Panic on CPU 0:
+> (XEN) [00000001bccc4c3e] Frametable too small
+> 
+> I added some debug messages (see
+> attached stefano-debug.patch). Something seems to be wrong with the
+> pdx_group_valid bitmap after 0x880000, as we start getting MFN ranges
+> such as 0x254c0000-0x25500000 which don't make any sense to me.
+
+But in pdx_group_valid it would want to be PDXes.
+
+> (XEN) [00000001563012a8] DEBUG init_pdx 294 start=0 end=80000000
+> (XEN) [000000015630d6d9] DEBUG init_pdx 294 start=800000000 end=880000000
+> (XEN) [000000015631c73c] DEBUG init_pdx 294 start=50000000000 end=50080000000
+> (XEN) [000000015632947b] DEBUG init_pdx 294 start=60000000000 end=60080000000
+> (XEN) [00000001563365a8] DEBUG init_pdx 294 start=70000000000 end=70080000000
+> (XEN) [000000015637c6aa] DEBUG init_frametable 65 start=0 end=80000
+> (XEN) [00000001563898e1] DEBUG init_frametable_chunk 28 virt=a0800000000 base_mfn=7007e000 pfn_start=0 pfn_end=80000
+> (XEN) [000000015692ed1f] DEBUG init_frametable 65 start=800000 end=880000
+> (XEN) [00000001569399fe] DEBUG init_frametable_chunk 28 virt=a081c000000 base_mfn=7007c000 pfn_start=800000 pfn_end=880000
+> (XEN) [00000001573bad45] DEBUG init_frametable 65 start=254c0000 end=25500000
+> (XEN) [00000001573dee6a] DEBUG init_frametable_chunk 28 virt=a1028a00000 base_mfn=7007a000 pfn_start=254c0000 pfn_end=25500000
+> (XEN) [00000001578ad5c2] DEBUG init_frametable 65 start=25700000 end=257c0000
+> (XEN) [00000001578b841d] DEBUG init_frametable_chunk 28 virt=a1030800000 base_mfn=70076000 pfn_start=25700000 pfn_end=257c0000
+> (XEN) [000000015853b121] DEBUG init_frametable 65 start=27400000 end=27440000
+> (XEN) [00000001585470fe] DEBUG init_frametable_chunk 28 virt=a1096000000 base_mfn=70074000 pfn_start=27400000 pfn_end=27440000
+> (XEN) [0000000158880a59] DEBUG init_frametable 65 start=27480000 end=27500000
+> (XEN) [000000015888d583] DEBUG init_frametable_chunk 28 virt=a1097c00000 base_mfn=70072000 pfn_start=27480000 pfn_end=27500000
+> (XEN) [0000000158eacf55] DEBUG init_frametable 65 start=27580000 end=27a40000
+> (XEN) [0000000158eb7f8e] DEBUG init_frametable_chunk 28 virt=a109b400000 base_mfn=70060000 pfn_start=27580000 pfn_end=27a40000
+> (XEN) [000000015cac7416] DEBUG init_frametable 65 start=27a80000 end=27ac0000
+> (XEN) [000000015cad6818] DEBUG init_frametable_chunk 28 virt=a10acc00000 base_mfn=7005e000 pfn_start=27a80000 pfn_end=27ac0000
+> (XEN) [000000015cb26b99] arch/arm/mmu/pt.c:360: Changing MFN for a valid entry is not allowed (0x70071800 -> 0x7005e000).
+> (XEN) [000000015cb80f94] Xen WARN at arch/arm/mmu/pt.c:360
+> (XEN) [000000015cbabedc] ----[ Xen-4.21-unstable  arm64  debug=y  Not tainted ]----
+
+Sadly from this you omitted the output from the setup of the offsets
+arrays. Considering also your later reply, I'd be curious to know what
+mfn_to_pdx(0x50000000) is.
+
+Jan
 
