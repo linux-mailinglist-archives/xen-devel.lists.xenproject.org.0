@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB087AEFDA7
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Jul 2025 17:09:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1029811.1403559 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A0DFAEFDE1
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Jul 2025 17:19:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1029818.1403569 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uWcbE-0003ai-4e; Tue, 01 Jul 2025 15:08:44 +0000
+	id 1uWcl9-0005Fz-Tq; Tue, 01 Jul 2025 15:18:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1029811.1403559; Tue, 01 Jul 2025 15:08:44 +0000
+Received: by outflank-mailman (output) from mailman id 1029818.1403569; Tue, 01 Jul 2025 15:18:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uWcbE-0003YI-1G; Tue, 01 Jul 2025 15:08:44 +0000
-Received: by outflank-mailman (input) for mailman id 1029811;
- Tue, 01 Jul 2025 15:08:42 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=28IZ=ZO=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uWcbC-0003YC-PF
- for xen-devel@lists.xenproject.org; Tue, 01 Jul 2025 15:08:42 +0000
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [2a00:1450:4864:20::434])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 452cbbf1-568d-11f0-a313-13f23c93f187;
- Tue, 01 Jul 2025 17:08:40 +0200 (CEST)
-Received: by mail-wr1-x434.google.com with SMTP id
- ffacd0b85a97d-3a510432236so2537545f8f.0
- for <xen-devel@lists.xenproject.org>; Tue, 01 Jul 2025 08:08:40 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-318c13a3a26sm12336213a91.19.2025.07.01.08.08.31
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 01 Jul 2025 08:08:38 -0700 (PDT)
+	id 1uWcl9-0005DN-R1; Tue, 01 Jul 2025 15:18:59 +0000
+Received: by outflank-mailman (input) for mailman id 1029818;
+ Tue, 01 Jul 2025 15:18:58 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=bhT5=ZO=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1uWcl8-0005DH-Df
+ for xen-devel@lists.xenproject.org; Tue, 01 Jul 2025 15:18:58 +0000
+Received: from fout-a1-smtp.messagingengine.com
+ (fout-a1-smtp.messagingengine.com [103.168.172.144])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b35d29eb-568e-11f0-b894-0df219b8e170;
+ Tue, 01 Jul 2025 17:18:55 +0200 (CEST)
+Received: from phl-compute-06.internal (phl-compute-06.phl.internal
+ [10.202.2.46])
+ by mailfout.phl.internal (Postfix) with ESMTP id 876B5EC0281;
+ Tue,  1 Jul 2025 11:18:53 -0400 (EDT)
+Received: from phl-mailfrontend-02 ([10.202.2.163])
+ by phl-compute-06.internal (MEProxy); Tue, 01 Jul 2025 11:18:53 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 1 Jul 2025 11:18:52 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,258 +45,203 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 452cbbf1-568d-11f0-a313-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1751382519; x=1751987319; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=G9yBy6PPryVYm0bEO0RhvgXumty8etx/6tc93kplzfY=;
-        b=GWbsoB49W5j/JIhWlY5CjGy+t4UvIukRYi+gi2GtGN8e0eSL3JJraEeAq6kRaGdRFh
-         xIShG0qJXHf3/7B4tM49LwRvosgKmBSQcnuRtaRhQrWcT6Q2pYA2nMMqCc779rGrsalt
-         T76GGGdlWKdviOqoRyz0PvnD0h5eNUYe8GZCdS+pTxK7yXlhMOu59CKMgy7/u0U6pfCX
-         4JfgDl7oSwxOpmE8x6Vtka8/QqsRV6NE/lwyHv9dcLn45e9kOtS3bEP0MiB3sHHyynvM
-         dBcOvYaxBDbWFXk9LeMPztk0JCh2aTusUgyhjU1pP9l7RksReW58Zk3vGccyQQerd+3N
-         d48A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1751382519; x=1751987319;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=G9yBy6PPryVYm0bEO0RhvgXumty8etx/6tc93kplzfY=;
-        b=vtFjZcw22qaH/nmrqQeR687f8Q4JU/i7dz53QBI58cU6L9IZz82q93dxQBoiWUmeHP
-         pAk9gaYMLpUceJp5efLcPtYVYK4Rv5OyG/dO2ThgVY/ebCVdjBnSPPvuk+aCpYlpGCrY
-         xK1gUNSoDn5tcEZH2bVXYcrsmm32gxNOw0iX+LjXiGrfq34ROktgM5oQFz6h00VLHGMQ
-         xIZYTYUJMvm1YmYjED81/cvcFDvlur8G2MQHW0CCkiWV8ZyVXOjkQL4ZBcNYkXuiu7tL
-         o9xoqh7WIpkzt7bGfxuGlnXEPX/pyZvzNjCf87U10N6m2Y6Vxy8127Cato25zLH2jxVb
-         IKfg==
-X-Forwarded-Encrypted: i=1; AJvYcCW0ZddqsTfmBeii65S+ykfPttFRFsvwMf6XAOL/WU2OW1dQkR9KSzvp+3POqJoFAWVGbks8N/kn56Q=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yxn19xBgxT1o45Umxwb/+DRm5wHCzjZb7GL1KV5AVI8pI8eb8cf
-	ew9bdvI6bU+FPg10qRekiTvOcyl5TaPQFja3f+aZMp6/XlfzQ0SU+5/HnX+AjD1g4Q==
-X-Gm-Gg: ASbGncuNKHkj7vXLf3ozp9uCDd/ScjRDmUzVvQEQks9fg0rScz0VbW7q34qeWpDHggk
-	hMXsfFf4ouJSFc4x0EGILeojU5ZoLGC0gfn3His/Nx83m3eh4UQp7ce2iFfH5EBIIHOQQ1shqrz
-	4cylLc9ujdp2FSRuQd0/gxwCw9cJx0U/BZDr2BiC4sexJYAhK0PKcOlYLzmyARQm7UHkMR/LhDy
-	u7sHPPxqNKwXOPdTgfmmTWcnG87GTszSTR4TSgh3rXurbJnd8kkluuxTSa0cprit1ZNUyMCkYVG
-	gHIcRDzUhVFetA0ZDPU4c57R78Sd12AbrEISSkrKCc03JL7mwhr8jLr3+VODra8TwS7LN29YQeQ
-	gMk+7tg4Y1uVK9n3BBXrHOs3lUOiadtxhIRXKtUrq5h02rAQ=
-X-Google-Smtp-Source: AGHT+IEj/bX60yGF2wDCJewxTB1qEsjv2U187Kb9Q7KUlCRTfUZXWi6xgA9A2Cevikk2QFLbFSa7rA==
-X-Received: by 2002:adf:9d8d:0:b0:3a4:d8f2:d9d with SMTP id ffacd0b85a97d-3a8fe4bd07amr14970894f8f.38.1751382519080;
-        Tue, 01 Jul 2025 08:08:39 -0700 (PDT)
-Message-ID: <f6e789cd-0ef3-488d-94da-1b7c94946720@suse.com>
-Date: Tue, 1 Jul 2025 17:08:27 +0200
+X-Inumbo-ID: b35d29eb-568e-11f0-b894-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1751383133;
+	 x=1751469533; bh=FaHCfvUrUntakbh5Y+zp99I9oikOXC9/98ervB4zAwQ=; b=
+	bMHADREZ0T8n/PV+1B8UbXacA2hetsTtKTGYNG+oz3YDX0VFWbhzrzaY28fIOfbH
+	eB/LtBJKvKTr93YekXBo28j4EW4cDVP+9m6qldN7Jsq3KrKhbgM8GLzKvA3Mfq/J
+	m2I499ap5lpyFDN/2yqbZ1XGI3hSxzK3YNov5bilWtKpIrrNY1I8RFwISd/nBEzv
+	dFr1qUuvjrBeXVytVFXf7xQM9/MHpMmDNXKYEnfmjcgrIOKK8l35/Q/F7H5p2EOT
+	hGCnyy5fPvjF7Iy/P2HTtrnGjSUVLfbue1vnHp+np5u9C1Mt7nEl4n2/9cQgDg6L
+	Wxb1tA5HeJJcSgLOhnqs7A==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1751383133; x=1751469533; bh=FaHCfvUrUntakbh5Y+zp99I9oikOXC9/98e
+	rvB4zAwQ=; b=PKjP7Aib0EfpMZYckHIsYz4Nd94w5TxT0zQu8H9MVfKJO33K8YG
+	tm54MIIpQ0lCC3Z5Q+PKCDCO3kQwzX/K552J9Bk7b46oibTciYUhf3avdXBPBNnp
+	vrIBHxc70QUAN5qJpv0XTLvXJAM8Y98N4sxD/kT1uUMc4Te2iH7b2ffH9OEDKGpl
+	ZufjPiUgi8Y58YBMd3GhuZzcgCMNb+vzROT2KzCUOMXO4qPjruGZyNXDxVbvpI+7
+	mZQFzXFFXCpBoJV30q0benFRalosOfxyl0jlbYJkvzGK1eijOBwDNEbUd5gDJ46o
+	C3zrXy31XtEH9eyqg9npaUpf7EHFjdp6w4g==
+X-ME-Sender: <xms:XPxjaMkRa5XPa5GHo88w4vUw62_vppxGsCAdt03WfwOAf8V57H1LJQ>
+    <xme:XPxjaL1E08sat-UJF7qq13QPSOdOlaXyACt51ds_ZTt1zWPyGDwaP--tlL7s-Wknf
+    1UIrHVlgJ49ew>
+X-ME-Received: <xmr:XPxjaKpqUtTEFJlYHAbmftilxh9bv4EBQPiyIY2kBEs5ZTZMg2QdF9NA4QzaR3iQTOnGIFpRBL686v9-jC6ooZ9gVkMNfbUHKg4>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeeffedrtdefgddugeekhecutefuodetggdotefrod
+    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpuffrtefokffrpgfnqfghnecuuegr
+    ihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjug
+    hrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghkucfo
+    rghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvhhish
+    hisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpefgudelteef
+    vefhfeehieetleeihfejhfeludevteetkeevtedtvdegueetfeejudenucevlhhushhtvg
+    hrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhn
+    vhhishhisghlvghthhhinhhgshhlrggsrdgtohhmpdhnsggprhgtphhtthhopeegpdhmoh
+    guvgepshhmthhpohhuthdprhgtphhtthhopehfrhgvughirghnohdriihighhlihhosegt
+    lhhouhgurdgtohhmpdhrtghpthhtohepgigvnhdquggvvhgvlheslhhishhtshdrgigvnh
+    hprhhojhgvtghtrdhorhhgpdhrtghpthhtohepughpshhmihhthhesrghpvghrthhushhs
+    ohhluhhtihhonhhsrdgtohhmpdhrtghpthhtohepjhgsvghulhhitghhsehsuhhsvgdrtg
+    homh
+X-ME-Proxy: <xmx:XPxjaImSh3igu6vQqrhhR7QqldwgPC_2j8it0h2oxhB1n67WISu_Lw>
+    <xmx:XPxjaK0-8D8zb126R88IQIFLItmdJt5Fh1-Re2rygpEha1IljtIQMA>
+    <xmx:XPxjaPu5_F__0Hrkl8dRqorSDuI9ns4Adq5vh4sar5mDipsCdliD5Q>
+    <xmx:XPxjaGVDtH245dgYjuZZYNqBz6PETOh7uThU_OHrN7MaXJqbRS2c7g>
+    <xmx:XfxjaNAyUKt_MQ4vbuCkD0y98NaMhax1vfI-Wg2T3vuJ58h950fugf3F>
+Feedback-ID: i1568416f:Fastmail
+Date: Tue, 1 Jul 2025 17:18:50 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Frediano Ziglio <frediano.ziglio@cloud.com>
+Cc: xen-devel@lists.xenproject.org,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	Jan Beulich <jbeulich@suse.com>
+Subject: Re: [PATCH 0/2] xen/efi: Make boot more flexible, especially with
+ GRUB2
+Message-ID: <aGP8WpJf6pKfTZbK@mail-itl>
+References: <20250624083157.9334-1-frediano.ziglio@cloud.com>
+ <CACHz=Zj_YibxBOQytCQAmTAG=yyBXUx2s1Jr+fXqHgxHQmSDOQ@mail.gmail.com>
+ <aFxbi6dnKjydzyNk@mail-itl>
+ <CACHz=Zj=LsfbUVMkuKHx-xpy+NMQh13NUJ_-sPSq3OMwSurHPA@mail.gmail.com>
+ <aF1hIARPp6a0wWmi@mail-itl>
+ <CACHz=ZiVT-iSzEsG48NjJzJgdd=Ns-+dVTUTZKqVq78Py-kp2A@mail.gmail.com>
+ <aF6onqQMlms2svXT@mail-itl>
+ <CACHz=Zi3THWcucw6ioZhKaeeDxM+e+E1rb-NvczG=mkVjD5qzg@mail.gmail.com>
+ <aF7EsHeJ1GAwvrDz@mail-itl>
+ <CACHz=Zhqj2q2hqj4cees22OWmiNrXiGSkJPFJT96WWFpLY31Xw@mail.gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 13/17] xen/riscv: Implement p2m_entry_from_mfn() and
- support PBMT configuration
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1749555949.git.oleksii.kurochko@gmail.com>
- <994ab3dd6822c4cd02a6a576041da115abeff6ed.1749555949.git.oleksii.kurochko@gmail.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <994ab3dd6822c4cd02a6a576041da115abeff6ed.1749555949.git.oleksii.kurochko@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="fEXU32opfYRMPW1S"
+Content-Disposition: inline
+In-Reply-To: <CACHz=Zhqj2q2hqj4cees22OWmiNrXiGSkJPFJT96WWFpLY31Xw@mail.gmail.com>
 
-On 10.06.2025 15:05, Oleksii Kurochko wrote:
-> --- a/xen/arch/riscv/include/asm/page.h
-> +++ b/xen/arch/riscv/include/asm/page.h
-> @@ -76,6 +76,14 @@
->  #define PTE_SMALL       BIT(10, UL)
->  #define PTE_POPULATE    BIT(11, UL)
->  
-> +enum pbmt_type_t {
 
-Please can we stick to _t suffixes only being used on typedef-ed identifiers?
+--fEXU32opfYRMPW1S
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 1 Jul 2025 17:18:50 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Frediano Ziglio <frediano.ziglio@cloud.com>
+Cc: xen-devel@lists.xenproject.org,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	Jan Beulich <jbeulich@suse.com>
+Subject: Re: [PATCH 0/2] xen/efi: Make boot more flexible, especially with
+ GRUB2
 
-> +    pbmt_pma,
-> +    pbmt_nc,
-> +    pbmt_io,
-> +    pbmt_rsvd,
-> +    pbmt_max,
+On Tue, Jul 01, 2025 at 03:31:19PM +0100, Frediano Ziglio wrote:
+> On Fri, Jun 27, 2025 at 5:20=E2=80=AFPM Marek Marczykowski-G=C3=B3recki
+> <marmarek@invisiblethingslab.com> wrote:
+> >
+> > On Fri, Jun 27, 2025 at 04:58:43PM +0100, Frediano Ziglio wrote:
+> > > On Fri, Jun 27, 2025 at 3:20=E2=80=AFPM Marek Marczykowski-G=C3=B3rec=
+ki
+> > > <marmarek@invisiblethingslab.com> wrote:
+> > > > So, it looks like major distributions use a patched grub version th=
+at
+> > > > changes behavior of "linux" command. IIUC many of those patches are
+> > > > about hardening SecureBoot, and shim-review kinda suggest using pat=
+ched
+> > > > version (many of the submissions explicitly mention the at least pa=
+tch
+> > > > grub for NX). So, I think this needs figuring out how to make your
+> > > > approach working with grub flavor that is actually used by SB-enabl=
+ed
+> > > > distributions...
+> > > >
+> > >
+> > > We (xenserver) would like to provide booting using separate
+> > > hypervisor, kernel and initrd.
+> > > Using "linux" was an old discussed option which had a nice usage.
+> > > The merged patches allow to have a fully UKI file bundling kernel and
+> > > initrd loaded from no-ESP partition which is nice to have.
+> > > For the final solution I was thinking about using "xen_hypervisor" and
+> > > "xen_module" already present for ARM. From the user perspective is
+> > > surely less confusing than using "linux" to pass something which is
+> > > not Linux.
+> >
+> > In which case, loading initrd using Linux-specific grub part doesn't
+> > make sense, no? Or is that xen_module going to use similar mechanism?
+> >
+>=20
+> Yes, the idea is to reuse this mechanism instead of reinventing the wheel.
+>=20
+> You can see the problem from 2 perspectives:
+> - User usage;
+> - Boot protocol.
+>=20
+> From the user usage the user (possibly human, but at least the
+> configuration should be user understandable) the usage of "linux" to
+> load something which is not Linux is confusing although in the past
+> the "kernel" command was abused to load lot of things, and a lot of
+> things presented themselves as Linux kernels to be loaded by different
+> boot loaders (even Syslinux had this habits).
+>=20
+> From the boot protocol perspective. A boot loader loads some binaries
+> and uses some boot protocol to pass the control and different
+> information to the "next" binary. Information can include
+> - command line
+> - modules
+> - memory information
+> - video information
+> - ...
+> EFI supports by itself memory and video information, can carry a
+> string (so the command line) but lacks module information. Here came
+> all a set of way to pass modules, specifically:
+> - multiboot 1 and 2
+> - GRUB LoadFile2
+> - device tree (ARM)
+> Multiboot does not work very well with PE (the protocol is designed
+> for ELF or binary/raw loading) so we are trying to move away from it.
+> Device tree (used by xen_hypervisor and xen_module GRUB commands) is
+> ARM specific.
+> What is left (without adding a new method) is LoadFile2. So we are
+> using this way to pass additional modules. Just added a new media GUID
+> to pass also the kernel, not only initrd (at the moment the GRUB
+> changes are very hacky but the protocol is the same).
 
-It's a 2-bit field in the PTE, isn't it? In which case the maximum valid value
-to put there is 3. That's what an identifier named "max" should evaluate to.
-The value 4 here would want to be named "count", "num", "nr", or alike.
+Ok, so the plan is to use GRUB LoadFile2 as a mechanism to load initrd
+(and maybe kernel too?) for EFI boot on x86. This in itself sounds fine
+for me.
+The part that is worrying for me is interaction of the context in which
+this is introduced, with various downstream GRUB forks (IMO a
+"distribution package" that applies 200+ patches should be called this
+way, it isn't just a "package" anymore). A large part of those patches,
+both in Fedora and in Debian is related to SecureBoot support. Using
+patched GRUB is also kinda recommended as part of getting Microsoft to
+sign the shim package (the shim-review process). Now, if the LoadFile2
+approach is introduced as part of making Xen SecureBoot-ready, but it
+does not work with a GRUB version that is supposed to be used with
+SecureBoot I see a problem. I'm not sure exactly where the issue is
+(could be something about how our xen.efi looks like, but could be also
+a downstream GRUB issue), but IMO it's worth at least figuring out where
+the issue is (and whether it's just a bug, or some intentional
+behavior - possibly to comply with some SB requirements). To avoid
+situation where the version that is made to be SecureBoot-ready won't
+actually be bootable by any SecureBoot-ready bootloader...
 
-> --- a/xen/arch/riscv/p2m.c
-> +++ b/xen/arch/riscv/p2m.c
-> @@ -345,6 +345,26 @@ static pte_t *p2m_get_root_pointer(struct p2m_domain *p2m, gfn_t gfn)
->      return __map_domain_page(p2m->root + root_table_indx);
->  }
->  
-> +static int p2m_type_radix_set(struct p2m_domain *p2m, pte_t pte, p2m_type_t t)
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
 
-See comments on the earlier patch regarding naming.
+--fEXU32opfYRMPW1S
+Content-Type: application/pgp-signature; name=signature.asc
 
-> +{
-> +    int rc;
-> +    gfn_t gfn = mfn_to_gfn(p2m->domain, mfn_from_pte(pte));
+-----BEGIN PGP SIGNATURE-----
 
-How does this work, when you record GFNs only for Xenheap pages? I don't
-think you can get around having the caller pass in the GFN. At which point
-the PTE probably doesn't need passing.
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmhj/FoACgkQ24/THMrX
+1yzR2Qf/XX0dwyZeSG4fk1DP0uwdx6BeKLs6SmfXobnk7ysrtnRZrors9/8wO3qR
+aDsiFl96cTxMgKNPndAJG54YSuWiv1c28dwT5mj4gnraDmRn6Fk/1aLuAjTLwAvf
+Q8iWayiMdYiJffloGfmKVoKkBiHGkyiaMU2mivKVRUQRmnVQ0TDAt3gVJoMud98m
+yjXB8Cu5yQB81dCHsONzpb0KHtqIEtM6h+z5Q3zcMJWe47I5H18MQCbIR/jVW2Vo
+8D6CT//YxoVYG9TC+YG70NnQoIWQOXNUlJZXHuJUR8FLBDpCchtJYPy6hIkfxZSB
+F/FT0sdyQnimvlzAFmll5014p4MI7w==
+=xS6z
+-----END PGP SIGNATURE-----
 
-> +    rc = radix_tree_insert(&p2m->p2m_type, gfn_x(gfn),
-> +                           radix_tree_int_to_ptr(t));
-> +    if ( rc == -EEXIST )
-> +    {
-> +        /* If a setting already exists, change it to the new one */
-> +        radix_tree_replace_slot(
-> +            radix_tree_lookup_slot(
-> +                &p2m->p2m_type, gfn_x(gfn)),
-> +            radix_tree_int_to_ptr(t));
-> +        rc = 0;
-> +    }
-> +
-> +    return rc;
-> +}
-> +
->  static p2m_type_t p2m_type_radix_get(struct p2m_domain *p2m, pte_t pte)
->  {
->      void *ptr;
-> @@ -389,12 +409,87 @@ static inline void p2m_remove_pte(pte_t *p, bool clean_pte)
->      p2m_write_pte(p, pte, clean_pte);
->  }
->  
-> -static pte_t p2m_entry_from_mfn(struct p2m_domain *p2m, mfn_t mfn,
-> -                                p2m_type_t t, p2m_access_t a)
-> +static void p2m_set_permission(pte_t *e, p2m_type_t t, p2m_access_t a)
->  {
-> -    panic("%s: hasn't been implemented yet\n", __func__);
-> +    /* First apply type permissions */
-> +    switch ( t )
-> +    {
-> +    case p2m_ram_rw:
-> +        e->pte |= PTE_ACCESS_MASK;
-> +        break;
-> +
-> +    case p2m_mmio_direct_dev:
-> +        e->pte |= (PTE_READABLE | PTE_WRITABLE);
-> +        e->pte &= ~PTE_EXECUTABLE;
-
-What's wrong with code living in MMIO, e.g. in the ROM of a PCI device?
-Such code would want to be executable.
-
-> +        break;
-> +
-> +    case p2m_invalid:
-> +        e->pte &= ~PTE_ACCESS_MASK;
-> +        break;
-> +
-> +    default:
-> +        BUG();
-> +        break;
-> +    }
-
-I think you ought to handle all types that are defined right away. I also
-don't think you should BUG() in the default case (also in the other switch()
-below). ASSERT_UNEACHABLE() may be fine, along with clearing all permissions
-in the entry for release builds.
-
-> +    /* Then restrict with access permissions */
-> +    switch ( a )
-> +    {
-> +    case p2m_access_rwx:
-> +        break;
-> +    case p2m_access_wx:
-> +        e->pte &= ~PTE_READABLE;
-> +        break;
-> +    case p2m_access_rw:
-> +        e->pte &= ~PTE_EXECUTABLE;
-> +        break;
-> +    case p2m_access_w:
-> +        e->pte &= ~(PTE_READABLE | PTE_EXECUTABLE);
-> +        e->pte &= ~PTE_EXECUTABLE;
-> +        break;
-> +    case p2m_access_rx:
-> +    case p2m_access_rx2rw:
-> +        e->pte &= ~PTE_WRITABLE;
-> +        break;
-> +    case p2m_access_x:
-> +        e->pte &= ~(PTE_READABLE | PTE_WRITABLE);
-> +        break;
-> +    case p2m_access_r:
-> +        e->pte &= ~(PTE_WRITABLE | PTE_EXECUTABLE);
-> +        break;
-> +    case p2m_access_n:
-> +    case p2m_access_n2rwx:
-> +        e->pte &= ~PTE_ACCESS_MASK;
-> +        break;
-> +    default:
-> +        BUG();
-> +        break;
-> +    }
-
-Nit: Blank lines between non-fall-through case blocks, please.
-
-> +static pte_t p2m_entry_from_mfn(struct p2m_domain *p2m, mfn_t mfn, p2m_type_t t, p2m_access_t a)
-> +{
-> +    pte_t e = (pte_t) { 1 };
-
-What's the 1 doing here?
-
-> +    switch ( t )
-> +    {
-> +    case p2m_mmio_direct_dev:
-> +        e.pte |= PTE_PBMT_IO;
-> +        break;
-> +
-> +    default:
-> +        break;
-> +    }
-> +
-> +    p2m_set_permission(&e, t, a);
-> +
-> +    ASSERT(!(mfn_to_maddr(mfn) & ~PADDR_MASK));
-> +
-> +    pte_set_mfn(&e, mfn);
-
-Based on how things work on x86 (and how I would have expected them to also
-work on Arm), may I suggest that you set MFN ahead of permissions, so that
-the permissions setting function can use the MFN for e.g. a lookup in
-mmio_ro_ranges.
-
-> +    BUG_ON(p2m_type_radix_set(p2m, e, t));
-
-I'm not convinced of this error handling here either. Radix tree insertion
-_can_ fail, e.g. when there's no memory left. This must not bring down Xen,
-or we'll have an XSA right away. You could zap the PTE, or if need be you
-could crash the offending domain.
-
-In this context (not sure if I asked before): With this use of a radix tree,
-how do you intend to bound the amount of memory that a domain can use, by
-making Xen insert very many entries?
-
-Jan
+--fEXU32opfYRMPW1S--
 
