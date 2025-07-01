@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EDE23AEF50E
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Jul 2025 12:28:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1029488.1403237 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1CD0AAEF55C
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Jul 2025 12:43:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1029495.1403248 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uWYDT-0005r6-FL; Tue, 01 Jul 2025 10:27:55 +0000
+	id 1uWYRs-0000AT-Ls; Tue, 01 Jul 2025 10:42:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1029488.1403237; Tue, 01 Jul 2025 10:27:55 +0000
+Received: by outflank-mailman (output) from mailman id 1029495.1403248; Tue, 01 Jul 2025 10:42:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uWYDT-0005pR-CK; Tue, 01 Jul 2025 10:27:55 +0000
-Received: by outflank-mailman (input) for mailman id 1029488;
- Tue, 01 Jul 2025 10:27:54 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uWYRs-00007L-Ib; Tue, 01 Jul 2025 10:42:48 +0000
+Received: by outflank-mailman (input) for mailman id 1029495;
+ Tue, 01 Jul 2025 10:42:47 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=28IZ=ZO=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uWYDS-0005pL-MU
- for xen-devel@lists.xenproject.org; Tue, 01 Jul 2025 10:27:54 +0000
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [2a00:1450:4864:20::435])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0b09ea6e-5666-11f0-a313-13f23c93f187;
- Tue, 01 Jul 2025 12:27:52 +0200 (CEST)
-Received: by mail-wr1-x435.google.com with SMTP id
- ffacd0b85a97d-3a50956e5d3so4637512f8f.1
- for <xen-devel@lists.xenproject.org>; Tue, 01 Jul 2025 03:27:52 -0700 (PDT)
+ id 1uWYRr-00007A-R1
+ for xen-devel@lists.xenproject.org; Tue, 01 Jul 2025 10:42:47 +0000
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [2a00:1450:4864:20::42b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1f82ab6e-5668-11f0-b894-0df219b8e170;
+ Tue, 01 Jul 2025 12:42:45 +0200 (CEST)
+Received: by mail-wr1-x42b.google.com with SMTP id
+ ffacd0b85a97d-3a4e742dc97so4079262f8f.0
+ for <xen-devel@lists.xenproject.org>; Tue, 01 Jul 2025 03:42:45 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-74af557b3a2sm11143691b3a.104.2025.07.01.03.27.44
+ d2e1a72fcca58-74af541d23fsm11677206b3a.59.2025.07.01.03.42.38
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 01 Jul 2025 03:27:50 -0700 (PDT)
+ Tue, 01 Jul 2025 03:42:44 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,63 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0b09ea6e-5666-11f0-a313-13f23c93f187
+X-Inumbo-ID: 1f82ab6e-5668-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1751365671; x=1751970471; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1751366565; x=1751971365; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=l01/jmjimKrTY5R8H/escBJEc8oWFdhiuTD7K01tXfc=;
-        b=DSq4BplwIA9oerfdtZlyHAaeLphMA164cAmblA9atN3CepVm7XgjNbD/R3PrOsGokQ
-         5Ax2dJ8Gs7RqjEdWUYqrTkTDy/UZSpdSPGyP9tJA16MGn3trJqXuisSJ8+3Oc6EyXwdH
-         BRJCTVIeMfX12SaHiWsFfVrwXfiUpWG0GfCr7YiyFsLNMEgoQXEpYy6lAe7hy+MGXcjh
-         B3GU80o08CmUdTlDiA+7Cl8rPdGDwPRqrKARuNz3v3MK5Ftn9aNSWNjTYmsUEYSjenaJ
-         J/zuiNHUf2qRGLgUwnJwnxx21TbmmrXAHQBjnb79wBFFoZbckl8GvyxnyI0fbgjZp6+2
-         LfWQ==
+        bh=TAhja6YMWJivWv2HGOVzJolKcyisYA5Kof8C+w8zDzE=;
+        b=L7gqbkkDri/hCOgsFWRPh20ONtV9iIFLxwg910JB6rhOWjBA+Xrkj6aTk1ItoCm2l9
+         C4JwGFcgyeLmpVwQoqWetcMy6zAwUrzGkSsvwzodmpwORqpAkuR8eiXQaT341Xhgtk+J
+         f1GBC7/UygrJnVsfJb/qIs+B1P2fQcIp6EhOQObnoXu+gdaPK2xeltYWOtNTtheNGWPB
+         FNdcZLtDaWXBVDdhsTdFk14h9sz9Het9AUs/KVzVc5BX+YxyzXf+iNiNp5dsf+UI6u6n
+         BuGvVJexjbhqtbSYmQ53VoFSiWaUC98MQErtw6V+0kQtAqMOFOqFdAvahWQDF0KXgjQ5
+         vsEg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1751365671; x=1751970471;
+        d=1e100.net; s=20230601; t=1751366565; x=1751971365;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=l01/jmjimKrTY5R8H/escBJEc8oWFdhiuTD7K01tXfc=;
-        b=MSMkx4CkMZPbRDNWaZjadah1cttOc6kRk8H4NQky6abiqy1cp6DztqnbUBg10v5R9g
-         JDwc4rkout0mt6cWTwNtqKssLT0OMSY4auRciMbm1opru2OjjNUrheueUUshn0qIcipg
-         xWdRgJdqVqQawrzWHvUNmHfWFsjqRQk3QZy7noPSdxzrzLE6XfWDGJAOq6c4CJOqCHCP
-         W2ZtyOn/Hbh3IjfoIw+gk7VkHk7nLVEwdoRpoajKvkkgVXjpha9uWAG83kLUABcBhJac
-         TA1s4NzKmvgDxoygu1iSwEQl88t/EUV+h9bw3LN7Lq5Cqd30RVvmLtOrlvyan2u/pAUl
-         irNQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWboQ9qK9Mg1r68NobDqp0VdJCKdAkqy2NxvO8zIRlSscgOXLfgDtduu+HhhQbYS1t4DOXpTKt3m7U=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzGv1VHb1fUO1g7eou8kn3/4W82cYpJGC63UFe6OAVNvCEgWg15
-	RAlXw+hAigIyvU4epW7XzwD3Nn4X+lA91U4/hlYjao3C1XsZj9+PnAO6GanQDqA2bg==
-X-Gm-Gg: ASbGncvDqya2OlNGweJpYF8wPpuRGbzrDtLQJ9l8grFPLgletE8HrkeoWMxqxILTpQ4
-	tDdWKq4tOkdL50dJgRcUar95Q7OAsR5b10aeS947HE7Q9aQ9wj01wcYx00PH8Jm3JWWQdy7s8f9
-	Ttqtsd4h/wXfXHgV5/9Vj4rlnZ0L03Cm/ZnjfKixkqf076/fmnKwJZEDC10+JU/2r7qU0Q1IZ3x
-	dCSerQyQG8CeYYH4DWnBiKF8aP8FRCvKgUDHgJMnsi+vY+OJVSCtufX2JyFWeJZyso4SGhqxoNn
-	vurbr75qoE6sLa6aqieU7oNqlml9L+BkmrlRVq+2izf0JeibCAstjAUzVi2qpM7aJ+R0FT8moGp
-	1JhVkgeyGnlLlf/iYXTdASCYnIJcc9UyfZnsbJ410pEXrSE4=
-X-Google-Smtp-Source: AGHT+IH4tEMMGTLFnUeVeiW1thG2rmKgQ8wSWavE5sn8QBe+GoOZo8bn82CvzxK2onnYjYT0Nhw1AQ==
-X-Received: by 2002:a5d:4403:0:b0:3a5:1222:ac64 with SMTP id ffacd0b85a97d-3a9176038bbmr12873049f8f.38.1751365671400;
-        Tue, 01 Jul 2025 03:27:51 -0700 (PDT)
-Message-ID: <b658471f-28f2-4ee7-b1c1-41837daa72c2@suse.com>
-Date: Tue, 1 Jul 2025 12:27:40 +0200
+        bh=TAhja6YMWJivWv2HGOVzJolKcyisYA5Kof8C+w8zDzE=;
+        b=vYorokuZyZlTTl7RXIfbQPCuZYs5BG6FpkjQTQHVbRy45Eldy/fXe25XxAM6u5V5Kp
+         owokVUb9bQ4uisCZxlhx3sld/2dijZ6IU/xO2qpWgYRPKp3/xIcA0hC+l9X8BovmwnJ3
+         N0VD2C+qKVctdLl1hIfMUem9km5D1qnZtZwTNOR3GQwuO970ysnXBbk39An03pL9S0FW
+         zjjqJqfOnH+jXhWaygy62efXrvhlRe36Xm97LTjwac4W1jkheIVWIAWRu2m6pyVNXyMW
+         +G23yy2J5q10RCP7hkB866cs4kCt8e0II4gJeWKjOXthP3/B3SHW/KwJY+LF/DzKAbTc
+         jeYQ==
+X-Forwarded-Encrypted: i=1; AJvYcCX2Pp+YdoKViIw2SDrYdYBbbw50zNJbGste40LE5p7H4BIH4Vro1HiV3nemF4Zzg6zhy7W8NIo4h04=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxrvbrFvbfZ0//FHZXhaqUNYQg5gCtPciAUofa6WYBuPEqdORGp
+	flOCDFQMJBrqkEHLSoKrk1zj5dAtkma3ZzwwvJQK35NBXAeQOec8+il7uvsc8NFqVQ==
+X-Gm-Gg: ASbGncu1Ytb5QBbutLg+w6KAiEmlXUOF54hjJTbBoxL8d8N5PhqUb548cvqr0UFTqGn
+	zeNJAW3OTNE7Ql/CRVSvpzDV+45BJuHhHnGkk1rVL2Sz7bCJ/BM0p4wsyDHI+x8IjTq4kQagGef
+	8HA8Y5pk++Dao9xcozgE13wzgtRFD199+DExp5+q/T79gPNEW+KevCYi5ZdgoiFx8M74JwQ7Qtl
+	JrYAibo2j2lcMNP2hrjLke2K8qVVkhe5/V2WpY1l/K37KrFwvN/nl9ZDl68ISOj8zqqFMoz0k3p
+	keeHbpF6yICErxGrq2okEjVYhbRr3VfXT4Q38j77TlU2Pu0qj1FV+hdBJ487wDclSW6YaaPrVkk
+	7DQl5okE8ztU2yQPLttlxCKTLW1Mu9bGD2wyHvCQqN1sfpgI=
+X-Google-Smtp-Source: AGHT+IFXaxbkfl8ymqdktK1hGJR9WDJALRDi4wFcC80DqsFZNEgjYjTriidVs+jOHo6YVdqy6NGFpA==
+X-Received: by 2002:adf:ea10:0:b0:3a5:270e:7d3 with SMTP id ffacd0b85a97d-3af100ae56cmr2090030f8f.13.1751366564709;
+        Tue, 01 Jul 2025 03:42:44 -0700 (PDT)
+Message-ID: <d562251a-a6ec-4e2f-b1f7-dd87a97d4005@suse.com>
+Date: Tue, 1 Jul 2025 12:42:34 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 06/17] xen/riscv: add root page table allocation
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [RFC PATCH] xen/flask: estimate max sidtable size
+To: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1749555949.git.oleksii.kurochko@gmail.com>
- <76675ddb7517e4cceb63472c94944046b255da01.1749555949.git.oleksii.kurochko@gmail.com>
- <9c89ead3-7577-46f2-acc2-6dd8d793ab89@suse.com>
- <c9924195-17e5-4f47-869a-c7930a65538c@gmail.com>
- <49de841e-d3dd-447f-98f2-77de8b2acf94@suse.com>
- <55144da9-cf8e-4b73-8817-e72d8ff91019@gmail.com>
+ Stefano Stabellini <sstabellini@kernel.org>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ xen-devel@lists.xenproject.org
+References: <20250630085559.554334-1-Sergiy_Kibrik@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -127,162 +122,81 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <55144da9-cf8e-4b73-8817-e72d8ff91019@gmail.com>
+In-Reply-To: <20250630085559.554334-1-Sergiy_Kibrik@epam.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 01.07.2025 11:44, Oleksii Kurochko wrote:
-> On 7/1/25 8:29 AM, Jan Beulich wrote:
->> On 30.06.2025 18:18, Oleksii Kurochko wrote:
->>> On 6/30/25 5:22 PM, Jan Beulich wrote:
->>>> On 10.06.2025 15:05, Oleksii Kurochko wrote:
->>>>> --- a/xen/arch/riscv/include/asm/p2m.h
->>>>> +++ b/xen/arch/riscv/include/asm/p2m.h
->>>>> @@ -26,6 +26,12 @@ struct p2m_domain {
->>>>>        /* Pages used to construct the p2m */
->>>>>        struct page_list_head pages;
->>>>>    
->>>>> +    /* The root of the p2m tree. May be concatenated */
->>>>> +    struct page_info *root;
->>>>> +
->>>>> +    /* Address Translation Table for the p2m */
->>>>> +    paddr_t hgatp;
->>>> Does this really need holding in a struct field? Can't is be re-created at
->>>> any time from "root" above?
->>> Yes, with the current one implementation, I agree it would be enough only
->>> root. But as you noticed below...
->>>
->>>> And such re-creation is apparently infrequent,
->>>> if happening at all after initial allocation. (But of course I don't know
->>>> what future patches of yours will bring.) This is even more so if ...
->>>>
->>>>> --- a/xen/arch/riscv/include/asm/riscv_encoding.h
->>>>> +++ b/xen/arch/riscv/include/asm/riscv_encoding.h
->>>>> @@ -133,11 +133,13 @@
->>>>>    #define HGATP_MODE_SV48X4		_UL(9)
->>>>>    
->>>>>    #define HGATP32_MODE_SHIFT		31
->>>>> +#define HGATP32_MODE_MASK		_UL(0x80000000)
->>>>>    #define HGATP32_VMID_SHIFT		22
->>>>>    #define HGATP32_VMID_MASK		_UL(0x1FC00000)
->>>>>    #define HGATP32_PPN			_UL(0x003FFFFF)
->>>>>    
->>>>>    #define HGATP64_MODE_SHIFT		60
->>>>> +#define HGATP64_MODE_MASK		_ULL(0xF000000000000000)
->>>>>    #define HGATP64_VMID_SHIFT		44
->>>>>    #define HGATP64_VMID_MASK		_ULL(0x03FFF00000000000)
->>>> ... VMID management is going to change as previously discussed, at which
->>>> point the value to put in hgatp will need (partly) re-calculating at certain
->>>> points anyway.
->>> ... after VMID management will changed to per-CPU base then it will be needed
->>> to update re-calculate hgatp each time vCPU on pCPU is changed.
->>> In this case I prefer to have partially calculated 'hgatp'.
->> But why, when you need to do some recalculation anyway?
+On 30.06.2025 10:55, Sergiy Kibrik wrote:
+> Currently Xen lacks a defined largest number of security IDs it can potentially
+> use. The number of SIDs are naturally limited by number of security contexts
+> provided by a given security policy, i.e. how many combination of user, role
+> and type there can be, and is dependant on the policy being used.
+> Thus in Xen the number of allocated entries in sidtable is hard-limited by UINT_MAX.
+> However in the embedded environment configured for safety it is desirable to
+> avoid guest-triggered dynamic memory allocations at runtime, or at least limit
+> them to some decent amounts. So we seek to estimate this limit.
 > 
-> Less operations will be needed to do.
-
-Right; I wonder how big the savings would be.
-
-> If we have partially prepared 'hgatp' then we have to only update VMID bits
-> instead of getting ppn for page, then calculate hgatp_mode each time.
-> But if you think it isn't really needed I can add vmid argument for hgatp_from_page()
-> and just call this function when an update of hgatp is needed.
-
-I think it'll need to be struct p2m_domain * that you (also?) pass in. In the
-longer run I think you will want to support all three permitted modes, with
-smaller guests using fewer page table levels.
-
-As to "also" - maybe it's better to change the name of the function, and pass
-in just (const if possible) struct p2m_domain *.
-
->>>>> --- a/xen/arch/riscv/p2m.c
->>>>> +++ b/xen/arch/riscv/p2m.c
->>>>> @@ -41,6 +41,91 @@ void p2m_write_unlock(struct p2m_domain *p2m)
->>>>>        write_unlock(&p2m->lock);
->>>>>    }
->>>>>    
->>>>> +static void clear_and_clean_page(struct page_info *page)
->>>>> +{
->>>>> +    clean_dcache_va_range(page, PAGE_SIZE);
->>>>> +    clear_domain_page(page_to_mfn(page));
->>>>> +}
->>>> A function of this name can, imo, only clear and then clean. Question is why
->>>> it's the other way around, and what the underlying requirement is for the
->>>> cleaning part to be there in the first place. Maybe that's obvious for a
->>>> RISC-V person, but it's entirely non-obvious to me (Arm being different in
->>>> this regard because of running with caches disabled at certain points in
->>>> time).
->>> You're right, the current name|clear_and_clean_page()| implies that clearing
->>> should come before cleaning, which contradicts the current implementation.
->>> The intent here is to ensure that the page contents are consistent in RAM
->>> (not just in cache) before use by other entities (guests or devices).
->>>
->>> The clean must follow the clear — so yes, the order needs to be reversed.
->> What you don't address though - why's the cleaning needed in the first place?
+> This patch suggests one way to do it using Xen's flask policy.
+> List of users, roles and types is read from binary policy using setools utils,
+> then it is used to count the No. of combinations these values can give.
+> This No. of combinations then can be used in code as a practical replacement
+> of UINT_MAX limit. Also it can be used later to pre-allocate sidtable at boot
+> and avoid runtime entries allocation altogether.
 > 
-> If we clean the data cache first, we flush the d-cache and then use the page to
-> perform the clear operation. As a result, the "cleared" value will be written into
-> the d-cache. To avoid polluting the d-cache with the "cleared" value, the correct
-> sequence is to clear the page first, then clean the data cache.
+> Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+> ---
+> This RFC presents a concept of estimating a max possible sidtable size.
+> Can we discuss how valid this concept is? Currently it yields 420 as max SID,
+> is it a reasonable number?
 
-If you want to avoid cache pollution, I think you'd need to use a form of stores
-which simply bypass the cache. Yet then - why would this matter here, but not
-elsewhere? Wouldn't you better leave such to the hardware, unless you can prove
-a (meaningful) performance gain?
+As this is policy dependent - what policy did you use to obtain that 420?
 
->>>>> +    unsigned int nr_pages = _AC(1,U) << order;
->>>> Nit (style): Missing blank after comma.
->>> I've changed that to BIT(order, U)
->>>
->>>>> +    /* Return back nr_pages necessary for p2m root table. */
->>>>> +
->>>>> +    if ( ACCESS_ONCE(d->arch.paging.p2m_total_pages) < nr_pages )
->>>>> +        panic("Specify more xen,domain-p2m-mem-mb\n");
->>>> You shouldn't panic() in anything involved in domain creation. You want to
->>>> return NULL in this case.
->>> It makes sense in this case just to return NULL.
->>>
->>>> Further, to me the use of "more" looks misleading here. Do you perhaps mean
->>>> "larger" or "bigger"?
->>>>
->>>> This also looks to be happening without any lock held. If that's intentional,
->>>> I think the "why" wants clarifying in a code comment.
->>> Agree, returning back pages necessary for p2m root table should be done under
->>> spin_lock(&d->arch.paging.lock).
->> Which should be acquired at the paging_*() layer then, not at the p2m_*() layer.
->> (As long as you mean to have that separation, that is. See the earlier discussion
->> on that matter.)
-> 
-> Then partly p2m_set_allocation() should be moved to paging_*() too.
+> --- a/xen/xsm/flask/Makefile
+> +++ b/xen/xsm/flask/Makefile
+> @@ -14,7 +14,7 @@ AV_H_DEPEND := $(srcdir)/policy/access_vectors
+>  
+>  FLASK_H_FILES := flask.h class_to_string.h initial_sid_to_string.h
+>  AV_H_FILES := av_perm_to_string.h av_permissions.h
+> -ALL_H_FILES := $(addprefix include/,$(FLASK_H_FILES) $(AV_H_FILES))
+> +ALL_H_FILES := $(addprefix include/,$(FLASK_H_FILES) $(AV_H_FILES) se_limits.h)
 
-Not exactly sure what you mean. On x86 at least the paging layer part of
-the function is pretty slim.
+As a nit: Dashes in preference to underscores please in any new files'
+names.
 
->>>>> +    for ( unsigned int i = 0; i < nr_pages; i++ )
->>>>> +    {
->>>>> +        /* Return memory to domheap. */
->>>>> +        page = page_list_remove_head(&d->arch.paging.p2m_freelist);
->>>>> +        if( page )
->>>>> +        {
->>>>> +            ACCESS_ONCE(d->arch.paging.p2m_total_pages)--;
->>>>> +            free_domheap_page(page);
->>>>> +        }
->>>>> +        else
->>>>> +        {
->>>>> +            printk(XENLOG_ERR
->>>>> +                   "Failed to free P2M pages, P2M freelist is empty.\n");
->>>>> +            return NULL;
->>>>> +        }
->>>>> +    }
->>>> The reason for doing this may also want to be put in a comment.
->>> I thought it would be enough the comment above: /* Return back nr_pages necessary for p2m root table. */
->> That describes what the code does, but not why.
-> 
-> I will add to the comment: "... to get the memory accounting right".
+> @@ -54,4 +54,7 @@ $(obj)/policy.bin: FORCE
+>  	        FLASK_BUILD_DIR=$(FLASK_BUILD_DIR) POLICY_FILENAME=$(POLICY_SRC)
+>  	cmp -s $(POLICY_SRC) $@ || cp $(POLICY_SRC) $@
+>  
+> +$(obj)/%/se_limits.h: $(obj)/policy.bin
+> +	$(srcdir)/policy/mkselim.sh $^ $@
 
-I'm sorry to be picky, but what is "right"? You want assure the root table
-memory is also accounted against the P2M pool of the domain. Can't you say
-exactly that?
+Hmm, that's using the built-in policy, isn't it? What if later another
+policy is loaded? Wouldn't it be possible to have ...
+
+> --- a/xen/xsm/flask/ss/sidtab.c
+> +++ b/xen/xsm/flask/ss/sidtab.c
+> @@ -13,6 +13,7 @@
+>  #include "flask.h"
+>  #include "security.h"
+>  #include "sidtab.h"
+> +#include "se_limits.h"
+>  
+>  #define SIDTAB_HASH(sid) ((sid) & SIDTAB_HASH_MASK)
+>  
+> @@ -228,7 +229,7 @@ int sidtab_context_to_sid(struct sidtab *s, struct context *context,
+>          if ( sid )
+>              goto unlock_out;
+>          /* No SID exists for the context.  Allocate a new one. */
+> -        if ( s->next_sid == UINT_MAX || s->shutdown )
+> +        if ( s->next_sid == SEPOL_SID_LIMIT || s->shutdown )
+
+... more than this many SIDs? What if CONFIG_XSM_FLASK_POLICY isn't even set?
+
+It also doesn't really become clear to me how you avoid or even (meaningfully)
+bound memory allocation here. A table of several hundred entries is still a
+decent size. If you really knew the max size up front, why couldn't the table
+be allocated statically. (Sadly the table allocation isn't in context, as you
+don't even touch that code, wherever it lives.)
 
 Jan
 
