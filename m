@@ -2,49 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7CECBAEF5FC
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Jul 2025 13:01:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1029576.1403368 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C68AAEF7A5
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Jul 2025 14:01:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1029615.1403409 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uWYjt-0000WQ-6v; Tue, 01 Jul 2025 11:01:25 +0000
+	id 1uWZfL-0000ws-34; Tue, 01 Jul 2025 12:00:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1029576.1403368; Tue, 01 Jul 2025 11:01:25 +0000
+Received: by outflank-mailman (output) from mailman id 1029615.1403409; Tue, 01 Jul 2025 12:00:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uWYjt-0000U9-49; Tue, 01 Jul 2025 11:01:25 +0000
-Received: by outflank-mailman (input) for mailman id 1029576;
- Tue, 01 Jul 2025 11:01:23 +0000
+	id 1uWZfK-0000vP-Vn; Tue, 01 Jul 2025 12:00:46 +0000
+Received: by outflank-mailman (input) for mailman id 1029615;
+ Tue, 01 Jul 2025 12:00:45 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=/Lih=ZO=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
- id 1uWYgU-0002hE-GZ
- for xen-devel@lists.xenproject.org; Tue, 01 Jul 2025 10:57:54 +0000
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam02on2061d.outbound.protection.outlook.com
- [2a01:111:f403:2407::61d])
+ <SRS0=TMYy=ZO=xenbits.xen.org=andrewcoop@srs-se1.protection.inumbo.net>)
+ id 1uWZfJ-0000CO-2a
+ for xen-devel@lists.xen.org; Tue, 01 Jul 2025 12:00:45 +0000
+Received: from mail.xenproject.org (mail.xenproject.org [104.130.215.37])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3c7efa3d-566a-11f0-a313-13f23c93f187;
- Tue, 01 Jul 2025 12:57:53 +0200 (CEST)
-Received: from BL0PR02CA0120.namprd02.prod.outlook.com (2603:10b6:208:35::25)
- by LV2PR12MB5798.namprd12.prod.outlook.com (2603:10b6:408:17a::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8880.30; Tue, 1 Jul
- 2025 10:57:50 +0000
-Received: from BN2PEPF00004FBF.namprd04.prod.outlook.com
- (2603:10b6:208:35:cafe::97) by BL0PR02CA0120.outlook.office365.com
- (2603:10b6:208:35::25) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8901.19 via Frontend Transport; Tue,
- 1 Jul 2025 10:57:49 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN2PEPF00004FBF.mail.protection.outlook.com (10.167.243.185) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8901.15 via Frontend Transport; Tue, 1 Jul 2025 10:57:49 +0000
-Received: from xcbagarciav01.xilinx.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 1 Jul
- 2025 05:57:46 -0500
+ id 0135d967-5673-11f0-a313-13f23c93f187;
+ Tue, 01 Jul 2025 14:00:42 +0200 (CEST)
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.96)
+ (envelope-from <andrewcoop@xenbits.xen.org>) id 1uWZf4-00CyMt-2K;
+ Tue, 01 Jul 2025 12:00:30 +0000
+Received: from andrewcoop by xenbits.xenproject.org with local (Exim 4.96)
+ (envelope-from <andrewcoop@xenbits.xen.org>) id 1uWZf3-004MTf-2x;
+ Tue, 01 Jul 2025 12:00:29 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,141 +43,256 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3c7efa3d-566a-11f0-a313-13f23c93f187
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=EJqr+6Rg+GVrv4uM073oeLERo3AWOL1CTbO4WL/P8L1YAhmGYVcNlAgdACnCM64K5EMUFtMb8q64xZZ15yfD/O45eaaw51sA8rQKdRzwKxoTo19RWQAXgNjAOnTG5G1/88V3Vxdw6xd/zucD4jrjJtO6oM3/TToSkQEg24K7FaL+E5/S7sBw9r8Nue+dG3mNJDVzWHFhw9jEUH/X4CH1HCCut9c0hVDkq+ioJXNWMbraOaVfTZ10bWO44b0ivADezZph1jP9t6SuBqIXgcjA/9ESFRAkeaSJ1xmcJ93wRJQ4ItYHlTs6cuMhMhr6WPH6UDJdWVZlI5tOJgzjopiysA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/D3EzT/oj4KFimtajf3Jv4n8dk1VuE6ptlYhwqGVnrk=;
- b=DfkCG0zcFxVyos41r60OLpL1k4JReyVkZqjoiYprVqnkDvjvDIrJ/BkFaeAzkx/WgKu4QQ6elX/p49qwgEWASpdolJkT2vBlzn7L4aqfioKTzhvObrLFjFG1/pcpB/ZQutKIN50wHv6DWEV++85cuXR7awKmpHbV+qjOPDR6EmDoJGSgSD0eIHF1fUsiPNbzSdowjnAyNhUquZUPfoRRPpiyeZG9jWPICwFstxyPtMpV/j9u80AYnJ7BrMIGIf3G/xO2BNtDSX7csx6P1h+wkWuJqBEhM65NVRZuWZWbUGmagnbrf9tcIvnyXkHA+BGnK+q/ydarZSkfCEbgHcLM+g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/D3EzT/oj4KFimtajf3Jv4n8dk1VuE6ptlYhwqGVnrk=;
- b=C96idvL0BGHpoBndJGpiWG4YXsaHltKEIEt4w88HIWHJJV2mOhXsMdItVtg/we8LcFklFUgOEvCdDV/9tpnM2yvmdR/TqITGcEIDCpEODfHoJf5wmjNlTE1uaQ/80yJ78qHcoTDp2KaNUbv1OFPnpR6iZXdHgFWmb0I1YrGdpLE=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-From: Alejandro Vallejo <agarciav@amd.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Alejandro Vallejo <agarciav@amd.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, "Julien
- Grall" <julien@xen.org>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
-	<roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
-	"Bertrand Marquis" <bertrand.marquis@arm.com>
-Subject: [PATCH v5 10/10] xen/dt: Allow CONFIG_DEVICE_TREE_PARSE to include device-tree/
-Date: Tue, 1 Jul 2025 12:57:04 +0200
-Message-ID: <20250701105706.86133-11-agarciav@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20250701105706.86133-1-agarciav@amd.com>
-References: <20250701105706.86133-1-agarciav@amd.com>
+X-Inumbo-ID: 0135d967-5673-11f0-a313-13f23c93f187
+Content-Type: multipart/mixed; boundary="=separator"; charset="utf-8"
+Content-Transfer-Encoding: binary
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF00004FBF:EE_|LV2PR12MB5798:EE_
-X-MS-Office365-Filtering-Correlation-Id: c16886f1-c114-41dc-3180-08ddb88e1e94
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700013|1800799024|376014;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?l60/3Cist5nvfD2qUC4E+JTIHoBjE85gBku9koLHN08rxbGjb+p3A1Q5heZk?=
- =?us-ascii?Q?xCc70ntVj6Fq3e/s/EWSWH7dSGEdZ0MX1CvYlqMaXOnfWlLidT1ZrCtEnhN+?=
- =?us-ascii?Q?l65oychHe+y8PJP7QO/C0H0bJ5yJRpNOLwyoTA/015w19LPy+cwtA/KVUSQr?=
- =?us-ascii?Q?LdFF/ooiFtKUmQ0KzNFczBr+TrCQ7vgl5/asy/UdXJANhjbfk4mKHLG73YJj?=
- =?us-ascii?Q?L40RnLf8KKaY6Es2/Gmx/UiSwnzzSTdRDM42hLRqmGlD3knO+n18fFLkBlRP?=
- =?us-ascii?Q?I2fo+RFQ7g21ToCM9+U5XX2TJ5AAc4Jlj+LiBvvwnEaN8vTcciRd50evQUd5?=
- =?us-ascii?Q?xLM9YfDbITaBzmcHFRAIqV1CJNQfPqvg4ul9cECqWt/2MPsBqCn+hagFpd3S?=
- =?us-ascii?Q?9+uV19SIXqZICUHWNaVFHQOgJKM/l/hfF7od392K2t41Qjo/DT5pluEdWixL?=
- =?us-ascii?Q?lOtMuT1esYsP92P221JeozYe5fcVKVBvA+yzrWtj6f4KPYIz198k6rAEBpXO?=
- =?us-ascii?Q?w92VuIZId2mOjnK27LkJSCNneUy+osIDszUsNzDDrB1WMd2z2AUcTQFCWacP?=
- =?us-ascii?Q?ZUzyBWSn9nXl5bRIXSzpO1IzvvU65U/p4wZ541eUJZpwpUjDD9bgQEkOPZoZ?=
- =?us-ascii?Q?aU6B2gLs+LYI9SH9F8yQblVzOMZdurIaYj/K3XPBmLMNAc/TK8pb85zCchNC?=
- =?us-ascii?Q?aB2J2zFKCC0suYlal7m1oWqko5QaDLmK0c8HXF1+tQPLC2ZCNmLs6L7pxNob?=
- =?us-ascii?Q?UBh1Uua++bM/Wd9f+wlKI+AjTT4xDjpKPGgu4d9cfDJ+jdqB/ggCg8gUMuuJ?=
- =?us-ascii?Q?gmjkRukE1Rr5ht2JSAwng2qV7oxMqr9k+Lr6exkG68iAjp1hppHl/UmtdOjB?=
- =?us-ascii?Q?ComopVS1VPsECNwbjS2inmr2FAHeZCFnXcgwzhw16dlJdYyrE6bTLPafgvWq?=
- =?us-ascii?Q?OjqsmzyWZ6DH5UiVPa70JFhrxBfpI3QKqyJ0KHhmMscOLtfyMwg7wdwKdNlw?=
- =?us-ascii?Q?R1WN/VchnUVGr5Tp4RnMtS3OBbSdZNt1I5PLDYYcCddFdC/BP1BJtu7odNxn?=
- =?us-ascii?Q?8mFjKx45ePNvppw/geeck4DJKbQ3w+0he0gFsN9OwlH2h7fG7BvffcUSbIL5?=
- =?us-ascii?Q?H2G7KPE1e/6Ozke5yeyWXNwKQx0jjBFoV5HgZ73ogrc89fXpO5UDZ6YygHOf?=
- =?us-ascii?Q?66H7JLl3Ma1fhLq4j2bDd/i/eg4JbbYurZfyPuKIByF1rtZ0MjZnSgejyVxB?=
- =?us-ascii?Q?T/I4bxgD/j3oQsAhatpR5f+6C9z4zasy/jdQGt/mIRCmUtDYRf4KyfH00s4z?=
- =?us-ascii?Q?ME8CCl9Xps3GUau4Yc+b5isnYvj7XVggNE5Ilwo6Gwap999ckUDri2RlVCKH?=
- =?us-ascii?Q?i8xUmUT5Q/FcL+PK+Ov1T9CakM7qe/JxEUeRrk/FNlzEqSSkFGL6/LigIS2J?=
- =?us-ascii?Q?3zQGPWEMNkZP65NvekZ7wsbAYj29HLnH7lafmnPKHf+A1RraWAcQ/MR2L0rr?=
- =?us-ascii?Q?oyI4dZJNK7SgSwNMztigCwOm9mG3FALoAJ7R?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700013)(1800799024)(376014);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jul 2025 10:57:49.3940
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c16886f1-c114-41dc-3180-08ddb88e1e94
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF00004FBF.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5798
+X-Mailer: MIME-tools 5.510 (Entity 5.510)
+To: xen-announce@lists.xen.org, xen-devel@lists.xen.org,
+ xen-users@lists.xen.org, oss-security@lists.openwall.com
+From: Xen.org security team <security@xen.org>
+CC: Xen.org security team <security-team-members@xen.org>
+Subject: Xen Security Advisory 470 v2 (CVE-2025-27465) - x86: Incorrect
+ stubs exception handling for flags recovery
+Message-Id: <E1uWZf3-004MTf-2x@xenbits.xenproject.org>
+Date: Tue, 01 Jul 2025 12:00:29 +0000
 
-This allows bootfdt.c and device-tree.c to be usable without
-CONFIG_HAS_DEVICE_TREE_DISCOVERY.
+--=separator
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+Content-Transfer-Encoding: 7bit
 
-Gate everything else on CONFIG_HAS_DEVICE_TREE_DISCOVERY.
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
 
-Signed-off-by: Alejandro Vallejo <agarciav@amd.com>
----
- xen/common/Makefile             | 2 +-
- xen/common/device-tree/Makefile | 6 +++---
- 2 files changed, 4 insertions(+), 4 deletions(-)
+            Xen Security Advisory CVE-2025-27465 / XSA-470
+                               version 2
 
-diff --git a/xen/common/Makefile b/xen/common/Makefile
-index d541fbcf49..265468d751 100644
---- a/xen/common/Makefile
-+++ b/xen/common/Makefile
-@@ -8,7 +8,7 @@ obj-y += cpu.o
- obj-$(CONFIG_DEBUG_TRACE) += debugtrace.o
- obj-$(CONFIG_HAS_DEVICE_TREE_DISCOVERY) += device.o
- obj-$(filter-out $(CONFIG_X86),$(CONFIG_ACPI)) += device.o
--obj-$(CONFIG_HAS_DEVICE_TREE_DISCOVERY) += device-tree/
-+obj-$(CONFIG_DEVICE_TREE_PARSE) += device-tree/
- obj-$(CONFIG_IOREQ_SERVER) += dm.o
- obj-y += domain.o
- obj-y += event_2l.o
-diff --git a/xen/common/device-tree/Makefile b/xen/common/device-tree/Makefile
-index 8abc069c4b..e399242cdf 100644
---- a/xen/common/device-tree/Makefile
-+++ b/xen/common/device-tree/Makefile
-@@ -1,11 +1,11 @@
- obj-y += bootfdt.init.o
--obj-y += bootinfo-fdt.init.o
--obj-y += bootinfo.init.o
-+obj-$(CONFIG_HAS_DEVICE_TREE_DISCOVERY) += bootinfo-fdt.init.o
-+obj-$(CONFIG_HAS_DEVICE_TREE_DISCOVERY) += bootinfo.init.o
- obj-y += device-tree.o
- obj-$(CONFIG_DOMAIN_BUILD_HELPERS) += domain-build.init.o
- obj-$(CONFIG_DOM0LESS_BOOT) += dom0less-build.init.o
- obj-$(CONFIG_OVERLAY_DTB) += dt-overlay.o
--obj-y += intc.o
-+obj-$(CONFIG_HAS_DEVICE_TREE_DISCOVERY) += intc.o
- obj-$(CONFIG_DOMAIN_BUILD_HELPERS) += kernel.o
- obj-$(CONFIG_STATIC_EVTCHN) += static-evtchn.init.o
- obj-$(CONFIG_STATIC_MEMORY) += static-memory.init.o
--- 
-2.43.0
+       x86: Incorrect stubs exception handling for flags recovery
 
+UPDATES IN VERSION 2
+====================
+
+Public release.
+
+ISSUE DESCRIPTION
+=================
+
+Certain instructions need intercepting and emulating by Xen.  In some
+cases Xen emulates the instruction by replaying it, using an executable
+stub.  Some instructions may raise an exception, which is supposed to be
+handled gracefully.  Certain replayed instructions have additional logic
+to set up and recover the changes to the arithmetic flags.
+
+For replayed instructions where the flags recovery logic is used, the
+metadata for exception handling was incorrect, preventing Xen from
+handling the the exception gracefully, treating it as fatal instead.
+
+IMPACT
+======
+
+An unprivileged guest can cause a hypervisor crash, causing a Denial of
+Service (DoS) of the entire host.
+
+VULNERABLE SYSTEMS
+==================
+
+Xen 4.9 and onwards are vulnerable.  Xen 4.8 and older are not
+vulnerable.
+
+Only x86 systems are vulnerable.  ARM systems are not vulnerable.
+
+Only HVM or PVH guests can leverage the vulnerability.  PV guests cannot
+leverage the vulnerability.
+
+MITIGATION
+==========
+
+There are no mitigations.
+
+CREDITS
+=======
+
+This issue was discovered by Andrew Cooper of XenServer.
+
+RESOLUTION
+==========
+
+Applying the appropriate attached patch resolves this issue.
+
+Note that patches for released versions are generally prepared to
+apply to the stable branches, and may not apply cleanly to the most
+recent release tarball.  Downstreams are encouraged to update to the
+tip of the stable branch before applying these patches.
+
+xsa470.patch           xen-unstable - Xen 4.18.x
+xsa470-4.17.patch      Xen 4.17.x
+
+$ sha256sum xsa470*
+99d7fbe6acb27aa13c586acbc8d15d00b04bb040bb0cb5f8feca495f0f414a10  xsa470.patch
+2c6490978bd1ba1578a4c1102a521cf4d01d99792a363708bb1e6a1b879b1f5c  xsa470-4.17.patch
+$
+
+DEPLOYMENT DURING EMBARGO
+=========================
+
+Deployment of the patches and/or mitigations described above (or
+others which are substantially similar) is permitted during the
+embargo, even on public-facing systems with untrusted guest users and
+administrators.
+
+But: Distribution of updated software is prohibited (except to other
+members of the predisclosure list).
+
+Predisclosure list members who wish to deploy significantly different
+patches and/or mitigations, please contact the Xen Project Security
+Team.
+
+
+(Note: this during-embargo deployment notice is retained in
+post-embargo publicly released Xen Project advisories, even though it
+is then no longer applicable.  This is to enable the community to have
+oversight of the Xen Project Security Team's decisionmaking.)
+
+For more information about permissible uses of embargoed information,
+consult the Xen Project community's agreed Security Policy:
+  http://www.xenproject.org/security-policy.html
+-----BEGIN PGP SIGNATURE-----
+
+iQFABAEBCAAqFiEEI+MiLBRfRHX6gGCng/4UyVfoK9kFAmhjzN0MHHBncEB4ZW4u
+b3JnAAoJEIP+FMlX6CvZ6skIAMivsvi9wpvpoaQubdbG3iUFoK4ocOZHdywJbfOQ
+OjUK23585BZo45xIp/myqbbmIjQ4PsN4JFh9D9F3xv3xVfSD1RYS8qMPm/pcpY60
+dDrk2SeLqqhQzdxguDrQ97qiPtanfDEvkwBUzu2Z7rDgbv/7hBCDURVgwaprs/d6
+hvF/K+FIT7rBFFfPJmCzO8RCMO7o3iKia77q7QScFSmm4AeJ+E9NQdPsa2Po9aJG
+reHCDEeWaPgktVV/M8nS0an/K6Oavf2jI18hkoweSnok2xAz0t9Me5gQ3UcaOdlz
+iNk3ItZ/41ja2+3xO6dFlwOdVSnk3KvWZJxjJMySeWLRTQI=
+=uDlQ
+-----END PGP SIGNATURE-----
+
+--=separator
+Content-Type: application/octet-stream; name="xsa470.patch"
+Content-Disposition: attachment; filename="xsa470.patch"
+Content-Transfer-Encoding: base64
+
+RnJvbTogQW5kcmV3IENvb3BlciA8YW5kcmV3LmNvb3BlcjNAY2l0cml4LmNv
+bT4KU3ViamVjdDogeDg2L2VtdWw6IEZpeCBleHRhYmxlIHJlZ2lzdHJhdGlv
+biBpbiBpbnZva2Vfc3R1YigpCgpGb3IgZXhjZXB0aW9uIHJlY292ZXJ5IGlu
+IHRoZSBzdHVicywgdGhlIHJlZ2lzdGVyZWQgYWRkcmVzcyBmb3IgZml4dXAg
+aXMgdGhlCnJldHVybiBhZGRyZXNzIG9mIHRoZSBDQUxMIGVudGVyaW5nIHRo
+ZSBzdHViLgoKSW4gaW52b2tlX3N0dWIoKSwgdGhlICcuTHJldCU9OicgbGFi
+ZWwgaXMgdGhlIHdyb25nIHNpZGUgb2YgdGhlICdwb3N0JwpwYXJhbWV0ZXIu
+ICBUaGUgJ3Bvc3QnIHBhcmFtZXRlciBpcyBub24tZW1wdHkgaW4gY2FzZXMg
+d2hlcmUgdGhlIGFyaXRobWV0aWMKZmxhZ3Mgb2YgdGhlIG9wZXJhdGlvbiBu
+ZWVkIHJlY292ZXJpbmcuCgpTcGxpdCB0aGUgbGluZSB0byBzZXBhcmF0ZSAn
+cHJlJyBhbmQgJ3Bvc3QnLCBtYWtpbmcgaXQgbW9yZSBvYnZpb3VzIHRoYXQg
+dGhlCnJldHVybiBhZGRyZXNzIGxhYmVsIHdhcyBpbiB0aGUgd3JvbmcgcG9z
+aXRpb24uCgpIb3dldmVyLCBpbiB0aGUgY2FzZSB0aGF0IGFuIGV4Y2VwdGlv
+biBkaWQgb2NjdXIsIHdlIHdhbnQgdG8gc2tpcCAncG9zdCcgYXMKaXQncyBs
+b2dpY2FsbHkgcGFydCBvZiB0aGUgb3BlcmF0aW9uIHdoaWNoIGhhZCBhbHJl
+YWR5IGZhaWxlZC4gIFRoZXJlZm9yZSwgYWRkCmEgbmV3IHNraXAgbGFiZWwg
+YW5kIHVzZSB0aGF0IGZvciB0aGUgZXhjZXB0aW9uIHJlY292ZXJ5IHBhdGgu
+CgpUaGlzIGlzIFhTQS00NzAgLyBDVkUtMjAyNS0yNzQ2NQoKRml4ZXM6IDc5
+OTAzZTUwZGJhOSAoIng4NmVtdWw6IGNhdGNoIGV4Y2VwdGlvbnMgb2NjdXJy
+aW5nIGluIHN0dWJzIikKU2lnbmVkLW9mZi1ieTogQW5kcmV3IENvb3BlciA8
+YW5kcmV3LmNvb3BlcjNAY2l0cml4LmNvbT4KUmV2aWV3ZWQtYnk6IEphbiBC
+ZXVsaWNoIDxqYmV1bGljaEBzdXNlLmNvbT4KCmRpZmYgLS1naXQgYS94ZW4v
+YXJjaC94ODYveDg2X2VtdWxhdGUvcHJpdmF0ZS5oIGIveGVuL2FyY2gveDg2
+L3g4Nl9lbXVsYXRlL3ByaXZhdGUuaAppbmRleCA0NjdiY2UzYzg0YjguLmE0
+YmExYjNjMzkxOSAxMDA2NDQKLS0tIGEveGVuL2FyY2gveDg2L3g4Nl9lbXVs
+YXRlL3ByaXZhdGUuaAorKysgYi94ZW4vYXJjaC94ODYveDg2X2VtdWxhdGUv
+cHJpdmF0ZS5oCkBAIC03MTQsMTIgKzcxNCwxNSBAQCBzdHJ1Y3Qgc3R1Yl9l
+eG4gewogICAgIHN0dWJfZXhuLmluZm8gPSAodW5pb24gc3R1Yl9leGNlcHRp
+b25fdG9rZW4pIHsgLnJhdyA9IH4wIH07ICAgICAgICAgXAogICAgIHN0dWJf
+ZXhuLmxpbmUgPSBfX0xJTkVfXzsgLyogVXRpbGl0eSBvdXR3ZWlnaHMgbGl2
+ZXBhdGNoaW5nIGNvc3QgKi8gXAogICAgIGJsb2NrX3NwZWN1bGF0aW9uKCk7
+IC8qIFNDU0IgKi8gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgXAotICAgIGFzbSB2b2xhdGlsZSAoIHByZSAiXG5cdElORElSRUNUX0NB
+TEwgJVtzdHViXVxuXHQiIHBvc3QgIlxuIiAgICAgICAgXAorICAgIGFzbSB2
+b2xhdGlsZSAoIHByZSAiXG5cdCIgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgXAorICAgICAgICAgICAgICAgICAgICJJTkRJ
+UkVDVF9DQUxMICVbc3R1Yl1cbiIgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgXAogICAgICAgICAgICAgICAgICAgICIuTHJldCU9OlxuXHQiICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXAorICAgICAgICAg
+ICAgICAgICAgIHBvc3QgIlxuXHQiICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgXAorICAgICAgICAgICAgICAgICAgICIuTHNr
+aXAlPTpcblx0IiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgXAogICAgICAgICAgICAgICAgICAgICIucHVzaHNlY3Rpb24gLmZpeHVw
+LFwiYXhcIlxuIiAgICAgICAgICAgICAgICAgICAgICAgXAogICAgICAgICAg
+ICAgICAgICAgICIuTGZpeCU9OlxuXHQiICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgXAogICAgICAgICAgICAgICAgICAgICJwb3Ag
+JVtleG5dXG5cdCIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgXAotICAgICAgICAgICAgICAgICAgICJqbXAgLkxyZXQlPVxuXHQiICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXAorICAgICAgICAg
+ICAgICAgICAgICJqbXAgLkxza2lwJT1cblx0IiAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgXAogICAgICAgICAgICAgICAgICAgICIucG9w
+c2VjdGlvblxuXHQiICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgXAogICAgICAgICAgICAgICAgICAgIF9BU01fRVhUQUJMRSguTHJldCU9
+LCAuTGZpeCU9KSAgICAgICAgICAgICAgICAgICAgICAgXAogICAgICAgICAg
+ICAgICAgICAgIDogW2V4bl0gIitnIiAoc3R1Yl9leG4uaW5mbykgQVNNX0NB
+TExfQ09OU1RSQUlOVCwgICAgXAo=
+
+--=separator
+Content-Type: application/octet-stream; name="xsa470-4.17.patch"
+Content-Disposition: attachment; filename="xsa470-4.17.patch"
+Content-Transfer-Encoding: base64
+
+RnJvbTogQW5kcmV3IENvb3BlciA8YW5kcmV3LmNvb3BlcjNAY2l0cml4LmNv
+bT4KU3ViamVjdDogeDg2L2VtdWw6IEZpeCBleHRhYmxlIHJlZ2lzdHJhdGlv
+biBpbiBpbnZva2Vfc3R1YigpCgpGb3IgZXhjZXB0aW9uIHJlY292ZXJ5IGlu
+IHRoZSBzdHVicywgdGhlIHJlZ2lzdGVyZWQgYWRkcmVzcyBmb3IgZml4dXAg
+aXMgdGhlCnJldHVybiBhZGRyZXNzIG9mIHRoZSBDQUxMIGVudGVyaW5nIHRo
+ZSBzdHViLgoKSW4gaW52b2tlX3N0dWIoKSwgdGhlICcuTHJldCU9OicgbGFi
+ZWwgaXMgdGhlIHdyb25nIHNpZGUgb2YgdGhlICdwb3N0JwpwYXJhbWV0ZXIu
+ICBUaGUgJ3Bvc3QnIHBhcmFtZXRlciBpcyBub24tZW1wdHkgaW4gY2FzZXMg
+d2hlcmUgdGhlIGFyaXRobWV0aWMKZmxhZ3Mgb2YgdGhlIG9wZXJhdGlvbiBu
+ZWVkIHJlY292ZXJpbmcuCgpTcGxpdCB0aGUgbGluZSB0byBzZXBhcmF0ZSAn
+cHJlJyBhbmQgJ3Bvc3QnLCBtYWtpbmcgaXQgbW9yZSBvYnZpb3VzIHRoYXQg
+dGhlCnJldHVybiBhZGRyZXNzIGxhYmVsIHdhcyBpbiB0aGUgd3JvbmcgcG9z
+aXRpb24uCgpIb3dldmVyLCBpbiB0aGUgY2FzZSB0aGF0IGFuIGV4Y2VwdGlv
+biBkaWQgb2NjdXIsIHdlIHdhbnQgdG8gc2tpcCAncG9zdCcgYXMKaXQncyBs
+b2dpY2FsbHkgcGFydCBvZiB0aGUgb3BlcmF0aW9uIHdoaWNoIGhhZCBhbHJl
+YWR5IGZhaWxlZC4gIFRoZXJlZm9yZSwgYWRkCmEgbmV3IHNraXAgbGFiZWwg
+YW5kIHVzZSB0aGF0IGZvciB0aGUgZXhjZXB0aW9uIHJlY292ZXJ5IHBhdGgu
+CgpUaGlzIGlzIFhTQS00NzAgLyBDVkUtMjAyNS0yNzQ2NQoKRml4ZXM6IDc5
+OTAzZTUwZGJhOSAoIng4NmVtdWw6IGNhdGNoIGV4Y2VwdGlvbnMgb2NjdXJy
+aW5nIGluIHN0dWJzIikKU2lnbmVkLW9mZi1ieTogQW5kcmV3IENvb3BlciA8
+YW5kcmV3LmNvb3BlcjNAY2l0cml4LmNvbT4KUmV2aWV3ZWQtYnk6IEphbiBC
+ZXVsaWNoIDxqYmV1bGljaEBzdXNlLmNvbT4KCmRpZmYgLS1naXQgYS94ZW4v
+YXJjaC94ODYveDg2X2VtdWxhdGUveDg2X2VtdWxhdGUuYyBiL3hlbi9hcmNo
+L3g4Ni94ODZfZW11bGF0ZS94ODZfZW11bGF0ZS5jCmluZGV4IGI1ZWNhMTM0
+MTBjZC4uNWE2MWJhNjEzNjBkIDEwMDY0NAotLS0gYS94ZW4vYXJjaC94ODYv
+eDg2X2VtdWxhdGUveDg2X2VtdWxhdGUuYworKysgYi94ZW4vYXJjaC94ODYv
+eDg2X2VtdWxhdGUveDg2X2VtdWxhdGUuYwpAQCAtMTI1OCwxMiArMTI1OCwx
+NSBAQCBzdGF0aWMgaW5saW5lIGludCBta2VjKHVpbnQ4X3QgZSwgaW50MzJf
+dCBlYywgLi4uKQogICAgIHN0dWJfZXhuLmluZm8gPSAodW5pb24gc3R1Yl9l
+eGNlcHRpb25fdG9rZW4pIHsgLnJhdyA9IH4wIH07ICAgICAgICAgXAogICAg
+IHN0dWJfZXhuLmxpbmUgPSBfX0xJTkVfXzsgLyogVXRpbGl0eSBvdXR3ZWln
+aHMgbGl2ZXBhdGNoaW5nIGNvc3QgKi8gXAogICAgIGJsb2NrX3NwZWN1bGF0
+aW9uKCk7IC8qIFNDU0IgKi8gICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgXAotICAgIGFzbSB2b2xhdGlsZSAoIHByZSAiXG5cdElORElS
+RUNUX0NBTEwgJVtzdHViXVxuXHQiIHBvc3QgIlxuIiAgICAgICAgXAorICAg
+IGFzbSB2b2xhdGlsZSAoIHByZSAiXG5cdCIgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgXAorICAgICAgICAgICAgICAgICAg
+ICJJTkRJUkVDVF9DQUxMICVbc3R1Yl1cbiIgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgXAogICAgICAgICAgICAgICAgICAgICIuTHJldCU9OlxuXHQi
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXAorICAg
+ICAgICAgICAgICAgICAgIHBvc3QgIlxuXHQiICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgXAorICAgICAgICAgICAgICAgICAg
+ICIuTHNraXAlPTpcblx0IiAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgXAogICAgICAgICAgICAgICAgICAgICIucHVzaHNlY3Rpb24g
+LmZpeHVwLFwiYXhcIlxuIiAgICAgICAgICAgICAgICAgICAgICAgXAogICAg
+ICAgICAgICAgICAgICAgICIuTGZpeCU9OlxuXHQiICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgXAogICAgICAgICAgICAgICAgICAg
+ICJwb3AgJVtleG5dXG5cdCIgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgXAotICAgICAgICAgICAgICAgICAgICJqbXAgLkxyZXQlPVxu
+XHQiICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXAorICAg
+ICAgICAgICAgICAgICAgICJqbXAgLkxza2lwJT1cblx0IiAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgXAogICAgICAgICAgICAgICAgICAg
+ICIucG9wc2VjdGlvblxuXHQiICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgXAogICAgICAgICAgICAgICAgICAgIF9BU01fRVhUQUJMRSgu
+THJldCU9LCAuTGZpeCU9KSAgICAgICAgICAgICAgICAgICAgICAgXAogICAg
+ICAgICAgICAgICAgICAgIDogW2V4bl0gIitnIiAoc3R1Yl9leG4uaW5mbykg
+QVNNX0NBTExfQ09OU1RSQUlOVCwgICAgXAo=
+
+--=separator--
 
