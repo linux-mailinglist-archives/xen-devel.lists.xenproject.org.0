@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 015DDAEF1C7
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Jul 2025 10:50:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1029442.1403181 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 44FADAEF2DE
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Jul 2025 11:13:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1029449.1403190 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uWWgZ-0001EQ-39; Tue, 01 Jul 2025 08:49:51 +0000
+	id 1uWX3G-000502-Q3; Tue, 01 Jul 2025 09:13:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1029442.1403181; Tue, 01 Jul 2025 08:49:51 +0000
+Received: by outflank-mailman (output) from mailman id 1029449.1403190; Tue, 01 Jul 2025 09:13:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uWWgY-0001Bw-Uj; Tue, 01 Jul 2025 08:49:50 +0000
-Received: by outflank-mailman (input) for mailman id 1029442;
- Tue, 01 Jul 2025 08:49:49 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uWX3G-0004yJ-NG; Tue, 01 Jul 2025 09:13:18 +0000
+Received: by outflank-mailman (input) for mailman id 1029449;
+ Tue, 01 Jul 2025 09:13:17 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=28IZ=ZO=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uWWgX-0001Bq-Pv
- for xen-devel@lists.xenproject.org; Tue, 01 Jul 2025 08:49:49 +0000
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [2a00:1450:4864:20::434])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 57adf9b5-5658-11f0-b894-0df219b8e170;
- Tue, 01 Jul 2025 10:49:47 +0200 (CEST)
-Received: by mail-wr1-x434.google.com with SMTP id
- ffacd0b85a97d-3a51481a598so1678638f8f.3
- for <xen-devel@lists.xenproject.org>; Tue, 01 Jul 2025 01:49:47 -0700 (PDT)
+ id 1uWX3F-0004yD-55
+ for xen-devel@lists.xenproject.org; Tue, 01 Jul 2025 09:13:17 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 9eb5e931-565b-11f0-a313-13f23c93f187;
+ Tue, 01 Jul 2025 11:13:15 +0200 (CEST)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-453643020bdso46834055e9.1
+ for <xen-devel@lists.xenproject.org>; Tue, 01 Jul 2025 02:13:15 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-315f542e494sm15001259a91.31.2025.07.01.01.49.39
+ d9443c01a7336-23acb2e1a7fsm107308335ad.25.2025.07.01.02.13.08
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 01 Jul 2025 01:49:46 -0700 (PDT)
+ Tue, 01 Jul 2025 02:13:14 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,66 +45,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 57adf9b5-5658-11f0-b894-0df219b8e170
+X-Inumbo-ID: 9eb5e931-565b-11f0-a313-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1751359787; x=1751964587; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1751361195; x=1751965995; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=SfXwyirN7XXgznRbq91A1uKr8U2XVhgESX0cgoajrdU=;
-        b=EUazcohN75KE+2g+JTLI9B69y+DufPcKfM9a+dnlx4Lm6YGT/14BcGBdzO61ELoXHC
-         bWEp8UPsPz2mAfKx3WvvNN9EhnofUmCOHYVywNrMLxFApxYh62sDzlXcWxzwufBNKEuf
-         Y2ok2JAm1HnFccRQcgORWEqsQM0HAFrHIbAffbHxTcpCfRnB00/o5ILnnOduOUyh9335
-         YBCWVEwILbL96S2s+QKQg20eEUe3i9Oklbr0fa0Ni8Y9qFJPrMFvIYCRVbbvjYhX54hj
-         lLETtVRepXg9JkZoXazZy66S3HhkRji/ftTMNeLkn1QDaw8v+J7wN/h8++4/kZ5R4hWo
-         +tLQ==
+        bh=l3nJuoNrEuELXNxijAXgsYQ2DeNS1nohjg5NrGYA79w=;
+        b=W2vu/If2MWUwoeNo1bRryQ/iXOrmdJIrYsNQPamkYp6wMlPIh4uTEi5JdmraIEo2vN
+         Fy65OhiWXVnL+21/31CPJsnm/07e2j8blbGXfVYSFHjHt2Zkrg3ddjM0PiIQ6g3nJlvQ
+         3PGIZQA0RF7W6+4ZDVOR27TcCw6IoOEwX4b8aoib3Tz2259mlXDyKbVWn1SO5Ub5mbJ/
+         sw1VzsVJJJYqn/Xwg6SbM56/EHBRwRSjRw5d8x6LU/5w9f0cyZkoomBMeFf/nLsNPe55
+         4QA6wp1aWAueilsde4Wgr9c9F7J/qJSbQXAR30yZ2vkTy9OcAWKWbrBJdxdD/0RiGvDu
+         Y7XA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1751359787; x=1751964587;
+        d=1e100.net; s=20230601; t=1751361195; x=1751965995;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=SfXwyirN7XXgznRbq91A1uKr8U2XVhgESX0cgoajrdU=;
-        b=Lkl3u9xTkESlnkNygVr0QxGSXbc4tdWGpDvSmwWfOjPSrhF74BG4fH1/sYC/DkIQGl
-         dOiNpzlwTdEH0H3bd7CAHUA5TwSg2bRrIc0tJ2vvnS77AnQLLT4MutOoSPMn7TS73epL
-         OiIA+PgvLa/fOdOLndmr6Ssh5eN1kTW0rY8wadh0k8S0EwZcl2iwmcOOU7GdM9ixsT7m
-         yWaCr+Pw4wqYK8dm/EVgomci6Jv6u/aUgeC76t6npUuoJwfLAsEjpYtby9havikGbjfS
-         7BN2t6PJg5/5P04S8Cu0YMbY8l8qhz2ZqRCkz//DlDwj+2p3XjB5lGNib5uBf/PJDAW9
-         2/rQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXheFSAq3BL90Y7ANSGoJ07MSCY+vVtIZBX7vqDe6rgyGw1MgScifHWQqWHf4K3eLFtXvApN3Zxyp0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwTn18YFuReNqwd6e4GcgwugX9TZqaJg0sX8IruCoOWLDUbDW1T
-	toxHy7eEuvTWvMb/dYfSlPlf+htPR81JZdTJw5eTUq4+ySrS2lNG1IK3WLWOcn79aQ==
-X-Gm-Gg: ASbGncvMil+CcvCGVweya4tznqfYG2QeVbo//fAE3RQozBJYGy0YutSyt3aLbKSQZch
-	RCGxxVuS1DBpWpRtnXURM8JTJrkoOAEYyHTj44pB/S0eNrr8Po++7+GZM501PA7oWqZkAEYhlCN
-	kGhiBFJdJ8I2pQwIMNRKTb5LFeeqWEzpi5rECz3duhttHONGTjYE8ujH0TUanSNMzd+7y6l9erI
-	GXO1HQC5sU4RMvykAKuUknbDWpaI9tyQTsaPQPaWNVNth5/hb4X/w2CPgv+DOmCqaO7NUddmfoK
-	LEV44YSx4EBc/IgcKk8aYuNq+5X1ryvY9wtMEMI6URAoEkGX15sOScH4axC1ZZnTXUL9wP4w0t1
-	jFM8M8LtzkiT7TFyalTETv+srWCg8sdytFf8Yz30v0Yr5rRE=
-X-Google-Smtp-Source: AGHT+IHyS8xeFQVoOy/R521ntKIzZ2/GIhmu4LzdvyMrZfvQXtYiNqceYsmrivaJ8dGYOa+23M17Mg==
-X-Received: by 2002:a05:6000:21c8:b0:3a4:eda1:6c39 with SMTP id ffacd0b85a97d-3a8fda35a01mr8922418f8f.13.1751359787010;
-        Tue, 01 Jul 2025 01:49:47 -0700 (PDT)
-Message-ID: <34b6cfb8-5161-4949-835f-1ddadfeb743b@suse.com>
-Date: Tue, 1 Jul 2025 10:49:36 +0200
+        bh=l3nJuoNrEuELXNxijAXgsYQ2DeNS1nohjg5NrGYA79w=;
+        b=kgXyb+jOW2tjhisfWG6sB3rCtOhEgNgME/8Q6sgCHjpCz9l50f2jpYossarNcWLdXu
+         nL2PYEKNDAkB8ofV5wQMaSVQYsxVzHDbmarhmuwJr99dG2f8mhu2ubcRs0zER5s9I40B
+         Vr1XckN3tU3l28AJH0fe+irI/0jyT6i3TENaK2cRB11JrOfm5MoiFFC1rVdYvm8tM1Ds
+         vP43z679iJUWfWsdrvaFXkmUVwcK+bUCEuIwtaW1qMQiVuAsb1lEFe+Q+TctEvGuUYoP
+         X9lNhqgspaUup+wJZ3UVnM80bThec+RPemzCMvVohm3SDfQfq337gOLwJCprPhV7O5iY
+         mLHw==
+X-Forwarded-Encrypted: i=1; AJvYcCV81gRByFc0dCjqaQ1CNImN6FClmW7+j5p6AR+NpcFpjadHxvacCS6k8a5SXjumiqZAKsH73C0Ps9g=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy/G+d1WfAnGTaZHa9OmFLPMGp3hU5KViUJB6MvF+ofn+Gg5GBs
+	7TjGiYVx/cdiG8cnnJU/3COmdJ72N7bZlg5OuL5lhjB1mPIasJwUXWsuwqaHKELYbb9JPSQdvoh
+	1h60=
+X-Gm-Gg: ASbGnctSSOeoirVvksq9KucPMs+cepKOSYKeNgY/k+d5F7Ft4H3EtrKm73E5KetLSgo
+	9LvAYTWQ2i8DQq+tg4IEjVfF/Abh0Gyix/HFGGU60vmKSSwJgw2nqhKCaHvKGBFjiDGXOh5FBQP
+	nUSGbABVjIANRVSL55xKDWOX/IaPC27Wy8w4zdrQIEVS42Z5nHpsy+DODw2fsrbwE3BcfSIgamE
+	hiwaeM6Cvi+Fr1qmZcbd1T6d50gkxRIIzrsY3q5emL+9Q30YtXuqDOJVR3y0f13zybi90BCK5g4
+	Azc3xJXFP7W5WoJZNBl7o4VzNuKxg/7Ym6oawu87qFJ8sJ3SeQMigK9vUUmKJb+g6MSuZUNvrS5
+	h50o9b0dWDyYTbf6v5YLVPKfhjPwqhusYcMRWZqjVB7vO9Lc=
+X-Google-Smtp-Source: AGHT+IE1Z3s51QAYBWgVqNVockscagKBoLBBMOFXWG8CtQrREz1lLrzB1jQdZT3T8c70muk5LvsJUw==
+X-Received: by 2002:a5d:5f55:0:b0:3a5:58a5:6a83 with SMTP id ffacd0b85a97d-3a8fdff4461mr14671118f8f.13.1751361194755;
+        Tue, 01 Jul 2025 02:13:14 -0700 (PDT)
+Message-ID: <f184fbb9-3212-4000-8541-5f64fe65f782@suse.com>
+Date: Tue, 1 Jul 2025 11:13:05 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v11 6/7] xen/arm: enable dom0 to use PCI devices with
- pci-passthrough=no
-To: Mykyta Poturai <Mykyta_Poturai@epam.com>
-Cc: Stewart Hildebrand <stewart.hildebrand@amd.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+Subject: Re: [PATCH v5 01/18] xen/x86: remove "depends on !PV_SHIM_EXCLUSIVE"
+To: "Penny, Zheng" <penny.zheng@amd.com>
+Cc: "Huang, Ray" <Ray.Huang@amd.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ "Orzel, Michal" <Michal.Orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <cover.1748422217.git.mykyta_poturai@epam.com>
- <c0b080618909580e527d7c6cce6010edf5278d2c.1748422217.git.mykyta_poturai@epam.com>
- <66cda989-efe9-4389-ae8d-cb9bc4dc5239@suse.com>
- <c5ff547e-4e0e-4f31-a07d-55527a6d8457@epam.com>
- <a73e2e41-6101-4a4e-a50e-f68d28a0637f@suse.com>
- <7250049f-e8fd-4752-b749-596332de34a0@epam.com>
+References: <20250616064128.581164-1-Penny.Zheng@amd.com>
+ <20250616064128.581164-2-Penny.Zheng@amd.com>
+ <a4244940-8c03-4391-8078-7308d6a3fcca@suse.com>
+ <DM4PR12MB84515AB588A2DF0C6AF451E7E141A@DM4PR12MB8451.namprd12.prod.outlook.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -130,64 +126,105 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <7250049f-e8fd-4752-b749-596332de34a0@epam.com>
+In-Reply-To: <DM4PR12MB84515AB588A2DF0C6AF451E7E141A@DM4PR12MB8451.namprd12.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 01.07.2025 10:29, Mykyta Poturai wrote:
-> On 04.06.25 08:52, Jan Beulich wrote:
->> On 03.06.2025 15:31, Mykyta Poturai wrote:
->>> On 02.06.25 11:11, Jan Beulich wrote:
->>>> On 28.05.2025 11:12, Mykyta Poturai wrote:
->>>>> From: Stewart Hildebrand <stewart.hildebrand@amd.com>
->>>>>
->>>>> Enable the use of IOMMU + PCI in dom0 without having to specify
->>>>> "pci-passthrough=yes". Due to possible platform specific dependencies
->>>>> of the PCI host, we rely on dom0 to initialize it and perform
->>>>> a PHYSDEVOP_pci_device_add/remove call to add each device to SMMU.
->>>>> PHYSDEVOP_pci_device_reset is left untouched as it does not have the
->>>>> pci_passthrough_enabled check.
->>>>
->>>> Just to re-raise the question here: Is this actually correct?
->>>
->>> I'm afraid I don't quite understand your concerns here.
->>>
->>> The purpose of this patch is to relax the pci_passthrough_enabled checks
->>> and make PCI physdev ops work with passthrough disabled.
->>> The reset op worked independently of PCI passthrough being on or off and
->>> will continue to do so after this patch.
->>> If your concerns are about the correctness of allowing reset to always
->>> work, you specifically requested this behavior in the patches
->>> implementing it here[1].
+On 01.07.2025 09:00, Penny, Zheng wrote:
+> [Public]
+> 
+> Hi,
+> 
+>> -----Original Message-----
+>> From: Jan Beulich <jbeulich@suse.com>
+>> Sent: Monday, June 30, 2025 4:21 PM
+>> To: Penny, Zheng <penny.zheng@amd.com>
+>> Cc: Huang, Ray <Ray.Huang@amd.com>; Andrew Cooper
+>> <andrew.cooper3@citrix.com>; Roger Pau Monné <roger.pau@citrix.com>;
+>> Anthony PERARD <anthony.perard@vates.tech>; Orzel, Michal
+>> <Michal.Orzel@amd.com>; Julien Grall <julien@xen.org>; Stefano Stabellini
+>> <sstabellini@kernel.org>; xen-devel@lists.xenproject.org
+>> Subject: Re: [PATCH v5 01/18] xen/x86: remove "depends
+>> on !PV_SHIM_EXCLUSIVE"
 >>
->> Right, yet even there I had already asked for possible differing opinions.
->> Plus the case I had mentioned was specifically Dom0, which fits here.
+>> On 16.06.2025 08:41, Penny Zheng wrote:
+>>> Remove all "depends on !PV_SHIM_EXCLUSIVE" (also the functionally
+>>> equivalent "if !...") in Kconfig file, since negative dependancy will
+>>> badly affect allyesconfig.
+>>>
+>>> Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
+>>> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+>>> ---
+>>> v2 -> v3:
+>>> - remove comment for PV_SHIM_EXCLUSIVE
+>>> ---
+>>> v3 -> v4:
+>>> - explicitly state "CONFIG_xxx is not set" in "pvshim_defconfig"
+>>
+>> Where did these changes go? Nothing is said about ...
+>>
+>>> - Add "default y" for SHADOW_PAGING and TBOOT
+>>> - refactor commit message
+>>> ---
+>>> v4 -> v5:
+>>> - For not breaking allyesconfig, changes to defaults are actually not needed.
+>>> So remove them all
+>>> - Leave one blank lines
+>>
+>> ... their (complete) dropping here. Aiui overrides for anything where you remove the
+>> dependency (and where the intended setting for the shim is different from the
+>> general default) would still be needed here.
+>>
 > 
-> So I've done some testing to see the actual behavior with different 
-> combinations of pci-passthrough and iommu switches. With passthrough=off 
-> and iommu=on the reset works fine. But with both of them off, it fails 
-> because PHYSDEVOP_pci_device_add is not adding anything and therefore 
-> pci_get_pdev can't find the pdev.
-> 
-> I am not sure which behavior would be the correct one here for 
-> passthrought=off and iommu=off.
-> 
-> 1. Leave it as is, reset returns -ENODEV and pciback probe fails
-> 2. Add the same check as in add/remove, reset will return -EOPNOTSUPP 
-> and pciback probe will also fail
-> 3. Add the same check as in add/remove but return 0 so pciback can probe 
-> the device.
-> 
-> Maybe you have some thoughts on this. I can't come up with an actual 
-> good reason for using pciback without pci-passthrough enabled, outside 
-> of maybe "not breaking some abstract scripts". And EOPNOTSUPP seems more 
-> descriptive than ENODEV so I strive towards option 2 if everyone okay 
-> with that.
+> Since I checked, before and after this commit, result of "make defconfig pvshim_defconfig" doesn't really change for above options, so I remove them
 
-I think I'd favor option 2, too. Without pass-through, PHYSDEVOP_pci_device_reset
-is pretty meaningless aiui. vPCI in particular builds on top of pass-through aiui,
-even if that isn't expressed like that right now (e.g. by having HAS_VPCI select
-HAS_PASSTHROUGH).
+Hmm, I'm puzzled by that. But if so, ...
+
+> I'll add them back to emphasize intended setting for the shim is different from the general default
+
+... nothing should indeed be added (back). What's there isn't to emphasize
+anything, but to override what otherwise is the default.
+
+(I can see my mistake there at the example of HVM: That option itself has a
+suitable default, and hence anything enclosed in the subsequent "if HVM" is
+indeed suitable covered.)
+
+>>> --- a/xen/drivers/video/Kconfig
+>>> +++ b/xen/drivers/video/Kconfig
+>>> @@ -3,7 +3,7 @@ config VIDEO
+>>>     bool
+>>>
+>>>  config VGA
+>>> -   bool "VGA support" if !PV_SHIM_EXCLUSIVE
+>>> +   bool "VGA support"
+>>>     select VIDEO
+>>>     depends on X86
+>>>     default y if !PV_SHIM_EXCLUSIVE
+>>
+>> ... here, which (as indicated before) imo doesn't belong here, but at the very least
+>> would need covering in the description.
+>>
+> 
+> Hmmm. Although " bool "VGA support" if !PV_SHIM_EXCLUSIVE " doesn't make CONFIG_VGA the option disappear when PV_SHIM_EXCLUSIVE=y, it still make it unconfigurable. So I treat it dependency too here...
+> Maybe I shall add the following in the description:
+> ```
+> Although " if !PV_SHIM_EXCLUSIVE " for CONFIG_VGA is not truly a dependency, setting PV_SHIM_EXCLUSIVE y still makes it unconfigurable. So we remove it here too
+> ```
+
+Hmm, now that you say this I wonder why this was written that way. I notice it
+was me who suggested this form, but I don't remember anymore why I didn't
+suggest the simpler "depends on", which - afaict - would have the exact same
+effect. What you mean to add to the description may want to reflect that (as
+long as you agree, of course).
+
+>> Also, just to repeat what I said in reply to the cover letter: Imo this change needs to
+>> move 2nd to last in the series, and it then wants committing together with the last
+>> patch (which you will want to put in as a remark to the eventual committer).
+> 
+> Yes, I'll move it to 2nd to last. Shall I mention "It shall be committed together with ...." in commit message or change log?
+
+Somewhere below the first --- separator (and maybe best also in the cover letter).
+Such doesn't belong in the eventual commit.
 
 Jan
 
