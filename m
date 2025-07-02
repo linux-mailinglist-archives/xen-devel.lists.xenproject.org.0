@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7BFFBAF5C56
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Jul 2025 17:11:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1031358.1405174 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2FACEAF5C81
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Jul 2025 17:16:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1031368.1405184 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uWz7c-0002qf-Cw; Wed, 02 Jul 2025 15:11:40 +0000
+	id 1uWzC4-0003eQ-01; Wed, 02 Jul 2025 15:16:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1031358.1405174; Wed, 02 Jul 2025 15:11:40 +0000
+Received: by outflank-mailman (output) from mailman id 1031368.1405184; Wed, 02 Jul 2025 15:16:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uWz7c-0002p9-9J; Wed, 02 Jul 2025 15:11:40 +0000
-Received: by outflank-mailman (input) for mailman id 1031358;
- Wed, 02 Jul 2025 15:11:38 +0000
+	id 1uWzC3-0003dO-T9; Wed, 02 Jul 2025 15:16:15 +0000
+Received: by outflank-mailman (input) for mailman id 1031368;
+ Wed, 02 Jul 2025 15:16:14 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=FQsZ=ZP=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uWz7a-0002nq-Dz
- for xen-devel@lists.xenproject.org; Wed, 02 Jul 2025 15:11:38 +0000
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [2a00:1450:4864:20::42e])
+ id 1uWzC2-0003dH-Fx
+ for xen-devel@lists.xenproject.org; Wed, 02 Jul 2025 15:16:14 +0000
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [2a00:1450:4864:20::429])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d8a3ced4-5756-11f0-b894-0df219b8e170;
- Wed, 02 Jul 2025 17:11:36 +0200 (CEST)
-Received: by mail-wr1-x42e.google.com with SMTP id
- ffacd0b85a97d-3a582e09144so3337131f8f.1
- for <xen-devel@lists.xenproject.org>; Wed, 02 Jul 2025 08:11:36 -0700 (PDT)
+ id 762b3dd0-5757-11f0-b894-0df219b8e170;
+ Wed, 02 Jul 2025 17:16:00 +0200 (CEST)
+Received: by mail-wr1-x429.google.com with SMTP id
+ ffacd0b85a97d-3a522224582so3690949f8f.3
+ for <xen-devel@lists.xenproject.org>; Wed, 02 Jul 2025 08:16:00 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-31a9cc67367sm63963a91.18.2025.07.02.08.11.30
+ d9443c01a7336-23acb3b7abdsm138404255ad.169.2025.07.02.08.15.53
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 02 Jul 2025 08:11:35 -0700 (PDT)
+ Wed, 02 Jul 2025 08:15:59 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d8a3ced4-5756-11f0-b894-0df219b8e170
+X-Inumbo-ID: 762b3dd0-5757-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1751469096; x=1752073896; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1751469360; x=1752074160; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=AcGHS5vUib4VhYzbb18TsbtLNzBZ84WXOudx0h+9aYA=;
-        b=BjW8EgQiRvHWNnJpZKB6GjLuhjPQV3fX6kx4pCvGxsCaF7hzy1wDB91uFVBLI/KjGe
-         gCHmJk8z5QwzUSARO8sn8RaZ6khYgWdq4xUDX5MIhqNqlQ477dDPuNti3eF8xvl2LVf9
-         vJ27iFfK2aNH7wmpdbnoBFIha5y0WSbYQKd/xpclf1xGDYUoFGo4zZBDDS7hhT3yPJGV
-         7a+7zsbokt1dyM+EZmc0LmxCVCdtN3lDRogNH5RrQMTlpgsiBQeZjfsBbuSNPTZKbnWb
-         qIzOuh925GcDUNPIdRV2HN4ADmmtHE3QjJJGDTjDrAl7LUoQ8oS+Vhsfy4U3BYQggR56
-         kRrQ==
+        bh=Sb/Z5N52z9ROFWFSUeCpLnrUHoWnEkVHHV5PMlEB/YQ=;
+        b=CK/3+e9LtZ/I8JEuEnJ58BIPzMRKiDyGP4taDks5hTp8vMl0SEwAlfzW2ehWwhuXdb
+         mvNcRdyJHRpWgbl4BR6tEqbMCibWkTmCvHDQL/3zxTMbAZ+AaXYOxEoJ3bSsDfVGahzZ
+         TAcxuvtrUbgsoMyYJW0kBImq4B2QGjMiEBQzMyQ4GAxXNWDEnUZM9gUTgF9ey8KWtTia
+         Fn3R81Pd2HPUU+sCA/aWqINaM15IEeBKx+6aY5/mf7F9QiZ3hCqC25w5Jpl7hh0iJ6lr
+         /f8HyZc9b9J5RaZz0d/p0rog3W0WzGlPJACLeSW5oq/5VK5h1TL/UvLgBWPa9x5egHz8
+         9ofA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1751469096; x=1752073896;
+        d=1e100.net; s=20230601; t=1751469360; x=1752074160;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=AcGHS5vUib4VhYzbb18TsbtLNzBZ84WXOudx0h+9aYA=;
-        b=HerlGWP/sAOy/XCzWNBlVf1mE27t3ZNJbIV8AaqZbTJm84xPMPSkad5a7xtvwDUNXQ
-         OOSL9IKraiScMB+D9rwxQ7g/GYPLM6YMXCz/qgj3zFD76JKUPfWf7AS195848jr0XqtU
-         RZ3rs7PJlobcAQL5u5TBrw9pO2gLvayBkABkHTCwW256mPPjiKNnXHYuF2a8XfPITufn
-         mL1PZXqSprvE2sVIqsKfmU8iZhWMulYyyWdjcqy3U0zqNMRNYymm2eTq36nqd70gLlQh
-         pUU1BQZ1NwtmrnMiHmseHGD103MCxORviTbt//B21WqKWCrVFzhgGbikD5FWAp4LZODu
-         0T1g==
-X-Forwarded-Encrypted: i=1; AJvYcCVG2BNLoFezL8kVbcft8ZP5IpxPw1hHcqB5m6lUeAiqpuYodzonPfPov9ihZ9DLqx/jvmY9OpOsjmI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzV6dfl/34JYS5B13wMoScYuNMemDFjenFEehcFYGUO/ONkRaaJ
-	Mj/1ojPo5vhxgGAds0+lixO8P+yHr7ll6BrVScgg3+mlmM3rc96bgS8LQqzAYKEP0A==
-X-Gm-Gg: ASbGnctZYwLsVPEiK6RGWaHL/MGM90A8H7XmwOjcwmCdQjBcdG1xCEx7q6Qeqe/M/LI
-	Oaqz66u8X31EoCPzOBEQMOCQSuelZn/tgRyhXjyNyKRvrxYPcy2pEdv7QTthk3rw1Rojtnta/H6
-	XmfZzuqnUejf6Vt4uumn5l2dYnPguU6sr0TyULQnwpMooekwrg0ek4cJy7EVHcidV+hruQK7IAw
-	Ugk3JrejA2luY/N05SCjf7w2TNqz3dpWGXKG7CF5/FEVWap9Mi5GywgixMnb0aMwOUqv4FVHNBx
-	Mro2DvE/X/n9gxuwNiXvrJ7q7h4esdM3afSdJc5aD0jQHKM7etHXa7e0I99Gj/UJuu++KD6GgtC
-	bZU0flCDpbmMtbgS/aQVhJQQY55xDCs1EI4iDoANRGu2UYIY=
-X-Google-Smtp-Source: AGHT+IGMD7meG6XCLNav37wD0QlJVQe5TiawRlbnrpveb75j3MyaXWzFmWgEDZxqRYJyjJ/8hzHP1Q==
-X-Received: by 2002:a05:6000:4914:b0:3a4:f975:30f7 with SMTP id ffacd0b85a97d-3b201d8df63mr2629667f8f.56.1751469095660;
-        Wed, 02 Jul 2025 08:11:35 -0700 (PDT)
-Message-ID: <d18fd33e-da42-4f05-a6f1-c03e5f2f34de@suse.com>
-Date: Wed, 2 Jul 2025 17:11:26 +0200
+        bh=Sb/Z5N52z9ROFWFSUeCpLnrUHoWnEkVHHV5PMlEB/YQ=;
+        b=Qmjb4PF5xWExnieIAQPa2RpEzAkA207nOsKo9o3XPph5aZUB+lN4XUoG9/R0QtDYnm
+         sb6dFJ9Z/6sNrCs/JG2htEmfzD57IvaeEoLGR1FQp/EvDHRLd4LyHz1YUppy9xpNH7bv
+         yuDYKbcdOqO+wSSBfXlZ31HJ5f3IrjSi6cW/ow8Je+3p3NHmPqv/292GUB9OsIegZl19
+         sQ6gKBZH2eCePkh3YAvQQs9gJISK5KHMAyrPuz/mmN5BV/DfqAzjombURXQFQQO22LR0
+         gSvzrckqDJQvDwYSHnFVFy48xNE39cVLbgV49RJKTQG87HEAZZRl3Lakg46gvF1cUdoV
+         H9BA==
+X-Forwarded-Encrypted: i=1; AJvYcCWER13gA2czAOy+MT2zkmK0upQUCfLCuH20itUJUfSZ3kCWVYk60oOGEqWYQC5w63YPONAtzZXTrp8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz46VqISlH0VeaN4+8sT+HtMZRaA8rtVWsvwDLTMYt1S6qOCww9
+	Ku2idTNvorlyNy3GsS7ynpGYNMWP2KO13NUq12DtMgu3tw2Ohv85EiBIYRY7ZOZU/Q==
+X-Gm-Gg: ASbGnctrUaVzMR/6uOo/uy2bWAYHFRXdMdIVwVhdFUB1QeS4YUf8bHfBFbsEZWYUQlE
+	W3ESM6rjdN+NSbAOWgF1as/wwD1bmGqw4iiy4pmEt+tSMk4blqtJBA6NmB+tF1W3D4UsgtBglsS
+	+Wj5Ia5mOKPGUATlYAVueGeR0C0f748dGCYwyJJ/BR37wg9pMZ3nxXCKC6aLsCME9TGPo/x5Fky
+	zYy2c4dG0HSInCtmVzPZSl9qwqfzcd0nZV5FuS7AsQbqctNbhaRyGk1/D1UC5LJeSviUR78O4KU
+	78uPayY8QMAdx4LATo2Y+4Mm9G9OYHD5LUNELuOTWrH+Oq0KT2xzkIDMqTfv/gfakirJ/QavuQi
+	VaF8K/3FUDyxjOB63dSm9jyLMI+W5IoFOuP3jVIb0VTAInSd1XF6owYW4TA==
+X-Google-Smtp-Source: AGHT+IFzKZd89svO3zVqoL2IhCTY/9M6FrtNlAGZs62nTRFRfxcauSjZ6oi9HGQO9rrgXvb0JH6M6A==
+X-Received: by 2002:a5d:5f83:0:b0:3a5:3af1:e21b with SMTP id ffacd0b85a97d-3b200f2156emr2900431f8f.47.1751469359903;
+        Wed, 02 Jul 2025 08:15:59 -0700 (PDT)
+Message-ID: <2a7dab07-9e52-4d4a-a80d-99229c9fe093@suse.com>
+Date: Wed, 2 Jul 2025 17:15:48 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 08/22] x86/slaunch: restore boot MTRRs after Intel TXT
- DRTM
-To: Sergii Dmytruk <sergii.dmytruk@3mdeb.com>
+Subject: Re: [PATCH v5 03/10] x86: Replace arch-specific boot_domain with the
+ common one
+To: Alejandro Vallejo <agarciav@amd.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- Ross Philipson <ross.philipson@oracle.com>,
- trenchboot-devel@googlegroups.com, xen-devel@lists.xenproject.org
-References: <cover.1748611041.git.sergii.dmytruk@3mdeb.com>
- <5b6b9bf165a4fd9444dc53848fb8faa2cea30781.1748611041.git.sergii.dmytruk@3mdeb.com>
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Jason Andryuk <jandryuk@gmail.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>, xen-devel@lists.xenproject.org,
+ Daniel Smith <dpsmith@apertussolutions.com>
+References: <20250701105706.86133-1-agarciav@amd.com>
+ <20250701105706.86133-4-agarciav@amd.com>
+ <0a4196db-dfc8-4259-bfef-e62cf3fe17d1@suse.com>
+ <DB1NXDYYSE3Y.1OWV3AS1TYRLA@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -122,114 +126,61 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <5b6b9bf165a4fd9444dc53848fb8faa2cea30781.1748611041.git.sergii.dmytruk@3mdeb.com>
+In-Reply-To: <DB1NXDYYSE3Y.1OWV3AS1TYRLA@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 30.05.2025 15:17, Sergii Dmytruk wrote:
-> @@ -442,6 +444,9 @@ static uint64_t __init mtrr_top_of_ram(void)
->      ASSERT(paddr_bits);
->      addr_mask = ((1ULL << paddr_bits) - 1) & PAGE_MASK;
->  
-> +    if ( slaunch_active )
-> +        txt_restore_mtrrs(e820_verbose);
+On 02.07.2025 17:09, Alejandro Vallejo wrote:
+> On Wed Jul 2, 2025 at 3:15 PM CEST, Jan Beulich wrote:
+>> On 01.07.2025 12:56, Alejandro Vallejo wrote:
+>>> --- a/xen/arch/x86/include/asm/bootfdt.h
+>>> +++ b/xen/arch/x86/include/asm/bootfdt.h
+>>> @@ -3,6 +3,12 @@
+>>>  #define X86_BOOTFDT_H
+>>>  
+>>>  #include <xen/types.h>
+>>> +#include <public/xen.h>
+>>> +
+>>> +struct arch_boot_domain
+>>> +{
+>>> +    domid_t domid;
+>>> +};
+>>>  
+>>>  struct arch_boot_module
+>>>  {
+>>> [...]
+>>> @@ -1048,11 +1050,11 @@ static struct domain *__init create_dom0(struct boot_info *bi)
+>>>          dom0_cfg.flags |= XEN_DOMCTL_CDF_iommu;
+>>>  
+>>>      /* Create initial domain.  Not d0 for pvshim. */
+>>> -    bd->domid = get_initial_domain_id();
+>>> -    d = domain_create(bd->domid, &dom0_cfg,
+>>> +    bd->arch.domid = get_initial_domain_id();
+>>> +    d = domain_create(bd->arch.domid, &dom0_cfg,
+>>>                        pv_shim ? 0 : CDF_privileged | CDF_hardware);
+>>>      if ( IS_ERR(d) )
+>>> -        panic("Error creating d%u: %ld\n", bd->domid, PTR_ERR(d));
+>>> +        panic("Error creating d%u: %ld\n", bd->arch.domid, PTR_ERR(d));
+>>
+>> This being the only place where the (now) arch-specific field is used, why
+>> does it exist? A local variable would do? And if it's needed for
+>> (supposedly arch-agnostic) hyperlaunch, then it probably shouldn't be
+>> arch-specific? Daniel, Jason?
+> 
+> As for the arch-agnostic side of things, arm needs some extra work to be
+> able to do it safely. dom0less currently constructs domains immediately after
+> parsing them, which is problematic for cases where some domains have the prop
+> and others don't. The domid allocation strategy may preclude further otherwise
+> good domains from being created just because their domid was stolen by a domain
+> that didn't actually care about which domid it got.
+> 
+> It'll eventually want to leave the arch-specific area, but I don't want to do
+> that work now.
 
-How did you pick this call site? Besides it being unrelated to the purpose of
-the function, we may not even make it here (e.g. when "e820-mtrr-clip=no" on
-the command line). Imo this wants to go in the caller of this function,
-machine_specific_memory_setup(). Or you want to reason about this placement in
-the description.
-
-> --- a/xen/arch/x86/include/asm/intel-txt.h
-> +++ b/xen/arch/x86/include/asm/intel-txt.h
-> @@ -426,6 +426,9 @@ void txt_map_mem_regions(void);
->  /* Marks TXT-specific memory as used to avoid its corruption. */
->  void txt_reserve_mem_regions(void);
->  
-> +/* Restores original MTRR values saved by a bootloader before starting DRTM. */
-> +void txt_restore_mtrrs(bool e820_verbose);
-
-This parameter name is, when the header is used from e820.c, going to shadow the
-static variable of the same name there. Misra objects to such. But the parameter
-doesn't really have a need for having the e820_ prefix, does it?
-
-> @@ -111,3 +113,76 @@ void __init txt_reserve_mem_regions(void)
->                       E820_UNUSABLE);
->      BUG_ON(rc == 0);
->  }
-> +
-> +void __init txt_restore_mtrrs(bool e820_verbose)
-> +{
-> +    struct slr_entry_intel_info *intel_info;
-> +    uint64_t mtrr_cap, mtrr_def, base, mask;
-> +    unsigned int i;
-> +    uint64_t def_type;
-> +    struct mtrr_pausing_state pausing_state;
-> +
-> +    rdmsrl(MSR_MTRRcap, mtrr_cap);
-> +    rdmsrl(MSR_MTRRdefType, mtrr_def);
-> +
-> +    if ( e820_verbose )
-> +    {
-> +        printk("MTRRs set previously for SINIT ACM:\n");
-> +        printk(" MTRR cap: %"PRIx64" type: %"PRIx64"\n", mtrr_cap, mtrr_def);
-> +
-> +        for ( i = 0; i < (uint8_t)mtrr_cap; i++ )
-> +        {
-> +            rdmsrl(MSR_IA32_MTRR_PHYSBASE(i), base);
-> +            rdmsrl(MSR_IA32_MTRR_PHYSMASK(i), mask);
-> +
-> +            printk(" MTRR[%d]: base %"PRIx64" mask %"PRIx64"\n",
-> +                   i, base, mask);
-> +        }
-> +    }
-> +
-> +    intel_info = (struct slr_entry_intel_info *)
-> +        slr_next_entry_by_tag(slaunch_get_slrt(), NULL, SLR_ENTRY_INTEL_INFO);
-> +
-> +    if ( (mtrr_cap & 0xFF) != intel_info->saved_bsp_mtrrs.mtrr_vcnt )
-
-Seeing this and ...
-
-> +    {
-> +        printk("Bootloader saved %ld MTRR values, but there should be %ld\n",
-> +               intel_info->saved_bsp_mtrrs.mtrr_vcnt, mtrr_cap & 0xFF);
-> +        /* Choose the smaller one to be on the safe side. */
-> +        mtrr_cap = (mtrr_cap & 0xFF) > intel_info->saved_bsp_mtrrs.mtrr_vcnt ?
-
-... this vs ...
-
-> +                   intel_info->saved_bsp_mtrrs.mtrr_vcnt : mtrr_cap;
-> +    }
-> +
-> +    def_type = intel_info->saved_bsp_mtrrs.default_mem_type;
-> +    pausing_state = mtrr_pause_caching();
-> +
-> +    for ( i = 0; i < (uint8_t)mtrr_cap; i++ )
-
-... this (and others): Please be consistent in how you access the same piece
-of data.
-
-> +    {
-> +        base = intel_info->saved_bsp_mtrrs.mtrr_pair[i].mtrr_physbase;
-> +        mask = intel_info->saved_bsp_mtrrs.mtrr_pair[i].mtrr_physmask;
-> +        wrmsrl(MSR_IA32_MTRR_PHYSBASE(i), base);
-> +        wrmsrl(MSR_IA32_MTRR_PHYSMASK(i), mask);
-> +    }
-> +
-> +    pausing_state.def_type = def_type;
-> +    mtrr_resume_caching(pausing_state);
-> +
-> +    if ( e820_verbose )
-> +    {
-> +        printk("Restored MTRRs:\n"); /* Printed by caller, mtrr_top_of_ram(). */
-
-What's the comment supposed to be telling the reader? Perhaps this is related to ...
-
-> +        /* If MTRRs are not enabled or WB is not a default type, MTRRs won't be printed */
-
-... what this comment says, but then the earlier comment is still confusing (to me
-at least). This latter comment says all that's needed, I would say.
+But if the domU field is fine to live in a common struct despite being unused
+on x86, why can't the domid field live in a common struct too, despite being
+unused on non-x86? Otherwise it'll be extra churn for no gain to later move it
+there.
 
 Jan
 
