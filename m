@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 589A3AF1534
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Jul 2025 14:17:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1031010.1404690 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 14152AF1536
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Jul 2025 14:17:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1031016.1404701 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uWwOO-0000lF-DW; Wed, 02 Jul 2025 12:16:48 +0000
+	id 1uWwOl-0001Gw-Q2; Wed, 02 Jul 2025 12:17:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1031010.1404690; Wed, 02 Jul 2025 12:16:48 +0000
+Received: by outflank-mailman (output) from mailman id 1031016.1404701; Wed, 02 Jul 2025 12:17:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uWwOO-0000j9-9b; Wed, 02 Jul 2025 12:16:48 +0000
-Received: by outflank-mailman (input) for mailman id 1031010;
- Wed, 02 Jul 2025 12:16:46 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uWwOl-0001Eg-Mb; Wed, 02 Jul 2025 12:17:11 +0000
+Received: by outflank-mailman (input) for mailman id 1031016;
+ Wed, 02 Jul 2025 12:17:10 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=FQsZ=ZP=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uWwOM-0000Fz-QS
- for xen-devel@lists.xenproject.org; Wed, 02 Jul 2025 12:16:46 +0000
+ id 1uWwOk-0000ib-9f
+ for xen-devel@lists.xenproject.org; Wed, 02 Jul 2025 12:17:10 +0000
 Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
  [2a00:1450:4864:20::433])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6b6acd79-573e-11f0-b894-0df219b8e170;
- Wed, 02 Jul 2025 14:16:45 +0200 (CEST)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 7a1f8bb7-573e-11f0-a313-13f23c93f187;
+ Wed, 02 Jul 2025 14:17:09 +0200 (CEST)
 Received: by mail-wr1-x433.google.com with SMTP id
- ffacd0b85a97d-3a5257748e1so2937044f8f.2
- for <xen-devel@lists.xenproject.org>; Wed, 02 Jul 2025 05:16:45 -0700 (PDT)
+ ffacd0b85a97d-3a54690d369so4118814f8f.3
+ for <xen-devel@lists.xenproject.org>; Wed, 02 Jul 2025 05:17:09 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-74af56ceb74sm14601400b3a.135.2025.07.02.05.16.41
+ d9443c01a7336-23acb2f1b25sm134818915ad.63.2025.07.02.05.17.06
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 02 Jul 2025 05:16:43 -0700 (PDT)
+ Wed, 02 Jul 2025 05:17:08 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6b6acd79-573e-11f0-b894-0df219b8e170
+X-Inumbo-ID: 7a1f8bb7-573e-11f0-a313-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1751458604; x=1752063404; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1751458629; x=1752063429; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=SE8xoyNdEL534537qH4i+x2FYrDmfoG9y/hWuSaiBfU=;
-        b=Ux7RmnKmw1pg52xb6xd0wH+fzSk+vRKFsjkT01mQyzojeqmIEzTbYrM4sGwL0OEyIP
-         J7n3QESkdYJdl9ualB/G0DqB+DzreE2+FnuxOvj9opSvnNZB63I1/1R+k0RRaEm7tNGB
-         3gXBkbQ3ktTnI0czp/btLzcKnabiIW11jnncdKn+mqskWaqnNtoDXyUQGR30oh+cfm1d
-         41GbiSpspKJC4yYrv0pjm2LRrIhGrfzlCo533dQ38MlSI7mzHm+DqnEjE/NkHN0yo+d8
-         YagB318AxwvTqgjaDK1YmK1v59VGrUVIyNSRl4Ea/xUOJrbbBLNsowdzxOaxgGrqyuKu
-         2Pyw==
+        bh=RZeSTtfnims00cJDfKtOlaDsz46iqIOaCHm3irCBO80=;
+        b=SWhJfc10Sumelm55jwcMTVo2F1jW6/CU/KttdypzDbEdJfiXOzfLapmwzZ3wSMqn0j
+         NgnCOkkY7jWKvKjeDk0w6/dEHN6OHUwU8D8HHHh3bRGqe4vhEOpL7tagJhrCnp8HuFQ1
+         JwwCfUy3UeA09hiBHqfaHXKujcNOfF3ClszI8TM5FOK/X7VZWP/LrqyrSvBmI2J574Yb
+         J7TYpSCa3pnfV/uQd0qaQnVatQhMJC/4fDrtjc2yAccrvl3/lN9+QcjaIB4WvsyaRaba
+         zjz2hfECTwLtYw5w2MSw2atMHa4ja5+X3Xas2hAFerilwQJsvlUtvwFgPZicoCptmh/w
+         UDUQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1751458604; x=1752063404;
+        d=1e100.net; s=20230601; t=1751458629; x=1752063429;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=SE8xoyNdEL534537qH4i+x2FYrDmfoG9y/hWuSaiBfU=;
-        b=bphFQVsru2zxCTvxcastkEpCsu51Susr6pcxvAqe+e52GuNqWq4qh4wQFkikoqZYcF
-         sWDXQ+c+kgUnFdmEfwAfQaXvxxye/AC3Pv5hfgxLLtJ/w5yMOjb7tdh/ZZqatAikVsP8
-         dtY17zy5SYuUtdOhkRHakIV6eQZ/hoEVksF4pVlUNpyNsgGS7QpOW5DK+c+WV5k9IvjI
-         enKoP5wiYJQSdp7kQWPxtebxSbvC0T9zA/UlhfOz1ODSAzn3AuMd/aKNsmD9hRvlwv2D
-         kHUYcq/LjETH8yGVkHGfFwQYeP8AW2Yt6fzOASrhKz6YsayeWBcvGG5/p8gitz5uLKFA
-         0tAA==
-X-Gm-Message-State: AOJu0Yww7hHgsvppzjOa3Fz+w4aLIAkEdXZBq1DCFUeV1+K/AL8BpyIt
-	izHrwGlaVolZdobsfT3EMV3F8ibnSZATQbkSfp/6/xx7lVOTo+W18ZZj//2Do2DMs/kI7KMzcYC
-	c/ds=
-X-Gm-Gg: ASbGncv1P60UOIwkQ244+uGjw3pNFaqCnB/EkYKFPeOPXoDVLe1qvasdRP436tHnSPG
-	Dcy8mUVJ1yX0ywiacNahSBqt7BV8yc6N3gp/xOUh9AuD5Vb5ALnT8GtfHGEsKsq1ONrJGikbjqs
-	BT/WaMUiWlqfYUXt/kIFfl04nWHWfVQgCNcWa9URdTptJt+m2564jrIVFa3iQM12kukta/dhkjb
-	eW02U6r3yTfy8+56YsvJLgsO66ZZunfmaZUF0NBOA0jCxsyCyOG/I09Ec4ViZ4KKC/mnBp09i9W
-	2gJio5TnnFzquC5miQzliWEkUX8w9icnDyqpMtUrFp1TIcc9KbhYkBeIm70r6rImPk3JUHqX3GB
-	QASU8u7xqz4d+YTxOtaE9twLfbH1rsXp3MYS9Hmelz9psUus=
-X-Google-Smtp-Source: AGHT+IGhy45QJk1iqOLx0KbGMNzCiLI49h3C97l8MTWZf3BXAB4e8yTx+ULA3+l2/Ex/QZ20D6NZWw==
-X-Received: by 2002:a5d:5888:0:b0:3a4:d0ed:257b with SMTP id ffacd0b85a97d-3b1ff42f9b6mr2096512f8f.22.1751458604454;
-        Wed, 02 Jul 2025 05:16:44 -0700 (PDT)
-Message-ID: <cc7d705f-b5cd-481b-bc9b-e0b3f4a3e73a@suse.com>
-Date: Wed, 2 Jul 2025 14:16:37 +0200
+        bh=RZeSTtfnims00cJDfKtOlaDsz46iqIOaCHm3irCBO80=;
+        b=qOFQ8+Q1GtUGVgfWwo3t5ZRaugzZZGGj6ljP79pBKPfM/tm2Usvb+wOpJS2VFqa+FJ
+         7wbid0fbF1V13ORn/5yVG8BPdDkSgTVOdJabSnUrG3Ml9vQAGo9mCLITs0/2ut2m7iOv
+         OsWpzAFBs3c3BABW7QlJjlecY4biIcP5NM2mmI8kdbEl/9JSLZLV/HZxJll+2Fz/JscL
+         f6l1AGHtm8rdvyE+5GwJ66RpnOglHT7ydN7g0MGgeYnia+C9km8Vwb4WZxPZ+TfFOddf
+         WVyU3qRszv9Jh91qnYXcVw9VBMbQ1kzl444YxhsF4ikYQvMsg9Wcv3VjJrVdsVjs4peP
+         dRBg==
+X-Gm-Message-State: AOJu0Yx4sRgaaBipe/Np0n0Ot3hsCqc0Z4dQ8uZyfymjKHjRBvNkt0RV
+	/UIa/mpTAnRdZA78ptFBmBrT/X1qZqRSa9YuJA/EQw0iYxrRxHJAZfX7IbpylWDbVp9+ZOpQuuc
+	Quko=
+X-Gm-Gg: ASbGncvhGLbGlVa1MdahshW/JnLIGUXOziegaewl7U7pNsoQSiuL/744MRzuDSxwVEz
+	aJCQMc1QfmVgR6doiKUxnhsqJb7cNykF0xVtjO/gK+zEvT4iWYWy/s+h+hDVg9E9g9Om4LtYXbF
+	qYQRdcnTj+rjYygs3M1Bg7WGpEBR5mzHj0j+JcwH9bUGsQjsik3kkKaHuaOKlaCId/qm+GLfoZK
+	SDFJHIzH1VRqeT9E4KlArXdvP5yE+EFEIy4ElUeJ5at4h9pDTrfaVAG94ClOosgpOrI2F81p/85
+	R9zKMdqItmvxA8JYu4VdKFOHPnaR5VAFRUF4PpetLSHhqz9IScOU2ybN2cQVdGrJyLmmIO6VkpP
+	qtvMWbBxMU5jdXsyLxQ7VIkMMweKu1UbRIjiER+IB7g61H7k=
+X-Google-Smtp-Source: AGHT+IG8uZko8oI04YwbwWvUjWY/Ph7lnYNq6Zzw8cMIdBVS54rMdAaYNmvgkh5Tr8T9zGuQPmkOpg==
+X-Received: by 2002:a05:6000:310b:b0:3a6:e2d5:f14c with SMTP id ffacd0b85a97d-3b20048e696mr1860341f8f.30.1751458629160;
+        Wed, 02 Jul 2025 05:17:09 -0700 (PDT)
+Message-ID: <e749ecd0-9b9a-413d-8a7a-4f4e36487511@suse.com>
+Date: Wed, 2 Jul 2025 14:17:02 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v7 3/7] x86: re-work memset()
+Subject: [PATCH v7 4/7] x86: re-work memcpy()
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -127,19 +127,30 @@ A "basic" version using qword steps for the bulk of the operation, and an
 ERMS version for modern hardware, to be substituted in via alternatives
 patching.
 
-For RET to be usable in an alternative's replacement code, extend the
-CALL/JMP patching to cover the case of "JMP __x86_return_thunk" coming
-last in replacement code.
+Alternatives patching, however, requires an extra precaution: It uses
+memcpy() itself, and hence the function may patch itself. Luckily the
+patched-in code only replaces the prolog of the original function. Make
+sure this remains this way.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
+Reviewed-by: Teddy Astie <teddy.astie@vates.tech>
 Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
 ---
-We may want to consider branching over the REP STOSQ as well, if the
+We may want to consider branching over the REP MOVSQ as well, if the
 number of qwords turns out to be zero.
-We may also want to consider using non-REP STOS{L,W,B} for the tail.
+We may also want to consider using non-REP MOVS{L,W,B} for the tail.
+
+TBD: We may further need a workaround similar to Linux'es 8ca97812c3c8
+     ("x86/mce: Work around an erratum on fast string copy
+     instructions").
+
+TBD: Some older AMD CPUs have an issue with REP MOVS when source and
+     destination are misaligned with one another (modulo 32?), which may
+     require a separate memcpy() flavor.
 ---
+v6: Move alternatives.c change to a separate patch.
 v5: Re-base.
-v4: Use %r8 instead of %rsi in a few places.
+v4: Use CR2 write as serializing insn, and limit its use to boot time.
 v3: Re-base.
 
 --- a/xen/arch/x86/Makefile
@@ -148,75 +159,52 @@ v3: Re-base.
  obj-$(CONFIG_PV) += ioport_emulate.o
  obj-y += irq.o
  obj-$(CONFIG_KEXEC) += machine_kexec.o
-+obj-y += memset.o
++obj-y += memcpy.o
+ obj-y += memset.o
  obj-y += mm.o x86_64/mm.o
  obj-$(CONFIG_VM_EVENT) += monitor.o
- obj-y += mpparse.o
---- a/xen/arch/x86/alternative.c
-+++ b/xen/arch/x86/alternative.c
-@@ -351,6 +351,12 @@ static int init_or_livepatch _apply_alte
-         /* 0xe8/0xe9 are relative branches; fix the offset. */
-         if ( a->repl_len >= 5 && (*buf & 0xfe) == 0xe8 )
-             *(int32_t *)(buf + 1) += repl - orig;
-+        else if ( IS_ENABLED(CONFIG_RETURN_THUNK) &&
-+                  a->repl_len > 5 && buf[a->repl_len - 5] == 0xe9 &&
-+                  ((long)repl + a->repl_len +
-+                   *(int32_t *)(buf + a->repl_len - 4) ==
-+                   (long)__x86_return_thunk) )
-+            *(int32_t *)(buf + a->repl_len - 4) += repl - orig;
- 
-         a->priv = 1;
- 
 --- /dev/null
-+++ b/xen/arch/x86/memset.S
-@@ -0,0 +1,30 @@
++++ b/xen/arch/x86/memcpy.S
+@@ -0,0 +1,20 @@
 +#include <asm/asm_defns.h>
 +
-+.macro memset
-+        and     $7, %edx
-+        shr     $3, %rcx
-+        movzbl  %sil, %esi
-+        mov     $0x0101010101010101, %rax
-+        imul    %rsi, %rax
-+        mov     %rdi, %r8
-+        rep stosq
-+        or      %edx, %ecx
-+        jz      0f
-+        rep stosb
-+0:
-+        mov     %r8, %rax
-+        RET
-+.endm
-+
-+.macro memset_erms
-+        mov     %esi, %eax
-+        mov     %rdi, %r8
-+        rep stosb
-+        mov     %r8, %rax
-+        RET
-+.endm
-+
-+FUNC(memset)
++FUNC(memcpy)
 +        mov     %rdx, %rcx
-+        ALTERNATIVE memset, memset_erms, X86_FEATURE_ERMS
-+END(memset)
++        mov     %rdi, %rax
++        /*
++         * We need to be careful here: memcpy() is involved in alternatives
++         * patching, so the code doing the actual copying (i.e. past setting
++         * up registers) may not be subject to patching (unless further
++         * precautions were taken).
++         */
++        ALTERNATIVE "and $7, %edx; shr $3, %rcx", \
++                    STR(rep movsb; RET), X86_FEATURE_ERMS
++        rep movsq
++        or      %edx, %ecx
++        jz      1f
++        rep movsb
++1:
++        RET
++END(memcpy)
 --- a/xen/arch/x86/string.c
 +++ b/xen/arch/x86/string.c
-@@ -22,19 +22,6 @@ void *(memcpy)(void *dest, const void *s
-     return dest;
- }
+@@ -7,21 +7,6 @@
  
--void *(memset)(void *s, int c, size_t n)
+ #include <xen/lib.h>
+ 
+-void *(memcpy)(void *dest, const void *src, size_t n)
 -{
--    long d0, d1;
+-    long d0, d1, d2;
 -
 -    asm volatile (
--        "rep stosb"
--        : "=&c" (d0), "=&D" (d1)
--        : "a" (c), "1" (s), "0" (n)
--        : "memory");
+-        "   rep ; movs"__OS" ; "
+-        "   mov %k4,%k3      ; "
+-        "   rep ; movsb        "
+-        : "=&c" (d0), "=&D" (d1), "=&S" (d2)
+-        : "0" (n/BYTES_PER_LONG), "r" (n%BYTES_PER_LONG), "1" (dest), "2" (src)
+-        : "memory" );
 -
--    return s;
+-    return dest;
 -}
 -
  void *(memmove)(void *dest, const void *src, size_t n)
