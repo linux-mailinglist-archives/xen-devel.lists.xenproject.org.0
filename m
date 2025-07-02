@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 19261AF1157
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Jul 2025 12:11:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1030868.1404541 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 043CEAF115E
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Jul 2025 12:13:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1030873.1404551 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uWuQz-0001if-6b; Wed, 02 Jul 2025 10:11:21 +0000
+	id 1uWuSx-0002M8-HB; Wed, 02 Jul 2025 10:13:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1030868.1404541; Wed, 02 Jul 2025 10:11:21 +0000
+Received: by outflank-mailman (output) from mailman id 1030873.1404551; Wed, 02 Jul 2025 10:13:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uWuQz-0001h9-3R; Wed, 02 Jul 2025 10:11:21 +0000
-Received: by outflank-mailman (input) for mailman id 1030868;
- Wed, 02 Jul 2025 10:11:19 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=KFiP=ZP=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1uWuQx-0001gi-31
- for xen-devel@lists.xenproject.org; Wed, 02 Jul 2025 10:11:19 +0000
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [2a00:1450:4864:20::435])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e29012d8-572c-11f0-b894-0df219b8e170;
- Wed, 02 Jul 2025 12:11:14 +0200 (CEST)
-Received: by mail-wr1-x435.google.com with SMTP id
- ffacd0b85a97d-3a6d77b43c9so3911275f8f.3
- for <xen-devel@lists.xenproject.org>; Wed, 02 Jul 2025 03:11:14 -0700 (PDT)
-Received: from ?IPV6:2003:e5:8700:7f00:1496:8b57:2e38:232c?
- (p200300e587007f0014968b572e38232c.dip0.t-ipconnect.de.
- [2003:e5:8700:7f00:1496:8b57:2e38:232c])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3a88c7e7386sm15501449f8f.20.2025.07.02.03.11.12
+	id 1uWuSx-0002K4-E6; Wed, 02 Jul 2025 10:13:23 +0000
+Received: by outflank-mailman (input) for mailman id 1030873;
+ Wed, 02 Jul 2025 10:13:21 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=QWaS=ZP=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1uWuSv-0002Jy-Ef
+ for xen-devel@lists.xenproject.org; Wed, 02 Jul 2025 10:13:21 +0000
+Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
+ [2a00:1450:4864:20::532])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2dcce33f-572d-11f0-a313-13f23c93f187;
+ Wed, 02 Jul 2025 12:13:20 +0200 (CEST)
+Received: by mail-ed1-x532.google.com with SMTP id
+ 4fb4d7f45d1cf-60780d74c85so10159271a12.2
+ for <xen-devel@lists.xenproject.org>; Wed, 02 Jul 2025 03:13:20 -0700 (PDT)
+Received: from [192.168.1.5] (user-109-243-64-38.play-internet.pl.
+ [109.243.64.38]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-ae353659de4sm1029707066b.42.2025.07.02.03.13.18
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 02 Jul 2025 03:11:13 -0700 (PDT)
+ Wed, 02 Jul 2025 03:13:18 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,200 +45,234 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e29012d8-572c-11f0-b894-0df219b8e170
+X-Inumbo-ID: 2dcce33f-572d-11f0-a313-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1751451073; x=1752055873; darn=lists.xenproject.org;
-        h=in-reply-to:autocrypt:from:content-language:references:cc:to
-         :subject:user-agent:mime-version:date:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=iB+0x0BCzpcjWc5TWOLLX3vYlUjQLWtqal5bB6mdfeU=;
-        b=TtlfozgQyNETYUjFHjTCf7a9uGVHk7eBeJiVLvNB2WJNEiVuh0hVvXuMIRLQ5CK9yf
-         B6mKKs/vT0nHxXcKoxJCkpPEHqmBMixm0JOAJ19/4iryFEvM/1AGy1P19YaOcc1yY9XL
-         HryrkFWTpappAnzKLmJO24KaAvmv5rizBx65qnktvqcKTWFybwJ7gNIoK3islmIk2gzs
-         QjM+mfyZYBBMg1i0GZmkbToVFAIy8d5ipwV+dThglFMt4XS0f2bSQ4VYbDLjUqM2TL6O
-         Dy5hkCzp7YWKZa8A2/OY3abdLXAa2v2PS8/v2QhDGdo0cKVk0b/qAsZqXqpiN6Aer3T7
-         z1AQ==
+        d=gmail.com; s=20230601; t=1751451200; x=1752056000; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Yrk+oTnR9/QROg/fu6KcHnroxW3AACJ+QVBSCvY8ALo=;
+        b=ErbySs/TFiBVmA6ZelLaieSZsCo0M3kSUH7toD7Wg6GYI+U1LOBeLaUjjp9pqiis0+
+         Z7c3cUfnnGhs1ZPToaYbg2GIz+IWSd3X2mcvssN0nrV8Js3D6dPruCh6bRKAHblO3krH
+         jx81F6hhLm3Qog+7r0jYyqX4b8uMxT8yfp0nEskA9SJwwLJfq7cLIt22hhZK7LC1vzIZ
+         5GoVXvsSvJd7rQTov3MWoEaptchGyGnJdGNT9GcIHOTr55TjjAbl50N/4eQi1/s0JKZR
+         l0kQ8OCvOekgWSfZEYpybkwNVsLR5IpgVPVNT4XNrhhUPSMUviNYUVwJclFDx6NVeZZw
+         g6eQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1751451073; x=1752055873;
-        h=in-reply-to:autocrypt:from:content-language:references:cc:to
-         :subject:user-agent:mime-version:date:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=iB+0x0BCzpcjWc5TWOLLX3vYlUjQLWtqal5bB6mdfeU=;
-        b=IwxgOlsPhDqnUjpdSFhS49Aiz+85dAGoFVWcU2rMQgKtHUffZ1e+ZfHh0SiS7gkNTg
-         XS0HvM9U8Ct+zziN/cXIbNWJIRmmas9O+Ak1yAzGTDDVtMtriirrEMm8r1bakfm4e4uY
-         gJSXkuVc4L3h6AC+7RDNMm7xTe18nrgtb7sVfsevILgLMODoOhQLQQq1AQ+Ti6ZQCdVf
-         Isx7+Zf6kQn4nRBqd9HWfp6QDVzNdqt7j751CVfSD0fkiqFcw2Bnk93VaMOkMGFvhUt8
-         ZmAfiSLyCbel5AWTw9nOjb7fkGK+cJ1oY6hrD0HHuK9btSsDdCAGtEiPzb9SOWTvsH1+
-         WRmw==
-X-Forwarded-Encrypted: i=1; AJvYcCVBO+Ig72IZwo4E1w2ipfKp7w2+kbgWHgYLBV66ZYafIOrFtKKpBy5r9VmyuSjpTWSQ7fn4iXfFKBE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxuQ/kjdBGmu/qSTgEUyrvK3twyQr1dX9+W0OP/XyLvWuvo4fIG
-	yg26Xj00RtjAHZ6PFmxVssJBWG0C+Fl3cEzg43yfCwoVVLn5S5snzLE91RoOaR614eVyEqUMIC3
-	9dN4h
-X-Gm-Gg: ASbGncuXXooCb5Wk8Rlui3B5WGLPgRp0fncgdV1r49zi+P9HIKmOB8mhR6Xy/LQxeUf
-	aeFEuPwukWDRU8Drvnk0/h3QCBoMld/26vRKvBe4kdfcxdUDvT8SizwuIVC1i4PhzSN553P3YX3
-	rtpVtR0f3gtt3ZMgHAt8YVM+qPlvJNOHzHf8HkfuBjZmxZ+KJdv2Ot0Re/IJJq+hjQ9a00u5Fm3
-	2vFs8qBrbwW/Y3/CbZ7RRzJ8YLTbHVgHPCSbkyChS41fl09FClj72APDSP69b+9ja1G0Xy7vAP9
-	1AhzOux6rKbh4ZJLRaVu4vgmgavPjxO9MuGEXqTWKmylTFF1RWUAFQla0XlmgoYBF1TTbkkbF35
-	3Ofw+1cYh09Brnq5l8ohZ7TTXeyzIrx/Y28FccwJrB3YkPF2FMdhmFchAr6FZsAAev5Jf1UM40f
-	5Jmf9jzEPLD8U=
-X-Google-Smtp-Source: AGHT+IH2qC396Ok7NZXJk6EY9jAVncfD/+VHEFkK/OxrxKi2w0l4Izvg/f70FghCIBwDk3jz3+s3mw==
-X-Received: by 2002:a05:6000:2809:b0:3a4:f892:de7f with SMTP id ffacd0b85a97d-3b2001acb8fmr1096869f8f.36.1751451073465;
-        Wed, 02 Jul 2025 03:11:13 -0700 (PDT)
-Message-ID: <baab0081-ae65-42a0-8d56-040d9c9cf420@suse.com>
-Date: Wed, 2 Jul 2025 12:11:12 +0200
+        d=1e100.net; s=20230601; t=1751451200; x=1752056000;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=Yrk+oTnR9/QROg/fu6KcHnroxW3AACJ+QVBSCvY8ALo=;
+        b=Vy9Wk8jMrGDHo2x2HZvGv1YOB3OKBtXvWDl5iAlTo/dQD/iISJbMTzOpFvZ+MZChN4
+         4r8LZCJCtCyA3LKLKSigBFj97GUurYI5x1JhfkNHt98DvFps+gVuvSRSOS6fHw2YMDTV
+         IQYpqq8ynn6MqsJKp6e5EOsbInRpEPgSzdnJ0tpUzTJd+Xky40/7qUDx1N3H4oqPOd6h
+         asYIAnXtTXM4KUgua8N6+w4INQXAlmV235Ff4DAr9UFANM+CGj058nEq63ZtzHETSpke
+         K0RD8Mno6GcowrXtV4w/IcuAmLWFm0AVwj5VwOkYslW03ByVYiymX5q7HUQ167GB1QcW
+         Dstw==
+X-Forwarded-Encrypted: i=1; AJvYcCVAmSqRNc0xuJZ7Yn1pwGFq9HEqzN66UnJcRqFNVMoK1qiP361bGrvlfVh/z2fPPoHwZmWbKkBReY0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw8O1D1aeEnJ59d2Hijy8YtW8d74COIYJ7rXkGAdk3+QDPRPG7m
+	TsbhUKlGiiC2Vu2UNLVyjdw0tXadjvoIk8in5FwppJvF+wrbKlFE7vNX
+X-Gm-Gg: ASbGnctrKDW2aPnYT8XlhRMs2QtUmnpGDczh0WxOGsqZovZMl62EM8H6cAXZ6zTnYXS
+	VR+d4wD7jDbplJXIeAMqVcAZ7YaSN1Q03GQlhO/CiEz3ryYke3mIZXLjALOtornWFpuA71AWiek
+	l6szBWujjLSqFC3OLRHEegKtZOtoRuyRDy1Eyx3p2CJ/yPPNsoMBQJ2cKBsxcDLkzNDzcXoRnPQ
+	G1KYk/lofGyMWnPM/+aKQTSIrLwZ61b7UxZCnF9Abzc8x8G/LINObJj8mK4m6wKjBPvZTzr4nmF
+	xawR/MKxwqVwWuZtXKOKZ9/zXqYGJDcjjCMw4XlXrB3OfnLzgIltwkQcWSKonzVIKqFGQRKij/v
+	yXkUGSo65qfTy8g49ZbcwF7F46dRQjG+Fjs8=
+X-Google-Smtp-Source: AGHT+IFMv6IXUSRsI2j2QOqGvLnik9Hm1dB4He2qO4/PfUu+uodySzqA6JA8GKayPvnFuLxnVy06sA==
+X-Received: by 2002:a17:907:3d06:b0:ae3:6f35:36fe with SMTP id a640c23a62f3a-ae3c2d60c64mr192096966b.47.1751451199148;
+        Wed, 02 Jul 2025 03:13:19 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------ER0ObPJSe0a0irlhV488bg8D"
+Message-ID: <e9ca6d09-2bf2-453d-9fcb-f837f8fda4db@gmail.com>
+Date: Wed, 2 Jul 2025 12:13:17 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] tools/golang: update auto-generated libxl based types
-To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
-Cc: Nick Rosbrook <enr0n@ubuntu.com>, George Dunlap <gwd@xenproject.org>,
- Anthony PERARD <anthony.perard@vates.tech>
-References: <20250702095639.90927-1-roger.pau@citrix.com>
+Subject: Re: [PATCH v2 08/17] xen/riscv: add new p2m types and helper macros
+ for type classification
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1749555949.git.oleksii.kurochko@gmail.com>
+ <f943c6ce5371258af0f36c2633d542341fcf47b4.1749555949.git.oleksii.kurochko@gmail.com>
+ <8f45cffe-e2a2-46e3-8370-2b6b4c86dccf@suse.com>
+ <13b80e15-9db9-427d-aaa2-c0389e4c248a@gmail.com>
+ <6fafc0b4-cfea-4d67-bef6-4e40d1d3e743@gmail.com>
+ <f373045d-4479-4c55-b6cd-3c955e456428@suse.com>
+ <f5fc8d66-cb90-4064-a215-8a2ea3705272@gmail.com>
+ <2a7515a4-0e86-428f-8239-ae97b976f3f2@suse.com>
 Content-Language: en-US
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Autocrypt: addr=jgross@suse.com; keydata=
- xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
- ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
- dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
- NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
- XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
- AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
- CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
- mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
- G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
- kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
- Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
- RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
- vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
- sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
- aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
- w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
- auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
- 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
- fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
- HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
- QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
- ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <20250702095639.90927-1-roger.pau@citrix.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------JOwVxKzSdJw06i7ksMNPUodd"
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <2a7515a4-0e86-428f-8239-ae97b976f3f2@suse.com>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------JOwVxKzSdJw06i7ksMNPUodd
-Content-Type: multipart/mixed; boundary="------------9tfnhEKI0USAyJWkLH3GX3iY";
- protected-headers="v1"
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
-Cc: Nick Rosbrook <enr0n@ubuntu.com>, George Dunlap <gwd@xenproject.org>,
- Anthony PERARD <anthony.perard@vates.tech>
-Message-ID: <baab0081-ae65-42a0-8d56-040d9c9cf420@suse.com>
-Subject: Re: [PATCH] tools/golang: update auto-generated libxl based types
-References: <20250702095639.90927-1-roger.pau@citrix.com>
-In-Reply-To: <20250702095639.90927-1-roger.pau@citrix.com>
-
---------------9tfnhEKI0USAyJWkLH3GX3iY
-Content-Type: multipart/mixed; boundary="------------g6gQajHV2xtYJiFqviUw7YrN"
-
---------------g6gQajHV2xtYJiFqviUw7YrN
+This is a multi-part message in MIME format.
+--------------ER0ObPJSe0a0irlhV488bg8D
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 7bit
 
-T24gMDIuMDcuMjUgMTE6NTYsIFJvZ2VyIFBhdSBNb25uZSB3cm90ZToNCj4gQXMgYSByZXN1
-bHQgb2YgdGhlIGFkZGl0aW9uIG9mIGEgbmV3IGZpZWxkIGluIGxpYnhsIGRvbWFpbiBidWls
-ZCBpbmZvDQo+IHN0cnVjdHVyZSB0aGUgZ29sYW5nIHR5cGVzIG5lZWQgdG8gYmUgcmVnbmVy
-YXRlZCwgdGhpcyB3YXMgbWlzc2luZyBhcyBwYXJ0DQo+IG9mIDIyNjUwZDYwNTQuDQo+IA0K
-PiBSZWdlbmVyYXRlIHRoZSBoZWFkZXJzIG5vdy4NCj4gDQo+IFJlcG9ydGVkLWJ5OiBKdWVy
-Z2VuIEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+DQo+IEZpeGVzOiAyMjY1MGQ2MDU0NjIgKCd4
-ODYvaHZtbG9hZGVyOiBzZWxlY3QgeGVuIHBsYXRmb3JtIHBjaSBNTUlPIEJBUiBVQyBvciBX
-QiBNVFJSIGNhY2hlIGF0dHJpYnV0ZScpDQo+IFNpZ25lZC1vZmYtYnk6IFJvZ2VyIFBhdSBN
-b25uw6kgPHJvZ2VyLnBhdUBjaXRyaXguY29tPg0KDQpSZXZpZXdlZC1ieTogSnVlcmdlbiBH
-cm9zcyA8amdyb3NzQHN1c2UuY29tPg0KDQoNCkp1ZXJnZW4NCg==
---------------g6gQajHV2xtYJiFqviUw7YrN
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+On 6/30/25 5:50 PM, Jan Beulich wrote:
+> On 30.06.2025 17:27, Oleksii Kurochko wrote:
+>> On 6/30/25 4:45 PM, Jan Beulich wrote:
+>>> On 30.06.2025 16:38, Oleksii Kurochko wrote:
+>>>> On 6/30/25 4:33 PM, Oleksii Kurochko wrote:
+>>>>> On 6/26/25 4:59 PM, Jan Beulich wrote:
+>>>>>> On 10.06.2025 15:05, Oleksii Kurochko wrote:
+>>>>>>> --- a/xen/arch/riscv/include/asm/p2m.h
+>>>>>>> +++ b/xen/arch/riscv/include/asm/p2m.h
+>>>>>>> @@ -61,8 +61,28 @@ struct p2m_domain {
+>>>>>>>     typedef enum {
+>>>>>>>         p2m_invalid = 0,    /* Nothing mapped here */
+>>>>>>>         p2m_ram_rw,         /* Normal read/write domain RAM */
+>>>>>>> +    p2m_ram_ro,         /* Read-only; writes are silently dropped */
+>>>>>> As indicated before - this type should be added when the special handling that
+>>>>>> it requires is also introduced.
+>>>>> Perhaps, I missed that. I will drop this type for now.
+>>>>>
+>>>>>>> +    p2m_mmio_direct_dev,/* Read/write mapping of genuine Device MMIO area */
+>>>>>> What's the _dev suffix indicating here?
+>>>>> It indicates that it is device memory, probably, it isn't so necessary in case of RISC-V as
+>>>>> spec doesn't use such terminology. In RISC-V there is only available IO, NC. And we are
+>>>>> |using PTE_PBMT_IO for |p2m_mmio_direct_dev.
+>>>>>
+>>>>> Maybe it would be better just to rename s/p2m_mmio_direct_dev/p2m_mmio_direct_io.
+>>>> I forgot that p2m_mmio_direct_dev is used by common code for dom0less code (handle_passthrough_prop())
+>>> That'll want abstracting out, I think. I don't view it as helpful to clutter
+>>> RISC-V (and later perhaps also PPC) with Arm-specific terminology.
+>> Would it be better then just rename it to p2m_device? Then it won't clear for Arm which type of MMIO p2m's
+>> types is used as Arm has there MMIO types: *_dev, *_nc, *_c.
+> I don't understand why Arm matters here. P2M types want naming in a way that makes
+> sense for RISC-V.
 
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjri
-oyspZKOBycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2
-kaV2KL9650I1SJvedYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i
-1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/B
-BLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xqG7/377qptDmrk42GlSK
-N4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR3Jvc3Mg
-PGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsE
-FgIDAQIeAQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4F
-UGNQH2lvWAUy+dnyThpwdtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3Tye
-vpB0CA3dbBQp0OW0fgCetToGIQrg0MbD1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u
-+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbvoPHZ8SlM4KWm8rG+lIkGurq
-qu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v5QL+qHI3EIP
-tyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVy
-Z2VuIEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJ
-CAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4
-RF7HoZhPVPogNVbC4YA6lW7DrWf0teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz7
-8X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC/nuAFVGy+67q2DH8As3KPu0344T
-BDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0LhITTd9jLzdDad1pQ
-SToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLmXBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkM
-nQfvUewRz80hSnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMB
-AgAjBQJTjHDXAhsDBwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/
-Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJnFOXgMLdBQgBlVPO3/D9R8LtF9DBAFPN
-hlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1jnDkfJZr6jrbjgyoZHi
-w/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0N51N5Jf
-VRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwP
-OoE+lotufe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK
-/1xMI3/+8jbO0tsn1tqSEUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1
-c2UuZGU+wsB5BBMBAgAjBQJTjHDrAhsDBwsJCAcDAgEGFQgCCQoLBBYCAwECHgEC
-F4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3g3OZUEBmDHVVbqMtzwlmNC4
-k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5dM7wRqzgJpJ
-wK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu
-5D+jLRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzB
-TNh30FVKK1EvmV2xAKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37Io
-N1EblHI//x/e2AaIHpzK5h88NEawQsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6
-AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpWnHIs98ndPUDpnoxWQugJ6MpMncr
-0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZRwgnBC5mVM6JjQ5x
-Dk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNVbVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mm
-we0icXKLkpEdIXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0I
-v3OOImwTEe4co3c1mwARAQABwsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMv
-Q/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEwTbe8YFsw2V/Buv6Z4Mysln3nQK5ZadD
-534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1vJzQ1fOU8lYFpZXTXIH
-b+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8VGiwXvT
-yJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqc
-suylWsviuGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5B
-jR/i1DG86lem3iBDXzXsZDn8R3/CwO0EGAEIACAWIQSFEmdy6PYElKXQl/ew3p3W
-KL8TLwUCWt3w0AIbAgCBCRCw3p3WKL8TL3YgBBkWCAAdFiEEUy2wekH2OPMeOLge
-gFxhu0/YY74FAlrd8NAACgkQgFxhu0/YY75NiwD/fQf/RXpyv9ZX4n8UJrKDq422
-bcwkujisT6jix2mOOwYBAKiip9+mAD6W5NPXdhk1XraECcIspcf2ff5kCAlG0DIN
-aTUH/RIwNWzXDG58yQoLdD/UPcFgi8GWtNUp0Fhc/GeBxGipXYnvuWxwS+Qs1Qay
-7/Nbal/v4/eZZaWs8wl2VtrHTS96/IF6q2o0qMey0dq2AxnZbQIULiEndgR625EF
-RFg+IbO4ldSkB3trsF2ypYLij4ZObm2casLIP7iB8NKmQ5PndL8Y07TtiQ+Sb/wn
-g4GgV+BJoKdDWLPCAlCMilwbZ88Ijb+HF/aipc9hsqvW/hnXC2GajJSAY3Qs9Mib
-4Hm91jzbAjmp7243pQ4bJMfYHemFFBRaoLC7ayqQjcsttN2ufINlqLFPZPR/i3IX
-kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
-=3DeeAB
------END PGP PUBLIC KEY BLOCK-----
+It doesn't matter.
+But if we want to change the type name from p2m_mmio_direct_dev to p2m_mmio_direct or p2m_device then it will
+affect Arm too as p2m_mmio_direct_dev is used in dom0less code which is also used by Arm.
+I just re-used p2m_mmio_direct_dev as it looked for me pretty generic and clear for what this type is.
 
---------------g6gQajHV2xtYJiFqviUw7YrN--
+>> As an option (which I don't really like) it could be "#define p2m_mmio_direct_dev ARCH_specific_name" in
+>> asm/p2m.h to not touch common code.
+> A #define may be needed, but not one to _still_ introduce Arm naming into non-Arm
+> code.
 
---------------9tfnhEKI0USAyJWkLH3GX3iY--
+As I mentioned above that p2m_mmio_direct_dev sounds pretty generic to me and I am okay to use it for
+RISC-V. But if you have better suggestions I will be happy to consider it.
 
---------------JOwVxKzSdJw06i7ksMNPUodd
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+~ Oleksii
 
------BEGIN PGP SIGNATURE-----
+--------------ER0ObPJSe0a0irlhV488bg8D
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmhlBcAFAwAAAAAACgkQsN6d1ii/Ey92
-tAgAh3sOO3fIwqQ5F9FXNVe+XktlKrbCsIvQxCCr+WZDmK1GabCgxm9qDoEgOJ20fHIO4rgZaiYe
-M7yfDsmjyYEAF2g06cAHzIFRZ5hBbNtT8aCHyYbkk8aImUE+1+HrUa1DvlykLcmgXuFABCHdoDbW
-G0gaCz1ODfkKnPYBvMXBzOnqv+slbxsnNQUtxnO4yG6E7aOfp32/KxqZWThHvGskiYrum3N9f1k7
-r64w6l0VHqN6ddtGyh4e7A2ViObjVGeTIFJ7+nGpH10Ai2I7JMbefw1+Zv6TsLemzH3VXBy8WB3p
-lK7dXJevafewR6RcTQx45hn8TvgyFaST+lG0r4HJWA==
-=IzW0
------END PGP SIGNATURE-----
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 6/30/25 5:50 PM, Jan Beulich wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:2a7515a4-0e86-428f-8239-ae97b976f3f2@suse.com">
+      <pre wrap="" class="moz-quote-pre">On 30.06.2025 17:27, Oleksii Kurochko wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">
+On 6/30/25 4:45 PM, Jan Beulich wrote:
+</pre>
+        <blockquote type="cite">
+          <pre wrap="" class="moz-quote-pre">On 30.06.2025 16:38, Oleksii Kurochko wrote:
+</pre>
+          <blockquote type="cite">
+            <pre wrap="" class="moz-quote-pre">On 6/30/25 4:33 PM, Oleksii Kurochko wrote:
+</pre>
+            <blockquote type="cite">
+              <pre wrap="" class="moz-quote-pre">On 6/26/25 4:59 PM, Jan Beulich wrote:
+</pre>
+              <blockquote type="cite">
+                <pre wrap="" class="moz-quote-pre">On 10.06.2025 15:05, Oleksii Kurochko wrote:
+</pre>
+                <blockquote type="cite">
+                  <pre wrap="" class="moz-quote-pre">--- a/xen/arch/riscv/include/asm/p2m.h
++++ b/xen/arch/riscv/include/asm/p2m.h
+@@ -61,8 +61,28 @@ struct p2m_domain {
+   typedef enum {
+       p2m_invalid = 0,    /* Nothing mapped here */
+       p2m_ram_rw,         /* Normal read/write domain RAM */
++    p2m_ram_ro,         /* Read-only; writes are silently dropped */
+</pre>
+                </blockquote>
+                <pre wrap="" class="moz-quote-pre">As indicated before - this type should be added when the special handling that
+it requires is also introduced.
+</pre>
+              </blockquote>
+              <pre wrap="" class="moz-quote-pre">Perhaps, I missed that. I will drop this type for now.
 
---------------JOwVxKzSdJw06i7ksMNPUodd--
+</pre>
+              <blockquote type="cite">
+                <blockquote type="cite">
+                  <pre wrap="" class="moz-quote-pre">+    p2m_mmio_direct_dev,/* Read/write mapping of genuine Device MMIO area */
+</pre>
+                </blockquote>
+                <pre wrap="" class="moz-quote-pre">What's the _dev suffix indicating here?
+</pre>
+              </blockquote>
+              <pre wrap="" class="moz-quote-pre">It indicates that it is device memory, probably, it isn't so necessary in case of RISC-V as
+spec doesn't use such terminology. In RISC-V there is only available IO, NC. And we are
+|using PTE_PBMT_IO for |p2m_mmio_direct_dev.
+
+Maybe it would be better just to rename s/p2m_mmio_direct_dev/p2m_mmio_direct_io.
+</pre>
+            </blockquote>
+            <pre wrap="" class="moz-quote-pre">I forgot that p2m_mmio_direct_dev is used by common code for dom0less code (handle_passthrough_prop())
+</pre>
+          </blockquote>
+          <pre wrap="" class="moz-quote-pre">That'll want abstracting out, I think. I don't view it as helpful to clutter
+RISC-V (and later perhaps also PPC) with Arm-specific terminology.
+</pre>
+        </blockquote>
+        <pre wrap="" class="moz-quote-pre">
+Would it be better then just rename it to p2m_device? Then it won't clear for Arm which type of MMIO p2m's
+types is used as Arm has there MMIO types: *_dev, *_nc, *_c.
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+I don't understand why Arm matters here. P2M types want naming in a way that makes
+sense for RISC-V.</pre>
+    </blockquote>
+    <pre>It doesn't matter.
+But if we want to change the type name from p2m_mmio_direct_dev to p2m_mmio_direct or p2m_device then it will
+affect Arm too as p2m_mmio_direct_dev is used in dom0less code which is also used by Arm.
+I just re-used p2m_mmio_direct_dev as it looked for me pretty generic and clear for what this type is.
+
+</pre>
+    <blockquote type="cite"
+      cite="mid:2a7515a4-0e86-428f-8239-ae97b976f3f2@suse.com">
+      <pre wrap="" class="moz-quote-pre">
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">As an option (which I don't really like) it could be "#define p2m_mmio_direct_dev ARCH_specific_name" in
+asm/p2m.h to not touch common code.
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+A #define may be needed, but not one to _still_ introduce Arm naming into non-Arm
+code.</pre>
+    </blockquote>
+    <pre>As I mentioned above that p2m_mmio_direct_dev sounds pretty generic to me and I am okay to use it for
+RISC-V. But if you have better suggestions I will be happy to consider it.
+
+</pre>
+    <pre>~ Oleksii
+</pre>
+  </body>
+</html>
+
+--------------ER0ObPJSe0a0irlhV488bg8D--
 
