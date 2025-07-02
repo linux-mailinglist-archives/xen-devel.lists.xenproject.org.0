@@ -2,40 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 32CD7AF070B
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Jul 2025 01:46:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1030118.1403776 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E4D3AF0AC4
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Jul 2025 07:35:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1030183.1403800 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uWkfH-0008Q4-VS; Tue, 01 Jul 2025 23:45:27 +0000
+	id 1uWq6d-0001aS-5T; Wed, 02 Jul 2025 05:34:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1030118.1403776; Tue, 01 Jul 2025 23:45:27 +0000
+Received: by outflank-mailman (output) from mailman id 1030183.1403800; Wed, 02 Jul 2025 05:34:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uWkfH-0008ML-Rz; Tue, 01 Jul 2025 23:45:27 +0000
-Received: by outflank-mailman (input) for mailman id 1030118;
- Tue, 01 Jul 2025 23:45:26 +0000
+	id 1uWq6c-0001XV-Up; Wed, 02 Jul 2025 05:34:02 +0000
+Received: by outflank-mailman (input) for mailman id 1030183;
+ Wed, 02 Jul 2025 05:34:02 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=u5am=ZO=gmail.com=w1benny@srs-se1.protection.inumbo.net>)
- id 1uWkfG-0008Gm-KM
- for xen-devel@lists.xenproject.org; Tue, 01 Jul 2025 23:45:26 +0000
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [2a00:1450:4864:20::42b])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=9zeQ=ZP=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
+ id 1uWq6c-0001XP-6B
+ for xen-devel@lists.xenproject.org; Wed, 02 Jul 2025 05:34:02 +0000
+Received: from mail-ot1-x32f.google.com (mail-ot1-x32f.google.com
+ [2607:f8b0:4864:20::32f])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 75026e12-56d5-11f0-b894-0df219b8e170;
- Wed, 02 Jul 2025 01:45:24 +0200 (CEST)
-Received: by mail-wr1-x42b.google.com with SMTP id
- ffacd0b85a97d-3a577f164c8so853256f8f.2
- for <xen-devel@lists.xenproject.org>; Tue, 01 Jul 2025 16:45:24 -0700 (PDT)
-Received: from lab.home
- (dynamic-2a00-1028-83a4-4bca-c0bb-96ff-feed-9d50.ipv6.o2.cz.
- [2a00:1028:83a4:4bca:c0bb:96ff:feed:9d50])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3a87e947431sm14509037f8f.0.2025.07.01.16.45.22
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 01 Jul 2025 16:45:22 -0700 (PDT)
+ id 26f645c2-5706-11f0-b894-0df219b8e170;
+ Wed, 02 Jul 2025 07:33:59 +0200 (CEST)
+Received: by mail-ot1-x32f.google.com with SMTP id
+ 46e09a7af769-72c13802133so1321477a34.3
+ for <xen-devel@lists.xenproject.org>; Tue, 01 Jul 2025 22:33:59 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,409 +40,299 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 75026e12-56d5-11f0-b894-0df219b8e170
+X-Inumbo-ID: 26f645c2-5706-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1751413523; x=1752018323; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+        d=cloud.com; s=cloud; t=1751434438; x=1752039238; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=bD8hgpwukyenx61CmXgMgm2JclP4fpFaqdzptPfzBYI=;
-        b=Xp/i31xMt80KUIF6S+C3XIHhyFor1gC0YrEo+vwLhonUnI0kXbWomvLLw3C7PNdPXo
-         HRVd+6Ui+1TPfh0idfGwbjgggxiFmYpW/tPNT7ZmcIvajwdrBdG/YFNj/jBZW58Ot238
-         s23GkIJJ+szvpNdZj4/XA/6sU7wHZ4zDrsZ7kLAcj++C7uRc7b2QfNtRaFCFXpXdozlC
-         MyOsfMpzHxwOD2ejCvecA4GxaWMtbPZYjlg5M7iraODi+zFi4xfe2IM0mMBOfFkwj9Vs
-         x/Gs6PrrFqt7igAJxrIVGzkdm9yL/S+XWEwP9tu9dWeE8DYP2fYtJ8FFqCS52O/OKXqi
-         HDKg==
+        bh=DtF0UKKnwJ79Cw8zLxlERrBf2qEYPcTtQsE3ZGqgP/M=;
+        b=ecmR1WmUEtLdaoGk5GUHxENSq2EGMHTZzrmEbNZWV6aTAsIOMaDc7keTRivIS2IRgg
+         UiMQ3/5KsgGRiNVaOXHAw2MPf7TBgTETl4jm7j58q2YwQYl2mO0wSyDzGpRlCaOrlHS7
+         UeSek/JIuu8zve4Q5Pfnfn0taYPtl1MSmi4FI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1751413523; x=1752018323;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+        d=1e100.net; s=20230601; t=1751434438; x=1752039238;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=bD8hgpwukyenx61CmXgMgm2JclP4fpFaqdzptPfzBYI=;
-        b=wPYJmQv9Y897ZddyaxrYsiMT3P28R52D7VR9oh34d6exm2DsYvuKnfF0IjRtG2KWMx
-         WwJw/P1iQQNsQRJE9h2I+I3NgRJh+eKKVOs+VpG01MKVD9CEIMXRGrvQ3YSarT7zrxkL
-         kWLCIqxVgLAgdEy2iXuk4nuBUixmcf+M6wpAy+g9MzGJZgerUAf/0gUgHgNXqNzEIIFF
-         PDCT8tXkkZq4xKfruV7LKUYGPhCa9JHanTc/+a4efFMtrH2dbsVFWwOTT+5jJNKSimxI
-         NEhJTBfqr5U3Vkqo+v8RyzZD9i6+rcDL8Rscqip6gbCYNRM1OiC6XzSFqbp8EVR9O22b
-         +MrQ==
-X-Gm-Message-State: AOJu0YzTda45OXFW0a72Ji6n5kXL3sDjJXpWIJC/iXS9LqhWkzhrerp+
-	WW3SEbWWEK5o884FM0vaH1EQtz2GnfsAM8C1RWoZOMZQBH+g0Tfl8K1LnHj9lQ==
-X-Gm-Gg: ASbGnctYagYL8XAJqX8Ct+4DJc86LshJ2h5i2V0xnFcqMocrE2fhl+gPrtyX3xsIMYJ
-	4+u4mp6ysmhJ4PkYXS2YyEata6i3nVDm5l8TtSr+UlDlB/k9co7SdlL3ObRFyZMt83sRivFIWFC
-	AN2DGVQ7ZSj4vdl30wiXM9yjipChthJd1YYv47kcVLPQBc5G9ZfIbvqlk8j97p2i4YRwUrBUyal
-	AmVMP22QVOKLiYXSvugI2m4n8iG9oTaCnNUWqPQ035OkfcPNdphZ0T775chW0s3dDgtyIh8nAYd
-	ImzlgRsrPqYISof8UwYrQMYP5byCHbpWRqFissNB08Fshz+qBqZp3pDYhsaibT/XeT+8GB0J8aA
-	gwCDwYZbjL9sQGZQLLqcPniy1feBSeX2QxTjilgUtNPbxOKjuCIMfJUKOh6QzIA==
-X-Google-Smtp-Source: AGHT+IHxiWDkX7ENjOMFxSpFbA7Cymhl/aRI01tjIKksZNqWxScQOHWvZMEryse5Hc969MSRG2r/2g==
-X-Received: by 2002:a5d:5f52:0:b0:3a5:1306:3c30 with SMTP id ffacd0b85a97d-3b1fb064480mr108828f8f.0.1751413523066;
-        Tue, 01 Jul 2025 16:45:23 -0700 (PDT)
-From: "=?UTF-8?q?Petr=20Bene=C5=A1?=" <w1benny@gmail.com>
-X-Google-Original-From: =?UTF-8?q?Petr=20Bene=C5=A1?= <petr.benes@gendigital.com>
-To: xen-devel@lists.xenproject.org
-Cc: =?UTF-8?q?Petr=20Bene=C5=A1?= <w1benny@gmail.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Anton Belousov <blsvntn@outlook.com>
-Subject: [PATCH 3/3] hvmloader: add new SMBIOS tables (7,8,9,26,27,28)
-Date: Tue,  1 Jul 2025 23:45:12 +0000
-Message-Id: <99e281ad05537d2384eaffe95155a03382493c96.1751412735.git.w1benny@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <cover.1751412735.git.w1benny@gmail.com>
-References: <cover.1751412735.git.w1benny@gmail.com>
+        bh=DtF0UKKnwJ79Cw8zLxlERrBf2qEYPcTtQsE3ZGqgP/M=;
+        b=Rf0FkBqpVBJrGbuzDGnIyT0C4Ud6HeF6RXwPLaVnIQYNo31yYVzFjDlZAIN1jc4MIv
+         2RsElzaOg8WpghA5Od+H+ZsNCpSu4HH+D3KEwhtzkFMgUAZ0FUHVqhVfAx8CcPqsZ99b
+         vY2Y1QcDeqZ/K4jCqltZOcFixke0+yaUq56zrQAAiQqpYNLOsfCDmF2tI4tZUSf/hcw+
+         Y0A2xdAhcqOq82vy77lLJ/yYPgEPUVycsj3umMT0AwKbECCT/nLxo1tNk54Dwr2vS5gP
+         VuQIPYguuZY8jL9/vSXuCEtoRFhS/LLolkt1nGY+eN2i3Dfza86niWRIhxb/FqcBKK2J
+         4kDA==
+X-Gm-Message-State: AOJu0YzNljd0+jn3/kFpPxON2YY61zsFzpO22uxeia7FI8mVnpfUswqu
+	IZVG9vMX9yr1gb4JuisH5HJmWD1gurwwDFHbZd8f8igm2Ex++PqmL78C6N1TWyUknvw4mCLUXI6
+	jLuWrqArjHjikMrBwiWgMf5FWJyXDI9qSKX4dsuIJDg==
+X-Gm-Gg: ASbGncvZ1eTcwUh0TCol9vOOmOqsk6Rb3qGWWY3mdK5PVJR8ta2RUu6ogvfw2ezRCOB
+	lQ/DmO6JK1+DZT9LVWvprppPwHHJLvDE70c0sOknGjabSVeoXmOM+xuSqmlyzbAJXPqbuPi9cGU
+	PkIWsCcVQTMME5gfBuQ8MSq2fksoKPVSw7OW/Ic5M8UIaHCk0wOKZqpg==
+X-Google-Smtp-Source: AGHT+IEpZJ0M3OWQXpzst/l7+6MkDj/O1KwFfYC5Vrh6RVWiKqYGpz4JScf/jzyRd6Yvv0mrtozDVqL0y601HvvoFK4=
+X-Received: by 2002:a05:6808:8844:20b0:40b:9307:d71a with SMTP id
+ 5614622812f47-40b9307dae4mr499431b6e.14.1751434437600; Tue, 01 Jul 2025
+ 22:33:57 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <cover.1751412735.git.w1benny@gmail.com> <fbff115ab5f3e565b07dc339d50e697ba37f7410.1751412735.git.w1benny@gmail.com>
+In-Reply-To: <fbff115ab5f3e565b07dc339d50e697ba37f7410.1751412735.git.w1benny@gmail.com>
+From: Frediano Ziglio <frediano.ziglio@cloud.com>
+Date: Wed, 2 Jul 2025 06:33:46 +0100
+X-Gm-Features: Ac12FXwMh_28lHIWFsuNa_sn7-3VPcH_iQbOOOoYdOBRod1zF6tmpbAmzKLGiI4
+Message-ID: <CACHz=ZjznpeoTGTV8XCx+TFLD4Zqezvsiu_KMqGWrxK7_vCKwQ@mail.gmail.com>
+Subject: Re: [PATCH 1/3] hvmloader: fix code style violations
+To: =?UTF-8?Q?Petr_Bene=C5=A1?= <w1benny@gmail.com>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>, 
+	Andrew Cooper <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	Anthony PERARD <anthony.perard@vates.tech>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Petr Beneš <w1benny@gmail.com>
+On Wed, Jul 2, 2025 at 12:45=E2=80=AFAM Petr Bene=C5=A1 <w1benny@gmail.com>=
+ wrote:
+>
+> From: Petr Bene=C5=A1 <w1benny@gmail.com>
+>
+> Preparatory commit. No functional change.
+>
 
-SMBIOS tables like 7,8,9,26,27,28 are neccessary to prevent sandbox detection
-by malware using WMI-queries. New tables can be mapped to memory from binary
-file specified in "smbios_firmware" parameter of domain configuration.
+Can you describe which specific code styles this commit is supposed to fix?
 
-If particular table is absent in binary file, then it will not be mapped to
-memory. This method works for Windows domains as tables 7,8,9,26,27,28 are not
-critical for OS boot and runtime. Also if "smbios_firmware" parameter is not
-provided, these tables will be skipped in write_smbios_tables function.
+> Signed-off-by: Petr Bene=C5=A1 <w1benny@gmail.com>
+> ---
+>  tools/firmware/hvmloader/smbios.c | 56 +++++++++++++++----------------
+>  1 file changed, 28 insertions(+), 28 deletions(-)
+>
+> diff --git a/tools/firmware/hvmloader/smbios.c b/tools/firmware/hvmloader=
+/smbios.c
+> index 97a054e9e3..fc3cdc9a25 100644
+> --- a/tools/firmware/hvmloader/smbios.c
+> +++ b/tools/firmware/hvmloader/smbios.c
+> @@ -378,18 +378,18 @@ static void *
+>  smbios_type_0_init(void *start, const char *xen_version,
+>                     uint32_t xen_major_version, uint32_t xen_minor_versio=
+n)
+>  {
+> -    struct smbios_type_0 *p =3D (struct smbios_type_0 *)start;
+> +    struct smbios_type_0 *p =3D start;
+>      static const char *smbios_release_date =3D __SMBIOS_DATE__;
+>      const char *s;
+>      void *pts;
+>      uint32_t length;
+>
+>      pts =3D get_smbios_pt_struct(0, &length);
+> -    if ( (pts !=3D NULL)&&(length > 0) )
+> +    if ( pts !=3D NULL && length > 0 )
+>      {
+>          memcpy(start, pts, length);
+>          p->header.handle =3D SMBIOS_HANDLE_TYPE0;
+> -        return (start + length);
+> +        return start + length;
+>      }
+>
+>      memset(p, 0, sizeof(*p));
+> @@ -438,17 +438,17 @@ smbios_type_1_init(void *start, const char *xen_ver=
+sion,
+>                     uint8_t uuid[16])
+>  {
+>      char uuid_str[37];
+> -    struct smbios_type_1 *p =3D (struct smbios_type_1 *)start;
+> +    struct smbios_type_1 *p =3D start;
+>      const char *s;
+>      void *pts;
+>      uint32_t length;
+>
+>      pts =3D get_smbios_pt_struct(1, &length);
+> -    if ( (pts !=3D NULL)&&(length > 0) )
+> +    if ( pts !=3D NULL && length > 0 )
+>      {
+>          memcpy(start, pts, length);
+>          p->header.handle =3D SMBIOS_HANDLE_TYPE1;
+> -        return (start + length);
+> +        return start + length;
+>      }
+>
+>      memset(p, 0, sizeof(*p));
+> @@ -496,7 +496,7 @@ smbios_type_1_init(void *start, const char *xen_versi=
+on,
+>  static void *
+>  smbios_type_2_init(void *start)
+>  {
+> -    struct smbios_type_2 *p =3D (struct smbios_type_2 *)start;
+> +    struct smbios_type_2 *p =3D start;
+>      const char *s;
+>      uint8_t *ptr;
+>      void *pts;
+> @@ -504,7 +504,7 @@ smbios_type_2_init(void *start)
+>      unsigned int counter =3D 0;
+>
+>      pts =3D get_smbios_pt_struct(2, &length);
+> -    if ( (pts !=3D NULL)&&(length > 0) )
+> +    if ( pts !=3D NULL && length > 0 )
+>      {
+>          memcpy(start, pts, length);
+>          p->header.handle =3D SMBIOS_HANDLE_TYPE2;
+> @@ -517,7 +517,7 @@ smbios_type_2_init(void *start)
+>                  *((uint16_t*)ptr) =3D SMBIOS_HANDLE_TYPE3;
+>          }
+>
+> -        return (start + length);
+> +        return start + length;
+>      }
+>
+>      memset(p, 0, sizeof(*p));
+> @@ -591,18 +591,18 @@ smbios_type_2_init(void *start)
+>  static void *
+>  smbios_type_3_init(void *start)
+>  {
+> -    struct smbios_type_3 *p =3D (struct smbios_type_3 *)start;
+> +    struct smbios_type_3 *p =3D start;
+>      const char *s;
+>      void *pts;
+>      uint32_t length;
+>      uint32_t counter =3D 0;
+>
+>      pts =3D get_smbios_pt_struct(3, &length);
+> -    if ( (pts !=3D NULL)&&(length > 0) )
+> +    if ( pts !=3D NULL && length > 0 )
+>      {
+>          memcpy(start, pts, length);
+>          p->header.handle =3D SMBIOS_HANDLE_TYPE3;
+> -        return (start + length);
+> +        return start + length;
+>      }
+>
+>      memset(p, 0, sizeof(*p));
+> @@ -653,7 +653,7 @@ smbios_type_4_init(
+>      void *start, unsigned int cpu_number, char *cpu_manufacturer)
+>  {
+>      char buf[80];
+> -    struct smbios_type_4 *p =3D (struct smbios_type_4 *)start;
+> +    struct smbios_type_4 *p =3D start;
+>      uint32_t eax, ebx, ecx, edx;
+>
+>      memset(p, 0, sizeof(*p));
+> @@ -704,7 +704,7 @@ smbios_type_4_init(
+>  static void *
+>  smbios_type_11_init(void *start)
+>  {
+> -    struct smbios_type_11 *p =3D (struct smbios_type_11 *)start;
+> +    struct smbios_type_11 *p =3D start;
+>      char path[20];
+>      const char *s;
+>      int i;
+> @@ -712,11 +712,11 @@ smbios_type_11_init(void *start)
+>      uint32_t length;
+>
+>      pts =3D get_smbios_pt_struct(11, &length);
+> -    if ( (pts !=3D NULL)&&(length > 0) )
+> +    if ( pts !=3D NULL && length > 0 )
+>      {
+>          memcpy(start, pts, length);
+>          p->header.handle =3D SMBIOS_HANDLE_TYPE11;
+> -        return (start + length);
+> +        return start + length;
+>      }
+>
+>      p->header.type =3D 11;
+> @@ -754,7 +754,7 @@ smbios_type_11_init(void *start)
+>  static void *
+>  smbios_type_16_init(void *start, uint32_t memsize, int nr_mem_devs)
+>  {
+> -    struct smbios_type_16 *p =3D (struct smbios_type_16*)start;
+> +    struct smbios_type_16 *p =3D start;
+>
+>      memset(p, 0, sizeof(*p));
+>
+> @@ -779,7 +779,7 @@ static void *
+>  smbios_type_17_init(void *start, uint32_t memory_size_mb, int instance)
+>  {
+>      char buf[16];
+> -    struct smbios_type_17 *p =3D (struct smbios_type_17 *)start;
+> +    struct smbios_type_17 *p =3D start;
+>
+>      memset(p, 0, sizeof(*p));
+>
+> @@ -814,7 +814,7 @@ smbios_type_17_init(void *start, uint32_t memory_size=
+_mb, int instance)
+>  static void *
+>  smbios_type_19_init(void *start, uint32_t memory_size_mb, int instance)
+>  {
+> -    struct smbios_type_19 *p =3D (struct smbios_type_19 *)start;
+> +    struct smbios_type_19 *p =3D start;
+>
+>      memset(p, 0, sizeof(*p));
+>
+> @@ -836,7 +836,7 @@ smbios_type_19_init(void *start, uint32_t memory_size=
+_mb, int instance)
+>  static void *
+>  smbios_type_20_init(void *start, uint32_t memory_size_mb, int instance)
+>  {
+> -    struct smbios_type_20 *p =3D (struct smbios_type_20 *)start;
+> +    struct smbios_type_20 *p =3D start;
+>
+>      memset(p, 0, sizeof(*p));
+>
+> @@ -862,18 +862,18 @@ smbios_type_20_init(void *start, uint32_t memory_si=
+ze_mb, int instance)
+>  static void *
+>  smbios_type_22_init(void *start)
+>  {
+> -    struct smbios_type_22 *p =3D (struct smbios_type_22 *)start;
+> +    struct smbios_type_22 *p =3D start;
+>      static const char *smbios_release_date =3D __SMBIOS_DATE__;
+>      const char *s;
+>      void *pts;
+>      uint32_t length;
+>
+>      pts =3D get_smbios_pt_struct(22, &length);
+> -    if ( (pts !=3D NULL)&&(length > 0) )
+> +    if ( pts !=3D NULL && length > 0 )
+>      {
+>          memcpy(start, pts, length);
+>          p->header.handle =3D SMBIOS_HANDLE_TYPE22;
+> -        return (start + length);
+> +        return start + length;
+>      }
+>
+>      s =3D xenstore_read(HVM_XS_SMBIOS_DEFAULT_BATTERY, "0");
+> @@ -927,7 +927,7 @@ smbios_type_22_init(void *start)
+>  static void *
+>  smbios_type_32_init(void *start)
+>  {
+> -    struct smbios_type_32 *p =3D (struct smbios_type_32 *)start;
+> +    struct smbios_type_32 *p =3D start;
+>
+>      memset(p, 0, sizeof(*p));
+>
+> @@ -946,16 +946,16 @@ smbios_type_32_init(void *start)
+>  static void *
+>  smbios_type_39_init(void *start)
+>  {
+> -    struct smbios_type_39 *p =3D (struct smbios_type_39 *)start;
+> +    struct smbios_type_39 *p =3D start;
+>      void *pts;
+>      uint32_t length;
+>
+>      pts =3D get_smbios_pt_struct(39, &length);
+> -    if ( (pts !=3D NULL)&&(length > 0) )
+> +    if ( pts !=3D NULL && length > 0 )
+>      {
+>          memcpy(start, pts, length);
+>          p->header.handle =3D SMBIOS_HANDLE_TYPE39;
+> -        return (start + length);
+> +        return start + length;
+>      }
+>
+>      /* Only present when passed in */
+> @@ -998,7 +998,7 @@ smbios_type_vendor_oem_init(void *start)
+>  static void *
+>  smbios_type_127_init(void *start)
+>  {
+> -    struct smbios_type_127 *p =3D (struct smbios_type_127 *)start;
+> +    struct smbios_type_127 *p =3D start;
+>
+>      memset(p, 0, sizeof(*p));
+>
 
-Signed-off-by: Anton Belousov <blsvntn@outlook.com>
-Signed-off-by: Petr Beneš <w1benny@gmail.com>
----
- tools/firmware/hvmloader/smbios.c       | 148 +++++++++++++++++++++++-
- tools/firmware/hvmloader/smbios_types.h |  83 ++++++++++++-
- 2 files changed, 226 insertions(+), 5 deletions(-)
-
-diff --git a/tools/firmware/hvmloader/smbios.c b/tools/firmware/hvmloader/smbios.c
-index 2cd826768b..2a799fdac7 100644
---- a/tools/firmware/hvmloader/smbios.c
-+++ b/tools/firmware/hvmloader/smbios.c
-@@ -33,12 +33,18 @@
- #define SMBIOS_HANDLE_TYPE2   0x0200
- #define SMBIOS_HANDLE_TYPE3   0x0300
- #define SMBIOS_HANDLE_TYPE4   0x0400
-+#define SMBIOS_HANDLE_TYPE7   0x0700
-+#define SMBIOS_HANDLE_TYPE8   0x0800
-+#define SMBIOS_HANDLE_TYPE9   0x0900
- #define SMBIOS_HANDLE_TYPE11  0x0B00
- #define SMBIOS_HANDLE_TYPE16  0x1000
- #define SMBIOS_HANDLE_TYPE17  0x1100
- #define SMBIOS_HANDLE_TYPE19  0x1300
- #define SMBIOS_HANDLE_TYPE20  0x1400
- #define SMBIOS_HANDLE_TYPE22  0x1600
-+#define SMBIOS_HANDLE_TYPE26  0x1A00
-+#define SMBIOS_HANDLE_TYPE27  0x1B00
-+#define SMBIOS_HANDLE_TYPE28  0x1C00
- #define SMBIOS_HANDLE_TYPE32  0x2000
- #define SMBIOS_HANDLE_TYPE39  0x2700
- #define SMBIOS_HANDLE_TYPE127 0x7f00
-@@ -77,6 +83,12 @@ static void *
- smbios_type_4_init(void *start, unsigned int cpu_number,
-                    char *cpu_manufacturer);
- static void *
-+smbios_type_7_init(void *start);
-+static void *
-+smbios_type_8_init(void *start);
-+static void *
-+smbios_type_9_init(void *start);
-+static void *
- smbios_type_11_init(void *start);
- static void *
- smbios_type_16_init(void *start, uint32_t memory_size_mb, int nr_mem_devs);
-@@ -89,6 +101,12 @@ smbios_type_20_init(void *start, uint32_t memory_size_mb, int instance);
- static void *
- smbios_type_22_init(void *start);
- static void *
-+smbios_type_26_init(void *start);
-+static void *
-+smbios_type_27_init(void *start);
-+static void *
-+smbios_type_28_init(void *start);
-+static void *
- smbios_type_32_init(void *start);
- static void *
- smbios_type_39_init(void *start);
-@@ -205,6 +223,9 @@ write_smbios_tables(void *ep, void *start,
-     do_struct(smbios_type_3_init(p));
-     for ( cpu_num = 1; cpu_num <= vcpus; cpu_num++ )
-         do_struct(smbios_type_4_init(p, cpu_num, cpu_manufacturer));
-+    do_struct(smbios_type_7_init(p));
-+    do_struct(smbios_type_8_init(p));
-+    do_struct(smbios_type_9_init(p));
-     do_struct(smbios_type_11_init(p));
- 
-     /* Each 'memory device' covers up to 16GB of address space. */
-@@ -221,6 +242,9 @@ write_smbios_tables(void *ep, void *start,
-     }
- 
-     do_struct(smbios_type_22_init(p));
-+    do_struct(smbios_type_26_init(p));
-+    do_struct(smbios_type_27_init(p));
-+    do_struct(smbios_type_28_init(p));
-     do_struct(smbios_type_32_init(p));
-     do_struct(smbios_type_39_init(p));
-     do_struct(smbios_type_vendor_oem_init(p));
-@@ -700,6 +724,66 @@ smbios_type_4_init(
-     return start+1;
- }
- 
-+/* Type 7 -- Cache Information */
-+static void *
-+smbios_type_7_init(void *start)
-+{
-+    struct smbios_type_7 *p = start;
-+
-+    void *pts;
-+    uint32_t length;
-+
-+    pts = get_smbios_pt_struct(7, &length);
-+    if ( pts != NULL && length >= sizeof(struct smbios_type_7) )
-+    {
-+        memcpy(start, pts, length);
-+        p->header.handle = SMBIOS_HANDLE_TYPE7;
-+        return start + length;
-+    }
-+
-+    return start;
-+}
-+
-+/* Type 8 -- Port Connector Information */
-+static void *
-+smbios_type_8_init(void *start)
-+{
-+    struct smbios_type_8 *p = start;
-+
-+    void *pts;
-+    uint32_t length;
-+
-+    pts = get_smbios_pt_struct(8, &length);
-+    if ( pts != NULL && length >= sizeof(struct smbios_type_8) )
-+    {
-+        memcpy(start, pts, length);
-+        p->header.handle = SMBIOS_HANDLE_TYPE8;
-+        return start + length;
-+    }
-+
-+    return start;
-+}
-+
-+/* Type 9 -- System Slots */
-+static void *
-+smbios_type_9_init(void *start)
-+{
-+    struct smbios_type_9 *p = start;
-+
-+    void *pts;
-+    uint32_t length;
-+
-+    pts = get_smbios_pt_struct(9, &length);
-+    if ( pts != NULL && length >= sizeof(struct smbios_type_9) )
-+    {
-+        memcpy(start, pts, length);
-+        p->header.handle = SMBIOS_HANDLE_TYPE9;
-+        return start + length;
-+    }
-+
-+    return start;
-+}
-+
- /* Type 11 -- OEM Strings */
- static void *
- smbios_type_11_init(void *start) 
-@@ -780,7 +864,7 @@ smbios_type_17_init(void *start, uint32_t memory_size_mb, int instance)
- {
-     char buf[16];
-     struct smbios_type_17 *p = start;
--    
-+
-     memset(p, 0, sizeof(*p));
- 
-     p->header.type = 17;
-@@ -815,7 +899,7 @@ static void *
- smbios_type_19_init(void *start, uint32_t memory_size_mb, int instance)
- {
-     struct smbios_type_19 *p = start;
--    
-+
-     memset(p, 0, sizeof(*p));
- 
-     p->header.type = 19;
-@@ -923,6 +1007,66 @@ smbios_type_22_init(void *start)
-     return start+1; 
- }
- 
-+/* Type 26 -- Voltage Probe */
-+static void *
-+smbios_type_26_init(void *start)
-+{
-+    struct smbios_type_26 *p = start;
-+
-+    void *pts;
-+    uint32_t length;
-+
-+    pts = get_smbios_pt_struct(26, &length);
-+    if ( pts != NULL && length >= 20 )
-+    {
-+        memcpy(start, pts, length);
-+        p->header.handle = SMBIOS_HANDLE_TYPE26;
-+        return start + length;
-+    }
-+
-+    return start;
-+}
-+
-+/* Type 27 -- Cooling Device */
-+static void *
-+smbios_type_27_init(void *start)
-+{
-+    struct smbios_type_27 *p = start;
-+
-+    void *pts;
-+    uint32_t length;
-+
-+    pts = get_smbios_pt_struct(27, &length);
-+    if ( pts != NULL && length >= 12 )
-+    {
-+        memcpy(start, pts, length);
-+        p->header.handle = SMBIOS_HANDLE_TYPE27;
-+        return start + length;
-+    }
-+
-+    return start;
-+}
-+
-+/* Type 28 -- Temperature Probe */
-+static void *
-+smbios_type_28_init(void *start)
-+{
-+    struct smbios_type_28 *p = start;
-+
-+    void *pts;
-+    uint32_t length;
-+
-+    pts = get_smbios_pt_struct(28, &length);
-+    if ( pts != NULL && length >= 20 )
-+    {
-+        memcpy(start, pts, length);
-+        p->header.handle = SMBIOS_HANDLE_TYPE28;
-+        return start + length;
-+    }
-+
-+    return start;
-+}
-+
- /* Type 32 -- System Boot Information */
- static void *
- smbios_type_32_init(void *start)
-diff --git a/tools/firmware/hvmloader/smbios_types.h b/tools/firmware/hvmloader/smbios_types.h
-index 7c648ece71..3e5c5fa46a 100644
---- a/tools/firmware/hvmloader/smbios_types.h
-+++ b/tools/firmware/hvmloader/smbios_types.h
-@@ -149,6 +149,44 @@ struct smbios_type_4 {
-     uint8_t part_number_str;
- } __attribute__ ((packed));
- 
-+/* SMBIOS type 7 - Cache Information */
-+struct smbios_type_7 {
-+    struct smbios_structure_header header;
-+    uint8_t socket_designation_str;
-+    uint16_t cache_configuration;
-+    uint16_t maximum_cache_size;
-+    uint16_t installed_size;
-+    uint16_t supported_SRAM_type;
-+    uint16_t current_SRAM_type;
-+    uint8_t cache_speed;
-+    uint8_t error_connection_type;
-+    uint8_t system_cache_type;
-+    uint8_t associativity;
-+} __attribute__ ((packed));
-+
-+/* SMBIOS type 8 - Port Connector Information */
-+struct smbios_type_8 {
-+    struct smbios_structure_header header;
-+    uint8_t internal_reference_designator_str;
-+    uint8_t internal_connector_type;
-+    uint8_t external_reference_designator_str;
-+    uint8_t external_connector_type;
-+    uint8_t port_type;
-+} __attribute__ ((packed));
-+
-+/* SMBIOS type 9 - System Slots */
-+struct smbios_type_9 {
-+    struct smbios_structure_header header;
-+    uint8_t slot_designation_str;
-+    uint8_t slot_type;
-+    uint8_t slot_data_bus_width;
-+    uint8_t current_usage;
-+    uint8_t slot_length;
-+    uint16_t slot_id;
-+    uint8_t slot_characteristics_1;
-+    uint8_t slot_characteristics_2;
-+} __attribute__ ((packed));
-+
- /* SMBIOS type 11 - OEM Strings */
- struct smbios_type_11 {
-     struct smbios_structure_header header;
-@@ -232,6 +270,45 @@ struct smbios_type_22 {
-     uint32_t oem_specific;
- } __attribute__ ((packed));
- 
-+/* SMBIOS type 26 - Voltage Probe */
-+struct smbios_type_26 {
-+    struct smbios_structure_header header;
-+    uint8_t description_str;
-+    uint8_t location_and_status;
-+    uint16_t maximum_value;
-+    uint16_t minimum_value;
-+    uint16_t resolution;
-+    uint16_t tolerance;
-+    uint16_t accuracy;
-+    uint32_t oem_defined;
-+    uint16_t nominal_value;     // Optional
-+} __attribute__ ((packed));
-+
-+/* SMBIOS type 27 - Cooling Device */
-+struct smbios_type_27 {
-+    struct smbios_structure_header header;
-+    uint16_t temperature_probe_handle;
-+    uint8_t device_type_and_status;
-+    uint8_t cooling_unit_group;
-+    uint32_t oem_defined;
-+    uint16_t nominal_speed;     // Optional
-+    uint8_t description_str;    // Optional
-+} __attribute__ ((packed));
-+
-+/* SMBIOS type 28 - Temperature Probe */
-+struct smbios_type_28 {
-+    struct smbios_structure_header header;
-+    uint8_t description_str;
-+    uint8_t location_and_status;
-+    uint16_t maximum_value;
-+    uint16_t minimum_value;
-+    uint16_t resolution;
-+    uint16_t tolerance;
-+    uint16_t accuracy;
-+    uint32_t oem_defined;
-+    uint16_t nominal_value;     // Optional
-+} __attribute__ ((packed));
-+
- /* SMBIOS type 32 - System Boot Information */
- struct smbios_type_32 {
-     struct smbios_structure_header header;
-@@ -252,9 +329,9 @@ struct smbios_type_39 {
-     uint8_t revision_level_str;
-     uint16_t max_capacity;
-     uint16_t characteristics;
--    uint16_t input_voltage_probe_handle;
--    uint16_t cooling_device_handle;
--    uint16_t input_current_probe_handle;
-+    uint16_t input_voltage_probe_handle;    // Optional
-+    uint16_t cooling_device_handle;         // Optional
-+    uint16_t input_current_probe_handle;    // Optional
- } __attribute__ ((packed));
- 
- /* SMBIOS type 127 -- End-of-table */
--- 
-2.34.1
-
+Frediano
 
