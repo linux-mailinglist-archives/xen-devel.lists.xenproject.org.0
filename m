@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A40A9AF0FE2
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Jul 2025 11:25:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1030786.1404451 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F1A4AAF1058
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Jul 2025 11:45:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1030796.1404460 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uWtid-0007FG-1N; Wed, 02 Jul 2025 09:25:31 +0000
+	id 1uWu1a-00022y-Hs; Wed, 02 Jul 2025 09:45:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1030786.1404451; Wed, 02 Jul 2025 09:25:31 +0000
+Received: by outflank-mailman (output) from mailman id 1030796.1404460; Wed, 02 Jul 2025 09:45:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uWtic-0007Cf-US; Wed, 02 Jul 2025 09:25:30 +0000
-Received: by outflank-mailman (input) for mailman id 1030786;
- Wed, 02 Jul 2025 09:25:28 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=FQsZ=ZP=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uWtia-0007CZ-Ig
- for xen-devel@lists.xenproject.org; Wed, 02 Jul 2025 09:25:28 +0000
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [2a00:1450:4864:20::42d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7cc644db-5726-11f0-b894-0df219b8e170;
- Wed, 02 Jul 2025 11:25:26 +0200 (CEST)
-Received: by mail-wr1-x42d.google.com with SMTP id
- ffacd0b85a97d-3ab112dea41so2300126f8f.1
- for <xen-devel@lists.xenproject.org>; Wed, 02 Jul 2025 02:25:26 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-b34e31da5f2sm12392907a12.58.2025.07.02.02.25.18
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 02 Jul 2025 02:25:25 -0700 (PDT)
+	id 1uWu1a-00020Q-F9; Wed, 02 Jul 2025 09:45:06 +0000
+Received: by outflank-mailman (input) for mailman id 1030796;
+ Wed, 02 Jul 2025 09:45:05 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=fuNh=ZP=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1uWu1Z-00020K-Pq
+ for xen-devel@lists.xenproject.org; Wed, 02 Jul 2025 09:45:05 +0000
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [2a00:1450:4864:20::331])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 3b0e15d5-5729-11f0-a313-13f23c93f187;
+ Wed, 02 Jul 2025 11:45:04 +0200 (CEST)
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-450cf214200so34602305e9.1
+ for <xen-devel@lists.xenproject.org>; Wed, 02 Jul 2025 02:45:04 -0700 (PDT)
+Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
+ by smtp.gmail.com with UTF8SMTPSA id
+ 5b1f17b1804b1-4538a3a57c2sm192419075e9.12.2025.07.02.02.45.03
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 02 Jul 2025 02:45:03 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,291 +45,247 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7cc644db-5726-11f0-b894-0df219b8e170
+X-Inumbo-ID: 3b0e15d5-5729-11f0-a313-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1751448326; x=1752053126; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=PvveAeT5pEfZap+UM4eDFA55HaIrWRZx8PP0BhxWs84=;
-        b=Z4E9pyaRWSaNJh4ynilwF8saBUNyTxTFYmxjN5KtmQdF2veyfw/8Y6CIH1sS++j03+
-         zJX22wNnj1tpncsg+z2ZZeEpoI++x/zt1twbA0yLp90AswL/90lZgaeJoUt8zFrQWMVM
-         uAPrMwI4x2hfXwXhee8uynPNm5jQqgzYh/evLT8lf4qhQh1s8nbSlOVG66Ll49qydC7/
-         ZMyw2X1zOKnWaJiVwrB5mH3zLluoIjBFcGTO/hm6t2vT5qUvshpoHXh18zKcC72lvYuB
-         ZI/6A6/A3P2JSP26Lxn79gs+wnOY6VW9Z4ZEGHljisXY7A3C/SARLjjZq25lUvw9ciD5
-         KDuw==
+        d=citrix.com; s=google; t=1751449504; x=1752054304; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=Ekk5ZrsBU0ivubtoI61ffVTv9YzsF285nVoKkqQ3RZc=;
+        b=ojT/FwvJdJDho28wSUOB2rglZdMddZMHME+CFIyoy2HpT3fMS2TOM5yoIFlHNFIr9a
+         xAD26aLkxC2N36Du63HtvXQC0Q5Dcqqm45oPH/fVcrCHm0h5NkKFwvX9Jlq/wZ4t7ITW
+         buAefeSygwjKneyngps7wip0h35hnZaxZ4k08=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1751448326; x=1752053126;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=PvveAeT5pEfZap+UM4eDFA55HaIrWRZx8PP0BhxWs84=;
-        b=UPNBRNch1MehUV+Nr1oy5yaTcCxWMV/+Gr3KeTZ2ZEuQxPsKTAErQEE30fodqNOuoO
-         tEtLKMO914b3RyKhmvcm93FZnU1zkoD2B9jwhz/AlVB20VG5V5wuUiEsfgFudeDn68r7
-         3nSNxow6Laes6vXaZGVpTxAima411aCMLaYY57KHPHk0mKEeLjT2zZcnCYi5wZXOBoYf
-         gme6o+oGVKJzp3rBBzLY65/3Ae3m7OVV1GsCPMW3Q9x3MaQ5/y75bOdxhyhzoFsHh6yz
-         oyjZvrQIDmfvvzPCOcxJ6XrfB7lUL2Vg4bGhsQR9ZmUwsYnbarh4lvRhSEHTfJaVqPK4
-         cGMg==
-X-Forwarded-Encrypted: i=1; AJvYcCWCCGoa6y077DYNJcIk5SKyphliB3jKgVoStFVIOmNJRYwdAKs5tlWyoXjawPFXftwvtMStJOCt8dQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwlIbhAucKPoHT4GHad9KOZXLI3w6xMikrm1sD4vKL8U6dXwgVd
-	sj/z8aQ2t30NeatKNHIg2XVbzJPhXATVEQ6LnprSeNJD1SHWg9H7FZRb0PYG1B0uyA==
-X-Gm-Gg: ASbGnct310UqdSB+19u1KWnBvHUfwyJFx7NNv6ACUWDdHHBBaIFACi2zfz3/bgnxeIm
-	KWCowxEJGDMaFm83Nn13xqO6HaypULOBCgytzF1MxS5GueUE8gw0K151Pxb8nziJiuXKyfKuekv
-	9J/3HblwoihvNb6B3n8pidhz9eUPDoR98NGxNDLlPRvseIDWPLhKdN8x+gt7Rp3p1oKvVsR9PTU
-	Niyo+xKVhWwMDMkTeXs22VU61kYMp610wMkH4tWI3AtShLtTgDBR+n8WqlH7LDnpVmdQTWQKOJ8
-	WTXTVwYxXQ5JMVqkDXggp4EsrN1+nI5efaiMLdWlEuTsHIQ0kpAFJ3uhiHIxKDDMNrVn2CXqaBL
-	emtIMt2uPbUGpYZtTD1ggOelhQ3mWRx3m+/ID2TD+b8zCFrU=
-X-Google-Smtp-Source: AGHT+IEsqk8IoE41ubg6luGis30LG5LzhecCwsSh5yYpxKAz3UhVK6N3mJbJQc5utPL57z0BeIoCug==
-X-Received: by 2002:a05:6000:41e2:b0:3a4:e4ee:4ca9 with SMTP id ffacd0b85a97d-3b1fe8a0885mr1452041f8f.23.1751448325514;
-        Wed, 02 Jul 2025 02:25:25 -0700 (PDT)
-Message-ID: <9be8eeb4-281e-4b9b-9ea7-04ff738dc4db@suse.com>
-Date: Wed, 2 Jul 2025 11:25:14 +0200
+        d=1e100.net; s=20230601; t=1751449504; x=1752054304;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=Ekk5ZrsBU0ivubtoI61ffVTv9YzsF285nVoKkqQ3RZc=;
+        b=w4Prk8ety5igNECscRmHrtHySWLg4V4kftGJPwCuyvCMwiwHMNpjnPb1D8C3Mq3NGt
+         5SkwpFJJvVRdVe0P+aWIYzwMuqVBRhrFZItHhvwW9l19vbJRfhiSINNjwv8FRPNyjwVD
+         maQf4GT0jEAMWWlJ7capflhNxsBdrituj1slCSkZO0MR+GSlStXonv7rOhqTtr850ht3
+         5yATpIkdPSMJeVBrSgdU/dXGoDyiNissRclAO2LpEh0bLmtFfs6iPSOGlZT/vDFU76CC
+         uTvVDm9NnaZIpzF1WZBSFqNhWXdST5gtKPln6p3C2yi35DImzSKs8/TTp7LUj26m96tT
+         tPrg==
+X-Forwarded-Encrypted: i=1; AJvYcCUzvxBj0YWPvLgcVQZKh2KO2PaemDuadl5Yf1kwXm94c+1OAX6Uy+9d3g8W88t0OTj0mD1uI7z+R9Y=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yzklec5Lc51i744LR3n7CpuiqEG56TwL0RFnvr0IjISvTjErNPr
+	6ElEHAQUb3cmJkSHPJHpB+d4blXcytzS9dbGq+ZM4U/ECY+QXGGM/ckQlHoueJdTaKM=
+X-Gm-Gg: ASbGncsqthYU8Ya+tHS9nup8YJYNFvE2FSN9VeJCedipwVqVgEcfGwDLN+3D5e/rRCS
+	Gra/t6gpcrBxpNcQBMLugfQl7BxQUqY5av4eIwPZhYSEZ/FH+oLvjZEjndq5/evZfzpTyjmD0UG
+	KDZCCEob/nbQv06TmHA/z96KC6MxsDi+Sw6iXchiNffdCjYvCmrp2erK2Y1ZP8eNuJ95ZY58298
+	DqKI6P8mVsuu3e2Q+S/fhlKgjnPt9Pg/QU8ZX5Yk2yznU1lygmRp9CSPlJq/Yi2TjU33ayopc4C
+	EPvkr6csDnPg4KAPeaazz+Y2TyHJpZX6NefFyFsVl2eBVap1Th4Uz5Umx8npGi6ExCjRaQGnY4R
+	o9iUs+BS/469J3IzdAjBf8EOmrUS2cEYD0OQhwi8w
+X-Google-Smtp-Source: AGHT+IHM0JuQvsZUURkvSmz7qMPaTCSsaL0L36WKaawPhKBm+9Vebo6WaAsa7jLuekaewuzCkygQJA==
+X-Received: by 2002:a05:600c:c09b:b0:442:cd03:3e2 with SMTP id 5b1f17b1804b1-454a36dd959mr18643615e9.2.1751449503800;
+        Wed, 02 Jul 2025 02:45:03 -0700 (PDT)
+Date: Wed, 2 Jul 2025 11:45:02 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: "Orzel, Michal" <michal.orzel@amd.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+	Jan Beulich <jbeulich@suse.com>, xen-devel@lists.xenproject.org,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Shawn Anastasio <sanastasio@raptorengineering.com>,
+	Alistair Francis <alistair.francis@wdc.com>,
+	Bob Eshleman <bobbyeshleman@gmail.com>,
+	Connor Davis <connojdavis@gmail.com>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Community Manager <community.manager@xenproject.org>
+Subject: Re: [PATCH v2 0/8] pdx: introduce a new compression algorithm
+Message-ID: <aGT_nusKKFEhhXJk@macbook.local>
+References: <20250620111130.29057-1-roger.pau@citrix.com>
+ <alpine.DEB.2.22.394.2506271905350.862517@ubuntu-linux-20-04-desktop>
+ <aGKnDHtRD5OLGaYj@macbook.local>
+ <alpine.DEB.2.22.394.2506301726500.862517@ubuntu-linux-20-04-desktop>
+ <1507b441-dd3c-4a24-beda-0d1d3143faf9@suse.com>
+ <alpine.DEB.2.22.394.2507011338360.862517@ubuntu-linux-20-04-desktop>
+ <aGTZK0YmBTvGmNQr@macbook.local>
+ <0807cdba-b0bb-42a7-a18d-407ab818709a@amd.com>
+ <aGTtJTTbEkYvnMq6@macbook.local>
+ <adc8f96c-6aad-4d67-9e78-118a29a58bce@amd.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 15/17] xen/riscv: Implement superpage splitting for p2m
- mappings
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1749555949.git.oleksii.kurochko@gmail.com>
- <7cdd3272f2eba32dfa00be4fd72da6921eac243d.1749555949.git.oleksii.kurochko@gmail.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <7cdd3272f2eba32dfa00be4fd72da6921eac243d.1749555949.git.oleksii.kurochko@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <adc8f96c-6aad-4d67-9e78-118a29a58bce@amd.com>
 
-On 10.06.2025 15:05, Oleksii Kurochko wrote:
-> Add support for down large memory mappings ("superpages") in the RISC-V
-> p2m mapping so that smaller, more precise mappings ("finer-grained entries")
-> can be inserted into lower levels of the page table hierarchy.
+On Wed, Jul 02, 2025 at 10:54:24AM +0200, Orzel, Michal wrote:
 > 
-> To implement that the following is done:
-> - Introduce p2m_split_superpage(): Recursively shatters a superpage into
->   smaller page table entries down to the target level, preserving original
->   permissions and attributes.
-> - __p2m_set_entry() updated to invoke superpage splitting when inserting
->   entries at lower levels within a superpage-mapped region.
 > 
-> This implementation is based on the ARM code, with modifications to the part
-> that follows the BBM (break-before-make) approach. Unlike ARM, RISC-V does
-> not require BBM, so there is no need to invalidate the PTE and flush the
-> TLB before updating it with the newly created, split page table.
-
-But some flushing is going to be necessary. As long as you only ever do
-global flushes, the one after the individual PTE modification (within the
-split table) will do (if BBM isn't required, see below), but once you move
-to more fine-grained flushing, that's not going to be enough anymore. Not
-sure it's a good idea to leave such a pitfall.
-
-As to (no need for) BBM: I couldn't find anything to that effect in the
-privileged spec. Can you provide some pointer? What I found instead is e.g.
-this sentence: "To ensure that implicit reads observe writes to the same
-memory locations, an SFENCE.VMA instruction must be executed after the
-writes to flush the relevant cached translations." And this: "Accessing the
-same location using different cacheability attributes may cause loss of
-coherence." (This may not only occur when the same physical address is
-mapped twice at different VAs, but also after the shattering of a superpage
-when the new entry differs in cacheability.)
-
-> Additionally, the page table walk logic has been adjusted, as ARM uses the
-> opposite walk order compared to RISC-V.
-
-I think you used some similar wording already in an earlier patch. I find
-this confusing: Walk order is, aiui, the same. It's merely the numbering
-of levels that is the opposite way round, isn't it?
-
-> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-> ---
-> Changes in V2:
->  - New patch. It was a part of a big patch "xen/riscv: implement p2m mapping
->    functionality" which was splitted to smaller.
->  - Update the commit above the cycle which creates new page table as
->    RISC-V travserse page tables in an opposite to ARM order.
->  - RISC-V doesn't require BBM so there is no needed for invalidating
->    and TLB flushing before updating PTE.
-> ---
->  xen/arch/riscv/p2m.c | 102 ++++++++++++++++++++++++++++++++++++++++++-
->  1 file changed, 101 insertions(+), 1 deletion(-)
+> On 02/07/2025 10:26, Roger Pau Monné wrote:
+> > On Wed, Jul 02, 2025 at 09:52:45AM +0200, Orzel, Michal wrote:
+> >>
+> >>
+> >> On 02/07/2025 09:00, Roger Pau Monné wrote:
+> >>> On Tue, Jul 01, 2025 at 01:46:19PM -0700, Stefano Stabellini wrote:
+> >>>> On Tue, 1 Jul 2025, Jan Beulich wrote:
+> >>>>> Sadly from this you omitted the output from the setup of the offsets
+> >>>>> arrays. Considering also your later reply, I'd be curious to know what
+> >>>>> mfn_to_pdx(0x50000000) is.
+> >>>>  
+> >>>> Full logs here, and debug patch in attachment.
+> >>>>
+> >>>> (XEN) Checking for initrd in /chosen
+> >>>> (XEN) RAM: 0000000000000000 - 000000007fffffff
+> >>>> (XEN) RAM: 0000000800000000 - 000000087fffffff
+> >>>> (XEN) RAM: 0000050000000000 - 000005007fffffff
+> >>>> (XEN) RAM: 0000060000000000 - 000006007fffffff
+> >>>> (XEN) RAM: 0000070000000000 - 000007007fffffff
+> >>>> (XEN) 
+> >>>> (XEN) MODULE[0]: 0000000022000000 - 0000000022172fff Xen         
+> >>>> (XEN) MODULE[1]: 0000000022200000 - 000000002220efff Device Tree 
+> >>>> (XEN) MODULE[2]: 0000000020400000 - 0000000021e2ffff Kernel      
+> >>>> (XEN)  RESVD[0]: 0000000000000000 - 0000000000ffffff
+> >>>> (XEN)  RESVD[1]: 0000000001000000 - 00000000015fffff
+> >>>> (XEN)  RESVD[2]: 0000000001600000 - 00000000017fffff
+> >>>> (XEN)  RESVD[3]: 0000000001800000 - 00000000097fffff
+> >>>> (XEN)  RESVD[4]: 0000000009800000 - 000000000bffffff
+> >>>> (XEN)  RESVD[5]: 0000000011126000 - 000000001114dfff
+> >>>> (XEN)  RESVD[6]: 000000001114e000 - 000000001214efff
+> >>>> (XEN)  RESVD[7]: 0000000017275000 - 000000001729cfff
+> >>>> (XEN)  RESVD[8]: 000000001729d000 - 000000001829dfff
+> >>>> (XEN)  RESVD[9]: 000000001a7df000 - 000000001a806fff
+> >>>> (XEN)  RESVD[10]: 000000001a807000 - 000000001b807fff
+> >>>> (XEN)  RESVD[11]: 000000001d908000 - 000000001d92ffff
+> >>>> (XEN)  RESVD[12]: 000000001d930000 - 000000001e930fff
+> >>>> (XEN)  RESVD[13]: 000000001829e000 - 000000001869dfff
+> >>>> (XEN)  RESVD[14]: 000000001869e000 - 00000000186ddfff
+> >>>> (XEN)  RESVD[15]: 0000000800000000 - 000000083fffffff
+> >>>> (XEN) 
+> >>>> (XEN) 
+> >>>> (XEN) Command line: console=dtuart dom0_mem=2048M console_timestamps=boot debug bootscrub=0 vwfi=native sched=null
+> >>>> (XEN) [00000006bfc302ec] parameter "debug" unknown!
+> >>>> (XEN) [00000006bfcc0476] DEBUG init_pdx 294 start=0 end=80000000
+> >>>> (XEN) [00000006bfcd2400] DEBUG init_pdx 294 start=800000000 end=880000000
+> >>>> (XEN) [00000006bfce29ec] DEBUG init_pdx 294 start=50000000000 end=50080000000
+> >>>> (XEN) [00000006bfcf1768] DEBUG init_pdx 294 start=60000000000 end=60080000000
+> >>>> (XEN) [00000006bfd015a4] DEBUG init_pdx 294 start=70000000000 end=70080000000
+> >>>> (XEN) [00000006bfd1444f] DEBUG setup_mm 252
+> >>>> (XEN) [00000006bfd3dc6f] DEBUG setup_mm 273 start=0 size=80000000 ram_end=80000000 directmap_base_pdx=0
+> >>>> (XEN) [00000006bfd5616e] DEBUG setup_directmap_mappings 229 base_mfn=0 nr_mfns=80000 directmap_base_pdx=0 mfn_to_pdx=0
+> >>>> (XEN) [00000006bfd7d38a] DEBUG setup_directmap_mappings 237 base_mfn=0 nr_mfns=80000 directmap_base_pdx=0
+> >>>> (XEN) [00000006bfd92728] DEBUG setup_mm 273 start=800000000 size=80000000 ram_end=880000000 directmap_base_pdx=0
+> >>>> (XEN) [00000006bfdaba3b] DEBUG setup_directmap_mappings 229 base_mfn=800000 nr_mfns=80000 directmap_base_pdx=0 mfn_to_pdx=800000
+> >>>> (XEN) [00000006bfdcd79c] DEBUG setup_directmap_mappings 237 base_mfn=800000 nr_mfns=80000 directmap_base_pdx=0
+> >>>> (XEN) [00000006bfde4d82] DEBUG setup_mm 273 start=50000000000 size=80000000 ram_end=50080000000 directmap_base_pdx=0
+> >>>> (XEN) [00000006bfdfaef0] DEBUG setup_directmap_mappings 229 base_mfn=50000000 nr_mfns=80000 directmap_base_pdx=0 mfn_to_pdx=50000000
+> >>>> (XEN) [00000006bfe35249] Assertion '(mfn_to_pdx(maddr_to_mfn(ma)) - directmap_base_pdx) < (DIRECTMAP_SIZE >> PAGE_SHIFT)' failed at ./arch/arm/include/asm/mmu/mm.h:72
+> >>>
+> >>> As said on the other reply, the issue here is that with the v2 PDX
+> >>> offset compression logic your memory map is not compressible, and this
+> >>> leads to an overflow, as anything above 5TiB won't fit in the
+> >>> directmap AFAICT.  We already discussed with Jan that ARM seems to be
+> >>> missing any logic to account for the max addressable page:
+> >>>
+> >>> https://lore.kernel.org/xen-devel/9074f1a6-a605-43f4-97f3-d0a626252d3f@suse.com/
+> >>>
+> >>> x86 has setup_max_pdx() that truncates the maximum addressable MFN
+> >>> based on the active PDX compression and the virtual memory map
+> >>> restrictions.  ARM needs similar logic to account for this
+> >>> restrictions.
+> >>
+> >> We have a few issues on Arm. First, we don't check whether direct map is big
+> >> enough provided max_pdx that we don't set at all. Second, we don't really use
+> >> PDX grouping (can be also used without compression). My patch (that Stefano
+> >> attached previously) fixes the second issue (Allejandro will take it over to
+> >> come up with common solution).
+> > 
+> > You probably can handle those as different issues, as PDX grouping is
+> > completely disjoint from PDX compression.  It might be helpful if
+> > we could split the PDX grouping into a separate file from the PDX
+> > compression.
+> > 
+> > One weirdness I've noticed with ARM is the addition of start offsets
+> > to the existing PDX compression, by using directmap_base_pdx,
+> > directmap_mfn_start, directmap_base_pdx &c.  I'm not sure whether this will
+> > interfere with the PDX compression, but it looks like a bodge.  This
+> > should be part of the generic PDX compression implementation, not an
+> > extra added on a per-arch basis.
+> > 
+> > FWIW, PDX offset translation should already compress any gaps from 0
+> > to the first RAM range, and hence this won't be needed (in fact it
+> > would just make ARM translations slower by doing an extra unneeded
+> > operation).  My recommendation would be to move this initial offset
+> > compression inside the PDX mask translation.
+> > 
+> >> For the first issue, we need to know max_page (at
+> >> the moment we calculate it in setup_mm() at the very end but we could do it in
+> >> init_pdx() to know it ahead of setting direct map) and PDX offset (on x86 there
+> >> is no offset). I also think that on Arm we should just panic if direct map is
+> >> too small.
+> > 
+> > Hm, that's up to the ARM folks, but my opinion is that you should
+> > simply ignore memory above the threshold.  Panicking should IMO be a
+> > last resort option when there's no way to workaround the issue.
+> On Arm we handle user errors and suspicious behavior usually as panics as oppose
+> to x86 which is more liberal in that regard. We want to fail as soon as possible.
 > 
-> diff --git a/xen/arch/riscv/p2m.c b/xen/arch/riscv/p2m.c
-> index 87dd636b80..79c4473f1f 100644
-> --- a/xen/arch/riscv/p2m.c
-> +++ b/xen/arch/riscv/p2m.c
-> @@ -743,6 +743,77 @@ static void p2m_free_entry(struct p2m_domain *p2m,
->      p2m_free_page(p2m->domain, pg);
->  }
->  
-> +static bool p2m_split_superpage(struct p2m_domain *p2m, pte_t *entry,
-> +                                unsigned int level, unsigned int target,
-> +                                const unsigned int *offsets)
-> +{
-> +    struct page_info *page;
-> +    unsigned int i;
-> +    pte_t pte, *table;
-> +    bool rv = true;
-> +
-> +    /* Convenience aliases */
-> +    mfn_t mfn = pte_get_mfn(*entry);
-> +    unsigned int next_level = level - 1;
-> +    unsigned int level_order = XEN_PT_LEVEL_ORDER(next_level);
-> +
-> +    /*
-> +     * This should only be called with target != level and the entry is
-> +     * a superpage.
-> +     */
-> +    ASSERT(level > target);
-> +    ASSERT(p2me_is_superpage(p2m, *entry, level));
-> +
-> +    page = p2m_alloc_page(p2m->domain);
-> +    if ( !page )
-> +        return false;
-> +
-> +    page_list_add(page, &p2m->pages);
+> > 
+> >> The issue can be reproduced by disabling PDX compression, so not only with
+> >> Roger's patch.
+> >>
+> >> @Julien, I'm thinking of something like this:
+> >>
+> >> diff --git a/xen/arch/arm/arm32/mmu/mm.c b/xen/arch/arm/arm32/mmu/mm.c
+> >> index 4d22f35618aa..e6d9b49acd3c 100644
+> >> --- a/xen/arch/arm/arm32/mmu/mm.c
+> >> +++ b/xen/arch/arm/arm32/mmu/mm.c
+> >> @@ -190,7 +190,6 @@ void __init setup_mm(void)
+> >>
+> >>      /* Frame table covers all of RAM region, including holes */
+> >>      setup_frametable_mappings(ram_start, ram_end);
+> >> -    max_page = PFN_DOWN(ram_end);
+> >>
+> >>      /*
+> >>       * The allocators may need to use map_domain_page() (such as for
+> >> diff --git a/xen/arch/arm/arm64/mmu/mm.c b/xen/arch/arm/arm64/mmu/mm.c
+> >> index a0a2dd8cc762..3e64be6ae664 100644
+> >> --- a/xen/arch/arm/arm64/mmu/mm.c
+> >> +++ b/xen/arch/arm/arm64/mmu/mm.c
+> >> @@ -224,6 +224,9 @@ static void __init setup_directmap_mappings(unsigned long
+> >> base_mfn,
+> >>           */
+> >>          directmap_virt_start = DIRECTMAP_VIRT_START +
+> >>              (base_mfn - mfn_gb) * PAGE_SIZE;
+> >> +
+> >> +        if ( (max_pdx - directmap_base_pdx) > (DIRECTMAP_SIZE >> PAGE_SHIFT) )
+> >> +            panic("Direct map is too small\n");
+> > 
+> > As said above - I would avoid propagating the usage of those offsets
+> > into generic memory management code, it's usage should be confined
+> > inside the translation functions.
+> directmap_base_pdx is set a few lines above, so I would not call it propagation.
+> 
+> > 
+> > Here you probably want to use maddr_to_virt() or similar.
+> I can't because maddr_to_virt() has the ASSERT with similar check.
+> > 
+> > You can maybe pickup:
+> > 
+> > https://lore.kernel.org/xen-devel/20250611171636.5674-3-roger.pau@citrix.com/
+> > 
+> > And attempt to hook it into ARM?
+> As said above, we have different ways to approach setting max_pdx. On Arm we
+> want to panic, on x86 you want to limit the max_pdx.
+> 
+> > 
+> > I don't think it would that difficult to reduce the consumption of
+> > memory map ranges to what Xen can handle.
+> > 
+> > Thanks, Roger.
+> 
+> The diff I sent fixes the issue for direct map now. We can take it now if we
+> want to solve the issue. If we instead want to wait for frametable fixes (\wrt
+> grouping) and possible PDX changes (making offsets common) to be done first, I
+> can simply park this patch.
 
-Is there a reason this list maintenance isn't done in p2m_alloc_page()?
+No please, don't park it just because of my opinions.  I think Julien
+is OK with it, so don't hold back because of my x86 based opinion on
+how to handle errors.
 
-> +    table = __map_domain_page(page);
-> +
-> +    /*
-> +     * We are either splitting a second level 1G page into 512 first level
-> +     * 2M pages, or a first level 2M page into 512 zero level 4K pages.
-> +     */
-> +    for ( i = 0; i < XEN_PT_ENTRIES; i++ )
-> +    {
-> +        pte_t *new_entry = table + i;
-> +
-> +        /*
-> +         * Use the content of the superpage entry and override
-> +         * the necessary fields. So the correct permission are kept.
-> +         */
-> +        pte = *entry;
-> +        pte_set_mfn(&pte, mfn_add(mfn, i << level_order));
-
-While okay as long as you only permit superpages up to 1G, this is another
-trap for someone to fall into: Imo i would better be unsigned long right
-away, considering that RISC-V permits large pages at all levels.
-
-> +        write_pte(new_entry, pte);
-> +    }
-> +
-> +    /*
-> +     * Shatter superpage in the page to the level we want to make the
-> +     * changes.
-> +     * This is done outside the loop to avoid checking the offset to
-> +     * know whether the entry should be shattered for every entry.
-> +     */
-> +    if ( next_level != target )
-> +        rv = p2m_split_superpage(p2m, table + offsets[next_level],
-> +                                 level - 1, target, offsets);
-
-I don't understand the comment: Under what conditions would every entry
-need (further) shattering? And where's that happening? Or is this merely
-a word ordering issue in the sentence, and "for every entry" wants
-moving ahead? (In that case I'm unconvinced this is in need of commenting
-upon.)
-
-> +    /* TODO: why it is necessary to have clean here? Not somewhere in the caller */
-> +    if ( p2m->clean_pte )
-> +        clean_dcache_va_range(table, PAGE_SIZE);
-> +
-> +    unmap_domain_page(table);
-
-Again likely not something that wants taking care of right away, but there
-again is an inefficiency here: The caller almost certainly wants to map
-the same page again, to update the one entry that caused the request to
-shatter the page.
-
-> +    /*
-> +     * Even if we failed, we should install the newly allocated PTE
-> +     * entry. The caller will be in charge to free the sub-tree.
-> +     */
-> +    p2m_write_pte(entry, page_to_p2m_table(p2m, page), p2m->clean_pte);
-
-Why would it be wrong to free the page right here, vacating the entry at
-the same time (or leaving just that to the caller)? (IOW - if this is an
-implementation decision of yours, I think the word "should" would want
-dropping.) After all, the caller invoking p2m_free_entry() on the thus
-split PTE is less efficient (needs to iterate over all entries) than on
-the original one (where it's just a single superpage).
-
-> @@ -806,7 +877,36 @@ static int __p2m_set_entry(struct p2m_domain *p2m,
->       */
->      if ( level > target )
-
-This condition is likely too strong, unless you actually mean to also
-split a superpage if it really wouldn't need splitting (new entry written
-still fitting with the superpage mapping, i.e. suitable MFN and same
-attributes).
-
->      {
-> -        panic("Shattering isn't implemented\n");
-> +        /* We need to split the original page. */
-> +        pte_t split_pte = *entry;
-> +
-> +        ASSERT(p2me_is_superpage(p2m, *entry, level));
-> +
-> +        if ( !p2m_split_superpage(p2m, &split_pte, level, target, offsets) )
-> +        {
-> +            /* Free the allocated sub-tree */
-> +            p2m_free_entry(p2m, split_pte, level);
-> +
-> +            rc = -ENOMEM;
-> +            goto out;
-> +        }
-> +
-> +        p2m_write_pte(entry, split_pte, p2m->clean_pte);
-> +
-> +        /* Then move to the level we want to make real changes */
-> +        for ( ; level < target; level++ )
-
-Don't you mean to move downwards here? At which point I wonder: Did you test
-this code?
-
-> +        {
-> +            rc = p2m_next_level(p2m, true, level, &table, offsets[level]);
-> +
-> +            /*
-> +             * The entry should be found and either be a table
-> +             * or a superpage if level 0 is not targeted
-> +             */
-> +            ASSERT(rc == GUEST_TABLE_NORMAL ||
-> +                   (rc == GUEST_TABLE_SUPER_PAGE && target > 0));
-> +        }
-
-This, too, is inefficient (but likely good enough as a starting point): You walk
-tables twice - first when splitting, and then again when finding the target level.
-
-Considering the enclosing if(), this also again is a do/while() candidate.
-
-Jan
+Regards, Roger.
 
