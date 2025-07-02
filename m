@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F78DAF5B98
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Jul 2025 16:50:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1031310.1405124 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1442AAF5BE0
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Jul 2025 16:57:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1031330.1405134 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uWymv-00058Q-RI; Wed, 02 Jul 2025 14:50:17 +0000
+	id 1uWytn-0006J5-Gm; Wed, 02 Jul 2025 14:57:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1031310.1405124; Wed, 02 Jul 2025 14:50:17 +0000
+Received: by outflank-mailman (output) from mailman id 1031330.1405134; Wed, 02 Jul 2025 14:57:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uWymv-00056A-Nu; Wed, 02 Jul 2025 14:50:17 +0000
-Received: by outflank-mailman (input) for mailman id 1031310;
- Wed, 02 Jul 2025 14:50:16 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uWytn-0006HR-D5; Wed, 02 Jul 2025 14:57:23 +0000
+Received: by outflank-mailman (input) for mailman id 1031330;
+ Wed, 02 Jul 2025 14:57:22 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=FQsZ=ZP=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uWymu-00055z-IE
- for xen-devel@lists.xenproject.org; Wed, 02 Jul 2025 14:50:16 +0000
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [2a00:1450:4864:20::430])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id dcb24f87-5753-11f0-b894-0df219b8e170;
- Wed, 02 Jul 2025 16:50:14 +0200 (CEST)
-Received: by mail-wr1-x430.google.com with SMTP id
- ffacd0b85a97d-3a6d1369d4eso3860912f8f.2
- for <xen-devel@lists.xenproject.org>; Wed, 02 Jul 2025 07:50:14 -0700 (PDT)
+ id 1uWytl-0006Gw-VH
+ for xen-devel@lists.xenproject.org; Wed, 02 Jul 2025 14:57:21 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id dac95e62-5754-11f0-a313-13f23c93f187;
+ Wed, 02 Jul 2025 16:57:21 +0200 (CEST)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-45310223677so32679345e9.0
+ for <xen-devel@lists.xenproject.org>; Wed, 02 Jul 2025 07:57:21 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-b3642e9dcacsm1225221a12.12.2025.07.02.07.50.10
+ d9443c01a7336-23acb39be0fsm131084865ad.95.2025.07.02.07.57.16
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 02 Jul 2025 07:50:13 -0700 (PDT)
+ Wed, 02 Jul 2025 07:57:19 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dcb24f87-5753-11f0-b894-0df219b8e170
+X-Inumbo-ID: dac95e62-5754-11f0-a313-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1751467814; x=1752072614; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1751468240; x=1752073040; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=SIrGmeqdmHuDK4RnNUr2bJEzDpTjTb03+vFgjJwH/0M=;
-        b=dQCX/xDpiA301BxAAOadxcOdGkBl6Svk1ue6vRXgqPDapx8+IM2Ixr7A87mfmw47Wr
-         /eqopcicpP2lNvQNmlZjpIsFLVF5bYuiUP/f8QBwmYrMNsfZrkaw0ErTvYRgcjArf5pX
-         6CPkj+n0vEqDLJsf4qWDqYYBofDHHzsd+7iOQFWbReFEtebrC0XTYcX6QA2ImxFTLz7J
-         CTo91OpSKFVgMVhZnid/FaBiKjVTLIyR98xZVG7xqwon99azbnz++mYMymzaN7CeqXq8
-         cWcSECmytg2nTGJ/0oSuJ4HKTdPhiOOrLOld/dw/1Z/s+i8o6NHhOwB22uKeda08h3aP
-         d/NQ==
+        bh=qv/5rb75ifF6fV5/RneTI3XnrNM6a3onvrWRxkhgMOo=;
+        b=V5/e1FWp0GJ/S0d7vPbr2yFF+Iod58ny6Bv7zXfpXqh5BPk1TMFFmEJ68f9e6WLyKy
+         9gCZAfZ/yoTRIDPS2HBkrKK0iG5y69ET0K3qn5M6BNfOogBCZJqANMIlFvlNbDJG4MeB
+         DdXVLksXn7x2gwLZ9BtZWEexAg0lcjuG9uH4JX2wh9TFfw1DltWyAI9mKhNBSz+uLXDm
+         /6Tm8/4Du74OsQjhDbR7Ur9HlsVsgr2tL2Z5QeYbZt7/hfIS0KWvYkJD8R/4K6IvDYBU
+         F1i8yJQeikuCjiw1s50AjCpW3F7cXp04umjV/0+UfLbIaoApsWcBxAq0mBKscBQ5aHYy
+         cqeA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1751467814; x=1752072614;
+        d=1e100.net; s=20230601; t=1751468240; x=1752073040;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=SIrGmeqdmHuDK4RnNUr2bJEzDpTjTb03+vFgjJwH/0M=;
-        b=D693UF4vapUOAdNLZemBOWe7rK+wvNS8lupT6jYt4obcdc0yhMvtAvb6we3dIbaQYF
-         2fWlns7G05iEYQxLsY2tlaf4UP+eRcHVUv/TkG+XjqfIjvRj/BueWI45wYrqPq1tdSJL
-         NZGuxqi1wRB0O6udRE0lZOGHmlIjwC9GkWrWJKt1X4yhW3Tl/7RWMT4mmLdmo2JcSeDB
-         oEJHCLJJ2y7JcJQFj/Spk9WNpdvfFv7AeeibPrZwyhcDKYt7OxVsDBvc6WGLdaIiIB8S
-         uBWqg7gmNJbaw32nSX0YTfYydS1WKhrfP+QYcjJGyF2MnRWMvolMhpFgET7PvQBS2xme
-         Zd+w==
-X-Forwarded-Encrypted: i=1; AJvYcCXXmp81ET3LwkzwDEagRVxa2Ax6VBpdBoSHvaBMEtjAIP+wn+9INO5umFAXIQc4XpmnHYF47AsU8/o=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyUZE9JQ8aMvFkZ1fMOPWM//kEUO4U2AIMBrgri+wBFcmPWVCnw
-	Qp0BTpNj3LTe5FTKXsxRB5L5rWu2PcZ0OfyHiz6LdQIO8sJBUH81m7v0J66iSrfKhQ==
-X-Gm-Gg: ASbGncvaVg4AsQ50jLgdH8S6FDmOh9bPdwshrmaLPugwXyTApOTHgUMmesQ4Gwhyk8y
-	1UvI4lkeuKR4TvlZqw1pIo+5pKPti6iGdjZgXJbZMJDKAF4PJesH5CucaG2jJB+Clb7lrWWE5H0
-	i367eT1OSXVzTOUvjzPiExD5bO72rdBJSk/12gn3yqrM5HDtEGnXM8ERXmVzpOpGFJVjtkqHD3p
-	ofs0TmVunpHAPwHyR2zZHXwcYT3aIPaNIV20UGtII0Xf5nOBiW4nvYwqYxRAZRpQdM/MobcoTRf
-	rmFnANDnsb4t91n4YB5sfOUMlymZI/7FvP8VImlueHQZ7coWR41qkQ3dw1V6E+KhnaRYITE5iLs
-	nGnbb7ysu5eNeW6qUMSP7NIIeISYVY60xsdJtlPjsMT2ThC8=
-X-Google-Smtp-Source: AGHT+IHNuslZ8sifL18vgvKe886EWTU1qYcgcQmt/XBdf5K02NnnnxmtV2IggiUxcvQiS+0v66/jrQ==
-X-Received: by 2002:a05:6000:1887:b0:3a5:2d42:aa25 with SMTP id ffacd0b85a97d-3b20110b277mr2318975f8f.50.1751467814028;
-        Wed, 02 Jul 2025 07:50:14 -0700 (PDT)
-Message-ID: <22ff462d-11e7-42ea-806b-7a521ce67417@suse.com>
-Date: Wed, 2 Jul 2025 16:50:05 +0200
+        bh=qv/5rb75ifF6fV5/RneTI3XnrNM6a3onvrWRxkhgMOo=;
+        b=LvkNJgL81bH8bZsIRuYceTmoeeq7DJBlLM8EWxtokVv+tQStJKvQQvJCfysPiOX4ER
+         dyIwjedt2DpnQpcWtGjOOWRocLOrZO9w2cQgIU6vXsQviDft5n9jPocuU/W2Hq52Xx9O
+         yIVLlwS/cbCbEAZILXTPap8F1SEdfjJ5iODfAPnXQFCJUU3SOnCywLM0UCh6Qguy6rOR
+         85crw6XqgMvSmNRzHl3Riti4ND04bfh7VGdL4bPgF8vuBuE30Fplrr0GCGUei82xsrZh
+         nDfWnovVTACXVyRzYB25WQOrLJmlnT1l49BL/x1Swd3wGyBEdqds1tyh5f03BKIZxlE7
+         1vRA==
+X-Forwarded-Encrypted: i=1; AJvYcCXMKorq8ZtTCdDfXUm7XPSET/PU5ZvBO0ngmfZOJpozkcr99Ejregl2P5Ume8N23mEIPB3Ry3PU7Fg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yxqod1GKGfBx+jB3CjGFt9Zlf5X2u1+VxhgbDAglTz5RrG9B7mZ
+	DxPvgyBM15uP10gCrzLe8wOgi5eGNhJkva4DZk9equ7jKKZcFXlm4MxVlH5Crw8Y+1vVmhHYI6V
+	/XBw=
+X-Gm-Gg: ASbGnctmMw2vIizrVfUYBOHOXoZ0N1HTv4EWb/dGkH3ROPjN5P1pK8BH4lsK5NH1g7X
+	4+u+ucc6xxhm0g8Ol+XNTVR5HLEjzZiaCNNIfR5Rzw8Ajnk/sC48XbXRwYRHcwvHginiduTz1+P
+	KaaZD6mwlPc8EbimEstg8DkeDjmznLF5qAGP94NovmEfh2CMVoSX6luoIZEP7xOSwhb+2fv8pmw
+	M0U3Ca2JW0eWvFxrl/d8v3udievssF46/Y8xgp7AJnkIgAYDnZEJVUSiQX/Mxsusn5afrChxYJp
+	P92BpK05/KoI1JtyS/RdcWenQpmOOPNIwZA7n88AUaI9/vrKWpjvzd1veo6zoPpySj//2dTFb+g
+	UQXJap4Ho20D4Nv46LsIhBqGRWRBQ9MehX+wcu2jphMcL7f9cfz0J6u1HLA==
+X-Google-Smtp-Source: AGHT+IEGOYCiu9xjHV/BdwCYkmrfO1e1bvXQRdbNzeHCeWIxRBqH4TDzZpr8bPQhgpE+lDw72VzATQ==
+X-Received: by 2002:a05:6000:4104:b0:3a9:de4:851e with SMTP id ffacd0b85a97d-3b201203be4mr2476624f8f.45.1751468240339;
+        Wed, 02 Jul 2025 07:57:20 -0700 (PDT)
+Message-ID: <edef4d83-25d0-4191-bd7b-c13c38af34bf@suse.com>
+Date: Wed, 2 Jul 2025 16:57:12 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 12/22] x86/hvm: check for VMX in SMX if Slaunch is
- active
+Subject: Re: [PATCH v3 07/22] x86/mtrr: expose functions for pausing caching
 To: Sergii Dmytruk <sergii.dmytruk@3mdeb.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  trenchboot-devel@googlegroups.com, xen-devel@lists.xenproject.org
 References: <cover.1748611041.git.sergii.dmytruk@3mdeb.com>
- <25de2a5ba43629cca33b96d20c77f19d64096242.1748611041.git.sergii.dmytruk@3mdeb.com>
+ <8d6e871f055c2456ab194e49bd470eafd04e454e.1748611041.git.sergii.dmytruk@3mdeb.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,20 +120,70 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <25de2a5ba43629cca33b96d20c77f19d64096242.1748611041.git.sergii.dmytruk@3mdeb.com>
+In-Reply-To: <8d6e871f055c2456ab194e49bd470eafd04e454e.1748611041.git.sergii.dmytruk@3mdeb.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
 On 30.05.2025 15:17, Sergii Dmytruk wrote:
-> From: Michał Żygowski <michal.zygowski@3mdeb.com>
+> This allows the functionality to be reused by other units that need to
+> update MTRRs.
 > 
-> Check whther IA32_FEATURE_CONTROL has the proper bits enabled to run
-> VMX in SMX when slaunch is active.
+> This also gets rid of a static variable.
 > 
-> Signed-off-by: Michał Żygowski <michal.zygowski@3mdeb.com>
+> Signed-off-by: Sergii Dmytruk <sergii.dmytruk@3mdeb.com>
 
-Apart from this lacking your own S-o-b:
-Acked-by: Jan Beulich <jbeulich@suse.com>
+This may want to be split.
+
+> --- a/xen/arch/x86/cpu/mtrr/generic.c
+> +++ b/xen/arch/x86/cpu/mtrr/generic.c
+> @@ -396,9 +396,7 @@ static bool set_mtrr_var_ranges(unsigned int index, struct mtrr_var_range *vr)
+>  	return changed;
+>  }
+>  
+> -static uint64_t deftype;
+> -
+> -static unsigned long set_mtrr_state(void)
+> +static unsigned long set_mtrr_state(uint64_t *deftype)
+>  /*  [SUMMARY] Set the MTRR state for this CPU.
+>      <state> The MTRR state information to read.
+>      <ctxt> Some relevant CPU context.
+> @@ -416,14 +414,12 @@ static unsigned long set_mtrr_state(void)
+>  	if (mtrr_state.have_fixed && set_fixed_ranges(mtrr_state.fixed_ranges))
+>  		change_mask |= MTRR_CHANGE_MASK_FIXED;
+>  
+> -	/*  Set_mtrr_restore restores the old value of MTRRdefType,
+> -	   so to set it we fiddle with the saved value  */
+> -	if ((deftype & 0xff) != mtrr_state.def_type
+> -	    || MASK_EXTR(deftype, MTRRdefType_E) != mtrr_state.enabled
+> -	    || MASK_EXTR(deftype, MTRRdefType_FE) != mtrr_state.fixed_enabled) {
+> -		deftype = (deftype & ~0xcff) | mtrr_state.def_type |
+> -		          MASK_INSR(mtrr_state.enabled, MTRRdefType_E) |
+> -		          MASK_INSR(mtrr_state.fixed_enabled, MTRRdefType_FE);
+> +	if ((*deftype & 0xff) != mtrr_state.def_type
+> +	    || MASK_EXTR(*deftype, MTRRdefType_E) != mtrr_state.enabled
+> +	    || MASK_EXTR(*deftype, MTRRdefType_FE) != mtrr_state.fixed_enabled) {
+> +		*deftype = (*deftype & ~0xcff) | mtrr_state.def_type |
+> +		           MASK_INSR(mtrr_state.enabled, MTRRdefType_E) |
+> +		           MASK_INSR(mtrr_state.fixed_enabled, MTRRdefType_FE);
+>  		change_mask |= MTRR_CHANGE_MASK_DEFTYPE;
+>  	}
+
+This (together with the caller side adjustment) looks like it could be a separate
+change.
+
+> @@ -440,9 +436,10 @@ static DEFINE_SPINLOCK(set_atomicity_lock);
+>   * has been called.
+>   */
+>  
+> -static bool prepare_set(void)
+> +struct mtrr_pausing_state mtrr_pause_caching(void)
+
+These becoming non-static without being called from anywhere else isn't going to
+be liked by Misra. Hence the part of static -> extern may need to be deferred
+until the new user(s) appear(s).
+
+Furthermore this returning of a struct by value isn't very nice, and looks to be
+easy to avoid here.
 
 Jan
 
