@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A957AAF1250
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Jul 2025 12:48:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1030919.1404611 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 90468AF1381
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Jul 2025 13:18:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1030936.1404621 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uWv0m-0001gp-7x; Wed, 02 Jul 2025 10:48:20 +0000
+	id 1uWvSj-0006Km-Fk; Wed, 02 Jul 2025 11:17:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1030919.1404611; Wed, 02 Jul 2025 10:48:20 +0000
+Received: by outflank-mailman (output) from mailman id 1030936.1404621; Wed, 02 Jul 2025 11:17:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uWv0m-0001eq-4W; Wed, 02 Jul 2025 10:48:20 +0000
-Received: by outflank-mailman (input) for mailman id 1030919;
- Wed, 02 Jul 2025 10:48:18 +0000
+	id 1uWvSj-0006Hw-CJ; Wed, 02 Jul 2025 11:17:13 +0000
+Received: by outflank-mailman (input) for mailman id 1030936;
+ Wed, 02 Jul 2025 11:17:12 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=FQsZ=ZP=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uWv0k-0001eh-Mi
- for xen-devel@lists.xenproject.org; Wed, 02 Jul 2025 10:48:18 +0000
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [2a00:1450:4864:20::32e])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=QWaS=ZP=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1uWvSh-0006Hq-Tx
+ for xen-devel@lists.xenproject.org; Wed, 02 Jul 2025 11:17:11 +0000
+Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
+ [2a00:1450:4864:20::52f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0fbfd4b9-5732-11f0-a313-13f23c93f187;
- Wed, 02 Jul 2025 12:48:17 +0200 (CEST)
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-4537edf2c3cso66004555e9.3
- for <xen-devel@lists.xenproject.org>; Wed, 02 Jul 2025 03:48:17 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-23acb39ba8esm132952915ad.129.2025.07.02.03.48.12
+ id 18ee9f24-5736-11f0-a313-13f23c93f187;
+ Wed, 02 Jul 2025 13:17:10 +0200 (CEST)
+Received: by mail-ed1-x52f.google.com with SMTP id
+ 4fb4d7f45d1cf-60c79bedc19so6881787a12.3
+ for <xen-devel@lists.xenproject.org>; Wed, 02 Jul 2025 04:17:10 -0700 (PDT)
+Received: from [192.168.1.5] (user-109-243-64-38.play-internet.pl.
+ [109.243.64.38]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-60c832165b2sm9065340a12.77.2025.07.02.04.17.08
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 02 Jul 2025 03:48:16 -0700 (PDT)
+ Wed, 02 Jul 2025 04:17:09 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,161 +45,304 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0fbfd4b9-5732-11f0-a313-13f23c93f187
+X-Inumbo-ID: 18ee9f24-5736-11f0-a313-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1751453297; x=1752058097; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=kdf0ih7LCwuwCYqiUW9O3odujrSv68Poj0wFppeFPw4=;
-        b=SzlNDNsoFATN8RFtdCsu5lJXQ29HnVoaMH42zG0R2zMyVqfo7Dx1BRMfpbjsEuuEIm
-         diae/fF2dlIxxXYfKYsl4gETvtU9Z/FXytjAOlhCBywLWe0PBNb4TJi/mU3/Qw2Fpc9A
-         Thf3Ar4AaYKJjDdPSG60WlqLCkHoRxVke0R1wFUoToviFuUeKoMUuRHLs6SgnlEk/yYv
-         yg6xjhkCT/faUSlyyYTYG2tHYnnB9s5bbnmEV/J/XzEFXzB9y7+Enb+nW5QfQkal1cLb
-         D6Vrsphv/1BBgDaXXg5IOAioHpTW1HzPzuS+phjOy8nUaKauQgVEUUjDdX1kVnlrFqCb
-         rFfw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1751453297; x=1752058097;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20230601; t=1751455030; x=1752059830; darn=lists.xenproject.org;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=kdf0ih7LCwuwCYqiUW9O3odujrSv68Poj0wFppeFPw4=;
-        b=xPb4089icT3mk7TVgy4ItlMqXCYYqdb6EdF5C7uIsswuAn4Et5RwCwayjwF78s6KhP
-         GxwGXvSbTNu8D8yRGXh8NskYX9aXWrYLJPNNbJwHFUanuR2ljzHzRrw6O1eIOcW2twAF
-         +6NPo1oAAnn4A4gJ/DIiR2WrK+xedr5yPEmlNLTqRdTi+PGs7vsjxRyf7ZIGWjqfXcG8
-         tD5UKApdld/V8jZFli3xiB86SC9ehTp8BcYngv+iZTPGupn9bm3qmEKTElRLq0lug9Bc
-         obHWN3EL/mP27HCfL32VctuOaf3VBWkEsyVOlf7rWnvK58atnU4LZ+4I4JU1WXg2XHZm
-         cc5w==
-X-Forwarded-Encrypted: i=1; AJvYcCVDwak+QHlgPVvAq6zT2co6jxTsbIOYiTiCZASfIz55cplvKxPMQsWzcbw4aFLYSi/8dnHK08f6ssM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyW9wgdelwGzl9KlaRZRMcMB8oZ9UmcFAWTvxSaFOc2ECtdUnTp
-	kkjQ+HOLyyRM/dZClCYbWTuO2c9Y4XjzKR2tocPdt5YJ98DhqNTvFM5t9MdKwyazNw==
-X-Gm-Gg: ASbGncuO1GX6W0gHts0g6GENoe6HzdkKsiaGnoDRiYqE+KuaUOEmnoMgLaJgxHlxLlF
-	Lx+Ga+HF44dlqQlRYPdnxwujNjAtEIl8S0r/SlTcnTWbaziq40zf8uIa8er0MteL7NMwyj4A6+K
-	KLha0Q+8empJKUPMMWd957O4+DJu6Fpg9lXD0eLzOcup2ImC9hkrSEQ/ON98oCeRtCubEkELMIC
-	MEAg00CjF/oL+YQfSdjnXA32wYxq3z9NAnuj+fxOziVSSbVmHu/Z4hzJISJMHY0MwND8N4g9OGk
-	gQcY8DOI+72ztiTFDzTpKkBDos6m+43LbCfTUQHCJTBHpk4LiFcOtsM4MfRoE+1sfPs6SJ5uBkp
-	eIsLTs2iPkD8Gt98/tXzhPT2Qf2wCKu8HmGHCkNgXWzmWl2o=
-X-Google-Smtp-Source: AGHT+IEJ2xUz/eGW5r2sLW90vvhSJZZtQ+C9wz2JIEc3jjy8McsLAoxq2jXtzoEH/7xsyFJE+Ci4cg==
-X-Received: by 2002:a05:6000:43d8:b0:3a4:f9e7:2796 with SMTP id ffacd0b85a97d-3b2001ac40bmr1342678f8f.35.1751453296657;
-        Wed, 02 Jul 2025 03:48:16 -0700 (PDT)
-Message-ID: <d0b2e49a-293a-481d-8c6d-626a19513122@suse.com>
-Date: Wed, 2 Jul 2025 12:48:08 +0200
+        bh=0kAiQplcTYV/4LTU0V+kILwyX4JsHV1vaG0H0TJNdEc=;
+        b=URiHdsJ+yeXivYW/1Xu35OryCU1blWJs2QQYoIii8DRjeKF+77O9dYak39LmDBa+tg
+         t3y/n7HYJAbJsbdn4LeEFLJH1UHLd34DNdQmGSTcL5J0N1qYCfYlXXCxYQJS4OJRg6kp
+         jWLRdtoOCzUlxHswsJD7AqdLmj7UxKs0zyGSFu9cTkiWi7HfhA7crPPGTiQccpImf4x2
+         /zQRb5NhT6rf1G57A0aKTfGMFu8fAg36GZXROM0bTQq6yYoIFsiT//tBy/6+8wCMDw3t
+         mNdKhY2SrWaKarc2jJGTDnWr0ndfqcbSe50eUCdVGgUxdGFwYtENQmMYvDQSTm6OQnPP
+         LGUw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1751455030; x=1752059830;
+        h=in-reply-to:from:content-language:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=0kAiQplcTYV/4LTU0V+kILwyX4JsHV1vaG0H0TJNdEc=;
+        b=VhckDdi8MMFIg+ElTQp1k1sLcZ5/WyvuO/Y6M0SHvd8ZYXy7nTdgigiskPYzRP1q5/
+         zmehbpgZ53XYM0sFlhryJUHaOnURXebnXBhs96aY2vUQpPuzENIH7bXCSPj5h2wnZyWm
+         0SZ5jBh9z4ILLF1jVuMafPwJ522N0QSTkpw7PJToV6vFwu/p8/LWmB/QK0MTrbc85gGq
+         96aZsLwJKkGQvVvX07L53tNAUCFJcgR+EcH0tHSq3xjNygNYI52lbSS5AiycJKSFv/eL
+         K2li6n2wGZUEsjp6cNawXkjDbX1/CphRTiPgDWDX2b5i9nM7LL03nE6c1KA2ESD5/S3o
+         oq1w==
+X-Forwarded-Encrypted: i=1; AJvYcCV5cAx8jgDUDUiR/koqp6U1Tr8lEMCHtBOEp0eTsjB2rBQ9kHAFLabrO7PWYRA9Ilw85Awb11qzAkY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzgbaefHbup2Yc5F1hbtikl4sKDtNBHukriqQ+7CrkfvlMw28hr
+	BZcleXKNphUfpJuFoj8rx97psqAA9knVgrl60Iur+3P978wSCtL2WihH
+X-Gm-Gg: ASbGnctF/hvPeC/prnYdRAZxqLM9ylfcXvF1+uQOCKCqlA7rfAQEMB01nmFUlClDxQy
+	uczEfU+gxKYRBUfXSP9/khvDKAw75hWE0gpyAjEbGr5sQyYVMpDkDtO/2amHhXjrtbJIDFjnZ2G
+	YZKwfoBqx+QPia3kcGgUnKvRZapQAK0IlaRMyq8Ov6AZ90EJhg6NSqFusqEqZx7yCNU/1uaiptv
+	peRFXHW+DFCpvwKJEYapVjERa3pGxGHKwAAeVzdTeeCGKwcsezcNRQOdMUZYdsYL/Ml2OieQCNB
+	7u8zS67akkwDHNara/94okmcbcDHCUrP3GDCQerwgxyC4fXR1Dv+TKRyvK3S/onakgXrlzaR37h
+	4RhDOF4a0jxEgYRBtFL3s4ukxuwbhyYyUFPc=
+X-Google-Smtp-Source: AGHT+IEXLFt6I3zGgbEv4nHVaNkJo0tSpRcNSdMvOYB+7Y/FgGwTesaaN5dmTeJPw9h+Hk7Wz6A/uA==
+X-Received: by 2002:a05:6402:3229:b0:606:c8fa:d059 with SMTP id 4fb4d7f45d1cf-60e52ce947amr1792411a12.14.1751455029780;
+        Wed, 02 Jul 2025 04:17:09 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------AXN9ftRTYo3kin0v2pq0I3mz"
+Message-ID: <d1eea928-0275-467a-a177-6f675efdbd52@gmail.com>
+Date: Wed, 2 Jul 2025 13:17:08 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 10/18] xen/cpufreq: introduce a new amd cppc driver for
- cpufreq scaling
-To: "Penny, Zheng" <penny.zheng@amd.com>
-Cc: "Huang, Ray" <Ray.Huang@amd.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [PATCH v2 04/17] xen/riscv: construct the P2M pages pool for
+ guests
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <20250527084833.338427-1-Penny.Zheng@amd.com>
- <20250527084833.338427-11-Penny.Zheng@amd.com>
- <964dcd5e-6a7d-41f2-94b4-c07672ffdc89@suse.com>
- <DM4PR12MB8451D32EC45867F91C37F702E140A@DM4PR12MB8451.namprd12.prod.outlook.com>
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1749555949.git.oleksii.kurochko@gmail.com>
+ <bdde7c97df218d3ac65f9e719c5777401da80495.1749555949.git.oleksii.kurochko@gmail.com>
+ <f3761f21-1a7d-4820-ba74-31fb9becf36d@suse.com>
+ <5bcdd74e-a76b-4ddd-97bc-d6ed973630c8@gmail.com>
+ <44719b33-e770-4d2c-a063-77f35e413c77@suse.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <DM4PR12MB8451D32EC45867F91C37F702E140A@DM4PR12MB8451.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <44719b33-e770-4d2c-a063-77f35e413c77@suse.com>
 
-On 02.07.2025 11:49, Penny, Zheng wrote:
->> -----Original Message-----
->> From: Jan Beulich <jbeulich@suse.com>
->> Sent: Tuesday, June 17, 2025 12:00 AM
->> To: Penny, Zheng <penny.zheng@amd.com>
+This is a multi-part message in MIME format.
+--------------AXN9ftRTYo3kin0v2pq0I3mz
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+
+On 7/2/25 12:34 PM, Jan Beulich wrote:
+> On 02.07.2025 12:30, Oleksii Kurochko wrote:
+>> On 7/1/25 3:04 PM, Jan Beulich wrote:
+>>> On 10.06.2025 15:05, Oleksii Kurochko wrote:
+>>>> @@ -113,3 +117,58 @@ int p2m_init(struct domain *d)
+>>>>    
+>>>>        return 0;
+>>>>    }
+>>>> +
+>>>> +/*
+>>>> + * Set the pool of pages to the required number of pages.
+>>>> + * Returns 0 for success, non-zero for failure.
+>>>> + * Call with d->arch.paging.lock held.
+>>>> + */
+>>>> +int p2m_set_allocation(struct domain *d, unsigned long pages, bool *preempted)
+>>>> +{
+>>>> +    struct page_info *pg;
+>>>> +
+>>>> +    ASSERT(spin_is_locked(&d->arch.paging.lock));
+>>>> +
+>>>> +    for ( ; ; )
+>>>> +    {
+>>>> +        if ( d->arch.paging.p2m_total_pages < pages )
+>>>> +        {
+>>>> +            /* Need to allocate more memory from domheap */
+>>>> +            pg = alloc_domheap_page(d, MEMF_no_owner);
+>>>> +            if ( pg == NULL )
+>>>> +            {
+>>>> +                printk(XENLOG_ERR "Failed to allocate P2M pages.\n");
+>>>> +                return -ENOMEM;
+>>>> +            }
+>>>> +            ACCESS_ONCE(d->arch.paging.p2m_total_pages)++;
+>>>> +            page_list_add_tail(pg, &d->arch.paging.p2m_freelist);
+>>>> +        }
+>>>> +        else if ( d->arch.paging.p2m_total_pages > pages )
+>>>> +        {
+>>>> +            /* Need to return memory to domheap */
+>>>> +            pg = page_list_remove_head(&d->arch.paging.p2m_freelist);
+>>>> +            if( pg )
+>>>> +            {
+>>>> +                ACCESS_ONCE(d->arch.paging.p2m_total_pages)--;
+>>>> +                free_domheap_page(pg);
+>>>> +            }
+>>>> +            else
+>>>> +            {
+>>>> +                printk(XENLOG_ERR
+>>>> +                       "Failed to free P2M pages, P2M freelist is empty.\n");
+>>>> +                return -ENOMEM;
+>>>> +            }
+>>>> +        }
+>>>> +        else
+>>>> +            break;
+>>>> +
+>>>> +        /* Check to see if we need to yield and try again */
+>>>> +        if ( preempted && general_preempt_check() )
+>>>> +        {
+>>>> +            *preempted = true;
+>>>> +            return -ERESTART;
+>>>> +        }
+>>>> +    }
+>>>> +
+>>>> +    return 0;
+>>>> +}
+>>> Btw, with the order-2 requirement for the root page table, you may want to
+>>> consider an alternative approach: Here you could allocate some order-2
+>>> pages (possibly up to as many as a domain might need, which right now
+>>> would be exactly one), put them on a separate list, and consume the root
+>>> table(s) from there. If you run out of pages on the order-0 list, you
+>>> could shatter a page from the order-2 one (as long as that's still non-
+>>> empty). The difficulty would be with freeing, where a previously shattered
+>>> order-2 page would be nice to re-combine once all of its constituents are
+>>> free again. The main benefit would be avoiding the back and forth in patch
+>>> 6.
+>> It is an option.
 >>
->> On 27.05.2025 10:48, Penny Zheng wrote:
->>> --- a/xen/arch/x86/acpi/cpufreq/amd-cppc.c
->>> +++ b/xen/arch/x86/acpi/cpufreq/amd-cppc.c
->>> +        /*
->>> +         * We don't need to convert to kHz for computing offset and can
->>> +         * directly use nominal_mhz and lowest_mhz as the division
->>> +         * will remove the frequency unit.
->>> +         */
->>> +        offset = data->caps.nominal_perf -
->>> +                 (mul * cppc_data->cpc.nominal_mhz) / div;
->>> +    }
->>> +    else
->>> +    {
->>> +        /* Read Processor Max Speed(MHz) as anchor point */
->>> +        mul = data->caps.highest_perf;
->>> +        div = this_cpu(pxfreq_mhz);
->>> +        if ( !div )
->>> +            return -EINVAL;
->>
->> What's wrong about the function arguments in this case? (Same question again on
->> further uses of EINVAL below.)
-> 
-> If we could not get processor max frequency, the whole function is useless...
-> Maybe -EOPNOTSUPP is more suitable than -EINVAL;
+>> But I'm still not 100% sure it's necessary to allocate the root page table
+>> from the freelist. We could simply allocate the root page table from the
+>> domheap (as is done for hardware domains) and reserve the freelist for other
+>> pages.
+>> The freelist is specific to Dom0less guest domains and is primarily used to
+>> limit the amount of memory available for the guest—essentially for static
+>> configurations where you want a clear and fixed limit on p2m allocations.
+> Is that true? My understanding is that this pre-populated pool is used by
+> all DomU-s, whether or not under dom0less.
 
-I don't like EOPNOTSUPP very much either for the purpose, but it's surely better
-than EINVAL.
+I think you are right, I just automatically decided so as this pre-populated
+pool is set now only in dom0less.
 
->>> +static int cf_check amd_cppc_cpufreq_target(struct cpufreq_policy *policy,
->>> +                                            unsigned int target_freq,
->>> +                                            unsigned int relation) {
->>> +    unsigned int cpu = policy->cpu;
->>> +    const struct amd_cppc_drv_data *data = per_cpu(amd_cppc_drv_data, cpu);
->>> +    uint8_t des_perf;
->>> +    int res;
->>> +
->>> +    if ( unlikely(!target_freq) )
->>> +        return 0;
->>> +
->>> +    res = amd_cppc_khz_to_perf(data, target_freq, &des_perf);
->>> +    if ( res )
->>> +        return res;
->>> +
->>> +    /*
->>> +     * Setting with "lowest_nonlinear_perf" to ensure governoring
->>> +     * performance in P-state range.
->>> +     */
->>> +    amd_cppc_write_request(policy->cpu, data->caps.lowest_nonlinear_perf,
->>> +                           des_perf, data->caps.highest_perf);
->>
->> I fear I don't understand the comment, and hence it remains unclear to me why
->> lowest_nonlinear_perf is being used here.
-> 
-> How about
-> ```
-> Choose lowest nonlinear performance as the minimum performance level at which the platform may run.
-> Lowest nonlinear performance is the lowest performance level at which nonlinear power savings are achieved,
-> Above this threshold, lower performance levels should be generally more energy efficient than higher performance levels.
-> ```
+~ Oleksii
 
-I finally had to go to the ACPI spec to understand what this is about. There looks
-to be an implication that lowest <= lowest_nonlinear, and states in that range
-would correspond more to T-states than to P-states. With that I think I agree with
-the use of lowest_nonlinear here. The comment, however, could do with moving
-farther away from merely quoting the pretty abstract text in the ACPI spec, as
-such quoting doesn't help in clarifying terminology used, when that terminology
-also isn't explained anywhere else in the code base.
+>
+> Plus we're meaning to move towards better accounting of memory used by a
+> domain (besides its actual allocation). Allocating the root table from the
+> domain heap would move us one small step farther away from there.
+>
+> Jan
+--------------AXN9ftRTYo3kin0v2pq0I3mz
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 7/2/25 12:34 PM, Jan Beulich wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:44719b33-e770-4d2c-a063-77f35e413c77@suse.com">
+      <pre wrap="" class="moz-quote-pre">On 02.07.2025 12:30, Oleksii Kurochko wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">
+On 7/1/25 3:04 PM, Jan Beulich wrote:
+</pre>
+        <blockquote type="cite">
+          <pre wrap="" class="moz-quote-pre">On 10.06.2025 15:05, Oleksii Kurochko wrote:
+</pre>
+          <blockquote type="cite">
+            <pre wrap="" class="moz-quote-pre">@@ -113,3 +117,58 @@ int p2m_init(struct domain *d)
+  
+      return 0;
+  }
++
++/*
++ * Set the pool of pages to the required number of pages.
++ * Returns 0 for success, non-zero for failure.
++ * Call with d-&gt;arch.paging.lock held.
++ */
++int p2m_set_allocation(struct domain *d, unsigned long pages, bool *preempted)
++{
++    struct page_info *pg;
++
++    ASSERT(spin_is_locked(&amp;d-&gt;arch.paging.lock));
++
++    for ( ; ; )
++    {
++        if ( d-&gt;arch.paging.p2m_total_pages &lt; pages )
++        {
++            /* Need to allocate more memory from domheap */
++            pg = alloc_domheap_page(d, MEMF_no_owner);
++            if ( pg == NULL )
++            {
++                printk(XENLOG_ERR "Failed to allocate P2M pages.\n");
++                return -ENOMEM;
++            }
++            ACCESS_ONCE(d-&gt;arch.paging.p2m_total_pages)++;
++            page_list_add_tail(pg, &amp;d-&gt;arch.paging.p2m_freelist);
++        }
++        else if ( d-&gt;arch.paging.p2m_total_pages &gt; pages )
++        {
++            /* Need to return memory to domheap */
++            pg = page_list_remove_head(&amp;d-&gt;arch.paging.p2m_freelist);
++            if( pg )
++            {
++                ACCESS_ONCE(d-&gt;arch.paging.p2m_total_pages)--;
++                free_domheap_page(pg);
++            }
++            else
++            {
++                printk(XENLOG_ERR
++                       "Failed to free P2M pages, P2M freelist is empty.\n");
++                return -ENOMEM;
++            }
++        }
++        else
++            break;
++
++        /* Check to see if we need to yield and try again */
++        if ( preempted &amp;&amp; general_preempt_check() )
++        {
++            *preempted = true;
++            return -ERESTART;
++        }
++    }
++
++    return 0;
++}
+</pre>
+          </blockquote>
+          <pre wrap="" class="moz-quote-pre">Btw, with the order-2 requirement for the root page table, you may want to
+consider an alternative approach: Here you could allocate some order-2
+pages (possibly up to as many as a domain might need, which right now
+would be exactly one), put them on a separate list, and consume the root
+table(s) from there. If you run out of pages on the order-0 list, you
+could shatter a page from the order-2 one (as long as that's still non-
+empty). The difficulty would be with freeing, where a previously shattered
+order-2 page would be nice to re-combine once all of its constituents are
+free again. The main benefit would be avoiding the back and forth in patch
+6.
+</pre>
+        </blockquote>
+        <pre wrap="" class="moz-quote-pre">
+It is an option.
+
+But I'm still not 100% sure it's necessary to allocate the root page table
+from the freelist. We could simply allocate the root page table from the
+domheap (as is done for hardware domains) and reserve the freelist for other
+pages.
+The freelist is specific to Dom0less guest domains and is primarily used to
+limit the amount of memory available for the guest—essentially for static
+configurations where you want a clear and fixed limit on p2m allocations.
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+Is that true? My understanding is that this pre-populated pool is used by
+all DomU-s, whether or not under dom0less.</pre>
+    </blockquote>
+    <pre>I think you are right, I just automatically decided so as this pre-populated
+pool is set now only in dom0less.
+
+~ Oleksii
+
+</pre>
+    <blockquote type="cite"
+      cite="mid:44719b33-e770-4d2c-a063-77f35e413c77@suse.com">
+      <pre wrap="" class="moz-quote-pre">
+
+Plus we're meaning to move towards better accounting of memory used by a
+domain (besides its actual allocation). Allocating the root table from the
+domain heap would move us one small step farther away from there.
 
 Jan
+</pre>
+    </blockquote>
+  </body>
+</html>
+
+--------------AXN9ftRTYo3kin0v2pq0I3mz--
 
