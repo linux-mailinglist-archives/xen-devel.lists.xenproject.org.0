@@ -2,38 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F1F6AAF5DD9
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Jul 2025 17:59:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1031402.1405227 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF65BAF5E4C
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Jul 2025 18:16:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1031412.1405238 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uWzrt-0003M8-Sj; Wed, 02 Jul 2025 15:59:29 +0000
+	id 1uX07b-0007IW-DT; Wed, 02 Jul 2025 16:15:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1031402.1405227; Wed, 02 Jul 2025 15:59:29 +0000
+Received: by outflank-mailman (output) from mailman id 1031412.1405238; Wed, 02 Jul 2025 16:15:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uWzrt-0003J5-Pv; Wed, 02 Jul 2025 15:59:29 +0000
-Received: by outflank-mailman (input) for mailman id 1031402;
- Wed, 02 Jul 2025 15:59:27 +0000
+	id 1uX07b-0007Fi-Ab; Wed, 02 Jul 2025 16:15:43 +0000
+Received: by outflank-mailman (input) for mailman id 1031412;
+ Wed, 02 Jul 2025 16:04:16 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=QWaS=ZP=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1uWzrr-0003Ix-Rb
- for xen-devel@lists.xenproject.org; Wed, 02 Jul 2025 15:59:27 +0000
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
- [2a00:1450:4864:20::52c])
+ <SRS0=bUWS=ZP=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
+ id 1uWzwW-0005p6-Kw
+ for xen-devel@lists.xenproject.org; Wed, 02 Jul 2025 16:04:16 +0000
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on20605.outbound.protection.outlook.com
+ [2a01:111:f403:2418::605])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 87089a96-575d-11f0-b894-0df219b8e170;
- Wed, 02 Jul 2025 17:59:25 +0200 (CEST)
-Received: by mail-ed1-x52c.google.com with SMTP id
- 4fb4d7f45d1cf-60702d77c60so14166380a12.3
- for <xen-devel@lists.xenproject.org>; Wed, 02 Jul 2025 08:59:25 -0700 (PDT)
-Received: from [192.168.1.5] (user-109-243-64-38.play-internet.pl.
- [109.243.64.38]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ae36327ce4asm1023074666b.163.2025.07.02.08.59.24
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 02 Jul 2025 08:59:24 -0700 (PDT)
+ id 3252890c-575e-11f0-b894-0df219b8e170;
+ Wed, 02 Jul 2025 18:04:14 +0200 (CEST)
+Received: from PH3PEPF000040AA.namprd05.prod.outlook.com (2603:10b6:518:1::4c)
+ by PH7PR12MB9253.namprd12.prod.outlook.com (2603:10b6:510:30d::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8857.21; Wed, 2 Jul
+ 2025 16:04:10 +0000
+Received: from SN1PEPF00036F3E.namprd05.prod.outlook.com
+ (2a01:111:f403:f90f::2) by PH3PEPF000040AA.outlook.office365.com
+ (2603:1036:903:49::3) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8922.14 via Frontend Transport; Wed,
+ 2 Jul 2025 16:04:10 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SN1PEPF00036F3E.mail.protection.outlook.com (10.167.248.22) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8901.15 via Frontend Transport; Wed, 2 Jul 2025 16:04:10 +0000
+Received: from localhost (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 2 Jul
+ 2025 11:04:07 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,293 +56,172 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 87089a96-575d-11f0-b894-0df219b8e170
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1751471965; x=1752076765; darn=lists.xenproject.org;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=JuIldrVBq0M11PeO1lSXGlfbCWeajVU16IxMmYzDqBM=;
-        b=GhNmKdjXGTWfs43FR0V7dp6Ok4KlOlFfz1LZhBR+EAMc6yyFDp0uZ35W7UHnaB3rzZ
-         Xx2zHZKXsNREq+SOWBfpYZly4s2dcJP/0kAbA3VJoxzbPNPWtxmDWDJtHGXAqiU0GNyX
-         kRMfU2SGpzU9ZLmq07KjgEs+1FJ9phah1Ku71m4waYgTA0iyzXuIdPHS1WXyZfWJKbyB
-         vlpyFdNVso5DcFJDYNhafxad1W6Dn99Mw8IYXKORwgX8f2DHPfHY35B/wLhmADMfCt7r
-         wjgQT41wUzcYGB5AeqvA31xlasdNeGRePBd43UOzXKeL9QYw6Y9GW/4LvnqfNpYDCugR
-         sJTg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1751471965; x=1752076765;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=JuIldrVBq0M11PeO1lSXGlfbCWeajVU16IxMmYzDqBM=;
-        b=WII/Wf8NERUej181r1Vdwjz551OOVVGVJpsXDI0AwGXxiBneBfrkAD+eMt00x+1a5A
-         QzI2Y08ynLvTh8PZ8K6FFkBQGr6zvT0I3lgwU2UfBGP1g8SxNdK581GF0L2L8RF1TF+u
-         BrEXjEXDS68bMUpabSoOm0KWIICunIsCIxlRzCfNHM+6pYE/hljmkCBXPOczg8YjQNrz
-         BYqoC48RQDLn+ey3gGaGuiaS3/kZnIKEKskJzgFXZqNYVXC8IEnpYlIgyTFq4qf3atzk
-         U+fx3ObuxcO/Cl2wZFkOfZd9nKaKT0zbAnxZItfMbgIsDLUarvTeJs31LyRgF7jONFSP
-         kZaw==
-X-Forwarded-Encrypted: i=1; AJvYcCWt4gELmNvJ5VKOzhp3eqpfGOMQUFBDaMRH+/CZrykuc4YgNTWJSMJsoX82eGht1hinuEkY1iVna4E=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwMInMAayLOvyflQ9jwSnLWIzotnYuIFEaLqT9wQn+bimRDHJVd
-	zDyxvMPjT+FmowKPS6lZ9TQa60LAP/ul33bHWI9CltJWHRvbcJmfimUy
-X-Gm-Gg: ASbGncuf5jf1ZedEsW0jSl0bZ7BFWXnvLPG0TZ2jhFeAPTm2X7j8eKGO1AvFxEcShAY
-	Pjao1J0I8YrNKYCUtHpBmGcFpzAl9QUT5Krg4W19wuyqAESxoPNgysYW9tFjMOkWYWtGuQ8Irut
-	n8v8QFtc+Vwm4IYeyJuPQ6mnUhExy7MuBExg8CqX1DqGR2FSyM6ostepdAXMcwAQglYkwT6W0fR
-	nfrkJecD070kjjPtggBHZX103kmhjLgZcGRtU2a/iUsQ+JkLbcqE7Sg+px9XYVmW6HU79xTV6nf
-	dgZcbO8j+0LqIeunUyM9wsIR04nPkg3XoigTyMQRXtK2ozNEFk4wfyP46nKcjj53yCx44JV1MZO
-	9Ur56A7Tfl1H0Mh7BdT4k+30YrBhBwFk6acA=
-X-Google-Smtp-Source: AGHT+IHL3A8kxow/sWLqJoIeOUxBUx7DoL1Cw97QnjhqJUdTvHDT2KDnpvy/YTQrLw3zOry43JGVug==
-X-Received: by 2002:a17:907:2d2a:b0:ad5:5b2e:655b with SMTP id a640c23a62f3a-ae3c2b4d9d0mr371911366b.25.1751471964823;
-        Wed, 02 Jul 2025 08:59:24 -0700 (PDT)
-Content-Type: multipart/alternative;
- boundary="------------pld813cglQuyB5Vma2N2RlbN"
-Message-ID: <be826050-889b-4e4a-a358-5bfa18575533@gmail.com>
-Date: Wed, 2 Jul 2025 17:59:23 +0200
+X-Inumbo-ID: 3252890c-575e-11f0-b894-0df219b8e170
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=R2HSariJwU43fmbWbYg/9I8FWZnCZBXBQNVdj8XcKeBfZUf0vbA6r+jQz8ILHDXDQJM6e8oaGFe1zxcCKuh2MRdO1J8AHHP83uXESqmeubfjCrupNdWk3rD5fJYFHpfzmZqVj2/+jaeUeSgp4Vi0s0Ttqcm2JER9hK+OIGOS74bz4lslu1ujI+4V1QTxQzHnIyFBSRxGhUCplZOcVEHhtIUzUElh+zezFnyt1XAz7j4dxNjVMeQSjOXFcmYBWe8fVNnu8laaeJCEaMa81rHlA8bhZPU4LAlov5eHqGTRcHPiDz1KCNPs3IhxVsI28R5nyfGLDd9b2KGImg2WrLBcqg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=MLzswKUr5nNCLA6k/8dh7nvY+qbjiX+S8Sv7ixyR5B4=;
+ b=rJfocxh+wo2vhDmYkYll36dhZjJmCW1YVerll5zhUa+GKRgr81OGZuXHrnMu3rQNbj43KzKP7RUA+uK9s9Jh2RNHX45C3e3TeL0ilQjzF+Cgm6+SbilyAhVHY72LwKguekR9NQZg8NsmZKJdEmAdeVjcRaKyQr95vJJi2nbJ4HvFDK3yX9l4UUi3mLNk5mRG2BnLiSf0Gx7GHSwrM+D/1uk5Ow84xG+iF/x0mYs5CTIOYhAZMmwvBFqz3OOjvOMLPHcILrI074LrsAODWThJ4ITwqDbYV60v6MguDjt7vd5avJTN1iiDZUMYnuuqduDoFMbF9qVwuQz6yZO9gP6o+w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=MLzswKUr5nNCLA6k/8dh7nvY+qbjiX+S8Sv7ixyR5B4=;
+ b=biw/3XyWhz1rAjQBKFdERnaRXUi9lKrk+n/R6x/LO4Qob+3kSt223T+hbTOagA6vFucwTWk8xizYnE0hGojSs9HXWDCktI0dBiuMe7OrZOBaOtym+0gr4bNZ/pk987eWr3c+gZdetqxeGUJeZiAXemEb6vvhigkP8ssxvyo50hM=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 09/17] xen/riscv: introduce page_set_xenheap_gfn()
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1749555949.git.oleksii.kurochko@gmail.com>
- <186e4a778a6dfab205428dfb4d0c59584a162a9f.1749555949.git.oleksii.kurochko@gmail.com>
- <b06c564f-7cf8-4c9c-9392-892ddc6d5ef4@suse.com>
-Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <b06c564f-7cf8-4c9c-9392-892ddc6d5ef4@suse.com>
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="UTF-8"
+Date: Wed, 2 Jul 2025 18:04:06 +0200
+Message-ID: <DB1P3E6TW6WS.CPYEJLOZTFO6@amd.com>
+From: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
+To: Jan Beulich <jbeulich@suse.com>, Alejandro Vallejo <agarciav@amd.com>
+CC: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+	<julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, Michal Orzel
+	<michal.orzel@amd.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>, Anthony PERARD
+	<anthony.perard@vates.tech>, =?utf-8?q?Roger_Pau_Monn=C3=A9?=
+	<roger.pau@citrix.com>, <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH v5 02/10] xen: Refactor kernel_info to have a header
+ like boot_domain
+X-Mailer: aerc 0.20.1
+References: <20250701105706.86133-1-agarciav@amd.com>
+ <20250701105706.86133-3-agarciav@amd.com>
+ <3128c4ae-7146-4480-b7b3-e17f253e3870@suse.com>
+In-Reply-To: <3128c4ae-7146-4480-b7b3-e17f253e3870@suse.com>
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF00036F3E:EE_|PH7PR12MB9253:EE_
+X-MS-Office365-Filtering-Correlation-Id: ff52a89a-d53d-44ff-fc17-08ddb98214be
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|36860700013|376014|1800799024;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?QUF2WHkrOGV2N3RSZHVZK0tUaTUzZnhQcWJvWTBqZUtESzJQaWxsRXVNTXJI?=
+ =?utf-8?B?WG9RaFdrckMzQnhwc2FIZkJlRm5ieTRzV2RrdGwwaUZqN0RtZWRtM2FaQTEy?=
+ =?utf-8?B?Y1pDc1FFK1lWR0lrK3hiZUxMVHBYWm5FNm1IU1R1VDZQRHJhR2hwbWJ6YkV5?=
+ =?utf-8?B?RjlJeHpCamdkbkxPc1BLT0JsSWZHZ3gySDhYL1FPZ1JFV0dBdS9KTWFjZ1pK?=
+ =?utf-8?B?Y2ZGdmZSbmxLZHBsL2xUQ3hIUVhIUzFWNXdNQXBGUW1BNXREYTBvRXVseERW?=
+ =?utf-8?B?d240ZUFVWWJINW10SkZZUkFUYThTek1UblpBQU0zQUh4cGlFWm4xcUNsRjRx?=
+ =?utf-8?B?QWNaVmg1WjRHR1lKdDc0WjROSUQ2RVhBSms4VlRsNHJFOTNEUjFSNGtqNHNo?=
+ =?utf-8?B?RUpaWTFvdXNmcTJZWGEySkR3Q2hCbWltdXdWSEhDb3QwYWtXTlVCd2RSRXJo?=
+ =?utf-8?B?L2cxL0RMRmNsRG9ZbHNhY0lYUlljcXEwRGEvZGZtREtsMmxLa2R5WlM3VXVz?=
+ =?utf-8?B?TWZMbzhQcEpHWEpwOWZGWXVHcTlqclFNaUNxSFlvQ1RBV1FubzRET0VKYlJ5?=
+ =?utf-8?B?Y0lZMzhscVhLZ3BoMmlWbTJob2IrbHNmLzNhbkgvMVV2dTNuYTM0ellRTUtP?=
+ =?utf-8?B?MDBteGsrcTlzTTNSeWRRS1dtaXdxU2lZOTFmUXpqUC9ERmxtYjdtb0ZpcVlW?=
+ =?utf-8?B?VExHWlNnbitMbDNxYTQyOTNXZ2xTWUpNc0dtZ0xCc2JwZENkN0p3ekFGbGl3?=
+ =?utf-8?B?b3E1cDlGSzFXYWlwempKTjJuekdLekNuOWg3QkZlWmhOV21HbWNRWjZ6UExU?=
+ =?utf-8?B?ZnNhQkk4ZHk1UisxSmhtclJ3cVJGM2dVQlI1T1poWmpxVmZ3WUJTbHpEV21G?=
+ =?utf-8?B?S2hsOFMrUFhSUVFCVGdrMERKN0RjeURIQmFiQTNITzZ0YkN5ZG9SV0Rqc25o?=
+ =?utf-8?B?aUgydjV0eE0wM0ovQUR1OWNpUVlVZVNWL2pJUDJndHN5Y2pzUXlwa2RjMHVB?=
+ =?utf-8?B?ai9vaTRJMURla04zT0lvL21mY0UzR2JTdkVhQ1RzMlErM3pwZDVDZ004RlVT?=
+ =?utf-8?B?aVFtOHFHRUZUaWlWK0tlbzZBOUpUdjJSM0xCRFB0N3phSFBUa3FMTmdhMHhO?=
+ =?utf-8?B?UnZ3bW5JdFdXcS9wTnBQdEVuQzFUS285bnoyb2hXV2MxdTRDbFdhMUR4QkJE?=
+ =?utf-8?B?dnZKcUdwamxTOWZZZXZpWWQ1OFZUR2NNcmhvS1JiaHI2dE9FVEZCQXAvWDBR?=
+ =?utf-8?B?a3YwT25tQUxnMElFanEzOWEzZ21LNUx2VVU1UXBFYzhqY1JwbkhPLzU2RUZa?=
+ =?utf-8?B?aVNzYWxFM01TM2o0aDNqa2V4MkNtSkJ3ZGw2QWliYXpWMlpGQ29vV2xibUJP?=
+ =?utf-8?B?aUoxdGtqMzRTQ05VYXRPOXc3SGtoNFJXY3V2RHVpbFBvRi9SdktWMGdpSmNL?=
+ =?utf-8?B?cndYdGlUSnZ3N3ptdXNRQ09MeDhZSjJQWEcrcGlJSlJaTHlKRmNyOUVDb1Mr?=
+ =?utf-8?B?TVJZRWNaZUlBaGJxV1drV3U1YmZHMFZHdDE4OUxlUTFFNmRTeXBtSkR6ZXpY?=
+ =?utf-8?B?SUdtMHhBdlFSc05rdFloNVUzdTRob3VzdUJmL2lnWS9PT3hOM0ZWbUJoc05V?=
+ =?utf-8?B?d3lhOHVhZ1ErWC9RcytBdWhRVnlBOE8rNlBCdms5eGM0UTNiT0hpb2o5N2RT?=
+ =?utf-8?B?bTFwb1BqUE1BNVUxWkpHRnpKK2hWQTN6NjVaazZqeVV6Q3Z3T2NwUzI1dThD?=
+ =?utf-8?B?WlNtQkREZmZGWjk2ei80UWVtUGNoSXBld3FyRHdTbGNFamFsVm50UjRVNGUr?=
+ =?utf-8?B?NXNmQWNXMjl6eGw3V2tXdldlTmlxbGlueGZ6NGJPV2VPdU54cFpxNW5CYTY2?=
+ =?utf-8?B?R2lQajBCTkZUK3pYYXdQYVg5VkwwOWRIRk9jVWFyUWpwWG1ObzRreUorRGFs?=
+ =?utf-8?B?dlYwYmxaTS9BakFBRFZVZXFSWXc2Lyt5dkZ0Zzlsd0xVTHgxUTcxM3B6SUpq?=
+ =?utf-8?B?STdhN3NmRkEvUSszQkVHdU5NMnpvQ0puaC9SZ0x3M09KN3dNT00wanJuS29G?=
+ =?utf-8?Q?zNFP8+?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700013)(376014)(1800799024);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jul 2025 16:04:10.0769
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ff52a89a-d53d-44ff-fc17-08ddb98214be
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SN1PEPF00036F3E.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB9253
 
-This is a multi-part message in MIME format.
---------------pld813cglQuyB5Vma2N2RlbN
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+On Wed Jul 2, 2025 at 2:56 PM CEST, Jan Beulich wrote:
+> On 01.07.2025 12:56, Alejandro Vallejo wrote:
+>> --- a/xen/include/xen/bootfdt.h
+>> +++ b/xen/include/xen/bootfdt.h
+>> @@ -100,6 +100,16 @@ struct shared_meminfo {
+>>      struct shmem_membank_extra extra[NR_SHMEM_BANKS];
+>>  };
+>> =20
+>> +
+>
+> Nit: No double blank lines please.
+>
+>> +struct boot_domain {
+>> +    struct domain *d;
+>> +
+>> +    struct boot_module *kernel;
+>> +    struct boot_module *initrd;
+>> +
+>> +    const char* cmdline;
+>
+> Nit: * and blank want to change places.
+>
+>> --- a/xen/include/xen/fdt-kernel.h
+>> +++ b/xen/include/xen/fdt-kernel.h
+>> @@ -16,7 +16,7 @@
+>>  #endif
+>> =20
+>>  struct kernel_info {
+>> -    struct domain *d;
+>> +    struct boot_domain hdr;
+>> =20
+>>      void *fdt; /* flat device tree */
+>>      paddr_t unassigned_mem; /* RAM not (yet) assigned to a bank */
+>> @@ -34,8 +34,7 @@ struct kernel_info {
+>>      paddr_t gnttab_size;
+>> =20
+>>      /* boot blob load addresses */
+>> -    const struct boot_module *kernel, *initrd, *dtb;
+>
+> Where did this "const" go?
 
-
-On 6/30/25 5:48 PM, Jan Beulich wrote:
-> On 10.06.2025 15:05, Oleksii Kurochko wrote:
->> Introduce page_set_xenheap_gfn() helper to encode the GFN associated with
->> a Xen heap page directly into the type_info field of struct page_info.
->>
->> Introduce a GFN field in the type_info of a Xen heap page by reserving 10
->> bits (sufficient for both Sv32 and Sv39+ modes), and define PGT_gfn_mask
->> and PGT_gfn_width accordingly.
-> This reads as if you wanted to encode the GFN in 10 bits.
-
-I will reword it to:
-   Reserve 10 MSB bits to store the usage counter and frame type;
-   use all remaining bits to store the grant table frame GFN.
-   It will be enough as Sv32 uses 22-bit GFNs and Sv{39, 47, 58} uses 44-bit GFNs.
+x86 mutates the boot module to set the released flag, the headroom, etc.
 
 >
-> What would also help is if you said why you actually need this. x86, after
-> all, gets away without anything like this. (But I understand you're more
-> Arm-like here.)
+>> -    const char* cmdline;
+>> +    const struct boot_module *dtb;
+>
+> This one only retains the intended effect here.
 
-I think with the rewording mentioned above it will be clear that it is needed for
-grant tables. But I also can add the following:
-   The grant table frame GFN will be stored directly in|struct page_info| instead
-   of being maintained in separate status/shared arrays. To avoid increasing the
-   size of|struct page_info|, the necessary bits are borrowed from the
-|||type_info of struct page_info.|
+Because x86 doesn't see or use the containing struct.
 
->> @@ -229,9 +230,21 @@ static inline bool arch_mfns_in_directmap(unsigned long mfn, unsigned long nr)
->>   #define PGT_writable_page PG_mask(1, 1)  /* has writable mappings?         */
->>   #define PGT_type_mask     PG_mask(1, 1)  /* Bits 31 or 63.                 */
->>   
->> -/* Count of uses of this frame as its current type. */
->> -#define PGT_count_width   PG_shift(2)
->> -#define PGT_count_mask    ((1UL << PGT_count_width) - 1)
->> + /* 9-bit count of uses of this frame as its current type. */
->> +#define PGT_count_mask    PG_mask(0x3FF, 10)
->> +
->> +/*
->> + * Sv32 has 22-bit GFN. Sv{39, 48, 57} have 44-bit GFN.
->> + * Thereby we can use for `type_info` 10 bits for all modes, having the same
->> + * amount of bits for `type_info` for all MMU modes let us avoid introducing
->> + * an extra #ifdef to that header:
->> + *   if we go with maximum possible bits for count on each configuration
->> + *   we would need to have a set of PGT_count_* and PGT_gfn_*).
->> + */
->> +#define PGT_gfn_width     PG_shift(10)
->> +#define PGT_gfn_mask      (BIT(PGT_gfn_width, UL) - 1)
->> +
->> +#define PGT_INVALID_XENHEAP_GFN   _gfn(PGT_gfn_mask)
-> Commentary here would imo be preferable to be much closer to Arm's. I don't
-> see the point of the extra verbosity (part of which may be fine to have in
-> the description, except you already say something along these lines there).
-> While in turn the comment talks of fewer bits than are actually being used
-> in the RV64 case.
+>
+>>      paddr_t dtb_paddr;
+>>      paddr_t initrd_paddr;
+>
+> "hdr" is an odd name here. That struct has no need to live at the beginni=
+ng,
+> afaict. How about "gen" for "generic" or "bd" for "boot_domain"?
+>
+> Jan
 
-Sure, I will replace this comment with:
-/*
-  * Stored in bits [22:0] (Sv32) or [44:0] (Sv39,48,57) GFN if page is xenheap page.
-  */
+Sure. I'm fine with `bd`. Will adjust.
 
->> @@ -283,6 +296,19 @@ static inline bool arch_mfns_in_directmap(unsigned long mfn, unsigned long nr)
->>   
->>   #define PFN_ORDER(pg) ((pg)->v.free.order)
->>   
->> +static inline void page_set_xenheap_gfn(struct page_info *p, gfn_t gfn)
->> +{
->> +    gfn_t gfn_ = gfn_eq(gfn, INVALID_GFN) ? PGT_INVALID_XENHEAP_GFN : gfn;
->> +    unsigned long x, nx, y = p->u.inuse.type_info;
->> +
->> +    ASSERT(is_xen_heap_page(p));
->> +
->> +    do {
->> +        x = y;
->> +        nx = (x & ~PGT_gfn_mask) | gfn_x(gfn_);
->> +    } while ( (y = cmpxchg(&p->u.inuse.type_info, x, nx)) != x );
->> +}
->> +
->>   extern unsigned char cpu0_boot_stack[];
->>   
->>   void setup_initial_pagetables(void);
-> What about the "get" counterpart?
-
-I haven't added it as it isn't used now and it will lead to compilation error as it will be static inline
-(in a similar way as Arm introduces it).
-
-As an option this patch could be dropped and introduced with an introduction of grant tables.
-
-~ Oleksii
-
---------------pld813cglQuyB5Vma2N2RlbN
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 6/30/25 5:48 PM, Jan Beulich wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:b06c564f-7cf8-4c9c-9392-892ddc6d5ef4@suse.com">
-      <pre wrap="" class="moz-quote-pre">On 10.06.2025 15:05, Oleksii Kurochko wrote:
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">Introduce page_set_xenheap_gfn() helper to encode the GFN associated with
-a Xen heap page directly into the type_info field of struct page_info.
-
-Introduce a GFN field in the type_info of a Xen heap page by reserving 10
-bits (sufficient for both Sv32 and Sv39+ modes), and define PGT_gfn_mask
-and PGT_gfn_width accordingly.
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-This reads as if you wanted to encode the GFN in 10 bits.</pre>
-    </blockquote>
-    <pre>I will reword it to:
-  Reserve 10 MSB bits to store the usage counter and frame type;
-  use all remaining bits to store the grant table frame GFN.
-  It will be enough as Sv32 uses 22-bit GFNs and Sv{39, 47, 58} uses 44-bit GFNs.
-
-</pre>
-    <blockquote type="cite"
-      cite="mid:b06c564f-7cf8-4c9c-9392-892ddc6d5ef4@suse.com">
-      <pre wrap="" class="moz-quote-pre">
-
-What would also help is if you said why you actually need this. x86, after
-all, gets away without anything like this. (But I understand you're more
-Arm-like here.)</pre>
-    </blockquote>
-    <pre>I think with the rewording mentioned above it will be clear that it is needed for
-grant tables. But I also can add the following:
-  The grant table frame GFN will be stored directly in <code
-    data-start="134" data-end="152">struct page_info</code> instead
-  of being maintained in separate status/shared arrays. To avoid increasing the 
-  size of <code data-start="247" data-end="265">struct page_info</code>, the necessary bits are borrowed from the
-<code>  </code><code data-start="308" data-end="325">type_info of struct page_info.</code>
-
-</pre>
-    <blockquote type="cite"
-      cite="mid:b06c564f-7cf8-4c9c-9392-892ddc6d5ef4@suse.com">
-      <pre wrap="" class="moz-quote-pre">
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">@@ -229,9 +230,21 @@ static inline bool arch_mfns_in_directmap(unsigned long mfn, unsigned long nr)
- #define PGT_writable_page PG_mask(1, 1)  /* has writable mappings?         */
- #define PGT_type_mask     PG_mask(1, 1)  /* Bits 31 or 63.                 */
- 
--/* Count of uses of this frame as its current type. */
--#define PGT_count_width   PG_shift(2)
--#define PGT_count_mask    ((1UL &lt;&lt; PGT_count_width) - 1)
-+ /* 9-bit count of uses of this frame as its current type. */
-+#define PGT_count_mask    PG_mask(0x3FF, 10)
-+
-+/*
-+ * Sv32 has 22-bit GFN. Sv{39, 48, 57} have 44-bit GFN.
-+ * Thereby we can use for `type_info` 10 bits for all modes, having the same
-+ * amount of bits for `type_info` for all MMU modes let us avoid introducing
-+ * an extra #ifdef to that header:
-+ *   if we go with maximum possible bits for count on each configuration
-+ *   we would need to have a set of PGT_count_* and PGT_gfn_*).
-+ */
-+#define PGT_gfn_width     PG_shift(10)
-+#define PGT_gfn_mask      (BIT(PGT_gfn_width, UL) - 1)
-+
-+#define PGT_INVALID_XENHEAP_GFN   _gfn(PGT_gfn_mask)
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-Commentary here would imo be preferable to be much closer to Arm's. I don't
-see the point of the extra verbosity (part of which may be fine to have in
-the description, except you already say something along these lines there).
-While in turn the comment talks of fewer bits than are actually being used
-in the RV64 case.</pre>
-    </blockquote>
-    <pre>Sure, I will replace this comment with:
-/*
- * Stored in bits [22:0] (Sv32) or [44:0] (Sv39,48,57) GFN if page is xenheap page.
- */
-</pre>
-    <blockquote type="cite"
-      cite="mid:b06c564f-7cf8-4c9c-9392-892ddc6d5ef4@suse.com">
-      <pre wrap="" class="moz-quote-pre">
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">@@ -283,6 +296,19 @@ static inline bool arch_mfns_in_directmap(unsigned long mfn, unsigned long nr)
- 
- #define PFN_ORDER(pg) ((pg)-&gt;v.free.order)
- 
-+static inline void page_set_xenheap_gfn(struct page_info *p, gfn_t gfn)
-+{
-+    gfn_t gfn_ = gfn_eq(gfn, INVALID_GFN) ? PGT_INVALID_XENHEAP_GFN : gfn;
-+    unsigned long x, nx, y = p-&gt;u.inuse.type_info;
-+
-+    ASSERT(is_xen_heap_page(p));
-+
-+    do {
-+        x = y;
-+        nx = (x &amp; ~PGT_gfn_mask) | gfn_x(gfn_);
-+    } while ( (y = cmpxchg(&amp;p-&gt;u.inuse.type_info, x, nx)) != x );
-+}
-+
- extern unsigned char cpu0_boot_stack[];
- 
- void setup_initial_pagetables(void);
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-What about the "get" counterpart?</pre>
-    </blockquote>
-    <pre>I haven't added it as it isn't used now and it will lead to compilation error as it will be static inline
-(in a similar way as Arm introduces it).
-
-As an option this patch could be dropped and introduced with an introduction of grant tables.
-</pre>
-    <pre>~ Oleksii
-</pre>
-  </body>
-</html>
-
---------------pld813cglQuyB5Vma2N2RlbN--
+Cheers,
+Alejandro
 
