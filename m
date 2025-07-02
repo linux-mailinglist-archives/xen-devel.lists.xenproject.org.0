@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 61337AF0BEE
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Jul 2025 08:48:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1030219.1403831 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A653BAF0BF7
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Jul 2025 08:51:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1030226.1403841 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uWrFl-0002ek-OH; Wed, 02 Jul 2025 06:47:33 +0000
+	id 1uWrJA-0004EX-4z; Wed, 02 Jul 2025 06:51:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1030219.1403831; Wed, 02 Jul 2025 06:47:33 +0000
+Received: by outflank-mailman (output) from mailman id 1030226.1403841; Wed, 02 Jul 2025 06:51:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uWrFl-0002ce-KR; Wed, 02 Jul 2025 06:47:33 +0000
-Received: by outflank-mailman (input) for mailman id 1030219;
- Wed, 02 Jul 2025 06:47:32 +0000
+	id 1uWrJA-0004CQ-29; Wed, 02 Jul 2025 06:51:04 +0000
+Received: by outflank-mailman (input) for mailman id 1030226;
+ Wed, 02 Jul 2025 06:51:02 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=FQsZ=ZP=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uWrFk-0002cY-FZ
- for xen-devel@lists.xenproject.org; Wed, 02 Jul 2025 06:47:32 +0000
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [2a00:1450:4864:20::42e])
+ id 1uWrJ8-0004CK-GP
+ for xen-devel@lists.xenproject.org; Wed, 02 Jul 2025 06:51:02 +0000
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [2a00:1450:4864:20::434])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6d3ea983-5710-11f0-a313-13f23c93f187;
- Wed, 02 Jul 2025 08:47:31 +0200 (CEST)
-Received: by mail-wr1-x42e.google.com with SMTP id
- ffacd0b85a97d-3a528243636so4022679f8f.3
- for <xen-devel@lists.xenproject.org>; Tue, 01 Jul 2025 23:47:31 -0700 (PDT)
+ id ea8839f1-5710-11f0-a313-13f23c93f187;
+ Wed, 02 Jul 2025 08:51:01 +0200 (CEST)
+Received: by mail-wr1-x434.google.com with SMTP id
+ ffacd0b85a97d-3a50956e5d3so5422445f8f.1
+ for <xen-devel@lists.xenproject.org>; Tue, 01 Jul 2025 23:51:01 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-318c13a270csm13156553a91.16.2025.07.01.23.47.26
+ d9443c01a7336-23acb3c70a7sm126674255ad.232.2025.07.01.23.50.56
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 01 Jul 2025 23:47:30 -0700 (PDT)
+ Tue, 01 Jul 2025 23:51:00 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6d3ea983-5710-11f0-a313-13f23c93f187
+X-Inumbo-ID: ea8839f1-5710-11f0-a313-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1751438851; x=1752043651; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1751439061; x=1752043861; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=vbYK7fi4JE+BIZ5V5n5+SNrpcmSi0dHmiv466IO3bLo=;
-        b=IJK6FjmDwxHBkkmZVCJPUdj+Q7nBB1E+tS/I1ue+yjkTFtUsgEoP3T/LFl8BOw9gyX
-         /XoQx4ME+9f1EZEBS4QxZlqBCuRf8R37TMdOHSRm1dzAswR7vcxtrWkQC0YwxNgohqZS
-         yPUYWYV+9vy7C/FOhtSGAuA7V5AP1xh3yVr6po5UGUi2VhmY4FDYEZv0nTSqE5Ec8QPT
-         BjhLZr5LEVqOsgL6vnFj86V0AtNKUfHRM2TIqAO60s7AWNkZycLpblOTR8rxG9ZWyktc
-         aoY9W5be45c5U9wgHSF2iZbpb6e7y/1jj1zyYi6r+xXyoPghVWPVc9abXxJCfLvEizYD
-         uFbA==
+        bh=2PZKCSPv4/P2z77IMYNRc7n4loncpvo/jHOH3a8+2m8=;
+        b=Sg0kZH4dnBtupUt31v3XX/J9mmLE+icssd5fulFO/dF+Im3e2Pvy8AMZgxtGYju48J
+         I+XWzIyPS4p5IpjmJjbgkHKZjmH3JysmXYPu/xXp2DWBXM4QMgpJgLTwD8abXv88niPu
+         Kx1g6EAVamyhRCh+MhDDEYrE08Mw8p75ZC3V0k2b5bGQJXFGdK/tv4iNZouW6Kjxz2sH
+         siQOcEpeI1ERN3HxWjYQs39z1HUWGeAQieGoUTegXru9DA2d2eoNbHAx0yoSeOEdDn80
+         fIVudgIl9TKTqLNRe7V1M+8x9jBCnwwPixLq1H2c6g/LfqPu7yx9CucfH6Xo1x25L7Ph
+         SChA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1751438851; x=1752043651;
+        d=1e100.net; s=20230601; t=1751439061; x=1752043861;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=vbYK7fi4JE+BIZ5V5n5+SNrpcmSi0dHmiv466IO3bLo=;
-        b=FHwN2elm+fXOc7ND7ueyomMkuZS7oB0ZiCPwzDq1IwcZXXZMZEeom3Nl1wno+J1xQh
-         hRigXnqZad/J43HvLvixFlHtKovHD2Y0kIKidGzDFj33lSkqg8T9xxlS40LOQZxMbEkx
-         dtiSdmecFzz80x3dduQrNoLs1N7JQrgWZUf89zqPCiegGoD81rQEA4ml+ilpd1UNlm9/
-         fOMg/fyZ5MXREgi1bMz7+wMXmkjWwx0qxoWtNbfIasg4baVIIKjhyHI/UYWpN7EPY24N
-         Q7dRBaWf7GpQZjMm0XoXV/PDmk4C3sCVQfs1BzHUCIGiRhi6S8EoSMhpQn6eH4PBR45b
-         uknQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVdbvW0Y3kU8zTcuLUXuMlU4ss3bBgfavl5UEhAU5myd6G8YqmBr4fCwD56+EK3W/dHNAl3ocyEQOM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxPj5e3v3svDBvHttWdxgpIluZdIbpa0cZYGbyDAWLUfqrCZS5Q
-	9azoc4fAlbCnptMuvQKyenH98uu2P2Uhxw3DLAV3fzE5H779ZbVMdNDEl64T9j57YQ==
-X-Gm-Gg: ASbGncuqT6xk5vK8v8CQB32lWsEy51uzp5ppipoa0UUlIu8xvhpZnepbicF/j/MnyMB
-	g3Lipxvc+vXbm3jcnqWliVxi4slPkoqRLIyPt/w78qkHJKztPqrQ3vti4Fhmfaz8V4d/3dqkaVW
-	IP1BAYKA5X4qj/G8R5iaJU/dUiISYeMtSqDftDxlPWO9k1dYLAr7tjG1qPiZ3k99gYvylYf6yHz
-	Xzc3vzkVRlWDQeKqntDcgDcyWOq4x0IoYxm4PrwRg54XOqu5vZFBkgWQglBVC+OwHW/mkbQkEE3
-	9fCeoqh/5GaBXCkKwudtuEOeAbw+zWcAxZ8LOdQUdwJw0TFA8BP0k4m3tga9KvYJYATQ9cx8ZnF
-	02zfNuTddISkUVt9+rs4oOBkMoqPDf3NAl+zhOlPpdlLrZPCetAXDqA3Xpw==
-X-Google-Smtp-Source: AGHT+IFRZ5od3/Q8XAjXcBtfo0lKl+H1LIc6D54lwhlVYO1azB6i9f0i72zemOZwxuRt7EMIBUBngw==
-X-Received: by 2002:a05:6000:188c:b0:3a4:f7ae:77cc with SMTP id ffacd0b85a97d-3b1fb0644femr1059090f8f.0.1751438850720;
-        Tue, 01 Jul 2025 23:47:30 -0700 (PDT)
-Message-ID: <694f7bc0-5846-49ae-946f-bfab47d2bd5a@suse.com>
-Date: Wed, 2 Jul 2025 08:47:22 +0200
+        bh=2PZKCSPv4/P2z77IMYNRc7n4loncpvo/jHOH3a8+2m8=;
+        b=HgYHdf0JHS0kmcXbnOZxUH25KJaJYvYDVzBLRerii+CJrWSKdci4+IBaARL+Gvgsp/
+         aoeb5tSWNFiyYr8SAprVFVigpB6zreP7/ACRROH++wd28S2zVDBB3gCMYa8LEdVfz4w4
+         u9gpP6J1LqOzKsoLAS0iSB/aw4aTjvo2nUffBcg9M4g4R7YLDziRM3t587EZetkPPee3
+         zmvwmLtUAOjUx8wr1qATyxHHyTG53/7Ez+7wOUQYztmNoIYlRQ2cvUH/lwu6e1Wy8v0Q
+         Xi2F+CdFE/wBoezcKz0CEqVlW1qRU3hgwuw/Bh5NW7UBhAzvx441QuenZiJwz8qOvGjD
+         +U4Q==
+X-Forwarded-Encrypted: i=1; AJvYcCWu01W5vfH6Y/XeVeu766En8r2yBDPLjXSfCintcPDCP3+cVsacK8H+eocJCoFFR1C5lljI6ENrdvY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyGjdr4G6kUcTd8HoprlWvkF9oGik8iAr6Y8A6FeC5qksd2y1qL
+	lAWgKwlwsbLtdiqGDQx0RemvGaY4tFtLSs50aftRdKAZfcnkE1edoDcFcXWm3f4Glw==
+X-Gm-Gg: ASbGnctDl0C7U283hc6BeoFEtk7/s8dgJBNGypJbWIImlSBpbNeHQ6obsRmyebJ4cc/
+	2iCF4hywT2LpQAPQarLo++kgZfu2cJgVXVFxy5tMyZHK5iWciIWciAKyNbvZNEQm7suuuISPJpT
+	UZDd9EubCA9FcWmx8tqtYMS4tfulQWWm5bEdywFE0Ib8eBjBK8URFRw+lODW51rBtz/hfFz2c8s
+	pT74lbp0uB7Uyz96dR2UaMI95/QRcWAr909MQRfEKOZiBYuOTPxVq9q4nDOs1Nqa2DxQww8LNXz
+	sryLuPJn0yDfOMVSRF+afKB/h66seotEiVqwtVLqXz5z0s8VrPfWMuLjTNhN2wnOqbSFMxFpYoV
+	qULN0URW+wWrm0G9T7q6U3558Q5kvzBVqKgFx4spMGdJC5ahn1EWitVIZ+Q==
+X-Google-Smtp-Source: AGHT+IEW/fPVPpVPGAo9MFQEBnWNxc5QbhuYQ0zNEOyrS9wAfN4Ahq3+pK+id8dCP8At40gRf6YPWA==
+X-Received: by 2002:a05:6000:41e2:b0:3a5:243c:6042 with SMTP id ffacd0b85a97d-3b1fd74c600mr936017f8f.2.1751439060918;
+        Tue, 01 Jul 2025 23:51:00 -0700 (PDT)
+Message-ID: <3a10d40e-9579-4c5f-8dbd-550bb8275a72@suse.com>
+Date: Wed, 2 Jul 2025 08:50:52 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/3] hvmloader: add new SMBIOS tables (7,8,9,26,27,28)
+Subject: Re: [PATCH 1/3] hvmloader: fix code style violations
 To: =?UTF-8?Q?Petr_Bene=C5=A1?= <w1benny@gmail.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>, xen-devel@lists.xenproject.org
 References: <cover.1751412735.git.w1benny@gmail.com>
+ <fbff115ab5f3e565b07dc339d50e697ba37f7410.1751412735.git.w1benny@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -118,47 +119,22 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <cover.1751412735.git.w1benny@gmail.com>
+In-Reply-To: <fbff115ab5f3e565b07dc339d50e697ba37f7410.1751412735.git.w1benny@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 On 02.07.2025 01:45, Petr Beneš wrote:
 > From: Petr Beneš <w1benny@gmail.com>
 > 
-> Resubmitting patch from Anton Belousov and addressing review comments
-> from Jan: https://old-list-archives.xen.org/archives/html/xen-devel/2022-01/msg00725.html
+> Preparatory commit. No functional change.
+> 
+> Signed-off-by: Petr Beneš <w1benny@gmail.com>
 
-In which case shouldn't this submission have a version number, explicitly
-larger than 1?
+There are style violations that you deal with here, yes. But you go beyond
+that. At which point I agree with Frediano that you want to call out at
+least what you do beyond bringing code (more?) in line with ./CODING_STYLE.
+The subject may also want to reflect that's it's not just violations you
+sort.
 
 Jan
-
-> Original message:
->> SMBIOS tables like 7,8,9,26,27,28 are neccessary to prevent sandbox detection
->> by malware using WMI-queries. New tables can be mapped to memory from binary
->> file specified in "smbios_firmware" parameter of domain configuration.
->> If particular table is absent in binary file, then it will not be mapped to
->> memory. This method works for Windows domains as tables 7,8,9,26,27,28 are not
->> critical for OS boot and runtime. Also if "smbios_firmware" parameter is not
->> provided, these tables will be skipped in write_smbios_tables function.
-> 
-> Further explanation:
-> Some malware samples are known to check presence of various hardware components
-> (like CPU fan, CPU temperature sensor, etc.) by WMI queries. If these components
-> are not present, then malware can assume that it is running in a sandbox and
-> will not execute its payload.
-> 
-> This patch will allow security researchers to create a custom SMBIOS
-> firmware binary file that contains these tables.
-> 
-> Petr Beneš (3):
->   hvmloader: fix code style violations
->   hvmloader: fix SMBIOS table length checks
->   hvmloader: add new SMBIOS tables (7,8,9,26,27,28)
-> 
->  tools/firmware/hvmloader/smbios.c       | 204 ++++++++++++++++++++----
->  tools/firmware/hvmloader/smbios_types.h |  83 +++++++++-
->  2 files changed, 254 insertions(+), 33 deletions(-)
-> 
-
 
