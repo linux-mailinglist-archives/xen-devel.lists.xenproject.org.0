@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B4B4AF6408
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Jul 2025 23:30:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1031562.1405383 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7BF6AAF6413
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Jul 2025 23:36:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1031571.1405392 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uX51v-0001WP-J0; Wed, 02 Jul 2025 21:30:11 +0000
+	id 1uX57T-0002gl-8Q; Wed, 02 Jul 2025 21:35:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1031562.1405383; Wed, 02 Jul 2025 21:30:11 +0000
+Received: by outflank-mailman (output) from mailman id 1031571.1405392; Wed, 02 Jul 2025 21:35:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uX51v-0001TE-Fj; Wed, 02 Jul 2025 21:30:11 +0000
-Received: by outflank-mailman (input) for mailman id 1031562;
- Wed, 02 Jul 2025 21:30:10 +0000
+	id 1uX57T-0002fJ-5U; Wed, 02 Jul 2025 21:35:55 +0000
+Received: by outflank-mailman (input) for mailman id 1031571;
+ Wed, 02 Jul 2025 21:35:53 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=MFEm=ZP=linaro.org=pierrick.bouvier@srs-se1.protection.inumbo.net>)
- id 1uX51u-0008Uo-1k
- for xen-devel@lists.xenproject.org; Wed, 02 Jul 2025 21:30:10 +0000
-Received: from mail-pl1-x632.google.com (mail-pl1-x632.google.com
- [2607:f8b0:4864:20::632])
+ id 1uX57R-0002fD-Jp
+ for xen-devel@lists.xenproject.org; Wed, 02 Jul 2025 21:35:53 +0000
+Received: from mail-pl1-x629.google.com (mail-pl1-x629.google.com
+ [2607:f8b0:4864:20::629])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b9951ed8-578b-11f0-b894-0df219b8e170;
- Wed, 02 Jul 2025 23:30:08 +0200 (CEST)
-Received: by mail-pl1-x632.google.com with SMTP id
- d9443c01a7336-23636167b30so46267265ad.1
- for <xen-devel@lists.xenproject.org>; Wed, 02 Jul 2025 14:30:08 -0700 (PDT)
+ id 862badec-578c-11f0-b894-0df219b8e170;
+ Wed, 02 Jul 2025 23:35:51 +0200 (CEST)
+Received: by mail-pl1-x629.google.com with SMTP id
+ d9443c01a7336-235ef62066eso93470695ad.3
+ for <xen-devel@lists.xenproject.org>; Wed, 02 Jul 2025 14:35:51 -0700 (PDT)
 Received: from [192.168.1.87] ([38.41.223.211])
  by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-b34e31da845sm13498733a12.53.2025.07.02.14.30.05
+ d9443c01a7336-23acb39b93fsm136116685ad.119.2025.07.02.14.35.49
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 02 Jul 2025 14:30:06 -0700 (PDT)
+ Wed, 02 Jul 2025 14:35:49 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,45 +45,45 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b9951ed8-578b-11f0-b894-0df219b8e170
+X-Inumbo-ID: 862badec-578c-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1751491807; x=1752096607; darn=lists.xenproject.org;
+        d=linaro.org; s=google; t=1751492150; x=1752096950; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=uZehWfMyIfkq6yTIuw9X1Gv3CLzMTYrvvswzJWpiCog=;
-        b=sF9FghDSFG9LdMmsw1SP8QqalqAoOBn2oTlnbkRRC86wfYmn4Q5P269MfMl4nyMqD5
-         24BkWFwM4YmfrzWiRgOg4pfHG8U52dAiuryBWgjgo6eRTmDmoESQuLxMuPVWeIu7TTBo
-         dtfwD/82rQwW2YYTRsqaxjfTuA6x9+f8E6QXl3g3AeObLy4x1mI+endStuDM8huGRNMg
-         1Nq0+WeOQXONxfoLh+kukfjpGG5m5I7SCWXpTD8oJfd5aE1jxnfa8t75hqPrnLrF+LXZ
-         2svqLX2W5+F4X8QjrvxVI5k6HBh3RT0Cf+qBCVmQpw1KVVjn63f4lDYa7zLe0JLR7Bj6
-         RO6w==
+        bh=Hg0qj/WAsIhSzKk50qSOHcs9sPB5yADg/xMC/cighLg=;
+        b=UMt+bxLkcimMwkZly1Rvd8ydGn1CqYevqgDo6f6rArhELhUJVxTT/R5dfSYHC9DAdy
+         01T9YgfSCGUyl4rIfRm57zQo0U8+ARVMFTlTKHJkQQ8b1udFTwAdR80sNcFRrx4cB74X
+         h7wI7+XBpRRiuWNZs5NunEma/vVOJiVJG2zSOiDjOmQG8yYdRyGaU5QSgw+BUfOLG1ko
+         WLKsnilxG2ppwrq/bpx+3eyelw5ldjOWmQXd6w6S1Qt41QfarqEWfW44C/rTlqGJNqwa
+         0a0ecqScRWf+N9gsktw2RKMM4cjQ/DY2n5lmlzCWg3ZIo05zV2kTaTpxUnirKGrxNdDE
+         JJbw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1751491807; x=1752096607;
+        d=1e100.net; s=20230601; t=1751492150; x=1752096950;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=uZehWfMyIfkq6yTIuw9X1Gv3CLzMTYrvvswzJWpiCog=;
-        b=mIANhPwJ5Jm6gVlnDpChBZoOzAJIsAzIPxBDs62TnyqQlsnkvc3XzDK1xLHes027px
-         LPTx58UU2nD63udFc4A8vEalwQt1S4imlALTJTpdteT6/MKawateiYrB4WzeCd/cKBUF
-         Jl0Db4TFJXWvGaHwIuorQaedeoa6F/a3QrJk2UTfLwjLFCT8uKlp5qtdMIjL+PH1SRmu
-         iYa8kKrKw3KKh0ioZpaJxP0l6DB8yWfZhqUFD/cHCfI/ljo/6468mUUGZS3pmw53v+Dc
-         jghflz0ohLOu5xX4EtFiXLs99LJYe8wan8FbIsMTKRV37pfvfLzRYUE2oGYOFIP+kFn4
-         GSlA==
-X-Forwarded-Encrypted: i=1; AJvYcCVakZ+3RCljR/bRnTZs1f/+yOX3zHrd1dEgcECihAZxhctPgx8c0Yg1kpIWOSs3IIDazM5Y6amQ3FQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwFXl0jDsBe6/ovCwejMgAgbn4S4fJ8AdSyBLjUZvBw2hvH7e5p
-	uamaJ2rVZy2nxDhWWFPrZJ0QrcVB5g12V6TaoQ90gagwrRAFWR+81OFvdhUWAn+BgHg=
-X-Gm-Gg: ASbGnctiohjojg/lPI3jU/ptf0RN12x3jow8QRzAR8HLGDO6tjIjOZqXab51QRLtYKe
-	hpM1rMSoUrA2UJM7LueMqzv6EJGEYa6o3JbtXoyEWAKxRbHAGj3jFdB/+OanJnSnL7+NBUuh4rd
-	yot9rUroxaKjZNzzbTcBfAy1rBPK+wtTGJ894uC+Eq9ATf8+LDWbuoDbcd19sf5lhjl6XQOgIOa
-	xWCG5TdjRuZmd+7rOtPA+Mb+H7SZkfgN1Cwm6e4YvHTqYkxYm7ljqpYFkf3SqtKvX1MyhZjjqhW
-	2DQE9k1rh09TTSc4L4EnRlADraODJv1WnOC3TPG1HTiJI+ZTLJbKCAGKMPeRVJ9esFkQkOvD8S8
+        bh=Hg0qj/WAsIhSzKk50qSOHcs9sPB5yADg/xMC/cighLg=;
+        b=VYh6yUdelPsoCKYgT7yfZWHdMg92cAnsu/93sLHM+2+jtcCnexhPFh+UgbuqkVPo+b
+         P/GPsmd2HU+CSOAwMWUp4ByMh0qVMLUnrtp8wyZ/6Z4xBdzsoB48YgE6ecFo1XwrJqKz
+         rBi8rKhH5xBzD0xURMNKMe7dM7ml+FSmGkCoi1v19X3RDom6tQQWfcucvwvy0pdC/QMG
+         Z5vcDbX5Yb1fqnTqwd/v1hC5szgdU8/dCH1NpbKcSaM3LglWUuw/ukt2MXRv3uf5xpYB
+         twjPkJl/2fZsg0lob8AgUzun7SgtccyVXYesSkyRwRFbtul+g7BPOh0pDJNrQHbo8XUG
+         uCUg==
+X-Forwarded-Encrypted: i=1; AJvYcCX3rDFEnI8wKfA77QTUEJXvUtjezC9HhtHrZhqdHLAGeDcyP2DR7V7EjW5aEvObTSjTxvgjwojpgyo=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyCJtTb3jnTHBYZTU0bwtmIOKM7biSuabKh5CMSO8poR3r+nzE7
+	y9P/inqcjIa9EEps3TB7y7Qw8HxIUk8BCMKPJFudKV/MJyBWdgBAqM9F1zSIzvjHO4k=
+X-Gm-Gg: ASbGncs0mJ5FjovHcWzlkWFCVNoXlZdLFDOlk/7NV/GHj+4CGf7xNr6+1Cu4jyfj8Yw
+	LXbdPzWfb+/f9IR2K577wg+Pxv5ZPUCarT6dxkZL7ngN/93rMaHZ2QEBHAVCOEP8mFTfx/DFcq4
+	L1+hdUddSHEpQrHhmuJ1vnPhsY4XUFJxTl8l10Kjjr+UshTjxgoHVVSvoNcD/Ha6UFHO6B7fYR4
+	/rw2SDGefXT2SwFFbiHczoYfbuGHfQiYImCAv1rEXFwzYJjkc0zRbDK5zvBhBZheYvMsgzwDC2S
+	VfKyFumTs5qdwaqVaZDly9jqWzMsxuOW/XWIQAz86/3MBjn+BqvcHzIPsQOWcOb61JHE8wBB/1I
 	=
-X-Google-Smtp-Source: AGHT+IG9no+Unkyg/FYILPO1RDG3pnFNTZHuoOP0I7KlSIk1kl7bNstbmqliucHtTcpqKD2VVL5JCg==
-X-Received: by 2002:a17:903:238a:b0:235:6f7:b918 with SMTP id d9443c01a7336-23c797a85a4mr15391395ad.28.1751491806805;
-        Wed, 02 Jul 2025 14:30:06 -0700 (PDT)
-Message-ID: <ec12909f-4a74-413f-a600-2882b67d09df@linaro.org>
-Date: Wed, 2 Jul 2025 14:30:05 -0700
+X-Google-Smtp-Source: AGHT+IGpscWHzvkBGYWVvFV40B4JDIxA1z+rgMXJn4WUCElOgiG44deUfbMutc97UiUsHwDJJULrfg==
+X-Received: by 2002:a17:903:b8d:b0:233:ab04:27a with SMTP id d9443c01a7336-23c6e5f389emr81341945ad.53.1751492150010;
+        Wed, 02 Jul 2025 14:35:50 -0700 (PDT)
+Message-ID: <0ab88797-7466-4b83-95d8-efdb04369664@linaro.org>
+Date: Wed, 2 Jul 2025 14:35:48 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v4 59/65] accel: Always register
@@ -114,10 +114,7 @@ On 7/2/25 11:53 AM, Philippe Mathieu-Daudé wrote:
 > we need it always defined, not calling a hidden handler under
 > the hood. Make AccelOpsClass::get_virtual_clock() mandatory.
 > Register the default cpus_kick_thread() for each accelerator.
-
-Same same.
-
->
+> 
 > Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
 > ---
 >   include/system/accel-ops.h        | 2 ++
@@ -130,6 +127,12 @@ Same same.
 >   target/i386/whpx/whpx-accel-ops.c | 1 +
 >   8 files changed, 13 insertions(+), 3 deletions(-)
 
-Reviewed-by: Pierrick Bouvier <pierrick.bouvier@linaro.org>
+Seeing the pattern in last 3 commits, I have a question regarding QOM.
+Is that possible to get a constructor called for parent type 
+(TYPE_ACCEL_OPS), where all default values would be set, and so every 
+child class (specialized accelerator) would just need to override the 
+field they want with their own method?
 
+It would be more easy than explicitely setting default values in all sub 
+classes, but maybe QOM design is limited to that.
 
