@@ -2,45 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0FD5CAF0DC0
+	by mail.lfdr.de (Postfix) with ESMTPS id 7CD01AF0DC2
 	for <lists+xen-devel@lfdr.de>; Wed,  2 Jul 2025 10:21:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1030535.1404271 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1030543.1404285 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uWsiZ-0002UH-5t; Wed, 02 Jul 2025 08:21:23 +0000
+	id 1uWsic-00034Z-JW; Wed, 02 Jul 2025 08:21:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1030535.1404271; Wed, 02 Jul 2025 08:21:23 +0000
+Received: by outflank-mailman (output) from mailman id 1030543.1404285; Wed, 02 Jul 2025 08:21:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uWsiY-0002N3-Vy; Wed, 02 Jul 2025 08:21:22 +0000
-Received: by outflank-mailman (input) for mailman id 1030535;
- Wed, 02 Jul 2025 08:21:21 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uWsic-000318-DT; Wed, 02 Jul 2025 08:21:26 +0000
+Received: by outflank-mailman (input) for mailman id 1030543;
+ Wed, 02 Jul 2025 08:21:24 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=KFiP=ZP=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1uWsay-00082Y-0n
- for xen-devel@lists.xenproject.org; Wed, 02 Jul 2025 08:13:32 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6fe6f4b7-571c-11f0-a313-13f23c93f187;
- Wed, 02 Jul 2025 10:13:29 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+ id 1uWsaz-00082X-4Q
+ for xen-devel@lists.xenproject.org; Wed, 02 Jul 2025 08:13:33 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7102907b-571c-11f0-b894-0df219b8e170;
+ Wed, 02 Jul 2025 10:13:31 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 92FC91F455;
- Wed,  2 Jul 2025 08:13:25 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 3F6212117F;
+ Wed,  2 Jul 2025 08:13:31 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 69C9113A24;
- Wed,  2 Jul 2025 08:13:25 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 135DA13A24;
+ Wed,  2 Jul 2025 08:13:31 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id LYdUGCXqZGgXSQAAD6G6ig
- (envelope-from <jgross@suse.com>); Wed, 02 Jul 2025 08:13:25 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id FoE4AyvqZGgfSQAAD6G6ig
+ (envelope-from <jgross@suse.com>); Wed, 02 Jul 2025 08:13:31 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,233 +51,234 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6fe6f4b7-571c-11f0-a313-13f23c93f187
+X-Inumbo-ID: 7102907b-571c-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1751444005; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1751444011; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=iaDK/56bpA9CrTIegS7gZq6xQHIKshW7HV6CJUhUJck=;
-	b=tR91GiVHHAu6qqBoWTtImiOznLtrDZYh8j3vk+SCrlAHTtoR/OLC6w84DHKi++8OIePwru
-	D2uhZdHJLyRfYxGhKYYFL03+ie4Ztd3WGYT/L33XA1y6jl3odQAU57R3PrRHrTfuawt5y4
-	qeUgiaP1qq+hbkgA1rE4rkoZaGvjmrM=
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.com header.s=susede1 header.b=tR91GiVH
+	bh=PqeT9QtIJE1Ok+fqszezjXe9WOy8z56eRXWRpRN0vUQ=;
+	b=QrGGKNYL/DWVxxTQCLDbMmIH7WiOgWMb7tx1iOXOjolTiAiQlzDJxRfPweerBktWwhi3Nj
+	Ihh1pzYSvqqSlsaH28aA0oOTozW+Y3GOnU7FG14JRopCWE1kJJpZ9oFZD4P42d+47l0TRi
+	AOKexml5tJYNEP1+Q06QyXLtOnirIiA=
+Authentication-Results: smtp-out1.suse.de;
+	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1751444005; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1751444011; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=iaDK/56bpA9CrTIegS7gZq6xQHIKshW7HV6CJUhUJck=;
-	b=tR91GiVHHAu6qqBoWTtImiOznLtrDZYh8j3vk+SCrlAHTtoR/OLC6w84DHKi++8OIePwru
-	D2uhZdHJLyRfYxGhKYYFL03+ie4Ztd3WGYT/L33XA1y6jl3odQAU57R3PrRHrTfuawt5y4
-	qeUgiaP1qq+hbkgA1rE4rkoZaGvjmrM=
+	bh=PqeT9QtIJE1Ok+fqszezjXe9WOy8z56eRXWRpRN0vUQ=;
+	b=QrGGKNYL/DWVxxTQCLDbMmIH7WiOgWMb7tx1iOXOjolTiAiQlzDJxRfPweerBktWwhi3Nj
+	Ihh1pzYSvqqSlsaH28aA0oOTozW+Y3GOnU7FG14JRopCWE1kJJpZ9oFZD4P42d+47l0TRi
+	AOKexml5tJYNEP1+Q06QyXLtOnirIiA=
 From: Juergen Gross <jgross@suse.com>
 To: minios-devel@lists.xenproject.org,
 	xen-devel@lists.xenproject.org
 Cc: samuel.thibault@ens-lyon.org,
 	Juergen Gross <jgross@suse.com>
-Subject: [MINI-OS PATCH 05/19] mm: refactor init_page_allocator()
-Date: Wed,  2 Jul 2025 10:12:40 +0200
-Message-ID: <20250702081254.14383-6-jgross@suse.com>
+Subject: [MINI-OS PATCH 06/19] mm: don't add module pages to free memory
+Date: Wed,  2 Jul 2025 10:12:41 +0200
+Message-ID: <20250702081254.14383-7-jgross@suse.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20250702081254.14383-1-jgross@suse.com>
 References: <20250702081254.14383-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 92FC91F455
-X-Rspamd-Action: no action
 X-Spam-Flag: NO
-X-Spamd-Result: default: False [-3.01 / 50.00];
+X-Spam-Score: -2.80
+X-Spamd-Result: default: False [-2.80 / 50.00];
 	BAYES_HAM(-3.00)[100.00%];
 	NEURAL_HAM_LONG(-1.00)[-1.000];
 	MID_CONTAINS_FROM(1.00)[];
 	R_MISSING_CHARSET(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-0.999];
 	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
+	MIME_TRACE(0.00)[0:+];
 	TO_DN_SOME(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCVD_COUNT_TWO(0.00)[2];
-	FUZZY_BLOCKED(0.00)[rspamd.com];
-	FROM_HAS_DN(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:dkim,suse.com:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
-	RCVD_TLS_ALL(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
 	DKIM_SIGNED(0.00)[suse.com:s=susede1];
+	FUZZY_BLOCKED(0.00)[rspamd.com];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
 	RCPT_COUNT_THREE(0.00)[4];
-	DKIM_TRACE(0.00)[suse.com:+]
-X-Spam-Score: -3.01
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:email,imap1.dmz-prg2.suse.org:helo];
+	RCVD_TLS_ALL(0.00)[]
 X-Spam-Level: 
 
-Split init_page_allocator() into three functions in order to prepare
-for sparing some memory from being added to the buddy allocator.
+When initializing the memory allocator, don't add memory pages of
+modules and the initial boot info structure to the free memory.
 
-Use a function pointer for selecting the function used for handling a
-memory range, as this will be needed by a future patch. For the same
-reason make iterate_memory_range() globally visible.
+This is relevant only when running in PVH mode, as in PV mode only
+memory above the initial page tables is added to free memory, and the
+module and start_info pages are below the page tables.
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
 ---
- include/mm.h |   3 ++
- mm.c         | 111 +++++++++++++++++++++++++++++----------------------
- 2 files changed, 66 insertions(+), 48 deletions(-)
+ arch/x86/mm.c | 80 +++++++++++++++++++++++++++++++++++++++++++++++++++
+ include/mm.h  |  1 +
+ mm.c          | 21 +++++++++++++-
+ 3 files changed, 101 insertions(+), 1 deletion(-)
 
-diff --git a/include/mm.h b/include/mm.h
-index 0a16d56c..1dc89ddb 100644
---- a/include/mm.h
-+++ b/include/mm.h
-@@ -95,4 +95,7 @@ void fini_mm(void);
- 
- void change_readonly(bool readonly);
- 
-+void iterate_memory_range(unsigned long min, unsigned long max,
-+                          void (*func)(unsigned long, unsigned long));
-+
- #endif /* _MM_H_ */
-diff --git a/mm.c b/mm.c
-index 9236db58..858dc108 100644
---- a/mm.c
-+++ b/mm.c
-@@ -150,16 +150,74 @@ static void dequeue_elem(chunk_head_t *elem)
-     elem->next->prev = elem->prev;
+diff --git a/arch/x86/mm.c b/arch/x86/mm.c
+index 26ede6f4..7c3c83be 100644
+--- a/arch/x86/mm.c
++++ b/arch/x86/mm.c
+@@ -78,6 +78,10 @@ void arch_mm_preinit(void *p)
+     last_free_pfn = si->nr_pages;
+     balloon_set_nr_pages(last_free_pfn, last_free_pfn);
  }
- 
-+static void add_memory_range(unsigned long r_min, unsigned long r_max)
++
++void check_memory_range(unsigned long *from, unsigned long *to)
 +{
-+    unsigned int i;
-+    unsigned long range;
-+    chunk_head_t *ch;
++}
+ #else
+ #include <mini-os/desc.h>
+ user_desc gdt[NR_GDT_ENTRIES] =
+@@ -125,6 +129,78 @@ void arch_mm_preinit(void *p)
+     last_free_pfn = e820_get_maxpfn(pages);
+     balloon_set_nr_pages(pages, last_free_pfn);
+ }
 +
-+    printk("    Adding memory range %lx-%lx\n", r_min, r_max);
++static void check_memory_range_conflict(unsigned long *from, unsigned long *to,
++                                        unsigned long chk, unsigned long sz)
++{
++    unsigned long chk_end = chk + sz;
 +
-+    /* The buddy lists are addressed in high memory. */
-+    r_min = (unsigned long)to_virt(r_min);
-+    r_max = (unsigned long)to_virt(r_max);
-+    range = r_max - r_min;
++    if ( *to <= chk || *from >= chk_end )
++        return;
 +
-+    /* Free up the memory we've been given to play with. */
-+    map_free(PHYS_PFN(r_min), range >> PAGE_SHIFT);
-+
-+    while ( range != 0 )
-+    {
-+        /*
-+         * Next chunk is limited by alignment of min, but also
-+         * must not be bigger than remaining range.
-+         */
-+        for ( i = PAGE_SHIFT; (1UL << (i + 1)) <= range; i++ )
-+        {
-+            if ( r_min & (1UL << i) )
-+                break;
-+        }
-+
-+        ch = (chunk_head_t *)r_min;
-+        r_min += 1UL << i;
-+        range -= 1UL << i;
-+        enqueue_elem(ch, i - PAGE_SHIFT);
-+    }
++    if ( chk <= *from )
++        *from = (chk_end >= *to) ? *to : chk_end;
++    else
++        *to = chk;
 +}
 +
-+void iterate_memory_range(unsigned long min, unsigned long max,
-+                          void (*func)(unsigned long, unsigned long))
++/* Reserved memory ranges not added to free memory. */
++#define MAX_RSV_RANGES  1
++static struct {
++    unsigned long start;
++    unsigned long size;
++} reserved_range[MAX_RSV_RANGES];
++
++void check_memory_range(unsigned long *from, unsigned long *to)
 +{
 +    unsigned int m;
-+    unsigned long r_min, r_max;
++    struct hvm_modlist_entry *mod;
 +
-+    for ( m = 0; m < e820_entries; m++ )
++    for ( m = 0; m < MAX_RSV_RANGES && reserved_range[m].size; m++ )
++        check_memory_range_conflict(from, to, reserved_range[m].start,
++                                    reserved_range[m].size);
++
++    mod = (struct hvm_modlist_entry *)(unsigned long)
++          hvm_start_info_ptr->modlist_paddr;
++    for ( m = 0; m < hvm_start_info_ptr->nr_modules; m++ )
++        check_memory_range_conflict(from, to, mod[m].paddr, mod[m].size);
++}
++
++#define max(a, b) ((a) < (b) ? (b) : (a))
++
++static void pvh_reserve_start_info(unsigned long *start_pfn)
++{
++    unsigned long end = 0;
++    unsigned long start = (unsigned long)hvm_start_info_ptr;
++    unsigned long end_pfn;
++    unsigned int m;
++    struct hvm_modlist_entry *mod;
++    char *cmdline;
++
++    mod = (void *)(unsigned long)hvm_start_info_ptr->modlist_paddr;
++
++    end = max(end, start + sizeof(struct hvm_start_info));
++    end = max(end, hvm_start_info_ptr->modlist_paddr +
++              hvm_start_info_ptr->nr_modules *
++              sizeof(struct hvm_modlist_entry));
++    for ( m = 0; m < hvm_start_info_ptr->nr_modules; m++ )
 +    {
-+        if ( e820_map[m].type != E820_RAM )
-+            continue;
-+        if ( e820_map[m].addr + e820_map[m].size >= ULONG_MAX )
-+            BUG();
++        cmdline = (char *)(unsigned long)mod[m].cmdline_paddr;
++        if ( cmdline )
++            end = max(end, (unsigned long)cmdline + strlen(cmdline) + 1);
++    }
++    cmdline = (char *)(unsigned long)hvm_start_info_ptr->cmdline_paddr;
++    if ( cmdline )
++        end = max(end, (unsigned long)cmdline + strlen(cmdline) + 1);
++    if ( hvm_start_info_ptr->version >= 1 )
++        end = max(end, hvm_start_info_ptr->memmap_paddr +
++                  hvm_start_info_ptr->memmap_entries *
++                  sizeof(struct hvm_memmap_table_entry));
 +
-+        r_min = e820_map[m].addr;
-+        r_max = r_min + e820_map[m].size;
-+        if ( r_max <= min || r_min >= max )
-+            continue;
-+        if ( r_min < min )
-+            r_min = min;
-+        if ( r_max > max )
-+            r_max = max;
++    end_pfn = PFN_UP(end);
++    if ( end_pfn > *start_pfn )
++        *start_pfn = end_pfn;
++}
+ #endif
+ 
+ static const struct {
+@@ -888,6 +964,10 @@ void arch_init_mm(unsigned long* start_pfn_p, unsigned long* max_pfn_p)
+     if ( max_pfn >= MAX_MEM_SIZE / PAGE_SIZE )
+         max_pfn = MAX_MEM_SIZE / PAGE_SIZE - 1;
+ 
++#ifndef CONFIG_PARAVIRT
++    pvh_reserve_start_info(&start_pfn);
++#endif
 +
-+        func(r_min, r_max);
+     printk("  start_pfn: %lx\n", start_pfn);
+     printk("    max_pfn: %lx\n", max_pfn);
+ 
+diff --git a/include/mm.h b/include/mm.h
+index 1dc89ddb..995e9862 100644
+--- a/include/mm.h
++++ b/include/mm.h
+@@ -74,6 +74,7 @@ static __inline__ int get_order(unsigned long size)
+ 
+ void arch_init_demand_mapping_area(void);
+ void arch_init_mm(unsigned long* start_pfn_p, unsigned long* max_pfn_p);
++void check_memory_range(unsigned long *from, unsigned long *to);
+ 
+ unsigned long allocate_ondemand(unsigned long n, unsigned long alignment);
+ /* map f[i*stride]+i*increment for i in 0..n-1, aligned on alignment pages */
+diff --git a/mm.c b/mm.c
+index 858dc108..8c41d2f2 100644
+--- a/mm.c
++++ b/mm.c
+@@ -185,6 +185,25 @@ static void add_memory_range(unsigned long r_min, unsigned long r_max)
+     }
+ }
+ 
++static void consider_memory_range(unsigned long r_min, unsigned long r_max,
++                                  void (*func)(unsigned long, unsigned long))
++{
++    unsigned long from = r_min;
++    unsigned long to = r_max;
++
++    while ( true )
++    {
++        check_memory_range(&from, &to);
++        if ( from == to )
++            return;
++
++        func(from, to);
++
++        from = to;
++        to = r_max;
 +    }
 +}
 +
- /*
-  * Initialise allocator, placing addresses [@min,@max] in free pool.
-  * @min and @max are PHYSICAL addresses.
-  */
- static void init_page_allocator(unsigned long min, unsigned long max)
+ void iterate_memory_range(unsigned long min, unsigned long max,
+                           void (*func)(unsigned long, unsigned long))
  {
--    int i, m;
--    unsigned long range;
--    unsigned long r_min, r_max;
--    chunk_head_t *ch;
-+    int i;
+@@ -207,7 +226,7 @@ void iterate_memory_range(unsigned long min, unsigned long max,
+         if ( r_max > max )
+             r_max = max;
  
-     printk("MM: Initialise page allocator for %lx(%lx)-%lx(%lx)\n",
-            (u_long)to_virt(min), min, (u_long)to_virt(max), max);
-@@ -182,50 +240,7 @@ static void init_page_allocator(unsigned long min, unsigned long max)
-     /* All allocated by default. */
-     memset(mm_alloc_bitmap, ~0, mm_alloc_bitmap_size);
- 
--    for ( m = 0; m < e820_entries; m++ )
--    {
--        if ( e820_map[m].type != E820_RAM )
--            continue;
--        if ( e820_map[m].addr + e820_map[m].size >= ULONG_MAX )
--            BUG();
--
--        r_min = e820_map[m].addr;
--        r_max = r_min + e820_map[m].size;
--        if ( r_max <= min || r_min >= max )
--            continue;
--        if ( r_min < min )
--            r_min = min;
--        if ( r_max > max )
--            r_max = max;
--
--        printk("    Adding memory range %lx-%lx\n", r_min, r_max);
--
--        /* The buddy lists are addressed in high memory. */
--        r_min = (unsigned long)to_virt(r_min);
--        r_max = (unsigned long)to_virt(r_max);
--        range = r_max - r_min;
--
--        /* Free up the memory we've been given to play with. */
--        map_free(PHYS_PFN(r_min), range >> PAGE_SHIFT);
--
--        while ( range != 0 )
--        {
--            /*
--             * Next chunk is limited by alignment of min, but also
--             * must not be bigger than remaining range.
--             */
--            for ( i = PAGE_SHIFT; (1UL << (i + 1)) <= range; i++ )
--            {
--                if ( r_min & (1UL << i) )
--                    break;
--            }
--
--            ch = (chunk_head_t *)r_min;
--            r_min += 1UL << i;
--            range -= 1UL << i;
--            enqueue_elem(ch, i - PAGE_SHIFT);
--        }
--    }
-+    iterate_memory_range(min, max, add_memory_range);
- 
-     mm_alloc_bitmap_remap();
+-        func(r_min, r_max);
++        consider_memory_range(r_min, r_max, func);
+     }
  }
+ 
 -- 
 2.43.0
 
