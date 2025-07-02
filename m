@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9333AF0B49
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Jul 2025 08:08:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1030194.1403811 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A1E8AF0BB3
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Jul 2025 08:33:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1030205.1403820 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uWqdr-0005ZO-Im; Wed, 02 Jul 2025 06:08:23 +0000
+	id 1uWr1R-0000xN-HW; Wed, 02 Jul 2025 06:32:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1030194.1403811; Wed, 02 Jul 2025 06:08:23 +0000
+Received: by outflank-mailman (output) from mailman id 1030205.1403820; Wed, 02 Jul 2025 06:32:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uWqdr-0005Wz-Fj; Wed, 02 Jul 2025 06:08:23 +0000
-Received: by outflank-mailman (input) for mailman id 1030194;
- Wed, 02 Jul 2025 06:08:22 +0000
+	id 1uWr1R-0000vP-EY; Wed, 02 Jul 2025 06:32:45 +0000
+Received: by outflank-mailman (input) for mailman id 1030205;
+ Wed, 02 Jul 2025 06:32:43 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=FQsZ=ZP=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uWqdq-0005Wt-Ah
- for xen-devel@lists.xenproject.org; Wed, 02 Jul 2025 06:08:22 +0000
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [2a00:1450:4864:20::436])
+ id 1uWr1P-0000vJ-JN
+ for xen-devel@lists.xenproject.org; Wed, 02 Jul 2025 06:32:43 +0000
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [2a00:1450:4864:20::42a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f3b7cf19-570a-11f0-b894-0df219b8e170;
- Wed, 02 Jul 2025 08:08:20 +0200 (CEST)
-Received: by mail-wr1-x436.google.com with SMTP id
- ffacd0b85a97d-3a4fd1ba177so4163182f8f.0
- for <xen-devel@lists.xenproject.org>; Tue, 01 Jul 2025 23:08:20 -0700 (PDT)
+ id 5ac8261e-570e-11f0-b894-0df219b8e170;
+ Wed, 02 Jul 2025 08:32:41 +0200 (CEST)
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-3a522224582so3353632f8f.3
+ for <xen-devel@lists.xenproject.org>; Tue, 01 Jul 2025 23:32:41 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-23acb2e3badsm124699255ad.21.2025.07.01.23.08.10
+ d9443c01a7336-23acb39b900sm128316685ad.93.2025.07.01.23.32.31
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 01 Jul 2025 23:08:18 -0700 (PDT)
+ Tue, 01 Jul 2025 23:32:40 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,45 +45,45 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f3b7cf19-570a-11f0-b894-0df219b8e170
+X-Inumbo-ID: 5ac8261e-570e-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1751436499; x=1752041299; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1751437961; x=1752042761; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=4hkd+FfK3Zh/MvmPYynZHAPoxoQw1ydaVp1vM3CM7DU=;
-        b=fTvFr9jUxlSzPUJvrfUiGCiWz49L6d//tGsB4cgyzsusgVHeYiilRLgD/scMlMneTs
-         MQaaNtW3dRGIzrJqBCuKzjfdFZwi6SZGpj9uivRdzp+j9vnG/Md3NpNiWOoqDnS2+om5
-         lGPMSalcgT8mcevXaC35/OgX2fHyJZfj2WSqI9PPWvYRMmqzEVMnR6XSqTahT4qk15sr
-         Pgcz1IbPDN0lLR4yH/St9jrcVaW5kbtEOEoWRnKAxIWz7yFvAZXRuLH7BXZ5Y0BiVRB3
-         Q0oBs7K9jFqch+mno4o28Vn9BOTr5/0R1I6vMO3gEh0G2zIuZXWCozEFzWGhDzb8PcuY
-         tejw==
+        bh=PL4hYq+wBOgNLnUs3BaPdKT/vv7p218vvRzRbnfnEoU=;
+        b=QL4P3NbFOf3iouYFxLRAEr5E4Q5n3iITuQSECPPe2mzv9qLkDhCn8gPYXnsc+AhGKM
+         FEu2DhYd47d//y0CGa7UcyNwZcBNjwqr5YAZXyHj/BSXU+hAyKB+ul488Be8HXrC/bvk
+         PvtTrxy1lzmwJq2yYozN3Rey4jfyzUMYiqm1WnQ9T5/395UOQbJadNvWVpuSWyLVntmi
+         hJtEX2TlYWVbsL01B6JB96kV6fQWjjmG8YkEDrFbCWZSr+1owuvw7h36w92lYbmolG7z
+         cF/yiagrJTuOn2OX4YMDQnKTWGUOEFKFPrkNLWes64hN9Bbl7d9MotyDJH/h/iUYuITf
+         tyyg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1751436499; x=1752041299;
+        d=1e100.net; s=20230601; t=1751437961; x=1752042761;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=4hkd+FfK3Zh/MvmPYynZHAPoxoQw1ydaVp1vM3CM7DU=;
-        b=CP5zfKFw4e7SzIrM2Fk16UIdfXL9cynR38vJqwzkVAxTvay4xQhZQ4ZTNN2rw+ixPD
-         vpk+9H38KCUq+YHzAB+6ES9Uwa3eyqexLxYoaKvoJTSHZtxoMPdXZynapatyMHsR9d9b
-         7//iH8hEC9MeF3euqzAPyVeZ5uEJgdF4kOSA+RMYxt4kP2T+3lbCUDqkwvY8eHn694vg
-         nAvM6wpd5hv+iYgeY9f+gw/KF5yD22Cd5Pdb19XnJrwddBcvacwmLM3Y56r3GRrCfWw2
-         mzzhhapVAqrsGX61MGoCPS5x2ElMeadyN3D6749TIkVt/0skwn2ysJqnFWVeuXTy5Kid
-         Wsaw==
-X-Gm-Message-State: AOJu0YxHym+ZjBU0ZnI6XvmElqn5JXgUrZJxkHlEft+YPjFEmjMX63WW
-	0NND2JQuyBO9qKSTNWeo2XGx4bVx23IHJGYXm1TrAYggsY5HAmvLTIHAK2M4k+AnWA==
-X-Gm-Gg: ASbGnctl46LNfqxojrNUK4e0I/PM0uHGTv8OKXLTiINej/cyfFGwhrtKqgqRQUhXIi3
-	KaHfq4w9mhjm4tWyQlp/QuvqCXoBEvV0DuRq9HeD2wYfA9dcTP618qdTGjA6JK0rhPx5hNglXDz
-	2KtJKSxQmuUcz7ifOhFKc9OuLbXyzsCgpKlwKsj4AInPokvqtsTtJuLkFqBoz2lt76QheEB5KwI
-	RyBvDpHy2Ra8DRLYwNpttmyC5d/xpV/BAuLDfopNov7ai+wTetTm3YHGQdPcCWRcFHxQlZGTQaC
-	/HIoRxp7czrUkgVCR5DJ7GhfEkeAGaSvZcQOfWfyzqhgy603AL+e+Zq8YmgKmU7uyq1Owh8q6Hb
-	XGOyYninE53U9VY2deszjEI5AnFgsXfqh5i8L/FMEppWVD+g=
-X-Google-Smtp-Source: AGHT+IH+lkzKuV7dymIp75U+XrEwvVShFgZk9ofvKQb07dlrH42CVl75l+8pgTfJwR5C4Ceu9/9NKw==
-X-Received: by 2002:a05:6000:4211:b0:3a5:8977:e0fd with SMTP id ffacd0b85a97d-3b1f2b7bc7emr935856f8f.0.1751436499326;
-        Tue, 01 Jul 2025 23:08:19 -0700 (PDT)
-Message-ID: <86f06cf4-b3f1-43ab-94ee-7630b2564b65@suse.com>
-Date: Wed, 2 Jul 2025 08:08:05 +0200
+        bh=PL4hYq+wBOgNLnUs3BaPdKT/vv7p218vvRzRbnfnEoU=;
+        b=dtTO1W9nEiHEWrMOhnXWXCfmQPqO2gz/QFOCitHWCS4OdRsEfPb1UXgYMhuXOE21F9
+         j865e8NPzIFV9jylj6GwIElZMam8YmGHqEfyD9zLwQR3gNtGwZzUABZnQ2xS6eOcunvs
+         AZxJTDC+0JdlhYdMeyuXkO6somL/HtaNpVgeLEGRyYI0VU02a99sv25KrH+vKq5i/h5S
+         VIXU9WplUMEB55bGWuQgsluRMXO4A9vZ+hUo2KY4SHgyCCFkpmgS25PumCwaPlG1Fw8p
+         k7O0GLZ4La8+EDazg40qaaxd2rniBlGB58nUORJ4+11lUkibUZSw26MG7JajtHtmdzQs
+         mh0A==
+X-Gm-Message-State: AOJu0YyVwm+Tlrdy9H09AKjNp1VDOtdUTnySlilhh5NyuSSwRQ4PvcrN
+	u/QSplPMKiH9Fj5tV5kco94aizcM5nwaziVTx5sk8y/VxvTTp0XkPKniG6Cx/jOEEw==
+X-Gm-Gg: ASbGncuIvnftGvVY9RrNa5l/3preR54OS55l3qdj9ukVY9IWnwD1nzbmT79RdyC8En1
+	/2/YWevP8fQSiMQa793ctN++u0ksgJXaL1jIkOVr5OK+28x1nRRd0ee1ESg6YO1sMFujGRKO5aG
+	T7rlvFhDp5Sw3p7oZdgMTzcRLDzIqwDUGonSB2XrE/jH6pSp/oW9W71Km3JVkToF1Xn99jTlYTY
+	s5724uP0nLrbcFQN3WYecO2nmqWxXT40EfLvSufjYEgtOye68VWNcgHK4Cg0+oXL8YzHdnW1xto
+	IakT2j8Db1xYoBL/jXsIvBmWUput8IQVjoh7xbPtHdPNJnljqwGp2lgZjyjmMUQ5ydaGG5ZNqXM
+	ACJcsR/IjnoTgjw+GaJjrTJpuwJbvkLSDPXLsPYLvNL+GmaYTj0rvqC9DWA==
+X-Google-Smtp-Source: AGHT+IECC+SSarKoX1YXCKTtAUQYr5/OgczUt+kasILSBiRsglVPMrbcgwjiIF2QlwQ8kdNivhrl5g==
+X-Received: by 2002:a05:6000:250c:b0:3a6:f2c1:5191 with SMTP id ffacd0b85a97d-3b1fdc2222emr1045689f8f.4.1751437960619;
+        Tue, 01 Jul 2025 23:32:40 -0700 (PDT)
+Message-ID: <ed896b87-1d21-4315-917e-343e3f0b519e@suse.com>
+Date: Wed, 2 Jul 2025 08:32:27 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v2 0/8] pdx: introduce a new compression algorithm
@@ -141,9 +141,7 @@ On 01.07.2025 22:46, Stefano Stabellini wrote:
 >> mfn_to_pdx(0x50000000) is.
 >  
 > Full logs here, and debug patch in attachment.
-
-Interesting. Up to ...
-
+> 
 > (XEN) Checking for initrd in /chosen
 > (XEN) RAM: 0000000000000000 - 000000007fffffff
 > (XEN) RAM: 0000000800000000 - 000000087fffffff
@@ -180,39 +178,15 @@ Interesting. Up to ...
 > (XEN) [00000006bfcf1768] DEBUG init_pdx 294 start=60000000000 end=60080000000
 > (XEN) [00000006bfd015a4] DEBUG init_pdx 294 start=70000000000 end=70080000000
 > (XEN) [00000006bfd1444f] DEBUG setup_mm 252
-> (XEN) [00000006bfd3dc6f] DEBUG setup_mm 273 start=0 size=80000000 ram_end=80000000 directmap_base_pdx=0
-> (XEN) [00000006bfd5616e] DEBUG setup_directmap_mappings 229 base_mfn=0 nr_mfns=80000 directmap_base_pdx=0 mfn_to_pdx=0
-> (XEN) [00000006bfd7d38a] DEBUG setup_directmap_mappings 237 base_mfn=0 nr_mfns=80000 directmap_base_pdx=0
-> (XEN) [00000006bfd92728] DEBUG setup_mm 273 start=800000000 size=80000000 ram_end=880000000 directmap_base_pdx=0
-> (XEN) [00000006bfdaba3b] DEBUG setup_directmap_mappings 229 base_mfn=800000 nr_mfns=80000 directmap_base_pdx=0 mfn_to_pdx=800000
-> (XEN) [00000006bfdcd79c] DEBUG setup_directmap_mappings 237 base_mfn=800000 nr_mfns=80000 directmap_base_pdx=0
-> (XEN) [00000006bfde4d82] DEBUG setup_mm 273 start=50000000000 size=80000000 ram_end=50080000000 directmap_base_pdx=0
-> (XEN) [00000006bfdfaef0] DEBUG setup_directmap_mappings 229 base_mfn=50000000 nr_mfns=80000 directmap_base_pdx=0 mfn_to_pdx=50000000
-> (XEN) [00000006bfe35249] Assertion '(mfn_to_pdx(maddr_to_mfn(ma)) - directmap_base_pdx) < (DIRECTMAP_SIZE >> PAGE_SHIFT)' failed at ./arch/arm/include/asm/mmu/mm.h:72
 
-... here there's no sign of PDX compression actually being set up; all that's
-there are the init_pdx() messages. Do you perhaps have an ordering problem on
-Arm? The register values ...
-
-> (XEN) [00000006bfe68507] ----[ Xen-4.21-unstable  arm64  debug=y  Not tainted ]----
-> (XEN) [00000006bfe766bf] CPU:    0
-> (XEN) [00000006bfe832e0] PC:     00000a00002da70c setup_mm+0x284/0x308
-> (XEN) [00000006bfea5b1a] LR:     00000a00002da6b0
-> (XEN) [00000006bfeb1032] SP:     00000a0000327e00
-> (XEN) [00000006bfebf403] CPSR:   00000000200003c9 MODE:64-bit EL2h (Hypervisor, handler)
-> (XEN) [00000006bfed4634]      X0: 0000000000000017  X1: 0000000000000000  X2: 0000000050000000
-> (XEN) [00000006bfee4d11]      X3: 000000004fffffff  X4: 0000000000000020  X5: 0000000000000000
-> (XEN) [00000006bfef48cf]      X6: 0000000000000000  X7: 0000000000000000  X8: ffffffffffffffff
-> (XEN) [00000006bff047ac]      X9: fefefefefefeff09 X10: 0000000000000080 X11: 0101010101010101
-> (XEN) [00000006bff153b4]     X12: 0000000000000008 X13: 0000000000000009 X14: 0000000000000030
-> (XEN) [00000006bff2620d]     X15: 00000a0000a00000 X16: 00000a0000291478 X17: 0000000000000000
-> (XEN) [00000006bff35c41]     X18: 000000007be9bbe0 X19: 00000a0000292c40 X20: 00000a00002ade68
-> (XEN) [00000006bff465a5]     X21: 0000050080000000 X22: 0000000000000000 X23: 0000000180000000
-> (XEN) [00000006bff57a51]     X24: 0000000000000002 X25: 00000a0000292c50 X26: 0000000050000000
-> (XEN) [00000006bff67d91]     X27: 0000000000080000 X28: 0000050000000000  FP: 00000a0000327e00
-
-... also suggest (x2, x3, and x26 in particular) that offsets are still all
-zero, i.e. PDX == MFN. And aiui DIRECTMAP_SIZE is 5Tb.
+This one is immediately after init_pdx(), i.e. by here the log messages from
+Roger's patch (out of pfn_pdx_compression_setup()) should have appeared.
+Which at least falsifies my earlier suspicion about there being an ordering
+issue. You do have PDX_OFFSET_COMPRESSION=y in your .config, don't you? Are
+we perhaps taking the only "return false" path in pfn_offset_sanitize_ranges()
+that doesn't issue a log message? I can't see how we could plausibly take the
+"Avoid compression if there's no gain" path in pfn_pdx_compression_setup()
+itself.
 
 Jan
 
