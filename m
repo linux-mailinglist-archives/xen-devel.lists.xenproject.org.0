@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F409AF5B92
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Jul 2025 16:49:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1031304.1405113 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F78DAF5B98
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Jul 2025 16:50:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1031310.1405124 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uWylW-0003fa-GN; Wed, 02 Jul 2025 14:48:50 +0000
+	id 1uWymv-00058Q-RI; Wed, 02 Jul 2025 14:50:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1031304.1405113; Wed, 02 Jul 2025 14:48:50 +0000
+Received: by outflank-mailman (output) from mailman id 1031310.1405124; Wed, 02 Jul 2025 14:50:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uWylW-0003d5-Dc; Wed, 02 Jul 2025 14:48:50 +0000
-Received: by outflank-mailman (input) for mailman id 1031304;
- Wed, 02 Jul 2025 14:48:49 +0000
+	id 1uWymv-00056A-Nu; Wed, 02 Jul 2025 14:50:17 +0000
+Received: by outflank-mailman (input) for mailman id 1031310;
+ Wed, 02 Jul 2025 14:50:16 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=FQsZ=ZP=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uWylV-0003cz-3b
- for xen-devel@lists.xenproject.org; Wed, 02 Jul 2025 14:48:49 +0000
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
- [2a00:1450:4864:20::429])
+ id 1uWymu-00055z-IE
+ for xen-devel@lists.xenproject.org; Wed, 02 Jul 2025 14:50:16 +0000
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [2a00:1450:4864:20::430])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a88abf5f-5753-11f0-b894-0df219b8e170;
- Wed, 02 Jul 2025 16:48:47 +0200 (CEST)
-Received: by mail-wr1-x429.google.com with SMTP id
- ffacd0b85a97d-3a54690d369so4304540f8f.3
- for <xen-devel@lists.xenproject.org>; Wed, 02 Jul 2025 07:48:47 -0700 (PDT)
+ id dcb24f87-5753-11f0-b894-0df219b8e170;
+ Wed, 02 Jul 2025 16:50:14 +0200 (CEST)
+Received: by mail-wr1-x430.google.com with SMTP id
+ ffacd0b85a97d-3a6d1369d4eso3860912f8f.2
+ for <xen-devel@lists.xenproject.org>; Wed, 02 Jul 2025 07:50:14 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-74af57ef308sm13997115b3a.157.2025.07.02.07.48.42
+ 41be03b00d2f7-b3642e9dcacsm1225221a12.12.2025.07.02.07.50.10
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 02 Jul 2025 07:48:46 -0700 (PDT)
+ Wed, 02 Jul 2025 07:50:13 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a88abf5f-5753-11f0-b894-0df219b8e170
+X-Inumbo-ID: dcb24f87-5753-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1751467726; x=1752072526; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1751467814; x=1752072614; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=QQB/OHREVzvtpJFICtpfsNwoYlc6kMw6amjExJgLHVM=;
-        b=JUrC0iLARo7zpT48xy1rGdwoTGyopc1UlctquO/jsCVJRYHTMAoWHsnTsnDIpNe+r+
-         EJq2vqocEcL/g5nJ9Zqj+YVG009vYIT/rVOs+oq3WfUKISFGy98HeC6CH6MmPUN44eGi
-         vnMYNQy8/Wz1DAjFCq7PG96btG37ZeVeIswIM7fZW2tiiA7ZqO+YBEwvflq3QGIzNKjw
-         1PvZWuFmjXbvMoav+Kl7RjkZOH43qOvQFvkmMF9pbLnV1DAAO9JSJiMbpEvlvKkdZRSc
-         j6Vv/LbceXwZkX6CG4UY2+/a+QfAiAONBgWJCve3zB1jcWkWrivFUHqS+wI2ltv1ToFW
-         SHvg==
+        bh=SIrGmeqdmHuDK4RnNUr2bJEzDpTjTb03+vFgjJwH/0M=;
+        b=dQCX/xDpiA301BxAAOadxcOdGkBl6Svk1ue6vRXgqPDapx8+IM2Ixr7A87mfmw47Wr
+         /eqopcicpP2lNvQNmlZjpIsFLVF5bYuiUP/f8QBwmYrMNsfZrkaw0ErTvYRgcjArf5pX
+         6CPkj+n0vEqDLJsf4qWDqYYBofDHHzsd+7iOQFWbReFEtebrC0XTYcX6QA2ImxFTLz7J
+         CTo91OpSKFVgMVhZnid/FaBiKjVTLIyR98xZVG7xqwon99azbnz++mYMymzaN7CeqXq8
+         cWcSECmytg2nTGJ/0oSuJ4HKTdPhiOOrLOld/dw/1Z/s+i8o6NHhOwB22uKeda08h3aP
+         d/NQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1751467726; x=1752072526;
+        d=1e100.net; s=20230601; t=1751467814; x=1752072614;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=QQB/OHREVzvtpJFICtpfsNwoYlc6kMw6amjExJgLHVM=;
-        b=hZhVn5HuYiiLoY1DmAtXDyX2Molm4fbktuGefigxL/CqpY8AUp8AKXGQLLi9aKkpW0
-         o36k7IxjwjLDbYOTdgc5O9m5jIH2/E0s166ptCvEoyW9Dgi6vy+YVo7E6h8jgXuS+ooP
-         X+hNkhXvYsJTDjP7OsVUbA2qrQuVf22DT8d4ZG+VU64s8Lg8Y+wLD4tYTiimUobjM5/Y
-         8sRC/1CcT/MPNarojvncqoIxVML3AMSEB2fQYfuoX331b0x5yNkVJ5m4q5wi3PadMI2D
-         /Ef6cfef47zqtA1PHQp9umrvkshaR47tBoYEzm0c1dW5CUGnnX1tkJoIr8idIKggiSA8
-         0Xjw==
-X-Forwarded-Encrypted: i=1; AJvYcCX3G4de313k3t4gTwza4mAXcC5Hf6o/8DhqxIEl8/ckTMsUsMurPMrbmcwg9COIpE71vzAOxwJRDcY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yygtk6/kCbbjc7Yx1QHrSA/zbmuNuVNeDSFACWTfX2ua6289V+l
-	qyJYOqiK0qiYxgV9/NIN6xbpKo+Ik/MuLKJqzrbMTmQr781QwkH+SgHxXFZQidpENg==
-X-Gm-Gg: ASbGnct2E73KCbnpow2TlxfpVbx1eNwg/CIka3ZsYXGK2kF9y03epz3S6ebaWG4Dezb
-	mXgdE6w78DWCvkO1lEYWe+GJ2ha9262a+95x+fo+Uo4/DuJmH20SjYc3uKqewAtVH2fpHZbdq6j
-	4UIOGdFKdDyf3p6wKp2e49yG40C+ZhOJ5v5M5v0/6/WU0bMmB7vNl+BVQwNXkccJF6dUPM6lsHs
-	lcrJg0qx8i7RN4FHIjUfsaf0D32u3KTXRmwMiD2YkDxThnTh03bJfHheEe+E+kmkbBdhtR9IiXa
-	gs1OEjQJUPM40czEfMd+kFhj89X6APuSwasG1EAGxCMHXlRLMDjYXKl8DTjaVf7u2BsPD4v5QrH
-	+v9UgrQuD4kGskCNGLGnpTBdJqd2tavCZV+f1dscGwRoTJQs=
-X-Google-Smtp-Source: AGHT+IHLajMJWPbBmRDEGIrvVvzctFQkGuezxYrrQxti29yZGa4qRHpjAswV4C/3JueLDSenzs0Waw==
-X-Received: by 2002:a05:6000:41dc:b0:3a8:6262:6ef5 with SMTP id ffacd0b85a97d-3b1fdc20d30mr2598691f8f.10.1751467726491;
-        Wed, 02 Jul 2025 07:48:46 -0700 (PDT)
-Message-ID: <ebdd128d-971b-4aed-b2be-af114bd9ea14@suse.com>
-Date: Wed, 2 Jul 2025 16:48:38 +0200
+        bh=SIrGmeqdmHuDK4RnNUr2bJEzDpTjTb03+vFgjJwH/0M=;
+        b=D693UF4vapUOAdNLZemBOWe7rK+wvNS8lupT6jYt4obcdc0yhMvtAvb6we3dIbaQYF
+         2fWlns7G05iEYQxLsY2tlaf4UP+eRcHVUv/TkG+XjqfIjvRj/BueWI45wYrqPq1tdSJL
+         NZGuxqi1wRB0O6udRE0lZOGHmlIjwC9GkWrWJKt1X4yhW3Tl/7RWMT4mmLdmo2JcSeDB
+         oEJHCLJJ2y7JcJQFj/Spk9WNpdvfFv7AeeibPrZwyhcDKYt7OxVsDBvc6WGLdaIiIB8S
+         uBWqg7gmNJbaw32nSX0YTfYydS1WKhrfP+QYcjJGyF2MnRWMvolMhpFgET7PvQBS2xme
+         Zd+w==
+X-Forwarded-Encrypted: i=1; AJvYcCXXmp81ET3LwkzwDEagRVxa2Ax6VBpdBoSHvaBMEtjAIP+wn+9INO5umFAXIQc4XpmnHYF47AsU8/o=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyUZE9JQ8aMvFkZ1fMOPWM//kEUO4U2AIMBrgri+wBFcmPWVCnw
+	Qp0BTpNj3LTe5FTKXsxRB5L5rWu2PcZ0OfyHiz6LdQIO8sJBUH81m7v0J66iSrfKhQ==
+X-Gm-Gg: ASbGncvaVg4AsQ50jLgdH8S6FDmOh9bPdwshrmaLPugwXyTApOTHgUMmesQ4Gwhyk8y
+	1UvI4lkeuKR4TvlZqw1pIo+5pKPti6iGdjZgXJbZMJDKAF4PJesH5CucaG2jJB+Clb7lrWWE5H0
+	i367eT1OSXVzTOUvjzPiExD5bO72rdBJSk/12gn3yqrM5HDtEGnXM8ERXmVzpOpGFJVjtkqHD3p
+	ofs0TmVunpHAPwHyR2zZHXwcYT3aIPaNIV20UGtII0Xf5nOBiW4nvYwqYxRAZRpQdM/MobcoTRf
+	rmFnANDnsb4t91n4YB5sfOUMlymZI/7FvP8VImlueHQZ7coWR41qkQ3dw1V6E+KhnaRYITE5iLs
+	nGnbb7ysu5eNeW6qUMSP7NIIeISYVY60xsdJtlPjsMT2ThC8=
+X-Google-Smtp-Source: AGHT+IHNuslZ8sifL18vgvKe886EWTU1qYcgcQmt/XBdf5K02NnnnxmtV2IggiUxcvQiS+0v66/jrQ==
+X-Received: by 2002:a05:6000:1887:b0:3a5:2d42:aa25 with SMTP id ffacd0b85a97d-3b20110b277mr2318975f8f.50.1751467814028;
+        Wed, 02 Jul 2025 07:50:14 -0700 (PDT)
+Message-ID: <22ff462d-11e7-42ea-806b-7a521ce67417@suse.com>
+Date: Wed, 2 Jul 2025 16:50:05 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 17/22] x86/acpi: disallow S3 on Secure Launch boot
+Subject: Re: [PATCH v3 12/22] x86/hvm: check for VMX in SMX if Slaunch is
+ active
 To: Sergii Dmytruk <sergii.dmytruk@3mdeb.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  trenchboot-devel@googlegroups.com, xen-devel@lists.xenproject.org
 References: <cover.1748611041.git.sergii.dmytruk@3mdeb.com>
- <ddf81a75f5afc404a3e52d4de5a25bae6b7801f8.1748611041.git.sergii.dmytruk@3mdeb.com>
+ <25de2a5ba43629cca33b96d20c77f19d64096242.1748611041.git.sergii.dmytruk@3mdeb.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -119,23 +120,20 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ddf81a75f5afc404a3e52d4de5a25bae6b7801f8.1748611041.git.sergii.dmytruk@3mdeb.com>
+In-Reply-To: <25de2a5ba43629cca33b96d20c77f19d64096242.1748611041.git.sergii.dmytruk@3mdeb.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
 On 30.05.2025 15:17, Sergii Dmytruk wrote:
-> @@ -356,6 +357,13 @@ int acpi_enter_sleep(const struct xenpf_enter_acpi_sleep *sleep)
->             PAGE_SIZE - acpi_sinfo.vector_width / 8)) )
->          return -EOPNOTSUPP;
->  
-> +    /* Secure Launch won't initiate DRTM on S3 resume, so abort S3 suspend. */
-> +    if ( sleep->sleep_state == ACPI_STATE_S3 && slaunch_active )
-> +    {
-> +        printk(XENLOG_INFO "SLAUNCH: refusing switching into ACPI S3 state.\n");
-> +        return -EPERM;
+> From: Michał Żygowski <michal.zygowski@3mdeb.com>
+> 
+> Check whther IA32_FEATURE_CONTROL has the proper bits enabled to run
+> VMX in SMX when slaunch is active.
+> 
+> Signed-off-by: Michał Żygowski <michal.zygowski@3mdeb.com>
 
-Not sure about the error code here: Generally we prefer to limit EPERM to
-what XSM has to say. Could I talk you into using e.g. EACCES instead?
+Apart from this lacking your own S-o-b:
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
 Jan
 
