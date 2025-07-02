@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B1E7AF0C3D
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Jul 2025 09:10:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1030263.1403941 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5CFC9AF0C4C
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Jul 2025 09:16:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1030309.1403961 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uWrbk-0001ih-R6; Wed, 02 Jul 2025 07:10:16 +0000
+	id 1uWrhC-000593-QD; Wed, 02 Jul 2025 07:15:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1030263.1403941; Wed, 02 Jul 2025 07:10:16 +0000
+Received: by outflank-mailman (output) from mailman id 1030309.1403961; Wed, 02 Jul 2025 07:15:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uWrbk-0001fD-Jx; Wed, 02 Jul 2025 07:10:16 +0000
-Received: by outflank-mailman (input) for mailman id 1030263;
- Wed, 02 Jul 2025 07:10:15 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=0hFQ=ZP=epam.com=Mykyta_Poturai@srs-se1.protection.inumbo.net>)
- id 1uWrbi-0000Dm-Sp
- for xen-devel@lists.xenproject.org; Wed, 02 Jul 2025 07:10:14 +0000
-Received: from AS8PR03CU001.outbound.protection.outlook.com
- (mail-westeuropeazlp170120005.outbound.protection.outlook.com
- [2a01:111:f403:c201::5])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 98374b6f-5713-11f0-a313-13f23c93f187;
- Wed, 02 Jul 2025 09:10:11 +0200 (CEST)
-Received: from AS2PR03MB10110.eurprd03.prod.outlook.com
- (2603:10a6:20b:57a::22) by PR3PR03MB6651.eurprd03.prod.outlook.com
- (2603:10a6:102:78::22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8901.20; Wed, 2 Jul
- 2025 07:10:04 +0000
-Received: from AS2PR03MB10110.eurprd03.prod.outlook.com
- ([fe80::52f0:1815:60c9:8873]) by AS2PR03MB10110.eurprd03.prod.outlook.com
- ([fe80::52f0:1815:60c9:8873%5]) with mapi id 15.20.8901.018; Wed, 2 Jul 2025
- 07:10:04 +0000
+	id 1uWrhC-00056G-Mk; Wed, 02 Jul 2025 07:15:54 +0000
+Received: by outflank-mailman (input) for mailman id 1030309;
+ Wed, 02 Jul 2025 07:15:53 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=FQsZ=ZP=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uWrhB-00056A-RX
+ for xen-devel@lists.xenproject.org; Wed, 02 Jul 2025 07:15:53 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 622ee018-5714-11f0-b894-0df219b8e170;
+ Wed, 02 Jul 2025 09:15:50 +0200 (CEST)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-453749af004so35161955e9.1
+ for <xen-devel@lists.xenproject.org>; Wed, 02 Jul 2025 00:15:50 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-23c70c4086csm5430035ad.216.2025.07.02.00.15.45
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 02 Jul 2025 00:15:49 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,267 +45,231 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 98374b6f-5713-11f0-a313-13f23c93f187
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=K1H//fzjmbuyn7mhC13Qy9SEkZQkj5Ow2/0ULQHF8B+LGLrl9uyrSadcCOAa5NIMLQ4PtBGwCSAVGVSLVIuudTC9LgWkfd63A2K8yhdN1bYxla3QeHH+hAeDqRQSHTpi+O3LYkIsS8XOBLrwV4OrmtxkOCKRHBcf/tf1mC/YGBooBtyp3/THddqBAe6aFfdeq1YMMZlyLCc3aNRbdnPW+1OeXFPllra9J5Wen2Ogb8TWjU4xkiS7J6sTpgen3Oee1Q1bSZ45JbwxNJgmEa2rxWjaXJVy+485HzU5w9/ZlWq+n/CxIHo4WRwGub+EL3b4hw0z0Bz3FQjTQN2Wly6v7w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=T0Qta02KU2i5eR6LOiPYT0O0sxIAYJlAJ/hF7D7pSQI=;
- b=pRlLaX7nxYzvyb/bIQQ0039YKrLPNo+DpzWpe1kNrNCdY5HC0MtKqTnbCJMRN+56nBrAeOjG+D7ixCBLy5TYENnaST+arVYN5k09LpGj0sAMmYWBBtHBmFIy3UP/8Css9g8agxyl+0Gg7yPLM1aXs5VxaPl2bzbhf/FX5zYHUoRU9rcbThFIIwWbr3bwhhO0hUI5y3PiOE/1H3bOxrApCTLJQhDoal00b9lKGtobmp4YWE/B7PdyrEHx5rc57aN1Lq4pYdTTO7+d1Nb6XQwhY5gAMALCEbE1WZeQmsXdTJ3UiNH1PsxBM0U5l59814Qcqm4TO2gDdheZycWyeLudaQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=T0Qta02KU2i5eR6LOiPYT0O0sxIAYJlAJ/hF7D7pSQI=;
- b=owUFpDV77j42qehQKPe8nRtTBI8yBYnb6mW5/D7Gx/mZTtIJ2NwcwHVLtMTWsDCfBEBhRW7GQERue3GHUR6SJFYtjZONzPB2AlThJdlKkKN9wY2BuF1I28PWTKfceiCxLodCfWelY4cc1S5uEO8GyJWfNaGg8BqIOSA6TXJLGT/bxa47wrhI+Y54/ES/zF9viG95+uJyhFIMQ1XRHDquJE+1XQSBa62cU18zVnG+et2cPfbn7KAzH/y9ZAt3HjgYR0UX/iggau7nXeJZGLIUTfDIxFCluv9DPW60f+LEXDJ6LzS4inRgExP20ezxBd5LaniDII3ZhDRHgBZrh2iNKg==
-From: Mykyta Poturai <Mykyta_Poturai@epam.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-CC: Rahul Singh <rahul.singh@arm.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
-	<bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, Volodymyr
- Babchuk <Volodymyr_Babchuk@epam.com>, Stewart Hildebrand
-	<stewart.hildebrand@amd.com>, Mykyta Poturai <Mykyta_Poturai@epam.com>
-Subject: [PATCH v12 7/7] xen/arm: Map ITS doorbell register to IOMMU page
- tables
-Thread-Topic: [PATCH v12 7/7] xen/arm: Map ITS doorbell register to IOMMU page
- tables
-Thread-Index: AQHb6yBUo/4pCLPsgkWKLD7C6qkH7g==
-Date: Wed, 2 Jul 2025 07:10:03 +0000
-Message-ID:
- <fbd4d4f46f07ef3a855cd9bd806eceb04a1b6c69.1751439885.git.mykyta_poturai@epam.com>
-References: <cover.1751439885.git.mykyta_poturai@epam.com>
-In-Reply-To: <cover.1751439885.git.mykyta_poturai@epam.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=epam.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: AS2PR03MB10110:EE_|PR3PR03MB6651:EE_
-x-ms-office365-filtering-correlation-id: 0c3f2554-32c2-42b0-28d2-08ddb93777f9
-x-ld-processed: b41b72d0-4e9f-4c26-8a69-f949f367c91d,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|1800799024|366016|376014|38070700018;
-x-microsoft-antispam-message-info:
- =?iso-8859-1?Q?tFFmvTU5mXcoFqj6dIufLYkPsMqheWzRJfD6ezQ2VGRpYDwyqfA7OBEary?=
- =?iso-8859-1?Q?YC3RhYxl9mArhzkY2iO8foRRXEKCeT/NafdIuO8hbdI9dtQYmnIkcV/svZ?=
- =?iso-8859-1?Q?tW0aoe4sg/DURjfQiuQVr8ig0oV/ObTja3VMbbcIXei5+ppF0BvLsQuSUM?=
- =?iso-8859-1?Q?RIkkd/8BP6GiHJLif6jHY0d4ZysCkgUyrLZjNuFcKfxSDlRSPoK0Mx/L7R?=
- =?iso-8859-1?Q?3oFaNGp4mE/9lLcvxVIiAgyr57DkWVVq57NvMO1JVm+F4dxIe1oczC1Tc8?=
- =?iso-8859-1?Q?14enueP7a/nlefIAdW6E1oF4xgo3hgZCayeWzk5mEiglXVHYd9ZV6Pe7QD?=
- =?iso-8859-1?Q?0VU1jlHOVaf0h5B0ij25lUkDwulr6o/euBsx2VF6+u8LC+7buEbP3tsBv5?=
- =?iso-8859-1?Q?tlHB2NkMUMCIjKxOCuGrPA7HiPL4Ak90Wt+/oiRHqK8kf5dwgYOLENTSrY?=
- =?iso-8859-1?Q?8GZtGit8s7Uch22k8vA6cMHEtMZuSCJBPGdyju9cXMzZLAMt4dzQTFbtUb?=
- =?iso-8859-1?Q?4wzZBkItDpHSmvTDVbA0e7FeIRv1Jgitogy6rf91UlhGEFhkGSDXZrGJAK?=
- =?iso-8859-1?Q?wsAedV4JdTH/zLjB6nQIvDG/Lq2idnRFS4T8ZSWP1jIEECvpDM1PBqaAIX?=
- =?iso-8859-1?Q?xkK9P0xhzNtIdZvcklb2OFlfO5an02kJQMJ5V0bYDPJeTXQmUKflrGtwNK?=
- =?iso-8859-1?Q?xERFVUzrJBfT7FbNHzEu2LTOvvsPlm9aP0Y7dxKW4F5n36Kx6xXqWdQXha?=
- =?iso-8859-1?Q?BLpTscyLH0X9A2SUwwPyLv2egTcZ3Tsm1soDGVAjOg7+VqNhzlYBRDkYf1?=
- =?iso-8859-1?Q?264lqbHNshTLYMP00NBUxP4El7q9m6yA7BOcYABupy1vOy2ezfSd9OHhVy?=
- =?iso-8859-1?Q?TZb3p6nwFkpkstKkIm3qRblDhJUSUnjr7jOGONVhLb/06VGwXu86f4xpOy?=
- =?iso-8859-1?Q?EhVbzzymAoWXbn27vI7v2UwZwLER9nyJ6VRhzu7mziNmf265eTMXe0aCth?=
- =?iso-8859-1?Q?umid/F3gOjB71+FYcguOGaZv0VpKyaQXo6HmxdLCfTiykaUw2gOtbaaPXi?=
- =?iso-8859-1?Q?udITkNHfZ6kHhG50HuwCe4VfExiXRxsR+qX/hpa8lw/80jMhaNRDg4bFvK?=
- =?iso-8859-1?Q?5OrqVQXGpS9bUQeQOhTUrRDMmZENltOvn+NGDuO6BjyPyex0an5oxRSduh?=
- =?iso-8859-1?Q?/maHgdz3W4wcAP17ZtbbsFrHelPM7W9ft/gnuQRrEe8n2Hz8TvI5TvOnln?=
- =?iso-8859-1?Q?a2iBejNMpmKN85e9Rbg2vdgdYsZZ2ueMrFMywjatO1F5lX+obKIoROMNwF?=
- =?iso-8859-1?Q?ldJRvVVsWhPakmAMN+i3z9zlqhlWRnqRsAhSNxGQ1Bg4Gs/Ud87hW4CzUq?=
- =?iso-8859-1?Q?tFrxmDNulM1vg6ZRoNcFqus+4Y57ufIn+v0AgI4aCQ/2dcM4jDSCA46Qoc?=
- =?iso-8859-1?Q?RAWf8ao3JJaPHAxe//SOwvGZBmAGFxBWcXzk8YA4E7oIXoAxYUC/XnOBAr?=
- =?iso-8859-1?Q?s=3D?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS2PR03MB10110.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(38070700018);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?+tc3gGB1TudiHZXyz57+jTmkcCYhzZa+VEoGbyc0+d6lAmBL5nZs2q064r?=
- =?iso-8859-1?Q?rfHRyB6RzrlzuEFnnTfZr7IyLEoW9Pvvp0QQSwA5nUvIGyPVtVcq0KAmEz?=
- =?iso-8859-1?Q?CFwqsjwXPzJG0+gpantCeF9p/QS20YsMXHKyqDkREHit/CvBGnFm9Ky8bD?=
- =?iso-8859-1?Q?iJsgY13BE5ZynykuzoKKvCid4lNtTvhfIHsimrZyFz8s6dHu5VipYhq2y0?=
- =?iso-8859-1?Q?vV12rBjfXNseHNbrj6O9dHo2t56m6hKqhz+P84UUVWiTPDTvvZsuv6j7U4?=
- =?iso-8859-1?Q?3guz7KuFOpivZskdJlrepA03+DTDR8k4qokiHVzplHluAMm9nnYAU83odB?=
- =?iso-8859-1?Q?dnc2vp6LqnrRpPTWmfIsWETOKQhR15lwa7K3AsGozCug/XCwcTmbOCkYWy?=
- =?iso-8859-1?Q?nmNNPckEc1dRa4oKWeRLfVep3VWrzq8YRsMbnNaZiRq5OIT4TVG8hSMbFK?=
- =?iso-8859-1?Q?JsfftjrAvu1/uzN5+uIUkFrr/CnRBbWBCQihkUrazsrMmC4PrhwkOfeFN2?=
- =?iso-8859-1?Q?AwrxKKrFaUnVDC0QLyS/E3c7DAr8wfsntgV80dJuTKjrTwSMITemM55T0U?=
- =?iso-8859-1?Q?U0q4+i3AGzbH71y+fSn1rT5xp2yu+cx6//WribkwwjUkFZlBn4Ah57nZ4H?=
- =?iso-8859-1?Q?RHsSCmiBMn0awdqAaMNOJasjin+SZC8WJ2Napgn4sNk1/64RkyDlGt2cA9?=
- =?iso-8859-1?Q?14ds4xp3XNEjQpFZzNe4At7uMYkT7ybbDtEHmfNZlv0BbCBFYkVAif6Akr?=
- =?iso-8859-1?Q?T+ifFkUR/XMplAa2QMYUWzvbzQOkjGZRW/UpqPcLDwJjll4bJyqvs6S+4J?=
- =?iso-8859-1?Q?ijV/B44oVfrIQVfIO+aMCreO182WhVidlfUCrxpkxU5GppRIsERcnmeWTr?=
- =?iso-8859-1?Q?pSSwVbgdmBgO5tzEa1lbBmQ1C9iqt9Chh7Ng2uIuB+UdYlusntMsYMUk8N?=
- =?iso-8859-1?Q?cPtZdbYlCEMd67s/Ie/RrJZhF6mQWPM+w1RLIRpBby2lVx//DY0A5msv0b?=
- =?iso-8859-1?Q?IpLt72Eu34+Or8k/p7JTMv1x8hgLzGN4rowfVX9H9bJM0t5xzsT9prxd7Z?=
- =?iso-8859-1?Q?tkJsuGjXLNdptfN3dQotyrt4bc4Ta/fndSaR43ohyh/O4525P0hD+VeKal?=
- =?iso-8859-1?Q?mQcVDIt4Z4udPID+zh6uNNjpb0yw9Skl8wkLhF5Hk2OKfrxbGa2mGff3fb?=
- =?iso-8859-1?Q?Ec7BZt6Nnmb5nywpe8sXPQxuCTXCc77RO104aPUPIhqfvLOQuYboJfL6gH?=
- =?iso-8859-1?Q?Gt7chOXvuufggnHt7QyeCAtYj1b6JExt6RwmAfsinWPZrXDYhHHoWBvQJD?=
- =?iso-8859-1?Q?qXhAlaYklpEUhbqjDYMCl6k/oZGWhHfUSpXFXAVYKoLOoDq64u8Je5giFe?=
- =?iso-8859-1?Q?RB9jn194DswCvh0NPJVdmeQV7sVcm5W5nG50J6BWNk/v3/16bCibMX1hZX?=
- =?iso-8859-1?Q?i6JXr00rjseyHW8xgFinYks3TpBbIb73MBqLX3pGfRPXYNrX6avwojT+CR?=
- =?iso-8859-1?Q?rw2x2Nn4td7OpfLIO283hJ1TxWeXvhHgjKl2JeN6ZvI4z6gGqzi2tLxV04?=
- =?iso-8859-1?Q?CO7YAiOPvCxHyVPtn6QrKkHSLwC/Bb1iEyn+xomiswoG1iV5rrKS1x47R3?=
- =?iso-8859-1?Q?F48vMMNIHrlI/WaIfipor49K3uR0lBJR62k4b+Fln9bkv9kJCxP17wQQ?=
- =?iso-8859-1?Q?=3D=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+X-Inumbo-ID: 622ee018-5714-11f0-b894-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1751440550; x=1752045350; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=2KHYvTI8oUUQaNB2RGZY6jPEXYSSgTgp1d8tcIudTo8=;
+        b=JA/g9Nfd8Fy72ZNLrcuQife1MN7Rc6M1gnGVFkkYxu2643ItykjfWmDqoTdVL0yNFE
+         /gV7K+CptOOgbnDloFbiw20zdYMC/FmVcTy7c5YA7stO1qUNsgfICzMgCa24uD8HZ4g2
+         rtMPxWLnHlKwtH4HGgXbWqBIvJowv9C/+7elMoIuXSgCpDn7RkymGpSmApR5MpPn2RUt
+         tyHQN3QviTv4k9ULIy5uwGspBA593wcVBwp2S8SoyNWsRr+go749bROUUozQqpeiMo1q
+         G/YoXGKpuU0vM9dZjyqvbb27s8zLtnqi9cMbRuRvbblxK38Y1wCq8X8oUyDL01J3A7OT
+         /Irg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1751440550; x=1752045350;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=2KHYvTI8oUUQaNB2RGZY6jPEXYSSgTgp1d8tcIudTo8=;
+        b=XjBFKN96Uhc8AKDGlQvXj1E8SONTDoLK4rfvsP75ykuGsB83seHKrlcVTbJxXg8Hpu
+         6ERS2P3qs1dp755cyAx8hEwWQmVm6NUIxxfDW4jD6se0Mj1jKVcSiInXWjnsOR4jhe+i
+         vtTSJZjSjYdLKHFmX/MsfxzMTfNs/uHBsWD/DFOXXuvazErXoCfzBWHs1QSh4RMpkocp
+         4q4a7GzE3yJc1bOVnbmKlAAT36X43/PAO0rcdt+JeMhuvWGRUPw7MD8bgrx9LVRYtH4l
+         1at+fK8M/65L5mZycxfE2E2LRvD7adPS2M3efcYPb22f/t32wCXuXxYQfk5uxkc0FOzl
+         GuMg==
+X-Forwarded-Encrypted: i=1; AJvYcCUX9Uz6EjVqVU1CJ2PVQIJ9Qzorli3zormlJHfgFOiEn3C5ay/LS9aaQoHfuhky6x+2UMZ5PBWeuDg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw3FWzZSd4Ku+iHkFOKuIWUyCQMOHcMq65ldDdNpKbgRVCboHJA
+	ompy+mZjoIRf8kRQnTjBuL8z3dykdXZA6avfFXexuuSL7YfGQwaWaFV5SNcCFEelGDVByHHmSV7
+	Dy7M=
+X-Gm-Gg: ASbGncv+VUOiqr6+dJF7BzIiJ2zKmUjxlHPY5VwmgaTHfW+Rwpl82jtSSjvhWDWJY2R
+	0dVNDaVqr7PXoFab98fe7HmS9yB5CcNQDCNT/jGpXiuoxEtOJJ/3tHg5LunzI+rR4QfWZfeDohW
+	UtJinrsxkwqWrvSrPFwDGwviGtOYisToCCwsvidnS9NS4yFZqdFCzHvlrHTrs7jVIgsCMdECXiL
+	F4qEHFLwlboHEN/RAeDPE89k+CNjdR3em8ayRLnRQeVPEH/7amQw3lK6cEhkKf0TqNsbjmMq3ql
+	9TPbzXLvoGXQEwz1pN+3j9TbLIq5KVL1NuRPxYsaVwYvW8iyJfoLzSbiBPbNl6U3ljlACTB3F5g
+	gWGd5/jw1FN9znznPfvUeGHEqSpZcaKBJbYGhIPZr+K0DME4=
+X-Google-Smtp-Source: AGHT+IFvyKx+5GXO7wEwvrvIKE8BkuweBgx8r8URkFBz2hEkny//JDY3FWOItLfY6TDm9kQY0hN1uA==
+X-Received: by 2002:a05:6000:43d4:20b0:3a4:d722:5278 with SMTP id ffacd0b85a97d-3b20067a807mr700372f8f.39.1751440550128;
+        Wed, 02 Jul 2025 00:15:50 -0700 (PDT)
+Message-ID: <8143b492-6e3a-48bb-b564-52b2623a78f7@suse.com>
+Date: Wed, 2 Jul 2025 09:15:41 +0200
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: AS2PR03MB10110.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0c3f2554-32c2-42b0-28d2-08ddb93777f9
-X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Jul 2025 07:10:03.3850
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Pkl5aUlsWZUDmpQfDQ2r5za29Y8dbiYqabdy+oulWx9X/cjRZMjZcwaxXg+7WYpVLCpJwTrtOOlCq2/iglYgZw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PR3PR03MB6651
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/3] hvmloader: add new SMBIOS tables (7,8,9,26,27,28)
+To: =?UTF-8?Q?Petr_Bene=C5=A1?= <w1benny@gmail.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Anton Belousov <blsvntn@outlook.com>, xen-devel@lists.xenproject.org
+References: <cover.1751412735.git.w1benny@gmail.com>
+ <99e281ad05537d2384eaffe95155a03382493c96.1751412735.git.w1benny@gmail.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <99e281ad05537d2384eaffe95155a03382493c96.1751412735.git.w1benny@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-From: Rahul Singh <rahul.singh@arm.com>
+On 02.07.2025 01:45, Petr Beneš wrote:
+> From: Petr Beneš <w1benny@gmail.com>
 
-When ITS is enabled and PCI devices that are behind an SMMU generate an
-MSI interrupt, SMMU fault will be observed as there is currently no
-mapping in p2m table for the ITS translation register (GITS_TRANSLATER).
+This isn't in line with the first S-o-b, nor with the fact that in the cover
+letter you say this was previously submitted (and hence authored?) by Anton.
 
-A mapping is required in the iommu page tables so that the device can
-generate the MSI interrupt writing to the GITS_TRANSLATER register.
+> SMBIOS tables like 7,8,9,26,27,28 are neccessary to prevent sandbox detection
+> by malware using WMI-queries. New tables can be mapped to memory from binary
+> file specified in "smbios_firmware" parameter of domain configuration.
 
-The GITS_TRANSLATER register is a 32-bit register, and there is nothing
-else in a page containing it, so map that page.
+Who or what says these are "necessary"? Also, to have at least a basic
+understanding without consulting the spec (and without reading the patch in
+its entirety), mentioning what the numbers actually stand for would be helpful,
+I think. This way the connection to "necessary" or maybe merely "desirable"
+would likely also be easier to make.
 
-Add new host_addr parameter to vgic_v3_its_init_virtual to prepare the
-foundation for DomU MSI support where guest doorbell address can differ
-for the host's. Note that the 1:1 check in arm_iommu_map_page remains
-for now, as virtual ITSes are currently only created for hwdom where the
-doorbell mapping is always 1:1.
+> @@ -700,6 +724,66 @@ smbios_type_4_init(
+>      return start+1;
+>  }
+>  
+> +/* Type 7 -- Cache Information */
+> +static void *
+> +smbios_type_7_init(void *start)
+> +{
+> +    struct smbios_type_7 *p = start;
+> +
 
-Signed-off-by: Rahul Singh <rahul.singh@arm.com>
-Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
-Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
----
-This patch was originally picked up from [1], and commit description
-loosely borrowed from [2].
+Nit: What use is this blank line?
 
-Example SMMUv3 fault (qemu-system-aarch64 virt model), ITS base 0x8080000:
+> +    void *pts;
+> +    uint32_t length;
+> +
+> +    pts = get_smbios_pt_struct(7, &length);
+> +    if ( pts != NULL && length >= sizeof(struct smbios_type_7) )
+> +    {
+> +        memcpy(start, pts, length);
+> +        p->header.handle = SMBIOS_HANDLE_TYPE7;
+> +        return start + length;
+> +    }
+> +
+> +    return start;
+> +}
+> +
+> +/* Type 8 -- Port Connector Information */
+> +static void *
+> +smbios_type_8_init(void *start)
+> +{
+> +    struct smbios_type_8 *p = start;
+> +
+> +    void *pts;
+> +    uint32_t length;
+> +
+> +    pts = get_smbios_pt_struct(8, &length);
+> +    if ( pts != NULL && length >= sizeof(struct smbios_type_8) )
+> +    {
+> +        memcpy(start, pts, length);
+> +        p->header.handle = SMBIOS_HANDLE_TYPE8;
+> +        return start + length;
+> +    }
+> +
+> +    return start;
+> +}
+> +
+> +/* Type 9 -- System Slots */
+> +static void *
+> +smbios_type_9_init(void *start)
+> +{
+> +    struct smbios_type_9 *p = start;
+> +
+> +    void *pts;
+> +    uint32_t length;
+> +
+> +    pts = get_smbios_pt_struct(9, &length);
+> +    if ( pts != NULL && length >= sizeof(struct smbios_type_9) )
+> +    {
+> +        memcpy(start, pts, length);
+> +        p->header.handle = SMBIOS_HANDLE_TYPE9;
+> +        return start + length;
+> +    }
+> +
+> +    return start;
+> +}
 
-(XEN) SMMUv3: /smmuv3@9050000: event 0x10 received:
-(XEN) SMMUv3: /smmuv3@9050000:  0x0000000800000010
-(XEN) SMMUv3: /smmuv3@9050000:  0x0000008000000000
-(XEN) SMMUv3: /smmuv3@9050000:  0x0000000008090040
-(XEN) SMMUv3: /smmuv3@9050000:  0x0000000000000000
+These all look largely identical with one another, and they also look to
+match smbios_type_39_init(). Surely we could do with less redundancy by
+having some common helper dealing with "Only present when passed in" cases,
+as smbios_type_39_init() states it in a comment.
 
-Example SMMUv2 fault (AMD/Xilinx Versal), ITS base 0xf9020000:
+> @@ -780,7 +864,7 @@ smbios_type_17_init(void *start, uint32_t memory_size_mb, int instance)
+>  {
+>      char buf[16];
+>      struct smbios_type_17 *p = start;
+> -    
+> +
+>      memset(p, 0, sizeof(*p));
+>  
+>      p->header.type = 17;
+> @@ -815,7 +899,7 @@ static void *
+>  smbios_type_19_init(void *start, uint32_t memory_size_mb, int instance)
+>  {
+>      struct smbios_type_19 *p = start;
+> -    
+> +
+>      memset(p, 0, sizeof(*p));
+>  
+>      p->header.type = 19;
 
-(XEN) smmu: /axi/smmu@fd800000: Unhandled context fault: fsr=3D0x402, iova=
-=3D0xf9030040, fsynr=3D0x12, cb=3D0
+These two hunks look like they belong in patch 1. They're entirely unrelated
+here (i.e. not even adjacent to code being touched).
 
-v11->v12:
-* no changes
+> @@ -232,6 +270,45 @@ struct smbios_type_22 {
+>      uint32_t oem_specific;
+>  } __attribute__ ((packed));
+>  
+> +/* SMBIOS type 26 - Voltage Probe */
+> +struct smbios_type_26 {
+> +    struct smbios_structure_header header;
+> +    uint8_t description_str;
+> +    uint8_t location_and_status;
+> +    uint16_t maximum_value;
+> +    uint16_t minimum_value;
+> +    uint16_t resolution;
+> +    uint16_t tolerance;
+> +    uint16_t accuracy;
+> +    uint32_t oem_defined;
+> +    uint16_t nominal_value;     // Optional
 
-v10->v11:
-* add Stefano's RB
+Nit: We don't use C++ style comments in Xen.
 
-v9->v10:
-* map vITS doorbell to host ITS doorbell instead of always 1:1
-* use simpler addr to dfn conversion
+> @@ -252,9 +329,9 @@ struct smbios_type_39 {
+>      uint8_t revision_level_str;
+>      uint16_t max_capacity;
+>      uint16_t characteristics;
+> -    uint16_t input_voltage_probe_handle;
+> -    uint16_t cooling_device_handle;
+> -    uint16_t input_current_probe_handle;
+> +    uint16_t input_voltage_probe_handle;    // Optional
+> +    uint16_t cooling_device_handle;         // Optional
+> +    uint16_t input_current_probe_handle;    // Optional
+>  } __attribute__ ((packed));
 
-v8->v9:
-* no changes
+This again looks like an unrelated change. I don't mind it living here, but
+such wants mentioning in the description. Then again this may better be done
+in patch 2, to accompany the size checks (where it matters from what offset
+onwards fields are optional).
 
-v7->v8:
-* no changes
-
-v6->v7:
-* add tlb flush after mapping
-* style: update formatting
-* revert back to printk with XENLOG_G_ERR
-
-v5->v6:
-* switch to iommu_map() interface
-* fix page_count argument
-* style fixup
-* use gprintk instead of printk
-* add my Signed-off-by
-* move to vgic_v3_its_init_virtual()
-
-v4->v5:
-* new patch
-
-[1] https://lists.xenproject.org/archives/html/xen-devel/2023-07/msg00483.h=
-tml
-[2] https://gitlab.com/xen-project/people/bmarquis/xen-arm-poc/-/commit/623=
-2a0d53377009bb7fbc3c3ab81d0153734be6b
----
- xen/arch/arm/vgic-v3-its.c | 24 +++++++++++++++++++++++-
- 1 file changed, 23 insertions(+), 1 deletion(-)
-
-diff --git a/xen/arch/arm/vgic-v3-its.c b/xen/arch/arm/vgic-v3-its.c
-index c65c1dbf52..bc738614bb 100644
---- a/xen/arch/arm/vgic-v3-its.c
-+++ b/xen/arch/arm/vgic-v3-its.c
-@@ -1445,11 +1445,13 @@ static const struct mmio_handler_ops vgic_its_mmio_=
-handler =3D {
- };
-=20
- static int vgic_v3_its_init_virtual(struct domain *d, paddr_t guest_addr,
-+                                    paddr_t host_addr,
-                                     unsigned int devid_bits,
-                                     unsigned int evid_bits)
- {
-     struct virt_its *its;
-     uint64_t base_attr;
-+    paddr_t host_doorbell_addr =3D host_addr + ITS_DOORBELL_OFFSET;
-=20
-     its =3D xzalloc(struct virt_its);
-     if ( !its )
-@@ -1478,6 +1480,26 @@ static int vgic_v3_its_init_virtual(struct domain *d=
-, paddr_t guest_addr,
-=20
-     register_mmio_handler(d, &vgic_its_mmio_handler, guest_addr, SZ_64K, i=
-ts);
-=20
-+    if ( is_iommu_enabled(its->d) )
-+    {
-+        mfn_t mfn =3D maddr_to_mfn(host_doorbell_addr);
-+        unsigned int flush_flags =3D 0;
-+        int ret =3D iommu_map(its->d, _dfn(PFN_DOWN(its->doorbell_address)=
-),
-+                            mfn, 1, IOMMUF_writable, &flush_flags);
-+
-+        if ( ret < 0 )
-+        {
-+            printk(XENLOG_G_ERR
-+                    "GICv3: Map ITS translation register for %pd failed.\n=
-",
-+                    its->d);
-+            return ret;
-+        }
-+
-+        ret =3D iommu_iotlb_flush(its->d, _dfn(PFN_DOWN(its->doorbell_addr=
-ess)), 1, flush_flags);
-+        if ( ret < 0 )
-+            return ret;
-+    }
-+
-     /* Register the virtual ITS to be able to clean it up later. */
-     list_add_tail(&its->vits_list, &d->arch.vgic.vits_list);
-=20
-@@ -1522,7 +1544,7 @@ int vgic_v3_its_init_domain(struct domain *d)
-              * base and thus doorbell address.
-              * Use the same number of device ID and event ID bits as the h=
-ost.
-              */
--            ret =3D vgic_v3_its_init_virtual(d, hw_its->addr,
-+            ret =3D vgic_v3_its_init_virtual(d, hw_its->addr, hw_its->addr=
-,
-                                            hw_its->devid_bits,
-                                            hw_its->evid_bits);
-             if ( ret )
---=20
-2.34.1
+Jan
 
