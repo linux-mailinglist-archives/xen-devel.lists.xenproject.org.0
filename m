@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84405AF5F82
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Jul 2025 19:09:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1031436.1405248 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C0378AF61FC
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Jul 2025 20:55:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1031453.1405261 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uX0wz-0005zs-2O; Wed, 02 Jul 2025 17:08:49 +0000
+	id 1uX2bX-0003Ck-AO; Wed, 02 Jul 2025 18:54:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1031436.1405248; Wed, 02 Jul 2025 17:08:49 +0000
+Received: by outflank-mailman (output) from mailman id 1031453.1405261; Wed, 02 Jul 2025 18:54:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uX0wy-0005wm-V1; Wed, 02 Jul 2025 17:08:48 +0000
-Received: by outflank-mailman (input) for mailman id 1031436;
- Wed, 02 Jul 2025 17:08:47 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=4T1d=ZP=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1uX0wx-0005wg-T3
- for xen-devel@lists.xenproject.org; Wed, 02 Jul 2025 17:08:47 +0000
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [2a00:1450:4864:20::334])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 34af144c-5767-11f0-b894-0df219b8e170;
- Wed, 02 Jul 2025 19:08:42 +0200 (CEST)
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-451d7b50815so36183045e9.2
- for <xen-devel@lists.xenproject.org>; Wed, 02 Jul 2025 10:08:42 -0700 (PDT)
-Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-454a99666c3sm3557925e9.2.2025.07.02.10.08.40
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 02 Jul 2025 10:08:41 -0700 (PDT)
+	id 1uX2bX-0003Ao-6T; Wed, 02 Jul 2025 18:54:47 +0000
+Received: by outflank-mailman (input) for mailman id 1031453;
+ Wed, 02 Jul 2025 18:54:45 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=cCzP=ZP=linaro.org=philmd@srs-se1.protection.inumbo.net>)
+ id 1uX2bV-0003Ai-Al
+ for xen-devel@lists.xenproject.org; Wed, 02 Jul 2025 18:54:45 +0000
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [2a00:1450:4864:20::32e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 032a4a8a-5776-11f0-a314-13f23c93f187;
+ Wed, 02 Jul 2025 20:54:42 +0200 (CEST)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-451dbe494d6so51343715e9.1
+ for <xen-devel@lists.xenproject.org>; Wed, 02 Jul 2025 11:54:42 -0700 (PDT)
+Received: from localhost.localdomain (88-187-86-199.subs.proxad.net.
+ [88.187.86.199]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-454a9966a00sm5940465e9.3.2025.07.02.11.54.37
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Wed, 02 Jul 2025 11:54:41 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,125 +45,240 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 34af144c-5767-11f0-b894-0df219b8e170
+X-Inumbo-ID: 032a4a8a-5776-11f0-a314-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1751476122; x=1752080922; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=PSFEBzbKRDYyuuQ84jvdxoTQxFP4fcovGE0A2AR8obE=;
-        b=pjV820g9drKIMUvS9anuq8nNsNW4WIbZB3rU6lqjPbdCaddTHPkzY8pPnj0PEfPJF1
-         Rq/d3i1g0Um/4PUWRbJ9C+5paq1qzB6umtcHJ6U55vnovFbQLG8rKpBRA/MRAbYDNgJR
-         nxTMMZdOAaMC9O0eSxPmQ3mqzw53bph/BvNcI=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1751476122; x=1752080922;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=linaro.org; s=google; t=1751482482; x=1752087282; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=PSFEBzbKRDYyuuQ84jvdxoTQxFP4fcovGE0A2AR8obE=;
-        b=XdhsOJg1qCMc8GzBPs9eXffbVFrB/vPc9hon00wTv5W/IUdidaN6gGfvnGOHeo7SwY
-         SYsX5hZaFbTwJIn1S+FQtvnmzr8PFaaphsPFv9kTz6Keq6oBT38bbddRoHoC2b15gB0S
-         FwbaK00WpEwOFcduq1JeZLbyx4cZIDj6MujbNi57ULkCLGsWpeyWjAuzN6AXX1CQ1yq1
-         O5cXgHvdZjGato8HelW4vqHF7o2ECirulnq2tv64Iy88cf16pwlXTM3imRm5OXUXHi2D
-         QBjuKoQK8wvy87+0IUquhgT5/7x+weG5iWGbRB3G7TtP7zwmfULWoJwvld3AhXgsOol1
-         f5rw==
-X-Gm-Message-State: AOJu0YwyhvNoDAsXLma/wayZQx5ti8GTAlpI38nBNGG6X2kwFEQMUTk6
-	cg0Z+QaBgEZtwuP3ffUL+YDNH93T3p+epGncTEnpP10Uffwa4DzMFaf1uSRd3vugIrZk+8X/uX+
-	nKZ5VYru62g==
-X-Gm-Gg: ASbGncvOxDldZO4elceHa6e52a81O6VtoAhDTa4se0fr4zKxnS+9Wht2vecacLl8p01
-	yMkBIFjqYPumvQS4C8uf0Er/WtVLesaAOl74gCKzLFlYHSg1kK999aN3sXKwCc23wSKNOZvxFSI
-	lnVlEgzP8HO9n6qCjagDxDnWvQ5TJ2thE7ptpzAkLA2SpNXQxrgoZsmkgDU1inp2qohasrPMl7c
-	floZIrpO6m19uIUR7x/moEke+ti38I9i8XhWINQubQxBlbdn5MXUNBXcRME6Hm59UJa12wlRBN4
-	yH7HUn5qa8xoUDNlH3x+YpJoAVTI9fomapbFTX/LTV/+AFv7Iff99GzbOQvwSPpUU/BQg+5mngE
-	O9EFjwMCxhzlIuAQM+m+LmQuHohW+B4EaX+c6ZQ==
-X-Google-Smtp-Source: AGHT+IGeiYG2HLrC1rRHG5Y1goZHxrsNO/JfLSdDs7+H8zcjQFqKcS3rhp/HV0SasUQg9DqW+sG57Q==
-X-Received: by 2002:a05:600c:3488:b0:453:6ca:16a6 with SMTP id 5b1f17b1804b1-454a9c71dd2mr6273025e9.10.1751476121848;
-        Wed, 02 Jul 2025 10:08:41 -0700 (PDT)
-Message-ID: <4247a051-f26b-43b9-b5f0-465145417bdd@citrix.com>
-Date: Wed, 2 Jul 2025 18:08:40 +0100
+        bh=Pcxyecq1Uca5OV4SmO/+hJU9sxDq9D6xrBJnOg87yRs=;
+        b=foU7zJ/z1cKdybMLNk1BnCVaXcDZ87GCh4aSbN8GwqJMfSUjdM9jagXD8kq+Apm3l2
+         dvStAn3gKtqcEqkMA78Ba6wIY5YzTWi9fMhCN1QP0ULq3cQVGVjO6r/jNhupqkcV1Gyy
+         COFq6zFmI8GjiT+t4DUni6lYNsNMXAwyvNigUiHXKxsGucIFU8Vn+76VVSgW8VzUW72h
+         26Yk3r1vhry4Vx1y4g98McaQH98g00eAgZxF/q2DM/c8sDlNGmtNFMmzuJbaCVXMZ7hx
+         zpUCHV6RPIPgdWE9/wStJelG/MetoTDeBidcVoAbQL9R8jXKlguK/BJmGXsWQRaX4Gch
+         COxw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1751482482; x=1752087282;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=Pcxyecq1Uca5OV4SmO/+hJU9sxDq9D6xrBJnOg87yRs=;
+        b=rGxwf5HayApBOijebtHr89e6Z9nLNfceqiiNTKIbdPtUDvTpxdS0LlrOIKEjQZuOBK
+         3cOB2wLA3f/dAohG1P1U3n34JbOsRnrJIEtfAT6LdW/RXw5oPwuLAqPKoBUEIuE0tUhD
+         nHv9uCDOnL9/AU7PCF1nBJcj9GObwIVVPZT7WS4kUwD7BKNQBv4RRyi7eFCC4HR6ddgu
+         lI/iMcsuTEpkyvUPuaele0hCUgFIS8Ev9GOAwJIc/3QjhlDJoIea+Q0kEmuihEeXiVfF
+         fS7z98L3HSdNUZbwGvPlr/igUKorGuO1NU9FDM+altJdc6Plbrk5P0AS/ZbVakSl2NmN
+         G/LA==
+X-Forwarded-Encrypted: i=1; AJvYcCUNVtMw+RlpjqS1WdU52uUSCjzh2YmkbKGAwg5R3RAGYDEhQJp7Dkcf+Bka9g0TULBuoWuF/PMzqc4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxZuQJt2K5NpvzjFY/Nr90teH+hgwtPg6K+KfTfu6GIMOJD8HmD
+	/LCyMLHo9/DXpFSJlcr2b3MpFa3pQTBdKhaTnOU6bW9raoh0HVL7k4WYoZ9fn9urzfg=
+X-Gm-Gg: ASbGncsySgccqNFHKn88ib2ehWKi+CBNo4OlfpQyjk0IYbKOM5vNyYn7SZngWSuAG33
+	h5IrhRJ/0i3bO9brrtaLUFItx8KWXp7702SXd8LXO7lfLUol0Tymk+pf8lxUcOWy8CHyypfgXj3
+	OmXC6waeE6VSQjxlYqed9ypitDeSPdzzKXy2ojP74Hd4ohqgKO6D0WqJqDWcPRfDwjJW3GMLaPI
+	0RgQ9CGy5LdqNQXJ8miMnRG1DQ3sgA2SqANsvKJGU1hzBaLnuIzJ49+O9hDW2PKxqN4ojoXed9P
+	5CH6f7TIgNlS+O1YcVhnDTNPinHAgqLUcgmUxQNpuFIgAXfYDi1oHTreTgYNL39edIOqLAmQzvF
+	kAmiSyN+t4D2JZXnaWi2WcToesbzi+R/dAYkCdVMEsZEYW6c=
+X-Google-Smtp-Source: AGHT+IG2xbJ0vrnlKXjnJOXC1pKqbgrk71RyrOx0GBs5KhAxvWN6hGdVgbklFARA84XuaOzPgh1qcg==
+X-Received: by 2002:a05:600c:3b07:b0:450:30e4:bdf6 with SMTP id 5b1f17b1804b1-454a3704fd2mr40210905e9.19.1751482481564;
+        Wed, 02 Jul 2025 11:54:41 -0700 (PDT)
+From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>
+To: qemu-devel@nongnu.org
+Cc: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Richard Henderson <richard.henderson@linaro.org>,
+	Pierrick Bouvier <pierrick.bouvier@linaro.org>,
+	=?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
+	Cameron Esfahani <dirty@apple.com>,
+	Roman Bolshakov <rbolshakov@ddn.com>,
+	Phil Dennis-Jordan <phil@philjordan.eu>,
+	Mads Ynddal <mads@ynddal.dk>,
+	Fabiano Rosas <farosas@suse.de>,
+	Laurent Vivier <lvivier@redhat.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Anthony PERARD <anthony@xenproject.org>,
+	Paul Durrant <paul@xen.org>,
+	"Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
+	Warner Losh <imp@bsdimp.com>,
+	Kyle Evans <kevans@freebsd.org>,
+	Reinoud Zandijk <reinoud@netbsd.org>,
+	Sunil Muthuswamy <sunilmut@microsoft.com>,
+	kvm@vger.kernel.org,
+	xen-devel@lists.xenproject.org
+Subject: [PATCH v4 09/65] accel: Propagate AccelState to AccelClass::init_machine()
+Date: Wed,  2 Jul 2025 20:52:31 +0200
+Message-ID: <20250702185332.43650-10-philmd@linaro.org>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20250702185332.43650-1-philmd@linaro.org>
+References: <20250702185332.43650-1-philmd@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/cpu-policy: Fix handling of leaf 0x80000021
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Jan Beulich <JBeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
-References: <20250701105307.705964-1-andrew.cooper3@citrix.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <20250701105307.705964-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 01/07/2025 11:53 am, Andrew Cooper wrote:
-> diff --git a/xen/include/xen/lib/x86/cpu-policy.h b/xen/include/xen/lib/x86/cpu-policy.h
-> index f43e1a3b21e9..aeaa16bbc732 100644
-> --- a/xen/include/xen/lib/x86/cpu-policy.h
-> +++ b/xen/include/xen/lib/x86/cpu-policy.h
-> @@ -325,7 +325,10 @@ struct cpu_policy
->                  uint32_t e21a;
->                  struct { DECL_BITFIELD(e21a); };
->              };
-> -            uint32_t /* b */:32, /* c */:32, /* d */:32;
-> +            uint32_t ucode_size:12, /* Units of 16 bytes */
-> +                     rap_size:8,    /* Units of 8 entries */
-> +                     :12;
+In order to avoid init_machine() to call current_accel(),
+pass AccelState along.
 
-Having tried this out on a real CPU, it's not correct.
+Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
+Reviewed-by: Richard Henderson <richard.henderson@linaro.org>
+Reviewed-by: Alex Bennée <alex.bennee@linaro.org>
+---
+ include/qemu/accel.h        | 2 +-
+ accel/accel-system.c        | 2 +-
+ accel/hvf/hvf-accel-ops.c   | 2 +-
+ accel/kvm/kvm-all.c         | 2 +-
+ accel/qtest/qtest.c         | 2 +-
+ accel/tcg/tcg-all.c         | 2 +-
+ accel/xen/xen-all.c         | 2 +-
+ bsd-user/main.c             | 2 +-
+ linux-user/main.c           | 2 +-
+ target/i386/nvmm/nvmm-all.c | 2 +-
+ target/i386/whpx/whpx-all.c | 2 +-
+ 11 files changed, 11 insertions(+), 11 deletions(-)
 
-The APM and Genona PPR say that ucode_size is 12 bits wide, with the
-rest of the register reserved.
+diff --git a/include/qemu/accel.h b/include/qemu/accel.h
+index 9dea3145429..b9a9b3593d8 100644
+--- a/include/qemu/accel.h
++++ b/include/qemu/accel.h
+@@ -40,7 +40,7 @@ typedef struct AccelClass {
+     /* Cached by accel_init_ops_interfaces() when created */
+     AccelOpsClass *ops;
+ 
+-    int (*init_machine)(MachineState *ms);
++    int (*init_machine)(AccelState *as, MachineState *ms);
+     bool (*cpu_common_realize)(CPUState *cpu, Error **errp);
+     void (*cpu_common_unrealize)(CPUState *cpu);
+ 
+diff --git a/accel/accel-system.c b/accel/accel-system.c
+index 64bc991b1ce..913b7155d77 100644
+--- a/accel/accel-system.c
++++ b/accel/accel-system.c
+@@ -37,7 +37,7 @@ int accel_init_machine(AccelState *accel, MachineState *ms)
+     int ret;
+     ms->accelerator = accel;
+     *(acc->allowed) = true;
+-    ret = acc->init_machine(ms);
++    ret = acc->init_machine(accel, ms);
+     if (ret < 0) {
+         ms->accelerator = NULL;
+         *(acc->allowed) = false;
+diff --git a/accel/hvf/hvf-accel-ops.c b/accel/hvf/hvf-accel-ops.c
+index b9511103a75..6af849450e1 100644
+--- a/accel/hvf/hvf-accel-ops.c
++++ b/accel/hvf/hvf-accel-ops.c
+@@ -321,7 +321,7 @@ static void dummy_signal(int sig)
+ 
+ bool hvf_allowed;
+ 
+-static int hvf_accel_init(MachineState *ms)
++static int hvf_accel_init(AccelState *as, MachineState *ms)
+ {
+     int x;
+     hv_return_t ret;
+diff --git a/accel/kvm/kvm-all.c b/accel/kvm/kvm-all.c
+index 17235f26464..264f288dc64 100644
+--- a/accel/kvm/kvm-all.c
++++ b/accel/kvm/kvm-all.c
+@@ -2573,7 +2573,7 @@ static int kvm_setup_dirty_ring(KVMState *s)
+     return 0;
+ }
+ 
+-static int kvm_init(MachineState *ms)
++static int kvm_init(AccelState *as, MachineState *ms)
+ {
+     MachineClass *mc = MACHINE_GET_CLASS(ms);
+     static const char upgrade_note[] =
+diff --git a/accel/qtest/qtest.c b/accel/qtest/qtest.c
+index 92bed9264ce..8b109d4c03b 100644
+--- a/accel/qtest/qtest.c
++++ b/accel/qtest/qtest.c
+@@ -37,7 +37,7 @@ static void qtest_set_virtual_clock(int64_t count)
+     qatomic_set_i64(&qtest_clock_counter, count);
+ }
+ 
+-static int qtest_init_accel(MachineState *ms)
++static int qtest_init_accel(AccelState *as, MachineState *ms)
+ {
+     return 0;
+ }
+diff --git a/accel/tcg/tcg-all.c b/accel/tcg/tcg-all.c
+index 6e5dc333d59..d68fbb23773 100644
+--- a/accel/tcg/tcg-all.c
++++ b/accel/tcg/tcg-all.c
+@@ -80,7 +80,7 @@ static void tcg_accel_instance_init(Object *obj)
+ 
+ bool one_insn_per_tb;
+ 
+-static int tcg_init_machine(MachineState *ms)
++static int tcg_init_machine(AccelState *as, MachineState *ms)
+ {
+     TCGState *s = TCG_STATE(current_accel());
+     unsigned max_threads = 1;
+diff --git a/accel/xen/xen-all.c b/accel/xen/xen-all.c
+index de52a8f882a..1117f52bef0 100644
+--- a/accel/xen/xen-all.c
++++ b/accel/xen/xen-all.c
+@@ -76,7 +76,7 @@ static void xen_setup_post(MachineState *ms, AccelState *accel)
+     }
+ }
+ 
+-static int xen_init(MachineState *ms)
++static int xen_init(AccelState *as, MachineState *ms)
+ {
+     MachineClass *mc = MACHINE_GET_CLASS(ms);
+ 
+diff --git a/bsd-user/main.c b/bsd-user/main.c
+index 7c0a059c3ba..d0cc8e0088f 100644
+--- a/bsd-user/main.c
++++ b/bsd-user/main.c
+@@ -474,7 +474,7 @@ int main(int argc, char **argv)
+                                  opt_one_insn_per_tb, &error_abort);
+         object_property_set_int(OBJECT(accel), "tb-size",
+                                 opt_tb_size, &error_abort);
+-        ac->init_machine(NULL);
++        ac->init_machine(accel, NULL);
+     }
+ 
+     /*
+diff --git a/linux-user/main.c b/linux-user/main.c
+index 5ac5b55dc65..a9142ee7268 100644
+--- a/linux-user/main.c
++++ b/linux-user/main.c
+@@ -820,7 +820,7 @@ int main(int argc, char **argv, char **envp)
+                                  opt_one_insn_per_tb, &error_abort);
+         object_property_set_int(OBJECT(accel), "tb-size",
+                                 opt_tb_size, &error_abort);
+-        ac->init_machine(NULL);
++        ac->init_machine(accel, NULL);
+     }
+ 
+     /*
+diff --git a/target/i386/nvmm/nvmm-all.c b/target/i386/nvmm/nvmm-all.c
+index f1c6120ccf1..eaae175aa5d 100644
+--- a/target/i386/nvmm/nvmm-all.c
++++ b/target/i386/nvmm/nvmm-all.c
+@@ -1153,7 +1153,7 @@ static struct RAMBlockNotifier nvmm_ram_notifier = {
+ /* -------------------------------------------------------------------------- */
+ 
+ static int
+-nvmm_accel_init(MachineState *ms)
++nvmm_accel_init(AccelState *as, MachineState *ms)
+ {
+     int ret, err;
+ 
+diff --git a/target/i386/whpx/whpx-all.c b/target/i386/whpx/whpx-all.c
+index cf6d3e4cdd4..f0be840b7db 100644
+--- a/target/i386/whpx/whpx-all.c
++++ b/target/i386/whpx/whpx-all.c
+@@ -2505,7 +2505,7 @@ static void whpx_set_kernel_irqchip(Object *obj, Visitor *v,
+  * Partition support
+  */
+ 
+-static int whpx_accel_init(MachineState *ms)
++static int whpx_accel_init(AccelState *as, MachineState *ms)
+ {
+     struct whpx_state *whpx;
+     int ret;
+-- 
+2.49.0
 
-However, the Turin PPR says it's 16 bits wide, with rap_size being 8
-bits starting at bit 16.  The raw value is 0x00080382, which matches the
-PPR.
-
-Therefore I'm going to turn this into a plain uint16_t and uint8_t as
-there's no need for bitfields any more.  (Which I suspect might be why
-the 12->16 change was made.)
-
-~Andrew
 
