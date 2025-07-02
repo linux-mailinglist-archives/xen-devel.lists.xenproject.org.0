@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1937FAF0DCB
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Jul 2025 10:22:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1030597.1404377 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA50AAF0DBC
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Jul 2025 10:21:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1030493.1404228 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uWsj7-0007aV-23; Wed, 02 Jul 2025 08:21:57 +0000
+	id 1uWsiG-0008Rb-RY; Wed, 02 Jul 2025 08:21:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1030597.1404377; Wed, 02 Jul 2025 08:21:57 +0000
+Received: by outflank-mailman (output) from mailman id 1030493.1404228; Wed, 02 Jul 2025 08:21:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uWsj6-0007Xq-TE; Wed, 02 Jul 2025 08:21:56 +0000
-Received: by outflank-mailman (input) for mailman id 1030597;
- Wed, 02 Jul 2025 08:21:56 +0000
+	id 1uWsiG-0008La-Kv; Wed, 02 Jul 2025 08:21:04 +0000
+Received: by outflank-mailman (input) for mailman id 1030493;
+ Wed, 02 Jul 2025 08:21:02 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=KFiP=ZP=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1uWsb5-00082X-5A
- for xen-devel@lists.xenproject.org; Wed, 02 Jul 2025 08:13:39 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ id 1uWsbD-00082X-U7
+ for xen-devel@lists.xenproject.org; Wed, 02 Jul 2025 08:13:47 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7444cc44-571c-11f0-b894-0df219b8e170;
- Wed, 02 Jul 2025 10:13:37 +0200 (CEST)
+ id 79da21dc-571c-11f0-b894-0df219b8e170;
+ Wed, 02 Jul 2025 10:13:46 +0200 (CEST)
 Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id D310421175;
- Wed,  2 Jul 2025 08:13:36 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 55B5D1F454;
+ Wed,  2 Jul 2025 08:13:42 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9F72A13A24;
- Wed,  2 Jul 2025 08:13:36 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2CAEC13A24;
+ Wed,  2 Jul 2025 08:13:42 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id KH5hJTDqZGg3SQAAD6G6ig
- (envelope-from <jgross@suse.com>); Wed, 02 Jul 2025 08:13:36 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id Pfp7CTbqZGhBSQAAD6G6ig
+ (envelope-from <jgross@suse.com>); Wed, 02 Jul 2025 08:13:42 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,42 +51,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7444cc44-571c-11f0-b894-0df219b8e170
+X-Inumbo-ID: 79da21dc-571c-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1751444016; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1751444022; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=tdGpyRgE6zFBkEZAGFiUxZVsQXRgwUjyVMbYAPLusAo=;
-	b=WaR0MKyG0M0KAo1/03X7Z9/YBAj/liSQUxDFbcAcLRMtvm/Lpy9u8RY2tEgZsywKHVtM6u
-	qEx8bKBeikJiQ4tkl65SALgmqw2ZqMiwm/eet8fap3dPd8pmHMfiN4dvTVU9dI01mU8FmF
-	IV5yO4o5Fwd9K+4+ZgYX0kzkwVqDN/M=
-Authentication-Results: smtp-out1.suse.de;
+	bh=VFGHThmdUPo7tU8/k1YjcPPbr+K+PG8BXx4fi06T8E8=;
+	b=tdvNwrFuYC25cBlRD2W9UnU/lW5P7VQOwsNG3RMXt5GAkHq4KsaTh8t4Tm8OjWNrCXtP68
+	wWviHOIYRdYnF9OwQae4h0xzvHas6e+ULLL7ydMrQ4l67cBwL4WFfDUUWfw0X1D8yGsriI
+	hPYonJ1fCz/VEjm2DyxFqKDlVSTC5eA=
+Authentication-Results: smtp-out2.suse.de;
 	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1751444016; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1751444022; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=tdGpyRgE6zFBkEZAGFiUxZVsQXRgwUjyVMbYAPLusAo=;
-	b=WaR0MKyG0M0KAo1/03X7Z9/YBAj/liSQUxDFbcAcLRMtvm/Lpy9u8RY2tEgZsywKHVtM6u
-	qEx8bKBeikJiQ4tkl65SALgmqw2ZqMiwm/eet8fap3dPd8pmHMfiN4dvTVU9dI01mU8FmF
-	IV5yO4o5Fwd9K+4+ZgYX0kzkwVqDN/M=
+	bh=VFGHThmdUPo7tU8/k1YjcPPbr+K+PG8BXx4fi06T8E8=;
+	b=tdvNwrFuYC25cBlRD2W9UnU/lW5P7VQOwsNG3RMXt5GAkHq4KsaTh8t4Tm8OjWNrCXtP68
+	wWviHOIYRdYnF9OwQae4h0xzvHas6e+ULLL7ydMrQ4l67cBwL4WFfDUUWfw0X1D8yGsriI
+	hPYonJ1fCz/VEjm2DyxFqKDlVSTC5eA=
 From: Juergen Gross <jgross@suse.com>
 To: minios-devel@lists.xenproject.org,
 	xen-devel@lists.xenproject.org
 Cc: samuel.thibault@ens-lyon.org,
 	Juergen Gross <jgross@suse.com>
-Subject: [MINI-OS PATCH 07/19] kexec: fix physical addresses in start info data
-Date: Wed,  2 Jul 2025 10:12:42 +0200
-Message-ID: <20250702081254.14383-8-jgross@suse.com>
+Subject: [MINI-OS PATCH 08/19] e820: don't count lapic page as initially reserved
+Date: Wed,  2 Jul 2025 10:12:43 +0200
+Message-ID: <20250702081254.14383-9-jgross@suse.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20250702081254.14383-1-jgross@suse.com>
 References: <20250702081254.14383-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Spam-Flag: NO
+X-Spam-Score: -2.80
 X-Spamd-Result: default: False [-2.80 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
+	BAYES_HAM(-3.00)[99.99%];
 	NEURAL_HAM_LONG(-1.00)[-1.000];
 	MID_CONTAINS_FROM(1.00)[];
 	R_MISSING_CHARSET(0.50)[];
@@ -103,40 +105,41 @@ X-Spamd-Result: default: False [-2.80 / 50.00];
 	RCPT_COUNT_THREE(0.00)[4];
 	RCVD_COUNT_TWO(0.00)[2];
 	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:email,suse.com:mid];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:email,imap1.dmz-prg2.suse.org:helo];
 	RCVD_TLS_ALL(0.00)[]
 X-Spam-Level: 
-X-Spam-Flag: NO
-X-Spam-Score: -2.80
 
-The physical addresses in struct hvm_start_info are pointing to the
-memory where the data is being built instead of the location where it
-will finally be moved to.
+The number of pages marked initially as reserved in the memory map
+are counted to be allocated, as they are normally populated by Xen
+tools for e.g. xenbus and console ring pages.
 
-Fix that.
+This is wrong in case the lapic page is marked as reserved in the
+memory map, as there is never memory allocated for a lapic.
 
-Fixes: b7994b6409a4 ("mini-os: kexec: build parameters for new kernel")
+So when finding the lapic page to be marked as reserved, don't add
+it to the number of reserved pages.
+
+Fixes: 9b87429d2864 ("mini-os: fix number of pages for PVH")
 Signed-off-by: Juergen Gross <jgross@suse.com>
 ---
- arch/x86/kexec.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ e820.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/arch/x86/kexec.c b/arch/x86/kexec.c
-index fc58473e..d84df42c 100644
---- a/arch/x86/kexec.c
-+++ b/arch/x86/kexec.c
-@@ -233,9 +233,9 @@ int kexec_get_entry(const char *cmdline)
-     memset(info, 0, sizeof(*info));
-     info->magic = XEN_HVM_START_MAGIC_VALUE;
-     info->version = 1;
--    info->cmdline_paddr = kexec_param_mem + sizeof(*info) +
-+    info->cmdline_paddr = kexec_param_loc + sizeof(*info) +
-                           e820_entries * sizeof(struct hvm_memmap_table_entry);
--    info->memmap_paddr = kexec_param_mem + sizeof(*info);
-+    info->memmap_paddr = kexec_param_loc + sizeof(*info);
-     info->memmap_entries = e820_entries;
+diff --git a/e820.c b/e820.c
+index 49b16878..876d55b1 100644
+--- a/e820.c
++++ b/e820.c
+@@ -275,7 +275,10 @@ static void e820_sanitize(void)
+             e820_initial_reserved_pfns += e820_map[i].size / PAGE_SIZE;
+             if ( e820_map[i].addr <= LAPIC_ADDRESS &&
+                  e820_map[i].addr + e820_map[i].size > LAPIC_ADDRESS )
++            {
+                 found_lapic = true;
++                e820_initial_reserved_pfns--;
++            }
+         }
+     }
  
-     mmap = (struct hvm_memmap_table_entry *)(info + 1);
 -- 
 2.43.0
 
