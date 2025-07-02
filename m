@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5CFC9AF0C4C
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Jul 2025 09:16:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1030309.1403961 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D8010AF0C55
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Jul 2025 09:17:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1030316.1403971 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uWrhC-000593-QD; Wed, 02 Jul 2025 07:15:54 +0000
+	id 1uWrim-0005fI-4Y; Wed, 02 Jul 2025 07:17:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1030309.1403961; Wed, 02 Jul 2025 07:15:54 +0000
+Received: by outflank-mailman (output) from mailman id 1030316.1403971; Wed, 02 Jul 2025 07:17:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uWrhC-00056G-Mk; Wed, 02 Jul 2025 07:15:54 +0000
-Received: by outflank-mailman (input) for mailman id 1030309;
- Wed, 02 Jul 2025 07:15:53 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uWrim-0005cF-1B; Wed, 02 Jul 2025 07:17:32 +0000
+Received: by outflank-mailman (input) for mailman id 1030316;
+ Wed, 02 Jul 2025 07:17:30 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=FQsZ=ZP=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uWrhB-00056A-RX
- for xen-devel@lists.xenproject.org; Wed, 02 Jul 2025 07:15:53 +0000
+ (envelope-from <SRS0=cCzP=ZP=linaro.org=philmd@srs-se1.protection.inumbo.net>)
+ id 1uWrik-0005c9-CL
+ for xen-devel@lists.xenproject.org; Wed, 02 Jul 2025 07:17:30 +0000
 Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
  [2a00:1450:4864:20::32d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 622ee018-5714-11f0-b894-0df219b8e170;
- Wed, 02 Jul 2025 09:15:50 +0200 (CEST)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 9ca56390-5714-11f0-a313-13f23c93f187;
+ Wed, 02 Jul 2025 09:17:28 +0200 (CEST)
 Received: by mail-wm1-x32d.google.com with SMTP id
- 5b1f17b1804b1-453749af004so35161955e9.1
- for <xen-devel@lists.xenproject.org>; Wed, 02 Jul 2025 00:15:50 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-23c70c4086csm5430035ad.216.2025.07.02.00.15.45
+ 5b1f17b1804b1-4537edf2c3cso63755925e9.3
+ for <xen-devel@lists.xenproject.org>; Wed, 02 Jul 2025 00:17:28 -0700 (PDT)
+Received: from [192.168.69.166] (88-187-86-199.subs.proxad.net.
+ [88.187.86.199]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4538a390bf8sm192666895e9.4.2025.07.02.00.17.26
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 02 Jul 2025 00:15:49 -0700 (PDT)
+ Wed, 02 Jul 2025 00:17:27 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,231 +45,116 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 622ee018-5714-11f0-b894-0df219b8e170
+X-Inumbo-ID: 9ca56390-5714-11f0-a313-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1751440550; x=1752045350; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=2KHYvTI8oUUQaNB2RGZY6jPEXYSSgTgp1d8tcIudTo8=;
-        b=JA/g9Nfd8Fy72ZNLrcuQife1MN7Rc6M1gnGVFkkYxu2643ItykjfWmDqoTdVL0yNFE
-         /gV7K+CptOOgbnDloFbiw20zdYMC/FmVcTy7c5YA7stO1qUNsgfICzMgCa24uD8HZ4g2
-         rtMPxWLnHlKwtH4HGgXbWqBIvJowv9C/+7elMoIuXSgCpDn7RkymGpSmApR5MpPn2RUt
-         tyHQN3QviTv4k9ULIy5uwGspBA593wcVBwp2S8SoyNWsRr+go749bROUUozQqpeiMo1q
-         G/YoXGKpuU0vM9dZjyqvbb27s8zLtnqi9cMbRuRvbblxK38Y1wCq8X8oUyDL01J3A7OT
-         /Irg==
+        d=linaro.org; s=google; t=1751440648; x=1752045448; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=+mYTbfn+CDu82xWppkTWr4AlzQy3c+TrZHAZXnDBh+Q=;
+        b=bjI0jc5xO+oCho2ziRJ1+aCQhxaRkJUDHy57uH95IOUcHA1JxamGv2eC0w7v/nzuNF
+         QW/UFrgngUmVgGfRkzyWN0Dxjj1Q61aP5X0BlggyHWaTPdxD0Dvb1i4riSiHhhnBKTV9
+         mUOiZC8hV9OHB/5PwP0FYPtVamWkK1J17lbLFYKIXeOvjsh8b7XvLf+6Qm5Fhy4sN0NJ
+         R3GIgkKkyis8LYGy7YrzUAvbEfiwU+AG3qSSinqQSCZMkBfsbX2+tJ3cakG8v4RbsF+I
+         TXC9B3Ey5J2/f1W83Dkio6y28E+pdwaeYKtIwyT1gI1Z1DndsmofgHqHRX9dMAm3iNkr
+         ZbRw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1751440550; x=1752045350;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=2KHYvTI8oUUQaNB2RGZY6jPEXYSSgTgp1d8tcIudTo8=;
-        b=XjBFKN96Uhc8AKDGlQvXj1E8SONTDoLK4rfvsP75ykuGsB83seHKrlcVTbJxXg8Hpu
-         6ERS2P3qs1dp755cyAx8hEwWQmVm6NUIxxfDW4jD6se0Mj1jKVcSiInXWjnsOR4jhe+i
-         vtTSJZjSjYdLKHFmX/MsfxzMTfNs/uHBsWD/DFOXXuvazErXoCfzBWHs1QSh4RMpkocp
-         4q4a7GzE3yJc1bOVnbmKlAAT36X43/PAO0rcdt+JeMhuvWGRUPw7MD8bgrx9LVRYtH4l
-         1at+fK8M/65L5mZycxfE2E2LRvD7adPS2M3efcYPb22f/t32wCXuXxYQfk5uxkc0FOzl
-         GuMg==
-X-Forwarded-Encrypted: i=1; AJvYcCUX9Uz6EjVqVU1CJ2PVQIJ9Qzorli3zormlJHfgFOiEn3C5ay/LS9aaQoHfuhky6x+2UMZ5PBWeuDg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw3FWzZSd4Ku+iHkFOKuIWUyCQMOHcMq65ldDdNpKbgRVCboHJA
-	ompy+mZjoIRf8kRQnTjBuL8z3dykdXZA6avfFXexuuSL7YfGQwaWaFV5SNcCFEelGDVByHHmSV7
-	Dy7M=
-X-Gm-Gg: ASbGncv+VUOiqr6+dJF7BzIiJ2zKmUjxlHPY5VwmgaTHfW+Rwpl82jtSSjvhWDWJY2R
-	0dVNDaVqr7PXoFab98fe7HmS9yB5CcNQDCNT/jGpXiuoxEtOJJ/3tHg5LunzI+rR4QfWZfeDohW
-	UtJinrsxkwqWrvSrPFwDGwviGtOYisToCCwsvidnS9NS4yFZqdFCzHvlrHTrs7jVIgsCMdECXiL
-	F4qEHFLwlboHEN/RAeDPE89k+CNjdR3em8ayRLnRQeVPEH/7amQw3lK6cEhkKf0TqNsbjmMq3ql
-	9TPbzXLvoGXQEwz1pN+3j9TbLIq5KVL1NuRPxYsaVwYvW8iyJfoLzSbiBPbNl6U3ljlACTB3F5g
-	gWGd5/jw1FN9znznPfvUeGHEqSpZcaKBJbYGhIPZr+K0DME4=
-X-Google-Smtp-Source: AGHT+IFvyKx+5GXO7wEwvrvIKE8BkuweBgx8r8URkFBz2hEkny//JDY3FWOItLfY6TDm9kQY0hN1uA==
-X-Received: by 2002:a05:6000:43d4:20b0:3a4:d722:5278 with SMTP id ffacd0b85a97d-3b20067a807mr700372f8f.39.1751440550128;
-        Wed, 02 Jul 2025 00:15:50 -0700 (PDT)
-Message-ID: <8143b492-6e3a-48bb-b564-52b2623a78f7@suse.com>
-Date: Wed, 2 Jul 2025 09:15:41 +0200
+        d=1e100.net; s=20230601; t=1751440648; x=1752045448;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=+mYTbfn+CDu82xWppkTWr4AlzQy3c+TrZHAZXnDBh+Q=;
+        b=RrBHrNGvzgPhZm0sCcEfyITLsWS9blctQOVEWuep7jyR6EU8Cj+hy+iHOQ5ueAoYXk
+         BSlNKGotRfzTMkneZVxqgOH/MSNuBGUqFtV40c1BSV7jOgOOj0TshnyRZcd8VDS9XZE3
+         29GBIfkq4eYMj6u2aGnpSTp7yHMWNcdvvqyo1f8IAVlHY/B6WAV9h4eKAwY39TBZMjqU
+         kYFPXFocMfJO3GJHncOHHevJbHACdGgF/1ELcY+5CJvuYL0LK5UBz+ucXHjs/u8l0lqd
+         iFCNAx9cqzn4UkdtSEb/Wsz6RiNFmB9HLEYcs39VESSQXQfnQnDsBOtUClTxhRMtJHJ/
+         G+Ow==
+X-Forwarded-Encrypted: i=1; AJvYcCUnXMykiv/Ufj22ojyV6unZAUbA825FexNLia3gWbaYsjq8SmgEySz30pFDYYTMWNhT2UWzad6+asE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzLurmPrXGCfJ+FqOIxjp1bYYovvqN0YLIu3p4K6DbxmjsJ7yZe
+	nQYOy4nwNXeQ11x1DAwfLGM53UONhFofcxJIK3RL1DE0dbfg8ik1exUwtT/tjTwGLbH/KfmEe5s
+	6INcV
+X-Gm-Gg: ASbGncu7BKhg/zczFHanbJxkjtsCl2lXd3ZeOPxL6NGi9rCtV1ntXSSEzt5eGQdQXGf
+	rdwZMldQo5bTyUQzxFLcx5wzZi12WSUlvVEFx/3ejz2ZpwtMGQJUXQyz6DMkqNjxPhbkWwiZAGp
+	sk6wAHkiAp9GryHgNKQJ3+OhrikR1uyCm2PaRSLiCu63SZCPa3kPxan1yNR0zoqTLYLIjvzErXU
+	0X7W/K+4yNXmPlcVoLBTvcp97PRPwkkcyotSXNwBxaWdLDWlJm6pux2aj2+nBq1NGb/Xg6nP/dL
+	hwr0kTbAcJPEZ9Kc+ctCa6nexMg6rCDJCJHcoWKDn+q+Srqap9LTSOIK9srcu+25FQLjgykRY0p
+	vWDoKGlZ8Ij7suHL3aPuPkJF9FyApjg==
+X-Google-Smtp-Source: AGHT+IHzlLfxniq4XX72IM2MrdX4hE0Z9INHIuIGd41cfA7yt48Bx9dLsKjimCcK3PNVwCEbSlvG8w==
+X-Received: by 2002:a05:600c:4f4d:b0:44b:eb56:1d45 with SMTP id 5b1f17b1804b1-454a4ad0a59mr9264015e9.15.1751440648158;
+        Wed, 02 Jul 2025 00:17:28 -0700 (PDT)
+Message-ID: <d0b25f1f-2774-4494-94e5-a6a58f995657@linaro.org>
+Date: Wed, 2 Jul 2025 09:17:26 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] hvmloader: add new SMBIOS tables (7,8,9,26,27,28)
-To: =?UTF-8?Q?Petr_Bene=C5=A1?= <w1benny@gmail.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Anton Belousov <blsvntn@outlook.com>, xen-devel@lists.xenproject.org
-References: <cover.1751412735.git.w1benny@gmail.com>
- <99e281ad05537d2384eaffe95155a03382493c96.1751412735.git.w1benny@gmail.com>
+Subject: Re: [PATCH v3 15/68] accel: Remove unused MachineState argument of
+ AccelClass::setup_post()
+To: qemu-devel@nongnu.org
+Cc: Paolo Bonzini <pbonzini@redhat.com>, =?UTF-8?Q?Alex_Benn=C3=A9e?=
+ <alex.bennee@linaro.org>, Pierrick Bouvier <pierrick.bouvier@linaro.org>,
+ Julian Armistead <julian.armistead@linaro.org>,
+ Richard Henderson <richard.henderson@linaro.org>,
+ "open list:X86 Xen CPUs" <xen-devel@lists.xenproject.org>
+References: <20250701144017.43487-1-philmd@linaro.org>
+ <20250701144017.43487-16-philmd@linaro.org>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <99e281ad05537d2384eaffe95155a03382493c96.1751412735.git.w1benny@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+From: =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>
+In-Reply-To: <20250701144017.43487-16-philmd@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On 02.07.2025 01:45, Petr Beneš wrote:
-> From: Petr Beneš <w1benny@gmail.com>
+On 1/7/25 16:39, Philippe Mathieu-Daudé wrote:
+> Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
+> ---
+>   include/qemu/accel.h | 2 +-
+>   accel/accel-system.c | 2 +-
+>   accel/xen/xen-all.c  | 2 +-
+>   3 files changed, 3 insertions(+), 3 deletions(-)
+> 
+> diff --git a/include/qemu/accel.h b/include/qemu/accel.h
+> index f327a71282c..a6a95ff0bcd 100644
+> --- a/include/qemu/accel.h
+> +++ b/include/qemu/accel.h
+> @@ -45,7 +45,7 @@ typedef struct AccelClass {
+>       void (*cpu_common_unrealize)(CPUState *cpu);
+>   
+>       /* system related hooks */
+> -    void (*setup_post)(MachineState *ms, AccelState *accel);
+> +    void (*setup_post)(AccelState *as);
+>       bool (*has_memory)(AccelState *accel, AddressSpace *as,
+>                          hwaddr start_addr, hwaddr size);
+>   
+> diff --git a/accel/accel-system.c b/accel/accel-system.c
+> index 913b7155d77..af713cc9024 100644
+> --- a/accel/accel-system.c
+> +++ b/accel/accel-system.c
+> @@ -58,7 +58,7 @@ void accel_setup_post(MachineState *ms)
+>       AccelState *accel = ms->accelerator;
+>       AccelClass *acc = ACCEL_GET_CLASS(accel);
+>       if (acc->setup_post) {
+> -        acc->setup_post(ms, accel);
+> +        acc->setup_post(accel);
+>       }
+>   }
+>   
+> diff --git a/accel/xen/xen-all.c b/accel/xen/xen-all.c
+> index 1117f52bef0..ba752bbe5de 100644
+> --- a/accel/xen/xen-all.c
+> +++ b/accel/xen/xen-all.c
+> @@ -63,7 +63,7 @@ static void xen_set_igd_gfx_passthru(Object *obj, bool value, Error **errp)
+>       xen_igd_gfx_pt_set(value, errp);
+>   }
+>   
+> -static void xen_setup_post(MachineState *ms, AccelState *accel)
+> +static void xen_setup_post(AccelState *as)
+>   {
 
-This isn't in line with the first S-o-b, nor with the fact that in the cover
-letter you say this was previously submitted (and hence authored?) by Anton.
+This method only accesses xen_domid/xen_domid_restrict, which are both
+related to the 'accelerator', not the machine. Besides, xen_domid aims
+to be in Xen AccelState and xen_domid_restrict a xen_domid_restrict
+QOM property.
 
-> SMBIOS tables like 7,8,9,26,27,28 are neccessary to prevent sandbox detection
-> by malware using WMI-queries. New tables can be mapped to memory from binary
-> file specified in "smbios_firmware" parameter of domain configuration.
+Regards,
 
-Who or what says these are "necessary"? Also, to have at least a basic
-understanding without consulting the spec (and without reading the patch in
-its entirety), mentioning what the numbers actually stand for would be helpful,
-I think. This way the connection to "necessary" or maybe merely "desirable"
-would likely also be easier to make.
-
-> @@ -700,6 +724,66 @@ smbios_type_4_init(
->      return start+1;
->  }
->  
-> +/* Type 7 -- Cache Information */
-> +static void *
-> +smbios_type_7_init(void *start)
-> +{
-> +    struct smbios_type_7 *p = start;
-> +
-
-Nit: What use is this blank line?
-
-> +    void *pts;
-> +    uint32_t length;
-> +
-> +    pts = get_smbios_pt_struct(7, &length);
-> +    if ( pts != NULL && length >= sizeof(struct smbios_type_7) )
-> +    {
-> +        memcpy(start, pts, length);
-> +        p->header.handle = SMBIOS_HANDLE_TYPE7;
-> +        return start + length;
-> +    }
-> +
-> +    return start;
-> +}
-> +
-> +/* Type 8 -- Port Connector Information */
-> +static void *
-> +smbios_type_8_init(void *start)
-> +{
-> +    struct smbios_type_8 *p = start;
-> +
-> +    void *pts;
-> +    uint32_t length;
-> +
-> +    pts = get_smbios_pt_struct(8, &length);
-> +    if ( pts != NULL && length >= sizeof(struct smbios_type_8) )
-> +    {
-> +        memcpy(start, pts, length);
-> +        p->header.handle = SMBIOS_HANDLE_TYPE8;
-> +        return start + length;
-> +    }
-> +
-> +    return start;
-> +}
-> +
-> +/* Type 9 -- System Slots */
-> +static void *
-> +smbios_type_9_init(void *start)
-> +{
-> +    struct smbios_type_9 *p = start;
-> +
-> +    void *pts;
-> +    uint32_t length;
-> +
-> +    pts = get_smbios_pt_struct(9, &length);
-> +    if ( pts != NULL && length >= sizeof(struct smbios_type_9) )
-> +    {
-> +        memcpy(start, pts, length);
-> +        p->header.handle = SMBIOS_HANDLE_TYPE9;
-> +        return start + length;
-> +    }
-> +
-> +    return start;
-> +}
-
-These all look largely identical with one another, and they also look to
-match smbios_type_39_init(). Surely we could do with less redundancy by
-having some common helper dealing with "Only present when passed in" cases,
-as smbios_type_39_init() states it in a comment.
-
-> @@ -780,7 +864,7 @@ smbios_type_17_init(void *start, uint32_t memory_size_mb, int instance)
->  {
->      char buf[16];
->      struct smbios_type_17 *p = start;
-> -    
-> +
->      memset(p, 0, sizeof(*p));
->  
->      p->header.type = 17;
-> @@ -815,7 +899,7 @@ static void *
->  smbios_type_19_init(void *start, uint32_t memory_size_mb, int instance)
->  {
->      struct smbios_type_19 *p = start;
-> -    
-> +
->      memset(p, 0, sizeof(*p));
->  
->      p->header.type = 19;
-
-These two hunks look like they belong in patch 1. They're entirely unrelated
-here (i.e. not even adjacent to code being touched).
-
-> @@ -232,6 +270,45 @@ struct smbios_type_22 {
->      uint32_t oem_specific;
->  } __attribute__ ((packed));
->  
-> +/* SMBIOS type 26 - Voltage Probe */
-> +struct smbios_type_26 {
-> +    struct smbios_structure_header header;
-> +    uint8_t description_str;
-> +    uint8_t location_and_status;
-> +    uint16_t maximum_value;
-> +    uint16_t minimum_value;
-> +    uint16_t resolution;
-> +    uint16_t tolerance;
-> +    uint16_t accuracy;
-> +    uint32_t oem_defined;
-> +    uint16_t nominal_value;     // Optional
-
-Nit: We don't use C++ style comments in Xen.
-
-> @@ -252,9 +329,9 @@ struct smbios_type_39 {
->      uint8_t revision_level_str;
->      uint16_t max_capacity;
->      uint16_t characteristics;
-> -    uint16_t input_voltage_probe_handle;
-> -    uint16_t cooling_device_handle;
-> -    uint16_t input_current_probe_handle;
-> +    uint16_t input_voltage_probe_handle;    // Optional
-> +    uint16_t cooling_device_handle;         // Optional
-> +    uint16_t input_current_probe_handle;    // Optional
->  } __attribute__ ((packed));
-
-This again looks like an unrelated change. I don't mind it living here, but
-such wants mentioning in the description. Then again this may better be done
-in patch 2, to accompany the size checks (where it matters from what offset
-onwards fields are optional).
-
-Jan
+Phil.
 
