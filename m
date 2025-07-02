@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C31CEAF0BFC
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Jul 2025 08:53:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1030234.1403852 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EFC40AF0C1C
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Jul 2025 08:59:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1030244.1403862 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uWrLV-0004nO-Hv; Wed, 02 Jul 2025 06:53:29 +0000
+	id 1uWrRV-0005SQ-Bz; Wed, 02 Jul 2025 06:59:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1030234.1403852; Wed, 02 Jul 2025 06:53:29 +0000
+Received: by outflank-mailman (output) from mailman id 1030244.1403862; Wed, 02 Jul 2025 06:59:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uWrLV-0004kJ-F3; Wed, 02 Jul 2025 06:53:29 +0000
-Received: by outflank-mailman (input) for mailman id 1030234;
- Wed, 02 Jul 2025 06:53:28 +0000
+	id 1uWrRV-0005PH-8v; Wed, 02 Jul 2025 06:59:41 +0000
+Received: by outflank-mailman (input) for mailman id 1030244;
+ Wed, 02 Jul 2025 06:59:40 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=fuNh=ZP=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1uWrLU-0004kD-2C
- for xen-devel@lists.xenproject.org; Wed, 02 Jul 2025 06:53:28 +0000
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [2a00:1450:4864:20::334])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=FQsZ=ZP=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uWrRU-0005PB-CT
+ for xen-devel@lists.xenproject.org; Wed, 02 Jul 2025 06:59:40 +0000
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [2a00:1450:4864:20::42f])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4086bb9e-5711-11f0-b894-0df219b8e170;
- Wed, 02 Jul 2025 08:53:25 +0200 (CEST)
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-450cf0120cdso40641235e9.2
- for <xen-devel@lists.xenproject.org>; Tue, 01 Jul 2025 23:53:25 -0700 (PDT)
-Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
- by smtp.gmail.com with UTF8SMTPSA id
- 5b1f17b1804b1-4538a3fe24esm187981975e9.23.2025.07.01.23.53.24
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 01 Jul 2025 23:53:24 -0700 (PDT)
+ id 1e68d7e7-5712-11f0-b894-0df219b8e170;
+ Wed, 02 Jul 2025 08:59:38 +0200 (CEST)
+Received: by mail-wr1-x42f.google.com with SMTP id
+ ffacd0b85a97d-3a54700a46eso3425033f8f.1
+ for <xen-devel@lists.xenproject.org>; Tue, 01 Jul 2025 23:59:38 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-315f539e6e5sm18261973a91.14.2025.07.01.23.59.33
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 01 Jul 2025 23:59:36 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,130 +45,111 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4086bb9e-5711-11f0-b894-0df219b8e170
+X-Inumbo-ID: 1e68d7e7-5712-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1751439205; x=1752044005; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=es3ipisY5bnyL4qL1ToMVAsl8wmc8JIY94rYbZLns0o=;
-        b=Bu38Ux8kBaIfQB4n9LvVZTB0VLNK8iOmvEEJI1qO4HVj9wvMUbA58p1p9/BWWHAASu
-         Ys0W8B61d1vWLzc2uCjpp7CVv4J9XcAKh/rPyKe2hTVJlOK1jCCxX6tOg5x79gIL41Fo
-         6ZdnlRrVGFe9mReeBwHyCzQoTDFgQiION2McQ=
+        d=suse.com; s=google; t=1751439577; x=1752044377; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=VQP9RGPskaajCLcRbn+gnpnRTsyMxyJqtJtwgYd4e70=;
+        b=CmSq5ygKs1zU7hoO+AvSHSCW3A2moFoUbDjt6NdSH3P1UlCjDy89WhPmHty1rOQJQX
+         waEkgCviAkZwpdicDKEsmGoxGN0bJT+JC7uWs1qLvUW2nE81Y72uIMe/wkYnVStuiRqS
+         MFfMNRCpt2f5l0sePJs4tH8/k68tBUMckuzB+qk1WrnBJvR+dC2hEcN6rGDW73EVFoM7
+         Es8HVDy10oXrIcfwRNWPqYFDDNi0zR1EiXkvAk70Nsp2zjtmdRj39giemmU5JIma/H1+
+         CPGuceC+XTgimnhf3xZZ5n4IbbPZPth1nTIfUWPNiRt4uHrO49TXMkIIg8Yww9RR4vl+
+         gRvg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1751439205; x=1752044005;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20230601; t=1751439577; x=1752044377;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=es3ipisY5bnyL4qL1ToMVAsl8wmc8JIY94rYbZLns0o=;
-        b=Q7jh0eldC87cF6mpfaet14HIXFJzXp7Z7q29glf/aQGH+6P1PyeJHSUuwqN3o/uOWe
-         YR2xLhXDwy9BbSFzceV7LNp4QUZR8XUZTDVx5wfKrylLwrDE3GhKXfnD24dxPRHY1nm1
-         OQOCc1EX7cOXtucVigHGn0NGsA6A3TIF+r2/Pc7M70//icn4OEDUmsumgntaumZGcti0
-         V3RSAlTlinlSHEKPcig89g5TtaIZyPRskonW7TM1cw308M2yZRsF+E/dFzRcvjbVG/mn
-         nALMM8zudu72+f22pWDPkbdMH2ug/rHe8yfaAMCcQYpduv7LLIvSg8ClnjwKNAmXN0ak
-         AjOg==
-X-Forwarded-Encrypted: i=1; AJvYcCVQ26bxPocFWH4BPzUxAD7XPrLOQtiRGc+kcXgoRFfGkyRRRdYzbK9h9GF8I7jn/mQZv+HfxljbGk4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YymeH4wTZ6y/lwyPyWDp2fHYWYxuqYwenYxujesTEGrr7/iqwnW
-	llkyQqWnXgCpItjsIJcwVkT2PAq2HpWRADsF+/YwXvJpzcjc144YMb4VRF3HE1+ssL8=
-X-Gm-Gg: ASbGnctt1MFFy3M+wwiizW7cvBGoaMkcefn3u8UwoBiNfaKFWDTCv4mDmw6iQ8Pv72R
-	Pc7zUczXvecgca4Wrja95G98ARBG7pPj4tluU815/qZRPLWcODbBL1fMEepJMnBFNw3uY+HbfnD
-	G0Y9myNQdPtUAgafibh7Im9Cg8a73/D9KvfKA63++3cKPgW2TucAW7oTUni3+EKnivTJOAVLxdC
-	PjWBSF5ciYEz51dBXNJLeOVoyHy2bkXrhVlJim2ZugTk8ybzUF6bu1i6+3Fz6ZGVFLlq+JlA2IK
-	SUkj5Opv4kCC+Fy+kk2JiWP+mUThL0MnBf3+vR43leeblIpMOyNSDj+jNngc5OLwRHd7uRC3qhd
-	nN+XMAmxM+N1rGm8iUpajBF1h1V2gmoREMvJtg1kQ
-X-Google-Smtp-Source: AGHT+IH/k9GGBr58KZlQJN9JBw9oU0CDygbQBIGlxyzTYTGRe6rROIX5Zx1ahZNZAdMS7OeYcvEaYg==
-X-Received: by 2002:a05:600c:3b24:b0:442:f12f:bd9f with SMTP id 5b1f17b1804b1-454a371d3eemr15772705e9.27.1751439205216;
-        Tue, 01 Jul 2025 23:53:25 -0700 (PDT)
-Date: Wed, 2 Jul 2025 08:53:23 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
-	xen-devel@lists.xenproject.org,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Shawn Anastasio <sanastasio@raptorengineering.com>,
-	Alistair Francis <alistair.francis@wdc.com>,
-	Bob Eshleman <bobbyeshleman@gmail.com>,
-	Connor Davis <connojdavis@gmail.com>,
-	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Community Manager <community.manager@xenproject.org>
-Subject: Re: [PATCH v2 0/8] pdx: introduce a new compression algorithm
-Message-ID: <aGTXY324gcda0nHj@macbook.local>
-References: <20250620111130.29057-1-roger.pau@citrix.com>
- <alpine.DEB.2.22.394.2506271905350.862517@ubuntu-linux-20-04-desktop>
- <aGKnDHtRD5OLGaYj@macbook.local>
- <alpine.DEB.2.22.394.2506301726500.862517@ubuntu-linux-20-04-desktop>
- <1507b441-dd3c-4a24-beda-0d1d3143faf9@suse.com>
- <alpine.DEB.2.22.394.2507011338360.862517@ubuntu-linux-20-04-desktop>
- <ed896b87-1d21-4315-917e-343e3f0b519e@suse.com>
+        bh=VQP9RGPskaajCLcRbn+gnpnRTsyMxyJqtJtwgYd4e70=;
+        b=OFuvvn9Liu/LUbi1rKJhPsGP1NHEEjF6DfaDIilEPyg/kgtpmi+Bp2SSkPGZUQWve0
+         J9K76ejqd9+NQ5xd/OfwqTH6xLy71fpiJDbFrKq1weWuAlxdTk7tPQYj/FZahgF4KJ6l
+         xSorb/HxdM2BEU7MtjZjKzFRYWjgfV5FtKeAkhUCcEfPC+K3GcazXyhqlpIt58nP4CiB
+         t45gwoHc0d3Ec6fQheeuKhZU92EAwDjuKtXf4MgYlUTIfXK/FOhJi5JYZDTVhA+Tfm1s
+         DbInms9oXB+LhulGWmH8NIkxkF4q6ObLFxnK+qWcJ4WqW2AR5969z0ehJVAV8WSiksm5
+         6StQ==
+X-Forwarded-Encrypted: i=1; AJvYcCV3i7ReqSCsQewMcRQVvtaiYPE1/9yWSuGgk35zG/VrSfjeLaFQCZVa96918Kc0CgpmQN+mPN6svAY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxFLQNjejUO1CMRZyhhd+DkrAobOf0ZH5QR36f0ypifFpxfqXEi
+	jxIhWvFpPAhJOTXtj+Vf/4ljsEsaygFF0xUp3nDiwD23vQjlm3N80yfSGyIvVXnOIw==
+X-Gm-Gg: ASbGnctu9+8zr6Br048b4ZPph5YKTRfjpUJ7jDh5QYS47JRcj8k35JMBVPbuOc483K1
+	POTJph4C6BUCmIelCnweWAHWW20LWDzKNGPIiZvi8ebHj2WaaWhH/Hc7IPUQAVMKKz/rPPPswf4
+	nWQ4JLJm9GE1smPAa18u3akItEmngC8mfPvA9H/CRY5+pP1sTnJx6LOUxBZB2BxOT2fSP/GmDqa
+	uA0sBSr9txcBE8usZsMiww1Lni+UOnXjJ5pZ1Ugxala8DZfSh+T05LxpOKgyi/pQuxdkwA6bcOR
+	4Eo6LhRFWWTQuu1rwEe95Aocx2Ntnsq6YVEY7pNdY9LZiCd8aV8KXLPs2A+Vd+227OIoubowtq9
+	aLE1odQSA2NLwO1SJePUfM9Oss2UCiM96IJnsXS63q0o1iAs=
+X-Google-Smtp-Source: AGHT+IHC6J2XewTluboYeFyaZvnm07YVEJeU/qCruNUN2igQloy0OSGsf73juAskIuuUcyQSTrr+Iw==
+X-Received: by 2002:a05:6000:25c3:b0:3a5:2beb:7493 with SMTP id ffacd0b85a97d-3b1fd74c2d4mr986438f8f.9.1751439577414;
+        Tue, 01 Jul 2025 23:59:37 -0700 (PDT)
+Message-ID: <825a633f-a6fa-4edd-bd7e-45f2ef8d8880@suse.com>
+Date: Wed, 2 Jul 2025 08:59:29 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <ed896b87-1d21-4315-917e-343e3f0b519e@suse.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/3] hvmloader: fix SMBIOS table length checks
+To: =?UTF-8?Q?Petr_Bene=C5=A1?= <w1benny@gmail.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>, xen-devel@lists.xenproject.org
+References: <cover.1751412735.git.w1benny@gmail.com>
+ <8981deefd675eabc6a60713aacf96e03fd756fdb.1751412735.git.w1benny@gmail.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <8981deefd675eabc6a60713aacf96e03fd756fdb.1751412735.git.w1benny@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, Jul 02, 2025 at 08:32:27AM +0200, Jan Beulich wrote:
-> On 01.07.2025 22:46, Stefano Stabellini wrote:
-> > On Tue, 1 Jul 2025, Jan Beulich wrote:
-> >> Sadly from this you omitted the output from the setup of the offsets
-> >> arrays. Considering also your later reply, I'd be curious to know what
-> >> mfn_to_pdx(0x50000000) is.
-> >  
-> > Full logs here, and debug patch in attachment.
-> > 
-> > (XEN) Checking for initrd in /chosen
-> > (XEN) RAM: 0000000000000000 - 000000007fffffff
-> > (XEN) RAM: 0000000800000000 - 000000087fffffff
-> > (XEN) RAM: 0000050000000000 - 000005007fffffff
-> > (XEN) RAM: 0000060000000000 - 000006007fffffff
-> > (XEN) RAM: 0000070000000000 - 000007007fffffff
-> > (XEN) 
-> > (XEN) MODULE[0]: 0000000022000000 - 0000000022172fff Xen         
-> > (XEN) MODULE[1]: 0000000022200000 - 000000002220efff Device Tree 
-> > (XEN) MODULE[2]: 0000000020400000 - 0000000021e2ffff Kernel      
-> > (XEN)  RESVD[0]: 0000000000000000 - 0000000000ffffff
-> > (XEN)  RESVD[1]: 0000000001000000 - 00000000015fffff
-> > (XEN)  RESVD[2]: 0000000001600000 - 00000000017fffff
-> > (XEN)  RESVD[3]: 0000000001800000 - 00000000097fffff
-> > (XEN)  RESVD[4]: 0000000009800000 - 000000000bffffff
-> > (XEN)  RESVD[5]: 0000000011126000 - 000000001114dfff
-> > (XEN)  RESVD[6]: 000000001114e000 - 000000001214efff
-> > (XEN)  RESVD[7]: 0000000017275000 - 000000001729cfff
-> > (XEN)  RESVD[8]: 000000001729d000 - 000000001829dfff
-> > (XEN)  RESVD[9]: 000000001a7df000 - 000000001a806fff
-> > (XEN)  RESVD[10]: 000000001a807000 - 000000001b807fff
-> > (XEN)  RESVD[11]: 000000001d908000 - 000000001d92ffff
-> > (XEN)  RESVD[12]: 000000001d930000 - 000000001e930fff
-> > (XEN)  RESVD[13]: 000000001829e000 - 000000001869dfff
-> > (XEN)  RESVD[14]: 000000001869e000 - 00000000186ddfff
-> > (XEN)  RESVD[15]: 0000000800000000 - 000000083fffffff
-> > (XEN) 
-> > (XEN) 
-> > (XEN) Command line: console=dtuart dom0_mem=2048M console_timestamps=boot debug bootscrub=0 vwfi=native sched=null
-> > (XEN) [00000006bfc302ec] parameter "debug" unknown!
-> > (XEN) [00000006bfcc0476] DEBUG init_pdx 294 start=0 end=80000000
-> > (XEN) [00000006bfcd2400] DEBUG init_pdx 294 start=800000000 end=880000000
-> > (XEN) [00000006bfce29ec] DEBUG init_pdx 294 start=50000000000 end=50080000000
-> > (XEN) [00000006bfcf1768] DEBUG init_pdx 294 start=60000000000 end=60080000000
-> > (XEN) [00000006bfd015a4] DEBUG init_pdx 294 start=70000000000 end=70080000000
-> > (XEN) [00000006bfd1444f] DEBUG setup_mm 252
-> 
-> This one is immediately after init_pdx(), i.e. by here the log messages from
-> Roger's patch (out of pfn_pdx_compression_setup()) should have appeared.
-> Which at least falsifies my earlier suspicion about there being an ordering
-> issue. You do have PDX_OFFSET_COMPRESSION=y in your .config, don't you? Are
-> we perhaps taking the only "return false" path in pfn_offset_sanitize_ranges()
-> that doesn't issue a log message?
+On 02.07.2025 01:45, Petr Beneš wrote:
+> --- a/tools/firmware/hvmloader/smbios.c
+> +++ b/tools/firmware/hvmloader/smbios.c
+> @@ -385,7 +385,7 @@ smbios_type_0_init(void *start, const char *xen_version,
+>      uint32_t length;
+>  
+>      pts = get_smbios_pt_struct(0, &length);
+> -    if ( pts != NULL && length > 0 )
+> +    if ( pts != NULL && length >= sizeof(struct smbios_type_0) )
 
-Sorry, should have posted this yesterday.  With the current offset
-compression algorithm the memory map provided by Stefano is not
-compressible, as the calculated PFN shift leads to lookup table
-indexes that overflows the default table size.
+Please preferably use an actual variable that's available, i.e. sizeof(*p) in
+cases like this one.
 
-I'm working on an improved version that attempts to always preserve
-the most significant bits in the lookup table index, even if that
-leads to merging regions.
+Also, patch 1 touched this very line. Adjusting style while touching a line
+is quite fine, and typically even preferred over touching the same line twice
+in close succession.
 
-Thanks, Roger.
+> @@ -504,7 +504,7 @@ smbios_type_2_init(void *start)
+>      unsigned int counter = 0;
+>  
+>      pts = get_smbios_pt_struct(2, &length);
+> -    if ( pts != NULL && length > 0 )
+> +    if ( pts != NULL && length >= 8 )
+
+No way to have (even uncommented) literal numbers like this in the code.
+This can be expressed using offsetof(), I expect, and hence wants expressing
+that way. Seeing the respective member's name will then also aid reviewing.
+
+Jan
 
