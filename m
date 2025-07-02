@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B97AAF5CFC
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Jul 2025 17:28:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1031375.1405193 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DB680AF5D36
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Jul 2025 17:35:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1031381.1405204 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uWzO1-0005nH-0A; Wed, 02 Jul 2025 15:28:37 +0000
+	id 1uWzTs-0007kq-Jz; Wed, 02 Jul 2025 15:34:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1031375.1405193; Wed, 02 Jul 2025 15:28:36 +0000
+Received: by outflank-mailman (output) from mailman id 1031381.1405204; Wed, 02 Jul 2025 15:34:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uWzO0-0005lA-Sy; Wed, 02 Jul 2025 15:28:36 +0000
-Received: by outflank-mailman (input) for mailman id 1031375;
- Wed, 02 Jul 2025 15:28:35 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uWzTs-0007j8-GW; Wed, 02 Jul 2025 15:34:40 +0000
+Received: by outflank-mailman (input) for mailman id 1031381;
+ Wed, 02 Jul 2025 15:34:39 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=bUWS=ZP=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
- id 1uWzNz-0005l4-LC
- for xen-devel@lists.xenproject.org; Wed, 02 Jul 2025 15:28:35 +0000
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on20626.outbound.protection.outlook.com
- [2a01:111:f403:2417::626])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 369b7d38-5759-11f0-a313-13f23c93f187;
- Wed, 02 Jul 2025 17:28:34 +0200 (CEST)
-Received: from BN1PR12CA0020.namprd12.prod.outlook.com (2603:10b6:408:e1::25)
- by DS0PR12MB6438.namprd12.prod.outlook.com (2603:10b6:8:ca::16) with
+ id 1uWzTr-0007j2-77
+ for xen-devel@lists.xenproject.org; Wed, 02 Jul 2025 15:34:39 +0000
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on20626.outbound.protection.outlook.com
+ [2a01:111:f403:2415::626])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0ec621d0-575a-11f0-b894-0df219b8e170;
+ Wed, 02 Jul 2025 17:34:36 +0200 (CEST)
+Received: from BN9PR03CA0642.namprd03.prod.outlook.com (2603:10b6:408:13b::17)
+ by DS0PR12MB8526.namprd12.prod.outlook.com (2603:10b6:8:163::9) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8901.20; Wed, 2 Jul
- 2025 15:28:30 +0000
-Received: from BN2PEPF000055DD.namprd21.prod.outlook.com
- (2603:10b6:408:e1:cafe::e9) by BN1PR12CA0020.outlook.office365.com
- (2603:10b6:408:e1::25) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8901.21 via Frontend Transport; Wed,
- 2 Jul 2025 15:28:30 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8880.21; Wed, 2 Jul
+ 2025 15:34:28 +0000
+Received: from BL6PEPF0001AB52.namprd02.prod.outlook.com
+ (2603:10b6:408:13b:cafe::93) by BN9PR03CA0642.outlook.office365.com
+ (2603:10b6:408:13b::17) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8901.20 via Frontend Transport; Wed,
+ 2 Jul 2025 15:34:28 +0000
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN2PEPF000055DD.mail.protection.outlook.com (10.167.245.7) with Microsoft
+ BL6PEPF0001AB52.mail.protection.outlook.com (10.167.241.4) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8922.1 via Frontend Transport; Wed, 2 Jul 2025 15:28:30 +0000
+ 15.20.8901.15 via Frontend Transport; Wed, 2 Jul 2025 15:34:28 +0000
 Received: from localhost (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 2 Jul
- 2025 10:28:26 -0500
+ 2025 10:34:26 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,22 +56,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 369b7d38-5759-11f0-a313-13f23c93f187
+X-Inumbo-ID: 0ec621d0-575a-11f0-b894-0df219b8e170
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Y3JJbmqv2caBj8GyOW5OluvC8um7rxGHLgdnRWYfsSHpkJhRb5PnqI07XgjLavbLPh6XCzEVxQwaV9YmLvD5EuGZsY1PZ9qZn9McUzsGTid8JdK3fT/X+cX8WNYxddEnW9DnDnfC6DVlmMbW55ek963R475tW8o4KRXWGCSsyA9Jd/otSwWpYsXMKJk/Vl5KUFK0rgAUR8FmGEZSKsHPyWDHEhG3ecWDGHEjnEyI5Nl9jcf5mZ/AK1BoawG7zZan83BxyTKgwCB6yQ3BFoIvOZ46o28aey8JD/BVmDbLV53wybbzNIE5YJVcahCd2F3RcLN2XYB6gkU9xHKVYAqV8A==
+ b=Q3jlFjQ2Y/1zdEJyqBUa3RG8/B1hj9VVHxLfpkBY9ypla2Q9Q36clCW2AXhul6zVcnaGFeX7qgKP3NeFGOfWhPusxNCwN8vvhvpSoNhT4hgTLO2t8nhSt+WY1X1y+gz4/VfBMAh5VV4TaQMLMnV7JGMIgqdYgsJSul6Q+PeiXjn1m944IzL4r3Wpk+xI6XtHLX49LqD7sLIjixomU0yfLfp55KLTBVlQ1ewGq8doE6yIdCOTEVT7kH7LoV7d4EURuX0+Ft6zoVReN8eZsfYWS1EgNmAevYQei9/EVEN3n6faTlxI3nnQQ5olcyE9jFlK1zHPE7wXrLRI0jqqdmRjoQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cTqD5zRKnyxuaAEmCCOCJf6eylJekqzkFmU0x9U6Cqg=;
- b=Cq6cia7UNI14+KbpyD8MbAJlbNhG58hOWaHLgnvrh4BWI7y9drBSBQI21uiFhgHoHTyEqSBr3zV6a1EJwtvZaaOWCy4SKw9mhIaARQk8TWsSjV238+AbeRZx+DkC0f0D1ollVMhQRWQddWr9HoEwytnsPkA/Q2NJ6V9XylDUA5zL4CJi9atMHEmpgixMz+bdjBZMzG6dSHWNMkAIfTIT8XnSYeinfKMxGdZyyJ0jZ9603/YZwniVQrD2FILjp383Gt4OJX1DR9o1ZXv/NaPNDCWUMoJRZ7vcETIhs81IrwkFM8cY9YfR8ZLD4Dn+3dhHAuAp7F95Tr2S4GdIFt6+AA==
+ bh=Dn3hO8LX71zy2xYPp9ADu7eaEZzF5NRLCxjhkWrPAZQ=;
+ b=pBWKNZ43FuNmXnAfFlCDxLTXcXKkS9qOU2Axb2tATX2TyB9/oBvdJDrTQ34AEWxscchN+lnt6yHtvvh7Fp5Qh0PjTuQ0D7Uhe7nt/ofOBujm0jCanGWnkAAf85dQgFvwVusfwoIPuofSyh9TxCNWI2YS947ifTdpradXOk/UPRBMXbCFOaBZe0g2tUFs8etxbDZYU4bHQ52WYvZDXUPfFTjhAxCrT8tAhcZX774wrHGLW/7FoZJELVI+kKwQwUu6dEsnjsjCW1IfovYFweXF/IW2KfSRZwR0jO8Jk6sqHyiBLSvw8ORK9dCHPiKatoZR3bNghoxy2uTOwK7sORypbg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cTqD5zRKnyxuaAEmCCOCJf6eylJekqzkFmU0x9U6Cqg=;
- b=jWvsiZVl9NjbTZgKn1I4JFwrc6wfTLBzXOKsH/SpWznsCIF38Y5keK7lh8jsjqEB9KoRUapEyvdfptis3JbJtNa2bTWz0UiAuYve5Llzi87RrMm15R+W1GcJOzfQA1i7fCKr7QuX7feuP//8hW5ucfGNAudnLkr8BW4GGYjCCpo=
+ bh=Dn3hO8LX71zy2xYPp9ADu7eaEZzF5NRLCxjhkWrPAZQ=;
+ b=waqNq/rd92yqHLIq6SUth3XOz+YnaCNfS0nAj1H58jlHktc09rezxfAV0hHZOyO683w9ex+UpCCEs239LYwPt1H3hthT/Yg2yct/u3rNsE13C7Z75TPnHaTq5Z+mEFKKWknw0/VFPEMBGzT+b+sYS0K7oCCRPLeIE/vhavTqbxY=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -81,206 +81,160 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset="UTF-8"
-Date: Wed, 2 Jul 2025 17:28:25 +0200
-Message-ID: <DB1OC2FGH37J.3VDC4G4ABWFRI@amd.com>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Anthony PERARD
-	<anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, "Julien
- Grall" <julien@xen.org>, =?utf-8?q?Roger_Pau_Monn=C3=A9?=
-	<roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
-	"Bertrand Marquis" <bertrand.marquis@arm.com>, Volodymyr Babchuk
-	<Volodymyr_Babchuk@epam.com>, Shawn Anastasio
-	<sanastasio@raptorengineering.com>, Alistair Francis
-	<alistair.francis@wdc.com>, Bob Eshleman <bobbyeshleman@gmail.com>, "Connor
- Davis" <connojdavis@gmail.com>, Oleksii Kurochko
-	<oleksii.kurochko@gmail.com>, "Daniel P. Smith"
-	<dpsmith@apertussolutions.com>, =?utf-8?q?Marek_Marczykowski-G=C3=B3recki?=
-	<marmarek@invisiblethingslab.com>, Dario Faggioli <dfaggioli@suse.com>,
-	Juergen Gross <jgross@suse.com>, George Dunlap <gwd@xenproject.org>,
-	<xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH v5 08/10] xen: Split HAS_DEVICE_TREE in two
+Date: Wed, 2 Jul 2025 17:34:24 +0200
+Message-ID: <DB1OGNLX29US.Z8UCST2IR3VI@amd.com>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?utf-8?q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Stefano Stabellini
+	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Jason Andryuk
+	<jandryuk@gmail.com>, Bertrand Marquis <bertrand.marquis@arm.com>, "Michal
+ Orzel" <michal.orzel@amd.com>, <xen-devel@lists.xenproject.org>, Daniel Smith
+	<dpsmith@apertussolutions.com>
+Subject: Re: [PATCH v5 03/10] x86: Replace arch-specific boot_domain with
+ the common one
 From: Alejandro Vallejo <agarciav@amd.com>
 To: Jan Beulich <jbeulich@suse.com>
 X-Mailer: aerc 0.20.1
 References: <20250701105706.86133-1-agarciav@amd.com>
- <20250701105706.86133-9-agarciav@amd.com>
- <ffba326b-6fa4-449d-8db3-66fb145a61a4@suse.com>
-In-Reply-To: <ffba326b-6fa4-449d-8db3-66fb145a61a4@suse.com>
+ <20250701105706.86133-4-agarciav@amd.com>
+ <0a4196db-dfc8-4259-bfef-e62cf3fe17d1@suse.com>
+ <DB1NXDYYSE3Y.1OWV3AS1TYRLA@amd.com>
+ <2a7dab07-9e52-4d4a-a80d-99229c9fe093@suse.com>
+In-Reply-To: <2a7dab07-9e52-4d4a-a80d-99229c9fe093@suse.com>
 X-Originating-IP: [10.180.168.240]
 X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF000055DD:EE_|DS0PR12MB6438:EE_
-X-MS-Office365-Filtering-Correlation-Id: b041cb8f-c652-4a82-ecb3-08ddb97d1951
+X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB52:EE_|DS0PR12MB8526:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6507cf93-1974-4011-adaf-08ddb97deebb
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700013|1800799024|82310400026|376014|7416014;
+	BCL:0;ARA:13230040|376014|1800799024|36860700013|82310400026;
 X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?YStFRHFjN2RRK1FtbGtHdHA3akNmZFExR3VCQ0pjVUI2RzIrczZtWU5maTZw?=
- =?utf-8?B?RnNkMDRVRnRXZGJrOWt4Qlpqa1ZZZFJTNE9oNnhQNmtUOFFiTDRsUjJmM0kw?=
- =?utf-8?B?aG5GbCtQcnh2d1AxQkV3QWgrZmtWVHo0MEJDV0Z2MnN5WmNtQkt0TW5wQlVk?=
- =?utf-8?B?ejJSVTQ5QytnblRLU0JOUGJ1RWhyY2puNU9CYUlEOTdjRnJTVHVPQlROZlNS?=
- =?utf-8?B?bkRqc1plTmYvckE5OGtXNy9yWnZxbFkyWUg0emdhT0tENlIxODliSS9YT3JN?=
- =?utf-8?B?TmMwbit3VGw4UU9ESWVxVklGY1ZBcHBqWTRvcTR0SVRLYm0rc1F2dFJrbHVO?=
- =?utf-8?B?ZTlqV1c0MFh6T2MwRmJMOVNrTXVPYUNjak5nMm9BZE1aYlpFaCtDTGdnL0Q5?=
- =?utf-8?B?WWZPM2JrNHZtTEpucndnSWhUYnZPK3pkaHAwR20zSWh0OVVjRitxekxaZFBB?=
- =?utf-8?B?eHlMS1lrV2JySVJkUkFKU05temlUVXhSYjQwcUREbGFyQTVLZVFwckxLVGZF?=
- =?utf-8?B?a3FuUkFpSVpzMDRYRDVWTFU1d0JSU0ZyUWlWNU1TUkNjb2t3ekgxbXNiL3lC?=
- =?utf-8?B?bTBPTkJnUmxkQnhZSlUxeGtFNTNXbWF5aEgrbnRWdERDOWM1cWFIS0s4YmlG?=
- =?utf-8?B?MXVKQ2hCQWFadnhBZkN2REgwNmtMdXFYOGEyaGlTNnYvbFBxVVpwTDJqUGRI?=
- =?utf-8?B?WS9ENEVaeUhaTHUwS2FRdzFCRTJEdytpVXB6K0RYenI1bEQyQXFpM1ZUVEdF?=
- =?utf-8?B?SVZYNEdhaGN3MGlWNGx1YU90UjlpZVM1empvU2RyTFp6eEQxNjA1UTN1dkMv?=
- =?utf-8?B?OVlWdnZnczBlTVlaTGNlSVdDbFBhVEliWU1PZE9rSDZRZzlkVDhhUmllQ3M4?=
- =?utf-8?B?elhXS25ZRGxXSmJteW1tU1Zhd2lELzU1Q1pkS1dMM0tVNlBrQTIvWDFqOGZP?=
- =?utf-8?B?QnJkOEdLYlp1bjc5ekI5NDRLVGtUNXdpRElpNy93bVQxRDNsalFuc3pyQjll?=
- =?utf-8?B?OXBjNmdzbjJya3ltZ1Z0ZFk3djZRWUtZQ0pGdmFHbXJlRjNIT0tZN1UyL0JF?=
- =?utf-8?B?TG1sQkF3NWVxbWJ3bkdMQXNUWkRLTjZpSFpKbk90dnRQcmgxR1RhYnRCV0d3?=
- =?utf-8?B?Mng3eG5XUlVYYTFGdXh3ZksrbXNyZEZ3L1NtMEJVMHhSNy90cjNURFZSVzFL?=
- =?utf-8?B?bWlmSTZ0ZzJ6SHk0c1d5bnBKT2dFaHRNOEVZL1ZSUHRtVjVubEZjajhiMGcv?=
- =?utf-8?B?ajNGbzVVWi9PY1pBRW1GR0ZiSlg2YTJWcVZPdmJucUtaQ0dncWJiNFhTcEFH?=
- =?utf-8?B?ek9pSHVqR0ZpUWlodnFJRENnUjAvNlhndW9LTGFwZVJyc3REUnByczBIVEg2?=
- =?utf-8?B?QUI5VkFSMWpHUy9zWE94REM4VWtIK1Jya1NFazE0dk0rN1hid0ZuN091Vkhw?=
- =?utf-8?B?Nkp3UlBzOFplaUJ6eUkyWnFZbHdFOXpTRmxsdEJ3bEkrNUtZcHcvRmxwMUFT?=
- =?utf-8?B?em5Ja1lUMVBkWllDRU5uRXJpMHZuckNXUVdpRjRlUjJUdWlnOURCNjR2S1RH?=
- =?utf-8?B?WE5CMDE5emNGNGdxRldpSnpSZ0Y5blpaaGRFdmJBMlNXWE1FcTVmUXNaaHFQ?=
- =?utf-8?B?eityWmlOcktqbzhRVk9YWjdDTnF2dHI0QWQyaDRGL2xacDdveGlESW0xNGRH?=
- =?utf-8?B?MjMydEYrWGM5NlJYdE1aaDB2dUVmTnJoUU5uUnFmL3luWUYwaVR4d2tiY0VE?=
- =?utf-8?B?aWdpTDFzNDlhbzN0eVRscmhmcWl5SW5xTDFUMklncDlESlFVRzFDdVoxckxI?=
- =?utf-8?B?S3A1cFlTb1ZVU3lLMTlNRzZ3WE5lUGFqdmFyY0I0QXRVekZONGQxNkMxanRi?=
- =?utf-8?B?SkVsTVl0anZQd2M2YjVnSVJBK3IrM2FWSDBiaXgyRmEzSjkyeFZJbitGS3Bn?=
- =?utf-8?B?TWJwMGorY1prRzFJWHlMb3pCcTczeDE4SUZ5NW42TmU4Mml3cVc4ZVVZVzdt?=
- =?utf-8?B?eEhKbVJXNW1yNE1DN205Wi83OFh1NGFsK1ZxYVhvQkYvdXc5dW9oSnI0dlp0?=
- =?utf-8?Q?ajOJcv?=
+	=?utf-8?B?L1BEZyszWnZ4bi9UWGtic1FYM2tWOW5GdE5JOEZiYS9ZM0kvUURPVVJqQ0Vy?=
+ =?utf-8?B?UVh3TnA0MC94NVdrUjQxazVXWGpVc0QwM1lLR01ZSVZFRmUvSzFxUGd2REZz?=
+ =?utf-8?B?Z2hNUmZaK1pUYnBhbUs2cGhOQXlhanlyWlhKMG9lQnh2Zk9KRmtFM2syZVcz?=
+ =?utf-8?B?VWFnZmtPQm5LV3RwbVR1bG9tUThpR2JydkFadDZwVW1TQXg5S1lEZ3RxVHZu?=
+ =?utf-8?B?WWhUU054NWtXRjh4SUNaY0ZvbTQ0cXVFVllTS1grQ1U4MEk1THNRYmFHdFBh?=
+ =?utf-8?B?ZWsvalNvV1doQ29yZHdqUkFUL25QcVIyeFkrVXFvK2c0VmlPNEtVVTZONE9x?=
+ =?utf-8?B?SFl3MWpJMS9EUmVLRmh1QjFNRVQrZUZmbjl4WW8vNjBMZlIxK1g3Z3RtNGtZ?=
+ =?utf-8?B?WmJKZDFjeGc1emxIc3U3dUhNK05sWHZjamVmRWtmeUZianBaRi9MQis2WWJu?=
+ =?utf-8?B?aVNFaW5VUStqMlRLM2xPOC91dG16M0dIMFVTcmd1VHg1VTZheUthUVVtZXpO?=
+ =?utf-8?B?ejEvcE1LckxlSFhrcTF6c21vSE10amV3SEZ5ZGl4Yk4rWEc2TWhvdG5sR1ZF?=
+ =?utf-8?B?OW5RRlN5NXduWXBlQnhhUm5SRjlQRVpYd0drc0RQR0RVbDQ1blQ4Yk9jWGsy?=
+ =?utf-8?B?UnJCTlAwSE9zdmo5Z3VibEQ0d2hiaUVQTitxQ1RvdmFDMlNOVHFHZGY5UVhq?=
+ =?utf-8?B?Q1JtK2lLMkkyUFZxaE9OMmxCamtmOUFGUVpyM1hEeEthRjNsT2JXc1VuZ2lr?=
+ =?utf-8?B?VmJUZk0yR2lFNVVpamhsQkxiaXVucU01UHNLWmJTVzBWSjdaaUhZQnlPSWll?=
+ =?utf-8?B?TEttK2dUTmNkeit1QTl1aVB1Tjh1cnFoWHllZ3o4aTFQK1NJZ2x1UVZJOGxV?=
+ =?utf-8?B?QitBTjZSeUJ6UG5LRGw0ZFF5U3lvN0tzV0ZmZGhicmhydnRzbGUrbS82ZlVO?=
+ =?utf-8?B?bHR2WlBFbUZpaXRmcUZaSmtISEF2Y3I5QU5DWkVoMGVKSWR1eEdYOVF3S21L?=
+ =?utf-8?B?WkNXZUhGb1oxeEppZnAwSHlOS0RnbmhOTHcwcDdUOFV0SlRPb1BKNjlkbUc5?=
+ =?utf-8?B?UHVNS2J1QTlIUkc2ejhLZVpxTEo5aUF4dVM0bWhMVW8xM0dIZndVRHRDVUpP?=
+ =?utf-8?B?UzJCRjFjU045Wit6UWV1MWt0bVdLS3NkRTFiZnVnOFJNTkYwTEd5QkFFRUNt?=
+ =?utf-8?B?ZXpYSDJhL2JOT3p4dWxFbHBrZmJkVlNwRllIQmNVMWFSQ1JKcTZ3cEpNTlAr?=
+ =?utf-8?B?aVRqVitBRGtEK2cyRVR6SStnN2JzOG1GclE3cW55cUkwMzRlWkZoWUEybDlq?=
+ =?utf-8?B?cDh5ajBVemVxOGVkbmFzcWw4THFvT04zYTNTVFRUazFXdy96N05LQUhyVWNv?=
+ =?utf-8?B?YjJXT09pbkNKdnZZNEdLM1Ara2xLcFMwUzdyRHVodWtxZThLVVhMZEZWVjE5?=
+ =?utf-8?B?QUVaWlRRU2RWU2VXcmkydjlqSW1MSncyWFV4cVQrenpwMEgwcGVzdzNtZDNX?=
+ =?utf-8?B?UGJ3K1cvNUVDQ2RaemVlYlY3c2Vhb2Y5V3ZDN2czNUtLMDZlQnpvek5TdlFn?=
+ =?utf-8?B?NzBWV3FtWkorbUFoQzY5Q2N5bGtpRkxIeFQxSnUwZ0EwNEhPRHlzem9LNW9m?=
+ =?utf-8?B?QXVmWHJBWS9IQWUzWmcxT3pRMkp0MlpXV0lpNzhQRmlxU2lQVXVwSXFpN1hh?=
+ =?utf-8?B?Q2V3WTJSUWxCY1Y4Ukh3aHZ3RW5aUDRYOTkrY0VHbEtzVGJJSERvZERxZnRC?=
+ =?utf-8?B?ajZBc2hBTlVOMWF1cGlJL1N2TFY2QXdNbjJXako4RGZHck9kWnRYaGU4Z1h2?=
+ =?utf-8?B?V0NrMVhYdUVLTGNWaGNJRFhPSFlxT1ZrZVMxRGhtVmZHRXlGN2N2cG5nYjhX?=
+ =?utf-8?B?eVRJcHBBUWQrZHA0YlZNd29SY1VZK0JaZTlpZmh0Z05wVlRVTjQ3akVLOUpT?=
+ =?utf-8?B?aGVjMFNweGVZT1VCM3Z2VTFQaE5mWjRrSDIydnQzYnduQVR5bG1lYjE4VStT?=
+ =?utf-8?B?SjZBek80NGlJRjRRbGZ4YlBESmwxaGgyVkR5WFVKWHQzWUhPYTJYSVdmcUc2?=
+ =?utf-8?Q?NWYRxf?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(1800799024)(82310400026)(376014)(7416014);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(36860700013)(82310400026);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jul 2025 15:28:30.2904
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jul 2025 15:34:28.3366
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b041cb8f-c652-4a82-ecb3-08ddb97d1951
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6507cf93-1974-4011-adaf-08ddb97deebb
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF000055DD.namprd21.prod.outlook.com
+	BL6PEPF0001AB52.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6438
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8526
 
-On Wed Jul 2, 2025 at 3:30 PM CEST, Jan Beulich wrote:
-> On 01.07.2025 12:57, Alejandro Vallejo wrote:
->> @@ -85,7 +86,11 @@ config HAS_ALTERNATIVE
->>  config HAS_COMPAT
->>  	bool
->> =20
->> -config HAS_DEVICE_TREE
->> +config HAS_DEVICE_TREE_DISCOVERY
->> +	bool
->> +	select DEVICE_TREE_PARSE
->> +
->> +config DEVICE_TREE_PARSE
->>  	bool
->>  	select LIBFDT
->> =20
+On Wed Jul 2, 2025 at 5:15 PM CEST, Jan Beulich wrote:
+> On 02.07.2025 17:09, Alejandro Vallejo wrote:
+>> On Wed Jul 2, 2025 at 3:15 PM CEST, Jan Beulich wrote:
+>>> On 01.07.2025 12:56, Alejandro Vallejo wrote:
+>>>> --- a/xen/arch/x86/include/asm/bootfdt.h
+>>>> +++ b/xen/arch/x86/include/asm/bootfdt.h
+>>>> @@ -3,6 +3,12 @@
+>>>>  #define X86_BOOTFDT_H
+>>>> =20
+>>>>  #include <xen/types.h>
+>>>> +#include <public/xen.h>
+>>>> +
+>>>> +struct arch_boot_domain
+>>>> +{
+>>>> +    domid_t domid;
+>>>> +};
+>>>> =20
+>>>>  struct arch_boot_module
+>>>>  {
+>>>> [...]
+>>>> @@ -1048,11 +1050,11 @@ static struct domain *__init create_dom0(struc=
+t boot_info *bi)
+>>>>          dom0_cfg.flags |=3D XEN_DOMCTL_CDF_iommu;
+>>>> =20
+>>>>      /* Create initial domain.  Not d0 for pvshim. */
+>>>> -    bd->domid =3D get_initial_domain_id();
+>>>> -    d =3D domain_create(bd->domid, &dom0_cfg,
+>>>> +    bd->arch.domid =3D get_initial_domain_id();
+>>>> +    d =3D domain_create(bd->arch.domid, &dom0_cfg,
+>>>>                        pv_shim ? 0 : CDF_privileged | CDF_hardware);
+>>>>      if ( IS_ERR(d) )
+>>>> -        panic("Error creating d%u: %ld\n", bd->domid, PTR_ERR(d));
+>>>> +        panic("Error creating d%u: %ld\n", bd->arch.domid, PTR_ERR(d)=
+);
+>>>
+>>> This being the only place where the (now) arch-specific field is used, =
+why
+>>> does it exist? A local variable would do? And if it's needed for
+>>> (supposedly arch-agnostic) hyperlaunch, then it probably shouldn't be
+>>> arch-specific? Daniel, Jason?
+>>=20
+>> As for the arch-agnostic side of things, arm needs some extra work to be
+>> able to do it safely. dom0less currently constructs domains immediately =
+after
+>> parsing them, which is problematic for cases where some domains have the=
+ prop
+>> and others don't. The domid allocation strategy may preclude further oth=
+erwise
+>> good domains from being created just because their domid was stolen by a=
+ domain
+>> that didn't actually care about which domid it got.
+>>=20
+>> It'll eventually want to leave the arch-specific area, but I don't want =
+to do
+>> that work now.
 >
-> We're in the middle of various ([almost] alphabetically sorted) HAS_* her=
-e.
-> Thus DEVICE_TREE_PARSE wants to move elsewhere. Or we want to move back t=
-o
-> naming it HAS_DEVICE_TREE_PARSE, but I think there was a reason why we di=
-dn't
-> want it like that? Just that I don't recall what that reason was ...
-
-AIUI, HAS_X are options selected by your architecture. Things that tell you
-whether X is supported in your arch or not. In this case, HAS_DEVICE_TREE_P=
-ARSE
-would be supported everywhere, while DEVICE_TREE_PARSE is not an arch prope=
-rty,
-but an option selected by DOM0LESS_BOOT (which appears in menuconfig) and
-HAS_DEVICE_TREE_DISCOVERY.
-
-I can move it elsewhere, but it's unfortunate to separate two so closely
-related options.
-
+> But if the domU field is fine to live in a common struct despite being un=
+used
+> on x86, why can't the domid field live in a common struct too, despite be=
+ing
+> unused on non-x86? Otherwise it'll be extra churn for no gain to later mo=
+ve it
+> there.
 >
->> --- a/xen/common/sched/Kconfig
->> +++ b/xen/common/sched/Kconfig
->> @@ -67,7 +67,7 @@ endmenu
->> =20
->>  config BOOT_TIME_CPUPOOLS
->>  	bool "Create cpupools at boot time"
->> -	depends on HAS_DEVICE_TREE
->> +	depends on HAS_DEVICE_TREE_DISCOVERY
->
-> Is this correct? CPU pool creation isn't driven by DT discovery, I though=
-t,
-> but is a software-only thing much like dom0less?
+> Jan
 
-In principle it would be possible. But I haven't tested the configuration, =
-so
-I'd rather err on the side of caution and not enable features prematurely.
+Mostly out of tidiness. Otherwise it's hard to know which fields serve a pu=
+rpose
+where.
 
-In time, this should become DOM0LESS_BOOT || HAS_DEVICE_TREE_DISCOVERY.
-
->
->> --- a/xen/include/xsm/dummy.h
->> +++ b/xen/include/xsm/dummy.h
->> @@ -423,7 +423,7 @@ static XSM_INLINE int cf_check xsm_deassign_device(
->> =20
->>  #endif /* HAS_PASSTHROUGH && HAS_PCI */
->> =20
->> -#if defined(CONFIG_HAS_PASSTHROUGH) && defined(CONFIG_HAS_DEVICE_TREE)
->> +#if defined(CONFIG_HAS_PASSTHROUGH) && defined(CONFIG_HAS_DEVICE_TREE_D=
-ISCOVERY)
->>  static XSM_INLINE int cf_check xsm_assign_dtdevice(
->>      XSM_DEFAULT_ARG struct domain *d, const char *dtpath)
->>  {
->> @@ -438,7 +438,7 @@ static XSM_INLINE int cf_check xsm_deassign_dtdevice=
-(
->>      return xsm_default_action(action, current->domain, d);
->>  }
->> =20
->> -#endif /* HAS_PASSTHROUGH && HAS_DEVICE_TREE */
->> +#endif /* HAS_PASSTHROUGH && HAS_DEVICE_TREE_DISCOVERY */
->
-> Here I'm similarly unsure: Pass-through again isn't a platform thing, is =
-it?
-
-This has to do strictly with passthrough of devices discovered via DT.
-
->
->> @@ -789,7 +789,7 @@ int xsm_multiboot_policy_init(
->>      struct boot_info *bi, void **policy_buffer, size_t *policy_size);
->>  #endif
->> =20
->> -#ifdef CONFIG_HAS_DEVICE_TREE
->> +#ifdef CONFIG_HAS_DEVICE_TREE_DISCOVERY
->>  /*
->>   * Initialize XSM
->>   *
->> @@ -839,7 +839,7 @@ static inline int xsm_multiboot_init(struct boot_inf=
-o *bi)
->>  }
->>  #endif
->> =20
->> -#ifdef CONFIG_HAS_DEVICE_TREE
->> +#ifdef CONFIG_HAS_DEVICE_TREE_DISCOVERY
->>  static inline int xsm_dt_init(void)
->>  {
->>      return 0;
->> @@ -849,7 +849,7 @@ static inline bool has_xsm_magic(paddr_t start)
->>  {
->>      return false;
->>  }
->> -#endif /* CONFIG_HAS_DEVICE_TREE */
->> +#endif /* CONFIG_HAS_DEVICE_TREE_DISCOVERY */
->
-> The situation is yet less clear to me here
-
-XSM segregates multibooting and DT-booting, this refers strictly to the lat=
-ter.
-
-By DT-booting I mean platforms where the DT is given by the platform rather
-than the user as a module.
+I genuinely forgot about the domU field. I'm more than happy to drop that a=
+rch
+subfield and have domid in the main body of the struct, but I suspect MISRA
+would have something to say about dead data?
 
 Cheers,
 Alejandro
