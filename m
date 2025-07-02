@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C984AF161D
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Jul 2025 14:52:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1031088.1404801 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 958CEAF1637
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Jul 2025 14:57:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1031102.1404810 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uWwwj-0004MO-DA; Wed, 02 Jul 2025 12:52:17 +0000
+	id 1uWx1K-0004zh-VK; Wed, 02 Jul 2025 12:57:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1031088.1404801; Wed, 02 Jul 2025 12:52:17 +0000
+Received: by outflank-mailman (output) from mailman id 1031102.1404810; Wed, 02 Jul 2025 12:57:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uWwwj-0004Jy-8z; Wed, 02 Jul 2025 12:52:17 +0000
-Received: by outflank-mailman (input) for mailman id 1031088;
- Wed, 02 Jul 2025 12:52:15 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=0Y9l=ZP=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1uWwwh-0004Js-AU
- for xen-devel@lists.xenproject.org; Wed, 02 Jul 2025 12:52:15 +0000
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam02on2060d.outbound.protection.outlook.com
- [2a01:111:f403:2407::60d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5f914c37-5743-11f0-a313-13f23c93f187;
- Wed, 02 Jul 2025 14:52:13 +0200 (CEST)
-Received: from BN9PR12MB5273.namprd12.prod.outlook.com (2603:10b6:408:11e::22)
- by DS0PR12MB8788.namprd12.prod.outlook.com (2603:10b6:8:14f::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8880.32; Wed, 2 Jul
- 2025 12:52:07 +0000
-Received: from BN9PR12MB5273.namprd12.prod.outlook.com
- ([fe80::cf66:58ab:47be:4b13]) by BN9PR12MB5273.namprd12.prod.outlook.com
- ([fe80::cf66:58ab:47be:4b13%5]) with mapi id 15.20.8901.018; Wed, 2 Jul 2025
- 12:52:06 +0000
+	id 1uWx1K-0004xc-Sf; Wed, 02 Jul 2025 12:57:02 +0000
+Received: by outflank-mailman (input) for mailman id 1031102;
+ Wed, 02 Jul 2025 12:57:00 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=FQsZ=ZP=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uWx1I-0004xW-U8
+ for xen-devel@lists.xenproject.org; Wed, 02 Jul 2025 12:57:00 +0000
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [2a00:1450:4864:20::42a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0a1aee3f-5744-11f0-b894-0df219b8e170;
+ Wed, 02 Jul 2025 14:56:58 +0200 (CEST)
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-3a5257748e1so2969996f8f.2
+ for <xen-devel@lists.xenproject.org>; Wed, 02 Jul 2025 05:56:58 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-23acb3ad405sm127453545ad.150.2025.07.02.05.56.51
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 02 Jul 2025 05:56:57 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,298 +45,140 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5f914c37-5743-11f0-a313-13f23c93f187
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Rve2zjJ5bqpfQdfiBSwH1hD9DW3pwbs0n0+SW6iXfS+mWY/TueiBWQbbSBrvV0N5dfXERiFHNN4pBA8zA4iqOd/Rz+cz/LUxWWM2rdwDDpuD/WKI/pAi7jeW6UH+T6cVIFxOSCvZFD2pVn7Yw+QVp6ZDknxfrx8+AFWrU4K5/Oyi7m19PSs+g8W4WGzUFEE34dYwk+9Iz3JjbKsII0Vj6OYB13RQyGCAD5S9amEUaaaazfHzInJaRGgfO4ddOfhVF9Z038dIz33wbiE9YMo74ClghMWkjrHxwUPwtkQ37PfIuV5sNqCI/hMi00vRKLDOPFpdCsqDwtmlxTKDUQj6VQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qA/i8tZOwQ9eA6TGGGAXzv4kJz13XpnrJPjzPASQdQw=;
- b=xTINGz692TJusNRlPEBz77t1S6gIT2xqewMw08sIyF75DhlQVvRtvNd8uJGxbsSeZwqe8aaNEf6zXv4YWwok4Tpms9YDenEq+PdIRHfIkaoyRGkJpNElaooEKw/oP94dFh9FokslCNCwhcRm5YhmJyNlz6YTG4QzwhWqrXEEfcjOTL4fFyq55R9mMkPLLqQRsRqX3yS1FaH9iP9MwTtUbqs/ackak4TWZXsFhEQJsnvFMVcnqDMpqQNvWqG4VVnJV/3YgX3x50uu/3MgLRpbb6YMSmJ7NpFfr7OMcYyfndqrG1mBOrk8Gsu9f+d1lttnecwpXxL0ezNGPkdfxkring==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qA/i8tZOwQ9eA6TGGGAXzv4kJz13XpnrJPjzPASQdQw=;
- b=MtYRWTisGFLpBQkbpYtNPfYL4uhFmjrzyBswu3kotspNTLPECtE/Hhc43qlZH8+SGLdajeDOGlwg7e6Du53DlClntwEyGRrHXOGwufSV5BPTatFEC5fqMVFoIkE/4Xm3KPdbitcpwBvDl63+jjm1Mpmh2I63ZeNwx4TN8FJrpSg=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Message-ID: <fce437b6-b3df-4e11-a59f-01690ff660b4@amd.com>
-Date: Wed, 2 Jul 2025 14:52:02 +0200
+X-Inumbo-ID: 0a1aee3f-5744-11f0-b894-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1751461018; x=1752065818; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=AkkjGestmVF39ML2y+UyM+aEYj+VZ2klWw6FZs0kwA8=;
+        b=VWyX/Y8YNZ2XkofOlYohB47GFR5TOy5gWfNA47pGDx+ZAemXqsGZE8ltqqIOF8ofPV
+         mzs1Ms8aLNTz6Ndq1dC8SxmgDW4dAWXImEX2HJ2bUgvmqjHi5uA4xEpMBv73ADJtNUFK
+         CA78U/WiE5qp5rYgsYJjvLMyaQBuaDoIV0Eyl8Yt4d3tU0g/a41zsboSfq6Vu6IfQlIi
+         8Q/l6JHahQjTj1PVaiVboFFM1+GD3Nr6ks08UudDWPpqDAgJiq33b7nWUfXu5hv9p1Iq
+         6weom1NAB20gl6dkVWY6WCHJ7PVQ6PEvNpPkYxvpaeJviXCKPTVb+hPrKy2UqzUNbnxL
+         LADA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1751461018; x=1752065818;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=AkkjGestmVF39ML2y+UyM+aEYj+VZ2klWw6FZs0kwA8=;
+        b=sLWM4G0yjTCoZNSKVfSb82tskGcF6WhN58akOkNVN5zxPXX6Ai35bGJSTPLbqWVq39
+         BcaXVyJ0kLKVrSFODR3GiqvIFtZEMO/JjudMTBoiIyWW9M7zmzME9lqwzsmhCxCEWEBj
+         oCxZfXQkcTi3tl9SzYOxyPkNALT/zrSX5hfGLlK6lryBc6yz2f854RyHWZABwh35/jUP
+         UCtSqgGrEwC2if/c35VgYJhpGdBcBL9KlFQsw9KK8l5eQfuUIPU0/vjpK0IW/Qy4/vEB
+         A7VPxDQoagsluLVHG0aHriiEiuDHIwMPhwENWIcKtXJufjS2/3OyF8I6hTkOf/fDAZcw
+         Gstw==
+X-Forwarded-Encrypted: i=1; AJvYcCXKhby2wp1d7KBmieyki3MqAg4FdO3e/k1ecNVpSS9SE+pbdVjOcOA9e4B7Y4JWXdlv0WuBrX/WtSU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzxkTnrJ83uQeZIaRJwBWBNzh85Jq1eGNwa5pZmdt/9KzJqFBlf
+	hRs47cDDoO3+stUfzfLWCGlvfcjohvHzCFWd8jzmJ1u7NWE0U+KHuWMw5ZKattl08A==
+X-Gm-Gg: ASbGncvlXVnt5W2ezw4O/wiqXA9YrWdvwDtKq8HP6cPmjN3qhui7SFJP9DdYVSqh9W3
+	X2qL5qxxo0uUFd5et88mzgkw8S/nUp/CE2auVi2+v7g5TWkSLrOKJIzlKJP9o7YcOKy/M36pebN
+	6hYrA77fMPQvzIKbbpjOGzr4gQenxIBRYPt8JS2SRtawIak7LeONpSHCo+wmB+SJJ6uM9KEKuCS
+	5AM2D8J0EP0ds2QyLH88fRnviRbgekKJwDmfFz4YlDFLmW4AlRunwdBOpVWNlofN5tcbgFvt89D
+	pGgyoqbIWEEsc3IF+FwKW2bMSoIITWoisI/KaDijgUeNeDxhp9EjaJG2uik/39hcyGq+AD+NmvS
+	S9pwKIBJPHOv2S8lJW3NEPVvE5mmpZKnjm8NtjLvH/HVHgpY=
+X-Google-Smtp-Source: AGHT+IErWwJ6HMiugsw+nNwQyqBDOKxcNrTeXO5iDUOUjG+naic+1c2e99BM33DVxDQsr1j5d+Gi7w==
+X-Received: by 2002:a05:6000:2910:b0:3a6:d26a:f0f5 with SMTP id ffacd0b85a97d-3b1ff14e59fmr2246215f8f.21.1751461018151;
+        Wed, 02 Jul 2025 05:56:58 -0700 (PDT)
+Message-ID: <3128c4ae-7146-4480-b7b3-e17f253e3870@suse.com>
+Date: Wed, 2 Jul 2025 14:56:47 +0200
+MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 16/17] xen/riscv: implement mfn_valid() and page
- reference, ownership handling helpers
-To: Jan Beulich <jbeulich@suse.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>, Julien Grall <julien@xen.org>,
+Subject: Re: [PATCH v5 02/10] xen: Refactor kernel_info to have a header like
+ boot_domain
+To: Alejandro Vallejo <agarciav@amd.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1749555949.git.oleksii.kurochko@gmail.com>
- <50159d05e75c14ca62ee6cab5a4d30645981827a.1749555949.git.oleksii.kurochko@gmail.com>
- <aa769aa7-739c-4e59-8aea-d07398025b2f@suse.com>
-From: "Orzel, Michal" <michal.orzel@amd.com>
+ xen-devel@lists.xenproject.org
+References: <20250701105706.86133-1-agarciav@amd.com>
+ <20250701105706.86133-3-agarciav@amd.com>
 Content-Language: en-US
-In-Reply-To: <aa769aa7-739c-4e59-8aea-d07398025b2f@suse.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20250701105706.86133-3-agarciav@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0268.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:e8::13) To BN9PR12MB5273.namprd12.prod.outlook.com
- (2603:10b6:408:11e::22)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5273:EE_|DS0PR12MB8788:EE_
-X-MS-Office365-Filtering-Correlation-Id: c07d78f1-a783-4b68-fb28-08ddb9673fb6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|7416014|376014;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?akJTaGZXQVJuNjJ3SmQrSUxXcFNIbVVFM2x5eDVtMndnNVJzUmxiWG1zL1F0?=
- =?utf-8?B?SWtwczZwQXdNOHFHZ1VQZUNIbHpxdUx0bmJMc2E5U29TQ2hYVkJJdWFQS3JZ?=
- =?utf-8?B?SEUrS25TMDRzNEtMK1huWHhkQUlmdi9KaVl0c3JIZzlPbzRERmdpb3pTZ2RE?=
- =?utf-8?B?S2RKRzAyOWp2L2JaYU53aFNIUE8wajJVY1Q4N2dsNTkxUVk1UmRVRnpsVWNl?=
- =?utf-8?B?b016MWFTNk91YmdFdXliOTdhTVJnM21HQzc5d3BsTnRHRVFsRGo3NTBzZzN6?=
- =?utf-8?B?dmJORzg3WDhCQUdYQU4vL2RFQTlINzJzZHNWaW0zN3BBR2paTXQ2OWphTzR5?=
- =?utf-8?B?RDEzYkZsdXlLMmJFTXZtOHp5RG9EMHVVY09ZdnFMd0o2QVlrdU1meFg0WlpM?=
- =?utf-8?B?aDBIdDhiSEhNU1IwcmRyd25yQWVpTGEyTlhIa3B1dFJ5NXlpT3ZzbURrLzZD?=
- =?utf-8?B?WnFkSGxlNTdleDBKa2FpWGwwVjNjYld2MG9ibEtBd3NvL3pOOEdMb1B2Lzl4?=
- =?utf-8?B?Q0xOUERIV25NN29kMEw1Y0Jacm8ybnFaVFVhTUxxT00vVVN2ZDBpb0crdmlU?=
- =?utf-8?B?TVgxWWxNeDVmeWVSeFVBQ2FQUk1EQ3k1c2pVWWVXUEVqanVMTGQ5VWJkZzls?=
- =?utf-8?B?RGx3QXdWUWpMNmFTRDhDemh1dXlqWGRGeHQ0eVUwSkR0a2djWjNjQmkvbVlB?=
- =?utf-8?B?WlA5UnNjdjNIMzM0MlF4ejRKc3NaaUZDUzA0UDZyQVNsa1QxWFp6QWhmNzRu?=
- =?utf-8?B?ZUxBRThqTDdSaGpaR2JIZC83L1JaejYzZ0RnWE1Pam53dllTLytEYjJhT2dn?=
- =?utf-8?B?QjRoNlJlUWNtQUJqaTJuL2NzZ0ZTL05Ba3pscDUvaGFnVDJHRnNpcmJFZktD?=
- =?utf-8?B?Q2trN2xNbU13dVZTOHA2WWhua3VwdVpUZUZ4dzFxM1dwbldnc3lDcS9TUU5L?=
- =?utf-8?B?SFVTUXdOV2U2SEZFNXE4WXp1dmg5bTZBOHhZV3phYzIwQ3EzRjNyeGhFRnNK?=
- =?utf-8?B?OXVnWU9jRlAxdVR4Q2w4bW9BdWRJRGZ2Z2phUUpBVWdHQ3JZZFYyWnZ6OGdC?=
- =?utf-8?B?L0pJZGRpQ2N0cHduUzBPZUM5dU5FL3JnbjlJcFNyc1FrWEhxdC84bHU0M2xq?=
- =?utf-8?B?ekxhNC9ZN3YxSzdoRE5sNWhVVURUbmErS3FnelRDcjZaai9XU1RDK2hCMTJV?=
- =?utf-8?B?OSsrWDFnM2M3by9jMG9sNjZkaFJEMmlaZUFKY0JMekpxS3ZpajdYOFQxeHpX?=
- =?utf-8?B?UGMrcWVwMkxVeUdGU0JQbVpjSGh5dFhmdHhxODRlWU9FVG52YlRhaVNBS3JK?=
- =?utf-8?B?eU5aeUdKeFZlVjRnNG1lbmNGT3lwbjk2Q3pwTjYzSFVoTk12d1Y5MlNEaytk?=
- =?utf-8?B?UGJzK25VdGRycmFQZ0xlYVdxVEpiT3BkQkxUSjBWS3RhTm5udlpWRjdSWlFM?=
- =?utf-8?B?VS9iYXdmM3N6ZlhtUUxpUUQ5N3hNc3NadmxDSWh3dnBVeEV0SXpPbUVMaS9I?=
- =?utf-8?B?VWFLZFJ4UmppQkVhMlBsVzVjTFRDYnhjYzBwZUY2ZHBJM1VVdFM5UzlOUVA4?=
- =?utf-8?B?WkdOcldZRFh5N0J3dXRKSmlCOWozN0x5NHNLS1RvYUQrTkh5K1R1RGJKMVJW?=
- =?utf-8?B?OTltZ2JhUkpFRzJ6VlJwd2hXMGI5eDhMM2E5S1N4VVpyZlcvcFlrOHJYcFFX?=
- =?utf-8?B?L2V3WjlrY1Y2U0tWNmx2Z0RrclVsV3lubzN5RDNsZFJXV2xUdXFJNGt3anEw?=
- =?utf-8?B?MHpPcWlGVFJOaFFMeVZoQTBpb0tkVWtEMGt6c2VlZE1rMmE5YjlFMXVmOC8y?=
- =?utf-8?B?cGtmVUNmUDk2K3RGSzFvdVBSL2JNaHRmanRMV3FYN2owRW1RRzVhNW5BRWVm?=
- =?utf-8?B?dTNFd0NOZWtxL0hpUGlFSWFGYVlJR09VWkZqVFdDdmhkaUU5aXFLTUhGL25l?=
- =?utf-8?Q?qjq6wpBGKE0=3D?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN9PR12MB5273.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(7416014)(376014);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?TmdjTSs2RUtsWmNET1RnbDNRWVlIMVVPOS9QSkVrZXVpR292cU9nUzJ6UE1Z?=
- =?utf-8?B?bFFFeHpaQzltQzFRS1VlK3dxcDVqOWRRMncyNy9OR0NVckZ3QzBicFlraUI3?=
- =?utf-8?B?K1JFYkw4bXA1V0xHd2xpa1dPVmt2MjMreFl1YzRnVUJrL0FWYVBRNDNKYmR4?=
- =?utf-8?B?NUR0THhWWGxNYmxEVlV1UytHSy9wazJVb1lPZlpDVXd1dVZZeDMwNzlESHFn?=
- =?utf-8?B?QU1lWC9CVjcwTkFSV0pKajlOWHpnU0FrSFNIUEt4WlpTTGVFMFROV2RmVVU5?=
- =?utf-8?B?VWVDN1pxd3RkNFdhVk1KT0ZHNzNPcDBoWWc0eWF0SUx3ZDE5WmNsMlo5NUpG?=
- =?utf-8?B?Y2I2OHl6YnJnYU1YcC9FK3NUNEZWQlNXMC9sdkhTb2lZZHFjeU9FYThzeUpq?=
- =?utf-8?B?NmR4WVQrT3VpN1N0Z0ljRXJGaDc3NFFJYlJUejh0OWNFZmhKU1JVdWQ2bDMw?=
- =?utf-8?B?bERpT0czWFJ0ZXFrbE05ekI4Q1pneFlzeVZ2ZTlPQ2UyYmtIYVQzMkVsU3h5?=
- =?utf-8?B?L3BtRXk4RUE1VmxGenFwVkdHcC9iRm4zblFKcVlORVdpZEw0Z24rVDBzRzRv?=
- =?utf-8?B?NWRIWU14cUF3VkRBckJMdnBKcDdIWmlzTzhkVTA1Qno3ZWxQOFQxZ2tURkdq?=
- =?utf-8?B?ZGNmKzdPODdFaDJkOE12VjFGOVd4a253N2VpQ1FJSXJQVlFTNzdsSlByVmdB?=
- =?utf-8?B?bWJyTzBhdWUvRHRDZEpnV1N4U2dwQ3RNT3VXVUw2c3dZSlFLeDdtVUxxeDV3?=
- =?utf-8?B?NFdLZnBiZUJ6QUhKR0IvSFNEWDFSWlpDZW9UZTZXTHVQSnJlbGZEbDFsTnRw?=
- =?utf-8?B?RDJ1NjFQNkw5TlZuOHloN1JZK1hCTXl1ZWNoeHFvcDdYNm1remd6MGlEdDFX?=
- =?utf-8?B?TG4rTkRaa2hWaEVDejRUdW0xMThUc2FJU1Rqc09QSWFRYlpSbUJXdHJhVzJr?=
- =?utf-8?B?NHR2NmNaOThRQXA1VTlvUWZsSXFnMEtOaElkYVkrdWY3RFE4Z0Q3RGlXZFho?=
- =?utf-8?B?L3N6d2pDUlR2d01sTUg3aGJCYnRpQXB3cDIvaW9JOFlaVVpHN04zZUhyb3o4?=
- =?utf-8?B?Ung0YTJTT3crQzIrbXRZbVcycVg0SGVXSnhad1Y1QldmcGdEMGMzVzlpRjZZ?=
- =?utf-8?B?WjE4SzgwNlVWTTlqZCtiaTNDL3p0T2VnUUpqTVNwMVk4bk4zSXFHSHhVaHRs?=
- =?utf-8?B?TFprRFRMYWVXV2l0eGkyMWFMcit4MTRDaS9TZmRXVmRyYW9OSjhKZllNVDN3?=
- =?utf-8?B?aDJkR1puZDJyZzJPeWR1Z0grTmU5TkZJVFdzWWl0L3BpWlFMcDErb3Mrd0lM?=
- =?utf-8?B?eWVuc2cyNlIzQ2d2eG5YMkltM29MNnphSm4vbHFFb2NEZmtRbTFaQXMrS0dI?=
- =?utf-8?B?UlRqbHVZZmtYQWZNZHFETzlCNS9OcnlOYThIZDkzZ0xCdWx6QlJ3VmwxcEhR?=
- =?utf-8?B?K0lFUlhWMkVHWEFWY2hwQ1A2bFVJY3lXdG5SRXJTZ3NwUURGR0ZjaG5tMmxO?=
- =?utf-8?B?aGJNMVBpUUo2U3ZkTXpPaFZFbUNoeGF3eFdDVkNOVThOWDA0MXR5YjRTbHdV?=
- =?utf-8?B?UDhPNXlJelRLYUtYSzdjN1A1OHAxbitWNytlYWtuRXM0OGdQcENOOVFRblll?=
- =?utf-8?B?QWZaK3ZPL0E4aUk4bGp3L1lEQTNDNGJZbzdxUjljWnRhWTJhaW5tVWZZWHJN?=
- =?utf-8?B?ZzJ1QmxZZm8yV3M2NG1lZzJXVm5nK1lpeEdiN2RFZ2ZCY04zN2daeVhKeUVw?=
- =?utf-8?B?eldDLzNhNWpMT2tnMkZkWkdtWWFIMWdDMFNJbzBXNkJtdmJPeHlYQ1FiYkRx?=
- =?utf-8?B?OFJBWkZ6d1lqZEhXZ2VQUnFEdFVNM3V2UWJEaVpiY0xhamV1Uk1McW1FZmVI?=
- =?utf-8?B?OGFRRndBZ1FmbGhuU2pOd294dVFLdEhubVUxVzNmS1NLMm1nVlpCSXRIV3dm?=
- =?utf-8?B?bFRhUkh0TkNnb0VmV0lnZElveUl2WTFxL0hPWGRoUVpzT1hmWklPVDA0UDg1?=
- =?utf-8?B?ckpld3FrV25UNzFiMWxqYXJoYmwzekRJem0zZGwyUi9iUFRXdGQ0RHBqRzlp?=
- =?utf-8?B?ZXYrV3l5QUYzdkk5OE1PR0xxcTZpN1ArQjRXYlJoenVHaWlXMGNERUVLR2Y1?=
- =?utf-8?Q?oMSnDC9sdv2pXCE/MHg1+217j?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c07d78f1-a783-4b68-fb28-08ddb9673fb6
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5273.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jul 2025 12:52:06.1956
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: wT/rcnPboSb42Mf8H/Eo0uOIsC8mo4AggrJxKVBR+Bc3fQjhCb+ZMHi0wlNOB18R
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8788
 
+On 01.07.2025 12:56, Alejandro Vallejo wrote:
+> --- a/xen/include/xen/bootfdt.h
+> +++ b/xen/include/xen/bootfdt.h
+> @@ -100,6 +100,16 @@ struct shared_meminfo {
+>      struct shmem_membank_extra extra[NR_SHMEM_BANKS];
+>  };
+>  
+> +
 
+Nit: No double blank lines please.
 
-On 02/07/2025 12:09, Jan Beulich wrote:
-> On 10.06.2025 15:05, Oleksii Kurochko wrote:
->> Implement the mfn_valid() macro to verify whether a given MFN is valid by
->> checking that it falls within the range [start_page, max_page).
->> These bounds are initialized based on the start and end addresses of RAM.
->>
->> As part of this patch, start_page is introduced and initialized with the
->> PFN of the first RAM page.
->>
->> Also, after providing a non-stub implementation of the mfn_valid() macro,
->> the following compilation errors started to occur:
->>   riscv64-linux-gnu-ld: prelink.o: in function `__next_node':
->>   /build/xen/./include/xen/nodemask.h:202: undefined reference to `page_is_ram_type'
->>   riscv64-linux-gnu-ld: prelink.o: in function `get_free_buddy':
->>   /build/xen/common/page_alloc.c:881: undefined reference to `page_is_ram_type'
->>   riscv64-linux-gnu-ld: prelink.o: in function `alloc_heap_pages':
->>   /build/xen/common/page_alloc.c:1043: undefined reference to `page_get_owner_and_reference'
->>   riscv64-linux-gnu-ld: /build/xen/common/page_alloc.c:1098: undefined reference to `page_is_ram_type'
->>   riscv64-linux-gnu-ld: prelink.o: in function `ns16550_interrupt':
->>   /build/xen/drivers/char/ns16550.c:205: undefined reference to `get_page'
->>   riscv64-linux-gnu-ld: ./.xen-syms.0: hidden symbol `page_get_owner_and_reference' isn't defined
->>   riscv64-linux-gnu-ld: final link failed: bad value
->>   make[2]: *** [arch/riscv/Makefile:35: xen-syms] Error 1
->> To resolve these errors, the following functions have also been introduced,
->> based on their Arm counterparts:
->> - page_get_owner_and_reference() and its variant to safely acquire a
->>   reference to a page and retrieve its owner.
->> - put_page() and put_page_nr() to release page references and free the page
->>   when the count drops to zero.
->>   For put_page_nr(), code related to static memory configuration is wrapped
->>   with CONFIG_STATIC_MEMORY, as this configuration has not yet been moved to
->>   common code. Therefore, PGC_static and free_domstatic_page() are not
->>   introduced for RISC-V. However, since this configuration could be useful
->>   in the future, the relevant code is retained and conditionally compiled.
->> - A stub for page_is_ram_type() that currently always returns 0 and asserts
->>   unreachable, as RAM type checking is not yet implemented.
-> 
-> How does this end up working when common code references the function?
-> 
->> @@ -288,8 +289,12 @@ static inline bool arch_mfns_in_directmap(unsigned long mfn, unsigned long nr)
->>  #define page_get_owner(p)    (p)->v.inuse.domain
->>  #define page_set_owner(p, d) ((p)->v.inuse.domain = (d))
->>  
->> -/* TODO: implement */
->> -#define mfn_valid(mfn) ({ (void)(mfn); 0; })
->> +extern unsigned long start_page;
->> +
->> +#define mfn_valid(mfn) ({                                   \
->> +    unsigned long mfn__ = mfn_x(mfn);                       \
->> +    likely((mfn__ >= start_page) && (mfn__ < max_page));    \
->> +})
-> 
-> I don't think you should try to be clever and avoid using __mfn_valid() here,
-> at least not without an easily identifiable TODO. Surely you've seen that both
-> Arm and x86 use it.
-> 
-> Also, according to all I know, likely() doesn't work very well when used like
-> this, except for architectures supporting conditionally executed insns (like
-> Arm32 or IA-64, i.e. beyond conditional branches). I.e. if you want to use
-> likely() here, I think you need two of them.
-> 
->> @@ -525,6 +520,8 @@ static void __init setup_directmap_mappings(unsigned long base_mfn,
->>  #error setup_{directmap,frametable}_mapping() should be implemented for RV_32
->>  #endif
->>  
->> +unsigned long __read_mostly start_page;
-> 
-> Memory hotplug question again: __read_mostly or __ro_after_init?
-> 
->> @@ -613,3 +612,91 @@ void __iomem *ioremap(paddr_t pa, size_t len)
->>  {
->>      return ioremap_attr(pa, len, PAGE_HYPERVISOR_NOCACHE);
->>  }
->> +
->> +int page_is_ram_type(unsigned long mfn, unsigned long mem_type)
->> +{
->> +    ASSERT_UNREACHABLE();
->> +
->> +    return 0;
->> +}
->> +
->> +static struct domain *page_get_owner_and_nr_reference(struct page_info *page,
->> +                                                      unsigned long nr)
->> +{
->> +    unsigned long x, y = page->count_info;
->> +    struct domain *owner;
->> +
->> +    /* Restrict nr to avoid "double" overflow */
->> +    if ( nr >= PGC_count_mask )
->> +    {
->> +        ASSERT_UNREACHABLE();
->> +        return NULL;
->> +    }
-> 
-> I question the validity of this, already in the Arm original: I can't spot
-> how the caller guarantees to stay below that limit. Without such an
-> (attempted) guarantee, ASSERT_UNREACHABLE() is wrong to use. All I can see
-> is process_shm_node() incrementing shmem_extra[].nr_shm_borrowers, without
-> any limit check.
-Honestly I don't know why this assert was placed here. I checked the code and we
-don't limit nr_shm_borrowers in any place, so in theory it's possible to end up
-here.
+> +struct boot_domain {
+> +    struct domain *d;
+> +
+> +    struct boot_module *kernel;
+> +    struct boot_module *initrd;
+> +
+> +    const char* cmdline;
 
-~Michal
+Nit: * and blank want to change places.
 
-> 
->> +    do {
->> +        x = y;
->> +        /*
->> +         * Count ==  0: Page is not allocated, so we cannot take a reference.
->> +         * Count == -1: Reference count would wrap, which is invalid.
->> +         */
-> 
-> May I once again ask that you look carefully at comments (as much as at code)
-> you copy. Clearly this comment wasn't properly updated when the bumping by 1
-> was changed to bumping by nr.
-> 
->> +        if ( unlikely(((x + nr) & PGC_count_mask) <= nr) )
->> +            return NULL;
->> +    }
->> +    while ( (y = cmpxchg(&page->count_info, x, x + nr)) != x );
->> +
->> +    owner = page_get_owner(page);
->> +    ASSERT(owner);
->> +
->> +    return owner;
->> +}
->> +
->> +struct domain *page_get_owner_and_reference(struct page_info *page)
->> +{
->> +    return page_get_owner_and_nr_reference(page, 1);
->> +}
->> +
->> +void put_page_nr(struct page_info *page, unsigned long nr)
->> +{
->> +    unsigned long nx, x, y = page->count_info;
->> +
->> +    do {
->> +        ASSERT((y & PGC_count_mask) >= nr);
->> +        x  = y;
->> +        nx = x - nr;
->> +    }
->> +    while ( unlikely((y = cmpxchg(&page->count_info, x, nx)) != x) );
->> +
->> +    if ( unlikely((nx & PGC_count_mask) == 0) )
->> +    {
->> +#ifdef CONFIG_STATIC_MEMORY
->> +        if ( unlikely(nx & PGC_static) )
->> +            free_domstatic_page(page);
->> +        else
->> +#endif
-> 
-> Such #ifdef-ed-out code is liable to go stale. Minimally use IS_ENABLED().
-> Even better would imo be if you introduced a "stub" PGC_static, resolving
-> to 0 (i.e. for now unconditionally).
-> 
-> Jan
+> --- a/xen/include/xen/fdt-kernel.h
+> +++ b/xen/include/xen/fdt-kernel.h
+> @@ -16,7 +16,7 @@
+>  #endif
+>  
+>  struct kernel_info {
+> -    struct domain *d;
+> +    struct boot_domain hdr;
+>  
+>      void *fdt; /* flat device tree */
+>      paddr_t unassigned_mem; /* RAM not (yet) assigned to a bank */
+> @@ -34,8 +34,7 @@ struct kernel_info {
+>      paddr_t gnttab_size;
+>  
+>      /* boot blob load addresses */
+> -    const struct boot_module *kernel, *initrd, *dtb;
 
+Where did this "const" go?
+
+> -    const char* cmdline;
+> +    const struct boot_module *dtb;
+
+This one only retains the intended effect here.
+
+>      paddr_t dtb_paddr;
+>      paddr_t initrd_paddr;
+
+"hdr" is an odd name here. That struct has no need to live at the beginning,
+afaict. How about "gen" for "generic" or "bd" for "boot_domain"?
+
+Jan
 
