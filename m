@@ -2,32 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96270AF65B4
-	for <lists+xen-devel@lfdr.de>; Thu,  3 Jul 2025 00:57:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1031607.1405422 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 63C91AF668E
+	for <lists+xen-devel@lfdr.de>; Thu,  3 Jul 2025 02:20:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1031633.1405439 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uX6OC-0007E2-8l; Wed, 02 Jul 2025 22:57:16 +0000
+	id 1uX7gF-0001jU-AW; Thu, 03 Jul 2025 00:19:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1031607.1405422; Wed, 02 Jul 2025 22:57:16 +0000
+Received: by outflank-mailman (output) from mailman id 1031633.1405439; Thu, 03 Jul 2025 00:19:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uX6OC-0007Bi-5T; Wed, 02 Jul 2025 22:57:16 +0000
-Received: by outflank-mailman (input) for mailman id 1031607;
- Wed, 02 Jul 2025 22:57:14 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1uX6OA-0007Bc-Mi
- for xen-devel@lists.xenproject.org; Wed, 02 Jul 2025 22:57:14 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1uX6O9-00EuiX-2z;
- Wed, 02 Jul 2025 22:57:13 +0000
-Received: from [2a02:8012:3a1:0:d050:4cf0:af44:4b0]
- by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1uX6O9-009dfs-24;
- Wed, 02 Jul 2025 22:57:13 +0000
+	id 1uX7gF-0001hc-7l; Thu, 03 Jul 2025 00:19:59 +0000
+Received: by outflank-mailman (input) for mailman id 1031633;
+ Thu, 03 Jul 2025 00:19:58 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=MVF+=ZQ=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1uX7gE-0001hW-6L
+ for xen-devel@lists.xenproject.org; Thu, 03 Jul 2025 00:19:58 +0000
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 69174121-57a3-11f0-b894-0df219b8e170;
+ Thu, 03 Jul 2025 02:19:41 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 84965456FD;
+ Thu,  3 Jul 2025 00:19:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B4A7C4CEE7;
+ Thu,  3 Jul 2025 00:19:37 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,95 +41,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=ai7n2TDzQ3WaFp+3OyJzYLXzek+cApjdAv7V7PVT9bA=; b=D0hA8sZMMYGkcwbwp+w97/DWAY
-	IrC7KRSaBTvmajB46lB0OkCpo7bYg6zuriSuQiZbx5tbj7MtMZLVbHJ2JWJHzjdQG1lQzoQDxqKq9
-	sSdReNE6sV3QJ2cboY4s9NzDRILsl5/0T0ol41LJUidKM2jy3UOyykEYT/p8oI58+Oi0=;
-Message-ID: <7070f416-119c-49f8-acd0-82c6e31f0fc6@xen.org>
-Date: Wed, 2 Jul 2025 23:57:10 +0100
+X-Inumbo-ID: 69174121-57a3-11f0-b894-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1751501979;
+	bh=WaUNJ7vyK+9f6FAeo2H8gSwfXPxCJHmO6PKRHf/W978=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=PPaH8y1g+9mTI5kwM3jcso4ojhUgWYnrRCUJ1z1Qdq2ShD9cEQEQeuZttn5YehnE0
+	 kkBuZiIVX5QogcY4ZP3hAk56OrHorpPcxjj5gjHOMUr/JRUqgITnsZ3uvW6/6ummCr
+	 PtFAtdcJHi81dDqebOeNlgWIyTaXkRlPFkdPi1O3AwSC/nq1kWTjdBpDyBDkqdR6s2
+	 +DemTPjRxQ8QQ7o/2WEgB5vkw6lGi3VFesUMqFb/6FFlObk7ZcD0JTrDH78IUjxJga
+	 whWDeZ+8r0cgjXhr4tSZQh8PawEO8SA5pwG+HV49urf5krwgwDDcZXWPNGXdBxk/lt
+	 gNCK9+gS4I6rg==
+Date: Wed, 2 Jul 2025 17:19:36 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: "Orzel, Michal" <michal.orzel@amd.com>
+cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    Jan Beulich <jbeulich@suse.com>, xen-devel@lists.xenproject.org, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    Anthony PERARD <anthony.perard@vates.tech>, Julien Grall <julien@xen.org>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    Shawn Anastasio <sanastasio@raptorengineering.com>, 
+    Alistair Francis <alistair.francis@wdc.com>, 
+    Bob Eshleman <bobbyeshleman@gmail.com>, 
+    Connor Davis <connojdavis@gmail.com>, 
+    Oleksii Kurochko <oleksii.kurochko@gmail.com>, 
+    Community Manager <community.manager@xenproject.org>
+Subject: Re: [PATCH v2 0/8] pdx: introduce a new compression algorithm
+In-Reply-To: <adc8f96c-6aad-4d67-9e78-118a29a58bce@amd.com>
+Message-ID: <alpine.DEB.2.22.394.2507021719300.862517@ubuntu-linux-20-04-desktop>
+References: <20250620111130.29057-1-roger.pau@citrix.com> <alpine.DEB.2.22.394.2506271905350.862517@ubuntu-linux-20-04-desktop> <aGKnDHtRD5OLGaYj@macbook.local> <alpine.DEB.2.22.394.2506301726500.862517@ubuntu-linux-20-04-desktop> <1507b441-dd3c-4a24-beda-0d1d3143faf9@suse.com>
+ <alpine.DEB.2.22.394.2507011338360.862517@ubuntu-linux-20-04-desktop> <aGTZK0YmBTvGmNQr@macbook.local> <0807cdba-b0bb-42a7-a18d-407ab818709a@amd.com> <aGTtJTTbEkYvnMq6@macbook.local> <adc8f96c-6aad-4d67-9e78-118a29a58bce@amd.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 1/4] xen/arm: Implement PSCI SYSTEM_SUSPEND call for
- guests
-Content-Language: en-GB
-To: Mykola Kvach <xakep.amatop@gmail.com>
-Cc: xen-devel@lists.xenproject.org, Mykola Kvach <mykola_kvach@epam.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Juergen Gross <jgross@suse.com>
-References: <cover.1751020456.git.mykola_kvach@epam.com>
- <072270e0940b6bcc2743d56a336363f4719ba60a.1751020456.git.mykola_kvach@epam.com>
- <066c6e93-a478-4c8f-b161-d109bd0e6bb4@xen.org>
- <CAGeoDV-Zze2LtAdofS5EENkANH46SGU3+kqHkTB-k33MBmBXLQ@mail.gmail.com>
- <3cf697b8-9c23-4e24-980e-3f9696692bb4@xen.org>
- <CAGeoDV8_bB6Yrr0eLmUM562Q1CEsGuHXe7S5f6-yYwwwLdiXkg@mail.gmail.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <CAGeoDV8_bB6Yrr0eLmUM562Q1CEsGuHXe7S5f6-yYwwwLdiXkg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
 
-Hi Mykola,
+On Wed, 2 Jul 2025, Orzel, Michal wrote:
+> > Hm, that's up to the ARM folks, but my opinion is that you should
+> > simply ignore memory above the threshold.  Panicking should IMO be a
+> > last resort option when there's no way to workaround the issue.
+> On Arm we handle user errors and suspicious behavior usually as panics as oppose
+> to x86 which is more liberal in that regard. We want to fail as soon as possible.
 
-On 02/07/2025 23:27, Mykola Kvach wrote:
-> On Wed, Jul 2, 2025 at 3:28 PM Julien Grall <julien@xen.org> wrote:
->> Why should we return an error? This is valid for a 64-bit domain to use
->> SMC32 convention.
-> 
-> I mean — in that case, is it possible that the upper 32 bits are set to
-> non-zero values without it being an explicit error from the guest?
-> 
-> In my code, the macro used to extract 64-bit values (on 64-bit Xen, of
-> course) just copies values from the Xn registers directly.
-> 
-> According to the SMC Calling Convention specification:
-> "System Software on ARM Platforms" (ARM DEN 0028A), we must use Wn
-> for SMC32 parameters in AArch64.
+If we think about it, this is natural because Xen on ARM was mostly
+aimed at embedded developers configuring an embedded system. Embedded
+developers might not be Xen experts but they are typically engineers.
+These people would definitely want to know if part of the memory was
+ignored, and might be able to write a fix.
 
-The version A is more than 12 years old. You want to use the latest 
-version. From the SMCCC DEN0028G [1] section 3.1 (Register use in 
-AArch64 SMC and HVC calls):
+On the other hand Xen on x86 was aimed at non-expert users -- people
+apt-get'ing Xen on a Debian system. These people wouldn't know how to
+read a panic so we would certainly want to boot anyway even with only
+partial resources.
 
-"
-The working size of the register is identified by its name:
-• Xn: All 64-bits are used.
-• Wn: The least significant 32-bits are used, and the most significant 
-32-bits are zero. Implementations must
-ignore the most significant bits.
-"
-
-So...
-
-> 
-> AFAIK, writing to Wn zeroes the top 32 bits of Xn. So, if the guest
-> is properly using 32-bit values for arguments, the upper bits will already
-> be zeroed.
-
-... while the guest should write 0 in the top 32-bit, we should not 
-reject not reject non-zero values nor do nothing. Instead we should 
-ignore the top bits.
-
-Also, per the Arm Arm (ARM DDI 0487J.a) page D1-5406, it is 
-implementation defined on whether the top 32-bits are zeroed when the 
-previous exception context was AArch32. Xen will zero them on entry to 
-avoid any surprise (see [2]), but that's only guarantee if this is a 
-32-bit domain (running either on 64-bit or 32-bit Xen) as SMC can only 
-be called from EL1.
-
-As a side note, KVM is also ignoring the top 32-bits (see [3]).
-
-Cheers,
-
-[1] https://developer.arm.com/documentation/den0028/gbet0/?lang=en
-[2] 
-https://xenbits.xen.org/gitweb/?p=xen.git;a=commit;h=32365f3476ac4655f2f26111cd7879912808cd77
-[3] 
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/arm64/kvm/psci.c#n223
-
--- 
-Julien Grall
-
+This has worked well so far, but now we are getting x86 in embedded and
+ARM on servers, so I think we should discuss and agree on a common
+pattern or a configurable pattern to handle this kind of situations.
 
