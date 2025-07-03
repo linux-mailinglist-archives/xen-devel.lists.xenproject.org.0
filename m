@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8688AF69F9
-	for <lists+xen-devel@lfdr.de>; Thu,  3 Jul 2025 07:56:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1031720.1405469 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9534FAF69FC
+	for <lists+xen-devel@lfdr.de>; Thu,  3 Jul 2025 08:00:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1031726.1405480 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uXCvZ-0000JI-Ad; Thu, 03 Jul 2025 05:56:09 +0000
+	id 1uXCzC-0000s1-QB; Thu, 03 Jul 2025 05:59:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1031720.1405469; Thu, 03 Jul 2025 05:56:09 +0000
+Received: by outflank-mailman (output) from mailman id 1031726.1405480; Thu, 03 Jul 2025 05:59:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uXCvZ-0000Hl-7g; Thu, 03 Jul 2025 05:56:09 +0000
-Received: by outflank-mailman (input) for mailman id 1031720;
- Thu, 03 Jul 2025 05:56:08 +0000
+	id 1uXCzC-0000qC-NO; Thu, 03 Jul 2025 05:59:54 +0000
+Received: by outflank-mailman (input) for mailman id 1031726;
+ Thu, 03 Jul 2025 05:59:53 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=lE7m=ZQ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uXCvY-0000Hf-AK
- for xen-devel@lists.xenproject.org; Thu, 03 Jul 2025 05:56:08 +0000
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [2a00:1450:4864:20::433])
+ id 1uXCzB-0000q6-LJ
+ for xen-devel@lists.xenproject.org; Thu, 03 Jul 2025 05:59:53 +0000
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [2a00:1450:4864:20::332])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 681ae8a6-57d2-11f0-b894-0df219b8e170;
- Thu, 03 Jul 2025 07:56:05 +0200 (CEST)
-Received: by mail-wr1-x433.google.com with SMTP id
- ffacd0b85a97d-3a6d77b43c9so4822977f8f.3
- for <xen-devel@lists.xenproject.org>; Wed, 02 Jul 2025 22:56:05 -0700 (PDT)
+ id ed58548d-57d2-11f0-b894-0df219b8e170;
+ Thu, 03 Jul 2025 07:59:48 +0200 (CEST)
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-453643020bdso66022635e9.1
+ for <xen-devel@lists.xenproject.org>; Wed, 02 Jul 2025 22:59:48 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-23acb3afc70sm146982315ad.146.2025.07.02.22.55.52
+ d2e1a72fcca58-74af540ae36sm16558808b3a.14.2025.07.02.22.59.41
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 02 Jul 2025 22:56:03 -0700 (PDT)
+ Wed, 02 Jul 2025 22:59:47 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,70 +45,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 681ae8a6-57d2-11f0-b894-0df219b8e170
+X-Inumbo-ID: ed58548d-57d2-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1751522164; x=1752126964; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1751522388; x=1752127188; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=oxwfIm7JeVa021jydIe5GiwGZEd2FwJGtelIfYENEGI=;
-        b=bJz2VSAwE1aA12Hp6AZxWsSr8Tvjvd5geCK7QPmFrMoISZI9bWCmomXE1S8luo5xcM
-         guf3LDTi1qoANZMpeyTfctQvzoYI8cmcnsN//lWuNAkAhl4ZqekjU1ohGDQuroJ5o9R1
-         slL6RWJfP7PABtwRXHitM3uosRXS0OMD6bdtO2DwDWwPeZ0cKUDVyrr/VS8jK3J4sHSM
-         WqGwvkueBMvIjT1ufg1LZLXYwR2U/kBZpdiqFoZvwrBxm6vLCYbzZt/mkymMH8LXbuBL
-         UQzhHbG4I9l324JETRHkCyLI88uCUrkTo5hdm5qUPRcZbmoFYQVwu/tejWJbfY0Shj8H
-         0IQA==
+        bh=iMLdHIm9GFvYaZLGrM5qxM4SG+ibcYeqPYcDKKW4pUg=;
+        b=TM8dPM+nnqvIeBuJz99Y6zgguoYhkXg1+ZQIZjeAODVHqN495N2Q4PaWtMv0kJyswH
+         gLJszepppecY+4GJEa9ET7zEHlogQgLUjd/zFAU3Ebv7DcUJzVIfFXoCIb33VEIBGAHO
+         9aa6hJRliWVjaeGkt0c3YJE6pgSLCRk1X4fYQxwAL59duFe7ffz3zwl++KoL7PazjlmI
+         dLMHJZwKTQXuCJ/JUutY8cgr4MYIetpipaXJxJaImm+Ftc9RE3C1Fn05aV2M6ZEuNLL4
+         EC5bFvUGiuKtwd3R0Ds2qT3vLHPXAscS3vm9Ea9tSqXxW2AUmfTZRBDoG5x/2Lo1ozLD
+         hmBg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1751522164; x=1752126964;
+        d=1e100.net; s=20230601; t=1751522388; x=1752127188;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=oxwfIm7JeVa021jydIe5GiwGZEd2FwJGtelIfYENEGI=;
-        b=IhnKYXV0uxNOS+K3pwwc14ccAUrDGUah+DjLGndyLI1RWEOgo8SOK1Y76nNHUTojgk
-         815U6QD13mp6OzoQGwy8pRkOW6VlfpmCD2B0Fs7yOwC9nO+6RLdP/rCwzOTOjZ67zXX/
-         I3xp9PgaQNethDVR68L6bmYY/sNkdSZZ2hhXQYEqqabXhZS7F6LfN7tw90kzlotxfhsR
-         3J4AiU/PQdZWGaHaaNfLXpeSIjxh2Ry+4DSQ/m0DzP+pBgdocrRIK0L8QoBYRcOzko0n
-         btspvh96xTSwIXXFORCC5BLmVE0M2TiFsgA3uAgxv/QZE2fGpfSAJoDLb3ojoVXNnhbN
-         UM3A==
-X-Forwarded-Encrypted: i=1; AJvYcCVbXGLaOyl5G3zWGGfkx7NiHmNld0+3HIcyaiFtlC8Y2Jjcd/av+/cuZd3M7OXWwRHQ5W/Ff8wdGyo=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxL6LHMK/gkLeV4Q9xgBB6gFTT8v7NBcyYs0JNFetVmXulxZ9jB
-	mZ0arFqHdyR5aHaS7KY0XxcrpW0AGgZ1WlRptxzQgqb3FBxjWGcMbLyd7D3L8xy4yQ==
-X-Gm-Gg: ASbGncuLhSzNhe9+9VEewoCj2ipxBrzCWPO1w27tNpPz7sE3/GrWz7Vgv/CvIfd5XzB
-	lrUDNjPo3Oae2s0I2uCdnciC2U15AbeUWEPRvU7Z5fAsy1MqRMCx5OO5lgf6NLOI8MIqln/BQht
-	Fop3DBnjen16pEghu7XDtO2uJducQo7/KnQbFHUl5nlb2nOZ73RTZPM64TOH0vmcjctgwMv4CYz
-	972l2QCizcs7M1M6kMp7TwR42KBDzrochs5A9Vkp/pYacEPzpuNzJeuR9pAbAKr4Bpfs3VNcilc
-	P730CKZawj8k9CjtOfa+/qW1FHNumSMTu+2mMKfah7yWIWRnGPhL2H8dmd+rXrDRapSWNf8+Ulu
-	OMnn9P3LePtsZtTGOWnAgnWwOpu7zbQfj58XP2GAE5hMeRkFIG3wq6JOBdA==
-X-Google-Smtp-Source: AGHT+IEzQIDj/C9G8NxMQQjNoSHc1V94gThc5lz7HCWvZFyMnWbr1o+b9nr3rLroN8urUmNGQK+zQw==
-X-Received: by 2002:a05:6000:2004:b0:3b2:fe84:a10 with SMTP id ffacd0b85a97d-3b328237c63mr1410498f8f.0.1751522164245;
-        Wed, 02 Jul 2025 22:56:04 -0700 (PDT)
-Message-ID: <db890d7b-0e4f-46de-b91c-e8a5a5185487@suse.com>
-Date: Thu, 3 Jul 2025 07:55:48 +0200
+        bh=iMLdHIm9GFvYaZLGrM5qxM4SG+ibcYeqPYcDKKW4pUg=;
+        b=njjvsTGOU8SC+NgVs5NmUDxQyJg56sMvgcQHV5bXeJgAbhHQVtljKwxwZ9tKF8zF9M
+         ++DlS5bUfvGv4WlVE01nm/188Ubg+59c7TWNt8Fjh5tgjRnHdMMZLW0dX5ptzi4a9LoU
+         54NZNWyWkLEl8RDWtNQ3boA0ypy9Exysf5PxQCdFd075z4QY1MvnYRv3tdfxbRYPlMbh
+         Ur/guA1bbUNqZGyo9Xnb9qka9tqdGv84QHZMYuCrJl8WulqUacKUp5yDIyieH3405GEk
+         G8okKIVaYweTfgJppY8Ge196Th7tkj4h5cCCiwgFx9uKNvdS+Mj+yfrWe+cNpRRhRoB1
+         xysg==
+X-Forwarded-Encrypted: i=1; AJvYcCVDwOs+qwYh/VDB76ClFCWiSuGCvf83cXgm6CwZ8w1cmx46J7KAIA4uvrvIag8IJM1QQ8mvg93wtaQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yweo1HKZh5jwyvvyg/Zvyi3AcPpGsI9fY3/Ak45qQcon1am4nL8
+	cPDaAYC5THMD7uB6/AzBIlEtZvENX7AoJ2NbpAVOJ+M6bas7gtRA2+hYx7oHsP3xPA==
+X-Gm-Gg: ASbGncsJgNZKi+3lGJF3ZtEA6mIg+KLBRvX8hFmASBFzf1wtfKntGA6oDUXH7ltU+W7
+	S1o+MCWYqkTUSlH5ieRaagkjubKjqFA3twXXuo/JNpRX8UuNK4J9N4eyoSZ1ddK9Gi3yC+yZZPx
+	/NH861JEYuuuo/q4Q7bT5DHiKM8TaKvT7iA4MkZpxkNkZPH7k4kv6B3uUft5iY1WNt+mBY3yf2V
+	J6jfGfzAIzfk4ierJ7PlXyGGY4zMbOK5/VEVa4BymUuSXforQ20qX4iSycPip1zuqsRI/EVHGEb
+	9Sbr6moWLHCbmlaeXgb4yJpsjRK11XytHRjvB+/WR8nCMqk2dKQP0GIqfivJnEPT/MmvxHFvYoV
+	TjYV7tASHnw0XTCaDTvLbVoDHnT3IrQDXtT3m0BZJkxyA5lg=
+X-Google-Smtp-Source: AGHT+IGdhb2wNjV55e42fLd6d/yJzNsJOuo4IZKx6TSPaQKdbsZRFYpARAzYtPNG+uwMLvZjmaBX0A==
+X-Received: by 2002:a05:6000:4b1a:b0:3a4:fa6a:9189 with SMTP id ffacd0b85a97d-3b1ff9f593fmr4146529f8f.31.1751522387899;
+        Wed, 02 Jul 2025 22:59:47 -0700 (PDT)
+Message-ID: <21127316-316e-4bd7-97eb-5b1cf644f9cd@suse.com>
+Date: Thu, 3 Jul 2025 07:59:36 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 08/10] xen: Split HAS_DEVICE_TREE in two
-To: Alejandro Vallejo <agarciav@amd.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [PATCH v2 09/17] xen/riscv: introduce page_set_xenheap_gfn()
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Shawn Anastasio <sanastasio@raptorengineering.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, Dario Faggioli <dfaggioli@suse.com>,
- Juergen Gross <jgross@suse.com>, George Dunlap <gwd@xenproject.org>,
- xen-devel@lists.xenproject.org
-References: <20250701105706.86133-1-agarciav@amd.com>
- <20250701105706.86133-9-agarciav@amd.com>
- <ffba326b-6fa4-449d-8db3-66fb145a61a4@suse.com>
- <DB1OC2FGH37J.3VDC4G4ABWFRI@amd.com>
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1749555949.git.oleksii.kurochko@gmail.com>
+ <186e4a778a6dfab205428dfb4d0c59584a162a9f.1749555949.git.oleksii.kurochko@gmail.com>
+ <b06c564f-7cf8-4c9c-9392-892ddc6d5ef4@suse.com>
+ <be826050-889b-4e4a-a358-5bfa18575533@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -134,126 +125,67 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <DB1OC2FGH37J.3VDC4G4ABWFRI@amd.com>
+In-Reply-To: <be826050-889b-4e4a-a358-5bfa18575533@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 02.07.2025 17:28, Alejandro Vallejo wrote:
-> On Wed Jul 2, 2025 at 3:30 PM CEST, Jan Beulich wrote:
->> On 01.07.2025 12:57, Alejandro Vallejo wrote:
->>> @@ -85,7 +86,11 @@ config HAS_ALTERNATIVE
->>>  config HAS_COMPAT
->>>  	bool
->>>  
->>> -config HAS_DEVICE_TREE
->>> +config HAS_DEVICE_TREE_DISCOVERY
->>> +	bool
->>> +	select DEVICE_TREE_PARSE
+On 02.07.2025 17:59, Oleksii Kurochko wrote:
+> 
+> On 6/30/25 5:48 PM, Jan Beulich wrote:
+>> On 10.06.2025 15:05, Oleksii Kurochko wrote:
+>>> Introduce page_set_xenheap_gfn() helper to encode the GFN associated with
+>>> a Xen heap page directly into the type_info field of struct page_info.
+>>>
+>>> Introduce a GFN field in the type_info of a Xen heap page by reserving 10
+>>> bits (sufficient for both Sv32 and Sv39+ modes), and define PGT_gfn_mask
+>>> and PGT_gfn_width accordingly.
+>> This reads as if you wanted to encode the GFN in 10 bits.
+> 
+> I will reword it to:
+>    Reserve 10 MSB bits to store the usage counter and frame type;
+>    use all remaining bits to store the grant table frame GFN.
+>    It will be enough as Sv32 uses 22-bit GFNs and Sv{39, 47, 58} uses 44-bit GFNs.
+> 
+>>
+>> What would also help is if you said why you actually need this. x86, after
+>> all, gets away without anything like this. (But I understand you're more
+>> Arm-like here.)
+> 
+> I think with the rewording mentioned above it will be clear that it is needed for
+> grant tables. But I also can add the following:
+
+I agree it's fine with just the re-wording.
+
+>>> @@ -283,6 +296,19 @@ static inline bool arch_mfns_in_directmap(unsigned long mfn, unsigned long nr)
+>>>   
+>>>   #define PFN_ORDER(pg) ((pg)->v.free.order)
+>>>   
+>>> +static inline void page_set_xenheap_gfn(struct page_info *p, gfn_t gfn)
+>>> +{
+>>> +    gfn_t gfn_ = gfn_eq(gfn, INVALID_GFN) ? PGT_INVALID_XENHEAP_GFN : gfn;
+>>> +    unsigned long x, nx, y = p->u.inuse.type_info;
 >>> +
->>> +config DEVICE_TREE_PARSE
->>>  	bool
->>>  	select LIBFDT
->>>  
->>
->> We're in the middle of various ([almost] alphabetically sorted) HAS_* here.
->> Thus DEVICE_TREE_PARSE wants to move elsewhere. Or we want to move back to
->> naming it HAS_DEVICE_TREE_PARSE, but I think there was a reason why we didn't
->> want it like that? Just that I don't recall what that reason was ...
+>>> +    ASSERT(is_xen_heap_page(p));
+>>> +
+>>> +    do {
+>>> +        x = y;
+>>> +        nx = (x & ~PGT_gfn_mask) | gfn_x(gfn_);
+>>> +    } while ( (y = cmpxchg(&p->u.inuse.type_info, x, nx)) != x );
+>>> +}
+>>> +
+>>>   extern unsigned char cpu0_boot_stack[];
+>>>   
+>>>   void setup_initial_pagetables(void);
+>> What about the "get" counterpart?
 > 
-> AIUI, HAS_X are options selected by your architecture. Things that tell you
-> whether X is supported in your arch or not. In this case, HAS_DEVICE_TREE_PARSE
-> would be supported everywhere, while DEVICE_TREE_PARSE is not an arch property,
-> but an option selected by DOM0LESS_BOOT (which appears in menuconfig) and
-> HAS_DEVICE_TREE_DISCOVERY.
+> I haven't added it as it isn't used now and it will lead to compilation error as it will be static inline
+> (in a similar way as Arm introduces it).
 
-It's on the edge here, I agree. Yet we have other cases where one HAS_* selects
-another HAS_*, and I think we're in the process of gaining more.
+Why would a static inline (in a header) cause compilation errors?
 
-> I can move it elsewhere, but it's unfortunate to separate two so closely
-> related options.
+> As an option this patch could be dropped and introduced with an introduction of grant tables.
 
-Imo there's only one of two options - move it or rename it.
-
->>> --- a/xen/common/sched/Kconfig
->>> +++ b/xen/common/sched/Kconfig
->>> @@ -67,7 +67,7 @@ endmenu
->>>  
->>>  config BOOT_TIME_CPUPOOLS
->>>  	bool "Create cpupools at boot time"
->>> -	depends on HAS_DEVICE_TREE
->>> +	depends on HAS_DEVICE_TREE_DISCOVERY
->>
->> Is this correct? CPU pool creation isn't driven by DT discovery, I thought,
->> but is a software-only thing much like dom0less?
-> 
-> In principle it would be possible. But I haven't tested the configuration, so
-> I'd rather err on the side of caution and not enable features prematurely.
-> 
-> In time, this should become DOM0LESS_BOOT || HAS_DEVICE_TREE_DISCOVERY.
-
-DEVICE_TREE_PARSE, that is?
-
->>> --- a/xen/include/xsm/dummy.h
->>> +++ b/xen/include/xsm/dummy.h
->>> @@ -423,7 +423,7 @@ static XSM_INLINE int cf_check xsm_deassign_device(
->>>  
->>>  #endif /* HAS_PASSTHROUGH && HAS_PCI */
->>>  
->>> -#if defined(CONFIG_HAS_PASSTHROUGH) && defined(CONFIG_HAS_DEVICE_TREE)
->>> +#if defined(CONFIG_HAS_PASSTHROUGH) && defined(CONFIG_HAS_DEVICE_TREE_DISCOVERY)
->>>  static XSM_INLINE int cf_check xsm_assign_dtdevice(
->>>      XSM_DEFAULT_ARG struct domain *d, const char *dtpath)
->>>  {
->>> @@ -438,7 +438,7 @@ static XSM_INLINE int cf_check xsm_deassign_dtdevice(
->>>      return xsm_default_action(action, current->domain, d);
->>>  }
->>>  
->>> -#endif /* HAS_PASSTHROUGH && HAS_DEVICE_TREE */
->>> +#endif /* HAS_PASSTHROUGH && HAS_DEVICE_TREE_DISCOVERY */
->>
->> Here I'm similarly unsure: Pass-through again isn't a platform thing, is it?
-> 
-> This has to do strictly with passthrough of devices discovered via DT.
-
-Wait, no. You discover devices via DT, but you don't "discover" what domain
-to pass them through. For the latter, DT is again only a vehicle.
-
->>> @@ -789,7 +789,7 @@ int xsm_multiboot_policy_init(
->>>      struct boot_info *bi, void **policy_buffer, size_t *policy_size);
->>>  #endif
->>>  
->>> -#ifdef CONFIG_HAS_DEVICE_TREE
->>> +#ifdef CONFIG_HAS_DEVICE_TREE_DISCOVERY
->>>  /*
->>>   * Initialize XSM
->>>   *
->>> @@ -839,7 +839,7 @@ static inline int xsm_multiboot_init(struct boot_info *bi)
->>>  }
->>>  #endif
->>>  
->>> -#ifdef CONFIG_HAS_DEVICE_TREE
->>> +#ifdef CONFIG_HAS_DEVICE_TREE_DISCOVERY
->>>  static inline int xsm_dt_init(void)
->>>  {
->>>      return 0;
->>> @@ -849,7 +849,7 @@ static inline bool has_xsm_magic(paddr_t start)
->>>  {
->>>      return false;
->>>  }
->>> -#endif /* CONFIG_HAS_DEVICE_TREE */
->>> +#endif /* CONFIG_HAS_DEVICE_TREE_DISCOVERY */
->>
->> The situation is yet less clear to me here
-> 
-> XSM segregates multibooting and DT-booting, this refers strictly to the latter.
-> 
-> By DT-booting I mean platforms where the DT is given by the platform rather
-> than the user as a module.
-
-Yet the platform as such hardly even knows of XSM (or in fact any of the software
-that's going to run there).
-
-I think we need DT maintainer input here.
+That's up to you - you must have had a reason to include it here.
 
 Jan
 
