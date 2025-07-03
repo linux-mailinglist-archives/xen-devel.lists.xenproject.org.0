@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65BB8AF6E8A
-	for <lists+xen-devel@lfdr.de>; Thu,  3 Jul 2025 11:25:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1031879.1405609 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 31280AF6EDB
+	for <lists+xen-devel@lfdr.de>; Thu,  3 Jul 2025 11:35:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1031894.1405621 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uXGBP-0000lV-JJ; Thu, 03 Jul 2025 09:24:43 +0000
+	id 1uXGLi-0002pu-I5; Thu, 03 Jul 2025 09:35:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1031879.1405609; Thu, 03 Jul 2025 09:24:43 +0000
+Received: by outflank-mailman (output) from mailman id 1031894.1405621; Thu, 03 Jul 2025 09:35:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uXGBP-0000jJ-Ga; Thu, 03 Jul 2025 09:24:43 +0000
-Received: by outflank-mailman (input) for mailman id 1031879;
- Thu, 03 Jul 2025 09:24:42 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uXGLi-0002mn-Ei; Thu, 03 Jul 2025 09:35:22 +0000
+Received: by outflank-mailman (input) for mailman id 1031894;
+ Thu, 03 Jul 2025 09:35:20 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=lE7m=ZQ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uXGBO-0000jD-GA
- for xen-devel@lists.xenproject.org; Thu, 03 Jul 2025 09:24:42 +0000
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [2a00:1450:4864:20::431])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8bc47051-57ef-11f0-b894-0df219b8e170;
- Thu, 03 Jul 2025 11:24:40 +0200 (CEST)
-Received: by mail-wr1-x431.google.com with SMTP id
- ffacd0b85a97d-3a54690d369so5146069f8f.3
- for <xen-devel@lists.xenproject.org>; Thu, 03 Jul 2025 02:24:40 -0700 (PDT)
+ id 1uXGLg-0002mh-NO
+ for xen-devel@lists.xenproject.org; Thu, 03 Jul 2025 09:35:20 +0000
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [2a00:1450:4864:20::32a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 08aa83d2-57f1-11f0-a314-13f23c93f187;
+ Thu, 03 Jul 2025 11:35:19 +0200 (CEST)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-453634d8609so55639335e9.3
+ for <xen-devel@lists.xenproject.org>; Thu, 03 Jul 2025 02:35:19 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-23acb3c69d7sm157170075ad.225.2025.07.03.02.24.34
+ 98e67ed59e1d1-31a9cc6467bsm1930404a91.11.2025.07.03.02.35.13
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 03 Jul 2025 02:24:39 -0700 (PDT)
+ Thu, 03 Jul 2025 02:35:18 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8bc47051-57ef-11f0-b894-0df219b8e170
+X-Inumbo-ID: 08aa83d2-57f1-11f0-a314-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1751534680; x=1752139480; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1751535319; x=1752140119; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Yzcz/gI1PZ+lB6At8NCw2XYlPvgm8JAumchFbRHoSt4=;
-        b=hDQ85LA9AvgvmMN+MF27OZ1go0Z9tXlM+tOqFTL3B+egIxIo42UOn2Za9rd6StNc4a
-         SE1E6T0jHZLx3HZnaI17m99/CyKSqV1E7FhLmdUN7flqobIFXZv3Fksx9z2f/4SdJ7yF
-         j8RThjSekq/V8JlmSDVHhRzxoV4LbgbSkIFmZpzqcgn3dWZ6T2CpjUAmDiXc6/tBxebg
-         K9QA1Csjffif23E58B6MrNuhXN34yJ6L5kMy5CJp8JaLpETPn7ecI/BNk+X3yo2BEktT
-         zOsNjKX2ZjBiXGIQNm4hy3+oXJyvGqKYc6mkttKuJbP39WUMOy4SyQxrnMQHHw5e9Qux
-         kgiA==
+        bh=Ejbuar872RX0ar6RZ7L8TcL8AzuYV2ho4Qgr0Z3Yh2c=;
+        b=Vt98qZ90YXYo7bntsLuCyRYMyZKWkiN6AYRnj7YqkTUO7jw6TUkXcfkCaSlt6XiJRp
+         r8OpXfpPa9cYjnGdvMrXvwLVpL91vCOTsvJW3xf3CX+XrBcdSsnz+NcXcDi6o0kF2zLK
+         eb36BF8WNQG2uX9NeRUMA0P5Z8XIDM8QueZ75QV8Yo3kQBajpst+qz46b43wevU63T7p
+         1/G6gzZ7hxlCatKj+5jFCgYqZ58ymHYorp9X/FH/uGTIJPZEponpnFP7A5CT/kPkISbb
+         tpmaDbuxOExzo6c8nDsRjH5EGwsOD42KJJtwWqSHM7OurHZy5M2X4s50oDR43xjIR2Uh
+         FJ5A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1751534680; x=1752139480;
+        d=1e100.net; s=20230601; t=1751535319; x=1752140119;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Yzcz/gI1PZ+lB6At8NCw2XYlPvgm8JAumchFbRHoSt4=;
-        b=wigP9Est8FsbUtWdQHbr54z8tSw1EkEtsHgoy2LMd3zITr64CgyT1A9P48LP71ftv/
-         dwenpBmWmLcJNji9TGyjqzG/7RZskZQMwDMJ8A2EPq+fsVrTj8KaWgxCOH5tpuFRgQqq
-         ooV6oA3zF6nxt/OkJxvPShYj+/U8bdfh7rM+vqoxqATRhKldOeqLB28/P/wsvcoOjJ/J
-         Zt2ByJrFnW+hcIZHuCuR+crlZcz/tglz9+b38lNA42keVyvoSkP9u72/CNGhLiJR0KKw
-         zeTSY1jrUgIN/bvbd4S9Sw/+jHIQ/KK0HOcY6UvxmC7H3fVNa81Yqzvrx9jgYL2yFbb/
-         lqIw==
-X-Forwarded-Encrypted: i=1; AJvYcCXdG4PpZw0XybHARdy66PoxFdVlPZ1P9iB2eACJkx5hNI1AM28ScDO0KOb2TASRhStGXlwH9mH0JPY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyOFMP8dXYSUoLXPLBZZqAlC9aTufnkq8CaZY25HEP1UsionLq1
-	YGhLZu05Tug1A2xAwVS4scifOv0d13JzhBQBrcTheHYDOOrbvDaWjHHuSM5M9Nygmw==
-X-Gm-Gg: ASbGncvAgRj259aCLVZmexdWpjuedlE4pu+aUDfMF+0vyDvIO3Sbi7xMV67b0uL3oGG
-	aP2AmhHb5QeM2bXYK/dQpVcVUKd1p9/0KUpWKmY5mFU5Nt3kUj/p/Br2h9zYk2luhCR+WP/RhCQ
-	hmfXkjXy1HuAVSJIF9XEv91lBaF9c8yhyvX1WjspWM+cXeZeUENNbFr2zo6yKt11+9bcRHrdWQB
-	w65Z/FEAb3Armb339AT+NH/eGRJ85mG4sOCcOKDRk/UFRP217r+pSq4qOHQB+XUrtc+F2jlVlmJ
-	aaThaeS8Ji8LdSzvCl2leH4cV2w1+ALqjkVWZAMZs+X8HOoWTTIQzjBEiwuw5EkwlkJm2H/UO5G
-	bDxRWa8vHx65Kxe80sr33Y/X51I2j43eUsIp+z23HZj5OiiE=
-X-Google-Smtp-Source: AGHT+IFyApsx1FF3CtVOqw2sKBJZaHf2qlI9r2JejWIyQF1QSRe/rWXMua5CyfsQh3BttanvMrsthA==
-X-Received: by 2002:a05:6000:1a8a:b0:3a4:e7b7:3851 with SMTP id ffacd0b85a97d-3b2019b80ccmr4969667f8f.58.1751534679725;
-        Thu, 03 Jul 2025 02:24:39 -0700 (PDT)
-Message-ID: <9bcefc6b-fb76-4995-8a75-d90589384d1f@suse.com>
-Date: Thu, 3 Jul 2025 11:24:30 +0200
+        bh=Ejbuar872RX0ar6RZ7L8TcL8AzuYV2ho4Qgr0Z3Yh2c=;
+        b=RyS9Fl6pg0hA1giMSr88W1HqQ6oa7fB56M0cO1lwoHD9A+MgsGD5kAjNYtAnmiTIMK
+         f0gogN2yEUQcNVWl3aFeY0/qwLDJvbd5N5lxl6w7QxTN/nHhvHPq/t+Mc9N2DEdMGHVi
+         hcjm9TqNAVHU5IVMbJL2RjF+5kkKw2ewHkfevQsZNTMeDSSSpiFkNiMxxTxEq8nBDNew
+         QBMXqlzBN503mJqTZ+uLYT4nAf8AkNf76wvTGqubZDQTPz0LSgrKr9iyvw/GmoaFMEsy
+         99oy5AVVtkY7nAYwD8j7haA6RXlN2sadqNEGwK9HjzfTb/rEoZVLkO2pxmejPOmb6UCc
+         INxw==
+X-Forwarded-Encrypted: i=1; AJvYcCVyagSyr4UoN5oeZIYrdXW0bmfxupthX1t5ZHjP7X1OcRf5HaB5sNT8K0/JlcAkqyyk0SPUXpZQFBY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwKEeuHSu674/dBbUemvxWJoMAzOCoe399AKlEl4pTCMtmXqJKH
+	HuMs+V0+lKcUbXe2muJd9LWKpeT6lenOTzoG+QQboT+J8u2GtT6btOZabEWDoWa4jQ==
+X-Gm-Gg: ASbGncsKeQwOC2aHkr2KQYS2NGRgzm+4eahEa5Cf0fnES2Td+x6OBNaaoEXCMwq+QxK
+	hM57JjHNikatLgKWxxvxPWhXZ9GSlfjKFgQAvgQEJAybKsx/Pgr4ZsfExbiV6Xy6pZgz5/4ecVj
+	f6J72vBSaxh5/1NLzaIdz3PUD6gJ+GDBB3XacRJaN/8Z8ASm70E8hPYVrLR7zBMirVk8ohYGh75
+	zTPl06zrBRCePDWpaI/LP6vk/u28nOpU7moW8Zfz4GxUjNo+N7iVBkstblj/Ua2LJ9aAQX1sUzB
+	zOCB0Ek243mS9Go6Aprs8AZIKF4esF0l6mlw6arvTpvBS+GSKEN+4YwLCLrq56XD3Ov0Qhx/ys4
+	CDPF17NTKWQ9ADhlFaspg3o2MfXRCX2kyOBMkrVoSQUEQKIimMd0zZEIE+g==
+X-Google-Smtp-Source: AGHT+IGeGSSbMjteUzKrYi5Wjlp7NwhAtEX47nRm5/ecel80uKAyqpp14vzj4m1elbrF9yT7s+ZJfQ==
+X-Received: by 2002:a05:6000:4805:b0:3a4:e6bb:2d32 with SMTP id ffacd0b85a97d-3b32d00524cmr2052841f8f.22.1751535318628;
+        Thu, 03 Jul 2025 02:35:18 -0700 (PDT)
+Message-ID: <554a43b8-db14-4966-b1f0-bb6c156b38a1@suse.com>
+Date: Thu, 3 Jul 2025 11:35:09 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/6] x86/idle: Drop incorrect smp_mb() in
- mwait_idle_with_hints()
+Subject: Re: [PATCH 6/6] x86/idle: Fix buggy "x86/mwait-idle: enable
+ interrupts before C1 on Xeons"
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
@@ -96,7 +96,7 @@ Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20250702144121.1096448-1-andrew.cooper3@citrix.com>
- <20250702144121.1096448-6-andrew.cooper3@citrix.com>
+ <20250702144121.1096448-7-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -122,49 +122,44 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250702144121.1096448-6-andrew.cooper3@citrix.com>
+In-Reply-To: <20250702144121.1096448-7-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 02.07.2025 16:41, Andrew Cooper wrote:
-> With the recent simplifications, it becomes obvious that smp_mb() isn't the
-> right barrier; all we need is a compiler barrier.
+> The check of this_softirq_pending must be performed with irqs disabled, but
+> this property was broken by an attempt to optimise entry/exit latency.
 > 
-> Include this in monitor() itself, along with an explantion.
+> Commit c227233ad64c in Linux (which we copied into Xen) was fixed up by
+> edc8fc01f608 in Linux, which we have so far missed.
+> 
+> Going to sleep without waking on interrupts is nonsensical outside of
+> play_dead(), so overload this to select between two possible MWAITs, the
+> second using the STI shadow to cover MWAIT for exactly the same reason as we
+> do in safe_halt().
+> 
+> Fixes: b17e0ec72ede ("x86/mwait-idle: enable interrupts before C1 on Xeons")
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Ah, here we go. As per my comment on patch 4, would this perhaps better move
-ahead (which however would require a bit of an adjustment to the description)?
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+with ...
 
-(Nit: explanation)
-
-> --- a/xen/arch/x86/acpi/cpu_idle.c
-> +++ b/xen/arch/x86/acpi/cpu_idle.c
-> @@ -66,8 +66,12 @@ static always_inline void monitor(
->      alternative_input("", "clflush (%[addr])", X86_BUG_CLFLUSH_MONITOR,
->                        [addr] "a" (addr));
+> --- a/xen/arch/x86/cpu/mwait-idle.c
+> +++ b/xen/arch/x86/cpu/mwait-idle.c
+> @@ -946,12 +946,8 @@ static void cf_check mwait_idle(void)
 >  
-> +    /*
-> +     * The memory clobber is a compiler barrier.  Subseqeunt reads from the
+>  	update_last_cx_stat(power, cx, before);
+>  
+> -	if (cx->irq_enable_early)
+> -		local_irq_enable();
+> -
+> -	mwait_idle_with_hints(cx->address, MWAIT_ECX_INTERRUPT_BREAK);
+> -
+> -	local_irq_disable();
+> +	mwait_idle_with_hints(cx->address,
+> +                              cx->irq_enable_early ? 0 : MWAIT_ECX_INTERRUPT_BREAK);
 
-Nit: Subsequent
-
-> +     * monitored cacheline must not be hoisted over MONITOR.
-> +     */
->      asm volatile ( "monitor"
-> -                   :: "a" (addr), "c" (ecx), "d" (edx) );
-> +                   :: "a" (addr), "c" (ecx), "d" (edx) : "memory" );
->  }
-
-That's heavier than we need, though. Can't we simply have a fake output
-"+m" (irq_stat[cpu])? Downside being that the compiler may then set up
-addressing of that operand, when the operand isn't really referenced. (As
-long as __softirq_pending is the first field there, there may not be any
-extra overhead, though, as %rax then would also address the unused operand.)
-
-Yet then, is it really only reads from that cacheline that are of concern?
-Isn't it - strictly speaking - also necessary that any (hypothetical) reads
-done by the NOW() at the end of the function have to occur only afterwards
-(and independent of there being a LOCK-ed access in cpumask_clear_cpu())?
+... indentation here switched to Linux style (to match the rest of the file).
 
 Jan
 
