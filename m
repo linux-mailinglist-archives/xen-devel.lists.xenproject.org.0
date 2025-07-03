@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95801AF735E
-	for <lists+xen-devel@lfdr.de>; Thu,  3 Jul 2025 14:11:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1032099.1405860 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E0B7EAF744D
+	for <lists+xen-devel@lfdr.de>; Thu,  3 Jul 2025 14:38:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1032112.1405869 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uXImA-0005a6-Fn; Thu, 03 Jul 2025 12:10:50 +0000
+	id 1uXJC6-00013c-GM; Thu, 03 Jul 2025 12:37:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1032099.1405860; Thu, 03 Jul 2025 12:10:50 +0000
+Received: by outflank-mailman (output) from mailman id 1032112.1405869; Thu, 03 Jul 2025 12:37:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uXImA-0005XR-Cm; Thu, 03 Jul 2025 12:10:50 +0000
-Received: by outflank-mailman (input) for mailman id 1032099;
- Thu, 03 Jul 2025 12:10:49 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uXJC6-000115-DQ; Thu, 03 Jul 2025 12:37:38 +0000
+Received: by outflank-mailman (input) for mailman id 1032112;
+ Thu, 03 Jul 2025 12:37:37 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=TJsU=ZQ=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1uXIm9-0005XL-Jg
- for xen-devel@lists.xenproject.org; Thu, 03 Jul 2025 12:10:49 +0000
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
- [2a00:1450:4864:20::429])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c0ec161d-5806-11f0-a314-13f23c93f187;
- Thu, 03 Jul 2025 14:10:48 +0200 (CEST)
-Received: by mail-wr1-x429.google.com with SMTP id
- ffacd0b85a97d-3a52874d593so4636761f8f.0
- for <xen-devel@lists.xenproject.org>; Thu, 03 Jul 2025 05:10:48 -0700 (PDT)
+ id 1uXJC5-00010g-HP
+ for xen-devel@lists.xenproject.org; Thu, 03 Jul 2025 12:37:37 +0000
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [2a00:1450:4864:20::329])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7ce919bf-580a-11f0-b894-0df219b8e170;
+ Thu, 03 Jul 2025 14:37:31 +0200 (CEST)
+Received: by mail-wm1-x329.google.com with SMTP id
+ 5b1f17b1804b1-451d6ade159so40269215e9.1
+ for <xen-devel@lists.xenproject.org>; Thu, 03 Jul 2025 05:37:31 -0700 (PDT)
 Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3a88c7e9d1csm18729296f8f.13.2025.07.03.05.10.46
+ 5b1f17b1804b1-454abed940csm19116315e9.0.2025.07.03.05.37.30
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 03 Jul 2025 05:10:46 -0700 (PDT)
+ Thu, 03 Jul 2025 05:37:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,47 +45,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c0ec161d-5806-11f0-a314-13f23c93f187
+X-Inumbo-ID: 7ce919bf-580a-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1751544647; x=1752149447; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1751546251; x=1752151051; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=WyM9UHhnIWaFFHFkk/h4VQGQemdjudQVQMDglxn59+g=;
-        b=fU1VBuuPSIyXwgduy4he1bdXrTA+ijQMJcNp9+xynutsQSxRTNG2hZOnrq6q5iyJ0C
-         eptzLyIn/0RBfJ+6QgpDmsZsA52Q7FzEdqUErgzJq73hec2Euq06vnXAwahaUeT359CM
-         WU2TTNRGxILCHRtVSFhISsnVma7nLk/Kj5d5s=
+        bh=GPfixKj1neVEXNYcO6Z7r77rY5+7POKQ4MrksX0/9gw=;
+        b=MYWsFTKPwQdVAlND6qtjJ9tBeWkBAmcebPMKhPqYcIRDM/n3ldQbk+Vbd8Kp3qm+C+
+         Fa0b3fN0Y2nA1YstHO5n6EsW1THEBO3WO8wDKHNdd/BGwJnEnKWmSp8uGn5gRUPwbdr1
+         qeVAvZY3fZa8r7ytdWWmwe+cz+XL2ywKLHfyE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1751544647; x=1752149447;
+        d=1e100.net; s=20230601; t=1751546251; x=1752151051;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=WyM9UHhnIWaFFHFkk/h4VQGQemdjudQVQMDglxn59+g=;
-        b=N9L7B7VXXppmZTwFI2KAleS/z6Pvp3jMiKHur3Gpuw3+X9HkyiudtUdf1kJ5xxIDc1
-         baNdofVQuWpIxzHakEtfQvXpEiZ2FJUcmjdLkp4Pz40cAVjrWcjq/l/exILlDTUj7iui
-         U4Dq/wDwU5XnKVffkEXOqexfEck0AXTO1bUfDhQ2nY3eqoucHBLFDxjkrSah8eCU1zgO
-         04QvRjvh1XDCtzFftB6pt61Ew8nL2QcJxZSOFd+3bBMOL/a4kPJmdZhVBad+SP4PtLfz
-         3oCtZeyIEZkGRbr+RYHuniE3Y+LWN9PqGfl0arneHUPNTR2rOasiIau7hzbCztzhCcUa
-         KQUQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWe0BZwxsVu3aHlnpBiKwH72g8btpzjTmGCxVLMXpzKAqwBzPTBqK8JSiSt7iWtpykS9yu5iHBsRPo=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxQ7hAeywPQgAJYkST/upzU8iPLvrWDtG1hUD5Bp8gdx3Ifsgx9
-	pzvyvxq/CXbK8X6lRzEf0FY8FUsnPmFNIMlbgjYQESe3279IqOAzUpKS9yyT4yGTHQQ=
-X-Gm-Gg: ASbGncujEHVeygn/7R24QAs+4pdWI0HbHxaeXK3h57coGwis6AEQjll5lnKbPJYHFXP
-	6q9OwBgz3ypTUezJojwdTxSDF6afaugdofMh2VEYZzJGQ1LYGK6FwYd7ayW24xyTTTE4ZPn8HCP
-	cJCD+rvEdyhsOjZI+mDihbIVtPR02wEqTh5MjJx8skvMj9bzWjHXqXqNzjgGT5YW2d6kllVLNCf
-	BMwXR7bGLKqb9mzx/Ns9s4rDh2VRW83xO/Q5PM/5GeH/mk6MPyfgCzyqUdA0Um4Ez6WUIx2dndl
-	7/WhZ9mJyDqmkQ5Nyf8NcBup9V4oSV0n9ndSHFnZBc+596CUibBCw1khMaJN4KG3gh2pJzbZJmx
-	xxEewM/BPsYf7wOGSMWAVLMfZ1k0=
-X-Google-Smtp-Source: AGHT+IHmuUHG2hSypo3+bmKSuJLAhB0Zt+FTTw5nvuRDkHF6As458uVqbUfkROGJTUu7s3Bi8Mmtrg==
-X-Received: by 2002:a05:6000:238a:b0:3b3:9cc4:21ce with SMTP id ffacd0b85a97d-3b39cc422c7mr1412097f8f.50.1751544647402;
-        Thu, 03 Jul 2025 05:10:47 -0700 (PDT)
-Message-ID: <0b3d68f3-da32-4cec-a73b-ac4b3abb7617@citrix.com>
-Date: Thu, 3 Jul 2025 13:10:46 +0100
+        bh=GPfixKj1neVEXNYcO6Z7r77rY5+7POKQ4MrksX0/9gw=;
+        b=aYH5PtQWJtMeRtAvmL1zGNcxBlBXzvlNwYT1TQLAuPxCrrHX9quitLN6Ntv8rJJT6p
+         4AClRrtgyT4o7ECNoAm2wzn80lLPW3DDrBe3ay4Ip2tDpOXyqcPx3NRrw/ZnZY7Y6ThF
+         3CFP/tOC2BzK6LtTthyIV+SCUwYtu9fK/PitbRn2a19EkOGOpYeGnei3Cz9CVGrHUKOz
+         dRO7V48DSgBW/Rw3HPedcHkNUwLAQr79I89tLIpWWLFbQkOxekKBYfalpMIsTeAsUawz
+         dkTZI7Z8ig9+p9z6IrocAu7e2M5qh7MZPDYeLyWgnJoaf4DWYhr55PgcVPCjQxxHfD5+
+         ULuw==
+X-Forwarded-Encrypted: i=1; AJvYcCXlTGaes2HCuZZJ6dZjKA3PrI9za8ueB5tcuY0D+M7P7tdXn/5gxV3tbwItaJH99gMd0KD5T4VOFlM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxBntu9k8LPP61gUf28UWzJqPOhw3zCT9faM73Vixm6DKg3p85Q
+	6PlEr2ViMJJRFE+YX6D9QoUfaUhH95YQaTSZyJsATZMVOsd+Dg5YYInPZuAXsgAi1Jk=
+X-Gm-Gg: ASbGncuRrPw0tvtve+lo4L21tWiRQhqRMgYdVXXe4Cn/czuq61sbnDJxg4ureJJP8bi
+	pVQ0Aw5ydnEaPOEntfwH57tRDZ84iZ4LB40hSH2p8/pnaMLKO5+pgZUiDIiHu9epKjNZINVHfQv
+	WuDluxHP2ZnI3QOV7uAxPX/shI/qdevOMQ4wGK+D+fyKROHo8bynhJ01p+xWgozXcc+ij0lPV7j
+	XWK8xPdnJJmx+PL+v2FYpoY4vR1RnWiIV0n93Uj23D2QY2A/3Avmts1em/7UGWQIecc99P+3vxW
+	AkSMiGvrFVdR5uPXTxPcjukxnxz+U8F94gGciI8ObU9uYFEhlsxFCnG+uc0hXvQrT/WhLIZjMit
+	pxU4GP6Ulo9Ejzfp2d48TOO9zk3o=
+X-Google-Smtp-Source: AGHT+IGrpXT/m/01hhQero3iTPu6/9HmMfW8KYeWtDRj+tbi0jfGIAXpYOVIrUj3J2clvzgWxxRFjw==
+X-Received: by 2002:a05:600c:c4ab:b0:43d:17f1:2640 with SMTP id 5b1f17b1804b1-454a3728b01mr61524975e9.26.1751546251194;
+        Thu, 03 Jul 2025 05:37:31 -0700 (PDT)
+Message-ID: <f3af6bc7-c953-4b9e-95d2-6d28008a857b@citrix.com>
+Date: Thu, 3 Jul 2025 13:37:29 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6/6] x86/idle: Fix buggy "x86/mwait-idle: enable
- interrupts before C1 on Xeons"
+Subject: Re: [PATCH 5/6] x86/idle: Drop incorrect smp_mb() in
+ mwait_idle_with_hints()
 To: Jan Beulich <jbeulich@suse.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
@@ -93,8 +93,8 @@ Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20250702144121.1096448-1-andrew.cooper3@citrix.com>
- <20250702144121.1096448-7-andrew.cooper3@citrix.com>
- <5ad4dc09-981f-4ad4-9e20-2125f727046c@suse.com>
+ <20250702144121.1096448-6-andrew.cooper3@citrix.com>
+ <9bcefc6b-fb76-4995-8a75-d90589384d1f@suse.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -140,48 +140,62 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <5ad4dc09-981f-4ad4-9e20-2125f727046c@suse.com>
+In-Reply-To: <9bcefc6b-fb76-4995-8a75-d90589384d1f@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 03/07/2025 10:43 am, Jan Beulich wrote:
+On 03/07/2025 10:24 am, Jan Beulich wrote:
 > On 02.07.2025 16:41, Andrew Cooper wrote:
->> @@ -461,12 +468,19 @@ void mwait_idle_with_hints(unsigned int eax, unsigned int ecx)
->>  
->>      monitor(this_softirq_pending, 0, 0);
->>  
->> +    ASSERT(!local_irq_is_enabled());
->> +
->>      if ( !*this_softirq_pending )
->>      {
->>          struct cpu_info *info = get_cpu_info();
->>  
->>          spec_ctrl_enter_idle(info);
->> -        mwait(eax, ecx);
->> +
->> +        if ( ecx & MWAIT_ECX_INTERRUPT_BREAK )
->> +            mwait(eax, ecx);
->> +        else
->> +            sti_mwait_cli(eax, ecx);
-> Actually, I'm curious: It seems quite likely that you did consider an
-> alternative resulting in assembly code like this:
->
-> 	test	$MWAIT_ECX_INTERRUPT_BREAK, %cl
-> 	jz	0f
-> 	sti
-> 0:
-> 	monitor
-> 	cli
->
-> CLI being a relatively cheap operation aiui, is there anything wrong or
-> undesirable with this (smaller overall) alternative?
+>> With the recent simplifications, it becomes obvious that smp_mb() isn't the
+>> right barrier; all we need is a compiler barrier.
+>>
+>> Include this in monitor() itself, along with an explantion.
+> Ah, here we go. As per my comment on patch 4, would this perhaps better move
+> ahead (which however would require a bit of an adjustment to the description)?
 
-Other than it needing to be mwait?  The overheads aren't interesting;
-they're nothing compared to going idle.
+As said, it's not necessary in practice.
 
-What does matter is that such a transformation cannot exist in mwait()
-itself, as that breaks acpi_dead_idle(), and if we turn this mwait()
-into inline asm, there's only a single caller of mwait() left.
+>
+>> +     * monitored cacheline must not be hoisted over MONITOR.
+>> +     */
+>>      asm volatile ( "monitor"
+>> -                   :: "a" (addr), "c" (ecx), "d" (edx) );
+>> +                   :: "a" (addr), "c" (ecx), "d" (edx) : "memory" );
+>>  }
+> That's heavier than we need, though. Can't we simply have a fake output
+> "+m" (irq_stat[cpu])?
+
+No.  That would be wrong for one of the two callers.  Also we don't have
+cpu available.
+
+The correct value would be a round-down on addr and a cacheline-sized
+sized type, but we can't do that because of -Wvla.
+
+Nothing good can come of anything crossing the MONITOR, and ...
+
+>  Downside being that the compiler may then set up
+> addressing of that operand, when the operand isn't really referenced. (As
+> long as __softirq_pending is the first field there, there may not be any
+> extra overhead, though, as %rax then would also address the unused operand.)
+
+... nothing good is going to come from trying to get clever at
+optimising a constraint that doesn't actually improve code generation in
+the first place.
+
+>
+> Yet then, is it really only reads from that cacheline that are of concern?
+> Isn't it - strictly speaking - also necessary that any (hypothetical) reads
+> done by the NOW() at the end of the function have to occur only afterwards
+> (and independent of there being a LOCK-ed access in cpumask_clear_cpu())?
+
+The NOW() and cpumask_clear_cpu() are gone, and not going to be returning.
+
+I did put a compiler barrier in mwait() originally too, but dropped it
+because I couldn't reason about it easily.
+
+Nothing good can come of having any loads hoisted above MWAIT, but from
+a programmers point of view, it's indistinguishable from e.g. taking an
+SMI.  If there's a correctness issue, it's not MWAIT's fault.
 
 ~Andrew
 
