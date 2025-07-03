@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB13DAF69FF
-	for <lists+xen-devel@lfdr.de>; Thu,  3 Jul 2025 08:02:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1031734.1405500 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF1B9AF6A02
+	for <lists+xen-devel@lfdr.de>; Thu,  3 Jul 2025 08:04:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1031746.1405510 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uXD1A-0002po-Cc; Thu, 03 Jul 2025 06:01:56 +0000
+	id 1uXD3R-0003cA-Sv; Thu, 03 Jul 2025 06:04:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1031734.1405500; Thu, 03 Jul 2025 06:01:56 +0000
+Received: by outflank-mailman (output) from mailman id 1031746.1405510; Thu, 03 Jul 2025 06:04:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uXD1A-0002mj-9A; Thu, 03 Jul 2025 06:01:56 +0000
-Received: by outflank-mailman (input) for mailman id 1031734;
- Thu, 03 Jul 2025 06:01:54 +0000
+	id 1uXD3R-0003Zr-PJ; Thu, 03 Jul 2025 06:04:17 +0000
+Received: by outflank-mailman (input) for mailman id 1031746;
+ Thu, 03 Jul 2025 06:04:15 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=lE7m=ZQ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uXD18-0002U4-AB
- for xen-devel@lists.xenproject.org; Thu, 03 Jul 2025 06:01:54 +0000
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [2a00:1450:4864:20::433])
+ id 1uXD3P-0003Zl-RH
+ for xen-devel@lists.xenproject.org; Thu, 03 Jul 2025 06:04:15 +0000
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
+ [2a00:1450:4864:20::432])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 375c6b2a-57d3-11f0-b894-0df219b8e170;
- Thu, 03 Jul 2025 08:01:52 +0200 (CEST)
-Received: by mail-wr1-x433.google.com with SMTP id
- ffacd0b85a97d-3a6cdc27438so4461112f8f.2
- for <xen-devel@lists.xenproject.org>; Wed, 02 Jul 2025 23:01:52 -0700 (PDT)
+ id 8b7678d6-57d3-11f0-b894-0df219b8e170;
+ Thu, 03 Jul 2025 08:04:14 +0200 (CEST)
+Received: by mail-wr1-x432.google.com with SMTP id
+ ffacd0b85a97d-3a5123c1533so2916508f8f.2
+ for <xen-devel@lists.xenproject.org>; Wed, 02 Jul 2025 23:04:14 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-31a9cc4c8easm1445571a91.7.2025.07.02.23.01.45
+ 98e67ed59e1d1-31a9cc673d1sm1373979a91.12.2025.07.02.23.04.06
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 02 Jul 2025 23:01:51 -0700 (PDT)
+ Wed, 02 Jul 2025 23:04:12 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,64 +45,64 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 375c6b2a-57d3-11f0-b894-0df219b8e170
+X-Inumbo-ID: 8b7678d6-57d3-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1751522512; x=1752127312; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1751522653; x=1752127453; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=N4lOCw8IYJyiVobipOUopfsFfsxWGNXlxTiRqrfxXyw=;
-        b=QboxJX2TPt8lGd3b9fEv6F+d6vbukdyvmUlUB5PXxQjf8l8hFXzBRAeN+yGawqazOC
-         6fq5QCIDvymKgYZwLTcCJ7amWaC1pO+6rbgl0RLAgq0NKcCCepRrYB1NN0TkDvDpGqfF
-         rzuuTA1pJDb/jgmtsq5jime4j7lImwdBxubFtxd62/YNeekAffMPnuIAV6It3HtoFxHS
-         bexNohnF4RJnpHAc/u+9ORYJDIGN2NU/5OR9RmZTuVQvTEfamQj3UTGTFaxBAHv/o6Hc
-         zegfMlPiAboQwkfBqGKaEDKUaXqHapT+tPrUi5IDwIQRAjrSFCTXG8j3/LjEMp5d35ww
-         iKPw==
+        bh=9SchETd2Q5vZ+QFLDuDldJneiPa2FBdSkcKgyCrvWq4=;
+        b=ZNeQ8aXQULJuwCaOnLF/+HD9ebg+/g7Pzosp1q07LMgb5e4Sr9YyXHVchKGxgBjDYR
+         GV3UIaQOLE0yyQnQu3caXuWvPnU7C1NEB7fYNv3RdrL+4eUvuFw2eHDFhrCHUZjLdH7h
+         btt5B746jdPiFWp87SPpftk4DwkYooiDl7zxXNeAjQnChy7+mC250eNLIE0uF2ZXbHw4
+         1PyY/bzi28/Y3JIAUw5iOtEViMb81tQGAzATtMf8LUD/otfLOTJaag8IJEcdvWE7RsEY
+         14OqcGUvI1/Y4zvizLBCH21rmlcDsO6l5tts0Hh/NCeccDEIKiNkNOvrxV5glTkZjrds
+         KwuA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1751522512; x=1752127312;
+        d=1e100.net; s=20230601; t=1751522653; x=1752127453;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=N4lOCw8IYJyiVobipOUopfsFfsxWGNXlxTiRqrfxXyw=;
-        b=JhnOh1y8pgkSoNUPP1FRJmV1PYh5Tl7bCLmY85zkapwmA5PbxU3tXQ8H0RKKzvMf08
-         cSacTwPuD9hc8/8ofe/2pnLw2gqWassvlXs2M8IWeWl5GK/vt74w3pqM7sNS3iFg8l8q
-         1JjUSTrFj56weayWYF5Ki1ZlNmK8b/FGCPEe5IM6Tkk2x05/z5yJXpFNOml4ugGpuX6R
-         pAHZ8m/XmPL/SULrlJf55N+gkCabvuxPl0379FNLMpC8xh1fsfIKxMu4kgFJFDJxxryg
-         i3HWbe/UXX5UZKCHkPFnJ7wO+cf43xEHCwICz1DEJmLbRC8WugkQNsQyrhRYMzP/Z0Ey
-         PRqg==
-X-Forwarded-Encrypted: i=1; AJvYcCUwUhS5v2aYn3sB55RLhwOG/qLaoclEUCP6z+W+f91OMfIDM95v4MJU1MnGNL8HMVq5lVrM6B9nUtQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyTgYvAXvHaKnJ1coUh8FqiYxmGkiqUiGI7qe+67X0v5y8US06z
-	NNSmMJCEXnYfLVUzKlY7G71ECy2YNEl4c8eiki068QEbu9X7A3dbapvzT7fbckMCHw==
-X-Gm-Gg: ASbGncsSauSODUT5GBogsLt8zbAJTwODwe1ob7YrEYkXpiWYE8ngvUeCzlB3N4sUEmw
-	gWeprCVDjdrEQsRHUyz69zCLFNXmI+WCAKy9pWTFWCxrtg2TKpOGbY/gvWn5D5h5rzMU2b9Txo+
-	dOCXELiEtrLzgw7dHdLcW5cb+eGGWbWPzSk/NITQP3d63YxDXHyVZaXvdW+tyGkDvmHpr5EXB3x
-	g/rM3naSRYcjQLo9kfmu53nxVcDSYtMY/iJHVQaQWP3ZVhtjQA3MFRpDDAnUWKXS6K8m+qSgN8Y
-	OFoaqnwTtPFm1lfr90bmI7TsTLYA4HsIIaBY0YVtI6L5WfjMKkZftIGiMO6yf+1hBZRTPtEXMW4
-	jH+aoBFem+y6pcpKpzjtd1LtRJ+j426pjcer/vmtjKyXdDVQ=
-X-Google-Smtp-Source: AGHT+IGf1B9nQ/qO82ZNTxHIiUqVBYkRymI6wc9HedPuusT9C9mYyKz/k5o2X86awTPSBGHVhE0obA==
-X-Received: by 2002:a05:6000:250f:b0:3a5:2e84:cc7b with SMTP id ffacd0b85a97d-3b1fe1e7339mr4492219f8f.11.1751522512086;
-        Wed, 02 Jul 2025 23:01:52 -0700 (PDT)
-Message-ID: <d9601a06-4118-4c1a-9784-51fe514d0697@suse.com>
-Date: Thu, 3 Jul 2025 08:01:40 +0200
+        bh=9SchETd2Q5vZ+QFLDuDldJneiPa2FBdSkcKgyCrvWq4=;
+        b=TyaLjbEd331BroBj/A5HW4+y6jov489uj9cOi25Dnkoa3s0rKNj3eVzYiaIHKya9RH
+         PAzVGsvEAVLYh8VEH5kSSw1fumO6V4icJPAhEcAJNJpLP9jqtzUZ50lt2dLpiPXCW7CJ
+         6xWmZkkurLw8UrMI/DEtoyj1FF5QfVmHoDMaGavZx5b0CBtW+6BTmyfE2KMrNcAqwEfa
+         dKyMvSsgFBs3aM/Ie/aiUDxM57L/3du0IkITbbphiNB3lERW81i3wBJLCly8lbrAL3fR
+         n4clV5fWOktlJYHdnOOgdkRxqBL9+z/3bfs4faY4/zawWlFOQkimmSSVVsteQxon8Z4m
+         gVQw==
+X-Forwarded-Encrypted: i=1; AJvYcCWInpfqz2W5G+NB6PBj8+rARkO38LdNTDEtgppmJW+zV0j9xpEJnheoCDBGPUQlUs/f9nl9WVmSqog=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwTUjT7Pust2uVd22vnbxDlJE0XoeHEfd/PQw7Z9Mkc2xaaGpHc
+	J1ztm0B8tpDv01wRwMXVYrKmRs6PG8q9RvTMqk9SGzCOVJH6BJzHPu6v23uMOe29bg==
+X-Gm-Gg: ASbGncunit+ha044gd9/PT+vPojBM0CQLKL6zhCfwYkQ1m6sUBKVNADn6gipcJpH+x2
+	GcFL80JwySAoL6eq9PpnMAo3sWBU1tJyk7hShQqMkkgwDWHKo8/CVyUPwe8vvSnuG+9d4aHg/Md
+	ZQm4gL+9ybaWfYKfFbQG1zPl8zn4q/sPAocnIgmtdaZmpr01zNgEKL2L5Gg5Rc57jkiUF4EYcAJ
+	GD2RNBn5RM14jqTluA7HzLi1FepenT2vpq75xqMga8YsyQv4lDUNmXOvLz34s/eKfPM3iReYI3b
+	hhiRryjz4uPNFapsVltI19Ajf9wkZJDTMMLkjsRtGv/07/5nSmlFep9SFERTG1OaJfG6cyA2h0s
+	TsnRlW2H06Uue8aABZmUakT6LkhtHVmnsOpNOAfFzaIsYdp8=
+X-Google-Smtp-Source: AGHT+IFa8awRtCABf9OVi9i40/yRhNSR0IjjeexzQR3+kILF84p05uftI2EsEq2qHMd0jYYpjSDDvw==
+X-Received: by 2002:a05:6000:2485:b0:3b3:bd27:f2b0 with SMTP id ffacd0b85a97d-3b3bd27f7d4mr302601f8f.43.1751522653071;
+        Wed, 02 Jul 2025 23:04:13 -0700 (PDT)
+Message-ID: <3ac18508-d1e6-471f-8fee-6e233ea6cef4@suse.com>
+Date: Thu, 3 Jul 2025 08:04:02 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 02/10] xen: Refactor kernel_info to have a header like
- boot_domain
-To: Alejandro Vallejo <alejandro.garciavallejo@amd.com>,
- Alejandro Vallejo <agarciav@amd.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
+Subject: Re: [PATCH v5 03/10] x86: Replace arch-specific boot_domain with the
+ common one
+To: Alejandro Vallejo <agarciav@amd.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Jason Andryuk <jandryuk@gmail.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>, xen-devel@lists.xenproject.org,
+ Daniel Smith <dpsmith@apertussolutions.com>
 References: <20250701105706.86133-1-agarciav@amd.com>
- <20250701105706.86133-3-agarciav@amd.com>
- <3128c4ae-7146-4480-b7b3-e17f253e3870@suse.com>
- <DB1P3E6TW6WS.CPYEJLOZTFO6@amd.com>
+ <20250701105706.86133-4-agarciav@amd.com>
+ <0a4196db-dfc8-4259-bfef-e62cf3fe17d1@suse.com>
+ <DB1NXDYYSE3Y.1OWV3AS1TYRLA@amd.com>
+ <2a7dab07-9e52-4d4a-a80d-99229c9fe093@suse.com>
+ <DB1OGNLX29US.Z8UCST2IR3VI@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -128,35 +128,74 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <DB1P3E6TW6WS.CPYEJLOZTFO6@amd.com>
+In-Reply-To: <DB1OGNLX29US.Z8UCST2IR3VI@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 02.07.2025 18:04, Alejandro Vallejo wrote:
-> On Wed Jul 2, 2025 at 2:56 PM CEST, Jan Beulich wrote:
->> On 01.07.2025 12:56, Alejandro Vallejo wrote:
->>> --- a/xen/include/xen/fdt-kernel.h
->>> +++ b/xen/include/xen/fdt-kernel.h
->>> @@ -16,7 +16,7 @@
->>>  #endif
->>>  
->>>  struct kernel_info {
->>> -    struct domain *d;
->>> +    struct boot_domain hdr;
->>>  
->>>      void *fdt; /* flat device tree */
->>>      paddr_t unassigned_mem; /* RAM not (yet) assigned to a bank */
->>> @@ -34,8 +34,7 @@ struct kernel_info {
->>>      paddr_t gnttab_size;
->>>  
->>>      /* boot blob load addresses */
->>> -    const struct boot_module *kernel, *initrd, *dtb;
+On 02.07.2025 17:34, Alejandro Vallejo wrote:
+> On Wed Jul 2, 2025 at 5:15 PM CEST, Jan Beulich wrote:
+>> On 02.07.2025 17:09, Alejandro Vallejo wrote:
+>>> On Wed Jul 2, 2025 at 3:15 PM CEST, Jan Beulich wrote:
+>>>> On 01.07.2025 12:56, Alejandro Vallejo wrote:
+>>>>> --- a/xen/arch/x86/include/asm/bootfdt.h
+>>>>> +++ b/xen/arch/x86/include/asm/bootfdt.h
+>>>>> @@ -3,6 +3,12 @@
+>>>>>  #define X86_BOOTFDT_H
+>>>>>  
+>>>>>  #include <xen/types.h>
+>>>>> +#include <public/xen.h>
+>>>>> +
+>>>>> +struct arch_boot_domain
+>>>>> +{
+>>>>> +    domid_t domid;
+>>>>> +};
+>>>>>  
+>>>>>  struct arch_boot_module
+>>>>>  {
+>>>>> [...]
+>>>>> @@ -1048,11 +1050,11 @@ static struct domain *__init create_dom0(struct boot_info *bi)
+>>>>>          dom0_cfg.flags |= XEN_DOMCTL_CDF_iommu;
+>>>>>  
+>>>>>      /* Create initial domain.  Not d0 for pvshim. */
+>>>>> -    bd->domid = get_initial_domain_id();
+>>>>> -    d = domain_create(bd->domid, &dom0_cfg,
+>>>>> +    bd->arch.domid = get_initial_domain_id();
+>>>>> +    d = domain_create(bd->arch.domid, &dom0_cfg,
+>>>>>                        pv_shim ? 0 : CDF_privileged | CDF_hardware);
+>>>>>      if ( IS_ERR(d) )
+>>>>> -        panic("Error creating d%u: %ld\n", bd->domid, PTR_ERR(d));
+>>>>> +        panic("Error creating d%u: %ld\n", bd->arch.domid, PTR_ERR(d));
+>>>>
+>>>> This being the only place where the (now) arch-specific field is used, why
+>>>> does it exist? A local variable would do? And if it's needed for
+>>>> (supposedly arch-agnostic) hyperlaunch, then it probably shouldn't be
+>>>> arch-specific? Daniel, Jason?
+>>>
+>>> As for the arch-agnostic side of things, arm needs some extra work to be
+>>> able to do it safely. dom0less currently constructs domains immediately after
+>>> parsing them, which is problematic for cases where some domains have the prop
+>>> and others don't. The domid allocation strategy may preclude further otherwise
+>>> good domains from being created just because their domid was stolen by a domain
+>>> that didn't actually care about which domid it got.
+>>>
+>>> It'll eventually want to leave the arch-specific area, but I don't want to do
+>>> that work now.
 >>
->> Where did this "const" go?
+>> But if the domU field is fine to live in a common struct despite being unused
+>> on x86, why can't the domid field live in a common struct too, despite being
+>> unused on non-x86? Otherwise it'll be extra churn for no gain to later move it
+>> there.
 > 
-> x86 mutates the boot module to set the released flag, the headroom, etc.
+> Mostly out of tidiness. Otherwise it's hard to know which fields serve a purpose
+> where.
+> 
+> I genuinely forgot about the domU field. I'm more than happy to drop that arch
+> subfield and have domid in the main body of the struct, but I suspect MISRA
+> would have something to say about dead data?
 
-Might be nice to mention such an aspect in the description.
+In principle yes (and then also about the domU field), but we rejected the
+respective rule altogether (for now? plus for a reason that I must have forgot
+and that escapes me).
 
 Jan
 
