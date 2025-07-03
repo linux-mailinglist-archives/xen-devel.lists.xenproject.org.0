@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B6DEAF713F
-	for <lists+xen-devel@lfdr.de>; Thu,  3 Jul 2025 13:00:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1031991.1405751 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 02F7AAF7144
+	for <lists+xen-devel@lfdr.de>; Thu,  3 Jul 2025 13:00:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1031994.1405760 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uXHfc-0003yH-9E; Thu, 03 Jul 2025 11:00:00 +0000
+	id 1uXHg1-0005IC-I9; Thu, 03 Jul 2025 11:00:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1031991.1405751; Thu, 03 Jul 2025 11:00:00 +0000
+Received: by outflank-mailman (output) from mailman id 1031994.1405760; Thu, 03 Jul 2025 11:00:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uXHfc-0003uj-6R; Thu, 03 Jul 2025 11:00:00 +0000
-Received: by outflank-mailman (input) for mailman id 1031991;
- Thu, 03 Jul 2025 10:59:59 +0000
+	id 1uXHg1-0005FQ-ET; Thu, 03 Jul 2025 11:00:25 +0000
+Received: by outflank-mailman (input) for mailman id 1031994;
+ Thu, 03 Jul 2025 11:00:24 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=rGZt=ZQ=linaro.org=philmd@srs-se1.protection.inumbo.net>)
- id 1uXHfa-0003ud-VW
- for xen-devel@lists.xenproject.org; Thu, 03 Jul 2025 10:59:58 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
+ id 1uXHg0-0003ud-Du
+ for xen-devel@lists.xenproject.org; Thu, 03 Jul 2025 11:00:24 +0000
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [2a00:1450:4864:20::435])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id daf9f58c-57fc-11f0-b894-0df219b8e170;
- Thu, 03 Jul 2025 12:59:56 +0200 (CEST)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-3a522224582so4093008f8f.3
- for <xen-devel@lists.xenproject.org>; Thu, 03 Jul 2025 03:59:56 -0700 (PDT)
+ id ea78c86e-57fc-11f0-b894-0df219b8e170;
+ Thu, 03 Jul 2025 13:00:22 +0200 (CEST)
+Received: by mail-wr1-x435.google.com with SMTP id
+ ffacd0b85a97d-3a4f72cba73so538986f8f.1
+ for <xen-devel@lists.xenproject.org>; Thu, 03 Jul 2025 04:00:22 -0700 (PDT)
 Received: from localhost.localdomain ([83.247.137.20])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3a88c7fadf3sm18662688f8f.34.2025.07.03.03.59.54
+ ffacd0b85a97d-3a892e52c99sm18125528f8f.49.2025.07.03.04.00.20
  (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Thu, 03 Jul 2025 03:59:55 -0700 (PDT)
+ Thu, 03 Jul 2025 04:00:21 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,43 +45,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: daf9f58c-57fc-11f0-b894-0df219b8e170
+X-Inumbo-ID: ea78c86e-57fc-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1751540396; x=1752145196; darn=lists.xenproject.org;
+        d=linaro.org; s=google; t=1751540422; x=1752145222; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=1uXIn8FF+VzmPqfa1+8428fM/RDSExpMjk/8h5CzpzY=;
-        b=zriLINqYOnqt7FyQuBfEZLt8TXG9XXSpAS/vtioCF1sYF0H/vIZ+NTDhJhM1tp0Ezg
-         I8GS3sC/kDc12ki9HVW/z/b5Ss3JexdfcLhZq7PLaAxQtFd70FMyLH//PCabQ9Os21dg
-         630zCIUfel5XkKj5ZJgUidwQaZ2l9uQAHMWELcmrawWg3vRCXK3gdJTxMOHrGkw1qirt
-         R2yGbTbBROjmlSCsk9+zo0zj1o5dynVMzyaEbZrTD5HgDaSgM+n3jX68bAdPyiIdrAg8
-         OD5917eX4GX6mpkXajZXCaidjPKaF9grXo/t9u0kVQQKrE5xPDP2b2mdQ+35P4JQ/XkI
-         w33g==
+        bh=VtcgYIv7cyhzlknrW2Wv+nYV1/8CFpZnM220DOT3U/s=;
+        b=khcwu2nnw9a9W/zeXNsNnAumIC3GMXChtYBOBY7tGVejkwhfPUs0kfcylxBVBtMCZp
+         y+wEO50sx5nK4ZbzKaDg9TdP89jdU7L1eeKDM404Fevmm7WaymCv1xfTotkhJTFR6mQN
+         fpMllunf8ag6zKbd0rnOPC0/a+7e1tntpC82wH09/4bUgtP0kzqVfx0uFJDHoRRujnDc
+         EkNk7yvwP9fWYDrO/pbrNLkE+Dejizc70lzGFIOblP5176J51QfE39L41PkbRJvSe0ax
+         abgV3bEqu40EJRNq7Rh9LgEO1241T1ICQtb64la6X+QQyX/xP1+nNAjpZAPibzZvvzzc
+         f+Kw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1751540396; x=1752145196;
+        d=1e100.net; s=20230601; t=1751540422; x=1752145222;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=1uXIn8FF+VzmPqfa1+8428fM/RDSExpMjk/8h5CzpzY=;
-        b=q28wg7ih8vYZJ8KiVzGifXgrsr6PcWl/6WJb2r0m7wcQ6c+TdaW70JkL+FBUjB12Jp
-         lDc64iv8DqKC2XIyJlLXd4x/xlawEPrPN4+5IBReDN/U0xEiMSPnx8pM6iNEd+bPzdxG
-         AzJrP++HEbeQXErXK2kOjXLcP5hCW/6p/m5mGwiBoXtNW4E1jt0XDU3bWRNsaAEnHXJD
-         PZ9cjXi4Q9XMUv5Kdv1FhO4QkbiqUjfdoQx+dQWUvNZolbHHt8kt3B+wjuGyc+bl2FaJ
-         9L/Fg5L8SoD0MyZD7sOl/07uecNpRt3fMfN567Nyk89yzW5YeyLbuvZczseajknDRu1e
-         xJSw==
-X-Forwarded-Encrypted: i=1; AJvYcCXpBL2CIy2IMoVuAF33SjHrJ2elGnaiERyPz3KTfugY+S5PoNyWtDn6xMpSQfoHLY6noFaP8yCZL6c=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YydHEXZ0k1188S6bThdpj2MqBEuVYBraCe81zG+91NhWeLO0TiX
-	F1I3yuKLIjTmYov0Z5dNFwHuxmJcjW7Pd9Ur8mBsmP19qRaqV+ELRPl8/3DOwgYpjts=
-X-Gm-Gg: ASbGncvDbe9Pm6sx6S0upY6nsP4qAjH4G7PGkfZYRJI4XWob4mvnObj31Sj5a0SqxFG
-	lZ8XxUnIbf1iCk0oFel47x9mswrZ0ZC+NXeIc1SGWlGh8dEB8KrA3MKlkGCPp+YMv9wLY6axl/i
-	9tY4MvN1RywI6q1VgEAO2f6thvg4w9fCnG6HXwXFjkuN/ALZ0JD+FaSMJe0Vt1E+SKltpB/603N
-	chgTr4izhd8KGH5ZwZhw9W34bMP7G90eXILnMgvKAuN54r60OOnsrZf5J7ecTV5Hh7B1GBJ5SQf
-	6K46x80GOyacwD5lnXqRZQKd7cXbfx+RUCZ3nRd4QDHDAwnKfkhaasuNlSua+nmHnynhOkmEZ3g
-	N+NgafzdBD/A=
-X-Google-Smtp-Source: AGHT+IGkl7DBEVSrsarAakeoJRDOUyErzjUrrwRi8jgXThFkNvPPbLQTGnxMgTtTTTxzMt5tQq0f5g==
-X-Received: by 2002:a5d:6f02:0:b0:3a5:2575:6b45 with SMTP id ffacd0b85a97d-3b32f666124mr2129038f8f.48.1751540396119;
-        Thu, 03 Jul 2025 03:59:56 -0700 (PDT)
+        bh=VtcgYIv7cyhzlknrW2Wv+nYV1/8CFpZnM220DOT3U/s=;
+        b=dZ9yBQEHirqXg9Sck0nDzSy8orzrI2flFTFvUWj3foExQiyQLWPe5Gd+wDBrAlScR+
+         AvSCb0TMLscRooIXxjcaqrUs3d88yqVGC4WgzmOisuwc0OnSjGLAkUZuu8VWblpgVQnx
+         SJlEm3uOHBiPDLhTGeuOet0fW5J2fnG4p8XZDfaN560oJlVrqzU48HmNwhpqTM68fQ0G
+         xPtQYXQN+GYS6dLHRWlyCox34FOHfuHq55aNVIu8Fkz8wwjXmumFb5L4N9SLPqFzSaqE
+         uNM276DpabbYLvFnGZfgxe1LM6g64gcgKxwJOWP12pmJgWmgCIuAgR1kjhkxTchzZBav
+         ahGw==
+X-Forwarded-Encrypted: i=1; AJvYcCV9mnRq0eCJ+LMxd3RrpMTQ4bLOPhl9Gf9VNKrKsdVeRAFFeJVQ0SGUVOXLG6G/Z1DYt2uur2Z6ojU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxZngExfqdms382kJneSUzhnhYr50eAI/EFkRrdRyomWJbYfMJr
+	dHu9ZEqv9TUbzrvb/rG+aTD7Xbcpthwlypq4My4Sk0sVOK1WQN0ATho02vwJ98fVRoU=
+X-Gm-Gg: ASbGncs1lsyaijPL7KcqkttTs+CMLc8RQWHxOadpSc6ELShLZp2Zd3wixQrhiMTicPW
+	xUG/PRhnUAkFkii/5plKPgHFQ8q44wiAwNF4ARLltNowrmQINMgS0zJZOIrlnqf12Cwmv4JsNY1
+	vsAEIAeZVvIg7ZRmhdgsbVKsuYsQG0l+iEMX9O1H8S089lxXA3Afj3H+F0AzuzAnnlCo99eBdnU
+	FlAS8sKDXffuVxuvUplzONDmc4U4zSZORI+Aa3uNcQ/xYmJKHmZfCVrhi63lRmFx9CnzT1x+IF7
+	TpdEwO7nO/7lwdCgoAYqjlx8Xaq+lIQBGplJ+JNbgYof6XVwc3aef9h17VaE0e6dRi/4jNeEnDE
+	aQaHP29NN6so=
+X-Google-Smtp-Source: AGHT+IGD7TC9O4oxqN4AXMXx4fT0V4Qtg0hQBWZhDby2s+AzbNTf4+ZNgcj1dYa/jzmx9avOyZc4UA==
+X-Received: by 2002:a05:6000:987:b0:3a3:7ba5:9a68 with SMTP id ffacd0b85a97d-3b343889c82mr1880924f8f.18.1751540421981;
+        Thu, 03 Jul 2025 04:00:21 -0700 (PDT)
 From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>
 To: qemu-devel@nongnu.org
 Cc: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
@@ -97,9 +97,9 @@ Cc: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
 	Paul Durrant <paul@xen.org>,
 	"Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
 	xen-devel@lists.xenproject.org
-Subject: [PATCH v5 48/69] accel/dummy: Extract 'dummy-cpus.h' header from 'system/cpus.h'
-Date: Thu,  3 Jul 2025 12:55:14 +0200
-Message-ID: <20250703105540.67664-49-philmd@linaro.org>
+Subject: [PATCH v5 53/69] accel/dummy: Convert to AccelOpsClass::cpu_thread_routine
+Date: Thu,  3 Jul 2025 12:55:19 +0200
+Message-ID: <20250703105540.67664-54-philmd@linaro.org>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <20250703105540.67664-1-philmd@linaro.org>
 References: <20250703105540.67664-1-philmd@linaro.org>
@@ -107,92 +107,88 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-'dummy' helpers are specific to accelerator implementations,
-no need to expose them via "system/cpus.h".
+By converting to AccelOpsClass::cpu_thread_routine we can
+let the common accel_create_vcpu_thread() create the thread.
 
 Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
 Reviewed-by: Richard Henderson <richard.henderson@linaro.org>
+Acked-by: Fabiano Rosas <farosas@suse.de>
 ---
- accel/dummy-cpus.h    | 14 ++++++++++++++
- include/system/cpus.h |  5 -----
- accel/dummy-cpus.c    |  1 +
- accel/qtest/qtest.c   |  1 +
- accel/xen/xen-all.c   |  1 +
- 5 files changed, 17 insertions(+), 5 deletions(-)
- create mode 100644 accel/dummy-cpus.h
+ accel/dummy-cpus.h  |  2 +-
+ accel/dummy-cpus.c  | 14 +-------------
+ accel/qtest/qtest.c |  3 ++-
+ accel/xen/xen-all.c |  3 ++-
+ 4 files changed, 6 insertions(+), 16 deletions(-)
 
 diff --git a/accel/dummy-cpus.h b/accel/dummy-cpus.h
-new file mode 100644
-index 00000000000..d18dd0fdc51
---- /dev/null
+index c3af710ee8c..c2f9fee164c 100644
+--- a/accel/dummy-cpus.h
 +++ b/accel/dummy-cpus.h
-@@ -0,0 +1,14 @@
-+/*
-+ * Dummy cpu thread code
-+ *
-+ * Copyright IBM, Corp. 2011
-+ *
-+ * SPDX-License-Identifier: GPL-2.0-or-later
-+ */
-+
-+#ifndef ACCEL_DUMMY_CPUS_H
-+#define ACCEL_DUMMY_CPUS_H
-+
-+void dummy_start_vcpu_thread(CPUState *cpu);
-+
-+#endif
-diff --git a/include/system/cpus.h b/include/system/cpus.h
-index 3226c765d01..69be6a77a75 100644
---- a/include/system/cpus.h
-+++ b/include/system/cpus.h
-@@ -7,11 +7,6 @@ void cpus_register_accel(const AccelOpsClass *i);
- /* return registers ops */
- const AccelOpsClass *cpus_get_accel(void);
+@@ -10,6 +10,6 @@
+ #define ACCEL_DUMMY_CPUS_H
  
--/* accel/dummy-cpus.c */
--
--/* Create a dummy vcpu for AccelOpsClass->create_vcpu_thread */
--void dummy_start_vcpu_thread(CPUState *);
--
- /* interface available for cpus accelerator threads */
+ void dummy_thread_precreate(CPUState *cpu);
+-void dummy_start_vcpu_thread(CPUState *cpu);
++void *dummy_cpu_thread_routine(void *arg);
  
- /* For temporary buffers for forming a name */
+ #endif
 diff --git a/accel/dummy-cpus.c b/accel/dummy-cpus.c
-index 867276144fa..03cfc0fa01e 100644
+index 2cbc3fecc93..f637ab05e32 100644
 --- a/accel/dummy-cpus.c
 +++ b/accel/dummy-cpus.c
-@@ -17,6 +17,7 @@
- #include "qemu/guest-random.h"
- #include "qemu/main-loop.h"
+@@ -19,7 +19,7 @@
  #include "hw/core/cpu.h"
-+#include "accel/dummy-cpus.h"
+ #include "accel/dummy-cpus.h"
  
- static void *dummy_cpu_thread_fn(void *arg)
+-static void *dummy_cpu_thread_fn(void *arg)
++void *dummy_cpu_thread_routine(void *arg)
  {
+     CPUState *cpu = arg;
+ 
+@@ -71,15 +71,3 @@ void dummy_thread_precreate(CPUState *cpu)
+     qemu_sem_init(&cpu->sem, 0);
+ #endif
+ }
+-
+-void dummy_start_vcpu_thread(CPUState *cpu)
+-{
+-    char thread_name[VCPU_THREAD_NAME_SIZE];
+-
+-    dummy_thread_precreate(cpu);
+-
+-    snprintf(thread_name, VCPU_THREAD_NAME_SIZE, "CPU %d/DUMMY",
+-             cpu->cpu_index);
+-    qemu_thread_create(cpu->thread, thread_name, dummy_cpu_thread_fn, cpu,
+-                       QEMU_THREAD_JOINABLE);
+-}
 diff --git a/accel/qtest/qtest.c b/accel/qtest/qtest.c
-index 8b109d4c03b..2606fe97b49 100644
+index 2606fe97b49..9f30098d133 100644
 --- a/accel/qtest/qtest.c
 +++ b/accel/qtest/qtest.c
-@@ -24,6 +24,7 @@
- #include "qemu/guest-random.h"
- #include "qemu/main-loop.h"
- #include "hw/core/cpu.h"
-+#include "accel/dummy-cpus.h"
+@@ -64,7 +64,8 @@ static void qtest_accel_ops_class_init(ObjectClass *oc, const void *data)
+ {
+     AccelOpsClass *ops = ACCEL_OPS_CLASS(oc);
  
- static int64_t qtest_clock_counter;
- 
+-    ops->create_vcpu_thread = dummy_start_vcpu_thread;
++    ops->thread_precreate = dummy_thread_precreate;
++    ops->cpu_thread_routine = dummy_cpu_thread_routine;
+     ops->get_virtual_clock = qtest_get_virtual_clock;
+     ops->set_virtual_clock = qtest_set_virtual_clock;
+ };
 diff --git a/accel/xen/xen-all.c b/accel/xen/xen-all.c
-index ba752bbe5de..f412ea346bb 100644
+index f412ea346bb..e2ad42c0d18 100644
 --- a/accel/xen/xen-all.c
 +++ b/accel/xen/xen-all.c
-@@ -18,6 +18,7 @@
- #include "hw/xen/xen_igd.h"
- #include "chardev/char.h"
- #include "qemu/accel.h"
-+#include "accel/dummy-cpus.h"
- #include "system/accel-ops.h"
- #include "system/cpus.h"
- #include "system/xen.h"
+@@ -152,7 +152,8 @@ static void xen_accel_ops_class_init(ObjectClass *oc, const void *data)
+ {
+     AccelOpsClass *ops = ACCEL_OPS_CLASS(oc);
+ 
+-    ops->create_vcpu_thread = dummy_start_vcpu_thread;
++    ops->thread_precreate = dummy_thread_precreate;
++    ops->cpu_thread_routine = dummy_cpu_thread_routine;
+ }
+ 
+ static const TypeInfo xen_accel_ops_type = {
 -- 
 2.49.0
 
