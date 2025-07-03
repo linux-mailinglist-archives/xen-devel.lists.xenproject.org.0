@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9D2CAF7304
-	for <lists+xen-devel@lfdr.de>; Thu,  3 Jul 2025 13:55:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1032084.1405840 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C26D0AF7317
+	for <lists+xen-devel@lfdr.de>; Thu,  3 Jul 2025 13:59:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1032090.1405850 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uXIWE-0001mv-Rt; Thu, 03 Jul 2025 11:54:22 +0000
+	id 1uXIb9-0002PO-Ce; Thu, 03 Jul 2025 11:59:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1032084.1405840; Thu, 03 Jul 2025 11:54:22 +0000
+Received: by outflank-mailman (output) from mailman id 1032090.1405850; Thu, 03 Jul 2025 11:59:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uXIWE-0001lU-Of; Thu, 03 Jul 2025 11:54:22 +0000
-Received: by outflank-mailman (input) for mailman id 1032084;
- Thu, 03 Jul 2025 11:54:21 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uXIb9-0002MO-9H; Thu, 03 Jul 2025 11:59:27 +0000
+Received: by outflank-mailman (input) for mailman id 1032090;
+ Thu, 03 Jul 2025 11:59:25 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=jdSv=ZQ=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1uXIWD-0001lO-ES
- for xen-devel@lists.xenproject.org; Thu, 03 Jul 2025 11:54:21 +0000
-Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
- [2a00:1450:4864:20::52d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 71cfbf7e-5804-11f0-b894-0df219b8e170;
- Thu, 03 Jul 2025 13:54:16 +0200 (CEST)
-Received: by mail-ed1-x52d.google.com with SMTP id
- 4fb4d7f45d1cf-60c5b7cae8bso9258310a12.1
- for <xen-devel@lists.xenproject.org>; Thu, 03 Jul 2025 04:54:16 -0700 (PDT)
-Received: from [192.168.1.5] (user-109-243-64-38.play-internet.pl.
- [109.243.64.38]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-60c831cd0a9sm10574216a12.60.2025.07.03.04.54.14
+ <SRS0=TJsU=ZQ=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1uXIb7-0002MI-T4
+ for xen-devel@lists.xenproject.org; Thu, 03 Jul 2025 11:59:25 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2994a3e9-5805-11f0-a314-13f23c93f187;
+ Thu, 03 Jul 2025 13:59:24 +0200 (CEST)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-451d41e1ad1so53943665e9.1
+ for <xen-devel@lists.xenproject.org>; Thu, 03 Jul 2025 04:59:24 -0700 (PDT)
+Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3a892e52c8esm18657457f8f.55.2025.07.03.04.59.22
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 03 Jul 2025 04:54:14 -0700 (PDT)
+ Thu, 03 Jul 2025 04:59:23 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,292 +45,274 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 71cfbf7e-5804-11f0-b894-0df219b8e170
+X-Inumbo-ID: 2994a3e9-5805-11f0-a314-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1751543656; x=1752148456; darn=lists.xenproject.org;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=F+PzACbTBlw8mA1pkHVYJrwhi9625jdzHeHzNMqMAOg=;
-        b=PS7HbW30EoTxgAzFJBHq1Z+DXq4nUSLAiXbFuj0zno0w8E6umtdbNeKKKK4qX93gjI
-         dt6CGrw94OsS7zopzw6kxFhE1xCO+UZdCuSsdTknW2J5GvALeZBX0jRMp2HvU+eOLrz0
-         ULz0UVK6Jx4z738bjwOpUWMf2Sb0AkYwi0F1+1lj+JuGOjb/96zOp7La8w/TYKUvQhyH
-         IxR/EpAygPF2qSSXZWe87f2HN3RUa+599CX1XHfx9LUbkJDV/4wo0io0VDRIZL9Uhc+X
-         s9vhejj+8mpWIeVEYyZIdctf8o7+hHh20+/OA9mSmHU5h5g+KhY7pf160RagBJOw4be1
-         VcWA==
+        d=citrix.com; s=google; t=1751543964; x=1752148764; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=fK87uvjwxF9BMyYhHXfWZLUx1QcI5a/bmiBi9i1+MY4=;
+        b=De+os/bateViFjQ9UEg79dix46Mup/YvCC8AK6HUiCuVuOkivc7kNUZh5nctaC7hYm
+         udu+IktuGPQV6Kuhvl8mDeVF6r0VtkfOfgAUjc9aHVKegTpMXa5NnyZ4R1pBHJi7+r+U
+         LHPqYMuUi7ckOWYcZK/zHEPXrxbmsF0kb9qx8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1751543656; x=1752148456;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=F+PzACbTBlw8mA1pkHVYJrwhi9625jdzHeHzNMqMAOg=;
-        b=TUciE3uqzLyHlf3SetW9eHNJ2CLklohDHBAq8I03KUX+xH3oHr4TPlPj3RD9XtH4y0
-         7wFjgPlD+XCDWtM2JQopEvXdW6M40MDUXxSIyA1Pt0I9fN+tXY9y9klKmP+/CxqIxfL7
-         5B9fSJLfowEPLrFmNkWI23vSH9n+KqSbQRlRaGeD0fAjAIp8MKZ03gSxWj/+5DooMjgU
-         pEcoA37g9wzZK3fHJLish7uQbQ2Bh8xQ8qbSvmPkXZi7U4d5OAOlYkVMooFa1UxA6gsv
-         Y58MBQOtzKAP6jP70xXnlXGFi6tV9Padzy2NhxK2y+AwE9ar57Km3baMXToXf04nv/Rw
-         vDgA==
-X-Forwarded-Encrypted: i=1; AJvYcCWwZPpILUWjsopSHauMTp1k/GZZBQ7DyzkyiV3BKh09YpKuF5FB7W9MTs0hYgzXSphu/0FS8vFMscs=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yzdg8+BEiiKdTQdIuEXBlupnc5/jV9QBwGZu7/Qs4DHniJdew0J
-	+FOEqN2N1aRFnHHZ7/iGl9onFE2CW5WbXUgnhOYrD1LubTuvay5LRAHf
-X-Gm-Gg: ASbGncv9NIALT4ndG7CsXp/MlVzEE59uLhfDJ/rdnj1RLC86ZsO4Lqi/bB3aLP+gT40
-	oz9Lxgke3bVYo82Z5A1Uk545P/11VbIacVzgpmFtuCZAE7dA+UgB/TL/Wm7ikrveXvS7nvT2AMP
-	jjfHc0DAIydK9hO4xGXMgQo69Yl4Gz+DzGFNQAg6ElKzyaSeqTfvK2WERt4MSxf08JXG7y6JmnX
-	WgXLQCfosBoV9MDeoGfsiDxeIxS/+oEDw6i5seKEVYwI7KSua7iepFZNQI9X1DL0VtPcer9BCsW
-	BB2n6thq2dkuTreZPJQUQ3m/5cjNltu8Rm/Wd26lqIFHxIJetRfxhHEoghzzqztL7yqm6713aph
-	wi9OaOckPiuXBOWYGQeBRefSnx5WcuknTeet5poAnWzsHtQ==
-X-Google-Smtp-Source: AGHT+IGjLowpRoD1DpZ7vJNFPrE8xQQ+ayBf/+1ABieeCSPyA1LAQUg/Xr+T6PHO2WWbmgsrBgSDRQ==
-X-Received: by 2002:a05:6402:2390:b0:607:2b27:7f41 with SMTP id 4fb4d7f45d1cf-60e6cc75b47mr2064089a12.4.1751543655244;
-        Thu, 03 Jul 2025 04:54:15 -0700 (PDT)
-Content-Type: multipart/alternative;
- boundary="------------ZJo5NImyf3nJkXpaKibQSO4p"
-Message-ID: <0c1f9567-5530-4f90-8996-86a1f9662b52@gmail.com>
-Date: Thu, 3 Jul 2025 13:54:13 +0200
+        d=1e100.net; s=20230601; t=1751543964; x=1752148764;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=fK87uvjwxF9BMyYhHXfWZLUx1QcI5a/bmiBi9i1+MY4=;
+        b=u7O3r4wYN4RoGDEImCBEauhrCp6NRv3lhnltroXdqYGzDNsuoGb/ZiDt0zrQmjfpmK
+         4etAzVeSB/C2LnP6t13mVnuqfZMIQo42cJU1s8T02DaPuVzAF892ijajtZzr2AQrow5P
+         Jh73CxF5rfeK7QxY5LEhivw5OMwqxn8jOlqecCXvrAF3dGujBTQ91JBTPqCBoGjjCP74
+         RRWlFmm0pJpf4BIalMevls2lCgsF5Hnk261xNdJV8cMXu8e9gH5L0m2TmuFQj94+3yL/
+         Ke6j6MBcfxAMZ+iWxalFk6TBkthNcRB/pmK67ksQBzCalBN+mB4A1tscKX5Uix5P3JRM
+         yyCg==
+X-Forwarded-Encrypted: i=1; AJvYcCUqQBEaIRQw57RQAV+s/s+LJKMeZNz9D1e7zpRIyUKasORAW0P580PpFGzqUWp+2HAcTRHRq2Y1YPc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YymokpjurY0GFk7Ntp+gVrbHBw2djLr8OEuikNF4BArHMt2gKBP
+	c6vHySqnFx5h0VEBx381YNWYVBenje5R3QGLxmvoOH4oYuoV/Z0zLOEWRHKNuknZCE4=
+X-Gm-Gg: ASbGnctnKqbPI16pv5lA0uxN29lb7EfK/9EVyl9gwwT/Lk8LExzkDtmo47U/DVwf1Yb
+	XL3J8tPrdexrUymvson26EbSVd3Uv4Ml68w7f5M2xGyuBTOnXT+zkPfgau3SiDDl1SJw2egCi55
+	Ev6OmfQ+PIg6oA+AJwHYyJwV+E1R/hNq/q87Md6nzrGbCUhKW1UbyQZ78TK3vEBK9J3xHDVIGXp
+	P7ppgNox3/3VwiV439qQ6LAhth0mEO49JfUYQjLE5WUE401CJDVDlQrWIqs99V8Hz6I7bJYzyvI
+	bTnrJhFTYfD2VHu71oo1+9D283CUWVF1UU+XcBvSHOOeZbRo0LzkOfBEKJ8LMVjoWDNkGRCIfoM
+	WjXoa09wOwX5lJLM3mAHK1UpUTNA=
+X-Google-Smtp-Source: AGHT+IFj35/z5IEIn4KRqBY3AH2jut9MZyyFpoWrA3NXxNQ4jsVPAwrMcw7ss72bev2skkIR4SPYdQ==
+X-Received: by 2002:adf:b64d:0:b0:3a4:d9fa:f1ed with SMTP id ffacd0b85a97d-3b32ca3f422mr1840464f8f.13.1751543963765;
+        Thu, 03 Jul 2025 04:59:23 -0700 (PDT)
+Message-ID: <947761f1-d474-421b-ac39-6926d8fdde56@citrix.com>
+Date: Thu, 3 Jul 2025 12:59:22 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 10/17] xen/riscv: implement guest_physmap_add_entry()
- for mapping GFNs to MFNs
+Subject: Re: [PATCH 4/6] x86/idle: Implement a new MWAIT IPI-elision algorithm
 To: Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1749555949.git.oleksii.kurochko@gmail.com>
- <0b1f7ead7eb1b7c8687d388cca50b46eefb8e408.1749555949.git.oleksii.kurochko@gmail.com>
- <f1e26c40-c70d-4d86-96ec-7643a9d08e76@suse.com>
- <5fbe849c-3b8a-45dd-a217-c1dbf831da47@gmail.com>
- <03f0a7eb-f541-4f2b-8b88-500fd483dd48@suse.com>
-Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <03f0a7eb-f541-4f2b-8b88-500fd483dd48@suse.com>
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20250702144121.1096448-1-andrew.cooper3@citrix.com>
+ <20250702144121.1096448-5-andrew.cooper3@citrix.com>
+ <0309f4d6-fa2a-4be3-a313-d6b4ebe362a2@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <0309f4d6-fa2a-4be3-a313-d6b4ebe362a2@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-This is a multi-part message in MIME format.
---------------ZJo5NImyf3nJkXpaKibQSO4p
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-
-
-On 7/3/25 1:33 PM, Jan Beulich wrote:
-> On 03.07.2025 13:02, Oleksii Kurochko wrote:
->> On 6/30/25 5:59 PM, Jan Beulich wrote:
->>> On 10.06.2025 15:05, Oleksii Kurochko wrote:
->>>> +                              unsigned long nr, mfn_t mfn, p2m_type_t t)
->>>> +{
->>>> +    struct p2m_domain *p2m = p2m_get_hostp2m(d);
->>>> +    int rc;
->>>> +
->>>> +    p2m_write_lock(p2m);
->>>> +    rc = p2m_set_entry(p2m, start_gfn, nr, mfn, t, p2m->default_access);
->>>> +    p2m_write_unlock(p2m);
->>>> +
->>>> +    return rc;
->>>> +}
->>>> +
->>>> +int map_regions_p2mt(struct domain *d,
->>>> +                     gfn_t gfn,
->>>> +                     unsigned long nr,
->>>> +                     mfn_t mfn,
->>>> +                     p2m_type_t p2mt)
->>>> +{
->>>> +    return p2m_insert_mapping(d, gfn, nr, mfn, p2mt);
->>>> +}
->>> What is this function doing here? The description says "for generic mapping
->>> purposes", which really may mean anything. Plus, if and when you need it, it
->>> wants to come with a name that fits with e.g. ...
->> These names are used across the common code and various architectures. Not all
->> architectures need to implement all of these functions.
->> I believe|guest_physmap_add_page()| (which internally calls|guest_physmap_add_entry()|)
->> is needed to be implemented for all architectures, while|map_regions_p2mt()| is used
->> by Arm and the common Dom0less-related code, and because of RISC-V is going to re-use
->> common Dom0less code it is implementing this function too.
-> First, my comment was solely about this one function above. And then I didn't
-> even know Arm had such a function. It's not used from common code (except again
-> from dom0less code where it should have been better abstracted, imo). I'm also
-> not surprised I wasn't aware of it since, as can be implied from the above,
-> otherwise I would likely have complained about its name not fitting the general
-> scheme (which isn't all that good either).
-
-If I'm right, there is nothing similar to|map_regions_p2mt()| in the common headers.
-
-Anyway, I think we could follow up with a patch to rename this function to
-something more appropriate.
-
-I was thinking about adding something like|map_regions_to_guest()|,|map_p2m_regions()|,
-or|map_p2m_memory()| to|xen/mm.h|, along with proper renaming in the Arm code.
-
-Does that make sense?
-
->
->>>> +int guest_physmap_add_entry(struct domain *d,
->>>> +                            gfn_t gfn,
->>>> +                            mfn_t mfn,
->>>> +                            unsigned long page_order,
->>>> +                            p2m_type_t t)
->>> ... this one, to understand their relationship / difference.
->> Basically, the difference is only in API and where they are expected to be used:
->> - guest_physmap_add_entry() to map and set a specific p2m type for a page.
->> - map_regions_p2mt() to map a region (mostly MMIO) in the guest p2m with
->>     a specific p2m type.
-> Sorry, from this description they still look basically identical to me. The
-> visible difference being that one takes a "nr" argument and the other a
-> "page_order" one. Which still makes them largely redundant, and which still
-> suggests that the earlier one's name doesn't really fit.
->
->> I added both of them here as they are implemented in a similar way.
->> I will re-word commit subject and message:
->>     xen/riscv: implement functions to map memory in guest p2m
+On 03/07/2025 10:01 am, Jan Beulich wrote:
+> On 02.07.2025 16:41, Andrew Cooper wrote:
+>> In order elide IPIs, we must be able to identify whether a target CPU is in
+>> MWAIT at the point it is woken up.  i.e. the store to wake it up must also
+>> identify the state.
 >>
->>     Introduce guest_physmap_add_entry() to map a page and assign a specific
->>     p2m type, and map_regions_p2mt() to map a region (typically MMIO) in
->>     the guest p2m with a designated p2m type.
-> I.e., as per above, two functions for basically the same purpose.
+>> Create a new in_mwait variable beside __softirq_pending, so we can use a
+>> CMPXCHG to set the softirq while also observing the status safely.  Implement
+>> an x86 version of arch_pend_softirq() which does this.
+>>
+>> In mwait_idle_with_hints(), advertise in_mwait, with an explanation of
+>> precisely what it means.  X86_BUG_MONITOR can be accounted for simply by not
+>> advertising in_mwait.
+>>
+>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>> ---
+>> CC: Jan Beulich <JBeulich@suse.com>
+>> CC: Roger Pau Monné <roger.pau@citrix.com>
+>> CC: Anthony PERARD <anthony.perard@vates.tech>
+>> CC: Michal Orzel <michal.orzel@amd.com>
+>> CC: Julien Grall <julien@xen.org>
+>> CC: Stefano Stabellini <sstabellini@kernel.org>
+>>
+>> This is modelled after Linux's TIF_NEED_RESCHED (single bit equivelent of all
+>> of __softirq_pending), and TIF_POLLING_NRFLAG (arch-neutral "in_mwait").
+>>
+>> In Linux, they're both in the same flags field, which adds complexity.  In
+>> Xen, __softirq_pending is already unsigned long for everything other than x86,
+>> so adding an arch-neutral "in_mwait" would need wider changes.
+> Why would the flag need to be arch-neutral?
 
-Generally, I agree that the purpose is the same.
+Because it's not about mwait; it's about the ability to notice the
+rising edge of TIF_NEED_RESCHED, and is implemented by more than just
+x86 in Linux.
 
-I will then just drop|guest_physmap_add_entry()| and use only
-|map_regions_p2mt()| (or whatever name we decide on).
+>> +     */
+>> +    alternative_io("movb $1, %[in_mwait]",
+>> +                   "", X86_BUG_MONITOR,
+>> +                   [in_mwait] "=m" (stat->in_mwait));
+>>  
+>>      monitor(this_softirq_pending, 0, 0);
+>>      smp_mb();
+> Unlike alternative(), alternative_io() has no memory clobber. To the compiler
+> the two resulting asm() therefore have no dependency operand-wise[1]. The
+> sole ordering criteria then is that they're both volatile asm()-s. It not
+> being explicitly said (anywhere that I could find) that volatile guarantees
+> such ordering, I wonder if we wouldn't better have an operand-based
+> dependency between the two. Otoh it may well be that we rely on such ordering
+> elsewhere already, in which case having one more instance probably would be
+> okay(ish).
+>
+> [1] It's actually worse than that, I think: monitor() also doesn't specify
+> the location as a (memory) input.
 
-~ Oleksii
+The GCC bugzilla has plenty of statements that volatiles (which have
+survived optimisation passes) can't be reordered.
 
---------------ZJo5NImyf3nJkXpaKibQSO4p
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+>
+>> @@ -452,6 +466,10 @@ void mwait_idle_with_hints(unsigned int eax, unsigned int ecx)
+>>          mwait(eax, ecx);
+>>          spec_ctrl_exit_idle(info);
+>>      }
+>> +
+>> +    alternative_io("movb $0, %[in_mwait]",
+>> +                   "", X86_BUG_MONITOR,
+>> +                   [in_mwait] "=m" (stat->in_mwait));
+> This doesn't strictly need to be an alternative, does it? We can save a
+> memory write in the buggy case, but that likely makes at most a marginal
+> difference.
 
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 7/3/25 1:33 PM, Jan Beulich wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:03f0a7eb-f541-4f2b-8b88-500fd483dd48@suse.com">
-      <pre wrap="" class="moz-quote-pre">On 03.07.2025 13:02, Oleksii Kurochko wrote:
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">On 6/30/25 5:59 PM, Jan Beulich wrote:
-</pre>
-        <blockquote type="cite">
-          <pre wrap="" class="moz-quote-pre">On 10.06.2025 15:05, Oleksii Kurochko wrote:
-</pre>
-          <blockquote type="cite">
-            <pre wrap="" class="moz-quote-pre">+                              unsigned long nr, mfn_t mfn, p2m_type_t t)
-+{
-+    struct p2m_domain *p2m = p2m_get_hostp2m(d);
-+    int rc;
-+
-+    p2m_write_lock(p2m);
-+    rc = p2m_set_entry(p2m, start_gfn, nr, mfn, t, p2m-&gt;default_access);
-+    p2m_write_unlock(p2m);
-+
-+    return rc;
-+}
-+
-+int map_regions_p2mt(struct domain *d,
-+                     gfn_t gfn,
-+                     unsigned long nr,
-+                     mfn_t mfn,
-+                     p2m_type_t p2mt)
-+{
-+    return p2m_insert_mapping(d, gfn, nr, mfn, p2mt);
-+}
-</pre>
-          </blockquote>
-          <pre wrap="" class="moz-quote-pre">What is this function doing here? The description says "for generic mapping
-purposes", which really may mean anything. Plus, if and when you need it, it
-wants to come with a name that fits with e.g. ...
-</pre>
-        </blockquote>
-        <pre wrap="" class="moz-quote-pre">
-These names are used across the common code and various architectures. Not all
-architectures need to implement all of these functions.
-I believe|guest_physmap_add_page()| (which internally calls|guest_physmap_add_entry()|)
-is needed to be implemented for all architectures, while|map_regions_p2mt()| is used
-by Arm and the common Dom0less-related code, and because of RISC-V is going to re-use
-common Dom0less code it is implementing this function too.
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-First, my comment was solely about this one function above. And then I didn't
-even know Arm had such a function. It's not used from common code (except again
-from dom0less code where it should have been better abstracted, imo). I'm also
-not surprised I wasn't aware of it since, as can be implied from the above,
-otherwise I would likely have complained about its name not fitting the general
-scheme (which isn't all that good either).</pre>
-    </blockquote>
-    <pre data-start="50" data-end="240">If I'm right, there is nothing similar to <code
-    data-start="92" data-end="112">map_regions_p2mt()</code> in the common headers.
+It doesn't *need* to be an alternative.  It could be:
 
-Anyway, I think we could follow up with a patch to rename this function to
-something more appropriate.</pre>
-    <pre data-start="242" data-end="412">I was thinking about adding something like <code
-    data-start="285" data-end="309">map_regions_to_guest()</code>, <code
-    data-start="311" data-end="330">map_p2m_regions()</code>,
-or <code data-start="335" data-end="353">map_p2m_memory()</code> to <code
-    data-start="357" data-end="367">xen/mm.h</code>, along with proper renaming in the Arm code.</pre>
-    <pre data-start="414" data-end="435" data-is-last-node=""
-    data-is-only-node="">Does that make sense?
+if ( !cpu_bug_monitor )
+    ACCESS_ONCE(stat->in_mwait) = true;
 
-</pre>
-    <blockquote type="cite"
-      cite="mid:03f0a7eb-f541-4f2b-8b88-500fd483dd48@suse.com">
-      <pre wrap="" class="moz-quote-pre">
+but getting rid of the branch is an advantage too.
+>> --- a/xen/arch/x86/include/asm/hardirq.h
+>> +++ b/xen/arch/x86/include/asm/hardirq.h
+>> @@ -5,7 +5,19 @@
+>>  #include <xen/types.h>
+>>  
+>>  typedef struct {
+>> -    unsigned int __softirq_pending;
+>> +    /*
+>> +     * The layout is important.  Any CPU can set bits in __softirq_pending,
+>> +     * but in_mwait is a status bit owned by the CPU.  softirq_mwait_raw must
+>> +     * cover both, and must be in a single cacheline.
+>> +     */
+>> +    union {
+>> +        struct {
+>> +            unsigned int __softirq_pending;
+>> +            bool in_mwait;
+>> +        };
+>> +        uint64_t softirq_mwait_raw;
+>> +    };
+> To guard against someone changing e.g. __softirq_pending to unsigned long
+> while ignoring the comment, how about adding a BUILD_BUG_ON() checking both
+> parts of the union are the same size (which of course would require naming
+> either the union field within the containing struct or its struct member)?
 
-</pre>
-      <blockquote type="cite">
-        <blockquote type="cite">
-          <blockquote type="cite">
-            <pre wrap="" class="moz-quote-pre">+int guest_physmap_add_entry(struct domain *d,
-+                            gfn_t gfn,
-+                            mfn_t mfn,
-+                            unsigned long page_order,
-+                            p2m_type_t t)
-</pre>
-          </blockquote>
-          <pre wrap="" class="moz-quote-pre">... this one, to understand their relationship / difference.
-</pre>
-        </blockquote>
-        <pre wrap="" class="moz-quote-pre">
-Basically, the difference is only in API and where they are expected to be used:
-- guest_physmap_add_entry() to map and set a specific p2m type for a page.
-- map_regions_p2mt() to map a region (mostly MMIO) in the guest p2m with
-   a specific p2m type.
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-Sorry, from this description they still look basically identical to me. The
-visible difference being that one takes a "nr" argument and the other a
-"page_order" one. Which still makes them largely redundant, and which still
-suggests that the earlier one's name doesn't really fit.
+That turns out to be very hard because of the definition of
+softirq_pending() being common.  More below.
 
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">I added both of them here as they are implemented in a similar way.
-I will re-word commit subject and message:
-   xen/riscv: implement functions to map memory in guest p2m
 
-   Introduce guest_physmap_add_entry() to map a page and assign a specific
-   p2m type, and map_regions_p2mt() to map a region (typically MMIO) in
-   the guest p2m with a designated p2m type.
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-I.e., as per above, two functions for basically the same purpose.</pre>
-    </blockquote>
-    <pre>Generally, I agree that the purpose is the same.
+>
+>> @@ -9,4 +11,36 @@
+>>  #define HVM_DPCI_SOFTIRQ       (NR_COMMON_SOFTIRQS + 4)
+>>  #define NR_ARCH_SOFTIRQS       5
+>>  
+>> +/*
+>> + * Ensure softirq @nr is pending on @cpu.  Return true if an IPI can be
+>> + * skipped, false if the IPI cannot be skipped.
+>> + *
+>> + * We use a CMPXCHG covering both __softirq_pending and in_mwait, in order to
+>> + * set softirq @nr while also observing in_mwait in a race-free way.
+>> + */
+>> +static always_inline bool arch_pend_softirq(unsigned int nr, unsigned int cpu)
+>> +{
+>> +    uint64_t *ptr = &irq_stat[cpu].softirq_mwait_raw;
+>> +    uint64_t old, new;
+>> +    unsigned int softirq = 1U << nr;
+>> +
+>> +    old = ACCESS_ONCE(*ptr);
+>> +
+>> +    do {
+>> +        if ( old & softirq )
+>> +            /* Softirq already pending, nothing to do. */
+>> +            return true;
+>> +
+>> +        new = old | softirq;
+>> +
+>> +    } while ( (old = cmpxchg(ptr, old, new)) != new );
+> Don't you mean
+>
+>     } while ( (new = cmpxchg(ptr, old, new)) != old );
+>
+> here
 
-I will then just drop <code data-start="72" data-end="99">guest_physmap_add_entry()</code> and use only
-<code data-start="115" data-end="135">map_regions_p2mt()</code> (or whatever name we decide on).</pre>
-    <pre>~ Oleksii
-</pre>
-  </body>
-</html>
+No. I'm pretty sure I don't.
 
---------------ZJo5NImyf3nJkXpaKibQSO4p--
+> (with new latched ahead of the loop and old set from new inside it),
+> like we have it elsewhere when we avoid the use of yet another variable,
+> e.g. in inc_linear_{entries,uses}()?
+
+Eww, no.  Having new and old backwards like that is borderline
+obfucation, and is unnecessary cognitive complexity for the reader.
+
+
+>
+>> +    /*
+>> +     * We have caused the softirq to become pending.  If in_mwait was set, the
+>> +     * target CPU will notice the modification and act on it.
+>> +     */
+>> +    return new & (1UL << 32);
+> Hmm, this requires the layout to allow for even less re-arrangement than the
+> comment ahead of the union says: You strictly require in_mwait to follow
+> __softirq_pending immediately, and the (assembly) write to strictly write 1
+> into the field. Could I talk you into at least
+>
+>     return new & (1UL << (offsetof(..., in_mwait) * 8));
+>
+> ? This way the field being inspected would also be mentioned in the access
+> itself (i.e. become grep-able beyond the mentioning in the comment). And I
+> sincerely dislike hard-coded literal numbers when they (relatively) easily
+> can be expressed another way.
+
+The nice way to do this would be a named union and a proper field, but
+that doesn't work because of how softirq_pending() is declared.
+
+I suppose I can use an offsetof() expression.
+
+~Andrew
 
