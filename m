@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E1B9BAF7EFD
-	for <lists+xen-devel@lfdr.de>; Thu,  3 Jul 2025 19:35:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1032339.1406010 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5496CAF7EFF
+	for <lists+xen-devel@lfdr.de>; Thu,  3 Jul 2025 19:35:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1032345.1406020 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uXNqG-0001ph-EF; Thu, 03 Jul 2025 17:35:24 +0000
+	id 1uXNqV-0002LD-MD; Thu, 03 Jul 2025 17:35:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1032339.1406010; Thu, 03 Jul 2025 17:35:24 +0000
+Received: by outflank-mailman (output) from mailman id 1032345.1406020; Thu, 03 Jul 2025 17:35:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uXNqG-0001mq-Ar; Thu, 03 Jul 2025 17:35:24 +0000
-Received: by outflank-mailman (input) for mailman id 1032339;
- Thu, 03 Jul 2025 17:35:23 +0000
+	id 1uXNqV-0002IZ-I4; Thu, 03 Jul 2025 17:35:39 +0000
+Received: by outflank-mailman (input) for mailman id 1032345;
+ Thu, 03 Jul 2025 17:35:38 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=rGZt=ZQ=linaro.org=philmd@srs-se1.protection.inumbo.net>)
- id 1uXNqF-0001VU-Jt
- for xen-devel@lists.xenproject.org; Thu, 03 Jul 2025 17:35:23 +0000
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [2a00:1450:4864:20::330])
+ id 1uXNqU-0001VU-0z
+ for xen-devel@lists.xenproject.org; Thu, 03 Jul 2025 17:35:38 +0000
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [2a00:1450:4864:20::42c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 18422179-5834-11f0-b894-0df219b8e170;
- Thu, 03 Jul 2025 19:35:21 +0200 (CEST)
-Received: by mail-wm1-x330.google.com with SMTP id
- 5b1f17b1804b1-45310223677so861425e9.0
- for <xen-devel@lists.xenproject.org>; Thu, 03 Jul 2025 10:35:21 -0700 (PDT)
+ id 20ab4d13-5834-11f0-b894-0df219b8e170;
+ Thu, 03 Jul 2025 19:35:36 +0200 (CEST)
+Received: by mail-wr1-x42c.google.com with SMTP id
+ ffacd0b85a97d-3a6d1369d4eso28210f8f.2
+ for <xen-devel@lists.xenproject.org>; Thu, 03 Jul 2025 10:35:36 -0700 (PDT)
 Received: from localhost.localdomain (88-187-86-199.subs.proxad.net.
  [88.187.86.199]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-454b161e8fcsm3703765e9.7.2025.07.03.10.35.18
+ ffacd0b85a97d-3b471b97382sm320521f8f.56.2025.07.03.10.35.31
  (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Thu, 03 Jul 2025 10:35:20 -0700 (PDT)
+ Thu, 03 Jul 2025 10:35:34 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,43 +45,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 18422179-5834-11f0-b894-0df219b8e170
+X-Inumbo-ID: 20ab4d13-5834-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1751564121; x=1752168921; darn=lists.xenproject.org;
+        d=linaro.org; s=google; t=1751564135; x=1752168935; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=n8Y0CRVizP1zJqDvu7p6UAH96w8jBU8Dg5EX+XjEepo=;
-        b=eZPhyoify/pomMDUqlarnMtJjCFqlwZETHRmc5JAxkZeLdmO4+eYCy8rMnnEjKS/aU
-         6FqjmmEhJAEYTKD+KGAh6X+yQ5O0vZCAS151VetRIh2vK9WZ4xyCYgCQ4rziVim2fA2v
-         0AjwNAjy1YMeu37p/U6gDHhECl1ScKqfX3pCOi4InK8kgBOHs2nAgSPFVt+lEQAX4RNf
-         R3pgctpxt3AGIINgiOrku8pfQikohNK2e6iIKpEHXNVxkjwdHZJnAnfC2urlJiz6muAN
-         KE0R17fUWlwYd82/pmOg3MTS0o8GK4NAEaN5wGGgMTwPM0IrIeqI9lBOvLtFI8UhAtKP
-         xs4w==
+        bh=w3486zTUHknyNnHUemYDF582+L164Ncw9awD18XnK3g=;
+        b=Us8xRbEOBLbd0cMfayo+F8zgI65hnex6qwRVWMFTH0kY9nznUSsOdqzUOuEnKeB5nu
+         /+uZY7XM+hU3Xt2Pd2WqAB7JBJwlUmC6zizeZkXb9Ztbcsyw6JzbL2himI1KLEyREEPh
+         x9I5zkUVjOGxCv4k07wBd6WHHjzW3A9XXXnOSNtHpVCgS8THCFusoDQ2oczJrBc9DHqB
+         5H4cbYGufhUXd00kJNmOspOW9yzHjfUwcgXKxmPu7wdFFUJUwxaLooRL+VqyAIFqISUi
+         kvlv4cpVep+NWdg5T+ff8g5MReoP4srx0t4mTicvabyuPmN6dfCLXOyk9zkzq3tAMp7a
+         6Brw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1751564121; x=1752168921;
+        d=1e100.net; s=20230601; t=1751564135; x=1752168935;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=n8Y0CRVizP1zJqDvu7p6UAH96w8jBU8Dg5EX+XjEepo=;
-        b=JmN1Tl6hE9ExvcudyeeOlajFm+iOtL3cZPKKW1ax12Ph8iXBVWaQZkxldysc/OKRTD
-         Vftp1UxP/Z+muY4suFiLTi5UeOuSJsl+DNsxwJO1f5V2JL7rB9Q6tA7x/8ykqC/+GSKH
-         jKCKnm8BauOmc1eROhAZW3ZF+5oTwjJHejis4DVKeki7FtW/wB7Ph8rzpQbf6/X909B4
-         5wl7HDETPVVp7bxKSXn0suGj5R98Tl2EdrjuR+clMAeGEvy5aDu0iSjiCZ2r353K1oeP
-         g1hqKVYj3ftxR5B5BGs0op1ueVtxnuu+/4gqHNFfOIozq8+hHWdi4hw6xVXXQ9kdusaK
-         C/SA==
-X-Forwarded-Encrypted: i=1; AJvYcCUFPI2pvlDuSVaemi9x7iRyOlKswBOaVTH6xKtkrFLxkBwBkOfk3H5LuB+jLleE/48u19Z0gMG3W9w=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz7hR5ia6moIBJ2DcPwCPPYR54+77/Ws1FfaSKS0TtJ3Emtq3ZJ
-	IXOVOQLDDeCQ2EizJs/rItTdAXFQFO+5+qGzgfrbOCxIxzoWegHl06TNkArNm2ZZCTk=
-X-Gm-Gg: ASbGnctPSVju9LDZa2jot+FyYKRWhehsoRb7UAh5TyJpEHC7I5uK8aO0ngKLLO3r+uH
-	eHU4PJG/H2n37Bm9MjV+IA5ScPXV7syjWK+gplaZA0PqrKQHq+z19jKDWGM531x7GURNVzl6UXV
-	79dIpurg6w1+lEN9NttnBjxpzCEemptRwKW5aUnmrksPD5fwZ/TeHpOCclzBFq/NeAa3mHNKmbb
-	21sKaQOfUzowpuOpq49MltTr1aA1TV8qg9JeQl3lpCuGRvmZ8JyIiPJvws0jY2EryQcX3r4qF1n
-	PMe+zxPR/QQX96UMwXSTXq7/YpMKBF/cPzzsqVV3EosDjtDKqnjeZ8pPrWiS71mnq95bJxMiRxh
-	BvTWgxEZKs3OXNAxOuLUjcw3YmKBzM/jk5q6zSSjFztJtico=
-X-Google-Smtp-Source: AGHT+IGUIGmRkNOsoFJDwtp7VUBuEXsARIcb9sOIxx6CN5f0AbT6nqsmy0amztwXgQM0zaIcj6KsKw==
-X-Received: by 2002:a05:600c:4509:b0:441:ac58:eb31 with SMTP id 5b1f17b1804b1-454a3705065mr72661285e9.20.1751564121250;
-        Thu, 03 Jul 2025 10:35:21 -0700 (PDT)
+        bh=w3486zTUHknyNnHUemYDF582+L164Ncw9awD18XnK3g=;
+        b=prCiec8YlxlHKoHDKi9iXnQl/T569Y6w110gKdCULN1i1amfhg7Gg6OLh5Ze9ZPGJ6
+         WlR/6j6X9Ak53pT66n1XXYJnlsscJkDrcWYi8cghjIE9IHWIbdXUztESX4jDQg0dNVKH
+         erBpvUTncyjD5LBqnBIjfSN4KHCaryKcOmh45TjubTL0MYR9DrQGe4z15fn+EWGR38Ix
+         dxWg9j4w9TTW6imqMKPBqGPvhzTuem1F8NqqqYxJADjsT/SdzGFLSMwI3H6YRZxESIei
+         dQlQaDR1eS7/Y0aa14XjbnLERCPb59nr3Uw/M45307va9A6/PiJLKryeiFgMhc0AgxQy
+         ZHkw==
+X-Forwarded-Encrypted: i=1; AJvYcCWqK9eWErupdHc+1v33Rx8QCvRkKSmaMpHQLEGcBORut8oZP3CpVld/Y4FFvs2KtfSsVgR0o4MUC+U=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxEA25yjYn0yS5iZEve9gv2w2zG/9cegKC8oqQisZ6HdZTd3vBR
+	sy3Qz6up0vehu9UbU7J3JDYl/KKdegjohnu82PdZm4yCE0v0v/RTk9ElGQvEbjPOcXM=
+X-Gm-Gg: ASbGncseQnDlhPvLWqhc/m/ImC5BE52M2I1seBmxWQSMAMgV5bb+1Z7y+FQOz2qz9VD
+	u2NXu5MPEs3obXP2Jl6JwJX8IEYDr02jO16+qOAPARtVQpql4vp7NXId0uptDfdnVDbfGoZOK6q
+	4HsZXoem4dsjhBDT+QVghg6khCca9ZsIlauckAz+GPOmNqefyZdYPD8xdLEXDF+NIyEdRnxNksm
+	KjFEdGQSqCdHv9VGNstMtOVeSEJlKf6PnZgFzxXt+txen2hVAIgfWfH0Izvhjz4su1F/rTZEZdc
+	meL3FLdAIp42nXpswjrIosREMarPD89n8rZurcentJuySCMQhw+8ovC7ZEJM8/pvjcU1gd1R0uK
+	zIM9+SPCh+4mwmFQJIWejNxjoWklcVZT9wjxe
+X-Google-Smtp-Source: AGHT+IFkhhlZSbMvBFh6UdUhOeDV184atk4sneL/YpRsGW7A5ClqyXIooVwAUEBKx8X5RV+czV8IYw==
+X-Received: by 2002:a05:6000:220f:b0:3a8:2f65:373f with SMTP id ffacd0b85a97d-3b32cb36152mr3879437f8f.16.1751564135278;
+        Thu, 03 Jul 2025 10:35:35 -0700 (PDT)
 From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>
 To: qemu-devel@nongnu.org
 Cc: Zhao Liu <zhao1.liu@intel.com>,
@@ -100,13 +100,15 @@ Cc: Zhao Liu <zhao1.liu@intel.com>,
 	Anthony PERARD <anthony@xenproject.org>,
 	Paul Durrant <paul@xen.org>,
 	"Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
+	Warner Losh <imp@bsdimp.com>,
+	Kyle Evans <kevans@freebsd.org>,
 	Reinoud Zandijk <reinoud@netbsd.org>,
 	Sunil Muthuswamy <sunilmut@microsoft.com>,
 	kvm@vger.kernel.org,
 	xen-devel@lists.xenproject.org
-Subject: [PATCH v6 28/39] accel: Expose and register generic_handle_interrupt()
-Date: Thu,  3 Jul 2025 19:32:34 +0200
-Message-ID: <20250703173248.44995-29-philmd@linaro.org>
+Subject: [PATCH v6 30/39] accel: Propagate AccelState to AccelClass::init_machine()
+Date: Thu,  3 Jul 2025 19:32:36 +0200
+Message-ID: <20250703173248.44995-31-philmd@linaro.org>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <20250703173248.44995-1-philmd@linaro.org>
 References: <20250703173248.44995-1-philmd@linaro.org>
@@ -114,154 +116,169 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-In order to dispatch over AccelOpsClass::handle_interrupt(),
-we need it always defined, not calling a hidden handler under
-the hood. Make AccelOpsClass::handle_interrupt() mandatory.
-Expose generic_handle_interrupt() prototype and register it
-for each accelerator.
+In order to avoid init_machine() to call current_accel(),
+pass AccelState along.
 
-Suggested-by: Richard Henderson <richard.henderson@linaro.org>
 Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
-Reviewed-by: Pierrick Bouvier <pierrick.bouvier@linaro.org>
-Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
 Reviewed-by: Richard Henderson <richard.henderson@linaro.org>
+Reviewed-by: Alex Bennée <alex.bennee@linaro.org>
 ---
- include/system/accel-ops.h        |  3 +++
- accel/hvf/hvf-accel-ops.c         |  1 +
- accel/kvm/kvm-accel-ops.c         |  1 +
- accel/qtest/qtest.c               |  1 +
- accel/xen/xen-all.c               |  1 +
- system/cpus.c                     | 10 ++++------
- target/i386/nvmm/nvmm-accel-ops.c |  1 +
- target/i386/whpx/whpx-accel-ops.c |  1 +
- 8 files changed, 13 insertions(+), 6 deletions(-)
+ include/qemu/accel.h        | 2 +-
+ accel/accel-system.c        | 2 +-
+ accel/hvf/hvf-all.c         | 2 +-
+ accel/kvm/kvm-all.c         | 2 +-
+ accel/qtest/qtest.c         | 2 +-
+ accel/tcg/tcg-all.c         | 2 +-
+ accel/xen/xen-all.c         | 2 +-
+ bsd-user/main.c             | 2 +-
+ linux-user/main.c           | 2 +-
+ target/i386/nvmm/nvmm-all.c | 2 +-
+ target/i386/whpx/whpx-all.c | 2 +-
+ 11 files changed, 11 insertions(+), 11 deletions(-)
 
-diff --git a/include/system/accel-ops.h b/include/system/accel-ops.h
-index d84eaa376c2..95a0f402cde 100644
---- a/include/system/accel-ops.h
-+++ b/include/system/accel-ops.h
-@@ -61,6 +61,7 @@ struct AccelOpsClass {
-     void (*synchronize_pre_loadvm)(CPUState *cpu);
-     void (*synchronize_pre_resume)(bool step_pending);
+diff --git a/include/qemu/accel.h b/include/qemu/accel.h
+index 197badcb705..b040fa104b6 100644
+--- a/include/qemu/accel.h
++++ b/include/qemu/accel.h
+@@ -40,7 +40,7 @@ typedef struct AccelClass {
+     /* Cached by accel_init_ops_interfaces() when created */
+     AccelOpsClass *ops;
  
-+    /* handle_interrupt is mandatory. */
-     void (*handle_interrupt)(CPUState *cpu, int old_mask, int new_mask);
+-    int (*init_machine)(MachineState *ms);
++    int (*init_machine)(AccelState *as, MachineState *ms);
+     bool (*cpu_common_realize)(CPUState *cpu, Error **errp);
+     void (*cpu_common_unrealize)(CPUState *cpu);
  
-     /**
-@@ -84,4 +85,6 @@ struct AccelOpsClass {
-     void (*remove_all_breakpoints)(CPUState *cpu);
+diff --git a/accel/accel-system.c b/accel/accel-system.c
+index b5b368c6a9c..fb8abe38594 100644
+--- a/accel/accel-system.c
++++ b/accel/accel-system.c
+@@ -37,7 +37,7 @@ int accel_init_machine(AccelState *accel, MachineState *ms)
+     int ret;
+     ms->accelerator = accel;
+     *(acc->allowed) = true;
+-    ret = acc->init_machine(ms);
++    ret = acc->init_machine(accel, ms);
+     if (ret < 0) {
+         ms->accelerator = NULL;
+         *(acc->allowed) = false;
+diff --git a/accel/hvf/hvf-all.c b/accel/hvf/hvf-all.c
+index 897a02eebe2..2cf2b18fd23 100644
+--- a/accel/hvf/hvf-all.c
++++ b/accel/hvf/hvf-all.c
+@@ -247,7 +247,7 @@ static MemoryListener hvf_memory_listener = {
+     .log_sync = hvf_log_sync,
  };
  
-+void generic_handle_interrupt(CPUState *cpu, int old_mask, int new_mask);
-+
- #endif /* ACCEL_OPS_H */
-diff --git a/accel/hvf/hvf-accel-ops.c b/accel/hvf/hvf-accel-ops.c
-index 2944e350ca9..a0248942f3a 100644
---- a/accel/hvf/hvf-accel-ops.c
-+++ b/accel/hvf/hvf-accel-ops.c
-@@ -353,6 +353,7 @@ static void hvf_accel_ops_class_init(ObjectClass *oc, const void *data)
+-static int hvf_accel_init(MachineState *ms)
++static int hvf_accel_init(AccelState *as, MachineState *ms)
+ {
+     int x;
+     hv_return_t ret;
+diff --git a/accel/kvm/kvm-all.c b/accel/kvm/kvm-all.c
+index 88fb6d36941..1b6b7006470 100644
+--- a/accel/kvm/kvm-all.c
++++ b/accel/kvm/kvm-all.c
+@@ -2573,7 +2573,7 @@ static int kvm_setup_dirty_ring(KVMState *s)
+     return 0;
+ }
  
-     ops->create_vcpu_thread = hvf_start_vcpu_thread;
-     ops->kick_vcpu_thread = hvf_kick_vcpu_thread;
-+    ops->handle_interrupt = generic_handle_interrupt;
- 
-     ops->synchronize_post_reset = hvf_cpu_synchronize_post_reset;
-     ops->synchronize_post_init = hvf_cpu_synchronize_post_init;
-diff --git a/accel/kvm/kvm-accel-ops.c b/accel/kvm/kvm-accel-ops.c
-index 99f61044da5..2a744092749 100644
---- a/accel/kvm/kvm-accel-ops.c
-+++ b/accel/kvm/kvm-accel-ops.c
-@@ -95,6 +95,7 @@ static void kvm_accel_ops_class_init(ObjectClass *oc, const void *data)
-     ops->synchronize_post_init = kvm_cpu_synchronize_post_init;
-     ops->synchronize_state = kvm_cpu_synchronize_state;
-     ops->synchronize_pre_loadvm = kvm_cpu_synchronize_pre_loadvm;
-+    ops->handle_interrupt = generic_handle_interrupt;
- 
- #ifdef TARGET_KVM_HAVE_GUEST_DEBUG
-     ops->update_guest_debug = kvm_update_guest_debug_ops;
+-static int kvm_init(MachineState *ms)
++static int kvm_init(AccelState *as, MachineState *ms)
+ {
+     MachineClass *mc = MACHINE_GET_CLASS(ms);
+     static const char upgrade_note[] =
 diff --git a/accel/qtest/qtest.c b/accel/qtest/qtest.c
-index 612cede160b..5474ce73135 100644
+index 5474ce73135..2b831260201 100644
 --- a/accel/qtest/qtest.c
 +++ b/accel/qtest/qtest.c
-@@ -67,6 +67,7 @@ static void qtest_accel_ops_class_init(ObjectClass *oc, const void *data)
-     ops->create_vcpu_thread = dummy_start_vcpu_thread;
-     ops->get_virtual_clock = qtest_get_virtual_clock;
-     ops->set_virtual_clock = qtest_set_virtual_clock;
-+    ops->handle_interrupt = generic_handle_interrupt;
- };
+@@ -38,7 +38,7 @@ static void qtest_set_virtual_clock(int64_t count)
+     qatomic_set_i64(&qtest_clock_counter, count);
+ }
  
- static const TypeInfo qtest_accel_ops_type = {
+-static int qtest_init_accel(MachineState *ms)
++static int qtest_init_accel(AccelState *as, MachineState *ms)
+ {
+     return 0;
+ }
+diff --git a/accel/tcg/tcg-all.c b/accel/tcg/tcg-all.c
+index 0cff0f8a0f9..7ae7d552d9e 100644
+--- a/accel/tcg/tcg-all.c
++++ b/accel/tcg/tcg-all.c
+@@ -80,7 +80,7 @@ static void tcg_accel_instance_init(Object *obj)
+ 
+ bool one_insn_per_tb;
+ 
+-static int tcg_init_machine(MachineState *ms)
++static int tcg_init_machine(AccelState *as, MachineState *ms)
+ {
+     TCGState *s = TCG_STATE(current_accel());
+     unsigned max_threads = 1;
 diff --git a/accel/xen/xen-all.c b/accel/xen/xen-all.c
-index c150dd43cab..c12c22de785 100644
+index c12c22de785..8279746f115 100644
 --- a/accel/xen/xen-all.c
 +++ b/accel/xen/xen-all.c
-@@ -153,6 +153,7 @@ static void xen_accel_ops_class_init(ObjectClass *oc, const void *data)
-     AccelOpsClass *ops = ACCEL_OPS_CLASS(oc);
- 
-     ops->create_vcpu_thread = dummy_start_vcpu_thread;
-+    ops->handle_interrupt = generic_handle_interrupt;
+@@ -77,7 +77,7 @@ static void xen_setup_post(MachineState *ms, AccelState *accel)
+     }
  }
  
- static const TypeInfo xen_accel_ops_type = {
-diff --git a/system/cpus.c b/system/cpus.c
-index 13535a74e6f..f90b8be9eee 100644
---- a/system/cpus.c
-+++ b/system/cpus.c
-@@ -246,7 +246,7 @@ int64_t cpus_get_elapsed_ticks(void)
-     return cpu_get_ticks();
- }
- 
--static void generic_handle_interrupt(CPUState *cpu, int old_mask, int new_mask)
-+void generic_handle_interrupt(CPUState *cpu, int old_mask, int new_mask)
+-static int xen_init(MachineState *ms)
++static int xen_init(AccelState *as, MachineState *ms)
  {
-     if (!qemu_cpu_is_self(cpu)) {
-         qemu_cpu_kick(cpu);
-@@ -261,11 +261,7 @@ void cpu_interrupt(CPUState *cpu, int mask)
+     MachineClass *mc = MACHINE_GET_CLASS(ms);
  
-     cpu->interrupt_request |= mask;
+diff --git a/bsd-user/main.c b/bsd-user/main.c
+index 7c0a059c3ba..d0cc8e0088f 100644
+--- a/bsd-user/main.c
++++ b/bsd-user/main.c
+@@ -474,7 +474,7 @@ int main(int argc, char **argv)
+                                  opt_one_insn_per_tb, &error_abort);
+         object_property_set_int(OBJECT(accel), "tb-size",
+                                 opt_tb_size, &error_abort);
+-        ac->init_machine(NULL);
++        ac->init_machine(accel, NULL);
+     }
  
--    if (cpus_accel->handle_interrupt) {
--        cpus_accel->handle_interrupt(cpu, old_mask, cpu->interrupt_request);
--    } else {
--        generic_handle_interrupt(cpu, old_mask, cpu->interrupt_request);
--    }
-+    cpus_accel->handle_interrupt(cpu, old_mask, cpu->interrupt_request);
- }
+     /*
+diff --git a/linux-user/main.c b/linux-user/main.c
+index 5ac5b55dc65..a9142ee7268 100644
+--- a/linux-user/main.c
++++ b/linux-user/main.c
+@@ -820,7 +820,7 @@ int main(int argc, char **argv, char **envp)
+                                  opt_one_insn_per_tb, &error_abort);
+         object_property_set_int(OBJECT(accel), "tb-size",
+                                 opt_tb_size, &error_abort);
+-        ac->init_machine(NULL);
++        ac->init_machine(accel, NULL);
+     }
  
- /*
-@@ -674,6 +670,8 @@ void cpus_register_accel(const AccelOpsClass *ops)
+     /*
+diff --git a/target/i386/nvmm/nvmm-all.c b/target/i386/nvmm/nvmm-all.c
+index 2df49d7eeb4..b4a4d50e860 100644
+--- a/target/i386/nvmm/nvmm-all.c
++++ b/target/i386/nvmm/nvmm-all.c
+@@ -1152,7 +1152,7 @@ static struct RAMBlockNotifier nvmm_ram_notifier = {
+ /* -------------------------------------------------------------------------- */
+ 
+ static int
+-nvmm_accel_init(MachineState *ms)
++nvmm_accel_init(AccelState *as, MachineState *ms)
  {
-     assert(ops != NULL);
-     assert(ops->create_vcpu_thread != NULL); /* mandatory */
-+    assert(ops->handle_interrupt);
-+
-     cpus_accel = ops;
- }
+     int ret, err;
  
-diff --git a/target/i386/nvmm/nvmm-accel-ops.c b/target/i386/nvmm/nvmm-accel-ops.c
-index 21443078b72..a5517b0abf3 100644
---- a/target/i386/nvmm/nvmm-accel-ops.c
-+++ b/target/i386/nvmm/nvmm-accel-ops.c
-@@ -87,6 +87,7 @@ static void nvmm_accel_ops_class_init(ObjectClass *oc, const void *data)
+diff --git a/target/i386/whpx/whpx-all.c b/target/i386/whpx/whpx-all.c
+index 94fd5fc7849..721c4782b9c 100644
+--- a/target/i386/whpx/whpx-all.c
++++ b/target/i386/whpx/whpx-all.c
+@@ -2504,7 +2504,7 @@ static void whpx_set_kernel_irqchip(Object *obj, Visitor *v,
+  * Partition support
+  */
  
-     ops->create_vcpu_thread = nvmm_start_vcpu_thread;
-     ops->kick_vcpu_thread = nvmm_kick_vcpu_thread;
-+    ops->handle_interrupt = generic_handle_interrupt;
- 
-     ops->synchronize_post_reset = nvmm_cpu_synchronize_post_reset;
-     ops->synchronize_post_init = nvmm_cpu_synchronize_post_init;
-diff --git a/target/i386/whpx/whpx-accel-ops.c b/target/i386/whpx/whpx-accel-ops.c
-index b8bebe403c9..31cf15f0045 100644
---- a/target/i386/whpx/whpx-accel-ops.c
-+++ b/target/i386/whpx/whpx-accel-ops.c
-@@ -90,6 +90,7 @@ static void whpx_accel_ops_class_init(ObjectClass *oc, const void *data)
-     ops->create_vcpu_thread = whpx_start_vcpu_thread;
-     ops->kick_vcpu_thread = whpx_kick_vcpu_thread;
-     ops->cpu_thread_is_idle = whpx_vcpu_thread_is_idle;
-+    ops->handle_interrupt = generic_handle_interrupt;
- 
-     ops->synchronize_post_reset = whpx_cpu_synchronize_post_reset;
-     ops->synchronize_post_init = whpx_cpu_synchronize_post_init;
+-static int whpx_accel_init(MachineState *ms)
++static int whpx_accel_init(AccelState *as, MachineState *ms)
+ {
+     struct whpx_state *whpx;
+     int ret;
 -- 
 2.49.0
 
