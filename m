@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C41D9AF70E8
-	for <lists+xen-devel@lfdr.de>; Thu,  3 Jul 2025 12:51:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1031970.1405721 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D5FCAF7113
+	for <lists+xen-devel@lfdr.de>; Thu,  3 Jul 2025 12:56:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1031979.1405730 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uXHWm-00021T-T9; Thu, 03 Jul 2025 10:50:52 +0000
+	id 1uXHcQ-0002l3-Kh; Thu, 03 Jul 2025 10:56:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1031970.1405721; Thu, 03 Jul 2025 10:50:52 +0000
+Received: by outflank-mailman (output) from mailman id 1031979.1405730; Thu, 03 Jul 2025 10:56:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uXHWm-0001yM-QO; Thu, 03 Jul 2025 10:50:52 +0000
-Received: by outflank-mailman (input) for mailman id 1031970;
- Thu, 03 Jul 2025 10:50:51 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uXHcQ-0002hW-Hp; Thu, 03 Jul 2025 10:56:42 +0000
+Received: by outflank-mailman (input) for mailman id 1031979;
+ Thu, 03 Jul 2025 10:56:41 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=lE7m=ZQ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uXHWl-0001yG-Cc
- for xen-devel@lists.xenproject.org; Thu, 03 Jul 2025 10:50:51 +0000
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [2a00:1450:4864:20::42b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 951eabe0-57fb-11f0-a314-13f23c93f187;
- Thu, 03 Jul 2025 12:50:50 +0200 (CEST)
-Received: by mail-wr1-x42b.google.com with SMTP id
- ffacd0b85a97d-3a50956e5d3so6509622f8f.1
- for <xen-devel@lists.xenproject.org>; Thu, 03 Jul 2025 03:50:50 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-74af541d9a5sm17184363b3a.62.2025.07.03.03.50.44
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 03 Jul 2025 03:50:48 -0700 (PDT)
+ (envelope-from <SRS0=rGZt=ZQ=linaro.org=philmd@srs-se1.protection.inumbo.net>)
+ id 1uXHcP-0002hQ-3m
+ for xen-devel@lists.xenproject.org; Thu, 03 Jul 2025 10:56:41 +0000
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [2a00:1450:4864:20::336])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 635945f4-57fc-11f0-b894-0df219b8e170;
+ Thu, 03 Jul 2025 12:56:36 +0200 (CEST)
+Received: by mail-wm1-x336.google.com with SMTP id
+ 5b1f17b1804b1-4537fdec39fso18650185e9.0
+ for <xen-devel@lists.xenproject.org>; Thu, 03 Jul 2025 03:56:36 -0700 (PDT)
+Received: from localhost.localdomain ([83.247.137.20])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-454a9bcef22sm23507545e9.19.2025.07.03.03.56.33
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Thu, 03 Jul 2025 03:56:34 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,310 +45,240 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 951eabe0-57fb-11f0-a314-13f23c93f187
+X-Inumbo-ID: 635945f4-57fc-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1751539849; x=1752144649; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=bR7Nf2NHF+ry1DMtCtsJsGwd0EY5IjLB5QbiMspfN2s=;
-        b=C3Bjady1p5bW17RF7fbgyZbr4t5sZ77X/1Tv2jBXvsfPb89blLHBjBDm/Ucn3qnFEf
-         K+xjGfhPe58R7FPqNTMtvIPGgw6evAVDcHH0XAmsTr9aIOwR5RljsajpFW8Sf5SfRmEl
-         BoN6+YTEIncQLATpfFQ6A6v6WJxSNIUKS0q4TPmhoMXPwXVtrbJ89nKndsyh/RfgB5Hg
-         jP12kk+k+DqiA3y/9ZY41FvWHOxBtXh5s9HrcsbgrZxLTlAFz5EHefUDN3xs9vwjHi2B
-         qFOTGQwdykMVBUa4RbMLQcJRW7Wg/2PWJYB9GIfrNnoCLrLy8ombU0EqJPPZPwsni9vS
-         vxYg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1751539849; x=1752144649;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=linaro.org; s=google; t=1751540195; x=1752144995; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=bR7Nf2NHF+ry1DMtCtsJsGwd0EY5IjLB5QbiMspfN2s=;
-        b=sADFyYzNL8f2J8ZaGvM/HTtR/BV6WOphm9O1RPCXH8Q6ddBzjWdrC4Zq2zF26sSyNc
-         vsB3DrRmJtFpCAu4pgPDsiEBjiJn+SUHBpAe31S6F3CruuXioL7gUZ+zUZl08YMVFm5n
-         L9qn+7kXbMG/0o1FGDxzL0MTJ7lZguntQB/VZI2yEyzXk99B0Om39njVxqhf7AbZuA/p
-         PR4HHOtFy2OM5/XimFm4jm5N2xsmYQFydGb83wtfo7A7Rdzv8Ok5NVZE1BWSAJprAL0B
-         A/GD5TUHhHbk4rLJNTNcxoCONnI+JWaTKi/raN59gZOXycFubOUi3K8ymcX2CqkoxRq3
-         0GMg==
-X-Forwarded-Encrypted: i=1; AJvYcCXtoMCapVkYxfKMDEd0ogOxHiVNx0IzZlqk4skDQE1QUYs+VxNNXcj4dH6bONvwgRM8/hhAM14NwRI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YypKDw2FvD2DYoCmg9Sj4/QrMWV764qV+PiNOE46+JSpdgHO4jU
-	7bB4qs0IiGCToeaHPLBKFdGYbfbhQmUO3mN74KVZnkucojd2tjKE0iddDpn3JJqiIw==
-X-Gm-Gg: ASbGncs85sA02yHOOzD4ufy82H634YF5fYFeJMLpQc9VuB4pGfMCWC1/gwFSiiUcC47
-	dK6UcK7Fp83A4UM2Nz+qfHmelU0nkRKSSzD6FFT+fvicCvZDhjRbL3ZUO2HkNmdqnsDtIrYvWBz
-	0CBVV1mP96faTNIRP5HFqMx5kueamz1u3dcwqx6D6IjuMu5a7TtRbqKkf7LEvzf3E5K3KLqp6U7
-	XCpqK+wVNhkC+ckFFARUiig9z6wF+z9rDT9EgGa2ayNzQFS8oizhzHP36K/6npGK8wS6NJjtRKa
-	JOKJMrCcbCSYmVkdVEvSUb5MA0y/7IbvvIp1IpeZ5ucTqLiJoOxAruu267z2qdjbguDUPaRd0zj
-	JZ6Umiovyvx/or7DVIKXwFqHEp/0eY2S9SyGewHEhhpJw4vs=
-X-Google-Smtp-Source: AGHT+IGQjNqlCatEsYIjqJ5IqqxQaHs72qD1jBp3zdZkbndAyvo1Kx8tbhiBRvy88W0YSk40yUGY6Q==
-X-Received: by 2002:a5d:64e7:0:b0:3a4:eeb5:58c0 with SMTP id ffacd0b85a97d-3b1fe5bef1bmr5500954f8f.20.1751539849258;
-        Thu, 03 Jul 2025 03:50:49 -0700 (PDT)
-Message-ID: <180e1641-9968-479a-8ca0-7573d688c854@suse.com>
-Date: Thu, 3 Jul 2025 12:50:39 +0200
+        bh=Pcxyecq1Uca5OV4SmO/+hJU9sxDq9D6xrBJnOg87yRs=;
+        b=VZYiLQgadmBpkB7PFvafB0jR0OepbSwxvJABUZbL0p4N9KFSbLnYuMc8y+PGZDCgei
+         JsqOmAk8X52dHquTtSXLmFl1FeVOfbLQbsnbH9DlGT6dlve/zPs1BocBlJ70MpNUczfO
+         JaIhrkiv/wGFHMkFFRJNhBJA+uoRe+4S8RQFQAh9ScNqG8NonrCeo0oaLvLTa0Fqjem/
+         6oBsnW1AyPs4pKX/ziXyO3hjm6yLVdBV9nnoHE6YeoQZQ/HRXXEY4YlQOuwtqMvzzO2p
+         VvnxDxkc1lkGuKqXsqUOxymZy1L4dV+CaeOrXgT/CYNcdvhwxcTfRAomofk7XuHVPFXF
+         nadA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1751540195; x=1752144995;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=Pcxyecq1Uca5OV4SmO/+hJU9sxDq9D6xrBJnOg87yRs=;
+        b=BW/Gf3w45m/Nrp2xUuRhEMbLijN+lW1J50w4FY3kHwhzNEbKGonZiT+cUhX6q8OO8a
+         zGLk4C7ebHap7ELzt0+1HzZG83JuYKPVr9Z4BgpkZERONNyNEfdS5ZO/WQv37IXb+Mrz
+         bx4DRzIYOnwF6gJ+I6TKMvWdVrykTkzb6y6Hq4mOJdTT/e33GYBx+3rkpzzZAQVbJV1P
+         z/rHeizlthN/uSh1tBvyKMyjItPbcSGbJyTWclmJzvH0Cj4BtI6I8pHTsr2q3b0+27zs
+         8I/Yk1F407UESEf1kLalW2+poJyUfKLn6xj+9LkAfuVzYCotYpHvEidvOyVRz3X5DY5s
+         W1wA==
+X-Forwarded-Encrypted: i=1; AJvYcCVASqQxXrtMSIEyKqFG9mUBj5S+sd1BOBskuveHIMgBO5AnhO+lUQxbt9xoQ/os4+Yd8O3Ig/H/dzI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwO+8cY2+eeKWQkPL2GIbGbNHt1YxpcXceAyNVa3V4XLP05yRFL
+	fn5o4+zLbL/iLxVs2gaCLZ7YksVI4aA3WSXemf+M0sAviw2mc/9zAty5p2vmUCQUNEE=
+X-Gm-Gg: ASbGncszlFyVPz8vXH2LVedM6uz/O8y9jasaZyW3kHQ5pxSqEuP4iApAazTxiUCZS+Y
+	ZTHUF7OocEQzTnZnlKgb3yLL9Py3D7tAPREUhoYiZ2NGG8u5+FPgerJepRMe4m+UymfaJ+iAe8b
+	KAQIOUFZW292q1s1/9S7fKCAPsiz1YuhJdla3zyBwEyUcImUejEodkjvEXNEXdcOpiWkEdf9KS+
+	06SZhj3B6GSuuYSmtY1ObCUnW+P5mxrTUGAFCla02J+P8yRvGlXn1LB9n9D0M+UkoYRxVxpXbmA
+	KZik0DCU4cVBB0Kbfe5zfe2nCvMuZJ/JAFG9rip9eDnAoPJjfOSTw9rAIfyNOjRjVid7TCT3ON4
+	X9ESgajRq00M=
+X-Google-Smtp-Source: AGHT+IFMtoW6ZLHLTnNUUgjdqd0imX2oSHRMYLqbKiMG3n1p6ANBAFuifal1Ean/kUmUpIKdi4hCFg==
+X-Received: by 2002:a05:600c:3b05:b0:43c:f6c6:578c with SMTP id 5b1f17b1804b1-454abd597f8mr25988155e9.15.1751540195258;
+        Thu, 03 Jul 2025 03:56:35 -0700 (PDT)
+From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>
+To: qemu-devel@nongnu.org
+Cc: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Pierrick Bouvier <pierrick.bouvier@linaro.org>,
+	kvm@vger.kernel.org,
+	Richard Henderson <richard.henderson@linaro.org>,
+	=?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
+	Cameron Esfahani <dirty@apple.com>,
+	Roman Bolshakov <rbolshakov@ddn.com>,
+	Phil Dennis-Jordan <phil@philjordan.eu>,
+	Mads Ynddal <mads@ynddal.dk>,
+	Fabiano Rosas <farosas@suse.de>,
+	Laurent Vivier <lvivier@redhat.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Anthony PERARD <anthony@xenproject.org>,
+	Paul Durrant <paul@xen.org>,
+	"Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
+	Warner Losh <imp@bsdimp.com>,
+	Kyle Evans <kevans@freebsd.org>,
+	Reinoud Zandijk <reinoud@netbsd.org>,
+	Sunil Muthuswamy <sunilmut@microsoft.com>,
+	xen-devel@lists.xenproject.org
+Subject: [PATCH v5 10/69] accel: Propagate AccelState to AccelClass::init_machine()
+Date: Thu,  3 Jul 2025 12:54:36 +0200
+Message-ID: <20250703105540.67664-11-philmd@linaro.org>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20250703105540.67664-1-philmd@linaro.org>
+References: <20250703105540.67664-1-philmd@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 04/22] x86/boot/slaunch-early: implement early
- initialization
-To: Sergii Dmytruk <sergii.dmytruk@3mdeb.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- Ross Philipson <ross.philipson@oracle.com>,
- trenchboot-devel@googlegroups.com, xen-devel@lists.xenproject.org
-References: <cover.1748611041.git.sergii.dmytruk@3mdeb.com>
- <16a544876163afece619d50f80869aaacc9c797c.1748611041.git.sergii.dmytruk@3mdeb.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <16a544876163afece619d50f80869aaacc9c797c.1748611041.git.sergii.dmytruk@3mdeb.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 30.05.2025 15:17, Sergii Dmytruk wrote:
-> Make head.S invoke a C function to retrieve MBI and SLRT addresses in a
-> platform-specific way.  This is also the place to perform sanity checks
-> of DRTM.
-> 
-> Signed-off-by: Krystian Hebel <krystian.hebel@3mdeb.com>
-> Signed-off-by: Sergii Dmytruk <sergii.dmytruk@3mdeb.com>
-> ---
->  xen/arch/x86/Makefile                |  1 +
->  xen/arch/x86/boot/Makefile           |  5 +++-
->  xen/arch/x86/boot/head.S             | 43 ++++++++++++++++++++++++++++
->  xen/arch/x86/boot/slaunch-early.c    | 41 ++++++++++++++++++++++++++
->  xen/arch/x86/include/asm/intel-txt.h | 16 +++++++++++
->  xen/arch/x86/include/asm/slaunch.h   | 26 +++++++++++++++++
->  xen/arch/x86/slaunch.c               | 27 +++++++++++++++++
->  7 files changed, 158 insertions(+), 1 deletion(-)
->  create mode 100644 xen/arch/x86/boot/slaunch-early.c
->  create mode 100644 xen/arch/x86/include/asm/slaunch.h
->  create mode 100644 xen/arch/x86/slaunch.c
+In order to avoid init_machine() to call current_accel(),
+pass AccelState along.
 
-As indicated in reply to patch 3 - imo all code additions here want to be
-under some CONFIG_xyz. I repeat this here, but I don't think I'll repeat it
-any further.
+Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
+Reviewed-by: Richard Henderson <richard.henderson@linaro.org>
+Reviewed-by: Alex Bennée <alex.bennee@linaro.org>
+---
+ include/qemu/accel.h        | 2 +-
+ accel/accel-system.c        | 2 +-
+ accel/hvf/hvf-accel-ops.c   | 2 +-
+ accel/kvm/kvm-all.c         | 2 +-
+ accel/qtest/qtest.c         | 2 +-
+ accel/tcg/tcg-all.c         | 2 +-
+ accel/xen/xen-all.c         | 2 +-
+ bsd-user/main.c             | 2 +-
+ linux-user/main.c           | 2 +-
+ target/i386/nvmm/nvmm-all.c | 2 +-
+ target/i386/whpx/whpx-all.c | 2 +-
+ 11 files changed, 11 insertions(+), 11 deletions(-)
 
-> --- a/xen/arch/x86/boot/head.S
-> +++ b/xen/arch/x86/boot/head.S
-> @@ -472,6 +472,10 @@ __start:
->          /* Bootloaders may set multiboot{1,2}.mem_lower to a nonzero value. */
->          xor     %edx,%edx
->  
-> +        /* Check for TrenchBoot slaunch bootloader. */
-> +        cmp     $SLAUNCH_BOOTLOADER_MAGIC, %eax
-> +        je      .Lslaunch_proto
-> +
->          /* Check for Multiboot2 bootloader. */
->          cmp     $MULTIBOOT2_BOOTLOADER_MAGIC,%eax
->          je      .Lmultiboot2_proto
-> @@ -487,6 +491,45 @@ __start:
->          cmovnz  MB_mem_lower(%ebx),%edx
->          jmp     trampoline_bios_setup
->  
-> +.Lslaunch_proto:
-> +        /*
-> +         * Upon reaching here, CPU state mostly matches the one setup by the
-> +         * bootloader with ESP, ESI and EDX being clobbered above.
-> +         */
-> +
-> +        /* Save information that TrenchBoot slaunch was used. */
-> +        movb    $1, sym_esi(slaunch_active)
-> +
-> +        /*
-> +         * Prepare space for output parameter of slaunch_early_init(), which is
-> +         * a structure of two uint32_t fields.
-> +         */
-> +        sub     $8, %esp
+diff --git a/include/qemu/accel.h b/include/qemu/accel.h
+index 9dea3145429..b9a9b3593d8 100644
+--- a/include/qemu/accel.h
++++ b/include/qemu/accel.h
+@@ -40,7 +40,7 @@ typedef struct AccelClass {
+     /* Cached by accel_init_ops_interfaces() when created */
+     AccelOpsClass *ops;
+ 
+-    int (*init_machine)(MachineState *ms);
++    int (*init_machine)(AccelState *as, MachineState *ms);
+     bool (*cpu_common_realize)(CPUState *cpu, Error **errp);
+     void (*cpu_common_unrealize)(CPUState *cpu);
+ 
+diff --git a/accel/accel-system.c b/accel/accel-system.c
+index 64bc991b1ce..913b7155d77 100644
+--- a/accel/accel-system.c
++++ b/accel/accel-system.c
+@@ -37,7 +37,7 @@ int accel_init_machine(AccelState *accel, MachineState *ms)
+     int ret;
+     ms->accelerator = accel;
+     *(acc->allowed) = true;
+-    ret = acc->init_machine(ms);
++    ret = acc->init_machine(accel, ms);
+     if (ret < 0) {
+         ms->accelerator = NULL;
+         *(acc->allowed) = false;
+diff --git a/accel/hvf/hvf-accel-ops.c b/accel/hvf/hvf-accel-ops.c
+index b9511103a75..6af849450e1 100644
+--- a/accel/hvf/hvf-accel-ops.c
++++ b/accel/hvf/hvf-accel-ops.c
+@@ -321,7 +321,7 @@ static void dummy_signal(int sig)
+ 
+ bool hvf_allowed;
+ 
+-static int hvf_accel_init(MachineState *ms)
++static int hvf_accel_init(AccelState *as, MachineState *ms)
+ {
+     int x;
+     hv_return_t ret;
+diff --git a/accel/kvm/kvm-all.c b/accel/kvm/kvm-all.c
+index 17235f26464..264f288dc64 100644
+--- a/accel/kvm/kvm-all.c
++++ b/accel/kvm/kvm-all.c
+@@ -2573,7 +2573,7 @@ static int kvm_setup_dirty_ring(KVMState *s)
+     return 0;
+ }
+ 
+-static int kvm_init(MachineState *ms)
++static int kvm_init(AccelState *as, MachineState *ms)
+ {
+     MachineClass *mc = MACHINE_GET_CLASS(ms);
+     static const char upgrade_note[] =
+diff --git a/accel/qtest/qtest.c b/accel/qtest/qtest.c
+index 92bed9264ce..8b109d4c03b 100644
+--- a/accel/qtest/qtest.c
++++ b/accel/qtest/qtest.c
+@@ -37,7 +37,7 @@ static void qtest_set_virtual_clock(int64_t count)
+     qatomic_set_i64(&qtest_clock_counter, count);
+ }
+ 
+-static int qtest_init_accel(MachineState *ms)
++static int qtest_init_accel(AccelState *as, MachineState *ms)
+ {
+     return 0;
+ }
+diff --git a/accel/tcg/tcg-all.c b/accel/tcg/tcg-all.c
+index 6e5dc333d59..d68fbb23773 100644
+--- a/accel/tcg/tcg-all.c
++++ b/accel/tcg/tcg-all.c
+@@ -80,7 +80,7 @@ static void tcg_accel_instance_init(Object *obj)
+ 
+ bool one_insn_per_tb;
+ 
+-static int tcg_init_machine(MachineState *ms)
++static int tcg_init_machine(AccelState *as, MachineState *ms)
+ {
+     TCGState *s = TCG_STATE(current_accel());
+     unsigned max_threads = 1;
+diff --git a/accel/xen/xen-all.c b/accel/xen/xen-all.c
+index de52a8f882a..1117f52bef0 100644
+--- a/accel/xen/xen-all.c
++++ b/accel/xen/xen-all.c
+@@ -76,7 +76,7 @@ static void xen_setup_post(MachineState *ms, AccelState *accel)
+     }
+ }
+ 
+-static int xen_init(MachineState *ms)
++static int xen_init(AccelState *as, MachineState *ms)
+ {
+     MachineClass *mc = MACHINE_GET_CLASS(ms);
+ 
+diff --git a/bsd-user/main.c b/bsd-user/main.c
+index 7c0a059c3ba..d0cc8e0088f 100644
+--- a/bsd-user/main.c
++++ b/bsd-user/main.c
+@@ -474,7 +474,7 @@ int main(int argc, char **argv)
+                                  opt_one_insn_per_tb, &error_abort);
+         object_property_set_int(OBJECT(accel), "tb-size",
+                                 opt_tb_size, &error_abort);
+-        ac->init_machine(NULL);
++        ac->init_machine(accel, NULL);
+     }
+ 
+     /*
+diff --git a/linux-user/main.c b/linux-user/main.c
+index 5ac5b55dc65..a9142ee7268 100644
+--- a/linux-user/main.c
++++ b/linux-user/main.c
+@@ -820,7 +820,7 @@ int main(int argc, char **argv, char **envp)
+                                  opt_one_insn_per_tb, &error_abort);
+         object_property_set_int(OBJECT(accel), "tb-size",
+                                 opt_tb_size, &error_abort);
+-        ac->init_machine(NULL);
++        ac->init_machine(accel, NULL);
+     }
+ 
+     /*
+diff --git a/target/i386/nvmm/nvmm-all.c b/target/i386/nvmm/nvmm-all.c
+index f1c6120ccf1..eaae175aa5d 100644
+--- a/target/i386/nvmm/nvmm-all.c
++++ b/target/i386/nvmm/nvmm-all.c
+@@ -1153,7 +1153,7 @@ static struct RAMBlockNotifier nvmm_ram_notifier = {
+ /* -------------------------------------------------------------------------- */
+ 
+ static int
+-nvmm_accel_init(MachineState *ms)
++nvmm_accel_init(AccelState *as, MachineState *ms)
+ {
+     int ret, err;
+ 
+diff --git a/target/i386/whpx/whpx-all.c b/target/i386/whpx/whpx-all.c
+index cf6d3e4cdd4..f0be840b7db 100644
+--- a/target/i386/whpx/whpx-all.c
++++ b/target/i386/whpx/whpx-all.c
+@@ -2505,7 +2505,7 @@ static void whpx_set_kernel_irqchip(Object *obj, Visitor *v,
+  * Partition support
+  */
+ 
+-static int whpx_accel_init(MachineState *ms)
++static int whpx_accel_init(AccelState *as, MachineState *ms)
+ {
+     struct whpx_state *whpx;
+     int ret;
+-- 
+2.49.0
 
-At the very least a textual reference to the struct type is needed here,
-to be able to find it. Better would be to have the size calculated into
-asm-offsets.h, to use a proper symbolic name here.
-
-> +        push    %esp                             /* pointer to output structure */
-> +        lea     sym_offs(__2M_rwdata_end), %ecx  /* end of target image */
-> +        lea     sym_offs(_start), %edx           /* target base address */
-
-Why LEA when this can be expressed with (shorter) MOV?
-
-> +        mov     %esi, %eax                       /* load base address */
-> +        /*
-> +         * slaunch_early_init(load/eax, tgt/edx, tgt_end/ecx, ret/stk) using
-> +         * fastcall calling convention.
-> +         */
-> +        call    slaunch_early_init
-> +        add     $4, %esp                         /* pop the fourth parameter */
-> +
-> +        /* Move outputs of slaunch_early_init() from stack into registers. */
-> +        pop     %eax  /* physical MBI address */
-> +        pop     %edx  /* physical SLRT address */
-> +
-> +        /* Save physical address of SLRT for C code. */
-> +        mov     %edx, sym_esi(slaunch_slrt)
-
-Why go through %edx?
-
-> +        /* Store MBI address in EBX where MB2 code expects it. */
-> +        mov     %eax, %ebx
-
-Why go through %eax?
-
-> --- /dev/null
-> +++ b/xen/arch/x86/boot/slaunch-early.c
-> @@ -0,0 +1,41 @@
-> +/*
-> + * SPDX-License-Identifier: GPL-2.0-or-later
-> + *
-> + * Copyright (c) 2022-2025 3mdeb Sp. z o.o. All rights reserved.
-> + */
-> +
-> +#include <xen/slr-table.h>
-> +#include <xen/types.h>
-> +#include <asm/intel-txt.h>
-> +
-> +struct early_init_results
-> +{
-> +    uint32_t mbi_pa;
-> +    uint32_t slrt_pa;
-> +} __packed;
-
-Why __packed?
-
-> +void asmlinkage slaunch_early_init(uint32_t load_base_addr,
-
-__init ?
-
-> +                                   uint32_t tgt_base_addr,
-> +                                   uint32_t tgt_end_addr,
-> +                                   struct early_init_results *result)
-> +{
-> +    void *txt_heap;
-> +    const struct txt_os_mle_data *os_mle;
-> +    const struct slr_table *slrt;
-> +    const struct slr_entry_intel_info *intel_info;
-> +
-> +    txt_heap = txt_init();
-> +    os_mle = txt_os_mle_data_start(txt_heap);
-> +
-> +    result->slrt_pa = os_mle->slrt;
-> +    result->mbi_pa = 0;
-> +
-> +    slrt = (const struct slr_table *)(uintptr_t)os_mle->slrt;
-
-I think the cast to uintptr_t wants omitting here. This is 32-bit code, and
-hence the conversion to a pointer ought to go fine without. Or else you're
-silently discarding bits in the earlier assignment to ->slrt_pa.
-
-> +    intel_info = (const struct slr_entry_intel_info *)
-> +        slr_next_entry_by_tag(slrt, NULL, SLR_ENTRY_INTEL_INFO);
-> +    if ( intel_info == NULL || intel_info->hdr.size != sizeof(*intel_info) )
-> +        return;
-
-This size check is best effort only, isn't it? Or else how do you know
-->hdr.size is actually within bounds? Further in txt_init() you use less-
-than checks; why more relaxed there and more strict here?
-
-> --- a/xen/arch/x86/include/asm/intel-txt.h
-> +++ b/xen/arch/x86/include/asm/intel-txt.h
-> @@ -292,6 +292,22 @@ static inline void *txt_sinit_mle_data_start(const void *heap)
->             sizeof(uint64_t);
->  }
->  
-> +static inline void *txt_init(void)
-
-__init ?
-
-> --- /dev/null
-> +++ b/xen/arch/x86/include/asm/slaunch.h
-> @@ -0,0 +1,26 @@
-> +/*
-> + * SPDX-License-Identifier: GPL-2.0-or-later
-> + *
-> + * Copyright (c) 2022-2025 3mdeb Sp. z o.o. All rights reserved.
-> + */
-> +
-> +#ifndef X86_SLAUNCH_H
-> +#define X86_SLAUNCH_H
-> +
-> +#include <xen/types.h>
-> +
-> +/* Indicates an active Secure Launch boot. */
-> +extern bool slaunch_active;
-> +
-> +/*
-> + * Holds physical address of SLRT.  Use slaunch_get_slrt() to access SLRT
-> + * instead of mapping where this points to.
-> + */
-> +extern uint32_t slaunch_slrt;
-> +
-> +/*
-> + * Retrieves pointer to SLRT.  Checks table's validity and maps it as necessary.
-> + */
-> +struct slr_table *slaunch_get_slrt(void);
-
-There's no definition of this here, nor a use. Why is this living in this
-patch? Misra objects to declarations without definitions, and you want to
-be prepared that such a large series may go in piece by piece. Hence there
-may not be new Misra violations at any patch boundary.
-
-> --- /dev/null
-> +++ b/xen/arch/x86/slaunch.c
-> @@ -0,0 +1,27 @@
-> +/*
-> + * SPDX-License-Identifier: GPL-2.0-or-later
-> + *
-> + * Copyright (c) 2022-2025 3mdeb Sp. z o.o. All rights reserved.
-> + */
-> +
-> +#include <xen/compiler.h>
-> +#include <xen/init.h>
-> +#include <xen/macros.h>
-> +#include <xen/types.h>
-
-Looks like all you need here is xen/stdint.h?
-
-> +#include <asm/slaunch.h>
-
-We try to move to there being blanks lines between groups of #include-s,
-e.g. all xen/ ones separated from all asm/ ones.
-
-> +/*
-> + * These variables are assigned to by the code near Xen's entry point.
-> + *
-> + * slaunch_active is not __initdata to allow checking for an active Secure
-> + * Launch boot.
-> + */
-> +bool slaunch_active;
-
-Not using __initdata is quite plausible, but why not __ro_after_init?
-
-> +uint32_t __initdata slaunch_slrt; /* physical address */
-> +
-> +/* Using slaunch_active in head.S assumes it's a single byte in size, so enforce
-> + * this assumption. */
-
-Please follow comment style as per ./CODING_STYLE.
-
-Jan
 
