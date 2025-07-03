@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9534FAF69FC
-	for <lists+xen-devel@lfdr.de>; Thu,  3 Jul 2025 08:00:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1031726.1405480 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 61979AF69FE
+	for <lists+xen-devel@lfdr.de>; Thu,  3 Jul 2025 08:01:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1031732.1405489 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uXCzC-0000s1-QB; Thu, 03 Jul 2025 05:59:54 +0000
+	id 1uXD0y-0002WO-43; Thu, 03 Jul 2025 06:01:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1031726.1405480; Thu, 03 Jul 2025 05:59:54 +0000
+Received: by outflank-mailman (output) from mailman id 1031732.1405489; Thu, 03 Jul 2025 06:01:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uXCzC-0000qC-NO; Thu, 03 Jul 2025 05:59:54 +0000
-Received: by outflank-mailman (input) for mailman id 1031726;
- Thu, 03 Jul 2025 05:59:53 +0000
+	id 1uXD0y-0002UA-1F; Thu, 03 Jul 2025 06:01:44 +0000
+Received: by outflank-mailman (input) for mailman id 1031732;
+ Thu, 03 Jul 2025 06:01:42 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=lE7m=ZQ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uXCzB-0000q6-LJ
- for xen-devel@lists.xenproject.org; Thu, 03 Jul 2025 05:59:53 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=iAPd=ZQ=gmail.com=xakep.amatop@srs-se1.protection.inumbo.net>)
+ id 1uXD0w-0002U4-Le
+ for xen-devel@lists.xenproject.org; Thu, 03 Jul 2025 06:01:42 +0000
+Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
+ [2a00:1450:4864:20::12c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ed58548d-57d2-11f0-b894-0df219b8e170;
- Thu, 03 Jul 2025 07:59:48 +0200 (CEST)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-453643020bdso66022635e9.1
- for <xen-devel@lists.xenproject.org>; Wed, 02 Jul 2025 22:59:48 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-74af540ae36sm16558808b3a.14.2025.07.02.22.59.41
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 02 Jul 2025 22:59:47 -0700 (PDT)
+ id 302f3873-57d3-11f0-b894-0df219b8e170;
+ Thu, 03 Jul 2025 08:01:40 +0200 (CEST)
+Received: by mail-lf1-x12c.google.com with SMTP id
+ 2adb3069b0e04-553b3316160so5869162e87.2
+ for <xen-devel@lists.xenproject.org>; Wed, 02 Jul 2025 23:01:40 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,147 +40,143 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ed58548d-57d2-11f0-b894-0df219b8e170
+X-Inumbo-ID: 302f3873-57d3-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1751522388; x=1752127188; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=iMLdHIm9GFvYaZLGrM5qxM4SG+ibcYeqPYcDKKW4pUg=;
-        b=TM8dPM+nnqvIeBuJz99Y6zgguoYhkXg1+ZQIZjeAODVHqN495N2Q4PaWtMv0kJyswH
-         gLJszepppecY+4GJEa9ET7zEHlogQgLUjd/zFAU3Ebv7DcUJzVIfFXoCIb33VEIBGAHO
-         9aa6hJRliWVjaeGkt0c3YJE6pgSLCRk1X4fYQxwAL59duFe7ffz3zwl++KoL7PazjlmI
-         dLMHJZwKTQXuCJ/JUutY8cgr4MYIetpipaXJxJaImm+Ftc9RE3C1Fn05aV2M6ZEuNLL4
-         EC5bFvUGiuKtwd3R0Ds2qT3vLHPXAscS3vm9Ea9tSqXxW2AUmfTZRBDoG5x/2Lo1ozLD
-         hmBg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1751522388; x=1752127188;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20230601; t=1751522500; x=1752127300; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=iMLdHIm9GFvYaZLGrM5qxM4SG+ibcYeqPYcDKKW4pUg=;
-        b=njjvsTGOU8SC+NgVs5NmUDxQyJg56sMvgcQHV5bXeJgAbhHQVtljKwxwZ9tKF8zF9M
-         ++DlS5bUfvGv4WlVE01nm/188Ubg+59c7TWNt8Fjh5tgjRnHdMMZLW0dX5ptzi4a9LoU
-         54NZNWyWkLEl8RDWtNQ3boA0ypy9Exysf5PxQCdFd075z4QY1MvnYRv3tdfxbRYPlMbh
-         Ur/guA1bbUNqZGyo9Xnb9qka9tqdGv84QHZMYuCrJl8WulqUacKUp5yDIyieH3405GEk
-         G8okKIVaYweTfgJppY8Ge196Th7tkj4h5cCCiwgFx9uKNvdS+Mj+yfrWe+cNpRRhRoB1
-         xysg==
-X-Forwarded-Encrypted: i=1; AJvYcCVDwOs+qwYh/VDB76ClFCWiSuGCvf83cXgm6CwZ8w1cmx46J7KAIA4uvrvIag8IJM1QQ8mvg93wtaQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yweo1HKZh5jwyvvyg/Zvyi3AcPpGsI9fY3/Ak45qQcon1am4nL8
-	cPDaAYC5THMD7uB6/AzBIlEtZvENX7AoJ2NbpAVOJ+M6bas7gtRA2+hYx7oHsP3xPA==
-X-Gm-Gg: ASbGncsJgNZKi+3lGJF3ZtEA6mIg+KLBRvX8hFmASBFzf1wtfKntGA6oDUXH7ltU+W7
-	S1o+MCWYqkTUSlH5ieRaagkjubKjqFA3twXXuo/JNpRX8UuNK4J9N4eyoSZ1ddK9Gi3yC+yZZPx
-	/NH861JEYuuuo/q4Q7bT5DHiKM8TaKvT7iA4MkZpxkNkZPH7k4kv6B3uUft5iY1WNt+mBY3yf2V
-	J6jfGfzAIzfk4ierJ7PlXyGGY4zMbOK5/VEVa4BymUuSXforQ20qX4iSycPip1zuqsRI/EVHGEb
-	9Sbr6moWLHCbmlaeXgb4yJpsjRK11XytHRjvB+/WR8nCMqk2dKQP0GIqfivJnEPT/MmvxHFvYoV
-	TjYV7tASHnw0XTCaDTvLbVoDHnT3IrQDXtT3m0BZJkxyA5lg=
-X-Google-Smtp-Source: AGHT+IGdhb2wNjV55e42fLd6d/yJzNsJOuo4IZKx6TSPaQKdbsZRFYpARAzYtPNG+uwMLvZjmaBX0A==
-X-Received: by 2002:a05:6000:4b1a:b0:3a4:fa6a:9189 with SMTP id ffacd0b85a97d-3b1ff9f593fmr4146529f8f.31.1751522387899;
-        Wed, 02 Jul 2025 22:59:47 -0700 (PDT)
-Message-ID: <21127316-316e-4bd7-97eb-5b1cf644f9cd@suse.com>
-Date: Thu, 3 Jul 2025 07:59:36 +0200
+        bh=EIu0Sa+xFBhu9e2TV+IlwWtStjFfGAhYKBB8tPeGIr0=;
+        b=CBD2qWFp/yGLEngbfCrV3uCsb4aZd+Tso+KHMRv/ibMfNc4fvYXzH//Zd7mr51hdAa
+         wnRpw86VFw/+XhVn4lIYlm85VzZqqaUuO2I28aQYaw5uWe/Gl+px0IaSFrEHiY4kTTws
+         v3/Z3H4j07w4IXYO/3q3/uxyyEM8hT+6ErL4vKj7McDekUP+lqlggzCQ3pJupCqOb7S+
+         Dnn49QqaGjhtf22sq/YAitRIKqkxJKAdadYGsOp3DNzQTGbkpYTsgME/JvWhznRfPaV5
+         D05c38gAn9GHO5ommU21ru2BeSblMfwmNKfdIY57ziwftblajQPn/M73kwg66NlKowxG
+         zWAQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1751522500; x=1752127300;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=EIu0Sa+xFBhu9e2TV+IlwWtStjFfGAhYKBB8tPeGIr0=;
+        b=qL9XqB/nSxq8d1fbjNQT3vuHNPm5Tj/yq0oYvdsJjdAlqvxz/PdcFsC9zYPvZqeT9S
+         h4Se+73oEbULdrtu638gcaZ3Cv08/LKpVx7ulWOc7+0EQify7u3by+ZDt/G+pBy9Q3cX
+         hhzLX6I9s0uqZ45FrWftVzqDDFg+yK/09MkNM0AkIJgjuzLL7QCcMP+yLfX7HDIq8Sc1
+         hVvYp8fYe8TMrhnefJYTjy/UGDeKUA0QkD/YdfBtNe6w3dNVj8xCBaBROIc01hWe9af+
+         5Wszgfzt4P20jpahM/xBpYMlFO4J1eqLIktAdJCFpkbhSPyc1R948JfkQEU8DwLDOECG
+         onhw==
+X-Gm-Message-State: AOJu0YyKC6F2PpkWFbAYkFQblnqV6ABSVRJ9Bv2zsXXY91KYu+rGCfVx
+	5Fu/Cc/LdSqmVOfAJaFIc+fBrcEGAhybQCYWpAeeSY78yA7ypM9Py6RF7QYR7U+4CUpf88TXG9s
+	w3wUQCtUmuWfTpD0KHOy+Zuh1ssaUDWo=
+X-Gm-Gg: ASbGncuX96b/Z1xNbew3QOIUPhCBaA+sKVWkv+h5YYI2QJduYv9ZyMpsh98RmGIe8bn
+	dB3TNokGp/wbH+ti16VEXlLi2TY5/2KaKF9L20ZERpcoaT+ce0aTij/hY6RRYVSplI4o/HaaODl
+	g24qYRMCmkKcdKfabt4WehS1Mb84OzW3aNer2RD9GJcQ==
+X-Google-Smtp-Source: AGHT+IH/MPDdUfyaTQdF6b8xTfDf24k1y1o3SPs0JhhcmSj9g+mUw8JilzgQDU5uc/QCU6MIBA7AHj9OiIHwdPLQfKE=
+X-Received: by 2002:ac2:51d1:0:b0:553:2f61:58eb with SMTP id
+ 2adb3069b0e04-5562838f95emr2213016e87.49.1751522499736; Wed, 02 Jul 2025
+ 23:01:39 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 09/17] xen/riscv: introduce page_set_xenheap_gfn()
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1749555949.git.oleksii.kurochko@gmail.com>
- <186e4a778a6dfab205428dfb4d0c59584a162a9f.1749555949.git.oleksii.kurochko@gmail.com>
- <b06c564f-7cf8-4c9c-9392-892ddc6d5ef4@suse.com>
- <be826050-889b-4e4a-a358-5bfa18575533@gmail.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <be826050-889b-4e4a-a358-5bfa18575533@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <cover.1751020456.git.mykola_kvach@epam.com> <072270e0940b6bcc2743d56a336363f4719ba60a.1751020456.git.mykola_kvach@epam.com>
+ <066c6e93-a478-4c8f-b161-d109bd0e6bb4@xen.org> <CAGeoDV-Zze2LtAdofS5EENkANH46SGU3+kqHkTB-k33MBmBXLQ@mail.gmail.com>
+ <3cf697b8-9c23-4e24-980e-3f9696692bb4@xen.org> <CAGeoDV8_bB6Yrr0eLmUM562Q1CEsGuHXe7S5f6-yYwwwLdiXkg@mail.gmail.com>
+ <7070f416-119c-49f8-acd0-82c6e31f0fc6@xen.org>
+In-Reply-To: <7070f416-119c-49f8-acd0-82c6e31f0fc6@xen.org>
+From: Mykola Kvach <xakep.amatop@gmail.com>
+Date: Thu, 3 Jul 2025 09:01:27 +0300
+X-Gm-Features: Ac12FXxYntFM_lDdnXAuOmulwbb5FfIhfzsqdvx7D8isDfWNIamH4twxnpqWU1M
+Message-ID: <CAGeoDV8oo_J7f9YT3Vfh1nBVt7Eb21YGj8-P9xw958KQNvHz8g@mail.gmail.com>
+Subject: Re: [PATCH v5 1/4] xen/arm: Implement PSCI SYSTEM_SUSPEND call for guests
+To: Julien Grall <julien@xen.org>
+Cc: xen-devel@lists.xenproject.org, Mykola Kvach <mykola_kvach@epam.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Bertrand Marquis <bertrand.marquis@arm.com>, 
+	Michal Orzel <michal.orzel@amd.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+	Juergen Gross <jgross@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 02.07.2025 17:59, Oleksii Kurochko wrote:
-> 
-> On 6/30/25 5:48 PM, Jan Beulich wrote:
->> On 10.06.2025 15:05, Oleksii Kurochko wrote:
->>> Introduce page_set_xenheap_gfn() helper to encode the GFN associated with
->>> a Xen heap page directly into the type_info field of struct page_info.
->>>
->>> Introduce a GFN field in the type_info of a Xen heap page by reserving 10
->>> bits (sufficient for both Sv32 and Sv39+ modes), and define PGT_gfn_mask
->>> and PGT_gfn_width accordingly.
->> This reads as if you wanted to encode the GFN in 10 bits.
-> 
-> I will reword it to:
->    Reserve 10 MSB bits to store the usage counter and frame type;
->    use all remaining bits to store the grant table frame GFN.
->    It will be enough as Sv32 uses 22-bit GFNs and Sv{39, 47, 58} uses 44-bit GFNs.
-> 
->>
->> What would also help is if you said why you actually need this. x86, after
->> all, gets away without anything like this. (But I understand you're more
->> Arm-like here.)
-> 
-> I think with the rewording mentioned above it will be clear that it is needed for
-> grant tables. But I also can add the following:
+Hi Julien,
 
-I agree it's fine with just the re-wording.
+On Thu, Jul 3, 2025 at 1:57=E2=80=AFAM Julien Grall <julien@xen.org> wrote:
+>
+> Hi Mykola,
+>
+> On 02/07/2025 23:27, Mykola Kvach wrote:
+> > On Wed, Jul 2, 2025 at 3:28=E2=80=AFPM Julien Grall <julien@xen.org> wr=
+ote:
+> >> Why should we return an error? This is valid for a 64-bit domain to us=
+e
+> >> SMC32 convention.
+> >
+> > I mean =E2=80=94 in that case, is it possible that the upper 32 bits ar=
+e set to
+> > non-zero values without it being an explicit error from the guest?
+> >
+> > In my code, the macro used to extract 64-bit values (on 64-bit Xen, of
+> > course) just copies values from the Xn registers directly.
+> >
+> > According to the SMC Calling Convention specification:
+> > "System Software on ARM Platforms" (ARM DEN 0028A), we must use Wn
+> > for SMC32 parameters in AArch64.
+>
+> The version A is more than 12 years old. You want to use the latest
+> version. From the SMCCC DEN0028G [1] section 3.1 (Register use in
+> AArch64 SMC and HVC calls):
+>
+> "
+> The working size of the register is identified by its name:
+> =E2=80=A2 Xn: All 64-bits are used.
+> =E2=80=A2 Wn: The least significant 32-bits are used, and the most signif=
+icant
+> 32-bits are zero. Implementations must
+> ignore the most significant bits.
+> "
 
->>> @@ -283,6 +296,19 @@ static inline bool arch_mfns_in_directmap(unsigned long mfn, unsigned long nr)
->>>   
->>>   #define PFN_ORDER(pg) ((pg)->v.free.order)
->>>   
->>> +static inline void page_set_xenheap_gfn(struct page_info *p, gfn_t gfn)
->>> +{
->>> +    gfn_t gfn_ = gfn_eq(gfn, INVALID_GFN) ? PGT_INVALID_XENHEAP_GFN : gfn;
->>> +    unsigned long x, nx, y = p->u.inuse.type_info;
->>> +
->>> +    ASSERT(is_xen_heap_page(p));
->>> +
->>> +    do {
->>> +        x = y;
->>> +        nx = (x & ~PGT_gfn_mask) | gfn_x(gfn_);
->>> +    } while ( (y = cmpxchg(&p->u.inuse.type_info, x, nx)) != x );
->>> +}
->>> +
->>>   extern unsigned char cpu0_boot_stack[];
->>>   
->>>   void setup_initial_pagetables(void);
->> What about the "get" counterpart?
-> 
-> I haven't added it as it isn't used now and it will lead to compilation error as it will be static inline
-> (in a similar way as Arm introduces it).
+You're right =E2=80=94 I should have referred to the latest version of the
+specification. Thanks for pointing that out, and for the detailed review
+and explanation. I appreciate your time!
 
-Why would a static inline (in a header) cause compilation errors?
+>
+> So...
+>
+> >
+> > AFAIK, writing to Wn zeroes the top 32 bits of Xn. So, if the guest
+> > is properly using 32-bit values for arguments, the upper bits will alre=
+ady
+> > be zeroed.
+>
+> ... while the guest should write 0 in the top 32-bit, we should not
+> reject not reject non-zero values nor do nothing. Instead we should
+> ignore the top bits.
+>
+> Also, per the Arm Arm (ARM DDI 0487J.a) page D1-5406, it is
+> implementation defined on whether the top 32-bits are zeroed when the
+> previous exception context was AArch32. Xen will zero them on entry to
+> avoid any surprise (see [2]), but that's only guarantee if this is a
+> 32-bit domain (running either on 64-bit or 32-bit Xen) as SMC can only
+> be called from EL1.
+>
+> As a side note, KVM is also ignoring the top 32-bits (see [3]).
 
-> As an option this patch could be dropped and introduced with an introduction of grant tables.
+Got it. I'll update the code to ignore the top 32 bits when an AArch64
+domain issues SMC32 calls.
 
-That's up to you - you must have had a reason to include it here.
+Thanks for the clarification!
 
-Jan
+>
+> Cheers,
+>
+> [1] https://developer.arm.com/documentation/den0028/gbet0/?lang=3Den
+> [2]
+> https://xenbits.xen.org/gitweb/?p=3Dxen.git;a=3Dcommit;h=3D32365f3476ac46=
+55f2f26111cd7879912808cd77
+> [3]
+> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/a=
+rch/arm64/kvm/psci.c#n223
+>
+> --
+> Julien Grall
+>
+
+Best regards,
+Mykola
 
