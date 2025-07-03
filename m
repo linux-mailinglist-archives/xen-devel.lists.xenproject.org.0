@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0300DAF7F04
-	for <lists+xen-devel@lfdr.de>; Thu,  3 Jul 2025 19:36:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1032355.1406040 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8B58EAF7F06
+	for <lists+xen-devel@lfdr.de>; Thu,  3 Jul 2025 19:36:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1032359.1406050 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uXNqv-0003Oy-5H; Thu, 03 Jul 2025 17:36:05 +0000
+	id 1uXNr5-0003os-HT; Thu, 03 Jul 2025 17:36:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1032355.1406040; Thu, 03 Jul 2025 17:36:05 +0000
+Received: by outflank-mailman (output) from mailman id 1032359.1406050; Thu, 03 Jul 2025 17:36:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uXNqv-0003LS-1H; Thu, 03 Jul 2025 17:36:05 +0000
-Received: by outflank-mailman (input) for mailman id 1032355;
- Thu, 03 Jul 2025 17:36:03 +0000
+	id 1uXNr5-0003n3-CD; Thu, 03 Jul 2025 17:36:15 +0000
+Received: by outflank-mailman (input) for mailman id 1032359;
+ Thu, 03 Jul 2025 17:36:14 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=rGZt=ZQ=linaro.org=philmd@srs-se1.protection.inumbo.net>)
- id 1uXNqt-00021t-IR
- for xen-devel@lists.xenproject.org; Thu, 03 Jul 2025 17:36:03 +0000
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [2a00:1450:4864:20::32e])
+ id 1uXNr4-00021t-LA
+ for xen-devel@lists.xenproject.org; Thu, 03 Jul 2025 17:36:14 +0000
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [2a00:1450:4864:20::335])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 30d467a0-5834-11f0-a315-13f23c93f187;
- Thu, 03 Jul 2025 19:36:03 +0200 (CEST)
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-451d54214adso613665e9.3
- for <xen-devel@lists.xenproject.org>; Thu, 03 Jul 2025 10:36:03 -0700 (PDT)
+ id 37512882-5834-11f0-a315-13f23c93f187;
+ Thu, 03 Jul 2025 19:36:14 +0200 (CEST)
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-45363645a8eso893685e9.1
+ for <xen-devel@lists.xenproject.org>; Thu, 03 Jul 2025 10:36:13 -0700 (PDT)
 Received: from localhost.localdomain (88-187-86-199.subs.proxad.net.
  [88.187.86.199]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3b471b97481sm324603f8f.63.2025.07.03.10.36.01
+ 5b1f17b1804b1-454a997de2asm32406255e9.12.2025.07.03.10.36.11
  (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Thu, 03 Jul 2025 10:36:01 -0700 (PDT)
+ Thu, 03 Jul 2025 10:36:12 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,43 +45,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 30d467a0-5834-11f0-a315-13f23c93f187
+X-Inumbo-ID: 37512882-5834-11f0-a315-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1751564162; x=1752168962; darn=lists.xenproject.org;
+        d=linaro.org; s=google; t=1751564173; x=1752168973; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=eZwQanFWBRxwl5aAhr4ZCK6o5mkA78r32e7Wtw3A5EI=;
-        b=jM5Oifv3D35XyLru2PfHtTyPLMkWLvabysiKflCAhcqwvDWtAJfZNDLznnkfUYnCGm
-         SsjDxqAnZcR9n/+Zs/ecHWRCLJnMdI3PbJvwgsJ75DGRw4BVjHVXa7csi/JzBaJRrduH
-         uMEO0wXVHlQ+Pc7FSPEpcikQ+FDJw99Wdcajb7U/EOYTiWfB660ggNfzMl2ybDC/yKL9
-         cFUUSiQoKINIglAejaY3yI1f0fVXKJw7aH4m2NObxfKrWZG7CveluXaZhYp5wSC/0qV4
-         PdHJ0/VcQiECi4k6D3st3ZquCk4t83mzzdJoAcGzJmHNQnN8M8cKhdi3uL6cKW/3FZkn
-         pS0g==
+        bh=/MPU0TKBYtEFG1xkEVwMxLJwA3rZpWlg2w7MDgOvBBA=;
+        b=YgvVKIxjOKCTJBZH4vdPaACJnHnS6twhmE42Hj6Hg+8Y/s9GsFfP4JnYXvm/z2TkH0
+         eR6CAD0X8Y1NI1c9BDItpf23HsPy3zRaPFwcCx8fBqht4qvQm+MV8ca3fY/7o7acC7yw
+         Ykj0lqa5aLH+ou22HPZC03wq6RUbAbrnunIkWI0YtdeiuEoiBDJJo0QLooIEvMJbcoOr
+         ZJcmCQ6PeiQ7EphAPRE9kj43ukvfiSNqfMiMGk50K/khixqH8AISbYvyhfqzIyuNnw6L
+         Wy/JKHyKzjo8lkhbvLPVJqs2EgZ8nyPTdrz4JueuBmKL9ZyKT9MsTbUDVemLoX3rpMfp
+         uHog==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1751564162; x=1752168962;
+        d=1e100.net; s=20230601; t=1751564173; x=1752168973;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=eZwQanFWBRxwl5aAhr4ZCK6o5mkA78r32e7Wtw3A5EI=;
-        b=tIahBy0Bfg2IMKbAvI+VRMHjb86G09z6TKeSK896oeNUeOxhjTO2W5bqv/89gl+CxA
-         CKhMNidUQawpZGp1hLRl4dtm+bVdezdozwq1gKKvX4T5DQj49sfCs8UK3GzBri93Th3I
-         auFRFi6J/fu+JlFrr3kVl5mmUpXggOjIy5vuPHLjpGN97FZbiXPyQFmCoPld0PhRxf/H
-         AMHMBXsTCIWtQ6V8lPNRUDC65pa2Sr26fhV2jiB9ASjMUbXEahvv9ondok0IqYydkFa5
-         f8ZZjxTWEUrQHxAw/Ias6DHP5j5WAeg/4Y9x5NmtB8wzA1S9rd10RzrK0pDQTTLUqcD3
-         2pSw==
-X-Forwarded-Encrypted: i=1; AJvYcCXFJb/fDK3lk81e9k3C5KOJJM5+dip0jN2hzgfFzWf3eWeBHLzCFpSt+7K7ZNKggGHU3HWjdOsN5Io=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YydbmVGQyPMNHC9zBRBJl78AL1dSEh5s2UeN3cqoVgTXHLITsz3
-	NzQAX8fw606Ldvgs/1Ut1cAUVBsW0FuZEyjyDHeTmeJRLjkaHLrNxmbD0EWrMLj5sDU=
-X-Gm-Gg: ASbGncsILqIGdRaPEb5ti7mp8NqWuSmjIKqEb3c+S0C1AYP9sqVIKreIqA/V1v/ygk+
-	iao8xXlo4xQiwOjsYKSQzLdl5MDPelFWGelV6NqfzqDFFlv3ubctfXA7JVJwWuG47v7l3cYDiFG
-	KzrfYfHJXlb7+GM0be3qr/2ewdl8b8HgZI5L9XdICqD3ta6H6pPd1jkJ2SfAegrrxVbbn5GrvAH
-	ee9yDO1biijo468dTeSkUr3pwLnEPQyQT4iS7awa2NM0SMA36peVqvCjuvTfR/PaNdEamgXELHl
-	zJ2MReUE8PoEQXT4DPAfoSD29o5zY2ScSQOqvdKe7UHIAKdcvje+HJjmJmjSJZ0yzhwLiVkR2TE
-	Ad7NgiJcI+3l+aZjjGl+JjpQ+9sypR7yjWxP1
-X-Google-Smtp-Source: AGHT+IFlGs8qe7BnVu94UCy3WqtQJpzJU7HgdWJZtFJUmkIJbvAs7L+AWB+WvKsRQQGdwDgHXZ8jPA==
-X-Received: by 2002:a05:600c:8b43:b0:453:6424:48a2 with SMTP id 5b1f17b1804b1-454a3d23106mr87720105e9.10.1751564162373;
-        Thu, 03 Jul 2025 10:36:02 -0700 (PDT)
+        bh=/MPU0TKBYtEFG1xkEVwMxLJwA3rZpWlg2w7MDgOvBBA=;
+        b=kps9/NOHFpzW5oeglriPLGr6fljbvwTitXDgQJOUDcNQT3wOrTIrWIAx2H0/jI5Ciu
+         ivhuLIczqXI8WcoqnV6DcFBIM8mLwSyGcAKKdI2xyPqyAU2XjCB0qPJ5PnJfvYsPJs7k
+         XbSpT73Mb6Ve4+eIL19aLJGxJ4JUJyCmefHgRMKatENnX1wKFM8r/UqRK1yGcpmxxjaj
+         FqnWT6dYQnKxij4lnNZXn0eZlPanKS8r6iopjmZFKo35OLHtxqTMM6WTjjVI80Q8XfUi
+         fybZjY61RjMT1/kS8+ljRLHq18Spo5eXHjHSakrFSk0wfFT4xjUPxrfAeAIEXExe9WEo
+         AegQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVS9EM/GJmn5B1lBCd4KBGa6aGcT2dPrXgNaHlFsXz4I9qHcbX/gYFiPA4fAuR22xHuXCCTvibJucY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwLxwogLMHOXfbKvEV0tN1Wq6SS0Drjo4KD/j7iCDrsl6Owcn6g
+	JaapJCJKApzbjBVPZfW6YNVRrBdXdP202RISzl0OibfYKOVqXSJMWHjlJby6RnnUdJk=
+X-Gm-Gg: ASbGnctR4MBO/5cEU99mTFxRUIeB1opzRzMkk67SgUEe9c+e5AqIjV/iogSwstxrdiP
+	9ShlnQS4IznMjH/r0fzW5GOo9yNxH1RJ3I7zMWAGn00NUADDQbZQfn7Wqb/6lufMrPOJLEF1D4l
+	fBwM389sbAdCcQykRr18dNeAa/9Q50I/VCdYYBmV7w0zjWITakulqReOxsAeW3HCtZ0vv3Vv92X
+	Iq/NkYSrZxfdcp5m63T8LNNMnDM7nf+/mONWqQeyl+nz30M8+2wBMVHudX31lDaPA6UQIP4ct1a
+	XdeJEvWYxtaiSiA32W/WedUSGmZ7Gx42KBNotCjdoRLN0sIODu0VRH9YyJDTZ7M6QSwUCM79//U
+	uA3Tu26h5pNpbU2L655sfSn573n/m8GyATgH7
+X-Google-Smtp-Source: AGHT+IF1KdJk6c4ueSnjnRty/oc46EojwVkf/EW5AwRmuKQECJq5AW7BgV+yFnxaCbwEOJm8eBUtQQ==
+X-Received: by 2002:a05:600c:c8f:b0:453:9bf:6f79 with SMTP id 5b1f17b1804b1-454a9cd69d9mr43963695e9.26.1751564173127;
+        Thu, 03 Jul 2025 10:36:13 -0700 (PDT)
 From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>
 To: qemu-devel@nongnu.org
 Cc: Zhao Liu <zhao1.liu@intel.com>,
@@ -90,14 +90,23 @@ Cc: Zhao Liu <zhao1.liu@intel.com>,
 	Pierrick Bouvier <pierrick.bouvier@linaro.org>,
 	=?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
 	=?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
+	Cameron Esfahani <dirty@apple.com>,
+	Roman Bolshakov <rbolshakov@ddn.com>,
+	Phil Dennis-Jordan <phil@philjordan.eu>,
+	Mads Ynddal <mads@ynddal.dk>,
+	Fabiano Rosas <farosas@suse.de>,
+	Laurent Vivier <lvivier@redhat.com>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Anthony PERARD <anthony@xenproject.org>,
 	Paul Durrant <paul@xen.org>,
 	"Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
+	Reinoud Zandijk <reinoud@netbsd.org>,
+	Sunil Muthuswamy <sunilmut@microsoft.com>,
+	kvm@vger.kernel.org,
 	xen-devel@lists.xenproject.org
-Subject: [PATCH v6 35/39] accel: Remove unused MachineState argument of AccelClass::setup_post()
-Date: Thu,  3 Jul 2025 19:32:41 +0200
-Message-ID: <20250703173248.44995-36-philmd@linaro.org>
+Subject: [PATCH v6 37/39] accel: Rename 'system/accel-ops.h' -> 'accel/accel-cpu-ops.h'
+Date: Thu,  3 Jul 2025 19:32:43 +0200
+Message-ID: <20250703173248.44995-38-philmd@linaro.org>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <20250703173248.44995-1-philmd@linaro.org>
 References: <20250703173248.44995-1-philmd@linaro.org>
@@ -105,57 +114,219 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-This method only accesses xen_domid/xen_domid_restrict, which are both
-related to the 'accelerator', not the machine. Besides, xen_domid aims
-to be in Xen AccelState and xen_domid_restrict a xen_domid_restrict
-QOM property.
+Unfortunately "system/accel-ops.h" handlers are not only
+system-specific. For example, the cpu_reset_hold() hook
+is part of the vCPU creation, after it is realized.
+
+Mechanical rename to drop 'system' using:
+
+  $ sed -i -e s_system/accel-ops.h_accel/accel-cpu-ops.h_g \
+              $(git grep -l system/accel-ops.h)
 
 Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
-Reviewed-by: Richard Henderson <richard.henderson@linaro.org>
 ---
- include/qemu/accel.h | 2 +-
- accel/accel-system.c | 2 +-
- accel/xen/xen-all.c  | 2 +-
- 3 files changed, 3 insertions(+), 3 deletions(-)
+ include/{system/accel-ops.h => accel/accel-cpu-ops.h} | 8 ++++----
+ accel/accel-common.c                                  | 2 +-
+ accel/accel-system.c                                  | 2 +-
+ accel/hvf/hvf-accel-ops.c                             | 2 +-
+ accel/kvm/kvm-accel-ops.c                             | 2 +-
+ accel/qtest/qtest.c                                   | 2 +-
+ accel/tcg/tcg-accel-ops.c                             | 2 +-
+ accel/xen/xen-all.c                                   | 2 +-
+ cpu-target.c                                          | 2 +-
+ gdbstub/system.c                                      | 2 +-
+ system/cpus.c                                         | 2 +-
+ target/i386/nvmm/nvmm-accel-ops.c                     | 2 +-
+ target/i386/whpx/whpx-accel-ops.c                     | 2 +-
+ 13 files changed, 16 insertions(+), 16 deletions(-)
+ rename include/{system/accel-ops.h => accel/accel-cpu-ops.h} (96%)
 
-diff --git a/include/qemu/accel.h b/include/qemu/accel.h
-index 44189b77daa..19ccc5ef6a1 100644
---- a/include/qemu/accel.h
-+++ b/include/qemu/accel.h
-@@ -45,7 +45,7 @@ typedef struct AccelClass {
-     void (*cpu_common_unrealize)(CPUState *cpu);
+diff --git a/include/system/accel-ops.h b/include/accel/accel-cpu-ops.h
+similarity index 96%
+rename from include/system/accel-ops.h
+rename to include/accel/accel-cpu-ops.h
+index 17c80887016..a045d7c5d4a 100644
+--- a/include/system/accel-ops.h
++++ b/include/accel/accel-cpu-ops.h
+@@ -1,5 +1,5 @@
+ /*
+- * Accelerator OPS, used for cpus.c module
++ * Accelerator per-vCPU handlers
+  *
+  * Copyright 2021 SUSE LLC
+  *
+@@ -7,8 +7,8 @@
+  * See the COPYING file in the top-level directory.
+  */
  
-     /* system related hooks */
--    void (*setup_post)(MachineState *ms, AccelState *accel);
-+    void (*setup_post)(AccelState *as);
-     bool (*has_memory)(AccelState *accel, AddressSpace *as,
-                        hwaddr start_addr, hwaddr size);
-     bool (*cpus_are_resettable)(AccelState *as);
+-#ifndef ACCEL_OPS_H
+-#define ACCEL_OPS_H
++#ifndef ACCEL_CPU_OPS_H
++#define ACCEL_CPU_OPS_H
+ 
+ #include "qemu/accel.h"
+ #include "exec/vaddr.h"
+@@ -88,4 +88,4 @@ struct AccelOpsClass {
+ 
+ void generic_handle_interrupt(CPUState *cpu, int old_mask, int new_mask);
+ 
+-#endif /* ACCEL_OPS_H */
++#endif /* ACCEL_CPU_OPS_H */
+diff --git a/accel/accel-common.c b/accel/accel-common.c
+index b3fbe3216aa..b490612447b 100644
+--- a/accel/accel-common.c
++++ b/accel/accel-common.c
+@@ -10,7 +10,7 @@
+ #include "qemu/osdep.h"
+ #include "qemu/accel.h"
+ #include "qemu/target-info.h"
+-#include "system/accel-ops.h"
++#include "accel/accel-cpu-ops.h"
+ #include "accel/accel-cpu.h"
+ #include "accel-internal.h"
+ 
 diff --git a/accel/accel-system.c b/accel/accel-system.c
-index fb8abe38594..637e2390f35 100644
+index 637e2390f35..451567e1a50 100644
 --- a/accel/accel-system.c
 +++ b/accel/accel-system.c
-@@ -58,7 +58,7 @@ void accel_setup_post(MachineState *ms)
-     AccelState *accel = ms->accelerator;
-     AccelClass *acc = ACCEL_GET_CLASS(accel);
-     if (acc->setup_post) {
--        acc->setup_post(ms, accel);
-+        acc->setup_post(accel);
-     }
- }
+@@ -26,7 +26,7 @@
+ #include "qemu/osdep.h"
+ #include "qemu/accel.h"
+ #include "hw/boards.h"
+-#include "system/accel-ops.h"
++#include "accel/accel-cpu-ops.h"
+ #include "system/cpus.h"
+ #include "qemu/error-report.h"
+ #include "accel-internal.h"
+diff --git a/accel/hvf/hvf-accel-ops.c b/accel/hvf/hvf-accel-ops.c
+index a0248942f3a..b13937b29e1 100644
+--- a/accel/hvf/hvf-accel-ops.c
++++ b/accel/hvf/hvf-accel-ops.c
+@@ -54,7 +54,7 @@
+ #include "gdbstub/enums.h"
+ #include "exec/cpu-common.h"
+ #include "hw/core/cpu.h"
+-#include "system/accel-ops.h"
++#include "accel/accel-cpu-ops.h"
+ #include "system/cpus.h"
+ #include "system/hvf.h"
+ #include "system/hvf_int.h"
+diff --git a/accel/kvm/kvm-accel-ops.c b/accel/kvm/kvm-accel-ops.c
+index 2a744092749..2c8f4fecb17 100644
+--- a/accel/kvm/kvm-accel-ops.c
++++ b/accel/kvm/kvm-accel-ops.c
+@@ -16,7 +16,7 @@
+ #include "qemu/osdep.h"
+ #include "qemu/error-report.h"
+ #include "qemu/main-loop.h"
+-#include "system/accel-ops.h"
++#include "accel/accel-cpu-ops.h"
+ #include "system/kvm.h"
+ #include "system/kvm_int.h"
+ #include "system/runstate.h"
+diff --git a/accel/qtest/qtest.c b/accel/qtest/qtest.c
+index 2b831260201..a7fc8bee6dd 100644
+--- a/accel/qtest/qtest.c
++++ b/accel/qtest/qtest.c
+@@ -18,7 +18,7 @@
+ #include "qemu/option.h"
+ #include "qemu/config-file.h"
+ #include "qemu/accel.h"
+-#include "system/accel-ops.h"
++#include "accel/accel-cpu-ops.h"
+ #include "system/qtest.h"
+ #include "system/cpus.h"
+ #include "qemu/guest-random.h"
+diff --git a/accel/tcg/tcg-accel-ops.c b/accel/tcg/tcg-accel-ops.c
+index bc809ad5640..8f071d2cfeb 100644
+--- a/accel/tcg/tcg-accel-ops.c
++++ b/accel/tcg/tcg-accel-ops.c
+@@ -26,7 +26,7 @@
+  */
  
+ #include "qemu/osdep.h"
+-#include "system/accel-ops.h"
++#include "accel/accel-cpu-ops.h"
+ #include "system/tcg.h"
+ #include "system/replay.h"
+ #include "exec/icount.h"
 diff --git a/accel/xen/xen-all.c b/accel/xen/xen-all.c
-index 8279746f115..bd0ff64befc 100644
+index bd0ff64befc..55a60bb42c2 100644
 --- a/accel/xen/xen-all.c
 +++ b/accel/xen/xen-all.c
-@@ -64,7 +64,7 @@ static void xen_set_igd_gfx_passthru(Object *obj, bool value, Error **errp)
-     xen_igd_gfx_pt_set(value, errp);
- }
+@@ -19,7 +19,7 @@
+ #include "chardev/char.h"
+ #include "qemu/accel.h"
+ #include "accel/dummy-cpus.h"
+-#include "system/accel-ops.h"
++#include "accel/accel-cpu-ops.h"
+ #include "system/cpus.h"
+ #include "system/xen.h"
+ #include "system/runstate.h"
+diff --git a/cpu-target.c b/cpu-target.c
+index 1c90a307593..2049eb1d0f6 100644
+--- a/cpu-target.c
++++ b/cpu-target.c
+@@ -19,7 +19,7 @@
  
--static void xen_setup_post(MachineState *ms, AccelState *accel)
-+static void xen_setup_post(AccelState *as)
- {
-     int rc;
+ #include "qemu/osdep.h"
+ #include "cpu.h"
+-#include "system/accel-ops.h"
++#include "accel/accel-cpu-ops.h"
+ #include "system/cpus.h"
+ #include "exec/cpu-common.h"
+ #include "exec/tswap.h"
+diff --git a/gdbstub/system.c b/gdbstub/system.c
+index 03934deed49..1c48915b6a5 100644
+--- a/gdbstub/system.c
++++ b/gdbstub/system.c
+@@ -20,7 +20,7 @@
+ #include "gdbstub/commands.h"
+ #include "exec/hwaddr.h"
+ #include "exec/tb-flush.h"
+-#include "system/accel-ops.h"
++#include "accel/accel-cpu-ops.h"
+ #include "system/cpus.h"
+ #include "system/runstate.h"
+ #include "system/replay.h"
+diff --git a/system/cpus.c b/system/cpus.c
+index f90b8be9eee..dae66a1bc4d 100644
+--- a/system/cpus.c
++++ b/system/cpus.c
+@@ -31,7 +31,7 @@
+ #include "qapi/qapi-events-run-state.h"
+ #include "qapi/qmp/qerror.h"
+ #include "exec/gdbstub.h"
+-#include "system/accel-ops.h"
++#include "accel/accel-cpu-ops.h"
+ #include "system/hw_accel.h"
+ #include "exec/cpu-common.h"
+ #include "qemu/thread.h"
+diff --git a/target/i386/nvmm/nvmm-accel-ops.c b/target/i386/nvmm/nvmm-accel-ops.c
+index a5517b0abf3..3799260bbde 100644
+--- a/target/i386/nvmm/nvmm-accel-ops.c
++++ b/target/i386/nvmm/nvmm-accel-ops.c
+@@ -10,7 +10,7 @@
+ #include "qemu/osdep.h"
+ #include "system/kvm_int.h"
+ #include "qemu/main-loop.h"
+-#include "system/accel-ops.h"
++#include "accel/accel-cpu-ops.h"
+ #include "system/cpus.h"
+ #include "qemu/guest-random.h"
+ 
+diff --git a/target/i386/whpx/whpx-accel-ops.c b/target/i386/whpx/whpx-accel-ops.c
+index 31cf15f0045..2b51b35bfa6 100644
+--- a/target/i386/whpx/whpx-accel-ops.c
++++ b/target/i386/whpx/whpx-accel-ops.c
+@@ -11,7 +11,7 @@
+ #include "qemu/osdep.h"
+ #include "system/kvm_int.h"
+ #include "qemu/main-loop.h"
+-#include "system/accel-ops.h"
++#include "accel/accel-cpu-ops.h"
+ #include "system/cpus.h"
+ #include "qemu/guest-random.h"
  
 -- 
 2.49.0
