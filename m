@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C357CAF75AA
-	for <lists+xen-devel@lfdr.de>; Thu,  3 Jul 2025 15:31:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1032172.1405910 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D87D8AF75C8
+	for <lists+xen-devel@lfdr.de>; Thu,  3 Jul 2025 15:34:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1032178.1405920 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uXK1c-0002B0-TA; Thu, 03 Jul 2025 13:30:52 +0000
+	id 1uXK5F-0002pz-CV; Thu, 03 Jul 2025 13:34:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1032172.1405910; Thu, 03 Jul 2025 13:30:52 +0000
+Received: by outflank-mailman (output) from mailman id 1032178.1405920; Thu, 03 Jul 2025 13:34:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uXK1c-00028g-QQ; Thu, 03 Jul 2025 13:30:52 +0000
-Received: by outflank-mailman (input) for mailman id 1032172;
- Thu, 03 Jul 2025 13:30:51 +0000
+	id 1uXK5F-0002oQ-91; Thu, 03 Jul 2025 13:34:37 +0000
+Received: by outflank-mailman (input) for mailman id 1032178;
+ Thu, 03 Jul 2025 13:34:36 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=lE7m=ZQ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uXK1b-00028Y-U3
- for xen-devel@lists.xenproject.org; Thu, 03 Jul 2025 13:30:51 +0000
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [2a00:1450:4864:20::436])
+ id 1uXK5E-0002oJ-0k
+ for xen-devel@lists.xenproject.org; Thu, 03 Jul 2025 13:34:36 +0000
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [2a00:1450:4864:20::433])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id efa59632-5811-11f0-a314-13f23c93f187;
- Thu, 03 Jul 2025 15:30:50 +0200 (CEST)
-Received: by mail-wr1-x436.google.com with SMTP id
- ffacd0b85a97d-3a51481a598so3189423f8f.3
- for <xen-devel@lists.xenproject.org>; Thu, 03 Jul 2025 06:30:50 -0700 (PDT)
+ id 7550f0fe-5812-11f0-a314-13f23c93f187;
+ Thu, 03 Jul 2025 15:34:35 +0200 (CEST)
+Received: by mail-wr1-x433.google.com with SMTP id
+ ffacd0b85a97d-3a54700a46eso4477848f8f.1
+ for <xen-devel@lists.xenproject.org>; Thu, 03 Jul 2025 06:34:35 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-23acb2f17f5sm161776035ad.62.2025.07.03.06.30.45
+ d2e1a72fcca58-74af540ae36sm17605565b3a.14.2025.07.03.06.34.27
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 03 Jul 2025 06:30:49 -0700 (PDT)
+ Thu, 03 Jul 2025 06:34:33 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,60 +45,66 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: efa59632-5811-11f0-a314-13f23c93f187
+X-Inumbo-ID: 7550f0fe-5812-11f0-a314-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1751549450; x=1752154250; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1751549674; x=1752154474; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=awjkZYTAl+w3OxhUQ4q16VswS2Q6B7f6BOUkUe/j8zU=;
-        b=K4i35O5tZYDlZk+TsTNzp+6++T5fG1+LQ7NDe3td+IY+4kBkdiMGAPEohrVlBdcDEp
-         l2gaGQR+XKpdwr5LsEOHZojAE7DAnV3+w6KPZ++F9AByab0v2P4qWJ28MaRRxX8mpzsQ
-         5cf0C7XSoX8bIM+H3ABoHlugaRkcevK+sv97/aMEzEPWB9JEDWQBS1OzOMX1PQcRpMQm
-         CJ9sFAx/qs41nZzqX2g5k9LIVRhecU/GaXV8w/0avpkinSaVvqEhLIwQXY/IPuwLVubb
-         Sy87PvYX9MoIgZjZXsDcg0WO0ZNJbPa2XD24Sfm1MT2alVLCa391bHc3ZO3YI+PmiDAb
-         LMFQ==
+        bh=5+29knEys4PKvyGvLAZmEmzHtP60LoiST1LpC4b65uM=;
+        b=PpyI4HYLoJM2X9wm6TEUlPlKKI1u34YkfPeho2mXCO7HOx0jzk7N0vQ4JqwyKN16+4
+         epb4vc0Be8uMvnNdDQZLDKwllUc8DaadwB6dNcfA1tilRu+KOO1/8VBBsu9uVvItVWM5
+         Vj5yVi+/xcDrphQGTM6kv/GICDuPGSpDCTyvER60dRjfD1sUhtz1o/DRtq9fRfWhTXd5
+         SIR4Z0u6A11sHb4hjm/a5Zo8/ubbfPtSRXK2xN1NNsXEyRqvR0wJyXXRhTgJUFBvmW+q
+         JoPEIQXVqRKl68ShXpS0H838nN54vVZ06eYmJVUKpHudPHenrOX3TlL9uZrUT0bSzC83
+         mbgw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1751549450; x=1752154250;
+        d=1e100.net; s=20230601; t=1751549674; x=1752154474;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=awjkZYTAl+w3OxhUQ4q16VswS2Q6B7f6BOUkUe/j8zU=;
-        b=hyR0p+wVsAAqmKj50KRkuA+D07TuPu4VYGBJPbfBA4NfRyj9D+2vcJu2YAsKuUe/qB
-         K9s1Q4OMNOvox2Ummh3Q52Xjjlxy4tcepK300RFAa2gw0X1huMMLlFuhoFzp/B7nkw28
-         Hmhxv/Hg8XN/wnyzXXaOU9wDnwOFWk4gSprSzlMSSSukDqjOKh2jWl0t56bI/R+xM35Z
-         OzjHdyQpoWaGPtnIAwmtsoYfRcWUdKY+5FtVGH/pBaxE2cEI9dHKdWkwqCfGzZ1ELiiK
-         gZ/oDA05ua7PT9ZvCx/0bb/Frtr1dzpdgq5mpuTLMtj259a2IYQeCBIxyEWDFNAd0BI7
-         eM9g==
-X-Forwarded-Encrypted: i=1; AJvYcCUUY9JfaVq3LHUE93e0eeOJIvZ7gU93/cXUZBWMo0z2O0Ds2XmyphwjhJuz06eASPnWJ0LFIldKIns=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yzkhx1MsS4pdS5zZxvYIcdxX7YKpGri7rNOaDk568pacz3c6/Nl
-	qovJn+lCf1HOJ1ru7Cl+lNiXLdYDtvjaSg5PiiYzGrvCRpg+jnwr0UEX+yacdRs48Q==
-X-Gm-Gg: ASbGncvQn0w0XcT3f7YqnK/qYYFQI1GwPlJ/FuRZsIp0dcFoffsKYrjHrrZbTMOKDRf
-	vv1Hh+yxJ4hTacvPLeplEaq6rPBoAq4Wbo2PdKc4sEjze9VZeQIoiV/P61wcdp0d0EhmVcuuBaJ
-	pQRokGkhlFWS/8pOx02tSfbhBexO74uaxpJ15QiizfPia0B/sp1g7KvE7xz1jUz5dQ8bP2BbR6d
-	hV87AoHY0sv9x0GVmPOvZffYD9nkFQP1NM2YikruyIvuEILznNM7bhSL9HtNWS4uwjdXzhgyI2r
-	H47J3q/9yvdYq42mA0kh7x9eybSnEvD6Q6rrnHoNixNOPYZmPmStPwYdFrhEhcRSBvdkJQg1Uti
-	D/0M9tpYI1Z93Z/QsRfaYc5lQGZFAcLjHQ/J/BYm4ZhCmqw0=
-X-Google-Smtp-Source: AGHT+IH06FsZ21lxqXO4FGuTGlxzBdGcVyOyjFZMBF0KmD3FA2vEbUCkzD148S0abPFpD0dgDayHiA==
-X-Received: by 2002:a05:6000:40cb:b0:3a4:c8c1:aed8 with SMTP id ffacd0b85a97d-3b200f2204amr6083769f8f.39.1751549450068;
-        Thu, 03 Jul 2025 06:30:50 -0700 (PDT)
-Message-ID: <6fa07d3a-fa63-456a-a801-edf7db54cd32@suse.com>
-Date: Thu, 3 Jul 2025 15:30:40 +0200
+        bh=5+29knEys4PKvyGvLAZmEmzHtP60LoiST1LpC4b65uM=;
+        b=HC6LQSwsN4qk154tBnVha1Q4KysrWUYi6+9tOLiSAnbZXqNso9Ph269GsA8bWgxR30
+         Ev9fJGLdbXJjhK9fn6n+a4vdlkv0NqWP7qd+hT8Iy+LgbGLzgKtnVlgv4F2Cydf+FdfT
+         JeslhQnCbCuTYmXcu+rJSc9H0R+VEcUHm+e4tXNDMzZUR+REUmo1Qz9Kqir85a06b/xW
+         VNhJp6I9stNcPiFrvUU8XUcAkJVLc+M8ce6dAx+OcMHO4/PHck4L3Ck5ViHwd1zm3t4F
+         5w8Y2c+f9cx+e3tg76JLznCB9WG96Fjv7cykQi7Czzpv7kAHBMv+iRyh+7daB09tKicZ
+         Q97Q==
+X-Forwarded-Encrypted: i=1; AJvYcCWbVxXQGyhW3sdxy3UHMm5JTS8fiiKtZ9QrA5moOtZg0L5gAYx00qNuWGknSU6zlwE1tDm4O6w3T+o=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy6KJkOA6KdzWw3nHGLABwjcV15D0yRRr+dULeufDZUYh5CZUmx
+	AGOdO5tYAlpOn+BHaZSDkV9kVErZuUtLSpkyY/zCnsiPQRrPrQAGLT0JBuDvJKfkfQ==
+X-Gm-Gg: ASbGnct/+qk66rGsfD7EF0RmSUfkB18L1MexXO9RAe1dKmsPwBSbC5ehoswZwLoqDhj
+	QzfL9nfe7XkkugzeJlAYHgtlXGfZTxHTTs76QRO1DW/44stV9pI1UtAfrWXtiMTBxcOx3z0x3Yl
+	p1tx4RFebTHvg5C/tiAWSXoSF4Ih+tp70+YjGiq2DmzOO7zbk8JOUch0m5sjaevzwZrajPBdYIr
+	/sxjK63fQFJ77/KUjNwDL64HmeXGOqaXwSLpI4+fyKl9/095NxqOpjwgB7nCBI8QAC9+gp8MY8V
+	Thk/XGazcj3Ks0MaPZItRLwqHcsYTxaBSCch5OcYJ3+2Pj61LjUoQJ2KfKgueKidb/YeWz4LnQz
+	inPjjQlUf0FqwoSXck7PIMQGID1ggtx7/mmIYLuv5vjq4XoE=
+X-Google-Smtp-Source: AGHT+IHZXf+5Jd2Afex2oOkgAs92Q3DobWFMi7pYL27GSCcdNEa08Ua5mPbPA/9dyzxpzLK2PSvxww==
+X-Received: by 2002:a05:6000:4b1a:b0:3a4:fa6a:9189 with SMTP id ffacd0b85a97d-3b1ff9f593fmr5756450f8f.31.1751549674344;
+        Thu, 03 Jul 2025 06:34:34 -0700 (PDT)
+Message-ID: <f31902de-56db-4948-8449-65b569303375@suse.com>
+Date: Thu, 3 Jul 2025 15:34:23 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/6] x86/idle: Drop incorrect smp_mb() in
- mwait_idle_with_hints()
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+Subject: Re: [PATCH v2 10/17] xen/riscv: implement guest_physmap_add_entry()
+ for mapping GFNs to MFNs
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20250702144121.1096448-1-andrew.cooper3@citrix.com>
- <20250702144121.1096448-6-andrew.cooper3@citrix.com>
- <9bcefc6b-fb76-4995-8a75-d90589384d1f@suse.com>
- <f3af6bc7-c953-4b9e-95d2-6d28008a857b@citrix.com>
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1749555949.git.oleksii.kurochko@gmail.com>
+ <0b1f7ead7eb1b7c8687d388cca50b46eefb8e408.1749555949.git.oleksii.kurochko@gmail.com>
+ <f1e26c40-c70d-4d86-96ec-7643a9d08e76@suse.com>
+ <5fbe849c-3b8a-45dd-a217-c1dbf831da47@gmail.com>
+ <03f0a7eb-f541-4f2b-8b88-500fd483dd48@suse.com>
+ <0c1f9567-5530-4f90-8996-86a1f9662b52@gmail.com>
+ <5328b683-07d2-4590-9a8a-eac0cb2e4c79@suse.com>
+ <2c3b4abe-2b42-4498-8c6f-639dda8a7ab0@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -124,88 +130,70 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <f3af6bc7-c953-4b9e-95d2-6d28008a857b@citrix.com>
+In-Reply-To: <2c3b4abe-2b42-4498-8c6f-639dda8a7ab0@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 03.07.2025 14:37, Andrew Cooper wrote:
-> On 03/07/2025 10:24 am, Jan Beulich wrote:
->> On 02.07.2025 16:41, Andrew Cooper wrote:
->>> With the recent simplifications, it becomes obvious that smp_mb() isn't the
->>> right barrier; all we need is a compiler barrier.
+On 03.07.2025 15:28, Oleksii Kurochko wrote:
+> 
+> On 7/3/25 3:09 PM, Jan Beulich wrote:
+>> On 03.07.2025 13:54, Oleksii Kurochko wrote:
+>>> On 7/3/25 1:33 PM, Jan Beulich wrote:
+>>>> On 03.07.2025 13:02, Oleksii Kurochko wrote:
+>>>>> On 6/30/25 5:59 PM, Jan Beulich wrote:
+>>>>>> On 10.06.2025 15:05, Oleksii Kurochko wrote:
+>>>>>>> +                              unsigned long nr, mfn_t mfn, p2m_type_t t)
+>>>>>>> +{
+>>>>>>> +    struct p2m_domain *p2m = p2m_get_hostp2m(d);
+>>>>>>> +    int rc;
+>>>>>>> +
+>>>>>>> +    p2m_write_lock(p2m);
+>>>>>>> +    rc = p2m_set_entry(p2m, start_gfn, nr, mfn, t, p2m->default_access);
+>>>>>>> +    p2m_write_unlock(p2m);
+>>>>>>> +
+>>>>>>> +    return rc;
+>>>>>>> +}
+>>>>>>> +
+>>>>>>> +int map_regions_p2mt(struct domain *d,
+>>>>>>> +                     gfn_t gfn,
+>>>>>>> +                     unsigned long nr,
+>>>>>>> +                     mfn_t mfn,
+>>>>>>> +                     p2m_type_t p2mt)
+>>>>>>> +{
+>>>>>>> +    return p2m_insert_mapping(d, gfn, nr, mfn, p2mt);
+>>>>>>> +}
+>>>>>> What is this function doing here? The description says "for generic mapping
+>>>>>> purposes", which really may mean anything. Plus, if and when you need it, it
+>>>>>> wants to come with a name that fits with e.g. ...
+>>>>> These names are used across the common code and various architectures. Not all
+>>>>> architectures need to implement all of these functions.
+>>>>> I believe|guest_physmap_add_page()| (which internally calls|guest_physmap_add_entry()|)
+>>>>> is needed to be implemented for all architectures, while|map_regions_p2mt()| is used
+>>>>> by Arm and the common Dom0less-related code, and because of RISC-V is going to re-use
+>>>>> common Dom0less code it is implementing this function too.
+>>>> First, my comment was solely about this one function above. And then I didn't
+>>>> even know Arm had such a function. It's not used from common code (except again
+>>>> from dom0less code where it should have been better abstracted, imo). I'm also
+>>>> not surprised I wasn't aware of it since, as can be implied from the above,
+>>>> otherwise I would likely have complained about its name not fitting the general
+>>>> scheme (which isn't all that good either).
+>>> If I'm right, there is nothing similar to|map_regions_p2mt()| in the common headers.
 >>>
->>> Include this in monitor() itself, along with an explantion.
->> Ah, here we go. As per my comment on patch 4, would this perhaps better move
->> ahead (which however would require a bit of an adjustment to the description)?
+>>> Anyway, I think we could follow up with a patch to rename this function to
+>>> something more appropriate.
+>>>
+>>> I was thinking about adding something like|map_regions_to_guest()|,|map_p2m_regions()|,
+>>> or|map_p2m_memory()| to|xen/mm.h|, along with proper renaming in the Arm code.
+>>>
+>>> Does that make sense?
+>> Imo that seemingly redundant function (i.e. if it's really needed) would want
+>> to be named guest_physmap_<whatever>().
 > 
-> As said, it's not necessary in practice.
+> If it is redundant what is expected to be used instead to map_regions_p2mt() to map MMIO,
+> for example, to guest: guest_physmap_add_page()? Based on the comment above the definition
+> of this function it is for RAM: /* Untyped version for RAM only, for compatibility */
 
-As said where? All you say here is that a memory barrier is needed. Perhaps
-my use of "ahead" was ambiguous? I meant "move ahead in the series", not
-"move ahead in code". Apart from this as a possibility I fear I don't
-understand.
-
->>> +     * monitored cacheline must not be hoisted over MONITOR.
->>> +     */
->>>      asm volatile ( "monitor"
->>> -                   :: "a" (addr), "c" (ecx), "d" (edx) );
->>> +                   :: "a" (addr), "c" (ecx), "d" (edx) : "memory" );
->>>  }
->> That's heavier than we need, though. Can't we simply have a fake output
->> "+m" (irq_stat[cpu])?
-> 
-> No.  That would be wrong for one of the two callers.
-
-How that? MONITOR behaves the same in all cases, doesn't it? And it's
-the same piece of data in both cases the address of which is passed in
-(&softirq_pending(smp_processor_id())).
-
->  Also we don't have cpu available.
-
-smp_processor_id()? Or else have a pointer to the full array entry passed
-in? We could also specify the entire array, just that that's not easily
-expressable afaict.
-
-> The correct value would be a round-down on addr and a cacheline-sized
-> sized type, but we can't do that because of -Wvla.
-
-But that's what irq_stat[cpu] is (or at least claims to be, by the element
-type having the __cacheline_aligned attribute).
-
-> Nothing good can come of anything crossing the MONITOR, and ...
-> 
->>  Downside being that the compiler may then set up
->> addressing of that operand, when the operand isn't really referenced. (As
->> long as __softirq_pending is the first field there, there may not be any
->> extra overhead, though, as %rax then would also address the unused operand.)
-> 
-> ... nothing good is going to come from trying to get clever at
-> optimising a constraint that doesn't actually improve code generation in
-> the first place.
-> 
->> Yet then, is it really only reads from that cacheline that are of concern?
->> Isn't it - strictly speaking - also necessary that any (hypothetical) reads
->> done by the NOW() at the end of the function have to occur only afterwards
->> (and independent of there being a LOCK-ed access in cpumask_clear_cpu())?
-> 
-> The NOW() and cpumask_clear_cpu() are gone, and not going to be returning.
-
-I just used the former as example and mentioned the latter because it would
-serialize memory accesses irrespective of any barriers we add.
-
-> I did put a compiler barrier in mwait() originally too, but dropped it
-> because I couldn't reason about it easily.
-
-Which I understand.
-
-> Nothing good can come of having any loads hoisted above MWAIT, but from
-> a programmers point of view, it's indistinguishable from e.g. taking an
-> SMI.  If there's a correctness issue, it's not MWAIT's fault.
-
-Well, yes, but what in the code is it that tells the compiler not to? Up
-to and including LTO, should we ever get that to work again. This
-specifically may be why mwait() may need to gain one, despite not itself
-dealing with any memory (operands).
+But we're talking about guest_physmap_add_entry().
 
 Jan
 
