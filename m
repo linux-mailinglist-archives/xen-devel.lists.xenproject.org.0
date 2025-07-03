@@ -2,45 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 32BF9AF6BA4
-	for <lists+xen-devel@lfdr.de>; Thu,  3 Jul 2025 09:34:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1031787.1405520 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0206BAF6C85
+	for <lists+xen-devel@lfdr.de>; Thu,  3 Jul 2025 10:12:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1031796.1405530 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uXERP-0006B4-12; Thu, 03 Jul 2025 07:33:07 +0000
+	id 1uXF2g-0003Ny-Rf; Thu, 03 Jul 2025 08:11:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1031787.1405520; Thu, 03 Jul 2025 07:33:07 +0000
+Received: by outflank-mailman (output) from mailman id 1031796.1405530; Thu, 03 Jul 2025 08:11:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uXERO-00067x-U6; Thu, 03 Jul 2025 07:33:06 +0000
-Received: by outflank-mailman (input) for mailman id 1031787;
- Thu, 03 Jul 2025 07:33:05 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uXF2g-0003M7-O9; Thu, 03 Jul 2025 08:11:38 +0000
+Received: by outflank-mailman (input) for mailman id 1031796;
+ Thu, 03 Jul 2025 08:11:37 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=fQ52=ZQ=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1uXERN-00067r-Cc
- for xen-devel@lists.xenproject.org; Thu, 03 Jul 2025 07:33:05 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f45fef0d-57df-11f0-a314-13f23c93f187;
- Thu, 03 Jul 2025 09:33:04 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 4E5E81F38D;
- Thu,  3 Jul 2025 07:33:03 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E1D6913721;
- Thu,  3 Jul 2025 07:33:02 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 0mSZNS4yZmhPXAAAD6G6ig
- (envelope-from <jgross@suse.com>); Thu, 03 Jul 2025 07:33:02 +0000
+ (envelope-from <SRS0=lE7m=ZQ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uXF2f-0003M1-AJ
+ for xen-devel@lists.xenproject.org; Thu, 03 Jul 2025 08:11:37 +0000
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [2a00:1450:4864:20::32f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 557ca496-57e5-11f0-b894-0df219b8e170;
+ Thu, 03 Jul 2025 10:11:34 +0200 (CEST)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-453066fad06so52623995e9.2
+ for <xen-devel@lists.xenproject.org>; Thu, 03 Jul 2025 01:11:34 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-31a9cc4a419sm1704584a91.9.2025.07.03.01.11.28
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 03 Jul 2025 01:11:33 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,251 +45,98 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f45fef0d-57df-11f0-a314-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1751527983; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=nQ5Xr44RBV0VlPZ1V2xjCjMmAszqvqbJEpoheadG4is=;
-	b=SxWUoMRHwRhGP0k66CH960pcV/Yw4vbJaBd5NNzKITipkzjVTiA2grK4v7pEBYcRfbTrPa
-	w4Z8Kq3+4Hi+U87UJW9AKfKILjJMELIXN4KDEww15MEGU+o1ZRxZ2Z0FZfQsqDqZ9e9SDp
-	a8f3VgQp0noJbgw787SKdeQYz49+HOY=
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.com header.s=susede1 header.b=SxWUoMRH
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1751527983; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=nQ5Xr44RBV0VlPZ1V2xjCjMmAszqvqbJEpoheadG4is=;
-	b=SxWUoMRHwRhGP0k66CH960pcV/Yw4vbJaBd5NNzKITipkzjVTiA2grK4v7pEBYcRfbTrPa
-	w4Z8Kq3+4Hi+U87UJW9AKfKILjJMELIXN4KDEww15MEGU+o1ZRxZ2Z0FZfQsqDqZ9e9SDp
-	a8f3VgQp0noJbgw787SKdeQYz49+HOY=
-From: Juergen Gross <jgross@suse.com>
-To: linux-kernel@vger.kernel.org,
-	llvm@lists.linux.dev
-Cc: Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	xen-devel@lists.xenproject.org,
-	Abinash Singh <abinashsinghlalotra@gmail.com>
-Subject: [PATCH] xen/gntdev: remove struct gntdev_copy_batch from stack
-Date: Thu,  3 Jul 2025 09:32:59 +0200
-Message-ID: <20250703073259.17356-1-jgross@suse.com>
-X-Mailer: git-send-email 2.43.0
+X-Inumbo-ID: 557ca496-57e5-11f0-b894-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1751530294; x=1752135094; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=MOtjWycJ0LFHuZ/qlkzok3lRt5JNAWv/INQjgOoqQlk=;
+        b=YUfcDcd4qKe6I59nsKKmj4l89fYDWCaL46tYc1GGPWYBHOGEnDT6X3Dx7mjcyXLWm4
+         PkzC0r0JB54jpnYLTnCRsNErgmDelltoeOV6Pg4+c9k1mCmvggQ5jEeRKBCaEfXzNZsc
+         L69F600BNBYrpkVTZdQyMX5X7mHAsiZC79oa2V6y8jKaylM8d7DNS/ow2DZb6PeHvD7g
+         g+h86LTA/Y8ztb+ulwAI3hKk38Ny3vwwtwxdQF8s4tVK5Ka67fRPOCX+sjseowW0syh/
+         piypoTrt1Cv0HIAUuQ60odq/W3gzLXIzhZO31FWONsFf1sCo7vcdLx1/bywcfFj6h9ny
+         SeBw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1751530294; x=1752135094;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=MOtjWycJ0LFHuZ/qlkzok3lRt5JNAWv/INQjgOoqQlk=;
+        b=EjfTW9TN93p0VGqX+5dpP+fhTkqyCLuBYf69T1yXaseje0UinjW36z5BV3k1FIzk+d
+         MID9vTguMeZnIFytlPxqAQ3V9M0vNcY5HUZhirynLAACcns83++3kCgBCLv4w0tL7H30
+         DEZnfPuCuvWtCCUZQalG7gT+JPnFF5tcTmScqe2hAl2Fnf1dVU12UTdMS+hpnWHMEYJX
+         yDbmMHk6lolwCM2kUarparETxRrghvK5v7EuaWMLrQ6qM73xbQF1gl5ZZ1k5HlATOa9s
+         GhnLiV/P+ynpB6CQjhoR0m+dnVmbIQ2hfjRH4SzMdRb2NdiG49J8uciUxSeQsWevTLHb
+         EO/Q==
+X-Forwarded-Encrypted: i=1; AJvYcCUuPl8C5NvaIvAjbQmfRxRrqioFYxaeqkmi0j1Gmuuabtkh8D7xqnsiKUVcDvZxKOall1RPbCMVai4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw5HoQTiz5VF3qaCN4KUhVMwhtIdM3IPScotmwF2Bm3V4D+VAAt
+	sX7wVsjqcWqxlhfNVnIYk7MCu+XtSoAP9dmhoAizzKb9iBX1QrbL9nMO7FHQWO8j2g==
+X-Gm-Gg: ASbGnctIJqf+hsBfFPy+HLBp7iYNsdIQ5464Xvp68JCZqy8zlMzy9MUGJLPTErlLScu
+	C5lasi368fJM3TuPMHQvhSObiyMx+RB5CC3xwLvAMw9iehqoqPD/SQrofUlU2C8FVaaKq4vgCjo
+	CAXgFrYhm3Am8A1ucrssXKefnvP2Al0nGpN0Wj3g2VhcA8XOD99RlC+AlklKIUkcYESxybygfLE
+	CVXM6NGE449ULdAdFUeR34MOek43CFVCer7m/ybXbJLy3QQqrKyOoDalJGJroRQERMyK4tMw9+S
+	4WFTtuX19WuwIBclUa+D0zovDRkLSdfbAiI5XoI0eq7WqAB2YFnwmBftey5/02vJEkQxz/Qq2p5
+	EEVQUqt2Hd/9BqZtouARi5Yd79HGEgVji84//KeWk0Mo2AOw=
+X-Google-Smtp-Source: AGHT+IELTpx8CbEOn3M2yZnyg5IiXf/Xs8paqRO9Tx02V6vHCdcSKkRUSdrL6nqUiw9t7T64xQCHbA==
+X-Received: by 2002:a5d:5f82:0:b0:3b3:a6c2:1a10 with SMTP id ffacd0b85a97d-3b3a6c21a61mr662548f8f.12.1751530293597;
+        Thu, 03 Jul 2025 01:11:33 -0700 (PDT)
+Message-ID: <7789a13c-04ba-4ad4-8df0-59fe82512e40@suse.com>
+Date: Thu, 3 Jul 2025 10:11:23 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 4E5E81F38D
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-1.51 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_MISSING_CHARSET(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	MIME_TRACE(0.00)[0:+];
-	TO_DN_SOME(0.00)[];
-	DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	ARC_NA(0.00)[];
-	FUZZY_BLOCKED(0.00)[rspamd.com];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	FREEMAIL_CC(0.00)[suse.com,kernel.org,epam.com,gmail.com,google.com,lists.xenproject.org];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
-	TAGGED_RCPT(0.00)[lkml];
-	RCPT_COUNT_SEVEN(0.00)[11];
-	DKIM_TRACE(0.00)[suse.com:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com]
-X-Spam-Score: -1.51
-X-Spam-Level: 
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/6] xen/softirq: Rework arch_skip_send_event_check() into
+ arch_pend_softirq()
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20250702144121.1096448-1-andrew.cooper3@citrix.com>
+ <20250702144121.1096448-4-andrew.cooper3@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20250702144121.1096448-4-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-When compiling the kernel with LLVM, the following warning was issued:
+On 02.07.2025 16:41, Andrew Cooper wrote:
+> x86 is the only architecture wanting an optimisation here, but the
+> test_and_set_bit() is a store into the monitored line
 
-  drivers/xen/gntdev.c:991: warning: stack frame size (1160) exceeds
-  limit (1024) in function 'gntdev_ioctl'
+Which is intentional aiui, while this reads as if this was part of the issue.
 
-The main reason is struct gntdev_copy_batch which is located on the
-stack and has a size of nearly 1kb.
+> and is racy with determining whether an IPI can be skipped.
 
-For performance reasons it shouldn't by just dynamically allocated
-instead, so allocate a new instance when needed and instead of freeing
-it put it into a list of free structs anchored in struct gntdev_priv.
+Racy here as in limiting the effect of the optimization, but not affecting
+correctness aiui: If the woken CPU managed to clear the bit already, we'd
+needlessly IPI it. This could also do with saying.
 
-Fixes: a4cdb556cae0 ("xen/gntdev: add ioctl for grant copy")
-Reported-by: Abinash Singh <abinashsinghlalotra@gmail.com>
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
- drivers/xen/gntdev-common.h |  4 +++
- drivers/xen/gntdev.c        | 71 ++++++++++++++++++++++++++-----------
- 2 files changed, 54 insertions(+), 21 deletions(-)
-
-diff --git a/drivers/xen/gntdev-common.h b/drivers/xen/gntdev-common.h
-index 9c286b2a1900..ac8ce3179ba2 100644
---- a/drivers/xen/gntdev-common.h
-+++ b/drivers/xen/gntdev-common.h
-@@ -26,6 +26,10 @@ struct gntdev_priv {
- 	/* lock protects maps and freeable_maps. */
- 	struct mutex lock;
- 
-+	/* Free instances of struct gntdev_copy_batch. */
-+	struct gntdev_copy_batch *batch;
-+	struct mutex batch_lock;
-+
- #ifdef CONFIG_XEN_GRANT_DMA_ALLOC
- 	/* Device for which DMA memory is allocated. */
- 	struct device *dma_dev;
-diff --git a/drivers/xen/gntdev.c b/drivers/xen/gntdev.c
-index 61faea1f0663..1f2160765618 100644
---- a/drivers/xen/gntdev.c
-+++ b/drivers/xen/gntdev.c
-@@ -56,6 +56,18 @@ MODULE_AUTHOR("Derek G. Murray <Derek.Murray@cl.cam.ac.uk>, "
- 	      "Gerd Hoffmann <kraxel@redhat.com>");
- MODULE_DESCRIPTION("User-space granted page access driver");
- 
-+#define GNTDEV_COPY_BATCH 16
-+
-+struct gntdev_copy_batch {
-+	struct gnttab_copy ops[GNTDEV_COPY_BATCH];
-+	struct page *pages[GNTDEV_COPY_BATCH];
-+	s16 __user *status[GNTDEV_COPY_BATCH];
-+	unsigned int nr_ops;
-+	unsigned int nr_pages;
-+	bool writeable;
-+	struct gntdev_copy_batch *next;
-+};
-+
- static unsigned int limit = 64*1024;
- module_param(limit, uint, 0644);
- MODULE_PARM_DESC(limit,
-@@ -584,6 +596,8 @@ static int gntdev_open(struct inode *inode, struct file *flip)
- 	INIT_LIST_HEAD(&priv->maps);
- 	mutex_init(&priv->lock);
- 
-+	mutex_init(&priv->batch_lock);
-+
- #ifdef CONFIG_XEN_GNTDEV_DMABUF
- 	priv->dmabuf_priv = gntdev_dmabuf_init(flip);
- 	if (IS_ERR(priv->dmabuf_priv)) {
-@@ -608,6 +622,7 @@ static int gntdev_release(struct inode *inode, struct file *flip)
- {
- 	struct gntdev_priv *priv = flip->private_data;
- 	struct gntdev_grant_map *map;
-+	struct gntdev_copy_batch *batch;
- 
- 	pr_debug("priv %p\n", priv);
- 
-@@ -620,6 +635,14 @@ static int gntdev_release(struct inode *inode, struct file *flip)
- 	}
- 	mutex_unlock(&priv->lock);
- 
-+	mutex_lock(&priv->batch_lock);
-+	while (priv->batch) {
-+		batch = priv->batch;
-+		priv->batch = batch->next;
-+		kfree(batch);
-+	}
-+	mutex_unlock(&priv->batch_lock);
-+
- #ifdef CONFIG_XEN_GNTDEV_DMABUF
- 	gntdev_dmabuf_fini(priv->dmabuf_priv);
- #endif
-@@ -785,17 +808,6 @@ static long gntdev_ioctl_notify(struct gntdev_priv *priv, void __user *u)
- 	return rc;
- }
- 
--#define GNTDEV_COPY_BATCH 16
--
--struct gntdev_copy_batch {
--	struct gnttab_copy ops[GNTDEV_COPY_BATCH];
--	struct page *pages[GNTDEV_COPY_BATCH];
--	s16 __user *status[GNTDEV_COPY_BATCH];
--	unsigned int nr_ops;
--	unsigned int nr_pages;
--	bool writeable;
--};
--
- static int gntdev_get_page(struct gntdev_copy_batch *batch, void __user *virt,
- 				unsigned long *gfn)
- {
-@@ -953,36 +965,53 @@ static int gntdev_grant_copy_seg(struct gntdev_copy_batch *batch,
- static long gntdev_ioctl_grant_copy(struct gntdev_priv *priv, void __user *u)
- {
- 	struct ioctl_gntdev_grant_copy copy;
--	struct gntdev_copy_batch batch;
-+	struct gntdev_copy_batch *batch;
- 	unsigned int i;
- 	int ret = 0;
- 
- 	if (copy_from_user(&copy, u, sizeof(copy)))
- 		return -EFAULT;
- 
--	batch.nr_ops = 0;
--	batch.nr_pages = 0;
-+	mutex_lock(&priv->batch_lock);
-+	if (!priv->batch) {
-+		batch = kmalloc(sizeof(*batch), GFP_KERNEL);
-+	} else {
-+		batch = priv->batch;
-+		priv->batch = batch->next;
-+	}
-+	mutex_unlock(&priv->batch_lock);
-+	if (!batch)
-+		return -ENOMEM;
-+
-+	batch->nr_ops = 0;
-+	batch->nr_pages = 0;
- 
- 	for (i = 0; i < copy.count; i++) {
- 		struct gntdev_grant_copy_segment seg;
- 
- 		if (copy_from_user(&seg, &copy.segments[i], sizeof(seg))) {
- 			ret = -EFAULT;
-+			gntdev_put_pages(batch);
- 			goto out;
- 		}
- 
--		ret = gntdev_grant_copy_seg(&batch, &seg, &copy.segments[i].status);
--		if (ret < 0)
-+		ret = gntdev_grant_copy_seg(batch, &seg, &copy.segments[i].status);
-+		if (ret < 0) {
-+			gntdev_put_pages(batch);
- 			goto out;
-+		}
- 
- 		cond_resched();
- 	}
--	if (batch.nr_ops)
--		ret = gntdev_copy(&batch);
--	return ret;
-+	if (batch->nr_ops)
-+		ret = gntdev_copy(batch);
-+
-+ out:
-+	mutex_lock(&priv->batch_lock);
-+	batch->next = priv->batch;
-+	priv->batch = batch;
-+	mutex_unlock(&priv->batch_lock);
- 
--  out:
--	gntdev_put_pages(&batch);
- 	return ret;
- }
- 
--- 
-2.43.0
-
+Jan
 
