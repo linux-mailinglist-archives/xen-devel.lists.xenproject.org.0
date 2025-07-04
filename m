@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 614C4AF97A3
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Jul 2025 18:14:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1033510.1406858 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 822FEAF986C
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Jul 2025 18:34:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1033538.1406867 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uXj3W-0002AV-H7; Fri, 04 Jul 2025 16:14:30 +0000
+	id 1uXjMg-0005Gy-38; Fri, 04 Jul 2025 16:34:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1033510.1406858; Fri, 04 Jul 2025 16:14:30 +0000
+Received: by outflank-mailman (output) from mailman id 1033538.1406867; Fri, 04 Jul 2025 16:34:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uXj3W-000297-EE; Fri, 04 Jul 2025 16:14:30 +0000
-Received: by outflank-mailman (input) for mailman id 1033510;
- Fri, 04 Jul 2025 16:14:29 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uXjMg-0005FB-0P; Fri, 04 Jul 2025 16:34:18 +0000
+Received: by outflank-mailman (input) for mailman id 1033538;
+ Fri, 04 Jul 2025 16:34:16 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=7FCR=ZR=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1uXj3V-0001ac-71
- for xen-devel@lists.xenproject.org; Fri, 04 Jul 2025 16:14:29 +0000
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
- [2a00:1450:4864:20::429])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f544301c-58f1-11f0-b894-0df219b8e170;
- Fri, 04 Jul 2025 18:14:27 +0200 (CEST)
-Received: by mail-wr1-x429.google.com with SMTP id
- ffacd0b85a97d-3a50956e5d3so808026f8f.1
- for <xen-devel@lists.xenproject.org>; Fri, 04 Jul 2025 09:14:27 -0700 (PDT)
-Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-454b1628ff9sm30213815e9.11.2025.07.04.09.14.26
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 04 Jul 2025 09:14:26 -0700 (PDT)
+ id 1uXjMe-0005Ex-M0
+ for xen-devel@lists.xenproject.org; Fri, 04 Jul 2025 16:34:16 +0000
+Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
+ [2a00:1450:4864:20::344])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b8371210-58f4-11f0-a315-13f23c93f187;
+ Fri, 04 Jul 2025 18:34:15 +0200 (CEST)
+Received: by mail-wm1-x344.google.com with SMTP id
+ 5b1f17b1804b1-450ccda1a6eso8188655e9.2
+ for <xen-devel@lists.xenproject.org>; Fri, 04 Jul 2025 09:34:13 -0700 (PDT)
+Received: from localhost.localdomain (host-92-26-98-202.as13285.net.
+ [92.26.98.202]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-454a9989fcesm59199345e9.16.2025.07.04.09.34.12
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 04 Jul 2025 09:34:12 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,157 +45,87 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f544301c-58f1-11f0-b894-0df219b8e170
+X-Inumbo-ID: b8371210-58f4-11f0-a315-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1751645667; x=1752250467; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=cESjeftZcvFG56siuT9EWtcDWeFUbkiiz5QETTlnUXw=;
-        b=nUH6pa3MeNHNhPqUI7uOg9h6aVYZsBTPD8QsMw9MjQOzzCK1Cow1Fvs0E6UDdcQwo7
-         cozS2QipT6NVkDC45IW53wkY5LXybeYgVStwGQbfu2JeghshzkW2Ji+YPESWHnBXgyAk
-         rZE/GOPtxWRLgrnzF8m/IDNNOqlyzYEUN+nWk=
+        d=citrix.com; s=google; t=1751646853; x=1752251653; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=MKn4LuS2kPwNNLgfUqQnQ+x+awYkEgL1Ur7Px4yZhLA=;
+        b=NAfyKPmE9r1f6/rxcdtAIEcNN6T0j6fitI0kcMHdfhaIeT1dkhXe/3O3TsZpO1C4O0
+         CvwImo6exG3GCQdTDE9diDR6zLRhv/eMkNuYnk0Ph9GYVKdAHl/QjcYqkcqR5Mo28z4O
+         CuzQx+qY4JNvcAMl84aS4sNERrhGwxB0Y8NoQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1751645667; x=1752250467;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=cESjeftZcvFG56siuT9EWtcDWeFUbkiiz5QETTlnUXw=;
-        b=NJYjymxHZDhCRKx1/9x3iHG9CDEVmedNVoLQaQvqXcMMU5n3frD2373P32ugNO4vh2
-         iY+NRjkF/06PHS6n3fyId7FdZoKnbIpVCPhgURCNgSrfTDqqgYtm4Q9X9QjGyo/p7mXl
-         S8NFJhDyQMOQx1QYO2tCd/9ldnf8EXqFVtUQxpidfTZboJHgb/6Ra5yCHz9PyNru/ycK
-         TjOPC5We0mrbRoUuHrIhtspSI1bKKhcsbKWeklYjJU6C4iCLdCtLY9kukvc+q8BuG8GV
-         qXJmmRyX4FliA/6zm084dZTanNzOX4aLjgMo3uy+buUd+q+31T3MnOZ3El+4PeoQ58ih
-         /29g==
-X-Gm-Message-State: AOJu0YwtpeXLfvSlVE39vDunSaXTncWNv3NPMe6NmldcrJn2aB1EbuMW
-	5U5ytrIjbD8d6osypAt4BFKnh27pBE++aNeBlKsWE6wHtC7S832/Ik/SBviHGlkrmC0=
-X-Gm-Gg: ASbGncv330jQ+EJ8FKyqlxe/R0V6L38jaOfNuutFtUFTex+BatG3O7T7IZw6Ji1wxL6
-	ja++c2QTDgkPhKxoCfRqGfW33w7875Vd22ZnBYGzADIVs40qd0p0MB1Uf7jlxemR7tsfYUK7tyn
-	K1xhy7X08O2m0XOkepTs7eg9fiHFTH0m5/9q/c36CgfQRd8SEDI0wnhakcFlklQV4V4cKSOaavN
-	JxxLolNj2a69uBgCsm/LyYM32H2flKWurDJfhL7MHm8NnpSybxa3PK1BrK8UqnMzAG0HTJk9H5e
-	hzno5OwILtXo5x+LjNLPd2igxSaqwmikjdqVcExwQfT976iVIyT78cjn0pGZdlbtbse39JwrWXJ
-	wj7jy2ciyEUwEdMY0Xg3wsBog/Gk=
-X-Google-Smtp-Source: AGHT+IFDF2F8u3eouSyAcIbY6oFL7iyk/vOaG4pWy25Lewr8e3uIdTWtTXHWQjtdBba8ts+q+ko3zw==
-X-Received: by 2002:adf:ed88:0:b0:3a4:f513:7f03 with SMTP id ffacd0b85a97d-3b496604e09mr2649722f8f.44.1751645666891;
-        Fri, 04 Jul 2025 09:14:26 -0700 (PDT)
-Message-ID: <a597cd29-1dfe-4895-9b33-0659b4b2e096@citrix.com>
-Date: Fri, 4 Jul 2025 17:14:25 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/6] x86/idle: Implement a new MWAIT IPI-elision algorithm
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- Jan Beulich <JBeulich@suse.com>, Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <20250702144121.1096448-1-andrew.cooper3@citrix.com>
- <20250702144121.1096448-5-andrew.cooper3@citrix.com>
- <aGeIQLMQOS2ukft8@macbook.local>
-Content-Language: en-GB
+        d=1e100.net; s=20230601; t=1751646853; x=1752251653;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=MKn4LuS2kPwNNLgfUqQnQ+x+awYkEgL1Ur7Px4yZhLA=;
+        b=LNASorWahJpxFaSjFxMLrLAlB3iJp5Kyd9ib5HiaoNI2ZBMklkOFt1N9UxOlsgVtgg
+         61Jzfy7TNhEFRlr/90cc6lNAgh0MrsSlpXbzzWpv2oxmLdWEfUzK9l3ROKRA6ANZeNTK
+         Yls7riyo+a6WmW3g3srATstEVzdxhwM32ed3T3VrkUoI4tt7YxeRuIn2D1En5BE3d3jC
+         stYkfnH/2ycWBNStE9ECBolo6GxAlFzgOPsLl4OcdUWbX4+68PIszl8ptdoynUy6fPxE
+         AxRhZbLoqS7dp4THTUMesFeIz9mqlnaOjDFgTLfKByepfY//ILwkbOxVCdTN37B0ZPGP
+         JesA==
+X-Gm-Message-State: AOJu0YwCRGIr7ZbZpC89QAe+lOtGWRc7f0MJZMrPpiS+icSchLveaJa7
+	TIJkkJGQzdM0iEh3TSDymVK71pQCY438/HarHz2u1LfKtcc9r3ZgyPUBzGAPs0FoyzjzqhlMP1W
+	OCBZ5DEXCVIgh
+X-Gm-Gg: ASbGnctFcJZvZDgbz/SAd1Vy4jnwldlTrq5Z6xmwKiAAFKMpxmeqqLp6y9J2aAgoeKh
+	qEvQv3FaBWv3jeXIplRsdauOa5Nh1zNLfmN8dqkEVNsBJwYf/5UtjPjKv7Zj8OafDdGK24No90W
+	OLvFOXIKwn5JGX/c7uWe+U2Oe51Opc7rYPW+8I/t+6d8+W0BclIdly01jfIn+02GiBB7UxmSXJW
+	IVpSHieaOOR1lIdAp2Ytyj8J840SK3LnivipeQLkfF+UFajbVKc/8Duz5ondv5vwfPLKs2sOXq0
+	Z3sqpUlM774zD7BLF3KgFIkPyd0duMrVp6b0N8poIst2jQ0NLTq+iD8BMozoSrEWZJZQYC3QbcU
+	8SXlw5ApYwREzRn38lxQfaFPd0pZlNMnLNg6+S2Q5ReaS8g==
+X-Google-Smtp-Source: AGHT+IFgsafkHAdIs+5jSqv4wwmC+jxNfM2MFIA/sYRuCsfVtC9+bQZH7bmVO5Jet5pfhJq2EM9MnQ==
+X-Received: by 2002:a05:600c:8b30:b0:453:8bc7:5e53 with SMTP id 5b1f17b1804b1-454b2ffe13fmr39858155e9.0.1751646852734;
+        Fri, 04 Jul 2025 09:34:12 -0700 (PDT)
 From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <aGeIQLMQOS2ukft8@macbook.local>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jan Beulich <JBeulich@suse.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH v2 0/6] x86/idle: Multiple MWAIT fixes
+Date: Fri,  4 Jul 2025 17:34:04 +0100
+Message-Id: <20250704163410.1412367-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.39.5
+MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 04/07/2025 8:52 am, Roger Pau Monné wrote:
-> On Wed, Jul 02, 2025 at 03:41:19PM +0100, Andrew Cooper wrote:
->> diff --git a/xen/arch/x86/include/asm/softirq.h b/xen/arch/x86/include/asm/softirq.h
->> index e4b194f069fb..069e5716a68d 100644
->> --- a/xen/arch/x86/include/asm/softirq.h
->> +++ b/xen/arch/x86/include/asm/softirq.h
->> @@ -1,6 +1,8 @@
->>  #ifndef __ASM_SOFTIRQ_H__
->>  #define __ASM_SOFTIRQ_H__
->>  
->> +#include <asm/system.h>
->> +
->>  #define NMI_SOFTIRQ            (NR_COMMON_SOFTIRQS + 0)
->>  #define TIME_CALIBRATE_SOFTIRQ (NR_COMMON_SOFTIRQS + 1)
->>  #define VCPU_KICK_SOFTIRQ      (NR_COMMON_SOFTIRQS + 2)
->> @@ -9,4 +11,36 @@
->>  #define HVM_DPCI_SOFTIRQ       (NR_COMMON_SOFTIRQS + 4)
->>  #define NR_ARCH_SOFTIRQS       5
->>  
->> +/*
->> + * Ensure softirq @nr is pending on @cpu.  Return true if an IPI can be
->> + * skipped, false if the IPI cannot be skipped.
->> + *
->> + * We use a CMPXCHG covering both __softirq_pending and in_mwait, in order to
->> + * set softirq @nr while also observing in_mwait in a race-free way.
->> + */
->> +static always_inline bool arch_pend_softirq(unsigned int nr, unsigned int cpu)
->> +{
->> +    uint64_t *ptr = &irq_stat[cpu].softirq_mwait_raw;
->> +    uint64_t old, new;
->> +    unsigned int softirq = 1U << nr;
->> +
->> +    old = ACCESS_ONCE(*ptr);
->> +
->> +    do {
->> +        if ( old & softirq )
->> +            /* Softirq already pending, nothing to do. */
->> +            return true;
->> +
->> +        new = old | softirq;
->> +
->> +    } while ( (old = cmpxchg(ptr, old, new)) != new );
->> +
->> +    /*
->> +     * We have caused the softirq to become pending.  If in_mwait was set, the
->> +     * target CPU will notice the modification and act on it.
->> +     */
->> +    return new & (1UL << 32);
-> Maybe I haven't got enough coffee yet, but if we do the cmpxchg()
-> won't it be enough to send the IPI when softirq is first set, but not
-> necessarily for each extra softirq that's set if there's already one
-> enabled?
+The two main bugs were identified in Linux first, and I've modelled Xen's fix
+similarly.
 
-It was me who didn't have enough coffee when writing the code.  Already
-fixed locally.
+Patches 1-4 want committing together.  They do bisect and operate correctly,
+but the range takes out an optimisation in order to reimplement it correctly.
 
-~Andrew
+https://gitlab.com/xen-project/hardware/xen-staging/-/pipelines/1905583317
+
+Andrew Cooper (6):
+  x86/idle: Remove broken MWAIT implementation
+  x86/idle: Drop incorrect smp_mb() in mwait_idle_with_hints()
+  x86/idle: Convert force_mwait_ipi_wakeup to X86_BUG_MONITOR
+  xen/softirq: Rework arch_skip_send_event_check() into arch_set_softirq()
+  x86/idle: Implement a new MWAIT IPI-elision algorithm
+  x86/idle: Fix buggy "x86/mwait-idle: enable interrupts before C1 on Xeons"
+
+ xen/arch/x86/acpi/cpu_idle.c           | 92 +++++++++++---------------
+ xen/arch/x86/cpu/intel.c               |  2 +-
+ xen/arch/x86/cpu/mwait-idle.c          |  8 +--
+ xen/arch/x86/hpet.c                    |  2 -
+ xen/arch/x86/include/asm/cpufeatures.h |  1 +
+ xen/arch/x86/include/asm/hardirq.h     | 21 ++++--
+ xen/arch/x86/include/asm/mwait.h       |  3 -
+ xen/arch/x86/include/asm/softirq.h     | 48 +++++++++++++-
+ xen/common/softirq.c                   |  8 +--
+ xen/include/xen/cpuidle.h              |  2 -
+ xen/include/xen/irq_cpustat.h          |  1 -
+ xen/include/xen/softirq.h              | 16 +++++
+ 12 files changed, 124 insertions(+), 80 deletions(-)
+
+-- 
+2.39.5
+
 
