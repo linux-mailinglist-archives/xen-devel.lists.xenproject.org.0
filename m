@@ -2,35 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F0F53AF9115
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Jul 2025 13:12:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1033325.1406767 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F3135AF931E
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Jul 2025 14:50:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1033372.1406778 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uXeKs-0002uw-DV; Fri, 04 Jul 2025 11:12:06 +0000
+	id 1uXfr7-00068P-7G; Fri, 04 Jul 2025 12:49:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1033325.1406767; Fri, 04 Jul 2025 11:12:06 +0000
+Received: by outflank-mailman (output) from mailman id 1033372.1406778; Fri, 04 Jul 2025 12:49:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uXeKs-0002t4-AX; Fri, 04 Jul 2025 11:12:06 +0000
-Received: by outflank-mailman (input) for mailman id 1033325;
- Fri, 04 Jul 2025 11:12:05 +0000
+	id 1uXfr7-00066H-3i; Fri, 04 Jul 2025 12:49:29 +0000
+Received: by outflank-mailman (input) for mailman id 1033372;
+ Fri, 04 Jul 2025 12:49:27 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=3u94=ZR=intel.com=zhao1.liu@srs-se1.protection.inumbo.net>)
- id 1uXeKr-0002sy-As
- for xen-devel@lists.xenproject.org; Fri, 04 Jul 2025 11:12:05 +0000
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+ <SRS0=YkGx=ZR=bounce.vates.tech=bounce-md_30504962.6867cdcf.v1-4d9f154c666f4dc68183ed5fc006f81e@srs-se1.protection.inumbo.net>)
+ id 1uXfr5-00066B-KJ
+ for xen-devel@lists.xenproject.org; Fri, 04 Jul 2025 12:49:27 +0000
+Received: from mail135-23.atl141.mandrillapp.com
+ (mail135-23.atl141.mandrillapp.com [198.2.135.23])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ae39376d-58c7-11f0-b894-0df219b8e170;
- Fri, 04 Jul 2025 13:11:51 +0200 (CEST)
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
- by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Jul 2025 04:11:48 -0700
-Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
- ([10.239.160.39])
- by orviesa007.jf.intel.com with ESMTP; 04 Jul 2025 04:11:44 -0700
+ id 4da0a144-58d5-11f0-b894-0df219b8e170;
+ Fri, 04 Jul 2025 14:49:20 +0200 (CEST)
+Received: from pmta14.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
+ by mail135-23.atl141.mandrillapp.com (Mailchimp) with ESMTP id
+ 4bYYNv26kBz35j3lX
+ for <xen-devel@lists.xenproject.org>; Fri,  4 Jul 2025 12:49:19 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ 4d9f154c666f4dc68183ed5fc006f81e; Fri, 04 Jul 2025 12:49:19 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,149 +43,185 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ae39376d-58c7-11f0-b894-0df219b8e170
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1751627511; x=1783163511;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=o1Nrk5RUp6fY1bkTBtN3Hp9y0X6x3rmoyVhWTfb40es=;
-  b=iJj2Cxihn7V39UzZWa18HSQoCtP/J/+/sIM96UH3DfPYhK9V3LauK1DE
-   OzIruerWzFm77mDWEHx4X63KvKs9Q55b+9DsdYH/cXDa0dldBhixDc3jV
-   9k95T/oCYgU3s4s5hZcVd9pYasm0m1qjakJwEqVk0a71nFQKeMOO6nZWH
-   /Zn0AFZbEqadb6L19im/dm8JM//U22pv+Qi+so+dCTa0xCrbOGyWhKSPb
-   YxONjRq79rsevFHabENCkb7z4g4Csmq9n+61/Elq7PnQhxUQ/H8SAq2Qa
-   OZkKC9tfBreHLGUqaiFAtsCg+THMvP33Ty2l7ynhH41yPpyWzhL8l3Qyo
-   Q==;
-X-CSE-ConnectionGUID: s7C8ktdbTbC4vBmu9IY58g==
-X-CSE-MsgGUID: lqyINbxmSnm6XcH/UndSrg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11483"; a="54104345"
-X-IronPort-AV: E=Sophos;i="6.16,287,1744095600"; 
-   d="scan'208";a="54104345"
-X-CSE-ConnectionGUID: 9GV3W5YtQfabXlm8uFAwUA==
-X-CSE-MsgGUID: Rb2p5PN2TDWcFZtsdBilyw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.16,287,1744095600"; 
-   d="scan'208";a="154746779"
-Date: Fri, 4 Jul 2025 19:33:09 +0800
-From: Zhao Liu <zhao1.liu@intel.com>
-To: Philippe =?iso-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>
-Cc: qemu-devel@nongnu.org, Paolo Bonzini <pbonzini@redhat.com>,
-	Richard Henderson <richard.henderson@linaro.org>,
-	Pierrick Bouvier <pierrick.bouvier@linaro.org>,
-	Alex =?iso-8859-1?Q?Benn=E9e?= <alex.bennee@linaro.org>,
-	Cameron Esfahani <dirty@apple.com>,
-	Roman Bolshakov <rbolshakov@ddn.com>,
-	Phil Dennis-Jordan <phil@philjordan.eu>,
-	Mads Ynddal <mads@ynddal.dk>, Fabiano Rosas <farosas@suse.de>,
-	Laurent Vivier <lvivier@redhat.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Anthony PERARD <anthony@xenproject.org>,
-	Paul Durrant <paul@xen.org>,
-	"Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
-	Warner Losh <imp@bsdimp.com>, Kyle Evans <kevans@freebsd.org>,
-	Reinoud Zandijk <reinoud@netbsd.org>,
-	Sunil Muthuswamy <sunilmut@microsoft.com>, kvm@vger.kernel.org,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v6 30/39] accel: Propagate AccelState to
- AccelClass::init_machine()
-Message-ID: <aGe79U/acV51nQM9@intel.com>
-References: <20250703173248.44995-1-philmd@linaro.org>
- <20250703173248.44995-31-philmd@linaro.org>
+X-Inumbo-ID: 4da0a144-58d5-11f0-b894-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1751633359; x=1751903359;
+	bh=tt0oM0tqOxl3axHhNxXYGkg2bRs4dsH6dn0uDyBVvW8=;
+	h=From:Subject:To:Cc:Message-Id:Feedback-ID:Date:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
+	b=UtYtt2DHL8jHnIaR4MLf5CQeeheH0VTv4YttLG5A5LGCPGWJ6/OS1/rrCVNQKKTVm
+	 fPEVC2xB1iuUsl0Tz5IN8if1Mg0OxR4CWcShaESQ4rzBZte5b0Lxvi1zaHOyL057vl
+	 wwq3lMtCMwuWZC2EJpJQkKE+fqEZWt9Y4+P9bqjcLCCQyxHNRjQouCAMNCb9+8T7L0
+	 qF4HFTl+y5KCLZUpDtl6B6g/GGhouu9VNak8u9/BqB08Z3l9ZLVIVLQyUOodBrG7om
+	 uIbMPeyt4Dwaeen/Rs8JjKerF2cV745+EE6qOqGZf/HRZBg0+cwfrye+NXNLkq3EuU
+	 YMDS+Ud6JRcSg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1751633359; x=1751893859; i=teddy.astie@vates.tech;
+	bh=tt0oM0tqOxl3axHhNxXYGkg2bRs4dsH6dn0uDyBVvW8=;
+	h=From:Subject:To:Cc:Message-Id:Feedback-ID:Date:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
+	b=VBcFSLCEE/g/EjBMS1yoTvh5L5CyKxv+cR0sOgaG/o3ku91fMj+n4944ODX5p9/w7
+	 jQPEpzxB2Q8nnfI8vgHjp+sHhu/GSR0azPEaVRiFHMMwfSshqwg8NFUyL3zdy+qkp4
+	 dPbRCNbDjVmSQ2Tptaqh7WSWgKN79IWGgCuZkmywFNsrOLKkmOBxPYXB3S60lfGql4
+	 hGEzlk8ArSupxnyoXeroTXRhdSMNcwBK0lH6dk0PRs9GLPLxw+oovM8mSidfriShPX
+	 ZvfqiLt4P3nnJxjqKM2OE8FMC1Rbpa27jS+D6azdwYAzjyVBP3VdQKq6Q7gWhE703f
+	 ECtcVvOhsMOPw==
+From: "Teddy Astie" <teddy.astie@vates.tech>
+Subject: =?utf-8?Q?[PATCH=205.15.y=20v3]=20xen:=20replace=20xen=5Fremap()=20with=20memremap()?=
+X-Mailer: git-send-email 2.50.0
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1751633357597
+To: linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org
+Cc: "Teddy Astie" <teddy.astie@vates.tech>, "Boris Ostrovsky" <boris.ostrovsky@oracle.com>, "Juergen Gross" <jgross@suse.com>, "Stefano Stabellini" <sstabellini@kernel.org>, "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, "Sasha Levin" <sashal@kernel.org>, "Jason Andryuk" <jason.andryuk@amd.com>, stable@vger.kernel.org, "kernel test robot" <lkp@intel.com>
+Message-Id: <ea4945df138527ed63e711cb77e3b333f7b3a4c9.1751633056.git.teddy.astie@vates.tech>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.4d9f154c666f4dc68183ed5fc006f81e?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20250704:md
+Date: Fri, 04 Jul 2025 12:49:19 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20250703173248.44995-31-philmd@linaro.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Jul 03, 2025 at 07:32:36PM +0200, Philippe Mathieu-Daudé wrote:
-> Date: Thu,  3 Jul 2025 19:32:36 +0200
-> From: Philippe Mathieu-Daudé <philmd@linaro.org>
-> Subject: [PATCH v6 30/39] accel: Propagate AccelState to
->  AccelClass::init_machine()
-> X-Mailer: git-send-email 2.49.0
-> 
-> In order to avoid init_machine() to call current_accel(),
-> pass AccelState along.
-> 
-> Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
-> Reviewed-by: Richard Henderson <richard.henderson@linaro.org>
-> Reviewed-by: Alex Bennée <alex.bennee@linaro.org>
-> ---
->  include/qemu/accel.h        | 2 +-
->  accel/accel-system.c        | 2 +-
->  accel/hvf/hvf-all.c         | 2 +-
->  accel/kvm/kvm-all.c         | 2 +-
->  accel/qtest/qtest.c         | 2 +-
->  accel/tcg/tcg-all.c         | 2 +-
->  accel/xen/xen-all.c         | 2 +-
->  bsd-user/main.c             | 2 +-
->  linux-user/main.c           | 2 +-
->  target/i386/nvmm/nvmm-all.c | 2 +-
->  target/i386/whpx/whpx-all.c | 2 +-
->  11 files changed, 11 insertions(+), 11 deletions(-)
+From: Juergen Gross <jgross@suse.com>
 
-...
+[ upstream commit 41925b105e345ebc84cedb64f59d20cb14a62613 ]
 
-> diff --git a/accel/accel-system.c b/accel/accel-system.c
-> index b5b368c6a9c..fb8abe38594 100644
-> --- a/accel/accel-system.c
-> +++ b/accel/accel-system.c
-> @@ -37,7 +37,7 @@ int accel_init_machine(AccelState *accel, MachineState *ms)
->      int ret;
->      ms->accelerator = accel;
->      *(acc->allowed) = true;
-> -    ret = acc->init_machine(ms);
-> +    ret = acc->init_machine(accel, ms);
+xen_remap() is used to establish mappings for frames not under direct
+control of the kernel: for Xenstore and console ring pages, and for
+grant pages of non-PV guests.
 
-Now we've already set "ms->accelerator", so that we could get @accel
-by ms->accelerator.
+Today xen_remap() is defined to use ioremap() on x86 (doing uncached
+mappings), and ioremap_cache() on Arm (doing cached mappings).
 
-But considerring the user emulation, where the @ms is NULL, and for
-these cases, it needs to bring current_accel() back in patch 32.
+Uncached mappings for those use cases are bad for performance, so they
+should be avoided if possible. As all use cases of xen_remap() don't
+require uncached mappings (the mapped area is always physical RAM),
+a mapping using the standard WB cache mode is fine.
 
-Anyway, this solution is also fine for me, so,
+As sparse is flagging some of the xen_remap() use cases to be not
+appropriate for iomem(), as the result is not annotated with the
+__iomem modifier, eliminate xen_remap() completely and replace all
+use cases with memremap() specifying the MEMREMAP_WB caching mode.
 
-Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
+xen_unmap() can be replaced with memunmap().
+
+Reported-by: kernel test robot <lkp@intel.com>
+Signed-off-by: Juergen Gross <jgross@suse.com>
+Reviewed-by: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Acked-by: Stefano Stabellini <sstabellini@kernel.org>
+Link: https://lore.kernel.org/r/20220530082634.6339-1-jgross@suse.com
+Signed-off-by: Juergen Gross <jgross@suse.com>
+Signed-off-by: Teddy Astie <teddy.astie@vates.tech> [backport to 5.15.y]
+---
+v3:
+- add missing hvc_xen.c change
+v2:
+- also remove xen_remap/xen_unmap on ARM
+---
+ arch/x86/include/asm/xen/page.h   | 3 ---
+ drivers/tty/hvc/hvc_xen.c         | 2 +-
+ drivers/xen/grant-table.c         | 6 +++---
+ drivers/xen/xenbus/xenbus_probe.c | 3 +--
+ include/xen/arm/page.h            | 3 ---
+ 5 files changed, 5 insertions(+), 12 deletions(-)
+
+diff --git a/arch/x86/include/asm/xen/page.h b/arch/x86/include/asm/xen/page.h
+index 1a162e559753..c183b7f9efef 100644
+--- a/arch/x86/include/asm/xen/page.h
++++ b/arch/x86/include/asm/xen/page.h
+@@ -355,9 +355,6 @@ unsigned long arbitrary_virt_to_mfn(void *vaddr);
+ void make_lowmem_page_readonly(void *vaddr);
+ void make_lowmem_page_readwrite(void *vaddr);
+ 
+-#define xen_remap(cookie, size) ioremap((cookie), (size))
+-#define xen_unmap(cookie) iounmap((cookie))
+-
+ static inline bool xen_arch_need_swiotlb(struct device *dev,
+ 					 phys_addr_t phys,
+ 					 dma_addr_t dev_addr)
+diff --git a/drivers/tty/hvc/hvc_xen.c b/drivers/tty/hvc/hvc_xen.c
+index 141acc662eba..6a11a4177a16 100644
+--- a/drivers/tty/hvc/hvc_xen.c
++++ b/drivers/tty/hvc/hvc_xen.c
+@@ -270,7 +270,7 @@ static int xen_hvm_console_init(void)
+ 	if (r < 0 || v == 0)
+ 		goto err;
+ 	gfn = v;
+-	info->intf = xen_remap(gfn << XEN_PAGE_SHIFT, XEN_PAGE_SIZE);
++	info->intf = memremap(gfn << XEN_PAGE_SHIFT, XEN_PAGE_SIZE, MEMREMAP_WB);
+ 	if (info->intf == NULL)
+ 		goto err;
+ 	info->vtermno = HVC_COOKIE;
+diff --git a/drivers/xen/grant-table.c b/drivers/xen/grant-table.c
+index 0a2d24d6ac6f..a10e0741bec5 100644
+--- a/drivers/xen/grant-table.c
++++ b/drivers/xen/grant-table.c
+@@ -743,7 +743,7 @@ int gnttab_setup_auto_xlat_frames(phys_addr_t addr)
+ 	if (xen_auto_xlat_grant_frames.count)
+ 		return -EINVAL;
+ 
+-	vaddr = xen_remap(addr, XEN_PAGE_SIZE * max_nr_gframes);
++	vaddr = memremap(addr, XEN_PAGE_SIZE * max_nr_gframes, MEMREMAP_WB);
+ 	if (vaddr == NULL) {
+ 		pr_warn("Failed to ioremap gnttab share frames (addr=%pa)!\n",
+ 			&addr);
+@@ -751,7 +751,7 @@ int gnttab_setup_auto_xlat_frames(phys_addr_t addr)
+ 	}
+ 	pfn = kcalloc(max_nr_gframes, sizeof(pfn[0]), GFP_KERNEL);
+ 	if (!pfn) {
+-		xen_unmap(vaddr);
++		memunmap(vaddr);
+ 		return -ENOMEM;
+ 	}
+ 	for (i = 0; i < max_nr_gframes; i++)
+@@ -770,7 +770,7 @@ void gnttab_free_auto_xlat_frames(void)
+ 	if (!xen_auto_xlat_grant_frames.count)
+ 		return;
+ 	kfree(xen_auto_xlat_grant_frames.pfn);
+-	xen_unmap(xen_auto_xlat_grant_frames.vaddr);
++	memunmap(xen_auto_xlat_grant_frames.vaddr);
+ 
+ 	xen_auto_xlat_grant_frames.pfn = NULL;
+ 	xen_auto_xlat_grant_frames.count = 0;
+diff --git a/drivers/xen/xenbus/xenbus_probe.c b/drivers/xen/xenbus/xenbus_probe.c
+index 2068f83556b7..77ca24611293 100644
+--- a/drivers/xen/xenbus/xenbus_probe.c
++++ b/drivers/xen/xenbus/xenbus_probe.c
+@@ -982,8 +982,7 @@ static int __init xenbus_init(void)
+ #endif
+ 		xen_store_gfn = (unsigned long)v;
+ 		xen_store_interface =
+-			xen_remap(xen_store_gfn << XEN_PAGE_SHIFT,
+-				  XEN_PAGE_SIZE);
++			memremap(xen_store_gfn << XEN_PAGE_SHIFT, XEN_PAGE_SIZE, MEMREMAP_WB);
+ 		break;
+ 	default:
+ 		pr_warn("Xenstore state unknown\n");
+diff --git a/include/xen/arm/page.h b/include/xen/arm/page.h
+index ac1b65470563..f831cfeca000 100644
+--- a/include/xen/arm/page.h
++++ b/include/xen/arm/page.h
+@@ -109,9 +109,6 @@ static inline bool set_phys_to_machine(unsigned long pfn, unsigned long mfn)
+ 	return __set_phys_to_machine(pfn, mfn);
+ }
+ 
+-#define xen_remap(cookie, size) ioremap_cache((cookie), (size))
+-#define xen_unmap(cookie) iounmap((cookie))
+-
+ bool xen_arch_need_swiotlb(struct device *dev,
+ 			   phys_addr_t phys,
+ 			   dma_addr_t dev_addr);
+-- 
+2.50.0
 
 
-...But there're still more comments/questions about user emulation:
 
-> --- a/bsd-user/main.c
-> +++ b/bsd-user/main.c
-> @@ -474,7 +474,7 @@ int main(int argc, char **argv)
->                                   opt_one_insn_per_tb, &error_abort);
->          object_property_set_int(OBJECT(accel), "tb-size",
->                                  opt_tb_size, &error_abort);
-> -        ac->init_machine(NULL);
-> +        ac->init_machine(accel, NULL);
+Teddy Astie | Vates XCP-ng Developer
 
-Not the issue about this patch though,
+XCP-ng & Xen Orchestra - Vates solutions
 
-it seems user emulation doesn't set acc->allowed. At least TCG enabled
-is necessary, I guess?
-
->      }
->  
->      /*
-> diff --git a/linux-user/main.c b/linux-user/main.c
-> index 5ac5b55dc65..a9142ee7268 100644
-> --- a/linux-user/main.c
-> +++ b/linux-user/main.c
-> @@ -820,7 +820,7 @@ int main(int argc, char **argv, char **envp)
->                                   opt_one_insn_per_tb, &error_abort);
->          object_property_set_int(OBJECT(accel), "tb-size",
->                                  opt_tb_size, &error_abort);
-> -        ac->init_machine(NULL);
-> +        ac->init_machine(accel, NULL);
-
-Ditto.
-
->      }
->  
->      /*
-
-Thanks,
-Zhao
+web: https://vates.tech
 
 
