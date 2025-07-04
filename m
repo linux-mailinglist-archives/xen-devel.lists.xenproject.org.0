@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB91DAF94E3
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Jul 2025 16:02:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1033421.1406788 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BE870AF94E5
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Jul 2025 16:03:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1033427.1406797 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uXgzK-0007VP-4t; Fri, 04 Jul 2025 14:02:02 +0000
+	id 1uXh0R-0007zA-Df; Fri, 04 Jul 2025 14:03:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1033421.1406788; Fri, 04 Jul 2025 14:02:02 +0000
+Received: by outflank-mailman (output) from mailman id 1033427.1406797; Fri, 04 Jul 2025 14:03:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uXgzK-0007St-1c; Fri, 04 Jul 2025 14:02:02 +0000
-Received: by outflank-mailman (input) for mailman id 1033421;
- Fri, 04 Jul 2025 14:02:00 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uXh0R-0007w9-Az; Fri, 04 Jul 2025 14:03:11 +0000
+Received: by outflank-mailman (input) for mailman id 1033427;
+ Fri, 04 Jul 2025 14:03:10 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=jMLS=ZR=linaro.org=richard.henderson@srs-se1.protection.inumbo.net>)
- id 1uXgzI-0007Sn-4a
- for xen-devel@lists.xenproject.org; Fri, 04 Jul 2025 14:02:00 +0000
-Received: from mail-oi1-x22b.google.com (mail-oi1-x22b.google.com
- [2607:f8b0:4864:20::22b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 714629b9-58df-11f0-a315-13f23c93f187;
- Fri, 04 Jul 2025 16:01:55 +0200 (CEST)
-Received: by mail-oi1-x22b.google.com with SMTP id
- 5614622812f47-40d12821c1cso64220b6e.2
- for <xen-devel@lists.xenproject.org>; Fri, 04 Jul 2025 07:01:55 -0700 (PDT)
+ id 1uXh0Q-0007w0-L9
+ for xen-devel@lists.xenproject.org; Fri, 04 Jul 2025 14:03:10 +0000
+Received: from mail-ot1-x32e.google.com (mail-ot1-x32e.google.com
+ [2607:f8b0:4864:20::32e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9c16fb92-58df-11f0-b894-0df219b8e170;
+ Fri, 04 Jul 2025 16:03:07 +0200 (CEST)
+Received: by mail-ot1-x32e.google.com with SMTP id
+ 46e09a7af769-73b0ea4e138so812489a34.3
+ for <xen-devel@lists.xenproject.org>; Fri, 04 Jul 2025 07:03:07 -0700 (PDT)
 Received: from [192.168.4.112] (fixed-187-189-51-143.totalplay.net.
  [187.189.51.143]) by smtp.gmail.com with ESMTPSA id
- 5614622812f47-40d02a44bc5sm315193b6e.18.2025.07.04.07.01.52
+ 46e09a7af769-73c9f735144sm388064a34.14.2025.07.04.07.03.04
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 04 Jul 2025 07:01:53 -0700 (PDT)
+ Fri, 04 Jul 2025 07:03:05 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 714629b9-58df-11f0-a315-13f23c93f187
+X-Inumbo-ID: 9c16fb92-58df-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1751637714; x=1752242514; darn=lists.xenproject.org;
+        d=linaro.org; s=google; t=1751637786; x=1752242586; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=gdQOyqpRwSgJgq1ODB3x5MH5gjNy7ViEFGXyEVIG+Y0=;
-        b=mQL0k3Yg2h9I9g/nxrD9MxICf9+ztODFPRh6nyLAT8iDU7ffOCX6H2u9Gzrn3NR+wD
-         H76nQrh+6hHTXfq8xvmH5JZxBCv0/473Yu+5xy2YsWWHTbHtvuU4wJlIaD1gx1mVFivD
-         3ynhVMrQW1PNeULnxIPAIS6aGJnna8d0vSNw4hWFjFtac7oFqM9Io4jKJXvcjQDy7yJv
-         rBI3nuYIpj7WP6YoEklzdeukWWdPNI3vRNG4wL3RUqVqd64yjpNXw/xZTt0VVJ5Yi9a9
-         K4d8T6hK4UvCjx1vw6K/RdLBjamp4+Df3yQA9zIvbeZSJgSNWqkFho2Dho9naUhnGKZe
-         mhlg==
+        bh=XNq0c8GL5ZyhDYOqX8QVyvyzFsqz5xU7FqcEI7jxulc=;
+        b=AXuM09qfI01iTghr9EAyAKj9lNAejIl8NI+azsed5Lq1wLApHgBTsBCLum5XnTmsrN
+         Qs/t9w3dn//7UuBnfqUHmkY2WsVow6Cejb7va+Gzk6MNIxexWbCXcgaBri3uXipTsEZ6
+         zcMEbWatzCkjRCUmvii0o0JG3ub71GOwVzp61zAsXzURDhnG2z6klttJ74uJPu0Dxoju
+         l7KI6KRof3A5kICgb465JiWbMliHVSlrdimKrE6XofoTX7isavp8U+TvMANHqA2Xg9pL
+         9AjE6mYIqdkNbTChrhgd3ae14RE+STBOsa+VK6PtcS3uBCBz0vVEShYtHWzCiENKFmJs
+         l5wg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1751637714; x=1752242514;
+        d=1e100.net; s=20230601; t=1751637786; x=1752242586;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=gdQOyqpRwSgJgq1ODB3x5MH5gjNy7ViEFGXyEVIG+Y0=;
-        b=xEnLXDUBpJFtoHIVmalPuLgZwIwhgZnGHzAYqFTgWK82ybzOe7jTluiyqLF5y8TZzf
-         aFIEU1iJZXaT1qS4oFQDi9l88hhO+EZvZAX8kID0BPU9qd05TBk82slibdLtqucNcuxO
-         +fxY5l01T+ve/FWyeHzMm7E8lfRq2uzT4fuyyxtSe0JIij2DRfPJt/M9Al8Mg3ZO5sRP
-         xFxkS44Q3hugWPkEfZGMl3e3AJPKviM8VFQoC0HbfLCS+4nVOj1bTLbm2RoqKycQ7ONS
-         c8E3h2QRuogbrAOrCZsK6XmCiMcKmgd8nJjuplBGLaTSlcOy5kgcL1xB8pA2HZEsHftK
-         RU2w==
-X-Forwarded-Encrypted: i=1; AJvYcCUN6iTw87/5qA5vRYzn9D8kliqxKziEWkxTMCI9oYpNdx2P3NXsgyvfr6/ZjHEXE1xZnb6Sm9omCXs=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxE9/GV44Mg26AEok+YsA1H9Ny/Fo74SQa1scsTbHxg6OfwSgIp
-	YYlFWejB5bJyueRg9NurJhVEGfjyyM3/mygDOuNizTLDTPbd+mSU6f6m7LTax3n6sYA=
-X-Gm-Gg: ASbGncv+aifCW4rNjuMjY11+XFpQoqlxeefnsRtcMZmOy+CxXPY+aBg6YWH0Pr+PWTh
-	COuRLChFAb15Ec7z9HF25s9dA+m9asPqbvJc1fbgHQCf5qoBsSCNCA0tOXCOVr6V6hbDDARNVBH
-	Bjx4Egx45Fdimvu+HJmbn08Yb66fyomIGkYxfMXuKHW/SoS7xFqLgz/7uFFGAruIBd1Tu2UVPGs
-	xxpvqBhwSIfvuOwA3zqS5P6qzyAfhryZPrDpEu0NAwfhZ41CVDlpqjc1LcOBETDfbGC2x5H4Dhf
-	HOAIybQUJjlCFSkpC/A+e9Bueg4lwFMrhu8NVcwJTvtU7uE5VVly2rKkv8bNj7NBAqgxF3l3yW+
-	viyOJOLaWt2OO+0tc0JGuAUH11o9KscprUzbPinJn
-X-Google-Smtp-Source: AGHT+IHxIVOO+gNuc/LC25XI0U1uFEyxSWF05BGWni1kCzTzcdJfCOeeBeDR0keZpUpg1vyhdOOQdg==
-X-Received: by 2002:a05:6808:3028:b0:40a:525d:6220 with SMTP id 5614622812f47-40d043e6d65mr2043241b6e.22.1751637714178;
-        Fri, 04 Jul 2025 07:01:54 -0700 (PDT)
-Message-ID: <c6eb1d9f-b3eb-4418-8bf1-6edd47ddc2e0@linaro.org>
-Date: Fri, 4 Jul 2025 08:01:50 -0600
+        bh=XNq0c8GL5ZyhDYOqX8QVyvyzFsqz5xU7FqcEI7jxulc=;
+        b=ETjvrlZUoen1t98w7O20NF6QEBjdOR+5VKrcNuY+jm7EBpFxA8UU3+eaGEH/dza/9b
+         vikrrIvnRUhaumRNJnx9RytROTxYkQmdfDggncY6BX9uRYDbqFeXkX5ph7Teu3RnGUJV
+         xbrn3ikt6t/BL67EoAAReTrEiQcnE+SX9bfm1sESzukyet3vVIDYzWohHLPxu/7fLcTw
+         mZ0CAKBzIds7FPU/VMgASfRyLuIxVCGVhzHw1wHYuJ68PGwhcnpSlGpzJlReYEzmiId9
+         Sd0VcyD3YJMp0///DjqtG0PHVzdFGXT3LzEWhphJ0ta7O8WPkZo+KaAExbLFRzfVbZWq
+         nbmA==
+X-Forwarded-Encrypted: i=1; AJvYcCU6DspoXT7K7QBh2cv9AKum6EUJ81a6pkBpP9dMU2ojxxPmrRc4D9AKUeIHPv69B1uHZQoe/5Zqilw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw1+hPO0aosAHRo61SbNqL/XGPIUBCF1amutRhi+EFtj7OP2g+V
+	rMzpXM7dpDOFs3l/0RtgsVPsv4ownL2ykxkrwhshafGfA+FKVqlT98UFYfRrP2M7Imk=
+X-Gm-Gg: ASbGncu7OAHUx5Aeg2qOBDNsT9MQihZ5rQGPgoGa+HqMb7aKZSxjYkK7qENWSSCu0Z1
+	aHMJ5LAiVExy0kYmt7jfL+UrhdE17qC7wjuLs9Kqiv6dCWkg6bosKkgBCj8/fURKZKI1be6gg5F
+	k+o3VJV+sYZ+NSRTInSJeFMk7OXLtBpebsUhq8QjfoSTswNz4HhxiJlNFTE8tnkFsh1eiuAb+kX
+	xYBAmM9QD6OXeAji9cUBHVDJybx6vAL3IrMP5zqyMDiu8rWtPkiHuDEfloALsNNAmxZvfMouRfU
+	TvOhBadhj3q6ta5e2PeBr6rzxk86J1IIXErN9KZv4phfpH8UCYIvgtJigfkR5ly8LTIijQeiMbt
+	G/r4BHTynJQJIa07EKbDmaspXJc72iLIm56VndKq8
+X-Google-Smtp-Source: AGHT+IHCjZMWku2sXb4MaomGmkFzos2MmBGatOccfc0k+r2F+uBCum+atRQEn6lI9s8yQAG5RNVFtg==
+X-Received: by 2002:a05:6830:4d86:b0:73a:8a8a:5151 with SMTP id 46e09a7af769-73ca66dc922mr1238051a34.17.1751637786225;
+        Fri, 04 Jul 2025 07:03:06 -0700 (PDT)
+Message-ID: <68bd424d-0249-4c74-a7a1-d0f46d46a835@linaro.org>
+Date: Fri, 4 Jul 2025 08:03:02 -0600
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 37/39] accel: Rename 'system/accel-ops.h' ->
- 'accel/accel-cpu-ops.h'
+Subject: Re: [PATCH v6 38/39] accel: Extract AccelClass definition to
+ 'accel/accel-ops.h'
 To: =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
  qemu-devel@nongnu.org
 Cc: Zhao Liu <zhao1.liu@intel.com>, Paolo Bonzini <pbonzini@redhat.com>,
@@ -98,48 +98,50 @@ Cc: Zhao Liu <zhao1.liu@intel.com>, Paolo Bonzini <pbonzini@redhat.com>,
  Fabiano Rosas <farosas@suse.de>, Laurent Vivier <lvivier@redhat.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
  Anthony PERARD <anthony@xenproject.org>, Paul Durrant <paul@xen.org>,
- "Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
+ "Edgar E. Iglesias" <edgar.iglesias@gmail.com>, Warner Losh
+ <imp@bsdimp.com>, Kyle Evans <kevans@freebsd.org>,
+ Peter Xu <peterx@redhat.com>, David Hildenbrand <david@redhat.com>,
  Reinoud Zandijk <reinoud@netbsd.org>,
  Sunil Muthuswamy <sunilmut@microsoft.com>, kvm@vger.kernel.org,
  xen-devel@lists.xenproject.org
 References: <20250703173248.44995-1-philmd@linaro.org>
- <20250703173248.44995-38-philmd@linaro.org>
+ <20250703173248.44995-39-philmd@linaro.org>
 Content-Language: en-US
 From: Richard Henderson <richard.henderson@linaro.org>
-In-Reply-To: <20250703173248.44995-38-philmd@linaro.org>
+In-Reply-To: <20250703173248.44995-39-philmd@linaro.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
 On 7/3/25 11:32, Philippe Mathieu-Daudé wrote:
-> Unfortunately "system/accel-ops.h" handlers are not only
-> system-specific. For example, the cpu_reset_hold() hook
-> is part of the vCPU creation, after it is realized.
-> 
-> Mechanical rename to drop 'system' using:
-> 
->    $ sed -i -e s_system/accel-ops.h_accel/accel-cpu-ops.h_g \
->                $(git grep -l system/accel-ops.h)
+> Only accelerator implementations (and the common accelator
+> code) need to know about AccelClass internals. Move the
+> definition out but forward declare AccelState and AccelClass.
 > 
 > Signed-off-by: Philippe Mathieu-Daudé<philmd@linaro.org>
 > ---
->   include/{system/accel-ops.h => accel/accel-cpu-ops.h} | 8 ++++----
->   accel/accel-common.c                                  | 2 +-
->   accel/accel-system.c                                  | 2 +-
->   accel/hvf/hvf-accel-ops.c                             | 2 +-
->   accel/kvm/kvm-accel-ops.c                             | 2 +-
->   accel/qtest/qtest.c                                   | 2 +-
->   accel/tcg/tcg-accel-ops.c                             | 2 +-
->   accel/xen/xen-all.c                                   | 2 +-
->   cpu-target.c                                          | 2 +-
->   gdbstub/system.c                                      | 2 +-
->   system/cpus.c                                         | 2 +-
->   target/i386/nvmm/nvmm-accel-ops.c                     | 2 +-
->   target/i386/whpx/whpx-accel-ops.c                     | 2 +-
->   13 files changed, 16 insertions(+), 16 deletions(-)
->   rename include/{system/accel-ops.h => accel/accel-cpu-ops.h} (96%)
+>   MAINTAINERS                 |  2 +-
+>   include/accel/accel-ops.h   | 50 +++++++++++++++++++++++++++++++++++++
+>   include/qemu/accel.h        | 40 ++---------------------------
+>   include/system/hvf_int.h    |  3 ++-
+>   include/system/kvm_int.h    |  1 +
+>   accel/accel-common.c        |  1 +
+>   accel/accel-system.c        |  1 +
+>   accel/hvf/hvf-all.c         |  1 +
+>   accel/kvm/kvm-all.c         |  1 +
+>   accel/qtest/qtest.c         |  1 +
+>   accel/tcg/tcg-accel-ops.c   |  1 +
+>   accel/tcg/tcg-all.c         |  1 +
+>   accel/xen/xen-all.c         |  1 +
+>   bsd-user/main.c             |  1 +
+>   gdbstub/system.c            |  1 +
+>   linux-user/main.c           |  1 +
+>   system/memory.c             |  1 +
+>   target/i386/nvmm/nvmm-all.c |  1 +
+>   target/i386/whpx/whpx-all.c |  1 +
+>   19 files changed, 70 insertions(+), 40 deletions(-)
+>   create mode 100644 include/accel/accel-ops.h
 
 Reviewed-by: Richard Henderson <richard.henderson@linaro.org>
 
 r~
-
 
