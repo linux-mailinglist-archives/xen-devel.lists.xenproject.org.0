@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65646AF8F1E
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Jul 2025 11:51:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1033247.1406728 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B5C30AF8F93
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Jul 2025 12:11:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1033281.1406738 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uXd4a-0005eV-6A; Fri, 04 Jul 2025 09:51:12 +0000
+	id 1uXdNO-0001PA-P1; Fri, 04 Jul 2025 10:10:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1033247.1406728; Fri, 04 Jul 2025 09:51:12 +0000
+Received: by outflank-mailman (output) from mailman id 1033281.1406738; Fri, 04 Jul 2025 10:10:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uXd4a-0005ci-1r; Fri, 04 Jul 2025 09:51:12 +0000
-Received: by outflank-mailman (input) for mailman id 1033247;
- Fri, 04 Jul 2025 09:51:11 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uXdNO-0001MU-Lf; Fri, 04 Jul 2025 10:10:38 +0000
+Received: by outflank-mailman (input) for mailman id 1033281;
+ Fri, 04 Jul 2025 10:10:37 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=MIza=ZR=amd.com=penny.zheng@srs-se1.protection.inumbo.net>)
- id 1uXd4Z-0005bE-4R
- for xen-devel@lists.xenproject.org; Fri, 04 Jul 2025 09:51:11 +0000
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2060b.outbound.protection.outlook.com
- [2a01:111:f403:2414::60b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 64487e82-58bc-11f0-a315-13f23c93f187;
- Fri, 04 Jul 2025 11:51:01 +0200 (CEST)
-Received: from DM4PR12MB8451.namprd12.prod.outlook.com (2603:10b6:8:182::7) by
- DS7PR12MB9044.namprd12.prod.outlook.com (2603:10b6:8:e3::22) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.8835.30; Fri, 4 Jul 2025 09:50:57 +0000
-Received: from DM4PR12MB8451.namprd12.prod.outlook.com
- ([fe80::b04e:2da5:7189:4c4d]) by DM4PR12MB8451.namprd12.prod.outlook.com
- ([fe80::b04e:2da5:7189:4c4d%5]) with mapi id 15.20.8901.021; Fri, 4 Jul 2025
- 09:50:57 +0000
+ <SRS0=Gmk4=ZR=epam.com=Sergiy_Kibrik@srs-se1.protection.inumbo.net>)
+ id 1uXdNN-0000PN-FY
+ for xen-devel@lists.xenproject.org; Fri, 04 Jul 2025 10:10:37 +0000
+Received: from DUZPR83CU001.outbound.protection.outlook.com
+ (mail-northeuropeazlp170120005.outbound.protection.outlook.com
+ [2a01:111:f403:c200::5])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1e4c6eb0-58bf-11f0-b894-0df219b8e170;
+ Fri, 04 Jul 2025 12:10:32 +0200 (CEST)
+Received: from AS8PR03MB9192.eurprd03.prod.outlook.com (2603:10a6:20b:5c0::11)
+ by AS8PR03MB9698.eurprd03.prod.outlook.com (2603:10a6:20b:61e::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8857.25; Fri, 4 Jul
+ 2025 10:10:27 +0000
+Received: from AS8PR03MB9192.eurprd03.prod.outlook.com
+ ([fe80::baa9:29b3:908:ed7d]) by AS8PR03MB9192.eurprd03.prod.outlook.com
+ ([fe80::baa9:29b3:908:ed7d%5]) with mapi id 15.20.8880.026; Fri, 4 Jul 2025
+ 10:10:26 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,212 +47,222 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 64487e82-58bc-11f0-a315-13f23c93f187
+X-Inumbo-ID: 1e4c6eb0-58bf-11f0-b894-0df219b8e170
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jJWIOhwIX7mEWvr4UsY7FJqu1uUmuZxCBBN6ng3+r3JhUMrORXmO/GrO6CIlu8yKt+S4siNJDPyJRB1oFlCGjGxhtWJPtgcN/2G6S0kEFT4H38EFVCt4bqYE2bifLtqcY024FavYZb+oJ5ERal81VMqz9xhQOsVKN+SFGJs+XZcqVrx2RAqbUELFwZFXw8niPvBMm3aH2WaU97EyrW75SWlbwVwUb95vBsFD1GIGIg6tOG0e76cKVZiW/d++D9MZlCsKLScH8APtfypwiiwv5cKslIFzKMGGfvnf2FWt+7b3sH6XDKMuhSOt90CJu/G4eW3rQ1sUWCPozrgmMvWrwg==
+ b=TMqs1GeC4GoVviMe4ovLA8/1gV97IFZWnBptpobFYbGmnJ8E5bRqLeTMpjooppstC0W9k5WUDpFXE/g/CUQZ0QzcmexOHtdp3uD5bYI4kVKJ2twx7RXlkOc2FxiXXA8/T05DeTWXfJo2A5AZDSYMMlThQn6u8wRNhnY/izKBOGhcjKmmLXpEMWmkfBNyqVdNGsFEPtK8tgknL1wlWmuuezZ7Gat85IjPapzGtV4Fb+jVri/b9TwiHKS2b5fx8MKFgvy9ECIZmz349sUTjpFv3cgfR+vil535Be5r8EGJH4JfP+XVvJReHNu78t1Bm5XNDfmH2uhbqbbMLirpgiNEsA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=20tMB151f4SDL33lA4xAsIIwFyYpRmL+LwzJttpiT8M=;
- b=vRFSxkqpVAZqYR9BXmpQuern8DZcst68y8k58QVKta46G9CACXj8cmQd/0sjCNPgIentmZDDjAPsyBsfUM6ABS695JrL/oyrHs55P3FcG6V1r36vzA5ts/zmH5uSeYP58DLzx8dia+zg1wjQY4cZVtJQuL2ZlUTiPjeQsRJ/fejeqhFnVX7tDKUOrePYryEH5oH3v0HU/xabgLfmJWkniGQtnkIo9JBoSIHZTKWObmvptTqIHPkZZ1dO+Eqq6f5Er0VEzJxWSuHXPUos/XIiGQNIgshvqmoTMazD04Wo1X1h3JySfrtOlexLrvEcmpYzK17MTtw7QMVEo//KlayVCw==
+ bh=1s/qrMHQrsvkMssyWBNx2+w5cCySPLut+hg/y0EsTQ8=;
+ b=kLyucP/xchFjoNcI88tj8jK3WiYexzW/BSAoYsape8ScuvxLM0YIZA2VfKh55YzxWFulbo6QivUx9EclI+WOqFIL9VzsK5oVaOldl6slVRoq+iGEK8oMF2wB8GmLXvKGtNIKNeFDcl9F3nOD7VozjJXgLMvGS/mCpDtcD8risamaTlClFu6mVt7qlqmAyR73ObOEgaJxTBOQIVtyHe2qLDhFINYS8jjJVkUBm13j+nYTEV1o0e2vpnVYvENLiaEFjK3Y+4FuJkl9YZPKFNjaXw5D7CDWJTD0brXtaakXZvC0Z7AIXoJ4AGwl1T74izCoHoGp/cMeHrfHcE2f4sl+Jw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=20tMB151f4SDL33lA4xAsIIwFyYpRmL+LwzJttpiT8M=;
- b=rZYALmvon8DXBDgF9CO2BdjfPPhqXgLr73XYayPMaOmYKlS/XH1oTtW8MQCY6nRrwQthvremIBVr9DLm0KWfNvMMWVuWyQPSKArQ8UQ1Eulocg7a3D1/uvFdf+UBTkW1Zp55RMYMFnTli+7gXZ3L/c5BBhHrstZia857e9cIxAs=
-From: "Penny, Zheng" <penny.zheng@amd.com>
+ bh=1s/qrMHQrsvkMssyWBNx2+w5cCySPLut+hg/y0EsTQ8=;
+ b=h8TTazGiUzfd9BzgGzVmXGLarYwk+aCNXeP41TWfG+UYzTJJ4V0CpgW3ClBeiEHojjBFBwT8RmaZpy8XLz7/eA8OrhP4O+LLiiQ8AdzauXgM6ULYc8PTlRHkuOdbt11mXtbvNYsm1z+sfRizwlkiw0OCgoQVKWwxRjRG3s+Kox7Wtxxu+TljPMm991GnoEyAH/XI4ta6THUWw49sV5+Vf52Z/TNAnApknly9FGjDUbSaG+cASZpRTE2MIsHDwQchZLZtO14/5W1ouAWQb8JBKHlhEpu/hUheT7DeZ8d7xBDbgnN+iij1E/3dhn1yvNsVklbLTiyPG2fDkuA/0j5gyQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=epam.com;
+Message-ID: <71ca3126-d311-4ed2-8d6d-3ffcb90a222e@epam.com>
+Date: Fri, 4 Jul 2025 13:10:23 +0300
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH] xen/flask: estimate max sidtable size
 To: Jan Beulich <jbeulich@suse.com>
-CC: "Huang, Ray" <Ray.Huang@amd.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
-	"Orzel, Michal" <Michal.Orzel@amd.com>, Julien Grall <julien@xen.org>,
-	=?utf-8?B?Um9nZXIgUGF1IE1vbm7DqQ==?= <roger.pau@citrix.com>, Stefano
- Stabellini <sstabellini@kernel.org>, "Daniel P. Smith"
-	<dpsmith@apertussolutions.com>, Dario Faggioli <dfaggioli@suse.com>, Juergen
- Gross <jgross@suse.com>, George Dunlap <gwd@xenproject.org>, Nathan Studer
-	<nathan.studer@dornerworks.com>, Stewart Hildebrand <stewart@stew.dk>,
-	Bertrand Marquis <bertrand.marquis@arm.com>, Volodymyr Babchuk
-	<Volodymyr_Babchuk@epam.com>, Alistair Francis <alistair.francis@wdc.com>,
-	Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>,
-	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	"xen-devel@dornerworks.com" <xen-devel@dornerworks.com>
-Subject: RE: [PATCH v6 00/18] xen: introduce CONFIG_SYSCTL
-Thread-Topic: [PATCH v6 00/18] xen: introduce CONFIG_SYSCTL
-Thread-Index: AQHb7MZIDRVJyN4x+0Oz408AFQHe+7QhuAyAgAAAaPA=
-Date: Fri, 4 Jul 2025 09:50:57 +0000
-Message-ID:
- <DM4PR12MB84511A748117A49D4EF2C830E142A@DM4PR12MB8451.namprd12.prod.outlook.com>
-References: <20250704092952.822578-1-Penny.Zheng@amd.com>
- <41925877-dc7b-46d7-abc4-01b18de27cb6@suse.com>
-In-Reply-To: <41925877-dc7b-46d7-abc4-01b18de27cb6@suse.com>
-Accept-Language: en-US
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ xen-devel@lists.xenproject.org
+References: <20250630085559.554334-1-Sergiy_Kibrik@epam.com>
+ <d562251a-a6ec-4e2f-b1f7-dd87a97d4005@suse.com>
 Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=True;MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2025-07-04T09:50:52.0000000Z;MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open
- Source;MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=3;MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM4PR12MB8451:EE_|DS7PR12MB9044:EE_
-x-ms-office365-filtering-correlation-id: aa1994d1-543e-429f-b0c2-08ddbae0466f
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|7416014|376014|366016|38070700018;
-x-microsoft-antispam-message-info:
- =?utf-8?B?clNQUit4bGFDbXFwZWZKQUE1SW1ZVGJ3VzlHWnNnUWhwdGN1T2NIMjlmUlNj?=
- =?utf-8?B?RE1VVGt5ZUhiYnNib2k2cUNYbElCV21tbHRVUVVvS2N1TTJxTWZucUxmQTNJ?=
- =?utf-8?B?YVMycjRIRzh4c1F3bzQ0MjlWU0luYTljdzByd0RHRkpVSmZkd2dZQkgzQU5C?=
- =?utf-8?B?ZFZVSndYRmpVZ1NzWTBVcklwa25HbmQ4V1dvaDhtQWJwWGQ2V3hMSmFncjAx?=
- =?utf-8?B?SWlHOGw1eEtpVzZMT0x5STJjb0R0d0s3a2QzV3pCUnJOMEVKN1h1UXBtekNl?=
- =?utf-8?B?ZmQ3VkcxdG9BTHUzVkRlSjRwN21SYlNxSW0xUG5jZWFxWiswb1RrOTNkUFBr?=
- =?utf-8?B?M1VKdWxmZklEbklrUXpMVWRaRVVKc05kZWI3WmxIakFmOHFsM1BtYXJFOCtZ?=
- =?utf-8?B?NkFDdGdQMHRnMTgreGVMdWt0TVE0b2l3emg1QmhGaHVUbTl2Kyt6N0Q2dEVU?=
- =?utf-8?B?aGQ0WmJubi9mTUV1NVpKMzZuSytqV0dkZDZiUmRXbzlJdUFvZGZONkQxUVRM?=
- =?utf-8?B?NGRmcmNFV01vbklqUkZmY252M1d2a0ExblI3QlNXekZFQVN1aEIzK1JmYUVR?=
- =?utf-8?B?K2VKNTlVWCtTTTl5S0NNdHY2Y3NpaVE1NElrd0VrZjcwU2NsT0xvbzJJeFVB?=
- =?utf-8?B?MzIzL3NUYjA3TUFDbnUzRWFZSVdsU1Q2UFdaQmRKcVNhU3ZaOU1lVWlXMWFn?=
- =?utf-8?B?UllJdnV2TDc3a0JTV3BWV3l6Vk1oSk5MUVRyWXE3SE5PNHkrUGNDMm1nbEJt?=
- =?utf-8?B?WjFiazRIQnhkdEFEbm80ejYrTnlZdmZKWEZQM1FPaTIwaFpyemlCdmVhMVNM?=
- =?utf-8?B?Z0I3RGNXZnNHd2VzYzIzdW5Bby8vS2grOGpNb0tSem9NOWZSS3BvdXhtUHhy?=
- =?utf-8?B?US93WjIwQmZtREV0bG9XTXhua0xBQVE5SXZzRjJYMVdVc3RiejhTdmgyUHNu?=
- =?utf-8?B?SnczTmpKeDl0Q2NjbTN3SEpNVm8xUDBFUWNVTGFuaE9RUHZ5SFdnanRlUlhy?=
- =?utf-8?B?b1ZRZFJ5YVdIdTBkVVFJTlVCUlh4YmpkK0x0U0pMKyt6ZUNXc0xKSmxHd0hW?=
- =?utf-8?B?MEJicjN6NDRrcmJlUDdLM05NVFJyUXZtTWE4MnlCZ1Z6QkdGWnVXbm5xQnFj?=
- =?utf-8?B?MFpFbzB5aVdIT3FHRmlsVkFBdU1NQ2k5WFRQOGphRDdVd05qVENrYmlXSWQv?=
- =?utf-8?B?bzNQay9rUEZ2ZzRpZXVyR1lrYWFEMEVpVzRMN01oRGNVc2xpT0J0WjZGV2xZ?=
- =?utf-8?B?Zm1GSkF6S0l0OFRSVnNrelU1dlpiQVg3MmZQMGhSd01CeTZOblliMmtuaE81?=
- =?utf-8?B?emdXUmJXUG0wSmgremI3a0FMMkw2VjRLUCs1akozWldmZGV5cWpVWWd1NVlP?=
- =?utf-8?B?VWNqWngxTEg1MllNZXVyNmxVRXFWUU05YWV6dXUyYjRzbTk1WS9naWdVanNt?=
- =?utf-8?B?eExEVmppT3Z6TnVTQ29malJ2L1NuQUh1Zk4yUzRiYysrNms5U0c3WGN3R09T?=
- =?utf-8?B?amRQdFdHMXpQdkNJdURsdmRhWER5YURGN1pJcnFmVVpMTGxXNWtsWTJrVE5h?=
- =?utf-8?B?cWRocVBmMVZacWZydlE1WFliOFRGcFpHdEtZeXM0cTdQMG8xQkZYNG9TSW9X?=
- =?utf-8?B?Nlg5cDBYckt5WGhhTmszb1VsU0hHUmQ5MTFIdkJsS2t0ekxMSFUwV01NZWZP?=
- =?utf-8?B?ak9GMFYwcUhrU2pPc0d5bUtxZVloYnNsZGpmeG44U1Z0b2ZaVjluZ25ERFJU?=
- =?utf-8?B?ZVoyS1hzZEVTemtJd0tiYVBjczBrdktSSGJoMGpRK1RBVWlaQ1UrYWZKN3RU?=
- =?utf-8?B?T0JkMmNZNHl3TnV3OHdpVkFlOFhVNFBKbWlNMFlZWHNacGNjVktaZG92eGgx?=
- =?utf-8?B?UDc0YnlrY1RTbVljZFl4eGhIK0daeVQxV01pYzNSZEV6WmI2OUMvNUs3Z00r?=
- =?utf-8?B?WU9DSzlPQ2JsWVo2d0cxYzlwWkUrVFN1NVRlT2Yxa3RTam1BWVJJUDVYcDNM?=
- =?utf-8?Q?PEHWm2QBNSR096mX+ku0YUnWQhEPzU=3D?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB8451.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(366016)(38070700018);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?TUJpYmR1NFU4Q2VVUnRyVW5oKytJZllIbVBkNlkycnBOS3BNYytQVHdaaVVa?=
- =?utf-8?B?VUJlR3JHU1B1ZHJyd0ZuWXRWdE5NdXpKdHlrWmJrcktlaTlPVzJiVTE2SVIr?=
- =?utf-8?B?cENWZDh3MzcwVFlMb0Y3eTdlVDFnekJpZVcvbjc0cXJwZFdwVUEyTU1ndmhu?=
- =?utf-8?B?MWFQd1ZMUEp5dGx2M25JYkhqdU5pNnowK2h3OG1xN3dIaWMrQ0x5YndIeitH?=
- =?utf-8?B?TVpMUWZYanNob1ZTTno4QmoyMkc0OHBKbHE5ODdVeWdJd0VYbjEwa1dsYy9Z?=
- =?utf-8?B?VVFkeFRQSTJEWWxKYTB3Zmk2ZXJ3cTFEcUZab0FWVkJkbEZiSTVtSzRGeldL?=
- =?utf-8?B?ZktEaVNDQWZUaXg4a2VyZmRtMHBLV2pqWmZ3NWhIdVVXTlZSc3JMWStQd2J2?=
- =?utf-8?B?QkpiMzU0YmNhUGFGbmN6a21IMEdreU1YTEJVaS91TlQ4U243WlcrM0lWSEJG?=
- =?utf-8?B?UGRZdDFjTFBGZHBFK0lCL0dtT2tUSXUzcFgzQTdOT1NyWFhrZmlQZ3NkMFdR?=
- =?utf-8?B?dXg3aVIxQjR1N1E3Mm9LTTNzcjhHMkpZbXdLMTVWL2dHdmVpSWU0aE1FS1Nv?=
- =?utf-8?B?ZC81b0ZJM2V0N01ZZzBpbmhPWHNhczRLcFdva0k2UlZSTTY3aTV0THM1NHg1?=
- =?utf-8?B?K2pncWNKVDhFb000NlRCQUc5Vko0OW9JMllXOVNFdmMzL3VPSU9oUW1IWDVi?=
- =?utf-8?B?a2I4dGlBUy8yQnM3Z2h5Y2RDa3pRT0VOZ0p3UlVtUlVVMm1PRFNDeDJoNzRz?=
- =?utf-8?B?MXFtTXJoOVRXdTBRcklPeVZrTmFaalh4NHF6U2NnMVUrWUNyTWNDQ3Zaem9Z?=
- =?utf-8?B?ekVmVlRkMmtwb0xpMldOQm1WSStLdmxiaU9jT0gwcENjeGN2dmwzRjdLcnU3?=
- =?utf-8?B?YjlRMzZTalVreFpsMlkrN3VneW1UdEdCRkNlRXpRUHVHSWFLZXJpV05zaFpN?=
- =?utf-8?B?N0JjWjBocTRwNEJIaXErV243TXNCbFFiMUp2R3FzTmtHc1JmbytWMUFyeUVy?=
- =?utf-8?B?NFlBN1FnSWRjSk1uVDl4eHQrbm9sMkRXcGxhNlYxK0RIUENOKytleGZxNWJV?=
- =?utf-8?B?N2dZRFdoL2hid2xERzVBV3NiK0o1ZGMwcXp0czlaOE5IRWpTZ004V3NIY0gx?=
- =?utf-8?B?eUFUNUN6M3l3WEQ3Rmpnb0VRUlZmWlYvNHEzNWJpS24wZDNTSXJHWmhTVngz?=
- =?utf-8?B?UklMbUNMSmJTZnpmTnVZbjdHRmZYQUY0MjM5eERicjNzek42b2tIU201K1Nz?=
- =?utf-8?B?b1JFV3NCaG5QcmhPMzNoSDRQYWpCMm40RjdGVm9aa1ZVS0I4bHNmVDZkcW5s?=
- =?utf-8?B?L1lNak53Y3dxTk9Mazl4S1BheTlQeGpkRUVMekhIWmNLOE5nemhZZ1IzMWpW?=
- =?utf-8?B?V0pPS1RrUk84UmtJMHlWRVQxME9oZXVMd292RkVoWU5ZWE84a0h4U1lseGRn?=
- =?utf-8?B?SzRxMTkzNDVOZ1NiZno4d25zQWhyOUlRN3o0bnRCcmNZOEFhbWx2c1VRY3RB?=
- =?utf-8?B?S2NDdytIU09CREMvVzlNUHFHdkM1UkJWYWNick9MaDZJU2FnZkMvWHhLenB3?=
- =?utf-8?B?Q1dSQll6RnMxMDc3eTJNYmVBRHVpREF6SVFyVnc3U09VNHd4dW5zdkVRSzA0?=
- =?utf-8?B?UXFYM29wRmNNdDdHR05abksyNHdqMUtIR09Cc0VTWndCSFdReFFVUFJmUGdw?=
- =?utf-8?B?UTB3a2JCajlUclVGYU93eC9sckZiYjN0ZmVHL0tsR0hBSXlNZ2NiL1ZXUzFp?=
- =?utf-8?B?TW9qZ2ovKytqM1IxTjZmZnl0V1RWRVovNlZyYXFrR0ZKakxRNmJVVFllWEJM?=
- =?utf-8?B?RlFiRldqeXk4bkhiWjlCdXNOWWdjZGd3aDhSM2dCRlZJRFFUNElTb2F0VDhv?=
- =?utf-8?B?b3Z2UGJXTkF5MDU2Vkd3dWUwWlF2WTM3YS9IalpoY0hONmhoT0xtdFVGa3dT?=
- =?utf-8?B?OUFqNnF0VlRKMHZ6bmRDZmFEVlBWS0tPSEQ0T29odXcxSVN5bU42ekxwSDk4?=
- =?utf-8?B?aVl1OUJxS0dFRE1mL2xFeFYwK1YwMFJvTFIwei90Wm9YekwvRllyNWhvTnZt?=
- =?utf-8?B?bHBjVHcyRVZUSTJIMm1ORHRHRS9GNlV1ZWZ6WUpPK1JvR1RUczN3Uk4rZHJ1?=
- =?utf-8?Q?0iIo=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+From: Sergiy Kibrik <sergiy_kibrik@epam.com>
+In-Reply-To: <d562251a-a6ec-4e2f-b1f7-dd87a97d4005@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: WA2P291CA0047.POLP291.PROD.OUTLOOK.COM
+ (2603:10a6:1d0:1f::16) To AS8PR03MB9192.eurprd03.prod.outlook.com
+ (2603:10a6:20b:5c0::11)
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AS8PR03MB9192:EE_|AS8PR03MB9698:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8634dd6b-38ab-4c2a-bd27-08ddbae2fec5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?QVJnbnpGU1Vnb3RYWklwYTFuYklpQ0RobzB1ZlMraEF5TkxBTmowcGZ4Vi9R?=
+ =?utf-8?B?MWxsTjJDS3k0cC9DSDlUaExXV0FQVGJxcnV6dHB0VXZYdGVVWmU0UlEzclF2?=
+ =?utf-8?B?eGhZM2dlbWFmZDd2U3UwOEowZGZ3OU0rdUNuZUJaaUhheUc0TG1aQ0phc2xN?=
+ =?utf-8?B?R1BpemRXOEFnakJLTWF1SHJ6TkRBUUNTV3ByV3BVNmxqb2VJQ1QxSEkvN0dO?=
+ =?utf-8?B?RGNvUWdQZXVnRDc4VVVBdWViSVV2L2lPUHQ2MHkzZmV1c3VZS0NMSFRsNURi?=
+ =?utf-8?B?anQxUmVEQnY1TDlLeFhabTZKLzNSS0xURXJ2L3pmOEhCVTk1RUtURHFrNmt2?=
+ =?utf-8?B?Z0FWUXp6TXJlTS85VHFlUUtuWFY5R0h6UWJaV3ZnWDh4elRkSDhsS2x0dXF3?=
+ =?utf-8?B?dHl4aU1tdVJiWHVNQnl0RjRwVmRRMGFZaTVqVkVoOGVsQytYWnRIZ0xQK1FJ?=
+ =?utf-8?B?bFM0b2FPcjM4WElneElPLzl1SHozTUVHUFpUb043TmdLUi9iK1piR1RtWFg3?=
+ =?utf-8?B?RkY5endVSTh1Qk5EQm50THpXZXdQcFFFUFUrOGVaVEV1SXdlZEZadmtIY2xV?=
+ =?utf-8?B?L3FJdWZ0SzNxbXd0czNKSUg4ckMyK1Z3TzVFcnN6ZmZUV3d3b0V2VnBHWWl1?=
+ =?utf-8?B?bEZsK0dDbkNqZEM1VHRERnZKZVFqdUs4ZGRmVXAzWEtGSitPeW1nMEtST3Yw?=
+ =?utf-8?B?SXhKdTlZUU40L3ZCeXh3cmVMTnRwWjNJV3k3Q1FMclptOFhFaUZnWWoybGZR?=
+ =?utf-8?B?UDBCZTIwdE1tRC8rMUVUTEdKQVYvSnNwRjIvRDVmSGd1WEtHUytjYWRsalJm?=
+ =?utf-8?B?dE9PdmRkMFhrcjFBUU9FemR6aEJuRm5uZXpWdmhoRUl0anJjVFFpWnBhazgv?=
+ =?utf-8?B?cTRMTmZpZjhVOVZzaHFzb3ZteDNCSmhPdHREMGFSSXNvWTM0RW5ySno5aU1K?=
+ =?utf-8?B?VXRxT25mdXpLRHV1MHFtZk9hdFNhd3llYlJVWHdBNTF1MEJVR0lXOFpxV0Qy?=
+ =?utf-8?B?eEIxRld6d3lBZGcvaGpPbjV6MmExQ3pjb2xnZEhRS0QwZUVzblAwMTArS3pV?=
+ =?utf-8?B?VElTbnJLYk5SdjdQZml0ODRCQ25jV09vRUpiYnJSek5TMi9SYzRnK21QdXB3?=
+ =?utf-8?B?QzllbW5pSnV3ZkQyRnp2c1hYMkNnMm9Vc2IwVUdmQmpybWpzeEswUmVVcDNN?=
+ =?utf-8?B?ZlN6dTJGbGhtSStia1FSRTBQNXJUL09ZMmFLUlo0VXhPSXY0OUt3TmxTWVZS?=
+ =?utf-8?B?d1hVeVM1Wk0rT2NsaFpWMUh4cWdnQ2xEZlZka01ZU3ZzMWVFbWN4WTZodVBK?=
+ =?utf-8?B?LzJhZi9uczIvVE5wTkhrSFJBMmZoQktwbkxXbHllMVZWU29taU4vWEcvSzl5?=
+ =?utf-8?B?aXc4WUZvTWp6Y09uYjlqK3h6Mi9RQW1lQ1p2WjUvcWpaYnlwK2RmN1hBRXpM?=
+ =?utf-8?B?VlhtUjBOS2JseG9ySDdHTlFNRjNScFVrRVlWY3JCTHVsNHJ1bWtDU3JEb0Vw?=
+ =?utf-8?B?R1h1Sm8xa0dFSGlnbjBMVEhIZWxiUGk4a1JsRWJUOHNyZHBGS3lxVlBMNzFa?=
+ =?utf-8?B?aG91OW0xc1BDN0hQUzRrTkN0RWxRQ3lLd0JyTlY1S3pZaXYwOVBnaVRrMlBO?=
+ =?utf-8?B?eUtYT296YURJV0dDbHRWUjJIOHRpTzBSbmNzL3RhMGNIQkVHNDRVWU00ak5E?=
+ =?utf-8?B?MFE2NGI5V1hNOUNuMVJLNC9OYldGVnFmL3U0bWVDV0V4WjBLK29sUU0wTG54?=
+ =?utf-8?B?VjhJenk4ODRYbVdjN3FtWllUUDNjdHBlcS9sQXhEN0xwMFRna1dQVm9TdXdC?=
+ =?utf-8?B?WmpVSXA3OXJjeEw4Wno3eVJvSklMTnJOamtXaTJKcTVCRGlyc0oyYUFTL2VW?=
+ =?utf-8?B?MzhqaXlaQ3dRM2tDTXVwUjAvUjRndXgzb3dvcHFDR1RLSnlQWGJRbEphZDc4?=
+ =?utf-8?Q?A3hNlmqWuto=3D?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8PR03MB9192.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?QUJ3NWRHZlh4aUd0MkJEem9LTm9NNjluS1REYitoUktDS3RaaHFaRFRyaXhi?=
+ =?utf-8?B?cnVTM0M0Y3R1bU1Hb21ybmlFZHVDdkhKNlBwOFkwT0o4cnVJeENnaWh4aCtN?=
+ =?utf-8?B?ay9kazZSOE1UaWt1RU9jT2thbHlXRUovVGRkaHlhaHE0ZFVQQkdFNnV4Ymgx?=
+ =?utf-8?B?STUzSGFhZ0VvSnlMRlBBS1UyMmcwYi9xNlk0VVN4aXkzT1dMNjVoeVAzTi9O?=
+ =?utf-8?B?TlRQYjRtTFIyU0RuZ0tsUVVLYmhYemdMdTlQUkdFS0xscitaWkVrcENQcllr?=
+ =?utf-8?B?VzY4S0F4Y01MMUZjOWZJTFZrMkJqdWNncHN1T0pJREhYWmhIaHhxM1AxNjZF?=
+ =?utf-8?B?VUhNcnlYZjV5ay9YZWppd2JjZCtncnRhUXpwQ05xY3BkZEZOUnl3L2VxeU1o?=
+ =?utf-8?B?T0FpR1VjL1ovUWFWRDZuclFKRi9OQVJvcmEvYlMvalJqK3dwR0wreVlWbmky?=
+ =?utf-8?B?YzFXc3VldEM0SVJIT21LZnN2Q2pTZEo0d0lPL2lERlhITGlyYS83cjE2cXFh?=
+ =?utf-8?B?aUdybm5tcjFoN1p0eldXSzl1SVhlbFVndHZURm9oclh0RnlUY1g2SlhDVDdj?=
+ =?utf-8?B?QTM4ekh4UFZlQ1FDMEJZbHNmY1UwNXZURC9heEo4U1p3S01KeEVoYzFQaXBo?=
+ =?utf-8?B?YjVJaGlkVDVFRmRUNStTbmtxNDUvWWVnT1BrUnhlUTVkWkFCUzB5U1dGRUMv?=
+ =?utf-8?B?Mm9FUmI3dk52YXhvazM5OWJoT2lDSXk3emZ5SXU5bm04RmFzS1BEOFczUWtD?=
+ =?utf-8?B?clZRMUdVOWZueEUzOERjK2hGZCtyaVdUTFdGZmQ3NVdvOVV4dmJrTmRlS0dq?=
+ =?utf-8?B?S0tPeitzWTNEaXhwaDFDUWVVTE1XcThxaGxvUWR3YVlqZmQzdUJ3SWM0cHlH?=
+ =?utf-8?B?R3FsWFlISDdQeXFRLytVMDEyZmhMdzBCMXplN0FWZDl5QWMvTXF0aUNCYmFw?=
+ =?utf-8?B?dmJZcVcxRWJiNHVDR0JTeTNOTTlkdHJ2YlR4WmVkcVZmN2pQaS90ejB6dlRj?=
+ =?utf-8?B?ZU5JZzUxTllTSzVuZVRoWkVmN0toTzRrbVR3Y09SYlYvTXVMVkViR0duVW5V?=
+ =?utf-8?B?S2JpaHR5WjRFRG96Tll2ZFRrdnpjRkYxUFFCVTV4TW84Q2xNT2hDdnVyYUtk?=
+ =?utf-8?B?WXNjZ2RLU2lLeERNVzN3Rk9QeHFQd0d3MGpSU0ZyQ3Y4eGRHOXVpcHo0cEoy?=
+ =?utf-8?B?ZFZ0eFNzTk0wTTlwTzNseXRVeXE4V096SE1zWlZMZWpJbnFzR2VXZDhCekht?=
+ =?utf-8?B?V2NKQ001ZDh2WVYzc0tFNmEyV3J3Z1J6N25UWVhITXpicjEwWUJVWEhPeFll?=
+ =?utf-8?B?U0JWbG9DRlNWdFlvdUFmT1VBbW1tRFZvaGdjbWhMRzhiMlFFZEIwWDl6VEhB?=
+ =?utf-8?B?Z0orNkxVTGozMGM4N3J3WjZPVFJuWGNVRzlSNXBTUVlMNkcwYmp5YXp6N3dY?=
+ =?utf-8?B?d1d2VlYyOXlLT3J6WGJHVVE0M1VrU2RVc1c3c3phQkkxRmMrbHRycmtFZnRk?=
+ =?utf-8?B?L1NBdDNBdmk1Vnd6Zkl5OGdXREFOZlY1d0oxL2ZycjltakVNMyt0ZnlXem1O?=
+ =?utf-8?B?Q3dwYjNzRlFBekdVYzBGSkRKSC9LcEplT25yS0FveWRCOVlYOFhQS1pDMm5k?=
+ =?utf-8?B?L0laQWJGS0x3dVNlVUtVUjdVR3dNUXdiTzFHdm9ZRUZXNDdzUXdZVkZCbVpV?=
+ =?utf-8?B?TUp0U2JXN3paWEFZc1RtUjh4RkxJYVAzbE1ta1BmazFuYm82ZzM5bzdWOStx?=
+ =?utf-8?B?UVFGTGF1aktEMWZXS2Q1Y0lVODluVzUyRjNQK1IyUGU5R3BaeDljQlliMkJo?=
+ =?utf-8?B?ZHhTeEExeDdxWmxBbXU2TEdmU0g4VUw0RFdUWDFvdFJJdlhjRFlPYkJTZUx1?=
+ =?utf-8?B?dFZ0a25hbUZHY0FGSDAvY0kxbFczbWZWdm8vTitodHRWMDR5TVVaSW9RUGtq?=
+ =?utf-8?B?UFg3Q0NYbTdGaC9xaHRqdWZ0bXVOWEpwV0ZBZ0ZrQkZlTFc1VmNZWFF3bGdI?=
+ =?utf-8?B?MzAxY3hrY0Z5UTRKKzdxVWdUVklOSzJqemw3QmJWSURsU1JpK0ZLcjU0QWdI?=
+ =?utf-8?B?QzNoWnBoaXJvamVZbDdCNE12WDkvbXRyY05QSmlGb3pNOHNWblJ0Ymd5aWJa?=
+ =?utf-8?Q?QeH1OR/Wxh+E0aFhM9ZgAVxZc?=
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8634dd6b-38ab-4c2a-bd27-08ddbae2fec5
+X-MS-Exchange-CrossTenant-AuthSource: AS8PR03MB9192.eurprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8451.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: aa1994d1-543e-429f-b0c2-08ddbae0466f
-X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Jul 2025 09:50:57.3601
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jul 2025 10:10:25.8764
  (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: SUVm2yQ5ZEH5VyB8ZF9xOAl8zwZ+aSt+QONAR8X7EzAeV2NG9PaS9UydPgQkiLlUKJiMCVz38QpZhx+xzS4Z5w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB9044
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: LtrFPfqTBkvoKeqbGzdFStdojCFgTrSKxrMhQV7rHs6g32qfKZBdjq51r21Z2+3o/ssnH8mq8xw701QsjcPw8Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR03MB9698
 
-W1B1YmxpY10NCg0KPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBKYW4gQmV1
-bGljaCA8amJldWxpY2hAc3VzZS5jb20+DQo+IFNlbnQ6IEZyaWRheSwgSnVseSA0LCAyMDI1IDU6
-NDkgUE0NCj4gVG86IFBlbm55LCBaaGVuZyA8cGVubnkuemhlbmdAYW1kLmNvbT4NCj4gQ2M6IEh1
-YW5nLCBSYXkgPFJheS5IdWFuZ0BhbWQuY29tPjsgQW5kcmV3IENvb3Blcg0KPiA8YW5kcmV3LmNv
-b3BlcjNAY2l0cml4LmNvbT47IEFudGhvbnkgUEVSQVJEIDxhbnRob255LnBlcmFyZEB2YXRlcy50
-ZWNoPjsNCj4gT3J6ZWwsIE1pY2hhbCA8TWljaGFsLk9yemVsQGFtZC5jb20+OyBKdWxpZW4gR3Jh
-bGwgPGp1bGllbkB4ZW4ub3JnPjsgUm9nZXIgUGF1DQo+IE1vbm7DqSA8cm9nZXIucGF1QGNpdHJp
-eC5jb20+OyBTdGVmYW5vIFN0YWJlbGxpbmkgPHNzdGFiZWxsaW5pQGtlcm5lbC5vcmc+OyBEYW5p
-ZWwNCj4gUC4gU21pdGggPGRwc21pdGhAYXBlcnR1c3NvbHV0aW9ucy5jb20+OyBEYXJpbyBGYWdn
-aW9saSA8ZGZhZ2dpb2xpQHN1c2UuY29tPjsNCj4gSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2Uu
-Y29tPjsgR2VvcmdlIER1bmxhcCA8Z3dkQHhlbnByb2plY3Qub3JnPjsNCj4gTmF0aGFuIFN0dWRl
-ciA8bmF0aGFuLnN0dWRlckBkb3JuZXJ3b3Jrcy5jb20+OyBTdGV3YXJ0IEhpbGRlYnJhbmQNCj4g
-PHN0ZXdhcnRAc3Rldy5kaz47IEJlcnRyYW5kIE1hcnF1aXMgPGJlcnRyYW5kLm1hcnF1aXNAYXJt
-LmNvbT47IFZvbG9keW15cg0KPiBCYWJjaHVrIDxWb2xvZHlteXJfQmFiY2h1a0BlcGFtLmNvbT47
-IEFsaXN0YWlyIEZyYW5jaXMNCj4gPGFsaXN0YWlyLmZyYW5jaXNAd2RjLmNvbT47IEJvYiBFc2hs
-ZW1hbiA8Ym9iYnllc2hsZW1hbkBnbWFpbC5jb20+Ow0KPiBDb25ub3IgRGF2aXMgPGNvbm5vamRh
-dmlzQGdtYWlsLmNvbT47IE9sZWtzaWkgS3Vyb2Noa28NCj4gPG9sZWtzaWkua3Vyb2Noa29AZ21h
-aWwuY29tPjsgeGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnOyB4ZW4tDQo+IGRldmVsQGRv
-cm5lcndvcmtzLmNvbQ0KPiBTdWJqZWN0OiBSZTogW1BBVENIIHY2IDAwLzE4XSB4ZW46IGludHJv
-ZHVjZSBDT05GSUdfU1lTQ1RMDQo+DQo+IE9uIDA0LjA3LjIwMjUgMTE6MjksIFBlbm55IFpoZW5n
-IHdyb3RlOg0KPiA+IEl0IGNhbiBiZSBiZW5lZmljaWFsIGZvciBzb21lIGRvbTBsZXNzIHN5c3Rl
-bXMgdG8gZnVydGhlciByZWR1Y2UgWGVuDQo+ID4gZm9vdHByaW50IHZpYSBkaXNhYmxpbmcgc29t
-ZSBoeXBlcmNhbGxzIGhhbmRsaW5nIGNvZGUsIHdoaWNoIG1heSBub3QNCj4gPiB0byBiZSB1c2Vk
-ICYgcmVxdWlyZWQgaW4gc3VjaCBzeXN0ZW1zLiBFYWNoIGh5cGVyY2FsbCBoYXMgYSBzZXBhcmF0
-ZQ0KPiA+IG9wdGlvbiB0byBrZWVwIGNvbmZpZ3VyYXRpb24gZmxleGlibGUuDQo+ID4NCj4gPiBP
-cHRpb25zIHRvIGRpc2FibGUgaHlwZXJjYWxsczoNCj4gPiAtIHN5c2N0bA0KPiA+IC0gZG9tY3Rs
-DQo+ID4gLSBodm0NCj4gPiAtIHBoeXNkZXYNCj4gPiAtIHBsYXRmb3JtDQo+ID4NCj4gPiBUaGlz
-IHBhdGNoIHNlcmllIGlzIG9ubHkgZm9jdXNpbmcgb24gaW50cm9kdWNpbmcgQ09ORklHX1NZU0NU
-TC4NCj4gPiBEaWZmZXJlbnQgb3B0aW9ucyB3aWxsIGJlIGNvdmVyZWQgaW4gZGlmZmVyZW50IHBh
-dGNoIHNlcmllLg0KPiA+DQo+ID4gRmVhdHVyZXMsIGxpa2UgTElWRVBBVENILCBPdmVybGF5IERU
-Qiwgd2hpY2ggZnVsbHkgcmVseSBvbiBzeXNjdGwgb3AsDQo+ID4gd2lsbCBiZSB3cmFwcGVkIHdp
-dGggQ09ORklHX1NZU0NUTCwgdG8gcmVkdWNlIFhlbiBmb290cHJpbnQgYXMgbXVjaCBhcw0KPiBw
-b3NzaWJsZS4NCj4gPg0KPiA+IEl0IGlzIGRlcml2ZWQgZnJvbSBTdGVmYW5vIFN0YWJlbGxpbmkn
-cyBjb21taXQgInhlbjogaW50cm9kdWNlIGtjb25maWcNCj4gPiBvcHRpb25zIHRvIGRpc2FibGUg
-aHlwZXJjYWxscyIoDQo+ID4gaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcveGVuLWRldmVsLzIwMjQx
-MjE5MDkyOTE3LjMwMDYxNzQtMS1TZXJnaXlfS2licg0KPiA+IGlrQGVwYW0uY29tKQ0KPiA+DQo+
-ID4gLS0tDQo+ID4gQ29tbWl0ICJ4ZW4veDg2OiByZW1vdmUgImRlcGVuZHMgb24gIVBWX1NISU1f
-RVhDTFVTSVZFIiIgYW5kIGNvbW1pdCAiDQo+ID4geGVuL3N5c2N0bDogd3JhcCBhcm91bmQgc3lz
-Y3RsIGh5cGVyY2FsbCIgc2hhbGwgYmUgY29tbWl0ZWQgdG9nZXRoZXIuDQo+ID4gLS0tDQo+ID4g
-UGVubnkgWmhlbmcgKDE2KToNCj4gPiAgIHhlbi94c206IHdyYXAgYXJvdW5kIHhzbV9zeXNjdGwg
-d2l0aCBDT05GSUdfU1lTQ1RMDQo+ID4gICB4ZW4vc3lzY3RsOiB3cmFwIGFyb3VuZCBYRU5fU1lT
-Q1RMX3JlYWRjb25zb2xlDQo+ID4gICB4ZW4vc3lzY3RsOiBtYWtlIENPTkZJR19UUkFDRUJVRkZF
-UiBkZXBlbmQgb24gQ09ORklHX1NZU0NUTA0KPiA+ICAgeGVuL3N5c2N0bDogd3JhcCBhcm91bmQg
-WEVOX1NZU0NUTF9zY2hlZF9pZA0KPiA+ICAgeGVuL3N5c2N0bDogd3JhcCBhcm91bmQgWEVOX1NZ
-U0NUTF9wZXJmY19vcA0KPiA+ICAgeGVuL3N5c2N0bDogd3JhcCBhcm91bmQgWEVOX1NZU0NUTF9s
-b2NrcHJvZl9vcA0KPiA+ICAgeGVuL3Btc3RhdDogaW50cm9kdWNlIENPTkZJR19QTV9PUA0KPiA+
-ICAgeGVuL3N5c2N0bDogaW50cm9kdWNlIENPTkZJR19QTV9TVEFUUw0KPiA+ICAgeGVuL3N5c2N0
-bDogd3JhcCBhcm91bmQgWEVOX1NZU0NUTF9wYWdlX29mZmxpbmVfb3ANCj4gPiAgIHhlbi9zeXNj
-dGw6IHdyYXAgYXJvdW5kIFhFTl9TWVNDVExfY3B1cG9vbF9vcA0KPiA+ICAgeGVuL3N5c2N0bDog
-d3JhcCBhcm91bmQgWEVOX1NZU0NUTF9zY2hlZHVsZXJfb3ANCj4gPiAgIHhlbi9zeXNjdGw6IHdy
-YXAgYXJvdW5kIFhFTl9TWVNDVExfcGh5c2luZm8NCj4gPiAgIHhlbi9zeXNjdGw6IG1ha2UgQ09O
-RklHX0NPVkVSQUdFIGRlcGVuZCBvbiBDT05GSUdfU1lTQ1RMDQo+ID4gICB4ZW4vc3lzY3RsOiBt
-YWtlIENPTkZJR19MSVZFUEFUQ0ggZGVwZW5kIG9uIENPTkZJR19TWVNDVEwNCj4gPiAgIHhlbi9z
-eXNjdGw6IHdyYXAgYXJvdW5kIGFyY2gtc3BlY2lmaWMgYXJjaF9kb19zeXNjdGwNCj4gPiAgIHhl
-bi94ODY6IHJlbW92ZSAiZGVwZW5kcyBvbiAhUFZfU0hJTV9FWENMVVNJVkUiDQo+ID4NCj4gPiBT
-dGVmYW5vIFN0YWJlbGxpbmkgKDIpOg0KPiA+ICAgeGVuOiBpbnRyb2R1Y2UgQ09ORklHX1NZU0NU
-TA0KPiA+ICAgeGVuL3N5c2N0bDogd3JhcCBhcm91bmQgc3lzY3RsIGh5cGVyY2FsbA0KPg0KPiBU
-aGlzIGRvZXNuJ3QgbG9vayB0byBiZSBiYXNlZCBvbiBsYXRlc3Qgc3RhZ2luZywgd2hlcmUgc29t
-ZSBvZiB0aGUgY2hhbmdlcyBhYm92ZQ0KPiBhcmUgYWxyZWFkeSBwcmVzZW50LiBJIHNwZWNpZmlj
-YWxseSB0cmllZCB0byBnZXQgc29tZSBvZiB0aGUgc3R1ZmYgaW4gc28gdGhhdCB0aGUgbmV4dA0K
-PiByZS1wb3N0aW5nIHdvdWxkbid0IGJlIGFzIGxhcmdlLg0KDQpTb3JyeSwgSSdsbCByZWJhc2UN
-Cg0KPg0KPiBKYW4NCg==
+01.07.25 13:42, Jan Beulich:
+> On 30.06.2025 10:55, Sergiy Kibrik wrote:
+>> Currently Xen lacks a defined largest number of security IDs it can potentially
+>> use. The number of SIDs are naturally limited by number of security contexts
+>> provided by a given security policy, i.e. how many combination of user, role
+>> and type there can be, and is dependant on the policy being used.
+>> Thus in Xen the number of allocated entries in sidtable is hard-limited by UINT_MAX.
+>> However in the embedded environment configured for safety it is desirable to
+>> avoid guest-triggered dynamic memory allocations at runtime, or at least limit
+>> them to some decent amounts. So we seek to estimate this limit.
+>>
+>> This patch suggests one way to do it using Xen's flask policy.
+>> List of users, roles and types is read from binary policy using setools utils,
+>> then it is used to count the No. of combinations these values can give.
+>> This No. of combinations then can be used in code as a practical replacement
+>> of UINT_MAX limit. Also it can be used later to pre-allocate sidtable at boot
+>> and avoid runtime entries allocation altogether.
+>>
+>> Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
+>> ---
+>> This RFC presents a concept of estimating a max possible sidtable size.
+>> Can we discuss how valid this concept is? Currently it yields 420 as max SID,
+>> is it a reasonable number?
+> 
+> As this is policy dependent - what policy did you use to obtain that 420?
+
+it's actually from my custom extended policy, for policy in Xen master 
+branch it's 384.
+
+
+> 
+>> @@ -54,4 +54,7 @@ $(obj)/policy.bin: FORCE
+>>   	        FLASK_BUILD_DIR=$(FLASK_BUILD_DIR) POLICY_FILENAME=$(POLICY_SRC)
+>>   	cmp -s $(POLICY_SRC) $@ || cp $(POLICY_SRC) $@
+>>   
+>> +$(obj)/%/se_limits.h: $(obj)/policy.bin
+>> +	$(srcdir)/policy/mkselim.sh $^ $@
+> 
+> Hmm, that's using the built-in policy, isn't it? What if later another
+> policy is loaded? Wouldn't it be possible to have ...
+> 
+>> --- a/xen/xsm/flask/ss/sidtab.c
+>> +++ b/xen/xsm/flask/ss/sidtab.c
+>> @@ -13,6 +13,7 @@
+>>   #include "flask.h"
+>>   #include "security.h"
+>>   #include "sidtab.h"
+>> +#include "se_limits.h"
+>>   
+>>   #define SIDTAB_HASH(sid) ((sid) & SIDTAB_HASH_MASK)
+>>   
+>> @@ -228,7 +229,7 @@ int sidtab_context_to_sid(struct sidtab *s, struct context *context,
+>>           if ( sid )
+>>               goto unlock_out;
+>>           /* No SID exists for the context.  Allocate a new one. */
+>> -        if ( s->next_sid == UINT_MAX || s->shutdown )
+>> +        if ( s->next_sid == SEPOL_SID_LIMIT || s->shutdown )
+> 
+> ... more than this many SIDs? What if CONFIG_XSM_FLASK_POLICY isn't even set?
+> 
+
+It's using a policy from tools/flask/policy, yes. But not a built-in 
+policy, just reusing a bit of code from that code. The idea is that we 
+can have CONFIG_XSM_FLASK_POLICY option disabled yet still be able to 
+calculate SEPOL_SID_LIMIT.
+
+As for loading another policy at runtime -- the calculated 
+SEPOL_SID_LIMIT=384 for current master flask policy is still pretty big 
+limit. From what I can see -- much less No. contexts are being used on a 
+running system, because most of calculated combinations of 
+user/role/type are not really usable (e.g. contexts with xen_t or 
+xenboot_t types and user_1 user are not expected etc). So there should 
+be enough room even for more complex custom policies.
+
+> It also doesn't really become clear to me how you avoid or even (meaningfully)
+> bound memory allocation here. A table of several hundred entries is still a
+> decent size. If you really knew the max size up front, why couldn't the table
+> be allocated statically. (Sadly the table allocation isn't in context, as you
+> don't even touch that code, wherever it lives.)
+> 
+
+As said before, this limit is crude and still far from the number of 
+actually usable contexts. So allocating this memory beforehand can be 
+kind of wasteful, as most of it will probably never be used.
+
+   -Sergiy
 
