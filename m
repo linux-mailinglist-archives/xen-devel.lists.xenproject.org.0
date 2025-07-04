@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A3BB7AF973F
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Jul 2025 17:45:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1033461.1406828 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 134E7AF9784
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Jul 2025 18:01:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1033496.1406837 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uXibV-0004nU-Uf; Fri, 04 Jul 2025 15:45:33 +0000
+	id 1uXiqS-0008DR-6b; Fri, 04 Jul 2025 16:01:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1033461.1406828; Fri, 04 Jul 2025 15:45:33 +0000
+Received: by outflank-mailman (output) from mailman id 1033496.1406837; Fri, 04 Jul 2025 16:01:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uXibV-0004lL-S0; Fri, 04 Jul 2025 15:45:33 +0000
-Received: by outflank-mailman (input) for mailman id 1033461;
- Fri, 04 Jul 2025 15:45:32 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uXiqS-0008Ay-3q; Fri, 04 Jul 2025 16:01:00 +0000
+Received: by outflank-mailman (input) for mailman id 1033496;
+ Fri, 04 Jul 2025 16:00:58 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=7FCR=ZR=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1uXibU-0004lF-HK
- for xen-devel@lists.xenproject.org; Fri, 04 Jul 2025 15:45:32 +0000
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [2a00:1450:4864:20::335])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e9f63565-58ed-11f0-b894-0df219b8e170;
- Fri, 04 Jul 2025 17:45:30 +0200 (CEST)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-451dbe494d6so11864295e9.1
- for <xen-devel@lists.xenproject.org>; Fri, 04 Jul 2025 08:45:30 -0700 (PDT)
+ id 1uXiqQ-00089f-0Y
+ for xen-devel@lists.xenproject.org; Fri, 04 Jul 2025 16:00:58 +0000
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [2a00:1450:4864:20::435])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 1243098f-58f0-11f0-a315-13f23c93f187;
+ Fri, 04 Jul 2025 18:00:57 +0200 (CEST)
+Received: by mail-wr1-x435.google.com with SMTP id
+ ffacd0b85a97d-3a531fcaa05so721650f8f.3
+ for <xen-devel@lists.xenproject.org>; Fri, 04 Jul 2025 09:00:57 -0700 (PDT)
 Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3b471b9736bsm2815301f8f.60.2025.07.04.08.45.29
+ ffacd0b85a97d-3b471b97698sm2839405f8f.54.2025.07.04.09.00.55
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 04 Jul 2025 08:45:29 -0700 (PDT)
+ Fri, 04 Jul 2025 09:00:55 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e9f63565-58ed-11f0-b894-0df219b8e170
+X-Inumbo-ID: 1243098f-58f0-11f0-a315-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1751643930; x=1752248730; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1751644856; x=1752249656; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=iChYFgv0/SbUs96OcHbpYXD6tqtYb8tRYGyw12KTKOM=;
-        b=QJ8RuTgxWbcqY/p4quOzv91+aSiB6k1DEN1GfTAjA/N1fbVWOwdoy8pwB80m3JE5QB
-         WIANmEOADh7HBxQLZhFUlytKMZCLIwxxvnjim1IOO8gFZtBBnGNhFsJNQoeDYmUj45IG
-         DKDYG+Eu/3WZo39ol0EvaiVJGiccCYR6ES1BI=
+        bh=IIG0fH8wBBc8QMEczHgMgyHNXNG3q+U8hkXVsooxbEo=;
+        b=M4sygg3D/lH7zESsbN6HHRcAbp4yha2Fw/j5DM21cv+ydaLWQK0uPt9rRhzD6B5wkH
+         Iz/Vqc/dsipSSImckV5//KoF0wSYuKIP9Rgl/yzv6JrwZJHO5eQzxkxzziVu5+wLvSjv
+         GzyMkO9u7ZWPiESXU7XsrKE6CTzJaAy5WRx9A=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1751643930; x=1752248730;
+        d=1e100.net; s=20230601; t=1751644856; x=1752249656;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=iChYFgv0/SbUs96OcHbpYXD6tqtYb8tRYGyw12KTKOM=;
-        b=c+KP8He1ET/C4VpiG52/uQyhK8N9w+RkzLk97698gvfMfyTU408ThSNHTJN3hGc5ZW
-         L37p6jsa4ZE6FEnR9dLLvG7QjLCi4MFKkKIm1DRLjFXA49RwyXGmZCsEvCvtmEJEqOjH
-         ZbPpLDyqqVyee+U6bWo0SLY0tQ1yFflmmjANDcn6dgJByh4cwvSoEukaYeHSHsE++nUr
-         iWX09MqKjkpe2vK8e4lmHZL2WC444V65HdyjkdHG9gI9oc9DQMv6ha0wqXHMKZ82BHit
-         AqAEMaJZ3Q58qAKbwRvBiZZetcygDZsjBi9sCcQQvwZTXElugLKt+YmIOkr57W+se0vG
-         3IiA==
-X-Forwarded-Encrypted: i=1; AJvYcCWZtpcHI3f2mtqQnUbepQh1Pgd9kgf+Prkrvevkpzv4ni0b+eNfCCRQmlbBgxv53CmhUC4EY72L/IY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyIzRPn8ct8ftmIGAcA5atFc5Y1O/0rZzeKVyWGQ6PmRpztne92
-	NOBfExuD7JoCY7Z+GTP5eF4o9eNQ+ZManojhn/AiSn0j5P8ImE1tEmNdESDVcRfwlVU=
-X-Gm-Gg: ASbGnctY7kt3VbtSaAKyPbm6rFxh9PKAa7VSwnQQSEIqXvGiNdyV9rLzSNj8/rVEAsO
-	/L41jPp21oOC/9wAk+R2ERarZ2INchHxEDZvs0C+s2Q2bSswqTctcMIgHBlr+yU/Bt5yB+nZ2MZ
-	iGkeSwCs/DAvo+hY4OneeCDCaEYSb+BymJwTmEEZRtUGz+P2nGWEqmrtX235ooU0A0pdCgtYvbF
-	UFTz2k5QVqjAUXgFTgMayk1OsIYYOXmCmX3If2dg4q9wKKi1B57qOSduKSMJuWE4SUWgDXFkP9/
-	B7sFESZfef0gBJc6W0lMaTng94/8bFuTysL3F2qJvshoj4l/seuusMiHCC6dx2lWBMYzF5Fsa9H
-	RzaMFrQMJrNvnHYDtM8Pye8cWFaU=
-X-Google-Smtp-Source: AGHT+IGSj9OZYd9wfzD2j7vEaQhSrkDkid84O+TNzTyQQwpdm/OBRBwTF38HEsfP3TI7xfUe0kJGwQ==
-X-Received: by 2002:a05:600c:c4a6:b0:43c:ea1a:720c with SMTP id 5b1f17b1804b1-454b8ea84eemr10033315e9.18.1751643929895;
-        Fri, 04 Jul 2025 08:45:29 -0700 (PDT)
-Message-ID: <bb7dfbfd-34e5-4b58-941f-4d7fbf0e564c@citrix.com>
-Date: Fri, 4 Jul 2025 16:45:28 +0100
+        bh=IIG0fH8wBBc8QMEczHgMgyHNXNG3q+U8hkXVsooxbEo=;
+        b=T6RJ3xPymIqgW19aib/YYnUNkvCQBKjRitoZKI1ytbwu6S+ZyPuEWEu26nEim2kZCg
+         NUCrxYdp9es2W5NuFHe/UjHQSSobmQ53cZrqKnCCBgTFWVebY9CQgCFQycimnMKe1ZL6
+         bYOzaH22ZrsMr5cMnjo+/aqP/nxlCg0dvaty8t3TIHplRXFt5y3TokWMm6hsSsbG5jYW
+         DQfF96wd3LioBT8oNFlmuOGV1Wg8U725ZQHTJ1zKTaAP1J/BXmGD3gdVjWoTw3ti042r
+         4zOIkWCjQCaL91XEn4a7Se6cD8c4PT3C4dWiGvgK0UY8bIGAwt0z97ap6tCw8KdiyIET
+         OP3w==
+X-Gm-Message-State: AOJu0YxT/HKHToWlHStV9rXXkXxLejwSMxjBAkBBJb8mU/VDKnQJdVhe
+	430rVWrK2xDXoYD7+NTkAHdOduM1F2DS8zbjlx8vCwEjYddPsfW6LJZSKuSxeHxWS+I=
+X-Gm-Gg: ASbGncualoKOx0a7xDeaN0smE7SmsyJ54teET+dq8y6bUvE6EA55i0mVQCcoNibGMPl
+	cPuWGXE0tAxbyLnyptwhXdJaYTzvV0HDSTX8WofC8YJw22OM6wg//lSGf3C1KkGQjkYLb/h0nUp
+	vXy7BL3So97ly42TgL3P4vjqY7S5VvfoNdqiwc8wFO7QgYuDAoJiOAxVI6oU+gSD9aO/If3oVl1
+	6gAGeBuX7hglLxS03CZDAoH++Gm/D8n1VNuH5gzv5mqDL4iwCBvBn13dlXFFqangAyG9XOZbN3A
+	XKI/VBxEYxCGLqe98BjvWpFOQMFYKFK/Ic6ONbv1oW6Qioky9l13uuH7WQLkMGESbtjQ4kpsERB
+	WaGSIov1XYj0l3pVa5wKgOS/XTf4DcNQ0YVQhbw==
+X-Google-Smtp-Source: AGHT+IHBrIFoQa6Y5l8dsWBy+Rx5eYy3o+JbeZtQsfrG8/BWqp8a47D8ShCY18aDkxf0+oCwOOXttw==
+X-Received: by 2002:a05:6000:430a:b0:3b3:59c3:483d with SMTP id ffacd0b85a97d-3b4964c097bmr2722065f8f.14.1751644856258;
+        Fri, 04 Jul 2025 09:00:56 -0700 (PDT)
+Message-ID: <7c6f88a1-7ec0-4279-839b-46add6cf9074@citrix.com>
+Date: Fri, 4 Jul 2025 17:00:55 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/6] x86/idle: Drop incorrect smp_mb() in
- mwait_idle_with_hints()
-To: Jan Beulich <jbeulich@suse.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+Subject: Re: [PATCH 3/6] xen/softirq: Rework arch_skip_send_event_check() into
+ arch_pend_softirq()
+To: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Xen-devel <xen-devel@lists.xenproject.org>
+ Stefano Stabellini <sstabellini@kernel.org>
 References: <20250702144121.1096448-1-andrew.cooper3@citrix.com>
- <20250702144121.1096448-6-andrew.cooper3@citrix.com>
- <9bcefc6b-fb76-4995-8a75-d90589384d1f@suse.com>
- <f3af6bc7-c953-4b9e-95d2-6d28008a857b@citrix.com>
- <6fa07d3a-fa63-456a-a801-edf7db54cd32@suse.com>
+ <20250702144121.1096448-4-andrew.cooper3@citrix.com>
+ <aGat-VxBF5jOErzy@macbook.local>
+ <86dde581-40ad-405e-8d98-0b4485529581@suse.com>
+ <aGeI_k1H3oju26hf@macbook.local>
+ <27dcd1b8-e735-4ab1-a5a8-d71a46e59955@suse.com>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -142,50 +142,43 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <6fa07d3a-fa63-456a-a801-edf7db54cd32@suse.com>
+In-Reply-To: <27dcd1b8-e735-4ab1-a5a8-d71a46e59955@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 03/07/2025 2:30 pm, Jan Beulich wrote:
-> On 03.07.2025 14:37, Andrew Cooper wrote:
->> On 03/07/2025 10:24 am, Jan Beulich wrote:
->>> On 02.07.2025 16:41, Andrew Cooper wrote:
->>>> With the recent simplifications, it becomes obvious that smp_mb() isn't the
->>>> right barrier; all we need is a compiler barrier.
->>>>
->>>> Include this in monitor() itself, along with an explantion.
->>> Ah, here we go. As per my comment on patch 4, would this perhaps better move
->>> ahead (which however would require a bit of an adjustment to the description)?
->> As said, it's not necessary in practice.
-> As said where? All you say here is that a memory barrier is needed. Perhaps
-> my use of "ahead" was ambiguous? I meant "move ahead in the series", not
-> "move ahead in code". Apart from this as a possibility I fear I don't
-> understand.
+On 04/07/2025 9:25 am, Jan Beulich wrote:
+> On 04.07.2025 09:55, Roger Pau Monné wrote:
+>> On Fri, Jul 04, 2025 at 09:23:29AM +0200, Jan Beulich wrote:
+>>> On 03.07.2025 18:21, Roger Pau Monné wrote:
+>>>> On Wed, Jul 02, 2025 at 03:41:18PM +0100, Andrew Cooper wrote:
+>>>>> --- a/xen/include/xen/softirq.h
+>>>>> +++ b/xen/include/xen/softirq.h
+>>>>> @@ -23,6 +23,22 @@ enum {
+>>>>>  
+>>>>>  #define NR_SOFTIRQS (NR_COMMON_SOFTIRQS + NR_ARCH_SOFTIRQS)
+>>>>>  
+>>>>> +/*
+>>>>> + * Ensure softirq @nr is pending on @cpu.  Return true if an IPI can be
+>>>>> + * skipped, false if the IPI cannot be skipped.
+>>>>> + */
+>>>>> +#ifndef arch_pend_softirq
+>>>>> +static always_inline bool arch_pend_softirq(unsigned int nr, unsigned int cpu)
+>>>> Nit: I would maybe it arch_set_softirq(), I find `pend` not that clear
+>>>> (I would rather fully spell `pending` instead).
+>>> I, too, did wonder about the naming here. But using "pending" as you suggest
+>>> has the effect of giving the function a name we would normally associate with
+>>> a predicate ("Is it pending?"), whereas here the function is used to _mark_ a
+>>> softirq as pending. Hence in the end I didn't comment at all; I'd be fine
+>>> with "set", but I'm also okay with "pend".
+>> It's a set and check kind of function, so I don't care much.  Just
+>> found the pend a bit too short, I don't think we usually abbreviate
+>> pending to pend.
+> Aiui it's not an abbreviation, but kind of a verb (inverse-)derived from pending.
+> I don't know whether that's "official"; my dictionary doesn't have it.
 
-I did take it to mean "ahead in the series".
+It's used frequently in some circles, meaning "to make pending".
 
-Your comment in patch 4 talks about alternative(), alternative_io() and
-barriers.  I stated (admittedly without reference) that the barrier
-between two alternatives() doesn't matter because of their volatileness.
-
-It can move in the series, because it is genuinely independent and
-unrelated to patch 4 AFAICT.
-
-
->> Nothing good can come of having any loads hoisted above MWAIT, but from
->> a programmers point of view, it's indistinguishable from e.g. taking an
->> SMI.  If there's a correctness issue, it's not MWAIT's fault.
-> Well, yes, but what in the code is it that tells the compiler not to? Up
-> to and including LTO, should we ever get that to work again. This
-> specifically may be why mwait() may need to gain one, despite not itself
-> dealing with any memory (operands).
-
-In practice, mwait() is surrounded by spec_ctrl_{enter,exit}_idle() and
-nothing is crossing those.  I'm going to leave the mwait side of things
-alone for now.
-
-But even with LTO, if hoisting a read causes a problem, that's a bug in
-whatever got hoisted, not in MWAIT.
+But I've changed the name because I don't care enough to argue.
 
 ~Andrew
 
