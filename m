@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 134E7AF9784
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Jul 2025 18:01:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1033496.1406837 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ACFDCAF97A2
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Jul 2025 18:14:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1033502.1406848 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uXiqS-0008DR-6b; Fri, 04 Jul 2025 16:01:00 +0000
+	id 1uXj2g-0001cB-6u; Fri, 04 Jul 2025 16:13:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1033496.1406837; Fri, 04 Jul 2025 16:01:00 +0000
+Received: by outflank-mailman (output) from mailman id 1033502.1406848; Fri, 04 Jul 2025 16:13:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uXiqS-0008Ay-3q; Fri, 04 Jul 2025 16:01:00 +0000
-Received: by outflank-mailman (input) for mailman id 1033496;
- Fri, 04 Jul 2025 16:00:58 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uXj2g-0001aj-39; Fri, 04 Jul 2025 16:13:38 +0000
+Received: by outflank-mailman (input) for mailman id 1033502;
+ Fri, 04 Jul 2025 16:13:36 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=7FCR=ZR=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1uXiqQ-00089f-0Y
- for xen-devel@lists.xenproject.org; Fri, 04 Jul 2025 16:00:58 +0000
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [2a00:1450:4864:20::435])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1243098f-58f0-11f0-a315-13f23c93f187;
- Fri, 04 Jul 2025 18:00:57 +0200 (CEST)
-Received: by mail-wr1-x435.google.com with SMTP id
- ffacd0b85a97d-3a531fcaa05so721650f8f.3
- for <xen-devel@lists.xenproject.org>; Fri, 04 Jul 2025 09:00:57 -0700 (PDT)
+ id 1uXj2d-0001ac-Vw
+ for xen-devel@lists.xenproject.org; Fri, 04 Jul 2025 16:13:35 +0000
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
+ [2a00:1450:4864:20::432])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d4a4be0c-58f1-11f0-b894-0df219b8e170;
+ Fri, 04 Jul 2025 18:13:32 +0200 (CEST)
+Received: by mail-wr1-x432.google.com with SMTP id
+ ffacd0b85a97d-3a4fd1ba177so787653f8f.0
+ for <xen-devel@lists.xenproject.org>; Fri, 04 Jul 2025 09:13:32 -0700 (PDT)
 Received: from [192.168.1.183] (host-92-26-98-202.as13285.net. [92.26.98.202])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3b471b97698sm2839405f8f.54.2025.07.04.09.00.55
+ ffacd0b85a97d-3b47285c903sm2883324f8f.90.2025.07.04.09.13.31
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 04 Jul 2025 09:00:55 -0700 (PDT)
+ Fri, 04 Jul 2025 09:13:31 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1243098f-58f0-11f0-a315-13f23c93f187
+X-Inumbo-ID: d4a4be0c-58f1-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1751644856; x=1752249656; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1751645612; x=1752250412; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=IIG0fH8wBBc8QMEczHgMgyHNXNG3q+U8hkXVsooxbEo=;
-        b=M4sygg3D/lH7zESsbN6HHRcAbp4yha2Fw/j5DM21cv+ydaLWQK0uPt9rRhzD6B5wkH
-         Iz/Vqc/dsipSSImckV5//KoF0wSYuKIP9Rgl/yzv6JrwZJHO5eQzxkxzziVu5+wLvSjv
-         GzyMkO9u7ZWPiESXU7XsrKE6CTzJaAy5WRx9A=
+        bh=XHi+xSjzKKOxYeAo7CW51o/GktjWlBLPZ+FMBQ23JU8=;
+        b=uXtVSglW/yYQPTXbZ8J5w2mwPxSMhhnAHkXq+gs3n0qde+GzoeV9K/CvEUi+3sLdeD
+         BtOvB/+GU2a6ObUhSO3Shv5ttKdLwzeEW9Rx8DjuQX3YYCMf96FENqAIMtCSnOT4gE3c
+         b7c6PvjqstPimn6rfE/5OKj2ojLV/LLduX3GI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1751644856; x=1752249656;
+        d=1e100.net; s=20230601; t=1751645612; x=1752250412;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=IIG0fH8wBBc8QMEczHgMgyHNXNG3q+U8hkXVsooxbEo=;
-        b=T6RJ3xPymIqgW19aib/YYnUNkvCQBKjRitoZKI1ytbwu6S+ZyPuEWEu26nEim2kZCg
-         NUCrxYdp9es2W5NuFHe/UjHQSSobmQ53cZrqKnCCBgTFWVebY9CQgCFQycimnMKe1ZL6
-         bYOzaH22ZrsMr5cMnjo+/aqP/nxlCg0dvaty8t3TIHplRXFt5y3TokWMm6hsSsbG5jYW
-         DQfF96wd3LioBT8oNFlmuOGV1Wg8U725ZQHTJ1zKTaAP1J/BXmGD3gdVjWoTw3ti042r
-         4zOIkWCjQCaL91XEn4a7Se6cD8c4PT3C4dWiGvgK0UY8bIGAwt0z97ap6tCw8KdiyIET
-         OP3w==
-X-Gm-Message-State: AOJu0YxT/HKHToWlHStV9rXXkXxLejwSMxjBAkBBJb8mU/VDKnQJdVhe
-	430rVWrK2xDXoYD7+NTkAHdOduM1F2DS8zbjlx8vCwEjYddPsfW6LJZSKuSxeHxWS+I=
-X-Gm-Gg: ASbGncualoKOx0a7xDeaN0smE7SmsyJ54teET+dq8y6bUvE6EA55i0mVQCcoNibGMPl
-	cPuWGXE0tAxbyLnyptwhXdJaYTzvV0HDSTX8WofC8YJw22OM6wg//lSGf3C1KkGQjkYLb/h0nUp
-	vXy7BL3So97ly42TgL3P4vjqY7S5VvfoNdqiwc8wFO7QgYuDAoJiOAxVI6oU+gSD9aO/If3oVl1
-	6gAGeBuX7hglLxS03CZDAoH++Gm/D8n1VNuH5gzv5mqDL4iwCBvBn13dlXFFqangAyG9XOZbN3A
-	XKI/VBxEYxCGLqe98BjvWpFOQMFYKFK/Ic6ONbv1oW6Qioky9l13uuH7WQLkMGESbtjQ4kpsERB
-	WaGSIov1XYj0l3pVa5wKgOS/XTf4DcNQ0YVQhbw==
-X-Google-Smtp-Source: AGHT+IHBrIFoQa6Y5l8dsWBy+Rx5eYy3o+JbeZtQsfrG8/BWqp8a47D8ShCY18aDkxf0+oCwOOXttw==
-X-Received: by 2002:a05:6000:430a:b0:3b3:59c3:483d with SMTP id ffacd0b85a97d-3b4964c097bmr2722065f8f.14.1751644856258;
-        Fri, 04 Jul 2025 09:00:56 -0700 (PDT)
-Message-ID: <7c6f88a1-7ec0-4279-839b-46add6cf9074@citrix.com>
-Date: Fri, 4 Jul 2025 17:00:55 +0100
+        bh=XHi+xSjzKKOxYeAo7CW51o/GktjWlBLPZ+FMBQ23JU8=;
+        b=lIRkUirU7bfoWv++fTrJdesRrHrAK2xEGWLZjDzFVAlIy/ZPwbwSxweuL7fztEPrZU
+         f/5RsqUe+srklIbYYQqQ4eADXaBsqIhX2/2ohAAmW64sxvQvKioD4v41CSloSJHpxowF
+         OhmVRR0DhfX7qtNw3MH67jwW/5mXK6UhRhppws/+wF1In7OOJRcGFajh3wEogAjUCcmy
+         HYALovOJC1lqtH26kxsvVBT60NiZIajaFYUwwGnYHqYkgEYTEpJ+iED2sqlKx6kAlwUf
+         V+rOZrrAZ63mgGUEFYqK7K6ASVFoNYmMgKfbJmksnuyUdmDhTR/tiMdtElqXdOpTTOLi
+         kQYA==
+X-Gm-Message-State: AOJu0YyVfJ1YinWuzDD2lLQmidmVWag9xKVmz+AKItpFiy1fx8RFXSRD
+	HpZIj1Z1IFHbWLrw2exagqPzLaapUBQ/hIEsCKIRr1JR83fYA6RblCJlkE55k5SFVc8=
+X-Gm-Gg: ASbGncvnzyiY/NQ1PmBvdBO+la74FosuB8ILTdtCKKfJ+PUZ7j6QZp6vNJnh3bfFi/v
+	DqB7n55Wj7uNQGWlFZtrEFkohZdcM+91pUlU29gJDQDFVcnCSI+PvxTkojmyEVmH0EI2b7h5JC1
+	1oEk8/MaqAEdh+QXI0ocgUTRxD8aukJedJ+RNjTL1kRlXQXQgnPfpv6YMGXP2NuLVxpX3u8lwxY
+	wBKQixxwjyPI/HL+HPVkY/3NoWOf+fxv45D3UK3xe+TQ/JANCAt1sd5gjE+3O1KVFyIZF+vl+fF
+	87jjnI/v/IPOFHBb4SDFvmSKCuDGCf4FajG/IYl5QxPAqTUqP/Ek6fw0c8xUtQu38O8Ky41yVyA
+	E/2FGEvSYz82zpIRvkIC8slZlj7k=
+X-Google-Smtp-Source: AGHT+IFxWkbRQ8wGo8fEadFJxEiW9vf8ohzZME0k6Hbh0UZVtT0HavgrMv6X2ZvF5S8zJdBlE9ksVQ==
+X-Received: by 2002:a05:6000:4911:b0:3a5:2915:ed68 with SMTP id ffacd0b85a97d-3b495ccbb9emr2884812f8f.28.1751645612116;
+        Fri, 04 Jul 2025 09:13:32 -0700 (PDT)
+Message-ID: <db1705b8-b110-4450-97a3-f286a81c12ac@citrix.com>
+Date: Fri, 4 Jul 2025 17:13:30 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/6] xen/softirq: Rework arch_skip_send_event_check() into
- arch_pend_softirq()
-To: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
+Subject: Re: [PATCH 4/6] x86/idle: Implement a new MWAIT IPI-elision algorithm
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- Anthony PERARD <anthony.perard@vates.tech>,
+ Jan Beulich <JBeulich@suse.com>, Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>
 References: <20250702144121.1096448-1-andrew.cooper3@citrix.com>
- <20250702144121.1096448-4-andrew.cooper3@citrix.com>
- <aGat-VxBF5jOErzy@macbook.local>
- <86dde581-40ad-405e-8d98-0b4485529581@suse.com>
- <aGeI_k1H3oju26hf@macbook.local>
- <27dcd1b8-e735-4ab1-a5a8-d71a46e59955@suse.com>
+ <20250702144121.1096448-5-andrew.cooper3@citrix.com>
+ <aGaxeQanRmfJg8nF@macbook.local>
+ <7d51879c-87c8-4e36-a7d7-66ba02ef2886@citrix.com>
+ <aGeBlmi7-KX8gF7X@macbook.local>
 Content-Language: en-GB
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
@@ -142,43 +139,168 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <27dcd1b8-e735-4ab1-a5a8-d71a46e59955@suse.com>
+In-Reply-To: <aGeBlmi7-KX8gF7X@macbook.local>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 04/07/2025 9:25 am, Jan Beulich wrote:
-> On 04.07.2025 09:55, Roger Pau Monné wrote:
->> On Fri, Jul 04, 2025 at 09:23:29AM +0200, Jan Beulich wrote:
->>> On 03.07.2025 18:21, Roger Pau Monné wrote:
->>>> On Wed, Jul 02, 2025 at 03:41:18PM +0100, Andrew Cooper wrote:
->>>>> --- a/xen/include/xen/softirq.h
->>>>> +++ b/xen/include/xen/softirq.h
->>>>> @@ -23,6 +23,22 @@ enum {
->>>>>  
->>>>>  #define NR_SOFTIRQS (NR_COMMON_SOFTIRQS + NR_ARCH_SOFTIRQS)
->>>>>  
->>>>> +/*
->>>>> + * Ensure softirq @nr is pending on @cpu.  Return true if an IPI can be
->>>>> + * skipped, false if the IPI cannot be skipped.
->>>>> + */
->>>>> +#ifndef arch_pend_softirq
->>>>> +static always_inline bool arch_pend_softirq(unsigned int nr, unsigned int cpu)
->>>> Nit: I would maybe it arch_set_softirq(), I find `pend` not that clear
->>>> (I would rather fully spell `pending` instead).
->>> I, too, did wonder about the naming here. But using "pending" as you suggest
->>> has the effect of giving the function a name we would normally associate with
->>> a predicate ("Is it pending?"), whereas here the function is used to _mark_ a
->>> softirq as pending. Hence in the end I didn't comment at all; I'd be fine
->>> with "set", but I'm also okay with "pend".
->> It's a set and check kind of function, so I don't care much.  Just
->> found the pend a bit too short, I don't think we usually abbreviate
->> pending to pend.
-> Aiui it's not an abbreviation, but kind of a verb (inverse-)derived from pending.
-> I don't know whether that's "official"; my dictionary doesn't have it.
+On 04/07/2025 8:24 am, Roger Pau Monné wrote:
+> On Thu, Jul 03, 2025 at 06:48:23PM +0100, Andrew Cooper wrote:
+>> On 03/07/2025 5:36 pm, Roger Pau Monné wrote:
+>>> On Wed, Jul 02, 2025 at 03:41:19PM +0100, Andrew Cooper wrote:
+>>>> In order elide IPIs, we must be able to identify whether a target CPU is in
+>>>> MWAIT at the point it is woken up.  i.e. the store to wake it up must also
+>>>> identify the state.
+>>>>
+>>>> Create a new in_mwait variable beside __softirq_pending, so we can use a
+>>>> CMPXCHG to set the softirq while also observing the status safely.  Implement
+>>>> an x86 version of arch_pend_softirq() which does this.
+>>>>
+>>>> In mwait_idle_with_hints(), advertise in_mwait, with an explanation of
+>>>> precisely what it means.  X86_BUG_MONITOR can be accounted for simply by not
+>>>> advertising in_mwait.
+>>>>
+>>>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>>>> ---
+>>>> CC: Jan Beulich <JBeulich@suse.com>
+>>>> CC: Roger Pau Monné <roger.pau@citrix.com>
+>>>> CC: Anthony PERARD <anthony.perard@vates.tech>
+>>>> CC: Michal Orzel <michal.orzel@amd.com>
+>>>> CC: Julien Grall <julien@xen.org>
+>>>> CC: Stefano Stabellini <sstabellini@kernel.org>
+>>>>
+>>>> This is modelled after Linux's TIF_NEED_RESCHED (single bit equivelent of all
+>>>> of __softirq_pending), and TIF_POLLING_NRFLAG (arch-neutral "in_mwait").
+>>>>
+>>>> In Linux, they're both in the same flags field, which adds complexity.  In
+>>>> Xen, __softirq_pending is already unsigned long for everything other than x86,
+>>>> so adding an arch-neutral "in_mwait" would need wider changes.
+>>>> ---
+>>>>  xen/arch/x86/acpi/cpu_idle.c       | 20 +++++++++++++++++-
+>>>>  xen/arch/x86/include/asm/hardirq.h | 14 +++++++++++-
+>>>>  xen/arch/x86/include/asm/softirq.h | 34 ++++++++++++++++++++++++++++++
+>>>>  3 files changed, 66 insertions(+), 2 deletions(-)
+>>>>
+>>>> diff --git a/xen/arch/x86/acpi/cpu_idle.c b/xen/arch/x86/acpi/cpu_idle.c
+>>>> index caa0fef0b3b1..13040ef467a0 100644
+>>>> --- a/xen/arch/x86/acpi/cpu_idle.c
+>>>> +++ b/xen/arch/x86/acpi/cpu_idle.c
+>>>> @@ -439,7 +439,21 @@ __initcall(cpu_idle_key_init);
+>>>>  void mwait_idle_with_hints(unsigned int eax, unsigned int ecx)
+>>>>  {
+>>>>      unsigned int cpu = smp_processor_id();
+>>>> -    const unsigned int *this_softirq_pending = &softirq_pending(cpu);
+>>>> +    irq_cpustat_t *stat = &irq_stat[cpu];
+>>>> +    const unsigned int *this_softirq_pending = &stat->__softirq_pending;
+>>>> +
+>>>> +    /*
+>>>> +     * By setting in_mwait, we promise to other CPUs that we'll notice changes
+>>>> +     * to __softirq_pending without being sent an IPI.  We achieve this by
+>>>> +     * either not going to sleep, or by having hardware notice on our behalf.
+>>>> +     *
+>>>> +     * Some errata exist where MONITOR doesn't work properly, and the
+>>>> +     * workaround is to force the use of an IPI.  Cause this to happen by
+>>>> +     * simply not advertising outselves as being in_mwait.
+>>>> +     */
+>>>> +    alternative_io("movb $1, %[in_mwait]",
+>>>> +                   "", X86_BUG_MONITOR,
+>>>> +                   [in_mwait] "=m" (stat->in_mwait));
+>>>>  
+>>>>      monitor(this_softirq_pending, 0, 0);
+>>>>      smp_mb();
+>>>> @@ -452,6 +466,10 @@ void mwait_idle_with_hints(unsigned int eax, unsigned int ecx)
+>>>>          mwait(eax, ecx);
+>>>>          spec_ctrl_exit_idle(info);
+>>>>      }
+>>>> +
+>>>> +    alternative_io("movb $0, %[in_mwait]",
+>>>> +                   "", X86_BUG_MONITOR,
+>>>> +                   [in_mwait] "=m" (stat->in_mwait));
+>>> Isn't it a bit overkill to use alternatives here when you could have a
+>>> conditional based on a global variable to decide whether to set/clear
+>>> in_mwait?
+>> I view it differently.  Why should the common case suffer overhead
+>> (extra memory read and conditional branch) to work around 3 buggy pieces
+>> of hardware in a common path?
+> TBH I don't think the extra read and conditional would make any
+> difference in this specific path performance wise.  Either the CPU is
+> going to sleep and has nothing to do, or the cost of getting back from
+> idle will shadow the overhead of an extra read and conditional.
+>
+> It's all a question of taste I guess.  If it was me I would set/clear
+> stat->in_mwait unconditionally in mwait_idle_with_hints(), and then in
+> arch_pend_softirq() I would return:
+>
+> return new & (1UL << 32) || force_mwait_ipi_wakeup;
+>
+> Or AFAICT you could possibly skip the cmpxchg() in the
+> force_mwait_ipi_wakeup case in arch_pend_softirq(), and just do:
+>
+> if ( force_mwait_ipi_wakeup )
+>     return test_and_set_bit(nr, &softirq_pending(cpu));
+>
+> Because in that case Xen doesn't care about the in_mwait status.  It
+> would be an optimization for the buggy hardware that already has to
+> deal with the extra cost of always sending an IPI.
 
-It's used frequently in some circles, meaning "to make pending".
+These will both function, but they're both poor options.
 
-But I've changed the name because I don't care enough to argue.
+They're in a loop over a cpumask, and because of the full barriers in
+the atomic options, the read cannot be hoisted or the loop split,
+because the compiler has been told "the value may change on each loop
+iteration".
+
+
+This was a code-gen/perf note I had on your original errata fix, which I
+said "lets fix later".  Later is now.
+
+The other part of the fix is arch_pend_softirq() is static inline, and
+not out-of-line in a separate TU.
+>>>> +        };
+>>>> +        uint64_t softirq_mwait_raw;
+>>>> +    };
+>>> This could be a named union type ...
+>>>
+>>>> +
+>>>>      unsigned int __local_irq_count;
+>>>>      unsigned int nmi_count;
+>>>>      unsigned int mce_count;
+>>>> diff --git a/xen/arch/x86/include/asm/softirq.h b/xen/arch/x86/include/asm/softirq.h
+>>>> index e4b194f069fb..069e5716a68d 100644
+>>>> --- a/xen/arch/x86/include/asm/softirq.h
+>>>> +++ b/xen/arch/x86/include/asm/softirq.h
+>>>> @@ -1,6 +1,8 @@
+>>>>  #ifndef __ASM_SOFTIRQ_H__
+>>>>  #define __ASM_SOFTIRQ_H__
+>>>>  
+>>>> +#include <asm/system.h>
+>>>> +
+>>>>  #define NMI_SOFTIRQ            (NR_COMMON_SOFTIRQS + 0)
+>>>>  #define TIME_CALIBRATE_SOFTIRQ (NR_COMMON_SOFTIRQS + 1)
+>>>>  #define VCPU_KICK_SOFTIRQ      (NR_COMMON_SOFTIRQS + 2)
+>>>> @@ -9,4 +11,36 @@
+>>>>  #define HVM_DPCI_SOFTIRQ       (NR_COMMON_SOFTIRQS + 4)
+>>>>  #define NR_ARCH_SOFTIRQS       5
+>>>>  
+>>>> +/*
+>>>> + * Ensure softirq @nr is pending on @cpu.  Return true if an IPI can be
+>>>> + * skipped, false if the IPI cannot be skipped.
+>>>> + *
+>>>> + * We use a CMPXCHG covering both __softirq_pending and in_mwait, in order to
+>>>> + * set softirq @nr while also observing in_mwait in a race-free way.
+>>>> + */
+>>>> +static always_inline bool arch_pend_softirq(unsigned int nr, unsigned int cpu)
+>>>> +{
+>>>> +    uint64_t *ptr = &irq_stat[cpu].softirq_mwait_raw;
+>>>> +    uint64_t old, new;
+>>> ... so that you also use it here?
+>> No, it cant.  The of softirq_pending() in common code requires no
+>> intermediate field names, and I'm not untangling that mess in a series
+>> wanting backporting.
+> Oh, I see.  Never mind then, something for a later cleanup if
+> anything.
+
+Yeah, I've got further cleanup pending, although I don't have a good fix
+for this specifically.
 
 ~Andrew
 
