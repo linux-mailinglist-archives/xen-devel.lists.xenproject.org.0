@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58B0BAF8B61
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Jul 2025 10:26:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1032993.1406407 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A3C8AF8B7A
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Jul 2025 10:28:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1033003.1406418 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uXbk1-00013t-0Q; Fri, 04 Jul 2025 08:25:53 +0000
+	id 1uXbm9-0001ck-Eh; Fri, 04 Jul 2025 08:28:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1032993.1406407; Fri, 04 Jul 2025 08:25:52 +0000
+Received: by outflank-mailman (output) from mailman id 1033003.1406418; Fri, 04 Jul 2025 08:28:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uXbk0-000115-TU; Fri, 04 Jul 2025 08:25:52 +0000
-Received: by outflank-mailman (input) for mailman id 1032993;
- Fri, 04 Jul 2025 08:25:51 +0000
+	id 1uXbm9-0001ax-AX; Fri, 04 Jul 2025 08:28:05 +0000
+Received: by outflank-mailman (input) for mailman id 1033003;
+ Fri, 04 Jul 2025 08:28:04 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=yJnJ=ZR=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uXbjz-00010g-9k
- for xen-devel@lists.xenproject.org; Fri, 04 Jul 2025 08:25:51 +0000
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [2a00:1450:4864:20::42c])
+ (envelope-from <SRS0=yKfD=ZR=linaro.org=philmd@srs-se1.protection.inumbo.net>)
+ id 1uXbm7-0001ap-TK
+ for xen-devel@lists.xenproject.org; Fri, 04 Jul 2025 08:28:03 +0000
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [2a00:1450:4864:20::329])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7d5161a2-58b0-11f0-b894-0df219b8e170;
- Fri, 04 Jul 2025 10:25:49 +0200 (CEST)
-Received: by mail-wr1-x42c.google.com with SMTP id
- ffacd0b85a97d-3a503d9ef59so445015f8f.3
- for <xen-devel@lists.xenproject.org>; Fri, 04 Jul 2025 01:25:49 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-b38ee450db7sm1512523a12.4.2025.07.04.01.25.43
+ id cc1e0b5b-58b0-11f0-b894-0df219b8e170;
+ Fri, 04 Jul 2025 10:28:02 +0200 (CEST)
+Received: by mail-wm1-x329.google.com with SMTP id
+ 5b1f17b1804b1-451dbe494d6so7270805e9.1
+ for <xen-devel@lists.xenproject.org>; Fri, 04 Jul 2025 01:28:01 -0700 (PDT)
+Received: from [192.168.69.218] (88-187-86-199.subs.proxad.net.
+ [88.187.86.199]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-454b1634147sm20034405e9.18.2025.07.04.01.27.58
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 04 Jul 2025 01:25:47 -0700 (PDT)
+ Fri, 04 Jul 2025 01:27:59 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,123 +45,87 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7d5161a2-58b0-11f0-b894-0df219b8e170
+X-Inumbo-ID: cc1e0b5b-58b0-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1751617548; x=1752222348; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=WPAH42PuLVsHZeGsUYbSdPVqmLwpofnTbcVS+2THMqA=;
-        b=fFyhE+eJWaWtO7Z2h06Yxi6St+QBI20gny1h15FryWa8HhHcEviuSkb2JiUb+3qeFu
-         ou7rNKtGZKD75O3/SQ4mNE2IvGP6ujf8JZGL8kapYTqwrtPerswmVqk7HMQz+N2vMzpc
-         6k7tP6xHU1+UVEqG7i9OzaH1aqwmlxhtbJohjtjNJyOJlhUjVXJAhkqcc7fDEO8WJAvn
-         I2+8AS913IHxrj9YJzuTJBWeh2Qi0Gp27iWlE5MrZVgvAQvXH0oDpTcrAfApYErQiv1j
-         kuCbyReSHCksIyJrcs54TPsRE21w68iU/yKlXoZBbUddVMK7ybwYilAs3usOaiT17tpx
-         a5cg==
+        d=linaro.org; s=google; t=1751617680; x=1752222480; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=U0A4usibI7eGbC53g5/4tZrjHX/EOioQsgduZ6qqcEw=;
+        b=d9obtFMtxCmVDImfWcBnbfGgDqt+4LWXT2mCT133QLDnWYgk6GjdPhtwu7rgcXiBQi
+         eAoHZbX+B9bT28gbjQT6uKs+CxZ2Oi9IDq8c0KmhbVhntbGBz7PH3OjPXEBZJb+59FnE
+         WNeAjOyPF714Yk3AOqhZXMIxYKwz7bLcB0tf7wCO9h5Z1MfJDaeDrrvsCsV4xI8st9Is
+         LApb0D8y/Iz6sBVJoe/6zRxannKPZcXm/Q6KXKmPz4Vvfbj8N8hQ4S69f9y2eP5d38ep
+         qRWk5yoNKRB1HwrCQ0V4w3VthRQeCCt4M0b2fxfkp9oGDfpC7OuuDw6QDrpBO8p4F197
+         5Fhw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1751617548; x=1752222348;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=WPAH42PuLVsHZeGsUYbSdPVqmLwpofnTbcVS+2THMqA=;
-        b=tFyHLPPCGKZCD9R+e8xd3gzurOlPcbfvFKcAd5JtkMur4cODGqW8CVrEDWIw+NKI93
-         YSJjNKsYRmQvbb1UwcO69KNYmRwGWHvMy308tf6a91R12EwucGosgRBBi7CM8Z0eHPSX
-         fMdpW78xCu/yGqciXwKn3DTpgzBzgB23ygUDmxq6SgxHEswF0VU4l4SxpltPdg3IWb33
-         wq6vK1zR9+IbnXVJnd1ysKE7I91uTea/alr19yiJjUDwK23JRc2pf5Ger+JI1RGsaD7p
-         oTeQ/7Wq2VHdx/FvGq2kDB9D4TzM7icSAu5WccJRwp/WqyrEyUbpYNxSBBdnyE84M6ru
-         cE4g==
-X-Forwarded-Encrypted: i=1; AJvYcCXBsprnmYUAGAXXQhodqefrm4G1VYaGqUiOq8wQfgd89N026jseEme3ay71cZI+hEZE2WjrhgqSa2E=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyrcQBmcu5hNW+bb00qpEZhlgvd8Qf/MrZSUsjnBOS2vV/wvdkS
-	+cnGEbFbRo0wH+9mdEiWcb/0ITcLu1rynwhbH9cV6SPdz4bodZKvrPiDLyJlkYtlr2jw5OFEgMm
-	CVJA=
-X-Gm-Gg: ASbGncuXNIeJFO5GzZk/OaELmbYRFO75H2dDNwVWfu1nuORKaUmCJiLXuyGFvzPx1bY
-	1BuH1dW3mcpyZdaa97pNFTJVcQMI6gWx+t8C8LxVn+I4eW754hYmCdg/RDpbQUpcQWlAfmJG2cg
-	eLHcfQtK6BsOVNmQtst+10VhFUaOA6dgk29U7twP/n8hayycUZmu06gdGRZDH6yJciRF+qRM820
-	wXGWEOjtSN5Scg6D2y9r2VF3d3Repke6kanp58Vxgy+SJZ6rDYAMfoLAIj/3c1NLuouLluECmug
-	r0c9mkLLijLm6Ov8u8UxhIVre/JxCbQF0mGEOWiK5ih9g7gHD9jzN4xFnVYe3cLn9mrFg/XXdOu
-	ajlvbyXu9m/SKn14TSsVFAkS+vuCxFA0En4x+LoH5n55JKgA=
-X-Google-Smtp-Source: AGHT+IEXej/qvT9IRpA0KHgr6lo0tcjcXkpRRJ8I76A2E0Hun3gOKTqR/2SN8Mr/xK1t2AFTmGMf5g==
-X-Received: by 2002:a05:6000:2512:b0:3a4:db49:94aa with SMTP id ffacd0b85a97d-3b4970195e6mr1031627f8f.21.1751617548233;
-        Fri, 04 Jul 2025 01:25:48 -0700 (PDT)
-Message-ID: <27dcd1b8-e735-4ab1-a5a8-d71a46e59955@suse.com>
-Date: Fri, 4 Jul 2025 10:25:39 +0200
+        d=1e100.net; s=20230601; t=1751617680; x=1752222480;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=U0A4usibI7eGbC53g5/4tZrjHX/EOioQsgduZ6qqcEw=;
+        b=S8rvWJ9pOCfqtcHi8MCSqX2H7CQB0u5S1h0v2f9HoidRrcBRqemToy2mTzrwCuGv03
+         Y2AvOIsgcJhdpbftiihukY/JY1tIYw5zNnm/bUXIsuZTvXQ4I+bHegEH5sCXsT6yTn/T
+         4qACFNyNri4N2QHijRg/fyMDA0Qeo9Mrp2eDb1Dj/fIU6pjNTxIs6qr4HlYNMuUalfLJ
+         HUElrF5SpwNj6ZFFAz8qhnhMbc+h0KijTfx7IGRg2QAAFJxxHjbN6nsoUhqqYTB4NJiU
+         tTV9TAOasIJZuHAi5pd+EE5W6Yt7XoLDWn6GybcYrX9UUJ7rT6n1mK90UMcvR/iBCbWM
+         EiTw==
+X-Forwarded-Encrypted: i=1; AJvYcCVpNDBR1COsHz7oF1cyzsSt4XML9G2bHLUMvTYXIG//efmCs6VJ1IcgSeL4bA+U6J8r00tFxfBFijA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzFSIIeHUV2MAWDfBGjjMm4pjpftELVPV9RSjebz9daUfGgzCKd
+	3weMhYGSHpD9kBDpx20okkoIv8olpW/XbOVQkJ9Cue/E+4keeLvrvb1ylCHOFyFdnl4=
+X-Gm-Gg: ASbGnctDI7yWWhuz+OsHhceaJT33VR0Ed8OIKKQl0WLLWoeI9cqEeL4dWR08S6n15F7
+	JH3PxuO25/Bx65e67mcy9ugI8hF4JdG+kxauCo4bfd4V/SgbYUbxKgear7gf+WDoha/0hiRkMHO
+	Kyj/1slDR5Q9/ngDIkaWjRIArTG+aROQV0/A1BAnDF72y3/fQjijXILTEfDc5ASwT3lsLP/QqeI
+	5i940M9O0uvMFN9MIh3m1X6DBnAnawqpddFzJXs8NLnUqkdVQSmtQRTJKynu5TY3S4rD6i615hC
+	JpTDw3mP4s79cI4bM7/DaRP5kCejwsTYiDOVZDYeL4n1F4KhBm4IVSTM5H58aJ2GEoWFcusCoh2
+	Y2yNjKYF6HB/4ypTyoyzamf8+odOOEQ==
+X-Google-Smtp-Source: AGHT+IEJWeuXd5bkocPT1GC2uTHAsrEBbH8Qs+f1xwK7OySX9hPisz7u73RvYfTp/652iJy3CmXBxQ==
+X-Received: by 2002:a05:600c:1c94:b0:43c:ec97:75db with SMTP id 5b1f17b1804b1-454b4e79819mr10558905e9.11.1751617680441;
+        Fri, 04 Jul 2025 01:28:00 -0700 (PDT)
+Message-ID: <0bc1e609-88ea-4994-9815-020ae6389475@linaro.org>
+Date: Fri, 4 Jul 2025 10:27:58 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/6] xen/softirq: Rework arch_skip_send_event_check() into
- arch_pend_softirq()
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <20250702144121.1096448-1-andrew.cooper3@citrix.com>
- <20250702144121.1096448-4-andrew.cooper3@citrix.com>
- <aGat-VxBF5jOErzy@macbook.local>
- <86dde581-40ad-405e-8d98-0b4485529581@suse.com>
- <aGeI_k1H3oju26hf@macbook.local>
+Subject: Re: [PATCH v6 28/39] accel: Expose and register
+ generic_handle_interrupt()
+To: Xiaoyao Li <xiaoyao.li@intel.com>, qemu-devel@nongnu.org
+Cc: Zhao Liu <zhao1.liu@intel.com>, Paolo Bonzini <pbonzini@redhat.com>,
+ Richard Henderson <richard.henderson@linaro.org>,
+ Pierrick Bouvier <pierrick.bouvier@linaro.org>,
+ =?UTF-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>,
+ Cameron Esfahani <dirty@apple.com>, Roman Bolshakov <rbolshakov@ddn.com>,
+ Phil Dennis-Jordan <phil@philjordan.eu>, Mads Ynddal <mads@ynddal.dk>,
+ Fabiano Rosas <farosas@suse.de>, Laurent Vivier <lvivier@redhat.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony PERARD <anthony@xenproject.org>, Paul Durrant <paul@xen.org>,
+ "Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
+ Reinoud Zandijk <reinoud@netbsd.org>,
+ Sunil Muthuswamy <sunilmut@microsoft.com>, kvm@vger.kernel.org,
+ xen-devel@lists.xenproject.org
+References: <20250703173248.44995-1-philmd@linaro.org>
+ <20250703173248.44995-29-philmd@linaro.org>
+ <e8d0edca-f79c-4d6c-b1a3-69ad506bf470@intel.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aGeI_k1H3oju26hf@macbook.local>
-Content-Type: text/plain; charset=UTF-8
+From: =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>
+In-Reply-To: <e8d0edca-f79c-4d6c-b1a3-69ad506bf470@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On 04.07.2025 09:55, Roger Pau Monné wrote:
-> On Fri, Jul 04, 2025 at 09:23:29AM +0200, Jan Beulich wrote:
->> On 03.07.2025 18:21, Roger Pau Monné wrote:
->>> On Wed, Jul 02, 2025 at 03:41:18PM +0100, Andrew Cooper wrote:
->>>> --- a/xen/include/xen/softirq.h
->>>> +++ b/xen/include/xen/softirq.h
->>>> @@ -23,6 +23,22 @@ enum {
->>>>  
->>>>  #define NR_SOFTIRQS (NR_COMMON_SOFTIRQS + NR_ARCH_SOFTIRQS)
->>>>  
->>>> +/*
->>>> + * Ensure softirq @nr is pending on @cpu.  Return true if an IPI can be
->>>> + * skipped, false if the IPI cannot be skipped.
->>>> + */
->>>> +#ifndef arch_pend_softirq
->>>> +static always_inline bool arch_pend_softirq(unsigned int nr, unsigned int cpu)
->>>
->>> Nit: I would maybe it arch_set_softirq(), I find `pend` not that clear
->>> (I would rather fully spell `pending` instead).
->>
->> I, too, did wonder about the naming here. But using "pending" as you suggest
->> has the effect of giving the function a name we would normally associate with
->> a predicate ("Is it pending?"), whereas here the function is used to _mark_ a
->> softirq as pending. Hence in the end I didn't comment at all; I'd be fine
->> with "set", but I'm also okay with "pend".
+On 4/7/25 08:38, Xiaoyao Li wrote:
+> On 7/4/2025 1:32 AM, Philippe Mathieu-Daudé wrote:
+>> In order to dispatch over AccelOpsClass::handle_interrupt(),
+>> we need it always defined, 
 > 
-> It's a set and check kind of function, so I don't care much.  Just
-> found the pend a bit too short, I don't think we usually abbreviate
-> pending to pend.
+> It seems I can only understand it until I see the code to really require 
+> it to be mandatory.
 
-Aiui it's not an abbreviation, but kind of a verb (inverse-)derived from pending.
-I don't know whether that's "official"; my dictionary doesn't have it.
+See 
+https://lore.kernel.org/qemu-devel/acd1d192-f016-48d3-90e1-39d70eac46f5@linaro.org/
 
-Jan
+> 
+> But anyway, the change itself is correct.
+> 
+> Reviewed-by: Xiaoyao Li <xiaoyao.li@intel.com>
+
+Thanks!
 
