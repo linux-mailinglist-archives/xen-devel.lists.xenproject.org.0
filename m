@@ -2,52 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3567AAF8A28
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Jul 2025 09:54:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1032942.1406374 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E7D7AF8A27
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Jul 2025 09:54:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1032940.1406357 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uXbFr-0002Km-8A; Fri, 04 Jul 2025 07:54:43 +0000
+	id 1uXbFo-00021o-KD; Fri, 04 Jul 2025 07:54:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1032942.1406374; Fri, 04 Jul 2025 07:54:43 +0000
+Received: by outflank-mailman (output) from mailman id 1032940.1406357; Fri, 04 Jul 2025 07:54:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uXbFr-0002HB-0o; Fri, 04 Jul 2025 07:54:43 +0000
-Received: by outflank-mailman (input) for mailman id 1032942;
- Fri, 04 Jul 2025 07:54:41 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uXbFo-0001zz-HA; Fri, 04 Jul 2025 07:54:40 +0000
+Received: by outflank-mailman (input) for mailman id 1032940;
+ Fri, 04 Jul 2025 07:54:39 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=aOXq=ZR=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1uXbFp-0002Dk-Tl
- for xen-devel@lists.xenproject.org; Fri, 04 Jul 2025 07:54:41 +0000
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1nam02on2062e.outbound.protection.outlook.com
- [2a01:111:f403:2406::62e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 22cb9119-58ac-11f0-b894-0df219b8e170;
- Fri, 04 Jul 2025 09:54:40 +0200 (CEST)
-Received: from CH0PR08CA0021.namprd08.prod.outlook.com (2603:10b6:610:33::26)
- by IA1PR12MB6067.namprd12.prod.outlook.com (2603:10b6:208:3ed::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8901.21; Fri, 4 Jul
- 2025 07:54:33 +0000
-Received: from CH3PEPF0000000F.namprd04.prod.outlook.com
- (2603:10b6:610:33:cafe::eb) by CH0PR08CA0021.outlook.office365.com
- (2603:10b6:610:33::26) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8901.22 via Frontend Transport; Fri,
- 4 Jul 2025 07:54:33 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- CH3PEPF0000000F.mail.protection.outlook.com (10.167.244.40) with Microsoft
+ id 1uXbFn-0001zt-R9
+ for xen-devel@lists.xenproject.org; Fri, 04 Jul 2025 07:54:39 +0000
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2061c.outbound.protection.outlook.com
+ [2a01:111:f403:2417::61c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 21c671ad-58ac-11f0-a315-13f23c93f187;
+ Fri, 04 Jul 2025 09:54:38 +0200 (CEST)
+Received: from BL1PR13CA0197.namprd13.prod.outlook.com (2603:10b6:208:2be::22)
+ by DS2PR12MB9712.namprd12.prod.outlook.com (2603:10b6:8:275::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8901.22; Fri, 4 Jul
+ 2025 07:54:34 +0000
+Received: from BN3PEPF0000B06F.namprd21.prod.outlook.com
+ (2603:10b6:208:2be:cafe::72) by BL1PR13CA0197.outlook.office365.com
+ (2603:10b6:208:2be::22) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8922.14 via Frontend Transport; Fri,
+ 4 Jul 2025 07:54:34 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN3PEPF0000B06F.mail.protection.outlook.com (10.167.243.74) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8901.15 via Frontend Transport; Fri, 4 Jul 2025 07:54:32 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.8922.1 via Frontend Transport; Fri, 4 Jul 2025 07:54:34 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 4 Jul
- 2025 02:54:31 -0500
+ 2025 02:54:33 -0500
 Received: from XIR-MICHALO-L1.xilinx.com (10.180.168.240) by
  SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39
- via Frontend Transport; Fri, 4 Jul 2025 02:54:30 -0500
+ via Frontend Transport; Fri, 4 Jul 2025 02:54:32 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,103 +59,175 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 22cb9119-58ac-11f0-b894-0df219b8e170
+X-Inumbo-ID: 21c671ad-58ac-11f0-a315-13f23c93f187
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wiFDaqI0yhJLFKTX5rxUPoThFgxivwbRrZQliTesWCgClYdmzK4QVfPbbmHAy6K3F8GqiiPpXGuWRXRM9blBYBlLa5DCZ9ylgqFuN7fBJ+eap/RGRa4QqZw3E3ylOBCUAXM4WZIaPKSCieoNp8wzfeMSCPgo6kmviiolDDmedNGVnegf0cHP0w5ilOEJgwiaj7niZMtL58cYz5G2CI74/CGuN14rWOZnu1DYRVfzjt12TMv/9/z2NWWLQMXMYP8lYjcIKmHaBKV18L2jCzrlerOZSdP3qwo6NPFgW8QCSyRKn0WNRavy1g2/e5fNZcRMLPOTUt+A5pEr2rMfXlCTUg==
+ b=JHM6dtKw8gxq9Un/j6EXuIS1iQL5pZryL+Rqa7UAU/xBj162h+kfySbX/sqF9HcYygwoGqR1OXRB/WNJrgungP+kpQo6HaJ4V5qBIpHxDJqx6BuCBliGwhichROXEmVUTcAT6CgQu4bYNXNeJuAWYv0KGW2P8PSGZvPg77N2+SiAGLZiw5wqEskEmZU+Lh58vkqklfUKBvdOHdpJV88xAUhbeRLgEHPomYBSCweXNszQjTG+7lnELm7eoGxxoag/BkhmlmqJ4ODYCexoQmO8UxGpzBufkc85GrHVDU32hkbT0CUYGdhomOGl18IhPHaTBiwosp5FxqKwa12EVNHACA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QO1K1SUFHeJhQF0hZwkgunRajVafDqzXzPqi/osgpZk=;
- b=sWOHEQbNWkKH5tpLufasXFh6Z9hBj4ybS1XrE1Z6r75dpjMH+80alH6qtWXWWkjf68r5vX8PNFEt/n4Aw60f1cnV3LXuNVdHaVskJXguHSa+z2chGgdo6JsMDzvqylCmCvSTHZSa/86yXAT+F6MBz8+L9GgWX8YI/OdmjFdj+45Acq+/ia3Bb1RxUejw53yP4oMEOhfH48xYY+MPm6Un/IsYU3QdwYKT6tZga8w0yUaigTd9DSQkaXm2TbMgm2SbVn8IPchvOAJgWJp1AcGiG4wZtBgsqnvAmNzqpel36qoIQGrf6fz1J4NVPb0UGMorvEVcK5Kz4WJNDaOo+Uir5Q==
+ bh=cDiQRVxHy+fYRauhZK6RtfI8uKtDZgOS9uGGKEQXYFI=;
+ b=k2wVsuAI6Z2oKXHr/aqYGsOT2qpEYEuhpTSJsqONnkSHN7LqGGN+KM4Q2Wgp9qJa6FFhXm87j3njLjzQKFIMz0SCprnTKX76J19SMYkY7AtUT0o35f90CLbGRhhYrjFDU4rHhM5kx4BWyoCw6U3RPrpAOGYlxZi7vsnZmyH+WG5y+DU55Y79ypFhWWADdBzA3E+xkpP1L0j96hvNg01IjhlPGb9F9neN9UR/GhjmS6JGeMRHA8fVAsInN+YoMmWh17KKrgsHaJXhQR2gcT7D8lRjuazCx++auDQPsMGRIIReuR/z2WldtoLOoGtcjiQtVqzMn5sCxvE0+e/4CO4sOg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QO1K1SUFHeJhQF0hZwkgunRajVafDqzXzPqi/osgpZk=;
- b=455KoNCTJfduzsSvwgziVlrvZjOMh9YS0r+fOxo69IUk9iI9El1IQSRkAuZK5n33PasEPE9q9fjWhWnklzT14gPxUIvPhQSUGsmus+RdPNzE0JGKxjhSYK+1BT1xU4Q3uelrzAsrEN/5vhr4vW+d1n0tMbeWwcURMEmz+Isjmk4=
+ bh=cDiQRVxHy+fYRauhZK6RtfI8uKtDZgOS9uGGKEQXYFI=;
+ b=jcfV+r69IsNBo56wZuZDjKIs86LfX07mQi+2VPuwSe+YCOpqXxx44lPuG8It0eCrKAnZMGLy7fCRNBKF+PNFXl2RienujikFlUy/JzY7BHEeOIGBT+sMgg2Ba9E9WZXzluKnY4mjTkG0uNtjdkqCNYZvW3RwTHkuOdx58682CVk=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 From: Michal Orzel <michal.orzel@amd.com>
 To: <xen-devel@lists.xenproject.org>
 CC: Michal Orzel <michal.orzel@amd.com>, Stefano Stabellini
 	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
 	<bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH 0/2] xen/arm: Creating base for future PDX changes
-Date: Fri, 4 Jul 2025 09:54:26 +0200
-Message-ID: <20250704075428.33485-1-michal.orzel@amd.com>
+Subject: [PATCH 1/2] xen/arm64: Panic if direct map is too small
+Date: Fri, 4 Jul 2025 09:54:27 +0200
+Message-ID: <20250704075428.33485-2-michal.orzel@amd.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20250704075428.33485-1-michal.orzel@amd.com>
+References: <20250704075428.33485-1-michal.orzel@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-Received-SPF: None (SATLEXMB03.amd.com: michal.orzel@amd.com does not
+Received-SPF: None (SATLEXMB04.amd.com: michal.orzel@amd.com does not
  designate permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH3PEPF0000000F:EE_|IA1PR12MB6067:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6b3c9013-eb3c-4339-e9ea-08ddbad00324
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B06F:EE_|DS2PR12MB9712:EE_
+X-MS-Office365-Filtering-Correlation-Id: 59bac843-99b9-4d3e-3261-08ddbad00417
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|36860700013|376014|82310400026;
+	BCL:0;ARA:13230040|376014|82310400026|36860700013|1800799024;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?w136MDtBMkTVvNSe8DDrugaU7TBiDtO240j42o1YgCoGWVlimUHfjIJQeMP2?=
- =?us-ascii?Q?OAoTEunREy4m+aXlTyaSa2YArCj3k0rwWhuwGI7O7iilVU8KGoAaotl3n/jo?=
- =?us-ascii?Q?WbSacJBMdO4SAbyRceCydsASyCo6MTToVU8GUz+nnF9uTE9aYhXZw6gSbH4Z?=
- =?us-ascii?Q?NG9IvRZ6qS01FSfdh3H+OnS5qx4XGJ6DqWai0ZigFVmYw9zWakiszGRKcim8?=
- =?us-ascii?Q?snyAc5kdIw/xJRz3vDDVOd9YwVkFiBxSDotdBcCWgSnBz+wbiI7dNMCrEU+h?=
- =?us-ascii?Q?guIFOrS0uL2XM9qpPiD9PKIOkdWNVGp31WJVD+K983cYb82RSTs+QOQiQVHC?=
- =?us-ascii?Q?k4buaSBS90S8ikYrw9bNfqvbLFKxHCH68aYrChUnfRMVdzmoKBWd5mq4FtnB?=
- =?us-ascii?Q?GDzkKV7T/MYrrK7DDWetwTB0uRIrHJNsKYu/tj3BbUsrBfzV2BkZg43mqfTA?=
- =?us-ascii?Q?ChEGkUJ82YHqJqrT75Q2Uy/+1h6I/MpFeTeyWOMwSE2A1ccLW2xXLticBFCV?=
- =?us-ascii?Q?JDEfb9jkP96AQcUNcLv5mhAJMJ1HYXiQvgGAXGX6hWYPOVVKTDd/AV+rn4ot?=
- =?us-ascii?Q?YeUF5tvpdJOktwVlTtRCGvZS99J5VOYsaLEyl811H2zdehBkfNhA2MlNV1Vi?=
- =?us-ascii?Q?AadVGTaY0JU4k5Ra1tSTGe+M5AAjW4aEFnMrPsV6W1KxfakmcAaf6uCkF2LI?=
- =?us-ascii?Q?R5M0uQpo9Fal+xXvQA3r9La3ImqUWgphU/Mn1w6ksrJA5gqb0Jsunb0t91OE?=
- =?us-ascii?Q?viTZmp6roOrsnf3Tg7pb4m+GtmAV/pBhDZ6PAqJQOAlWCCdlpf0guka0p4Y0?=
- =?us-ascii?Q?G48mSogB/mkxA0h6xqgGZhMHus0KJGYxLi1ENedPoddOgH2ceq4+vaiS/Yxo?=
- =?us-ascii?Q?CGwlLw267KvpyKq8zGIqLu4wlYNOyO6z6sVgyX/S8StU4nVL4KzzjbDceDi3?=
- =?us-ascii?Q?ESsQ8Jv+B7Jc5AUiP2MJnf5hDpEFimbkz/Z0Keh09mmKvZ4+M5REen4BW8hf?=
- =?us-ascii?Q?aw20pMkPb9OYpDqUIoLbgRU85WRbsGjBKWfLnHq3z+WV6WTdOx7bpFiU9csH?=
- =?us-ascii?Q?KipQn6vHPOSto4hQ5Rj2Dz0eSBU7Tvh0RXWZaHf1m5Ve2xzkOHMdr8cB4xKO?=
- =?us-ascii?Q?AmPsyv29BBKYLBWqkViTKTida4BHnCUhn87C5C+ag/dyU0GSRaoqdocgWoFt?=
- =?us-ascii?Q?zJgR+E6NsHYIBRt7d8jV7FRQa+FKg8rA60oiQ9A7Fh736hntBO7fb1JbAd8q?=
- =?us-ascii?Q?7p8s5yfCUk33qerMxaQzLNK+ISchlx82gH2dEw3DaVLouOVebQaDh2QcxEp4?=
- =?us-ascii?Q?KhzvlocFN8N/CbQWijPUGPzb8eMUWPYG7Aat9HT6qTR7Zgr0cJ+vPkKqD8u5?=
- =?us-ascii?Q?fLpCMbQUOe97p5pH8mg6EsaxhiKLhGEuf+1L6Ejfx5Ju/MJVjwvZXKSfGmUk?=
- =?us-ascii?Q?vXogQkeYggOyjtg5K6lH5r9sW8eKw59ecDTpauXjS03JGgqV2+XHplBdqWhu?=
- =?us-ascii?Q?BwzGWZXcYXoZu7g=3D?=
+	=?us-ascii?Q?0/FJbRQn9STFORJGAinUHUCoaNNQZNun/96lPOZfdUbuqocC0gNZa0l0udj7?=
+ =?us-ascii?Q?gOXUX3Wh0wXKEKNLCRWYnzNddtz4iolUJb3mTWMiOHuEBkvC/xvOv0C7BsHl?=
+ =?us-ascii?Q?mxjGU2MrLQIKx1q1tLvLSBGp9KrPQgUYnbW541zXVAWPJneDzGQxrRVNZ675?=
+ =?us-ascii?Q?zmvxSa3mKIK1Z0+vZh/+kyqGLOFsECmWpm9YIL9DYudf6p27hcTux8CUOpol?=
+ =?us-ascii?Q?UAIiJr8gHcGqCquNPIdvcmahy/OGPRnJ0pkhA8IP2r6xKg60ifmeuNF4P3SQ?=
+ =?us-ascii?Q?q9lxJh7xGiGysRnx0MEJ5bBvKKF6gmbvnJmswmOY5qbf57oQRdW7tqMfgZe2?=
+ =?us-ascii?Q?B8SgLKzq02wYMAWHsqY7ewDenEdjJgWXxQpGQR9QknIV3d1aquLTYFkGjNtQ?=
+ =?us-ascii?Q?6744aclrWFHoW5ZWunDsO3Aajlvd9+VeLAvwkH+gVCpf34ABlkamIBqGvai8?=
+ =?us-ascii?Q?n4HhrGuGRnRkmpTnzpQEDaZWLG2CCwWuG973SFp/s+O03z/kIRFkpDzJ2Fl2?=
+ =?us-ascii?Q?UynWbkmuk7phgU3q3l5gGtKCrT972+UhwGGlJXGptmDFLUcxO6nFqgOxIE82?=
+ =?us-ascii?Q?xvmznNV6Py6KMC3y+fXvwPbRFyXyuZw0NjULbYt4X5mc+NgD2wH8owiTUYVT?=
+ =?us-ascii?Q?/YMoxB3ToHzcaRueOe0v0ZnHBpuz00d2c/iCvOPEajN2HMkMjZ6gvNHhtjHt?=
+ =?us-ascii?Q?9aj5U7sSk1t2rLqWJ5f2MtbobYoPapnRXxAfF0zw5C4P96Se1wvK3EsqnLy+?=
+ =?us-ascii?Q?QcuSbbRzlceeZzRriZtWOy1cY7F+7tGhJkIbobAWjDgxnbtxIqV30dNcsM7k?=
+ =?us-ascii?Q?S+CIwfFW3EX/kMwowpzsWlo1xtmzy2RaaTx/OO5z4G50bw4nRRxRNFBodyn6?=
+ =?us-ascii?Q?FuOaDuj2Ar4i3JhF45Tnj3QuT7Jx6Prp8OvGGm3SI853MQw18c+3uU9nLLSB?=
+ =?us-ascii?Q?/E1VqRpMd9FI/x1rnqndtTUS9HYjF/3q4PbJCUlVTRA7Vb/9kA32fOWM33sx?=
+ =?us-ascii?Q?sVZ6iOBZfT56EiFFIDtXEyHEd2ELPujpDvZjTFm9ykflC8ER4MDPzN0RgEXR?=
+ =?us-ascii?Q?EmqgW2N7vzHhp9cR/spPfFJm3KcvDuuKsjuzluny2KEOXwmbTLMJMTLQOF2Y?=
+ =?us-ascii?Q?i5jwSF8cFdERzs3opGXM35DuzCsUOMCI8IZMvDtNS4fo6dLY8mrewf9Krn1B?=
+ =?us-ascii?Q?wlarXgG0Vcx0rWy6DjkUt9+LqVq/Ppw/TaQQ1384dcplWzaS6c42lCszRQWu?=
+ =?us-ascii?Q?pAc31forsXRykG3E53xXUNEAbT4B2w0zmXSf5RYjN0Cltp7TN4qnujMj2kac?=
+ =?us-ascii?Q?Jv3ZTkg7+90RR6l4Ky2wsMUcXaxqOpOqKFmxF1JZ24Kpi2mS5ZLYnTu8937a?=
+ =?us-ascii?Q?p22HENFJ4ziAtmfzEX0OcLZjv37uQ9XsqnJNzBXhLq+AWSOx1MI02HsiUmfa?=
+ =?us-ascii?Q?Q+mf1VLJJiuHLcjCulQUI2OCJf0akQjUmGL15iuT0xLxt/v/ikidzegIma7a?=
+ =?us-ascii?Q?Uouvp0Vm4DIxRv05h6mrG3B94ZOWbWKCQ+O2?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700013)(376014)(82310400026);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(36860700013)(1800799024);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jul 2025 07:54:32.4675
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jul 2025 07:54:34.0648
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6b3c9013-eb3c-4339-e9ea-08ddbad00324
+X-MS-Exchange-CrossTenant-Network-Message-Id: 59bac843-99b9-4d3e-3261-08ddbad00417
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	CH3PEPF0000000F.namprd04.prod.outlook.com
+	BN3PEPF0000B06F.namprd21.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6067
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS2PR12MB9712
 
-Two small patches laying a base for future PDX changes. See discussion here:
-https://lore.kernel.org/xen-devel/alpine.DEB.2.22.394.2507031103360.605088@ubuntu-linux-20-04-desktop/T/#m157f07f957bdad3d807ff53d05e75688a8ae6837
+Harden the code by panicing if direct map is too small for current memory
+layout taking into account possible PDX compression. Otherwise the assert
+is observed:
+Assertion '(mfn_to_pdx(maddr_to_mfn(ma)) - directmap_base_pdx) < (DIRECTMAP_SIZE >> PAGE_SHIFT)' failed at ./arch/arm/include/asm/mmu/mm.h:72
 
-Michal Orzel (2):
-  xen/arm64: Panic if direct map is too small
-  xen/arm: Skip loops in init_pdx() when no PDX compression is used
+At the moment, we don't set max_pdx denoting maximum usable PDX which
+should be based on max_page. Consolidate setting of max_page and max_pdx
+in init_pdx() for both arm32 and arm64. max_pdx will be used in the
+future to set up frametable mappings respecting the PDX grouping.
 
- xen/arch/arm/arm32/mmu/mm.c |  1 -
- xen/arch/arm/arm64/mmu/mm.c |  4 +++-
- xen/arch/arm/setup.c        | 10 ++++++++--
- 3 files changed, 11 insertions(+), 4 deletions(-)
+Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+---
+A similar check for frametable will be introduced with other changes to
+frametable setting in the future.
+---
+ xen/arch/arm/arm32/mmu/mm.c | 1 -
+ xen/arch/arm/arm64/mmu/mm.c | 4 +++-
+ xen/arch/arm/setup.c        | 6 +++++-
+ 3 files changed, 8 insertions(+), 3 deletions(-)
 
+diff --git a/xen/arch/arm/arm32/mmu/mm.c b/xen/arch/arm/arm32/mmu/mm.c
+index 4d22f35618aa..e6d9b49acd3c 100644
+--- a/xen/arch/arm/arm32/mmu/mm.c
++++ b/xen/arch/arm/arm32/mmu/mm.c
+@@ -190,7 +190,6 @@ void __init setup_mm(void)
+ 
+     /* Frame table covers all of RAM region, including holes */
+     setup_frametable_mappings(ram_start, ram_end);
+-    max_page = PFN_DOWN(ram_end);
+ 
+     /*
+      * The allocators may need to use map_domain_page() (such as for
+diff --git a/xen/arch/arm/arm64/mmu/mm.c b/xen/arch/arm/arm64/mmu/mm.c
+index a0a2dd8cc762..3e64be6ae664 100644
+--- a/xen/arch/arm/arm64/mmu/mm.c
++++ b/xen/arch/arm/arm64/mmu/mm.c
+@@ -224,6 +224,9 @@ static void __init setup_directmap_mappings(unsigned long base_mfn,
+          */
+         directmap_virt_start = DIRECTMAP_VIRT_START +
+             (base_mfn - mfn_gb) * PAGE_SIZE;
++
++        if ( (max_pdx - directmap_base_pdx) > (DIRECTMAP_SIZE >> PAGE_SHIFT) )
++            panic("Direct map is too small\n");
+     }
+ 
+     if ( base_mfn < mfn_x(directmap_mfn_start) )
+@@ -278,7 +281,6 @@ void __init setup_mm(void)
+     directmap_mfn_end = maddr_to_mfn(ram_end);
+ 
+     setup_frametable_mappings(ram_start, ram_end);
+-    max_page = PFN_DOWN(ram_end);
+ 
+     init_staticmem_pages();
+     init_sharedmem_pages();
+diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
+index 58acc2d0d4b8..93b730ffb5fb 100644
+--- a/xen/arch/arm/setup.c
++++ b/xen/arch/arm/setup.c
+@@ -254,7 +254,7 @@ static void __init relocate_fdt(const void **dtb_vaddr, size_t dtb_size)
+ void __init init_pdx(void)
+ {
+     const struct membanks *mem = bootinfo_get_mem();
+-    paddr_t bank_start, bank_size, bank_end;
++    paddr_t bank_start, bank_size, bank_end, ram_end = 0;
+ 
+     /*
+      * Arm does not have any restrictions on the bits to compress. Pass 0 to
+@@ -290,10 +290,14 @@ void __init init_pdx(void)
+         bank_start = mem->bank[bank].start;
+         bank_size = mem->bank[bank].size;
+         bank_end = bank_start + bank_size;
++        ram_end = max(ram_end, bank_end);
+ 
+         set_pdx_range(paddr_to_pfn(bank_start),
+                       paddr_to_pfn(bank_end));
+     }
++
++    max_page = PFN_DOWN(ram_end);
++    max_pdx = pfn_to_pdx(max_page - 1) + 1;
+ }
+ 
+ size_t __read_mostly dcache_line_bytes;
 -- 
 2.25.1
 
