@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82A71AF899A
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Jul 2025 09:35:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1032911.1406327 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C1D8AF89FF
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Jul 2025 09:52:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1032926.1406339 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uXaxE-00067m-ID; Fri, 04 Jul 2025 07:35:28 +0000
+	id 1uXbCy-0000w7-TA; Fri, 04 Jul 2025 07:51:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1032911.1406327; Fri, 04 Jul 2025 07:35:28 +0000
+Received: by outflank-mailman (output) from mailman id 1032926.1406339; Fri, 04 Jul 2025 07:51:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uXaxE-00065i-Fd; Fri, 04 Jul 2025 07:35:28 +0000
-Received: by outflank-mailman (input) for mailman id 1032911;
- Fri, 04 Jul 2025 07:35:27 +0000
+	id 1uXbCy-0000t0-Pz; Fri, 04 Jul 2025 07:51:44 +0000
+Received: by outflank-mailman (input) for mailman id 1032926;
+ Fri, 04 Jul 2025 07:51:43 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=yJnJ=ZR=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uXaxD-00065c-GU
- for xen-devel@lists.xenproject.org; Fri, 04 Jul 2025 07:35:27 +0000
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [2a00:1450:4864:20::431])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=MIza=ZR=amd.com=penny.zheng@srs-se1.protection.inumbo.net>)
+ id 1uXbCx-0000su-80
+ for xen-devel@lists.xenproject.org; Fri, 04 Jul 2025 07:51:43 +0000
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1nam02on20616.outbound.protection.outlook.com
+ [2a01:111:f403:2406::616])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 72ff6027-58a9-11f0-b894-0df219b8e170;
- Fri, 04 Jul 2025 09:35:25 +0200 (CEST)
-Received: by mail-wr1-x431.google.com with SMTP id
- ffacd0b85a97d-3a4fb9c2436so286963f8f.1
- for <xen-devel@lists.xenproject.org>; Fri, 04 Jul 2025 00:35:25 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-74ce429b34dsm1266351b3a.120.2025.07.04.00.35.20
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 04 Jul 2025 00:35:23 -0700 (PDT)
+ id b8549161-58ab-11f0-b894-0df219b8e170;
+ Fri, 04 Jul 2025 09:51:40 +0200 (CEST)
+Received: from DM4PR12MB8451.namprd12.prod.outlook.com (2603:10b6:8:182::7) by
+ PH0PR12MB8176.namprd12.prod.outlook.com (2603:10b6:510:290::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8901.21; Fri, 4 Jul
+ 2025 07:51:36 +0000
+Received: from DM4PR12MB8451.namprd12.prod.outlook.com
+ ([fe80::b04e:2da5:7189:4c4d]) by DM4PR12MB8451.namprd12.prod.outlook.com
+ ([fe80::b04e:2da5:7189:4c4d%5]) with mapi id 15.20.8901.021; Fri, 4 Jul 2025
+ 07:51:36 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,267 +47,164 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 72ff6027-58a9-11f0-b894-0df219b8e170
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1751614524; x=1752219324; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=/Iwq7dJYpNyXf8K5JER8zGbkeJ1ZFACtfFmNZz2xXic=;
-        b=PgTrBY623Y81+KFaa65qutMUV/7X6pscFP7phkzM7ldDGUf3vLyv56YPDYXTURqYoB
-         7+exf5rNupLfa/cT/TYCOyCATZFhXNU0FJL4wGCevyMAQ54Z1TuxI88ihxLqApQUVWlh
-         m7Grpy0DroGZMhbkrSe2S84Ap6gVYfgzHizCIOSmrS5NYMhZd/3JtG5/xdmIV9E7/nZZ
-         RxcoOxsottqbe+asyb2gWuzCp89w7kLd/9hgj+TsOgn6bAaM+LhgQuElyXy7zMc9henx
-         Pgm5FhXbMx0TL6ZAHMeeNQpMVh3t5gS0/ZWd0MVMQevAI7vjEaNZYCqC3jHJd0ODMW4P
-         m2yg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1751614524; x=1752219324;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=/Iwq7dJYpNyXf8K5JER8zGbkeJ1ZFACtfFmNZz2xXic=;
-        b=dD8uLCyC/OIZCoM6w+Hy5lObkML7Opq9JC+AfLt7YLmMw3Es4qThXQQwrYPCbpm6X7
-         Lgcqc/TvkVBdMETkSNjblGSVpAv6qoXU1J78B62y4lRozt6nmrZWYpsPCf3wGtM7jbUX
-         nxMgRQGaPeE1uli1GWTbcLPtqsvy0Ct0DEc43YFBvDN7Df08mxfGNn2xQpeFyWS/CGc2
-         CREaZpgst38FQmskpt+PEMLpsQ+MlFs7PrDucTQcV4CUHCLbsrr2SZyenZOT6zF8lLBX
-         LgPvGa9xAIOXzwXDefPC9tMHq+yRYrJDuGrPmMcNJu1HPvS2ygEE8M5lYWwRMzmUi/ye
-         DpOA==
-X-Forwarded-Encrypted: i=1; AJvYcCXcSoV/9LQHrNNVEP4mBFTn/bSFOXiYoCFUfzzN4838JliNKxMi/3vuUgzaxSe8PpZe5e94Jm6omlY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwrtHgVsBvROdUZLNU5EIkgwuECeOyn4xanGamUoCVCIL0ekghu
-	gagrIq1roShQvc1ZGez9aVZulS1o+XilqwLxxbcB2/TKbnkoYutfM+rhGmcv46+KJA==
-X-Gm-Gg: ASbGncu/hD7q3yIhbJEM0C//kwTmIgpWFxlBo5ms78deU7mQ24tjDdNbAtz5di5gfja
-	Vn0KYKoeQ1asYZ4+GijXvtNU0FyUueSGCPOxBW9Xrs3/amL5lfAd1PP70Fyl+XqNarozT2KHDoY
-	NCPDuHipSl41Ua5f35macUVyo9+xecgXw5IFPSPohD2tfmo6nc2py1rgbnI4DkPajTu7qHZOAZI
-	bCgqI46ZnltJDjbz9hnd4B181RGpK/ZnnsXKkMMEelMPGOnh5bKWIe2rlczQ0xJ0NjC/6j8c5VG
-	E2Igw2cTIkCjsBWD5uhuRP8NOMCTOeeuyJLY9viyoz/x/2oXGUOqQz05Y7+5ZpQMV0poJB8C7wl
-	YPHc6A3CUKXWMY88C9wAgsa7kQQ5vImHQTDUcEoSU8L0BYe9RnTDc2fcdPw==
-X-Google-Smtp-Source: AGHT+IEPVhB0LYtPLoenncRTVboO9paARLGg00wroJ6gibxZKS5xNCvlwmUDxO/oM3wlMaCdYCAFpA==
-X-Received: by 2002:a05:6000:41c3:b0:3a5:3b15:ef52 with SMTP id ffacd0b85a97d-3b4964bc8c0mr1039145f8f.8.1751614524401;
-        Fri, 04 Jul 2025 00:35:24 -0700 (PDT)
-Message-ID: <3cab7d60-3537-4bf1-867b-cf40735eae88@suse.com>
-Date: Fri, 4 Jul 2025 09:35:16 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 10/18] xen/cpufreq: introduce a new amd cppc driver for
- cpufreq scaling
-To: "Penny, Zheng" <penny.zheng@amd.com>
-Cc: "Huang, Ray" <Ray.Huang@amd.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+X-Inumbo-ID: b8549161-58ab-11f0-b894-0df219b8e170
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=lP7R4nGmZO+vULSzOreC6ybkhDkg4glsvBl64YJ9rDsvVU2/X4kZHSr4eaK6fgPF0Bu/Q1hGawhHgJHZ1+StL59GABR6l+9VF9VZcOvxXHLxKE5EHfWe6bzOjn6eBD+sbC80Z+1VNm90r+QGGWHc8ot0D1HUNy2D2YOANng7R2DYvi4tO8+HGh0GfyNuEhnzrh1X91HJmKw/12tJMkbeTDfu9b7sZjriDw2EzzN2NinkraHgvOxsHC/ax3ldUXdvl1RtSvkGPL//8YCCxoclTxja4cU0Z6U6ZYF9IYMLKbTlPQdKszNpIEFHRV7SLm24GwtlWBZzEN6ltDReeVvrBQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=wyHSJfzn+ipkF5/AqtgIE+CIZfU6+kdYzRwITGjyb4Y=;
+ b=rGUvfsq2NTUacWihfzfn+TB7zovSxzvhr8ExNxVkV1/iESwdSOBRdu8Vrzi1VV7hpa6Y4h6ywKYJiP998b9n42atzx49Gv8RrAOzik9yBIEb8kPzcSy/Y0msRGUK3CH0ba++zQfjNprwp2PJ8xh6uWBMzHUxW5444wxXXLdlfY3y53UyCYcDbmjuoQ9S8wi5ZLbE/elM2Cm1UMKYpc4rfJc57ylERqewnR4K3DntqLDVp+HzDLg5Ndu65dbknXjwhdGOFtMsFKg8nBeQr2LAfHucYK9Svd3kvzzkWi49Km5AHqF8EoAOMTF377nWy0lI87+rB+nw8bpzw3GCd0Sxgg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wyHSJfzn+ipkF5/AqtgIE+CIZfU6+kdYzRwITGjyb4Y=;
+ b=fJhQUoYTWrHBIQjK2yzbnfL0BVzXY+HawtMLgufKOn9GtkWlzlMEllECx7o0qunxGZ2iACpKiPtaDynEktp/cv76pxw8PmXqRGETkWmZvLuFxlM67I/7gsQCnPHLIIaIWCiUKB7qzu9xiorXhVGkAnvh8zCm0srDz09MscHCrZ0=
+From: "Penny, Zheng" <penny.zheng@amd.com>
+To: Jan Beulich <jbeulich@suse.com>
+CC: "Huang, Ray" <Ray.Huang@amd.com>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>
+Subject: RE: [PATCH v5 12/18] xen/cpufreq: get performance policy from
+ governor set via xenpm
+Thread-Topic: [PATCH v5 12/18] xen/cpufreq: get performance policy from
+ governor set via xenpm
+Thread-Index: AQHbzuRGFA8e3uaaJU21iUm/xgVX/bQGF+yAgBuzwDA=
+Date: Fri, 4 Jul 2025 07:51:36 +0000
+Message-ID:
+ <DM4PR12MB8451401F33E538209B1CBFB6E142A@DM4PR12MB8451.namprd12.prod.outlook.com>
 References: <20250527084833.338427-1-Penny.Zheng@amd.com>
- <20250527084833.338427-11-Penny.Zheng@amd.com>
- <964dcd5e-6a7d-41f2-94b4-c07672ffdc89@suse.com>
- <DM4PR12MB8451D32EC45867F91C37F702E140A@DM4PR12MB8451.namprd12.prod.outlook.com>
- <d0b2e49a-293a-481d-8c6d-626a19513122@suse.com>
- <DM4PR12MB84512DB2E098CE364A9A53BAE142A@DM4PR12MB8451.namprd12.prod.outlook.com>
- <15694c6c-55eb-4e99-8ee6-3c953bc69f28@suse.com>
- <DM4PR12MB84519333B094A966F4E467C4E142A@DM4PR12MB8451.namprd12.prod.outlook.com>
+ <20250527084833.338427-13-Penny.Zheng@amd.com>
+ <0a5c9445-904a-4321-8406-8618fd82313b@suse.com>
+In-Reply-To: <0a5c9445-904a-4321-8406-8618fd82313b@suse.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <DM4PR12MB84519333B094A966F4E467C4E142A@DM4PR12MB8451.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=True;MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2025-07-04T07:51:16.0000000Z;MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open
+ Source;MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=3;MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DM4PR12MB8451:EE_|PH0PR12MB8176:EE_
+x-ms-office365-filtering-correlation-id: 6a52cdd4-3634-4d0b-d48b-08ddbacf9a2f
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|366016|1800799024|376014|38070700018;
+x-microsoft-antispam-message-info:
+ =?utf-8?B?UWpEUUh5clNUREJDSVgxZjNxK2w0YlBrQ292VmswSzUxbnRaR2VEZWk4Q0NX?=
+ =?utf-8?B?MVl3TjNGbEpmNnh0MkRGeWlwUGtZc3B6Y1BQd3BNT08zeW1sOUlBdmV3UitP?=
+ =?utf-8?B?MEhkNE51S1ZFS3JQdk5MQnR0ZTZoSHN0REhlbTJiRFRTZ1hKU2NwTFYvQndu?=
+ =?utf-8?B?OEdkVmMvVmpwVjUrS1U0NkNYaU4vblZoYXdWWkVLM25jaHllOUdrTm9DWUg1?=
+ =?utf-8?B?alowYVQ4NkVETXJpS3BmakRQbVNEdUtlMkNQeW0zOWUySkthd2o4N1FyNTRR?=
+ =?utf-8?B?bVpKSU1hZHFjYUd1Qmt0RWdYYk9RMkN6Tkp4NUtFMlZsNHVjRWJHSklXMFJ0?=
+ =?utf-8?B?RzlaL2Q2aXA2VkNCTVdNSnRIVUE5bFRzMWR0dC9weSs1SEJjanVYa21QeGF5?=
+ =?utf-8?B?RU05c2Y5ay85a0hkV1ZZRFJGWE5EVzcrQU9CM1c1YzArNlNvcm9hM1hURUFV?=
+ =?utf-8?B?VlhPbzZYKy9WWEpMeDRIZXduMTcrRFF2dlJWSXF1Z2ZkbjFxRjgyMnJ1Y3pR?=
+ =?utf-8?B?RGVvOVBlTGJvTkp6MnBMYVQxTHRlQ01QT1lyK21LVWR3YXJLQ0NCNnhwK0w0?=
+ =?utf-8?B?bUdnc1Z0YmxwMmlWelpJZnhnS1l6UVZzVGlyN2RuYWpmNWtsaTk1czM4OEtZ?=
+ =?utf-8?B?Rm84aWpES0dRU3gybVFuMjJmUXc5cjlqYlNmRkgyZkpRS2MyYkJGbjNqMFhD?=
+ =?utf-8?B?eFRhVkxtemY2T1FGODdzUTBUWjZqVHl2bWJxdmYvck5LcHA5M21iSGdLUDRQ?=
+ =?utf-8?B?REpkai91TEhKNitWR2xETVpDZjhHZzBvdmhwb1ZWam52QTIwcGMyS2hMTmxn?=
+ =?utf-8?B?REhQWnplelFja2dNanNwRFZ5Vk0xMzRtNnFOejh3bUFucUdPSkRlRlNHZC8x?=
+ =?utf-8?B?UTVJRWpISWpUeFNJWUowYjJIRFJMMkI5cEZNRXAyQ2pORCttMFU4emFJdWNa?=
+ =?utf-8?B?S2NNWXRJMWx0QzdhMmt0bFNRd2lvWWtGK0VkOWtKaDA4Ylh5TkxsNnh3eHRP?=
+ =?utf-8?B?Zi9ZMjVwSmhyRi8yeTExejR0VzdXS0ZYKzhnVXBQZXFmQm50R0hTams4S01y?=
+ =?utf-8?B?S3QwRWhMaUtIWXlydGk3anRyQ3o4TFMzY3BpWGxrUzc0Kzh2UnBaSnpoMDlt?=
+ =?utf-8?B?bmlFbGdnZ1ZERlN1aitwYWZIT0swbTdHWVZ0YVVRUTVZbHNJRjlUanZOQkYr?=
+ =?utf-8?B?dkJkVlppSmZHSjZ5WE1vWFpMNnd4S0JvUzMzK2ZvOXVJWWNqaUdTWWw2QWtZ?=
+ =?utf-8?B?Sk84NzM0TUZnRk0rMHh5andRRVlXRVFPKy84ZkVWSi9NaFNmNU9ZT2FVUDVt?=
+ =?utf-8?B?UU1wR0M4OGFwMVRiNm1ZYW5sQ25ZQ1ZyVkNDTXAyLy8wSWVVQ2ZiN1dxM2Zq?=
+ =?utf-8?B?M1pRYUVkUnhvSVZuUFBtTnM0aTI5WGJKM3JhVWttSUwvU09DbzFKdkZuUXl0?=
+ =?utf-8?B?N05xQW5SMG1QMnFkdmZnaG50ZC85RUNZWnFjc2RlR09nY0ZhdkxKcWVCQ00x?=
+ =?utf-8?B?cXpaZ0RvK2h5emtTTllUV252QVVINDRCNU5OQTdBQXMzYnEwTFlXbmJRdGRU?=
+ =?utf-8?B?WEF1dnErUndMZHF6WFkwd09pMndXSEpuWW9TbjZqY1hQZDZ4VjI5OWp1ak9n?=
+ =?utf-8?B?aDYwVzVRUVd6ajNkd0xtMWtiMEhaeVdWOHlSa3VvdDgxVkZ6WmpqVmlOYjRa?=
+ =?utf-8?B?RW1LU1lOY2ttNStRZzhBdkFPVy9GSG81N0VWeU8zR1Jxc056S2RxUmppb24v?=
+ =?utf-8?B?Nzg5VXIwUzUvZmVrdSsyZ3JFZFNHcTBXSVQ4Z3JJaDRrQzZ1cUJIanlpdTNQ?=
+ =?utf-8?B?S1BiRVY5R21kMGE1ZlNCUy8xVnJCR1duamk3ZGYrL1ZjSER6QUdzTWJzaERG?=
+ =?utf-8?B?dU5ZWDV5cnBpS1NrdzZ6SXh0M3BTOTNkc0o4djZaVTlLWkRObC9DVTBCS25o?=
+ =?utf-8?B?RnRBZUFUWXB2Q3loUGo4dFBXUk5Ka0VpR2lhYy9ManNhSjZuT1VuQlliYm1r?=
+ =?utf-8?B?TzlwSzNaV053PT0=?=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB8451.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(38070700018);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?RzRreGovRGZGZW5kUjdoTVJOY3diajE1c1ltMjNXZlJSNXl2a0tYZEFMUkti?=
+ =?utf-8?B?eDFTcGRTNHF1K2RVdXJCMlNocHBBUkQrUDRYL1RZMEZKOFNJMlRHQ0xCdXhl?=
+ =?utf-8?B?VVNoTlEweHBOT05nTFFnRlpoa3NrdUxKT1IrRXJQTGZFeCtmQUlRYmVWaHcy?=
+ =?utf-8?B?ajFzbGhMU2I5Y1BsVmxEamRybkkyUE9RRlRBUEZhNkJZV1FNSHM4azA2UU1F?=
+ =?utf-8?B?Wm1PRzNSVTFWbTcwcXpCY3NzeHRBYjFmUDN5ZjJMWTk1c3VIb25rZXJJNmYx?=
+ =?utf-8?B?N0FsQjFkVWRlNEs2eHFtaStEdlVxL1BkVXFRWVptbW56Z2l4Sk0vNjRoeVFO?=
+ =?utf-8?B?bVlVZVhKRUJqWXlpTWdCRUExcXJ6Q1ZVL2lBKzVOeHQvZGZxaEtsZ3FvWHlw?=
+ =?utf-8?B?bkxpMTJGV202Z3N0dnplWWYrRlBrWmlvVHA0Mmd0L0N6empoWW8zR3FFZm9H?=
+ =?utf-8?B?N2FKWjgxQnpVWE9Ta1V2TVdUM0JsWVFaM2ZIekltNVpvM245UzVneFBYcTVv?=
+ =?utf-8?B?OGNNc1p1MmQ0QVhvcmkyN0xHc3MxbmpIVktpTmt2NGhOOU1YYzYwK3QrRWVo?=
+ =?utf-8?B?WW9PUks5emRYMkMrZ0pXaG9ZaWZzU3Z1WDRFRFYrKzNpVk5wOE4xV0ttYy9v?=
+ =?utf-8?B?eVVHL2ROdzZLZ2swVFpqNVY1U0FyWUtXSnFtckZmT3V1b2NFN2hhSmpXZ0Uy?=
+ =?utf-8?B?VmNMTWxvQTNURWF1K2ZTcE1xalQ0eHYxN3hlWjdGRjZIY2JtTExOQlRKY0t1?=
+ =?utf-8?B?dnBQaS82UUwvYW1ydFJhN1lwRUkwSCtQUW1GZ1ZDWGlKQ25mVE1IbGRLcjBp?=
+ =?utf-8?B?MW5DUUxBWTlVNWpPSDA2ZnZkQWVjRXhhVnJHL3FFcmVlalBQNXp3RUdpekNr?=
+ =?utf-8?B?OC80SlhodHlLbU9TN2lMc0ZadFBzYlRmY2RQOXFtNkZVMnBaeE9RUEFvcnRY?=
+ =?utf-8?B?bzNIMFpkYkFTWmJsMU9QWmFRVmtPMW9wa0s4b1cycDB5d0NUOTFJNlZWMlVE?=
+ =?utf-8?B?dXlNTWdscDJ6SnM5VWZDQmU4dGRsbFFid2FrVlZUUDh0dmNPUEJCWW42Mmpy?=
+ =?utf-8?B?SnJ0andhbjg0N05sOE5md0FiNGoxUlpITDRwNHMzaS9QU2pBM2tuSnBmaHRT?=
+ =?utf-8?B?Ym5NcThvWExQQ2xnNmtrLzZpbGtIWDZycU5RYVFzRGsrY0gyTmpiMEhXbDdS?=
+ =?utf-8?B?M3praVNEQkZndVV6RlZZMmNZejdDbzRhRC9GTGd5enhnOStaWjJ0RGYwaUVo?=
+ =?utf-8?B?dWpxd0JVSjVzbHZHV1BPL3ZsSzlQcldSNEdRR1hxZWgyeVBPM2M0SHh6VUxF?=
+ =?utf-8?B?Q1lOdWF4MmNIQ3lyTjRxZ2VaZ3dXdzBaMlNic0VjMUxFb2tmTlFEMndFRW1v?=
+ =?utf-8?B?WGtTb0pTMERDNlFDSTJhekNteEtuR0lQV2JDMU5sbVNzazhySWNrcTVrMHV0?=
+ =?utf-8?B?b0tSS3kzWExYdDRqbGw0Y1h5aTRnVlBUTDZIMmVadWhXNllzaDBqaTcwQjhP?=
+ =?utf-8?B?ekp3bzYxN0ZKZlhXVlp6UHhmZkVSTnpSSTY3dFE1Yng2dEllQTRvMmNDbzYv?=
+ =?utf-8?B?Snk4NTROeEtveTVsRGU0MWVYU0k3VmNWclhvalFiWitaQ0MzQ2RmVHVXWk52?=
+ =?utf-8?B?YTFHbXByMTlZUjkxVUc0dHZVc2dOdUJUYjhmbFJ6ZzlmSXIxNUM3eFVhaEFq?=
+ =?utf-8?B?ay81d0srQnlzdDNEckFMQnUzcTlUUUtTQmxLbkFOa2hGa3NUSzBESGgwdGVp?=
+ =?utf-8?B?ejgvbXNXSTBxMkUzVkJmQk03bkRxa1JUVUpNV0dqbHhXbzQrOEtncnc2S1No?=
+ =?utf-8?B?cVAxSnBqMXNlWUFtNitEL2xnbFZuZUJVUVN1cWRPRXZ6dEI2dE1lY0ZNMU54?=
+ =?utf-8?B?YTBxZm9Pd2pjSGljVnIya2FtYkhzZlNSblljNzgwKzhabkxzUEZJeGJsYmg3?=
+ =?utf-8?B?WU4zYTFZeVZDQkJNbzV4UHhkellVZ0hIMElHWkRteGNYVkxiU1YwaDV2cWlo?=
+ =?utf-8?B?TnFHN1JESWNMMGxjbjBZNkRHMk9jeEErdUYvUlM3U1JZNzJFT0g5WGM4VzJk?=
+ =?utf-8?B?MVlWTXMvUU02NUhCeUNndlprZjRPZ2lpUnNoVWFuQVNzMjdtNW1FZ2VrSlBh?=
+ =?utf-8?Q?Lf4c=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8451.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6a52cdd4-3634-4d0b-d48b-08ddbacf9a2f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Jul 2025 07:51:36.3992
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: BMf9Yscojtm7NQN1x6OfEOPbO6TNR7V6Dr9+9c4JovOHyUEyKvtFez3BkkYenBNsrEKA+i83Y2wgnM7ZyQsJzw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB8176
 
-On 04.07.2025 09:23, Penny, Zheng wrote:
-> [Public]
-> 
->> -----Original Message-----
->> From: Jan Beulich <jbeulich@suse.com>
->> Sent: Friday, July 4, 2025 2:21 PM
->> To: Penny, Zheng <penny.zheng@amd.com>
->> Cc: Huang, Ray <Ray.Huang@amd.com>; Andrew Cooper
->> <andrew.cooper3@citrix.com>; Roger Pau Monné <roger.pau@citrix.com>; xen-
->> devel@lists.xenproject.org
->> Subject: Re: [PATCH v5 10/18] xen/cpufreq: introduce a new amd cppc driver for
->> cpufreq scaling
->>
->> On 04.07.2025 05:40, Penny, Zheng wrote:
->>>> -----Original Message-----
->>>> From: Jan Beulich <jbeulich@suse.com>
->>>> Sent: Wednesday, July 2, 2025 6:48 PM
->>>>
->>>> On 02.07.2025 11:49, Penny, Zheng wrote:
->>>>>> -----Original Message-----
->>>>>> From: Jan Beulich <jbeulich@suse.com>
->>>>>> Sent: Tuesday, June 17, 2025 12:00 AM
->>>>>> To: Penny, Zheng <penny.zheng@amd.com>
->>>>>>
->>>>>> On 27.05.2025 10:48, Penny Zheng wrote:
->>>>>>> +static int cf_check amd_cppc_cpufreq_target(struct cpufreq_policy *policy,
->>>>>>> +                                            unsigned int target_freq,
->>>>>>> +                                            unsigned int relation) {
->>>>>>> +    unsigned int cpu = policy->cpu;
->>>>>>> +    const struct amd_cppc_drv_data *data =
->>>>>>> +per_cpu(amd_cppc_drv_data,
->>>> cpu);
->>>>>>> +    uint8_t des_perf;
->>>>>>> +    int res;
->>>>>>> +
->>>>>>> +    if ( unlikely(!target_freq) )
->>>>>>> +        return 0;
->>>>>>> +
->>>>>>> +    res = amd_cppc_khz_to_perf(data, target_freq, &des_perf);
->>>>>>> +    if ( res )
->>>>>>> +        return res;
->>>>>>> +
->>>>>>> +    /*
->>>>>>> +     * Setting with "lowest_nonlinear_perf" to ensure governoring
->>>>>>> +     * performance in P-state range.
->>>>>>> +     */
->>>>>>> +    amd_cppc_write_request(policy->cpu, data-
->>> caps.lowest_nonlinear_perf,
->>>>>>> +                           des_perf, data->caps.highest_perf);
->>>>>>
->>>>>> I fear I don't understand the comment, and hence it remains unclear
->>>>>> to me why lowest_nonlinear_perf is being used here.
->>>>>
->>>>> How about
->>>>> ```
->>>>> Choose lowest nonlinear performance as the minimum performance level
->>>>> at which
->>>> the platform may run.
->>>>> Lowest nonlinear performance is the lowest performance level at
->>>>> which nonlinear power savings are achieved, Above this threshold,
->>>>> lower performance
->>>> levels should be generally more energy efficient than higher performance levels.
->>>>> ```
->>>>
->>>> I finally had to go to the ACPI spec to understand what this is
->>>> about. There looks to be an implication that lowest <=
->>>> lowest_nonlinear, and states in that range would correspond more to
->>>> T-states than to P-states. With that I think I agree with the use
->>>
->>> Yes, It doesn't have definitive conclusion about relation between
->>> lowest and lowest_nonlinear In our internal FW designed spec, it
->>> always shows lowest_nonlinear corresponds to P2
->>>
->>>> of lowest_nonlinear here. The comment, however, could do with moving
->>>> farther away from merely quoting the pretty abstract text in the ACPI
->>>> spec, as such quoting doesn't help in clarifying terminology used,
->>>> when that terminology also isn't explained anywhere else in the code base.
->>>
->>>
->>> How about we add detailed explanations about each terminology in the
->>> beginning declaration , see:
->>> ```
->>> +/*
->>> + * Field highest_perf, nominal_perf, lowest_nonlinear_perf, and
->>> +lowest_perf
->>> + * contain the values read from CPPC capability MSR.
->>> + * Field highest_perf represents highest performance, which is the
->>> +absolute
->>> + * maximum performance an individual processor may reach, assuming
->>> +ideal
->>> + * conditions
->>> + * Field nominal_perf represents maximum sustained performance level
->>> +of the
->>> + * processor, assuming ideal operating conditions.
->>> + * Field lowest_nonlinear_perf represents Lowest Nonlinear
->>> +Performance, which
->>> + * is the lowest performance level at which nonlinear power savings
->>> +are
->>> + * achieved. Above this threshold, lower performance levels should be
->>> + * generally more energy efficient than higher performance levels.
->>
->> Which is still only the vague statement also found in the spec. This says nothing
->> about what happens below that level, or what the relationship to other fields is.
->>
->>> + * Field lowest_perf represents the absolute lowest performance level
->>> +of the
->>> + * platform.
->>> + *
->>> + * Field max_perf, min_perf, des_perf store the values for CPPC request MSR.
->>> + * Field max_perf conveys the maximum performance level at which the
->>> +platform
->>> + * may run. And it may be set to any performance value in the range
->>> + * [lowest_perf, highest_perf], inclusive.
->>> + * Field min_perf conveys the minimum performance level at which the
->>> +platform
->>> + * may run. And it may be set to any performance value in the range
->>> + * [lowest_perf, highest_perf], inclusive but must be less than or
->>> +equal to
->>> + * max_perf.
->>> + * Field des_perf conveys performance level Xen is requesting. And it
->>> +may be
->>> + * set to any performance value in the range [min_perf, max_perf], inclusive.
->>> + */
->>> +struct amd_cppc_drv_data
->>> +{
->>> +    const struct xen_processor_cppc *cppc_data;
->>> +    union {
->>> +        uint64_t raw;
->>> +        struct {
->>> +            unsigned int lowest_perf:8;
->>> +            unsigned int lowest_nonlinear_perf:8;
->>> +            unsigned int nominal_perf:8;
->>> +            unsigned int highest_perf:8;
->>> +            unsigned int :32;
->>> +        };
->>> +    } caps;
->>> +    union {
->>> +        uint64_t raw;
->>> +        struct {
->>> +            unsigned int max_perf:8;
->>> +            unsigned int min_perf:8;
->>> +            unsigned int des_perf:8;
->>> +            unsigned int epp:8;
->>> +            unsigned int :32;
->>> +        };
->>> +    } req;
->>> +
->>> +    int err;
->>> +};
->>> ``
->>> Then here, we could elaborate the reason why we choose lowest_nonlinear_perf
->> over lowest_perf:
->>> ```
->>> +    /*
->>> +     * Having a performance level lower than the lowest nonlinear
->>> +     * performance level, such as, lowest_perf <= perf <= lowest_nonliner_perf,
->>> +     * may actually cause an efficiency penalty, So when deciding the min_perf
->>> +     * value, we prefer lowest nonlinear performance over lowest performance
->>> +     */
->>> +    amd_cppc_write_request(policy->cpu, data->caps.lowest_nonlinear_perf,
->>> +                           des_perf, data->caps.highest_perf);
->>> ```
->>
->> This reads fine to me.
->>
->> Question then is though: Is setting lowest_perf as the low boundary a good idea in
->> any of the places? (Iirc it is used in one or two places. Or am I
->> misremembering?)
-> 
-> Yes, in active mode, I choose lowest_perf as min_perf to try to extend the limitation for active(autonomous) mode
-> Maybe it is not a good choice. Maybe cpufreq driver is limited to do performance tuning in P-states range.
-
-Indeed I think we should limit ourselves to P-state management; management of T-states
-was never introduced into Xen, so far. But please be sure to make the connection to P-
-and T-states in the commentary you add.
-
-Jan
+W1B1YmxpY10NCg0KPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBKYW4gQmV1
+bGljaCA8amJldWxpY2hAc3VzZS5jb20+DQo+IFNlbnQ6IFR1ZXNkYXksIEp1bmUgMTcsIDIwMjUg
+MTI6MjIgQU0NCj4gVG86IFBlbm55LCBaaGVuZyA8cGVubnkuemhlbmdAYW1kLmNvbT4NCj4gQ2M6
+IEh1YW5nLCBSYXkgPFJheS5IdWFuZ0BhbWQuY29tPjsgeGVuLWRldmVsQGxpc3RzLnhlbnByb2pl
+Y3Qub3JnDQo+IFN1YmplY3Q6IFJlOiBbUEFUQ0ggdjUgMTIvMThdIHhlbi9jcHVmcmVxOiBnZXQg
+cGVyZm9ybWFuY2UgcG9saWN5IGZyb20gZ292ZXJub3INCj4gc2V0IHZpYSB4ZW5wbQ0KPg0KPiBP
+biAyNy4wNS4yMDI1IDEwOjQ4LCBQZW5ueSBaaGVuZyB3cm90ZToNCj4gPiAtLS0gYS94ZW4vZHJp
+dmVycy9hY3BpL3Btc3RhdC5jDQo+ID4gKysrIGIveGVuL2RyaXZlcnMvYWNwaS9wbXN0YXQuYw0K
+PiA+IEBAIC0zMTksNiArMzE5LDE0IEBAIHN0YXRpYyBpbnQgc2V0X2NwdWZyZXFfZ292KHN0cnVj
+dCB4ZW5fc3lzY3RsX3BtX29wDQo+ICpvcCkNCj4gPiAgICAgIGlmIChuZXdfcG9saWN5LmdvdmVy
+bm9yID09IE5VTEwpDQo+ID4gICAgICAgICAgcmV0dXJuIC1FSU5WQUw7DQo+ID4NCj4gPiArICAg
+IG5ld19wb2xpY3kucG9saWN5ID0gY3B1ZnJlcV9wb2xpY3lfZnJvbV9nb3Zlcm5vcihuZXdfcG9s
+aWN5LmdvdmVybm9yKTsNCj4gPiArICAgIGlmICggbmV3X3BvbGljeS5wb2xpY3kgPT0gQ1BVRlJF
+UV9QT0xJQ1lfVU5LTk9XTiApDQo+ID4gKyAgICB7DQo+ID4gKyAgICAgICAgcHJpbnRrKCJGYWls
+ZWQgdG8gZ2V0IHBlcmZvcm1hbmNlIHBvbGljeSBmcm9tICVzLCBhbmQgdXNlcnMNCj4gPiArIHNo
+YWxsIHdyaXRlIGVwcCB2YWx1ZXMgdG8gZGVsaXZlciBwcmVmZXJlbmNlIHRvd2FyZHMgcGVyZm9y
+bWFuY2UNCj4gPiArIG92ZXIgZWZmaWNpZW5jeSIsDQo+DQo+IFRoaXMgbWVzc2FnZSBpcyBleGNl
+c3NpdmVseSBsb25nIGFuZCBpcyBsYWNraW5nIGEgbmV3bGluZSAoaS5lLiBlZmZlY3RpdmVseSB0
+d286DQo+IG9uZSBpbiB0aGUgbWlkZGxlIGFuZCBvbmUgYXQgdGhlIGVuZDsgeWV0IGJldHRlciB3
+b3VsZCBiZSB0byBmaW5kIGxlc3MgdmVyYm9zZQ0KPiB3b3JkaW5nKS4gV2hhdCdzIHdvcnNlLCBo
+b3cgd291bGQgYSAidXNlciIgZ28gYWJvdXQgIndyaXRpbmcgZXBwIHZhbHVlcyI/DQo+DQoNCk1h
+eWJlIGNoYW5nZSBpdCB0bw0KYGBgDQpwcmludGsoIkZhaWxlZCB0byBnZXQgcGVyZm9ybWFuY2Ug
+cG9saWN5IGZyb20gJXMsIFRyeSBcInhlbnBtIHNldC1jcHVmcmVxLWNwcGNcIlxuIiwgLi4uKTsN
+CmBgYA0KDQo+IEphbg0K
 
