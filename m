@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C7025AF88AE
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Jul 2025 09:09:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1032832.1406248 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 234BAAF88B2
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Jul 2025 09:09:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1032834.1406268 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uXaXJ-0004vW-8M; Fri, 04 Jul 2025 07:08:41 +0000
+	id 1uXaXL-0005Rf-Tt; Fri, 04 Jul 2025 07:08:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1032832.1406248; Fri, 04 Jul 2025 07:08:41 +0000
+Received: by outflank-mailman (output) from mailman id 1032834.1406268; Fri, 04 Jul 2025 07:08:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uXaXJ-0004rP-3k; Fri, 04 Jul 2025 07:08:41 +0000
-Received: by outflank-mailman (input) for mailman id 1032832;
- Fri, 04 Jul 2025 07:08:39 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uXaXL-0005P4-QD; Fri, 04 Jul 2025 07:08:43 +0000
+Received: by outflank-mailman (input) for mailman id 1032834;
+ Fri, 04 Jul 2025 07:08:42 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ASC/=ZR=amd.com=Jiqian.Chen@srs-se1.protection.inumbo.net>)
- id 1uXaXH-00045b-QD
- for xen-devel@lists.xenproject.org; Fri, 04 Jul 2025 07:08:39 +0000
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam04on20616.outbound.protection.outlook.com
- [2a01:111:f403:240a::616])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b40e1f2b-58a5-11f0-b894-0df219b8e170;
- Fri, 04 Jul 2025 09:08:37 +0200 (CEST)
-Received: from SJ0PR13CA0186.namprd13.prod.outlook.com (2603:10b6:a03:2c3::11)
- by DS0PR12MB9727.namprd12.prod.outlook.com (2603:10b6:8:226::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8901.20; Fri, 4 Jul
- 2025 07:08:32 +0000
-Received: from CO1PEPF000042A9.namprd03.prod.outlook.com
- (2603:10b6:a03:2c3:cafe::15) by SJ0PR13CA0186.outlook.office365.com
- (2603:10b6:a03:2c3::11) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8922.14 via Frontend Transport; Fri,
- 4 Jul 2025 07:08:32 +0000
+ id 1uXaXK-0003s2-73
+ for xen-devel@lists.xenproject.org; Fri, 04 Jul 2025 07:08:42 +0000
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2060b.outbound.protection.outlook.com
+ [2a01:111:f403:2417::60b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b67003d9-58a5-11f0-a315-13f23c93f187;
+ Fri, 04 Jul 2025 09:08:41 +0200 (CEST)
+Received: from BYAPR08CA0044.namprd08.prod.outlook.com (2603:10b6:a03:117::21)
+ by IA0PR12MB8280.namprd12.prod.outlook.com (2603:10b6:208:3df::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8901.22; Fri, 4 Jul
+ 2025 07:08:35 +0000
+Received: from CO1PEPF000042AA.namprd03.prod.outlook.com
+ (2603:10b6:a03:117:cafe::8c) by BYAPR08CA0044.outlook.office365.com
+ (2603:10b6:a03:117::21) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8901.23 via Frontend Transport; Fri,
+ 4 Jul 2025 07:08:34 +0000
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1PEPF000042A9.mail.protection.outlook.com (10.167.243.38) with Microsoft
+ CO1PEPF000042AA.mail.protection.outlook.com (10.167.243.39) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8901.15 via Frontend Transport; Fri, 4 Jul 2025 07:08:32 +0000
+ 15.20.8901.20 via Frontend Transport; Fri, 4 Jul 2025 07:08:34 +0000
 Received: from cjq-desktop.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 4 Jul
- 2025 02:08:30 -0500
+ 2025 02:08:32 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,22 +56,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b40e1f2b-58a5-11f0-b894-0df219b8e170
+X-Inumbo-ID: b67003d9-58a5-11f0-a315-13f23c93f187
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=o5Wg16c4APjKo7nw26frAWSKMlSn4vgEokdNkJUx8ShHX1BW7vrdS1FA+A6jnapQD75vQND2VV3HFDh+v7De1pzd/pg8P7/2hCoI78qOYUckzUG6IdivRmSF+oOW2r/CUADBQlo4n+0ERSuATUcOhEHvJyXhmtaxlh4B+A7XIVzSd0dppeyH+HFEc+HV5haNxlI6TBRGwsIYgJUAAS7ventb9bxfgg5FQIuKIBp5Dhxd42ZvwT6AeWkDdOCnIkBRaW6OHni3OSeUERocfP3uHdTioD+PBpZyzu0QH6oDyRGwekliMWWxXhCiHR3umadedS9n1iLgrsll5GJq4D99mw==
+ b=peLiyhfO6ct8BxJ3B0PAowuEmUQnniUKmSDHM6YyRsGvcnmyHio/19Dz3t0krHncMIi83iSJCrdjAmuZ7DtwWJP6Zwe3OSKpAep5hW3Nmj+DtoypOiVKLz4goAmINiB2U8iuz0qUkLUWT2T4OKXF95RL1xqUbq9Ca5vCsUWW2BAS6l+9nLuErSKoV8qFTExGkcZ4jznVNgPFfM6KWl3XHLrTMkwwJNdPecPyeLflpm7srS+oUpdljYoUmG54zz9Iae9sDCj/RrbDVnV1sTbJ2OViNolfauy7aTPoxm6QaszQD4ICSbnCjb9a7tGEap70cUq38iD1efiiCOKD84f7qQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=b/9SexHoA4qYazYfI+r/csxcO7lxt/MmdntISjGyS1Q=;
- b=ek7LzEEk1DC4SLmK23GZAUWcwVeUEGyWW4bfxtiFCcvf3Ao4BE7teuCQBg5AeHPJE2dpLTZFgraAL65v76srJNaHl7FvAGOdyw3ypx3zwZPNC91Jad5kdKuIQr6/2RWA9Dzu8RUi8hXtuDIZxpBjYpGR9MGwPvmnsuLxRkJyyWc8wyJlb+RMb760JBA4ZX52N7iS7CoyV51O400Cb1fX1TUhg+2Usphk2auGR3wE2hT+sm/aIyErjwwPm0zkGP5a+3TsGM3/MbhN8R4ZIncbLRKBFsY4EmaCzxJdbbFi7l3iBdTEebA7ZzdC6MFObYvjrBmpT9WCYbYtQELbXOkOCQ==
+ bh=YC43YaFLzErVGNoxdp2AcmaD8nRTTrLZtlMoBDsTcGE=;
+ b=db42azq1dVT6qLN/67KVqHxuS9NFMZKzwc3TucJKtIFFpLGz4oV47vnP0byUtLU84gg1GliV+vcRfLDEYiR9Rta3aA93XVLb0wCmDxkL1GzdVHhVQjLKarviyEugVEqq1sTcCNdrA3fgipfybstEf33wJah6+SqESrv2p8yYYV0i3m2dWPNgmWB8oIkLdOlis0C/wU5guNfvobBdpguhq/9NhapmHYDMQwKLxt95ygw+Gh75tqiKyGdBWFc0xlyNL/eFxuL8H88EjmTkaWin2tK8E573qk8E5lcfq1UeKAd/Mr4r1oI5p+QWQZBSI6WaQbqu+NyAf22Eo0F3mkvUqw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=b/9SexHoA4qYazYfI+r/csxcO7lxt/MmdntISjGyS1Q=;
- b=Xhb1QCh57AbJQAG1MUXneaYyRyAQ+3XYOBxH/4HRsqv3qYBAgs01lm3/tc66NqYwSIj7cYSgvodju9gj2KNILNWwJxnx+yPzUcEwdMTRbeJQL/+i8FBxY+pNE9AKL+09Z682+QgTN7IlA88xK1ZQhSyBa5g2NbFRpsyDfVTTpcU=
+ bh=YC43YaFLzErVGNoxdp2AcmaD8nRTTrLZtlMoBDsTcGE=;
+ b=GzFjSFxnDZvPT7N1ExaeHxO+2/OCyFlGUyCXaIsYb3x7yZFDIHWZpR+J3z8HDGwJ5wMQemW0+XGPGfVvmGdzbJfVVxgmjVITsBbHtWQIEuASoFaYDmVPNhxTYM+Jv5mmAvkhjpvXe8G8PjVs2zBTzT8Mj+zt0Y8HmfPBBSd9ZJo=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -81,11 +81,10 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 From: Jiqian Chen <Jiqian.Chen@amd.com>
 To: <xen-devel@lists.xenproject.org>
 CC: Huang Rui <ray.huang@amd.com>, Jiqian Chen <Jiqian.Chen@amd.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Anthony PERARD
-	<anthony.perard@vates.tech>
-Subject: [PATCH v7 5/8] vpci: Refactor vpci_remove_register to remove matched registers
-Date: Fri, 4 Jul 2025 15:08:00 +0800
-Message-ID: <20250704070803.314366-6-Jiqian.Chen@amd.com>
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [PATCH v7 6/8] vpci/rebar: Free Rebar resources when init_rebar() fails
+Date: Fri, 4 Jul 2025 15:08:01 +0800
+Message-ID: <20250704070803.314366-7-Jiqian.Chen@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20250704070803.314366-1-Jiqian.Chen@amd.com>
 References: <20250704070803.314366-1-Jiqian.Chen@amd.com>
@@ -97,210 +96,180 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000042A9:EE_|DS0PR12MB9727:EE_
-X-MS-Office365-Filtering-Correlation-Id: 90c73192-89f1-4336-7c22-08ddbac9961d
+X-MS-TrafficTypeDiagnostic: CO1PEPF000042AA:EE_|IA0PR12MB8280:EE_
+X-MS-Office365-Filtering-Correlation-Id: dd38cabc-1e40-4045-4f5c-08ddbac99713
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|36860700013|82310400026|376014;
+	BCL:0;ARA:13230040|376014|82310400026|36860700013|1800799024;
 X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?cTBMbGZRZm9UbExhY2NLRWtudjJqbjZCeFRYZVJidXZpbDdIcFhnODNOTDI1?=
- =?utf-8?B?aFJaZjAzR0xZQVo5RStZOVZKWTg3OTVlaUtWb1dRWjNveU9WZCtabk52SUkz?=
- =?utf-8?B?dlFwNnBnb1Q0VTdRdU4ydzhYZjhWTHVoTWFyUGdYNStiMWVDRlZOMUxzWkls?=
- =?utf-8?B?eDZPZ2dVM2RCL2VpdVVZYlBKUzRQU1ZRVlpVcHFRR1Rja00zS2lsMXZHQ3Q4?=
- =?utf-8?B?QUNWY0FwZkkzczcvazJqMnNyVjRiS1Eyb3N5NVY4ZEhwR3VUajJxSW56cGJE?=
- =?utf-8?B?S0hoT1JwdU1EbXI2R2x2YStUWGhpdlpwOENqR0pMaGhKZXo2dUY3RWxRYlRZ?=
- =?utf-8?B?N1Nud0IwYnRrTXM5SFlWRm5SWGhXeE44WEk0L2dUWlNYVmQ2TnlFR1Y5czN1?=
- =?utf-8?B?ak82L0hQcWVLN0hIUjRPa2ZxeTdnSmdHKzZFY3VqdklZWnN0RkUwaHczWFRK?=
- =?utf-8?B?VEF0cjQ3YWdhYUdsUng4WUp3czlDVnAwZ1N2SUtBaTlsMHMvNW1PN3RnN1hO?=
- =?utf-8?B?UWVMNi9DOS9FU1ZReGROMU5PbWZYYTA2T3o0NUhZVWR6UXZ3dGs3SmJyUnNU?=
- =?utf-8?B?NnovZXN5RFRqSWQ0bHRKUzc5OW9jczdQTE5kWUVZTzZXMnd6Qml3b2NkeGZH?=
- =?utf-8?B?ckhIc0RzV3hPdnJDbFZrdEJnZG83bVZ3ZmxuaTVEOU5vbEg5c1UxSzdhd2s0?=
- =?utf-8?B?UmtPeGVZdmZqemtsbTN6bUMwUVRIYy9QMHBFS3BkckZtWkJEb3NPZHJwUHQ0?=
- =?utf-8?B?ZGZ4ZHlvaXZyUjlUbC9xaloyNG9wWjBWZGkvam4vYlVLUXNGdDZPTWRNMnJv?=
- =?utf-8?B?MXpBWm9SQTZLbXZqdXpkbmtvY3Z1Z0Z4TnJUUnFiczdqWEExcDlEcVBFTVk3?=
- =?utf-8?B?emFQaTJTM0NGaFNtTXNidi9iNFNXeFRsYkgyUW91YW54cHZHalI1T2RBbGRO?=
- =?utf-8?B?OGVpT3Y3VnBYS1hKdW5TUW5NZnVsck55R3I5ZXBjWUlCZDBlNFMybFBQK1hN?=
- =?utf-8?B?S2pQbmdJZzhtMGlPMVFGTm1PZUZSNTU0V1FlWERQZkwvb0diWFNFWHJpQ2li?=
- =?utf-8?B?OUI3STd4TS9OR0tmVUI1RVlaeE90RkljblBObEFPYVgybURMczgxdEFTQTZP?=
- =?utf-8?B?N3Btcm5JTEh3OUl2TmpBN3diZjkyWkpyWWF4UUxYUWtud2hPSmJNU3lLVTZC?=
- =?utf-8?B?RytWVkJVRzRscjViVTJGY21iOXN6WEZmbWF2a21QdXRMNHNPWmIySTdSVkJu?=
- =?utf-8?B?U1p0K2M1c0h0VkJ2QW4rRDI4dEwrZTU5dEJqbXNheHhiUEgyR1MxMXZ3WVVh?=
- =?utf-8?B?dVlFSDhOTEtsU2E5aWY2amZmenk4M0Rza2ZQOFJ6VFlhYy9KQmtiTTJiNllQ?=
- =?utf-8?B?Wk9GRnc5SHUxWCs2ZGFtT29OWUhlWU5mM25CZkNFNjZCTTA4SEJ1UjBTODdp?=
- =?utf-8?B?aFNZcXVzNXhuSmtZdy82MU9qUkM4QjYxU21sYVJZT2NpWVB5YW9XSjRRU2RH?=
- =?utf-8?B?NzVoUk1Yd0c1bUZpa1dTbmZia3kxVlBvVEtyRmV3SSt2dWwvdDRwbk9ma3JS?=
- =?utf-8?B?S3V6dTRDUHhBS3BmK09uSUZlTHMzSFlHY2RVdWhHaFNUUkpqdVREcUxTS3RZ?=
- =?utf-8?B?S1U1MGUvUXJmcktTT29LVGZmVjlEeGdZVWFNczZCRU1DVmN5WlB1Z0ZNTHNk?=
- =?utf-8?B?ZGVZV3VLSE9vM2dBVmlDalRrUTZkTldFeFVKMWQ3WkJzWlYxaVQvODg2Mkd0?=
- =?utf-8?B?eW1BSy8vWVdvc1ZuNzRhUlErL3d5VzJLV1RZVTZ5VmhSbk93bTNYcTNvQTdm?=
- =?utf-8?B?V3NGT0hLdk5tWmtIbFFMemFaUCt6a3Q3Um9QblJseHVsKzZ1bTYxMDd5dnFO?=
- =?utf-8?B?cGNETzc5Sm1GT0ZZZ3FyckQ0dU5JUlBmdnpQdDRNVFFoR0h0TGdqU3RhQnJI?=
- =?utf-8?B?emJ6bVVSeDl1QkJmbEtwMTY1b05QSHI4YVVJUng0OG51SHg0ZVhlOUw4K21z?=
- =?utf-8?B?VHNBdEtLblNKOCtBN3ZWOXEvVnBGTzNISlhIU0hjTWFYL0JxTXl0Z2RhTkdS?=
- =?utf-8?Q?S2fFf3?=
+	=?utf-8?B?SEdLOWRhcW5LMTJSS1lMMGxLbzlxUnRUMjVxWTFRRlF4S3RLRE1rSFRUTVkz?=
+ =?utf-8?B?aHZjV0RpNU0vWjJUT0NQc3RxOWdDWjlWVmtpNnJ3UytXZ0lpdmJyTU50c3U1?=
+ =?utf-8?B?TGdoUDZFdURBcmFPTWlHbU9meTdTUFgxRjV3NTNsK3FKd2puVjh2RE9vay95?=
+ =?utf-8?B?WVM1ajhwNTJVYitFUGJ6bHFKeW1HT3hzaDRNQVc3YVpyRzhBMVBXUVlIZkU4?=
+ =?utf-8?B?Z2g1OWwyT1ppS1FlSVh1ZUZ0Q0FlQXAzSlFubWRiem9FbGN5WWdwNjExRnp6?=
+ =?utf-8?B?QnZXVUtlQzVtSVBkVlVsRnpaemZ0ckRubGN5UDY3WVI2akkxbWV5N3FDTTJC?=
+ =?utf-8?B?MVJSUUd6elBYUG5PZlNWVjBxUnhQd2hwenplekQrUis1ZUJUUzZWUi9RTkFV?=
+ =?utf-8?B?QmZkRHJ1UXhVNmpTT20yNUtOZldNVU04QnJuUkJRM216a3YvM3VrZ2pVejhE?=
+ =?utf-8?B?ZGkvTnB1YVNPcFRvY2c0ZTVpajcyZzJaRGNKZHhVMzA2YWNwRVAxeDZraXZm?=
+ =?utf-8?B?NklOd2lobjlieVpXOXgxRUhNb3NxNUVhR2daUXhIVkYvMitEbW5SbmRpck9T?=
+ =?utf-8?B?WmhJUGV4S0lwTG8xd0orV3o3cEN5QTJzU1E3dkp4RW5QMm9qb25HMCs1aG43?=
+ =?utf-8?B?c1ZKQmdIOTVvSGl0UllNVTBmbFlkcnVjcVlOUU1WNlM4dndTSGp5VmloZ2oz?=
+ =?utf-8?B?RVZ1dm14ci8xWTVpb0MranhOSlFWL3NxdnhuazdCZnY3VEUxVjAyb0w0ckkv?=
+ =?utf-8?B?d0gxNmZiYjVabTVQT1kvNjEvS2taUHJrVUxBWEZzQkRJU3VpU0JLcmkzMVRy?=
+ =?utf-8?B?WUtpaW4xN0UwZlk4Z21pQk1UUTZ5Q25yODUybWJMZm9wRlMvMUR1NHhsVnRT?=
+ =?utf-8?B?SnJNbnUzRHdaN2ZDQUNtTWUzVUhjZzQyNDRUQUhpLzA2TjhaYnh2ZzFHb1Ar?=
+ =?utf-8?B?MGV5SmFNU2hTMDBOc3NJeS95RU82TEVOUzFud2JCaFNOMklCZ3dEVnFBUzNG?=
+ =?utf-8?B?Y05zaTNiZWdkZnI3eHVuUFhiMWdlZVBIQm56aGdaRWdKem5LdnI0SGc3R01T?=
+ =?utf-8?B?MmVoQjdHRzNTY1pnSmxYNi9LZ0IwVFJjZjh1UDM0MlhYc0NkdFFrQll6VVFs?=
+ =?utf-8?B?U09xWU1XUjVFYnZ1eGVkcFlrVlFMYVlpclVJbWZpbUdlVUF5MERiU25TVzFC?=
+ =?utf-8?B?L3dZUzdvUlFFcWorbEt1TEJQbG9HYkJLNC9FbVViekUvbHZpNnlPMlp0dWdy?=
+ =?utf-8?B?NlY5bEo3OXdEMWh1QWtaQXJoQitlZ2tqRW1pNUxKVVdud20xcUlVR1FVN1gr?=
+ =?utf-8?B?SDJVblZ3QWs4UGdCVmZ0WGkrT1gvQTBpcjJnOWI2U21BYjluTVgxc3BBMW9M?=
+ =?utf-8?B?ejVET1FMSlVMUFVVL1VDZXczYS9kVjhFU3hDNVZZd2NYUE8yTzFUUlVNQTRF?=
+ =?utf-8?B?Nk9IR1hWRUJsUlgxTmVhdE5tKzQyTUR3YkVkZzl3bGRkQUdEZUhiVG5FRjdX?=
+ =?utf-8?B?V2ZoWUNJN2c3TGJvSCt5TjU0OEJ0SGxXSmlSVWNLcjZvOFowdFBQMDhDOEpT?=
+ =?utf-8?B?cjdkV3NSRDgwUXo5bXE3djBrMmI4R1ZIYmRuRTV3OEE0M1p1clhJNW01MUZO?=
+ =?utf-8?B?WnFMKzA2K3V5L1h2OXV4MlpqNFdvTUd0b1g5ejFpRmtLZS9rWUNFRXVQTXEx?=
+ =?utf-8?B?dTdldEQwTFdramRQQlNlT1d3ZTBmNlV0ZXB0S3ZSWXFtYkNjVklocVdTOFNL?=
+ =?utf-8?B?SlFVLzdDeVl0MTZON1NFWWpQTXNLdGFvaThHQldGU1lhRThwdlBNSjRoM2NH?=
+ =?utf-8?B?dWlNZEt6OTJRMEsxK0JtRTZqSE5tYVNRWVNoQm5ubVRYdVZLUkI4U3N3VkRF?=
+ =?utf-8?B?RnpVcjJKck12MSs4OFhRai9KOG9WSzAwM3pCZTZnNzNwalpxbm9MWWd5SVN4?=
+ =?utf-8?B?Tk9yYlpBNzArZjFQWG5BVHlVSE1Qb2ZlSlVscGZTTW1hVDVFVmxROGh4MVpV?=
+ =?utf-8?B?WXAxckNpdzRIcFJxbXJMUFVxRzN2VjZDdFIrWlZvMEl2cDRSUmVQcVdXZ3lS?=
+ =?utf-8?Q?48+eDH?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700013)(82310400026)(376014);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(36860700013)(1800799024);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jul 2025 07:08:32.4856
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jul 2025 07:08:34.0947
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 90c73192-89f1-4336-7c22-08ddbac9961d
+X-MS-Exchange-CrossTenant-Network-Message-Id: dd38cabc-1e40-4045-4f5c-08ddbac99713
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	CO1PEPF000042A9.namprd03.prod.outlook.com
+	CO1PEPF000042AA.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB9727
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8280
 
-vpci_remove_register() only supports removing a register in a time,
-but the follow-on changes need to remove all registers within a range.
-So, refactor it to support removing all registers in a given region.
+When init_rebar() fails, current logic return fail and free Rebar-related
+resources in vpci_deassign_device(). But the previous new changes will
+hide Rebar capability and return success, it can't reach
+vpci_deassign_device() to remove resources if hiding success, so those
+resources must be removed in cleanup function of Rebar.
 
-And it is no issue to remove a non exist register, so remove the
-__must_check prefix.
+To do that, implement cleanup function for Rebar.
 
 Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
-Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
 ---
 cc: "Roger Pau Monné" <roger.pau@citrix.com>
-cc: Anthony PERARD <anthony.perard@vates.tech>
 ---
 v6->v7 changes:
-No.
+* Change the pointer parameter of cleanup_rebar() to be const.
+* Print error when vpci_remove_registers() fail in cleanup_rebar().
 
 v5->v6 changes:
-* Modify commit message.
-* Add Roger's Reviewed-by.
-
-v4->v5 changes:
 No.
 
+v4->v5 changes:
+* Change definition "static void cleanup_rebar" to "static int cf_check cleanup_rebar" since cleanup hook is changed to be int.
+
 v3->v4 changes:
-* Use list_for_each_entry_safe instead of list_for_each_entry.
-* Return ERANGE if overlap.
+* Change function name from fini_rebar() to cleanup_rebar().
+* Change the error number to be E2BIG and ENXIO in init_rebar().
 
 v2->v3 changes:
-* Add new check to return error if registers overlap but not inside range.
+* Use fini_rebar() to remove all register instead of in the failure path of init_rebar();
 
 v1->v2 changes:
-new patch
+* Called vpci_remove_registers() to remove all possible registered registers instead of using a array to record all registered register.
 
 Best regards,
 Jiqian Chen.
 ---
- tools/tests/vpci/main.c |  4 ++--
- xen/drivers/vpci/vpci.c | 38 ++++++++++++++++++++------------------
- xen/include/xen/vpci.h  |  4 ++--
- 3 files changed, 24 insertions(+), 22 deletions(-)
+ xen/drivers/vpci/rebar.c | 41 +++++++++++++++++++++++++++++-----------
+ 1 file changed, 30 insertions(+), 11 deletions(-)
 
-diff --git a/tools/tests/vpci/main.c b/tools/tests/vpci/main.c
-index 33223db3eb77..ca72877d60cd 100644
---- a/tools/tests/vpci/main.c
-+++ b/tools/tests/vpci/main.c
-@@ -132,10 +132,10 @@ static void vpci_write32_mask(const struct pci_dev *pdev, unsigned int reg,
-                                   rsvdz_mask))
- 
- #define VPCI_REMOVE_REG(off, size)                                          \
--    assert(!vpci_remove_register(test_pdev.vpci, off, size))
-+    assert(!vpci_remove_registers(test_pdev.vpci, off, size))
- 
- #define VPCI_REMOVE_INVALID_REG(off, size)                                  \
--    assert(vpci_remove_register(test_pdev.vpci, off, size))
-+    assert(vpci_remove_registers(test_pdev.vpci, off, size))
- 
- /* Read a 32b register using all possible sizes. */
- void multiread4_check(unsigned int reg, uint32_t val)
-diff --git a/xen/drivers/vpci/vpci.c b/xen/drivers/vpci/vpci.c
-index 8be4b53533a3..71ba30bbbd6b 100644
---- a/xen/drivers/vpci/vpci.c
-+++ b/xen/drivers/vpci/vpci.c
-@@ -152,7 +152,7 @@ static int vpci_capability_hide(const struct pci_dev *pdev, unsigned int cap)
- 
-     prev_r->private = next_r->private;
-     /*
--     * Not calling vpci_remove_register() here is to avoid redoing
-+     * Not calling vpci_remove_registers() here is to avoid redoing
-      * the register search
-      */
-     list_del(&next_r->node);
-@@ -160,7 +160,7 @@ static int vpci_capability_hide(const struct pci_dev *pdev, unsigned int cap)
-     xfree(next_r);
- 
-     if ( !is_hardware_domain(pdev->domain) )
--        return vpci_remove_register(vpci, offset + PCI_CAP_LIST_ID, 1);
-+        return vpci_remove_registers(vpci, offset + PCI_CAP_LIST_ID, 1);
- 
-     return 0;
- }
-@@ -553,34 +553,36 @@ int vpci_add_register_mask(struct vpci *vpci, vpci_read_t *read_handler,
-     return 0;
+diff --git a/xen/drivers/vpci/rebar.c b/xen/drivers/vpci/rebar.c
+index 3c18792d9bcd..39ab9c2eb7d9 100644
+--- a/xen/drivers/vpci/rebar.c
++++ b/xen/drivers/vpci/rebar.c
+@@ -49,6 +49,32 @@ static void cf_check rebar_ctrl_write(const struct pci_dev *pdev,
+     bar->guest_addr = bar->addr;
  }
  
--int vpci_remove_register(struct vpci *vpci, unsigned int offset,
--                         unsigned int size)
-+int vpci_remove_registers(struct vpci *vpci, unsigned int start,
-+                          unsigned int size)
++static int cf_check cleanup_rebar(const struct pci_dev *pdev)
++{
++    int rc;
++    uint32_t ctrl;
++    unsigned int nbars;
++    unsigned int rebar_offset = pci_find_ext_capability(pdev->sbdf,
++                                                        PCI_EXT_CAP_ID_REBAR);
++
++    if ( !rebar_offset || !is_hardware_domain(pdev->domain) )
++    {
++        ASSERT_UNREACHABLE();
++        return 0;
++    }
++
++    ctrl = pci_conf_read32(pdev->sbdf, rebar_offset + PCI_REBAR_CTRL(0));
++    nbars = MASK_EXTR(ctrl, PCI_REBAR_CTRL_NBAR_MASK);
++
++    rc = vpci_remove_registers(pdev->vpci, rebar_offset + PCI_REBAR_CAP(0),
++                               PCI_REBAR_CTRL(nbars - 1));
++    if ( rc )
++        printk(XENLOG_ERR "%pd %pp: fail to remove Rebar handlers rc=%d\n",
++               pdev->domain, &pdev->sbdf, rc);
++
++    return rc;
++}
++
+ static int cf_check init_rebar(struct pci_dev *pdev)
  {
--    const struct vpci_register r = { .offset = offset, .size = size };
--    struct vpci_register *rm;
-+    struct vpci_register *rm, *tmp;
-+    unsigned int end = start + size;
- 
-     spin_lock(&vpci->lock);
--    list_for_each_entry ( rm, &vpci->handlers, node )
-+    list_for_each_entry_safe ( rm, tmp, &vpci->handlers, node )
-     {
--        int cmp = vpci_register_cmp(&r, rm);
--
--        /*
--         * NB: do not use a switch so that we can use break to
--         * get out of the list loop earlier if required.
--         */
--        if ( !cmp && rm->offset == offset && rm->size == size )
-+        /* Remove rm if rm is inside the range. */
-+        if ( rm->offset >= start && rm->offset + rm->size <= end )
+     uint32_t ctrl;
+@@ -80,7 +106,7 @@ static int cf_check init_rebar(struct pci_dev *pdev)
          {
-             list_del(&rm->node);
--            spin_unlock(&vpci->lock);
-             xfree(rm);
--            return 0;
-+            continue;
+             printk(XENLOG_ERR "%pd %pp: too big BAR number %u in REBAR_CTRL\n",
+                    pdev->domain, &pdev->sbdf, index);
+-            continue;
++            return -E2BIG;
          }
--        if ( cmp <= 0 )
-+
-+        /* Return error if registers overlap but not inside. */
-+        if ( rm->offset + rm->size > start && rm->offset < end )
-+        {
-+            spin_unlock(&vpci->lock);
-+            return -ERANGE;
-+        }
-+
-+        if ( start < rm->offset )
-             break;
-     }
-     spin_unlock(&vpci->lock);
  
--    return -ENOENT;
-+    return 0;
+         bar = &pdev->vpci->header.bars[index];
+@@ -88,7 +114,7 @@ static int cf_check init_rebar(struct pci_dev *pdev)
+         {
+             printk(XENLOG_ERR "%pd %pp: BAR%u is not in memory space\n",
+                    pdev->domain, &pdev->sbdf, index);
+-            continue;
++            return -ENXIO;
+         }
+ 
+         rc = vpci_add_register(pdev->vpci, vpci_hw_read32, rebar_ctrl_write,
+@@ -97,14 +123,7 @@ static int cf_check init_rebar(struct pci_dev *pdev)
+         {
+             printk(XENLOG_ERR "%pd %pp: BAR%u fail to add reg of REBAR_CTRL rc=%d\n",
+                    pdev->domain, &pdev->sbdf, index, rc);
+-            /*
+-             * Ideally we would hide the ReBar capability on error, but code
+-             * for doing so still needs to be written. Use continue instead
+-             * to keep any already setup register hooks, as returning an
+-             * error will cause the hardware domain to get unmediated access
+-             * to all device registers.
+-             */
+-            continue;
++            return rc;
+         }
+ 
+         bar->resizable_sizes =
+@@ -118,7 +137,7 @@ static int cf_check init_rebar(struct pci_dev *pdev)
+ 
+     return 0;
  }
+-REGISTER_VPCI_EXTCAP(REBAR, init_rebar, NULL);
++REGISTER_VPCI_EXTCAP(REBAR, init_rebar, cleanup_rebar);
  
- /* Wrappers for performing reads/writes to the underlying hardware. */
-diff --git a/xen/include/xen/vpci.h b/xen/include/xen/vpci.h
-index 61287e5d2e12..91bb407c728c 100644
---- a/xen/include/xen/vpci.h
-+++ b/xen/include/xen/vpci.h
-@@ -70,8 +70,8 @@ static inline int __must_check vpci_add_register(struct vpci *vpci,
-                                   size, data, 0, 0, 0, 0);
- }
- 
--int __must_check vpci_remove_register(struct vpci *vpci, unsigned int offset,
--                                      unsigned int size);
-+int vpci_remove_registers(struct vpci *vpci, unsigned int start,
-+                          unsigned int size);
- 
- /* Generic read/write handlers for the PCI config space. */
- uint32_t vpci_read(pci_sbdf_t sbdf, unsigned int reg, unsigned int size);
+ /*
+  * Local variables:
 -- 
 2.34.1
 
