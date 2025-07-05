@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2D1DAFA07A
-	for <lists+xen-devel@lfdr.de>; Sat,  5 Jul 2025 16:28:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1034240.1407155 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED36AAFA077
+	for <lists+xen-devel@lfdr.de>; Sat,  5 Jul 2025 16:28:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1034241.1407165 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uY3rU-00060X-Sy; Sat, 05 Jul 2025 14:27:28 +0000
+	id 1uY3rW-0006Gg-AC; Sat, 05 Jul 2025 14:27:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1034240.1407155; Sat, 05 Jul 2025 14:27:28 +0000
+Received: by outflank-mailman (output) from mailman id 1034241.1407165; Sat, 05 Jul 2025 14:27:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uY3rU-0005wY-PS; Sat, 05 Jul 2025 14:27:28 +0000
-Received: by outflank-mailman (input) for mailman id 1034240;
- Sat, 05 Jul 2025 14:27:27 +0000
+	id 1uY3rW-0006Dl-6n; Sat, 05 Jul 2025 14:27:30 +0000
+Received: by outflank-mailman (input) for mailman id 1034241;
+ Sat, 05 Jul 2025 14:27:28 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=oLNU=ZS=valinux.co.jp=den@srs-se1.protection.inumbo.net>)
- id 1uY3rT-00055Q-2Q
- for xen-devel@lists.xenproject.org; Sat, 05 Jul 2025 14:27:27 +0000
+ id 1uY3rU-00055Q-2R
+ for xen-devel@lists.xenproject.org; Sat, 05 Jul 2025 14:27:28 +0000
 Received: from TYVP286CU001.outbound.protection.outlook.com
  (mail-japaneastazlp170110002.outbound.protection.outlook.com
  [2a01:111:f403:c405::2])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2bcc5930-59ac-11f0-a315-13f23c93f187;
- Sat, 05 Jul 2025 16:27:25 +0200 (CEST)
+ id 2c603b62-59ac-11f0-a315-13f23c93f187;
+ Sat, 05 Jul 2025 16:27:26 +0200 (CEST)
 Received: from OS3P286MB0979.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:10d::7)
  by TYWP286MB1974.JPNP286.PROD.OUTLOOK.COM (2603:1096:400:165::10) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8901.24; Sat, 5 Jul
- 2025 14:27:20 +0000
+ 2025 14:27:22 +0000
 Received: from OS3P286MB0979.JPNP286.PROD.OUTLOOK.COM
  ([fe80::80f1:db56:4a11:3f7a]) by OS3P286MB0979.JPNP286.PROD.OUTLOOK.COM
  ([fe80::80f1:db56:4a11:3f7a%5]) with mapi id 15.20.8901.023; Sat, 5 Jul 2025
- 14:27:20 +0000
+ 14:27:22 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,824 +47,454 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2bcc5930-59ac-11f0-a315-13f23c93f187
+X-Inumbo-ID: 2c603b62-59ac-11f0-a315-13f23c93f187
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=L9pEPOhSrFDEbn/lxqgdU64vqsbWfr3mB5tPLDnDNMSLcZ1eDp92syeD7bWNWzLZ/u+dIKW6brwCH/UjifJxsjjZSb09MTn83DJrBYeBmn/FEXLJu0yvvXaJ1Tcd+aKUR4HpuCV+GYYv+5GqxIYexU3zg6oDWjN79pq/ubjl+v/ZGhHSO+elTK3pADdv61Jv6gN/KzG4ngulyV4XXf1rlYpbwlRuu1VyWifaadSNKnr5bDX+47KH7sjWO2oSINoSs23Ef0SFK6+XO/l6+Tvve/UU0aOAZgMSqS7kyYLQjnx4dkZ0vO22FZgMniAGFYruW28B3+8uAAKjsNts0lP8CA==
+ b=Ys7ouQXjJukv5QFgSsrYD8Rh9azgdrgel6H+KjBChBdstfXDahAUKhthz3az5kTaS8ZfvGJvnX6AR1zhybreIiytN/YAx1yW/UbQwaacDwThjHb0wSjaqYx5LdeeDf8bl/Wq5PPi+PlLM1LnuZ+Zh33/o5y75vPA16kfuc42hnSbuH0H+zYCbzW8YgjA3dO/5FI347MgvKSSJzBmo3DBReJpEx0+okfUGwzHxbpIrVDtduZfzRK1HC1KG9XqhvrVgQtC79ctriVyGL6n/0DKZMkPyr2CabfHu9kcBooO2hUh6RhxO55LQ30ySHxpgSzdnnIon8VNgGxtltkHCP8MMg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Zzp0DLydgtLKZcO+n5mVQVLDViTTCqdlKXROzLvkpJI=;
- b=absjRYoWkmQuQ/UbfMeQA1m+1a9b2Eb2JcJprypFJ/tZi1kgOHmJhg+tuf8K5VArjdyiHGJckMQBjCOM32DyC2SC4jPnKrbIbvQfBFKutaSg4F3JPVMhN5xCLkdUlvgjPm5AcQFEWbyA2E8AMrszQ7XwOqytJ/aqRkq7oP049EorT6RODen8FK0NCNBJetLE96dlDeHbMvrsPnonGS0JVVAqngQpPaLDoIR2VvA9Tbb+HWsopMlY7SQYLzjj8WYOvrCWE1jSTd7QhBpiktRBepPh+sNaeaSEnrFrAPN+dzcMPsPYeDbKh+FmCqDxnXw7R5oIu/PIhB5Q5RR6Vt2/PA==
+ bh=Nnrprq8cKz+z61aN0ctsSnuccFtU6U8bKDUu7U3f/8M=;
+ b=Z8xwkc6rTSD2/xS5HwJCL7jjZNG6zR980hFIdCclrCk4nZ9YNppg5fZAVW03Q0lxxQiNbad5Th7+tXFUSy4nX+iuks5iPyIvGJw/HwaN1qnNZv52NRLrNhbNxcCDGnHIOONuQQ6nQz/xbp21cahi7hmKTf6dqZW9kSw3FWSpQzBkgwUDe8gnhegmY0+rNrRm2k/2oj+sWse6BQzrqIHQP9gQAM17c5pvrMcyn+W8OyYMPG9gg+l7b0XTM+FICfSJcJQuyE6IdPcq8HVHahNgjzqoUKuW2uyvhp6tjtQYFC3W0LhKU50nX99EX/QM0pLEW201/AekVF4M9WRnXFM/+Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
  header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Zzp0DLydgtLKZcO+n5mVQVLDViTTCqdlKXROzLvkpJI=;
- b=VFPz9lhH+GsbeQMIFoh8ynHYdcNSZMeEPazaTQxoFg2nGQA5e0I7a91ycp32gflyY/asyao81AzqQ3Lk60MYKBYRINeYPJX1qR7c6RGL3DyUF7w8bIvhfTwko5JUrSocAZH3cowLynsnG1+ywf2jKM0zoBBUG9oNOlnQGMbNYAY=
+ bh=Nnrprq8cKz+z61aN0ctsSnuccFtU6U8bKDUu7U3f/8M=;
+ b=ZtUSqfZyS316wF45bG7OmzgtLLiqvZ4ByYUZof+A72gfE7yryuLGSoyBJgaC2kBwKmGcA1sOm7SGTnaJfDh6HWyMGbocy+alhhcARhTao6zK9GRFrtcBeC/8jZZ/ysiDKor4pukusU2QbKXoq+xvWe+18udxhvZv2i+ugMDmO0k=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=valinux.co.jp;
 From: Koichiro Den <den@valinux.co.jp>
 To: xen-devel@lists.xenproject.org
 Cc: Koichiro Den <den@valinux.co.jp>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
 	Anthony PERARD <anthony.perard@vates.tech>,
+	Juergen Gross <jgross@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Michal Orzel <michal.orzel@amd.com>,
 	Jan Beulich <jbeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH v2 4/5] xen/arm: Implement standard PV time interface as per ARM DEN 0057A
-Date: Sat,  5 Jul 2025 23:27:02 +0900
-Message-ID: <20250705142703.2769819-5-den@valinux.co.jp>
+	Julien Grall <julien@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [PATCH v2 5/5] xen/arm: Support ARM standard PV time for domains created via toolstack
+Date: Sat,  5 Jul 2025 23:27:03 +0900
+Message-ID: <20250705142703.2769819-6-den@valinux.co.jp>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <20250705142703.2769819-1-den@valinux.co.jp>
 References: <20250705142703.2769819-1-den@valinux.co.jp>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: TYCP301CA0029.JPNP301.PROD.OUTLOOK.COM
- (2603:1096:400:381::15) To OS3P286MB0979.JPNP286.PROD.OUTLOOK.COM
+X-ClientProxiedBy: TYCP286CA0077.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:2b3::9) To OS3P286MB0979.JPNP286.PROD.OUTLOOK.COM
  (2603:1096:604:10d::7)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: OS3P286MB0979:EE_|TYWP286MB1974:EE_
-X-MS-Office365-Filtering-Correlation-Id: f3497fed-2386-4765-2173-08ddbbd00d53
+X-MS-Office365-Filtering-Correlation-Id: 4e0c3ca5-72a8-4c0d-2ec1-08ddbbd00e12
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
 	BCL:0;ARA:13230040|376014|7416014|10070799003|366016|1800799024;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?Uf4GDlrJGNUNh9lPxm6R16gXVorHS6DLbixBuqSpNarA3QtvnbZIrWOJRbeh?=
- =?us-ascii?Q?R3m5jtK10cIbhuIbmknhWdKdgew8114nr8za65XcaBxBLYhKfUxT/iBQQMDO?=
- =?us-ascii?Q?I6wusQ1ZJTAgJS8kdLFLar7J0AwoLC4Gzj58pLUZl6XSysJBwdm1mF/yipPX?=
- =?us-ascii?Q?sJAp4cRk1NPwsR1im7ev8gZCCht73sOC2RH9uXg3I7GUMKv1FT7zSyHOJxJg?=
- =?us-ascii?Q?lJeu6mpbtE7WjO2Z8We38RM5Yuw5QHS6VkhL3m6P+ZycSMPMhZeKu2xgKPhv?=
- =?us-ascii?Q?+3QkqaT8Htp7/y/R2WPQRTFcGQC2vXdi7GWhyMP1He8Oev+nsyFWLYMgthWu?=
- =?us-ascii?Q?9t0e6JWdftoHpW/HgAMJnKHcOzJ9RnfreIEFzPM9IfCqr4iUKs9hxAR2bduV?=
- =?us-ascii?Q?JvIuRk875c9rrvsfKlS3/w1Qy7hSniInAXqXJ7RlYzOKXem/aG6pgzzw2djr?=
- =?us-ascii?Q?m4UFFt3cDrcwHpRjW8r+4P0Iso9AUhVUZhL5JUBygwV8771bJvrqDue+lXKD?=
- =?us-ascii?Q?Gd0GhAWc/HzI6eiysn303BsSoK9YaWhQXdZFwMAPSztoQwlPturUxS4OXE1m?=
- =?us-ascii?Q?EeVL8dtJEK+Tjt+xP9IJ9h6fCqSw3dJHQG+1ztVSvkKft62uc3XfVT7WsvAS?=
- =?us-ascii?Q?FY2azdWMw+1VDeYsEblQZpaqJXSv9C+LyWJHiIGpLOZ2wAOtbLXKBB2l9dwj?=
- =?us-ascii?Q?fTtvTfwrSgK+SxLv5U32R/WD9MRapao2RWDucM+IUNYZfZrIBjnlNEdvNgMt?=
- =?us-ascii?Q?We4MBOvW9dGQ9eWA/VhCKqQJNmWqDa28TPcomhVofeVHkVWyt8brIsv8SK5w?=
- =?us-ascii?Q?kdmk4igf2r5X4AqKCaZC7ZUbXpUkiSPwuojQ+zqlqrNo53a8uhsmqfc5xHpS?=
- =?us-ascii?Q?MdmgDhLuDe/ZezA7iqZd2dYmrMVjuF7Sq2q3IdhHk+qUdapjI3G3fRgLn5zs?=
- =?us-ascii?Q?mbmvzIfx8tXt101SAQLx2hPbkyp6XqnDARWA1kIoII6KHLFpL9IfmMblTKNB?=
- =?us-ascii?Q?0NWDaNRVDVcjhT0FwUg+5f0mI0qnN7mfCLc+7ghIuR1Faga0So0vuaRAjnDG?=
- =?us-ascii?Q?chFyOGszJedVt1pxc99rszvV08enyAj3ytOKFe+iaFn0348tG0nKJHaE8wQs?=
- =?us-ascii?Q?3/br3PRVHWJUJim+mxbMbBxa3DSDK783Ao4WR/Zu/HUd3brWY9pUS1wCn/K+?=
- =?us-ascii?Q?NlMlC4Ni0XhuMVP11lVZge00WvoL0r1ksxvCb3p9TNcFKX/yHczGnkXDVcZa?=
- =?us-ascii?Q?SUCUN88Sca3ZKLj4SoYgfxgIb2qoV8Zs51Abmmm4B79NHvH5jIzXruiHkVZy?=
- =?us-ascii?Q?pdpyTatgleQI54FpyDe8/0N1IZWADPd1PqHVNT3eIPG+ujF2vP9Hy2YrPamV?=
- =?us-ascii?Q?/pcMKobAHHPHTXsYlx4yLYcIwBg3f7c5PDPeUoT+DAJarDJtPw=3D=3D?=
+	=?us-ascii?Q?d2kAyN3UUiVqQngOtNUdEtfvxACZeEVJDX8MUwuhX9oBnbPTXF3oxIpXtaOn?=
+ =?us-ascii?Q?SNZF6wLXoX46FiGPxALymdmDszxqKpysi+YbSz1vU4j7L5caFRdx8YIDH4cS?=
+ =?us-ascii?Q?CfomUXtswu5IkUwLalCf+AEyGMu7GbrZW38uVyDs02+FJqzbAGwPMzoFFicj?=
+ =?us-ascii?Q?Q1zeiOgEBnx8OwzLp9i+at9hEsMeOyQ9npCtI6u+IOzfwaNfUCWBMDWNaTEC?=
+ =?us-ascii?Q?u9DKRFFtkRPKc462gFNNifUxJFn+UTzUYCZkZGJo+WrOr+YLM8UVu2QpZMjs?=
+ =?us-ascii?Q?24GwG7kXNdj6lgNT/r1bLQMaejOIHvUzcm/E0MKRSNTjeLyRxsJlXt15EDHj?=
+ =?us-ascii?Q?enMfXQnKEIRrghgSyjYXdCsJuyzjhD9sRRfnMZrl0c9U+zMsH2Yani9sQBrF?=
+ =?us-ascii?Q?87BMBhLzK/31aIX1OLdk6JdzqiF3oUQfyUG2+evoZ/xEzloY8VMl8EvppT+z?=
+ =?us-ascii?Q?703GAi91iqQd/bc6wYNXPUN1wFoJRIPdSQBssIZNCfXJ3r3MVCdWsFjoBi7n?=
+ =?us-ascii?Q?tXiLjGLcIcD4nykm+xDajy3BjEmIRwnhGRvyQ1kcBo97xkU6tZdrRKkM2c7/?=
+ =?us-ascii?Q?5yFC3htN9ercCFCzdTF676b8jSLrh+m4Iycj7XLtheykloSZXxMyhAx2oq3+?=
+ =?us-ascii?Q?ix9ousvLVY+HTrL9UKPfyAbub+7TQNPkxv1+T6HcWZzHeP/JYDHsPQstw9Au?=
+ =?us-ascii?Q?KVZO5/kmvqtqTcxkaY7Wv3fmtd64Mpqi+7nxvRrmIRKrvGJiWwdRplxfwdEg?=
+ =?us-ascii?Q?UZyqeXq2N9RTeO4CnHXrnN24UtTt2y08RAXP84YnZisI/N9WN/vAbcrLQBbb?=
+ =?us-ascii?Q?ZDGdsG4RsWoiHhL6qDbfuriesXb5bqFxKkp7Z6jie0YDy/e/7QSn886N5G+Y?=
+ =?us-ascii?Q?0yKg6ZEj//WvIgHGd52Nyd8SJInhxKkmShYbB4OXn9ZRxipnC8qEbwuH2bj9?=
+ =?us-ascii?Q?4TS5fWDseI4H848TuDNRE5NPpG6wAF4PeGtwi3XOX6exYXIzN1o8II9HLIUh?=
+ =?us-ascii?Q?GXUprhKxbWSKKRWbbJw/7UeGcl2p2he7KRXLheEcTj0R5ZSv4tL6JREg6xdn?=
+ =?us-ascii?Q?hJQ1pT0NVGERv2mIwqbqqntFr4/Nx6NmZswEvycrIAQcZYE5itb618StDcuy?=
+ =?us-ascii?Q?s4Jo3l5PEXSdXH9uLoHwD8nHkDF+9m87Y/qshwGlVtVMB0C9Y1s8UIjI0tP4?=
+ =?us-ascii?Q?21z9BYZ6nTpJpNQKlb/WqowjZ7DN87Vn8moDdXPqbR+qZ9Fugfmy88EJSEZC?=
+ =?us-ascii?Q?GTII6fMfGIsb7pY1ry86kJBhDjf129oOIfC1MMOumrXAgMBsMPFHqGzpwmIY?=
+ =?us-ascii?Q?Mx26bsmprcIGs8MU0tq0kDpNRPNmYEQw7E+pWZ6TyLXxiN4CL/OSY/rjkCZS?=
+ =?us-ascii?Q?G1I05Ee5RlX2TnafSH55wOs8b5FQR36z4bjfqZPJeG6TGGNfiQ=3D=3D?=
 X-Forefront-Antispam-Report:
 	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OS3P286MB0979.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(10070799003)(366016)(1800799024);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?eq+yDsKfwn92OKMhWeWKeq4qDWHoaY1Ly5OZUJ0339InHAF1p0zCI9ju5Kdg?=
- =?us-ascii?Q?0yg37q1ESwZbkR/EOK0a5EaOTVG6nlCDl80KK8/51GLXObzRxzz2dr20K6FO?=
- =?us-ascii?Q?yzCqXzHnSYAm+vTVI5iuiucybeCyUbDPFcU1fwAPWzTf0mED2M4qxgKWcux/?=
- =?us-ascii?Q?kCwDpzNJrzVwJ8OapmxPEoCQndKJ4r0Q2ZiZ1b0YonFt+KHOnEmnxW01ETtM?=
- =?us-ascii?Q?oxE1D6v+kVYmSxeRU0j5fWzkVPOE1oZm1IVFqwiVmv0xzrIoQE2H01bpzX67?=
- =?us-ascii?Q?hJQeOoMbFO7hYmzGiYznfHyIPxwASTDaz/d6qeevc3uO28sGmMiXc1nDfbcZ?=
- =?us-ascii?Q?R82UL0dpSxMJTCfqndXVdoyBXHDf0/pVa8FIOTMBSVu3PSdIMPZtLKFjrIVS?=
- =?us-ascii?Q?L665SvERXg1D0kUV4snuUkcHyw7qphdoG2Fhzn4k5V2UNloEZFAS2k2/ad3W?=
- =?us-ascii?Q?duvLjUQoMVBkHvqzLGugSiMA7hEoQe/D+68GHr9ASG0RA/uLgr0jD72tJfrW?=
- =?us-ascii?Q?E8eDMlE2nIhYVQ25hW1nu60SnxJo7uJiZHXpKY28oL8GK+9wtXPfEipBLkH0?=
- =?us-ascii?Q?6lGrzQACTKZkuERYDnvhsAQZfrB+IQePg9WEKlRoF87Ju4/8R1cLaTcFbZw8?=
- =?us-ascii?Q?SCLasP8lL9NPQ5TwVGbphswJvQzk38ao/EpSie8UrLOc6obTHyn2vR0QX/Vq?=
- =?us-ascii?Q?2esToQrR0hFqfOI96W9/1bHeKeBdeGjVMFHsGJv4Y6T14DXaMY2ySDTrgKQc?=
- =?us-ascii?Q?sh1UPDu8FD446QGfwxLSlSqB9FAoTmTyPJ0kOtvoIu5BzV1I4leHrSsR3YlP?=
- =?us-ascii?Q?NC5IjgfvDtlvUNbZbt9DVijMlXCxcFsy1pnkyX4E84jDb4UI/gaSOw8xqefx?=
- =?us-ascii?Q?4cI85JmlXS9UwC9huXmc2SdhjxkR5XLUEvq1oGSq13SXsLYWZMQ9unrf0foj?=
- =?us-ascii?Q?NNbBvSySujTCOrFGGSBj0wRmkgzitJDcfGe07TdimelCEMc5JEFEp4VoC+6i?=
- =?us-ascii?Q?ZihEwH479X2YjlY9S+a4Qyx4E/O/KDdhwRbugL+dw7hUp2HhbXhj0rh4T4nm?=
- =?us-ascii?Q?Ced5Yqlrskw+nDXIF5mqhCgiQFi5QCAACxGBc8FBBRMha6yOv8Gqcf10UKlw?=
- =?us-ascii?Q?jh25biwn9xEV0NnNaGlZejafVJiaK1rAfc8iEHfIMDsvkiCMRE/LSsa0DL2F?=
- =?us-ascii?Q?0Z2UWwwjs1tTDB5wpga9kaXzonRWC2uU0lkP/99PhhUPzOkwbnOwDZZ8MlQy?=
- =?us-ascii?Q?BBJWKAgZ2UmRYxp4iAiF5T+wIZxsq8D7m5PbRoB9Cd+uzptlIYb+VqxQJ7wi?=
- =?us-ascii?Q?jscgnDcJ/OpJKZ+Z2bWpDd+3aFg0Bc7B5GGhPyhpad71oa/HAJ/oFqX9YqV7?=
- =?us-ascii?Q?vfbJQtGzNcwUEXLAPPrphQ2oYgNUADJ+uNdLwjs+mHV6IUjfnPWTd6pcU6io?=
- =?us-ascii?Q?lLIBUCu8VWgZSirhPIGfYjI+AWQeCz78Q8B0hYmyQsHRrfLFAzi8JFEBAylA?=
- =?us-ascii?Q?ow/Ntr8mWR1+sP7xd3SxcG8vn6gvvRkNdmTRiNUT4gKK7YhhDKfcM7LCfuZQ?=
- =?us-ascii?Q?UJgdAO3z4XXJkJRerp52sD3RUTKEpiZJbraUW6BmJDX9+9n3Uxfz9xpPZNf1?=
- =?us-ascii?Q?fPX+eomUa2OsPDB46aCQYek=3D?=
+	=?us-ascii?Q?VInN9cuWmqw/hGEJmcHBTZURivVpx3b+12ANScVUCG8i3Z1zvymcAs4WrNB9?=
+ =?us-ascii?Q?2SmAjfuS/CMTcXsE4s6V2Iji3e/tv9lpTusFtCF9fKS0c4YcojempYoP+2d8?=
+ =?us-ascii?Q?1bFpjGASszEJ0Z5qEjfbw1TQvhKWKSONTb+CxaPZ8BWYN7fZl71Xjw3fXNuc?=
+ =?us-ascii?Q?Y6mNHAcNxHBSvmjLuHSfkaD0fTCW4cdmgv931Uy9zYFTOlBO4C7QSC2yRSW/?=
+ =?us-ascii?Q?4u+gcJIcKufL8/3mJc9sJDUirzDnmSqcw/QYsRYhIIXNbI0e9KlaP7d2djCQ?=
+ =?us-ascii?Q?gbx1/O1ko0bX7q/u4rlsUmpYuK0fuKQuMlUjCflrNwoTxS3429xIFRjpxWyj?=
+ =?us-ascii?Q?E0URvcxTIgHDmSdSZQPAEDMo/+qkHkshnAfVUyntl64KIxPXh+gYw3wuRJ4B?=
+ =?us-ascii?Q?IuLhdGiBZY/CQ776n7gCq/UWxgw+maO4Vihd4BiSAGm6bV2KRd9ZXVD31lMS?=
+ =?us-ascii?Q?So3OyBEC0FqxmNTT6ZDDe8948d8TRNL2LE8BD7iDRCETMTu3/vxsNoTdEA0E?=
+ =?us-ascii?Q?T7ftwZoRm+QOSOXtiRUFkF/AcKW8833NzCJmz704PRaEHEksZdtEhU+AYF8x?=
+ =?us-ascii?Q?OIk6b5+eA8/A3itZkEfuFbwobBggSCJivXrqGLNC2P5HpJ5VUFmhFeO/F500?=
+ =?us-ascii?Q?TY9y4+mwEb90xtNQszzz/9X0L+FlZgoipMFw+KNx6LOvnA8Z0T+eS1vFpxaP?=
+ =?us-ascii?Q?4hVWq/lwBn7MjKVTJMmu1uAEEvZJibHJfI1atIDI8EnB1HOPkEFLH2vfwEXF?=
+ =?us-ascii?Q?/qEIJc4D13ibiQBHGNgvYj1zTJ323iNC17fEXId9VRTEkZmxxSfuKmNUHPst?=
+ =?us-ascii?Q?/b2Dk0xhr27rZ5eRZqlf4Ejpw3yK0RFRpS/l4K5vVHB7i41qWOo9fhqRMsdE?=
+ =?us-ascii?Q?ekWIsK8nVMIeDiD/E7onm7wBt+7AV/eL70LCwO7mTnO+n4OSmZySPomvQ7lA?=
+ =?us-ascii?Q?EWMhJUS4JMk9O6A1Rv9XVv3kAKFrIXRhUOLE+cv29F0ebXH4pb4WD1uPy3VL?=
+ =?us-ascii?Q?JzfVnWDUQG0VGMkXt+f5WiV5+JKnuxlNhDk3o4UHb9+le3fzDY5iOm7+Kqpp?=
+ =?us-ascii?Q?OMpkfdFeZCi1Gr/guspcrb2PkQSGt7e8bI1vpIJJ+efDxWTqfkKwSOzkgJHg?=
+ =?us-ascii?Q?C1omkEFutWASUW4vsTSvOp29j0O0Ecl9XAec+xk2Y2kHY1vSGkxC+8W18NNU?=
+ =?us-ascii?Q?IGnNtZGh+yiRCTbF/vcVJf/DOyNJwc/Ndz9bTh5F25kHnIxSNmjVVibUXsIJ?=
+ =?us-ascii?Q?dP2/YVqSqN/WeBlhQ5us3TB9TG/MSYbWDzzKjkMLHv0Ifcj0bGiBlAZPXf4M?=
+ =?us-ascii?Q?Wqz5Iuc0D6vtiV6gjC0TGm/XvZT8dSWzGGq7Lw4cA8BCqgE3k3V9CCOHLIu9?=
+ =?us-ascii?Q?6KcQxNgwtl1Leax/7Iqb1dYLs1dA8inzFYTu2gpiJzlwjDYzTIP08aXnf1o7?=
+ =?us-ascii?Q?HWyx/hr8vJLkRl/Su3A4+Ogv/79a3vCSI7JufWQKrZjTmKlToiZk8/Lzp5bC?=
+ =?us-ascii?Q?QjSk4ACPu+YlqjXpnDsrrTTNZjIesbBsu0P/tHjDwmxhvZ/qS1RXz7eFLwJ8?=
+ =?us-ascii?Q?FD16uwmmfx8KzcFoUJVZMNg3Ht2epAQmsvLWMaZlg3coUYQmvce9yDnBhe4O?=
+ =?us-ascii?Q?ADdWQkJ0NSTLC24C41LvYkk=3D?=
 X-OriginatorOrg: valinux.co.jp
-X-MS-Exchange-CrossTenant-Network-Message-Id: f3497fed-2386-4765-2173-08ddbbd00d53
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4e0c3ca5-72a8-4c0d-2ec1-08ddbbd00e12
 X-MS-Exchange-CrossTenant-AuthSource: OS3P286MB0979.JPNP286.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jul 2025 14:27:20.8696
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jul 2025 14:27:22.1140
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +fRWjlsuyLOEkUd7xWLPyzukLCJTvYD9q+rzwcp/mJ1/Powjq6RUelO8WNDALT3sXRZo0+6TuiUJ2Eye5I3Mpg==
+X-MS-Exchange-CrossTenant-UserPrincipalName: OHNhY70+QhFJfRmtUesGYkVPllbh3LVagZW+u3pCZsarITwG+f8cCkMduGGReFH8h0FP0KKhTu+FX3QgxxJhvA==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYWP286MB1974
 
-The VCPUOP_register_runstate_memory_area hypercall is still actively
-used, e.g., in the Linux arm64 codebase. When KPTI is enabled, the area
-was not registered from the beginning due to the VA not always being
-valid. In such cases, Linux falls back to using the standard PV time
-interface (ARM DEN 0057A), but this interface has not been implemented
-in Xen for ARM64 (until this commit).
-
-The VCPUOP_register_runstate_phys_area was introduced, though it's
-unclear whether this would be used in Linux arm64 and when it will be
-prevalent amongst every possible downstream domain Linux variant. And of
-course Linux is not an only option for the Xen arm64 domains.
-
-Therefore, implementing the standard way of sharing PV time is
-generically beneficial, avoiding reliance on specially crafted
-hypercalls, the usage of which by guest VMs is not always guaranteed.
-Note that the PV_TIME_ST interface communicates with IPA (GPA), not GVA.
-
-Add the PV time interface according to ARM DEN 0057A. This supports
-dom0less cases only.
+Implement ARM DEN 0057A PV time support for domains created via the
+toolstack, utilizing the newly introduced XENMAPSPACE_pv_time.
 
 Signed-off-by: Koichiro Den <den@valinux.co.jp>
 ---
- xen/arch/arm/domain.c              |  68 +++++++++
- xen/arch/arm/domain_build.c        | 228 ++++++++++++++++++++++++++++-
- xen/arch/arm/include/asm/domain.h  |  23 +++
- xen/arch/arm/include/asm/kernel.h  |   2 +
- xen/arch/arm/include/asm/p2m.h     |   3 +
- xen/arch/arm/include/asm/smccc.h   |  12 ++
- xen/arch/arm/p2m.c                 |   6 +-
- xen/arch/arm/vsmc.c                |  35 +++++
- xen/include/xen/fdt-domain-build.h |   2 +-
- xen/include/xen/macros.h           |   1 +
- 10 files changed, 367 insertions(+), 13 deletions(-)
+ tools/libs/light/libxl_arm.c | 185 ++++++++++++++++++++++++++++-------
+ xen/arch/arm/mm.c            |  14 +++
+ xen/include/public/memory.h  |   1 +
+ 3 files changed, 167 insertions(+), 33 deletions(-)
 
-diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
-index be58a23dd725..e3b893e93685 100644
---- a/xen/arch/arm/domain.c
-+++ b/xen/arch/arm/domain.c
-@@ -277,6 +277,20 @@ static void ctxt_switch_to(struct vcpu *n)
-     WRITE_SYSREG(n->arch.mdcr_el2, MDCR_EL2);
- }
- 
-+#ifdef CONFIG_ARM_64
-+static void update_stolen_time(struct vcpu *n)
-+{
-+    uint64_t tot_stolen;
-+
-+    if ( is_idle_vcpu(n) || is_32bit_domain(n->domain) )
-+        return;
-+
-+    tot_stolen = n->runstate.time[RUNSTATE_runnable] +
-+                 n->runstate.time[RUNSTATE_offline];
-+    write_atomic(&n->arch.pv_time_region->stolen_time, tot_stolen);
-+}
-+#endif
-+
- static void schedule_tail(struct vcpu *prev)
- {
-     ASSERT(prev != current);
-@@ -291,6 +305,10 @@ static void schedule_tail(struct vcpu *prev)
- 
-     update_runstate_area(current);
- 
-+#ifdef CONFIG_ARM_64
-+    update_stolen_time(current);
-+#endif
-+
-     /* Ensure that the vcpu has an up-to-date time base. */
-     update_vcpu_system_time(current);
- }
-@@ -536,6 +554,9 @@ void free_vcpu_struct(struct vcpu *v)
- int arch_vcpu_create(struct vcpu *v)
- {
-     int rc = 0;
-+#ifdef CONFIG_ARM_64
-+    size_t regions_per_page;
-+#endif
- 
-     BUILD_BUG_ON( sizeof(struct cpu_info) > STACK_SIZE );
- 
-@@ -586,6 +607,15 @@ int arch_vcpu_create(struct vcpu *v)
-     if ( get_ssbd_state() == ARM_SSBD_RUNTIME )
-         v->arch.cpu_info->flags |= CPUINFO_WORKAROUND_2_FLAG;
- 
-+#ifdef CONFIG_ARM_64
-+    if ( v->domain->arch.pv_time_regions )
-+    {
-+        regions_per_page = PAGE_SIZE / sizeof(struct pv_time_region);
-+        v->arch.pv_time_region = &v->domain->arch.pv_time_regions[
-+            v->vcpu_id / regions_per_page][v->vcpu_id % regions_per_page];
-+    }
-+#endif
-+
-     return rc;
- 
- fail:
-@@ -708,6 +738,10 @@ int arch_domain_create(struct domain *d,
- {
-     unsigned int count = 0;
-     int rc;
-+#ifdef CONFIG_ARM_64
-+    unsigned int npages;
-+    unsigned int i = 0;
-+#endif
- 
-     BUILD_BUG_ON(GUEST_MAX_VCPUS < MAX_VIRT_CPUS);
- 
-@@ -791,9 +825,43 @@ int arch_domain_create(struct domain *d,
-     d->arch.sve_vl = config->arch.sve_vl;
- #endif
- 
-+#ifdef CONFIG_ARM_64
-+    /*
-+     * Preallocate the stolen time shared memory regions (ARM DEN 0057A)
-+     * for all the possible vCPUs. Note that at this point, neither
-+     * kernel_probe() nor XEN_DOMCTL_set_address_size has been called,
-+     * so the domain arch type (32-bit or 64-bit) is still unknown.
-+     * We may allocate the region for 32-bit domain unnecessarily.
-+     */
-+    ASSERT(IS_POWER_OF_TWO(sizeof(struct pv_time_region)));
-+    npages = DIV_ROUND_UP(d->max_vcpus * sizeof(struct pv_time_region), PAGE_SIZE);
-+    d->arch.pv_time_regions = (struct pv_time_region **)xmalloc_array(void *, npages);
-+    if ( !d->arch.pv_time_regions )
-+    {
-+        rc = -ENOMEM;
-+        goto fail;
-+    }
-+    for ( i = 0; i < npages; i++ )
-+    {
-+        d->arch.pv_time_regions[i] = alloc_xenheap_pages(0, 0);
-+        if ( !d->arch.pv_time_regions[i] )
-+        {
-+            rc = -ENOMEM;
-+            goto fail;
-+        }
-+        clear_page(d->arch.pv_time_regions[i]);
-+    }
-+#endif
-     return 0;
- 
- fail:
-+#ifdef CONFIG_ARM_64
-+    for ( ; i > 0; --i )
-+        free_xenheap_pages( d->arch.pv_time_regions[i - 1], 0 );
-+    if ( d->arch.pv_time_regions )
-+        xfree( d->arch.pv_time_regions );
-+#endif
-+
-     d->is_dying = DOMDYING_dead;
-     arch_domain_destroy(d);
- 
-diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-index e063d0d4076e..bfee77268056 100644
---- a/xen/arch/arm/domain_build.c
-+++ b/xen/arch/arm/domain_build.c
-@@ -767,6 +767,34 @@ int __init add_ext_regions(unsigned long s_gfn, unsigned long e_gfn,
+diff --git a/tools/libs/light/libxl_arm.c b/tools/libs/light/libxl_arm.c
+index 4a19a8d22bdf..33251520c07a 100644
+--- a/tools/libs/light/libxl_arm.c
++++ b/tools/libs/light/libxl_arm.c
+@@ -684,6 +684,40 @@ static int make_memory_nodes(libxl__gc *gc, void *fdt,
      return 0;
  }
  
-+#ifdef CONFIG_ARM_64
-+int __init add_pv_regions(unsigned long s_gfn, unsigned long e_gfn,
-+                          void *data)
++static int make_resv_memory_node(libxl__gc *gc, void *fdt,
++                                 const struct xc_dom_image *dom)
 +{
-+    struct membanks *pv_regions = data;
-+    unsigned int npages;
-+    paddr_t s = pfn_to_paddr(s_gfn);
-+
-+    /*
-+     * The overall required size for the regions should be at most 2 x 4KB,
-+     * assuming a maximum of 128 vCPUs per domain. Therefore, always
-+     * attempt to find a contiguous area for simplicity.
-+     */
-+    if ( pv_regions->nr_banks == 1 )
-+        return 0;
-+
-+    npages = pv_regions->max_banks;
-+    if ( e_gfn - s_gfn < npages - 1 )
-+        return 0;
-+
-+    pv_regions->bank[0].start = s;
-+    pv_regions->bank[0].size = npages;
-+    pv_regions->nr_banks++;
-+
-+    return 0;
-+}
-+#endif
-+
- static int __init handle_pci_range(const struct dt_device_node *dev,
-                                    uint64_t addr, uint64_t len, void *data)
- {
-@@ -796,7 +824,7 @@ static int __init handle_pci_range(const struct dt_device_node *dev,
- 
- /*
-  * Find the holes in the Host DT which can be exposed to hwdom or a direct-map
-- * domU as extended regions for the special memory mappings. In order to
-+ * domU e.g. as extended regions for the special memory mappings. In order to
-  * calculate regions we exclude every addressable memory region described by
-  * "reg" and "ranges" properties from the maximum possible addressable physical
-  * memory range:
-@@ -895,6 +923,15 @@ static int __init find_memory_holes(const struct kernel_info *kinfo,
-             goto out;
-     }
- 
-+#ifdef CONFIG_ARM_64
-+    if ( kinfo->arch.pv_time_range )
-+    {
-+        res = rangeset_subtract(mem_holes, kinfo->arch.pv_time_range);
-+        if ( res )
-+            goto out;
-+    }
-+#endif
-+
-     start = 0;
-     end = (1ULL << p2m_ipa_bits) - 1;
-     res = rangeset_report_ranges(mem_holes, PFN_DOWN(start), PFN_DOWN(end),
-@@ -929,7 +966,7 @@ static int __init find_domU_holes(const struct kernel_info *kinfo,
-     {
-         uint64_t bankend, start, size = 0;
- 
--        start = ROUNDUP(bankbase[i] + kinfo_mem->bank[i].size, SZ_2M);
-+        start = bankbase[i] + kinfo_mem->bank[i].size;
- 
-         bankend = ~0ULL >> (64 - p2m_ipa_bits);
-         bankend = min(bankend, bankbase[i] + banksize[i] - 1);
-@@ -961,6 +998,15 @@ static int __init find_domU_holes(const struct kernel_info *kinfo,
-             goto out;
-     }
- 
-+#ifdef CONFIG_ARM_64
-+    if ( kinfo->arch.pv_time_range )
-+    {
-+        res = rangeset_subtract(mem_holes, kinfo->arch.pv_time_range);
-+        if ( res )
-+            goto out;
-+    }
-+#endif
-+
-     res = rangeset_report_ranges(mem_holes, 0,
-                                  PFN_DOWN((1ULL << p2m_ipa_bits) - 1),
-                                  cb, unused_regions);
-@@ -1021,6 +1067,10 @@ static int __init find_memory_holes_noiommu(const struct kernel_info *kinfo,
-         kinfo->xen_reg_assigned
-         ? membanks_xzalloc(count_ranges(kinfo->xen_reg_assigned), MEMORY)
-         : NULL;
-+#ifdef CONFIG_ARM_64
-+    struct membanks *pv_time =
-+        kinfo->arch.pv_time_range ? membanks_xzalloc(1, MEMORY) : NULL;
-+#endif
- 
-     /*
-      * Exclude the following regions:
-@@ -1029,6 +1079,7 @@ static int __init find_memory_holes_noiommu(const struct kernel_info *kinfo,
-      * 3) Grant table assigned to domain
-      * 4) Remove static shared memory (when the feature is enabled)
-      * 5) Remove xen,reg
-+     * 6) Remove PV time shared region
-      */
-     const struct membanks *mem_banks[] = {
-         kernel_info_get_mem_const(kinfo),
-@@ -1038,6 +1089,9 @@ static int __init find_memory_holes_noiommu(const struct kernel_info *kinfo,
-         bootinfo_get_shmem(),
- #endif
-         xen_reg,
-+#ifdef CONFIG_ARM_64
-+        pv_time,
-+#endif
-     };
- 
-     dt_dprintk("Find memory holes (noiommu)\n");
-@@ -1065,6 +1119,21 @@ static int __init find_memory_holes_noiommu(const struct kernel_info *kinfo,
-     gnttab->bank[0].start = kinfo->gnttab_start;
-     gnttab->bank[0].size = kinfo->gnttab_size;
- 
-+#ifdef CONFIG_ARM_64
-+    if ( kinfo->arch.pv_time_range )
-+    {
-+        if ( !pv_time )
-+        {
-+            res = -ENOMEM;
-+            goto out;
-+        }
-+
-+        rangeset_report_ranges(kinfo->arch.pv_time_range, 0,
-+                               PFN_DOWN((1ULL << p2m_ipa_bits) - 1),
-+                               rangeset_to_membank, pv_time);
-+    }
-+#endif
-+
-     res = find_unallocated_memory(kinfo, mem_banks, ARRAY_SIZE(mem_banks),
-                                   unused_regions, cb);
- 
-@@ -1564,19 +1633,82 @@ int __init make_chosen_node(const struct kernel_info *kinfo)
-     return res;
- }
- 
--int __init make_resv_memory_node(const struct kernel_info *kinfo, int addrcells,
-+#ifdef CONFIG_ARM_64
-+int __init make_pv_time_resv_memory_node(struct kernel_info *kinfo,
-+                                         int addrcells, int sizecells)
-+{
-+    __be32 reg[GUEST_ROOT_ADDRESS_CELLS + GUEST_ROOT_SIZE_CELLS];
-+    unsigned int len = (addrcells + sizecells) * sizeof(__be32);
-+    struct domain *d = kinfo->d;
-+    struct membanks *unused_banks;
-+    void *fdt = kinfo->fdt;
-+    unsigned regions_len;
-+    gfn_t pv_time_gfn;
-+    paddr_t start;
-+    paddr_t size;
-+    unsigned int npages;
-+    __be32 *cells;
 +    int res;
 +
-+    /* Find a memory hole */
-+    ASSERT(IS_POWER_OF_TWO(sizeof(struct pv_time_region)));
-+    npages = DIV_ROUND_UP(d->max_vcpus * sizeof(struct pv_time_region), PAGE_SIZE);
-+    regions_len = PAGE_SIZE * npages;
-+    unused_banks = membanks_xzalloc(npages, MEMORY);
-+    if ( !unused_banks )
-+        return -ENOMEM;
++    if (strcmp(dom->guest_type, "xen-3.0-aarch64"))
++        /*
++         * The stolen time shared memory region for ARM DEN 0057A is currently
++         * the only user of /reserved-memory node when a domain is created via
++         * the toolstack, and it requires both the hypervisor and the domain to
++         * be AArch64.
++         */
++        return 0;
 +
-+    res = find_unused_regions(kinfo, unused_banks, add_pv_regions);
-+    if ( res || unused_banks->nr_banks != 1 )
-+    {
-+        printk(XENLOG_WARNING "%pd: failed to find unused regions\n", d);
-+        goto fail;
-+    }
-+    start = unused_banks->bank[0].start;
-+    size = unused_banks->bank[0].size;
++    res = fdt_begin_node(fdt, "reserved-memory");
++    if (res) return res;
 +
-+    kinfo->arch.pv_time_range = rangeset_new(NULL, NULL, 0);
-+    if ( !kinfo->arch.pv_time_range )
-+    {
-+        res = -ENOMEM;
-+        goto fail;
-+    }
-+    res = rangeset_add_range(kinfo->arch.pv_time_range,
-+                             PFN_DOWN(start), PFN_DOWN(start + size - 1));
-+    if ( res )
-+        goto fail;
++    res = fdt_property_cell(fdt, "#address-cells", GUEST_ROOT_ADDRESS_CELLS);
++    if (res) return res;
 +
-+    pv_time_gfn = gaddr_to_gfn(start);
++    res = fdt_property_cell(fdt, "#size-cells", GUEST_ROOT_SIZE_CELLS);
++    if (res) return res;
 +
-+    /* Reserve the selected GFN */
-+    res = domain_fdt_begin_node(fdt, "pv-time", gfn_x(pv_time_gfn));
-+    if ( res )
-+        goto fail;
-+
-+    cells = reg;
-+    dt_child_set_range(&cells, addrcells, sizecells, gfn_x(pv_time_gfn), regions_len);
-+    res = fdt_property(fdt, "reg", reg, len);
-+    if ( res )
-+        goto fail;
++    /* reg 0 is a placeholder for PV time region */
++    res = fdt_property_reg_placeholder(gc, fdt, GUEST_ROOT_ADDRESS_CELLS,
++                                       GUEST_ROOT_SIZE_CELLS, 1);
++    if (res) return res;
 +
 +    res = fdt_end_node(fdt);
-+
-+  fail:
-+    if ( kinfo->arch.pv_time_range )
-+        rangeset_destroy(kinfo->arch.pv_time_range);
-+    xfree(unused_banks);
-+    return res;
-+}
-+#endif
-+
-+int __init make_resv_memory_node(struct kernel_info *kinfo, int addrcells,
-                                  int sizecells)
- {
--    const struct membanks *mem = kernel_info_get_shm_mem_const(kinfo);
-     void *fdt = kinfo->fdt;
-     int res = 0;
-     /* Placeholder for reserved-memory\0 */
-     const char resvbuf[16] = "reserved-memory";
- 
--    if ( !mem || mem->nr_banks == 0 )
--        /* No shared memory provided. */
--        return 0;
--
-     dt_dprintk("Create reserved-memory node\n");
- 
-     res = fdt_begin_node(fdt, resvbuf);
-@@ -1599,6 +1731,12 @@ int __init make_resv_memory_node(const struct kernel_info *kinfo, int addrcells,
-     if ( res )
-         return res;
- 
-+#ifdef CONFIG_ARM_64
-+    res = make_pv_time_resv_memory_node(kinfo, addrcells, sizecells);
-+    if ( res )
-+        return res;
-+#endif
-+
-     res = fdt_end_node(fdt);
- 
-     return res;
-@@ -1747,6 +1885,13 @@ static int __init handle_node(struct domain *d, struct kernel_info *kinfo,
-                                         dt_n_size_cells(node));
-         if ( res )
-             return res;
-+
-+#ifdef CONFIG_ARM_64
-+        res = make_pv_time_resv_memory_node(kinfo, dt_n_addr_cells(node),
-+                                            dt_n_size_cells(node));
-+        if ( res )
-+            return res;
-+#endif
-     }
- 
-     for ( child = node->child; child != NULL; child = child->sibling )
-@@ -1912,11 +2057,72 @@ static void __init find_gnttab_region(struct domain *d,
-            kinfo->gnttab_start, kinfo->gnttab_start + kinfo->gnttab_size);
- }
- 
-+#ifdef CONFIG_ARM_64
-+static int __init alloc_pv_time_region(unsigned long s_gfn, unsigned long e_gfn,
-+                                       void *data)
-+{
-+    struct domain *d = data;
-+    unsigned int npages = DIV_ROUND_UP(
-+        d->max_vcpus * sizeof(struct pv_time_region), PAGE_SIZE);
-+    gfn_t pv_time_gfn;
-+    mfn_t pv_time_mfn;
-+    unsigned int i;
-+    int res;
-+
-+    ASSERT(npages == e_gfn - s_gfn + 1);
-+    ASSERT(gfn_eq(d->arch.pv_time_regions_gfn, _gfn(0)));
-+
-+    for ( i = 0; i < npages; i++ )
-+    {
-+        pv_time_mfn = virt_to_mfn(d->arch.pv_time_regions[i]);
-+        pv_time_gfn = gaddr_to_gfn((s_gfn + i) * PAGE_SIZE);
-+        res = p2m_insert_mapping(d, pv_time_gfn, 1, pv_time_mfn, p2m_ram_ro);
-+        if ( res ) {
-+            printk(XENLOG_WARNING "%pd: failed to insert P2M entry for PV time\n", d);
-+            goto fail;
-+        }
-+    }
-+    d->arch.pv_time_regions_gfn = _gfn(s_gfn);
++    if (res) return res;
 +
 +    return 0;
-+
-+  fail:
-+    for ( ; i > 0; i-- )
-+    {
-+        pv_time_mfn = virt_to_mfn(d->arch.pv_time_regions[i - 1]);
-+        pv_time_gfn = gaddr_to_gfn((s_gfn + i - 1) * PAGE_SIZE);
-+        res = p2m_remove_mapping(d, pv_time_gfn, 1, pv_time_mfn);
-+        if ( res )
-+            printk(XENLOG_WARNING "%pd: failed to remove P2M entry for PV time\n", d);
-+    }
-+
-+    return res;
 +}
 +
-+static int __init construct_pv_time(struct kernel_info *kinfo)
-+{
-+    struct domain *d = kinfo->d;
+ static int make_gicv2_node(libxl__gc *gc, void *fdt,
+                            uint64_t gicd_base, uint64_t gicd_size,
+                            uint64_t gicc_base, uint64_t gicc_size)
+@@ -1352,6 +1386,7 @@ next_resize:
+         FDT( make_psci_node(gc, fdt) );
+ 
+         FDT( make_memory_nodes(gc, fdt, dom) );
++        FDT( make_resv_memory_node(gc, fdt, dom) );
+ 
+         switch (info->arch_arm.gic_version) {
+         case LIBXL_GIC_VERSION_V2:
+@@ -1519,6 +1554,9 @@ static void finalise_one_node(libxl__gc *gc, void *fdt, const char *uname,
+ 
+ #define EXT_REGION_MIN_SIZE   xen_mk_ullong(0x0004000000) /* 64MB */
+ 
++/* As per ARM DEN 0057A, stolen time memory regions are 64-byte aligned */
++#define PV_REGIONS_PER_PAGE  (XC_PAGE_SIZE / 64)
 +
-+    ASSERT(IS_POWER_OF_TWO(sizeof(struct pv_time_region)));
-+    ASSERT(d->arch.pv_time_regions);
-+
-+    if ( is_32bit_domain(d) )
-+        return 0;
-+
-+    return rangeset_report_ranges(kinfo->arch.pv_time_range, 0,
-+                                  PFN_DOWN((1ULL << p2m_ipa_bits) - 1),
-+                                  alloc_pv_time_region, d);
-+}
-+#endif
-+
- int __init construct_domain(struct domain *d, struct kernel_info *kinfo)
+ static int compare_iomem(const void *a, const void *b)
  {
-     unsigned int i;
-     struct vcpu *v = d->vcpu[0];
-     struct cpu_user_regs *regs = &v->arch.cpu_info->guest_cpu_user_regs;
-+#ifdef CONFIG_ARM_64
-+    int res;
-+#endif
- 
-     BUG_ON(d->vcpu[0] == NULL);
-     BUG_ON(v->is_initialised);
-@@ -1938,6 +2144,12 @@ int __init construct_domain(struct domain *d, struct kernel_info *kinfo)
-     if ( is_64bit_domain(d) )
-         vcpu_switch_to_aarch64_mode(v);
- 
-+    res = construct_pv_time(kinfo);
-+    if ( res )
-+    {
-+        printk("Failed to allocate PV time region\n");
-+        return res;
-+    }
- #endif
- 
-     /*
-diff --git a/xen/arch/arm/include/asm/domain.h b/xen/arch/arm/include/asm/domain.h
-index a3487ca71303..5a724f9f22d9 100644
---- a/xen/arch/arm/include/asm/domain.h
-+++ b/xen/arch/arm/include/asm/domain.h
-@@ -59,6 +59,20 @@ struct paging_domain {
-     unsigned long p2m_total_pages;
- };
- 
-+#ifdef CONFIG_ARM_64
-+/* Stolen time shared memory region (ARM DEN 0057A.b) */
-+struct pv_time_region {
-+    /* This field must be 0 as per ARM DEN 0057A.b */
-+    uint32_t revision;
-+
-+    /* This field must be 0 as per ARM DEN 0057A.b */
-+    uint32_t attribute;
-+
-+    /* Total stolen time in nanoseconds */
-+    uint64_t stolen_time;
-+} __aligned(64);
-+#endif
-+
- struct arch_domain
- {
- #ifdef CONFIG_ARM_64
-@@ -121,6 +135,11 @@ struct arch_domain
-     void *tee;
- #endif
- 
-+#ifdef CONFIG_ARM_64
-+    struct pv_time_region **pv_time_regions;
-+    gfn_t pv_time_regions_gfn;
-+#endif
-+
- }  __cacheline_aligned;
- 
- struct arch_vcpu
-@@ -243,6 +262,10 @@ struct arch_vcpu
-      */
-     bool need_flush_to_ram;
- 
-+#ifdef CONFIG_ARM_64
-+    struct pv_time_region *pv_time_region;
-+#endif
-+
- }  __cacheline_aligned;
- 
- void vcpu_show_registers(struct vcpu *v);
-diff --git a/xen/arch/arm/include/asm/kernel.h b/xen/arch/arm/include/asm/kernel.h
-index 7c3b7fde5b64..9b33526d2384 100644
---- a/xen/arch/arm/include/asm/kernel.h
-+++ b/xen/arch/arm/include/asm/kernel.h
-@@ -12,6 +12,8 @@ struct arch_kernel_info
- {
- #ifdef CONFIG_ARM_64
-     enum domain_type type;
-+
-+    struct rangeset *pv_time_range;
- #endif
- 
-     /* Enable pl011 emulation */
-diff --git a/xen/arch/arm/include/asm/p2m.h b/xen/arch/arm/include/asm/p2m.h
-index 2d53bf9b6177..fb754da3db17 100644
---- a/xen/arch/arm/include/asm/p2m.h
-+++ b/xen/arch/arm/include/asm/p2m.h
-@@ -324,6 +324,9 @@ int map_dev_mmio_page(struct domain *d, gfn_t gfn, mfn_t mfn);
- int p2m_insert_mapping(struct domain *d, gfn_t start_gfn, unsigned long nr,
-                        mfn_t mfn, p2m_type_t t);
- 
-+int p2m_remove_mapping(struct domain *d, gfn_t start_gfn, unsigned long nr,
-+                       mfn_t mfn);
-+
- int guest_physmap_add_entry(struct domain *d,
-                             gfn_t gfn,
-                             mfn_t mfn,
-diff --git a/xen/arch/arm/include/asm/smccc.h b/xen/arch/arm/include/asm/smccc.h
-index a289c48b7ffd..6207ac74b715 100644
---- a/xen/arch/arm/include/asm/smccc.h
-+++ b/xen/arch/arm/include/asm/smccc.h
-@@ -380,6 +380,18 @@ void arm_smccc_1_2_smc(const struct arm_smccc_1_2_regs *args,
-                        ARM_SMCCC_OWNER_ARCH,        \
-                        0x3FFF)
- 
-+#define ARM_SMCCC_HYP_PV_TIME_FEATURES              \
-+    ARM_SMCCC_CALL_VAL(ARM_SMCCC_FAST_CALL,         \
-+                       ARM_SMCCC_CONV_64,           \
-+                       ARM_SMCCC_OWNER_HYPERVISOR,  \
-+                       0x20)
-+
-+#define ARM_SMCCC_HYP_PV_TIME_ST                    \
-+    ARM_SMCCC_CALL_VAL(ARM_SMCCC_FAST_CALL,         \
-+                       ARM_SMCCC_CONV_64,           \
-+                       ARM_SMCCC_OWNER_HYPERVISOR,  \
-+                       0x21)
-+
- /* SMCCC error codes */
- #define ARM_SMCCC_NOT_REQUIRED          (-2)
- #define ARM_SMCCC_ERR_UNKNOWN_FUNCTION  (-1)
-diff --git a/xen/arch/arm/p2m.c b/xen/arch/arm/p2m.c
-index ef8bd4b6ab33..51d1fb3067b7 100644
---- a/xen/arch/arm/p2m.c
-+++ b/xen/arch/arm/p2m.c
-@@ -109,10 +109,8 @@ int p2m_insert_mapping(struct domain *d, gfn_t start_gfn, unsigned long nr,
-     return rc;
+     const libxl_iomem_range *x = a, *y = b;
+@@ -1530,24 +1568,92 @@ static int compare_iomem(const void *a, const void *b)
+     return 0;
  }
  
--static inline int p2m_remove_mapping(struct domain *d,
--                                     gfn_t start_gfn,
--                                     unsigned long nr,
--                                     mfn_t mfn)
-+int p2m_remove_mapping(struct domain *d, gfn_t start_gfn, unsigned long nr,
-+                       mfn_t mfn)
+-static int finalize_hypervisor_node(libxl__gc *gc,
+-                                    libxl_domain_build_info *b_info,
+-                                    struct xc_dom_image *dom)
++static int get_pv_region(libxl_domain_build_info *b_info,
++                         struct xc_dom_image *dom,
++                         uint64_t *start, uint64_t end,
++                         uint64_t *region_base, uint64_t *region_size)
++{
++    unsigned int npages = DIV_ROUNDUP(b_info->max_vcpus, PV_REGIONS_PER_PAGE);
++    unsigned int len = npages * XC_PAGE_SIZE;
++    uint32_t domid = dom->guest_domid;
++    xc_interface *xch = dom->xch;
++    unsigned long idx = 0;
++    uint64_t size;
++    int rc;
++
++    if (*start >= end)
++        return -1;
++    size = end - *start;
++    if (size < len)
++        return -1;
++
++    for (; npages; npages--, idx++) {
++        rc = xc_domain_add_to_physmap(xch, domid, XENMAPSPACE_pv_time, idx,
++                                      (*start >> XC_PAGE_SHIFT) + idx);
++        if (rc)
++            return rc;
++    }
++
++    region_base[0] = *start;
++    region_size[0] = len;
++    *start += len;
++    return 0;
++}
++
++static void get_ext_region(uint64_t start, uint64_t end, uint64_t *region_base,
++                           uint64_t *region_size, unsigned int *nr_regions)
++{
++    uint64_t size;
++
++    start = ALIGN_UP_TO_2MB(start);
++    if (start >= end)
++        return;
++
++    size = end - start;
++    if (size < EXT_REGION_MIN_SIZE)
++        return;
++
++    region_base[*nr_regions] = start;
++    region_size[*nr_regions] = size;
++    (*nr_regions)++;
++}
++
++static int finalize_extra_regions(libxl__gc *gc,
++                                  libxl_domain_build_info *b_info,
++                                  struct xc_dom_image *dom)
  {
-     struct p2m_domain *p2m = p2m_get_hostp2m(d);
-     unsigned long i;
-diff --git a/xen/arch/arm/vsmc.c b/xen/arch/arm/vsmc.c
-index 6081f14ed0c1..31d643b5a6d5 100644
---- a/xen/arch/arm/vsmc.c
-+++ b/xen/arch/arm/vsmc.c
-@@ -12,6 +12,7 @@
- #include <public/arch-arm/smccc.h>
- #include <asm/cpuerrata.h>
- #include <asm/cpufeature.h>
-+#include <asm/domain.h>
- #include <asm/monitor.h>
- #include <asm/regs.h>
- #include <asm/smccc.h>
-@@ -127,6 +128,11 @@ static bool handle_arch(struct cpu_user_regs *regs)
-             if ( cpus_have_cap(ARM_WORKAROUND_BHB_SMCC_3) )
-                 ret = ARM_SMCCC_SUCCESS;
-             break;
-+#ifdef CONFIG_ARM_64
-+        case ARM_SMCCC_HYP_PV_TIME_FEATURES:
-+            ret = ARM_SMCCC_SUCCESS;
-+            break;
-+#endif
+     void *fdt = dom->devicetree_blob;
+-    uint64_t region_base[MAX_NR_EXT_REGIONS], region_size[MAX_NR_EXT_REGIONS];
+-    uint32_t regs[(GUEST_ROOT_ADDRESS_CELLS + GUEST_ROOT_SIZE_CELLS) *
++
++    /* For extended regions */
++    uint64_t ext_region_base[MAX_NR_EXT_REGIONS], ext_region_size[MAX_NR_EXT_REGIONS];
++    uint32_t ext_regs[(GUEST_ROOT_ADDRESS_CELLS + GUEST_ROOT_SIZE_CELLS) *
+                   (MAX_NR_EXT_REGIONS + 1)];
+-    be32 *cells = &regs[0];
++    be32 *ext_cells = &ext_regs[0];
++    int hyp_offset;
++
++    /* For pv regions */
++    uint64_t pv_region_base[1], pv_region_size[1];
++    uint32_t pv_regs[GUEST_ROOT_ADDRESS_CELLS + GUEST_ROOT_SIZE_CELLS];
++    be32 *pv_cells = &pv_regs[0];
++    int resv_offset;
++
+     const uint64_t bankbase[] = GUEST_RAM_BANK_BASES;
+     const uint64_t banksize[] = GUEST_RAM_BANK_SIZES;
+     unsigned int i, j, len, nr_regions = 0;
++    bool pv_region_pending = true;
+     libxl_dominfo info;
+-    int offset, rc;
++    int rc;
+ 
+-    offset = fdt_path_offset(fdt, "/hypervisor");
+-    if (offset < 0)
+-        return offset;
++    resv_offset = fdt_path_offset(fdt, "/reserved-memory");
++    if (!strcmp(dom->guest_type, "xen-3.0-aarch64")) {
++        if (resv_offset < 0)
++            return resv_offset;
++    } else
++        pv_region_pending = false;
++
++    hyp_offset = fdt_path_offset(fdt, "/hypervisor");
++    if (hyp_offset < 0)
++        return hyp_offset;
+ 
+     rc = libxl_domain_info(CTX, &info, dom->guest_domid);
+     if (rc)
+@@ -1572,8 +1678,7 @@ static int finalize_hypervisor_node(libxl__gc *gc,
+         } unallocated;
+         uint64_t unallocated_size = 0;
+ 
+-        unallocated.start = bankbase[i] +
+-            ALIGN_UP_TO_2MB((uint64_t)dom->rambank_size[i] << XC_PAGE_SHIFT);
++        unallocated.start = bankbase[i] + ((uint64_t)dom->rambank_size[i] << XC_PAGE_SHIFT);
+ 
+         unallocated.end = ~0ULL >> (64 - info.gpaddr_bits);
+         unallocated.end = min(unallocated.end, bankbase[i] + banksize[i] - 1);
+@@ -1581,7 +1686,7 @@ static int finalize_hypervisor_node(libxl__gc *gc,
+         if (unallocated.end >= unallocated.start)
+             unallocated_size = unallocated.end - unallocated.start + 1;
+ 
+-        if (unallocated_size < EXT_REGION_MIN_SIZE)
++        if (unallocated_size <= 0)
+             continue;
+ 
+         /* Exclude iomem */
+@@ -1605,14 +1710,14 @@ static int finalize_hypervisor_node(libxl__gc *gc,
+                     if (unallocated.start > unallocated.end)
+                         break;
+                 } else {
+-                    uint64_t size = iomem.start - unallocated.start;
+-
+-                    if (size >= EXT_REGION_MIN_SIZE) {
+-                        region_base[nr_regions] = unallocated.start;
+-                        region_size[nr_regions] = size;
+-                        nr_regions++;
++                    if (pv_region_pending) {
++                        rc = get_pv_region(b_info, dom, &unallocated.start, iomem.start,
++                                           pv_region_base, pv_region_size);
++                        if (!rc)
++                            pv_region_pending = false;
+                     }
+-
++                    get_ext_region(unallocated.start, iomem.start, ext_region_base,
++                                   ext_region_size, &nr_regions);
+                     unallocated.start = iomem.end + 1;
+ 
+                     if (unallocated.start > unallocated.end)
+@@ -1624,38 +1729,52 @@ static int finalize_hypervisor_node(libxl__gc *gc,
+         if (unallocated.end >= unallocated.start
+             && nr_regions < MAX_NR_EXT_REGIONS)
+         {
+-            uint64_t size = unallocated.end - unallocated.start + 1;
+-
+-            if (size >= EXT_REGION_MIN_SIZE) {
+-                region_base[nr_regions] = unallocated.start;
+-                region_size[nr_regions] = size;
+-                nr_regions++;
++            if (pv_region_pending) {
++                rc = get_pv_region(b_info, dom, &unallocated.start, unallocated.end,
++                                   pv_region_base, pv_region_size);
++                if (!rc)
++                    pv_region_pending = false;
+             }
++            get_ext_region(unallocated.start, unallocated.end, ext_region_base,
++                           ext_region_size, &nr_regions);
          }
+     }
  
-         set_user_reg(regs, 0, ret);
-@@ -162,6 +168,29 @@ static bool handle_arch(struct cpu_user_regs *regs)
-     return false;
++    if (!strcmp(dom->guest_type, "xen-3.0-aarch64")) {
++        if (pv_region_pending) {
++            LOG(ERROR, "The PV time region cannot be allocated, not enough space");
++            return ERROR_FAIL;
++        }
++        set_range(&pv_cells, GUEST_ROOT_ADDRESS_CELLS, GUEST_ROOT_SIZE_CELLS,
++                  pv_region_base[0], pv_region_size[0]);
++        len = sizeof(pv_regs[0]) * (GUEST_ROOT_ADDRESS_CELLS + GUEST_ROOT_SIZE_CELLS);
++        rc = fdt_setprop(fdt, resv_offset, "reg", pv_regs, len);
++        if (rc)
++            return rc;
++    }
++
+     /*
+      * The region 0 for grant table space must be always present. If we managed
+      * to allocate the extended regions then insert them as regions 1...N.
+      */
+-    set_range(&cells, GUEST_ROOT_ADDRESS_CELLS, GUEST_ROOT_SIZE_CELLS,
++    set_range(&ext_cells, GUEST_ROOT_ADDRESS_CELLS, GUEST_ROOT_SIZE_CELLS,
+               GUEST_GNTTAB_BASE, GUEST_GNTTAB_SIZE);
+ 
+     for (i = 0; i < nr_regions; i++) {
+         LOG(DEBUG, "Extended region %u: %#"PRIx64"->%#"PRIx64"",
+-            i, region_base[i], region_base[i] + region_size[i] - 1);
++            i, ext_region_base[i], ext_region_base[i] + ext_region_size[i] - 1);
+ 
+-        set_range(&cells, GUEST_ROOT_ADDRESS_CELLS, GUEST_ROOT_SIZE_CELLS,
+-                  region_base[i], region_size[i]);
++        set_range(&ext_cells, GUEST_ROOT_ADDRESS_CELLS, GUEST_ROOT_SIZE_CELLS,
++                  ext_region_base[i], ext_region_size[i]);
+     }
+ 
+     if (!nr_regions)
+         LOG(WARN, "The extended regions cannot be allocated, not enough space");
+ 
+-    len = sizeof(regs[0]) * (GUEST_ROOT_ADDRESS_CELLS + GUEST_ROOT_SIZE_CELLS) *
++    len = sizeof(ext_regs[0]) * (GUEST_ROOT_ADDRESS_CELLS + GUEST_ROOT_SIZE_CELLS) *
+         (nr_regions + 1);
+ 
+-    return fdt_setprop(fdt, offset, "reg", regs, len);
++    return fdt_setprop(fdt, hyp_offset, "reg", ext_regs, len);
  }
  
+ int libxl__arch_domain_finalise_hw_description(libxl__gc *gc,
+@@ -1698,7 +1817,7 @@ int libxl__arch_domain_finalise_hw_description(libxl__gc *gc,
+ 
+     }
+ 
+-    res = finalize_hypervisor_node(gc, &d_config->b_info, dom);
++    res = finalize_extra_regions(gc, &d_config->b_info, dom);
+     if (res)
+         return res;
+ 
+diff --git a/xen/arch/arm/mm.c b/xen/arch/arm/mm.c
+index 0613c1916936..4741472ea1a0 100644
+--- a/xen/arch/arm/mm.c
++++ b/xen/arch/arm/mm.c
+@@ -180,7 +180,21 @@ int xenmem_add_to_physmap_one(
+     case XENMAPSPACE_dev_mmio:
+         rc = map_dev_mmio_page(d, gfn, _mfn(idx));
+         return rc;
++    case XENMAPSPACE_pv_time:
 +#ifdef CONFIG_ARM_64
-+static bool fill_pv_time_features(struct cpu_user_regs *regs)
-+{
-+    uint32_t arch_func_id = get_user_reg(regs, 1);
-+    int ret = ARM_SMCCC_NOT_SUPPORTED;
++        ASSERT(IS_POWER_OF_TWO(sizeof(struct pv_time_region)));
++        if ( idx >= DIV_ROUND_UP(d->max_vcpus * sizeof(struct pv_time_region),
++                                 PAGE_SIZE) )
++            return -EINVAL;
 +
-+    if ( arch_func_id == ARM_SMCCC_HYP_PV_TIME_ST )
-+        ret = ARM_SMCCC_SUCCESS;
++        if ( idx == 0 )
++            d->arch.pv_time_regions_gfn = gfn;
+ 
++        mfn = virt_to_mfn(d->arch.pv_time_regions[idx]);
++        t = p2m_ram_ro;
 +
-+    set_user_reg(regs, 0, ret);
-+
-+    return true;
-+}
-+
-+static bool fill_pv_time_st(struct cpu_user_regs *regs)
-+{
-+    paddr_t gaddr = gfn_to_gaddr(current->domain->arch.pv_time_regions_gfn);
-+    register_t ret = gaddr + current->vcpu_id * sizeof(struct pv_time_region);
-+    set_user_reg(regs, 0, ret);
-+    return true;
-+}
-+#endif
-+
- /* SMCCC interface for hypervisor. Tell about itself. */
- static bool handle_hypervisor(struct cpu_user_regs *regs)
- {
-@@ -176,6 +205,12 @@ static bool handle_hypervisor(struct cpu_user_regs *regs)
-     case ARM_SMCCC_REVISION_FID(HYPERVISOR):
-         return fill_revision(regs, XEN_SMCCC_MAJOR_REVISION,
-                              XEN_SMCCC_MINOR_REVISION);
-+#ifdef CONFIG_ARM_64
-+    case ARM_SMCCC_HYP_PV_TIME_FEATURES:
-+        return fill_pv_time_features(regs);
-+    case ARM_SMCCC_HYP_PV_TIME_ST:
-+        return fill_pv_time_st(regs);
++        break;
 +#endif
      default:
-         return false;
+         return -ENOSYS;
      }
-diff --git a/xen/include/xen/fdt-domain-build.h b/xen/include/xen/fdt-domain-build.h
-index e9418857e386..57f2d9cf8da1 100644
---- a/xen/include/xen/fdt-domain-build.h
-+++ b/xen/include/xen/fdt-domain-build.h
-@@ -25,7 +25,7 @@ int construct_domain(struct domain *d, struct kernel_info *kinfo);
- int construct_hwdom(struct kernel_info *kinfo,
-                     const struct dt_device_node *node);
- int make_chosen_node(const struct kernel_info *kinfo);
--int make_resv_memory_node(const struct kernel_info *kinfo,
-+int make_resv_memory_node(struct kernel_info *kinfo,
-                           int addrcells, int sizecells);
- int make_cpus_node(const struct domain *d, void *fdt);
- int make_hypervisor_node(struct domain *d, const struct kernel_info *kinfo,
-diff --git a/xen/include/xen/macros.h b/xen/include/xen/macros.h
-index cd528fbdb127..4d184947a4b0 100644
---- a/xen/include/xen/macros.h
-+++ b/xen/include/xen/macros.h
-@@ -5,6 +5,7 @@
- #define ROUNDDOWN(x, a) ((x) & ~((a) - 1))
+diff --git a/xen/include/public/memory.h b/xen/include/public/memory.h
+index bd9fc37b5297..4daa703e882e 100644
+--- a/xen/include/public/memory.h
++++ b/xen/include/public/memory.h
+@@ -217,6 +217,7 @@ DEFINE_XEN_GUEST_HANDLE(xen_machphys_mapping_t);
+                                       Stage-2 using the Normal Memory
+                                       Inner/Outer Write-Back Cacheable
+                                       memory attribute. */
++#define XENMAPSPACE_pv_time      6 /* PV time shared region (ARM64 only) */
+ /* ` } */
  
- #define IS_ALIGNED(val, align) (!((val) & ((align) - 1)))
-+#define IS_POWER_OF_TWO(val)   ((val) && !((val) & ((val) - 1)))
- 
- #define DIV_ROUND(n, d) (((n) + (d) / 2) / (d))
- #define DIV_ROUND_UP(n, d) (((n) + (d) - 1) / (d))
+ /*
 -- 
 2.48.1
 
