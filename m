@@ -2,44 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB033AFAAD5
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Jul 2025 07:24:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1035194.1407401 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B3D9CAFAADB
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Jul 2025 07:25:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1035199.1407411 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uYeKS-0006Qz-2a; Mon, 07 Jul 2025 05:23:48 +0000
+	id 1uYeMG-0006yY-D6; Mon, 07 Jul 2025 05:25:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1035194.1407401; Mon, 07 Jul 2025 05:23:48 +0000
+Received: by outflank-mailman (output) from mailman id 1035199.1407411; Mon, 07 Jul 2025 05:25:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uYeKR-0006PY-Vr; Mon, 07 Jul 2025 05:23:47 +0000
-Received: by outflank-mailman (input) for mailman id 1035194;
- Mon, 07 Jul 2025 05:23:46 +0000
+	id 1uYeMG-0006vw-AD; Mon, 07 Jul 2025 05:25:40 +0000
+Received: by outflank-mailman (input) for mailman id 1035199;
+ Mon, 07 Jul 2025 05:25:39 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=FMNu=ZU=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1uYeKQ-0006PS-D0
- for xen-devel@lists.xenproject.org; Mon, 07 Jul 2025 05:23:46 +0000
+ id 1uYeMF-0006vq-C0
+ for xen-devel@lists.xenproject.org; Mon, 07 Jul 2025 05:25:39 +0000
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8b22090d-5af2-11f0-b894-0df219b8e170;
- Mon, 07 Jul 2025 07:23:41 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ id cf2c0d84-5af2-11f0-b894-0df219b8e170;
+ Mon, 07 Jul 2025 07:25:35 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 9FE1021163;
- Mon,  7 Jul 2025 05:23:39 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id E32DC21163;
+ Mon,  7 Jul 2025 05:25:34 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5F4CD13757;
- Mon,  7 Jul 2025 05:23:39 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 9D81113757;
+ Mon,  7 Jul 2025 05:25:34 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id XaEkFdtZa2jZfAAAD6G6ig
- (envelope-from <jgross@suse.com>); Mon, 07 Jul 2025 05:23:39 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id w7t5I05aa2gVfgAAD6G6ig
+ (envelope-from <jgross@suse.com>); Mon, 07 Jul 2025 05:25:34 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,36 +52,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8b22090d-5af2-11f0-b894-0df219b8e170
+X-Inumbo-ID: cf2c0d84-5af2-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1751865820; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1751865935; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=rCJDUCMC0OUj+MCRBKC522zC5mZ9BKjxyUcIFXZ6Sk8=;
-	b=j/PeKFKo9Nfvx1GPi7kE+kBTXPPYAZ8Ft1Oa4DspzNaa01HBBnEnCTHVrr8uOpX9n9t4r3
-	n7/g0qtaykiljvhhXpmdnozYqBCc+AQlvX6+ClX5RO5pVFu8Qk4VOT1G0yNtMbZAB+V53O
-	y5K0+DNxuQDboFjOwNUj1s8fslUxFGM=
+	bh=nzX43bc4+Sm2MmD1lmLeTWdH0dNYZ3NmO0bTiTsfQUU=;
+	b=EOyJ7abSvXpdRJt8HHZVgRdymTrG4Ze9j7p9uuimvlKCW3ubklUrEmcxaX8MWNrFMtkP0o
+	YTSXsmpRynqqFFiSMQvdUIUr5O2f/Y3f1l+2SqjtgHSb0Hy8AAjFz6+bvsLOtANxhfcB+K
+	OQnevtnZvcZAZPrLtYBRV6hIC1hsihM=
 Authentication-Results: smtp-out1.suse.de;
-	none
+	dkim=pass header.d=suse.com header.s=susede1 header.b=eYRb6viA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1751865819; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1751865934; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=rCJDUCMC0OUj+MCRBKC522zC5mZ9BKjxyUcIFXZ6Sk8=;
-	b=ahYtagBOjO52Vmr3kelmKfQIvE6WeCAbsEvV0OXpdTbBb+YPFEea1FPtjcxTKslJZ1py5c
-	Spop2CNOjHZzKarRW3yFgh9enRSspZPgW9kKCS8ywD4jD0zV0rORKxHwq5017KQ0+97PW7
-	TBHjiD4/T6B0oh4YNcGJSB28jCaQx8Q=
-Message-ID: <3b57abf8-af9c-4e2e-b1a2-37fa7a523746@suse.com>
-Date: Mon, 7 Jul 2025 07:23:38 +0200
+	bh=nzX43bc4+Sm2MmD1lmLeTWdH0dNYZ3NmO0bTiTsfQUU=;
+	b=eYRb6viA6NFluURGVYZq5amdMr9LoVkpgVQhFrV+Mnt5Le2cQNaYtydo54hS4NkrZOS/oC
+	llp+pWaOmwvLDsNlsJ5QRu0oYokxxoqH9pqiqJiQLCP8FBfR89hsa7P0/nuPcw0QQ6TWqa
+	Xe5xBep3PmhRwmuLHlQeuSa6l7LvHF4=
+Message-ID: <7e1e5918-303b-4219-ad1e-b0ffb26e7526@suse.com>
+Date: Mon, 7 Jul 2025 07:25:33 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 03/11] xen/sysctl: wrap around XEN_SYSCTL_sched_id
+Subject: Re: [PATCH 07/11] xen/sysctl: wrap around XEN_SYSCTL_cpupool_op
 To: Penny Zheng <Penny.Zheng@amd.com>, xen-devel@lists.xenproject.org
 Cc: ray.huang@amd.com, Dario Faggioli <dfaggioli@suse.com>,
  George Dunlap <gwd@xenproject.org>,
  Stefano Stabellini <sstabellini@kernel.org>
 References: <20250707031346.901567-1-Penny.Zheng@amd.com>
- <20250707031346.901567-4-Penny.Zheng@amd.com>
+ <20250707031346.901567-8-Penny.Zheng@amd.com>
 Content-Language: en-US
 From: Juergen Gross <jgross@suse.com>
 Autocrypt: addr=jgross@suse.com; keydata=
@@ -106,67 +107,79 @@ Autocrypt: addr=jgross@suse.com; keydata=
  HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
  QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
  ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <20250707031346.901567-4-Penny.Zheng@amd.com>
+In-Reply-To: <20250707031346.901567-8-Penny.Zheng@amd.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------g9cHVIZmPQPfTU0sclaVryiE"
-X-Spamd-Result: default: False [-5.20 / 50.00];
+ boundary="------------j4FEayxIJqVAVSLf9V39wy0l"
+X-Spam-Level: 
+X-Spam-Flag: NO
+X-Rspamd-Queue-Id: E32DC21163
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spamd-Result: default: False [-5.41 / 50.00];
 	BAYES_HAM(-3.00)[99.99%];
 	SIGNED_PGP(-2.00)[];
 	MIME_BASE64_TEXT_BOGUS(1.00)[];
 	NEURAL_HAM_LONG(-1.00)[-1.000];
 	MIME_GOOD(-0.20)[multipart/signed,multipart/mixed,text/plain];
-	NEURAL_HAM_SHORT(-0.20)[-0.992];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
+	NEURAL_HAM_SHORT(-0.20)[-0.999];
 	MIME_UNKNOWN(0.10)[application/pgp-keys];
 	MIME_BASE64_TEXT(0.10)[];
-	FUZZY_RATELIMITED(0.00)[rspamd.com];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+,1:+,2:+,3:+,4:~,5:~];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
+	MX_GOOD(-0.01)[];
 	DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	RCPT_COUNT_FIVE(0.00)[6];
-	FROM_EQ_ENVFROM(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FUZZY_RATELIMITED(0.00)[rspamd.com];
+	MIME_TRACE(0.00)[0:+,1:+,2:+,3:+,4:~,5:~];
+	URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.com:dkim,suse.com:mid,suse.com:email,amd.com:email];
+	ARC_NA(0.00)[];
 	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
 	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
 	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:email,imap1.dmz-prg2.suse.org:helo];
-	HAS_ATTACHMENT(0.00)[]
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Spam-Score: -5.20
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DKIM_TRACE(0.00)[suse.com:+];
+	HAS_ATTACHMENT(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.com:dkim,suse.com:mid,suse.com:email]
+X-Spam-Score: -5.41
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------g9cHVIZmPQPfTU0sclaVryiE
-Content-Type: multipart/mixed; boundary="------------4VPVD7lW0gOcogypv0OLdgv2";
+--------------j4FEayxIJqVAVSLf9V39wy0l
+Content-Type: multipart/mixed; boundary="------------UPFb6F9VpjIygjbNkq3Zjd7b";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
 To: Penny Zheng <Penny.Zheng@amd.com>, xen-devel@lists.xenproject.org
 Cc: ray.huang@amd.com, Dario Faggioli <dfaggioli@suse.com>,
  George Dunlap <gwd@xenproject.org>,
  Stefano Stabellini <sstabellini@kernel.org>
-Message-ID: <3b57abf8-af9c-4e2e-b1a2-37fa7a523746@suse.com>
-Subject: Re: [PATCH 03/11] xen/sysctl: wrap around XEN_SYSCTL_sched_id
+Message-ID: <7e1e5918-303b-4219-ad1e-b0ffb26e7526@suse.com>
+Subject: Re: [PATCH 07/11] xen/sysctl: wrap around XEN_SYSCTL_cpupool_op
 References: <20250707031346.901567-1-Penny.Zheng@amd.com>
- <20250707031346.901567-4-Penny.Zheng@amd.com>
-In-Reply-To: <20250707031346.901567-4-Penny.Zheng@amd.com>
+ <20250707031346.901567-8-Penny.Zheng@amd.com>
+In-Reply-To: <20250707031346.901567-8-Penny.Zheng@amd.com>
 
---------------4VPVD7lW0gOcogypv0OLdgv2
-Content-Type: multipart/mixed; boundary="------------9gf3gXzlrqg895y2qSC30un7"
+--------------UPFb6F9VpjIygjbNkq3Zjd7b
+Content-Type: multipart/mixed; boundary="------------nAjRcXE4UwDbfmf2LP0KH4M7"
 
---------------9gf3gXzlrqg895y2qSC30un7
+--------------nAjRcXE4UwDbfmf2LP0KH4M7
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: base64
 
-T24gMDcuMDcuMjUgMDU6MTMsIFBlbm55IFpoZW5nIHdyb3RlOg0KPiBUaGUgZm9sbG93aW5n
-IGZ1bmN0aW9uIHNoYWxsIGJlIHdyYXBwZWQ6DQo+IC0gc2NoZWR1bGVyX2lkKCkNCj4gDQo+
-IFNpZ25lZC1vZmYtYnk6IFBlbm55IFpoZW5nIDxQZW5ueS5aaGVuZ0BhbWQuY29tPg0KPiBS
-ZXZpZXdlZC1ieTogU3RlZmFubyBTdGFiZWxsaW5pIDxzc3RhYmVsbGluaUBrZXJuZWwub3Jn
-Pg0KDQpSZXZpZXdlZC1ieTogSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuY29tPg0KDQoN
-Ckp1ZXJnZW4NCg==
---------------9gf3gXzlrqg895y2qSC30un7
+T24gMDcuMDcuMjUgMDU6MTMsIFBlbm55IFpoZW5nIHdyb3RlOg0KPiBGdW5jdGlvbiBjcHVw
+b29sX2RvX3N5c2N0bCBpcyBkZXNpZ25lZCBmb3IgZG9pbmcgY3B1cG9vbCByZWxhdGVkIHN5
+c2N0bA0KPiBvcGVyYXRpb25zLCBhbmQgc2hhbGwgYmUgd3JhcHBlZC4NCj4gDQo+IFRoZSBm
+b2xsb3dpbmcgc3RhdGljIGZ1bmN0aW9ucyBhcmUgb25seSBjYWxsZWQgYnkgY3B1cG9vbF9k
+b19zeXNjdGwoKSwgdGhlbg0KPiBzaGFsbCBiZSB3cmFwcGVkIHRvbzoNCj4gLSBjcHVwb29s
+X2dldF9uZXh0X2J5X2lkDQo+IC0gY3B1cG9vbF9kZXN0cm95DQo+IC0gY3B1cG9vbF91bmFz
+c2lnbl9jcHVfaGVscGVyDQo+IC0gY3B1cG9vbF91bmFzc2lnbl9jcHUNCj4gDQo+IFNpZ25l
+ZC1vZmYtYnk6IFBlbm55IFpoZW5nIDxQZW5ueS5aaGVuZ0BhbWQuY29tPg0KPiBSZXZpZXdl
+ZC1ieTogU3RlZmFubyBTdGFiZWxsaW5pIDxzc3RhYmVsbGluaUBrZXJuZWwub3JnPg0KDQpS
+ZXZpZXdlZC1ieTogSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuY29tPg0KDQoNCkp1ZXJn
+ZW4NCg==
+--------------nAjRcXE4UwDbfmf2LP0KH4M7
 Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Description: OpenPGP public key
@@ -233,25 +246,25 @@ kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
 =3DeeAB
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------9gf3gXzlrqg895y2qSC30un7--
+--------------nAjRcXE4UwDbfmf2LP0KH4M7--
 
---------------4VPVD7lW0gOcogypv0OLdgv2--
+--------------UPFb6F9VpjIygjbNkq3Zjd7b--
 
---------------g9cHVIZmPQPfTU0sclaVryiE
+--------------j4FEayxIJqVAVSLf9V39wy0l
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmhrWdoFAwAAAAAACgkQsN6d1ii/Ey9C
-zQf9GVqRBRfpKSxPCVohGS075OkxI9Qafj6QwTCjke5mPt4cABB7l3587SFb4lq7UnZVkvlnVHww
-cP9XThHsSU6mqOSwWf5RzLo7FdDQXxP08aNZNqpNwyt1YNH8wEZU3x6766ntnFL/ETVFu9pJHb4P
-sIQoRdCet4MHloKryzkBYYkAS+GzI9HxnSbeQrbOva3SX68gPoTtUQZT/XDEeja4jQ72BdQXEg2m
-0GrAtX2Z1M03/j3FvSftWY3my5BZSooBbTTRy1KI7DTa0oLsnc1tm5G8id1zu/ukrP3MjKU1SWp2
-SquSfsoNWZIQ9Hwj1pGcSpgMk3g1QQT9RP4miumXUA==
-=A1Zn
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmhrWk4FAwAAAAAACgkQsN6d1ii/Ey/D
+RwgAnJiagk6TPNRZaoFKCRpY3HIYMhuRFDDlu1E/ymtOLk+t62TUnUqA7Vdf501DEK4lfsbdlLay
+IrE9KK6gWE4n8dFsDQKf/mxKsy9ubuKflI6PP27fbYTqxw1tuBM902tgx0KfVD0nhogBsLUQYbOQ
+pHOaXx9XHne1z6zyxkI3utB5YuMfW6ikeL2SF0pp3cA49CATlr/KKWE40E6U/U8nCUwqvaRJJO91
+gLVa8sj9P7XZui1RDlK7MmM/tTjMxZYWrWaEtQOu/XAoKZ148AhC92I2n1dFFC65jawLrFm4ntfU
+UaWOwT5CSF0DwUn4RaZn5c8z7g6ZXpWNq1CcmVgAbw==
+=dwI+
 -----END PGP SIGNATURE-----
 
---------------g9cHVIZmPQPfTU0sclaVryiE--
+--------------j4FEayxIJqVAVSLf9V39wy0l--
 
