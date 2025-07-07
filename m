@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 57C95AFB71F
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Jul 2025 17:19:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1035663.1408012 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BFB00AFB75B
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Jul 2025 17:29:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1035669.1408021 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uYndA-00018h-7u; Mon, 07 Jul 2025 15:19:44 +0000
+	id 1uYnlv-00031q-1U; Mon, 07 Jul 2025 15:28:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1035663.1408012; Mon, 07 Jul 2025 15:19:44 +0000
+Received: by outflank-mailman (output) from mailman id 1035669.1408021; Mon, 07 Jul 2025 15:28:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uYndA-00015g-4w; Mon, 07 Jul 2025 15:19:44 +0000
-Received: by outflank-mailman (input) for mailman id 1035663;
- Mon, 07 Jul 2025 15:19:42 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uYnlu-0002zu-Ux; Mon, 07 Jul 2025 15:28:46 +0000
+Received: by outflank-mailman (input) for mailman id 1035669;
+ Mon, 07 Jul 2025 15:28:44 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=uof1=ZU=bounce.vates.tech=bounce-md_30504962.686be58b.v1-f78e2875b72942ccbd874b6763acab5b@srs-se1.protection.inumbo.net>)
- id 1uYnd8-00015K-SY
- for xen-devel@lists.xenproject.org; Mon, 07 Jul 2025 15:19:42 +0000
-Received: from mail124.us4.mandrillapp.com (mail124.us4.mandrillapp.com
- [205.201.136.124]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id cd4d8b6f-5b45-11f0-a316-13f23c93f187;
- Mon, 07 Jul 2025 17:19:41 +0200 (CEST)
-Received: from pmta15.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
- by mail124.us4.mandrillapp.com (Mailchimp) with ESMTP id 4bbSZz5VmXzKsbrtl
- for <xen-devel@lists.xenproject.org>; Mon,  7 Jul 2025 15:19:39 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- f78e2875b72942ccbd874b6763acab5b; Mon, 07 Jul 2025 15:19:39 +0000
+ <SRS0=nqWx=ZU=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1uYnls-0002zo-CZ
+ for xen-devel@lists.xenproject.org; Mon, 07 Jul 2025 15:28:44 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0db0a7b6-5b47-11f0-b894-0df219b8e170;
+ Mon, 07 Jul 2025 17:28:38 +0200 (CEST)
+Received: from nico.homenet.telecomitalia.it
+ (host-79-60-221-62.business.telecomitalia.it [79.60.221.62])
+ (Authenticated sender: nicola)
+ by support.bugseng.com (Postfix) with ESMTPSA id 323444EE9BBE;
+ Mon,  7 Jul 2025 17:28:34 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,108 +41,201 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cd4d8b6f-5b45-11f0-a316-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1751901579; x=1752171579;
-	bh=MjlBDi7q8oAzhpuB7HxrqrsUIOvt9qPPpe+xr6zQDF0=;
-	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=ZU7EMMFZ3Ly9Dtln17Ala3xEjYEvrTxSj6/BcDnr/xIu8wA3iJi17iodKJdHdx6IZ
-	 ntLllnWwaxke3VD+z+jn0vMyzXDzM18kSftsbo+E5TLdVUS9FZ4ogtnK3Wzlp9NVLZ
-	 S3SHkm4NrOTJdwTGTI71BNfY87aGZcQXP3LTFHhhHYClb8nmtTsaT2Azj+OMhvEIrW
-	 WVpLABQYup7XA3oeK7qyFY+MJMJFXRbmGDxmptqOGo4JyZjeHQp8Qv5NHYZLU1zp4n
-	 /4HQitm1rV8o7Vc5h0doqORVEbJbNpNjJADG/8j+2cFkzcMgFNnLBgN4Vvp4hI3elF
-	 ng9euGVNQ9Rgw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1751901579; x=1752162079; i=anthony.perard@vates.tech;
-	bh=MjlBDi7q8oAzhpuB7HxrqrsUIOvt9qPPpe+xr6zQDF0=;
-	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=AxtnvOwARNlUSJ4o6sWc0qhvn5JlN3JA8b5tx5hGJEnBzx97L/L4FShfc7QLBOGGl
-	 omQeaHP+Tbscd8ZM3hLTXNLpUu7Ej41W49CsXYPhuiDrVBH9jsHQ+PJLmR+oLlkquW
-	 t50/+JooWiX5n5Mdhz9XqYIChA7GY/b/xI/xEVj4O7+vr41TnKSBTQ29SXSOoxtdt5
-	 RmcnCG/qc0QVNB3RZt8JwLfDlwPGY7lvzrk1zu9o1uayRg4nwp9/uKiQqK3Pbkcv6y
-	 ZI/BfO+WFOXQkmS+wsIkkGzv1hjHmHqipTWtSIXHSGdQWo4CrTYnbbqxw7zygTNhJW
-	 KmccVlZz1XRQg==
-From: "Anthony PERARD" <anthony.perard@vates.tech>
-Subject: =?utf-8?Q?Re:=20[PATCH=20v6]=20automation/eclair:=20update=20configuration=20of=20D4.10?=
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1751901577706
-To: "Stefano Stabellini" <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org, "Andrew Cooper" <andrew.cooper3@citrix.com>, michal.orzel@amd.com, jbeulich@suse.com, julien@xen.org, roger.pau@citrix.com, bertrand.marquis@arm.com, federico.serafini@bugseng.com, "Nicola Vetrini" <nicola.vetrini@bugseng.com>
-Message-Id: <aGvliTiOQCBl1t0v@l14>
-References: <alpine.DEB.2.22.394.2506231650080.862517@ubuntu-linux-20-04-desktop> <aGvCAbCGfQ8Vzcp2@l14>
-In-Reply-To: <aGvCAbCGfQ8Vzcp2@l14>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.f78e2875b72942ccbd874b6763acab5b?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20250707:md
-Date: Mon, 07 Jul 2025 15:19:39 +0000
+X-Inumbo-ID: 0db0a7b6-5b47-11f0-b894-0df219b8e170
+Authentication-Results: bugseng.com; arc=none smtp.remote-ip=79.60.221.62
+ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1751902117;
+	b=EgEt/UfLQYieGKWIJW513MTyUiPUzjyk0klfBf2g+x5VIe/26Y+TOSGet0UoKhj6dYBK
+	 zM+KqL0GYZC/ULbKy5Na+YoMGYpzwaVLp9boI+5lrGVJEFj1fBnPN735TfZPfL9ruSClD
+	 +O3YPkq4/qacVOpF/qbUSa+YlTHxfssnxQx3ehOPX8HRn5ZPkaLw11elckLa0sIe+xxM8
+	 1Ka9DO/5Y2vxn7sENLBR/+MMK57ESsHaZboCbfCKjDX2dgykli9pl/06FCJlnvPW6Z42Q
+	 zWzY5JBSFXTj/xzE6wSH3slD/CX26AM+oW2QCA5GGycbKSNrQFP88RxWX3PdZhzwWjCEd
+	 UpPV+yQ075LR0E3jgDZkl5kwnSbzjJxdiftlyLkOqirrg4SiYrMXik/90px4X8Isjczh1
+	 u62UKvJB+12M7FNu+XqvgZilmCgPfPqks5/EkJoVVcCP0s7ohQsukYSqNzGw8kgywNa7m
+	 iBvrxys3vuuJF2YaXo8u5dlmtwTcqbbgC1pgUSowy9EWRgPSXRrCcCgASAMXWmPKVl0sR
+	 gkur1vqRocpuHxDOxAVuzixuBB/KRR5X3zNvKU5aCdGCRJ35JVE4SuQfJx3I/hsgGz2qc
+	 iSs92UdpUMUactck1tx7aD43PwCTLEji7CFz36wR+wX3U+EDGUv9wu0x8/3G4n0=
+ARC-Message-Signature: i=1; d=bugseng.com; s=openarc; a=rsa-sha256;
+	c=relaxed/relaxed; t=1751902117;
+	h=DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=oSIkMz3s9+9rEityjsxTdpf286Hj35+frJA/Tdc4LO4=;
+	b=VAM+/OA2G+O/ewvKNeU6T2WBwo/K6vsN/HHZ3J3z1KZk2VOXwDHB0T/pLM86ZbC4xfig
+	 4xg1y4Yc9WthUpfNFaOFVIPmk/hcFfI8H1fP8vpg4/O2UQAqBLds6VhbJwqEaeDEK12i8
+	 D111YVehBSjnx34tHlIYdjyvIxj8rmgoK69sp6K7gg/HzxJLJ7tzH4W3cRnGvU64ET/xf
+	 Ntar49Yp/att6X5n/zHfV3HudovMopMEf0FEJtqLkaRfNgO1Cg1mCCQHU7igPM7IcjMbp
+	 zi24Lrf/HSusYwqT5GXA0pTPwliLPOj8GVGLEhPCEliPGkVxLZ44gP6rmEx8pvqTt7iEB
+	 YwdJ9VeYxUAUtD14KK+EgXxi0mxwizlcaDmi9x47IxN/DM0LDYA5YpSP1jFHf4V6cmb9F
+	 VCDzl33oHUah4/5vn6ThN4oQ3yOMqK3wbI5BNguxKLktLgsUGoQBa8HdzSB2DTQuh7opr
+	 7nF1Rbnx5SKRJc6nwygVZpKZmheDHQq+Qg8Rfyt959oQUUSMdYjZ93Fx2WaWeNx7qN88C
+	 GJ1NBEUbtLICfABBLsEpxgLUkxagqeyRUMDMphSQGPahihfn8sJtOt4lCOkd/Ba/SXJlF
+	 ijQi9jJijTJm/WoyTVuLG+x+B5ujEX2JEAL5iV3/skyUIVC/rtXz5RNi3tkeq5E=
+ARC-Authentication-Results: i=1; bugseng.com; arc=none smtp.remote-ip=79.60.221.62
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=bugseng.com; s=mail;
+	t=1751902117; bh=rSdAjcJzz/I85k/ESRNptGN720P21uugul2ZZZqbN+o=;
+	h=From:To:Cc:Subject:Date:From;
+	b=RWWs82dWBsupl12/xm7P70fTPbfOCdI06p3BAE+r2j/WSw/lf+QNFjUlaWsUWcTc8
+	 quiGjgoEs9IHwnZbtt+oeXDYv6dxsXWNaDV3RK+NKirg1cGpiJ/W4m3nTImHllanUh
+	 ZzBxcgwJNfryXrl1djMEtBzGvs0kTbk4pblDcBbJaOPKUCF/t/gdYe+0HSXKBnJz+N
+	 XGlzYtVn8uHCNKkNnR+1pZoPJL/HdlwXu5P4CDOdK+vLLEgPkwg1joHeMgcu5W5+sp
+	 RcaGGW5r7F7VhFIUAZBczzaQwHqmGA3Uy/WPJzx8xt1urY8Y5YeIOKnIIYyADLbGbq
+	 sC/dmd4DZwbag==
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+To: xen-devel@lists.xenproject.org
+Cc: sstabellini@kernel.org,
+	michal.orzel@amd.com,
+	xenia.ragiadakou@amd.com,
+	ayan.kumar.halder@amd.com,
+	consulting@bugseng.com,
+	Nicola Vetrini <nicola.vetrini@bugseng.com>,
+	Doug Goldstein <cardoe@cardoe.com>,
+	Anthony Perard <anthony.perard@vates.tech>,
+	Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
+Subject: [XEN PATCH v2] automation/eclair: Make report browsing URL configurable.
+Date: Mon,  7 Jul 2025 17:28:26 +0200
+Message-ID: <a4653f50651af8463f7543793e38c40111790648.1751901789.git.nicola.vetrini@bugseng.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Mon, Jul 07, 2025 at 12:48:06PM +0000, Anthony PERARD wrote:
-> On Mon, Jun 23, 2025 at 06:19:27PM -0700, Stefano Stabellini wrote:
-> > diff --git a/xen/include/xen/compile.h.in b/xen/include/xen/compile.h.in
-> > index 3151d1e7d1..9206341ba6 100644
-> > --- a/xen/include/xen/compile.h.in
-> > +++ b/xen/include/xen/compile.h.in
-> > @@ -1,3 +1,6 @@
-> > +#ifndef XEN_COMPILE_H
-> > +#define XEN_COMPILE_H
-> > +
-> >  #define XEN_COMPILE_DATE	"@@date@@"
-> >  #define XEN_COMPILE_TIME	"@@time@@"
-> >  #define XEN_COMPILE_BY		"@@whoami@@"
-> > diff --git a/xen/tools/process-banner.sed b/xen/tools/process-banner.sed
-> > index 56c76558bc..4cf3f9a116 100755
-> > --- a/xen/tools/process-banner.sed
-> > +++ b/xen/tools/process-banner.sed
-> > @@ -12,3 +12,8 @@ s_(.*)_"\1\\n"_
-> >  
-> >  # Trailing \ on all but the final line.
-> >  $!s_$_ \\_
-> > +
-> > +# Append closing header guard
-> > +$a\
-> > +\
-> > +#endif /* XEN_COMPILE_H */
-> 
-> Is it wise to put the closing header guard in a file call
-> "process-banner" ? It's not call compile.h-footer.sed.
-> 
-> There's a few way to make this better:
-> - simple add the header guard from the Makefile, both opening and
->   closing.
-> - Do some more sed with something like:
->   sed -rf process-banner.sed < .banner >> .banner.processed.tmp
->   sed -e 's/@@date@@/$(XEN_BUILD_DATE)/g' \
->       ... \
->       -e '/XEN_BANNER/r .banner.processed.tmp'
->   # and having the closing header guard in "compile.h.in"
->   This will add the outpot of process-banner.sed in the lines after
->   "#define XEN_BANNER", and so before the closing header guard.
-> - rename the sed command file
-> (- a forth option would be to use filechk make macro, but the check for
->  if [ ! -r $@ -o -O $@ ] would be annoying to reproduce.)
-> 
-> Another thing, this could be done in a patch that isn't called
-> "automation/eclair: update configuration of D4.10".
+Currently, the URL where the ECLAIR MISRA C scan reports are saved
+is hardcoded; making it configurable allows multiple runners and storage
+servers to be used without resorting to publishing all artifacts
+to the same report server.
 
-Sorry, I failed to notice the patch was already commited. I guess it's
-good enough like that.
+Additionally, reports will be accessed publicly by using a proxy,
+therefore the address that needs to be printed in GitLab analysis logs
+is that of the public url, rather than the location where they are stored.
 
+Signed-off-by: Alessandro Zucchelli <alessandro.zucchelli@bugseng.com>
+Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+---
+Changes in V2:
+- Use single variable for eclair_report host and port
+- Introduced variable in analyze.yaml for the public url used in logs
+
+This needs to be committed in coordination with setting up the proxy
+indicated in analyze.yaml
+---
+ .../eclair_analysis/ECLAIR/action.helpers     | 10 +++----
+ .../eclair_analysis/ECLAIR/action.settings    | 30 ++++++++++++++-----
+ automation/gitlab-ci/analyze.yaml             |  3 ++
+ 3 files changed, 31 insertions(+), 12 deletions(-)
+
+diff --git a/automation/eclair_analysis/ECLAIR/action.helpers b/automation/eclair_analysis/ECLAIR/action.helpers
+index 9d4ae1f979f6..3a4c9d2b2855 100644
+--- a/automation/eclair_analysis/ECLAIR/action.helpers
++++ b/automation/eclair_analysis/ECLAIR/action.helpers
+@@ -58,7 +58,7 @@ summary() {
+         ;;
+     esac
+ 
+-    currentDbReportsUrl="${eclairReportUrlPrefix}/fs${jobDir}/PROJECT.ecd;/by_service.html#service&kind"
++    currentDbReportsUrl="${eclairResultsUrl}/fs${jobDir}/PROJECT.ecd;/by_service.html#service&kind"
+     if [ -z "${newReports}" ]; then
+         fixedMsg="No fixed reports as there is no baseline"
+         unfixedMsg="Unfixed reports: ${unfixedReports}"
+@@ -69,11 +69,11 @@ summary() {
+         unfixedMsg="Unfixed reports: ${unfixedReports} [new: ${newReports}]"
+         case "${event}" in
+         pull_request | auto_pull_request)
+-            referenceDbReportsUrl="${eclairReportUrlPrefix}/fs${jobDir}/base/PROJECT.ecd;/by_service.html#service&kind"
++            referenceDbReportsUrl="${eclairResultsUrl}/fs${jobDir}/base/PROJECT.ecd;/by_service.html#service&kind"
+             reference_kind=base
+             ;;
+         push)
+-            referenceDbReportsUrl="${eclairReportUrlPrefix}/fs${jobDir}/prev/PROJECT.ecd;/by_service.html#service&kind"
++            referenceDbReportsUrl="${eclairResultsUrl}/fs${jobDir}/prev/PROJECT.ecd;/by_service.html#service&kind"
+             reference_kind=previous
+             ;;
+         *)
+@@ -92,7 +92,7 @@ summary() {
+ ${fixedMsg}${eol}
+ ${unfixedMsg}                                                                              ${eol}
+ <a href="https://www.bugseng.com/eclair">
+-  <img src="${eclairReportUrlPrefix}/rsrc/eclair.svg" width="100" />
++  <img src="${eclairResultsUrl}/rsrc/eclair.svg" width="100" />
+ </a>
+ <h3>${jobHeadline}</h3>
+ <a href="${indexHtmlUrl}">Browse analysis summary</a>
+@@ -106,7 +106,7 @@ EOF
+         fi
+         cat <<EOF >"${summaryTxt}"
+ <a href="https://www.bugseng.com/eclair">
+-  <img src="${eclairReportUrlPrefix}/rsrc/eclair.svg" width="100" />
++  <img src="${eclairResultsUrl}/rsrc/eclair.svg" width="100" />
+ </a>
+ Analysis Summary
+ 
+diff --git a/automation/eclair_analysis/ECLAIR/action.settings b/automation/eclair_analysis/ECLAIR/action.settings
+index 1577368b613b..a9904377252a 100644
+--- a/automation/eclair_analysis/ECLAIR/action.settings
++++ b/automation/eclair_analysis/ECLAIR/action.settings
+@@ -14,9 +14,6 @@ autoPRRepository="${AUTO_PR_REPOSITORY:-}"
+ # Customized
+ autoPRBranch="${AUTO_PR_BRANCH:-}"
+ 
+-# Customized
+-artifactsRoot=/var/local/eclair
+-
+ case "${ci}" in
+ github)
+     # To be customized
+@@ -166,16 +163,35 @@ esac
+ 
+ ECLAIR_BIN_DIR=/opt/bugseng/eclair/bin/
+ 
+-artifactsDir="${artifactsRoot}/xen-project.ecdf/${repository}/ECLAIR_${ANALYSIS_KIND}"
++# Artifacts URL served by the eclair_report server
++if [ -z "${ECLAIR_ECDF_DIR}" ]
++then
++  echo "WARNING: No ecdf dir supplied, using default"
++fi
++artifactsEcdfDir="${ECLAIR_ECDF_DIR:-/var/local/eclair/xen-project.ecdf}"
++artifactsDir="${artifactsEcdfDir}/${repository}/ECLAIR_${ANALYSIS_KIND}"
+ subDir="${subDir}${variantSubDir}"
+ jobHeadline="${jobHeadline}${variantHeadline}"
+ 
+-# Customized
+-eclairReportUrlPrefix=https://saas.eclairit.com:3787
++# Remote eclair_report hosting server
++if [ -z "${ECLAIR_REPORT_HOST}" ]
++then
++  echo "WARNING: No eclair_report host supplied, using default"
++fi
++
++# URL to browse eclair reports
++if [ -z "${ECLAIR_ANALYSIS_RESULTS}" ]
++then
++  echo "WARNING: No URL to browse analysis results is set, using default"
++fi
++
++eclairReportHost="${ECLAIR_REPORT_HOST:-saas.eclairit.com:3787}"
++eclairReportUrlPrefix="https://${eclairReportHost}"
++eclairResultsUrl="${ECLAIR_ANALYSIS_RESULTS:-${eclairReportUrlPrefix}}"
+ 
+ jobDir="${artifactsDir}/${subDir}/${jobId}"
+ updateLog="${analysisOutputDir}/update.log"
+ cleanRegressionsLog="${analysisOutputDir}/clean_regressions.log"
+ commentLog="${analysisOutputDir}/comment.json"
+-indexHtmlUrl="${eclairReportUrlPrefix}/fs${jobDir}/index.html"
++indexHtmlUrl="${eclairResultsUrl}/fs${jobDir}/index.html"
+ summaryTxt="${analysisOutputDir}/summary.txt"
+diff --git a/automation/gitlab-ci/analyze.yaml b/automation/gitlab-ci/analyze.yaml
+index 5b00b9f25ca6..9cec0f65a439 100644
+--- a/automation/gitlab-ci/analyze.yaml
++++ b/automation/gitlab-ci/analyze.yaml
+@@ -8,7 +8,10 @@
+     ENABLE_ECLAIR_BOT: "n"
+     AUTO_PR_BRANCH: "staging"
+     AUTO_PR_REPOSITORY: "xen-project/xen"
++    ECLAIR_ANALYSIS_RESULTS: "https://eclair-analysis-logs.xenproject.org"
+   script:
++    - export ECLAIR_ECDF_DIR
++    - export ECLAIR_REPORT_HOST
+     - ./automation/scripts/eclair 2>&1 | tee "${LOGFILE}"
+   artifacts:
+     when: always
 -- 
-
-Anthony Perard | Vates XCP-ng Developer
-
-XCP-ng & Xen Orchestra - Vates solutions
-
-web: https://vates.tech
-
+2.43.0
 
 
