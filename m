@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B5AE9AFAE8E
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Jul 2025 10:25:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1035308.1407542 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 64563AFAEA4
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Jul 2025 10:30:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1035314.1407552 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uYh9a-0003jF-IQ; Mon, 07 Jul 2025 08:24:46 +0000
+	id 1uYhEZ-0004HE-4Q; Mon, 07 Jul 2025 08:29:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1035308.1407542; Mon, 07 Jul 2025 08:24:46 +0000
+Received: by outflank-mailman (output) from mailman id 1035314.1407552; Mon, 07 Jul 2025 08:29:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uYh9a-0003gU-F1; Mon, 07 Jul 2025 08:24:46 +0000
-Received: by outflank-mailman (input) for mailman id 1035308;
- Mon, 07 Jul 2025 08:24:46 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uYhEZ-0004FN-0y; Mon, 07 Jul 2025 08:29:55 +0000
+Received: by outflank-mailman (input) for mailman id 1035314;
+ Mon, 07 Jul 2025 08:29:53 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Hmpo=ZU=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uYh9Z-0003gO-VG
- for xen-devel@lists.xenproject.org; Mon, 07 Jul 2025 08:24:45 +0000
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [2a00:1450:4864:20::335])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d6485a17-5b0b-11f0-a316-13f23c93f187;
- Mon, 07 Jul 2025 10:24:44 +0200 (CEST)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-453749aef9eso8697225e9.3
- for <xen-devel@lists.xenproject.org>; Mon, 07 Jul 2025 01:24:44 -0700 (PDT)
+ id 1uYhEX-0004FH-OL
+ for xen-devel@lists.xenproject.org; Mon, 07 Jul 2025 08:29:53 +0000
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [2a00:1450:4864:20::42c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 8d3bd3a1-5b0c-11f0-b894-0df219b8e170;
+ Mon, 07 Jul 2025 10:29:51 +0200 (CEST)
+Received: by mail-wr1-x42c.google.com with SMTP id
+ ffacd0b85a97d-3a548a73ff2so2754425f8f.0
+ for <xen-devel@lists.xenproject.org>; Mon, 07 Jul 2025 01:29:51 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-31a9cc4e102sm11993492a91.3.2025.07.07.01.24.38
+ d9443c01a7336-23c8434f06fsm81404095ad.87.2025.07.07.01.29.47
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 07 Jul 2025 01:24:43 -0700 (PDT)
+ Mon, 07 Jul 2025 01:29:50 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,61 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d6485a17-5b0b-11f0-a316-13f23c93f187
+X-Inumbo-ID: 8d3bd3a1-5b0c-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1751876684; x=1752481484; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1751876991; x=1752481791; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=6feaULcezJTJFyxnT5hCpX0VyZDX0E14j5tqvGp6sRg=;
-        b=f73bfo1+erbiHExPQQCazf5PnQXFj+nDLXrqdeMxzQ8eG8kgyKBhEYWY777PHEVhhM
-         8cUDx95Nu6qVVaw15NG0Q0iFkop98d5yTThWzsSjxcKztldvcemhpr8lhxJ6oXCe/vWn
-         IrS/ScQBR1Ud2xvIVfXdCG0fCTQZmMWCnlwhmX+TS/6bwRhSjgXn20UDJ0Qw3krx02Mx
-         QhHY3tdB/JOkp07/I9gh/uqmgMOjDlWXiEOZzd2XJS3vX3cKk0cbzjhjxYbVRenOIKhh
-         AFqEUyCqPqSafD7+4V3anyLAod40hstayhqOgOnf52BoiFERwqxWfJmmOGc7k0cMDsSA
-         qSLQ==
+        bh=471omZRgZ8JsvS+OYLDUBwLEQjaeFOtbLSvp+l7HNOM=;
+        b=Vd/KegVe6EhKWSZpEz9+/Gqp9UYFO5r+KNUdXnFm7ReoWVGTsWuJIRoWumstsCxYsA
+         ce8xeHCRTEeElOZZhDwDgCaFclNvkxrM46uX8H9AINWKQfj42BkaULh9iTX7BXc/lj7F
+         nvejbp6WTUOnQahBIRiaTwQ+wFeWQKJcVK0VRc+ErhAQDmtA3ENpAPxugbVjMFs0qVFP
+         d4MRR5VbH6bt/Ec86m3m/CLnk873zfP1aLd56OmtuMvBiDnSF2Kxsf7UC8Anvj2ZpDLx
+         zMp//Zq/z4HLSLwTTrRZLw3mWo+H7tj3+x6so/wHBToPZ3/wiKFb8jwm1myoZhlfMZed
+         n40w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1751876684; x=1752481484;
+        d=1e100.net; s=20230601; t=1751876991; x=1752481791;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=6feaULcezJTJFyxnT5hCpX0VyZDX0E14j5tqvGp6sRg=;
-        b=oxkiDJlbhbMTrL8gdgV+bYA7U0q279TdfMb6vULL5TJwc3YtjLxrM6hHRrNqMASm1b
-         OujfpmAVN5qaHUHcnKxTSOnafwx4mVqQqUdszk69h0RZs1uu8oHHtzwMV991wAURRfOH
-         kXpfGGy+ObaH/YCq4t3VDe+93yRtRnJCbgw7vjGZ0ZR3XwNy10Y6Wj9ac92te4EsspKI
-         pYrtjl6f4Q/0Avw9jrmRRws2pPGo76K0ufgrnQqUbq/kTjyVDGW8jipqDRM66T/zdSDI
-         1zV2XVWSDHNjpr2XU4lNXdBEKDIFSsHVUDVblyicrUSlkgnh7wAwFS49iRI6eY3Fic9l
-         YaNA==
-X-Forwarded-Encrypted: i=1; AJvYcCUesJ6J26wsht2LD0yLU665OR+89rsirFdR/LUq5zNTcNKEMogj+qojUJ6T+DUfiR5GkZTYN5Qs3k0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwQ675bl4PQ5RBUsM8aIRMv5MpVWrqSUkI9WPvVUnO3Y88/ua85
-	O1swmystFOKUnbLig1kVtndZkWKzMjDXJDckhbE/Gppuelerg1sCrc74Fhdqilhe0A==
-X-Gm-Gg: ASbGncuHVVOaiVIx56ESu6awPI5mvB5/o7YW9Cw+hYUwk41JRXb5B3y4WZ30TwwFwin
-	XCTqrM8iiOcQ4H/7a0CPUMEEk4kfOUAgWk82eFDgFl6VrTJUHjQj8O679FykyUfUcb9tRkM0kYa
-	ML+abeZyMhTcGS3VroGzucqWP7aNXivSFLyAjWhPEtGGmeMYTtv5tcspTEMDyhrmqS/tAcAyMQj
-	HZWlzqG6sv/2V9wGAXsIRc1IF+1efNb4qW9EHeU6I65ExiSrQnHmtadcHX40aonBftE0g1JNWkq
-	LEhMfP86QrdAECqkCLL4Q/qEFtmpHg3ulWOAMoH3JcDKpv7af86tBU0r1zfybpLLKpWBUW78YjZ
-	y3MFEl6rE6sPyxtdUrTO9C7tQKnRQIWPICDVdnrKhwYWHaPdZmTSxCV8X0w==
-X-Google-Smtp-Source: AGHT+IGa7CjrARa9Ak4jPtpY98egKvZsC8MBh3g4e8xvePrPKPIi09Tj8b9Lm3bR6dyhhSyEmr8NNg==
-X-Received: by 2002:a5d:5850:0:b0:3a5:7904:b959 with SMTP id ffacd0b85a97d-3b49aa87545mr5264664f8f.58.1751876684064;
-        Mon, 07 Jul 2025 01:24:44 -0700 (PDT)
-Message-ID: <70869cab-ecd1-4756-a874-91fbc9b7ec35@suse.com>
-Date: Mon, 7 Jul 2025 10:24:37 +0200
+        bh=471omZRgZ8JsvS+OYLDUBwLEQjaeFOtbLSvp+l7HNOM=;
+        b=Kio7Tm80II1aIOVHLsdr3FYd5ESXC6W7PW7V6hb1b0DAOx4TDIJs0wP2y2c6uWJeXH
+         GYoflYcOYeuqdzHOU9cOjqeGnaJqtTfnuy3+SJdzs9uzTUQ+4cRTelDLOM459ouX6Dwj
+         zDmheRTYp864TziLMFmfceTKPl2vJeRWtgMXLQonSHxknpPzxQdVm7kBg1ZbpoBWnl4+
+         unvadBZGZv0I3U07bmuS+7aPAgTys7h3zl9aeMS9N9F/NAOlDa4hVHFXuUk8sN2XEP+L
+         UVkdqL13DGtEFkGieGmvWL7dDeSixNZdWminjuKSnWukXxQHQC2tMoIk5NLOZU4Oi4sW
+         gmhQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVUNu7qpqr4Auy0Tu4pyzBi5kABXsUDwgAyXi/wvWfxiUHk945W40+LIfpAXvCSQ8U9CVeGkn0gCnI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyEOAfNYJ/ZVCyNcFb+Z8sY/OzTL8pXRLrKRc4PGjJ/cTFUbKa0
+	ywrJc9+3oYT1ftipswVTjkjZaiHlVvYvFljRX1HsjiczpEwQe3v9UBC/8KyxXRv0ZQ==
+X-Gm-Gg: ASbGncv5APFjwhaMJWMeGW5I07bFRiNAnYHFt5NuTZFenEQQIZxbUH3H6BRdy93O1iT
+	WLuRXaTlfPWdQRdC82HuZa7s031ceINE/rcMsyF0F9S5aGKZuOn0MqhXXLwxKinLmRYUa6hG+kz
+	GplQeXQ1nUXAna8t8jnN4aaKcsuadRUZiGefEj2w88AFaDQ6vL1XWab0LMD3+rgUSbqcQRyNiRq
+	AfHwoiX1h4JrKvV/Kzfze+4sFjn+Bf6twgR5Lhi1dtvB0jpHUOcKxRVYqbUKdT04lBcVsdR/ZJP
+	Rto4w2loTk4nFEPxTAYicrAf/S8RtMkmMHC4RphS4p8a2Du2bkXThxVnAuR9n4ZEjN1s6vcUKj2
+	ZKBWVe9uBFYd59treiCOTxfzLoOWm4lH6Saq7OtS9tNTFtYM=
+X-Google-Smtp-Source: AGHT+IHh4QFZ9R1Ft0tWfr4XVGkUUExkwUpPx6pDNNA22WLT0aeV4FD7x5geQ+DvgqCr9EWkACMRUg==
+X-Received: by 2002:a05:6000:41d4:b0:3b3:9c56:49bf with SMTP id ffacd0b85a97d-3b49aa87874mr6279197f8f.56.1751876991059;
+        Mon, 07 Jul 2025 01:29:51 -0700 (PDT)
+Message-ID: <faaa96f7-918e-4130-bde4-bb17194e1c25@suse.com>
+Date: Mon, 7 Jul 2025 10:29:46 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 01/22] x86/include/asm/intel-txt.h: constants and
- accessors for TXT registers and heap
+Subject: Re: [PATCH v3 02/22] include/xen/slr-table.h: Secure Launch Resource
+ Table definitions
 To: Sergii Dmytruk <sergii.dmytruk@3mdeb.com>
 Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
  Ross Philipson <ross.philipson@oracle.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Lukasz Hawrylko <lukasz@hawrylko.pl>, =?UTF-8?Q?Mateusz_M=C3=B3wka?=
- <mateusz.mowka@intel.com>, trenchboot-devel@googlegroups.com,
- xen-devel@lists.xenproject.org
+ trenchboot-devel@googlegroups.com, xen-devel@lists.xenproject.org
 References: <cover.1748611041.git.sergii.dmytruk@3mdeb.com>
- <5da8e6c9fd2d986cd99be35774b850584e4a43ee.1748611041.git.sergii.dmytruk@3mdeb.com>
- <ce7ff2f4-4657-45a6-98ea-7f6d3a448447@suse.com> <aGqc6HfryKoVoLDL@MjU3Nj>
+ <49517f41e112720bdd2b76e8eb3d9b1064671f60.1748611041.git.sergii.dmytruk@3mdeb.com>
+ <24c11542-0490-4fdc-bda8-01a5b3770856@suse.com> <aGqqisydEetf5mJ_@MjU3Nj>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -125,77 +121,80 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aGqc6HfryKoVoLDL@MjU3Nj>
+In-Reply-To: <aGqqisydEetf5mJ_@MjU3Nj>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 06.07.2025 17:57, Sergii Dmytruk wrote:
-> On Wed, Jul 02, 2025 at 04:29:18PM +0200, Jan Beulich wrote:
->> Btw, a brief rev log would be nice here. I saw you have something in the
->> cover letter, but having to look in two places isn't very helpful.
-> 
-> I don't really know how to effectively maintain 23 logs at the same time
-> given that changing one patch has cascading effects on the rest.  I'd
-> suggest using `git diff-range` instead, commands for which I can include
-> in cover letters for convenience.
-
-Well, no, doing this per patch is possible and relevant. For cascading
-effects their mentioning in a revlog can be pretty brief.
-
->>> +#define _txt(x) __va(x)
->>> +#endif
+On 06.07.2025 18:55, Sergii Dmytruk wrote:
+> On Wed, Jul 02, 2025 at 04:36:27PM +0200, Jan Beulich wrote:
+>> On 30.05.2025 15:17, Sergii Dmytruk wrote:
+>>> The file provides constants, structures and several helper functions for
+>>> parsing SLRT.
+>>>
+>>> The data described by the structures is passed to Xen by a bootloader
+>>> which initiated DRTM.
+>>>
+>>> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+>>> Signed-off-by: Ross Philipson <ross.philipson@oracle.com>
+>>> Signed-off-by: Sergii Dmytruk <sergii.dmytruk@3mdeb.com>
+>>> ---
+>>>  xen/include/xen/slr-table.h | 276 ++++++++++++++++++++++++++++++++++++
+>>>  1 file changed, 276 insertions(+)
+>>>  create mode 100644 xen/include/xen/slr-table.h
 >>
->> Without any uses the correctness of the above is hard to judge.
+>> Btw, please don't forget to Cc maintainers of code you're changing / adding.
 > 
-> The _txt() macro is used right below:
+> What do you mean?  I'm running add_maintainers.pl on the patches.
 
-Well, the comment was meant a little indirectly: The correctness in
-particular wrt the __EARLY_SLAUNCH__ distinction.
+The Cc: list had none of the REST maintainers. (Whether there's a bug in the
+script I can't tell.)
 
 >>> +/*
->>> + * Always use private space as some of registers are either read-only or not
->>> + * present in public space.
+>>> + * Prototype of a function pointed to by slr_entry_dl_info::dl_handler.
 >>> + */
->>> +static inline uint64_t txt_read(unsigned int reg_no)
->>> +{
->>> +    volatile uint64_t *reg = _txt(TXT_PRIV_CONFIG_REGS_BASE + reg_no);
->>> +    return *reg;
->>> +}
->>> +
->>> +static inline void txt_write(unsigned int reg_no, uint64_t val)
->>> +{
->>> +    volatile uint64_t *reg = _txt(TXT_PRIV_CONFIG_REGS_BASE + reg_no);
->>> +    *reg = val;
->>> +}
-> 
->>> +     * This serves as TXT register barrier after writing to
->>> +     * TXTCR_CMD_UNLOCK_MEM_CONFIG. Must be done to ensure that any future
->>> +     * chipset operations see the write.
->>> +     */
->>> +    (void)txt_read(TXTCR_ESTS);
+>>> +typedef void (*dl_handler_func)(struct slr_bl_context *bl_context);
 >>
->> I don't think the cast is needed.
-> 
-> It's not needed, but I think that explicitly discarding unused return
-> value is a generally good practice even when there is a comment.
-
-In the context of Misra there has been discussion about doing so. But in our
-present code base you will find such as the exception, not the rule.
-
->>> +    txt_write(TXTCR_CMD_RESET, 1);
->>> +    unreachable();
+>> I keep wondering why this ...
 >>
->> What guarantees the write to take immediate effect? That is, shouldn't there
->> be e.g. an infinite loop here, just in case?
+>>> +/*
+>>> + * DRTM Dynamic Launch Configuration
+>>> + */
+>>> +struct slr_entry_dl_info
+>>> +{
+>>> +    struct slr_entry_hdr hdr;
+>>> +    uint64_t dce_size;
+>>> +    uint64_t dce_base;
+>>> +    uint64_t dlme_size;
+>>> +    uint64_t dlme_base;
+>>> +    uint64_t dlme_entry;
+>>> +    struct slr_bl_context bl_context;
+>>> +    uint64_t dl_handler;
+>>
+>> ... then isn't used right here, instead requiring a cast somewhere (presumably,
+>> as code using this isn't visible in this patch).
 > 
-> I'll return infinite loop from v2.  Tried adding `halt()` as Ross
-> suggests, but including <asm/system.h> doesn't work in the early code
-> (something about compat headers and missing expansion of things like
-> __DeFiNe__).
+> As was mentioned earlier: because size of a pointer between Xen and a
+> bootloader doesn't necessarily match.  What you're proposing can break
+> under certain conditions.
 
-Yeah, untangling that may be a little involved. Open-coding halt() is an
-option, as long as you clearly indicate it as such (for e.g. grep to still
-find that instance).
+But the header isn't shared with a bootloader's code base. It's private to
+Xen.
+
+>>> +} __packed;
+>>
+>> I similarly keep wondering why there are all these packed attributes here, when
+>> (afaics) all of the structures are defined in a way that any padding is explicit
+>> anyway.
+> 
+> As before: it won't hurt, it's future-proof, just in case and to let
+> reader of the code know the structure must have no padding.  If you want
+> them gone, I can do that, but I think it will make the code harder to
+> maintain.
+
+Well, if there's a maintenance concern, then I would of course like to learn
+about that. I could see such being the case if the file was imported from
+somewhere. But with neither description nor any code comment not saying so,
+that doesn't look to be the case.
 
 Jan
 
