@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4416DAFB5C7
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Jul 2025 16:22:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1035600.1407924 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC5CBAFB64F
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Jul 2025 16:45:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1035611.1407942 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uYmjQ-00076D-D7; Mon, 07 Jul 2025 14:22:08 +0000
+	id 1uYn5D-0001qV-5a; Mon, 07 Jul 2025 14:44:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1035600.1407924; Mon, 07 Jul 2025 14:22:08 +0000
+Received: by outflank-mailman (output) from mailman id 1035611.1407942; Mon, 07 Jul 2025 14:44:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uYmjQ-00073X-A2; Mon, 07 Jul 2025 14:22:08 +0000
-Received: by outflank-mailman (input) for mailman id 1035600;
- Mon, 07 Jul 2025 14:22:06 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1uYn5D-0001pf-2N; Mon, 07 Jul 2025 14:44:39 +0000
+Received: by outflank-mailman (input) for mailman id 1035611;
+ Mon, 07 Jul 2025 14:44:37 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <anthony@xenproject.org>) id 1uYmjO-00073P-LA
- for xen-devel@lists.xenproject.org; Mon, 07 Jul 2025 14:22:06 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <anthony@xenproject.org>) id 1uYmjO-005X6e-0K;
- Mon, 07 Jul 2025 14:22:06 +0000
-Received: from [2a01:e0a:1da:8420:b77:bd5:6e45:7633] (helo=l14)
- by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <anthony@xenproject.org>) id 1uYmjN-004yb1-2T;
- Mon, 07 Jul 2025 14:22:05 +0000
+ (envelope-from <SRS0=Hmpo=ZU=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uYn5B-0001nr-Ni
+ for xen-devel@lists.xenproject.org; Mon, 07 Jul 2025 14:44:37 +0000
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [2a00:1450:4864:20::42c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e515508c-5b40-11f0-b894-0df219b8e170;
+ Mon, 07 Jul 2025 16:44:32 +0200 (CEST)
+Received: by mail-wr1-x42c.google.com with SMTP id
+ ffacd0b85a97d-3a54700a46eso1655474f8f.1
+ for <xen-devel@lists.xenproject.org>; Mon, 07 Jul 2025 07:44:32 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-74ce359d1a7sm9839677b3a.11.2025.07.07.07.44.29
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 07 Jul 2025 07:44:31 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,164 +45,114 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=In-Reply-To:Content-Transfer-Encoding:
-	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date;
-	bh=KIB9MGqo18BGrerh3fzmGsgMMAO+2c/afabIIeT4LnY=; b=OgwF7P/hJr6bj2ot0W1uN3ddsh
-	hseBgwmxdy+b3JH10IDrEfovIVQIrkaBxz/JqNojxFZM5F1R83BMd5qjWAzevo9G4UCBUzamCprEs
-	mEtypCW/QMQtsJNoMV6Kq5Jra9lzELi1WiqbMyO9NaErKGhnXaoEFVJK2itqSaWx1YBo=;
-Date: Mon, 7 Jul 2025 16:22:04 +0200
-From: Anthony PERARD <anthony@xenproject.org>
-To: Mykola Kvach <xakep.amatop@gmail.com>
-Cc: xen-devel@lists.xenproject.org, Mykola Kvach <mykola_kvach@epam.com>
-Subject: Re: [PATCH] systemd: Add hooks to stop/start xen-watchdog on
- suspend/resume
-Message-ID: <aGvYDEgXFxUaB29a@l14>
-References: <20250626081246.1923956-1-xakep.amatop@gmail.com>
- <aF6QmO7eepnpLWBD@l14>
- <CAGeoDV-yoBqfLeaS=EGvx4Qzd7mLJ+PZjjGuvMzysJ_NEsx-zQ@mail.gmail.com>
+X-Inumbo-ID: e515508c-5b40-11f0-b894-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1751899472; x=1752504272; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=wZ9X5Hl3s9FGJpP576JGKdMgnAcD5xuEh3S3sVqmHtc=;
+        b=a4f4OX8CRNwaOGB0DCwlp+ihi1l3Az/tmrKufGbVvk7KXiTu8YaUyJhwNYwitFY/Co
+         O6vXsGOEYH59vkNlgpoKCk+XLMd2BNT6mfHOfFUW3h+czgtcXPx1tLe0Jm/g/USXqCWh
+         zzMr9WJP5o31XmXP49auEKI3a/UIQYSetEBeOZrzUGwSLMdKGfmkHOh6DlyprSRWiDIz
+         Rbl5NMpA8Hmxi1nmb1VcWBM0URJ0C/HspfmsWkVRJzUGgpJJU6fOkJ1VCHPFi8YGeCiY
+         vHB8R5/3zUqm7vCX2VIo+M9q3oMOT3yD2rJm83ohT+ttTmshTKN5G9TN+2U4+rc5lVtk
+         2M2A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1751899472; x=1752504272;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=wZ9X5Hl3s9FGJpP576JGKdMgnAcD5xuEh3S3sVqmHtc=;
+        b=ARzTpSCQAe20lMTDe6/FGi/FYaDQTgiBsD7Q4euHGkw9+aqA0Fh0jHf1CjLtZRaifD
+         6VvCsv+NVW/EIAPiHbZQeRbIESl3ZUIdK0TYY6R0euEAcdO/COoP9fJa1MHZU3QvEHJE
+         hdVK8GnGdCMbTODp3rFyW4v91ZYtgqF06HL6MAXEm1W4g41MNPnMgn+I7JMzsXFmnZdD
+         4J7dPQZDAc8oFzdvt+KpflnBqvn0eWiBGbEywbENJg96eNcrwupA57vS0H0yRe9YwGWl
+         1FY2EiKA4eTLTxkgcz1bcRlPgjdngFcdhDlIMjOArleKT4XmKCzUMB0a6QV8nc0UIVkE
+         PMzQ==
+X-Gm-Message-State: AOJu0YwtVZV9k4S28hsqiUcZ7d4Znh5e3EV+67gHTOxcoJu23TF+Qu7w
+	YAkegjH6j7BRFIXIAXtJZHZi32Sauah5r4UFUlIW2kdjR1cdsuPbezLsHAD/sPiY6R0AZQmR/AW
+	FlIk=
+X-Gm-Gg: ASbGncsy/mjy11zAOE4RNKVpufefHBg3hNAXUSBuVzI0ANcw/O+VIRXb9/vzOdurLzj
+	0b2n0GesqeX7mCeGJ2duYbn5Mexw+yQpiBbRPchkuXmmLG+jqG18TK7TVDJGGLFKd70ylAAOxhb
+	+/n3ar+HW3gxH1m4Ik4JmxI0I6VprrE3rxm2WHkQVVH221pHZM7HKi0NPWh9710d6L+S3pElQ5J
+	n1J+NIgUJLvDwCJ1NwaLGgL5QIVgvvtonpEFyOEdVGAKrKXwPHIoa7xPcVWln4HnWrSgu1CLlt/
+	/DC2oufCxboJ5CpslB45YCf+ooeS63Ot8i+lgTyp6XtNiRMqrqFRAZ9+a+GXKjo1jtu8dz4dD3L
+	o2O8wPtQjWRQaO4pJ3D+DqUn68RqKhNRVciZEVd7KcmyeuLA=
+X-Google-Smtp-Source: AGHT+IEzDvjfjeZWVac6LpeDmNwrRsFNY9S/cPxtNEt7U/Hg1PmDITUgnwhNySYnMhbCu/N6v1iHcA==
+X-Received: by 2002:a05:6000:41d4:b0:3a5:2ec5:35ba with SMTP id ffacd0b85a97d-3b49aa990f6mr7216842f8f.30.1751899472275;
+        Mon, 07 Jul 2025 07:44:32 -0700 (PDT)
+Message-ID: <664472bb-b375-46eb-999e-34f983275d92@suse.com>
+Date: Mon, 7 Jul 2025 16:44:25 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAGeoDV-yoBqfLeaS=EGvx4Qzd7mLJ+PZjjGuvMzysJ_NEsx-zQ@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] x86/PVH: extend checking in hwdom_fixup_p2m()
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Jul 01, 2025 at 03:11:39PM +0300, Mykola Kvach wrote:
-> On Fri, Jun 27, 2025 at 3:37 PM Anthony PERARD <anthony@xenproject.org> wrote:
-> > On Thu, Jun 26, 2025 at 11:12:46AM +0300, Mykola Kvach wrote:
-> > > Both scenarios are rare and typically require very small watchdog
-> > > timeouts combined with significant delays in Xen or the Linux kernel
-> > > during suspend/resume flows.
-> > >
-> > > Conceptually, however, if activating and pinging the Xen watchdog is the
-> > > responsibility of the domain and its services, then the domain should
-> > > also manage the watchdog service/daemon lifecycle. This is similar to
-> > > what is already done by the Xen watchdog driver inside the Linux kernel.
-> >
-> > So there's already watchdog driver in Linux, why not activate it with
-> > systemd, since it knows how to do it? I almost want to to remove the
-> 
-> Actually, I don't know the exact reason why we have two different
-> implementations. It could be historical — for example, initially the
+We're generally striving to minimize behavioral differences between PV
+and PVH Dom0. Using (just?) is_memory_hole() in the PVH case looks quite
+a bit weaker to me, compared to the page ownership check done in the PV
+case. Extend checking accordingly.
 
-It's definitely historical. xenwatchdogd was introduced before systemd
-existed. Then someone added systemd service files to Xen, but I don't
-know if systemd's watchdog support existed at the time, or the service
-file was created just to replace the existing init script.
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+The addition may actually be suitable to replace the use of
+is_memory_hole() here. While dropping that would in particular extend
+coverage to E820_RESERVED regions, those are identity-mapped anyway
+(albeit oddly enough still by IOMMU code).
 
-> Xen daemon was used, and later the Linux kernel driver was introduced,
-> or vice versa. It's also possible that some setups still use very old
-> kernels that lack the driver, and backporting it would require
-> additional effort.
-> 
-> More likely, though, the daemon approach was chosen for simplicity.
-> Using the Linux kernel driver requires building the module or even
-> rebuilding the entire kernel if the driver needs to be built-in.
-> In contrast, with the daemon, you just need to build the binary and
-> copy it into the domain's filesystem. It's easier and requires much
-> less effort.
-
-That sound like a good explanation, make it easier to use Xen's
-watchdog, even if the currently built kernel doesn't have support for
-it, so having a systemd.service file for this case is useful.
-
-> 
-> > service file and redirect users to use systemd's watchdog instead, in
-> > the documentation.
-> 
-> I think that would be a better solution too. At the very least, we
-> would avoid having to handle power-related scenarios for every
-> existing init system.
-> 
-> For example, I see that we currently have three separate watchdog
-> services: one for NetBSD (rc.d), and two for Linux (init.d and
-> systemd). I also looked into how to set up power-down hooks with
-> init.d, and it’s neither easy nor safe -- especially if pm-utils is
-> not installed on the system.
-> 
-> > > diff --git a/tools/hotplug/Linux/systemd/xen-watchdog-sleep.sh b/tools/hotplug/Linux/systemd/xen-watchdog-sleep.sh
-> > > new file mode 100644
-> > > index 0000000000..2b2f0e16d8
-> > > --- /dev/null
-> > > +++ b/tools/hotplug/Linux/systemd/xen-watchdog-sleep.sh
-
-> > > +XEN_WATCHDOG_SLEEP_LOG="${XEN_LOG_DIR}/xen-watchdog-sleep.log"
-> >
-> > Is this necessary? Use only `logger`, if `echo log` doesn't log anything.
-> 
-> In my case, I do see logs in journalctl after using echo in this script.
-> I thought it was a common approach for the Xen toolstack to use its own log
-> files for tools and services.
-
-Well, most or all those log files were usually "created" before systemd
-existed, and I don't think a single one of those were created for only
-a systemd service.
-
-> However, if it’s preferable to use only the standard systemd logging, I can
-> remove all changes related to logging into separate files.
-
-For something systemd specific, I think we should use systemd's logging
-facility. There's already too many separated log files that are hard to
-discover when there's an error. Adding one more isn't going to help,
-especially for something that barely generate any logs.
-
-> > > +log_watchdog() {
-> > > +    echo "$1"
-> > > +    echo "$(date): $1" >> "${XEN_WATCHDOG_SLEEP_LOG}"
-> > > +}
-> > > +
-> > > +# Exit silently if Xen watchdog service is not present
-> > > +if ! systemctl show "${SERVICE_NAME}" > /dev/null 2>&1; then
-> >
-> > Is this necessary? It seems `systemctl is-active` works fine when the
-> > unit doesn't exist.
-> 
-> is-active doesn't work correctly on resume.
-> In the case of resume, the script exits early because of
-> the is-active check. Maybe I'm missing something.
-
-I think I meant to remove this check and let the script just do its
-thing. If the unit isn't present, `systemctl is-active` is going to be
-"false" on suspend, and the $STATE_FILE isn't going to exist on resume.
-
-> > > +    exit 0
-> > > +fi
-> > > +
-> > > +case "$1" in
-> > > +pre)
-> > > +    if systemctl is-active --quiet "${SERVICE_NAME}"; then
-> > > +        touch "${STATE_FILE}"
-> > > +        log_watchdog "Stopping ${SERVICE_NAME} before $2."
-> > > +        systemctl stop "${SERVICE_NAME}"
-> > > +    fi
-> > > +    ;;
-> > > +post)
-> > > +    if [ -f "${STATE_FILE}" ]; then
-> >
-> > Would using `systemctl is-enabled` instead work? It seems to work for a
-> > service on my machine.
-> 
-> The service may be enabled (set to start on boot) but not running right
-> now. I want to restart it only if it was running before suspend --
-> for example, if the user stopped the service before suspend, they’d
-> expect it to remain stopped after resume.
-
-Sounds good.
-
-> >
-> > > +        log_watchdog "Starting ${SERVICE_NAME} after $2."
-> > > +        systemctl start "${SERVICE_NAME}"
-> > > +        rm "${STATE_FILE}"
-> > > +    fi
-> > > +    ;;
-> > > +*)
-> > > +    log_watchdog "Script called with unknown action '$1'. Arguments: '$@'"
-> > > +    exit 1
-> > > +    ;;
-> > > +esac
-
-Cheers,
-
--- 
-Anthony PERARD
+--- a/xen/arch/x86/hvm/emulate.c
++++ b/xen/arch/x86/hvm/emulate.c
+@@ -184,6 +184,22 @@ static int hwdom_fixup_p2m(paddr_t addr)
+          !is_memory_hole(_mfn(gfn), _mfn(gfn)) )
+         return -EPERM;
+ 
++    /*
++     * Much like get_page_from_l1e() for PV Dom0 does, check that the page
++     * accessed is actually an MMIO one: Either its MFN is out of range, or
++     * it's owned by DOM_IO.
++     */
++    if ( mfn_valid(_mfn(gfn)) )
++    {
++        struct page_info *pg = mfn_to_page(_mfn(gfn));
++        const struct domain *owner = page_get_owner_and_reference(pg);
++
++        if ( owner )
++            put_page(pg);
++        if ( owner != dom_io )
++            return -EPERM;
++    }
++
+     mfn = get_gfn(currd, gfn, &type);
+     if ( !mfn_eq(mfn, INVALID_MFN) || !p2m_is_hole(type) )
+         rc = mfn_eq(mfn, _mfn(gfn)) ? -EEXIST : -ENOTEMPTY;
 
