@@ -2,38 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1617AAFB861
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Jul 2025 18:11:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1035712.1408071 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 47E56AFB897
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Jul 2025 18:27:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1035722.1408082 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uYoQY-0004Jo-2O; Mon, 07 Jul 2025 16:10:46 +0000
+	id 1uYogi-0006dH-Hd; Mon, 07 Jul 2025 16:27:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1035712.1408071; Mon, 07 Jul 2025 16:10:46 +0000
+Received: by outflank-mailman (output) from mailman id 1035722.1408082; Mon, 07 Jul 2025 16:27:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uYoQX-0004I9-Vy; Mon, 07 Jul 2025 16:10:45 +0000
-Received: by outflank-mailman (input) for mailman id 1035712;
- Mon, 07 Jul 2025 16:10:45 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uYogi-0006as-Ex; Mon, 07 Jul 2025 16:27:28 +0000
+Received: by outflank-mailman (input) for mailman id 1035722;
+ Mon, 07 Jul 2025 16:27:26 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ItPy=ZU=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1uYoQX-0004I3-0w
- for xen-devel@lists.xenproject.org; Mon, 07 Jul 2025 16:10:45 +0000
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [2a00:1450:4864:20::633])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ef011f27-5b4c-11f0-a316-13f23c93f187;
- Mon, 07 Jul 2025 18:10:43 +0200 (CEST)
-Received: by mail-ej1-x633.google.com with SMTP id
- a640c23a62f3a-adfb562266cso523713666b.0
- for <xen-devel@lists.xenproject.org>; Mon, 07 Jul 2025 09:10:43 -0700 (PDT)
-Received: from [192.168.1.5] (user-109-243-64-38.play-internet.pl.
- [109.243.64.38]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ae3f66d93afsm729360666b.6.2025.07.07.09.10.41
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 07 Jul 2025 09:10:42 -0700 (PDT)
+ <SRS0=cN17=ZU=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
+ id 1uYogg-0006am-Mn
+ for xen-devel@lists.xenproject.org; Mon, 07 Jul 2025 16:27:26 +0000
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2062f.outbound.protection.outlook.com
+ [2a01:111:f403:2415::62f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 41dae741-5b4f-11f0-b894-0df219b8e170;
+ Mon, 07 Jul 2025 18:27:22 +0200 (CEST)
+Received: from MW2PR16CA0066.namprd16.prod.outlook.com (2603:10b6:907:1::43)
+ by IA0PR12MB8981.namprd12.prod.outlook.com (2603:10b6:208:484::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8835.29; Mon, 7 Jul
+ 2025 16:27:17 +0000
+Received: from BY1PEPF0001AE18.namprd04.prod.outlook.com
+ (2603:10b6:907:1:cafe::ad) by MW2PR16CA0066.outlook.office365.com
+ (2603:10b6:907:1::43) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8901.27 via Frontend Transport; Mon,
+ 7 Jul 2025 16:27:16 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BY1PEPF0001AE18.mail.protection.outlook.com (10.167.242.100) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8901.20 via Frontend Transport; Mon, 7 Jul 2025 16:27:16 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 7 Jul
+ 2025 11:27:10 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 7 Jul
+ 2025 11:27:10 -0500
+Received: from [172.21.62.237] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Mon, 7 Jul 2025 11:27:10 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,625 +63,189 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ef011f27-5b4c-11f0-a316-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1751904643; x=1752509443; darn=lists.xenproject.org;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=0EeLOUHoZUQaII23dJWtlH32DOfTFSeJCbDxaei1nRQ=;
-        b=EsBegeq3XuAko/nTloQ0kbYgTUBsW6PHct6of86yl0455m0Z8qLQqunYFYR8UGV0L9
-         Z+ZmqqOEzQIqAI2XT3xwqE4WnTV0eQzlQciPT1yRi4v6nnEMk381CFcB31DbxPtX4WBu
-         jtmSflZ0NxMhssH7hJ3FYTzEb2pEyMxfZYs5v5/mKwF3XfDC8R7/5gDeZ3H6NjrqPGBs
-         dKthdfEfV4Tx6wk2nt/knvMzd9mMKuCH7LfojGQIeiijGOZ3hCe/o1kQvjMyG/UbTmzz
-         9rVqQJfMv64rN9DrVwN3NprG+uLiZg9NFLCx6wtN4lFamyyYdN5HqF7BuUOyL8PTAJbe
-         8Wxg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1751904643; x=1752509443;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=0EeLOUHoZUQaII23dJWtlH32DOfTFSeJCbDxaei1nRQ=;
-        b=klfG0+2fzooIfIeee8BMZ98WVGmG5OqIFA/1fhpOlrYNrESOFrOsrjq8kFPn/ArWQ7
-         bbYIK6dWcetga1qLCTauOTcP4P6MjtLrLiqlkyfb68nvt7n5AeNOGpW7MVPGnGNkgyJZ
-         nH457Np1ZXN4TDwXUiAVSgha7KAK60BTH9iWd7+aBNUht5WV1VVaoVesA1EyWJZUJ15h
-         jwJW5W4gE+QleBeoh/LurW9tQKUVOs+JhbVCFpp/2hDTdXqiWUenKyvTLqKwsLAaWJiR
-         YgF1BKMOMbU7cMSlYBpzl2Wur33sWlngV89UEt1FIpwrz2mCWYhG7018x11FJ8E+eI+L
-         EjUQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVc27RGdOBbkI6CRjzMgricDBPz+FbQCv4grmVsN1chIl0MDuFairbgxx4ezFxHQy5uA+dCXHmlGdA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy+eMzuTSnYfMQCW5jLo40xW+BiqrjNPBl8f1Mvlri0t70zCT0f
-	WdnrtjWDZ0A7gFt06aPiqmM0Fd+2Xp8es3IdD02PVACupobD32/lEoug
-X-Gm-Gg: ASbGnctxIqDVrrOZqxjO5Z3+poEO2ONjzt3H+BIKfvhTMvB5OE6hve8agRI3t7s170O
-	a42O8tVQYUJqDYcRxXQYZDZwpNpLfJPtUAkT3h+wz75IkkH4a7fj7Ly/QO+HfEzDl2lDPC26jbT
-	571aj1k9Wgl3Fsx+O+9Q2dHqLdIZhB303E2DgP4UeS8iFbre+/s8ubRwc1LclmnREsXZe6JDGrK
-	p+EtAUYQhiWvgmX3f/w2fqcsiI99houZvXwXdRp7YRecvErmd4k17FlcnaDv7Jwdn8ACLr+phGt
-	grdeWJZSjwuUO2tB7W8oU5hCdW6z6YyesQ2AhOqVAxw37Vg8jsMvvKXLMq4/9oL14z3+gukviWs
-	QuTWrlwy+FzTySsWHE/PxIUp8U7MlJA2tyrk=
-X-Google-Smtp-Source: AGHT+IFhviJl5YslHUlij/uwhG/GVVuzueUCnRLs2v/xO04IUsGSfhEp0pEtfRdrOzZ6GYUxUCcO0A==
-X-Received: by 2002:a17:907:7b89:b0:ae3:6bd5:ebe7 with SMTP id a640c23a62f3a-ae4108e67e2mr990942366b.54.1751904642558;
-        Mon, 07 Jul 2025 09:10:42 -0700 (PDT)
-Content-Type: multipart/alternative;
- boundary="------------vH0uxB9fUD6YxWBCEIHWyUu0"
-Message-ID: <8f166b5d-eed3-4695-a0e9-ba8fc8a2b9b2@gmail.com>
-Date: Mon, 7 Jul 2025 18:10:41 +0200
+X-Inumbo-ID: 41dae741-5b4f-11f0-b894-0df219b8e170
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=b7Ez34wsXaUcISb8gdMGJ7hUDwUIoO5yVc1Rjr2yfOa7786+kUHVA6xWQvKbKDE5upgOpVR0eGwu2/Fuah/uCok0eZGJtIF2fM28qvRlMFXaAjQKDnH1t9OizGPe8jee0MR8tZi2WmyVUKMfxcgNyeEo9wU0f73rt6D6oxTicpCe8/N8J7dB/DabZKoSaszy47OrpztEoLennzNmSLeBpZ3odR5H2GuacKKJMZyWqGGq2SQyvT+df5hj/BSKh6Ys6VOPF3xdY/wuXKeaVcIBc0p4SJ9v7iRPeKWIsxaS/HD2u6ZEcMEjQpI7Ueab8kP6l6OsatHzOTyEmME9RwKqBA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=zfdxjKWataCIs8GkUEaj0NJciQX/oRmXp2PhNGWNH5o=;
+ b=e6Ql9GMh7YksgUc99UngFi2W31E6PGqNCqE6pqZLi6Rdn3tY2MRPID0L1uo7u7qkllNhAm/gBsDROdecKU1hIXhB+vD53tqYqQJmdQrVFLJ7ED33pDi277JgoRwofOCLixTBgjfxyi7m/nlfVwo1JAnAaFQ/bFHNanNPrW1oIuA/PNQ8acsMKKeKn3X6DAd9yHB7n6thsRfH+GzBbXcZpRQzsFNWhWQHqRRi1XIjac29nOGyozHC2DlOFlBmhqslt++tHhcDXWhS2gk7Lglf5v9HyXuar/GcBs40Isods6GwZPlA/tmbCsO1i/c2WD+UZJnJzCkvRveVrT2rJ+Om2Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=citrix.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zfdxjKWataCIs8GkUEaj0NJciQX/oRmXp2PhNGWNH5o=;
+ b=ZymR5kjZu0QaFs8P2KDv6AVP3QbnGQ2nydUxvyYYl8GnWZM28MA+o3PpHPdxVrmrKMJLzxMf22fI4H3jBqIURX3E+l7S84e2bWIjqOMa1V5A3vrbbOdS+MvAH2VLMdoSYQKkyA3J2/wdoGF9ysRqsxq07fX3sS9riDCyEF98yIk=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Message-ID: <dbd4b08c-55d8-4a0a-b467-2ded3eb4e70a@amd.com>
+Date: Mon, 7 Jul 2025 12:27:09 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 11/17] xen/riscv: implement p2m_set_entry() and
- __p2m_set_entry()
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1749555949.git.oleksii.kurochko@gmail.com>
- <7826732d2f6aa5888758942165f0f1e73fa84ffa.1749555949.git.oleksii.kurochko@gmail.com>
- <31811dbc-5fe8-487b-95d4-dd7f5f0868b3@suse.com>
- <674c9f82-f486-4cca-991b-3ac3da3a237d@gmail.com>
- <2afe5641-0790-4f27-823b-ab941ad2c971@suse.com>
- <82362709-c386-485e-935c-e229e735fba6@gmail.com>
- <cec77342-367c-41fe-abaf-b7e04309ca63@suse.com>
- <8036ddb2-f223-41f5-a498-75b483c237bb@gmail.com>
- <6bdad560-d631-4ae7-aaa2-3a0f64250f4b@suse.com>
+Subject: Re: [PATCH v1 1/5] vpci: const-ify some pdev instances
+From: Stewart Hildebrand <stewart.hildebrand@amd.com>
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+CC: <xen-devel@lists.xenproject.org>
+References: <20250531125405.268984-1-stewart.hildebrand@amd.com>
+ <20250531125405.268984-2-stewart.hildebrand@amd.com>
+ <aEFnmVotuGhR4Ti0@macbook.local>
+ <ea8d1add-7a53-40eb-b0e6-8bf5c2b83c68@amd.com>
 Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <6bdad560-d631-4ae7-aaa2-3a0f64250f4b@suse.com>
-
-This is a multi-part message in MIME format.
---------------vH0uxB9fUD6YxWBCEIHWyUu0
-Content-Type: text/plain; charset=UTF-8; format=flowed
+In-Reply-To: <ea8d1add-7a53-40eb-b0e6-8bf5c2b83c68@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+Received-SPF: None (SATLEXMB05.amd.com: stewart.hildebrand@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BY1PEPF0001AE18:EE_|IA0PR12MB8981:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4e0816af-5f3f-4173-501f-08ddbd732367
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|1800799024|36860700013|376014|7053199007;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?SjRMNWhhVG00eVBXSWNkOE4xc01RdzFVNEsydUxsZzFHSGZEWWh4dG5vK0pn?=
+ =?utf-8?B?MDFsUmRKZytEWWlTODBOb0pnZ1p5NU1FUzBvL1FFZndQekNmUzNJa1FWeDZ4?=
+ =?utf-8?B?UHR0bUkwUENlOEpuTTIvQ2FqdlJWRkN3ZnhLOGxDUWJyVFBwZTFmREJTRlRo?=
+ =?utf-8?B?WmdxSmVLYWhmWWp0SUJUdGNXRGJ5bWFPWWZ4RElNTUl5V241YXMzUVJYSEpH?=
+ =?utf-8?B?Nmg4ZXFHeTdZUExFdlBMc1h2Q2dXeU1rTTNZTHVMMExaYXltWmlZeG1QaHoy?=
+ =?utf-8?B?a2FTOVFwV1ByV1NRWGpTTU5PcHcwdHI0TGtha01CbU5ONjJudmVJSGRTRzVs?=
+ =?utf-8?B?d0ozZFpPMkNMSjBEMFlEaXdQd0dyVlVVOGVqc3RidzYxOFBtUFlTOXJreXps?=
+ =?utf-8?B?TEdIMktFcnQrQ1JiY3VUTEh1K0ZWSVA1Nm01eE5FNElJa3hNWU9FVk9COXFI?=
+ =?utf-8?B?OVh2WHBJZFBQUGpwY0xFRm52OWZsUkR6ejJVQzI4L3JnUU55SGpwMEUzL1hr?=
+ =?utf-8?B?LytUTVBsMWxlUkFrWmp3YU5Lc3RlUnYvSUVJWHRqWjVnMzEzeERmU05HY3Jo?=
+ =?utf-8?B?MHBEWnFxazBrSTVXRTRuMW9rKzE1SCtFZnRoZlZCd1FYZHF2cEY0cDJWaklU?=
+ =?utf-8?B?UTl0VXZkWk9RODh3aElCSE9OV3lCVlM3ZDZVTHkyWkJHcUpKbVRqbURCMUZC?=
+ =?utf-8?B?a2RqYzZLcWtEYkxQakZjYkcxUEdxdXpPMjNvT1lPMFNWWWxTUVNDVnpKR2FT?=
+ =?utf-8?B?ZnQrRHdCbXFXQnlKeFVBREk0TjlGTDVDdkk2TXhEbVdSY2daaHllMGRGbHBl?=
+ =?utf-8?B?aHIxcWFOSG9PcnZEWVF4Z1FoV3EwcFBNT0JYVjVGUWg2WkhKdEx6YlVMRE5k?=
+ =?utf-8?B?YkpHazVqRWd2TVcrNnRuVCtYdjd1SFdpVEF4ajBlYVBNaTNhanEzQzEvTDVt?=
+ =?utf-8?B?bU1neXJZWnQyRzFzb0F5YmZqbUtaYitOK0wrSUw5NTd6M05kbG81NXJoYm10?=
+ =?utf-8?B?UlJkTGRLeTloK3kyRFZDa21EcVRacjBXMHhzNFJpMnpMYjYzQThxNEJIWUVx?=
+ =?utf-8?B?TGwvS3RHdlVxYitMOHBSelRWdUR6b3Q5VmdRNjRNZnhoKzYwQlp2UTByOGpS?=
+ =?utf-8?B?N2xyekQvdURrRmRIY3FSOG9lMysySGd3Y203NmFWbGNnY3hxQ0UzUEJTWmU5?=
+ =?utf-8?B?QXpNWFRjUUtxa09PanZka0svMS82T053MHhiRzNncXBNeXFiTGR3WXdxU3lF?=
+ =?utf-8?B?YVFTNlF1aENLQ1JqVnQxczhRRlpNMXQrTUVtd0YyQWhWRFRwTStFVEtETi9I?=
+ =?utf-8?B?c1VYS2FoUDEvZ2hHQW1qdVhTc21WanRveHVYTVZDbDJZODMrWXJxQ3VxME5i?=
+ =?utf-8?B?K0tsVm1uYkI1UUZvcTF4MHM0VFR0T1AwNmpnWGw2Y1puS2o0Y1Y5RmFLd2Zm?=
+ =?utf-8?B?VU1qaHhpWTY2VllLdXdXZVdNSkw1b0JPZEtyY1FZRFEyWGk5a3ZrWTRWMTZG?=
+ =?utf-8?B?VDlmaEExWWE2Y2Eza250bXhnNXp2SE5hMWk3dlNqWFljdVcyaFhGcWltR3px?=
+ =?utf-8?B?SUZpeFdKTTNHakJKbUliWVVpa2dESGhVSlRMWUZjZFRUS2x2Q0VaV3YvWVQ3?=
+ =?utf-8?B?ZjBHT1oxdFZoNk9OY1hFYUdtVm9JQ204dk84YjQ1NkdMNkNrS29hQlVhM3hW?=
+ =?utf-8?B?eUlpaUg0WkpVWFU1bVZsQTkzNXhBd1h5OXNkVFVVcmN4ZTdSRVJxMDlzVXdu?=
+ =?utf-8?B?Z3lldDBIM2ZwUFR4WlVaOE14WHQyWGdEM0xlWS84Qm5xNHM2Mnd4RmVuY2pW?=
+ =?utf-8?B?TGlSTlNCSkxpdm1FTTV2R0hLSEJGNVdBR1NTcnNjK1lSQ0VRT2ZxUE54MS9X?=
+ =?utf-8?B?Wk43OGJteVZiaUk4dXJWdmQ0bWtXQjI5L0V4bFlOVTFyTFI0NHNoY3lmMVZL?=
+ =?utf-8?B?NkRWemRNNVVDa080TEo3Z0x4cWdhL3VObVA3amdQMXR5NXZTeDF2cE5ML2Fv?=
+ =?utf-8?B?NlBCQzAwdnZMZGlEN29rQlZiMDZISmNaK1IxMVVVdHJISE5FS096MFQrc1c2?=
+ =?utf-8?Q?GA/Y6N?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(36860700013)(376014)(7053199007);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jul 2025 16:27:16.7993
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4e0816af-5f3f-4173-501f-08ddbd732367
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BY1PEPF0001AE18.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8981
 
-
-On 7/7/25 5:15 PM, Jan Beulich wrote:
-> On 07.07.2025 17:00, Oleksii Kurochko wrote:
->> On 7/7/25 2:53 PM, Jan Beulich wrote:
->>> On 07.07.2025 13:46, Oleksii Kurochko wrote:
->>>> On 7/7/25 9:20 AM, Jan Beulich wrote:
->>>>> On 04.07.2025 17:01, Oleksii Kurochko wrote:
->>>>>> On 7/1/25 3:49 PM, Jan Beulich wrote:
->>>>>>> On 10.06.2025 15:05, Oleksii Kurochko wrote:
->>>>>>>> +{
->>>>>>>> +    panic("%s: isn't implemented for now\n", __func__);
->>>>>>>> +
->>>>>>>> +    return false;
->>>>>>>> +}
->>>>>>> For this function in particular, though: Besides the "p2me" in the name
->>>>>>> being somewhat odd (supposedly page table entries here are simply pte_t),
->>>>>>> how is this going to be different from pte_is_valid()?
->>>>>> pte_is_valid() is checking a real bit of PTE, but p2me_is_valid() is checking
->>>>>> what is a type stored in the radix tree (p2m->p2m_types):
->>>>>>       /*
->>>>>>        * In the case of the P2M, the valid bit is used for other purpose. Use
->>>>>>        * the type to check whether an entry is valid.
->>>>>>        */
->>>>>>       static inline bool p2me_is_valid(struct p2m_domain *p2m, pte_t pte)
->>>>>>       {
->>>>>>           return p2m_type_radix_get(p2m, pte) != p2m_invalid;
->>>>>>       }
->>>>>>
->>>>>> It is done to track which page was modified by a guest.
->>>>> But then (again) the name doesn't convey what the function does.
->>>> Then probably p2me_type_is_valid(struct p2m_domain *p2m, pte_t pte) would better.
->>> For P2M type checks please don't invent new naming, but use what both x86
->>> and Arm are already using. Note how we already have p2m_is_valid() in that
->>> set. Just that it's not doing what you want here.
->> Hm, why not doing what I want? p2m_is_valid() verifies if P2M entry is valid.
->> And in here it is checked if P2M pte is valid from P2M point of view by checking
->> the type in radix tree and/or in reserved PTEs bits (just to remind we have only 2
->> free bits for type).
-> Because this is how it's defined on x86:
->
-> #define p2m_is_valid(_t)    (p2m_to_mask(_t) & \
->                               (P2M_RAM_TYPES | p2m_to_mask(p2m_mmio_direct)))
->
-> I.e. more strict that simply "!= p2m_invalid". And I think such predicates
-> would better be uniform across architectures, such that in principle they
-> might also be usable in common code (as we already do with p2m_is_foreign()).
-
-Yeah, Arm isn't so strict in definition of p2m_is_valid() and it seems like
-x86 and Arm have different understanding what is valid.
-
-Except what mentioned in the comment that grant types aren't considered valid
-for x86 (and shouldn't be the same then for Arm?), it isn't clear why x86's
-p2m_is_valid() is stricter then Arm's one and if other arches should be also
-so strict.
-It seems like from the point of view of mapping/unmapping it is enough just
-to verify a "copy" of PTE's valid bit (in terms of P2M it is p2m_invalid type).
-
->
->>>>>     Plus
->>>>> can't a guest also arrange for an entry's type to move to p2m_invalid?
->>>>> That's then still an entry that was modified by the guest.
->>>> I am not really sure that I fully understand the question.
->>>> Do you ask if a guest can do something which will lead to a call of p2m_set_entry()
->>>> with p2m_invalid argument?
->>> That I'm not asking, but rather stating. I.e. I expect such is possible.
+On 6/11/25 15:28, Stewart Hildebrand wrote:
+> On 6/5/25 05:47, Roger Pau Monné wrote:
+>> On Sat, May 31, 2025 at 08:53:59AM -0400, Stewart Hildebrand wrote:
+>>> Since 622bdd962822 ("vpci/header: handle p2m range sets per BAR"), a
+>>> non-const pdev is no longer needed for error handling in
+>>> vpci_process_pending(). Const-ify pdev in vpci_process_pending(),
+>>> defer_map(), and struct vpci_vcpu.
 >>>
->>>> If yes, then it seems like it will be done only in case of p2m_remove_mapping() what
->>>> will mean that alongside with p2m_invalid INVALID_MFN will be also passed, what means
->>>> this entry isn't expected to be used anymore.
->>> Right. But such an entry would still have been "modified" by the guest.
->> Yes, but nothing then is needed to do with it.
-> I understand that. Maybe I'm overly picky, but all of the above was in response
-> to you saying "It is done to track which page was modified by a guest." And I'm
-> simply trying to get you to use precise wording, both in code comments and in
-> discussions. In a case like the one here I simply can't judge whether you simply
-> expressed yourself not clear enough, or whether you indeed meant what you said.
->
->>>>>>>> +        /*
->>>>>>>> +         * Don't take into account the MFN when removing mapping (i.e
->>>>>>>> +         * MFN_INVALID) to calculate the correct target order.
->>>>>>>> +         *
->>>>>>>> +         * XXX: Support superpage mappings if nr is not aligned to a
->>>>>>>> +         * superpage size.
->>>>>>>> +         */
->>>>>>> Does this really need leaving as a to-do?
->>>>>> I think so, yes. It won’t break the current workflow if|nr| isn’t aligned,
->>>>>> a smaller order will simply be chosen.
->>>>> Well, my question was more like "Isn't it simple enough to cover the case
->>>>> right away?"
->>>>>
->>>>>>>> +        mask = !mfn_eq(smfn, INVALID_MFN) ? mfn_x(smfn) : 0;
->>>>>>>> +        mask |= gfn_x(sgfn) | nr;
->>>>>>>> +
->>>>>>>> +        for ( ; i != 0; i-- )
->>>>>>>> +        {
->>>>>>>> +            if ( !(mask & (BIT(XEN_PT_LEVEL_ORDER(i), UL) - 1)) )
->>>>>>>> +            {
->>>>>>>> +                    order = XEN_PT_LEVEL_ORDER(i);
->>>>>>>> +                    break;
->>>>>>> Nit: Style.
->>>>>>>
->>>>>>>> +            }
->>>>>>>> +        }
->>>>>>>> +
->>>>>>>> +        rc = __p2m_set_entry(p2m, sgfn, order, smfn, t, a);
->>>>>>>> +        if ( rc )
->>>>>>>> +            break;
->>>>>>>> +
->>>>>>>> +        sgfn = gfn_add(sgfn, (1 << order));
->>>>>>>> +        if ( !mfn_eq(smfn, INVALID_MFN) )
->>>>>>>> +           smfn = mfn_add(smfn, (1 << order));
->>>>>>>> +
->>>>>>>> +        nr -= (1 << order);
->>>>>>> Throughout maybe better be safe right away and use 1UL?
->>>>>>>
->>>>>>>> +    }
->>>>>>>> +
->>>>>>>> +    return rc;
->>>>>>>>      }
->>>>>>> How's the caller going to know how much of the range was successfully
->>>>>>> mapped?
->>>>>> There is no such option. Do other arches do that? I mean returns somehow
->>>>>> the number of successfully mapped (sgfn,smfn).
->>>>> On x86 we had to introduce some not very nice code to cover for the absence
->>>>> of proper handling there. For a new port I think it wants at least seriously
->>>>> considering not to repeat such a potentially unhelpful pattern.
->>>>>
->>>>>>> That part may need undoing (if not here, then in the caller),
->>>>>>> or a caller may want to retry.
->>>>>> So the caller in the case if rc != 0, can just undoing the full range
->>>>>> (by using the same sgfn, nr, smfn).
->>>>> Can it? How would it know what the original state was?
->>>> You're right — blindly unmapping the range assumes that no entries were valid
->>>> beforehand and I missed that it could be that something valid was mapped before
->>>> p2m_set_entry(sgfn,...,smfn) was called.
->>>> But then I am not really understand why it won't be an issue if will know
->>>> how many GFNs were successfully mapped.
->>> The caller may know what that range's state was. But what I really wanted to
->>> convey is: Updating multiple entries in one go is complicated in some of the
->>> corner cases. You will want to think this through now, in order to avoid the
->>> need to re-write everything later again.
->> I can add one more argument to return the number of successfully mapped GFNs.
->> Fortunately, that's very easy to do.
+>>> Get rid of const-removal workaround in modify_bars().
+>>>
+>>> Take the opportunity to remove an unused parameter in defer_map().
+>>>
+>>> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
 >>
->> The problem for me is that I don’t really understand what the caller is supposed
->> to do with that information.
-> That's only the 2nd step to take. The first is: What behavior do you want, overall?
-
-My initial idea was that if something went wrong ( rc != 0 ) then just panic(). But
-based on your questions it seems like it isn't the best one idea.
-
->
->> The only use case I can think of is that the caller
->> might try to map the remaining GFNs again. But that doesn’t seem very useful,
->> if|p2m_set_entry()| wasn’t able to map the full range, it likely indicates a serious
->> issue, and retrying would probably result in the same error.
+>> Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+> 
+> Thanks!
+> 
+>> One further simplification below.
 >>
->> The same applies to rolling back the state. It wouldn’t be difficult to add a local
->> array to track all modified PTEs and then use it to revert the state if needed.
->> But again, what would the caller do after the rollback? At this point, it still seems
->> like the best option is simply to|panic(). |
+>>> ---
+>>> This is prerequisite for ("vpci: use separate rangeset for BAR
+>>> unmapping") in order to call defer_map() with a const pdev.
+
+I'm trying a somewhat different approach for the series for v2, and this
+patch will no longer strictly be prerequisite. However, this patch seems
+to be a desirable cleanup by itself, so I'll send it independently.
+
+>>> ---
+>>>  xen/drivers/vpci/header.c | 16 ++++------------
+>>>  xen/include/xen/vpci.h    |  2 +-
+>>>  2 files changed, 5 insertions(+), 13 deletions(-)
+>>>
+>>> diff --git a/xen/drivers/vpci/header.c b/xen/drivers/vpci/header.c
+>>> index 1f48f2aac64e..e42c8efa2302 100644
+>>> --- a/xen/drivers/vpci/header.c
+>>> +++ b/xen/drivers/vpci/header.c
+>>> @@ -175,7 +175,7 @@ static void modify_decoding(const struct pci_dev *pdev, uint16_t cmd,
+>>>  
+>>>  bool vpci_process_pending(struct vcpu *v)
+>>>  {
+>>> -    struct pci_dev *pdev = v->vpci.pdev;
+>>> +    const struct pci_dev *pdev = v->vpci.pdev;
+>>>      struct vpci_header *header = NULL;
+>>>      unsigned int i;
+>>>  
+>>> @@ -283,8 +283,7 @@ static int __init apply_map(struct domain *d, const struct pci_dev *pdev,
+>>>      return rc;
+>>>  }
+>>>  
+>>> -static void defer_map(struct domain *d, struct pci_dev *pdev,
+>>> -                      uint16_t cmd, bool rom_only)
+>>> +static void defer_map(const struct pci_dev *pdev, uint16_t cmd, bool rom_only)
+>>>  {
+>>>      struct vcpu *curr = current;
+>>>  
+>>> @@ -308,7 +307,7 @@ static void defer_map(struct domain *d, struct pci_dev *pdev,
+>>>  static int modify_bars(const struct pci_dev *pdev, uint16_t cmd, bool rom_only)
+>>>  {
+>>>      struct vpci_header *header = &pdev->vpci->header;
+>>> -    struct pci_dev *tmp, *dev = NULL;
+>>> +    struct pci_dev *tmp;
+>>>      const struct domain *d;
+>>>      const struct vpci_msix *msix = pdev->vpci->msix;
+>>>      unsigned int i, j;
+>>> @@ -450,11 +449,6 @@ static int modify_bars(const struct pci_dev *pdev, uint16_t cmd, bool rom_only)
+>>>  
+>>>              if ( tmp == pdev )
+>>>              {
+>>> -                /*
+>>> -                 * Need to store the device so it's not constified and defer_map
+>>> -                 * can modify it in case of error.
+>>> -                 */
+>>> -                dev = tmp;
+>>>                  if ( !rom_only )
 >>
->> Basically, I don’t see or understand the cases where knowing how many GFNs were
->> successfully mapped, or whether a rollback was performed, would really help — because
->> in most cases, I don’t have a better option than just calling|panic()| at the end.
-> panic()-ing is of course only a last resort. Anything related to domain handling
-> would better crash only the domain in question. And even that only if suitable
-> error handling isn't possible.
+>> You can now join this with the previous if, and reduce one level of
+>> indentation:
+>>
+>> if ( tmp == pdev && !rom_only )
+>>     /* comment text */
+>>     continue;
+> 
+> Will do. I'll plan to keep your R-b tag for v2 since this is a trivial
+> change.
+> 
 
-And if there is no still any runnable domain available, for example, we are creating
-domain and some p2m mapping is called? Will it be enough just ignore to boot this domain?
-If yes, then it is enough to return only error code without returning how many GFNs were
-mapped or rollbacking as domain won't be ran anyway.
-(just to mention, I am not trying to convince you that rollback or returning of an amount
-of GFNs isn't necessary, I just trying to understand what is the best implementation of
-handling none-fully mapped mappings you mentioned)
-
->
->> For example, if I call|map_regions_p2mt()| for an MMIO region described in a device
->> tree node, and the mapping fails partway through, I’m left with two options: either
->> ignore the device (if it's not essential for Xen or guest functionality) and continue
->>    booting; in which case I’d need to perform a rollback, and simply knowing the number
->> of successfully mapped GFNs may not be enough or, more likely, just panic.
-> Well, no. For example, before even trying to map you could check that the range
-> of P2M entries covered is all empty.
-
-Could it be that they aren't all empty? Then it seems like we have overlapping and we can't
-just do a mapping, right?
-Won't be this procedure consume a lot of time as it is needed to go through each page
-tables for each entry.
-
-
->   _Then_ you know how to correctly roll back.
-> And yes, doing so may not even require passing back information on how much of
-> a region was successfully mapped.
-
-If P2M entries were empty before start of the mapping then it is enough to just go
-through the same range (sgfn,nr,smfn) and just clean them, right?
-
-Thanks.
-
-~ Oleksii
-
-
---------------vH0uxB9fUD6YxWBCEIHWyUu0
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 7/7/25 5:15 PM, Jan Beulich wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:6bdad560-d631-4ae7-aaa2-3a0f64250f4b@suse.com">
-      <pre wrap="" class="moz-quote-pre">On 07.07.2025 17:00, Oleksii Kurochko wrote:
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">On 7/7/25 2:53 PM, Jan Beulich wrote:
-</pre>
-        <blockquote type="cite">
-          <pre wrap="" class="moz-quote-pre">On 07.07.2025 13:46, Oleksii Kurochko wrote:
-</pre>
-          <blockquote type="cite">
-            <pre wrap="" class="moz-quote-pre">On 7/7/25 9:20 AM, Jan Beulich wrote:
-</pre>
-            <blockquote type="cite">
-              <pre wrap="" class="moz-quote-pre">On 04.07.2025 17:01, Oleksii Kurochko wrote:
-</pre>
-              <blockquote type="cite">
-                <pre wrap="" class="moz-quote-pre">On 7/1/25 3:49 PM, Jan Beulich wrote:
-</pre>
-                <blockquote type="cite">
-                  <pre wrap="" class="moz-quote-pre">On 10.06.2025 15:05, Oleksii Kurochko wrote:
-</pre>
-                  <blockquote type="cite">
-                    <pre wrap="" class="moz-quote-pre">+{
-+    panic("%s: isn't implemented for now\n", __func__);
-+
-+    return false;
-+}
-</pre>
-                  </blockquote>
-                  <pre wrap="" class="moz-quote-pre">For this function in particular, though: Besides the "p2me" in the name
-being somewhat odd (supposedly page table entries here are simply pte_t),
-how is this going to be different from pte_is_valid()?
-</pre>
-                </blockquote>
-                <pre wrap="" class="moz-quote-pre">pte_is_valid() is checking a real bit of PTE, but p2me_is_valid() is checking
-what is a type stored in the radix tree (p2m-&gt;p2m_types):
-     /*
-      * In the case of the P2M, the valid bit is used for other purpose. Use
-      * the type to check whether an entry is valid.
-      */
-     static inline bool p2me_is_valid(struct p2m_domain *p2m, pte_t pte)
-     {
-         return p2m_type_radix_get(p2m, pte) != p2m_invalid;
-     }
-
-It is done to track which page was modified by a guest.
-</pre>
-              </blockquote>
-              <pre wrap="" class="moz-quote-pre">But then (again) the name doesn't convey what the function does.
-</pre>
-            </blockquote>
-            <pre wrap="" class="moz-quote-pre">Then probably p2me_type_is_valid(struct p2m_domain *p2m, pte_t pte) would better.
-</pre>
-          </blockquote>
-          <pre wrap="" class="moz-quote-pre">For P2M type checks please don't invent new naming, but use what both x86
-and Arm are already using. Note how we already have p2m_is_valid() in that
-set. Just that it's not doing what you want here.
-</pre>
-        </blockquote>
-        <pre wrap="" class="moz-quote-pre">
-Hm, why not doing what I want? p2m_is_valid() verifies if P2M entry is valid.
-And in here it is checked if P2M pte is valid from P2M point of view by checking
-the type in radix tree and/or in reserved PTEs bits (just to remind we have only 2
-free bits for type).
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-Because this is how it's defined on x86:
-
-#define p2m_is_valid(_t)    (p2m_to_mask(_t) &amp; \
-                             (P2M_RAM_TYPES | p2m_to_mask(p2m_mmio_direct)))
-
-I.e. more strict that simply "!= p2m_invalid". And I think such predicates
-would better be uniform across architectures, such that in principle they
-might also be usable in common code (as we already do with p2m_is_foreign()).</pre>
-    </blockquote>
-    <pre>Yeah, Arm isn't so strict in definition of p2m_is_valid() and it seems like
-x86 and Arm have different understanding what is valid.
-
-Except what mentioned in the comment that grant types aren't considered valid
-for x86 (and shouldn't be the same then for Arm?), it isn't clear why x86's
-p2m_is_valid() is stricter then Arm's one and if other arches should be also
-so strict.
-It seems like from the point of view of mapping/unmapping it is enough just
-to verify a "copy" of PTE's valid bit (in terms of P2M it is p2m_invalid type).
-
-</pre>
-    <blockquote type="cite"
-      cite="mid:6bdad560-d631-4ae7-aaa2-3a0f64250f4b@suse.com">
-      <pre wrap="" class="moz-quote-pre">
-
-</pre>
-      <blockquote type="cite">
-        <blockquote type="cite">
-          <blockquote type="cite">
-            <blockquote type="cite">
-              <pre wrap="" class="moz-quote-pre">   Plus
-can't a guest also arrange for an entry's type to move to p2m_invalid?
-That's then still an entry that was modified by the guest.
-</pre>
-            </blockquote>
-            <pre wrap="" class="moz-quote-pre">I am not really sure that I fully understand the question.
-Do you ask if a guest can do something which will lead to a call of p2m_set_entry()
-with p2m_invalid argument?
-</pre>
-          </blockquote>
-          <pre wrap="" class="moz-quote-pre">That I'm not asking, but rather stating. I.e. I expect such is possible.
-
-</pre>
-          <blockquote type="cite">
-            <pre wrap="" class="moz-quote-pre">If yes, then it seems like it will be done only in case of p2m_remove_mapping() what
-will mean that alongside with p2m_invalid INVALID_MFN will be also passed, what means
-this entry isn't expected to be used anymore.
-</pre>
-          </blockquote>
-          <pre wrap="" class="moz-quote-pre">Right. But such an entry would still have been "modified" by the guest.
-</pre>
-        </blockquote>
-        <pre wrap="" class="moz-quote-pre">
-Yes, but nothing then is needed to do with it.
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-I understand that. Maybe I'm overly picky, but all of the above was in response
-to you saying "It is done to track which page was modified by a guest." And I'm
-simply trying to get you to use precise wording, both in code comments and in
-discussions. In a case like the one here I simply can't judge whether you simply
-expressed yourself not clear enough, or whether you indeed meant what you said.
-
-</pre>
-      <blockquote type="cite">
-        <blockquote type="cite">
-          <blockquote type="cite">
-            <blockquote type="cite">
-              <blockquote type="cite">
-                <blockquote type="cite">
-                  <blockquote type="cite">
-                    <pre wrap="" class="moz-quote-pre">+        /*
-+         * Don't take into account the MFN when removing mapping (i.e
-+         * MFN_INVALID) to calculate the correct target order.
-+         *
-+         * XXX: Support superpage mappings if nr is not aligned to a
-+         * superpage size.
-+         */
-</pre>
-                  </blockquote>
-                  <pre wrap="" class="moz-quote-pre">Does this really need leaving as a to-do?
-</pre>
-                </blockquote>
-                <pre wrap="" class="moz-quote-pre">I think so, yes. It won’t break the current workflow if|nr| isn’t aligned,
-a smaller order will simply be chosen.
-</pre>
-              </blockquote>
-              <pre wrap="" class="moz-quote-pre">Well, my question was more like "Isn't it simple enough to cover the case
-right away?"
-
-</pre>
-              <blockquote type="cite">
-                <blockquote type="cite">
-                  <blockquote type="cite">
-                    <pre wrap="" class="moz-quote-pre">+        mask = !mfn_eq(smfn, INVALID_MFN) ? mfn_x(smfn) : 0;
-+        mask |= gfn_x(sgfn) | nr;
-+
-+        for ( ; i != 0; i-- )
-+        {
-+            if ( !(mask &amp; (BIT(XEN_PT_LEVEL_ORDER(i), UL) - 1)) )
-+            {
-+                    order = XEN_PT_LEVEL_ORDER(i);
-+                    break;
-</pre>
-                  </blockquote>
-                  <pre wrap="" class="moz-quote-pre">Nit: Style.
-
-</pre>
-                  <blockquote type="cite">
-                    <pre wrap="" class="moz-quote-pre">+            }
-+        }
-+
-+        rc = __p2m_set_entry(p2m, sgfn, order, smfn, t, a);
-+        if ( rc )
-+            break;
-+
-+        sgfn = gfn_add(sgfn, (1 &lt;&lt; order));
-+        if ( !mfn_eq(smfn, INVALID_MFN) )
-+           smfn = mfn_add(smfn, (1 &lt;&lt; order));
-+
-+        nr -= (1 &lt;&lt; order);
-</pre>
-                  </blockquote>
-                  <pre wrap="" class="moz-quote-pre">Throughout maybe better be safe right away and use 1UL?
-
-</pre>
-                  <blockquote type="cite">
-                    <pre wrap="" class="moz-quote-pre">+    }
-+
-+    return rc;
-    }
-</pre>
-                  </blockquote>
-                  <pre wrap="" class="moz-quote-pre">How's the caller going to know how much of the range was successfully
-mapped?
-</pre>
-                </blockquote>
-                <pre wrap="" class="moz-quote-pre">There is no such option. Do other arches do that? I mean returns somehow
-the number of successfully mapped (sgfn,smfn).
-</pre>
-              </blockquote>
-              <pre wrap="" class="moz-quote-pre">On x86 we had to introduce some not very nice code to cover for the absence
-of proper handling there. For a new port I think it wants at least seriously
-considering not to repeat such a potentially unhelpful pattern.
-
-</pre>
-              <blockquote type="cite">
-                <blockquote type="cite">
-                  <pre wrap="" class="moz-quote-pre">That part may need undoing (if not here, then in the caller),
-or a caller may want to retry.
-</pre>
-                </blockquote>
-                <pre wrap="" class="moz-quote-pre">So the caller in the case if rc != 0, can just undoing the full range
-(by using the same sgfn, nr, smfn).
-</pre>
-              </blockquote>
-              <pre wrap="" class="moz-quote-pre">Can it? How would it know what the original state was?
-</pre>
-            </blockquote>
-            <pre wrap="" class="moz-quote-pre">You're right — blindly unmapping the range assumes that no entries were valid
-beforehand and I missed that it could be that something valid was mapped before
-p2m_set_entry(sgfn,...,smfn) was called.
-But then I am not really understand why it won't be an issue if will know
-how many GFNs were successfully mapped.
-</pre>
-          </blockquote>
-          <pre wrap="" class="moz-quote-pre">The caller may know what that range's state was. But what I really wanted to
-convey is: Updating multiple entries in one go is complicated in some of the
-corner cases. You will want to think this through now, in order to avoid the
-need to re-write everything later again.
-</pre>
-        </blockquote>
-        <pre wrap="" class="moz-quote-pre">
-I can add one more argument to return the number of successfully mapped GFNs.
-Fortunately, that's very easy to do.
-
-The problem for me is that I don’t really understand what the caller is supposed
-to do with that information.
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-That's only the 2nd step to take. The first is: What behavior do you want, overall?</pre>
-    </blockquote>
-    <pre>My initial idea was that if something went wrong ( rc != 0 ) then just panic(). But
-based on your questions it seems like it isn't the best one idea.
-
-</pre>
-    <blockquote type="cite"
-      cite="mid:6bdad560-d631-4ae7-aaa2-3a0f64250f4b@suse.com">
-      <pre wrap="" class="moz-quote-pre">
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">The only use case I can think of is that the caller
-might try to map the remaining GFNs again. But that doesn’t seem very useful,
-if|p2m_set_entry()| wasn’t able to map the full range, it likely indicates a serious
-issue, and retrying would probably result in the same error.
-
-The same applies to rolling back the state. It wouldn’t be difficult to add a local
-array to track all modified PTEs and then use it to revert the state if needed.
-But again, what would the caller do after the rollback? At this point, it still seems
-like the best option is simply to|panic(). |
-
-Basically, I don’t see or understand the cases where knowing how many GFNs were
-successfully mapped, or whether a rollback was performed, would really help — because
-in most cases, I don’t have a better option than just calling|panic()| at the end.
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-panic()-ing is of course only a last resort. Anything related to domain handling
-would better crash only the domain in question. And even that only if suitable
-error handling isn't possible.</pre>
-    </blockquote>
-    <pre>And if there is no still any runnable domain available, for example, we are creating
-domain and some p2m mapping is called? Will it be enough just ignore to boot this domain?
-If yes, then it is enough to return only error code without returning how many GFNs were
-mapped or rollbacking as domain won't be ran anyway.
-(just to mention, I am not trying to convince you that rollback or returning of an amount
-of GFNs isn't necessary, I just trying to understand what is the best implementation of
-handling none-fully mapped mappings you mentioned)
-
-</pre>
-    <blockquote type="cite"
-      cite="mid:6bdad560-d631-4ae7-aaa2-3a0f64250f4b@suse.com">
-      <pre wrap="" class="moz-quote-pre">
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">For example, if I call|map_regions_p2mt()| for an MMIO region described in a device
-tree node, and the mapping fails partway through, I’m left with two options: either
-ignore the device (if it's not essential for Xen or guest functionality) and continue
-  booting; in which case I’d need to perform a rollback, and simply knowing the number
-of successfully mapped GFNs may not be enough or, more likely, just panic.
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-Well, no. For example, before even trying to map you could check that the range
-of P2M entries covered is all empty.</pre>
-    </blockquote>
-    <pre>Could it be that they aren't all empty? Then it seems like we have overlapping and we can't
-just do a mapping, right?
-Won't be this procedure consume a lot of time as it is needed to go through each page
-tables for each entry.
-
-
-</pre>
-    <blockquote type="cite"
-      cite="mid:6bdad560-d631-4ae7-aaa2-3a0f64250f4b@suse.com">
-      <pre wrap="" class="moz-quote-pre"> _Then_ you know how to correctly roll back.
-And yes, doing so may not even require passing back information on how much of
-a region was successfully mapped.</pre>
-    </blockquote>
-    <pre>If P2M entries were empty before start of the mapping then it is enough to just go
-through the same range (sgfn,nr,smfn) and just clean them, right?
-
-Thanks.
-
-~ Oleksii
-</pre>
-    <p><br>
-    </p>
-  </body>
-</html>
-
---------------vH0uxB9fUD6YxWBCEIHWyUu0--
 
