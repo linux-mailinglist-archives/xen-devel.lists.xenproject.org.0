@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F19B2AFAF1F
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Jul 2025 11:02:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1035349.1407648 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1513DAFAF23
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Jul 2025 11:02:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1035348.1407642 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uYhjl-00043e-Hc; Mon, 07 Jul 2025 09:02:09 +0000
+	id 1uYhjl-00040A-7y; Mon, 07 Jul 2025 09:02:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1035349.1407648; Mon, 07 Jul 2025 09:02:09 +0000
+Received: by outflank-mailman (output) from mailman id 1035348.1407642; Mon, 07 Jul 2025 09:02:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uYhjl-0003zt-A5; Mon, 07 Jul 2025 09:02:09 +0000
-Received: by outflank-mailman (input) for mailman id 1035349;
+	id 1uYhjk-0003xz-W0; Mon, 07 Jul 2025 09:02:08 +0000
+Received: by outflank-mailman (input) for mailman id 1035348;
  Mon, 07 Jul 2025 09:02:07 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ItPy=ZU=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1uYhjj-0002wP-7B
+ id 1uYhjj-0002Us-4B
  for xen-devel@lists.xenproject.org; Mon, 07 Jul 2025 09:02:07 +0000
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [2a00:1450:4864:20::62a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0dba57fc-5b11-11f0-b894-0df219b8e170;
- Mon, 07 Jul 2025 11:02:05 +0200 (CEST)
-Received: by mail-ej1-x62a.google.com with SMTP id
- a640c23a62f3a-ae0e0271d82so582458066b.3
- for <xen-devel@lists.xenproject.org>; Mon, 07 Jul 2025 02:02:05 -0700 (PDT)
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [2a00:1450:4864:20::62c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0e762611-5b11-11f0-a316-13f23c93f187;
+ Mon, 07 Jul 2025 11:02:06 +0200 (CEST)
+Received: by mail-ej1-x62c.google.com with SMTP id
+ a640c23a62f3a-ae401ebcbc4so449759966b.1
+ for <xen-devel@lists.xenproject.org>; Mon, 07 Jul 2025 02:02:06 -0700 (PDT)
 Received: from fedora (user-109-243-64-38.play-internet.pl. [109.243.64.38])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ae3f6b04d30sm662892766b.133.2025.07.07.02.02.03
+ a640c23a62f3a-ae3f6b04d30sm662892766b.133.2025.07.07.02.02.04
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 07 Jul 2025 02:02:03 -0700 (PDT)
+ Mon, 07 Jul 2025 02:02:04 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,42 +45,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0dba57fc-5b11-11f0-b894-0df219b8e170
+X-Inumbo-ID: 0e762611-5b11-11f0-a316-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1751878924; x=1752483724; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1751878926; x=1752483726; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=r7Ybpu7ozA8JgKQL7KWhzMFz0aX51gKmDoLYfs8b11Q=;
-        b=VNoATqd66Cui4IwvSA8fKj25ac9O8KVdpUehraeGPkdRb8mLoBf6od0OopoeJX5/Dy
-         4qDWNB54pKOO4RDA84iBnwpLPLVJv1a041nA5iH2Cajg5bDm/ipV+mpKwfgy3CZHdZRm
-         NzwZ0+9ApX1H+ANY4YClUZh97VJJSasRBQvzXhHRONVzGLhZ9E94/889sdROdmeXgpTY
-         IqxhXA7Nd76MJdVxsO/qtpVONGO7cpdXB1GIelPBTkmraIjoH0PW6GyaoHF4DYdmjnpC
-         9Jt8Ti5Q/an5O1GFElEbRcpG1jo/R5VHzNy6MFmg+0idnw19+dXrMeN3ScDlVmG/p+oB
-         xlTw==
+        bh=KgFU41UimQ/zZbHUJpWhEqNY3tBNxulYXPtHv+ceHlQ=;
+        b=KJqj19P9TwbEjKyoEO7rgzcsAnfpVULAjm7/0kmwV5UihEh1UXpI58PltHVycdIQOc
+         nvk733oV/Luq0w+g56v0G/YHxfR5ohpzEZ2pTSQnPWl6lRrpWOkjmmcXXIQE0+tMln7u
+         c5iH9/S4kmWh8fBm7WZH/Djb3gd5kZ6dGJB2/hcM31y1UgmCz43X9eVmUPGxz/29hszm
+         W9yYFlWEqzfg9mmYx5+9lVywlBw4jEpd/ZwTtQ0YR9U3XyMDTKOzjmz+VU0O3BGiHuJx
+         Vtq/BTA2tXv6uHREg2RIWvD8w9lnaF5sex1FeQaV3GLD47pWkeml3/BBH8fxCdfaO00i
+         Wu1w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1751878924; x=1752483724;
+        d=1e100.net; s=20230601; t=1751878926; x=1752483726;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=r7Ybpu7ozA8JgKQL7KWhzMFz0aX51gKmDoLYfs8b11Q=;
-        b=c6NrFKIg5mt7SOTn0Tw5Lc8K68W36zgOwgrDJ2WNEWV8oQMq9rAO9JSvNJoyHfwCq4
-         vk9GgNCZKkuyR+o43UHxiiJQZutZonguj2zrnWF5rmcvgHSekG3Tm/IcMSDsWSzQXoqZ
-         dxqYpMpTeh1OeZHiQlLL4rmt6n9eore7pExAxwIpGUBt+WTNx9T21uAGkiO7a2YaNiIK
-         XB13AKl7D2wcaYAmmjsCdlEjHQy7kUZu4/Xx6QAfcLcXMND3xm47E5Yq14bZ9wE/9VQF
-         ExU7Vbf3mOvgXp57rdOGPwaqqJ4fPO84PTwOarOvhqXc7CtbEK38AbB9l/7zS/ZzSVaa
-         o2gA==
-X-Gm-Message-State: AOJu0Yx9WD9VriuhoFBEab4gTbVAYIqMBK1sXmm7Ki8yVkcEFhrmqaQj
-	EU3uzuvrENGQKCrQQU47Ph375EbdWWNYCuE7exBsYfFkVzmRq0FpPRiPXNYC8A==
-X-Gm-Gg: ASbGncvM/klpgur+h94I/M9qdIxwvIJHfQj66EC4SKcsmen+uU26UxVfkw1YW1hQoXS
-	oFt48Zf6OaGcpGl76RCxARVhd3dBtoP8L706RiHDdXL5Ygvpn26ea0b3U4CnbWDueBpcpGe7Yr+
-	1JqLohy2qnydohUgqjGxeWGjvrjjWwIkwiQ1CGA6UAgn4XMAFS4B9Akhq8wsRuhaIj6HdTlIPB3
-	3osGh+xSyBfBjZ+5JLZbOV0UVbpsCrUGtE6uCYm5g1J380slxQj5afUCjhss+KUdFsC7C4yd2zV
-	FxRG+VPWahBt8Lqp+CFM9xn5dmDrihNeXwxUy2yoXo9braJQIHUubrEQgKT36jl4NlzceHbEIJ1
-	QoYa8k676c+TE6Hbzsf6uA+si+Q==
-X-Google-Smtp-Source: AGHT+IFHz/oTCD+rMct36UjbtVdKadw7+Qndwouf7hIs0WWrHrl0FotTMw7dNvU0kkKCRObPLtOmSg==
-X-Received: by 2002:a17:906:c10d:b0:ae3:f524:b51 with SMTP id a640c23a62f3a-ae41079d210mr725450866b.10.1751878924156;
-        Mon, 07 Jul 2025 02:02:04 -0700 (PDT)
+        bh=KgFU41UimQ/zZbHUJpWhEqNY3tBNxulYXPtHv+ceHlQ=;
+        b=Nvq01sIunKuk9KTITDqDjNRzBv886GjbEjebSqfjklF0bX2VqtKgx358aFbznorqgH
+         7RH7771m9ZjubzDS4ISY5ABQfnpcBLoCgjfwLQ691Y34B8TfxzCrBBeVC2wW1mUKTQck
+         TxIAqn4c7DcPV/bnfOqIpPhIT6y5Zpjjwp1DIim2GIPtGSZWe8YfJIEc6649WdBWPwJJ
+         Zt6YTDP0F/cEzXFy7MeH2m5fAvoWdNg+2czyGvH1K0YCQG5bgtgdt7h2wQ0KGxRXwXsS
+         2sEjhnOFQ+zo+zqC85bABjZLrbATN2Tzqss53KEtlE3WR5wG7JeQvJAWP6acmrLdBbCS
+         5U2Q==
+X-Gm-Message-State: AOJu0YxDkXKVg+GoLLR3VoV2k2aNqqGQHwlAObQj7Qx6wK4kTny2D93G
+	h/oEDMtVMTXaEI41bYuQDSowD+JRdOoRt7WLVdwTac/UzRrKnkvqDLkoKNJyuw==
+X-Gm-Gg: ASbGnctu8nnszazJpRDfqL3qdb4veSgOEIOgdy7arjVcrNWEdrTlx+Bs1NQC90pc4MZ
+	r1k7bTdI0ovHV+lA6pLEOzX2IVObjXMLT9URuXGPvnzoobTYXvfl4DWLxP3Diw15gUFeONCUYrl
+	3WPMkL7GXUkYqB/q6vdiTYpVbC24roQZQoMcmTvobcdTxL6BHC1sics4C56SwCrvmtBla6qA6k4
+	48tvEd//BYQOcuhybgnz01/e/EzYaBTLeXrYpHSYmOlTQJoJ+3kBVXAwHiwZhWzsAtCcqeXtpWI
+	lUrGUY///DQOJp70XuguRheddd1jPwc3yYaFm4aLZ71L6XSruppcp0BDmrkzJrDWMoxvlCXpmC+
+	U1oO27LUdP41lYM5JrI4FyiCP8Q==
+X-Google-Smtp-Source: AGHT+IHI9D2VTZIG6GSmhmQ6N2OOyfKfRCCQz5e8giCisFysulvITfgZukuH5bZ7YfRAK+xBLwfBkQ==
+X-Received: by 2002:a17:906:9fd2:b0:ae3:6ff6:1aad with SMTP id a640c23a62f3a-ae4108e5ee0mr708659466b.14.1751878925298;
+        Mon, 07 Jul 2025 02:02:05 -0700 (PDT)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
@@ -93,193 +93,119 @@ Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Julien Grall <julien@xen.org>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Romain Caritey <Romain.Caritey@microchip.com>
-Subject: [PATCH v6 6/7] xen/riscv: implement setup_irq()
-Date: Mon,  7 Jul 2025 11:01:42 +0200
-Message-ID: <508646feadbff6409d2415ac695c215f6fc9182b.1751876912.git.oleksii.kurochko@gmail.com>
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH v6 7/7] xen/riscv: add basic UART support
+Date: Mon,  7 Jul 2025 11:01:43 +0200
+Message-ID: <946f390b54c4ac9ce64860236565857d105da54e.1751876912.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.50.0
 In-Reply-To: <cover.1751876912.git.oleksii.kurochko@gmail.com>
 References: <cover.1751876912.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Introduce support for IRQ setup on RISC-V by implementing setup_irq() and
-__setup_irq(), adapted and extended from an initial implementation by [1].
+Update Kconfig to select GENERIC_UART_INIT for basic UART init ( find a dt node
+and call device specific device_init() ).
 
-__setup_irq() does the following:
-  - Sets up an IRQ action.
-  - Validates that shared IRQs have non-NULL `dev_id` and are only used when
-    existing handlers allow sharing.
-  - Uses smp_wmb() to enforce memory ordering after assigning desc->action
-    to ensure visibility before enabling the IRQ.
-  - Supports multi-action setups via CONFIG_IRQ_HAS_MULTIPLE_ACTION.
+Drop `default n if RISCV` statement for config HAS_NS16550 as now ns16550 is
+ready to be compiled and used by RISC-V. Also, make the config user selectable
+for everyone except X86.
 
-setup_irq() does the following:
-  - Converts IRQ number to descriptor and acquires its lock.
-  - Rejects registration if the IRQ is already assigned to a guest domain,
-    printing an error.
-  - Delegates the core setup to __setup_irq().
-  - On first-time setup, disables the IRQ, routes it to Xen using
-    intc_route_irq_to_xen(), sets default CPU affinity (current CPU),
-    calls the handler’s startup routine, and finally enables the IRQ.
+Initialize a minimal amount of stuff to have UART and Xen console:
+ - Initialize uart by calling uart_init().
+ - Initialize Xen console by calling console_init_{pre,post}irq().
+ - Initialize timer and its internal lists which are used by
+   init_timer() which is called by ns16550_init_postirq(); otherwise
+   "Unhandled exception: Store/AMO Page Fault" occurs.
+ - Enable local interrupt to recieve an input from UART
 
-irq_set_affinity() invokes set_affinity() callback from the IRQ handler
-if present.
-
-Defined IRQ_NO_PRIORITY as default priority used when routing IRQs to Xen.
-
-[1] https://gitlab.com/xen-project/people/olkur/xen/-/commit/7390e2365828b83e27ead56b03114a56e3699dd5
-
-Co-developed-by: Romain Caritey <Romain.Caritey@microchip.com>
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Acked-by: Jan Beulich <jbeulich@suse.com>
 ---
-Changes in V6:
+Changes in V4-V6:
  - Nothing changed. Only rebase.
 ---
-Changes in V5:
+Changes in v3:
+ - Drop inclusion of <xen/percpu.h> as nothing in setup.c requires it.
  - Add Acked-by: Jan Beulich <jbeulich@suse.com>.
 ---
-Changes in V3-4:
- - Nothing changed. Only rebase.
+Changes in v2:
+ - Drop #include <xen/keyhandler.h> in setup.c, isn't needed anymore.
+ - Drop call of percpu_init_areas() as it was needed when I used polling
+   mode for UART,  for this case percpu is used to receive serial port info:
+     struct serial_port *port = this_cpu(poll_port);
+   So percpu isn't really needed at the current development state.
+ - Make HAS_NS16550 user selectable for everyone, except X86.
+ - Update the commit message.
 ---
-Changes in V2:
- - Added implenmtation of aplic_set_irq_type() as it is going to be used in
-   this commit. And also, update the implementation of it. Make default case
-   of switch to do panic().
- - Move all forward declaration up  in asm/irq.h.
- - s/__setup_irq/_setup_irq.
- - Code style fixes.
- - Update commit message.
- - use smp_wmb() instead of smp_mb() in _setup_irq().
- - Drop irq_set_affinity().
- - Use plain C operator instead if {clear,set}_bit() for desc->status as it
-   is always used under spinlock().
- - Drop set_bit(_IRQ_DISABLED, &desc->status) in setup_irq() as in the case
-   when IRQ is setuped for a first time, desc->status should be already set
-   to IRQ_DISABLED in init_one_irq_desc().
-----
- xen/arch/riscv/include/asm/irq.h |  2 +
- xen/arch/riscv/irq.c             | 84 ++++++++++++++++++++++++++++++++
- 2 files changed, 86 insertions(+)
+ xen/arch/riscv/Kconfig   |  1 +
+ xen/arch/riscv/setup.c   | 12 ++++++++++++
+ xen/drivers/char/Kconfig |  3 +--
+ 3 files changed, 14 insertions(+), 2 deletions(-)
 
-diff --git a/xen/arch/riscv/include/asm/irq.h b/xen/arch/riscv/include/asm/irq.h
-index 94151eb083..f633636dc3 100644
---- a/xen/arch/riscv/include/asm/irq.h
-+++ b/xen/arch/riscv/include/asm/irq.h
-@@ -17,6 +17,8 @@
-  */
- #define NR_IRQS 1024
- 
-+#define IRQ_NO_PRIORITY 0
-+
- /* TODO */
- #define nr_irqs 0U
- #define nr_static_irqs 0
-diff --git a/xen/arch/riscv/irq.c b/xen/arch/riscv/irq.c
-index 466f1b4ba9..25d3295002 100644
---- a/xen/arch/riscv/irq.c
-+++ b/xen/arch/riscv/irq.c
-@@ -7,6 +7,7 @@
-  */
- 
+diff --git a/xen/arch/riscv/Kconfig b/xen/arch/riscv/Kconfig
+index 62c5b7ba34..96bef90751 100644
+--- a/xen/arch/riscv/Kconfig
++++ b/xen/arch/riscv/Kconfig
+@@ -2,6 +2,7 @@ config RISCV
+ 	def_bool y
+ 	select FUNCTION_ALIGNMENT_16B
+ 	select GENERIC_BUG_FRAME
++	select GENERIC_UART_INIT
+ 	select HAS_DEVICE_TREE
+ 	select HAS_PMAP
+ 	select HAS_UBSAN
+diff --git a/xen/arch/riscv/setup.c b/xen/arch/riscv/setup.c
+index 0e7398159c..a17096bf02 100644
+--- a/xen/arch/riscv/setup.c
++++ b/xen/arch/riscv/setup.c
+@@ -4,12 +4,15 @@
  #include <xen/bug.h>
-+#include <xen/cpumask.h>
+ #include <xen/bootfdt.h>
+ #include <xen/compile.h>
++#include <xen/console.h>
  #include <xen/device_tree.h>
- #include <xen/errno.h>
  #include <xen/init.h>
-@@ -63,6 +64,89 @@ int platform_get_irq(const struct dt_device_node *device, int index)
-     return dt_irq.irq;
- }
+ #include <xen/irq.h>
+ #include <xen/mm.h>
++#include <xen/serial.h>
+ #include <xen/shutdown.h>
+ #include <xen/smp.h>
++#include <xen/timer.h>
+ #include <xen/vmap.h>
+ #include <xen/xvmalloc.h>
  
-+static int _setup_irq(struct irq_desc *desc, unsigned int irqflags,
-+                      struct irqaction *new)
-+{
-+    bool shared = irqflags & IRQF_SHARED;
+@@ -134,8 +137,17 @@ void __init noreturn start_xen(unsigned long bootcpu_id,
+ 
+     intc_preinit();
+ 
++    uart_init();
++    console_init_preirq();
 +
-+    ASSERT(new != NULL);
+     intc_init();
+ 
++    timer_init();
 +
-+    /*
-+     * Sanity checks:
-+     *  - if the IRQ is marked as shared
-+     *  - dev_id is not NULL when IRQF_SHARED is set
-+     */
-+    if ( desc->action != NULL && (!(desc->status & IRQF_SHARED) || !shared) )
-+        return -EINVAL;
-+    if ( shared && new->dev_id == NULL )
-+        return -EINVAL;
++    local_irq_enable();
 +
-+    if ( shared )
-+        desc->status |= IRQF_SHARED;
++    console_init_postirq();
 +
-+#ifdef CONFIG_IRQ_HAS_MULTIPLE_ACTION
-+    new->next = desc->action;
-+#endif
-+
-+    desc->action = new;
-+    smp_wmb();
-+
-+    return 0;
-+}
-+
-+int setup_irq(unsigned int irq, unsigned int irqflags, struct irqaction *new)
-+{
-+    int rc;
-+    unsigned long flags;
-+    struct irq_desc *desc = irq_to_desc(irq);
-+    bool disabled;
-+
-+    spin_lock_irqsave(&desc->lock, flags);
-+
-+    disabled = (desc->action == NULL);
-+
-+    if ( desc->status & IRQ_GUEST )
-+    {
-+        spin_unlock_irqrestore(&desc->lock, flags);
-+        /*
-+         * TODO: would be nice to have functionality to print which domain owns
-+         *       an IRQ.
-+         */
-+        printk(XENLOG_ERR "ERROR: IRQ %u is already in use by a domain\n", irq);
-+        return -EBUSY;
-+    }
-+
-+    rc = _setup_irq(desc, irqflags, new);
-+    if ( rc )
-+        goto err;
-+
-+    /* First time the IRQ is setup */
-+    if ( disabled )
-+    {
-+        /* Route interrupt to xen */
-+        intc_route_irq_to_xen(desc, IRQ_NO_PRIORITY);
-+
-+        /*
-+         * We don't care for now which CPU will receive the
-+         * interrupt.
-+         *
-+         * TODO: Handle case where IRQ is setup on different CPU than
-+         *       the targeted CPU and the priority.
-+         */
-+        desc->handler->set_affinity(desc, cpumask_of(smp_processor_id()));
-+
-+        desc->handler->startup(desc);
-+
-+        /* Enable irq */
-+        desc->status &= ~IRQ_DISABLED;
-+    }
-+
-+ err:
-+    spin_unlock_irqrestore(&desc->lock, flags);
-+
-+    return rc;
-+}
-+
- int arch_init_one_irq_desc(struct irq_desc *desc)
- {
-     desc->arch.type = IRQ_TYPE_INVALID;
+     printk("All set up\n");
+ 
+     machine_halt();
+diff --git a/xen/drivers/char/Kconfig b/xen/drivers/char/Kconfig
+index e6e12bb413..8e49a52c73 100644
+--- a/xen/drivers/char/Kconfig
++++ b/xen/drivers/char/Kconfig
+@@ -2,8 +2,7 @@ config GENERIC_UART_INIT
+ 	bool
+ 
+ config HAS_NS16550
+-	bool "NS16550 UART driver" if ARM
+-	default n if RISCV
++	bool "NS16550 UART driver" if !X86
+ 	default y
+ 	help
+ 	  This selects the 16550-series UART support. For most systems, say Y.
 -- 
 2.50.0
 
