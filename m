@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B7A48AFAC3F
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Jul 2025 08:56:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1035234.1407452 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE67EAFAC4A
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Jul 2025 08:58:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1035239.1407462 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uYfmH-0003E2-B9; Mon, 07 Jul 2025 06:56:37 +0000
+	id 1uYfnw-0003lY-MF; Mon, 07 Jul 2025 06:58:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1035234.1407452; Mon, 07 Jul 2025 06:56:37 +0000
+Received: by outflank-mailman (output) from mailman id 1035239.1407462; Mon, 07 Jul 2025 06:58:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uYfmH-0003CV-8O; Mon, 07 Jul 2025 06:56:37 +0000
-Received: by outflank-mailman (input) for mailman id 1035234;
- Mon, 07 Jul 2025 06:56:35 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uYfnw-0003jv-JO; Mon, 07 Jul 2025 06:58:20 +0000
+Received: by outflank-mailman (input) for mailman id 1035239;
+ Mon, 07 Jul 2025 06:58:19 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Hmpo=ZU=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uYfmF-0003CN-T8
- for xen-devel@lists.xenproject.org; Mon, 07 Jul 2025 06:56:35 +0000
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [2a00:1450:4864:20::435])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 84b627ee-5aff-11f0-b894-0df219b8e170;
- Mon, 07 Jul 2025 08:56:34 +0200 (CEST)
-Received: by mail-wr1-x435.google.com with SMTP id
- ffacd0b85a97d-3ab112dea41so1377127f8f.1
- for <xen-devel@lists.xenproject.org>; Sun, 06 Jul 2025 23:56:33 -0700 (PDT)
+ id 1uYfnv-0003jp-PK
+ for xen-devel@lists.xenproject.org; Mon, 07 Jul 2025 06:58:19 +0000
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [2a00:1450:4864:20::42e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c33b9a0c-5aff-11f0-a316-13f23c93f187;
+ Mon, 07 Jul 2025 08:58:18 +0200 (CEST)
+Received: by mail-wr1-x42e.google.com with SMTP id
+ ffacd0b85a97d-3a6d1369d4eso1481729f8f.2
+ for <xen-devel@lists.xenproject.org>; Sun, 06 Jul 2025 23:58:18 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-23c8455cc27sm78953525ad.122.2025.07.06.23.56.29
+ d2e1a72fcca58-74ce43d246csm7801480b3a.167.2025.07.06.23.58.11
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 06 Jul 2025 23:56:32 -0700 (PDT)
+ Sun, 06 Jul 2025 23:58:17 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,63 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 84b627ee-5aff-11f0-b894-0df219b8e170
+X-Inumbo-ID: c33b9a0c-5aff-11f0-a316-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1751871393; x=1752476193; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1751871498; x=1752476298; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=LqZl58JHqVJFSG73G7xIjFOyk0DI68UDFXOKsJ4+Opw=;
-        b=MsfkEGrQSjtm3769NuAs6w/f39zFfVpeAOwLSdAhYdILpQZSI99Pv9N25nAkJEGKJk
-         0tyj9i9woeZF3mfSqGgwdPzdVZqMY0AvjvZevZcqa+7pcXpalmt7jLjbnNweMMsBYzlB
-         FqBYJtB3yUVMYCfaiwraHldXsUjVpXoOLSpr2KjgOrPk3UIuuWWtfycnTru6yHognudo
-         FHg2duXcF/AvxsLoJZT2EeJtWZdmK440LR7CQL9xOpPzR3LIWg2zw795AZGGvwTBfv2E
-         5QyepAe5dX4kNpo5otC2t5PwbNyrvbBIlnySj2+ci2L4OLdGpLRSp4t664sO6XUiPUQo
-         YoLQ==
+        bh=yKH/zyTkqYmZlAzEi+7wsVsu7tzDCdCsBRr+kqkItho=;
+        b=P9ZMFsoLs9UDYlR5S+HoyQ+/gNtD17taTlDlNpyiEC/iYJwEfVdGQha9AnH1x4qNIj
+         CxhJBTIV8yLxxmZCB5Na8V3AckpcpJY/caEdkAwt9QT8jZxamHrM09ugzPLpNaMaqpFS
+         BNDISIL7l5bT6HuuRPWxyDklL5qdhg+OnUahkuLaYNIlWWYZBV3xPKx0MHcw1juksTLw
+         kwzBMDVN98Z0bSmSMGjiWkxSRoaukOCvnaok1lIn5CT1ECayoFcLb2qgxmSOR5RG6g60
+         VmBDkFinP+dHUVGp4plcWThACAIi7aFtlhVdOFcF4y+YCD8FsV9VvfruLbIlZpConSiT
+         RY8w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1751871393; x=1752476193;
+        d=1e100.net; s=20230601; t=1751871498; x=1752476298;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=LqZl58JHqVJFSG73G7xIjFOyk0DI68UDFXOKsJ4+Opw=;
-        b=F8OxKxcoD1GQqNvG79UHMK1+JqOOM9D7rARdNh2kAMBzmuHZQKamNF6z3zgpgOvptY
-         xYsWifXaQ/q+chkH+plaazK390SanySTCdpdhDsKNqluiGNldrjcoLgh/+7Kam1InNkx
-         Nhj/RpBet9vHMxJQBJvAVpceBCG7zqEKrY0eNoV5dAd6Zn3v2eP490e8FQR2Eij7ZBAj
-         GqL/BYRhPUCZZt1OTas8LVeIH7MvPlUYX+wpqPf/ocsnuai5xKTDCGna4SKBGV7D8gxv
-         MZv8UaAFbIw8AYaLSjKf2DuZM0wYsAkUCpOnkUGhOT35eVwsiAsgQ6DVDpw0StO4zCqz
-         EMvA==
-X-Forwarded-Encrypted: i=1; AJvYcCXVzwPeXn6huvJhY765FgY3ufpSpCyL6f/pEXyQJEPAJDQTi0JbhVRJnPLNBg1+T0RMWpz2NHfrn8s=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxBZoUR1z8nKboYL2AsjYPqbjSUWViytOyUEwCbCv9GQmnTQAf+
-	tYjfq+bZg9qbNy2TKV1lQh5yzNc81C3mKOoqEIC4Xbwc3cPMjppV8c1nENiaWcqAG/uiDl+vlKE
-	0xKc=
-X-Gm-Gg: ASbGnct+lpJH5LZcmSGfNJXKPiwYxMJDvq7UDHB2//jNQB9tF6FD3JUSkQMEbaBecwz
-	jp10CwGiImSl7EH6K9oxCk/LDUMa8h0vB8eatAcUjoWMtHOFX0b0VPRpfYpake7wg9ZOsXPe51S
-	o/4RU5OrQswmOyhfwcxWiR62NBcHi7HM0asPjFVcmqjVTaFK6Ad5yRB71xEZsIKBHxmLBDdKPnb
-	zpfUHLmrMDgaLK541oWnpGt6lewZmBlH9uo1FHeQek1A1pX+2UKdjIgoRpBadEBoyhVsycHmfqd
-	RtR8cZGWfPHwTvFMppNgywdvNh4R1gEwosULc7ZJJ8KXki6gp0HF2/YTrUItKQF2zEVd+d2is2j
-	YHJ7Ui//NwDDRIipmGBb+mSLMm5JkGu1cJ8ZhXZ1sRXNirfU=
-X-Google-Smtp-Source: AGHT+IGe1s9oPFJMebMPq+KhS5R6/+Aw7r5wr65sIafmqwZb+OFNorV9/1AiJPLdDlTVLhPf0zJi0g==
-X-Received: by 2002:a5d:64ce:0:b0:3b3:9c75:bb0e with SMTP id ffacd0b85a97d-3b49aa08fa0mr5346772f8f.11.1751871393372;
-        Sun, 06 Jul 2025 23:56:33 -0700 (PDT)
-Message-ID: <9299a995-21ad-4b9c-8c82-8662f70b447f@suse.com>
-Date: Mon, 7 Jul 2025 08:56:28 +0200
+        bh=yKH/zyTkqYmZlAzEi+7wsVsu7tzDCdCsBRr+kqkItho=;
+        b=rlatvUoSJSX2YRuSUAG+lrKMj+WfdxLdajNkpsLIJmFgS0jQ7kwopQsicEGiMeCZ29
+         NO7AlEA1DiVzBd2vN1JSAQZHN/uSbpaGnX/wKDJ03qTLKC50Gi9mYpSe/xo13Wml8C3i
+         Q7n2GVBTTuhdQsZ2ChlC6tak/+fKXbPALAsLJ3dcz2s/RXtY3zxFb4OE8bCt4ynA8o+V
+         XskWCT1/kPRzTMZ4cZsHRJc3+JE06Qj0hiBC0184kxmbgf43zNgSWg/X9BA+IYO7ULUX
+         6nZ/yjbsYClQ+PM0jxzi256z8IbjvjX5CU0Rslk+RezsYSWCyHNm12/zrrCsMWPu5sM8
+         dL4Q==
+X-Forwarded-Encrypted: i=1; AJvYcCXuG/UBlUztjo1bvoqrYI+6m4DlPqeHwoUT7ga0Hbrhd/JR1hnR/72HYEEDWB9+8h47QNeCc3qbAi4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyZPqj86rPJINfT/K+Xx1I+YEi6KiyqBtZb8S+fejAa61iqyggX
+	leLfR5/loOD/2xRpwKqgzEDDHzTDbSz46AMdr3VKs+cGFtKuBFmyAf/za6I0lgkXFn/CgECLSwD
+	WqTk=
+X-Gm-Gg: ASbGncsmMTjW3KdTjAYUY8JbOt7kJrG0+nZpQg7lZzjrqbA18bD5Mq9BrveYDHwRjLh
+	ma2I+3RBh2p+j/6ipdcM0r8MKe/3+Oh8VX7tBASpyJ18Gz+T+9S3F2BFMXlUQAr4gaRkxipD6YE
+	JW28oTHVDkmd+Hghu1wZlTj8DoY84RXIJZ72bqzpG5q0rPoaSPnSsg8tsBp5I2b+pb5HwSyn+zQ
+	VLI8QVHWCeKBr67NcFgx31lUaPXeMGxvz6naQNe/2LSOXLnzZ5mgsHHQaTlZ0MSdVbIxTfdDjJC
+	EncwIgphsINJdqbuFvdbQloePXa3wkrDRpfh22dzJm8RG8URevFyfc6/3VzlpfZBS6pcF0rX+q6
+	f4RC3erd+RJXOLTOGc62UqZtc8bk/w/c16/YQvxSb4tBg8yw=
+X-Google-Smtp-Source: AGHT+IEBj0yCnpcdTvFxmGOZhDjdrYYj7UBFwdW6YK+LW6ULik40oLmflNsco717oXL3ynL71ev/uQ==
+X-Received: by 2002:a05:6000:24c8:b0:3a3:7bad:29cb with SMTP id ffacd0b85a97d-3b49aa88badmr4963957f8f.52.1751871498184;
+        Sun, 06 Jul 2025 23:58:18 -0700 (PDT)
+Message-ID: <ca0c364a-df7e-45ec-936f-875a07757ffa@suse.com>
+Date: Mon, 7 Jul 2025 08:58:10 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] hvmloader: add new SMBIOS tables (7,8,9,26,27,28)
-To: =?UTF-8?Q?Petr_Bene=C5=A1?= <w1benny@gmail.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+Subject: Re: [PATCH v5 3/9] xen/riscv: imsic_init() implementation
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
- Anton Belousov <blsvntn@outlook.com>, xen-devel@lists.xenproject.org
-References: <cover.1751412735.git.w1benny@gmail.com>
- <99e281ad05537d2384eaffe95155a03382493c96.1751412735.git.w1benny@gmail.com>
- <8143b492-6e3a-48bb-b564-52b2623a78f7@suse.com>
- <CAKBKdXhOdMqPFO5GZpm5p=6PQf8G3Ho0+UG5rZjku6QESCeJtA@mail.gmail.com>
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Romain Caritey <Romain.Caritey@microchip.com>, xen-devel@lists.xenproject.org
+References: <cover.1749825782.git.oleksii.kurochko@gmail.com>
+ <0b366c5b7c8d34a98c8ec4bedf1f00b070a6fae1.1749825782.git.oleksii.kurochko@gmail.com>
+ <2d06fcf9-0aa8-48d7-84bd-4dd700a22da8@suse.com>
+ <0064472c-39c0-4ce4-9a5e-725d8658d63e@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -123,24 +127,37 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <CAKBKdXhOdMqPFO5GZpm5p=6PQf8G3Ho0+UG5rZjku6QESCeJtA@mail.gmail.com>
+In-Reply-To: <0064472c-39c0-4ce4-9a5e-725d8658d63e@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 05.07.2025 01:48, Petr Beneš wrote:
-> On Wed, Jul 2, 2025 at 9:15 AM Jan Beulich <jbeulich@suse.com> wrote:
->>
->> On 02.07.2025 01:45, Petr Beneš wrote:
->>> From: Petr Beneš <w1benny@gmail.com>
->>
->> This isn't in line with the first S-o-b, nor with the fact that in the cover
->> letter you say this was previously submitted (and hence authored?) by Anton.
+On 04.07.2025 17:29, Oleksii Kurochko wrote:
 > 
-> Can you please point me to the right direction? I have no idea what
-> tags should I specify here.
+> On 6/30/25 4:27 PM, Jan Beulich wrote:
+>>> --- a/xen/arch/riscv/include/asm/smp.h
+>>> +++ b/xen/arch/riscv/include/asm/smp.h
+>>> @@ -3,6 +3,7 @@
+>>>   #define ASM__RISCV__SMP_H
+>>>   
+>>>   #include <xen/cpumask.h>
+>>> +#include <xen/macros.h>
+>>>   #include <xen/percpu.h>
+>>>   
+>>>   #include <asm/current.h>
+>>> @@ -18,6 +19,18 @@ static inline unsigned long cpuid_to_hartid(unsigned long cpuid)
+>>>       return pcpu_info[cpuid].hart_id;
+>>>   }
+>>>   
+>>> +static inline unsigned int hartid_to_cpuid(unsigned long hartid)
+>>> +{
+>>> +    for ( unsigned int cpuid = 0; cpuid < ARRAY_SIZE(pcpu_info); cpuid++ )
+>> We had been there before, I think: Why "cpuid", not "cpu" (as we have it about
+>> everywhere else)?
+> 
+> To be in sync with other already merged functions, f.e. set_cpuid_to_hartid(cpuid, hartid).
 
-Well, in the common case the original author would never change, and it would
-be their S-o-b that remains first forever. Anything else would need explaining.
+To be honest, I'd much rather see such uses of "cpuid" (as a variable or
+parameter name; it's less of a concern in function names) be changed.
 
 Jan
 
