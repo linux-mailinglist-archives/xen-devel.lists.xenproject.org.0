@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8EF81AFBD7B
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Jul 2025 23:28:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1035800.1408172 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 96420AFBD81
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Jul 2025 23:30:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1035808.1408182 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uYtNn-0006MS-Ml; Mon, 07 Jul 2025 21:28:15 +0000
+	id 1uYtPM-0006z2-3I; Mon, 07 Jul 2025 21:29:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1035800.1408172; Mon, 07 Jul 2025 21:28:15 +0000
+Received: by outflank-mailman (output) from mailman id 1035808.1408182; Mon, 07 Jul 2025 21:29:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uYtNn-0006Kx-JD; Mon, 07 Jul 2025 21:28:15 +0000
-Received: by outflank-mailman (input) for mailman id 1035800;
- Mon, 07 Jul 2025 21:28:14 +0000
+	id 1uYtPL-0006wU-W3; Mon, 07 Jul 2025 21:29:51 +0000
+Received: by outflank-mailman (input) for mailman id 1035808;
+ Mon, 07 Jul 2025 21:29:50 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=S3ai=ZU=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1uYtNm-0006Kr-3X
- for xen-devel@lists.xenproject.org; Mon, 07 Jul 2025 21:28:14 +0000
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ id 1uYtPK-0006wH-Gd
+ for xen-devel@lists.xenproject.org; Mon, 07 Jul 2025 21:29:50 +0000
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 48f10fef-5b79-11f0-a316-13f23c93f187;
- Mon, 07 Jul 2025 23:28:12 +0200 (CEST)
+ id 824d9b20-5b79-11f0-a316-13f23c93f187;
+ Mon, 07 Jul 2025 23:29:49 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 8455C6111F;
- Mon,  7 Jul 2025 21:28:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29572C4CEE3;
- Mon,  7 Jul 2025 21:28:10 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 213E645AC8;
+ Mon,  7 Jul 2025 21:29:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3BB2C4CEE3;
+ Mon,  7 Jul 2025 21:29:46 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,32 +41,34 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 48f10fef-5b79-11f0-a316-13f23c93f187
+X-Inumbo-ID: 824d9b20-5b79-11f0-a316-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1751923691;
-	bh=KVYVfG8CX5aaKf1FEwilmWs3x76nOofkDcjyJGFabNc=;
+	s=k20201202; t=1751923788;
+	bh=dzgIRPjO+exLMe2ZmwbjoVCsAz1a6INzoK/0Jdow/F0=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=t62Il/IbzlIVeHFnM3jTcsgYalGwtmRyl5rVd4lnj0KRnSS0TdJ27Anzpa0fa6UHY
-	 DbmusToXEGH8X+z5Wydazp1ocAh8pqC6lnUJ55RVOc/Q1MRQCn74n94bbFQQJXeCyg
-	 TYKa7UQpvTxQk5AsqUuN+aZyjeURoeb5Z7yxR/U0mqQMIQfBo5AWk6Sz+OtpwcK/Rk
-	 jFWUBvIqmTmKLcLaacuy+FBsk/rsbpw2HslbL3h2zhMJRtl0jMCixfn7r6zdvFWFYn
-	 VcbeQcHGVopUcDiaSYGeqGnyEArfd/ka00MWyWzBVdh2k2g/OjTcck66ZYr1uZS2ZL
-	 6XhWe3CJtvp/Q==
-Date: Mon, 7 Jul 2025 14:28:08 -0700 (PDT)
+	b=Z74MCsNBcWamA3g2q7U3wkV6QYg30aW4M1QIePUcaHotu9YNCJT+mwqV3b3frmk8K
+	 JvnruXdgx9ESPLINKkEnfzW2U4QfZq9xo/+9yuqVb/XTVyVvBaS+K4CoCDLDWc5Gc4
+	 a3cYCH7mPPH/Gth2kb9E1nEpC9PE3likvwBj69v0x0RVb1LdnJsHn+JArAQ1fDP2ep
+	 mfmyCg3rCvJrW0iacgDLLtaRkA+JwIeSSUa6GNqhovviglp9MTrZFwDfE4op3UsTJl
+	 HrlQs53Dq+rwIn++Vl5bopPTc1IgYbBwOi9rHsdQpHutO10+l4zFKSa07/mRptQz2e
+	 AakW0uInt1JGw==
+Date: Mon, 7 Jul 2025 14:29:45 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
 cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Michal Orzel <michal.orzel@amd.com>, 
     Andrew Cooper <andrew.cooper3@citrix.com>, 
     Anthony PERARD <anthony.perard@vates.tech>, 
-    Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, 
-    Julien Grall <julien@xen.org>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [XEN PATCH 1/5] gnttab: address violation of MISRA C Rule 5.5
-In-Reply-To: <12b31e64625806bcd82d3d820f39c44e71479e1d.1751659393.git.dmytro_prokopchuk1@epam.com>
-Message-ID: <alpine.DEB.2.22.394.2507071426050.605088@ubuntu-linux-20-04-desktop>
-References: <cover.1751659393.git.dmytro_prokopchuk1@epam.com> <12b31e64625806bcd82d3d820f39c44e71479e1d.1751659393.git.dmytro_prokopchuk1@epam.com>
+    Jan Beulich <jbeulich@suse.com>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: Re: [XEN PATCH 4/5] device-tree: address violation of MISRA C Rule
+ 5.5
+In-Reply-To: <3dc32625a870200e4bae20959a10be6a786a9763.1751659393.git.dmytro_prokopchuk1@epam.com>
+Message-ID: <alpine.DEB.2.22.394.2507071429220.605088@ubuntu-linux-20-04-desktop>
+References: <cover.1751659393.git.dmytro_prokopchuk1@epam.com> <3dc32625a870200e4bae20959a10be6a786a9763.1751659393.git.dmytro_prokopchuk1@epam.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
@@ -76,97 +78,86 @@ On Fri, 4 Jul 2025, Dmytro Prokopchuk1 wrote:
 > "Identifiers shall be distinct from macro names".
 > 
 > Reports for service MC3A2.R5.5:
-> xen/common/grant_table.c: non-compliant macro 'update_gnttab_par'
-> xen/common/grant_table.c: non-compliant macro 'parse_gnttab_limit'
+> xen/include/xen/fdt-domain-build.h: non-compliant parameter 'copy_to_guest'
+> xen/include/xen/guest_access.h: non-compliant macro 'copy_to_guest'
 > 
-> The macros above are intended to discard function arguments (unused1, unused2)
-> when compiling with different configurations of CONFIG_HYPFS.
-> This can lead to confusion and unexpected behavior
-> because the macro name and the function name are identical.
-> Split the code and create two distinct function signatures.
-> This ensures that the code behaves predictably and remains compliant.
+> Rename 'copy_to_guest' function parameter to 'cb' for compliance.
+> No functional changes.
 > 
 > Signed-off-by: Dmytro Prokopchuk <dmytro_prokopchuk1@epam.com>
 
-
-I realize you tried to address Jan's comment about the global deviation.
-In my opinion patch #2 and #3 are still OK, but I think this patch makes
-things more confusing and error prone.
-
-Can we find a way to deviate update_gnttab_par and parse_gnttab_limit
-either with a SAF in-code comment (docs/misra/safe.json) or with a new
-regex deviation (docs/misra/deviations.rst,
-automation/eclair_analysis/ECLAIR/deviations.ecl)?
+Nice!
 
 
 > ---
->  xen/common/grant_table.c | 22 +++++++++++++---------
->  1 file changed, 13 insertions(+), 9 deletions(-)
+>  xen/common/device-tree/domain-build.c | 9 ++++-----
+>  xen/include/xen/fdt-domain-build.h    | 4 ++--
+>  2 files changed, 6 insertions(+), 7 deletions(-)
 > 
-> diff --git a/xen/common/grant_table.c b/xen/common/grant_table.c
-> index cf131c43a1..f3282a1d7b 100644
-> --- a/xen/common/grant_table.c
-> +++ b/xen/common/grant_table.c
-> @@ -126,18 +126,12 @@ static void __init cf_check max_maptrack_frames_init(struct param_hypfs *par)
->      update_gnttab_par(opt_max_maptrack_frames, par,
->                        opt_max_maptrack_frames_val);
+> diff --git a/xen/common/device-tree/domain-build.c b/xen/common/device-tree/domain-build.c
+> index cd01a8b4bc..2b009547d0 100644
+> --- a/xen/common/device-tree/domain-build.c
+> +++ b/xen/common/device-tree/domain-build.c
+> @@ -331,7 +331,7 @@ void __init allocate_memory(struct domain *d, struct kernel_info *kinfo)
 >  }
-> -#else
-> -#define update_gnttab_par(v, unused1, unused2)     update_gnttab_par(v)
-> -#define parse_gnttab_limit(a, v, unused1, unused2) parse_gnttab_limit(a, v)
-> -
-> -static void update_gnttab_par(unsigned int val, struct param_hypfs *par,
-> -                              char *parval)
-> -{
-> -}
-> -#endif
 >  
->  static int parse_gnttab_limit(const char *arg, unsigned int *valp,
->                                struct param_hypfs *par, char *parval)
-> +#else
-> +static int parse_gnttab_limit(const char *arg, unsigned int *valp)
-> +#endif
+>  void __init dtb_load(struct kernel_info *kinfo,
+> -                     copy_to_guest_phys_cb copy_to_guest)
+> +                     copy_to_guest_phys_cb cb)
 >  {
->      const char *e;
->      unsigned long val;
-> @@ -150,7 +144,9 @@ static int parse_gnttab_limit(const char *arg, unsigned int *valp,
->          return -ERANGE;
+>      unsigned long left;
 >  
->      *valp = val;
-> +#ifdef CONFIG_HYPFS
->      update_gnttab_par(val, par, parval);
-> +#endif
+> @@ -339,7 +339,7 @@ void __init dtb_load(struct kernel_info *kinfo,
+>             kinfo->d, kinfo->dtb_paddr,
+>             kinfo->dtb_paddr + fdt_totalsize(kinfo->fdt));
 >  
->      return 0;
+> -    left = copy_to_guest(kinfo->d, kinfo->dtb_paddr,
+> +    left = cb(kinfo->d, kinfo->dtb_paddr,
+>                           kinfo->fdt,
+>                           fdt_totalsize(kinfo->fdt));
+
+NIT: code style, alignment
+
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+
+
+>  
+> @@ -350,7 +350,7 @@ void __init dtb_load(struct kernel_info *kinfo,
 >  }
-> @@ -161,9 +157,13 @@ custom_runtime_param("gnttab_max_frames", parse_gnttab_max_frames,
 >  
->  static int cf_check parse_gnttab_max_frames(const char *arg)
+>  void __init initrd_load(struct kernel_info *kinfo,
+> -                        copy_to_guest_phys_cb copy_to_guest)
+> +                        copy_to_guest_phys_cb cb)
 >  {
-> +#ifdef CONFIG_HYPFS
->      return parse_gnttab_limit(arg, &opt_max_grant_frames,
->                                param_2_parfs(parse_gnttab_max_frames),
->                                opt_max_grant_frames_val);
-> +#else
-> +    return parse_gnttab_limit(arg, &opt_max_grant_frames);
-> +#endif
->  }
+>      const struct boot_module *mod = kinfo->initrd;
+>      paddr_t load_addr = kinfo->initrd_paddr;
+> @@ -393,8 +393,7 @@ void __init initrd_load(struct kernel_info *kinfo,
+>      if ( !initrd )
+>          panic("Unable to map the %pd initrd\n", kinfo->d);
 >  
->  static int cf_check parse_gnttab_max_maptrack_frames(const char *arg);
-> @@ -173,9 +173,13 @@ custom_runtime_param("gnttab_max_maptrack_frames",
+> -    res = copy_to_guest(kinfo->d, load_addr,
+> -                        initrd, len);
+> +    res = cb(kinfo->d, load_addr, initrd, len);
+>      if ( res != 0 )
+>          panic("Unable to copy the initrd in the %pd memory\n", kinfo->d);
 >  
->  static int cf_check parse_gnttab_max_maptrack_frames(const char *arg)
->  {
-> +#ifdef CONFIG_HYPFS
->      return parse_gnttab_limit(arg, &opt_max_maptrack_frames,
->                                param_2_parfs(parse_gnttab_max_maptrack_frames),
->                                opt_max_maptrack_frames_val);
-> +#else
-> +    return parse_gnttab_limit(arg, &opt_max_maptrack_frames);
-> +#endif
->  }
+> diff --git a/xen/include/xen/fdt-domain-build.h b/xen/include/xen/fdt-domain-build.h
+> index 45981dbec0..3a20623cf5 100644
+> --- a/xen/include/xen/fdt-domain-build.h
+> +++ b/xen/include/xen/fdt-domain-build.h
+> @@ -50,10 +50,10 @@ typedef unsigned long (*copy_to_guest_phys_cb)(struct domain *d,
+>                                                 unsigned int len);
 >  
->  #ifndef GNTTAB_MAX_VERSION
+>  void initrd_load(struct kernel_info *kinfo,
+> -                 copy_to_guest_phys_cb copy_to_guest);
+> +                 copy_to_guest_phys_cb cb);
+>  
+>  void dtb_load(struct kernel_info *kinfo,
+> -              copy_to_guest_phys_cb copy_to_guest);
+> +              copy_to_guest_phys_cb cb);
+>  
+>  int find_unallocated_memory(const struct kernel_info *kinfo,
+>                              const struct membanks *mem_banks[],
 > -- 
 > 2.43.0
 > 
