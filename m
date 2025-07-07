@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 98ADEAFAE58
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Jul 2025 10:15:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1035303.1407532 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B5AE9AFAE8E
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Jul 2025 10:25:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1035308.1407542 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uYh0j-0001qX-OV; Mon, 07 Jul 2025 08:15:37 +0000
+	id 1uYh9a-0003jF-IQ; Mon, 07 Jul 2025 08:24:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1035303.1407532; Mon, 07 Jul 2025 08:15:37 +0000
+Received: by outflank-mailman (output) from mailman id 1035308.1407542; Mon, 07 Jul 2025 08:24:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uYh0j-0001oX-LJ; Mon, 07 Jul 2025 08:15:37 +0000
-Received: by outflank-mailman (input) for mailman id 1035303;
- Mon, 07 Jul 2025 08:15:36 +0000
+	id 1uYh9a-0003gU-F1; Mon, 07 Jul 2025 08:24:46 +0000
+Received: by outflank-mailman (input) for mailman id 1035308;
+ Mon, 07 Jul 2025 08:24:46 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Hmpo=ZU=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uYh0i-0001oR-7r
- for xen-devel@lists.xenproject.org; Mon, 07 Jul 2025 08:15:36 +0000
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
- [2a00:1450:4864:20::429])
+ id 1uYh9Z-0003gO-VG
+ for xen-devel@lists.xenproject.org; Mon, 07 Jul 2025 08:24:45 +0000
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [2a00:1450:4864:20::335])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8eb3c7d4-5b0a-11f0-a316-13f23c93f187;
- Mon, 07 Jul 2025 10:15:35 +0200 (CEST)
-Received: by mail-wr1-x429.google.com with SMTP id
- ffacd0b85a97d-3a6cd1a6fecso2745642f8f.3
- for <xen-devel@lists.xenproject.org>; Mon, 07 Jul 2025 01:15:35 -0700 (PDT)
+ id d6485a17-5b0b-11f0-a316-13f23c93f187;
+ Mon, 07 Jul 2025 10:24:44 +0200 (CEST)
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-453749aef9eso8697225e9.3
+ for <xen-devel@lists.xenproject.org>; Mon, 07 Jul 2025 01:24:44 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-23c845b741asm85340205ad.233.2025.07.07.01.15.29
+ 98e67ed59e1d1-31a9cc4e102sm11993492a91.3.2025.07.07.01.24.38
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 07 Jul 2025 01:15:34 -0700 (PDT)
+ Mon, 07 Jul 2025 01:24:43 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8eb3c7d4-5b0a-11f0-a316-13f23c93f187
+X-Inumbo-ID: d6485a17-5b0b-11f0-a316-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1751876134; x=1752480934; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1751876684; x=1752481484; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=3EJKBd84JF2a8xo3/hd4yBFkjq0l+uJxW3L1Ns812Zc=;
-        b=TgqT+tdF9dMscpKqv9smvNAM0QrJzqr2lDQe7D7rIdzzPdG147vcpQEooKQCqtq6rJ
-         WOSQVpmQNRB/OOi+5RQSTw26a93Oy3HLweI0HyaIjjldYDPcXIIUuOHK+FWg+MFEXe5B
-         CfQRt/P7YBNG31ot0Vjuk+VKsgS4CJmicBv3ylD81aCdM+jNcjmNpxW+53khXBpbWFMe
-         pKyNWBNVxdg03k0AwaHovdYNGVG7I65h3QBGE5RB7hOucXohHS3yXgp/1qeI5A1R0xDn
-         s/7GLXRhoft10xxDF3p86vXzGpZs/7V9aq7OrQM19+8wldTUSLKtbFEKT0/et9m2gTGD
-         OeYQ==
+        bh=6feaULcezJTJFyxnT5hCpX0VyZDX0E14j5tqvGp6sRg=;
+        b=f73bfo1+erbiHExPQQCazf5PnQXFj+nDLXrqdeMxzQ8eG8kgyKBhEYWY777PHEVhhM
+         8cUDx95Nu6qVVaw15NG0Q0iFkop98d5yTThWzsSjxcKztldvcemhpr8lhxJ6oXCe/vWn
+         IrS/ScQBR1Ud2xvIVfXdCG0fCTQZmMWCnlwhmX+TS/6bwRhSjgXn20UDJ0Qw3krx02Mx
+         QhHY3tdB/JOkp07/I9gh/uqmgMOjDlWXiEOZzd2XJS3vX3cKk0cbzjhjxYbVRenOIKhh
+         AFqEUyCqPqSafD7+4V3anyLAod40hstayhqOgOnf52BoiFERwqxWfJmmOGc7k0cMDsSA
+         qSLQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1751876134; x=1752480934;
+        d=1e100.net; s=20230601; t=1751876684; x=1752481484;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=3EJKBd84JF2a8xo3/hd4yBFkjq0l+uJxW3L1Ns812Zc=;
-        b=tWch/XZaguuK25ehr2qLVTzSZQNm/pCJd2H+y5StTFOD/9Nb9dZMgYJj0OA2z8Os6g
-         f62HcU1+WykLGY9OEqdd8URYHWfrYutXIa3y6kpAARUDz/hYnO+MaYrC/gJlOSCzzovU
-         oYICyI3WZnvNwSOBAG706/yuAh43mcJOh8xvLXaACLhAPWiOfM8l5xKGQ8L+qElvySE7
-         7RmcTL+56NeMcsvYgnnr6SNnBi4zVOOlltMtw592JYLkKa6p5bXeW8o/yR9DynQquxq4
-         Y6uuDeqKOHzMshhDmDDI/Cwigq32pV6FvRj9mp98clpF6A3yfCKJ4MSII76zQrUxbf+i
-         R80w==
-X-Forwarded-Encrypted: i=1; AJvYcCVEQRE9LcsxP762Pw2pfoFWSLvC17lKjzhUPi+cVKDnQbyw3YKIQUMjCNtp29IXqHinWsieOTByy7Q=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyJ5ii1IT0M7F0K1Mwl6YsjyFS/q13dXt5V3FQNLeaEq42Z7nzq
-	S9qdXup5/XkQDXQnOs8UKWv+zmINfprEJiGXApGmTT6buXX2+aliBlywNYpNoFGx9FO3yf4kBad
-	VkTM=
-X-Gm-Gg: ASbGncsNsJi/uc/OppKz8aB7CfqdK0dlfhTQ+C323xAv14Ct05K9d1NjBfP8Hmae3Q/
-	N3lFLfwjf9fTAsgc788KEBGf/JADbls1pfxbGjmKwd+bSYSzGMkRvLpNQ7c41zhEFwxcgkzfTY2
-	VaQUYdl0743pVNJMJ6bG5UobdmKAcP9yZqFwtSYGH/imKpTbtYyU/EWO4eyGfg/JOKW3x7UMbGe
-	iS8Y8cwyqgdvDq8YvzMUmbmu+HOxBoXFlG882pB6VLuaN+H7rW59klYKvObSpy3e57MqkmaMHzz
-	v71bCkGRXJRcaMVZcc1hQg9zXiXsOIIvpuB6c7uXZ4es0aSL4ntiuPLUYYZjNa5XRpHwS4Ykotw
-	M222LiVnkIMV+qmnFIue/EWYdmM4722GbdrBGbzHESN3u3i0=
-X-Google-Smtp-Source: AGHT+IFOrCmvMD4rBOrN2te0aosNxc9T51pOOMtZuF/yZBXCgdhLq9Qe/p5lFMWan7agRs6i2ukTUQ==
-X-Received: by 2002:a5d:64c9:0:b0:3b1:9259:3ead with SMTP id ffacd0b85a97d-3b49aa73e31mr5037410f8f.28.1751876134556;
-        Mon, 07 Jul 2025 01:15:34 -0700 (PDT)
-Message-ID: <70628c7f-5d9b-43d2-8fc6-da79a62d2fc2@suse.com>
-Date: Mon, 7 Jul 2025 10:15:28 +0200
+        bh=6feaULcezJTJFyxnT5hCpX0VyZDX0E14j5tqvGp6sRg=;
+        b=oxkiDJlbhbMTrL8gdgV+bYA7U0q279TdfMb6vULL5TJwc3YtjLxrM6hHRrNqMASm1b
+         OujfpmAVN5qaHUHcnKxTSOnafwx4mVqQqUdszk69h0RZs1uu8oHHtzwMV991wAURRfOH
+         kXpfGGy+ObaH/YCq4t3VDe+93yRtRnJCbgw7vjGZ0ZR3XwNy10Y6Wj9ac92te4EsspKI
+         pYrtjl6f4Q/0Avw9jrmRRws2pPGo76K0ufgrnQqUbq/kTjyVDGW8jipqDRM66T/zdSDI
+         1zV2XVWSDHNjpr2XU4lNXdBEKDIFSsHVUDVblyicrUSlkgnh7wAwFS49iRI6eY3Fic9l
+         YaNA==
+X-Forwarded-Encrypted: i=1; AJvYcCUesJ6J26wsht2LD0yLU665OR+89rsirFdR/LUq5zNTcNKEMogj+qojUJ6T+DUfiR5GkZTYN5Qs3k0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwQ675bl4PQ5RBUsM8aIRMv5MpVWrqSUkI9WPvVUnO3Y88/ua85
+	O1swmystFOKUnbLig1kVtndZkWKzMjDXJDckhbE/Gppuelerg1sCrc74Fhdqilhe0A==
+X-Gm-Gg: ASbGncuHVVOaiVIx56ESu6awPI5mvB5/o7YW9Cw+hYUwk41JRXb5B3y4WZ30TwwFwin
+	XCTqrM8iiOcQ4H/7a0CPUMEEk4kfOUAgWk82eFDgFl6VrTJUHjQj8O679FykyUfUcb9tRkM0kYa
+	ML+abeZyMhTcGS3VroGzucqWP7aNXivSFLyAjWhPEtGGmeMYTtv5tcspTEMDyhrmqS/tAcAyMQj
+	HZWlzqG6sv/2V9wGAXsIRc1IF+1efNb4qW9EHeU6I65ExiSrQnHmtadcHX40aonBftE0g1JNWkq
+	LEhMfP86QrdAECqkCLL4Q/qEFtmpHg3ulWOAMoH3JcDKpv7af86tBU0r1zfybpLLKpWBUW78YjZ
+	y3MFEl6rE6sPyxtdUrTO9C7tQKnRQIWPICDVdnrKhwYWHaPdZmTSxCV8X0w==
+X-Google-Smtp-Source: AGHT+IGa7CjrARa9Ak4jPtpY98egKvZsC8MBh3g4e8xvePrPKPIi09Tj8b9Lm3bR6dyhhSyEmr8NNg==
+X-Received: by 2002:a5d:5850:0:b0:3a5:7904:b959 with SMTP id ffacd0b85a97d-3b49aa87545mr5264664f8f.58.1751876684064;
+        Mon, 07 Jul 2025 01:24:44 -0700 (PDT)
+Message-ID: <70869cab-ecd1-4756-a874-91fbc9b7ec35@suse.com>
+Date: Mon, 7 Jul 2025 10:24:37 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH 3/5] x86/irq: address violation of MISRA C Rule 5.5
-To: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [PATCH v3 01/22] x86/include/asm/intel-txt.h: constants and
+ accessors for TXT registers and heap
+To: Sergii Dmytruk <sergii.dmytruk@3mdeb.com>
+Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ Ross Philipson <ross.philipson@oracle.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <cover.1751659393.git.dmytro_prokopchuk1@epam.com>
- <0e289fdb9187902d59dce3fc7368facf5eafa2ff.1751659393.git.dmytro_prokopchuk1@epam.com>
+ Lukasz Hawrylko <lukasz@hawrylko.pl>, =?UTF-8?Q?Mateusz_M=C3=B3wka?=
+ <mateusz.mowka@intel.com>, trenchboot-devel@googlegroups.com,
+ xen-devel@lists.xenproject.org
+References: <cover.1748611041.git.sergii.dmytruk@3mdeb.com>
+ <5da8e6c9fd2d986cd99be35774b850584e4a43ee.1748611041.git.sergii.dmytruk@3mdeb.com>
+ <ce7ff2f4-4657-45a6-98ea-7f6d3a448447@suse.com> <aGqc6HfryKoVoLDL@MjU3Nj>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -123,31 +125,77 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <0e289fdb9187902d59dce3fc7368facf5eafa2ff.1751659393.git.dmytro_prokopchuk1@epam.com>
+In-Reply-To: <aGqc6HfryKoVoLDL@MjU3Nj>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 04.07.2025 22:39, Dmytro Prokopchuk1 wrote:
-> Address a violation of MISRA C:2012 Rule 5.5:
-> "Identifiers shall be distinct from macro names".
+On 06.07.2025 17:57, Sergii Dmytruk wrote:
+> On Wed, Jul 02, 2025 at 04:29:18PM +0200, Jan Beulich wrote:
+>> Btw, a brief rev log would be nice here. I saw you have something in the
+>> cover letter, but having to look in two places isn't very helpful.
 > 
-> Reports for service MC3A2.R5.5:
-> xen/include/xen/irq.h: non-compliant function `pirq_cleanup_check(struct pirq*, struct domain*)'
-> xen/include/xen/irq.h: non-compliant macro `pirq_cleanup_check'
-> 
-> The primary issue stems from the macro and function
-> having identical names, which is confusing and
-> non-compliant with common coding standards.
-> 
-> Change the function name by adding two underscores at the end.
-> 
-> Signed-off-by: Dmytro Prokopchuk <dmytro_prokopchuk1@epam.com>
+> I don't really know how to effectively maintain 23 logs at the same time
+> given that changing one patch has cascading effects on the rest.  I'd
+> suggest using `git diff-range` instead, commands for which I can include
+> in cover letters for convenience.
 
-I'm not going to NAK this, but I dislike the transformation done. The aliasing
-in this case was intentional, to avoid any caller appearing that would bypass
-the macro. Yes, the double underscores will also stand out (as much as the
-parenthesization that would have been needed to override the protection), but
-still ...
+Well, no, doing this per patch is possible and relevant. For cascading
+effects their mentioning in a revlog can be pretty brief.
+
+>>> +#define _txt(x) __va(x)
+>>> +#endif
+>>
+>> Without any uses the correctness of the above is hard to judge.
+> 
+> The _txt() macro is used right below:
+
+Well, the comment was meant a little indirectly: The correctness in
+particular wrt the __EARLY_SLAUNCH__ distinction.
+
+>>> +/*
+>>> + * Always use private space as some of registers are either read-only or not
+>>> + * present in public space.
+>>> + */
+>>> +static inline uint64_t txt_read(unsigned int reg_no)
+>>> +{
+>>> +    volatile uint64_t *reg = _txt(TXT_PRIV_CONFIG_REGS_BASE + reg_no);
+>>> +    return *reg;
+>>> +}
+>>> +
+>>> +static inline void txt_write(unsigned int reg_no, uint64_t val)
+>>> +{
+>>> +    volatile uint64_t *reg = _txt(TXT_PRIV_CONFIG_REGS_BASE + reg_no);
+>>> +    *reg = val;
+>>> +}
+> 
+>>> +     * This serves as TXT register barrier after writing to
+>>> +     * TXTCR_CMD_UNLOCK_MEM_CONFIG. Must be done to ensure that any future
+>>> +     * chipset operations see the write.
+>>> +     */
+>>> +    (void)txt_read(TXTCR_ESTS);
+>>
+>> I don't think the cast is needed.
+> 
+> It's not needed, but I think that explicitly discarding unused return
+> value is a generally good practice even when there is a comment.
+
+In the context of Misra there has been discussion about doing so. But in our
+present code base you will find such as the exception, not the rule.
+
+>>> +    txt_write(TXTCR_CMD_RESET, 1);
+>>> +    unreachable();
+>>
+>> What guarantees the write to take immediate effect? That is, shouldn't there
+>> be e.g. an infinite loop here, just in case?
+> 
+> I'll return infinite loop from v2.  Tried adding `halt()` as Ross
+> suggests, but including <asm/system.h> doesn't work in the early code
+> (something about compat headers and missing expansion of things like
+> __DeFiNe__).
+
+Yeah, untangling that may be a little involved. Open-coding halt() is an
+option, as long as you clearly indicate it as such (for e.g. grep to still
+find that instance).
 
 Jan
 
