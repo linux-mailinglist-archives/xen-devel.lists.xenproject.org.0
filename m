@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 62758AFBDD6
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Jul 2025 23:49:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1035844.1408226 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB209AFBDE1
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Jul 2025 23:52:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1035849.1408236 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uYthe-0003Hr-93; Mon, 07 Jul 2025 21:48:46 +0000
+	id 1uYtlM-0005Ag-Nj; Mon, 07 Jul 2025 21:52:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1035844.1408226; Mon, 07 Jul 2025 21:48:46 +0000
+Received: by outflank-mailman (output) from mailman id 1035849.1408236; Mon, 07 Jul 2025 21:52:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uYthe-0003GQ-5X; Mon, 07 Jul 2025 21:48:46 +0000
-Received: by outflank-mailman (input) for mailman id 1035844;
- Mon, 07 Jul 2025 21:48:44 +0000
+	id 1uYtlM-000594-KD; Mon, 07 Jul 2025 21:52:36 +0000
+Received: by outflank-mailman (input) for mailman id 1035849;
+ Mon, 07 Jul 2025 21:52:35 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=S3ai=ZU=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1uYthc-0003GK-MT
- for xen-devel@lists.xenproject.org; Mon, 07 Jul 2025 21:48:44 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ id 1uYtlL-00058y-3s
+ for xen-devel@lists.xenproject.org; Mon, 07 Jul 2025 21:52:35 +0000
+Received: from nyc.source.kernel.org (nyc.source.kernel.org [147.75.193.91])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 25d879a8-5b7c-11f0-b894-0df219b8e170;
- Mon, 07 Jul 2025 23:48:42 +0200 (CEST)
+ id aa898edc-5b7c-11f0-b894-0df219b8e170;
+ Mon, 07 Jul 2025 23:52:25 +0200 (CEST)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 7620F5C5D9D;
- Mon,  7 Jul 2025 21:48:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FE28C4CEE3;
- Mon,  7 Jul 2025 21:48:40 +0000 (UTC)
+ by nyc.source.kernel.org (Postfix) with ESMTP id 08AAAA542A8;
+ Mon,  7 Jul 2025 21:52:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BED9C4CEE3;
+ Mon,  7 Jul 2025 21:52:22 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,72 +41,131 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 25d879a8-5b7c-11f0-b894-0df219b8e170
+X-Inumbo-ID: aa898edc-5b7c-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1751924921;
-	bh=B9tTwaZKTg1VY+4CAzhaqp6t+WdMJypxMOj2/qFH31I=;
+	s=k20201202; t=1751925143;
+	bh=g8MeVjSFH8i7RS2PEDA+c/JteZkQwY5g5uzkGmPzfGs=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=jdiMenNqQuRNvxv1yTot0lsQlSjft+GAl3LoFVE8AFR0s1sxCrrHUVTwGWoN575gz
-	 uSfBqNCE2zcFlY5Y1HFkSdFGDTIWO3gVP3bRNSeQWtlQ5oYfgTnBfz2s2Li9mWK8An
-	 hYXVZTtdaAhvvPdjw/zO0Uk94xxwlS758FDwAnQWD+2P8iCcofR/nbAo5tQdejMWsb
-	 un4vIKsYhlNEwZCPL0aMwTjjV1n84OkiGP4hfXCZsNfUh66tKIsXeU8p0yidUxJ03M
-	 TGma/3z3RVm7ZfNKT1i+6AsdiMkToF7jSc55G+CgaXW2u4Rqskke+MZWyHWCSVP2ao
-	 uYrp4mPmC0WQg==
-Date: Mon, 7 Jul 2025 14:48:38 -0700 (PDT)
+	b=lyvPHYlQkHo8/PYZyY8yaGGbSMu+GfNtOCxPLFMAaawZ832UckWeJYRBtHKMBfREn
+	 coPLOLxP3hV9O79eyIDB2TTnOvV6QcfljcV2SyknpQdb5Bw+iKYs9+eMSTQaQt4ERJ
+	 l/QpcH57Ra3Msyzdofq9Snh+pHM3r1NOpIPvRNHCHn3rPNbCkPkEC89O7VTDSc6AuC
+	 W5zbZDSjZ/S3y9C4qsXclVm61t/ocLcUQNqkplV+Bm8TvWFiZHwFhNR9XlgjJTLA3Y
+	 b9W/wmRCgLnLzQ1WOB/Y0HvM9jkISR0LN4GeHsCpDzI2KYVQNYY4jglpMFCjMiPB3R
+	 BFgw9qcK0n5KQ==
+Date: Mon, 7 Jul 2025 14:52:21 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Luca Fancellu <Luca.Fancellu@arm.com>
-cc: Michal Orzel <michal.orzel@amd.com>, 
-    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-    Bertrand Marquis <Bertrand.Marquis@arm.com>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH] xen/arm: Fix booting hwdom/1:1 domU with
- CONFIG_GRANT_TABLE=n
-In-Reply-To: <1EF5D001-222C-4FBF-BAC1-FA1A2D4BFCA7@arm.com>
-Message-ID: <alpine.DEB.2.22.394.2507071448330.605088@ubuntu-linux-20-04-desktop>
-References: <20250625101230.49653-1-michal.orzel@amd.com> <1EF5D001-222C-4FBF-BAC1-FA1A2D4BFCA7@arm.com>
+To: Jan Beulich <jbeulich@suse.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    Jason Andryuk <jason.andryuk@amd.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    Anthony PERARD <anthony.perard@vates.tech>, 
+    Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    "Daniel P. Smith" <dpsmith@apertussolutions.com>, 
+    xen-devel@lists.xenproject.org
+Subject: Re: [PATCH 4/4] xsm/dummy: Allow hwdom SYSCTL_readconsole/physinfo
+In-Reply-To: <88bb4934-014b-4710-9e81-5697255cc626@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2507071451400.605088@ubuntu-linux-20-04-desktop>
+References: <20250610225737.469690-1-jason.andryuk@amd.com> <20250610225737.469690-5-jason.andryuk@amd.com> <5f6d43da-2600-4c1c-9bcb-f13e8fce921e@suse.com> <bf6924f8-26c6-4f89-8441-155735384a8a@amd.com> <alpine.DEB.2.22.394.2506131547320.8480@ubuntu-linux-20-04-desktop>
+ <bf6fd680-c608-4d64-ad8f-38eac102991e@suse.com> <alpine.DEB.2.22.394.2506161705370.1384757@ubuntu-linux-20-04-desktop> <5645e4dc-7598-414d-a2b5-39066401e9b3@suse.com> <alpine.DEB.2.22.394.2506181736280.1780597@ubuntu-linux-20-04-desktop>
+ <88bb4934-014b-4710-9e81-5697255cc626@suse.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-493684314-1751924921=:605088"
+Content-Type: text/plain; charset=US-ASCII
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---8323329-493684314-1751924921=:605088
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
-
-On Mon, 30 Jun 2025, Luca Fancellu wrote:
-> Hi Michal,
+On Fri, 20 Jun 2025, Jan Beulich wrote:
+> On 19.06.2025 02:36, Stefano Stabellini wrote:
+> > On Tue, 17 Jun 2025, Jan Beulich wrote:
+> >> On 17.06.2025 02:10, Stefano Stabellini wrote:
+> >>> On Mon, 16 Jun 2025, Jan Beulich wrote:
+> >>>> On 14.06.2025 00:51, Stefano Stabellini wrote:
+> >>>>> On Wed, 11 Jun 2025, Jason Andryuk wrote:
+> >>>>>> On 2025-06-11 09:27, Jan Beulich wrote:
+> >>>>>>> On 11.06.2025 00:57, Jason Andryuk wrote:
+> >>>>>>>> Allow the hwdom to access the console, and to access physical
+> >>>>>>>> information about the system.
+> >>>>>>>>
+> >>>>>>>> xenconsoled can read Xen's dmesg.  If it's in hwdom, then that
+> >>>>>>>> permission would be required.
+> >>>>>>>
+> >>>>>>> Why would xenconsoled run in the hardware domain? It's purely a software
+> >>>>>>> construct, isn't it? As a daemon, putting it in the control domain may
+> >>>>>>> make sense. Otherwise it probably ought to go in a service domain.
+> >>>>>>
+> >>>>>> My approach has been to transform dom0 into the hardware domain and add a new
+> >>>>>> control domain.  xenconsoled was left running in the hardware domain.
+> >>>>>
+> >>>>> I think we should keep xenconsoled in the hardware domain because the
+> >>>>> control domain should be just optional. (However, one could say that with
+> >>>>> Denis' recent changes xenconsoled is also optional because one can use
+> >>>>> console hypercalls or emulators (PL011, NS16550) for all DomUs.)
+> >>>>>
+> >>>>>
+> >>>>>
+> >>>>>> I suppose it could move.  Maybe that would be fine?  I haven't tried. The
+> >>>>>> Hyperlaunch code populates the console grants to point at the hardware domain,
+> >>>>>> and I just followed that.
+> >>>>>>
+> >>>>>> One aspect of why I left most things running in the Hardware domain was to not
+> >>>>>> run things in the Control domain.  If Control is the highest privileged
+> >>>>>> entity, we'd rather run software in lower privileged places. Especially
+> >>>>>> something like xenconsoled which is receiving data from the domUs.
+> >>>>>
+> >>>>> Yes, I agree with Jason. It is a bad idea to run xenconsoled in the
+> >>>>> Control Domain because the Control Domain is meant to be safe from
+> >>>>> interference. We want to keep the number of potential vehicles for
+> >>>>> interference down to a minimum and shared memory between Control Domain
+> >>>>> and DomUs is certainly a vehicle for interference.
+> >>>>
+> >>>> As much as it is when xenconsoled runs in the hardware domain? Especially
+> >>>> if the hardware domain is also running e.g. PV backends or qemu instances?
+> >>>
+> >>> It looks like you are thinking of the possible
+> >>> interference from the Hardware Domain to the Control Domain via
+> >>> xenconsoled, correct?
+> >>
+> >> More like interference with the system as a whole, which simply includes
+> >> Control.
+> >>
+> >>> If that is the case, good thinking. I can see that you have really
+> >>> understood the essence of the problem we are trying to solve.
+> >>>
+> >>> That is not an issue because the Control Domain shouldn't use PV
+> >>> console. Instead, it should use the console hypercall, or the
+> >>> PL011/NS16550 emulators in Xen.
+> >>
+> >> Well. I think the underlying concept of Control Domain being highly
+> >> privileged needs more general discussion. As indicated elsewhere, I
+> >> didn't think disaggregation (whichever way done) would leave any
+> >> domain with effectively full privilege. I wonder what others think.
+> > 
+> > Keep in mind that the threat model here is different from the
+> > datacenter. 
+> > 
+> > But the Control Domain is optional. If the user doesn't want it, the
+> > user can avoid it.
+> > 
+> > Even on a fully static system (no VM creation), it is convenient to have
+> > a domain that can monitor the others and trigger domain reset (we are
+> > reimplementing domain reboot to be more like a soft reset so that the VM
+> > doesn't need to be destroyed and recreated).
 > 
-> > On 25 Jun 2025, at 11:12, Michal Orzel <michal.orzel@amd.com> wrote:
-> > 
-> > At the moment, we unconditionally allocate space for grant table region
-> > membank and add it in the membanks array to find_unallocated_memory() to
-> > find unused memory. In case of CONFIG_GRANT_TABLE=n, the size of the
-> > region is empty and assertion in rangeset_remove_range() fails when
-> > booting hwdom or 1:1 domU without IOMMU. Example:
-> > 
-> > (XEN) Assertion 's <= e' failed at common/rangeset.c:189
-> > ...
-> > (XEN) Xen call trace:
-> > (XEN)    [<00000a0000218b5c>] rangeset_remove_range+0xbc/0x2d4 (PC)
-> > (XEN)    [<00000a00002b8370>] find_unallocated_memory+0x140/0x208 (LR)
-> > (XEN)    [<00000a00002cc28c>] make_hypervisor_node+0x310/0x7e0
-> > ...
-> > 
-> > Same issue would occur when booting hwdom with LLC coloring enabled.
-> > Fix it by performing conditional allocation and configuration.
-> > 
-> > Signed-off-by: Michal Orzel <michal.orzel@amd.com>
-> 
-> The patch looks good to me, I’ve reproduced locally the issue and tested that this patch
-> solves it, using FVP.
-> 
-> Reviewed-by: Luca Fancellu <luca.fancellu@arm.com>
-> Tested-by: Luca Fancellu <luca.fancellu@arm.com>
+> Suggesting that in such an environment Control should have no permission
+> to create domains. This would avoid various threats, including e.g.
+> massive amounts of dynamic memory allocation.
 
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
---8323329-493684314-1751924921=:605088--
++1
+
+
+> > As an example, the Control
+> > Domain could be used to monitor a non-safe domain such as Android,
+> > detect an Android crash, and trigger an Android reboot.
+> 
+> Yet at the same time it would have to be prevented from interfering with
+> any of the critical domains.
+> 
+> Altogether this doesn't sound like "highest privilege" to me then.
+
+You are right. We should be more precise with our wording.
 
