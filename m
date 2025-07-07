@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 45119AFAF1E
+	by mail.lfdr.de (Postfix) with ESMTPS id F19B2AFAF1F
 	for <lists+xen-devel@lfdr.de>; Mon,  7 Jul 2025 11:02:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1035347.1407629 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1035349.1407648 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uYhji-0003ay-U4; Mon, 07 Jul 2025 09:02:06 +0000
+	id 1uYhjl-00043e-Hc; Mon, 07 Jul 2025 09:02:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1035347.1407629; Mon, 07 Jul 2025 09:02:06 +0000
+Received: by outflank-mailman (output) from mailman id 1035349.1407648; Mon, 07 Jul 2025 09:02:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uYhji-0003WF-O5; Mon, 07 Jul 2025 09:02:06 +0000
-Received: by outflank-mailman (input) for mailman id 1035347;
- Mon, 07 Jul 2025 09:02:05 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uYhjl-0003zt-A5; Mon, 07 Jul 2025 09:02:09 +0000
+Received: by outflank-mailman (input) for mailman id 1035349;
+ Mon, 07 Jul 2025 09:02:07 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ItPy=ZU=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1uYhjg-0002Us-VR
- for xen-devel@lists.xenproject.org; Mon, 07 Jul 2025 09:02:05 +0000
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [2a00:1450:4864:20::531])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0cf31ac9-5b11-11f0-a316-13f23c93f187;
- Mon, 07 Jul 2025 11:02:04 +0200 (CEST)
-Received: by mail-ed1-x531.google.com with SMTP id
- 4fb4d7f45d1cf-607cc1a2bd8so4601017a12.2
- for <xen-devel@lists.xenproject.org>; Mon, 07 Jul 2025 02:02:04 -0700 (PDT)
+ id 1uYhjj-0002wP-7B
+ for xen-devel@lists.xenproject.org; Mon, 07 Jul 2025 09:02:07 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0dba57fc-5b11-11f0-b894-0df219b8e170;
+ Mon, 07 Jul 2025 11:02:05 +0200 (CEST)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-ae0e0271d82so582458066b.3
+ for <xen-devel@lists.xenproject.org>; Mon, 07 Jul 2025 02:02:05 -0700 (PDT)
 Received: from fedora (user-109-243-64-38.play-internet.pl. [109.243.64.38])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ae3f6b04d30sm662892766b.133.2025.07.07.02.02.02
+ a640c23a62f3a-ae3f6b04d30sm662892766b.133.2025.07.07.02.02.03
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 07 Jul 2025 02:02:02 -0700 (PDT)
+ Mon, 07 Jul 2025 02:02:03 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,42 +45,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0cf31ac9-5b11-11f0-a316-13f23c93f187
+X-Inumbo-ID: 0dba57fc-5b11-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1751878923; x=1752483723; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1751878924; x=1752483724; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=BmNPG5Dy2oius8puk5k/7Mg9Tl0d4Ihryp7+bsF7JDs=;
-        b=QDcUytUH3PLmzvUa4dJNoTyXOaKKcKCIiinrulHXq+gtqfPtwIIOpC5xwLW3CV/hWp
-         LybQUU30OPP/H5XswCX0YkZeQPH4avdrkcSKVjC944/BcbxUVUrBj0B7KwFrDZi78f5N
-         evg59TlaqEZMA5iuq7Qe5adTGM14+raM4XwXtev4bxPvUOBTatv+b92UDYQeBpl5Wwmg
-         KHsdSP1Pf7287uhOGOipCTBqDmQtxYSEzLZfbrLWR5HbQDM9HJFCASbst+dmkDe+qkKI
-         5Gc/l+xHwtx/qW3PG433XZ25X3TOyvHPjggLT+JPD61+inZvVcKN1VZmjreENg/BAhUd
-         Sq0w==
+        bh=r7Ybpu7ozA8JgKQL7KWhzMFz0aX51gKmDoLYfs8b11Q=;
+        b=VNoATqd66Cui4IwvSA8fKj25ac9O8KVdpUehraeGPkdRb8mLoBf6od0OopoeJX5/Dy
+         4qDWNB54pKOO4RDA84iBnwpLPLVJv1a041nA5iH2Cajg5bDm/ipV+mpKwfgy3CZHdZRm
+         NzwZ0+9ApX1H+ANY4YClUZh97VJJSasRBQvzXhHRONVzGLhZ9E94/889sdROdmeXgpTY
+         IqxhXA7Nd76MJdVxsO/qtpVONGO7cpdXB1GIelPBTkmraIjoH0PW6GyaoHF4DYdmjnpC
+         9Jt8Ti5Q/an5O1GFElEbRcpG1jo/R5VHzNy6MFmg+0idnw19+dXrMeN3ScDlVmG/p+oB
+         xlTw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1751878923; x=1752483723;
+        d=1e100.net; s=20230601; t=1751878924; x=1752483724;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=BmNPG5Dy2oius8puk5k/7Mg9Tl0d4Ihryp7+bsF7JDs=;
-        b=A4Wn8i/bpNqPCikDVFlndJvXCLHacyKiXkppJnBsnxFuWU+bvUkAXqo7CMbDY97PQ+
-         MXabTu1yqmMIHw+Ykpk/dbm/w7qkaF6WUjXEQSGNGtcbKKBfvyv62AgXvlTCXl/5ieJM
-         XdrXOm4rfgpKEOY07ahh3H5zkGm7HcD4hS6wX1qlb3Pq0PzB1TF2T9y31i0eXPR9qct7
-         Z1wWOCMwLFsXgsRsxwmnAvvxFXhDu42yNOE5alIQAHEpQEMG53Sz1dpq2haBy7Ut2ycp
-         gr9eWAb2gYa2dfIuIudZtaoVUKS0+aNzqZ+YmgQTJ4c12pI45M1nJpJl86nvhTCNr2jZ
-         Gy4w==
-X-Gm-Message-State: AOJu0YwoxnIIuxDXywQekbKGL1VngXRyK182kQYVwf020sX4vSFjT+JE
-	EybWZetxGtbTXGybEDldLah2cq3Y4N4iE8UzXPMtD2B5huCd80R8QOcW871OVw==
-X-Gm-Gg: ASbGncvdvX/0O4Zk0UnRJTs4wn6VZj2VUFZ/+dYkOy1+7DXNizm2Uneq3wuvED7CSaX
-	Xm3izB9wu4cTGkdgFuwBB2TzouuwvFNFttZJkUKGaYJC6Ry2jurzzW+UWb7yPe0TmZNMeq1QJSZ
-	B/WBh6UfyIYy3k3mm6y1Mso4T+z9aeqNW3/uOdCZAX61seVFLtIlFCxaEhFy3bkLD0nALFdMBsn
-	TFs7S2T5aL7ZxLr9ot0/ag6lER1942Hkm7gnVBSoNhzFBcN1xhXzKhM9W16gWXErNFV/8v9IpXA
-	+rsORvwqzs/buIitnlqLsVjkvNmx7RKzCoUGM0iRCspa4gDRtsnmRwPoQPKbwKkg70T7LcDL6Zn
-	UNz4BTy+pnUrvbBDKpsywbfZfjg==
-X-Google-Smtp-Source: AGHT+IFoCjgQVD8bCjOrb0/pBvvOnMSKGEKw2L7vzzFrNOXNUnZX3A/2tCz+H77U60w/4Pbq5pmSlg==
-X-Received: by 2002:a17:907:3f17:b0:ae0:b553:3a0d with SMTP id a640c23a62f3a-ae3fe5cdad1mr1085159466b.48.1751878922884;
-        Mon, 07 Jul 2025 02:02:02 -0700 (PDT)
+        bh=r7Ybpu7ozA8JgKQL7KWhzMFz0aX51gKmDoLYfs8b11Q=;
+        b=c6NrFKIg5mt7SOTn0Tw5Lc8K68W36zgOwgrDJ2WNEWV8oQMq9rAO9JSvNJoyHfwCq4
+         vk9GgNCZKkuyR+o43UHxiiJQZutZonguj2zrnWF5rmcvgHSekG3Tm/IcMSDsWSzQXoqZ
+         dxqYpMpTeh1OeZHiQlLL4rmt6n9eore7pExAxwIpGUBt+WTNx9T21uAGkiO7a2YaNiIK
+         XB13AKl7D2wcaYAmmjsCdlEjHQy7kUZu4/Xx6QAfcLcXMND3xm47E5Yq14bZ9wE/9VQF
+         ExU7Vbf3mOvgXp57rdOGPwaqqJ4fPO84PTwOarOvhqXc7CtbEK38AbB9l/7zS/ZzSVaa
+         o2gA==
+X-Gm-Message-State: AOJu0Yx9WD9VriuhoFBEab4gTbVAYIqMBK1sXmm7Ki8yVkcEFhrmqaQj
+	EU3uzuvrENGQKCrQQU47Ph375EbdWWNYCuE7exBsYfFkVzmRq0FpPRiPXNYC8A==
+X-Gm-Gg: ASbGncvM/klpgur+h94I/M9qdIxwvIJHfQj66EC4SKcsmen+uU26UxVfkw1YW1hQoXS
+	oFt48Zf6OaGcpGl76RCxARVhd3dBtoP8L706RiHDdXL5Ygvpn26ea0b3U4CnbWDueBpcpGe7Yr+
+	1JqLohy2qnydohUgqjGxeWGjvrjjWwIkwiQ1CGA6UAgn4XMAFS4B9Akhq8wsRuhaIj6HdTlIPB3
+	3osGh+xSyBfBjZ+5JLZbOV0UVbpsCrUGtE6uCYm5g1J380slxQj5afUCjhss+KUdFsC7C4yd2zV
+	FxRG+VPWahBt8Lqp+CFM9xn5dmDrihNeXwxUy2yoXo9braJQIHUubrEQgKT36jl4NlzceHbEIJ1
+	QoYa8k676c+TE6Hbzsf6uA+si+Q==
+X-Google-Smtp-Source: AGHT+IFHz/oTCD+rMct36UjbtVdKadw7+Qndwouf7hIs0WWrHrl0FotTMw7dNvU0kkKCRObPLtOmSg==
+X-Received: by 2002:a17:906:c10d:b0:ae3:f524:b51 with SMTP id a640c23a62f3a-ae41079d210mr725450866b.10.1751878924156;
+        Mon, 07 Jul 2025 02:02:04 -0700 (PDT)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
@@ -95,32 +95,40 @@ Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Romain Caritey <Romain.Caritey@microchip.com>
-Subject: [PATCH v6 5/7] xen/riscv: add external interrupt handling for hypervisor mode
-Date: Mon,  7 Jul 2025 11:01:41 +0200
-Message-ID: <5211162c44e8b73c1e52c07cf105c5f26ac04571.1751876912.git.oleksii.kurochko@gmail.com>
+Subject: [PATCH v6 6/7] xen/riscv: implement setup_irq()
+Date: Mon,  7 Jul 2025 11:01:42 +0200
+Message-ID: <508646feadbff6409d2415ac695c215f6fc9182b.1751876912.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.50.0
 In-Reply-To: <cover.1751876912.git.oleksii.kurochko@gmail.com>
 References: <cover.1751876912.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=all
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Implement functions necessarry to have working external interrupts in
-hypervisor mode. The following changes are done:
-  - Add a common function intc_handle_external_irq() to call APLIC specific
-    function to handle an interrupt.
-  - Update do_trap() function to handle IRQ_S_EXT case; add the check to catch
-    case when cause of trap is an interrupt.
-  - Add handle_interrrupt() member to intc_hw_operations structure.
-  - Enable local interrupt delivery for IMSIC by calling of
-    imsic_ids_local_delivery() in imsic_init(); additionally introduce helper
-    imsic_csr_write() to update IMSIC_EITHRESHOLD and IMSIC_EITHRESHOLD.
-  - Enable hypervisor external interrupts.
-  - Implement aplic_handler_interrupt() and use it to init ->handle_interrupt
-    member of intc_hw_operations for APLIC.
-  - Add implementation of do_IRQ() to dispatch the interrupt.
+Introduce support for IRQ setup on RISC-V by implementing setup_irq() and
+__setup_irq(), adapted and extended from an initial implementation by [1].
 
-The current patch is based on the code from [1].
+__setup_irq() does the following:
+  - Sets up an IRQ action.
+  - Validates that shared IRQs have non-NULL `dev_id` and are only used when
+    existing handlers allow sharing.
+  - Uses smp_wmb() to enforce memory ordering after assigning desc->action
+    to ensure visibility before enabling the IRQ.
+  - Supports multi-action setups via CONFIG_IRQ_HAS_MULTIPLE_ACTION.
+
+setup_irq() does the following:
+  - Converts IRQ number to descriptor and acquires its lock.
+  - Rejects registration if the IRQ is already assigned to a guest domain,
+    printing an error.
+  - Delegates the core setup to __setup_irq().
+  - On first-time setup, disables the IRQ, routes it to Xen using
+    intc_route_irq_to_xen(), sets default CPU affinity (current CPU),
+    calls the handler’s startup routine, and finally enables the IRQ.
+
+irq_set_affinity() invokes set_affinity() callback from the IRQ handler
+if present.
+
+Defined IRQ_NO_PRIORITY as default priority used when routing IRQs to Xen.
 
 [1] https://gitlab.com/xen-project/people/olkur/xen/-/commit/7390e2365828b83e27ead56b03114a56e3699dd5
 
@@ -129,349 +137,149 @@ Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Acked-by: Jan Beulich <jbeulich@suse.com>
 ---
 Changes in V6:
- - Fix code style issue: start multi-word comments with a capital letter.
- - Align properly comment in aplic_set_irq_type().
----
-Changes in V4 - V5:
  - Nothing changed. Only rebase.
 ---
-Changes in V3:
- - Add ASSERT(spin_is_locked(&desc->lock)) to aplic_set_irq_type().
- - Fix code style for switch () in aplic_set_irq_type().
- - Drop fallthrough between "case IRQ_TYPE_NONE: case IRQ_TYPE_INVALID:" as there
-   is no other statements in "case IRQ_TYPE_NONE".
+Changes in V5:
  - Add Acked-by: Jan Beulich <jbeulich@suse.com>.
 ---
+Changes in V3-4:
+ - Nothing changed. Only rebase.
+---
 Changes in V2:
- - use BIT() macros instead of 1UL << bit_num in aplic.c.
- - Drop passing of a cause to aplic_handle_interrupt() function. And update
-   prototype of handle_interrupt() callback.
- - Drop ASSERT() in intc_handle_external_irqs() as it is useless.
+ - Added implenmtation of aplic_set_irq_type() as it is going to be used in
+   this commit. And also, update the implementation of it. Make default case
+   of switch to do panic().
+ - Move all forward declaration up  in asm/irq.h.
+ - s/__setup_irq/_setup_irq.
  - Code style fixes.
- - Drop cause argument for intc_handle_external_irqs().
- - Update the commit message: drop words that imsic_ids_local_delivery() is
-   implemented in this patch, it is only called.
- - Add cf_check for aplic_handle_interrupt(), aplic_set_irq_type().
- - Move forward declarations in asm/intc.h up.
+ - Update commit message.
+ - use smp_wmb() instead of smp_mb() in _setup_irq().
+ - Drop irq_set_affinity().
  - Use plain C operator instead if {clear,set}_bit() for desc->status as it
    is always used under spinlock().
- - use writel() for writing to APLIC's sourcecfg in aplic_set_irq_type().
----
- xen/arch/riscv/aplic.c             | 73 ++++++++++++++++++++++++++++++
- xen/arch/riscv/include/asm/aplic.h |  7 +++
- xen/arch/riscv/include/asm/imsic.h |  1 +
- xen/arch/riscv/include/asm/intc.h  |  6 +++
- xen/arch/riscv/include/asm/irq.h   |  6 ++-
- xen/arch/riscv/intc.c              |  5 ++
- xen/arch/riscv/irq.c               | 47 +++++++++++++++++++
- xen/arch/riscv/traps.c             | 19 ++++++++
- 8 files changed, 163 insertions(+), 1 deletion(-)
+ - Drop set_bit(_IRQ_DISABLED, &desc->status) in setup_irq() as in the case
+   when IRQ is setuped for a first time, desc->status should be already set
+   to IRQ_DISABLED in init_one_irq_desc().
+----
+ xen/arch/riscv/include/asm/irq.h |  2 +
+ xen/arch/riscv/irq.c             | 84 ++++++++++++++++++++++++++++++++
+ 2 files changed, 86 insertions(+)
 
-diff --git a/xen/arch/riscv/aplic.c b/xen/arch/riscv/aplic.c
-index edf4db3113..739e8dab34 100644
---- a/xen/arch/riscv/aplic.c
-+++ b/xen/arch/riscv/aplic.c
-@@ -9,6 +9,7 @@
-  * Copyright (c) 2024-2025 Vates
+diff --git a/xen/arch/riscv/include/asm/irq.h b/xen/arch/riscv/include/asm/irq.h
+index 94151eb083..f633636dc3 100644
+--- a/xen/arch/riscv/include/asm/irq.h
++++ b/xen/arch/riscv/include/asm/irq.h
+@@ -17,6 +17,8 @@
+  */
+ #define NR_IRQS 1024
+ 
++#define IRQ_NO_PRIORITY 0
++
+ /* TODO */
+ #define nr_irqs 0U
+ #define nr_static_irqs 0
+diff --git a/xen/arch/riscv/irq.c b/xen/arch/riscv/irq.c
+index 466f1b4ba9..25d3295002 100644
+--- a/xen/arch/riscv/irq.c
++++ b/xen/arch/riscv/irq.c
+@@ -7,6 +7,7 @@
   */
  
-+#include <xen/const.h>
+ #include <xen/bug.h>
++#include <xen/cpumask.h>
  #include <xen/device_tree.h>
  #include <xen/errno.h>
  #include <xen/init.h>
-@@ -227,6 +228,73 @@ static void cf_check aplic_set_irq_affinity(struct irq_desc *desc, const cpumask
-     spin_unlock(&aplic.lock);
+@@ -63,6 +64,89 @@ int platform_get_irq(const struct dt_device_node *device, int index)
+     return dt_irq.irq;
  }
  
-+static void cf_check aplic_handle_interrupt(struct cpu_user_regs *regs)
++static int _setup_irq(struct irq_desc *desc, unsigned int irqflags,
++                      struct irqaction *new)
 +{
-+    /* Disable to avoid more external interrupts */
-+    csr_clear(CSR_SIE, BIT(IRQ_S_EXT, UL));
++    bool shared = irqflags & IRQF_SHARED;
 +
-+    /* Clear the pending bit */
-+    csr_clear(CSR_SIP, BIT(IRQ_S_EXT, UL));
++    ASSERT(new != NULL);
 +
-+    /* Dispatch the interrupt */
-+    do_IRQ(regs, csr_swap(CSR_STOPEI, 0) >> TOPI_IID_SHIFT);
++    /*
++     * Sanity checks:
++     *  - if the IRQ is marked as shared
++     *  - dev_id is not NULL when IRQF_SHARED is set
++     */
++    if ( desc->action != NULL && (!(desc->status & IRQF_SHARED) || !shared) )
++        return -EINVAL;
++    if ( shared && new->dev_id == NULL )
++        return -EINVAL;
 +
-+    /* Enable external interrupts */
-+    csr_set(CSR_SIE, BIT(IRQ_S_EXT, UL));
++    if ( shared )
++        desc->status |= IRQF_SHARED;
++
++#ifdef CONFIG_IRQ_HAS_MULTIPLE_ACTION
++    new->next = desc->action;
++#endif
++
++    desc->action = new;
++    smp_wmb();
++
++    return 0;
 +}
 +
-+static void cf_check aplic_set_irq_type(struct irq_desc *desc,
-+                                        unsigned int type)
++int setup_irq(unsigned int irq, unsigned int irqflags, struct irqaction *new)
 +{
-+    /*
-+     * Interrupt 0 isn't possible based on the spec:
-+     *   Each of an APLIC’s interrupt sources has a fixed unique identity
-+     *   number in the range 1 to N, where N is the total number of sources at
-+     *   the APLIC. The number zero is not a valid interrupt identity number at
-+     *   an APLIC. The maximum number of interrupt sources an APLIC may support
-+     *   is 1023.
-+     *
-+     * Thereby interrupt 1 will correspond to bit 0 in sourcecfg[] register,
-+     * interrupt 2 ->sourcecfg[1] and so on.
-+     *
-+     * And that is the reason why we need -1.
-+     */
-+    unsigned int irq_bit = desc->irq - 1;
++    int rc;
++    unsigned long flags;
++    struct irq_desc *desc = irq_to_desc(irq);
++    bool disabled;
 +
-+    ASSERT(spin_is_locked(&desc->lock));
++    spin_lock_irqsave(&desc->lock, flags);
 +
-+    spin_lock(&aplic.lock);
++    disabled = (desc->action == NULL);
 +
-+    switch ( type )
++    if ( desc->status & IRQ_GUEST )
 +    {
-+    case IRQ_TYPE_EDGE_RISING:
-+        writel(APLIC_SOURCECFG_SM_EDGE_RISE, &aplic.regs->sourcecfg[irq_bit]);
-+        break;
-+
-+    case IRQ_TYPE_EDGE_FALLING:
-+        writel(APLIC_SOURCECFG_SM_EDGE_FALL, &aplic.regs->sourcecfg[irq_bit]);
-+        break;
-+
-+    case IRQ_TYPE_LEVEL_HIGH:
-+        writel(APLIC_SOURCECFG_SM_LEVEL_HIGH, &aplic.regs->sourcecfg[irq_bit]);
-+        break;
-+
-+    case IRQ_TYPE_LEVEL_LOW:
-+        writel(APLIC_SOURCECFG_SM_LEVEL_LOW, &aplic.regs->sourcecfg[irq_bit]);
-+        break;
-+
-+    case IRQ_TYPE_NONE:
-+    case IRQ_TYPE_INVALID:
-+        writel(APLIC_SOURCECFG_SM_INACTIVE, &aplic.regs->sourcecfg[irq_bit]);
-+        break;
-+
-+    default:
-+        panic("%s: APLIC doesnt support IRQ type: 0x%x?\n", __func__, type);
++        spin_unlock_irqrestore(&desc->lock, flags);
++        /*
++         * TODO: would be nice to have functionality to print which domain owns
++         *       an IRQ.
++         */
++        printk(XENLOG_ERR "ERROR: IRQ %u is already in use by a domain\n", irq);
++        return -EBUSY;
 +    }
 +
-+    spin_unlock(&aplic.lock);
++    rc = _setup_irq(desc, irqflags, new);
++    if ( rc )
++        goto err;
++
++    /* First time the IRQ is setup */
++    if ( disabled )
++    {
++        /* Route interrupt to xen */
++        intc_route_irq_to_xen(desc, IRQ_NO_PRIORITY);
++
++        /*
++         * We don't care for now which CPU will receive the
++         * interrupt.
++         *
++         * TODO: Handle case where IRQ is setup on different CPU than
++         *       the targeted CPU and the priority.
++         */
++        desc->handler->set_affinity(desc, cpumask_of(smp_processor_id()));
++
++        desc->handler->startup(desc);
++
++        /* Enable irq */
++        desc->status &= ~IRQ_DISABLED;
++    }
++
++ err:
++    spin_unlock_irqrestore(&desc->lock, flags);
++
++    return rc;
 +}
 +
- static const hw_irq_controller aplic_xen_irq_type = {
-     .typename     = "aplic",
-     .startup      = aplic_irq_startup,
-@@ -240,6 +308,8 @@ static const struct intc_hw_operations aplic_ops = {
-     .info                = &aplic_info,
-     .init                = aplic_init,
-     .host_irq_type       = &aplic_xen_irq_type,
-+    .handle_interrupt    = aplic_handle_interrupt,
-+    .set_irq_type        = aplic_set_irq_type,
- };
- 
- static int cf_check aplic_irq_xlate(const uint32_t *intspec,
-@@ -279,6 +349,9 @@ static int __init aplic_preinit(struct dt_device_node *node, const void *dat)
- 
-     register_intc_ops(&aplic_ops);
- 
-+    /* Enable supervisor external interrupt */
-+    csr_set(CSR_SIE, BIT(IRQ_S_EXT, UL));
-+
-     return 0;
- }
- 
-diff --git a/xen/arch/riscv/include/asm/aplic.h b/xen/arch/riscv/include/asm/aplic.h
-index 7d811d3522..b0724fe6f3 100644
---- a/xen/arch/riscv/include/asm/aplic.h
-+++ b/xen/arch/riscv/include/asm/aplic.h
-@@ -18,6 +18,13 @@
- #define APLIC_DOMAINCFG_IE      BIT(8, U)
- #define APLIC_DOMAINCFG_DM      BIT(2, U)
- 
-+#define APLIC_SOURCECFG_SM_INACTIVE     0x0
-+#define APLIC_SOURCECFG_SM_DETACH       0x1
-+#define APLIC_SOURCECFG_SM_EDGE_RISE    0x4
-+#define APLIC_SOURCECFG_SM_EDGE_FALL    0x5
-+#define APLIC_SOURCECFG_SM_LEVEL_HIGH   0x6
-+#define APLIC_SOURCECFG_SM_LEVEL_LOW    0x7
-+
- #define APLIC_TARGET_HART_IDX_SHIFT 18
- 
- struct aplic_regs {
-diff --git a/xen/arch/riscv/include/asm/imsic.h b/xen/arch/riscv/include/asm/imsic.h
-index 378e49d933..c6c59215df 100644
---- a/xen/arch/riscv/include/asm/imsic.h
-+++ b/xen/arch/riscv/include/asm/imsic.h
-@@ -12,6 +12,7 @@
- #define ASM_RISCV_IMSIC_H
- 
- #include <xen/spinlock.h>
-+#include <xen/stdbool.h>
- #include <xen/types.h>
- 
- #define IMSIC_MMIO_PAGE_SHIFT   12
-diff --git a/xen/arch/riscv/include/asm/intc.h b/xen/arch/riscv/include/asm/intc.h
-index a11b7aa55e..ecdc8a5e65 100644
---- a/xen/arch/riscv/include/asm/intc.h
-+++ b/xen/arch/riscv/include/asm/intc.h
-@@ -14,6 +14,7 @@ enum intc_version {
-     INTC_APLIC,
- };
- 
-+struct cpu_user_regs;
- struct irq_desc;
- 
- struct intc_info {
-@@ -37,6 +38,9 @@ struct intc_hw_operations {
-     void (*set_irq_type)(struct irq_desc *desc, unsigned int type);
-     /* Set IRQ priority */
-     void (*set_irq_priority)(struct irq_desc *desc, unsigned int priority);
-+
-+    /* handle external interrupt */
-+    void (*handle_interrupt)(struct cpu_user_regs *regs);
- };
- 
- void intc_preinit(void);
-@@ -47,4 +51,6 @@ void intc_init(void);
- 
- void intc_route_irq_to_xen(struct irq_desc *desc, unsigned int priority);
- 
-+void intc_handle_external_irqs(struct cpu_user_regs *regs);
-+
- #endif /* ASM__RISCV__INTERRUPT_CONTOLLER_H */
-diff --git a/xen/arch/riscv/include/asm/irq.h b/xen/arch/riscv/include/asm/irq.h
-index 84c3c2904d..94151eb083 100644
---- a/xen/arch/riscv/include/asm/irq.h
-+++ b/xen/arch/riscv/include/asm/irq.h
-@@ -33,16 +33,20 @@ struct arch_irq_desc {
-     unsigned int type;
- };
- 
-+struct cpu_user_regs;
-+struct dt_device_node;
-+
- static inline void arch_move_irqs(struct vcpu *v)
+ int arch_init_one_irq_desc(struct irq_desc *desc)
  {
-     BUG_ON("unimplemented");
- }
- 
--struct dt_device_node;
- int platform_get_irq(const struct dt_device_node *device, int index);
- 
- void init_IRQ(void);
- 
-+void do_IRQ(struct cpu_user_regs *regs, unsigned int irq);
-+
- #endif /* ASM__RISCV__IRQ_H */
- 
- /*
-diff --git a/xen/arch/riscv/intc.c b/xen/arch/riscv/intc.c
-index f2823267a9..ea317aea5a 100644
---- a/xen/arch/riscv/intc.c
-+++ b/xen/arch/riscv/intc.c
-@@ -50,6 +50,11 @@ static void intc_set_irq_priority(struct irq_desc *desc, unsigned int priority)
-         intc_hw_ops->set_irq_priority(desc, priority);
- }
- 
-+void intc_handle_external_irqs(struct cpu_user_regs *regs)
-+{
-+    intc_hw_ops->handle_interrupt(regs);
-+}
-+
- void intc_route_irq_to_xen(struct irq_desc *desc, unsigned int priority)
- {
-     ASSERT(desc->status & IRQ_DISABLED);
-diff --git a/xen/arch/riscv/irq.c b/xen/arch/riscv/irq.c
-index 669ef3ae9e..466f1b4ba9 100644
---- a/xen/arch/riscv/irq.c
-+++ b/xen/arch/riscv/irq.c
-@@ -11,6 +11,10 @@
- #include <xen/errno.h>
- #include <xen/init.h>
- #include <xen/irq.h>
-+#include <xen/spinlock.h>
-+
-+#include <asm/hardirq.h>
-+#include <asm/intc.h>
- 
- static irq_desc_t irq_desc[NR_IRQS];
- 
-@@ -90,3 +94,46 @@ void __init init_IRQ(void)
-     if ( init_irq_data() < 0 )
-         panic("initialization of IRQ data failed\n");
- }
-+
-+/* Dispatch an interrupt */
-+void do_IRQ(struct cpu_user_regs *regs, unsigned int irq)
-+{
-+    struct irq_desc *desc = irq_to_desc(irq);
-+    struct irqaction *action;
-+
-+    irq_enter();
-+
-+    spin_lock(&desc->lock);
-+
-+    if ( desc->handler->ack )
-+        desc->handler->ack(desc);
-+
-+    if ( desc->status & IRQ_DISABLED )
-+        goto out;
-+
-+    desc->status |= IRQ_INPROGRESS;
-+
-+    action = desc->action;
-+
-+    spin_unlock_irq(&desc->lock);
-+
-+#ifndef CONFIG_IRQ_HAS_MULTIPLE_ACTION
-+    action->handler(irq, action->dev_id);
-+#else
-+    do {
-+        action->handler(irq, action->dev_id);
-+        action = action->next;
-+    } while ( action );
-+#endif /* CONFIG_IRQ_HAS_MULTIPLE_ACTION */
-+
-+    spin_lock_irq(&desc->lock);
-+
-+    desc->status &= ~IRQ_INPROGRESS;
-+
-+ out:
-+    if ( desc->handler->end )
-+        desc->handler->end(desc);
-+
-+    spin_unlock(&desc->lock);
-+    irq_exit();
-+}
-diff --git a/xen/arch/riscv/traps.c b/xen/arch/riscv/traps.c
-index ea3638a54f..f061004d83 100644
---- a/xen/arch/riscv/traps.c
-+++ b/xen/arch/riscv/traps.c
-@@ -11,6 +11,7 @@
- #include <xen/nospec.h>
- #include <xen/sched.h>
- 
-+#include <asm/intc.h>
- #include <asm/processor.h>
- #include <asm/riscv_encoding.h>
- #include <asm/traps.h>
-@@ -128,6 +129,24 @@ void do_trap(struct cpu_user_regs *cpu_regs)
-         }
-         fallthrough;
-     default:
-+        if ( cause & CAUSE_IRQ_FLAG )
-+        {
-+            /* Handle interrupt */
-+            unsigned long icause = cause & ~CAUSE_IRQ_FLAG;
-+
-+            switch ( icause )
-+            {
-+            case IRQ_S_EXT:
-+                intc_handle_external_irqs(cpu_regs);
-+                break;
-+
-+            default:
-+                break;
-+            }
-+
-+            break;
-+        }
-+
-         do_unexpected_trap(cpu_regs);
-         break;
-     }
+     desc->arch.type = IRQ_TYPE_INVALID;
 -- 
 2.50.0
 
