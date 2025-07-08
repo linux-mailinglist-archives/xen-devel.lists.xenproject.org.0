@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 27C46AFCB70
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Jul 2025 15:09:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1036508.1408761 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 02CD5AFCBD9
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Jul 2025 15:24:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1036518.1408771 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uZ84B-0001NR-1X; Tue, 08 Jul 2025 13:08:59 +0000
+	id 1uZ8JF-0004nL-9H; Tue, 08 Jul 2025 13:24:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1036508.1408761; Tue, 08 Jul 2025 13:08:59 +0000
+Received: by outflank-mailman (output) from mailman id 1036518.1408771; Tue, 08 Jul 2025 13:24:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uZ84A-0001Ke-Ul; Tue, 08 Jul 2025 13:08:58 +0000
-Received: by outflank-mailman (input) for mailman id 1036508;
- Tue, 08 Jul 2025 13:08:57 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uZ8JF-0004le-68; Tue, 08 Jul 2025 13:24:33 +0000
+Received: by outflank-mailman (input) for mailman id 1036518;
+ Tue, 08 Jul 2025 13:24:31 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=mjd+=ZV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uZ849-0001KF-P2
- for xen-devel@lists.xenproject.org; Tue, 08 Jul 2025 13:08:57 +0000
-Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
- [2a00:1450:4864:20::129])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b3c6ae44-5bfc-11f0-b894-0df219b8e170;
- Tue, 08 Jul 2025 15:08:55 +0200 (CEST)
-Received: by mail-lf1-x129.google.com with SMTP id
- 2adb3069b0e04-555024588b1so4278793e87.1
- for <xen-devel@lists.xenproject.org>; Tue, 08 Jul 2025 06:08:55 -0700 (PDT)
+ id 1uZ8JD-0004lW-Cn
+ for xen-devel@lists.xenproject.org; Tue, 08 Jul 2025 13:24:31 +0000
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [2a00:1450:4864:20::434])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e0d98f09-5bfe-11f0-a317-13f23c93f187;
+ Tue, 08 Jul 2025 15:24:30 +0200 (CEST)
+Received: by mail-wr1-x434.google.com with SMTP id
+ ffacd0b85a97d-3b45edf2303so4095155f8f.2
+ for <xen-devel@lists.xenproject.org>; Tue, 08 Jul 2025 06:24:30 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-31c22066258sm2058136a91.16.2025.07.08.06.08.49
+ 41be03b00d2f7-b38ee4805a5sm11390233a12.30.2025.07.08.06.24.24
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 08 Jul 2025 06:08:52 -0700 (PDT)
+ Tue, 08 Jul 2025 06:24:28 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b3c6ae44-5bfc-11f0-b894-0df219b8e170
+X-Inumbo-ID: e0d98f09-5bfe-11f0-a317-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1751980135; x=1752584935; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1751981069; x=1752585869; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=7KekoaMNauZKbz3qk6Iw8jGjKpFkL83x06Ti17rB/Og=;
-        b=ABX4eaiT70jvWznDCiH+k/BYqUMQ8uDEGt9SPXS7Id3q96wiQs4/iyOoMTQ4BhtUrH
-         FTmji6EdfFESmL2R3fBsBuIkocwAvRG21Asj+MR4Z8wxrfaynoFkFOKOrDcUlUNLkbbA
-         ZZafXvASjzQzTVZW4UNr30ywCsjjYNcs7NOxGxcmBV7Vm0BLmUxoQptaoJG8cgkEsVDX
-         bWuW5tdUEI3VANBBXjVfKdGLVPIi96TxOU6yOg3qOAeBs5VbNKHFn8bFayqT/dPFzkBp
-         F/mGKkWr191GVJa+5X8HjSdBQi5MfNupzIRxqKEYBpJqJOFjZaC0cGWjAW4xpNAes/n9
-         MiNA==
+        bh=8a0xbl8zxgOmakuTlN9vJZbA+S4E0R3kOF05KlmvHmE=;
+        b=fJfrgFFeoNW0nwzMvakcA/VDTPUXMkc5skqcCApW25CQ3B2QuFsYnCk38NEWEERgP4
+         kD3ahSdmlbaHC79h0iuHX2F9i1Wp+CpSXFvezwF4OfFp+do+mT3PNvxA13WWEYvki5Bd
+         FCzBa2sIhsmD8i1Q4fOp34OZ7sSdMrehthERYib6KeON3bSSBADumA6u6KmCUxZv8yoI
+         cwXeD8RBugzgNLDz4v1ChNBp4bXArO98a4cYPtth52Tu+ewlBgoxZI64PpfkR70LHmfN
+         U/4vMsacrvPNKAG4nzm7f31cLs3o71vC9h3gCR/OI9zFVkaZoSs0mpVUcELKNpJ7vSer
+         8S+w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1751980135; x=1752584935;
+        d=1e100.net; s=20230601; t=1751981069; x=1752585869;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=7KekoaMNauZKbz3qk6Iw8jGjKpFkL83x06Ti17rB/Og=;
-        b=XrW9PYtjU6MOF799nVZIz5UbQw6LeeIHzUaJ+PpYDtWhAsZGKwGwYnz+Bu2093BJPF
-         VvGWIm2U2XDAugEirfbd+orOD/I5lSVgVPeq/jJMKakEdiagMLTIF1wDixkuTyKQLhf6
-         JNUqGGuvJozIf3Xm3HnSS6zC1b1vBtWpxZ8XHg3VfIdnzdIOdD/JRP4sHUyhjj/FKbUd
-         8u3BG0hjrT9GRnAypt93VnUDIxY8Ed6SAqGubN8jPZgUUem9AHV3M3ckr8jhdk7hY9th
-         63ao9ycrDJ1JkTqQ9cBug4oOZmk0yQ+IeRd8YljOF4M7FfvIuAxh2JFf+aG+bdhPMVoy
-         nbDw==
-X-Forwarded-Encrypted: i=1; AJvYcCXmVQ8kBUZjeyW6iJMrOmiJRAN8zKiVT8O1ZqzcXKkijB3MPJ9PZojwFZsIkIBQ3rFSlm8gYLTuEVc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Ywsv2c0HWEUScgLPRkrDWcWv30wqrWFV06HBrYNZAqBPTdbvuHQ
-	XQ699knqRIFQLFS5oWMrjBddlifgZF8KFwyvyTDO+M9qBLjcM6OzELz2ksZwum4deQ==
-X-Gm-Gg: ASbGncvN2wepX0mt877gIHkjNc8EjKxpcJzSSWUPEtZ2BO7CUBp8r4TzAPoc0IaZkpn
-	PpFSXN3AWqskuAWhaLiHA9vuI4wiZGXAEen/Zg0EBsbhYs3Zoyni7mx5U9zk1YRL477XawhaXiS
-	xmq8988Qsm+LTA7m5DCMVS8tlUKby9Yxp+i0xARksQkp4EMgq7EP+sREm+Da2lMlbG2FYhdOpyb
-	U/lJzLPFj+6tStKfG4w51C7c3q+h6Zu7BNgoR2MKUSp88/NvqErM5VuYty2vKYfS090KEPSQGTz
-	fxhVXL/JvQb58o2c4E56khQk1zS8uCBLC/5ORre8xPuYHBZQHhx3uNzJCftsMwJ9UMA7npAE4OJ
-	2JEC7WC3DvcSn47vWhETd3VPv1NQvlfd61SHqETtFPaZM1GM=
-X-Google-Smtp-Source: AGHT+IGG8pkPomVCjucBow/bw7S7LpjdXN/+slthNI/QYf7erQz6GV6yvf8iv3as3yG5bmqUumddnA==
-X-Received: by 2002:ac2:4219:0:b0:553:647a:e488 with SMTP id 2adb3069b0e04-557a1421a11mr3716933e87.12.1751980133097;
-        Tue, 08 Jul 2025 06:08:53 -0700 (PDT)
-Message-ID: <f08a1d0a-68c2-41c8-9f1c-5bf82300661c@suse.com>
-Date: Tue, 8 Jul 2025 15:08:45 +0200
+        bh=8a0xbl8zxgOmakuTlN9vJZbA+S4E0R3kOF05KlmvHmE=;
+        b=J9dW10fEnErK+XK0iDfCV+zB53PegqcWLDyZxs6od3r0BFutPLpJCnMXXVvLnK3MMC
+         NxmH7Yfq9joi9IVEXJ1amtjV42ppEOYJ2wjujSGxe55XM+9Ew1W2THZXC9OZU8teTNVG
+         /CaKgWve+UI6aqAYEhhd7xhul9PuQushb5XDueYBhjLU3JosSvVxvgzqCw38xfaLVcfo
+         kCI6r9ek/SOl4IwQUgQbAII4DqFGI0KVAWqLlSHmbS0X2pXSTTNcbNvxC0xvnbqkUA83
+         c2Nv7Za4azw1yNDydxtsPvUXF+6mTXqN2DHkovFkIHqfRGziTYx/GzQHt1rmYBkTUimH
+         HREQ==
+X-Forwarded-Encrypted: i=1; AJvYcCU1yAsDcMYyKHzdFX5fYwZ3JOm9OpHrp3q6xDDQpPnpGX6F/za2z3cs7/QLrMpCCoI0IWfS1qaIvvI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwKiGybevm79aIHpN0g78Ye2GWmyA83d9uK+NeotJml7mEL7bP8
+	EmbqgGogczw728gapNkVAcZfn6JcBesgKbwagYml1d9ocUWpDemoI9VRYjiZhxwkLw==
+X-Gm-Gg: ASbGncv+J7zqnhTGN962NqBbrk1SfOM/u/A1WDtjlKiuAvo8hBNHC/L5MReehc009oU
+	DKZfKECymDVgA/bxOWlvNN+prZRkweNghzRjSVBTBftK8+bYt/O2NQLgCp+HYr+QAcHK5oOa/2y
+	9WAjY4E6MuVDEgjZV+m1SYceqE2aE9lC0ASbFBes2VOPerNWmRCwcBDiQ9Whx0gtiQ/EB+eTMNy
+	Ft/XOUdHcxVBRd+33xYxbA0/t9Oa6HWdv10vRcy82A0s93sbDiDhciFbhPd9uMZkHi0J3Bzexwz
+	wv7Y+6ReY9En4cWAugDT4qGui58b/P3UcTWID3ASSwuFPh8mpi199Orb5jd5el18AgiJh1MbWhq
+	y7oqxhksT9iFNxUJKuRShqRacnxx2Ja8uf/TCrzjsRpmkY7s=
+X-Google-Smtp-Source: AGHT+IFV27vbss+7gJRJD0zljNSb56Ut+pTBzLrCrTSKmO+rt6GZUx6vO1DV3V6AiH7ZdHcwQ+9f2w==
+X-Received: by 2002:a05:6000:41f8:b0:3b3:a0f6:e8d0 with SMTP id ffacd0b85a97d-3b5ddecceb2mr2735886f8f.54.1751981069513;
+        Tue, 08 Jul 2025 06:24:29 -0700 (PDT)
+Message-ID: <e677f691-f158-4c7f-97bf-13bd157fcb54@suse.com>
+Date: Tue, 8 Jul 2025 15:24:19 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] x86/idle: Implement support for Meteor Lake
-To: Alex XZ Cypher Zero <me@alex0.net>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <4f6cad808ae9ada51e873a411d774dafad4a49cd.1751969384.git.me@alex0.net>
+Subject: Re: [PATCH 1/2] xen/x86: don't send IPI to sync TSC when it is
+ reliable
+To: Stefano Stabellini <stefano.stabellini@amd.com>
+Cc: andrew.cooper3@citrix.com, roger.pau@citrix.com,
+ Xenia.Ragiadakou@amd.com, alejandro.garciavallejo@amd.com,
+ Jason.Andryuk@amd.com, xen-devel@lists.xenproject.org
+References: <alpine.DEB.2.22.394.2507071657440.605088@ubuntu-linux-20-04-desktop>
+ <20250708000712.2731666-1-stefano.stabellini@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -118,70 +120,45 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <4f6cad808ae9ada51e873a411d774dafad4a49cd.1751969384.git.me@alex0.net>
+In-Reply-To: <20250708000712.2731666-1-stefano.stabellini@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 08.07.2025 12:09, Alex XZ Cypher Zero wrote:
-> Adds support for Meteor Lake C-states, following the reference implementation in Linux.
+On 08.07.2025 02:07, Stefano Stabellini wrote:
+> On real time configuration with the null scheduler, we shouldn't
+> interrupt the guest execution unless strictly necessary: the guest could
+> be a real time guest (e.g. FreeRTOS) and interrupting its execution
+> could lead to a missed deadline.
 > 
-> Signed-off-by: Alex XZ Cypher Zero <me@alex0.net>
+> The principal source of interruptions is IPIs. Remove the unnecessary
+> IPI on all physical CPUs to sync the TSC when the TSC is known to be
+> reliable.
 
-I'm sorry, but this still isn't quite how it wants to be done. Besides some
-of the metadata from the Linux commits that wants to be there, it's also
-pretty helpful if what we pull in is done in the same order as Linux had
-things appear. Unless of course this isn't possible or doesn't make sense
-(yet), like e.g. for Linux commit 9f0112938277. That one we will want once
-we gained AMX support.
+If it had been truly unnecessary for all the time, I'm sure someone would
+have suggested to get rid of the overhead. IOW I think there is more to be
+said as to this being correct / safe, including in any corner cases.
 
-Furthermore, ...
-
-> --- a/xen/arch/x86/cpu/mwait-idle.c
-> +++ b/xen/arch/x86/cpu/mwait-idle.c
-> @@ -678,6 +678,28 @@ static struct cpuidle_state __read_mostly adl_l_cstates[] = {
->  	{}
->  };
+> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+> ---
+>  xen/arch/x86/time.c | 4 ++++
+>  1 file changed, 4 insertions(+)
+> 
+> diff --git a/xen/arch/x86/time.c b/xen/arch/x86/time.c
+> index 59129f419d..bfd022174a 100644
+> --- a/xen/arch/x86/time.c
+> +++ b/xen/arch/x86/time.c
+> @@ -2303,6 +2303,10 @@ static void cf_check time_calibration(void *unused)
+>          local_irq_enable();
+>      }
 >  
-> +static struct cpuidle_state __read_mostly mtl_l_cstates[] = {
+> +    if ( boot_cpu_has(X86_FEATURE_CONSTANT_TSC) &&
+> +         boot_cpu_has(X86_FEATURE_TSC_RELIABLE) )
+> +        return;
 
-... this wants to be const, as well as ...
-
-> +	{
-> +		.name = "C1E",
-> +		.flags = MWAIT2flg(0x01),
-> +		.exit_latency = 1,
-> +		.target_residency = 1,
-> +	},
-> +	{
-> +		.name = "C6",
-> +		.flags = MWAIT2flg(0x20) | CPUIDLE_FLAG_TLB_FLUSHED,
-> +		.exit_latency = 140,
-> +		.target_residency = 420
-> +	},
-> +	{
-> +		.name = "C10",
-> +		.flags = MWAIT2flg(0x60) | CPUIDLE_FLAG_TLB_FLUSHED,
-> +		.exit_latency = 310,
-> +		.target_residency = 930
-> +	},
-> +	{}
-> +};
-> +
->  static struct cpuidle_state __read_mostly spr_cstates[] = {
->  	{
->  		.name = "C1",
-> @@ -1083,6 +1105,10 @@ static struct idle_cpu __read_mostly idle_cpu_adl_l = {
->  	.state_table = adl_l_cstates,
->  };
->  
-> +static struct idle_cpu __read_mostly idle_cpu_mtl_l = {
-
-... this. (Some of the entries can't be, which unfortunately makes it not
-straightforward, i.e. you cannot simply copy such attributes from adjacent
-entries in some of the cases.)
-
-I've Cc-ed you on the one patch in the series that corresponds to this one.
-Feel free to provide a Reviewed-by:.
+This would render the (first of the two) invocation(s) of the function from
+verify_tsc_reliability() (largely) dead; it would then be only r.master_stime
+which gets updated (see also Alejandro's reply), which surely wouldn't have
+required that call in the first place.
 
 Jan
 
