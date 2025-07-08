@@ -2,31 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 232E5AFC9D5
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Jul 2025 13:47:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1036375.1408626 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BBFB7AFCABF
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Jul 2025 14:46:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1036419.1408641 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uZ6ml-0001lU-3Q; Tue, 08 Jul 2025 11:46:55 +0000
+	id 1uZ7iH-0000ux-NC; Tue, 08 Jul 2025 12:46:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1036375.1408626; Tue, 08 Jul 2025 11:46:55 +0000
+Received: by outflank-mailman (output) from mailman id 1036419.1408641; Tue, 08 Jul 2025 12:46:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uZ6ml-0001ip-09; Tue, 08 Jul 2025 11:46:55 +0000
-Received: by outflank-mailman (input) for mailman id 1036375;
- Tue, 08 Jul 2025 11:46:54 +0000
+	id 1uZ7iH-0000s9-KO; Tue, 08 Jul 2025 12:46:21 +0000
+Received: by outflank-mailman (input) for mailman id 1036419;
+ Tue, 08 Jul 2025 12:46:20 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=1zRJ=ZV=rein-hpcbdc09=jahan@srs-se1.protection.inumbo.net>)
- id 1uZ6mk-0001ij-1d
- for xen-devel@lists.xenproject.org; Tue, 08 Jul 2025 11:46:54 +0000
-Received: from rein-hpcbdc09 (unknown [1.6.89.6])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=mjd+=ZV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uZ7iG-0000s3-3G
+ for xen-devel@lists.xenproject.org; Tue, 08 Jul 2025 12:46:20 +0000
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [2a00:1450:4864:20::430])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3b497c5f-5bf1-11f0-a317-13f23c93f187;
- Tue, 08 Jul 2025 13:46:51 +0200 (CEST)
-Received: by rein-hpcbdc09 (Postfix, from userid 1000)
- id 43C9A80C0306; Tue,  8 Jul 2025 17:16:47 +0530 (IST)
+ id 84078dcf-5bf9-11f0-a317-13f23c93f187;
+ Tue, 08 Jul 2025 14:46:07 +0200 (CEST)
+Received: by mail-wr1-x430.google.com with SMTP id
+ ffacd0b85a97d-3a528243636so2468775f8f.3
+ for <xen-devel@lists.xenproject.org>; Tue, 08 Jul 2025 05:46:07 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-23c8457fac7sm111444745ad.164.2025.07.08.05.45.58
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 08 Jul 2025 05:46:05 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,340 +45,235 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3b497c5f-5bf1-11f0-a317-13f23c93f187
-From: Jahan Murudi <jahan.murudi.zg@renesas.com>
-To: xen-devel@lists.xenproject.org
-Cc: Jahan Murudi <jahan.murudi.zg@renesas.com>,
-	Anthony PERARD <anthony.perard@vates.tech>
-Subject: [PATCH] tools/xentop: Add physical CPU statistics support
-Date: Tue,  8 Jul 2025 17:16:32 +0530
-Message-Id: <20250708114632.3007693-1-jahan.murudi.zg@renesas.com>
-X-Mailer: git-send-email 2.34.1
+X-Inumbo-ID: 84078dcf-5bf9-11f0-a317-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1751978766; x=1752583566; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=JLcMC3r3zgVxRIg+yqIxXX4L+75RwanWw/RK+owDoX0=;
+        b=UYpBC4rzs12fM/VWEEWqBROvkfu42qqjGztY54P0/pEvvedh1DmAvUsjpJOwCXFP6W
+         faCuOoM+CdSV9rVUVtQwGJRJkQ/NPjY5hnN8IhM5yGBD8lUX3dchPXqtSMvzSLXcsyQZ
+         DxCaMfN9+H/ZR57nV9c69Oi+/K1s/WbuBngVU5zuF18Qwxvd/4PQrKv/38sPp7O47J7s
+         vQghU1oLQ/odytTu79xXBtHWNg0zj4DLH4S8S72FjhnN1Ix5VzOuNxLQXyDJbtJyzJ0S
+         x2hiWY6Z0rM3IvB4HEJAsVFAGFuo3GMVE/J7yNIxkds0pF1XK0hRC7xC8IRlQ4ussOP0
+         Eq3A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1751978766; x=1752583566;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=JLcMC3r3zgVxRIg+yqIxXX4L+75RwanWw/RK+owDoX0=;
+        b=SmwigUdI069SgfVbmXKzmsl5w5cH3gcp7+GMXXeE3uOpnV08wK8JBOmyjufBUY9zeB
+         hYWFJa9/UfZ2TgNATK/LUMIEkKfJNxVmxhPUnmwbq3jFs2x+D/ieISJbu4YmZ3WQvoK3
+         6WYxJt01rF7NfSZSqE+TUES5RqIntyHa6qGyUIHR4Yu0c7zBb29w0+j/7Pbp1E1JI82b
+         kgy6oK/1XdcGLoNQIDvAZ0dBUgPryZSFlAnCNwYBLx4J4QXjGw6zXt8NcVU4RSsbLm90
+         tsU8dlj//mIMQFhPEwKGY2CvNnNXUxNrgI3AjvTAv8vbTE9DCsedzUX0Y91rNSPodaIB
+         6OhQ==
+X-Forwarded-Encrypted: i=1; AJvYcCW08Mv/QULNQ7DGt+nEaeAR69sxigh0U3CmcTlYDoCf4DJXgz5apqP+VmRTeAX7Ji1cSfZlYEgxOxs=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzEXrKx3JnARdcguvJ+gXibnfuFcrQfnk44tpyArx5yPsr+be2q
+	JvG2bD3P5gPxYDBdQEWAQ5xzFUR7r4Z9zxtv3xPPkCQM3Gk6TmXQpc8ngLOlSL0EDA==
+X-Gm-Gg: ASbGncucTH8eBe+arEi6ImHVfOhGeyEOVn62sMnW2FbfA+EM7PGL4UWJTz26VtZtbZi
+	bkvOqRZ21h9y9LTOaccygJPSNuWDT8ZetZI+fOsA2s/43hZdlK+rZNFv48m3rgx4b8VhdRgrJhe
+	NWNVw0usyc2zUPpRr6LNsGnViC/WvrHrxhKXGMkK/MgyKM59RzRUuu0oJT8NDUhf4lyrG+NYw8h
+	69Z7JQxo/QMXYlOtrOcXOqaGByFAZVao5YwIyx+GhlvI2I4zBgbYXfM9l782c0DshPr/Fx2Ndgd
+	VY2porSvMlpOP2S00JZ94D02q38+4rgeYLscMUZm43Nz3ZrOJfkGRW/o/XIffFbWXVYdUgzWm6S
+	eOpsrlxB1KUqC6xac/CsYTLePYbmfOJW28pqLqEegM25h0L8=
+X-Google-Smtp-Source: AGHT+IHuQQdQq5Pm5FvnjT3R6Yl9UCGspQFjAv/SZWgmmu147KfKKUwYgH9/9WrOWD8scHOxJoOy+w==
+X-Received: by 2002:a05:6000:288e:b0:3a4:d274:1d9b with SMTP id ffacd0b85a97d-3b5dde928a2mr2770689f8f.25.1751978766197;
+        Tue, 08 Jul 2025 05:46:06 -0700 (PDT)
+Message-ID: <61773bca-32f7-42ee-867f-80dc8a389bef@suse.com>
+Date: Tue, 8 Jul 2025 14:45:55 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 11/17] xen/riscv: implement p2m_set_entry() and
+ __p2m_set_entry()
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1749555949.git.oleksii.kurochko@gmail.com>
+ <7826732d2f6aa5888758942165f0f1e73fa84ffa.1749555949.git.oleksii.kurochko@gmail.com>
+ <31811dbc-5fe8-487b-95d4-dd7f5f0868b3@suse.com>
+ <674c9f82-f486-4cca-991b-3ac3da3a237d@gmail.com>
+ <2afe5641-0790-4f27-823b-ab941ad2c971@suse.com>
+ <82362709-c386-485e-935c-e229e735fba6@gmail.com>
+ <cec77342-367c-41fe-abaf-b7e04309ca63@suse.com>
+ <8036ddb2-f223-41f5-a498-75b483c237bb@gmail.com>
+ <6bdad560-d631-4ae7-aaa2-3a0f64250f4b@suse.com>
+ <8f166b5d-eed3-4695-a0e9-ba8fc8a2b9b2@gmail.com>
+ <409cdade-192d-47dc-941d-9256bfa53cea@suse.com>
+ <65aaf77e-85fe-4934-a485-710aff59f4eb@gmail.com>
+ <05b789f0-7064-4ec3-9e0c-ba528a30d315@gmail.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <05b789f0-7064-4ec3-9e0c-ba528a30d315@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Introduce a new '-p/--pcpus' flag to display physical CPU utilization metrics
-using xc_interface. This provides hypervisor-level CPU usage insights alongside
-existing domain statistics.This helps correlate VM resource usage with host CPU
-load patterns.
+On 08.07.2025 12:37, Oleksii Kurochko wrote:
+> 
+> On 7/8/25 11:01 AM, Oleksii Kurochko wrote:
+>>
+>>
+>> On 7/8/25 9:10 AM, Jan Beulich wrote:
+>>> On 07.07.2025 18:10, Oleksii Kurochko wrote:
+>>>> On 7/7/25 5:15 PM, Jan Beulich wrote:
+>>>>> On 07.07.2025 17:00, Oleksii Kurochko wrote:
+>>>>>> On 7/7/25 2:53 PM, Jan Beulich wrote:
+>>>>>>> On 07.07.2025 13:46, Oleksii Kurochko wrote:
+>>>>>>>> On 7/7/25 9:20 AM, Jan Beulich wrote:
+>>>>>>>>> On 04.07.2025 17:01, Oleksii Kurochko wrote:
+>>>>>>>>>> On 7/1/25 3:49 PM, Jan Beulich wrote:
+>>>>>>>>>>> On 10.06.2025 15:05, Oleksii Kurochko wrote:
+>>>>>>>>>>>> +{
+>>>>>>>>>>>> +    panic("%s: isn't implemented for now\n", __func__);
+>>>>>>>>>>>> +
+>>>>>>>>>>>> +    return false;
+>>>>>>>>>>>> +}
+>>>>>>>>>>> For this function in particular, though: Besides the "p2me" in the name
+>>>>>>>>>>> being somewhat odd (supposedly page table entries here are simply pte_t),
+>>>>>>>>>>> how is this going to be different from pte_is_valid()?
+>>>>>>>>>> pte_is_valid() is checking a real bit of PTE, but p2me_is_valid() is checking
+>>>>>>>>>> what is a type stored in the radix tree (p2m->p2m_types):
+>>>>>>>>>>        /*
+>>>>>>>>>>         * In the case of the P2M, the valid bit is used for other purpose. Use
+>>>>>>>>>>         * the type to check whether an entry is valid.
+>>>>>>>>>>         */
+>>>>>>>>>>        static inline bool p2me_is_valid(struct p2m_domain *p2m, pte_t pte)
+>>>>>>>>>>        {
+>>>>>>>>>>            return p2m_type_radix_get(p2m, pte) != p2m_invalid;
+>>>>>>>>>>        }
+>>>>>>>>>>
+>>>>>>>>>> It is done to track which page was modified by a guest.
+>>>>>>>>> But then (again) the name doesn't convey what the function does.
+>>>>>>>> Then probably p2me_type_is_valid(struct p2m_domain *p2m, pte_t pte) would better.
+>>>>>>> For P2M type checks please don't invent new naming, but use what both x86
+>>>>>>> and Arm are already using. Note how we already have p2m_is_valid() in that
+>>>>>>> set. Just that it's not doing what you want here.
+>>>>>> Hm, why not doing what I want? p2m_is_valid() verifies if P2M entry is valid.
+>>>>>> And in here it is checked if P2M pte is valid from P2M point of view by checking
+>>>>>> the type in radix tree and/or in reserved PTEs bits (just to remind we have only 2
+>>>>>> free bits for type).
+>>>>> Because this is how it's defined on x86:
+>>>>>
+>>>>> #define p2m_is_valid(_t)    (p2m_to_mask(_t) & \
+>>>>>                                (P2M_RAM_TYPES | p2m_to_mask(p2m_mmio_direct)))
+>>>>>
+>>>>> I.e. more strict that simply "!= p2m_invalid". And I think such predicates
+>>>>> would better be uniform across architectures, such that in principle they
+>>>>> might also be usable in common code (as we already do with p2m_is_foreign()).
+>>>> Yeah, Arm isn't so strict in definition of p2m_is_valid() and it seems like
+>>>> x86 and Arm have different understanding what is valid.
+>>>>
+>>>> Except what mentioned in the comment that grant types aren't considered valid
+>>>> for x86 (and shouldn't be the same then for Arm?), it isn't clear why x86's
+>>>> p2m_is_valid() is stricter then Arm's one and if other arches should be also
+>>>> so strict.
+>>> Arm's p2m_is_valid() is entirely different (and imo misnamed, but arguably one
+>>> could also consider x86'es to require a better name). It's a local helper, not
+>>> a P2M type checking predicate. With that in mind, you may of course follow
+>>> Arm's model, but in the longer run we may need to do something about the name
+>>> collision then.
+>>>
+>>>>>> The only use case I can think of is that the caller
+>>>>>> might try to map the remaining GFNs again. But that doesn’t seem very useful,
+>>>>>> if|p2m_set_entry()| wasn’t able to map the full range, it likely indicates a serious
+>>>>>> issue, and retrying would probably result in the same error.
+>>>>>>
+>>>>>> The same applies to rolling back the state. It wouldn’t be difficult to add a local
+>>>>>> array to track all modified PTEs and then use it to revert the state if needed.
+>>>>>> But again, what would the caller do after the rollback? At this point, it still seems
+>>>>>> like the best option is simply to|panic(). |
+>>>>>>
+>>>>>> Basically, I don’t see or understand the cases where knowing how many GFNs were
+>>>>>> successfully mapped, or whether a rollback was performed, would really help — because
+>>>>>> in most cases, I don’t have a better option than just calling|panic()| at the end.
+>>>>> panic()-ing is of course only a last resort. Anything related to domain handling
+>>>>> would better crash only the domain in question. And even that only if suitable
+>>>>> error handling isn't possible.
+>>>> And if there is no still any runnable domain available, for example, we are creating
+>>>> domain and some p2m mapping is called? Will it be enough just ignore to boot this domain?
+>>>> If yes, then it is enough to return only error code without returning how many GFNs were
+>>>> mapped or rollbacking as domain won't be ran anyway.
+>>> During domain creation all you need to do is return an error. But when you write a
+>>> generic function that's also (going to be) used at domain runtime, you need to
+>>> consider what to do there in case of partial success.
+>>>
+>>>>>> For example, if I call|map_regions_p2mt()| for an MMIO region described in a device
+>>>>>> tree node, and the mapping fails partway through, I’m left with two options: either
+>>>>>> ignore the device (if it's not essential for Xen or guest functionality) and continue
+>>>>>>     booting; in which case I’d need to perform a rollback, and simply knowing the number
+>>>>>> of successfully mapped GFNs may not be enough or, more likely, just panic.
+>>>>> Well, no. For example, before even trying to map you could check that the range
+>>>>> of P2M entries covered is all empty.
+>>>> Could it be that they aren't all empty? Then it seems like we have overlapping and we can't
+>>>> just do a mapping, right?
+>>> Possibly that would simply mean to return an error, yes.
+>>>
+>>>> Won't be this procedure consume a lot of time as it is needed to go through each page
+>>>> tables for each entry.
+>>> Well, you're free to suggest a clean alternative without doing so.
+>> I thought about dynamically allocating an array in p2m_set_entry(), where to save all changed PTEs,
+>> and then use it to roll back if __p2m_set_entry() returns rc != 0 ...
 
-Changes:
-- Add pcpu.c/pcpu.h for PCPU stat collection logic
-- Link against libxenctrl for xc_handle access
-- Extend CLI with '-p' flag and output formatting
-- Forward declare xenstat_handle to access xc_handle
-- Include cleanup for PCPU resources in exit handler
+That's another possible source for failure, and such an allocation may end
+up being a rather big one.
 
-Example usage:
-  xentop -p  # Shows physical CPU stats
-  xentop -bp # Batch mode
+>>>>>    _Then_ you know how to correctly roll back.
+>>>>> And yes, doing so may not even require passing back information on how much of
+>>>>> a region was successfully mapped.
+>>>> If P2M entries were empty before start of the mapping then it is enough to just go
+>>>> through the same range (sgfn,nr,smfn) and just clean them, right?
+>>> Yes, what else would "roll back" mean in that case?
+>> ... If we know that the P2M entries were empty, then there's nothing else to be done, just
+>> clean PTE is needed to be done.
+>> However, if the P2M entries weren’t empty (and I’m still not sure whether that’s a legal
+>> case), then rolling back would mean restoring their original state, the state they
+>> had before the P2M mapping procedure started.
+> 
+> Possible roll back is harder to implement as expected because there is a case where subtree
+> could be freed:
+>      /*
+>       * Free the entry only if the original pte was valid and the base
+>       * is different (to avoid freeing when permission is changed).
+>       */
+>      if ( p2me_is_valid(p2m, orig_pte) &&
+>           !mfn_eq(pte_get_mfn(*entry), pte_get_mfn(orig_pte)) )
+>          p2m_free_subtree(p2m, orig_pte, level);
+> In this case then it will be needed to store the full subtree.
 
-Example output with '-p':
-  NAME      STATE   CPU(%)  MEM(%)  VCPUS ...
-  Domain-0  -----r    17.0     6.3      8
-  DomD      -----r   767.0    38.1      8
+Right, which is why it may be desirable to limit the ability to update multiple
+entries in one go. Or work from certain assumptions, violation of which would
+cause the domain to be crashed.
 
-  Physical CPU Usage:
-  ┌───────┬────────┐
-  │ Core  │ Usage  │
-  ├───────┼────────┤
-  │ 0     │  98.1% │
-  │ ...   │  ...   │
-  │ 7     │  97.3% │
-  └───────┴────────┘
-
-Signed-off-by: Jahan Murudi <jahan.murudi.zg@renesas.com>
----
- tools/xentop/Makefile |  11 +++-
- tools/xentop/pcpu.c   | 116 ++++++++++++++++++++++++++++++++++++++++++
- tools/xentop/pcpu.h   |  18 +++++++
- tools/xentop/xentop.c |  30 +++++++++--
- 4 files changed, 170 insertions(+), 5 deletions(-)
- create mode 100644 tools/xentop/pcpu.c
- create mode 100644 tools/xentop/pcpu.h
-
-diff --git a/tools/xentop/Makefile b/tools/xentop/Makefile
-index 70cc2211c5..91d3ea864a 100644
---- a/tools/xentop/Makefile
-+++ b/tools/xentop/Makefile
-@@ -15,6 +15,7 @@ include $(XEN_ROOT)/tools/Rules.mk
- 
- CFLAGS += -DGCC_PRINTF $(CFLAGS_libxenstat)
- LDLIBS += $(LDLIBS_libxenstat) $(CURSES_LIBS) $(TINFO_LIBS) $(SOCKET_LIBS) -lm
-+LDLIBS += $(LDLIBS_libxenctrl)
- CFLAGS += -DHOST_$(XEN_OS)
- 
- # Include configure output (config.h)
-@@ -25,8 +26,14 @@ TARGETS := xentop
- .PHONY: all
- all: $(TARGETS)
- 
--xentop: xentop.o
--	$(CC) $(LDFLAGS) -o $@ $< $(LDLIBS) $(APPEND_LDFLAGS)
-+xentop: xentop.o pcpu.o
-+	$(CC) $(LDFLAGS) -o $@ $^ $(LDLIBS) $(APPEND_LDFLAGS)
-+
-+pcpu.o: pcpu.c pcpu.h
-+	$(CC) $(CFLAGS) -c $< -o $@
-+
-+%.o: %.c
-+	$(CC) $(CFLAGS) -c $< -o $@
- 
- .PHONY: install
- install: all
-diff --git a/tools/xentop/pcpu.c b/tools/xentop/pcpu.c
-new file mode 100644
-index 0000000000..6b0f2a8d3c
---- /dev/null
-+++ b/tools/xentop/pcpu.c
-@@ -0,0 +1,116 @@
-+#include "pcpu.h"
-+#include <stdlib.h>
-+#include <stdio.h>
-+#include <string.h>
-+#include <sys/time.h>
-+
-+#define MAX_PCPUS 128
-+
-+// Convert Xen's idle time (nanoseconds) to microseconds to match gettimeofday()
-+#define XEN_IDLETIME_TO_USEC(idle) ((idle) / 1000)
-+
-+// File-scope variables (static for module privacy)
-+static pcpu_stat_t *pcpu_stats = NULL;
-+static int num_pcpus = 0;
-+static uint64_t *prev_idle = NULL;
-+static uint64_t *prev_total = NULL;
-+
-+int update_pcpu_stats(xc_interface *xch)
-+{
-+    struct xen_sysctl_cpuinfo info[MAX_PCPUS];
-+    struct timeval now;
-+    int nr_cpus = 0;
-+    int i;
-+
-+    if (!xch || xc_getcpuinfo(xch, MAX_PCPUS, info, &nr_cpus) < 0) {
-+        return -1;
-+    }
-+
-+    gettimeofday(&now, NULL);
-+    uint64_t current_total = (uint64_t)now.tv_sec * 1000000 + now.tv_usec;
-+
-+    /* Allocate memory if needed */
-+    if (!pcpu_stats || nr_cpus > num_pcpus) {
-+        pcpu_stat_t *new_stats = realloc(pcpu_stats, nr_cpus * sizeof(pcpu_stat_t));
-+        uint64_t *new_prev_idle = realloc(prev_idle, nr_cpus * sizeof(uint64_t));
-+        uint64_t *new_prev_total = realloc(prev_total, nr_cpus * sizeof(uint64_t));
-+
-+        if (!new_stats || !new_prev_idle || !new_prev_total) {
-+            free(new_stats);
-+            free(new_prev_idle);
-+            free(new_prev_total);
-+            return -1;
-+        }
-+
-+        pcpu_stats = new_stats;
-+        prev_idle = new_prev_idle;
-+        prev_total = new_prev_total;
-+        num_pcpus = nr_cpus;
-+
-+        /* Initialize previous values (skip first calculation) */
-+        for (i = 0; i < nr_cpus; i++) {
-+            prev_idle[i] = XEN_IDLETIME_TO_USEC(info[i].idletime);
-+            prev_total[i] = current_total;
-+            pcpu_stats[i].pcpu_id = i;
-+            /* Default to 0% on first run */
-+            pcpu_stats[i].usage_pct = 0.0;
-+        }
-+        return 0;
-+    }
-+
-+    /* Calculate CPU usage */
-+    for (i = 0; i < nr_cpus; i++) {
-+        uint64_t current_idle = XEN_IDLETIME_TO_USEC(info[i].idletime);
-+        uint64_t idle_diff = current_idle - prev_idle[i];
-+        uint64_t total_diff = current_total - prev_total[i];
-+        
-+        if (total_diff > 0) {
-+            double usage = 100.0 * (1.0 - ((double)idle_diff / total_diff));
-+            pcpu_stats[i].usage_pct = (usage < 0) ? 0 : (usage > 100) ? 100 : usage;
-+        } else {
-+            pcpu_stats[i].usage_pct = 0.0;
-+        }
-+        pcpu_stats[i].pcpu_id = i;
-+        /* Update history */
-+        prev_idle[i] = current_idle;
-+        prev_total[i] = current_total;
-+    }
-+
-+    return 0;
-+}
-+
-+void print_pcpu_stats(void)
-+{
-+    if (!pcpu_stats || num_pcpus == 0) {
-+        printf("No PCPU data available\n");
-+        return;
-+    }
-+
-+    printf("\nPhysical CPU Usage:\n");
-+    
-+    // Print table header
-+    printf("┌───────┬────────┐\n");
-+    printf("│ Core  │ Usage  │\n");
-+    printf("├───────┼────────┤\n");
-+    
-+    // Print each CPU's data
-+    for (int i = 0; i < num_pcpus; i++) {
-+        printf("│ %-5d │ %5.1f%% │\n",
-+               pcpu_stats[i].pcpu_id,
-+               pcpu_stats[i].usage_pct);
-+    }
-+    
-+    // Print table footer
-+    printf("└───────┴────────┘\n");
-+}
-+
-+void free_pcpu_stats(void)
-+{
-+    free(pcpu_stats);
-+    free(prev_idle);
-+    free(prev_total);
-+    pcpu_stats = NULL;
-+    prev_idle = NULL;
-+    prev_total = NULL;
-+    num_pcpus = 0;
-+}
-diff --git a/tools/xentop/pcpu.h b/tools/xentop/pcpu.h
-new file mode 100644
-index 0000000000..889efacf3c
---- /dev/null
-+++ b/tools/xentop/pcpu.h
-@@ -0,0 +1,18 @@
-+#ifndef PCPU_H
-+#define PCPU_H
-+
-+#include <xenctrl.h>
-+#include <stdbool.h>
-+#include <xenstat.h>
-+
-+typedef struct {
-+    int pcpu_id;
-+    float usage_pct;
-+} pcpu_stat_t;
-+
-+/* Public API */
-+int update_pcpu_stats(xc_interface *xch);
-+void print_pcpu_stats(void);
-+void free_pcpu_stats(void);
-+
-+#endif // PCPU_H
-\ No newline at end of file
-diff --git a/tools/xentop/xentop.c b/tools/xentop/xentop.c
-index f5d6c19cf9..477299c883 100644
---- a/tools/xentop/xentop.c
-+++ b/tools/xentop/xentop.c
-@@ -24,6 +24,7 @@
- #include <ctype.h>
- #include <errno.h>
- #include <math.h>
-+#include "pcpu.h"
- #include <stdio.h>
- #include <stdlib.h>
- #include <stdarg.h>
-@@ -69,6 +70,12 @@
- 
- #define INT_FIELD_WIDTH(n) ((unsigned int)(log10(n) + 1))
- 
-+/* TEMPORARY: Forward declare the internal structure */
-+struct xenstat_handle {
-+    xc_interface *xc_handle;
-+    /* Other members don't matter fo now */
-+};
-+
- /*
-  * Function prototypes
-  */
-@@ -205,6 +212,7 @@ field_id sort_field = FIELD_DOMID;
- unsigned int first_domain_index = 0;
- unsigned int delay = 3;
- unsigned int batch = 0;
-+static unsigned int show_pcpus = 0;
- unsigned int loop = 1;
- unsigned int iterations = 0;
- int show_vcpus = 0;
-@@ -240,6 +248,7 @@ static void usage(const char *program)
- 	       "-r, --repeat-header  repeat table header before each domain\n"
- 	       "-v, --vcpus          output vcpu data\n"
- 	       "-b, --batch	     output in batch mode, no user input accepted\n"
-+		   "-p, --pcpus	     show physical CPU stats\n"
- 	       "-i, --iterations     number of iterations before exiting\n"
- 	       "-f, --full-name      output the full domain name (not truncated)\n"
- 	       "-z, --dom0-first     display dom0 first (ignore sorting)\n"
-@@ -267,6 +276,8 @@ static void cleanup(void)
- 		xenstat_free_node(cur_node);
- 	if(xhandle != NULL)
- 		xenstat_uninit(xhandle);
-+
-+	free_pcpu_stats();
- }
- 
- /* Display the given message and gracefully exit */
-@@ -1189,7 +1200,7 @@ static void top(void)
- 		fail("Failed to retrieve statistics from libxenstat\n");
- 
- 	/* dump summary top information */
--	if (!batch)
-+	if (!batch && !show_pcpus)
- 		do_summary();
- 
- 	/* Count the number of domains for which to report data */
-@@ -1245,9 +1256,18 @@ static void top(void)
- 			do_vbd(domains[i]);
- 	}
- 
--	if (!batch)
-+	if (!batch && !show_pcpus )
- 		do_bottom_line();
- 
-+    if (show_pcpus && xhandle != NULL ) {
-+    if (update_pcpu_stats(xhandle->xc_handle) == 0) {
-+        print_pcpu_stats();
-+    }
-+    else {
-+        print("Error getting PCPU stats\n");
-+    }
-+   }
-+
- 	free(domains);
- }
- 
-@@ -1272,12 +1292,13 @@ int main(int argc, char **argv)
- 		{ "vcpus",         no_argument,       NULL, 'v' },
- 		{ "delay",         required_argument, NULL, 'd' },
- 		{ "batch",	   no_argument,	      NULL, 'b' },
-+		{ "pcpus",         no_argument,       NULL, 'p' },
- 		{ "iterations",	   required_argument, NULL, 'i' },
- 		{ "full-name",     no_argument,       NULL, 'f' },
- 		{ "dom0-first",    no_argument,       NULL, 'z' },
- 		{ 0, 0, 0, 0 },
- 	};
--	const char *sopts = "hVnxrvd:bi:fz";
-+	const char *sopts = "hVnxrvd:bpi:fz";
- 
- 	if (atexit(cleanup) != 0)
- 		fail("Failed to install cleanup handler.\n");
-@@ -1312,6 +1333,9 @@ int main(int argc, char **argv)
- 		case 'b':
- 			batch = 1;
- 			break;
-+		case 'p':
-+			show_pcpus = 1;
-+			break;
- 		case 'i':
- 			iterations = atoi(optarg);
- 			loop = 0;
--- 
-2.34.1
-
+Jan
 
