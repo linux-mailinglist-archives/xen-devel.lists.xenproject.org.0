@@ -2,56 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B1388AFDA12
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Jul 2025 23:40:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1037370.1410029 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8FE81AFDA13
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Jul 2025 23:41:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1037384.1410044 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uZG3Q-0001se-B2; Tue, 08 Jul 2025 21:40:44 +0000
+	id 1uZG4B-0002ah-Kq; Tue, 08 Jul 2025 21:41:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1037370.1410029; Tue, 08 Jul 2025 21:40:44 +0000
+Received: by outflank-mailman (output) from mailman id 1037384.1410044; Tue, 08 Jul 2025 21:41:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uZG3Q-0001qH-8R; Tue, 08 Jul 2025 21:40:44 +0000
-Received: by outflank-mailman (input) for mailman id 1037370;
- Tue, 08 Jul 2025 21:40:43 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uZG4B-0002ZE-Hs; Tue, 08 Jul 2025 21:41:31 +0000
+Received: by outflank-mailman (input) for mailman id 1037384;
+ Tue, 08 Jul 2025 21:41:30 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=qd/v=ZV=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
- id 1uZFuU-0007OX-Gk
- for xen-devel@lists.xenproject.org; Tue, 08 Jul 2025 21:31:30 +0000
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2062b.outbound.protection.outlook.com
- [2a01:111:f403:2416::62b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e70ab064-5c42-11f0-b894-0df219b8e170;
- Tue, 08 Jul 2025 23:31:27 +0200 (CEST)
-Received: from MW4PR03CA0065.namprd03.prod.outlook.com (2603:10b6:303:b6::10)
- by MN6PR12MB8544.namprd12.prod.outlook.com (2603:10b6:208:47f::17)
+ id 1uZFus-0006hl-6n
+ for xen-devel@lists.xenproject.org; Tue, 08 Jul 2025 21:31:54 +0000
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1nam02on2061f.outbound.protection.outlook.com
+ [2a01:111:f403:2406::61f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f5e91b60-5c42-11f0-a317-13f23c93f187;
+ Tue, 08 Jul 2025 23:31:52 +0200 (CEST)
+Received: from SN7P222CA0004.NAMP222.PROD.OUTLOOK.COM (2603:10b6:806:124::18)
+ by SJ0PR12MB6832.namprd12.prod.outlook.com (2603:10b6:a03:47e::12)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8880.16; Tue, 8 Jul
- 2025 21:31:20 +0000
-Received: from SA2PEPF000015C7.namprd03.prod.outlook.com
- (2603:10b6:303:b6:cafe::e9) by MW4PR03CA0065.outlook.office365.com
- (2603:10b6:303:b6::10) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8901.26 via Frontend Transport; Tue,
- 8 Jul 2025 21:31:19 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8901.27; Tue, 8 Jul
+ 2025 21:31:48 +0000
+Received: from SA2PEPF000015CA.namprd03.prod.outlook.com
+ (2603:10b6:806:124:cafe::9b) by SN7P222CA0004.outlook.office365.com
+ (2603:10b6:806:124::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8901.27 via Frontend Transport; Tue,
+ 8 Jul 2025 21:31:46 +0000
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SA2PEPF000015C7.mail.protection.outlook.com (10.167.241.197) with Microsoft
+ SA2PEPF000015CA.mail.protection.outlook.com (10.167.241.200) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8901.15 via Frontend Transport; Tue, 8 Jul 2025 21:31:18 +0000
+ 15.20.8901.15 via Frontend Transport; Tue, 8 Jul 2025 21:31:46 +0000
 Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 8 Jul
- 2025 16:31:18 -0500
+ 2025 16:31:45 -0500
 Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
  (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 8 Jul
- 2025 16:31:17 -0500
+ 2025 16:31:45 -0500
 Received: from [172.19.134.125] (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Tue, 8 Jul 2025 16:31:17 -0500
+ Transport; Tue, 8 Jul 2025 16:31:44 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,118 +63,153 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e70ab064-5c42-11f0-b894-0df219b8e170
+X-Inumbo-ID: f5e91b60-5c42-11f0-a317-13f23c93f187
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=SpA23pOrE0b7VRqMmBTEdSAFh3rr76pYBst52EoZMpDIES26CUc0wHn5DfonYTXe1GBRsweE4ncdv6d+VMwcOG3KpaJstQ+KUi9Ycct+zjcnyRfjyPzbTLEjkq3vHYLeNeFNYpvTiMDlxTONBpMsxBoad6eB60zEzrlqG0l8h+2h7zBQhSkmN+I4oDP0GEjNUGhMtKdS8DFRQM7s2PDqF/Jw1JXI2QEeUsBnfCVQLNSNyV9eoxY1MQDEtjZpMJadCwqA5e85DVDs3nyxdSrE8nAq3bhjZzF0RohSkIVsKANU9K21wqWXAUfRaQGqZwvyhPEQoBpv+PbnITpq4f2umw==
+ b=fk65MYOMeNx/S3F5yiupCOufauHMylUsxryeiqene7EAt6SwLF2r9deq9/oq2N85OC3PZw9n5a9kVXULNYj9zgrK6+FuwneJWwNMqTypru/uvOif9f6Ay3Al4WSFQ2yPnOY8qVJIt9AxR4rqxJIDVSfEX0ipUUe815J9FSbRaO/pQNSMQz4Mf2OYCZY5eOC3PwWmxajy2QxRElcLDUM4ZP5r4fwFpFfkY0hMbJqAFY9EPWJbrmCH5RZXtCnq1/07WXUarR8Hz1mv8YIiilBK/FobsNQJ/3MX8pIz+7I15U4JnXOoFhn2creD3SMC470yuCgo7jrzf3shHcntMquq8Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=apP++kaO3lDa0Iv6b2qLuBRntp0Si4dYDZEtcW+qpc0=;
- b=tz19f71Sqntx88z74Z25NZ+r18D2csIEqaNv4MqNh2NTorqX9ZlvCGIshu6k9iSqClsrsbTcMeANoaqUmUKOfRU3a+T05wl4D3O3D0v3iVflSCGflG2EPD8bRtMdm/MO7sfbT7EJRCP+Nu6e0tqlHmulpUEQoyeoQjnmqGnIw3oTRJpi+UtY8StKfb3aAJyebXYj8JCb0h1t1G9hYfv9NBf6mjNJUsdJG1HTCxefQVjGLDzr6zN1tjIJH28X4PEuWRbEXUL6cZKkNPXU62KjFBE8AAAaewsyK7e/JlnHiMj8qNtq6OSmZNQusvhNz8uI53KYI1o3Y3U8kZup2GVitQ==
+ bh=nDpEFlCoXVD7ENnADuKDW8nwDvpTX/4/kG//QGY/Szo=;
+ b=oa1SlA1cPokJqGEp4kCeyF6eI5q02kCpKWUvwiGikiO4kN18Mkh567jjt2VY30E25TvGhhFXJvA88av6pUfvXxlkawzh3oII+2EW6O95/4Ew2j296F5MKB8Rp/D4pmvAyNzqsJTJPaVJcycXniXFgWymsBX6mEoDg6B4pvhv6lZAqv6nLcMArWVUNL9Dn9X8sQUW7YG9i5KaeQJ6iYm+AILo5qgRIb/vopUB+bNfgwUhxZz5JKxwO29X1oXWyqs/wEvT7kUeA5YdiAb6A1W4F2vzAzAk/PUkSRVYd0oM4P/RmheOFEwCxuZ00OPmi4sZmxlxcS/6D5ivjj3nv/Jnmg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=apP++kaO3lDa0Iv6b2qLuBRntp0Si4dYDZEtcW+qpc0=;
- b=YsCpkhNcKW+MN9sE7h7JVHGJpKdiqQiS3x9I237C15GJRs0Yn861jKhxvLhLOkz4msFXUIM2gMs70h/7OIQ7FAj3vF340KnfXfXe/6F3Z+pqDrwEuDZ926pmmZqyhV45JvRI8GDwuaQTqo528N4P6H8c3sWgxUJex301YViYvhI=
+ bh=nDpEFlCoXVD7ENnADuKDW8nwDvpTX/4/kG//QGY/Szo=;
+ b=IdL9hwYbFRvHvuf7dc3NIzJoeKAS39O4TEx8IZWHy+hZywqAFds1cwAW7eV44xE7QJx+v+1jYECTO6yWBqhRrrufdkMWNmRiqK5I7FYs9XbO0smEfeU3d6Z1vrNz+7wW4OsQ5ue/hLsDJp1hliPmU+nrfP4j25NuWr4TDAfH6dY=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <41abf7c9-9d71-4c29-90cf-c19863d6b789@amd.com>
-Date: Tue, 8 Jul 2025 17:14:10 -0400
+Message-ID: <fe9ea209-6a41-4448-b171-bfa7e639989d@amd.com>
+Date: Tue, 8 Jul 2025 17:14:37 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [MINI-OS PATCH 08/19] e820: don't count lapic page as initially
- reserved
+Subject: Re: [MINI-OS PATCH 06/19] mm: don't add module pages to free memory
 To: Juergen Gross <jgross@suse.com>, <minios-devel@lists.xenproject.org>,
 	<xen-devel@lists.xenproject.org>
 CC: <samuel.thibault@ens-lyon.org>
 References: <20250702081254.14383-1-jgross@suse.com>
- <20250702081254.14383-9-jgross@suse.com>
+ <20250702081254.14383-7-jgross@suse.com>
 Content-Language: en-US
 From: Jason Andryuk <jason.andryuk@amd.com>
-In-Reply-To: <20250702081254.14383-9-jgross@suse.com>
+In-Reply-To: <20250702081254.14383-7-jgross@suse.com>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
 Received-SPF: None (SATLEXMB05.amd.com: jason.andryuk@amd.com does not
  designate permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF000015C7:EE_|MN6PR12MB8544:EE_
-X-MS-Office365-Filtering-Correlation-Id: d42a24bb-e267-4430-2b3c-08ddbe66c6e5
+X-MS-TrafficTypeDiagnostic: SA2PEPF000015CA:EE_|SJ0PR12MB6832:EE_
+X-MS-Office365-Filtering-Correlation-Id: aca3e5d7-813a-416a-7078-08ddbe66d74d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|82310400026|36860700013|1800799024|7053199007;
+	BCL:0;ARA:13230040|36860700013|1800799024|82310400026|376014|7053199007;
 X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?ZEFIcHZGaDdlU1BnVVFuc25zS2hRQktlYmhSVndBUUk3cllHWXdBVWMrZDQz?=
- =?utf-8?B?OGtPTUJnVWxnUWFmQ1VETVVSdmJpRi9UbDVnUU4vYUdCYW1PdVRMNVE1aGlN?=
- =?utf-8?B?WXFpMUYvbmM3cDN1STJhM1FpTHcxWmtLaHNLaG5tRUVpdXpkYlZLeXJaRFVh?=
- =?utf-8?B?LzVwRUV2bTdGOVFOMGZFeWxYZXdhUEZSOFlIQTh0dHdNOVY0dFlDLzZHcEdn?=
- =?utf-8?B?d3BBMnloeXVuSGdEZVRyVHl0N1QyeDhKbmw4MC90SkdtUkppUHo1d1luQVFz?=
- =?utf-8?B?TVJ2cS9MdVllK0NqRWpMMGkyR3hGR0VWOVhsNFUvSXFvM3hOTzB3WnpnUzhh?=
- =?utf-8?B?dkJnRG4zUWlTQVRzMGNuWCt3N1lwYkFpRlBwSnU1OWhiVzdzR0hLa2gxV0dS?=
- =?utf-8?B?ZjVGck1GK2JQZ0RaS0t0eHJiYjI3RTBtZ1pLUnI5VW13K3hNR0hGZjM3RmdP?=
- =?utf-8?B?OGhDRnV5c2JmN2h1cVVMK3pUNWI1ZjF1WXhPSktJb1dOV2c4VGZVK0FpeWcw?=
- =?utf-8?B?Mk96eU80MmNtKzYvQnRONzNUU2VXZ250R2x6eWVoR0h0YkV5S0t4Mm5xNXZs?=
- =?utf-8?B?V3Q3S2JMMGxRbUJlMUthRVU0ZGxMTEc1M012Sjd5YnluUzcrZkpEZUd0NlQ4?=
- =?utf-8?B?SnRQQU8yVlc2VHRwM1Fxdzd4Uy94UmFCbmtlMTBsVFJCRVdPM0hFZzJLdDhC?=
- =?utf-8?B?bTBwVE9iaHk4WU5URjJKTk83MVoreFlURG91Mlh1SXZpR2dVeThDeDAxUHBC?=
- =?utf-8?B?NEFZYTJyY01DdmdXNElpd1owRUNPeUJPRUFvditzamdvQ2I5V2ZnNVpKd3o4?=
- =?utf-8?B?NVM0LzAzMjZDS1E2dXZtbDArSnNlcndlQlUzOWtKKy9VY01zbjEyZjcrSFBt?=
- =?utf-8?B?NHBDUVRqRzBUbkNGTWJEeGlHRXBJRktXMlJUMXpVbkRxZzdiTTFMQm1MN3Ri?=
- =?utf-8?B?ZFU4UkUyaEIyeUJWUmdiNHZ0dFE1VXBLdm9vOW4vcjFOYk5rMm1ZTnFTdW02?=
- =?utf-8?B?WEpXcVFCMDJNSWh4aG9jbTExdms4TWQzc1pUb2R6L3RUSkpIT1d2WE5jemtn?=
- =?utf-8?B?aXpzaUtiVTE2K1V6ekUvQXJOU3R6cDIwNWw0dU5TWHpDaEJaSkpqejhRdlF2?=
- =?utf-8?B?QnhSY0krSXl3T2E2MDNFSFBSTUJzcmEyMGRXTjZWTk5kdUkyc2Z0MnZmMkEy?=
- =?utf-8?B?L3IySCtlVEZ4OVlGSUs2bEhmd3gwUlhiWEI0dWpBU2NQMGlLMXkxMStyeGUx?=
- =?utf-8?B?MFNJYW5ZSzdlY0Y5cWVaZ2ZITVd6Q1YxZExoVkFHZTZScFZ2NnQ2L3NxS1gv?=
- =?utf-8?B?N0RyS0JtWXp2RWppLy9iSEVWREJtTmVZTjgrUmozSXdROHlsZ3hNdWdjdTNY?=
- =?utf-8?B?MGNWdVpieUZKTiszMFVDRHoyKzU4VjdDUVNnS1RqOXVSM2luSU9rS29qWFla?=
- =?utf-8?B?cVVYTnhzM2FGd0hienZKSHVxVDRlcmJ1L0dpT3lDQVBSc1lGcWlpSkQ4cm9X?=
- =?utf-8?B?WWNTb3ZnajA0NUNyWGtPdzh6K1lOZmFzT3UyOXlONG45T3RRUm0xOFdacHBi?=
- =?utf-8?B?UGxaS1lYeXdIcGtHa3BuL2VkdHQ3b2MwUDI3L0gyeW9sY09YZkdnVXk1L0JF?=
- =?utf-8?B?RGhHc2xmTCtOUmxxM1NXMm5XOTgzd0s5NnFLWk1nb0xpZG9NbE14RnNoSHpH?=
- =?utf-8?B?Y1ZBQlF3Ryswbkh0MFRTRnFoWHdzS0FGbXVWWm5OWGNZbm8zbGV2RXg5em5m?=
- =?utf-8?B?dXJjMFFtTGZINmtRWmNTLzVzNXMyMG1oSnd1cDVDaDMza3FRcENPOE5qUVFH?=
- =?utf-8?B?RmdVcGQ2VXhmcFd1UzFpN204R0trdlNQNGhlczUrb05QSC9pS01VVUc2QWhr?=
- =?utf-8?B?NS9nZ0tPaStzdDRmdmM2NmNoQjdEQ280YWRydUNTUWF3ZFJiMkduVDVQQkpj?=
- =?utf-8?B?dWpZSXp2M3duclJPbGdoZlZkcDdqUU1LUVZKZkVQb1RzY2ozUU9GVTk0SEc4?=
- =?utf-8?B?Mi8vZzZFYStWRjZQK2syNG00TFRleDJWODlFYUtOWnRwaitjOFBVYlU4OE1a?=
- =?utf-8?Q?0bRntJ?=
+	=?utf-8?B?RVRUb2RCQXNicnpQdHpWS0VNaGJPSTg4NHNGdzZCazNQMThrQ2pFbGt2eEZz?=
+ =?utf-8?B?R2pjWHZVMlFuTThNVUx3RkdsNE5VWUNuV0I2cFkrNHVwK1ZBWlpXQkFQdDQw?=
+ =?utf-8?B?blpBaTNzYm01T21IejdiQ1FHQysrVEdRTmhKaERSaGlxM2lrblpZNkhlWnNw?=
+ =?utf-8?B?VUx4TmxYclZqaWQvTDYxbWtML25IRXRQa1lHK1l1TTloWXk3UjNGTGJMWUJW?=
+ =?utf-8?B?eGhuRDFBZzZRZkY4KzlVWjBtRUZsYzVjdlBUYms4ZERHdTluTjFiODVDTk9h?=
+ =?utf-8?B?UUI5VVJyYnVnN1JveVRpeWhZTmJva1hDckh2amhwVHRhY3ZYRFh5eFhJSGFh?=
+ =?utf-8?B?aFdkYWJ2T1RjRzVvL2pabS9SOHZyT1Q4MzVqM1c3YmNBSHFxZDgxMXN1L3Ex?=
+ =?utf-8?B?NVgyTUhoa25vOUV0S1JTd2RGeGgzc1gweFp0OEpBQU4zaXlPTUpIcWtXZjNH?=
+ =?utf-8?B?SUhZVlhiZkRaSmZSU0NRMnNCUHoyOS9ndUI5R1ZNajhuSlN0d0gyTlI5RVpZ?=
+ =?utf-8?B?RmtTZE5hSjhPZDhOdEFKcjJtcmYzcEVKSW5WK21SaEJmazV3NS9ZZXhQQzlh?=
+ =?utf-8?B?Y3FCcHJEOWZCY1I2TmtIaUc2NzVicFV5QkZoMWdxSnBnQytWL2FVQWdiR0JZ?=
+ =?utf-8?B?N2EwNXhSbUl3b0tRWmtXNzBxeXNEdjJ6ZERnT3c3aEY3VmRuZDZrTkJHR2lQ?=
+ =?utf-8?B?K3pteGxtRGphRkxycDBScE1QMGpKR21MVHFYT3pVbVNLUmxUQnMrRlYvM1hx?=
+ =?utf-8?B?eDNxUWdXVXBtU3BzNEltNUtUcG5JMFkwMTBlanB3d1JsRHlRTTMzaWo0OURV?=
+ =?utf-8?B?MkNiTzZwZTZPbUVObnRLdERRRnVTZXY0OGhjYmc3UEJIaXlQL2dYc0tDOFZB?=
+ =?utf-8?B?aUg5ckNJRHFYQTdrS3lIT1ZKWHRsSncxbzhGTWhaVHdmeDQ2QkR5Qnp4SEw5?=
+ =?utf-8?B?RnZCRVNsRzZMakZOM0JCUkF5bnJTM1lsd0ZFSVVhakt4WSs3WmZiRDA4ZVR6?=
+ =?utf-8?B?Wk5qOC9GZzI4TGRRd3RhTVNmM2xmZ2ZObGFqdmRMMWFJdlA5azVIK1NyRGZa?=
+ =?utf-8?B?SGdORXh2VFR6VzZNdGhUUWw0aU5VTmlrVDR3SUdUQ2wvNlpTcWh2TVYwYTZV?=
+ =?utf-8?B?QWRaTG55QWZHVXJ5YkRRQVMxcWVjMlZWYyt2OXozdFRGUkpoRUR3MjJpa2Jp?=
+ =?utf-8?B?WENZaE9FbCtYUFlBY2V6QVY5WjZtNDNDaDEvZU5LNTFBTW9rT3MxT2habnN6?=
+ =?utf-8?B?SGIzUFBLQlpCblZTSjdPckUwOEx4a1ZEQysxNkZkMmxtM1Vnb2NqZHJnV2tD?=
+ =?utf-8?B?RnRueElEYTFSVTdQMXFtNStVNG1GZkIwOWFmR2dEbVBMNFcrcVF1NVkxbWEx?=
+ =?utf-8?B?S1VDVHlCZHVOVGhMZjBWUzdETXR3OHRnQnhDTjNiMElBbWh2Ri81eStEMm5h?=
+ =?utf-8?B?TFRSdnVMcURBa09jcGxMVkJ3b3VZc1F6RTk4am90V0lFV1Yzdm1EdGhlOEdJ?=
+ =?utf-8?B?Tml1WThSS0ZjV1NlUEwvcEJBUllzL0djcnJ5T3RDYnR5eFlNR1QydzhjS1Bz?=
+ =?utf-8?B?RkpxSmlRa2lLaTZtSEVHTEZReUNnNDBuNnZTUFRhSVBtbUN6T1RIME9RcmFX?=
+ =?utf-8?B?dEVUWDc5QzRXSmdDc0E3L1Q5VndnRUo5OFByYVk0Z3dkWTNiR3pHQ0ExNFF2?=
+ =?utf-8?B?MkZQVEZiZFVHZ0twNDBEYkhWbHg5RzJKSHpCbWVjcUZ0a1g3cld4VlhSZmFo?=
+ =?utf-8?B?YTNkWXA0NURENi8xdmRPQjc1R0dyWEU2UVI0SXpaVDlwUnBHOEZtTjc3QXR6?=
+ =?utf-8?B?YmdmN25OYXdVbjYvaTNTVU5zTFpTSU5tLzdudkxodGVUMW1XTUJacDNqVGJV?=
+ =?utf-8?B?Q1p4ejUrbTYyZmhpaGhSTW5La243ME9rZFJtelFka2h4M01BMmgvdlN2Y045?=
+ =?utf-8?B?NWVTOWI4MjRLV1hhOHZ2QUc0RTVVV2U5YUZydVZNSHVsQU81UnVuekpDK0Vw?=
+ =?utf-8?B?eFFleHgrajRlUGJaTG9LRVdHempXVTRzN01iQlVyd3V0cWd5M0kzRGJQM3Vl?=
+ =?utf-8?Q?EYzLTP?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(36860700013)(1800799024)(7053199007);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(1800799024)(82310400026)(376014)(7053199007);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jul 2025 21:31:18.8131
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jul 2025 21:31:46.3954
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d42a24bb-e267-4430-2b3c-08ddbe66c6e5
+X-MS-Exchange-CrossTenant-Network-Message-Id: aca3e5d7-813a-416a-7078-08ddbe66d74d
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	SA2PEPF000015C7.namprd03.prod.outlook.com
+	SA2PEPF000015CA.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN6PR12MB8544
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6832
 
 On 2025-07-02 04:12, Juergen Gross wrote:
-> The number of pages marked initially as reserved in the memory map
-> are counted to be allocated, as they are normally populated by Xen
-> tools for e.g. xenbus and console ring pages.
+> When initializing the memory allocator, don't add memory pages of
+> modules and the initial boot info structure to the free memory.
 > 
-> This is wrong in case the lapic page is marked as reserved in the
-> memory map, as there is never memory allocated for a lapic.
+> This is relevant only when running in PVH mode, as in PV mode only
+> memory above the initial page tables is added to free memory, and the
+> module and start_info pages are below the page tables.
 > 
-> So when finding the lapic page to be marked as reserved, don't add
-> it to the number of reserved pages.
-> 
-> Fixes: 9b87429d2864 ("mini-os: fix number of pages for PVH")
 > Signed-off-by: Juergen Gross <jgross@suse.com>
+>
+> +/* Reserved memory ranges not added to free memory. */
+> +#define MAX_RSV_RANGES  1
+> +static struct {
+> +    unsigned long start;
+> +    unsigned long size;
+> +} reserved_range[MAX_RSV_RANGES];
+> +
+> +void check_memory_range(unsigned long *from, unsigned long *to)
+> +{
+> +    unsigned int m;
+> +    struct hvm_modlist_entry *mod;
+> +
+> +    for ( m = 0; m < MAX_RSV_RANGES && reserved_range[m].size; m++ )
+> +        check_memory_range_conflict(from, to, reserved_range[m].start,
+> +                                    reserved_range[m].size);
 
-Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
+reserved_range[] isn't updated, so this is dead code.  I guess that is 
+fine for now.
+> +
+> +    mod = (struct hvm_modlist_entry *)(unsigned long)
+> +          hvm_start_info_ptr->modlist_paddr;
+> +    for ( m = 0; m < hvm_start_info_ptr->nr_modules; m++ )
+> +        check_memory_range_conflict(from, to, mod[m].paddr, mod[m].size);
+> +}
+> +
 
+>   
+>   static const struct {
+> @@ -888,6 +964,10 @@ void arch_init_mm(unsigned long* start_pfn_p, unsigned long* max_pfn_p)
+>       if ( max_pfn >= MAX_MEM_SIZE / PAGE_SIZE )
+>           max_pfn = MAX_MEM_SIZE / PAGE_SIZE - 1;
+>   
+> +#ifndef CONFIG_PARAVIRT
+> +    pvh_reserve_start_info(&start_pfn);
+> +#endif
+
+Maybe this ifdef can be removed and arch_mm_preinit() can call 
+pvh_reserve_start_info() and update first_free_pfn (which is assigned to 
+start_pfn)?
+
+Regards,
+Jason
 
