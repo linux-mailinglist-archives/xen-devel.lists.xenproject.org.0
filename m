@@ -2,39 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 27CC1AFCB11
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Jul 2025 14:56:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1036427.1408650 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 324E9AFCB1A
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Jul 2025 14:57:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1036440.1408671 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uZ7rj-0002Z5-Ii; Tue, 08 Jul 2025 12:56:07 +0000
+	id 1uZ7sq-0003Y3-1o; Tue, 08 Jul 2025 12:57:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1036427.1408650; Tue, 08 Jul 2025 12:56:07 +0000
+Received: by outflank-mailman (output) from mailman id 1036440.1408671; Tue, 08 Jul 2025 12:57:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uZ7rj-0002XB-Fb; Tue, 08 Jul 2025 12:56:07 +0000
-Received: by outflank-mailman (input) for mailman id 1036427;
- Tue, 08 Jul 2025 12:56:06 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=a/n7=ZV=gmail.com=sultanovandriy@srs-se1.protection.inumbo.net>)
- id 1uZ7ri-0002X5-Dy
- for xen-devel@lists.xenproject.org; Tue, 08 Jul 2025 12:56:06 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e8a1c207-5bfa-11f0-a317-13f23c93f187;
- Tue, 08 Jul 2025 14:56:05 +0200 (CEST)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-3a6cd1a6fecso4203207f8f.3
- for <xen-devel@lists.xenproject.org>; Tue, 08 Jul 2025 05:56:05 -0700 (PDT)
-Received: from ?IPV6:2a02:c7c:6b57:1d00:4379:5549:e9f4:bf8a?
- ([2a02:c7c:6b57:1d00:4379:5549:e9f4:bf8a])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3b47285e241sm13105030f8f.94.2025.07.08.05.56.03
+	id 1uZ7sp-0003VW-Ur; Tue, 08 Jul 2025 12:57:15 +0000
+Received: by outflank-mailman (input) for mailman id 1036440;
+ Tue, 08 Jul 2025 12:57:14 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=mjd+=ZV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uZ7so-0003VI-ES
+ for xen-devel@lists.xenproject.org; Tue, 08 Jul 2025 12:57:14 +0000
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
+ [2a00:1450:4864:20::436])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 10ad2c1e-5bfb-11f0-b894-0df219b8e170;
+ Tue, 08 Jul 2025 14:57:12 +0200 (CEST)
+Received: by mail-wr1-x436.google.com with SMTP id
+ ffacd0b85a97d-3a536ecbf6fso2292126f8f.2
+ for <xen-devel@lists.xenproject.org>; Tue, 08 Jul 2025 05:57:12 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-23c84592ef4sm118058145ad.191.2025.07.08.05.57.08
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 08 Jul 2025 05:56:04 -0700 (PDT)
+ Tue, 08 Jul 2025 05:57:11 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,107 +45,179 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e8a1c207-5bfa-11f0-a317-13f23c93f187
+X-Inumbo-ID: 10ad2c1e-5bfb-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1751979365; x=1752584165; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language:subject
-         :references:cc:to:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=teEt3kl0hIiq1Pszlt+E2c5DdxzULgNo5PgswD9/95k=;
-        b=jrVJTiGbu6yVvud81lmucjD2CHQz+bhXbyczZrsCuFZZ1LFZGS4XN56yWOaez9dlgw
-         rIxvZH/2teCKibd9w15vlOowXgbNqKBdtqMz8NIeIXo8iu2NG+zr3rG+QC2JNcXrGRQ+
-         zmDyDrqbzyn4BxD/Jd9nWf2bn7gbUzopYLSgl7pJ2ewxly0pMI5cwT8gGOyieh1jbtYZ
-         3RZuBOAyIQeBiIh9pYXASJEOO4vzg10dHNtEsSuOwq7MbpLnjSWX7bw6i72LxYVTg0zR
-         aIBSYkhFUNq+L8TJ3h3VtOBGg7PBxxWFb/X66rdC+fGSKKF97aHuX7LOeX5kWeP/tMR2
-         Rhcw==
+        d=suse.com; s=google; t=1751979432; x=1752584232; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=HjPneAjKTdudV80syyoVVEC7Di0qJNSEuHumxOWNEyI=;
+        b=DHJMF/WPyc8fmnwH5r15VQt2E9cxkmN+24g5T/8hsBxFTKSg/XTpNdVnyrqcHrFehV
+         7unTmHp1smLLryX59uR7KuZptiUWcpfG98hycU0RuN3jbtK1Lpdm8SzL+ScgcBKiC66T
+         Rn7I5edAD1b8zdn1Wyiu1u65T7mAczPlkR5Z396eTFy7Z3GZdtrabSy1Mwy6ZJmqy0tQ
+         uALBhn+wxNBt1mIwILoKHS/DGPtDEYUSlykREW5u5QsHT2N5WLKJWSf5R+RqXXF4aU7T
+         xmxXdu3cR27M18xBrLr52UWhwQm1Xphv2Xj5lywZxPE57gkeLQWccRC7sibENVRSYKmS
+         m6+A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1751979365; x=1752584165;
-        h=content-transfer-encoding:in-reply-to:from:content-language:subject
-         :references:cc:to:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=teEt3kl0hIiq1Pszlt+E2c5DdxzULgNo5PgswD9/95k=;
-        b=rQy3wbCH5KSyrIWNKQeoCe1p95HXF9NChhsvtKqcQjZF7e5Z0+vZKNLfoj9TvoNO7+
-         4ymOsYeNslqtjP5K8zLVxlBX9VZmy3+Dys8Br8FyXTgaYDYNsR6MNUBaD85GV6NPVSuf
-         /YyxIQWraPdVUhuJeesd9aE3fOUfr1/Tm3qNnJNeJJpuS3WLLXBkTQ8of5wC/G4ufDzA
-         w6zfSYKxyx5MYL/Knw4CP1eIA18ftv3FOhU42BtIaOQ3safiJjlYkErIaJvkn6yrAkVg
-         atX1+LK1BZ0yxHpKwE//fK/h2gjeMy1VWOCSMiOTs05dKovk7xh93my6woNjtwBVQCu/
-         vBUw==
-X-Forwarded-Encrypted: i=1; AJvYcCUetTLjhuCW5jb1e3CTDjnKTY7z5iV7gU6US1KupJKSk5fUsf7ZGS7pxjuiivSsS0SZIHk5HzLB3ck=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzD+Bwd/td6m4P93hL6rGFdM4bYhGy+QzFOih3l26FnTv3+f0gQ
-	JSx1QGFWidPHrko7KddlsUgxCkOmodWLXIez4IIbStIHlM0s8+uHb6tk
-X-Gm-Gg: ASbGncuW88rwbTUapXOTlhL/DSh4sS99/zmpa1WWe0/+ldIGF3pcMtolHF7qAxK1p9F
-	+F0yJE7Rjfu3+2QYnGRA8gLwWv9QGhz+Hzq0xm24dH8ScFQoaCEUCGUE8wMC4AHPtzSWAIcAkkn
-	CbAHn3F93QuPjd2abqY4zzJXr9cf7iDSwSeE94rMo/TcuyBiBtbWJLs2YPZYNXI6T65N/CO6cUh
-	6WXDfZ4tssBs3X0vdMb++i3/Y1/YlBrO0kDGmnXj5lhVmEn24ksTfVkLnkkqPgvuyR5HtnZSyIX
-	fBJqPRjmj0ZA4T5234JSWwHUn9dyHvjS1XQDcnuu3E9klJd4sjXPhaRzvcd6ncDFJfmb5J98Ayq
-	VTtP5v5X6HU0AmIlBJl/sJJqiwI84pTUCFH0k1oFN
-X-Google-Smtp-Source: AGHT+IF9DH50kKlWLZ9WXra9lQu9nZZpkK+NDYmrFU0uKYqn0i99lCPWh3FvKkCaMHljNmV2C9Q1jA==
-X-Received: by 2002:a5d:5f45:0:b0:3a4:ebc2:d6ec with SMTP id ffacd0b85a97d-3b5dde6764fmr2729247f8f.14.1751979364420;
-        Tue, 08 Jul 2025 05:56:04 -0700 (PDT)
-Message-ID: <cf9503db-2726-4d0c-8b2c-da5fc7aa205b@gmail.com>
-Date: Tue, 8 Jul 2025 13:56:03 +0100
+        d=1e100.net; s=20230601; t=1751979432; x=1752584232;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=HjPneAjKTdudV80syyoVVEC7Di0qJNSEuHumxOWNEyI=;
+        b=suzmYaOpqkn8u99gtTHYwUZ6Czh0bhFUraEhkThaCb6eMWqbdH5RFLsaCN0d1iNlHh
+         LanPzxuvtUmqhrrIqXFENyFvz28oqXQ2zVZkaVJMX5ZK7SWtziiZK+4Nh4s663QypI77
+         J+39+GLLgCP3EfNdsPzARaZ0LXoLaGgGh0CcXSjGCKsFzLNhTwWdOosw/M2JNM1h7Nxw
+         Q3LkC62DDR6iGENVdvWgQCjcoA5QyWRulo+2zch03hoCrQF2SXtHWuBqmw3t1xiGICuy
+         RrSBKcNSI5nrTFICpsfnNTtk8UvfmaB64xZjVC3NQScLqhaOuW1xuEiUXQI4hL8couMg
+         D4kQ==
+X-Gm-Message-State: AOJu0YxliAk4qQvpppMQwGKPjbAq/QQGbsOFyuhcrd/Ipm9of017B3yM
+	VA6KIPSQeyoK4LcRCvfCkfR5bsYljPTCXD2mVpkcSC3+EgYwVE8pWKUahmmXnhBLfsdJGF4SXVE
+	qt/w=
+X-Gm-Gg: ASbGnctGlvtiuzGHHlQdaZppB1+nZV0JafwGs3vge2bU4VsZoTnOzTSGEyqFqacSe1y
+	589pD8fg7lhOv6hC8ApPfwlcW7U+SKJt1oiaGKAHgqFkm5fQ5ioXWuYKUtQgAgXg0bUUL+fm3oX
+	saPlhwqN7H7t6EL8M7XOmJOGNhtSSU7meQKSq4+V8qwfKfroiJKcygh4VSIYLWFSJamBFYeOoCV
+	tqd1zsMAwolAzVptAC49dkC2Zv+h5FGbb/G/FLmJu8hZZP2M1yNLo/+fJNzcSAqU2L5hhTLePzR
+	FE1Hj5RR0/NH1iQtm0XkzrmsEzZWrmHcJb82qtJxyOAnYw5AyAqM697lr3eyAvtsZeeRRBXyxhK
+	a6bxEPiAP2tiihKN+feo0t2Dl8yhDSJrV8//PudkHRWljPw4=
+X-Google-Smtp-Source: AGHT+IEHZv4nySI925CsxfNwuvbaeExmnukQrsbG7AuSaj+IxLBlzGmA2csPK5nSYBAK0X49SwKhQw==
+X-Received: by 2002:a05:6000:2f84:b0:3a5:39d8:57e4 with SMTP id ffacd0b85a97d-3b5ddef3ab1mr2375560f8f.41.1751979431806;
+        Tue, 08 Jul 2025 05:57:11 -0700 (PDT)
+Message-ID: <bc577ba9-cef7-4d6a-a9c8-e0f79597950e@suse.com>
+Date: Tue, 8 Jul 2025 14:57:05 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: jahan.murudi.zg@renesas.com
-Cc: anthony.perard@vates.tech, xen-devel@lists.xenproject.org
-References: <20250708114632.3007693-1-jahan.murudi.zg@renesas.com>
-Subject: Re: [PATCH] tools/xentop: Add physical CPU statistics support
+Subject: [PATCH 1/9] x86/mwait-idle: adjust section annotations
+From: Jan Beulich <jbeulich@suse.com>
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <1df49875-99b8-4302-aed7-5a75dbdd85ca@suse.com>
 Content-Language: en-US
-From: Andriy Sultanov <sultanovandriy@gmail.com>
-In-Reply-To: <20250708114632.3007693-1-jahan.murudi.zg@renesas.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <1df49875-99b8-4302-aed7-5a75dbdd85ca@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
- > diff --git a/tools/xentop/xentop.c b/tools/xentop/xentop.c
- > index f5d6c19cf9..477299c883 100644
- > --- a/tools/xentop/xentop.c
- > +++ b/tools/xentop/xentop.c
- > @@ -69,6 +70,12 @@
- >
- >  #define INT_FIELD_WIDTH(n) ((unsigned int)(log10(n) + 1))
- >
- > +/* TEMPORARY: Forward declare the internal structure */
- > +struct xenstat_handle {
- > +    xc_interface *xc_handle;
- > +    /* Other members don't matter fo now */
- > +};
- > +
+idle_cpu_spr was bogusly non-const. Several other objects can be changed
+from __read_mostly to __ro_after_init, for being altered from __init
+functions only.
 
-What makes this temporary? Is there a follow-up patch?
-Or should this be an [RFC] instead of a [PATCH]?
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
- > @@ -240,6 +248,7 @@ static void usage(const char *program)
- >             "-r, --repeat-header  repeat table header before each 
-domain\n"
- >             "-v, --vcpus          output vcpu data\n"
- >             "-b, --batch         output in batch mode, no user input 
-accepted\n"
- > +           "-p, --pcpus         show physical CPU stats\n"
- >             "-i, --iterations     number of iterations before exiting\n"
- >             "-f, --full-name      output the full domain name (not 
-truncated)\n"
- >             "-z, --dom0-first     display dom0 first (ignore sorting)\n"
-
-Incorrect indentation here
-
- > @@ -1245,9 +1256,18 @@ static void top(void)
- >              do_vbd(domains[i]);
- >      }
- >
- > -    if (!batch)
- > +    if (!batch && !show_pcpus )
- >          do_bottom_line();
- >
- > +    if (show_pcpus && xhandle != NULL ) {
- > +    if (update_pcpu_stats(xhandle->xc_handle) == 0) {
- > +        print_pcpu_stats();
- > +    }
- > +    else {
- > +        print("Error getting PCPU stats\n");
- > +    }
- > +   }
- > +
-
-and here
+--- a/xen/arch/x86/cpu/mwait-idle.c
++++ b/xen/arch/x86/cpu/mwait-idle.c
+@@ -106,14 +106,14 @@ struct idle_cpu {
+ 	enum c1e_promotion c1e_promotion;
+ };
+ 
+-static const struct idle_cpu *icpu;
++static const struct idle_cpu *__ro_after_init icpu;
+ 
+ static const struct cpuidle_state {
+ 	char		name[16];
+ 	unsigned int	flags;
+ 	unsigned int	exit_latency; /* in US */
+ 	unsigned int	target_residency; /* in US */
+-} *cpuidle_state_table;
++} *__ro_after_init cpuidle_state_table;
+ 
+ #define CPUIDLE_FLAG_DISABLED		0x1
+ /*
+@@ -504,7 +504,7 @@ static const struct cpuidle_state bdw_cs
+ 	{}
+ };
+ 
+-static struct cpuidle_state __read_mostly skl_cstates[] = {
++static struct cpuidle_state __ro_after_init skl_cstates[] = {
+ 	{
+ 		.name = "C1",
+ 		.flags = MWAIT2flg(0x00),
+@@ -556,7 +556,7 @@ static struct cpuidle_state __read_mostl
+ 	{}
+ };
+ 
+-static struct cpuidle_state __read_mostly skx_cstates[] = {
++static struct cpuidle_state __ro_after_init skx_cstates[] = {
+ 	{
+ 		.name = "C1",
+ 		.flags = MWAIT2flg(0x00) | CPUIDLE_FLAG_IRQ_ENABLE,
+@@ -610,7 +610,7 @@ static const struct cpuidle_state icx_cs
+  * By default we enable C1E and disable C1 by marking it with
+  * 'CPUIDLE_FLAG_DISABLED'.
+  */
+-static struct cpuidle_state __read_mostly adl_cstates[] = {
++static struct cpuidle_state __ro_after_init adl_cstates[] = {
+ 	{
+ 		.name = "C1",
+ 		.flags = MWAIT2flg(0x00) | CPUIDLE_FLAG_DISABLED,
+@@ -644,7 +644,7 @@ static struct cpuidle_state __read_mostl
+ 	{}
+ };
+ 
+-static struct cpuidle_state __read_mostly adl_l_cstates[] = {
++static struct cpuidle_state __ro_after_init adl_l_cstates[] = {
+ 	{
+ 		.name = "C1",
+ 		.flags = MWAIT2flg(0x00) | CPUIDLE_FLAG_DISABLED,
+@@ -678,7 +678,7 @@ static struct cpuidle_state __read_mostl
+ 	{}
+ };
+ 
+-static struct cpuidle_state __read_mostly spr_cstates[] = {
++static struct cpuidle_state __ro_after_init spr_cstates[] = {
+ 	{
+ 		.name = "C1",
+ 		.flags = MWAIT2flg(0x00),
+@@ -778,7 +778,7 @@ static const struct cpuidle_state avn_cs
+ 	{}
+ };
+ 
+-static struct cpuidle_state __read_mostly bxt_cstates[] = {
++static struct cpuidle_state __ro_after_init bxt_cstates[] = {
+ 	{
+ 		.name = "C1",
+ 		.flags = MWAIT2flg(0x00),
+@@ -1075,15 +1075,15 @@ static const struct idle_cpu idle_cpu_ic
+ 	.c1e_promotion = C1E_PROMOTION_DISABLE,
+ };
+ 
+-static struct idle_cpu __read_mostly idle_cpu_adl = {
++static struct idle_cpu __ro_after_init idle_cpu_adl = {
+ 	.state_table = adl_cstates,
+ };
+ 
+-static struct idle_cpu __read_mostly idle_cpu_adl_l = {
++static struct idle_cpu __ro_after_init idle_cpu_adl_l = {
+ 	.state_table = adl_l_cstates,
+ };
+ 
+-static struct idle_cpu __read_mostly idle_cpu_spr = {
++static const struct idle_cpu idle_cpu_spr = {
+ 	.state_table = spr_cstates,
+ 	.c1e_promotion = C1E_PROMOTION_DISABLE,
+ };
 
 
