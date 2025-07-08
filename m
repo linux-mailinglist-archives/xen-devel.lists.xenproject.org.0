@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F1B74AFD009
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Jul 2025 18:04:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1036859.1409374 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 475FEAFD087
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Jul 2025 18:22:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1036885.1409384 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uZAnx-0008LV-KJ; Tue, 08 Jul 2025 16:04:25 +0000
+	id 1uZB4F-0002zc-0E; Tue, 08 Jul 2025 16:21:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1036859.1409374; Tue, 08 Jul 2025 16:04:25 +0000
+Received: by outflank-mailman (output) from mailman id 1036885.1409384; Tue, 08 Jul 2025 16:21:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uZAnx-0008Ij-HP; Tue, 08 Jul 2025 16:04:25 +0000
-Received: by outflank-mailman (input) for mailman id 1036859;
- Tue, 08 Jul 2025 16:04:24 +0000
+	id 1uZB4E-0002y4-Tg; Tue, 08 Jul 2025 16:21:14 +0000
+Received: by outflank-mailman (input) for mailman id 1036885;
+ Tue, 08 Jul 2025 16:21:13 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=mjd+=ZV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uZAnw-0008I6-78
- for xen-devel@lists.xenproject.org; Tue, 08 Jul 2025 16:04:24 +0000
-Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
- [2a00:1450:4864:20::136])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=QFdH=ZV=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
+ id 1uZB4D-0002xy-JE
+ for xen-devel@lists.xenproject.org; Tue, 08 Jul 2025 16:21:13 +0000
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on20628.outbound.protection.outlook.com
+ [2a01:111:f403:2416::628])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 36239b6d-5c15-11f0-b894-0df219b8e170;
- Tue, 08 Jul 2025 18:04:22 +0200 (CEST)
-Received: by mail-lf1-x136.google.com with SMTP id
- 2adb3069b0e04-55516abe02cso42503e87.0
- for <xen-devel@lists.xenproject.org>; Tue, 08 Jul 2025 09:04:22 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-23c845922b5sm112747185ad.199.2025.07.08.09.04.14
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 08 Jul 2025 09:04:20 -0700 (PDT)
+ id 8c9f425e-5c17-11f0-b894-0df219b8e170;
+ Tue, 08 Jul 2025 18:21:07 +0200 (CEST)
+Received: from PH8PR12MB7326.namprd12.prod.outlook.com (2603:10b6:510:216::7)
+ by DM4PR12MB6616.namprd12.prod.outlook.com (2603:10b6:8:8e::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8901.26; Tue, 8 Jul
+ 2025 16:21:01 +0000
+Received: from PH8PR12MB7326.namprd12.prod.outlook.com
+ ([fe80::6d76:9c33:d230:8264]) by PH8PR12MB7326.namprd12.prod.outlook.com
+ ([fe80::6d76:9c33:d230:8264%4]) with mapi id 15.20.8880.021; Tue, 8 Jul 2025
+ 16:21:00 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,265 +47,327 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 36239b6d-5c15-11f0-b894-0df219b8e170
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1751990661; x=1752595461; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=vJPaMR0Qa+RNXf36e56UDlD3Hz7ZXbbYRH8BpaUDx6w=;
-        b=Rba7X0AQFDPlQGrqIBKqFgYjMw9q1Fqb42X9HvJtssYJXGd0/vsWJ6Gu5Y/O63KcWW
-         FP2UZb+XRks70hPgdfY9gETkpK8jN9WnRLk+WDqIVQWAGs+ICgAp/5CQWtl3M5Nw01Tm
-         ZsNn1dfDLzau0rTx1lzz74ro/aJSyDjpir+UfwfyE5iuJo0Zb+9rrORrQefrzofH2qyd
-         2RCoABpRI4qa90XwdWBtaBte0hdFuG1GUq0s/ONKDO6uQU2Xh/4QOenaaq2Z9Lor8G8V
-         aNn3Q2byG45Vsc7EpTzX1rKX2Bc2kf5Xe2U8mm9UZID6NmY9NhjkjhF4NbxwuHg0XQbV
-         ehwQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1751990661; x=1752595461;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=vJPaMR0Qa+RNXf36e56UDlD3Hz7ZXbbYRH8BpaUDx6w=;
-        b=aVtgMHPHuPR710XHDRaSRbFfgQQo670WLEsIvQMbGvfPVPpmgnpIeVLrC2Qnjlrw89
-         5NAkTwekfyzaBUwomtUEFbN+iA2AAW9z1BTGvGWT+0z7A8/hADMdQAX6duZhbGrbpWt/
-         2ymx/iigk9v+HVGBtjscXPTF7RmkCaKHqYlfzzk9XtWM0cb3KC3TF5+ErEuUJjAjKoef
-         vXgP9EYxyJe03tCxaFrHSbXspKxxF1JK2gQRiCUI3HGN0tNL/+xaHCIFUmpbp8dARWzs
-         1kolT5cgF/TJQAJktD4uMX4C/lyXgAEKqm/IUhmuYWa2plwOYPJxHQP880NkqjkVOhat
-         uNlA==
-X-Forwarded-Encrypted: i=1; AJvYcCWgsLn0J3PMOk+ffAHd7ijGnNOQu0e68/Az29GCw6n7rGiZ4QQsENHuekOJqeqthEhBXha4dD3wy00=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxolhugoqcvjnI/4Y9GOfASpVd3AOlWDgvb8e0WyV+h6qLp0ZNo
-	sqtXlrSKUoe0mXTHJMHgEow2QIPIxD/dZ1bvjBG3EEtJzY/T10fGK9KF32A7lvTKAQ==
-X-Gm-Gg: ASbGncvPdmVkV/KqkTOLXBcWsybn2nAW8pbzezYTo/+L6PyW6it/YX2nfHqwMxLAraq
-	4ypWcP04LbQngFN8W+LvfE5K11nCw/tctW9nHcUamjjMN98EDHUxD0sei9mzx2Hh6ijjyxGlHbV
-	pctfDQq32292fvKHb6kagOzxsnInJlvoJdXEdRRmZTWCUULmt7N1JALLStcRaIOyFpSFUH6ufoC
-	76CwS9E15EPNgcOY1kVSK335BMdCYqeyulHU1rJ/IALhUqSzI5OBBhzShQo2g80SWzafN2XX4K2
-	AMlkWl5erIOR7cX2tTLOB6o+kb+cSMRhmXOPykV87GmTkVriuISpQPOWTHaymnEs58vAi7ftEiw
-	dim9M0zH+7clSO1K7I05M0OSCcyVQTaYwwbgPxqSY0R2WvaM=
-X-Google-Smtp-Source: AGHT+IE7tYl99/bI8ebgUvk/vPZInCD+GVt4yh3Q/pKRYDJ1UsfZ2rsXeax4l/RBSv/jgo9v9fQQhg==
-X-Received: by 2002:a05:6512:4009:b0:553:2884:5fb3 with SMTP id 2adb3069b0e04-557f89c5971mr1288175e87.12.1751990661021;
-        Tue, 08 Jul 2025 09:04:21 -0700 (PDT)
-Message-ID: <7078f5aa-045c-44bf-9b82-623f0e709aed@suse.com>
-Date: Tue, 8 Jul 2025 18:04:10 +0200
-MIME-Version: 1.0
+X-Inumbo-ID: 8c9f425e-5c17-11f0-b894-0df219b8e170
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Y+b/aClaZTHqHmKNFM6Ausz/bgfhtZRxcihnsYQ5F6Q8MmfpKk5qG8z2hnVh562afBn3928pJEOxhJWe9lDKtepU9n3GEBGyBLqJiNmvxuQAAAWP1ThnYrLYmCa/d0eHHvLIOCE25etX8/uo26V3WoKYVR2okZawrzHVMYyaeBdSB06t7pwD32PVVcL5gQyp+6AO0ibyWayOi2E0/27dY9/VJRhwdAiHVSCq1Hq6pms+JGf3HAoVstTQ6tfthHvELFRGyum181v6FagZdB0TtvwJK7oJsHRnQpmP/Aw/nkmMNCzydVOhKV7UrdMMC5D0cCUr0+pqKJYviCXF7GhwfQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=53O4hlR6UVBZSh+sOq4IjcK6cMIvz1D/JTXT4Cq4C8o=;
+ b=EOB87kvYJLEuPnizZ1k7zFtFDSbEo9MKbyPRZ6pb6BmOL/qkj5NNZjCNthKMnDfxyIp4CUATJPQf75ygROKrHnwwTM+pdNju2pjkI6Lc7rmEllL79Y982j9MOBwmaRt12BGDjr9IPfOObwq4r0ubn5YBaaVE3pEk11YU+y/3QT/KH5Jp6trbhsB6u5HrMpuI6p4sA0b0BYa1pLbtE8vdkYtfCvpVecq/9QWMaIk3QUxxdo2qw6g8S5ijiLx8YR+0dgrpx7wxqNbphAZIT82432h0O1PVl1FPWulRrize/4F3FuPxE+z8fRgBtHIbZ++Dq2mGhoHFOmWoa9ibPKDiiQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=53O4hlR6UVBZSh+sOq4IjcK6cMIvz1D/JTXT4Cq4C8o=;
+ b=iiSpnxAIcvYhfEeP+D7EyMnvXOY3Jh1m3HSaepdRKI6YT7VWf10kgAXZl5HyrUF8euRSSqZG6WTH+SVMMZGhzgPRll+s4LSjDTiRTQFTdMLgCBEC4yauUwZceLgdhWV1gO4PlwdGDuRUFu3Ub4PXT8gEWSVpoiEBDrWTv0E4kI8=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Content-Type: multipart/mixed; boundary="------------9vkG03s23pxg8IOcjkQKChER"
+Message-ID: <2f57a46b-1819-476f-ae73-a71716b84f32@amd.com>
+Date: Tue, 8 Jul 2025 17:20:57 +0100
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 11/17] xen/riscv: implement p2m_set_entry() and
- __p2m_set_entry()
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1749555949.git.oleksii.kurochko@gmail.com>
- <7826732d2f6aa5888758942165f0f1e73fa84ffa.1749555949.git.oleksii.kurochko@gmail.com>
- <31811dbc-5fe8-487b-95d4-dd7f5f0868b3@suse.com>
- <674c9f82-f486-4cca-991b-3ac3da3a237d@gmail.com>
- <2afe5641-0790-4f27-823b-ab941ad2c971@suse.com>
- <82362709-c386-485e-935c-e229e735fba6@gmail.com>
- <cec77342-367c-41fe-abaf-b7e04309ca63@suse.com>
- <8036ddb2-f223-41f5-a498-75b483c237bb@gmail.com>
- <6bdad560-d631-4ae7-aaa2-3a0f64250f4b@suse.com>
- <8f166b5d-eed3-4695-a0e9-ba8fc8a2b9b2@gmail.com>
- <409cdade-192d-47dc-941d-9256bfa53cea@suse.com>
- <65aaf77e-85fe-4934-a485-710aff59f4eb@gmail.com>
- <05b789f0-7064-4ec3-9e0c-ba528a30d315@gmail.com>
- <61773bca-32f7-42ee-867f-80dc8a389bef@suse.com>
- <dd73f1ed-e2cb-40c5-ad06-bd390467e128@gmail.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <dd73f1ed-e2cb-40c5-ad06-bd390467e128@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: FuSA configuration
+To: "Weber (US), Matthew L" <matthew.l.weber3@boeing.com>,
+ "Halder, Ayan Kumar" <ayan.kumar.halder@amd.com>
+Cc: "Wood (US), Brian J" <brian.j.wood2@boeing.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <BN0P110MB2067173E38889AB2801397F3F34EA@BN0P110MB2067.NAMP110.PROD.OUTLOOK.COM>
+Content-Language: en-GB
+From: Ayan Kumar Halder <ayankuma@amd.com>
+In-Reply-To: <BN0P110MB2067173E38889AB2801397F3F34EA@BN0P110MB2067.NAMP110.PROD.OUTLOOK.COM>
+X-ClientProxiedBy: DU7P194CA0025.EURP194.PROD.OUTLOOK.COM
+ (2603:10a6:10:553::20) To PH8PR12MB7326.namprd12.prod.outlook.com
+ (2603:10b6:510:216::7)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH8PR12MB7326:EE_|DM4PR12MB6616:EE_
+X-MS-Office365-Filtering-Correlation-Id: 89f053f6-e547-4ec4-b126-08ddbe3b6d58
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014|4053099003;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?R0ZlTEMxNGF4dkpCU09NMHpVaFFoeEcwRXdSdmtkTWhmTVZDOUdDNk5NVHpL?=
+ =?utf-8?B?ZHBUeTBua3JSNFhVclJDVVlGajV6dW4wZVppY1hXNjRWYkwwTEJ3MjE4c0xq?=
+ =?utf-8?B?bEE0WlhRQUs1OGhtSXg2T2ZVcVhxRXNwNlhXTVE2NE52bGdvV1p2SXZYZm1Q?=
+ =?utf-8?B?c0UvTUpQSG44c3drK2l5dXFuMG1WeVBmdDBNSmFaa3Y3dTlrR0pWTlI1cjRS?=
+ =?utf-8?B?R2tEY21zdlZaTnNSVHpnRXl0M1ZFM05NVDgvODU2MGxEdVhKSjVUQWV6UWRu?=
+ =?utf-8?B?YWtTdnJOZ1FES0sxZ0tVMU1uRCtsTHd2WUk5N2x6cmduV1pqVDEzMFBURkJJ?=
+ =?utf-8?B?ekE2b3pwWWRwa3hheFIxUmdwMWlSQURVNGs3azlXSVpvYWZMQjlyYUlKOEs0?=
+ =?utf-8?B?R2NLWWhlQzBIaEFIRnRyb3lGK3Y2clBEc3lrK2Q2R3NqUGJURE1yYlNpb2t0?=
+ =?utf-8?B?cy8rLytZT243MEQrckxYNHJQMVNLeG05Q0taR20zRDhkTVNDOXFCUjFXUTZ4?=
+ =?utf-8?B?WXA2T2hBTnhxVEhVR1I1NU5HZ1dmaVA4U1NWdExYNHk0YmUvMEp5d1NUaFg3?=
+ =?utf-8?B?NEFHUEQ5bk1KQjQzZUwxdjRuOXlqekZqNWp5RWZrazlkMVpSSkFGdzlUakJI?=
+ =?utf-8?B?bHBjRmJHWnhuV3B1b1kvTEE1S0lJdURlL0FLL0dHa2UzZlZLRmxOalV3bHVB?=
+ =?utf-8?B?bUlZVkpsYkJUVlY3ZGM3c1lBa2FCWVRRa2dVNVIxdjM0Y3V6ZWdjcml1dzZ1?=
+ =?utf-8?B?bE9pNVZiZjJ5d21MN2IyT2lWSkc0OTF3Yk0zMHdUdEx1WjBrZ2NkOXNXeDZt?=
+ =?utf-8?B?bUdiakd3TDZqWFFGeHNYKytRY0FzZDdtRi90alBMUis0N2grVnNEN0FxRkVK?=
+ =?utf-8?B?QVdYM0V3RWVvTjR4VHVWclJSall5TGRvanI3OVlvZllhVUJXQ2dtQUNzeGdU?=
+ =?utf-8?B?bVpNbFBlU0ZtOTFrcVNZYUVtZFowSFhaOVZ2bVBqakNMNDhUNHBDWVZjR2dZ?=
+ =?utf-8?B?NmRuVTNLNE0zY01XRlUxcktDdkdKR1kxcmJvbWwvM0wvMGloWlZEeXdKdUM5?=
+ =?utf-8?B?bDhmd1R4R3BQcFkrblZQR3NIM1lwNlUzYmtFeU93elFyeFhRR3ViS3loUzd4?=
+ =?utf-8?B?a1l0dXF4b2tvTGJlT25TcGpCYXNCU05BWnNra1ZOdGNnQkpZdTFsakpaY3Qx?=
+ =?utf-8?B?UU1UWWVOa2J0T3BtUmU0SHhUdi9OOUd4Z0VZUU12eWZDRHpQTjFMT1E3L0pJ?=
+ =?utf-8?B?L0Npd29uMW1sRkNTRUpCNVdUYU5UeldycG9DUGVFYldvYnBBUmsrZ1d4dzA1?=
+ =?utf-8?B?RUtzb2h2akd0ZitISHpicjhld2ZBVFk2c1BNcnZDMU1ZRlRJRkFhRVQwNk1X?=
+ =?utf-8?B?akh6dHVDdThFMnh5clVnWjlSVHpIbEY5dHVhUGZNNlVQMDV2aU0wZzZ2Z2c5?=
+ =?utf-8?B?Wk9Nem9pQ29MVkdPTUJIbVdITk9STnFUTmVDcWRzaVBaQWN5TWZDRVZMUVpv?=
+ =?utf-8?B?TDFKeU1ZVjZ6SS9hc3NGNEM4TGFZSFc2c2lxT2ZranFBdXNLVVoxdS9GYklG?=
+ =?utf-8?B?NER1U0lLZUovei9iam5nREdZWFpyVjV0MURBTU45OXllcmNNU2Zmd3JLSHJx?=
+ =?utf-8?B?eE9EeW5PLzlsK05xc2R2Ni92Sm9mS01NSW1WKzNwVU02S2V1YUNvK0t1QlI5?=
+ =?utf-8?B?VmdWMGRRQWFvR1JNUkpaK1hmNzdVSVFReEI0WUJwN3o2MVF0a3dPa0htdGty?=
+ =?utf-8?B?Y3dFNjUzSDd3YXBoQW91SkYvc2hTTzNocVhXK01SYTNwZGpYNVJZcmlYY2hC?=
+ =?utf-8?B?US94c3Vad2pkamdmTG9UY3FzMDNvM1ViSmRlU0lDQlRiMnhhZ2hyeWIyeVZR?=
+ =?utf-8?Q?I4NryTcIpheMF?=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR12MB7326.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(4053099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?QTRXREZPbURCcm5XbmNVSjRKOUxONTBuN2poeHd4ZlpNeUVYaG9HTFRTYWJV?=
+ =?utf-8?B?SmlEd3BHNnJpY0NOZTZUZUhjWWVuN0RsZmJiZ3hsUEVNbkNiVGdnMC9vczIx?=
+ =?utf-8?B?clZ5dC95SERsWXlIZ3lxdndvdDc4R0ZwUVU2ZFo1OHZJa0NXNG5uWGRkYTJk?=
+ =?utf-8?B?dHU0cDdRNklnVHZlRXNDMzJMdmFOa0RsKzd3NkRHenlZWWd0SUdMTXdKSHIz?=
+ =?utf-8?B?LzBNZFVWNS92aEg5QUhOTUxDbGFtUUdmWXlFWEFuWmFmSmFwOFY1WDU4Ykh1?=
+ =?utf-8?B?aHJ0UEdZU2k3c1FGZmdjaTBTUkJQOW10Vmx4RGFKdUlyWkMwd0NxOGlDa1pt?=
+ =?utf-8?B?dCs1VlZsMGFiZkx2UlRCOEg5N2g0ODgzMGFwTVdvYXNnNXA3N0t1cGc2Mk1T?=
+ =?utf-8?B?enN6Nk1GTDViR3dnKzR1bzZtdUJVb1VwS0VBUTJuSFJTL2tOVm00c1l5RGVs?=
+ =?utf-8?B?dm5Va1lKMDF4MW9RWFc5WEFQamMyRUdDZy9GYVJSMXY4TWdYay9qbFV3OFkx?=
+ =?utf-8?B?Ny9yMVhrTkM2QjVnWHkySEFaLzBwbUhjNGNLaUF3UW9YRG11SUNIdVByTTFF?=
+ =?utf-8?B?Z2hkUkV1L2RQRG5GaDM1VkRKSlBsQzFSaGoxcFNKUzdPSHBZR1ZBTWUrMmti?=
+ =?utf-8?B?R09FQXRQL1pLakhiWE5aTDNWcnAyNmFUcUhIT3RwTCtBK2xwZkFYR1NERFZ3?=
+ =?utf-8?B?Ly9EQTlaNE1PeGtJODgrVm12WXJoVXRpZC9DS2lmeTVWdXhFd1dwWUV3WWtS?=
+ =?utf-8?B?REJnR0xVc0R6elg2bGhKZW12WlVxZFdjSmdiUElNZG0rUE55eXBWS2k4Z1RG?=
+ =?utf-8?B?MUN1VkFpWlB5WXR6L1puQTRMRDlwc2pNU2l0WE9iTkw4T3RyN2lUZFJudVpF?=
+ =?utf-8?B?ajI2akR2cVQ2RTM1enlxV21BWXd6dVlTWTI4U2dMeGR2b2k3SFNPNUM0c0d4?=
+ =?utf-8?B?NGU2NVRkUEZPdmk1U0grTWhZWHpxTjI0ekgycUpiS1ZJS0d0ZWg0S3ZYMjRO?=
+ =?utf-8?B?dTVydTFMUnZhbG1VczRSV0o2cGRUL0k1RU5iNGQvVUZ1aUxhTnJ6eWdBWFpi?=
+ =?utf-8?B?R29kNVZNMmg5UHArRUZJeFltZWVHVDFtY0Y2Y0ZQbXJqUFFIb3d6ZDJmTVhn?=
+ =?utf-8?B?Z0NmeVl6M1JCeTBMb3M5YXVlSWhrMjZ1YS8vYjVkZ2NldGpYYVpTU1FPeEtT?=
+ =?utf-8?B?MXVjbGxBNTEycjU0ZnF0ZS9JV3kvbTY1T0J2YnlvTjZ2NXlNTTBaQlhNTVZV?=
+ =?utf-8?B?QnVDNkxuTlVqWFB6T3BONE9pcm1GTEdJTWpqUHlzeGN2Mm54TFBXbzhlWlFG?=
+ =?utf-8?B?YXNENHlYMVBUbU1Bb3dRVktpTkRLU2ZPcnJ3NFRPMnJuc0crY3FGNFRrQzhu?=
+ =?utf-8?B?ZEZlWUZoSjNVMXo2SHhSWEtNbEozazhoaTdSR3BMbjFFRGJjejVIeHpZVUJL?=
+ =?utf-8?B?RldVRmNpMUsxT0dwTFFYWUpSQk1TbGxLY2JQNHM4ditqRGlwdXd0S1M4RDYv?=
+ =?utf-8?B?WVlGZUMxT0FYUFZwbnpjNHVOSWhVelJEWi95WEtQMVNwMjBocEIrNVE5bzZG?=
+ =?utf-8?B?TTR0RGVaY3YzejdxejEwSkwrTVVEbzlPVk9sQUUyZmxRalRyZVNUYWcwNzZ1?=
+ =?utf-8?B?L0F4Kyt2RHg3RVQ5TUxoSFZnVlFYVzI3Z3g0cXFjcFF5YTM0cUkyVXh3Y0wx?=
+ =?utf-8?B?VThnSDJFaENyZkJ0cDhTYWU3ZlIrY2NLaGM1VXZPQnhRazBlQ2FkUUdUQ2x0?=
+ =?utf-8?B?ZWV6eWF2N2dOR3pyV0g0WmptUXNyc1c3NjQzVlhLdU5wbzNsb1Y1eHZBQytI?=
+ =?utf-8?B?bHBYL2VRK3JLcy94dUg0cGpiYzl3WkplcDY2NUdNTHB0dEZUQWxKdFdEZSty?=
+ =?utf-8?B?aVVzRlNSTC9MK0xMYWI1UnhDT1JCYVRtRFVsMkU1cTBwSFlkaDlmZkxTUWI2?=
+ =?utf-8?B?YXRKUzB0aFRRcSt0N3I1bzZSODMxOXR5TWQyMUptSW9ERHoxSFdmSGdpUUox?=
+ =?utf-8?B?MG9ERGg5bEFKOFpRTEFVN0N5cEplUXN0R2M2d3dyOVZzaGE1S3JqS29qeXl5?=
+ =?utf-8?B?cm1uYzZORU5EUHYwNlhrQjVoUFYwSlJUYm9TNFdVSnpVTFFCbjNDcEdEOU10?=
+ =?utf-8?Q?RusY6wVQsSfnHSQWd1AfpbRB2?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 89f053f6-e547-4ec4-b126-08ddbe3b6d58
+X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB7326.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jul 2025 16:21:00.8320
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 8ZZpmQXl8HxXYljnWfj0ZnYdYTlOXPHqj/YZxAlFrlKvYfNoryrHdCYME3SJ6yZNdl9oiz4fjY4HFhriZtdmFg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6616
+
+--------------9vkG03s23pxg8IOcjkQKChER
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On 08.07.2025 17:42, Oleksii Kurochko wrote:
-> 
-> On 7/8/25 2:45 PM, Jan Beulich wrote:
->> On 08.07.2025 12:37, Oleksii Kurochko wrote:
->>> On 7/8/25 11:01 AM, Oleksii Kurochko wrote:
->>>>
->>>> On 7/8/25 9:10 AM, Jan Beulich wrote:
->>>>> On 07.07.2025 18:10, Oleksii Kurochko wrote:
->>>>>> On 7/7/25 5:15 PM, Jan Beulich wrote:
->>>>>>> On 07.07.2025 17:00, Oleksii Kurochko wrote:
->>>>>>>> On 7/7/25 2:53 PM, Jan Beulich wrote:
->>>>>>>>> On 07.07.2025 13:46, Oleksii Kurochko wrote:
->>>>>>>>>> On 7/7/25 9:20 AM, Jan Beulich wrote:
->>>>>>>>>>> On 04.07.2025 17:01, Oleksii Kurochko wrote:
->>>>>>>>>>>> On 7/1/25 3:49 PM, Jan Beulich wrote:
->>>>>>>>>>>>> On 10.06.2025 15:05, Oleksii Kurochko wrote:
->>>>>>>>>>>>>> +{
->>>>>>>>>>>>>> +    panic("%s: isn't implemented for now\n", __func__);
->>>>>>>>>>>>>> +
->>>>>>>>>>>>>> +    return false;
->>>>>>>>>>>>>> +}
->>>>>>>>>>>>> For this function in particular, though: Besides the "p2me" in the name
->>>>>>>>>>>>> being somewhat odd (supposedly page table entries here are simply pte_t),
->>>>>>>>>>>>> how is this going to be different from pte_is_valid()?
->>>>>>>>>>>> pte_is_valid() is checking a real bit of PTE, but p2me_is_valid() is checking
->>>>>>>>>>>> what is a type stored in the radix tree (p2m->p2m_types):
->>>>>>>>>>>>         /*
->>>>>>>>>>>>          * In the case of the P2M, the valid bit is used for other purpose. Use
->>>>>>>>>>>>          * the type to check whether an entry is valid.
->>>>>>>>>>>>          */
->>>>>>>>>>>>         static inline bool p2me_is_valid(struct p2m_domain *p2m, pte_t pte)
->>>>>>>>>>>>         {
->>>>>>>>>>>>             return p2m_type_radix_get(p2m, pte) != p2m_invalid;
->>>>>>>>>>>>         }
->>>>>>>>>>>>
->>>>>>>>>>>> It is done to track which page was modified by a guest.
->>>>>>>>>>> But then (again) the name doesn't convey what the function does.
->>>>>>>>>> Then probably p2me_type_is_valid(struct p2m_domain *p2m, pte_t pte) would better.
->>>>>>>>> For P2M type checks please don't invent new naming, but use what both x86
->>>>>>>>> and Arm are already using. Note how we already have p2m_is_valid() in that
->>>>>>>>> set. Just that it's not doing what you want here.
->>>>>>>> Hm, why not doing what I want? p2m_is_valid() verifies if P2M entry is valid.
->>>>>>>> And in here it is checked if P2M pte is valid from P2M point of view by checking
->>>>>>>> the type in radix tree and/or in reserved PTEs bits (just to remind we have only 2
->>>>>>>> free bits for type).
->>>>>>> Because this is how it's defined on x86:
->>>>>>>
->>>>>>> #define p2m_is_valid(_t)    (p2m_to_mask(_t) & \
->>>>>>>                                 (P2M_RAM_TYPES | p2m_to_mask(p2m_mmio_direct)))
->>>>>>>
->>>>>>> I.e. more strict that simply "!= p2m_invalid". And I think such predicates
->>>>>>> would better be uniform across architectures, such that in principle they
->>>>>>> might also be usable in common code (as we already do with p2m_is_foreign()).
->>>>>> Yeah, Arm isn't so strict in definition of p2m_is_valid() and it seems like
->>>>>> x86 and Arm have different understanding what is valid.
->>>>>>
->>>>>> Except what mentioned in the comment that grant types aren't considered valid
->>>>>> for x86 (and shouldn't be the same then for Arm?), it isn't clear why x86's
->>>>>> p2m_is_valid() is stricter then Arm's one and if other arches should be also
->>>>>> so strict.
->>>>> Arm's p2m_is_valid() is entirely different (and imo misnamed, but arguably one
->>>>> could also consider x86'es to require a better name). It's a local helper, not
->>>>> a P2M type checking predicate. With that in mind, you may of course follow
->>>>> Arm's model, but in the longer run we may need to do something about the name
->>>>> collision then.
->>>>>
->>>>>>>> The only use case I can think of is that the caller
->>>>>>>> might try to map the remaining GFNs again. But that doesn’t seem very useful,
->>>>>>>> if|p2m_set_entry()| wasn’t able to map the full range, it likely indicates a serious
->>>>>>>> issue, and retrying would probably result in the same error.
->>>>>>>>
->>>>>>>> The same applies to rolling back the state. It wouldn’t be difficult to add a local
->>>>>>>> array to track all modified PTEs and then use it to revert the state if needed.
->>>>>>>> But again, what would the caller do after the rollback? At this point, it still seems
->>>>>>>> like the best option is simply to|panic(). |
->>>>>>>>
->>>>>>>> Basically, I don’t see or understand the cases where knowing how many GFNs were
->>>>>>>> successfully mapped, or whether a rollback was performed, would really help — because
->>>>>>>> in most cases, I don’t have a better option than just calling|panic()| at the end.
->>>>>>> panic()-ing is of course only a last resort. Anything related to domain handling
->>>>>>> would better crash only the domain in question. And even that only if suitable
->>>>>>> error handling isn't possible.
->>>>>> And if there is no still any runnable domain available, for example, we are creating
->>>>>> domain and some p2m mapping is called? Will it be enough just ignore to boot this domain?
->>>>>> If yes, then it is enough to return only error code without returning how many GFNs were
->>>>>> mapped or rollbacking as domain won't be ran anyway.
->>>>> During domain creation all you need to do is return an error. But when you write a
->>>>> generic function that's also (going to be) used at domain runtime, you need to
->>>>> consider what to do there in case of partial success.
->>>>>
->>>>>>>> For example, if I call|map_regions_p2mt()| for an MMIO region described in a device
->>>>>>>> tree node, and the mapping fails partway through, I’m left with two options: either
->>>>>>>> ignore the device (if it's not essential for Xen or guest functionality) and continue
->>>>>>>>      booting; in which case I’d need to perform a rollback, and simply knowing the number
->>>>>>>> of successfully mapped GFNs may not be enough or, more likely, just panic.
->>>>>>> Well, no. For example, before even trying to map you could check that the range
->>>>>>> of P2M entries covered is all empty.
->>>>>> Could it be that they aren't all empty? Then it seems like we have overlapping and we can't
->>>>>> just do a mapping, right?
->>>>> Possibly that would simply mean to return an error, yes.
->>>>>
->>>>>> Won't be this procedure consume a lot of time as it is needed to go through each page
->>>>>> tables for each entry.
->>>>> Well, you're free to suggest a clean alternative without doing so.
->>>> I thought about dynamically allocating an array in p2m_set_entry(), where to save all changed PTEs,
->>>> and then use it to roll back if __p2m_set_entry() returns rc != 0 ...
->> That's another possible source for failure, and such an allocation may end
->> up being a rather big one.
->>
->>>>>>>     _Then_ you know how to correctly roll back.
->>>>>>> And yes, doing so may not even require passing back information on how much of
->>>>>>> a region was successfully mapped.
->>>>>> If P2M entries were empty before start of the mapping then it is enough to just go
->>>>>> through the same range (sgfn,nr,smfn) and just clean them, right?
->>>>> Yes, what else would "roll back" mean in that case?
->>>> ... If we know that the P2M entries were empty, then there's nothing else to be done, just
->>>> clean PTE is needed to be done.
->>>> However, if the P2M entries weren’t empty (and I’m still not sure whether that’s a legal
->>>> case), then rolling back would mean restoring their original state, the state they
->>>> had before the P2M mapping procedure started.
->>> Possible roll back is harder to implement as expected because there is a case where subtree
->>> could be freed:
->>>       /*
->>>        * Free the entry only if the original pte was valid and the base
->>>        * is different (to avoid freeing when permission is changed).
->>>        */
->>>       if ( p2me_is_valid(p2m, orig_pte) &&
->>>            !mfn_eq(pte_get_mfn(*entry), pte_get_mfn(orig_pte)) )
->>>           p2m_free_subtree(p2m, orig_pte, level);
->>> In this case then it will be needed to store the full subtree.
->> Right, which is why it may be desirable to limit the ability to update multiple
->> entries in one go. Or work from certain assumptions, violation of which would
->> cause the domain to be crashed.
-> 
-> It seems to me that the main issue with updating multiple entries in one go is the rollback
-> mechanism in case of a partial mapping failure. (other issues? mapping could consume a lot
-> of time so something should wait while allocation will end?) In my opinion, the rollback
-> mechanism is quite complex to implement and could become a source of further failures.
-> For example, most of the cases where p2m_set_entry() could fail are due to failure in
-> mapping the page table (to allow Xen to walk through it) or failure in creating a new page
-> table due to memory exhaustion. Then, during rollback, which might also require memory
-> allocation, we could face the same memory shortage issue.
-> And what should be done in that case?
-> 
-> In my opinion, the best option is to simply return from p2m_set_entry() the number of
-> successfully mapped GFNs (stored in rc which is returned by p2m_set_entry()) and let
-> the caller decide how to handle the partial mapping:
-> 1. If a partial mapping occurs during domain creation, we could just report that this
->     domain can't be created and continue without it if there are other domains to start;
->     otherwise, panic.
 
-I don't see how panic()-ing is relevant here. That's to be decided (far) up
-the call stack.
+On 08/07/2025 16:06, Weber (US), Matthew L wrote:
+>
+> Hi Ayan,
+>
+Hi Matthew,
+>
+> I didn’t get a chance to ask in the FuSA call today about build time 
+> configurations.  Is there a configuration that’s been “ifdef” on the 
+> original codebase to put it into a certification configuration? 
+>  Wasn’t sure if there is a working/staging branch separate from the 
+> main project repository with these sort of changes.
+>
+I will provide you the configuration which we are using for arm64 and 
+x86. It is mostly based of the upstream codebase. There are few features 
+like domain roles, hyperlaunch, etc which we are trying to flush out. 
+Thus, this is not the final configuration, but should be good enough to 
+get you started.
 
-> 2. If a partial mapping occurs during the lifetime of a domain, for example, if the domain
->     requests to map some memory, we return the number of successfully mapped GFNs and let the
->     domain decide what to do: either remove the mappings or retry mapping the remaining part.
->     However, I think there's not much value in retrying, since p2m_set_entry() is likely to
->     fail again. So, perhaps the best course of action is to stop the domain altogether.
-> Does that make sense?
+Hope this helps.
 
-Sure, why not. Provided you actually have a way to communicate back how much
-was mapped.
+> Brian and I are working on some reference configurations of Linux 
+> and/or Xen for the ELISA project and wanted to narrow the build focus 
+> on the FuSa configuration.
+>
+Cool.
 
-Jan
+- Ayan
+
+> Best Regards,
+>
+> —
+>
+> *Matthew L. Weber*
+>
+> Associate Technical Fellow / ELISA Aerospace WG Chair
+>
+> LinkedIn <https://www.linkedin.com/in/matthew-weber-a171527/>| GitHub 
+> <https://github.com/matthew-l-weber>| GitLab 
+> <https://gitlab.com/matthewlweber>| LXF Open Profile 
+> <https://openprofile.dev/profile/matthew.l.weber>
+>
+--------------9vkG03s23pxg8IOcjkQKChER
+Content-Type: text/plain; charset=UTF-8; name="xen-config-x86"
+Content-Disposition: attachment; filename="xen-config-x86"
+Content-Transfer-Encoding: base64
+
+IwojIEF1dG9tYXRpY2FsbHkgZ2VuZXJhdGVkIGZpbGU7IERPIE5PVCBFRElULgojIFhlbi94ODYg
+NC4yMC4wLXJjNSBDb25maWd1cmF0aW9uCiMKQ09ORklHX0NDX0lTX0dDQz15CkNPTkZJR19HQ0Nf
+VkVSU0lPTj0xMjAyMDEKQ09ORklHX0NMQU5HX1ZFUlNJT049MApDT05GSUdfTERfSVNfR05VPXkK
+Q09ORklHX0NDX0hBU19WSVNJQklMSVRZX0FUVFJJQlVURT15CkNPTkZJR19GVU5DVElPTl9BTElH
+Tk1FTlRfMTZCPXkKQ09ORklHX0ZVTkNUSU9OX0FMSUdOTUVOVD0xNgpDT05GSUdfWDg2XzY0PXkK
+Q09ORklHX1g4Nj15CkNPTkZJR19BUkNIX0RFRkNPTkZJRz0iYXJjaC94ODYvY29uZmlncy94ODZf
+NjRfZGVmY29uZmlnIgpDT05GSUdfQ0NfSEFTX0lORElSRUNUX1RIVU5LPXkKQ09ORklHX0hBU19B
+U19DRVRfU1M9eQpDT05GSUdfSEFTX0NDX0NFVF9JQlQ9eQoKIwojIEFyY2hpdGVjdHVyZSBGZWF0
+dXJlcwojCgojCiMgU3VwcG9ydGVkIENQVSB2ZW5kb3JzCiMKQ09ORklHX0FNRD15CiMgQ09ORklH
+X0lOVEVMIGlzIG5vdCBzZXQKIyBlbmQgb2YgU3VwcG9ydGVkIENQVSB2ZW5kb3JzCgpDT05GSUdf
+NjRCSVQ9eQpDT05GSUdfTlJfQ1BVUz0xNgpDT05GSUdfTlJfTlVNQV9OT0RFUz0yCiMgQ09ORklH
+X1BWIGlzIG5vdCBzZXQKQ09ORklHX0hWTT15CkNPTkZJR19BTURfU1ZNPXkKQ09ORklHX0lOVEVM
+X1ZNWD15CkNPTkZJR19YRU5fU0hTVEs9eQojIENPTkZJR19YRU5fSUJUIGlzIG5vdCBzZXQKIyBD
+T05GSUdfU0hBRE9XX1BBR0lORyBpcyBub3Qgc2V0CiMgQ09ORklHX0JJR01FTSBpcyBub3Qgc2V0
+CiMgQ09ORklHX0hWTV9GRVAgaXMgbm90IHNldAojIENPTkZJR19YODZfUFNSIGlzIG5vdCBzZXQK
+Q09ORklHX1hFTl9BTElHTl9ERUZBVUxUPXkKIyBDT05GSUdfWEVOX0FMSUdOXzJNIGlzIG5vdCBz
+ZXQKIyBDT05GSUdfWDJBUElDX1BIWVNJQ0FMIGlzIG5vdCBzZXQKQ09ORklHX1gyQVBJQ19NSVhF
+RD15CiMgQ09ORklHX1hFTl9HVUVTVCBpcyBub3Qgc2V0CiMgQ09ORklHX0hZUEVSVl9HVUVTVCBp
+cyBub3Qgc2V0CiMgQ09ORklHX01FTV9QQUdJTkcgaXMgbm90IHNldAojIENPTkZJR19NRU1fU0hB
+UklORyBpcyBub3Qgc2V0CiMgQ09ORklHX1JFUVVJUkVfTlggaXMgbm90IHNldApDT05GSUdfQUxU
+UDJNPXkKIyBlbmQgb2YgQXJjaGl0ZWN0dXJlIEZlYXR1cmVzCgojCiMgQ29tbW9uIEZlYXR1cmVz
+CiMKQ09ORklHX0NPTVBBVD15CkNPTkZJR19DT1JFX1BBUktJTkc9eQpDT05GSUdfR1JBTlRfVEFC
+TEU9eQpDT05GSUdfQUxURVJOQVRJVkVfQ0FMTD15CkNPTkZJR19BUkNIX01BUF9ET01BSU5fUEFH
+RT15CkNPTkZJR19HRU5FUklDX0JVR19GUkFNRT15CkNPTkZJR19IQVNfQUxURVJOQVRJVkU9eQpD
+T05GSUdfSEFTX0NPTVBBVD15CkNPTkZJR19IQVNfRElUPXkKQ09ORklHX0hBU19FWF9UQUJMRT15
+CkNPTkZJR19IQVNfRkFTVF9NVUxUSVBMWT15CkNPTkZJR19IQVNfSU9QT1JUUz15CkNPTkZJR19I
+QVNfS0VYRUM9eQpDT05GSUdfSEFTX1BJUlE9eQpDT05GSUdfSEFTX1NDSEVEX0dSQU5VTEFSSVRZ
+PXkKQ09ORklHX0hBU19VQlNBTj15CkNPTkZJR19IQVNfVk1BUD15CkNPTkZJR19NRU1fQUNDRVNT
+X0FMV0FZU19PTj15CkNPTkZJR19NRU1fQUNDRVNTPXkKQ09ORklHX05FRURTX0xJQkVMRj15CkNP
+TkZJR19OVU1BPXkKCiMKIyBTcGVjdWxhdGl2ZSBoYXJkZW5pbmcKIwpDT05GSUdfSU5ESVJFQ1Rf
+VEhVTks9eQpDT05GSUdfU1BFQ1VMQVRJVkVfSEFSREVOX0FSUkFZPXkKQ09ORklHX1NQRUNVTEFU
+SVZFX0hBUkRFTl9CUkFOQ0g9eQpDT05GSUdfU1BFQ1VMQVRJVkVfSEFSREVOX0xPQ0s9eQojIGVu
+ZCBvZiBTcGVjdWxhdGl2ZSBoYXJkZW5pbmcKCiMgQ09ORklHX0RJVF9ERUZBVUxUIGlzIG5vdCBz
+ZXQKIyBDT05GSUdfSFlQRlMgaXMgbm90IHNldApDT05GSUdfSU9SRVFfU0VSVkVSPXkKIyBDT05G
+SUdfS0VYRUMgaXMgbm90IHNldAojIENPTkZJR19FRklfU0VUX1ZJUlRVQUxfQUREUkVTU19NQVAg
+aXMgbm90IHNldAojIENPTkZJR19YRU5PUFJPRiBpcyBub3Qgc2V0CiMgQ09ORklHX1hTTSBpcyBu
+b3Qgc2V0CkNPTkZJR19BUkdPPXkKCiMKIyBTY2hlZHVsZXJzCiMKIyBDT05GSUdfU0NIRURfQ1JF
+RElUIGlzIG5vdCBzZXQKQ09ORklHX1NDSEVEX0NSRURJVDI9eQojIENPTkZJR19TQ0hFRF9SVERT
+IGlzIG5vdCBzZXQKIyBDT05GSUdfU0NIRURfQVJJTkM2NTMgaXMgbm90IHNldApDT05GSUdfU0NI
+RURfTlVMTD15CkNPTkZJR19TQ0hFRF9DUkVESVQyX0RFRkFVTFQ9eQojIENPTkZJR19TQ0hFRF9O
+VUxMX0RFRkFVTFQgaXMgbm90IHNldApDT05GSUdfU0NIRURfREVGQVVMVD0iY3JlZGl0MiIKIyBl
+bmQgb2YgU2NoZWR1bGVycwoKIyBDT05GSUdfTElWRVBBVENIIGlzIG5vdCBzZXQKIyBDT05GSUdf
+RU5GT1JDRV9VTklRVUVfU1lNQk9MUyBpcyBub3Qgc2V0CiMgQ09ORklHX1NVUFBSRVNTX0RVUExJ
+Q0FURV9TWU1CT0xfV0FSTklOR1MgaXMgbm90IHNldApDT05GSUdfQ01ETElORT0iIgpDT05GSUdf
+RE9NMF9NRU09IiIKIyBDT05GSUdfVFJBQ0VCVUZGRVIgaXMgbm90IHNldAojIGVuZCBvZiBDb21t
+b24gRmVhdHVyZXMKCiMKIyBEZXZpY2UgRHJpdmVycwojCkNPTkZJR19BQ1BJPXkKQ09ORklHX0FD
+UElfTEVHQUNZX1RBQkxFU19MT09LVVA9eQpDT05GSUdfQUNQSV9OVU1BPXkKQ09ORklHX0hBU19O
+UzE2NTUwPXkKQ09ORklHX0hBU19FSENJPXkKQ09ORklHX1NFUklBTF9UWF9CVUZTSVpFPTMyNzY4
+CiMgQ09ORklHX1hIQ0kgaXMgbm90IHNldApDT05GSUdfSEFTX0NQVUZSRVE9eQpDT05GSUdfSEFT
+X1BBU1NUSFJPVUdIPXkKQ09ORklHX0FNRF9JT01NVT15CiMgQ09ORklHX0lOVEVMX0lPTU1VIGlz
+IG5vdCBzZXQKIyBDT05GSUdfSU9NTVVfUVVBUkFOVElORV9OT05FIGlzIG5vdCBzZXQKQ09ORklH
+X0lPTU1VX1FVQVJBTlRJTkVfQkFTSUM9eQojIENPTkZJR19JT01NVV9RVUFSQU5USU5FX1NDUkFU
+Q0hfUEFHRSBpcyBub3Qgc2V0CkNPTkZJR19IQVNfUENJPXkKQ09ORklHX0hBU19QQ0lfTVNJPXkK
+Q09ORklHX1ZJREVPPXkKQ09ORklHX1ZHQT15CkNPTkZJR19IQVNfVlBDST15CiMgZW5kIG9mIERl
+dmljZSBEcml2ZXJzCgpDT05GSUdfRVhQRVJUPXkKQ09ORklHX1VOU1VQUE9SVEVEPXkKQ09ORklH
+X0FSQ0hfU1VQUE9SVFNfSU5UMTI4PXkKQ09ORklHX0FSQ0hfVkNQVV9JT1JFUV9DT01QTEVUSU9O
+PXkKCiMKIyBEZWJ1Z2dpbmcgT3B0aW9ucwojCkNPTkZJR19ERUJVRz15CiMgQ09ORklHX0dEQlNY
+IGlzIG5vdCBzZXQKIyBDT05GSUdfRlJBTUVfUE9JTlRFUiBpcyBub3Qgc2V0CiMgQ09ORklHX1NF
+TEZfVEVTVFMgaXMgbm90IHNldAojIENPTkZJR19DT1ZFUkFHRSBpcyBub3Qgc2V0CiMgQ09ORklH
+X0RFQlVHX0xPQ0tfUFJPRklMRSBpcyBub3Qgc2V0CiMgQ09ORklHX0RFQlVHX0xPQ0tTIGlzIG5v
+dCBzZXQKIyBDT05GSUdfUEVSRl9DT1VOVEVSUyBpcyBub3Qgc2V0CkNPTkZJR19WRVJCT1NFX0RF
+QlVHPXkKIyBDT05GSUdfU0NSVUJfREVCVUcgaXMgbm90IHNldApDT05GSUdfVUJTQU49eQpDT05G
+SUdfVUJTQU5fRkFUQUw9eQojIENPTkZJR19ERUJVR19UUkFDRSBpcyBub3Qgc2V0CiMgQ09ORklH
+X1hNRU1fUE9PTF9QT0lTT04gaXMgbm90IHNldApDT05GSUdfREVCVUdfSU5GTz15CiMgZW5kIG9m
+IERlYnVnZ2luZyBPcHRpb25zCg==
+
+--------------9vkG03s23pxg8IOcjkQKChER
+Content-Type: text/plain; charset=UTF-8; name="xen-config-arm"
+Content-Disposition: attachment; filename="xen-config-arm"
+Content-Transfer-Encoding: base64
+
+IwojIEF1dG9tYXRpY2FsbHkgZ2VuZXJhdGVkIGZpbGU7IERPIE5PVCBFRElULgojIFhlbi9hcm0g
+NC4yMC4wLXJjNSBDb25maWd1cmF0aW9uCiMKQ09ORklHX0NDX0lTX0dDQz15CkNPTkZJR19HQ0Nf
+VkVSU0lPTj0xNDAyMDAKQ09ORklHX0NMQU5HX1ZFUlNJT049MApDT05GSUdfTERfSVNfR05VPXkK
+Q09ORklHX0NDX0hBU19WSVNJQklMSVRZX0FUVFJJQlVURT15CkNPTkZJR19DQ19IQVNfQVNNX0dP
+VE9fT1VUUFVUPXkKQ09ORklHX0NDX0hBU19NQ0RDPXkKQ09ORklHX0ZVTkNUSU9OX0FMSUdOTUVO
+VF80Qj15CkNPTkZJR19GVU5DVElPTl9BTElHTk1FTlQ9NApDT05GSUdfQVJNXzY0PXkKQ09ORklH
+X0FSTT15CkNPTkZJR19BUkNIX0RFRkNPTkZJRz0iYXJjaC9hcm0vY29uZmlncy9hcm02NF9kZWZj
+b25maWciCgojCiMgQXJjaGl0ZWN0dXJlIEZlYXR1cmVzCiMKQ09ORklHX1BBRERSX0JJVFM9NDgK
+Q09ORklHX01NVT15CiMgQ09ORklHX01QVSBpcyBub3Qgc2V0CkNPTkZJR182NEJJVD15CkNPTkZJ
+R19OUl9DUFVTPTE2CiMgQ09ORklHX0FDUEkgaXMgbm90IHNldApDT05GSUdfQVJNX0VGST15CiMg
+Q09ORklHX0dJQ1YyIGlzIG5vdCBzZXQKQ09ORklHX0RPTTBMRVNTX0JPT1Q9eQpDT05GSUdfR0lD
+VjM9eQpDT05GSUdfSEFTX0lUUz15CiMgQ09ORklHX09WRVJMQVlfRFRCIGlzIG5vdCBzZXQKIyBD
+T05GSUdfVkdJQ1YyIGlzIG5vdCBzZXQKQ09ORklHX0hWTT15CiMgQ09ORklHX05FV19WR0lDIGlz
+IG5vdCBzZXQKQ09ORklHX1NCU0FfVlVBUlRfQ09OU09MRT15CiMgQ09ORklHX0hXRE9NX1ZVQVJU
+IGlzIG5vdCBzZXQKQ09ORklHX0FSTV9TU0JEPXkKQ09ORklHX0hBUkRFTl9CUkFOQ0hfUFJFRElD
+VE9SPXkKIyBDT05GSUdfQVJNNjRfU1ZFIGlzIG5vdCBzZXQKCiMKIyBURUUgbWVkaWF0b3JzCiMK
+IyBDT05GSUdfT1BURUUgaXMgbm90IHNldAojIENPTkZJR19GRkEgaXMgbm90IHNldAojIGVuZCBv
+ZiBURUUgbWVkaWF0b3JzCgpDT05GSUdfU1RBVElDX1NITT15CkNPTkZJR19TVEFUSUNfRVZUQ0hO
+PXkKQ09ORklHX1BBUlRJQUxfRU1VTEFUSU9OPXkKCiMKIyBGaXJtd2FyZSBEcml2ZXJzCiMKQ09O
+RklHX1NDTUlfU01DPXkKIyBlbmQgb2YgRmlybXdhcmUgRHJpdmVycwoKQ09ORklHX1BDSV9QQVNT
+VEhST1VHSD15CiMgZW5kIG9mIEFyY2hpdGVjdHVyZSBGZWF0dXJlcwoKIwojIEFSTSBlcnJhdGEg
+d29ya2Fyb3VuZCB2aWEgdGhlIGFsdGVybmF0aXZlIGZyYW1ld29yawojCkNPTkZJR19BUk02NF9F
+UlJBVFVNXzgyNzMxOT15CkNPTkZJR19BUk02NF9FUlJBVFVNXzgyNDA2OT15CkNPTkZJR19BUk02
+NF9FUlJBVFVNXzgxOTQ3Mj15CkNPTkZJR19BUk02NF9FUlJBVFVNXzg0MzQxOT15CkNPTkZJR19B
+Uk02NF9FUlJBVFVNXzgzMjA3NT15CkNPTkZJR19BUk02NF9FUlJBVFVNXzgzNDIyMD15CkNPTkZJ
+R19BUk1fRVJSQVRVTV84NTg5MjE9eQpDT05GSUdfQVJNNjRfV09SS0FST1VORF9SRVBFQVRfVExC
+ST15CkNPTkZJR19BUk02NF9FUlJBVFVNXzEyODY4MDc9eQpDT05GSUdfQVJNNjRfRVJSQVRVTV8x
+NTA4NDEyPXkKIyBlbmQgb2YgQVJNIGVycmF0YSB3b3JrYXJvdW5kIHZpYSB0aGUgYWx0ZXJuYXRp
+dmUgZnJhbWV3b3JrCgpDT05GSUdfQVJNNjRfSEFSREVOX0JSQU5DSF9QUkVESUNUT1I9eQpDT05G
+SUdfQUxMX1BMQVQ9eQojIENPTkZJR19RRU1VIGlzIG5vdCBzZXQKIyBDT05GSUdfUkNBUjMgaXMg
+bm90IHNldAojIENPTkZJR19NUFNPQyBpcyBub3Qgc2V0CiMgQ09ORklHX1MzMkczIGlzIG5vdCBz
+ZXQKIyBDT05GSUdfTk9fUExBVCBpcyBub3Qgc2V0CkNPTkZJR19BTEw2NF9QTEFUPXkKQ09ORklH
+X01QU09DX1BMQVRGT1JNPXkKCiMKIyBDb21tb24gRmVhdHVyZXMKIwpDT05GSUdfR1JBTlRfVEFC
+TEU9eQpDT05GSUdfUERYX0NPTVBSRVNTSU9OPXkKQ09ORklHX0hBU19BTFRFUk5BVElWRT15CkNP
+TkZJR19IQVNfREVWSUNFX1RSRUU9eQpDT05GSUdfSEFTX0ZBU1RfTVVMVElQTFk9eQpDT05GSUdf
+SEFTX0xMQ19DT0xPUklORz15CkNPTkZJR19IQVNfUE1BUD15CkNPTkZJR19IQVNfVUJTQU49eQpD
+T05GSUdfSEFTX1ZNQVA9eQojIENPTkZJR19NRU1fQUNDRVNTIGlzIG5vdCBzZXQKQ09ORklHX1NU
+QVRJQ19NRU1PUlk9eQoKIwojIFNwZWN1bGF0aXZlIGhhcmRlbmluZwojCkNPTkZJR19TUEVDVUxB
+VElWRV9IQVJERU5fQVJSQVk9eQojIGVuZCBvZiBTcGVjdWxhdGl2ZSBoYXJkZW5pbmcKCiMgQ09O
+RklHX0hZUEZTIGlzIG5vdCBzZXQKQ09ORklHX0lPUkVRX1NFUlZFUj15CiMgQ09ORklHX0VGSV9T
+RVRfVklSVFVBTF9BRERSRVNTX01BUCBpcyBub3Qgc2V0CiMgQ09ORklHX1hTTSBpcyBub3Qgc2V0
+CkNPTkZJR19BUkdPPXkKCiMKIyBTY2hlZHVsZXJzCiMKIyBDT05GSUdfU0NIRURfQ1JFRElUIGlz
+IG5vdCBzZXQKQ09ORklHX1NDSEVEX0NSRURJVDI9eQojIENPTkZJR19TQ0hFRF9SVERTIGlzIG5v
+dCBzZXQKIyBDT05GSUdfU0NIRURfQVJJTkM2NTMgaXMgbm90IHNldApDT05GSUdfU0NIRURfTlVM
+TD15CkNPTkZJR19TQ0hFRF9DUkVESVQyX0RFRkFVTFQ9eQojIENPTkZJR19TQ0hFRF9OVUxMX0RF
+RkFVTFQgaXMgbm90IHNldApDT05GSUdfU0NIRURfREVGQVVMVD0iY3JlZGl0MiIKIyBlbmQgb2Yg
+U2NoZWR1bGVycwoKQ09ORklHX0JPT1RfVElNRV9DUFVQT09MUz15CiMgQ09ORklHX0xJVkVQQVRD
+SCBpcyBub3Qgc2V0CiMgQ09ORklHX0VORk9SQ0VfVU5JUVVFX1NZTUJPTFMgaXMgbm90IHNldApD
+T05GSUdfU1VQUFJFU1NfRFVQTElDQVRFX1NZTUJPTF9XQVJOSU5HUz15CkNPTkZJR19DTURMSU5F
+PSIiCkNPTkZJR19ET00wX01FTT0iIgpDT05GSUdfRFRCX0ZJTEU9IiIKIyBDT05GSUdfVFJBQ0VC
+VUZGRVIgaXMgbm90IHNldAojIENPTkZJR19MTENfQ09MT1JJTkcgaXMgbm90IHNldAojIGVuZCBv
+ZiBDb21tb24gRmVhdHVyZXMKCiMKIyBEZXZpY2UgRHJpdmVycwojCkNPTkZJR19HRU5FUklDX1VB
+UlRfSU5JVD15CiMgQ09ORklHX0hBU19OUzE2NTUwIGlzIG5vdCBzZXQKIyBDT05GSUdfSEFTX0NB
+REVOQ0VfVUFSVCBpcyBub3Qgc2V0CiMgQ09ORklHX0hBU19MSU5GTEVYIGlzIG5vdCBzZXQKIyBD
+T05GSUdfSEFTX0lNWF9MUFVBUlQgaXMgbm90IHNldAojIENPTkZJR19IQVNfTVZFQlUgaXMgbm90
+IHNldAojIENPTkZJR19IQVNfTUVTT04gaXMgbm90IHNldApDT05GSUdfSEFTX1BMMDExPXkKIyBD
+T05GSUdfSEFTX09NQVAgaXMgbm90IHNldAojIENPTkZJR19IQVNfU0NJRiBpcyBub3Qgc2V0CkNP
+TkZJR19TRVJJQUxfVFhfQlVGU0laRT0zMjc2OApDT05GSUdfSEFTX1BBU1NUSFJPVUdIPXkKIyBD
+T05GSUdfQVJNX1NNTVUgaXMgbm90IHNldApDT05GSUdfQVJNX1NNTVVfVjM9eQojIENPTkZJR19J
+UE1NVV9WTVNBIGlzIG5vdCBzZXQKQ09ORklHX0lPTU1VX0ZPUkNFX1BUX1NIQVJFPXkKIyBDT05G
+SUdfSU9NTVVfUVVBUkFOVElORV9OT05FIGlzIG5vdCBzZXQKQ09ORklHX0lPTU1VX1FVQVJBTlRJ
+TkVfQkFTSUM9eQojIENPTkZJR19JT01NVV9RVUFSQU5USU5FX1NDUkFUQ0hfUEFHRSBpcyBub3Qg
+c2V0CkNPTkZJR19IQVNfUENJPXkKQ09ORklHX0hBU19QQ0lfTVNJPXkKQ09ORklHX0hBU19WUENJ
+PXkKQ09ORklHX0hBU19WUENJX0dVRVNUX1NVUFBPUlQ9eQojIGVuZCBvZiBEZXZpY2UgRHJpdmVy
+cwoKQ09ORklHX0VYUEVSVD15CkNPTkZJR19VTlNVUFBPUlRFRD15CgojCiMgRGVidWdnaW5nIE9w
+dGlvbnMKIwpDT05GSUdfREVCVUc9eQojIENPTkZJR19GUkFNRV9QT0lOVEVSIGlzIG5vdCBzZXQK
+IyBDT05GSUdfU0VMRl9URVNUUyBpcyBub3Qgc2V0CkNPTkZJR19DT1ZFUkFHRT15CkNPTkZJR19D
+T05ESVRJT05fQ09WRVJBR0U9eQojIENPTkZJR19ERUJVR19MT0NLX1BST0ZJTEUgaXMgbm90IHNl
+dAojIENPTkZJR19ERUJVR19MT0NLUyBpcyBub3Qgc2V0CiMgQ09ORklHX1BFUkZfQ09VTlRFUlMg
+aXMgbm90IHNldApDT05GSUdfVkVSQk9TRV9ERUJVRz15CiMgQ09ORklHX0RFVklDRV9UUkVFX0RF
+QlVHIGlzIG5vdCBzZXQKIyBDT05GSUdfU0NSVUJfREVCVUcgaXMgbm90IHNldAojIENPTkZJR19V
+QlNBTiBpcyBub3Qgc2V0CiMgQ09ORklHX0RFQlVHX1RSQUNFIGlzIG5vdCBzZXQKIyBDT05GSUdf
+WE1FTV9QT09MX1BPSVNPTiBpcyBub3Qgc2V0CiMgQ09ORklHX1BDSV9ERVZJQ0VfREVCVUcgaXMg
+bm90IHNldApDT05GSUdfREVCVUdfSU5GTz15CiMgZW5kIG9mIERlYnVnZ2luZyBPcHRpb25zCg==
+
+--------------9vkG03s23pxg8IOcjkQKChER--
 
