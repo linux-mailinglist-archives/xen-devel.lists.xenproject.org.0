@@ -2,34 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0DC3BAFD6EF
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Jul 2025 21:14:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1037215.1409902 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 189B2AFD7FD
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Jul 2025 22:13:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1037257.1409912 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uZDlp-0002Np-Aq; Tue, 08 Jul 2025 19:14:25 +0000
+	id 1uZEga-0002pj-Fz; Tue, 08 Jul 2025 20:13:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1037215.1409902; Tue, 08 Jul 2025 19:14:25 +0000
+Received: by outflank-mailman (output) from mailman id 1037257.1409912; Tue, 08 Jul 2025 20:13:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uZDlp-0002IK-84; Tue, 08 Jul 2025 19:14:25 +0000
-Received: by outflank-mailman (input) for mailman id 1037215;
- Tue, 08 Jul 2025 19:14:23 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uZEga-0002mb-Cl; Tue, 08 Jul 2025 20:13:04 +0000
+Received: by outflank-mailman (input) for mailman id 1037257;
+ Tue, 08 Jul 2025 20:13:02 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=G3iI=ZV=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1uZDln-0001d3-Os
- for xen-devel@lists.xenproject.org; Tue, 08 Jul 2025 19:14:23 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c0f04157-5c2f-11f0-a317-13f23c93f187;
- Tue, 08 Jul 2025 21:14:22 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 5B8325C638B;
- Tue,  8 Jul 2025 19:14:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C408BC4CEED;
- Tue,  8 Jul 2025 19:14:19 +0000 (UTC)
+ <SRS0=1xvV=ZV=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
+ id 1uZEgY-0002lD-At
+ for xen-devel@lists.xenproject.org; Tue, 08 Jul 2025 20:13:02 +0000
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on2060d.outbound.protection.outlook.com
+ [2a01:111:f403:240a::60d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f10c564a-5c37-11f0-b894-0df219b8e170;
+ Tue, 08 Jul 2025 22:13:00 +0200 (CEST)
+Received: from PH7P221CA0016.NAMP221.PROD.OUTLOOK.COM (2603:10b6:510:32a::20)
+ by IA4PR12MB9836.namprd12.prod.outlook.com (2603:10b6:208:5d0::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8901.26; Tue, 8 Jul
+ 2025 20:12:55 +0000
+Received: from BY1PEPF0001AE17.namprd04.prod.outlook.com
+ (2603:10b6:510:32a:cafe::72) by PH7P221CA0016.outlook.office365.com
+ (2603:10b6:510:32a::20) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8922.21 via Frontend Transport; Tue,
+ 8 Jul 2025 20:12:55 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BY1PEPF0001AE17.mail.protection.outlook.com (10.167.242.107) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8901.20 via Frontend Transport; Tue, 8 Jul 2025 20:12:53 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 8 Jul
+ 2025 15:12:52 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 8 Jul
+ 2025 15:12:52 -0500
+Received: from [172.21.62.237] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Tue, 8 Jul 2025 15:12:51 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,259 +63,125 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c0f04157-5c2f-11f0-a317-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1752002061;
-	bh=kSgDFbVx6SBYVBQcqlWcv9C5HOWuKlyTrqqnWYDCcCE=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=LMzu5S2jp/fD3ak8vFgaWMp68SPyOtK1iTnMhAr7uC3azYCY64hidNt1VbBhwRFGm
-	 saAHGJqyy4b3ZpvIFvnGt3ddObeGSVTY7KfNsV/BGWyrRHCM8jjyTjXiursseCn0Sd
-	 lug+gzb5sECILGhw+vEcBqn/cj+0uLSXODA17PElp+oaoYOWDv/+N1b/tgTQ4zuELU
-	 Eyw+ah5b8v/SCZpu4PA/C7YmJNbIE/khRMCKQzhHA+qjkiUZAXy/z0T9BqZ2+43qVA
-	 hI3cxDHFzVpWufB7L1cbgRALDQSG/iq8vviGaGhbHdS3tYvqlpXNTJQ9HY5mP6YJtp
-	 iV0gHF+ZpQVYA==
-Date: Tue, 8 Jul 2025 12:14:17 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Mykyta Poturai <Mykyta_Poturai@epam.com>
-cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-    Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>, 
-    Michal Orzel <michal.orzel@amd.com>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH v1 3/3] iommu/ipmmu-vmsa: Implement basic PCIE-IPMMU OSID
- support
-In-Reply-To: <780521b8646a0431a49e7696f681a420bf888668.1751874601.git.mykyta_poturai@epam.com>
-Message-ID: <alpine.DEB.2.22.394.2507081209280.605088@ubuntu-linux-20-04-desktop>
-References: <cover.1751874601.git.mykyta_poturai@epam.com> <780521b8646a0431a49e7696f681a420bf888668.1751874601.git.mykyta_poturai@epam.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: f10c564a-5c37-11f0-b894-0df219b8e170
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=aKnMYXLBy/OWr2EyMQ5ljOZKkPRySOpVVlLF4BY9EtxPnB5uxDWEndYlskFovPE2JtF/NJx3PDqwdjdV4RxM36subJ/Efb2aaPhZqz/Q7uPqzKybIsJhRXMWRKnA9h44rRbsj1t4wV2xGlYw1qTHDxIcQvEn2DiYs3UzvghEDZYNDlEjNWYkBdcSZevHo9Q5qy5M3d1us3ppAERwvn1hdgO8LiHM7N2XDcS5VyfjK4sjgBQXuXhJ4uUymr47njU/iJCQA0ZgRO07JG0/X4IO1O01AjAlDQ1pu21Ek8292c1FYFybYFL2Dd5D2bhS98jI6y0lgBVafmVgVndGprxMUw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2uX0uj/rr18ImB51SrV/l+Uf2BT5C8tuCOWdl3w8qJI=;
+ b=VIFZVyG39n5Ch6rs8ZiI7uuVWZt8HUeaWStBv0+2yLvEy6kuOEkOH6VeUmQ5ivbSSyDgI2Xqhx++NKZ0YrbkqQhfwpa3IEENVmBSXqsqT99ZQ0+DvUQ9xJDJNjPvEBZ+lGpIgFmGf1iAPzP67N9as9/rm6ZRRnKFVdHG0c3baw3XAcN8UAyJyWJCq4IbgmAxBI4y3xRjU3XBTZEC43ZWkPMdLC/8gWfJOkUybS823E5lXpK7HUV+uM5kU2HDFpu/Jae6T9qhQPfmBM7bk2kXky6O+RFJn6Fh170SiwrHY0YFI5lSJzj+PEZy6R15dVoaOpupUGP17E3HoR+X9ekSNw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=temperror (sender ip
+ is 165.204.84.17) smtp.rcpttodomain=valinux.co.jp smtp.mailfrom=amd.com;
+ dmarc=temperror action=none header.from=amd.com; dkim=none (message not
+ signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2uX0uj/rr18ImB51SrV/l+Uf2BT5C8tuCOWdl3w8qJI=;
+ b=lNjGcNfv7iCNFJjFFOr+ohCQ/8E3e+mifxqRs+4QTh1z49eeGwuKMEBThwU8vR3tlgNNoo4S5mCHpmBfAqFpTITU159MuK9a3pkch0Muv+aWFxWtANZsOnwapCq1gzenAa/DO7UAIr3NIBhGmLyG+1+7VfOOog1Tu73usnyC5Vw=
+X-MS-Exchange-Authentication-Results: spf=temperror (sender IP is
+ 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=temperror action=none header.from=amd.com;
+Received-SPF: TempError (protection.outlook.com: error in processing during
+ lookup of amd.com: DNS Timeout)
+Message-ID: <ed706953-f6e3-4911-adfd-0e19290a85af@amd.com>
+Date: Tue, 8 Jul 2025 16:12:50 -0400
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/5] xen/arm: Move make_resv_memory_node()
+To: Koichiro Den <den@valinux.co.jp>, <xen-devel@lists.xenproject.org>
+CC: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+	<julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, Michal Orzel
+	<michal.orzel@amd.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>, Anthony PERARD
+	<anthony.perard@vates.tech>, Jan Beulich <jbeulich@suse.com>,
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <20250705142703.2769819-1-den@valinux.co.jp>
+ <20250705142703.2769819-4-den@valinux.co.jp>
+Content-Language: en-US
+From: Stewart Hildebrand <stewart.hildebrand@amd.com>
+In-Reply-To: <20250705142703.2769819-4-den@valinux.co.jp>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+Received-SPF: None (SATLEXMB05.amd.com: stewart.hildebrand@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BY1PEPF0001AE17:EE_|IA4PR12MB9836:EE_
+X-MS-Office365-Filtering-Correlation-Id: 580ad398-fdd4-4607-d75b-08ddbe5bd260
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700013|376014|1800799024|7416014|82310400026|7053199007;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?MDVuNmVhcFIyWTN2ZnIweHlnRnE3Ryt5MU5tWlYzTHZJREIyRGdIdytLMi9a?=
+ =?utf-8?B?UDZBa08vb1krS0pIelhvUmsvemlsNzdlN3h0Z1BNcWRLQlR1ZEtEOXJHZCts?=
+ =?utf-8?B?ekZVNFJYSVNxc1d0RDFFOFEzdGpJR2w5K1FpKzVzTEY5dm5Mb3pqMUl0U3I4?=
+ =?utf-8?B?U000OWdjdUJXY0V6ZUFTQWY3WVdleHorNDlFU0JlV3NFK1ZibGJNbGJNNjJp?=
+ =?utf-8?B?ZlhLS3hnbGl2cHhpbElORDE5aEFqSm5HeCtaUkFZaWRxSmtUMExoVGlsaWhB?=
+ =?utf-8?B?YkxhMEEzZUxOMThMeCtmT2NBc1p2YkNQZUFnRzYyZTh4ck9CTWQ2V3MrRmw1?=
+ =?utf-8?B?UC9JR2JOenZGVmZXMGw2VEh4d0N4ZUpEclZpN1NQOGovc0M0dFhrM255NnNB?=
+ =?utf-8?B?RWcwT29aYytobXgxNVQweU1yNWhQa0prcGQxMXRtV01NZGZxVGhkYTBCK3pv?=
+ =?utf-8?B?dlpFOHNiS2YrdGhQSDBzaVAxbkFQa2xNUTFwdnI3bkFrR3ZBR2V5eTNmMU5o?=
+ =?utf-8?B?cit2akJ0bStuQWV0RUdwcytha2RZWXBReHhrRUYxUTg3T0hyeGxqNWdQOXdW?=
+ =?utf-8?B?TFJSV25VNDkySmw3NkJoOHpUMUVhcnMrRTZsckloZFF6WDlHT09LUlhmZk1F?=
+ =?utf-8?B?aUtlVTlPcklVQUtWMHhrd3VQYjI3NEE0RUpiN2hZMnRkdEtJKzA5bXhuZmtk?=
+ =?utf-8?B?RTRBbE5HZmczV2F2VlIxNEIwKytXRm5jNk5YMW1FVm1La1RFbmFFc0xVSUJT?=
+ =?utf-8?B?WkhxVmZycVR6aUFSNHNrWTVxUnBwRlBFMUxjc3pvWkQrYlo1VkZOYzg0U1RO?=
+ =?utf-8?B?K21ZNGpWY3RTZGhlMXF3Nzh6QzM3SWZMc2toQlA0VkVJVTVTRzhJaWVmRi9U?=
+ =?utf-8?B?dkZyVk9NNFZOVlY3aS82c2tGVHZoalJqTU1FbDFsd1p1dnJCblRuRm1abXJ0?=
+ =?utf-8?B?N2c4a2FHcHplTlBrMmhPV1RDbnlHK0syNmNSUHRiOWE2WUMzbkV1VGs0ZUND?=
+ =?utf-8?B?TnZUZWdLV25WdWtJWkFUdGZYVnNXWGN1NFZpNFZrbUJlMElDWTFtOW5oRm94?=
+ =?utf-8?B?QjF0L3dpUFN1NGJ1QWx5MzdFMFFDOVlHaVVXdVQ4VWFISExSYVFHODRLSm15?=
+ =?utf-8?B?RVFIRXU2MHFGU3NsVjJCYlUyd2RvVHpiZ2MrY0F4eVNaUTVvb1ZXaUYxMUg1?=
+ =?utf-8?B?L004aVF6MlRTY2FQQnplaDlXajNnZUdQUUFLSUR4Q2VzMlBvVDhNcVNMY2Zl?=
+ =?utf-8?B?UUhCbVh1N1lub1BuV1NVdmNYMzRCRmtaZ2p4UzV5TU1JRTRQUmNDaEQyY2ZL?=
+ =?utf-8?B?SllTejV6YTVyS2k1ajN4WVNGWHlhQTRBcmZ2TnlMemNyM1VFRWVnUllWQ1Az?=
+ =?utf-8?B?cWVBaXBPTjgvdVE0ZkQwbXZ6cHZIZmZJNWtPWS91azJhMlA2cUtpWWI1cVc3?=
+ =?utf-8?B?a1NpTVp5OGxOZXVSV0ZSS2YwMmIvaXU2WFVlcy9tTFJKUW8rNjMzNVYvZmFh?=
+ =?utf-8?B?cFZnTVA1V0dPL2RodzFrRjdudTI4WFNsdythQWVWOVpPNzVtUEdoOVhFcE83?=
+ =?utf-8?B?MjluckJlZ2JkdnZUdW9pOU9oRjRvZjh4NmdibGlZdWZZNlJVbzAzRHJYVnJo?=
+ =?utf-8?B?b1J2VG53L3plc21pZDNsOU9sSXAyM2ZpVDltcnhjWm1JQnNDK2NZZ1UyNnFB?=
+ =?utf-8?B?a2pXYkRTQk1LdWVYU25KZjdHZzA1bkVsNzEwdUFlTkFYRXhUWUdUWTVXR3R5?=
+ =?utf-8?B?UHR6eXpERW1tdkVhT2FzR3IvdGlGNzNkMXdnZmx6VVNwT1NESkM3L2hVSlpM?=
+ =?utf-8?B?MGVUbjVUYlNaTFlXVHlpZ2Fza2tEY1VWamUxbzRkaDFxRnloK2VsNC9nNFhr?=
+ =?utf-8?B?R1pyTVZpQUdXOEN3aE4wcnlibWVDbTdjRENRWHFuOVV1cm1YSHE0ZTd5dHlw?=
+ =?utf-8?B?N0pkdkxkb0xUa3l2Y2hrVTBGNEN0UlNFRFF1ZlhFeDZLTjd5Rk04WVhKZzhD?=
+ =?utf-8?B?R1F4T2dlYno1bkRXMFo0bVpYaWl0aFNRMUhPSjlRUm1TdkdYNjQxTFJjblZD?=
+ =?utf-8?Q?OzPSVB?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(376014)(1800799024)(7416014)(82310400026)(7053199007);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jul 2025 20:12:53.6005
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 580ad398-fdd4-4607-d75b-08ddbe5bd260
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BY1PEPF0001AE17.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA4PR12MB9836
 
-On Mon, 7 Jul 2025, Mykyta Poturai wrote:
-> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+On 7/5/25 10:27, Koichiro Den wrote:
+> The /reserved-memory node is inherently not specific to static-shmem.
+> Move it to a more generic domain build context. While at it, add an
+> empty kernel_info_get_shm_mem_const() for the CONFIG_STATIC_SHM=n case,
+> as it can now be invoked in such case.
 > 
-> Program PCIE BDF-OSID assignment according to the S4_PCIe_IPMMU-OSID
-> when adding PCI device to the IOMMU in ipmmu_add_device callback.
-> This is needed for being able to assign PCI devices to different
-> domains at the same time. Programmed OSID is emmited as sideband data on
-> the AXI bus during PCI DMA transactions and then used by IPMMU to match
-> the transaction to the corresponding uTLB.
+> No functional change.
 > 
-> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-> Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
+> Signed-off-by: Koichiro Den <den@valinux.co.jp>
 > ---
->  xen/drivers/passthrough/arm/ipmmu-vmsa.c | 141 +++++++++++++++++++++--
->  1 file changed, 133 insertions(+), 8 deletions(-)
-> 
-> diff --git a/xen/drivers/passthrough/arm/ipmmu-vmsa.c b/xen/drivers/passthrough/arm/ipmmu-vmsa.c
-> index d828d9cf6a..14ddabb30e 100644
-> --- a/xen/drivers/passthrough/arm/ipmmu-vmsa.c
-> +++ b/xen/drivers/passthrough/arm/ipmmu-vmsa.c
-> @@ -51,12 +51,25 @@
->  #include <asm/device.h>
->  #include <asm/io.h>
->  #include <asm/iommu_fwspec.h>
-> +#include "../arch/arm/pci/pci-host-rcar4.h"
->  
->  #define dev_name(dev) dt_node_full_name(dev_to_dt(dev))
->  
->  /* Device logger functions */
-> +#ifndef CONFIG_HAS_PCI
->  #define dev_print(dev, lvl, fmt, ...)    \
->      printk(lvl "ipmmu: %s: " fmt, dev_name(dev), ## __VA_ARGS__)
-> +#else
-> +#define dev_print(dev, lvl, fmt, ...) ({                                \
-> +    if ( !dev_is_pci((dev)) )                                           \
-> +        printk(lvl "ipmmu: %s: " fmt, dev_name((dev)), ## __VA_ARGS__);  \
-> +    else                                                                \
-> +    {                                                                   \
-> +        struct pci_dev *pdev = dev_to_pci((dev));                       \
-> +        printk(lvl "ipmmu: %pp: " fmt, &pdev->sbdf, ## __VA_ARGS__);     \
-> +    }                                                                   \
-> +})
-> +#endif
->  
->  #define dev_info(dev, fmt, ...)    \
->      dev_print(dev, XENLOG_INFO, fmt, ## __VA_ARGS__)
-> @@ -1121,6 +1134,8 @@ static void ipmmu_free_root_domain(struct ipmmu_vmsa_domain *domain)
->      xfree(domain);
->  }
->  
-> +static int ipmmu_deassign_device(struct domain *d, struct device *dev);
-> +
->  static int ipmmu_assign_device(struct domain *d, u8 devfn, struct device *dev,
->                                 uint32_t flag)
->  {
-> @@ -1134,8 +1149,43 @@ static int ipmmu_assign_device(struct domain *d, u8 devfn, struct device *dev,
->      if ( !to_ipmmu(dev) )
->          return -ENODEV;
->  
-> -    spin_lock(&xen_domain->lock);
-> +#ifdef CONFIG_HAS_PCI
-> +    if ( dev_is_pci(dev) )
-> +    {
-> +        struct pci_dev *pdev = dev_to_pci(dev);
-> +        struct domain *old_d = pdev->domain;
-> +
-> +        printk(XENLOG_INFO "Assigning device %04x:%02x:%02x.%u to dom%d\n",
-> +               pdev->seg, pdev->bus, PCI_SLOT(devfn), PCI_FUNC(devfn),
-> +               d->domain_id);
-> +
-> +        /*
-> +         * XXX What would be the proper behavior? This could happen if
-> +         * pdev->phantom_stride > 0
-> +         */
-> +        if ( devfn != pdev->devfn )
-> +            ASSERT_UNREACHABLE();
+>  xen/arch/arm/domain_build.c           | 40 +++++++++++++++++++++++++++
+>  xen/common/device-tree/static-shmem.c | 40 ---------------------------
+>  xen/include/xen/fdt-domain-build.h    |  2 ++
+>  xen/include/xen/static-shmem.h        | 15 ++++------
+>  4 files changed, 48 insertions(+), 49 deletions(-)
 
-If it is possible under normal conditions, I would expand the check to
-include those normal conditions and continue if it is normal, panic or
-returning error if not normal. A panic is better than an ASSERT for
-abnormal conditions. Even better is simply to return error.
+make_resv_memory_node() was recently moved from arch/arm to common in:
 
+72c5fa220804 ("device-tree: Move Arm's static-shmem feature to common")
 
-> +        list_move(&pdev->domain_list, &d->pdev_list);
-
-This needs a lock, but I am guessing this function is already called
-with the d->pci_lock lock held.
-
-
-> +        pdev->domain = d;
-> +
-> +        /* dom_io is used as a sentinel for quarantined devices */
-> +        if ( d == dom_io )
-> +        {
-> +            int ret;
-> +
-> +            /*
-> +             * Try to de-assign: do not return error if it was already
-> +             * de-assigned.
-> +             */
-> +            ret = ipmmu_deassign_device(old_d, dev);
-> +
-> +            return ret == -ESRCH ? 0 : ret;
-> +        }
-> +    }
-> +#endif
->  
-> +    spin_lock(&xen_domain->lock);
->      /*
->       * The IPMMU context for the Xen domain is not allocated beforehand
->       * (at the Xen domain creation time), but on demand only, when the first
-> @@ -1240,7 +1290,7 @@ static int ipmmu_reassign_device(struct domain *s, struct domain *t,
->      int ret = 0;
->  
->      /* Don't allow remapping on other domain than hwdom */
-> -    if ( t && !is_hardware_domain(t) )
-> +    if ( t && !is_hardware_domain(t) && (t != dom_io) )
->          return -EPERM;
->  
->      if ( t == s )
-> @@ -1288,20 +1338,95 @@ static int ipmmu_dt_xlate(struct device *dev,
->  
->  static int ipmmu_add_device(u8 devfn, struct device *dev)
->  {
-> -    struct iommu_fwspec *fwspec = dev_iommu_fwspec_get(dev);
-> +    struct iommu_fwspec *fwspec;
-> +
-> +#ifdef CONFIG_HAS_PCI
-> +    if ( dev_is_pci(dev) )
-> +    {
-> +        struct pci_dev *pdev = dev_to_pci(dev);
-> +        int ret;
-> +
-> +        if ( devfn != pdev->devfn )
-> +            return 0;
-> +
-> +        ret = iommu_add_pci_sideband_ids(pdev);
-> +        if ( ret < 0 )
-> +            iommu_fwspec_free(dev);
-> +    }
-> +#endif
-> +
-> +    fwspec = dev_iommu_fwspec_get(dev);
->  
->      /* Only let through devices that have been verified in xlate(). */
->      if ( !to_ipmmu(dev) )
->          return -ENODEV;
->  
-> -    if ( dt_device_is_protected(dev_to_dt(dev)) )
-> +    if ( !dev_is_pci(dev) )
->      {
-> -        dev_err(dev, "Already added to IPMMU\n");
-> -        return -EEXIST;
-> +        if ( dt_device_is_protected(dev_to_dt(dev)) )
-> +        {
-> +            dev_err(dev, "Already added to IPMMU\n");
-> +            return -EEXIST;
-> +        }
-> +
-> +        /* Let Xen know that the master device is protected by an IOMMU. */
-> +        dt_device_set_protected(dev_to_dt(dev));
->      }
-> +#ifdef CONFIG_HAS_PCI
-> +    if ( dev_is_pci(dev) )
-> +    {
-> +        struct pci_dev *pdev = dev_to_pci(dev);
-> +        unsigned int reg_id, osid;
-> +        struct pci_host_bridge *bridge;
-> +        struct iommu_fwspec *fwspec_bridge;
-> +        unsigned int utlb_osid0 = 0;
-> +        int ret;
-> +
-> +        bridge = pci_find_host_bridge(pdev->seg, pdev->bus);
-> +        if ( !bridge )
-> +        {
-> +            dev_err(dev, "Failed to find host bridge\n");
-> +            return -ENODEV;
-> +        }
-> +
-> +        fwspec_bridge = dev_iommu_fwspec_get(dt_to_dev(bridge->dt_node));
-> +        if ( fwspec_bridge->num_ids < 1 )
-> +        {
-> +            dev_err(dev, "Failed to find host bridge uTLB\n");
-> +            return -ENXIO;
-> +        }
-> +
-> +        if ( fwspec->num_ids < 1 )
-> +        {
-> +            dev_err(dev, "Failed to find uTLB");
-> +            return -ENXIO;
-> +        }
-> +
-> +        rcar4_pcie_osid_regs_init(bridge);
->  
-> -    /* Let Xen know that the master device is protected by an IOMMU. */
-> -    dt_device_set_protected(dev_to_dt(dev));
-> +        ret = rcar4_pcie_osid_reg_alloc(bridge);
-> +        if ( ret < 0 )
-> +        {
-> +            dev_err(dev, "No unused OSID regs\n");
-> +            return ret;
-> +        }
-> +        reg_id = ret;
-> +
-> +        osid = fwspec->ids[0] - utlb_osid0;
-> +        rcar4_pcie_osid_bdf_set(bridge, reg_id, osid, pdev->sbdf.bdf);
-> +        rcar4_pcie_bdf_msk_set(bridge, reg_id, 0);
-> +
-> +        dev_info(dev, "Allocated OSID reg %u (OSID %u)\n", reg_id, osid);
-> +
-> +        ret = ipmmu_assign_device(pdev->domain, devfn, dev, 0);
-> +        if ( ret )
-> +        {
-> +            rcar4_pcie_osid_bdf_clear(bridge, reg_id);
-> +            rcar4_pcie_osid_reg_free(bridge, reg_id);
-> +            return ret;
-> +        }
-> +    }
-> +#endif
->  
->      dev_info(dev, "Added master device (IPMMU %s micro-TLBs %u)\n",
->               dev_name(fwspec->iommu_dev), fwspec->num_ids);
-> -- 
-> 2.34.1
-> 
+Is there any rationale for moving it back?
 
