@@ -2,52 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 921DFAFBF19
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Jul 2025 02:07:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1035889.1408311 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A0DDAAFBF45
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Jul 2025 02:42:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1035902.1408326 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uYvs2-0000Vt-Mr; Tue, 08 Jul 2025 00:07:38 +0000
+	id 1uYwPE-0006qX-87; Tue, 08 Jul 2025 00:41:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1035889.1408311; Tue, 08 Jul 2025 00:07:38 +0000
+Received: by outflank-mailman (output) from mailman id 1035902.1408326; Tue, 08 Jul 2025 00:41:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uYvs2-0000S6-JN; Tue, 08 Jul 2025 00:07:38 +0000
-Received: by outflank-mailman (input) for mailman id 1035889;
- Tue, 08 Jul 2025 00:07:37 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uYwPE-0006oA-5C; Tue, 08 Jul 2025 00:41:56 +0000
+Received: by outflank-mailman (input) for mailman id 1035902;
+ Tue, 08 Jul 2025 00:41:55 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Y4zX=ZV=amd.com=stefano.stabellini@srs-se1.protection.inumbo.net>)
- id 1uYvs1-0008Ok-Ov
- for xen-devel@lists.xenproject.org; Tue, 08 Jul 2025 00:07:37 +0000
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on20609.outbound.protection.outlook.com
- [2a01:111:f403:2415::609])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8d10c3f9-5b8f-11f0-a316-13f23c93f187;
- Tue, 08 Jul 2025 02:07:36 +0200 (CEST)
-Received: from MN0PR02CA0013.namprd02.prod.outlook.com (2603:10b6:208:530::27)
- by IA0PPFAF4999BF6.namprd12.prod.outlook.com
- (2603:10b6:20f:fc04::be0) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8835.26; Tue, 8 Jul
- 2025 00:07:33 +0000
-Received: from BN3PEPF0000B36E.namprd21.prod.outlook.com
- (2603:10b6:208:530:cafe::87) by MN0PR02CA0013.outlook.office365.com
- (2603:10b6:208:530::27) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8901.27 via Frontend Transport; Tue,
- 8 Jul 2025 00:07:33 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN3PEPF0000B36E.mail.protection.outlook.com (10.167.243.165) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8943.1 via Frontend Transport; Tue, 8 Jul 2025 00:07:32 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 7 Jul
- 2025 19:07:32 -0500
-Received: from SATLEXMB04.amd.com (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
- Transport; Mon, 7 Jul 2025 19:07:31 -0500
+ <SRS0=bk39=ZV=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
+ id 1uYwPC-0006o2-RP
+ for xen-devel@lists.xenproject.org; Tue, 08 Jul 2025 00:41:55 +0000
+Received: from sender4-of-o50.zoho.com (sender4-of-o50.zoho.com
+ [136.143.188.50]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5395f7ce-5b94-11f0-b894-0df219b8e170;
+ Tue, 08 Jul 2025 02:41:47 +0200 (CEST)
+Received: by mx.zohomail.com with SMTPS id 1751935293059381.52548638991027;
+ Mon, 7 Jul 2025 17:41:33 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,152 +38,138 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8d10c3f9-5b8f-11f0-a316-13f23c93f187
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=uS9zJjH3uFVE54H7XHJTTuOCvkIsAHLdIVCnHXAcfI5kxgx65U9zbKz/kq95h2SXkVI5beSlPTazE4ftlWyT+6auex/mp5qaKIkztmotVpouInzJ37KbGw8WYKHYuJplkiIc5OplOzTX5FsOkUtjT6P/4vxgb+mg2cfMagQ2MVN5qu2VGxEZKsoIFFCCmPjiP0rCNt0dNjRLGRIVc4XvSPCjqJGbypQKBGryt3so33SRxToSGbC0QmSwWIzGfhOGPE+Dte1Gv2XrzyyaxBkWbilZO3ZteBaEyKIEsIrf9vrTGW8N4jjY+haWT2sXm9Pj62pRulm4MEu1ignDhzOvcg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CjdDcpF4uZJflG+MGFMZAeJiMlRA1hyVfZUbE4nEhwE=;
- b=YaPnvYu+cC3T/RfXTijA1Eo7s+P4VsglvGKtNI9zppg4vZlX0VkKgJP5aFQrYBOwKOc9Ru0bTVKjlTvkLR43b4KnEeefGbY5dU2JhqXNKtCkYadgd4TWNj59kyIzrRunXrRMNGTUHlH3TXyx0Gun57f21Ta1Jf8lFBk90cKKXoc2jDD633azjY/k4BhlNvPUquQ6A4ktp9BL20iXKCFpQkiIMTb1b7zb1zRUskIoQzaMdcdiAQoxijkaehjYwr8BK/nfqCxsJ3KhMM5Lazu2/Bz4GlYgAm7CxZ1wiRNwFpo/Rr4jkJFN5WcE3rnjSy2Wrq+yyQmDaXcEZoyXsfLw+g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CjdDcpF4uZJflG+MGFMZAeJiMlRA1hyVfZUbE4nEhwE=;
- b=vQpNeysXsz0gy34E3kG9A78nxXjocTAHxEXe3Krb/Fnbkwm20HaRjfRSQr5kExlSMmn332pGl4d7D9P69QXo7MznoVTLwNQWW4rH2Zd1npsOcxvpNwo88gbI3IFYVOSX0o7Jj+NayWVRVEjDJ3KgEr14Pxm923QjanjDBlRxh9g=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-From: Stefano Stabellini <stefano.stabellini@amd.com>
-To: <xen-devel@lists.xenproject.org>
-CC: <jbeulich@suse.com>, <andrew.cooper3@citrix.com>, <roger.pau@citrix.com>,
-	<stefano.stabellini@amd.com>, <Xenia.Ragiadakou@amd.com>,
-	<alejandro.garciavallejo@amd.com>, <Jason.Andryuk@amd.com>
-Subject: [PATCH 2/2] xen/x86: introduce AMD_MCE_NONFATAL
-Date: Mon, 7 Jul 2025 17:07:12 -0700
-Message-ID: <20250708000712.2731666-2-stefano.stabellini@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <alpine.DEB.2.22.394.2507071657440.605088@ubuntu-linux-20-04-desktop>
-References: <alpine.DEB.2.22.394.2507071657440.605088@ubuntu-linux-20-04-desktop>
+X-Inumbo-ID: 5395f7ce-5b94-11f0-b894-0df219b8e170
+ARC-Seal: i=1; a=rsa-sha256; t=1751935295; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=PEbZv/mqNqr94q2/xKmWx+aXU1fYLSIUGVT/vRgvZ/S8qgDiAhbl+MtOs06oTDGcYlvCcNBWVsNI5RQxrzcwpcwcFJ918EPInqpfi8/AMEhK2LadJKkr6u8DNvDWPzfdCD/pEIbbB+ZLwFLwS4vW3L3TBoveZXjPmOnmg62YLNg=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1751935295; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=5OWmvob7MRMFze+zbVVuPlswwn/mvjZxsZ/ylgEvlPY=; 
+	b=a7NG49qY1tz368+jmX/FhHwcJsp3D48rWr/kPtXg6ZaNLNcTHRrh1DxzYTS44MgLAq9vK44JcKlT0mjqU9c+/R+/Kqm8bHhztmPv+57vooR4v5RqbpuNkTmpDj6bUp7N7D8Cu1UPB4cmxTxVj5frkAN3H4ShdvZKYdi7TrRJ8ZE=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=apertussolutions.com;
+	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
+	dmarc=pass header.from=<dpsmith@apertussolutions.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1751935295;
+	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=5OWmvob7MRMFze+zbVVuPlswwn/mvjZxsZ/ylgEvlPY=;
+	b=pYcvtAW3h94AJHzx+abheHm9+tnsr1KV/48k5Z7YrHrNbDUwRE7y51YoDTO82cX0
+	tPJKhFFgrTrwx1ItCWxMkMzxquNkpHvK4FqyuhMTX5gwJXlB/ei9UT/cbIqyPKFZuTE
+	5uSkyNLMTYPlUz8hJqqCzNUi6n3CUscBVu+cJBTI=
+Message-ID: <43f7a80a-a0d9-4b34-9a4d-aa3114ebc80e@apertussolutions.com>
+Date: Mon, 7 Jul 2025 20:41:31 -0400
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-Received-SPF: None (SATLEXMB04.amd.com: stefano.stabellini@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B36E:EE_|IA0PPFAF4999BF6:EE_
-X-MS-Office365-Filtering-Correlation-Id: 27fc646e-75e7-4932-8f18-08ddbdb36fcf
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700013|1800799024|376014;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?WudmQNBATdOWQSuTOsNieIp5WhyKNCm8yNUitG2lrJUXGeCJTiqt/a9pIarI?=
- =?us-ascii?Q?kMQTf9S6UTZjbgvYuj1yzvESPtJWUw+Xm+ANaR9ccMNGHybfl51/6hoDegCL?=
- =?us-ascii?Q?6aZnga6psJM1roET4QtDMTB3eNbyedyX2DvCCtPVG6HcLHnarL4qfAYAMmI+?=
- =?us-ascii?Q?udyTvvf4qxnRmZMHaAZoct7dH+rlCEvFMHx1bSf2S+wSJtOe0JQ9f7EoPCK6?=
- =?us-ascii?Q?z/B1V3a+4viJMOMWt9bQ14VA6ZC83whQYfbFaYGYnsHivJhFFPiqWQXP5uJL?=
- =?us-ascii?Q?H88VcFRh4hMD7/yr7BhujsTQ5lfY4yajPgahIs/XEdjXOdioSjCGkpgXL4UA?=
- =?us-ascii?Q?nSihJ+FhSmMBh7h/ecnEt0nBGh+6lkMIPkub9t6o1mYk7arbZRVeKXJb3nWS?=
- =?us-ascii?Q?HvPEWyfx2DsNdMOIabU656vMJk90cS1GqEdS3joVA7HXgNSZZ4Umz6eTlbpO?=
- =?us-ascii?Q?6PwMF2rvtxXmOG8DsE4llDi4GUhfZrlDDQqe9fbN0AphbhCK4E05iTHtdRGU?=
- =?us-ascii?Q?JC3Tt03/cRUxeOmv3Wp9t3VsNiC95UELp0RWvwLECql7wlCUAs4+l4/w8z69?=
- =?us-ascii?Q?si5+qUnJwgCMe9xfN9uUvf5TOdMzbnTfr9euKzG+AAAxypDsetk0qY1sEyUW?=
- =?us-ascii?Q?Xd2+iUNnv/YGrrnrrTsH7L/eIeku79u/4P9+y3jGC8bIf79P2ZNNLRsNpovm?=
- =?us-ascii?Q?vUO2yTcAoDAxYlSpNLKmoNXV/fPd+N+9zniCa16gnM3jENHkChwehfiz/0pP?=
- =?us-ascii?Q?MaSe7CnBXNauhxcWxCmbJEFqpRZ8LgPJP+9zmxU9RzBeBUzCQvey54ISpENX?=
- =?us-ascii?Q?dVDEsqN6knImvcKqtMTrw09ElSSn6R4LoQ7rm2awZ21bIJBy4YPzGGYEjP+w?=
- =?us-ascii?Q?tOlheym+Ldoj122stjVHGCYhhPtQBJJVuI+PqdQFu07DzPCPuNi32G0rnq8C?=
- =?us-ascii?Q?5UDUuJuMJMjhTWZZHxHhW2F70Fk9CtSG4mpxCO3sv5vToKFkc/u5csUutZC/?=
- =?us-ascii?Q?SKz4lAx4yu68msJ0OdD9Oac67GqopOCz49y16iXLviHyuZ+XBMgd7TLIRn91?=
- =?us-ascii?Q?oGN+SZUitv6adXHckGpeugs8WeOUNg6/ZLKw2IzFMjdRb3poSrASCX923/gV?=
- =?us-ascii?Q?wKWRvyX4aPdowQhHEkYitG73CmdGRxQQAw6tnaHQ+35lN+2VwKAg9ULtus2r?=
- =?us-ascii?Q?UiGlqG3AIcCN3fCjB5sjCXjsZp4ta1npIZJ2lOlsHHYoD2Wf3jr1dYCM9c6M?=
- =?us-ascii?Q?cVyDfhltLzJDb+69i78qyaLJcf3+uTiV1M+kQnJyBX6F+g8iUUS5IlD13Gxz?=
- =?us-ascii?Q?yChnYF1zVH9dzc7BRnUkDnZMyYHQZvBGMBAxIsoC9ko71dVHr0m0JLN1mior?=
- =?us-ascii?Q?kq9PN6192EoAjVI+/H49CiCcCE2ipJ/njunkQeQE5lRaaBL6vhqEvpNt54qS?=
- =?us-ascii?Q?0/t0fzu9U08BAJXXfcOuk+eEDcUg1uqt5GLtFL9Cecj6zv0KslGF5pEXT6n7?=
- =?us-ascii?Q?QjGo3nVidSF2MiTbDGlFYkI4SV9OTvwaFL3t?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700013)(1800799024)(376014);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jul 2025 00:07:32.8728
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 27fc646e-75e7-4932-8f18-08ddbdb36fcf
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN3PEPF0000B36E.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PPFAF4999BF6
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH] xen/flask: estimate max sidtable size
+Content-Language: en-US
+To: Jan Beulich <jbeulich@suse.com>, Sergiy Kibrik <sergiy_kibrik@epam.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20250630085559.554334-1-Sergiy_Kibrik@epam.com>
+ <d562251a-a6ec-4e2f-b1f7-dd87a97d4005@suse.com>
+ <71ca3126-d311-4ed2-8d6d-3ffcb90a222e@epam.com>
+ <65b5f767-5ed3-4a7d-a471-4e3f07a354e7@suse.com>
+From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
+ xsJuBFYrueARCACPWL3r2bCSI6TrkIE/aRzj4ksFYPzLkJbWLZGBRlv7HQLvs6i/K4y/b4fs
+ JDq5eL4e9BdfdnZm/b+K+Gweyc0Px2poDWwKVTFFRgxKWq9R7McwNnvuZ4nyXJBVn7PTEn/Z
+ G7D08iZg94ZsnUdeXfgYdJrqmdiWA6iX9u84ARHUtb0K4r5WpLUMcQ8PVmnv1vVrs/3Wy/Rb
+ foxebZNWxgUiSx+d02e3Ad0aEIur1SYXXv71mqKwyi/40CBSHq2jk9eF6zmEhaoFi5+MMMgX
+ X0i+fcBkvmT0N88W4yCtHhHQds+RDbTPLGm8NBVJb7R5zbJmuQX7ADBVuNYIU8hx3dF3AQCm
+ 601w0oZJ0jGOV1vXQgHqZYJGHg5wuImhzhZJCRESIwf+PJxik7TJOgBicko1hUVOxJBZxoe0
+ x+/SO6tn+s8wKlR1Yxy8gYN9ZRqV2I83JsWZbBXMG1kLzV0SAfk/wq0PAppA1VzrQ3JqXg7T
+ MZ3tFgxvxkYqUP11tO2vrgys+InkZAfjBVMjqXWHokyQPpihUaW0a8mr40w9Qui6DoJj7+Gg
+ DtDWDZ7Zcn2hoyrypuht88rUuh1JuGYD434Q6qwQjUDlY+4lgrUxKdMD8R7JJWt38MNlTWvy
+ rMVscvZUNc7gxcmnFUn41NPSKqzp4DDRbmf37Iz/fL7i01y7IGFTXaYaF3nEACyIUTr/xxi+
+ MD1FVtEtJncZNkRn7WBcVFGKMAf+NEeaeQdGYQ6mGgk++i/vJZxkrC/a9ZXme7BhWRP485U5
+ sXpFoGjdpMn4VlC7TFk2qsnJi3yF0pXCKVRy1ukEls8o+4PF2JiKrtkCrWCimB6jxGPIG3lk
+ 3SuKVS/din3RHz+7Sr1lXWFcGYDENmPd/jTwr1A1FiHrSj+u21hnJEHi8eTa9029F1KRfocp
+ ig+k0zUEKmFPDabpanI323O5Tahsy7hwf2WOQwTDLvQ+eqQu40wbb6NocmCNFjtRhNZWGKJS
+ b5GrGDGu/No5U6w73adighEuNcCSNBsLyUe48CE0uTO7eAL6Vd+2k28ezi6XY4Y0mgASJslb
+ NwW54LzSSM0uRGFuaWVsIFAuIFNtaXRoIDxkcHNtaXRoQGFwZXJ0dXNzb2x1dGlvbnMuY29t
+ PsJ6BBMRCAAiBQJWK7ngAhsjBgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRBTc6WbYpR8
+ KrQ9AP94+xjtFfJ8gj5c7PVx06Zv9rcmFUqQspZ5wSEkvxOuQQEAg6qEsPYegI7iByLVzNEg
+ 7B7fUG7pqWIfMqFwFghYhQzOwU0EViu54BAIAL6MXXNlrJ5tRUf+KMBtVz1LJQZRt/uxWrCb
+ T06nZjnbp2UcceuYNbISOVHGXTzu38r55YzpkEA8eURQf+5hjtvlrOiHxvpD+Z6WcpV6rrMB
+ kcAKWiZTQihW2HoGgVB3gwG9dCh+n0X5OzliAMiGK2a5iqnIZi3o0SeW6aME94bSkTkuj6/7
+ OmH9KAzK8UnlhfkoMg3tXW8L6/5CGn2VyrjbB/rcrbIR4mCQ+yCUlocuOjFCJhBd10AG1IcX
+ OXUa/ux+/OAV9S5mkr5Fh3kQxYCTcTRt8RY7+of9RGBk10txi94dXiU2SjPbassvagvu/hEi
+ twNHms8rpkSJIeeq0/cAAwUH/jV3tXpaYubwcL2tkk5ggL9Do+/Yo2WPzXmbp8vDiJPCvSJW
+ rz2NrYkd/RoX+42DGqjfu8Y04F9XehN1zZAFmCDUqBMa4tEJ7kOT1FKJTqzNVcgeKNBGcT7q
+ 27+wsqbAerM4A0X/F/ctjYcKwNtXck1Bmd/T8kiw2IgyeOC+cjyTOSwKJr2gCwZXGi5g+2V8
+ NhJ8n72ISPnOh5KCMoAJXmCF+SYaJ6hIIFARmnuessCIGw4ylCRIU/TiXK94soilx5aCqb1z
+ ke943EIUts9CmFAHt8cNPYOPRd20pPu4VFNBuT4fv9Ys0iv0XGCEP+sos7/pgJ3gV3pCOric
+ p15jV4PCYQQYEQgACQUCViu54AIbDAAKCRBTc6WbYpR8Khu7AP9NJrBUn94C/3PeNbtQlEGZ
+ NV46Mx5HF0P27lH3sFpNrwD/dVdZ5PCnHQYBZ287ZxVfVr4Zuxjo5yJbRjT93Hl0vMY=
+In-Reply-To: <65b5f767-5ed3-4a7d-a471-4e3f07a354e7@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 
-Today, checking for non-fatal MCE errors on ARM is very invasive: it
-involves a periodic timer interrupting the physical CPU execution at
-regular intervals. Moreover, when the timer fires, the handler sends an
-IPI to all physical CPUs.
+On 7/4/25 06:48, Jan Beulich wrote:
+> On 04.07.2025 12:10, Sergiy Kibrik wrote:
+>> 01.07.25 13:42, Jan Beulich:
+>>> On 30.06.2025 10:55, Sergiy Kibrik wrote:
+>>>> @@ -54,4 +54,7 @@ $(obj)/policy.bin: FORCE
+>>>>    	        FLASK_BUILD_DIR=$(FLASK_BUILD_DIR) POLICY_FILENAME=$(POLICY_SRC)
+>>>>    	cmp -s $(POLICY_SRC) $@ || cp $(POLICY_SRC) $@
+>>>>    
+>>>> +$(obj)/%/se_limits.h: $(obj)/policy.bin
+>>>> +	$(srcdir)/policy/mkselim.sh $^ $@
+>>>
+>>> Hmm, that's using the built-in policy, isn't it? What if later another
+>>> policy is loaded? Wouldn't it be possible to have ...
+>>>
+>>>> --- a/xen/xsm/flask/ss/sidtab.c
+>>>> +++ b/xen/xsm/flask/ss/sidtab.c
+>>>> @@ -13,6 +13,7 @@
+>>>>    #include "flask.h"
+>>>>    #include "security.h"
+>>>>    #include "sidtab.h"
+>>>> +#include "se_limits.h"
+>>>>    
+>>>>    #define SIDTAB_HASH(sid) ((sid) & SIDTAB_HASH_MASK)
+>>>>    
+>>>> @@ -228,7 +229,7 @@ int sidtab_context_to_sid(struct sidtab *s, struct context *context,
+>>>>            if ( sid )
+>>>>                goto unlock_out;
+>>>>            /* No SID exists for the context.  Allocate a new one. */
+>>>> -        if ( s->next_sid == UINT_MAX || s->shutdown )
+>>>> +        if ( s->next_sid == SEPOL_SID_LIMIT || s->shutdown )
+>>>
+>>> ... more than this many SIDs? What if CONFIG_XSM_FLASK_POLICY isn't even set?
+>>>
+>>
+>> It's using a policy from tools/flask/policy, yes. But not a built-in
+>> policy, just reusing a bit of code from that code. The idea is that we
+>> can have CONFIG_XSM_FLASK_POLICY option disabled yet still be able to
+>> calculate SEPOL_SID_LIMIT.
+>>
+>> As for loading another policy at runtime -- the calculated
+>> SEPOL_SID_LIMIT=384 for current master flask policy is still pretty big
+>> limit. From what I can see -- much less No. contexts are being used on a
+>> running system, because most of calculated combinations of
+>> user/role/type are not really usable (e.g. contexts with xen_t or
+>> xenboot_t types and user_1 user are not expected etc). So there should
+>> be enough room even for more complex custom policies.
+> 
+> But still there could be odd ones. Imo such a static limit can then only be
+> introduced via Kconfig option.
 
-Both these actions are disruptive in terms of latency and deterministic
-execution times for real-time workloads. They might miss a deadline due
-to one of these IPIs. Make it possible to disable non-fatal MCE errors
-checking with a new Kconfig option (AMD_MCE_NONFATAL).
+Jan, thank you for adding me on as the CC.
 
-Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
----
-RFC. I couldn't find a better way to do this.
----
- xen/arch/x86/Kconfig.cpu               | 15 +++++++++++++++
- xen/arch/x86/cpu/mcheck/amd_nonfatal.c |  3 ++-
- 2 files changed, 17 insertions(+), 1 deletion(-)
+Not having seen the original patch, but based on the discussion, I would 
+say this should be a Kconfig option that by default maintains the 
+existing bounds/limits allowing for the distro maintainer to impose 
+tighter restrictions. Additionally, any there was dynamic allocation, 
+this should remain (being the default) and static allocation should only 
+happen via Kconfig system.
 
-diff --git a/xen/arch/x86/Kconfig.cpu b/xen/arch/x86/Kconfig.cpu
-index 5fb18db1aa..14e20ad19d 100644
---- a/xen/arch/x86/Kconfig.cpu
-+++ b/xen/arch/x86/Kconfig.cpu
-@@ -10,6 +10,21 @@ config AMD
- 	  May be turned off in builds targetting other vendors.  Otherwise,
- 	  must be enabled for Xen to work suitably on AMD platforms.
- 
-+config AMD_MCE_NONFATAL
-+	bool "Check for non-fatal MCEs on AMD CPUs"
-+	default y
-+	depends on AMD
-+	help
-+	  Check for non-fatal MCE errors.
-+
-+	  When this option is on (default), Xen regularly checks for
-+	  non-fatal MCEs potentially occurring on all physical CPUs. The
-+	  checking is done via timers and IPI interrupts, which is
-+	  acceptable in most configurations, but not for real-time.
-+
-+	  Turn this option off if you plan on deploying real-time workloads
-+	  on Xen.
-+
- config INTEL
- 	bool "Support Intel CPUs"
- 	default y
-diff --git a/xen/arch/x86/cpu/mcheck/amd_nonfatal.c b/xen/arch/x86/cpu/mcheck/amd_nonfatal.c
-index 7d48c9ab5f..812e18f612 100644
---- a/xen/arch/x86/cpu/mcheck/amd_nonfatal.c
-+++ b/xen/arch/x86/cpu/mcheck/amd_nonfatal.c
-@@ -191,7 +191,8 @@ static void cf_check mce_amd_work_fn(void *data)
- 
- void __init amd_nonfatal_mcheck_init(struct cpuinfo_x86 *c)
- {
--	if (!(c->x86_vendor & (X86_VENDOR_AMD | X86_VENDOR_HYGON)))
-+	if ( !IS_ENABLED(CONFIG_AMD_MCE_NONFATAL) ||
-+	     (!(c->x86_vendor & (X86_VENDOR_AMD | X86_VENDOR_HYGON))) )
- 		return;
- 
- 	/* Assume we are on K8 or newer AMD or Hygon CPU here */
--- 
-2.25.1
+v/r,
+dps
 
 
