@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 06B38AFCC6D
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Jul 2025 15:47:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1036571.1408831 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C1413AFCC92
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Jul 2025 15:52:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1036580.1408841 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uZ8fg-0002E4-8M; Tue, 08 Jul 2025 13:47:44 +0000
+	id 1uZ8kM-0004B9-QY; Tue, 08 Jul 2025 13:52:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1036571.1408831; Tue, 08 Jul 2025 13:47:44 +0000
+Received: by outflank-mailman (output) from mailman id 1036580.1408841; Tue, 08 Jul 2025 13:52:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uZ8fg-0002Ca-3e; Tue, 08 Jul 2025 13:47:44 +0000
-Received: by outflank-mailman (input) for mailman id 1036571;
- Tue, 08 Jul 2025 13:47:42 +0000
+	id 1uZ8kM-00049g-Nc; Tue, 08 Jul 2025 13:52:34 +0000
+Received: by outflank-mailman (input) for mailman id 1036580;
+ Tue, 08 Jul 2025 13:52:34 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=mjd+=ZV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uZ8fe-0002CU-4A
- for xen-devel@lists.xenproject.org; Tue, 08 Jul 2025 13:47:42 +0000
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [2a00:1450:4864:20::42c])
+ id 1uZ8kM-00049a-06
+ for xen-devel@lists.xenproject.org; Tue, 08 Jul 2025 13:52:34 +0000
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [2a00:1450:4864:20::42f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1e032bfe-5c02-11f0-a317-13f23c93f187;
- Tue, 08 Jul 2025 15:47:41 +0200 (CEST)
-Received: by mail-wr1-x42c.google.com with SMTP id
- ffacd0b85a97d-3b49ffbb31bso1658102f8f.3
- for <xen-devel@lists.xenproject.org>; Tue, 08 Jul 2025 06:47:41 -0700 (PDT)
+ id cbc42b4e-5c02-11f0-a317-13f23c93f187;
+ Tue, 08 Jul 2025 15:52:32 +0200 (CEST)
+Received: by mail-wr1-x42f.google.com with SMTP id
+ ffacd0b85a97d-3a503d9ef59so3338466f8f.3
+ for <xen-devel@lists.xenproject.org>; Tue, 08 Jul 2025 06:52:32 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-74ce429c46asm12097950b3a.129.2025.07.08.06.47.33
+ d9443c01a7336-23c84597371sm118850025ad.207.2025.07.08.06.52.24
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 08 Jul 2025 06:47:40 -0700 (PDT)
+ Tue, 08 Jul 2025 06:52:31 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1e032bfe-5c02-11f0-a317-13f23c93f187
+X-Inumbo-ID: cbc42b4e-5c02-11f0-a317-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1751982461; x=1752587261; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1751982752; x=1752587552; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Uqs0iVZPSSOmhwvnjfiS13HwZA8uVO0w5j+YA6+fOmU=;
-        b=bfYSl2ee/SZn7fKxTIVi0508gJ26u/kJGSzAdpTqLhi1qmQgeN8ZK/l3jLktP6qFzC
-         JCXubp/5Za34lzdnRAeGfjlzUvfN+4/4HdRh+G5yEu9HgAklKcYSpsWQ2FzD2hGmcOs6
-         XaGutydTf8b42yn4Y2z6Jx4wmB/tsUw1ogNHawlTJsbsPSnufgPeZT8DiOxYY47l5GFI
-         GLX8q8QNzWD/ljRbAp2QtKjD/TXMO/wSFefLz25Pfdb4kDfHxFkWBncscc3HFy+CVIc8
-         6vQqVxh2bpDlB22rmUc+5eVJkhu3pA7NG4XfQS/CWW6pLI9NBdG0N2ezPNRD1wcYMgFC
-         zqzQ==
+        bh=hVZpiW/3ejamuw0BChox4o+ywq0ukfVR1KS36NOgF2c=;
+        b=MYFkSBLBZRv3JgS+AwKqh/EECNBGwxY9/kSloRdG4t/LuC59adplyUcUhXTz8PH2aH
+         vaFBVNLDQ+tSEjlAE2l35lEpg3t7oKwnJ89ZDiV8r+1Iu6qMqnJT2IECn5icNoUXK0Aj
+         aNutx2aXSve9EKqSc8S7rSVw/BdyElxU+LkbS3TgEw/gwD165ZtgNSyST/y8vBKe+SET
+         tlKI3Hc0RGxqNAunK2BMEIH/agMlGE2rLvu+FMKBTupKaAuP2Lez9O9yVsGKje9A97I7
+         dAYDnMl0NzwijD5ANRMKss2kpBld5akv6nJhu72Cq/mgUQ9rtSthX551qSCtZ07N/b9q
+         1yaQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1751982461; x=1752587261;
+        d=1e100.net; s=20230601; t=1751982752; x=1752587552;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Uqs0iVZPSSOmhwvnjfiS13HwZA8uVO0w5j+YA6+fOmU=;
-        b=qcC396BkHsZrI+R8ANJRYoh3+1DoTxOsdHEd+KsIhym0QNi6fy4ELPU3BFW4mpoME/
-         zUoOkKA9sKNOMlEkNyI6i/bh3u+UPJRxAzRODV6G8tXhKhI65q37BkswM3MLAxpqeinQ
-         Th/FTwvtPtrOZiRD9xECBhp81zRUOqW5Fct/DyObktxSuYAsaeNJkJOOQ32qSutUAwqZ
-         EOB/S3veQpgz/thYAtuEI9dDrE0cmlqbfYXG650Mfwnef/wGV78x8HJpa06HYqgM70OP
-         vtXYRbd9HHOi9GSDu3onTAYfaOV/kcbIsIPacv+luWos7bbVLbq517vvlWmEWEGmXG+r
-         YsBw==
-X-Forwarded-Encrypted: i=1; AJvYcCXakHa19D6C/xukxTn/vugSlg+ytxWlNefjJTehXF4OcoOqe5hTsuK3cGhxPyObLJI03IR/ohySHiI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzkE/9G317g6cKRNT99GD7ruD3sXyONbmyk+uop33aueynH2PGW
-	XjtDuC3rOOmZhJiPMBl4PI4knEwpl57PSdLnKRBUme6erpej20MLtGVFXrrvGQomOA==
-X-Gm-Gg: ASbGncs20qZt6tPra+u0CVLCulRJMx9eLgKnoCSzvfrJRDAY6wlhT8CReQiaI3lSG/y
-	1122BKBi1Bjt9iQUDiIUruoXdgeLZt/FpMnBzAa5TFfggl3xYAvLS+g+kPz0ylTE3E1WTinNtDm
-	R4RjA3WFKkgEIppfcXnHCnYOs/dAV1ALxRGUfdril+l28LiutNzf0OjATGzBh7OoI8AdIaNySPR
-	wFd3YPVizEfrPCjRwVdLnm6h7iw+yMai8DqSl8rGh7mYOLGTqcd/qjdZjjnMM5LMrpbe2cmhcWD
-	C8pLBF/1w4+q0EkGfWV0t05FOyEA6IZ+8umYTZx677c4uMYm1H8Eea6DcHymXNjCVKoHKnQ7LmU
-	zrFRtP7rGNipGZgP+Od42t2vjkQSHLRZsngSmUziOxiAS6J0=
-X-Google-Smtp-Source: AGHT+IGUbjJac83P3vj3YmU0XTt/rHxRJxQuf9TAtWGBJb8lTTs0e8S6c75EH9ePHmuxl9ZWjdsJ1Q==
-X-Received: by 2002:a05:6000:5c1:b0:3a4:e844:745d with SMTP id ffacd0b85a97d-3b5ddf054e3mr2903529f8f.56.1751982460602;
-        Tue, 08 Jul 2025 06:47:40 -0700 (PDT)
-Message-ID: <6aa4431c-de06-4927-9b29-4347fa801fdd@suse.com>
-Date: Tue, 8 Jul 2025 15:47:29 +0200
+        bh=hVZpiW/3ejamuw0BChox4o+ywq0ukfVR1KS36NOgF2c=;
+        b=AiGM0Zp4DyRWRgu616ie+ZG62ZR0CKDPI9ajAdGxi7jt1W/DMux7+8dpKVfw5qyVph
+         tMo7iAWIZKcQPUWIilAJb/HenzZYyS0LRXEzSHL13elUxgx+Mjs8re3RYoCfRn2wjLBC
+         tlfkkfPH1b6jK3R62FBko++1Zu5gRLqTKCkl0UvixGXqzKFELHzCGEdFsP9w6lDsW6P3
+         Pm6qg/R5G62Wy08EuBtwNpn1qdGirsJ80VejM5vInnIg3QDX9B8o9MtkbApTgQow8xd0
+         zmp1A+j5+3K+rxlM+wsQhfc8Esgy27Pgv4yponInWuNsT1D24y/DN8FMjf62DufpJ7no
+         075A==
+X-Forwarded-Encrypted: i=1; AJvYcCWxn2v15EV4/0ofLY+vdbPdghHYqHLH8wywIsDkVdePwCM93ZdZWalJo/WkfFO6O+628Krdf1PZnzg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Ywv7T5PUfEttsYM5tVcs3f32lRfKoTai+p9apnG27Ti4iH9VOY2
+	9r31a1++PD02avAzm6wBENXqbjZEjVXyoZ11PxS6jlUEVa73RiP8ob0Zpn/OPoToQQ==
+X-Gm-Gg: ASbGncukuHnYnXnsINcM2FV7HLVyRmIxnJ7jAbLguBliaLRWm2vR6/wtXnL1dH4XF/G
+	1Wtmb0kr33HeZL9dTVibfQljSZ2riP/kpy8cadsS0PNrTOuW38bBtaYxug9a6TcDBWTvIDn0ZlG
+	KKsRv3FU1zNs1PTs0G5PaEjiTqxJpqee2xOKmVjHZx2WtsTl+J4gpOYzsySPUPJrg6ITWReMBzt
+	9xoJ/L22nesh/dx3F+BWG4BWiFNQisZKjk7gezjafVN8aWihwhr03ijQGlPjP638xb1Ra7iY1kZ
+	HGbKvdSrZvkN4S3myInHfzTY1pzHt/1LWDcq9hJk1e62E3XD0sFM/KC4B4OozMmsdTBMQ69WkG8
+	vGVDCe0BuSXuUxKAQv0YHHEuYmdL5jF5Xsf27RyefkWyr71Y=
+X-Google-Smtp-Source: AGHT+IEhrBmV/N1sY0GD1gkDTnqfjyZaUmU7DKeZc8pL442jDbzRuP8zGzW47s09bvMYPEJIGX5dJA==
+X-Received: by 2002:a05:6000:24c8:b0:3a4:f038:af76 with SMTP id ffacd0b85a97d-3b49703db1dmr14924338f8f.53.1751982751991;
+        Tue, 08 Jul 2025 06:52:31 -0700 (PDT)
+Message-ID: <607f9a3a-6a70-4a9b-9bb0-65138b49b6ae@suse.com>
+Date: Tue, 8 Jul 2025 15:52:21 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 11/11] xen/sysctl: wrap around sysctl hypercall
-To: Penny Zheng <Penny.Zheng@amd.com>
-Cc: ray.huang@amd.com, Stefano Stabellini <sstabellini@kernel.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+Subject: Re: [PATCH v6 1/7] xen/riscv: imsic_init() implementation
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <stefano.stabellini@amd.com>,
- Sergiy Kibrik <Sergiy_Kibrik@epam.com>, xen-devel@lists.xenproject.org
-References: <20250707031346.901567-1-Penny.Zheng@amd.com>
- <20250707031346.901567-12-Penny.Zheng@amd.com>
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Romain Caritey <Romain.Caritey@microchip.com>, xen-devel@lists.xenproject.org
+References: <cover.1751876912.git.oleksii.kurochko@gmail.com>
+ <73d797ed48fd3e442ca63d94ecdf29f57cd52b62.1751876912.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -123,22 +124,63 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250707031346.901567-12-Penny.Zheng@amd.com>
+In-Reply-To: <73d797ed48fd3e442ca63d94ecdf29f57cd52b62.1751876912.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 07.07.2025 05:13, Penny Zheng wrote:
-> --- a/xen/arch/x86/configs/pvshim_defconfig
-> +++ b/xen/arch/x86/configs/pvshim_defconfig
-> @@ -28,3 +28,4 @@ CONFIG_EXPERT=y
->  # CONFIG_GDBSX is not set
->  # CONFIG_PM_OP is not set
->  # CONFIG_PM_STATS is not set
-> +# CONFIG_SYSCTL is not set
+On 07.07.2025 11:01, Oleksii Kurochko wrote:
+> imsic_init() is introduced to parse device tree node, which has the following
+> bindings [2], and based on the parsed information update IMSIC configuration
+> which is stored in imsic_cfg.
+> 
+> The following helpers are introduces for imsic_init() usage:
+>   - imsic_parse_node() parses IMSIC node from DTS
+>   - imsic_get_parent_hartid() returns the hart ( CPU ) ID of the given device
+>     tree node.
+> 
+> This patch is based on the code from [1].
+> 
+> Since Microchip originally developed imsic.{c,h}, an internal discussion with
+> them led to the decision to use the MIT license.
+> 
+> [1] https://gitlab.com/xen-project/people/olkur/xen/-/commit/0b1a94f2bc3bb1a81cd26bb75f0bf578f84cb4d4
+> [2] https://elixir.bootlin.com/linux/v6.12/source/Documentation/devicetree/bindings/interrupt-controller/riscv,imsics.yaml
+> 
+> Co-developed-by: Romain Caritey <Romain.Caritey@microchip.com>
+> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
-Beyond what I said in reply to patch 4, LIVEPATCH for example also shouldn't
-be needed here anymore, for similarly depending on SYSCTL. You will want to
-go through the entire file to check what can now be pruned off.
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-Jan
+I'm curious though:
+
+> --- a/xen/arch/riscv/include/asm/smp.h
+> +++ b/xen/arch/riscv/include/asm/smp.h
+> @@ -3,6 +3,7 @@
+>  #define ASM__RISCV__SMP_H
+>  
+>  #include <xen/cpumask.h>
+> +#include <xen/macros.h>
+>  #include <xen/percpu.h>
+>  
+>  #include <asm/current.h>
+> @@ -18,6 +19,18 @@ static inline unsigned long cpuid_to_hartid(unsigned long cpuid)
+>      return pcpu_info[cpuid].hart_id;
+>  }
+>  
+> +static inline unsigned int hartid_to_cpuid(unsigned long hartid)
+> +{
+> +    for ( unsigned int cpu = 0; cpu < ARRAY_SIZE(pcpu_info); cpu++ )
+> +    {
+> +        if ( hartid == cpuid_to_hartid(cpu) )
+> +            return cpu;
+> +    }
+> +
+> +    /* hartid isn't valid for some reason */
+> +    return NR_CPUS;
+> +}
+
+Since there's no FIXME or alike here, is this really intended to remain this
+way? With many CPUs this form of lookup can be pretty inefficient.
+
+JAn
 
