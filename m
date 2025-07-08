@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 603F3AFCC1A
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Jul 2025 15:31:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1036535.1408790 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA809AFCC4F
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Jul 2025 15:38:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1036546.1408801 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uZ8Pu-000746-5Z; Tue, 08 Jul 2025 13:31:26 +0000
+	id 1uZ8WJ-0007mQ-Up; Tue, 08 Jul 2025 13:38:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1036535.1408790; Tue, 08 Jul 2025 13:31:26 +0000
+Received: by outflank-mailman (output) from mailman id 1036546.1408801; Tue, 08 Jul 2025 13:38:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uZ8Pu-00071N-2Y; Tue, 08 Jul 2025 13:31:26 +0000
-Received: by outflank-mailman (input) for mailman id 1036535;
- Tue, 08 Jul 2025 13:31:24 +0000
+	id 1uZ8WJ-0007kL-Rh; Tue, 08 Jul 2025 13:38:03 +0000
+Received: by outflank-mailman (input) for mailman id 1036546;
+ Tue, 08 Jul 2025 13:38:02 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=mjd+=ZV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uZ8Ps-00070H-Jz
- for xen-devel@lists.xenproject.org; Tue, 08 Jul 2025 13:31:24 +0000
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [2a00:1450:4864:20::42d])
+ id 1uZ8WI-0007kF-LP
+ for xen-devel@lists.xenproject.org; Tue, 08 Jul 2025 13:38:02 +0000
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [2a00:1450:4864:20::42b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d75d1094-5bff-11f0-a317-13f23c93f187;
- Tue, 08 Jul 2025 15:31:23 +0200 (CEST)
-Received: by mail-wr1-x42d.google.com with SMTP id
- ffacd0b85a97d-3a57c8e247cso3285425f8f.1
- for <xen-devel@lists.xenproject.org>; Tue, 08 Jul 2025 06:31:23 -0700 (PDT)
+ id c3f3a5e6-5c00-11f0-a317-13f23c93f187;
+ Tue, 08 Jul 2025 15:38:00 +0200 (CEST)
+Received: by mail-wr1-x42b.google.com with SMTP id
+ ffacd0b85a97d-3a525eee2e3so2809266f8f.2
+ for <xen-devel@lists.xenproject.org>; Tue, 08 Jul 2025 06:38:00 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-74ce359d0a0sm12102135b3a.4.2025.07.08.06.31.17
+ d2e1a72fcca58-74ce417dd7esm12767524b3a.97.2025.07.08.06.37.54
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 08 Jul 2025 06:31:22 -0700 (PDT)
+ Tue, 08 Jul 2025 06:37:59 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d75d1094-5bff-11f0-a317-13f23c93f187
+X-Inumbo-ID: c3f3a5e6-5c00-11f0-a317-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1751981483; x=1752586283; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1751981880; x=1752586680; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=KdGdkYdlCL6qZfpewcbP97xSkD3l7tDDwgBlQuikcdg=;
-        b=GO5t1Nr9C3rijuG5QtSGyu3Db+I458noyzoIGFyGE/qeU7HXs/jbKIV+QIm02+Lkzi
-         oqwo5OulF3WxXfCmyevNyriYmiJCXznj/FEs1agkxOMtUjEmKe9s7oyCMGsGAuJ+VKVo
-         MSfYxJ7vpE+HOJ+1y0IIKP1Zoq8Z76Tc2F2BBFfO+OaSbXFlV1qHiFuKFCUzMyiBxTpS
-         Ke5lzjIN57YO9RXZjF6HPXUH3whBLpltyazdGI4MNSr0D8PHCD7+iNOMA4kjizYo7I2k
-         dz1Beo23aFjNM9d6ERczGBbW3WHiCSxSQ5Jg/yxO4wCVVcGKl+o7/933kchxKePOVrOE
-         N+Xg==
+        bh=X6s9LgJcSWDgbs4mfcGpdivO0032ln0tcOQEVSslWIQ=;
+        b=N/Asgc80GshbzElqgHKv6flA7Q8QOVRQJa9Laxt0MCW8FUxDHm+Xn9A+jpgKr33sTV
+         V9Pl3PXbLF71rF8cRENJ6KpoyDM2/9GKU+ugRSTbRIw9n57wXZ9ibRZLImQDThNpsASy
+         wz4e/sZO1EfT8jBg1QG3C9aeN8VROfyFWJyyOg9r9z0U/GbBULVrCp6KutBdiFpkYA0k
+         UQjeVTZMvvZxeqhAUmjuObaf9v2JenPh7LsPYAIE0v7A7DTpW3Ydo8y3yxGu3ALa1SgD
+         N2IYu8CYq88indAKtCSJXw2rX+gVI3WusW8O4ZM0AfLOQnZS8Z5+Rn/jKc3tu1Etd6kF
+         XRtg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1751981483; x=1752586283;
+        d=1e100.net; s=20230601; t=1751981880; x=1752586680;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=KdGdkYdlCL6qZfpewcbP97xSkD3l7tDDwgBlQuikcdg=;
-        b=CLoOPAiVT89GvlXQUmmiNSZbPsF0unyQZ2Ck/lbj/ie/pBnTa+QeqaCfuYKksSYKfr
-         eEpgMTqJm37xdBfnAQRFP6V8v4Bz6xnRjWGX6zEzNd07zRGdrHSYhWOCqGxaRZwvx4Wz
-         ZVsM4SJ8MWOSIWj3gY8IjBpBqi+rmV4FTG5eKFxswx3dc33wPwGy1z74Bb5HoadzDVjt
-         khr73uSxVArKui1gA8OGZNAVJhRqW8UI+HWDXjwMBuNPf9FIMSfEXJyVYZgkdI0kBOA1
-         +MX1V7R+X1OkOoYl/wPobPNFLz19yyEeHyKswWGdnKAEPvXpEEZ8SEDcA6ACJAx1kykk
-         /K1g==
-X-Gm-Message-State: AOJu0Yx5l9NtHybs2FnYJ1NSuhL2TlBSMMkd1B9tGzEIpOHf07GIu3se
-	dQHX0FFOw5J5xY4G6b7Bx5RK/XaXRTfvKuOK29ztLW+EJU8I3v5O1BazRuLeSifdpN/oXyNe3zL
-	xxjM=
-X-Gm-Gg: ASbGncvT8o6FFT7LceI6ricaU7iZ/+KB8cNLbku+ztvCtY9FKV4MJbqL4itU0r3ic7d
-	4OxcIaho05gHZTLQg9IOPHGdADryKuJfhHBiETVCD1DSSNsVx9zWdhAyF7TOUVTVi77AEzlbTVt
-	jaFH+WxHgtUKQwQGxD8VP/idlLnRyIPE4HmzIBHtwNAmYF0Z+Y2zXLM17VYKpIXP28mMzL/g73F
-	wg5xwkEUmbBlVtWItgiDtTfyKeO8OmNtF+XRyAD2tiLRJ64d86vAZ/4aMmrozlWun0uPPU3PHUE
-	e0pOIRtZw9fJFUSFJ/ziq8Lnuds7CSgnv0CsaVkdzC2gd6fBHR23QZOMnOumxMmwC11aeoCrV+D
-	q0WZKKbgWsrxSMnpHczshvCeH7EAenD4qKBsWrgtS0bcap4I=
-X-Google-Smtp-Source: AGHT+IElhqBWLVPhHA8s0gjxnbrnjZfLkh3yzxapVtMrCJkcD/IH5yLq5IFH8BKh+tnPcCOmz+Z0Jg==
-X-Received: by 2002:adf:e185:0:b0:3a6:e1bb:a083 with SMTP id ffacd0b85a97d-3b49701ca8dmr13901808f8f.25.1751981482855;
-        Tue, 08 Jul 2025 06:31:22 -0700 (PDT)
-Message-ID: <6d283128-4aaf-4f52-8e96-7a4ebe292be3@suse.com>
-Date: Tue, 8 Jul 2025 15:31:14 +0200
+        bh=X6s9LgJcSWDgbs4mfcGpdivO0032ln0tcOQEVSslWIQ=;
+        b=lAm03+k4y0Bn4Cmf+HuEnMGbCOVWK1oKrPgCwgLvjzkooqPHnBg1+KQJzW3IsPp9t2
+         bUmZPKuWy/pZ5V1eWIm0/zQbOEzGLUlX6zj87RSELlL9SoUnrws7ppoOSKiaeqq/bol4
+         EXDuLwdGyTz3xnqv+K8jtyik7GOj8a1uJgPawDYmh9SUnId8EEk3Q78ltpAMXtl0ydsL
+         IN87fcFzhNPX1AGPMJjKWqTutv+HOIaLyKPhgMoMDaERhT0c2C4RZiPPEbyabIi4V3fr
+         S1DkB2mXlPaxQkDEGhtnFIYX5G8qimYn33ZH3/IBhgDXh9IMYuvXNRi5OEtpDClltM8I
+         ZUDQ==
+X-Forwarded-Encrypted: i=1; AJvYcCV2LgJqcxxy9cN5Fl3jIQYqOBFjuxBXKJy+xchF/FcHT783ySp3IHHZ5EFCTz2HMastNmduiGIyFVQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwUsTrJFoYrUoODqB/hR8kmHpCQx8JFRuwVo9syil4waY8pYSdy
+	YIVtteXiH2A+l1rxNpTqEec/XrN2NvMfZFGYg6ItubGGGfmiZsRCTXdoaa9ybpK4iA==
+X-Gm-Gg: ASbGncvWIagUoWwv6Kc4p6Bhi8Yul62Msr6eDyT1D5QL2huCGfJzO4ygDV7Kf1nHqQY
+	uMpyDR8CteIy0cVGX0g8HASdh9qAzkU8oRbq3nbEIH6XjGd/0pAv5RATObg9Bk4hAdXq5Gc2feA
+	A1TTdf0KeK7wW1JmMdmQwNNnjRgghiSKYAmKgH0lJhTbgebk+CtgpK8kZXsGd+KyFaZFF/FHVP4
+	659rcfVcPLMoUM+PMe3Ht1mnxnkqUfFJNRUqJ1ImMf7EEl9fdKKBKR5A9afyCIt/kKFDWq4dDOa
+	HIrtNVpXjCoG28SxgQUJPmj+xMaPiAa2hfg7exgKAa0dEhpM7LnSiPbREcAPaTw3O2W1VC0SsZi
+	mOP49FwZKGL14pqTKC4nQ7/x8ipJEOCqgGYB5F0m37Ou33Qg=
+X-Google-Smtp-Source: AGHT+IG8b0PTuhSaesT2IQoXkptjWAisraG2aiuMSB69uCRr+PcSZboxFuZcDMj9JKlxhrW4menGMQ==
+X-Received: by 2002:a05:6000:2886:b0:3a5:39be:c926 with SMTP id ffacd0b85a97d-3b5ddeccfebmr2348016f8f.32.1751981879968;
+        Tue, 08 Jul 2025 06:37:59 -0700 (PDT)
+Message-ID: <925e44c5-95fd-4c7f-a860-ddb5fb6d9371@suse.com>
+Date: Tue, 8 Jul 2025 15:37:50 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/2] Xen real-time x86
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <stefano.stabellini@amd.com>
-Cc: xen-devel@lists.xenproject.org, Andrew Cooper
- <andrew.cooper3@citrix.com>, Xenia.Ragiadakou@amd.com,
- alejandro.garciavallejo@amd.com, Jason.Andryuk@amd.com
-References: <alpine.DEB.2.22.394.2507071657440.605088@ubuntu-linux-20-04-desktop>
- <aGzu4A_nk3dAScxt@macbook.local>
+Subject: Re: [PATCH 04/11] xen/pmstat: introduce CONFIG_PM_OP
+To: Penny Zheng <Penny.Zheng@amd.com>
+Cc: ray.huang@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20250707031346.901567-1-Penny.Zheng@amd.com>
+ <20250707031346.901567-5-Penny.Zheng@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -120,56 +121,62 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aGzu4A_nk3dAScxt@macbook.local>
+In-Reply-To: <20250707031346.901567-5-Penny.Zheng@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 08.07.2025 12:11, Roger Pau Monné wrote:
-> On Mon, Jul 07, 2025 at 05:06:53PM -0700, Stefano Stabellini wrote:
->> Hi all,
->>
->> This short patch series improves Xen real-time execution on AMD x86
->> processors.
->>
->> The key to real-time performance is deterministic guest execution times
->> and deterministic guest interrupt latency. In such configurations, the
->> null scheduler is typically used, and there should be no IPIs or other
->> sources of vCPU execution interruptions beyond the guest timer interrupt
->> as configured by the guest, and any passthrough interrupts for
->> passthrough devices.
->>
->> This is because, upon receiving a critical interrupt, the guest (such as
->> FreeRTOS or Zephyr) typically has a very short window of time to
->> complete the required action. Being interrupted in the middle of this
->> critical section could prevent the guest from completing the action
->> within the allotted time, leading to malfunctions.
+On 07.07.2025 05:13, Penny Zheng wrote:
+> We move the following functions into a new file drivers/acpi/pm-op.c, as
+> they are all more fitting in performance controling and only called by
+> do_pm_op():
+>  - get_cpufreq_para()
+>  - set_cpufreq_para()
+>  - set_cpufreq_gov()
+>  - set_cpufreq_cppc()
+>  - cpufreq_driver_getavg()
+>  - cpufreq_update_turbo()
+>  - cpufreq_get_turbo_status()
+> We introduce a new Kconfig CONFIG_PM_OP to wrap the new file.
 > 
-> There's IMO still one pending issue after this series on x86, maybe
-> you have addressed this with some local patch.
+> Also, although the following helpers are only called by do_pm_op(), they have
+> dependency on local variable, we wrap them with CONFIG_PM_OP in place:
+>  - write_userspace_scaling_setspeed()
+>  - write_ondemand_sampling_rate()
+>  - write_ondemand_up_threshold()
+>  - get_cpufreq_ondemand_para()
+>  - cpufreq_driver.update()
+>  - get_hwp_para()
+> Various style corrections shall be applied at the same time while moving these
+> functions, including:
+>  - add extra space before and after bracket of if() and switch()
+>  - fix indentation
+>  - drop all the unnecessary inner figure braces
+> 
+> We shall also provide "# CONFIG_PM_OP is not set" in preset configs for
+> PV shim on x86.
+> 
+> Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
+> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+> Acked-by: Jan Beulich <jbeulich@suse.com>
+> ---
+> v2 -> v3
+> - new commit
+> ---
+> v3 -> v4:
+> - rename the file to pm-op.c
+> - drop all the unnecessary inner figure braces
+> - be consistent with the comment on the #endif
+> ---
+> v4 -> v5:
+> - add blank line before endmenu
+> ---
+> v5 -> v6:
+> - rebase changes from "xen/cpufreq: normalize hwp driver check with hwp_active()"
+> and "xen/cpufreq: move "init" flag into common structure"
+> - add "# CONFIG_PM_OP is not set" in preset configs for PV shim on x86
 
-Not just one, I think. We use IPIs for other purposes as well. The way
-I read the text above, all of them are a (potential) problem.
+Correct here (and in the next patch), but both additions will want undoing then
+in the last patch, as their dependency on SYSCTL thus covers what we want.
 
 Jan
-
->  Interrupt forwarding
-> from Xen into HVM/PVH guests uses a softirq to do the injection, which
-> means there's a non-deterministic window of latency between when the
-> interrupt is received by Xen, as to when it's injected to the guest,
-> because the softirq might not get processed right after being set as
-> pending (there might be other softirqs to process, or simply Xen might
-> be busy doing some other operation).
-> 
-> I think you want to look into adding a new command line option or
-> similar, that allows selecting whether guest IRQs are deferred to a
-> softirq for injection, or are injected as part of the processing done
-> in the IRQ handler itself.
-> 
-> Otherwise there will always be a non-deterministic amount of latency
-> on x86 w.r.t. HVM/PVH passthrough guest interrupts.  Haven't you seen
-> some weird/unexpected variance when doing this passthrough interrupt
-> latency measurements on x86?
-> 
-> Regards, Roger.
-
 
