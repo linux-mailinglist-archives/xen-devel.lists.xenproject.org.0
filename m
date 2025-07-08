@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A049AFC7F7
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Jul 2025 12:10:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1036330.1408586 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 65BD0AFC803
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Jul 2025 12:12:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1036337.1408596 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uZ5HC-0005oc-L1; Tue, 08 Jul 2025 10:10:14 +0000
+	id 1uZ5Im-0006QI-Vz; Tue, 08 Jul 2025 10:11:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1036330.1408586; Tue, 08 Jul 2025 10:10:14 +0000
+Received: by outflank-mailman (output) from mailman id 1036337.1408596; Tue, 08 Jul 2025 10:11:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uZ5HC-0005mn-IC; Tue, 08 Jul 2025 10:10:14 +0000
-Received: by outflank-mailman (input) for mailman id 1036330;
- Tue, 08 Jul 2025 10:10:12 +0000
+	id 1uZ5Im-0006NW-T2; Tue, 08 Jul 2025 10:11:52 +0000
+Received: by outflank-mailman (input) for mailman id 1036337;
+ Tue, 08 Jul 2025 10:11:51 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=w6R6=ZV=alex0.net=me@srs-se1.protection.inumbo.net>)
- id 1uZ5HA-0005mh-Nj
- for xen-devel@lists.xenproject.org; Tue, 08 Jul 2025 10:10:12 +0000
-Received: from outbound.st.icloud.com
- (p-east2-cluster5-host7-snip4-9.eps.apple.com [57.103.79.32])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=K9GB=ZV=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1uZ5Il-0006NQ-8L
+ for xen-devel@lists.xenproject.org; Tue, 08 Jul 2025 10:11:51 +0000
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
+ [2a00:1450:4864:20::431])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b90f0e01-5be3-11f0-b894-0df219b8e170;
- Tue, 08 Jul 2025 12:10:07 +0200 (CEST)
-Received: from outbound.st.icloud.com (unknown [127.0.0.2])
- by outbound.st.icloud.com (Postfix) with ESMTPS id 1FFA11800BF0;
- Tue,  8 Jul 2025 10:10:05 +0000 (UTC)
-Received: from personal-unclass (st-asmtp-me-k8s.p00.prod.me.com
- [17.42.251.67])
- by outbound.st.icloud.com (Postfix) with ESMTPSA id 0CA7918002A9;
- Tue,  8 Jul 2025 10:10:01 +0000 (UTC)
+ id f4165d6a-5be3-11f0-b894-0df219b8e170;
+ Tue, 08 Jul 2025 12:11:46 +0200 (CEST)
+Received: by mail-wr1-x431.google.com with SMTP id
+ ffacd0b85a97d-3a6e8b1fa37so3328832f8f.2
+ for <xen-devel@lists.xenproject.org>; Tue, 08 Jul 2025 03:11:46 -0700 (PDT)
+Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
+ by smtp.gmail.com with UTF8SMTPSA id
+ 5b1f17b1804b1-454cd3dcf35sm17589575e9.36.2025.07.08.03.11.44
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 08 Jul 2025 03:11:45 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,103 +45,89 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b90f0e01-5be3-11f0-b894-0df219b8e170
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alex0.net; s=sig1;
-	bh=DX3etFGTu25f/iDa1r4MdVGbHdmW9qxL6IE5FDD4IRI=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version:x-icloud-hme;
-	b=QsBWq3tDftHorSetMIRuF+ptluneNwrkiD0wqFBkp1b1bXHFogMYrY+iZSFhgsrT0
-	 AzjtJH+fpjjbM7S2J/+boOs33k68WcBf5msV80FBFvhWwKtHOYKGOUeRxfSJSCaMF9
-	 24ZFhtRMofHDzODn4diek2p1Cx5WBSm5YeyxEMzxa7jLFYBDT59YNxmO5FWL1x8ieE
-	 6Vs4TD+y/XXqPT+M9tzF5MhAHqkIvZlzIFT7NgUdFRJHUx3jlDc9R+zdbSSP/ZiJOQ
-	 aDJBvg24LAdtiyUyrTzQEg5nd+k5GdOORIq6Qqmu6ydy7ggSlxXxxmFl31Cb1wA5Nh
-	 C21haW2uyDElQ==
-From: Alex XZ Cypher Zero <me@alex0.net>
-To: xen-devel@lists.xenproject.org
-Cc: Alex XZ Cypher Zero <me@alex0.net>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH v2] x86/idle: Implement support for Meteor Lake
-Date: Tue,  8 Jul 2025 11:09:44 +0100
-Message-ID: <4f6cad808ae9ada51e873a411d774dafad4a49cd.1751969384.git.me@alex0.net>
-X-Mailer: git-send-email 2.50.0
+X-Inumbo-ID: f4165d6a-5be3-11f0-b894-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1751969505; x=1752574305; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=GGneS9Ew0MzM6DWP+0SIO3RnKozwE6omAIgBNrTc3NY=;
+        b=DK2Y3bwNKyfCeJnh2OllJO308YgrkcYy8VeqdPIvjob1qal67faQect43jS0DZihK0
+         DBcy5Xp4GWRz+sd6LQduiVVAmHz2hl7K0XaJO9/YUlF3Sc34rhNjk4NOwm7k82ITHo43
+         ZhAhze7I89cVS+DL0EAm0xa+EHP3Q/bM5avCU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1751969505; x=1752574305;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=GGneS9Ew0MzM6DWP+0SIO3RnKozwE6omAIgBNrTc3NY=;
+        b=Z5VXen+Ypffy6f6ROlrQtTkDjhwnGjZfNcd3lv2ze3hjbJjYBbRgddYx9SOVuw8YGE
+         VPQ4F9+GmBx7q+4+b9LSkv9LNh8Fc/cclj6lwrOqQ10+pJMDMSLQwiV+ExaaBSy/GjqY
+         E18suKL4AyGi8AWTrAbys4ndw4iqY5wJpDNpvvMm/0JXHgr/Pz1m1oDT6SR/baD+WUlK
+         TeBGKshGxsrq235DXC27g7uwpfRggWvKlznZ5i0vj1lEpd6fFt4Zkbx7rHfEu2MCm5Wz
+         aMtI9FuGOcLm9spa1MPi6z5xB+LVatn31sqcvCLiNXip3ew+DpPAyDJOR4tu6/dW25Gv
+         Yu8w==
+X-Gm-Message-State: AOJu0Yy9FnVml1NX6GqyTtWE/uk50vMey3qNwxauZ4lyTfvq7swD5TPL
+	fHvloKv+UXy89Hl26eFcJDeZqhRMcYtdxQ+WgjTxNXXGxNYGubmQpwhixGjsuzK7hzA=
+X-Gm-Gg: ASbGncsLk6RXyXIJvnQGXoQHcCQN/bCe0jYJu4h3WGnndDKDYhf/GwIhCU+/kKRe7TL
+	gLXgvkxQzDecgdKr0+MkrRGT36qN4O4dkmG8/mTc74y3EIiBccDazEWCK2VE58mzfjnDzc56506
+	AXd9r2IV1a+qPWlV2lAGxXnQaXZO7MT60GjpJqjjv9xtgU++FS0ua31bIPjSvTZYowOBxX7JF9N
+	xeuOHoUbEY7YiAg3+LRLjUPJPWhyefOBRTVuzPyIEbKD2CrjwygxzObHIvFupqmnIUv70/LB70Y
+	W6t0G5oof3eaZPPF2MVHOhytr3a+6yrqLn4xwfgwhvIyrJSs69z2SC9/Clc9gbuJ6C0MvCAsRMk
+	cMIRgYhI9UNb7BEc5QFStaXJ4SLQikg==
+X-Google-Smtp-Source: AGHT+IF1FIpqPWg7Ui94pH3W99GlMyyNW5e8qKUllHh/WcaTE9lgl2iS2YSaQsGrNZA/RWPYIV4e4Q==
+X-Received: by 2002:a05:6000:2dc7:b0:3a4:ed62:c7e1 with SMTP id ffacd0b85a97d-3b4964f4d29mr14585985f8f.12.1751969505327;
+        Tue, 08 Jul 2025 03:11:45 -0700 (PDT)
+Date: Tue, 8 Jul 2025 12:11:44 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Stefano Stabellini <stefano.stabellini@amd.com>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>, Xenia.Ragiadakou@amd.com,
+	alejandro.garciavallejo@amd.com, Jason.Andryuk@amd.com
+Subject: Re: [PATCH 0/2] Xen real-time x86
+Message-ID: <aGzu4A_nk3dAScxt@macbook.local>
+References: <alpine.DEB.2.22.394.2507071657440.605088@ubuntu-linux-20-04-desktop>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwNzA4MDA4MyBTYWx0ZWRfX2vs/Fdu+5J6i
- COS7KDtmc+cN1QQR3FDvrVuqv1ft92qcs1lPVG0NiVTnwgpqB8Le1QQ3lMnwJe2vTayo18Lk/LG
- TWbal+1SQP6G/ESrUYwauEuOnB29vrikZ+X4ulFnUe6Xkc0Djpnam74k9ps9al/rVvvB1ff8MWE
- Hv3ormSfZjFq2cyhJw82UVLURIToMO6UbPc03qNd4q17FWH7c56jVonBzyWS7NyHbF+XbPKlfBa
- cN+DDCG5F75eeT9FbyiELnn/HLGP/NaAmFAtsUFeXup3MyccK+cSRRCTFixkQXcoAwqYAEFJM=
-X-Proofpoint-GUID: PIo9OZrGcl7BC5v-lJvR5A08lH9wikbt
-X-Proofpoint-ORIG-GUID: PIo9OZrGcl7BC5v-lJvR5A08lH9wikbt
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1099,Hydra:6.1.7,FMLib:17.12.80.40
- definitions=2025-07-08_03,2025-07-07_01,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 bulkscore=0
- malwarescore=0 mlxscore=0 adultscore=0 clxscore=1030 mlxlogscore=530
- phishscore=0 spamscore=0 suspectscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.22.0-2506060001 definitions=main-2507080083
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <alpine.DEB.2.22.394.2507071657440.605088@ubuntu-linux-20-04-desktop>
 
-Adds support for Meteor Lake C-states, following the reference implementation in Linux.
+On Mon, Jul 07, 2025 at 05:06:53PM -0700, Stefano Stabellini wrote:
+> Hi all,
+> 
+> This short patch series improves Xen real-time execution on AMD x86
+> processors.
+> 
+> The key to real-time performance is deterministic guest execution times
+> and deterministic guest interrupt latency. In such configurations, the
+> null scheduler is typically used, and there should be no IPIs or other
+> sources of vCPU execution interruptions beyond the guest timer interrupt
+> as configured by the guest, and any passthrough interrupts for
+> passthrough devices.
+> 
+> This is because, upon receiving a critical interrupt, the guest (such as
+> FreeRTOS or Zephyr) typically has a very short window of time to
+> complete the required action. Being interrupted in the middle of this
+> critical section could prevent the guest from completing the action
+> within the allotted time, leading to malfunctions.
 
-Signed-off-by: Alex XZ Cypher Zero <me@alex0.net>
----
- xen/arch/x86/cpu/mwait-idle.c | 27 +++++++++++++++++++++++++++
- 1 file changed, 27 insertions(+)
+There's IMO still one pending issue after this series on x86, maybe
+you have addressed this with some local patch.  Interrupt forwarding
+from Xen into HVM/PVH guests uses a softirq to do the injection, which
+means there's a non-deterministic window of latency between when the
+interrupt is received by Xen, as to when it's injected to the guest,
+because the softirq might not get processed right after being set as
+pending (there might be other softirqs to process, or simply Xen might
+be busy doing some other operation).
 
-diff --git a/xen/arch/x86/cpu/mwait-idle.c b/xen/arch/x86/cpu/mwait-idle.c
-index 5e98011bfd..1e90806c70 100644
---- a/xen/arch/x86/cpu/mwait-idle.c
-+++ b/xen/arch/x86/cpu/mwait-idle.c
-@@ -678,6 +678,28 @@ static struct cpuidle_state __read_mostly adl_l_cstates[] = {
- 	{}
- };
- 
-+static struct cpuidle_state __read_mostly mtl_l_cstates[] = {
-+	{
-+		.name = "C1E",
-+		.flags = MWAIT2flg(0x01),
-+		.exit_latency = 1,
-+		.target_residency = 1,
-+	},
-+	{
-+		.name = "C6",
-+		.flags = MWAIT2flg(0x20) | CPUIDLE_FLAG_TLB_FLUSHED,
-+		.exit_latency = 140,
-+		.target_residency = 420
-+	},
-+	{
-+		.name = "C10",
-+		.flags = MWAIT2flg(0x60) | CPUIDLE_FLAG_TLB_FLUSHED,
-+		.exit_latency = 310,
-+		.target_residency = 930
-+	},
-+	{}
-+};
-+
- static struct cpuidle_state __read_mostly spr_cstates[] = {
- 	{
- 		.name = "C1",
-@@ -1083,6 +1105,10 @@ static struct idle_cpu __read_mostly idle_cpu_adl_l = {
- 	.state_table = adl_l_cstates,
- };
- 
-+static struct idle_cpu __read_mostly idle_cpu_mtl_l = {
-+	.state_table = mtl_l_cstates,
-+};
-+
- static struct idle_cpu __read_mostly idle_cpu_spr = {
- 	.state_table = spr_cstates,
- 	.c1e_promotion = C1E_PROMOTION_DISABLE,
-@@ -1148,6 +1174,7 @@ static const struct x86_cpu_id intel_idle_ids[] __initconstrel = {
- 	ICPU(ICELAKE_D,			icx),
- 	ICPU(ALDERLAKE,			adl),
- 	ICPU(ALDERLAKE_L,		adl_l),
-+	ICPU(METEORLAKE_L,		mtl_l),
- 	ICPU(SAPPHIRERAPIDS_X,		spr),
- 	ICPU(ATOM_GOLDMONT,		bxt),
- 	ICPU(ATOM_GOLDMONT_PLUS,	bxt),
--- 
-2.50.0
+I think you want to look into adding a new command line option or
+similar, that allows selecting whether guest IRQs are deferred to a
+softirq for injection, or are injected as part of the processing done
+in the IRQ handler itself.
 
+Otherwise there will always be a non-deterministic amount of latency
+on x86 w.r.t. HVM/PVH passthrough guest interrupts.  Haven't you seen
+some weird/unexpected variance when doing this passthrough interrupt
+latency measurements on x86?
+
+Regards, Roger.
 
