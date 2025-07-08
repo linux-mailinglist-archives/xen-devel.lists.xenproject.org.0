@@ -2,40 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 475FEAFD087
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Jul 2025 18:22:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1036885.1409384 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B17A6AFD10B
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Jul 2025 18:30:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1036903.1409394 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uZB4F-0002zc-0E; Tue, 08 Jul 2025 16:21:15 +0000
+	id 1uZBDC-0004cc-UV; Tue, 08 Jul 2025 16:30:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1036885.1409384; Tue, 08 Jul 2025 16:21:14 +0000
+Received: by outflank-mailman (output) from mailman id 1036903.1409394; Tue, 08 Jul 2025 16:30:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uZB4E-0002y4-Tg; Tue, 08 Jul 2025 16:21:14 +0000
-Received: by outflank-mailman (input) for mailman id 1036885;
- Tue, 08 Jul 2025 16:21:13 +0000
+	id 1uZBDC-0004bB-RI; Tue, 08 Jul 2025 16:30:30 +0000
+Received: by outflank-mailman (input) for mailman id 1036903;
+ Tue, 08 Jul 2025 16:30:29 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=QFdH=ZV=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
- id 1uZB4D-0002xy-JE
- for xen-devel@lists.xenproject.org; Tue, 08 Jul 2025 16:21:13 +0000
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on20628.outbound.protection.outlook.com
- [2a01:111:f403:2416::628])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8c9f425e-5c17-11f0-b894-0df219b8e170;
- Tue, 08 Jul 2025 18:21:07 +0200 (CEST)
-Received: from PH8PR12MB7326.namprd12.prod.outlook.com (2603:10b6:510:216::7)
- by DM4PR12MB6616.namprd12.prod.outlook.com (2603:10b6:8:8e::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8901.26; Tue, 8 Jul
- 2025 16:21:01 +0000
-Received: from PH8PR12MB7326.namprd12.prod.outlook.com
- ([fe80::6d76:9c33:d230:8264]) by PH8PR12MB7326.namprd12.prod.outlook.com
- ([fe80::6d76:9c33:d230:8264%4]) with mapi id 15.20.8880.021; Tue, 8 Jul 2025
- 16:21:00 +0000
+ <SRS0=f0DE=ZV=arm.com=hari.limaye@srs-se1.protection.inumbo.net>)
+ id 1uZBDB-0004b5-Ab
+ for xen-devel@lists.xenproject.org; Tue, 08 Jul 2025 16:30:29 +0000
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTP
+ id d8cbee28-5c18-11f0-b894-0df219b8e170;
+ Tue, 08 Jul 2025 18:30:23 +0200 (CEST)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 218A5153B;
+ Tue,  8 Jul 2025 09:30:11 -0700 (PDT)
+Received: from PWQ0QT7DJ1.cambridge.arm.com (unknown [10.57.69.90])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D4F063F694;
+ Tue,  8 Jul 2025 09:30:20 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,327 +42,247 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8c9f425e-5c17-11f0-b894-0df219b8e170
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Y+b/aClaZTHqHmKNFM6Ausz/bgfhtZRxcihnsYQ5F6Q8MmfpKk5qG8z2hnVh562afBn3928pJEOxhJWe9lDKtepU9n3GEBGyBLqJiNmvxuQAAAWP1ThnYrLYmCa/d0eHHvLIOCE25etX8/uo26V3WoKYVR2okZawrzHVMYyaeBdSB06t7pwD32PVVcL5gQyp+6AO0ibyWayOi2E0/27dY9/VJRhwdAiHVSCq1Hq6pms+JGf3HAoVstTQ6tfthHvELFRGyum181v6FagZdB0TtvwJK7oJsHRnQpmP/Aw/nkmMNCzydVOhKV7UrdMMC5D0cCUr0+pqKJYviCXF7GhwfQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=53O4hlR6UVBZSh+sOq4IjcK6cMIvz1D/JTXT4Cq4C8o=;
- b=EOB87kvYJLEuPnizZ1k7zFtFDSbEo9MKbyPRZ6pb6BmOL/qkj5NNZjCNthKMnDfxyIp4CUATJPQf75ygROKrHnwwTM+pdNju2pjkI6Lc7rmEllL79Y982j9MOBwmaRt12BGDjr9IPfOObwq4r0ubn5YBaaVE3pEk11YU+y/3QT/KH5Jp6trbhsB6u5HrMpuI6p4sA0b0BYa1pLbtE8vdkYtfCvpVecq/9QWMaIk3QUxxdo2qw6g8S5ijiLx8YR+0dgrpx7wxqNbphAZIT82432h0O1PVl1FPWulRrize/4F3FuPxE+z8fRgBtHIbZ++Dq2mGhoHFOmWoa9ibPKDiiQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=53O4hlR6UVBZSh+sOq4IjcK6cMIvz1D/JTXT4Cq4C8o=;
- b=iiSpnxAIcvYhfEeP+D7EyMnvXOY3Jh1m3HSaepdRKI6YT7VWf10kgAXZl5HyrUF8euRSSqZG6WTH+SVMMZGhzgPRll+s4LSjDTiRTQFTdMLgCBEC4yauUwZceLgdhWV1gO4PlwdGDuRUFu3Ub4PXT8gEWSVpoiEBDrWTv0E4kI8=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Content-Type: multipart/mixed; boundary="------------9vkG03s23pxg8IOcjkQKChER"
-Message-ID: <2f57a46b-1819-476f-ae73-a71716b84f32@amd.com>
-Date: Tue, 8 Jul 2025 17:20:57 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: FuSA configuration
-To: "Weber (US), Matthew L" <matthew.l.weber3@boeing.com>,
- "Halder, Ayan Kumar" <ayan.kumar.halder@amd.com>
-Cc: "Wood (US), Brian J" <brian.j.wood2@boeing.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <BN0P110MB2067173E38889AB2801397F3F34EA@BN0P110MB2067.NAMP110.PROD.OUTLOOK.COM>
-Content-Language: en-GB
-From: Ayan Kumar Halder <ayankuma@amd.com>
-In-Reply-To: <BN0P110MB2067173E38889AB2801397F3F34EA@BN0P110MB2067.NAMP110.PROD.OUTLOOK.COM>
-X-ClientProxiedBy: DU7P194CA0025.EURP194.PROD.OUTLOOK.COM
- (2603:10a6:10:553::20) To PH8PR12MB7326.namprd12.prod.outlook.com
- (2603:10b6:510:216::7)
+X-Inumbo-ID: d8cbee28-5c18-11f0-b894-0df219b8e170
+Date: Tue, 8 Jul 2025 17:30:18 +0100
+From: Hari Limaye <hari.limaye@arm.com>
+To: xen-devel@lists.xenproject.org
+Cc: sstabellini@kernel.org, julien@xen.org, bertrand.marquis@arm.com, 
+	michal.orzel@amd.com, Volodymyr_Babchuk@epam.com, luca.fancellu@arm.com, 
+	ayankuma@amd.com
+Subject: RFC: Proposal for supporting EL1 MPU region context switch in Xen
+Message-ID: <sx7fysbgi6fwrza24lq2xkyvnz254756cptucxqfokwrd7pxs7@k3swbmqmfvel>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR12MB7326:EE_|DM4PR12MB6616:EE_
-X-MS-Office365-Filtering-Correlation-Id: 89f053f6-e547-4ec4-b126-08ddbe3b6d58
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014|4053099003;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?R0ZlTEMxNGF4dkpCU09NMHpVaFFoeEcwRXdSdmtkTWhmTVZDOUdDNk5NVHpL?=
- =?utf-8?B?ZHBUeTBua3JSNFhVclJDVVlGajV6dW4wZVppY1hXNjRWYkwwTEJ3MjE4c0xq?=
- =?utf-8?B?bEE0WlhRQUs1OGhtSXg2T2ZVcVhxRXNwNlhXTVE2NE52bGdvV1p2SXZYZm1Q?=
- =?utf-8?B?c0UvTUpQSG44c3drK2l5dXFuMG1WeVBmdDBNSmFaa3Y3dTlrR0pWTlI1cjRS?=
- =?utf-8?B?R2tEY21zdlZaTnNSVHpnRXl0M1ZFM05NVDgvODU2MGxEdVhKSjVUQWV6UWRu?=
- =?utf-8?B?YWtTdnJOZ1FES0sxZ0tVMU1uRCtsTHd2WUk5N2x6cmduV1pqVDEzMFBURkJJ?=
- =?utf-8?B?ekE2b3pwWWRwa3hheFIxUmdwMWlSQURVNGs3azlXSVpvYWZMQjlyYUlKOEs0?=
- =?utf-8?B?R2NLWWhlQzBIaEFIRnRyb3lGK3Y2clBEc3lrK2Q2R3NqUGJURE1yYlNpb2t0?=
- =?utf-8?B?cy8rLytZT243MEQrckxYNHJQMVNLeG05Q0taR20zRDhkTVNDOXFCUjFXUTZ4?=
- =?utf-8?B?WXA2T2hBTnhxVEhVR1I1NU5HZ1dmaVA4U1NWdExYNHk0YmUvMEp5d1NUaFg3?=
- =?utf-8?B?NEFHUEQ5bk1KQjQzZUwxdjRuOXlqekZqNWp5RWZrazlkMVpSSkFGdzlUakJI?=
- =?utf-8?B?bHBjRmJHWnhuV3B1b1kvTEE1S0lJdURlL0FLL0dHa2UzZlZLRmxOalV3bHVB?=
- =?utf-8?B?bUlZVkpsYkJUVlY3ZGM3c1lBa2FCWVRRa2dVNVIxdjM0Y3V6ZWdjcml1dzZ1?=
- =?utf-8?B?bE9pNVZiZjJ5d21MN2IyT2lWSkc0OTF3Yk0zMHdUdEx1WjBrZ2NkOXNXeDZt?=
- =?utf-8?B?bUdiakd3TDZqWFFGeHNYKytRY0FzZDdtRi90alBMUis0N2grVnNEN0FxRkVK?=
- =?utf-8?B?QVdYM0V3RWVvTjR4VHVWclJSall5TGRvanI3OVlvZllhVUJXQ2dtQUNzeGdU?=
- =?utf-8?B?bVpNbFBlU0ZtOTFrcVNZYUVtZFowSFhaOVZ2bVBqakNMNDhUNHBDWVZjR2dZ?=
- =?utf-8?B?NmRuVTNLNE0zY01XRlUxcktDdkdKR1kxcmJvbWwvM0wvMGloWlZEeXdKdUM5?=
- =?utf-8?B?bDhmd1R4R3BQcFkrblZQR3NIM1lwNlUzYmtFeU93elFyeFhRR3ViS3loUzd4?=
- =?utf-8?B?a1l0dXF4b2tvTGJlT25TcGpCYXNCU05BWnNra1ZOdGNnQkpZdTFsakpaY3Qx?=
- =?utf-8?B?UU1UWWVOa2J0T3BtUmU0SHhUdi9OOUd4Z0VZUU12eWZDRHpQTjFMT1E3L0pJ?=
- =?utf-8?B?L0Npd29uMW1sRkNTRUpCNVdUYU5UeldycG9DUGVFYldvYnBBUmsrZ1d4dzA1?=
- =?utf-8?B?RUtzb2h2akd0ZitISHpicjhld2ZBVFk2c1BNcnZDMU1ZRlRJRkFhRVQwNk1X?=
- =?utf-8?B?akh6dHVDdThFMnh5clVnWjlSVHpIbEY5dHVhUGZNNlVQMDV2aU0wZzZ2Z2c5?=
- =?utf-8?B?Wk9Nem9pQ29MVkdPTUJIbVdITk9STnFUTmVDcWRzaVBaQWN5TWZDRVZMUVpv?=
- =?utf-8?B?TDFKeU1ZVjZ6SS9hc3NGNEM4TGFZSFc2c2lxT2ZranFBdXNLVVoxdS9GYklG?=
- =?utf-8?B?NER1U0lLZUovei9iam5nREdZWFpyVjV0MURBTU45OXllcmNNU2Zmd3JLSHJx?=
- =?utf-8?B?eE9EeW5PLzlsK05xc2R2Ni92Sm9mS01NSW1WKzNwVU02S2V1YUNvK0t1QlI5?=
- =?utf-8?B?VmdWMGRRQWFvR1JNUkpaK1hmNzdVSVFReEI0WUJwN3o2MVF0a3dPa0htdGty?=
- =?utf-8?B?Y3dFNjUzSDd3YXBoQW91SkYvc2hTTzNocVhXK01SYTNwZGpYNVJZcmlYY2hC?=
- =?utf-8?B?US94c3Vad2pkamdmTG9UY3FzMDNvM1ViSmRlU0lDQlRiMnhhZ2hyeWIyeVZR?=
- =?utf-8?Q?I4NryTcIpheMF?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR12MB7326.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(4053099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?QTRXREZPbURCcm5XbmNVSjRKOUxONTBuN2poeHd4ZlpNeUVYaG9HTFRTYWJV?=
- =?utf-8?B?SmlEd3BHNnJpY0NOZTZUZUhjWWVuN0RsZmJiZ3hsUEVNbkNiVGdnMC9vczIx?=
- =?utf-8?B?clZ5dC95SERsWXlIZ3lxdndvdDc4R0ZwUVU2ZFo1OHZJa0NXNG5uWGRkYTJk?=
- =?utf-8?B?dHU0cDdRNklnVHZlRXNDMzJMdmFOa0RsKzd3NkRHenlZWWd0SUdMTXdKSHIz?=
- =?utf-8?B?LzBNZFVWNS92aEg5QUhOTUxDbGFtUUdmWXlFWEFuWmFmSmFwOFY1WDU4Ykh1?=
- =?utf-8?B?aHJ0UEdZU2k3c1FGZmdjaTBTUkJQOW10Vmx4RGFKdUlyWkMwd0NxOGlDa1pt?=
- =?utf-8?B?dCs1VlZsMGFiZkx2UlRCOEg5N2g0ODgzMGFwTVdvYXNnNXA3N0t1cGc2Mk1T?=
- =?utf-8?B?enN6Nk1GTDViR3dnKzR1bzZtdUJVb1VwS0VBUTJuSFJTL2tOVm00c1l5RGVs?=
- =?utf-8?B?dm5Va1lKMDF4MW9RWFc5WEFQamMyRUdDZy9GYVJSMXY4TWdYay9qbFV3OFkx?=
- =?utf-8?B?Ny9yMVhrTkM2QjVnWHkySEFaLzBwbUhjNGNLaUF3UW9YRG11SUNIdVByTTFF?=
- =?utf-8?B?Z2hkUkV1L2RQRG5GaDM1VkRKSlBsQzFSaGoxcFNKUzdPSHBZR1ZBTWUrMmti?=
- =?utf-8?B?R09FQXRQL1pLakhiWE5aTDNWcnAyNmFUcUhIT3RwTCtBK2xwZkFYR1NERFZ3?=
- =?utf-8?B?Ly9EQTlaNE1PeGtJODgrVm12WXJoVXRpZC9DS2lmeTVWdXhFd1dwWUV3WWtS?=
- =?utf-8?B?REJnR0xVc0R6elg2bGhKZW12WlVxZFdjSmdiUElNZG0rUE55eXBWS2k4Z1RG?=
- =?utf-8?B?MUN1VkFpWlB5WXR6L1puQTRMRDlwc2pNU2l0WE9iTkw4T3RyN2lUZFJudVpF?=
- =?utf-8?B?ajI2akR2cVQ2RTM1enlxV21BWXd6dVlTWTI4U2dMeGR2b2k3SFNPNUM0c0d4?=
- =?utf-8?B?NGU2NVRkUEZPdmk1U0grTWhZWHpxTjI0ekgycUpiS1ZJS0d0ZWg0S3ZYMjRO?=
- =?utf-8?B?dTVydTFMUnZhbG1VczRSV0o2cGRUL0k1RU5iNGQvVUZ1aUxhTnJ6eWdBWFpi?=
- =?utf-8?B?R29kNVZNMmg5UHArRUZJeFltZWVHVDFtY0Y2Y0ZQbXJqUFFIb3d6ZDJmTVhn?=
- =?utf-8?B?Z0NmeVl6M1JCeTBMb3M5YXVlSWhrMjZ1YS8vYjVkZ2NldGpYYVpTU1FPeEtT?=
- =?utf-8?B?MXVjbGxBNTEycjU0ZnF0ZS9JV3kvbTY1T0J2YnlvTjZ2NXlNTTBaQlhNTVZV?=
- =?utf-8?B?QnVDNkxuTlVqWFB6T3BONE9pcm1GTEdJTWpqUHlzeGN2Mm54TFBXbzhlWlFG?=
- =?utf-8?B?YXNENHlYMVBUbU1Bb3dRVktpTkRLU2ZPcnJ3NFRPMnJuc0crY3FGNFRrQzhu?=
- =?utf-8?B?ZEZlWUZoSjNVMXo2SHhSWEtNbEozazhoaTdSR3BMbjFFRGJjejVIeHpZVUJL?=
- =?utf-8?B?RldVRmNpMUsxT0dwTFFYWUpSQk1TbGxLY2JQNHM4ditqRGlwdXd0S1M4RDYv?=
- =?utf-8?B?WVlGZUMxT0FYUFZwbnpjNHVOSWhVelJEWi95WEtQMVNwMjBocEIrNVE5bzZG?=
- =?utf-8?B?TTR0RGVaY3YzejdxejEwSkwrTVVEbzlPVk9sQUUyZmxRalRyZVNUYWcwNzZ1?=
- =?utf-8?B?L0F4Kyt2RHg3RVQ5TUxoSFZnVlFYVzI3Z3g0cXFjcFF5YTM0cUkyVXh3Y0wx?=
- =?utf-8?B?VThnSDJFaENyZkJ0cDhTYWU3ZlIrY2NLaGM1VXZPQnhRazBlQ2FkUUdUQ2x0?=
- =?utf-8?B?ZWV6eWF2N2dOR3pyV0g0WmptUXNyc1c3NjQzVlhLdU5wbzNsb1Y1eHZBQytI?=
- =?utf-8?B?bHBYL2VRK3JLcy94dUg0cGpiYzl3WkplcDY2NUdNTHB0dEZUQWxKdFdEZSty?=
- =?utf-8?B?aVVzRlNSTC9MK0xMYWI1UnhDT1JCYVRtRFVsMkU1cTBwSFlkaDlmZkxTUWI2?=
- =?utf-8?B?YXRKUzB0aFRRcSt0N3I1bzZSODMxOXR5TWQyMUptSW9ERHoxSFdmSGdpUUox?=
- =?utf-8?B?MG9ERGg5bEFKOFpRTEFVN0N5cEplUXN0R2M2d3dyOVZzaGE1S3JqS29qeXl5?=
- =?utf-8?B?cm1uYzZORU5EUHYwNlhrQjVoUFYwSlJUYm9TNFdVSnpVTFFCbjNDcEdEOU10?=
- =?utf-8?Q?RusY6wVQsSfnHSQWd1AfpbRB2?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 89f053f6-e547-4ec4-b126-08ddbe3b6d58
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB7326.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jul 2025 16:21:00.8320
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 8ZZpmQXl8HxXYljnWfj0ZnYdYTlOXPHqj/YZxAlFrlKvYfNoryrHdCYME3SJ6yZNdl9oiz4fjY4HFhriZtdmFg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6616
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
---------------9vkG03s23pxg8IOcjkQKChER
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+# Proposal for supporting EL1 MPU region context switch in Xen
 
+This proposal will introduce the proposed design for supporting EL1 MPU region
+context switch for guests.
 
-On 08/07/2025 16:06, Weber (US), Matthew L wrote:
->
-> Hi Ayan,
->
-Hi Matthew,
->
-> I didn’t get a chance to ask in the FuSA call today about build time 
-> configurations.  Is there a configuration that’s been “ifdef” on the 
-> original codebase to put it into a certification configuration? 
->  Wasn’t sure if there is a working/staging branch separate from the 
-> main project repository with these sort of changes.
->
-I will provide you the configuration which we are using for arm64 and 
-x86. It is mostly based of the upstream codebase. There are few features 
-like domain roles, hyperlaunch, etc which we are trying to flush out. 
-Thus, this is not the final configuration, but should be good enough to 
-get you started.
+## Purpose
 
-Hope this helps.
+We would like to be able to support the PMSAv8-64 translation regime at EL1 for
+Xen guests. We would also like to configure the number of supported MPU regions
+on a per-guest basis.
 
-> Brian and I are working on some reference configurations of Linux 
-> and/or Xen for the ELISA project and wanted to narrow the build focus 
-> on the FuSa configuration.
->
-Cool.
+## Interface:
 
-- Ayan
+We propose to add a new device tree property `mpu`, which specifies the number
+of MPU memory regions that a guest is allowed to use and governs whether the
+EL1 MPU and the PMSAv8-64 translation regime are enabled at EL1 for a guest.
 
-> Best Regards,
->
-> —
->
-> *Matthew L. Weber*
->
-> Associate Technical Fellow / ELISA Aerospace WG Chair
->
-> LinkedIn <https://www.linkedin.com/in/matthew-weber-a171527/>| GitHub 
-> <https://github.com/matthew-l-weber>| GitLab 
-> <https://gitlab.com/matthewlweber>| LXF Open Profile 
-> <https://openprofile.dev/profile/matthew.l.weber>
->
---------------9vkG03s23pxg8IOcjkQKChER
-Content-Type: text/plain; charset=UTF-8; name="xen-config-x86"
-Content-Disposition: attachment; filename="xen-config-x86"
-Content-Transfer-Encoding: base64
+The property is specified as follows:
 
-IwojIEF1dG9tYXRpY2FsbHkgZ2VuZXJhdGVkIGZpbGU7IERPIE5PVCBFRElULgojIFhlbi94ODYg
-NC4yMC4wLXJjNSBDb25maWd1cmF0aW9uCiMKQ09ORklHX0NDX0lTX0dDQz15CkNPTkZJR19HQ0Nf
-VkVSU0lPTj0xMjAyMDEKQ09ORklHX0NMQU5HX1ZFUlNJT049MApDT05GSUdfTERfSVNfR05VPXkK
-Q09ORklHX0NDX0hBU19WSVNJQklMSVRZX0FUVFJJQlVURT15CkNPTkZJR19GVU5DVElPTl9BTElH
-Tk1FTlRfMTZCPXkKQ09ORklHX0ZVTkNUSU9OX0FMSUdOTUVOVD0xNgpDT05GSUdfWDg2XzY0PXkK
-Q09ORklHX1g4Nj15CkNPTkZJR19BUkNIX0RFRkNPTkZJRz0iYXJjaC94ODYvY29uZmlncy94ODZf
-NjRfZGVmY29uZmlnIgpDT05GSUdfQ0NfSEFTX0lORElSRUNUX1RIVU5LPXkKQ09ORklHX0hBU19B
-U19DRVRfU1M9eQpDT05GSUdfSEFTX0NDX0NFVF9JQlQ9eQoKIwojIEFyY2hpdGVjdHVyZSBGZWF0
-dXJlcwojCgojCiMgU3VwcG9ydGVkIENQVSB2ZW5kb3JzCiMKQ09ORklHX0FNRD15CiMgQ09ORklH
-X0lOVEVMIGlzIG5vdCBzZXQKIyBlbmQgb2YgU3VwcG9ydGVkIENQVSB2ZW5kb3JzCgpDT05GSUdf
-NjRCSVQ9eQpDT05GSUdfTlJfQ1BVUz0xNgpDT05GSUdfTlJfTlVNQV9OT0RFUz0yCiMgQ09ORklH
-X1BWIGlzIG5vdCBzZXQKQ09ORklHX0hWTT15CkNPTkZJR19BTURfU1ZNPXkKQ09ORklHX0lOVEVM
-X1ZNWD15CkNPTkZJR19YRU5fU0hTVEs9eQojIENPTkZJR19YRU5fSUJUIGlzIG5vdCBzZXQKIyBD
-T05GSUdfU0hBRE9XX1BBR0lORyBpcyBub3Qgc2V0CiMgQ09ORklHX0JJR01FTSBpcyBub3Qgc2V0
-CiMgQ09ORklHX0hWTV9GRVAgaXMgbm90IHNldAojIENPTkZJR19YODZfUFNSIGlzIG5vdCBzZXQK
-Q09ORklHX1hFTl9BTElHTl9ERUZBVUxUPXkKIyBDT05GSUdfWEVOX0FMSUdOXzJNIGlzIG5vdCBz
-ZXQKIyBDT05GSUdfWDJBUElDX1BIWVNJQ0FMIGlzIG5vdCBzZXQKQ09ORklHX1gyQVBJQ19NSVhF
-RD15CiMgQ09ORklHX1hFTl9HVUVTVCBpcyBub3Qgc2V0CiMgQ09ORklHX0hZUEVSVl9HVUVTVCBp
-cyBub3Qgc2V0CiMgQ09ORklHX01FTV9QQUdJTkcgaXMgbm90IHNldAojIENPTkZJR19NRU1fU0hB
-UklORyBpcyBub3Qgc2V0CiMgQ09ORklHX1JFUVVJUkVfTlggaXMgbm90IHNldApDT05GSUdfQUxU
-UDJNPXkKIyBlbmQgb2YgQXJjaGl0ZWN0dXJlIEZlYXR1cmVzCgojCiMgQ29tbW9uIEZlYXR1cmVz
-CiMKQ09ORklHX0NPTVBBVD15CkNPTkZJR19DT1JFX1BBUktJTkc9eQpDT05GSUdfR1JBTlRfVEFC
-TEU9eQpDT05GSUdfQUxURVJOQVRJVkVfQ0FMTD15CkNPTkZJR19BUkNIX01BUF9ET01BSU5fUEFH
-RT15CkNPTkZJR19HRU5FUklDX0JVR19GUkFNRT15CkNPTkZJR19IQVNfQUxURVJOQVRJVkU9eQpD
-T05GSUdfSEFTX0NPTVBBVD15CkNPTkZJR19IQVNfRElUPXkKQ09ORklHX0hBU19FWF9UQUJMRT15
-CkNPTkZJR19IQVNfRkFTVF9NVUxUSVBMWT15CkNPTkZJR19IQVNfSU9QT1JUUz15CkNPTkZJR19I
-QVNfS0VYRUM9eQpDT05GSUdfSEFTX1BJUlE9eQpDT05GSUdfSEFTX1NDSEVEX0dSQU5VTEFSSVRZ
-PXkKQ09ORklHX0hBU19VQlNBTj15CkNPTkZJR19IQVNfVk1BUD15CkNPTkZJR19NRU1fQUNDRVNT
-X0FMV0FZU19PTj15CkNPTkZJR19NRU1fQUNDRVNTPXkKQ09ORklHX05FRURTX0xJQkVMRj15CkNP
-TkZJR19OVU1BPXkKCiMKIyBTcGVjdWxhdGl2ZSBoYXJkZW5pbmcKIwpDT05GSUdfSU5ESVJFQ1Rf
-VEhVTks9eQpDT05GSUdfU1BFQ1VMQVRJVkVfSEFSREVOX0FSUkFZPXkKQ09ORklHX1NQRUNVTEFU
-SVZFX0hBUkRFTl9CUkFOQ0g9eQpDT05GSUdfU1BFQ1VMQVRJVkVfSEFSREVOX0xPQ0s9eQojIGVu
-ZCBvZiBTcGVjdWxhdGl2ZSBoYXJkZW5pbmcKCiMgQ09ORklHX0RJVF9ERUZBVUxUIGlzIG5vdCBz
-ZXQKIyBDT05GSUdfSFlQRlMgaXMgbm90IHNldApDT05GSUdfSU9SRVFfU0VSVkVSPXkKIyBDT05G
-SUdfS0VYRUMgaXMgbm90IHNldAojIENPTkZJR19FRklfU0VUX1ZJUlRVQUxfQUREUkVTU19NQVAg
-aXMgbm90IHNldAojIENPTkZJR19YRU5PUFJPRiBpcyBub3Qgc2V0CiMgQ09ORklHX1hTTSBpcyBu
-b3Qgc2V0CkNPTkZJR19BUkdPPXkKCiMKIyBTY2hlZHVsZXJzCiMKIyBDT05GSUdfU0NIRURfQ1JF
-RElUIGlzIG5vdCBzZXQKQ09ORklHX1NDSEVEX0NSRURJVDI9eQojIENPTkZJR19TQ0hFRF9SVERT
-IGlzIG5vdCBzZXQKIyBDT05GSUdfU0NIRURfQVJJTkM2NTMgaXMgbm90IHNldApDT05GSUdfU0NI
-RURfTlVMTD15CkNPTkZJR19TQ0hFRF9DUkVESVQyX0RFRkFVTFQ9eQojIENPTkZJR19TQ0hFRF9O
-VUxMX0RFRkFVTFQgaXMgbm90IHNldApDT05GSUdfU0NIRURfREVGQVVMVD0iY3JlZGl0MiIKIyBl
-bmQgb2YgU2NoZWR1bGVycwoKIyBDT05GSUdfTElWRVBBVENIIGlzIG5vdCBzZXQKIyBDT05GSUdf
-RU5GT1JDRV9VTklRVUVfU1lNQk9MUyBpcyBub3Qgc2V0CiMgQ09ORklHX1NVUFBSRVNTX0RVUExJ
-Q0FURV9TWU1CT0xfV0FSTklOR1MgaXMgbm90IHNldApDT05GSUdfQ01ETElORT0iIgpDT05GSUdf
-RE9NMF9NRU09IiIKIyBDT05GSUdfVFJBQ0VCVUZGRVIgaXMgbm90IHNldAojIGVuZCBvZiBDb21t
-b24gRmVhdHVyZXMKCiMKIyBEZXZpY2UgRHJpdmVycwojCkNPTkZJR19BQ1BJPXkKQ09ORklHX0FD
-UElfTEVHQUNZX1RBQkxFU19MT09LVVA9eQpDT05GSUdfQUNQSV9OVU1BPXkKQ09ORklHX0hBU19O
-UzE2NTUwPXkKQ09ORklHX0hBU19FSENJPXkKQ09ORklHX1NFUklBTF9UWF9CVUZTSVpFPTMyNzY4
-CiMgQ09ORklHX1hIQ0kgaXMgbm90IHNldApDT05GSUdfSEFTX0NQVUZSRVE9eQpDT05GSUdfSEFT
-X1BBU1NUSFJPVUdIPXkKQ09ORklHX0FNRF9JT01NVT15CiMgQ09ORklHX0lOVEVMX0lPTU1VIGlz
-IG5vdCBzZXQKIyBDT05GSUdfSU9NTVVfUVVBUkFOVElORV9OT05FIGlzIG5vdCBzZXQKQ09ORklH
-X0lPTU1VX1FVQVJBTlRJTkVfQkFTSUM9eQojIENPTkZJR19JT01NVV9RVUFSQU5USU5FX1NDUkFU
-Q0hfUEFHRSBpcyBub3Qgc2V0CkNPTkZJR19IQVNfUENJPXkKQ09ORklHX0hBU19QQ0lfTVNJPXkK
-Q09ORklHX1ZJREVPPXkKQ09ORklHX1ZHQT15CkNPTkZJR19IQVNfVlBDST15CiMgZW5kIG9mIERl
-dmljZSBEcml2ZXJzCgpDT05GSUdfRVhQRVJUPXkKQ09ORklHX1VOU1VQUE9SVEVEPXkKQ09ORklH
-X0FSQ0hfU1VQUE9SVFNfSU5UMTI4PXkKQ09ORklHX0FSQ0hfVkNQVV9JT1JFUV9DT01QTEVUSU9O
-PXkKCiMKIyBEZWJ1Z2dpbmcgT3B0aW9ucwojCkNPTkZJR19ERUJVRz15CiMgQ09ORklHX0dEQlNY
-IGlzIG5vdCBzZXQKIyBDT05GSUdfRlJBTUVfUE9JTlRFUiBpcyBub3Qgc2V0CiMgQ09ORklHX1NF
-TEZfVEVTVFMgaXMgbm90IHNldAojIENPTkZJR19DT1ZFUkFHRSBpcyBub3Qgc2V0CiMgQ09ORklH
-X0RFQlVHX0xPQ0tfUFJPRklMRSBpcyBub3Qgc2V0CiMgQ09ORklHX0RFQlVHX0xPQ0tTIGlzIG5v
-dCBzZXQKIyBDT05GSUdfUEVSRl9DT1VOVEVSUyBpcyBub3Qgc2V0CkNPTkZJR19WRVJCT1NFX0RF
-QlVHPXkKIyBDT05GSUdfU0NSVUJfREVCVUcgaXMgbm90IHNldApDT05GSUdfVUJTQU49eQpDT05G
-SUdfVUJTQU5fRkFUQUw9eQojIENPTkZJR19ERUJVR19UUkFDRSBpcyBub3Qgc2V0CiMgQ09ORklH
-X1hNRU1fUE9PTF9QT0lTT04gaXMgbm90IHNldApDT05GSUdfREVCVUdfSU5GTz15CiMgZW5kIG9m
-IERlYnVnZ2luZyBPcHRpb25zCg==
+- mpu
+    Optional. A 32-bit integer specifying the value returned by accesses to
+    MPUIR_EL1.REGION (or MPUIR.REGION on AArch32). This property also governs
+    whether the EL1 MPU and the PMSAv8-64 translation regime are enabled at EL1.
 
---------------9vkG03s23pxg8IOcjkQKChER
-Content-Type: text/plain; charset=UTF-8; name="xen-config-arm"
-Content-Disposition: attachment; filename="xen-config-arm"
-Content-Transfer-Encoding: base64
+    Behavior:
 
-IwojIEF1dG9tYXRpY2FsbHkgZ2VuZXJhdGVkIGZpbGU7IERPIE5PVCBFRElULgojIFhlbi9hcm0g
-NC4yMC4wLXJjNSBDb25maWd1cmF0aW9uCiMKQ09ORklHX0NDX0lTX0dDQz15CkNPTkZJR19HQ0Nf
-VkVSU0lPTj0xNDAyMDAKQ09ORklHX0NMQU5HX1ZFUlNJT049MApDT05GSUdfTERfSVNfR05VPXkK
-Q09ORklHX0NDX0hBU19WSVNJQklMSVRZX0FUVFJJQlVURT15CkNPTkZJR19DQ19IQVNfQVNNX0dP
-VE9fT1VUUFVUPXkKQ09ORklHX0NDX0hBU19NQ0RDPXkKQ09ORklHX0ZVTkNUSU9OX0FMSUdOTUVO
-VF80Qj15CkNPTkZJR19GVU5DVElPTl9BTElHTk1FTlQ9NApDT05GSUdfQVJNXzY0PXkKQ09ORklH
-X0FSTT15CkNPTkZJR19BUkNIX0RFRkNPTkZJRz0iYXJjaC9hcm0vY29uZmlncy9hcm02NF9kZWZj
-b25maWciCgojCiMgQXJjaGl0ZWN0dXJlIEZlYXR1cmVzCiMKQ09ORklHX1BBRERSX0JJVFM9NDgK
-Q09ORklHX01NVT15CiMgQ09ORklHX01QVSBpcyBub3Qgc2V0CkNPTkZJR182NEJJVD15CkNPTkZJ
-R19OUl9DUFVTPTE2CiMgQ09ORklHX0FDUEkgaXMgbm90IHNldApDT05GSUdfQVJNX0VGST15CiMg
-Q09ORklHX0dJQ1YyIGlzIG5vdCBzZXQKQ09ORklHX0RPTTBMRVNTX0JPT1Q9eQpDT05GSUdfR0lD
-VjM9eQpDT05GSUdfSEFTX0lUUz15CiMgQ09ORklHX09WRVJMQVlfRFRCIGlzIG5vdCBzZXQKIyBD
-T05GSUdfVkdJQ1YyIGlzIG5vdCBzZXQKQ09ORklHX0hWTT15CiMgQ09ORklHX05FV19WR0lDIGlz
-IG5vdCBzZXQKQ09ORklHX1NCU0FfVlVBUlRfQ09OU09MRT15CiMgQ09ORklHX0hXRE9NX1ZVQVJU
-IGlzIG5vdCBzZXQKQ09ORklHX0FSTV9TU0JEPXkKQ09ORklHX0hBUkRFTl9CUkFOQ0hfUFJFRElD
-VE9SPXkKIyBDT05GSUdfQVJNNjRfU1ZFIGlzIG5vdCBzZXQKCiMKIyBURUUgbWVkaWF0b3JzCiMK
-IyBDT05GSUdfT1BURUUgaXMgbm90IHNldAojIENPTkZJR19GRkEgaXMgbm90IHNldAojIGVuZCBv
-ZiBURUUgbWVkaWF0b3JzCgpDT05GSUdfU1RBVElDX1NITT15CkNPTkZJR19TVEFUSUNfRVZUQ0hO
-PXkKQ09ORklHX1BBUlRJQUxfRU1VTEFUSU9OPXkKCiMKIyBGaXJtd2FyZSBEcml2ZXJzCiMKQ09O
-RklHX1NDTUlfU01DPXkKIyBlbmQgb2YgRmlybXdhcmUgRHJpdmVycwoKQ09ORklHX1BDSV9QQVNT
-VEhST1VHSD15CiMgZW5kIG9mIEFyY2hpdGVjdHVyZSBGZWF0dXJlcwoKIwojIEFSTSBlcnJhdGEg
-d29ya2Fyb3VuZCB2aWEgdGhlIGFsdGVybmF0aXZlIGZyYW1ld29yawojCkNPTkZJR19BUk02NF9F
-UlJBVFVNXzgyNzMxOT15CkNPTkZJR19BUk02NF9FUlJBVFVNXzgyNDA2OT15CkNPTkZJR19BUk02
-NF9FUlJBVFVNXzgxOTQ3Mj15CkNPTkZJR19BUk02NF9FUlJBVFVNXzg0MzQxOT15CkNPTkZJR19B
-Uk02NF9FUlJBVFVNXzgzMjA3NT15CkNPTkZJR19BUk02NF9FUlJBVFVNXzgzNDIyMD15CkNPTkZJ
-R19BUk1fRVJSQVRVTV84NTg5MjE9eQpDT05GSUdfQVJNNjRfV09SS0FST1VORF9SRVBFQVRfVExC
-ST15CkNPTkZJR19BUk02NF9FUlJBVFVNXzEyODY4MDc9eQpDT05GSUdfQVJNNjRfRVJSQVRVTV8x
-NTA4NDEyPXkKIyBlbmQgb2YgQVJNIGVycmF0YSB3b3JrYXJvdW5kIHZpYSB0aGUgYWx0ZXJuYXRp
-dmUgZnJhbWV3b3JrCgpDT05GSUdfQVJNNjRfSEFSREVOX0JSQU5DSF9QUkVESUNUT1I9eQpDT05G
-SUdfQUxMX1BMQVQ9eQojIENPTkZJR19RRU1VIGlzIG5vdCBzZXQKIyBDT05GSUdfUkNBUjMgaXMg
-bm90IHNldAojIENPTkZJR19NUFNPQyBpcyBub3Qgc2V0CiMgQ09ORklHX1MzMkczIGlzIG5vdCBz
-ZXQKIyBDT05GSUdfTk9fUExBVCBpcyBub3Qgc2V0CkNPTkZJR19BTEw2NF9QTEFUPXkKQ09ORklH
-X01QU09DX1BMQVRGT1JNPXkKCiMKIyBDb21tb24gRmVhdHVyZXMKIwpDT05GSUdfR1JBTlRfVEFC
-TEU9eQpDT05GSUdfUERYX0NPTVBSRVNTSU9OPXkKQ09ORklHX0hBU19BTFRFUk5BVElWRT15CkNP
-TkZJR19IQVNfREVWSUNFX1RSRUU9eQpDT05GSUdfSEFTX0ZBU1RfTVVMVElQTFk9eQpDT05GSUdf
-SEFTX0xMQ19DT0xPUklORz15CkNPTkZJR19IQVNfUE1BUD15CkNPTkZJR19IQVNfVUJTQU49eQpD
-T05GSUdfSEFTX1ZNQVA9eQojIENPTkZJR19NRU1fQUNDRVNTIGlzIG5vdCBzZXQKQ09ORklHX1NU
-QVRJQ19NRU1PUlk9eQoKIwojIFNwZWN1bGF0aXZlIGhhcmRlbmluZwojCkNPTkZJR19TUEVDVUxB
-VElWRV9IQVJERU5fQVJSQVk9eQojIGVuZCBvZiBTcGVjdWxhdGl2ZSBoYXJkZW5pbmcKCiMgQ09O
-RklHX0hZUEZTIGlzIG5vdCBzZXQKQ09ORklHX0lPUkVRX1NFUlZFUj15CiMgQ09ORklHX0VGSV9T
-RVRfVklSVFVBTF9BRERSRVNTX01BUCBpcyBub3Qgc2V0CiMgQ09ORklHX1hTTSBpcyBub3Qgc2V0
-CkNPTkZJR19BUkdPPXkKCiMKIyBTY2hlZHVsZXJzCiMKIyBDT05GSUdfU0NIRURfQ1JFRElUIGlz
-IG5vdCBzZXQKQ09ORklHX1NDSEVEX0NSRURJVDI9eQojIENPTkZJR19TQ0hFRF9SVERTIGlzIG5v
-dCBzZXQKIyBDT05GSUdfU0NIRURfQVJJTkM2NTMgaXMgbm90IHNldApDT05GSUdfU0NIRURfTlVM
-TD15CkNPTkZJR19TQ0hFRF9DUkVESVQyX0RFRkFVTFQ9eQojIENPTkZJR19TQ0hFRF9OVUxMX0RF
-RkFVTFQgaXMgbm90IHNldApDT05GSUdfU0NIRURfREVGQVVMVD0iY3JlZGl0MiIKIyBlbmQgb2Yg
-U2NoZWR1bGVycwoKQ09ORklHX0JPT1RfVElNRV9DUFVQT09MUz15CiMgQ09ORklHX0xJVkVQQVRD
-SCBpcyBub3Qgc2V0CiMgQ09ORklHX0VORk9SQ0VfVU5JUVVFX1NZTUJPTFMgaXMgbm90IHNldApD
-T05GSUdfU1VQUFJFU1NfRFVQTElDQVRFX1NZTUJPTF9XQVJOSU5HUz15CkNPTkZJR19DTURMSU5F
-PSIiCkNPTkZJR19ET00wX01FTT0iIgpDT05GSUdfRFRCX0ZJTEU9IiIKIyBDT05GSUdfVFJBQ0VC
-VUZGRVIgaXMgbm90IHNldAojIENPTkZJR19MTENfQ09MT1JJTkcgaXMgbm90IHNldAojIGVuZCBv
-ZiBDb21tb24gRmVhdHVyZXMKCiMKIyBEZXZpY2UgRHJpdmVycwojCkNPTkZJR19HRU5FUklDX1VB
-UlRfSU5JVD15CiMgQ09ORklHX0hBU19OUzE2NTUwIGlzIG5vdCBzZXQKIyBDT05GSUdfSEFTX0NB
-REVOQ0VfVUFSVCBpcyBub3Qgc2V0CiMgQ09ORklHX0hBU19MSU5GTEVYIGlzIG5vdCBzZXQKIyBD
-T05GSUdfSEFTX0lNWF9MUFVBUlQgaXMgbm90IHNldAojIENPTkZJR19IQVNfTVZFQlUgaXMgbm90
-IHNldAojIENPTkZJR19IQVNfTUVTT04gaXMgbm90IHNldApDT05GSUdfSEFTX1BMMDExPXkKIyBD
-T05GSUdfSEFTX09NQVAgaXMgbm90IHNldAojIENPTkZJR19IQVNfU0NJRiBpcyBub3Qgc2V0CkNP
-TkZJR19TRVJJQUxfVFhfQlVGU0laRT0zMjc2OApDT05GSUdfSEFTX1BBU1NUSFJPVUdIPXkKIyBD
-T05GSUdfQVJNX1NNTVUgaXMgbm90IHNldApDT05GSUdfQVJNX1NNTVVfVjM9eQojIENPTkZJR19J
-UE1NVV9WTVNBIGlzIG5vdCBzZXQKQ09ORklHX0lPTU1VX0ZPUkNFX1BUX1NIQVJFPXkKIyBDT05G
-SUdfSU9NTVVfUVVBUkFOVElORV9OT05FIGlzIG5vdCBzZXQKQ09ORklHX0lPTU1VX1FVQVJBTlRJ
-TkVfQkFTSUM9eQojIENPTkZJR19JT01NVV9RVUFSQU5USU5FX1NDUkFUQ0hfUEFHRSBpcyBub3Qg
-c2V0CkNPTkZJR19IQVNfUENJPXkKQ09ORklHX0hBU19QQ0lfTVNJPXkKQ09ORklHX0hBU19WUENJ
-PXkKQ09ORklHX0hBU19WUENJX0dVRVNUX1NVUFBPUlQ9eQojIGVuZCBvZiBEZXZpY2UgRHJpdmVy
-cwoKQ09ORklHX0VYUEVSVD15CkNPTkZJR19VTlNVUFBPUlRFRD15CgojCiMgRGVidWdnaW5nIE9w
-dGlvbnMKIwpDT05GSUdfREVCVUc9eQojIENPTkZJR19GUkFNRV9QT0lOVEVSIGlzIG5vdCBzZXQK
-IyBDT05GSUdfU0VMRl9URVNUUyBpcyBub3Qgc2V0CkNPTkZJR19DT1ZFUkFHRT15CkNPTkZJR19D
-T05ESVRJT05fQ09WRVJBR0U9eQojIENPTkZJR19ERUJVR19MT0NLX1BST0ZJTEUgaXMgbm90IHNl
-dAojIENPTkZJR19ERUJVR19MT0NLUyBpcyBub3Qgc2V0CiMgQ09ORklHX1BFUkZfQ09VTlRFUlMg
-aXMgbm90IHNldApDT05GSUdfVkVSQk9TRV9ERUJVRz15CiMgQ09ORklHX0RFVklDRV9UUkVFX0RF
-QlVHIGlzIG5vdCBzZXQKIyBDT05GSUdfU0NSVUJfREVCVUcgaXMgbm90IHNldAojIENPTkZJR19V
-QlNBTiBpcyBub3Qgc2V0CiMgQ09ORklHX0RFQlVHX1RSQUNFIGlzIG5vdCBzZXQKIyBDT05GSUdf
-WE1FTV9QT09MX1BPSVNPTiBpcyBub3Qgc2V0CiMgQ09ORklHX1BDSV9ERVZJQ0VfREVCVUcgaXMg
-bm90IHNldApDT05GSUdfREVCVUdfSU5GTz15CiMgZW5kIG9mIERlYnVnZ2luZyBPcHRpb25zCg==
+    - `mpu = <0>;`
+      Disables the EL1 MPU and the PMSAv8-64 translation regime at EL1. This is
+      also the default behavior if the `mpu` property is omitted.
 
---------------9vkG03s23pxg8IOcjkQKChER--
+    - `mpu;` (property present with no value)
+      Enables the EL1 MPU and the PMSAv8-64 translation regime at EL1. The value
+      returned by accesses to MPUIR_EL1.REGION (or MPUIR.REGION on AArch32) will
+      match the actual hardware register value.
+
+    - `mpu = <N>;` (N > 0)
+      Enables the EL1 MPU and the PMSAv8-64 translation regime at EL1. The value
+      returned by accesses to MPUIR_EL1.REGION (or MPUIR.REGION on AArch32) is
+      set to N. This value must not exceed the actual hardware-supported number
+      of regions.
+
+    Domain creation will fail and the system will halt if:
+
+    - A non-zero value is specified but exceeds the hardware-supported number of
+      MPU regions.
+
+    - A non-zero value is specified but the kernel is not built with
+      `CONFIG_MPU`.
+
+A new field - `nr_mpu_regions` - will be added to the arm-specific
+`struct arch_domain` in xen/arch/arm/include/asm/domain.h to store the value of
+the `mpu` device tree property. The field has type uint8_t.
+
+## Trapping and Emulation:
+
+In order to control the number of regions supported by the EL1 MPU we must trap
+accesses to MPUIR_EL1. Additionally, to prevent accesses to or modification of
+MPU regions outside of the range of the configured number of supported regions
+we must also trap accesses to PRENR_EL1, PRSELR_EL1, PRBAR_EL1, PRBAR<n>_EL1,
+PRLAR_EL1, PRLAR<n>_EL1 (AArch64) and PRSELR, PRBAR, PRBAR<n>, PRLAR, PRLAR<n>
+(AArch32).
+
+### Trapping accesses to MPUIR_EL1 (AArch64) and MPUIR (AArch32):
+
+Access to MPUIR_EL1/MPUIR will be trapped and emulated, returning the value of
+the `nr_mpu_regions` field.
+
+- On AArch64: if HCR_EL2.TID1 == 1, EL1 accesses to MPUIR_EL1, REVIDR_EL1,
+  AIDR_EL1 are trapped to EL2 [^1]. We will emulate these as follows:
+
+    - MPUIR_EL1: return value of `nr_mpu_regions` field
+    - REVIDR_EL1: Unmodified value read from hardware
+    - AIDR_EL1: Unmodified value read from hardware
+
+- On AArch32: if HCR.TID1 == 1, EL1 accesses to MPUIR, TCMTR, TLBTR, REVIDR,
+  AIDR are trapped to Hyp mode [^2].
+
+    - MPUIR: return value of `nr_mpu_regions` field
+    - TCMTR: Unmodified value read from hardware
+    - TLBTR: Unmodified value read from hardware
+    - REVIDR: Unmodified value read from hardware
+    - AIDR: Unmodified value read from hardware
+
+### Trapping accesses to virtual memory control registers
+
+Accesses to the PMSAv8-64 virtual memory control registers from EL1 must also be
+trapped to EL2, to prevent modification of MPU regions outside of the range of
+the configured number of supported regions.
+
+- On AArch64: if HCR_EL2.TVM == 1, EL1 write accesses to virtual memory control
+  registers are trapped to EL2 [^1]. We will emulate these as follows:
+    - SCTLR_EL1: Unmodified value written to hardware
+	- TTBR0_EL: Unmodified value written to hardware
+	- TTBR1_EL: Unmodified value written to hardware
+	- TCR_EL1: Unmodified value written to hardware
+	- ESR_EL1: Unmodified value written to hardware
+	- FAR_EL1: Unmodified value written to hardware
+	- AFSR0_EL1: Unmodified value written to hardware
+	- AFSR1_EL1: Unmodified value written to hardware
+	- MAIR_EL1: Unmodified value written to hardware
+	- AMAIR_EL1: Unmodified value written to hardware
+	- CONTEXTIDR_EL1: Unmodified value written to hardware
+    - PRENR_EL1: If value has any set bits in positions corresponding to MPU
+      regions >= `nr_mpu_regions`, i.e. `value & ~((1U << nr_mpu_regions) - 1)`
+      is non-zero, the write is ignored. Otherwise, the unmodified value is
+      written to hardware.
+    - PRSELR_EL1: If value >= `nr_mpu_regions` the write causes a guest crash.
+      This deviates from the TRM, which states that the value of the register
+      becomes UNKNOWN. Otherwise, the unmodified value is written to hardware.
+	- PRBAR_EL1: Unmodified value written to hardware.
+	- PRBAR<n>_EL1: If `n` is such that the value of `PRSELR_EL1.REGION<7:4>:n`
+      >= `nr_mpu_regions` the write causes a guest crash. This deviates from the
+      TRM, which states that invalid writes make all PRBAR_EL1 registers value
+      UNKNOWN. Otherwise the unmodified value is written to hardware.
+	- PRLAR_EL1: Unmodified value written to hardware.
+	- PRLAR<n>_EL1: If `n` is such that the value of `PRSELR_EL1.REGION<7:4>:n`
+      >= `nr_mpu_regions` the write causes a guest crash. This deviates from the
+      TRM, which states that invalid writes make all PRBAR_EL1 registers value
+      UNKNOWN. Otherwise the unmodified value is written to hardware.
+
+- On AArch64: if HCR_EL2.TRVM == 1, EL1 read accesses to virtual memory control
+  registers are trapped to EL2 [^1]. We will emulate these as follows:
+    - SCTLR_EL1: Unmodified value read from hardware
+	- TTBR0_EL: Unmodified value read from hardware
+	- TTBR1_EL: Unmodified value read from hardware
+	- TCR_EL1: Unmodified value read from hardware
+	- ESR_EL1: Unmodified value read from hardware
+	- FAR_EL1: Unmodified value read from hardware
+	- AFSR0_EL1: Unmodified value read from hardware
+	- AFSR1_EL1: Unmodified value read from hardware
+	- MAIR_EL1: Unmodified value read from hardware
+	- AMAIR_EL1: Unmodified value read from hardware
+	- CONTEXTIDR_EL1: Unmodified value read from hardware
+    - PRENR_EL1: Unmodified value read from hardware
+    - PRSELR_EL1: Unmodified value read from hardware
+	- PRBAR_EL1: Unmodified value read from hardware.
+	- PRBAR<n>_EL1: If `n` is such that the value of `PRSELR_EL1.REGION<7:4>:n`
+      >= `nr_mpu_regions` the read causes a guest crash. This deviates from the
+      TRM which states that invalid reads return an UNKNOWN value. Otherwise the
+      unmodified value is read from hardware.
+	- PRLAR_EL1: Unmodified value read from hardware.
+	- PRLAR<n>_EL1: If `n` is such that the value of `PRSELR_EL1.REGION<7:4>:n`
+      >= `nr_mpu_regions` the read causes a guest crash. This deviates from the
+      TRM which states that invalid reads return an UNKNOWN value. Otherwise the
+      unmodified value is read from hardware.
+
+- On AArch32: if HCR.TVM == 1, EL1 write accesses to memory control registers
+  are trapped to Hyp mode [^2]. We will emulate these as follows:
+    - SCTLR: Unmodified value written to hardware
+	- DFSR: Unmodified value written to hardware
+	- IFSR: Unmodified value written to hardware
+	- DFAR: Unmodified value written to hardware
+	- IFAR: Unmodified value written to hardware
+	- ADFSR: Unmodified value written to hardware
+	- AIFSR: Unmodified value written to hardware
+	- PRRR: Unmodified value written to hardware
+	- NMRR: Unmodified value written to hardware
+	- MAIR0: Unmodified value written to hardware
+	- MAIR1: Unmodified value written to hardware
+	- AMAIR0: Unmodified value written to hardware
+	- AMAIR1: Unmodified value written to hardware
+	- CONTEXTIDR: Unmodified value written to hardware
+    - PRSELR: If value >= `nr_mpu_regions` the write causes a guest crash.
+      Otherwise, the unmodified value is written to hardware.
+	- PRBAR: Unmodified value written to hardware
+	- PRBAR<n>: If `n` >= `nr_mpu_regions` the write causes a guest crash.
+      Otherwise the unmodified value is written to hardware.
+	- PRLAR: Unmodified value written to hardware
+	- PRLAR<n>: If `n` >= `nr_mpu_regions` the write causes a guest crash.
+      Otherwise the unmodified value is written to hardware.
+
+- On AArch32: if HCR.TRVM == 1, EL1 read accesses to memory control registers
+  are trapped to Hyp mode [^2]. We will emulate these as follows:
+    - SCTLR: Unmodified value read from hardware
+	- DFSR: Unmodified value read from hardware
+	- IFSR: Unmodified value read from hardware
+	- DFAR: Unmodified value read from hardware
+	- IFAR: Unmodified value read from hardware
+	- ADFSR: Unmodified value read from hardware
+	- AIFSR: Unmodified value read from hardware
+	- PRRR: Unmodified value read from hardware
+	- NMRR: Unmodified value read from hardware
+	- MAIR0: Unmodified value read from hardware
+	- MAIR1: Unmodified value read from hardware
+	- AMAIR0: Unmodified value read from hardware
+	- AMAIR1: Unmodified value read from hardware
+	- CONTEXTIDR: Unmodified value read from hardware
+
+    - PRSELR: Unmodified value read from hardware
+	- PRBAR: Unmodified value read from hardware.
+	- PRBAR<n>: If `n` >= `nr_mpu_regions` the read causes a guest crash.
+      Otherwise the unmodified value is read from hardware.
+	- PRLAR: Unmodified value read from hardware
+	- PRLAR<n>: If `n` >= `nr_mpu_regions` the read causes a guest crash.
+      Otherwise the unmodified value is read from hardware.
+
+On context switch, we need to ensure that:
+- PRSELR_EL1 (AArch64) and PRSELR (AArch32) is saved/restored
+- Base and Limit registers for all MPU regions up to the number of regions
+  supported by the guest, i.e. regions [0, nr_mpu_regions-1] are saved/restored.
+  It is not necessary to zero the MPU memory regions outside of this range, as
+  these are rendered inaccessible to a guest via trapping and emulation of the
+  virtual memory control registers.
+
+## Interaction with existing handling of Set/Way operations
+
+In order to handle Set/Way operations the following policy is used [^3]:
+
+- If we trap a S/W operation, we enable VM trapping (HCR_EL2.TVM/HCR.TVM == 1)
+  to detect caches being turned on/off, and do a full clean.
+- Once the caches are enabled, we disable VM trapping (HCR_EL2.TVM/HCR.TVM == 0)
+
+This causes an issue, because VM control register trapping will be switched off
+any time caches change state from disabled to enabled. We propose to address
+this by not disabling VM control register trapping once caches are enabled for
+PMSAv8-64 guests.
+
+## Considerations:
+
+- If we zero the non-accessible Base/Limit registers on context switch then we
+  could avoid trapping read accesses to virtual memory control registers. The
+  trade-off here would be additional overhead on context switch due to zeroing
+  the maximum number of architecturally supported MPU regions (255).
+
+[^1] https://developer.arm.com/documentation/ddi0487/latest (G1.3.3)
+[^2] https://developer.arm.com/documentation/ddi0487/latest (E2.1.5)
+[^3] https://gitlab.com/xen-project/xen/-/blob/staging/xen/arch/arm/p2m.c#L404-L431
+---
+Cheers,
+Hari
 
