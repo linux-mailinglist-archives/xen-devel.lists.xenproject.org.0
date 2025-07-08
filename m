@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 02139AFCDF7
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Jul 2025 16:41:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1036735.1409111 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E4EBAFCE40
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Jul 2025 16:53:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1036776.1409222 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uZ9VT-0000Lh-3E; Tue, 08 Jul 2025 14:41:15 +0000
+	id 1uZ9gk-0003Ep-8G; Tue, 08 Jul 2025 14:52:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1036735.1409111; Tue, 08 Jul 2025 14:41:15 +0000
+Received: by outflank-mailman (output) from mailman id 1036776.1409222; Tue, 08 Jul 2025 14:52:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uZ9VT-0000JM-0c; Tue, 08 Jul 2025 14:41:15 +0000
-Received: by outflank-mailman (input) for mailman id 1036735;
- Tue, 08 Jul 2025 14:41:13 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=xEP0=ZV=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1uZ9VR-0000J8-7u
- for xen-devel@lists.xenproject.org; Tue, 08 Jul 2025 14:41:13 +0000
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [2a00:1450:4864:20::62b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 926f179b-5c09-11f0-b894-0df219b8e170;
- Tue, 08 Jul 2025 16:41:03 +0200 (CEST)
-Received: by mail-ej1-x62b.google.com with SMTP id
- a640c23a62f3a-ae401ebcbc4so730805466b.1
- for <xen-devel@lists.xenproject.org>; Tue, 08 Jul 2025 07:41:03 -0700 (PDT)
-Received: from [192.168.50.23] ([188.89.134.172])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-ae3f66e6f25sm898684266b.20.2025.07.08.07.40.58
+	id 1uZ9gk-0003C5-4W; Tue, 08 Jul 2025 14:52:54 +0000
+Received: by outflank-mailman (input) for mailman id 1036776;
+ Tue, 08 Jul 2025 14:52:52 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=mjd+=ZV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uZ9gi-0003Bz-35
+ for xen-devel@lists.xenproject.org; Tue, 08 Jul 2025 14:52:52 +0000
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [2a00:1450:4864:20::42a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 3859daf7-5c0b-11f0-a317-13f23c93f187;
+ Tue, 08 Jul 2025 16:52:51 +0200 (CEST)
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-3a507e88b0aso3497358f8f.1
+ for <xen-devel@lists.xenproject.org>; Tue, 08 Jul 2025 07:52:50 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-74ce4180970sm11979237b3a.93.2025.07.08.07.52.44
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 08 Jul 2025 07:40:59 -0700 (PDT)
+ Tue, 08 Jul 2025 07:52:49 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,112 +45,113 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 926f179b-5c09-11f0-b894-0df219b8e170
+X-Inumbo-ID: 3859daf7-5c0b-11f0-a317-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1751985662; x=1752590462; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1751986370; x=1752591170; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=kPF0OET4ZKGRKhfWGQRPazcps0cQIMR3oYf/Y6aK2Og=;
-        b=nOPQG2qojGNg+ek3/d+A7GdtMHepnHBFX0Qv3WhGA1vfraIP9zYN/tKIlWVLhDY+qg
-         3NhPoRRQbjY5IvdgFSHUv8aM/IKBivhmwwkD7q3G4XlXzSqgkJ9MkLK1n8pw4cqEY4kQ
-         RtUFXqRbO5BWoSp3d5/cHZNqco16fY82X9Dm8=
+        bh=WcOmGJzcOzd70Nj8coSFnxaDnV9O0qqqKpu2vlZbB4c=;
+        b=TU9mLz+ubRG0dcET7EJxCynMmd3OZQhND7LT2UczvljWzhVFqQ3nrAnG3r6/ReroHz
+         9TUQJuDj9loHa3QD4yXUHNH2cLklumWPMlR6uzmhNbPcm1L/j1IoSZb2OoVDQO4yK52a
+         iTGTNQYQujWtp/0kDg1f6PPK6mCxqV9ybUwabND960dl2lRZ8QnccRy6bg1+hMjUIjX/
+         d1tdhFP4xMJsSpNnFTFAONv2ruaORDp+276fYaLjMZxQzwbKGaH5EmMNEph7oRGTm7Tr
+         XhV5sk24iWtVDaV2KSR+LwbMDwk8qpZJrBLSFht1C0vt8qrZ3FW1f1LvKOziITHKoPkO
+         rQbQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1751985662; x=1752590462;
+        d=1e100.net; s=20230601; t=1751986370; x=1752591170;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=kPF0OET4ZKGRKhfWGQRPazcps0cQIMR3oYf/Y6aK2Og=;
-        b=oX96diH96bIkxcjLwXZQDQNm4HENzTGxCf8eROIjvJiv2DtLc3sQdfQgXGX7mkumzC
-         bz+z7NkZTzgiLzLsEd31xlmBW7lgfY2BN2S6o+bfwJyBxg4r3tF9cqqAXQKmlcN/+pkZ
-         vE+AdJdc2V0ohi5XKzP52phP+WCmnpyw74wG4rgm9T69hHuoJLdzOr0aFQWxeujVTc9d
-         9b+lsZf8lrScR3L15GMnyLe6a9SHs6wk3sFxFElT/gKJZIogcGXEmPjKBOFqTQrvK9ad
-         ebrexRAPgx3uvRCUob8y1nBAc0YweZcxt0suIGqvQ+nWndDbjRlWeynbgLynovbr/BjQ
-         b7Vg==
-X-Forwarded-Encrypted: i=1; AJvYcCXiJ1vwXvRO8a9AJ3kYDkNXZP4I4IYoTa1Rjaf6jxg/jtAwo+pSrnzT1JhWSRUAY5VUVobTTIOdt0g=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwnozYJfoQVPKvFgBH4up2ayjz/S5tAosPGbIkbSIapRpvmJNZZ
-	oWC4TEE/pRJPPp9IiuOpgaVHiFDv7bWYf9lkOQtbQLbpQvEqe0ZfSF+GrBbcKxby13A=
-X-Gm-Gg: ASbGnctsuHUZzyQz5s1Uc12pgiKcTS3G1FggDRvaKTsOXl1w321TzYnHDwuIMKfiKQA
-	fLOgJ+h5uHWlTSym8Og+iwh+DJbABKWMGwtOMbJzeuPfvY6g0lkHN5Gloi3W0fXjMp2w/JJ90jr
-	0eyTE8S4Yk5+By2+bR7wBFFlemyVaPaRdVqNOTPC+deYwSN5M2OwwP2dk0hnle157kduPGnVVTU
-	0/chbIr4+tLzUZjzz9L+3DgU+gD6keHK5QFJuJtPv80WxtER2UNFlFwPfhZho2WcAunhPSROvRf
-	ytDQ1dNPiaEH1cyEa7KdZtgxSqiNOsn132rKfIRAelLGAP8BoqszEvcKZBe0KhuOcdU+TuetMqQ
-	=
-X-Google-Smtp-Source: AGHT+IFMm2X0AjoKSvUuMJaoHjjYf6vQuGg6PIeEZuKei8yVwftbukDNbZC38uw0Ky2tT3m/cVVWSA==
-X-Received: by 2002:a17:907:d584:b0:ae0:c8b2:3fc0 with SMTP id a640c23a62f3a-ae6b0049675mr429183166b.10.1751985662420;
-        Tue, 08 Jul 2025 07:41:02 -0700 (PDT)
-Message-ID: <ecbd3cf2-f080-4938-a31f-cebebb68cbc3@citrix.com>
-Date: Tue, 8 Jul 2025 15:40:57 +0100
+        bh=WcOmGJzcOzd70Nj8coSFnxaDnV9O0qqqKpu2vlZbB4c=;
+        b=AvU33i7yMVIqgt0VplvGSZcPKLDK7f62J5ejJgJcscopgsT1mxxN/j3Pl1/mDoW7GI
+         wCSdHmh5fWFTOI+Heny8B332DnezGbilsRQwYAelsvc1iZnzyf3tNXOfwAmFJ3CYsmyQ
+         /oKBKpUWRb1H4W6A92s4b7eKpiF2E7fSj5RSQhGQFlYxh3DFbqK4WdB8yEHlGOnyaUGM
+         nnFtUFgBgcS6CFPjzmD6wQht6OYipreXkvPU8VTYnS7HvJUQYCl3LaKOW6Os0iC/RHqN
+         SF8RScHp76s1S1OhcsBF0i/68v65j6ldfL9yfshPV6Lt4rkXPk0UhAv2+pNNtUnkdciW
+         cvBA==
+X-Forwarded-Encrypted: i=1; AJvYcCXnvfxtYjjnrCB3EuK9/R2HgUfi0mYQN64+d8YQsxqb0RlfwqxVglpkASpq2NGJ6KYEHftyzvAl3ig=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzFyKTrgebpv4jP0Zr5ijowqsbubEeiyXJ0eYz+SupRjmClEaSe
+	C5yQsqDGviKRPcT7sPq4MiOcrQX3P3Eq8vc7STVqzDA/M6JH87QZ0Nx1+tSl2yRrsw==
+X-Gm-Gg: ASbGncvn3/9B5EFh8NE54/NJWyBOyB1IP+flAznR1+03ApJOIIUSkVATQpsnjLlOyKP
+	8D/eS5+kpPMHShgJdi1Hbvgv6g9sUerg2HYvejds9zGcNxle3bfmGlAxb7AdR+OqChfYJDkD+KG
+	s0fdpEhWvHvv5I5NS+AUbBLLlb0nhclFnXbCpSGemnO3YxRgfDcTogd0hycB2th+Lcwi0H2eyQy
+	W7VjudPCeKm04qm38AMtemFuw+N5QPESx8vZAdViLy0EnNGnzAs6tQw8FA/FnWhPwA0ss3scY4E
+	FJziHIa6zN2mnjJ2kuD8Vx21dKQZ2HsL6PCF1VAVZvTDulYQ47n2pFUWj2Gc4RKgtFR8Se6wund
+	htz0DYrib6yt90vu0APA1SJIZIDnN/8MyncSke7nw1HNxD1g=
+X-Google-Smtp-Source: AGHT+IEfvOCRDituqp/vr9eMiRWufGct6AHWYRf7P+WNSxgYCLQhUN0faQkHtz+66idGBDYzELzpBA==
+X-Received: by 2002:a05:6000:2dc7:b0:3a5:75a6:73b9 with SMTP id ffacd0b85a97d-3b4964f4d95mr13489172f8f.11.1751986370187;
+        Tue, 08 Jul 2025 07:52:50 -0700 (PDT)
+Message-ID: <6e42be51-4dfa-41bb-afe6-5b08d54be08b@suse.com>
+Date: Tue, 8 Jul 2025 16:52:40 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/9] x86/mwait-idle: (mainly) imports from Linux
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <1df49875-99b8-4302-aed7-5a75dbdd85ca@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <1df49875-99b8-4302-aed7-5a75dbdd85ca@suse.com>
+Subject: Re: [PATCH v7 2/8] vpci: Refactor REGISTER_VPCI_INIT
+To: Jiqian Chen <Jiqian.Chen@amd.com>
+Cc: Huang Rui <ray.huang@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20250704070803.314366-1-Jiqian.Chen@amd.com>
+ <20250704070803.314366-3-Jiqian.Chen@amd.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20250704070803.314366-3-Jiqian.Chen@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 08/07/2025 1:55 pm, Jan Beulich wrote:
-> ... with the exception of patch 1, which first tidies a few places. (As it
-> turns out, we've been lagging quite significantly.)
->
-> 1: adjust section annotations
-> 2: Add AlderLake-N support
-> 3: add Emerald Rapids Xeon support
-> 4: Add Meteorlake support
-> 5: add Grand Ridge SoC support
-> 6: add Sierra Forest SoC support
-> 7: add Granite Rapids Xeon support
-> 8: add Granite Rapids Xeon D support
-> 9: add Clearwater Forest SoC support
+On 04.07.2025 09:07, Jiqian Chen wrote:
+> Refactor REGISTER_VPCI_INIT to contain more capability specific
+> information, this will benefit further follow-on changes to hide
+> capability when initialization fails.
+> 
+> What's more, change the definition of init_header() since it is
+> not a capability and it is needed for all devices' PCI config space.
+> 
+> After refactor, the "priority" of initializing capabilities isn't
+> needed anymore, so delete its related codes.
+> 
+> Note:
+> Call vpci_make_msix_hole() in the end of init_msix() since the change
+> of sequence of init_header() and init_msix(). And delete the call of
+> vpci_make_msix_hole() in modify_decoding() since it is not needed.
+> 
+> The cleanup hook is also added in this change, even if it's still
+> unused. Further changes will make use of it.
+> 
+> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
+> ---
+> There is a byte alignment problem in the array __start_vpci_array, which can be solved after
+> "[PATCH] x86: don't have gcc over-align data" is merged.
 
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+I was meaning to suggest a way to actually detect the issue at build time,
+but sadly what's wanted to do so will first need adding to gas. Which now
+will likely be only after 2.45 went out.
+
+Jan
 
