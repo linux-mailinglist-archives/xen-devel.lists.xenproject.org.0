@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 69626AFC349
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Jul 2025 08:53:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1036005.1408456 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D9E88AFC38B
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Jul 2025 09:03:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1036011.1408466 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uZ2C8-0007JV-5f; Tue, 08 Jul 2025 06:52:48 +0000
+	id 1uZ2MB-0000qA-3K; Tue, 08 Jul 2025 07:03:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1036005.1408456; Tue, 08 Jul 2025 06:52:48 +0000
+Received: by outflank-mailman (output) from mailman id 1036011.1408466; Tue, 08 Jul 2025 07:03:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uZ2C8-0007Hn-2A; Tue, 08 Jul 2025 06:52:48 +0000
-Received: by outflank-mailman (input) for mailman id 1036005;
- Tue, 08 Jul 2025 06:52:46 +0000
+	id 1uZ2MB-0000nx-03; Tue, 08 Jul 2025 07:03:11 +0000
+Received: by outflank-mailman (input) for mailman id 1036011;
+ Tue, 08 Jul 2025 07:03:08 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=mjd+=ZV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uZ2C6-0007Hh-PS
- for xen-devel@lists.xenproject.org; Tue, 08 Jul 2025 06:52:46 +0000
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [2a00:1450:4864:20::433])
+ id 1uZ2M8-0000nr-Pu
+ for xen-devel@lists.xenproject.org; Tue, 08 Jul 2025 07:03:08 +0000
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [2a00:1450:4864:20::429])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 269d0704-5bc8-11f0-a316-13f23c93f187;
- Tue, 08 Jul 2025 08:52:44 +0200 (CEST)
-Received: by mail-wr1-x433.google.com with SMTP id
- ffacd0b85a97d-3b45edf2303so3702335f8f.2
- for <xen-devel@lists.xenproject.org>; Mon, 07 Jul 2025 23:52:44 -0700 (PDT)
+ id 9887a1a1-5bc9-11f0-a316-13f23c93f187;
+ Tue, 08 Jul 2025 09:03:05 +0200 (CEST)
+Received: by mail-wr1-x429.google.com with SMTP id
+ ffacd0b85a97d-3a536ecbf6fso2073532f8f.2
+ for <xen-devel@lists.xenproject.org>; Tue, 08 Jul 2025 00:03:05 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-23c845c6087sm108298185ad.258.2025.07.07.23.52.40
+ d9443c01a7336-23c845922b5sm101562515ad.199.2025.07.08.00.02.58
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 07 Jul 2025 23:52:43 -0700 (PDT)
+ Tue, 08 Jul 2025 00:03:04 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 269d0704-5bc8-11f0-a316-13f23c93f187
+X-Inumbo-ID: 9887a1a1-5bc9-11f0-a316-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1751957564; x=1752562364; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1751958185; x=1752562985; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=UEf8HutLjvV5Hb1wAexHku9NXhF3ZIt0YMGk+B9TtZM=;
-        b=C59hUj4flGxEm+Uyp/HILXRfx+s4+J5CZ1r5892pjLnfycjwy7eMe28rpr6x6o4qHk
-         bw6LXfKuTrcOfuqTMB8d7qGTbRbhceLnWV9AUekydv1Fpb/kZ1iaf+5YDqAVdlH2Q3zs
-         9TmNZbzGc0JJCUxJPyxbVgXZFbz+ywahQGK8eZ3j+jYGUOjJ8O6nYLMrVo3V9HRDN1VR
-         W2DJw+qtmQ+c6J/1k7Fq23iWlksP/ewaF4XXSnHG6rV08S/w2p7EaVgt47aDRSvgNPQO
-         nn9f16dfVZ+u49tpZ8XBmOKv2yqVXPFL/SFnxT9TUf/7OaceYaenEbfrx11zIdurMMFg
-         xntA==
+        bh=T38JzTjNx9O+oVMmAaHCYJObRElFCOc0KtQrEq5iyY4=;
+        b=PQIavVpLUSTD57Xz3PyKJtzjUiRLkJAiEYRW8pQ/Jk/JjK2AU++Al1hZuk7gUpIq9z
+         tqacpopfz/nt1lWGSu5LPCAXX1pW5mqDKwhjdYG6NgmQXNjxhXjV+EYK+8tMTYWUI3Sn
+         R7FRONJW5patbAsJUN7fIbtC9KTOQIdWmtWmm2FSGfDKJdCxswrM3aTOG21Wn+apUq1S
+         ZR0rfsXpTIpgQcRmvc2Y2iKNgq8J9uVcWrO7QVw8NxJuHdB3eQ4VSx4RYLehW16DXUsO
+         O3HvQTJf1WC333q0PYdQikaDx+Y37oWOvbKpBl8yAVkyefLFF1UqHYuH/TO8eooAl0rY
+         Cx8A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1751957564; x=1752562364;
+        d=1e100.net; s=20230601; t=1751958185; x=1752562985;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=UEf8HutLjvV5Hb1wAexHku9NXhF3ZIt0YMGk+B9TtZM=;
-        b=sXBYQ7au56PhkFEAWIvHUmOCJzQjRPUnBNZG9EWaeTjfweY2J7O0OzjPdb9DACx33n
-         8ups6oRtFd1/RUJdxQDE64T/w5kDCyZbztX/Z3mpP8hZVhyY2fTuPm4ZmqNrkfq2ZAKS
-         mtCQCp52K4nBkDtO0Ylb2pLjkoijSHPaD56EIPZzDySPx2xfs1YcIHl+0t1TDfDbSevw
-         oCUvwGElEkHSfy4esco2vHIqjSi1afI7qqQlHPef62atqGCsvEoXnpJ8aDAOgj9ipIwu
-         g+pzfqRUsVjEL9+Pa8CjjMw1zk7SZVcdbDZ6XtHtEqcigrAqQQj8T3PuKUhHz68zhm9K
-         AozA==
-X-Forwarded-Encrypted: i=1; AJvYcCWYea9SUrvIt56nO0OKFDoPDeGXsOjLSQ0l/m31Un4zF0ihUWu7M31kJfyLnVhp2unz7biq2bzcYZM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzmYTcG03oZWYONWsDjfd3GYUyBQCOw16mNyVV12UXSoB5UuVZF
-	aFyBRHBgz4ZTZN9ebRWtgCXKeQkO45o+hfVsuF9CM2Dql5fSGUI06UZUUpjz9Rd2ew==
-X-Gm-Gg: ASbGncuXuMettMpNcAF0TqzFWZurRX+QEuRCOqVZyGJzTo/otU8Z2e2pji+uhDe4UAD
-	6+CY/Jhb5qnwGaPVk5ZZoa0Y+ACViAa50dsxx4BwuN+lWJPHRcR67VaIasIwK/POEvPW3n339xv
-	9jwVuR4UEu1orfSZypbGeUqQ52JGIZAP/wNerUTanvoGwrMXuah3nj1j3vGym9ieMjbf3Y6iQ4Y
-	x+zBExfqXsbjeNtkelozJ+T3wSDo5F2Igb1y2wSbN6O/Fs51WdEMrJ7ZkSNLMNU5NjWoTsNrGml
-	ZcOqKBJR27YCWwkYxmcsn4utXKtltHEVYsaAPRUKLKyueedAEIo4rVZyBXvXT/cGd5kLqWpKYNM
-	RCQsP6Yjhm2kQQabE3uFVpdvOT2GbJhAZUX9nnohIWFAzFsA=
-X-Google-Smtp-Source: AGHT+IHvlBFwvL9CvHRneqejhdgZHkgEmo1ww4LYiRvyVxTsmQaN0SdyTjHrjfWnkRsMpznOw1RMXw==
-X-Received: by 2002:a05:6000:218a:b0:3a5:527b:64c6 with SMTP id ffacd0b85a97d-3b5dde59bfemr1038170f8f.1.1751957564313;
-        Mon, 07 Jul 2025 23:52:44 -0700 (PDT)
-Message-ID: <05229135-00ef-4e8b-bb2d-fe9022a5023b@suse.com>
-Date: Tue, 8 Jul 2025 08:52:36 +0200
+        bh=T38JzTjNx9O+oVMmAaHCYJObRElFCOc0KtQrEq5iyY4=;
+        b=HkCtAEgQZCGJGK6V8HX4/KYcyQyhmlXerHjSqahQULsj/E/3BZ5a/G7W8yeCzwtXzI
+         J+2pjGs4zphSJoJM6bqn4VE3mSfotTPwI+ElNo7G972R77JZhulGoDGKVQQQIzOxuQtM
+         hoyrHvc8B7iqkE+/X74fMj6rgnHo3VLK725Wv5kNDBkL4bM3a4vYB18Wus0jXNw/dhgH
+         wQk9dEi+3D3OkbVhLLCAPTfyz98Ur5p6OWEC58mvqVQ/fiQtzrSTO5ZzehykH5zoCdH6
+         ghYpGEjN/WIocaw2uJidZVcVrvlaYU0lQBUL/leKMa4flGYCrvmiW0JGYRx9J95DgzgY
+         LwzA==
+X-Forwarded-Encrypted: i=1; AJvYcCWCAydeIEeE1yANU7iSUJlrow7T/PYbiWZj0mH8whfN5CG95KYtJrSVW0n2Uf/fGociIbA3gEtNJfY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx4tbB6C3ZCsfkQqCNOari/v661HNxL5JCbl/pq6271CZGLgBG9
+	0o6QD2U36rdVojS5tM/bgKP/qyvLr/u26AL/XQEveW4ovKPP7iQkMlnJN4Lqanvgkw==
+X-Gm-Gg: ASbGncveeS5oKkGStByx3qKQu1/WVS8u2wmur7rIShHvCG8RUo8u1XAtYj0VTMQ+4ep
+	HVCV6RAGZlScwfpyafwwZLwTMQPWS+0gXhdWIzJBfWjSmQmf6ogBQ14BsaRSGNkoimR7Hnf6PMZ
+	BPSGkXvWEeOpc9gxEzkgNE+Fkwu9he5DMfn5TeSWWpQtWWcP+VZS+2zg0Rnfj5aJOCkJTBGPQSz
+	1d8Hq/jKnVKSFMTcBT4oU9UDFv6F4OtpAMfdRJyOOrGryGTtihuTJ8wCS+IYhRYdtRtPTP8WXcm
+	Z+Vx4/LdQLWTRo2PsxX5X/K//Psi9Fs6t6IQBrMCkEIdRmATeG7PDJUN/YaIOaYcl3lA7AwvHPL
+	s7Do9rts2HfTt+zY+MsSnpFD3J7cK7zwYFp4xavf3PRTmBf8=
+X-Google-Smtp-Source: AGHT+IE2pcP8Keg8jMyuVXzRckJfb1uNWp5FPmGs/OT58D5Gfpey7VJJRZD0N2Q4G5kURylttvYGPg==
+X-Received: by 2002:a05:6000:4b0d:b0:3a5:42:b17b with SMTP id ffacd0b85a97d-3b5ddee1054mr1141977f8f.29.1751958184738;
+        Tue, 08 Jul 2025 00:03:04 -0700 (PDT)
+Message-ID: <01fe310f-a19a-4392-9215-8942c2bb9b86@suse.com>
+Date: Tue, 8 Jul 2025 09:02:55 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 02/22] include/xen/slr-table.h: Secure Launch Resource
- Table definitions
+Subject: Re: [PATCH v3 03/22] x86/boot: add MLE header and Secure Launch entry
+ point
 To: Sergii Dmytruk <sergii.dmytruk@3mdeb.com>
-Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- Ross Philipson <ross.philipson@oracle.com>,
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
  trenchboot-devel@googlegroups.com, xen-devel@lists.xenproject.org
 References: <cover.1748611041.git.sergii.dmytruk@3mdeb.com>
- <49517f41e112720bdd2b76e8eb3d9b1064671f60.1748611041.git.sergii.dmytruk@3mdeb.com>
- <24c11542-0490-4fdc-bda8-01a5b3770856@suse.com> <aGqqisydEetf5mJ_@MjU3Nj>
- <faaa96f7-918e-4130-bde4-bb17194e1c25@suse.com> <aGwEZfKKXwO4ZYOe@MjU3Nj>
+ <916c87847457552583f1defb1aced37ea3ff58df.1748611041.git.sergii.dmytruk@3mdeb.com>
+ <d9ab3803-c7e0-4a67-93e2-4f32bf9b3ad5@suse.com> <aGxCFFEU9BzLx96O@MjU3Nj>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -122,28 +124,122 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aGwEZfKKXwO4ZYOe@MjU3Nj>
+In-Reply-To: <aGxCFFEU9BzLx96O@MjU3Nj>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 07.07.2025 19:31, Sergii Dmytruk wrote:
-> On Mon, Jul 07, 2025 at 10:29:46AM +0200, Jan Beulich wrote:
->>>> ... then isn't used right here, instead requiring a cast somewhere (presumably,
->>>> as code using this isn't visible in this patch).
+On 07.07.2025 23:54, Sergii Dmytruk wrote:
+> On Thu, Jul 03, 2025 at 12:25:27PM +0200, Jan Beulich wrote:
+>> On 30.05.2025 15:17, Sergii Dmytruk wrote:
+>>> From: Kacper Stojek <kacper.stojek@3mdeb.com>
 >>>
->>> As was mentioned earlier: because size of a pointer between Xen and a
->>> bootloader doesn't necessarily match.  What you're proposing can break
->>> under certain conditions.
+>>> Signed-off-by: Kacper Stojek <kacper.stojek@3mdeb.com>
+>>> Signed-off-by: Krystian Hebel <krystian.hebel@3mdeb.com>
+>>> Signed-off-by: Sergii Dmytruk <sergii.dmytruk@3mdeb.com>
 >>
->> But the header isn't shared with a bootloader's code base. It's private to
->> Xen.
+>> Such a change can hardly come without any description. As just one aspect,
+>> neither here nor ...
+>>
+>>> --- a/docs/hypervisor-guide/x86/how-xen-boots.rst
+>>> +++ b/docs/hypervisor-guide/x86/how-xen-boots.rst
+>>> @@ -55,6 +55,11 @@ If ``CONFIG_PVH_GUEST`` was selected at build time, an Elf note is included
+>>>  which indicates the ability to use the PVH boot protocol, and registers
+>>>  ``__pvh_start`` as the entrypoint, entered in 32bit mode.
+>>>
+>>> +A combination of Multiboot 2 and MLE headers is used to implement DRTM for
+>>> +legacy (BIOS) boot. The separate entry point is used mainly to differentiate
+>>
+>> ... here the MLE acronym is being deciphered. Same for DRTM here. There's
+>> also no reference anywhere as to some kind of spec (except in the cover
+>> letter, but that won't land in the tree).
 > 
-> Yes, but sources of Xen be compiled with different size of a pointer
-> which messes up the interpretation of the data.  I tried using
-> BUILD_BUG_ON() to enforce the pointer is 64-bit and early code stopped
-> compiling.  The structures must not vary like that.
+> Will add more details.
+> 
+>>> +from other kinds of boots. It moves a magic number to EAX before jumping into
+>>> +common startup code.
+>>> +
+>>>
+>>>  xen.gz
+>>>  ~~~~~~
+>>
+>> Any reason the single blank line is converted to a double one? Generally, in
+>> particular for patch context to be more meaningful, we'd prefer to not have
+>> double blank lines. In documentation they _sometimes_ may be warranted.
+> 
+> Take a closer look, the patch just preserves double blank lines which
+> are used consistently to separate sections within this file.
 
-Hmm. Does early code actually need to have this struct exposed to it?
+Oh, indeed. I'm sorry.
+
+>>> +        .long   0x00020002  /* MLE version 2.2 */
+>>> +        .long   (slaunch_stub_entry - start)  /* Linear entry point of MLE (SINIT virt. address) */
+>>> +        .long   0x00000000  /* First valid page of MLE */
+>>> +        .long   0x00000000  /* Offset within binary of first byte of MLE */
+>>> +        .long   (_end - start)  /* Offset within binary of last byte + 1 of MLE */
+>>
+>> Is the data here describing xen.gz or (rather) xen.efi? In the latter case,
+>> does data past _end (in particular the .reloc section) not matter here?
+> 
+> Eventually, both.  EFI case deals with loaded image which, I believe,
+> should have all relocations applied at the time of measurement.
+
+But you're aware of the need to apply relocations a 2nd time? See
+efi_arch_relocate_image(), which reads .reloc contents. Hence I assume
+that section needs to be included in any measurements.
+
+>>> @@ -332,6 +352,38 @@ cs32_switch:
+>>>          /* Jump to earlier loaded address. */
+>>>          jmp     *%edi
+>>>
+>>> +        /*
+>>> +         * Entry point for TrenchBoot Secure Launch on Intel TXT platforms.
+>>> +         *
+>>> +         * CPU is in 32b protected mode with paging disabled. On entry:
+>>> +         * - %ebx = %eip = MLE entry point,
+>>> +         * - stack pointer is undefined,
+>>> +         * - CS is flat 4GB code segment,
+>>> +         * - DS, ES, SS, FS and GS are undefined according to TXT SDG, but this
+>>> +         *   would make it impossible to initialize GDTR, because GDT base must
+>>> +         *   be relocated in the descriptor, which requires write access that
+>>> +         *   CS doesn't provide. Instead we have to assume that DS is set by
+>>> +         *   SINIT ACM as flat 4GB data segment.
+>>
+>> Do you really _have to_? At least as plausibly SS might be properly set up,
+>> while DS might not be.
+> 
+> "have to" is referring to the fact that making this assumption is forced
+> on the implementation.
+
+But that's not really true. The Xen bits could be changed if needed, e.g. ...
+
+>  LGDT instruction uses DS in the code below, hence it's DS.
+
+... these could be made use SS or even CS.
+
+>>> +         * Additional restrictions:
+>>> +         * - some MSRs are partially cleared, among them IA32_MISC_ENABLE, so
+>>> +         *   some capabilities might be reported as disabled even if they are
+>>> +         *   supported by CPU
+>>> +         * - interrupts (including NMIs and SMIs) are disabled and must be
+>>> +         *   enabled later
+>>> +         * - trying to enter real mode results in reset
+>>> +         * - APs must be brought up by MONITOR or GETSEC[WAKEUP], depending on
+>>> +         *   which is supported by a given SINIT ACM
+>>
+>> I'm curious: How would MONITOR allow to bring up an AP? That's not even a
+>> memory access.
+> 
+> See patch #15.  BSP sets up TXT.MLE.JOIN and writes to an address
+> monitored by APs, this causes APs to become part of dynamic launch by
+> continuing execution at TXT-specific entry point.  It's more of a
+> redirection rather than waking up, just another case of bad terminology.
+
+Okay, (just ftaod) then my more general request: Please try to be as accurate
+as possible in comments (and similarly patch descriptions). "must be brought
+up by" is wording that I interpret to describe the action the "active" party
+(i.e. the BSP) needs to take. Whereas MONITOR, as you now clarify, is the
+action the AP needs to take (and then apparently is further required to
+check for false wakeups).
 
 Jan
 
