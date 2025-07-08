@@ -2,38 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95DA4AFCB0F
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Jul 2025 14:56:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1036428.1408660 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 27CC1AFCB11
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Jul 2025 14:56:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1036427.1408650 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uZ7rk-0002n0-QA; Tue, 08 Jul 2025 12:56:08 +0000
+	id 1uZ7rj-0002Z5-Ii; Tue, 08 Jul 2025 12:56:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1036428.1408660; Tue, 08 Jul 2025 12:56:08 +0000
+Received: by outflank-mailman (output) from mailman id 1036427.1408650; Tue, 08 Jul 2025 12:56:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uZ7rk-0002kk-MN; Tue, 08 Jul 2025 12:56:08 +0000
-Received: by outflank-mailman (input) for mailman id 1036428;
- Tue, 08 Jul 2025 12:56:07 +0000
+	id 1uZ7rj-0002XB-Fb; Tue, 08 Jul 2025 12:56:07 +0000
+Received: by outflank-mailman (input) for mailman id 1036427;
+ Tue, 08 Jul 2025 12:56:06 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=mjd+=ZV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uZ7rj-0002X5-FW
- for xen-devel@lists.xenproject.org; Tue, 08 Jul 2025 12:56:07 +0000
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [2a00:1450:4864:20::431])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=a/n7=ZV=gmail.com=sultanovandriy@srs-se1.protection.inumbo.net>)
+ id 1uZ7ri-0002X5-Dy
+ for xen-devel@lists.xenproject.org; Tue, 08 Jul 2025 12:56:06 +0000
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
+ [2a00:1450:4864:20::432])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e9a9cae3-5bfa-11f0-a317-13f23c93f187;
- Tue, 08 Jul 2025 14:56:07 +0200 (CEST)
-Received: by mail-wr1-x431.google.com with SMTP id
- ffacd0b85a97d-3ab112dea41so2344319f8f.1
- for <xen-devel@lists.xenproject.org>; Tue, 08 Jul 2025 05:56:07 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-b38ee62dd5fsm11639524a12.55.2025.07.08.05.56.03
+ id e8a1c207-5bfa-11f0-a317-13f23c93f187;
+ Tue, 08 Jul 2025 14:56:05 +0200 (CEST)
+Received: by mail-wr1-x432.google.com with SMTP id
+ ffacd0b85a97d-3a6cd1a6fecso4203207f8f.3
+ for <xen-devel@lists.xenproject.org>; Tue, 08 Jul 2025 05:56:05 -0700 (PDT)
+Received: from ?IPV6:2a02:c7c:6b57:1d00:4379:5549:e9f4:bf8a?
+ ([2a02:c7c:6b57:1d00:4379:5549:e9f4:bf8a])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-3b47285e241sm13105030f8f.94.2025.07.08.05.56.03
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 08 Jul 2025 05:56:05 -0700 (PDT)
+ Tue, 08 Jul 2025 05:56:04 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,91 +46,107 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e9a9cae3-5bfa-11f0-a317-13f23c93f187
+X-Inumbo-ID: e8a1c207-5bfa-11f0-a317-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1751979366; x=1752584166; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
+        d=gmail.com; s=20230601; t=1751979365; x=1752584165; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language:subject
+         :references:cc:to:user-agent:mime-version:date:message-id:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=S6G5EgqLRhorAkPOjN/kq3i0gWdx0DcxFFzLLorZMYA=;
-        b=KB5a+VZGyxSx4yN2Xpd11miUUVVIUYqAoop2A7eX/iTgvUeyzyAdcIT/c1eECPOtMu
-         ZflOCrxMQzeTs3K3B0wqQbXh+VnCxomnZDajP54ECHU3sVw4dyf1ecWN9L60faa1Fe9/
-         6A817T/tJszYK8QGw/8qqoZT1kAB8uyXZJT9dxZMSpHOj19q4HX8qDskLf7hxPCdgH7T
-         QAs483DDY6ciX6ClpCxB22CGsUxqycORpQMAAw7QPfUUcgsFfLcRkIYpYGygEDRupXeE
-         6+P73j5J9ibdEbiTD1mA2QEi6iZLK/i/DeQajoeIX4HvNeTLRIK/xZ9sZubkilYZWzel
-         bwTw==
+        bh=teEt3kl0hIiq1Pszlt+E2c5DdxzULgNo5PgswD9/95k=;
+        b=jrVJTiGbu6yVvud81lmucjD2CHQz+bhXbyczZrsCuFZZ1LFZGS4XN56yWOaez9dlgw
+         rIxvZH/2teCKibd9w15vlOowXgbNqKBdtqMz8NIeIXo8iu2NG+zr3rG+QC2JNcXrGRQ+
+         zmDyDrqbzyn4BxD/Jd9nWf2bn7gbUzopYLSgl7pJ2ewxly0pMI5cwT8gGOyieh1jbtYZ
+         3RZuBOAyIQeBiIh9pYXASJEOO4vzg10dHNtEsSuOwq7MbpLnjSWX7bw6i72LxYVTg0zR
+         aIBSYkhFUNq+L8TJ3h3VtOBGg7PBxxWFb/X66rdC+fGSKKF97aHuX7LOeX5kWeP/tMR2
+         Rhcw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1751979366; x=1752584166;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id
+        d=1e100.net; s=20230601; t=1751979365; x=1752584165;
+        h=content-transfer-encoding:in-reply-to:from:content-language:subject
+         :references:cc:to:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=S6G5EgqLRhorAkPOjN/kq3i0gWdx0DcxFFzLLorZMYA=;
-        b=rjFkx8B3xMZCsQdXx1NCVN7aeQubeCW6yPkXWhCcDHZk3MxE/7V5tyd4WC9DR5ocHC
-         XudtCyE+z6AzHE1UEgVq/4uHmJNdLZR7DhFaNFCRBJBiv3M2ZdPWB4Sjpfq9W6A5XVOk
-         DUzh4NAF83Cm58xBX5HvsASmfQgjUskpkD1+FSqzOYySOXrLrFzqIfqqLqpg9YyDDgN2
-         8vsiQx9utAqcVEl2lcXze4V84/N7S0902SnJQgvJBus5qvBefiO4gr7VGbfKyh4r3WNW
-         m8RGaHPxwJXl83wRPIVr8VArB6bIVXCo7Hx0Y529vNE4W7XNSKCh36z/2QDMY4H+CLM7
-         rSaQ==
-X-Gm-Message-State: AOJu0Yx6m453pcXiO7Fe3DNB8o+Od6j6dq9tP6HK7PQi1sG/i3tRHKBj
-	v+eO7Rk/MxdOHjkCvBkxyqCwEvumxMsHx/oMPO9gPe95gqzdKY1AwGx2iSRzVHUX6kACOFmM0WH
-	6ZNo=
-X-Gm-Gg: ASbGncuT3ijcifGwHzwEsTu4EjTXwcztVn1bRyRunXlpNLErCtWU2EGAgVjqF4U42AD
-	tOfo65BAA0HzICnSuF1njR6l1VpcIiyv7OhgH8cmftZTs2riGmxsxAB8PoFpQ6Qe5RsNQzQY1xE
-	D+6Z/K4YkTrqqcUAobftwo1BEC3CpvWiEVcAEMD+HOz4EAebwp5mtn4jWu7WJ+56eip6e93gjdX
-	OQVejEvmbkA23vxXFXjy0xw874otKph8hlY485mImtGXNSCXTlZz6CqhXTI3rbdq5/mV9w9oIev
-	Z5G5CtLuKWbVUzRpgwDGYgO55j5pxyIU27lM5TMGZlDh6WpaIKYaTzsM7Y5U2Jmb/UOKF3p2yXd
-	3T6d6AyUxi9sEN8Jyny3AVeI1H92tFf+PuT3k/r12QhDUAKQ=
-X-Google-Smtp-Source: AGHT+IHPcKupaCaLH4dgLtMLpYpjVzLLWSbXdnZ7HInI7A9uwxfgghxXQesj0ayGRalPdkwShaV9JA==
-X-Received: by 2002:a5d:5e88:0:b0:3a4:e672:deef with SMTP id ffacd0b85a97d-3b5dde8ca19mr2814245f8f.36.1751979366352;
-        Tue, 08 Jul 2025 05:56:06 -0700 (PDT)
-Message-ID: <1df49875-99b8-4302-aed7-5a75dbdd85ca@suse.com>
-Date: Tue, 8 Jul 2025 14:55:59 +0200
+        bh=teEt3kl0hIiq1Pszlt+E2c5DdxzULgNo5PgswD9/95k=;
+        b=rQy3wbCH5KSyrIWNKQeoCe1p95HXF9NChhsvtKqcQjZF7e5Z0+vZKNLfoj9TvoNO7+
+         4ymOsYeNslqtjP5K8zLVxlBX9VZmy3+Dys8Br8FyXTgaYDYNsR6MNUBaD85GV6NPVSuf
+         /YyxIQWraPdVUhuJeesd9aE3fOUfr1/Tm3qNnJNeJJpuS3WLLXBkTQ8of5wC/G4ufDzA
+         w6zfSYKxyx5MYL/Knw4CP1eIA18ftv3FOhU42BtIaOQ3safiJjlYkErIaJvkn6yrAkVg
+         atX1+LK1BZ0yxHpKwE//fK/h2gjeMy1VWOCSMiOTs05dKovk7xh93my6woNjtwBVQCu/
+         vBUw==
+X-Forwarded-Encrypted: i=1; AJvYcCUetTLjhuCW5jb1e3CTDjnKTY7z5iV7gU6US1KupJKSk5fUsf7ZGS7pxjuiivSsS0SZIHk5HzLB3ck=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzD+Bwd/td6m4P93hL6rGFdM4bYhGy+QzFOih3l26FnTv3+f0gQ
+	JSx1QGFWidPHrko7KddlsUgxCkOmodWLXIez4IIbStIHlM0s8+uHb6tk
+X-Gm-Gg: ASbGncuW88rwbTUapXOTlhL/DSh4sS99/zmpa1WWe0/+ldIGF3pcMtolHF7qAxK1p9F
+	+F0yJE7Rjfu3+2QYnGRA8gLwWv9QGhz+Hzq0xm24dH8ScFQoaCEUCGUE8wMC4AHPtzSWAIcAkkn
+	CbAHn3F93QuPjd2abqY4zzJXr9cf7iDSwSeE94rMo/TcuyBiBtbWJLs2YPZYNXI6T65N/CO6cUh
+	6WXDfZ4tssBs3X0vdMb++i3/Y1/YlBrO0kDGmnXj5lhVmEn24ksTfVkLnkkqPgvuyR5HtnZSyIX
+	fBJqPRjmj0ZA4T5234JSWwHUn9dyHvjS1XQDcnuu3E9klJd4sjXPhaRzvcd6ncDFJfmb5J98Ayq
+	VTtP5v5X6HU0AmIlBJl/sJJqiwI84pTUCFH0k1oFN
+X-Google-Smtp-Source: AGHT+IF9DH50kKlWLZ9WXra9lQu9nZZpkK+NDYmrFU0uKYqn0i99lCPWh3FvKkCaMHljNmV2C9Q1jA==
+X-Received: by 2002:a5d:5f45:0:b0:3a4:ebc2:d6ec with SMTP id ffacd0b85a97d-3b5dde6764fmr2729247f8f.14.1751979364420;
+        Tue, 08 Jul 2025 05:56:04 -0700 (PDT)
+Message-ID: <cf9503db-2726-4d0c-8b2c-da5fc7aa205b@gmail.com>
+Date: Tue, 8 Jul 2025 13:56:03 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
+To: jahan.murudi.zg@renesas.com
+Cc: anthony.perard@vates.tech, xen-devel@lists.xenproject.org
+References: <20250708114632.3007693-1-jahan.murudi.zg@renesas.com>
+Subject: Re: [PATCH] tools/xentop: Add physical CPU statistics support
 Content-Language: en-US
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH 0/9] x86/mwait-idle: (mainly) imports from Linux
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: Andriy Sultanov <sultanovandriy@gmail.com>
+In-Reply-To: <20250708114632.3007693-1-jahan.murudi.zg@renesas.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-... with the exception of patch 1, which first tidies a few places. (As it
-turns out, we've been lagging quite significantly.)
+ > diff --git a/tools/xentop/xentop.c b/tools/xentop/xentop.c
+ > index f5d6c19cf9..477299c883 100644
+ > --- a/tools/xentop/xentop.c
+ > +++ b/tools/xentop/xentop.c
+ > @@ -69,6 +70,12 @@
+ >
+ >  #define INT_FIELD_WIDTH(n) ((unsigned int)(log10(n) + 1))
+ >
+ > +/* TEMPORARY: Forward declare the internal structure */
+ > +struct xenstat_handle {
+ > +    xc_interface *xc_handle;
+ > +    /* Other members don't matter fo now */
+ > +};
+ > +
 
-1: adjust section annotations
-2: Add AlderLake-N support
-3: add Emerald Rapids Xeon support
-4: Add Meteorlake support
-5: add Grand Ridge SoC support
-6: add Sierra Forest SoC support
-7: add Granite Rapids Xeon support
-8: add Granite Rapids Xeon D support
-9: add Clearwater Forest SoC support
+What makes this temporary? Is there a follow-up patch?
+Or should this be an [RFC] instead of a [PATCH]?
 
-Jan
+ > @@ -240,6 +248,7 @@ static void usage(const char *program)
+ >             "-r, --repeat-header  repeat table header before each 
+domain\n"
+ >             "-v, --vcpus          output vcpu data\n"
+ >             "-b, --batch         output in batch mode, no user input 
+accepted\n"
+ > +           "-p, --pcpus         show physical CPU stats\n"
+ >             "-i, --iterations     number of iterations before exiting\n"
+ >             "-f, --full-name      output the full domain name (not 
+truncated)\n"
+ >             "-z, --dom0-first     display dom0 first (ignore sorting)\n"
+
+Incorrect indentation here
+
+ > @@ -1245,9 +1256,18 @@ static void top(void)
+ >              do_vbd(domains[i]);
+ >      }
+ >
+ > -    if (!batch)
+ > +    if (!batch && !show_pcpus )
+ >          do_bottom_line();
+ >
+ > +    if (show_pcpus && xhandle != NULL ) {
+ > +    if (update_pcpu_stats(xhandle->xc_handle) == 0) {
+ > +        print_pcpu_stats();
+ > +    }
+ > +    else {
+ > +        print("Error getting PCPU stats\n");
+ > +    }
+ > +   }
+ > +
+
+and here
+
 
