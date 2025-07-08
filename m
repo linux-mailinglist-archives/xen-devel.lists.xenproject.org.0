@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 324E9AFCB1A
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Jul 2025 14:57:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1036440.1408671 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2BC04AFCB1C
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Jul 2025 14:57:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1036447.1408681 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uZ7sq-0003Y3-1o; Tue, 08 Jul 2025 12:57:16 +0000
+	id 1uZ7tL-000419-E1; Tue, 08 Jul 2025 12:57:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1036440.1408671; Tue, 08 Jul 2025 12:57:16 +0000
+Received: by outflank-mailman (output) from mailman id 1036447.1408681; Tue, 08 Jul 2025 12:57:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uZ7sp-0003VW-Ur; Tue, 08 Jul 2025 12:57:15 +0000
-Received: by outflank-mailman (input) for mailman id 1036440;
- Tue, 08 Jul 2025 12:57:14 +0000
+	id 1uZ7tL-0003z3-9s; Tue, 08 Jul 2025 12:57:47 +0000
+Received: by outflank-mailman (input) for mailman id 1036447;
+ Tue, 08 Jul 2025 12:57:46 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=mjd+=ZV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uZ7so-0003VI-ES
- for xen-devel@lists.xenproject.org; Tue, 08 Jul 2025 12:57:14 +0000
+ id 1uZ7tK-0003VI-5f
+ for xen-devel@lists.xenproject.org; Tue, 08 Jul 2025 12:57:46 +0000
 Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
  [2a00:1450:4864:20::436])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 10ad2c1e-5bfb-11f0-b894-0df219b8e170;
- Tue, 08 Jul 2025 14:57:12 +0200 (CEST)
+ id 23e3d1ad-5bfb-11f0-b894-0df219b8e170;
+ Tue, 08 Jul 2025 14:57:44 +0200 (CEST)
 Received: by mail-wr1-x436.google.com with SMTP id
- ffacd0b85a97d-3a536ecbf6fso2292126f8f.2
- for <xen-devel@lists.xenproject.org>; Tue, 08 Jul 2025 05:57:12 -0700 (PDT)
+ ffacd0b85a97d-3a53359dea5so2237925f8f.0
+ for <xen-devel@lists.xenproject.org>; Tue, 08 Jul 2025 05:57:44 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-23c84592ef4sm118058145ad.191.2025.07.08.05.57.08
+ d9443c01a7336-23c8fcf6715sm84219845ad.51.2025.07.08.05.57.41
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 08 Jul 2025 05:57:11 -0700 (PDT)
+ Tue, 08 Jul 2025 05:57:43 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 10ad2c1e-5bfb-11f0-b894-0df219b8e170
+X-Inumbo-ID: 23e3d1ad-5bfb-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1751979432; x=1752584232; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1751979464; x=1752584264; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=HjPneAjKTdudV80syyoVVEC7Di0qJNSEuHumxOWNEyI=;
-        b=DHJMF/WPyc8fmnwH5r15VQt2E9cxkmN+24g5T/8hsBxFTKSg/XTpNdVnyrqcHrFehV
-         7unTmHp1smLLryX59uR7KuZptiUWcpfG98hycU0RuN3jbtK1Lpdm8SzL+ScgcBKiC66T
-         Rn7I5edAD1b8zdn1Wyiu1u65T7mAczPlkR5Z396eTFy7Z3GZdtrabSy1Mwy6ZJmqy0tQ
-         uALBhn+wxNBt1mIwILoKHS/DGPtDEYUSlykREW5u5QsHT2N5WLKJWSf5R+RqXXF4aU7T
-         xmxXdu3cR27M18xBrLr52UWhwQm1Xphv2Xj5lywZxPE57gkeLQWccRC7sibENVRSYKmS
-         m6+A==
+        bh=MWLyW6K1AZssDLX7BhZCwY6LTnFNtAJPzbOfiTkm9yM=;
+        b=ZwdNkVhWYOpA1BgPLZLg8LOdOfcFbYBWrTAm8qxz0jN8wsqgTEeRD1zcRiiPG1Q4ql
+         f+xg2a0DcE9sVgfZcLzz/KTWJS0l2Y+s945QC2BKojWk0Dxf1bAvBLmL1LLeADm8Apfy
+         U9M0i+kTnzsJRjTpBnKxPKThejcELMLKjWgc1WDEsO5mdENwPJgS37E267Na+QCd1IrC
+         wZUwwWZMHj12awNKgGt7EBbAdvOmZuYRO3VzOlRP4IkbXbgp6ou0VA3pgiB60d3NjzAf
+         LJZOQgyuFYe43H/ZvHCpYPZ9x7uD/NRg4FA8nWAz5aZfiOZe4bs/NfavwrMaMKXl17uI
+         8izg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1751979432; x=1752584232;
+        d=1e100.net; s=20230601; t=1751979464; x=1752584264;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=HjPneAjKTdudV80syyoVVEC7Di0qJNSEuHumxOWNEyI=;
-        b=suzmYaOpqkn8u99gtTHYwUZ6Czh0bhFUraEhkThaCb6eMWqbdH5RFLsaCN0d1iNlHh
-         LanPzxuvtUmqhrrIqXFENyFvz28oqXQ2zVZkaVJMX5ZK7SWtziiZK+4Nh4s663QypI77
-         J+39+GLLgCP3EfNdsPzARaZ0LXoLaGgGh0CcXSjGCKsFzLNhTwWdOosw/M2JNM1h7Nxw
-         Q3LkC62DDR6iGENVdvWgQCjcoA5QyWRulo+2zch03hoCrQF2SXtHWuBqmw3t1xiGICuy
-         RrSBKcNSI5nrTFICpsfnNTtk8UvfmaB64xZjVC3NQScLqhaOuW1xuEiUXQI4hL8couMg
-         D4kQ==
-X-Gm-Message-State: AOJu0YxliAk4qQvpppMQwGKPjbAq/QQGbsOFyuhcrd/Ipm9of017B3yM
-	VA6KIPSQeyoK4LcRCvfCkfR5bsYljPTCXD2mVpkcSC3+EgYwVE8pWKUahmmXnhBLfsdJGF4SXVE
-	qt/w=
-X-Gm-Gg: ASbGnctGlvtiuzGHHlQdaZppB1+nZV0JafwGs3vge2bU4VsZoTnOzTSGEyqFqacSe1y
-	589pD8fg7lhOv6hC8ApPfwlcW7U+SKJt1oiaGKAHgqFkm5fQ5ioXWuYKUtQgAgXg0bUUL+fm3oX
-	saPlhwqN7H7t6EL8M7XOmJOGNhtSSU7meQKSq4+V8qwfKfroiJKcygh4VSIYLWFSJamBFYeOoCV
-	tqd1zsMAwolAzVptAC49dkC2Zv+h5FGbb/G/FLmJu8hZZP2M1yNLo/+fJNzcSAqU2L5hhTLePzR
-	FE1Hj5RR0/NH1iQtm0XkzrmsEzZWrmHcJb82qtJxyOAnYw5AyAqM697lr3eyAvtsZeeRRBXyxhK
-	a6bxEPiAP2tiihKN+feo0t2Dl8yhDSJrV8//PudkHRWljPw4=
-X-Google-Smtp-Source: AGHT+IEHZv4nySI925CsxfNwuvbaeExmnukQrsbG7AuSaj+IxLBlzGmA2csPK5nSYBAK0X49SwKhQw==
-X-Received: by 2002:a05:6000:2f84:b0:3a5:39d8:57e4 with SMTP id ffacd0b85a97d-3b5ddef3ab1mr2375560f8f.41.1751979431806;
-        Tue, 08 Jul 2025 05:57:11 -0700 (PDT)
-Message-ID: <bc577ba9-cef7-4d6a-a9c8-e0f79597950e@suse.com>
-Date: Tue, 8 Jul 2025 14:57:05 +0200
+        bh=MWLyW6K1AZssDLX7BhZCwY6LTnFNtAJPzbOfiTkm9yM=;
+        b=qHXNUEdRRhZZLuIexymVC7FYX9cUU7IxwZiJCY8hhF/HEpfCqXYyBcgWbx9ECz3n+g
+         QSKn9YCcn705ZytiMfjPQytfCh/M33adacbI+A7enBlV/0Z/KlPOfmJkf7YpwbC56vmI
+         2dHlzHXV1Lfn2P4xSa0YOLl/4pPQiVUovW9kenJh1TFdCn9BZkEdEP+hh+ynxi5cL5pz
+         SDHkBd6hCV+DpBBisn6pWnHlrTk6a48WhhmJEmHs2pWsCIQY+zl1MfQ61glTHAx0new6
+         S2gpuPqZXMgWcw4J/KIl8DUtW3afSpKHBxduNfZm6Wi2ehzt3aN1kk0R5Jxd0IR9sDAo
+         /Yaw==
+X-Gm-Message-State: AOJu0Yw5eOj8vM5/tYFprPeWASBduVZcXqpmefXMr3ThVtNyt7trO0lN
+	wrLXDcY8XXKV46K4c+9UEr7fX0VL64CQvwckBmhOS8WR/RzsQFWylz+FmOAR0UNRurq/1IWVFKz
+	pM+U=
+X-Gm-Gg: ASbGnct9mrhRnk2UENuNVSYgkeYAq/X9DDeMxEvfCvWwCI7hGyjkPZCb6eSukA5XeuZ
+	gdXuDZh+6N4aGf9WMEb0202UiUrFw3GDBrQqcWi9sLIUqjuqsBXGU04gcjP2N9ug5DW26dlHDZX
+	sTmVgEgIWxdw+gPhfYZMHD8brWlL+bEgBIa8uv8Wa44Pb/R9DJTVRxteFyZ2iIANzPQbqx13lxo
+	MfjfQ2nIDYfyM5vrxBUmee9P3xFOTBHY8CqbQO2FtJK409ZtRvY21E86hpinaDJSdO8rPB/gv0I
+	F2GHdcSzXGQIrk6XOKJDHWqpJU/1GwjefeDhDgca6ZKKDeE6KKJ7SVkxJ6nq/ptTJY7xWiJlbX4
+	cLQpT6JBhEnw5r6UpxKziFIXBTQE8X6RxNIctO58x9zQiCis=
+X-Google-Smtp-Source: AGHT+IG13UP9Q2oxy9hJTgOxY+cnq17c5SKa7mbHkQJT3p0iuv4dR9OGT78XFsWTQ1P+A+gvGWxyMg==
+X-Received: by 2002:a05:6000:4210:b0:3a6:d579:ec21 with SMTP id ffacd0b85a97d-3b49701196fmr14727289f8f.12.1751979464046;
+        Tue, 08 Jul 2025 05:57:44 -0700 (PDT)
+Message-ID: <a3a748af-364e-4fc2-b656-3715eb0658a4@suse.com>
+Date: Tue, 8 Jul 2025 14:57:37 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH 1/9] x86/mwait-idle: adjust section annotations
+Subject: [PATCH 2/9] x86/mwait-idle: Add AlderLake-N support
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -121,103 +121,105 @@ In-Reply-To: <1df49875-99b8-4302-aed7-5a75dbdd85ca@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-idle_cpu_spr was bogusly non-const. Several other objects can be changed
-from __read_mostly to __ro_after_init, for being altered from __init
-functions only.
+Similar to the other other AlderLake platforms, the C1 and C1E states on
+ADL-N are mutually exclusive. Only one of them can be enabled at a time.
+
+C1E is preferred on ADL-N for better energy efficiency.
+
+C6S is also supported on this platform. Its latency is far bigger than
+C6, but really close to C8 (PC8), thus it is not exposed as a separate
+state.
+
+Suggested-by: Baieswara Reddy Sagili <baieswara.reddy.sagili@intel.com>
+Suggested-by: Vinay Kumar <vinay.kumar@intel.com>
+Signed-off-by: Zhang Rui <rui.zhang@intel.com>
+[ rjw: Changelog edits ]
+Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+Origin: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git 65c0c2367e9e
+
+x86/cpu: Fix Gracemont uarch
+
+Alderlake N is an E-core only product using Gracemont
+micro-architecture. It fits the pre-existing naming scheme perfectly
+fine, adhere to it.
+
+Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+Acked-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+Acked-by: Hans de Goede <hdegoede@redhat.com>
+Link: https://lore.kernel.org/r/20230807150405.686834933@infradead.org
+Origin: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git 882cdb06b668
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
 --- a/xen/arch/x86/cpu/mwait-idle.c
 +++ b/xen/arch/x86/cpu/mwait-idle.c
-@@ -106,14 +106,14 @@ struct idle_cpu {
- 	enum c1e_promotion c1e_promotion;
- };
- 
--static const struct idle_cpu *icpu;
-+static const struct idle_cpu *__ro_after_init icpu;
- 
- static const struct cpuidle_state {
- 	char		name[16];
- 	unsigned int	flags;
- 	unsigned int	exit_latency; /* in US */
- 	unsigned int	target_residency; /* in US */
--} *cpuidle_state_table;
-+} *__ro_after_init cpuidle_state_table;
- 
- #define CPUIDLE_FLAG_DISABLED		0x1
- /*
-@@ -504,7 +504,7 @@ static const struct cpuidle_state bdw_cs
+@@ -678,6 +678,40 @@ static struct cpuidle_state __ro_after_i
  	{}
  };
  
--static struct cpuidle_state __read_mostly skl_cstates[] = {
-+static struct cpuidle_state __ro_after_init skl_cstates[] = {
++static const struct cpuidle_state gmt_cstates[] = {
++	{
++		.name = "C1",
++		.flags = MWAIT2flg(0x00) | CPUIDLE_FLAG_DISABLED,
++		.exit_latency = 1,
++		.target_residency = 1,
++	},
++	{
++		.name = "C1E",
++		.flags = MWAIT2flg(0x01),
++		.exit_latency = 2,
++		.target_residency = 4,
++	},
++	{
++		.name = "C6",
++		.flags = MWAIT2flg(0x20) | CPUIDLE_FLAG_TLB_FLUSHED,
++		.exit_latency = 195,
++		.target_residency = 585,
++	},
++	{
++		.name = "C8",
++		.flags = MWAIT2flg(0x40) | CPUIDLE_FLAG_TLB_FLUSHED,
++		.exit_latency = 260,
++		.target_residency = 1040,
++	},
++	{
++		.name = "C10",
++		.flags = MWAIT2flg(0x60) | CPUIDLE_FLAG_TLB_FLUSHED,
++		.exit_latency = 660,
++		.target_residency = 1980,
++	},
++	{}
++};
++
+ static struct cpuidle_state __ro_after_init spr_cstates[] = {
  	{
  		.name = "C1",
- 		.flags = MWAIT2flg(0x00),
-@@ -556,7 +556,7 @@ static struct cpuidle_state __read_mostl
- 	{}
- };
- 
--static struct cpuidle_state __read_mostly skx_cstates[] = {
-+static struct cpuidle_state __ro_after_init skx_cstates[] = {
- 	{
- 		.name = "C1",
- 		.flags = MWAIT2flg(0x00) | CPUIDLE_FLAG_IRQ_ENABLE,
-@@ -610,7 +610,7 @@ static const struct cpuidle_state icx_cs
-  * By default we enable C1E and disable C1 by marking it with
-  * 'CPUIDLE_FLAG_DISABLED'.
-  */
--static struct cpuidle_state __read_mostly adl_cstates[] = {
-+static struct cpuidle_state __ro_after_init adl_cstates[] = {
- 	{
- 		.name = "C1",
- 		.flags = MWAIT2flg(0x00) | CPUIDLE_FLAG_DISABLED,
-@@ -644,7 +644,7 @@ static struct cpuidle_state __read_mostl
- 	{}
- };
- 
--static struct cpuidle_state __read_mostly adl_l_cstates[] = {
-+static struct cpuidle_state __ro_after_init adl_l_cstates[] = {
- 	{
- 		.name = "C1",
- 		.flags = MWAIT2flg(0x00) | CPUIDLE_FLAG_DISABLED,
-@@ -678,7 +678,7 @@ static struct cpuidle_state __read_mostl
- 	{}
- };
- 
--static struct cpuidle_state __read_mostly spr_cstates[] = {
-+static struct cpuidle_state __ro_after_init spr_cstates[] = {
- 	{
- 		.name = "C1",
- 		.flags = MWAIT2flg(0x00),
-@@ -778,7 +778,7 @@ static const struct cpuidle_state avn_cs
- 	{}
- };
- 
--static struct cpuidle_state __read_mostly bxt_cstates[] = {
-+static struct cpuidle_state __ro_after_init bxt_cstates[] = {
- 	{
- 		.name = "C1",
- 		.flags = MWAIT2flg(0x00),
-@@ -1075,15 +1075,15 @@ static const struct idle_cpu idle_cpu_ic
- 	.c1e_promotion = C1E_PROMOTION_DISABLE,
- };
- 
--static struct idle_cpu __read_mostly idle_cpu_adl = {
-+static struct idle_cpu __ro_after_init idle_cpu_adl = {
- 	.state_table = adl_cstates,
- };
- 
--static struct idle_cpu __read_mostly idle_cpu_adl_l = {
-+static struct idle_cpu __ro_after_init idle_cpu_adl_l = {
+@@ -1083,6 +1117,10 @@ static struct idle_cpu __ro_after_init i
  	.state_table = adl_l_cstates,
  };
  
--static struct idle_cpu __read_mostly idle_cpu_spr = {
-+static const struct idle_cpu idle_cpu_spr = {
++static const struct idle_cpu idle_cpu_gmt = {
++	.state_table = gmt_cstates,
++};
++
+ static const struct idle_cpu idle_cpu_spr = {
  	.state_table = spr_cstates,
  	.c1e_promotion = C1E_PROMOTION_DISABLE,
- };
+@@ -1148,6 +1186,7 @@ static const struct x86_cpu_id intel_idl
+ 	ICPU(ICELAKE_D,			icx),
+ 	ICPU(ALDERLAKE,			adl),
+ 	ICPU(ALDERLAKE_L,		adl_l),
++	ICPU(ATOM_GRACEMONT,		gmt),
+ 	ICPU(SAPPHIRERAPIDS_X,		spr),
+ 	ICPU(ATOM_GOLDMONT,		bxt),
+ 	ICPU(ATOM_GOLDMONT_PLUS,	bxt),
+@@ -1386,6 +1425,7 @@ static void __init mwait_idle_state_tabl
+ 		break;
+ 	case INTEL_FAM6_ALDERLAKE:
+ 	case INTEL_FAM6_ALDERLAKE_L:
++	case INTEL_FAM6_ATOM_GRACEMONT:
+ 		adl_idle_state_table_update();
+ 		break;
+ 	}
 
 
