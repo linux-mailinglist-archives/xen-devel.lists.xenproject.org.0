@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 85AD3AFCB1D
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Jul 2025 14:58:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1036452.1408690 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 74997AFCB28
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Jul 2025 14:59:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1036463.1408701 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uZ7tr-0004XL-JO; Tue, 08 Jul 2025 12:58:19 +0000
+	id 1uZ7us-00059N-Su; Tue, 08 Jul 2025 12:59:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1036452.1408690; Tue, 08 Jul 2025 12:58:19 +0000
+Received: by outflank-mailman (output) from mailman id 1036463.1408701; Tue, 08 Jul 2025 12:59:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uZ7tr-0004Vk-Gk; Tue, 08 Jul 2025 12:58:19 +0000
-Received: by outflank-mailman (input) for mailman id 1036452;
- Tue, 08 Jul 2025 12:58:18 +0000
+	id 1uZ7us-00057D-Pd; Tue, 08 Jul 2025 12:59:22 +0000
+Received: by outflank-mailman (input) for mailman id 1036463;
+ Tue, 08 Jul 2025 12:59:21 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=mjd+=ZV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uZ7tp-0004VF-Vk
- for xen-devel@lists.xenproject.org; Tue, 08 Jul 2025 12:58:17 +0000
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [2a00:1450:4864:20::331])
+ id 1uZ7ur-000577-Qp
+ for xen-devel@lists.xenproject.org; Tue, 08 Jul 2025 12:59:21 +0000
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [2a00:1450:4864:20::42a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 36917b66-5bfb-11f0-b894-0df219b8e170;
- Tue, 08 Jul 2025 14:58:16 +0200 (CEST)
-Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-4535fbe0299so25664325e9.3
- for <xen-devel@lists.xenproject.org>; Tue, 08 Jul 2025 05:58:16 -0700 (PDT)
+ id 5c9b811c-5bfb-11f0-b894-0df219b8e170;
+ Tue, 08 Jul 2025 14:59:19 +0200 (CEST)
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-3a6d77b43c9so3959384f8f.3
+ for <xen-devel@lists.xenproject.org>; Tue, 08 Jul 2025 05:59:19 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-23c84351a5esm114342725ad.55.2025.07.08.05.58.12
+ d2e1a72fcca58-74ce42a4117sm11264352b3a.125.2025.07.08.05.59.15
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 08 Jul 2025 05:58:14 -0700 (PDT)
+ Tue, 08 Jul 2025 05:59:18 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 36917b66-5bfb-11f0-b894-0df219b8e170
+X-Inumbo-ID: 5c9b811c-5bfb-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1751979495; x=1752584295; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1751979559; x=1752584359; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=npJFDftosWcSQ3LvQtMp39FVIBuOvKCEvlmv7+JO68A=;
-        b=EITnCUrL3oyx7sDOOGzuFajua7JQbMJm/zVd5bloN7617osaiIeis8HKlebKZSFwqD
-         k7HJzorcP9Qie+X7tbCflG98mygrgAo1g4KTx/U3Q2gNejgpUC9XoR/WJvzwPkZGmikn
-         XhZPbdc0tFDu4YiWOvXpZQN+1XEPzqmsbj6la3/oy1ze3gQp5o5EmyrMPfpynYAE+b/J
-         9WyQc1eA8yJANHGQrDW396IJpbb5iHqqhdYTN1lnqdYb753sybQ4dOcw9YgVx7tJjzX4
-         DN37RcolEHTd0/YCnCmlw1T+D+l7zhAw6ObVMEaybOoTbowozEUqczk0nptIAXcV+uPR
-         uviQ==
+        bh=R6AWWL39yUQbpUen+S/NjA91boolPbLb+UdVB8EDWic=;
+        b=GjiAsNZ+5IZd9wXxx/myqrggMGG6+jW32Z14x1ar2Bap083wbEzFdP0E1IyzA3xHQR
+         mhFLoQ1DOHkEuAfg6B06CtOpGc36Dfgda8juY9gVlQuEwkwqk53dtN3Ay8kOAC7aQyj0
+         xhz2I5RTvZD5r2yPUsIUQ8cbehDdBWUeuqB4pyRwwPSns/gymujvGcrXIh42/fVLcJaj
+         wIMX5l2ZtxGDwlls87mE+r490Hp6Gk1MHAF3qvo3rEz9QIxH+ZKiVTSQIPPcpjH9OdUS
+         rSm5YSbPDb4nAeZ/9yOZx5uCnWDwVbrYMIDYq8ajLwKxiH1jxXy2b1EzqSo4rX7ptGNI
+         6tbQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1751979495; x=1752584295;
+        d=1e100.net; s=20230601; t=1751979559; x=1752584359;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=npJFDftosWcSQ3LvQtMp39FVIBuOvKCEvlmv7+JO68A=;
-        b=cx95reUwsPJJ7mbLimWtKsgkjjjJ2qvA83JPujBlsDb28J9c9dQ5XyITNuHXTIvftp
-         LA07hRQWESdssB57kWaNMggxuBwHrGEf0DUjMKg/SUbo6APKnPOGOQzxl4FIeAIwzmQS
-         XQqGU3aY64Y2hVIYkVlIQHkLyx0O1ig1Sze7QoWGwIlZsaCAsUewLqM/slIOqyxco32K
-         yOKZf3KGmo+DNQAjEDjp0r54ZmyAgQ3OhMHOockPBVEd13+aGOvVY+5QjkS3Xl5a7C2B
-         YhYwdhEhzIDMRaZk33c9CPqOKxU7HugGFDwPEmD76r1pTauoHoQo1OsKLy5mFpNiScJh
-         pEYQ==
-X-Gm-Message-State: AOJu0YzRSCNskWClLQWgxz2TFJxVsgbsYQZWbkiBx1VpgqdofCtlNaRv
-	QQANn2JwVAo3sgpVOWW0ZbQ/DEHZr7KA1QRc2+AJxFeGAo36hXcDInd6LO5PhP6D8qJIkCdkPeP
-	hCVU=
-X-Gm-Gg: ASbGncuLIjXVE11lzTcMstSFKWXQVEp5OETQAicdxcZKnsQGizcQp4eqdQloGeu7rCN
-	hgiuPvEP6OMqZ7Fj1qVJv05Gl0328F9HMvZGofYHAZG+upw4HCgzj9SjGtkfAEtiaA3uUiPxYfe
-	sZ22OvaN/2lVuIyU6OX+Giy1ITpFNDCCvwgQg1rCL3s2rd1JdtnFdtkW3s4/T9uoTrbIEAymE/V
-	8d2tLkd02tUxhf4DS99TubdGT3/X1iHq0Pl6S6bZ3Z+xlCGsu9IGj+YbbYbpwrmNRRK9qQ5aBik
-	8GIBLAY68IXs3PuqE/KwYEbMa/fDQ0tGsTPC6FAiL6bvZXncaOKiy4l23KCBJ5cMIfEHoX7PZtA
-	nFAgzjElfihjRCn9rah+t79bmvy9rnETTxwuBsg+OwPV3eYa/1NKEJ7B6Tw==
-X-Google-Smtp-Source: AGHT+IGGXL6tloOBz7FxAxnmyzWv+48i6RktNPoMzJSAb9G34DPcVBYQIe2yj1d6JiH+dpTu+YP1ZA==
-X-Received: by 2002:a05:6000:22c3:b0:3a4:eb92:b5eb with SMTP id ffacd0b85a97d-3b4964ea6c0mr12466454f8f.50.1751979495228;
-        Tue, 08 Jul 2025 05:58:15 -0700 (PDT)
-Message-ID: <350a2bcf-c6fa-49cf-9df5-ffe799fb8b82@suse.com>
-Date: Tue, 8 Jul 2025 14:58:08 +0200
+        bh=R6AWWL39yUQbpUen+S/NjA91boolPbLb+UdVB8EDWic=;
+        b=UkVsqOFajdU11OLbGF6Yew1Y4NPY7go/ivARqmkK0BNAKXujT0wYC+ULCE0wcaKj5I
+         9EizrBh51nvnkUqxWmht2sYeieX5Ss8Nj6ahlanO1uNcvakz3mk3Rr5QbSJPX5FSlMm+
+         PU1s6+cQhkgoAegAdbcWuwhTlo8Fw4ZmChJColoz/iMFjcB76TUdm7nJl80Ep5AIYBL8
+         06YMNczuXIK7M9zvaH/D1gDzce93i2IBG2Asl+CoTMjh4CSOfvvP57ElLCgJ3hlr2Gn7
+         9X+D6peQ8dfF8p5w0kxzHhtxxCnxdylKBJqWZkBRzq8dN45cLzDjsE6koPL9wIdkHIfG
+         iSww==
+X-Gm-Message-State: AOJu0YyciyxB15L1DA2yM7puqXqUmJECyot/hsHDsMC5oxuHdscbUKeX
+	0lxAv6TK7TFqJchJr5uwrAPo1axxAKu7Wn1sJoD2G7lDc8Io9GAnwEcCouWtbQXQpfYYz5szlWT
+	3JYc=
+X-Gm-Gg: ASbGncv8wWOijkxlf7eKpMA+/LJ+E+81dM2JfsRxRPgmhufu666mr37bExEXngDAwqg
+	FNz+x20T7A6nKvIq84lOsoWx6GMUaEulvFbAlikRGsKgS/coc/l6LZ+ktbqnSXMua2nhGBKUAk6
+	Inr1/6nplNrsgAfjj/VrCa8lsm46cFlNmsf2gcVWcZd5yK+L5hEP6EMqjBAMHj+4hDQHUVWiT8x
+	LXgFd9jtvUHnNNjJDFpPNaWS6AVEymWgkOOhxI4OHrpLYEIRWyPeKCGPZlToDydmPX59llY2z+m
+	Rn08X9ATXtZasgMaT9SkxtlVQ1JAv8rg9wjtD5UmDx+EXLJVFehgz3mHepizQEiqlGxIdvXJ/G+
+	Es1q6SihmgmVmuhn5E0Fn2bdFndMe3De7i0qWak4lQqXuUzo=
+X-Google-Smtp-Source: AGHT+IFpaQy+nRfUluItSJwoKat8OkvwIHKlObq1qgc38QXheBSp+3ZkcZMTzk5kO79slMxQ+6SA4g==
+X-Received: by 2002:adf:b652:0:b0:3a4:f644:95f0 with SMTP id ffacd0b85a97d-3b496626840mr11326541f8f.54.1751979558628;
+        Tue, 08 Jul 2025 05:59:18 -0700 (PDT)
+Message-ID: <26e175e7-7aaa-408e-8e3e-c29a4db1591a@suse.com>
+Date: Tue, 8 Jul 2025 14:59:11 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH 3/9] x86/mwait-idle: add Emerald Rapids Xeon support
+Subject: [PATCH 4/9] x86/mwait-idle: Add Meteorlake support
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Alex XZ Cypher Zero <me@alex0.net>
 References: <1df49875-99b8-4302-aed7-5a75dbdd85ca@suse.com>
 Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,35 +122,73 @@ In-Reply-To: <1df49875-99b8-4302-aed7-5a75dbdd85ca@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Emerald Rapids (EMR) is the next Intel Xeon processor after Sapphire
-Rapids (SPR).
+Add intel_idle support for MeteorLake.
 
-EMR C-states are the same as SPR C-states, and we expect that EMR
-C-state characteristics (latency and target residency) will be the
-same as in SPR. Therefore, add EMR support by using SPR C-states table.
+C1 and C1E states on Meteorlake are mutually exclusive, like Alderlake
+and Raptorlake, but they have little latency difference with measureable
+power difference, so always enable "C1E promotion" bit and expose C1E
+only.
 
-Signed-off-by: Artem Bityutskiy <artem.bityutskiy@linux.intel.com>
+Expose C6 because it has less power compared with C1E, and smaller
+latency compared with C8/C10.
+
+Ignore C8 and expose C10, because C8 does not show latency advantage
+compared with C10.
+
+Signed-off-by: Zhang Rui <rui.zhang@intel.com>
 Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-Origin: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git 74528edfbc66
+Origin: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git eeae55ed9c0a
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
 --- a/xen/arch/x86/cpu/mwait-idle.c
 +++ b/xen/arch/x86/cpu/mwait-idle.c
-@@ -1188,6 +1188,7 @@ static const struct x86_cpu_id intel_idl
+@@ -678,6 +678,28 @@ static struct cpuidle_state __ro_after_i
+ 	{}
+ };
+ 
++static const struct cpuidle_state mtl_l_cstates[] = {
++	{
++		.name = "C1E",
++		.flags = MWAIT2flg(0x01),
++		.exit_latency = 1,
++		.target_residency = 1,
++	},
++	{
++		.name = "C6",
++		.flags = MWAIT2flg(0x20) | CPUIDLE_FLAG_TLB_FLUSHED,
++		.exit_latency = 140,
++		.target_residency = 420,
++	},
++	{
++		.name = "C10",
++		.flags = MWAIT2flg(0x60) | CPUIDLE_FLAG_TLB_FLUSHED,
++		.exit_latency = 310,
++		.target_residency = 930,
++	},
++	{}
++};
++
+ static const struct cpuidle_state gmt_cstates[] = {
+ 	{
+ 		.name = "C1",
+@@ -1117,6 +1139,10 @@ static struct idle_cpu __ro_after_init i
+ 	.state_table = adl_l_cstates,
+ };
+ 
++static const struct idle_cpu idle_cpu_mtl_l = {
++	.state_table = mtl_l_cstates,
++};
++
+ static const struct idle_cpu idle_cpu_gmt = {
+ 	.state_table = gmt_cstates,
+ };
+@@ -1186,6 +1212,7 @@ static const struct x86_cpu_id intel_idl
+ 	ICPU(ICELAKE_D,			icx),
+ 	ICPU(ALDERLAKE,			adl),
  	ICPU(ALDERLAKE_L,		adl_l),
++	ICPU(METEORLAKE_L,		mtl_l),
  	ICPU(ATOM_GRACEMONT,		gmt),
  	ICPU(SAPPHIRERAPIDS_X,		spr),
-+	ICPU(EMERALDRAPIDS_X,		spr),
- 	ICPU(ATOM_GOLDMONT,		bxt),
- 	ICPU(ATOM_GOLDMONT_PLUS,	bxt),
- 	ICPU(ATOM_GOLDMONT_D,		dnv),
-@@ -1421,6 +1422,7 @@ static void __init mwait_idle_state_tabl
- 		skx_idle_state_table_update();
- 		break;
- 	case INTEL_FAM6_SAPPHIRERAPIDS_X:
-+	case INTEL_FAM6_EMERALDRAPIDS_X:
- 		spr_idle_state_table_update();
- 		break;
- 	case INTEL_FAM6_ALDERLAKE:
+ 	ICPU(EMERALDRAPIDS_X,		spr),
 
 
