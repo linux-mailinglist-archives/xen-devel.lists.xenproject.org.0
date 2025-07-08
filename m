@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8ED93AFCC0B
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Jul 2025 15:29:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1036525.1408781 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 603F3AFCC1A
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Jul 2025 15:31:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1036535.1408790 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uZ8Na-0005Ln-Q4; Tue, 08 Jul 2025 13:29:02 +0000
+	id 1uZ8Pu-000746-5Z; Tue, 08 Jul 2025 13:31:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1036525.1408781; Tue, 08 Jul 2025 13:29:02 +0000
+Received: by outflank-mailman (output) from mailman id 1036535.1408790; Tue, 08 Jul 2025 13:31:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uZ8Na-0005JO-Mp; Tue, 08 Jul 2025 13:29:02 +0000
-Received: by outflank-mailman (input) for mailman id 1036525;
- Tue, 08 Jul 2025 13:29:01 +0000
+	id 1uZ8Pu-00071N-2Y; Tue, 08 Jul 2025 13:31:26 +0000
+Received: by outflank-mailman (input) for mailman id 1036535;
+ Tue, 08 Jul 2025 13:31:24 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=mjd+=ZV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uZ8NZ-0005JI-9i
- for xen-devel@lists.xenproject.org; Tue, 08 Jul 2025 13:29:01 +0000
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [2a00:1450:4864:20::430])
+ id 1uZ8Ps-00070H-Jz
+ for xen-devel@lists.xenproject.org; Tue, 08 Jul 2025 13:31:24 +0000
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [2a00:1450:4864:20::42d])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 81ce82cf-5bff-11f0-a317-13f23c93f187;
- Tue, 08 Jul 2025 15:29:00 +0200 (CEST)
-Received: by mail-wr1-x430.google.com with SMTP id
- ffacd0b85a97d-3a525eee2e3so2801904f8f.2
- for <xen-devel@lists.xenproject.org>; Tue, 08 Jul 2025 06:29:00 -0700 (PDT)
+ id d75d1094-5bff-11f0-a317-13f23c93f187;
+ Tue, 08 Jul 2025 15:31:23 +0200 (CEST)
+Received: by mail-wr1-x42d.google.com with SMTP id
+ ffacd0b85a97d-3a57c8e247cso3285425f8f.1
+ for <xen-devel@lists.xenproject.org>; Tue, 08 Jul 2025 06:31:23 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-23c8455d755sm106109235ad.105.2025.07.08.06.28.54
+ d2e1a72fcca58-74ce359d0a0sm12102135b3a.4.2025.07.08.06.31.17
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 08 Jul 2025 06:28:58 -0700 (PDT)
+ Tue, 08 Jul 2025 06:31:22 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 81ce82cf-5bff-11f0-a317-13f23c93f187
+X-Inumbo-ID: d75d1094-5bff-11f0-a317-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1751981339; x=1752586139; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1751981483; x=1752586283; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=f7xnpOrVD02CCbRZOBfzqE8SreKQMqvY6CpRo3O8TQ8=;
-        b=ce350mVZjQ3tyupfn7gbrLoHAKDhp7ENJlsHakP7uAfK698Mn3JKTw/MTLXeT0Ij/3
-         hk+59bsmKk2qbx9GbcxiO9ntaNEsVpjNbcRNhoFA9prIHsCmBUDej/jN+IXd4ZQTiftI
-         UtY6ptdhSPA1Etnk67nhVX+0JegxqFWInY9aDUb5jZZuZrM0r22BM3524cVUm9AeCGfJ
-         e6FhEz00+XdZ1hG8+8D0nZfZKXzMEeblH8eqTUhkfFn9AAxuD9rqmAsqeP6WLTF2JS0K
-         UV8yonodei2ZjEihMVD7mEQVmi3VEWS9wF85tJdqdZEltRrmuC/6xWFV2SbpZnVxQ74k
-         NKAw==
+        bh=KdGdkYdlCL6qZfpewcbP97xSkD3l7tDDwgBlQuikcdg=;
+        b=GO5t1Nr9C3rijuG5QtSGyu3Db+I458noyzoIGFyGE/qeU7HXs/jbKIV+QIm02+Lkzi
+         oqwo5OulF3WxXfCmyevNyriYmiJCXznj/FEs1agkxOMtUjEmKe9s7oyCMGsGAuJ+VKVo
+         MSfYxJ7vpE+HOJ+1y0IIKP1Zoq8Z76Tc2F2BBFfO+OaSbXFlV1qHiFuKFCUzMyiBxTpS
+         Ke5lzjIN57YO9RXZjF6HPXUH3whBLpltyazdGI4MNSr0D8PHCD7+iNOMA4kjizYo7I2k
+         dz1Beo23aFjNM9d6ERczGBbW3WHiCSxSQ5Jg/yxO4wCVVcGKl+o7/933kchxKePOVrOE
+         N+Xg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1751981339; x=1752586139;
+        d=1e100.net; s=20230601; t=1751981483; x=1752586283;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=f7xnpOrVD02CCbRZOBfzqE8SreKQMqvY6CpRo3O8TQ8=;
-        b=lvNNsGPnA0OAyrWwgtF2LNaADPCV9x88ZTwG+z7x1dE9Ge0qcI6mw9xizrjc2sjHi1
-         sEjWgb15BOFjyT3dwYRixzuBTn8089vaff9my4TEu0ikVBlB9ak9J17mn+HqCHUwCUvY
-         gY2tlXzoGwj8rCsVSXfB/2jz6FJpXvn7qC1G+EcBhDO21sglWgZXpaYarB0JEpdqxas5
-         KFKiJ5IRF85uzvfof0yl3L1g1VIjE+idHOBdfE2E7ilUix1/q8QW17m1fE0IL7LE03zN
-         tTLlbXbzu7QZIK6031Mfyv2gSQpfqUD16LegT+pedrmknnBc/MY4Sj5AfnLdtmVmozUm
-         Qw1A==
-X-Forwarded-Encrypted: i=1; AJvYcCX4avrIU7znVIolxHaJfYllP61oJsipG/a3HJOx3EvIemzz7QBAh+iTd6m2ag3HBvFNFolR31uP5Og=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YybL4UjGFkSmtjHfUhfjfdJJ3tgVmSZ1ijSZMtDpjK5Yfi4MkHL
-	sCzR5ycZoyzndCCzI1X6u6uRBTQFU4abD+/aDmzr4ARKNPCXw8ybLyfzcug9oEP9Uw==
-X-Gm-Gg: ASbGncvTdLlZNNLfltFsXJsWXKkfB0wCQ6d9nTFSK3vjv6QNleFjXI1iMq2AaCOlg3E
-	UmKvjmSgbpIEMt5eTux8SnkA79eLn3nRfJWW3AceRRH0tE2erUYWTeY/eZfGcCXKDm/CRZv0TOI
-	oGYUbh/QSvoqTs5v10UnO7qc/hXoSO/WDYeMKk/RGm3pjTWvGru6XQIeCEsZ+F1qhudsoHEiLrf
-	hNP3pEPsdLIAJDdjbSwxkwhMjrBzf3fQb441x1IbbF4kDFuOu+n4ljZFRAoDdjf4S/JPOQ61Qew
-	ntEwMbC01CTihULFQuBKAfsX9aEibzVNGK+9+PJ+SLShkNA/1O78JPVMXmG4nNrs89e9RfvoQsA
-	q15TceU0ueexbLfL8STdZ3+GvMWWDO/aUMFG6V5HYFVbWYRY=
-X-Google-Smtp-Source: AGHT+IH4ljdqMqo9lDvGaH50EfH6qdIivW5OJOUUHrpPkSby4wkB9be0MqKeITYbjDBfSwSfSFNBng==
-X-Received: by 2002:a05:6000:4912:b0:3a4:f7e6:284b with SMTP id ffacd0b85a97d-3b5dde845f8mr2470336f8f.10.1751981339462;
-        Tue, 08 Jul 2025 06:28:59 -0700 (PDT)
-Message-ID: <8a7b1a65-f5c2-4992-a935-3c134d55a2f1@suse.com>
-Date: Tue, 8 Jul 2025 15:28:50 +0200
+        bh=KdGdkYdlCL6qZfpewcbP97xSkD3l7tDDwgBlQuikcdg=;
+        b=CLoOPAiVT89GvlXQUmmiNSZbPsF0unyQZ2Ck/lbj/ie/pBnTa+QeqaCfuYKksSYKfr
+         eEpgMTqJm37xdBfnAQRFP6V8v4Bz6xnRjWGX6zEzNd07zRGdrHSYhWOCqGxaRZwvx4Wz
+         ZVsM4SJ8MWOSIWj3gY8IjBpBqi+rmV4FTG5eKFxswx3dc33wPwGy1z74Bb5HoadzDVjt
+         khr73uSxVArKui1gA8OGZNAVJhRqW8UI+HWDXjwMBuNPf9FIMSfEXJyVYZgkdI0kBOA1
+         +MX1V7R+X1OkOoYl/wPobPNFLz19yyEeHyKswWGdnKAEPvXpEEZ8SEDcA6ACJAx1kykk
+         /K1g==
+X-Gm-Message-State: AOJu0Yx5l9NtHybs2FnYJ1NSuhL2TlBSMMkd1B9tGzEIpOHf07GIu3se
+	dQHX0FFOw5J5xY4G6b7Bx5RK/XaXRTfvKuOK29ztLW+EJU8I3v5O1BazRuLeSifdpN/oXyNe3zL
+	xxjM=
+X-Gm-Gg: ASbGncvT8o6FFT7LceI6ricaU7iZ/+KB8cNLbku+ztvCtY9FKV4MJbqL4itU0r3ic7d
+	4OxcIaho05gHZTLQg9IOPHGdADryKuJfhHBiETVCD1DSSNsVx9zWdhAyF7TOUVTVi77AEzlbTVt
+	jaFH+WxHgtUKQwQGxD8VP/idlLnRyIPE4HmzIBHtwNAmYF0Z+Y2zXLM17VYKpIXP28mMzL/g73F
+	wg5xwkEUmbBlVtWItgiDtTfyKeO8OmNtF+XRyAD2tiLRJ64d86vAZ/4aMmrozlWun0uPPU3PHUE
+	e0pOIRtZw9fJFUSFJ/ziq8Lnuds7CSgnv0CsaVkdzC2gd6fBHR23QZOMnOumxMmwC11aeoCrV+D
+	q0WZKKbgWsrxSMnpHczshvCeH7EAenD4qKBsWrgtS0bcap4I=
+X-Google-Smtp-Source: AGHT+IElhqBWLVPhHA8s0gjxnbrnjZfLkh3yzxapVtMrCJkcD/IH5yLq5IFH8BKh+tnPcCOmz+Z0Jg==
+X-Received: by 2002:adf:e185:0:b0:3a6:e1bb:a083 with SMTP id ffacd0b85a97d-3b49701ca8dmr13901808f8f.25.1751981482855;
+        Tue, 08 Jul 2025 06:31:22 -0700 (PDT)
+Message-ID: <6d283128-4aaf-4f52-8e96-7a4ebe292be3@suse.com>
+Date: Tue, 8 Jul 2025 15:31:14 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] xen/x86: introduce AMD_MCE_NONFATAL
-To: Alejandro Vallejo <alejandro.garciavallejo@amd.com>,
+Subject: Re: [PATCH 0/2] Xen real-time x86
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <stefano.stabellini@amd.com>
-Cc: andrew.cooper3@citrix.com, roger.pau@citrix.com,
- Xenia.Ragiadakou@amd.com, Jason.Andryuk@amd.com,
- xen-devel@lists.xenproject.org
+Cc: xen-devel@lists.xenproject.org, Andrew Cooper
+ <andrew.cooper3@citrix.com>, Xenia.Ragiadakou@amd.com,
+ alejandro.garciavallejo@amd.com, Jason.Andryuk@amd.com
 References: <alpine.DEB.2.22.394.2507071657440.605088@ubuntu-linux-20-04-desktop>
- <20250708000712.2731666-2-stefano.stabellini@amd.com>
- <DB6LN9YLAF8J.1OV1IDMXC7F0Q@amd.com>
+ <aGzu4A_nk3dAScxt@macbook.local>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,112 +120,56 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <DB6LN9YLAF8J.1OV1IDMXC7F0Q@amd.com>
+In-Reply-To: <aGzu4A_nk3dAScxt@macbook.local>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 08.07.2025 12:25, Alejandro Vallejo wrote:
-> On Tue Jul 8, 2025 at 2:07 AM CEST, Stefano Stabellini wrote:
->> --- a/xen/arch/x86/Kconfig.cpu
->> +++ b/xen/arch/x86/Kconfig.cpu
->> @@ -10,6 +10,21 @@ config AMD
->>  	  May be turned off in builds targetting other vendors.  Otherwise,
->>  	  must be enabled for Xen to work suitably on AMD platforms.
->>  
->> +config AMD_MCE_NONFATAL
->> +	bool "Check for non-fatal MCEs on AMD CPUs"
->> +	default y
->> +	depends on AMD
->> +	help
->> +	  Check for non-fatal MCE errors.
->> +
->> +	  When this option is on (default), Xen regularly checks for
->> +	  non-fatal MCEs potentially occurring on all physical CPUs. The
->> +	  checking is done via timers and IPI interrupts, which is
->> +	  acceptable in most configurations, but not for real-time.
->> +
->> +	  Turn this option off if you plan on deploying real-time workloads
->> +	  on Xen.
->> +
+On 08.07.2025 12:11, Roger Pau Monné wrote:
+> On Mon, Jul 07, 2025 at 05:06:53PM -0700, Stefano Stabellini wrote:
+>> Hi all,
+>>
+>> This short patch series improves Xen real-time execution on AMD x86
+>> processors.
+>>
+>> The key to real-time performance is deterministic guest execution times
+>> and deterministic guest interrupt latency. In such configurations, the
+>> null scheduler is typically used, and there should be no IPIs or other
+>> sources of vCPU execution interruptions beyond the guest timer interrupt
+>> as configured by the guest, and any passthrough interrupts for
+>> passthrough devices.
+>>
+>> This is because, upon receiving a critical interrupt, the guest (such as
+>> FreeRTOS or Zephyr) typically has a very short window of time to
+>> complete the required action. Being interrupted in the middle of this
+>> critical section could prevent the guest from completing the action
+>> within the allotted time, leading to malfunctions.
 > 
-> This being in the CPU vendor submenu seems off. I'd expect only a list of
-> silicon vendors here. I think it ought to be in the regular Kconfig file.
+> There's IMO still one pending issue after this series on x86, maybe
+> you have addressed this with some local patch.
 
-Whether in this file or the regular one is up for discussion, but yes,
-definitely not inside the vendor menu.
-
->> --- a/xen/arch/x86/cpu/mcheck/amd_nonfatal.c
->> +++ b/xen/arch/x86/cpu/mcheck/amd_nonfatal.c
->> @@ -191,7 +191,8 @@ static void cf_check mce_amd_work_fn(void *data)
->>  
->>  void __init amd_nonfatal_mcheck_init(struct cpuinfo_x86 *c)
->>  {
->> -	if (!(c->x86_vendor & (X86_VENDOR_AMD | X86_VENDOR_HYGON)))
->> +	if ( !IS_ENABLED(CONFIG_AMD_MCE_NONFATAL) ||
->> +	     (!(c->x86_vendor & (X86_VENDOR_AMD | X86_VENDOR_HYGON))) )
->>  		return;
->>  
->>  	/* Assume we are on K8 or newer AMD or Hygon CPU here */
-> 
-> It can be made more general to remove more code. What do you think of removing
-> all non-fatals and getting rid of the initcall altogether?
-
-I think such a more general approach would be quite a bit better.
+Not just one, I think. We use IPIs for other purposes as well. The way
+I read the text above, all of them are a (potential) problem.
 
 Jan
 
-> 	diff --git a/xen/arch/x86/Kconfig.cpu b/xen/arch/x86/Kconfig.cpu
-> 	index 5fb18db1aa..a4b892a1aa 100644
-> 	--- a/xen/arch/x86/Kconfig.cpu
-> 	+++ b/xen/arch/x86/Kconfig.cpu
-> 	@@ -10,6 +10,20 @@ config AMD
-> 	          May be turned off in builds targetting other vendors.  Otherwise,
-> 	          must be enabled for Xen to work suitably on AMD platforms.
+>  Interrupt forwarding
+> from Xen into HVM/PVH guests uses a softirq to do the injection, which
+> means there's a non-deterministic window of latency between when the
+> interrupt is received by Xen, as to when it's injected to the guest,
+> because the softirq might not get processed right after being set as
+> pending (there might be other softirqs to process, or simply Xen might
+> be busy doing some other operation).
 > 
-> 	+config MCE_NONFATAL
-> 	+       bool "Check for non-fatal MCEs"
-> 	+       default y
-> 	+       help
-> 	+         Check for non-fatal MCE errors.
-> 	+
-> 	+         When this option is on (default), Xen regularly checks for
-> 	+         non-fatal MCEs potentially occurring on all physical CPUs. The
-> 	+         checking is done via timers and IPI interrupts, which is
-> 	+         acceptable in most configurations, but not for real-time.
-> 	+
-> 	+         Turn this option off if you plan on deploying real-time workloads
-> 	+         on Xen.
-> 	+
-> 	 config INTEL
-> 	        bool "Support Intel CPUs"
-> 	        default y
-> 	diff --git a/xen/arch/x86/cpu/mcheck/Makefile b/xen/arch/x86/cpu/mcheck/Makefile
-> 	index e6cb4dd503..c70b441888 100644
-> 	--- a/xen/arch/x86/cpu/mcheck/Makefile
-> 	+++ b/xen/arch/x86/cpu/mcheck/Makefile
-> 	@@ -1,12 +1,12 @@
-> 	-obj-$(CONFIG_AMD) += amd_nonfatal.o
-> 	+obj-$(filter $(CONFIG_AMD),$(CONFIG_MCE_NONFATAL)) += amd_nonfatal.o
-> 	 obj-$(CONFIG_AMD) += mce_amd.o
-> 	 obj-y += mcaction.o
-> 	 obj-y += barrier.o
-> 	-obj-$(CONFIG_INTEL) += intel-nonfatal.o
-> 	+obj-$(filter $(CONFIG_INTEL),$(CONFIG_MCE_NONFATAL)) += intel-nonfatal.o
-> 	 obj-y += mctelem.o
-> 	 obj-y += mce.o
-> 	 obj-y += mce-apei.o
-> 	 obj-$(CONFIG_INTEL) += mce_intel.o
-> 	-obj-y += non-fatal.o
-> 	+obj-$(CONFIG_MCE_NONFATAL) += non-fatal.o
-> 	 obj-y += util.o
-> 	 obj-y += vmce.o
+> I think you want to look into adding a new command line option or
+> similar, that allows selecting whether guest IRQs are deferred to a
+> softirq for injection, or are injected as part of the processing done
+> in the IRQ handler itself.
 > 
-> ... with the Kconfig option probably in the regular x86 Kconfig rather than
-> Kconfig.cpu
+> Otherwise there will always be a non-deterministic amount of latency
+> on x86 w.r.t. HVM/PVH passthrough guest interrupts.  Haven't you seen
+> some weird/unexpected variance when doing this passthrough interrupt
+> latency measurements on x86?
 > 
-> Thoughts?
-> 
-> Cheers,
-> Alejandro
+> Regards, Roger.
 
 
