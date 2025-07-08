@@ -2,35 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B17A6AFD10B
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Jul 2025 18:30:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1036903.1409394 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4BDDEAFD4DA
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Jul 2025 19:12:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1036930.1409484 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uZBDC-0004cc-UV; Tue, 08 Jul 2025 16:30:30 +0000
+	id 1uZBqx-0002UX-Oa; Tue, 08 Jul 2025 17:11:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1036903.1409394; Tue, 08 Jul 2025 16:30:30 +0000
+Received: by outflank-mailman (output) from mailman id 1036930.1409484; Tue, 08 Jul 2025 17:11:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uZBDC-0004bB-RI; Tue, 08 Jul 2025 16:30:30 +0000
-Received: by outflank-mailman (input) for mailman id 1036903;
- Tue, 08 Jul 2025 16:30:29 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uZBqx-0002T4-Lg; Tue, 08 Jul 2025 17:11:35 +0000
+Received: by outflank-mailman (input) for mailman id 1036930;
+ Tue, 08 Jul 2025 17:11:34 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=f0DE=ZV=arm.com=hari.limaye@srs-se1.protection.inumbo.net>)
- id 1uZBDB-0004b5-Ab
- for xen-devel@lists.xenproject.org; Tue, 08 Jul 2025 16:30:29 +0000
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id d8cbee28-5c18-11f0-b894-0df219b8e170;
- Tue, 08 Jul 2025 18:30:23 +0200 (CEST)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 218A5153B;
- Tue,  8 Jul 2025 09:30:11 -0700 (PDT)
-Received: from PWQ0QT7DJ1.cambridge.arm.com (unknown [10.57.69.90])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D4F063F694;
- Tue,  8 Jul 2025 09:30:20 -0700 (PDT)
+ <SRS0=Y4zX=ZV=amd.com=stefano.stabellini@srs-se1.protection.inumbo.net>)
+ id 1uZBqw-0002Re-1t
+ for xen-devel@lists.xenproject.org; Tue, 08 Jul 2025 17:11:34 +0000
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on20628.outbound.protection.outlook.com
+ [2a01:111:f403:2416::628])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 96dbba86-5c1e-11f0-a317-13f23c93f187;
+ Tue, 08 Jul 2025 19:11:31 +0200 (CEST)
+Received: from BN0PR04CA0004.namprd04.prod.outlook.com (2603:10b6:408:ee::9)
+ by IA0PR12MB7601.namprd12.prod.outlook.com (2603:10b6:208:43b::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8901.25; Tue, 8 Jul
+ 2025 17:11:27 +0000
+Received: from BN2PEPF000044A5.namprd04.prod.outlook.com
+ (2603:10b6:408:ee:cafe::ed) by BN0PR04CA0004.outlook.office365.com
+ (2603:10b6:408:ee::9) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8922.21 via Frontend Transport; Tue,
+ 8 Jul 2025 17:11:27 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN2PEPF000044A5.mail.protection.outlook.com (10.167.243.104) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8901.15 via Frontend Transport; Tue, 8 Jul 2025 17:11:27 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 8 Jul
+ 2025 12:11:26 -0500
+Received: from ubuntu-20.04.2-arm64.shared (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.39 via Frontend Transport; Tue, 8 Jul 2025 12:11:25 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,247 +60,183 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d8cbee28-5c18-11f0-b894-0df219b8e170
-Date: Tue, 8 Jul 2025 17:30:18 +0100
-From: Hari Limaye <hari.limaye@arm.com>
-To: xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org, julien@xen.org, bertrand.marquis@arm.com, 
-	michal.orzel@amd.com, Volodymyr_Babchuk@epam.com, luca.fancellu@arm.com, 
-	ayankuma@amd.com
-Subject: RFC: Proposal for supporting EL1 MPU region context switch in Xen
-Message-ID: <sx7fysbgi6fwrza24lq2xkyvnz254756cptucxqfokwrd7pxs7@k3swbmqmfvel>
+X-Inumbo-ID: 96dbba86-5c1e-11f0-a317-13f23c93f187
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=g1SiDVHRXQoZwXwDZ216f7EMlwXckCjFpA976XT6qXxWTEQJUPMHH9u7Kk0sqslG2Grr4e9C8JQeQf96DFAX5zOlYX2mFLoXB8ff7HvFvk/qN22qfE/JCV0r0v+yavZ3fq+UWle3Ly5AN2vNvCf1qBCdZuldCahVUWEDF1gR/wz/yPkGxfqJDiBj6EHsT5HmNBd+uxFPpUYTFoD0yEQfLTcbYdEe00RTyNLX+5BqQXyBjYC2S4nU/zCu/ONMDDDnDNwFT4spgjhsdt56Eq0Eb9Oa/YsYWxQ8VyY2bx46G4aPRvGZbmPlORpS728wUc1hAlP7Podc/4glodfZ+MVSkw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=cWOVwSpENCCtzgs6ii1Ee3qC0zEZuFwwEjJe25KXAMs=;
+ b=ZRniAkTLWnlUpsAy0K7z2grmiJ9Qd+9lPVjawg2DmN284r52uXvV3eQJRvYeui1KMG1Zatrpb5ebvq1Va+F94RGuv1NXzYAHYRmaHgbbqQd8QPtJfwpZTlF0kUd/S2Qfs6arDXq5qfluhYaooPJQ1JH4sSHlERS6j2YjhjmwEN4LSptV3KSJ2+wDvbENHPFjb1MBUMVRtpn+erxOru4K0vHwiRQa1z4nBI0tJJqVFzAWyCjGib+d6z1w0QJH7Zr1V8B4i7yGlKhb8KAaZkZMNz+6Vx59vi17XdtwSr7DlNOpjKOjZf405b8kPvFyZ4LmlKgmFOmPaGit3X0LWu4Wng==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=cWOVwSpENCCtzgs6ii1Ee3qC0zEZuFwwEjJe25KXAMs=;
+ b=sphuqLoLmjRJ+WcjoqTjZIIUsg6oote3bLXB9hgz1VYjOTkqNZJA5exeI3AwQ+ewS6xr6g/fJL7RYAMmXTf6GJc2rCHJbjFncblmfb/1Mv0f2nOh0uYylgCHQCyucBuJOKYLlyvVT8Wk2kp0Pro+tVW2cvUz3RVGsdsToQlS0A0=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Date: Tue, 8 Jul 2025 10:11:18 -0700
+From: Stefano Stabellini <stefano.stabellini@amd.com>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Jan Beulich <jbeulich@suse.com>
+CC: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, "Stefano
+ Stabellini" <stefano.stabellini@amd.com>, <xen-devel@lists.xenproject.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>, <Xenia.Ragiadakou@amd.com>,
+	<alejandro.garciavallejo@amd.com>, <Jason.Andryuk@amd.com>
+Subject: Re: [PATCH 0/2] Xen real-time x86
+In-Reply-To: <6d283128-4aaf-4f52-8e96-7a4ebe292be3@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2507081000490.605088@ubuntu-linux-20-04-desktop>
+References: <alpine.DEB.2.22.394.2507071657440.605088@ubuntu-linux-20-04-desktop> <aGzu4A_nk3dAScxt@macbook.local> <6d283128-4aaf-4f52-8e96-7a4ebe292be3@suse.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Type: multipart/mixed;
+	boundary="8323329-348157111-1751994629=:605088"
+Content-ID: <alpine.DEB.2.22.394.2507081010370.605088@ubuntu-linux-20-04-desktop>
+Received-SPF: None (SATLEXMB04.amd.com: stefano.stabellini@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN2PEPF000044A5:EE_|IA0PR12MB7601:EE_
+X-MS-Office365-Filtering-Correlation-Id: d8b9be27-d2e9-4344-3ce8-08ddbe4279a3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700013|1800799024|376014|82310400026;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?SWQ4TUtwV1pobWRYRlFUNFFiM1prQjgxL3BmazNNdXArRDFQRHMweWFOM0k0?=
+ =?utf-8?B?cXA5LzZBZ3VOejJ2YmR3SktoL1Axa0hPWERFUy83UTJLWWNqVXdWZjMrOTNN?=
+ =?utf-8?B?ZVA5Z3V1V1lxTXN6QlJnWEZxMzBzdmJhOFNZZk4vdWdNNzhkSGlQSHpUOStO?=
+ =?utf-8?B?RVlVWnB0MW9KWTdtelNLeWVrZW9QcXY1WDdDNmdHMll2NEpvWHR2UGg2TFhh?=
+ =?utf-8?B?cTFZWTF2YjhiMURBbVg3Qm5vS1U0d29IcVBNNlZzbG0vdXhhakJsT0hGL3hi?=
+ =?utf-8?B?Nk5mNFBIYngzd0xkcUJNVGdpNkoyWHF2VS9SSmJPN0dab3lraEdzVVFTME1B?=
+ =?utf-8?B?OG10OE1SV3d6MGNFN0Z6YjA2V0tXNW80MzVvb2IzOVprcXFKemp4V0k2bU42?=
+ =?utf-8?B?NlE5S1FGVCttU0h2a21wem81eEI3TjR1RDVwYkZmeUcxVmJNV2tuQzZ6MTJN?=
+ =?utf-8?B?bytNc29JTWtONlRNdVpKU1ZYME9rc0t6SWJrK1lZVE1sZENjWG9vM053cGdH?=
+ =?utf-8?B?Mm9xRmxTS1VYM3BsbG1ScmhyNjY4S0tYN0E3ZkZNdjBiTG93bHFOVUhvOUw1?=
+ =?utf-8?B?MmVTTFp2REkyQnRHVkVJdkZLbHloNldiMUJYSC9qcjlTVWxkcUYzRk0vMG12?=
+ =?utf-8?B?QkhadU8wcHNORHJSeGg0Rm1KenJEa2pRZE1VVjBndnduT3REbnRmK3dqWkUy?=
+ =?utf-8?B?WnpnbjFJK2tVeDhMZEZVQ29iNGNiQnpDNW1YSVRRazhPdFgyeDA0SnMzS2dx?=
+ =?utf-8?B?QVZhRmNwcEZIK1BHdlMyRm81MUsySHZHSEljWHN2dHVIcnY3YjV0WCtWRnBO?=
+ =?utf-8?B?OE5ZdXlJcnpOL3lSQlN3SjFCeHplNmVTKzZHd2hibEJyVlBJTUVvN20yMmVM?=
+ =?utf-8?B?Y2lhaU10TlNzbUhNVER1Vk1qZHpVNTRRRFYxVnpDYzhhQzdYZmpRSStxSDNF?=
+ =?utf-8?B?M09XdTE1c2xIQzF0eStrRmtNNk9iOFdhdjdxUGVpUWI2VkkrbUp4azN1cENN?=
+ =?utf-8?B?bGx2VmI3amtjeEJ3dENyT05mK2ovNytUZTJmVi9oc3Y2YnE0eU80b3ZJMkZB?=
+ =?utf-8?B?bWZpRkIrUzZ6WnNtWWJvMXp6eGx4R3BWek1HVFBwMU5sOHJ2dE8rTjBLWkV0?=
+ =?utf-8?B?bUVOZmp5T3QrNi9qRHc3UkRBSDlHMnowdUYwTlBIYTVHNEhmTTVENmIxRkZL?=
+ =?utf-8?B?TkJ4czc4MGxVNVR5RG9OaFROVGd4WjJDVlVrYU1kN1dJVGREN0x3QUVncUQ2?=
+ =?utf-8?B?VmxqMmtGZ1p4SnBna2ljV0VHbEVFblRWbjdvWUxGcDVwelBtRGJtUk9qVyt5?=
+ =?utf-8?B?YkVHOWozT3l3UU9VNzZoQUp0TTBCenRKOUh5Q2pGN05STlpsME1PYllxaGlK?=
+ =?utf-8?B?bmxBcWVzakhZNXlBYzgwa20yRXFtVG05VmlwY1BsWm1pMXd2YnRyS2xHL3FS?=
+ =?utf-8?B?bVl4ZnR3cmVzSHByTGJPU0tFbTBCL1FrSDVqaCs2eFNDdGR4TzhvbStQQlp3?=
+ =?utf-8?B?R1RtbkY5RzljVmF4NGtWZlZPUk5ZTER1NlRYWXF6OGF0RUVCRi9ROXBtOVoy?=
+ =?utf-8?B?VVJjNGVvbGhrSXd0U2syUmZVajNYck0vUHRnUHJ6TXZnUEYrck9nMEhHK3ZL?=
+ =?utf-8?B?WkxBZ3dkQ2t5a2tKOXRyNlNZdElKbXBkNTZ4aGxBU3RDUHBLODZTMXJtOExT?=
+ =?utf-8?B?L0ZVcHZ4d2VITEVocUNGL0tESERDbndwcktuaDIrZ1BMV3QwWFU4RlArb2Nk?=
+ =?utf-8?B?TVdwR2FoNlE1VGNsNXpQOEFoa284Vzl6VER1TzNxTEpSR3U3eVNKRFZlSFFT?=
+ =?utf-8?B?WDdFU2FPZlFkRkNNam92SVUvQUJSN09laThkZW45Vml5MnVoSG1hS0xqNGRx?=
+ =?utf-8?B?WWx3UlFNR2xpMGJpNFBLT2tTWG9ZejdWYmYvRWdpd09Iam96MUs3d0hvcHpW?=
+ =?utf-8?B?UzBhRGorb3BOS1pkVk00T2RBZ2lYdlRkR3FDcXdCMElvVk41WGRDcUhtT1Br?=
+ =?utf-8?B?TG1EVGxrZURhRDV2cm9hc1NwMHlNTkphbExoR2hIUStFelg1NWQ5UUFuUG9m?=
+ =?utf-8?Q?EI52gX?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(1800799024)(376014)(82310400026);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jul 2025 17:11:27.3914
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d8b9be27-d2e9-4344-3ce8-08ddbe4279a3
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN2PEPF000044A5.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7601
 
-# Proposal for supporting EL1 MPU region context switch in Xen
+--8323329-348157111-1751994629=:605088
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8BIT
+Content-ID: <alpine.DEB.2.22.394.2507081010371.605088@ubuntu-linux-20-04-desktop>
 
-This proposal will introduce the proposed design for supporting EL1 MPU region
-context switch for guests.
+On Tue, 8 Jul 2025, Jan Beulich wrote:
+> On 08.07.2025 12:11, Roger Pau Monné wrote:
+> > On Mon, Jul 07, 2025 at 05:06:53PM -0700, Stefano Stabellini wrote:
+> >> Hi all,
+> >>
+> >> This short patch series improves Xen real-time execution on AMD x86
+> >> processors.
+> >>
+> >> The key to real-time performance is deterministic guest execution times
+> >> and deterministic guest interrupt latency. In such configurations, the
+> >> null scheduler is typically used, and there should be no IPIs or other
+> >> sources of vCPU execution interruptions beyond the guest timer interrupt
+> >> as configured by the guest, and any passthrough interrupts for
+> >> passthrough devices.
+> >>
+> >> This is because, upon receiving a critical interrupt, the guest (such as
+> >> FreeRTOS or Zephyr) typically has a very short window of time to
+> >> complete the required action. Being interrupted in the middle of this
+> >> critical section could prevent the guest from completing the action
+> >> within the allotted time, leading to malfunctions.
+> > 
+> > There's IMO still one pending issue after this series on x86, maybe
+> > you have addressed this with some local patch.
+> 
+> Not just one, I think. We use IPIs for other purposes as well. The way
+> I read the text above, all of them are a (potential) problem.
 
-## Purpose
+Yes, all of them are potentially a problem. If you know of any other
+IPI, please let me know and I'll try to remove them. One of my goals
+posting this series was to raise awareness on this issue and attempting
+to fix it with your help. It is not just IPIs, also Xen timers and other
+things that could cause the guest to trap into Xen without the guest
+knowledge. Typically IPIs are the worst offenders in my experience.
 
-We would like to be able to support the PMSAv8-64 translation regime at EL1 for
-Xen guests. We would also like to configure the number of supported MPU regions
-on a per-guest basis.
+On ARM, I have done several experiments where, after the system is
+configured correctly, I can see that if the RTOS does nothing, there are
+no traps in Xen on the RTOS vCPU/pCPU for seconds.
 
-## Interface:
+As I tried to describe in the email, typically the real time
+application, which tends to be based on an RTOS like FreeRTOS or Zephyr
+(think of them like Unikernels), has a very small window of time from
+receiving an interrupt to accomplish a critical task. Nothing should be
+disturbing the execution of the RTOS during the critical window. The
+operation the RTOS needs to perform is typically on a passthrough device
+without Xen interactions.
 
-We propose to add a new device tree property `mpu`, which specifies the number
-of MPU memory regions that a guest is allowed to use and governs whether the
-EL1 MPU and the PMSAv8-64 translation regime are enabled at EL1 for a guest.
+In general from the hypervisor point of view, the idea is that Xen
+should inject the interrupt and then leave the RTOS alone and
+undisturbed to do its job.
 
-The property is specified as follows:
 
-- mpu
-    Optional. A 32-bit integer specifying the value returned by accesses to
-    MPUIR_EL1.REGION (or MPUIR.REGION on AArch32). This property also governs
-    whether the EL1 MPU and the PMSAv8-64 translation regime are enabled at EL1.
+ 
+> >  Interrupt forwarding
+> > from Xen into HVM/PVH guests uses a softirq to do the injection, which
+> > means there's a non-deterministic window of latency between when the
+> > interrupt is received by Xen, as to when it's injected to the guest,
+> > because the softirq might not get processed right after being set as
+> > pending (there might be other softirqs to process, or simply Xen might
+> > be busy doing some other operation).
+> > 
+> > I think you want to look into adding a new command line option or
+> > similar, that allows selecting whether guest IRQs are deferred to a
+> > softirq for injection, or are injected as part of the processing done
+> > in the IRQ handler itself.
+> > 
+> > Otherwise there will always be a non-deterministic amount of latency
+> > on x86 w.r.t. HVM/PVH passthrough guest interrupts.  Haven't you seen
+> > some weird/unexpected variance when doing this passthrough interrupt
+> > latency measurements on x86?
 
-    Behavior:
-
-    - `mpu = <0>;`
-      Disables the EL1 MPU and the PMSAv8-64 translation regime at EL1. This is
-      also the default behavior if the `mpu` property is omitted.
-
-    - `mpu;` (property present with no value)
-      Enables the EL1 MPU and the PMSAv8-64 translation regime at EL1. The value
-      returned by accesses to MPUIR_EL1.REGION (or MPUIR.REGION on AArch32) will
-      match the actual hardware register value.
-
-    - `mpu = <N>;` (N > 0)
-      Enables the EL1 MPU and the PMSAv8-64 translation regime at EL1. The value
-      returned by accesses to MPUIR_EL1.REGION (or MPUIR.REGION on AArch32) is
-      set to N. This value must not exceed the actual hardware-supported number
-      of regions.
-
-    Domain creation will fail and the system will halt if:
-
-    - A non-zero value is specified but exceeds the hardware-supported number of
-      MPU regions.
-
-    - A non-zero value is specified but the kernel is not built with
-      `CONFIG_MPU`.
-
-A new field - `nr_mpu_regions` - will be added to the arm-specific
-`struct arch_domain` in xen/arch/arm/include/asm/domain.h to store the value of
-the `mpu` device tree property. The field has type uint8_t.
-
-## Trapping and Emulation:
-
-In order to control the number of regions supported by the EL1 MPU we must trap
-accesses to MPUIR_EL1. Additionally, to prevent accesses to or modification of
-MPU regions outside of the range of the configured number of supported regions
-we must also trap accesses to PRENR_EL1, PRSELR_EL1, PRBAR_EL1, PRBAR<n>_EL1,
-PRLAR_EL1, PRLAR<n>_EL1 (AArch64) and PRSELR, PRBAR, PRBAR<n>, PRLAR, PRLAR<n>
-(AArch32).
-
-### Trapping accesses to MPUIR_EL1 (AArch64) and MPUIR (AArch32):
-
-Access to MPUIR_EL1/MPUIR will be trapped and emulated, returning the value of
-the `nr_mpu_regions` field.
-
-- On AArch64: if HCR_EL2.TID1 == 1, EL1 accesses to MPUIR_EL1, REVIDR_EL1,
-  AIDR_EL1 are trapped to EL2 [^1]. We will emulate these as follows:
-
-    - MPUIR_EL1: return value of `nr_mpu_regions` field
-    - REVIDR_EL1: Unmodified value read from hardware
-    - AIDR_EL1: Unmodified value read from hardware
-
-- On AArch32: if HCR.TID1 == 1, EL1 accesses to MPUIR, TCMTR, TLBTR, REVIDR,
-  AIDR are trapped to Hyp mode [^2].
-
-    - MPUIR: return value of `nr_mpu_regions` field
-    - TCMTR: Unmodified value read from hardware
-    - TLBTR: Unmodified value read from hardware
-    - REVIDR: Unmodified value read from hardware
-    - AIDR: Unmodified value read from hardware
-
-### Trapping accesses to virtual memory control registers
-
-Accesses to the PMSAv8-64 virtual memory control registers from EL1 must also be
-trapped to EL2, to prevent modification of MPU regions outside of the range of
-the configured number of supported regions.
-
-- On AArch64: if HCR_EL2.TVM == 1, EL1 write accesses to virtual memory control
-  registers are trapped to EL2 [^1]. We will emulate these as follows:
-    - SCTLR_EL1: Unmodified value written to hardware
-	- TTBR0_EL: Unmodified value written to hardware
-	- TTBR1_EL: Unmodified value written to hardware
-	- TCR_EL1: Unmodified value written to hardware
-	- ESR_EL1: Unmodified value written to hardware
-	- FAR_EL1: Unmodified value written to hardware
-	- AFSR0_EL1: Unmodified value written to hardware
-	- AFSR1_EL1: Unmodified value written to hardware
-	- MAIR_EL1: Unmodified value written to hardware
-	- AMAIR_EL1: Unmodified value written to hardware
-	- CONTEXTIDR_EL1: Unmodified value written to hardware
-    - PRENR_EL1: If value has any set bits in positions corresponding to MPU
-      regions >= `nr_mpu_regions`, i.e. `value & ~((1U << nr_mpu_regions) - 1)`
-      is non-zero, the write is ignored. Otherwise, the unmodified value is
-      written to hardware.
-    - PRSELR_EL1: If value >= `nr_mpu_regions` the write causes a guest crash.
-      This deviates from the TRM, which states that the value of the register
-      becomes UNKNOWN. Otherwise, the unmodified value is written to hardware.
-	- PRBAR_EL1: Unmodified value written to hardware.
-	- PRBAR<n>_EL1: If `n` is such that the value of `PRSELR_EL1.REGION<7:4>:n`
-      >= `nr_mpu_regions` the write causes a guest crash. This deviates from the
-      TRM, which states that invalid writes make all PRBAR_EL1 registers value
-      UNKNOWN. Otherwise the unmodified value is written to hardware.
-	- PRLAR_EL1: Unmodified value written to hardware.
-	- PRLAR<n>_EL1: If `n` is such that the value of `PRSELR_EL1.REGION<7:4>:n`
-      >= `nr_mpu_regions` the write causes a guest crash. This deviates from the
-      TRM, which states that invalid writes make all PRBAR_EL1 registers value
-      UNKNOWN. Otherwise the unmodified value is written to hardware.
-
-- On AArch64: if HCR_EL2.TRVM == 1, EL1 read accesses to virtual memory control
-  registers are trapped to EL2 [^1]. We will emulate these as follows:
-    - SCTLR_EL1: Unmodified value read from hardware
-	- TTBR0_EL: Unmodified value read from hardware
-	- TTBR1_EL: Unmodified value read from hardware
-	- TCR_EL1: Unmodified value read from hardware
-	- ESR_EL1: Unmodified value read from hardware
-	- FAR_EL1: Unmodified value read from hardware
-	- AFSR0_EL1: Unmodified value read from hardware
-	- AFSR1_EL1: Unmodified value read from hardware
-	- MAIR_EL1: Unmodified value read from hardware
-	- AMAIR_EL1: Unmodified value read from hardware
-	- CONTEXTIDR_EL1: Unmodified value read from hardware
-    - PRENR_EL1: Unmodified value read from hardware
-    - PRSELR_EL1: Unmodified value read from hardware
-	- PRBAR_EL1: Unmodified value read from hardware.
-	- PRBAR<n>_EL1: If `n` is such that the value of `PRSELR_EL1.REGION<7:4>:n`
-      >= `nr_mpu_regions` the read causes a guest crash. This deviates from the
-      TRM which states that invalid reads return an UNKNOWN value. Otherwise the
-      unmodified value is read from hardware.
-	- PRLAR_EL1: Unmodified value read from hardware.
-	- PRLAR<n>_EL1: If `n` is such that the value of `PRSELR_EL1.REGION<7:4>:n`
-      >= `nr_mpu_regions` the read causes a guest crash. This deviates from the
-      TRM which states that invalid reads return an UNKNOWN value. Otherwise the
-      unmodified value is read from hardware.
-
-- On AArch32: if HCR.TVM == 1, EL1 write accesses to memory control registers
-  are trapped to Hyp mode [^2]. We will emulate these as follows:
-    - SCTLR: Unmodified value written to hardware
-	- DFSR: Unmodified value written to hardware
-	- IFSR: Unmodified value written to hardware
-	- DFAR: Unmodified value written to hardware
-	- IFAR: Unmodified value written to hardware
-	- ADFSR: Unmodified value written to hardware
-	- AIFSR: Unmodified value written to hardware
-	- PRRR: Unmodified value written to hardware
-	- NMRR: Unmodified value written to hardware
-	- MAIR0: Unmodified value written to hardware
-	- MAIR1: Unmodified value written to hardware
-	- AMAIR0: Unmodified value written to hardware
-	- AMAIR1: Unmodified value written to hardware
-	- CONTEXTIDR: Unmodified value written to hardware
-    - PRSELR: If value >= `nr_mpu_regions` the write causes a guest crash.
-      Otherwise, the unmodified value is written to hardware.
-	- PRBAR: Unmodified value written to hardware
-	- PRBAR<n>: If `n` >= `nr_mpu_regions` the write causes a guest crash.
-      Otherwise the unmodified value is written to hardware.
-	- PRLAR: Unmodified value written to hardware
-	- PRLAR<n>: If `n` >= `nr_mpu_regions` the write causes a guest crash.
-      Otherwise the unmodified value is written to hardware.
-
-- On AArch32: if HCR.TRVM == 1, EL1 read accesses to memory control registers
-  are trapped to Hyp mode [^2]. We will emulate these as follows:
-    - SCTLR: Unmodified value read from hardware
-	- DFSR: Unmodified value read from hardware
-	- IFSR: Unmodified value read from hardware
-	- DFAR: Unmodified value read from hardware
-	- IFAR: Unmodified value read from hardware
-	- ADFSR: Unmodified value read from hardware
-	- AIFSR: Unmodified value read from hardware
-	- PRRR: Unmodified value read from hardware
-	- NMRR: Unmodified value read from hardware
-	- MAIR0: Unmodified value read from hardware
-	- MAIR1: Unmodified value read from hardware
-	- AMAIR0: Unmodified value read from hardware
-	- AMAIR1: Unmodified value read from hardware
-	- CONTEXTIDR: Unmodified value read from hardware
-
-    - PRSELR: Unmodified value read from hardware
-	- PRBAR: Unmodified value read from hardware.
-	- PRBAR<n>: If `n` >= `nr_mpu_regions` the read causes a guest crash.
-      Otherwise the unmodified value is read from hardware.
-	- PRLAR: Unmodified value read from hardware
-	- PRLAR<n>: If `n` >= `nr_mpu_regions` the read causes a guest crash.
-      Otherwise the unmodified value is read from hardware.
-
-On context switch, we need to ensure that:
-- PRSELR_EL1 (AArch64) and PRSELR (AArch32) is saved/restored
-- Base and Limit registers for all MPU regions up to the number of regions
-  supported by the guest, i.e. regions [0, nr_mpu_regions-1] are saved/restored.
-  It is not necessary to zero the MPU memory regions outside of this range, as
-  these are rendered inaccessible to a guest via trapping and emulation of the
-  virtual memory control registers.
-
-## Interaction with existing handling of Set/Way operations
-
-In order to handle Set/Way operations the following policy is used [^3]:
-
-- If we trap a S/W operation, we enable VM trapping (HCR_EL2.TVM/HCR.TVM == 1)
-  to detect caches being turned on/off, and do a full clean.
-- Once the caches are enabled, we disable VM trapping (HCR_EL2.TVM/HCR.TVM == 0)
-
-This causes an issue, because VM control register trapping will be switched off
-any time caches change state from disabled to enabled. We propose to address
-this by not disabling VM control register trapping once caches are enabled for
-PMSAv8-64 guests.
-
-## Considerations:
-
-- If we zero the non-accessible Base/Limit registers on context switch then we
-  could avoid trapping read accesses to virtual memory control registers. The
-  trade-off here would be additional overhead on context switch due to zeroing
-  the maximum number of architecturally supported MPU regions (255).
-
-[^1] https://developer.arm.com/documentation/ddi0487/latest (G1.3.3)
-[^2] https://developer.arm.com/documentation/ddi0487/latest (E2.1.5)
-[^3] https://gitlab.com/xen-project/xen/-/blob/staging/xen/arch/arm/p2m.c#L404-L431
----
-Cheers,
-Hari
+While this is not great and I agree with Roger that it should be
+improved (I'll try to do so), in a well configured system I expect that
+there should be no other softirqs on the RTOS vCPU/pCPU so it shouldn't
+matter much if it is raise as a softirq or not?
+--8323329-348157111-1751994629=:605088--
 
