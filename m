@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 74997AFCB28
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Jul 2025 14:59:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1036463.1408701 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9FC3BAFCB29
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Jul 2025 14:59:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1036469.1408711 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uZ7us-00059N-Su; Tue, 08 Jul 2025 12:59:22 +0000
+	id 1uZ7vJ-0005e6-4f; Tue, 08 Jul 2025 12:59:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1036463.1408701; Tue, 08 Jul 2025 12:59:22 +0000
+Received: by outflank-mailman (output) from mailman id 1036469.1408711; Tue, 08 Jul 2025 12:59:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uZ7us-00057D-Pd; Tue, 08 Jul 2025 12:59:22 +0000
-Received: by outflank-mailman (input) for mailman id 1036463;
- Tue, 08 Jul 2025 12:59:21 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uZ7vJ-0005az-1T; Tue, 08 Jul 2025 12:59:49 +0000
+Received: by outflank-mailman (input) for mailman id 1036469;
+ Tue, 08 Jul 2025 12:59:47 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=mjd+=ZV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uZ7ur-000577-Qp
- for xen-devel@lists.xenproject.org; Tue, 08 Jul 2025 12:59:21 +0000
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [2a00:1450:4864:20::42a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5c9b811c-5bfb-11f0-b894-0df219b8e170;
- Tue, 08 Jul 2025 14:59:19 +0200 (CEST)
-Received: by mail-wr1-x42a.google.com with SMTP id
- ffacd0b85a97d-3a6d77b43c9so3959384f8f.3
- for <xen-devel@lists.xenproject.org>; Tue, 08 Jul 2025 05:59:19 -0700 (PDT)
+ id 1uZ7vH-0005RT-N9
+ for xen-devel@lists.xenproject.org; Tue, 08 Jul 2025 12:59:47 +0000
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [2a00:1450:4864:20::42c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 6ccf4114-5bfb-11f0-a317-13f23c93f187;
+ Tue, 08 Jul 2025 14:59:47 +0200 (CEST)
+Received: by mail-wr1-x42c.google.com with SMTP id
+ ffacd0b85a97d-3a575a988f9so2724050f8f.0
+ for <xen-devel@lists.xenproject.org>; Tue, 08 Jul 2025 05:59:47 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-74ce42a4117sm11264352b3a.125.2025.07.08.05.59.15
+ d2e1a72fcca58-74ce4183509sm12037812b3a.99.2025.07.08.05.59.43
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 08 Jul 2025 05:59:18 -0700 (PDT)
+ Tue, 08 Jul 2025 05:59:45 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5c9b811c-5bfb-11f0-b894-0df219b8e170
+X-Inumbo-ID: 6ccf4114-5bfb-11f0-a317-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1751979559; x=1752584359; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1751979586; x=1752584386; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=R6AWWL39yUQbpUen+S/NjA91boolPbLb+UdVB8EDWic=;
-        b=GjiAsNZ+5IZd9wXxx/myqrggMGG6+jW32Z14x1ar2Bap083wbEzFdP0E1IyzA3xHQR
-         mhFLoQ1DOHkEuAfg6B06CtOpGc36Dfgda8juY9gVlQuEwkwqk53dtN3Ay8kOAC7aQyj0
-         xhz2I5RTvZD5r2yPUsIUQ8cbehDdBWUeuqB4pyRwwPSns/gymujvGcrXIh42/fVLcJaj
-         wIMX5l2ZtxGDwlls87mE+r490Hp6Gk1MHAF3qvo3rEz9QIxH+ZKiVTSQIPPcpjH9OdUS
-         rSm5YSbPDb4nAeZ/9yOZx5uCnWDwVbrYMIDYq8ajLwKxiH1jxXy2b1EzqSo4rX7ptGNI
-         6tbQ==
+        bh=jZYWymIsQHGwjFWNPAsuNjeBzWao41WeKhaQrQS7hLU=;
+        b=fEd8dKXimeX7dup/gevjkOwHWt2BQGVkuSdZjPy2ZLGnrhLZuQQxGt+1n1xUVsN+l0
+         44KiLlCbFhpKfh+PCjmFF6RapbBs1G6+cwUY/NWCYqeqcy/B/+ijncT8be1FNjipBcWw
+         ZDW52deLjbKmeFtrnsIbV2xecZmpCRcIwudgCdssW3r4K7LKluElr8hQaozxoXlCQRxx
+         lkxmhCrtdXuzKG7u+I/Bg5QYX1Exeq+sFEPlwHzRF0QA5w8rRmNcuodsN4sa+b+e9bW4
+         JWRTziTQe5h5lHw7vWbDZygpynE+ldkoPsbxZbYSMoJ0e4RyqGP4Y74hxdsearyveTOq
+         hwpQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1751979559; x=1752584359;
+        d=1e100.net; s=20230601; t=1751979586; x=1752584386;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=R6AWWL39yUQbpUen+S/NjA91boolPbLb+UdVB8EDWic=;
-        b=UkVsqOFajdU11OLbGF6Yew1Y4NPY7go/ivARqmkK0BNAKXujT0wYC+ULCE0wcaKj5I
-         9EizrBh51nvnkUqxWmht2sYeieX5Ss8Nj6ahlanO1uNcvakz3mk3Rr5QbSJPX5FSlMm+
-         PU1s6+cQhkgoAegAdbcWuwhTlo8Fw4ZmChJColoz/iMFjcB76TUdm7nJl80Ep5AIYBL8
-         06YMNczuXIK7M9zvaH/D1gDzce93i2IBG2Asl+CoTMjh4CSOfvvP57ElLCgJ3hlr2Gn7
-         9X+D6peQ8dfF8p5w0kxzHhtxxCnxdylKBJqWZkBRzq8dN45cLzDjsE6koPL9wIdkHIfG
-         iSww==
-X-Gm-Message-State: AOJu0YyciyxB15L1DA2yM7puqXqUmJECyot/hsHDsMC5oxuHdscbUKeX
-	0lxAv6TK7TFqJchJr5uwrAPo1axxAKu7Wn1sJoD2G7lDc8Io9GAnwEcCouWtbQXQpfYYz5szlWT
-	3JYc=
-X-Gm-Gg: ASbGncv8wWOijkxlf7eKpMA+/LJ+E+81dM2JfsRxRPgmhufu666mr37bExEXngDAwqg
-	FNz+x20T7A6nKvIq84lOsoWx6GMUaEulvFbAlikRGsKgS/coc/l6LZ+ktbqnSXMua2nhGBKUAk6
-	Inr1/6nplNrsgAfjj/VrCa8lsm46cFlNmsf2gcVWcZd5yK+L5hEP6EMqjBAMHj+4hDQHUVWiT8x
-	LXgFd9jtvUHnNNjJDFpPNaWS6AVEymWgkOOhxI4OHrpLYEIRWyPeKCGPZlToDydmPX59llY2z+m
-	Rn08X9ATXtZasgMaT9SkxtlVQ1JAv8rg9wjtD5UmDx+EXLJVFehgz3mHepizQEiqlGxIdvXJ/G+
-	Es1q6SihmgmVmuhn5E0Fn2bdFndMe3De7i0qWak4lQqXuUzo=
-X-Google-Smtp-Source: AGHT+IFpaQy+nRfUluItSJwoKat8OkvwIHKlObq1qgc38QXheBSp+3ZkcZMTzk5kO79slMxQ+6SA4g==
-X-Received: by 2002:adf:b652:0:b0:3a4:f644:95f0 with SMTP id ffacd0b85a97d-3b496626840mr11326541f8f.54.1751979558628;
-        Tue, 08 Jul 2025 05:59:18 -0700 (PDT)
-Message-ID: <26e175e7-7aaa-408e-8e3e-c29a4db1591a@suse.com>
-Date: Tue, 8 Jul 2025 14:59:11 +0200
+        bh=jZYWymIsQHGwjFWNPAsuNjeBzWao41WeKhaQrQS7hLU=;
+        b=FarHOcf7Bcsm+/wkEQAfNp/cjjuvfAY5m71OBgTiCspsoIFgDufJ1WM5NXCDLfqzRM
+         IErjdrhCXTWJmK7FB55Vckz2Vc/PBTebems77B2z7XvPq9AM0HXUeOr0Fxkv62yBe8lS
+         TbikEI0cPUwm4pS1eg9bYTRvYm8YUHYltIdQ6G+vKSThDAT8Cc0R6ERus2ardSZgSo1U
+         IEpLIkDP44dPGjwsAzny3ueVF0thDDeNF4nVh+eH+U58qrBS2ZnRZgxoQOty+rop5GqC
+         d2rtzc+09fV5SwHnXZ82OXV+E7DXi37SGbHuihbjsxtQxqpFbYJogP/ULFn/03hVVmMi
+         5NaQ==
+X-Gm-Message-State: AOJu0YyJsRRj0w3ljsIQFLFf0SDylkLl2Zzwkv3Ar5ZfShk3wF4U5uAv
+	1f6CVvY5wXXnlPjUvxRlUi1FR9xUuf1QX8beu+nJTmeet04xwy50DuDR+yAZCNB5NHsWnu9Q2Il
+	xm+A=
+X-Gm-Gg: ASbGncv8Ms0EnjZ4p4/s3mZeBGror2kOBU+r7moLS641MznOSlapOL9HfbKiasdwpZw
+	FZPcdSZf7PMNndNLktW4g43zCH7mz4YBCazMGdeGxbM3bUDvVJy3thw5ftnLuIEf51YXB36ROq6
+	/NdJpLjIr1eceT8nkUhfBM7IB2IVU95X2OpK3T6ZPVIHTv+00orgCtDulpCNv0Kgsh4Mb3kutv8
+	E8q9Mz/CkluB83UHY//MC9LEuwaPO0OUZBZf6yu9FPFMzg9FZ66GeARSwPLqsDKgPhqQV4+XLeD
+	KxoFsl6y/rrWcJb5QVTLPU/kcywenKyV8Y7uzy1A0iZtMDlSYZDX/jVa9vTbR8mxb1rjIfbXkgA
+	l54cX+OSeRGModU8N+zqFRHBX8cGZUbjztisRKh3kfssViQw=
+X-Google-Smtp-Source: AGHT+IEKoCdgL6ODxO25EcpTVzRVjjhek9TxmqaceIryclKRbO4rhxrwSFRVkB1wgKKsGlq4Lcw6BA==
+X-Received: by 2002:a05:6000:4912:b0:3a4:f7e6:284b with SMTP id ffacd0b85a97d-3b5dde845f8mr2346138f8f.10.1751979586333;
+        Tue, 08 Jul 2025 05:59:46 -0700 (PDT)
+Message-ID: <434a0ea6-cbcc-4f0e-a144-9f4264ab528d@suse.com>
+Date: Tue, 8 Jul 2025 14:59:39 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH 4/9] x86/mwait-idle: Add Meteorlake support
+Subject: [PATCH 5/9] x86/mwait-idle: add Grand Ridge SoC support
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Alex XZ Cypher Zero <me@alex0.net>
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 References: <1df49875-99b8-4302-aed7-5a75dbdd85ca@suse.com>
 Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -122,73 +121,73 @@ In-Reply-To: <1df49875-99b8-4302-aed7-5a75dbdd85ca@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Add intel_idle support for MeteorLake.
+Add Intel Grand Ridge SoC C-states, which are C1, C1E, and C6S.
 
-C1 and C1E states on Meteorlake are mutually exclusive, like Alderlake
-and Raptorlake, but they have little latency difference with measureable
-power difference, so always enable "C1E promotion" bit and expose C1E
-only.
+The Grand Ridge SoC is built with modules, each module includes 4 cores
+(Crestmont microarchitecture). There is one L2 cache per module, shared
+between the 4 cores.
 
-Expose C6 because it has less power compared with C1E, and smaller
-latency compared with C8/C10.
+There is no core C6 state, but there is C6S state, which has module
+scope: when all 4 cores request C6S, the entire module (4 cores + L2
+cache) enters the low power state.
 
-Ignore C8 and expose C10, because C8 does not show latency advantage
-compared with C10.
+Package C6 is not supported by Grand Ridge SoC.
 
-Signed-off-by: Zhang Rui <rui.zhang@intel.com>
+Signed-off-by: Artem Bityutskiy <artem.bityutskiy@linux.intel.com>
 Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-Origin: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git eeae55ed9c0a
+Origin: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git ac89d11b93cc
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
 --- a/xen/arch/x86/cpu/mwait-idle.c
 +++ b/xen/arch/x86/cpu/mwait-idle.c
-@@ -678,6 +678,28 @@ static struct cpuidle_state __ro_after_i
+@@ -928,6 +928,28 @@ static const struct cpuidle_state snr_cs
  	{}
  };
  
-+static const struct cpuidle_state mtl_l_cstates[] = {
++static const struct cpuidle_state grr_cstates[] = {
 +	{
-+		.name = "C1E",
-+		.flags = MWAIT2flg(0x01),
++		.name = "C1",
++		.flags = MWAIT2flg(0x00),
 +		.exit_latency = 1,
 +		.target_residency = 1,
 +	},
 +	{
-+		.name = "C6",
-+		.flags = MWAIT2flg(0x20) | CPUIDLE_FLAG_TLB_FLUSHED,
-+		.exit_latency = 140,
-+		.target_residency = 420,
++		.name = "C1E",
++		.flags = MWAIT2flg(0x01),
++		.exit_latency = 2,
++		.target_residency = 10,
 +	},
 +	{
-+		.name = "C10",
-+		.flags = MWAIT2flg(0x60) | CPUIDLE_FLAG_TLB_FLUSHED,
-+		.exit_latency = 310,
-+		.target_residency = 930,
++		.name = "C6S",
++		.flags = MWAIT2flg(0x22) | CPUIDLE_FLAG_TLB_FLUSHED,
++		.exit_latency = 140,
++		.target_residency = 500,
 +	},
 +	{}
 +};
 +
- static const struct cpuidle_state gmt_cstates[] = {
- 	{
- 		.name = "C1",
-@@ -1117,6 +1139,10 @@ static struct idle_cpu __ro_after_init i
- 	.state_table = adl_l_cstates,
+ static void cf_check mwait_idle(void)
+ {
+ 	unsigned int cpu = smp_processor_id();
+@@ -1172,6 +1194,11 @@ static const struct idle_cpu idle_cpu_sn
+ 	.c1e_promotion = C1E_PROMOTION_DISABLE,
  };
  
-+static const struct idle_cpu idle_cpu_mtl_l = {
-+	.state_table = mtl_l_cstates,
++static const struct idle_cpu idle_cpu_grr = {
++	.state_table = grr_cstates,
++	.c1e_promotion = C1E_PROMOTION_DISABLE,
 +};
 +
- static const struct idle_cpu idle_cpu_gmt = {
- 	.state_table = gmt_cstates,
+ #define ICPU(model, cpu) \
+ 	{ X86_VENDOR_INTEL, 6, INTEL_FAM6_ ## model, X86_FEATURE_ALWAYS, \
+ 	  &idle_cpu_ ## cpu}
+@@ -1220,6 +1247,7 @@ static const struct x86_cpu_id intel_idl
+ 	ICPU(ATOM_GOLDMONT_PLUS,	bxt),
+ 	ICPU(ATOM_GOLDMONT_D,		dnv),
+ 	ICPU(ATOM_TREMONT_D,		snr),
++	ICPU(ATOM_CRESTMONT,		grr),
+ 	{}
  };
-@@ -1186,6 +1212,7 @@ static const struct x86_cpu_id intel_idl
- 	ICPU(ICELAKE_D,			icx),
- 	ICPU(ALDERLAKE,			adl),
- 	ICPU(ALDERLAKE_L,		adl_l),
-+	ICPU(METEORLAKE_L,		mtl_l),
- 	ICPU(ATOM_GRACEMONT,		gmt),
- 	ICPU(SAPPHIRERAPIDS_X,		spr),
- 	ICPU(EMERALDRAPIDS_X,		spr),
+ 
 
 
