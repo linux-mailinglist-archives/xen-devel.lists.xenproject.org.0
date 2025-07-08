@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC764AFD617
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Jul 2025 20:08:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1037023.1409678 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D290AFD615
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Jul 2025 20:08:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1037024.1409684 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uZCjM-0005XK-SF; Tue, 08 Jul 2025 18:07:48 +0000
+	id 1uZCjN-0005cj-5V; Tue, 08 Jul 2025 18:07:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1037023.1409678; Tue, 08 Jul 2025 18:07:48 +0000
+Received: by outflank-mailman (output) from mailman id 1037024.1409684; Tue, 08 Jul 2025 18:07:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uZCjM-0005V8-NU; Tue, 08 Jul 2025 18:07:48 +0000
-Received: by outflank-mailman (input) for mailman id 1037023;
- Tue, 08 Jul 2025 18:07:47 +0000
+	id 1uZCjM-0005XU-W6; Tue, 08 Jul 2025 18:07:48 +0000
+Received: by outflank-mailman (input) for mailman id 1037024;
+ Tue, 08 Jul 2025 18:07:48 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=amj7=ZV=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
- id 1uZCjL-0005Uq-GL
- for xen-devel@lists.xenproject.org; Tue, 08 Jul 2025 18:07:47 +0000
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on20629.outbound.protection.outlook.com
- [2a01:111:f403:2413::629])
+ id 1uZCjM-0005Uq-58
+ for xen-devel@lists.xenproject.org; Tue, 08 Jul 2025 18:07:48 +0000
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2060b.outbound.protection.outlook.com
+ [2a01:111:f403:2009::60b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 71d368ba-5c26-11f0-b894-0df219b8e170;
+ id 726364d5-5c26-11f0-b894-0df219b8e170;
  Tue, 08 Jul 2025 20:07:45 +0200 (CEST)
-Received: from BYAPR06CA0025.namprd06.prod.outlook.com (2603:10b6:a03:d4::38)
- by IA0PPF0C93AC97B.namprd12.prod.outlook.com
- (2603:10b6:20f:fc04::bc7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8835.27; Tue, 8 Jul
- 2025 18:07:40 +0000
+Received: from BYAPR06CA0026.namprd06.prod.outlook.com (2603:10b6:a03:d4::39)
+ by DS2PR12MB9591.namprd12.prod.outlook.com (2603:10b6:8:27c::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8901.27; Tue, 8 Jul
+ 2025 18:07:41 +0000
 Received: from CY4PEPF0000FCC2.namprd03.prod.outlook.com
- (2603:10b6:a03:d4:cafe::d0) by BYAPR06CA0025.outlook.office365.com
- (2603:10b6:a03:d4::38) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:a03:d4:cafe::47) by BYAPR06CA0026.outlook.office365.com
+ (2603:10b6:a03:d4::39) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.8922.21 via Frontend Transport; Tue,
- 8 Jul 2025 18:07:40 +0000
+ 8 Jul 2025 18:07:41 +0000
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  CY4PEPF0000FCC2.mail.protection.outlook.com (10.167.242.104) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8901.15 via Frontend Transport; Tue, 8 Jul 2025 18:07:39 +0000
+ 15.20.8901.15 via Frontend Transport; Tue, 8 Jul 2025 18:07:41 +0000
 Received: from xcbagarciav01.xilinx.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 8 Jul
- 2025 13:07:35 -0500
+ 2025 13:07:39 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,22 +56,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 71d368ba-5c26-11f0-b894-0df219b8e170
+X-Inumbo-ID: 726364d5-5c26-11f0-b894-0df219b8e170
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jIEOFhW5ksCQu2Z91HgVw4BgQkvLZEEE+i+TV0+uCWJ+e91VH9tpLzIF4GmWdLwfcCA1AzfwoaKZKy8LUI0ZbR24/kK5Ol56umL3jJYwVqRvhI3nqvlTtxwFZ04Chne5N9bFNJ0l87bL99roV8SaAVFAOsW1w0ET2sa2f7JwUvN1Wjl1vFREifnjJ3UOP6nkBouDEHN+N23b/vJN8fhwGbVLmTpqfjHALOHj8YddRxEXtivT1M/ntcRVgFWtZeg9iZKIMHMNsZjdZXKJQnQiL4eCl9nw6zq58KJFTgma4sCyQE4dkuq0tI+6c9XOX+R8tBOPx2vyzkUAZJUQUVTtCA==
+ b=HXdvDS96BA6aP+4nr6YFRIYeVczHrqZA3qCdv+8L/pJ188xaZq552I2oh+Rf3G9xR6GVaqIqv+z7lgiYjG9TJ54eWFHhqmaF5n7xZd3M3JHoEqyNlG5LEj/zhr/Oz/f/kN2CK6a+e+5wyoW4qtP9nYQifIRdAtOLPBfXbCOVBmYMYA3SEZk8WwJYv6PZWhgkXYhByOKjgWncSQbjMHF8/pcX8zAHTgCVwCFVJr0yO+tfDv4FoPUk3FyS21yfSVTxkgzraD/TDBQ48iUH9rfnspU1S3FGEp+DNCmrhpdhErbslsgGLtC90dQvktsnBZHmf/EE9UwaWdbTf1xbDgixQg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pamBLP3spklWXkZajtyF5xzWa/OvEkdk/6nw/NnX/Uc=;
- b=Xw70rD42vWfB5SfWrD/SYmw6UULD+3FhbigC24UW9vN1tMcqTRTKxix1ZnIe7QdJkHYa7K/mfTNM2GW4eeuE+Gc93WRb60Lh4JKq5XBaH/A8OTHYQNz4xsH/u0Rgk7WfX7EV+UXCeATti0LquL5hPU1Ade0n/ijmxk1ovep3HKYna+zywO/jtSVQ1DwKGBF77KYwGGDeGpZYdsTJ4vfiDlgpOmC74arogC9HJ8/uOvsZ80Egy8qneHkhhmHdvYbkCZTTnKqww+Nf/XCDpOUsxiq5g0/LIY2tXrQYsr0xr/gHHAVFWBiLQfzFuvgJRUFuWmQ+aMuP9LhrVE1g93bvlw==
+ bh=bPD/rKYLwoQh7EhPgtS74wicAf9RUsbK6gNUi7Q5AAI=;
+ b=dRImN9qh8dYOsr8UveZhBhga66T3Y2k2nUj/USmtYzNerkEHN494StkNTb0OC/qi47Xr0yDAHC4qw1juPGpXIDGdx4luCswNMExEg104aRgVWUNFnKxa1ci0SJ/mgACAOb3ffvg8xOnFK6JDqTZwek3xY3Q5sR7uuFj8bnIwteBT4wcVzqDDM9QQ6OLZM1UaSzuhQYN7bRh8NmCbHu4Ha3pyG7ZFKqo1FtCiwnPH0iZnKP9oahQD0p9cbAI6eZRbDnNXLaoaRTWLRxID5l6o8pqo9WIN0oZiwRHLINmqxWQAvoNDHlVhAcr+DAv/OUwyS9lmKKtk9xHmIcpIuvWTxw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pamBLP3spklWXkZajtyF5xzWa/OvEkdk/6nw/NnX/Uc=;
- b=e0TGnoGRluBi5iKa1HESOfbM9YKe5BObvZgSr5n6MbFxlrSE6gWkNm/juqtH6CAlxOvcC+Yygx3XKsjtvhjGcRjHUP1413ImyYoDpeXTQJ25b8wqa2ClCkAoK79M01+KUShZ0bBBtHhNJD86cOvbJxXb+8MM7gvjG1HCUWLM2YY=
+ bh=bPD/rKYLwoQh7EhPgtS74wicAf9RUsbK6gNUi7Q5AAI=;
+ b=2KJof+Ta4OERa86tEfyvoiucEJ9oUDJ/J0Jnc2NKsAbw7NKYqqmPN+J4lQl7Wds146Ud/7FTOAbaXceTHlt02DX7EkhvIs/sAElrt2VQaS6eTr2SDoJpP48nTRYbb++J+xX07SNtt6jvmoI0+GmzL+hxgGq7rdnRTST+YL0En40=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -82,22 +82,14 @@ From: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
 To: <xen-devel@lists.xenproject.org>
 CC: Alejandro Vallejo <alejandro.garciavallejo@amd.com>, Stefano Stabellini
 	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
-	<bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, Jan Beulich
-	<jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, "Daniel P.
- Smith" <dpsmith@apertussolutions.com>, Volodymyr Babchuk
-	<Volodymyr_Babchuk@epam.com>, Anthony PERARD <anthony.perard@vates.tech>,
-	Alistair Francis <alistair.francis@wdc.com>, Bob Eshleman
-	<bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>, "Oleksii
- Kurochko" <oleksii.kurochko@gmail.com>, Dario Faggioli <dfaggioli@suse.com>,
-	Juergen Gross <jgross@suse.com>, George Dunlap <gwd@xenproject.org>, "Shawn
- Anastasio" <sanastasio@raptorengineering.com>,
-	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?=
-	<marmarek@invisiblethingslab.com>
-Subject: [PATCH v6 00/11] Allow x86 to unflatten DTs
-Date: Tue, 8 Jul 2025 20:07:09 +0200
-Message-ID: <20250708180721.2338036-1-alejandro.garciavallejo@amd.com>
+	<bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, "Daniel P.
+ Smith" <dpsmith@apertussolutions.com>
+Subject: [PATCH v6 01/11] xen: Conditionally compile out the boot_module.domU
+Date: Tue, 8 Jul 2025 20:07:10 +0200
+Message-ID: <20250708180721.2338036-2-alejandro.garciavallejo@amd.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20250708180721.2338036-1-alejandro.garciavallejo@amd.com>
+References: <20250708180721.2338036-1-alejandro.garciavallejo@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -106,153 +98,99 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000FCC2:EE_|IA0PPF0C93AC97B:EE_
-X-MS-Office365-Filtering-Correlation-Id: 29738e02-91c8-4b04-cbaa-08ddbe4a53c4
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000FCC2:EE_|DS2PR12MB9591:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4b9b0f94-3f6c-46a4-3143-08ddbe4a54da
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|36860700013|1800799024|376014|82310400026|13003099007;
+	BCL:0;ARA:13230040|36860700013|376014|82310400026|1800799024;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?X2yhweQHrYcAFpH0NxCsoTqRBu/7DMnIM/zut8zASUSnzwpY7RX+QfqZoXFw?=
- =?us-ascii?Q?/rycn91EUiZSOCpiiJlwTPUjTYJYA8GEWWQxNez8PhsoyM61x7nf6tl9vWUH?=
- =?us-ascii?Q?3JI3x2Yg1luCMYBLkSRlh1CX7CjNcxPDvtfqitnInmzosKv+Fn+jwGhTLXfy?=
- =?us-ascii?Q?Rk6JkbPZWYPj4uEE3xSa3VlqHc4HqptizskcQuUkKadgC4Um54YKd/Ycu4DY?=
- =?us-ascii?Q?mPM1fur2L1VXEznlABm0WMlOdq1uvH4HWcKuZaz8QhKAleniBHpSW+IY5I/3?=
- =?us-ascii?Q?zShzOYHGmYeQP+gLWk6/Dj87ynot0WQN6dc1LHiK5CNLwsIBHziMnuyeB3zM?=
- =?us-ascii?Q?EIQyqeuqzh0J04ddXZORCKaBAIL0TuzINC20z1fIgGdw5TbNKbdy2sSIIYhx?=
- =?us-ascii?Q?/F97vrPCbHn6RvJM4squTss3w+FqywLnmFM7meTAnNviWaVopo9V0MPIc2sw?=
- =?us-ascii?Q?sb51ulLeGzuMlsomzSrxk+l+7QHpz1cz9jZbRBVl0fJjdoN387n6hrhykNnK?=
- =?us-ascii?Q?c/bM8DmfSlvifWtHJxJlR1HsCRBbSF2YiVoTDs82w/NDtfkNIJO3dqHzfGC+?=
- =?us-ascii?Q?qv+7IedXEWqCot90boxS0DzAV6V1nKcqge+SsMXaqyZ3WnZeZ1/2wlCQp7/e?=
- =?us-ascii?Q?m8uEaiLswZ2mY0XNaN91FBYvptWtr8uBA9avzTKBuvTyHfh4H8OKnQlETmCg?=
- =?us-ascii?Q?tikToMxzj+V0psHSQ/MXIV02e2Y/lvAHJEz1rQuDkM2eQ9/47q10p4THuQwt?=
- =?us-ascii?Q?NJw5MVDdT0qjWhRdogc5zFiUehyfa4V3bJ/BkBPboefZW6amVwf1jmkyC5tt?=
- =?us-ascii?Q?99F83Vr/r4CpHjx+7qEGbVq/IvSgfufHYSeMWUAifZ26odmV/plXwtYsh7Jx?=
- =?us-ascii?Q?VA7F8I2BYu5Gk5w3UFjpwV7IgyUXjl5q3hFfp+TcnoD8CVlzFgdDAnXY69oB?=
- =?us-ascii?Q?vHKuAjXVSAHQSSHkubNCCGnyZ2jN/XO00QXAF2+QIKo1aTLgZMDeLWtOTFtV?=
- =?us-ascii?Q?RyntMKchpElH1I9sDXxr5zlCX6y086+4uIl/RKnra4BwvMda/e9ZQwANTDVw?=
- =?us-ascii?Q?mk6HcK/QbKlAF57UDcaiAFeXMTT+ksR/g+zl+jnclu/RuHl3hODgg5C2te82?=
- =?us-ascii?Q?+KioOpprtbb6Vvc7FFsVZXLpehduI142H0hYMBc0HdW0Fa3LujkccPi1UbxP?=
- =?us-ascii?Q?7jfiQ/i1yFRqwvZozLeGJKFXy3+MnJPtpMdSiuSctTyPiF21CTAGmhCNwlZu?=
- =?us-ascii?Q?6xIGmJ8Y1DP9pSrzUKnJWIcmJH7HuOfNnKP1r/pXbyw4XEWQOLFuMkdwPRQt?=
- =?us-ascii?Q?IcvQqOeh02BChVtLkXxWPfd+jVXA7UkSDKlre9g6Lbgpq5kXKSzmGXMoAjhF?=
- =?us-ascii?Q?vcpV0Q0B2p8r5f9eFR3q1Y1S1KKxkbrikTyPZlPRc9BC9iE7cXe2/ZrnePqh?=
- =?us-ascii?Q?1OlQKEndgMObmETSgaGF9m1AycDkOLGlHMgjVXdCd8862IeUWvUioA=3D=3D?=
+	=?us-ascii?Q?DTc3vLllhDhx+7AM++Vap+kYqQCXvCw/+q4TlIKtJYmmqNIX0zygFmC8Bz2B?=
+ =?us-ascii?Q?w1QmHOSumy3keX+tCyo7ZHvTfx5DKyPjyQsrkj7n66vtFxYJ9J0Kid2qXlvO?=
+ =?us-ascii?Q?rB++YLkmao74ShNCT1TID63+lsarpJjj6/kKW5jgYJZjg/cUWaW19QMldx3R?=
+ =?us-ascii?Q?cCM9u+Bfl1sWryGfwWqcTngQAcmD6CPWudBLwOxn+nLQZTyB4tcoDdhH2MSu?=
+ =?us-ascii?Q?9OAxw+HrW6xlfAd7WK5SiBtA68fO0NCbfBDxmlZhXAxZgA79FyS3SD663tdj?=
+ =?us-ascii?Q?evq42ZpG22roy+LI3RT4/iqPdEcBW5yuoOwPxo5fU8VdqQlc7FljGil7x39z?=
+ =?us-ascii?Q?k1nB7lnAiwswA+sy8sj9gKU4unUpDUHEfB11YHdLcfeOLjbseEa4c88g9ynx?=
+ =?us-ascii?Q?2gC12LViLnBqFhUB541PpwXhJY3acjg/XfGOx/AJOV9e/iqaX87h+Y83VZqg?=
+ =?us-ascii?Q?UT1DvCNznhdECbtO5Yp96Pz5LqhKpAy0DvJxjHEEnhEY3gTtWU/1iMpDmZ5n?=
+ =?us-ascii?Q?UnlLFX+/ieKlqmD91a5Ytt4WqtgZnXF98kCU4RCpEv0svkSfxC/xiMAKjTwu?=
+ =?us-ascii?Q?aRi0khEyol0Ixw6Ya0c4RIEsw3ijeihtArw405i5OQU8c4hBJsXG4xmy43FK?=
+ =?us-ascii?Q?Om0wR3k2I8kvCazRlNPwODArSPmEPKoWxqSaNkyqWcvQuLG3LNIMUCFNZ8Rg?=
+ =?us-ascii?Q?ype/+tebhRE9SS5jAsfKUldHd+IL/NzHhz7zkt6Dh78xcXf4e0JxG3D2IeWW?=
+ =?us-ascii?Q?FAl/BbMSh7Grnqfs/OoXS/EGcgc7Fi8KGoM7k6ZM+Zbwz2ct/L7yV//TgwHC?=
+ =?us-ascii?Q?Qe2bPqN5gPR1YEAMTpmuFg74XFHdRv8C+OxiTa9aCAIe9ZrvZVRDT4s1yZzt?=
+ =?us-ascii?Q?y/ysNezZSHeXA06DhrtaiLu/vgbxJXpV3rjUR9r8P+J8hEnmfkIGRxqQM68f?=
+ =?us-ascii?Q?npcj7mITwqflHO0lA0lLyfIdvDD5wJc3w+dAbk0bQDds9qbtCc8eZIRerrCY?=
+ =?us-ascii?Q?7aFMs4ARPI1TbI0v8dY7k/97jSBntjnIEif5s42FRZfxcrK8DlBYQPEGGP+F?=
+ =?us-ascii?Q?nS3L8x3Lqq11a8aQDdIGefzg4QlLZfRnJXSbNQD1/DvFtdgZuZaCfriAZd4G?=
+ =?us-ascii?Q?xJNYQr1LMZXrq/yY7kjQZ3ILTeMWZ8KRWwPBdhxiDlPjCQRRsC1OhYAemkt0?=
+ =?us-ascii?Q?nug4PPOEZ4jnCz+EiGxKXfS8a3u2PWKT6RcqCuDih8GRWFyRMxmGeoEr3fa/?=
+ =?us-ascii?Q?UIP0SP9Nt40RROZgVQLHnRJM9e5+w4QeguNvnYrJuv5/WJbB679upGHQSqYy?=
+ =?us-ascii?Q?JaNAvyNqDV5aGybbLqLVGJkpAWDCEcylgONmIp4z2k82w8joNWxkJNzXzXI1?=
+ =?us-ascii?Q?ngudhmZ31/cowTSd4H0wmFUCOUGRQZSkNswvJRO3jOpL+gmpoN5Zlvm+EBdr?=
+ =?us-ascii?Q?yCrPmF2ohOfE+8oMsuUcpUNyuNx9qH3GWLo+sWnVmmMO9kLvNwn4xtLj4DSq?=
+ =?us-ascii?Q?KF1g5bNbGRepvXbVzdzENuLNyUWUb5QCaCSU?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(36860700013)(1800799024)(376014)(82310400026)(13003099007);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(376014)(82310400026)(1800799024);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jul 2025 18:07:39.7856
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jul 2025 18:07:41.5832
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 29738e02-91c8-4b04-cbaa-08ddbe4a53c4
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4b9b0f94-3f6c-46a4-3143-08ddbe4a54da
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
 	CY4PEPF0000FCC2.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PPF0C93AC97B
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS2PR12MB9591
 
-pipeline: https://gitlab.com/xen-project/people/agvallejo/xen/-/pipelines/1913744377
+... based on CONFIG_X86. x86 won't depend on it, and it'll only be used
+by the domain builder in common/device-tree/
 
-v5:  https://lore.kernel.org/xen-devel/20250701105706.86133-1-agarciav@amd.com/
-v4: https://lore.kernel.org/xen-devel/20250620182859.23378-1-agarciav@amd.com/
-v3: https://lore.kernel.org/xen-devel/20250613151612.754222-1-agarciav@amd.com/
-v3: https://lore.kernel.org/xen-devel/20250613151612.754222-1-agarciav@amd.com/
-v2: https://lore.kernel.org/xen-devel/20250605194810.2782031-1-agarciav@amd.com/
-v1: https://lore.kernel.org/xen-devel/20250530120242.39398-1-agarciav@amd.com/
+Moving it to an arch-specific subfield (as introduced in a later patch)
+is unwieldy, because all other arches depend on it.
 
-Original cover letter
-=====================
+Signed-off-by: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
+---
+My expectation is to remove the field altogether after we reach full
+integration in common code, by deducing this boolean from the domain
+capabilities given in the "capabilities" prop.
 
-This is the aftermath of this discussion:
+That's not something I'm working at the moment though.
+---
+ xen/include/xen/bootfdt.h | 14 ++++++++------
+ 1 file changed, 8 insertions(+), 6 deletions(-)
 
-  https://lore.kernel.org/xen-devel/DA1WWRUQLCAG.ZTVR1HXJ85V0@amd.com/https://lore.kernel.org/xen-devel/DA1WWRUQLCAG.ZTVR1HXJ85V0@amd.com/
-
-It's a first round of cleanup and preparation to have a much easier time
-later when integrating dom0less boot into hyperlaunch.
-
-The refactor on device-tree/ is _fine_ by I'm open to other suggestions
-to achieve the same thing. In particular, after this series x86 can
-unflatten the DT host device tree when it has CONFIG_DOM0LESS_BOOT set,
-which enables the builder to use factored-out functions from
-dom0less-build.c (not done here).
-
-The diffstat is deceptive because I renamed a large file and then
-created a new file with the same name. There aren't that many LoC
-changes.
-
-Alejandro Vallejo (11):
-  xen: Conditionally compile out the boot_module.domU
-  x86: Replace arch-specific boot_module with common one
-  xen: Refactor kernel_info to have a header like boot_domain
-  x86: Replace arch-specific boot_domain with the common one
-  xen/dt: Move bootfdt functions to xen/bootfdt.h
-  xen/dt: Move bootinfo functions to a new bootinfo.h
-  xen/dt: Rename bootfdt.c -> bootinfo-fdt.c
-  xen/dt: Extract helper to map nodes to module kinds
-  xen: Split HAS_DEVICE_TREE in two
-  xen/dt: ifdef out DEV_DT-related bits from device_tree.{c,h}
-  xen/dt: Allow CONFIG_DEVICE_TREE_PARSE to include device-tree/
-
- xen/Kconfig.debug                       |   2 +-
- xen/arch/arm/Kconfig                    |   2 +-
- xen/arch/arm/dom0less-build.c           |   8 +-
- xen/arch/arm/domain_build.c             |  21 +-
- xen/arch/arm/include/asm/setup.h        |   2 +-
- xen/arch/arm/kernel.c                   |   8 +-
- xen/arch/arm/setup.c                    |   1 +
- xen/arch/ppc/Kconfig                    |   2 +-
- xen/arch/riscv/Kconfig                  |   2 +-
- xen/arch/riscv/cpufeature.c             |   1 +
- xen/arch/riscv/mm.c                     |   2 +-
- xen/arch/riscv/setup.c                  |   2 +-
- xen/arch/riscv/smpboot.c                |   1 +
- xen/arch/x86/cpu/microcode/core.c       |   7 +-
- xen/arch/x86/hvm/dom0_build.c           |   8 +-
- xen/arch/x86/include/asm/boot-domain.h  |  33 --
- xen/arch/x86/include/asm/bootfdt.h      |  56 ++
- xen/arch/x86/include/asm/bootinfo.h     |  57 +--
- xen/arch/x86/pv/dom0_build.c            |   6 +-
- xen/arch/x86/setup.c                    |  55 +-
- xen/common/Kconfig                      |  15 +-
- xen/common/Makefile                     |   4 +-
- xen/common/device-tree/Makefile         |   5 +-
- xen/common/device-tree/bootfdt.c        | 654 ++----------------------
- xen/common/device-tree/bootinfo-fdt.c   | 583 +++++++++++++++++++++
- xen/common/device-tree/bootinfo.c       |   2 +-
- xen/common/device-tree/device-tree.c    |   3 +
- xen/common/device-tree/dom0less-build.c |  20 +-
- xen/common/device-tree/domain-build.c   |  22 +-
- xen/common/device-tree/kernel.c         |  22 +-
- xen/common/device-tree/static-evtchn.c  |   1 +
- xen/common/device.c                     |   4 +-
- xen/common/efi/boot.c                   |   2 +-
- xen/common/sched/Kconfig                |   2 +-
- xen/common/sched/boot-cpupool.c         |   1 +
- xen/drivers/char/ns16550.c              |   6 +-
- xen/drivers/passthrough/Makefile        |   2 +-
- xen/drivers/passthrough/iommu.c         |   2 +-
- xen/include/asm-generic/device.h        |  10 +-
- xen/include/xen/bootfdt.h               | 314 +++++-------
- xen/include/xen/bootinfo.h              | 213 ++++++++
- xen/include/xen/device_tree.h           |  82 +--
- xen/include/xen/fdt-domain-build.h      |   2 +-
- xen/include/xen/fdt-kernel.h            |   7 +-
- xen/include/xen/iommu.h                 |   8 +-
- xen/include/xsm/dummy.h                 |   4 +-
- xen/include/xsm/xsm.h                   |  12 +-
- xen/xsm/dummy.c                         |   2 +-
- xen/xsm/flask/hooks.c                   |   6 +-
- xen/xsm/xsm_core.c                      |   4 +-
- xen/xsm/xsm_policy.c                    |   6 +-
- 51 files changed, 1168 insertions(+), 1128 deletions(-)
- delete mode 100644 xen/arch/x86/include/asm/boot-domain.h
- create mode 100644 xen/arch/x86/include/asm/bootfdt.h
- create mode 100644 xen/common/device-tree/bootinfo-fdt.c
- create mode 100644 xen/include/xen/bootinfo.h
-
-
-base-commit: 578b34adb1cc149dfeeb2491f84eed43fcd1ee2f
+diff --git a/xen/include/xen/bootfdt.h b/xen/include/xen/bootfdt.h
+index 236b456dd2..7f49d0ccdd 100644
+--- a/xen/include/xen/bootfdt.h
++++ b/xen/include/xen/bootfdt.h
+@@ -96,16 +96,18 @@ struct shared_meminfo {
+     struct shmem_membank_extra extra[NR_SHMEM_BANKS];
+ };
+ 
+-/*
+- * The domU flag is set for kernels and ramdisks of "xen,domain" nodes.
+- * The purpose of the domU flag is to avoid getting confused in
+- * kernel_probe, where we try to guess which is the dom0 kernel and
+- * initrd to be compatible with all versions of the multiboot spec.
+- */
+ #define BOOTMOD_MAX_CMDLINE 1024
+ struct boot_module {
+     boot_module_kind kind;
++#ifndef CONFIG_X86
++    /*
++     * The domU flag is set for kernels and ramdisks of "xen,domain" nodes.
++     * The purpose of the domU flag is to avoid getting confused in
++     * kernel_probe, where we try to guess which is the dom0 kernel and
++     * initrd to be compatible with all versions of the multiboot spec.
++     */
+     bool domU;
++#endif
+     paddr_t start;
+     paddr_t size;
+ };
 -- 
 2.43.0
 
