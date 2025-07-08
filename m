@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C554CAFC3FC
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Jul 2025 09:29:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1036248.1408516 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 246AFAFC586
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Jul 2025 10:27:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1036270.1408526 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uZ2lU-0006UI-34; Tue, 08 Jul 2025 07:29:20 +0000
+	id 1uZ3en-0006nB-5S; Tue, 08 Jul 2025 08:26:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1036248.1408516; Tue, 08 Jul 2025 07:29:20 +0000
+Received: by outflank-mailman (output) from mailman id 1036270.1408526; Tue, 08 Jul 2025 08:26:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uZ2lU-0006SB-0P; Tue, 08 Jul 2025 07:29:20 +0000
-Received: by outflank-mailman (input) for mailman id 1036248;
- Tue, 08 Jul 2025 07:29:18 +0000
+	id 1uZ3en-0006kV-1u; Tue, 08 Jul 2025 08:26:29 +0000
+Received: by outflank-mailman (input) for mailman id 1036270;
+ Tue, 08 Jul 2025 08:26:28 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=mjd+=ZV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uZ2lS-0006S5-Ft
- for xen-devel@lists.xenproject.org; Tue, 08 Jul 2025 07:29:18 +0000
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [2a00:1450:4864:20::431])
+ id 1uZ3el-0006kP-WE
+ for xen-devel@lists.xenproject.org; Tue, 08 Jul 2025 08:26:28 +0000
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [2a00:1450:4864:20::42e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 41783fe7-5bcd-11f0-a316-13f23c93f187;
- Tue, 08 Jul 2025 09:29:17 +0200 (CEST)
-Received: by mail-wr1-x431.google.com with SMTP id
- ffacd0b85a97d-3b49ffbb31bso1342981f8f.3
- for <xen-devel@lists.xenproject.org>; Tue, 08 Jul 2025 00:29:17 -0700 (PDT)
+ id 3d38430a-5bd5-11f0-a317-13f23c93f187;
+ Tue, 08 Jul 2025 10:26:26 +0200 (CEST)
+Received: by mail-wr1-x42e.google.com with SMTP id
+ ffacd0b85a97d-3ab112dea41so2195237f8f.1
+ for <xen-devel@lists.xenproject.org>; Tue, 08 Jul 2025 01:26:26 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-23c84351a5esm106770165ad.55.2025.07.08.00.29.10
+ d2e1a72fcca58-74ce4180b6fsm11563840b3a.80.2025.07.08.01.26.21
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 08 Jul 2025 00:29:15 -0700 (PDT)
+ Tue, 08 Jul 2025 01:26:24 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,60 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 41783fe7-5bcd-11f0-a316-13f23c93f187
+X-Inumbo-ID: 3d38430a-5bd5-11f0-a317-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1751959757; x=1752564557; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1751963186; x=1752567986; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=cz/8h5FbvX1O/TaHLqCZXUtwgPJM+fSsMF9E+gvvbWk=;
-        b=X2WANibO9fGne+JqsIcvAcW0w6zeGnCungf/Fejqj2ykZGWdEeBPf1VqclyZptdnld
-         6fkL3egDsQrnAk/QTzF2iwMLFs/RsqlxkoVYL5Qwe6/tRAHNOPgthHDnZ+JMD6P2MW5C
-         Ld9jYJLcxmWov3uenEj/8av6oFPicDR5XMsNXaAQtY6M+dYCVgkxbdB1cT5VQ2RaZ2Lv
-         pd5egAVff9Vkf5gyvq+nviW2fiyawOQR/buRQ9O/HvbaOE6Ul+jzxXKG03i6wjBLgT2T
-         lmaA/vFHt/vEQekde0Tg7SlTXrS5JOpFJ7VzJqElqTn6qg29XbS50nP+S5aN21uH3EPw
-         1uvA==
+        bh=9sSTOaxx7fDq22eqn1MYr4yNu+PkpTvmK5nkFrDm55k=;
+        b=BmEQ6D7w6rAa2YqthH9fhqz+FMu8dVY6qFaQ20QhhqLoSwTYRUtBjMIL+TQCrg6BgC
+         h1tbg/8ROZ/xvHVRYdQBofeq+OMtzxVPGy8W3RJXHvfWbcTjoieZ/w0KXprLsLxlI6sw
+         djcVwB/72IXLs7t64Y1o6MrUHts1TudsoE+9916I8kI+nOKA6dsW8crXlBM5TDUmHTfB
+         4XN5CT49iBqelSYjgCpR99nTEWHcWpPGTtP7EDGDMCUzME0xh5sW14dRIgkGjQbRt2ER
+         Yk+QhTL0fl/9lF42PpyWJmD80iRxLWe6i15fKR6mBgB+CAjcQgQySxW/ntQCsJKvA8c4
+         3PQQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1751959757; x=1752564557;
+        d=1e100.net; s=20230601; t=1751963186; x=1752567986;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=cz/8h5FbvX1O/TaHLqCZXUtwgPJM+fSsMF9E+gvvbWk=;
-        b=S1sUx2wLPZWAIrMyU3luKFBrr1cBWjMcdSWZTFWMAj37ZOUYoxh1aLC7UlG8fSRtq2
-         MGoDQihyZGq5P0+n3Dh/EAYFKTiFClK1VJobBGPxOWk6mWxKkR3SXZZj8IWq87/vm+6/
-         ygWGMduaIoWfD19DzWGIUojIsNV6mHPEWVVQ4SbPIb7Qp7iRW9P6MDxWr30jsthgmwpu
-         /Wg9X3eNDUHSnVMlQ90B9CMMInigznzINdOTaLeIKLAZIrdemY+p5WkGM0AMGTzoD6/v
-         jxMd1+qFimwNz88cTuE2e2bX/wYyaBaJUFSSuh7TmNM+QdpgbikcQWdVh4AW5AkEvX6q
-         df5g==
-X-Forwarded-Encrypted: i=1; AJvYcCXWu8tUfMfO2dduNhTE9dhm/JawLkYeol86sRp61bW9Wiaq33ibtnb4JZUJTKtW3uACZ8/HIEWMeyE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwjvFjVK4pbfe/HU1hymFiSZWOdx6UxuFuOaktSXrWiyt2JvFhK
-	fWKrmiraupEeGk3xYop8hkz7/qtOZE+FgiwyUIeNKRYSdE++bIKYYQTtx28UyD7bVA==
-X-Gm-Gg: ASbGncuU7xYosiSe1SH+Ec7BYmW8j8fuT5OFTKql0bAGU4ToAqYEbVTN4d/YPxPPAJO
-	AvGKvDbZjnb+PX5/UhpJ8ZvV5iEn23s91/XUUFZ97BtyTJFDJHhP6/vpJc09w4AMQ94L7ggMIvE
-	DNg+OFsGuMo/nRFpbDWRe5ArjIe2+qihEzlIEWH+Vur2YtBCHyPfmJpR89H5tDruhO0n3bQ5hzB
-	QbdJJpj+bKrNz8MTq9STvfPjt/pMiqM4jDFOt0CgptWICXiYd7aPHwuMtvT3L0HYvmX33J3DtAD
-	7cvzQSA30o22KU4X+nh2mk1JjqJP4/+n831H4Yaqt9sa9qLkYWKmfF5kErS9VDlx3E/CEwGuZri
-	rOt1H5ZRt9V8m5H39Y3vxmllf1X+dfrEOYTKXkafeEgiHCTWp0vexFT5ynA==
-X-Google-Smtp-Source: AGHT+IH4/FJY0L78zizJgD8H05IZUg7Ud1Gomwj+wJj7Jzx09DQ0kO2NkUtAGxAQ4nhiYZ37z/zTIg==
-X-Received: by 2002:a05:6000:2f86:b0:3a4:f7e7:416b with SMTP id ffacd0b85a97d-3b5dde94dcemr1253108f8f.16.1751959756862;
-        Tue, 08 Jul 2025 00:29:16 -0700 (PDT)
-Message-ID: <961d2f58-a5c5-445f-ba76-e9d082c182ae@suse.com>
-Date: Tue, 8 Jul 2025 09:29:07 +0200
+        bh=9sSTOaxx7fDq22eqn1MYr4yNu+PkpTvmK5nkFrDm55k=;
+        b=N+i51vTsdODDONKSR4nTdpuh2P8BccYi5yMqdsK5z9Z2hKBEqXtmkJEBnWv4lqdFNN
+         pQ0LIqnqMV64FVWb2SbZCGRIdxChFwqLPDKEnu3ETTMX06dxtcUsNAwLsn7nM5h+YAwc
+         5io+MNPrezrfezR9Gez+XFJkJa91Pa/+3OTywfAstnvrTHLe+XbEOKZ2idIPYaHha7tF
+         sH6z43iOaidaM/wQILiaExtmI3OMwgCT0+J9zbhveY4++izkCokWY/R8AMDpJH65qQCE
+         ZfmyhfEn+SHY/S958aFeJRCxUBg08V0L9Se1RnBG5flRROFyhGPAaYn56nfAcRkgNt1E
+         gYLQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXNVqdxC5xJDTG9xWIO7lwM2MK6bCX6Iwy1o7W/hE6Q0YDmgCEVY3ughQd1Z3dbgkI7/nWl0V3Qvr0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxHbzMU54O1xocJa2YsZYe30gtOYGfWGa6APVWp0b7mkK4Tmu6X
+	ruBcbG+lP4Tyo9DSYjk+ephVs8XVX1kFfJFEbqeOuWYlMIifYBKLNvUJkT4+M5Igvw==
+X-Gm-Gg: ASbGncvVGM8ZaOgjCDFxTaybEB4Qff+XqpVvsdHiQUC+mBT42t/qmDVuNfGsMfeXSES
+	2tUXDaHRIGQ3jdv+NKHceiKW2Ds7FmTsl6WX0o0XvijtcjjgwQHxfkfcCaUp8qMIahl/0OLUWi4
+	ZnaH7aG3//f956ElRNFyhIsHHXCNGNiWiasP3LPNumD6gD0Jf1XgjjjQM/lFUpnDqV4poVC38X4
+	zYvOUTRaMRGNrhbdauQ5SggNZt2ouwW1qiCoQv9Yfx0BPZDFy+6UISjrVyjioyCS67GrcKujzvJ
+	LLpOxbwaJtZ3x9agpwu7UxKgFd8OPF6DLOxekL0trUJYrkPiw36Nu5hMICL4+cdLOX84KwukjqF
+	cU1oI3SUZGU7HzYiF18fBU4VkjIQ3WWoy0xGNTPU27iKryEY=
+X-Google-Smtp-Source: AGHT+IGDMWX9au3UOZ6yJvubJ01LGtM9CfA++9KQ7uO7ty3DhrR8eyJNach7+gzdgEaavBPKDVfT0w==
+X-Received: by 2002:a05:6000:2284:b0:3a5:2ed2:118e with SMTP id ffacd0b85a97d-3b5dde3f903mr1971789f8f.9.1751963185550;
+        Tue, 08 Jul 2025 01:26:25 -0700 (PDT)
+Message-ID: <f959300e-e625-4ad5-bc48-f33ae0cd31e1@suse.com>
+Date: Tue, 8 Jul 2025 10:26:17 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH 3/5] x86/irq: address violation of MISRA C Rule 5.5
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <cover.1751659393.git.dmytro_prokopchuk1@epam.com>
- <0e289fdb9187902d59dce3fc7368facf5eafa2ff.1751659393.git.dmytro_prokopchuk1@epam.com>
- <70628c7f-5d9b-43d2-8fc6-da79a62d2fc2@suse.com>
- <alpine.DEB.2.22.394.2507071422160.605088@ubuntu-linux-20-04-desktop>
+Subject: Re: [PATCH] xen/efi: Fix crash with initial empty EFI options
+To: Frediano Ziglio <frediano.ziglio@cloud.com>
+Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org
+References: <20250707151122.292272-1-frediano.ziglio@cloud.com>
+ <ab5d830a-8b59-46d6-9e97-12b351bcf221@suse.com>
+ <CACHz=ZiiO4KwSPitaE261oBucAuZkHr3ugp+mCYhCnSbN8FyAw@mail.gmail.com>
+ <c31947e7-f786-4213-9d91-28e1fa8908c1@suse.com>
+ <CACHz=Zi9CAmdq6CmEF_CCEL9=w1ZLpCp7meA4rwhmQzYz_Et4Q@mail.gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -124,50 +122,171 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2507071422160.605088@ubuntu-linux-20-04-desktop>
+In-Reply-To: <CACHz=Zi9CAmdq6CmEF_CCEL9=w1ZLpCp7meA4rwhmQzYz_Et4Q@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 07.07.2025 23:25, Stefano Stabellini wrote:
-> On Mon, 7 Jul 2025, Jan Beulich wrote:
->> On 04.07.2025 22:39, Dmytro Prokopchuk1 wrote:
->>> Address a violation of MISRA C:2012 Rule 5.5:
->>> "Identifiers shall be distinct from macro names".
->>>
->>> Reports for service MC3A2.R5.5:
->>> xen/include/xen/irq.h: non-compliant function `pirq_cleanup_check(struct pirq*, struct domain*)'
->>> xen/include/xen/irq.h: non-compliant macro `pirq_cleanup_check'
->>>
->>> The primary issue stems from the macro and function
->>> having identical names, which is confusing and
->>> non-compliant with common coding standards.
->>>
->>> Change the function name by adding two underscores at the end.
->>>
->>> Signed-off-by: Dmytro Prokopchuk <dmytro_prokopchuk1@epam.com>
+On 08.07.2025 08:03, Frediano Ziglio wrote:
+> On Mon, Jul 7, 2025 at 5:04 PM Jan Beulich <jbeulich@suse.com> wrote:
 >>
->> I'm not going to NAK this, but I dislike the transformation done. The aliasing
->> in this case was intentional, to avoid any caller appearing that would bypass
->> the macro. Yes, the double underscores will also stand out (as much as the
->> parenthesization that would have been needed to override the protection), but
->> still ...
+>> On 07.07.2025 17:51, Frediano Ziglio wrote:
+>>> On Mon, Jul 7, 2025 at 4:42 PM Jan Beulich <jbeulich@suse.com> wrote:
+>>>>
+>>>> On 07.07.2025 17:11, Frediano Ziglio wrote:
+>>>>> EFI code path split options from EFI LoadOptions fields in 2
+>>>>> pieces, first EFI options, second Xen options.
+>>>>> "get_argv" function is called first to get the number of arguments
+>>>>> in the LoadOptions, second, after allocating enough space, to
+>>>>> fill some "argc"/"argv" variable. However the first parsing could
+>>>>> be different from second as second is able to detect "--" argument
+>>>>> separator. So it was possible that "argc" was bigger that the "argv"
+>>>>> array leading to potential buffer overflows, in particular
+>>>>> a string like "-- a b c" would lead to buffer overflow in "argv"
+>>>>> resulting in crashes.
+>>>>> Using EFI shell is possible to pass any kind of string in
+>>>>> LoadOptions.
+>>>>>
+>>>>> Fixes: 201f261e859e ("EFI: move x86 boot/runtime code to common/efi")
+>>>>
+>>>> This only moves the function, but doesn't really introduce any issue afaics.
+>>>>
+>>>
+>>> Okay, I'll follow the rename
+>>>
+>>>>> --- a/xen/common/efi/boot.c
+>>>>> +++ b/xen/common/efi/boot.c
+>>>>> @@ -345,6 +345,7 @@ static unsigned int __init get_argv(unsigned int argc, CHAR16 **argv,
+>>>>>                                      VOID *data, UINTN size, UINTN *offset,
+>>>>>                                      CHAR16 **options)
+>>>>>  {
+>>>>> +    CHAR16 **const orig_argv = argv;
+>>>>>      CHAR16 *ptr = (CHAR16 *)(argv + argc + 1), *prev = NULL, *cmdline = NULL;
+>>>>>      bool prev_sep = true;
+>>>>>
+>>>>> @@ -384,7 +385,7 @@ static unsigned int __init get_argv(unsigned int argc, CHAR16 **argv,
+>>>>>                  {
+>>>>>                      cmdline = data + *offset;
+>>>>>                      /* Cater for the image name as first component. */
+>>>>> -                    ++argc;
+>>>>> +                    ++argv;
+>>>>
+>>>> We're on the argc == 0 and argv == NULL path here. Incrementing NULL is UB,
+>>>> if I'm not mistaken.
+>>>
+>>> Not as far as I know. Why?
+>>
+>> Increment and decrement operators are like additions. For additions the standard
+>> says: "For addition, either both operands shall have arithmetic type, or one
+>> operand shall be a pointer to an object type and the other shall have integer
+>> type." Neither of the alternatives is true for NULL.
+>>
 > 
-> Maybe you can suggest a different name?
+> Yes and no. The expression here is not NULL + 1, but (CHAR16**)NULL +
+> 1, hence the pointer has a type and so the expression is valid.
+> 
+>>> Some systems even can use NULL pointers as valid, like mmap.
+>>
+>> Right, but that doesn't make the use of NULL C-compliant.
+>>
+>>>>> @@ -402,7 +403,7 @@ static unsigned int __init get_argv(unsigned int argc, CHAR16 **argv,
+>>>>>          {
+>>>>>              if ( cur_sep )
+>>>>>                  ++ptr;
+>>>>> -            else if ( argv )
+>>>>> +            else if ( orig_argv )
+>>>>>              {
+>>>>>                  *ptr = *cmdline;
+>>>>>                  *++ptr = 0;
+>>>>> @@ -410,8 +411,8 @@ static unsigned int __init get_argv(unsigned int argc, CHAR16 **argv,
+>>>>>          }
+>>>>>          else if ( !cur_sep )
+>>>>>          {
+>>>>> -            if ( !argv )
+>>>>> -                ++argc;
+>>>>> +            if ( !orig_argv )
+>>>>> +                ++argv;
+>>>>>              else if ( prev && wstrcmp(prev, L"--") == 0 )
+>>>>>              {
+>>>>>                  --argv;
+>>>>
+>>>> As per this, it looks like that on the 1st pass we may indeed overcount
+>>>> arguments. But ...
+>>>>
+>>>
+>>> I can use again argc if you prefer, not strong about it.
+>>>
+>>>>> @@ -428,9 +429,9 @@ static unsigned int __init get_argv(unsigned int argc, CHAR16 **argv,
+>>>>>          }
+>>>>>          prev_sep = cur_sep;
+>>>>>      }
+>>>>> -    if ( argv )
+>>>>> +    if ( orig_argv )
+>>>>>          *argv = NULL;
+>>>>> -    return argc;
+>>>>> +    return argv - orig_argv;
+>>>>>  }
+>>>>>
+>>>>>  static EFI_FILE_HANDLE __init get_parent_handle(const EFI_LOADED_IMAGE *loaded_image,
+>>>>> @@ -1348,8 +1349,8 @@ void EFIAPI __init noreturn efi_start(EFI_HANDLE ImageHandle,
+>>>>>                                    (argc + 1) * sizeof(*argv) +
+>>>>>                                        loaded_image->LoadOptionsSize,
+>>>>>                                    (void **)&argv) == EFI_SUCCESS )
+>>>>> -            get_argv(argc, argv, loaded_image->LoadOptions,
+>>>>> -                     loaded_image->LoadOptionsSize, &offset, &options);
+>>>>> +            argc = get_argv(argc, argv, loaded_image->LoadOptions,
+>>>>> +                            loaded_image->LoadOptionsSize, &offset, &options);
+>>>>
+>>>> ... wouldn't this change alone cure that problem? And even that I don't
+>>>> follow. Below here we have
+>>>>
+>>>>         for ( i = 1; i < argc; ++i )
+>>>>         {
+>>>>             CHAR16 *ptr = argv[i];
+>>>>
+>>>>             if ( !ptr )
+>>>>                 break;
+>>>>
+>>>> and the 2nd pass of get_argv() properly terminates the (possibly too large)
+>>>> array with a NULL sentinel. So I wonder what it is that I'm overlooking and
+>>>> that is broken.
+>>>
+>>> I realized that because I got a crash, not just by looking at the code.
+>>>
+>>> The string was something like "-- a b c d":
+>>
+>> That's in the "plain command line" case or the LOAD_OPTIONS one? In the
+>> former case the image name should come first, aiui. And in the latter case
+>> the 2nd pass sets argv[0] to NULL very early, increments the pointer, and
+>> hence at the bottom of the function argv[1] would also be set to NULL.
+>> Aiui at least, i.e. ...
+>>
+>>> - the first get_argv call produces a 5 argc;
+>>> - you allocate space for 6 pointers and length of the entire string to copy;
+>>> - the parser writes a single pointer in argv and returns still 5 as argc;
+>>> - returned argc is ignored;
+>>> - code "for (i = 1; i < argc; ++i)" starts accessing argv[1] which is
+>>> not initialized, in case of garbage you dereference garbage.
+>>
+>> ... I don't see how argv[1] can hold garbage.
+> 
+> As I said, this happened as a crash during testing, not looking at the
+> code. It's a plain string in LoadOptions, *offset is set to 0 so
+> there's no initial set of argv[0]. argv[0] is set with the beginning
+> of "--" but then when "--" is detected" argv is moved back to initial
+> value and the terminator is written still in argv[0], so argv[1] is
+> never written.
 
-As per my earlier reply, using the same name was intentional here. Hence
-it's not a matter of what (different) name to pick, but the mere fact that
-a different name is being suggested to be used. Yet as said - I'm not
-going to NAK this, but I also don't like the change.
+On the 1st pass, which path does get_argv() take? The one commented "Plain
+command line, as usually passed by the EFI shell", or the EFI_LOAD_OPTION
+one? From your reply above I suspect the former, but then the image name
+is missing from that line. Which would look like a firmware bug then, and
+hence (if so) would also want describing as such (which in particular
+would mean no Fixes: tag).
+
+I'm routinely running xen.efi from the EFI shell on at least two systems,
+and I have never had any trouble passing "--" as the first option. Which
+I don't do all the time, but every now and then a need for doing so did
+arise.
 
 Jan
-
-> Looking at the diff, this patch also seems OKish.
-> 
-> It is possible but difficult to deviate specific instances like this: if
-> a SAF in-code comment works, then great, otherwise we have to resort to
-> a regex which makes thing harder to maintain.
-> 
-> Unless a SAF in-code comment works, I think this patch is the best way
-> to go.
-
 
