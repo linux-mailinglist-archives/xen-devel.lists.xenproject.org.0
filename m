@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9AB3AFCB3A
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Jul 2025 15:01:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1036491.1408751 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 27C46AFCB70
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Jul 2025 15:09:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1036508.1408761 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uZ7wt-0000DU-73; Tue, 08 Jul 2025 13:01:27 +0000
+	id 1uZ84B-0001NR-1X; Tue, 08 Jul 2025 13:08:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1036491.1408751; Tue, 08 Jul 2025 13:01:27 +0000
+Received: by outflank-mailman (output) from mailman id 1036508.1408761; Tue, 08 Jul 2025 13:08:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uZ7wt-0000BB-3U; Tue, 08 Jul 2025 13:01:27 +0000
-Received: by outflank-mailman (input) for mailman id 1036491;
- Tue, 08 Jul 2025 13:01:26 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uZ84A-0001Ke-Ul; Tue, 08 Jul 2025 13:08:58 +0000
+Received: by outflank-mailman (input) for mailman id 1036508;
+ Tue, 08 Jul 2025 13:08:57 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=mjd+=ZV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uZ7ws-00009X-Bc
- for xen-devel@lists.xenproject.org; Tue, 08 Jul 2025 13:01:26 +0000
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [2a00:1450:4864:20::42d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a775dcc5-5bfb-11f0-a317-13f23c93f187;
- Tue, 08 Jul 2025 15:01:25 +0200 (CEST)
-Received: by mail-wr1-x42d.google.com with SMTP id
- ffacd0b85a97d-3a50fc7ac4dso1914396f8f.0
- for <xen-devel@lists.xenproject.org>; Tue, 08 Jul 2025 06:01:25 -0700 (PDT)
+ id 1uZ849-0001KF-P2
+ for xen-devel@lists.xenproject.org; Tue, 08 Jul 2025 13:08:57 +0000
+Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
+ [2a00:1450:4864:20::129])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b3c6ae44-5bfc-11f0-b894-0df219b8e170;
+ Tue, 08 Jul 2025 15:08:55 +0200 (CEST)
+Received: by mail-lf1-x129.google.com with SMTP id
+ 2adb3069b0e04-555024588b1so4278793e87.1
+ for <xen-devel@lists.xenproject.org>; Tue, 08 Jul 2025 06:08:55 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-23c845801b2sm108039275ad.169.2025.07.08.06.01.20
+ 98e67ed59e1d1-31c22066258sm2058136a91.16.2025.07.08.06.08.49
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 08 Jul 2025 06:01:23 -0700 (PDT)
+ Tue, 08 Jul 2025 06:08:52 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a775dcc5-5bfb-11f0-a317-13f23c93f187
+X-Inumbo-ID: b3c6ae44-5bfc-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1751979685; x=1752584485; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=1wRoPfX2BzJ/dQcFmXsctI1wFLcyFz7ELtTEfeyjYFM=;
-        b=OngPSY6ZAhmKR5kMU1cm3QX591I8hkz32Ietes5tUD7JX4mXjMN9M0/UJ7u1XrhvIE
-         KzrzARggpVNVddZUo8Nw9qXBcIdCsuYJrPi3Bf8i0GMRuhdjt/p4prVgEF14fykpej2Z
-         2KF/+GxiaWoJDXALth2MOsYX8mxU2eSjskOu1Lzh8/JIvyIAl9EBJncy9WO8v1MXoHwi
-         luSqyznbQ1MJ/oQ2N/LvOXGuirDK5T/0/yZM+efHj0J2PpIw6lwLKFcCScsdZrqjas8q
-         3fStXhr0E/5svszEAwrQ3PBNWu9ap3Laa0YkK/71ULHIhHqddq48y5LqXWveeH4LzeYA
-         aLmg==
+        d=suse.com; s=google; t=1751980135; x=1752584935; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=7KekoaMNauZKbz3qk6Iw8jGjKpFkL83x06Ti17rB/Og=;
+        b=ABX4eaiT70jvWznDCiH+k/BYqUMQ8uDEGt9SPXS7Id3q96wiQs4/iyOoMTQ4BhtUrH
+         FTmji6EdfFESmL2R3fBsBuIkocwAvRG21Asj+MR4Z8wxrfaynoFkFOKOrDcUlUNLkbbA
+         ZZafXvASjzQzTVZW4UNr30ywCsjjYNcs7NOxGxcmBV7Vm0BLmUxoQptaoJG8cgkEsVDX
+         bWuW5tdUEI3VANBBXjVfKdGLVPIi96TxOU6yOg3qOAeBs5VbNKHFn8bFayqT/dPFzkBp
+         F/mGKkWr191GVJa+5X8HjSdBQi5MfNupzIRxqKEYBpJqJOFjZaC0cGWjAW4xpNAes/n9
+         MiNA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1751979685; x=1752584485;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=1wRoPfX2BzJ/dQcFmXsctI1wFLcyFz7ELtTEfeyjYFM=;
-        b=pxM9buGjrM9q6bp0eOc33brR0kPmTjQgs4m75GUBd5BOj5ZWXUMgrdyFIn24w8eToT
-         id5il7siIIc1bmb2URgXrOGYexNsf7gG+ELTgQpfo8DHq583UtGe/jLwpEkZ4OoxQ/oJ
-         Myi8ph0P/ZDCcIYDh3CObwZQC9Z7L0qEv+cVuIIT78MwJTRAsbyD0ePYZPqZMoU87CMB
-         SjN4MIoqLT/NBrp4ycCv7Xq9weNmGmze1TnrfLMto11Fi/YQmPuIke8oRNXQAw7yjEG2
-         RKVjbP83pL1BWejtdlIjgJ8VKC2cX7vW233caoZofs8cyn1N8ZiY7J3GYoDZkpdpwrgM
-         9aVA==
-X-Gm-Message-State: AOJu0YzxqwFLabNP4tyZ4dLir6hdbFdyyCXFVMehNMQoR+EsFPTFZ8Jc
-	Kww/p6sbbEdfxLSnxEUUduLnmnCP5ljlTR/CPZEx10qg/jAZ8GFYv415PhjhmEW3380TSw8yc5m
-	e5LU=
-X-Gm-Gg: ASbGncsnLDrOeXH2/mTTvXVocw2e80bt0tililE4I3xnI0vatU4bH4GHhAJB5fXzC/D
-	FChtSTLy5n6jILEKuXPnf18AkVEXCYKDsB1Qkdg2aQHLbMePnrJV6daug25kc51rY2aCuVeUyOG
-	dmBtL3Xb77Y1O05rI5wyI2k6qNyZlwGz0S7vn0dhAWeLVSo7DxIhmfDPhhIKDTXwO2YEAbo1LQ1
-	4Sxivh1LUfzsV4ZPDdYCg46mmiY2J4Qtn6ojeDlOpxZzVRznF8ouf9R5U2bWfzoELsIEDrhRlit
-	Y/0ProI9HDhiconGy75AHrb1f+sOvopZYGG1uuQLVSd0GBCL2awXmQU2AAs9mdAWUR5+JQgOh4a
-	xJgnxtWMfAA3sTzt/tJn8+w0TXQqbHnWbDvD58tBH9u9oF7g=
-X-Google-Smtp-Source: AGHT+IFZoasQvlk+4gCjMGro7YeoRxYtYF8fNflLe0jowjDgDB/Xai5pLbizuU0UnXBnzOaxuFcBpw==
-X-Received: by 2002:a05:6000:2c10:b0:3a5:3b14:1ba3 with SMTP id ffacd0b85a97d-3b5ddf0142bmr2088488f8f.49.1751979684207;
-        Tue, 08 Jul 2025 06:01:24 -0700 (PDT)
-Message-ID: <7e9d9be6-aa5a-454c-953f-91ed6a813015@suse.com>
-Date: Tue, 8 Jul 2025 15:01:16 +0200
+        d=1e100.net; s=20230601; t=1751980135; x=1752584935;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=7KekoaMNauZKbz3qk6Iw8jGjKpFkL83x06Ti17rB/Og=;
+        b=XrW9PYtjU6MOF799nVZIz5UbQw6LeeIHzUaJ+PpYDtWhAsZGKwGwYnz+Bu2093BJPF
+         VvGWIm2U2XDAugEirfbd+orOD/I5lSVgVPeq/jJMKakEdiagMLTIF1wDixkuTyKQLhf6
+         JNUqGGuvJozIf3Xm3HnSS6zC1b1vBtWpxZ8XHg3VfIdnzdIOdD/JRP4sHUyhjj/FKbUd
+         8u3BG0hjrT9GRnAypt93VnUDIxY8Ed6SAqGubN8jPZgUUem9AHV3M3ckr8jhdk7hY9th
+         63ao9ycrDJ1JkTqQ9cBug4oOZmk0yQ+IeRd8YljOF4M7FfvIuAxh2JFf+aG+bdhPMVoy
+         nbDw==
+X-Forwarded-Encrypted: i=1; AJvYcCXmVQ8kBUZjeyW6iJMrOmiJRAN8zKiVT8O1ZqzcXKkijB3MPJ9PZojwFZsIkIBQ3rFSlm8gYLTuEVc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Ywsv2c0HWEUScgLPRkrDWcWv30wqrWFV06HBrYNZAqBPTdbvuHQ
+	XQ699knqRIFQLFS5oWMrjBddlifgZF8KFwyvyTDO+M9qBLjcM6OzELz2ksZwum4deQ==
+X-Gm-Gg: ASbGncvN2wepX0mt877gIHkjNc8EjKxpcJzSSWUPEtZ2BO7CUBp8r4TzAPoc0IaZkpn
+	PpFSXN3AWqskuAWhaLiHA9vuI4wiZGXAEen/Zg0EBsbhYs3Zoyni7mx5U9zk1YRL477XawhaXiS
+	xmq8988Qsm+LTA7m5DCMVS8tlUKby9Yxp+i0xARksQkp4EMgq7EP+sREm+Da2lMlbG2FYhdOpyb
+	U/lJzLPFj+6tStKfG4w51C7c3q+h6Zu7BNgoR2MKUSp88/NvqErM5VuYty2vKYfS090KEPSQGTz
+	fxhVXL/JvQb58o2c4E56khQk1zS8uCBLC/5ORre8xPuYHBZQHhx3uNzJCftsMwJ9UMA7npAE4OJ
+	2JEC7WC3DvcSn47vWhETd3VPv1NQvlfd61SHqETtFPaZM1GM=
+X-Google-Smtp-Source: AGHT+IGG8pkPomVCjucBow/bw7S7LpjdXN/+slthNI/QYf7erQz6GV6yvf8iv3as3yG5bmqUumddnA==
+X-Received: by 2002:ac2:4219:0:b0:553:647a:e488 with SMTP id 2adb3069b0e04-557a1421a11mr3716933e87.12.1751980133097;
+        Tue, 08 Jul 2025 06:08:53 -0700 (PDT)
+Message-ID: <f08a1d0a-68c2-41c8-9f1c-5bf82300661c@suse.com>
+Date: Tue, 8 Jul 2025 15:08:45 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH 9/9] x86/mwait-idle: add Clearwater Forest SoC support
-From: Jan Beulich <jbeulich@suse.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH v2] x86/idle: Implement support for Meteor Lake
+To: Alex XZ Cypher Zero <me@alex0.net>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <1df49875-99b8-4302-aed7-5a75dbdd85ca@suse.com>
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <4f6cad808ae9ada51e873a411d774dafad4a49cd.1751969384.git.me@alex0.net>
 Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -117,36 +118,70 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <1df49875-99b8-4302-aed7-5a75dbdd85ca@suse.com>
+In-Reply-To: <4f6cad808ae9ada51e873a411d774dafad4a49cd.1751969384.git.me@alex0.net>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Clearwater Forest (CWF) SoC has the same C-states as Sierra Forest (SRF)
-SoC.  Add CWF support by re-using the SRF C-states table.
+On 08.07.2025 12:09, Alex XZ Cypher Zero wrote:
+> Adds support for Meteor Lake C-states, following the reference implementation in Linux.
+> 
+> Signed-off-by: Alex XZ Cypher Zero <me@alex0.net>
 
-Note: it is expected that CWF C-states will have same or very similar
-characteristics as SRF C-states (latency and target residency).
+I'm sorry, but this still isn't quite how it wants to be done. Besides some
+of the metadata from the Linux commits that wants to be there, it's also
+pretty helpful if what we pull in is done in the same order as Linux had
+things appear. Unless of course this isn't possible or doesn't make sense
+(yet), like e.g. for Linux commit 9f0112938277. That one we will want once
+we gained AMX support.
 
-However, there is a possibility that the characteristics will end up
-being different enough when the CWF platform development is finished.
-In that case, a separate CWF C-states table will be created and populated
-with the CWF-specific characteristics (latency and target residency).
+Furthermore, ...
 
-Signed-off-by: Artem Bityutskiy <artem.bityutskiy@linux.intel.com>
-Link: https://patch.msgid.link/20241203130306.1559024-1-artem.bityutskiy@linux.intel.com
-Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-Origin: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git eeed4bfbe9b9
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> --- a/xen/arch/x86/cpu/mwait-idle.c
+> +++ b/xen/arch/x86/cpu/mwait-idle.c
+> @@ -678,6 +678,28 @@ static struct cpuidle_state __read_mostly adl_l_cstates[] = {
+>  	{}
+>  };
+>  
+> +static struct cpuidle_state __read_mostly mtl_l_cstates[] = {
 
---- a/xen/arch/x86/cpu/mwait-idle.c
-+++ b/xen/arch/x86/cpu/mwait-idle.c
-@@ -1350,6 +1350,7 @@ static const struct x86_cpu_id intel_idl
- 	ICPU(ATOM_TREMONT_D,		snr),
- 	ICPU(ATOM_CRESTMONT,		grr),
- 	ICPU(ATOM_CRESTMONT_X,		srf),
-+	ICPU(ATOM_DARKMONT_X,		srf),
- 	{}
- };
- 
+... this wants to be const, as well as ...
 
+> +	{
+> +		.name = "C1E",
+> +		.flags = MWAIT2flg(0x01),
+> +		.exit_latency = 1,
+> +		.target_residency = 1,
+> +	},
+> +	{
+> +		.name = "C6",
+> +		.flags = MWAIT2flg(0x20) | CPUIDLE_FLAG_TLB_FLUSHED,
+> +		.exit_latency = 140,
+> +		.target_residency = 420
+> +	},
+> +	{
+> +		.name = "C10",
+> +		.flags = MWAIT2flg(0x60) | CPUIDLE_FLAG_TLB_FLUSHED,
+> +		.exit_latency = 310,
+> +		.target_residency = 930
+> +	},
+> +	{}
+> +};
+> +
+>  static struct cpuidle_state __read_mostly spr_cstates[] = {
+>  	{
+>  		.name = "C1",
+> @@ -1083,6 +1105,10 @@ static struct idle_cpu __read_mostly idle_cpu_adl_l = {
+>  	.state_table = adl_l_cstates,
+>  };
+>  
+> +static struct idle_cpu __read_mostly idle_cpu_mtl_l = {
+
+... this. (Some of the entries can't be, which unfortunately makes it not
+straightforward, i.e. you cannot simply copy such attributes from adjacent
+entries in some of the cases.)
+
+I've Cc-ed you on the one patch in the series that corresponds to this one.
+Feel free to provide a Reviewed-by:.
+
+Jan
 
