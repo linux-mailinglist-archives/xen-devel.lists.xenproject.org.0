@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A1338AFDBD8
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Jul 2025 01:28:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1037475.1410096 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 270CAAFDBDA
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Jul 2025 01:30:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1037482.1410106 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uZHj5-0001Rp-NC; Tue, 08 Jul 2025 23:27:51 +0000
+	id 1uZHlN-0002tN-24; Tue, 08 Jul 2025 23:30:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1037475.1410096; Tue, 08 Jul 2025 23:27:51 +0000
+Received: by outflank-mailman (output) from mailman id 1037482.1410106; Tue, 08 Jul 2025 23:30:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uZHj5-0001PF-Jj; Tue, 08 Jul 2025 23:27:51 +0000
-Received: by outflank-mailman (input) for mailman id 1037475;
- Tue, 08 Jul 2025 23:27:50 +0000
+	id 1uZHlM-0002rp-Vf; Tue, 08 Jul 2025 23:30:12 +0000
+Received: by outflank-mailman (input) for mailman id 1037482;
+ Tue, 08 Jul 2025 23:30:11 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=6HMe=ZV=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
- id 1uZHj3-0001P9-JK
- for xen-devel@lists.xenproject.org; Tue, 08 Jul 2025 23:27:50 +0000
-Received: from mail-4322.protonmail.ch (mail-4322.protonmail.ch [185.70.43.22])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 28061020-5c53-11f0-a317-13f23c93f187;
- Wed, 09 Jul 2025 01:27:47 +0200 (CEST)
+ id 1uZHlL-0002rj-KD
+ for xen-devel@lists.xenproject.org; Tue, 08 Jul 2025 23:30:11 +0000
+Received: from mail-10628.protonmail.ch (mail-10628.protonmail.ch
+ [79.135.106.28]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 7d67e34c-5c53-11f0-a317-13f23c93f187;
+ Wed, 09 Jul 2025 01:30:10 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,184 +36,112 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 28061020-5c53-11f0-a317-13f23c93f187
+X-Inumbo-ID: 7d67e34c-5c53-11f0-a317-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1752017266; x=1752276466;
-	bh=wrTphK1PVHv/AY8CTxBQfvtP4/TQU3Fef9S082i2sJM=;
+	s=protonmail; t=1752017409; x=1752276609;
+	bh=g+9Diyqte8+FT7BegxWx9rB0eCJf7ZK0d3AR81Esf/0=;
 	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
 	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
 	 Message-ID:BIMI-Selector;
-	b=bxIxeJvnKtw2FcheDB8DUTi/lATHCSeurE3rN0mGzU0W9Z1U2BOLYqEP8Z+c9x64Z
-	 nXQhniTusZr5OQslSxIggdfCHd34K5NXcxe3x59Vnx81uATHxwjzHggu1eEzgKfRBN
-	 4+zW/Dg0D5JZW6sGIbb3ENDWbzoTmHUprmGPRx4rljPBMHvG3LbztJI2rC2VGxplR6
-	 945aEETx8fiOMrqeLOznVud8lVQ8J4b1fotL5uHSJCXSsIBfEGYPfKmOAAh2cXoIfj
-	 UUMRpfiDik+X3T3NEhaWnReGiTvWB+DD7i4lKNZvUDIhB7yfrQt7IpfsMBvh8tnkYS
-	 NNbJAmhRrUv0g==
-Date: Tue, 08 Jul 2025 23:27:40 +0000
-To: =?utf-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+	b=QrXHFGXa4FOnYY+bSSgABzNUZ6Cf7qqVwSNlJVTSCvRDyKe6scKh1QmHxguoFXqmi
+	 nqeQKr/orXWHrnxMNhYAysihS8sf78tDoeZ/JCaxVsLUKUDLDQetmCfSw4h3oxOHgK
+	 ynS3HY/yxuuchb4d9/326p6VqIRYOMPP3J/LzQk4D/HYzSBRN7xGjHOfp6WKflUOwr
+	 S1j3rVCViixuV9mpsdrYHzpyFZLxWmx95rjqjET4RjRp9Z2lRDQ3RQS2y6wRdi/wqy
+	 IlDCTDzLDCLymFENJErolzEgTS+PGBzJOP+IEDTtBIIR+6llLIn6nsmlaHNQupWQbh
+	 vK5OyC3SrVEeQ==
+Date: Tue, 08 Jul 2025 23:30:03 +0000
+To: Julien Grall <julien@xen.org>
 From: dmkhn@proton.me
-Cc: xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com, anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org, michal.orzel@amd.com, sstabellini@kernel.org, dmukhin@ford.com
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Jan Beulich <jbeulich@suse.com>, andrew.cooper3@citrix.com, anthony.perard@vates.tech, michal.orzel@amd.com, roger.pau@citrix.com, dmukhin@ford.com, xen-devel@lists.xenproject.org
 Subject: Re: [PATCH v3 2/2] xen/console: unify printout behavior for UART emulators
-Message-ID: <aG2paMXmJ/0kIIhf@kraken>
-In-Reply-To: <aFvUkWvIAmu4sMHO@macbook.local>
-References: <20250606201102.2414022-1-dmukhin@ford.com> <20250606201102.2414022-3-dmukhin@ford.com> <aFvUkWvIAmu4sMHO@macbook.local>
+Message-ID: <aG2p+MmXdAJObhR8@kraken>
+In-Reply-To: <ab1d2b35-2760-436c-8e9d-57f094712012@xen.org>
+References: <20250606201102.2414022-1-dmukhin@ford.com> <alpine.DEB.2.22.394.2506111155400.542113@ubuntu-linux-20-04-desktop> <b9c263e0-3d8d-4966-8f54-611e58572118@suse.com> <alpine.DEB.2.22.394.2506171735440.1780597@ubuntu-linux-20-04-desktop> <2f726960-4bdc-4996-b204-722c0253e2ab@suse.com> <alpine.DEB.2.22.394.2506181742281.1780597@ubuntu-linux-20-04-desktop> <15db8155-3d3d-41e9-92be-957067a34e5f@suse.com> <alpine.DEB.2.22.394.2506201747530.2978375@ubuntu-linux-20-04-desktop> <ab1d2b35-2760-436c-8e9d-57f094712012@xen.org>
 Feedback-ID: 123220910:user:proton
-X-Pm-Message-ID: 2b9579ea8aa2d097f72c6cd8675632b2cb5d7355
+X-Pm-Message-ID: 56a1010f7cd9a1e881a6d698d7525232c591bccf
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Jun 25, 2025 at 12:50:57PM +0200, Roger Pau Monn=C3=A9 wrote:
-> On Fri, Jun 06, 2025 at 08:11:26PM +0000, dmkhn@proton.me wrote:
-> > From: Denis Mukhin <dmukhin@ford.com>
-> >
-> > If virtual UART from domain X prints on the physical console, the behav=
-ior is
-> > updated to (see [1]):
-> > - console focus in domain X: do not prefix messages;
-> > - no console focus in domain X: prefix all messages with "(dX)".
-> >
-> > Use guest_printk() in all current in-hypervisor UART emulators. That al=
-igns the
-> > behavior with debug I/O port 0xe9 handler on x86 and slightly improves =
-the
-> > logging since guest_printk() already prints the domain ID. guest_printk=
-() was
-> > modified to account for console focus ownership.
-> >
-> > Modify guest_console_write() for hardware domain case by adding domain =
-ID to
-> > the message when hwdom does not have console focus.
-> >
-> > [1] https://lore.kernel.org/xen-devel/alpine.DEB.2.22.394.2412121655360=
-.463523@ubuntu-linux-20-04-desktop/
-> > Signed-off-by: Denis Mukhin <dmukhin@ford.com>
-> > ---
-> > Changes since v2:
-> > - dropped rate-limiting change for vuart
-> > ---
-> >  xen/arch/arm/vpl011.c      |  6 +++---
-> >  xen/arch/arm/vuart.c       |  2 +-
-> >  xen/drivers/char/console.c | 23 +++++++++++++++++++++--
-> >  3 files changed, 25 insertions(+), 6 deletions(-)
-> >
-> > diff --git a/xen/arch/arm/vpl011.c b/xen/arch/arm/vpl011.c
-> > index 480fc664fc..2b6f2a09bc 100644
-> > --- a/xen/arch/arm/vpl011.c
-> > +++ b/xen/arch/arm/vpl011.c
-> > @@ -87,7 +87,7 @@ static void vpl011_write_data_xen(struct domain *d, u=
-int8_t data)
-> >      {
-> >          if ( intf->out_prod =3D=3D 1 )
-> >          {
-> > -            printk("%c", data);
-> > +            guest_printk(d, "%c", data);
-> >              intf->out_prod =3D 0;
-> >          }
-> >          else
-> > @@ -95,7 +95,7 @@ static void vpl011_write_data_xen(struct domain *d, u=
-int8_t data)
-> >              if ( data !=3D '\n' )
-> >                  intf->out[intf->out_prod++] =3D '\n';
-> >              intf->out[intf->out_prod++] =3D '\0';
-> > -            printk("%s", intf->out);
-> > +            guest_printk(d, "%s", intf->out);
-> >              intf->out_prod =3D 0;
-> >          }
-> >      }
-> > @@ -107,7 +107,7 @@ static void vpl011_write_data_xen(struct domain *d,=
- uint8_t data)
-> >              if ( data !=3D '\n' )
-> >                  intf->out[intf->out_prod++] =3D '\n';
-> >              intf->out[intf->out_prod++] =3D '\0';
-> > -            printk("DOM%u: %s", d->domain_id, intf->out);
-> > +            guest_printk(d, "%s", intf->out);
-> >              intf->out_prod =3D 0;
-> >          }
-> >      }
-> > diff --git a/xen/arch/arm/vuart.c b/xen/arch/arm/vuart.c
-> > index bd2f425214..6641f9d775 100644
-> > --- a/xen/arch/arm/vuart.c
-> > +++ b/xen/arch/arm/vuart.c
-> > @@ -89,7 +89,7 @@ static void vuart_print_char(struct vcpu *v, char c)
-> >          if ( c !=3D '\n' )
-> >              uart->buf[uart->idx++] =3D '\n';
-> >          uart->buf[uart->idx] =3D '\0';
-> > -        printk(XENLOG_G_DEBUG "DOM%u: %s", d->domain_id, uart->buf);
-> > +        guest_printk(d, XENLOG_G_DEBUG "%s", uart->buf);
-> >          uart->idx =3D 0;
-> >      }
-> >      spin_unlock(&uart->lock);
-> > diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
-> > index 6e77b4af82..3855962af7 100644
-> > --- a/xen/drivers/char/console.c
-> > +++ b/xen/drivers/char/console.c
-> > @@ -740,7 +740,17 @@ static long guest_console_write(XEN_GUEST_HANDLE_P=
-ARAM(char) buffer,
-> >          if ( is_hardware_domain(cd) )
-> >          {
-> >              /* Use direct console output as it could be interactive */
-> > +            char prefix[16] =3D "";
-> > +            struct domain *consd;
-> > +
-> > +            consd =3D console_get_domain();
-> > +            if ( consd !=3D cd )
-> > +                snprintf(prefix, sizeof(prefix), "(d%d) ", cd->domain_=
-id);
-> > +            console_put_domain(consd);
-> > +
-> >              nrspin_lock_irq(&console_lock);
-> > +            if ( prefix[0] !=3D '\0' )
-> > +                console_send(prefix, strlen(prefix), flags);
-> >              console_send(kbuf, kcount, flags);
-> >              nrspin_unlock_irq(&console_lock);
-> >          }
-> > @@ -1032,12 +1042,21 @@ void printk(const char *fmt, ...)
-> >      va_end(args);
-> >  }
-> >
-> > +/*
-> > + * Print message from the guest on the diagnostic console.
-> > + * Prefixes all messages w/ "(dX)" if domain X does not own physical c=
-onsole
-> > + * focus.
-> > + */
-> >  void guest_printk(const struct domain *d, const char *fmt, ...)
-> >  {
-> >      va_list args;
-> > -    char prefix[16];
-> > +    char prefix[16] =3D "";
-> > +    struct domain *consd;
-> >
-> > -    snprintf(prefix, sizeof(prefix), "(d%d) ", d->domain_id);
-> > +    consd =3D console_get_domain();
-> > +    if ( consd !=3D d )
-> > +        snprintf(prefix, sizeof(prefix), "(d%d) ", d->domain_id);
-> > +    console_put_domain(consd);
+On Sat, Jun 28, 2025 at 06:26:12PM +0100, Julien Grall wrote:
+> Hi Stefano,
 >=20
-> It might be helpful to abstract this into a separate helper, as it's
-> used by both functions:
+> On 21/06/2025 01:52, Stefano Stabellini wrote:
+> >> Widely used or not - _I_ use it all the time in debug configs where se=
+rial
+> >> is available.
+> >
+> > Fair enough and your usage is really important for the project. At the
+> > same time you know exactly what's going on so you wouldn't be confused
+> > by the presence or absence of a (d0) prefix.
+> >
+> > The main issue is when less familiar users try Xen, or less familiar
+> > developers go through the Xen source code to learn from it.
+> >
+> > I would optimize this choice to make it simpler for users and to make
+> > the code simpler. Your use-case is really important as well, but I woul=
+d
+> > trust you to understand what's going on either way, with or without the
+> > (d0) prefix.
 >=20
-> static void fill_console_prefix(char *prefix, unsigned int len,
->                                 const struct domain *d)
-> {
->     struct domain *consd =3D console_get_domain();
+> Thanks for the clarification. I gave a try with and without the series
+> to understand a bit more the difference. I think there are some
+> imbalance in that setup because when the focus is on Xen, the logs are
+> still prefixed with "(XEN)". So naturally the log with no prefix are the
+> one for Dom0. So I have to agree with Jan here.
 >=20
->     if ( consd ? consd !=3D d : !is_hardware_domain(d)) )
->        snprintf(prefix, len, "(d%d) ", d->domain_id);
->     console_put_domain(consd);
-> }
+> I haven't tried the behavior with dom0less. So I am not sure what would
+> happen if the focus switch to Xen.
 >=20
-> Note the above code should also handle the current discussion of not
-> printing the (d0) prefix for the hardware domain when the console
-> target is Xen.  I think this keeps the previous behavior when console
-> input is switched to Xen, while still providing unified (dX) prefixes
-> otherwise.
+> Also, when switching focus, I have noticed a very odd behavior with this
+> patch. "(d0)" is printed multiple time per line:
 
-Thanks, will do.
+Thanks for catching this, will fix.
 
 >=20
-> Thanks, Roger.
+> "
+> (d0) [    1.344020] v(d0) gaarb: loaded
+> (d0) [    1.352808] c(d0) locksource: Swit(d0) ched to clocksou(d0) rce
+> arch_sys_cou(d0) nter
+> (d0) [    1.367604] V(d0) FS: Disk quotas (d0) dquot_6.6.0
+> (d0) [    1.369369] V(d0) FS: Dquot-cache (d0) hash table entri(d0) es:
+> 512 (order 0(d0) , 4096 bytes)
+> (d0) [    1.376766] p(d0) np: PnP ACPI: di(d0) sabled
+> (d0) [    1.619730] N(d0) ET: Registered P(d0) F_INET protocol (d0) famil=
+y
+> (d0) [    1.623635] I(d0) P idents hash ta(d0) ble entries: 163(d0) 84
+> (order: 5, 13(d0) 1072 bytes, line(d0) ar)
+> (d0) [    1.636915] t(d0) cp_listen_portad(d0) dr_hash hash tab(d0) le
+> entries: 512 (d0) (order: 3, 36864(d0)  bytes, linear)
+> (d0) [    1.638331] T(d0) able-perturb has(d0) h table entries:(d0)
+> 65536 (order: 6(d0) , 262144 bytes, (d0) linear)
+> (d0) [    1.639267] T(d0) CP established h(d0) ash table entrie(d0) s:
+> 8192 (order: (d0) 4, 65536 bytes, (d0) linear)
+> (d0) [    1.643457] T(d0) CP bind hash tab(d0) le entries: 8192(d0)
+> (order: 8, 1179(d0) 648 bytes, linea(d0) r)
+> (d0) [    1.652078] T(d0) CP: Hash tables (d0) configured (esta(d0)
+> blished 8192 bin(d0) d 8192)
+> (d0) [    1.655824] U(d0) DP hash table en(d0) tries: 512 (orde(d0) r:
+> 4, 81920 byte(d0) s, linear)
+> (d0) [    1.657807] U(d0) DP-Lite hash tab(d0) le entries: 512 (d0)
+> (order: 4, 81920(d0)  bytes, linear)
+> (d0) [    1.661993] N(d0) ET: Registered P(d0) F_UNIX/PF_LOCAL (d0)
+> protocol family
+> (d0) [    1.674980] R(d0) PC: Registered n(d0) amed UNIX socket(d0)
+> transport modul(d0) e.
+> (d0) [    1.676034] R(d0) PC: Registered u(d0) dp transport mod(d0) ule.
+> (d0) [    1.677241] R(d0) PC: Registered t(d0) cp transport mod(d0) ule.
+> (d0) [    1.677964] R(d0) PC: Registered t(d0) cp-with-tls tran(d0)
+> sport module.
+> (d0) [    1.678615] R(d0) PC: Registered t(d0) cp NFSv4.1 backc(d0)
+> hannel transport(d0)  module.
+> "
+>=20
+> Cheers,
+>=20
+> --
+> Julien Grall
+>=20
 >=20
 
 
