@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 55692AFE2BA
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Jul 2025 10:34:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1037872.1410367 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A1B4DAFE2BD
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Jul 2025 10:35:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1037880.1410378 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uZQFx-0000t6-M1; Wed, 09 Jul 2025 08:34:21 +0000
+	id 1uZQGZ-0001Pz-17; Wed, 09 Jul 2025 08:34:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1037872.1410367; Wed, 09 Jul 2025 08:34:21 +0000
+Received: by outflank-mailman (output) from mailman id 1037880.1410378; Wed, 09 Jul 2025 08:34:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uZQFx-0000r0-IC; Wed, 09 Jul 2025 08:34:21 +0000
-Received: by outflank-mailman (input) for mailman id 1037872;
- Wed, 09 Jul 2025 08:34:21 +0000
+	id 1uZQGY-0001Nr-U4; Wed, 09 Jul 2025 08:34:58 +0000
+Received: by outflank-mailman (input) for mailman id 1037880;
+ Wed, 09 Jul 2025 08:34:57 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Mjof=ZW=valinux.co.jp=den@srs-se1.protection.inumbo.net>)
- id 1uZQFw-0000qu-Dl
- for xen-devel@lists.xenproject.org; Wed, 09 Jul 2025 08:34:21 +0000
-Received: from OS0P286CU011.outbound.protection.outlook.com
- (mail-japanwestazlp170100001.outbound.protection.outlook.com
- [2a01:111:f403:c406::1])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=42hY=ZW=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1uZQGX-0000qu-6c
+ for xen-devel@lists.xenproject.org; Wed, 09 Jul 2025 08:34:57 +0000
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2061e.outbound.protection.outlook.com
+ [2a01:111:f403:2416::61e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7f1e79bc-5c9f-11f0-a317-13f23c93f187;
- Wed, 09 Jul 2025 10:34:16 +0200 (CEST)
-Received: from OS3P286MB0979.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:10d::7)
- by TYYP286MB4095.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:14e::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8922.21; Wed, 9 Jul
- 2025 08:34:11 +0000
-Received: from OS3P286MB0979.JPNP286.PROD.OUTLOOK.COM
- ([fe80::80f1:db56:4a11:3f7a]) by OS3P286MB0979.JPNP286.PROD.OUTLOOK.COM
- ([fe80::80f1:db56:4a11:3f7a%4]) with mapi id 15.20.8922.017; Wed, 9 Jul 2025
- 08:34:10 +0000
+ id 9678230d-5c9f-11f0-a317-13f23c93f187;
+ Wed, 09 Jul 2025 10:34:55 +0200 (CEST)
+Received: from BN9PR12MB5273.namprd12.prod.outlook.com (2603:10b6:408:11e::22)
+ by BL3PR12MB6593.namprd12.prod.outlook.com (2603:10b6:208:38c::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8901.24; Wed, 9 Jul
+ 2025 08:34:49 +0000
+Received: from BN9PR12MB5273.namprd12.prod.outlook.com
+ ([fe80::cf66:58ab:47be:4b13]) by BN9PR12MB5273.namprd12.prod.outlook.com
+ ([fe80::cf66:58ab:47be:4b13%5]) with mapi id 15.20.8901.024; Wed, 9 Jul 2025
+ 08:34:49 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,415 +47,265 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7f1e79bc-5c9f-11f0-a317-13f23c93f187
+X-Inumbo-ID: 9678230d-5c9f-11f0-a317-13f23c93f187
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UyFZQ9zaQQmgleess/LZ/S/Q9wH12Ik74Q74kWLJL+9N5WyGdLj7qBvt4qBRtBEQPuj3vUyEo+O2cTfkT67j6ZLKFNoXY5rhizTwHMlAlkfoUKuUMBIuj43ipbFrOg7809bpq78eF9mIyl4yroMbRN3yltdihia+Gu4cqaf2s2xKD+BsGBYUhPJgirU7LGPQKyrFh9Lxh0xPXOpQD9iqiLUKvypyOeb61SbvVfPwkDJ2afjrlpqW9mHgH+vYIXATbK6ggyG77O6NT55IzuCt0swGZUpO8HUN5L9YwRKg+jea+VhsLXrLKZKBLW8cDAxxzFkl57mTxSi86VvBGj28/w==
+ b=kgrmMK3qo2gtWRZ1mo5lRXxw1au1TelFLitD7PuEfjBCKPqMlQc2od10F52URiPebVdTxPRwL+ZcL2k1686pFTkl2LXmpi/Do44uDn2n/hOwGWn4yPIQhDv3pk+mtcCqLrcGzf3J075Iw0qptEWaBWET69POHezKZLnCUVWcTE/mAOl6J/1kVvhmgq5HW64jvapVitpJCGvq6oMb9j1OXIyQUASVFgT2s8vS6kSbSjYbvlZXQgF39k5yDxFKv09QWneGe7MS29zjKJMkC/I78DRc6KHW+OiKna6EglTJ+64SbYsOJ5Oc3bER3pVZBezUEeLNmPr6gQaj4F3rgxO94Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VxTnT3BKD6SDOAHUydAL515NndY1mZccjJUY5qBU++0=;
- b=GA7+7jvt4WYF6XxG3Dw32xSlEBtE+RwnAoqhb1k1BzzH3gpFWycIXP5coeNHrX8RaV6eyM1/lpIiJ9/U78gyat1SA0IUMGjbODqGpqGPgiXpBcDu8ONo4oLji9NHfSyv2uvw6hcs/C6QLHNaP3c95ng26572+rzD48n7CXBLmElyAKitPvDymx+kPdKRsCmUI/40xwSM+44kxSfjjT6bFhg4UY4XKQ0dPLPh3j+7x6DhJbCacmO3AqEF/Hd7LZdRV4AgpJVfNCMTOS8uhxPM9A+yMkSaVHMXkd7fFzDVvqkEExMemLmweZYsLSg9NSnLj8OismYiHvwlTh9GqHzvAw==
+ bh=LGncKrmgUbV+DB9x6uqUgzc8XmiPFtJ+bbZNXV/ECoo=;
+ b=Y/mS7g74al0cTYMmBdU40T4h0OwzBf4Iw+UwiNX/B2ofb6OyLYwU73lDIC/j1uHr43xzJAKlbhWZePgVvP0nE8c2MiItOEdz3+1sREbvGwf51aOMotvbNRd/qTLW2+mFpd2phhLLjYHOZNb+tzF+8zxBabe9RJLXkGX+T42PbD0QTa8E6mPui7Uc2psPNlL0C9cOb2eKrko1fmJNM0TzII6LiHaaRF3hSv57gRMAh8nCs24/65A5ARR1Jy/gZjDKINld3D43TRBFBs8BBGACAf4KVi5PDcHqEKMEtqV5MwmUNGxj40vgHMCgqp0fYu2Ckud4ARTPmZdxAQ4BLA0ydA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
- header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
- s=selector1;
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VxTnT3BKD6SDOAHUydAL515NndY1mZccjJUY5qBU++0=;
- b=ZP5FxfxwDTnNv2hJX6fVQNwt82TceGYe55XvlQravw0/FmlumBDcKMIffH8ARwb9+zTj0IDvpxhyQNhCjs+6STywHK+DZbTnwjGpNGEh7cJdHs1qtdaedcDQxMnoxPTTEoSNK/tU+LAKaXkK1MQncVQIHZkKFDhbwHgnFfYLnaA=
+ bh=LGncKrmgUbV+DB9x6uqUgzc8XmiPFtJ+bbZNXV/ECoo=;
+ b=DnqEADG9P9IS5J2AVpWd4h24r1SVHvaRnf9iUE0/awHAl8PD3y8HIrdA56/iVUdPGaiEq8leT1JAlvbWFLeAFbKqDeBPhNWdXZ61C/YTYAN4ll3dXFoVRBgiwCWdNkuhxJBqAybmOeizw+k7zygB3nmdggNORrjvZpiihHNw9qA=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=valinux.co.jp;
-Date: Wed, 9 Jul 2025 17:34:09 +0900
-From: Koichiro Den <den@valinux.co.jp>
-To: Stewart Hildebrand <stewart.hildebrand@amd.com>
-Cc: xen-devel@lists.xenproject.org, 
-	Anthony PERARD <anthony.perard@vates.tech>, Juergen Gross <jgross@suse.com>, 
-	Andrew Cooper <andrew.cooper3@citrix.com>, Michal Orzel <michal.orzel@amd.com>, 
-	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, 
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>, 
-	Bertrand Marquis <bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH v2 5/5] xen/arm: Support ARM standard PV time for domains
- created via toolstack
-Message-ID: <u7vkuhymewcjegim3andok7pxpbp3ocyvyirgz2jbehld6msfh@m6ztic55uvcm>
-References: <20250705142703.2769819-1-den@valinux.co.jp>
- <20250705142703.2769819-6-den@valinux.co.jp>
- <405399e5-b6a2-487d-9937-1ed5aaf0d957@amd.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <405399e5-b6a2-487d-9937-1ed5aaf0d957@amd.com>
-X-ClientProxiedBy: TYCP301CA0047.JPNP301.PROD.OUTLOOK.COM
- (2603:1096:400:384::11) To OS3P286MB0979.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:604:10d::7)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Message-ID: <10c17850-7e53-4547-9ce0-29d58e35ca7e@amd.com>
+Date: Wed, 9 Jul 2025 10:34:44 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 5/6] arm/mpu: Implement early_fdt_map support in MPU
+ systems
+To: Hari Limaye <hari.limaye@arm.com>, xen-devel@lists.xenproject.org
+Cc: luca.fancellu@arm.com, Stefano Stabellini <sstabellini@kernel.org>,
+ Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+References: <cover.1751464757.git.hari.limaye@arm.com>
+ <100cc63353021067e3eae68d092ebd73f484f416.1751464757.git.hari.limaye@arm.com>
+From: "Orzel, Michal" <michal.orzel@amd.com>
+Content-Language: en-US
+In-Reply-To: <100cc63353021067e3eae68d092ebd73f484f416.1751464757.git.hari.limaye@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR4P281CA0010.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:c8::9) To BN9PR12MB5273.namprd12.prod.outlook.com
+ (2603:10b6:408:11e::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: OS3P286MB0979:EE_|TYYP286MB4095:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8c90b4ac-9039-4b47-482d-08ddbec360b5
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5273:EE_|BL3PR12MB6593:EE_
+X-MS-Office365-Filtering-Correlation-Id: a5e3598f-60de-49ff-1014-08ddbec377a6
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|7416014|10070799003|1800799024;
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016|7053199007;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?URRQ8+sN8Rq6FUiB1QVcT9Hv3jGVoBFUHhft8BJcMPjlMIRbyDCt/BFcmqJ9?=
- =?us-ascii?Q?ObYSBkH2Ttt+54eM15pDaI/187zzCCJ1PnWfu+TRXelGTmJOwUKQJDVl4o1H?=
- =?us-ascii?Q?iQBpI7vwTyl+QCAwxAE6ULc9a/YSWai+yNAov99ABD73anTdzRIX6IitNKRB?=
- =?us-ascii?Q?QRuFfZUolx/empHrVGaVCKFPgN914ljY5oTaR5dsnyNlh5BCKSl2u7ijrlP+?=
- =?us-ascii?Q?ESK3ZOrguBtiuxKlxKR8ZIC1X4tq9BXDwsaBAUZ49moW/FewFlRWsB4k3K1D?=
- =?us-ascii?Q?6TclFDevnyEqjXetf/EhLfDmJFPSUv/k6HLZ381E4llNXcxSBAHQKGG0XSEh?=
- =?us-ascii?Q?WXWdzRiYS9sINTZOen15pNjKXJKbzvg8mjKlb9VPdhQnNnxy+dHsoEoAigPJ?=
- =?us-ascii?Q?lrzykyS1YCyYatU5uTblkKU3m4AWu8bWYxvVzmqR5f6FlLKXr/1Ux+HvgitL?=
- =?us-ascii?Q?jM7wOcl3EtleupD7pm2LvM3hr5KgprbIUdmyEv52hQjP8+aR1I3SUJLhaPui?=
- =?us-ascii?Q?u/lemNQCRRyrL9huKOFDZbFUgP51UoODD2Xsr/YxnnQ80s1YcIEo5n+OhQpy?=
- =?us-ascii?Q?JkDZhehcI1Ufylbsrf1CSB0bh12D84nMQWpzO8asz0cXXVkTnADRGE+IUlF2?=
- =?us-ascii?Q?UBO+lIHv/ptvKoZmTDjkbQuAdsFP6jDyJdxSXA3CGlmWTPIzDTY/ulZDkgzq?=
- =?us-ascii?Q?oNhUgd13ImhMZMh8O+zIVHMTu3t7Jq807RP+a40K6sAcQ4WBAdBiTtv6iT+B?=
- =?us-ascii?Q?f+4IUuRilQzn7HAh04N3vkq3MI0XiLHcxSScNPjSqpcTvuPwE32b6hDRisOU?=
- =?us-ascii?Q?FB6DExdMaEq1Hjq8+xznd0FmPWRoRTtwzz5IsKOSAWN3CCiRKoTnpHWK6sEx?=
- =?us-ascii?Q?b0iGuEQSp5l3f9Jt0huyRzLCm6ZqClB062PH/uXSjLVYjTNF0olMIJnjyWU2?=
- =?us-ascii?Q?trA0WzVHSnfFIo902b6v7lDUIs7KkN8a2n3gRJZYzafrre5/DO2NCApKVUjK?=
- =?us-ascii?Q?/IWSFGLZywJystX/RCUSJBvF/gBnaVcwDaR9159AGjengc8gWa432VxEu+79?=
- =?us-ascii?Q?ra7Q8V+nA1eo+VYQfG7XIz/OBz/sqi+SQ9t9PgUC/edyBKGJxGs8oLtqiVRR?=
- =?us-ascii?Q?Fc0pW59NptEyBUBmna4fyRWY7F/rEx2jiOStAytyh7Et+IcbS2jz1jAEt0Pz?=
- =?us-ascii?Q?lMpVvmTUP0DoCc7FKEm+TdVCND9VhEMVo1MN+wRq++pKezDc2nUYWfVFgRxq?=
- =?us-ascii?Q?qNtxyMtjKYDCTnfHXYW36Ih6P1G/WJ7zamXJj0QP7LDTgDgQBTDXPNLpKiN5?=
- =?us-ascii?Q?cBEGA4ljedxjb8mhgC46AHhpUSK+hVzfkeKtwECWYRvQr7+v1bCW7E2b1lZc?=
- =?us-ascii?Q?GWtOJBvVXBzHu2xoZ25iUfecLCYFpM/2diePeys/SelHdVoBrDtAWtZwWW55?=
- =?us-ascii?Q?qFw/6S+rsTc=3D?=
+	=?utf-8?B?Q01rcmNlaEhDTW9qMVRVaEFZTEMyWWxXZEkxNThnaFA3dlJrb0JNVDl3cVpn?=
+ =?utf-8?B?b1hqc1haWmxPTzErNlQvSjlIWWxydTRlblhNcFBJcXR0VmprUFk1SkdWWDE0?=
+ =?utf-8?B?M2VuYWMzWGFUUUNTMEdkcG9WVUhybDZVZlZGRFZtcERCUHl0M3M3Tmd5ZFcr?=
+ =?utf-8?B?V05kUzNTTmk2K1dyVUxDaFdjUnBoYng5aGZRczc2cENBUGc0MXZINWFuZXdu?=
+ =?utf-8?B?a2p3MkNLT0JCSkpYbEdaOHlieE1XWnZOSWpoKzBzaERyRHIwOVhqZFNDSHhV?=
+ =?utf-8?B?QUVTclVneUYrMGRjYkMzSFc3NXFPMGhNd20wOHo0TUdhdnMvSTl0ZkwxcitZ?=
+ =?utf-8?B?VDBicEtZR2lzN0U4RWt1c2JxRjV4cGdieklFVE1TcmFONWZuUmFzcEVGUWRJ?=
+ =?utf-8?B?K3JUNms3VWhZREJJSm5uUzNRV0psZ0dsUnVwbW56dGY0T29naC9kZGt3WWFl?=
+ =?utf-8?B?MWNIVnlXcWVyUjg4dGxIYWtwSjNJcld2VHhiMkxDUWx0Y3RDWS9mMmVxY3li?=
+ =?utf-8?B?L3Fkc01ML0R4TGNNUTlKeHZ2NVhaaGgxQWNPTnVIVjZXdERtNHgvZXpVSDRp?=
+ =?utf-8?B?ZlpwcHR6WGlkWTBXVktaaXhrUUM5b2ptbEg1aUVSbDZoaGcwTkt3QlZmbzd1?=
+ =?utf-8?B?WGtvQjl0RUQzOHlTVkhoUGEvQmx5RUlJNDQySzN2a2o5S3lRcXVUaXN2KzFI?=
+ =?utf-8?B?RGpaTGhaM3AycEJ4eSt2OHVqYk9GNTMwZGNjZVdGYkpWYmtTYXZFVjlKQ2pk?=
+ =?utf-8?B?TmtSWHZuOUdxV1NBaWFSVmRUNi80bkszaklmNUhKcnZ4N0hFSHRTMzBQR3ZR?=
+ =?utf-8?B?TGZBNDB5UUJ5alVieEpOdmhvZDZwQjFkNVpFQm1hVmorRGt5a2x5Q1R3V29N?=
+ =?utf-8?B?Q2ZBcXBRcldURzRPSG5ETVNnNmlXOFVsYUlJZEJidXIvaDZIOGhvdjFrWU5j?=
+ =?utf-8?B?WDBDWXRKbStxMENzMzV3cnRzRlAwNTdyZHRoTERCa1RsNjNrbFppTHp0bHFp?=
+ =?utf-8?B?OTNodUVITXM4dTA3bFJ2M01TekM5Unp1WVdnaVR1d1MwRnBlblZnOVJCMlFh?=
+ =?utf-8?B?dHAxVXpzMjhWbkJlQkp2OC9SVTkzaW5CNHNiYlN3dGNFejhhdzh5WEdxajZU?=
+ =?utf-8?B?NWphaU92R2xBOVlVdEV3L2xEQlBIZnNYWGNsdUdZcWx1UUVBOU53akxDL3l3?=
+ =?utf-8?B?SzlDOVRQT2lENzdFM2VTeDdQT3hzWjBIbXFrbFJ5b0lHcGZSUHU5a3FNLzBh?=
+ =?utf-8?B?SEgxNkRlZHlxaXJzeW10SCtZeGxSd3MzRi92aGNrL0k1bzRSYlBldjA4VGt0?=
+ =?utf-8?B?S2FJVmNWL011K2JyN05LVkttTkN4MVhxMjU2bko3YWZuWVM0MEZxeURZWEJu?=
+ =?utf-8?B?eTdteDIxSURMdGxrUG9oakMxcWllNUdQK3J0ZHA1NEZXaHE5SVJQRDE1MkJ0?=
+ =?utf-8?B?bUZBSEIvVFovVmorYnBIZ0p4d0ZQRUV4SXRQc3puNDFtWnZxZDYzQUJqL1NR?=
+ =?utf-8?B?aGNZTHBtdi9pQWNGNTZlSit3bFByTTZ3ay9uM0pqL0RBN0RYWDNoUU5hL1ZM?=
+ =?utf-8?B?enB5LzVEekhySENzUzhRaUIwMnRHL0xQQzRpR2VkYlEzT0VOUzB2QmYyN0hh?=
+ =?utf-8?B?N0tTcGVHYk9IR0E1eUs5d3hqRG5LSU1jdTJxK2FnbXZpcjRmQkVLY3hMa3lv?=
+ =?utf-8?B?WXpadU4wYytYOU5TbEoycURreks3azNJd0JSRHJRMlZDbWFpMXpYbVdoT1Fl?=
+ =?utf-8?B?cU9QZUd5bmVzc211anRodjYxeS9vb3A0MjZ5bGRiMGNmZklOT3JsSkpEZzFw?=
+ =?utf-8?B?aVRIR0MwUWZQcnV4bEU3bnk4WFBBcGw3SXlBNXltdzJaSUNpdmhYaE9MVWJR?=
+ =?utf-8?B?TytKNFQ2Z01ZT092N1Iva0tVRER1WW44YWUwQzFhYUNJSDJoc09Xc0c5blVt?=
+ =?utf-8?Q?kEiHI9jYTMI=3D?=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OS3P286MB0979.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(10070799003)(1800799024);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN9PR12MB5273.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(7053199007);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?hSX4boflEu3ZOPbQ7ZAfW8iR6kMCOnW6itFLGWGGk8WOpdNgIdjL1cMjRQ0X?=
- =?us-ascii?Q?vUQmFVDyP5cZ8BAtKTAib1E+jzRy138uUuPwKJqgr0lZZp4Ic+7BfU3ArrYj?=
- =?us-ascii?Q?ZAMDrKQPrH2fmLNPVCFSLpk+LbxqONj5PiPuaFoL7WkSwXIUw7NQP1rQqP7y?=
- =?us-ascii?Q?Cr1kZWFlFdxt9aIpjTjPqF4HMCoufvMUPnpOR6nOE0oJ4xMfuyvjAdtin6R2?=
- =?us-ascii?Q?Aua3H9WXfDYrLbOLMRI70wxdEUv7Mr/uW5ZxYMkRIfhhA0ZOPd6YBg6I5O3M?=
- =?us-ascii?Q?PI3r8FgxI4Z6nPk/FK8HOV8ap/DUScuep85XwcHt62uhyCU3O8lQfHD8oIsh?=
- =?us-ascii?Q?anTa1j7yzf2KFODiktOcjBe2D7VVxbi30qW2PY7LLCFBwBCbWUnEnYPms4pE?=
- =?us-ascii?Q?xJflZ/Y1RGnG97rujfTAoEAC7R9iZJj7Rq064LnVyNsInmn4lthBYi+PvJj3?=
- =?us-ascii?Q?xHZbV+3ORjQGe2Es2uWgI0c+6E8pm7c5wtIxi8gp88Jt7GdbImdFWspIyFDB?=
- =?us-ascii?Q?oftNoKsRUFm/Cw1krFzJTll40v2AwDlNn2ku2PyuWs57qi22cwbvIRQ3PtJT?=
- =?us-ascii?Q?Me8lsWzmvoWsVJKGZLdyEYsg2LSuD+8Dy0eF0g0WrHeWvju+ol2iVJir3gPZ?=
- =?us-ascii?Q?T6fdukXAPtY7IqM4IRimYdRU9Afc70Szoze6LNpjmH3xN54xQqt6xA3Zvdkf?=
- =?us-ascii?Q?NKOTRmBfnMk5FCi1VtgdOxz7LNoGjGmLu/3ES14mZ1kly5sB7JY6/+EOryvT?=
- =?us-ascii?Q?HRFt/tN5C+F1ebsqkX/a2mSfvNx7cUtKTcXpDS/1Fhj/xX1zWP4OcoMK9pLL?=
- =?us-ascii?Q?r+5EGExLFXfvVQYQMyN+jO/AkXtbCkoZBkDbHQG8OPUf4mqWG3T9MpywaXvw?=
- =?us-ascii?Q?aQnYY922uJ8M9G2npsF31rG4orKSv1U5qbZIDJDyzBg9KTggxecJ9r3l8Up3?=
- =?us-ascii?Q?8n02wrRazmFaCjQaVrT/3gT8NJplnkU/rqQchr3VOn1TCLTu5yh86dRdqsq2?=
- =?us-ascii?Q?kGAelvhAsYwMXRjEybZcEJwdA2TMrKrIuH530jdhiymTsY1fHi4V4XGm0FFC?=
- =?us-ascii?Q?ys5dHErRmPWlAMDKtIKvM1iC638rq9lV8bT76H1iEpxCFDuDkl7BCfexUeNW?=
- =?us-ascii?Q?bsKZbwNwVXPLDxsRWbn4pMJtJ+FoAJVeZKzXEzgvQejKTXaOR3cUdVftHPn8?=
- =?us-ascii?Q?9eoP8FRq4NFaBP0ZVONVMvfvt7Dk/LhDjD9weC682UNGumyvgYjIUyaOkFhE?=
- =?us-ascii?Q?Yfb6tNdWBA8JWtlIbSw0nk2BgSsRYV6w2E2tc1t/shpWuTQ7yN6b7ui8xL5Q?=
- =?us-ascii?Q?OgwNNHKfERQUEYYJrUmFSoc7ENEE66oCwbnvM/lrcjYhPpKu2Hwo9VP3iwqP?=
- =?us-ascii?Q?xCiRHEaqQMg4vG+lC6KrzPFDmw8du/JLMutunVksNT8QngUrgxTz7AiLgqn4?=
- =?us-ascii?Q?XVs+2xV5UmeR4vkwi5B6SZgQ1+Xk04ckpYFrezBXTLuOPjBvby1XHLhspfoV?=
- =?us-ascii?Q?GWJn3QCGXejyGCz0sQhQNHuyEAeFPiQzEqZED6yLpBzYNGukpbwnWMWEWAej?=
- =?us-ascii?Q?LCYSnS/jUpeYqLDF4bhtGkkdHhtsyvBSkflYVENBd8R5tWNvY83GvZVb244n?=
- =?us-ascii?Q?Fsnvj5vsXjPM+FNjQcVyxvs=3D?=
-X-OriginatorOrg: valinux.co.jp
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8c90b4ac-9039-4b47-482d-08ddbec360b5
-X-MS-Exchange-CrossTenant-AuthSource: OS3P286MB0979.JPNP286.PROD.OUTLOOK.COM
+	=?utf-8?B?VXlCc1lXOEg2NzlMb1k5YUwyeGdXS1ZlbWhsaE9FMkN4T2Nic1VCcjZWK1Qy?=
+ =?utf-8?B?WnFSalNUYm1hTnY1YTBtWTdnQUpidHB1a3lqQ2dnVTk0dUdEVHJUSkdIeUd2?=
+ =?utf-8?B?TFdLQ3ROMHJucW4zZEd2cnFVL2VkUGVsNGNPNWZwbWt5NDNpcWRtN2g4TjhJ?=
+ =?utf-8?B?QkNMMGM0ZktWQXVOM3h6UC9nSVpxT2VJd1FaT0UzY0pRMWMrbGZieXBiVWxM?=
+ =?utf-8?B?SVd0VXpJSjJBWU9GOFNOVW1wM0MzMkxlUVIwMFpRZzBPU2Z3eFNhTzAyN055?=
+ =?utf-8?B?VGNKZ3VFZ2JLMlRKWHVlQ1pwTERYemozRUtuaGVNK3pGU3VxRkwrbVAvcnNr?=
+ =?utf-8?B?S3hXZGtSbjNlT3VteHJTTVI1QU0yOWFsZG1FL09MZXQ2dFc2Wi9IVGtiVkJN?=
+ =?utf-8?B?dEgyZFFuc0I4MnZaWkZDTWQ5L0s3WUVwUG1Vc3dyTnlaQ2FqVkJ5N2dWQWMr?=
+ =?utf-8?B?R2tiYkh5MHRKNTJGVFo5R0ZWcGxJaEw1RzFRb2lCZ3hFdnZhcHpUOHdwbWV1?=
+ =?utf-8?B?QkJWb0pzQTBETUEwa3dBbDlYai9GalVRSi9BanBkV1JWZlFOcW0vZnJsOGFB?=
+ =?utf-8?B?bE8vd2JpdVN4OTQ2OFk5VEtlK0xTOE5LS0RXK1hVbmNBQ000dkNXcjQyVHVs?=
+ =?utf-8?B?UFA3a2wyM0JJeDY0b1VDRS8wb0RLSWRSM2ZLUDgxelc5b0g5dTRZQXdGZjNM?=
+ =?utf-8?B?b1h4T3VYWi9KZkliQlBDVncyWmxDMDFnTjlDL1dVcXRNZXVKM3ZRbU1xOG5H?=
+ =?utf-8?B?cHJsY1NPNnExclZLWVptZW1URnpkcCtKdWh6V0lobVNMTHVLK0V4ekZuT0Vs?=
+ =?utf-8?B?c3IyYXBBM2ZyK0V1d3g1MEwydXgyS3laN1FHS2ZIWXVwTVNBM3hYVmg1clVz?=
+ =?utf-8?B?V3U4L1IzWXNBYVJkQ0txWGMvNXZkSWQ1RDZDc3BidG1zK29TY0pSK0lTbWVt?=
+ =?utf-8?B?eko5bFRXaEN5QkhGZTF6aHdOYnBOWDN1MHFlRjNmN3Z2YlBFYWtHclRSa2Jy?=
+ =?utf-8?B?amVrRzZFWW9nZU0zbHhuRE04YW9MTmc1QU1MVFdOUVpXUlI5dGdOTmtTQWtT?=
+ =?utf-8?B?VjkrMlAyWVNvQzZ5OHBjUDRyWWlvSHhpb08zbFJhR3d2Rk10cnlPOGxXSU9C?=
+ =?utf-8?B?elpsWmRxNkRFSU5jZW9sRHdYL3pEcjNmeGZ0MWhVMm9OaVZld201b05IQzlM?=
+ =?utf-8?B?enB6ZmIzb1VwREhZdmJvZldzMGpsMWx0dzhqdjFiWHZndktQWGh6LzFRU2NJ?=
+ =?utf-8?B?UFFxNm92SUk2LzhVNFpYdEJFTEZUOGxjVTBXREFscVZWS1hva3ZKLzRONmZJ?=
+ =?utf-8?B?RWRkNjU4WWxRRDdhcUFja3dTSng5am9mVTg5c0pVcERmeUhQUzJCbnY5NnRV?=
+ =?utf-8?B?Z1RaTktTRFlBZVVCekNwaWhUT2oyNnpBUlZZUVMyOG5EMnBjL0VmdHdRcWhS?=
+ =?utf-8?B?MTA2ajgyUkFFeTZ6U1huZTRReFBmcThjTFJHanh6QmtWV2JtMnUrVlZDcXRY?=
+ =?utf-8?B?b0FQekp4d01JNUlqeE12ZUdaWEE5TURRWW5uQzZvN1JQM1ZpYzNqcldxY1h0?=
+ =?utf-8?B?YnpLK051OFE1dVhiUGQrWVExYmhzVUYxUTlodUZzZzVMOUJqY1Q4aFp6R0Z3?=
+ =?utf-8?B?Y2xGRWFVT0tpTG1WWjB2RS9wU2tyWkt6dTZqZ2NzTEsxZ2R5cDV3aTlHYkpp?=
+ =?utf-8?B?dVJLQXlnekRoR04rRms2NktIQjdJS1pQOEZkYW9Rb0o0QUFiNDhCTzRqWUtv?=
+ =?utf-8?B?ZnlJZUVPZ3lWT2lUQTJmNG9MS1hzaUl2NitZNkdnZ3Nrc3VsbmhLV1BTdU5j?=
+ =?utf-8?B?MmYvWGRwVldzc0F6aFZ5RW4rVWlPRlJ2NkYwVzE1ei93d1dCUjRJdkxxTk55?=
+ =?utf-8?B?UW9xK2JzeFExRUNoTC8xemk0Y0tjVktabWp1Q0h6UU4vcUdORnpQaHRIdUFp?=
+ =?utf-8?B?QTM5cjMyY2crbk9NaG9LUENoSllvTE5kemVQVnZ5djhienplUGszd2hWT0FM?=
+ =?utf-8?B?K3htSzBHdmZUcGtnb3NhbjFBcmVUelI0WFZNVXJHWjhIRGhFK1p6NEFVdFZB?=
+ =?utf-8?B?U0ZJNkhKd1ZGMExUNVF4UlRyRlZmandZclg5MjNLK3liVGlyUWdYQmpxYTQ5?=
+ =?utf-8?Q?H6KyAstDA0oJfuEqNz0ZGcfGM?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a5e3598f-60de-49ff-1014-08ddbec377a6
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5273.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jul 2025 08:34:10.8066
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jul 2025 08:34:49.3727
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: fV4MCp4Z9Y0KsAY8yoArajVMKIBxlTuUnXn8aU/GP9lZ3nJBj84BTilfjZFp8YDVvc0bZBGT0bCgmqSsQ45aag==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYYP286MB4095
+X-MS-Exchange-CrossTenant-UserPrincipalName: DRfUEkvLEN/D/BkWFnmDh+UkQZQKd1KQOEyQ2tq/5ht05SLBSnuenP1mrr8aWxv1
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6593
 
-On Tue, Jul 08, 2025 at 05:10:46PM -0400, Stewart Hildebrand wrote:
-> On 7/5/25 10:27, Koichiro Den wrote:
-> > Implement ARM DEN 0057A PV time support for domains created via the
-> > toolstack, utilizing the newly introduced XENMAPSPACE_pv_time.
-> > 
-> > Signed-off-by: Koichiro Den <den@valinux.co.jp>
-> > ---
-> >  tools/libs/light/libxl_arm.c | 185 ++++++++++++++++++++++++++++-------
-> >  xen/arch/arm/mm.c            |  14 +++
-> >  xen/include/public/memory.h  |   1 +
-> >  3 files changed, 167 insertions(+), 33 deletions(-)
-> > 
-> > diff --git a/tools/libs/light/libxl_arm.c b/tools/libs/light/libxl_arm.c
-> > index 4a19a8d22bdf..33251520c07a 100644
-> > --- a/tools/libs/light/libxl_arm.c
-> > +++ b/tools/libs/light/libxl_arm.c
-> > @@ -684,6 +684,40 @@ static int make_memory_nodes(libxl__gc *gc, void *fdt,
-> >      return 0;
-> >  }
-> >  
-> > +static int make_resv_memory_node(libxl__gc *gc, void *fdt,
-> > +                                 const struct xc_dom_image *dom)
-> > +{
-> > +    int res;
-> > +
-> > +    if (strcmp(dom->guest_type, "xen-3.0-aarch64"))
-> > +        /*
-> > +         * The stolen time shared memory region for ARM DEN 0057A is currently
-> > +         * the only user of /reserved-memory node when a domain is created via
-> > +         * the toolstack, and it requires both the hypervisor and the domain to
-> > +         * be AArch64.
-> > +         */
-> > +        return 0;
-> > +
-> > +    res = fdt_begin_node(fdt, "reserved-memory");
-> > +    if (res) return res;
-> > +
-> > +    res = fdt_property_cell(fdt, "#address-cells", GUEST_ROOT_ADDRESS_CELLS);
-> > +    if (res) return res;
-> > +
-> > +    res = fdt_property_cell(fdt, "#size-cells", GUEST_ROOT_SIZE_CELLS);
-> > +    if (res) return res;
-> > +
-> > +    /* reg 0 is a placeholder for PV time region */
-> > +    res = fdt_property_reg_placeholder(gc, fdt, GUEST_ROOT_ADDRESS_CELLS,
-> > +                                       GUEST_ROOT_SIZE_CELLS, 1);
-> > +    if (res) return res;
-> > +
-> > +    res = fdt_end_node(fdt);
-> > +    if (res) return res;
-> > +
-> > +    return 0;
-> > +}
-> > +
-> >  static int make_gicv2_node(libxl__gc *gc, void *fdt,
-> >                             uint64_t gicd_base, uint64_t gicd_size,
-> >                             uint64_t gicc_base, uint64_t gicc_size)
-> > @@ -1352,6 +1386,7 @@ next_resize:
-> >          FDT( make_psci_node(gc, fdt) );
-> >  
-> >          FDT( make_memory_nodes(gc, fdt, dom) );
-> > +        FDT( make_resv_memory_node(gc, fdt, dom) );
-> >  
-> >          switch (info->arch_arm.gic_version) {
-> >          case LIBXL_GIC_VERSION_V2:
-> > @@ -1519,6 +1554,9 @@ static void finalise_one_node(libxl__gc *gc, void *fdt, const char *uname,
-> >  
-> >  #define EXT_REGION_MIN_SIZE   xen_mk_ullong(0x0004000000) /* 64MB */
-> >  
-> > +/* As per ARM DEN 0057A, stolen time memory regions are 64-byte aligned */
-> > +#define PV_REGIONS_PER_PAGE  (XC_PAGE_SIZE / 64)
-> > +
-> >  static int compare_iomem(const void *a, const void *b)
-> >  {
-> >      const libxl_iomem_range *x = a, *y = b;
-> > @@ -1530,24 +1568,92 @@ static int compare_iomem(const void *a, const void *b)
-> >      return 0;
-> >  }
-> >  
-> > -static int finalize_hypervisor_node(libxl__gc *gc,
-> > -                                    libxl_domain_build_info *b_info,
-> > -                                    struct xc_dom_image *dom)
-> > +static int get_pv_region(libxl_domain_build_info *b_info,
-> > +                         struct xc_dom_image *dom,
-> > +                         uint64_t *start, uint64_t end,
-> > +                         uint64_t *region_base, uint64_t *region_size)
-> > +{
-> > +    unsigned int npages = DIV_ROUNDUP(b_info->max_vcpus, PV_REGIONS_PER_PAGE);
-> > +    unsigned int len = npages * XC_PAGE_SIZE;
-> > +    uint32_t domid = dom->guest_domid;
-> > +    xc_interface *xch = dom->xch;
-> > +    unsigned long idx = 0;
-> > +    uint64_t size;
-> > +    int rc;
-> > +
-> > +    if (*start >= end)
-> > +        return -1;
-> > +    size = end - *start;
-> > +    if (size < len)
-> > +        return -1;
-> > +
-> > +    for (; npages; npages--, idx++) {
-> > +        rc = xc_domain_add_to_physmap(xch, domid, XENMAPSPACE_pv_time, idx,
-> > +                                      (*start >> XC_PAGE_SHIFT) + idx);
-> > +        if (rc)
-> > +            return rc;
-> > +    }
-> > +
-> > +    region_base[0] = *start;
-> > +    region_size[0] = len;
-> > +    *start += len;
-> > +    return 0;
-> > +}
-> > +
-> > +static void get_ext_region(uint64_t start, uint64_t end, uint64_t *region_base,
-> > +                           uint64_t *region_size, unsigned int *nr_regions)
-> > +{
-> > +    uint64_t size;
-> > +
-> > +    start = ALIGN_UP_TO_2MB(start);
-> > +    if (start >= end)
-> > +        return;
-> > +
-> > +    size = end - start;
-> > +    if (size < EXT_REGION_MIN_SIZE)
-> > +        return;
-> > +
-> > +    region_base[*nr_regions] = start;
-> > +    region_size[*nr_regions] = size;
-> > +    (*nr_regions)++;
-> > +}
-> > +
-> > +static int finalize_extra_regions(libxl__gc *gc,
-> > +                                  libxl_domain_build_info *b_info,
-> > +                                  struct xc_dom_image *dom)
-> >  {
-> >      void *fdt = dom->devicetree_blob;
-> > -    uint64_t region_base[MAX_NR_EXT_REGIONS], region_size[MAX_NR_EXT_REGIONS];
-> > -    uint32_t regs[(GUEST_ROOT_ADDRESS_CELLS + GUEST_ROOT_SIZE_CELLS) *
-> > +
-> > +    /* For extended regions */
-> > +    uint64_t ext_region_base[MAX_NR_EXT_REGIONS], ext_region_size[MAX_NR_EXT_REGIONS];
-> > +    uint32_t ext_regs[(GUEST_ROOT_ADDRESS_CELLS + GUEST_ROOT_SIZE_CELLS) *
-> >                    (MAX_NR_EXT_REGIONS + 1)];
-> > -    be32 *cells = &regs[0];
-> > +    be32 *ext_cells = &ext_regs[0];
-> > +    int hyp_offset;
-> > +
-> > +    /* For pv regions */
-> > +    uint64_t pv_region_base[1], pv_region_size[1];
-> > +    uint32_t pv_regs[GUEST_ROOT_ADDRESS_CELLS + GUEST_ROOT_SIZE_CELLS];
-> > +    be32 *pv_cells = &pv_regs[0];
-> > +    int resv_offset;
-> > +
-> >      const uint64_t bankbase[] = GUEST_RAM_BANK_BASES;
-> >      const uint64_t banksize[] = GUEST_RAM_BANK_SIZES;
-> >      unsigned int i, j, len, nr_regions = 0;
-> > +    bool pv_region_pending = true;
-> >      libxl_dominfo info;
-> > -    int offset, rc;
-> > +    int rc;
-> >  
-> > -    offset = fdt_path_offset(fdt, "/hypervisor");
-> > -    if (offset < 0)
-> > -        return offset;
-> > +    resv_offset = fdt_path_offset(fdt, "/reserved-memory");
-> > +    if (!strcmp(dom->guest_type, "xen-3.0-aarch64")) {
-> > +        if (resv_offset < 0)
-> > +            return resv_offset;
-> > +    } else
-> > +        pv_region_pending = false;
-> > +
-> > +    hyp_offset = fdt_path_offset(fdt, "/hypervisor");
-> > +    if (hyp_offset < 0)
-> > +        return hyp_offset;
-> >  
-> >      rc = libxl_domain_info(CTX, &info, dom->guest_domid);
-> >      if (rc)
-> > @@ -1572,8 +1678,7 @@ static int finalize_hypervisor_node(libxl__gc *gc,
-> >          } unallocated;
-> >          uint64_t unallocated_size = 0;
-> >  
-> > -        unallocated.start = bankbase[i] +
-> > -            ALIGN_UP_TO_2MB((uint64_t)dom->rambank_size[i] << XC_PAGE_SHIFT);
-> > +        unallocated.start = bankbase[i] + ((uint64_t)dom->rambank_size[i] << XC_PAGE_SHIFT);
-> >  
-> >          unallocated.end = ~0ULL >> (64 - info.gpaddr_bits);
-> >          unallocated.end = min(unallocated.end, bankbase[i] + banksize[i] - 1);
-> > @@ -1581,7 +1686,7 @@ static int finalize_hypervisor_node(libxl__gc *gc,
-> >          if (unallocated.end >= unallocated.start)
-> >              unallocated_size = unallocated.end - unallocated.start + 1;
-> >  
-> > -        if (unallocated_size < EXT_REGION_MIN_SIZE)
-> > +        if (unallocated_size <= 0)
-> >              continue;
-> >  
-> >          /* Exclude iomem */
-> > @@ -1605,14 +1710,14 @@ static int finalize_hypervisor_node(libxl__gc *gc,
-> >                      if (unallocated.start > unallocated.end)
-> >                          break;
-> >                  } else {
-> > -                    uint64_t size = iomem.start - unallocated.start;
-> > -
-> > -                    if (size >= EXT_REGION_MIN_SIZE) {
-> > -                        region_base[nr_regions] = unallocated.start;
-> > -                        region_size[nr_regions] = size;
-> > -                        nr_regions++;
-> > +                    if (pv_region_pending) {
-> > +                        rc = get_pv_region(b_info, dom, &unallocated.start, iomem.start,
-> > +                                           pv_region_base, pv_region_size);
-> > +                        if (!rc)
-> > +                            pv_region_pending = false;
-> >                      }
-> > -
-> > +                    get_ext_region(unallocated.start, iomem.start, ext_region_base,
-> > +                                   ext_region_size, &nr_regions);
-> >                      unallocated.start = iomem.end + 1;
-> >  
-> >                      if (unallocated.start > unallocated.end)
-> > @@ -1624,38 +1729,52 @@ static int finalize_hypervisor_node(libxl__gc *gc,
-> >          if (unallocated.end >= unallocated.start
-> >              && nr_regions < MAX_NR_EXT_REGIONS)
-> >          {
-> > -            uint64_t size = unallocated.end - unallocated.start + 1;
-> > -
-> > -            if (size >= EXT_REGION_MIN_SIZE) {
-> > -                region_base[nr_regions] = unallocated.start;
-> > -                region_size[nr_regions] = size;
-> > -                nr_regions++;
-> > +            if (pv_region_pending) {
-> > +                rc = get_pv_region(b_info, dom, &unallocated.start, unallocated.end,
-> > +                                   pv_region_base, pv_region_size);
-> > +                if (!rc)
-> > +                    pv_region_pending = false;
-> >              }
-> > +            get_ext_region(unallocated.start, unallocated.end, ext_region_base,
-> > +                           ext_region_size, &nr_regions);
-> >          }
-> >      }
-> >  
-> > +    if (!strcmp(dom->guest_type, "xen-3.0-aarch64")) {
-> > +        if (pv_region_pending) {
-> > +            LOG(ERROR, "The PV time region cannot be allocated, not enough space");
-> > +            return ERROR_FAIL;
-> > +        }
-> > +        set_range(&pv_cells, GUEST_ROOT_ADDRESS_CELLS, GUEST_ROOT_SIZE_CELLS,
-> > +                  pv_region_base[0], pv_region_size[0]);
-> > +        len = sizeof(pv_regs[0]) * (GUEST_ROOT_ADDRESS_CELLS + GUEST_ROOT_SIZE_CELLS);
-> > +        rc = fdt_setprop(fdt, resv_offset, "reg", pv_regs, len);
+
+
+On 02/07/2025 16:14, Hari Limaye wrote:
+> From: Luca Fancellu <luca.fancellu@arm.com>
 > 
-> I can appreciate the effort that it took to get this working. However,
-> given the relatively small size of PV time region, is there a reason
-> that you chose to allocate it from unallocated guest RAM rather than
-> reserving a new region/space in xen/include/public/arch-arm.h? Doing so
-> may also simplify the dom0less case.
-
-I thought that hard-coded fixed assignment should be avoided wherever
-possible, but there is no strong reason other than that.
-
-Thanks.
--Koichiro
-
+> Implement the function early_fdt_map(), which is responsible for mapping
+> the Device Tree Blob in the early stages of the boot process, for MPU
+> systems.
 > 
-> E.g.:
+> We make use of the map_pages_to_xen() and destroy_xen_mappings() APIs.
+> In particular the latter function is necessary in the case that the
+> initial mapping of the fdt_header is insufficient to cover the entire
+> DTB, as we must destroy and then remap the region due to the APIs no
+> providing support for extending the size of an existing region.
 > 
-> diff --git a/xen/include/public/arch-arm.h b/xen/include/public/arch-arm.h
-> index e2412a17474e..681e3d4778ba 100644
-> --- a/xen/include/public/arch-arm.h
-> +++ b/xen/include/public/arch-arm.h
-> @@ -466,6 +466,13 @@ typedef uint64_t xen_callback_t;
->  #define GUEST_VPCI_MEM_ADDR                 xen_mk_ullong(0x23000000)
->  #define GUEST_VPCI_MEM_SIZE                 xen_mk_ullong(0x10000000)
+> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+> Signed-off-by: Hari Limaye <hari.limaye@arm.com>
+> Reviewed-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+> ---
+> Changes from v1:
+> - Add Ayan's R-b
+> ---
+>  xen/arch/arm/mpu/setup.c | 74 ++++++++++++++++++++++++++++++++++++++--
+>  1 file changed, 72 insertions(+), 2 deletions(-)
+> 
+> diff --git a/xen/arch/arm/mpu/setup.c b/xen/arch/arm/mpu/setup.c
+> index b4da77003f..ab00cb944b 100644
+> --- a/xen/arch/arm/mpu/setup.c
+> +++ b/xen/arch/arm/mpu/setup.c
+> @@ -1,17 +1,87 @@
+>  /* SPDX-License-Identifier: GPL-2.0-only */
 >  
-> +/* Current supported guest VCPUs */
-> +#define GUEST_MAX_VCPUS 128
+> +#include <xen/bootfdt.h>
+>  #include <xen/bug.h>
+>  #include <xen/init.h>
+> +#include <xen/libfdt/libfdt.h>
+>  #include <xen/mm.h>
+> +#include <xen/pfn.h>
+>  #include <xen/types.h>
+>  #include <asm/setup.h>
+>  
+> +static paddr_t __initdata mapped_fdt_paddr = INVALID_PADDR;
+I think it would be better to name it mapped_fdt_base, given that in MPU
+everything refers to base,limit.
+
+> +static paddr_t __initdata mapped_fdt_limit = INVALID_PADDR;
 > +
-> +/* PV time region */
-> +#define GUEST_PVTIME_BASE xen_mk_ullong(0x37000000)
-> +#define GUEST_PVTIME_SIZE xen_mk_ullong(GUEST_MAX_VCPUS * 64)
+>  void __init setup_pagetables(void) {}
+>  
+>  void * __init early_fdt_map(paddr_t fdt_paddr)
+>  {
+> -    BUG_ON("unimplemented");
+> -    return NULL;
+> +    /* Map at least a page containing the DTB address, exclusive range */
+> +    paddr_t base = round_pgdown(fdt_paddr);
+> +    paddr_t limit = round_pgup(fdt_paddr + sizeof(struct fdt_header));
+> +    unsigned int flags = PAGE_HYPERVISOR_RO;
+> +    void *fdt_virt = (void *)fdt_paddr; /* virt == paddr for MPU */
+> +    int rc;
+> +    unsigned long nr_mfns;
 > +
+> +    /*
+> +     * Check whether the physical FDT address is set and meets the minimum
+> +     * alignment requirement. Since we are relying on MIN_FDT_ALIGN to be at
+> +     * least 8 bytes so that we always access the magic and size fields
+> +     * of the FDT header after mapping the first chunk, double check if
+> +     * that is indeed the case.
+> +     */
+> +    BUILD_BUG_ON(MIN_FDT_ALIGN < 8);
+> +    if ( !fdt_paddr || fdt_paddr % MIN_FDT_ALIGN )
+> +        return NULL;
+> +
+> +    /* DTB starting at this address has already been mapped. */
+When can this happen?
+
+> +    if ( mapped_fdt_paddr == fdt_paddr )
+> +        return fdt_virt;
+> +
+> +    /*
+> +     * DTB starting at a different address has been mapped, so destroy this
+> +     * before continuing.
+> +     */
+> +    if ( mapped_fdt_paddr != INVALID_PADDR )
+> +    {
+> +        rc = destroy_xen_mappings(round_pgdown(mapped_fdt_paddr),
+> +                                  mapped_fdt_limit);
+> +        if ( rc )
+> +            panic("Unable to unmap existing device-tree.\n");
+NIT: no need for a dot at the end. It only takes space and is really not needed.
+
+> +    }
+> +
+> +    nr_mfns = (limit - base) >> PAGE_SHIFT;
+> +
+> +    rc = map_pages_to_xen(base, maddr_to_mfn(base), nr_mfns, flags);
+> +    if ( rc )
+> +        panic("Unable to map the device-tree.\n");
+> +
+> +    mapped_fdt_paddr = fdt_paddr;
+> +    mapped_fdt_limit = limit;
+> +
+> +    if ( fdt_magic(fdt_virt) != FDT_MAGIC )
+> +        return NULL;
+> +
+> +    limit = round_pgup(fdt_paddr + fdt_totalsize(fdt_virt));
+You're missing a sanity check for MAX_FDT_SIZE
+
+> +
+> +    /* If the mapped range is not enough, map the rest of the DTB. */
+> +    if ( limit > mapped_fdt_limit )
+> +    {
+> +        rc = destroy_xen_mappings(base, mapped_fdt_limit);
+> +        if ( rc )
+> +            panic("Unable to unmap the device-tree header.\n");
+> +
+> +        nr_mfns = (limit - base) >> PAGE_SHIFT;
+> +
+> +        rc = map_pages_to_xen(base, maddr_to_mfn(base), nr_mfns, flags);
+> +        if ( rc )
+> +            panic("Unable to map the device-tree.\n");
+> +
+> +        mapped_fdt_limit = limit;
+> +    }
+> +
+> +    return fdt_virt;
+>  }
+>  
 >  /*
->   * 16MB == 4096 pages reserved for guest to use as a region to map its
->   * grant table in.
-> @@ -501,9 +508,6 @@ typedef uint64_t xen_callback_t;
->  #define GUEST_RAM_BANK_BASES   { GUEST_RAM0_BASE, GUEST_RAM1_BASE }
->  #define GUEST_RAM_BANK_SIZES   { GUEST_RAM0_SIZE, GUEST_RAM1_SIZE }
->  
-> -/* Current supported guest VCPUs */
-> -#define GUEST_MAX_VCPUS 128
-> -
->  /* Interrupts */
->  
->  #define GUEST_TIMER_VIRT_PPI    27
-> 
+
+~Michal
+
 
