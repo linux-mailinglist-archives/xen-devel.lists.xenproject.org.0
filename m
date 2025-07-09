@@ -2,40 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A20CEAFF42A
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Jul 2025 23:56:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1038722.1410980 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2DF75AFF565
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Jul 2025 01:30:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1038765.1410989 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uZclm-0005vf-Mz; Wed, 09 Jul 2025 21:56:02 +0000
+	id 1uZeDn-0001Vy-1I; Wed, 09 Jul 2025 23:29:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1038722.1410980; Wed, 09 Jul 2025 21:56:02 +0000
+Received: by outflank-mailman (output) from mailman id 1038765.1410989; Wed, 09 Jul 2025 23:29:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uZclm-0005th-Ii; Wed, 09 Jul 2025 21:56:02 +0000
-Received: by outflank-mailman (input) for mailman id 1038722;
- Wed, 09 Jul 2025 21:56:01 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uZeDm-0001UG-Ut; Wed, 09 Jul 2025 23:29:02 +0000
+Received: by outflank-mailman (input) for mailman id 1038765;
+ Wed, 09 Jul 2025 23:29:02 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=HxYN=ZW=epam.com=dmytro_prokopchuk1@srs-se1.protection.inumbo.net>)
- id 1uZcll-0005sC-7d
- for xen-devel@lists.xenproject.org; Wed, 09 Jul 2025 21:56:01 +0000
-Received: from AS8PR03CU001.outbound.protection.outlook.com
- (mail-westeuropeazlp170120005.outbound.protection.outlook.com
- [2a01:111:f403:c201::5])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7dc9e51f-5d0f-11f0-b894-0df219b8e170;
- Wed, 09 Jul 2025 23:55:56 +0200 (CEST)
-Received: from DB4PR03MB9556.eurprd03.prod.outlook.com (2603:10a6:10:3f3::12)
- by DB9PR03MB9712.eurprd03.prod.outlook.com (2603:10a6:10:451::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8901.29; Wed, 9 Jul
- 2025 21:55:52 +0000
-Received: from DB4PR03MB9556.eurprd03.prod.outlook.com
- ([fe80::ff66:ad9c:fa1:ef30]) by DB4PR03MB9556.eurprd03.prod.outlook.com
- ([fe80::ff66:ad9c:fa1:ef30%5]) with mapi id 15.20.8901.024; Wed, 9 Jul 2025
- 21:55:52 +0000
+ <SRS0=3Zb/=ZW=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1uZeDm-0001UA-5e
+ for xen-devel@lists.xenproject.org; Wed, 09 Jul 2025 23:29:02 +0000
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 7d6b99a2-5d1c-11f0-a317-13f23c93f187;
+ Thu, 10 Jul 2025 01:29:00 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 8C84146C70;
+ Wed,  9 Jul 2025 23:28:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 629EAC4CEF1;
+ Wed,  9 Jul 2025 23:28:57 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,159 +41,200 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7dc9e51f-5d0f-11f0-b894-0df219b8e170
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YqWeAo6cLJz1Xf8Na0qxuxs1hdQJJ5KNUCiZ3SC1edC2ShTNK4JWiIWectIwsPl0tXwYL+RAQ0slcxnyTXgQt/En1shsPfcK3sFkaZHdTQDqEchxBS4k/r3kIDyCA3F/Og1fshImqDusF2265XHmN/A0qgaS4O/z06U4PBOOT5VlfP86GQDYu1mbtWkx/BftkN9C3MqclksMUTogeReG/KMHWNU8uDIuPFZCIuqvo/cpbMUvg+Idt/Hnx83ASvNJz+EIsP9r0tkDLYSpglBa4ABYoQx8djj4MQP6H45Ys1AMmycZTftLxdwNhE92jleIji976tZT18BNhqpMCqbpzw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=C+XjiHfwmSmTzheKIvlG8Mi+uDMl9KRiGIXOlT+EmM4=;
- b=mDxtCPfPEGePwuH/acf07xTnzREArO+9wb1QQC82/SyGrJyljHSyMYf1xvA4MMzsj87xSiJQITf+kGQftY4eEJEIhuYBYP6ySDFaPOD1iA7zHPsAaWhLvZezP7TNZ+S+a/yHUW/rzeD0MuVeiTwF2aAPhGvNJYkUd86/VAM4SsNgw0ks5GXL6wUw9ZMNwiinNdiVZIvWd4bMW2mNujdRJQrXT/0SS6Ed0JnDVxsCYCbwvC5n37eh+ubeF+OsFohxLoLM2J93w/QTE+YMeXeVgr7spJtGyhlUuzVsYX3V99UojuFG48iYaJMEjF3WXNZcvedVSuigvQzIT4r5v+eKow==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=C+XjiHfwmSmTzheKIvlG8Mi+uDMl9KRiGIXOlT+EmM4=;
- b=AFyUaTiK3JQIfGku0WlJeLn3h4TIqnEJS4V91koaEF3LqvRpEOptqsd+egHMBNrL/IzGWXyNrJ+WuyD7IS2fbld+yAiczf6SpsspKdBW21II8m69BIzDwabL5ebyaWu3coPbvZFAoI4h6ursSvLBxTwV4j4EBUkBqnXbdZtNuriKW+YJUbj/5Kh5HTzzndOo4xTfX92EprEv3E+6O/0hCBduUuNBjMbJSuQ1Zd6dgr7w4XNIaEBbELb5bLK+OkhNXthxSQX/XCmI69cA5QapvDrw5NpIsfuLKW/l9nsk8g9KVl7LEOWi6HIYTbECZQiWUkYxa7QwOaXgKyUce6eFqQ==
-From: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-CC: Jan Beulich <jbeulich@suse.com>, =?utf-8?B?Um9nZXIgUGF1IE1vbm7DqQ==?=
-	<roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>, Julien
- Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, Michal
- Orzel <michal.orzel@amd.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>, Nicola Vetrini
-	<nicola.vetrini@bugseng.com>, Doug Goldstein <cardoe@cardoe.com>
-Subject: Re: [XEN PATCH v2 0/3] address violation of MISRA C Rule 5.5
-Thread-Topic: [XEN PATCH v2 0/3] address violation of MISRA C Rule 5.5
-Thread-Index: AQHb8RnHdjjk1vFAUECgAlFQj2Ifg7QqVkYA
-Date: Wed, 9 Jul 2025 21:55:52 +0000
-Message-ID: <fe8405c9-89c4-4d97-81b3-c33a21856a65@epam.com>
-References: <cover.1752096263.git.dmytro_prokopchuk1@epam.com>
-In-Reply-To: <cover.1752096263.git.dmytro_prokopchuk1@epam.com>
-Accept-Language: en-US, uk-UA, ru-RU
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=epam.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DB4PR03MB9556:EE_|DB9PR03MB9712:EE_
-x-ms-office365-filtering-correlation-id: 2066c768-0e3e-496c-7b12-08ddbf335fa5
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|366016|7416014|376014|42112799006|38070700018;
-x-microsoft-antispam-message-info:
- =?utf-8?B?YXY2QUpZYXBlNVc2QWV4V082OXNwTUpRMzMvaUFJaDBZTjBqQmZUdE1wamZw?=
- =?utf-8?B?UTZxK0RKM0tYbHJOK3l3dVVuOGtPT2g2dGt6SWwvK1Vxb01iY0d0VWpwNHN5?=
- =?utf-8?B?SWtnVWlWVmcxTlBwYVNjNk41bnVMTFJFOE9xcXowNjF0SVhGU3EwaWxjdGYz?=
- =?utf-8?B?aUZZbkxWeStIdkRNNVBwSm8vbjhYRnBMK05kdDRJRTRQMko5VmZCWjQza1lh?=
- =?utf-8?B?cEpXS0FTS1FYV0VtbUJVZXlSS3UzQnhvdm5vVk5mK3VFUWJITEdBM1FxK3ZE?=
- =?utf-8?B?QkRxdUZJZm5zY1Q3ejlxTzQyVGhGbDlRZFFpOVpyQkEzalR3Umo0d2VLdGd6?=
- =?utf-8?B?UjJyVnY5V2JRN29DN2MvWnBrTWJxNzN4YVl5bXA3bEl0NkloM1lRR2xmZlow?=
- =?utf-8?B?QnZCcTRCMzJNUzkzaWp0bVFwV1IyVktManRHdnkwM0VCc2I5ZHd0K1VLbE1G?=
- =?utf-8?B?SjhUL3ZQZHM3ZVRJUWtyaWhGcENGVUZCNGgzTlI0eFFQcFdBamFlMmRyZjM5?=
- =?utf-8?B?VjFBdVUvNVV5aDMvOUlPenVDSjRBMHk0OEZ5WHE2R3JOdWV5b20zRnI4TmxO?=
- =?utf-8?B?K3JTL3JVY21kdmxlRXZNRUhxWml0MUExczkzWUVScXMvNUdBRWlzUXptM0RH?=
- =?utf-8?B?MkFoZzRKYkVzZUkzWHQvWGhWNmFqTlluTksvL29HNEdrdmN4RnZMWjFQUElP?=
- =?utf-8?B?S0FxZGVHRWZHT1RzVEQ1V2dBUmZKZkxLTDZ2NEltM2V4SFphd3BlTW5QYTQ4?=
- =?utf-8?B?YmllTHhNMlpLblJxeVBzcGNmem9ZYVpSNFlmeWxxYXllYnVnaUUyRGlwTFlD?=
- =?utf-8?B?Mmc3RjJEV1lmL29XZEl2cEtONC9aQmZwS1JPVERXZUUwZTVUb3I1ckxVWnNl?=
- =?utf-8?B?a1B1djdpUGxJQW9YZXc0YXlnTW92a1I5TjRvVVA1amxKeWgvSVJjb2lyOWxv?=
- =?utf-8?B?UnY1OVJ6RFNlcjNyS2ZRMGhhalNJY0RkWS9qRWc5UG1KZitpWWtFMGI2L0NB?=
- =?utf-8?B?enFvblNHQklpcHVzWnhpZkpGWDZVNU5oZ3htRWhoYVNSTXZMZ1FoT3UvZnk5?=
- =?utf-8?B?bnZyenI2YnNhV1MrMlRZcE5FOG8xKzBiMVB1V1MxbUxtL1lkcDNyMWVuams3?=
- =?utf-8?B?SXhZT3hZbUs2aEZkR1dSbXUzQndqbVJJZ0NoVWY1NXRxUk9QSm1ySFhVbFJi?=
- =?utf-8?B?UGVFbkJaZEMvS1ZJUzN2cUQxMVRRU1V2c095QlJYSEtES0F0cUNnYTR3bWNR?=
- =?utf-8?B?VmtFdmhUOS81a1NLc1EzUWRHMk53aVJScDQvaTJyeXJ4WXRiLzdjakNzVGg1?=
- =?utf-8?B?bkJ4bS9RSHczajVrRTJkM1BuOUxMSktGZTdZN1d5Z3ZIeis0QzdJcElVS1l4?=
- =?utf-8?B?ZlBrbkNBSkJJa3ZWUm00YUpQdzBTUnI0dlM3a0t6UHpwMDFFVVZlcWpTMFdN?=
- =?utf-8?B?eGhyK0xja0RoU0xtWGVhQnp2N2VTZzhJeHN1SGMxa09yVkRKUDdGMC84RjEz?=
- =?utf-8?B?V3JidDlWcng0MlFuQjRhYVZKUnpUMUlVY2FYb3hNaVd5dVlkc1BYU2wxUmRG?=
- =?utf-8?B?emZOOGRxS0YzdlVKVW9kSXEyUVRqczJjMi9TdGFCQ2xhS0NTL2Z5VGdSejFz?=
- =?utf-8?B?RHhydUdkbk5yTnZhQk5JcVJNd0RibFloTHQ0cWI2ZUNIaWFZVkl6K1RWMDNH?=
- =?utf-8?B?UStoMGxFUVUvWWswWWRnd0FNRTFVQjlZSUh5RXJmc0RkbThtTkRLd1VLaDBX?=
- =?utf-8?B?aTMrSmhUSEUxVThieWwzdU41WktoYTJidElxL0tqWDk1V1NaK2VJSjFBbEdX?=
- =?utf-8?B?SE9JQnM1YkxWYW83bGsrRm5aTGxmaUZqUEdBNzlhOC9IZ1R2YTcwUjN1Ny9t?=
- =?utf-8?B?UnBCMWNabHJ0MmYwdWJudHZxd0VJaEJhNyt1VlFwM0FGdjRnTGtDK3VKbFlJ?=
- =?utf-8?Q?2v/M3/2CbQU=3D?=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB4PR03MB9556.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(7416014)(376014)(42112799006)(38070700018);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?aXZHUis1YlRvSVFvYkVTWDR2b0ZJUVhtcXBMSmNXQVlQbUl1Qnh0R0JYNmtQ?=
- =?utf-8?B?cXQrWHArdlZubW04bnhyNDNYWlJXeUZ4SEVoSkZhcG10U2lHK0lyYWRoQ2t3?=
- =?utf-8?B?bGJJbVRSM1BnVTZDVHBEK0J5byt4TkNVS0lHZ1NjSFlwT1FqdTU0ZFlETTRG?=
- =?utf-8?B?ZG9DUGRGY0hrdnlNemlOZ0JxaFBqSEQxbHRhY2lDVWRSdGw4MXcyYkhjZzhP?=
- =?utf-8?B?L2JVYnYvZlo1dnBJT3JLcVVXald4dFJXOW1Tc3hEZnJnSjJuUVlWMWhxclN3?=
- =?utf-8?B?eG5ERTI0cTRBVWZRRFBJa2Y3Q0xxWFpoUUZsZjZ3NTU5NDFMaXlERWhVVmx2?=
- =?utf-8?B?VDRKSFJHWGluUzI1R3ZTK3JXWXlkZXJrVEkwZ1lDMEtFUVY4eUYrL1JMbS9D?=
- =?utf-8?B?MzhnTmdxeHFER0JUZjRFTUJIRU9GYlpBbWVpZEJjRTM2TW0rMmJtYWpZWlBB?=
- =?utf-8?B?RW5zSG43blYyMHhaYnJSbzNKVSs1L1JzSi9GOGFXcmFzTGV5bU45YW54Qkd2?=
- =?utf-8?B?OHJrbTMyaXBGME5jaVp3dDNDbTR2RmlmWHdyalh4MEUzSUlTcU9VSWVQNXVj?=
- =?utf-8?B?b3ZWQWNUNFIyMnlEd1p6MHdWemY3bTZTZWcrcVRqajZST3Exd3QvbllNKyta?=
- =?utf-8?B?QkRUOG05Q3d4aFFEa05zejhaWHJiNEpJOFVZNERGZkJIdXl2SnUrWVhFS0hm?=
- =?utf-8?B?SjVlQngwd3NhUTBja1JGZ21SMCtiRHhrM3NpZmd3N3Q0UEFXNThsSElETTB3?=
- =?utf-8?B?U2VPQXJYdzZTcUlpNk9ZajBaR3ZGaWliNVp1Um5ONnRUUWxxaGF6QlVrZldX?=
- =?utf-8?B?bzdUaWsxUzJrcVF5T1o1NXQ1NnZhNWIyNjgzMS9SS1dXckYxM3hCM0J5UUZM?=
- =?utf-8?B?LytybGh2ZGF1MUVydHFyR3dibENoUDNTVHcrZm5LV3NNU1FCazN5UEZFNDVT?=
- =?utf-8?B?NEpreFBza3h0YzhTckdCZHhnQVNYdk1idHFzMUFwUHF3UkdIMkplbGRlL3Nq?=
- =?utf-8?B?K3NLYnM1RnJ3cHQvb2lQcXRPaTluUUlKTkN2ano3cEZuM3lVTHpON2Ewa0RY?=
- =?utf-8?B?eUc1OW9yU0dLeEZVaTF4U0pSSGZmZDgxZmczUitUNk5DS1FORlN1TVRkaDZQ?=
- =?utf-8?B?ckVsWnBzdzh4YlYxWVhxTWk1enI0U2RRcFV3aytTSm1xaFBaaExUNVRRb3R4?=
- =?utf-8?B?SzdHa0ZJZS9KelIxK1Z2Zmt5S24zSEFUYUN2OVRrb0l6cEZjR1BELzhHblFw?=
- =?utf-8?B?TmRRNFY1ZlZsNG5VaXFjSGphMEFkMTFRK2dGY3QzV3ZaOEhVcWdlTGVBS2di?=
- =?utf-8?B?b2ZMcHY3a0Qrb2hsWVNSU3pqTEovcDFGNFlEc1FhRlRZVzRHUVVmQkZ5UWZZ?=
- =?utf-8?B?dUZyMzlPNTlTRCt3c1pzc2I1N09TelNQWFo2a0gwcWpsODJPNHN5eDZDQ3l2?=
- =?utf-8?B?bDFuL2tsSmRCbHdJYVJZNUZDYmk1L202bG5yajlmV2p1ZVhNMlZFb1dpTjZU?=
- =?utf-8?B?eUZrNkVBVWVqT2tocm56YURyaklzeXhjZG9WOWlGUkhaM2g3RVdpWWQ0bkpB?=
- =?utf-8?B?UnpqUnJEQXlZZExOK041ZmJEVlVvbjFLYXdDclBkY1RKSzAyeDUvaW1JbVhr?=
- =?utf-8?B?QnRwY05wQ2dQZERERm90eG5YMlpYVmpIeHlBVi9zdldlUFBmTHBSMlcwQXJF?=
- =?utf-8?B?YTBBYWczTmxnN1JMQnZKVC83OGRDMmJpc0xqSnpNQjJjbUlQVitpb0hPc2J6?=
- =?utf-8?B?d09uNnZDWU9tTms5NE85WjlHMTE2alVldUMzb1p3alh5OXM1ZWZ1OFNnZVVG?=
- =?utf-8?B?L2hFZlFCZ29rZ1AzUGhSbUlCbmVIdk9RYmdzanZxWWVrd05JY25mTGlGZVBY?=
- =?utf-8?B?eW4xMHlib0gzTjBxVUhEeG9kUVdnTEVZYWFVYmR5QTdGUGl6Z2ZSUk9wbUJT?=
- =?utf-8?B?WXZnSTdmQlJlVWphTzhxUnBlalVRRUltTEU1TjdQV3hVZng2Z2pXZXVlSmdN?=
- =?utf-8?B?MUNrWlFrL3JxZjRndDdxV3BmYS9BcGtOWlRDUmo4d3hBTk8zWEJqQXpPcmRQ?=
- =?utf-8?B?THBveTI4TXNuKzdUT0EzNk5OajdVV1M5YzlRTlRZWWZoS2h2b0YwMXNPUTJN?=
- =?utf-8?B?aVdhLzlwWHNxcU9XWk1aVVBZL3ptRUVsRi9yTWdadjRZMXZjTzFsMFBTY0ZJ?=
- =?utf-8?B?K1E9PQ==?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <3A7C150DD3FF66489F89A9CC3ADA0BFC@eurprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
+X-Inumbo-ID: 7d6b99a2-5d1c-11f0-a317-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1752103738;
+	bh=qmdkP/O/VAnbV0NpOO3Ta8MAuG6Y0tSi6b/Ncuxw1Ss=;
+	h=Date:From:To:cc:Subject:From;
+	b=NnEfABId3Ndo68NaoLn7IXqZw5Kzrm22lJKggFGoYW0FPkBwQ8g0NQrtzE4g+6wuo
+	 JFU8g2lHiy6ZD4Qvx26UZrQN8ZPuEU1dgpsTFoFKjlsGDYLJ84jnOvZWznrTKRYsBK
+	 Xg68FWRhb8f4pMedtRbJcSNNCNfV+yXKN2Sm8RjzXjBGNv13THoB2z3vLoomeqVLeF
+	 BhIlrYN7LpDV+4cYz0yztGT5X8ZpAG0DFjpyrp0CAt0nKpCO58Vg0iFQu6GdendfKN
+	 GNKgSGNWJaYnbth2/ggjDicon0eqgM6wi2ocm3Pr01t4OPL9DY/RU3t0GSFjuYLaca
+	 Y3roJ8v/7eJbw==
+Date: Wed, 9 Jul 2025 16:28:55 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: xen-devel@lists.xenproject.org
+cc: sstabellini@kernel.org, Julien Grall <julien@xen.org>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Michal Orzel <michal.orzel@amd.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    Rahul Singh <rahul.singh@arm.com>, jason.andryuk@amd.com, 
+    stewart.hildebrand@amd.com
+Subject: [RFC] xen/arm: fix arm_iommu_map_page after f9f6b22ab
+Message-ID: <alpine.DEB.2.22.394.2507091613161.605088@ubuntu-linux-20-04-desktop>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DB4PR03MB9556.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2066c768-0e3e-496c-7b12-08ddbf335fa5
-X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Jul 2025 21:55:52.4790
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: sz7O65SDBnOFJr4Zc/VKybouBPdgTNMRTzzgy4/qgYJSdHRt6E/UT23QnYyao0PO5GmPok2bsjsQ6wHIBYxJbpJ83MzKd48+vWHHfxGf5k4=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR03MB9712
+Content-Type: text/plain; charset=US-ASCII
 
-Q0kgdGVzdHM6DQpodHRwczovL2dpdGxhYi5jb20veGVuLXByb2plY3QvcGVvcGxlL2RpbWFwcmtw
-NGsveGVuLy0vcGlwZWxpbmVzLzE5MTc1Mjc5MTENCg0KT24gNy8xMC8yNSAwMDozOCwgRG15dHJv
-IFByb2tvcGNodWsxIHdyb3RlOg0KPiBUaGlzIHBhdGNoIHNlcmllcyBlbGltaW5hdGVzL2Rldmlh
-dGVzIE1JU1JBIEMgUnVsZSA1LjUgdmlvbGF0aW9ucyBmb3IgQVJNNjQuDQo+DQo+IFRocmVhZCBk
-aXNjdXNzaW9uOg0KPiBodHRwczovL3BhdGNoZXcub3JnL1hlbi9jb3Zlci4xNzUxNjU5MzkzLmdp
-dC5kbXl0cm8uXzVGcHJva29wY2h1azFAZXBhbS5jb20vDQo+DQo+IENoYW5nZXMgaW4gdjI6DQo+
-IC0gZml4ZWQgY29kZSBhbGlnbm1lbnQgaW4gImRldmljZS10cmVlOiBhZGRyZXNzIHZpb2xhdGlv
-biBvZiBNSVNSQSBDIFJ1bGUgNS41Ig0KPiAtIHVwZGF0ZWQgY29tbWl0IG1lc3NhZ2UgaW4gImlv
-bW11OiBhZGRyZXNzIHZpb2xhdGlvbiBvZiBNSVNSQSBDIFJ1bGUgNS41Ig0KPiAtIG90aGVyIHBh
-dGNoZXMgd2VyZSBzcXVhc2hlZCBhbmQgTUlTUkEgcnVsZSB3YXMgZGV2aWF0ZWQNCj4NCj4gRG15
-dHJvIFByb2tvcGNodWsgKDMpOg0KPiAgICBpb21tdTogYWRkcmVzcyB2aW9sYXRpb24gb2YgTUlT
-UkEgQyBSdWxlIDUuNQ0KPiAgICBkZXZpY2UtdHJlZTogYWRkcmVzcyB2aW9sYXRpb24gb2YgTUlT
-UkEgQyBSdWxlIDUuNQ0KPiAgICBlY2xhaXI6IGFkZCBkZXZpYXRpb25zIG9mIE1JU1JBIEMgUnVs
-ZSA1LjUNCj4NCj4gICBhdXRvbWF0aW9uL2VjbGFpcl9hbmFseXNpcy9FQ0xBSVIvZGV2aWF0aW9u
-cy5lY2wgfCAgOCArKysrKysrKw0KPiAgIGRvY3MvbWlzcmEvZGV2aWF0aW9ucy5yc3QgICAgICAg
-ICAgICAgICAgICAgICAgICB8ICA4ICsrKysrKysrDQo+ICAgeGVuL2NvbW1vbi9kZXZpY2UtdHJl
-ZS9kb21haW4tYnVpbGQuYyAgICAgICAgICAgIHwgMTMgKysrKysrLS0tLS0tLQ0KPiAgIHhlbi9p
-bmNsdWRlL3hlbi9mZHQtZG9tYWluLWJ1aWxkLmggICAgICAgICAgICAgICB8ICA0ICsrLS0NCj4g
-ICB4ZW4vaW5jbHVkZS94ZW4vaW9tbXUuaCAgICAgICAgICAgICAgICAgICAgICAgICAgfCAgMiAr
-Kw0KPiAgIDUgZmlsZXMgY2hhbmdlZCwgMjYgaW5zZXJ0aW9ucygrKSwgOSBkZWxldGlvbnMoLSkN
-Cj4NCg==
+Hi all,
+
+Up until f9f6b22ab "xen/arm: Map ITS doorbell register to IOMMU page
+tables" the only caller of iommu_map on ARM was grant_table.c which has
+a specific usage model and restrictions as described by the in-code
+comment in arm_iommu_map_page.
+
+f9f6b22ab introduced a second caller to iommu_map on ARM:
+vgic_v3_its_init_virtual. This specific statement in the
+f9f6b22ab commit message is wrong:
+
+"Note that the 1:1 check in arm_iommu_map_page remains for now, as
+virtual ITSes are currently only created for hwdom where the doorbell
+mapping is always 1:1."
+
+Leading to crashes any time the hardware domain is not direct-mapped
+(e.g. cache coloring and non-Dom0 hardware domain):
+
+(XEN) Loading d1 initrd from 0000000045800000 to 
+0x0000000048200000-0x000000004bdcd615
+(XEN) Loading d1 DTB to 0x0000000048000000-0x00000000480005c4
+(XEN) Xen BUG at drivers/passthrough/arm/iommu_helpers.c:49
+(XEN) ----[ Xen-4.21-unstable  arm64  debug=y  Tainted: I      ]----
+(XEN) CPU:    0
+(XEN) PC:     00000a000024c758 arm_iommu_map_page+0x80/0x90
+(XEN) LR:     00000a000024c750
+(XEN) SP:     00000a000032fb70
+(XEN) CPSR:   0000000080000249 MODE:64-bit EL2h (Hypervisor, handler)
+(XEN)      X0: 0000000000000008  X1: 0000000000000000  X2: 0000000000000000
+(XEN)      X3: 0000000000000001  X4: 00000a00002c98e0  X5: 0000000000000000
+(XEN)      X6: 00008000ffffa710  X7: 00008000ffffa710  X8: 7f7f7f7f7f7f7f7f
+(XEN)      X9: 0000000000000080 X10: 7f7f7f7f7f7f7f7f X11: 0101010101010101
+(XEN)     X12: 0000000000000008 X13: 0000000000000020 X14: 0000000000000000
+(XEN)     X15: ffffffffffffffff X16: 00000a000033cce8 X17: 0000000000000000
+(XEN)     X18: 000000013e688d90 X19: 0000000000008090 X20: 0000000000000080
+(XEN)     X21: 00008000f3a01000 X22: 0000000000008090 X23: 0000000000000080
+(XEN)     X24: 0000000000008090 X25: 0000000000008090 X26: 0000000000000001
+(XEN)     X27: 0000000000008090 X28: 0000000000000000  FP: 00000a000032fb70
+(XEN)
+(XEN)   VTCR_EL2: 0000000080043594
+(XEN)  VTTBR_EL2: 000000013fdcb000
+(XEN)
+(XEN)  SCTLR_EL2: 0000000030cd183d
+(XEN)    HCR_EL2: 0000000000000039
+(XEN)  TTBR0_EL2: 000000004dd50000
+(XEN)
+(XEN)    ESR_EL2: 00000000f2000001
+(XEN)  HPFAR_EL2: 0000000000000000
+(XEN)    FAR_EL2: 0000000000000000
+(XEN)
+(XEN) Xen stack trace from sp=00000a000032fb70:
+(XEN)    00000a000032fba0 00000a0000250884 0000000000000000 0000000000000000
+(XEN)    00008000ffffa410 00008000f3a01000 00000a000032fc30 00000a0000288024
+(XEN)    00008000f3a07010 00008000f3a01000 00008000ffffa410 0000000008080000
+(XEN)    0000000008090040 00008000f3a01570 0000000000000010 0000000000000010
+(XEN)    0000000000010040 3800000000000400 0000000000000010 00000a000032fc9c
+(XEN)    0000000000008090 00008000f3a01150 00000a0000339388 00000a000033df80
+(XEN)    00000a000032fca0 00000a0000285228 00008000f3a01000 0000000000000001
+(XEN)    0000000000003800 0000000000000008 0000000000000000 0000000000000000
+(XEN)    0000000000000001 0000000000000003 000000013e6c9950 000000013e6c9920
+(XEN)    00008000f3a01000 0000000000000008 00000a000032fce0 00000a0000281dcc
+(XEN)    00008000f3a01000 0000000000000100 00000a000032fce0 00000a0000281d40
+(XEN)    0000000000000000 00000000000000ff 00000a000032fd10 00000a00002705a4
+(XEN)    0000000000000000 00008000f3a01000 00000a000032fe08 00000a0000270578
+(XEN)    00000a000032fd50 00000a00002055e8 00008000f3a01000 00000a000032fe08
+(XEN)    0000000000000000 00000a00002053a8 00008000f3a01000 000000030032fda0
+(XEN)    00000a000032fda0 00000a00002cf090 00008000fffed4c8 0000000000000003
+(XEN)    0000000000000008 00000a00002f1bb8 0000000000000004 0000000000000048
+(XEN)    19170c1f5f0cee0e 0000000000000002 00000a000032fe60 00000a00002eb588
+(XEN)    0000000000000004 00000a00002bc000 00000a00002bd900 00000a00002b7c28
+(XEN)    0000000000000004 0000000000000000 0000000000000000 0000000000000000
+(XEN)    00000a000032fe20 00000000ffffffc8 000000030032fe60 0000000000000000
+(XEN)    0000000000000000 0000012300000000 0000000100000000 00000040ffffffff
+(XEN)    00000001ffffffff 0000000000000000 0000000200000000 0000000000000100
+(XEN)    0000000000000000 00008000ffffa710 000000013e588620 00000a000020018c
+(XEN)    000000004dc00000 fffff6004da00000 000000004de00000 0000000000001710
+(XEN)    000000013e5887a0 0000000000000000 0000000000000000 0000000000000000
+(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
+(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
+(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
+(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
+(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
+(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
+(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
+(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
+(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
+(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
+(XEN)    0000000000000000 0000000000000000
+(XEN) Xen call trace:
+(XEN)    [<00000a000024c758>] arm_iommu_map_page+0x80/0x90 (PC)
+(XEN)    [<00000a000024c750>] arm_iommu_map_page+0x78/0x90 (LR)
+(XEN)    [<00000a0000250884>] iommu_map+0xcc/0x29c
+(XEN)    [<00000a0000288024>] vgic_v3_its_init_domain+0x18c/0x1e8
+(XEN)    [<00000a0000285228>] vgic-v3.c#vgic_v3_domain_init+0x168/0x21c
+(XEN)    [<00000a0000281dcc>] domain_vgic_init+0x14c/0x210
+(XEN)    [<00000a00002705a4>] arch_domain_create+0x150/0x1f0
+(XEN)    [<00000a00002055e8>] domain_create+0x47c/0x6c0
+(XEN)    [<00000a00002cf090>] create_domUs+0x7f8/0x8cc
+(XEN)    [<00000a00002eb588>] start_xen+0x8f4/0x998
+(XEN)    [<00000a000020018c>] head.o#primary_switched+0x4/0x10
+(XEN)
+(XEN)
+(XEN) ****************************************
+(XEN) Panic on CPU 0:
+(XEN) Xen BUG at drivers/passthrough/arm/iommu_helpers.c:49
+(XEN) ****************************************
+(XEN)
+(XEN) Reboot in five seconds...
+
+Credits go to Jason for spotting this problem.
+
+It makes sense to generalize the arm_iommu_map_page function to be more
+generic and unopinionated. The comment specific to the grant table can
+live in grant-table.c instead.
+
+Opinions?
+
+diff --git a/xen/common/grant_table.c b/xen/common/grant_table.c
+index cf131c43a1..5c841d4f17 100644
+--- a/xen/common/grant_table.c
++++ b/xen/common/grant_table.c
+@@ -1274,8 +1274,14 @@ map_grant_ref(
+         }
+ 
+         /*
+-         * We're not translated, so we know that dfns and mfns are
+-         * the same things, so the IOMMU entry is always 1-to-1.
++         * Grant mappings can be used for DMA requests. The dev_bus_addr
++         * returned by the hypercall is the MFN (not the IPA). For
++         * device protected by an IOMMU, Xen needs to add a 1:1 mapping
++         * in the domain p2m to allow DMA request to work. This is only
++         * valid when the domain is directed mapped.
++         * 
++         * We're not translated, so we know that dfns and mfns are the
++         * same things, so the IOMMU entry is always 1-to-1.
+          */
+         if ( !(op->flags & GNTMAP_readonly) && node.cnt.wr == 1 )
+             kind = IOMMUF_readable | IOMMUF_writable;
+diff --git a/xen/drivers/passthrough/arm/iommu_helpers.c b/xen/drivers/passthrough/arm/iommu_helpers.c
+index 5cb1987481..2585f2e526 100644
+--- a/xen/drivers/passthrough/arm/iommu_helpers.c
++++ b/xen/drivers/passthrough/arm/iommu_helpers.c
+@@ -36,17 +36,6 @@ int __must_check arm_iommu_map_page(struct domain *d, dfn_t dfn, mfn_t mfn,
+ {
+     p2m_type_t t;
+ 
+-    /*
+-     * Grant mappings can be used for DMA requests. The dev_bus_addr
+-     * returned by the hypercall is the MFN (not the IPA). For device
+-     * protected by an IOMMU, Xen needs to add a 1:1 mapping in the domain
+-     * p2m to allow DMA request to work.
+-     * This is only valid when the domain is directed mapped. Hence this
+-     * function should only be used by gnttab code with gfn == mfn == dfn.
+-     */
+-    BUG_ON(!is_domain_direct_mapped(d));
+-    BUG_ON(mfn_x(mfn) != dfn_x(dfn));
+-
+     /* We only support readable and writable flags */
+     if ( !(flags & (IOMMUF_readable | IOMMUF_writable)) )
+         return -EINVAL;
+@@ -57,7 +46,7 @@ int __must_check arm_iommu_map_page(struct domain *d, dfn_t dfn, mfn_t mfn,
+      * The function guest_physmap_add_entry replaces the current mapping
+      * if there is already one...
+      */
+-    return guest_physmap_add_entry(d, _gfn(dfn_x(dfn)), _mfn(dfn_x(dfn)),
++    return guest_physmap_add_entry(d, _gfn(dfn_x(dfn)), _mfn(dfn_x(mfn)),
+                                    IOMMUF_order(flags), t);
+ }
+ 
 
