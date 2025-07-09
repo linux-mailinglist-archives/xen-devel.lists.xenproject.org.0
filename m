@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50332AFDF4D
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Jul 2025 07:37:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1037678.1410226 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A7702AFDF52
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Jul 2025 07:38:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1037685.1410236 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uZNUX-0003Fm-EA; Wed, 09 Jul 2025 05:37:13 +0000
+	id 1uZNW2-0003my-NW; Wed, 09 Jul 2025 05:38:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1037678.1410226; Wed, 09 Jul 2025 05:37:13 +0000
+Received: by outflank-mailman (output) from mailman id 1037685.1410236; Wed, 09 Jul 2025 05:38:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uZNUX-0003EB-AA; Wed, 09 Jul 2025 05:37:13 +0000
-Received: by outflank-mailman (input) for mailman id 1037678;
- Wed, 09 Jul 2025 05:37:12 +0000
+	id 1uZNW2-0003k8-KQ; Wed, 09 Jul 2025 05:38:46 +0000
+Received: by outflank-mailman (input) for mailman id 1037685;
+ Wed, 09 Jul 2025 05:38:45 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=6dDj=ZW=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uZNUW-0003E3-11
- for xen-devel@lists.xenproject.org; Wed, 09 Jul 2025 05:37:12 +0000
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [2a00:1450:4864:20::436])
+ id 1uZNW1-0003k2-4h
+ for xen-devel@lists.xenproject.org; Wed, 09 Jul 2025 05:38:45 +0000
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [2a00:1450:4864:20::435])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c28c9180-5c86-11f0-a317-13f23c93f187;
- Wed, 09 Jul 2025 07:37:10 +0200 (CEST)
-Received: by mail-wr1-x436.google.com with SMTP id
- ffacd0b85a97d-3a6f2c6715fso4576041f8f.1
- for <xen-devel@lists.xenproject.org>; Tue, 08 Jul 2025 22:37:10 -0700 (PDT)
+ id fa336c00-5c86-11f0-a317-13f23c93f187;
+ Wed, 09 Jul 2025 07:38:44 +0200 (CEST)
+Received: by mail-wr1-x435.google.com with SMTP id
+ ffacd0b85a97d-3a54700a46eso2824267f8f.1
+ for <xen-devel@lists.xenproject.org>; Tue, 08 Jul 2025 22:38:44 -0700 (PDT)
 Received: from ?IPV6:2003:ca:b711:f2be:e417:6234:73d2:3c23?
  (p200300cab711f2bee417623473d23c23.dip0.t-ipconnect.de.
  [2003:ca:b711:f2be:e417:6234:73d2:3c23])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-3b471b97708sm14859975f8f.50.2025.07.08.22.37.09
+ ffacd0b85a97d-3b47285e236sm14712280f8f.100.2025.07.08.22.38.42
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 08 Jul 2025 22:37:09 -0700 (PDT)
+ Tue, 08 Jul 2025 22:38:43 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,59 +47,64 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c28c9180-5c86-11f0-a317-13f23c93f187
+X-Inumbo-ID: fa336c00-5c86-11f0-a317-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1752039430; x=1752644230; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1752039524; x=1752644324; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=EevTR1tZs6Yidg5VYYD4ZWa7CuglyMVbjDi3xQHjOkA=;
-        b=YZKaY8YkpmcRNtt0Rd3emlUObKCyJaW862UzSim8GfuS1RRZKcYN6ZN6pTF6hnS3ID
-         Zrmq/+MRtovzH/gQjxMdDtbaBykh/ydWWtl8nsJPmW4Zo4u76xKcxq2qjq9nGwfuqxgV
-         nLYvmYLWn3zN35DhEujOlMSAPwBn3+ZrugZ41YI3aI9l+uM52ra0rRSqE7kCGj1RcLCR
-         pJFmTKdvb592pGjOEYHi0MBbTVX3CmhKsWH7DfCNMhdoZ9kN0DKVBePG9Bt/YewW480u
-         HR7dNvOIsd2BvHgE3UbfSgxBNjn09pjmd2YGR7HrkrDNW/9iXAKCnnHKkDqSy9nZj8xT
-         W/+Q==
+        bh=cG9f08U84saaTi8wzRsP66B/MAIKLHNWGF+vEmJU/XI=;
+        b=YG0RbBR64hDZHbFztxpi7ToUOe8oGGlumCOUBt7/SzLCz0T4F8JI8kjIhOa7eFoCCC
+         8Alge59xZ6bwhVmblpuz39oURzECZbpObSWO8bqeLKaN/ZwFKqX6/hAtURq/CZ7QWewp
+         A4Jm2Iuv8F1PUm26M34zs1EJIoZfMSUnTe5lzPrrJKH9Pnau8SJXlfNLaxTSn8yfkRUu
+         96I71iNUg2QdJgCaKBcremBF5gpkMeLdHuchNGIKNOH4OxTDG8bkXP810zJFY0FACkFG
+         yVJhCprWLRdNGtCncmW5qJd6C2QPsMp7rWSNogaPDehsgFnGp+SjoYVFZx8Va7w52Bee
+         n2Lg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1752039430; x=1752644230;
+        d=1e100.net; s=20230601; t=1752039524; x=1752644324;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=EevTR1tZs6Yidg5VYYD4ZWa7CuglyMVbjDi3xQHjOkA=;
-        b=ODsJ1SlkUYWAlCPcbclxdWpAo3oMEpyYrZLsUStwxO0xMouh5j4oS2lC25k1elJ4vR
-         y4E+rmK6i4K8I+Ke0ZATlxC+3DjqEzV6NCmnhsRs9qqcV3iwXSKX3f9tjmA6R3MPst5n
-         q7okmwb59nDGpwXjwU/NBi9WrH4VlpMqn53QcqJVBjlGQu/JIa/gbklAU3xD5m5byJzb
-         QDGVnPsOyT2NDa26KLlP5XnPclJ08xxlbmiAoKTl+pM+nUr36mF21lWGH+ER8DDcjxBY
-         Jf6TDS6KlJ+yVeBK8t6Pe6t/2vLgiXb92ZfRHDcb//GYcUk9w60EjvFgCePZrS/UrUdD
-         W0gA==
-X-Forwarded-Encrypted: i=1; AJvYcCVn9xGyBK6lVGb+30sHplNh63GO8EIpUtO1bGOEjKDtdQHpC7U/kQ8cpg1V80748EAwm+P6B0SXeIU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw82cPytKm1ksdS9EQ1325cA6R8QRDi0Mq5M1gZ99blgM+mn2ZU
-	6QLhhz2MTrHzjkG8fuini2fk079LbMzzXlmVbQ8btl+isTlVqV8UFmwIQfbdB37jwA==
-X-Gm-Gg: ASbGncvvX3lLMnSdV5+wqkg7KXeQ86+WvikSW6MK4SnB4XQuXTBPL8RrtISGYXhP3wE
-	uVRgkcEqFQzbBaJHHj78fx4yucR7Qj/XXiINkcJQsVxd/ZCnrVCO+YLVKhiie0WYNq6ez4xJHAj
-	lwGE2yWI8tZJhrAYK3hHMOAYZlUigoeogXG3Y8Leb+JvWETVXgShvAj+C90PbUOls6MVEs4aZr9
-	R+PjKXq1zaPClzoQDxaIAS+4/UuUIVibMJL48Mrcfo/xKYhh9s0OXksuF3ZhcehzDFJYZysvFvm
-	FFgaX3X5bt2WRXCfIkcwTqY5SJYbeToU79RRcpFxkUtgtcCFXfcl4SNGm5Lktg3ERf4L+EEuiTe
-	ZQ1rNGx/T5i05RQ1YOBz5jkXPB0csbV2PQX7ECsfRrbmofC0PO8MTN24VFGt8HR9QwFV5vvjeKV
-	U5WFgdr4Fd15798fv4qgWy
-X-Google-Smtp-Source: AGHT+IGCSI3HezP+khC8oJrDTlIXLY6URGfZ8niTadQi1SgC0KEaE3+k5hXUvOhcAEyA239tjS6Jsg==
-X-Received: by 2002:a05:6000:18a8:b0:3a3:5f36:33ee with SMTP id ffacd0b85a97d-3b5e4521d24mr679690f8f.32.1752039430197;
-        Tue, 08 Jul 2025 22:37:10 -0700 (PDT)
-Message-ID: <b81d7bf6-6254-4001-89f3-3ec06e03e21a@suse.com>
-Date: Wed, 9 Jul 2025 07:37:08 +0200
+        bh=cG9f08U84saaTi8wzRsP66B/MAIKLHNWGF+vEmJU/XI=;
+        b=lTpGEqYu9RMwiutPKpq8E8VNynQe+YZeQS7HYNl0YhYJ7clyyfwr2ticWgPtQDvfWk
+         cf3oW4e0EU0Lw6Ucy8IuZVVHxPMMY/7d2rKGXvzjdSaJZB6ILUxvqze+5x3Em68eB6eq
+         Os8msn6NoWWI/Cw0xlL+T2hI46i8j59LZlWXbpBqmY87to8FSnUbzePa3ZdRgycg6X3F
+         uzkXc5kcR/OU+jbsQ3YfDqivqH0LwOqUbdRCv54hC+ASRxk0d0MqvlTaBh2eTiSI2DDH
+         wBubrhlisp0wMCbtZtd1dJECum6exmU70D28sGnO2MjpTWOgNXYI3O3ADfH05ibDSSGS
+         8sSA==
+X-Forwarded-Encrypted: i=1; AJvYcCVcynnsaq37G9YvpORmiEP5ABFGtnWtythHefaQ8mrgLzUNWzus6paidCWbrbLANexLppi7m9+HYXU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxMhbIvQx6ChyIjVojwWGa9JLsebODqnwCTrYlE8rnM8JTvTSs6
+	AzUFFvZmyPNnNHfkWHeAe8qV9/AHEG/sLuj9P1IlW4dgB9ab6yWlO61M2xQvpk7POw==
+X-Gm-Gg: ASbGncukbCf3PvS+2+C8IoYsO3sT0wo3UYc2V8wnN9Ijh0Ur2k9YbrtusIebzHn+ltc
+	opuNfSPEJYQ1S/gshAzldcnhAxu5EAYZ6CwovQjucAef60BNf4tnkYh7Wa4TDB0/KWd0dkSGCbJ
+	d7aTj952HCwzwmT0CImxMRDgXrHeHcCMWhXj8eAMLNdYVtxBPfI2xUJmbrURmbN4M/nvtEzi6EP
+	HRe7Wi16Me+K07YdRtPg82VmaJTyBBg4p8YnHX7lrwEa9mCmeFxYL2QAHpC+5TmjFozTGNxa8Vh
+	lgd1y1Sxai5vhR5R0gfIHH22VqOJUaOHoo4rD46S5H7A1ytd267kHQ3Xzef35w545GksnddLly6
+	0L96N3YXeyWSeA9FUUOpQEXhVTDQ+LVaGVzPcv0DxGHLERDawDVRBF5FVlwp/1EehiDZ8SyfqgD
+	F7tLIbA7+ug4pRkWRZr2F4
+X-Google-Smtp-Source: AGHT+IEeYVUKeP0d7MLsxoPl5Two51vPcW5tI7FGMv9mu8Hkx65yDqVBJoGJTKvLEiLKHEeYIyjc3A==
+X-Received: by 2002:a05:6000:2485:b0:3a5:2653:7308 with SMTP id ffacd0b85a97d-3b5e4546cf1mr613753f8f.57.1752039523612;
+        Tue, 08 Jul 2025 22:38:43 -0700 (PDT)
+Message-ID: <27ca400b-ceac-40c4-a6ed-f26c1129ae2a@suse.com>
+Date: Wed, 9 Jul 2025 07:38:41 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/2] Xen real-time x86
-To: Stefano Stabellini <stefano.stabellini@amd.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>,
- Xenia.Ragiadakou@amd.com, alejandro.garciavallejo@amd.com,
- Jason.Andryuk@amd.com
-References: <alpine.DEB.2.22.394.2507071657440.605088@ubuntu-linux-20-04-desktop>
- <aGzu4A_nk3dAScxt@macbook.local>
- <6d283128-4aaf-4f52-8e96-7a4ebe292be3@suse.com>
- <alpine.DEB.2.22.394.2507081000490.605088@ubuntu-linux-20-04-desktop>
+Subject: Re: [PATCH 2/2] xen/x86: address violations of Rule 11.3
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: victorm.lira@amd.com, Nicola Vetrini <nicola.vetrini@bugseng.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?B?Um9nZXIgUGF1IE1vbm7Dg8Kp?= <roger.pau@citrix.com>,
+ Federico Serafini <federico.serafini@bugseng.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>, xen-devel@lists.xenproject.org
+References: <20250624002018.4121819-1-victorm.lira@amd.com>
+ <20250624002018.4121819-2-victorm.lira@amd.com>
+ <b31da849-283e-4f84-854a-50da2d0878d7@suse.com>
+ <alpine.DEB.2.22.394.2507071453370.605088@ubuntu-linux-20-04-desktop>
+ <6b23c2a3-9e2c-492b-843f-c3f830394f3e@suse.com>
+ <alpine.DEB.2.22.394.2507081031210.605088@ubuntu-linux-20-04-desktop>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -125,56 +130,52 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2507081000490.605088@ubuntu-linux-20-04-desktop>
+In-Reply-To: <alpine.DEB.2.22.394.2507081031210.605088@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 08.07.2025 19:11, Stefano Stabellini wrote:
+On 08.07.2025 19:32, Stefano Stabellini wrote:
 > On Tue, 8 Jul 2025, Jan Beulich wrote:
->> On 08.07.2025 12:11, Roger Pau Monné wrote:
->>> On Mon, Jul 07, 2025 at 05:06:53PM -0700, Stefano Stabellini wrote:
->>>> Hi all,
+>> On 08.07.2025 00:00, Stefano Stabellini wrote:
+>>> On Tue, 24 Jun 2025, Jan Beulich wrote:
+>>>> On 24.06.2025 02:20, victorm.lira@amd.com wrote:
+>>>>> From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+>>>>>
+>>>>> Use {get,put}_unaligned_t to ensure that reads and writes are
+>>>>> safe to perform even on potentially misaligned pointers.
 >>>>
->>>> This short patch series improves Xen real-time execution on AMD x86
->>>> processors.
->>>>
->>>> The key to real-time performance is deterministic guest execution times
->>>> and deterministic guest interrupt latency. In such configurations, the
->>>> null scheduler is typically used, and there should be no IPIs or other
->>>> sources of vCPU execution interruptions beyond the guest timer interrupt
->>>> as configured by the guest, and any passthrough interrupts for
->>>> passthrough devices.
->>>>
->>>> This is because, upon receiving a critical interrupt, the guest (such as
->>>> FreeRTOS or Zephyr) typically has a very short window of time to
->>>> complete the required action. Being interrupted in the middle of this
->>>> critical section could prevent the guest from completing the action
->>>> within the allotted time, leading to malfunctions.
+>>>> Also applicable to the Arm patch: Please can such patches mention the
+>>>> main subject of the rule, not just the number?
 >>>
->>> There's IMO still one pending issue after this series on x86, maybe
->>> you have addressed this with some local patch.
+>>> +1
+>>>
+>>>
+>>>> Overall I'm unconvinced we really want or need this on x86; I'm curious
+>>>> what Andrew and Roger think.
+>>>
+>>> To be honest, I had a similar reaction to you, which is why I suggested
+>>> on Matrix to:
+>>>
+>>> - deviate the rule in its entirety on x86
+>>> - deviate the rule for all mappings except for devmem mappings on ARM
+>>>
+>>> Leaving aside ARM for a second (this is exactly the kind of very
+>>> arch-specific behavior that is OK to device differently per
+>>> architecture), would you be OK with deviating the rule in its entirety on
+>>> x86?
+>>>
+>>> Or do you prefer to continue with this patch?
 >>
->> Not just one, I think. We use IPIs for other purposes as well. The way
->> I read the text above, all of them are a (potential) problem.
+>> Neither. Imo globally deviating rules needs to be done with care. There
+>> are, in principle, misaligned accesses in x86 which can be made fault
+>> (and I think this was mentioned before). We want to know of such risks.
+>> Hence for a rule like this one more fine grained deviation is on order,
+>> imo.
 > 
-> Yes, all of them are potentially a problem. If you know of any other
-> IPI, please let me know and I'll try to remove them.
+> What fine grained deviation do you have in mind?
 
-INVALIDATE_TLB_VECTOR, EVENT_CHECK_VECTOR, and CALL_FUNCTION_VECTOR, maybe
-also others in that group of vectors (see irq-vectors.h).
-
-> One of my goals
-> posting this series was to raise awareness on this issue and attempting
-> to fix it with your help. It is not just IPIs, also Xen timers and other
-> things that could cause the guest to trap into Xen without the guest
-> knowledge. Typically IPIs are the worst offenders in my experience.
-> 
-> On ARM, I have done several experiments where, after the system is
-> configured correctly, I can see that if the RTOS does nothing, there are
-> no traps in Xen on the RTOS vCPU/pCPU for seconds.
-
-Being quiescent when the system is idle is only part of the overall
-requirement, though?
+Ones for almost(?) everything that is having actual code changes right now
+in this series.
 
 Jan
 
