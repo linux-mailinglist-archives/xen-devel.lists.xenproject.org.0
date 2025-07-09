@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 040FEAFE076
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Jul 2025 08:50:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1037735.1410276 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 67914AFE0CA
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Jul 2025 09:04:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1037748.1410286 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uZOd4-0007zm-GE; Wed, 09 Jul 2025 06:50:06 +0000
+	id 1uZOr8-0001nh-KX; Wed, 09 Jul 2025 07:04:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1037735.1410276; Wed, 09 Jul 2025 06:50:06 +0000
+Received: by outflank-mailman (output) from mailman id 1037748.1410286; Wed, 09 Jul 2025 07:04:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uZOd4-0007x6-Cu; Wed, 09 Jul 2025 06:50:06 +0000
-Received: by outflank-mailman (input) for mailman id 1037735;
- Wed, 09 Jul 2025 06:50:05 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uZOr8-0001lU-Hd; Wed, 09 Jul 2025 07:04:38 +0000
+Received: by outflank-mailman (input) for mailman id 1037748;
+ Wed, 09 Jul 2025 07:04:37 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=6dDj=ZW=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uZOd3-0007lM-A9
- for xen-devel@lists.xenproject.org; Wed, 09 Jul 2025 06:50:05 +0000
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [2a00:1450:4864:20::431])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f107d0d3-5c90-11f0-a317-13f23c93f187;
- Wed, 09 Jul 2025 08:50:04 +0200 (CEST)
-Received: by mail-wr1-x431.google.com with SMTP id
- ffacd0b85a97d-3a503d9ef59so3916850f8f.3
- for <xen-devel@lists.xenproject.org>; Tue, 08 Jul 2025 23:50:04 -0700 (PDT)
+ id 1uZOr7-0001lO-5c
+ for xen-devel@lists.xenproject.org; Wed, 09 Jul 2025 07:04:37 +0000
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [2a00:1450:4864:20::429])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f85aca46-5c92-11f0-b894-0df219b8e170;
+ Wed, 09 Jul 2025 09:04:35 +0200 (CEST)
+Received: by mail-wr1-x429.google.com with SMTP id
+ ffacd0b85a97d-3a588da60dfso3537724f8f.1
+ for <xen-devel@lists.xenproject.org>; Wed, 09 Jul 2025 00:04:35 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-31c3006ee2esm1109139a91.18.2025.07.08.23.49.59
+ d9443c01a7336-23c8419269dsm129848065ad.0.2025.07.09.00.04.29
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 08 Jul 2025 23:50:02 -0700 (PDT)
+ Wed, 09 Jul 2025 00:04:34 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f107d0d3-5c90-11f0-a317-13f23c93f187
+X-Inumbo-ID: f85aca46-5c92-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1752043803; x=1752648603; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1752044674; x=1752649474; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Mms9PRv6OMNovEv77pMS8HDnUUMT96ymOm1YxCJExxg=;
-        b=XerW+8AfnlvHxHV374m47wm++BE0kumDnfW30A1zup2VhKRHa/LIjITyoZfH/KegDw
-         Jlw1jG1WeLs+DJiWv9fFXBDRFgvI1cLkJ0GcR8bo498tO4jNoyMRWWrqHhW8HAS0ApCA
-         fmhf/dUj3laSFiHzUUKaVdi4hTWSzGlLNjSC5WtIfqcJgbDloMCJMCisVuCbbkSfG/Vn
-         0SmKfEtchsLpyWQvGQsPKWXPW5Ftg96Y+6uynZrCPLebXIN1/5jlekIBsU+UrmrtGxGn
-         d4SiKHKCvL69PXTd6GNbpwb+QgcZc3gVLN8FlwHGLoPouC0KTIUtahBjTvnUIkksx/Mg
-         IfJA==
+        bh=dzcbsHe1nu6CI7jmOWggdYhnzU2OSxOXrNqoMA5Opuc=;
+        b=aaOpfFKZUsQ2Y23icx89CyeIgGWitAiajP4JYsFWjtgRv7el0K14Ey8bN4iJg4v6Nf
+         GK3FJQ8XlC5KZuVscpckeqsBKmI6rM7qIw3b7JRlxoU58EA/fr9UJ8AxXMQqeNhzG2dA
+         UapdYnyifbHd+uaMKOTdKhGFfjnsBc8z1v5wcYLW1GO58LW3K3bYWmPQjsMy6L8Yko+Q
+         ywBgPU2QuszOCk+eA6t/Hd772Br9YuG8l0BppFxjKFKx3Ct5QC+vx6NldY4M6rZp81OI
+         eZvEGws82t84kjGPyQw4HLswPQARNiTUfCjdyK2GAERwZEKDnwrWBWRTa+Y05lfkD2bL
+         T9qg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1752043803; x=1752648603;
+        d=1e100.net; s=20230601; t=1752044674; x=1752649474;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Mms9PRv6OMNovEv77pMS8HDnUUMT96ymOm1YxCJExxg=;
-        b=RBIuXN1D1975DTIQuxEYbgcDH6BtSm1/n6c7h+7bE5B/sbHhlcaWxzq5SOjj9gkS1p
-         N47evgp21j8q3SbWZfduFQAsYO8Ob8kJzYO2iExHPrWX3pUeMAt/Tb+lDUha/CijjQWd
-         wEAVE+Xlbt5OLbz5XYwocvLmDUptvUX1ueIET60uns0cyMlZ6neGZX5bFUWl87Dbvi/F
-         y2Z8dAFuvSVlkXXFQuDQwG7JvJ5j5L9ufMzAZDc5yibIZ521frM7RhMc1mRA/lnGmOT0
-         XJmoRZg7ab3jcHQOG8++HelZtzHQ0HsRvbNoTvm22F7fnLeC3E4zozmU+9sWEyKXvr99
-         Rwhg==
-X-Forwarded-Encrypted: i=1; AJvYcCUfq0xVPx8yu2MpCYJtQlma9deee/vIshtlUw2UZfaR3E92ukmjtF5Yigw2o6NpbZTLjUSxFHajslE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yzyju4pXCN9AstRW9ZjRICQFPDZYBtRUQSP8/W80px1sOMAK5w7
-	iDRuCU+i1VKxgK4V1D4MZqeHUOmkhPUsvEEPydFgztB8BBIJayDh/fOwt92JgzkjIg==
-X-Gm-Gg: ASbGncsRFm0z3jE54dtWjKJH1lLNO2QcHH57awfsf0qGd+7PJHhAi06UkmemknSyQM1
-	mutr6wzoMCS5GQhV+UDhCzrBC2Rk/uNmmgSd19lHeJo/ZxG4vDQ9LL3VypBg1COqX1XalmDlS7Y
-	dekGqSbJQYMy9dochmOeaeCVQskTQrf59fBJP3Jiw+xpqeDOkOtZWvhjTa4FydYs/idmHAKrvST
-	JlBYfWPu6FujJscAv6UiMi4I1xtHKs3irtIzrf5lcOEBxFkhKyhz5hH/+Q5xaQesNgH20ou0BYb
-	m8X37f6iAWhy6oS0IrIeonDN8OhF1PytPSdCnK1NRZPU6aHwc/3mVZ93hcVt4VbWT/ntaPBLv9O
-	lr1WCvh8O1rXPdjD9oh0JKpsK/gy1DfjRg8Y8EG9r0YqY+fc=
-X-Google-Smtp-Source: AGHT+IEuw7u1MHxon5uQVyrqid7msGanXXcjum+As6psdW7G2CfPfiHh1oIsUqx2bGg3/DVWyR6ZvQ==
-X-Received: by 2002:a05:6000:188f:b0:3a5:88cf:479e with SMTP id ffacd0b85a97d-3b5e455be71mr858336f8f.48.1752043803249;
-        Tue, 08 Jul 2025 23:50:03 -0700 (PDT)
-Message-ID: <caa9a032-9ca5-4f53-b53a-8bcd1d75e3b5@suse.com>
-Date: Wed, 9 Jul 2025 08:49:55 +0200
+        bh=dzcbsHe1nu6CI7jmOWggdYhnzU2OSxOXrNqoMA5Opuc=;
+        b=P2QpI7Zpf+Xrl6icb9LCfkR4/40Rt5PIoXrl5++KjhbxB+V3/qRdwPsjFhJWRcfMXF
+         TxcsCpb/MVuVFy/NaNtmBeY7g0206LreOWh2d79Wp0JagBaurtn3bTK68vfoCzTwA2GT
+         QWy9bX8aHgkzsW2V056UQHBeCMucL60w/JOYNHcqaZdhJiSIWFmfb7hYh9ZPft5ccDik
+         NXoqjlZDb9IZW/E7Vs+LT+ZLEsIEldWdMkQKEpTfOR3p2N5gPJfeXlqrUTYwTGGBB7nf
+         eJ6+q1qpcj14xD1gmjxZd7Ge5Xo5AkVC3I/HM3/7OCQA6rUzwoLLH9gpakKWlM4k45X3
+         8DDw==
+X-Forwarded-Encrypted: i=1; AJvYcCX7BBJYwn6tf5TbPdnLueNw7JPOWXCC1tvDXPtN6aouxpsem0CWaNQF+KmRlbZneGlazFsZczLXcHg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YznOadETo3pP8Y/T6Dp007PUiWKq+HZZqDZXT2lsFov6ZKoE9w6
+	A6wcYA3Eu3l80ytxN5VAtGcpaCpqpKh4utu/q8+mE+cY5MYOvDAKJfTlXWSAIDzXvw==
+X-Gm-Gg: ASbGncsVFv8kEK3nHOkeC0wpMdboxcq6s9Zj9bBUuwSHKyqHCFBITVncgGwM9xqOl8b
+	QWue6hU7CkhDA1jtfXUlDHpxm0SY1gW1i2v6N6S+k+SzH2BypGRnmCXkfjIkRG3f8KOFpK3MB0j
+	qTPcixmGzqqSZZC/L8WHkkZGsg5y6OblGY4rDtVSwOF1w/12UG1gNafOGuN5rWYr5vD+QCJ8qdJ
+	mZWCMYn0KMPtLNMV8KgBe87PKqKxzybp/Q/XBRjOJztCNoX3p4NbsKF3mq7zRs5oSsKORe2jE+P
+	Ujd8WCaoudiLottzxemMHZFwWvl70LNQkzJiMrfqDegA36IySlG2c087SWhXqweY6jtG97n2NZn
+	Le8pxdJIhhxMwgoxm6W2V3ujq4uSLcKoyzzn9mVXtdf0U2XA=
+X-Google-Smtp-Source: AGHT+IFZHYrnqxn05CIIciQzQkHrSCiHkRP9q3dPumW/m2lsjMSsiuRIRPof45n3H07uUNhKBbCbPQ==
+X-Received: by 2002:a05:6000:2906:b0:3b5:dc05:79b with SMTP id ffacd0b85a97d-3b5e4527159mr873435f8f.14.1752044674521;
+        Wed, 09 Jul 2025 00:04:34 -0700 (PDT)
+Message-ID: <5e5921ce-e186-4e7b-b759-5285c9b8ac19@suse.com>
+Date: Wed, 9 Jul 2025 09:04:25 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 7/8] vpci/msi: Free MSI resources when init_msi() fails
-To: "Chen, Jiqian" <Jiqian.Chen@amd.com>
-Cc: "Huang, Ray" <Ray.Huang@amd.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <20250704070803.314366-1-Jiqian.Chen@amd.com>
- <20250704070803.314366-8-Jiqian.Chen@amd.com>
- <83abcd7b-e742-4a0e-814f-1f2b801eaff9@suse.com>
- <BL1PR12MB5849A2910BE0460175413EDBE749A@BL1PR12MB5849.namprd12.prod.outlook.com>
+Subject: Re: [PATCH 1/2] xen/x86: don't send IPI to sync TSC when it is
+ reliable
+To: Stefano Stabellini <stefano.stabellini@amd.com>
+Cc: andrew.cooper3@citrix.com, roger.pau@citrix.com,
+ Xenia.Ragiadakou@amd.com, alejandro.garciavallejo@amd.com,
+ Jason.Andryuk@amd.com, xen-devel@lists.xenproject.org
+References: <alpine.DEB.2.22.394.2507071657440.605088@ubuntu-linux-20-04-desktop>
+ <20250708000712.2731666-1-stefano.stabellini@amd.com>
+ <e677f691-f158-4c7f-97bf-13bd157fcb54@suse.com>
+ <alpine.DEB.2.22.394.2507081020560.605088@ubuntu-linux-20-04-desktop>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,42 +122,31 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <BL1PR12MB5849A2910BE0460175413EDBE749A@BL1PR12MB5849.namprd12.prod.outlook.com>
+In-Reply-To: <alpine.DEB.2.22.394.2507081020560.605088@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 09.07.2025 08:10, Chen, Jiqian wrote:
-> On 2025/7/8 23:13, Jan Beulich wrote:
->> On 04.07.2025 09:08, Jiqian Chen wrote:
->>> @@ -193,6 +234,42 @@ static void cf_check mask_write(
->>>      msi->mask = val;
->>>  }
->>>  
->>> +static int cf_check cleanup_msi(const struct pci_dev *pdev)
->>> +{
->>> +    int rc;
->>> +    unsigned int end;
->>> +    struct vpci *vpci = pdev->vpci;
->>> +    const unsigned int msi_pos = pdev->msi_pos;
->>> +    const unsigned int ctrl = msi_control_reg(msi_pos);
->>> +
->>> +    if ( !msi_pos || !vpci->msi )
->>> +        return 0;
->>> +
->>> +    if ( vpci->msi->masking )
->>> +        end = msi_pending_bits_reg(msi_pos, vpci->msi->address64);
->>> +    else
->>> +        end = msi_mask_bits_reg(msi_pos, vpci->msi->address64) - 2;
+On 08.07.2025 19:40, Stefano Stabellini wrote:
+> On Tue, 8 Jul 2025, Jan Beulich wrote:
+>> On 08.07.2025 02:07, Stefano Stabellini wrote:
+>>> On real time configuration with the null scheduler, we shouldn't
+>>> interrupt the guest execution unless strictly necessary: the guest could
+>>> be a real time guest (e.g. FreeRTOS) and interrupting its execution
+>>> could lead to a missed deadline.
+>>>
+>>> The principal source of interruptions is IPIs. Remove the unnecessary
+>>> IPI on all physical CPUs to sync the TSC when the TSC is known to be
+>>> reliable.
 >>
->> What's this "- 2" for? If there's no masking support, you want to cut off
->> _at_ the mask register, not 2 bytes ahead of it? Just like you cut off at
->> the pending bits register when there is masking support.
-> "-2" here is to cut the reserved 2 bytes of Message Data if there is no masking support.
+>> If it had been truly unnecessary for all the time, I'm sure someone would
+>> have suggested to get rid of the overhead.
+> 
+> I am not so sure someone else would have suggested it given that Xen on
+> x86 has been mostly used on the datacenter where real-time is not a
+> requirement. 
 
-Hmm, init_msi() doesn't intercept Extended Message Data when present. I
-think that's wrong there, leading to the oddity here. (Imo such use of
-hard coded numbers would almost always want to be accompanied by a
-comment.)
+What I mean to indicate is that we're generally always on the hunt of
+unnecessary overhead that can be eliminated.
 
 Jan
 
