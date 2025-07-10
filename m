@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63269B00520
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Jul 2025 16:24:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1039623.1411392 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 26611B005E2
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Jul 2025 17:01:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1039632.1411402 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uZsCM-00037D-KJ; Thu, 10 Jul 2025 14:24:30 +0000
+	id 1uZsm6-0000S0-7t; Thu, 10 Jul 2025 15:01:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1039623.1411392; Thu, 10 Jul 2025 14:24:30 +0000
+Received: by outflank-mailman (output) from mailman id 1039632.1411402; Thu, 10 Jul 2025 15:01:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uZsCM-00034t-H7; Thu, 10 Jul 2025 14:24:30 +0000
-Received: by outflank-mailman (input) for mailman id 1039623;
- Thu, 10 Jul 2025 14:24:29 +0000
+	id 1uZsm6-0000Pb-4d; Thu, 10 Jul 2025 15:01:26 +0000
+Received: by outflank-mailman (input) for mailman id 1039632;
+ Thu, 10 Jul 2025 15:01:24 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=V320=ZX=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uZsCL-00034X-BS
- for xen-devel@lists.xenproject.org; Thu, 10 Jul 2025 14:24:29 +0000
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [2a00:1450:4864:20::42f])
+ id 1uZsm4-0000PV-Fn
+ for xen-devel@lists.xenproject.org; Thu, 10 Jul 2025 15:01:24 +0000
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [2a00:1450:4864:20::429])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 963d77e8-5d99-11f0-a317-13f23c93f187;
- Thu, 10 Jul 2025 16:24:28 +0200 (CEST)
-Received: by mail-wr1-x42f.google.com with SMTP id
- ffacd0b85a97d-3a6e2d85705so738331f8f.0
- for <xen-devel@lists.xenproject.org>; Thu, 10 Jul 2025 07:24:28 -0700 (PDT)
+ id be8fefeb-5d9e-11f0-a317-13f23c93f187;
+ Thu, 10 Jul 2025 17:01:23 +0200 (CEST)
+Received: by mail-wr1-x429.google.com with SMTP id
+ ffacd0b85a97d-3a6cdc27438so971665f8f.2
+ for <xen-devel@lists.xenproject.org>; Thu, 10 Jul 2025 08:01:23 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-31c301d9323sm5392642a91.44.2025.07.10.07.24.24
+ d9443c01a7336-23de435f371sm21850455ad.237.2025.07.10.08.01.15
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 10 Jul 2025 07:24:26 -0700 (PDT)
+ Thu, 10 Jul 2025 08:01:20 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 963d77e8-5d99-11f0-a317-13f23c93f187
+X-Inumbo-ID: be8fefeb-5d9e-11f0-a317-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1752157467; x=1752762267; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=wt1d/n1Mnc6hy4dPD+7HTTdcZSeYol8pERm3W4kOX58=;
-        b=Q8b7DWhXxIoW+GuCfgc3h6KKcfxN00XWU53MwkaCugxu4bGxJ3rEMj75KiUm3iDhE1
-         GR+9MUOeVX0PRtRkIxXGrPR76kqRk4LPtKTjt8U+HuePhe/RDFK/2TGeAs1jNLJcirwO
-         dwBb+3fm3Yd1UlXqEsLK26aak9d0eKgDAGSF1ZdSaTXXv0WDR/uRwK0WF8/vav5VqoFA
-         qNYDBJy8nUpMHRN6haWxvMI1xTkAR/gNtka8L62f8cBttP1WTLPZ5nyijZ8fwCtnicPF
-         NvDg5XMh7CD6UTJi4pj+zexuQTPkZSg81VTwON4icLVWFkQYx2d8xmV1cHv2q6lZ/Yry
-         CO4w==
+        d=suse.com; s=google; t=1752159683; x=1752764483; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=TIhcj0rlClGxh1VH2IMUEUmhfZyi84IamDyVInevaf8=;
+        b=DHE8XnDjND8KS4OTuUb9UHE0e+xw6KFYiMWw8/FWHHQtLox1oyy+anJIpJqdU77I87
+         Vr9tle7v6h3f28YKdqJy81Of3imA6tXSgOI6wnLvqNv2josjYoCWDkoHYXGJLhF0P0Yw
+         656RKN6HgJsPgs07DJXvig8muWPF7ogL12GxAqpjodS5JArdHzKaYwWI/VoAIVJyQO1V
+         GfIZmwo9xgvPLibe7IKVfpY4BUQFFw3OCpXbDmU5Kt1AluWiTJn0F8Hqky96l09hxVPu
+         jzFsc8M7jA7U4lscVZbQurYdaEAyYoBE8zDR85BcufksBlAlAbBrvKZDtj+43abLkUB7
+         NuDQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1752157467; x=1752762267;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=wt1d/n1Mnc6hy4dPD+7HTTdcZSeYol8pERm3W4kOX58=;
-        b=hpr/CqNZj5sYuiXy/TClj2RmcUpcnqRoB0YoQsJuj6qY6ZNC1JsSR8pQAMVhEsPnlZ
-         gF1WU0z1lGREZCVe+xCM8zX/7nb00nxfjV24NxF/Zq+99CCG6ugEyAw9ai1+5pQF3jgn
-         DFbzkTsXCwYbmGrp3EocZz557lg+/IYBGwPksAFgeF/yN6LxXgLw2CkCn0Labtw10a2+
-         /oUfZxYXd21FONNU+mrgtBLjuBi66e2seozzRjrFXQzzYJLOZ5gA2TxN2YkDbRNk9U0j
-         HEFFagyF1GUW8VdySA66imjxZs2AEId3n20eo5suqjnz+2LrRVB92lgDlh1keb/Zn/IP
-         hHKg==
-X-Gm-Message-State: AOJu0YxW8wg6yHLkzxlKkIiVLNlNBahXce/Qnw8MXDbHebCIJuSWXPjb
-	ST1OJ0aDw9jiHyl5ED6nfC/Jw0twecREHgwTIUckVR3lakUjWGbfW3nU2vG+Y4I8pN9BLNs6qC6
-	7ucc=
-X-Gm-Gg: ASbGncs+eclxhL+oD4G2HMPpNrTMuAb+pUp2lD1ZD1bPNE8mnVBNtT+VkTI97+lN6hP
-	7MOQrzaFC4HAt/CYeAYpaONGs8yf+fd0hTN/bNTwkhy8MuxTU6u+OAhCOs8anlpn4nAyeMIObZF
-	pvsUnljskkXLAK2/LKXKod0Emv3U503zLtMp8JSnuwgJkzvE1U4NB6xGEPzsjGbKIrqWSsc1VpJ
-	SHZu7I4MMF/fESSm2BvILbDHAXVxO1ySgUWgAhFlBcqTcZZ+Bt+utZdnzRONrXxcVb9iwSb16fL
-	bg4Swbre0vPWGTg0ueVLUAqhud+7SB4KuGG5qSWJOUNb77t7NpxS4G+vEVOZ4jRdBXwX4gTJkFL
-	+og9D1EG+4FseZLQzIxxlW1tQl6ZyPf5OD13o1+JaLfwC5dk=
-X-Google-Smtp-Source: AGHT+IF9x2GGB4zqyotYS+tWUQwaZdw5mUwm9cl10kxU0ckcxxj0XjkuYKtuwNl6ir4p0ocaOsUZGw==
-X-Received: by 2002:a5d:5d87:0:b0:3a5:2182:bd11 with SMTP id ffacd0b85a97d-3b5e44ea087mr5959471f8f.20.1752157467382;
-        Thu, 10 Jul 2025 07:24:27 -0700 (PDT)
-Message-ID: <94bdf8e4-188b-4d04-a52c-0f598d311d46@suse.com>
-Date: Thu, 10 Jul 2025 16:24:20 +0200
+        d=1e100.net; s=20230601; t=1752159683; x=1752764483;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=TIhcj0rlClGxh1VH2IMUEUmhfZyi84IamDyVInevaf8=;
+        b=mbYdj4JXE4JKRqzK8EuYcYXBbtFzvH3rUFB+dzvhcC6tT3bG3OITHaWpbBfU0LYsCr
+         mYLHChRIaDL9TPK5u2ozJqjyxEhc8dNTMYtdncdyHVK+lZrjPEFLqbPu/5AdAaF27JAd
+         /x5YVM1PrC3cbuTNGpVAm+dl0ZklpfFsqWkKI506uUsIVW+7uYAiAZ4748zGP5HrrsWY
+         VfiwHI5PrhPh+LRkjQ/sxLcvxmYX5mqETn4qElRLpUf2wGobo4N+hzq+4zJO1zfkwInv
+         FsDOXnFuPHtU/Mq680lkYLsT6SmoWZdMs5/sq1beuvPhP2zDFNn41yS5PHbPmN2ElVvw
+         A/Cg==
+X-Gm-Message-State: AOJu0YxhJSi47eXuMTieIINfQE/wSTd/OYCZ+N0ZNdaTxqenb20xu5vE
+	5IeUMlsriNTVbGDykn6IXreHvzHIl59wYfLqrX6qW9SDE9QWiyaupHgMKszmiwnawg==
+X-Gm-Gg: ASbGncvsoAQf8XIODvNBN3y8fm4mgGBqw/3Xy73xZglB/SneY3ephLaRDGdiNEN8dzG
+	RYDyBH8Ynm7WskvaIdtcZzszv8LikprwsBmNELIsRZ6TVpHkqHNSbRMkIbWTlaiEIEQXTHDjBBs
+	PVHbdNjS7+9M6JO9aFoehdJUz1XfFNXgExqdOPIkX9r2csAMGqFxkLzyF6URu0F8FwGgnp/xa3W
+	S4ykc1WEIS3L/UrGhEkKQYf7FNFiU1+yJKHEdjVkntfgvvA67uQr3oc/qrCaWjcilqtHuoQ2jCT
+	zXHKTK1vO1IYyEYjoQBzWElK5Nzp06uFJlNSqKOzJHXS7MiIbY0haWQcpbE1o8O7boRm6YFt5jr
+	cqSV3zBL41xDsUrhHKEaeU41QqmzRjIF30xZzS70z/1w9ECTrNPEjwB9ixg==
+X-Google-Smtp-Source: AGHT+IF8DshaUl63jGrpPJCG1BOwJ2GVu8miKAnstVCgdZOoZnewmeY6iRFlD+r4NpJjftJ4epeA5A==
+X-Received: by 2002:adf:b60f:0:b0:3a4:f379:65bc with SMTP id ffacd0b85a97d-3b5e86c2fcamr2136257f8f.40.1752159681016;
+        Thu, 10 Jul 2025 08:01:21 -0700 (PDT)
+Message-ID: <bb619712-a16e-4aef-ac28-9ccdc5673282@suse.com>
+Date: Thu, 10 Jul 2025 17:01:11 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: Re: [XEN PATCH v2] build: detect compiler change to rerun kconfig
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] x86emul: replace custom handling for SHLD/SHRD
+To: Anthony PERARD <anthony.perard@vates.tech>
+Cc: xen-devel@lists.xenproject.org, Andrew Cooper
+ <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
+References: <20230320152836.43205-1-anthony.perard@citrix.com>
+ <a07f94d8-85cd-a73f-704c-761a04ec3b3b@suse.com>
+Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -115,64 +120,38 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <a07f94d8-85cd-a73f-704c-761a04ec3b3b@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Use an existing macro instead of open-coding the operation and flags
-handling, just like we already do in x86_emul_rmw(). While possibly
-yielding slightly larger compiled code, it's easier to maintain this
-way.
+On 22.03.2023 15:13, Jan Beulich wrote:
+> On 20.03.2023 16:28, Anthony PERARD wrote:
+>> This simple comment allows to detect when $(CC) changes version.
+>> Kconfig will be rerun in this case. (Rerun is forced by
+>> include/config/auto.conf.cmd which detects changes of CC_VERSION_TEXT
+>> value).
+>>
+>> Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
+>> ---
+>>
+>> Technically, it was acked by Andrew:
+>>     https://lore.kernel.org/xen-devel/20200326135621.687685-1-anthony.perard@citrix.com/t/#ma1171775b9938bcdffc80b2fcb8d2a883cd3e32a
+> 
+> And technically - comment visible under the same link - this still
+> isn't what we would need to address one of the arguments around not
+> storing tool chain capabilities in .config: The version string may
+> not change, but an update may still have brought a new option the
+> compiler understands (or a downgrade may have taken away one). In
+> fact this change is working against the proposed direction of not
+> making .config contents dependent upon tool chain properties. But
+> of course that proposal wasn't adopted yet, so for the time being
+> this still looks to be an improvement.
 
-Note that the setting of dst.orig_val was already redundant with that
-done ahead of the main switch() (where DST_MEM is handled), the latest
-as of 4e59f578cb75 ("x86emul: simplify SHLD/SHRD handling").
+Coming back to this, seeing that there's unlikely to be any better
+approach any time soon, can we perhaps get this in then, ideally with
+$(LD) and the assembler backing the compiler (we don't use $(AS)
+anywhere, so we'd need to use e.g. "$$($(CC) -print-prog-name as)
+--version") also checked?
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
-
---- a/xen/arch/x86/x86_emulate/x86_emulate.c
-+++ b/xen/arch/x86/x86_emulate/x86_emulate.c
-@@ -5108,7 +5108,7 @@ x86_emulate(
-     case X86EMUL_OPC(0x0f, 0xa5): /* shld %%cl,r,r/m */
-     case X86EMUL_OPC(0x0f, 0xac): /* shrd imm8,r,r/m */
-     case X86EMUL_OPC(0x0f, 0xad): /* shrd %%cl,r,r/m */ {
--        uint8_t shift, width = dst.bytes << 3;
-+        uint8_t shift;
- 
-         generate_exception_if(lock_prefix, X86_EXC_UD);
- 
-@@ -5125,28 +5125,13 @@ x86_emulate(
-         {
-             ea.orig_val = shift;
-             state->rmw = b & 8 ? rmw_shrd : rmw_shld;
--            break;
-         }
--
--        if ( (shift &= width - 1) == 0 )
--            break;
--        dst.orig_val = dst.val;
--        dst.val = (b & 8) ?
--                  /* shrd */
--                  ((dst.orig_val >> shift) |
--                   truncate_word(src.val << (width - shift), dst.bytes)) :
--                  /* shld */
--                  (truncate_word(dst.orig_val << shift, dst.bytes) |
--                   (src.val >> (width - shift)));
--        _regs.eflags &= ~(X86_EFLAGS_OF | X86_EFLAGS_SF | X86_EFLAGS_ZF |
--                          X86_EFLAGS_PF | X86_EFLAGS_CF);
--        if ( (dst.orig_val >> ((b & 8) ? (shift - 1) : (width - shift))) & 1 )
--            _regs.eflags |= X86_EFLAGS_CF;
--        if ( ((dst.val ^ dst.orig_val) >> (width - 1)) & 1 )
--            _regs.eflags |= X86_EFLAGS_OF;
--        _regs.eflags |= ((dst.val >> (width - 1)) & 1) ? X86_EFLAGS_SF : 0;
--        _regs.eflags |= (dst.val == 0) ? X86_EFLAGS_ZF : 0;
--        _regs.eflags |= even_parity(dst.val) ? X86_EFLAGS_PF : 0;
-+        else if ( b & 8 )
-+            _emulate_2op_SrcV_nobyte("shrd", src.val, &dst.val, dst.bytes,
-+                                     _regs.eflags, "c" (shift));
-+        else
-+            _emulate_2op_SrcV_nobyte("shld", src.val, &dst.val, dst.bytes,
-+                                     _regs.eflags, "c" (shift));
-         break;
-     }
- 
+Jan
 
