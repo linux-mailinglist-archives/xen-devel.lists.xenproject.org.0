@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C9ACEAFFBF8
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Jul 2025 10:16:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1039191.1411130 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CCF89AFFC0F
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Jul 2025 10:21:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1039198.1411140 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uZmS0-0001hM-Dj; Thu, 10 Jul 2025 08:16:16 +0000
+	id 1uZmXG-0003Y5-0M; Thu, 10 Jul 2025 08:21:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1039191.1411130; Thu, 10 Jul 2025 08:16:16 +0000
+Received: by outflank-mailman (output) from mailman id 1039198.1411140; Thu, 10 Jul 2025 08:21:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uZmS0-0001fA-AY; Thu, 10 Jul 2025 08:16:16 +0000
-Received: by outflank-mailman (input) for mailman id 1039191;
- Thu, 10 Jul 2025 08:16:15 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uZmXF-0003VG-T8; Thu, 10 Jul 2025 08:21:41 +0000
+Received: by outflank-mailman (input) for mailman id 1039198;
+ Thu, 10 Jul 2025 08:21:40 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=V320=ZX=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uZmRz-0001f3-5Y
- for xen-devel@lists.xenproject.org; Thu, 10 Jul 2025 08:16:15 +0000
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [2a00:1450:4864:20::42b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2013c9a1-5d66-11f0-a317-13f23c93f187;
- Thu, 10 Jul 2025 10:16:05 +0200 (CEST)
-Received: by mail-wr1-x42b.google.com with SMTP id
- ffacd0b85a97d-3a6f2c6715fso725077f8f.1
- for <xen-devel@lists.xenproject.org>; Thu, 10 Jul 2025 01:16:05 -0700 (PDT)
+ id 1uZmXE-0003VA-CK
+ for xen-devel@lists.xenproject.org; Thu, 10 Jul 2025 08:21:40 +0000
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [2a00:1450:4864:20::42d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e67f8708-5d66-11f0-b894-0df219b8e170;
+ Thu, 10 Jul 2025 10:21:38 +0200 (CEST)
+Received: by mail-wr1-x42d.google.com with SMTP id
+ ffacd0b85a97d-3a6d77b43c9so681074f8f.3
+ for <xen-devel@lists.xenproject.org>; Thu, 10 Jul 2025 01:21:38 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-31c3e957e02sm1545527a91.1.2025.07.10.01.15.58
+ d2e1a72fcca58-74eb9e06973sm1492521b3a.57.2025.07.10.01.21.34
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 10 Jul 2025 01:16:04 -0700 (PDT)
+ Thu, 10 Jul 2025 01:21:37 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2013c9a1-5d66-11f0-a317-13f23c93f187
+X-Inumbo-ID: e67f8708-5d66-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1752135365; x=1752740165; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1752135698; x=1752740498; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=NuICPZ4Xx62HNptlSkOZs8SPzISpyt3Gxf3PlS+cG9Q=;
-        b=aYSBfrkVGzvqXVoPa32CLQxfT/cK1qS/sdoeSWI/FMl7mAiAlpD4yqYNmEwC1ajX7D
-         48d09Dvne4tS+idWA3PiKkic3b44Hw/IjGJkZQUtmIBKQA38wv5Kh2Tl6XXb7xUFygoY
-         99flHDdKGRaRpvFbFniBHn5ejRPCazE+FKGMbClBvg85SL0N9DkKcjZEEuXokyBMvcGN
-         eLGYJDSv0S27OAMzTdNj6hw1FBPSYXZLW/LuEDYZoOtyTajtrQDk/MaAmGVMcVVQxPng
-         6FMD9KCzd0K7D7Ik14IweV2pTS+VB4n3dZDuTTSrtX55tlBOCrilCt09LOe8wPeZIigJ
-         mUMg==
+        bh=EkhhOvpqKV4CI7r/e3pAmglrTGUR1ToRLd5WYwpL0RY=;
+        b=J/guMe0ApNMwzZAW8q6qnLfHvOR1SuE5UDmLU9A6Eoy9ottBqns2mpBfStT3ZSw/cZ
+         h5x2ytuTYAN+q9aEOFOJyDtOtZ80fHbKqHpaY8qko9tfgk7oRBsbebYuJy9oITjHh13n
+         nqZ/FLqs79myuTo3so+GpCfftX7DKovPWxta+Msru1rc9oHwuG4eLqm/6v6kk+YnbKoV
+         kagDmBGkDhqjWQ3obkLXnzfj1VRdwWI84XkGqAhkMhssBA2KfK56JKVN0wl5vPk8C1mg
+         SxzWy+2OkrDIMsopxjb1ViDmxRIF+iqFOUeiE/FCCRekvk+868SvPtXQXM+iDcHEaeW3
+         6e3Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1752135365; x=1752740165;
+        d=1e100.net; s=20230601; t=1752135698; x=1752740498;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=NuICPZ4Xx62HNptlSkOZs8SPzISpyt3Gxf3PlS+cG9Q=;
-        b=usSLYdNOtM1/AUR/VBLhQgHbS7xaWK9vrXUWvUet6oZo8FH8zW4VOy1kEyuWbpanKC
-         Mjm6lJKTbVB5SsHBjmfpK7WN05MaHVvhFzeWPeSaJDk/Dsuu7iOivCu/iETXHFzd9ObV
-         PonVUCEFunxJq8zOnGmuq+AXVQxQKe4GhPaJvqXdmW9BjeD5NqfnyvtQZtHbTEBIzF0T
-         QCAysGCulSRdS7ZV/6Srb+cPHdbE94RptG3rqgef2LBGY7qRmFfSY9mysIA2blRm6523
-         mLR9uK81dssvryX+L7H8u8Ivd5qelxOtHqKkUTRhzjXvs8iLR8bAaKswZRdnbsRBXzeq
-         PCjw==
-X-Forwarded-Encrypted: i=1; AJvYcCWheIYj8dMPr3YgJX484G72KWElc/WMXt78/eDM4OnYf/W1NCHFoCuXOzmcI1aEsmIZPpDxp/khp1k=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzxPt06z9vK3TqxI1Hls8OsrAiuBJUOrM5jerVtlhvV3zTlCSjj
-	RR9iGgl3RVKITsr7BnGfCkZkiMFtfjZAm3gn8yVGoEg9N1A7yzWPTyrftzQPc6yYAA==
-X-Gm-Gg: ASbGncuSYDCSaSl79IwNICNBeK54Aa6N7Z2m6LzFuT0HKtK7Qu9IsbEwAr6g7kka2sh
-	EQplSCJQhTqDoswKxDTS/vFNDYou4k5TGxd9MEaKVs/BNh0Dvhk+BXBAR5ogH0d5ZRtB7xXZaqe
-	B4naf1Hm3ElcdyI/8rNGCvrDTpXoR5fr5jgM1CMA3UX2c9B93cxjKN4AWsicSWcnZb4pPT7eAb4
-	HBn3RBVvsBfxrleXOWTffCnH7VaYrT+y1Mce0hTmgOQXCU8wHDfgR3ofqCGt17AUPzEpXNWduWj
-	D4whorQQFngiJ7G1t17b4bo2QMmnipW8tosKYHK6wrIzb5ZDkl7fXMO214MHM6BXDWmiisGq+aE
-	hPqDGPG3Mb+UtxPEBiLlWEpLpnZoaCAPujHyXmdj1qF3ZmOk=
-X-Google-Smtp-Source: AGHT+IEVm3u02QSkYOK0hLTKNwd2yX22K6qaU5fCucakFBD+o55zqwpjwX+1bmzR9DbBek+0DDqOoA==
-X-Received: by 2002:a05:6000:21c7:b0:3a6:ec1d:1cba with SMTP id ffacd0b85a97d-3b5e867d7a9mr1049955f8f.20.1752135365123;
-        Thu, 10 Jul 2025 01:16:05 -0700 (PDT)
-Message-ID: <ca73a0b6-e484-48be-8ddb-4f53c18c99a0@suse.com>
-Date: Thu, 10 Jul 2025 10:15:54 +0200
+        bh=EkhhOvpqKV4CI7r/e3pAmglrTGUR1ToRLd5WYwpL0RY=;
+        b=ss1c9KiK8C0ORgFD0eiO6izJUDL1CzHRY4Jgb644AHOwVYZxrXunYLsRCeK3db60Fz
+         68Kk6rlTbMOttSeCwNS2UjlZSt1MbUl6sM3OIby0vhQigIoLHi3pQ+ZirK7/WwlV623P
+         VIJUIpNfoFbyjwZ2Vj3UhzEG7S99B4qCIxfinA7Xp6/6kW4XajtEAwFjFHJEZbpZExtt
+         +KYomosrKvWv2RwIXYyj5QXWXB1tCJ/aTZPsSu2Obw4eGuYHq8fgnZwWKML1VgWk7Htr
+         6BRybLoTwCyd2jjkgYBoG+o1AaHgem1Ze2KStsokabgN70rkw4XiXXmU3y9iNUHdoICn
+         IuHw==
+X-Forwarded-Encrypted: i=1; AJvYcCXsdZJlOqMXA0Xa6bPNdZ57ZRJXfFO9+GyE3cgrERZZrHmgsiS3o/YUWZ5PuUvU0P4pDabmqh6R9qU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyfnbseLOBYDXHmoOnfQBLhWSzQ2zcO3GDP3Rvi0k4fhYRFBlln
+	jIGzli6h2MFCI0BOayTVJbsKx7eW1GQLHQBFzM+Wze83bQ/lQwcjSU3yeOAJHENpQK40jScX5yi
+	bmfc=
+X-Gm-Gg: ASbGnct7kZszl3Y53RXSg5IvDLowQ/MB7OsqfCspAl9w5gxMcFmH6fH3FEvMTUOLoGe
+	43qtC+awFTdfi9QL+xsqtFBMFdInSCl3QELfSXhR9lh4EMJNAAZMdoEVtcJoZpVxBZgfBLPHpb0
+	PHWxcgAKLFBQ1be0b63kL42Jz+iwoCHhmsO2VmrmgaVxDiqz7H2mB5KfL1nSMORl3H0NI3hvCx8
+	oygXUfYf24ZQtUjnJ1ot+lP00Jem4ROBsO8+QTWL+8EqIUPKrN0RLrYgCGdyhF3zqrjK1EgX8nA
+	3fxLimaw6yyKINNd8VU9dP1G+7STqwQOQzIWXrkPgvQqVdXxEgdDT415DXRUAsk/H6d7tBy3E1Z
+	61iteM6KuYWHZ6U/5gUlIWeBNonjDdfQYofTlk3ymmIYwqgw=
+X-Google-Smtp-Source: AGHT+IE13c5FxvTlclX0VtpMNE3mPbxyUZl3ZyvDZlnUYmfcFPWE0XGPCGVxpbsXeId3DBknCFOQAw==
+X-Received: by 2002:a05:6000:48:b0:3a0:b940:d479 with SMTP id ffacd0b85a97d-3b5e78fb067mr2874456f8f.53.1752135697868;
+        Thu, 10 Jul 2025 01:21:37 -0700 (PDT)
+Message-ID: <7fde4d6c-eadc-4c17-a88a-80714362bdca@suse.com>
+Date: Thu, 10 Jul 2025 10:21:30 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 13/16] drivers/vuart: move PL011 emulator code
-To: dmkhn@proton.me
-Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org,
- michal.orzel@amd.com, oleksii.kurochko@gmail.com, roger.pau@citrix.com,
- sstabellini@kernel.org, dmukhin@ford.com, xen-devel@lists.xenproject.org
-References: <20250624035443.344099-1-dmukhin@ford.com>
- <20250624035443.344099-14-dmukhin@ford.com>
- <6b2938a2-aa42-421f-b948-44e74f463b21@suse.com> <aFpUNB8BP6+COTRp@kraken>
- <3da8604c-797c-4ad2-b059-4bf9c5bfb86a@suse.com> <aG8eaUx0wW19xS6W@kraken>
+Subject: Re: [XEN PATCH v2 1/3] iommu: address violation of MISRA C Rule 5.5
+To: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <cover.1752096263.git.dmytro_prokopchuk1@epam.com>
+ <0a7a954cdf899845f51427fa6b44915f28b2cb90.1752096263.git.dmytro_prokopchuk1@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -121,51 +119,33 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aG8eaUx0wW19xS6W@kraken>
+In-Reply-To: <0a7a954cdf899845f51427fa6b44915f28b2cb90.1752096263.git.dmytro_prokopchuk1@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 10.07.2025 03:59, dmkhn@proton.me wrote:
-> On Tue, Jun 24, 2025 at 09:33:04AM +0200, Jan Beulich wrote:
->> On 24.06.2025 09:31, dmkhn@proton.me wrote:
->>> On Tue, Jun 24, 2025 at 07:50:33AM +0200, Jan Beulich wrote:
->>>> On 24.06.2025 05:56, dmkhn@proton.me wrote:
->>>>> From: Denis Mukhin <dmukhin@ford.com>
->>>>>
->>>>> Move PL011 emulator to the new location for UART emulators.
->>>>>
->>>>> No functional change intended.
->>>>>
->>>>> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
->>>>> ---
->>>>>  xen/arch/arm/Kconfig                               |  7 -------
->>>>>  xen/arch/arm/Makefile                              |  1 -
->>>>>  xen/drivers/Kconfig                                |  2 ++
->>>>>  xen/drivers/Makefile                               |  1 +
->>>>>  xen/drivers/vuart/Kconfig                          | 14 ++++++++++++++
->>>>>  xen/drivers/vuart/Makefile                         |  1 +
->>>>>  .../arm/vpl011.c => drivers/vuart/vuart-pl011.c}   |  0
->>>>>  7 files changed, 18 insertions(+), 8 deletions(-)
->>>>>  create mode 100644 xen/drivers/vuart/Kconfig
->>>>>  create mode 100644 xen/drivers/vuart/Makefile
->>>>>  rename xen/{arch/arm/vpl011.c => drivers/vuart/vuart-pl011.c} (100%)
->>>>
->>>> I question the placement under drivers/. To me, driver != emulator. I
->>>> wonder what others think. But yes, we already have drivers/vpci/. That
->>>> may want moving then ...
->>>
->>> re: driver != emulator: I agree; but I followed drivers/vpci.
->>>
->>> Do you think common/vuart would be a better location?
->>
->> Or maybe common/emul/... This wants discussing, I think.
+On 09.07.2025 23:38, Dmytro Prokopchuk1 wrote:
+> Address a violation of MISRA C:2012 Rule 5.5:
+> "Identifiers shall be distinct from macro names".
 > 
-> Will something like the following work
->   common/hvm/vuart
-> ?
+> Reports for service MC3A2.R5.5:
+> xen/drivers/passthrough/iommu.c: non-compliant macro 'iommu_quarantine'
+> xen/include/xen/iommu.h: non-compliant variable 'iommu_quarantine'
+> 
+> There is a clash between function name and macro.
+> Add an 'extern' declaration for 'iommu_quarantine'
+> under the same preprocessor condition (#ifdef CONFIG_HAS_PCI).
 
-Not really, emulators may not be limited to HVM. But iirc common/emul/ is
-what we settled on anyway at the last Community Call?
+Perhaps s/Add an/Put the/ or some such? You don't add any declaration,
+after all.
+
+> This ensures that the declaration is consistent
+> and only exposed when CONFIG_HAS_PCI is defined.
+> 
+> Signed-off-by: Dmytro Prokopchuk <dmytro_prokopchuk1@epam.com>
+
+With some suitable adjustment (happy to make while committing as long as
+you agree):
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
 Jan
 
