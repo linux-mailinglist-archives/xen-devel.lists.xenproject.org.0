@@ -2,45 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B19CB003BD
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Jul 2025 15:38:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1039531.1411372 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 28926B004F2
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Jul 2025 16:19:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1039602.1411381 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uZrTR-0003sW-Ud; Thu, 10 Jul 2025 13:38:05 +0000
+	id 1uZs6c-0001Hi-SM; Thu, 10 Jul 2025 14:18:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1039531.1411372; Thu, 10 Jul 2025 13:38:05 +0000
+Received: by outflank-mailman (output) from mailman id 1039602.1411381; Thu, 10 Jul 2025 14:18:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uZrTR-0003pd-RX; Thu, 10 Jul 2025 13:38:05 +0000
-Received: by outflank-mailman (input) for mailman id 1039531;
- Thu, 10 Jul 2025 13:38:04 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uZs6c-0001Eb-PS; Thu, 10 Jul 2025 14:18:34 +0000
+Received: by outflank-mailman (input) for mailman id 1039602;
+ Thu, 10 Jul 2025 14:18:33 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=OMl1=ZX=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1uZrTQ-0003pW-D9
- for xen-devel@lists.xenproject.org; Thu, 10 Jul 2025 13:38:04 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 132e9cdb-5d93-11f0-a317-13f23c93f187;
- Thu, 10 Jul 2025 15:37:51 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id A85C521250;
- Thu, 10 Jul 2025 13:37:49 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 58372136CB;
- Thu, 10 Jul 2025 13:37:49 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id Hx6hEy3Cb2iJIwAAD6G6ig
- (envelope-from <jgross@suse.com>); Thu, 10 Jul 2025 13:37:49 +0000
+ (envelope-from <cody.zuschlag@xenproject.org>) id 1uZs6b-0001EV-CA
+ for xen-devel@lists.xenproject.org; Thu, 10 Jul 2025 14:18:33 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.96)
+ (envelope-from <cody.zuschlag@xenproject.org>) id 1uZs6b-00AWXf-0Z
+ for xen-devel@lists.xenproject.org; Thu, 10 Jul 2025 14:18:33 +0000
+Received: from mail-qk1-f175.google.com ([209.85.222.175])
+ by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
+ (envelope-from <cody.zuschlag@xenproject.org>) id 1uZs6b-00DIJT-0N
+ for xen-devel@lists.xenproject.org; Thu, 10 Jul 2025 14:18:33 +0000
+Received: by mail-qk1-f175.google.com with SMTP id
+ af79cd13be357-7d3f1bd7121so103521485a.3
+ for <xen-devel@lists.xenproject.org>; Thu, 10 Jul 2025 07:18:33 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,254 +42,156 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 132e9cdb-5d93-11f0-a317-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1752154669; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=2+YNg9iaMItBx5P4fIUJBI+MFsA827mVO3gSDFzrqoA=;
-	b=eBCdZc2jNXH3728vHvKu37pgXUOuIRoDK1/bwXveccVXRz5kCbm0o9JOtfYgtpRCEQDwLD
-	TEtEcHkmL/7VZGB/HklRPhkeCAz+QAIqb7xh7xdhwKqlDaYkeIpDTkL1J73CDcZln7En6s
-	q2eKByoFGvYK83Kuo5ws0cSCzQu5bF4=
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.com header.s=susede1 header.b=eBCdZc2j
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1752154669; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=2+YNg9iaMItBx5P4fIUJBI+MFsA827mVO3gSDFzrqoA=;
-	b=eBCdZc2jNXH3728vHvKu37pgXUOuIRoDK1/bwXveccVXRz5kCbm0o9JOtfYgtpRCEQDwLD
-	TEtEcHkmL/7VZGB/HklRPhkeCAz+QAIqb7xh7xdhwKqlDaYkeIpDTkL1J73CDcZln7En6s
-	q2eKByoFGvYK83Kuo5ws0cSCzQu5bF4=
-Message-ID: <dae60c59-7d7d-40a9-97f7-1cec095771d1@suse.com>
-Date: Thu, 10 Jul 2025 15:37:48 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Content-Type:To:Subject:Message-ID:Date:
+	From:In-Reply-To:References:MIME-Version;
+	bh=U84ec7bPZEnz74PGP2NgETP6gk+j4I7KvBCnicr/dis=; b=SCEpvIOY89CWR5aV01qBTrMTqM
+	RoZlvR7FK4zmGF78zZcH3qqlKUeMZfCIfziRXctmJghUWxehz2ecB1It/UvXLqzBMiMixlqrHVh5K
+	JTa84nhs2hfiGuPxE7NqHjBqG9fl9vXiwIWNxz3DADHIc5rj31rlJDs1BNzxiFFqcAj0=;
+X-Gm-Message-State: AOJu0Yy06+78Y/hjNmTwZDiw3NZH+g/f6Adus/6EqUpj8uxty4d0NDGW
+	AUaDD/QHmOkkiRrZbREUmMWvVrXvHlW+h+oC2DNp+JYzsCKfjBvmJzT+AmV1uFz25QSsKQ4gVxK
+	wo6fYzr9ppXFTIcbPOt8fGGlP5Q4C9v0=
+X-Google-Smtp-Source: AGHT+IHrIzXJak4rTsFQ8WvISNpGKGvJRJQ8DocehBxJzt2RWyk5G5m6Rdig6B4qb7A+zQTJJgCfWlpt0Awl28VcNuw=
+X-Received: by 2002:a05:620a:a207:b0:7dd:b677:37c2 with SMTP id
+ af79cd13be357-7ddb6773fdamr71099985a.6.1752157112562; Thu, 10 Jul 2025
+ 07:18:32 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/3] stubdom/grub: avoid relying on start_info
- definition
+References: <CAJbE=KwUwKZ8VEGm-q=qa35mtmE6Givm78xBKCZ5YmBjwc51QA@mail.gmail.com>
+In-Reply-To: <CAJbE=KwUwKZ8VEGm-q=qa35mtmE6Givm78xBKCZ5YmBjwc51QA@mail.gmail.com>
+From: Cody Zuschlag <cody.zuschlag@xenproject.org>
+Date: Thu, 10 Jul 2025 16:18:20 +0200
+X-Gmail-Original-Message-ID: <CAJbE=Ky_zL5YwFc1CHs=Od3u-X8Bq7H6LQMEw8M8GB-Z_-Hmrg@mail.gmail.com>
+X-Gm-Features: Ac12FXxaVgosjMKqSNqOBBMPB3uEczKQiiPKuy2Tu9bJSQrbD8Dw_8Pf7qmtBUQ
+Message-ID: <CAJbE=Ky_zL5YwFc1CHs=Od3u-X8Bq7H6LQMEw8M8GB-Z_-Hmrg@mail.gmail.com>
+Subject: Re: [ANNOUNCE] [NEW TIME] Call for agenda items for July 10, 2025
+ Community Call @ 15:00 UTC
 To: xen-devel@lists.xenproject.org
-Cc: Samuel Thibault <samuel.thibault@ens-lyon.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
- Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>
-References: <20250626151344.6971-1-jgross@suse.com>
-Content-Language: en-US
-From: Juergen Gross <jgross@suse.com>
-Autocrypt: addr=jgross@suse.com; keydata=
- xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
- ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
- dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
- NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
- XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
- AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
- CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
- mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
- G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
- kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
- Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
- RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
- vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
- sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
- aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
- w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
- auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
- 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
- fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
- HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
- QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
- ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <20250626151344.6971-1-jgross@suse.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------BVQ01G8nUtpqE3201F4pNRaQ"
-X-Spamd-Result: default: False [-5.41 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	SIGNED_PGP(-2.00)[];
-	MIME_BASE64_TEXT_BOGUS(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
-	MIME_GOOD(-0.20)[multipart/signed,multipart/mixed,text/plain];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_BASE64_TEXT(0.10)[];
-	MIME_UNKNOWN(0.10)[application/pgp-keys];
-	MX_GOOD(-0.01)[];
-	URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.com:mid,suse.com:dkim];
-	FUZZY_RATELIMITED(0.00)[rspamd.com];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	MIME_TRACE(0.00)[0:+,1:+,2:+,3:+,4:~,5:~];
-	ARC_NA(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	TO_DN_SOME(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	DKIM_TRACE(0.00)[suse.com:+];
-	HAS_ATTACHMENT(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.com:mid,suse.com:dkim]
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Rspamd-Queue-Id: A85C521250
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Score: -5.41
+Content-Type: multipart/alternative; boundary="00000000000048fb48063993decb"
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------BVQ01G8nUtpqE3201F4pNRaQ
-Content-Type: multipart/mixed; boundary="------------eAzmCZlnVuGxVhjvkrZdqvPz";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: xen-devel@lists.xenproject.org
-Cc: Samuel Thibault <samuel.thibault@ens-lyon.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
- Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>
-Message-ID: <dae60c59-7d7d-40a9-97f7-1cec095771d1@suse.com>
-Subject: Re: [PATCH v2 0/3] stubdom/grub: avoid relying on start_info
- definition
-References: <20250626151344.6971-1-jgross@suse.com>
-In-Reply-To: <20250626151344.6971-1-jgross@suse.com>
-Autocrypt-Gossip: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJ3BBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AAIQkQoDSui/t3IH4WIQQ+pJkfkcoLMCa4X6CgNK6L+3cgfgn7AJ9DmMd0SMJE
- ePbc7/m22D2v04iu7ACffXTdZQhNl557tJuDXZSBxDmW/tLOwU0EWTecRBAIAIK5OMKMU5R2
- Lk2bbjgX7vyQuCFFyKf9rC/4itNwhYWFSlKzVj3WJBDsoi2KvPm7AI+XB6NIkNAkshL5C0kd
- pcNd5Xo0jRR5/WE/bT7LyrJ0OJWS/qUit5eNNvsO+SxGAk28KRa1ieVLeZi9D03NL0+HIAtZ
- tecfqwgl3Y72UpLUyt+r7LQhcI/XR5IUUaD4C/chB4Vq2QkDKO7Q8+2HJOrFIjiVli4lU+Sf
- OBp64m//Y1xys++Z4ODoKh7tkh5DxiO3QBHG7bHK0CSQsJ6XUvPVYubAuy1XfSDzSeSBl//C
- v78Fclb+gi9GWidSTG/4hsEzd1fY5XwCZG/XJJY9M/sAAwUH/09Ar9W2U1Qm+DwZeP2ii3Ou
- 14Z9VlVVPhcEmR/AFykL9dw/OV2O/7cdi52+l00reUu6Nd4Dl8s4f5n8b1YFzmkVVIyhwjvU
- jxtPyUgDOt6DRa+RaDlXZZmxQyWcMv2anAgYWGVszeB8Myzsw8y7xhBEVV1S+1KloCzw4V8Z
- DSJrcsZlyMDoiTb7FyqxwQnM0f6qHxWbmOOnbzJmBqpNpFuDcz/4xNsymJylm6oXiucHQBAP
- Xb/cE1YNHpuaH4SRhIxwQilCYEznWowQphNAbJtEKOmcocY7EbSt8VjXTzmYENkIfkrHRyXQ
- dUm5AoL51XZljkCqNwrADGkTvkwsWSvCSQQYEQIACQUCWTecRAIbDAAKCRCgNK6L+3cgfuef
- AJ9wlZQNQUp0KwEf8Tl37RmcxCL4bQCcC5alCSMzUBJ5DBIcR4BY+CyQFAs=
-
---------------eAzmCZlnVuGxVhjvkrZdqvPz
-Content-Type: multipart/mixed; boundary="------------RWRd0ydfQ5tL2kgWMqktpjKz"
-
---------------RWRd0ydfQ5tL2kgWMqktpjKz
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
-
-T24gMjYuMDYuMjUgMTc6MTMsIEp1ZXJnZW4gR3Jvc3Mgd3JvdGU6DQo+IFdpdGggdGhlIHJl
-bGF0ZWQgY2hhbmdlIGhhdmluZyBiZWVuIGFkZGVkIHRvIE1pbmktT1MsIHRoZSBzaW5nbGUg
-VjENCj4gcGF0Y2ggY2FuIG5vdyBiZSBleHBhbmRlZCB0byBhIDMgcGF0Y2ggc2VyaWVzLCBl
-c3BlY2lhbGx5IG1lYW50IHRvDQo+IHVudGFuZ2xlIHRoZSBjbG9zZSBkZXBlbmRlbmNpZXMg
-YmV0d2VlbiBncnViLXB2IGFuZCBNaW5pLU9TIGludGVybmFscy4NCj4gDQo+IENoYW5nZXMg
-aW4gVjI6DQo+IC0gYWRkIGNvbW1lbnQgdG8gcGF0Y2ggMQ0KPiAtIGFkZGVkIHBhdGNoZXMg
-MiszDQo+IA0KPiBKdWVyZ2VuIEdyb3NzICgzKToNCj4gICAgc3R1YmRvbS9ncnViOiBhdm9p
-ZCByZWx5aW5nIG9uIHN0YXJ0X2luZm8gZGVmaW5pdGlvbg0KPiAgICBDb25maWc6IHVwZGF0
-ZSBNaW5pLU9TIGNvbW1pdCBpZA0KPiAgICBzdHViZG9tL2dydWI6IHN3YXAgc3RhcnRfaW5m
-byB1c2FnZSB3aXRoIHN0YXJ0X2luZm9fcHRyDQo+IA0KPiAgIENvbmZpZy5tayAgICAgICAg
-ICAgIHwgIDIgKy0NCj4gICBzdHViZG9tL2dydWIva2V4ZWMuYyB8IDI2ICsrKysrKysrKysr
-KystLS0tLS0tLS0tLS0tDQo+ICAgMiBmaWxlcyBjaGFuZ2VkLCAxNCBpbnNlcnRpb25zKCsp
-LCAxNCBkZWxldGlvbnMoLSkNCj4gDQoNCkFueSBjaGFuY2UgdG8gZ2V0IHRoaXMgc2VyaWVz
-IGluPw0KDQpTYW11ZWwgZG9lc24ndCBzZWVtIHRvIHJlc3BvbmQgc2luY2Ugc2V2ZXJhbCBt
-b250aHMgbm93Lg0KDQoNCkp1ZXJnZW4NCg==
---------------RWRd0ydfQ5tL2kgWMqktpjKz
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
+--00000000000048fb48063993decb
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+Hi everyone. Just a friendly reminder that the July Xen Project Community
+Call is happening in 45 minutes. Everyone is welcome!
 
-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
-kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
-=3DeeAB
------END PGP PUBLIC KEY BLOCK-----
+Agenda: https://cryptpad.fr/pad/#/2/pad/edit/0f4wUR0R9bQp-kOVpzVp2rJl/
 
---------------RWRd0ydfQ5tL2kgWMqktpjKz--
+Meeting link: https://meet.jit.si/XenProjectCommunityCall
 
---------------eAzmCZlnVuGxVhjvkrZdqvPz--
+Hope to see you there!
 
---------------BVQ01G8nUtpqE3201F4pNRaQ
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+Cody Zuschlag
+Xen Project - Community Manager
 
------BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmhvwiwFAwAAAAAACgkQsN6d1ii/Ey9U
-oAf+NaovkA4rJIWI8VgfIxHGe6IuTOL1HL2sFhjG86+LnJ7mBv5RVDJjIZ49BqzIcBluNQoKjLpn
-nuUZZJAzEfRrXKtQlGwivt8DhDLReVgaZkZ99Yb8Jv5Yn141YeRBYKaBFI8heIdUUsTVX+xTWAaj
-PTWmY/Jwfc/J/hRj0Xcd4qDmXawNP+9CZuh1sBUkKDJyoAYjiPLxDSTxg4D5Z2QPYLdDKMazVTKX
-3Pd7yhRUJqhm2yPRkTx+yTLWBhui3zX47vQu7ZjvRf9QPzna8dv4ODaCsiCAmu2EVNQpsUrzwXmy
-ILcV+KX1cq7TNyzuXv1F1Z6aHqzQVgfM+LrwbCV1Tg==
-=iYAY
------END PGP SIGNATURE-----
+On Wed, Jul 2, 2025 at 2:44=E2=80=AFPM Cody Zuschlag <cody.zuschlag@xenproj=
+ect.org>
+wrote:
 
---------------BVQ01G8nUtpqE3201F4pNRaQ--
+> Hi everyone,
+>
+>
+> *IMPORTANT: Due to public holidays in several countries, July's community
+> call has been moved to Thursday, 10 July 2025.*
+> We=E2=80=99re getting ready for June's Xen Project Community Call on *Thu=
+rsday,
+> 10 July 2025* at *15:00 UTC* (4 pm UK time). We=E2=80=99d love for you to=
+ join.
+> Feel free to just observe or jump in! This call is a great opportunity to
+> see what the community is working on, align our various efforts, and shar=
+e
+> updates. Everyone is welcome!
+>
+> *Preparation:*
+>
+>    - Add any proposed agenda items or missing action items:
+>    https://cryptpad.fr/pad/#/2/pad/edit/0f4wUR0R9bQp-kOVpzVp2rJl/
+>    - If any action items have been resolved or are no longer relevant,
+>    feel free to remove them from the doc.
+>
+> *Call Details:*
+>
+>    - *Date:* Thursday, 10 July 2025
+>    - *Time:* 15:00 UTC (agenda begins at 15:05 UTC)
+>       - Find your local timezone here
+>       <https://www.worldtimebuddy.com/?qm=3D1&lid=3D100,2653941,2988507,5=
+368361,5128581,1850147,123,1850147&h=3D2988507&date=3D2025-7-10&sln=3D17-18=
+&hf=3Dundefined&c=3D1582>
+>    - *Link to Join the Call:* https://meet.jit.si/XenProjectCommunityCall
+>
+> We plan to open the meeting room at 15:00 UTC, but to allow time for
+> switching between meetings and handling any technical issues, we=E2=80=99=
+ll
+> officially start discussing the agenda at 15:05 UTC.
+>
+> *Want to be CC=E2=80=99d on future calls?*
+>
+> Add or remove yourself from our Sign-up Sheet
+> <https://cryptpad.fr/pad/#/2/pad/edit/D9vGzihPxxAOe6RFPz0sRCf+/>.
+>
+>
+> See you next week!
+>
+> Cody Zuschlag
+> Xen Project - Community Manager
+>
+
+--00000000000048fb48063993decb
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>Hi everyone. Just a friendly reminder that the July X=
+en Project Community Call is happening in 45 minutes. Everyone is welcome!<=
+br><br>Agenda: <a href=3D"https://cryptpad.fr/pad/#/2/pad/edit/0f4wUR0R9bQp=
+-kOVpzVp2rJl/">https://cryptpad.fr/pad/#/2/pad/edit/0f4wUR0R9bQp-kOVpzVp2rJ=
+l/</a><br><br>Meeting link: <a href=3D"https://meet.jit.si/XenProjectCommun=
+ityCall">https://meet.jit.si/XenProjectCommunityCall</a></div><div><br></di=
+v><div>Hope to see you there!</div><div><div dir=3D"ltr" class=3D"gmail_sig=
+nature" data-smartmail=3D"gmail_signature"><div dir=3D"ltr"><img src=3D"htt=
+ps://ci3.googleusercontent.com/mail-sig/AIorK4x5nkRDCOFJDJAv9aMXdZ0mghItsp3=
+D36JrwBCQtitBSW_0NeDS6mBmJ2F4vZVE2oBOqnY6IaJUrl12"><br><div>Cody Zuschlag</=
+div><div>Xen Project - Community Manager</div></div></div></div><br></div><=
+br><div class=3D"gmail_quote gmail_quote_container"><div dir=3D"ltr" class=
+=3D"gmail_attr">On Wed, Jul 2, 2025 at 2:44=E2=80=AFPM Cody Zuschlag &lt;<a=
+ href=3D"mailto:cody.zuschlag@xenproject.org">cody.zuschlag@xenproject.org<=
+/a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0=
+px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><=
+div dir=3D"ltr"><div><div>Hi everyone,</div><div><br></div><b>IMPORTANT: Du=
+e to public holidays in several countries, July&#39;s community call has be=
+en moved to Thursday, 10 July 2025.<br></b><br><div>We=E2=80=99re getting r=
+eady for June&#39;s Xen Project Community Call on=C2=A0<b>Thursday, 10 July=
+ 2025</b>=C2=A0at=C2=A0<b>15:00 UTC</b>=C2=A0(4 pm UK time). We=E2=80=99d l=
+ove for you to join. Feel free to just observe or jump in! This call is a g=
+reat opportunity to see what the community is working on, align our various=
+ efforts, and share updates. Everyone is welcome!</div><div><p><b>Preparati=
+on:</b></p></div><div><ul><li style=3D"margin-left:15px">Add any proposed a=
+genda items or missing action items:=C2=A0<a href=3D"https://cryptpad.fr/pa=
+d/#/2/pad/edit/0f4wUR0R9bQp-kOVpzVp2rJl/" target=3D"_blank">https://cryptpa=
+d.fr/pad/#/2/pad/edit/0f4wUR0R9bQp-kOVpzVp2rJl/</a></li><li style=3D"margin=
+-left:15px">If any action items have been resolved or are no longer relevan=
+t, feel free to remove them from the doc.=C2=A0</li></ul></div><div><b>Call=
+ Details:</b></div><div><ul><li style=3D"margin-left:15px"><b>Date:</b>=C2=
+=A0Thursday, 10 July 2025</li><li style=3D"margin-left:15px"><b>Time:</b>=
+=C2=A015:00 UTC (agenda begins at 15:05 UTC)</li><ul><li style=3D"margin-le=
+ft:15px"><a href=3D"https://www.worldtimebuddy.com/?qm=3D1&amp;lid=3D100,26=
+53941,2988507,5368361,5128581,1850147,123,1850147&amp;h=3D2988507&amp;date=
+=3D2025-7-10&amp;sln=3D17-18&amp;hf=3Dundefined&amp;c=3D1582" target=3D"_bl=
+ank">Find your local timezone here</a></li></ul><li style=3D"margin-left:15=
+px"><b>Link to Join the Call:</b>=C2=A0<a href=3D"https://meet.jit.si/XenPr=
+ojectCommunityCall" target=3D"_blank">https://meet.jit.si/XenProjectCommuni=
+tyCall</a></li></ul></div><div><p>We plan to open the meeting room at 15:00=
+ UTC, but to allow time for switching between meetings and handling any tec=
+hnical issues, we=E2=80=99ll officially start discussing the agenda at 15:0=
+5 UTC.</p><p><b>Want to be CC=E2=80=99d on future calls?</b><b></b></p><p>A=
+dd or remove yourself from our=C2=A0<a href=3D"https://cryptpad.fr/pad/#/2/=
+pad/edit/D9vGzihPxxAOe6RFPz0sRCf+/" target=3D"_blank">Sign-up Sheet</a>.</p=
+><ul></ul><div>See you next week!</div></div></div><div><div dir=3D"ltr" cl=
+ass=3D"gmail_signature"><div dir=3D"ltr"><img src=3D"https://ci3.googleuser=
+content.com/mail-sig/AIorK4x5nkRDCOFJDJAv9aMXdZ0mghItsp3D36JrwBCQtitBSW_0Ne=
+DS6mBmJ2F4vZVE2oBOqnY6IaJUrl12"><br><div>Cody Zuschlag</div><div>Xen Projec=
+t - Community Manager</div></div></div></div></div>
+</blockquote></div>
+
+--00000000000048fb48063993decb--
 
