@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C44C7B002C2
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Jul 2025 15:01:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1039516.1411351 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 65804B002CA
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Jul 2025 15:01:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1039525.1411362 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uZqsv-0006pY-UR; Thu, 10 Jul 2025 13:00:21 +0000
+	id 1uZqu9-0007XJ-Ak; Thu, 10 Jul 2025 13:01:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1039516.1411351; Thu, 10 Jul 2025 13:00:21 +0000
+Received: by outflank-mailman (output) from mailman id 1039525.1411362; Thu, 10 Jul 2025 13:01:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uZqsv-0006mk-RZ; Thu, 10 Jul 2025 13:00:21 +0000
-Received: by outflank-mailman (input) for mailman id 1039516;
- Thu, 10 Jul 2025 13:00:20 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uZqu9-0007VG-7j; Thu, 10 Jul 2025 13:01:37 +0000
+Received: by outflank-mailman (input) for mailman id 1039525;
+ Thu, 10 Jul 2025 13:01:36 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=V320=ZX=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uZqsu-0006me-8l
- for xen-devel@lists.xenproject.org; Thu, 10 Jul 2025 13:00:20 +0000
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [2a00:1450:4864:20::435])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d439c656-5d8d-11f0-a317-13f23c93f187;
- Thu, 10 Jul 2025 15:00:18 +0200 (CEST)
-Received: by mail-wr1-x435.google.com with SMTP id
- ffacd0b85a97d-3a6d77b43c9so937791f8f.3
- for <xen-devel@lists.xenproject.org>; Thu, 10 Jul 2025 06:00:18 -0700 (PDT)
+ id 1uZqu8-0007MP-1I
+ for xen-devel@lists.xenproject.org; Thu, 10 Jul 2025 13:01:36 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 01154c6d-5d8e-11f0-b894-0df219b8e170;
+ Thu, 10 Jul 2025 15:01:33 +0200 (CEST)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-450cb2ddd46so5567605e9.2
+ for <xen-devel@lists.xenproject.org>; Thu, 10 Jul 2025 06:01:33 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-74eb9e064a9sm2130887b3a.47.2025.07.10.06.00.12
+ d9443c01a7336-23de4344a51sm21668105ad.191.2025.07.10.06.01.27
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 10 Jul 2025 06:00:16 -0700 (PDT)
+ Thu, 10 Jul 2025 06:01:32 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,46 +45,46 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d439c656-5d8d-11f0-a317-13f23c93f187
+X-Inumbo-ID: 01154c6d-5d8e-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1752152417; x=1752757217; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1752152493; x=1752757293; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=TniQF/tckN6qKfG6jaPOyEpEIgeLq931FdMK6Fl00Bg=;
-        b=XrMffwgKj/wLzdUnwBgwlow0A5gYnZ+ZRv/Ip9wE1fyOay5YdjeY2xQg6irgi67hRh
-         KC/5eJkz46th9tueHKk1IzI3jxKoQN89nTJR8aIELIymIz4SonbLtW/IbDJH7awUrpv7
-         V+h96AkPGtuK7O2zkqK+oI+i36qOxpX1icuBprtu8uLr0j4mmcgNN95WXiTspUbooZJM
-         7TgqVnigLO8NyvYu+KkoZyARfuFEMD0JSCtzRPLqq3I31ttqOb1+A71BdGKypbJDrtll
-         fyrvzRHbu8MRAPaz+TetUqgdU/GnKQPGGeqnKjqoawxzUS5ihFMFuqxQ4RfZMW2Zhq45
-         +/Ow==
+        bh=VHDfhyZQRqi+VH5cNET/LyUZ4ZowwJKX115rvTukrnk=;
+        b=EffiilnkGmuiiSAymb6STgKROYdsNZmIMfPh26jH7qGRoxEEbgHfi4RbDl/gUc5jJ4
+         YeEisTYNtYIQQLRLKHaptXOZMUPfnkB18NG860/R4uER6yfQYOwa/7GbHIZ8j6FrJIud
+         +c01bwfc6aRiW+Ms1uLy9zSTnlKbXd+y+XsWSKKsMCdcuJpvciIvu77b8yyNbOtpSmvX
+         2J/GZpt3OiyYCL8B/MXxxdulTN30EYhybP4VfCTk7iV0vkU8WiarvmGJbmb17OWRviEh
+         5uND2RkqoujLEoUIIhuSroUwvSSoNfsLc2Pb0awz49zTq/AtPDC6vx6WKX18LsWVYKGb
+         ddMA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1752152417; x=1752757217;
+        d=1e100.net; s=20230601; t=1752152493; x=1752757293;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=TniQF/tckN6qKfG6jaPOyEpEIgeLq931FdMK6Fl00Bg=;
-        b=Cz2+31khMLshofnMwaY6BXxB/SPbsB07F/QTT2YYnM7J/XEirwC7xuJiNELJJxxgR9
-         xGECNjVdoUqdtZx+3ZffnkuWh+Ggs1f+2cfI932cDVQhYugobh9u8nmfthYGQj4FF0h0
-         /vSpNxGzU89eLU/zaxRqitbvBOibOXGzzD+xNrYUDkfLqm95k6jy0AXD5CrSj4eDMQZV
-         mgrv1mMuziZ6tTP89omQwwZhDMH8z5++oyaXVBNgNO7+pDHyEgBHyO3ZLtbHlgMrtHV3
-         oFkle8slOvVyiWAnPOZgywFWKz+arYJS+PMn4TmLkiO+/SUq4JRC9s9EyZh1TVnvPobT
-         2DeA==
-X-Forwarded-Encrypted: i=1; AJvYcCX1HC9QK1KtEI29qIEOhYTouC8CHPCCQYVuwiUQ0iow1GtfaQ9zPukAkLsZ1cZcfGMp6AnYP/+pksE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwWKH/Qqr3uyfag6bOQRL6jM2Z5PMasWU7bvBaBiZxNTfXjeNYL
-	wB/D7TOmHZS1u6RPZzEq6Ywl/Vzf4EcrAIFvKCjyPGGfVmBcSgw2WxRvkYaJZW2VYw==
-X-Gm-Gg: ASbGncv1mfprtU3yhXtb+5hKaIhPlE6Z5Z9YwH95/yYvRpcL6rRrKXWyaA7VgdnNzoX
-	FmU73xxiMhN06+K8a/VayeIjKVLnJK5zkwBVAB0LRmZ7eZ/WZZUN4Xu9be8Xhp6lwNcCXxOJEVP
-	MXZ+XlfJxak9vV/5WdwZTk7ZGvE80/4GE24pYa2OkY4WZ/zwRlqLxDqOrbrDONDO/OklZFy1gj6
-	OpCqmrZX2RwsYXMS4gHhsaH7aSUrdCnhNqnbOhdkymCYsOFrFrdY+APlL2xuWf7khPvHiJjBTl7
-	4k9lkRI8SpwmMlcGGt3RE4HyAkwL2TWp7D7YacerNZIKD5iHNGXPtRTJXYLV7izGUBw6r+lTk94
-	3LRwMAQoFU5Ac85upD4JZybtT3LzXfBlX63tUGFIglqLEY+c=
-X-Google-Smtp-Source: AGHT+IEYYOcIBfqUFKkVRvlFb8xbloauxzxN4K23cwwzq0l2L9hivGWAc+iR+scQyst5cD4IO+i3ZQ==
-X-Received: by 2002:adf:9dc7:0:b0:3b5:e201:d290 with SMTP id ffacd0b85a97d-3b5e78c9be8mr2863482f8f.31.1752152417232;
-        Thu, 10 Jul 2025 06:00:17 -0700 (PDT)
-Message-ID: <45ed8b90-ce0c-419e-9c7d-2ab58ee539a2@suse.com>
-Date: Thu, 10 Jul 2025 15:00:07 +0200
+        bh=VHDfhyZQRqi+VH5cNET/LyUZ4ZowwJKX115rvTukrnk=;
+        b=ULfP5pBCGx9GQMuXqNCwfBKQhL+v3wGpKWqgjgamRLwK52s1/SvWMQgW4cjIi+JKgJ
+         B34SwJiKgpsRgGwK4HxgU+7CBHI0CS1pqR1EvyF2Y98Bib/wIaBgmbwHaB3aSPybOSGS
+         RkWRYmQkPIGKl+TzCkG19XF0avmDPXTmqBGIZ0iVAPY2haXOCK0AU0ZtKWKHyMMyK8oe
+         b/55I+Ogpen9ztTQuS1jB9RGp4tlrH62zTJJL+C26N7kMMP/5IJtWvQ5NiMDD/nX9H9v
+         LF3bwwNBaFIdn5xua8xsebWwohms+2+52af/ZjBDSNjiCwcBqh0z6ogPckaD7Abw/jpx
+         MtzA==
+X-Forwarded-Encrypted: i=1; AJvYcCVyAbLDtMK1d7MFuTnrlbkdtGE2VTpzv/IrMNDU6SH6QoDRGluaibWm80qhRhct2H0z5gIefLyA5Do=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yxdnt7rzaeQ1pyPCDKq0CpaLuKg0BHgHRqAlKYAZcMMPS8gQCpk
+	GtVSg74ZHaqViDk33RoTi0UrZIZt23wmOUQYsW4nzE6Xq/1lKx0xj1SMDYoLyF9HfA==
+X-Gm-Gg: ASbGncsB5Latz2JunO8kZ82sm2Oat9Zj+um7apQJ4uOQK+IdhFFbvIszByiGnZPubrO
+	GT9qFAcO7bLBpFQzd53/p3KlPbZq5X4d6Z0tDuNElcvlYNRJNn+84yTvvmZsAfzf/A8XrGHG3uC
+	Ux14nPauvnz9onKOQlkaVQqtnbQ9wwO08Wlmx57lkvR7Sz8QQjMs/u6NtqWjNmKTzXuLA3lzHtQ
+	bN6iwam5hytZ7a3HzHtbwdTcEJxs/SxtLlXXFVsqtBBlNIVRcwXL+EAlikBW581ed71wOfeYYvO
+	QCT3+AJam8Dd4XlcdaLDNA+y1SpCMGWjFvR7UjS3voSp+r1L8IyE878FLtwbGIrdVwIxZ4to92f
+	zDFtbqfvUpr08D0pihFK0eYduTXvCUJhTh7wcZp8s215TW6o=
+X-Google-Smtp-Source: AGHT+IHTkQyd28WRX2s/3DpwwlIspkmXlgylvbhmK1qJZzJWLLSX4QNn4WnmhLmHURqLnSlrrCFzcw==
+X-Received: by 2002:a05:6000:24c9:b0:3a4:d53d:be20 with SMTP id ffacd0b85a97d-3b5e44eded7mr5252213f8f.18.1752152492529;
+        Thu, 10 Jul 2025 06:01:32 -0700 (PDT)
+Message-ID: <9bac1c94-7b97-4290-9722-2f88f466a49e@suse.com>
+Date: Thu, 10 Jul 2025 15:01:23 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v3 06/22] xen/arch/x86: reserve TXT memory during Slaunch
@@ -135,275 +135,8 @@ On 30.05.2025 15:17, Sergii Dmytruk wrote:
 > +/* How much of the directmap is prebuilt at compile time. */
 > +#define PREBUILT_MAP_LIMIT (1 << L2_PAGETABLE_SHIFT)
 
-Better 1U or even 1UL?
-
-> --- a/xen/arch/x86/include/asm/slaunch.h
-> +++ b/xen/arch/x86/include/asm/slaunch.h
-> @@ -7,6 +7,7 @@
->  #ifndef X86_SLAUNCH_H
->  #define X86_SLAUNCH_H
->  
-> +#include <xen/slr-table.h>
->  #include <xen/types.h>
->  
->  /* Indicates an active Secure Launch boot. */
-> @@ -18,9 +19,52 @@ extern bool slaunch_active;
->   */
->  extern uint32_t slaunch_slrt;
->  
-> +/*
-> + * evt_log is assigned a physical address and the caller must map it to
-> + * virtual, if needed.
-
-In which case you want to use paddr_t, not void *.
-
-> + */
-> +static inline void find_evt_log(const struct slr_table *slrt, void **evt_log,
-> +                                uint32_t *evt_log_size)
-> +{
-> +    const struct slr_entry_log_info *log_info;
-> +
-> +    log_info = (const struct slr_entry_log_info *)
-> +        slr_next_entry_by_tag(slrt, NULL, SLR_ENTRY_LOG_INFO);
-
-In situations like this please use the less type-unsafe container_of().
-(Apparently applies also to at least one earlier patch.)
-
-> +    if ( log_info != NULL )
-> +    {
-> +        *evt_log = _p(log_info->addr);
-> +        *evt_log_size = log_info->size;
-> +    }
-> +    else
-> +    {
-> +        *evt_log = NULL;
-> +        *evt_log_size = 0;
-> +    }
-> +}
-> +
->  /*
->   * Retrieves pointer to SLRT.  Checks table's validity and maps it as necessary.
->   */
->  struct slr_table *slaunch_get_slrt(void);
->  
-> +/*
-> + * Prepares for accesses to essential data structures setup by boot environment.
-> + */
-> +void slaunch_map_mem_regions(void);
-> +
-> +/* Marks regions of memory as used to avoid their corruption. */
-> +void slaunch_reserve_mem_regions(void);
-> +
-> +/*
-> + * This helper function is used to map memory using L2 page tables by aligning
-> + * mapped regions to 2MB. This way page allocator (which at this point isn't
-> + * yet initialized) isn't needed for creating new L1 mappings. The function
-> + * also checks and skips memory already mapped by the prebuilt tables.
-> + *
-> + * There is no unmap_l2() because the function is meant to be used by the code
-> + * that accesses DRTM-related memory soon after which Xen rebuilds memory maps,
-> + * effectively dropping all existing mappings.
-> + */
-> +int slaunch_map_l2(unsigned long paddr, unsigned long size);
-
-While largely benign on x86-64, maybe better paddr_t and size_t. And then ...
-
-> --- /dev/null
-> +++ b/xen/arch/x86/intel-txt.c
-> @@ -0,0 +1,113 @@
-> +/*
-> + * SPDX-License-Identifier: GPL-2.0-or-later
-> + *
-> + * Copyright (c) 2022-2025 3mdeb Sp. z o.o. All rights reserved.
-> + */
-> +
-> +#include <xen/bug.h>
-> +#include <xen/init.h>
-> +#include <xen/lib.h>
-> +#include <xen/types.h>
-> +#include <asm/e820.h>
-> +#include <asm/intel-txt.h>
-> +#include <asm/slaunch.h>
-> +
-> +static uint64_t __initdata txt_heap_base, txt_heap_size;
-
-... why suddenly uint64_t here (and then elsewhere below)?
-
-> +/* Mark RAM region as RESERVED if it isn't marked that way already. */
-> +static int __init mark_ram_as(struct e820map *map, uint64_t start,
-> +                              uint64_t end, uint32_t type)
-> +{
-> +    unsigned int i;
-> +    uint32_t from_type = E820_RAM;
-> +
-> +    for ( i = 0; i < map->nr_map; i++ )
-> +    {
-> +        uint64_t rs = map->map[i].addr;
-> +        uint64_t re = rs + map->map[i].size;
-> +
-> +        /* The entry includes the range. */
-> +        if ( start >= rs && end <= re )
-> +            break;
-> +
-> +        /* The entry intersects the range. */
-> +        if ( end > rs && start < re )
-> +        {
-> +            /* Fatal failure. */
-> +            return 0;
-> +        }
-> +    }
-> +
-> +    /*
-> +     * If the range is not included by any entry and no entry intersects it,
-> +     * then it's not listed in the memory map.  Consider this case as a success
-> +     * since we're only preventing RAM from being used and unlisted range should
-> +     * not be used.
-> +     */
-> +    if ( i == map->nr_map )
-> +        return 1;
-> +
-> +    /*
-> +     * e820_change_range_type() fails if the range is already marked with the
-> +     * desired type.  Don't consider it an error if firmware has done it for us.
-> +     */
-> +    if ( map->map[i].type == type )
-> +        return 1;
-> +
-> +    /* E820_ACPI or E820_NVS are really unexpected, but others are fine. */
-> +    if ( map->map[i].type == E820_RESERVED ||
-> +         map->map[i].type == E820_UNUSABLE )
-
-Are you sure about permitting UNUSABLE here?
-
-> +        from_type = map->map[i].type;
-> +
-> +    return e820_change_range_type(map, start, end, from_type, type);
-
-Even if this function, for historic reasons, also returns int/0/1, please make
-new code with boolean results return bool/false/true.
-
-> +void __init txt_reserve_mem_regions(void)
-> +{
-> +    int rc;
-> +    uint64_t sinit_base, sinit_size;
-> +
-> +    /* TXT Heap */
-> +    BUG_ON(txt_heap_base == 0);
-> +    printk("SLAUNCH: reserving TXT heap (%#lx - %#lx)\n", txt_heap_base,
-> +           txt_heap_base + txt_heap_size);
-
-Please log ranges in a way that makes it unambiguous whether they're exclusive
-or inclusive (especially at the upper end).
-
-> +    rc = mark_ram_as(&e820_raw, txt_heap_base, txt_heap_base + txt_heap_size,
-> +                     E820_RESERVED);
-> +    BUG_ON(rc == 0);
-
-As to the boolean remark above - constructs like this look particularly odd:
-Typically a return code (stored in a variable named "rc") of 0 means "success".
-
-> +    sinit_base = txt_read(TXTCR_SINIT_BASE);
-> +    BUG_ON(sinit_base == 0);
-> +
-> +    sinit_size = txt_read(TXTCR_SINIT_SIZE);
-> +    BUG_ON(sinit_size == 0);
-> +
-> +    /* SINIT */
-> +    printk("SLAUNCH: reserving SINIT memory (%#lx - %#lx)\n", sinit_base,
-> +           sinit_base + sinit_size);
-> +    rc = mark_ram_as(&e820_raw, sinit_base, sinit_base + sinit_size,
-> +                     E820_RESERVED);
-> +    BUG_ON(rc == 0);
-> +
-> +    /* TXT Private Space */
-> +    rc = mark_ram_as(&e820_raw, TXT_PRIV_CONFIG_REGS_BASE,
-> +                     TXT_PRIV_CONFIG_REGS_BASE + TXT_CONFIG_SPACE_SIZE,
-> +                     E820_UNUSABLE);
-
-Why UNUSABLE? Then, if all callers used RESERVED, this wouldn't need to be
-a function arguments anymore, and you also wouldn't need to change RESERVED
-ranges.
-
-> --- a/xen/arch/x86/slaunch.c
-> +++ b/xen/arch/x86/slaunch.c
-> @@ -7,14 +7,18 @@
->  #include <xen/compiler.h>
->  #include <xen/init.h>
->  #include <xen/macros.h>
-> +#include <xen/mm.h>
->  #include <xen/types.h>
-> +#include <asm/e820.h>
-> +#include <asm/intel-txt.h>
-> +#include <asm/page.h>
->  #include <asm/slaunch.h>
->  
->  /*
->   * These variables are assigned to by the code near Xen's entry point.
->   *
->   * slaunch_active is not __initdata to allow checking for an active Secure
-> - * Launch boot.
-> + * Launch boot at any point.
-
-This comment adjustment should probably move to where the comment is being
-introduced.
-
-> @@ -25,3 +29,95 @@ static void __maybe_unused compile_time_checks(void)
->  {
->      BUILD_BUG_ON(sizeof(slaunch_active) != 1);
->  }
-> +
-> +struct slr_table *__init slaunch_get_slrt(void)
-> +{
-> +    static struct slr_table *slrt;
-
-__initdata?
-
-> +    if (slrt == NULL) {
-
-Nit: Style.
-
-> +        int rc;
-> +
-> +        slrt = __va(slaunch_slrt);
-> +
-> +        rc = slaunch_map_l2(slaunch_slrt, PAGE_SIZE);
-> +        BUG_ON(rc != 0);
-> +
-> +        if ( slrt->magic != SLR_TABLE_MAGIC )
-> +            panic("SLRT has invalid magic value: %#08x!\n", slrt->magic);
-
-While %#x is indeed the prefered form to use, in particular when padding that's
-not normally helpful, as the 0x prefix is included in the character count. And
-the value zero also ends up odd in that case, I think.
-
-> +int __init slaunch_map_l2(unsigned long paddr, unsigned long size)
-> +{
-> +    unsigned long aligned_paddr = paddr & ~((1ULL << L2_PAGETABLE_SHIFT) - 1);
-> +    unsigned long pages = ((paddr + size) - aligned_paddr);
-> +    pages = ROUNDUP(pages, 1ULL << L2_PAGETABLE_SHIFT) >> PAGE_SHIFT;
-
-Nit: Blank line please between declaration(s) and statement(s).
-
-> +    if ( aligned_paddr + pages * PAGE_SIZE <= PREBUILT_MAP_LIMIT )
-> +        return 0;
-> +
-> +    if ( aligned_paddr < PREBUILT_MAP_LIMIT )
-> +    {
-> +        pages -= (PREBUILT_MAP_LIMIT - aligned_paddr) >> PAGE_SHIFT;
-> +        aligned_paddr = PREBUILT_MAP_LIMIT;
-> +    }
-> +
-> +    return map_pages_to_xen((uintptr_t)__va(aligned_paddr),
-> +                            maddr_to_mfn(aligned_paddr),
-> +                            pages, PAGE_HYPERVISOR);
-> +}
-
-What is being mapped here is (silently?) assumed to be below 4Gb? The
-function could anyway do with a brief comment saying what it's intended
-to do, and what assumptions it makes.
-
-It further looks as if you may be doing the same mapping multiple times,
-as you don't record what was already mapped.
+Oh, also - I don't think mm.h is a good place for this. Please consider
+putting into setup.h.
 
 Jan
 
