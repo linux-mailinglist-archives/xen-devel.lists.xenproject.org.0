@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB8AEB00090
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Jul 2025 13:29:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1039370.1411227 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 58DC4B000E7
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Jul 2025 13:57:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1039425.1411274 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uZpSy-0006ad-MS; Thu, 10 Jul 2025 11:29:28 +0000
+	id 1uZptT-000356-6W; Thu, 10 Jul 2025 11:56:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1039370.1411227; Thu, 10 Jul 2025 11:29:28 +0000
+Received: by outflank-mailman (output) from mailman id 1039425.1411274; Thu, 10 Jul 2025 11:56:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uZpSy-0006Z4-Jg; Thu, 10 Jul 2025 11:29:28 +0000
-Received: by outflank-mailman (input) for mailman id 1039370;
- Thu, 10 Jul 2025 11:29:27 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1uZptT-00032B-29; Thu, 10 Jul 2025 11:56:51 +0000
+Received: by outflank-mailman (input) for mailman id 1039425;
+ Thu, 10 Jul 2025 11:56:49 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=V320=ZX=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uZpSw-0006Yf-Ui
- for xen-devel@lists.xenproject.org; Thu, 10 Jul 2025 11:29:26 +0000
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [2a00:1450:4864:20::430])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 212ac895-5d81-11f0-a317-13f23c93f187;
- Thu, 10 Jul 2025 13:29:24 +0200 (CEST)
-Received: by mail-wr1-x430.google.com with SMTP id
- ffacd0b85a97d-3a4f379662cso823964f8f.0
- for <xen-devel@lists.xenproject.org>; Thu, 10 Jul 2025 04:29:24 -0700 (PDT)
+ id 1uZptR-000324-Kv
+ for xen-devel@lists.xenproject.org; Thu, 10 Jul 2025 11:56:49 +0000
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [2a00:1450:4864:20::434])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f37fd46b-5d84-11f0-b894-0df219b8e170;
+ Thu, 10 Jul 2025 13:56:45 +0200 (CEST)
+Received: by mail-wr1-x434.google.com with SMTP id
+ ffacd0b85a97d-3a510432236so701685f8f.0
+ for <xen-devel@lists.xenproject.org>; Thu, 10 Jul 2025 04:56:45 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-23de435b7e3sm17736385ad.224.2025.07.10.04.29.15
+ 98e67ed59e1d1-31c3eb65aa2sm2131500a91.40.2025.07.10.04.56.37
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 10 Jul 2025 04:29:22 -0700 (PDT)
+ Thu, 10 Jul 2025 04:56:44 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,46 +45,46 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 212ac895-5d81-11f0-a317-13f23c93f187
+X-Inumbo-ID: f37fd46b-5d84-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1752146963; x=1752751763; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1752148605; x=1752753405; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=UtnzDmjesA+augj5YKIJQQVqm7poV+vIpwtGst2ZIYs=;
-        b=Gtuq3DekwyipTjOPCOx8T39eL3qYHBy3mxYtrr4Yxl4P9e6937DZkS7jrd4vZITt3F
-         F3i4cEI67Apqek0/8VUX3NJo2CnHfFiJP8AwFSDCqYx9B0rupC50Pnw04o/DppOuKGRu
-         A5wMpljYojbDesUNz0+BItajdd6GoWAHH9LQqDdnJ3TPvnwB6Yl8S/TgT8ieFB+X13LX
-         iyp3QYvT+DulaSdwMsw0u1GullUO1046X8AY34JI/UsAC4pPnj1JHd3QG+GeeYSX/07m
-         mpn8vLq1SoHTdVspeu3T38kkaXBMw2q6JQybh8kdHaHMXc31jYPzoWJHJ4SWLKzGpjX/
-         szQQ==
+        bh=E4jzN2F6fP4BFDLlHZbaDNr7w3GWxW/p37sLB0AN0fE=;
+        b=T3SjCWz7bjO+Jjx5+ZZHm0UcgnM8hezFIt3fKEG5zJCSF5/A89pWwgTZAY/Mz2ToQA
+         iWuOSW36jRBgZu+7Gtt/aAP9R+OtC7vluZsRNjhIVJ6b9RpZADfG9EW8s9rIFjvW4mb5
+         CNf6jQfA8f19gd0DV+bvInxP4O4q6Y425fMo588ab7TlzCWPGbR9HrN6M24YmMMyLEaP
+         yYczIcGr0/p+VGt8K0l4Iuqq5BgDRIaZlyu6EGbgE3XEymVUFmYkxJbKZXq04AZtGyLD
+         hSaG+eQDl11foqGDPeXWsu4la2MXCdz3sYVn7cri21gA5oZlxvdAbYx3ZUL9rRZbCE8Q
+         uYeA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1752146963; x=1752751763;
+        d=1e100.net; s=20230601; t=1752148605; x=1752753405;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=UtnzDmjesA+augj5YKIJQQVqm7poV+vIpwtGst2ZIYs=;
-        b=ulR3boUyN3KuNQzhjXONTrN/MXfkTc7B+hq36b9Lm4HYU39+emqpaLIRNNy7YWv71G
-         X+JOdKEbojH1tEQJl7X2fpvXyuP7bniQuuqoFEoQ1hS6jIeck1zGKhAkSoMmvu6s2rcn
-         f0zme4rTZ1mF77+Il9hIJcDSLi7SPGiv5JZCFnD0CClpam0iYxTpqHskZGURmw3OdMqw
-         dzeTGtqWXcLEA6tBUkpUrbfmUnRPy3kE4Bf/MZPyzXJ4Z2txAxcwVWH2e1BfTV/y5PaJ
-         t1V+EPtXigshrFZNdA61fljwR64fppKwwmhr9kzfqi5uHNhk157jYeeoawT7ptxslGcI
-         Blnw==
-X-Forwarded-Encrypted: i=1; AJvYcCW+SjAWXcuQOC70R+F00O+8iKh3up/XIENmzFsUgvVTXgLobFrI+SnAE0Eov33LQVq6n8CwwmtfDD8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwG8PefPcvSrrUCaTr8rWgyON6JlKgCWpiw2UAIwrwTfLToLpEc
-	ry1Y5P2DyIeWQhkizy79s2a5paC1w66XOkckv6LjlDsJgTfKktZ0EhpSNkByaghXgw==
-X-Gm-Gg: ASbGncu4e4IzeR2eWFdSq5zcycA0u5zY7mxpdNIFr116wAvP3cyNiGia3OB54oZISIX
-	Qu2FfZjO/Bw7ZjV1cSrzD6GyMWbdfcgItcKoN6DdqfI4E7qQlsMSIBEYdvC3MO5nSce+f7sVsac
-	GMmqacANkyHO10/Q3QM5mn4yelzbFUGcLWolJiRQRd4KRKXzDKx29KSO6bk3DIBiDv5Hpt2mfS4
-	P2XQyMj0DJdm5tULHorRyeBK0B4ec1N7wSd4ZQXLaP27uD5tNk0Uz329/P1+zgFeZJespCQvPRG
-	oea1M/T0/gwS5IAF1y4ckZk7YHerpQU82OhAd4PYvzozmAd/Db2xif1elRspjGRo/MG16HpFQtM
-	KNjVGez6xHvQtzCzwX3w2It/UoHNlPiv6l78LodbAIWs3o7E=
-X-Google-Smtp-Source: AGHT+IHuahhQZWPWHKrTQMfPdlqUDDkex7t8FPeDlUHXXyVGEC7LGFgBzwSk026w/BU8PNob+c2gRQ==
-X-Received: by 2002:a05:6000:490f:b0:3a5:27ba:479c with SMTP id ffacd0b85a97d-3b5e86bef07mr1991395f8f.43.1752146963261;
-        Thu, 10 Jul 2025 04:29:23 -0700 (PDT)
-Message-ID: <52f6418b-fd1d-41eb-834c-991f7c61d729@suse.com>
-Date: Thu, 10 Jul 2025 13:29:11 +0200
+        bh=E4jzN2F6fP4BFDLlHZbaDNr7w3GWxW/p37sLB0AN0fE=;
+        b=D0PcUvgeAjr5eXx2dWqn8xh9N+0xx3MQQLGD5n+/HMfJ7RRg9/rFaxh1HeQoQwoJs7
+         Sm0vpbs+RoySFGb4hOlAfYpuXb9IxsX23uCr62Eh6yFBisQ1z3j1mWgUldkFleBrXE1a
+         4BCkEsaiC2JAP95sw5V/++i3hRVXu5TOjqIkXateL4/GRFYllCOT4PxOPmwQNRQMV1W2
+         uHlP+1pPDXr36hS8ntFY0Kr0LS0CtGrEawQyzPN3kwOA5VUA394entRjqNLMnn3DN2lt
+         jp3xaoXwIUlQdQAiTmnhpaR/YMw9u8uKExncdZQTRS2fW4BBUp5Bgfkbzku0ADnPBMX8
+         SPNQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUSS5EGFRz+yPWa1AaXiOMD3vT4iUxtgVEsCNvKBzsoZbKexC/SNNvdCnlO32RM+LPIpSljrYX4rQo=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwlrSaJSTu6rGLu7DhV/YEUTLuR4NK2ONwv2tFddQQipotjRoNS
+	aQ8X7ypo0o/efG6SZqjgRHHi7QJUDayoZ+0y/R8kH3GEW7oG/oHTbLi7115wBl7kuw==
+X-Gm-Gg: ASbGncsIGE0s47HedSd8MR93EG/vXJYl+MlGU4FSCpZmm9ioZKFsElEQVv2odFbNGCI
+	3ivVtAQYN9S8MJ588s3ircj29ZYfK7eIbyDE9leDHCxa1gMzm70zp8S/KYngyHW3kpsmz7BPYHT
+	rhB7Eyuogu2K0/nqefKtixoKVs447gX4+n2hqP2N6MMv2m41hKVEX0+0kl+LRmawnyyXS7XsLkT
+	chCB+YvJvTu89r0KNWHedtKpnGc/V0+w1ril0NdCDL/aEPw5SpJhMpCeMlbHoHSJZZ6oIF52Mf1
+	Jy2hNfssOu9QY/uN0dy/hamicj5mTOg/9Nm8keAKbshGazzMpCpyo3WW267V9Eqf0OCdN6zM+ZV
+	OaddmibJy0oMujqIPVmtjjdpdd5tYUceP5f9R8Nl+QpvD5ew=
+X-Google-Smtp-Source: AGHT+IFVemCn+TzsaoENjFDOrjK7iJnXDImT3Ul2FFqNU958jH1RdzfSz7V/GKUkjrwcSnHCh3Mq/g==
+X-Received: by 2002:a05:6000:40cb:b0:3a4:e629:6504 with SMTP id ffacd0b85a97d-3b5e86df08amr2661488f8f.49.1752148604601;
+        Thu, 10 Jul 2025 04:56:44 -0700 (PDT)
+Message-ID: <91b52761-1cb7-48f1-8e68-58722ca32e2d@suse.com>
+Date: Thu, 10 Jul 2025 13:56:33 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v6 2/7] xen/riscv: aplic_init() implementation
@@ -99,8 +99,6 @@ Cc: Alistair Francis <alistair.francis@wdc.com>,
  Romain Caritey <Romain.Caritey@microchip.com>, xen-devel@lists.xenproject.org
 References: <cover.1751876912.git.oleksii.kurochko@gmail.com>
  <a15b1426f14bb8f7f6385db9c13e584b55e4c91a.1751876912.git.oleksii.kurochko@gmail.com>
- <c49cf7bd-fbff-45b0-ab0a-ee8020d910f0@suse.com>
- <54d180df-3980-4f90-a8fe-519aed9e1870@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -126,32 +124,33 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <54d180df-3980-4f90-a8fe-519aed9e1870@gmail.com>
+In-Reply-To: <a15b1426f14bb8f7f6385db9c13e584b55e4c91a.1751876912.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 10.07.2025 13:19, Oleksii Kurochko wrote:
-> On 7/8/25 3:58 PM, Jan Beulich wrote:
->> On 07.07.2025 11:01, Oleksii Kurochko wrote:
->>> +static struct aplic_priv aplic;
->> Is this altered post-init? IOW can it be __ro_after_init? Or otherwise at
->> least __read_mostly?
-> 
-> Looking at the current downstream code there is, at least one case, where aplic->regs
-> are changing (during vaplic_emulate_store()).
-> So __read_mostly would be better in this case.
-> 
->> With these two taken care of (one way or another):
->> Acked-by: Jan Beulich<jbeulich@suse.com>
->> If you clarify what is wanted / needed, I'm also happy to make adjustments
->> while committing.
-> 
-> It would be nice to do the following:
-> - Drop the inclusion of <asm/imsic.h> in aplic-priv.h.
-> - Add __read_mostly to the definition of the aplic variable.
+On 07.07.2025 11:01, Oleksii Kurochko wrote:
+> --- /dev/null
+> +++ b/xen/arch/riscv/aplic-priv.h
+> @@ -0,0 +1,34 @@
+> +/* SPDX-License-Identifier: MIT */
+> +
+> +/*
+> + * xen/arch/riscv/aplic-priv.h
+> + *
+> + * Private part of aplic.h header.
+> + *
+> + * RISC-V Advanced Platform-Level Interrupt Controller support
+> + *
+> + * Copyright (c) Microchip.
+> + * Copyright (c) Vates.
+> + */
+> +
+> +#ifndef ASM_RISCV_PRIV_APLIC_H
+> +#define ASM_RISCV_PRIV_APLIC_H
 
-Actually - no. Patch 4 adds a spin lock in the structure. That way it's
-definitely not mostly read.
+While, as indicated in an earlier reply, I didn't make the section placement
+change originally suggested, I did take the liberty to correct the order of
+name components of this header guard.
 
 Jan
 
