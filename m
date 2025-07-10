@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B217AAFFB8E
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Jul 2025 10:01:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1039152.1411106 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2DE99AFFB97
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Jul 2025 10:02:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1039159.1411115 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uZmCv-0007Y1-Po; Thu, 10 Jul 2025 08:00:41 +0000
+	id 1uZmEy-00081m-4Z; Thu, 10 Jul 2025 08:02:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1039152.1411106; Thu, 10 Jul 2025 08:00:41 +0000
+Received: by outflank-mailman (output) from mailman id 1039159.1411115; Thu, 10 Jul 2025 08:02:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uZmCv-0007Uu-Mm; Thu, 10 Jul 2025 08:00:41 +0000
-Received: by outflank-mailman (input) for mailman id 1039152;
- Thu, 10 Jul 2025 08:00:39 +0000
+	id 1uZmEy-0007zw-1w; Thu, 10 Jul 2025 08:02:48 +0000
+Received: by outflank-mailman (input) for mailman id 1039159;
+ Thu, 10 Jul 2025 08:02:46 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=V320=ZX=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uZmAc-0005jj-5q
- for xen-devel@lists.xenproject.org; Thu, 10 Jul 2025 07:58:18 +0000
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [2a00:1450:4864:20::42f])
+ id 1uZmEw-0007zq-QN
+ for xen-devel@lists.xenproject.org; Thu, 10 Jul 2025 08:02:46 +0000
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
+ [2a00:1450:4864:20::431])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a2c99ab1-5d63-11f0-b894-0df219b8e170;
- Thu, 10 Jul 2025 09:58:16 +0200 (CEST)
-Received: by mail-wr1-x42f.google.com with SMTP id
- ffacd0b85a97d-3a57c8e247cso461658f8f.1
- for <xen-devel@lists.xenproject.org>; Thu, 10 Jul 2025 00:58:16 -0700 (PDT)
+ id 42d5bfd0-5d64-11f0-b894-0df219b8e170;
+ Thu, 10 Jul 2025 10:02:45 +0200 (CEST)
+Received: by mail-wr1-x431.google.com with SMTP id
+ ffacd0b85a97d-3a4fb9c2436so449912f8f.1
+ for <xen-devel@lists.xenproject.org>; Thu, 10 Jul 2025 01:02:45 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-23de42853b5sm12621835ad.4.2025.07.10.00.58.08
+ 98e67ed59e1d1-31c3eb7e9ecsm1504253a91.42.2025.07.10.01.02.39
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 10 Jul 2025 00:58:15 -0700 (PDT)
+ Thu, 10 Jul 2025 01:02:43 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,65 +45,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a2c99ab1-5d63-11f0-b894-0df219b8e170
+X-Inumbo-ID: 42d5bfd0-5d64-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1752134296; x=1752739096; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1752134564; x=1752739364; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=XECzMEBad/iXrcKNv850zgvEXOY22VvDlWJCr127tQA=;
-        b=QWymoLoD5PlhRQ3pZaIngt2i/Waf6/TxKAH4UjBi1cLEav2D24DQaCHuK4BOoT+gwP
-         NCQuXUOw76lgn4G1DfV8rx28JCHaJC9xB534Wz5iIF5xjjzw6j1DqYig2+K8WSX2tGBT
-         2coNz74LglyhdRYsj5g+sB4ho/cyPPfGdSSEFmUwy9lzfzfx5RA4syfGowiOzSuj/9Nc
-         LKonVI/yA/r5QZnyksCY5PthU5mkjFoHTISbOrcvD7UO9VzAq4e5fHCRqS9wgi0AIizp
-         WtaCJtyIMRTIshiJxN0HySunDxdH2VKreLgNiiLNWfuUNS8hsdgrxgp/yVjEhQhFTiD6
-         U1IQ==
+        bh=xJ0qp0T4D+SitfRfG30hYwGCGnwJpsWII20E3YfRpQ4=;
+        b=GUKgIM5OWp0Rv35wBeJh6B0GokDvElyihX32ksjpbiys3+T/T6XwXh95a+e1DhET7m
+         W369lUOXj9XTKJVVqrAcN5PzEpM9lXf3vJ5+aqLNx29BHsBrTJuVhgL8sk4PbTXnJBJd
+         fZuZ7SbOvtGFSwnYV7SPZYUts3vIez9nyXu74XCUvxXWlrWN2ocUwdcwKh8xi78nZ9HW
+         5P3AUZ75J3KdI1bQLkf84a27l2pC0Rse2I/sUf8lIPnHFy3YVK3Ir+ODEGdPoj0nvSyL
+         C0SXeaBGA4LMkuhq9QTTmrjUCiifxEqjmnkjn9NNAIctAbX+M70S2K8WwTYWtB58efWu
+         DQSQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1752134296; x=1752739096;
+        d=1e100.net; s=20230601; t=1752134564; x=1752739364;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=XECzMEBad/iXrcKNv850zgvEXOY22VvDlWJCr127tQA=;
-        b=hOugfeFH3hIUSOdCxLE7VLEV23DGtA5qUV2h5DN6oVGgnV8DJQVcsQqhG8BFPvW21M
-         mwLWmHZIsMhsGEdx7Bp1VUA9IhVvWcnUiSJdVT+1D7Wi152kbMpe3s9YYOHOcHAJ9/g0
-         Ytaqs4WmhDElkm8NI4Gbz5XXFa4JdSxqLxsNjkMG5/5kTBfZFl18j0ESl4Vflu0XykA6
-         02dCowrDWgrbwi80TY8gDZzNcerDIAZrP4tyeHntYqrbbFOc5xzyOd1qJJYZ6ifGr9A+
-         tLcXCv44RJo5WzYfkMZ3aFhOLkf7fh1S2Ovej1XQ4GGBkJ+RefXev/n8y5yOb6G6izdS
-         M5QA==
-X-Forwarded-Encrypted: i=1; AJvYcCVsE3lsPKordDorcVLUVZcqutd/CoLBM9lIrjZLnCT/b66PWtou9+h9DfHYLnfOvcEeE5AzBezsIOI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YypAoGkdGmn1jI83W8I9pHePwEcA9Y05/VU4gIn0sNMFdvnmwWf
-	qXZGOrsrT5SWxkQ5eetwqERzL/NhUZn4v2yCx8m1SdRX0XqgFB8QvyelKU1e5JedvQ==
-X-Gm-Gg: ASbGncvby8C1msk4zE+fACCGcpBqUBLJwpL2H8HfQfKtIVUyFQHF/m3PEYQhdtVEtin
-	83lV4y2aurZSYEeFuRk6Xsuk1xta8iaw6hk+iIlVzpD7SVtfmmpzV3C/vH6Eh1hln/rMluPWRFr
-	CZhjzWp1wCqe8jHXXi/tDO9WEMdUlNroRRqbkssgs9xmXigQMtv1bSBUiA/2UfqDpaonjBzKJvf
-	EAD5n3qWD7Z+V/vhHVV27/cFZGSkzyO9Avx4x0aTI8gqLGRZl+l6Jxq0B+i6bT7B3YBSLPDl4hy
-	G9kLM9Suw58leMH5FPftgE3WJHCinEEgLcCTVsSteTbbuqB28TH473DRjP9AJI+HM/TxdI6Nqn3
-	J1vtXFU52J02kWCWKPN32dGC5GZHo6iie1ePJEgQtQ5rOblytCrFHSxyeWQ==
-X-Google-Smtp-Source: AGHT+IE+14RDsKbpFIC3VuqC7xZtzrt7Bhyf1FVEp3v62fq4gA6l0/DBw0vTFDsr+PWxs20VuCiKKA==
-X-Received: by 2002:a05:6000:230c:b0:3b4:9721:2b2b with SMTP id ffacd0b85a97d-3b5e866ae24mr1159349f8f.12.1752134295685;
-        Thu, 10 Jul 2025 00:58:15 -0700 (PDT)
-Message-ID: <38e8c1ac-a61f-4890-a7fd-9c5b2d6e610b@suse.com>
-Date: Thu, 10 Jul 2025 09:58:04 +0200
+        bh=xJ0qp0T4D+SitfRfG30hYwGCGnwJpsWII20E3YfRpQ4=;
+        b=ixNyppokGi92k+8Tz79dTy/spW27rQHeHvN3Gp6QwNU/q/NXhif+m458IpfPZLbbLj
+         9b3GGCuMTeWWW4KTr9L9q0YNQdjlXaYo94bo+tOHTYUnDUnwEDNqaGFMshhuxGTYCj2F
+         QZWN5QtSGx7A89nmRjjoiGMQA/hCrhHQ2WuAvtoWvNf25vkqd/m7+tl5uEMQQhxURBHT
+         Ap7j3laAAPttdAGOiGNL5O89W+1NC7eV+YXvnCwthBTel+JnL0zPMXS77LTEwf5e8p8d
+         X3fFJ80Ulkfjdvksw7XJW7odqqV3ADSjF40aw8fJBpJYKo6/WtzwI2PQ/sDcdfV70Jfi
+         sKVQ==
+X-Gm-Message-State: AOJu0YxWsapv/r2UmoeBA9CCWNprKZ6OconizvniEfZZDXA7L9SPS2Gg
+	o2xxuv/5wRrO98qOCErLP0rtRJ6Nrov6Vfi5mOcY138EfHpSNiKKgAyVwq+AuzwCNg==
+X-Gm-Gg: ASbGncvId6xaht708bQWw8sTC/B/NSSxqDjtTsXjsaMRSRvrUx+gnAZFeD1OTNZKwyi
+	znOhN1pa4vYZdWbAANwFLqLb3C41Ezg8mW5bMrQCpLUU9l1NN/9rtvAm0qOHvmKX223Uy2ROP4Z
+	ySgZ5RDWFUgdKAtoNrTjoZFHexEJHjRI5NQOBRecONZK0jnWGppV7ijQ1X1lWw2hwQKaZo+/2l9
+	vl5kUaY9G3yM6WkzycDyLXWlTi22QMzj/1T1IH51CtP525MbYCVHyghQVw/0kdXWIVEnG9Unlk3
+	QEAnBWk7CqrTN1Nn0tudJPVmm8/vbubhEvMGUiYkUG0vqq/Z9wNq3VSuaGCXRwi9MWRYgZsb+yY
+	R74PWeM6+Nds+FkA8evBwRjtKiyRgp1WaU4WLGL2/O3hPFg0=
+X-Google-Smtp-Source: AGHT+IHkce7nH3eNNVnH6V6wBHuG33Rqo4G+etDUrmFz9HkJ4yh45HOsy3iXGKySZwp9WJs2BKU4mQ==
+X-Received: by 2002:a05:6000:40de:b0:3a4:eecd:f4d2 with SMTP id ffacd0b85a97d-3b5e78c0e9bmr2791749f8f.38.1752134564213;
+        Thu, 10 Jul 2025 01:02:44 -0700 (PDT)
+Message-ID: <979884b1-736d-46ee-9465-e432404c59be@suse.com>
+Date: Thu, 10 Jul 2025 10:02:35 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] xen/x86: address violations of Rule 11.3
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: victorm.lira@amd.com, Nicola Vetrini <nicola.vetrini@bugseng.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?B?Um9nZXIgUGF1IE1vbm7Dg8Kp?= <roger.pau@citrix.com>,
- Federico Serafini <federico.serafini@bugseng.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>, xen-devel@lists.xenproject.org
-References: <20250624002018.4121819-1-victorm.lira@amd.com>
- <20250624002018.4121819-2-victorm.lira@amd.com>
- <b31da849-283e-4f84-854a-50da2d0878d7@suse.com>
- <alpine.DEB.2.22.394.2507071453370.605088@ubuntu-linux-20-04-desktop>
- <6b23c2a3-9e2c-492b-843f-c3f830394f3e@suse.com>
- <alpine.DEB.2.22.394.2507081031210.605088@ubuntu-linux-20-04-desktop>
- <27ca400b-ceac-40c4-a6ed-f26c1129ae2a@suse.com>
- <alpine.DEB.2.22.394.2507091723470.605088@ubuntu-linux-20-04-desktop>
+Subject: Re: [PATCH 0/2] Xen real-time x86
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <stefano.stabellini@amd.com>
+Cc: xen-devel@lists.xenproject.org, Andrew Cooper
+ <andrew.cooper3@citrix.com>, Xenia.Ragiadakou@amd.com,
+ alejandro.garciavallejo@amd.com, Jason.Andryuk@amd.com
+References: <alpine.DEB.2.22.394.2507071657440.605088@ubuntu-linux-20-04-desktop>
+ <aGzu4A_nk3dAScxt@macbook.local>
+ <6d283128-4aaf-4f52-8e96-7a4ebe292be3@suse.com>
+ <alpine.DEB.2.22.394.2507081000490.605088@ubuntu-linux-20-04-desktop>
+ <b81d7bf6-6254-4001-89f3-3ec06e03e21a@suse.com>
+ <alpine.DEB.2.22.394.2507091736520.605088@ubuntu-linux-20-04-desktop>
+ <aG9lh5FI8tKMJkco@macbook.local>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -129,51 +124,38 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2507091723470.605088@ubuntu-linux-20-04-desktop>
+In-Reply-To: <aG9lh5FI8tKMJkco@macbook.local>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 10.07.2025 02:35, Stefano Stabellini wrote:
-> On Wed, 9 Jul 2025, Jan Beulich wrote:
->>> What fine grained deviation do you have in mind?
->>
->> Ones for almost(?) everything that is having actual code changes right now
->> in this series.
+On 10.07.2025 09:02, Roger Pau Monné wrote:
+> On Wed, Jul 09, 2025 at 05:44:33PM -0700, Stefano Stabellini wrote:
+>> 2) means that the RTOS must be undisturbed when executing the critical
+>> section, which is typically right after receiving the interrupt and only
+>> last for less than 1ms. In practice, it means the RTOS should absolutely
+>> not be descheduled and there should be no (unnecessary) traps into Xen
+>> while the RTOS is executing the critical section. It is expected that
+>> the RTOS will run the critical section with interrupts disabled.
 > 
-> We could easily deviate alternative.c based on the file name alone. But
-> for the rest:
-> 
-> emulate.c: casts from unsigned char* (byte aligned) to uint64_t* (8 bytes
-> aligned)
+> What about other external interrupts?  While the guest runs the
+> critical interrupt handling section with interrupts disabled, an
+> external interrupt from a device targeting the pCPU could cause a
+> vmexit.
 
-This one may indeed be fine to patch.
-
-> vlapic.h: casts from uint8_t* (byte aligned) to uint32_t* (4 bytes aligned)
-
-These only give the impression of increasing alignment. struct hvm_hw_lapic_regs
-is containing solely an uint8_t[1024] array, and all instances (created from
-vlapic_init()) actually end up at page boundaries. What I don't know is whether
-adding __aligned(PAGE_SIZE) to the struct vlapic field declaration would
-convince Eclair of there being no issue here. Probably not, as the array index
-used in both of the accesses isn't known (to it) to be 16-byte aligned.
-
-> setup.c: games with symbols
-
-The change here may again be acceptable; better may be to use memchr_inv()
-there, as being less obfuscating _and_ eliminating the cast there altogether.
-
-> iommu_init.c: cast from uint32_t* (4 bytes aligned) to uint64_t* (8 bytes
-> aligned)
-
-This imo would better be done by reconstructing the 64-bit value from the
-two involved 32-bit array elements.
-
-> How would you deviate these in general terms? Or are you suggesting to
-> use SAF tags for each of them?
-
-If no other solution can be found for the vlapic.h issue, "yes" there. For
-all others I suggested alternative approaches. Subject to other x86 folks
-possibly objecting, though.
+For interrupts to be handled by the guest, we may need to finally gain AVIC
+support (albeit I'm not sure how close that is to VMX-es posted interrupts).
+For interrupts handled in Xen the only way would be to allow the guest to
+announce such critical sections to Xen. Which, besides being a security
+concern, may of course itself represent unacceptable overhead.
 
 Jan
+
+>  I'm not aware of a nice way to solve this however, as for
+> PVH/HVM Xen doesn't know when the guest has finished interrupt
+> processing (iret).  Maybe this is not an issue in practice if you
+> isolate interrupts to different vCPUs (you might have to do this
+> already to ensure deterministic latency).
+> 
+> Roger.
+
 
