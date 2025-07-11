@@ -2,29 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70DF0B0104D
-	for <lists+xen-devel@lfdr.de>; Fri, 11 Jul 2025 02:40:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1040045.1411519 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8471CB01090
+	for <lists+xen-devel@lfdr.de>; Fri, 11 Jul 2025 03:04:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1040059.1411530 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ua1oL-000714-HC; Fri, 11 Jul 2025 00:40:21 +0000
+	id 1ua2BB-0001PN-Ap; Fri, 11 Jul 2025 01:03:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1040045.1411519; Fri, 11 Jul 2025 00:40:21 +0000
+Received: by outflank-mailman (output) from mailman id 1040059.1411530; Fri, 11 Jul 2025 01:03:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ua1oL-0006yl-EV; Fri, 11 Jul 2025 00:40:21 +0000
-Received: by outflank-mailman (input) for mailman id 1040045;
- Fri, 11 Jul 2025 00:40:19 +0000
+	id 1ua2BB-0001ND-6i; Fri, 11 Jul 2025 01:03:57 +0000
+Received: by outflank-mailman (input) for mailman id 1040059;
+ Fri, 11 Jul 2025 01:03:55 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=qtn+=ZY=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
- id 1ua1oI-0006yf-Jd
- for xen-devel@lists.xenproject.org; Fri, 11 Jul 2025 00:40:19 +0000
-Received: from mail-4322.protonmail.ch (mail-4322.protonmail.ch [185.70.43.22])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=4LlY=ZY=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1ua2B9-0001N6-4d
+ for xen-devel@lists.xenproject.org; Fri, 11 Jul 2025 01:03:55 +0000
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9d3af686-5def-11f0-a318-13f23c93f187;
- Fri, 11 Jul 2025 02:40:17 +0200 (CEST)
+ id e98a5d86-5df2-11f0-a318-13f23c93f187;
+ Fri, 11 Jul 2025 03:03:53 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 354F8614B1;
+ Fri, 11 Jul 2025 01:03:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45A63C4CEE3;
+ Fri, 11 Jul 2025 01:03:50 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,310 +41,250 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9d3af686-5def-11f0-a318-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1752194415; x=1752453615;
-	bh=LU1z9ZrEyR+QDSwNtVyDcer35o8iIkeRvqNidbZ5mU4=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=NAEvbw1RuZdNNjITEN+MCPiRUMh+x3ndcvYsPVY5Ynpaf3c+vua+xDAq+tZH6PVbv
-	 pqirhndvHRFXatPMWewkXXpc/X6sX6vPvj+K/irbld3XHwN/UVq6URmMO9weW7tSur
-	 NjjUo2ELn0md0XdC2rB3F1mcgIBYfrfMTyV7PXElQnBHj6U/ebNnquBp3oaFTVh8/4
-	 DTnr5hDVRiskdXwMTnejLuugBrmJ6qEp4LjxmYupnhJI4INe+uCoXMCcuIwgY8zzr5
-	 wTbISUtT/1NWz2udSK2UnUSSCoYpNo1hFD/fc378hkFPSo37sLoMGfaaQCV4bO9u3y
-	 bJ8AX60+s//6Q==
-Date: Fri, 11 Jul 2025 00:40:11 +0000
-To: xen-devel@lists.xenproject.org
-From: dmkhn@proton.me
-Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com
-Subject: [PATCH v7] xen/console: introduce domain_console struct
-Message-ID: <20250711004003.23920-1-dmukhin@ford.com>
-Feedback-ID: 123220910:user:proton
-X-Pm-Message-ID: 7f4efb1a2f2ca480c0d41187778b8fd088cb08e5
+X-Inumbo-ID: e98a5d86-5df2-11f0-a318-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1752195831;
+	bh=jQSR3rE86ZLXzTeIG9hXp+78TOubi7OBGtsvDKQRAro=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=CuBxoeNREjKMgsATCBCqVwZSRaQrFSf9vt/rLFpM9i0Oh/mDNz0IR81k829e86qxh
+	 EIouK2i2W1BjXSr4Cnf7kUd9BVDkfaP74ial7OtXQeHlDCJ5rRMWCNiM8LAVvu6/QV
+	 7ZMirUIdvv8mRzVUAu2dMM0ZwoW/W+LQPzMHNwdp1TrlYQOnTtbZoutAdbK9WjDR42
+	 TaBh+ONzJEsp0NREu+v2zMvYjaOQuVyb0p13xQBmiMGJkraO4TIQCRV+B0r14I5Va8
+	 G1Fx6ogk6tyeO629i036p1Zkw3hmPH/J9TRP3dqN3jh3jKKfynmvUvjJ5UHM1kIwnb
+	 cnCE9qQEbDiTA==
+Date: Thu, 10 Jul 2025 18:03:48 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: =?UTF-8?Q?J=C3=BCrgen_Gro=C3=9F?= <jgross@suse.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, linux-kernel@vger.kernel.org, 
+    llvm@lists.linux.dev, Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
+    Nathan Chancellor <nathan@kernel.org>, 
+    Nick Desaulniers <nick.desaulniers+lkml@gmail.com>, 
+    Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
+    xen-devel@lists.xenproject.org, 
+    Abinash Singh <abinashsinghlalotra@gmail.com>
+Subject: Re: [PATCH] xen/gntdev: remove struct gntdev_copy_batch from stack
+In-Reply-To: <287f6b7e-069e-4a79-b72a-ae11be4c235f@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2507101802220.605088@ubuntu-linux-20-04-desktop>
+References: <20250703073259.17356-1-jgross@suse.com> <alpine.DEB.2.22.394.2507081150230.605088@ubuntu-linux-20-04-desktop> <287f6b7e-069e-4a79-b72a-ae11be4c235f@suse.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: multipart/mixed; boundary="8323329-476946106-1752195831=:605088"
 
-From: Denis Mukhin <dmukhin@ford.com>=20
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Introduce domain_console for grouping data structures used for integrating
-domain's diagnostic console with Xen's console driver.
+--8323329-476946106-1752195831=:605088
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
 
-Group all pbuf-related data structures under domain_console. Rename the mov=
-ed
-fields to plain .buf, .idx and .lock names, since all uses of the fields ar=
-e
-touched.
+On Wed, 9 Jul 2025, Jürgen Groß wrote:
+> On 08.07.25 21:01, Stefano Stabellini wrote:
+> > On Thu, 3 Jul 2025, Juergen Gross wrote:
+> > > When compiling the kernel with LLVM, the following warning was issued:
+> > > 
+> > >    drivers/xen/gntdev.c:991: warning: stack frame size (1160) exceeds
+> > >    limit (1024) in function 'gntdev_ioctl'
+> > > 
+> > > The main reason is struct gntdev_copy_batch which is located on the
+> > > stack and has a size of nearly 1kb.
+> > > 
+> > > For performance reasons it shouldn't by just dynamically allocated
+> > > instead, so allocate a new instance when needed and instead of freeing
+> > > it put it into a list of free structs anchored in struct gntdev_priv.
+> > > 
+> > > Fixes: a4cdb556cae0 ("xen/gntdev: add ioctl for grant copy")
+> > > Reported-by: Abinash Singh <abinashsinghlalotra@gmail.com>
+> > > Signed-off-by: Juergen Gross <jgross@suse.com>
+> > > ---
+> > >   drivers/xen/gntdev-common.h |  4 +++
+> > >   drivers/xen/gntdev.c        | 71 ++++++++++++++++++++++++++-----------
+> > >   2 files changed, 54 insertions(+), 21 deletions(-)
+> > > 
+> > > diff --git a/drivers/xen/gntdev-common.h b/drivers/xen/gntdev-common.h
+> > > index 9c286b2a1900..ac8ce3179ba2 100644
+> > > --- a/drivers/xen/gntdev-common.h
+> > > +++ b/drivers/xen/gntdev-common.h
+> > > @@ -26,6 +26,10 @@ struct gntdev_priv {
+> > >   	/* lock protects maps and freeable_maps. */
+> > >   	struct mutex lock;
+> > >   +	/* Free instances of struct gntdev_copy_batch. */
+> > > +	struct gntdev_copy_batch *batch;
+> > > +	struct mutex batch_lock;
+> > > +
+> > >   #ifdef CONFIG_XEN_GRANT_DMA_ALLOC
+> > >   	/* Device for which DMA memory is allocated. */
+> > >   	struct device *dma_dev;
+> > > diff --git a/drivers/xen/gntdev.c b/drivers/xen/gntdev.c
+> > > index 61faea1f0663..1f2160765618 100644
+> > > --- a/drivers/xen/gntdev.c
+> > > +++ b/drivers/xen/gntdev.c
+> > > @@ -56,6 +56,18 @@ MODULE_AUTHOR("Derek G. Murray
+> > > <Derek.Murray@cl.cam.ac.uk>, "
+> > >   	      "Gerd Hoffmann <kraxel@redhat.com>");
+> > >   MODULE_DESCRIPTION("User-space granted page access driver");
+> > >   +#define GNTDEV_COPY_BATCH 16
+> > > +
+> > > +struct gntdev_copy_batch {
+> > > +	struct gnttab_copy ops[GNTDEV_COPY_BATCH];
+> > > +	struct page *pages[GNTDEV_COPY_BATCH];
+> > > +	s16 __user *status[GNTDEV_COPY_BATCH];
+> > > +	unsigned int nr_ops;
+> > > +	unsigned int nr_pages;
+> > > +	bool writeable;
+> > > +	struct gntdev_copy_batch *next;
+> > > +};
+> > > +
+> > >   static unsigned int limit = 64*1024;
+> > >   module_param(limit, uint, 0644);
+> > >   MODULE_PARM_DESC(limit,
+> > > @@ -584,6 +596,8 @@ static int gntdev_open(struct inode *inode, struct
+> > > file *flip)
+> > >   	INIT_LIST_HEAD(&priv->maps);
+> > >   	mutex_init(&priv->lock);
+> > >   +	mutex_init(&priv->batch_lock);
+> > > +
+> > >   #ifdef CONFIG_XEN_GNTDEV_DMABUF
+> > >   	priv->dmabuf_priv = gntdev_dmabuf_init(flip);
+> > >   	if (IS_ERR(priv->dmabuf_priv)) {
+> > > @@ -608,6 +622,7 @@ static int gntdev_release(struct inode *inode, struct
+> > > file *flip)
+> > >   {
+> > >   	struct gntdev_priv *priv = flip->private_data;
+> > >   	struct gntdev_grant_map *map;
+> > > +	struct gntdev_copy_batch *batch;
+> > >     	pr_debug("priv %p\n", priv);
+> > >   @@ -620,6 +635,14 @@ static int gntdev_release(struct inode *inode,
+> > > struct file *flip)
+> > >   	}
+> > >   	mutex_unlock(&priv->lock);
+> > >   +	mutex_lock(&priv->batch_lock);
+> > > +	while (priv->batch) {
+> > > +		batch = priv->batch;
+> > > +		priv->batch = batch->next;
+> > > +		kfree(batch);
+> > > +	}
+> > > +	mutex_unlock(&priv->batch_lock);
+> > > +
+> > >   #ifdef CONFIG_XEN_GNTDEV_DMABUF
+> > >   	gntdev_dmabuf_fini(priv->dmabuf_priv);
+> > >   #endif
+> > > @@ -785,17 +808,6 @@ static long gntdev_ioctl_notify(struct gntdev_priv
+> > > *priv, void __user *u)
+> > >   	return rc;
+> > >   }
+> > >   -#define GNTDEV_COPY_BATCH 16
+> > > -
+> > > -struct gntdev_copy_batch {
+> > > -	struct gnttab_copy ops[GNTDEV_COPY_BATCH];
+> > > -	struct page *pages[GNTDEV_COPY_BATCH];
+> > > -	s16 __user *status[GNTDEV_COPY_BATCH];
+> > > -	unsigned int nr_ops;
+> > > -	unsigned int nr_pages;
+> > > -	bool writeable;
+> > > -};
+> > > -
+> > >   static int gntdev_get_page(struct gntdev_copy_batch *batch, void __user
+> > > *virt,
+> > >   				unsigned long *gfn)
+> > >   {
+> > > @@ -953,36 +965,53 @@ static int gntdev_grant_copy_seg(struct
+> > > gntdev_copy_batch *batch,
+> > >   static long gntdev_ioctl_grant_copy(struct gntdev_priv *priv, void
+> > > __user *u)
+> > >   {
+> > >   	struct ioctl_gntdev_grant_copy copy;
+> > > -	struct gntdev_copy_batch batch;
+> > > +	struct gntdev_copy_batch *batch;
+> > >   	unsigned int i;
+> > >   	int ret = 0;
+> > >     	if (copy_from_user(&copy, u, sizeof(copy)))
+> > >   		return -EFAULT;
+> > >   -	batch.nr_ops = 0;
+> > > -	batch.nr_pages = 0;
+> > > +	mutex_lock(&priv->batch_lock);
+> > > +	if (!priv->batch) {
+> > > +		batch = kmalloc(sizeof(*batch), GFP_KERNEL);
+> > > +	} else {
+> > > +		batch = priv->batch;
+> > > +		priv->batch = batch->next;
+> > > +	}
+> > > +	mutex_unlock(&priv->batch_lock);
+> > 
+> > I am concerned about the potentially unbounded amount of memory that
+> > could be allocated this way.
+> 
+> Unbounded? It can be at most the number of threads using the interface
+> concurrently.
 
-Bump the domain console buffer allocation size to 256.
-
-Rename domain console buffer size symbol to DOMAIN_CONSOLE_BUF_SIZE.
-
-Finally, update the domain_console allocation and initialization code.
-
-No functional change.
-
-Signed-off-by: Denis Mukhin <dmukhin@ford.com>
----
-Changes since v6:
-- reverted allocation of domain_console as in v5
-- dropped the commentary for DOMAIN_CONSOLE_BUF_SIZE
-
-Link to v6: https://lore.kernel.org/xen-devel/20250710013421.2321353-1-dmuk=
-hin@ford.com/
-CI: https://gitlab.com/xen-project/people/dmukhin/xen/-/pipelines/191947309=
-3
----
- xen/arch/arm/vpl011.c      |  2 +-
- xen/arch/x86/hvm/hvm.c     | 17 +++++++++--------
- xen/arch/x86/pv/shim.c     |  2 +-
- xen/common/domain.c        | 19 +++++++++----------
- xen/drivers/char/console.c | 21 +++++++++++----------
- xen/include/xen/sched.h    | 24 ++++++++++++++----------
- 6 files changed, 45 insertions(+), 40 deletions(-)
-
-diff --git a/xen/arch/arm/vpl011.c b/xen/arch/arm/vpl011.c
-index 2b6f2a09bca6..f4a840da10c5 100644
---- a/xen/arch/arm/vpl011.c
-+++ b/xen/arch/arm/vpl011.c
-@@ -713,7 +713,7 @@ int domain_vpl011_init(struct domain *d, struct vpl011_=
-init_info *info)
-     }
-     else
-     {
--        d->console.input_allowed =3D true;
-+        d->console->input_allowed =3D true;
-         vpl011->backend_in_domain =3D false;
-=20
-         vpl011->backend.xen =3D xzalloc(struct vpl011_xen_backend);
-diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
-index 56c7de39778b..2be98f6ccbd1 100644
---- a/xen/arch/x86/hvm/hvm.c
-+++ b/xen/arch/x86/hvm/hvm.c
-@@ -559,7 +559,8 @@ void hvm_do_resume(struct vcpu *v)
- static int cf_check hvm_print_line(
-     int dir, unsigned int port, unsigned int bytes, uint32_t *val)
- {
--    struct domain *cd =3D current->domain;
-+    const struct domain *d =3D current->domain;
-+    struct domain_console *cons =3D d->console;
-     char c =3D *val;
-=20
-     ASSERT(bytes =3D=3D 1 && port =3D=3D XEN_HVM_DEBUGCONS_IOPORT);
-@@ -571,16 +572,16 @@ static int cf_check hvm_print_line(
-     if ( !is_console_printable(c) )
-         return X86EMUL_OKAY;
-=20
--    spin_lock(&cd->pbuf_lock);
-+    spin_lock(&cons->lock);
-     if ( c !=3D '\n' )
--        cd->pbuf[cd->pbuf_idx++] =3D c;
--    if ( (cd->pbuf_idx =3D=3D (DOMAIN_PBUF_SIZE - 1)) || (c =3D=3D '\n') )
-+        cons->buf[cons->idx++] =3D c;
-+    if ( (cons->idx =3D=3D (DOMAIN_CONSOLE_BUF_SIZE - 1)) || (c =3D=3D '\n=
-') )
-     {
--        cd->pbuf[cd->pbuf_idx] =3D '\0';
--        guest_printk(cd, XENLOG_G_DEBUG "%s\n", cd->pbuf);
--        cd->pbuf_idx =3D 0;
-+        cons->buf[cons->idx] =3D '\0';
-+        guest_printk(d, XENLOG_G_DEBUG "%s\n", cons->buf);
-+        cons->idx =3D 0;
-     }
--    spin_unlock(&cd->pbuf_lock);
-+    spin_unlock(&cons->lock);
-=20
-     return X86EMUL_OKAY;
- }
-diff --git a/xen/arch/x86/pv/shim.c b/xen/arch/x86/pv/shim.c
-index bc2a7dd5fae5..bd29c53a2d34 100644
---- a/xen/arch/x86/pv/shim.c
-+++ b/xen/arch/x86/pv/shim.c
-@@ -239,7 +239,7 @@ void __init pv_shim_setup_dom(struct domain *d, l4_pgen=
-try_t *l4start,
-      */
-     d->max_pages =3D domain_tot_pages(d);
-=20
--    d->console.input_allowed =3D true;
-+    d->console->input_allowed =3D true;
- }
-=20
- static void write_start_info(struct domain *d)
-diff --git a/xen/common/domain.c b/xen/common/domain.c
-index 303c338ef293..caef4cc8d649 100644
---- a/xen/common/domain.c
-+++ b/xen/common/domain.c
-@@ -669,7 +669,7 @@ static void _domain_destroy(struct domain *d)
-     BUG_ON(!d->is_dying);
-     BUG_ON(atomic_read(&d->refcnt) !=3D DOMAIN_DESTROYED);
-=20
--    xfree(d->pbuf);
-+    xvfree(d->console);
-=20
-     argo_destroy(d);
-=20
-@@ -835,8 +835,6 @@ struct domain *domain_create(domid_t domid,
-         flags |=3D CDF_hardware;
-         if ( old_hwdom )
-             old_hwdom->cdf &=3D ~CDF_hardware;
--
--        d->console.input_allowed =3D true;
-     }
-=20
-     /* Holding CDF_* internal flags. */
-@@ -866,8 +864,6 @@ struct domain *domain_create(domid_t domid,
-     spin_lock_init(&d->shutdown_lock);
-     d->shutdown_code =3D SHUTDOWN_CODE_INVALID;
-=20
--    spin_lock_init(&d->pbuf_lock);
--
-     rwlock_init(&d->vnuma_rwlock);
-=20
- #ifdef CONFIG_HAS_PCI
-@@ -877,6 +873,14 @@ struct domain *domain_create(domid_t domid,
-=20
-     /* All error paths can depend on the above setup. */
-=20
-+    err =3D -ENOMEM;
-+    d->console =3D xvzalloc(typeof(*d->console));
-+    if ( !d->console )
-+        goto fail;
-+
-+    spin_lock_init(&d->console->lock);
-+    d->console->input_allowed =3D is_hardware_domain(d);
-+
-     /*
-      * Allocate d->vcpu[] and set ->max_vcpus up early.  Various per-domai=
-n
-      * resources want to be sized based on max_vcpus.
-@@ -959,11 +963,6 @@ struct domain *domain_create(domid_t domid,
-     if ( (err =3D argo_init(d)) !=3D 0 )
-         goto fail;
-=20
--    err =3D -ENOMEM;
--    d->pbuf =3D xzalloc_array(char, DOMAIN_PBUF_SIZE);
--    if ( !d->pbuf )
--        goto fail;
--
-     if ( (err =3D sched_init_domain(d, config->cpupool_id)) !=3D 0 )
-         goto fail;
-=20
-diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
-index f54632bc0811..469f5e8832da 100644
---- a/xen/drivers/char/console.c
-+++ b/xen/drivers/char/console.c
-@@ -526,7 +526,7 @@ struct domain *console_get_domain(void)
-     if ( !d )
-         return NULL;
-=20
--    if ( d->console.input_allowed )
-+    if ( d->console->input_allowed )
-         return d;
-=20
-     rcu_unlock_domain(d);
-@@ -569,7 +569,7 @@ static void console_switch_input(void)
-         {
-             rcu_unlock_domain(d);
-=20
--            if ( !d->console.input_allowed )
-+            if ( !d->console->input_allowed )
-                 continue;
-=20
-             console_rx =3D next_rx;
-@@ -788,6 +788,7 @@ static long guest_console_write(XEN_GUEST_HANDLE_PARAM(=
-char) buffer,
-         else
-         {
-             char *kin =3D kbuf, *kout =3D kbuf, c;
-+            struct domain_console *cons =3D cd->console;
-=20
-             /* Strip non-printable characters */
-             do
-@@ -800,22 +801,22 @@ static long guest_console_write(XEN_GUEST_HANDLE_PARA=
-M(char) buffer,
-             } while ( --kcount > 0 );
-=20
-             *kout =3D '\0';
--            spin_lock(&cd->pbuf_lock);
-+            spin_lock(&cons->lock);
-             kcount =3D kin - kbuf;
-             if ( c !=3D '\n' &&
--                 (cd->pbuf_idx + (kout - kbuf) < (DOMAIN_PBUF_SIZE - 1)) )
-+                 (cons->idx + (kout - kbuf) < (DOMAIN_CONSOLE_BUF_SIZE - 1=
-)) )
-             {
-                 /* buffer the output until a newline */
--                memcpy(cd->pbuf + cd->pbuf_idx, kbuf, kout - kbuf);
--                cd->pbuf_idx +=3D (kout - kbuf);
-+                memcpy(cons->buf + cons->idx, kbuf, kout - kbuf);
-+                cons->idx +=3D kout - kbuf;
-             }
-             else
-             {
--                cd->pbuf[cd->pbuf_idx] =3D '\0';
--                guest_printk(cd, XENLOG_G_DEBUG "%s%s\n", cd->pbuf, kbuf);
--                cd->pbuf_idx =3D 0;
-+                cons->buf[cons->idx] =3D '\0';
-+                guest_printk(cd, XENLOG_G_DEBUG "%s%s\n", cons->buf, kbuf)=
-;
-+                cons->idx =3D 0;
-             }
--            spin_unlock(&cd->pbuf_lock);
-+            spin_unlock(&cons->lock);
-         }
-=20
-         guest_handle_add_offset(buffer, kcount);
-diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
-index fe53d4fab7ba..8771b7f22b48 100644
---- a/xen/include/xen/sched.h
-+++ b/xen/include/xen/sched.h
-@@ -371,6 +371,19 @@ struct evtchn_port_ops;
-=20
- #define MAX_NR_IOREQ_SERVERS 8
-=20
-+#define DOMAIN_CONSOLE_BUF_SIZE (256)
-+
-+/* Domain console settings. */
-+struct domain_console {
-+    /* Permission to take ownership of the physical console input. */
-+    bool input_allowed;
-+
-+    /* hvm_print_line() and guest_console_write() logging. */
-+    unsigned int idx;
-+    spinlock_t lock;
-+    char buf[DOMAIN_CONSOLE_BUF_SIZE];
-+};
-+
- struct domain
- {
-     domid_t          domain_id;
-@@ -562,12 +575,6 @@ struct domain
-     /* Control-plane tools handle for this domain. */
-     xen_domain_handle_t handle;
-=20
--    /* hvm_print_line() and guest_console_write() logging. */
--#define DOMAIN_PBUF_SIZE 200
--    char       *pbuf;
--    unsigned int pbuf_idx;
--    spinlock_t  pbuf_lock;
--
-     /* OProfile support. */
-     struct xenoprof *xenoprof;
-=20
-@@ -653,10 +660,7 @@ struct domain
- #endif
-=20
-     /* Console settings. */
--    struct {
--        /* Permission to take ownership of the physical console input. */
--        bool input_allowed;
--    } console;
-+    struct domain_console *console;
- } __aligned(PAGE_SIZE);
-=20
- static inline struct page_list_head *page_to_list(
---=20
-2.34.1
+That's what I meant
 
 
+
+> > The mutex is already a potentially very slow operation. Could we instead
+> > allocate a single batch, and if it is currently in use, use the mutex to
+> > wait until it becomes available?
+> 
+> As this interface is e.g. used by the qemu based qdisk backend, the chances
+> are very high that there are concurrent users. This would hurt multi-ring
+> qdisk quite badly!
+> 
+> It would be possible to replace the mutex with a spinlock and do the kmalloc()
+> outside the locked region.
+> 
+> > 
+> > I am also OK with the current approach but I thought I would ask.
+> > 
+> > 
+> > 
+> > 
+> > > +	if (!batch)
+> > > +		return -ENOMEM;
+> > > +
+> > > +	batch->nr_ops = 0;
+> > > +	batch->nr_pages = 0;
+> > >     	for (i = 0; i < copy.count; i++) {
+> > >   		struct gntdev_grant_copy_segment seg;
+> > >     		if (copy_from_user(&seg, &copy.segments[i],
+> > > sizeof(seg))) {
+> > >   			ret = -EFAULT;
+> > > +			gntdev_put_pages(batch);
+> > >   			goto out;
+> > >   		}
+> > >   -		ret = gntdev_grant_copy_seg(&batch, &seg,
+> > > &copy.segments[i].status);
+> > > -		if (ret < 0)
+> > > +		ret = gntdev_grant_copy_seg(batch, &seg,
+> > > &copy.segments[i].status);
+> > > +		if (ret < 0) {
+> > > +			gntdev_put_pages(batch);
+> > >   			goto out;
+> > > +		}
+> > >     		cond_resched();
+> > >   	}
+> > > -	if (batch.nr_ops)
+> > > -		ret = gntdev_copy(&batch);
+> > > -	return ret;
+> > > +	if (batch->nr_ops)
+> > > +		ret = gntdev_copy(batch);
+> > > +
+> > > + out:
+> > > +	mutex_lock(&priv->batch_lock);
+> > > +	batch->next = priv->batch;
+> > > +	priv->batch = batch;
+> > > +	mutex_unlock(&priv->batch_lock);
+> > >   -  out:
+> > > -	gntdev_put_pages(&batch);
+> > 
+> > One change from before is that in case of no errors, gntdev_put_pages is
+> > not called anymore. Do we want that? Specifically, we are missing the
+> > call to unpin_user_pages_dirty_lock
+> 
+> I don't think you are right. There was a "return ret" before the "out:"
+> label before my patch.
+
+You are right, I missed it.
+
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+--8323329-476946106-1752195831=:605088--
 
