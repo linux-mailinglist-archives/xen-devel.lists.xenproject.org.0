@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B0DDB010C1
-	for <lists+xen-devel@lfdr.de>; Fri, 11 Jul 2025 03:24:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1040083.1411550 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E2487B010C9
+	for <lists+xen-devel@lfdr.de>; Fri, 11 Jul 2025 03:25:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1040089.1411560 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ua2UT-0005Gx-2q; Fri, 11 Jul 2025 01:23:53 +0000
+	id 1ua2W3-0005mF-E0; Fri, 11 Jul 2025 01:25:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1040083.1411550; Fri, 11 Jul 2025 01:23:53 +0000
+Received: by outflank-mailman (output) from mailman id 1040089.1411560; Fri, 11 Jul 2025 01:25:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ua2UT-0005Dt-0G; Fri, 11 Jul 2025 01:23:53 +0000
-Received: by outflank-mailman (input) for mailman id 1040083;
- Fri, 11 Jul 2025 01:23:52 +0000
+	id 1ua2W3-0005jv-AZ; Fri, 11 Jul 2025 01:25:31 +0000
+Received: by outflank-mailman (input) for mailman id 1040089;
+ Fri, 11 Jul 2025 01:25:29 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=IOLW=ZY=gmail.com=demiobenour@srs-se1.protection.inumbo.net>)
- id 1ua2US-0005Dn-0e
- for xen-devel@lists.xenproject.org; Fri, 11 Jul 2025 01:23:52 +0000
-Received: from mail-qv1-xf32.google.com (mail-qv1-xf32.google.com
- [2607:f8b0:4864:20::f32])
+ id 1ua2W1-0005jn-Lb
+ for xen-devel@lists.xenproject.org; Fri, 11 Jul 2025 01:25:29 +0000
+Received: from mail-qk1-x732.google.com (mail-qk1-x732.google.com
+ [2607:f8b0:4864:20::732])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b265af84-5df5-11f0-b894-0df219b8e170;
- Fri, 11 Jul 2025 03:23:49 +0200 (CEST)
-Received: by mail-qv1-xf32.google.com with SMTP id
- 6a1803df08f44-6face367320so15186196d6.3
- for <xen-devel@lists.xenproject.org>; Thu, 10 Jul 2025 18:23:49 -0700 (PDT)
+ id ecdbdb58-5df5-11f0-b894-0df219b8e170;
+ Fri, 11 Jul 2025 03:25:27 +0200 (CEST)
+Received: by mail-qk1-x732.google.com with SMTP id
+ af79cd13be357-7d3f5796755so142730085a.1
+ for <xen-devel@lists.xenproject.org>; Thu, 10 Jul 2025 18:25:27 -0700 (PDT)
 Received: from [10.138.10.6] ([89.187.178.201])
  by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-70497dd084fsm14502006d6.118.2025.07.10.18.23.46
+ 6a1803df08f44-70497a104b7sm14688896d6.55.2025.07.10.18.25.24
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 10 Jul 2025 18:23:47 -0700 (PDT)
+ Thu, 10 Jul 2025 18:25:25 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,63 +45,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b265af84-5df5-11f0-b894-0df219b8e170
+X-Inumbo-ID: ecdbdb58-5df5-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1752197028; x=1752801828; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1752197126; x=1752801926; darn=lists.xenproject.org;
         h=in-reply-to:autocrypt:from:content-language:references:cc:to
          :subject:user-agent:mime-version:date:message-id:from:to:cc:subject
          :date:message-id:reply-to;
-        bh=G+bsSPTJEfZbXLDfrVN5Mdgb7Xvt58TRsLa9PD8mFAA=;
-        b=ROznKCKflv6STSTKl1YctClpi7X+lGDDJiv/FkQPqCqDN6QoaZvRguVUXVEbfL2tYw
-         TmRxZiP/jsbY92az5BoosVMphodakuiu3qlLlqo2XCijwiLZnJsoI91qJuZ6ehhn0WIi
-         pXYkzw8M9B9im1+O1N3mPwloS4X+6olMadMifzLKz9M3dlLlrmdoa+2wDvGKifb/zHK8
-         Vn0r+CJ682hfR8cilO9+blk7MyM3gBu3siI2wwFz+RVW68pikPOZTesiRdNWqQFrybra
-         +GP/cN6HIdl18PN5YANA38JHPrWgGOdcgrd7D5DG91Njf4L+nMxLBFvLRVWuoumtc5wW
-         cnqQ==
+        bh=J5FQ37gmpR/mP5URDeBAYtR9baAxcXGd0yjb4CqO/sY=;
+        b=gwG9DK1DkPRQa0JpRGubHKVsryyKyQ6pEmjow0vcCQ+9AbDi4Z489YMjTj5eA2zxO6
+         YvBiamyEmZD7uQiPj9DRjCjitNpQr27L6zxRNS2BAGAxCHLM4GaYDL/dGJ/Ri5J/9XYE
+         xfyLutvjB2Mv2zL3EhjzzyfXXBxbVL0bgnmcbdhBs5ONRYjl8h2tltbHlUxAFUMmZS8E
+         r3kEEO1X2u4GSLwvMnjCYl/KhL+66rIIWiZPq4fs1aKWkcbTBDq8+rNXbLOHsUw2fIXP
+         kHK5pJochONwXsUvr7VPmMbCOtHHPiOAT3PoN60uybpM5ReMlK3G97+e1ukvVgxhiGpL
+         nLAQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1752197028; x=1752801828;
+        d=1e100.net; s=20230601; t=1752197126; x=1752801926;
         h=in-reply-to:autocrypt:from:content-language:references:cc:to
          :subject:user-agent:mime-version:date:message-id:x-gm-message-state
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=G+bsSPTJEfZbXLDfrVN5Mdgb7Xvt58TRsLa9PD8mFAA=;
-        b=nJEDcI9+uzoUrM5nVLpf922N2DRm26EEvDeQydJvbvb6DuhCcDzGfn9Op0RLoT5qdE
-         CPhkw1sfh7rZVRqKqNdvHokrljLRc1kFr7zOSNbA1b5Rqp24L6YYok+2DmIlZycG9IcE
-         hBfJn78urtz/KRW5DvMHxmaTEjV+GJz4W/lDp3MMeqCoBzYNBy1IaWvVfkPN/PGr4p+K
-         SpCWqtUj0+nGYgw4SIirgdhvKw+Ybh2H0sY8FCOuuPhKetz+9MYckaqBnE7irW2bD49m
-         iVGbTVvgD3v1rhUET0yTYNCV0z6wAS6l0vcXiDtGpDXl3LoK/gw7nj96xSZcQtM0TGRL
-         Xbfg==
-X-Forwarded-Encrypted: i=1; AJvYcCXWL4XldJw3cvc2PtuetTQnuj6CnCO5cFATaa9l4B5p1cA9ts356udurrCAl65P8ExrtrHcrFtg3Cw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzcqwuJYclYtjkLN71MUxFYsruiOHu25dhSz/Ib3O4zonLPNuwm
-	CKo11EB4ksjZgCGQGwd6v2a0fd8aqs4UGkZ1iSc/LLull6q3/89yz40w
-X-Gm-Gg: ASbGncvS/j4qzM9q5rtEPtGhqBrumH3fMPBwZ8fHBgxYF4Ws+oV9nnWX/RPzKCe422l
-	ME5McXWGtEV9hr4BnRw98zOJiDFFzxYq0w+TzGZOWSADkiuk8alXIrh/wqdlHRarQB0Lsetce9c
-	f2xiIuSCmcbTXkBg9FLcOh9jUVe95ugKiMiWCSKnZDSFSers/5uh303xpzIlVy0sGZgYetuU9Ns
-	ShaZEg1/+k927NOrDLyj49RXBtjamEWV7trXayWajO5pu4jTV/reUxXOKpAi14WDuzETsPDfpGj
-	rGozjEiM/Q4PPItb9klwAU24tScZYbmQooQ/Y88DBnoo+wz+PaOl2737gz0V30LHW2Iq9MApjHC
-	/FkqjRlgTsvgSr+vtql+e8fYAjbM=
-X-Google-Smtp-Source: AGHT+IHkXH/3fjp0MShRM5Dkie+lzloukLr2766y17fw1c+m4YXwtDvnXNFfC+Swo7FE6IAceEw+eQ==
-X-Received: by 2002:a05:6214:29cb:b0:704:91a2:d203 with SMTP id 6a1803df08f44-704a3519bf2mr23124946d6.5.1752197028207;
-        Thu, 10 Jul 2025 18:23:48 -0700 (PDT)
-Message-ID: <6309c055-459a-4662-9b26-e4056540ada9@gmail.com>
-Date: Thu, 10 Jul 2025 21:23:28 -0400
+        bh=J5FQ37gmpR/mP5URDeBAYtR9baAxcXGd0yjb4CqO/sY=;
+        b=Y94nZ9+9NC7AGj++Evvh4xtQXrpwWX5XnMBZLTl/ophCn1YhHHOEdX1SMwjf+h9Ulr
+         V9XkEFBbbFZLUiuhFozwH66Gob3yqWW3poWv3A1gi6k5tOpDWERlqOQIMUqlyNgOTxgM
+         zX6XFwzvwCbWmcRQ6ocic3sKMQwmLrEZ/PFJ9PQRWeTwXsQLZDbrdk9vqH2a0nepNnKV
+         w6WFSlpP8zRk64UiZfbaoKXkg4kGa7ZWZktODLgLdmkYHO7c7vJSuY7KjM9ZlGu730Pp
+         e9eovDBX49T5JcC+69KInCQAPUWOvx4C9gKkTJ3AdArrVRijJQFe6VeFWDDJO/W5f2xv
+         lMZg==
+X-Gm-Message-State: AOJu0YxkFEEqcBa5PzKoexi9cvi0ySfAv/UX9P0P7fXPNOLFd1wkLEl7
+	Ch66oYV0VA3T5uNn0sYSsBuN2c6YK9kwDQRoQOLEIoepHoTLDzqxpRq5
+X-Gm-Gg: ASbGncsM3HW1MYp5alUGvUJbmMpNvgoPpYVs0xvb3DA9/F022hP75Y4kXzZmiuRC9ND
+	QrSrZVOoquLi8xPvaqdC/EWDowkwgETrMcNSMxUF4Nngd6UUshvXqYAFLoF+HFAXTAEwEyODTof
+	RDv4wBPN5fDivsJo89qr2K2LT9xz1KnJerG97G5XY6RpZ107dIsAO7nE1juWXC3PRnConf1jJrh
+	HHQS4P10Aq0pTaisTdbSrFmu45oIyxIkIH6XXqGX8JtDIXDvOA8iiQFFb90vvE+IPQrxltASKNM
+	6kwS4kjLQTXYKUubUomGUVH2ylLLVg1YT8yWm4fa1yYTmwDRSBiUukrdJK74f/tMlbt2fThLWln
+	y6X0ypWt43a0JD40EvtWQiVTmHxY=
+X-Google-Smtp-Source: AGHT+IFH2TSB7vCmYau1rb11ptIoAExdPi/SlVe0/NRRM3BJM96/ekzoDBdi/Kpx5gZTLxGiS+3Jhw==
+X-Received: by 2002:a05:620a:248b:b0:7d4:4ce0:4e7b with SMTP id af79cd13be357-7debfcc0233mr114759385a.13.1752197126336;
+        Thu, 10 Jul 2025 18:25:26 -0700 (PDT)
+Message-ID: <f84fc6f5-e11a-4e00-820c-d8146d4c8aea@gmail.com>
+Date: Thu, 10 Jul 2025 21:25:19 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/2] Xen real-time x86
-To: Stefano Stabellini <stefano.stabellini@amd.com>,
- Jan Beulich <jbeulich@suse.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>,
- Xenia.Ragiadakou@amd.com, alejandro.garciavallejo@amd.com,
- Jason.Andryuk@amd.com
-References: <alpine.DEB.2.22.394.2507071657440.605088@ubuntu-linux-20-04-desktop>
- <aGzu4A_nk3dAScxt@macbook.local>
- <6d283128-4aaf-4f52-8e96-7a4ebe292be3@suse.com>
- <alpine.DEB.2.22.394.2507081000490.605088@ubuntu-linux-20-04-desktop>
- <b81d7bf6-6254-4001-89f3-3ec06e03e21a@suse.com>
- <alpine.DEB.2.22.394.2507091736520.605088@ubuntu-linux-20-04-desktop>
- <aG9lh5FI8tKMJkco@macbook.local>
- <979884b1-736d-46ee-9465-e432404c59be@suse.com>
- <alpine.DEB.2.22.394.2507101407500.605088@ubuntu-linux-20-04-desktop>
+Subject: Re: [XEN PATCH] xen/arm: address violation of MISRA C Rule 10.1
+To: Stefano Stabellini <sstabellini@kernel.org>,
+ Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>, Jan Beulich <jbeulich@suse.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Rahul Singh <rahul.singh@arm.com>
+References: <d92cf08a64d8197a1d1a45f901e59183105d3da5.1752183472.git.dmytro_prokopchuk1@epam.com>
+ <alpine.DEB.2.22.394.2507101715030.605088@ubuntu-linux-20-04-desktop>
 Content-Language: en-US
 From: Demi Marie Obenour <demiobenour@gmail.com>
 Autocrypt: addr=demiobenour@gmail.com; keydata=
@@ -147,96 +143,110 @@ Autocrypt: addr=demiobenour@gmail.com; keydata=
  vUSQHSrmfOzX3cV4yfmjM5lewgSstoxGyTx2M8enslgdXhPthZlDnTnOT+C+OTsh8+m5tos8
  HQjaPM01MKBiAqdPgksm1wu2DrrwUi6ChRVTUBcj6+/9IJ81H2P2gJk3Ls3AVIxIffLoY34E
  +MYSfkEjBz0E8CLOcAw7JIwAaeBT
-In-Reply-To: <alpine.DEB.2.22.394.2507101407500.605088@ubuntu-linux-20-04-desktop>
+In-Reply-To: <alpine.DEB.2.22.394.2507101715030.605088@ubuntu-linux-20-04-desktop>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------bc0FTYqagTzOpNBdnAWvhYBV"
+ boundary="------------6IduFBMcYGYd7C8LTD1NAGBr"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------bc0FTYqagTzOpNBdnAWvhYBV
-Content-Type: multipart/mixed; boundary="------------e0c51F8awiG6fKvjfUJykZlo";
+--------------6IduFBMcYGYd7C8LTD1NAGBr
+Content-Type: multipart/mixed; boundary="------------ZJGUmVfMNdFWykqLdCZC5diB";
  protected-headers="v1"
 From: Demi Marie Obenour <demiobenour@gmail.com>
-To: Stefano Stabellini <stefano.stabellini@amd.com>,
- Jan Beulich <jbeulich@suse.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>,
- Xenia.Ragiadakou@amd.com, alejandro.garciavallejo@amd.com,
- Jason.Andryuk@amd.com
-Message-ID: <6309c055-459a-4662-9b26-e4056540ada9@gmail.com>
-Subject: Re: [PATCH 0/2] Xen real-time x86
-References: <alpine.DEB.2.22.394.2507071657440.605088@ubuntu-linux-20-04-desktop>
- <aGzu4A_nk3dAScxt@macbook.local>
- <6d283128-4aaf-4f52-8e96-7a4ebe292be3@suse.com>
- <alpine.DEB.2.22.394.2507081000490.605088@ubuntu-linux-20-04-desktop>
- <b81d7bf6-6254-4001-89f3-3ec06e03e21a@suse.com>
- <alpine.DEB.2.22.394.2507091736520.605088@ubuntu-linux-20-04-desktop>
- <aG9lh5FI8tKMJkco@macbook.local>
- <979884b1-736d-46ee-9465-e432404c59be@suse.com>
- <alpine.DEB.2.22.394.2507101407500.605088@ubuntu-linux-20-04-desktop>
-In-Reply-To: <alpine.DEB.2.22.394.2507101407500.605088@ubuntu-linux-20-04-desktop>
+To: Stefano Stabellini <sstabellini@kernel.org>,
+ Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>, Jan Beulich <jbeulich@suse.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Rahul Singh <rahul.singh@arm.com>
+Message-ID: <f84fc6f5-e11a-4e00-820c-d8146d4c8aea@gmail.com>
+Subject: Re: [XEN PATCH] xen/arm: address violation of MISRA C Rule 10.1
+References: <d92cf08a64d8197a1d1a45f901e59183105d3da5.1752183472.git.dmytro_prokopchuk1@epam.com>
+ <alpine.DEB.2.22.394.2507101715030.605088@ubuntu-linux-20-04-desktop>
+In-Reply-To: <alpine.DEB.2.22.394.2507101715030.605088@ubuntu-linux-20-04-desktop>
 
---------------e0c51F8awiG6fKvjfUJykZlo
-Content-Type: multipart/mixed; boundary="------------w2yU78bs7GFsKE7GJ67bHP8O"
+--------------ZJGUmVfMNdFWykqLdCZC5diB
+Content-Type: multipart/mixed; boundary="------------TXLRxYRiSiI2Nt9QtyihNxPU"
 
---------------w2yU78bs7GFsKE7GJ67bHP8O
+--------------TXLRxYRiSiI2Nt9QtyihNxPU
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
-On 7/10/25 17:39, Stefano Stabellini wrote:
-> On Thu, 10 Jul 2025, Jan Beulich wrote:
->> On 10.07.2025 09:02, Roger Pau Monn=C3=A9 wrote:
->>> On Wed, Jul 09, 2025 at 05:44:33PM -0700, Stefano Stabellini wrote:
->>>> 2) means that the RTOS must be undisturbed when executing the critic=
-al
->>>> section, which is typically right after receiving the interrupt and =
-only
->>>> last for less than 1ms. In practice, it means the RTOS should absolu=
-tely
->>>> not be descheduled and there should be no (unnecessary) traps into X=
-en
->>>> while the RTOS is executing the critical section. It is expected tha=
-t
->>>> the RTOS will run the critical section with interrupts disabled.
->>>
->>> What about other external interrupts?  While the guest runs the
->>> critical interrupt handling section with interrupts disabled, an
->>> external interrupt from a device targeting the pCPU could cause a
->>> vmexit.
+On 7/10/25 20:15, Stefano Stabellini wrote:
+> On Thu, 10 Jul 2025, Dmytro Prokopchuk1 wrote:
+>> Rule 10.1: Operands shall not be of an
+>> inappropriate essential type
 >>
->> For interrupts to be handled by the guest, we may need to finally gain=
- AVIC
->> support (albeit I'm not sure how close that is to VMX-es posted interr=
-upts).
->> For interrupts handled in Xen the only way would be to allow the guest=
- to
->> announce such critical sections to Xen. Which, besides being a securit=
-y
->> concern, may of course itself represent unacceptable overhead.
+>> The following are non-compliant:
+>> - unary minus on unsigned type;
+>> - boolean used as a numeric value.
+>>
+>> Replace unary '-' operator with multiplying by '-1L' or '-1LL'.
+>> Replace numeric constant '-1UL' with '~0UL'.
+>> Replace numeric constant '-1ULL' with '~0ULL'.
+>> Cast boolean to numeric value.
+>>
+>> Signed-off-by: Dmytro Prokopchuk <dmytro_prokopchuk1@epam.com>
+>> ---
+>>  xen/arch/arm/gic-vgic.c               | 2 +-
+>>  xen/common/memory.c                   | 2 +-
+>>  xen/common/page_alloc.c               | 6 +++---
+>>  xen/common/time.c                     | 2 +-
+>>  xen/drivers/passthrough/arm/smmu-v3.c | 2 +-
+>>  xen/lib/strtol.c                      | 2 +-
+>>  xen/lib/strtoll.c                     | 2 +-
+>>  7 files changed, 9 insertions(+), 9 deletions(-)
+>>
+>> diff --git a/xen/arch/arm/gic-vgic.c b/xen/arch/arm/gic-vgic.c
+>> index ea48c5375a..a35f33c5f2 100644
+>> --- a/xen/arch/arm/gic-vgic.c
+>> +++ b/xen/arch/arm/gic-vgic.c
+>> @@ -17,7 +17,7 @@
+>>  #include <asm/vgic.h>
+>> =20
+>>  #define lr_all_full()                                           \
+>> -    (this_cpu(lr_mask) =3D=3D (-1ULL >> (64 - gic_get_nr_lrs())))
+>> +    (this_cpu(lr_mask) =3D=3D (~0ULL >> (64 - gic_get_nr_lrs())))
 >=20
-> In the past, I wrote a patch for an ARM user basically to do what you
-> suggested: "announce such critical sections to Xen". It is easy for Xen=
+> I understand this change, I think it is good
+>=20
+>=20
+>=20
+>>  #undef GIC_DEBUG
+>> =20
+>> diff --git a/xen/common/memory.c b/xen/common/memory.c
+>> index 46620ed825..96086704cb 100644
+>> --- a/xen/common/memory.c
+>> +++ b/xen/common/memory.c
+>> @@ -773,7 +773,7 @@ static long memory_exchange(XEN_GUEST_HANDLE_PARAM=
+(xen_memory_exchange_t) arg)
+>> =20
+>>                  nrspin_lock(&d->page_alloc_lock);
+>>                  drop_dom_ref =3D (dec_count &&
+>> -                                !domain_adjust_tot_pages(d, -dec_coun=
+t));
+>> +                                !domain_adjust_tot_pages(d, (-1L) * d=
+ec_count));
+>=20
+> ...but I don't understand this? It looks like it would also break 10.1
+> and/or 10.3 as well?
+>=20
+> I would rather use casts if needed, which wouldn't change the behavior
+> but would highlight the unsigned->signed conversion, making it more
+> visible:
+>=20
+>     !domain_adjust_tot_pages(d, -(int)dec_count));
 
-> to know when the critical section start: upon receiving the critical
-> interrupt. I added an hypercall so that the RTOS could tell Xen when it=
-
-> ends. This is the kind of dirty patch that is very effective but
-> difficult to generalize. As an example, you can pause all other VMs
-> during the critical section to make sure the RTOS has full bandwidth on=
-
-> the bus. The critical section is much shorter than a scheduler slot
-> anyway. I did not try to upstream the patch.
-
-Curious: why is the RTOS running on an x86 core at all, and not on a
-microcontroller dedicated exclusively to real-time tasks?  The
-performance impact of isolating the RTOS from other tasks seems huge
-compared to the cost of a tiny microcontroller that just runs the RTOS.
-
-Have you considered upstreaming the patch?
+-INT_MIN is undefined behavior, whereas -(unsigned)INT_MIN should be
+well-defined.  I'm not sure if that matters here, though.
 --=20
 Sincerely,
 Demi Marie Obenour (she/her/hers)
---------------w2yU78bs7GFsKE7GJ67bHP8O
+--------------TXLRxYRiSiI2Nt9QtyihNxPU
 Content-Type: application/pgp-keys; name="OpenPGP_0xB288B55FFF9C22C1.asc"
 Content-Disposition: attachment; filename="OpenPGP_0xB288B55FFF9C22C1.asc"
 Content-Description: OpenPGP public key
@@ -356,31 +366,31 @@ EtJuZYM5blWncBOJCoWMnBEcTEo/viU3GgcVRw=3D=3D
 =3Dx94R
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------w2yU78bs7GFsKE7GJ67bHP8O--
+--------------TXLRxYRiSiI2Nt9QtyihNxPU--
 
---------------e0c51F8awiG6fKvjfUJykZlo--
+--------------ZJGUmVfMNdFWykqLdCZC5diB--
 
---------------bc0FTYqagTzOpNBdnAWvhYBV
+--------------6IduFBMcYGYd7C8LTD1NAGBr
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEopQtqVJW1aeuo9/sszaHOrMp8lMFAmhwZ5sACgkQszaHOrMp
-8lPqng/8DnwiAXK0HA1b1Q5GJqUv7jh9ynyVBR++VEBgvY6gWE0U15l5ZUXh6vKB
-ay+xINfZmM7gq3nanxDxxqyoagmWeSiMjsvXYDXW5ovqBNtHSxAEECaQYXGsP0Gd
-aMEmwxZt+VBtaHTnpT2BRG8VTAbgKYYi7PoSnegoWlCz0imirS1a0eWIM20bY2hD
-C9uuO6FPvx7OjgE6skkTE53hCMZbTNUStb7Yw0RwwS1xMPfUbEP8zilUcqY37JCN
-t8cm/R9QoBhgq4Pvlqt11fbP3WxNweMPZQjoAEyJH2eax3I9NV3AN9yv32ZnA0//
-OendFhF1jD4gWjl3Ws3iqaC3RUGY+scotzNEr2cLGojEUr78FkChhqNMn3UxWSoj
-4uFTUu0rNTSVDWgZ4fzO5xAjNKcphqlwhLRkCsvapvi1x+admK8T9L/S1aKmT9/4
-EYF0a38X3/7fQPWa4dvjlsAChlxfcZaxH8ukPsomFvtyU0N/iwDbmdf1ZzBXMg9n
-ww+WpKgFYteuzuF8a5KWLIF24dh3WvC5RS23274NP8yqUMw+KZotHnkxzLGL2+Xn
-HOtOKJ5Z8+9vhnZMhIdKZtGjEKwPoEtz92PQ+rLFJGFWursF3yldEcWPki7rDRg6
-TfwKB5ixb5kGbHVj4XFKVZzqv7H0WO2aa3r2v2te/CQAF+POeW0=
-=E+dv
+iQIzBAEBCAAdFiEEopQtqVJW1aeuo9/sszaHOrMp8lMFAmhwaAAACgkQszaHOrMp
+8lMEbw/+Nuk8hJgC5guboG7Phgk0QK86taBh17mLdvsmCZC0V9QGsK9+8Ql27Uo1
+IvD5BXkx3FoNfcKZKq5Hk3PluEczIRZZNMGrgQT/zzA4CRax1MLELazJgbP0aPKe
+7efR8rcPacd2xtn5U/chbInzrTV1PeCFf8TKMernriTYDa+buBDKGnG6CACbR010
+ugfIBneDM6NOju+6Ye4DTIauluJg0yfdYCZVO9zDHM1Ib5CYq2fyxcP7qg/iTA8W
+za+HltG/7NjuwImyw1VeygFQdggQJmimGjic6v/yRGQGWHqt7sx14aFJC2VbDExz
+n/qTFImqspD9PHF/ABdzwyeE46koQSdHKxxl3BFwrOg24ZuaYLsAw8P7COT1CopO
+wfUptFNoLNH4kM3w4Dq81vnD1K24f2r9MG5RzXMZi2zpupqzDIQx5EaiwMwIieZF
+JobK8Li10IFn9XUyyzU/Afm+gHtnRylcQHfgZzZH633HaykdwDjoAfiBmMkdwu1s
+ttsVWTw1ZkDeZHxMamfs1vD4qqIl+opOihkU4l6KPdeSoTgZmMVNISziZ7108H4Z
+aWJu3qnlyCR+VphTQYV8xE2bcHya+OPO3zJ2UGY28G8GJTSKvWo+lgBHuI6ycEeR
+dP7xsLDUJueKROpT538aGTGu7TjihITrMNjxenf9lDfgm5geV/I=
+=lcI1
 -----END PGP SIGNATURE-----
 
---------------bc0FTYqagTzOpNBdnAWvhYBV--
+--------------6IduFBMcYGYd7C8LTD1NAGBr--
 
