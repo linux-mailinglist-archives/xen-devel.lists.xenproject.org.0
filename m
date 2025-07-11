@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96FB2B01357
-	for <lists+xen-devel@lfdr.de>; Fri, 11 Jul 2025 08:11:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1040472.1411909 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DCD1DB01375
+	for <lists+xen-devel@lfdr.de>; Fri, 11 Jul 2025 08:25:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1040497.1411920 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ua6yO-0000cD-Hz; Fri, 11 Jul 2025 06:11:04 +0000
+	id 1ua7Bg-0002oq-Pb; Fri, 11 Jul 2025 06:24:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1040472.1411909; Fri, 11 Jul 2025 06:11:04 +0000
+Received: by outflank-mailman (output) from mailman id 1040497.1411920; Fri, 11 Jul 2025 06:24:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ua6yO-0000am-Ef; Fri, 11 Jul 2025 06:11:04 +0000
-Received: by outflank-mailman (input) for mailman id 1040472;
- Fri, 11 Jul 2025 06:11:02 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ua7Bg-0002mI-M5; Fri, 11 Jul 2025 06:24:48 +0000
+Received: by outflank-mailman (input) for mailman id 1040497;
+ Fri, 11 Jul 2025 06:24:47 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Yw5d=ZY=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ua6yM-0000ZO-R8
- for xen-devel@lists.xenproject.org; Fri, 11 Jul 2025 06:11:02 +0000
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [2a00:1450:4864:20::42a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d12c8cd9-5e1d-11f0-b894-0df219b8e170;
- Fri, 11 Jul 2025 08:11:00 +0200 (CEST)
-Received: by mail-wr1-x42a.google.com with SMTP id
- ffacd0b85a97d-3a54700a463so1015224f8f.1
- for <xen-devel@lists.xenproject.org>; Thu, 10 Jul 2025 23:11:00 -0700 (PDT)
+ id 1ua7Bf-0002m5-Eu
+ for xen-devel@lists.xenproject.org; Fri, 11 Jul 2025 06:24:47 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id bd68d900-5e1f-11f0-a318-13f23c93f187;
+ Fri, 11 Jul 2025 08:24:46 +0200 (CEST)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-454df871875so4537175e9.0
+ for <xen-devel@lists.xenproject.org>; Thu, 10 Jul 2025 23:24:46 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-74eb9e07facsm4565048b3a.68.2025.07.10.23.10.54
+ d2e1a72fcca58-74eb9f4b16fsm3970209b3a.120.2025.07.10.23.24.42
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 10 Jul 2025 23:10:59 -0700 (PDT)
+ Thu, 10 Jul 2025 23:24:45 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,60 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d12c8cd9-5e1d-11f0-b894-0df219b8e170
+X-Inumbo-ID: bd68d900-5e1f-11f0-a318-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1752214260; x=1752819060; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1752215086; x=1752819886; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=k9imKEu0ihBoK4xFSf7T8shxaqwZEcWMDX85OoiFQoE=;
-        b=b4Yqtn8jM8ChI0RYfPjH56cwcto+8mpHQFx3WJceJs6jZ4eInnCxAHV1KgCwZ8RuNW
-         98WWBonBsCQmnaSaR2hWXETy4ijXGBeLHwqFT/7ez11+rKt8uNLR49hoGxQU7scy69dx
-         7fUNAxaI1XKQK29CAoM7oGP9ZzX0ssd9Fgztr7XjDdHgEgifrb0J9rwj7ea9P5x0+2WR
-         V873Q2BnHLTyZtPUngctp/xgliaa6sW+2bHG2sTatY95bvSBEViFNY/sK6F1fsVGDaQ4
-         tUBIzRxjAbr6ohhGklqRnPlMfLsJTPAWkmkhoMfhNSjl229R13iUoguU0j0d+95Uss/b
-         r/0Q==
+        bh=nzt2XbScEuaa70g7MbhiFbO5RvGnL/d+D9V5h448sGQ=;
+        b=ZJTFVnul4prcs+kFhcJgxWMy6Bb8Lls2bmLujBYbVwLySXk3ulj6ICB/bUQYRlRm31
+         bFSgYI3Q9sJuiw0X53V2waPvvEri/LlC4u/35vfpEUIk/SIj8vgZ5cuNNNNQqFMfi4v5
+         5navtRsP7YjS8AFFB5oWyo2XLOzDxqIAJ09sMflYKODWKX+82/xjROKh7wAYruSoi/Uy
+         +3qSDDtK94Hg6H+g8Ums/V7dPlHPykRFLgR1Mzpq8dPjH0KVJ+nEUL/tZhT/BLj5U42d
+         K14mUcPhT65qA29gkCqwWM0EVvMM4vaEmokhjaZDSoyqh4Eiem97zMARMRPk+x3xOtBX
+         FJaA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1752214260; x=1752819060;
+        d=1e100.net; s=20230601; t=1752215086; x=1752819886;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=k9imKEu0ihBoK4xFSf7T8shxaqwZEcWMDX85OoiFQoE=;
-        b=OkDJRx9q1CsyYrSzEzwz2Woe11SrOPlxdI6PRGase4dWDoGmQheJ7+RKH4JqEu2Of/
-         nKqT0xAx7eZiRoEnp4yW6czCfaPsE0NPOGUwa8zkYic+7BzqtDfPy/4FbhL6/i7j3xqI
-         CAXK9eEosr9ooN16hM08zrPzhzlZNqVeufv412dhzLSZO+/nFheXE43qnUtf25TD9wDE
-         MbP3hQcbcpszDQFrkcRrdjoDYa6IvEF7utzUP1vW5kZvnMk2VbHLwlowbkzrH3oBJoAv
-         KY2lLbFuX/mTsbgDmfJAknoAhiEkRcD4U986ywqmRNlLbJn9zrHacVRkVGf9jKWVcjQm
-         OXeQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUWttGFG+Wa75BKx50HCyiCeqQ6T1X1hkt3tFwneswrW84GnesUBY+OAme79/xHLRH+UMsy949f5iU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwHyXlmW+tBaCPJg2KIq/BabxBZJajvuHeIriJT2OXcso6FMjI9
-	bq3rucvuKQRYMHuHdRzJ7N5GC76cIUHy+Wgvztg5sUxik9FlJKki2kEcFfA87pq7Hw==
-X-Gm-Gg: ASbGnctNCiFfqBISQ07YYzNOF0ydy3AIzWaifDy1DHaJIKHN6HfmvMsSw7VxRcjNE3K
-	cj98ZB3F5cJ0Q2s2MyGSsI1KeVOC95q+cmYbuLxOu0G/gA1Me9jkrDX2Gm2vJGyZINnMvG7fODa
-	LN1j+a1SvCn88L44DS3Yi3HLI1zPa39FeMXu8Y0U7OHhW6Vs47fgp/TTkzY019tokQ7IBYqytZk
-	T6poqsZYW09ypJG4sH66xI/8tEuhYwS4v9NnJ/nBiHijXiC76uOry8sfgvEX4vrhwbUZpFd/STa
-	KXO274T8TqSykRuT0QVvi5qbi1vUKmCwckEz/QcrZBB/X4r4hzhUTQIB0bAzOqT1MCqXJR+zfSk
-	1Fhqesefo3rRFlY3SbJ1ZReU5BgaxkHzHGsFbSG13Cgo+KGQPiSyZ6/DAWQcUq+vv8vVgPyWBaR
-	7DMpq3D5o=
-X-Google-Smtp-Source: AGHT+IG8+ptkuaP+Y47u4at7rghlY0Xc/lmadl6SgU1mL8abNs2ygiy45CI5tqtFlIa50oWcw2i9Ow==
-X-Received: by 2002:a05:6000:21c9:b0:3a5:2b1e:c49b with SMTP id ffacd0b85a97d-3b5e7f4356fmr3486353f8f.29.1752214259920;
-        Thu, 10 Jul 2025 23:10:59 -0700 (PDT)
-Message-ID: <fd9c8f98-d59a-4fbe-b661-abafd54caad7@suse.com>
-Date: Fri, 11 Jul 2025 08:10:50 +0200
+        bh=nzt2XbScEuaa70g7MbhiFbO5RvGnL/d+D9V5h448sGQ=;
+        b=kf02xxS1ou0HZ6mb29LHtb9JFrQ0NUH1YRc1vBaOKybTHIE3YUKH8ctPSggrePrn+G
+         Se8XDbUuj1S3q4YLkTEwnoq7VuYjXmJ2vX7tMbO3IY1txwAqqobPIan1F8UH42apu1he
+         yGoRtmWQ08jGrvJcKKt2CLseZlISq93kXoVQx/ulALwmRcuyqm61hxSJT9xMPN8jxR8M
+         +BPexExrgCCsC3H0pgyWX+tlDdYP/+rF3lFpPD+K5P6RrG9lcaCLzH7XdX5mw4z+U2ZP
+         IN35EJm3pBAlmUZP24g22/Dv7nqSmcBUWoYUceQiE2Xig9ioVSvIKp1SL0FT15pIzIrc
+         tg1w==
+X-Forwarded-Encrypted: i=1; AJvYcCWVuItDG3tZt3x3ifMW3ao2+wIyGpMQDxuMT4nA4KrAqM/3wHwLS35D57FMpXiht/l0rRf7KkPXGoo=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzgJiI+YSvslfwpfQYBUTYaC4JCqPFAOryznis22MJfbEdHABIu
+	emOwem5MMiObCrYFVLafMe+HorOAz+rC2EZAiOIrDQuhGSwhX8nvwwZgrAkmotPTwqVw0ZHCtMH
+	e51M=
+X-Gm-Gg: ASbGncuWw1UhtKa9yvcydUq9vo06rCn/IDPQD9sbD57JXCJwhVBtiV0Q5DYSaa45X0+
+	1gsIbvJ2s054uDD5nRwTc5e7WZwbMcZqAktm8Ew+K8w96Nye86SXuRvYgHfqvpULN7lSGXs50Ko
+	fPDKBZV21MXGq1Kic9BGT30oH+Kc0F/m9lf1I+kioiDycgWFTEtDTGAy0MybQ+xDbdrPKDh5Dfu
+	1oD+pF6IAxjtEE1HEdSByGk4Qm/9f6pPmv7cyuXR64/9Y8VKwy6WafGI3vADtiHhzh5nwEmiqb4
+	sNxyrt++AwScib1Z74OqJMprV3IsgzxOaMrrDFkQlxvKerNyfP6MHxD1CuQ1l0Yi0ROjYv+LY7k
+	gycfvM41Yz2tJrhoe4hfqLQOv5XTysX7LrzSTwh3MdGRR0gG/oDWNDyIBfybbK3qa5r0VlSNgkt
+	eGNoizRXs=
+X-Google-Smtp-Source: AGHT+IH2n5qqcUn772RmaVPwwwrq2lfKa3rxzcGBx/XVkGixQG3KSZKyti9WK0qkF1MMYUsXRzcPVg==
+X-Received: by 2002:a05:6000:4412:b0:3a6:d145:e2cc with SMTP id ffacd0b85a97d-3b5f187e927mr1212451f8f.15.1752215085855;
+        Thu, 10 Jul 2025 23:24:45 -0700 (PDT)
+Message-ID: <6102acd3-b4c0-45a1-87d1-8f4888c662cd@suse.com>
+Date: Fri, 11 Jul 2025 08:24:38 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] xen/x86: don't send IPI to sync TSC when it is
- reliable
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Stefano Stabellini <stefano.stabellini@amd.com>,
- andrew.cooper3@citrix.com, roger.pau@citrix.com, Xenia.Ragiadakou@amd.com,
- alejandro.garciavallejo@amd.com, Jason.Andryuk@amd.com,
+Subject: Re: [MINI-OS PATCH 11/19] mini-os: config: add support for config
+ items with numerical values
+To: Juergen Gross <jgross@suse.com>
+Cc: samuel.thibault@ens-lyon.org, minios-devel@lists.xenproject.org,
  xen-devel@lists.xenproject.org
-References: <alpine.DEB.2.22.394.2507081131060.605088@ubuntu-linux-20-04-desktop>
- <20250708183238.3104638-1-stefano.stabellini@amd.com>
- <5f6df28e-8f67-486d-b227-23b3d173b06d@suse.com>
- <alpine.DEB.2.22.394.2507101808040.605088@ubuntu-linux-20-04-desktop>
+References: <20250702081254.14383-1-jgross@suse.com>
+ <20250702081254.14383-12-jgross@suse.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -124,142 +121,47 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2507101808040.605088@ubuntu-linux-20-04-desktop>
+In-Reply-To: <20250702081254.14383-12-jgross@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 11.07.2025 03:34, Stefano Stabellini wrote:
-> On Thu, 10 Jul 2025, Jan Beulich wrote:
->> - the function being a timer handler, it would be preferable if the timer
->>   wasn't ever activated in this mode (at which point rather than returning
->>   early, the code above could simply be purged, maybe replaced by e.g. an
->>   assertion),
+On 02.07.2025 10:12, Juergen Gross wrote:
+> Add support for a Mini-OS config file containing config items with
+> numerical values, e.g. CONFIG_FOO=7.
 > 
-> I see your point about the timer not being activated in the first place.
-> 
-> But if we want to make the code more reliable we should keep the if
-> (clocksource_is_tsc()) return; in time_calibration. That way, in case of
-> mistakes elsewhere, still the desired behavior is obtained.
-> 
-> I'll add the changes to cpu_frequency_change and local_time_calibration.
-> I'll append an incremental patch to clarify my intent.
-> 
-> 
->> - the above in particular requires dealing with cpu_frequency_change() (the
->>   other of the two places where the timer is actually activated).
->>
->> Some care may be needed in all of this taking into consideration that the
->> platform timer change to TSC happens late. Albeit commit f954a1bf5f74
->> ("x86/time: change initiation of the calibration timer") has imo eliminated
->> the main concern here.
->>
->> As to skipping the rendezvous: Besides invoking the calibration softirq,
->> time_calibration_nop_rendezvous() also updates the per-CPU cpu_calibration
->> fields. There would thus need to be a pretty formal proof that calculations
->> involving ->local_stime or ->local_tsc can't possibly degrade or even
->> degenerate when they remain at their boot-time values. (As to
->> ->master_stime, afaict the field simply isn't used at all in that mode,
->> which is a fair part of the reason why the code change above is okay _if_
->> the rendezvous itself can be eliminated. The justification for that could
->> also do with extending some, considering that much of the involved code is
->> pretty subtle.) Alternatively, if such a proof turned out impossible,
->> another way of updating the fields every once in a while would need adding.
-> 
-> Do you mean a formal proof that the TSC is actually stable from a
-> hardware perspective? The software algorithm is the same no matter the
-> number of updates.
+> Signed-off-by: Juergen Gross <jgross@suse.com>
 
-No, I really mean what I said - as the deltas are going to get larger that
-are used as inputs to the calculations, it is (at least to me) not entirely
-obvious that the calculations using those deltas can't degrade.
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
->> Finally, what you do here isn't entirely reliable as to your apparent end
->> goal: "clocksource=tsc" is respected only when tsc_check_reliability()
->> completes with an acceptable outcome. There's certainly some variability in
->> this across multiple runs, i.e. if things went extremely bad, once in blue
->> moon you may end up with the TSC being rejected for use as platform timer.
->  
-> That is interesting! One option is to change the code so that
-> clocksource=tsc is always respected. I have appended the change on top
-> of this patch. Please let me know if you have other suggestions.
-> 
-> 
-> diff --git a/xen/arch/x86/time.c b/xen/arch/x86/time.c
-> index d72e640f72..d29266086d 100644
-> --- a/xen/arch/x86/time.c
-> +++ b/xen/arch/x86/time.c
-> @@ -1877,7 +1877,7 @@ int cpu_frequency_change(u64 freq)
->      update_vcpu_system_time(current);
->  
->      /* A full epoch should pass before we check for deviation. */
-> -    if ( smp_processor_id() == 0 )
-> +    if ( smp_processor_id() == 0 && !clocksource_is_tsc() )
->      {
->          set_timer(&calibration_timer, NOW() + EPOCH);
->          platform_time_calibration();
-> @@ -2024,7 +2024,7 @@ static void cf_check local_time_calibration(void)
->      update_vcpu_system_time(current);
->  
->   out:
-> -    if ( smp_processor_id() == 0 )
-> +    if ( smp_processor_id() == 0 && !clocksource_is_tsc() )
->      {
->          set_timer(&calibration_timer, NOW() + EPOCH);
->          platform_time_calibration();
+Albeit I'm puzzled by the use in the next patch. Besides me perhaps simply
+not knowing where the new CONFIG_* would actually have its value set, I
+wonder why, ...
 
-Is this necessary? In this mode we won't make it into this function anymore,
-will we? Hence if anything an early-out would be applicable.
-
-> @@ -2271,22 +2271,6 @@ static void cf_check time_calibration_std_rendezvous(void *_r)
->      time_calibration_rendezvous_tail(r, 0, rdtsc_ordered());
->  }
+> --- a/Config.mk
+> +++ b/Config.mk
+> @@ -178,6 +178,7 @@ endif
+>  # CONFIG-y contains all items defaulting to "y"
+>  # CONFIG-n contains all items defaulting to "n"
+>  # CONFIG-x contains all items being calculated if not set explicitly
+> +# CONFIG-val-y contains all items with numerical values, defaulting to 0
+>  CONFIG-y += CONFIG_START_NETWORK
+>  CONFIG-y += CONFIG_SPARSE_BSS
+>  CONFIG-y += CONFIG_BLKFRONT
+> @@ -219,6 +220,8 @@ CONFIG-$(lwip) += CONFIG_LWIP
+>  $(foreach i,$(CONFIG-y),$(eval $(i) ?= y))
+>  $(foreach i,$(CONFIG-n),$(eval $(i) ?= n))
 >  
-> -/*
-> - * Rendezvous function used when clocksource is TSC and
-> - * no CPU hotplug will be performed.
-> - */
-> -static void cf_check time_calibration_nop_rendezvous(void *rv)
-> -{
-> -    const struct calibration_rendezvous *r = rv;
-> -    struct cpu_time_stamp *c = &this_cpu(cpu_calibration);
-> -
-> -    c->local_tsc    = r->master_tsc_stamp;
-> -    c->local_stime  = r->master_stime;
-> -    c->master_stime = r->master_stime;
-> -
-> -    raise_softirq(TIME_CALIBRATE_SOFTIRQ);
-> -}
-> -
->  static void (*time_calibration_rendezvous_fn)(void *) =
->      time_calibration_std_rendezvous;
->  
-> @@ -2488,7 +2472,7 @@ static int __init cf_check verify_tsc_reliability(void)
->           * CPUs are booted.
->           */
->          tsc_check_reliability();
-> -        if ( tsc_max_warp )
-> +        if ( tsc_max_warp && strcmp(opt_clocksource, "tsc") )
->          {
->              printk("TSC warp detected, disabling TSC_RELIABLE\n");
->              setup_clear_cpu_cap(X86_FEATURE_TSC_RELIABLE);
-> @@ -2506,21 +2490,12 @@ static int __init cf_check verify_tsc_reliability(void)
->               */
->              on_selected_cpus(&cpu_online_map, reset_percpu_time, NULL, 1);
->  
-> -            /*
-> -             * We won't do CPU Hotplug and TSC clocksource is being used which
-> -             * means we have a reliable TSC, plus we don't sync with any other
-> -             * clocksource so no need for rendezvous.
-> -             */
-> -            time_calibration_rendezvous_fn = time_calibration_nop_rendezvous;
+> +$(foreach i,$(CONFIG-val-y),$(eval $(i) ?= 0))
 
-Much like you prefer to leave a safeguard in time_calibration(), I think you
-want to either leave a safeguard in the rendezvous handler now "used" instead,
-or you want to poison this pointer. Any of such safeguards then imo want to
-include ASSERT_UNREACHABLE().
+... with this and ...
 
-Plus of course I hope it goes without saying that much also depends on the
-(to be extended) patch description.
+> @@ -226,6 +229,7 @@ CONFIG-all := $(CONFIG-y) $(CONFIG-n) $(CONFIG-x)
+>  
+>  # Export config items as compiler directives
+>  $(foreach i,$(CONFIG-all),$(eval DEFINES-$($(i)) += -D$(i)))
+> +$(foreach i,$(CONFIG-val-y),$(eval DEFINES-y += -D$(i)=$($(i))))
+
+... this, kexec.h still needs to have a fallback #define there.
 
 Jan
 
