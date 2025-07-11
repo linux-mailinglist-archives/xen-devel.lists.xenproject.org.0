@@ -2,29 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6FEC7B01487
-	for <lists+xen-devel@lfdr.de>; Fri, 11 Jul 2025 09:25:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1040572.1411983 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A143B014DF
+	for <lists+xen-devel@lfdr.de>; Fri, 11 Jul 2025 09:41:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1040593.1411993 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ua88Z-0006pJ-7Q; Fri, 11 Jul 2025 07:25:39 +0000
+	id 1ua8Nh-0001mY-BX; Fri, 11 Jul 2025 07:41:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1040572.1411983; Fri, 11 Jul 2025 07:25:39 +0000
+Received: by outflank-mailman (output) from mailman id 1040593.1411993; Fri, 11 Jul 2025 07:41:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ua88Z-0006ns-4n; Fri, 11 Jul 2025 07:25:39 +0000
-Received: by outflank-mailman (input) for mailman id 1040572;
- Fri, 11 Jul 2025 07:25:38 +0000
+	id 1ua8Nh-0001kZ-8j; Fri, 11 Jul 2025 07:41:17 +0000
+Received: by outflank-mailman (input) for mailman id 1040593;
+ Fri, 11 Jul 2025 07:41:15 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=qtn+=ZY=proton.me=dmkhn@srs-se1.protection.inumbo.net>)
- id 1ua88W-0006nm-UE
- for xen-devel@lists.xenproject.org; Fri, 11 Jul 2025 07:25:38 +0000
-Received: from mail-24417.protonmail.ch (mail-24417.protonmail.ch
- [109.224.244.17]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3c192225-5e28-11f0-a318-13f23c93f187;
- Fri, 11 Jul 2025 09:25:35 +0200 (CEST)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=EURg=ZY=bounce.vates.tech=bounce-md_30504962.6870c00e.v1-c0c98627b45b480b8fbd2a839ca5d463@srs-se1.protection.inumbo.net>)
+ id 1ua8Nf-0001kS-N1
+ for xen-devel@lists.xenproject.org; Fri, 11 Jul 2025 07:41:15 +0000
+Received: from mail179-35.suw41.mandrillapp.com
+ (mail179-35.suw41.mandrillapp.com [198.2.179.35])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 655c82a9-5e2a-11f0-a318-13f23c93f187;
+ Fri, 11 Jul 2025 09:41:03 +0200 (CEST)
+Received: from pmta12.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
+ by mail179-35.suw41.mandrillapp.com (Mailchimp) with ESMTP id
+ 4bdkCy39MPzDRJnHS
+ for <xen-devel@lists.xenproject.org>; Fri, 11 Jul 2025 07:41:02 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ c0c98627b45b480b8fbd2a839ca5d463; Fri, 11 Jul 2025 07:41:02 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,69 +43,83 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3c192225-5e28-11f0-a318-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1752218734; x=1752477934;
-	bh=QO5ktJlzNlbYRAsNYToIuHG61wIIYZBdTRNQD2y3Sew=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=dBpWSotSzgD4VJpAmCswUM0Kji/et/+YCjXIO7tXXl9jXI8aI/wmDFaUI54Tdt1PH
-	 0FNv9uRAvuetl8nbh7ShphmT2xDpv5LQ/3mH9N4Gx1zXqCf4NzGcTUiVHyWHnyLya1
-	 XiaAp+L+3yvRPWO0owYwi3bNh7XbDUgqwHLyesTt9UIyWK1xFCXjYpJYRExqGxRSTy
-	 Jkw+utp3NuoRMZ6AVkpNG6ElouzHTnPWNGLkxCtJ6JlfMimuHJRaH3lwIRRR+E1dXe
-	 OkmJ2T2hhltpA5n49F6qbGVJR9KYCJlBqc/xx5ijPZFnhPqcvFPSjBAdxA21UKaZXJ
-	 cu6dEAPu1QJxw==
-Date: Fri, 11 Jul 2025 07:25:29 +0000
-To: Jan Beulich <jbeulich@suse.com>
-From: dmkhn@proton.me
-Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, dmukhin@ford.com, xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v6] xen/console: introduce domain_console struct
-Message-ID: <aHC8ZBcRAId5wYoZ@kraken>
-In-Reply-To: <f0d82045-4492-4d13-b0b1-97f95ad81727@suse.com>
-References: <20250710013421.2321353-1-dmukhin@ford.com> <6e3600ad-f53c-4e9a-9713-4301b5bd0a6a@suse.com> <aHBj4IZdD50LWSgF@kraken> <f0d82045-4492-4d13-b0b1-97f95ad81727@suse.com>
-Feedback-ID: 123220910:user:proton
-X-Pm-Message-ID: ac7b5905173269e9b78fa99d3df6f4b30ddcc5e5
+X-Inumbo-ID: 655c82a9-5e2a-11f0-a318-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1752219662; x=1752489662;
+	bh=HWTYzQJa/AfE0/PYzIww/Vdcho/R6E1wlPo0cGaFq1U=;
+	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=QTfSaoO6DXcrQnuP/vxhtAH+TT3dtX7qkNJ4jfhxtkJXioKIJDr/95xAVVRaTO500
+	 gJtMmhTjKBqKKOHG20totsJ9Wai8NYsxJFeWeSGI70bpKINpwztOdIB1WnXQCN9iTJ
+	 PKG6+XBAam/Z1pHcjAEwE0Vox5gbXpcMTNWPXtvTFNK6l8wBojhIm/YCYbUCZQQOq+
+	 ZTFN/lrjgmGvTerDDz7Ef3hy0Wm44SiaPk4seVM42kiVvXm/4VovDr6RBqjVZmsT1N
+	 c3eLJMfhphDtTa/9IBwEbeJgB8M3QqbdyJUoq9Ts/Rhpq5SZYP5AT1dEEvNZXpip4a
+	 1wqdvlx+KuHoQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1752219662; x=1752480162; i=anthoine.bourgeois@vates.tech;
+	bh=HWTYzQJa/AfE0/PYzIww/Vdcho/R6E1wlPo0cGaFq1U=;
+	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=RobnsXtAJOcQ+Mx2lNgcUINqdc9fy3iJLlL1EXzh24pU0Nk9x0AIn+OB6WSy9QLWM
+	 ljBX9Tz1qKUDVq3Yjz6h4OCyrtwiAOcIdc+i+PtpHatmzKtXRnZVnEaQPjOYmSOUEe
+	 BprBzj4gjE+ouj122RSbYCPNDHJyYk/nyHBptlvHS9SfIYm67yaXVPLGH3kD1BiXwP
+	 dp4jJ6YC3aR5SzDHjW0HrKFl69OtgYRDuouZIFdSpZk0lCKHi2P8smY2TCjfYttJtY
+	 PJEydk3IldbtP1D26/S6GfFEZtZXJGVRhWUnRkgoBDsrtpEM6HeB43pU4HPnu6yf6B
+	 Pil2rZART5LIA==
+From: "Anthoine Bourgeois" <anthoine.bourgeois@vates.tech>
+Subject: =?utf-8?Q?Re:=20[PATCH]=20xen/netfront:=20Fix=20TX=20response=20spurious=20interrupts?=
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1752219661292
+To: "Elliott Mitchell" <ehem+xen@m5p.com>
+Cc: xen-devel@lists.xenproject.org, "Juergen Gross" <jgross@suse.com>, "Stefano Stabellini" <sstabellini@kernel.org>, "Oleksandr Tyshchenko" <oleksandr_tyshchenko@epam.com>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>, "Andrei Semenov" <andrei.semenov@vates.tech>
+Message-Id: <aHDAC3mvysH-0vit@mail.vates.tech>
+References: <20250710161029.3773630-1-anthoine.bourgeois@vates.tech> <aHAdG-vhZqdLeOpg@mattapan.m5p.com>
+In-Reply-To: <aHAdG-vhZqdLeOpg@mattapan.m5p.com>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.c0c98627b45b480b8fbd2a839ca5d463?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20250711:md
+Date: Fri, 11 Jul 2025 07:41:02 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
 
-On Fri, Jul 11, 2025 at 07:59:27AM +0200, Jan Beulich wrote:
-> On 11.07.2025 03:07, dmkhn@proton.me wrote:
-> > On Thu, Jul 10, 2025 at 01:16:24PM +0200, Jan Beulich wrote:
-> >> On 10.07.2025 03:35, dmkhn@proton.me wrote:
-> >>> @@ -877,6 +873,16 @@ struct domain *domain_create(domid_t domid,
-> >>>
-> >>>      /* All error paths can depend on the above setup. */
-> >>>
-> >>> +    BUILD_BUG_ON(DOMAIN_CONSOLE_BUF_SIZE <=3D 0);
-> >>
-> >> While the "equals 0" case can in principle happen, the "less than" par=
-t
-> >> is dead code (and hence this needs checking differently): The type of
-> >> DOMAIN_CONSOLE_BUF_SIZE is an unsigned one, so wrapping through 0 will
-> >> yield huge positive values.
-> >>
-> >>> +    err =3D -ENOMEM;
-> >>> +    d->console =3D xzalloc_bytes(DOMAIN_CONSOLE_SIZE);
-> >>
-> >> As previously indicated, new code ought to use the xv*alloc family of
-> >> functions, which deliberately doesn't include any ..._bytes() forms.
-> >> Note how instead there is xvzalloc_flex_struct() for situations like
-> >> the one here.
-> >
-> > Looks like xvzalloc_flex_struct() is not used anywhere in the code base=
-...
->=20
-> And what do you mean to tell me by that? xvmalloc_flex_struct() is used,
-> and x[mz]alloc_flex_struct() uses are still in need of conversion (which
-> is going to be a slow-going process).
+On Thu, Jul 10, 2025 at 01:05:47PM -0700, Elliott Mitchell wrote:
+>On Thu, Jul 10, 2025 at 04:11:15PM +0000, Anthoine Bourgeois wrote:
+>> We found at Vates that there are lot of spurious interrupts when
+>> benchmarking the PV drivers of Xen. This issue appeared with a patch
+>> that addresses security issue XSA-391 (see Fixes below). On an iperf
+>> benchmark, spurious interrupts can represent up to 50% of the
+>> interrupts.
+>
+>If this is the correct fix, near-identical fixes are needed for *all*
+>of the Xen front-ends.  Xen virtual block-devices and Xen PCI-passthrough
+>devices are also effected by a similar issue.
+>
+blkfront doesn't call the response handle from multiple places. It
+doesn't seem to be affected by this problem.
+And pcifront neither.
 
-Just an observation; I was not aware of these APIs and I was not aware that
-there's some slow-going process of switching to preferred use of
-xvzalloc_flex_struct().
+>Thanks for finding a candidate fix, this effects many other people who
+>have been troubled by this performance issue.
+>
+>FreeBSD will also need a similar fix.
 
->=20
-> Jan
+In FreeBSD, netfront may also be affected.
+xn_assemble_tx_request calls xn_txeof.
+blkfront and pcifront seems good.
+
+Regards,
+Anthoine
+
+
+Anthoine Bourgeois | Vates XCP-ng Developer
+
+XCP-ng & Xen Orchestra - Vates solutions
+
+web: https://vates.tech
 
 
