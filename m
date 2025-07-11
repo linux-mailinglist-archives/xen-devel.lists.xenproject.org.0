@@ -2,34 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DFAE1B01128
-	for <lists+xen-devel@lfdr.de>; Fri, 11 Jul 2025 04:18:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1040121.1411579 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 90D9CB011BD
+	for <lists+xen-devel@lfdr.de>; Fri, 11 Jul 2025 05:52:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1040184.1411589 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ua3Kk-0005l9-CJ; Fri, 11 Jul 2025 02:17:54 +0000
+	id 1ua4nS-0002Ns-Po; Fri, 11 Jul 2025 03:51:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1040121.1411579; Fri, 11 Jul 2025 02:17:54 +0000
+Received: by outflank-mailman (output) from mailman id 1040184.1411589; Fri, 11 Jul 2025 03:51:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ua3Kk-0005ir-8w; Fri, 11 Jul 2025 02:17:54 +0000
-Received: by outflank-mailman (input) for mailman id 1040121;
- Fri, 11 Jul 2025 02:17:52 +0000
+	id 1ua4nS-0002LV-MT; Fri, 11 Jul 2025 03:51:38 +0000
+Received: by outflank-mailman (input) for mailman id 1040184;
+ Fri, 11 Jul 2025 03:51:36 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=4LlY=ZY=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1ua3Ki-0005il-8G
- for xen-devel@lists.xenproject.org; Fri, 11 Jul 2025 02:17:52 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ <SRS0=3q0+=ZY=amd.com=penny.zheng@srs-se1.protection.inumbo.net>)
+ id 1ua4nQ-0002LK-Co
+ for xen-devel@lists.xenproject.org; Fri, 11 Jul 2025 03:51:36 +0000
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on20606.outbound.protection.outlook.com
+ [2a01:111:f403:2412::606])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3dff50c3-5dfd-11f0-a318-13f23c93f187;
- Fri, 11 Jul 2025 04:17:50 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id EE4995C6F84;
- Fri, 11 Jul 2025 02:17:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26799C4CEE3;
- Fri, 11 Jul 2025 02:17:47 +0000 (UTC)
+ id 54a6dfa4-5e0a-11f0-a318-13f23c93f187;
+ Fri, 11 Jul 2025 05:51:32 +0200 (CEST)
+Received: from SJ0PR03CA0082.namprd03.prod.outlook.com (2603:10b6:a03:331::27)
+ by CH3PR12MB9171.namprd12.prod.outlook.com (2603:10b6:610:1a2::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8901.26; Fri, 11 Jul
+ 2025 03:51:27 +0000
+Received: from SJ1PEPF00001CE7.namprd03.prod.outlook.com
+ (2603:10b6:a03:331:cafe::37) by SJ0PR03CA0082.outlook.office365.com
+ (2603:10b6:a03:331::27) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8922.25 via Frontend Transport; Fri,
+ 11 Jul 2025 03:51:27 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SJ1PEPF00001CE7.mail.protection.outlook.com (10.167.242.23) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8922.22 via Frontend Transport; Fri, 11 Jul 2025 03:51:25 +0000
+Received: from penny-System-Product-Name.amd.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.39; Thu, 10 Jul 2025 22:51:21 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,122 +56,188 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3dff50c3-5dfd-11f0-a318-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1752200268;
-	bh=ryoaSlvECCBiubjzOARp31PwTPgXOrW/8qnHd7KKqE0=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=V4J5JHYs0Ltuh2h23dy0OjPR5ujrtImgD83J7cFY1xEHRwNAY99iEZY+yBCZlcEEO
-	 0M/3eifgLoDaZR0LMeR1Tl5OPEprsT3eiaQqMM1k+XoLYPHzDwBZYQbSovzF7tQDoz
-	 DmrkFKOHPmxuLDGn2xa1zf+qeswgOe5I38HhfuzeFAZeqAXfNvRDfNsmA7oIIaqWV5
-	 xo89S1ul0/HHHGG19uuja4ZTNZXU+AAzPZOn4Hsj86Bs/Lq51voX3nVy+o95kuopRH
-	 MDkvSTsAG69NqzG/Vj+TYExnS/su07cXriL7Y1qM69sv+T1h5VRMpkoj7dtrNq+rI6
-	 huJQfIq6K2asg==
-Date: Thu, 10 Jul 2025 19:17:44 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
-cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-    Nicola Vetrini <nicola.vetrini@bugseng.com>, 
-    Doug Goldstein <cardoe@cardoe.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
-    Anthony PERARD <anthony.perard@vates.tech>, 
-    Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, 
-    Julien Grall <julien@xen.org>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: Re: [XEN PATCH v2 3/3] eclair: add deviations of MISRA C Rule 5.5
-In-Reply-To: <e47d08e4465f913f03348830954e800f420c652d.1752096263.git.dmytro_prokopchuk1@epam.com>
-Message-ID: <alpine.DEB.2.22.394.2507101752590.605088@ubuntu-linux-20-04-desktop>
-References: <cover.1752096263.git.dmytro_prokopchuk1@epam.com> <e47d08e4465f913f03348830954e800f420c652d.1752096263.git.dmytro_prokopchuk1@epam.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: 54a6dfa4-5e0a-11f0-a318-13f23c93f187
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=MYOZkD+SIZEZGHNjlnrk8mWgT8heEUzLQFyetoiGxloMsgu2+Ig4cMxlXPIJm+0hN+h1LzAZGb9NK0SUE3KKbKBGF2HKCaN/rylgWXsDoFMZffdG2mZHYapmC5vzh3z23GaxHkVF9slija6D3k5zBOW81sWhRWnGdijGFB/wgj9jvla6vAvS7BmocW2SM8wE9fbal5dJgqAxPsdFJz78GIB577vDvOop/krSqpOJ1hflMuwfzXOhSlAElUXjuSEXfU66HPpxm4poDHa/HKvZpn5FYyVJuPyyxTT4hmLGMkr8wpcf0odJ3Cy/ufW3XIfa5hFl39hU5MocMky5bNxmUQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Z9C+yV+HmdFTqJaV624vQ6WpSY1VU6tRT3xMWhR+0fw=;
+ b=W6Uhi7hhUzdiUEcdc+nVFDT4uR0suqo79+UuyceFpE4YLYlznaZXbH7sDXRW9lB1L0Nkc8T8mncYmqN2PWDhF8x93hg3PlnrvvSr5sbbvMMC7/PBRTp3/JNnk28u/g1FsAQ/kh2DiSl6DTodp61cvt/6+n+n/rb7HWKGG3DvOI8Pd5skLRtNsXznHbytmM737VjdjUf3S5ZBfpHcFrBYnqzDqeG6n2ZnJdsnpiAeqNLMx105KKmjBH2wWW74BY5819RkTbV7wAZfEen67NAQMfDft1U/CoWKx8bi3pl5UTxW9lENWAfw2SUsdUJE7Y+Qd+HS3c9OReKwrjSWhhgQxg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Z9C+yV+HmdFTqJaV624vQ6WpSY1VU6tRT3xMWhR+0fw=;
+ b=FdjtMRusm1bL1Vj3HgWg9mHts9vqeqX2WG9u4M05WuVleTxhmV4+6yfqNBNY9us/ZYiDz5ELQyOnnSYO6V6j4gN0na8dn77KXt7feZV3uGOTkYKBpLixpD8EUBQPSNvQy+SVIgqIJn4XnHbhz93Kiolt4wJMrxFh0H+rXGyoJeE=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+From: Penny Zheng <Penny.Zheng@amd.com>
+To: <xen-devel@lists.xenproject.org>
+CC: <ray.huang@amd.com>, Penny Zheng <Penny.Zheng@amd.com>, Jan Beulich
+	<jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Anthony PERARD
+	<anthony.perard@vates.tech>, Juergen Gross <jgross@suse.com>, Michal Orzel
+	<michal.orzel@amd.com>, Julien Grall <julien@xen.org>, Stefano Stabellini
+	<sstabellini@kernel.org>
+Subject: [PATCH v6 00/19] amd-cppc CPU Performance Scaling Driver
+Date: Fri, 11 Jul 2025 11:50:47 +0800
+Message-ID: <20250711035106.2540522-1-Penny.Zheng@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CE7:EE_|CH3PR12MB9171:EE_
+X-MS-Office365-Filtering-Correlation-Id: 42448a78-1bb3-489a-2140-08ddc02e35d7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|82310400026|36860700013;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?IdDF8xh60Xl9VDyjdMJLYsYrXnptyBE/XgmMw1VCInX+cjKfjnsHzibDweb4?=
+ =?us-ascii?Q?q8dKti+wNmLLqLcKl0ftbteKbm1SHxNQTSjJBwO4AZakZb+nHM6uytPi4sNH?=
+ =?us-ascii?Q?+VX6RFdGQqCAGPPMMBNGXY0HYdyVJnbEnyks8aPBygYllMtV/MG/+wLMmS98?=
+ =?us-ascii?Q?qq0nLiD6c4NgvwQSkNAF98vpeB48Ri4KyJ7Upz8zZUPucy1QWp3/UqQ7heYO?=
+ =?us-ascii?Q?b6uxCk/I5Dw6gIplSKFJFJ6X92Jss9RMvnZqOLxT9kWnPSpu/fRLBVz5npfa?=
+ =?us-ascii?Q?f78LlAqNrz5gYkCsiJdohENDc021ajfwYNUcOvsHc3x2Pfld6IvOxK3yg/2n?=
+ =?us-ascii?Q?TM49aMTfhvDDIpNT6GOvVKqCgEfRR5bmkcDzugMxA13eozU683ZdU14iAQVi?=
+ =?us-ascii?Q?QewcJpOs8mxk3DhwGn3Tj0rJmGbu9LsQ6WdYP6qxa4NEGdfnsSna7Ck27eYC?=
+ =?us-ascii?Q?TMOqFuSA6ozgpvrzKIkeHVsQNzNZ3baTILJkhq9zkYKHUgjwBZW74FMfpS2A?=
+ =?us-ascii?Q?rofZipsaNoF1kTc/W9dp+/oPPRZf8/5YsNXMfYm4j5bsLvZSmSw/hOu43sRo?=
+ =?us-ascii?Q?iWj0BPwRgYZ65FOFTEb2b0otVuRBH3TVCtz5hP7AKr2BMI0BMm62pM0fVk9V?=
+ =?us-ascii?Q?308OzhFmh1RSTZvc6+Vx2+Lwlc5qHDeWpTJTacvRosu56wTRhMl1Us+3nUBK?=
+ =?us-ascii?Q?QHRSJ5butNF391WOgAtZQ8BKcRByhIMSaKORGev+N89Z0/cf+VJ6Fc2SSOKq?=
+ =?us-ascii?Q?mtFT1N9CpT0ldefVFCoTu7FMwpcfiRg5tySCeHcG7q6dBTmRrCGfPZrLRjSG?=
+ =?us-ascii?Q?AFDGSD5J9wYi1gG8sfHtCX25DPGZfWJy51oLE8JRgUC6sZCGj3CUi2sVUFBp?=
+ =?us-ascii?Q?1yYukxcpaWbcsW+rUj1vjQcpDkadm1LwHpg6ruIp5fIulE3WwlkZzbHcn24a?=
+ =?us-ascii?Q?gMdFWV4HAZuSDoPBL1C9+ABJUIy71XVBonKPvzTpTvkH2uJ4giIkD3/AMJGN?=
+ =?us-ascii?Q?p+rSZvsdyR81Xwi5B+Rhlub3+/VUmymDDoyP9VweKQGWXxfg4q/xlLj945Hz?=
+ =?us-ascii?Q?svjZZVNBhAA4c14mW9M9g13fvzdK0VME4nGKMd/VE+y139AbGad7sc3cC8ii?=
+ =?us-ascii?Q?rclELKXqmOj5+4J2prYPtnKHux2hHSKn4uwaXPuFhn7kDTZAiS0ZMeC3XtWl?=
+ =?us-ascii?Q?dP687HK/jhz8JGPkhbUGOxvgmVPOaE7hJO7n+fm7yJGzwWGmoX/oExL7Z/Yp?=
+ =?us-ascii?Q?nkGDf9QMzUYxZ8ggdQ6ciU8i8RT3bnu3eJ/eXKTnnra4jUhg2AYYixXuXzFa?=
+ =?us-ascii?Q?rM9KEDkV+AOyYFW7w9Y95kEM7eub0OyW5BsdGyfUDUIPvBjFD0HzKRnFaxNL?=
+ =?us-ascii?Q?tiznu5Z7JjTNbYgmsLuTwA5Ek73LFxw7jNDpEpkaxPbNDpXTZiFPJ/itM2a4?=
+ =?us-ascii?Q?szbDIYXFs0d/Q8qUSnRE3YaD+WSKf9K7NXiV2kUcLzs0miLEXQ0pPpKempPo?=
+ =?us-ascii?Q?/PFlhyMhJFVAdh6Qgeio1DmgJUoswhV5JLHO?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(82310400026)(36860700013);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jul 2025 03:51:25.9458
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 42448a78-1bb3-489a-2140-08ddc02e35d7
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ1PEPF00001CE7.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9171
 
-On Wed, 9 Jul 2025, Dmytro Prokopchuk1 wrote:
-> MISRA C Rule 5.5 states that: "Identifiers shall
-> be distinct from macro names".
-> 
-> Update ECLAIR configuration to deviate:
-> - clashes in 'xen/include/xen/bitops.h';
-> - clashes in 'xen/include/xen/irq.h';
-> - clashes in 'xen/common/grant_table.c'.
-> 
-> Signed-off-by: Dmytro Prokopchuk <dmytro_prokopchuk1@epam.com>
+amd-cppc is the AMD CPU performance scaling driver that introduces a
+new CPU frequency control mechanism on modern AMD APU and CPU series in
+Xen. The new mechanism is based on Collaborative Processor Performance
+Control (CPPC) which provides finer grain frequency management than
+legacy ACPI hardware P-States. Current AMD CPU/APU platforms are using
+the ACPI P-states driver to manage CPU frequency and clocks with
+switching only in 3 P-states. CPPC replaces the ACPI P-states controls
+and allows a flexible, low-latency interface for Xen to directly
+communicate the performance hints to hardware.
 
-Hi Dmytro,
+amd_cppc driver has 2 operation modes: autonomous (active) mode,
+and non-autonomous (passive) mode. We register different CPUFreq driver
+for different modes, "amd-cppc" for passive mode and "amd-cppc-epp"
+for active mode.
 
-I tried to apply the patch and run a pipeline but it only results clean
-on ARM but not on x86. There are 2087 outstanding violations:
+The passive mode leverages common governors such as *ondemand*,
+*performance*, etc, to manage the performance tuning. While the active mode
+uses epp to provides a hint to the hardware if software wants to bias
+toward performance (0x0) or energy efficiency (0xff). CPPC power algorithm
+in hardware will automatically calculate the runtime workload and adjust the
+realtime cpu cores frequency according to the power supply and thermal, core
+voltage and some other hardware conditions.
 
-https://gitlab.com/xen-project/people/sstabellini/xen/-/pipelines/1919889048
+amd-cppc is enabled on passive mode with a top-level `cpufreq=amd-cppc` option,
+while users add extra `active` flag to select active mode.
 
-https://saas.eclairit.com:3787/fs/var/local/eclair/xen-project.ecdf/xen-project/people/sstabellini/xen/ECLAIR_normal/ppp1-1/X86_64/10644506983/PROJECT.ecd;/by_service/MC3A2.R5.5.html#{%22select%22:true,%22selection%22:{%22hiddenAreaKinds%22:[],%22hiddenSubareaKinds%22:[],%22show%22:false,%22selector%22:{%22enabled%22:true,%22negated%22:true,%22kind%22:0,%22domain%22:%22kind%22,%22inputs%22:[{%22enabled%22:true,%22text%22:%22violation%22}]}}}
+With `cpufreq=amd-cppc,active`, we did a 60s sampling test to see the CPU
+frequency change, through tweaking the energy_perf preference from
+`xenpm set-cpufreq-cppc powersave` to `xenpm set-cpufreq-cppc performance`.
+The outputs are as follows:
+```
+Setting CPU in powersave mode
+Sampling and Outputs:
+  Avg freq      580000 KHz
+  Avg freq      580000 KHz
+  Avg freq      580000 KHz
+Setting CPU in performance mode
+Sampling and Outputs:
+  Avg freq      4640000 KHz
+  Avg freq      4220000 KHz
+  Avg freq      4640000 KHz
 
+Penny Zheng (19):
+  xen/amd: introduce amd_process_freq() to get processor frequency
+  tools: drop "has_num" condition check for cppc mode
+  tools: optimize cpufreq average freq print
+  x86/cpufreq: continue looping other than -EBUSY or successful return
+  xen/cpufreq: refactor cmdline "cpufreq=xxx"
+  xen/cpufreq: make _PSD info common
+  cpufreq: rename "xen_cppc_para" to "xen_get_cppc_para"
+  xen/cpufreq: rename cppc preset name to
+    "XEN_SYSCTL_CPPC_SET_PRESET_ONDEMAND"
+  xen/cpufreq: neglect unsupported-mode request from DOM0
+  xen/cpufreq: introduce new sub-hypercall to propagate CPPC data
+  xen/x86: introduce "cpufreq=amd-cppc" xen cmdline and amd-cppc driver
+  xen/cpufreq: implement amd-cppc driver for CPPC in passive mode
+  xen/x86: implement amd-cppc-epp driver for CPPC in active mode
+  xen/cpufreq: get performance policy from governor set via xenpm
+  tools/cpufreq: introduce helper to deal with CPPC-related parameters
+  xen/cpufreq: introduce GET_CPUFREQ_CPPC sub-op
+  xen/cpufreq: introduce helper cpufreq_in_cppc_passive_mode()
+  xen/cpufreq: bypass governor-related para for amd-cppc-epp
+  xen/cpufreq: Adapt SET/GET_CPUFREQ_CPPC xen_sysctl_pm_op for amd-cppc
+    driver
 
-Jan, Andrew, Roger,
+ docs/misc/xen-command-line.pandoc         |  14 +-
+ tools/include/xenctrl.h                   |   4 +-
+ tools/libs/ctrl/xc_pm.c                   |  68 +-
+ tools/misc/xenpm.c                        | 131 +++-
+ xen/arch/x86/acpi/cpufreq/Makefile        |   1 +
+ xen/arch/x86/acpi/cpufreq/amd-cppc.c      | 777 ++++++++++++++++++++++
+ xen/arch/x86/acpi/cpufreq/cpufreq.c       |  74 ++-
+ xen/arch/x86/acpi/cpufreq/hwp.c           |   4 +-
+ xen/arch/x86/cpu/amd.c                    |  58 +-
+ xen/arch/x86/include/asm/amd.h            |   2 +
+ xen/arch/x86/include/asm/msr-index.h      |   6 +
+ xen/arch/x86/platform_hypercall.c         |  26 +-
+ xen/arch/x86/x86_64/cpufreq.c             |  19 +
+ xen/arch/x86/x86_64/platform_hypercall.c  |   3 +
+ xen/drivers/acpi/pm-op.c                  |  56 +-
+ xen/drivers/acpi/pmstat.c                 |   3 +
+ xen/drivers/cpufreq/cpufreq.c             | 308 +++++++--
+ xen/drivers/cpufreq/utility.c             |  15 +
+ xen/include/acpi/cpufreq/cpufreq.h        |  19 +-
+ xen/include/acpi/cpufreq/processor_perf.h |  14 +-
+ xen/include/public/platform.h             |  26 +
+ xen/include/public/sysctl.h               |  29 +-
+ xen/include/xen/pmstat.h                  |   5 +
+ xen/include/xlat.lst                      |   1 +
+ 24 files changed, 1522 insertions(+), 141 deletions(-)
+ create mode 100644 xen/arch/x86/acpi/cpufreq/amd-cppc.c
 
-About half of them are from bitops.h which could be deviated the same
-way xen/include/xen/bitops.h is deviated in this patch.
+-- 
+2.34.1
 
-xen/arch/x86/include/asm/x86_64/page.h:virt_to_maddr could be deviated
-too.
-
-I don't know how to handle the rest or even how to configure the
-deviation in Eclair. These are the results with those two deviations
-added:
-
-https://saas.eclairit.com:3787/fs/var/local/eclair/xen-project.ecdf/xen-project/people/sstabellini/xen/ECLAIR_normal/ppp1-2/X86_64/10644744316/PROJECT.ecd;/by_service/MC3A2.R5.5.html#{%22select%22:true,%22selection%22:{%22hiddenAreaKinds%22:[],%22hiddenSubareaKinds%22:[],%22show%22:false,%22selector%22:{%22enabled%22:true,%22negated%22:true,%22kind%22:0,%22domain%22:%22kind%22,%22inputs%22:[{%22enabled%22:true,%22text%22:%22violation%22}]}}}
-
-We only have 49 left. Any suggestions on how to handle them so that we
-can mark the rule as "clean" and stop future regressions in the CI
-loop?
-
-
-> ---
->  automation/eclair_analysis/ECLAIR/deviations.ecl | 8 ++++++++
->  docs/misra/deviations.rst                        | 8 ++++++++
->  2 files changed, 16 insertions(+)
-> 
-> diff --git a/automation/eclair_analysis/ECLAIR/deviations.ecl b/automation/eclair_analysis/ECLAIR/deviations.ecl
-> index e8f513fbc5..a5d7b00094 100644
-> --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
-> +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
-> @@ -117,6 +117,14 @@ it defines would (in the common case) be already defined. Peer reviewed by the c
->  -config=MC3A2.R5.5,reports+={deliberate, "any_area(decl(kind(function))||any_loc(macro(name(memcpy||memset||memmove))))&&any_area(any_loc(file(^xen/common/libelf/libelf-private\\.h$)))"}
->  -doc_end
->  
-> +-doc_begin="Clashes between function names and macros are deliberate for bitops functions, pirq_cleanup_check, update_gnttab_par and parse_gnttab_limit functions
-> +and needed to have a function-like macro that acts as a wrapper for the function to be called. Before calling the function,
-> +the macro adds additional checks or adjusts the number of parameters depending on the configuration."
-> +-config=MC3A2.R5.5,reports+={deliberate, "any_area(all_loc(file(^xen/include/xen/bitops\\.h$)))"}
-> +-config=MC3A2.R5.5,reports+={deliberate, "any_area(all_loc(file(^xen/include/xen/irq\\.h$))&&context(name(pirq_cleanup_check)&&kind(function)))"}
-> +-config=MC3A2.R5.5,reports+={deliberate, "any_area(all_loc(file(^xen/common/grant_table\\.c$))&&context(name(update_gnttab_par||parse_gnttab_limit)&&kind(function)))"}
-> +-doc_end
-> +
->  -doc_begin="The type \"ret_t\" is deliberately defined multiple times,
->  depending on the guest."
->  -config=MC3A2.R5.6,reports+={deliberate,"any_area(any_loc(text(^.*ret_t.*$)))"}
-> diff --git a/docs/misra/deviations.rst b/docs/misra/deviations.rst
-> index 0d56d45b66..fe05e4062e 100644
-> --- a/docs/misra/deviations.rst
-> +++ b/docs/misra/deviations.rst
-> @@ -142,6 +142,14 @@ Deviations related to MISRA C:2012 Rules:
->         memmove.
->       - Tagged as `deliberate` for ECLAIR.
->  
-> +   * - R5.5
-> +     - Clashes between function names and macros are deliberate for bitops functions,
-> +       pirq_cleanup_check, update_gnttab_par and parse_gnttab_limit functions and needed
-> +       to have a function-like macro that acts as a wrapper for the function to be
-> +       called. Before calling the function, the macro adds additional checks or
-> +       adjusts the number of parameters depending on the configuration.
-> +     - Tagged as `deliberate` for ECLAIR.
-> +
->     * - R5.6
->       - The type ret_t is deliberately defined multiple times depending on the
->         type of guest to service.
-> -- 
-> 2.43.0
-> 
 
