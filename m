@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C4899B039E7
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Jul 2025 10:52:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1042710.1412780 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EAF3FB039E5
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Jul 2025 10:52:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1042711.1412794 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ubEuh-0008Gv-FO; Mon, 14 Jul 2025 08:51:55 +0000
+	id 1ubEui-0000CC-MO; Mon, 14 Jul 2025 08:51:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1042710.1412780; Mon, 14 Jul 2025 08:51:55 +0000
+Received: by outflank-mailman (output) from mailman id 1042711.1412794; Mon, 14 Jul 2025 08:51:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ubEuh-0008D5-AU; Mon, 14 Jul 2025 08:51:55 +0000
-Received: by outflank-mailman (input) for mailman id 1042710;
- Mon, 14 Jul 2025 08:51:54 +0000
+	id 1ubEui-0000A7-IF; Mon, 14 Jul 2025 08:51:56 +0000
+Received: by outflank-mailman (input) for mailman id 1042711;
+ Mon, 14 Jul 2025 08:51:55 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Ryw7=Z3=epam.com=Mykyta_Poturai@srs-se1.protection.inumbo.net>)
- id 1ubEuf-00089a-Vq
- for xen-devel@lists.xenproject.org; Mon, 14 Jul 2025 08:51:53 +0000
+ id 1ubEug-00089a-W4
+ for xen-devel@lists.xenproject.org; Mon, 14 Jul 2025 08:51:55 +0000
 Received: from DB3PR0202CU003.outbound.protection.outlook.com
  (mail-northeuropeazlp170100001.outbound.protection.outlook.com
  [2a01:111:f403:c200::1])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c9b1b6cd-608f-11f0-a318-13f23c93f187;
- Mon, 14 Jul 2025 10:51:52 +0200 (CEST)
+ id c9de3540-608f-11f0-a318-13f23c93f187;
+ Mon, 14 Jul 2025 10:51:53 +0200 (CEST)
 Received: from PAVPR03MB10102.eurprd03.prod.outlook.com
  (2603:10a6:102:30d::12) by DU0PR03MB8854.eurprd03.prod.outlook.com
  (2603:10a6:10:40e::19) with Microsoft SMTP Server (version=TLS1_2,
@@ -47,35 +47,35 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c9b1b6cd-608f-11f0-a318-13f23c93f187
+X-Inumbo-ID: c9de3540-608f-11f0-a318-13f23c93f187
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=d+RJShDqHWBi8w+k5IPx7zV/uTdrmXfUwxHOD5Rwqwy376NeHE1pohxbSsTXgEI8qCxLKJJ0lkrDduRdBbZTzkQnGar0mKK4r9Zodp/VK7p0jP2MCyWqJYQWE7fxerEz5a0NHYqlMCqyfW7I5ajsrkgTzpdiyX3UEDusNeBmPAmTF+4gJDuuUFob17FZg2vihP6+xTafVY4RbCUgq/q6KKa6EDnnA+ol+ejuXkmoS/C1upl+ELpfZQduRxN+62RdXVJyIyhcq3CKbRQRcvCgpSH1AktG0/OpUMRCyutSZyFHImGRcBtxRUyeB+ZTH0rPj239IvdS4MI5CsCaZbF3AA==
+ b=pbcVa1Cqf2SnqLSRjm3bbPkl2VJLLQ3/+HsEMCorNZrT8O4PLtKnjG9GvknroQGv5KDU/uZMFfApVH779Iy4oBFsUvClYGiGF+KM8PKwMJf8Id3xmCq/lCQ87bKNH+Eri/BznlPyQHTwYGQdaLnyvzwRvSrLvzULm1+mNikwyawShLtjt5wwk/AMCVyqAehkgehsMYRSpIkwMHfViyUjOaP75UIRgk5xaSqaTEjTWYIHg7B/JhNRKZnZejF3KGMrtKuDKmLspdm2l2ftMQVJ0sKoTmUf279APer9OVY6xuAFFaydEKySQjqTC1iPzDu+ELlg69KlE3nlyXdcRZakUQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AoOyIhouvYIDXzMxu8XbELYjE+hFgNIPtStPFOtL0jk=;
- b=bo/cqq2cdbzug1M5+csNrhraPhmLYD5DeFGxmZ8g7wdOaz3nVpdoTTjtO7RVmsjaIzTw5Ps+XPkDdDGQCK4IFHc1Rewmwqb/kEosO9Ed/lEAYzxpXyWkeA4VdRexLz8GucNla0I9eAWsdxxAW/gS622n5f9+hAngc9ZJQvSb+7l6aD9zP3K8HzQF9iHMJzLhiwFa7Tevf1dzm/3PdXreConjJeA+4INoutQcGT0JsdoG5JFYTzvEXDrngvR5x/jIKKbyPZ9+rwhlsikLzAbyQFrhN4wetjGr8wFqSiSQPHabm88KpqKO48JOj7lmbnAZfgHRyihn1AYby03otQR0zQ==
+ bh=uquipac1YPZuq4skWLYV2SO6seJgR1A2JOa4l/sOXsE=;
+ b=v3vzPA9QjhHuOznXR51UJfnbY06zjheVZ5/2/pVfDQMC7zJO3epMvd25gR2vbZNyPa1jhi43AuGo9RuF6fPevTOXSKGEa1oBAojzj2EYdkfxXGWtQUMiJ5KHZoVeUv9fHZculG5NBfqci/Mdfl6Q+bP+vtV8M/oUoK0wQ0s9GV2aW6n1jKispb7zy+KAHPQQpgYFqiC8NYK9ebHn0gmMwz/51On3MqBhRrzxIP//mdvFAj/b0AMNPL3Bmvd5xqq4Se2LSzAVkjGEGkpeQVUGqJLltXuFjSF8B6SQa6g4Q5IoM/x5Nc8sBMEXFT4xbvRGrb0BsrcBo7/ZChmAwpfdjg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
  dkim=pass header.d=epam.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AoOyIhouvYIDXzMxu8XbELYjE+hFgNIPtStPFOtL0jk=;
- b=CaS/a+AsuodeKHVUQho1U6BICGZ/0bPD8ZPlJaHQWLGPXlFHzSGdMlX9ib4rxpe3IplicxOenrWC+kHJq3KnjZr8d8LoMnbf15qndDRn98gqJdjrG9+CPn+b2yCuRs6kyTb0MyoDragrONKHQpzaCxv1jZGntI5JFpPVFPTkMPZY3/TeMCFNf9Z5gxc/AjvDTwwAvOnZXAcYIt/t2RcwhMwrtmCvgp2lRCU/Er9QZvgQ3umvoph6AynDcWcDHhYCQWbCW2Psj9tsI0Em89sREXe+qseTtDvuxBgVeaR2cs177fsSoiaIe6dFhrERW0ShE1oo3EgUswezSe/DgmcfoA==
+ bh=uquipac1YPZuq4skWLYV2SO6seJgR1A2JOa4l/sOXsE=;
+ b=S6icr23pQwCch81UOZ17IuqZQdKBrWn7Joqx4nfP1+aB930NDx5bUxkXECmNv1h2D8WTelwgs6U6jKiCUL2nzp9teh1RUjVcoVk5L/YNmZGgzXix0FmId+uUR1Ym6TpjEg445lkSfBt7fdN1EgF6gemcSaBkE1tUkOD3R9ni6Pt4zAekpRu/uMKrAlLVRBXeACYpRk4FIXHPn+GjVj32G/oIVifGa1lH0dz81Iozef+a2eyqDTnhv20xZMKXjGoXfC9hXb9qT7PkbXcUEp2YhtiOMMxOWTQs5/q1vWnIdjMGiBsJY6sIYdoP5OONDWZfu35UjScOC42hela4vvcwqw==
 From: Mykyta Poturai <Mykyta_Poturai@epam.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 CC: Mykyta Poturai <Mykyta_Poturai@epam.com>, Stefano Stabellini
 	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
 	<bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, Volodymyr
  Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH v2 1/3] arm/pci: allow designware-based hosts to have private
- data
-Thread-Topic: [PATCH v2 1/3] arm/pci: allow designware-based hosts to have
- private data
-Thread-Index: AQHb9JyI9h0+QrhnmUqIUro/j8+LRA==
+Subject: [PATCH v2 2/3] pci/rcar: implement OSID configuration for Renesas
+ RCar Gen4 PCIe host
+Thread-Topic: [PATCH v2 2/3] pci/rcar: implement OSID configuration for
+ Renesas RCar Gen4 PCIe host
+Thread-Index: AQHb9JyJBlbuhl2mbUmNsZDyVSiclg==
 Date: Mon, 14 Jul 2025 08:51:48 +0000
 Message-ID:
- <f835fecbd31b1314f7f61e21fb6546f8cea4fe64.1752482857.git.mykyta_poturai@epam.com>
+ <7d98e1c353f7005a508eaff3390c500cd6f090c8.1752482857.git.mykyta_poturai@epam.com>
 References: <cover.1752482857.git.mykyta_poturai@epam.com>
 In-Reply-To: <cover.1752482857.git.mykyta_poturai@epam.com>
 Accept-Language: en-US
@@ -86,69 +86,69 @@ authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=epam.com;
 x-ms-publictraffictype: Email
 x-ms-traffictypediagnostic: PAVPR03MB10102:EE_|DU0PR03MB8854:EE_
-x-ms-office365-filtering-correlation-id: 387259f3-1808-4ff0-2556-08ddc2b3abaa
+x-ms-office365-filtering-correlation-id: 38e89222-c66f-4707-0afa-08ddc2b3abe2
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;ARA:13230040|366016|376014|1800799024|38070700018;
 x-microsoft-antispam-message-info:
- =?iso-8859-1?Q?LTGmhh6xbq0hpolq4I60tEmO68JWxUlaaNUADMb5Qw+rtCBF5twvWUynAV?=
- =?iso-8859-1?Q?ARbia5Xi9fiKXjyuG/z3J0/VTJfww1es/u2e235IHHLlgptR2ojnUiWHZ0?=
- =?iso-8859-1?Q?Pnw9zXfnAhdbuiDm2GlLS3lDaC6cIXgY3xKdUkoNtkRAEd+oyBqAJ/R6Xp?=
- =?iso-8859-1?Q?qozif0P5eSVvThG4G7/DXRT88vdgofzmaMbUFyYtcbotDHAj/CFRoX3q8p?=
- =?iso-8859-1?Q?OEuVDrlRgWRnGZIAd4akbppLTV779JItJKkbVWzEbAeYQTkre4u5BZDgVN?=
- =?iso-8859-1?Q?MJbGXRKfXeByvHp6hzLDgL98h/ZJ/neLu1waqou9D1+VKzqK8MR/+oavcc?=
- =?iso-8859-1?Q?hNXkb3spY2ZJkguCebxPkEmQbVQBudk+JgHF8JitBwvlhY+BH03mosVfkz?=
- =?iso-8859-1?Q?jt38I2VU5ODDcU9zEb9o0LFUAelX1VLKZj4KL4G9RsKWjC5JJA8+iHBLtp?=
- =?iso-8859-1?Q?VDZ8KVd+hULRa4AhpvGqSP/9g2NWLHs879h9K2lx/d71U27poJJI+IPOv+?=
- =?iso-8859-1?Q?3rlI9qwpWMdXK1ZY7FCbtmCnNtgAaN2iYwOfEF6BPHnXFY0IAdauSBdckM?=
- =?iso-8859-1?Q?GzmSYdlXiDCIosUdGw+DTo+FyjRnQuTs7WIYHij814lrerH2tlA57rzh3Y?=
- =?iso-8859-1?Q?njGplskzhXc3hf55UCB7y/skdyWcadFP1GJRil21+qsh6rkGqBUYVwKP27?=
- =?iso-8859-1?Q?bEC2a1j8v3CtZ7hgdyPW3k+/FNB0OC4mn2dPX8lljodo8gc5LH4QVtJ+on?=
- =?iso-8859-1?Q?giG9YI6T67g/oPe1CRPIRWXyRhLuduP2Ukn+K3+1oX06uoL7VYM9FZOuQX?=
- =?iso-8859-1?Q?WAHnuOUqRtXhYMMefzyyKHN2SZw/UvrdQVauYdLUauPUPRK19/M7N+9BLH?=
- =?iso-8859-1?Q?lHe3HIo3JKoQVeE0jc06dd4P45aFaDNMkWXi+1aYfb7Bta7s+D0GifpzvE?=
- =?iso-8859-1?Q?EYcDLiMtbnpQlF/Mjol5lNm8cvG7wlvt0uNyBG7ih7hfH7xTPEQjlu1rX7?=
- =?iso-8859-1?Q?GQywd/T/kp3FEt6Cpd4C64SLWiO+kUaECxKyo7QIwEA0uUfFd3aH6/4oSM?=
- =?iso-8859-1?Q?hx6VE8fB11v0fNAC0kzLAeqE9lp7mX0iDpininhUjLDiA4dPobYTxcf7tn?=
- =?iso-8859-1?Q?iBjrfzpX4HNQekd99dygZSdNQk0PA5rYNebYcm0sLW0BGJQrEjMpnEqD3s?=
- =?iso-8859-1?Q?k8wEy7l1qzKUZ0n1e5NKfJRTe3Z648ceLYIsP+kBDutbwAQZovNxg77spc?=
- =?iso-8859-1?Q?vX9QnE83BMZ636+E/220gismQIdkCPAZjjzhxw6w+nZcuEf6QhGeMttL8C?=
- =?iso-8859-1?Q?jVkwkjq3v/8eJMrUSzLqayP9njrcsI3fniExdj7gKHnEa2V96A4fv8ioN4?=
- =?iso-8859-1?Q?jpY9054tcOfFKBJxPeg7F9iVZJ2bdLyVSy0+uit/OuATzRKPBCMQ3GYxmI?=
- =?iso-8859-1?Q?GvaJV3YWWU3SQUquz+NMsAlqVGe9YTNg+IMnBZ8EZonc7fQu3ZOg9R6LHX?=
- =?iso-8859-1?Q?M5ubaKAhxIonktOlyFtjqr4nXXiCpvf5i9FKqiPD8rPw=3D=3D?=
+ =?iso-8859-1?Q?bR/kbeluqP9NqF0d5KbkU9Rhtypgvfgz+iXStdsa/WKFXuple3iVg/9okZ?=
+ =?iso-8859-1?Q?nCYXQ+1/wctXApWjiIpXdLhRjhL3LGAp83/pNXI3LxhuI++VidLJzvJa2/?=
+ =?iso-8859-1?Q?2jhqOnRRG7HIk1OOUYg82OEYbIZwn1iWLCaoaml3Q1esfMVl6dUwbQ5FsZ?=
+ =?iso-8859-1?Q?V7BsB3aqXAILiCPQuEnxUbCTCA/87ZEbS56YCI7CQKBZuXWRGhNV1Eo02Z?=
+ =?iso-8859-1?Q?539aXiHJgtDCyzU61E9n0oHV3vzbm+BbpJxZ40ebGSQ7iOJ7dCHA3wDUkH?=
+ =?iso-8859-1?Q?I4zRTruXiUUMVPLuMZEcz2GMpA0fVheuqta63WL8EApsamRwY/NsScrg02?=
+ =?iso-8859-1?Q?Lds3Yz8vG2EoCETv6V6ron1eZyUhaG+1moPyDe217lJqykgxzl5GMDDY6t?=
+ =?iso-8859-1?Q?FDhtji1XxjaX3xBOUdVVkpNMThp3s1hYxo2Hink41NaJcF4n96yQ9NFbzj?=
+ =?iso-8859-1?Q?/SY0Jpvq7kr7AQRngj4hqOtvC7WORmfqm+rHrXFMTIoLlLGRDblk+t6ydJ?=
+ =?iso-8859-1?Q?3b/Ga1ViH8LazAud04r0ngbbRhY/SdPqjoRVdl1VHkxU8KKOd/kBg1kn6X?=
+ =?iso-8859-1?Q?+taZLvcqYMykAV9x2NMsRTl0/LxC8U6466fT2ogHWrBGfIFIHagsMa+wSy?=
+ =?iso-8859-1?Q?0KJT5SRaNKAw0Ba1HwL76wZ6OdhwqCUXTbGm/ueViY2KXvlk++weHDGOZ1?=
+ =?iso-8859-1?Q?b2rPXSRWF74P8+i/Cvdi5CLh2ihrXsrddbBW2c3LwzEIzI+x4W6TOA5bz8?=
+ =?iso-8859-1?Q?RKqK1eK9JIPFHuDsfcL9LS309pt5DAalTcy03X9E/kUgHrrVRu4DN1L28Y?=
+ =?iso-8859-1?Q?OUvyZ8I5mNk4QC47ezE0ckSR0QdmYYx/p0D2snRddvYJJipppk9D5ki/us?=
+ =?iso-8859-1?Q?X+U8aNWNLcEpcKvRipDOQVrCZRnAaYqhWu7aQbB/aZFjrfLKDfwe3ZXoNY?=
+ =?iso-8859-1?Q?PRr+mCWL3zRWUsbiY8ZPo77pJw8wnYGUIZJUGLI3VCFEd/zmaOSGEL6zFy?=
+ =?iso-8859-1?Q?PNhc2YOhxXVMyv49KWxvf/9S10fQ2FlDMk+eZBIhCbOKQaC5bxQmGXbbGE?=
+ =?iso-8859-1?Q?oZ6mRG+CVtlIXLkzAERxzpNSsVr73p352MhFWJgIzdkQK/39bs3bAW+hvl?=
+ =?iso-8859-1?Q?4b5HCnXE6ZuZM2YuJKe2YdtaJkY8ih3DPxUp/JdlXOa3j7edFoukUO4wwP?=
+ =?iso-8859-1?Q?PV0v41BMHK05KpSX0UDEe2CkJgA491DrM7lvsDr5CBRiXzJ0U0ek9ivuJ2?=
+ =?iso-8859-1?Q?VT1I4B7PcVpmNeJXnsZkafx5XzGefBt96zXuYs9pebpt5O3UlPHnTBak5J?=
+ =?iso-8859-1?Q?B3pog6sfoCo9q/zwqm/jB9zAYKMxz9myeiu0HdI2z0+HYnkv2N7UX+9BS5?=
+ =?iso-8859-1?Q?ka7zBrfif/DCCTBkpm0srFn6FaCKuz7bU2g6JklVj0oELXSEiHoGOOnh62?=
+ =?iso-8859-1?Q?dCY7d/sKpOAX/VuEyuUw3JZgEpSmiiPAp/PjnHdvX9pSDAWQY43MSr6PYn?=
+ =?iso-8859-1?Q?GALAhyWWGfkBTxHk60OuvR1Q1JPY5vYSBE8Vt9hocXag=3D=3D?=
 x-forefront-antispam-report:
  CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAVPR03MB10102.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(38070700018);DIR:OUT;SFP:1101;
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?LpD4HcV3iLs0dOJ6O+88H7OMpT1UtFOJpNqgHoQjP3nAfzjrcjquAtLhoJ?=
- =?iso-8859-1?Q?e+HaZ+Sl749d+6H2KSwBtGn6ECezIJw6QPwJ3To5bTr7f1J1Y4VHevk0mk?=
- =?iso-8859-1?Q?wHQb+vBK5CZG2nE78uk6ulNbBgVAcXcpp2ELPAauhbMVKUTAj6UZOIyeXG?=
- =?iso-8859-1?Q?f6I70tOWtQpS+wWxyn2UGh7WNn8XpoRi+w1pBToNhaqMhwSac0kv5J4ALL?=
- =?iso-8859-1?Q?mwTCMJbLDl6BU6eBWFhJq3530I5vzkVi7uOc4fvzzM0O5wBka22oAPU+HX?=
- =?iso-8859-1?Q?jgrKJRKqlDFAvZxoS3fL1xdTZjCOkFvogRNamebVJtcn7jDb4BdN6aCZON?=
- =?iso-8859-1?Q?vFgdMbVKf3Z5HfFMEjmjmnMEUWPvqK87Nqm7gE/PnVNxJZc+/rqZnkyRaC?=
- =?iso-8859-1?Q?e+xxftZIfHpPlK6iIwVgJawWXCFJNDalGK4CCnJ9sQ5HAEPGPdhVS7kLjw?=
- =?iso-8859-1?Q?t4anXnDuhjmf9bSZJPR5c986cFLctni0BEUNIcGmC4gmSgeIAunEN8ePuk?=
- =?iso-8859-1?Q?x6w/2l1WMjEwxB5n5a1cD9GTQgYYiv9+NnLLgB2k4OG9FRI6HohU2ujUjh?=
- =?iso-8859-1?Q?BIIdW2/aavKcGaz9BBSHIFoCk9qSrkfVYIpdrGrGZ8lHDFOZzZTYzgC88A?=
- =?iso-8859-1?Q?vM2g8Z+ZfrujU9mguaItykdPW41u+P8o1GMODJ1+Jn8Q3Qb1+vsV/dLg5s?=
- =?iso-8859-1?Q?TrMk5AkJG+Xur8hthQm6EQaqyyh7pLybu3S6EcxV3PmZ5Nf/Ose2iv9lTO?=
- =?iso-8859-1?Q?LHXZ/8AbJU1LtBTgOx1doPC224fWPiaTjEffYuUcqHNYSK1LDbW5tvDkoM?=
- =?iso-8859-1?Q?usDJaUCACWwwR6AsM/uGmEfV1wPnmjQDvjGrY0ZeL7FbLim3TvwHduOHWW?=
- =?iso-8859-1?Q?B6Lt6cx6e5uDdaUMiBOCEtkkqfWtWzXevEAg5FmIsfojhug6q+LfKjaI1D?=
- =?iso-8859-1?Q?IpzrNV05ObSQ5x1WiJYVIPxEPj6t3A3ARdMrS0Jrp3/uyb5MjtGs68NLCI?=
- =?iso-8859-1?Q?/9t/Gf+pIH7NiVYxizHznRvl9Bkd2bVh+FINc5ufMFxwekzTAkhhYgxwq7?=
- =?iso-8859-1?Q?Jslrd9O7EA87CsT9PuGxHrvOFflCLfoxqjb2JyF+UnO21BIigY5yNVqBwy?=
- =?iso-8859-1?Q?MwFaPa935VpAPSNpJe7475ks7qbe72hMonb9mUX/SpP2WzvIOGZu1R7201?=
- =?iso-8859-1?Q?qngxb4dLu//FyHCNYvsC/ANr34wQakr41YvVO+PKUfn6biMcJ0VEU7wYS0?=
- =?iso-8859-1?Q?QK0QVPA5WKlmtbusBP75zmtbnz+1dm+HQAJtHZ4yGjMHgt2tRpDJONmVrF?=
- =?iso-8859-1?Q?CpwIV94jkVyhN+w0zn3WVILKbma0EK6Mp72gWpxLtPTOXXyP2sarDFBnpx?=
- =?iso-8859-1?Q?N1sA2NPf76zVATADcw+yZ27u4Uu8HyCbQ0Tv3udhTS74dpT3ftcdJlYzvp?=
- =?iso-8859-1?Q?bpETfysL5LrRTtc8W8U5qX7DnzPXssT4kQtNnZ+XD0t8SPjFbaX6fnXeOl?=
- =?iso-8859-1?Q?YdSFTX+r5USXnnxbR5cHiFPDCN5/dMgZwhS9ezNG4x5wjD9+mja1+qoy7X?=
- =?iso-8859-1?Q?8djyO2D+GrbwPouoCEY0gxhsuL1t2JESi83fIJtKqSl1/eyGFSxd316L0N?=
- =?iso-8859-1?Q?jTf4VSVrCs1oYMph/RliHC0fQZ7mjfZ7WczwqQaeZESsRDloTTRs4/xA?=
+ =?iso-8859-1?Q?iBWuP00yl0Qv/deVMKHQVyFquC8YRw91YbATYlXUR+Ej/aeTM+kx7sc0D1?=
+ =?iso-8859-1?Q?cVX4cN3Pr9xNnUsNlhqUFxSwXldhRV7vkhRmzTWi5MNYDLwKcBu7aRzAJN?=
+ =?iso-8859-1?Q?dVCoEXO34utSuSjxkbxVs0S1rdjV2q5LsqhRI7OD4+XHIVmdODY5udgv1B?=
+ =?iso-8859-1?Q?Sy7kj13kZ7CxfsQPw529Im+RvORqFmAmlyI5JSZnNP3cSoRg5A1mZPJdci?=
+ =?iso-8859-1?Q?YYAuoHSUciKWswWD/dyih14bS9y6HRF1VgQv6zghaY/tDgzruqz7mGD/Uu?=
+ =?iso-8859-1?Q?BrgFIRlmfEIvIGx2dBSiu0TAG//2uyG/BHPOyg+FK3+yb59NZU+Fbinq35?=
+ =?iso-8859-1?Q?P2jj8hWWBZrxWF12ccxR762dMycKDI0KyYpWN/d/S+zj9AHbT+wTnOpf2/?=
+ =?iso-8859-1?Q?X8L8GCOn0pDtkEeHs/Jhp6ofplf5hHqADeGgTzVo0dcyjSaEVrI17k/n50?=
+ =?iso-8859-1?Q?kVbU3KwxigU+khN93yY+kUMoYCKbRkV4BnH0rl4vL28LSCSItNTYPs53cD?=
+ =?iso-8859-1?Q?8O5HEvbfiJKNfjJ5Jxr0pxvyWw0FeCEu0Cwk2IVBiNyDTibJi1ARJ+1Xn9?=
+ =?iso-8859-1?Q?jF3RR56cbCfSSBF7IaDxhO1d1i0MQ6VJGeQa9yJC1zdcuY/6/kxPGC8fUc?=
+ =?iso-8859-1?Q?nppPb4SfPlekVKV6NTVu7Y5TggWXA9mhrmDNJdruJYur8ivjP67cQ8bufS?=
+ =?iso-8859-1?Q?1sgLtMsiqNp6ryx0o8lZYZyxUIs3MA4Y0Q3bP3SFjtn6gI40DXiBowmhpy?=
+ =?iso-8859-1?Q?byI2trpAdCDZ9lPF1T62mVRdp9XbRDVgP/91i7m0MigVL3U7QAUQJGh9zx?=
+ =?iso-8859-1?Q?VrxNob5Yk3juAQJ2xaV9qYINNKnhPMUnMtb/9VrQJPxpW2XrDHXtPNExxy?=
+ =?iso-8859-1?Q?iJR1T676TOQvuytu+TK7NWLFsUytumjzbyGrkqux3u6wNnONlpnXhGZ5wr?=
+ =?iso-8859-1?Q?d/yR2s1g6AeKJpid0Mq5rh9EnEYaS2zBegW3SpNsJKQmK5hpILo/VgKWrF?=
+ =?iso-8859-1?Q?4KNBt6AoR5sfJVcKcHwg2UYseDLKEdPTT2ms4A6oGLjDRjtgqq/zkJrFGK?=
+ =?iso-8859-1?Q?/TQ/jHfzXQAGe7Ly+IG9mB16YXo1DLZWkjwocqt57ILtUeNyvFc5pun1Nm?=
+ =?iso-8859-1?Q?U1awEe/JOrlSXbECKe9PNSe0LGR9F5tcyYg+7nmVk+dovS8BcpjblxlWp+?=
+ =?iso-8859-1?Q?xwn6ZOMea5LPz7qC3UOIKk7PQkDY2r1+5AaFIke20+aKKveyfVnWmQrtAk?=
+ =?iso-8859-1?Q?O5GwZdGPnFLoTrxbA3QO0xcIkhpxtGNea9l4tcxXHTkO2zi5x6oM1avcs1?=
+ =?iso-8859-1?Q?IURVv+IroCuZqcmMQULNKZdjsUlqbWZJ7vHSxx6trrnOxjdoIYCHp3eR+N?=
+ =?iso-8859-1?Q?AFfDz5NxedVj6AZWJ/DtWk9iSRkuRvh5VEcwJ7BsU1mHg7oYtj01APMrXt?=
+ =?iso-8859-1?Q?pImroghXcifiyW8gtI/a57s923eVImhR2GbLi8kHaVQpDcBvTvB/i+FbXG?=
+ =?iso-8859-1?Q?KruG/2hyCqL0T+o+sihpvV6zyigGQ8Fvipxpl+JdNb7Uieo3+skixuWl5/?=
+ =?iso-8859-1?Q?gsfvP2ImAj3rhIj5hHvp6QE9JhOs9XTCGPyV3ygvRppSze0jB3QLigOceA?=
+ =?iso-8859-1?Q?/9hWIGenLzJoKE/4xYdYSasfzFxGDRcaIgkjow5OtmB9++zVatmzJKlg?=
  =?iso-8859-1?Q?=3D=3D?=
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
@@ -156,19 +156,23 @@ MIME-Version: 1.0
 X-OriginatorOrg: epam.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: PAVPR03MB10102.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 387259f3-1808-4ff0-2556-08ddc2b3abaa
-X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Jul 2025 08:51:48.5646
+X-MS-Exchange-CrossTenant-Network-Message-Id: 38e89222-c66f-4707-0afa-08ddc2b3abe2
+X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Jul 2025 08:51:49.0383
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: TZcQIyCxajDhsfsZ2bhvkMQAvsXHK/vcokuXAx/mNY/k84JtBQzj4aJy0SlWWqvd3VCrE/rqLhGSL1CV0aCO9g==
+X-MS-Exchange-CrossTenant-userprincipalname: leJ4g7SyVLlk6NBzC2+Vj/iu56ZjR1l1RhmeYO6hTv717JEtZrkCBZfdb//WqMqVV7orOftiA8+XonGQv3nWhw==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR03MB8854
 
-Introduce an additional private data field in `dw_pcie_priv` to allow
-vendors to store custom data without interfering with bridge->priv.
-Also add get/set pair to make accesing that private data less
-cumbersome.
+For IPMMU to be able to associate a specific PCI device with it's TLB
+the BDF to OSID mapping needs to be set up in the host bridge. The
+configured OSID is then emmited as a sideband data on the AXI bus during
+PCI DMA transactions. OSID configuration registers are located in the
+"app" region of the host bridge.
+
+Map the "app" region on init and implement methods for setting up
+BDF->OSID mappings
 
 Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
 Acked-by: Stefano Stabellini <sstabellini@kernel.org>
@@ -176,51 +180,225 @@ Acked-by: Stefano Stabellini <sstabellini@kernel.org>
 v1->v2:
 * add Stefano's AB
 ---
- xen/arch/arm/pci/pci-designware.c | 12 ++++++++++++
- xen/arch/arm/pci/pci-designware.h |  4 ++++
- 2 files changed, 16 insertions(+)
+ xen/arch/arm/pci/pci-host-rcar4.c | 148 ++++++++++++++++++++++++++++++
+ xen/arch/arm/pci/pci-host-rcar4.h |  18 ++++
+ 2 files changed, 166 insertions(+)
+ create mode 100644 xen/arch/arm/pci/pci-host-rcar4.h
 
-diff --git a/xen/arch/arm/pci/pci-designware.c b/xen/arch/arm/pci/pci-desig=
-nware.c
-index 47dd2dd4c0..0bd67524ac 100644
---- a/xen/arch/arm/pci/pci-designware.c
-+++ b/xen/arch/arm/pci/pci-designware.c
-@@ -403,3 +403,15 @@ dw_pcie_host_probe(struct dt_device_node *dev, const v=
-oid *data,
+diff --git a/xen/arch/arm/pci/pci-host-rcar4.c b/xen/arch/arm/pci/pci-host-=
+rcar4.c
+index 62d2130a63..9290c6cac5 100644
+--- a/xen/arch/arm/pci/pci-host-rcar4.c
++++ b/xen/arch/arm/pci/pci-host-rcar4.c
+@@ -16,6 +16,32 @@
 =20
-     return bridge;
- }
+ #define RCAR4_DWC_VERSION       0x520A
+=20
++/* PCIE BDF-OSID assignment */
++#define CNVID(n)             (0x700 + ((n) * 4))
++#define CNVID_CNV_EN         (1U << 31)
++#define CNVID_OSID_MASK      (0x0F << 16)
++#define CNVID_OSID_SHIFT     16
++#define CNVID_BDF_MASK       (0xFFFF << 0)
++#define CNVID_BDF_SHIFT      0
 +
-+void *dw_pcie_get_priv(struct pci_host_bridge *bridge)
-+{
-+    struct dw_pcie_priv *priv =3D bridge->priv;
-+    return priv->priv;
-+}
++#define CNVIDMSK(n)                (0x780 + ((n) * 4))
++#define CNVIDMSK_BDF_MSK_MASK      (0xFFFF << 0)
++#define CNVIDMSK_BDF_MSK_SHIFT     0
 +
-+void dw_pcie_set_priv(struct pci_host_bridge *bridge, void *other)
-+{
-+    struct dw_pcie_priv *priv =3D bridge->priv;
-+    priv->priv =3D other;
-+}
-diff --git a/xen/arch/arm/pci/pci-designware.h b/xen/arch/arm/pci/pci-desig=
-nware.h
-index 7efb1dc9a2..b9deb3b138 100644
---- a/xen/arch/arm/pci/pci-designware.h
-+++ b/xen/arch/arm/pci/pci-designware.h
-@@ -66,8 +66,12 @@ struct dw_pcie_priv {
-     bool iatu_unroll_enabled;
-     void __iomem *atu_base;
-     unsigned int version;
-+    void *priv;
++#define CNVOSIDCTRL                0x800
++#define CNVOSIDCTRL_OSID_MASK      (0x0F << 16)
++#define CNVOSIDCTRL_OSID_SHIFT     16
++
++#define DEFAULT_OSID    0
++
++#define NUM_OSID_REGS    16
++
++struct rcar4_pcie_priv {
++    bool init_done;
++    void __iomem *app_base;
++    DECLARE_BITMAP(osid_regs, NUM_OSID_REGS);
++};
++
+ /*
+  * PCI host bridges often have different ways to access the root and child
+  * bus config spaces:
+@@ -65,17 +91,139 @@ static const struct dt_device_match __initconstrel rca=
+r4_pcie_dt_match[] =3D {
+     {},
  };
 =20
-+void *dw_pcie_get_priv(struct pci_host_bridge *bridge);
-+void dw_pcie_set_priv(struct pci_host_bridge *bridge, void *other);
++static void rcar4_pcie_writel_app(struct rcar4_pcie_priv *pci, uint32_t re=
+g,
++                                  uint32_t val)
++{
++    writel(val, pci->app_base + reg);
++}
 +
- void dw_pcie_set_version(struct pci_host_bridge *bridge, unsigned int vers=
-ion);
++static uint32_t rcar4_pcie_readl_app(struct rcar4_pcie_priv *pci, uint32_t=
+ reg)
++{
++    return readl(pci->app_base + reg);
++}
++
++int rcar4_pcie_osid_regs_init(struct pci_host_bridge *bridge)
++{
++    struct rcar4_pcie_priv *priv =3D dw_pcie_get_priv(bridge);
++    uint32_t val =3D rcar4_pcie_readl_app(priv, CNVOSIDCTRL);
++
++    if ( priv->init_done )
++        return 0;
++    priv->init_done =3D true;
++
++    val =3D (val & ~CNVOSIDCTRL_OSID_MASK) |
++          (DEFAULT_OSID << CNVOSIDCTRL_OSID_SHIFT);
++    rcar4_pcie_writel_app(priv, CNVOSIDCTRL, val);
++    bitmap_zero(priv->osid_regs, NUM_OSID_REGS);
++
++    printk("%s: Initialized OSID regs (default OSID %u)\n",
++           bridge->dt_node->full_name, DEFAULT_OSID);
++
++    return 0;
++}
++
++int rcar4_pcie_osid_reg_alloc(struct pci_host_bridge *bridge)
++{
++    struct rcar4_pcie_priv *priv =3D dw_pcie_get_priv(bridge);
++    int ret;
++
++    ret =3D find_first_zero_bit(priv->osid_regs, NUM_OSID_REGS);
++    if ( ret !=3D NUM_OSID_REGS )
++        set_bit(ret, priv->osid_regs);
++    else
++        ret =3D -EBUSY;
++
++    return ret;
++}
++
++void rcar4_pcie_osid_reg_free(struct pci_host_bridge *bridge,
++                              unsigned int reg_id)
++{
++    struct rcar4_pcie_priv *priv =3D dw_pcie_get_priv(bridge);
++
++    clear_bit(reg_id, priv->osid_regs);
++}
++
++void rcar4_pcie_osid_bdf_set(struct pci_host_bridge *bridge,
++                             unsigned int reg_id, uint32_t osid, uint32_t =
+bdf)
++{
++    struct rcar4_pcie_priv *priv =3D dw_pcie_get_priv(bridge);
++    uint32_t data =3D rcar4_pcie_readl_app(priv, CNVID(reg_id));
++
++    data &=3D ~(CNVID_OSID_MASK | CNVID_BDF_MASK);
++    data |=3D CNVID_CNV_EN | (osid << CNVID_OSID_SHIFT) |
++            (bdf << CNVID_BDF_SHIFT);
++    rcar4_pcie_writel_app(priv, CNVID(reg_id), data);
++}
++
++void rcar4_pcie_osid_bdf_clear(struct pci_host_bridge *bridge,
++                               unsigned int reg_id)
++{
++    struct rcar4_pcie_priv *priv =3D dw_pcie_get_priv(bridge);
++    uint32_t data =3D rcar4_pcie_readl_app(priv, CNVID(reg_id));
++
++    data &=3D ~CNVID_CNV_EN;
++    rcar4_pcie_writel_app(priv, CNVID(reg_id), data);
++}
++
++void rcar4_pcie_bdf_msk_set(struct pci_host_bridge *bridge, unsigned int r=
+eg_id,
++                            uint32_t data)
++{
++    struct rcar4_pcie_priv *priv =3D dw_pcie_get_priv(bridge);
++
++    uint32_t val =3D rcar4_pcie_readl_app(priv, CNVIDMSK(reg_id));
++
++    val =3D (val & ~CNVIDMSK_BDF_MSK_MASK) | (data << CNVIDMSK_BDF_MSK_SHI=
+FT);
++
++    rcar4_pcie_writel_app(priv, CNVIDMSK(reg_id), val);
++}
++
+ static int __init pci_host_rcar4_probe(struct dt_device_node *dev,
+                                        const void *data)
+ {
+     struct pci_host_bridge *bridge;
++    paddr_t app_phys_addr;
++    paddr_t app_size;
++    int app_idx, ret;
++
++    struct rcar4_pcie_priv *priv =3D xzalloc(struct rcar4_pcie_priv);
++    if ( !priv )
++        return -ENOMEM;
 =20
- void __iomem *dw_pcie_child_map_bus(struct pci_host_bridge *bridge,
+     bridge =3D dw_pcie_host_probe(dev, data, &rcar4_pcie_ops,
+                                 &rcar4_pcie_child_ops);
+=20
++    app_idx =3D dt_property_match_string(dev, "reg-names", "app");
++    if ( app_idx < 0 )
++    {
++        printk(XENLOG_ERR "Cannot find \"app\" range index in device tree\=
+n");
++        ret =3D app_idx;
++        goto err;
++    }
++    ret =3D dt_device_get_address(dev, app_idx, &app_phys_addr, &app_size)=
+;
++    if ( ret )
++    {
++        printk(XENLOG_ERR "Cannot find \"app\" range in device tree\n");
++        goto err;
++    }
++
++    priv->app_base =3D ioremap_nocache(app_phys_addr, app_size);
++    if ( !priv->app_base )
++    {
++        printk(XENLOG_ERR "APP ioremap failed\n");
++        ret =3D -ENXIO;
++        goto err;
++    }
++    printk("APP at [mem 0x%" PRIpaddr "-0x%" PRIpaddr "]\n", app_phys_addr=
+,
++           app_phys_addr + app_size - 1);
++
++    dw_pcie_set_priv(bridge, priv);
+     dw_pcie_set_version(bridge, RCAR4_DWC_VERSION);
+=20
+     return 0;
++err:
++    xfree(priv);
++    return ret;
+ }
+=20
+ DT_DEVICE_START(pci_gen, "PCI HOST R-CAR GEN4", DEVICE_PCI_HOSTBRIDGE)
+diff --git a/xen/arch/arm/pci/pci-host-rcar4.h b/xen/arch/arm/pci/pci-host-=
+rcar4.h
+new file mode 100644
+index 0000000000..8ac6626a22
+--- /dev/null
++++ b/xen/arch/arm/pci/pci-host-rcar4.h
+@@ -0,0 +1,18 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++#include <asm/pci.h>
++
++#ifndef __PCI_HOST_RCAR4_H__
++#define __PCI_HOST_RCAR4_H__
++
++void rcar4_pcie_osid_bdf_set(struct pci_host_bridge *bridge,
++                             unsigned int reg_id, uint32_t osid, uint32_t =
+bdf);
++void rcar4_pcie_osid_bdf_clear(struct pci_host_bridge *bridge,
++                               unsigned int reg_id);
++void rcar4_pcie_bdf_msk_set(struct pci_host_bridge *bridge, unsigned int r=
+eg_id,
++                            uint32_t data);
++int rcar4_pcie_osid_reg_alloc(struct pci_host_bridge *bridge);
++void rcar4_pcie_osid_reg_free(struct pci_host_bridge *bridge,
++                              unsigned int reg_id);
++int rcar4_pcie_osid_regs_init(struct pci_host_bridge *bridge);
++
++#endif /* __PCI_HOST_RCAR4_H__ */
 --=20
 2.34.1
 
