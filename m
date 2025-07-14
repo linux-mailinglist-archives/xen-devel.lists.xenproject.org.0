@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6FBE3B037F5
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Jul 2025 09:28:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1042586.1412681 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 776D3B037C0
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Jul 2025 09:21:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1042590.1412642 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ubDbp-0006g7-HO; Mon, 14 Jul 2025 07:28:21 +0000
+	id 1ubDUY-0004Hc-1i; Mon, 14 Jul 2025 07:20:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1042586.1412681; Mon, 14 Jul 2025 07:28:21 +0000
+Received: by outflank-mailman (output) from mailman id 1042590.1412642; Mon, 14 Jul 2025 07:20:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ubDbp-0006d2-ES; Mon, 14 Jul 2025 07:28:21 +0000
-Received: by outflank-mailman (input) for mailman id 1042586;
- Mon, 14 Jul 2025 07:16:46 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=JxDk=Z3=linux.alibaba.com=feng.tang@srs-se1.protection.inumbo.net>)
- id 1ubDQc-00038h-8K
- for xen-devel@lists.xenproject.org; Mon, 14 Jul 2025 07:16:46 +0000
-Received: from out30-124.freemail.mail.aliyun.com
- (out30-124.freemail.mail.aliyun.com [115.124.30.124])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7c56c4f8-6082-11f0-b894-0df219b8e170;
- Mon, 14 Jul 2025 09:16:42 +0200 (CEST)
-Received: from localhost(mailfrom:feng.tang@linux.alibaba.com
- fp:SMTPD_---0WiqeCDu_1752477397 cluster:ay36) by smtp.aliyun-inc.com;
- Mon, 14 Jul 2025 15:16:37 +0800
+	id 1ubDUX-0004Fq-Ug; Mon, 14 Jul 2025 07:20:49 +0000
+Received: by outflank-mailman (input) for mailman id 1042590;
+ Mon, 14 Jul 2025 07:20:48 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=90OC=Z3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1ubDUW-0004ET-EM
+ for xen-devel@lists.xenproject.org; Mon, 14 Jul 2025 07:20:48 +0000
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [2a00:1450:4864:20::42a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0ff3b27c-6083-11f0-a318-13f23c93f187;
+ Mon, 14 Jul 2025 09:20:47 +0200 (CEST)
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-3a6cdc27438so3346297f8f.2
+ for <xen-devel@lists.xenproject.org>; Mon, 14 Jul 2025 00:20:47 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-31c22fdd815sm11052314a91.1.2025.07.14.00.20.39
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 14 Jul 2025 00:20:46 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,180 +45,144 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7c56c4f8-6082-11f0-b894-0df219b8e170
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1752477399; h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type;
-	bh=uDmSekQrgZGL8r2lWAymZdEWRY9s0eH9Oe3pP00uIuU=;
-	b=EJQCnQrXmdcSLqSk752xKkuGapxwKdrDM8eMOrazmBCO4N2CxL854+rx9oxeCSUS3ew2P93QKTp+bm9Y2Ka55JP7ejjcDXOYINBZKJNWBoIxV9uV6RsEM7UxCKmDVdEGjxneElhUo82p3nqz0GKQ6FkHbddoM1Yl4EDpjxenuVE=
-Date: Mon, 14 Jul 2025 15:16:37 +0800
-From: Feng Tang <feng.tang@linux.alibaba.com>
-To: Ard Biesheuvel <ardb+git@google.com>
-Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	Ard Biesheuvel <ardb@kernel.org>,
-	Heinrich Schuchardt <heinrich.schuchardt@canonical.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Sunil V L <sunilvl@ventanamicro.com>,
-	Bibo Mao <maobibo@loongson.cn>, linux-rtc@vger.kernel.org,
-	linux-efi@vger.kernel.org, xen-devel@lists.xenproject.org,
-	x86@kernel.org, linux-riscv@lists.infradead.org,
-	loongarch@lists.linux.dev
-Subject: Re: [RFC PATCH 1/3] efi-rtc: Remove wakeup functionality
-Message-ID: <aHSu1WVYXZ2N5X8X@U-2FWC9VHC-2323.local>
-References: <20250714060843.4029171-5-ardb+git@google.com>
- <20250714060843.4029171-6-ardb+git@google.com>
+X-Inumbo-ID: 0ff3b27c-6083-11f0-a318-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1752477647; x=1753082447; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=7rZhWYI/Bl4CNnwHh4hqpLFs9DZA7fBK9VukbsxpWzM=;
+        b=Dc0EVIKtb2yer2oKC4XtEnXyqdp8njKNw/oGwU3ibksG+cvrOyqS4+zkj3vuQ8hZqG
+         msumDzPd9DtkBP+RZkP9g4sws+tZGcN4nVadDHo5i0oD+QCU8D2Iz7WL3N0om8/sV2Hj
+         7Pka94ovstohhZDONmd9FTWI+VRBO8798ovUPnn5TMtOjcu80IEpYKHP+7Ok4Ss4u0+R
+         09dl/SWayK8idzA0Fie/3TK22KW/MnTk+r7OSTxJpfppBnkCHDSk4hFIaixFjjNmSS/M
+         tmJ1itb8JWg0vuls63iPmhq+073+biKoI7InHDHjRiMUVZFxarbnPUvEcEl1Qu5ngakd
+         UPqw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1752477647; x=1753082447;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=7rZhWYI/Bl4CNnwHh4hqpLFs9DZA7fBK9VukbsxpWzM=;
+        b=ZA0x00FQIXZcDSMVcRE1nufsATpAVUIZEGEVHi4XNpB4hh3n0NNf5GnNr2hXReGx5v
+         yYypqzUv/by4vJLpCJghoWZA6hfkzvPO14a4DvDESMZM6AJ07PhlkG8Bovx4DygGW2qC
+         TmOI1a1kli6UQJmG5m09UR9mBWIXNLqDzvzfKOFt5nHRGC2g1QlhrdtQr1TNdUtcGkn4
+         jZ3slpNwWzgpURnfJ8EOzYrstdr3961hCwphJ8udUbym15U/4g27aHJvh/wLduYcwuCq
+         Uw/fRbKNz7vsvQjfQeDzaduZnnS1UI87E7c7EJJv0dCQBvxb1DmGOufCF+vqwgpdR0w8
+         Ujyg==
+X-Forwarded-Encrypted: i=1; AJvYcCWZRPy4Vfo9t1+dLr0d9HriBN8KGpiZPbB0QCuRPT1XYjf45By4ZXE00ZumooRQt5ap0Be4SBueEJM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyX8YjnGnglvbo1YHfmW52YiQ4WSKJUUtSRqcxtsz4w0d3bByLD
+	6Q26JsF8lwFax3EckcaP7kyHoovC5xcXgEodVutLyRm4UOZh3h4DPcipC5CqsGZ5Ww==
+X-Gm-Gg: ASbGncuxtNwuVlbyoOVZrS/zl4EiXyKaKvrc1B/K6NOqKNv3xM/J4m1S0WBitggPCok
+	1y6ENIkCvrf4iLMfsaBwrwjGffsB1P32B8o5Odb9M5hHT0babvna4U9RBJYqh0xZ0KaUHmEqR4E
+	PUkaJ7gFDNBOYLJiNxgp9Rx0ivL5pzlua9eGqVnn65LfBzO0WIQQqQiSdejRNjxC7vwB4ZJXY7a
+	p2WbsNbgfnUIkofOzxLLsasX3G+qEuVuPSjDjNviAPa1x9yD1Z/7oyl53MWxJF/AMCKkLPtBqwJ
+	ZVzBrfNSvV9FEwlSbafiJpvnhYbk/23uxWLzKZaw1QzM6hD9WTkhgx4vz1CpRwJblClSf7GK/30
+	taoAuUYYEqYS+juMi+sTBvAtQhgRAXBSzpxqCYy5gTr1SwU5DkhW+FmGxuszvT1eo+UcmTZtIMq
+	iZymvHJSXxEXIDiCmaqw==
+X-Google-Smtp-Source: AGHT+IHC75TNSd8kdtjNSxD3coS17rpoYW8/m2X4Qv2Bb22e09+aUsXyP3NbXPqhU0bMTus97KMz8Q==
+X-Received: by 2002:a05:6000:2f84:b0:3a4:f70d:a65e with SMTP id ffacd0b85a97d-3b5f2e1bb53mr8471562f8f.37.1752477646665;
+        Mon, 14 Jul 2025 00:20:46 -0700 (PDT)
+Message-ID: <838d4cf8-771b-41cf-8332-b94e7a41a35f@suse.com>
+Date: Mon, 14 Jul 2025 09:20:37 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20250714060843.4029171-6-ardb+git@google.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 5/5] xen/arm: Support ARM standard PV time for domains
+ created via toolstack
+To: Koichiro Den <den@valinux.co.jp>
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
+ Juergen Gross <jgross@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ xen-devel@lists.xenproject.org
+References: <20250705142703.2769819-1-den@valinux.co.jp>
+ <20250705142703.2769819-6-den@valinux.co.jp>
+ <fd8ce200-320a-406f-85b1-8087b9cc90a2@suse.com>
+ <csgkv2lsyinwlmffu5sdr7tivhkd5zfykk6wyadon4cdncedmd@bulrngfqh6qj>
+ <db37fd37-0896-4570-8002-834f0760353b@suse.com>
+ <cfmt745ekbvxrbvnp2hoadf7vz5drpzbbf2n2s3zgkj4dadinb@2abe5g3bb25o>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <cfmt745ekbvxrbvnp2hoadf7vz5drpzbbf2n2s3zgkj4dadinb@2abe5g3bb25o>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Jul 14, 2025 at 08:08:45AM +0200, Ard Biesheuvel wrote:
-> From: Ard Biesheuvel <ardb@kernel.org>
+On 12.07.2025 10:31, Koichiro Den wrote:
+> On Wed, Jul 09, 2025 at 11:16:02AM +0200, Jan Beulich wrote:
+>> On 09.07.2025 10:04, Koichiro Den wrote:
+>>> On Mon, Jul 07, 2025 at 10:01:47AM +0200, Jan Beulich wrote:
+>>>> On 05.07.2025 16:27, Koichiro Den wrote:
+>>>>> +        mfn = virt_to_mfn(d->arch.pv_time_regions[idx]);
+>>>>> +        t = p2m_ram_ro;
+>>>>
+>>>> Is this the correct type to use here? That is, do you really mean guest write
+>>>> attempts to be silently dropped, rather than being reported to the guest as a
+>>>> fault? Then again I can't see such behavior being implemented on Arm, despite
+>>>> the comment on the enumerator saying so (likely inherited from x86).
+>>>
+>>> No I didn't intend the "silently drop" behavior. IIUC, we may as well
+>>> correct the comment on the enum for Arm:
+>>>
+>>>     diff --git a/xen/arch/arm/include/asm/p2m.h b/xen/arch/arm/include/asm/p2m.h
+>>>     index 2d53bf9b6177..927c588dbcb0 100644
+>>>     --- a/xen/arch/arm/include/asm/p2m.h
+>>>     +++ b/xen/arch/arm/include/asm/p2m.h
+>>>     @@ -123,7 +123,7 @@ struct p2m_domain {
+>>>      typedef enum {
+>>>          p2m_invalid = 0,    /* Nothing mapped here */
+>>>          p2m_ram_rw,         /* Normal read/write guest RAM */
+>>>     -    p2m_ram_ro,         /* Read-only; writes are silently dropped */
+>>>     +    p2m_ram_ro,         /* Read-only */
+>>
+>> Don't know whether that's a good idea, as it'll diverge Arm from the same-
+>> name P2M type that x86 has. (Arguably x86'es type may better be named
+>> p2m_ram_write_ignore or some such.)
 > 
-> The EFI rtc driver is used by non-x86 architectures only, and exposes
-> the get/set wakeup time functionality provided by the underlying
-> platform. This is usually broken on most platforms, and not widely used
-> to begin with [if at all], so let's just remove it.
+> Thanks for sharing your thought. Incidentally, there seems to be the same
+> comment in ppc's p2m.h as well.
 
-This solves the problem reported in 
-https://lore.kernel.org/all/20250710084151.55003-1-feng.tang@linux.alibaba.com/T/#u
+That's likely (sorry to be blunt) due to blindly copying from Arm.
 
-Tested-by: Feng Tang <feng.tang@linux.alibaba.com>
+> I'm not sure at all but I'm guessing that
+> "writes are silently dropped" line would make sense only when PoD
 
-Thanks!
+You can't silently drop writes in PoD mode, and PoD entries also have their
+own type. All you can drop there are writes which store 0.
 
-- Feng
+> and/or VM
+> forking is to be supported by arm/ppc, and leaving it as it is for arm/ppc
+> might be acceptable at the moment.
 
-> 
-> Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
-> ---
->  drivers/rtc/rtc-efi.c | 76 +-------------------
->  1 file changed, 2 insertions(+), 74 deletions(-)
-> 
-> diff --git a/drivers/rtc/rtc-efi.c b/drivers/rtc/rtc-efi.c
-> index fa8bf82df948..b4f44999ef0f 100644
-> --- a/drivers/rtc/rtc-efi.c
-> +++ b/drivers/rtc/rtc-efi.c
-> @@ -112,48 +112,6 @@ convert_from_efi_time(efi_time_t *eft, struct rtc_time *wtime)
->  	return true;
->  }
->  
-> -static int efi_read_alarm(struct device *dev, struct rtc_wkalrm *wkalrm)
-> -{
-> -	efi_time_t eft;
-> -	efi_status_t status;
-> -
-> -	/*
-> -	 * As of EFI v1.10, this call always returns an unsupported status
-> -	 */
-> -	status = efi.get_wakeup_time((efi_bool_t *)&wkalrm->enabled,
-> -				     (efi_bool_t *)&wkalrm->pending, &eft);
-> -
-> -	if (status != EFI_SUCCESS)
-> -		return -EINVAL;
-> -
-> -	if (!convert_from_efi_time(&eft, &wkalrm->time))
-> -		return -EIO;
-> -
-> -	return rtc_valid_tm(&wkalrm->time);
-> -}
-> -
-> -static int efi_set_alarm(struct device *dev, struct rtc_wkalrm *wkalrm)
-> -{
-> -	efi_time_t eft;
-> -	efi_status_t status;
-> -
-> -	convert_to_efi_time(&wkalrm->time, &eft);
-> -
-> -	/*
-> -	 * XXX Fixme:
-> -	 * As of EFI 0.92 with the firmware I have on my
-> -	 * machine this call does not seem to work quite
-> -	 * right
-> -	 *
-> -	 * As of v1.10, this call always returns an unsupported status
-> -	 */
-> -	status = efi.set_wakeup_time((efi_bool_t)wkalrm->enabled, &eft);
-> -
-> -	dev_warn(dev, "write status is %d\n", (int)status);
-> -
-> -	return status == EFI_SUCCESS ? 0 : -EINVAL;
-> -}
-> -
->  static int efi_read_time(struct device *dev, struct rtc_time *tm)
->  {
->  	efi_status_t status;
-> @@ -188,17 +146,13 @@ static int efi_set_time(struct device *dev, struct rtc_time *tm)
->  
->  static int efi_procfs(struct device *dev, struct seq_file *seq)
->  {
-> -	efi_time_t        eft, alm;
-> +	efi_time_t        eft;
->  	efi_time_cap_t    cap;
-> -	efi_bool_t        enabled, pending;
-> -	struct rtc_device *rtc = dev_get_drvdata(dev);
->  
->  	memset(&eft, 0, sizeof(eft));
-> -	memset(&alm, 0, sizeof(alm));
->  	memset(&cap, 0, sizeof(cap));
->  
->  	efi.get_time(&eft, &cap);
-> -	efi.get_wakeup_time(&enabled, &pending, &alm);
->  
->  	seq_printf(seq,
->  		   "Time\t\t: %u:%u:%u.%09u\n"
-> @@ -214,26 +168,6 @@ static int efi_procfs(struct device *dev, struct seq_file *seq)
->  		/* XXX fixme: convert to string? */
->  		seq_printf(seq, "Timezone\t: %u\n", eft.timezone);
->  
-> -	if (test_bit(RTC_FEATURE_ALARM, rtc->features)) {
-> -		seq_printf(seq,
-> -			   "Alarm Time\t: %u:%u:%u.%09u\n"
-> -			   "Alarm Date\t: %u-%u-%u\n"
-> -			   "Alarm Daylight\t: %u\n"
-> -			   "Enabled\t\t: %s\n"
-> -			   "Pending\t\t: %s\n",
-> -			   alm.hour, alm.minute, alm.second, alm.nanosecond,
-> -			   alm.year, alm.month, alm.day,
-> -			   alm.daylight,
-> -			   enabled == 1 ? "yes" : "no",
-> -			   pending == 1 ? "yes" : "no");
-> -
-> -		if (alm.timezone == EFI_UNSPECIFIED_TIMEZONE)
-> -			seq_puts(seq, "Timezone\t: unspecified\n");
-> -		else
-> -			/* XXX fixme: convert to string? */
-> -			seq_printf(seq, "Timezone\t: %u\n", alm.timezone);
-> -	}
-> -
->  	/*
->  	 * now prints the capabilities
->  	 */
-> @@ -249,8 +183,6 @@ static int efi_procfs(struct device *dev, struct seq_file *seq)
->  static const struct rtc_class_ops efi_rtc_ops = {
->  	.read_time	= efi_read_time,
->  	.set_time	= efi_set_time,
-> -	.read_alarm	= efi_read_alarm,
-> -	.set_alarm	= efi_set_alarm,
->  	.proc		= efi_procfs,
->  };
->  
-> @@ -271,11 +203,7 @@ static int __init efi_rtc_probe(struct platform_device *dev)
->  	platform_set_drvdata(dev, rtc);
->  
->  	rtc->ops = &efi_rtc_ops;
-> -	clear_bit(RTC_FEATURE_UPDATE_INTERRUPT, rtc->features);
-> -	if (efi_rt_services_supported(EFI_RT_SUPPORTED_WAKEUP_SERVICES))
-> -		set_bit(RTC_FEATURE_ALARM_WAKEUP_ONLY, rtc->features);
-> -	else
-> -		clear_bit(RTC_FEATURE_ALARM, rtc->features);
-> +	clear_bit(RTC_FEATURE_ALARM, rtc->features);
->  
->  	device_init_wakeup(&dev->dev, true);
->  
-> -- 
-> 2.50.0.727.gbf7dc18ff4-goog
+Leaving _behavior_ as is may indeed be acceptable. But naming and commentary
+would still better change for things to be consistent across architectures,
+rather than explicitly confusing people.
+
+Jan
 
