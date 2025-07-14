@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8457FB04088
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Jul 2025 15:50:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1042837.1412904 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CD592B040A2
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Jul 2025 15:55:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1042843.1412913 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ubJZ3-00017p-UW; Mon, 14 Jul 2025 13:49:53 +0000
+	id 1ubJdv-0002sY-F8; Mon, 14 Jul 2025 13:54:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1042837.1412904; Mon, 14 Jul 2025 13:49:53 +0000
+Received: by outflank-mailman (output) from mailman id 1042843.1412913; Mon, 14 Jul 2025 13:54:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ubJZ3-000151-Rh; Mon, 14 Jul 2025 13:49:53 +0000
-Received: by outflank-mailman (input) for mailman id 1042837;
- Mon, 14 Jul 2025 13:49:53 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ubJdv-0002q9-CC; Mon, 14 Jul 2025 13:54:55 +0000
+Received: by outflank-mailman (input) for mailman id 1042843;
+ Mon, 14 Jul 2025 13:54:53 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=90OC=Z3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ubJZ2-00014v-VK
- for xen-devel@lists.xenproject.org; Mon, 14 Jul 2025 13:49:52 +0000
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [2a00:1450:4864:20::331])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 69817d17-60b9-11f0-b894-0df219b8e170;
- Mon, 14 Jul 2025 15:49:50 +0200 (CEST)
-Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-4550709f2c1so19174045e9.3
- for <xen-devel@lists.xenproject.org>; Mon, 14 Jul 2025 06:49:50 -0700 (PDT)
+ id 1ubJdt-0002q3-Rx
+ for xen-devel@lists.xenproject.org; Mon, 14 Jul 2025 13:54:53 +0000
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [2a00:1450:4864:20::42c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 1d5dbe1a-60ba-11f0-a319-13f23c93f187;
+ Mon, 14 Jul 2025 15:54:52 +0200 (CEST)
+Received: by mail-wr1-x42c.google.com with SMTP id
+ ffacd0b85a97d-3a4fb9c2436so2627434f8f.1
+ for <xen-devel@lists.xenproject.org>; Mon, 14 Jul 2025 06:54:52 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-74eb9dd73a6sm10204195b3a.20.2025.07.14.06.49.42
+ d9443c01a7336-23de4350bb0sm99936715ad.205.2025.07.14.06.54.44
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 14 Jul 2025 06:49:49 -0700 (PDT)
+ Mon, 14 Jul 2025 06:54:51 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,47 +45,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 69817d17-60b9-11f0-b894-0df219b8e170
+X-Inumbo-ID: 1d5dbe1a-60ba-11f0-a319-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1752500990; x=1753105790; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1752501292; x=1753106092; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=UvDp+Wt4R0rqhAlM6APDVpq5ESYZ+IQcmzEkjRSJTOU=;
-        b=IUlfHlS1L+nhDkKI+Qekt/ev3qxiL0TV9RxzyGdrR82XdavgNQy574fQJXR85P8xSl
-         SuDsYVXEi1NowAyE4zeJ8ctlFY3JVNb98M7dhve62XDN0mRoPhsM+qrXc3xuLfJ9qcjA
-         sONdzcdfGZPte0Whb+Xgyjmo7Yog/TY8CgAVhzVQyu5MYZCHw9kH+czdmeNCysM1Vqlc
-         VsNWpr4lKKYGbPuIZ8JjTAoaYSMkVUcbW/nPjVuxP4ckEpVp6+WFwLJV1wOmndrv6zkH
-         V2A58onhFVB52QSzuEtqR4goeFUyISrydoH7CiON3vVimPmwUuzxvGbWcVbgxSoHWLqF
-         hFyQ==
+        bh=V3wcQzWE4SveXlxdWKFvPKaJ4kIS294185TXHSe5OhY=;
+        b=cntiiTExW53A5kN6k3tqteSbcEWQ+3N8NVJJTHN5S3IXWECwiRq3g/viIVYEmm+z0A
+         jMwSFmHRIpaL5+5HD0zxK6Qk1nlU++QuQTK62AH8Y0RakcfF0FRqjwjmd14QJrRIseVo
+         8X0N70LlXNi99GUwjsn94vPoDEHX8iFGgA3fl81OZIClC+J3CSiIUVW+Ejp7z84YP80L
+         VqVWj3iTboxlzVJRQ6qZqRgjLfnV1KOaKF4CGAgZs0FDoGsq6HMK3yjH95Fpu+U103fL
+         iAB9G+xVcIqgQ2tDMhMNW8EdUtOhet0DdT5WqXbo6lIjPQ4vQUU3KUgJo3FMMRw47nG1
+         abhw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1752500990; x=1753105790;
+        d=1e100.net; s=20230601; t=1752501292; x=1753106092;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=UvDp+Wt4R0rqhAlM6APDVpq5ESYZ+IQcmzEkjRSJTOU=;
-        b=lP6pO7OboCrXKkb6JqGe10jt96yJXqMRcppcCZYWFAXxY546dzpRt5IqR3ZkU2H496
-         Pka5hrhLyXPRXqNM7Azm2S+nXgDCp0nztA3B88OlA7Lmg7O0K8P8lxYfwxQ5PNsrvHzJ
-         PoyQeUtsJCEd0JHnCbPrkshYbJmK3zBn5d9Vm5ILHEG+4/yVr1NP3YLsEVSqntMATbgA
-         ZNu87Dci+EyFoJc3ugVrYGYLRKF7KiafCRGI5Z3rAK5Nr6/ezTJiBsLXvmpv2KLOvN+C
-         4hvUT2Ta1XE3r5BRaz44B3f43JqW3di8Iv6wR04KKiA/kyLd/zelyk6IKk0U87H+oPKm
-         LPhA==
-X-Forwarded-Encrypted: i=1; AJvYcCWaCt1yNsCvM3XWu3GAUshpG6Ld+MeS5R/XGcAbKBzZxxF4OIcoFyVB3sHXrSiglAgji0xjyaGwOkY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzQcteKZvx0rWezaen6songGLfviBsdUVtrQszLFVaeiNLjO3tK
-	XI3pCUEe82S2wYdcWpOltMz2ytFkLL2Bc6zYIkm6U9h91TFlCRaYlE7fXETdkBYVdA==
-X-Gm-Gg: ASbGncvF8onLGM0HxQqg4ZMGhsmhvfGmuWlFt+x2tqDJBWKnyRLoFDcemMaa3MlFj59
-	JdEAQaOb03824fZ/M6FEa2lizUiPvn8MC3Z04zkxJmbf1poMy5yxwYW0prXy31+a31v1UBMhzmX
-	THMyznjoRKioPKFOtMXL+xPYBK0UUaXmiz9MosWXayfQEMUif2DbIS9FfxwgT634uJD90y6Q+Os
-	S6e9xFNpFHV9EVkMnEvdwqB7wNS5xBXtee3Mg1EGWvjvGBxa/98JwQIbyQKdkWXzmUoDMUT8XlY
-	FxqqruTurk8pWeG3Ykp0rSNIgFa6+AVlb+RSh0uEYcUrPQTTnbIazKjBJ56HcH6E/Sm16RUbfXv
-	ExtPtazEuqUxgXlNB08imP5fQ0zioEoTMe/wU1aHirGn4jnid2X8V6KMr+hUHFKvTtoCYa8CgJ8
-	lOl9v6/ag=
-X-Google-Smtp-Source: AGHT+IEQKKCuq2uxEJGfRekSVcIo5v7oVonCleHCIASmUpUtDu7R/L9EvWDVn13Y73jeRrzdV3BOyA==
-X-Received: by 2002:adf:a347:0:b0:3a4:ec32:e4da with SMTP id ffacd0b85a97d-3b5f18806eemr8055660f8f.15.1752500989676;
-        Mon, 14 Jul 2025 06:49:49 -0700 (PDT)
-Message-ID: <87ab0914-4a90-4dc2-ba33-188c7eb4cdca@suse.com>
-Date: Mon, 14 Jul 2025 15:49:39 +0200
+        bh=V3wcQzWE4SveXlxdWKFvPKaJ4kIS294185TXHSe5OhY=;
+        b=ckuNpTiEwP2UmXRshvImccYHQlnwJNYY43YNFXXQQbxjGF3xH4uLVrUr2bhRMkA4LM
+         wS1BmQ9mhz1CUj5654OZ+myjLoyvfRuu4dGadoTUay/N69Bti1Zku2axyAQ5e7ZB7h/U
+         wQ1iNP/uP0lgcHTXN8pFfM4UMzQHWePTwEGlHdiK55ZKOgI1Dtp5AfpDZw2lSG30P+z/
+         N8DRceJZ5BUVLsd7jSaEzdTv9R8+Z/aG6S+YWhs3vY5wORdqDqeQbG0mL19A+85WJNQ4
+         mBiooCR16SRuxZR+aXIfkqBDu1+XslIz4fzSLMZVVWr+xCMQanpaIeJuJhmVTWHLPSR0
+         vBSQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVYo0TsK+PGQG6Em485pqA/UKagm4XP/aIONT/mWvkAxKFDxkwJ4vwTvRGJ3F9KrGlS1yprc5y9rMw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyxP1qq/xD3MTJdJlM7Fzv5HgzDJMVLQyGasRRnjnTh915zfIwR
+	ybXNWmM+fkyx45X9/1GmgRa8YlVcDFFZqLHoAL83DmhXE2lh2LLIzUW1toZOfqHuCA==
+X-Gm-Gg: ASbGncsfRCNOGkd2KfHzEPsab9Y9t+33OKTH2XiTERQJ8F2uLVBhAIdtXEKHdn2Uaqt
+	CEIZ99OCF2fYfHpcHvuFuj1OB0UZC0mkyCnUfcMh6S3nP7dwxjB26OmONWhg3DFXzTlEz1BVwub
+	bNsL2gph4/4FRb4hnyBf951zd599FQabCtpkFtHhQMdlGb7EjpT0MsLrvtUKkUBwsv1FAjwmutK
+	vrtrSTlXkm6MOHlr/5zL6MXV41OoVRrZpKX3Ggx5VCoFoKDiEFED4oJrRCrdEw0NjWCS0flHXLw
+	ZlcgCMzOPjNoXttirCYEzx5Crax+N5geRTYjQidJ6Nh+MZHGl728C8g4GrA8cCraFRHrh7NlUUX
+	Z20no67ivYSB1tN4PrMwiymitV5F11y7Zv9aWE4HQtwQy36a3AP3I7+Am7dVHYsDaVCmEtxZXvf
+	/7EPs3Sbk=
+X-Google-Smtp-Source: AGHT+IEwFKdlt7eMD6bQPPxo3J8lBzJkpaYNj065G0gyUlhBU295aQuW6KGomSfypPgGAQlNfNuZNQ==
+X-Received: by 2002:a05:6000:2203:b0:3b5:dc07:50a4 with SMTP id ffacd0b85a97d-3b5f187ac86mr11471655f8f.2.1752501291652;
+        Mon, 14 Jul 2025 06:54:51 -0700 (PDT)
+Message-ID: <01ae5bd5-efbe-4f7e-baff-cf62ae2c8501@suse.com>
+Date: Mon, 14 Jul 2025 15:54:40 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [XEN PATCH v3] misra: address violation of MISRA C Rule 10.1
@@ -130,47 +130,6 @@ Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 14.07.2025 15:26, Dmytro Prokopchuk1 wrote:
-> Rule 10.1: Operands shall not be of an
-> inappropriate essential type
-> 
-> The following are non-compliant:
-> - boolean used as a numeric value.
-> 
-> The result of the '__isleap' macro is a boolean.
-> Use a ternary operator to replace it with a numeric value.
-> 
-> The result of 'NOW() > timeout' is a boolean,
-> which is compared to a numeric value. Fix this.
-> Regression was introdiced by commit:
-> be7f047e08 (xen/arm: smmuv3: Replace linux functions with xen functions.)
-> 
-> Signed-off-by: Dmytro Prokopchuk <dmytro_prokopchuk1@epam.com>
-> ---
-> Changes since v2:
-> - improve the wording
-> Link to v2: https://patchew.org/Xen/41538b6b19811eb74c183051d3e7a4fd216404e6.1752232902.git.dmytro._5Fprokopchuk1@epam.com/
-> Link to the deviation of an unary minus: https://patchew.org/Xen/7e6263a15c71aafc41fe72cecd1f15c3ce8846f2.1752492180.git.dmytro._5Fprokopchuk1@epam.com/
-> 
-> Jan, regarding that:
-> If an expression is needed here, I'd suggest to use !!, as we have in
-> (luckily decreasing) number of places elsewhere. Personally I don't
-> understand though why a boolean cannot be used as an array index.
-> 
-> The '!!' isn't a solution here, we'll have other violation:
-> `!' logical negation operator has essential type boolean and standard type `int'
-> (https://saas.eclairit.com:3787/fs/var/local/eclair/xen-project.ecdf/xen-project/people/dimaprkp4k/xen/ECLAIR_normal/deviate_10.1_rule/ARM64/10674114852/PROJECT.ecd;/by_service/MC3A2.R10.1.html#{%22select%22:true,%22selection%22:{%22hiddenAreaKinds%22:[],%22hiddenSubareaKinds%22:[],%22show%22:false,%22selector%22:{%22enabled%22:true,%22negated%22:true,%22kind%22:0,%22domain%22:%22kind%22,%22inputs%22:[{%22enabled%22:true,%22text%22:%22violation%22}]}}})
-
-And that doesn't fall under any other of the deviations we already have?
-__isleap() is used in another boolean context after all, and apparently
-there's no issue there.
-
-> Well, in our case boolean can be used as an array index.
-> But index value is limited: 0 or 1.
-> I guess MISRA wants to predict such errors related to index limitations.
-> And I think fixing the code is easier here, instead of writing a deviation.
-
-It may be easier indeed, but ...
-
 > --- a/xen/common/time.c
 > +++ b/xen/common/time.c
 > @@ -84,7 +84,7 @@ struct tm gmtime(unsigned long t)
@@ -180,13 +139,9 @@ It may be easier indeed, but ...
 > -    ip = (const unsigned short int *)__mon_lengths[__isleap(y)];
 > +    ip = (const unsigned short int *)__mon_lengths[__isleap(y) ? 1 : 0];
 
-... especially as long as it's un-annotated, I'd be very likely to submit
-a patch to undo this again, should I ever run across this after having
-forgotten about the change here. At least to me, _this_ is the confusing
-way to write things.
-
-Once you add a comment though, you can as well leave the code unchanged
-and use a SAF comment.
+Oh, and: This cast is one of the more dangerous ones, and afaict it's entirely
+pointless. When touching this line, I think the cast would want removing at the
+same time.
 
 Jan
 
