@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F067DB0373C
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Jul 2025 08:34:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1042553.1412602 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0CBE0B03768
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Jul 2025 08:52:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1042563.1412612 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ubCld-0003zr-UD; Mon, 14 Jul 2025 06:34:25 +0000
+	id 1ubD2P-0007JS-97; Mon, 14 Jul 2025 06:51:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1042553.1412602; Mon, 14 Jul 2025 06:34:25 +0000
+Received: by outflank-mailman (output) from mailman id 1042563.1412612; Mon, 14 Jul 2025 06:51:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ubCld-0003yQ-RV; Mon, 14 Jul 2025 06:34:25 +0000
-Received: by outflank-mailman (input) for mailman id 1042553;
- Mon, 14 Jul 2025 06:34:24 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ubD2P-0007HB-5v; Mon, 14 Jul 2025 06:51:45 +0000
+Received: by outflank-mailman (input) for mailman id 1042563;
+ Mon, 14 Jul 2025 06:51:43 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=dG/o=Z3=kernel.org=ardb@srs-se1.protection.inumbo.net>)
- id 1ubClc-0003yK-SS
- for xen-devel@lists.xenproject.org; Mon, 14 Jul 2025 06:34:24 +0000
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 93bf8bcf-607c-11f0-b894-0df219b8e170;
- Mon, 14 Jul 2025 08:34:22 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 79FA160053
- for <xen-devel@lists.xenproject.org>; Mon, 14 Jul 2025 06:34:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3118BC4CEED
- for <xen-devel@lists.xenproject.org>; Mon, 14 Jul 2025 06:34:21 +0000 (UTC)
-Received: by mail-lj1-f180.google.com with SMTP id
- 38308e7fff4ca-32b595891d2so31303691fa.2
- for <xen-devel@lists.xenproject.org>; Sun, 13 Jul 2025 23:34:21 -0700 (PDT)
+ (envelope-from <SRS0=90OC=Z3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1ubD2N-0007H5-L0
+ for xen-devel@lists.xenproject.org; Mon, 14 Jul 2025 06:51:43 +0000
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [2a00:1450:4864:20::42d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ffaf29dd-607e-11f0-a318-13f23c93f187;
+ Mon, 14 Jul 2025 08:51:42 +0200 (CEST)
+Received: by mail-wr1-x42d.google.com with SMTP id
+ ffacd0b85a97d-3a54690d369so3440115f8f.3
+ for <xen-devel@lists.xenproject.org>; Sun, 13 Jul 2025 23:51:42 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-23de433d557sm86354175ad.186.2025.07.13.23.51.34
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sun, 13 Jul 2025 23:51:40 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,91 +45,129 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 93bf8bcf-607c-11f0-b894-0df219b8e170
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1752474861;
-	bh=ynfzJ9dsAps2aTd6f/tPXnxcet4bhZr25ybz3JfD7/o=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-	b=kEJvLVQkjY7hRn/K87feYU0o9wfLcoFoQapbEzji/H3oVgosLIR+n/zpshU8j5xPx
-	 cnTymersGd/N+1mHqJ3BKGWRQrcT85aRPAwcP/faI8e5poEh4ZkWHMwaVBKocHO+rc
-	 dLlEMs5vxTbWhanxYLW+okfeFmBQsBMdx563LZdcvTyj2iv+aiVsVXtnqPaTwDI3J5
-	 Ad4wSY0s6HRoT9uqxSgF5lXh8e2IN8+z1k96CRC4nfbcNwzS/6YDJxQqc+sBU8hMEi
-	 vOLX3wP8hDRXfWv7ELSL3IU03zRlrE1pWJntsOZb60EXxyqcIuI5/EbVfSlwDO+8oX
-	 OGL6/yKjUUb0A==
-X-Forwarded-Encrypted: i=1; AJvYcCUjOLKaZm1U9mKpnMns/nvbR1KxT+3fwmvKQ8rFH70zwQllYextr1xWj5qeFwc00uf+8PA5kdmSm8s=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyGnYzr2KLwR18Bcl6AwkkxULcqh+y4L54ZveSzFCLXjCab7dr0
-	SR7NdxHXKNe/ZIsccZ2P3Ig4xENx9n/iGu45CiunMSptCBcQg1U4YaCCK7s94phHPtEXzfDeFZr
-	qX4NLHuP4KF0G2Gslc4KAdiDDosUTzVA=
-X-Google-Smtp-Source: AGHT+IEy4x7iRPRFME+dpdQyQI1jtmLIqNYRLMk1ojNaRg715rzBCM8Q86llYRAXa+twgNvvkR8qSO1icXiwfjuZzv0=
-X-Received: by 2002:a2e:a7ca:0:b0:32b:80e1:300d with SMTP id
- 38308e7fff4ca-33053186d88mr35999851fa.0.1752474859585; Sun, 13 Jul 2025
- 23:34:19 -0700 (PDT)
+X-Inumbo-ID: ffaf29dd-607e-11f0-a318-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1752475901; x=1753080701; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=r6VLbPSFbGzuTC3NC6HLmmXAK3ll3EDBj3rV7Eevlo8=;
+        b=HOzf+yGKrqBs/ltk+1uTXDtKoT3XvCKeDb+Jhp+0RcHR4OSu5hGaw7xzWDrNQcan2e
+         wWOnruUNhyeSZhxmqHTN0sTi9otobugbvj9MiftmrEJ5oecWXweN0Mj9+6IU5MFov6Kz
+         wb3mpxqVqMD0nJnGssQWP4NuW3IBdgZmkWKgxvGtKxF0SsotZjwBzHE1434t9Onx1Zq0
+         A32Luw57Ref4uTR7PlJaEsiIh5HVmy5bK648sk7SKb7p/2xze7xaHmlFXv+MZpK0ulFy
+         70Pmv+YYvGgZLVNRpxHm5Yw/zG69HZk5ID7BZUU0uCrySNSAu3ZrvJGU32ZgXV9SzrzM
+         lnKw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1752475901; x=1753080701;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=r6VLbPSFbGzuTC3NC6HLmmXAK3ll3EDBj3rV7Eevlo8=;
+        b=dUv2aZEqSh3p6zi+SIQcTukDTczPqHs0fxY/E4p59pGQGXxVX/GTgKP5qNRgPET1GX
+         btlaZr4bS6u8hGoiTRySFe4O2d9IX0ssm+JlXU8+pljXOI8l43AujkBjyXDbgt73TiJQ
+         j5BHKewnngD5X/oZ/bLLrNoNY0CNJmXUHQTRkDbggBuj0fsK6oNkpPEIbh3vvyns7h32
+         zB68b/IrkXfXOXI4wVIj/OOTclV4tATN0HfOonB9JIMCxJjS6uq+8ySPlKaRJCMjuNTp
+         0aW6S8MXoFhxNJG19ccH6bjEYTQFBRd4ZlQPVBDIvoqwBvlcP7MFSYEzSwAmVItWJ935
+         1YRQ==
+X-Gm-Message-State: AOJu0YydoLtRvGKNsEwgOBcFiSNOHoJPMG0TD3O2IsLKu88VhLJ2hHba
+	i03PacypzP5z8zvSOKbD/9VypRzoOEVM4XEc34Xim5Qqe6Fmq2BLxdLuDFjse8c1Kg==
+X-Gm-Gg: ASbGncu2w2E6SRbkH6eSkHRZZQgRV6uZ9J1rvCgyjHrgqQsluHhZYNnxuTIRIsOKnD/
+	T07tMutJqvd4ZY1iK7Fn9POqht3EwHk3c6ZcJC+DizeTOiZHrvT+WEZHqQK9VTFI9pNcATDN06F
+	63Lj3asdvKKgJtmt+DxC0hhByFys2SdhTlhydao1k/P0ztsB249PPiO5bpWPxkBZXOVhL4poN7L
+	j1W6mKFvVFbQXvWX13I0B4zgFOI67Kr9GRy+6UC+LPPILlX2nLs8EF9SOiOlhFKLJbOIjCBMGnu
+	DawT4+4XUJlcQzrPn5/mAlCeIjdPapItRD2l6l6HzkGedpxTltY9p96BNwXrFt/hxKqJFOQ5VCf
+	wP62on7WPlpIFUhWBUuVBgt0b7lQ4bLbd83+k/Dx26kj2MAq4T+STR55wfGrpV4AWVIvO58e6Cf
+	OANOthiVQ=
+X-Google-Smtp-Source: AGHT+IE4ee30lm7aPis6CUTSe3BmCV0oVe3hHUAVpl4iRpesUy6bqvvescdPVucPDyyfSTYci2cNkQ==
+X-Received: by 2002:a05:6000:2481:b0:3b3:9c75:a4fb with SMTP id ffacd0b85a97d-3b5f2dfe003mr8713911f8f.33.1752475901432;
+        Sun, 13 Jul 2025 23:51:41 -0700 (PDT)
+Message-ID: <2f6be368-9459-47f4-9450-2d6d0912b436@suse.com>
+Date: Mon, 14 Jul 2025 08:51:32 +0200
 MIME-Version: 1.0
-References: <20250714060843.4029171-5-ardb+git@google.com> <20250714060843.4029171-6-ardb+git@google.com>
- <dade7d17-d45d-455e-a43c-01e9ea95c3b4@gmail.com> <CAMj1kXETDd+19i+awMx1v1sE4RXhF-r2a-mTa3rWfus5s4HMmw@mail.gmail.com>
- <f538a1b9-6a7c-474f-af2a-d87c35b82fc5@gmail.com>
-In-Reply-To: <f538a1b9-6a7c-474f-af2a-d87c35b82fc5@gmail.com>
-From: Ard Biesheuvel <ardb@kernel.org>
-Date: Mon, 14 Jul 2025 16:34:08 +1000
-X-Gmail-Original-Message-ID: <CAMj1kXGG0Mi+AT7ZeoHLTDhVbbahP-PLRgY1=aSZMVQEgWz5sQ@mail.gmail.com>
-X-Gm-Features: Ac12FXzYFywZb16ZKDUVBGm4_KFbnsnrDO10Xk4vWwqGRcRLn5B3XWIM87WiCT4
-Message-ID: <CAMj1kXGG0Mi+AT7ZeoHLTDhVbbahP-PLRgY1=aSZMVQEgWz5sQ@mail.gmail.com>
-Subject: Re: [RFC PATCH 1/3] efi-rtc: Remove wakeup functionality
-To: Demi Marie Obenour <demiobenour@gmail.com>
-Cc: Ard Biesheuvel <ardb+git@google.com>, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, 
-	Heinrich Schuchardt <heinrich.schuchardt@canonical.com>, Feng Tang <feng.tang@linux.alibaba.com>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, Juergen Gross <jgross@suse.com>, 
-	Stefano Stabellini <sstabellini@kernel.org>, 
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, Sunil V L <sunilvl@ventanamicro.com>, 
-	Bibo Mao <maobibo@loongson.cn>, linux-rtc@vger.kernel.org, linux-efi@vger.kernel.org, 
-	xen-devel@lists.xenproject.org, x86@kernel.org, 
-	linux-riscv@lists.infradead.org, loongarch@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN PATCH v2] misra: address violation of MISRA C Rule 10.1
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Rahul Singh <rahul.singh@arm.com>, dmytro_prokopchuk1@epam.com
+References: <41538b6b19811eb74c183051d3e7a4fd216404e6.1752232902.git.dmytro_prokopchuk1@epam.com>
+ <03612a12-e905-4487-a05b-a5307e450308@epam.com>
+ <alpine.DEB.2.22.394.2507111457430.605088@ubuntu-linux-20-04-desktop>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <alpine.DEB.2.22.394.2507111457430.605088@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, 14 Jul 2025 at 16:22, Demi Marie Obenour <demiobenour@gmail.com> wrote:
->
-> On 7/14/25 02:19, Ard Biesheuvel wrote:
-> > On Mon, 14 Jul 2025 at 16:13, Demi Marie Obenour <demiobenour@gmail.com> wrote:
-> >>
-> >> On 7/14/25 02:08, Ard Biesheuvel wrote:
-> >>> From: Ard Biesheuvel <ardb@kernel.org>
-> >>>
-> >>> The EFI rtc driver is used by non-x86 architectures only, and exposes
-> >>> the get/set wakeup time functionality provided by the underlying
-> >>> platform. This is usually broken on most platforms, and not widely used
-> >>> to begin with [if at all], so let's just remove it.
-> >> systemd uses the underlying functionality: a timer can wake the system up.
-> >> I have no idea if that is implemented in terms of this function, though.
-> >
-> > To be clear, you are referring to wake from poweroff at some date/time
-> > in the future, right?
->
-> Yes.
->
-> > This change does not remove this functionality from the RTC subsystem,
-> > it just ceases to expose it on non-x86 EFI platforms that claim to
-> > support it.
->
-> Do these platforms generally expose the functionality in a different way?
+On 12.07.2025 00:00, Stefano Stabellini wrote:
+> On Fri, 11 Jul 2025, Dmytro Prokopchuk1 wrote:
+>> Hi All.
+>>
+>> In this 2nd version I made changes according to the
+>> https://patchew.org/Xen/d92cf08a64d8197a1d1a45f901e59183105d3da5.1752183472.git.dmytro._5Fprokopchuk1@epam.com/
+>>
+>> There are 0 violations on the ARM64 as you can see in the report:
+>> https://saas.eclairit.com:3787/fs/var/local/eclair/xen-project.ecdf/xen-project/people/dimaprkp4k/xen/ECLAIR_normal/fix_10.1_rule/ARM64/10650097988/PROJECT.ecd;/by_service.html#service&kind
+>>
+>> Jan mentioned:
+>> "As to the kind of change here - didn't we deviate applying unary minus
+>> to unsigned types?"
+>>
+>> Here is that deviation:
+>> https://patchew.org/Xen/7c7b7a09e9d5ac1cc6f93fecacd8065fb6f25324.1745427770.git.victorm.lira@amd.com/
+>> As you can see from report
+>> https://saas.eclairit.com:3787/fs/var/local/eclair/xen-project.ecdf/xen-project/people/dimaprkp4k/xen/ECLAIR_normal/deviate_10.1_rule/ARM64/10648749555/PROJECT.ecd;/by_service.html#service&kind
+>> there are still 2 violations.
+>> And they can be easily fixed.
+>>
+>> So, Jan and Stefano,
+>> which approach should we select?
+> 
+> I think we should go with the global deviation.
+> 
+> Jan, if you look at the code changes on this series, many of them are
+> undesirable. And the series is only addressing the ARM violations: it is
+> only going to get worse for x86.
+> 
+> I think we should commit:
+> https://patchew.org/Xen/7c7b7a09e9d5ac1cc6f93fecacd8065fb6f25324.1745427770.git.victorm.lira@amd.com/
+> 
+> Jan, are you OK with it?
 
-On x86, the CMOS rtc is manipulated directly (and this is officially
-condoned by the EFI spec).
+Well, I did comment on it, and I don't think I saw a re-submission addressing
+those comments. But the way I commented I think it has become clear that I
+don't object to the deviation, just that some adjustments are needed to the
+wording.
 
-On non-x86, this functionality rarely works, which is really the point
-of this series.
-
-> If not, systemd should probably document that the functionality is
-> non-portable if it doesn't do that already.
-
-Not sure what you mean by non-portable. This functionality should be
-exposed in a generic manner (using the RTC subsystem interfaces), but
-only if it can be relied upon. On x86, the RTC subsystem will use the
-rtc-cmos driver, which implements the wakeup routines in terms of port
-I/O.
-
-If removing this functionality altogether from the EFI rtc driver is a
-problem, perhaps it would be better to implement an allowlist based
-solution that does not attempt to access the runtime services by
-default.
+Jan
 
