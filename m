@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 41601B044ED
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Jul 2025 18:02:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1042966.1413080 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5DBADB04516
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Jul 2025 18:09:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1042977.1413090 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ubLdF-0001Fr-PX; Mon, 14 Jul 2025 16:02:21 +0000
+	id 1ubLkI-0001wS-DL; Mon, 14 Jul 2025 16:09:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1042966.1413080; Mon, 14 Jul 2025 16:02:21 +0000
+Received: by outflank-mailman (output) from mailman id 1042977.1413090; Mon, 14 Jul 2025 16:09:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ubLdF-0001EN-MH; Mon, 14 Jul 2025 16:02:21 +0000
-Received: by outflank-mailman (input) for mailman id 1042966;
- Mon, 14 Jul 2025 16:02:20 +0000
+	id 1ubLkI-0001tj-9t; Mon, 14 Jul 2025 16:09:38 +0000
+Received: by outflank-mailman (input) for mailman id 1042977;
+ Mon, 14 Jul 2025 16:09:36 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=90OC=Z3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ubLdE-0000zO-7O
- for xen-devel@lists.xenproject.org; Mon, 14 Jul 2025 16:02:20 +0000
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [2a00:1450:4864:20::436])
+ id 1ubLkG-0001td-DQ
+ for xen-devel@lists.xenproject.org; Mon, 14 Jul 2025 16:09:36 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id eb6fb08f-60cb-11f0-a319-13f23c93f187;
- Mon, 14 Jul 2025 18:02:19 +0200 (CEST)
-Received: by mail-wr1-x436.google.com with SMTP id
- ffacd0b85a97d-3a5257748e1so3054539f8f.2
- for <xen-devel@lists.xenproject.org>; Mon, 14 Jul 2025 09:02:19 -0700 (PDT)
+ id ef4c6bac-60cc-11f0-a319-13f23c93f187;
+ Mon, 14 Jul 2025 18:09:35 +0200 (CEST)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-451dbe494d6so42554085e9.1
+ for <xen-devel@lists.xenproject.org>; Mon, 14 Jul 2025 09:09:35 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-31c30069171sm13388086a91.16.2025.07.14.09.02.15
+ d2e1a72fcca58-74eb9f4d599sm10514588b3a.139.2025.07.14.09.09.31
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 14 Jul 2025 09:02:17 -0700 (PDT)
+ Mon, 14 Jul 2025 09:09:34 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: eb6fb08f-60cb-11f0-a319-13f23c93f187
+X-Inumbo-ID: ef4c6bac-60cc-11f0-a319-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1752508939; x=1753113739; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1752509375; x=1753114175; darn=lists.xenproject.org;
         h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
          :from:user-agent:mime-version:date:message-id:from:to:cc:subject
          :date:message-id:reply-to;
-        bh=34lvXd+I64gKgoouOMnuASedFY7Apt36xfMEZnf2g/o=;
-        b=JLlMP/56D7d7mitWtP6MOIZXiOfJ9ndqlTgPLVc1YK8EerV4CU9lMBcFgUjYMRBjFR
-         oSQOJO3FLkPzfSlzfbAL4twMrPqhmnGZVbA73cUxmgiLiakOpajA73IAaM2qiqMk7TTs
-         DNzyEovo5/EYtyF//e0YqIp9YvVDVLtp0+2Xxt2TYZcg7+9m25OieMxLw11fiipT4UoB
-         ol+9rQFo7o1tpC0xoD8x8+5OYKVleWuAKzzMCnJCg8CtvQJcmgSARlt96Imq3ueekm8m
-         s/ek8VkuMhbxKvhDxRBsMBaRi8EVvsPL3860oh47Dzk3e+dTZ2TWRLSVKe7ZOHz0PSn9
-         bPOg==
+        bh=mizCdwOOFhfSa/zrYX2pWjdfYq4/mCT9L7B0Zj0JE6Q=;
+        b=aSUEDyLBjwCMNUbY2rzwaV4C8pUyQN9fTvADvR2wkcgUVzXMUWPbcltFU/amWPHyB+
+         +VfTjZyDHgy5IPAMF49EEj6ODshtgl0ALC236NSuXhahx3SeYp74+yX3TO/AcjoxdrC3
+         eqFwVU6TOW9cT3PtPOL+kkmK0eQGsH59tC8qpcYosX+2cYMtwCLi876kBPG79SPCwf+Y
+         tD5GyUevwXowoaFSC2t5HpQDxAEI9bn6LS2w6p06vhn8RqmM/i7cyasxBYJyT/7ESZkv
+         Mjx1wegbnwHEco/G+hMJObpj+fU3xilVwpMeXnTYBohBFI/nYMXlo5nVkXKL4ZXtBYfe
+         iHEA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1752508939; x=1753113739;
+        d=1e100.net; s=20230601; t=1752509375; x=1753114175;
         h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
          :from:user-agent:mime-version:date:message-id:x-gm-message-state
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=34lvXd+I64gKgoouOMnuASedFY7Apt36xfMEZnf2g/o=;
-        b=qjhSvK5fCGv4NbjED+kDUwndWaprJFMfn5LwHY/qRNYxkYrxm5wCYj28MuazHRk23r
-         oGpSYqEvUWcZAFOivjgTM8lJudZtz7yxde7kO518cpDdbG6ZOClvLb6pS4BDzoVP7h/T
-         bMOXm+AIxKW76vPyOX5Or40bkb+Q72DetUKVWH+BxbFc+STQaGuqRLlKb5H00piw+vyb
-         ZoFGBUQ0VFXXiqTzdatVhWhtBu8/b58/FmSFwYyDZstPEQ66uR9kpw9FYJmGfAciyJoR
-         rKwjtgsRWAYjtJoPKtFcitgY/ROKOuT5p5rI0EDUiYjXqVrIgm2Iu0yY+WImU7KFVukz
-         Ne1g==
-X-Gm-Message-State: AOJu0YzfTx7XeE56BbTZreCHc1oPfKhRxrwzTpOQvAYPzC7Uyt+cL6BJ
-	h9kUo2RYX86KosyUJX1EhOWtjFZWBi0uEYO+AW2oSl5eYkrpv5ZQx8CJp/qW3VpgRELyAtIOhN7
-	4aJA=
-X-Gm-Gg: ASbGncv/fmzP3ozE8Zi4KQNqyksLsy1uv13Jkrh+dVcRl/Vkm++VtU/I4sHPLfofdCP
-	exxSWOSZdMG4cgA27J6/VmQpXtQjW5oLIr8lD+pgecztXpQnbsAFnymH/LsbIqxBWp/sU8QmPDK
-	bffHTD6YuuJ/7TbWUY2qaqXqwHpS3pTIF4snn1lJ99V1jP/OfzcbG1IwZguyiu9NR9OTIqC6PzH
-	/86yc/f5OkpaDUEIz5ZLZomGVZ1YTkcFdIx4tIylJLTVukS15KeWSFSjWoww+ekq0OEHIH0SGam
-	2qtXHkRNKhAMiBCQ3HaNrycCTJFKasix+H3p3/qFfW/QmJ71sKt/v+ORovTIdUGmmHBHUaC7kVX
-	mm4mQW4sxtgl83eREloXmfqrQq/8PuoC4hj6y1vsdS/Aw0Ir1mUau/7oXcU2uu+U3nJd+DHlQ7r
-	fq1rHE5GE=
-X-Google-Smtp-Source: AGHT+IEiB6LB5NN3QDiztePhgOFsbfQHBSzo4R8r4dJn6rYrSQYRjvs11E6dlkr0/8waaSbTsRdugA==
-X-Received: by 2002:adf:9c91:0:b0:3aa:ab93:c7de with SMTP id ffacd0b85a97d-3b5f2dfd709mr8266915f8f.34.1752508938634;
-        Mon, 14 Jul 2025 09:02:18 -0700 (PDT)
-Message-ID: <8c4df1bc-4fdc-4e96-ae67-ea23870d2725@suse.com>
-Date: Mon, 14 Jul 2025 18:02:10 +0200
+        bh=mizCdwOOFhfSa/zrYX2pWjdfYq4/mCT9L7B0Zj0JE6Q=;
+        b=h+SfKeeX+/yi7JOGTGPLuDM5BK6XpicdCRbdkxmS+Av3DuKVBsaE0d17pk8xaVTIPL
+         O6PWyoSJA4M7809xipzoJWm32hF6VdHLKnOwHSjt1/nI5h/KCouAlARfvWq38jD2WPaU
+         mw1VQM39fuhBhaHPCM4byJh2nf+SBhukxKuz1P1Jyi1IfXb4OsE7RenulsX8Yp/u6/2n
+         MsNuLYR8m+L3wLu5sZWuw888Y4MXAA5OqOFZkaThuzg4e7O7iWBakToVjwkoz8ormC0K
+         kvdL+jk0TWvvPiaW//Sq7jJUmzV2fVLvL3jqKAnNDJKvj5vM+uNgb7fVZxhk1qCVQAoN
+         /QVQ==
+X-Gm-Message-State: AOJu0YyIsQrCkugOPAYL0FpKuKOFuHX6f0kMf5EwLtdTrYonm0yQP404
+	zzuGWm8n6hij+Z6k2iHuZhGvWNJ+DZZSdsBHTuMMsGaDqq6eRcZvMs6K+jQI7ekJxcm0QcFgN2Q
+	MlJQ=
+X-Gm-Gg: ASbGncspvVYTzyvTqK3gHZmxUB+raK6JHJfsj4lvv8Ld2tmSz79+ibVChM+Es8e0k0q
+	gUPLL5FEy4J0cgTVbnSRI8zZ6Ps8n+8YCmPNfAzO0G+dH237905Nq4xuwf4QWIbeuS9JqHZLOCU
+	i+IFtLbPPmHpYYGj7dHiZd2pvO5lH38sGkDtMX14s1M3IubF/yL8lw1uJGvWxqqTcrHtSkgCRAZ
+	peac18hSXPKJ6+btNc2RNgClnZi4VKmtMcMew9ChjEHLArcX006SVa+EB/meJgeYdyvA+PVkQWy
+	DG+8b7Z+kUXrxUNPFtYwPruVcP4VrRmSknbM3nJ0WRKjz7FyejyYyMufsClUsvARRlOWpXkwLlA
+	Ln/yZrFe2D1BOwjOwEBHgj2pFyLqKTl1bbsiNDtOfTaMUO/YBnxYe2KBo2mz98Zt5CxIwVfl5rW
+	1YzTfRl04=
+X-Google-Smtp-Source: AGHT+IHLYjGlfw2H0WEZBZ5OYlzd+5bht8IB33VtONdkaaluZazoTWpCoK9ArgxIcHhc9DI4XgsuAg==
+X-Received: by 2002:a05:6000:20c4:b0:3a6:f2d7:e22b with SMTP id ffacd0b85a97d-3b5f2dc0740mr6420752f8f.18.1752509374666;
+        Mon, 14 Jul 2025 09:09:34 -0700 (PDT)
+Message-ID: <8c610e0e-6778-4d94-92c8-35b280d05b46@suse.com>
+Date: Mon, 14 Jul 2025 18:09:27 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH v2] x86emul: adjust BSF/BSR/LZCNT/TZCNT behavior as to EFLAGS
+Subject: [PATCH v2] x86/PVH: modify permission checking in hwdom_fixup_p2m()
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
@@ -119,97 +119,44 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-SDM revision 087 points out that apparently as of quite some time ago on
-Intel hardware BSF and BSR may alter all arithmetic flags, not just ZF.
-Because of the inconsistency (and because documentation doesn't look to
-be quite right about PF), best we can do is simply take the flag values
-from what the processor produces, just like we do for various other
-arithmetic insns. (Note also that AMD and Intel have always been
-disagreeing on arithmetic flags other than ZF.) To be both safe (against
-further anomalies) and consistent, extend this to {L,T}ZCNT as well.
-(Emulating the two insns correctly even when underlying hardware doesn't
-support it was perhaps nice, but yielded guest-observable
-inconsistencies.)
+We're generally striving to minimize behavioral differences between PV
+and PVH Dom0. Using is_memory_hole() in the PVH case looks quite a bit
+weaker to me, compared to the page ownership check done in the PV case.
+Change checking accordingly.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-v2: Use emulate_2op_SrcV_srcmem() also for {L,T}ZCNT.
 
---- a/xen/arch/x86/x86_emulate/x86_emulate.c
-+++ b/xen/arch/x86/x86_emulate/x86_emulate.c
-@@ -5270,62 +5270,26 @@ x86_emulate(
-         break;
+--- a/xen/arch/x86/hvm/emulate.c
++++ b/xen/arch/x86/hvm/emulate.c
+@@ -176,13 +176,27 @@ static int hwdom_fixup_p2m(paddr_t addr)
+     ASSERT(is_hardware_domain(currd));
+     ASSERT(!altp2m_active(currd));
  
-     case X86EMUL_OPC(0x0f, 0xbc): /* bsf or tzcnt */
--    {
--        bool zf;
--
--        asm ( "bsf %2,%0" ASM_FLAG_OUT(, "; setz %1")
--              : "=r" (dst.val), ASM_FLAG_OUT("=@ccz", "=qm") (zf)
--              : "rm" (src.val) );
--        _regs.eflags &= ~X86_EFLAGS_ZF;
--        if ( (vex.pfx == vex_f3) && vcpu_has_bmi1() )
--        {
--            _regs.eflags &= ~X86_EFLAGS_CF;
--            if ( zf )
--            {
--                _regs.eflags |= X86_EFLAGS_CF;
--                dst.val = op_bytes * 8;
--            }
--            else if ( !dst.val )
--                _regs.eflags |= X86_EFLAGS_ZF;
--        }
--        else if ( zf )
-+        if ( vex.pfx == vex_f3 )
-+            emulate_2op_SrcV_srcmem("rep; bsf", src, dst, _regs.eflags);
-+        else
-         {
--            _regs.eflags |= X86_EFLAGS_ZF;
--            dst.type = OP_NONE;
-+            emulate_2op_SrcV_srcmem("bsf", src, dst, _regs.eflags);
-+            if ( _regs.eflags & X86_EFLAGS_ZF )
-+                dst.type = OP_NONE;
-         }
-         break;
--    }
++    if ( !iomem_access_permitted(currd, gfn, gfn) )
++        return -EPERM;
++
+     /*
+      * Fixups are only applied for MMIO holes, and rely on the hardware domain
+      * having identity mappings for non RAM regions (gfn == mfn).
++     *
++     * Much like get_page_from_l1e() for PV Dom0 does, check that the page
++     * accessed is actually an MMIO one: Either its MFN is out of range, or
++     * it's owned by DOM_IO.
+      */
+-    if ( !iomem_access_permitted(currd, gfn, gfn) ||
+-         !is_memory_hole(_mfn(gfn), _mfn(gfn)) )
+-        return -EPERM;
++    if ( mfn_valid(_mfn(gfn)) )
++    {
++        struct page_info *pg = mfn_to_page(_mfn(gfn));
++        const struct domain *owner = page_get_owner_and_reference(pg);
++
++        if ( owner )
++            put_page(pg);
++        if ( owner != dom_io )
++            return -EPERM;
++    }
  
-     case X86EMUL_OPC(0x0f, 0xbd): /* bsr or lzcnt */
--    {
--        bool zf;
--
--        asm ( "bsr %2,%0" ASM_FLAG_OUT(, "; setz %1")
--              : "=r" (dst.val), ASM_FLAG_OUT("=@ccz", "=qm") (zf)
--              : "rm" (src.val) );
--        _regs.eflags &= ~X86_EFLAGS_ZF;
--        if ( (vex.pfx == vex_f3) && vcpu_has_lzcnt() )
--        {
--            _regs.eflags &= ~X86_EFLAGS_CF;
--            if ( zf )
--            {
--                _regs.eflags |= X86_EFLAGS_CF;
--                dst.val = op_bytes * 8;
--            }
--            else
--            {
--                dst.val = op_bytes * 8 - 1 - dst.val;
--                if ( !dst.val )
--                    _regs.eflags |= X86_EFLAGS_ZF;
--            }
--        }
--        else if ( zf )
-+        if ( vex.pfx == vex_f3 )
-+            emulate_2op_SrcV_srcmem("rep; bsr", src, dst, _regs.eflags);
-+        else
-         {
--            _regs.eflags |= X86_EFLAGS_ZF;
--            dst.type = OP_NONE;
-+            emulate_2op_SrcV_srcmem("bsr", src, dst, _regs.eflags);
-+            if ( _regs.eflags & X86_EFLAGS_ZF )
-+                dst.type = OP_NONE;
-         }
-         break;
--    }
- 
-     case X86EMUL_OPC(0x0f, 0xbe): /* movsx rm8,r{16,32,64} */
-         /* Recompute DstReg as we may have decoded AH/BH/CH/DH. */
+     mfn = get_gfn(currd, gfn, &type);
+     if ( !mfn_eq(mfn, INVALID_MFN) || !p2m_is_hole(type) )
 
