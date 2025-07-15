@@ -2,49 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 68FA5B06464
-	for <lists+xen-devel@lfdr.de>; Tue, 15 Jul 2025 18:33:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1044597.1414720 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F19D2B063FA
+	for <lists+xen-devel@lfdr.de>; Tue, 15 Jul 2025 18:11:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1044524.1414610 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ubiae-0006JD-L3; Tue, 15 Jul 2025 16:33:12 +0000
+	id 1ubiFn-0005vB-Vj; Tue, 15 Jul 2025 16:11:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1044597.1414720; Tue, 15 Jul 2025 16:33:12 +0000
+Received: by outflank-mailman (output) from mailman id 1044524.1414610; Tue, 15 Jul 2025 16:11:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ubiae-0006Gh-Hb; Tue, 15 Jul 2025 16:33:12 +0000
-Received: by outflank-mailman (input) for mailman id 1044597;
- Tue, 15 Jul 2025 16:33:11 +0000
+	id 1ubiFn-0005tD-SO; Tue, 15 Jul 2025 16:11:39 +0000
+Received: by outflank-mailman (input) for mailman id 1044524;
+ Tue, 15 Jul 2025 16:11:38 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ZRri=Z4=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
- id 1ubiG9-0005t5-AI
- for xen-devel@lists.xenproject.org; Tue, 15 Jul 2025 16:12:01 +0000
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2060c.outbound.protection.outlook.com
- [2a01:111:f403:2414::60c])
+ <SRS0=Poj7=Z4=bounce.vates.tech=bounce-md_30504962.68767db1.v1-e2f595a5e20a41cbbd41d260dfc56079@srs-se1.protection.inumbo.net>)
+ id 1ubiFl-0005t5-P8
+ for xen-devel@lists.xenproject.org; Tue, 15 Jul 2025 16:11:37 +0000
+Received: from mail179-35.suw41.mandrillapp.com
+ (mail179-35.suw41.mandrillapp.com [198.2.179.35])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6df8c794-6196-11f0-b894-0df219b8e170;
- Tue, 15 Jul 2025 18:11:57 +0200 (CEST)
-Received: from MW4P220CA0017.NAMP220.PROD.OUTLOOK.COM (2603:10b6:303:115::22)
- by IA4PR12MB9785.namprd12.prod.outlook.com (2603:10b6:208:55b::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8922.32; Tue, 15 Jul
- 2025 16:11:55 +0000
-Received: from CO1PEPF000075F3.namprd03.prod.outlook.com
- (2603:10b6:303:115:cafe::64) by MW4P220CA0017.outlook.office365.com
- (2603:10b6:303:115::22) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8922.32 via Frontend Transport; Tue,
- 15 Jul 2025 16:11:54 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1PEPF000075F3.mail.protection.outlook.com (10.167.249.42) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8922.22 via Frontend Transport; Tue, 15 Jul 2025 16:11:54 +0000
-Received: from xcbagarciav01.xilinx.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 15 Jul
- 2025 11:11:51 -0500
+ id 5e15fff4-6196-11f0-b894-0df219b8e170;
+ Tue, 15 Jul 2025 18:11:30 +0200 (CEST)
+Received: from pmta12.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
+ by mail179-35.suw41.mandrillapp.com (Mailchimp) with ESMTP id
+ 4bhPM53L78zDRHx9G
+ for <xen-devel@lists.xenproject.org>; Tue, 15 Jul 2025 16:11:29 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ e2f595a5e20a41cbbd41d260dfc56079; Tue, 15 Jul 2025 16:11:29 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,142 +43,136 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6df8c794-6196-11f0-b894-0df219b8e170
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JO51kvlWCaVkpvXGx54RL20BgWtLwTNCcLfLV4eaD66nAF4swfeSsaCttBv0Vc64UMYiZ77S8LejbBdpKBuNAcAsfeZLhC5Tubjt1zdUzkzr/yMr5Gy96HWks+/X/fijNuWlAP1ItniclXM98jW4Ng0XGjHN+Mt4MGC2xPCwoQfXRVLagNdj4WcMG2XmYKhEEVNr0mzA3gwPQ6cdWXiz5+mQmZ3PLcyg4diPrkwg4Rt1AtNCK+1X04ii2JCfLRjHhkT3XLbxdnIXhCVjFzVd4A6DDKIGrUVakL5PqKiVRqfqXdajAOVI8Frzmt1ACigqZeurS5wgP3PWjTpXToLg/A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oNVDBZczNBRoqWRYyqps8aS4iDKHYKUWvTxtQixG1P8=;
- b=B8Xoeuo1qdNG1W7jDIZ1dEKi9VJWVC9G6Iag11jOE07zMKF2Td691iiLnUVdg/Bzjsgplhc/4+uSaERV6BItRpKGzfqv5eb6pftN6i+w+Aw2YzVgA+zCGDShM6pXGtyLgYMvGcekn7r5uOx9fpigdpyr72KWojku0IdYJ1E6YgA5ci2VszB0nJOKkYwCAQiM4N9FIrnzxlUWgZuJAU63VdzlE7mAOYtVc9vFDb5JNlGb+UbnPtP/IvfVquQLGzQPqTiNYh28UDdgJaxTAyBoJCOVIjFEi3ZE9d2X+zxVo4JesV5gLKCVV68BNB0Dre1SZ2PaL8vkGdi08s0ki5HC7A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oNVDBZczNBRoqWRYyqps8aS4iDKHYKUWvTxtQixG1P8=;
- b=emaEWjXImhrWSrx48C8OYxB4lt3kepzEck8+PtDSpilSNMVeG0x7fpxjpPAiQo/yNa27E2n7zYN2nheKu5NcxCkeTI0vM9Dj8/9o+Ee1ZVXtsiIdo47WrR0dikD+3PX+xfIQgoqssdvhhmxxh9fIvp62XjK2b/Hd+Nxwzp66CC0=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-From: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Alejandro Vallejo <alejandro.garciavallejo@amd.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, "Julien
- Grall" <julien@xen.org>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
-	<roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
-	"Bertrand Marquis" <bertrand.marquis@arm.com>, "Daniel P. Smith"
-	<dpsmith@apertussolutions.com>
-Subject: [PATCH v7 11/11] xen/dt: Allow CONFIG_DEVICE_TREE_PARSE to include device-tree/
-Date: Tue, 15 Jul 2025 18:11:06 +0200
-Message-ID: <20250715161108.141126-12-alejandro.garciavallejo@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20250715161108.141126-1-alejandro.garciavallejo@amd.com>
-References: <20250715161108.141126-1-alejandro.garciavallejo@amd.com>
+X-Inumbo-ID: 5e15fff4-6196-11f0-b894-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1752595889; x=1752865889;
+	bh=ES5jwX9dQor6Si9bkkhIPkIUgo1wrvr/KsnR/l+M9QM=;
+	h=From:Subject:To:Cc:Message-Id:Feedback-ID:Date:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
+	b=C751+lZk86imdeILVZHpZWGn7iyDDHxefCjlvGBsGIl8TpsmQIFL6XUD1ZH8vfp4a
+	 e0VTaEzldARMOhvcjfkNisUFfgYnYwpp/5RZoEvADjDBhsmOOME6BHOp7w1DFQHWDG
+	 cCGF4jNukFfgkc+DcJG+7EMw/mSweNSkmGVNChnLfcvUDRxbl3S0MQ4wtU8dMwrZ/4
+	 2dA7xTgEgcB04Tvl4QxiJpxgmaOTapgAuFRaJ7/keO61Jmbg4UPa2ZK2PJhX1xvlpb
+	 +izaDzX75Dg+XncTJQ6EMIyDfxjHdIbdLIRp9NcvJO7+fLP6DfSkOn2/V1eSYFEO8Z
+	 fr/GMLBVnJ5CA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1752595889; x=1752856389; i=anthoine.bourgeois@vates.tech;
+	bh=ES5jwX9dQor6Si9bkkhIPkIUgo1wrvr/KsnR/l+M9QM=;
+	h=From:Subject:To:Cc:Message-Id:Feedback-ID:Date:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
+	b=O2xWbEb1hZf11p4VITgku8JweODo0KIQqkDBVvsEvnWdi6pT9673K9QtSbz38uqIW
+	 HdL7gr1X6LfU7IzqIYt5sZxBzt7WNfy+sKmKYH+zFYKp0moYubdnNFhN5x3YMyg5qR
+	 GVNzi5+Ley8cNgj6SGpXeHmIiJ1Sw+UwU6FdKm6/9KeuVPF/3wm/zYkf/LGpkQrGwd
+	 iVnHBVA3kLVAVORfdfQApB/GymVGuR0x5g0rC3fLpY/y3a57NujvsVPqEir63IpcfE
+	 xN+/Ne0O0cFzRk3rCIhfVuCQS8OzMVgQZMMa4LvOU6Le7+Vl1DRvtSfXzv+VbPUUx4
+	 FNMh1/HSrZmPw==
+From: "Anthoine Bourgeois" <anthoine.bourgeois@vates.tech>
+Subject: =?utf-8?Q?[PATCH=20v2]=20xen/netfront:=20Fix=20TX=20response=20spurious=20interrupts?=
+X-Mailer: git-send-email 2.49.1
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1752595888301
+To: "Juergen Gross" <jgross@suse.com>, "Stefano Stabellini" <sstabellini@kernel.org>, "Oleksandr Tyshchenko" <oleksandr_tyshchenko@epam.com>, "Wei Liu" <wei.liu@kernel.org>, "Paul Durrant" <paul@xen.org>, xen-devel@lists.xenproject.org, netdev@vger.kernel.org
+Cc: "Anthoine Bourgeois" <anthoine.bourgeois@vates.tech>, "Elliott Mitchell" <ehem+xen@m5p.com>
+Message-Id: <20250715160902.578844-2-anthoine.bourgeois@vates.tech>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.e2f595a5e20a41cbbd41d260dfc56079?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20250715:md
+Date: Tue, 15 Jul 2025 16:11:29 +0000
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000075F3:EE_|IA4PR12MB9785:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8b5627f7-e4e7-429e-44dd-08ddc3ba50c7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|36860700013|82310400026;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?LRPERG+KV77EjDKnsJwuyikELSJhzsrwIW1SrjkrcskLjs8bXx32Gbq+u+3d?=
- =?us-ascii?Q?UEaHFX8Dv2t/eGi2YNO6hkwIBKvH1XSMY5oQSuCin1EDZvmxI1+L3srb7HsM?=
- =?us-ascii?Q?z+BbqLFJSJVMy+8mQe9mxqrE2tl1HD8MMGG041yIEbS1LbLkRYoedRzcEXrI?=
- =?us-ascii?Q?Y8vDPmETR52ZoLG0AYP26O4v6EfKajvNbmUMnwzodm03P6W42euU06+ylxFe?=
- =?us-ascii?Q?qjlT1GygpTWR0sd6LkqJpli2Wut9BmhrVkGip/hYypZ72zYu9QlDcJry+TOX?=
- =?us-ascii?Q?LFoKpo8cu4+0+Bx30dbrBFXTaPefh/JcGzIk3i7NkHuPijR5LIOgBQJhurSP?=
- =?us-ascii?Q?ixBOOzz/YkXvKyLyiknKoL2NgQIFy+un1Hp7RC3hyECpWB8HgemuNZdrLPaa?=
- =?us-ascii?Q?Uiw+bEL28JRyitG+gd5IBViWGZk4GUtDYXr2eir/y4qNiOO+NDpGgQP7u02U?=
- =?us-ascii?Q?XodG7mzVJ4bYhQ5J0x791xmQ9rgxggpjv5qXFi6XUN5/uaZ15damZ174S/Xn?=
- =?us-ascii?Q?Pcw66cCGcwHd0CYWrGqCisCCK5azWzvBK8VDsC37ZOWO53DrhKUhg4iAMG3X?=
- =?us-ascii?Q?W0MU2ygb5NybTaB1a6D0x0Mv67PYxH+1QU+PXtFLP2XUHBVADUVSPEsay76F?=
- =?us-ascii?Q?5S92cUYosbm7pFKK6SdgTyGlhEwKlTAtCDRIIxVeLzJ0BVaz+X5Xm3KPlJTD?=
- =?us-ascii?Q?328QzUFEQ+qiRpEPqnr8pvtcmWCe7cK+yO+T6cFL1PhKpFbUDBsNOcGlcFjU?=
- =?us-ascii?Q?v+6d92oQEsBS6k/xx7LNZ27ppU98oc0gMt5/Dvygoj6jKrrvQN59YWDWQ4Tp?=
- =?us-ascii?Q?tzuq4deCRXcB+t6tnUIAKgmt15nhC6eGx4kyvZnpS7o05G/+qc1nFKph/vX2?=
- =?us-ascii?Q?+bvB2l/8iSgw4q/oN3qkvapSJdJU36D9okKtipE6QZ71ZIlXM/iAhzZN5/8f?=
- =?us-ascii?Q?uT5p7nECpkfFJ+MeEJFwdrVEPMjus4TwU9UgYdgwk1T+PHaHy0eQnpTzhqNg?=
- =?us-ascii?Q?W3+2GoNhcZ9GvRFPzoxD6JaK6GsyUbTJeb6jJk7IZtxvG+7MhvVQQvTClUL7?=
- =?us-ascii?Q?7TUgEguKFiBGrZspQ0vPhS4ucDzKKCaZSD1LHhlpsoOO0cAOb9grW4WBBlot?=
- =?us-ascii?Q?jeoHsVI8JHQ18OFSn/YQueU6A+zcg2gt262iAXX4BdZaVOXr5UeqERxUGv1X?=
- =?us-ascii?Q?UQT4r8TJ0jcv3kZoC2y41JojkrCB8meThF38iFjgY52CawVoN9RObiasVmgj?=
- =?us-ascii?Q?u3hCFrrSO1UEMnMLHhqk6Ti/5LuHUoCLJlGADXqSwLcoy86Q1+FTZ3z1o4VV?=
- =?us-ascii?Q?Fk6eKUgWhxa6YWqMI30Kow+W3wNAvAO81JdETKf/jGGwmYoViXbhkUsj6npD?=
- =?us-ascii?Q?gUIRoesqedhLLWjqclnT/QPWBuESnM9qOZ8vQQ6T5PiPvZcVNeOo+Z2ggyfO?=
- =?us-ascii?Q?0wP2pGgrYiSjKBv147ORS+CvbFTZ9B5CT8AHqmrjkKllciqoSvhidOjaoZ7s?=
- =?us-ascii?Q?ATzNn/4Q9w9GCBASrxjcLCMFXSPpsreIuinn?=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(36860700013)(82310400026);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2025 16:11:54.1620
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8b5627f7-e4e7-429e-44dd-08ddc3ba50c7
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CO1PEPF000075F3.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA4PR12MB9785
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
 
-This allows bootfdt.c and device-tree.c to be usable without
-CONFIG_HAS_DEVICE_TREE_DISCOVERY.
+We found at Vates that there are lot of spurious interrupts when
+benchmarking the PV drivers of Xen. This issue appeared with a patch
+that addresses security issue XSA-391 (see Fixes below). On an iperf
+benchmark, spurious interrupts can represent up to 50% of the
+interrupts.
 
-Gate everything else on CONFIG_HAS_DEVICE_TREE_DISCOVERY.
+Spurious interrupts are interrupts that are rised for nothing, there is
+no work to do. This appends because the function that handles the
+interrupts ("xennet_tx_buf_gc") is also called at the end of the request
+path to garbage collect the responses received during the transmission
+load.
 
-Signed-off-by: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
+The request path is doing the work that the interrupt handler should
+have done otherwise. This is particurary true when there is more than
+one vcpu and get worse linearly with the number of vcpu/queue.
+
+Moreover, this problem is amplifyed by the penalty imposed by a spurious
+interrupt. When an interrupt is found spurious the interrupt chip will
+delay the EOI to slowdown the backend. This delay will allow more
+responses to be handled by the request path and then there will be more
+chance the next interrupt will not find any work to do, creating a new
+spurious interrupt.
+
+This causes performance issue. The solution here is to remove the calls
+from the request path and let the interrupt handler do the processing of
+the responses. This approch removes spurious interrupts (<0.05%) and
+also has the benefit of freeing up cycles in the request path, allowing
+it to process more work, which improves performance compared to masking
+the spurious interrupt one way or another.
+
+Some vif throughput performance figures from a 8 vCPUs, 4GB of RAM HVM
+guest(s):
+
+Without this patch on the :
+vm -> dom0: 4.5Gb/s
+vm -> vm:   7.0Gb/s
+
+Without XSA-391 patch (revert of b27d47950e48):
+vm -> dom0: 8.3Gb/s
+vm -> vm:   8.7Gb/s
+
+With XSA-391 and this patch:
+vm -> dom0: 11.5Gb/s
+vm -> vm:   12.6Gb/s
+
+v2:
+- add tags
+- resend with the maintainers in the recipients list
+
+Fixes: b27d47950e48 ("xen/netfront: harden netfront against event channel storms")
+Signed-off-by: Anthoine Bourgeois <anthoine.bourgeois@vates.tech>
+Reviewed-by: Juergen Gross <jgross@suse.com>
+Tested-by: Elliott Mitchell <ehem+xen@m5p.com>
 ---
- xen/common/Makefile             | 2 +-
- xen/common/device-tree/Makefile | 4 +++-
- 2 files changed, 4 insertions(+), 2 deletions(-)
+ drivers/net/xen-netfront.c | 5 -----
+ 1 file changed, 5 deletions(-)
 
-diff --git a/xen/common/Makefile b/xen/common/Makefile
-index d541fbcf49..265468d751 100644
---- a/xen/common/Makefile
-+++ b/xen/common/Makefile
-@@ -8,7 +8,7 @@ obj-y += cpu.o
- obj-$(CONFIG_DEBUG_TRACE) += debugtrace.o
- obj-$(CONFIG_HAS_DEVICE_TREE_DISCOVERY) += device.o
- obj-$(filter-out $(CONFIG_X86),$(CONFIG_ACPI)) += device.o
--obj-$(CONFIG_HAS_DEVICE_TREE_DISCOVERY) += device-tree/
-+obj-$(CONFIG_DEVICE_TREE_PARSE) += device-tree/
- obj-$(CONFIG_IOREQ_SERVER) += dm.o
- obj-y += domain.o
- obj-y += event_2l.o
-diff --git a/xen/common/device-tree/Makefile b/xen/common/device-tree/Makefile
-index 8abc069c4b..1459e63c85 100644
---- a/xen/common/device-tree/Makefile
-+++ b/xen/common/device-tree/Makefile
-@@ -1,11 +1,13 @@
- obj-y += bootfdt.init.o
- obj-y += bootinfo-fdt.init.o
- obj-y += bootinfo.init.o
-+obj-$(CONFIG_HAS_DEVICE_TREE_DISCOVERY) += bootinfo-fdt.init.o
-+obj-$(CONFIG_HAS_DEVICE_TREE_DISCOVERY) += bootinfo.init.o
- obj-y += device-tree.o
- obj-$(CONFIG_DOMAIN_BUILD_HELPERS) += domain-build.init.o
- obj-$(CONFIG_DOM0LESS_BOOT) += dom0less-build.init.o
- obj-$(CONFIG_OVERLAY_DTB) += dt-overlay.o
--obj-y += intc.o
-+obj-$(CONFIG_HAS_DEVICE_TREE_DISCOVERY) += intc.o
- obj-$(CONFIG_DOMAIN_BUILD_HELPERS) += kernel.o
- obj-$(CONFIG_STATIC_EVTCHN) += static-evtchn.init.o
- obj-$(CONFIG_STATIC_MEMORY) += static-memory.init.o
+diff --git a/drivers/net/xen-netfront.c b/drivers/net/xen-netfront.c
+index 9bac50963477..a11a0e949400 100644
+--- a/drivers/net/xen-netfront.c
++++ b/drivers/net/xen-netfront.c
+@@ -638,8 +638,6 @@ static int xennet_xdp_xmit_one(struct net_device *dev,
+ 	tx_stats->packets++;
+ 	u64_stats_update_end(&tx_stats->syncp);
+ 
+-	xennet_tx_buf_gc(queue);
+-
+ 	return 0;
+ }
+ 
+@@ -849,9 +847,6 @@ static netdev_tx_t xennet_start_xmit(struct sk_buff *skb, struct net_device *dev
+ 	tx_stats->packets++;
+ 	u64_stats_update_end(&tx_stats->syncp);
+ 
+-	/* Note: It is not safe to access skb after xennet_tx_buf_gc()! */
+-	xennet_tx_buf_gc(queue);
+-
+ 	if (!netfront_tx_slot_available(queue))
+ 		netif_tx_stop_queue(netdev_get_tx_queue(dev, queue->id));
+ 
 -- 
-2.43.0
+2.49.1
+
+
+
+Anthoine Bourgeois | Vates XCP-ng Developer
+
+XCP-ng & Xen Orchestra - Vates solutions
+
+web: https://vates.tech
 
 
