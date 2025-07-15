@@ -2,34 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C490B052B3
-	for <lists+xen-devel@lfdr.de>; Tue, 15 Jul 2025 09:22:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1043562.1413530 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F839B0530D
+	for <lists+xen-devel@lfdr.de>; Tue, 15 Jul 2025 09:26:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1043577.1413550 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ubZzU-0005mp-VU; Tue, 15 Jul 2025 07:22:16 +0000
+	id 1uba3g-0006wT-Rb; Tue, 15 Jul 2025 07:26:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1043562.1413530; Tue, 15 Jul 2025 07:22:16 +0000
+Received: by outflank-mailman (output) from mailman id 1043577.1413550; Tue, 15 Jul 2025 07:26:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ubZzU-0005ku-Sj; Tue, 15 Jul 2025 07:22:16 +0000
-Received: by outflank-mailman (input) for mailman id 1043562;
- Tue, 15 Jul 2025 07:22:15 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uba3g-0006tu-Nu; Tue, 15 Jul 2025 07:26:36 +0000
+Received: by outflank-mailman (input) for mailman id 1043577;
+ Tue, 15 Jul 2025 07:26:35 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=j2+c=Z4=linuxfoundation.org=gregkh@srs-se1.protection.inumbo.net>)
- id 1ubZzT-0005ko-KR
- for xen-devel@lists.xenproject.org; Tue, 15 Jul 2025 07:22:15 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6ad6ef5a-614c-11f0-b894-0df219b8e170;
- Tue, 15 Jul 2025 09:22:09 +0200 (CEST)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id A65C05C5A39;
- Tue, 15 Jul 2025 07:22:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BF12C4CEE3;
- Tue, 15 Jul 2025 07:22:06 +0000 (UTC)
+ <SRS0=Zwzr=Z4=intel.com=xiaoyao.li@srs-se1.protection.inumbo.net>)
+ id 1uba3f-0006to-8b
+ for xen-devel@lists.xenproject.org; Tue, 15 Jul 2025 07:26:35 +0000
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 06cf2f29-614d-11f0-a319-13f23c93f187;
+ Tue, 15 Jul 2025 09:26:32 +0200 (CEST)
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+ by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Jul 2025 00:26:29 -0700
+Received: from xiaoyaol-hp-g830.ccr.corp.intel.com (HELO [10.124.247.1])
+ ([10.124.247.1])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Jul 2025 00:26:26 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,73 +43,79 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6ad6ef5a-614c-11f0-b894-0df219b8e170
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
-	s=korg; t=1752564127;
-	bh=Rhik2SI+sxdIEG5rfGbMFjsf4x5xltoyJp8F3xN1GvI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=xV4ayyVHzmMklnAQs9ZPV19B42Zsk2m7JMrMJ9Ou80gk+ulgxsyLIhmhnUsk5ITkT
-	 BIOD164QstgeLz9+xuFFZ01NuqUGgIn+VixhoplzD96lw9IWhOcL5obCmwa6Ivp5vT
-	 /UdnZj44/JtIwtk6Q92BDyrCHIsNzPlEBMflYjVA=
-Date: Tue, 15 Jul 2025 09:22:03 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: WangYuli <wangyuli@uniontech.com>
-Cc: seanjc@google.com, pbonzini@redhat.com, tglx@linutronix.de,
-	mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com,
-	x86@kernel.org, hpa@zytor.com, dave@stgolabs.net,
-	jonathan.cameron@huawei.com, dave.jiang@intel.com,
-	alison.schofield@intel.com, vishal.l.verma@intel.com,
-	ira.weiny@intel.com, dan.j.williams@intel.com,
-	lucas.demarchi@intel.com, thomas.hellstrom@linux.intel.com,
-	rodrigo.vivi@intel.com, airlied@gmail.com, simona@ffwll.ch,
-	marcin.s.wojtas@gmail.com, andrew+netdev@lunn.ch,
-	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
-	pabeni@redhat.com, arend.vanspriel@broadcom.com,
-	ilpo.jarvinen@linux.intel.com, andriy.shevchenko@linux.intel.com,
-	jirislaby@kernel.org, jgross@suse.com, sstabellini@kernel.org,
-	oleksandr_tyshchenko@epam.com, akpm@linux-foundation.org,
-	kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
-	ming.li@zohomail.com, linux-cxl@vger.kernel.org,
-	intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
-	netdev@vger.kernel.org, kvalo@kernel.org, johannes.berg@intel.com,
-	quic_ramess@quicinc.com, ragazenta@gmail.com,
-	jeff.johnson@oss.qualcomm.com, mingo@kernel.org, j@jannau.net,
-	linux@treblig.org, linux-wireless@vger.kernel.org,
-	brcm80211@lists.linux.dev, brcm80211-dev-list.pdl@broadcom.com,
-	linux-serial@vger.kernel.org, xen-devel@lists.xenproject.org,
-	shenlichuan@vivo.com, yujiaoliang@vivo.com, colin.i.king@gmail.com,
-	cvam0000@gmail.com, zhanjun@uniontech.com, niecheng1@uniontech.com,
-	guanwentao@uniontech.com
-Subject: Re: [PATCH] treewide: Fix typo "notifer"
-Message-ID: <2025071545-endnote-imprison-2b98@gregkh>
-References: <B3C019B63C93846F+20250715071245.398846-1-wangyuli@uniontech.com>
+X-Inumbo-ID: 06cf2f29-614d-11f0-a319-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1752564392; x=1784100392;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=diH2VzVtmdjEOMOU7HGCpb9Z/8LCKSPT60pSYxn/8x8=;
+  b=H19PNRcWeIEx/X6ksLfYZppqHiGXEmuHNVXmCzPQXJj3cF2Kfl9tN1M9
+   0JkZFuflz9MmGP9Cl7hMbp8aXXgZikV+q5ck3kfSvKjO50HIYQwAnKRO+
+   F5i7rsidGmfx7DSZ3fzfKxGQnkxWYBGbyeHRHRKabt+saPXyMFHZH4A6C
+   +IVdY0/gMZHyE+nJ0xCYA5X2QV7Ie9PZzeEkiunM7rAVlelMCsMjckx6f
+   u0rhx37/8KcODzMfmxovDFUpL0hrILcifCdXdW4vcQ3xm67J5dgmPsVM6
+   Pkg/6AWsGd4eXWaP0pysemN1qHv5VeXx/RpZ4JtkQt+1UCfIGn5rLgE/D
+   g==;
+X-CSE-ConnectionGUID: o1Eoyue9RPqApaT1IhwHSQ==
+X-CSE-MsgGUID: NyjPwj3ETTub7FIE93Xfeg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11491"; a="58580318"
+X-IronPort-AV: E=Sophos;i="6.16,313,1744095600"; 
+   d="scan'208";a="58580318"
+X-CSE-ConnectionGUID: 5reR67JFRBiU2O9fxnj1Aw==
+X-CSE-MsgGUID: 4mRwTjTTS+CQGJtBSRzGMQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.16,313,1744095600"; 
+   d="scan'208";a="194304816"
+Message-ID: <0002fed1-2ba8-41f9-a4f6-bac2654333e3@intel.com>
+Date: Tue, 15 Jul 2025 15:26:23 +0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <B3C019B63C93846F+20250715071245.398846-1-wangyuli@uniontech.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] hw/arm/xen-pvh: Remove unnecessary 'hw/xen/arch_hvm.h'
+ header
+To: =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
+ qemu-devel@nongnu.org
+Cc: Anthony PERARD <anthony@xenproject.org>,
+ Pierrick Bouvier <pierrick.bouvier@linaro.org>,
+ Richard Henderson <richard.henderson@linaro.org>,
+ David Woodhouse <dwmw@amazon.co.uk>, Peter Maydell
+ <peter.maydell@linaro.org>, Paul Durrant <paul@xen.org>,
+ "Edgar E. Iglesias" <edgar.iglesias@gmail.com>, qemu-arm@nongnu.org,
+ xen-devel@lists.xenproject.org, Stefano Stabellini <sstabellini@kernel.org>
+References: <20250715071528.46196-1-philmd@linaro.org>
+Content-Language: en-US
+From: Xiaoyao Li <xiaoyao.li@intel.com>
+In-Reply-To: <20250715071528.46196-1-philmd@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Tue, Jul 15, 2025 at 03:12:45PM +0800, WangYuli wrote:
-> There are some spelling mistakes of 'notifer' in comments which
-> should be 'notifier'.
+On 7/15/2025 3:15 PM, Philippe Mathieu-Daudé wrote:
+> "hw/xen/arch_hvm.h" only declares the arch_handle_ioreq() and
+> arch_xen_set_memory() prototypes, which are not used by xen-pvh.c.
+> Remove the unnecessary header inclusion.
 > 
-> Fix them and add it to scripts/spelling.txt.
-> 
-> Signed-off-by: WangYuli <wangyuli@uniontech.com>
+> Cc: Xiaoyao Li <xiaoyao.li@intel.com>
+> Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
+
+Reviewed-by: Xiaoyao Li <xiaoyao.li@intel.com>
+
 > ---
->  arch/x86/kvm/i8254.c                                        | 4 ++--
->  drivers/cxl/core/mce.h                                      | 2 +-
->  drivers/gpu/drm/xe/xe_vm_types.h                            | 2 +-
->  drivers/net/ethernet/marvell/mvneta.c                       | 2 +-
->  drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c | 2 +-
->  drivers/tty/serial/8250/8250_dw.c                           | 2 +-
->  include/xen/xenbus.h                                        | 2 +-
->  scripts/spelling.txt                                        | 1 +
->  8 files changed, 9 insertions(+), 8 deletions(-)
+> Based-on: <20250513171737.74386-1-philmd@linaro.org>
+> ---
+>   hw/arm/xen-pvh.c | 1 -
+>   1 file changed, 1 deletion(-)
+> 
+> diff --git a/hw/arm/xen-pvh.c b/hw/arm/xen-pvh.c
+> index 4b26bcff7a5..1a9eeb01c8e 100644
+> --- a/hw/arm/xen-pvh.c
+> +++ b/hw/arm/xen-pvh.c
+> @@ -10,7 +10,6 @@
+>   #include "hw/boards.h"
+>   #include "system/system.h"
+>   #include "hw/xen/xen-pvh-common.h"
+> -#include "hw/xen/arch_hvm.h"
+>   
+>   #define TYPE_XEN_ARM  MACHINE_TYPE_NAME("xenpvh")
+>   
 
-Please break this up into one-patch-per-subsystem, like is required for
-things like this.
-
-thanks,
-
-greg k-h
 
