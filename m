@@ -2,44 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B0308B04E98
-	for <lists+xen-devel@lfdr.de>; Tue, 15 Jul 2025 05:18:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1043329.1413450 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D87BB04EE8
+	for <lists+xen-devel@lfdr.de>; Tue, 15 Jul 2025 05:29:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1043335.1413459 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ubWAM-0001sH-5o; Tue, 15 Jul 2025 03:17:14 +0000
+	id 1ubWMI-0003na-65; Tue, 15 Jul 2025 03:29:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1043329.1413450; Tue, 15 Jul 2025 03:17:14 +0000
+Received: by outflank-mailman (output) from mailman id 1043335.1413459; Tue, 15 Jul 2025 03:29:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ubWAM-0001qq-35; Tue, 15 Jul 2025 03:17:14 +0000
-Received: by outflank-mailman (input) for mailman id 1043329;
- Tue, 15 Jul 2025 03:17:13 +0000
+	id 1ubWMI-0003lv-3R; Tue, 15 Jul 2025 03:29:34 +0000
+Received: by outflank-mailman (input) for mailman id 1043335;
+ Tue, 15 Jul 2025 03:29:33 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=5Fzp=Z4=boeing.com=anderson.choi@srs-se1.protection.inumbo.net>)
- id 1ubWAK-0001qk-Q0
- for xen-devel@lists.xenproject.org; Tue, 15 Jul 2025 03:17:12 +0000
-Received: from ewa-mbsout-02.mbs.boeing.net (ewa-mbsout-02.mbs.boeing.net
- [130.76.20.195]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2df25187-612a-11f0-b894-0df219b8e170;
- Tue, 15 Jul 2025 05:17:06 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by ewa-mbsout-02.mbs.boeing.net (8.15.2/8.15.2/DOWNSTREAM_MBSOUT) with SMTP id
- 56F3H1SP046669; Mon, 14 Jul 2025 20:17:01 -0700
-Received: from phx-av-01.mbs.boeing.net (phx-av-01.mbs.boeing.net
- [137.136.102.153])
- by ewa-mbsout-02.mbs.boeing.net (8.15.2/8.15.2/8.15.2/UPSTREAM_MBSOUT) with
- ESMTPS id 56F3Gote046621
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 14 Jul 2025 20:16:51 -0700
-Received: from localhost (localhost [127.0.0.1])
- by phx-av-01.mbs.boeing.net (8.15.2/8.15.2/DOWNSTREAM_RELAY) with SMTP id
- 56F3GnjZ037633; Mon, 14 Jul 2025 20:16:49 -0700
-Received: from A6509144.boeing.com ([144.112.84.15])
- by phx-av-01.mbs.boeing.net (8.15.2/8.15.2/UPSTREAM_RELAY) with ESMTP id
- 56F3Ge82037165; Mon, 14 Jul 2025 20:16:41 -0700
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=qpRk=Z4=kernel.org=ardb@srs-se1.protection.inumbo.net>)
+ id 1ubWMG-0003lp-Vy
+ for xen-devel@lists.xenproject.org; Tue, 15 Jul 2025 03:29:32 +0000
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ea7c2278-612b-11f0-b894-0df219b8e170;
+ Tue, 15 Jul 2025 05:29:30 +0200 (CEST)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id C8192467F1
+ for <xen-devel@lists.xenproject.org>; Tue, 15 Jul 2025 03:29:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD501C4CEF5
+ for <xen-devel@lists.xenproject.org>; Tue, 15 Jul 2025 03:29:28 +0000 (UTC)
+Received: by mail-lf1-f45.google.com with SMTP id
+ 2adb3069b0e04-555024588b1so5616351e87.1
+ for <xen-devel@lists.xenproject.org>; Mon, 14 Jul 2025 20:29:28 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,145 +44,87 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2df25187-612a-11f0-b894-0df219b8e170
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=boeing.com;
-	s=boeing-s1912; t=1752549422;
-	bh=EhlZL5UlKrzAVQK6QAoPGjZSmmgUghjXHqKNFw8hJZs=;
-	h=From:To:Cc:Subject:Date:From;
-	b=Ga11ReIU45daJCyH56jNZ+wTyDDKKkwmCbkkahe7RLDRTODgPCufhLA8hEEjHjwio
-	 OQJSUTkAw4VjpNCUHep30bUuGXpv99vIy/4oocihYQHSa5HmKApihHRjG25RCU+7wd
-	 baQgTt3fCq0uK7kakbYoufWFZzzdvlx6F4IEescCUPzaTODe4d9hH9q8fy2DElfe8e
-	 RiRN+nsJOGE2nZ4lVLXl2efVTS7Qfq0UFFj4PwUV5Oek3HR+K71mwWYLj1Jw8XbUwa
-	 cQSBtcxgRpbgOe64vWBt1KuXiWwAgAI+t5QmF4B7x//g235ILHl29RjkMRk/BjrMkj
-	 qOzB8n7K5wUfA==
-From: Anderson Choi <anderson.choi@boeing.com>
-To: xen-devel@lists.xenproject.org
-Cc: matthew.l.weber3@boeing.com, joshua.c.whitehead@boeing.com,
-        Anderson Choi <anderson.choi@boeing.com>,
-        Nathan Studer <nathan.studer@dornerworks.com>,
-        Stewart Hildebrand <stewart@stew.dk>,
-        Dario Faggioli <dfaggioli@suse.com>, Juergen Gross <jgross@suse.com>,
-        George Dunlap <gwd@xenproject.org>, xen-devel@dornerworks.com
-Subject: [XEN PATCH v2] xen/arinc653: fix delay in the start of major frame
-Date: Tue, 15 Jul 2025 12:16:38 +0900
-Message-ID: <c3234cf8d5fb5da84e10ebdb95250c594f644198.1752197811.git.anderson.choi@boeing.com>
-X-Mailer: git-send-email 2.43.0
+X-Inumbo-ID: ea7c2278-612b-11f0-b894-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1752550168;
+	bh=ieqd6xCHgI1ZHPQbWmrk7Nb+/qzuOEd8qzdDp3KdSmg=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+	b=b1H6MnsWja4+R/HGgp9tU9geJmQM3bS+T64RZtg6NFD+ynaIvQfKgLfZf9wFIQMFw
+	 IEpBUdkrm3FNoiP0THEolt5J0qPGPi+XaiYUIKpViM0PEydXydu69aXClbW1kC0xKD
+	 7JUh792Zp8v8r6oGDOmlPdLygPejN/QbXadKp3Cbs1EmM7s5hknoWmpnwwmetGDygw
+	 T6eNIrkIRciU2Utnv1UBAZfPOojItTM8l0pnhPXGWHQIvXh4uX/WDMl8i8a/k/dKSg
+	 yyRO3jqQ4zi0F9Ugl6CU4fuIXbAGo/rYgZLFmgVhaPTku1dFREHd6pT5oKhurk/jP+
+	 JytHwh6zZkQAg==
+X-Forwarded-Encrypted: i=1; AJvYcCWu2M0rg7g83KGoaEyjEL70eIoLUbnWjJJoEus8p+GGhSxWZKqPcIL+xUs3gWvKw8rmo8AZ6YAP9/4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz/Q1ESdgYV4MvsvkYlWYLjtwemSzznXuohHPS1RLcvLtTNSrpr
+	emnoEas3lFY8xSWfNGgeWjs6eSPVL5vw+c0rcQSWiCJlNuy1HtjHtSWDgcgBMsam1iTS7OyJqm9
+	ltaovx+W3FSmwp5khp/CT/IuWQorKfNA=
+X-Google-Smtp-Source: AGHT+IFIz1rDkWifGEuRDAIW8VnNdmTc2Z0VIxz+qevBW3febeLf9zJqzx1t6qVV2NjD4iuG6fjmMDCJiXdzlUbsY78=
+X-Received: by 2002:a05:6512:39c3:b0:553:2fec:b139 with SMTP id
+ 2adb3069b0e04-55a044ec444mr5090549e87.24.1752550166947; Mon, 14 Jul 2025
+ 20:29:26 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
+References: <20250714060843.4029171-5-ardb+git@google.com> <422e2a72-972f-41f4-a0b3-d69a6cb0c2e2@canonical.com>
+In-Reply-To: <422e2a72-972f-41f4-a0b3-d69a6cb0c2e2@canonical.com>
+From: Ard Biesheuvel <ardb@kernel.org>
+Date: Tue, 15 Jul 2025 13:29:15 +1000
+X-Gmail-Original-Message-ID: <CAMj1kXEXpBF8hPaVMU0sDgNysYT66MDRmr3JHO4Lg1sJB_Yteg@mail.gmail.com>
+X-Gm-Features: Ac12FXyPeU_gWXO9-8if9ZFnLW7qkSAVnhXpIQ13tyFhKHPmacdG9H_jV_FpMvQ
+Message-ID: <CAMj1kXEXpBF8hPaVMU0sDgNysYT66MDRmr3JHO4Lg1sJB_Yteg@mail.gmail.com>
+Subject: Re: [RFC PATCH 0/3] Remove unused EFI runtime APIs
+To: Heinrich Schuchardt <heinrich.schuchardt@canonical.com>
+Cc: Ard Biesheuvel <ardb+git@google.com>, linux-arm-kernel@lists.infradead.org, 
+	Feng Tang <feng.tang@linux.alibaba.com>, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, Juergen Gross <jgross@suse.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>, 
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, Sunil V L <sunilvl@ventanamicro.com>, 
+	Bibo Mao <maobibo@loongson.cn>, linux-rtc@vger.kernel.org, linux-efi@vger.kernel.org, 
+	xen-devel@lists.xenproject.org, x86@kernel.org, 
+	linux-riscv@lists.infradead.org, loongarch@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-ARINC653 specificaion requires partition scheduling to be deterministic
-and periodic over time.
+On Mon, 14 Jul 2025 at 18:11, Heinrich Schuchardt
+<heinrich.schuchardt@canonical.com> wrote:
+>
+> On 7/14/25 08:08, Ard Biesheuvel wrote:
+> > From: Ard Biesheuvel <ardb@kernel.org>
+> >
+> > Using EFI runtime services to program the RTC to wake up the system is
+> > supported in theory, but rarely works in practice. Fortunately, this
+> > functionality is rarely [if ever] used to begin with so we can just drop
+> > it. (Note that the EFI rtc driver is not used by x86, which programs the
+> > CMOS rtc directly)
+>
+> The main problem I see with firmware offering access to the RTC via UEFI
+> services is that two different drivers, the firmware one and the Linux
+> one might be trying to access the same busses or registers which might
+> lead to unexpected results.
+>
+> Recently there was a discussion in the RISC-V technical group for the
+> server platform specification where the same issue was discussed
+> concerning SetTime().
+>
+> As a UEFI firmware should not care which operating system is booted, it
+> should be up to the OS to disable EFI access to the RTC if it has native
+> access.
+>
+> Could we disable all the EFI services for the RTC in Linux dynamically
+> when an RTC driver is successfully probed?
+>
 
-However, the use of current timestamp (now) as the baseline to calculate
-next_major_frame and next_switch_time introduces a delay in the start of
-major frame at every period, which breaks determinism and periodicity in
-partition scheduling.
+I don't think this would be the right way to do it.
 
-For example, we observe 3.5 msec of accumulated delay at the 21st major
-frame with the following configuration.
+It also depends on whether ACPI or DT is being used to describe the
+platform to the OS.
 
-Target : qemuarm64
-xen version : 4.19 (43aeacff86, x86/IRQ: constrain creator-domain-ID assertion)
-dom1 : 10 msec runtime
-dom2 : 10 msec runtime
+ACPI does not support describing the RTC device, so it should provide
+the EFI services.
 
-$ a653_sched -p Pool-arinc dom1:10 dom2:10
+DT can describe the RTC device directly, so I think it is acceptable
+for such firmware to mark all RTC routines unsupported in the RT_PROP
+table, and just expose the RTC device directly.
 
-0.014553536 ---x d?v? runstate_change d1v0 runnable->running //1st major
-frame
-0.034629712 ---x d?v? runstate_change d1v0 runnable->running //2nd major
-frame
-<snip>
-0.397747008 |||x d?v? runstate_change d1v0 runnable->running //20th
-major frame
-0.418066096 -||x d?v? runstate_change d1v0 runnable->running //21st
-major frame
-
-This is due to an inherent delta between the time value the scheduler timer
-is programmed to be fired with and the time value the schedule function
-is executed.
-
-Another observation that breaks the deterministic behavior of partition
-scheduling is a delayed execution of schedule(); It was called 14 msec
-later than programmed.
-
-1.530603952 ---x d?v? runstate_change d1v0 runnable->running
-1.564956784 --|x d?v? runstate_change d1v0 runnable->running
-
-Enforce the periodic behavior of partition scheduling by using the value
-next_major_frame as the base to calculate the start of major frame and
-the next domain switch time.
-
-Per discussion with Nathan Studer, there are odd cases the first minor
-frame can be also missed. In that sceanario, iterate through the schedule after resyncing
-the expected next major frame.
-
-Signed-off-by: Anderson Choi <anderson.choi@boeing.com>
-Suggested-by: Nathan Studer <nathan.studer@dornerworks.com>
-
----
-Changes in v2:
-- Changed the logic to resync major frame and to find correct
-  minor frame after a miss suggested by Nathan
----
- xen/common/sched/arinc653.c | 38 ++++++++++++++++++++-----------------
- 1 file changed, 21 insertions(+), 17 deletions(-)
-
-diff --git a/xen/common/sched/arinc653.c b/xen/common/sched/arinc653.c
-index 930361fa5c..a7937ed2fd 100644
---- a/xen/common/sched/arinc653.c
-+++ b/xen/common/sched/arinc653.c
-@@ -526,27 +526,31 @@ a653sched_do_schedule(
- 
-     spin_lock_irqsave(&sched_priv->lock, flags);
- 
--    if ( sched_priv->num_schedule_entries < 1 )
--        sched_priv->next_major_frame = now + DEFAULT_TIMESLICE;
--    else if ( now >= sched_priv->next_major_frame )
-+    /* Switch to next major frame while handling potentially missed frames */
-+    while ( now >= sched_priv->next_major_frame )
-     {
--        /* time to enter a new major frame
--         * the first time this function is called, this will be true */
--        /* start with the first domain in the schedule */
-         sched_priv->sched_index = 0;
--        sched_priv->next_major_frame = now + sched_priv->major_frame;
--        sched_priv->next_switch_time = now + sched_priv->schedule[0].runtime;
--    }
--    else
--    {
--        while ( (now >= sched_priv->next_switch_time) &&
--                (sched_priv->sched_index < sched_priv->num_schedule_entries) )
-+
-+        if ( sched_priv->num_schedule_entries < 1 )
-         {
--            /* time to switch to the next domain in this major frame */
--            sched_priv->sched_index++;
--            sched_priv->next_switch_time +=
--                sched_priv->schedule[sched_priv->sched_index].runtime;
-+            sched_priv->next_major_frame += DEFAULT_TIMESLICE;
-+            sched_priv->next_switch_time = sched_priv->next_major_frame;
-         }
-+        else
-+        {
-+            sched_priv->next_switch_time = sched_priv->next_major_frame +
-+                sched_priv->schedule[0].runtime;
-+            sched_priv->next_major_frame += sched_priv->major_frame;
-+        }
-+    }
-+ 
-+    /* Switch minor frame or find correct minor frame after a miss */
-+    while ( (now >= sched_priv->next_switch_time) &&
-+        (sched_priv->sched_index < sched_priv->num_schedule_entries) )
-+    {
-+        sched_priv->sched_index++;
-+        sched_priv->next_switch_time +=
-+            sched_priv->schedule[sched_priv->sched_index].runtime;
-     }
- 
-     /*
--- 
-2.43.0
-
+The OS shouldn't have to reason about these things: it is up to the
+platform to describe itself unambiguously.
 
