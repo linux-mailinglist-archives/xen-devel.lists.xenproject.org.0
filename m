@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80043B0574E
-	for <lists+xen-devel@lfdr.de>; Tue, 15 Jul 2025 12:00:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1043939.1413986 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C731B05761
+	for <lists+xen-devel@lfdr.de>; Tue, 15 Jul 2025 12:02:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1043946.1413997 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ubcRx-0003vG-3Q; Tue, 15 Jul 2025 09:59:49 +0000
+	id 1ubcUA-0005lK-G1; Tue, 15 Jul 2025 10:02:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1043939.1413986; Tue, 15 Jul 2025 09:59:49 +0000
+Received: by outflank-mailman (output) from mailman id 1043946.1413997; Tue, 15 Jul 2025 10:02:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ubcRw-0003sb-WC; Tue, 15 Jul 2025 09:59:49 +0000
-Received: by outflank-mailman (input) for mailman id 1043939;
- Tue, 15 Jul 2025 09:59:48 +0000
+	id 1ubcUA-0005iI-Ck; Tue, 15 Jul 2025 10:02:06 +0000
+Received: by outflank-mailman (input) for mailman id 1043946;
+ Tue, 15 Jul 2025 10:02:04 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=2Lhd=Z4=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1ubcRw-0003sO-0i
- for xen-devel@lists.xenproject.org; Tue, 15 Jul 2025 09:59:48 +0000
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on20624.outbound.protection.outlook.com
- [2a01:111:f403:200a::624])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=z/5o=Z4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1ubcU8-0005iC-KO
+ for xen-devel@lists.xenproject.org; Tue, 15 Jul 2025 10:02:04 +0000
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [2a00:1450:4864:20::42f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6dbfbcaa-6162-11f0-a319-13f23c93f187;
- Tue, 15 Jul 2025 11:59:43 +0200 (CEST)
-Received: from BN9PR12MB5273.namprd12.prod.outlook.com (2603:10b6:408:11e::22)
- by BN7PPF862C85B20.namprd12.prod.outlook.com
- (2603:10b6:40f:fc02::6d7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8901.23; Tue, 15 Jul
- 2025 09:59:39 +0000
-Received: from BN9PR12MB5273.namprd12.prod.outlook.com
- ([fe80::cf66:58ab:47be:4b13]) by BN9PR12MB5273.namprd12.prod.outlook.com
- ([fe80::cf66:58ab:47be:4b13%6]) with mapi id 15.20.8922.028; Tue, 15 Jul 2025
- 09:59:39 +0000
+ id c1b816e1-6162-11f0-a319-13f23c93f187;
+ Tue, 15 Jul 2025 12:02:03 +0200 (CEST)
+Received: by mail-wr1-x42f.google.com with SMTP id
+ ffacd0b85a97d-3a528243636so2875964f8f.3
+ for <xen-devel@lists.xenproject.org>; Tue, 15 Jul 2025 03:02:03 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-31c301eb975sm14718456a91.46.2025.07.15.03.01.55
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 15 Jul 2025 03:02:02 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,183 +45,184 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6dbfbcaa-6162-11f0-a319-13f23c93f187
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=szqSvJOVrTFoKX2cs0h/gnMsTOIaNqs7o6wL+iKo4D70OgCaLtHaXZ25L3ypEVNrkNJU3+9jQBfn5rK3vRX8JSEW7qT5S4OktZ8NLFeW4ehY9d9rHoBDkagAYIcS7AI5BF2g6tK655zrKbm75ebMwfHIir5EaRH8Jjl3lXdZbI4kLZcmksAp6/6qjhNh2o5RGiShvWwW09Ngg2q4S8oSGOyeWt4TqRa2Z2ljTs2rMiR1XRLjh+L9CwYQBOaEWOZS3o4nSkH9FilefT4QvwhwCdpR1glmBcSxSmVP90JtQooY7mh+OU00hyt+rzsKAhhAgPBi5I8nMYqadlxWXmst2w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NVdPxIvFWjAi1vxxi3/MX5dbad8orM456+oSftU6GVE=;
- b=S5Nlj7n+5mc6VeWK9CguMHFEndFFhakgQ9twJvCvJEwwaDkFBFDlM1xsigul5Z1mpIX06WcLggJYegKYrif54FycKCL6xOTTKF2LRbW/AKw3gdDjRJ8TMkUZ2H9/OWUibE73mm1ROC9J2qJcCpt5Vs+ByEs3jLbCgO4517yG7eBkuPSJvpi2rED5KvnzZ6vPiAlgFQoB+0WezwRX0E8bmi7wMCn8rT/NzX6I+fUnWIVc5UlmRwaUnrVPuD+AorShsoqFv9KdU8H3upbkIG9QtJ54hRt3q6qzfYMIvA4XPSuGTOeBWwv2clG7Juz6mlGL/F26LsBBXJvtfH0/NPjzew==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NVdPxIvFWjAi1vxxi3/MX5dbad8orM456+oSftU6GVE=;
- b=arB81N9QYwwOZBKOiYvaHaU+X+fXoUZX4uZDOiXlKtdqBU6U3I2S7okUWtomqem5JKH8nz/8ivGPbgVeD+mkp9ol7XAttqAFKvpKlXnTMyTdlQBeIbGFqk3o0ilihWkzwik5jT459WuQvEVkE79hy133KDaEXmzs7Jazo0z+4QI=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Message-ID: <560ba1b3-2118-44d1-a053-feb4e43b8108@amd.com>
-Date: Tue, 15 Jul 2025 11:59:35 +0200
+X-Inumbo-ID: c1b816e1-6162-11f0-a319-13f23c93f187
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1752573723; x=1753178523; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=03Mu3PnduTHNZLtLpjjXxrB966pBE79x9zYiNeAtufs=;
+        b=d9bH+qHaDfadV2g2cbYGlKdbsPx5FPlo+d90pJrvh5VgZ2Om8n3aMPUBL9Je+V/9Gj
+         82nIt/lNOCrKLzs3MYwqf/M6u7oiFbWqoqzVDNE+bxo1/pJqcq5esZnj8zfMRy/LdSt6
+         oWXjEzb8EAF/S9bnC7besNH6x9iUrNVsjWbNjjONdg4TeOmPcryCgmB8Ap5k+METq1MO
+         XPsr7o+yDOL9+XrOQ5dGvoN4a01GqZnmCJpnH5lPmVFSay54AJlncgwYArjNQLVhbiu2
+         orYYPWlq7RZvG6HdnEiPyUroUQNbQyoLEWoqr3f8i+N6gwReDewFzVwSpw/nTouA19RY
+         f2JQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1752573723; x=1753178523;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=03Mu3PnduTHNZLtLpjjXxrB966pBE79x9zYiNeAtufs=;
+        b=O/zAoBRc5pM6YExdNtzLjkq9UGzLJVpC/fyMkbB+BcFwJ+LJZJbNwFloRtWORSr5Da
+         eAHososLOfafa+UwqkuYiljCivY63D46LNrjaVlOmfsw2dSvV9PC6WZ0JbOxH6yXkcwH
+         x0EXwKHKPf/FkkMuwpNoI6arDpbLotTMFwHDns5gH56XlbMXh+94RQxbcyt1QE30o2rI
+         k65KGIHY64IKWvBgovLwJcwHFuqRcit4Ouv6RGHETzUFwHvwty4gzXbXNeTY9C0cN02u
+         y9yNngK6n+fehteuzN8DMSSIvuC4bMyVkt2zqH9UhHaOcB2575YrpRgjJ5q60WYjITBb
+         drog==
+X-Gm-Message-State: AOJu0YzD5Sx9YlOFnwacIK2qZh4tf0sPIDKukkyg/WcwEDM2qx87T77f
+	e8joLdRpphIM7vJHJh6IL7ldxq1B4tANNNN2bHtM7bDIjJqcvqYaMiNOHbzGyosFLA==
+X-Gm-Gg: ASbGncvkwORHxaNCAzOMekrkCnhy6CdgDWYTMjAMg01d3305m3SUfRbI6eaj4OLrzms
+	kF45dKEkIjkGgm6GcZ4ia3QhxD24nPLzyiowcngBnVzuzcLtfri94e5uvTuDnUu1qustZesLGds
+	g+BCGYuEiyT1NsjLH51sz/beF8HhS2dbIZd022hRixHfmrWsBWcBkycRUco7OBofPHCLf5Dy2ja
+	8L9grp3bSVjYRKdnpBHeC0mjFk4t8CpKy3CaObMWjcLOQ1NkwR7ewTqCYxntjFemNSLB4+8HTSO
+	/6v7rJWE2D01/1IXy9LgcE2hMl0t4MXaDSjHJaahB9DtuO3J4iDCx+qjXJzhcieQU/yZ5sSeXsx
+	i/pLG6sQMgR6zG16/aNo88b6v2vM7rOuj/S/O63tkLaE5q2cEvqXjIsiF0akwuFNNk2gTrc5iUt
+	Rc7J7xTtc=
+X-Google-Smtp-Source: AGHT+IEwRqyLWcNP10XmNZ5FGUKHCZQG2ZYKukhb5Wk4/LkGYLsfW4C9hovRDW8rc5xlwb7mr7Clqg==
+X-Received: by 2002:a05:6000:24c6:b0:3a3:6991:dcbb with SMTP id ffacd0b85a97d-3b5f187a48cmr12071135f8f.12.1752573722683;
+        Tue, 15 Jul 2025 03:02:02 -0700 (PDT)
+Message-ID: <a8fe1fc0-8dba-4a58-ba1f-0851dcc21e9d@suse.com>
+Date: Tue, 15 Jul 2025 12:01:51 +0200
+MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/6] arm/mpu: Find MPU region by range
-To: Hari Limaye <Hari.Limaye@arm.com>
+Subject: Re: [XEN PATCH v2 3/3] eclair: add deviations of MISRA C Rule 5.5
+To: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
 Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Luca Fancellu <Luca.Fancellu@arm.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <cover.1752565274.git.hari.limaye@arm.com>
- <3da52fda916ad2487ede9b193143d06debdcfc88.1752565274.git.hari.limaye@arm.com>
- <03fc835d-7833-4c1f-b061-da22a4ab9b75@amd.com>
- <515DCD17-B77C-4931-9C67-2D890D5B5E00@arm.com>
- <86068832-1403-4468-88ad-9d66066cb687@amd.com>
- <E4485C65-9A69-4EBA-BC81-04052E6B171E@arm.com>
-From: "Orzel, Michal" <michal.orzel@amd.com>
+ Doug Goldstein <cardoe@cardoe.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Nicola Vetrini <nicola.vetrini@bugseng.com>,
+ Stefano Stabellini <stefano.stabellini@amd.com>
+References: <cover.1752096263.git.dmytro_prokopchuk1@epam.com>
+ <e47d08e4465f913f03348830954e800f420c652d.1752096263.git.dmytro_prokopchuk1@epam.com>
+ <b5759332d598ec9b3d7df520735d9dbe@bugseng.com>
+ <alpine.DEB.2.22.394.2507111712120.605088@ubuntu-linux-20-04-desktop>
+ <bd89ecfe-83b3-471b-8455-83b9974bdaf2@suse.com>
+ <d8e714ad-e1a9-4d9d-9a2b-8eb796f21e04@epam.com>
 Content-Language: en-US
-In-Reply-To: <E4485C65-9A69-4EBA-BC81-04052E6B171E@arm.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <d8e714ad-e1a9-4d9d-9a2b-8eb796f21e04@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR2P281CA0139.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9e::10) To BN9PR12MB5273.namprd12.prod.outlook.com
- (2603:10b6:408:11e::22)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5273:EE_|BN7PPF862C85B20:EE_
-X-MS-Office365-Filtering-Correlation-Id: 094ec064-afef-4b01-36be-08ddc3864ff9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?UzhUeTdiWnpnSWg2THNHcm4velByaE5nVGhERjV5RlZheTNyMzU0ZkE4Ymdl?=
- =?utf-8?B?K0xnZGN4TEExdzNNdTZRTUhRVFR6WDR1RHdxQXp4MWlwUDVaa3RWaGxPRytC?=
- =?utf-8?B?LzViRWkrMDkweGtEc3crdUdvRTl3Q0lDNVgyUWVINmRpUVQvZGhwRmdxWDVV?=
- =?utf-8?B?QzVtRkNXKzBhUFJ2MkdXb2toTHpaeXNrOXZINi9nNzI0akdreGhhQUdvazkx?=
- =?utf-8?B?TlVUMHZUWDJWaEJwQzl4RTkyLzdlNGJyQlBwbDNIdXEzUmlkS3ZCT3g0aTZS?=
- =?utf-8?B?amN6amFtZHZyU1p6N1F1bGs2bnJvWGpWd3poS2lBU3lLVndVWmVTNUNtV1ow?=
- =?utf-8?B?TVEwK2F5M21WSmgxYm1MN003ZzV6QjlGTDQ0b1FBR09NbzJZYThYb3FhdmU1?=
- =?utf-8?B?NGNSOHFZRm1CWWtzVVZFVnF3R0djcDEydG5WZmlGSy9vZzlNL0JRNlVkQVds?=
- =?utf-8?B?RStZRzVCd0ZUSU9PN0xCakxVRDNBckF3VkNmUGdxRzhBRktBRk4yc1ZRY1Jw?=
- =?utf-8?B?ZGVkN2dXaTBUS0NiU1NGTU1PMnBLOHB2YXJsenpiZURVZVlRRkRjNjhzbS9s?=
- =?utf-8?B?eXBPUXo2bDJFbkdXK1VGRUx3Z1BpSkhUZUYrS3htWXgwSjYvZXFhRFZBcnpm?=
- =?utf-8?B?Rk9XN1lTTWVaOUhXckpnNWJKNFFXeHl1V1pFZktaL0ZoUTJHMDlUZDQyZGp4?=
- =?utf-8?B?TDhEVDI5U0Nxd2lpL0lOOXdRbktJQnRwMnN5dVFPc1UxbmhWODZWc01HR1Fo?=
- =?utf-8?B?N2ZSUG1tNlJxTHhJa1RhL1YxSjJXVGdJSmdzVTBkakRzMkJJRHQrbmY1TTZH?=
- =?utf-8?B?eDM2dWhaeUVKVnNDR1ZpTjhFeS9DY0ZUdW13Ym5GQzNtRFpTeklHdEdhYlp5?=
- =?utf-8?B?VEVwcVk1bE9BNjNieFRGSUJwNmlkcml2WVF5NDJBRzNFT2dIM0Q1Q2xORjZQ?=
- =?utf-8?B?SC9VNWw4Wlg3bUhHR25HZ0ZMZVl6M0ZGUzJ0eHZVSU5UZFlFOTdqOFdxRlZH?=
- =?utf-8?B?MTIwTGc3b01yZHNWK09WdEpDUmF0S2cvMmsrbVoyUGpqa2JEYStHd3VoQ0Ra?=
- =?utf-8?B?dUhVZ3lCOXgrTHcxVlNtdFFEZXhDelBlckFKVzVKMmFtSlJQcHo2bjBncmcy?=
- =?utf-8?B?b3paY09LT21WK1hxQ0YvMk85bCsrRE0yZFBxOFRUWnAyQ2Rpd3dTTjJZbnRv?=
- =?utf-8?B?Vk9KdDFUemZVMlk1a0tab0Y1cHdBeEZyelA0M1BRSElSZzhxQmxVTE02NTVU?=
- =?utf-8?B?bGxCRnVmYWR2dW80U2xkQjhXeW96S1BtSkc4dVZ3WE1qZ2NxRnNUbXdTZjBv?=
- =?utf-8?B?d0M4cDJyRkhDQWc3UHRZd0srbjA5c1FEMU1UQ0I5eWlHTkF1RHBZOG9ubTF4?=
- =?utf-8?B?TXhJYSswVUR1Qkw2RWFIOG1qVkRaSVUrR1JXSkhHeFByN09NQjIwaE5GSWNl?=
- =?utf-8?B?QTEyeGZPeUQveE1sVEZrMmhCRGcwV21qN0ZQanUybmc4MjZBS0xYWWhBRzNl?=
- =?utf-8?B?M1RVQUVpRzJWeWdHYXNsMGtPRk1maDIrdjJGRzFjS3NyOFRlTG4remhOZUc2?=
- =?utf-8?B?Q3JJR3F0YlJXZ1dNWk5ZeE83QUlpVmFtcWFha2x1UXc3RzlYLytmVTZNNDdK?=
- =?utf-8?B?WGM4VTJNajF3UlZzY05OUDN3Qys2OE5IT1FUZUdZUFFsMlhaanh4MEdKekpw?=
- =?utf-8?B?UGpZd01CNVNQWi9PczJJSlovbnBRT3FlMGhZMnVYdytXMkxJSFFEdUZnbVpF?=
- =?utf-8?B?Z1NIdkZBeGE5Y0xVdXdaK0Z5aDFQZldTaGZUQUJQbEliZkVrMXE0b3M0eEZX?=
- =?utf-8?B?cE9qb0FkaG1sSkJ3bGVoalZkTzlaQTMvWWxuTEh6WU85R3h5NzFDTkZ6Mlpn?=
- =?utf-8?B?Q2k3S3RNUzluTG9hWmZPNk1zTVN4ODZzTjdORHh5QVVtS2c9PQ==?=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN9PR12MB5273.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?SDlxb3UrUjdqNjM5Z2tselpyZ1dLanlNTzlycEhGNnlESVNSTXFkOVBEczZO?=
- =?utf-8?B?S0I2RHdsOFFuU3hqWm5PSnpGUlRtbUlub1BoWjA3UzBPOFppQVpzamZ2dGJu?=
- =?utf-8?B?R2h4UnRNVlRQcXBYR0NQajB6S2xCOHdzNDMxMUFSdktmSFFoSzdxcm5hU2Vz?=
- =?utf-8?B?UjRCeU9vV3dXVXlkSFk4Zy9qR0ludE5jVk9LazZpcFVBUzhXdmkxS0t6TSta?=
- =?utf-8?B?SFZNcnNRVW5hYVMzNUhxT2I2cVFYdVpWMXMraml6NWh6aXc2VnJwTzdwYnAy?=
- =?utf-8?B?YThmU3U1SkFyYXpmMXdlR2txdVpoaWxEOTVzeVV3MDl4NUpOd21nNXpQT1hM?=
- =?utf-8?B?NkFDa2Ryc0hlb0hRNmljZ3hNbWNzZUdsbnFyenlFMDNhUzNNZ1RtMEZMTEVE?=
- =?utf-8?B?bTVFa0FGYjFOZy90VytadUpKWUVNdVFTL0VDYkdxeTNpVlljNk9QRWxvOUw4?=
- =?utf-8?B?MzkzcldMWHo5TUViSUhyL0VKbzFWMTExbjkwbjl2Tm8xTDUyWFRWZXZOWW1w?=
- =?utf-8?B?TmNTa1J1dE5rbWpBVjArZk03akVnNXVTUVNTcG1qd0NOTy9KQ0FpOUs1OUp2?=
- =?utf-8?B?bFlhc1BHalJFbXRTZVlkUS9oWlFqQjhuYTZnTjJubXQwcjg5K1lHREZwdGR6?=
- =?utf-8?B?NU1LSG9EVytsRDZ3SkxIUTZCNHVabzNodERKRCs2U0w2SFdiYktIT0lOYXNB?=
- =?utf-8?B?UTZrNGRZTzN3dzlBMm4vVGtmWW1xbytDaUFkVDZnL0VUWU5vQnczcmF5YklE?=
- =?utf-8?B?bFZFQkRkREh2c1hUMWJFWnVrWXZJRWUxWXBmRE8rVEc5bzlwZXNkWjBURmFH?=
- =?utf-8?B?dDdETkJ2ZG0yNXlSSDM0K3BwREVBWmkrQzlOcjIrWnA2V29LbEkzd0lXU3E2?=
- =?utf-8?B?OE9aNVNKb2VzRk9LOTJkenJRdDhjZTZkOW1lRTRObSt4SDdDYXcwUDJaSUUw?=
- =?utf-8?B?V2dSaThxV1pyOGM2RElPTG1JTENvQTBrb3lmR0sxaTVid2RnSHlJRTc3MzBy?=
- =?utf-8?B?OWxXUTZKdjVPMHZ4bEswSVFtT2J0dVgyckhhOFpTL1BTUkRmVWJjbXBzemx6?=
- =?utf-8?B?RjErNlpzdlJveitPSXJPQ0h2bkJiQ3EweFFtTHljMzQvN09MQ0IvRHJIVDJa?=
- =?utf-8?B?cTY1UXFVbUg5MVdBSGZnSEZqc0FJU3ZXL1QwTTJmSlJYZmxoRmQ2Vm1iT0hE?=
- =?utf-8?B?cnozcGhsVGtRd2N4S2ovNzJMblZXbXJrUzgxd0I1SzE0b1RRWDVIVTg1QkZ3?=
- =?utf-8?B?Sk5TZzlmRHpVMG00bDB5VFN2UjhyaTZPd0dXUGlvU1hyaXJGclY4UnRGbXox?=
- =?utf-8?B?ZXZLRDdhS25Rbm1qT3FLanFaM0l4MENzaVhiSzBBVFU1c2NmdXY2N3pRd3c1?=
- =?utf-8?B?RjNuRFlrcjV2NTBjSE5LcXRkczlpbk9UQTZ6WTRwbUdHNEdZK05jMjNCdEdx?=
- =?utf-8?B?eGR0TEhaOTQ1ZUR0V3lvaUZ6cENTTU9xUXR1aVpHNTZyV2FMWkkxcXdpRFUz?=
- =?utf-8?B?NVlKOVB2UnkyV3ZkZ1NkYWNrSnArSUZ2dEtkNDlDL3NIa2p4UHYxaXBCNzNI?=
- =?utf-8?B?YTV5Q21UNXcxcStncDc5UzBNMTBTM3Z4Q2Q1VjJMNjBXNWMrVjZxZHgvMEJv?=
- =?utf-8?B?WVJhbmYzbHhoRDJ2QUIzN3Fxa2VHNjV3MlgrZnhIZTkwRlF2Y0xCUm9COWw2?=
- =?utf-8?B?aVlrK1Y4OXVaV1MzR2xNQVVxbUowWkF5NlpnMUNSalZjWU8xclNUWEozMXVW?=
- =?utf-8?B?Q3YrdHc5MGdoVGhKZjcxOUJYVzdJSTI3RVFCbTlPWGV1VmJ5eDZ6N3Bqd1F0?=
- =?utf-8?B?RDVzVk9jV1pFLzE0UDh1MHdkUVdueng4UmdLM05zVkhwWkkraEFhSVBJb3RU?=
- =?utf-8?B?QWlUb3pUeFRQc3FkTERVeDB6b1NrS1FFMUxoOThrWlI2L0ZkblY3ZWZ5d3Fx?=
- =?utf-8?B?b0lBR0JINmErcjFWdjJuVTk0MDc2d3R3WW1WTDdIUG1jMGhIUHJjcHpKUUpP?=
- =?utf-8?B?STJNc3AvQUlQZ0U0NldrWVhiODdlS1FTY01VS29CSG45VTk0dDR0TWw4eGta?=
- =?utf-8?B?YnJFSWF1b1FYemhLYm5rSVlFMUwxZHJqRTJhUmxydStCeVl5K3BaVFp1Z3hR?=
- =?utf-8?Q?QmBUnsET8P/gzsFXGBpECTLnE?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 094ec064-afef-4b01-36be-08ddc3864ff9
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5273.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2025 09:59:39.3375
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: KlrsNknCdcW2qGGiCQn9XN6n2QWiyI0Honcb8+1Wm0SwFxqUBYMs4/rZhdwKRpgs
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7PPF862C85B20
 
+On 15.07.2025 11:46, Dmytro Prokopchuk1 wrote:
+> Could we proceed with ARM deviations only so far?
+> I understand Stefano's preferences, but it can unblock me to address 
+> next ARM violations.
 
+Hmm, ...
 
-On 15/07/2025 11:48, Hari Limaye wrote:
-> Hi Michal,
-> 
->> On 15 Jul 2025, at 09:45, Orzel, Michal <michal.orzel@amd.com> wrote:
->>
->>
->>
->> On 15/07/2025 10:36, Hari Limaye wrote:
->>> Hi Michal,
->>>
->>>>> +int mpumap_contains_region(pr_t *table, uint8_t nr_regions, paddr_t base,
->>>>> +                           paddr_t limit, uint8_t *index)
->>>>> +{
->>>>> +    ASSERT(index);
->>>>> +    *index = INVALID_REGION_IDX;
+> On 7/14/25 10:55, Jan Beulich wrote:
+>> On 12.07.2025 03:13, Stefano Stabellini wrote:
+>>> On Fri, 11 Jul 2025, Nicola Vetrini wrote:
+>>>> On 2025-07-09 23:38, Dmytro Prokopchuk1 wrote:
+>>>>> MISRA C Rule 5.5 states that: "Identifiers shall
+>>>>> be distinct from macro names".
+>>>>>
+>>>>> Update ECLAIR configuration to deviate:
+>>>>> - clashes in 'xen/include/xen/bitops.h';
+>>>>> - clashes in 'xen/include/xen/irq.h';
+>>>>> - clashes in 'xen/common/grant_table.c'.
+>>>>>
+>>>>> Signed-off-by: Dmytro Prokopchuk <dmytro_prokopchuk1@epam.com>
+>>>>> ---
+>>>>>   automation/eclair_analysis/ECLAIR/deviations.ecl | 8 ++++++++
+>>>>>   docs/misra/deviations.rst                        | 8 ++++++++
+>>>>>   2 files changed, 16 insertions(+)
+>>>>>
+>>>>> diff --git a/automation/eclair_analysis/ECLAIR/deviations.ecl
+>>>>> b/automation/eclair_analysis/ECLAIR/deviations.ecl
+>>>>> index e8f513fbc5..a5d7b00094 100644
+>>>>> --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
+>>>>> +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
+>>>>> @@ -117,6 +117,14 @@ it defines would (in the common case) be already
+>>>>> defined. Peer reviewed by the c
+>>>>>   -config=MC3A2.R5.5,reports+={deliberate,
+>>>>> "any_area(decl(kind(function))||any_loc(macro(name(memcpy||memset||memmove))))&&any_area(any_loc(file(^xen/common/libelf/libelf-private\\.h$)))"}
+>>>>>   -doc_end
+>>>>>
+>>>>> +-doc_begin="Clashes between function names and macros are deliberate for
+>>>>> bitops functions, pirq_cleanup_check, update_gnttab_par and
+>>>>> parse_gnttab_limit functions
+>>>>> +and needed to have a function-like macro that acts as a wrapper for the
+>>>>> function to be called. Before calling the function,
+>>>>> +the macro adds additional checks or adjusts the number of parameters
+>>>>> depending on the configuration."
+>>>>> +-config=MC3A2.R5.5,reports+={deliberate,
+>>>>> "any_area(all_loc(file(^xen/include/xen/bitops\\.h$)))"}
+>>>>
+>>>> Bitops violations are not inside "xen/include/xen/bitops.h", but rather
+>>>> "xen/arch/x86/include/asm/bitops.h"
+>>>>
+>>>>> +-config=MC3A2.R5.5,reports+={deliberate,
+>>>>> "any_area(all_loc(file(^xen/include/xen/irq\\.h$))&&context(name(pirq_cleanup_check)&&kind(function)))"}
+>>>>
+>>>> I would rather do (untested)
+>>>>
+>>>> -config=MC3A2.R5.5,reports+={deliberate,
+>>>> "all_area(decl(name(pirq_cleanup_check))||macro(name(pirq_cleanup_check)))"}
+>>>>
+>>>>> +-config=MC3A2.R5.5,reports+={deliberate,
+>>>>> "any_area(all_loc(file(^xen/common/grant_table\\.c$))&&context(name(update_gnttab_par||parse_gnttab_limit)&&kind(function)))"}
+>>>>> +-doc_end
 >>>>> +
->>>>> +    /*
->>>>> +     * The caller supplies a half-open interval [base, limit), i.e. limit is the
->>>>> +     * first byte *after* the region. Require limit strictly greater than base,
->>>>> +     * which is necessarily a non-empty region.
->>>>> +     */
->>>>> +    ASSERT(base < limit);
->>>> Well, that does not guarantee a non-empty region.
->>>> Consider passing [x, x+1). The assert will pass, even though the region is empty.
 >>>>
->>>> ~Michal
+>>>> same as above
 >>>>
 >>>
->>> Apologies, I may well be missing something here! Please could you suggest a code snippet to understand your expectation here / what you would prefer the assert to be?
+>>> Thanks Nicola! The following deviations are enough and sufficient to
+>>> zero violations on both ARM and x86:
 >>>
->>> As I understand it, with a half-open interval [base, limit) as is passed to this function, the size is  `limit - base` and so the region [x, x+1) will have size 1. The empty region starting at the same address would be [x, x). But perhaps I am making the off-by-one error here.
->> Hmm, I think I made a mistake here. Region of size 1B would have base == limit
->> in registers. All good then.
->>
->> ~Michal
->>
-> 
-> Thanks for double checking. I notice you did not add your tag here, I wanted to check if you think this patch is reviewed from your perspective?
-Yes.
+>>> -config=MC3A2.R5.5,reports+={deliberate, "any_area(all_loc(file(^xen/include/xen/bitops\\.h$)))"}
+>>> -config=MC3A2.R5.5,reports+={deliberate, "any_area(all_loc(file(^xen/arch/x86/include/asm/bitops\\.h$)))"}
+>>> -config=MC3A2.R5.5,reports+={deliberate, "any_area(all_loc(file(^.*/compat\\.c$)))"}
+>>> -config=MC3A2.R5.5,reports+={deliberate, "any_area(all_loc(file(^.*/compat/.*$)))"}
+>>> -config=MC3A2.R5.5,reports+={deliberate, "any_area(all_loc(file(^xen/arch/x86/x86_emulate/.*$)))"}
+>>> -config=MC3A2.R5.5,reports+={deliberate, "any_area(all_loc(file(^xen/arch/x86/include/asm/genapic\\.h$)))"}
+>>> -config=MC3A2.R5.5,reports+={deliberate, "all_area(decl(name(parse_gnttab_limit))||macro(name(parse_gnttab_limit)))"}
+>>> -config=MC3A2.R5.5,reports+={deliberate, "all_area(decl(name(update_gnttab_par))||macro(name(update_gnttab_par)))"}
+>>> -config=MC3A2.R5.5,reports+={deliberate, "all_area(decl(name(pirq_cleanup_check))||macro(name(pirq_cleanup_check)))"}
+>>> -config=MC3A2.R5.5,reports+={deliberate, "all_area(decl(name(virt_to_maddr))||macro(name(virt_to_maddr)))"}
+>>> -config=MC3A2.R5.5,reports+={deliberate, "all_area(decl(name(set_px_pminfo))||macro(name(set_px_pminfo)))"}
+>>> -config=MC3A2.R5.5,reports+={deliberate, "all_area(decl(name(set_cx_pminfo))||macro(name(set_cx_pminfo)))"}
+>>> -config=MC3A2.R5.5,reports+={deliberate, "all_area(decl(name(cpu_has_amd_erratum))||macro(name(cpu_has_amd_erratum)))"}
+>>> -config=MC3A2.R5.5,reports+={deliberate, "all_area(decl(name(copy_to_guest_ll))||macro(name(copy_to_guest_ll)))"}
+>>> -config=MC3A2.R5.5,reports+={deliberate, "all_area(decl(name(copy_from_guest_ll))||macro(name(copy_from_guest_ll)))"}
+>>> -config=MC3A2.R5.5,reports+={deliberate, "all_area(decl(name(edd_put_string))||macro(name(edd_put_string)))"}
+>>> -config=MC3A2.R5.5,reports+={deliberate, "all_area(decl(name(cpu_has_amd_erratum))||macro(name(cpu_has_amd_erratum)))"}
+>>> -config=MC3A2.R5.5,reports+={deliberate, "all_area(decl(name(page_list_entry))||macro(name(page_list_entry)))"}
+>>> -config=MC3A2.R5.5,reports+={deliberate, "all_area(decl(name(do_physdev_op))||macro(name(do_physdev_op)))"}
+>>> -config=MC3A2.R5.5,reports+={deliberate, "all_area(decl(name(do_platform_op))||macro(name(do_platform_op)))"}
 
-Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+... in here, which of them are Arm-only?
 
-~Michal
-
+Jan
 
