@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC672B053E6
-	for <lists+xen-devel@lfdr.de>; Tue, 15 Jul 2025 10:00:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1043690.1413699 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B93F0B05405
+	for <lists+xen-devel@lfdr.de>; Tue, 15 Jul 2025 10:03:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1043703.1413709 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ubaa0-00027j-Lg; Tue, 15 Jul 2025 08:00:00 +0000
+	id 1ubadS-00056j-6p; Tue, 15 Jul 2025 08:03:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1043690.1413699; Tue, 15 Jul 2025 08:00:00 +0000
+Received: by outflank-mailman (output) from mailman id 1043703.1413709; Tue, 15 Jul 2025 08:03:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ubaa0-00025q-IP; Tue, 15 Jul 2025 08:00:00 +0000
-Received: by outflank-mailman (input) for mailman id 1043690;
- Tue, 15 Jul 2025 07:59:59 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ubadS-00054R-3f; Tue, 15 Jul 2025 08:03:34 +0000
+Received: by outflank-mailman (input) for mailman id 1043703;
+ Tue, 15 Jul 2025 08:03:32 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=z/5o=Z4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ubaZz-00025K-Ob
- for xen-devel@lists.xenproject.org; Tue, 15 Jul 2025 07:59:59 +0000
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [2a00:1450:4864:20::42a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b352bdaa-6151-11f0-b894-0df219b8e170;
- Tue, 15 Jul 2025 09:59:57 +0200 (CEST)
-Received: by mail-wr1-x42a.google.com with SMTP id
- ffacd0b85a97d-3a54700a463so2828890f8f.1
- for <xen-devel@lists.xenproject.org>; Tue, 15 Jul 2025 00:59:57 -0700 (PDT)
+ id 1ubadQ-00054L-Jt
+ for xen-devel@lists.xenproject.org; Tue, 15 Jul 2025 08:03:32 +0000
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [2a00:1450:4864:20::42f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 32ce623b-6152-11f0-a319-13f23c93f187;
+ Tue, 15 Jul 2025 10:03:31 +0200 (CEST)
+Received: by mail-wr1-x42f.google.com with SMTP id
+ ffacd0b85a97d-3a6d77b43c9so4503445f8f.3
+ for <xen-devel@lists.xenproject.org>; Tue, 15 Jul 2025 01:03:31 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-31c3eb65aa2sm12364096a91.40.2025.07.15.00.59.46
+ 41be03b00d2f7-b3bbe52f0bbsm11441671a12.16.2025.07.15.01.03.27
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 15 Jul 2025 00:59:56 -0700 (PDT)
+ Tue, 15 Jul 2025 01:03:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,64 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b352bdaa-6151-11f0-b894-0df219b8e170
+X-Inumbo-ID: 32ce623b-6152-11f0-a319-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1752566397; x=1753171197; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1752566611; x=1753171411; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=0yo0rAq1LtImAGA6pApoGSXEuxsSM+2o8qdnxOi6QaI=;
-        b=ZSg65K/ed0z0HVyu3k4ZqUo+yMrC9ePsPEfvrPHSwIrAet9jvAret/vuMrvHPLXrsd
-         cghygv5aYhVtiY5vZsQ8Z8etfTZxcvGLB7PHOnAQnoO3neEu9WD2OK4V8TAWSGGESnPh
-         Kf9B0DkOdplSkzwygg0Uk2avcny+geTMjvylatQDKWEq8lg53Ly4Eu3IJQUTMM7Hz05i
-         95GTJKlh9VaR2PxlTShBj3IjV70aFKNp8cOr+QkKoxa6X7048jqU2kX8uhw+5AJLe4l7
-         wPOlUFOnq+lD/1qthtcAaNedlDMg4XPNaBTP9Hl6TzhGYbLTDo3tZoIanrQ80Uw1gixG
-         VyJQ==
+        bh=FHRCFPrBguGCE3xY4qxmKZV8Xw+U8W5XmIzgRtAeO9c=;
+        b=PtPcCMn2CGsRl412MocjTLZ1XbtPQCSLBrQpWcWFfCnINJ3k+sbakTIJTjg4h3o1CA
+         XnjNRgOoke8M+jxTSjv3MbJbenwlMZgLZ+hl+S17MshPhAb0XeZpVlrxvccxBlabpIxI
+         k7a0+ej8WDPiJrDk0SksIPUc7Zd3v/ZOjJ1ra5i8c/qOD3nYGQB7tV1l/HWgzQf2eiOk
+         kMAlsAKXjsqxwgOCROIZhhkMZCMLSGLfk4JAIjcRkjY+Kg3KQ6k/uZywBxZWKM2gK3cS
+         ibkgVTU5mw1oTSaOBWeNZDtTOVELvHBMqXqO3gOT7YDwGhb/2jQtAJjuQ85JrD+qytHu
+         oJwA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1752566397; x=1753171197;
+        d=1e100.net; s=20230601; t=1752566611; x=1753171411;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=0yo0rAq1LtImAGA6pApoGSXEuxsSM+2o8qdnxOi6QaI=;
-        b=YmlqRe+c4EUExB5qceAT8+GROUuTYwyPjHXa3fsdxq1C4Sp1fuWbB0IWR2S0UY0+28
-         Ab+8jUbVWzgm7Q0bM/tCSsFjkN2by0PUdTKj0YKxi0/flHVO2cMaKp4CPF+gDdGu8xrf
-         PtN+5A33hZ60olSUKoU5rX62XcL6vrthH/j2VH/NarBasaLRgFKO9Cuys/7rOIOoNveq
-         qIR65gFBqkbVDPMxz8/cX/9+pG3jYgmWq4m1z7zuNdHrxt2M2sifgPXui0pS4LXcu9Af
-         9DsLaN4jmZ6NrQC39iX3Tm4U2jb/X2Lmusxg7rycq2aDMkKBZ/ZpQ0ZYU7d3bHKS2vfH
-         2u+Q==
-X-Forwarded-Encrypted: i=1; AJvYcCUvHzf1OhHoIe/MHYwqwW46DE9EVvgl7XT4cirdyXS0ZRog9ntuzFk9sIVc90DMkPlmb3U6Sh8u0lI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yyk6Y21u0eb1b4mgmlL9mT42HPZ+M38hFli0lGXbeOvsjTA3Hai
-	SZIQEv7CiA4g0BOv/4zon1ti8k/vI+8YciqK8yCRo/hqFJiY7H0V7ieG9Mh2rEfJgw==
-X-Gm-Gg: ASbGnctXpqkYOCybawa7wYlwWz9qdGQdwycRGU7msTWM+6YkSr26MS28bVg074mp+Vv
-	uaChMyCYfcfdNQ2EyYXlWTgqhkn11NFDes9MnzsapmbvLv6JQOErbU73IXqXDVcVz4DMT9n6RRL
-	Unyv2whSwF80LFzVuWw6V/uI8lcPyQ+4cjtFoqtYzk5B8TB0EDWCyacmrDQD1DRKbvD2DkDMynQ
-	D3V1nVSxIBPYjp7fqSJKST+87QvV/RRisM2tBX9fY5GOouOYzL1KMcmT6BjDPxuyxbK4e1ilSI1
-	rDTXjyxPu8Yrm6HVFlZ7qHlzS18Jb0NiN7rBYvnK1qE2aTFHVDI1kzWy73EddWk73eldS4U138R
-	QcxF4KrSvRE7RqTbFgVw60TmAdPD7usB78N7z9BH/OQh0TeqNDjQRePncxtqzjXR6Bxn7i3lomr
-	lQLHgRohw=
-X-Google-Smtp-Source: AGHT+IGRGESQEzYx9TPVhr/HDGTEVidBpIiNGR/gY65+uY7ZG1dz5PlL72TTlRr3M5vpES+sCK4gjw==
-X-Received: by 2002:a05:6000:250d:b0:3b5:e07f:9442 with SMTP id ffacd0b85a97d-3b60953f674mr1941820f8f.19.1752566397194;
-        Tue, 15 Jul 2025 00:59:57 -0700 (PDT)
-Message-ID: <85729f0c-e924-4e8d-9f57-faaeee9465bb@suse.com>
-Date: Tue, 15 Jul 2025 09:59:42 +0200
+        bh=FHRCFPrBguGCE3xY4qxmKZV8Xw+U8W5XmIzgRtAeO9c=;
+        b=h4gqH5Gpe26xXFFQ/2KHgc3EiZ+QvOFGmxKIcD8gL8YVC3bn/cRM2iyDcjla9AU0Ge
+         1M8v05rLScppHn9JgK2ebPML8GCTG6u2C3j5MN8ljJVUF54+xgiy+Su3Zi96+rLGt7qc
+         WYsObycc+DdMpg8w7RDqD2drp3Bnvot4ds4dtTXsa59BE69NsS7L5v5vSVOQWg98eTy8
+         2X8pqIJwjmSrzFKhsJyaO/a34nalzj7UHf/8cRaNWMF/Mjh0Q2n70wg35YM3X/0fjl3B
+         1Nppy7svCodVI7WZhtatmcmtFVRNRLFGX9q2F7+CDYfGMi7pYyUXkNVB5vC6FPNzeTMQ
+         0BLg==
+X-Forwarded-Encrypted: i=1; AJvYcCU4ANIY2ryFhaWpG5VxFA39huy6/KyqL56CiMxhLoRCeeF36AjGpp74UcKijk2VA/lXPbRbCk6quNI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzK/fy+Eh5w9SbCzYPjYg/VrDFBGyUtSqq3i868xYEYS86aQoTi
+	Qax5MrNxJssWzGKSeDkszDNfuuVS4xOWFSy1/SWh7i0JmBaXssjEvSrF26+xNravog==
+X-Gm-Gg: ASbGncutLzfLKxwIsuwWYigoQBCK2YBH2jKqsjDrdJJKN6sZFklLTTVd3oGiYjons76
+	gvAQrRikc64WXcWVDLmQyUqLQVYy1/jdZZVl3HcX//XMd+WcehdbBH+K3wlr7c1V8QOs4njJZti
+	iJabwAq+0eaOnrJ9XQirvPkgXkjnc3U9UcWOoJIlec6Vnao6SMvHwYcM6xP1baEuJq0DTFuFEeq
+	hr+PhRkeR7ePTgqdOPr1vUC7dZy+sJqN6PSMrMLUG5XBfQBX0sJbPnnM2Ij4S7CXp8zDMMdfhD+
+	jfhalxzChnRrEbE9V7/F5Rhkl86kbLtGOzyBpOwYEVOgfr0W8T4zFxeUcICM6dKdQJFf9oAMgOZ
+	m63qAicJxxppd+nHP7S1pahigBBbyqctiXov2LqwaAztaY4kCj5HUmpSS5+99JXKzXqeH6FS3/u
+	CwkWtHgU8=
+X-Google-Smtp-Source: AGHT+IHVzsOaqP1R8iHxDNMJ5hLTydtHgik7X7Og+jaTgnHHVi2ZYwRobQ1UjHjSccsufKmnTAEqIA==
+X-Received: by 2002:a05:6000:4183:b0:3a6:f30b:2dd6 with SMTP id ffacd0b85a97d-3b5f18942d6mr11258848f8f.26.1752566611122;
+        Tue, 15 Jul 2025 01:03:31 -0700 (PDT)
+Message-ID: <7486ee1f-042f-4fc7-99b6-551832d86e25@suse.com>
+Date: Tue, 15 Jul 2025 10:03:23 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 0/7] x86: Make MAX_ALTP2M configurable
-To: =?UTF-8?Q?Petr_Bene=C5=A1?= <w1benny@gmail.com>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Juergen Gross <jgross@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Christian Lindig <christian.lindig@citrix.com>, David Scott
- <dave@recoil.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Nick Rosbrook <enr0n@ubuntu.com>, George Dunlap <gwd@xenproject.org>,
- Tamas K Lengyel <tamas@tklengyel.com>,
- Alexandru Isaila <aisaila@bitdefender.com>,
- Petre Pircalabu <ppircalabu@bitdefender.com>, xen-devel@lists.xenproject.org
-References: <cover.1752531797.git.w1benny@gmail.com>
+Subject: Re: [PATCH 1/2] x86/ept: move vmx_domain_flush_pml_buffers() to
+ p2m-ept.c
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+References: <20250715074559.73197-1-roger.pau@citrix.com>
+ <20250715074559.73197-2-roger.pau@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -128,23 +119,15 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <cover.1752531797.git.w1benny@gmail.com>
+In-Reply-To: <20250715074559.73197-2-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 15.07.2025 00:48, Petr Beneš wrote:
-> Petr Beneš (7):
->   xen: Refactor altp2m options into a structured format
->   tools/xl: Add altp2m_count parameter
->   docs/man: Add altp2m_count parameter to the xl.cfg manual
->   xen: Make the maximum number of altp2m views configurable for x86
->   tools/libxl: Activate the altp2m_count feature
->   xen/x86: Disallow creating domains with altp2m enabled and altp2m.nr
->     == 0
->   tools/ocaml: Add altp2m_count parameter
+On 15.07.2025 09:45, Roger Pau Monne wrote:
+> No functional change intended.
+> 
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 
-Please can you post new versions as applicable to present staging? The first
-three of these patches were committed a week ago.
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-Jan
 
