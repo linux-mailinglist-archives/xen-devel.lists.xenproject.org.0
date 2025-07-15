@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 230BCB063FC
-	for <lists+xen-devel@lfdr.de>; Tue, 15 Jul 2025 18:11:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1044526.1414629 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D7BDCB063F8
+	for <lists+xen-devel@lfdr.de>; Tue, 15 Jul 2025 18:11:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1044529.1414660 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ubiFr-0006Ox-LF; Tue, 15 Jul 2025 16:11:43 +0000
+	id 1ubiFu-000797-Pp; Tue, 15 Jul 2025 16:11:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1044526.1414629; Tue, 15 Jul 2025 16:11:43 +0000
+Received: by outflank-mailman (output) from mailman id 1044529.1414660; Tue, 15 Jul 2025 16:11:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ubiFr-0006Lr-H4; Tue, 15 Jul 2025 16:11:43 +0000
-Received: by outflank-mailman (input) for mailman id 1044526;
- Tue, 15 Jul 2025 16:11:41 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ubiFu-00076c-L3; Tue, 15 Jul 2025 16:11:46 +0000
+Received: by outflank-mailman (input) for mailman id 1044529;
+ Tue, 15 Jul 2025 16:11:45 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ZRri=Z4=amd.com=Alejandro.GarciaVallejo@srs-se1.protection.inumbo.net>)
- id 1ubiFp-0005t5-Nv
- for xen-devel@lists.xenproject.org; Tue, 15 Jul 2025 16:11:41 +0000
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2062b.outbound.protection.outlook.com
- [2a01:111:f403:2418::62b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 634235fb-6196-11f0-b894-0df219b8e170;
- Tue, 15 Jul 2025 18:11:39 +0200 (CEST)
-Received: from SJ0P220CA0014.NAMP220.PROD.OUTLOOK.COM (2603:10b6:a03:41b::22)
- by BN3PR12MB9570.namprd12.prod.outlook.com (2603:10b6:408:2ca::16)
+ id 1ubiFt-00067r-6y
+ for xen-devel@lists.xenproject.org; Tue, 15 Jul 2025 16:11:45 +0000
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2060d.outbound.protection.outlook.com
+ [2a01:111:f403:2415::60d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 65999c5a-6196-11f0-a319-13f23c93f187;
+ Tue, 15 Jul 2025 18:11:44 +0200 (CEST)
+Received: from MW4PR03CA0195.namprd03.prod.outlook.com (2603:10b6:303:b8::20)
+ by IA4PR12MB9787.namprd12.prod.outlook.com (2603:10b6:208:54d::6)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8922.32; Tue, 15 Jul
- 2025 16:11:36 +0000
-Received: from CO1PEPF000075F1.namprd03.prod.outlook.com
- (2603:10b6:a03:41b:cafe::d2) by SJ0P220CA0014.outlook.office365.com
- (2603:10b6:a03:41b::22) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.8943.17 via Frontend Transport; Tue,
- 15 Jul 2025 16:11:35 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8901.27; Tue, 15 Jul
+ 2025 16:11:39 +0000
+Received: from CO1PEPF000075ED.namprd03.prod.outlook.com
+ (2603:10b6:303:b8:cafe::f1) by MW4PR03CA0195.outlook.office365.com
+ (2603:10b6:303:b8::20) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8943.19 via Frontend Transport; Tue,
+ 15 Jul 2025 16:11:39 +0000
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1PEPF000075F1.mail.protection.outlook.com (10.167.249.40) with Microsoft
+ CO1PEPF000075ED.mail.protection.outlook.com (10.167.249.36) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.8922.22 via Frontend Transport; Tue, 15 Jul 2025 16:11:34 +0000
+ 15.20.8922.22 via Frontend Transport; Tue, 15 Jul 2025 16:11:37 +0000
 Received: from xcbagarciav01.xilinx.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 15 Jul
- 2025 11:11:32 -0500
+ 2025 11:11:34 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,22 +56,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 634235fb-6196-11f0-b894-0df219b8e170
+X-Inumbo-ID: 65999c5a-6196-11f0-a319-13f23c93f187
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=EyFBYbcvr+IaY2UZUG9TdXvXOJrNUTVCUpz3J/wWtJyU0z525MlutNKFLv4tu3UJUIi2oCWRR3TNg1ATvHRuy5zkgAZ8qU1xQB0En0GlbqdhhfaLtxbD8Uoa7mclsyCVXHe87d1Wt7Vaws99LVWwQVQsxYOYjeDvXLuyWhx7n+NJbo259IIJDpd6EDAl8HWtH+74fUQyl4nOLQpAQGE9tSDr0G9U3g4+Qn2pUjSmxWsbpX8dS2R+0dfdspwVTcLp0soQe/6vJpqHrqdFY0gh31qmMsNhxSqmYsZVulZngpseDxB+D3ibRR6lExonTiU/Oh74UlqLHpzyd+S0eys4iQ==
+ b=CAyxonhK4xq4sLU9B7AZNXROo54Qry2aR+lk5S7NcoDLecx/l9b4vQzVGekf4NGadZQj76My/1zwj8/9PfBQBPWhYy9uIF2dPtyi8i423dT9M/lEjv9uMh84iIqGCY5aSzAeKSyY04YcdTVwYUJ680YVyUt4WMHxFPzTuhIPrJNZj+mGszTsSfJu/z7keQiBo1xoHtRkYTCXNTEiTqPKTPRe5YG6/HAUt8Mzw8D9AAND91q3vpzv3/w86vcvjTz7xBOG9uKGQaaxvgbTSViKcHG+zYE3YjuTWF2VIX4MYYGY0m9AjgleRe7fWElWwX/691pPgv6J4aHyEKzdoBQ2BQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Cj9ecfRi3wea8GYLDn4MfPfXO+gyvn4szkN32kHXyzE=;
- b=gtgyGbARM4wWULgEqgXZziF4VIww8aoNc4JlpNQiT0ejnJD6befjkPhPnIQf6KwHnA3OyRuJbsZ1UJJVuaxal66g5V6sBb1Ycg9ZfPa4X8FGGC1R8bWYiilY4ReL/O1uQ4VMlK6eiD7sxlvAtkFeSRKNlFfQ6HslTB2I0e88tHYf5k/6qoq+SUcjL3MI3Olt5G44IDxNj+ywyDhpOXeTa9eOxQWSJ+kzt/uX6RBUYkPF9KGMUreB/EMZwZud3pwfKwht1etXHs50FyM3J2KyDwfoHuX5YLqKduX0rDTcmDZnSN+oeioPGDz4j3X0CPLC3kLDTcVbA9RYqDAH4cNutw==
+ bh=BRfjV0nJ6OYwrZoEaylt/o5NVgGYETJ/z9gInJPgBiY=;
+ b=uHer0XNnBwHEbwbt0nZpy3txc8YG2fkQX4BkMlFt3bPRSyMAkpQY2WdASYpfETkXJDfp4wMK3yaVYmqSVUm2qxi9tU3GLNmmsMosdzVO/qMUJQ5OtNEufTaMK/j8uSS09DGTaxiWI5gqyyplRzr4+es2NnME6dyzVMuhtPmz7zvkmScaNTAgQpMeIyVcvIBEnY6f55PW3+JRg8sQJ4Ucjrh8/ewNzFI1w++tC2umrUOuyW86dkpIz6S3MI2F/ZAys16HLsDNwmx7m4dnSeHLSuoZ8epXA7zhOnuFxRisJ849p8dc6/Q1G+XZd1lp81bBr5kgrpDUSdDttXSr2V+1MA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Cj9ecfRi3wea8GYLDn4MfPfXO+gyvn4szkN32kHXyzE=;
- b=QDDk5lDvod32jewDF0SxQxWnmz2+6YaPcnEHIr+2Svzas2wPDBOuoHkX9P1WT0xppMMHdmo6nES6HI/3e7WM9Vxt6N/MaHj0ZxLenN/fj7zWpU6vDlSEtUFLzVAo+ZF/6motSyGphhkLcMcwZoRNDPlICWzxeeed2l2m0cHeZ0Q=
+ bh=BRfjV0nJ6OYwrZoEaylt/o5NVgGYETJ/z9gInJPgBiY=;
+ b=nwAwrwogpUKGQhYriVtVmFxThpR2XLsEiDrJeDwbIeb6z3bZyJnK8C7s7DOfRPdS6fCbCILC5a2Gbcr/bSvX7AvgBCn/6yJ4flOtjcSz9ybAf/fyknYmOarTxXIrGBgHHojjPqODLQ6fgcHXvsTk+Y9HZmgtCPNtDwz3JsAJEws=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -80,16 +80,15 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 From: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
 To: <xen-devel@lists.xenproject.org>
-CC: Alejandro Vallejo <alejandro.garciavallejo@amd.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
-	<bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, "Volodymyr
- Babchuk" <Volodymyr_Babchuk@epam.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>, "Jan
- Beulich" <jbeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
-	<roger.pau@citrix.com>, "Daniel P. Smith" <dpsmith@apertussolutions.com>
-Subject: [PATCH v7 02/11] xen: Refactor kernel_info to have a header like boot_domain
-Date: Tue, 15 Jul 2025 18:10:57 +0200
-Message-ID: <20250715161108.141126-3-alejandro.garciavallejo@amd.com>
+CC: Alejandro Vallejo <alejandro.garciavallejo@amd.com>, Jan Beulich
+	<jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, "Stefano
+ Stabellini" <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+	"Bertrand Marquis" <bertrand.marquis@arm.com>, Michal Orzel
+	<michal.orzel@amd.com>, "Daniel P. Smith" <dpsmith@apertussolutions.com>
+Subject: [PATCH v7 03/11] x86: Replace arch-specific boot_domain with the common one
+Date: Tue, 15 Jul 2025 18:10:58 +0200
+Message-ID: <20250715161108.141126-4-alejandro.garciavallejo@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20250715161108.141126-1-alejandro.garciavallejo@amd.com>
 References: <20250715161108.141126-1-alejandro.garciavallejo@amd.com>
@@ -101,487 +100,171 @@ X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000075F1:EE_|BN3PR12MB9570:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9793de5e-bc43-4241-2c83-08ddc3ba4556
+X-MS-TrafficTypeDiagnostic: CO1PEPF000075ED:EE_|IA4PR12MB9787:EE_
+X-MS-Office365-Filtering-Correlation-Id: eb98a2f2-2f53-46fb-ef21-08ddc3ba468d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|36860700013|1800799024|82310400026;
+	BCL:0;ARA:13230040|376014|82310400026|36860700013|1800799024;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?bVTdgv/R8jzoYI1/FWSX5zjBQnZi3QJl2cr3ep2cBB6+19ZD4/XOdUz2jONs?=
- =?us-ascii?Q?TB9Kdhrzg9c3WdnSrUKacxP5S3DghRb0ALKuQFsI50X7dn/EWnV3bUJ8sxLz?=
- =?us-ascii?Q?6OIk8+LYc2Wp4Qiw3K1yNh+1CeEmLBvGZ9oAXfEwfkinQUWPjwZBmDhdNzxv?=
- =?us-ascii?Q?uFYPRHhVtOvJFKKvvMFhXP20FukVguSxL6pHphxXFaOBSa7qTNgZEK3n481y?=
- =?us-ascii?Q?M66ffax4jrgIAqvh31NZoFnv0Fghos2iB10SorASA6QpayyS3gio4/9KO6gR?=
- =?us-ascii?Q?Nmks7c5YmxFZGPNSTC1act9vD6ZPYR4nwVkPQjtt2lCePJVNJ1RE4rexj6fu?=
- =?us-ascii?Q?p8JU0nmgg6EXU5gxexlcKSYTzWeG/B0gduep6I9P40jEhGl3UhzAmTYB/vnO?=
- =?us-ascii?Q?lBsMR9pEKMEEzqccqRBF6vMznPbfPDqw9U8CS1oreg+oS7JUEWBNnB7nSTBq?=
- =?us-ascii?Q?73oUDH7CKqevQdskHc+PQmBQlNow9K9xjJjQm/Jv3zjpTG75dF+5JqF0UFGF?=
- =?us-ascii?Q?hgmIexziEaxUZs08rQIbM0lSL3gJwOTQMSiCPKKTzny1MBDRMAXarxgADRBM?=
- =?us-ascii?Q?hwhFAazUIBH1v2EhEhgpzQ2zbMZ8oWovq7BAwRVWiU+aWoCr8d0+GBk5ZgJl?=
- =?us-ascii?Q?fsTpzxqvG1MZNJMWZU8wiM6ZpnB6aeHIab66F6FlD4gbaR+lXtwMXT4IcG6U?=
- =?us-ascii?Q?W6BW4LEzTemATnfJzFG3Z12r0tUhvh6pJMLBWSyKD7xKCikLU7CJuOClGW8W?=
- =?us-ascii?Q?L7QiKP+std2P7KUd0T/FXGK7wUfyZdH3T2pt2pSatvvIbvkDppUuLgfRqKf3?=
- =?us-ascii?Q?THafZLR5SQf9KEH0hptilVQdzUwtjCziXTmYVFcavGQemd7gOP8eUlniinMi?=
- =?us-ascii?Q?BTxzIKIWn/ZFSf2Z6Tve0CVD9fbZ0NNQq6TiNMlGJIGqpbtkLCQeEFTE4UTg?=
- =?us-ascii?Q?RoKaQIHlJPt2WoGQDQW9C+0KBI4J+wwFkIJnJjk9A3Nrt5KC70cBi2YiVGHi?=
- =?us-ascii?Q?m/9kY67cmiPzuzXhjtF244fwTure/V1yoRKmaeA55HWv45OqRb/+AGJYX5X8?=
- =?us-ascii?Q?CLq4Nk2u6z9glWgotRF0bvoDGQiYZVfaOFlYQI9CxoPjTsrnPR69pQhR6OgK?=
- =?us-ascii?Q?Y/wOhzwoNFH9kZR6GlQI0K70RExdVq6U/qmJDradQ9f9LyL0bj0s8HS0HwPA?=
- =?us-ascii?Q?uNB247tpn1GMsv8TS5zzfeJgqRnbrblzzXmihB6Fn7OxK2+kedjVBL9rGacW?=
- =?us-ascii?Q?cTvbNcNbR6Ma+ch7s3cnoQcNnzCZsKZAGZr0C0hamCM8vWoddQvKAYfrWrlR?=
- =?us-ascii?Q?jMgznMGGeei9NdsFBwtZwJArYQb21KVYlDnLJpYbyY/UhcbiM/uDC+IIgEmM?=
- =?us-ascii?Q?xfK7CAUs/Vmahy35PYI880OQYtlpvRzFSXOkAGvUYtYlNINOeWn+pQ4jGE4/?=
- =?us-ascii?Q?bE1hL0glUL/xQd9yu23onHPBV8563Ts15z5afnAJmmho/jxqK0DJrwK9+Pc7?=
- =?us-ascii?Q?xbovBF6W64g6wD3Rku6RY3CSBmWliX4YBlMe?=
+	=?us-ascii?Q?Ae7Z0QZiKJlI4PmZjl1RAmzANXx2Bv3okGPnvCk2+c95HK2dG3bMnAIi3p2o?=
+ =?us-ascii?Q?wfYQYW8JR/jMbfMeDZTfpmE1VI/lLUA2I1bRx5CQX4Y/mfW5VpvMJ4Ps/3BM?=
+ =?us-ascii?Q?IfovGi69zrV8+ZPYfvCzO2bjNCO+IuO9WirBUWX7NvKEnECGOhTcE8kWMZor?=
+ =?us-ascii?Q?JOnPH4oK2MHCU2WD/bZpBuq/2fUq/ZWTMuPUGNi63rU2nmijDhwEzHdgM/we?=
+ =?us-ascii?Q?3wxxze9HN75WXAKMTnQgHBYPtIt9REGfn1vz+m9dXXC94FZNcrJKxfvHLI+5?=
+ =?us-ascii?Q?beZo1xQeDLnOM+yAMM5/w9ixXibGThLVMXX7GwRVxvtmrkjXBdrEkJL9yo80?=
+ =?us-ascii?Q?sxvqtgBLqs6QHWkVVqtkG3cHCGzYKE0GDCAR/ZyOtwZEJMI4+ARrWTErOnYk?=
+ =?us-ascii?Q?lPand404ywGgGZ+nFRlEh+/OYj3YQbX7MVlCFGL+BlqlGgpUjrQXOTXz/8Xa?=
+ =?us-ascii?Q?r+wq06XV3AO6FtTg1oN14mYF9SEmsudoVhNz2bmRXrIJ05GU9DXlUfU5WASg?=
+ =?us-ascii?Q?UIo2hRrMFXt0TOb0LT303KbJvaZPUw5XLY1P9AHoswg6QYYE3Qg4aLVGuhxN?=
+ =?us-ascii?Q?8A+J2+ezk24VoNeNxslo0qqG1luYFmGZM6E2AeXipXD+3tGqxtlkCYhpRgTI?=
+ =?us-ascii?Q?Y4W4gG8q0LkYK7sDR138tpB5mmgic4fuuppezx4vK1QARXfAUiir0EDAxuUv?=
+ =?us-ascii?Q?TNoT7gZQzEZBwdfI294pv0O/NJXeoCF/f/9HtWAmfBUcmU9DeiB7ft0EhaKq?=
+ =?us-ascii?Q?ueea/UyM4JaOEW9p/1fEh8NeUGR7SjMpTJIDddLmmwrFlDN2Zixi02K+1TS5?=
+ =?us-ascii?Q?7pxVxIJRcbbcXTpThbPtRe7/aI0MEnYgXlTv7X98cM05d7HYKPMIhPmQRrYj?=
+ =?us-ascii?Q?gAF+R5t3DoDlMccQKiYxn0MhW6FCyaDieZP1GSkdjFJPTw1jhCm+A2KILAsi?=
+ =?us-ascii?Q?csuG93eLaLC+R7GZGFodtNWtJ+1BxzRLDmgwEPpR6yc1X/P/uzKn6hXneebg?=
+ =?us-ascii?Q?COoEHF1X2RN2n/N8XTe00nSsy9flQih7bUu3npZMTBWWV2Is+H6q/CgVdImP?=
+ =?us-ascii?Q?LhM7u3eMg2abv4Hbd0LnV8WPb/YdRHfSoi4LGdAloQjRLTnrqBkVcNXb8zpn?=
+ =?us-ascii?Q?0K6fb2Sxd1vIc6QvDpZKnoXh6GyZ/sySn2tM7wJvoYIMCFmWVeSR57W1iRqG?=
+ =?us-ascii?Q?muz7XgDYZ2pqwgO7e/uX1aQ/kvU+iIVyws6hISQOqO1F0WykUjR6OggoTHch?=
+ =?us-ascii?Q?cRdSkEnt5J9CN8nHRX3SiftGPh63T6o7nF35SniuYa6O/Mwqo3OCqMof5c+X?=
+ =?us-ascii?Q?m+qlwahMNLmuijimkFtr8zyli2Ye02qsQPDBtPmg6hAZgGL1QPKj/Zb3uu/f?=
+ =?us-ascii?Q?9Af//6yTMpeDEUaBENfBI7o7bArmLRPgDcH8V4jg3qGlhGaiJKS2HeFsDX0h?=
+ =?us-ascii?Q?l7PfZ/hbOMhShz8I6rZCd+pRYPtgk4jpSK8ENqHKhsiYjkQplktSRuF4bDx5?=
+ =?us-ascii?Q?pC5qngtg2wJZ7pudGKRDPyt3xIVLy4shBmA6?=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(7416014)(36860700013)(1800799024)(82310400026);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(36860700013)(1800799024);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2025 16:11:34.9625
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2025 16:11:37.0110
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9793de5e-bc43-4241-2c83-08ddc3ba4556
+X-MS-Exchange-CrossTenant-Network-Message-Id: eb98a2f2-2f53-46fb-ef21-08ddc3ba468d
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	CO1PEPF000075F1.namprd03.prod.outlook.com
+	CO1PEPF000075ED.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN3PR12MB9570
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA4PR12MB9787
 
-Create a struct field within kernel_info with the contents common to
-kernel_info and boot_domain, and define that field in common code. This
-enables x86 to use that field as-is and drop x86's boot_domain.
-
-Note that x86 mutates the module when releasing it, calculating headroom,
-etc. So they must be made non-const on move.
-
-Not a functional change.
+No functional change intended.
 
 Signed-off-by: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
 Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-Acked-by: Jan Beulich <jbeulich@suse.com>
 ---
- xen/arch/arm/dom0less-build.c           |  8 ++++----
- xen/arch/arm/domain_build.c             | 20 ++++++++++----------
- xen/arch/arm/kernel.c                   |  8 ++++----
- xen/common/device-tree/dom0less-build.c | 18 +++++++++---------
- xen/common/device-tree/domain-build.c   | 20 ++++++++++----------
- xen/common/device-tree/kernel.c         | 20 ++++++++++----------
- xen/include/xen/bootfdt.h               |  9 +++++++++
- xen/include/xen/fdt-kernel.h            |  5 ++---
- 8 files changed, 58 insertions(+), 50 deletions(-)
+ xen/arch/x86/hvm/dom0_build.c          |  2 +-
+ xen/arch/x86/include/asm/boot-domain.h | 33 --------------------------
+ xen/arch/x86/include/asm/bootinfo.h    |  1 -
+ xen/arch/x86/pv/dom0_build.c           |  2 +-
+ xen/arch/x86/setup.c                   |  2 +-
+ xen/include/xen/bootfdt.h              |  4 ++++
+ 6 files changed, 7 insertions(+), 37 deletions(-)
+ delete mode 100644 xen/arch/x86/include/asm/boot-domain.h
 
-diff --git a/xen/arch/arm/dom0less-build.c b/xen/arch/arm/dom0less-build.c
-index 4b285cff5e..69b9ea22ce 100644
---- a/xen/arch/arm/dom0less-build.c
-+++ b/xen/arch/arm/dom0less-build.c
-@@ -32,7 +32,7 @@ static int __init make_gicv2_domU_node(struct kernel_info *kinfo)
-     int res = 0;
-     __be32 reg[(GUEST_ROOT_ADDRESS_CELLS + GUEST_ROOT_SIZE_CELLS) * 2];
-     __be32 *cells;
--    const struct domain *d = kinfo->d;
-+    const struct domain *d = kinfo->bd.d;
- 
-     res = domain_fdt_begin_node(fdt, "interrupt-controller",
-                                 vgic_dist_base(&d->arch.vgic));
-@@ -85,7 +85,7 @@ static int __init make_gicv3_domU_node(struct kernel_info *kinfo)
-     void *fdt = kinfo->fdt;
-     int res = 0;
-     __be32 *reg, *cells;
--    const struct domain *d = kinfo->d;
-+    const struct domain *d = kinfo->bd.d;
-     unsigned int i, len = 0;
- 
-     res = domain_fdt_begin_node(fdt, "interrupt-controller",
-@@ -152,7 +152,7 @@ static int __init make_gicv3_domU_node(struct kernel_info *kinfo)
- 
- int __init make_intc_domU_node(struct kernel_info *kinfo)
+diff --git a/xen/arch/x86/hvm/dom0_build.c b/xen/arch/x86/hvm/dom0_build.c
+index 2bb8ef355c..8d2734f2b5 100644
+--- a/xen/arch/x86/hvm/dom0_build.c
++++ b/xen/arch/x86/hvm/dom0_build.c
+@@ -648,7 +648,7 @@ static int __init pvh_load_kernel(
  {
--    switch ( kinfo->d->arch.vgic.version )
-+    switch ( kinfo->bd.d->arch.vgic.version )
+     struct domain *d = bd->d;
+     struct boot_module *image = bd->kernel;
+-    struct boot_module *initrd = bd->module;
++    struct boot_module *initrd = bd->initrd;
+     void *image_base = bootstrap_map_bm(image);
+     void *image_start = image_base + image->arch.headroom;
+     unsigned long image_len = image->size;
+diff --git a/xen/arch/x86/include/asm/boot-domain.h b/xen/arch/x86/include/asm/boot-domain.h
+deleted file mode 100644
+index d7c6042e25..0000000000
+--- a/xen/arch/x86/include/asm/boot-domain.h
++++ /dev/null
+@@ -1,33 +0,0 @@
+-/* SPDX-License-Identifier: GPL-2.0-or-later */
+-/*
+- * Copyright (c) 2024 Apertus Solutions, LLC
+- * Author: Daniel P. Smith <dpsmith@apertussolutions.com>
+- * Copyright (c) 2024 Christopher Clark <christopher.w.clark@gmail.com>
+- */
+-
+-#ifndef __XEN_X86_BOOTDOMAIN_H__
+-#define __XEN_X86_BOOTDOMAIN_H__
+-
+-#include <public/xen.h>
+-
+-struct boot_domain {
+-    domid_t domid;
+-
+-    struct boot_module *kernel;
+-    struct boot_module *module;
+-    const char *cmdline;
+-
+-    struct domain *d;
+-};
+-
+-#endif
+-
+-/*
+- * Local variables:
+- * mode: C
+- * c-file-style: "BSD"
+- * c-basic-offset: 4
+- * tab-width: 4
+- * indent-tabs-mode: nil
+- * End:
+- */
+diff --git a/xen/arch/x86/include/asm/bootinfo.h b/xen/arch/x86/include/asm/bootinfo.h
+index d33b100e04..4f2cc5906e 100644
+--- a/xen/arch/x86/include/asm/bootinfo.h
++++ b/xen/arch/x86/include/asm/bootinfo.h
+@@ -12,7 +12,6 @@
+ #include <xen/init.h>
+ #include <xen/multiboot.h>
+ #include <xen/types.h>
+-#include <asm/boot-domain.h>
+ 
+ /* Max number of boot modules a bootloader can provide in addition to Xen */
+ #define MAX_NR_BOOTMODS 63
+diff --git a/xen/arch/x86/pv/dom0_build.c b/xen/arch/x86/pv/dom0_build.c
+index a4b5362357..c37bea9454 100644
+--- a/xen/arch/x86/pv/dom0_build.c
++++ b/xen/arch/x86/pv/dom0_build.c
+@@ -375,7 +375,7 @@ static int __init dom0_construct(const struct boot_domain *bd)
+     struct vcpu *v = d->vcpu[0];
+ 
+     struct boot_module *image = bd->kernel;
+-    struct boot_module *initrd = bd->module;
++    struct boot_module *initrd = bd->initrd;
+     void *image_base;
+     unsigned long image_len;
+     void *image_start;
+diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
+index 7e70b46332..7380f1053f 100644
+--- a/xen/arch/x86/setup.c
++++ b/xen/arch/x86/setup.c
+@@ -2171,7 +2171,7 @@ void asmlinkage __init noreturn __start_xen(void)
+     if ( initrdidx < MAX_NR_BOOTMODS )
      {
- #ifdef CONFIG_GICV3
-     case GIC_V3:
-@@ -175,7 +175,7 @@ static int __init make_vpl011_uart_node(struct kernel_info *kinfo)
-     gic_interrupt_t intr;
-     __be32 reg[GUEST_ROOT_ADDRESS_CELLS + GUEST_ROOT_SIZE_CELLS];
-     __be32 *cells;
--    struct domain *d = kinfo->d;
-+    struct domain *d = kinfo->bd.d;
- 
-     res = domain_fdt_begin_node(fdt, "sbsa-uart", d->arch.vpl011.base_addr);
-     if ( res )
-diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-index 04d3dca38a..edc9a82c15 100644
---- a/xen/arch/arm/domain_build.c
-+++ b/xen/arch/arm/domain_build.c
-@@ -464,8 +464,8 @@ static int __init write_properties(struct domain *d, struct kernel_info *kinfo,
-     int had_dom0_bootargs = 0;
-     struct dt_device_node *iommu_node;
- 
--    if ( kinfo->cmdline && kinfo->cmdline[0] )
--        bootargs = &kinfo->cmdline[0];
-+    if ( kinfo->bd.cmdline && kinfo->bd.cmdline[0] )
-+        bootargs = &kinfo->bd.cmdline[0];
- 
-     /*
-      * We always skip the IOMMU device when creating DT for hwdom if there is
-@@ -579,7 +579,7 @@ static int __init write_properties(struct domain *d, struct kernel_info *kinfo,
- 
-     if ( dt_node_path_is_equal(node, "/chosen") )
-     {
--        const struct boot_module *initrd = kinfo->initrd;
-+        const struct boot_module *initrd = kinfo->bd.initrd;
- 
-         if ( bootargs )
-         {
-@@ -1461,7 +1461,7 @@ int __init make_timer_node(const struct kernel_info *kinfo)
-     if ( res )
-         return res;
- 
--    if ( !is_64bit_domain(kinfo->d) )
-+    if ( !is_64bit_domain(kinfo->bd.d) )
-         res = fdt_property_string(fdt, "compatible", "arm,armv7-timer");
-     else
-         res = fdt_property_string(fdt, "compatible", "arm,armv8-timer");
-@@ -1473,7 +1473,7 @@ int __init make_timer_node(const struct kernel_info *kinfo)
-      * It always exposes an active-low level-sensitive interrupt.
-      */
- 
--    if ( is_hardware_domain(kinfo->d) )
-+    if ( is_hardware_domain(kinfo->bd.d) )
-     {
-         irq[TIMER_PHYS_SECURE_PPI] = timer_get_irq(TIMER_PHYS_SECURE_PPI);
-         irq[TIMER_PHYS_NONSECURE_PPI] =
-@@ -1522,7 +1522,7 @@ int __init make_chosen_node(const struct kernel_info *kinfo)
- {
-     int res;
-     const char *bootargs = NULL;
--    const struct boot_module *initrd = kinfo->initrd;
-+    const struct boot_module *initrd = kinfo->bd.initrd;
-     void *fdt = kinfo->fdt;
- 
-     dt_dprintk("Create chosen node\n");
-@@ -1530,9 +1530,9 @@ int __init make_chosen_node(const struct kernel_info *kinfo)
-     if ( res )
-         return res;
- 
--    if ( kinfo->cmdline && kinfo->cmdline[0] )
-+    if ( kinfo->bd.cmdline && kinfo->bd.cmdline[0] )
-     {
--        bootargs = &kinfo->cmdline[0];
-+        bootargs = &kinfo->bd.cmdline[0];
-         res = fdt_property(fdt, "bootargs", bootargs, strlen(bootargs) + 1);
-         if ( res )
-            return res;
-@@ -1981,7 +1981,7 @@ static int __init construct_dom0(struct domain *d)
-     d->max_pages = dom0_mem >> PAGE_SHIFT;
- 
-     kinfo.unassigned_mem = dom0_mem;
--    kinfo.d = d;
-+    kinfo.bd.d = d;
- 
-     rc = kernel_probe(&kinfo, NULL);
-     if ( rc < 0 )
-@@ -1993,7 +1993,7 @@ static int __init construct_dom0(struct domain *d)
- int __init construct_hwdom(struct kernel_info *kinfo,
-                            const struct dt_device_node *node)
- {
--    struct domain *d = kinfo->d;
-+    struct domain *d = kinfo->bd.d;
-     int rc;
- 
-     iommu_hwdom_init(d);
-diff --git a/xen/arch/arm/kernel.c b/xen/arch/arm/kernel.c
-index e734ec5c1e..48f4b56d0c 100644
---- a/xen/arch/arm/kernel.c
-+++ b/xen/arch/arm/kernel.c
-@@ -46,7 +46,7 @@ static void __init place_modules(struct kernel_info *info,
-                                  paddr_t kernbase, paddr_t kernend)
- {
-     /* Align DTB and initrd size to 2Mb. Linux only requires 4 byte alignment */
--    const struct boot_module *mod = info->initrd;
-+    const struct boot_module *mod = info->bd.initrd;
-     const struct membanks *mem = kernel_info_get_mem(info);
-     const paddr_t initrd_len = ROUNDUP(mod ? mod->size : 0, MB(2));
-     const paddr_t dtb_len = ROUNDUP(fdt_totalsize(info->fdt), MB(2));
-@@ -152,12 +152,12 @@ static void __init kernel_zimage_load(struct kernel_info *info)
- 
-     kernel = ioremap_wc(paddr, len);
-     if ( !kernel )
--        panic("Unable to map the %pd kernel\n", info->d);
-+        panic("Unable to map the %pd kernel\n", info->bd.d);
- 
--    rc = copy_to_guest_phys_flush_dcache(info->d, load_addr,
-+    rc = copy_to_guest_phys_flush_dcache(info->bd.d, load_addr,
-                                          kernel, len);
-     if ( rc != 0 )
--        panic("Unable to copy the kernel in the %pd memory\n", info->d);
-+        panic("Unable to copy the kernel in the %pd memory\n", info->bd.d);
- 
-     iounmap(kernel);
- }
-diff --git a/xen/common/device-tree/dom0less-build.c b/xen/common/device-tree/dom0less-build.c
-index 221b875a2f..e950691d1e 100644
---- a/xen/common/device-tree/dom0less-build.c
-+++ b/xen/common/device-tree/dom0less-build.c
-@@ -167,18 +167,18 @@ static int __init handle_passthrough_prop(struct kernel_info *kinfo,
-             return -EINVAL;
-         }
- 
--        res = iomem_permit_access(kinfo->d, paddr_to_pfn(mstart),
-+        res = iomem_permit_access(kinfo->bd.d, paddr_to_pfn(mstart),
-                                   paddr_to_pfn(PAGE_ALIGN(mstart + size - 1)));
-         if ( res )
-         {
-             printk(XENLOG_ERR "Unable to permit to dom%d access to"
-                    " 0x%"PRIpaddr" - 0x%"PRIpaddr"\n",
--                   kinfo->d->domain_id,
-+                   kinfo->bd.d->domain_id,
-                    mstart & PAGE_MASK, PAGE_ALIGN(mstart + size) - 1);
-             return res;
-         }
- 
--        res = map_regions_p2mt(kinfo->d,
-+        res = map_regions_p2mt(kinfo->bd.d,
-                                gaddr_to_gfn(gstart),
-                                PFN_DOWN(size),
-                                maddr_to_mfn(mstart),
-@@ -217,7 +217,7 @@ static int __init handle_passthrough_prop(struct kernel_info *kinfo,
-         return -EINVAL;
-     }
- 
--    res = map_device_irqs_to_domain(kinfo->d, node, true, NULL);
-+    res = map_device_irqs_to_domain(kinfo->bd.d, node, true, NULL);
-     if ( res < 0 )
-         return res;
- 
-@@ -229,7 +229,7 @@ static int __init handle_passthrough_prop(struct kernel_info *kinfo,
-     if ( xen_force && !dt_device_is_protected(node) )
-         return 0;
- 
--    return iommu_assign_dt_device(kinfo->d, node);
-+    return iommu_assign_dt_device(kinfo->bd.d, node);
- }
- 
- static int __init handle_prop_pfdt(struct kernel_info *kinfo,
-@@ -296,14 +296,14 @@ static int __init handle_prop_pfdt(struct kernel_info *kinfo,
-                                       address_cells, size_cells);
-         if ( res < 0 )
-         {
--            printk(XENLOG_ERR "Failed to assign device to %pd\n", kinfo->d);
-+            printk(XENLOG_ERR "Failed to assign device to %pd\n", kinfo->bd.d);
-             return res;
-         }
-     }
-     else if ( (xen_path && !xen_reg) || (xen_reg && !xen_path && !xen_force) )
-     {
-         printk(XENLOG_ERR "xen,reg or xen,path missing for %pd\n",
--               kinfo->d);
-+               kinfo->bd.d);
-         return -EINVAL;
-     }
- 
-@@ -605,7 +605,7 @@ static int __init alloc_xenstore_page(struct domain *d)
- 
- static int __init alloc_xenstore_params(struct kernel_info *kinfo)
- {
--    struct domain *d = kinfo->d;
-+    struct domain *d = kinfo->bd.d;
-     int rc = 0;
- 
- #ifdef CONFIG_HVM
-@@ -773,7 +773,7 @@ static int __init construct_domU(struct domain *d,
- 
-     d->max_pages = ((paddr_t)mem * SZ_1K) >> PAGE_SHIFT;
- 
--    kinfo.d = d;
-+    kinfo.bd.d = d;
- 
-     rc = kernel_probe(&kinfo, node);
-     if ( rc < 0 )
-diff --git a/xen/common/device-tree/domain-build.c b/xen/common/device-tree/domain-build.c
-index 4eea095e49..2fdea6624a 100644
---- a/xen/common/device-tree/domain-build.c
-+++ b/xen/common/device-tree/domain-build.c
-@@ -76,7 +76,7 @@ bool __init allocate_bank_memory(struct kernel_info *kinfo, gfn_t sgfn,
-                                  paddr_t tot_size)
- {
-     struct membanks *mem = kernel_info_get_mem(kinfo);
--    struct domain *d = kinfo->d;
-+    struct domain *d = kinfo->bd.d;
-     struct membank *bank;
- 
-     /*
-@@ -170,7 +170,7 @@ int __init find_unallocated_memory(const struct kernel_info *kinfo,
-     unsigned int i, j;
-     int res;
- 
--    ASSERT(domain_use_host_layout(kinfo->d));
-+    ASSERT(domain_use_host_layout(kinfo->bd.d));
- 
-     unalloc_mem = rangeset_new(NULL, NULL, 0);
-     if ( !unalloc_mem )
-@@ -341,23 +341,23 @@ void __init dtb_load(struct kernel_info *kinfo,
-     unsigned long left;
- 
-     printk("Loading %pd DTB to 0x%"PRIpaddr"-0x%"PRIpaddr"\n",
--           kinfo->d, kinfo->dtb_paddr,
-+           kinfo->bd.d, kinfo->dtb_paddr,
-            kinfo->dtb_paddr + fdt_totalsize(kinfo->fdt));
- 
--    left = cb(kinfo->d, kinfo->dtb_paddr,
-+    left = cb(kinfo->bd.d, kinfo->dtb_paddr,
-               kinfo->fdt,
-               fdt_totalsize(kinfo->fdt));
- 
-     if ( left != 0 )
-         panic("Unable to copy the DTB to %pd memory (left = %lu bytes)\n",
--              kinfo->d, left);
-+              kinfo->bd.d, left);
-     xfree(kinfo->fdt);
- }
- 
- void __init initrd_load(struct kernel_info *kinfo,
-                         copy_to_guest_phys_cb cb)
- {
--    const struct boot_module *mod = kinfo->initrd;
-+    const struct boot_module *mod = kinfo->bd.initrd;
-     paddr_t load_addr = kinfo->initrd_paddr;
-     paddr_t paddr, len;
-     int node;
-@@ -373,7 +373,7 @@ void __init initrd_load(struct kernel_info *kinfo,
-     len = mod->size;
- 
-     printk("Loading %pd initrd from %"PRIpaddr" to 0x%"PRIpaddr"-0x%"PRIpaddr"\n",
--           kinfo->d, paddr, load_addr, load_addr + len);
-+           kinfo->bd.d, paddr, load_addr, load_addr + len);
- 
-     /* Fix up linux,initrd-start and linux,initrd-end in /chosen */
-     node = fdt_path_offset(kinfo->fdt, "/chosen");
-@@ -396,11 +396,11 @@ void __init initrd_load(struct kernel_info *kinfo,
- 
-     initrd = ioremap_wc(paddr, len);
-     if ( !initrd )
--        panic("Unable to map the %pd initrd\n", kinfo->d);
-+        panic("Unable to map the %pd initrd\n", kinfo->bd.d);
- 
--    res = cb(kinfo->d, load_addr, initrd, len);
-+    res = cb(kinfo->bd.d, load_addr, initrd, len);
-     if ( res != 0 )
--        panic("Unable to copy the initrd in the %pd memory\n", kinfo->d);
-+        panic("Unable to copy the initrd in the %pd memory\n", kinfo->bd.d);
- 
-     iounmap(initrd);
- }
-diff --git a/xen/common/device-tree/kernel.c b/xen/common/device-tree/kernel.c
-index e1b22dc1c7..6de2334dbe 100644
---- a/xen/common/device-tree/kernel.c
-+++ b/xen/common/device-tree/kernel.c
-@@ -136,16 +136,16 @@ int __init kernel_probe(struct kernel_info *info,
-     /* domain is NULL only for the hardware domain */
-     if ( domain == NULL )
-     {
--        ASSERT(is_hardware_domain(info->d));
-+        ASSERT(is_hardware_domain(info->bd.d));
- 
-         mod = boot_module_find_by_kind(BOOTMOD_KERNEL);
- 
--        info->kernel = mod;
--        info->initrd = boot_module_find_by_kind(BOOTMOD_RAMDISK);
-+        info->bd.kernel = mod;
-+        info->bd.initrd = boot_module_find_by_kind(BOOTMOD_RAMDISK);
- 
-         cmd = boot_cmdline_find_by_kind(BOOTMOD_KERNEL);
-         if ( cmd )
--            info->cmdline = &cmd->cmdline[0];
-+            info->bd.cmdline = &cmd->cmdline[0];
-     }
-     else
-     {
-@@ -162,7 +162,7 @@ int __init kernel_probe(struct kernel_info *info,
-                 dt_get_range(&val, node, &kernel_addr, &size);
-                 mod = boot_module_find_by_addr_and_kind(
-                         BOOTMOD_KERNEL, kernel_addr);
--                info->kernel = mod;
-+                info->bd.kernel = mod;
-             }
-             else if ( dt_device_is_compatible(node, "multiboot,ramdisk") )
-             {
-@@ -171,7 +171,7 @@ int __init kernel_probe(struct kernel_info *info,
- 
-                 val = dt_get_property(node, "reg", &len);
-                 dt_get_range(&val, node, &initrd_addr, &size);
--                info->initrd = boot_module_find_by_addr_and_kind(
-+                info->bd.initrd = boot_module_find_by_addr_and_kind(
-                         BOOTMOD_RAMDISK, initrd_addr);
-             }
-             else if ( dt_device_is_compatible(node, "multiboot,device-tree") )
-@@ -192,7 +192,7 @@ int __init kernel_probe(struct kernel_info *info,
-         name = dt_node_name(domain);
-         cmd = boot_cmdline_find_by_name(name);
-         if ( cmd )
--            info->cmdline = &cmd->cmdline[0];
-+            info->bd.cmdline = &cmd->cmdline[0];
-     }
-     if ( !mod || !mod->size )
-     {
-@@ -201,10 +201,10 @@ int __init kernel_probe(struct kernel_info *info,
-     }
- 
-     printk("Loading %pd kernel from boot module @ %"PRIpaddr"\n",
--           info->d, info->kernel->start);
--    if ( info->initrd )
-+           info->bd.d, info->bd.kernel->start);
-+    if ( info->bd.initrd )
-         printk("Loading ramdisk from boot module @ %"PRIpaddr"\n",
--               info->initrd->start);
-+               info->bd.initrd->start);
- 
-     /*
-      * uImage isn't really used nowadays thereby leave kernel_uimage_probe()
+         bi->mods[initrdidx].kind = BOOTMOD_RAMDISK;
+-        bi->domains[0].module = &bi->mods[initrdidx];
++        bi->domains[0].initrd = &bi->mods[initrdidx];
+         if ( first_boot_module_index(bi, BOOTMOD_UNKNOWN) < MAX_NR_BOOTMODS )
+             printk(XENLOG_WARNING
+                    "Multiple initrd candidates, picking module #%u\n",
 diff --git a/xen/include/xen/bootfdt.h b/xen/include/xen/bootfdt.h
-index 1b19069833..28f7d18262 100644
+index 28f7d18262..ac2a79b59b 100644
 --- a/xen/include/xen/bootfdt.h
 +++ b/xen/include/xen/bootfdt.h
-@@ -100,6 +100,15 @@ struct shared_meminfo {
-     struct shmem_membank_extra extra[NR_SHMEM_BANKS];
- };
+@@ -103,6 +103,10 @@ struct shared_meminfo {
+ struct boot_domain {
+     struct domain *d;
  
-+struct boot_domain {
-+    struct domain *d;
++#ifdef CONFIG_X86
++    domid_t domid;
++#endif
 +
-+    struct boot_module *kernel;
-+    struct boot_module *initrd;
-+
-+    const char *cmdline;
-+};
-+
- #define BOOTMOD_MAX_CMDLINE 1024
- struct boot_module {
-     boot_module_kind kind;
-diff --git a/xen/include/xen/fdt-kernel.h b/xen/include/xen/fdt-kernel.h
-index 12a0b42d17..8363865282 100644
---- a/xen/include/xen/fdt-kernel.h
-+++ b/xen/include/xen/fdt-kernel.h
-@@ -16,7 +16,7 @@
- #endif
- 
- struct kernel_info {
--    struct domain *d;
-+    struct boot_domain bd;
- 
-     void *fdt; /* flat device tree */
-     paddr_t unassigned_mem; /* RAM not (yet) assigned to a bank */
-@@ -34,8 +34,7 @@ struct kernel_info {
-     paddr_t gnttab_size;
- 
-     /* boot blob load addresses */
--    const struct boot_module *kernel, *initrd, *dtb;
--    const char* cmdline;
-+    const struct boot_module *dtb;
-     paddr_t dtb_paddr;
-     paddr_t initrd_paddr;
+     struct boot_module *kernel;
+     struct boot_module *initrd;
  
 -- 
 2.43.0
