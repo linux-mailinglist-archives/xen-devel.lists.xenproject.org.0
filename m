@@ -2,38 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E2027B0598F
-	for <lists+xen-devel@lfdr.de>; Tue, 15 Jul 2025 14:04:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1044035.1414085 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D7390B05AF3
+	for <lists+xen-devel@lfdr.de>; Tue, 15 Jul 2025 15:12:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1044049.1414097 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ubeOK-0001o3-3Y; Tue, 15 Jul 2025 12:04:12 +0000
+	id 1ubfRT-0002Ay-N2; Tue, 15 Jul 2025 13:11:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1044035.1414085; Tue, 15 Jul 2025 12:04:12 +0000
+Received: by outflank-mailman (output) from mailman id 1044049.1414097; Tue, 15 Jul 2025 13:11:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ubeOK-0001lD-0L; Tue, 15 Jul 2025 12:04:12 +0000
-Received: by outflank-mailman (input) for mailman id 1044035;
- Tue, 15 Jul 2025 12:04:09 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1ubfRT-00028B-Iw; Tue, 15 Jul 2025 13:11:31 +0000
+Received: by outflank-mailman (input) for mailman id 1044049;
+ Tue, 15 Jul 2025 13:11:30 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=z/5o=Z4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ubeOH-0001l7-Rv
- for xen-devel@lists.xenproject.org; Tue, 15 Jul 2025 12:04:09 +0000
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [2a00:1450:4864:20::42a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id cfd43370-6173-11f0-a319-13f23c93f187;
- Tue, 15 Jul 2025 14:04:08 +0200 (CEST)
-Received: by mail-wr1-x42a.google.com with SMTP id
- ffacd0b85a97d-3a522224582so2717397f8f.3
- for <xen-devel@lists.xenproject.org>; Tue, 15 Jul 2025 05:04:08 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-b3bbe7281d5sm11892495a12.65.2025.07.15.05.04.03
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 15 Jul 2025 05:04:06 -0700 (PDT)
+ (envelope-from <SRS0=7giJ=Z4=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1ubfRS-000281-NJ
+ for xen-devel@lists.xenproject.org; Tue, 15 Jul 2025 13:11:30 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 37d75f15-617d-11f0-b894-0df219b8e170;
+ Tue, 15 Jul 2025 15:11:28 +0200 (CEST)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 157E2211B0;
+ Tue, 15 Jul 2025 13:11:28 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id DF81413306;
+ Tue, 15 Jul 2025 13:11:27 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id Pk0ONX9TdmghMQAAD6G6ig
+ (envelope-from <jgross@suse.com>); Tue, 15 Jul 2025 13:11:27 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,164 +51,214 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cfd43370-6173-11f0-a319-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1752581048; x=1753185848; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=YBGaNYjvIcDa8b44F51BZuLzd/8z6NbPTXsvHdZymq8=;
-        b=UDBXLwwupatRALVejWJAKfSl7aAOcCqVognz6gpOS8CFXnRyJJqjDZ/EChMWpQCVl5
-         c48rWvv5E7pni+PL0fimSOwn2sNFQoMfG9Mg7UF86dKAJE4DNFFYBFSLkAuduDHXhERO
-         aW8gJhloW9wlL0oHP4DoqjctEUApT+kCNFdw1pzSH1SrRtgs0aITd0m6e5whMW6rhley
-         LEN9fKR+L9r4NKk7QcNTO/3l2XiOIKHNE1bLEUeQBQkKWZgPQDykaYPirPeC1/aONw3s
-         N0txsVEXe9vapXeVL0sL2+PUT+atW4ARVgGPugq3R8hekuGRYIsSZHm5JrYXGedCf6Ff
-         4hkw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1752581048; x=1753185848;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=YBGaNYjvIcDa8b44F51BZuLzd/8z6NbPTXsvHdZymq8=;
-        b=fKg7Gks8OrPze8hwrdtMIcx+XqiBzrh9LalU0oTKfBZHcJzSnGUQTGeXMDXpO7qI7S
-         4GXCvDZNqHzSKs9p0l59UlUMWoeMf0sGjSu4NU/mw4hZC0nmStJgoeM8N+kpkfFJpwtU
-         U1S3VTGRRo0FMDW6U2UolxzmwWiO0EX36PGSdQFD4yZkKkMFkp/rHgg3ZQyfhsEFDIXB
-         /+eUyuSInpMhGYAGbFzPipUSPiwX6wco6ybh7y7xzspDPGMZTTGLoVVn7FLOOrC9T2oo
-         MGEjZdi8UES4hf17IvNhLuHwxkLFG3ULW1MUQrxVqaeoh+wIf5yxxyPkLcVCNpx80pvM
-         mXrA==
-X-Gm-Message-State: AOJu0YzgvoMf3w/VNwl4UfAhbh6geD0+v/+sAKAr5NPa8YVUMrL1qdBs
-	F+NaDwrdY8K+t5T81GsD17zMlUAWbMmPnibH7tK6Z6VWFnXU/NadAAFV6JSG1ABiKg==
-X-Gm-Gg: ASbGnctPrJrY+dzfCLRAoQVVujNKbOhhc3AaUMeYaToU6KYrevMTrQIpAkzUxpLGRxg
-	mcHzv0BHgNmt4Q/xYvoGJRzSqZLHMfMEKnVH2k3+gEM7VB4ERNrOJzxBWfpr4f9IYQtxYMCXh3Y
-	8SEwoLxK9iDMXZ0+mZks61ucJS0qrIcOwd9mWo/gUON//fagFQTJokhfzl9IGTGSqFPIYJWiVql
-	ewgPI/zhY562EMU9lWDkhly8mJDa/FJ+kxQZQa3LiETKvxSwvIBL3b9lE/8O7LBtOh923d1QEyY
-	f2jWFQ1thyasyX9tD+neBPnfMBILJZXpr/OZSDeMMXoqCm472r77L5vbaQPNMbtcngBhp3BPKD5
-	EjTYQ7E9GiUVn0QYtyqapT4H41g63vRVI40r38Bl3gRy8NxOC7QIZwdv/pt6vBOfjSWWtjDuYj7
-	yAbuCFuqE=
-X-Google-Smtp-Source: AGHT+IH59JeQSrnHXDGPEJ/GcTWMbBzQ450ODJ2fpXKjkHL0o+0x+VX0Jm46gBO4ODdxCE0le3B5hg==
-X-Received: by 2002:a05:6000:40cf:b0:3a6:f2da:7fe5 with SMTP id ffacd0b85a97d-3b5f359996cmr11803352f8f.55.1752581047304;
-        Tue, 15 Jul 2025 05:04:07 -0700 (PDT)
-Message-ID: <5bdfb833-99d3-4b91-9de8-53f8816a48fb@suse.com>
-Date: Tue, 15 Jul 2025 14:03:59 +0200
+X-Inumbo-ID: 37d75f15-617d-11f0-b894-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1752585088; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=IClWZr3kn/I/w9xaF9q5VTaB17swbIMzifC3Rd+fblc=;
+	b=AoHT8RiR2sCW8sZ3CxlJbQ/tPu8Pt2oyvmUdQriTS4Uk+YT5UlyHoz9g80WTFFDQrWxip4
+	wPooXUd2Xv7txNLjgHPdVXZPo8wa5NjpqSJof7P3aPNYiw131zIEXS+Xl2fTPFM6xaskW3
+	qv6gZ23wAS/2Edf9JHF0WkRayTvcUEo=
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1752585088; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=IClWZr3kn/I/w9xaF9q5VTaB17swbIMzifC3Rd+fblc=;
+	b=AoHT8RiR2sCW8sZ3CxlJbQ/tPu8Pt2oyvmUdQriTS4Uk+YT5UlyHoz9g80WTFFDQrWxip4
+	wPooXUd2Xv7txNLjgHPdVXZPo8wa5NjpqSJof7P3aPNYiw131zIEXS+Xl2fTPFM6xaskW3
+	qv6gZ23wAS/2Edf9JHF0WkRayTvcUEo=
+Message-ID: <4764f627-8e3e-4daa-a146-4b103fb33a0e@suse.com>
+Date: Tue, 15 Jul 2025 15:11:27 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] x86/PVH: modify permission checking in
- hwdom_fixup_p2m()
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>
-References: <8c610e0e-6778-4d94-92c8-35b280d05b46@suse.com>
- <aHYo4kLRj9LpdaTs@macbook.local>
- <01fb45a5-0e5a-4379-8d36-ec8002739b51@suse.com>
- <aHY1qZJXkKXi4bt5@macbook.local>
+Subject: Re: [MINI-OS PATCH 17/19] gnttab: add function to obtain memory
+ address from grantref
+To: Jason Andryuk <jason.andryuk@amd.com>, minios-devel@lists.xenproject.org,
+ xen-devel@lists.xenproject.org
+Cc: samuel.thibault@ens-lyon.org
+References: <20250702081254.14383-1-jgross@suse.com>
+ <20250702081254.14383-18-jgross@suse.com>
+ <130ed882-13da-4413-a5af-829d5d30d091@amd.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aHY1qZJXkKXi4bt5@macbook.local>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From: Juergen Gross <jgross@suse.com>
+Autocrypt: addr=jgross@suse.com; keydata=
+ xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
+ ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
+ dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
+ NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
+ XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
+ AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
+ CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
+ mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
+ G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
+ kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
+ Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
+ RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
+ vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
+ sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
+ aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
+ w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
+ auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
+ 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
+ fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
+ HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
+ QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
+ ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
+In-Reply-To: <130ed882-13da-4413-a5af-829d5d30d091@amd.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------JidC6WdCe5f7v1J51Ofj1sws"
+X-Spam-Level: 
+X-Spamd-Result: default: False [-5.20 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	SIGNED_PGP(-2.00)[];
+	MIME_BASE64_TEXT_BOGUS(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MIME_GOOD(-0.20)[multipart/signed,multipart/mixed,text/plain];
+	NEURAL_HAM_SHORT(-0.20)[-0.992];
+	MIME_UNKNOWN(0.10)[application/pgp-keys];
+	MIME_BASE64_TEXT(0.10)[];
+	FUZZY_RATELIMITED(0.00)[rspamd.com];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MIME_TRACE(0.00)[0:+,1:+,2:+,3:+,4:~,5:~];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.com:s=susede1];
+	RCPT_COUNT_THREE(0.00)[4];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:email,suse.com:mid];
+	HAS_ATTACHMENT(0.00)[]
+X-Spam-Flag: NO
+X-Spam-Score: -5.20
 
-On 15.07.2025 13:04, Roger Pau Monné wrote:
-> On Tue, Jul 15, 2025 at 12:47:15PM +0200, Jan Beulich wrote:
->> On 15.07.2025 12:09, Roger Pau Monné wrote:
->>> On Mon, Jul 14, 2025 at 06:09:27PM +0200, Jan Beulich wrote:
->>>> We're generally striving to minimize behavioral differences between PV
->>>> and PVH Dom0. Using is_memory_hole() in the PVH case looks quite a bit
->>>> weaker to me, compared to the page ownership check done in the PV case.
->>>> Change checking accordingly.
->>>>
->>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->>>
->>> Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
->>
->> Thanks.
->>
->>> Kind of unrelated to this specific patch, but what's our opinion on
->>> turning on pf-fixup by default before the release?
->>
->> As far as the patch here goes, the relationship is very tight. I came to
->> make this patch only while investigating whether we couldn't have Dom0
->> report the resource (MMIO) ranges early enough for us to not even need
->> such fixing-up. Sadly, as per [1] that turned out pretty much impossible.
->> Which means that while I'm still pretty hesitant of us doing something
->> like this by default, I can't currently see a way around doing so. Hence
->> perhaps yes, we may want (or even need) to turn this on by default.
-> 
-> Sorry, wanted to reply to your previous commit alternative approach
-> email, but got distracted with something else and forgot about it.
-> 
-> While I won't be opposed to having a way for dom0 to notify extra MMIO
-> regions it wants added to the p2m, I think this is likely too much
-> fuzz.  For example for FreeBSD I wouldn't consider adding such logic
-> to the kernel, simply because I think it's likely to be too intrusive,
-> and would rather rely on pf-fixup.  Overall the amount of p2m fixups
-> that Xen ends up doing is always fairly small (I usually see maybe 4
-> pages tops), and only as result of ACPI related accesses.  IMO it's an
-> acceptable compromise to map those as individual 4K pages.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------JidC6WdCe5f7v1J51Ofj1sws
+Content-Type: multipart/mixed; boundary="------------knQc0MJfMW0vWV23Ms0ylAuX";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Jason Andryuk <jason.andryuk@amd.com>, minios-devel@lists.xenproject.org,
+ xen-devel@lists.xenproject.org
+Cc: samuel.thibault@ens-lyon.org
+Message-ID: <4764f627-8e3e-4daa-a146-4b103fb33a0e@suse.com>
+Subject: Re: [MINI-OS PATCH 17/19] gnttab: add function to obtain memory
+ address from grantref
+References: <20250702081254.14383-1-jgross@suse.com>
+ <20250702081254.14383-18-jgross@suse.com>
+ <130ed882-13da-4413-a5af-829d5d30d091@amd.com>
+In-Reply-To: <130ed882-13da-4413-a5af-829d5d30d091@amd.com>
 
-Yes, and my concern isn't so much what we map, or how many pages there
-are, but that we do this behind the back of Dom0 (and also not ahead
-of actually launching it).
+--------------knQc0MJfMW0vWV23Ms0ylAuX
+Content-Type: multipart/mixed; boundary="------------WM0hghHL6LwdQCdF5JeD83I8"
 
-As to the amount of accesses, these are the ranges that my SKL reports
-through the temporary hypercall (as described on the v1 thread):
+--------------WM0hghHL6LwdQCdF5JeD83I8
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-(XEN) sysmem: fed1c000 (24000 bytes)
-(XEN) sysmem: fed45000 (47000 bytes)
-(XEN) sysmem: ff000000 (1000000 bytes)
-(XEN) sysmem: fed1b000 (1000 bytes)
-(XEN) sysmem: fd000000 (ac0000 bytes)
-(XEN) sysmem: fdad0000 (10000 bytes)
-(XEN) sysmem: fe000000 (10000 bytes)
-(XEN) sysmem: fe011000 (f000 bytes)
-(XEN) sysmem: fe036000 (6000 bytes)
-(XEN) sysmem: fe03d000 (3c3000 bytes)
-(XEN) sysmem: fe410000 (3f0000 bytes)
-(XEN) sysmem: fdaf0000 (10000 bytes)
-(XEN) sysmem: fdae0000 (10000 bytes)
-(XEN) sysmem: fdac0000 (10000 bytes)
+T24gMTQuMDcuMjUgMjM6MjMsIEphc29uIEFuZHJ5dWsgd3JvdGU6DQo+IE9uIDIwMjUtMDct
+MDIgMDQ6MTIsIEp1ZXJnZW4gR3Jvc3Mgd3JvdGU6DQo+PiBBZGQgYSBuZXcgZnVuY3Rpb24g
+Z250dGFiX2dldF9hZGRyKCkgdG8gb2J0YWluIGEgbWVtb3J5IHBvaW50ZXIgZm9yIGENCj4+
+IGdpdmVuIGdyYW50IHJlZmVyZW5jZS4NCj4+DQo+PiBTaWduZWQtb2ZmLWJ5OiBKdWVyZ2Vu
+IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+DQo+IA0KPiBNYXliZSB5b3Ugd2FudCB0byBuYW1l
+IGl0IGdudHRhYl9nZXRfdmFkZHIoKSB0byBiZSBhIGxpdHRsZSBtb3JlIGV4cGxpY2l0IGlu
+IGl0cyANCj4gcmV0dXJuIHZhbHVlPw0KDQpJIHRoaW5rIHRoaXMgaXNuJ3QgbmVjZXNzYXJ5
+LiBJbiBjYXNlIGEgcGh5c2ljYWwgYWRkcmVzcyB3b3VsZCBiZSBoYW5kZWQNCmJhY2sgSSdk
+IGFncmVlIHRvIGFkZCAncCcgZm9yIHF1YWxpZnlpbmcgdGhlIGFkZHJlc3MsIGJ1dCBJIGRv
+bid0IHRoaW5rDQp3ZSBuZWVkIHRvIHF1YWxpZnkgdmlydHVhbCBhZGRyZXNzZXMgYXMgc3Vj
+aC4NCg0KDQpKdWVyZ2VuDQo=
+--------------WM0hghHL6LwdQCdF5JeD83I8
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
 
-Some of these ranges are also E820_RESERVED, so would (by default) be
-mapped anyway. That's most notably the ff000000 one. The other regions
-exceeding 2Mb in size aren't visible in E820, though.
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-As they're all reported by ACPI, they all could in principle be accessed.
-Just requires the right drivers to be loaded, I expect.
+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
+kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
+=3DeeAB
+-----END PGP PUBLIC KEY BLOCK-----
 
-> I would only consider the alternative approach of using a hypercall if
-> we saw big regions being mapped by pf-fixup, because in that case it
-> would better be using p2m superpage(s).
-> 
-> I think we want to enable pf-fixup by default at some point, the
-> question is whether you would consider it appropriate to do now.
-> Given it's limited to PVH dom0 only, I think we should enable for this
-> release already.
+--------------WM0hghHL6LwdQCdF5JeD83I8--
 
-As said, since I see no alternative, we can as well do it for 4.21. No
-matter that I'm hesitant about it.
+--------------knQc0MJfMW0vWV23Ms0ylAuX--
 
-Jan
+--------------JidC6WdCe5f7v1J51Ofj1sws
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmh2U38FAwAAAAAACgkQsN6d1ii/Ey8M
+8wgAmxDQodIs1RwyX/Vnkb1eNn4D/tuX8g+FtPDt/vQf4IUrMgv56YvwcoK5a5Zjs4KaYmlYgErL
+GBAGvLHOL5PUf9r+trjQ8qL9ZRFOi9FElNwQVRcnMFHmUsoJ1aydqAx9IUBamF9K/W1AiWeXiRhZ
+DcQxM8yOgKRFF+FT78j+4vW0FX0hcEa+dZaqOg6Mg9cCHDxw/bSn477jsaM3plqoFHpm1YGhtILG
+O+HPUUnE47EoUD3sMe+RxWRa90y2rEPArObyNsIcta/S9vwrVqcUcUeEzU4y0jwmhZSCN+aoRxDF
+Y8y4n3S65izCJE2Mndg3+TYMMKpFxaXxojen/h97mA==
+=tQ9R
+-----END PGP SIGNATURE-----
+
+--------------JidC6WdCe5f7v1J51Ofj1sws--
 
