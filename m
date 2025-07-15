@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D7390B05AF3
-	for <lists+xen-devel@lfdr.de>; Tue, 15 Jul 2025 15:12:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1044049.1414097 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CBB5BB05BCE
+	for <lists+xen-devel@lfdr.de>; Tue, 15 Jul 2025 15:24:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1044061.1414110 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ubfRT-0002Ay-N2; Tue, 15 Jul 2025 13:11:31 +0000
+	id 1ubfdX-0003yn-N6; Tue, 15 Jul 2025 13:23:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1044049.1414097; Tue, 15 Jul 2025 13:11:31 +0000
+Received: by outflank-mailman (output) from mailman id 1044061.1414110; Tue, 15 Jul 2025 13:23:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ubfRT-00028B-Iw; Tue, 15 Jul 2025 13:11:31 +0000
-Received: by outflank-mailman (input) for mailman id 1044049;
- Tue, 15 Jul 2025 13:11:30 +0000
+	id 1ubfdX-0003wl-KC; Tue, 15 Jul 2025 13:23:59 +0000
+Received: by outflank-mailman (input) for mailman id 1044061;
+ Tue, 15 Jul 2025 13:23:59 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=7giJ=Z4=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1ubfRS-000281-NJ
- for xen-devel@lists.xenproject.org; Tue, 15 Jul 2025 13:11:30 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=hnVo=Z4=redhat.com=dhildenb@srs-se1.protection.inumbo.net>)
+ id 1ubfdW-0003wf-VA
+ for xen-devel@lists.xenproject.org; Tue, 15 Jul 2025 13:23:58 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 37d75f15-617d-11f0-b894-0df219b8e170;
- Tue, 15 Jul 2025 15:11:28 +0200 (CEST)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 157E2211B0;
- Tue, 15 Jul 2025 13:11:28 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id DF81413306;
- Tue, 15 Jul 2025 13:11:27 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id Pk0ONX9TdmghMQAAD6G6ig
- (envelope-from <jgross@suse.com>); Tue, 15 Jul 2025 13:11:27 +0000
+ id f536e517-617e-11f0-b894-0df219b8e170;
+ Tue, 15 Jul 2025 15:23:56 +0200 (CEST)
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-515-7QYQeN4INk2pQhBGsIS_og-1; Tue, 15 Jul 2025 09:23:54 -0400
+Received: by mail-wr1-f72.google.com with SMTP id
+ ffacd0b85a97d-3a50049f8eeso2449814f8f.3
+ for <xen-devel@lists.xenproject.org>; Tue, 15 Jul 2025 06:23:53 -0700 (PDT)
+Received: from localhost
+ (p200300d82f2849002c244e201f219fbd.dip0.t-ipconnect.de.
+ [2003:d8:2f28:4900:2c24:4e20:1f21:9fbd])
+ by smtp.gmail.com with UTF8SMTPSA id
+ ffacd0b85a97d-3b5e8e14e82sm15213383f8f.71.2025.07.15.06.23.50
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 15 Jul 2025 06:23:51 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,214 +51,178 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 37d75f15-617d-11f0-b894-0df219b8e170
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1752585088; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=IClWZr3kn/I/w9xaF9q5VTaB17swbIMzifC3Rd+fblc=;
-	b=AoHT8RiR2sCW8sZ3CxlJbQ/tPu8Pt2oyvmUdQriTS4Uk+YT5UlyHoz9g80WTFFDQrWxip4
-	wPooXUd2Xv7txNLjgHPdVXZPo8wa5NjpqSJof7P3aPNYiw131zIEXS+Xl2fTPFM6xaskW3
-	qv6gZ23wAS/2Edf9JHF0WkRayTvcUEo=
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1752585088; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=IClWZr3kn/I/w9xaF9q5VTaB17swbIMzifC3Rd+fblc=;
-	b=AoHT8RiR2sCW8sZ3CxlJbQ/tPu8Pt2oyvmUdQriTS4Uk+YT5UlyHoz9g80WTFFDQrWxip4
-	wPooXUd2Xv7txNLjgHPdVXZPo8wa5NjpqSJof7P3aPNYiw131zIEXS+Xl2fTPFM6xaskW3
-	qv6gZ23wAS/2Edf9JHF0WkRayTvcUEo=
-Message-ID: <4764f627-8e3e-4daa-a146-4b103fb33a0e@suse.com>
-Date: Tue, 15 Jul 2025 15:11:27 +0200
+X-Inumbo-ID: f536e517-617e-11f0-b894-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1752585835;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=I+njjEeJUfoyHVChoDSaOpmOHc6CwMwYKPYbj7nDuS0=;
+	b=M5cq5ieS9rO+feWcHJHj9JnVBYteNMjQ5AoUJMO0myQCcEgCEo2RkImDrxad3etoNo3Mkw
+	56gNSP/CgfaDijdRluJP6h8AEHilziODhcfWbt4+Dr47vJqt0IrkAI9f8ESbv+JlGtHuEy
+	CkjurXOnxOtlVzgBqF0Op30HqXOF7ow=
+X-MC-Unique: 7QYQeN4INk2pQhBGsIS_og-1
+X-Mimecast-MFC-AGG-ID: 7QYQeN4INk2pQhBGsIS_og_1752585833
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1752585833; x=1753190633;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=I+njjEeJUfoyHVChoDSaOpmOHc6CwMwYKPYbj7nDuS0=;
+        b=OfIsR+h12QZQhf1TQEsxixcpqS2UT5QSNXnF5YWZ1dlh8zFAvuAB3EnEhulOGXHFsK
+         eJXHUxQFH9PpCNQvo0+r3NYAM6K0RvJk0WCdXlzVbaiB9bscYkZ8jyyxxe0ZcWMuG1/I
+         rZXsd2RpGjegtvdNUCx6QSi7uB7monh47DD+VtLREd511AGgdFFeyF04oRx4kz85sSMd
+         Y7dQAq+5cgK5ER00iIB2kKUemqA2W9frzImtZ/FoILABMUWlxi/5G7HLT/E8k7TmzVii
+         Kk2nk/bL6pRaKGZInUgMhpbFoOaxwzqvWZw/4OhiQVN6D/0jqk+mtIDHtULn76DwgAQ+
+         pWcA==
+X-Forwarded-Encrypted: i=1; AJvYcCVF8FepLPUQXNrol1QJ0PgxRG+ZwtwWIMOrPa/RY8O6tvV0gQAQbNCiSEx9YNVnZevjof0AjhyebTY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyS0lfHXI9G74ayQoF1piwWfS5nVgT4FW7ETHooQfAZrn+QC5IC
+	lr9qPdvvmXwwr3k6K/Ov/E69OUXsHiUSN9QpXKZRyPGKyQvwWW1d8uVCxaTiRs9giRPGpl4jFr8
+	Vr9L7b0R/DwZ2G4GwBemm28UTf/a3qrp/rPrJBMWScV8nt6mDXB4ztcmB1CTqpoxwwIqo
+X-Gm-Gg: ASbGnctB0uqWa706NGfvhXwHOPrdaJF+Pnu5Ul4+R1bFkjGu/YgXdCKGNIlpZVjEnvz
+	sTGkfgX3aIhdEGYCvfUWsoDq2BiMtBWoWb8vZfORteHxRtQtJQqHfbLZXdOPNgdtS2TMO6I1U6W
+	sSpspnGxQvwm3IbzuUAjTfss/7czRUfzB7lG1wYUlXLdJ6dmdpUJfWLUc2z7oJCMG61wH9logwf
+	bITTrXyJtbarFGhaO6LIo6hdj0Q34SWujH05bVb56YGhSSdXjPp4zRytLVddCKh5cEL2w+Rd0qB
+	Nlw8eIBCEY3Ov1aGHwppUFbIPW5ZDqO97jvHcfaokw+89yxgEm6gPTNgVIm4DCD4jicPWsDDPMz
+	9YnOMVOHgnpZCm8lOgckbGshc
+X-Received: by 2002:adf:9b97:0:b0:3a5:7944:c9b with SMTP id ffacd0b85a97d-3b5f18808c9mr9743520f8f.16.1752585832773;
+        Tue, 15 Jul 2025 06:23:52 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IHEkZDRkA14IcXQD+lQPeKL7StailaRmICkp2BJ1WOb6DFxYeWLDyvLUcHDBHF9Bf7MHtKqWA==
+X-Received: by 2002:adf:9b97:0:b0:3a5:7944:c9b with SMTP id ffacd0b85a97d-3b5f18808c9mr9743472f8f.16.1752585832205;
+        Tue, 15 Jul 2025 06:23:52 -0700 (PDT)
+From: David Hildenbrand <david@redhat.com>
+To: linux-kernel@vger.kernel.org
+Cc: linux-mm@kvack.org,
+	xen-devel@lists.xenproject.org,
+	linux-fsdevel@vger.kernel.org,
+	nvdimm@lists.linux.dev,
+	David Hildenbrand <david@redhat.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Dan Williams <dan.j.williams@intel.com>,
+	Matthew Wilcox <willy@infradead.org>,
+	Jan Kara <jack@suse.cz>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	Christian Brauner <brauner@kernel.org>,
+	Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+	"Liam R. Howlett" <Liam.Howlett@oracle.com>,
+	Vlastimil Babka <vbabka@suse.cz>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Zi Yan <ziy@nvidia.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Nico Pache <npache@redhat.com>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Dev Jain <dev.jain@arm.com>,
+	Barry Song <baohua@kernel.org>,
+	Jann Horn <jannh@google.com>,
+	Pedro Falcato <pfalcato@suse.de>,
+	Hugh Dickins <hughd@google.com>,
+	Oscar Salvador <osalvador@suse.de>,
+	Lance Yang <lance.yang@linux.dev>
+Subject: [PATCH v1 0/9] mm: vm_normal_page*() improvements
+Date: Tue, 15 Jul 2025 15:23:41 +0200
+Message-ID: <20250715132350.2448901-1-david@redhat.com>
+X-Mailer: git-send-email 2.50.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [MINI-OS PATCH 17/19] gnttab: add function to obtain memory
- address from grantref
-To: Jason Andryuk <jason.andryuk@amd.com>, minios-devel@lists.xenproject.org,
- xen-devel@lists.xenproject.org
-Cc: samuel.thibault@ens-lyon.org
-References: <20250702081254.14383-1-jgross@suse.com>
- <20250702081254.14383-18-jgross@suse.com>
- <130ed882-13da-4413-a5af-829d5d30d091@amd.com>
-Content-Language: en-US
-From: Juergen Gross <jgross@suse.com>
-Autocrypt: addr=jgross@suse.com; keydata=
- xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
- ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
- dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
- NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
- XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
- AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
- CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
- mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
- G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
- kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
- Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
- RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
- vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
- sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
- aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
- w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
- auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
- 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
- fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
- HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
- QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
- ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <130ed882-13da-4413-a5af-829d5d30d091@amd.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------JidC6WdCe5f7v1J51Ofj1sws"
-X-Spam-Level: 
-X-Spamd-Result: default: False [-5.20 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	SIGNED_PGP(-2.00)[];
-	MIME_BASE64_TEXT_BOGUS(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MIME_GOOD(-0.20)[multipart/signed,multipart/mixed,text/plain];
-	NEURAL_HAM_SHORT(-0.20)[-0.992];
-	MIME_UNKNOWN(0.10)[application/pgp-keys];
-	MIME_BASE64_TEXT(0.10)[];
-	FUZZY_RATELIMITED(0.00)[rspamd.com];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+,1:+,2:+,3:+,4:~,5:~];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	RCPT_COUNT_THREE(0.00)[4];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:email,suse.com:mid];
-	HAS_ATTACHMENT(0.00)[]
-X-Spam-Flag: NO
-X-Spam-Score: -5.20
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: 5CqF7gejolS1Y3VE-2BYaGJRqiQAeifZU3R__BZz7Wk_1752585833
+X-Mimecast-Originator: redhat.com
+Content-Transfer-Encoding: 8bit
+content-type: text/plain; charset="US-ASCII"; x-default=true
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------JidC6WdCe5f7v1J51Ofj1sws
-Content-Type: multipart/mixed; boundary="------------knQc0MJfMW0vWV23Ms0ylAuX";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Jason Andryuk <jason.andryuk@amd.com>, minios-devel@lists.xenproject.org,
- xen-devel@lists.xenproject.org
-Cc: samuel.thibault@ens-lyon.org
-Message-ID: <4764f627-8e3e-4daa-a146-4b103fb33a0e@suse.com>
-Subject: Re: [MINI-OS PATCH 17/19] gnttab: add function to obtain memory
- address from grantref
-References: <20250702081254.14383-1-jgross@suse.com>
- <20250702081254.14383-18-jgross@suse.com>
- <130ed882-13da-4413-a5af-829d5d30d091@amd.com>
-In-Reply-To: <130ed882-13da-4413-a5af-829d5d30d091@amd.com>
+This is the follow-up of [1]:
+	[PATCH RFC 00/14] mm: vm_normal_page*() + CoW PFNMAP improvements
 
---------------knQc0MJfMW0vWV23Ms0ylAuX
-Content-Type: multipart/mixed; boundary="------------WM0hghHL6LwdQCdF5JeD83I8"
+Based on mm/mm-new. I dropped the CoW PFNMAP changes for now, still
+working on a better way to sort all that out cleanly.
 
---------------WM0hghHL6LwdQCdF5JeD83I8
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Cleanup and unify vm_normal_page_*() handling, also marking the
+huge zerofolio as special in the PMD. Add+use vm_normal_page_pud() and
+cleanup that XEN vm_ops->find_special_page thingy.
 
-T24gMTQuMDcuMjUgMjM6MjMsIEphc29uIEFuZHJ5dWsgd3JvdGU6DQo+IE9uIDIwMjUtMDct
-MDIgMDQ6MTIsIEp1ZXJnZW4gR3Jvc3Mgd3JvdGU6DQo+PiBBZGQgYSBuZXcgZnVuY3Rpb24g
-Z250dGFiX2dldF9hZGRyKCkgdG8gb2J0YWluIGEgbWVtb3J5IHBvaW50ZXIgZm9yIGENCj4+
-IGdpdmVuIGdyYW50IHJlZmVyZW5jZS4NCj4+DQo+PiBTaWduZWQtb2ZmLWJ5OiBKdWVyZ2Vu
-IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+DQo+IA0KPiBNYXliZSB5b3Ugd2FudCB0byBuYW1l
-IGl0IGdudHRhYl9nZXRfdmFkZHIoKSB0byBiZSBhIGxpdHRsZSBtb3JlIGV4cGxpY2l0IGlu
-IGl0cyANCj4gcmV0dXJuIHZhbHVlPw0KDQpJIHRoaW5rIHRoaXMgaXNuJ3QgbmVjZXNzYXJ5
-LiBJbiBjYXNlIGEgcGh5c2ljYWwgYWRkcmVzcyB3b3VsZCBiZSBoYW5kZWQNCmJhY2sgSSdk
-IGFncmVlIHRvIGFkZCAncCcgZm9yIHF1YWxpZnlpbmcgdGhlIGFkZHJlc3MsIGJ1dCBJIGRv
-bid0IHRoaW5rDQp3ZSBuZWVkIHRvIHF1YWxpZnkgdmlydHVhbCBhZGRyZXNzZXMgYXMgc3Vj
-aC4NCg0KDQpKdWVyZ2VuDQo=
---------------WM0hghHL6LwdQCdF5JeD83I8
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+There are plans of using vm_normal_page_*() more widely soon.
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+Briefly tested on UML (making sure vm_normal_page() still works as expected
+without pte_special() support) and on x86-64 with a bunch of tests.
 
-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
-kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
-=3DeeAB
------END PGP PUBLIC KEY BLOCK-----
+[1] https://lkml.kernel.org/r/20250617154345.2494405-1-david@redhat.com
 
---------------WM0hghHL6LwdQCdF5JeD83I8--
+RFC -> v1:
+* Dropped the highest_memmap_pfn removal stuff and instead added
+  "mm/memory: convert print_bad_pte() to print_bad_page_map()"
+* Dropped "mm: compare pfns only if the entry is present when inserting
+  pfns/pages" for now, will probably clean that up separately.
+* Dropped "mm: remove "horrible special case to handle copy-on-write
+  behaviour"", and "mm: drop addr parameter from vm_normal_*_pmd()" will
+  require more thought
+* "mm/huge_memory: support huge zero folio in vmf_insert_folio_pmd()"
+ -> Extend patch description.
+* "fs/dax: use vmf_insert_folio_pmd() to insert the huge zero folio"
+ -> Extend patch description.
+* "mm/huge_memory: mark PMD mappings of the huge zero folio special"
+ -> Remove comment from vm_normal_page_pmd().
+* "mm/memory: factor out common code from vm_normal_page_*()"
+ -> Adjust to print_bad_page_map()/highest_memmap_pfn changes.
+ -> Add proper kernel doc to all involved functions
+* "mm: introduce and use vm_normal_page_pud()"
+ -> Adjust to print_bad_page_map() changes.
 
---------------knQc0MJfMW0vWV23Ms0ylAuX--
+Cc: Andrew Morton <akpm@linux-foundation.org>
+Cc: Juergen Gross <jgross@suse.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Cc: Dan Williams <dan.j.williams@intel.com>
+Cc: Matthew Wilcox <willy@infradead.org>
+Cc: Jan Kara <jack@suse.cz>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>
+Cc: Christian Brauner <brauner@kernel.org>
+Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+Cc: "Liam R. Howlett" <Liam.Howlett@oracle.com>
+Cc: Vlastimil Babka <vbabka@suse.cz>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Zi Yan <ziy@nvidia.com>
+Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: Nico Pache <npache@redhat.com>
+Cc: Ryan Roberts <ryan.roberts@arm.com>
+Cc: Dev Jain <dev.jain@arm.com>
+Cc: Barry Song <baohua@kernel.org>
+Cc: Jann Horn <jannh@google.com>
+Cc: Pedro Falcato <pfalcato@suse.de>
+Cc: Hugh Dickins <hughd@google.com>
+Cc: Oscar Salvador <osalvador@suse.de>
+Cc: Lance Yang <lance.yang@linux.dev>
 
---------------JidC6WdCe5f7v1J51Ofj1sws
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+David Hildenbrand (9):
+  mm/huge_memory: move more common code into insert_pmd()
+  mm/huge_memory: move more common code into insert_pud()
+  mm/huge_memory: support huge zero folio in vmf_insert_folio_pmd()
+  fs/dax: use vmf_insert_folio_pmd() to insert the huge zero folio
+  mm/huge_memory: mark PMD mappings of the huge zero folio special
+  mm/memory: convert print_bad_pte() to print_bad_page_map()
+  mm/memory: factor out common code from vm_normal_page_*()
+  mm: introduce and use vm_normal_page_pud()
+  mm: rename vm_ops->find_special_page() to vm_ops->find_normal_page()
 
------BEGIN PGP SIGNATURE-----
+ drivers/xen/Kconfig              |   1 +
+ drivers/xen/gntdev.c             |   5 +-
+ fs/dax.c                         |  47 +----
+ include/linux/mm.h               |  20 +-
+ mm/Kconfig                       |   2 +
+ mm/huge_memory.c                 | 119 ++++-------
+ mm/memory.c                      | 346 ++++++++++++++++++++++---------
+ mm/pagewalk.c                    |  20 +-
+ tools/testing/vma/vma_internal.h |  18 +-
+ 9 files changed, 343 insertions(+), 235 deletions(-)
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmh2U38FAwAAAAAACgkQsN6d1ii/Ey8M
-8wgAmxDQodIs1RwyX/Vnkb1eNn4D/tuX8g+FtPDt/vQf4IUrMgv56YvwcoK5a5Zjs4KaYmlYgErL
-GBAGvLHOL5PUf9r+trjQ8qL9ZRFOi9FElNwQVRcnMFHmUsoJ1aydqAx9IUBamF9K/W1AiWeXiRhZ
-DcQxM8yOgKRFF+FT78j+4vW0FX0hcEa+dZaqOg6Mg9cCHDxw/bSn477jsaM3plqoFHpm1YGhtILG
-O+HPUUnE47EoUD3sMe+RxWRa90y2rEPArObyNsIcta/S9vwrVqcUcUeEzU4y0jwmhZSCN+aoRxDF
-Y8y4n3S65izCJE2Mndg3+TYMMKpFxaXxojen/h97mA==
-=tQ9R
------END PGP SIGNATURE-----
 
---------------JidC6WdCe5f7v1J51Ofj1sws--
+base-commit: 64d19a2cdb7b62bcea83d9309d83e06d7aff4722
+-- 
+2.50.1
+
 
