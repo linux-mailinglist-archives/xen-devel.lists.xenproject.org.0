@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40807B053D3
-	for <lists+xen-devel@lfdr.de>; Tue, 15 Jul 2025 09:55:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1043672.1413669 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2EA61B053D6
+	for <lists+xen-devel@lfdr.de>; Tue, 15 Jul 2025 09:56:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1043679.1413680 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ubaVP-0000ix-Iw; Tue, 15 Jul 2025 07:55:15 +0000
+	id 1ubaW6-0001Do-Sl; Tue, 15 Jul 2025 07:55:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1043672.1413669; Tue, 15 Jul 2025 07:55:15 +0000
+Received: by outflank-mailman (output) from mailman id 1043679.1413680; Tue, 15 Jul 2025 07:55:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ubaVP-0000h3-Fi; Tue, 15 Jul 2025 07:55:15 +0000
-Received: by outflank-mailman (input) for mailman id 1043672;
- Tue, 15 Jul 2025 07:55:13 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=QMY+=Z4=uniontech.com=wangyuli@srs-se1.protection.inumbo.net>)
- id 1ubaVN-0000gw-13
- for xen-devel@lists.xenproject.org; Tue, 15 Jul 2025 07:55:13 +0000
-Received: from smtpbgbr1.qq.com (smtpbgbr1.qq.com [54.207.19.206])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0223e3e3-6151-11f0-a319-13f23c93f187;
- Tue, 15 Jul 2025 09:55:05 +0200 (CEST)
-Received: from [IPV6:240e:668:120a::212:232] ( [localhost])
- by bizesmtp.qq.com (ESMTP) with 
- id ; Tue, 15 Jul 2025 15:53:18 +0800 (CST)
+	id 1ubaW6-0001Bf-Og; Tue, 15 Jul 2025 07:55:58 +0000
+Received: by outflank-mailman (input) for mailman id 1043679;
+ Tue, 15 Jul 2025 07:55:56 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=z/5o=Z4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1ubaW4-00010L-R5
+ for xen-devel@lists.xenproject.org; Tue, 15 Jul 2025 07:55:56 +0000
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
+ [2a00:1450:4864:20::431])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 22a7d44e-6151-11f0-b894-0df219b8e170;
+ Tue, 15 Jul 2025 09:55:55 +0200 (CEST)
+Received: by mail-wr1-x431.google.com with SMTP id
+ ffacd0b85a97d-3a57c8e247cso3407431f8f.1
+ for <xen-devel@lists.xenproject.org>; Tue, 15 Jul 2025 00:55:55 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-23de4365e47sm108429535ad.248.2025.07.15.00.55.47
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 15 Jul 2025 00:55:53 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,186 +45,139 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0223e3e3-6151-11f0-a319-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1752566050;
-	bh=lCZvuab/16TaVwQ5rI7WJwbKeMlM/ItuANoajbv3L2Y=;
-	h=Message-ID:Date:MIME-Version:Subject:To:From;
-	b=FmseD3nslxv2WzOPOC+m/8JJnbtV9dpKkZWoxzBSjrVBVk5mN+SV7+0j5XkqX+2+b
-	 8ybQRaJcQ7hmUAHNRj2r8suwqLBppXBN2EdtKJ3nUE2UAdP14hivwz40UvdLzRsr4c
-	 zfChanjJufiNdwK7r6BpEInwX5etTf4vnHzXrVTU=
-X-QQ-mid: zesmtpip2t1752566003tb4774524
-X-QQ-Originating-IP: jjkK/Vf4L74BdD9kpYPdRm9xTrp/Q9zcy1uOS8r9kg4=
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 8211430334960576053
-EX-QQ-RecipientCnt: 62
-Message-ID: <5D06C25920559D71+06c9ce34-9867-495c-9842-dcfe9f1d51bb@uniontech.com>
-Date: Tue, 15 Jul 2025 15:53:18 +0800
+X-Inumbo-ID: 22a7d44e-6151-11f0-b894-0df219b8e170
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1752566154; x=1753170954; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=Ky6Jb4MAlTKnzH/ihGxJbi1jX6rGawpTI8ROLj5HBjs=;
+        b=ZEYKIUhEhgLEfdmg61TmszltgUPernzvxpMRlViAPyrHSkW13KB4Q/5MRCeagr7bJ8
+         awSLAqALGYY63/iAWPefGfyDT81If6RGPKGn8XuGpdI/F38eIB4lc+TreAy2QiWIM17e
+         xj0qqu/uW3MAI6Z4rfEo0YcgRHnbwV8pOmw2KS5klRpvuX0T/rDMhAKGJmIcG0697Luz
+         DIX/3BUeGEnLYOfbAIx7RokeFtyRbEPvtfQo25MPzbMKV2TA0JKvLKYQwQaThugsiFf/
+         zrB3EdShhbQPW891U8e7XFrBd3eiWUofWU3LlKRAXkfamm/RVh4NrarllGqyws6Jie8/
+         G2Wg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1752566154; x=1753170954;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Ky6Jb4MAlTKnzH/ihGxJbi1jX6rGawpTI8ROLj5HBjs=;
+        b=ELOctKyM4GeYK3kpLf5Fj1Zqrt5T5HO34ADPsRJD0kZe6epQJIBEBN1UkynlwLbTKV
+         HrrfwzW1LEZ/g1MrNNwN3dXbl/wdQb/ln1IlpMGh8dN+2MldSQSDjj+h8ZwcbNkqLHhk
+         TNVuhGn1uN7UzXiHutTFRCQXKqnXnkRzG9wxrF3Fjc1JtIuV9oSHgFPYYFrFGq61MIiz
+         GWyKAm7YA0Yir1x5hA7jv2uWfZQRe4qbodZA4ZUW0Ddix6zXsHso5c7jIDPlii0l9ESK
+         Y3UkQDSgsmTt742FvyAgdVUoIua+SwL0avVMxXWSmMoyWabsM4J0hMoSZOdTANzj1/5V
+         E5Aw==
+X-Forwarded-Encrypted: i=1; AJvYcCXeYuVkwQbqG/Iw+8cJMrfut8NTBqJQICiNyMrKlaXqFQntnnPtY5Kq2JDICerd8SAjq0n/h8n6Hfk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyG/K7FCizhtkZ2uzpQEHLbISP3TmWO+c0+5vpgx/WFrFP803sg
+	9L1cI8GbIBjbillOoq8h8Ky5XvuEc1NxOwb97AWPHmjbcjcPiSCk4bYUaKTVbVIuUQ==
+X-Gm-Gg: ASbGncu7j3zENt+umMIji2U3F3mtNRyuOPDj4hUWlHNDzZpdL0eEx9xhk+ItclbcTS1
+	dlBet1U5gcskxLckSmWtcsGD9aeSbkMDY2u382M4j9VvOY56y8J/2OGqPc/uDjamc8BHPsh2y1g
+	51y2A8bo5hSMY4l4ulFDw+pOYmui8/cucKXQWVERP1ibylyI9/1ZkZNQOnJAzXOT+4YIRznqP4i
+	rk0UbkrRA2vcT/4jJOkTUfvpeOmP7kwAKNVehdJZFN4v0fkm9Xgr0vYTszINrDjcCHkPlAtvoTM
+	jBjwsoa7gl/1EWOUiJRJKC/n8dqsKuK44JUyhrkGycrnFyKOqbY4Vgn2TqHYSkoF0icbbvdZ/e8
+	xY/uw/mrkqFAxmOnNR9jKK40Wwq8rQkDXgCobQy/M1cUX+8JN1OldbxjXODCXFKARYwJewKsf7b
+	Rz4hfbWRs=
+X-Google-Smtp-Source: AGHT+IFwyJ22pJlsm5jnSo/rz5FzQ19qZo/WMA4SNuME3e8o3qBS9XKscGNCLNMhhSsefCHl5Q87Wg==
+X-Received: by 2002:a05:6000:4b13:b0:3a4:d8f2:d9d with SMTP id ffacd0b85a97d-3b5f2e1baadmr12185672f8f.38.1752566154433;
+        Tue, 15 Jul 2025 00:55:54 -0700 (PDT)
+Message-ID: <0686ad8e-749f-45ca-a273-5f4ae718e8b9@suse.com>
+Date: Tue, 15 Jul 2025 09:55:43 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] treewide: Fix typo "notifer"
-To: Greg KH <gregkh@linuxfoundation.org>
-Cc: seanjc@google.com, pbonzini@redhat.com, tglx@linutronix.de,
- mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com, x86@kernel.org,
- hpa@zytor.com, dave@stgolabs.net, jonathan.cameron@huawei.com,
- dave.jiang@intel.com, alison.schofield@intel.com, vishal.l.verma@intel.com,
- ira.weiny@intel.com, dan.j.williams@intel.com, lucas.demarchi@intel.com,
- thomas.hellstrom@linux.intel.com, rodrigo.vivi@intel.com, airlied@gmail.com,
- simona@ffwll.ch, marcin.s.wojtas@gmail.com, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, arend.vanspriel@broadcom.com,
- ilpo.jarvinen@linux.intel.com, andriy.shevchenko@linux.intel.com,
- jirislaby@kernel.org, jgross@suse.com, sstabellini@kernel.org,
- oleksandr_tyshchenko@epam.com, akpm@linux-foundation.org,
- kvm@vger.kernel.org, linux-kernel@vger.kernel.org, ming.li@zohomail.com,
- linux-cxl@vger.kernel.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, netdev@vger.kernel.org, kvalo@kernel.org,
- johannes.berg@intel.com, quic_ramess@quicinc.com, ragazenta@gmail.com,
- jeff.johnson@oss.qualcomm.com, mingo@kernel.org, j@jannau.net,
- linux@treblig.org, linux-wireless@vger.kernel.org,
- brcm80211@lists.linux.dev, brcm80211-dev-list.pdl@broadcom.com,
- linux-serial@vger.kernel.org, xen-devel@lists.xenproject.org,
- shenlichuan@vivo.com, yujiaoliang@vivo.com, colin.i.king@gmail.com,
- cvam0000@gmail.com, zhanjun@uniontech.com, niecheng1@uniontech.com,
- guanwentao@uniontech.com
-References: <B3C019B63C93846F+20250715071245.398846-1-wangyuli@uniontech.com>
- <2025071545-endnote-imprison-2b98@gregkh>
+Subject: Re: [XEN PATCH v2] xen/arinc653: fix delay in the start of major
+ frame
+To: Anderson Choi <anderson.choi@boeing.com>
+Cc: matthew.l.weber3@boeing.com, joshua.c.whitehead@boeing.com,
+ Nathan Studer <nathan.studer@dornerworks.com>,
+ Stewart Hildebrand <stewart@stew.dk>, Dario Faggioli <dfaggioli@suse.com>,
+ Juergen Gross <jgross@suse.com>, George Dunlap <gwd@xenproject.org>,
+ xen-devel@dornerworks.com, xen-devel@lists.xenproject.org
+References: <c3234cf8d5fb5da84e10ebdb95250c594f644198.1752197811.git.anderson.choi@boeing.com>
 Content-Language: en-US
-From: WangYuli <wangyuli@uniontech.com>
-Autocrypt: addr=wangyuli@uniontech.com; keydata=
- xjMEZoEsiBYJKwYBBAHaRw8BAQdAyDPzcbPnchbIhweThfNK1tg1imM+5kgDBJSKP+nX39DN
- IVdhbmdZdWxpIDx3YW5neXVsaUB1bmlvbnRlY2guY29tPsKJBBMWCAAxFiEEa1GMzYeuKPkg
- qDuvxdofMEb0C+4FAmaBLIgCGwMECwkIBwUVCAkKCwUWAgMBAAAKCRDF2h8wRvQL7g0UAQCH
- 3mrGM0HzOaARhBeA/Q3AIVfhS010a0MZmPTRGVfPbwD/SrncJwwPAL4GiLPEC4XssV6FPUAY
- 0rA68eNNI9cJLArOOARmgSyJEgorBgEEAZdVAQUBAQdA88W4CTLDD9fKwW9PB5yurCNdWNS7
- VTL0dvPDofBTjFYDAQgHwngEGBYIACAWIQRrUYzNh64o+SCoO6/F2h8wRvQL7gUCZoEsiQIb
- DAAKCRDF2h8wRvQL7sKvAP4mBvm7Zn1OUjFViwkma8IGRGosXAvMUFyOHVcl1RTgFQEAuJkU
- o9ERi7qS/hbUdUgtitI89efbY0TVetgDsyeQiwU=
-In-Reply-To: <2025071545-endnote-imprison-2b98@gregkh>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------FHPp0EXrNW93l6uPQg7ZugeB"
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpip:uniontech.com:qybglogicsvrgz:qybglogicsvrgz8a-1
-X-QQ-XMAILINFO: N78F51LyEckkcDKzgv7Tnx6Yp49PDg39J1bVDhLfHHd0rhYkT/hwxpFU
-	nAzx1qs0s+CZVEarInXWkJSYDyjG5fEaJ+hZx9jLwMOoUgtqLzuy1iTjyPoWfqhj+IYbbRH
-	815ZtMCZHlg+O/eRDDF3MIhrmsfS+5B93jrd4/Sdibs9lcQiNjtCFDJOfWoIVueDLmYFS8v
-	VB/LY0tSpaUFXN0I8tnRhqDP+4opnYcVeFBdeHH1gsrDV8w3T4ntdRfljPWHvbuHFqq/9lC
-	wQMQHkUMK4ASdK4S5rbdYMEEyQWsCBMuKaLkF+xf/fhf2a8QpGzBOOmfBecmeCEckZX7PUi
-	8qpEEUY1UWPeYMOIshTB8Q3uZ/s7pYTQWMdYdgGfgPDAMPmPumrF1G5gtXTzGx6vYWEEgQw
-	H2ybJCIkaaDCI2iRmOnyv5yQJoeYN1haEIbyNhbJQXge9xtWUDQGGm03IZYDYRlIJc6XUOe
-	enimVvTa7gFJYRf8RmeyC6ksAfWy5cU/vortf0B/NYiN2dKgTxoO8xfp5B3yBoMhobOrgrN
-	Oo8n1sqDNoVpa6nHCEVE8wZBW2mpJnjPSkiFJk7a+tBV52agPS9YPrpR9SoKaXnzDOoTCuL
-	tAi6K1lHMPUrEJqxglrAMTJcwWADjEzuPssJ4uUKvGg2wRbJ7rVl1/JdLUem69NHnGilyon
-	fo+oFgB4E8DXNXrE6B2awCWm2KQynyQZtNxzNuXsqDAv/8vGvmn0JEAlVViD3PjYJ4OlB2o
-	RCVmhyZERfzTxyfuqZULcW+jC6cYshSyPvuviLbkRBs88NtSFuXZ4lPrgUr5hX2woLaKs0i
-	pCJVCRzyY3OK/ucm/lrXrHEW6nF1AQA+gK52kvZLXTu7NHkqO53DRme7iB/Li2Pit+EUMR0
-	6yw3dd56ArCWIs3SYAhnL3nYLcNLTbkqMfQy96MKIK92Y6gqmXlc/1hGPN6Cwxw6MbJ+Pch
-	J9QpICNEXTP0w7Ph0szyo/pzMrgbMFi7IpICOk9lLoy7EOxgLhCd0RykRZLQcs0BFvOElEG
-	mH8kNMDhSm4ZPjMHJPiiopshgr5QoWOS0+HwlhVEPtRDA5I82vtsb2eWJwQNdE6vzy7fQ7G
-	ZRA9r0M7rm6s5mF8QzQm5vp6eAy4yhZnvl4pbg6QkpA
-X-QQ-XMRINFO: OD9hHCdaPRBwq3WW+NvGbIU=
-X-QQ-RECHKSPAM: 0
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <c3234cf8d5fb5da84e10ebdb95250c594f644198.1752197811.git.anderson.choi@boeing.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------FHPp0EXrNW93l6uPQg7ZugeB
-Content-Type: multipart/mixed; boundary="------------Jc6hPek6M3VHoBxxe00gmN7f";
- protected-headers="v1"
-From: WangYuli <wangyuli@uniontech.com>
-To: Greg KH <gregkh@linuxfoundation.org>
-Cc: seanjc@google.com, pbonzini@redhat.com, tglx@linutronix.de,
- mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com, x86@kernel.org,
- hpa@zytor.com, dave@stgolabs.net, jonathan.cameron@huawei.com,
- dave.jiang@intel.com, alison.schofield@intel.com, vishal.l.verma@intel.com,
- ira.weiny@intel.com, dan.j.williams@intel.com, lucas.demarchi@intel.com,
- thomas.hellstrom@linux.intel.com, rodrigo.vivi@intel.com, airlied@gmail.com,
- simona@ffwll.ch, marcin.s.wojtas@gmail.com, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, arend.vanspriel@broadcom.com,
- ilpo.jarvinen@linux.intel.com, andriy.shevchenko@linux.intel.com,
- jirislaby@kernel.org, jgross@suse.com, sstabellini@kernel.org,
- oleksandr_tyshchenko@epam.com, akpm@linux-foundation.org,
- kvm@vger.kernel.org, linux-kernel@vger.kernel.org, ming.li@zohomail.com,
- linux-cxl@vger.kernel.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, netdev@vger.kernel.org, kvalo@kernel.org,
- johannes.berg@intel.com, quic_ramess@quicinc.com, ragazenta@gmail.com,
- jeff.johnson@oss.qualcomm.com, mingo@kernel.org, j@jannau.net,
- linux@treblig.org, linux-wireless@vger.kernel.org,
- brcm80211@lists.linux.dev, brcm80211-dev-list.pdl@broadcom.com,
- linux-serial@vger.kernel.org, xen-devel@lists.xenproject.org,
- shenlichuan@vivo.com, yujiaoliang@vivo.com, colin.i.king@gmail.com,
- cvam0000@gmail.com, zhanjun@uniontech.com, niecheng1@uniontech.com,
- guanwentao@uniontech.com
-Message-ID: <06c9ce34-9867-495c-9842-dcfe9f1d51bb@uniontech.com>
-Subject: Re: [PATCH] treewide: Fix typo "notifer"
-References: <B3C019B63C93846F+20250715071245.398846-1-wangyuli@uniontech.com>
- <2025071545-endnote-imprison-2b98@gregkh>
-In-Reply-To: <2025071545-endnote-imprison-2b98@gregkh>
+On 15.07.2025 05:16, Anderson Choi wrote:
+> ARINC653 specificaion requires partition scheduling to be deterministic
+> and periodic over time.
+> 
+> However, the use of current timestamp (now) as the baseline to calculate
+> next_major_frame and next_switch_time introduces a delay in the start of
+> major frame at every period, which breaks determinism and periodicity in
+> partition scheduling.
+> 
+> For example, we observe 3.5 msec of accumulated delay at the 21st major
+> frame with the following configuration.
+> 
+> Target : qemuarm64
+> xen version : 4.19 (43aeacff86, x86/IRQ: constrain creator-domain-ID assertion)
+> dom1 : 10 msec runtime
+> dom2 : 10 msec runtime
+> 
+> $ a653_sched -p Pool-arinc dom1:10 dom2:10
+> 
+> 0.014553536 ---x d?v? runstate_change d1v0 runnable->running //1st major
+> frame
+> 0.034629712 ---x d?v? runstate_change d1v0 runnable->running //2nd major
+> frame
+> <snip>
+> 0.397747008 |||x d?v? runstate_change d1v0 runnable->running //20th
+> major frame
+> 0.418066096 -||x d?v? runstate_change d1v0 runnable->running //21st
+> major frame
+> 
+> This is due to an inherent delta between the time value the scheduler timer
+> is programmed to be fired with and the time value the schedule function
+> is executed.
+> 
+> Another observation that breaks the deterministic behavior of partition
+> scheduling is a delayed execution of schedule(); It was called 14 msec
+> later than programmed.
+> 
+> 1.530603952 ---x d?v? runstate_change d1v0 runnable->running
+> 1.564956784 --|x d?v? runstate_change d1v0 runnable->running
+> 
+> Enforce the periodic behavior of partition scheduling by using the value
+> next_major_frame as the base to calculate the start of major frame and
+> the next domain switch time.
+> 
+> Per discussion with Nathan Studer, there are odd cases the first minor
+> frame can be also missed. In that sceanario, iterate through the schedule after resyncing
+> the expected next major frame.
+> 
+> Signed-off-by: Anderson Choi <anderson.choi@boeing.com>
+> Suggested-by: Nathan Studer <nathan.studer@dornerworks.com>
 
---------------Jc6hPek6M3VHoBxxe00gmN7f
-Content-Type: multipart/mixed; boundary="------------sUIOFoVilt68TT8Wt0dx0iNl"
+Nit: (Most) tags in chronological order, please.
 
---------------sUIOFoVilt68TT8Wt0dx0iNl
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
-
-SGkgZ3JlZyBrLWgsDQoNCk9uIDIwMjUvNy8xNSAxNToyMiwgR3JlZyBLSCB3cm90ZToNCj4g
-UGxlYXNlIGJyZWFrIHRoaXMgdXAgaW50byBvbmUtcGF0Y2gtcGVyLXN1YnN5c3RlbSwgbGlr
-ZSBpcyByZXF1aXJlZCBmb3INCj4gdGhpbmdzIGxpa2UgdGhpcy4NCj4NCj4gdGhhbmtzLA0K
-Pg0KPiBncmVnIGstaA0KPg0KSG9uZXN0bHksIEkndmUgYWx3YXlzIGJlZW4gcXVpdGUgdW5z
-dXJlIGhvdyB0byBoYW5kbGUgc2l0dWF0aW9ucyBsaWtlIHRoaXMuDQoNCkl0IHNlZW1zIGV2
-ZXJ5IHN1YnN5c3RlbSBtYWludGFpbmVyIGhhcyBkaWZmZXJlbnQgcHJlZmVyZW5jZXMuIEkn
-dmUgDQpwcmV2aW91c2x5IGVuY291bnRlcmVkIHNvbWUgbWFpbnRhaW5lcnMgd2hvIHN1Z2dl
-c3RlZCBJIHNwbGl0IHN1Y2ggDQpwYXRjaGVzIGJ5IHN1YnN5c3RlbSBzbyBlYWNoIG1haW50
-YWluZXIgY291bGQgbWVyZ2UgdGhlbSBpbnRvIHRoZWlyIHRyZWUgDQp3aXRob3V0IGNvbnRl
-bnRpb24uIEhvd2V2ZXIsIG90aGVyIG9uZXMgaGF2ZSBhcmd1ZWQgdGhhdCBmaXhpbmcgc3Bl
-bGxpbmcgDQplcnJvcnMgaXNuJ3Qgd29ydGggbXVsdGlwbGUgY29tbWl0cywgY2xhaW1pbmcg
-aXQgd291bGQgY3JlYXRlIGNoYW9zLg0KDQpTaW5jZSBJIGdlbnVpbmVseSBkaXNjb3ZlciB0
-aGVzZSBzcGVsbGluZyBlcnJvcnMgYnkgY2hhbmNlIGVhY2ggdGltZSwgDQphbmQgdG8gYXZv
-aWQgZ2l2aW5nIHRoZSBpbXByZXNzaW9uIEknbSAic3BhbW1pbmciIHRoZSBrZXJuZWwgdHJl
-ZSBmb3IgDQpzb21lIHVsdGVyaW9yIG1vdGl2ZSwgSSd2ZSBvcHRlZCB0byBzcXVhc2ggdGhl
-bSBpbnRvIGEgc2luZ2xlIGNvbW1pdC4NCg0KVGhhdCBzYWlkLCBJIHBlcnNvbmFsbHkgZG9u
-J3QgaGF2ZSBhbnkgc3Ryb25nIGZlZWxpbmdzIG9yIHByZWZlcmVuY2VzIG9uIA0KdGhpcyBt
-YXR0ZXIuIFNpbmNlIHlvdSd2ZSByZXF1ZXN0ZWQgaXQsIEknbGwgZ28gYWhlYWQgYW5kIHNw
-bGl0IGl0IHVwIA0KYW5kIHNlbmQgYSB2MiBwYXRjaHNldC4NCg0KVGhhbmtzLA0KDQotLSAN
-CldhbmdZdWxpDQo=
---------------sUIOFoVilt68TT8Wt0dx0iNl
-Content-Type: application/pgp-keys; name="OpenPGP_0xC5DA1F3046F40BEE.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xC5DA1F3046F40BEE.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
-
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-xjMEZoEsiBYJKwYBBAHaRw8BAQdAyDPzcbPnchbIhweThfNK1tg1imM+5kgDBJSK
-P+nX39DNIVdhbmdZdWxpIDx3YW5neXVsaUB1bmlvbnRlY2guY29tPsKJBBMWCAAx
-FiEEa1GMzYeuKPkgqDuvxdofMEb0C+4FAmaBLIgCGwMECwkIBwUVCAkKCwUWAgMB
-AAAKCRDF2h8wRvQL7g0UAQCH3mrGM0HzOaARhBeA/Q3AIVfhS010a0MZmPTRGVfP
-bwD/SrncJwwPAL4GiLPEC4XssV6FPUAY0rA68eNNI9cJLArOOARmgSyJEgorBgEE
-AZdVAQUBAQdA88W4CTLDD9fKwW9PB5yurCNdWNS7VTL0dvPDofBTjFYDAQgHwngE
-GBYIACAWIQRrUYzNh64o+SCoO6/F2h8wRvQL7gUCZoEsiQIbDAAKCRDF2h8wRvQL
-7sKvAP4mBvm7Zn1OUjFViwkma8IGRGosXAvMUFyOHVcl1RTgFQEAuJkUo9ERi7qS
-/hbUdUgtitI89efbY0TVetgDsyeQiwU=3D
-=3DBlkq
------END PGP PUBLIC KEY BLOCK-----
-
---------------sUIOFoVilt68TT8Wt0dx0iNl--
-
---------------Jc6hPek6M3VHoBxxe00gmN7f--
-
---------------FHPp0EXrNW93l6uPQg7ZugeB
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-wnsEABYIACMWIQRrUYzNh64o+SCoO6/F2h8wRvQL7gUCaHYI7gUDAAAAAAAKCRDF2h8wRvQL7oEn
-AP9MLViBb0RqjK9xx+PcIi0hiZmUC/37qYH8rnmPBkSAXQEAtm2V/wO2Wv0JvbeWgMrpl99ZvtNN
-kg8rYtwbJwIkrA4=
-=lTpo
------END PGP SIGNATURE-----
-
---------------FHPp0EXrNW93l6uPQg7ZugeB--
+Jan
 
