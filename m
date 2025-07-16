@@ -2,33 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 66AA3B07DE0
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Jul 2025 21:35:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1045614.1415758 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EC308B07EBB
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Jul 2025 22:20:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1045703.1415897 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uc7uH-0007Ie-T7; Wed, 16 Jul 2025 19:35:09 +0000
+	id 1uc8cP-0003LA-Sd; Wed, 16 Jul 2025 20:20:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1045614.1415758; Wed, 16 Jul 2025 19:35:09 +0000
+Received: by outflank-mailman (output) from mailman id 1045703.1415897; Wed, 16 Jul 2025 20:20:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uc7uH-0007Gh-PZ; Wed, 16 Jul 2025 19:35:09 +0000
-Received: by outflank-mailman (input) for mailman id 1045614;
- Wed, 16 Jul 2025 19:35:08 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=2WS3=Z5=gmail.com=w1benny@srs-se1.protection.inumbo.net>)
- id 1uc7uG-0007GI-7X
- for xen-devel@lists.xenproject.org; Wed, 16 Jul 2025 19:35:08 +0000
-Received: from mail-oi1-x233.google.com (mail-oi1-x233.google.com
- [2607:f8b0:4864:20::233])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f948172c-627b-11f0-a319-13f23c93f187;
- Wed, 16 Jul 2025 21:35:06 +0200 (CEST)
-Received: by mail-oi1-x233.google.com with SMTP id
- 5614622812f47-40ba1782428so3652b6e.0
- for <xen-devel@lists.xenproject.org>; Wed, 16 Jul 2025 12:35:06 -0700 (PDT)
+	id 1uc8cP-0003Ii-PV; Wed, 16 Jul 2025 20:20:45 +0000
+Received: by outflank-mailman (input) for mailman id 1045703;
+ Wed, 16 Jul 2025 20:20:44 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=XbuO=Z5=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
+ id 1uc8Yi-0003uY-DC
+ for xen-devel@lists.xenproject.org; Wed, 16 Jul 2025 20:16:56 +0000
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on20623.outbound.protection.outlook.com
+ [2a01:111:f403:2414::623])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id cfc80fe7-6281-11f0-b894-0df219b8e170;
+ Wed, 16 Jul 2025 22:16:54 +0200 (CEST)
+Received: from BN0PR03CA0049.namprd03.prod.outlook.com (2603:10b6:408:e7::24)
+ by SN7PR12MB7953.namprd12.prod.outlook.com (2603:10b6:806:345::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.8901.20; Wed, 16 Jul
+ 2025 20:16:49 +0000
+Received: from BN2PEPF0000449F.namprd02.prod.outlook.com
+ (2603:10b6:408:e7:cafe::3d) by BN0PR03CA0049.outlook.office365.com
+ (2603:10b6:408:e7::24) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.8943.20 via Frontend Transport; Wed,
+ 16 Jul 2025 20:16:49 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ BN2PEPF0000449F.mail.protection.outlook.com (10.167.243.150) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.8943.21 via Frontend Transport; Wed, 16 Jul 2025 20:16:48 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 16 Jul
+ 2025 15:16:48 -0500
+Received: from [172.19.134.125] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.39 via Frontend
+ Transport; Wed, 16 Jul 2025 15:16:48 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,111 +59,112 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f948172c-627b-11f0-a319-13f23c93f187
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1752694504; x=1753299304; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=4Uf+qPaHp9kWW6q3d66Y0AykuaqSii4h2jP2Qbd3Dk8=;
-        b=NbnPtYdxF0X+3SDKF2iPlRQHKiqtPRJKnhGffO6lRPVLvMTvZNNApGCo1faUdts1Ru
-         FJCp8iFahMBgbJMOoYW6S8rNoK+LW6W7wzD3IIwlk75yrJfFoDnlDn8g0WTzXHyFI6v0
-         Q5ixeVh1D/BboooWQB5AdI4P+Vm5LC1+Gk95wySDx9DiRMr6dPYkvNmhb/+wx+QpXJs9
-         JTeu09KnvVvD/zf9+HD/cZHKYOB7KSTmwq8cOyuf4tE9KcikmCQBraOkrWXTuZsE9Kbk
-         YgLVQV+dEYOsb8Z3+X3UMFodg/buPwtrKnPQuVi0UXVQdrGNdAz9sD1WrHUW9yVbRasS
-         Bl+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1752694504; x=1753299304;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=4Uf+qPaHp9kWW6q3d66Y0AykuaqSii4h2jP2Qbd3Dk8=;
-        b=kp53ZzycVKcaonMy1ujnzCGdmGNBpKipkE/u6UcKzl2YgZ+L53R+/SA11wpgg/XAi4
-         NoAgDmGZvM+gfgb7ISvshKFhQzYledPcKL3aVqwCcxttVwKT6SMDlk9IrRHJVHKLlMbs
-         lrrcdctSbAk6Rsu02R+RRUT+70Ey+D5ysndE4rDmEchZFsV4iV3LIU1cTMU/Q6h/iZiU
-         wNeLdDaYseFveBRhvqgAVMyoQILuIJFiBlM7sevpMyqOHP/DrH3kmOmxCnRhJE8oTwli
-         YyqFuCsTC4HrRZYjksBN8ylxaDHF/15OPbdKPsMyGYmzZfGBT88m0vUETP4pd0rEoNQ+
-         WvXA==
-X-Forwarded-Encrypted: i=1; AJvYcCVxeR8GI+jET2ot+YQ3qhMJgDhkbKiuc8XvMVUw+ijl6BxblWdO+cksmbXlfWOW3KCpC2eKa2OO5iU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxNCEnBIMDC+3gCZxyKYRFau55x5ARFQxz8iJmmIYuAbESDSrqv
-	HV3oJAMQC5qk2OGdbwVzjtNFMGfzg8Ch0gTkk6VSiwEyG61g60Ru77nwXx5b/DkbMs40SVpcaIg
-	fYB6y81bvDf1BhGp6WbiafBJw7qXcV5I=
-X-Gm-Gg: ASbGncv6hZrzky05DaosZjuQpeOj7iF/6laI0EK1F3O98tWD/SIRrZbGQylnzr23z6T
-	BNgQLaPZKMiCf5kq259eiGX8Qteh4x/Subl7KqGLOzN7gComoTjHvuzfDo2dEfVTBNhMJN7H5eb
-	hA7VMqS6EkzS6UISTnmYyBNdaBaxsoMZDkn/I5LDog8SiU2R5jk2MF3NillJsijh/xZlOwpQxYS
-	SZ5DrUd
-X-Google-Smtp-Source: AGHT+IE+nQs8nXwmJiDqLZU01ltKB1ELDFy3sD0gC2vQV5qq2Dy/u0Pc0eR9oLGK9bX7peugn2ZwJX1F+iRmetHFTFs=
-X-Received: by 2002:a05:6808:15a0:b0:3f6:8233:bc63 with SMTP id
- 5614622812f47-41cf02ea12dmr1160429b6e.8.1752694504443; Wed, 16 Jul 2025
- 12:35:04 -0700 (PDT)
+X-Inumbo-ID: cfc80fe7-6281-11f0-b894-0df219b8e170
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ppLTjpPrC1m/6SGiDx4zl+FvCeim38w/Ne4vhXyminAaLvGVdMflgdWytFQquAM8lhyaqLP5Y231LiHSffTWt3MzUHNnHoKZjtOpijTZbRp1dbXu0eKXp3witMqB+HBCEjeGG16uJGejbJ/8dOm1qsYDN4e3asupScvhZLiQo51KD/XRgfRRJMpnPhwD5kx7Wzm4zFXzgpEV66awqcGC5MxtuRO+SLWerOS/WVw+u3wsxCepzUK1AhnYGN8TMB4+DwWcbfF4iKlo6rkGZmDdZsa3+hVFwxRTJrfYd3FoEQD6rutym2xybv2U75qo9VCFiTpr1AvWxNgdsF4/GNIt3A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=qAJMn6EwKQTDWUQ9IZSZ2kRVjC+n/8TyZxE1WeWBC38=;
+ b=HYxANU+nx3wKSn/7D2al1Dua5AL8kC9omu+8hULVrYZIWUIMSY6hTDe8p2L1FLOO/jPKPSRTfXlnMRksNTKYesRxr4p6MmqJ740fZ6PY7b0oqF0nCGwNNaDG530yRt3QTKNLq96nPZcxFPSBQ3DEK+b7uTrZaqaqMOcmPagXoylUTQNfTH8AL/buYtH2nzkTauHBXO9qGFkmUJXG7+215ESJScOBkqsfh3inEbM/eXgGNilxovDQ2RUkTrxrDNCXy8J40DNeNzQQqwaN/GXNB3knHAJTTAt0sjq9OjxLaDiFt47zFmeuFBRxu5OfhMZrUGLdgYt/fYa6ZxcMZACObA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qAJMn6EwKQTDWUQ9IZSZ2kRVjC+n/8TyZxE1WeWBC38=;
+ b=NZrjOng9+k80Z7T8URFweI0UKP96lP6wW2uGVf7Klv7EwtUbWJ2B90SyPrgylyxxzaTf3oKaMV6FqmLNd1AtF2Vz3dqmOz3wOh6pTPGjuCNlUuKRzf/bU8mEHE5V6pDIKdA9kjTYO2KJmOhfuI+0w9wq6gwsFv6NFO89YcldoDU=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <973f8678-dff5-4e00-9e25-ce8879eab13f@amd.com>
+Date: Wed, 16 Jul 2025 16:09:58 -0400
 MIME-Version: 1.0
-References: <cover.1752533080.git.w1benny@gmail.com> <9494aa56929b5cb443b9cccb0e671510071b4aab.1752533080.git.w1benny@gmail.com>
- <9357cd00-3557-46ff-9a74-ae44c298bc47@suse.com>
-In-Reply-To: <9357cd00-3557-46ff-9a74-ae44c298bc47@suse.com>
-From: =?UTF-8?Q?Petr_Bene=C5=A1?= <w1benny@gmail.com>
-Date: Wed, 16 Jul 2025 21:34:53 +0200
-X-Gm-Features: Ac12FXyyqIBiUUSUc1o0XZduShXSt1sQ6xJ0LIdG-EDNFSoCZU8Hrq-YqBqZvxs
-Message-ID: <CAKBKdXga6w_Qn1+3uet9O5xCySQUXuvYv=TQBQis+bEKL9=HuA@mail.gmail.com>
-Subject: Re: [PATCH v2 2/3] hvmloader: fix SMBIOS table length checks
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	Anthony PERARD <anthony.perard@vates.tech>, xen-devel@lists.xenproject.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+From: Jason Andryuk <jason.andryuk@amd.com>
+Subject: Re: [PATCH v7 1/7] x86: suppress ERMS for internal use when
+ MISC_ENABLE.FAST_STRING is clear
+To: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <0b57c6f0-9fd0-4f8a-93f8-dc494a1e952c@suse.com>
+ <ebe250c1-d2bd-4b4e-8f2b-484c6cc08a22@suse.com>
+Content-Language: en-US
+In-Reply-To: <ebe250c1-d2bd-4b4e-8f2b-484c6cc08a22@suse.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+Received-SPF: None (SATLEXMB03.amd.com: jason.andryuk@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN2PEPF0000449F:EE_|SN7PR12MB7953:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4062e2b7-6df5-4e4b-e954-08ddc4a5b1e1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700013|376014|82310400026|1800799024|7053199007;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?RzNEYmFyaUlTZjc0RWlsemVNb3hWNEdyRVJIdHdjUFdxOEFKWXBPRXpzNVV5?=
+ =?utf-8?B?aG9hSmo1S3U0RE1adW00UmNzTlFvQzRkM3FrZ2xTeUx2ZU5JcHRobHlkZzNy?=
+ =?utf-8?B?ZjcyZTFNMG9COGlsWWZRcVdBQTFTK0xqMXUyL2hPdGtTTE1HMks2VkFDakRL?=
+ =?utf-8?B?Y2w0SzRXaUFqWmpkNkJ5RzZaVzZzN1VpYS9ERzNCOUduUFZ4Y1pxdFEza0dK?=
+ =?utf-8?B?UlFOZ1hGYThLZzhZemhTbkE4MDlQdTN3Tm9oakEzYnFDWmhsaUp3VWRRd1h1?=
+ =?utf-8?B?eE9rVUZsdHQ1dWJ3cnFySjNmcktaYnNUTmpyZnZROVhrZHhMeWVTVi8zdnpv?=
+ =?utf-8?B?YUZOemdsN1U0cFJQZmdXR25uc2FzbS9KeXFSb2dzK0kxOW9RWDVmWEs1M1NH?=
+ =?utf-8?B?b2dEOS8vcm5qRG5OWGs2NTFlY3RQRlFvdzdxTDZYZVB6d0l1MVBsa2hVY1lS?=
+ =?utf-8?B?UmxNQTJManJ4ck1qMUw2cWdCSG9TeFBSWnhReDhwYTZKcVRGWXBaY1llZ3dB?=
+ =?utf-8?B?aVE1Vm5XYjBSUXFtazdJeXNlVEY0eERPaHBqOVpQZ3VuZTRCejZXNFI5WUd1?=
+ =?utf-8?B?ZGkweFJUVFJFaWpLV0tjMHV4NWgrUmNVSnBlN3J3RWZKZ09yVi9RQ3ByQjM3?=
+ =?utf-8?B?K2xGNERjY2xCbVVKWkRkMUs3UGN5KzBnTkpFOGxwKzkrVUxOamE5Z3pSaUZN?=
+ =?utf-8?B?cmhDcVNkSC9pbW81cjg5UCtZVWsxaENMU1NzK3FoQ2J2VHpTVERlMXpFOEdK?=
+ =?utf-8?B?OUs4OWRIdUhaNEVjK3NuNzNaV0VISkdsSytWTHdmV1hYSUpid0RMSnNjUFRo?=
+ =?utf-8?B?TExMdkg1UlR2dGVpd0xrN2ZONUVSUDJZa1JJZ2R6RTRvbi9CNHNPYjQyK2Ew?=
+ =?utf-8?B?dytIRTAyQ3pTTXIyN1VsN2ZKNHV5Wkk3dS9hSHR1QkNzK1dlMElVVTVHaHA3?=
+ =?utf-8?B?MFIrODBPQnF4NGo5d2hBZHdKS2VHMXlRaFhEOG9pSTRhTDFqWGJybHR4VFdq?=
+ =?utf-8?B?QW9laWJPNzhEeWE4RHBzZDdsZGJqM3RySElJVlVuSE1jL2dReGtsRVhvaDBB?=
+ =?utf-8?B?TGNlbmRBRm5qVGErZmJ6SW02V1pnVUZwOHpZaElaYUNhT3ZhV1UwSlFPaGUv?=
+ =?utf-8?B?RlBndUVONmNrY3ZQQTFKczlpTnUraDZ5ZERVdWVZU3NMRW9xbW9vckp3WUtC?=
+ =?utf-8?B?TngwbU14UlhlMnlVMVc0N0JtandzMlEwd3VCcUVSdTd4Wmh0VkNvaHNvTnMz?=
+ =?utf-8?B?SW1JWUlRU1UxTjJiVkd1MElIaUp1dWxqMEpuNDJkV3JHM1JBYjdxV1BmQnQv?=
+ =?utf-8?B?Rjd5ZjFjNDR1YlduemM4V015UkdHUklYeWwyUjR2WnNGTTRnUEpKTzgwQUQ1?=
+ =?utf-8?B?SFFLMDhUTXNweGxJOXNXMFNhakZZV0QwWmJOVlFMalU3dCthQW5ZcWlRUWJZ?=
+ =?utf-8?B?M2FQUjNFM0F0ZFhVNmt2RW9PVnJSbWJtRmU0Rk9HRmhUL3JLVTdxcEUwUUxG?=
+ =?utf-8?B?KzNWTWdnNytQUjNVVUczUEd1Q05BaHNoUFJsaEJmV2IzcjNQalkya0MrNEYw?=
+ =?utf-8?B?UU9oVVBicXE5aW5qdnpGem1lQkV6MGI5cWJLWUVVMFpXdWpMWUhNbEQ5WEk0?=
+ =?utf-8?B?S0dTMTRUUWtMbmtlZ2JPMFgrSEhnSklWOXNTOUN1MkJhSUR4Qk14bHU1NG5Y?=
+ =?utf-8?B?bmp0WXh6MFlwUThodCtLSkc2YlgwT3d5UGwwaDhoKzZnOFlYNEFuWkw1NHI1?=
+ =?utf-8?B?K0hzVzJiYVVVMldqMlNqeS9YMm1JU3hvSHVRcHFCY3JDT3ZZL2NqSGtva3R2?=
+ =?utf-8?B?T2k5QllSTUMzdHF2Z1BTUUdURWJ5c1dwZTYzMTRFOEc4bzVRQkpmOEpQMm5I?=
+ =?utf-8?B?cGlkOTFocWpidlJwNGlqRk0vRTZGRWNvZWNDMDMxUjZxV3dMZzYzY0xXSFla?=
+ =?utf-8?B?NENwMUZETGMxMW5JYmloUW5xKzRSSWMvTXA3NVVyeUN4azNuWUJHcmo3WGc5?=
+ =?utf-8?B?ZDFCNzl5TFkwS1lkeEE3cmpJdkJMRjlIUTNwdml1ZE0vVzF6OWVtNmVzenI0?=
+ =?utf-8?Q?AZvC9o?=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700013)(376014)(82310400026)(1800799024)(7053199007);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jul 2025 20:16:48.9062
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4062e2b7-6df5-4e4b-e954-08ddc4a5b1e1
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN2PEPF0000449F.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7953
 
-On Wed, Jul 16, 2025 at 12:27=E2=80=AFPM Jan Beulich <jbeulich@suse.com> wr=
-ote:
-> > +    if ( next !=3D start )
-> > +    {
-> >          /* Set current chassis handle if present */
-> > -        if ( p->header.length > 13 )
-> > +        if ( p->header.length >=3D offsetof(struct smbios_type_2, boar=
-d_type) )
->
-> Comment and code don't fit together, unless one goes check that board_typ=
-e
-> is the field immediately following chassis_handle.
+On 2025-07-02 08:15, Jan Beulich wrote:
+> Before we start actually adjusting behavior when ERMS is available,
+> follow Linux commit 161ec53c702c ("x86, mem, intel: Initialize Enhanced
+> REP MOVSB/STOSB") and zap the CPUID-derived feature flag when the MSR
+> bit is clear.
+> 
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-That's the tragedy of using offsetof in this situation. What is mostly
-needed throughout this code is "offsetof(x) + sizeof(x)". Instead, I'm
-mostly using offsetof(a-field-that-is-following-the-field-that-i-really-mea=
-nt)
-which leads to comments that seemingly don't make sense.
-
-How should I ideally proceed? Should I introduce a new macro?
-
->
-> >              if ( *((uint16_t*)ptr) !=3D 0 )
-> >                  *((uint16_t*)ptr) =3D SMBIOS_HANDLE_TYPE3;
->
-> Why not switch to p->chassis_handle, without any use of "ptr"? Yet then I
-> fear I don't really understand what is being done here.
-
-Right, that would make sense. I left the original code intact.
-
-> Why would an arbitrary non-zero value be overwritten with a fixed value?
-
-That's a question for the original author. FWIW, qemu does not coerce
-these values.
-
-But if I had to guess, the original author wanted to make sure that
-the SMBIOS data do not reference nonsensical handles.
-
-I would argue that if a user decided to fiddle with these values, they
-know what they're doing and I would let them shoot in the foot if they
-desire to do so (in other words, I would remove this coercion; but
-that's not up to me to decide).
-
-> The other comment may want retaining, though.
-
-Which one do you mean? This one?
-
-> -    /* Only present when passed in */
-
-If so, I should probably add this comment to all the newly introduced
-tables as well.
-
-
-
-P.
+Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
 
