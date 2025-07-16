@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D3A29B080EC
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Jul 2025 01:24:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1045956.1416198 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A8E5DB080EE
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Jul 2025 01:25:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1045961.1416208 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ucBU0-0002HC-Gj; Wed, 16 Jul 2025 23:24:16 +0000
+	id 1ucBUh-0002t1-PD; Wed, 16 Jul 2025 23:24:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1045956.1416198; Wed, 16 Jul 2025 23:24:16 +0000
+Received: by outflank-mailman (output) from mailman id 1045961.1416208; Wed, 16 Jul 2025 23:24:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ucBU0-0002G3-E9; Wed, 16 Jul 2025 23:24:16 +0000
-Received: by outflank-mailman (input) for mailman id 1045956;
- Wed, 16 Jul 2025 23:24:15 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1ucBUh-0002rE-MW; Wed, 16 Jul 2025 23:24:59 +0000
+Received: by outflank-mailman (input) for mailman id 1045961;
+ Wed, 16 Jul 2025 23:24:58 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=38Or=Z5=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1ucBTz-0001pB-48
- for xen-devel@lists.xenproject.org; Wed, 16 Jul 2025 23:24:15 +0000
+ id 1ucBUg-00025y-RC
+ for xen-devel@lists.xenproject.org; Wed, 16 Jul 2025 23:24:58 +0000
 Received: from sender4-of-o50.zoho.com (sender4-of-o50.zoho.com
- [136.143.188.50]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fb9de802-629b-11f0-a319-13f23c93f187;
- Thu, 17 Jul 2025 01:24:14 +0200 (CEST)
-Received: by mx.zohomail.com with SMTPS id 1752708245501418.9230605776253;
- Wed, 16 Jul 2025 16:24:05 -0700 (PDT)
+ [136.143.188.50]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 150eaf39-629c-11f0-b894-0df219b8e170;
+ Thu, 17 Jul 2025 01:24:57 +0200 (CEST)
+Received: by mx.zohomail.com with SMTPS id 175270828567917.672936164491034;
+ Wed, 16 Jul 2025 16:24:45 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,39 +38,39 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fb9de802-629b-11f0-a319-13f23c93f187
-ARC-Seal: i=1; a=rsa-sha256; t=1752708247; cv=none; 
+X-Inumbo-ID: 150eaf39-629c-11f0-b894-0df219b8e170
+ARC-Seal: i=1; a=rsa-sha256; t=1752708288; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=kKvetYdaXRIXdOnZ3X+FEKQL/5mG1GBNmEBcGBh+9UvbN+EfCN1XiuTkVXotURmlPMhafR+0rkQ1oLfvLJhqMa4+WoV8RS6tNaZe6Cpc1Bsa22XptxFnoybutsYR1ASICGl+POQZh1jnbHmEsk5BIpWeS/Mt2Lz0HqVYuNZ+9wQ=
+	b=OVnYzUIu4NQsKm8XfnARPUtYNFU0CTZ/QaX9CKfMUnZ7TNdbeuOiBPQUQfDQgVCa3w2QpBou5KtdYn2zF+af8ca8TnADBPtZTcrB9ecwPNOVcK7zpB6DMDnoJgyHazZDNilDoj7L+i4AqgYx14MKIxm1QYm1jMOVaHEu0A3zOdc=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1752708247; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=SikZOuR8PNSE3+85z+ibVI+ja0+HyU4v3B2+zjhojg4=; 
-	b=lSJ5ehbqR46Z/2AbGi/VGflRbWmeqmDfsfowEvcjJlsTzsAfFsSo8pPVafaW26R+ea3DmaYivRj6kyIB1POSvifJiqqGfs0Gmg+WxJZi4DGC4wNkBDCpG4fdyFnqD9f5WvOnYkhmQnL1tFAJ5uKpSEfm3J733573ol6XIClwwJk=
+	t=1752708288; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=sugdUcGPK993uf3goVeDdo77aVrxv8MxsIiLdoUxs9A=; 
+	b=fySY/Zg3WLz1l+Ay7ryd64Ld9Dje4Qkqfs3NpIb/jn4Otza3pkMdSa4coFy5UrLzSGlbO9LMF11/vBAw9EKQ6SM3DNEtdTgiRVafNndVX7Jl43arnx8XZ7GId9ZseDI3+a+xagKiLrSE9A7fDKi+4f4KRSPL744uZs3C+WU4om8=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
 	dkim=pass  header.i=apertussolutions.com;
 	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
 	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1752708247;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1752708288;
 	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
 	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=SikZOuR8PNSE3+85z+ibVI+ja0+HyU4v3B2+zjhojg4=;
-	b=pMQ+GXfrUbNWQVhf1SJYD4kPUD86A7Z+gTLePu0F0Vd/I/+sBAhWwG1rwcQbrZvN
-	guMJDnmt2NqtW5fNi3ZZcqmIp271S9KGmNB4Hz9bodLWNG3IxJnOPVWDzkDoyOgLAPS
-	8FLIl/PLEVBbCQgZV7+x0lEP3jTdlsQR4dp07w2o=
-Message-ID: <c4334044-0e1e-4db0-b66e-a3afa7ed6612@apertussolutions.com>
-Date: Wed, 16 Jul 2025 19:24:03 -0400
+	bh=sugdUcGPK993uf3goVeDdo77aVrxv8MxsIiLdoUxs9A=;
+	b=svbNs0oKvE1NDG93vDT6JnhZRoMRyIyu9qUe7bO2AYDRrtN7dbZ/p736SEwCyTtI
+	g9j8AH68Z2sjpGRu7Pal+KpsPwSX2l/GwxwpNVbJO0t1rJiIQxScfCc0WSflASAFtQt
+	KvRc2Ek0Br2gQENAdypGpwn07y8DniJAcRXQaCGY=
+Message-ID: <a7bb6932-fe4f-4f0d-8626-6839971ac150@apertussolutions.com>
+Date: Wed, 16 Jul 2025 19:24:43 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 3/7] xen/sysctl: wrap around XEN_SYSCTL_page_offline_op
+Subject: Re: [PATCH v8 4/7] xen/sysctl: wrap around XEN_SYSCTL_scheduler_op
 Content-Language: en-US
-To: Penny Zheng <Penny.Zheng@amd.com>, xen-devel@lists.xenproject.org
-Cc: ray.huang@amd.com, Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
- Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>
+To: Penny Zheng <Penny.Zheng@amd.com>, xen-devel@lists.xenproject.org,
+ xen-devel@dornerworks.com
+Cc: ray.huang@amd.com, Nathan Studer <nathan.studer@dornerworks.com>,
+ Stewart Hildebrand <stewart@stew.dk>, Dario Faggioli <dfaggioli@suse.com>,
+ Juergen Gross <jgross@suse.com>, George Dunlap <gwd@xenproject.org>,
+ Stefano Stabellini <sstabellini@kernel.org>
 References: <20250711043158.2566880-1-Penny.Zheng@amd.com>
- <20250711043158.2566880-4-Penny.Zheng@amd.com>
+ <20250711043158.2566880-5-Penny.Zheng@amd.com>
 From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
 Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
  xsJuBFYrueARCACPWL3r2bCSI6TrkIE/aRzj4ksFYPzLkJbWLZGBRlv7HQLvs6i/K4y/b4fs
@@ -103,25 +103,25 @@ Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
  ke943EIUts9CmFAHt8cNPYOPRd20pPu4VFNBuT4fv9Ys0iv0XGCEP+sos7/pgJ3gV3pCOric
  p15jV4PCYQQYEQgACQUCViu54AIbDAAKCRBTc6WbYpR8Khu7AP9NJrBUn94C/3PeNbtQlEGZ
  NV46Mx5HF0P27lH3sFpNrwD/dVdZ5PCnHQYBZ287ZxVfVr4Zuxjo5yJbRjT93Hl0vMY=
-In-Reply-To: <20250711043158.2566880-4-Penny.Zheng@amd.com>
+In-Reply-To: <20250711043158.2566880-5-Penny.Zheng@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-ZohoMailClient: External
 
 On 7/11/25 00:31, Penny Zheng wrote:
-> The following functions are only to deal with XEN_SYSCTL_page_offline_op,
-> then shall be wrapped:
-> - xsm_page_offline()
-> - online_page()
-> - query_page_offline()
+> Function sched_adjust_global is designed for XEN_SYSCTL_scheduler_op, so
+> itself and its calling flow, like .adjust_global, shall all be wrapped.
 > 
 > Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
 > Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+> Acked-by: Stewart Hildebrand <stewart@stew.dk> #a653
 > ---
 > v1 -> v2:
-> - add transient #ifdef in sysctl.c for correct compilation
 > - no need to wrap declarations
-> - place the #ifdef inside the function body to have less redundancy
+> - add transient #ifdef in sysctl.c for correct compilation
+> ---
+> v2 -> v3:
+> - move #endif up ahead of the blank line
 > ---
 > v3 -> v4:
 > - remove transient "#ifdef CONFIG_SYSCTL"
