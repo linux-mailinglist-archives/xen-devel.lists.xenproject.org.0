@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A598B0784D
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Jul 2025 16:40:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1045289.1415375 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7641AB07863
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Jul 2025 16:43:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1045294.1415384 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uc3IP-0005TN-9t; Wed, 16 Jul 2025 14:39:45 +0000
+	id 1uc3MF-0007DX-P6; Wed, 16 Jul 2025 14:43:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1045289.1415375; Wed, 16 Jul 2025 14:39:45 +0000
+Received: by outflank-mailman (output) from mailman id 1045294.1415384; Wed, 16 Jul 2025 14:43:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uc3IP-0005RJ-6C; Wed, 16 Jul 2025 14:39:45 +0000
-Received: by outflank-mailman (input) for mailman id 1045289;
- Wed, 16 Jul 2025 14:39:43 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1uc3MF-0007Az-Lf; Wed, 16 Jul 2025 14:43:43 +0000
+Received: by outflank-mailman (input) for mailman id 1045294;
+ Wed, 16 Jul 2025 14:43:42 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=L52i=Z5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1uc3IN-0005RD-UK
- for xen-devel@lists.xenproject.org; Wed, 16 Jul 2025 14:39:43 +0000
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [2a00:1450:4864:20::433])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b51936be-6252-11f0-b894-0df219b8e170;
- Wed, 16 Jul 2025 16:39:41 +0200 (CEST)
-Received: by mail-wr1-x433.google.com with SMTP id
- ffacd0b85a97d-3a50fc7ac4dso3169953f8f.0
- for <xen-devel@lists.xenproject.org>; Wed, 16 Jul 2025 07:39:41 -0700 (PDT)
+ id 1uc3ME-0007At-54
+ for xen-devel@lists.xenproject.org; Wed, 16 Jul 2025 14:43:42 +0000
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [2a00:1450:4864:20::434])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 43e8a025-6253-11f0-a319-13f23c93f187;
+ Wed, 16 Jul 2025 16:43:41 +0200 (CEST)
+Received: by mail-wr1-x434.google.com with SMTP id
+ ffacd0b85a97d-3a4f72cba73so658515f8f.1
+ for <xen-devel@lists.xenproject.org>; Wed, 16 Jul 2025 07:43:41 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-b3bbe6bd903sm14041826a12.49.2025.07.16.07.39.36
+ 41be03b00d2f7-b3bbec94a82sm13702061a12.8.2025.07.16.07.43.36
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 16 Jul 2025 07:39:39 -0700 (PDT)
+ Wed, 16 Jul 2025 07:43:39 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b51936be-6252-11f0-b894-0df219b8e170
+X-Inumbo-ID: 43e8a025-6253-11f0-a319-13f23c93f187
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1752676781; x=1753281581; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1752677020; x=1753281820; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=65lH/+aIGd8SU1NSg62J/mkbiheGCCh5LG3Ru1ZOMdQ=;
-        b=PVxn6AcvdpW8DDLAl/nDW6UUNLVNHX0G6rnLyBdYqWvKosb4MorOuh6DU0Orj2553U
-         +eMI7MdH45xdWbzJRxp5VG3uxDa7PdFFNiVSOBEpM60IN5jb1HBWcOTds8UW1L0PTeCk
-         IOJLl+CLmN4uHqN8h5C+kqjmqZl89gPR/ATIKgiU+5YdgKtMxaAlFNE97diieY/uUQJU
-         LgoYnng2peJpaqdvt1zPJEu+Od9YwmmWOgyf0F2fycHNjmP54BaFS+ThGOn7b58igWET
-         nih/P/4uVRJyx08VMavkcD7t0Q4bZ57oNBXvZUFIiFeCototIARdBfnP/yg7W/9SEeXg
-         xjiQ==
+        bh=p3J/qlQM8J6O2t8N4GGPOjA+woYKtWY4gghR0G70ask=;
+        b=CKWZg8Qogp3cXmKgbL4Hooqfva8FohIuajBO4P0F7K7G5FB5mOXxkKfSAO2WmXPm9G
+         307qYkkDYhwyyW+UHZoMr+iansPOq9uK3brLOA1JjFymiTX9xLebPz17mr85FX9d8meD
+         LCqO+a/Bn2gOLF3iquBvHi7H6hPAFHtl0FgzH4OcQyArtAq931H4LpfZe7GdPz7DKa/1
+         vGYr6kMWj5O3CgQ0q8sR9GGBw4H5u3y8ZYLfoDVJoDKpK4p4PnLgCkwAbtHSqVFhk4O8
+         cvLu2aT+L6WQHIQEViwAJgK6vBqhiJk+DcAkMaVaHhwQRtGuwaAGGQPD59U6bI1ul9Or
+         1ptg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1752676781; x=1753281581;
+        d=1e100.net; s=20230601; t=1752677020; x=1753281820;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=65lH/+aIGd8SU1NSg62J/mkbiheGCCh5LG3Ru1ZOMdQ=;
-        b=waaahWRzlq3VnVIH9DnO9/Plm8iREkpfu+d6Mtvj2O6X0izEAL5j+9Jf9So1oyv5X4
-         cfIJ1qX2uSp04MOnG9Ys8PDJr9fkHKAlBvAPuEaXIZ93loUmA1xhU2D5cB6LukuLRXry
-         RGzyfU+riDLqFnJCpyVkLYCvIe7OjPbYFZaDcSYEv9c9HOG5ghbVJCUdNQn5K0zQJATq
-         wcRwXxgvOpnkZiKS7+9Vm6KLB/s+DQDyKedu5/LQ2qHmUx1IeqToMyiSIFu8DPdlNPdp
-         m00RKPefxU0kmGnkrUWNHcxR0yMvXujz9TmMH8IVudfY8YzN0PGMIHI+nx67nRkZDUwU
-         /AMg==
-X-Forwarded-Encrypted: i=1; AJvYcCX2ApHu4rwX0WnkOR9zFRYH21/CLmGwBsjFk4atpC5rzMEdnoHIilVZRW9MHAM0VCcowS0r/sfd8EE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxdrQ19MOdY6f8fxpnU3CS8zkDnc0A24pJMCSqCFEV+exTHuPR1
-	xnIIpsy7pnfJD63shLaVJUqYfINTn7yi2xDeaEVLJ0sDMkWR/t16bW/Bmavy9c2eqg==
-X-Gm-Gg: ASbGncsBMGacY7OIom8nveDcF5Gc4QKgzsnfE9wNosugQxdVv0s75lMh9lLOm2wefaJ
-	H9lMUs5EnX2AteXP3zyGSdSMNtkobOWnu2jfykcnb1D5mHu86YCFeORfxZn3eAutOSumMVdQXxb
-	kRmZ50TA+t47AO+S6Xd76frn7rN0C5/hCa0D9y/KIkqfJS9cIJgUkQUOdLMrVIvggSJB72BvKpE
-	1okmj3vn3PRFP3Tbl605oh5cVaiA9qeW1icUI1zU/zsZuWutllnFfZcrXQ2xzei/aRubpbPCgVt
-	Xox2NPIR2dpieAW4qAnn/jjIT+0+r7cZREiFwihdzcyARO1vuywWzaNIFpf9g0v2PKOqbvpm5v6
-	h3bsHMhV8VbPGtnbcPW9Wj3hc5iRBmlSrcwzEbpMG/Li2LOTvNT/eRFI9hRl8+12PZTOXJWdyRq
-	ZnIrHKTcc=
-X-Google-Smtp-Source: AGHT+IF524ENwfXPXVMRxkLuA88s+zmWexcRMc7Ao+aDpIllvMd5aoRh+23HhiRNzzXth671uWxkxw==
-X-Received: by 2002:a05:6000:440f:b0:3a1:f5c4:b81b with SMTP id ffacd0b85a97d-3b60dd55b45mr2163502f8f.23.1752676780912;
-        Wed, 16 Jul 2025 07:39:40 -0700 (PDT)
-Message-ID: <e642029b-c43a-4526-bf00-f113971f0a10@suse.com>
-Date: Wed, 16 Jul 2025 16:39:32 +0200
+        bh=p3J/qlQM8J6O2t8N4GGPOjA+woYKtWY4gghR0G70ask=;
+        b=Q+SF6RycvqY6SA4kFCVmJ6CHzJ5JbMfy2Nw74NNCwILp1vh+WmzH5hJ0rLviDfJ4pW
+         8/zJgh4GOcGuFmSOfdDMQdc18TszFYg5T4rvkF+br1rnGWc0JxVkJiYl8fRFWzObyNrm
+         CCEAKpnAtwCW1pE6S06gVCxC7uVZTaKWS9zAMCcqRsKquw14/xVb2ZorYnmBLp84CUYd
+         jYoObLLRTn85zGa2drIG0OO+QW/JzwedGuJDDJ5lzyfMM/yg23LuBc9/gZBfAs/nC1M0
+         R0GZmS4izzmEiDmp1CHQPP7codCa2O/i6L8jcPDdz3nduO/b7nBZrNicvxcFBJdGSBhL
+         DVBg==
+X-Forwarded-Encrypted: i=1; AJvYcCXTqTzGCbWP599VmB/E2EHq0R7A2jTxd2N8HECNcR9wpmjnnk9dp2/JLdw9OPrKOJwbE5NWcP3672Q=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YybwNGL1IeXwn2GYxx3FhgUtWSHgDPCyc/LsWc5MaSCoy66kbHn
+	YPATAxxTmq9EAGgtQodOg1+BXQ1/y+xijZvoPtQ+J+pQZzRz98eWqFVILD7itD7okA==
+X-Gm-Gg: ASbGncs2zFqGXZ1GddH44Vd9ltKhvfjLwq1HzgZireaQamhZC9Lwn5EZxUZP9RYgdGD
+	c4IyCWpqHrAHGanbN+Pc8Af+k+dUIEC57j8tWbg/l7/MB8jRxu6jjgTs7n18lMTt8UunwHLA4E/
+	ZJouO6rGWfWCMWZMuJ2Pl3o1jNwB3JCeZ8IUVceoYEloWJDxf/pnKWLwLT6yWt7uRnRZ3JDAmm0
+	IN/hintqEHE+1C4AkpHvokmkSgMsxLr8Z+D9ULHJPflGgKnM4RNPSSULbh5jN3PLu/fxToLA3+a
+	wwJgvRY3IBTElW3KCWHviHb81bg7GJ9duCVmC132hQSDQ0XPDXMgjxzlqzJA6D3meBNuYkl4Ir6
+	w4rcKhe0DmDKrdAsPAFYjfBziADp+IOrdE5tNIcLBzDblOLZpkhVVxfkX71X1UB/c9dVh3WPrVH
+	VPKeBPIgI=
+X-Google-Smtp-Source: AGHT+IHVe3WNaqPPrzmwXwI810lXw+WVTaF4FIfawf1b1z7IFPPDKPaboCwKCWozbSf8H4L/xx0qVQ==
+X-Received: by 2002:a05:6000:26c9:b0:3a4:e1f5:41f4 with SMTP id ffacd0b85a97d-3b60953aebbmr6504598f8f.17.1752677020454;
+        Wed, 16 Jul 2025 07:43:40 -0700 (PDT)
+Message-ID: <09887347-4b42-46f9-8462-0b76babb2617@suse.com>
+Date: Wed, 16 Jul 2025 16:43:32 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86: Prefer d->max_vcpus to dom0_max_vcpus()
-To: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+Subject: Re: [PATCH v6 03/19] tools: optimize cpufreq average freq print
+To: Penny Zheng <Penny.Zheng@amd.com>
+Cc: ray.huang@amd.com, Anthony PERARD <anthony.perard@vates.tech>,
  xen-devel@lists.xenproject.org
-References: <20250716141807.52585-1-alejandro.garciavallejo@amd.com>
+References: <20250711035106.2540522-1-Penny.Zheng@amd.com>
+ <20250711035106.2540522-4-Penny.Zheng@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -119,21 +119,19 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20250716141807.52585-1-alejandro.garciavallejo@amd.com>
+In-Reply-To: <20250711035106.2540522-4-Penny.Zheng@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 16.07.2025 16:18, Alejandro Vallejo wrote:
-> These days d->max_vcpus is populated on domain_create(), so use that instead and
-> avoid a function call.
-
-And it's not just this. As it's not straightforward to prove that two runs of
-this function, at different points in time, would yield the same result, it's
-also quite desirable that then there's only a single call remaining.
-
-> Signed-off-by: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
+On 11.07.2025 05:50, Penny Zheng wrote:
+> Unlike Cx/Px states, for which we need an extra loop to summerize residency (
+> sum_cx[]/sum_px[]), we could call get_avgfreq_by_cpuid() right before printing.
+> Also, with later introduction of CPPC mode, average frequency print shall
+> not depend on the existence of legacy P-states, so we remove "px_cap"
+> dependancy check.
+> 
+> Signed-off-by: Penny Zheng <Penny.Zheng@amd.com>
 
 Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-Jan
 
