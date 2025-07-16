@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E36D0B07A8D
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Jul 2025 18:00:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1045424.1415545 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 033C8B07A91
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Jul 2025 18:02:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1045432.1415555 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uc4YZ-0001je-Oc; Wed, 16 Jul 2025 16:00:31 +0000
+	id 1uc4am-0002c5-5F; Wed, 16 Jul 2025 16:02:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1045424.1415545; Wed, 16 Jul 2025 16:00:31 +0000
+Received: by outflank-mailman (output) from mailman id 1045432.1415555; Wed, 16 Jul 2025 16:02:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1uc4YZ-0001gO-LQ; Wed, 16 Jul 2025 16:00:31 +0000
-Received: by outflank-mailman (input) for mailman id 1045424;
- Wed, 16 Jul 2025 16:00:30 +0000
+	id 1uc4am-0002aL-0O; Wed, 16 Jul 2025 16:02:48 +0000
+Received: by outflank-mailman (input) for mailman id 1045432;
+ Wed, 16 Jul 2025 16:02:46 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=O24U=Z5=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1uc4YY-0001PN-GA
- for xen-devel@lists.xenproject.org; Wed, 16 Jul 2025 16:00:30 +0000
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [2a00:1450:4864:20::430])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=L52i=Z5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1uc4ak-0002aF-H1
+ for xen-devel@lists.xenproject.org; Wed, 16 Jul 2025 16:02:46 +0000
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [2a00:1450:4864:20::42d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id fe315870-625d-11f0-b894-0df219b8e170;
- Wed, 16 Jul 2025 18:00:28 +0200 (CEST)
-Received: by mail-wr1-x430.google.com with SMTP id
- ffacd0b85a97d-3a52874d593so19982f8f.0
- for <xen-devel@lists.xenproject.org>; Wed, 16 Jul 2025 09:00:28 -0700 (PDT)
-Received: from localhost (112.pool92-178-7.dynamic.orange.es. [92.178.7.112])
- by smtp.gmail.com with UTF8SMTPSA id
- ffacd0b85a97d-3b5e8bd15bfsm18552177f8f.19.2025.07.16.09.00.26
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 16 Jul 2025 09:00:27 -0700 (PDT)
+ id 4f406156-625e-11f0-b894-0df219b8e170;
+ Wed, 16 Jul 2025 18:02:44 +0200 (CEST)
+Received: by mail-wr1-x42d.google.com with SMTP id
+ ffacd0b85a97d-3a507e88b0aso9010f8f.1
+ for <xen-devel@lists.xenproject.org>; Wed, 16 Jul 2025 09:02:44 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-23de435cb63sm126769965ad.235.2025.07.16.09.02.38
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 16 Jul 2025 09:02:42 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,391 +45,127 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fe315870-625d-11f0-b894-0df219b8e170
+X-Inumbo-ID: 4f406156-625e-11f0-b894-0df219b8e170
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1752681628; x=1753286428; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=1SaeRL6BLke/Vs0aykI7PTH6MJeBZpeQf6U09ZSw/Ho=;
-        b=Zhp19cqML+rJDq+x+bYZtCHME5zaso6rOUUDaD1NlzJ726lc6cSuaVdOT+VFH5uGhf
-         e2mk69oPRG2YIPgMYU/4KK/hqX7cP6G+1CNG1hJvHe14lqiAeieL7AhJNIQeOkYMMpi6
-         zSzzHYVy9xxZKwYFiWW72Y3hWdrnGYZ2NM0YM=
+        d=suse.com; s=google; t=1752681764; x=1753286564; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=qimlHLhmhYpSOetFnlvFGqCSN6FNcPV6hqRWuJy3CCs=;
+        b=X03jyNidYKist4az/Qj3nz53qhOc1gyBbgWTp8pgkbm4Jg7jSlUkuGSz72aBmE/tw4
+         9+uv9zuq1OvedvkG2QisGEXWWa88eGJF0q9hNuPAxcQde7SFoOhUrn3gWuepZc/rE2pp
+         EjHhG8X5insn7hqjv2G5r0u3dVc+sVG43vkZpAYUYO3KTJhYzkG78NnU6JSbfwpCn9Hr
+         ATbV+Vp0LKbQUmq8UX/SleFpr2bOYHX4v92BWZngI70lYnFN9+EgGmu0CsEqCgIuVzFx
+         BVwJUNuvtwMCtp9rz0RjYRjBaYd2cEJcim1l4d1xcPJzVMn5KRgfx2n+9DIIlzHff3eJ
+         R7Bw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1752681628; x=1753286428;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=1SaeRL6BLke/Vs0aykI7PTH6MJeBZpeQf6U09ZSw/Ho=;
-        b=ZYYm9c1DkCwDpJSp8tLbWFMygYzySd66sJWod9+gjO4YFMv8puaveywqToqlg+eODA
-         i+gbu/l7Z/NLRube3gZZ48GZfJAgkJNt25xAzpPMOnHnuPB7sVrQJ+igvqOICv+cigVd
-         qxm1v3saTB6kgoocFbKOaJ2PVrz0vcQSLiKULeTMfbJx6btkLjsPJ/A/nkQ9FTubHfYC
-         FuDr4DVz6tl3DCcT1P3+9mlQ5ZA5bAeS4d7O1CjYpvbE3kUWSH8blJoodYJuIIIMODP+
-         oBju1wZSG0adMLuOj84cvwBQqmGDBipswZYCa5hmgg/cxjrqiwVqxM7QGh+XFyKuvZFj
-         12Yg==
-X-Gm-Message-State: AOJu0Yw0ta8Tg66/vcPNxQa6kkFJhOPL7jsAWgzYVNi/E2NRij8GDuKW
-	fehks4/Jl0JHkDo1K+WL6CaqTR2XqI2XKy5dClUtXtDSSCq/A8l/gyQCNfawFudJqBKpDjSxCls
-	Ea/vE
-X-Gm-Gg: ASbGnctlpA9iut1fj7W+HuVptq4VYw0PQsnsy179ni9aOC3Yh26FfBtmOJMpRaDaMq5
-	23yC8CCmTmbNc9SktfNu3wcubOj/lhOl+XJS4PHRcgth5AzNAljrmVJXFLHZsmxBglaUPk1/UML
-	wRaZ1BbpVDaT1zxuOTU4WJ3udKuou51d3zzC1SBpUWNDKvLRh81xbd9oJXozOzCx+Z4VaBd97QL
-	DHmz7juInCjIN4uqkpdzsEfa5GTYamdNGxCvHmbyU1ayON0T1uXx0oZc7oy7PelyEJ5fOrycWxi
-	2nMU2glPEhoeKuxozp94DFCPXPh24RhbDntvHxIxa2r9+Lk5uLT+lkG3nsDyvde+wlN17ZIBpKn
-	S3fozh7xcjui2wwpHcVgmJmE1DlbdJZnsj8mzSDDSO3DhIv78NnD324EsTOzT4MhbZQ==
-X-Google-Smtp-Source: AGHT+IGp42/Z0gvqVR2I5ah6coouZnJKJ+IvBF0ZYBmlZ+EooodCIwhp+W3XM+wHaSfh2WLmC+veaw==
-X-Received: by 2002:a05:6000:26cc:b0:3a4:d4cd:b06 with SMTP id ffacd0b85a97d-3b60e50ff10mr2596624f8f.34.1752681627552;
-        Wed, 16 Jul 2025 09:00:27 -0700 (PDT)
-From: Roger Pau Monne <roger.pau@citrix.com>
-To: xen-devel@lists.xenproject.org
-Cc: Roger Pau Monne <roger.pau@citrix.com>,
-	Ross Lagerwall <ross.lagerwall@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: [PATCH] xen/livepatch: fixup relocations to replaced symbols
-Date: Wed, 16 Jul 2025 18:00:07 +0200
-Message-ID: <20250716160007.92461-1-roger.pau@citrix.com>
-X-Mailer: git-send-email 2.49.0
+        d=1e100.net; s=20230601; t=1752681764; x=1753286564;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=qimlHLhmhYpSOetFnlvFGqCSN6FNcPV6hqRWuJy3CCs=;
+        b=ttcuQAHD624ecdR3HYsQi7P8D/+WHcm9PleXdwqaus5kncty6ubvPZG14rXJ8rPnJn
+         Krt46S6+tdBOPQ0nJrK9Lmn5pyoOmU7tEFhKFsz2mJSi4kZrrXjp636JnMnQcIFxJXIP
+         6UgTXDlNZE3sQZ+QzQwOfbrmd5D+5lAqWXLIutK7GYnz/xMf6pIa0xWkccwJBc9lFQoG
+         ojn5ELq6wH9XR77fTiAcP53c0NcBekooooeZUDpzQ0+tS7N+muAbQeLfe7ztcpDQioh8
+         DVXTM8UFmPkiU4ztFRC/P99cVCN1SAyxgJ187qj4jsLZflzVUkZPGtnnpXSBPa+BCZMa
+         JsPw==
+X-Forwarded-Encrypted: i=1; AJvYcCUraQC11HqEQatcyUSsFUuxEo6YJyZvcJTSzRnMEobIeD0+VsyBttakxY5OYLlbIgqywRCpXl95h1Q=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy4FDeyAFQQCxzGF+rXdorGlGqSWymC801HAcECARldum2rOw3j
+	S1hpgWS5bXSluaP6HOm+tiFRf16AVLDDtD30zyNZIOueE1pAoFT28sQZH0Adxt+cCQ==
+X-Gm-Gg: ASbGncuW4u3xJ9p+FTxuy5LLJkmWvDRbmPNGApbn8oKn8ljBo/vxxb1pMOuFeO3Pal4
+	/wBmfp6c6FxNtGq+PXeQlaLWcyXbxuBu1viNIlLB5GfpxYqEzwDQ2aW5Y51yKeiYKbGiJYxGqDy
+	MsOIAMS2JNADPNYxKadb5H782Sp2l6B25BuvtHXXTp5vxp8lh8fpSCHtv3hL62aabtAi2wV1egl
+	reK68qmj2SH+cbAO23KSjhD/C8ygDXu1NW0k+sr46FILIcOpPfOaeOWfl74qcbaIspSjmQK6sQy
+	4xLmfV+ayKJzZYb4lcDb2MMRVQ6+SP7e8ZUA8Hurl5TVclpb4yflnkP9dcrVXENPWgV7Xfi8Zmi
+	4MBmdGnTv3vqpxTEvbiQQgn4PZhlz+RPmBr+dYaGdd3bO4nNbvM7Szphf3iujnMOlnJkMwgg70C
+	6D7zPCEOhDTniN/EPk9g==
+X-Google-Smtp-Source: AGHT+IGdwdfSc5JwFKnlkjGEXtw4j4/+jTMDWxRlKqxM6XADLZztkJtCbR/HlA8Asnwn+QpWS6O89g==
+X-Received: by 2002:a05:6000:1a85:b0:3a4:f744:e00e with SMTP id ffacd0b85a97d-3b60e4be7aemr2728858f8f.4.1752681763732;
+        Wed, 16 Jul 2025 09:02:43 -0700 (PDT)
+Message-ID: <b224ff70-f047-42c1-82ef-153fc87cce88@suse.com>
+Date: Wed, 16 Jul 2025 18:02:34 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] x86: Rearrange struct cpuinfo_x86 to introduce a vfm
+ field
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20250716132843.2086965-1-andrew.cooper3@citrix.com>
+ <20250716132843.2086965-2-andrew.cooper3@citrix.com>
+ <9feece5c-4ca7-42b5-b41f-6d9843e07c21@suse.com>
+ <0c8e178e-434e-4620-a79b-08bb55b848bd@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <0c8e178e-434e-4620-a79b-08bb55b848bd@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-In a livepatch payload relocations will refer to included functions.  If
-that function happens to be a replacement for an existing Xen function, the
-relocations on the livepatch payload will use the newly introduced symbol,
-rather than the old one.  This is usually fine, but if the result of the
-relocation is stored for later use (for example in the domain struct),
-usages of this address will lead to a page-fault once the livepatch is
-reverted.
+On 16.07.2025 17:45, Andrew Cooper wrote:
+> On 16/07/2025 2:47 pm, Jan Beulich wrote:
+>> On 16.07.2025 15:28, Andrew Cooper wrote:
+>>> --- a/xen/arch/x86/include/asm/cpufeature.h
+>>> +++ b/xen/arch/x86/include/asm/cpufeature.h
+>>> @@ -20,10 +20,30 @@
+>>>  #ifndef __ASSEMBLY__
+>>>  
+>>>  struct cpuinfo_x86 {
+>>> -    unsigned char x86;                 /* CPU family */
+>>> -    unsigned char x86_vendor;          /* CPU vendor */
+>>> -    unsigned char x86_model;
+>>> -    unsigned char x86_mask;
+>>> +    /* TODO: Phase out the x86 prefixed names. */
+>>> +    union {
+>>> +        struct {
+>>> +            union {
+>>> +                uint8_t x86_model;
+>>> +                uint8_t model;
+>>> +            };
+>>> +            union {
+>>> +                uint8_t x86;
+>>> +                uint8_t family;
+>>> +            };
+>>> +            union {
+>>> +                uint8_t x86_vendor;
+>>> +                uint8_t vendor;
+>>> +            };
+>>> +            uint8_t _rsvd;
+>> Can we perhaps name this e.g. _zero, so it's clear that it cannot be
+>> repurposed?
+> 
+> It can be repurposed; it just must be done in coordination with VFM_MAKE().
 
-Implement a second pass over relocations once the list of replaced
-functions has been loaded, and fixup any references to replaced functions
-to use the old symbol address instead of the new one.  There are some
-sections that must be special cased to continue using the new symbol
-address, as those instances must reference the newly added livepatch
-content (for example the alternative patch sites).
+Hmm, true.
 
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
----
- xen/arch/arm/arm32/livepatch.c  | 27 ++++++++++----
- xen/arch/arm/arm64/livepatch.c  | 23 ++++++++++--
- xen/arch/x86/livepatch.c        | 23 ++++++++++--
- xen/common/livepatch.c          | 13 ++++++-
- xen/common/livepatch_elf.c      | 62 +++++++++++++++++++++++++++++++--
- xen/include/xen/livepatch.h     |  6 ++--
- xen/include/xen/livepatch_elf.h |  4 ++-
- 7 files changed, 139 insertions(+), 19 deletions(-)
+> I can add a comment to this effect, but it would need to be in the
+> subsequent patch when VFM_MAKE() is introduced.
 
-diff --git a/xen/arch/arm/arm32/livepatch.c b/xen/arch/arm/arm32/livepatch.c
-index 134d07a175bb..8c12099d6a1d 100644
---- a/xen/arch/arm/arm32/livepatch.c
-+++ b/xen/arch/arm/arm32/livepatch.c
-@@ -224,7 +224,7 @@ static int perform_rel(unsigned char type, void *dest, uint32_t val,
- int arch_livepatch_perform(struct livepatch_elf *elf,
-                            const struct livepatch_elf_sec *base,
-                            const struct livepatch_elf_sec *rela,
--                           bool use_rela)
-+                           bool fixup, bool use_rela)
- {
-     unsigned int i;
-     int rc = 0;
-@@ -282,7 +282,20 @@ int arch_livepatch_perform(struct livepatch_elf *elf,
-             return -EINVAL;
-         }
- 
--        val = elf->sym[symndx].sym->st_value; /* S */
-+        if ( fixup )
-+        {
-+            val = livepatch_elf_use_old_addr(elf,
-+                                             elf->sym[symndx].sym->st_value);
-+            if ( val == elf->sym[symndx].sym->st_value )
-+                /* Don't re-apply if the symbol value hasn't changed. */
-+                continue;
-+            dprintk(XENLOG_DEBUG, LIVEPATCH
-+                    "%s: Using old address for symbol %s at reloc %s + %#x\n",
-+                    elf->name, elf->sym[symndx].name, base->name,
-+                    dest - base->addr);
-+        }
-+        else
-+            val = elf->sym[symndx].sym->st_value; /* S */
- 
-         rc = perform_rel(type, dest, val, addend);
-         switch ( rc )
-@@ -307,16 +320,18 @@ int arch_livepatch_perform(struct livepatch_elf *elf,
- 
- int arch_livepatch_perform_rel(struct livepatch_elf *elf,
-                                const struct livepatch_elf_sec *base,
--                               const struct livepatch_elf_sec *rela)
-+                               const struct livepatch_elf_sec *rela,
-+                               bool fixup)
- {
--    return arch_livepatch_perform(elf, base, rela, false);
-+    return arch_livepatch_perform(elf, base, rela, fixup, false);
- }
- 
- int arch_livepatch_perform_rela(struct livepatch_elf *elf,
-                                 const struct livepatch_elf_sec *base,
--                                const struct livepatch_elf_sec *rela)
-+                                const struct livepatch_elf_sec *rela
-+                                bool fixup)
- {
--    return arch_livepatch_perform(elf, base, rela, true);
-+    return arch_livepatch_perform(elf, base, rela, fixup, true);
- }
- 
- /*
-diff --git a/xen/arch/arm/arm64/livepatch.c b/xen/arch/arm/arm64/livepatch.c
-index e135bd5bf99a..bdbe611832fb 100644
---- a/xen/arch/arm/arm64/livepatch.c
-+++ b/xen/arch/arm/arm64/livepatch.c
-@@ -233,14 +233,16 @@ static int reloc_insn_imm(enum aarch64_reloc_op op, void *dest, u64 val,
- 
- int arch_livepatch_perform_rel(struct livepatch_elf *elf,
-                                const struct livepatch_elf_sec *base,
--                               const struct livepatch_elf_sec *rela)
-+                               const struct livepatch_elf_sec *rela,
-+                               bool fixup)
- {
-     return -ENOSYS;
- }
- 
- int arch_livepatch_perform_rela(struct livepatch_elf *elf,
-                                 const struct livepatch_elf_sec *base,
--                                const struct livepatch_elf_sec *rela)
-+                                const struct livepatch_elf_sec *rela,
-+                                bool fixup)
- {
-     unsigned int i;
- 
-@@ -279,7 +281,22 @@ int arch_livepatch_perform_rela(struct livepatch_elf *elf,
-             return -EINVAL;
-         }
- 
--        val = elf->sym[symndx].sym->st_value +  r->r_addend; /* S+A */
-+        if ( fixup )
-+        {
-+            val = livepatch_elf_use_old_addr(elf,
-+                                             elf->sym[symndx].sym->st_value);
-+            if ( val == elf->sym[symndx].sym->st_value )
-+                /* Don't re-apply if the symbol value hasn't changed. */
-+                continue;
-+            dprintk(XENLOG_DEBUG, LIVEPATCH
-+                    "%s: Using old address for symbol %s at reloc %s + %#lx\n",
-+                    elf->name, elf->sym[symndx].name, base->name,
-+                    r->r_offset);
-+        }
-+        else
-+            val = elf->sym[symndx].sym->st_value; /* S */
-+
-+        val += r->r_addend; /* S + A */
- 
-         /* ARM64 operations at minimum are always 32-bit. */
-         if ( r->r_offset >= base->sec->sh_size ||
-diff --git a/xen/arch/x86/livepatch.c b/xen/arch/x86/livepatch.c
-index be40f625d206..2944fdb9f91e 100644
---- a/xen/arch/x86/livepatch.c
-+++ b/xen/arch/x86/livepatch.c
-@@ -243,7 +243,8 @@ bool arch_livepatch_symbol_deny(const struct livepatch_elf *elf,
- 
- int arch_livepatch_perform_rel(struct livepatch_elf *elf,
-                                const struct livepatch_elf_sec *base,
--                               const struct livepatch_elf_sec *rela)
-+                               const struct livepatch_elf_sec *rela,
-+                               bool fixup)
- {
-     printk(XENLOG_ERR LIVEPATCH "%s: SHT_REL relocation unsupported\n",
-            elf->name);
-@@ -252,7 +253,8 @@ int arch_livepatch_perform_rel(struct livepatch_elf *elf,
- 
- int arch_livepatch_perform_rela(struct livepatch_elf *elf,
-                                 const struct livepatch_elf_sec *base,
--                                const struct livepatch_elf_sec *rela)
-+                                const struct livepatch_elf_sec *rela,
-+                                bool fixup)
- {
-     unsigned int i;
- 
-@@ -289,7 +291,22 @@ int arch_livepatch_perform_rela(struct livepatch_elf *elf,
-             return -EINVAL;
-         }
- 
--        val = r->r_addend + elf->sym[symndx].sym->st_value;
-+        if ( fixup )
-+        {
-+            val = livepatch_elf_use_old_addr(elf,
-+                                             elf->sym[symndx].sym->st_value);
-+            if ( val == elf->sym[symndx].sym->st_value )
-+                /* Don't re-apply if the symbol value hasn't changed. */
-+                continue;
-+            dprintk(XENLOG_DEBUG, LIVEPATCH
-+                    "%s: Using old address for symbol %s at reloc %s + %#lx\n",
-+                    elf->name, elf->sym[symndx].name, base->name,
-+                    r->r_offset);
-+        }
-+        else
-+            val = elf->sym[symndx].sym->st_value;
-+
-+        val += r->r_addend;
- 
-         switch ( ELF64_R_TYPE(r->r_info) )
-         {
-diff --git a/xen/common/livepatch.c b/xen/common/livepatch.c
-index 9a0df5363b59..6bffd1954469 100644
---- a/xen/common/livepatch.c
-+++ b/xen/common/livepatch.c
-@@ -741,6 +741,17 @@ static int prepare_payload(struct payload *payload,
-             if ( rc )
-                 return rc;
-         }
-+
-+        /*
-+         * Do a second pass over the relocations and adjust those that use a
-+         * replacement symbol to continue using the old address.  Otherwise
-+         * storing those relocated addresses would lead to crashes when the
-+         * livepatch is reverted if there are stored references that point to
-+         * the reverted symbols.
-+         */
-+        rc = livepatch_elf_perform_relocs(elf, true);
-+        if ( rc )
-+           return rc;
-     }
- 
-     LIVEPATCH_ASSIGN_MULTI_HOOK(elf, payload->load_funcs, payload->n_load_funcs, ELF_LIVEPATCH_LOAD_HOOKS);
-@@ -1164,7 +1175,7 @@ static int load_payload_data(struct payload *payload, void *raw, size_t len)
-     if ( rc )
-         goto out;
- 
--    rc = livepatch_elf_perform_relocs(&elf);
-+    rc = livepatch_elf_perform_relocs(&elf, false);
-     if ( rc )
-         goto out;
- 
-diff --git a/xen/common/livepatch_elf.c b/xen/common/livepatch_elf.c
-index 25ce1bd5a0ad..f6d4c8584718 100644
---- a/xen/common/livepatch_elf.c
-+++ b/xen/common/livepatch_elf.c
-@@ -358,7 +358,29 @@ int livepatch_elf_resolve_symbols(struct livepatch_elf *elf)
-     return rc;
- }
- 
--int livepatch_elf_perform_relocs(struct livepatch_elf *elf)
-+Elf_Addr livepatch_elf_use_old_addr(const struct livepatch_elf *elf,
-+                                    Elf_Addr new)
-+{
-+    const struct livepatch_elf_sec *replacements =
-+        livepatch_elf_sec_by_name(elf, ELF_LIVEPATCH_FUNC);
-+    struct livepatch_func *f;
-+    unsigned int i;
-+
-+    if ( !replacements )
-+    {
-+        ASSERT_UNREACHABLE();
-+        return new;
-+    }
-+
-+    f = replacements->addr;
-+    for ( i = 0; i < replacements->sec->sh_size / sizeof(*f); i++ )
-+        if ( (Elf_Addr)f[0].new_addr == new )
-+            return (Elf_Addr)f[0].old_addr;
-+
-+    return new;
-+}
-+
-+int livepatch_elf_perform_relocs(struct livepatch_elf *elf, bool fixup)
- {
-     struct livepatch_elf_sec *r, *base;
-     unsigned int i;
-@@ -381,6 +403,40 @@ int livepatch_elf_perform_relocs(struct livepatch_elf *elf)
- 
-          base = &elf->sec[r->sec->sh_info];
- 
-+         if ( fixup )
-+         {
-+             static const char *const ignore[] = {
-+                 /* Do not fixup the replacement coordinates. */
-+                 ELF_LIVEPATCH_FUNC,
-+                 /*
-+                  * alternatives and exception table fixups need to unconditionally
-+                  * reference the new functions, or otherwise they won't be applied
-+                  * correctly.
-+                  */
-+                 ".altinstructions",
-+                 ".alt_call_sites",
-+                 ".ex_table",
-+                 /*
-+                  * livepatch hooks use the old function addresses: if there's a need
-+                  * for the hooks to call the newly added function replacements a
-+                  * non-aliased duplicate must be added.
-+                  */
-+             };
-+             unsigned int j;
-+
-+             /* Bug frames must use the payload addresses. */
-+             if ( !strncmp(base->name, ".bug_frames.", 12) )
-+                 continue;
-+
-+             /* If doing fixups ignore some special sections. */
-+             for ( j = 0; j < ARRAY_SIZE(ignore); j++ )
-+                 if ( !strcmp(base->name, ignore[j]) )
-+                     break;
-+
-+             if ( j != ARRAY_SIZE(ignore) )
-+                 continue;
-+         }
-+
-          /* Don't relocate non-allocated sections. */
-          if ( !(base->sec->sh_flags & SHF_ALLOC) )
-             continue;
-@@ -410,9 +466,9 @@ int livepatch_elf_perform_relocs(struct livepatch_elf *elf)
-         }
- 
-         if ( r->sec->sh_type == SHT_RELA )
--            rc = arch_livepatch_perform_rela(elf, base, r);
-+            rc = arch_livepatch_perform_rela(elf, base, r, fixup);
-         else /* SHT_REL */
--            rc = arch_livepatch_perform_rel(elf, base, r);
-+            rc = arch_livepatch_perform_rel(elf, base, r, fixup);
- 
-         if ( rc )
-             break;
-diff --git a/xen/include/xen/livepatch.h b/xen/include/xen/livepatch.h
-index d074a5bebecc..84091ea9c33e 100644
---- a/xen/include/xen/livepatch.h
-+++ b/xen/include/xen/livepatch.h
-@@ -75,10 +75,12 @@ bool arch_livepatch_symbol_deny(const struct livepatch_elf *elf,
-                                 const struct livepatch_elf_sym *sym);
- int arch_livepatch_perform_rel(struct livepatch_elf *elf,
-                                const struct livepatch_elf_sec *base,
--                               const struct livepatch_elf_sec *rela);
-+                               const struct livepatch_elf_sec *rela,
-+                               bool fixup);
- int arch_livepatch_perform_rela(struct livepatch_elf *elf,
-                                 const struct livepatch_elf_sec *base,
--                                const struct livepatch_elf_sec *rela);
-+                                const struct livepatch_elf_sec *rela,
-+                                bool fixup);
- enum va_type {
-     LIVEPATCH_VA_RX, /* .text */
-     LIVEPATCH_VA_RW, /* .data */
-diff --git a/xen/include/xen/livepatch_elf.h b/xen/include/xen/livepatch_elf.h
-index 842111e14518..acd98b10d8da 100644
---- a/xen/include/xen/livepatch_elf.h
-+++ b/xen/include/xen/livepatch_elf.h
-@@ -46,7 +46,9 @@ int livepatch_elf_load(struct livepatch_elf *elf, void *data);
- void livepatch_elf_free(struct livepatch_elf *elf);
- 
- int livepatch_elf_resolve_symbols(struct livepatch_elf *elf);
--int livepatch_elf_perform_relocs(struct livepatch_elf *elf);
-+int livepatch_elf_perform_relocs(struct livepatch_elf *elf, bool fixup);
-+Elf_Addr livepatch_elf_use_old_addr(const struct livepatch_elf *elf,
-+                                    Elf_Addr new);
- 
- static inline bool livepatch_elf_ignore_section(const Elf_Shdr *sec)
- {
--- 
-2.49.0
+Okay, and thanks.
 
+Jan
 
